@@ -1,0 +1,702 @@
+PROTO_0:
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["parse"]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K1 ["config"]
+  CALL R0 1 1
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_1:
+  LOADNIL R0
+  LOADNIL R1
+  GETUPVAL R3 0
+  FASTCALL1 TYPEOF R3 [+2]
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  JUMPIFEQKS R2 K2 ["Instance"] [+17]
+  GETUPVAL R3 0
+  FASTCALL1 TYPEOF R3 [+2]
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  JUMPIFEQKS R2 K3 ["string"] [+10]
+  GETIMPORT R2 K5 [error]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["new"]
+  LOADK R4 K7 ["Jest: configuration as an object not supported yet"]
+  CALL R3 1 -1
+  CALL R2 -1 0
+  JUMP [+79]
+  GETUPVAL R2 2
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K8 ["config"]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+33]
+  LOADNIL R2
+  GETIMPORT R3 K10 [pcall]
+  NEWCLOSURE R4 P0
+  CAPTURE REF R2
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U3
+  CALL R3 1 1
+  JUMPIF R3 [+8]
+  GETIMPORT R4 K5 [error]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K6 ["new"]
+  LOADK R6 K11 ["There was an error while parsing the `--config` argument as a JSON string."]
+  CALL R5 1 -1
+  CALL R4 -1 0
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K12 ["toJSBoolean"]
+  GETTABLEKS R6 R2 K13 ["rootDir"]
+  CALL R5 1 1
+  JUMPIFNOT R5 [+3]
+  GETTABLEKS R4 R2 K13 ["rootDir"]
+  JUMPIF R4 [+1]
+  GETUPVAL R4 0
+  SETTABLEKS R4 R2 K13 ["rootDir"]
+  MOVE R0 R2
+  CLOSEUPVALS R2
+  JUMP [+40]
+  GETUPVAL R2 6
+  JUMPIF R2 [+25]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K8 ["config"]
+  FASTCALL1 TYPEOF R3 [+2]
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K3 ["string"] [+17]
+  GETUPVAL R2 7
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K8 ["config"]
+  GETUPVAL R4 8
+  GETUPVAL R5 9
+  CALL R2 3 1
+  MOVE R1 R2
+  GETUPVAL R2 10
+  MOVE R3 R1
+  CALL R2 1 1
+  NAMECALL R2 R2 K14 ["expect"]
+  CALL R2 1 1
+  MOVE R0 R2
+  JUMP [+13]
+  GETUPVAL R2 7
+  GETUPVAL R3 0
+  GETUPVAL R4 8
+  GETUPVAL R5 9
+  CALL R2 3 1
+  MOVE R1 R2
+  GETUPVAL R2 10
+  MOVE R3 R1
+  CALL R2 1 1
+  NAMECALL R2 R2 K14 ["expect"]
+  CALL R2 1 1
+  MOVE R0 R2
+  GETUPVAL R2 11
+  MOVE R3 R0
+  GETUPVAL R4 3
+  MOVE R5 R1
+  GETUPVAL R6 12
+  CALL R2 4 1
+  NAMECALL R2 R2 K14 ["expect"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K15 ["options"]
+  GETTABLEKS R4 R2 K16 ["hasDeprecationWarnings"]
+  GETUPVAL R5 13
+  MOVE R6 R3
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K17 ["globalConfig"]
+  GETTABLEKS R7 R5 K18 ["projectConfig"]
+  DUPTABLE R8 K20 [{"configPath", "globalConfig", "hasDeprecationWarnings", "projectConfig"}]
+  SETTABLEKS R1 R8 K19 ["configPath"]
+  SETTABLEKS R6 R8 K17 ["globalConfig"]
+  SETTABLEKS R4 R8 K16 ["hasDeprecationWarnings"]
+  SETTABLEKS R7 R8 K18 ["projectConfig"]
+  RETURN R8 1
+
+PROTO_2:
+  JUMPIFNOTEQKNIL R5 [+2]
+  LOADK R5 K0 [∞]
+  JUMPIFNOTEQKNIL R6 [+2]
+  LOADB R6 0
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["resolve"]
+  CALL R7 0 1
+  NEWCLOSURE R9 P0
+  CAPTURE VAL R2
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R1
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE VAL R3
+  CAPTURE UPVAL U5
+  CAPTURE VAL R0
+  CAPTURE REF R6
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  CAPTURE REF R5
+  CAPTURE UPVAL U8
+  NAMECALL R7 R7 K2 ["andThen"]
+  CALL R7 2 -1
+  CLOSEUPVALS R5
+  RETURN R7 -1
+
+PROTO_3:
+  DUPTABLE R1 K2 [{"globalConfig", "projectConfig"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["freeze"]
+  DUPTABLE R3 K29 [{"bail", "changedSince", "expand", "filter", "json", "listTests", "maxConcurrency", "maxWorkers", "noStackTrace", "nonFlagArgs", "outputFile", "passWithNoTests", "projects", "reporters", "rootDir", "runTestsByPath", "silent", "skipFilter", "snapshotFormat", "testFailureExitCode", "testNamePattern", "testPathPattern", "testTimeout", "updateSnapshot", "verbose"}]
+  GETTABLEKS R4 R0 K4 ["bail"]
+  SETTABLEKS R4 R3 K4 ["bail"]
+  GETTABLEKS R4 R0 K5 ["changedSince"]
+  SETTABLEKS R4 R3 K5 ["changedSince"]
+  GETTABLEKS R4 R0 K6 ["expand"]
+  SETTABLEKS R4 R3 K6 ["expand"]
+  GETTABLEKS R4 R0 K7 ["filter"]
+  SETTABLEKS R4 R3 K7 ["filter"]
+  GETTABLEKS R4 R0 K8 ["json"]
+  SETTABLEKS R4 R3 K8 ["json"]
+  GETTABLEKS R4 R0 K9 ["listTests"]
+  SETTABLEKS R4 R3 K9 ["listTests"]
+  GETTABLEKS R4 R0 K10 ["maxConcurrency"]
+  SETTABLEKS R4 R3 K10 ["maxConcurrency"]
+  GETTABLEKS R4 R0 K11 ["maxWorkers"]
+  SETTABLEKS R4 R3 K11 ["maxWorkers"]
+  GETTABLEKS R4 R0 K12 ["noStackTrace"]
+  SETTABLEKS R4 R3 K12 ["noStackTrace"]
+  GETTABLEKS R4 R0 K13 ["nonFlagArgs"]
+  SETTABLEKS R4 R3 K13 ["nonFlagArgs"]
+  GETTABLEKS R4 R0 K14 ["outputFile"]
+  SETTABLEKS R4 R3 K14 ["outputFile"]
+  GETTABLEKS R4 R0 K15 ["passWithNoTests"]
+  SETTABLEKS R4 R3 K15 ["passWithNoTests"]
+  GETTABLEKS R4 R0 K16 ["projects"]
+  SETTABLEKS R4 R3 K16 ["projects"]
+  GETTABLEKS R4 R0 K17 ["reporters"]
+  SETTABLEKS R4 R3 K17 ["reporters"]
+  GETTABLEKS R4 R0 K18 ["rootDir"]
+  SETTABLEKS R4 R3 K18 ["rootDir"]
+  GETTABLEKS R4 R0 K19 ["runTestsByPath"]
+  SETTABLEKS R4 R3 K19 ["runTestsByPath"]
+  GETTABLEKS R4 R0 K20 ["silent"]
+  SETTABLEKS R4 R3 K20 ["silent"]
+  GETTABLEKS R4 R0 K21 ["skipFilter"]
+  SETTABLEKS R4 R3 K21 ["skipFilter"]
+  GETTABLEKS R4 R0 K22 ["snapshotFormat"]
+  SETTABLEKS R4 R3 K22 ["snapshotFormat"]
+  GETTABLEKS R4 R0 K23 ["testFailureExitCode"]
+  SETTABLEKS R4 R3 K23 ["testFailureExitCode"]
+  GETTABLEKS R4 R0 K24 ["testNamePattern"]
+  SETTABLEKS R4 R3 K24 ["testNamePattern"]
+  GETTABLEKS R4 R0 K25 ["testPathPattern"]
+  SETTABLEKS R4 R3 K25 ["testPathPattern"]
+  GETTABLEKS R4 R0 K26 ["testTimeout"]
+  SETTABLEKS R4 R3 K26 ["testTimeout"]
+  GETTABLEKS R4 R0 K27 ["updateSnapshot"]
+  SETTABLEKS R4 R3 K27 ["updateSnapshot"]
+  GETTABLEKS R4 R0 K28 ["verbose"]
+  SETTABLEKS R4 R3 K28 ["verbose"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K0 ["globalConfig"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["freeze"]
+  DUPTABLE R3 K55 [{"automock", "clearMocks", "displayName", "id", "injectGlobals", "mockDataModel", "oldFunctionSpying", "resetMocks", "resetModules", "restoreMocks", "rootDir", "roots", "runner", "runtime", "sandboxInjectedGlobals", "setupFiles", "setupFilesAfterEnv", "slowTestThreshold", "snapshotFormat", "snapshotSerializers", "testEnvironment", "testEnvironmentOptions", "testLocationInResults", "testMatch", "testPathIgnorePatterns", "testRegex", "timers"}]
+  GETTABLEKS R4 R0 K30 ["automock"]
+  SETTABLEKS R4 R3 K30 ["automock"]
+  GETTABLEKS R4 R0 K31 ["clearMocks"]
+  SETTABLEKS R4 R3 K31 ["clearMocks"]
+  GETTABLEKS R4 R0 K32 ["displayName"]
+  SETTABLEKS R4 R3 K32 ["displayName"]
+  GETTABLEKS R4 R0 K33 ["id"]
+  SETTABLEKS R4 R3 K33 ["id"]
+  GETTABLEKS R4 R0 K34 ["injectGlobals"]
+  SETTABLEKS R4 R3 K34 ["injectGlobals"]
+  GETTABLEKS R4 R0 K35 ["mockDataModel"]
+  SETTABLEKS R4 R3 K35 ["mockDataModel"]
+  GETTABLEKS R4 R0 K36 ["oldFunctionSpying"]
+  SETTABLEKS R4 R3 K36 ["oldFunctionSpying"]
+  GETTABLEKS R4 R0 K37 ["resetMocks"]
+  SETTABLEKS R4 R3 K37 ["resetMocks"]
+  GETTABLEKS R4 R0 K38 ["resetModules"]
+  SETTABLEKS R4 R3 K38 ["resetModules"]
+  GETTABLEKS R4 R0 K39 ["restoreMocks"]
+  SETTABLEKS R4 R3 K39 ["restoreMocks"]
+  GETTABLEKS R4 R0 K18 ["rootDir"]
+  SETTABLEKS R4 R3 K18 ["rootDir"]
+  GETTABLEKS R4 R0 K40 ["roots"]
+  SETTABLEKS R4 R3 K40 ["roots"]
+  GETTABLEKS R4 R0 K41 ["runner"]
+  SETTABLEKS R4 R3 K41 ["runner"]
+  GETTABLEKS R4 R0 K42 ["runtime"]
+  SETTABLEKS R4 R3 K42 ["runtime"]
+  GETTABLEKS R4 R0 K43 ["sandboxInjectedGlobals"]
+  SETTABLEKS R4 R3 K43 ["sandboxInjectedGlobals"]
+  GETTABLEKS R4 R0 K44 ["setupFiles"]
+  SETTABLEKS R4 R3 K44 ["setupFiles"]
+  GETTABLEKS R4 R0 K45 ["setupFilesAfterEnv"]
+  SETTABLEKS R4 R3 K45 ["setupFilesAfterEnv"]
+  GETTABLEKS R4 R0 K46 ["slowTestThreshold"]
+  SETTABLEKS R4 R3 K46 ["slowTestThreshold"]
+  GETTABLEKS R4 R0 K22 ["snapshotFormat"]
+  SETTABLEKS R4 R3 K22 ["snapshotFormat"]
+  GETTABLEKS R4 R0 K47 ["snapshotSerializers"]
+  SETTABLEKS R4 R3 K47 ["snapshotSerializers"]
+  GETTABLEKS R4 R0 K48 ["testEnvironment"]
+  SETTABLEKS R4 R3 K48 ["testEnvironment"]
+  GETTABLEKS R4 R0 K49 ["testEnvironmentOptions"]
+  SETTABLEKS R4 R3 K49 ["testEnvironmentOptions"]
+  GETTABLEKS R4 R0 K50 ["testLocationInResults"]
+  SETTABLEKS R4 R3 K50 ["testLocationInResults"]
+  GETTABLEKS R4 R0 K51 ["testMatch"]
+  SETTABLEKS R4 R3 K51 ["testMatch"]
+  GETTABLEKS R4 R0 K52 ["testPathIgnorePatterns"]
+  SETTABLEKS R4 R3 K52 ["testPathIgnorePatterns"]
+  GETTABLEKS R4 R0 K53 ["testRegex"]
+  SETTABLEKS R4 R3 K53 ["testRegex"]
+  GETTABLEKS R4 R0 K54 ["timers"]
+  SETTABLEKS R4 R3 K54 ["timers"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K1 ["projectConfig"]
+  RETURN R1 1
+
+PROTO_4:
+  GETUPVAL R2 0
+  JUMPIFEQ R0 R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  NAMECALL R2 R2 K0 ["get"]
+  CALL R2 2 1
+  JUMPIFEQ R0 R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_6:
+  LENGTH R2 R1
+  LOADN R3 1
+  JUMPIFNOTLE R2 R3 [+2]
+  RETURN R0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  CALL R2 0 1
+  MOVE R3 R0
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETTABLEKS R8 R7 K1 ["configPath"]
+  MOVE R11 R8
+  NAMECALL R9 R2 K2 ["has"]
+  CALL R9 2 1
+  JUMPIFNOT R9 [+67]
+  LOADK R9 K3 ["Whoops! Two projects resolved to the same config path: %s:
+
+  Project 1: %s
+  Project 2: %s
+
+This usually means that your %s config includes a directory that doesn't have any configuration recognizable by Jest. Please fix it.
+"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K4 ["bold"]
+  FASTCALL1 TOSTRING R8 [+3]
+  MOVE R13 R8
+  GETIMPORT R12 K6 [tostring]
+  CALL R12 1 1
+  CALL R11 1 1
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K4 ["bold"]
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K7 ["findIndex"]
+  MOVE R16 R0
+  NEWCLOSURE R17 P0
+  CAPTURE VAL R7
+  CALL R15 2 1
+  GETTABLE R14 R1 R15
+  FASTCALL1 TOSTRING R14 [+2]
+  GETIMPORT R13 K6 [tostring]
+  CALL R13 1 1
+  CALL R12 1 1
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K4 ["bold"]
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K7 ["findIndex"]
+  MOVE R18 R0
+  NEWCLOSURE R19 P1
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CALL R17 2 1
+  GETTABLE R16 R1 R17
+  FASTCALL1 TOSTRING R16 [+2]
+  GETIMPORT R15 K6 [tostring]
+  CALL R15 1 1
+  CALL R14 1 -1
+  FASTCALL TOSTRING [+2]
+  GETIMPORT R13 K6 [tostring]
+  CALL R13 -1 1
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K4 ["bold"]
+  LOADK R16 K8 ["\"projects\""]
+  CALL R15 1 -1
+  FASTCALL TOSTRING [+2]
+  GETIMPORT R14 K6 [tostring]
+  CALL R14 -1 1
+  NAMECALL R9 R9 K9 ["format"]
+  CALL R9 5 1
+  GETIMPORT R10 K11 [error]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K0 ["new"]
+  MOVE R12 R9
+  CALL R11 1 -1
+  CALL R10 -1 0
+  JUMPIFEQKNIL R8 [+6]
+  MOVE R11 R8
+  MOVE R12 R7
+  NAMECALL R9 R2 K12 ["set"]
+  CALL R9 3 0
+  FORGLOOP R3 2 [-82]
+  RETURN R0 0
+
+PROTO_7:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFNOTEQKS R1 K2 ["Instance"] [+14]
+  NAMECALL R2 R0 K3 ["GetChildren"]
+  CALL R2 1 1
+  LENGTH R1 R2
+  JUMPIFNOTEQKN R1 K4 [0] [+8]
+  LOADK R3 K5 ["ModuleScript"]
+  NAMECALL R1 R0 K6 ["isA"]
+  CALL R1 2 1
+  JUMPIF R1 [+2]
+  LOADB R1 0
+  RETURN R1 1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_8:
+  LOADB R2 0
+  JUMPIFNOTEQKN R1 K0 [1] [+7]
+  GETUPVAL R4 0
+  LENGTH R3 R4
+  JUMPIFEQKN R3 K0 [1] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  JUMPIFNOT R2 [+2]
+  GETUPVAL R4 1
+  JUMP [+1]
+  MOVE R4 R2
+  NOT R3 R4
+  GETUPVAL R4 2
+  GETUPVAL R5 3
+  GETUPVAL R6 4
+  MOVE R7 R0
+  MOVE R8 R3
+  GETUPVAL R10 5
+  JUMPIFEQKNIL R10 [+5]
+  GETUPVAL R10 5
+  GETTABLEKS R9 R10 K1 ["Parent"]
+  JUMP [+1]
+  GETUPVAL R9 6
+  MOVE R10 R1
+  GETUPVAL R11 1
+  CALL R4 7 -1
+  RETURN R4 -1
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["projectConfig"]
+  RETURN R1 1
+
+PROTO_10:
+  GETTABLEKS R1 R0 K0 ["hasDeprecationWarnings"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["toJSBoolean"]
+  MOVE R3 R1
+  CALL R2 1 -1
+  RETURN R2 -1
+
+PROTO_11:
+  LOADNIL R0
+  LOADNIL R1
+  NEWTABLE R2 0 0
+  GETUPVAL R3 0
+  LOADNIL R4
+  GETUPVAL R6 0
+  LENGTH R5 R6
+  JUMPIFNOTEQKN R5 K0 [1] [+69]
+  GETUPVAL R6 1
+  GETUPVAL R7 2
+  GETTABLEN R8 R3 1
+  LOADNIL R9
+  LOADNIL R10
+  JUMPIFNOTEQKNIL R9 [+2]
+  LOADK R9 K1 [∞]
+  JUMPIFNOTEQKNIL R10 [+2]
+  LOADB R10 0
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K2 ["resolve"]
+  CALL R11 0 1
+  LOADNIL R14
+  NEWCLOSURE R13 P0
+  CAPTURE VAL R8
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE VAL R7
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  CAPTURE VAL R14
+  CAPTURE UPVAL U8
+  CAPTURE VAL R6
+  CAPTURE REF R10
+  CAPTURE UPVAL U9
+  CAPTURE UPVAL U10
+  CAPTURE REF R9
+  CAPTURE UPVAL U11
+  NAMECALL R11 R11 K3 ["andThen"]
+  CALL R11 2 1
+  MOVE R5 R11
+  CLOSEUPVALS R9
+  NAMECALL R5 R5 K4 ["expect"]
+  CALL R5 1 1
+  GETTABLEKS R4 R5 K5 ["configPath"]
+  GETTABLEKS R1 R5 K6 ["hasDeprecationWarnings"]
+  GETTABLEKS R0 R5 K7 ["globalConfig"]
+  NEWTABLE R6 0 1
+  GETTABLEKS R7 R5 K8 ["projectConfig"]
+  SETLIST R6 R7 1 [1]
+  MOVE R2 R6
+  GETUPVAL R7 7
+  GETTABLEKS R6 R7 K9 ["toJSBoolean"]
+  GETTABLEKS R8 R0 K10 ["projects"]
+  JUMPIFEQKNIL R8 [+5]
+  GETTABLEKS R8 R0 K10 ["projects"]
+  LENGTH R7 R8
+  JUMP [+1]
+  LOADNIL R7
+  CALL R6 1 1
+  JUMPIFNOT R6 [+2]
+  GETTABLEKS R3 R0 K10 ["projects"]
+  LENGTH R5 R3
+  LOADN R6 0
+  JUMPIFNOTLT R6 R5 [+61]
+  GETUPVAL R5 1
+  GETTABLEN R7 R3 1
+  JUMPIFEQ R7 R5 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K11 ["all"]
+  GETUPVAL R9 12
+  GETTABLEKS R8 R9 K12 ["map"]
+  GETUPVAL R10 12
+  GETTABLEKS R9 R10 K13 ["filter"]
+  MOVE R10 R3
+  DUPCLOSURE R11 K14 [PROTO_7]
+  CALL R9 2 1
+  NEWCLOSURE R10 P2
+  CAPTURE REF R3
+  CAPTURE VAL R6
+  CAPTURE UPVAL U13
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE REF R4
+  CAPTURE VAL R5
+  CALL R8 2 -1
+  CALL R7 -1 1
+  NAMECALL R7 R7 K4 ["expect"]
+  CALL R7 1 1
+  GETUPVAL R8 14
+  MOVE R9 R7
+  MOVE R10 R3
+  CALL R8 2 0
+  GETUPVAL R9 12
+  GETTABLEKS R8 R9 K12 ["map"]
+  MOVE R9 R7
+  DUPCLOSURE R10 K15 [PROTO_9]
+  CALL R8 2 1
+  MOVE R2 R8
+  JUMPIF R1 [+8]
+  GETUPVAL R9 12
+  GETTABLEKS R8 R9 K16 ["some"]
+  MOVE R9 R7
+  DUPCLOSURE R10 K17 [PROTO_10]
+  CAPTURE UPVAL U7
+  CALL R8 2 1
+  MOVE R1 R8
+  GETUPVAL R9 7
+  GETTABLEKS R8 R9 K9 ["toJSBoolean"]
+  MOVE R9 R0
+  CALL R8 1 1
+  JUMPIF R8 [+3]
+  GETTABLEN R8 R7 1
+  GETTABLEKS R0 R8 K7 ["globalConfig"]
+  GETUPVAL R6 7
+  GETTABLEKS R5 R6 K9 ["toJSBoolean"]
+  MOVE R6 R0
+  CALL R5 1 1
+  JUMPIFNOT R5 [+6]
+  GETUPVAL R6 7
+  GETTABLEKS R5 R6 K9 ["toJSBoolean"]
+  LENGTH R6 R2
+  CALL R5 1 1
+  JUMPIF R5 [+8]
+  GETIMPORT R5 K19 [error]
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K20 ["new"]
+  LOADK R7 K21 ["jest: No configuration found for any project."]
+  CALL R6 1 -1
+  CALL R5 -1 0
+  DUPTABLE R5 K23 [{"configs", "globalConfig", "hasDeprecationWarnings"}]
+  SETTABLEKS R2 R5 K22 ["configs"]
+  SETTABLEKS R0 R5 K7 ["globalConfig"]
+  GETUPVAL R7 7
+  GETTABLEKS R6 R7 K9 ["toJSBoolean"]
+  MOVE R7 R1
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K6 ["hasDeprecationWarnings"]
+  CLOSEUPVALS R3
+  RETURN R5 1
+
+PROTO_12:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["resolve"]
+  CALL R3 0 1
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U9
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U11
+  NAMECALL R3 R3 K1 ["andThen"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["LuauPolyfill"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K6 ["Array"]
+  GETTABLEKS R3 R1 K7 ["Boolean"]
+  GETTABLEKS R4 R1 K8 ["Error"]
+  GETTABLEKS R5 R1 K9 ["Map"]
+  GETTABLEKS R6 R1 K10 ["Object"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R0 K11 ["Promise"]
+  CALL R7 1 1
+  NEWTABLE R8 8 0
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R10 R0 K12 ["ChalkLua"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R11 R0 K13 ["JestTypes"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETIMPORT R13 K1 [script]
+  GETTABLEKS R12 R13 K14 ["constants"]
+  CALL R11 1 1
+  GETIMPORT R13 K4 [require]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K15 ["normalize"]
+  CALL R13 1 1
+  GETTABLEKS R12 R13 K16 ["default"]
+  GETIMPORT R14 K4 [require]
+  GETIMPORT R16 K1 [script]
+  GETTABLEKS R15 R16 K17 ["readConfigFileAndSetRootDir"]
+  CALL R14 1 1
+  GETTABLEKS R13 R14 K16 ["default"]
+  GETIMPORT R15 K4 [require]
+  GETIMPORT R17 K1 [script]
+  GETTABLEKS R16 R17 K18 ["resolveConfigPath"]
+  CALL R15 1 1
+  GETTABLEKS R14 R15 K16 ["default"]
+  GETIMPORT R15 K4 [require]
+  GETIMPORT R17 K1 [script]
+  GETTABLEKS R16 R17 K19 ["utils"]
+  CALL R15 1 1
+  GETTABLEKS R16 R15 K20 ["isJSONString"]
+  GETIMPORT R18 K4 [require]
+  GETIMPORT R20 K1 [script]
+  GETTABLEKS R19 R20 K19 ["utils"]
+  CALL R18 1 1
+  GETTABLEKS R17 R18 K20 ["isJSONString"]
+  SETTABLEKS R17 R8 K20 ["isJSONString"]
+  GETIMPORT R18 K4 [require]
+  GETIMPORT R20 K1 [script]
+  GETTABLEKS R19 R20 K15 ["normalize"]
+  CALL R18 1 1
+  GETTABLEKS R17 R18 K16 ["default"]
+  SETTABLEKS R17 R8 K15 ["normalize"]
+  GETIMPORT R18 K4 [require]
+  GETIMPORT R20 K1 [script]
+  GETTABLEKS R19 R20 K21 ["Defaults"]
+  CALL R18 1 1
+  GETTABLEKS R17 R18 K16 ["default"]
+  SETTABLEKS R17 R8 K22 ["defaults"]
+  SETTABLEKS R11 R8 K14 ["constants"]
+  GETIMPORT R17 K4 [require]
+  GETTABLEKS R18 R0 K23 ["RobloxShared"]
+  CALL R17 1 1
+  GETTABLEKS R18 R17 K24 ["nodeUtils"]
+  GETTABLEKS R19 R18 K25 ["JSON"]
+  LOADNIL R20
+  LOADNIL R21
+  NEWCLOSURE R22 P0
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R16
+  CAPTURE VAL R19
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  CAPTURE REF R20
+  SETTABLEKS R22 R8 K26 ["readConfig"]
+  DUPCLOSURE R20 K27 [PROTO_3]
+  CAPTURE VAL R6
+  DUPCLOSURE R21 K28 [PROTO_6]
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  NEWCLOSURE R23 P3
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R16
+  CAPTURE VAL R19
+  CAPTURE VAL R3
+  CAPTURE VAL R14
+  CAPTURE VAL R13
+  CAPTURE VAL R12
+  CAPTURE REF R20
+  CAPTURE VAL R2
+  CAPTURE VAL R22
+  CAPTURE REF R21
+  SETTABLEKS R23 R8 K29 ["readConfigs"]
+  MOVE R24 R20
+  GETTABLEKS R25 R8 K22 ["defaults"]
+  CALL R24 1 1
+  GETTABLEKS R25 R24 K30 ["globalConfig"]
+  SETTABLEKS R25 R8 K31 ["globalDefaults"]
+  GETTABLEKS R25 R24 K32 ["projectConfig"]
+  SETTABLEKS R25 R8 K33 ["projectDefaults"]
+  CLOSEUPVALS R20
+  RETURN R8 1

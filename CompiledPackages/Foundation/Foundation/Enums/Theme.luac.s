@@ -1,0 +1,8 @@
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K2 [{"Dark", "Light"}]
+  LOADK R1 K0 ["Dark"]
+  SETTABLEKS R1 R0 K0 ["Dark"]
+  LOADK R1 K1 ["Light"]
+  SETTABLEKS R1 R0 K1 ["Light"]
+  RETURN R0 1

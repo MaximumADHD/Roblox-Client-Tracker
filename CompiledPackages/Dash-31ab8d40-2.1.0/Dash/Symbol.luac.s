@@ -1,0 +1,26 @@
+PROTO_0:
+  DUPTABLE R1 K1 [{"name"}]
+  SETTABLEKS R0 R1 K0 ["name"]
+  RETURN R1 1
+
+PROTO_1:
+  LOADK R1 K0 ["Symbol(%s)"]
+  GETTABLEKS R3 R0 K1 ["name"]
+  NAMECALL R1 R1 K2 ["format"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["class"]
+  CALL R1 1 1
+  MOVE R2 R1
+  LOADK R3 K6 ["Symbol"]
+  DUPCLOSURE R4 K7 [PROTO_0]
+  CALL R2 2 1
+  DUPCLOSURE R3 K8 [PROTO_1]
+  SETTABLEKS R3 R2 K9 ["toString"]
+  RETURN R2 1

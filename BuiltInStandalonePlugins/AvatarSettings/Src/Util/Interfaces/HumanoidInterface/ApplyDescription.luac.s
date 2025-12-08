@@ -1,7 +1,17 @@
 PROTO_0:
+  GETIMPORT R3 K1 [game]
+  LOADK R5 K2 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R3 R3 K3 ["GetEngineFeature"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+6]
   MOVE R5 R1
   MOVE R6 R2
-  NAMECALL R3 R0 K0 ["ApplyDescription"]
+  NAMECALL R3 R0 K4 ["ApplyDescriptionAsync"]
+  CALL R3 3 -1
+  RETURN R3 -1
+  MOVE R5 R1
+  MOVE R6 R2
+  NAMECALL R3 R0 K5 ["ApplyDescription"]
   CALL R3 3 -1
   RETURN R3 -1
 

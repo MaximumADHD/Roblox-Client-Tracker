@@ -1,0 +1,189 @@
+PROTO_0:
+  LENGTH R2 R1
+  JUMPIFEQKN R2 K0 [0] [+3]
+  JUMPIFNOTEQKNIL R0 [+2]
+  RETURN R0 0
+  GETUPVAL R3 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K6 [{"label", "group", "key", "LayoutOrder"}]
+  SETTABLEKS R0 R6 K2 ["label"]
+  SETTABLEKS R1 R6 K3 ["group"]
+  GETUPVAL R7 3
+  MOVE R8 R0
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K4 ["key"]
+  GETUPVAL R7 4
+  CALL R7 0 1
+  SETTABLEKS R7 R6 K5 ["LayoutOrder"]
+  CALL R4 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R2 K9 [table.insert]
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWTABLE R0 0 0
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  LOADNIL R2
+  NEWTABLE R3 0 0
+  GETUPVAL R7 4
+  GETTABLEKS R4 R7 K0 ["page"]
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  GETTABLEKS R9 R8 K1 ["date"]
+  LOADK R11 K2 ["LL"]
+  LOADK R12 K3 ["en-us"]
+  NAMECALL R9 R9 K4 ["FormatLocalTime"]
+  CALL R9 3 1
+  JUMPIFEQ R9 R2 [+8]
+  MOVE R10 R1
+  MOVE R11 R2
+  MOVE R12 R3
+  CALL R10 2 0
+  MOVE R2 R9
+  NEWTABLE R3 0 0
+  FASTCALL2 TABLE_INSERT R3 R8 [+5]
+  MOVE R11 R3
+  MOVE R12 R8
+  GETIMPORT R10 K7 [table.insert]
+  CALL R10 2 0
+  FORGLOOP R4 2 [-24]
+  MOVE R4 R1
+  MOVE R5 R2
+  MOVE R6 R3
+  CALL R4 2 0
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["current"]
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["current"]
+  GETIMPORT R1 K3 [Vector2.new]
+  LOADN R2 0
+  LOADN R3 0
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K4 ["CanvasPosition"]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R2 1
+  CALL R2 0 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K0 ["useRef"]
+  LOADNIL R4
+  CALL R3 1 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K1 ["useMemo"]
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  NEWTABLE R6 0 1
+  GETTABLEKS R7 R0 K2 ["page"]
+  SETLIST R6 R7 1 [1]
+  CALL R4 2 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["useEffect"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R3
+  NEWTABLE R7 0 1
+  GETTABLEKS R8 R0 K2 ["page"]
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 0
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K5 ["ScrollView"]
+  DUPTABLE R7 K11 [{"tag", "scrollingFrameRef", "layout", "scroll", "LayoutOrder"}]
+  LOADK R8 K12 ["size-full-full"]
+  SETTABLEKS R8 R7 K6 ["tag"]
+  SETTABLEKS R3 R7 K7 ["scrollingFrameRef"]
+  DUPTABLE R8 K17 [{"HorizontalAlignment", "FillDirection", "SortOrder", "HorizontalFlex"}]
+  GETIMPORT R9 K20 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R9 R8 K13 ["HorizontalAlignment"]
+  GETIMPORT R9 K22 [Enum.FillDirection.Vertical]
+  SETTABLEKS R9 R8 K14 ["FillDirection"]
+  GETIMPORT R9 K23 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R9 R8 K15 ["SortOrder"]
+  GETIMPORT R9 K26 [Enum.UIFlexAlignment.Fill]
+  SETTABLEKS R9 R8 K16 ["HorizontalFlex"]
+  SETTABLEKS R8 R7 K8 ["layout"]
+  DUPTABLE R8 K31 [{"AutomaticCanvasSize", "ScrollingDirection", "VerticalScrollBarInset", "CanvasSize"}]
+  GETIMPORT R9 K34 [Enum.AutomaticSize.Y]
+  SETTABLEKS R9 R8 K27 ["AutomaticCanvasSize"]
+  GETIMPORT R9 K35 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R9 R8 K28 ["ScrollingDirection"]
+  GETIMPORT R9 K38 [Enum.ScrollBarInset.None]
+  SETTABLEKS R9 R8 K29 ["VerticalScrollBarInset"]
+  GETIMPORT R9 K41 [UDim2.fromScale]
+  LOADN R10 0
+  LOADN R11 0
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K30 ["CanvasSize"]
+  SETTABLEKS R8 R7 K9 ["scroll"]
+  GETTABLEKS R8 R0 K10 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K10 ["LayoutOrder"]
+  DUPTABLE R8 K43 [{"View"}]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K4 ["createElement"]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K42 ["View"]
+  DUPTABLE R11 K44 [{"tag"}]
+  LOADK R12 K45 ["size-0-0 auto-xy col flex-x-fill align-x-left padding-left-medium padding-right-medium padding-top-small gap-small"]
+  SETTABLEKS R12 R11 K6 ["tag"]
+  MOVE R12 R4
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K42 ["View"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["PlaceVersionHistory"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["ReactUtils"]
+  CALL R3 1 1
+  GETTABLEKS R5 R0 K10 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Components"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R4 K12 ["PlaceVersionGroup"]
+  CALL R5 1 1
+  GETTABLEKS R6 R3 K13 ["createNextOrder"]
+  GETTABLEKS R7 R3 K14 ["createUniqueKey"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K10 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Types"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K16 [PROTO_3]
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  RETURN R9 1

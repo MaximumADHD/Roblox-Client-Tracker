@@ -1,0 +1,257 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["AncestryChangedHandle"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["AncestryChangedHandle"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["AncestryChangedHandle"]
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["model"]
+  NAMECALL R1 R1 K1 ["GetDescendants"]
+  CALL R1 1 3
+  FORGPREP R1
+  LOADK R8 K2 ["BaseWrap"]
+  NAMECALL R6 R5 K3 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+3]
+  NAMECALL R6 R5 K4 ["Destroy"]
+  CALL R6 1 0
+  FORGLOOP R1 2 [-9]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["reset"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["reset"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["sourceDisplayItem"]
+  JUMPIFNOT R1 [+53]
+  GETTABLEKS R1 R0 K0 ["sourceDisplayItem"]
+  NAMECALL R1 R1 K1 ["Clone"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K2 ["displayItem"]
+  GETTABLEKS R1 R0 K2 ["displayItem"]
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K3 ["GenerateGUID"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K4 ["Name"]
+  GETUPVAL R1 1
+  CALL R1 0 1
+  JUMPIFNOT R1 [+15]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K5 ["hasAnyCage"]
+  GETTABLEKS R2 R0 K2 ["displayItem"]
+  CALL R1 1 1
+  JUMPIF R1 [+8]
+  GETTABLEKS R1 R0 K2 ["displayItem"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K6 ["CanCollide"]
+  GETUPVAL R1 3
+  MOVE R2 R0
+  CALL R1 1 0
+  GETUPVAL R2 4
+  GETTABLEKS R1 R2 K7 ["addPreviewClothingFromInstance"]
+  MOVE R2 R0
+  GETTABLEKS R3 R0 K2 ["displayItem"]
+  LOADB R4 0
+  CALL R1 3 0
+  GETTABLEKS R2 R0 K2 ["displayItem"]
+  GETTABLEKS R1 R2 K8 ["AncestryChanged"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K9 ["Connect"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K10 ["AncestryChangedHandle"]
+  RETURN R0 0
+  GETTABLEKS R2 R0 K11 ["model"]
+  GETTABLEKS R1 R2 K8 ["AncestryChanged"]
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K9 ["Connect"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K10 ["AncestryChangedHandle"]
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["AncestryChangedHandle"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["AncestryChangedHandle"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["AncestryChangedHandle"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["destroy"]
+  MOVE R2 R0
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K3 ["sourceMannequin"]
+  NAMECALL R1 R1 K4 ["Clone"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K5 ["model"]
+  GETTABLEKS R1 R0 K5 ["model"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K6 ["Archivable"]
+  GETTABLEKS R1 R0 K5 ["model"]
+  GETTABLEKS R2 R0 K7 ["sourceParent"]
+  SETTABLEKS R2 R1 K8 ["Parent"]
+  GETUPVAL R1 1
+  MOVE R2 R0
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K9 ["onMannequinReset"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_6:
+  JUMPIF R1 [+8]
+  GETUPVAL R4 0
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K0 ["MANNEQUIN_PATH"]
+  NAMECALL R4 R4 K1 ["LoadLocalAsset"]
+  CALL R4 2 1
+  MOVE R1 R4
+  NAMECALL R4 R1 K2 ["Clone"]
+  CALL R4 1 1
+  GETUPVAL R5 2
+  MOVE R7 R4
+  NAMECALL R5 R5 K3 ["makeDeformerNamesUnique"]
+  CALL R5 2 0
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K4 ["new"]
+  NAMECALL R7 R4 K2 ["Clone"]
+  CALL R7 1 1
+  MOVE R8 R2
+  GETUPVAL R9 4
+  NAMECALL R9 R9 K5 ["GenerateGUID"]
+  CALL R9 1 -1
+  CALL R6 -1 1
+  GETUPVAL R7 5
+  FASTCALL2 SETMETATABLE R6 R7 [+3]
+  GETIMPORT R5 K7 [setmetatable]
+  CALL R5 2 1
+  SETTABLEKS R4 R5 K8 ["sourceMannequin"]
+  NAMECALL R6 R0 K2 ["Clone"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K9 ["sourceDisplayItem"]
+  GETUPVAL R6 2
+  GETTABLEKS R8 R5 K9 ["sourceDisplayItem"]
+  NAMECALL R6 R6 K3 ["makeDeformerNamesUnique"]
+  CALL R6 2 0
+  SETTABLEKS R2 R5 K10 ["sourceParent"]
+  SETTABLEKS R3 R5 K11 ["onMannequinReset"]
+  GETUPVAL R6 6
+  MOVE R7 R5
+  CALL R6 1 0
+  GETUPVAL R6 2
+  GETTABLEKS R8 R5 K9 ["sourceDisplayItem"]
+  NAMECALL R6 R6 K12 ["initTempCageData"]
+  CALL R6 2 0
+  RETURN R5 1
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["AncestryChangedHandle"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["AncestryChangedHandle"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["AncestryChangedHandle"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["sourceMannequin"]
+  GETTABLEKS R1 R0 K3 ["sourceDisplayItem"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K3 ["sourceDisplayItem"]
+  NAMECALL R1 R1 K4 ["Destroy"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K3 ["sourceDisplayItem"]
+  GETTABLEKS R1 R0 K5 ["displayItem"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K5 ["displayItem"]
+  NAMECALL R1 R1 K4 ["Destroy"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K5 ["displayItem"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K6 ["destroy"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["InsertService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["HttpService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R5 K6 [script]
+  GETTABLEKS R4 R5 K7 ["Parent"]
+  GETTABLEKS R3 R4 K7 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Parent"]
+  GETIMPORT R4 K6 [script]
+  GETTABLEKS R3 R4 K7 ["Parent"]
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R5 R3 K10 ["Constants"]
+  CALL R4 1 1
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R6 R3 K11 ["PreviewAvatar"]
+  CALL R5 1 1
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R7 R3 K12 ["PreviewUtil"]
+  CALL R6 1 1
+  GETIMPORT R7 K9 [require]
+  GETTABLEKS R8 R3 K13 ["WrapUtil"]
+  CALL R7 1 1
+  GETIMPORT R8 K9 [require]
+  GETTABLEKS R9 R3 K14 ["ItemCharacteristics"]
+  CALL R8 1 1
+  GETIMPORT R9 K9 [require]
+  GETTABLEKS R11 R2 K15 ["Flags"]
+  GETTABLEKS R10 R11 K16 ["GetFFlagAFTSelectHandleOnly"]
+  CALL R9 1 1
+  NEWTABLE R11 4 0
+  DUPTABLE R12 K18 [{"__index"}]
+  SETTABLEKS R5 R12 K17 ["__index"]
+  FASTCALL2 SETMETATABLE R11 R12 [+3]
+  GETIMPORT R10 K20 [setmetatable]
+  CALL R10 2 1
+  SETTABLEKS R10 R10 K17 ["__index"]
+  DUPCLOSURE R11 K21 [PROTO_0]
+  DUPCLOSURE R12 K22 [PROTO_1]
+  DUPCLOSURE R13 K23 [PROTO_4]
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R12
+  CAPTURE VAL R6
+  DUPCLOSURE R14 K24 [PROTO_5]
+  CAPTURE VAL R5
+  CAPTURE VAL R13
+  SETTABLEKS R14 R10 K25 ["reset"]
+  DUPCLOSURE R14 K26 [PROTO_6]
+  CAPTURE VAL R0
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R10
+  CAPTURE VAL R13
+  SETTABLEKS R14 R10 K27 ["new"]
+  DUPCLOSURE R14 K28 [PROTO_7]
+  CAPTURE VAL R5
+  SETTABLEKS R14 R10 K29 ["destroy"]
+  RETURN R10 1

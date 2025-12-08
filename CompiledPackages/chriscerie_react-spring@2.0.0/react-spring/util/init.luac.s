@@ -1,0 +1,14 @@
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K2 [{"merge", "map"}]
+  GETIMPORT R1 K4 [require]
+  GETIMPORT R3 K6 [script]
+  GETTABLEKS R2 R3 K0 ["merge"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K0 ["merge"]
+  GETIMPORT R1 K4 [require]
+  GETIMPORT R3 K6 [script]
+  GETTABLEKS R2 R3 K1 ["map"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K1 ["map"]
+  RETURN R0 1

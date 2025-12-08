@@ -84,36 +84,47 @@ PROTO_4:
   GETIMPORT R2 K1 [game]
   NAMECALL R0 R0 K2 ["IsDescendantOf"]
   CALL R0 2 1
-  JUMPIFNOT R0 [+40]
+  JUMPIFNOT R0 [+55]
   GETUPVAL R0 1
   NAMECALL R0 R0 K3 ["Disconnect"]
   CALL R0 1 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K4 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R0 R0 K5 ["GetEngineFeature"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+8]
   GETUPVAL R1 0
-  GETTABLEKS R0 R1 K4 ["Humanoid"]
+  GETTABLEKS R0 R1 K6 ["Humanoid"]
   GETUPVAL R2 2
-  NAMECALL R0 R0 K5 ["ApplyDescription"]
+  NAMECALL R0 R0 K7 ["ApplyDescriptionAsync"]
+  CALL R0 2 0
+  JUMP [+7]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K6 ["Humanoid"]
+  GETUPVAL R2 2
+  NAMECALL R0 R0 K8 ["ApplyDescription"]
   CALL R0 2 0
   GETUPVAL R0 0
   GETUPVAL R2 3
-  GETTABLEKS R1 R2 K6 ["WorldModel"]
-  LOADK R4 K7 ["Animate"]
-  NAMECALL R2 R1 K8 ["FindFirstChild"]
+  GETTABLEKS R1 R2 K9 ["WorldModel"]
+  LOADK R4 K10 ["Animate"]
+  NAMECALL R2 R1 K11 ["FindFirstChild"]
   CALL R2 2 1
   JUMPIF R2 [+1]
   JUMP [+13]
-  LOADK R5 K7 ["Animate"]
-  NAMECALL R3 R0 K8 ["FindFirstChild"]
+  LOADK R5 K10 ["Animate"]
+  NAMECALL R3 R0 K11 ["FindFirstChild"]
   CALL R3 2 1
   JUMPIFNOT R3 [+3]
-  NAMECALL R4 R3 K9 ["Remove"]
+  NAMECALL R4 R3 K12 ["Remove"]
   CALL R4 1 0
-  NAMECALL R4 R2 K10 ["Clone"]
+  NAMECALL R4 R2 K13 ["Clone"]
   CALL R4 1 1
-  SETTABLEKS R0 R4 K11 ["Parent"]
+  SETTABLEKS R0 R4 K14 ["Parent"]
   GETUPVAL R0 4
   GETUPVAL R1 0
   GETUPVAL R3 3
-  GETTABLEKS R2 R3 K6 ["WorldModel"]
+  GETTABLEKS R2 R3 K9 ["WorldModel"]
   CALL R0 2 0
   RETURN R0 0
 
@@ -180,11 +191,23 @@ PROTO_6:
   RETURN R2 1
 
 PROTO_7:
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R0 R0 K3 ["GetEngineFeature"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+10]
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["dummy"]
-  GETTABLEKS R0 R1 K1 ["Humanoid"]
+  GETTABLEKS R1 R2 K4 ["dummy"]
+  GETTABLEKS R0 R1 K5 ["Humanoid"]
   GETUPVAL R2 1
-  NAMECALL R0 R0 K2 ["ApplyDescription"]
+  NAMECALL R0 R0 K6 ["ApplyDescriptionAsync"]
+  CALL R0 2 0
+  RETURN R0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["dummy"]
+  GETTABLEKS R0 R1 K5 ["Humanoid"]
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K7 ["ApplyDescription"]
   CALL R0 2 0
   RETURN R0 0
 

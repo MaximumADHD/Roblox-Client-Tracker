@@ -1,0 +1,112 @@
+PROTO_0:
+  LOADB R0 1
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  JUMPIF R2 [+7]
+  LOADK R4 K0 ["Parent"]
+  NAMECALL R2 R0 K1 ["GetPropertyChangedSignal"]
+  CALL R2 2 1
+  NAMECALL R2 R2 K2 ["Wait"]
+  CALL R2 1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K3 ["_destroyed"]
+  JUMPIF R2 [+2]
+  GETUPVAL R2 2
+  CALL R2 0 0
+  RETURN R0 0
+
+PROTO_2:
+  LOADK R3 K0 ["BasePart"]
+  NAMECALL R1 R0 K1 ["IsA"]
+  CALL R1 2 1
+  JUMPIF R1 [+5]
+  LOADK R3 K2 ["Attachment"]
+  NAMECALL R1 R0 K1 ["IsA"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+13]
+  LOADK R3 K3 ["Parent"]
+  NAMECALL R1 R0 K4 ["GetPropertyChangedSignal"]
+  CALL R1 2 1
+  NAMECALL R1 R1 K5 ["Wait"]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K6 ["_destroyed"]
+  JUMPIF R1 [+2]
+  GETUPVAL R1 1
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_3:
+  LOADNIL R3
+  LOADB R4 0
+  GETIMPORT R5 K2 [Instance.new]
+  LOADK R6 K3 ["BindableEvent"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K4 ["Event"]
+  NEWCLOSURE R8 P0
+  CAPTURE REF R4
+  NAMECALL R6 R6 K5 ["Connect"]
+  CALL R6 2 0
+  NAMECALL R6 R5 K6 ["Fire"]
+  CALL R6 1 0
+  NOT R3 R4
+  NAMECALL R6 R5 K7 ["Destroy"]
+  CALL R6 1 0
+  DUPTABLE R7 K9 [{"_destroyed"}]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K8 ["_destroyed"]
+  GETUPVAL R8 0
+  FASTCALL2 SETMETATABLE R7 R8 [+3]
+  GETIMPORT R6 K11 [setmetatable]
+  CALL R6 2 1
+  GETTABLEKS R7 R1 K12 ["AncestryChanged"]
+  NEWCLOSURE R9 P1
+  CAPTURE REF R3
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  NAMECALL R7 R7 K5 ["Connect"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K13 ["_hoverInstanceEscapedConnection"]
+  GETTABLEKS R7 R1 K14 ["DescendantRemoving"]
+  NEWCLOSURE R9 P2
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  NAMECALL R7 R7 K5 ["Connect"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K15 ["_hoverInstanceContentsChangedConnection"]
+  CLOSEUPVALS R3
+  RETURN R6 1
+
+PROTO_4:
+  GETTABLEKS R3 R0 K0 ["_destroyed"]
+  NOT R2 R3
+  FASTCALL1 ASSERT R2 [+2]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 1 0
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["_destroyed"]
+  GETTABLEKS R1 R0 K3 ["_hoverInstanceEscapedConnection"]
+  NAMECALL R1 R1 K4 ["Disconnect"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K5 ["_hoverInstanceContentsChangedConnection"]
+  NAMECALL R1 R1 K4 ["Disconnect"]
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  GETTABLEKS R2 R1 K3 ["DraggerFramework"]
+  NEWTABLE R3 4 0
+  SETTABLEKS R3 R3 K4 ["__index"]
+  DUPCLOSURE R4 K5 [PROTO_3]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R3 K6 ["new"]
+  DUPCLOSURE R4 K7 [PROTO_4]
+  SETTABLEKS R4 R3 K8 ["destroy"]
+  RETURN R3 1

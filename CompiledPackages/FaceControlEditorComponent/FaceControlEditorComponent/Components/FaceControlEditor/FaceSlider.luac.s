@@ -1,0 +1,190 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["updateValue"]
+  JUMPIFNOT R1 [+11]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["updateValue"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["name"]
+  MOVE R3 R0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["setSliderValues"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  GETTABLEKS R5 R0 K0 ["mapping"]
+  GETTABLEKS R4 R5 K1 ["customWidth"]
+  JUMPIF R4 [+3]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["SLIDER_DEFAULT_WIDTH"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["ASPECT_RATIO_SCALE_WIDTH"]
+  DIV R3 R4 R5
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["SLIDER_DEFAULT_HEIGHT"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["ASPECT_RATIO_SCALE_HEIGHT"]
+  DIV R4 R5 R6
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K6 ["tooltipName"]
+  MOVE R6 R0
+  CALL R5 1 1
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K7 ["tooltipValue"]
+  MOVE R7 R0
+  CALL R6 1 1
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K8 ["createElement"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K9 ["View"]
+  DUPTABLE R9 K16 [{"testId", "tag", "Position", "Size", "Rotation", "ref"}]
+  LOADK R10 K17 ["FaceSliderView"]
+  SETTABLEKS R10 R9 K10 ["testId"]
+  LOADK R10 K18 ["bg-transparency-100"]
+  SETTABLEKS R10 R9 K11 ["tag"]
+  GETTABLEKS R11 R0 K0 ["mapping"]
+  GETTABLEKS R10 R11 K19 ["position"]
+  SETTABLEKS R10 R9 K12 ["Position"]
+  GETIMPORT R10 K22 [UDim2.fromScale]
+  MOVE R11 R3
+  MOVE R12 R4
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K13 ["Size"]
+  GETTABLEKS R11 R0 K0 ["mapping"]
+  GETTABLEKS R10 R11 K23 ["rotation"]
+  SETTABLEKS R10 R9 K14 ["Rotation"]
+  GETTABLEKS R10 R2 K24 ["setFrame"]
+  SETTABLEKS R10 R9 K15 ["ref"]
+  DUPTABLE R10 K27 [{"UIAspectRatioConstraint", "Tooltip"}]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K8 ["createElement"]
+  LOADK R12 K25 ["UIAspectRatioConstraint"]
+  DUPTABLE R13 K30 [{"AspectRatio", "AspectType"}]
+  DIV R14 R3 R4
+  SETTABLEKS R14 R13 K28 ["AspectRatio"]
+  GETIMPORT R14 K33 [Enum.AspectType.ScaleWithParentSize]
+  SETTABLEKS R14 R13 K29 ["AspectType"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K25 ["UIAspectRatioConstraint"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K8 ["createElement"]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K26 ["Tooltip"]
+  DUPTABLE R13 K37 [{"title", "side", "align"}]
+  GETTABLEN R15 R5 1
+  LOADK R16 K38 [" "]
+  GETIMPORT R17 K41 [string.format]
+  LOADK R18 K42 ["%.2f"]
+  GETTABLEN R19 R6 1
+  CALL R17 2 1
+  CONCAT R14 R15 R17
+  SETTABLEKS R14 R13 K34 ["title"]
+  LOADK R14 K43 ["Top"]
+  SETTABLEKS R14 R13 K35 ["side"]
+  LOADK R14 K44 ["Start"]
+  SETTABLEKS R14 R13 K36 ["align"]
+  NEWTABLE R14 0 1
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K8 ["createElement"]
+  GETUPVAL R17 4
+  GETTABLEKS R16 R17 K9 ["View"]
+  DUPTABLE R17 K45 [{"Size"}]
+  GETIMPORT R18 K47 [UDim2.fromOffset]
+  GETTABLEKS R20 R2 K48 ["absoluteSize"]
+  GETTABLEKS R19 R20 K49 ["X"]
+  GETTABLEKS R21 R2 K48 ["absoluteSize"]
+  GETTABLEKS R20 R21 K50 ["Y"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K13 ["Size"]
+  DUPTABLE R18 K52 [{"Slider"}]
+  GETUPVAL R20 3
+  GETTABLEKS R19 R20 K8 ["createElement"]
+  GETUPVAL R20 5
+  DUPTABLE R21 K62 [{"testId", "value", "range", "stepIncrement", "isDisabled", "knobVisibility", "variant", "size", "onValueChanged", "Size", "Position", "AnchorPoint"}]
+  LOADK R22 K63 ["FaceSlider"]
+  SETTABLEKS R22 R21 K10 ["testId"]
+  GETTABLEKS R22 R0 K53 ["value"]
+  SETTABLEKS R22 R21 K53 ["value"]
+  GETIMPORT R22 K66 [NumberRange.new]
+  LOADN R23 0
+  LOADN R24 1
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K54 ["range"]
+  LOADK R22 K67 [0.01]
+  SETTABLEKS R22 R21 K55 ["stepIncrement"]
+  LOADB R22 0
+  SETTABLEKS R22 R21 K56 ["isDisabled"]
+  LOADK R22 K68 ["Always"]
+  SETTABLEKS R22 R21 K57 ["knobVisibility"]
+  LOADK R22 K69 ["Emphasis"]
+  SETTABLEKS R22 R21 K58 ["variant"]
+  LOADK R22 K70 ["XSmall"]
+  SETTABLEKS R22 R21 K59 ["size"]
+  SETTABLEKS R1 R21 K60 ["onValueChanged"]
+  GETIMPORT R22 K22 [UDim2.fromScale]
+  LOADN R23 1
+  LOADN R24 1
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K13 ["Size"]
+  GETIMPORT R22 K22 [UDim2.fromScale]
+  LOADK R23 K71 [0.5]
+  LOADK R24 K71 [0.5]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K12 ["Position"]
+  GETIMPORT R22 K73 [Vector2.new]
+  LOADK R23 K71 [0.5]
+  LOADK R24 K71 [0.5]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K61 ["AnchorPoint"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K51 ["Slider"]
+  CALL R15 3 -1
+  SETLIST R14 R15 -1 [1]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K26 ["Tooltip"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["FaceControlEditorComponent"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R7 R0 K9 ["Components"]
+  GETTABLEKS R6 R7 K10 ["FaceControlEditor"]
+  GETTABLEKS R5 R6 K11 ["FaceControlEditorConstants"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K12 ["Utils"]
+  GETTABLEKS R6 R7 K13 ["FaceControlEditorUtils"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K14 ["Hooks"]
+  GETTABLEKS R7 R8 K15 ["useAbsoluteSize"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K9 ["Components"]
+  GETTABLEKS R8 R9 K16 ["Slider"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K17 [PROTO_1]
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  RETURN R8 1

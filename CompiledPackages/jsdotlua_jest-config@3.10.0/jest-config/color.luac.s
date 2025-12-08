@@ -1,0 +1,36 @@
+PROTO_0:
+  JUMPIFNOTEQKNIL R0 [+3]
+  LOADK R1 K0 ["white"]
+  RETURN R1 1
+  GETIMPORT R1 K3 [math.random]
+  GETUPVAL R3 0
+  LENGTH R2 R3
+  CALL R1 1 1
+  GETUPVAL R3 0
+  GETTABLE R2 R3 R1
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K4 ["Parent"]
+  LOADK R3 K5 ["luau-polyfill"]
+  NAMECALL R1 R1 K6 ["WaitForChild"]
+  CALL R1 2 -1
+  CALL R0 -1 1
+  NEWTABLE R1 1 0
+  NEWTABLE R2 0 7
+  LOADK R3 K7 ["red"]
+  LOADK R4 K8 ["green"]
+  LOADK R5 K9 ["yellow"]
+  LOADK R6 K10 ["blue"]
+  LOADK R7 K11 ["magenta"]
+  LOADK R8 K12 ["cyan"]
+  LOADK R9 K13 ["white"]
+  SETLIST R2 R3 7 [1]
+  DUPCLOSURE R3 K14 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLEKS R3 R1 K15 ["getDisplayNameColor"]
+  RETURN R1 1

@@ -1,0 +1,87 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["forceEnable"]
+  JUMPIFNOT R1 [+2]
+  LOADB R1 1
+  RETURN R1 1
+  GETTABLEKS R1 R0 K1 ["pluginName"]
+  GETUPVAL R3 0
+  JUMPIFEQ R3 R1 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["HasInternalPermission"]
+  CALL R1 1 1
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETTABLEKS R2 R0 K1 ["forceEnable"]
+  JUMPIFNOT R2 [+2]
+  LOADB R1 1
+  JUMP [+7]
+  GETTABLEKS R2 R0 K2 ["pluginName"]
+  GETUPVAL R3 1
+  JUMPIFEQ R3 R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETIMPORT R2 K4 [require]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K5 ["ReactGlobals"]
+  CALL R2 1 1
+  LOADB R3 1
+  SETTABLEKS R3 R2 K6 ["__PROFILE__"]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K7 ["__DEV__"]
+  GETIMPORT R3 K4 [require]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K8 ["ReactDevtoolsCore"]
+  CALL R3 1 1
+  GETTABLEKS R5 R3 K9 ["backend"]
+  GETTABLEKS R4 R5 K10 ["connectToDevtools"]
+  DUPTABLE R5 K14 [{"host", "port", "profileOnStart"}]
+  GETUPVAL R6 3
+  SETTABLEKS R6 R5 K11 ["host"]
+  GETUPVAL R6 4
+  SETTABLEKS R6 R5 K12 ["port"]
+  GETTABLEKS R6 R0 K13 ["profileOnStart"]
+  SETTABLEKS R6 R5 K13 ["profileOnStart"]
+  CALL R4 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R2 K5 [script]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K7 ["DebugReactDevToolsPluginName"]
+  LOADK R5 K8 [""]
+  NAMECALL R2 R2 K9 ["DefineFastString"]
+  CALL R2 3 1
+  GETIMPORT R3 K1 [game]
+  LOADK R5 K10 ["DebugStudioReactDevToolsHost"]
+  LOADK R6 K11 ["localhost"]
+  NAMECALL R3 R3 K9 ["DefineFastString"]
+  CALL R3 3 1
+  GETIMPORT R4 K1 [game]
+  LOADK R6 K12 ["DebugStudioReactDevToolsPort"]
+  LOADN R7 161
+  NAMECALL R4 R4 K13 ["DefineFastInt"]
+  CALL R4 3 1
+  DUPCLOSURE R5 K14 [PROTO_0]
+  CAPTURE VAL R2
+  DUPCLOSURE R6 K15 [PROTO_1]
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  DUPTABLE R7 K17 [{"tryEnableDevtools"}]
+  SETTABLEKS R6 R7 K16 ["tryEnableDevtools"]
+  RETURN R7 1

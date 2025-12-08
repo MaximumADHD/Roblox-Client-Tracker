@@ -1,0 +1,20 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["bold"]
+  LOADK R1 K1 ["No tests found, exiting with code 0"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  NEWTABLE R1 1 0
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R0 K5 ["ChalkLua"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K6 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLEKS R3 R1 K7 ["default"]
+  RETURN R1 1

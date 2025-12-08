@@ -1,0 +1,8 @@
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K2 [{"Fit", "Fill"}]
+  LOADK R1 K0 ["Fit"]
+  SETTABLEKS R1 R0 K0 ["Fit"]
+  LOADK R1 K1 ["Fill"]
+  SETTABLEKS R1 R0 K1 ["Fill"]
+  RETURN R0 1

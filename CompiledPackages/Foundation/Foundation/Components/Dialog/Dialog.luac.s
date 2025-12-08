@@ -1,0 +1,763 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onClose"]
+  JUMPIFNOT R0 [+7]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onClose"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["BackdropClick"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onClose"]
+  JUMPIFNOT R0 [+7]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["onClose"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["BackdropClick"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R1 K2 [UDim2.fromOffset]
+  GETTABLEKS R3 R0 K3 ["X"]
+  GETUPVAL R5 0
+  MULK R4 R5 K4 [2]
+  ADD R2 R3 R4
+  GETTABLEKS R4 R0 K5 ["Y"]
+  GETUPVAL R6 0
+  MULK R5 R6 K4 [2]
+  ADD R3 R4 R5
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["assign"]
+  NEWTABLE R2 0 0
+  MOVE R3 R0
+  DUPTABLE R4 K2 [{"LayoutOrder"}]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K1 ["LayoutOrder"]
+  CALL R1 3 1
+  GETUPVAL R2 1
+  CALL R2 0 1
+  GETUPVAL R3 2
+  GETTABLEKS R5 R2 K3 ["inner"]
+  GETTABLEKS R4 R5 K4 ["maxWidth"]
+  CALL R3 1 1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K5 ["useRef"]
+  LOADNIL R5
+  CALL R4 1 1
+  GETUPVAL R5 4
+  MOVE R6 R4
+  CALL R5 1 1
+  GETUPVAL R6 5
+  CALL R6 0 1
+  GETUPVAL R7 6
+  GETUPVAL R9 7
+  GETTABLEKS R8 R9 K6 ["Dialog"]
+  DUPTABLE R9 K8 [{"relativeToOwner"}]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K7 ["relativeToOwner"]
+  CALL R7 2 1
+  GETUPVAL R8 8
+  GETTABLEKS R9 R1 K9 ["size"]
+  CALL R8 1 0
+  GETUPVAL R10 9
+  GETTABLEKS R9 R10 K10 ["FoundationDialogOversizedBackdrop"]
+  JUMPIF R9 [+247]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K11 ["createElement"]
+  GETUPVAL R9 10
+  DUPTABLE R10 K15 [{"tag", "ZIndex", "testId"}]
+  GETTABLEKS R12 R2 K16 ["container"]
+  GETTABLEKS R11 R12 K12 ["tag"]
+  SETTABLEKS R11 R10 K12 ["tag"]
+  GETTABLEKS R12 R1 K17 ["hasBackdrop"]
+  JUMPIFNOT R12 [+2]
+  LOADNIL R11
+  JUMP [+8]
+  GETUPVAL R13 9
+  GETTABLEKS R12 R13 K18 ["FoundationElevationSystem"]
+  JUMPIFNOT R12 [+3]
+  GETTABLEKS R11 R7 K19 ["zIndex"]
+  JUMP [+1]
+  GETUPVAL R11 11
+  SETTABLEKS R11 R10 K13 ["ZIndex"]
+  LOADK R12 K20 ["%*--surface"]
+  GETTABLEKS R14 R1 K14 ["testId"]
+  NAMECALL R12 R12 K21 ["format"]
+  CALL R12 2 1
+  MOVE R11 R12
+  SETTABLEKS R11 R10 K14 ["testId"]
+  DUPTABLE R11 K23 [{"Shadow"}]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K11 ["createElement"]
+  GETUPVAL R13 12
+  DUPTABLE R14 K27 [{"Image", "tag", "slice", "imageStyle", "testId"}]
+  GETUPVAL R15 13
+  SETTABLEKS R15 R14 K24 ["Image"]
+  GETTABLEKS R16 R2 K28 ["shadow"]
+  GETTABLEKS R15 R16 K12 ["tag"]
+  SETTABLEKS R15 R14 K12 ["tag"]
+  DUPTABLE R15 K31 [{"center", "scale"}]
+  GETIMPORT R16 K34 [Rect.new]
+  GETUPVAL R17 14
+  GETUPVAL R18 14
+  GETUPVAL R19 14
+  GETUPVAL R20 14
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K29 ["center"]
+  LOADN R16 2
+  SETTABLEKS R16 R15 K30 ["scale"]
+  SETTABLEKS R15 R14 K25 ["slice"]
+  GETTABLEKS R16 R2 K28 ["shadow"]
+  GETTABLEKS R15 R16 K26 ["imageStyle"]
+  SETTABLEKS R15 R14 K26 ["imageStyle"]
+  LOADK R16 K35 ["%*--shadow"]
+  GETTABLEKS R18 R1 K14 ["testId"]
+  NAMECALL R16 R16 K21 ["format"]
+  CALL R16 2 1
+  MOVE R15 R16
+  SETTABLEKS R15 R14 K14 ["testId"]
+  DUPTABLE R15 K37 [{"DialogInner"}]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K11 ["createElement"]
+  GETUPVAL R17 10
+  GETUPVAL R18 15
+  MOVE R19 R1
+  DUPTABLE R20 K44 [{"tag", "ref", "sizeConstraint", "stateLayer", "selection", "selectionGroup", "onActivated"}]
+  GETTABLEKS R22 R2 K3 ["inner"]
+  GETTABLEKS R21 R22 K12 ["tag"]
+  SETTABLEKS R21 R20 K12 ["tag"]
+  GETTABLEKS R21 R1 K45 ["forwardRef"]
+  SETTABLEKS R21 R20 K38 ["ref"]
+  DUPTABLE R21 K47 [{"MaxSize"}]
+  GETIMPORT R22 K49 [Vector2.new]
+  MOVE R23 R3
+  LOADK R24 K50 [∞]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K46 ["MaxSize"]
+  SETTABLEKS R21 R20 K39 ["sizeConstraint"]
+  DUPTABLE R21 K52 [{"affordance"}]
+  GETUPVAL R23 16
+  GETTABLEKS R22 R23 K53 ["None"]
+  SETTABLEKS R22 R21 K51 ["affordance"]
+  SETTABLEKS R21 R20 K40 ["stateLayer"]
+  GETUPVAL R23 9
+  GETTABLEKS R22 R23 K54 ["FoundationDialogUpdateSelection"]
+  JUMPIFNOT R22 [+4]
+  GETUPVAL R22 17
+  GETTABLEKS R21 R22 K55 ["nonSelectable"]
+  JUMP [+1]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K41 ["selection"]
+  GETUPVAL R23 9
+  GETTABLEKS R22 R23 K54 ["FoundationDialogUpdateSelection"]
+  JUMPIFNOT R22 [+4]
+  GETUPVAL R22 17
+  GETTABLEKS R21 R22 K56 ["isolatedSelectionGroup"]
+  JUMP [+1]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K42 ["selectionGroup"]
+  GETUPVAL R22 0
+  GETTABLEKS R21 R22 K57 ["noop"]
+  SETTABLEKS R21 R20 K43 ["onActivated"]
+  CALL R18 2 1
+  DUPTABLE R19 K60 [{"CloseAffordance", "DialogBody"}]
+  GETTABLEKS R21 R1 K61 ["onClose"]
+  JUMPIFNOT R21 [+46]
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K11 ["createElement"]
+  GETUPVAL R21 18
+  DUPTABLE R22 K64 [{"onActivated", "Position", "AnchorPoint", "ZIndex", "testId"}]
+  GETTABLEKS R23 R1 K61 ["onClose"]
+  SETTABLEKS R23 R22 K43 ["onActivated"]
+  GETIMPORT R23 K66 [UDim2.new]
+  LOADN R24 1
+  GETTABLEKS R27 R2 K67 ["closeAffordance"]
+  GETTABLEKS R26 R27 K68 ["offset"]
+  MINUS R25 R26
+  LOADN R26 0
+  GETTABLEKS R28 R2 K67 ["closeAffordance"]
+  GETTABLEKS R27 R28 K68 ["offset"]
+  CALL R23 4 1
+  SETTABLEKS R23 R22 K62 ["Position"]
+  GETIMPORT R23 K49 [Vector2.new]
+  LOADN R24 1
+  LOADN R25 0
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K63 ["AnchorPoint"]
+  LOADN R23 2
+  SETTABLEKS R23 R22 K13 ["ZIndex"]
+  LOADK R24 K69 ["%*--close-affordance"]
+  GETTABLEKS R26 R1 K14 ["testId"]
+  NAMECALL R24 R24 K21 ["format"]
+  CALL R24 2 1
+  MOVE R23 R24
+  SETTABLEKS R23 R22 K14 ["testId"]
+  CALL R20 2 1
+  JUMP [+1]
+  LOADNIL R20
+  SETTABLEKS R20 R19 K58 ["CloseAffordance"]
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K11 ["createElement"]
+  GETUPVAL R21 10
+  DUPTABLE R22 K70 [{"tag", "ref", "testId"}]
+  GETTABLEKS R24 R2 K71 ["body"]
+  GETTABLEKS R23 R24 K12 ["tag"]
+  SETTABLEKS R23 R22 K12 ["tag"]
+  SETTABLEKS R4 R22 K38 ["ref"]
+  LOADK R24 K72 ["%*--body"]
+  GETTABLEKS R26 R1 K14 ["testId"]
+  NAMECALL R24 R24 K21 ["format"]
+  CALL R24 2 1
+  MOVE R23 R24
+  SETTABLEKS R23 R22 K14 ["testId"]
+  GETUPVAL R25 9
+  GETTABLEKS R24 R25 K18 ["FoundationElevationSystem"]
+  JUMPIFNOT R24 [+11]
+  GETUPVAL R24 3
+  GETTABLEKS R23 R24 K11 ["createElement"]
+  GETUPVAL R24 19
+  DUPTABLE R25 K74 [{"owner"}]
+  SETTABLEKS R7 R25 K73 ["owner"]
+  GETTABLEKS R26 R1 K75 ["children"]
+  CALL R23 3 1
+  JUMP [+2]
+  GETTABLEKS R23 R1 K75 ["children"]
+  CALL R20 3 1
+  SETTABLEKS R20 R19 K59 ["DialogBody"]
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K36 ["DialogInner"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K22 ["Shadow"]
+  CALL R8 3 1
+  JUMP [+1]
+  LOADNIL R8
+  GETUPVAL R11 9
+  GETTABLEKS R10 R11 K76 ["FoundationDialogRootZIndex"]
+  JUMPIFNOT R10 [+71]
+  GETUPVAL R11 9
+  GETTABLEKS R10 R11 K10 ["FoundationDialogOversizedBackdrop"]
+  JUMPIF R10 [+67]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K11 ["createElement"]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K77 ["Fragment"]
+  LOADNIL R11
+  DUPTABLE R12 K79 [{"Backdrop"}]
+  GETTABLEKS R14 R1 K17 ["hasBackdrop"]
+  JUMPIFNOT R14 [+51]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K11 ["createElement"]
+  GETUPVAL R14 10
+  DUPTABLE R15 K81 [{"tag", "stateLayer", "onActivated", "backgroundStyle", "ZIndex", "testId"}]
+  LOADK R16 K82 ["size-full-full"]
+  SETTABLEKS R16 R15 K12 ["tag"]
+  DUPTABLE R16 K52 [{"affordance"}]
+  GETUPVAL R18 16
+  GETTABLEKS R17 R18 K53 ["None"]
+  SETTABLEKS R17 R16 K51 ["affordance"]
+  SETTABLEKS R16 R15 K40 ["stateLayer"]
+  NEWCLOSURE R16 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U20
+  SETTABLEKS R16 R15 K43 ["onActivated"]
+  GETTABLEKS R17 R2 K83 ["backdrop"]
+  GETTABLEKS R16 R17 K80 ["backgroundStyle"]
+  SETTABLEKS R16 R15 K80 ["backgroundStyle"]
+  GETUPVAL R18 9
+  GETTABLEKS R17 R18 K18 ["FoundationElevationSystem"]
+  JUMPIFNOT R17 [+3]
+  GETTABLEKS R16 R7 K19 ["zIndex"]
+  JUMP [+1]
+  GETUPVAL R16 11
+  SETTABLEKS R16 R15 K13 ["ZIndex"]
+  LOADK R17 K84 ["%*--backdrop"]
+  GETTABLEKS R19 R1 K14 ["testId"]
+  NAMECALL R17 R17 K21 ["format"]
+  CALL R17 2 1
+  MOVE R16 R17
+  SETTABLEKS R16 R15 K14 ["testId"]
+  DUPTABLE R16 K86 [{"DialogSurface"}]
+  SETTABLEKS R8 R16 K85 ["DialogSurface"]
+  CALL R13 3 1
+  JUMP [+1]
+  MOVE R13 R8
+  SETTABLEKS R13 R12 K78 ["Backdrop"]
+  CALL R9 3 1
+  JUMP [+383]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K11 ["createElement"]
+  GETUPVAL R12 9
+  GETTABLEKS R11 R12 K76 ["FoundationDialogRootZIndex"]
+  JUMPIFNOT R11 [+2]
+  GETUPVAL R10 10
+  JUMP [+3]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K77 ["Fragment"]
+  GETUPVAL R13 9
+  GETTABLEKS R12 R13 K76 ["FoundationDialogRootZIndex"]
+  JUMPIFNOT R12 [+24]
+  DUPTABLE R11 K87 [{"ZIndex", "tag", "testId"}]
+  GETUPVAL R14 9
+  GETTABLEKS R13 R14 K18 ["FoundationElevationSystem"]
+  JUMPIFNOT R13 [+3]
+  GETTABLEKS R12 R7 K19 ["zIndex"]
+  JUMP [+1]
+  GETUPVAL R12 11
+  SETTABLEKS R12 R11 K13 ["ZIndex"]
+  LOADK R12 K88 ["size-full"]
+  SETTABLEKS R12 R11 K12 ["tag"]
+  LOADK R13 K89 ["%*--container"]
+  GETTABLEKS R15 R1 K14 ["testId"]
+  NAMECALL R13 R13 K21 ["format"]
+  CALL R13 2 1
+  MOVE R12 R13
+  SETTABLEKS R12 R11 K14 ["testId"]
+  JUMP [+1]
+  LOADNIL R11
+  DUPTABLE R12 K91 [{"Backdrop", "DialogShadowWrapper"}]
+  GETTABLEKS R14 R1 K17 ["hasBackdrop"]
+  JUMPIFNOT R14 [+60]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K11 ["createElement"]
+  GETUPVAL R14 10
+  DUPTABLE R15 K93 [{"tag", "Size", "stateLayer", "onActivated", "backgroundStyle", "ZIndex", "testId"}]
+  GETUPVAL R18 9
+  GETTABLEKS R17 R18 K10 ["FoundationDialogOversizedBackdrop"]
+  JUMPIFNOT R17 [+2]
+  LOADK R16 K94 ["position-center-center anchor-center-center"]
+  JUMP [+1]
+  LOADK R16 K82 ["size-full-full"]
+  SETTABLEKS R16 R15 K12 ["tag"]
+  GETUPVAL R18 9
+  GETTABLEKS R17 R18 K10 ["FoundationDialogOversizedBackdrop"]
+  JUMPIFNOT R17 [+6]
+  GETIMPORT R16 K96 [UDim2.fromScale]
+  LOADN R17 2
+  LOADN R18 2
+  CALL R16 2 1
+  JUMP [+1]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K92 ["Size"]
+  DUPTABLE R16 K52 [{"affordance"}]
+  GETUPVAL R18 16
+  GETTABLEKS R17 R18 K53 ["None"]
+  SETTABLEKS R17 R16 K51 ["affordance"]
+  SETTABLEKS R16 R15 K40 ["stateLayer"]
+  NEWCLOSURE R16 P1
+  CAPTURE VAL R1
+  CAPTURE UPVAL U20
+  SETTABLEKS R16 R15 K43 ["onActivated"]
+  GETTABLEKS R17 R2 K83 ["backdrop"]
+  GETTABLEKS R16 R17 K80 ["backgroundStyle"]
+  SETTABLEKS R16 R15 K80 ["backgroundStyle"]
+  LOADN R16 2
+  SETTABLEKS R16 R15 K13 ["ZIndex"]
+  LOADK R17 K84 ["%*--backdrop"]
+  GETTABLEKS R19 R1 K14 ["testId"]
+  NAMECALL R17 R17 K21 ["format"]
+  CALL R17 2 1
+  MOVE R16 R17
+  SETTABLEKS R16 R15 K14 ["testId"]
+  CALL R13 2 1
+  JUMP [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K78 ["Backdrop"]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K11 ["createElement"]
+  GETUPVAL R14 10
+  DUPTABLE R15 K97 [{"tag", "ZIndex"}]
+  GETTABLEKS R17 R2 K16 ["container"]
+  GETTABLEKS R16 R17 K12 ["tag"]
+  SETTABLEKS R16 R15 K12 ["tag"]
+  LOADN R16 2
+  SETTABLEKS R16 R15 K13 ["ZIndex"]
+  DUPTABLE R16 K23 [{"Shadow"}]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K11 ["createElement"]
+  GETUPVAL R18 12
+  DUPTABLE R19 K98 [{"Image", "Size", "slice", "imageStyle", "testId"}]
+  GETUPVAL R20 13
+  SETTABLEKS R20 R19 K24 ["Image"]
+  DUPCLOSURE R22 K99 [PROTO_2]
+  CAPTURE UPVAL U14
+  NAMECALL R20 R5 K100 ["map"]
+  CALL R20 2 1
+  SETTABLEKS R20 R19 K92 ["Size"]
+  DUPTABLE R20 K31 [{"center", "scale"}]
+  GETIMPORT R21 K34 [Rect.new]
+  GETUPVAL R22 14
+  GETUPVAL R23 14
+  GETUPVAL R24 14
+  GETUPVAL R25 14
+  CALL R21 4 1
+  SETTABLEKS R21 R20 K29 ["center"]
+  LOADN R21 2
+  SETTABLEKS R21 R20 K30 ["scale"]
+  SETTABLEKS R20 R19 K25 ["slice"]
+  GETTABLEKS R21 R2 K28 ["shadow"]
+  GETTABLEKS R20 R21 K26 ["imageStyle"]
+  SETTABLEKS R20 R19 K26 ["imageStyle"]
+  LOADK R21 K35 ["%*--shadow"]
+  GETTABLEKS R23 R1 K14 ["testId"]
+  NAMECALL R21 R21 K21 ["format"]
+  CALL R21 2 1
+  MOVE R20 R21
+  SETTABLEKS R20 R19 K14 ["testId"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K22 ["Shadow"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K90 ["DialogShadowWrapper"]
+  DUPTABLE R13 K101 [{"Dialog"}]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K11 ["createElement"]
+  GETUPVAL R15 10
+  DUPTABLE R16 K97 [{"tag", "ZIndex"}]
+  GETTABLEKS R18 R2 K16 ["container"]
+  GETTABLEKS R17 R18 K12 ["tag"]
+  SETTABLEKS R17 R16 K12 ["tag"]
+  LOADN R17 3
+  SETTABLEKS R17 R16 K13 ["ZIndex"]
+  DUPTABLE R17 K104 [{"DialogFlexStart", "DialogInner", "DialogFlexEnd"}]
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K11 ["createElement"]
+  GETUPVAL R19 10
+  DUPTABLE R20 K105 [{"tag", "LayoutOrder"}]
+  LOADK R21 K106 ["fill"]
+  SETTABLEKS R21 R20 K12 ["tag"]
+  LOADN R21 0
+  SETTABLEKS R21 R20 K1 ["LayoutOrder"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K102 ["DialogFlexStart"]
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K11 ["createElement"]
+  GETUPVAL R19 10
+  GETUPVAL R20 15
+  MOVE R21 R1
+  DUPTABLE R22 K44 [{"tag", "ref", "sizeConstraint", "stateLayer", "selection", "selectionGroup", "onActivated"}]
+  GETTABLEKS R24 R2 K3 ["inner"]
+  GETTABLEKS R23 R24 K12 ["tag"]
+  SETTABLEKS R23 R22 K12 ["tag"]
+  GETTABLEKS R23 R1 K45 ["forwardRef"]
+  SETTABLEKS R23 R22 K38 ["ref"]
+  DUPTABLE R23 K47 [{"MaxSize"}]
+  GETIMPORT R24 K49 [Vector2.new]
+  MOVE R25 R3
+  LOADK R26 K50 [∞]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K46 ["MaxSize"]
+  SETTABLEKS R23 R22 K39 ["sizeConstraint"]
+  DUPTABLE R23 K52 [{"affordance"}]
+  GETUPVAL R25 16
+  GETTABLEKS R24 R25 K53 ["None"]
+  SETTABLEKS R24 R23 K51 ["affordance"]
+  SETTABLEKS R23 R22 K40 ["stateLayer"]
+  GETUPVAL R25 9
+  GETTABLEKS R24 R25 K54 ["FoundationDialogUpdateSelection"]
+  JUMPIFNOT R24 [+4]
+  GETUPVAL R24 17
+  GETTABLEKS R23 R24 K55 ["nonSelectable"]
+  JUMP [+1]
+  LOADNIL R23
+  SETTABLEKS R23 R22 K41 ["selection"]
+  GETUPVAL R25 9
+  GETTABLEKS R24 R25 K54 ["FoundationDialogUpdateSelection"]
+  JUMPIFNOT R24 [+4]
+  GETUPVAL R24 17
+  GETTABLEKS R23 R24 K56 ["isolatedSelectionGroup"]
+  JUMP [+1]
+  LOADNIL R23
+  SETTABLEKS R23 R22 K42 ["selectionGroup"]
+  GETUPVAL R24 0
+  GETTABLEKS R23 R24 K57 ["noop"]
+  SETTABLEKS R23 R22 K43 ["onActivated"]
+  CALL R20 2 1
+  DUPTABLE R21 K60 [{"CloseAffordance", "DialogBody"}]
+  GETTABLEKS R23 R1 K61 ["onClose"]
+  JUMPIFNOT R23 [+46]
+  GETUPVAL R23 3
+  GETTABLEKS R22 R23 K11 ["createElement"]
+  GETUPVAL R23 18
+  DUPTABLE R24 K64 [{"onActivated", "Position", "AnchorPoint", "ZIndex", "testId"}]
+  GETTABLEKS R25 R1 K61 ["onClose"]
+  SETTABLEKS R25 R24 K43 ["onActivated"]
+  GETIMPORT R25 K66 [UDim2.new]
+  LOADN R26 1
+  GETTABLEKS R29 R2 K67 ["closeAffordance"]
+  GETTABLEKS R28 R29 K68 ["offset"]
+  MINUS R27 R28
+  LOADN R28 0
+  GETTABLEKS R30 R2 K67 ["closeAffordance"]
+  GETTABLEKS R29 R30 K68 ["offset"]
+  CALL R25 4 1
+  SETTABLEKS R25 R24 K62 ["Position"]
+  GETIMPORT R25 K49 [Vector2.new]
+  LOADN R26 1
+  LOADN R27 0
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K63 ["AnchorPoint"]
+  LOADN R25 2
+  SETTABLEKS R25 R24 K13 ["ZIndex"]
+  LOADK R26 K69 ["%*--close-affordance"]
+  GETTABLEKS R28 R1 K14 ["testId"]
+  NAMECALL R26 R26 K21 ["format"]
+  CALL R26 2 1
+  MOVE R25 R26
+  SETTABLEKS R25 R24 K14 ["testId"]
+  CALL R22 2 1
+  JUMP [+1]
+  LOADNIL R22
+  SETTABLEKS R22 R21 K58 ["CloseAffordance"]
+  GETUPVAL R23 3
+  GETTABLEKS R22 R23 K11 ["createElement"]
+  GETUPVAL R23 10
+  DUPTABLE R24 K70 [{"tag", "ref", "testId"}]
+  GETTABLEKS R26 R2 K71 ["body"]
+  GETTABLEKS R25 R26 K12 ["tag"]
+  SETTABLEKS R25 R24 K12 ["tag"]
+  SETTABLEKS R4 R24 K38 ["ref"]
+  LOADK R26 K72 ["%*--body"]
+  GETTABLEKS R28 R1 K14 ["testId"]
+  NAMECALL R26 R26 K21 ["format"]
+  CALL R26 2 1
+  MOVE R25 R26
+  SETTABLEKS R25 R24 K14 ["testId"]
+  GETUPVAL R27 9
+  GETTABLEKS R26 R27 K18 ["FoundationElevationSystem"]
+  JUMPIFNOT R26 [+11]
+  GETUPVAL R26 3
+  GETTABLEKS R25 R26 K11 ["createElement"]
+  GETUPVAL R26 19
+  DUPTABLE R27 K74 [{"owner"}]
+  SETTABLEKS R7 R27 K73 ["owner"]
+  GETTABLEKS R28 R1 K75 ["children"]
+  CALL R25 3 1
+  JUMP [+2]
+  GETTABLEKS R25 R1 K75 ["children"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K59 ["DialogBody"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K36 ["DialogInner"]
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K11 ["createElement"]
+  GETUPVAL R19 10
+  DUPTABLE R20 K105 [{"tag", "LayoutOrder"}]
+  LOADK R21 K106 ["fill"]
+  SETTABLEKS R21 R20 K12 ["tag"]
+  LOADN R21 2
+  SETTABLEKS R21 R20 K1 ["LayoutOrder"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K103 ["DialogFlexEnd"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K6 ["Dialog"]
+  CALL R9 4 1
+  GETTABLEKS R10 R1 K107 ["disablePortal"]
+  JUMPIF R10 [+2]
+  JUMPIFNOTEQKNIL R6 [+2]
+  RETURN R9 1
+  GETUPVAL R11 21
+  GETTABLEKS R10 R11 K108 ["createPortal"]
+  MOVE R11 R9
+  MOVE R12 R6
+  CALL R10 2 -1
+  RETURN R10 -1
+
+PROTO_4:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  GETUPVAL R4 1
+  CALL R2 2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K0 ["createElement"]
+  GETUPVAL R4 3
+  DUPTABLE R5 K4 [{"size", "responsiveSize", "testId"}]
+  GETTABLEKS R6 R2 K1 ["size"]
+  SETTABLEKS R6 R5 K1 ["size"]
+  GETTABLEKS R6 R2 K1 ["size"]
+  SETTABLEKS R6 R5 K2 ["responsiveSize"]
+  GETTABLEKS R6 R2 K3 ["testId"]
+  SETTABLEKS R6 R5 K3 ["testId"]
+  DUPTABLE R6 K6 [{"Dialog"}]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K0 ["createElement"]
+  GETUPVAL R8 4
+  GETUPVAL R10 5
+  GETTABLEKS R9 R10 K7 ["assign"]
+  NEWTABLE R10 0 0
+  MOVE R11 R2
+  DUPTABLE R12 K9 [{"forwardRef"}]
+  SETTABLEKS R1 R12 K8 ["forwardRef"]
+  CALL R9 3 -1
+  CALL R7 -1 1
+  SETTABLEKS R7 R6 K5 ["Dialog"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["ReactRoblox"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K9 ["Dash"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R0 K10 ["Constants"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K11 ["Components"]
+  GETTABLEKS R7 R8 K12 ["View"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K11 ["Components"]
+  GETTABLEKS R8 R9 K13 ["CloseAffordance"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R0 K11 ["Components"]
+  GETTABLEKS R9 R10 K14 ["Image"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R12 R0 K15 ["Providers"]
+  GETTABLEKS R11 R12 K16 ["Overlay"]
+  GETTABLEKS R10 R11 K17 ["useOverlay"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R12 R0 K18 ["Enums"]
+  GETTABLEKS R11 R12 K19 ["DialogSize"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R13 R0 K18 ["Enums"]
+  GETTABLEKS R12 R13 K20 ["OnCloseCallbackReason"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R0 K18 ["Enums"]
+  GETTABLEKS R13 R14 K21 ["StateLayerAffordance"]
+  CALL R12 1 1
+  GETIMPORT R13 K6 [require]
+  GETTABLEKS R15 R0 K22 ["Utility"]
+  GETTABLEKS R14 R15 K23 ["Flags"]
+  CALL R13 1 1
+  GETIMPORT R14 K6 [require]
+  GETTABLEKS R16 R0 K22 ["Utility"]
+  GETTABLEKS R15 R16 K24 ["withCommonProps"]
+  CALL R14 1 1
+  GETIMPORT R15 K6 [require]
+  GETTABLEKS R17 R0 K22 ["Utility"]
+  GETTABLEKS R16 R17 K25 ["withDefaults"]
+  CALL R15 1 1
+  GETIMPORT R16 K6 [require]
+  GETTABLEKS R18 R0 K22 ["Utility"]
+  GETTABLEKS R17 R18 K26 ["useScaledValue"]
+  CALL R16 1 1
+  GETIMPORT R17 K6 [require]
+  GETTABLEKS R19 R0 K11 ["Components"]
+  GETTABLEKS R18 R19 K27 ["Types"]
+  CALL R17 1 1
+  GETIMPORT R18 K6 [require]
+  GETIMPORT R21 K1 [script]
+  GETTABLEKS R20 R21 K4 ["Parent"]
+  GETTABLEKS R19 R20 K27 ["Types"]
+  CALL R18 1 1
+  GETIMPORT R20 K6 [require]
+  GETIMPORT R23 K1 [script]
+  GETTABLEKS R22 R23 K4 ["Parent"]
+  GETTABLEKS R21 R22 K28 ["useDialogVariants"]
+  CALL R20 1 1
+  GETTABLEKS R19 R20 K28 ["useDialogVariants"]
+  GETIMPORT R20 K6 [require]
+  GETIMPORT R23 K1 [script]
+  GETTABLEKS R22 R23 K4 ["Parent"]
+  GETTABLEKS R21 R22 K29 ["useDialogSize"]
+  CALL R20 1 1
+  GETIMPORT R21 K6 [require]
+  GETIMPORT R24 K1 [script]
+  GETTABLEKS R23 R24 K4 ["Parent"]
+  GETTABLEKS R22 R23 K30 ["useDialogResponsiveSize"]
+  CALL R21 1 1
+  GETIMPORT R22 K6 [require]
+  GETIMPORT R25 K1 [script]
+  GETTABLEKS R24 R25 K4 ["Parent"]
+  GETTABLEKS R23 R24 K31 ["DialogProvider"]
+  CALL R22 1 1
+  GETIMPORT R23 K6 [require]
+  GETTABLEKS R26 R0 K15 ["Providers"]
+  GETTABLEKS R25 R26 K32 ["Elevation"]
+  GETTABLEKS R24 R25 K33 ["useElevation"]
+  CALL R23 1 1
+  GETIMPORT R25 K6 [require]
+  GETTABLEKS R28 R0 K15 ["Providers"]
+  GETTABLEKS R27 R28 K32 ["Elevation"]
+  GETTABLEKS R26 R27 K34 ["ElevationProvider"]
+  CALL R25 1 1
+  GETTABLEKS R24 R25 K35 ["ElevationOwnerScope"]
+  GETIMPORT R25 K6 [require]
+  GETTABLEKS R27 R0 K18 ["Enums"]
+  GETTABLEKS R26 R27 K36 ["ElevationLayer"]
+  CALL R25 1 1
+  DUPTABLE R26 K41 [{"size", "disablePortal", "hasBackdrop", "testId"}]
+  GETTABLEKS R27 R10 K42 ["Medium"]
+  SETTABLEKS R27 R26 K37 ["size"]
+  LOADB R27 1
+  SETTABLEKS R27 R26 K38 ["disablePortal"]
+  LOADB R27 0
+  SETTABLEKS R27 R26 K39 ["hasBackdrop"]
+  LOADK R27 K43 ["--foundation-dialog"]
+  SETTABLEKS R27 R26 K40 ["testId"]
+  GETTABLEKS R27 R5 K44 ["SHADOW_IMAGE"]
+  GETTABLEKS R28 R5 K45 ["SHADOW_SIZE"]
+  GETTABLEKS R30 R13 K46 ["FoundationDialogUpdateZIndex"]
+  JUMPIFNOT R30 [+2]
+  LOADN R29 6
+  JUMP [+1]
+  LOADN R29 3
+  DUPCLOSURE R30 K47 [PROTO_3]
+  CAPTURE VAL R4
+  CAPTURE VAL R19
+  CAPTURE VAL R16
+  CAPTURE VAL R2
+  CAPTURE VAL R20
+  CAPTURE VAL R9
+  CAPTURE VAL R23
+  CAPTURE VAL R25
+  CAPTURE VAL R21
+  CAPTURE VAL R13
+  CAPTURE VAL R6
+  CAPTURE VAL R29
+  CAPTURE VAL R8
+  CAPTURE VAL R27
+  CAPTURE VAL R28
+  CAPTURE VAL R14
+  CAPTURE VAL R12
+  CAPTURE VAL R18
+  CAPTURE VAL R7
+  CAPTURE VAL R24
+  CAPTURE VAL R11
+  CAPTURE VAL R3
+  DUPCLOSURE R31 K48 [PROTO_4]
+  CAPTURE VAL R15
+  CAPTURE VAL R26
+  CAPTURE VAL R2
+  CAPTURE VAL R22
+  CAPTURE VAL R30
+  CAPTURE VAL R4
+  GETTABLEKS R32 R2 K49 ["memo"]
+  GETTABLEKS R33 R2 K50 ["forwardRef"]
+  MOVE R34 R31
+  CALL R33 1 -1
+  CALL R32 -1 -1
+  RETURN R32 -1

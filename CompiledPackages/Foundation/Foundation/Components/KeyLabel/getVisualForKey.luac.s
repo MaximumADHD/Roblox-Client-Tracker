@@ -1,0 +1,62 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLE R1 R2 R0
+  JUMPIFNOT R1 [+3]
+  GETUPVAL R2 0
+  GETTABLE R1 R2 R0
+  RETURN R1 1
+  LOADNIL R1
+  GETUPVAL R2 1
+  MOVE R4 R0
+  NAMECALL R2 R2 K0 ["GetImageForKeyCode"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+17]
+  JUMPIFEQKS R2 K1 [""] [+16]
+  DUPTABLE R3 K5 [{"keyVisualType", "size", "key"}]
+  LOADK R4 K6 ["Image"]
+  SETTABLEKS R4 R3 K2 ["keyVisualType"]
+  GETIMPORT R4 K9 [UDim2.fromScale]
+  LOADK R5 K10 [0.7]
+  LOADK R6 K10 [0.7]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K3 ["size"]
+  SETTABLEKS R2 R3 K4 ["key"]
+  MOVE R1 R3
+  RETURN R1 1
+  GETUPVAL R3 1
+  MOVE R5 R0
+  NAMECALL R3 R3 K11 ["GetStringForKeyCode"]
+  CALL R3 2 1
+  MOVE R2 R3
+  DUPTABLE R3 K5 [{"keyVisualType", "size", "key"}]
+  LOADK R4 K12 ["String"]
+  SETTABLEKS R4 R3 K2 ["keyVisualType"]
+  GETIMPORT R4 K9 [UDim2.fromScale]
+  LOADK R5 K13 [0.8]
+  LOADK R6 K13 [0.8]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K3 ["size"]
+  ORK R4 R2 K1 [""]
+  SETTABLEKS R4 R3 K4 ["key"]
+  MOVE R1 R3
+  GETUPVAL R3 0
+  SETTABLE R1 R3 R0
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Utility"]
+  GETTABLEKS R4 R5 K7 ["Wrappers"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K8 ["Services"]
+  GETTABLEKS R1 R2 K9 ["UserInputService"]
+  NEWTABLE R2 0 0
+  DUPCLOSURE R3 K10 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  RETURN R3 1

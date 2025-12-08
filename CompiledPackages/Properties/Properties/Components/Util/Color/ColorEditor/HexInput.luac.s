@@ -1,0 +1,146 @@
+PROTO_0:
+  GETTABLEKS R3 R0 K1 ["Text"]
+  LENGTH R2 R3
+  ADDK R1 R2 K0 [1]
+  SETTABLEKS R1 R0 K2 ["CursorPosition"]
+  LOADN R1 1
+  SETTABLEKS R1 R0 K3 ["SelectionStart"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["onFocused"]
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["onFocused"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  NAMECALL R1 R0 K0 ["ReleaseFocus"]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["current"]
+  JUMPIFEQKNIL R1 [+7]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["current"]
+  NAMECALL R1 R1 K2 ["CaptureFocus"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useRef"]
+  LOADNIL R2
+  CALL R1 1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["useCallback"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NEWTABLE R4 0 1
+  GETTABLEKS R5 R0 K2 ["onFocused"]
+  SETLIST R4 R5 1 [1]
+  CALL R2 2 1
+  GETUPVAL R3 1
+  CALL R3 0 1
+  GETUPVAL R4 2
+  GETUPVAL R5 3
+  DUPTABLE R6 K5 [{"LayoutOrder", "tag"}]
+  GETTABLEKS R7 R0 K6 ["layoutOrder"]
+  SETTABLEKS R7 R6 K3 ["LayoutOrder"]
+  LOADK R7 K7 ["size-full-full row padding-left-xxsmall"]
+  SETTABLEKS R7 R6 K4 ["tag"]
+  DUPTABLE R7 K10 [{"Hashtag", "HexBox"}]
+  GETUPVAL R8 2
+  GETUPVAL R9 4
+  DUPTABLE R10 K15 [{"layoutOrder", "size", "text", "automaticSize", "onFocus"}]
+  MOVE R11 R3
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K6 ["layoutOrder"]
+  GETIMPORT R11 K18 [UDim2.fromScale]
+  LOADN R12 0
+  LOADN R13 1
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K11 ["size"]
+  LOADK R11 K19 ["#"]
+  SETTABLEKS R11 R10 K12 ["text"]
+  GETIMPORT R11 K23 [Enum.AutomaticSize.X]
+  SETTABLEKS R11 R10 K13 ["automaticSize"]
+  NEWCLOSURE R11 P1
+  CAPTURE VAL R1
+  SETTABLEKS R11 R10 K14 ["onFocus"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K8 ["Hashtag"]
+  GETUPVAL R8 2
+  GETUPVAL R9 4
+  DUPTABLE R10 K25 [{"layoutOrder", "size", "text", "onFocused", "onFocusLost"}]
+  MOVE R11 R3
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K6 ["layoutOrder"]
+  GETIMPORT R11 K18 [UDim2.fromScale]
+  LOADN R12 0
+  LOADN R13 1
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K11 ["size"]
+  GETTABLEKS R13 R0 K26 ["color3Part"]
+  GETTABLEKS R12 R13 K27 ["multiple"]
+  JUMPIFNOT R12 [+2]
+  LOADK R11 K27 ["multiple"]
+  JUMP [+10]
+  GETIMPORT R11 K30 [string.upper]
+  GETTABLEKS R13 R0 K26 ["color3Part"]
+  GETTABLEKS R12 R13 K31 ["value"]
+  NAMECALL R12 R12 K32 ["ToHex"]
+  CALL R12 1 -1
+  CALL R11 -1 1
+  SETTABLEKS R11 R10 K12 ["text"]
+  SETTABLEKS R2 R10 K2 ["onFocused"]
+  GETTABLEKS R11 R0 K24 ["onFocusLost"]
+  SETTABLEKS R11 R10 K24 ["onFocusLost"]
+  DUPTABLE R11 K34 [{"UIFlexItem"}]
+  GETUPVAL R12 2
+  LOADK R13 K33 ["UIFlexItem"]
+  DUPTABLE R14 K36 [{"FlexMode"}]
+  GETIMPORT R15 K39 [Enum.UIFlexMode.Fill]
+  SETTABLEKS R15 R14 K35 ["FlexMode"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K33 ["UIFlexItem"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K9 ["HexBox"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["PlaceholderTextBox"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R0 K11 ["PropertyTypes"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["React"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Parent"]
+  GETTABLEKS R6 R7 K13 ["ReactUtils"]
+  CALL R5 1 1
+  GETTABLEKS R6 R1 K14 ["View"]
+  GETTABLEKS R7 R4 K15 ["createElement"]
+  GETTABLEKS R8 R5 K16 ["createNextOrder"]
+  DUPCLOSURE R9 K17 [PROTO_2]
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  RETURN R9 1

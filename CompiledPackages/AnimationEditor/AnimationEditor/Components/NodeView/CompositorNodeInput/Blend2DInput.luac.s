@@ -1,0 +1,267 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Value"]
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL1 ASSERT R2 [+2]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["InputMode"]
+  GETIMPORT R2 K7 [Enum.AnimationNodeBlend2DInputMode.Polar]
+  JUMPIFNOTEQ R1 R2 [+7]
+  FASTCALL1 MATH_RAD R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K10 [math.rad]
+  CALL R1 1 1
+  MOVE R0 R1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K11 ["OnChanged"]
+  DUPTABLE R2 K14 [{"X", "Y"}]
+  SETTABLEKS R0 R2 K12 ["X"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["Value"]
+  GETTABLEKS R3 R4 K13 ["Y"]
+  SETTABLEKS R3 R2 K13 ["Y"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Value"]
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL1 ASSERT R2 [+2]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["OnChanged"]
+  DUPTABLE R2 K6 [{"X", "Y"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["Value"]
+  GETTABLEKS R3 R4 K4 ["X"]
+  SETTABLEKS R3 R2 K4 ["X"]
+  SETTABLEKS R0 R2 K5 ["Y"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useCallback"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["formatDegrees"]
+  NEWTABLE R3 0 0
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useCallback"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NEWTABLE R4 0 2
+  GETTABLEKS R5 R0 K2 ["OnChanged"]
+  GETTABLEKS R6 R0 K3 ["Value"]
+  JUMPIFNOT R6 [+4]
+  GETTABLEKS R7 R0 K3 ["Value"]
+  GETTABLEKS R6 R7 K4 ["Y"]
+  SETLIST R4 R5 2 [1]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["useCallback"]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R0
+  NEWTABLE R5 0 2
+  GETTABLEKS R6 R0 K2 ["OnChanged"]
+  GETTABLEKS R7 R0 K3 ["Value"]
+  JUMPIFNOT R7 [+4]
+  GETTABLEKS R8 R0 K3 ["Value"]
+  GETTABLEKS R7 R8 K5 ["X"]
+  SETLIST R5 R6 2 [1]
+  CALL R3 2 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["createElement"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K7 ["View"]
+  DUPTABLE R6 K10 [{"tag", "LayoutOrder"}]
+  LOADK R7 K11 ["row auto-y gap-small size-full-700 align-y-center flex-x-between"]
+  SETTABLEKS R7 R6 K8 ["tag"]
+  GETTABLEKS R7 R0 K9 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K9 ["LayoutOrder"]
+  DUPTABLE R7 K13 [{"CompositorNodeInputLabel", "X", "Y"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K6 ["createElement"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K14 ["Text"]
+  DUPTABLE R10 K15 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R11 K16 ["text-body-small text-align-x-left auto-xy"]
+  SETTABLEKS R11 R10 K8 ["tag"]
+  GETTABLEKS R11 R0 K17 ["Name"]
+  SETTABLEKS R11 R10 K14 ["Text"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K9 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K12 ["CompositorNodeInputLabel"]
+  GETTABLEKS R9 R0 K3 ["Value"]
+  JUMPIFEQKNIL R9 [+120]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K6 ["createElement"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K18 ["NumberInput"]
+  DUPTABLE R10 K31 [{"size", "width", "label", "value", "formatAsString", "step", "minimum", "maximum", "LayoutOrder", "precision", "onChanged", "controlsVariant", "isScrubbable"}]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K32 ["Enums"]
+  GETTABLEKS R12 R13 K33 ["InputSize"]
+  GETTABLEKS R11 R12 K34 ["XSmall"]
+  SETTABLEKS R11 R10 K19 ["size"]
+  GETIMPORT R11 K37 [UDim.new]
+  LOADN R12 0
+  LOADN R13 45
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K20 ["width"]
+  LOADK R11 K38 [""]
+  SETTABLEKS R11 R10 K21 ["label"]
+  GETTABLEKS R12 R0 K39 ["InputMode"]
+  GETIMPORT R13 K43 [Enum.AnimationNodeBlend2DInputMode.Polar]
+  JUMPIFNOTEQ R12 R13 [+16]
+  GETTABLEKS R16 R0 K3 ["Value"]
+  GETTABLEKS R15 R16 K5 ["X"]
+  FASTCALL1 MATH_DEG R15 [+2]
+  GETIMPORT R14 K47 [math.deg]
+  CALL R14 1 1
+  MULK R13 R14 K44 [100]
+  FASTCALL1 MATH_ROUND R13 [+2]
+  GETIMPORT R12 K49 [math.round]
+  CALL R12 1 1
+  DIVK R11 R12 K44 [100]
+  JUMP [+4]
+  GETTABLEKS R12 R0 K3 ["Value"]
+  GETTABLEKS R11 R12 K5 ["X"]
+  SETTABLEKS R11 R10 K22 ["value"]
+  GETTABLEKS R12 R0 K39 ["InputMode"]
+  GETIMPORT R13 K43 [Enum.AnimationNodeBlend2DInputMode.Polar]
+  JUMPIFNOTEQ R12 R13 [+3]
+  MOVE R11 R1
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K23 ["formatAsString"]
+  GETTABLEKS R12 R0 K39 ["InputMode"]
+  GETIMPORT R13 K43 [Enum.AnimationNodeBlend2DInputMode.Polar]
+  JUMPIFNOTEQ R12 R13 [+3]
+  LOADN R11 5
+  JUMP [+1]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K24 ["step"]
+  GETTABLEKS R12 R0 K39 ["InputMode"]
+  GETIMPORT R13 K43 [Enum.AnimationNodeBlend2DInputMode.Polar]
+  JUMPIFNOTEQ R12 R13 [+3]
+  LOADN R11 76
+  JUMP [+1]
+  LOADK R11 K50 [-∞]
+  SETTABLEKS R11 R10 K25 ["minimum"]
+  GETTABLEKS R12 R0 K39 ["InputMode"]
+  GETIMPORT R13 K43 [Enum.AnimationNodeBlend2DInputMode.Polar]
+  JUMPIFNOTEQ R12 R13 [+3]
+  LOADN R11 180
+  JUMP [+1]
+  LOADK R11 K51 [∞]
+  SETTABLEKS R11 R10 K26 ["maximum"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K9 ["LayoutOrder"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K27 ["precision"]
+  SETTABLEKS R2 R10 K28 ["onChanged"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K32 ["Enums"]
+  GETTABLEKS R12 R13 K52 ["NumberInputControlsVariant"]
+  GETTABLEKS R11 R12 K53 ["None"]
+  SETTABLEKS R11 R10 K29 ["controlsVariant"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K30 ["isScrubbable"]
+  CALL R8 2 1
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K5 ["X"]
+  GETTABLEKS R9 R0 K3 ["Value"]
+  JUMPIFEQKNIL R9 [+72]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K6 ["createElement"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K18 ["NumberInput"]
+  DUPTABLE R10 K54 [{"size", "width", "label", "value", "minimum", "LayoutOrder", "precision", "onChanged", "controlsVariant", "isScrubbable"}]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K32 ["Enums"]
+  GETTABLEKS R12 R13 K33 ["InputSize"]
+  GETTABLEKS R11 R12 K34 ["XSmall"]
+  SETTABLEKS R11 R10 K19 ["size"]
+  GETIMPORT R11 K37 [UDim.new]
+  LOADN R12 0
+  LOADN R13 45
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K20 ["width"]
+  LOADK R11 K38 [""]
+  SETTABLEKS R11 R10 K21 ["label"]
+  GETTABLEKS R15 R0 K3 ["Value"]
+  GETTABLEKS R14 R15 K4 ["Y"]
+  MULK R13 R14 K44 [100]
+  FASTCALL1 MATH_ROUND R13 [+2]
+  GETIMPORT R12 K49 [math.round]
+  CALL R12 1 1
+  DIVK R11 R12 K44 [100]
+  SETTABLEKS R11 R10 K22 ["value"]
+  GETTABLEKS R12 R0 K39 ["InputMode"]
+  GETIMPORT R13 K43 [Enum.AnimationNodeBlend2DInputMode.Polar]
+  JUMPIFNOTEQ R12 R13 [+3]
+  LOADN R11 0
+  JUMP [+1]
+  LOADK R11 K50 [-∞]
+  SETTABLEKS R11 R10 K25 ["minimum"]
+  LOADN R11 3
+  SETTABLEKS R11 R10 K9 ["LayoutOrder"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K27 ["precision"]
+  SETTABLEKS R3 R10 K28 ["onChanged"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K32 ["Enums"]
+  GETTABLEKS R12 R13 K52 ["NumberInputControlsVariant"]
+  GETTABLEKS R11 R12 K53 ["None"]
+  SETTABLEKS R11 R10 K29 ["controlsVariant"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K30 ["isScrubbable"]
+  CALL R8 2 1
+  JUMP [+1]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K4 ["Y"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Components"]
+  GETTABLEKS R5 R6 K9 ["NodeView"]
+  GETTABLEKS R4 R5 K10 ["CompositorNodeInput"]
+  GETTABLEKS R3 R4 K11 ["InputPanel"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Components"]
+  GETTABLEKS R6 R7 K9 ["NodeView"]
+  GETTABLEKS R5 R6 K12 ["CompositorNodeProperty"]
+  GETTABLEKS R4 R5 K13 ["PropertyUtils"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Parent"]
+  GETTABLEKS R5 R6 K14 ["React"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K15 [PROTO_2]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  RETURN R5 1

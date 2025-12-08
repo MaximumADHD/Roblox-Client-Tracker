@@ -103,18 +103,29 @@ PROTO_1:
   MOVE R5 R2
   MOVE R6 R0
   CONCAT R3 R4 R6
+  GETIMPORT R5 K3 [game]
+  LOADK R7 K4 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R5 R5 K5 ["GetEngineFeature"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+7]
   GETUPVAL R4 0
   MOVE R6 R3
   LOADN R7 0
-  NAMECALL R4 R4 K2 ["GetFreeModels"]
+  NAMECALL R4 R4 K6 ["GetFreeModelsAsync"]
+  CALL R4 3 1
+  JUMP [+6]
+  GETUPVAL R4 0
+  MOVE R6 R3
+  LOADN R7 0
+  NAMECALL R4 R4 K7 ["GetFreeModels"]
   CALL R4 3 1
   GETTABLEN R6 R4 1
-  FASTCALL2K ASSERT R6 K3 [+4]
-  LOADK R7 K3 ["Failed to get free models"]
-  GETIMPORT R5 K5 [assert]
+  FASTCALL2K ASSERT R6 K8 [+4]
+  LOADK R7 K8 ["Failed to get free models"]
+  GETIMPORT R5 K10 [assert]
   CALL R5 2 0
   GETTABLEN R6 R4 1
-  GETTABLEKS R5 R6 K6 ["Results"]
+  GETTABLEKS R5 R6 K11 ["Results"]
   MOVE R7 R5
   JUMPIFNOT R7 [+6]
   LENGTH R8 R5
@@ -122,15 +133,15 @@ PROTO_1:
   JUMPIFLT R9 R8 [+2]
   LOADB R7 0 +1
   LOADB R7 1
-  LOADK R9 K7 ["Failed to find \"%*\" via GetFreeModels"]
+  LOADK R9 K12 ["Failed to find \"%*\" via GetFreeModels"]
   MOVE R11 R0
-  NAMECALL R9 R9 K8 ["format"]
+  NAMECALL R9 R9 K13 ["format"]
   CALL R9 2 1
   MOVE R8 R9
   FASTCALL2 ASSERT R7 R8 [+3]
-  GETIMPORT R6 K5 [assert]
+  GETIMPORT R6 K10 [assert]
   CALL R6 2 0
-  GETIMPORT R6 K11 [table.create]
+  GETIMPORT R6 K16 [table.create]
   LENGTH R7 R5
   CALL R6 1 1
   MOVE R7 R5
@@ -139,13 +150,13 @@ PROTO_1:
   FORGPREP R7
   LOADN R12 6
   JUMPIFLT R12 R10 [+15]
-  GETTABLEKS R15 R11 K12 ["AssetId"]
+  GETTABLEKS R15 R11 K17 ["AssetId"]
   FASTCALL1 TOSTRING R15 [+2]
-  GETIMPORT R14 K14 [tostring]
+  GETIMPORT R14 K19 [tostring]
   CALL R14 1 1
   FASTCALL2 TABLE_INSERT R6 R14 [+4]
   MOVE R13 R6
-  GETIMPORT R12 K16 [table.insert]
+  GETIMPORT R12 K21 [table.insert]
   CALL R12 2 0
   FORGLOOP R7 2 [-16]
   RETURN R6 1
@@ -173,13 +184,24 @@ PROTO_2:
   MOVE R5 R2
   MOVE R6 R0
   CONCAT R3 R4 R6
+  GETIMPORT R5 K3 [game]
+  LOADK R7 K4 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R5 R5 K5 ["GetEngineFeature"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+7]
   GETUPVAL R4 0
   MOVE R6 R3
   LOADN R7 0
-  NAMECALL R4 R4 K2 ["GetFreeDecals"]
+  NAMECALL R4 R4 K6 ["GetFreeDecalsAsync"]
+  CALL R4 3 1
+  JUMP [+6]
+  GETUPVAL R4 0
+  MOVE R6 R3
+  LOADN R7 0
+  NAMECALL R4 R4 K7 ["GetFreeDecals"]
   CALL R4 3 1
   GETTABLEN R6 R4 1
-  GETTABLEKS R5 R6 K3 ["Results"]
+  GETTABLEKS R5 R6 K8 ["Results"]
   MOVE R7 R5
   JUMPIFNOT R7 [+6]
   LENGTH R8 R5
@@ -187,15 +209,15 @@ PROTO_2:
   JUMPIFLT R9 R8 [+2]
   LOADB R7 0 +1
   LOADB R7 1
-  LOADK R9 K4 ["Failed to find \"%*\" via GetFreeDecals"]
+  LOADK R9 K9 ["Failed to find \"%*\" via GetFreeDecals"]
   MOVE R11 R0
-  NAMECALL R9 R9 K5 ["format"]
+  NAMECALL R9 R9 K10 ["format"]
   CALL R9 2 1
   MOVE R8 R9
   FASTCALL2 ASSERT R7 R8 [+3]
-  GETIMPORT R6 K7 [assert]
+  GETIMPORT R6 K12 [assert]
   CALL R6 2 0
-  GETIMPORT R6 K10 [table.create]
+  GETIMPORT R6 K15 [table.create]
   LENGTH R7 R5
   CALL R6 1 1
   MOVE R7 R5
@@ -204,13 +226,13 @@ PROTO_2:
   FORGPREP R7
   LOADN R12 6
   JUMPIFLT R12 R10 [+15]
-  GETTABLEKS R15 R11 K11 ["AssetId"]
+  GETTABLEKS R15 R11 K16 ["AssetId"]
   FASTCALL1 TOSTRING R15 [+2]
-  GETIMPORT R14 K13 [tostring]
+  GETIMPORT R14 K18 [tostring]
   CALL R14 1 1
   FASTCALL2 TABLE_INSERT R6 R14 [+4]
   MOVE R13 R6
-  GETIMPORT R12 K15 [table.insert]
+  GETIMPORT R12 K20 [table.insert]
   CALL R12 2 0
   FORGLOOP R7 2 [-16]
   RETURN R6 1
@@ -242,13 +264,23 @@ PROTO_3:
   MOVE R7 R0
   CONCAT R4 R5 R7
   SETTABLEKS R4 R3 K6 ["SearchKeyword"]
+  GETIMPORT R5 K8 [game]
+  LOADK R7 K9 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R5 R5 K10 ["GetEngineFeature"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+6]
   GETUPVAL R4 0
   MOVE R6 R3
-  NAMECALL R4 R4 K7 ["SearchAudio"]
+  NAMECALL R4 R4 K11 ["SearchAudioAsync"]
   CALL R4 2 1
-  NAMECALL R5 R4 K8 ["GetCurrentPage"]
+  JUMP [+5]
+  GETUPVAL R4 0
+  MOVE R6 R3
+  NAMECALL R4 R4 K12 ["SearchAudio"]
+  CALL R4 2 1
+  NAMECALL R5 R4 K13 ["GetCurrentPage"]
   CALL R5 1 1
-  GETIMPORT R6 K11 [table.create]
+  GETIMPORT R6 K16 [table.create]
   LENGTH R7 R5
   CALL R6 1 1
   MOVE R7 R5
@@ -257,13 +289,13 @@ PROTO_3:
   FORGPREP R7
   LOADN R12 6
   JUMPIFLT R12 R10 [+15]
-  GETTABLEKS R15 R11 K12 ["Id"]
+  GETTABLEKS R15 R11 K17 ["Id"]
   FASTCALL1 TOSTRING R15 [+2]
-  GETIMPORT R14 K14 [tostring]
+  GETIMPORT R14 K19 [tostring]
   CALL R14 1 1
   FASTCALL2 TABLE_INSERT R6 R14 [+4]
   MOVE R13 R6
-  GETIMPORT R12 K16 [table.insert]
+  GETIMPORT R12 K21 [table.insert]
   CALL R12 2 0
   FORGLOOP R7 2 [-16]
   RETURN R6 1

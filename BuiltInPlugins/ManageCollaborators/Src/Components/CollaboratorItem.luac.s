@@ -836,7 +836,7 @@ MAIN:
   NAMECALL R23 R23 K3 ["GetFastFlag"]
   CALL R23 2 1
   GETIMPORT R24 K1 [game]
-  LOADK R26 K36 ["UpsellCollabSafety"]
+  LOADK R26 K36 ["UpsellCollabSafety2"]
   NAMECALL R24 R24 K3 ["GetFastFlag"]
   CALL R24 2 1
   NEWTABLE R25 8 0

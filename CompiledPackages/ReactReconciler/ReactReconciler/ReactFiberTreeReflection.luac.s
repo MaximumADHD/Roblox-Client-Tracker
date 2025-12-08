@@ -1,0 +1,482 @@
+PROTO_0:
+  MOVE R1 R0
+  MOVE R2 R0
+  GETTABLEKS R3 R0 K0 ["alternate"]
+  JUMPIF R3 [+26]
+  MOVE R3 R1
+  MOVE R1 R3
+  GETTABLEKS R5 R1 K1 ["flags"]
+  GETUPVAL R7 0
+  GETUPVAL R8 1
+  FASTCALL2 BIT32_BOR R7 R8 [+3]
+  GETIMPORT R6 K4 [bit32.bor]
+  CALL R6 2 1
+  FASTCALL2 BIT32_BAND R5 R6 [+3]
+  GETIMPORT R4 K6 [bit32.band]
+  CALL R4 2 1
+  GETUPVAL R5 2
+  JUMPIFEQ R4 R5 [+3]
+  GETTABLEKS R2 R1 K7 ["return_"]
+  GETTABLEKS R3 R1 K7 ["return_"]
+  JUMPIFNOT R3 [+8]
+  JUMPBACK [-24]
+  JUMP [+6]
+  GETTABLEKS R3 R1 K7 ["return_"]
+  JUMPIFNOT R3 [+3]
+  GETTABLEKS R1 R1 K7 ["return_"]
+  JUMPBACK [-6]
+  GETTABLEKS R3 R1 K8 ["tag"]
+  GETUPVAL R4 3
+  JUMPIFNOTEQ R3 R4 [+2]
+  RETURN R2 1
+  LOADNIL R3
+  RETURN R3 1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["tag"]
+  GETUPVAL R2 0
+  JUMPIFNOTEQ R1 R2 [+15]
+  GETTABLEKS R1 R0 K1 ["memoizedState"]
+  JUMPIFNOTEQKNIL R1 [+7]
+  GETTABLEKS R2 R0 K2 ["alternate"]
+  JUMPIFEQKNIL R2 [+3]
+  GETTABLEKS R1 R2 K1 ["memoizedState"]
+  JUMPIFNOT R1 [+3]
+  GETTABLEKS R2 R1 K3 ["dehydrated"]
+  RETURN R2 1
+  LOADNIL R1
+  RETURN R1 1
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["tag"]
+  GETUPVAL R3 0
+  JUMPIFNOTEQ R2 R3 [+6]
+  GETTABLEKS R2 R0 K1 ["stateNode"]
+  GETTABLEKS R1 R2 K2 ["containerInfo"]
+  RETURN R1 1
+  LOADNIL R1
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  CALL R2 1 1
+  JUMPIFEQ R2 R0 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["__DEV__"]
+  JUMPIFNOT R1 [+33]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["current"]
+  JUMPIFEQKNIL R1 [+29]
+  GETTABLEKS R2 R1 K2 ["tag"]
+  GETUPVAL R3 2
+  JUMPIFNOTEQ R2 R3 [+24]
+  GETTABLEKS R2 R1 K3 ["stateNode"]
+  GETTABLEKS R3 R2 K4 ["_warnedAboutRefsInRender"]
+  JUMPIF R3 [+15]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K5 ["error"]
+  LOADK R5 K6 ["%s is accessing isMounted inside its render() function. "]
+  LOADK R6 K7 ["render() should be a pure function of props and state. It should "]
+  LOADK R7 K8 ["never access something that requires stale data from the previous "]
+  LOADK R8 K9 ["render, such as refs. Move this logic to componentDidMount and "]
+  LOADK R9 K10 ["componentDidUpdate instead."]
+  CONCAT R4 R5 R9
+  GETUPVAL R6 4
+  GETTABLEKS R7 R1 K12 ["type"]
+  CALL R6 1 1
+  ORK R5 R6 K11 ["A component"]
+  CALL R3 2 0
+  LOADB R3 1
+  SETTABLEKS R3 R2 K4 ["_warnedAboutRefsInRender"]
+  GETUPVAL R1 5
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIF R1 [+2]
+  LOADB R2 0
+  RETURN R2 1
+  GETUPVAL R3 6
+  MOVE R4 R1
+  CALL R3 1 1
+  JUMPIFEQ R3 R1 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  CALL R3 1 1
+  JUMPIFEQ R3 R0 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  LOADK R3 K0 ["Unable to find node on an unmounted component."]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["alternate"]
+  JUMPIF R1 [+15]
+  GETUPVAL R2 0
+  MOVE R3 R0
+  CALL R2 1 1
+  GETUPVAL R3 1
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  LOADK R5 K1 ["Unable to find node on an unmounted component."]
+  CALL R3 2 0
+  JUMPIFEQ R2 R0 [+3]
+  LOADNIL R3
+  RETURN R3 1
+  RETURN R0 1
+  MOVE R2 R0
+  MOVE R3 R1
+  GETTABLEKS R4 R2 K2 ["return_"]
+  JUMPIFEQKNIL R4 [+120]
+  GETTABLEKS R5 R4 K0 ["alternate"]
+  JUMPIFNOTEQKNIL R5 [+9]
+  GETTABLEKS R6 R4 K2 ["return_"]
+  JUMPIFEQKNIL R6 [+112]
+  MOVE R2 R6
+  MOVE R3 R6
+  JUMP [+107]
+  JUMP [+107]
+  GETTABLEKS R6 R4 K3 ["child"]
+  GETTABLEKS R7 R5 K3 ["child"]
+  JUMPIFNOTEQ R6 R7 [+37]
+  GETTABLEKS R6 R4 K3 ["child"]
+  JUMPIFNOT R6 [+29]
+  JUMPIFNOTEQ R6 R2 [+12]
+  GETUPVAL R7 1
+  GETUPVAL R9 0
+  MOVE R10 R4
+  CALL R9 1 1
+  JUMPIFEQ R9 R4 [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  LOADK R9 K1 ["Unable to find node on an unmounted component."]
+  CALL R7 2 0
+  RETURN R0 1
+  JUMPIFNOTEQ R6 R3 [+12]
+  GETUPVAL R7 1
+  GETUPVAL R9 0
+  MOVE R10 R4
+  CALL R9 1 1
+  JUMPIFEQ R9 R4 [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  LOADK R9 K1 ["Unable to find node on an unmounted component."]
+  CALL R7 2 0
+  RETURN R1 1
+  GETTABLEKS R6 R6 K4 ["sibling"]
+  JUMPBACK [-30]
+  GETUPVAL R7 1
+  LOADB R8 0
+  LOADK R9 K1 ["Unable to find node on an unmounted component."]
+  CALL R7 2 0
+  GETTABLEKS R6 R2 K2 ["return_"]
+  GETTABLEKS R7 R3 K2 ["return_"]
+  JUMPIFEQ R6 R7 [+4]
+  MOVE R2 R4
+  MOVE R3 R5
+  JUMP [+44]
+  LOADB R6 0
+  GETTABLEKS R7 R4 K3 ["child"]
+  JUMPIFNOT R7 [+15]
+  JUMPIFNOTEQ R7 R2 [+5]
+  LOADB R6 1
+  MOVE R2 R4
+  MOVE R3 R5
+  JUMP [+9]
+  JUMPIFNOTEQ R7 R3 [+5]
+  LOADB R6 1
+  MOVE R3 R4
+  MOVE R2 R5
+  JUMP [+3]
+  GETTABLEKS R7 R7 K4 ["sibling"]
+  JUMPBACK [-16]
+  JUMPIF R6 [+24]
+  GETTABLEKS R7 R5 K3 ["child"]
+  JUMPIFNOT R7 [+15]
+  JUMPIFNOTEQ R7 R2 [+5]
+  LOADB R6 1
+  MOVE R2 R5
+  MOVE R3 R4
+  JUMP [+9]
+  JUMPIFNOTEQ R7 R3 [+5]
+  LOADB R6 1
+  MOVE R3 R5
+  MOVE R2 R4
+  JUMP [+3]
+  GETTABLEKS R7 R7 K4 ["sibling"]
+  JUMPBACK [-16]
+  GETUPVAL R8 1
+  MOVE R9 R6
+  LOADK R11 K5 ["Child was not found in either parent set. This indicates a bug "]
+  LOADK R12 K6 ["in React related to the return pointer. Please file an issue."]
+  CONCAT R10 R11 R12
+  CALL R8 2 0
+  GETUPVAL R6 1
+  GETTABLEKS R8 R2 K0 ["alternate"]
+  JUMPIFEQ R8 R3 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  LOADK R9 K7 ["Return fibers should always be each others' alternates. "]
+  LOADK R10 K8 ["This error is likely caused by a bug in React. Please file an issue."]
+  CONCAT R8 R9 R10
+  CALL R6 2 0
+  JUMPBACK [-123]
+  GETUPVAL R4 1
+  GETTABLEKS R6 R2 K9 ["tag"]
+  GETUPVAL R7 2
+  JUMPIFEQ R6 R7 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  LOADK R6 K1 ["Unable to find node on an unmounted component."]
+  CALL R4 2 0
+  GETTABLEKS R5 R2 K10 ["stateNode"]
+  GETTABLEKS R4 R5 K11 ["current"]
+  JUMPIFNOTEQ R4 R2 [+2]
+  RETURN R0 1
+  RETURN R1 1
+
+PROTO_7:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIF R1 [+2]
+  LOADNIL R2
+  RETURN R2 1
+  MOVE R2 R1
+  GETTABLEKS R3 R2 K0 ["child"]
+  GETTABLEKS R4 R2 K1 ["tag"]
+  GETUPVAL R5 1
+  JUMPIFEQ R4 R5 [+6]
+  GETTABLEKS R4 R2 K1 ["tag"]
+  GETUPVAL R5 2
+  JUMPIFNOTEQ R4 R5 [+2]
+  RETURN R2 1
+  JUMPIFNOT R3 [+4]
+  SETTABLEKS R2 R3 K2 ["return_"]
+  MOVE R2 R3
+  JUMP [+19]
+  JUMPIFNOTEQ R2 R1 [+3]
+  LOADNIL R4
+  RETURN R4 1
+  GETTABLEKS R4 R2 K2 ["return_"]
+  GETTABLEKS R5 R2 K3 ["sibling"]
+  JUMPIF R5 [+7]
+  JUMPIFNOT R4 [+2]
+  JUMPIFNOTEQ R4 R1 [+3]
+  LOADNIL R6
+  RETURN R6 1
+  MOVE R2 R4
+  JUMPBACK [-8]
+  SETTABLEKS R4 R5 K2 ["return_"]
+  MOVE R2 R5
+  JUMPBACK [-38]
+  LOADNIL R3
+  RETURN R3 1
+
+PROTO_8:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIF R1 [+2]
+  LOADNIL R2
+  RETURN R2 1
+  MOVE R2 R1
+  GETTABLEKS R3 R2 K0 ["child"]
+  GETTABLEKS R4 R2 K1 ["tag"]
+  GETUPVAL R5 1
+  JUMPIFEQ R4 R5 [+13]
+  GETTABLEKS R4 R2 K1 ["tag"]
+  GETUPVAL R5 2
+  JUMPIFEQ R4 R5 [+8]
+  GETUPVAL R4 3
+  JUMPIFNOT R4 [+6]
+  GETTABLEKS R4 R2 K1 ["tag"]
+  GETUPVAL R5 4
+  JUMPIFNOTEQ R4 R5 [+2]
+  RETURN R2 1
+  JUMPIFNOT R3 [+9]
+  GETTABLEKS R4 R2 K1 ["tag"]
+  GETUPVAL R5 5
+  JUMPIFEQ R4 R5 [+5]
+  SETTABLEKS R2 R3 K2 ["return_"]
+  MOVE R2 R3
+  JUMP [+19]
+  JUMPIFNOTEQ R2 R1 [+3]
+  LOADNIL R4
+  RETURN R4 1
+  GETTABLEKS R4 R2 K2 ["return_"]
+  GETTABLEKS R5 R2 K3 ["sibling"]
+  JUMPIF R5 [+7]
+  JUMPIFNOT R4 [+2]
+  JUMPIFNOTEQ R4 R1 [+3]
+  LOADNIL R6
+  RETURN R6 1
+  MOVE R2 R4
+  JUMPBACK [-8]
+  SETTABLEKS R4 R5 K2 ["return_"]
+  MOVE R2 R5
+  JUMPBACK [-50]
+  LOADNIL R3
+  RETURN R3 1
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["memoizedState"]
+  LOADB R2 0
+  GETTABLEKS R3 R0 K1 ["tag"]
+  GETUPVAL R4 0
+  JUMPIFNOTEQ R3 R4 [+10]
+  LOADB R2 0
+  JUMPIFEQKNIL R1 [+7]
+  GETTABLEKS R3 R1 K2 ["dehydrated"]
+  JUMPIFEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_10:
+  MOVE R2 R1
+  GETTABLEKS R3 R0 K0 ["alternate"]
+  JUMPIFEQKNIL R2 [+10]
+  JUMPIFEQ R2 R0 [+3]
+  JUMPIFNOTEQ R2 R3 [+3]
+  LOADB R4 1
+  RETURN R4 1
+  GETTABLEKS R2 R2 K1 ["return_"]
+  JUMPBACK [-11]
+  LOADB R4 0
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["ReactGlobals"]
+  CALL R1 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R0 K6 ["Shared"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K7 ["console"]
+  GETIMPORT R3 K4 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K2 ["Parent"]
+  GETTABLEKS R4 R5 K8 ["ReactInternalTypes"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K2 ["Parent"]
+  GETTABLEKS R5 R6 K9 ["ReactFiberHostConfig"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K2 ["Parent"]
+  GETTABLEKS R6 R7 K10 ["ReactFiberSuspenseComponent.new"]
+  CALL R5 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R0 K6 ["Shared"]
+  CALL R7 1 1
+  GETTABLEKS R6 R7 K11 ["invariant"]
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R10 R0 K6 ["Shared"]
+  CALL R9 1 1
+  GETTABLEKS R8 R9 K12 ["ReactInstanceMap"]
+  GETTABLEKS R7 R8 K13 ["get"]
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R10 R0 K6 ["Shared"]
+  CALL R9 1 1
+  GETTABLEKS R8 R9 K14 ["ReactSharedInternals"]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R11 R0 K6 ["Shared"]
+  CALL R10 1 1
+  GETTABLEKS R9 R10 K15 ["getComponentName"]
+  GETIMPORT R10 K4 [require]
+  GETIMPORT R13 K1 [script]
+  GETTABLEKS R12 R13 K2 ["Parent"]
+  GETTABLEKS R11 R12 K16 ["ReactWorkTags"]
+  CALL R10 1 1
+  GETTABLEKS R11 R10 K17 ["ClassComponent"]
+  GETTABLEKS R12 R10 K18 ["HostComponent"]
+  GETTABLEKS R13 R10 K19 ["HostRoot"]
+  GETTABLEKS R14 R10 K20 ["HostPortal"]
+  GETTABLEKS R15 R10 K21 ["HostText"]
+  GETTABLEKS R16 R10 K22 ["FundamentalComponent"]
+  GETTABLEKS R17 R10 K23 ["SuspenseComponent"]
+  GETIMPORT R18 K4 [require]
+  GETIMPORT R21 K1 [script]
+  GETTABLEKS R20 R21 K2 ["Parent"]
+  GETTABLEKS R19 R20 K24 ["ReactFiberFlags"]
+  CALL R18 1 1
+  GETTABLEKS R19 R18 K25 ["NoFlags"]
+  GETTABLEKS R20 R18 K26 ["Placement"]
+  GETTABLEKS R21 R18 K27 ["Hydrating"]
+  GETIMPORT R24 K4 [require]
+  GETTABLEKS R25 R0 K6 ["Shared"]
+  CALL R24 1 1
+  GETTABLEKS R23 R24 K28 ["ReactFeatureFlags"]
+  GETTABLEKS R22 R23 K29 ["enableFundamentalAPI"]
+  GETTABLEKS R23 R8 K30 ["ReactCurrentOwner"]
+  NEWTABLE R24 16 0
+  DUPCLOSURE R25 K31 [PROTO_0]
+  CAPTURE VAL R20
+  CAPTURE VAL R21
+  CAPTURE VAL R19
+  CAPTURE VAL R13
+  SETTABLEKS R25 R24 K32 ["getNearestMountedFiber"]
+  DUPCLOSURE R26 K33 [PROTO_1]
+  CAPTURE VAL R17
+  SETTABLEKS R26 R24 K34 ["getSuspenseInstanceFromFiber"]
+  DUPCLOSURE R26 K35 [PROTO_2]
+  CAPTURE VAL R13
+  SETTABLEKS R26 R24 K36 ["getContainerFromFiber"]
+  DUPCLOSURE R26 K37 [PROTO_3]
+  CAPTURE VAL R25
+  SETTABLEKS R26 R24 K38 ["isFiberMounted"]
+  DUPCLOSURE R26 K39 [PROTO_4]
+  CAPTURE VAL R1
+  CAPTURE VAL R23
+  CAPTURE VAL R11
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R25
+  SETTABLEKS R26 R24 K40 ["isMounted"]
+  DUPCLOSURE R26 K41 [PROTO_5]
+  CAPTURE VAL R6
+  CAPTURE VAL R25
+  DUPCLOSURE R27 K42 [PROTO_6]
+  CAPTURE VAL R25
+  CAPTURE VAL R6
+  CAPTURE VAL R13
+  SETTABLEKS R27 R24 K43 ["findCurrentFiberUsingSlowPath"]
+  DUPCLOSURE R28 K44 [PROTO_7]
+  CAPTURE VAL R27
+  CAPTURE VAL R12
+  CAPTURE VAL R15
+  SETTABLEKS R28 R24 K45 ["findCurrentHostFiber"]
+  DUPCLOSURE R28 K46 [PROTO_8]
+  CAPTURE VAL R27
+  CAPTURE VAL R12
+  CAPTURE VAL R15
+  CAPTURE VAL R22
+  CAPTURE VAL R16
+  CAPTURE VAL R14
+  SETTABLEKS R28 R24 K47 ["findCurrentHostFiberWithNoPortals"]
+  DUPCLOSURE R28 K48 [PROTO_9]
+  CAPTURE VAL R17
+  SETTABLEKS R28 R24 K49 ["isFiberSuspenseAndTimedOut"]
+  DUPCLOSURE R28 K50 [PROTO_10]
+  SETTABLEKS R28 R24 K51 ["doesFiberContain"]
+  RETURN R24 1

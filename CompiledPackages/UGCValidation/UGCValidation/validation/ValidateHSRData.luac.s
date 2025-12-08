@@ -1,0 +1,238 @@
+PROTO_0:
+  LENGTH R2 R0
+  JUMPIFEQKN R2 K0 [1] [+19]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["reportFailure"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["ErrorType"]
+  GETTABLEKS R3 R4 K3 ["validateHSR_FileDataInvalid"]
+  LOADNIL R4
+  MOVE R5 R1
+  CALL R2 3 0
+  LOADB R2 0
+  NEWTABLE R3 0 1
+  LOADK R4 K4 ["WrapLayer HSR asset does not have exactly 1 root"]
+  SETLIST R3 R4 1 [1]
+  RETURN R2 2
+  GETTABLEN R2 R0 1
+  LOADK R5 K5 ["HiddenSurfaceRemovalAsset"]
+  NAMECALL R3 R2 K6 ["IsA"]
+  CALL R3 2 1
+  JUMPIF R3 [+18]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["reportFailure"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["ErrorType"]
+  GETTABLEKS R4 R5 K3 ["validateHSR_FileDataInvalid"]
+  LOADNIL R5
+  MOVE R6 R1
+  CALL R3 3 0
+  LOADB R3 0
+  NEWTABLE R4 0 1
+  LOADK R5 K7 ["WrapLayer HSR asset does not have a HiddenSurfaceRemovalAsset as the root Instance"]
+  SETLIST R4 R5 1 [1]
+  RETURN R3 2
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K8 ["new"]
+  CALL R3 0 1
+  NAMECALL R8 R2 K9 ["GetDescendants"]
+  CALL R8 1 1
+  LENGTH R7 R8
+  JUMPIFEQKN R7 K10 [0] [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  NEWTABLE R7 0 1
+  LOADK R8 K11 ["WrapLayer HSR asset has children under the HiddenSurfaceRemovalAsset root Instance"]
+  SETLIST R7 R8 1 [1]
+  NAMECALL R4 R3 K12 ["updateReasons"]
+  CALL R4 3 0
+  GETUPVAL R6 2
+  MOVE R7 R2
+  MOVE R8 R1
+  CALL R6 2 -1
+  NAMECALL R4 R3 K12 ["updateReasons"]
+  CALL R4 -1 0
+  GETUPVAL R6 3
+  MOVE R7 R2
+  MOVE R8 R1
+  CALL R6 2 -1
+  NAMECALL R4 R3 K12 ["updateReasons"]
+  CALL R4 -1 0
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K13 ["validate"]
+  MOVE R7 R2
+  MOVE R8 R1
+  CALL R6 2 -1
+  NAMECALL R4 R3 K12 ["updateReasons"]
+  CALL R4 -1 0
+  NAMECALL R4 R3 K14 ["getFinalResults"]
+  CALL R4 1 1
+  JUMPIF R4 [+11]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["reportFailure"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["ErrorType"]
+  GETTABLEKS R5 R6 K3 ["validateHSR_FileDataInvalid"]
+  LOADNIL R6
+  MOVE R7 R1
+  CALL R4 3 0
+  NAMECALL R4 R3 K14 ["getFinalResults"]
+  CALL R4 1 -1
+  RETURN R4 -1
+
+PROTO_1:
+  GETIMPORT R0 K1 [game]
+  GETUPVAL R2 0
+  NAMECALL R0 R0 K2 ["GetObjectsAllOrNone"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_2:
+  LOADK R4 K0 ["WrapLayer"]
+  NAMECALL R2 R0 K1 ["IsA"]
+  CALL R2 2 1
+  JUMPIF R2 [+2]
+  LOADB R2 1
+  RETURN R2 1
+  GETTABLEKS R3 R1 K2 ["isServer"]
+  JUMPIFNOT R3 [+2]
+  LOADB R2 1
+  JUMP [+1]
+  LOADB R2 0
+  GETTABLEKS R3 R0 K3 ["HSRAssetId"]
+  JUMPIFNOT R3 [+2]
+  JUMPIFNOTEQKS R3 K4 [""] [+22]
+  JUMPIFNOT R2 [+18]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["reportFailure"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K6 ["ErrorType"]
+  GETTABLEKS R5 R6 K7 ["validateHSR_FileDataInvalid"]
+  LOADNIL R6
+  MOVE R7 R1
+  CALL R4 3 0
+  LOADB R4 0
+  NEWTABLE R5 0 1
+  LOADK R6 K8 ["WrapLayer HSRAssetId is required"]
+  SETLIST R5 R6 1 [1]
+  RETURN R4 2
+  LOADB R4 1
+  RETURN R4 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K9 ["tryGetAssetIdFromContentId"]
+  MOVE R5 R3
+  CALL R4 1 1
+  JUMPIF R4 [+18]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["reportFailure"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K6 ["ErrorType"]
+  GETTABLEKS R5 R6 K7 ["validateHSR_FileDataInvalid"]
+  LOADNIL R6
+  MOVE R7 R1
+  CALL R4 3 0
+  LOADB R4 0
+  NEWTABLE R5 0 1
+  LOADK R6 K10 ["WrapLayer HSRAssetId contains an invalid url"]
+  SETLIST R5 R6 1 [1]
+  RETURN R4 2
+  GETIMPORT R4 K12 [pcall]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R3
+  CALL R4 1 2
+  JUMPIF R4 [+23]
+  JUMPIFNOT R2 [+4]
+  GETIMPORT R6 K14 [error]
+  LOADK R7 K15 ["Failed to load WrapLayer HSR asset"]
+  CALL R6 1 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["reportFailure"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K6 ["ErrorType"]
+  GETTABLEKS R7 R8 K7 ["validateHSR_FileDataInvalid"]
+  LOADNIL R8
+  MOVE R9 R1
+  CALL R6 3 0
+  LOADB R6 0
+  NEWTABLE R7 0 1
+  LOADK R8 K15 ["Failed to load WrapLayer HSR asset"]
+  SETLIST R7 R8 1 [1]
+  RETURN R6 2
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K16 ["validateHiddenSurfaceRemovalAsset"]
+  MOVE R7 R5
+  MOVE R8 R1
+  CALL R6 2 -1
+  RETURN R6 -1
+
+PROTO_3:
+  GETIMPORT R2 K1 [tick]
+  CALL R2 0 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["new"]
+  CALL R3 0 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K3 ["validateInstance"]
+  MOVE R7 R0
+  MOVE R8 R1
+  CALL R6 2 -1
+  NAMECALL R4 R3 K4 ["updateReasons"]
+  CALL R4 -1 0
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K5 ["recordScriptTime"]
+  GETIMPORT R6 K7 [script]
+  GETTABLEKS R5 R6 K8 ["Name"]
+  MOVE R6 R2
+  MOVE R7 R1
+  CALL R4 3 0
+  NAMECALL R4 R3 K9 ["getFinalResults"]
+  CALL R4 1 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["Analytics"]
+  CALL R1 1 1
+  GETTABLEKS R2 R0 K6 ["validation"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R2 K7 ["validateTags"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R5 R2 K8 ["validateAttributes"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R6 R2 K9 ["ValidatePropertiesSensible"]
+  CALL R5 1 1
+  GETTABLEKS R6 R0 K10 ["util"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R6 K11 ["Types"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R9 R6 K12 ["FailureReasonsAccumulator"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R10 R6 K13 ["ParseContentIds"]
+  CALL R9 1 1
+  NEWTABLE R10 4 0
+  DUPCLOSURE R11 K14 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  SETTABLEKS R11 R10 K15 ["validateHiddenSurfaceRemovalAsset"]
+  DUPCLOSURE R11 K16 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  SETTABLEKS R11 R10 K17 ["validateInstance"]
+  DUPCLOSURE R11 K18 [PROTO_3]
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  CAPTURE VAL R1
+  SETTABLEKS R11 R10 K19 ["validate"]
+  RETURN R10 1

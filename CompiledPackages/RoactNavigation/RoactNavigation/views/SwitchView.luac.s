@@ -1,0 +1,142 @@
+PROTO_0:
+  GETTABLEKS R3 R0 K0 ["navigation"]
+  GETTABLEKS R2 R3 K1 ["state"]
+  GETTABLEKS R5 R2 K2 ["routes"]
+  GETTABLEKS R6 R2 K3 ["index"]
+  GETTABLE R4 R5 R6
+  GETTABLEKS R3 R4 K4 ["key"]
+  GETTABLEKS R4 R0 K5 ["descriptors"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K6 ["Dictionary"]
+  GETTABLEKS R5 R6 K7 ["join"]
+  GETUPVAL R6 1
+  GETTABLEKS R7 R0 K8 ["navigationConfig"]
+  JUMPIF R7 [+2]
+  NEWTABLE R7 0 0
+  CALL R5 2 1
+  GETTABLEKS R6 R5 K9 ["keepVisitedScreensMounted"]
+  NEWTABLE R7 1 0
+  LOADB R8 1
+  SETTABLE R8 R7 R3
+  JUMPIFNOT R6 [+16]
+  GETIMPORT R8 K11 [pairs]
+  GETTABLEKS R9 R1 K12 ["visitedScreenKeys"]
+  JUMPIF R9 [+2]
+  NEWTABLE R9 0 0
+  CALL R8 1 3
+  FORGPREP_NEXT R8
+  GETTABLE R13 R4 R11
+  JUMPIFEQKNIL R13 [+3]
+  LOADB R13 1
+  SETTABLE R13 R7 R11
+  FORGLOOP R8 1 [-6]
+  DUPTABLE R8 K13 [{"visitedScreenKeys"}]
+  SETTABLEKS R7 R8 K12 ["visitedScreenKeys"]
+  RETURN R8 1
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["navigation"]
+  GETTABLEKS R1 R2 K2 ["state"]
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R2 R3 K3 ["screenProps"]
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K4 ["descriptors"]
+  GETTABLEKS R5 R0 K2 ["state"]
+  GETTABLEKS R4 R5 K5 ["visitedScreenKeys"]
+  GETTABLEKS R7 R1 K6 ["routes"]
+  GETTABLEKS R8 R1 K7 ["index"]
+  GETTABLE R6 R7 R8
+  GETTABLEKS R5 R6 K8 ["key"]
+  NEWTABLE R6 0 0
+  GETIMPORT R7 K10 [pairs]
+  MOVE R8 R3
+  CALL R7 1 3
+  FORGPREP_NEXT R7
+  JUMPIFEQ R10 R5 [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  GETTABLE R13 R4 R10
+  JUMPIFNOTEQKB R13 TRUE [+51]
+  LOADK R14 K11 ["card_"]
+  MOVE R15 R10
+  CONCAT R13 R14 R15
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K12 ["createElement"]
+  LOADK R15 K13 ["Frame"]
+  DUPTABLE R16 K19 [{"Size", "BackgroundTransparency", "ClipsDescendants", "BorderSizePixel", "Visible"}]
+  GETIMPORT R17 K22 [UDim2.new]
+  LOADN R18 1
+  LOADN R19 0
+  LOADN R20 1
+  LOADN R21 0
+  CALL R17 4 1
+  SETTABLEKS R17 R16 K14 ["Size"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K15 ["BackgroundTransparency"]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K16 ["ClipsDescendants"]
+  LOADN R17 0
+  SETTABLEKS R17 R16 K17 ["BorderSizePixel"]
+  SETTABLEKS R12 R16 K18 ["Visible"]
+  DUPTABLE R17 K24 [{"Content"}]
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K12 ["createElement"]
+  GETUPVAL R19 1
+  DUPTABLE R20 K26 [{"component", "navigation", "screenProps"}]
+  GETTABLEKS R21 R11 K27 ["getComponent"]
+  CALL R21 0 1
+  SETTABLEKS R21 R20 K25 ["component"]
+  GETTABLEKS R21 R11 K1 ["navigation"]
+  SETTABLEKS R21 R20 K1 ["navigation"]
+  SETTABLEKS R2 R20 K3 ["screenProps"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K23 ["Content"]
+  CALL R14 3 1
+  SETTABLE R14 R6 R13
+  FORGLOOP R7 2 [-58]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K12 ["createElement"]
+  LOADK R8 K28 ["Folder"]
+  LOADNIL R9
+  MOVE R10 R6
+  CALL R7 3 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["Cryo"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K7 ["SceneView"]
+  CALL R2 1 1
+  DUPTABLE R3 K9 [{"keepVisitedScreensMounted"}]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K8 ["keepVisitedScreensMounted"]
+  GETTABLEKS R4 R1 K10 ["Component"]
+  LOADK R6 K11 ["SwitchView"]
+  NAMECALL R4 R4 K12 ["extend"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K13 [PROTO_0]
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K14 ["getDerivedStateFromProps"]
+  DUPCLOSURE R5 K15 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  SETTABLEKS R5 R4 K16 ["render"]
+  RETURN R4 1

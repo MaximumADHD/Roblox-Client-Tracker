@@ -73,26 +73,37 @@ PROTO_1:
   RETURN R3 2
 
 PROTO_2:
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K2 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R2 R2 K3 ["GetEngineFeature"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+7]
   GETUPVAL R1 0
   MOVE R3 R0
   LOADN R4 0
-  NAMECALL R1 R1 K0 ["GetFreeModels"]
+  NAMECALL R1 R1 K4 ["GetFreeModelsAsync"]
+  CALL R1 3 1
+  JUMP [+6]
+  GETUPVAL R1 0
+  MOVE R3 R0
+  LOADN R4 0
+  NAMECALL R1 R1 K5 ["GetFreeModels"]
   CALL R1 3 1
   NEWTABLE R2 0 0
   GETTABLEN R6 R1 1
-  GETTABLEKS R3 R6 K1 ["Results"]
+  GETTABLEKS R3 R6 K6 ["Results"]
   LOADNIL R4
   LOADNIL R5
   FORGPREP R3
   LOADN R8 6
   JUMPIFLT R8 R6 [+15]
-  GETTABLEKS R11 R7 K2 ["AssetId"]
+  GETTABLEKS R11 R7 K7 ["AssetId"]
   FASTCALL1 TOSTRING R11 [+2]
-  GETIMPORT R10 K4 [tostring]
+  GETIMPORT R10 K9 [tostring]
   CALL R10 1 1
   FASTCALL2 TABLE_INSERT R2 R10 [+4]
   MOVE R9 R2
-  GETIMPORT R8 K7 [table.insert]
+  GETIMPORT R8 K12 [table.insert]
   CALL R8 2 0
   FORGLOOP R3 2 [-16]
   LENGTH R5 R2
@@ -100,13 +111,13 @@ PROTO_2:
   JUMPIFLT R6 R5 [+2]
   LOADB R4 0 +1
   LOADB R4 1
-  LOADK R6 K8 ["Failed to find \"%*\" in the marketplace!"]
+  LOADK R6 K13 ["Failed to find \"%*\" in the marketplace!"]
   MOVE R8 R0
-  NAMECALL R6 R6 K9 ["format"]
+  NAMECALL R6 R6 K14 ["format"]
   CALL R6 2 1
   MOVE R5 R6
   FASTCALL2 ASSERT R4 R5 [+3]
-  GETIMPORT R3 K11 [assert]
+  GETIMPORT R3 K16 [assert]
   CALL R3 2 0
   RETURN R2 1
 

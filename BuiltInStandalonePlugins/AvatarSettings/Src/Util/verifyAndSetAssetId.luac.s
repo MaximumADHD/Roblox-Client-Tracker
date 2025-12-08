@@ -38,98 +38,108 @@ PROTO_1:
   GETIMPORT R8 K12 [Enum.AssetType.DynamicHead]
   JUMPIFNOTEQ R0 R8 [+2]
   LOADB R7 1
-  JUMPIFNOT R7 [+147]
+  JUMPIFNOT R7 [+161]
   GETIMPORT R8 K14 [pcall]
   NEWCLOSURE R9 P0
   CAPTURE VAL R2
   CAPTURE VAL R1
   CALL R8 1 2
   LOADNIL R10
-  JUMPIFNOT R8 [+136]
+  JUMPIFNOT R8 [+150]
   GETTABLEKS R11 R9 K15 ["Items"]
   GETTABLEKS R12 R9 K16 ["BundleType"]
-  JUMPIFNOTEQKS R12 K11 ["DynamicHead"] [+131]
+  JUMPIFNOTEQKS R12 K11 ["DynamicHead"] [+145]
   MOVE R12 R11
   LOADNIL R13
   LOADNIL R14
   FORGPREP R12
   GETTABLEKS R17 R16 K17 ["Type"]
-  JUMPIFNOTEQKS R17 K18 ["UserOutfit"] [+121]
+  JUMPIFNOTEQKS R17 K18 ["UserOutfit"] [+135]
   GETIMPORT R18 K20 [game]
-  GETTABLEKS R17 R18 K21 ["Players"]
-  GETTABLEKS R19 R16 K22 ["Id"]
-  NAMECALL R17 R17 K23 ["GetHumanoidDescriptionFromOutfitId"]
+  LOADK R20 K21 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R18 R18 K22 ["GetEngineFeature"]
+  CALL R18 2 1
+  JUMPIFNOT R18 [+7]
+  GETUPVAL R17 0
+  GETTABLEKS R19 R16 K23 ["Id"]
+  NAMECALL R17 R17 K24 ["GetHumanoidDescriptionFromOutfitIdAsync"]
+  CALL R17 2 1
+  JUMP [+9]
+  GETIMPORT R18 K20 [game]
+  GETTABLEKS R17 R18 K25 ["Players"]
+  GETTABLEKS R19 R16 K23 ["Id"]
+  NAMECALL R17 R17 K26 ["GetHumanoidDescriptionFromOutfitId"]
   CALL R17 2 1
   JUMPIFNOT R17 [+110]
   GETTABLEKS R18 R17 K9 ["Head"]
-  JUMPIFEQKN R18 K24 [0] [+107]
+  JUMPIFEQKN R18 K27 [0] [+107]
   GETTABLEKS R18 R17 K9 ["Head"]
   JUMPIFEQKNIL R18 [+103]
   GETTABLEKS R10 R17 K9 ["Head"]
   JUMPIFNOT R10 [+99]
-  GETTABLEKS R18 R5 K25 ["bodySettings"]
+  GETTABLEKS R18 R5 K28 ["bodySettings"]
   JUMPIFNOTEQKNIL R18 [+2]
   LOADB R20 0 +1
   LOADB R20 1
-  FASTCALL2K ASSERT R20 K26 [+4]
-  LOADK R21 K26 ["bodySettings must not be nil"]
+  FASTCALL2K ASSERT R20 K29 [+4]
+  LOADK R21 K29 ["bodySettings must not be nil"]
   GETIMPORT R19 K3 [assert]
   CALL R19 2 0
-  GETTABLEKS R19 R18 K27 ["bodyAppearanceCustomPartsHead"]
-  GETTABLEKS R21 R19 K28 ["enabled"]
-  GETTABLEKS R20 R21 K29 ["set"]
+  GETTABLEKS R19 R18 K30 ["bodyAppearanceCustomPartsHead"]
+  GETTABLEKS R21 R19 K31 ["enabled"]
+  GETTABLEKS R20 R21 K32 ["set"]
   LOADB R21 1
   CALL R20 1 0
-  GETTABLEKS R20 R4 K30 ["getAnimationIdFrom"]
-  GETTABLEKS R21 R17 K31 ["MoodAnimation"]
-  GETIMPORT R23 K32 [Enum.AssetType.MoodAnimation]
-  GETTABLEKS R22 R23 K33 ["Value"]
+  GETTABLEKS R20 R4 K33 ["getAnimationIdFrom"]
+  GETTABLEKS R21 R17 K34 ["MoodAnimation"]
+  GETIMPORT R23 K35 [Enum.AssetType.MoodAnimation]
+  GETTABLEKS R22 R23 K36 ["Value"]
   LOADNIL R23
   CALL R20 3 1
   JUMPIFNOT R20 [+14]
-  GETTABLEKS R21 R18 K34 ["bodyAppearanceCustomPartsMood"]
-  GETTABLEKS R23 R21 K35 ["assetId"]
-  GETTABLEKS R22 R23 K29 ["set"]
+  GETTABLEKS R21 R18 K37 ["bodyAppearanceCustomPartsMood"]
+  GETTABLEKS R23 R21 K38 ["assetId"]
+  GETTABLEKS R22 R23 K32 ["set"]
   MOVE R23 R20
   CALL R22 1 0
-  GETTABLEKS R23 R21 K28 ["enabled"]
-  GETTABLEKS R22 R23 K29 ["set"]
+  GETTABLEKS R23 R21 K31 ["enabled"]
+  GETTABLEKS R22 R23 K32 ["set"]
   LOADB R23 1
   CALL R22 1 0
   LOADB R23 1
-  NAMECALL R21 R17 K36 ["GetAccessories"]
+  NAMECALL R21 R17 K39 ["GetAccessories"]
   CALL R21 2 1
-  GETIMPORT R22 K38 [ipairs]
+  GETIMPORT R22 K41 [ipairs]
   MOVE R23 R21
   CALL R22 1 3
   FORGPREP_INEXT R22
-  GETTABLEKS R27 R26 K39 ["AccessoryType"]
-  GETIMPORT R28 K41 [Enum.AccessoryType.Eyebrow]
+  GETTABLEKS R27 R26 K42 ["AccessoryType"]
+  GETIMPORT R28 K44 [Enum.AccessoryType.Eyebrow]
   JUMPIFNOTEQ R27 R28 [+17]
-  GETTABLEKS R27 R18 K42 ["bodyAppearanceCustomPartsEyebrow"]
-  GETTABLEKS R29 R27 K35 ["assetId"]
-  GETTABLEKS R28 R29 K29 ["set"]
-  GETTABLEKS R29 R26 K43 ["AssetId"]
+  GETTABLEKS R27 R18 K45 ["bodyAppearanceCustomPartsEyebrow"]
+  GETTABLEKS R29 R27 K38 ["assetId"]
+  GETTABLEKS R28 R29 K32 ["set"]
+  GETTABLEKS R29 R26 K46 ["AssetId"]
   CALL R28 1 0
-  GETTABLEKS R29 R27 K28 ["enabled"]
-  GETTABLEKS R28 R29 K29 ["set"]
+  GETTABLEKS R29 R27 K31 ["enabled"]
+  GETTABLEKS R28 R29 K32 ["set"]
   LOADB R29 1
   CALL R28 1 0
   JUMP [+21]
-  GETTABLEKS R27 R26 K39 ["AccessoryType"]
-  GETIMPORT R28 K45 [Enum.AccessoryType.Eyelash]
+  GETTABLEKS R27 R26 K42 ["AccessoryType"]
+  GETIMPORT R28 K48 [Enum.AccessoryType.Eyelash]
   JUMPIFNOTEQ R27 R28 [+16]
-  GETTABLEKS R27 R18 K46 ["bodyAppearanceCustomPartsEyelash"]
-  GETTABLEKS R29 R27 K35 ["assetId"]
-  GETTABLEKS R28 R29 K29 ["set"]
-  GETTABLEKS R29 R26 K43 ["AssetId"]
+  GETTABLEKS R27 R18 K49 ["bodyAppearanceCustomPartsEyelash"]
+  GETTABLEKS R29 R27 K38 ["assetId"]
+  GETTABLEKS R28 R29 K32 ["set"]
+  GETTABLEKS R29 R26 K46 ["AssetId"]
   CALL R28 1 0
-  GETTABLEKS R29 R27 K28 ["enabled"]
-  GETTABLEKS R28 R29 K29 ["set"]
+  GETTABLEKS R29 R27 K31 ["enabled"]
+  GETTABLEKS R28 R29 K32 ["set"]
   LOADB R29 1
   CALL R28 1 0
   FORGLOOP R22 2 [inext] [-44]
-  FORGLOOP R12 2 [-125]
+  FORGLOOP R12 2 [-139]
   JUMPIFEQKNIL R10 [+2]
   MOVE R6 R10
   RETURN R6 1
@@ -288,58 +298,63 @@ PROTO_3:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarSettings"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["Players"]
+  NAMECALL R0 R0 K3 ["GetService"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Components"]
-  GETTABLEKS R3 R4 K8 ["Contexts"]
-  GETTABLEKS R2 R3 K9 ["AssetServiceContext"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K7 ["Components"]
-  GETTABLEKS R4 R5 K8 ["Contexts"]
-  GETTABLEKS R3 R4 K10 ["AvatarSettingsContext"]
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["AvatarSettings"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R6 R1 K10 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Components"]
+  GETTABLEKS R4 R5 K12 ["Contexts"]
+  GETTABLEKS R3 R4 K13 ["AssetServiceContext"]
   CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K11 ["Util"]
-  GETTABLEKS R4 R5 K12 ["AvatarSettingsProviderTypes"]
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R7 R1 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Components"]
+  GETTABLEKS R5 R6 K12 ["Contexts"]
+  GETTABLEKS R4 R5 K14 ["AvatarSettingsContext"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Util"]
-  GETTABLEKS R5 R6 K13 ["Constants"]
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R7 R1 K10 ["Src"]
+  GETTABLEKS R6 R7 K15 ["Util"]
+  GETTABLEKS R5 R6 K16 ["AvatarSettingsProviderTypes"]
   CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R10 R0 K6 ["Src"]
-  GETTABLEKS R9 R10 K7 ["Components"]
-  GETTABLEKS R8 R9 K8 ["Contexts"]
-  GETTABLEKS R7 R8 K14 ["LoadAnimationProvider"]
-  GETTABLEKS R6 R7 K15 ["LoadAnimationContext"]
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R8 R1 K10 ["Src"]
+  GETTABLEKS R7 R8 K15 ["Util"]
+  GETTABLEKS R6 R7 K17 ["Constants"]
   CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K6 ["Src"]
-  GETTABLEKS R8 R9 K11 ["Util"]
-  GETTABLEKS R7 R8 K16 ["LoadAnimationTypes"]
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R11 R1 K10 ["Src"]
+  GETTABLEKS R10 R11 K11 ["Components"]
+  GETTABLEKS R9 R10 K12 ["Contexts"]
+  GETTABLEKS R8 R9 K18 ["LoadAnimationProvider"]
+  GETTABLEKS R7 R8 K19 ["LoadAnimationContext"]
   CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R11 R0 K6 ["Src"]
-  GETTABLEKS R10 R11 K7 ["Components"]
-  GETTABLEKS R9 R10 K8 ["Contexts"]
-  GETTABLEKS R8 R9 K17 ["MarketplaceServiceContext"]
+  GETIMPORT R7 K9 [require]
+  GETTABLEKS R10 R1 K10 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Util"]
+  GETTABLEKS R8 R9 K20 ["LoadAnimationTypes"]
   CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K6 ["Src"]
-  GETTABLEKS R10 R11 K11 ["Util"]
-  GETTABLEKS R9 R10 K18 ["isAnimationAssetType"]
+  GETIMPORT R8 K9 [require]
+  GETTABLEKS R12 R1 K10 ["Src"]
+  GETTABLEKS R11 R12 K11 ["Components"]
+  GETTABLEKS R10 R11 K12 ["Contexts"]
+  GETTABLEKS R9 R10 K21 ["MarketplaceServiceContext"]
   CALL R8 1 1
-  DUPCLOSURE R9 K19 [PROTO_1]
-  DUPCLOSURE R10 K20 [PROTO_3]
-  CAPTURE VAL R4
+  GETIMPORT R9 K9 [require]
+  GETTABLEKS R12 R1 K10 ["Src"]
+  GETTABLEKS R11 R12 K15 ["Util"]
+  GETTABLEKS R10 R11 K22 ["isAnimationAssetType"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K23 [PROTO_1]
+  CAPTURE VAL R0
+  DUPCLOSURE R11 K24 [PROTO_3]
+  CAPTURE VAL R5
+  CAPTURE VAL R10
   CAPTURE VAL R9
-  CAPTURE VAL R8
-  RETURN R10 1
+  RETURN R11 1

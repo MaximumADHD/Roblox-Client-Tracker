@@ -38,17 +38,27 @@ PROTO_3:
   GETUPVAL R1 0
   CALL R1 0 0
   RETURN R0 0
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K2 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R2 R2 K3 ["GetEngineFeature"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+6]
   GETUPVAL R1 1
   MOVE R3 R0
-  NAMECALL R1 R1 K0 ["GetProductInfo"]
+  NAMECALL R1 R1 K4 ["GetProductInfoAsync"]
+  CALL R1 2 1
+  JUMP [+5]
+  GETUPVAL R1 1
+  MOVE R3 R0
+  NAMECALL R1 R1 K5 ["GetProductInfo"]
   CALL R1 2 1
   GETUPVAL R2 0
-  DUPTABLE R3 K4 [{"experienceId", "placeId", "name"}]
+  DUPTABLE R3 K9 [{"experienceId", "placeId", "name"}]
   GETUPVAL R4 2
-  SETTABLEKS R4 R3 K1 ["experienceId"]
-  SETTABLEKS R0 R3 K2 ["placeId"]
-  GETTABLEKS R4 R1 K5 ["Name"]
-  SETTABLEKS R4 R3 K3 ["name"]
+  SETTABLEKS R4 R3 K6 ["experienceId"]
+  SETTABLEKS R0 R3 K7 ["placeId"]
+  GETTABLEKS R4 R1 K10 ["Name"]
+  SETTABLEKS R4 R3 K8 ["name"]
   CALL R2 1 0
   RETURN R0 0
 

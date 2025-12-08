@@ -1,0 +1,26 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R2 K3 [script]
+  GETTABLEKS R1 R2 K4 ["makeTimerImpl"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K5 ["makeIntervalImpl"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K6 ["Parent"]
+  GETTABLEKS R4 R5 K7 ["Object"]
+  GETTABLEKS R3 R4 K8 ["assign"]
+  CALL R2 1 1
+  MOVE R3 R2
+  NEWTABLE R4 0 0
+  MOVE R5 R0
+  GETIMPORT R6 K11 [task.delay]
+  CALL R5 1 1
+  MOVE R6 R1
+  GETIMPORT R7 K11 [task.delay]
+  CALL R6 1 -1
+  CALL R3 -1 -1
+  RETURN R3 -1

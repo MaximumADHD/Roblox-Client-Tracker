@@ -32,7 +32,7 @@ PROTO_1:
   GETUPVAL R3 2
   GETTABLEKS R2 R3 K2 ["originalHumanoidDescription"]
   GETTABLE R1 R2 R0
-  JUMPIFNOT R1 [+15]
+  JUMPIFNOT R1 [+27]
   GETUPVAL R3 2
   GETTABLEKS R2 R3 K2 ["originalHumanoidDescription"]
   LOADNIL R3
@@ -40,9 +40,18 @@ PROTO_1:
   GETIMPORT R4 K4 [game]
   NAMECALL R2 R0 K5 ["IsDescendantOf"]
   CALL R2 2 1
-  JUMPIFNOT R2 [+4]
+  JUMPIFNOT R2 [+16]
+  GETIMPORT R2 K4 [game]
+  LOADK R4 K6 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R2 R2 K7 ["GetEngineFeature"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+5]
   MOVE R4 R1
-  NAMECALL R2 R0 K6 ["ApplyDescriptionReset"]
+  NAMECALL R2 R0 K8 ["ApplyDescriptionResetAsync"]
+  CALL R2 2 0
+  RETURN R0 0
+  MOVE R4 R1
+  NAMECALL R2 R0 K9 ["ApplyDescriptionReset"]
   CALL R2 2 0
   RETURN R0 0
 

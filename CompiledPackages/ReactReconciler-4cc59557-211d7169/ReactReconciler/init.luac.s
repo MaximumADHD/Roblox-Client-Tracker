@@ -1,0 +1,29 @@
+PROTO_0:
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["ReactFiberHostConfig"]
+  CALL R1 1 1
+  GETIMPORT R2 K6 [pairs]
+  MOVE R3 R0
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  SETTABLE R6 R1 R5
+  FORGLOOP R2 2 [-2]
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K7 ["ReactFiberReconciler"]
+  CALL R2 1 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R2 K3 [script]
+  GETTABLEKS R1 R2 K4 ["ReactInternalTypes"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K5 ["ReactRootTags"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K6 [PROTO_0]
+  RETURN R2 1

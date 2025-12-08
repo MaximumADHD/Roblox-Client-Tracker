@@ -1,0 +1,87 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  LOADK R2 K1 ["Frame"]
+  DUPTABLE R3 K4 [{"BackgroundTransparency", "Size"}]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K2 ["BackgroundTransparency"]
+  GETIMPORT R4 K7 [UDim2.new]
+  LOADN R5 0
+  LOADN R6 100
+  LOADN R7 0
+  LOADN R8 50
+  CALL R4 4 1
+  SETTABLEKS R4 R3 K3 ["Size"]
+  DUPTABLE R4 K8 [{"Frame"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  LOADK R6 K1 ["Frame"]
+  DUPTABLE R7 K10 [{"BackgroundTransparency", "Size", "Position"}]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K2 ["BackgroundTransparency"]
+  GETIMPORT R8 K7 [UDim2.new]
+  LOADN R9 1
+  LOADN R10 236
+  LOADN R11 1
+  LOADN R12 236
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K3 ["Size"]
+  GETIMPORT R8 K7 [UDim2.new]
+  LOADN R9 0
+  LOADN R10 10
+  LOADN R11 0
+  LOADN R12 10
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K9 ["Position"]
+  DUPTABLE R8 K12 [{"Cursor"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K0 ["createElement"]
+  GETUPVAL R10 1
+  DUPTABLE R11 K15 [{"cursorType", "isVisible"}]
+  SETTABLEKS R0 R11 K13 ["cursorType"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K14 ["isVisible"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K11 ["Cursor"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K1 ["Frame"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K8 ["Cursor"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K9 ["Enums"]
+  GETTABLEKS R5 R6 K10 ["CursorType"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K11 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  NEWTABLE R6 0 0
+  MOVE R7 R4
+  LOADNIL R8
+  LOADNIL R9
+  FORGPREP R7
+  MOVE R12 R5
+  MOVE R13 R11
+  CALL R12 1 1
+  SETTABLE R12 R6 R11
+  FORGLOOP R7 2 [-5]
+  DUPTABLE R7 K14 [{"summary", "stories"}]
+  LOADK R8 K15 ["Selection cursors for different types of UI elements"]
+  SETTABLEKS R8 R7 K12 ["summary"]
+  SETTABLEKS R6 R7 K13 ["stories"]
+  RETURN R7 1

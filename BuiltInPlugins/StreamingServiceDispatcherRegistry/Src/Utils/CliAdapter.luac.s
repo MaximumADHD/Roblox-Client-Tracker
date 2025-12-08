@@ -188,12 +188,19 @@ PROTO_16:
   RETURN R3 1
 
 PROTO_17:
+  GETIMPORT R2 K1 [game]
+  MOVE R4 R1
+  NAMECALL R2 R2 K2 ["GetEngineFeature"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_18:
   MOVE R3 R2
   CALL R3 0 1
   SETTABLEKS R3 R1 K0 ["Source"]
   RETURN R0 0
 
-PROTO_18:
+PROTO_19:
   GETIMPORT R0 K1 [game]
   GETUPVAL R2 1
   NAMECALL R0 R0 K2 ["GetService"]
@@ -201,7 +208,7 @@ PROTO_18:
   SETUPVAL R0 0
   RETURN R0 0
 
-PROTO_19:
+PROTO_20:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["RunningEval"]
   JUMPIF R1 [+6]
@@ -233,7 +240,7 @@ PROTO_19:
   CLOSEUPVALS R1
   RETURN R1 1
 
-PROTO_20:
+PROTO_21:
   GETIMPORT R0 K1 [script]
   LOADK R2 K2 ["Plugin"]
   NAMECALL R0 R0 K3 ["FindFirstAncestorWhichIsA"]
@@ -245,7 +252,7 @@ PROTO_20:
   SETUPVAL R1 0
   RETURN R0 0
 
-PROTO_21:
+PROTO_22:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["RunningEval"]
   JUMPIF R1 [+6]
@@ -415,40 +422,42 @@ MAIN:
   GETIMPORT R20 K57 [setmetatable]
   CALL R20 2 1
   GETTABLEKS R21 R2 K13 ["Globals"]
-  NEWTABLE R23 0 0
+  DUPTABLE R23 K59 [{"GetEngineFeature"}]
+  DUPCLOSURE R24 K60 [PROTO_17]
+  SETTABLEKS R24 R23 K58 ["GetEngineFeature"]
   FASTCALL2 SETMETATABLE R23 R7 [+4]
   MOVE R24 R7
   GETIMPORT R22 K57 [setmetatable]
   CALL R22 2 1
   SETTABLEKS R22 R21 K10 ["game"]
-  DUPTABLE R21 K59 [{"UpdateSourceAsync"}]
-  DUPCLOSURE R22 K60 [PROTO_17]
-  SETTABLEKS R22 R21 K58 ["UpdateSourceAsync"]
-  DUPTABLE R22 K75 [{"StreamingService", "ChatbotUIService", "MarketplaceService", "ConversationalAIAcceptanceService", "MaterialGenerationService", "MemStorageService", "StudioAssetService", "ScriptEditorService", "PublishService", "RunService", "ChangeHistoryService", "InsertService", "GenerationService", "AssetService"}]
+  DUPTABLE R21 K62 [{"UpdateSourceAsync"}]
+  DUPCLOSURE R22 K63 [PROTO_18]
+  SETTABLEKS R22 R21 K61 ["UpdateSourceAsync"]
+  DUPTABLE R22 K78 [{"StreamingService", "ChatbotUIService", "MarketplaceService", "ConversationalAIAcceptanceService", "MaterialGenerationService", "MemStorageService", "StudioAssetService", "ScriptEditorService", "PublishService", "RunService", "ChangeHistoryService", "InsertService", "GenerationService", "AssetService"}]
   GETTABLEKS R23 R13 K23 ["new"]
   MOVE R24 R2
   CALL R23 1 1
-  SETTABLEKS R23 R22 K61 ["StreamingService"]
+  SETTABLEKS R23 R22 K64 ["StreamingService"]
   GETTABLEKS R23 R11 K23 ["new"]
   CALL R23 0 1
-  SETTABLEKS R23 R22 K62 ["ChatbotUIService"]
-  SETTABLEKS R14 R22 K63 ["MarketplaceService"]
-  SETTABLEKS R16 R22 K64 ["ConversationalAIAcceptanceService"]
+  SETTABLEKS R23 R22 K65 ["ChatbotUIService"]
+  SETTABLEKS R14 R22 K66 ["MarketplaceService"]
+  SETTABLEKS R16 R22 K67 ["ConversationalAIAcceptanceService"]
   GETTABLEKS R23 R12 K23 ["new"]
   CALL R23 0 1
-  SETTABLEKS R23 R22 K65 ["MaterialGenerationService"]
-  SETTABLEKS R15 R22 K66 ["MemStorageService"]
-  SETTABLEKS R17 R22 K67 ["StudioAssetService"]
-  SETTABLEKS R21 R22 K68 ["ScriptEditorService"]
-  SETTABLEKS R18 R22 K69 ["PublishService"]
-  SETTABLEKS R19 R22 K70 ["RunService"]
+  SETTABLEKS R23 R22 K68 ["MaterialGenerationService"]
+  SETTABLEKS R15 R22 K69 ["MemStorageService"]
+  SETTABLEKS R17 R22 K70 ["StudioAssetService"]
+  SETTABLEKS R21 R22 K71 ["ScriptEditorService"]
+  SETTABLEKS R18 R22 K72 ["PublishService"]
+  SETTABLEKS R19 R22 K73 ["RunService"]
   GETTABLEKS R23 R10 K23 ["new"]
   CALL R23 0 1
-  SETTABLEKS R23 R22 K71 ["ChangeHistoryService"]
+  SETTABLEKS R23 R22 K74 ["ChangeHistoryService"]
   GETTABLEKS R23 R8 K23 ["new"]
   GETIMPORT R25 K19 [pcall]
-  LOADK R27 K72 ["InsertService"]
-  NEWCLOSURE R26 P11
+  LOADK R27 K75 ["InsertService"]
+  NEWCLOSURE R26 P12
   CAPTURE VAL R27
   CALL R25 1 2
   JUMPIFNOT R25 [+2]
@@ -456,21 +465,21 @@ MAIN:
   JUMP [+1]
   LOADNIL R24
   CALL R23 1 1
-  SETTABLEKS R23 R22 K72 ["InsertService"]
+  SETTABLEKS R23 R22 K75 ["InsertService"]
   MOVE R24 R4
   CALL R24 0 1
   JUMPIFNOT R24 [+2]
   MOVE R23 R20
   JUMP [+1]
   LOADNIL R23
-  SETTABLEKS R23 R22 K73 ["GenerationService"]
+  SETTABLEKS R23 R22 K76 ["GenerationService"]
   MOVE R24 R4
   CALL R24 0 1
   JUMPIFNOT R24 [+14]
   GETTABLEKS R23 R8 K23 ["new"]
   GETIMPORT R25 K19 [pcall]
-  LOADK R27 K74 ["AssetService"]
-  NEWCLOSURE R26 P11
+  LOADK R27 K77 ["AssetService"]
+  NEWCLOSURE R26 P12
   CAPTURE VAL R27
   CALL R25 1 2
   JUMPIFNOT R25 [+2]
@@ -480,19 +489,19 @@ MAIN:
   CALL R23 1 1
   JUMP [+1]
   LOADNIL R23
-  SETTABLEKS R23 R22 K74 ["AssetService"]
-  DUPCLOSURE R23 K76 [PROTO_19]
+  SETTABLEKS R23 R22 K77 ["AssetService"]
+  DUPCLOSURE R23 K79 [PROTO_20]
   CAPTURE VAL R2
   CAPTURE VAL R22
   SETTABLEKS R23 R2 K32 ["GetService"]
-  DUPTABLE R23 K78 [{"MaterialGenerator"}]
+  DUPTABLE R23 K81 [{"MaterialGenerator"}]
   NEWTABLE R25 0 0
   FASTCALL2 SETMETATABLE R25 R7 [+4]
   MOVE R26 R7
   GETIMPORT R24 K57 [setmetatable]
   CALL R24 2 1
-  SETTABLEKS R24 R23 K77 ["MaterialGenerator"]
-  DUPCLOSURE R24 K79 [PROTO_21]
+  SETTABLEKS R24 R23 K80 ["MaterialGenerator"]
+  DUPCLOSURE R24 K82 [PROTO_22]
   CAPTURE VAL R2
   CAPTURE VAL R23
   SETTABLEKS R24 R2 K34 ["GetPluginComponent"]

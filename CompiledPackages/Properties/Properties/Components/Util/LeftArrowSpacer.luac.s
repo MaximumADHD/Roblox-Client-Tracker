@@ -1,0 +1,75 @@
+PROTO_0:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETTABLEKS R3 R0 K0 ["addTrailingGap"]
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R3 R1 K1 ["Gap"]
+  GETTABLEKS R2 R3 K2 ["Small"]
+  JUMP [+1]
+  LOADN R2 0
+  GETUPVAL R3 1
+  GETUPVAL R4 2
+  DUPTABLE R5 K5 [{"LayoutOrder", "Size"}]
+  GETTABLEKS R6 R0 K3 ["LayoutOrder"]
+  SETTABLEKS R6 R5 K3 ["LayoutOrder"]
+  GETIMPORT R6 K8 [UDim2.new]
+  LOADN R7 0
+  GETTABLEKS R10 R1 K4 ["Size"]
+  GETTABLEKS R9 R10 K9 ["Size_300"]
+  ADD R8 R9 R2
+  LOADN R9 1
+  LOADN R10 0
+  CALL R6 4 1
+  SETTABLEKS R6 R5 K4 ["Size"]
+  DUPTABLE R6 K11 [{"Visual"}]
+  GETTABLEKS R7 R0 K12 ["arrow"]
+  JUMPIFNOT R7 [+21]
+  GETUPVAL R7 1
+  GETUPVAL R8 3
+  DUPTABLE R9 K15 [{"tag", "Image"}]
+  LOADK R10 K16 ["size-400-400 anchor-center-center position-center-center"]
+  SETTABLEKS R10 R9 K13 ["tag"]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K17 ["explorer"]
+  GETTABLEKS R13 R0 K12 ["arrow"]
+  GETTABLEKS R12 R13 K18 ["expanded"]
+  JUMPIFNOT R12 [+2]
+  LOADK R11 K18 ["expanded"]
+  JUMP [+1]
+  LOADK R11 K19 ["collapsed"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K14 ["Image"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K10 ["Visual"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Util"]
+  GETTABLEKS R4 R5 K9 ["ImageUrl"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K10 ["React"]
+  CALL R4 1 1
+  GETTABLEKS R5 R2 K11 ["Image"]
+  GETTABLEKS R6 R2 K12 ["View"]
+  GETTABLEKS R8 R2 K13 ["Hooks"]
+  GETTABLEKS R7 R8 K14 ["useTokens"]
+  GETTABLEKS R8 R4 K15 ["createElement"]
+  DUPCLOSURE R9 K16 [PROTO_0]
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  RETURN R9 1

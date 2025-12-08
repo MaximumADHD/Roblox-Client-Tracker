@@ -1,0 +1,382 @@
+PROTO_0:
+  LOADNIL R2
+  LOADNIL R3
+  LOADNIL R4
+  GETTABLEKS R5 R1 K0 ["color3"]
+  JUMPIFEQKNIL R5 [+9]
+  GETTABLEKS R5 R1 K0 ["color3"]
+  NAMECALL R5 R5 K1 ["ToHSV"]
+  CALL R5 1 3
+  MOVE R2 R5
+  MOVE R3 R6
+  MOVE R4 R7
+  DUPTABLE R5 K11 [{"value", "color3", "r", "g", "b", "h", "s", "v", "brickColor", "transparency"}]
+  DUPTABLE R6 K13 [{"value", "multiple"}]
+  SETTABLEKS R1 R6 K2 ["value"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K12 ["multiple"]
+  SETTABLEKS R6 R5 K2 ["value"]
+  DUPTABLE R6 K13 [{"value", "multiple"}]
+  GETTABLEKS R7 R1 K0 ["color3"]
+  SETTABLEKS R7 R6 K2 ["value"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K12 ["multiple"]
+  SETTABLEKS R6 R5 K0 ["color3"]
+  DUPTABLE R6 K13 [{"value", "multiple"}]
+  GETTABLEKS R7 R1 K0 ["color3"]
+  JUMPIFNOT R7 [+5]
+  GETTABLEKS R9 R1 K0 ["color3"]
+  GETTABLEKS R8 R9 K15 ["R"]
+  MULK R7 R8 K14 [255]
+  SETTABLEKS R7 R6 K2 ["value"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K12 ["multiple"]
+  SETTABLEKS R6 R5 K3 ["r"]
+  DUPTABLE R6 K13 [{"value", "multiple"}]
+  GETTABLEKS R7 R1 K0 ["color3"]
+  JUMPIFNOT R7 [+5]
+  GETTABLEKS R9 R1 K0 ["color3"]
+  GETTABLEKS R8 R9 K16 ["G"]
+  MULK R7 R8 K14 [255]
+  SETTABLEKS R7 R6 K2 ["value"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K12 ["multiple"]
+  SETTABLEKS R6 R5 K4 ["g"]
+  DUPTABLE R6 K13 [{"value", "multiple"}]
+  GETTABLEKS R7 R1 K0 ["color3"]
+  JUMPIFNOT R7 [+5]
+  GETTABLEKS R9 R1 K0 ["color3"]
+  GETTABLEKS R8 R9 K17 ["B"]
+  MULK R7 R8 K14 [255]
+  SETTABLEKS R7 R6 K2 ["value"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K12 ["multiple"]
+  SETTABLEKS R6 R5 K5 ["b"]
+  DUPTABLE R6 K13 [{"value", "multiple"}]
+  SETTABLEKS R2 R6 K2 ["value"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K12 ["multiple"]
+  SETTABLEKS R6 R5 K6 ["h"]
+  DUPTABLE R6 K13 [{"value", "multiple"}]
+  SETTABLEKS R3 R6 K2 ["value"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K12 ["multiple"]
+  SETTABLEKS R6 R5 K7 ["s"]
+  DUPTABLE R6 K13 [{"value", "multiple"}]
+  SETTABLEKS R4 R6 K2 ["value"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K12 ["multiple"]
+  SETTABLEKS R6 R5 K8 ["v"]
+  DUPTABLE R6 K13 [{"value", "multiple"}]
+  GETTABLEKS R7 R1 K9 ["brickColor"]
+  SETTABLEKS R7 R6 K2 ["value"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K12 ["multiple"]
+  SETTABLEKS R6 R5 K9 ["brickColor"]
+  DUPTABLE R6 K13 [{"value", "multiple"}]
+  GETTABLEKS R7 R1 K10 ["transparency"]
+  SETTABLEKS R7 R6 K2 ["value"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K12 ["multiple"]
+  SETTABLEKS R6 R5 K10 ["transparency"]
+  RETURN R5 1
+
+PROTO_1:
+  GETTABLEKS R4 R1 K0 ["value"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+47]
+  GETTABLEKS R4 R1 K2 ["color3"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+42]
+  GETTABLEKS R4 R1 K3 ["r"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+37]
+  GETTABLEKS R4 R1 K4 ["g"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+32]
+  GETTABLEKS R4 R1 K5 ["b"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+27]
+  GETTABLEKS R4 R1 K6 ["h"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+22]
+  GETTABLEKS R4 R1 K7 ["s"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+17]
+  GETTABLEKS R4 R1 K8 ["v"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+12]
+  GETTABLEKS R4 R1 K9 ["brickColor"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+7]
+  GETTABLEKS R4 R1 K10 ["transparency"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+2]
+  LOADB R3 1
+  RETURN R3 1
+  GETTABLEKS R4 R1 K2 ["color3"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIF R3 [+22]
+  GETTABLEKS R3 R2 K2 ["color3"]
+  JUMPIFEQKNIL R3 [+19]
+  GETTABLEKS R3 R2 K2 ["color3"]
+  GETTABLEKS R5 R1 K2 ["color3"]
+  GETTABLEKS R4 R5 K0 ["value"]
+  JUMPIFEQ R3 R4 [+11]
+  GETTABLEKS R3 R1 K2 ["color3"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K1 ["multiple"]
+  GETTABLEKS R3 R1 K0 ["value"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K1 ["multiple"]
+  GETTABLEKS R4 R1 K3 ["r"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIF R3 [+25]
+  GETTABLEKS R3 R2 K2 ["color3"]
+  JUMPIFEQKNIL R3 [+22]
+  GETTABLEKS R5 R2 K2 ["color3"]
+  GETTABLEKS R4 R5 K12 ["R"]
+  MULK R3 R4 K11 [255]
+  GETTABLEKS R5 R1 K3 ["r"]
+  GETTABLEKS R4 R5 K0 ["value"]
+  JUMPIFEQ R3 R4 [+11]
+  GETTABLEKS R3 R1 K3 ["r"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K1 ["multiple"]
+  GETTABLEKS R3 R1 K0 ["value"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K1 ["multiple"]
+  GETTABLEKS R4 R1 K4 ["g"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIF R3 [+25]
+  GETTABLEKS R3 R2 K2 ["color3"]
+  JUMPIFEQKNIL R3 [+22]
+  GETTABLEKS R5 R2 K2 ["color3"]
+  GETTABLEKS R4 R5 K13 ["G"]
+  MULK R3 R4 K11 [255]
+  GETTABLEKS R5 R1 K4 ["g"]
+  GETTABLEKS R4 R5 K0 ["value"]
+  JUMPIFEQ R3 R4 [+11]
+  GETTABLEKS R3 R1 K4 ["g"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K1 ["multiple"]
+  GETTABLEKS R3 R1 K0 ["value"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K1 ["multiple"]
+  GETTABLEKS R4 R1 K5 ["b"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIF R3 [+25]
+  GETTABLEKS R3 R2 K2 ["color3"]
+  JUMPIFEQKNIL R3 [+22]
+  GETTABLEKS R5 R2 K2 ["color3"]
+  GETTABLEKS R4 R5 K14 ["B"]
+  MULK R3 R4 K11 [255]
+  GETTABLEKS R5 R1 K5 ["b"]
+  GETTABLEKS R4 R5 K0 ["value"]
+  JUMPIFEQ R3 R4 [+11]
+  GETTABLEKS R3 R1 K5 ["b"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K1 ["multiple"]
+  GETTABLEKS R3 R1 K0 ["value"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K1 ["multiple"]
+  GETTABLEKS R4 R1 K6 ["h"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIF R3 [+25]
+  GETTABLEKS R3 R2 K2 ["color3"]
+  JUMPIFEQKNIL R3 [+22]
+  GETTABLEKS R3 R2 K2 ["color3"]
+  NAMECALL R3 R3 K15 ["ToHSV"]
+  CALL R3 1 3
+  GETTABLEKS R7 R1 K6 ["h"]
+  GETTABLEKS R6 R7 K0 ["value"]
+  JUMPIFEQ R3 R6 [+11]
+  GETTABLEKS R6 R1 K6 ["h"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K1 ["multiple"]
+  GETTABLEKS R6 R1 K0 ["value"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K1 ["multiple"]
+  GETTABLEKS R4 R1 K7 ["s"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIF R3 [+25]
+  GETTABLEKS R3 R2 K2 ["color3"]
+  JUMPIFEQKNIL R3 [+22]
+  GETTABLEKS R3 R2 K2 ["color3"]
+  NAMECALL R3 R3 K15 ["ToHSV"]
+  CALL R3 1 3
+  GETTABLEKS R7 R1 K7 ["s"]
+  GETTABLEKS R6 R7 K0 ["value"]
+  JUMPIFEQ R4 R6 [+11]
+  GETTABLEKS R6 R1 K7 ["s"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K1 ["multiple"]
+  GETTABLEKS R6 R1 K0 ["value"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K1 ["multiple"]
+  GETTABLEKS R4 R1 K8 ["v"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIF R3 [+25]
+  GETTABLEKS R3 R2 K2 ["color3"]
+  JUMPIFEQKNIL R3 [+22]
+  GETTABLEKS R3 R2 K2 ["color3"]
+  NAMECALL R3 R3 K15 ["ToHSV"]
+  CALL R3 1 3
+  GETTABLEKS R7 R1 K8 ["v"]
+  GETTABLEKS R6 R7 K0 ["value"]
+  JUMPIFEQ R5 R6 [+11]
+  GETTABLEKS R6 R1 K8 ["v"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K1 ["multiple"]
+  GETTABLEKS R6 R1 K0 ["value"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K1 ["multiple"]
+  GETTABLEKS R4 R1 K9 ["brickColor"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIF R3 [+22]
+  GETTABLEKS R3 R2 K9 ["brickColor"]
+  JUMPIFEQKNIL R3 [+19]
+  GETTABLEKS R3 R2 K9 ["brickColor"]
+  GETTABLEKS R5 R1 K9 ["brickColor"]
+  GETTABLEKS R4 R5 K0 ["value"]
+  JUMPIFEQ R3 R4 [+11]
+  GETTABLEKS R3 R1 K9 ["brickColor"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K1 ["multiple"]
+  GETTABLEKS R3 R1 K0 ["value"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K1 ["multiple"]
+  GETTABLEKS R4 R1 K10 ["transparency"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIF R3 [+22]
+  GETTABLEKS R3 R2 K10 ["transparency"]
+  JUMPIFEQKNIL R3 [+19]
+  GETTABLEKS R3 R2 K10 ["transparency"]
+  GETTABLEKS R5 R1 K10 ["transparency"]
+  GETTABLEKS R4 R5 K0 ["value"]
+  JUMPIFEQ R3 R4 [+11]
+  GETTABLEKS R3 R1 K10 ["transparency"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K1 ["multiple"]
+  GETTABLEKS R3 R1 K0 ["value"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K1 ["multiple"]
+  GETTABLEKS R4 R1 K0 ["value"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+44]
+  GETTABLEKS R4 R1 K2 ["color3"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+39]
+  GETTABLEKS R4 R1 K3 ["r"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+34]
+  GETTABLEKS R4 R1 K4 ["g"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+29]
+  GETTABLEKS R4 R1 K5 ["b"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+24]
+  GETTABLEKS R4 R1 K6 ["h"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+19]
+  GETTABLEKS R4 R1 K7 ["s"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+14]
+  GETTABLEKS R4 R1 K8 ["v"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+9]
+  GETTABLEKS R4 R1 K10 ["transparency"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  JUMPIFNOT R3 [+4]
+  GETTABLEKS R4 R1 K9 ["brickColor"]
+  GETTABLEKS R3 R4 K1 ["multiple"]
+  RETURN R3 1
+
+PROTO_2:
+  JUMPIFNOTEQKS R4 K0 ["value"] [+8]
+  MOVE R8 R2
+  MOVE R6 R3
+  LOADN R7 1
+  FORNPREP R6
+  SETTABLE R5 R1 R8
+  FORNLOOP R6
+  JUMP [+72]
+  JUMPIFNOTEQKS R4 K1 ["color3"] [+24]
+  MOVE R8 R2
+  MOVE R6 R3
+  LOADN R7 1
+  FORNPREP R6
+  GETIMPORT R9 K4 [table.clone]
+  GETTABLE R10 R1 R8
+  CALL R9 1 1
+  SETTABLEKS R5 R9 K1 ["color3"]
+  GETTABLEKS R10 R9 K5 ["brickColor"]
+  JUMPIFEQKNIL R10 [+7]
+  GETIMPORT R10 K8 [BrickColor.new]
+  MOVE R11 R5
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K5 ["brickColor"]
+  SETTABLE R9 R1 R8
+  FORNLOOP R6
+  JUMP [+47]
+  JUMPIFNOTEQKS R4 K5 ["brickColor"] [+22]
+  MOVE R8 R2
+  MOVE R6 R3
+  LOADN R7 1
+  FORNPREP R6
+  GETIMPORT R9 K4 [table.clone]
+  GETTABLE R10 R1 R8
+  CALL R9 1 1
+  SETTABLEKS R5 R9 K5 ["brickColor"]
+  GETTABLEKS R10 R9 K1 ["color3"]
+  JUMPIFEQKNIL R10 [+5]
+  GETTABLEKS R10 R5 K9 ["Color"]
+  SETTABLEKS R10 R9 K1 ["color3"]
+  SETTABLE R9 R1 R8
+  FORNLOOP R6
+  JUMP [+24]
+  JUMPIFNOTEQKS R4 K10 ["transparency"] [+14]
+  MOVE R8 R2
+  MOVE R6 R3
+  LOADN R7 1
+  FORNPREP R6
+  GETIMPORT R9 K4 [table.clone]
+  GETTABLE R10 R1 R8
+  CALL R9 1 1
+  SETTABLEKS R5 R9 K10 ["transparency"]
+  SETTABLE R9 R1 R8
+  FORNLOOP R6
+  JUMP [+9]
+  GETIMPORT R6 K12 [error]
+  LOADK R8 K13 ["Unexpected CombinedColor part: %*"]
+  MOVE R10 R4
+  NAMECALL R8 R8 K14 ["format"]
+  CALL R8 2 1
+  MOVE R7 R8
+  CALL R6 1 0
+  LOADNIL R6
+  RETURN R6 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R2 R0 K6 ["PropertyEditorTypes"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R0 K7 ["PropertyTypes"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R0 K8 ["RpcTypes"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K9 [PROTO_0]
+  DUPCLOSURE R5 K10 [PROTO_1]
+  DUPCLOSURE R6 K11 [PROTO_2]
+  DUPTABLE R7 K15 [{"initParts", "addToAggregation", "setPart"}]
+  SETTABLEKS R4 R7 K12 ["initParts"]
+  SETTABLEKS R5 R7 K13 ["addToAggregation"]
+  SETTABLEKS R6 R7 K14 ["setPart"]
+  RETURN R7 1

@@ -147,39 +147,49 @@ PROTO_9:
   LOADB R3 1
   LOADB R4 1
   CALL R1 3 1
-  LOADK R4 K7 ["FoundationInspector"]
+  GETIMPORT R3 K8 [game]
+  LOADK R5 K9 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R3 R3 K10 ["GetEngineFeature"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+6]
+  LOADK R4 K11 ["FoundationInspector"]
   MOVE R5 R1
-  NAMECALL R2 R0 K8 ["CreateDockWidgetPluginGui"]
+  NAMECALL R2 R0 K12 ["CreateDockWidgetPluginGuiAsync"]
+  CALL R2 3 1
+  JUMP [+5]
+  LOADK R4 K11 ["FoundationInspector"]
+  MOVE R5 R1
+  NAMECALL R2 R0 K13 ["CreateDockWidgetPluginGui"]
   CALL R2 3 1
   LOADB R3 1
-  SETTABLEKS R3 R2 K9 ["Enabled"]
-  LOADK R3 K10 ["Foundation Inspector"]
-  SETTABLEKS R3 R2 K11 ["Title"]
+  SETTABLEKS R3 R2 K14 ["Enabled"]
+  LOADK R3 K15 ["Foundation Inspector"]
+  SETTABLEKS R3 R2 K16 ["Title"]
   GETUPVAL R3 0
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K12 ["createRoot"]
+  GETTABLEKS R4 R5 K17 ["createRoot"]
   MOVE R5 R2
   CALL R4 1 1
-  SETTABLEKS R4 R3 K13 ["root"]
+  SETTABLEKS R4 R3 K18 ["root"]
   GETUPVAL R3 0
   LOADB R4 1
-  SETTABLEKS R4 R3 K14 ["enabled"]
-  LOADK R5 K15 ["View"]
-  DUPCLOSURE R6 K16 [PROTO_7]
+  SETTABLEKS R4 R3 K19 ["enabled"]
+  LOADK R5 K20 ["View"]
+  DUPCLOSURE R6 K21 [PROTO_7]
   CAPTURE UPVAL U0
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
-  NAMECALL R3 R0 K17 ["OnInvoke"]
+  NAMECALL R3 R0 K22 ["OnInvoke"]
   CALL R3 3 0
-  LOADK R5 K9 ["Enabled"]
-  NAMECALL R3 R2 K18 ["GetPropertyChangedSignal"]
+  LOADK R5 K14 ["Enabled"]
+  NAMECALL R3 R2 K23 ["GetPropertyChangedSignal"]
   CALL R3 2 1
   NEWCLOSURE R5 P1
   CAPTURE UPVAL U0
   CAPTURE VAL R2
   CAPTURE VAL R0
   CAPTURE UPVAL U4
-  NAMECALL R3 R3 K19 ["Connect"]
+  NAMECALL R3 R3 K24 ["Connect"]
   CALL R3 2 0
   RETURN R0 0
 

@@ -3,7 +3,7 @@ PROTO_0:
   GETTABLEKS R2 R3 K0 ["Guest"]
   GETTABLEKS R1 R2 K1 ["createInstanceGuestRPCInterface"]
   MOVE R2 R0
-  DUPTABLE R3 K5 [{"historyTracker", "selection", "instancePicker"}]
+  DUPTABLE R3 K6 [{"historyTracker", "selection", "reflection", "instancePicker"}]
   GETUPVAL R4 1
   CALL R4 0 1
   SETTABLEKS R4 R3 K2 ["historyTracker"]
@@ -11,7 +11,10 @@ PROTO_0:
   CALL R4 0 1
   SETTABLEKS R4 R3 K3 ["selection"]
   GETUPVAL R4 3
-  SETTABLEKS R4 R3 K4 ["instancePicker"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K4 ["reflection"]
+  GETUPVAL R4 4
+  SETTABLEKS R4 R3 K5 ["instancePicker"]
   CALL R1 2 -1
   RETURN R1 -1
 
@@ -40,6 +43,7 @@ PROTO_2:
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
   CAPTURE VAL R3
   SETTABLEKS R7 R6 K3 ["createInstanceGuestRPCInterface"]
   CALL R5 1 1
@@ -82,10 +86,13 @@ MAIN:
   GETTABLEKS R7 R8 K9 ["Guest"]
   GETTABLEKS R6 R7 K13 ["createStudioSelection"]
   CALL R5 1 1
-  DUPCLOSURE R6 K14 [PROTO_2]
+  GETTABLEKS R7 R1 K14 ["Util"]
+  GETTABLEKS R6 R7 K15 ["createStudioReflection"]
+  DUPCLOSURE R7 K16 [PROTO_2]
   CAPTURE VAL R2
   CAPTURE VAL R4
   CAPTURE VAL R1
   CAPTURE VAL R3
   CAPTURE VAL R5
-  RETURN R6 1
+  CAPTURE VAL R6
+  RETURN R7 1

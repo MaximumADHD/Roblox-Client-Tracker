@@ -96,7 +96,7 @@ MAIN:
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K23 ["UpsellCollabSafety"]
+  LOADK R2 K23 ["UpsellCollabSafety2"]
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0

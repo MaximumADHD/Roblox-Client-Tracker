@@ -1,0 +1,194 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["to"]
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R3 R0 K0 ["to"]
+  GETTABLE R2 R3 R1
+  GETTABLEKS R3 R0 K1 ["from"]
+  JUMPIFNOT R3 [+3]
+  GETTABLEKS R4 R0 K1 ["from"]
+  GETTABLE R3 R4 R1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["getValuesFromType"]
+  OR R6 R3 R2
+  CALL R5 1 1
+  LENGTH R4 R5
+  DUPTABLE R6 K15 [{"values", "toValues", "fromValues", "type", "config", "immediate", "v0", "lastPosition", "lastVelocity", "done", "elapsedTime", "durationProgress"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["getValuesFromType"]
+  OR R8 R3 R2
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K3 ["values"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["getValuesFromType"]
+  OR R8 R2 R3
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K4 ["toValues"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["getValuesFromType"]
+  OR R8 R3 R2
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K5 ["fromValues"]
+  OR R8 R3 R2
+  FASTCALL1 TYPEOF R8 [+2]
+  GETIMPORT R7 K17 [typeof]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K6 ["type"]
+  GETUPVAL R7 1
+  GETTABLEKS R9 R0 K7 ["config"]
+  JUMPIF R9 [+2]
+  NEWTABLE R9 0 0
+  NAMECALL R7 R7 K18 ["mergeConfig"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K7 ["config"]
+  GETTABLEKS R7 R0 K8 ["immediate"]
+  SETTABLEKS R7 R6 K8 ["immediate"]
+  GETIMPORT R7 K21 [table.create]
+  MOVE R8 R4
+  LOADNIL R9
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K9 ["v0"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["getValuesFromType"]
+  OR R8 R3 R2
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K10 ["lastPosition"]
+  GETIMPORT R7 K21 [table.create]
+  MOVE R8 R4
+  LOADNIL R9
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K11 ["lastVelocity"]
+  GETIMPORT R7 K21 [table.create]
+  MOVE R8 R4
+  LOADB R9 0
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K12 ["done"]
+  GETIMPORT R7 K21 [table.create]
+  MOVE R8 R4
+  LOADN R9 0
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K13 ["elapsedTime"]
+  GETIMPORT R7 K21 [table.create]
+  MOVE R8 R4
+  LOADN R9 0
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K14 ["durationProgress"]
+  GETUPVAL R7 2
+  FASTCALL2 SETMETATABLE R6 R7 [+3]
+  GETIMPORT R5 K23 [setmetatable]
+  CALL R5 2 1
+  RETURN R5 1
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["lastPosition"]
+  SETTABLE R2 R3 R1
+  GETTABLEKS R4 R0 K1 ["values"]
+  GETTABLE R3 R4 R1
+  JUMPIFNOTEQ R3 R2 [+3]
+  LOADB R3 0
+  RETURN R3 1
+  GETTABLEKS R3 R0 K1 ["values"]
+  SETTABLE R2 R3 R1
+  LOADB R3 1
+  RETURN R3 1
+
+PROTO_2:
+  JUMPIFNOT R1 [+49]
+  GETUPVAL R2 0
+  GETTABLEKS R4 R1 K0 ["config"]
+  JUMPIF R4 [+2]
+  NEWTABLE R4 0 0
+  NAMECALL R2 R2 K1 ["mergeConfig"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K0 ["config"]
+  GETTABLEKS R3 R1 K2 ["immediate"]
+  JUMPIFEQKNIL R3 [+4]
+  GETTABLEKS R2 R1 K2 ["immediate"]
+  JUMP [+2]
+  GETTABLEKS R2 R0 K2 ["immediate"]
+  SETTABLEKS R2 R0 K2 ["immediate"]
+  GETIMPORT R2 K5 [table.create]
+  GETTABLEKS R4 R0 K6 ["values"]
+  LENGTH R3 R4
+  LOADB R4 0
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K7 ["done"]
+  GETIMPORT R2 K5 [table.create]
+  GETTABLEKS R4 R0 K6 ["values"]
+  LENGTH R3 R4
+  LOADN R4 0
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K8 ["elapsedTime"]
+  GETIMPORT R2 K5 [table.create]
+  GETTABLEKS R4 R0 K6 ["values"]
+  LENGTH R3 R4
+  LOADN R4 0
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K9 ["durationProgress"]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getTypeFromValues"]
+  GETTABLEKS R2 R0 K1 ["type"]
+  GETTABLEKS R3 R0 K2 ["values"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_4:
+  GETIMPORT R1 K1 [ipairs]
+  GETTABLEKS R2 R0 K2 ["values"]
+  CALL R1 1 3
+  FORGPREP_INEXT R1
+  GETTABLEKS R6 R0 K3 ["lastPosition"]
+  SETTABLE R5 R6 R4
+  GETTABLEKS R6 R0 K4 ["lastVelocity"]
+  LOADNIL R7
+  SETTABLE R7 R6 R4
+  GETTABLEKS R6 R0 K5 ["v0"]
+  LOADNIL R7
+  SETTABLE R7 R6 R4
+  GETIMPORT R6 K8 [table.create]
+  GETTABLEKS R8 R0 K2 ["values"]
+  LENGTH R7 R8
+  LOADN R8 0
+  CALL R6 2 1
+  SETTABLEKS R6 R0 K9 ["elapsedTime"]
+  GETIMPORT R6 K8 [table.create]
+  GETTABLEKS R8 R0 K2 ["values"]
+  LENGTH R7 R8
+  LOADN R8 0
+  CALL R6 2 1
+  SETTABLEKS R6 R0 K10 ["durationProgress"]
+  FORGLOOP R1 2 [inext] [-30]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["AnimationConfig"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["helpers"]
+  CALL R1 1 1
+  NEWTABLE R2 8 0
+  SETTABLEKS R2 R2 K7 ["__index"]
+  DUPCLOSURE R3 K8 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  SETTABLEKS R3 R2 K9 ["new"]
+  DUPCLOSURE R3 K10 [PROTO_1]
+  SETTABLEKS R3 R2 K11 ["setValue"]
+  DUPCLOSURE R3 K12 [PROTO_2]
+  CAPTURE VAL R0
+  SETTABLEKS R3 R2 K13 ["mergeProps"]
+  DUPCLOSURE R3 K14 [PROTO_3]
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K15 ["getValue"]
+  DUPCLOSURE R3 K16 [PROTO_4]
+  SETTABLEKS R3 R2 K17 ["stop"]
+  RETURN R2 1

@@ -1,0 +1,97 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Explorer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Fields"]
+  GETTABLEKS R2 R3 K7 ["FieldTypes"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Flags"]
+  GETTABLEKS R3 R4 K9 ["getFFlagBehaviorVisualState"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Flags"]
+  GETTABLEKS R4 R5 K10 ["getFFlagDevFrameworkExplorerTooltips"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Flags"]
+  GETTABLEKS R5 R6 K11 ["getFFlagEnableReimport"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Flags"]
+  GETTABLEKS R6 R7 K12 ["getFFlagLuaExplorerExpChatMigration"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K8 ["Flags"]
+  GETTABLEKS R7 R8 K13 ["getFFlagLuaExplorerFileSync"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K8 ["Flags"]
+  GETTABLEKS R8 R9 K14 ["getFFlagLuaExplorerHierarchySync"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K8 ["Flags"]
+  GETTABLEKS R9 R10 K15 ["getFFlagLuaExplorerPackages"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R11 R0 K8 ["Flags"]
+  GETTABLEKS R10 R11 K16 ["getFFlagSimCsgEnableNewStudioButtons"]
+  CALL R9 1 1
+  NEWTABLE R10 8 0
+  GETIMPORT R11 K1 [script]
+  NAMECALL R11 R11 K17 ["GetChildren"]
+  CALL R11 1 3
+  FORGPREP R11
+  LOADK R19 K18 ["ModuleScript"]
+  NAMECALL R17 R15 K19 ["IsA"]
+  CALL R17 2 1
+  FASTCALL2K ASSERT R17 K20 [+4]
+  LOADK R18 K20 ["All children of AllFields must be a ModuleScript"]
+  GETIMPORT R16 K22 [assert]
+  CALL R16 2 0
+  GETIMPORT R16 K5 [require]
+  MOVE R17 R15
+  CALL R16 1 1
+  GETTABLEKS R17 R16 K23 ["key"]
+  SETTABLE R16 R10 R17
+  FORGLOOP R11 2 [-18]
+  MOVE R11 R8
+  CALL R11 0 1
+  JUMPIF R11 [+3]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K24 ["packageStatus"]
+  MOVE R11 R6
+  CALL R11 0 1
+  JUMPIF R11 [+6]
+  MOVE R11 R7
+  CALL R11 0 1
+  JUMPIF R11 [+3]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K25 ["liveSyncStatus"]
+  MOVE R11 R5
+  CALL R11 0 1
+  JUMPIF R11 [+6]
+  MOVE R11 R3
+  CALL R11 0 1
+  JUMPIF R11 [+3]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K26 ["ChatMigration"]
+  MOVE R11 R2
+  CALL R11 0 1
+  JUMPIF R11 [+3]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K27 ["isAuroraDisabled"]
+  MOVE R11 R4
+  CALL R11 0 1
+  JUMPIF R11 [+3]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K28 ["reimportStatus"]
+  MOVE R11 R9
+  CALL R11 0 1
+  JUMPIF R11 [+3]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K29 ["negateSelection"]
+  RETURN R10 1

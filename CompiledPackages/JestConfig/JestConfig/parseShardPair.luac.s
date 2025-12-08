@@ -1,0 +1,109 @@
+PROTO_0:
+  GETUPVAL R1 0
+  LOADK R2 K0 ["^\d+$"]
+  CALL R1 1 1
+  MOVE R3 R0
+  NAMECALL R1 R1 K1 ["test"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_1:
+  FASTCALL2K TONUMBER R0 K0 [+5]
+  MOVE R2 R0
+  LOADK R3 K0 [10]
+  GETIMPORT R1 K2 [tonumber]
+  CALL R1 2 1
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["toJSBoolean"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["isNaN"]
+  MOVE R4 R0
+  CALL R3 1 -1
+  CALL R2 -1 1
+  NOT R1 R2
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["filter"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["map"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["filter"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["split"]
+  MOVE R5 R0
+  LOADK R6 K3 ["/"]
+  CALL R4 2 1
+  DUPCLOSURE R5 K4 [PROTO_0]
+  CAPTURE UPVAL U2
+  CALL R3 2 1
+  DUPCLOSURE R4 K5 [PROTO_1]
+  CALL R2 2 1
+  DUPCLOSURE R3 K6 [PROTO_2]
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CALL R1 2 1
+  LOADN R4 1
+  LOADN R5 2
+  FASTCALL3 TABLE_UNPACK R1 R4 R5
+  MOVE R3 R1
+  GETIMPORT R2 K9 [table.unpack]
+  CALL R2 3 2
+  LENGTH R4 R1
+  JUMPIFEQKN R4 K10 [2] [+9]
+  GETIMPORT R4 K12 [error]
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K13 ["new"]
+  LOADK R6 K14 ["The shard option requires a string in the format of <n>/<m>."]
+  CALL R5 1 -1
+  CALL R4 -1 0
+  JUMPIFEQKN R2 K15 [0] [+3]
+  JUMPIFNOTEQKN R3 K15 [0] [+9]
+  GETIMPORT R4 K12 [error]
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K13 ["new"]
+  LOADK R6 K16 ["The shard option requires 1-based values, received 0 or lower in the pair."]
+  CALL R5 1 -1
+  CALL R4 -1 0
+  JUMPIFNOTLT R3 R2 [+9]
+  GETIMPORT R4 K12 [error]
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K13 ["new"]
+  LOADK R6 K17 ["The shard option <n>/<m> requires <n> to be lower or equal than <m>."]
+  CALL R5 1 -1
+  CALL R4 -1 0
+  DUPTABLE R4 K20 [{"shardCount", "shardIndex"}]
+  SETTABLEKS R3 R4 K18 ["shardCount"]
+  SETTABLEKS R2 R4 K19 ["shardIndex"]
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["LuauPolyfill"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K6 ["Array"]
+  GETTABLEKS R3 R1 K7 ["Boolean"]
+  GETTABLEKS R4 R1 K8 ["Number"]
+  GETTABLEKS R5 R1 K9 ["Error"]
+  GETTABLEKS R6 R1 K10 ["String"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R0 K11 ["RegExp"]
+  CALL R7 1 1
+  NEWTABLE R8 1 0
+  DUPCLOSURE R9 K12 [PROTO_3]
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  SETTABLEKS R9 R8 K13 ["parseShardPair"]
+  RETURN R8 1

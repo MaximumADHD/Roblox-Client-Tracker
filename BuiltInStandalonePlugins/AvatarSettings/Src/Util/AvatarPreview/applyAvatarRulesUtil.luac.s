@@ -77,25 +77,34 @@ PROTO_3:
   MOVE R3 R0
   CALL R2 1 0
   GETUPVAL R2 1
-  JUMPIFNOT R2 [+4]
+  JUMPIFNOT R2 [+16]
+  GETIMPORT R2 K6 [game]
+  LOADK R4 K7 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R2 R2 K8 ["GetEngineFeature"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+5]
   GETUPVAL R4 1
-  NAMECALL R2 R0 K5 ["ApplyDescriptionReset"]
+  NAMECALL R2 R0 K9 ["ApplyDescriptionResetAsync"]
+  CALL R2 2 0
+  JUMP [+4]
+  GETUPVAL R4 1
+  NAMECALL R2 R0 K10 ["ApplyDescriptionReset"]
   CALL R2 2 0
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K6 ["avatarRules"]
+  GETTABLEKS R4 R5 K11 ["avatarRules"]
   CALL R4 0 -1
-  NAMECALL R2 R0 K7 ["ApplyAvatarRules"]
+  NAMECALL R2 R0 K12 ["ApplyAvatarRules"]
   CALL R2 -1 0
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K8 ["alignHumanoid"]
+  GETTABLEKS R2 R3 K13 ["alignHumanoid"]
   MOVE R3 R0
   CALL R2 1 0
   GETUPVAL R3 3
-  GETTABLEKS R2 R3 K9 ["setCollisionBoxTransparency"]
+  GETTABLEKS R2 R3 K14 ["setCollisionBoxTransparency"]
   MOVE R3 R0
   CALL R2 1 0
   GETUPVAL R3 4
-  GETTABLEKS R2 R3 K10 ["loadAvatar"]
+  GETTABLEKS R2 R3 K15 ["loadAvatar"]
   MOVE R3 R0
   CALL R2 1 0
   RETURN R0 0

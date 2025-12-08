@@ -1,0 +1,73 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["setPart"]
+  LOADK R2 K1 ["value"]
+  MOVE R3 R0
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["finishEditing"]
+  GETIMPORT R2 K6 [Enum.FinishRecordingOperation.Commit]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["info"]
+  GETTABLEKS R2 R3 K1 ["parts"]
+  GETTABLEKS R1 R2 K2 ["value"]
+  GETTABLEKS R3 R1 K3 ["multiple"]
+  JUMPIFNOT R3 [+2]
+  LOADNIL R2
+  JUMP [+2]
+  GETTABLEKS R2 R1 K2 ["value"]
+  NEWTABLE R3 0 0
+  JUMPIFEQKNIL R2 [+11]
+  NEWTABLE R4 0 1
+  DUPTABLE R5 K6 [{"id", "text"}]
+  SETTABLEKS R2 R5 K4 ["id"]
+  SETTABLEKS R2 R5 K5 ["text"]
+  SETLIST R4 R5 1 [1]
+  MOVE R3 R4
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K7 ["useCallback"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  NEWTABLE R6 0 2
+  GETTABLEKS R7 R0 K8 ["setPart"]
+  GETTABLEKS R8 R0 K9 ["finishEditing"]
+  SETLIST R6 R7 2 [1]
+  CALL R4 2 1
+  GETUPVAL R5 1
+  GETUPVAL R6 2
+  DUPTABLE R7 K13 [{"items", "value", "onItemChanged", "testId"}]
+  SETTABLEKS R3 R7 K10 ["items"]
+  SETTABLEKS R2 R7 K2 ["value"]
+  SETTABLEKS R4 R7 K11 ["onItemChanged"]
+  LOADK R8 K14 ["CollisionGroup"]
+  SETTABLEKS R8 R7 K12 ["testId"]
+  CALL R5 2 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Components"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["Dropdown"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R0 K9 ["PropertyEditorTypes"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Parent"]
+  GETTABLEKS R4 R5 K11 ["React"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K12 ["createElement"]
+  DUPCLOSURE R5 K13 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  RETURN R5 1

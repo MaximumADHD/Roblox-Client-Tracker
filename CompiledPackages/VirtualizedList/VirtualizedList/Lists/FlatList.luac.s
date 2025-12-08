@@ -1,0 +1,867 @@
+PROTO_0:
+  JUMPIFEQKNIL R0 [+3]
+  MOVE R1 R0
+  RETURN R1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["OS"]
+  JUMPIFEQKS R2 K1 ["android"] [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_1:
+  JUMPIFEQKNIL R0 [+3]
+  MOVE R1 R0
+  RETURN R1 1
+  LOADN R1 1
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  SETTABLEKS R0 R1 K0 ["_listRef"]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["numColumns"]
+  JUMPIFEQKNIL R3 [+3]
+  MOVE R2 R3
+  JUMP [+1]
+  LOADN R2 1
+  LOADN R3 1
+  JUMPIFNOTLT R3 R2 [+22]
+  NEWTABLE R3 0 0
+  LOADN R6 1
+  MOVE R4 R2
+  LOADN R5 1
+  FORNPREP R4
+  SUBK R10 R1 K2 [1]
+  MUL R9 R10 R2
+  ADD R8 R9 R6
+  GETTABLE R7 R0 R8
+  JUMPIFEQKNIL R7 [+8]
+  FASTCALL2 TABLE_INSERT R3 R7 [+5]
+  MOVE R9 R3
+  MOVE R10 R7
+  GETIMPORT R8 K5 [table.insert]
+  CALL R8 2 0
+  FORNLOOP R4
+  RETURN R3 1
+  GETTABLE R3 R0 R1
+  RETURN R3 1
+
+PROTO_4:
+  JUMPIFEQKNIL R0 [+23]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["numColumns"]
+  JUMPIFEQKNIL R2 [+3]
+  MOVE R1 R2
+  JUMP [+1]
+  LOADN R1 1
+  LOADN R3 1
+  JUMPIFNOTLT R3 R1 [+8]
+  LENGTH R4 R0
+  DIV R3 R4 R1
+  FASTCALL1 MATH_CEIL R3 [+2]
+  GETIMPORT R2 K4 [math.ceil]
+  CALL R2 1 1
+  RETURN R2 1
+  LENGTH R2 R0
+  RETURN R2 1
+  LOADN R1 0
+  RETURN R1 1
+
+PROTO_5:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  GETUPVAL R7 1
+  SUBK R6 R7 K0 [1]
+  GETUPVAL R7 2
+  MUL R5 R6 R7
+  ADD R4 R5 R1
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_6:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["numColumns"]
+  JUMPIFEQKNIL R3 [+3]
+  MOVE R2 R3
+  JUMP [+1]
+  LOADN R2 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R4 R5 K2 ["keyExtractor"]
+  JUMPIFEQKNIL R4 [+7]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["props"]
+  GETTABLEKS R3 R4 K2 ["keyExtractor"]
+  JUMP [+1]
+  GETUPVAL R3 1
+  LOADN R4 1
+  JUMPIFNOTLT R4 R2 [+35]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K3 ["isArray"]
+  MOVE R5 R0
+  CALL R4 1 1
+  JUMPIFNOT R4 [+15]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K4 ["join"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K5 ["map"]
+  MOVE R6 R0
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CALL R5 2 1
+  LOADK R6 K6 [":"]
+  CALL R4 2 -1
+  RETURN R4 -1
+  GETUPVAL R4 3
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["isArray"]
+  MOVE R6 R0
+  CALL R5 1 1
+  LOADK R7 K7 ["FlatList: Encountered internal consistency error, expected each item to consist of an "]
+  LOADK R8 K8 ["array with 1-%s columns; instead, received a single item."]
+  CONCAT R6 R7 R8
+  MOVE R7 R2
+  CALL R4 3 0
+  LOADNIL R4
+  RETURN R4 1
+  MOVE R4 R3
+  MOVE R5 R0
+  MOVE R6 R1
+  CALL R4 2 -1
+  RETURN R4 -1
+
+PROTO_7:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 0
+  MOVE R3 R0
+  CALL R1 2 -1
+  RETURN R1 -1
+  GETUPVAL R1 2
+  JUMPIFNOT R1 [+4]
+  GETUPVAL R1 2
+  MOVE R2 R0
+  CALL R1 1 -1
+  RETURN R1 -1
+  LOADNIL R1
+  RETURN R1 1
+
+PROTO_8:
+  DUPTABLE R3 K3 [{"item", "index", "separators"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["assign"]
+  NEWTABLE R5 0 0
+  MOVE R6 R0
+  DUPTABLE R7 K6 [{"LayoutOrder"}]
+  SETTABLEKS R1 R7 K5 ["LayoutOrder"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K0 ["item"]
+  GETUPVAL R7 1
+  SUBK R6 R7 K7 [1]
+  GETUPVAL R7 2
+  MUL R5 R6 R7
+  ADD R4 R5 R1
+  SETTABLEKS R4 R3 K1 ["index"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K2 ["separators"]
+  SETTABLEKS R4 R3 K2 ["separators"]
+  GETUPVAL R4 4
+  JUMPIFNOT R4 [+8]
+  GETUPVAL R5 5
+  GETTABLEKS R4 R5 K8 ["createElement"]
+  GETUPVAL R5 4
+  MOVE R6 R3
+  CALL R4 2 1
+  MOVE R2 R4
+  JUMP [+9]
+  GETUPVAL R4 6
+  JUMPIFNOT R4 [+5]
+  GETUPVAL R4 6
+  MOVE R5 R3
+  CALL R4 1 1
+  MOVE R2 R4
+  JUMP [+2]
+  LOADNIL R2
+  JUMP [0]
+  JUMPIFEQKNIL R2 [+13]
+  GETUPVAL R4 5
+  GETTABLEKS R3 R4 K8 ["createElement"]
+  GETUPVAL R5 5
+  GETTABLEKS R4 R5 K9 ["Fragment"]
+  DUPTABLE R5 K11 [{"key"}]
+  SETTABLEKS R1 R5 K10 ["key"]
+  MOVE R6 R2
+  CALL R3 3 1
+  RETURN R3 1
+  LOADNIL R3
+  RETURN R3 1
+
+PROTO_9:
+  GETUPVAL R1 0
+  LOADN R2 1
+  JUMPIFNOTLT R2 R1 [+94]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  LOADK R2 K1 ["UIListLayout"]
+  DUPTABLE R3 K6 [{"key", "Name", "FillDirection", "SortOrder"}]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K7 ["props"]
+  GETTABLEKS R5 R6 K8 ["horizontal"]
+  JUMPIFNOT R5 [+2]
+  LOADK R4 K9 ["UIListVerticalLayout"]
+  JUMP [+1]
+  LOADK R4 K10 ["UIListHorizontalLayout"]
+  SETTABLEKS R4 R3 K2 ["key"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K7 ["props"]
+  GETTABLEKS R5 R6 K8 ["horizontal"]
+  JUMPIFNOT R5 [+2]
+  LOADK R4 K9 ["UIListVerticalLayout"]
+  JUMP [+1]
+  LOADK R4 K10 ["UIListHorizontalLayout"]
+  SETTABLEKS R4 R3 K3 ["Name"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K7 ["props"]
+  GETTABLEKS R5 R6 K8 ["horizontal"]
+  JUMPIFNOT R5 [+3]
+  GETIMPORT R4 K13 [Enum.FillDirection.Vertical]
+  JUMP [+2]
+  GETIMPORT R4 K15 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R4 R3 K4 ["FillDirection"]
+  GETIMPORT R4 K17 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R4 R3 K5 ["SortOrder"]
+  CALL R1 2 1
+  GETTABLEKS R2 R0 K18 ["item"]
+  GETTABLEKS R3 R0 K19 ["index"]
+  GETUPVAL R4 3
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K20 ["isArray"]
+  MOVE R6 R2
+  CALL R5 1 1
+  LOADK R6 K21 ["Expected array of items with numColumns > 1"]
+  CALL R4 2 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 5
+  DUPTABLE R6 K23 [{"style"}]
+  GETUPVAL R8 6
+  GETTABLEKS R7 R8 K24 ["compose"]
+  GETUPVAL R8 7
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K22 ["style"]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K25 ["concat"]
+  NEWTABLE R8 0 1
+  MOVE R9 R1
+  SETLIST R8 R9 1 [1]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K26 ["map"]
+  MOVE R10 R2
+  NEWCLOSURE R11 P0
+  CAPTURE UPVAL U8
+  CAPTURE VAL R3
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U9
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U10
+  CALL R9 2 -1
+  CALL R7 -1 -1
+  CALL R4 -1 -1
+  RETURN R4 -1
+  GETUPVAL R1 11
+  MOVE R2 R0
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_10:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R0 R3 K1 ["ListItemComponent"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R1 R3 K2 ["renderItem"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K3 ["columnWrapperStyle"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R4 R5 K4 ["numColumns"]
+  JUMPIFEQKNIL R4 [+3]
+  MOVE R3 R4
+  JUMP [+1]
+  LOADN R3 1
+  JUMPIFNOT R0 [+2]
+  LOADK R4 K1 ["ListItemComponent"]
+  JUMP [+1]
+  LOADK R4 K2 ["renderItem"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R1
+  NEWTABLE R6 1 0
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R3
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE VAL R2
+  CAPTURE UPVAL U6
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  SETTABLE R7 R6 R4
+  RETURN R6 1
+
+PROTO_11:
+  DUPTABLE R1 K2 [{"viewabilityConfig", "onViewableItemsChanged"}]
+  GETTABLEKS R2 R0 K0 ["viewabilityConfig"]
+  SETTABLEKS R2 R1 K0 ["viewabilityConfig"]
+  GETUPVAL R2 0
+  GETTABLEKS R4 R0 K1 ["onViewableItemsChanged"]
+  NAMECALL R2 R2 K3 ["_createOnViewableItemsChanged"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K1 ["onViewableItemsChanged"]
+  RETURN R1 1
+
+PROTO_12:
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K0 ["_virtualizedListPairs"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K1 ["_captureRef"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K2 ["_getItem"]
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K3 ["_getItemCount"]
+  NEWCLOSURE R2 P3
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R0 K4 ["_keyExtractor"]
+  NEWCLOSURE R2 P4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  SETTABLEKS R2 R0 K5 ["_renderer"]
+  GETTABLEKS R4 R0 K6 ["props"]
+  NAMECALL R2 R0 K7 ["_checkProps"]
+  CALL R2 2 0
+  GETTABLEKS R3 R0 K6 ["props"]
+  GETTABLEKS R2 R3 K8 ["viewabilityConfigCallbackPairs"]
+  JUMPIFNOT R2 [+13]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K9 ["map"]
+  GETTABLEKS R4 R0 K6 ["props"]
+  GETTABLEKS R3 R4 K8 ["viewabilityConfigCallbackPairs"]
+  NEWCLOSURE R4 P5
+  CAPTURE VAL R0
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K0 ["_virtualizedListPairs"]
+  RETURN R0 0
+  GETTABLEKS R3 R0 K6 ["props"]
+  GETTABLEKS R2 R3 K10 ["onViewableItemsChanged"]
+  JUMPIFNOT R2 [+23]
+  GETTABLEKS R3 R0 K0 ["_virtualizedListPairs"]
+  DUPTABLE R4 K12 [{"viewabilityConfig", "onViewableItemsChanged"}]
+  GETTABLEKS R6 R0 K6 ["props"]
+  GETTABLEKS R5 R6 K11 ["viewabilityConfig"]
+  SETTABLEKS R5 R4 K11 ["viewabilityConfig"]
+  GETTABLEKS R8 R0 K6 ["props"]
+  GETTABLEKS R7 R8 K10 ["onViewableItemsChanged"]
+  NAMECALL R5 R0 K13 ["_createOnViewableItemsChanged"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K10 ["onViewableItemsChanged"]
+  FASTCALL2 TABLE_INSERT R3 R4 [+3]
+  GETIMPORT R2 K16 [table.insert]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_13:
+  GETTABLEKS R2 R0 K0 ["_listRef"]
+  JUMPIFNOT R2 [+6]
+  GETTABLEKS R2 R0 K0 ["_listRef"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["scrollToEnd"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_14:
+  GETTABLEKS R2 R0 K0 ["_listRef"]
+  JUMPIFNOT R2 [+6]
+  GETTABLEKS R2 R0 K0 ["_listRef"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["scrollToIndex"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_15:
+  GETTABLEKS R2 R0 K0 ["_listRef"]
+  JUMPIFNOT R2 [+6]
+  GETTABLEKS R2 R0 K0 ["_listRef"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["scrollToItem"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_16:
+  GETTABLEKS R2 R0 K0 ["_listRef"]
+  JUMPIFNOT R2 [+6]
+  GETTABLEKS R2 R0 K0 ["_listRef"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["scrollToOffset"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_17:
+  GETTABLEKS R1 R0 K0 ["_listRef"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K0 ["_listRef"]
+  NAMECALL R1 R1 K1 ["recordInteraction"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_18:
+  GETTABLEKS R1 R0 K0 ["_listRef"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K0 ["_listRef"]
+  NAMECALL R1 R1 K1 ["flashScrollIndicators"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_19:
+  GETTABLEKS R1 R0 K0 ["_listRef"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R1 R0 K0 ["_listRef"]
+  NAMECALL R1 R1 K1 ["getScrollResponder"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  RETURN R0 0
+
+PROTO_20:
+  GETTABLEKS R1 R0 K0 ["_listRef"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R1 R0 K0 ["_listRef"]
+  NAMECALL R1 R1 K1 ["getScrollRef"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  RETURN R0 0
+
+PROTO_21:
+  GETTABLEKS R1 R0 K0 ["_listRef"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R1 R0 K0 ["_listRef"]
+  NAMECALL R1 R1 K1 ["getScrollableNode"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  RETURN R0 0
+
+PROTO_22:
+  GETTABLEKS R2 R0 K0 ["_listRef"]
+  JUMPIFNOT R2 [+6]
+  GETTABLEKS R2 R0 K0 ["_listRef"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["setNativeProps"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_23:
+  GETUPVAL R2 0
+  GETTABLEKS R4 R1 K0 ["numColumns"]
+  GETTABLEKS R6 R0 K1 ["props"]
+  GETTABLEKS R5 R6 K0 ["numColumns"]
+  JUMPIFEQ R4 R5 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  LOADK R5 K2 ["Changing numColumns on the fly is not supported. Change the key prop on FlatList when "]
+  LOADK R6 K3 ["changing the number of columns to force a fresh render of the component."]
+  CONCAT R4 R5 R6
+  CALL R2 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R4 R1 K4 ["onViewableItemsChanged"]
+  GETTABLEKS R6 R0 K1 ["props"]
+  GETTABLEKS R5 R6 K4 ["onViewableItemsChanged"]
+  JUMPIFEQ R4 R5 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  LOADK R4 K5 ["Changing onViewableItemsChanged on the fly is not supported"]
+  CALL R2 2 0
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R5 R1 K6 ["viewabilityConfig"]
+  GETTABLEKS R7 R0 K1 ["props"]
+  GETTABLEKS R6 R7 K6 ["viewabilityConfig"]
+  CALL R4 2 1
+  NOT R3 R4
+  LOADK R4 K7 ["Changing viewabilityConfig on the fly is not supported"]
+  CALL R2 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R4 R1 K8 ["viewabilityConfigCallbackPairs"]
+  GETTABLEKS R6 R0 K1 ["props"]
+  GETTABLEKS R5 R6 K8 ["viewabilityConfigCallbackPairs"]
+  JUMPIFEQ R4 R5 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  LOADK R4 K9 ["Changing viewabilityConfigCallbackPairs on the fly is not supported"]
+  CALL R2 2 0
+  GETTABLEKS R4 R0 K1 ["props"]
+  NAMECALL R2 R0 K10 ["_checkProps"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_24:
+  GETTABLEKS R2 R1 K0 ["getItem"]
+  GETTABLEKS R3 R1 K1 ["getItemCount"]
+  GETTABLEKS R4 R1 K2 ["horizontal"]
+  GETTABLEKS R5 R1 K3 ["columnWrapperStyle"]
+  GETTABLEKS R6 R1 K4 ["onViewableItemsChanged"]
+  GETTABLEKS R7 R1 K5 ["viewabilityConfigCallbackPairs"]
+  GETTABLEKS R10 R0 K6 ["props"]
+  GETTABLEKS R9 R10 K7 ["numColumns"]
+  JUMPIFEQKNIL R9 [+3]
+  MOVE R8 R9
+  JUMP [+1]
+  LOADN R8 1
+  GETUPVAL R9 0
+  NOT R10 R2
+  JUMPIFNOT R10 [+1]
+  NOT R10 R3
+  LOADK R11 K8 ["FlatList does not support custom data formats."]
+  CALL R9 2 0
+  LOADN R9 1
+  JUMPIFNOTLT R9 R8 [+6]
+  GETUPVAL R9 0
+  NOT R10 R4
+  LOADK R11 K9 ["numColumns does not support horizontal."]
+  CALL R9 2 0
+  JUMP [+4]
+  GETUPVAL R9 0
+  NOT R10 R5
+  LOADK R11 K10 ["columnWrapperStyle not supported for single column lists"]
+  CALL R9 2 0
+  GETUPVAL R9 0
+  AND R11 R6 R7
+  NOT R10 R11
+  LOADK R12 K11 ["FlatList does not support setting both onViewableItemsChanged and "]
+  LOADK R13 K12 ["viewabilityConfigCallbackPairs."]
+  CONCAT R11 R12 R13
+  CALL R9 2 0
+  RETURN R0 0
+
+PROTO_25:
+  GETUPVAL R2 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["index"]
+  JUMPIFNOTEQKNIL R4 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  LOADK R4 K1 ["Missing index!"]
+  CALL R2 2 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K0 ["index"]
+  SUBK R4 R5 K2 [1]
+  GETUPVAL R5 2
+  MUL R3 R4 R5
+  ADD R2 R3 R1
+  GETUPVAL R4 3
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K3 ["assign"]
+  NEWTABLE R6 0 0
+  GETUPVAL R7 1
+  DUPTABLE R8 K6 [{"item", "key", "index"}]
+  SETTABLEKS R0 R8 K4 ["item"]
+  GETUPVAL R9 5
+  MOVE R10 R0
+  MOVE R11 R2
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K5 ["key"]
+  SETTABLEKS R2 R8 K0 ["index"]
+  CALL R5 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R3 K9 [table.insert]
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_26:
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K1 ["numColumns"]
+  JUMPIFEQKNIL R4 [+3]
+  MOVE R3 R4
+  JUMP [+1]
+  LOADN R3 1
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K2 ["keyExtractor"]
+  JUMPIFEQKNIL R5 [+6]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K2 ["keyExtractor"]
+  JUMP [+1]
+  GETUPVAL R4 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["forEach"]
+  GETTABLEKS R6 R2 K4 ["item"]
+  NEWCLOSURE R7 P0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE UPVAL U3
+  CAPTURE VAL R4
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_27:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  NAMECALL R1 R1 K0 ["_pushMultiColumnViewable"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_28:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  NAMECALL R1 R1 K0 ["_pushMultiColumnViewable"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_29:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["numColumns"]
+  JUMPIFEQKNIL R2 [+3]
+  MOVE R1 R2
+  JUMP [+1]
+  LOADN R1 1
+  GETUPVAL R2 1
+  JUMPIFEQKNIL R2 [+37]
+  LOADN R2 1
+  JUMPIFNOTLT R2 R1 [+31]
+  NEWTABLE R2 0 0
+  NEWTABLE R3 0 0
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K2 ["forEach"]
+  GETTABLEKS R5 R0 K3 ["viewableItems"]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R3
+  CALL R4 2 0
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K2 ["forEach"]
+  GETTABLEKS R5 R0 K4 ["changed"]
+  NEWCLOSURE R6 P1
+  CAPTURE UPVAL U0
+  CAPTURE VAL R2
+  CALL R4 2 0
+  GETUPVAL R4 1
+  DUPTABLE R5 K5 [{"viewableItems", "changed"}]
+  SETTABLEKS R3 R5 K3 ["viewableItems"]
+  SETTABLEKS R2 R5 K4 ["changed"]
+  CALL R4 1 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_30:
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U0
+  RETURN R2 1
+
+PROTO_31:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["numColumns"]
+  GETTABLEKS R3 R1 K2 ["columnWrapperStyle"]
+  GETTABLEKS R4 R1 K3 ["removeClippedSubviews"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["assign"]
+  NEWTABLE R6 0 0
+  MOVE R7 R1
+  DUPTABLE R8 K5 [{"numColumns", "columnWrapperStyle", "removeClippedSubviews"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K6 ["None"]
+  SETTABLEKS R9 R8 K1 ["numColumns"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K6 ["None"]
+  SETTABLEKS R9 R8 K2 ["columnWrapperStyle"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K6 ["None"]
+  SETTABLEKS R9 R8 K3 ["removeClippedSubviews"]
+  CALL R5 3 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K7 ["createElement"]
+  GETUPVAL R7 2
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K4 ["assign"]
+  NEWTABLE R9 0 0
+  MOVE R10 R5
+  DUPTABLE R11 K13 [{"getItem", "getItemCount", "keyExtractor", "ref", "viewabilityConfigCallbackPairs", "removeClippedSubviews"}]
+  GETTABLEKS R12 R0 K14 ["_getItem"]
+  SETTABLEKS R12 R11 K8 ["getItem"]
+  GETTABLEKS R12 R0 K15 ["_getItemCount"]
+  SETTABLEKS R12 R11 K9 ["getItemCount"]
+  GETTABLEKS R12 R0 K16 ["_keyExtractor"]
+  SETTABLEKS R12 R11 K10 ["keyExtractor"]
+  GETTABLEKS R12 R0 K17 ["_captureRef"]
+  SETTABLEKS R12 R11 K11 ["ref"]
+  GETTABLEKS R12 R0 K18 ["_virtualizedListPairs"]
+  SETTABLEKS R12 R11 K12 ["viewabilityConfigCallbackPairs"]
+  JUMPIFEQKNIL R4 [+3]
+  MOVE R12 R4
+  JUMP [+7]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K19 ["OS"]
+  JUMPIFEQKS R13 K20 ["android"] [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  SETTABLEKS R12 R11 K3 ["removeClippedSubviews"]
+  GETTABLEKS R12 R0 K21 ["_renderer"]
+  CALL R12 0 -1
+  CALL R8 -1 -1
+  CALL R6 -1 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R1 K5 ["LuauPolyfill"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K6 ["Array"]
+  GETTABLEKS R4 R2 K7 ["Object"]
+  DUPTABLE R5 K9 [{"OS"}]
+  LOADK R6 K10 ["roblox"]
+  SETTABLEKS R6 R5 K8 ["OS"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K11 ["Utilities"]
+  GETTABLEKS R8 R9 K12 ["differ"]
+  GETTABLEKS R7 R8 K13 ["deepDiffer"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R1 K14 ["React"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R0 K15 ["Lists"]
+  GETTABLEKS R9 R10 K16 ["VirtualizedList"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R12 R0 K17 ["Components"]
+  GETTABLEKS R11 R12 K18 ["View"]
+  GETTABLEKS R10 R11 K18 ["View"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R12 R0 K19 ["StyleSheet"]
+  GETTABLEKS R11 R12 K19 ["StyleSheet"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R13 R0 K20 ["jsUtils"]
+  GETTABLEKS R12 R13 K21 ["invariant"]
+  CALL R11 1 1
+  GETTABLEKS R13 R0 K17 ["Components"]
+  GETTABLEKS R12 R13 K22 ["ScrollView"]
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R14 R12 K22 ["ScrollView"]
+  CALL R13 1 1
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R15 R12 K23 ["ScrollViewNativeComponent"]
+  CALL R14 1 1
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R17 R0 K15 ["Lists"]
+  GETTABLEKS R16 R17 K24 ["ViewabilityHelper"]
+  CALL R15 1 1
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R18 R0 K15 ["Lists"]
+  GETTABLEKS R17 R18 K16 ["VirtualizedList"]
+  CALL R16 1 1
+  GETIMPORT R18 K4 [require]
+  GETIMPORT R21 K1 [script]
+  GETTABLEKS R20 R21 K2 ["Parent"]
+  GETTABLEKS R19 R20 K25 ["VirtualizeUtils"]
+  CALL R18 1 1
+  GETTABLEKS R17 R18 K26 ["keyExtractor"]
+  DUPCLOSURE R18 K27 [PROTO_0]
+  CAPTURE VAL R5
+  DUPCLOSURE R19 K28 [PROTO_1]
+  GETTABLEKS R20 R7 K29 ["PureComponent"]
+  LOADK R22 K30 ["FlatList"]
+  NAMECALL R20 R20 K31 ["extend"]
+  CALL R20 2 1
+  DUPCLOSURE R21 K32 [PROTO_12]
+  CAPTURE VAL R17
+  CAPTURE VAL R3
+  CAPTURE VAL R11
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R4
+  SETTABLEKS R21 R20 K33 ["init"]
+  DUPCLOSURE R21 K34 [PROTO_13]
+  SETTABLEKS R21 R20 K35 ["scrollToEnd"]
+  DUPCLOSURE R21 K36 [PROTO_14]
+  SETTABLEKS R21 R20 K37 ["scrollToIndex"]
+  DUPCLOSURE R21 K38 [PROTO_15]
+  SETTABLEKS R21 R20 K39 ["scrollToItem"]
+  DUPCLOSURE R21 K40 [PROTO_16]
+  SETTABLEKS R21 R20 K41 ["scrollToOffset"]
+  DUPCLOSURE R21 K42 [PROTO_17]
+  SETTABLEKS R21 R20 K43 ["recordInteraction"]
+  DUPCLOSURE R21 K44 [PROTO_18]
+  SETTABLEKS R21 R20 K45 ["flashScrollIndicators"]
+  DUPCLOSURE R21 K46 [PROTO_19]
+  SETTABLEKS R21 R20 K47 ["getScrollResponder"]
+  DUPCLOSURE R21 K48 [PROTO_20]
+  SETTABLEKS R21 R20 K49 ["getNativeScrollRef"]
+  DUPCLOSURE R21 K50 [PROTO_21]
+  SETTABLEKS R21 R20 K51 ["getScrollableNode"]
+  DUPCLOSURE R21 K52 [PROTO_22]
+  SETTABLEKS R21 R20 K53 ["setNativeProps"]
+  DUPCLOSURE R21 K54 [PROTO_23]
+  CAPTURE VAL R11
+  CAPTURE VAL R6
+  SETTABLEKS R21 R20 K55 ["componentDidUpdate"]
+  DUPCLOSURE R21 K56 [PROTO_24]
+  CAPTURE VAL R11
+  SETTABLEKS R21 R20 K57 ["_checkProps"]
+  DUPCLOSURE R21 K58 [PROTO_26]
+  CAPTURE VAL R17
+  CAPTURE VAL R3
+  CAPTURE VAL R11
+  CAPTURE VAL R4
+  SETTABLEKS R21 R20 K59 ["_pushMultiColumnViewable"]
+  DUPCLOSURE R21 K60 [PROTO_30]
+  CAPTURE VAL R3
+  SETTABLEKS R21 R20 K61 ["_createOnViewableItemsChanged"]
+  DUPCLOSURE R21 K62 [PROTO_31]
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  SETTABLEKS R21 R20 K63 ["render"]
+  RETURN R20 1

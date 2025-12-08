@@ -1,0 +1,80 @@
+PROTO_0:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K1 [type]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K2 ["table"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K3 [+4]
+  LOADK R3 K3 ["Expected an array of pluginIds."]
+  GETIMPORT R1 K5 [assert]
+  CALL R1 2 0
+  LENGTH R3 R0
+  LOADN R4 0
+  JUMPIFLT R4 R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K6 [+4]
+  LOADK R3 K6 ["Expected a list of plugins to fetch data for."]
+  GETIMPORT R1 K5 [assert]
+  CALL R1 2 0
+  LENGTH R1 R0
+  LOADN R2 100
+  JUMPIFNOTLT R2 R1 [+5]
+  GETIMPORT R1 K8 [warn]
+  LOADK R2 K9 ["Requesting more than 100 plugins at a time is likely to cause problems."]
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K10 ["makeQueryString"]
+  DUPTABLE R2 K12 [{"pluginIds"}]
+  GETIMPORT R3 K14 [table.concat]
+  MOVE R4 R0
+  LOADK R5 K15 [","]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K11 ["pluginIds"]
+  CALL R1 1 1
+  GETIMPORT R2 K18 [string.format]
+  LOADK R3 K19 ["%sstudio-plugin-api/v1/plugins?%s"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K20 ["APIS_URL"]
+  MOVE R5 R1
+  CALL R2 3 1
+  GETUPVAL R3 1
+  MOVE R5 R2
+  NAMECALL R3 R3 K21 ["get"]
+  CALL R3 2 1
+  GETUPVAL R4 1
+  MOVE R6 R3
+  NAMECALL R4 R4 K22 ["handleRetry"]
+  CALL R4 2 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K23 ["parseJson"]
+  MOVE R6 R4
+  CALL R5 1 -1
+  RETURN R5 -1
+
+PROTO_1:
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["BaseUrl"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R0 K6 ["Networking"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K7 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R3 1

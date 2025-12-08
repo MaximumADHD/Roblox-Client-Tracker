@@ -1,0 +1,74 @@
+PROTO_0:
+  ADDK R1 R0 K0 [1]
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  DUPCLOSURE R1 K0 [PROTO_0]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useState"]
+  LOADN R2 0
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["createElement"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["Provider"]
+  DUPTABLE R5 K4 [{"value"}]
+  DUPTABLE R6 K9 [{"pageController", "contributorsController", "placesController", "refresh"}]
+  GETUPVAL R7 2
+  MOVE R8 R1
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K5 ["pageController"]
+  GETUPVAL R7 3
+  MOVE R8 R1
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K6 ["contributorsController"]
+  GETUPVAL R7 4
+  MOVE R8 R1
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K7 ["placesController"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R2
+  SETTABLEKS R7 R6 K8 ["refresh"]
+  SETTABLEKS R6 R5 K3 ["value"]
+  GETTABLEKS R6 R0 K10 ["children"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["PlaceVersionHistory"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETTABLEKS R3 R0 K8 ["Src"]
+  GETTABLEKS R2 R3 K9 ["Contexts"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R2 K10 ["ControllerContext"]
+  CALL R3 1 1
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K11 ["Hooks"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R4 K12 ["usePageController"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R4 K13 ["useContributorsController"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R8 R4 K14 ["usePlacesController"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K15 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  RETURN R8 1

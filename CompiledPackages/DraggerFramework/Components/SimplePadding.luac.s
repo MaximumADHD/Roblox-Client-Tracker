@@ -1,0 +1,40 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  LOADK R2 K1 ["UIPadding"]
+  DUPTABLE R3 K6 [{"PaddingBottom", "PaddingRight", "PaddingLeft", "PaddingTop"}]
+  GETIMPORT R4 K9 [UDim.new]
+  LOADN R5 0
+  GETTABLEKS R6 R0 K10 ["Padding"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K2 ["PaddingBottom"]
+  GETIMPORT R4 K9 [UDim.new]
+  LOADN R5 0
+  GETTABLEKS R6 R0 K10 ["Padding"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K3 ["PaddingRight"]
+  GETIMPORT R4 K9 [UDim.new]
+  LOADN R5 0
+  GETTABLEKS R6 R0 K10 ["Padding"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K4 ["PaddingLeft"]
+  GETIMPORT R4 K9 [UDim.new]
+  LOADN R5 0
+  GETTABLEKS R6 R0 K10 ["Padding"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K5 ["PaddingTop"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R1 K5 ["Roact"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K6 [PROTO_0]
+  CAPTURE VAL R2
+  RETURN R3 1

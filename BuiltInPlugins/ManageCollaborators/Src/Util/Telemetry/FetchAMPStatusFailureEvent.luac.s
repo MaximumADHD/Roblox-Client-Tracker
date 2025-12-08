@@ -1,7 +1,7 @@
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["UpsellCollabSafety"]
+  LOADK R2 K2 ["UpsellCollabSafety2"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
   JUMPIFNOT R0 [+35]

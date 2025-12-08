@@ -1,0 +1,42 @@
+PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 1
+  DUPTABLE R2 K2 [{"onItemChanged"}]
+  DUPCLOSURE R3 K3 [PROTO_0]
+  SETTABLEKS R3 R2 K1 ["onItemChanged"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K8 ["TimeDropdown"]
+  CALL R3 1 1
+  DUPTABLE R4 K11 [{"summary", "stories"}]
+  LOADK R5 K8 ["TimeDropdown"]
+  SETTABLEKS R5 R4 K9 ["summary"]
+  NEWTABLE R5 0 1
+  DUPTABLE R6 K14 [{"name", "story"}]
+  LOADK R7 K8 ["TimeDropdown"]
+  SETTABLEKS R7 R6 K12 ["name"]
+  DUPCLOSURE R7 K15 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETTABLEKS R7 R6 K13 ["story"]
+  SETLIST R5 R6 1 [1]
+  SETTABLEKS R5 R4 K10 ["stories"]
+  RETURN R4 1

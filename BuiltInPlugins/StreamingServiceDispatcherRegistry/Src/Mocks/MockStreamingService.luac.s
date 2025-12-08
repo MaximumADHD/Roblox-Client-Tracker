@@ -293,40 +293,54 @@ PROTO_19:
   RETURN R0 0
 
 PROTO_20:
-  GETUPVAL R2 0
-  GETTABLEKS R4 R1 K0 ["query"]
-  LOADN R5 0
-  NAMECALL R2 R2 K1 ["GetFreeModels"]
-  CALL R2 3 1
+  LOADNIL R2
+  GETIMPORT R3 K1 [game]
+  LOADK R5 K2 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R3 R3 K3 ["GetEngineFeature"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+9]
+  GETUPVAL R3 0
+  GETTABLEKS R5 R1 K4 ["query"]
+  LOADN R6 0
+  NAMECALL R3 R3 K5 ["GetFreeModelsAsync"]
+  CALL R3 3 1
+  MOVE R2 R3
+  JUMP [+8]
+  GETUPVAL R3 0
+  GETTABLEKS R5 R1 K4 ["query"]
+  LOADN R6 0
+  NAMECALL R3 R3 K6 ["GetFreeModels"]
+  CALL R3 3 1
+  MOVE R2 R3
   NEWTABLE R3 0 0
   MOVE R4 R2
   LOADNIL R5
   LOADNIL R6
   FORGPREP R4
-  DUPTABLE R11 K5 [{"id", "matchScore", "properties"}]
-  GETTABLEKS R12 R8 K6 ["AssetId"]
-  SETTABLEKS R12 R11 K2 ["id"]
-  LOADK R12 K7 [0.8]
-  SETTABLEKS R12 R11 K3 ["matchScore"]
-  DUPTABLE R12 K10 [{"name", "size"}]
-  GETTABLEKS R13 R8 K11 ["Name"]
-  SETTABLEKS R13 R12 K8 ["name"]
-  DUPTABLE R13 K15 [{"x", "y", "z"}]
+  DUPTABLE R11 K10 [{"id", "matchScore", "properties"}]
+  GETTABLEKS R12 R8 K11 ["AssetId"]
+  SETTABLEKS R12 R11 K7 ["id"]
+  LOADK R12 K12 [0.8]
+  SETTABLEKS R12 R11 K8 ["matchScore"]
+  DUPTABLE R12 K15 [{"name", "size"}]
+  GETTABLEKS R13 R8 K16 ["Name"]
+  SETTABLEKS R13 R12 K13 ["name"]
+  DUPTABLE R13 K20 [{"x", "y", "z"}]
   LOADN R14 5
-  SETTABLEKS R14 R13 K12 ["x"]
+  SETTABLEKS R14 R13 K17 ["x"]
   LOADN R14 10
-  SETTABLEKS R14 R13 K13 ["y"]
+  SETTABLEKS R14 R13 K18 ["y"]
   LOADN R14 15
-  SETTABLEKS R14 R13 K14 ["z"]
-  SETTABLEKS R13 R12 K9 ["size"]
-  SETTABLEKS R12 R11 K4 ["properties"]
+  SETTABLEKS R14 R13 K19 ["z"]
+  SETTABLEKS R13 R12 K14 ["size"]
+  SETTABLEKS R12 R11 K9 ["properties"]
   FASTCALL2 TABLE_INSERT R3 R11 [+4]
   MOVE R10 R3
-  GETIMPORT R9 K18 [table.insert]
+  GETIMPORT R9 K23 [table.insert]
   CALL R9 2 0
   FORGLOOP R4 2 [-34]
-  DUPTABLE R4 K20 [{"data"}]
-  SETTABLEKS R3 R4 K19 ["data"]
+  DUPTABLE R4 K25 [{"data"}]
+  SETTABLEKS R3 R4 K24 ["data"]
   RETURN R4 1
 
 PROTO_21:

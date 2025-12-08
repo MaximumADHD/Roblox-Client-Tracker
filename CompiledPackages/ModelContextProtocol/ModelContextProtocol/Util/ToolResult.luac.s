@@ -1,0 +1,85 @@
+PROTO_0:
+  NEWTABLE R1 2 0
+  GETUPVAL R2 0
+  FASTCALL2 SETMETATABLE R1 R2 [+3]
+  GETIMPORT R0 K1 [setmetatable]
+  CALL R0 2 1
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K2 ["content"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K3 ["isError"]
+  RETURN R0 1
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["content"]
+  DUPTABLE R4 K3 [{"type", "text"}]
+  LOADK R5 K2 ["text"]
+  SETTABLEKS R5 R4 K1 ["type"]
+  SETTABLEKS R1 R4 K2 ["text"]
+  FASTCALL2 TABLE_INSERT R3 R4 [+3]
+  GETIMPORT R2 K6 [table.insert]
+  CALL R2 2 0
+  RETURN R0 1
+
+PROTO_2:
+  GETTABLEKS R4 R0 K0 ["content"]
+  DUPTABLE R5 K4 [{"type", "data", "mimeType"}]
+  LOADK R6 K5 ["image"]
+  SETTABLEKS R6 R5 K1 ["type"]
+  SETTABLEKS R1 R5 K2 ["data"]
+  SETTABLEKS R2 R5 K3 ["mimeType"]
+  FASTCALL2 TABLE_INSERT R4 R5 [+3]
+  GETIMPORT R3 K8 [table.insert]
+  CALL R3 2 0
+  RETURN R0 1
+
+PROTO_3:
+  GETTABLEKS R4 R0 K0 ["content"]
+  DUPTABLE R5 K4 [{"type", "resource", "annotations"}]
+  LOADK R6 K2 ["resource"]
+  SETTABLEKS R6 R5 K1 ["type"]
+  SETTABLEKS R1 R5 K2 ["resource"]
+  SETTABLEKS R2 R5 K3 ["annotations"]
+  FASTCALL2 TABLE_INSERT R4 R5 [+3]
+  GETIMPORT R3 K7 [table.insert]
+  CALL R3 2 0
+  RETURN R0 1
+
+PROTO_4:
+  SETTABLEKS R1 R0 K0 ["isError"]
+  RETURN R0 1
+
+PROTO_5:
+  DUPTABLE R1 K2 [{"content", "isError"}]
+  GETTABLEKS R2 R0 K0 ["content"]
+  SETTABLEKS R2 R1 K0 ["content"]
+  GETTABLEKS R2 R0 K1 ["isError"]
+  SETTABLEKS R2 R1 K1 ["isError"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ModelContextProtocol"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R2 R0 K6 ["Types"]
+  CALL R1 1 1
+  NEWTABLE R2 8 0
+  SETTABLEKS R2 R2 K7 ["__index"]
+  DUPCLOSURE R3 K8 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLEKS R3 R2 K9 ["define"]
+  DUPCLOSURE R3 K10 [PROTO_1]
+  SETTABLEKS R3 R2 K11 ["addText"]
+  DUPCLOSURE R3 K12 [PROTO_2]
+  SETTABLEKS R3 R2 K13 ["addImage"]
+  DUPCLOSURE R3 K14 [PROTO_3]
+  SETTABLEKS R3 R2 K15 ["addEmbeddedResource"]
+  DUPCLOSURE R3 K16 [PROTO_4]
+  SETTABLEKS R3 R2 K17 ["setError"]
+  DUPCLOSURE R3 K18 [PROTO_5]
+  SETTABLEKS R3 R2 K19 ["build"]
+  GETTABLEKS R3 R2 K9 ["define"]
+  RETURN R3 1

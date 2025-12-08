@@ -1,0 +1,287 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R4 R0 K0 ["aggregatePropertyInfo"]
+  GETTABLEKS R3 R4 K1 ["type"]
+  GETTABLEKS R4 R0 K2 ["id"]
+  CALL R2 2 1
+  GETUPVAL R3 1
+  JUMPIFNOTEQ R2 R3 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_1:
+  GETIMPORT R1 K2 [UDim2.new]
+  LOADN R2 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["Size"]
+  GETTABLEKS R5 R6 K4 ["Size_800"]
+  SUB R4 R0 R5
+  FASTCALL2K MATH_MAX R4 K5 [+4]
+  LOADK R5 K5 [0]
+  GETIMPORT R3 K8 [math.max]
+  CALL R3 2 1
+  LOADN R4 1
+  LOADN R5 0
+  CALL R1 4 -1
+  RETURN R1 -1
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["property"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["createNextOrder"]
+  CALL R2 0 1
+  GETUPVAL R3 1
+  CALL R3 0 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K2 ["useContext"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K3 ["Context"]
+  CALL R4 1 1
+  GETTABLEKS R6 R1 K4 ["aggregatePropertyInfo"]
+  GETTABLEKS R5 R6 K5 ["readonly"]
+  GETUPVAL R6 4
+  GETUPVAL R7 5
+  DUPTABLE R8 K10 [{"tag", "LayoutOrder", "onSecondaryActivated", "stateLayer"}]
+  LOADK R9 K11 ["auto-y size-full-0 row padding-left-medium padding-y-xxsmall"]
+  SETTABLEKS R9 R8 K6 ["tag"]
+  GETTABLEKS R9 R0 K7 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K7 ["LayoutOrder"]
+  GETTABLEKS R9 R0 K8 ["onSecondaryActivated"]
+  SETTABLEKS R9 R8 K8 ["onSecondaryActivated"]
+  DUPTABLE R9 K13 [{"affordance"}]
+  GETUPVAL R11 6
+  GETTABLEKS R10 R11 K14 ["None"]
+  SETTABLEKS R10 R9 K12 ["affordance"]
+  SETTABLEKS R9 R8 K9 ["stateLayer"]
+  DUPTABLE R9 K18 [{"PropertyName", "PropertyValue", "SizeConstraint"}]
+  GETUPVAL R10 4
+  GETUPVAL R11 5
+  DUPTABLE R12 K19 [{"tag", "LayoutOrder"}]
+  LOADK R13 K20 ["auto-x row size-0-600"]
+  SETTABLEKS R13 R12 K6 ["tag"]
+  MOVE R13 R2
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  DUPTABLE R13 K23 [{"LeftSpacer", "Text"}]
+  GETUPVAL R14 4
+  GETUPVAL R15 7
+  DUPTABLE R16 K25 [{"LayoutOrder", "addTrailingGap"}]
+  MOVE R17 R2
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K7 ["LayoutOrder"]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K24 ["addTrailingGap"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K21 ["LeftSpacer"]
+  GETUPVAL R14 4
+  GETUPVAL R15 8
+  DUPTABLE R16 K28 [{"tag", "LayoutOrder", "Text", "Size", "textStyle"}]
+  LOADK R17 K29 ["clip text-no-wrap text-align-x-left text-align-y-center text-body-small"]
+  SETTABLEKS R17 R16 K6 ["tag"]
+  MOVE R17 R2
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K7 ["LayoutOrder"]
+  GETTABLEKS R18 R1 K30 ["id"]
+  GETTABLEKS R17 R18 K31 ["name"]
+  SETTABLEKS R17 R16 K22 ["Text"]
+  GETTABLEKS R17 R0 K32 ["labelWidthBinding"]
+  NEWCLOSURE R19 P0
+  CAPTURE VAL R3
+  NAMECALL R17 R17 K33 ["map"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K26 ["Size"]
+  DUPTABLE R17 K36 [{"Color3", "Transparency"}]
+  GETUPVAL R20 9
+  GETTABLEKS R22 R1 K4 ["aggregatePropertyInfo"]
+  GETTABLEKS R21 R22 K37 ["type"]
+  GETTABLEKS R22 R1 K30 ["id"]
+  CALL R20 2 1
+  GETUPVAL R21 10
+  JUMPIFNOTEQ R20 R21 [+2]
+  LOADB R19 0 +1
+  LOADB R19 1
+  JUMPIFNOT R19 [+9]
+  GETTABLEKS R21 R3 K38 ["Color"]
+  GETTABLEKS R20 R21 K39 ["Content"]
+  GETTABLEKS R19 R20 K40 ["Default"]
+  GETTABLEKS R18 R19 K34 ["Color3"]
+  JUMP [+3]
+  GETUPVAL R19 11
+  GETTABLEKS R18 R19 K41 ["unimplementedLabelColor"]
+  SETTABLEKS R18 R17 K34 ["Color3"]
+  JUMPIFNOT R5 [+4]
+  GETUPVAL R19 11
+  GETTABLEKS R18 R19 K42 ["readOnlyLabelTransparency"]
+  JUMP [+8]
+  GETTABLEKS R21 R3 K38 ["Color"]
+  GETTABLEKS R20 R21 K39 ["Content"]
+  GETTABLEKS R19 R20 K40 ["Default"]
+  GETTABLEKS R18 R19 K35 ["Transparency"]
+  SETTABLEKS R18 R17 K35 ["Transparency"]
+  SETTABLEKS R17 R16 K27 ["textStyle"]
+  DUPTABLE R17 K44 [{"CoolFade"}]
+  GETUPVAL R18 4
+  GETUPVAL R19 5
+  DUPTABLE R20 K46 [{"tag", "Size", "backgroundStyle"}]
+  LOADK R21 K47 ["anchor-center-right position-center-right"]
+  SETTABLEKS R21 R20 K6 ["tag"]
+  GETIMPORT R21 K50 [UDim2.new]
+  LOADN R22 0
+  GETTABLEKS R24 R3 K51 ["Padding"]
+  GETTABLEKS R23 R24 K52 ["Medium"]
+  LOADN R24 1
+  LOADN R25 0
+  CALL R21 4 1
+  SETTABLEKS R21 R20 K26 ["Size"]
+  DUPTABLE R21 K36 [{"Color3", "Transparency"}]
+  GETTABLEKS R23 R4 K53 ["theme"]
+  JUMPIFNOTEQKS R23 K54 ["Light"] [+6]
+  GETIMPORT R22 K56 [Color3.fromHex]
+  LOADK R23 K57 ["#FFFFFF"]
+  CALL R22 1 1
+  JUMP [+16]
+  GETUPVAL R23 12
+  CALL R23 0 1
+  JUMPIFNOT R23 [+9]
+  GETTABLEKS R25 R3 K38 ["Color"]
+  GETTABLEKS R24 R25 K58 ["Surface"]
+  GETTABLEKS R23 R24 K59 ["Surface_100"]
+  GETTABLEKS R22 R23 K34 ["Color3"]
+  JUMP [+4]
+  GETIMPORT R22 K56 [Color3.fromHex]
+  LOADK R23 K60 ["#2E2E2E"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K34 ["Color3"]
+  LOADN R22 0
+  SETTABLEKS R22 R21 K35 ["Transparency"]
+  SETTABLEKS R21 R20 K45 ["backgroundStyle"]
+  DUPTABLE R21 K62 [{"UIGradient"}]
+  GETUPVAL R22 4
+  LOADK R23 K61 ["UIGradient"]
+  DUPTABLE R24 K63 [{"Transparency"}]
+  GETIMPORT R25 K65 [NumberSequence.new]
+  LOADN R26 1
+  LOADN R27 0
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K35 ["Transparency"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K61 ["UIGradient"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K43 ["CoolFade"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K22 ["Text"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K15 ["PropertyName"]
+  GETUPVAL R10 4
+  GETUPVAL R11 13
+  DUPTABLE R12 K70 [{"layoutOrder", "zIndex", "record", "session", "labelWidthBinding"}]
+  MOVE R13 R2
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K66 ["layoutOrder"]
+  LOADN R13 2
+  SETTABLEKS R13 R12 K67 ["zIndex"]
+  SETTABLEKS R1 R12 K68 ["record"]
+  GETTABLEKS R13 R0 K69 ["session"]
+  SETTABLEKS R13 R12 K69 ["session"]
+  GETTABLEKS R13 R0 K32 ["labelWidthBinding"]
+  SETTABLEKS R13 R12 K32 ["labelWidthBinding"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K16 ["PropertyValue"]
+  GETUPVAL R10 4
+  LOADK R11 K71 ["UISizeConstraint"]
+  DUPTABLE R12 K73 [{"MinSize"}]
+  GETIMPORT R13 K75 [Vector2.new]
+  LOADN R14 0
+  GETTABLEKS R16 R3 K26 ["Size"]
+  GETTABLEKS R15 R16 K76 ["Size_600"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K72 ["MinSize"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K17 ["SizeConstraint"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R6 R0 K7 ["Components"]
+  GETTABLEKS R5 R6 K8 ["PropertyEntries"]
+  GETTABLEKS R4 R5 K9 ["PropertyView"]
+  GETTABLEKS R3 R4 K10 ["BasicPropertyView"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K11 ["Util"]
+  GETTABLEKS R4 R5 K12 ["Constants"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K13 ["Foundation"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R8 R0 K7 ["Components"]
+  GETTABLEKS R7 R8 K11 ["Util"]
+  GETTABLEKS R6 R7 K14 ["LeftArrowSpacer"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R7 R0 K15 ["PropertyTypes"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R10 R0 K7 ["Components"]
+  GETTABLEKS R9 R10 K8 ["PropertyEntries"]
+  GETTABLEKS R8 R9 K9 ["PropertyView"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R9 R1 K16 ["React"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R10 R1 K17 ["ReactUtils"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R11 R0 K18 ["RpcTypes"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R14 R0 K7 ["Components"]
+  GETTABLEKS R13 R14 K19 ["Contexts"]
+  GETTABLEKS R12 R13 K20 ["ThemeContext"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R0 K21 ["Flags"]
+  GETTABLEKS R13 R14 K22 ["getFFlagEnableRibbonPlugin"]
+  CALL R12 1 1
+  GETIMPORT R13 K6 [require]
+  GETTABLEKS R17 R0 K7 ["Components"]
+  GETTABLEKS R16 R17 K8 ["PropertyEntries"]
+  GETTABLEKS R15 R16 K9 ["PropertyView"]
+  GETTABLEKS R14 R15 K23 ["getPropertyView"]
+  CALL R13 1 1
+  GETTABLEKS R15 R4 K24 ["Enums"]
+  GETTABLEKS R14 R15 K25 ["StateLayerAffordance"]
+  GETTABLEKS R15 R4 K26 ["Text"]
+  GETTABLEKS R16 R4 K27 ["View"]
+  GETTABLEKS R18 R4 K28 ["Hooks"]
+  GETTABLEKS R17 R18 K29 ["useTokens"]
+  GETTABLEKS R18 R8 K30 ["createElement"]
+  DUPCLOSURE R19 K31 [PROTO_0]
+  CAPTURE VAL R13
+  CAPTURE VAL R2
+  DUPCLOSURE R20 K32 [PROTO_2]
+  CAPTURE VAL R9
+  CAPTURE VAL R17
+  CAPTURE VAL R8
+  CAPTURE VAL R11
+  CAPTURE VAL R18
+  CAPTURE VAL R16
+  CAPTURE VAL R14
+  CAPTURE VAL R5
+  CAPTURE VAL R15
+  CAPTURE VAL R13
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R12
+  CAPTURE VAL R7
+  RETURN R20 1

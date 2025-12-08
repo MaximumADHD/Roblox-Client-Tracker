@@ -1,0 +1,12 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["Symbol"]
+  CALL R0 1 1
+  GETTABLEKS R1 R0 K6 ["named"]
+  LOADK R2 K7 ["Children"]
+  CALL R1 1 1
+  RETURN R1 1

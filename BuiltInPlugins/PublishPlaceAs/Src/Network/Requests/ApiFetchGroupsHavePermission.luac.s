@@ -35,48 +35,55 @@ PROTO_0:
   RETURN R3 1
 
 PROTO_1:
-  JUMPIFNOT R0 [+2]
-  LOADK R1 K0 ["StudioPublishPlace"]
-  JUMP [+1]
-  LOADK R1 K1 ["StudioSavePlace"]
   LOADNIL R2
-  GETUPVAL R3 0
-  JUMPIFNOT R3 [+19]
-  DUPTABLE R3 K5 [{"Url", "Method", "Params"}]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K6 ["BuildRobloxUrl"]
-  LOADK R5 K7 ["apis"]
-  LOADK R6 K8 ["creator-home-api/v1/groups"]
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K2 ["Url"]
-  LOADK R4 K9 ["GET"]
-  SETTABLEKS R4 R3 K3 ["Method"]
-  DUPTABLE R4 K11 [{"surface"}]
-  SETTABLEKS R1 R4 K10 ["surface"]
-  SETTABLEKS R4 R3 K4 ["Params"]
-  MOVE R2 R3
+  JUMPIFNOT R1 [+5]
+  JUMPIFNOT R0 [+2]
+  LOADK R2 K0 ["StudioPublishNewPlace"]
+  JUMP [+6]
+  LOADK R2 K1 ["StudioSaveNewPlace"]
+  JUMP [+4]
+  JUMPIFNOT R0 [+2]
+  LOADK R2 K2 ["StudioPublishExistingPlace"]
+  JUMP [+1]
+  LOADK R2 K3 ["StudioSaveExistingPlace"]
+  LOADNIL R3
+  GETUPVAL R4 0
+  JUMPIFNOT R4 [+19]
+  DUPTABLE R4 K7 [{"Url", "Method", "Params"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K8 ["BuildRobloxUrl"]
+  LOADK R6 K9 ["apis"]
+  LOADK R7 K10 ["creator-home-api/v1/groups"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K4 ["Url"]
+  LOADK R5 K11 ["GET"]
+  SETTABLEKS R5 R4 K5 ["Method"]
+  DUPTABLE R5 K13 [{"surface"}]
+  SETTABLEKS R2 R5 K12 ["surface"]
+  SETTABLEKS R5 R4 K6 ["Params"]
+  MOVE R3 R4
   JUMP [+13]
-  DUPTABLE R3 K12 [{"Url", "Method"}]
+  DUPTABLE R4 K14 [{"Url", "Method"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K8 ["BuildRobloxUrl"]
+  LOADK R6 K15 ["develop"]
+  LOADK R7 K16 ["v1/user/groups/canmanage"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K4 ["Url"]
+  LOADK R5 K11 ["GET"]
+  SETTABLEKS R5 R4 K5 ["Method"]
+  MOVE R3 R4
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K6 ["BuildRobloxUrl"]
-  LOADK R5 K13 ["develop"]
-  LOADK R6 K14 ["v1/user/groups/canmanage"]
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K2 ["Url"]
-  LOADK R4 K9 ["GET"]
-  SETTABLEKS R4 R3 K3 ["Method"]
-  MOVE R2 R3
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K15 ["Request"]
-  MOVE R4 R2
-  CALL R3 1 1
-  DUPCLOSURE R5 K16 [PROTO_0]
+  GETTABLEKS R4 R5 K17 ["Request"]
+  MOVE R5 R3
+  CALL R4 1 1
+  DUPCLOSURE R6 K18 [PROTO_0]
   CAPTURE UPVAL U2
   CAPTURE UPVAL U0
   CAPTURE UPVAL U3
-  NAMECALL R3 R3 K17 ["andThen"]
-  CALL R3 2 -1
-  RETURN R3 -1
+  NAMECALL R4 R4 K19 ["andThen"]
+  CALL R4 2 -1
+  RETURN R4 -1
 
 MAIN:
   PREPVARARGS 0

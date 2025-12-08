@@ -80,23 +80,33 @@ PROTO_0:
   GETIMPORT R2 K17 [task.wait]
   LOADN R3 3
   CALL R2 1 0
+  GETIMPORT R3 K29 [game]
+  LOADK R5 K30 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R3 R3 K31 ["GetEngineFeature"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+6]
   GETUPVAL R2 1
   LOADN R4 109
-  NAMECALL R2 R2 K28 ["CreateHumanoidModelFromUserId"]
+  NAMECALL R2 R2 K32 ["CreateHumanoidModelFromUserIdAsync"]
   CALL R2 2 1
-  LOADK R5 K29 ["Accessory"]
-  NAMECALL R3 R2 K30 ["FindFirstChildWhichIsA"]
+  JUMP [+5]
+  GETUPVAL R2 1
+  LOADN R4 109
+  NAMECALL R2 R2 K33 ["CreateHumanoidModelFromUserId"]
+  CALL R2 2 1
+  LOADK R5 K34 ["Accessory"]
+  NAMECALL R3 R2 K35 ["FindFirstChildWhichIsA"]
   CALL R3 2 1
   JUMPIFEQKNIL R3 [+17]
   JUMPIFNOTEQKNIL R3 [+2]
   LOADB R5 0 +1
   LOADB R5 1
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K31 ["LUAU_ANALYZE_ERROR"]
+  GETTABLEKS R6 R7 K36 ["LUAU_ANALYZE_ERROR"]
   FASTCALL2 ASSERT R5 R6 [+3]
-  GETIMPORT R4 K33 [assert]
+  GETIMPORT R4 K38 [assert]
   CALL R4 2 0
-  NAMECALL R4 R3 K34 ["Destroy"]
+  NAMECALL R4 R3 K39 ["Destroy"]
   CALL R4 1 0
   JUMPBACK [-22]
   RETURN R2 1

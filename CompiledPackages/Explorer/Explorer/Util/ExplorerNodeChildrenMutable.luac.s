@@ -1,0 +1,1946 @@
+PROTO_0:
+  DUPTABLE R0 K1 [{"treeDescendantCount"}]
+  LOADN R1 1
+  SETTABLEKS R1 R0 K0 ["treeDescendantCount"]
+  RETURN R0 1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["children"]
+  JUMPIFNOT R1 [+1]
+  RETURN R1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["empty"]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K0 ["children"]
+  RETURN R2 1
+
+PROTO_2:
+  ADD R4 R1 R2
+  IDIVK R3 R4 K0 [2]
+  GETTABLE R4 R0 R3
+  GETTABLEKS R5 R4 K1 ["children"]
+  JUMPIFNOT R5 [+3]
+  GETTABLEKS R6 R5 K2 ["treeDescendantCount"]
+  JUMP [+1]
+  LOADN R6 1
+  SETTABLEKS R6 R4 K3 ["childNodeTreeCount"]
+  SUBK R6 R3 K4 [1]
+  JUMPIFNOTLE R1 R6 [+17]
+  GETUPVAL R7 0
+  MOVE R8 R0
+  MOVE R9 R1
+  MOVE R10 R6
+  CALL R7 3 1
+  SETTABLEKS R7 R4 K5 ["childNodeLeft"]
+  SETTABLEKS R4 R7 K6 ["childNodeParent"]
+  GETTABLEKS R8 R4 K3 ["childNodeTreeCount"]
+  GETTABLEKS R9 R7 K3 ["childNodeTreeCount"]
+  ADD R8 R8 R9
+  SETTABLEKS R8 R4 K3 ["childNodeTreeCount"]
+  ADDK R7 R3 K4 [1]
+  JUMPIFNOTLE R7 R2 [+17]
+  GETUPVAL R8 0
+  MOVE R9 R0
+  MOVE R10 R7
+  MOVE R11 R2
+  CALL R8 3 1
+  SETTABLEKS R8 R4 K7 ["childNodeRight"]
+  SETTABLEKS R4 R8 K6 ["childNodeParent"]
+  GETTABLEKS R9 R4 K3 ["childNodeTreeCount"]
+  GETTABLEKS R10 R8 K3 ["childNodeTreeCount"]
+  ADD R9 R9 R10
+  SETTABLEKS R9 R4 K3 ["childNodeTreeCount"]
+  LOADB R8 0
+  SETTABLEKS R8 R4 K8 ["childNodeColor"]
+  RETURN R4 1
+
+PROTO_3:
+  LENGTH R3 R0
+  JUMPIFEQKN R3 K0 [7] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K1 [+4]
+  LOADK R3 K1 ["Array count is not at expected limit."]
+  GETIMPORT R1 K3 [assert]
+  CALL R1 2 0
+  GETUPVAL R1 0
+  MOVE R2 R0
+  LOADN R3 1
+  LENGTH R4 R0
+  CALL R1 3 1
+  RETURN R1 1
+
+PROTO_4:
+  RETURN R0 1
+
+PROTO_5:
+  GETTABLEKS R3 R1 K0 ["childNodeRight"]
+  MOVE R2 R3
+  GETTABLEKS R3 R1 K1 ["childNodeParent"]
+  GETTABLEKS R4 R2 K2 ["childNodeLeft"]
+  GETTABLEKS R5 R1 K3 ["childNodeTreeCount"]
+  GETTABLEKS R6 R2 K3 ["childNodeTreeCount"]
+  SUB R5 R5 R6
+  SETTABLEKS R5 R1 K3 ["childNodeTreeCount"]
+  JUMPIFNOT R4 [+7]
+  GETTABLEKS R5 R1 K3 ["childNodeTreeCount"]
+  GETTABLEKS R6 R4 K3 ["childNodeTreeCount"]
+  ADD R5 R5 R6
+  SETTABLEKS R5 R1 K3 ["childNodeTreeCount"]
+  SETTABLEKS R4 R1 K0 ["childNodeRight"]
+  JUMPIFNOT R4 [+2]
+  SETTABLEKS R1 R4 K1 ["childNodeParent"]
+  SETTABLEKS R3 R2 K1 ["childNodeParent"]
+  JUMPIF R3 [+2]
+  MOVE R0 R2
+  JUMP [+9]
+  GETTABLEKS R5 R3 K2 ["childNodeLeft"]
+  JUMPIFNOTEQ R1 R5 [+4]
+  SETTABLEKS R2 R3 K2 ["childNodeLeft"]
+  JUMP [+2]
+  SETTABLEKS R2 R3 K0 ["childNodeRight"]
+  JUMPIFNOT R4 [+7]
+  GETTABLEKS R5 R2 K3 ["childNodeTreeCount"]
+  GETTABLEKS R6 R4 K3 ["childNodeTreeCount"]
+  SUB R5 R5 R6
+  SETTABLEKS R5 R2 K3 ["childNodeTreeCount"]
+  GETTABLEKS R5 R2 K3 ["childNodeTreeCount"]
+  GETTABLEKS R6 R1 K3 ["childNodeTreeCount"]
+  ADD R5 R5 R6
+  SETTABLEKS R5 R2 K3 ["childNodeTreeCount"]
+  SETTABLEKS R1 R2 K2 ["childNodeLeft"]
+  SETTABLEKS R2 R1 K1 ["childNodeParent"]
+  RETURN R0 1
+
+PROTO_6:
+  GETTABLEKS R3 R1 K0 ["childNodeLeft"]
+  MOVE R2 R3
+  GETTABLEKS R3 R1 K1 ["childNodeParent"]
+  GETTABLEKS R4 R2 K2 ["childNodeRight"]
+  GETTABLEKS R5 R1 K3 ["childNodeTreeCount"]
+  GETTABLEKS R6 R2 K3 ["childNodeTreeCount"]
+  SUB R5 R5 R6
+  SETTABLEKS R5 R1 K3 ["childNodeTreeCount"]
+  JUMPIFNOT R4 [+7]
+  GETTABLEKS R5 R1 K3 ["childNodeTreeCount"]
+  GETTABLEKS R6 R4 K3 ["childNodeTreeCount"]
+  ADD R5 R5 R6
+  SETTABLEKS R5 R1 K3 ["childNodeTreeCount"]
+  SETTABLEKS R4 R1 K0 ["childNodeLeft"]
+  JUMPIFNOT R4 [+2]
+  SETTABLEKS R1 R4 K1 ["childNodeParent"]
+  SETTABLEKS R3 R2 K1 ["childNodeParent"]
+  JUMPIF R3 [+2]
+  MOVE R0 R2
+  JUMP [+9]
+  GETTABLEKS R5 R3 K0 ["childNodeLeft"]
+  JUMPIFNOTEQ R1 R5 [+4]
+  SETTABLEKS R2 R3 K0 ["childNodeLeft"]
+  JUMP [+2]
+  SETTABLEKS R2 R3 K2 ["childNodeRight"]
+  JUMPIFNOT R4 [+7]
+  GETTABLEKS R5 R2 K3 ["childNodeTreeCount"]
+  GETTABLEKS R6 R4 K3 ["childNodeTreeCount"]
+  SUB R5 R5 R6
+  SETTABLEKS R5 R2 K3 ["childNodeTreeCount"]
+  GETTABLEKS R5 R2 K3 ["childNodeTreeCount"]
+  GETTABLEKS R6 R1 K3 ["childNodeTreeCount"]
+  ADD R5 R5 R6
+  SETTABLEKS R5 R2 K3 ["childNodeTreeCount"]
+  SETTABLEKS R1 R2 K2 ["childNodeRight"]
+  SETTABLEKS R2 R1 K1 ["childNodeParent"]
+  RETURN R0 1
+
+PROTO_7:
+  GETTABLEKS R2 R1 K0 ["childNodeParent"]
+  JUMPIFNOT R2 [+99]
+  GETTABLEKS R3 R2 K1 ["childNodeColor"]
+  JUMPIFEQKB R3 FALSE [+96]
+  GETTABLEKS R4 R2 K0 ["childNodeParent"]
+  MOVE R3 R4
+  GETTABLEKS R4 R3 K2 ["childNodeLeft"]
+  JUMPIFNOTEQ R2 R4 [+44]
+  GETTABLEKS R4 R3 K3 ["childNodeRight"]
+  JUMPIFNOT R4 [+15]
+  GETTABLEKS R5 R4 K1 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 TRUE [+12]
+  LOADB R5 0
+  SETTABLEKS R5 R2 K1 ["childNodeColor"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K1 ["childNodeColor"]
+  LOADB R5 1
+  SETTABLEKS R5 R3 K1 ["childNodeColor"]
+  MOVE R1 R3
+  JUMP [+69]
+  GETTABLEKS R5 R2 K3 ["childNodeRight"]
+  JUMPIFNOTEQ R1 R5 [+7]
+  MOVE R1 R2
+  GETUPVAL R5 0
+  MOVE R6 R0
+  MOVE R7 R1
+  CALL R5 2 1
+  MOVE R0 R5
+  GETTABLEKS R6 R1 K0 ["childNodeParent"]
+  MOVE R5 R6
+  LOADB R6 0
+  SETTABLEKS R6 R5 K1 ["childNodeColor"]
+  LOADB R5 1
+  SETTABLEKS R5 R3 K1 ["childNodeColor"]
+  GETUPVAL R5 1
+  MOVE R6 R0
+  MOVE R7 R3
+  CALL R5 2 1
+  MOVE R0 R5
+  JUMP [+44]
+  MOVE R4 R3
+  JUMPIFNOT R4 [+2]
+  GETTABLEKS R4 R3 K2 ["childNodeLeft"]
+  JUMPIFNOT R4 [+15]
+  GETTABLEKS R5 R4 K1 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 TRUE [+12]
+  LOADB R5 0
+  SETTABLEKS R5 R2 K1 ["childNodeColor"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K1 ["childNodeColor"]
+  LOADB R5 1
+  SETTABLEKS R5 R3 K1 ["childNodeColor"]
+  MOVE R1 R3
+  JUMP [+24]
+  GETTABLEKS R5 R2 K2 ["childNodeLeft"]
+  JUMPIFNOTEQ R1 R5 [+7]
+  MOVE R1 R2
+  GETUPVAL R5 1
+  MOVE R6 R0
+  MOVE R7 R1
+  CALL R5 2 1
+  MOVE R0 R5
+  GETTABLEKS R6 R1 K0 ["childNodeParent"]
+  MOVE R5 R6
+  LOADB R6 0
+  SETTABLEKS R6 R5 K1 ["childNodeColor"]
+  LOADB R5 1
+  SETTABLEKS R5 R3 K1 ["childNodeColor"]
+  GETUPVAL R5 0
+  MOVE R6 R0
+  MOVE R7 R3
+  CALL R5 2 1
+  MOVE R0 R5
+  JUMPBACK [-102]
+  LOADB R2 0
+  SETTABLEKS R2 R0 K1 ["childNodeColor"]
+  RETURN R0 1
+
+PROTO_8:
+  GETUPVAL R2 0
+  MOVE R3 R1
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K0 ["childNodeTreeCount"]
+  MOVE R3 R0
+  GETTABLEKS R4 R3 K0 ["childNodeTreeCount"]
+  ADD R4 R4 R2
+  SETTABLEKS R4 R3 K0 ["childNodeTreeCount"]
+  GETUPVAL R4 1
+  GETTABLEKS R5 R1 K1 ["datum"]
+  GETTABLEKS R6 R3 K1 ["datum"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+9]
+  GETTABLEKS R4 R3 K2 ["childNodeLeft"]
+  JUMPIFNOT R4 [+2]
+  MOVE R3 R4
+  JUMP [+12]
+  SETTABLEKS R1 R3 K2 ["childNodeLeft"]
+  JUMP [+10]
+  JUMP [+8]
+  GETTABLEKS R4 R3 K3 ["childNodeRight"]
+  JUMPIFNOT R4 [+2]
+  MOVE R3 R4
+  JUMP [+3]
+  SETTABLEKS R1 R3 K3 ["childNodeRight"]
+  JUMP [+1]
+  JUMPBACK [-30]
+  SETTABLEKS R3 R1 K4 ["childNodeParent"]
+  LOADB R4 1
+  SETTABLEKS R4 R1 K5 ["childNodeColor"]
+  GETUPVAL R4 2
+  MOVE R5 R0
+  MOVE R6 R1
+  CALL R4 2 1
+  RETURN R4 1
+
+PROTO_9:
+  LOADN R2 1
+  LENGTH R3 R0
+  JUMPIFNOTLE R2 R3 [+15]
+  ADD R5 R2 R3
+  IDIVK R4 R5 K0 [2]
+  GETUPVAL R5 0
+  GETTABLEKS R6 R1 K1 ["datum"]
+  GETTABLE R8 R0 R4
+  GETTABLEKS R7 R8 K1 ["datum"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+2]
+  SUBK R3 R4 K2 [1]
+  JUMP [+1]
+  ADDK R2 R4 K2 [1]
+  JUMPBACK [-16]
+  FASTCALL3 TABLE_INSERT R0 R2 R1
+  MOVE R5 R0
+  MOVE R6 R2
+  MOVE R7 R1
+  GETIMPORT R4 K5 [table.insert]
+  CALL R4 3 0
+  RETURN R0 0
+
+PROTO_10:
+  MOVE R2 R0
+  JUMPIFNOT R2 [+8]
+  GETTABLEKS R3 R2 K0 ["childNodeTreeCount"]
+  ADD R3 R3 R1
+  SETTABLEKS R3 R2 K0 ["childNodeTreeCount"]
+  GETTABLEKS R2 R2 K1 ["childNodeParent"]
+  JUMPBACK [-9]
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["ensureChildList"]
+  MOVE R3 R0
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K1 ["treeDescendantCount"]
+  ADD R3 R3 R1
+  SETTABLEKS R3 R2 K1 ["treeDescendantCount"]
+  GETTABLEKS R5 R2 K1 ["treeDescendantCount"]
+  LOADN R6 1
+  JUMPIFLE R6 R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K2 [+4]
+  LOADK R5 K2 ["Tree descendant count went below 1"]
+  GETIMPORT R3 K4 [assert]
+  CALL R3 2 0
+  GETTABLEKS R3 R0 K5 ["childNodeTreeCount"]
+  JUMPIFNOT R3 [+10]
+  MOVE R3 R0
+  JUMPIFNOT R3 [+8]
+  GETTABLEKS R4 R3 K5 ["childNodeTreeCount"]
+  ADD R4 R4 R1
+  SETTABLEKS R4 R3 K5 ["childNodeTreeCount"]
+  GETTABLEKS R3 R3 K6 ["childNodeParent"]
+  JUMPBACK [-9]
+  RETURN R0 0
+
+PROTO_12:
+  GETTABLEKS R2 R0 K0 ["tree"]
+  JUMPIFNOT R2 [+8]
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K0 ["tree"]
+  MOVE R4 R1
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K0 ["tree"]
+  RETURN R0 0
+  GETTABLEKS R2 R0 K1 ["array"]
+  JUMPIFNOT R2 [+35]
+  LENGTH R3 R2
+  LOADN R4 7
+  JUMPIFNOTLT R3 R4 [+6]
+  GETUPVAL R3 1
+  MOVE R4 R2
+  MOVE R5 R1
+  CALL R3 2 0
+  RETURN R0 0
+  LENGTH R6 R2
+  JUMPIFEQKN R6 K2 [7] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K3 [+4]
+  LOADK R6 K3 ["Array count is not at expected limit."]
+  GETIMPORT R4 K5 [assert]
+  CALL R4 2 0
+  GETUPVAL R3 2
+  MOVE R4 R2
+  LOADN R5 1
+  LENGTH R6 R2
+  CALL R3 3 1
+  GETUPVAL R4 0
+  MOVE R5 R3
+  MOVE R6 R1
+  CALL R4 2 1
+  SETTABLEKS R4 R0 K0 ["tree"]
+  LOADNIL R4
+  SETTABLEKS R4 R0 K1 ["array"]
+  RETURN R0 0
+  NEWTABLE R3 0 1
+  MOVE R4 R1
+  SETLIST R3 R4 1 [1]
+  SETTABLEKS R3 R0 K1 ["array"]
+  RETURN R0 0
+
+PROTO_13:
+  GETTABLEKS R1 R0 K0 ["childNodeLeft"]
+  JUMPIFNOT R1 [+3]
+  GETTABLEKS R0 R0 K0 ["childNodeLeft"]
+  JUMPBACK [-6]
+  RETURN R0 1
+
+PROTO_14:
+  GETTABLEKS R2 R0 K0 ["childNodeParent"]
+  JUMPIFNOT R2 [+9]
+  GETTABLEKS R3 R2 K1 ["childNodeLeft"]
+  JUMPIFNOTEQ R3 R0 [+4]
+  SETTABLEKS R1 R2 K1 ["childNodeLeft"]
+  JUMP [+2]
+  SETTABLEKS R1 R2 K2 ["childNodeRight"]
+  GETTABLEKS R3 R1 K2 ["childNodeRight"]
+  JUMPIFNOT R3 [+2]
+  SETTABLEKS R0 R3 K0 ["childNodeParent"]
+  GETTABLEKS R4 R0 K2 ["childNodeRight"]
+  GETTABLEKS R5 R0 K1 ["childNodeLeft"]
+  GETTABLEKS R7 R1 K0 ["childNodeParent"]
+  MOVE R6 R7
+  LOADNIL R7
+  SETTABLEKS R7 R0 K1 ["childNodeLeft"]
+  SETTABLEKS R3 R0 K2 ["childNodeRight"]
+  GETTABLEKS R7 R0 K0 ["childNodeParent"]
+  SETTABLEKS R7 R1 K0 ["childNodeParent"]
+  GETTABLEKS R7 R1 K3 ["childNodeColor"]
+  GETTABLEKS R8 R0 K3 ["childNodeColor"]
+  SETTABLEKS R7 R0 K3 ["childNodeColor"]
+  SETTABLEKS R8 R1 K3 ["childNodeColor"]
+  GETTABLEKS R7 R1 K4 ["childNodeTreeCount"]
+  GETTABLEKS R8 R0 K4 ["childNodeTreeCount"]
+  SETTABLEKS R7 R0 K4 ["childNodeTreeCount"]
+  SETTABLEKS R8 R1 K4 ["childNodeTreeCount"]
+  JUMPIFNOTEQ R4 R1 [+11]
+  SETTABLEKS R0 R1 K2 ["childNodeRight"]
+  SETTABLEKS R5 R1 K1 ["childNodeLeft"]
+  SETTABLEKS R1 R0 K0 ["childNodeParent"]
+  JUMPIFNOT R5 [+24]
+  SETTABLEKS R1 R5 K0 ["childNodeParent"]
+  JUMP [+21]
+  SETTABLEKS R5 R1 K1 ["childNodeLeft"]
+  SETTABLEKS R4 R1 K2 ["childNodeRight"]
+  GETTABLEKS R7 R6 K1 ["childNodeLeft"]
+  JUMPIFNOTEQ R7 R1 [+4]
+  SETTABLEKS R0 R6 K1 ["childNodeLeft"]
+  JUMP [+2]
+  SETTABLEKS R0 R6 K2 ["childNodeRight"]
+  SETTABLEKS R6 R0 K0 ["childNodeParent"]
+  JUMPIFNOT R4 [+2]
+  SETTABLEKS R1 R4 K0 ["childNodeParent"]
+  JUMPIFNOT R5 [+2]
+  SETTABLEKS R1 R5 K0 ["childNodeParent"]
+  GETUPVAL R8 0
+  MOVE R9 R0
+  CALL R8 1 1
+  GETUPVAL R9 0
+  MOVE R10 R1
+  CALL R9 1 1
+  SUB R7 R8 R9
+  JUMPIFEQKN R7 K5 [0] [+13]
+  MOVE R8 R0
+  JUMPIFEQ R8 R1 [+10]
+  GETTABLEKS R9 R8 K4 ["childNodeTreeCount"]
+  ADD R9 R9 R7
+  SETTABLEKS R9 R8 K4 ["childNodeTreeCount"]
+  GETTABLEKS R9 R8 K0 ["childNodeParent"]
+  MOVE R8 R9
+  JUMPBACK [-11]
+  RETURN R0 0
+
+PROTO_15:
+  GETTABLEKS R2 R0 K0 ["childNodeParent"]
+  MOVE R1 R2
+  GETTABLEKS R2 R1 K1 ["childNodeLeft"]
+  JUMPIFNOTEQ R2 R0 [+5]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K1 ["childNodeLeft"]
+  JUMP [+3]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K2 ["childNodeRight"]
+  LOADNIL R2
+  SETTABLEKS R2 R0 K0 ["childNodeParent"]
+  GETUPVAL R3 0
+  MOVE R4 R0
+  CALL R3 1 1
+  MINUS R2 R3
+  MOVE R3 R1
+  JUMPIFNOT R3 [+8]
+  GETTABLEKS R4 R3 K3 ["childNodeTreeCount"]
+  ADD R4 R4 R2
+  SETTABLEKS R4 R3 K3 ["childNodeTreeCount"]
+  GETTABLEKS R3 R3 K0 ["childNodeParent"]
+  JUMPBACK [-9]
+  RETURN R0 0
+
+PROTO_16:
+  GETTABLEKS R2 R0 K0 ["childNodeParent"]
+  MOVE R1 R2
+  GETTABLEKS R2 R1 K1 ["childNodeLeft"]
+  JUMPIFNOTEQ R2 R0 [+6]
+  GETTABLEKS R3 R1 K2 ["childNodeRight"]
+  MOVE R2 R3
+  LOADK R3 K3 ["right"]
+  RETURN R2 2
+  GETTABLEKS R3 R1 K1 ["childNodeLeft"]
+  MOVE R2 R3
+  LOADK R3 K4 ["left"]
+  RETURN R2 2
+
+PROTO_17:
+  GETTABLEKS R5 R1 K0 ["childNodeParent"]
+  MOVE R4 R5
+  GETTABLEKS R5 R4 K1 ["childNodeLeft"]
+  JUMPIFNOTEQ R5 R1 [+6]
+  GETTABLEKS R5 R4 K2 ["childNodeRight"]
+  MOVE R2 R5
+  LOADK R3 K3 ["right"]
+  JUMP [+5]
+  GETTABLEKS R5 R4 K1 ["childNodeLeft"]
+  MOVE R2 R5
+  LOADK R3 K4 ["left"]
+  JUMP [0]
+  JUMPIFNOTEQKS R3 K4 ["left"] [+4]
+  GETTABLEKS R4 R2 K1 ["childNodeLeft"]
+  JUMP [+2]
+  GETTABLEKS R4 R2 K2 ["childNodeRight"]
+  GETTABLEKS R5 R2 K5 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 FALSE [+39]
+  MOVE R6 R4
+  GETTABLEKS R5 R6 K5 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 TRUE [+34]
+  GETTABLEKS R6 R2 K0 ["childNodeParent"]
+  MOVE R5 R6
+  JUMPIFNOTEQKS R3 K4 ["left"] [+7]
+  GETUPVAL R6 0
+  MOVE R7 R0
+  MOVE R8 R5
+  CALL R6 2 1
+  MOVE R0 R6
+  JUMP [+5]
+  GETUPVAL R6 1
+  MOVE R7 R0
+  MOVE R8 R5
+  CALL R6 2 1
+  MOVE R0 R6
+  GETTABLEKS R6 R5 K5 ["childNodeColor"]
+  SETTABLEKS R6 R2 K5 ["childNodeColor"]
+  GETTABLEKS R6 R2 K2 ["childNodeRight"]
+  JUMPIFNOT R6 [+3]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K5 ["childNodeColor"]
+  GETTABLEKS R7 R2 K1 ["childNodeLeft"]
+  JUMPIFNOT R7 [+3]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K5 ["childNodeColor"]
+  RETURN R0 1
+  GETIMPORT R5 K7 [error]
+  LOADK R6 K8 ["Should not reach this case"]
+  CALL R5 1 0
+  RETURN R0 0
+
+PROTO_18:
+  GETTABLEKS R5 R1 K0 ["childNodeParent"]
+  MOVE R4 R5
+  GETTABLEKS R5 R4 K1 ["childNodeLeft"]
+  JUMPIFNOTEQ R5 R1 [+6]
+  GETTABLEKS R5 R4 K2 ["childNodeRight"]
+  MOVE R2 R5
+  LOADK R3 K3 ["right"]
+  JUMP [+5]
+  GETTABLEKS R5 R4 K1 ["childNodeLeft"]
+  MOVE R2 R5
+  LOADK R3 K4 ["left"]
+  JUMP [0]
+  LOADNIL R4
+  LOADNIL R5
+  JUMPIFNOTEQKS R3 K4 ["left"] [+6]
+  GETTABLEKS R4 R2 K2 ["childNodeRight"]
+  GETTABLEKS R5 R2 K1 ["childNodeLeft"]
+  JUMP [+4]
+  GETTABLEKS R4 R2 K1 ["childNodeLeft"]
+  GETTABLEKS R5 R2 K2 ["childNodeRight"]
+  JUMPIFNOT R4 [+32]
+  GETTABLEKS R6 R4 K5 ["childNodeColor"]
+  JUMPIFNOTEQKB R6 TRUE [+29]
+  JUMPIFNOT R5 [+4]
+  GETTABLEKS R6 R5 K5 ["childNodeColor"]
+  JUMPIFNOTEQKB R6 FALSE [+24]
+  GETTABLEKS R6 R2 K5 ["childNodeColor"]
+  JUMPIFNOTEQKB R6 FALSE [+20]
+  JUMPIFNOTEQKS R3 K4 ["left"] [+7]
+  GETUPVAL R6 0
+  MOVE R7 R0
+  MOVE R8 R2
+  CALL R6 2 1
+  MOVE R0 R6
+  JUMP [+5]
+  GETUPVAL R6 1
+  MOVE R7 R0
+  MOVE R8 R2
+  CALL R6 2 1
+  MOVE R0 R6
+  LOADB R6 0
+  SETTABLEKS R6 R4 K5 ["childNodeColor"]
+  LOADB R6 1
+  SETTABLEKS R6 R2 K5 ["childNodeColor"]
+  GETUPVAL R6 2
+  MOVE R7 R0
+  MOVE R8 R1
+  CALL R6 2 -1
+  RETURN R6 -1
+
+PROTO_19:
+  GETTABLEKS R3 R1 K0 ["childNodeParent"]
+  MOVE R2 R3
+  GETTABLEKS R3 R2 K1 ["childNodeColor"]
+  JUMPIFNOTEQKB R3 TRUE [+49]
+  GETTABLEKS R6 R1 K0 ["childNodeParent"]
+  MOVE R5 R6
+  GETTABLEKS R6 R5 K2 ["childNodeLeft"]
+  JUMPIFNOTEQ R6 R1 [+6]
+  GETTABLEKS R6 R5 K3 ["childNodeRight"]
+  MOVE R3 R6
+  LOADK R4 K4 ["right"]
+  JUMP [+5]
+  GETTABLEKS R6 R5 K2 ["childNodeLeft"]
+  MOVE R3 R6
+  LOADK R4 K5 ["left"]
+  JUMP [0]
+  GETTABLEKS R5 R3 K1 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 FALSE [+28]
+  GETTABLEKS R5 R3 K2 ["childNodeLeft"]
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R3 K2 ["childNodeLeft"]
+  GETTABLEKS R5 R6 K1 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 FALSE [+19]
+  GETTABLEKS R5 R3 K3 ["childNodeRight"]
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R3 K3 ["childNodeRight"]
+  GETTABLEKS R5 R6 K1 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 FALSE [+10]
+  GETTABLEKS R5 R3 K1 ["childNodeColor"]
+  GETTABLEKS R6 R2 K1 ["childNodeColor"]
+  SETTABLEKS R5 R2 K1 ["childNodeColor"]
+  SETTABLEKS R6 R3 K1 ["childNodeColor"]
+  RETURN R0 1
+  GETUPVAL R3 0
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_20:
+  GETTABLEKS R3 R1 K0 ["childNodeParent"]
+  MOVE R2 R3
+  GETTABLEKS R6 R1 K0 ["childNodeParent"]
+  MOVE R5 R6
+  GETTABLEKS R6 R5 K1 ["childNodeLeft"]
+  JUMPIFNOTEQ R6 R1 [+6]
+  GETTABLEKS R6 R5 K2 ["childNodeRight"]
+  MOVE R3 R6
+  LOADK R4 K3 ["right"]
+  JUMP [+5]
+  GETTABLEKS R6 R5 K1 ["childNodeLeft"]
+  MOVE R3 R6
+  LOADK R4 K4 ["left"]
+  JUMP [0]
+  GETTABLEKS R5 R3 K5 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 FALSE [+31]
+  GETTABLEKS R5 R2 K5 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 FALSE [+27]
+  GETTABLEKS R5 R3 K1 ["childNodeLeft"]
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R3 K1 ["childNodeLeft"]
+  GETTABLEKS R5 R6 K5 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 FALSE [+18]
+  GETTABLEKS R5 R3 K2 ["childNodeRight"]
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R3 K2 ["childNodeRight"]
+  GETTABLEKS R5 R6 K5 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 FALSE [+9]
+  LOADB R5 1
+  SETTABLEKS R5 R3 K5 ["childNodeColor"]
+  GETUPVAL R5 0
+  MOVE R6 R0
+  MOVE R7 R2
+  CALL R5 2 -1
+  RETURN R5 -1
+  GETUPVAL R5 1
+  MOVE R6 R0
+  MOVE R7 R1
+  CALL R5 2 -1
+  RETURN R5 -1
+
+PROTO_21:
+  GETTABLEKS R3 R1 K0 ["childNodeParent"]
+  MOVE R2 R3
+  GETTABLEKS R6 R1 K0 ["childNodeParent"]
+  MOVE R5 R6
+  GETTABLEKS R6 R5 K1 ["childNodeLeft"]
+  JUMPIFNOTEQ R6 R1 [+6]
+  GETTABLEKS R6 R5 K2 ["childNodeRight"]
+  MOVE R3 R6
+  LOADK R4 K3 ["right"]
+  JUMP [+5]
+  GETTABLEKS R6 R5 K1 ["childNodeLeft"]
+  MOVE R3 R6
+  LOADK R4 K4 ["left"]
+  JUMP [0]
+  GETTABLEKS R5 R3 K5 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 TRUE [+47]
+  GETTABLEKS R5 R2 K5 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 FALSE [+43]
+  GETTABLEKS R5 R3 K1 ["childNodeLeft"]
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R3 K1 ["childNodeLeft"]
+  GETTABLEKS R5 R6 K5 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 FALSE [+34]
+  GETTABLEKS R5 R3 K2 ["childNodeRight"]
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R3 K2 ["childNodeRight"]
+  GETTABLEKS R5 R6 K5 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 FALSE [+25]
+  JUMPIFNOTEQKS R4 K4 ["left"] [+7]
+  GETUPVAL R5 0
+  MOVE R6 R0
+  MOVE R7 R2
+  CALL R5 2 1
+  MOVE R0 R5
+  JUMP [+5]
+  GETUPVAL R5 1
+  MOVE R6 R0
+  MOVE R7 R2
+  CALL R5 2 1
+  MOVE R0 R5
+  LOADB R5 1
+  SETTABLEKS R5 R2 K5 ["childNodeColor"]
+  LOADB R5 0
+  SETTABLEKS R5 R3 K5 ["childNodeColor"]
+  GETUPVAL R5 2
+  MOVE R6 R0
+  MOVE R7 R1
+  CALL R5 2 -1
+  RETURN R5 -1
+  GETUPVAL R5 3
+  MOVE R6 R0
+  MOVE R7 R1
+  CALL R5 2 -1
+  RETURN R5 -1
+
+PROTO_22:
+  JUMPIFNOTEQ R0 R1 [+5]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K0 ["childNodeColor"]
+  RETURN R0 1
+  GETUPVAL R2 0
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_23:
+  GETTABLEKS R2 R1 K0 ["childNodeLeft"]
+  GETTABLEKS R3 R1 K1 ["childNodeRight"]
+  OR R4 R2 R3
+  JUMPIFNOTEQ R1 R0 [+11]
+  JUMPIFNOT R4 [+7]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K2 ["childNodeColor"]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K3 ["childNodeParent"]
+  RETURN R4 1
+  LOADNIL R5
+  RETURN R5 1
+  GETTABLEKS R5 R1 K2 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 TRUE [+40]
+  JUMPIFNOT R4 [+5]
+  GETIMPORT R5 K5 [error]
+  LOADK R6 K6 ["Red node cannot have a child"]
+  CALL R5 1 0
+  RETURN R0 0
+  GETTABLEKS R6 R1 K3 ["childNodeParent"]
+  MOVE R5 R6
+  GETTABLEKS R6 R5 K0 ["childNodeLeft"]
+  JUMPIFNOTEQ R6 R1 [+5]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K0 ["childNodeLeft"]
+  JUMP [+3]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K1 ["childNodeRight"]
+  LOADNIL R6
+  SETTABLEKS R6 R1 K3 ["childNodeParent"]
+  GETUPVAL R7 0
+  MOVE R8 R1
+  CALL R7 1 1
+  MINUS R6 R7
+  MOVE R7 R5
+  JUMPIFNOT R7 [+8]
+  GETTABLEKS R8 R7 K7 ["childNodeTreeCount"]
+  ADD R8 R8 R6
+  SETTABLEKS R8 R7 K7 ["childNodeTreeCount"]
+  GETTABLEKS R7 R7 K3 ["childNodeParent"]
+  JUMPBACK [-9]
+  RETURN R0 1
+  RETURN R0 0
+  JUMPIFNOT R4 [+38]
+  GETTABLEKS R5 R4 K2 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 TRUE [+35]
+  GETUPVAL R6 0
+  MOVE R7 R1
+  CALL R6 1 1
+  MINUS R5 R6
+  MOVE R6 R1
+  JUMPIFNOT R6 [+8]
+  GETTABLEKS R7 R6 K7 ["childNodeTreeCount"]
+  ADD R7 R7 R5
+  SETTABLEKS R7 R6 K7 ["childNodeTreeCount"]
+  GETTABLEKS R6 R6 K3 ["childNodeParent"]
+  JUMPBACK [-9]
+  GETTABLEKS R6 R1 K3 ["childNodeParent"]
+  MOVE R5 R6
+  GETTABLEKS R6 R5 K0 ["childNodeLeft"]
+  JUMPIFNOTEQ R6 R1 [+4]
+  SETTABLEKS R4 R5 K0 ["childNodeLeft"]
+  JUMP [+2]
+  SETTABLEKS R4 R5 K1 ["childNodeRight"]
+  GETTABLEKS R6 R1 K3 ["childNodeParent"]
+  SETTABLEKS R6 R4 K3 ["childNodeParent"]
+  LOADB R6 0
+  SETTABLEKS R6 R4 K2 ["childNodeColor"]
+  RETURN R0 1
+  GETUPVAL R5 1
+  MOVE R6 R0
+  MOVE R7 R1
+  CALL R5 2 1
+  MOVE R0 R5
+  GETTABLEKS R6 R1 K3 ["childNodeParent"]
+  MOVE R5 R6
+  GETTABLEKS R6 R5 K0 ["childNodeLeft"]
+  JUMPIFNOTEQ R6 R1 [+5]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K0 ["childNodeLeft"]
+  JUMP [+3]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K1 ["childNodeRight"]
+  LOADNIL R6
+  SETTABLEKS R6 R1 K3 ["childNodeParent"]
+  GETUPVAL R7 0
+  MOVE R8 R1
+  CALL R7 1 1
+  MINUS R6 R7
+  MOVE R7 R5
+  JUMPIFNOT R7 [+8]
+  GETTABLEKS R8 R7 K7 ["childNodeTreeCount"]
+  ADD R8 R8 R6
+  SETTABLEKS R8 R7 K7 ["childNodeTreeCount"]
+  GETTABLEKS R7 R7 K3 ["childNodeParent"]
+  JUMPBACK [-9]
+  RETURN R0 1
+  RETURN R0 0
+
+PROTO_24:
+  GETTABLEKS R2 R1 K0 ["childNodeLeft"]
+  JUMPIFNOT R2 [+19]
+  GETTABLEKS R2 R1 K1 ["childNodeRight"]
+  JUMPIFNOT R2 [+16]
+  GETTABLEKS R3 R1 K1 ["childNodeRight"]
+  GETTABLEKS R4 R3 K0 ["childNodeLeft"]
+  JUMPIFNOT R4 [+3]
+  GETTABLEKS R3 R3 K0 ["childNodeLeft"]
+  JUMPBACK [-6]
+  MOVE R2 R3
+  GETUPVAL R3 0
+  MOVE R4 R1
+  MOVE R5 R2
+  CALL R3 2 0
+  JUMPIFNOTEQ R0 R1 [+2]
+  MOVE R0 R2
+  GETUPVAL R2 1
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_25:
+  GETTABLEKS R2 R0 K0 ["array"]
+  JUMPIFNOT R2 [+30]
+  GETIMPORT R2 K3 [table.find]
+  GETTABLEKS R3 R0 K0 ["array"]
+  MOVE R4 R1
+  CALL R2 2 1
+  JUMPIF R2 [+16]
+  GETIMPORT R3 K5 [error]
+  LOADK R5 K6 ["Removing explorer node %* from parent (presumably %*), but it's not inside of its children array"]
+  GETTABLEKS R8 R1 K7 ["datum"]
+  GETTABLEKS R7 R8 K8 ["id"]
+  GETTABLEKS R9 R1 K7 ["datum"]
+  GETTABLEKS R8 R9 K9 ["parentId"]
+  NAMECALL R5 R5 K10 ["format"]
+  CALL R5 3 1
+  MOVE R4 R5
+  CALL R3 1 0
+  GETIMPORT R3 K12 [table.remove]
+  GETTABLEKS R4 R0 K0 ["array"]
+  MOVE R5 R2
+  CALL R3 2 0
+  RETURN R0 0
+  GETTABLEKS R4 R0 K13 ["tree"]
+  JUMPIFNOTEQKNIL R4 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K14 [+4]
+  LOADK R4 K14 ["Removing explorer node from parent, but it has neither an array nor a tree"]
+  GETIMPORT R2 K16 [assert]
+  CALL R2 2 0
+  GETTABLEKS R3 R0 K13 ["tree"]
+  GETTABLEKS R4 R1 K17 ["childNodeLeft"]
+  JUMPIFNOT R4 [+19]
+  GETTABLEKS R4 R1 K18 ["childNodeRight"]
+  JUMPIFNOT R4 [+16]
+  GETTABLEKS R5 R1 K18 ["childNodeRight"]
+  GETTABLEKS R6 R5 K17 ["childNodeLeft"]
+  JUMPIFNOT R6 [+3]
+  GETTABLEKS R5 R5 K17 ["childNodeLeft"]
+  JUMPBACK [-6]
+  MOVE R4 R5
+  GETUPVAL R5 0
+  MOVE R6 R1
+  MOVE R7 R4
+  CALL R5 2 0
+  JUMPIFNOTEQ R3 R1 [+2]
+  MOVE R3 R4
+  GETUPVAL R4 1
+  MOVE R5 R3
+  MOVE R6 R1
+  CALL R4 2 1
+  MOVE R2 R4
+  SETTABLEKS R2 R0 K13 ["tree"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K19 ["childNodeColor"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K20 ["childNodeTreeCount"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K17 ["childNodeLeft"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K18 ["childNodeRight"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K21 ["childNodeParent"]
+  GETTABLEKS R2 R0 K13 ["tree"]
+  JUMPIF R2 [+4]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K0 ["array"]
+  RETURN R0 0
+
+PROTO_26:
+  GETTABLEKS R2 R0 K0 ["children"]
+  SETTABLEKS R1 R0 K0 ["children"]
+  GETTABLEKS R3 R0 K1 ["childNodeTreeCount"]
+  JUMPIFNOT R3 [+18]
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R3 R2 K2 ["treeDescendantCount"]
+  JUMP [+1]
+  LOADN R3 1
+  GETTABLEKS R4 R1 K2 ["treeDescendantCount"]
+  SUB R5 R4 R3
+  MOVE R6 R0
+  JUMPIFNOT R6 [+8]
+  GETTABLEKS R7 R6 K1 ["childNodeTreeCount"]
+  ADD R7 R7 R5
+  SETTABLEKS R7 R6 K1 ["childNodeTreeCount"]
+  GETTABLEKS R6 R6 K3 ["childNodeParent"]
+  JUMPBACK [-9]
+  RETURN R2 1
+
+PROTO_27:
+  GETTABLEKS R2 R0 K0 ["childNodeLeft"]
+  JUMPIFNOT R2 [+10]
+  GETTABLEKS R3 R2 K1 ["childNodeTreeCount"]
+  JUMPIFNOTLE R1 R3 [+6]
+  GETUPVAL R4 0
+  MOVE R5 R2
+  MOVE R6 R1
+  CALL R4 2 -1
+  RETURN R4 -1
+  SUB R1 R1 R3
+  GETUPVAL R3 1
+  MOVE R4 R0
+  CALL R3 1 1
+  JUMPIFNOTLE R1 R3 [+20]
+  JUMPIFNOTEQKN R1 K2 [1] [+2]
+  RETURN R0 1
+  GETTABLEKS R5 R0 K3 ["children"]
+  FASTCALL2K ASSERT R5 K4 [+4]
+  LOADK R6 K4 ["treeCount > index > 1 => node must have children"]
+  GETIMPORT R4 K6 [assert]
+  CALL R4 2 0
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K7 ["getNthDescendant"]
+  GETTABLEKS R5 R0 K3 ["children"]
+  SUBK R6 R1 K2 [1]
+  CALL R4 2 -1
+  RETURN R4 -1
+  SUB R1 R1 R3
+  GETTABLEKS R4 R0 K8 ["childNodeRight"]
+  JUMPIFNOT R4 [+9]
+  GETTABLEKS R5 R4 K1 ["childNodeTreeCount"]
+  JUMPIFNOTLE R1 R5 [+6]
+  GETUPVAL R5 0
+  MOVE R6 R4
+  MOVE R7 R1
+  CALL R5 2 -1
+  RETURN R5 -1
+  LOADNIL R5
+  RETURN R5 1
+
+PROTO_28:
+  LOADN R4 0
+  JUMPIFLT R4 R1 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["index <= 0"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  JUMPIF R0 [+2]
+  LOADNIL R2
+  RETURN R2 1
+  GETTABLEKS R2 R0 K3 ["array"]
+  JUMPIFNOT R2 [+24]
+  MOVE R3 R2
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  JUMPIFNOTEQKN R1 K4 [1] [+2]
+  RETURN R7 1
+  GETUPVAL R8 0
+  MOVE R9 R7
+  CALL R8 1 1
+  JUMPIFNOTLT R8 R1 [+3]
+  SUB R1 R1 R8
+  JUMP [+8]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K5 ["getNthDescendant"]
+  GETTABLEKS R10 R7 K6 ["children"]
+  SUBK R11 R1 K4 [1]
+  CALL R9 2 -1
+  RETURN R9 -1
+  FORGLOOP R3 2 [-19]
+  GETTABLEKS R3 R0 K7 ["tree"]
+  JUMPIFNOT R3 [+5]
+  GETUPVAL R4 2
+  MOVE R5 R3
+  MOVE R6 R1
+  CALL R4 2 -1
+  RETURN R4 -1
+  LOADNIL R4
+  RETURN R4 1
+
+PROTO_29:
+  GETTABLEKS R2 R0 K0 ["childNodeLeft"]
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R3 0
+  MOVE R4 R2
+  MOVE R5 R1
+  CALL R3 2 0
+  FASTCALL2 TABLE_INSERT R1 R0 [+5]
+  MOVE R4 R1
+  MOVE R5 R0
+  GETIMPORT R3 K3 [table.insert]
+  CALL R3 2 0
+  GETTABLEKS R3 R0 K4 ["childNodeRight"]
+  JUMPIFNOT R3 [+4]
+  GETUPVAL R4 0
+  MOVE R5 R3
+  MOVE R6 R1
+  CALL R4 2 0
+  RETURN R1 1
+
+PROTO_30:
+  GETUPVAL R0 0
+  MOVE R1 R0
+  JUMPIFNOT R0 [+26]
+  GETTABLEKS R2 R0 K0 ["childNodeRight"]
+  JUMPIFNOT R2 [+9]
+  GETTABLEKS R0 R0 K0 ["childNodeRight"]
+  GETTABLEKS R2 R0 K1 ["childNodeLeft"]
+  JUMPIFNOT R2 [+16]
+  GETTABLEKS R0 R0 K1 ["childNodeLeft"]
+  JUMPBACK [-6]
+  JUMP [+12]
+  GETTABLEKS R2 R0 K2 ["childNodeParent"]
+  JUMPIFNOT R2 [+8]
+  GETTABLEKS R3 R2 K0 ["childNodeRight"]
+  JUMPIFNOTEQ R3 R0 [+5]
+  MOVE R0 R2
+  GETTABLEKS R2 R2 K2 ["childNodeParent"]
+  JUMPBACK [-9]
+  MOVE R0 R2
+  SETUPVAL R0 0
+  RETURN R1 1
+  LOADNIL R2
+  RETURN R2 1
+
+PROTO_31:
+  GETUPVAL R0 0
+  MOVE R1 R0
+  JUMPIFNOT R0 [+26]
+  GETTABLEKS R2 R0 K0 ["childNodeLeft"]
+  JUMPIFNOT R2 [+9]
+  GETTABLEKS R0 R0 K0 ["childNodeLeft"]
+  GETTABLEKS R2 R0 K1 ["childNodeRight"]
+  JUMPIFNOT R2 [+16]
+  GETTABLEKS R0 R0 K1 ["childNodeRight"]
+  JUMPBACK [-6]
+  JUMP [+12]
+  GETTABLEKS R2 R0 K2 ["childNodeParent"]
+  JUMPIFNOT R2 [+8]
+  GETTABLEKS R3 R2 K0 ["childNodeLeft"]
+  JUMPIFNOTEQ R3 R0 [+5]
+  MOVE R0 R2
+  GETTABLEKS R2 R2 K2 ["childNodeParent"]
+  JUMPBACK [-9]
+  MOVE R0 R2
+  SETUPVAL R0 0
+  RETURN R1 1
+  LOADNIL R2
+  RETURN R2 1
+
+PROTO_32:
+  JUMPIFNOTEQKN R1 K0 [1] [+7]
+  MOVE R2 R0
+  NEWCLOSURE R3 P0
+  CAPTURE REF R2
+  CLOSEUPVALS R2
+  RETURN R3 1
+  CLOSEUPVALS R2
+  JUMPIFNOTEQKN R1 K1 [-1] [+7]
+  MOVE R2 R0
+  NEWCLOSURE R3 P1
+  CAPTURE REF R2
+  CLOSEUPVALS R2
+  RETURN R3 1
+  CLOSEUPVALS R2
+  GETIMPORT R2 K3 [error]
+  LOADK R4 K4 ["Invalid direction %*"]
+  MOVE R6 R1
+  NAMECALL R4 R4 K5 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_33:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  GETTABLE R0 R1 R2
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  ADD R1 R1 R2
+  SETUPVAL R1 1
+  RETURN R0 1
+
+PROTO_34:
+  GETIMPORT R3 K2 [table.find]
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 1
+  FASTCALL2K ASSERT R3 K3 [+5]
+  MOVE R5 R3
+  LOADK R6 K3 ["Node not in parent's child list"]
+  GETIMPORT R4 K5 [assert]
+  CALL R4 2 0
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE REF R3
+  CAPTURE VAL R2
+  CLOSEUPVALS R3
+  RETURN R4 1
+
+PROTO_35:
+  LOADNIL R0
+  RETURN R0 1
+
+PROTO_36:
+  GETTABLEKS R3 R0 K0 ["array"]
+  JUMPIFNOT R3 [+20]
+  GETTABLEKS R4 R0 K0 ["array"]
+  GETIMPORT R5 K3 [table.find]
+  MOVE R6 R4
+  MOVE R7 R1
+  CALL R5 2 1
+  FASTCALL2K ASSERT R5 K4 [+5]
+  MOVE R7 R5
+  LOADK R8 K4 ["Node not in parent's child list"]
+  GETIMPORT R6 K6 [assert]
+  CALL R6 2 0
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R4
+  CAPTURE REF R5
+  CAPTURE VAL R2
+  CLOSEUPVALS R5
+  RETURN R3 1
+  GETTABLEKS R3 R0 K7 ["tree"]
+  JUMPIFNOT R3 [+5]
+  GETUPVAL R3 0
+  MOVE R4 R1
+  MOVE R5 R2
+  CALL R3 2 -1
+  RETURN R3 -1
+  DUPCLOSURE R3 K8 [PROTO_35]
+  RETURN R3 1
+
+PROTO_37:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  GETTABLE R0 R1 R2
+  GETUPVAL R1 1
+  ADDK R1 R1 K0 [1]
+  SETUPVAL R1 1
+  RETURN R0 1
+
+PROTO_38:
+  LOADNIL R0
+  RETURN R0 1
+
+PROTO_39:
+  GETTABLEKS R1 R0 K0 ["array"]
+  JUMPIFNOT R1 [+7]
+  LOADN R2 1
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R1
+  CAPTURE REF R2
+  CLOSEUPVALS R2
+  RETURN R3 1
+  CLOSEUPVALS R2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["first"]
+  MOVE R3 R0
+  CALL R2 1 1
+  JUMPIFNOT R2 [+5]
+  GETUPVAL R3 1
+  MOVE R4 R2
+  LOADN R5 1
+  CALL R3 2 -1
+  RETURN R3 -1
+  DUPCLOSURE R3 K2 [PROTO_38]
+  RETURN R3 1
+
+PROTO_40:
+  JUMPIFNOT R0 [+20]
+  GETTABLEKS R1 R0 K0 ["array"]
+  JUMPIFNOT R1 [+10]
+  GETIMPORT R2 K2 [next]
+  GETTABLEKS R3 R0 K0 ["array"]
+  CALL R2 1 1
+  JUMPIFEQKNIL R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+  GETTABLEKS R2 R0 K3 ["tree"]
+  JUMPIFEQKNIL R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_41:
+  JUMPIFNOTEQKNIL R0 [+3]
+  LOADNIL R1
+  RETURN R1 1
+  GETTABLEKS R1 R0 K0 ["array"]
+  JUMPIFNOT R1 [+4]
+  GETTABLEKS R2 R0 K0 ["array"]
+  GETTABLEN R1 R2 1
+  RETURN R1 1
+  GETTABLEKS R1 R0 K1 ["tree"]
+  JUMPIFNOTEQKNIL R1 [+3]
+  LOADNIL R1
+  RETURN R1 1
+  GETTABLEKS R1 R0 K1 ["tree"]
+  JUMPIFEQKNIL R1 [+8]
+  GETTABLEKS R2 R1 K2 ["childNodeLeft"]
+  JUMPIFEQKNIL R2 [+4]
+  GETTABLEKS R1 R1 K2 ["childNodeLeft"]
+  JUMPBACK [-9]
+  RETURN R1 1
+
+PROTO_42:
+  JUMPIFNOTEQKNIL R0 [+3]
+  LOADNIL R1
+  RETURN R1 1
+  GETTABLEKS R1 R0 K0 ["array"]
+  JUMPIFNOT R1 [+7]
+  GETTABLEKS R2 R0 K0 ["array"]
+  GETTABLEKS R4 R0 K0 ["array"]
+  LENGTH R3 R4
+  GETTABLE R1 R2 R3
+  RETURN R1 1
+  GETTABLEKS R1 R0 K1 ["tree"]
+  JUMPIFNOTEQKNIL R1 [+3]
+  LOADNIL R1
+  RETURN R1 1
+  GETTABLEKS R1 R0 K1 ["tree"]
+  JUMPIFEQKNIL R1 [+8]
+  GETTABLEKS R2 R1 K2 ["childNodeRight"]
+  JUMPIFEQKNIL R2 [+4]
+  GETTABLEKS R1 R1 K2 ["childNodeRight"]
+  JUMPBACK [-9]
+  RETURN R1 1
+
+PROTO_43:
+  GETTABLE R5 R2 R0
+  JUMPIFNOT R5 [+10]
+  MOVE R5 R4
+  MOVE R7 R1
+  GETTABLEKS R10 R0 K0 ["datum"]
+  GETTABLEKS R8 R10 K1 ["name"]
+  LOADK R9 K2 [" (INVALID circular reference!) ..."]
+  CONCAT R6 R7 R9
+  CALL R5 1 0
+  RETURN R0 0
+  LOADB R5 1
+  SETTABLE R5 R2 R0
+  GETTABLEKS R6 R0 K3 ["childNodeParent"]
+  JUMPIFEQ R3 R6 [+18]
+  LOADK R6 K4 [" (Bad parent %*)"]
+  GETTABLEKS R9 R0 K3 ["childNodeParent"]
+  JUMPIFNOT R9 [+7]
+  GETTABLEKS R10 R0 K3 ["childNodeParent"]
+  GETTABLEKS R9 R10 K0 ["datum"]
+  GETTABLEKS R8 R9 K1 ["name"]
+  JUMP [+1]
+  LOADK R8 K5 ["nil"]
+  NAMECALL R6 R6 K6 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  JUMP [+1]
+  LOADK R5 K7 [""]
+  GETTABLEKS R7 R0 K8 ["childNodeColor"]
+  JUMPIFNOTEQKB R7 FALSE [+3]
+  LOADK R6 K9 ["b"]
+  JUMP [+1]
+  LOADK R6 K10 ["r"]
+  MOVE R7 R4
+  LOADK R9 K11 ["%*%* [%* %* (%*)]%* %*"]
+  MOVE R11 R1
+  GETTABLEKS R13 R0 K0 ["datum"]
+  GETTABLEKS R12 R13 K1 ["name"]
+  MOVE R13 R6
+  GETTABLEKS R14 R0 K12 ["childNodeTreeCount"]
+  GETUPVAL R15 0
+  MOVE R16 R0
+  CALL R15 1 1
+  MOVE R16 R5
+  GETTABLEKS R18 R0 K0 ["datum"]
+  GETTABLEKS R17 R18 K13 ["id"]
+  NAMECALL R9 R9 K6 ["format"]
+  CALL R9 8 1
+  MOVE R8 R9
+  CALL R7 1 0
+  GETTABLEKS R7 R0 K14 ["childNodeLeft"]
+  JUMPIF R7 [+3]
+  GETTABLEKS R7 R0 K15 ["childNodeRight"]
+  JUMPIFNOT R7 [+38]
+  GETTABLEKS R7 R0 K14 ["childNodeLeft"]
+  JUMPIFNOT R7 [+11]
+  GETUPVAL R7 1
+  GETTABLEKS R8 R0 K14 ["childNodeLeft"]
+  MOVE R10 R1
+  LOADK R11 K16 ["| "]
+  CONCAT R9 R10 R11
+  MOVE R10 R2
+  MOVE R11 R0
+  MOVE R12 R4
+  CALL R7 5 0
+  JUMP [+5]
+  MOVE R7 R4
+  MOVE R9 R1
+  LOADK R10 K17 ["| nil"]
+  CONCAT R8 R9 R10
+  CALL R7 1 0
+  GETTABLEKS R7 R0 K15 ["childNodeRight"]
+  JUMPIFNOT R7 [+11]
+  GETUPVAL R7 1
+  GETTABLEKS R8 R0 K15 ["childNodeRight"]
+  MOVE R10 R1
+  LOADK R11 K16 ["| "]
+  CONCAT R9 R10 R11
+  MOVE R10 R2
+  MOVE R11 R0
+  MOVE R12 R4
+  CALL R7 5 0
+  RETURN R0 0
+  MOVE R7 R4
+  MOVE R9 R1
+  LOADK R10 K17 ["| nil"]
+  CONCAT R8 R9 R10
+  CALL R7 1 0
+  RETURN R0 0
+
+PROTO_44:
+  MOVE R2 R1
+  JUMPIF R2 [+2]
+  GETIMPORT R2 K1 [print]
+  GETUPVAL R3 0
+  MOVE R4 R0
+  LOADK R5 K2 [""]
+  NEWTABLE R6 0 0
+  LOADNIL R7
+  MOVE R8 R2
+  CALL R3 5 0
+  RETURN R0 0
+
+PROTO_45:
+  MOVE R2 R1
+  JUMPIF R2 [+2]
+  GETIMPORT R2 K1 [print]
+  JUMPIF R0 [+4]
+  MOVE R3 R2
+  LOADK R4 K2 ["[Child list not present, ==nil] [1]"]
+  CALL R3 1 0
+  RETURN R0 0
+  LOADB R4 1
+  GETTABLEKS R5 R0 K3 ["array"]
+  JUMPIFEQKNIL R5 [+7]
+  GETTABLEKS R5 R0 K4 ["tree"]
+  JUMPIFEQKNIL R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K5 [+4]
+  LOADK R5 K5 ["Has both array and tree"]
+  GETIMPORT R3 K7 [assert]
+  CALL R3 2 0
+  GETTABLEKS R3 R0 K3 ["array"]
+  JUMPIFNOT R3 [+32]
+  MOVE R3 R2
+  LOADK R5 K8 ["[Backed by array] [%*]"]
+  GETTABLEKS R7 R0 K9 ["treeDescendantCount"]
+  NAMECALL R5 R5 K10 ["format"]
+  CALL R5 2 1
+  MOVE R4 R5
+  CALL R3 1 0
+  GETTABLEKS R3 R0 K3 ["array"]
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  MOVE R8 R2
+  LOADK R10 K11 ["| %*: %* [%*]"]
+  MOVE R12 R6
+  GETTABLEKS R14 R7 K12 ["datum"]
+  GETTABLEKS R13 R14 K13 ["name"]
+  GETUPVAL R14 0
+  MOVE R15 R7
+  CALL R14 1 1
+  NAMECALL R10 R10 K10 ["format"]
+  CALL R10 4 1
+  MOVE R9 R10
+  CALL R8 1 0
+  FORGLOOP R3 2 [-16]
+  RETURN R0 0
+  GETTABLEKS R3 R0 K4 ["tree"]
+  JUMPIFNOT R3 [+19]
+  MOVE R3 R2
+  LOADK R5 K14 ["[Backed by tree] [%*]"]
+  GETTABLEKS R7 R0 K9 ["treeDescendantCount"]
+  NAMECALL R5 R5 K10 ["format"]
+  CALL R5 2 1
+  MOVE R4 R5
+  CALL R3 1 0
+  GETUPVAL R3 1
+  GETTABLEKS R4 R0 K4 ["tree"]
+  LOADK R5 K15 [""]
+  NEWTABLE R6 0 0
+  LOADNIL R7
+  MOVE R8 R2
+  CALL R3 5 0
+  RETURN R0 0
+  GETTABLEKS R5 R0 K9 ["treeDescendantCount"]
+  JUMPIFEQKN R5 K16 [1] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K17 [+4]
+  LOADK R5 K17 ["Not backed by anything, but has descendant count"]
+  GETIMPORT R3 K7 [assert]
+  CALL R3 2 0
+  MOVE R3 R2
+  LOADK R4 K18 ["[Not backed by anything] [1]"]
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_46:
+  JUMPIF R0 [+2]
+  LOADN R1 1
+  RETURN R1 1
+  GETUPVAL R1 0
+  GETTABLEKS R2 R0 K0 ["childNodeLeft"]
+  CALL R1 1 1
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K1 ["childNodeRight"]
+  CALL R2 1 1
+  JUMPIFEQ R1 R2 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K2 [+4]
+  LOADK R5 K2 ["All paths from a node to its descendants must go through the same number of black nodes"]
+  GETIMPORT R3 K4 [assert]
+  CALL R3 2 0
+  GETTABLEKS R5 R0 K5 ["childNodeColor"]
+  JUMPIFNOTEQKB R5 FALSE [+3]
+  LOADN R4 1
+  JUMP [+1]
+  LOADN R4 0
+  ADD R3 R1 R4
+  RETURN R3 1
+
+PROTO_47:
+  GETUPVAL R2 0
+  GETTABLE R1 R2 R0
+  JUMPIFNOT R1 [+4]
+  GETIMPORT R1 K1 [error]
+  LOADK R2 K2 ["RB-tree is circular"]
+  CALL R1 1 0
+  GETUPVAL R1 0
+  LOADB R2 1
+  SETTABLE R2 R1 R0
+  GETTABLEKS R1 R0 K3 ["childNodeColor"]
+  JUMPIFNOTEQKB R1 TRUE [+37]
+  GETTABLEKS R3 R0 K4 ["childNodeLeft"]
+  NOT R2 R3
+  JUMPIF R2 [+8]
+  GETTABLEKS R4 R0 K4 ["childNodeLeft"]
+  GETTABLEKS R3 R4 K3 ["childNodeColor"]
+  JUMPIFEQKB R3 FALSE [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K5 [+4]
+  LOADK R3 K5 ["If a node is red, then its children are black (left)"]
+  GETIMPORT R1 K7 [assert]
+  CALL R1 2 0
+  GETTABLEKS R3 R0 K8 ["childNodeRight"]
+  NOT R2 R3
+  JUMPIF R2 [+8]
+  GETTABLEKS R4 R0 K8 ["childNodeRight"]
+  GETTABLEKS R3 R4 K3 ["childNodeColor"]
+  JUMPIFEQKB R3 FALSE [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K9 [+4]
+  LOADK R3 K9 ["If a node is red, then its children are black (right)"]
+  GETIMPORT R1 K7 [assert]
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K4 ["childNodeLeft"]
+  JUMPIFNOT R1 [+18]
+  GETTABLEKS R4 R0 K4 ["childNodeLeft"]
+  GETTABLEKS R3 R4 K10 ["childNodeParent"]
+  JUMPIFEQ R3 R0 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K11 [+4]
+  LOADK R3 K11 ["Left's parent isn't node"]
+  GETIMPORT R1 K7 [assert]
+  CALL R1 2 0
+  GETUPVAL R1 1
+  GETTABLEKS R2 R0 K4 ["childNodeLeft"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K8 ["childNodeRight"]
+  JUMPIFNOT R1 [+18]
+  GETTABLEKS R4 R0 K8 ["childNodeRight"]
+  GETTABLEKS R3 R4 K10 ["childNodeParent"]
+  JUMPIFEQ R3 R0 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K11 [+4]
+  LOADK R3 K11 ["Left's parent isn't node"]
+  GETIMPORT R1 K7 [assert]
+  CALL R1 2 0
+  GETUPVAL R1 1
+  GETTABLEKS R2 R0 K8 ["childNodeRight"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_48:
+  JUMPIFNOT R0 [+26]
+  GETUPVAL R1 0
+  GETTABLEKS R2 R0 K0 ["childNodeRight"]
+  CALL R1 1 1
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K1 ["childNodeLeft"]
+  CALL R2 1 1
+  ADD R4 R1 R2
+  GETUPVAL R5 1
+  MOVE R6 R0
+  CALL R5 1 1
+  ADD R3 R4 R5
+  GETTABLEKS R6 R0 K2 ["childNodeTreeCount"]
+  JUMPIFEQ R6 R3 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K3 [+4]
+  LOADK R6 K3 ["Count must be the sum of the children's count + 1"]
+  GETIMPORT R4 K5 [assert]
+  CALL R4 2 0
+  RETURN R3 1
+  LOADN R1 0
+  RETURN R1 1
+
+PROTO_49:
+  GETTABLEKS R3 R0 K0 ["childNodeColor"]
+  JUMPIFEQKB R3 FALSE [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K1 [+4]
+  LOADK R3 K1 ["The root must be black"]
+  GETIMPORT R1 K3 [assert]
+  CALL R1 2 0
+  NEWTABLE R1 0 0
+  DUPCLOSURE R2 K4 [PROTO_46]
+  CAPTURE VAL R2
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  DUPCLOSURE R4 K5 [PROTO_48]
+  CAPTURE VAL R4
+  CAPTURE UPVAL U0
+  MOVE R5 R3
+  MOVE R6 R0
+  CALL R5 1 0
+  JUMPIF R0 [+1]
+  JUMP [+26]
+  MOVE R5 R2
+  GETTABLEKS R6 R0 K6 ["childNodeLeft"]
+  CALL R5 1 1
+  MOVE R6 R2
+  GETTABLEKS R7 R0 K7 ["childNodeRight"]
+  CALL R6 1 1
+  JUMPIFEQ R5 R6 [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  FASTCALL2K ASSERT R8 K8 [+4]
+  LOADK R9 K8 ["All paths from a node to its descendants must go through the same number of black nodes"]
+  GETIMPORT R7 K3 [assert]
+  CALL R7 2 0
+  GETTABLEKS R9 R0 K0 ["childNodeColor"]
+  JUMPIFNOTEQKB R9 FALSE [+3]
+  LOADN R8 1
+  JUMP [+1]
+  LOADN R8 0
+  ADD R7 R5 R8
+  JUMPIFNOT R0 [+27]
+  MOVE R5 R4
+  GETTABLEKS R6 R0 K7 ["childNodeRight"]
+  CALL R5 1 1
+  MOVE R6 R4
+  GETTABLEKS R7 R0 K6 ["childNodeLeft"]
+  CALL R6 1 1
+  ADD R8 R5 R6
+  GETUPVAL R9 0
+  MOVE R10 R0
+  CALL R9 1 1
+  ADD R7 R8 R9
+  GETTABLEKS R10 R0 K9 ["childNodeTreeCount"]
+  JUMPIFEQ R10 R7 [+2]
+  LOADB R9 0 +1
+  LOADB R9 1
+  FASTCALL2K ASSERT R9 K10 [+4]
+  LOADK R10 K10 ["Count must be the sum of the children's count + 1"]
+  GETIMPORT R8 K3 [assert]
+  CALL R8 2 0
+  JUMP [+1]
+  JUMP [0]
+  GETTABLEKS R7 R0 K11 ["childNodeParent"]
+  NOT R6 R7
+  FASTCALL2K ASSERT R6 K12 [+4]
+  LOADK R7 K12 ["Root must have no parent"]
+  GETIMPORT R5 K3 [assert]
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_50:
+  LOADNIL R1
+  MOVE R2 R0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  JUMPIFNOT R1 [+13]
+  GETUPVAL R9 0
+  GETTABLEKS R10 R6 K0 ["datum"]
+  GETTABLEKS R11 R1 K0 ["datum"]
+  CALL R9 2 1
+  NOT R8 R9
+  FASTCALL2K ASSERT R8 K1 [+4]
+  LOADK R9 K1 ["Array is not sorted"]
+  GETIMPORT R7 K3 [assert]
+  CALL R7 2 0
+  MOVE R1 R6
+  FORGLOOP R2 2 [-16]
+  RETURN R0 0
+
+PROTO_51:
+  GETTABLEKS R1 R0 K0 ["tree"]
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R1 0
+  GETTABLEKS R2 R0 K0 ["tree"]
+  CALL R1 1 0
+  RETURN R0 0
+  GETUPVAL R1 1
+  GETTABLEKS R2 R0 K1 ["array"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_52:
+  DUPTABLE R1 K5 [{"datum", "uiState", "children", "childNodeColor", "childNodeTreeCount"}]
+  DUPTABLE R2 K10 [{"id", "name", "className", "hasChildren"}]
+  LOADK R3 K11 [""]
+  SETTABLEKS R3 R2 K6 ["id"]
+  SETTABLEKS R0 R2 K7 ["name"]
+  LOADK R3 K12 ["Folder"]
+  SETTABLEKS R3 R2 K8 ["className"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K9 ["hasChildren"]
+  SETTABLEKS R2 R1 K0 ["datum"]
+  DUPTABLE R2 K14 [{"isExpanded"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K13 ["isExpanded"]
+  SETTABLEKS R2 R1 K1 ["uiState"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K15 ["empty"]
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K2 ["children"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K3 ["childNodeColor"]
+  LOADN R2 1
+  SETTABLEKS R2 R1 K4 ["childNodeTreeCount"]
+  RETURN R1 1
+
+PROTO_53:
+  GETTABLEKS R4 R0 K0 ["array"]
+  NOT R3 R4
+  JUMPIF R3 [+7]
+  GETTABLEKS R5 R0 K0 ["array"]
+  LENGTH R4 R5
+  JUMPIFEQKN R4 K1 [0] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K2 [+4]
+  LOADK R4 K2 ["Array must be empty"]
+  GETIMPORT R2 K4 [assert]
+  CALL R2 2 0
+  LOADNIL R2
+  SETTABLEKS R2 R0 K0 ["array"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["testCreateNode"]
+  MOVE R3 R1
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K6 ["tree"]
+  RETURN R2 1
+
+PROTO_54:
+  GETTABLEKS R5 R0 K0 ["childNodeRight"]
+  NOT R4 R5
+  FASTCALL2K ASSERT R4 K1 [+4]
+  LOADK R5 K1 ["Right must be empty"]
+  GETIMPORT R3 K3 [assert]
+  CALL R3 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["testCreateNode"]
+  MOVE R4 R1
+  CALL R3 1 1
+  SETTABLEKS R3 R0 K0 ["childNodeRight"]
+  SETTABLEKS R0 R3 K5 ["childNodeParent"]
+  SETTABLEKS R2 R3 K6 ["childNodeColor"]
+  MOVE R4 R0
+  JUMPIFNOT R4 [+8]
+  GETTABLEKS R5 R4 K7 ["childNodeTreeCount"]
+  ADDK R5 R5 K8 [1]
+  SETTABLEKS R5 R4 K7 ["childNodeTreeCount"]
+  GETTABLEKS R4 R4 K5 ["childNodeParent"]
+  JUMPBACK [-9]
+  RETURN R3 1
+
+PROTO_55:
+  GETTABLEKS R5 R0 K0 ["childNodeLeft"]
+  NOT R4 R5
+  FASTCALL2K ASSERT R4 K1 [+4]
+  LOADK R5 K1 ["Left must be empty"]
+  GETIMPORT R3 K3 [assert]
+  CALL R3 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["testCreateNode"]
+  MOVE R4 R1
+  CALL R3 1 1
+  SETTABLEKS R3 R0 K0 ["childNodeLeft"]
+  SETTABLEKS R0 R3 K5 ["childNodeParent"]
+  SETTABLEKS R2 R3 K6 ["childNodeColor"]
+  MOVE R4 R0
+  JUMPIFNOT R4 [+8]
+  GETTABLEKS R5 R4 K7 ["childNodeTreeCount"]
+  ADDK R5 R5 K8 [1]
+  SETTABLEKS R5 R4 K7 ["childNodeTreeCount"]
+  GETTABLEKS R4 R4 K5 ["childNodeParent"]
+  JUMPBACK [-9]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Explorer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R2 R0 K6 ["RpcTypes"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K7 ["Util"]
+  GETTABLEKS R3 R4 K8 ["compareDatum"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K7 ["Util"]
+  GETTABLEKS R4 R5 K9 ["getTreeCount"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K7 ["Util"]
+  GETTABLEKS R5 R6 K10 ["profile"]
+  CALL R4 1 1
+  NEWTABLE R5 32 0
+  LOADN R6 7
+  SETTABLEKS R6 R5 K11 ["ARRAY_LIMIT"]
+  LOADB R7 1
+  FASTCALL2K ASSERT R7 K12 [+4]
+  LOADK R8 K12 ["ARRAY_LIMIT must be a power of two minus one so we can efficiently promote an array to a tree."]
+  GETIMPORT R6 K14 [assert]
+  CALL R6 2 0
+  LOADB R6 0
+  SETTABLEKS R6 R5 K15 ["BLACK"]
+  LOADB R6 1
+  SETTABLEKS R6 R5 K16 ["RED"]
+  DUPCLOSURE R6 K17 [PROTO_0]
+  SETTABLEKS R6 R5 K18 ["empty"]
+  DUPCLOSURE R6 K19 [PROTO_1]
+  CAPTURE VAL R5
+  SETTABLEKS R6 R5 K20 ["ensureChildList"]
+  DUPCLOSURE R6 K21 [PROTO_2]
+  CAPTURE VAL R6
+  DUPCLOSURE R7 K22 [PROTO_3]
+  CAPTURE VAL R6
+  DUPCLOSURE R8 K23 [PROTO_4]
+  DUPCLOSURE R9 K24 [PROTO_5]
+  DUPCLOSURE R10 K25 [PROTO_6]
+  DUPCLOSURE R11 K26 [PROTO_7]
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  DUPCLOSURE R12 K27 [PROTO_8]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R11
+  DUPCLOSURE R13 K28 [PROTO_9]
+  CAPTURE VAL R2
+  DUPCLOSURE R14 K29 [PROTO_10]
+  DUPCLOSURE R15 K30 [PROTO_11]
+  CAPTURE VAL R5
+  SETTABLEKS R15 R5 K31 ["patchNodeDescendantCount"]
+  DUPCLOSURE R15 K32 [PROTO_12]
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  CAPTURE VAL R6
+  SETTABLEKS R15 R5 K33 ["insert"]
+  DUPCLOSURE R15 K34 [PROTO_13]
+  DUPCLOSURE R16 K35 [PROTO_14]
+  CAPTURE VAL R3
+  DUPCLOSURE R17 K36 [PROTO_15]
+  CAPTURE VAL R3
+  DUPCLOSURE R18 K37 [PROTO_16]
+  LOADNIL R19
+  DUPCLOSURE R20 K38 [PROTO_17]
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  DUPCLOSURE R21 K39 [PROTO_18]
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R20
+  DUPCLOSURE R22 K40 [PROTO_19]
+  CAPTURE VAL R21
+  NEWCLOSURE R23 P20
+  CAPTURE REF R19
+  CAPTURE VAL R22
+  NEWCLOSURE R24 P21
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE REF R19
+  CAPTURE VAL R23
+  DUPCLOSURE R19 K41 [PROTO_22]
+  CAPTURE VAL R24
+  NEWCLOSURE R25 P23
+  CAPTURE VAL R3
+  CAPTURE REF R19
+  DUPCLOSURE R26 K42 [PROTO_24]
+  CAPTURE VAL R16
+  CAPTURE VAL R25
+  DUPCLOSURE R27 K43 [PROTO_25]
+  CAPTURE VAL R16
+  CAPTURE VAL R25
+  SETTABLEKS R27 R5 K44 ["remove"]
+  DUPCLOSURE R27 K45 [PROTO_26]
+  SETTABLEKS R27 R5 K46 ["replaceChildren"]
+  DUPCLOSURE R27 K47 [PROTO_27]
+  CAPTURE VAL R27
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  DUPCLOSURE R28 K48 [PROTO_28]
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R27
+  SETTABLEKS R28 R5 K49 ["getNthDescendant"]
+  MOVE R28 R4
+  GETTABLEKS R29 R5 K49 ["getNthDescendant"]
+  CALL R28 1 1
+  SETTABLEKS R28 R5 K49 ["getNthDescendant"]
+  DUPCLOSURE R28 K50 [PROTO_29]
+  CAPTURE VAL R28
+  DUPCLOSURE R29 K51 [PROTO_32]
+  DUPCLOSURE R30 K52 [PROTO_34]
+  DUPCLOSURE R31 K53 [PROTO_36]
+  CAPTURE VAL R29
+  SETTABLEKS R31 R5 K54 ["iterateSiblings"]
+  DUPCLOSURE R31 K55 [PROTO_39]
+  CAPTURE VAL R5
+  CAPTURE VAL R29
+  SETTABLEKS R31 R5 K56 ["iterate"]
+  DUPCLOSURE R31 K57 [PROTO_40]
+  SETTABLEKS R31 R5 K58 ["isEmpty"]
+  DUPCLOSURE R31 K59 [PROTO_41]
+  SETTABLEKS R31 R5 K60 ["first"]
+  DUPCLOSURE R31 K61 [PROTO_42]
+  SETTABLEKS R31 R5 K62 ["last"]
+  DUPCLOSURE R31 K63 [PROTO_43]
+  CAPTURE VAL R3
+  CAPTURE VAL R31
+  DUPCLOSURE R32 K64 [PROTO_44]
+  CAPTURE VAL R31
+  SETTABLEKS R32 R5 K65 ["dumpNode"]
+  DUPCLOSURE R32 K66 [PROTO_45]
+  CAPTURE VAL R3
+  CAPTURE VAL R31
+  SETTABLEKS R32 R5 K67 ["dump"]
+  DUPCLOSURE R32 K68 [PROTO_49]
+  CAPTURE VAL R3
+  DUPCLOSURE R33 K69 [PROTO_50]
+  CAPTURE VAL R2
+  DUPCLOSURE R34 K70 [PROTO_51]
+  CAPTURE VAL R32
+  CAPTURE VAL R33
+  SETTABLEKS R34 R5 K71 ["testAssertInvariants"]
+  DUPCLOSURE R34 K72 [PROTO_52]
+  CAPTURE VAL R5
+  SETTABLEKS R34 R5 K73 ["testCreateNode"]
+  DUPCLOSURE R34 K74 [PROTO_53]
+  CAPTURE VAL R5
+  SETTABLEKS R34 R5 K75 ["testSetRoot"]
+  DUPCLOSURE R34 K76 [PROTO_54]
+  CAPTURE VAL R5
+  SETTABLEKS R34 R5 K77 ["testSetRight"]
+  DUPCLOSURE R34 K78 [PROTO_55]
+  CAPTURE VAL R5
+  SETTABLEKS R34 R5 K79 ["testSetLeft"]
+  CLOSEUPVALS R19
+  RETURN R5 1

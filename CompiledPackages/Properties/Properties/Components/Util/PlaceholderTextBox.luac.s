@@ -1,0 +1,78 @@
+PROTO_0:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R2 1
+  LOADK R3 K0 ["TextBox"]
+  NEWTABLE R4 16 0
+  GETTABLEKS R5 R0 K1 ["layoutOrder"]
+  SETTABLEKS R5 R4 K2 ["LayoutOrder"]
+  GETTABLEKS R5 R0 K3 ["size"]
+  SETTABLEKS R5 R4 K4 ["Size"]
+  GETTABLEKS R5 R0 K5 ["automaticSize"]
+  SETTABLEKS R5 R4 K6 ["AutomaticSize"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K7 ["BackgroundTransparency"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K8 ["ClearTextOnFocus"]
+  GETTABLEKS R7 R1 K9 ["Typography"]
+  GETTABLEKS R6 R7 K10 ["BodySmall"]
+  GETTABLEKS R5 R6 K11 ["Font"]
+  SETTABLEKS R5 R4 K11 ["Font"]
+  GETTABLEKS R7 R1 K9 ["Typography"]
+  GETTABLEKS R6 R7 K10 ["BodySmall"]
+  GETTABLEKS R5 R6 K12 ["LineHeight"]
+  SETTABLEKS R5 R4 K12 ["LineHeight"]
+  GETTABLEKS R7 R1 K9 ["Typography"]
+  GETTABLEKS R6 R7 K10 ["BodySmall"]
+  GETTABLEKS R5 R6 K13 ["FontSize"]
+  SETTABLEKS R5 R4 K14 ["TextSize"]
+  GETIMPORT R5 K18 [Enum.TextXAlignment.Left]
+  SETTABLEKS R5 R4 K16 ["TextXAlignment"]
+  GETTABLEKS R8 R1 K19 ["Color"]
+  GETTABLEKS R7 R8 K20 ["Content"]
+  GETTABLEKS R6 R7 K21 ["Default"]
+  GETTABLEKS R5 R6 K22 ["Color3"]
+  SETTABLEKS R5 R4 K23 ["TextColor3"]
+  GETTABLEKS R8 R1 K19 ["Color"]
+  GETTABLEKS R7 R8 K20 ["Content"]
+  GETTABLEKS R6 R7 K21 ["Default"]
+  GETTABLEKS R5 R6 K24 ["Transparency"]
+  SETTABLEKS R5 R4 K25 ["TextTransparency"]
+  GETTABLEKS R5 R0 K26 ["text"]
+  SETTABLEKS R5 R4 K27 ["Text"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K28 ["Event"]
+  GETTABLEKS R5 R6 K29 ["Focused"]
+  GETTABLEKS R6 R0 K30 ["onFocused"]
+  SETTABLE R6 R4 R5
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K28 ["Event"]
+  GETTABLEKS R5 R6 K31 ["FocusLost"]
+  GETTABLEKS R6 R0 K32 ["onFocusLost"]
+  SETTABLE R6 R4 R5
+  GETTABLEKS R5 R0 K33 ["children"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["createElement"]
+  GETTABLEKS R5 R1 K10 ["Hooks"]
+  GETTABLEKS R4 R5 K11 ["useTokens"]
+  DUPCLOSURE R5 K12 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  RETURN R5 1

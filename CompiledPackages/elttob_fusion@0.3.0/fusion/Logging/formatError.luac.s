@@ -1,0 +1,104 @@
+PROTO_0:
+  PREPVARARGS 3
+  MOVE R3 R1
+  FASTCALL1 TYPEOF R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K1 [typeof]
+  CALL R5 1 1
+  JUMPIFNOTEQKS R5 K2 ["table"] [+3]
+  MOVE R4 R2
+  JUMP [+1]
+  LOADNIL R4
+  FASTCALL1 TYPEOF R2 [+3]
+  MOVE R7 R2
+  GETIMPORT R6 K1 [typeof]
+  CALL R6 1 1
+  JUMPIFNOTEQKS R6 K2 ["table"] [+4]
+  GETTABLEKS R5 R2 K3 ["trace"]
+  JUMP [+1]
+  MOVE R5 R2
+  GETUPVAL R7 0
+  GETTABLE R6 R7 R1
+  JUMPIFNOTEQKNIL R6 [+4]
+  LOADK R1 K4 ["unknownMessage"]
+  GETUPVAL R7 0
+  GETTABLE R6 R7 R1
+  GETVARARGS R9 -1
+  NAMECALL R7 R6 K5 ["format"]
+  CALL R7 -1 1
+  MOVE R6 R7
+  JUMPIFEQKNIL R4 [+22]
+  LOADK R9 K6 ["ERROR_MESSAGE"]
+  GETTABLEKS R10 R4 K7 ["message"]
+  NAMECALL R7 R6 K8 ["gsub"]
+  CALL R7 3 1
+  MOVE R6 R7
+  GETTABLEKS R7 R4 K9 ["context"]
+  JUMPIFEQKNIL R7 [+17]
+  MOVE R7 R6
+  LOADK R9 K10 [" (%*)"]
+  GETTABLEKS R11 R4 K9 ["context"]
+  NAMECALL R9 R9 K5 ["format"]
+  CALL R9 2 1
+  MOVE R8 R9
+  CONCAT R6 R7 R8
+  JUMP [+6]
+  LOADK R9 K6 ["ERROR_MESSAGE"]
+  MOVE R10 R3
+  NAMECALL R7 R6 K8 ["gsub"]
+  CALL R7 3 1
+  MOVE R6 R7
+  LOADK R7 K11 ["[Fusion] %* 
+ID: %*"]
+  MOVE R9 R6
+  MOVE R10 R1
+  NAMECALL R7 R7 K5 ["format"]
+  CALL R7 3 1
+  MOVE R6 R7
+  JUMPIFEQKNIL R0 [+17]
+  GETTABLEKS R8 R0 K12 ["policies"]
+  GETTABLEKS R7 R8 K13 ["allowWebLinks"]
+  JUMPIFNOT R7 [+11]
+  MOVE R7 R6
+  LOADK R9 K14 ["
+Learn more: %*%*"]
+  LOADK R11 K15 ["https://elttob.uk/Fusion/0.3/api-reference/general/errors/#"]
+  NAMECALL R12 R1 K16 ["lower"]
+  CALL R12 1 1
+  NAMECALL R9 R9 K5 ["format"]
+  CALL R9 3 1
+  MOVE R8 R9
+  CONCAT R6 R7 R8
+  JUMPIFEQKNIL R5 [+9]
+  MOVE R7 R6
+  LOADK R9 K17 [" 
+---- Stack trace ----
+%*"]
+  MOVE R11 R5
+  NAMECALL R9 R9 K5 ["format"]
+  CALL R9 2 1
+  MOVE R8 R9
+  CONCAT R6 R7 R8
+  LOADK R9 K18 ["
+"]
+  LOADK R10 K19 ["
+    "]
+  NAMECALL R7 R6 K8 ["gsub"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K6 ["Logging"]
+  GETTABLEKS R3 R4 K7 ["messages"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K8 [PROTO_0]
+  CAPTURE VAL R2
+  RETURN R3 1

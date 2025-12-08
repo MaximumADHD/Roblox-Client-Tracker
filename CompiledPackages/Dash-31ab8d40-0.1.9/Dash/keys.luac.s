@@ -1,0 +1,41 @@
+PROTO_0:
+  GETUPVAL R1 0
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R3 R0
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  LOADK R3 K2 ["table"]
+  LOADK R4 K3 ["Attempted to call Dash.keys with argument #1 of type {left:?} not {right:?}"]
+  CALL R1 3 0
+  NEWTABLE R1 0 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R2 1 3
+  FORGPREP R2
+  FASTCALL2 TABLE_INSERT R1 R5 [+4]
+  MOVE R8 R1
+  MOVE R9 R5
+  GETUPVAL R7 2
+  CALL R7 2 0
+  FORGLOOP R2 2 [-7]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R0 K6 ["assertEqual"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R0 K7 ["iterator"]
+  CALL R3 1 1
+  GETIMPORT R4 K10 [table.insert]
+  DUPCLOSURE R5 K11 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  RETURN R5 1

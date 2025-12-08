@@ -455,23 +455,40 @@ MAIN:
   LOADK R23 K37 ["WorldModel"]
   CALL R22 1 1
   GETIMPORT R23 K39 [game]
-  LOADK R25 K40 ["Players"]
-  NAMECALL R23 R23 K41 ["GetService"]
+  LOADK R25 K40 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R23 R23 K41 ["GetEngineFeature"]
+  CALL R23 2 1
+  JUMPIFNOT R23 [+18]
+  GETIMPORT R23 K39 [game]
+  LOADK R25 K42 ["Players"]
+  NAMECALL R23 R23 K43 ["GetService"]
   CALL R23 2 1
   GETIMPORT R25 K36 [Instance.new]
-  LOADK R26 K42 ["HumanoidDescription"]
+  LOADK R26 K44 ["HumanoidDescription"]
   CALL R25 1 1
-  GETIMPORT R26 K46 [Enum.HumanoidRigType.R6]
-  NAMECALL R23 R23 K47 ["CreateHumanoidModelFromDescription"]
+  GETIMPORT R26 K48 [Enum.HumanoidRigType.R6]
+  NAMECALL R23 R23 K49 ["CreateHumanoidModelFromDescriptionAsync"]
   CALL R23 3 1
-  SETTABLEKS R22 R23 K48 ["Parent"]
-  DUPCLOSURE R23 K49 [PROTO_2]
-  DUPCLOSURE R24 K50 [PROTO_7]
-  SETTABLEKS R24 R19 K51 ["init"]
-  DUPCLOSURE R24 K52 [PROTO_8]
+  SETTABLEKS R22 R23 K50 ["Parent"]
+  JUMP [+17]
+  GETIMPORT R23 K39 [game]
+  LOADK R25 K42 ["Players"]
+  NAMECALL R23 R23 K43 ["GetService"]
+  CALL R23 2 1
+  GETIMPORT R25 K36 [Instance.new]
+  LOADK R26 K44 ["HumanoidDescription"]
+  CALL R25 1 1
+  GETIMPORT R26 K48 [Enum.HumanoidRigType.R6]
+  NAMECALL R23 R23 K51 ["CreateHumanoidModelFromDescription"]
+  CALL R23 3 1
+  SETTABLEKS R22 R23 K50 ["Parent"]
+  DUPCLOSURE R23 K52 [PROTO_2]
+  DUPCLOSURE R24 K53 [PROTO_7]
+  SETTABLEKS R24 R19 K54 ["init"]
+  DUPCLOSURE R24 K55 [PROTO_8]
   CAPTURE VAL R1
-  SETTABLEKS R24 R19 K53 ["getDerivedStateFromProps"]
-  DUPCLOSURE R24 K54 [PROTO_9]
+  SETTABLEKS R24 R19 K56 ["getDerivedStateFromProps"]
+  DUPCLOSURE R24 K57 [PROTO_9]
   CAPTURE VAL R17
   CAPTURE VAL R1
   CAPTURE VAL R11
@@ -482,9 +499,9 @@ MAIN:
   CAPTURE VAL R9
   CAPTURE VAL R18
   CAPTURE VAL R16
-  SETTABLEKS R24 R19 K55 ["render"]
+  SETTABLEKS R24 R19 K58 ["render"]
   MOVE R24 R4
-  DUPTABLE R25 K56 [{"Analytics", "Localization", "Stylizer", "Plugin"}]
+  DUPTABLE R25 K59 [{"Analytics", "Localization", "Stylizer", "Plugin"}]
   SETTABLEKS R5 R25 K11 ["Analytics"]
   SETTABLEKS R6 R25 K12 ["Localization"]
   SETTABLEKS R8 R25 K15 ["Stylizer"]

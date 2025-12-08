@@ -1,0 +1,126 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  SETTABLEKS R1 R0 K0 ["Name"]
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R0 K1 [pcall]
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CALL R0 1 2
+  SETUPVAL R0 0
+  SETUPVAL R1 1
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+3]
+  GETIMPORT R0 K5 [Enum.FinishRecordingOperation.Commit]
+  RETURN R0 1
+  GETIMPORT R0 K7 [warn]
+  GETUPVAL R1 1
+  CALL R0 1 0
+  GETIMPORT R0 K9 [Enum.FinishRecordingOperation.Cancel]
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R3 0
+  LOADK R4 K0 ["Renaming %s to %s"]
+  MOVE R5 R1
+  MOVE R6 R2
+  CALL R3 3 0
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R6 R1
+  GETIMPORT R5 K2 [typeof]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K3 ["string"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K4 [+4]
+  LOADK R5 K4 ["Instance ID is not a string"]
+  GETIMPORT R3 K6 [assert]
+  CALL R3 2 0
+  FASTCALL1 TYPEOF R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K2 [typeof]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K3 ["string"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K7 [+4]
+  LOADK R5 K7 ["New name is not a string"]
+  GETIMPORT R3 K6 [assert]
+  CALL R3 2 0
+  GETUPVAL R3 1
+  CALL R3 0 1
+  JUMPIF R3 [+6]
+  LOADN R5 1
+  LOADN R6 100
+  NAMECALL R3 R2 K8 ["sub"]
+  CALL R3 3 1
+  MOVE R2 R3
+  GETUPVAL R3 2
+  MOVE R4 R0
+  MOVE R5 R1
+  LOADK R6 K9 ["renaming instance"]
+  CALL R3 3 1
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K10 [+4]
+  LOADK R6 K10 ["Host renaming instance that doesn't exist"]
+  GETIMPORT R4 K6 [assert]
+  CALL R4 2 0
+  LOADNIL R4
+  LOADNIL R5
+  GETTABLEKS R6 R0 K11 ["recordChanges"]
+  LOADK R8 K12 ["Renaming %* to %*"]
+  GETTABLEKS R10 R3 K13 ["Name"]
+  MOVE R11 R2
+  NAMECALL R8 R8 K14 ["format"]
+  CALL R8 3 1
+  MOVE R7 R8
+  NEWCLOSURE R8 P0
+  CAPTURE REF R4
+  CAPTURE REF R5
+  CAPTURE VAL R3
+  CAPTURE REF R2
+  CALL R6 2 0
+  CLOSEUPVALS R2
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Explorer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Guest"]
+  GETTABLEKS R3 R4 K7 ["InstanceGuestRPCInterface"]
+  GETTABLEKS R2 R3 K8 ["InstanceGuestRPCInterfaceTypes"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R0 K9 ["RpcTypes"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["createDebugLogger"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K12 ["Flags"]
+  GETTABLEKS R5 R6 K13 ["getFFlagExplorerFormatInstanceName"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Guest"]
+  GETTABLEKS R8 R9 K7 ["InstanceGuestRPCInterface"]
+  GETTABLEKS R7 R8 K10 ["Util"]
+  GETTABLEKS R6 R7 K14 ["getInstanceById"]
+  CALL R5 1 1
+  MOVE R6 R3
+  LOADK R7 K15 ["renameInstance"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K16 [PROTO_2]
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  RETURN R7 1

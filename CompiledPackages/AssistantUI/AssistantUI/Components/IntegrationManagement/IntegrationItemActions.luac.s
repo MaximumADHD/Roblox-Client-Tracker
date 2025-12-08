@@ -1,0 +1,327 @@
+PROTO_0:
+  DUPTABLE R0 K3 [{"Edit", "Delete", "LogOut"}]
+  GETUPVAL R1 0
+  LOADK R3 K4 ["SettingsDialog"]
+  LOADK R4 K0 ["Edit"]
+  NAMECALL R1 R1 K5 ["getText"]
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K0 ["Edit"]
+  GETUPVAL R1 0
+  LOADK R3 K6 ["Settings"]
+  LOADK R4 K1 ["Delete"]
+  NAMECALL R1 R1 K5 ["getText"]
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K1 ["Delete"]
+  GETUPVAL R1 0
+  LOADK R3 K7 ["IntegrationManagement"]
+  LOADK R4 K2 ["LogOut"]
+  NAMECALL R1 R1 K5 ["getText"]
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K2 ["LogOut"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  LOADB R1 0
+  CALL R0 1 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["onEdit"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  LOADB R1 0
+  CALL R0 1 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["onDelete"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  LOADB R1 0
+  CALL R0 1 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["onLogOut"]
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["onLogOut"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useMemo"]
+  DUPCLOSURE R2 K1 [PROTO_0]
+  CAPTURE UPVAL U1
+  NEWTABLE R3 0 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["locale"]
+  SETLIST R3 R4 1 [1]
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["useState"]
+  LOADB R3 0
+  CALL R2 1 2
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K4 ["useCallback"]
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  NEWTABLE R6 0 2
+  MOVE R7 R3
+  MOVE R8 R2
+  SETLIST R6 R7 2 [1]
+  CALL R4 2 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["useCallback"]
+  NEWCLOSURE R6 P2
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  NEWTABLE R7 0 1
+  GETTABLEKS R8 R0 K5 ["onEdit"]
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["useCallback"]
+  NEWCLOSURE R7 P3
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  NEWTABLE R8 0 1
+  GETTABLEKS R9 R0 K6 ["onDelete"]
+  SETLIST R8 R9 1 [1]
+  CALL R6 2 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K4 ["useCallback"]
+  NEWCLOSURE R8 P4
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  NEWTABLE R9 0 1
+  GETTABLEKS R10 R0 K7 ["onLogOut"]
+  SETLIST R9 R10 1 [1]
+  CALL R7 2 1
+  GETUPVAL R8 2
+  CALL R8 0 1
+  GETUPVAL R9 3
+  GETUPVAL R10 4
+  DUPTABLE R11 K10 [{"tag", "LayoutOrder"}]
+  LOADK R12 K11 ["row auto-xy gap-large padding-small align-y-center"]
+  SETTABLEKS R12 R11 K8 ["tag"]
+  GETTABLEKS R12 R0 K9 ["LayoutOrder"]
+  SETTABLEKS R12 R11 K9 ["LayoutOrder"]
+  DUPTABLE R12 K14 [{"ToggleButton", "Overflow"}]
+  GETUPVAL R13 3
+  GETUPVAL R14 5
+  DUPTABLE R15 K20 [{"testId", "LayoutOrder", "label", "isChecked", "onActivated", "size"}]
+  LOADK R16 K21 ["Assistant-IntegrationItemActions-Toggle"]
+  SETTABLEKS R16 R15 K15 ["testId"]
+  MOVE R16 R8
+  CALL R16 0 1
+  SETTABLEKS R16 R15 K9 ["LayoutOrder"]
+  LOADK R16 K22 [""]
+  SETTABLEKS R16 R15 K16 ["label"]
+  GETTABLEKS R16 R0 K17 ["isChecked"]
+  SETTABLEKS R16 R15 K17 ["isChecked"]
+  GETTABLEKS R16 R0 K23 ["onStatusChange"]
+  SETTABLEKS R16 R15 K18 ["onActivated"]
+  GETUPVAL R17 6
+  GETTABLEKS R16 R17 K24 ["XSmall"]
+  SETTABLEKS R16 R15 K19 ["size"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K12 ["ToggleButton"]
+  GETUPVAL R13 3
+  GETUPVAL R14 4
+  DUPTABLE R15 K10 [{"tag", "LayoutOrder"}]
+  LOADK R16 K25 ["auto-xy"]
+  SETTABLEKS R16 R15 K8 ["tag"]
+  MOVE R16 R8
+  CALL R16 0 1
+  SETTABLEKS R16 R15 K9 ["LayoutOrder"]
+  DUPTABLE R16 K27 [{"OverflowContent"}]
+  GETUPVAL R17 3
+  GETUPVAL R19 7
+  GETTABLEKS R18 R19 K28 ["Root"]
+  DUPTABLE R19 K30 [{"isOpen"}]
+  SETTABLEKS R2 R19 K29 ["isOpen"]
+  DUPTABLE R20 K33 [{"Anchor", "Content"}]
+  GETUPVAL R21 3
+  GETUPVAL R23 7
+  GETTABLEKS R22 R23 K31 ["Anchor"]
+  LOADNIL R23
+  DUPTABLE R24 K35 [{"Button"}]
+  GETUPVAL R25 3
+  GETUPVAL R26 8
+  DUPTABLE R27 K39 [{"testId", "icon", "tag", "iconRotation", "iconTag", "LayoutOrder", "onActivated"}]
+  LOADK R28 K40 ["Assistant-IntegrationItemActions-OverflowButton"]
+  SETTABLEKS R28 R27 K15 ["testId"]
+  LOADK R28 K41 ["icons/actions/overflow"]
+  SETTABLEKS R28 R27 K36 ["icon"]
+  LOADK R28 K42 ["size-600-600 align-x-center align-y-center"]
+  SETTABLEKS R28 R27 K8 ["tag"]
+  LOADN R28 90
+  SETTABLEKS R28 R27 K37 ["iconRotation"]
+  LOADK R28 K43 ["size-600-600 content-emphasis"]
+  SETTABLEKS R28 R27 K38 ["iconTag"]
+  MOVE R28 R8
+  CALL R28 0 1
+  SETTABLEKS R28 R27 K9 ["LayoutOrder"]
+  SETTABLEKS R4 R27 K18 ["onActivated"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K34 ["Button"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K31 ["Anchor"]
+  GETUPVAL R21 3
+  GETUPVAL R23 7
+  GETTABLEKS R22 R23 K32 ["Content"]
+  DUPTABLE R23 K47 [{"side", "hasArrow", "onPressedOutside"}]
+  GETUPVAL R27 9
+  GETTABLEKS R26 R27 K48 ["Enums"]
+  GETTABLEKS R25 R26 K49 ["PopoverSide"]
+  GETTABLEKS R24 R25 K50 ["Left"]
+  SETTABLEKS R24 R23 K44 ["side"]
+  LOADB R24 0
+  SETTABLEKS R24 R23 K45 ["hasArrow"]
+  SETTABLEKS R4 R23 K46 ["onPressedOutside"]
+  DUPTABLE R24 K51 [{"Content"}]
+  GETUPVAL R25 3
+  GETUPVAL R26 4
+  DUPTABLE R27 K52 [{"LayoutOrder", "testId", "tag"}]
+  MOVE R28 R8
+  CALL R28 0 1
+  SETTABLEKS R28 R27 K9 ["LayoutOrder"]
+  LOADK R28 K53 ["Assistant-IntegrationItemActions-OverflowContent"]
+  SETTABLEKS R28 R27 K15 ["testId"]
+  LOADK R28 K54 ["col size-full-0 auto-y gap-small padding-small"]
+  SETTABLEKS R28 R27 K8 ["tag"]
+  DUPTABLE R28 K58 [{"LogOutButton", "EditButton", "DeleteButton"}]
+  GETTABLEKS R30 R0 K7 ["onLogOut"]
+  JUMPIFNOT R30 [+25]
+  GETUPVAL R29 3
+  GETUPVAL R30 10
+  DUPTABLE R31 K61 [{"LayoutOrder", "text", "size", "variant", "onActivated"}]
+  MOVE R32 R8
+  CALL R32 0 1
+  SETTABLEKS R32 R31 K9 ["LayoutOrder"]
+  GETTABLEKS R32 R1 K62 ["LogOut"]
+  SETTABLEKS R32 R31 K59 ["text"]
+  GETUPVAL R33 11
+  GETTABLEKS R32 R33 K24 ["XSmall"]
+  SETTABLEKS R32 R31 K19 ["size"]
+  GETUPVAL R33 12
+  GETTABLEKS R32 R33 K63 ["Text"]
+  SETTABLEKS R32 R31 K60 ["variant"]
+  SETTABLEKS R7 R31 K18 ["onActivated"]
+  CALL R29 2 1
+  JUMP [+1]
+  LOADNIL R29
+  SETTABLEKS R29 R28 K55 ["LogOutButton"]
+  GETUPVAL R29 3
+  GETUPVAL R30 10
+  DUPTABLE R31 K61 [{"LayoutOrder", "text", "size", "variant", "onActivated"}]
+  MOVE R32 R8
+  CALL R32 0 1
+  SETTABLEKS R32 R31 K9 ["LayoutOrder"]
+  GETTABLEKS R32 R1 K64 ["Edit"]
+  SETTABLEKS R32 R31 K59 ["text"]
+  GETUPVAL R33 11
+  GETTABLEKS R32 R33 K24 ["XSmall"]
+  SETTABLEKS R32 R31 K19 ["size"]
+  GETUPVAL R33 12
+  GETTABLEKS R32 R33 K63 ["Text"]
+  SETTABLEKS R32 R31 K60 ["variant"]
+  SETTABLEKS R5 R31 K18 ["onActivated"]
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K56 ["EditButton"]
+  GETUPVAL R29 3
+  GETUPVAL R30 10
+  DUPTABLE R31 K61 [{"LayoutOrder", "text", "size", "variant", "onActivated"}]
+  MOVE R32 R8
+  CALL R32 0 1
+  SETTABLEKS R32 R31 K9 ["LayoutOrder"]
+  GETTABLEKS R32 R1 K65 ["Delete"]
+  SETTABLEKS R32 R31 K59 ["text"]
+  GETUPVAL R33 11
+  GETTABLEKS R32 R33 K24 ["XSmall"]
+  SETTABLEKS R32 R31 K19 ["size"]
+  GETUPVAL R33 12
+  GETTABLEKS R32 R33 K63 ["Text"]
+  SETTABLEKS R32 R31 K60 ["variant"]
+  SETTABLEKS R6 R31 K18 ["onActivated"]
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K57 ["DeleteButton"]
+  CALL R25 3 1
+  SETTABLEKS R25 R24 K32 ["Content"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K32 ["Content"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K26 ["OverflowContent"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K13 ["Overflow"]
+  CALL R9 3 -1
+  RETURN R9 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Components"]
+  GETTABLEKS R2 R3 K7 ["CustomIconButton"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Parent"]
+  GETTABLEKS R4 R5 K10 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Parent"]
+  GETTABLEKS R5 R6 K11 ["ReactUtils"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K12 ["Resources"]
+  GETTABLEKS R7 R8 K13 ["Localization"]
+  GETTABLEKS R6 R7 K14 ["Translator"]
+  CALL R5 1 1
+  GETTABLEKS R6 R2 K15 ["View"]
+  GETTABLEKS R8 R2 K16 ["Enums"]
+  GETTABLEKS R7 R8 K17 ["InputSize"]
+  GETTABLEKS R8 R2 K18 ["Toggle"]
+  GETTABLEKS R9 R2 K19 ["Button"]
+  GETTABLEKS R11 R2 K16 ["Enums"]
+  GETTABLEKS R10 R11 K20 ["ButtonSize"]
+  GETTABLEKS R12 R2 K16 ["Enums"]
+  GETTABLEKS R11 R12 K21 ["ButtonVariant"]
+  GETTABLEKS R12 R2 K22 ["Popover"]
+  GETTABLEKS R13 R4 K23 ["createNextOrder"]
+  GETTABLEKS R14 R3 K24 ["createElement"]
+  DUPCLOSURE R15 K25 [PROTO_5]
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  CAPTURE VAL R12
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  GETTABLEKS R16 R3 K26 ["memo"]
+  MOVE R17 R15
+  CALL R16 1 -1
+  RETURN R16 -1

@@ -18,83 +18,104 @@ PROTO_0:
 PROTO_1:
   GETUPVAL R5 0
   GETTABLE R4 R5 R1
+  GETIMPORT R6 K1 [game]
+  LOADK R8 K2 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R6 R6 K3 ["GetEngineFeature"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+7]
   GETUPVAL R5 1
-  GETTABLEKS R7 R4 K0 ["outfitId"]
-  NAMECALL R5 R5 K1 ["GetHumanoidDescriptionFromOutfitId"]
+  GETTABLEKS R7 R4 K4 ["outfitId"]
+  NAMECALL R5 R5 K5 ["GetHumanoidDescriptionFromOutfitIdAsync"]
+  CALL R5 2 1
+  JUMP [+6]
+  GETUPVAL R5 1
+  GETTABLEKS R7 R4 K4 ["outfitId"]
+  NAMECALL R5 R5 K6 ["GetHumanoidDescriptionFromOutfitId"]
   CALL R5 2 1
   JUMPIF R5 [+11]
   LOADB R7 0
-  GETTABLEKS R9 R4 K0 ["outfitId"]
-  LOADK R10 K2 [" is not a valid outfitId"]
+  GETTABLEKS R9 R4 K4 ["outfitId"]
+  LOADK R10 K7 [" is not a valid outfitId"]
   CONCAT R8 R9 R10
   FASTCALL2 ASSERT R7 R8 [+3]
-  GETIMPORT R6 K4 [assert]
+  GETIMPORT R6 K9 [assert]
   CALL R6 2 0
   RETURN R0 0
-  GETTABLEKS R6 R4 K5 ["accessories"]
-  GETTABLEKS R7 R4 K6 ["keepDefaultAccessories"]
+  GETTABLEKS R6 R4 K10 ["accessories"]
+  GETTABLEKS R7 R4 K11 ["keepDefaultAccessories"]
   JUMPIFNOT R7 [+32]
   LOADB R9 1
-  NAMECALL R7 R5 K7 ["GetAccessories"]
+  NAMECALL R7 R5 K12 ["GetAccessories"]
   CALL R7 2 3
   FORGPREP R7
-  GETTABLEKS R12 R11 K8 ["AccessoryType"]
-  GETIMPORT R13 K11 [Enum.AccessoryType.Hair]
+  GETTABLEKS R12 R11 K13 ["AccessoryType"]
+  GETIMPORT R13 K16 [Enum.AccessoryType.Hair]
   JUMPIFEQ R12 R13 [+13]
-  GETTABLEKS R12 R11 K8 ["AccessoryType"]
-  GETIMPORT R13 K13 [Enum.AccessoryType.Eyebrow]
+  GETTABLEKS R12 R11 K13 ["AccessoryType"]
+  GETIMPORT R13 K18 [Enum.AccessoryType.Eyebrow]
   JUMPIFEQ R12 R13 [+7]
-  GETTABLEKS R12 R11 K8 ["AccessoryType"]
-  GETIMPORT R13 K15 [Enum.AccessoryType.Eyelash]
+  GETTABLEKS R12 R11 K13 ["AccessoryType"]
+  GETIMPORT R13 K20 [Enum.AccessoryType.Eyelash]
   JUMPIFNOTEQ R12 R13 [+8]
   FASTCALL2 TABLE_INSERT R6 R11 [+5]
   MOVE R13 R6
   MOVE R14 R11
-  GETIMPORT R12 K18 [table.insert]
+  GETIMPORT R12 K23 [table.insert]
   CALL R12 2 0
   FORGLOOP R7 2 [-26]
-  GETTABLEKS R7 R4 K19 ["shirtId"]
+  GETTABLEKS R7 R4 K24 ["shirtId"]
   JUMPIFNOT R7 [+4]
-  GETTABLEKS R7 R4 K19 ["shirtId"]
-  SETTABLEKS R7 R5 K20 ["Shirt"]
-  GETTABLEKS R7 R4 K21 ["pantsId"]
+  GETTABLEKS R7 R4 K24 ["shirtId"]
+  SETTABLEKS R7 R5 K25 ["Shirt"]
+  GETTABLEKS R7 R4 K26 ["pantsId"]
   JUMPIFNOT R7 [+4]
-  GETTABLEKS R7 R4 K21 ["pantsId"]
-  SETTABLEKS R7 R5 K22 ["Pants"]
+  GETTABLEKS R7 R4 K26 ["pantsId"]
+  SETTABLEKS R7 R5 K27 ["Pants"]
   MOVE R9 R6
   LOADB R10 1
-  NAMECALL R7 R5 K23 ["SetAccessories"]
+  NAMECALL R7 R5 K28 ["SetAccessories"]
   CALL R7 3 0
-  GETTABLEKS R7 R4 K24 ["scaleData"]
+  GETTABLEKS R7 R4 K29 ["scaleData"]
   JUMPIFNOT R7 [+26]
-  GETTABLEKS R7 R4 K24 ["scaleData"]
-  GETTABLEKS R8 R7 K25 ["BodyTypeScale"]
-  SETTABLEKS R8 R5 K25 ["BodyTypeScale"]
-  GETTABLEKS R8 R7 K26 ["DepthScale"]
-  SETTABLEKS R8 R5 K26 ["DepthScale"]
-  GETTABLEKS R8 R7 K27 ["HeadScale"]
-  SETTABLEKS R8 R5 K27 ["HeadScale"]
-  GETTABLEKS R8 R7 K28 ["HeightScale"]
-  SETTABLEKS R8 R5 K28 ["HeightScale"]
-  GETTABLEKS R8 R7 K29 ["ProportionScale"]
-  SETTABLEKS R8 R5 K29 ["ProportionScale"]
-  GETTABLEKS R8 R7 K30 ["WidthScale"]
-  SETTABLEKS R8 R5 K30 ["WidthScale"]
-  GETTABLEKS R7 R4 K31 ["defaultHumanoidRigType"]
-  GETIMPORT R8 K34 [Enum.GameAvatarType.R15]
+  GETTABLEKS R7 R4 K29 ["scaleData"]
+  GETTABLEKS R8 R7 K30 ["BodyTypeScale"]
+  SETTABLEKS R8 R5 K30 ["BodyTypeScale"]
+  GETTABLEKS R8 R7 K31 ["DepthScale"]
+  SETTABLEKS R8 R5 K31 ["DepthScale"]
+  GETTABLEKS R8 R7 K32 ["HeadScale"]
+  SETTABLEKS R8 R5 K32 ["HeadScale"]
+  GETTABLEKS R8 R7 K33 ["HeightScale"]
+  SETTABLEKS R8 R5 K33 ["HeightScale"]
+  GETTABLEKS R8 R7 K34 ["ProportionScale"]
+  SETTABLEKS R8 R5 K34 ["ProportionScale"]
+  GETTABLEKS R8 R7 K35 ["WidthScale"]
+  SETTABLEKS R8 R5 K35 ["WidthScale"]
+  GETTABLEKS R7 R4 K36 ["defaultHumanoidRigType"]
+  GETIMPORT R8 K39 [Enum.GameAvatarType.R15]
   JUMPIFNOTEQ R2 R8 [+4]
-  GETIMPORT R7 K36 [Enum.HumanoidRigType.R15]
+  GETIMPORT R7 K41 [Enum.HumanoidRigType.R15]
   JUMP [+6]
-  GETIMPORT R8 K38 [Enum.GameAvatarType.R6]
+  GETIMPORT R8 K43 [Enum.GameAvatarType.R6]
   JUMPIFNOTEQ R2 R8 [+3]
-  GETIMPORT R7 K39 [Enum.HumanoidRigType.R6]
+  GETIMPORT R7 K44 [Enum.HumanoidRigType.R6]
+  GETIMPORT R9 K1 [game]
+  LOADK R11 K2 ["AsyncRenamesUsedInLuaApps"]
+  NAMECALL R9 R9 K3 ["GetEngineFeature"]
+  CALL R9 2 1
+  JUMPIFNOT R9 [+7]
   GETUPVAL R8 1
   MOVE R10 R5
   MOVE R11 R7
-  NAMECALL R8 R8 K40 ["CreateHumanoidModelFromDescription"]
+  NAMECALL R8 R8 K45 ["CreateHumanoidModelFromDescriptionAsync"]
   CALL R8 3 1
-  SETTABLEKS R1 R8 K41 ["Name"]
-  GETTABLEKS R9 R4 K42 ["insertionOrder"]
+  JUMP [+6]
+  GETUPVAL R8 1
+  MOVE R10 R5
+  MOVE R11 R7
+  NAMECALL R8 R8 K46 ["CreateHumanoidModelFromDescription"]
+  CALL R8 3 1
+  SETTABLEKS R1 R8 K47 ["Name"]
+  GETTABLEKS R9 R4 K48 ["insertionOrder"]
   SETTABLE R8 R0 R9
   RETURN R0 0
 

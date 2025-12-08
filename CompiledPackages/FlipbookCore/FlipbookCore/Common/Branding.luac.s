@@ -1,0 +1,84 @@
+PROTO_0:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K0 ["View"]
+  DUPTABLE R4 K3 [{"tag", "LayoutOrder"}]
+  LOADK R5 K4 ["auto-xy row gap-small align-y-center"]
+  SETTABLEKS R5 R4 K1 ["tag"]
+  GETTABLEKS R5 R0 K5 ["layoutOrder"]
+  SETTABLEKS R5 R4 K2 ["LayoutOrder"]
+  DUPTABLE R5 K8 [{"Icon", "Typography"}]
+  GETUPVAL R6 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K9 ["Image"]
+  DUPTABLE R8 K11 [{"LayoutOrder", "Image", "Size"}]
+  GETUPVAL R9 3
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K2 ["LayoutOrder"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K12 ["FLIPBOOK_LOGO"]
+  SETTABLEKS R9 R8 K9 ["Image"]
+  GETIMPORT R9 K15 [UDim2.fromOffset]
+  GETTABLEKS R11 R1 K10 ["Size"]
+  GETTABLEKS R10 R11 K16 ["Size_800"]
+  GETTABLEKS R12 R1 K10 ["Size"]
+  GETTABLEKS R11 R12 K16 ["Size_800"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K10 ["Size"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K6 ["Icon"]
+  GETUPVAL R6 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K17 ["Text"]
+  DUPTABLE R8 K18 [{"tag", "LayoutOrder", "Text"}]
+  LOADK R9 K19 ["auto-xy text-heading-medium"]
+  SETTABLEKS R9 R8 K1 ["tag"]
+  GETUPVAL R9 3
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K2 ["LayoutOrder"]
+  LOADK R9 K20 ["Flipbook"]
+  SETTABLEKS R9 R8 K17 ["Text"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K7 ["Typography"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["RobloxPackages"]
+  GETTABLEKS R1 R2 K6 ["Foundation"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K7 ["Packages"]
+  GETTABLEKS R2 R3 K8 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["constants"]
+  CALL R2 1 1
+  GETIMPORT R3 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K10 ["nextLayoutOrder"]
+  CALL R3 1 1
+  GETTABLEKS R5 R0 K11 ["Hooks"]
+  GETTABLEKS R4 R5 K12 ["useTokens"]
+  GETTABLEKS R5 R1 K13 ["createElement"]
+  DUPCLOSURE R6 K14 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  RETURN R6 1

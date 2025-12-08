@@ -1,0 +1,19 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R1 K5 ["LuauPolyfill"]
+  CALL R2 1 1
+  NEWTABLE R3 0 0
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R5 R1 K6 ["JestTestResult"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R6 R1 K7 ["JestTypes"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R7 R1 K8 ["RobloxShared"]
+  CALL R6 1 1
+  RETURN R3 1

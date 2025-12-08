@@ -1,0 +1,61 @@
+PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["bindToAction"]
+  DUPTABLE R1 K4 [{"uri", "shouldFocusExplorer", "onActionActivated"}]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K5 ["fromAction"]
+  LOADK R3 K6 ["Common"]
+  LOADK R4 K7 ["Delete"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K1 ["uri"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K2 ["shouldFocusExplorer"]
+  DUPCLOSURE R2 K8 [PROTO_0]
+  SETTABLEKS R2 R1 K3 ["onActionActivated"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useContext"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["Context"]
+  CALL R0 1 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["useEffect"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  NEWTABLE R3 0 0
+  CALL R1 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Explorer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Components"]
+  GETTABLEKS R3 R4 K7 ["Contexts"]
+  GETTABLEKS R2 R3 K8 ["ActionContext"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K9 ["Parent"]
+  GETTABLEKS R3 R4 K10 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K9 ["Parent"]
+  GETTABLEKS R4 R5 K11 ["React"]
+  CALL R3 1 1
+  GETTABLEKS R5 R2 K12 ["Util"]
+  GETTABLEKS R4 R5 K13 ["StudioUri"]
+  DUPCLOSURE R5 K14 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  RETURN R5 1
