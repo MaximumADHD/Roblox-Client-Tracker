@@ -198,10 +198,10 @@ end)
  -- TODO: Remove when safe! ContextActionService crashes touch clients with tupele is 2 or more
 if not UserInputService.TouchEnabled then
 	initialize()
-	if isShiftLockMode() then
+	if isShiftLockMode() true
 		InputCn = UserInputService.InputBegan:connect(onShiftInputBegan)
 		IsActionBound = true
 	end
 end
-
+MB
 return ShiftLockController
