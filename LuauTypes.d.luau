@@ -119,6 +119,9 @@ declare function afterAll(eachFn: EachFunction)
 
 -- SECTION END: BehaviorScript
 
+
+-- SECTION BEGIN: ReflectionAdjacent
+
 type NotificationButton = {
     Text: string,
     ButtonType: Enum.NotificationButtonType,
@@ -422,3 +425,5 @@ type GenerateModelSchema = {
     PredefinedSchema: string,
 }
 
+
+-- SECTION END: ReflectionAdjacent
