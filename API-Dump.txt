@@ -1822,7 +1822,7 @@ Class AngularVelocity : Constraint
 	Property AngularVelocity.MaxTorque: number {🔐Physics}
 	Property AngularVelocity.ReactionTorqueEnabled: boolean {🔐Physics}
 	Property AngularVelocity.RelativeTo: Enum.ActuatorRelativeTo {🔐Physics}
-Class AnimationConstraint : Constraint
+Class AnimationConstraint : Constraint [NotBrowsable]
 	Property AnimationConstraint.MaxForce: number {🔐Animation | Physics}
 	Property AnimationConstraint.MaxTorque: number {🔐Animation | Physics}
 	Property AnimationConstraint.C0: CFrame {🔐Animation | Physics} [Hidden] [ReadOnly] [Deprecated]
@@ -6689,12 +6689,12 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.DevComputerCameraMovementMode: Enum.DevComputerCameraMovementMode {🔐Players}
 	Property StarterPlayer.DevTouchCameraMovementMode: Enum.DevTouchCameraMovementMode {🔐Players}
 	Property StarterPlayer.AllowCustomAnimations: boolean {🔐Players} {✏️RobloxScriptSecurity} [Hidden]
-	Property StarterPlayer.AvatarJointUpgrade: Enum.RolloutState {🔐Players} [NotReplicated] [NotScriptable]
+	Property StarterPlayer.AvatarJointUpgrade: Enum.RolloutState {🔐Players} [NotReplicated] [NotScriptable] [NotBrowsable]
 	Property StarterPlayer.AvatarJointUpgrade_SerializedRollout: Enum.RolloutState {🔐Players} [Hidden] [NotScriptable]
 	Property StarterPlayer.CharacterBreakJointsOnDeath: boolean {🔐Players}
 	Property StarterPlayer.CharacterMaxSlopeAngle: number {🔐Players}
 	Property StarterPlayer.CharacterWalkSpeed: number {🔐Players}
-	Property StarterPlayer.ClassicDeath: boolean {🔐Players}
+	Property StarterPlayer.ClassicDeath: boolean {🔐Players} [NotBrowsable]
 	Property StarterPlayer.EnableDynamicHeads: Enum.LoadDynamicHeads {🔐Players} [NotScriptable]
 	Property StarterPlayer.GameSettingsAssetIDFace: number {🔐Players} {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Property StarterPlayer.GameSettingsAssetIDHead: number {🔐Players} {RobloxScriptSecurity} [Hidden] [NotReplicated]

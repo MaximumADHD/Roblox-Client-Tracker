@@ -120,7 +120,7 @@ declare function afterAll(eachFn: EachFunction)
 -- SECTION END: BehaviorScript
 
 
--- SECTION BEGIN: ReflectionAdjacent
+-- SECTION BEGIN: Reflection Adjacent
 
 type NotificationButton = {
     Text: string,
@@ -426,4 +426,4 @@ type GenerateModelSchema = {
 }
 
 
--- SECTION END: ReflectionAdjacent
+-- SECTION END: Reflection Adjacent

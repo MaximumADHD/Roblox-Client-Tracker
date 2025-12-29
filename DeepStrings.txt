@@ -16218,6 +16218,7 @@ CanPerformBinaryUpdate
 CanPerformBinaryUpdateEnabled
 CanPromptOptIn
 CanPromptOptInAsync
+CanPublish
 CanRecordAsync
 CanReplicateAudioVideoContentPropertiesServer
 CanReplicateContentPropertiesServer
@@ -17315,6 +17316,7 @@ ClearTerrainSelectionHack
 ClearTerrainWeldsForGatheredCells
 ClearTestingValue
 ClearTextOnFocus
+ClearTexturePacksOnNewCP
 ClearTouchCameraMovementModes
 ClearTouchMovementModes
 ClearUnusedLuaRefsJob
@@ -17794,6 +17796,7 @@ ClientSubscriptionsUpdateOperation
 ClientSubscriptionsUpdateSendAckedEventState
 ClientSubscriptionsUpdateSignalParticipantsStateChangesState
 ClientSubscriptionsUpdateSuccessState
+ClientSubscriptionsUpdateTryInitiatePeerConnect
 ClientSubscriptionsUpdateTryInitiatePeerConnectionFactoryState
 ClientSubscriptionsUpdateWaitForCreateAnswerAndSetLocalSdpState
 ClientSubscriptionsUpdateWaitForRemoteSdpSetState
@@ -24110,6 +24113,7 @@ DevComputerMovementChanged
 DevComputerMovementMode
 DevComputerMovementModeEnum
 DevConsoleFixMicroprofilerSyncIssues
+DevelopApi
 DeveloperCameraOcclusionMode
 DeveloperCapture
 DeveloperComputerCameraMovementMode
@@ -24420,7 +24424,7 @@ DilleniaUPC
 DimensioH9
 Dimensions
 DimmedText
-DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsos0
+DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsos
 DiqLimitMax
 DiqLimitMilliseconds
 DiqLimitPermyriad
@@ -25046,7 +25050,6 @@ DownstreamTlsContextB
 DownstreamTunnelSuccessfullyEstablished
 DownTeeArrow
 DownWebrtcConnections
-DpB8nFX28F
 DPERF_BeginEvent
 DPERF_EndEvent
 DPERF_GetStatus
@@ -29542,6 +29545,7 @@ FixDebugDropdownInPluginDebug
 FixDiffToolSpacing
 FixDisabledHelpMenuActions
 FixDisconnectErrorCode
+FixDownsizingCalculation
 FixDPIScaling
 FixDuplicatePackageUnlinkPopup
 FixDuplicateWaypointsOnInsertObject
@@ -29686,6 +29690,7 @@ FixSpecialFileMeshToIc
 FixStalePublishingToNewSlotFlag
 FixStartPageOpenedInEditMode
 FixStrangerThingsIssueUsingAdditionalInvalidationSignal
+FixStreamingTextureMaxMipCount
 FixStrikeThrough
 FixStudioClientRepStats
 FixSurfaceGuisBreakingAfterRespawn
@@ -32988,6 +32993,7 @@ GraphicsCheckComputeSupport
 GraphicsClampInstanceDataInShaderGLESAllowList
 GraphicsClampInstanceDataSizeInShaderGLESBytes
 GraphicsD3D11ExtraInitLog
+GraphicsD3D11SwapBufferAsNeeded
 GraphicsDeferShaderLoadingPatternList
 GraphicsDisableCloudsForVendorGPUDriver
 GraphicsDisableUnalignedDxtGPUNameBlacklist
@@ -33016,6 +33022,7 @@ GraphicsGLPerFrameQuery2
 GraphicsGLReportExtensions
 GraphicsGLShlangExcludeListHQShaders
 GraphicsGLShlangExcludeListSuperHQShaders
+GraphicsGLSwapBufferAsNeeded
 GraphicsGLSyncWorkaroundCBSize
 GraphicsGLSyncWorkaroundForVendorGPUDriver
 GraphicsGLTimerQuery2
@@ -34099,6 +34106,7 @@ HlsSetSourceVideoTypeEarly
 HlsVariantName
 HlsVariantSize
 HMACGostR3411
+HnehDNf9J6
 HNetworkItemQueueDtor
 HoldDuration
 HoleCountExceeded
@@ -35211,7 +35219,7 @@ IkTwoBoneBetterSolver
 ILegacyStudioBridge
 ILikeToMoveItMoveIt
 IllegalAndRegulatedGoodsAndActivities
-IllegalMessageToPP
+IllegalMessageTo
 IllegalOperation
 IllegalValue
 ILocalStorageHandler
@@ -37831,6 +37839,7 @@ KeyValueStorage
 KeyValueStorage]
 KeywordFilterType
 KfaO3j5BbG6ijHHxFy22YNNJwxKTT
+KFfTeDFGDVvK
 KFSTestJoint
 Kharoshthi
 Khitan_Small_Script
@@ -48550,6 +48559,7 @@ PrefixTextProperties
 PreiumUpsellMembershipCheckDelay
 PreloadAsync
 PreloadAsyncFailOnCancel
+PreloadAsyncStreamable
 PreloadAsyncSupportTexturePack
 PreloadedCurrent
 PreLoading
@@ -49380,6 +49390,8 @@ PublishedPackage
 PublishedProjectsPageHeight
 PublishedProjectsPageUrl
 PublishedProjectsPageWidth
+PublishEligibility
+PublishEligibility]
 PublishEnded
 PublisherIceCandidates
 PublisherIneligible
@@ -49556,6 +49568,7 @@ QArrayData
 QAssociativeIterableImpl
 QAWNcgRdAzOKj8pi5wAlnsdoumgAtB1J7d
 QBasicTimer
+QBfZZiQVxG
 QBoxLayout
 QBQCQDQEQFQGQHQIQJQKQLQMQNQOQPQQRQSQTQUQVQWQYQjQkQqQvQwQxQyQz
 QButtonGroup
@@ -52697,6 +52710,7 @@ RenderSunSizeEpsilon
 RenderSurfaceLightOffset
 RenderTargetFlipping
 RenderTargetR8G8
+RenderTerrainEmissiveMask
 RenderTest
 RenderTest]
 RenderTestRemovePerfInfoNew
@@ -55546,6 +55560,7 @@ SchemaVersionKey
 SchemeHeaderTransformation
 SchemeHeaderTransformationR
 SCMAggressiveOptimization
+SCMInclusiveBubble
 SCMNoRolloutBypass
 ScopeAboutToExit
 ScopeCheckAsync
@@ -58534,6 +58549,8 @@ SimRuntimeContentDiskStoreEnabled
 SimRuntimeContentEnableIsFromContentProvider
 SimRuntimeContentEnforceLocalBudget
 SimRuntimeContentFixCallBackDataLoss
+SimRuntimeContentFixTextureStreamingBugs
+SimRuntimeContentIgnoreVersionMismatch
 SimRuntimeContentLean
 SimRuntimeContentNetworkSchema
 SimRuntimeContentReplicate
@@ -63521,6 +63538,10 @@ Studio.PublishPlace.AfterPublish.ViewCreatorHub
 Studio.PublishPlace.AfterPublish.ViewCreatorHubText
 Studio.PublishPlace.AfterPublish.ViewQuestionnaire
 Studio.PublishPlace.AfterPublish.ViewQuestionnaireText
+Studio.PublishPlace.Button.Close
+Studio.PublishPlace.Button.Manage
+Studio.PublishPlace.Error.PublishEligibilityDescription
+Studio.PublishPlace.Error.PublishEligibilityTitle
 Studio.QtCategory
 Studio.QTConnectivityTest.Win.Failed
 Studio.QTConnectivityTest.Win.Succeed
@@ -64526,6 +64547,8 @@ StudioPropertiesWidgetInfluencedByStyleRuleShowStyleSheetName
 StudioPropertiesWidgetPseudoInstanceSectionShowParentStyleSheetName
 StudioProposeAutoUpdate
 StudioProposeAutoUpdateTimeoutSeconds
+StudioPublishEligibilityDialog
+StudioPublishEligibilityDialogLink
 StudioPublishPlace
 StudioPublishPlace.End.Failure
 StudioPublishPlace.End.Success
@@ -67664,6 +67687,8 @@ TlsVerificationFail
 TLSVersion
 TM1EnableMaxCloudAssetDimension
 TM2AlternateIdealCalc
+TM2BudgetFixes
+TM2BudgetUseLiveUnstreamable
 TM2EnvUseBaselineDesktop
 TM2EnvUseCompressedDesktop
 TM2FixBBoxSize
@@ -68678,7 +68703,6 @@ TSI_SECURITY_NONE
 TSI_UNIMPLEMENTED
 TSI_UNKNOWN_ERROR
 TSS3T^^^KDk
-TtAnR6WjjH
 TtiExperiment2025ForceUserBucket
 TtiIxpIntegrationCheck
 TtiIxpIntegrationCheckTelemetryThrottleHundredthsPercent
@@ -71324,6 +71348,7 @@ UserPSFixCameraControllerReset
 UserPSRemoveTouchEnabled
 UserPSSinkUnknownTouchEvents
 UserPSTextboxResetCameraInput
+UserPublish
 UserRaycastPerformanceImprovements
 UserRaycastUpdateAPI
 UserReenableLegacyChatForConsole
@@ -71679,6 +71704,7 @@ UVWATAVAWH
 UVWATAVAWI
 UVWAUAVAWH
 UVxYVN]VNaVNeVNiVNmVNqVNuVNyVN
+Uw6hLpWHt`
 UWATAUAVAW
 UWATAUAVAWH
 UWaypointChangeMessage
@@ -71920,6 +71946,7 @@ VAP4_Track
 VAP4_TrakAtom
 VApiArrayResponseGroupResponseV2Model
 VApiArrayResponseThumbnailResponseModel
+VApiArrayResponseUniversePublishResultModel
 VAppArchExperimentStorage
 VAppConfiguration
 VApplicationListener
@@ -77704,7 +77731,7 @@ WildcardInProperty
 WilError_03
 WillReturn
 WIN32_LEAN_AND_MEAN
-Win64.702.8596
+Win64.702.8278
 WinAudioDecoder
 WinAudioEncoder
 WinchEnabled
@@ -78496,7 +78523,6 @@ XW4WebSocketEventType
 XwhvcEikuIaqb7nHhEJ
 XXXXXXXXXXXXXXXXuuuuuuuuuuuuuuuuppppppppppppppppppppppp
 XXXXXXXXXXXXXXXXXXXXXXXXX
-XXZX^\kQjHO
 XZP6AAEBV32
 XZP6AAEBV34
 XZZyexQCL071UIVBQhYMgNB2TrXKT9o9bq8IpYJ
@@ -78537,6 +78563,7 @@ YAY_YbYdYfYgYhYlYmYnYpYrYuY
 YaYcYeYiYoY
 YaYcYeYiYoYsYt
 YaYcYeYiYoYsYtY
+YbiiS^^NHU^
 YBYCYDYEYFYGYHYIYJYKYLYMYNYOYPYQYRYSYTYUYVYWYYjYkYqYvYwYxYyYz
 Ydieresissmall
 YDYHYQYTYbYsY
