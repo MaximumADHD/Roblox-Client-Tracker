@@ -6557,6 +6557,10 @@ Studio.PublishPlace.AfterPublish.ViewCreatorHub,Link to display after publish in
 Studio.PublishPlace.AfterPublish.ViewCreatorHubText,Message to display after publish in toast notification,Changes published.,Changes published.
 Studio.PublishPlace.AfterPublish.ViewQuestionnaire,Message to display after publish in toast notification,View questionnaire,View questionnaire
 Studio.PublishPlace.AfterPublish.ViewQuestionnaireText,Message to display after publish in toast notification,Changes published. Take the questionnaire to make your experience playable.,Changes published. Take the questionnaire to make your experience playable.
+Studio.PublishPlace.Button.Close,Button to close,Close,Close
+Studio.PublishPlace.Button.Manage,"Button to open a ""manage"" page",Manage,Manage
+Studio.PublishPlace.Error.PublishEligibilityDescription,Shown when the user cannot publish their place due to eligibility checks.,"You can fix this quickly. Manage your public publish eligibility, then try again.","You can fix this quickly. Manage your public publish eligibility, then try again."
+Studio.PublishPlace.Error.PublishEligibilityTitle,Shown when the user cannot publish their place to a universe,Can’t publish this experience,Can’t publish this experience
 Studio.QtUI.Action.DoNotAskMeAgain,,Do not ask me again,Do not ask me again
 Studio.Reimport.Actions.Configure,open configure dialog for reimport,Configure...,Configure...
 Studio.Reimport.Actions.Reimport,reimport action,Reimport,Reimport

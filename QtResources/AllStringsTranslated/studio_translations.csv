@@ -6300,6 +6300,8 @@ Studio.GameSettings.TitleRestartServers,,,Restart Servers,Restart Servers
 Studio.GameSettings.ManageServersOnCreatorHubLink,,,Manage Servers on Creator Hub,Manage Servers on Creator Hub
 Studio.GameSettings.General.ManageServersOnCreatorHubDeepLink,,,Manage Servers on Creator Hub,Manage Servers on Creator Hub
 Studio.GameSettings.General.TitleRestartServers,,,Restart Servers,Restart Servers
+Studio.GameSettings.General.PermissionsBannerManageButton,,,Manage,Manage
+Studio.GameSettings.General.PermissionsBannerText,,,Manage permissions and privacy settings on Creator Hub,Manage permissions and privacy settings on Creator Hub
 Studio.Toolbox.General.ToolboxToolbarName,,,Toolbox,Toolbox
 Studio.Toolbox.General.CategoryModels,,,Models,Models
 Studio.Toolbox.General.CategoryDecals,,,Images,Images
@@ -7872,7 +7874,7 @@ Studio.Toolbox.Audio.Music.Genre.World,,,World,World
 Studio.Toolbox.Audio.Music.Genre.Timpani,,,Timpani,Timpani
 Studio.Toolbox.Audio.Music.Genre.Phonk,,,Phonk,Phonk
 Studio.Toolbox.SearchOptionsSort.New,,,New,New
-Studio.Toolbox.HomeView.pricedmodel,,,Shop Recent,Shop Recent
+Studio.Toolbox.HomeView.pricedmodel,,,Shop New,Shop New
 Studio.Toolbox.SearchOptionsSort.Trending,,,Trending,Trending
 Studio.Toolbox.AssetConfig.UploadDenied_MissingIdVerification_Text,,,To submit an Avatar you need to be [Age_Verified],To submit an Avatar you need to be [Age_Verified]
 Studio.Toolbox.AssetConfig.UploadDenied_MissingIdVerification_Link,,,Age Verified,Age Verified
@@ -8013,6 +8015,7 @@ Studio.Toolbox.General.AssetTypeLipMakeup,,,Lip Makeup,Lip Makeup
 Studio.Toolbox.General.FaceMakeup,,,Face Makeup,Face Makeup
 Studio.Toolbox.General.CategoryCreationsGroupEyebrowAccessory,,,Group Eyebrows,Group Eyebrows
 Studio.Toolbox.General.CategoryCreationsGroupEyelashAccessory,,,Group Eyelashes,Group Eyelashes
+Studio.Toolbox.General.ThumbnailColor,,,Thumbnail Color,Thumbnail Color
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -8882,6 +8885,7 @@ Studio.PlayerEmulator.LanguageSection.InstructionText,,,Cloud table will fetch t
 Studio.PlayerEmulator.CountryRegionSection.LabelText,,,Region,Region
 Studio.PlayerEmulator.CustomPolicySwitchSection.LabelText,,,Enable Custom Policies,Enable Custom Policies
 Studio.PlayerEmulator.LanguageSection.PseudolocalizationLabelText,,,Pseudolocalize,Pseudolocalize
+Studio.PlayerEmulator.Button.Manage,,,Manage,Manage
 Studio.PublishPlaceAs.General.PublishPlace,,,Publish Place,Publish Place
 Studio.PublishPlaceAs.General.ContentDialogTitle,,,Content Agreement,Content Agreement
 Studio.PublishPlaceAs.General.ContentDialogHeader,,,Do you agree that your game is controller compatible and contains NONE of the following?,Do you agree that your game is controller compatible and contains NONE of the following?
@@ -9027,6 +9031,8 @@ Studio.PublishPlaceAs.General.GenreReplacementMessage,,,Experience genres are cu
 Studio.PublishPlaceAs.ScreenHeader.RestrictedContentWarning,,,Restricted content should only be saved to experiences with Restricted content maturity labels.,Restricted content should only be saved to experiences with Restricted content maturity labels.
 Studio.PublishPlaceAs.Error.DescriptionInvalidString,,,Description cannot include invalid utf-8 characters.,Description cannot include invalid utf-8 characters.
 Studio.PublishPlaceAs.Error.NameInvalidString,,,Name cannot include invalid utf-8 characters.,Name cannot include invalid utf-8 characters.
+Studio.PublishPlaceAs.Banner.PublishEligibility,,,Check your eligibility status to publish public experiences.,Check your eligibility status to publish public experiences.
+Studio.PublishPlaceAs.Button.Manage,,,Manage,Manage
 Studio.PluginInstallation.Meta.PluginWindowName,,,Plugin Installation,Plugin Installation
 Studio.PluginInstallation.Main.InstallingPlugin,,,Installing plugin : {1},Installing plugin : {1}
 Studio.PluginInstallation.Main.ErrorNoId,,,Error : No plugin to install,Error : No plugin to install
@@ -9238,6 +9244,10 @@ Studio.AssetManager.HeaderBar.ViewTypeSelectGrid,,,Grid,Grid
 Studio.AssetManager.FiltersByType.OtherTypes,,,Other Types,Other Types
 Studio.AssetManager.AssetProperty.Package,,,Package,Package
 Studio.AssetManager.FiltersByType.SearchAllPlaceholder,,,Search all filters...,Search all filters...
+Studio.AssetManager.Navigation.GoBack,,,Go Back,Go Back
+Studio.AssetManager.Navigation.GoForward,,,Go Forward,Go Forward
+Studio.AssetManager.Sidebar.Project,,,Project,Project
+Studio.AssetManager.Sidebar.Library,,,Library,Library
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10093,6 +10103,10 @@ Studio.AssetImporter.Statuses.DropSpecialJointsWarning,,,Special skinning transf
 Studio.AssetImporter.Statuses.DuplicateTransferTargetWarning,,,"Duplicate TransferTarget mesh found. There must be exactly one mesh and one cage mesh prefixed with ""TransferTexture_""","Duplicate TransferTarget mesh found. There must be exactly one mesh and one cage mesh prefixed with ""TransferTexture_"""
 Studio.AssetImporter.Statuses.MissingTransferTargetWarning,,,TransferTexture mesh found without TransferTarget mesh and cage mesh,TransferTexture mesh found without TransferTarget mesh and cage mesh
 Studio.AssetImporter.Statuses.MissingTransferTextureWarning,,,TransferTarget found without any TransferTextures,TransferTarget found without any TransferTextures
+Studio.AssetImporter.Properties.EmissiveFilePath,,,Emissive File Path,Emissive File Path
+Studio.AssetImporter.PropertiesTooltip.EmissiveFilePath,,,The file path of the emissive mask. The emissive mask is a grayscale texture used to determine the emissivity across a surface.,The file path of the emissive mask. The emissive mask is a grayscale texture used to determine the emissivity across a surface.
+Studio.AssetImporter.Statuses.CouldNotReadEmissiveError,,,Could not read the emissive texture file associated with this object.,Could not read the emissive texture file associated with this object.
+Studio.AssetImporter.Statuses.EmissiveBadFileFormatError,,,Unsupported emissive texture file format,Unsupported emissive texture file format
 Studio.AssetImporter.UploadConfirmation.Title,,,Would you like to import the selected files?,Would you like to import the selected files?
 Studio.AssetImporter.UploadConfirmation.Description,,,"By uploading this content, you certify that you have the rights to put this on Roblox and that the content does not infringe on anyone else's intellectual property rights.
 
@@ -10115,6 +10129,7 @@ Studio.AssetImporter.UploadError.WindowTitle,,,File Import Error,File Import Err
 Studio.AssetImporter.UploadError.Title,,,Errors occurred during import,Errors occurred during import
 Studio.AssetImporter.UploadError.ReconfigureButton,,,Reconfigure,Reconfigure
 Studio.AssetImporter.UploadError.OkButton,,,Ok,Ok
+Studio.AssetImporter.Statuses.EmissiveNeedsTransformWarning,,,Roblox transforms emissive map textures into a grayscale mask texture and modifies the imported color map to include the color information from the emissive map texture.,Roblox transforms emissive map textures into a grayscale mask texture and modifies the imported color map to include the color information from the emissive map texture.
 Studio.MaterialManager.Plugin.Name,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Toolbar,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Button,,,Material Manager,Material Manager
@@ -10402,6 +10417,10 @@ Studio.MaterialManager.Materials.LeatherMaterial,,,Leather Material,Leather Mate
 Studio.MaterialManager.Materials.PlasterMaterial,,,Plaster Material,Plaster Material
 Studio.MaterialManager.Materials.RoofShinglesMaterial,,,Roof Shingles Material,Roof Shingles Material
 Studio.MaterialManager.Materials.RubberMaterial,,,Rubber Material,Rubber Material
+Studio.MaterialManager.CreateDialog.ImportEmissiveMask,,,Emissive,Emissive
+Studio.MaterialManager.Import.EmissiveMaskPreview,,,Emissive Mask Preview,Emissive Mask Preview
+Studio.MaterialManager.MaterialTextures.Emissive,,,Emissive,Emissive
+Studio.MaterialManager.MaterialInformation.Emissive,,,Emissive,Emissive
 Studio.GlobalWind.Plugin.Name,,,GlobalWind,GlobalWind
 Studio.GlobalWind.Plugin.Toolbar,,,GlobalWind,GlobalWind
 Studio.GlobalWind.Plugin.Button,,,Toggle,Toggle
@@ -10645,7 +10664,7 @@ Studio.ManageCollaborators.Title.EnableTeamCreate,,,Enable Team Create,Enable Te
 Studio.ManageCollaborators.Description.CopyingLinkWillEnableTeamCreate,,,Copying a link will relaunch Studio in Team Create,Copying a link will relaunch Studio in Team Create
 Studio.ManageCollaborators.Subtitle.SearchCollaborators,,,Search Collaborators,Search Collaborators
 Studio.ManageCollaborators.UpsellBanner.CTA,,,Get Started,Get Started
-Studio.ManageCollaborators.UpsellBanner.description,,,"To keep collaborating with others, we need you to take action before early 2026.","To keep collaborating with others, we need you to take action before early 2026."
+Studio.ManageCollaborators.UpsellBanner.description,,,"To keep collaborating with others, we need you to age check before early 2026.","To keep collaborating with others, we need you to age check before early 2026."
 Studio.DeviceEmulator.Plugin.Name,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Toolbar,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10663,6 +10682,7 @@ Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheld,,,Generic Handheld,Gene
 Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheldHD720,,,Generic Handheld HD 720,Generic Handheld HD 720
 Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheldHD1080,,,Generic Handheld HD 1080,Generic Handheld HD 1080
 Studio.DeviceEmulator.Tooltip.OnlyEnabledIn3D,,,Device Emulator (Only enabled in 3D viewport),Device Emulator (Only enabled in 3D viewport)
+Studio.DeviceEmulator.EmulatorMainWidget.MultiTouchShortcutButton,,,<b>Pinch + rotate: </b>Alt/Opt + Drag<br><b>Two-finger pan: </b>Alt/Opt + Shift + Drag,<b>Pinch + rotate: </b>Alt/Opt + Drag<br><b>Two-finger pan: </b>Alt/Opt + Shift + Drag
 Studio.R15Migrator.Plugin.Name,,,R6 to R15 Conversion Tool,R6 to R15 Conversion Tool
 Studio.R15Migrator.Plugin.Toolbar,,,R15Migrator,R15Migrator
 Studio.R15Migrator.Plugin.Button,,,Migrate Avatars,Migrate Avatars
@@ -11312,6 +11332,7 @@ Studio.RobloxPropertiesWidget.Category.Range,,,Range,Range
 Studio.RobloxPropertiesWidget.Category.Size,,,Size,Size
 Studio.RobloxPropertiesWidget.Category.Tpose,,,T-pose,T-pose
 Studio.RobloxPropertiesWidget.Category.ServerAuthority,,,Server Authority,Server Authority
+Studio.RobloxPropertiesWidget.Category.Conditions,,,Conditions,Conditions
 Studio.DynamicHeadExportTool.Plugin.Name,,,DynamicHeadExportTool,DynamicHeadExportTool
 Studio.DynamicHeadExportTool.Plugin.Toolbar,,,DynamicHeadExportTool,DynamicHeadExportTool
 Studio.DynamicHeadExportTool.Plugin.Button,,,Toggle,Toggle
@@ -13369,8 +13390,8 @@ Studio.StartPage.Plugin.SearchBar.NoMatchingExperiencesFound,,,No results found.
 Studio.StartPage.AgeRecAlertBanner.Title,,,Experiences without content maturity labels won’t be playable after Sept 30,Experiences without content maturity labels won’t be playable after Sept 30
 Studio.StartPage.AgeRecAlertBanner.Body,,,Complete the Maturity & Compliance questionnaire to assign a label to your experiences.,Complete the Maturity & Compliance questionnaire to assign a label to your experiences.
 Studio.StartPage.Alert.PolicyDetails,,,View Policy Details,View Policy Details
-Studio.StartPage.Plugin.VerifyAgeBanner.Body,,,You need to complete an age check before early 2026 to keep using Team Create with other collaborators.,You need to complete an age check before early 2026 to keep using Team Create with other collaborators.
-Studio.StartPage.Plugin.VerifyAgeBanner.Title,,,Your safety matters: let's check your age,Your safety matters: let's check your age
+Studio.StartPage.Plugin.VerifyAgeBanner.Body,,,Age checks will be required in early 2026 to keep collaborating using Team Create.,Age checks will be required in early 2026 to keep collaborating using Team Create.
+Studio.StartPage.Plugin.VerifyAgeBanner.Title,,,Check your age early,Check your age early
 Studio.StartPage.Plugin.VerifyAgeBanner.PrimaryAction,,,Get started,Get started
 Studio.StartPage.Plugin.VerifyAgeBanner.SecondaryAction,,,View details,View details
 Studio.ConstraintTool.Plugin.Name,,,Attachment Tool,Attachment Tool
@@ -13479,6 +13500,9 @@ Studio.Assistant.SettingsDialog.GoogleDescription,,,You can put in your own Goog
 Studio.Assistant.SettingsDialog.Save,,,Save,Save
 Studio.Assistant.SettingsDialog.Cancel,,,Cancel,Cancel
 Studio.Assistant.SettingsDialog.NoApiKey,,,(No API key set),(No API key set)
+Studio.Assistant.ModelChip.Tooltip,,,The daily usage available for Assistant. Resets tomorrow,The daily usage available for Assistant. Resets tomorrow
+Studio.Assistant.ModelChip.Title,,,Daily Usage,Daily Usage
+Studio.Assistant.InputArea.LearnMore,,,Learn More,Learn More
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -14108,6 +14132,8 @@ Studio.BetaFeatures.CsgStudioButtonsTitle,,,Improved Studio Solid Modeling Contr
 Studio.BetaFeatures.CsgStudioButtonsDescription,,,"Enables updated Solid Modeling buttons in Studio, featuring improved performance and a streamlined Negate workflow.","Enables updated Solid Modeling buttons in Studio, featuring improved performance and a streamlined Negate workflow."
 Studio.BetaFeatures.PlaceVersionHistoryTitle,,,Detailed Place Version History,Detailed Place Version History
 Studio.BetaFeatures.PlaceVersionHistoryDescription,,,"Enable the new Place Version History with a revamped UI and new functionality. Adds new metadata to each Place version including: collaborators, save type, and custom notes. Tag your Place versions and then use the new search and filters to find them later.","Enable the new Place Version History with a revamped UI and new functionality. Adds new metadata to each Place version including: collaborators, save type, and custom notes. Tag your Place versions and then use the new search and filters to find them later."
+Studio.BetaFeatures.MultitouchSimulationTitle,,,Multi-touch Simulation,Multi-touch Simulation
+Studio.BetaFeatures.MultitouchSimulationDescription,,,Enables multi-touch gestures for simulated touch devices,Enables multi-touch gestures for simulated touch devices
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -14512,6 +14538,10 @@ Studio.PropertiesLibrary.Tabs.General,,,General,General
 Studio.PropertiesLibrary.Tabs.AttributesAndTags,,,Attributes & Tags,Attributes & Tags
 Studio.PropertiesLibrary.Tabs.All,,,All,All
 Studio.PropertiesLibrary.SearchBar.PlaceholderText,,,Filter by name or value,Filter by name or value
+Studio.PublishPlace.Error.PublishEligibilityTitle,,,Can’t publish this experience,Can’t publish this experience
+Studio.PublishPlace.Error.PublishEligibilityDescription,,,"You can fix this quickly. Manage your public publish eligibility, then try again.","You can fix this quickly. Manage your public publish eligibility, then try again."
+Studio.PublishPlace.Button.Manage,,,Manage,Manage
+Studio.PublishPlace.Button.Close,,,Close,Close
 Studio.ReactDevTools.Plugin.Name,,,React DevTools,React DevTools
 Studio.ReactDevTools.Plugin.Description,,,Use React DevTools to debug and profile your React Luau applications.,Use React DevTools to debug and profile your React Luau applications.
 Studio.ReactDevTools.Plugin.Button,,,DevTools,DevTools
@@ -14567,3 +14597,5 @@ Studio.AdaptiveAnimationSupport.Animation.Laugh,,,Laugh,Laugh
 Studio.AdaptiveAnimationSupport.Toolbar.SymmetryOff,,,Symmetry Off,Symmetry Off
 Studio.AdaptiveAnimationSupport.Toolbar.EnforceTposeTooltip,,,Automatically position avatar to match T-Pose requirements,Automatically position avatar to match T-Pose requirements
 Studio.AdaptiveAnimationSupport.Plugin.Description,,,Adaptive Animation Support,Adaptive Animation Support
+Studio.TeamCreate.DisconnectReasonUnknown,,,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.
+Studio.TeamCreate.Disconnected,,,Disconnected,Disconnected
