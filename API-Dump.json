@@ -35460,7 +35460,10 @@
             ],
             "MemoryCategory": "BaseParts",
             "Name": "AnimationConstraint",
-            "Superclass": "Constraint"
+            "Superclass": "Constraint",
+            "Tags": [
+                "NotBrowsable"
+            ]
         },
         {
             "Members": [
@@ -128895,7 +128898,8 @@
                     },
                     "Tags": [
                         "NotReplicated",
-                        "NotScriptable"
+                        "NotScriptable",
+                        "NotBrowsable"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -129127,6 +129131,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",

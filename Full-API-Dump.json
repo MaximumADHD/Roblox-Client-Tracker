@@ -4734,7 +4734,7 @@
                         ]
                     },
                     "Category": "Transform",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "AttachmentPoint",
                     "Security": {
@@ -8890,7 +8890,7 @@
                         ]
                     },
                     "Category": "Behavior",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "RootMotion",
                     "Security": {
@@ -13004,7 +13004,7 @@
                         ]
                     },
                     "Category": "Transform",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "CFrame",
                     "Security": {
@@ -13195,7 +13195,7 @@
                         ]
                     },
                     "Category": "Derived World Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "WorldCFrame",
                     "Security": {
@@ -13464,7 +13464,7 @@
                         ]
                     },
                     "Category": "Transform",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Transform",
                     "Security": {
@@ -13492,7 +13492,7 @@
                         ]
                     },
                     "Category": "Derived Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "TransformedCFrame",
                     "Security": {
@@ -13522,7 +13522,7 @@
                         ]
                     },
                     "Category": "Derived World Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "TransformedWorldCFrame",
                     "Security": {
@@ -29103,7 +29103,7 @@
                         ]
                     },
                     "Category": "Tuning",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "BindOffset",
                     "Security": {
@@ -29357,7 +29357,7 @@
                         ]
                     },
                     "Category": "Appearance",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "ReferenceOrigin",
                     "Security": {
@@ -29381,7 +29381,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "ReferenceOriginWorld",
                     "Security": {
@@ -30389,7 +30389,7 @@
                         ]
                     },
                     "Category": "Goals",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "CFrame",
                     "Security": {
@@ -30485,7 +30485,7 @@
                         ]
                     },
                     "Category": "Goals",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "cframe",
                     "Security": {
@@ -35743,7 +35743,7 @@
                         ]
                     },
                     "Category": "Dragged Amount",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "DragFrame",
                     "Security": {
@@ -36155,7 +36155,7 @@
                         ]
                     },
                     "Category": "Internal",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "PhysicalDragTargetFrame",
                     "Security": {
@@ -36964,7 +36964,7 @@
             "Members": [
                 {
                     "Category": "Camera",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "CFrame",
                     "Security": {
@@ -38414,7 +38414,7 @@
                         ]
                     },
                     "Category": "TargetOrientation",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "CFrame",
                     "Security": {
@@ -39069,7 +39069,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "C0",
                     "Security": {
@@ -39100,7 +39100,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "C1",
                     "Security": {
@@ -39268,7 +39268,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Transform",
                     "Security": {
@@ -39288,7 +39288,10 @@
             ],
             "MemoryCategory": "BaseParts",
             "Name": "AnimationConstraint",
-            "Superclass": "Constraint"
+            "Superclass": "Constraint",
+            "Tags": [
+                "NotBrowsable"
+            ]
         },
         {
             "Members": [
@@ -65973,7 +65976,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "CameraCFrame",
                     "Security": {
@@ -72991,7 +72994,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Index1TposeAdjustment",
                     "Security": {
@@ -73039,7 +73042,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Index2TposeAdjustment",
                     "Security": {
@@ -73087,7 +73090,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Index3TposeAdjustment",
                     "Security": {
@@ -73183,7 +73186,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Middle1TposeAdjustment",
                     "Security": {
@@ -73231,7 +73234,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Middle2TposeAdjustment",
                     "Security": {
@@ -73279,7 +73282,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Middle3TposeAdjustment",
                     "Security": {
@@ -73375,7 +73378,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Pinky1TposeAdjustment",
                     "Security": {
@@ -73423,7 +73426,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Pinky2TposeAdjustment",
                     "Security": {
@@ -73471,7 +73474,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Pinky3TposeAdjustment",
                     "Security": {
@@ -73567,7 +73570,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Ring1TposeAdjustment",
                     "Security": {
@@ -73615,7 +73618,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Ring2TposeAdjustment",
                     "Security": {
@@ -73663,7 +73666,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Ring3TposeAdjustment",
                     "Security": {
@@ -73783,7 +73786,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Thumb1TposeAdjustment",
                     "Security": {
@@ -73831,7 +73834,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Thumb2TposeAdjustment",
                     "Security": {
@@ -73879,7 +73882,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Thumb3TposeAdjustment",
                     "Security": {
@@ -80112,7 +80115,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "ChestTposeAdjustment",
                     "Security": {
@@ -80232,7 +80235,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "HeadBaseTposeAdjustment",
                     "Security": {
@@ -80352,7 +80355,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "LeftAnkleTposeAdjustment",
                     "Security": {
@@ -80472,7 +80475,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "LeftClavicleTposeAdjustment",
                     "Security": {
@@ -80592,7 +80595,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "LeftElbowTposeAdjustment",
                     "Security": {
@@ -80712,7 +80715,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "LeftHipTposeAdjustment",
                     "Security": {
@@ -80832,7 +80835,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "LeftKneeTposeAdjustment",
                     "Security": {
@@ -80952,7 +80955,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "LeftShoulderTposeAdjustment",
                     "Security": {
@@ -81072,7 +81075,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "LeftToesTposeAdjustment",
                     "Security": {
@@ -81192,7 +81195,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "LeftWristTposeAdjustment",
                     "Security": {
@@ -81312,7 +81315,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "NeckTposeAdjustment",
                     "Security": {
@@ -81336,7 +81339,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "OriginOffset",
                     "Security": {
@@ -81456,7 +81459,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "PelvisTposeAdjustment",
                     "Security": {
@@ -81576,7 +81579,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "RightAnkleTposeAdjustment",
                     "Security": {
@@ -81696,7 +81699,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "RightClavicleTposeAdjustment",
                     "Security": {
@@ -81816,7 +81819,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "RightElbowTposeAdjustment",
                     "Security": {
@@ -81936,7 +81939,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "RightHipTposeAdjustment",
                     "Security": {
@@ -82056,7 +82059,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "RightKneeTposeAdjustment",
                     "Security": {
@@ -82176,7 +82179,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "RightShoulderTposeAdjustment",
                     "Security": {
@@ -82296,7 +82299,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "RightToesTposeAdjustment",
                     "Security": {
@@ -82416,7 +82419,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "RightWristTposeAdjustment",
                     "Security": {
@@ -82536,7 +82539,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "RootTposeAdjustment",
                     "Security": {
@@ -82656,7 +82659,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "WaistTposeAdjustment",
                     "Security": {
@@ -83170,7 +83173,7 @@
                         ]
                     },
                     "Category": "Behavior",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "EndEffectorOffset",
                     "Security": {
@@ -83194,7 +83197,7 @@
                         ]
                     },
                     "Category": "Behavior",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Offset",
                     "Security": {
@@ -86586,7 +86589,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Transform",
                     "Security": {
@@ -90221,7 +90224,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "EntityPosition",
                     "Security": {
@@ -107510,7 +107513,7 @@
             "Members": [
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 20, 20, 1, 0, -0, -0, 0.707106829, 0.707106829, 0, -0.707106829, 0.707106829",
                     "MemberType": "Property",
                     "Name": "CFrame",
                     "Security": {
@@ -107567,7 +107570,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 20, 20, 1, 0, -0, -0, 0.707106829, 0.707106829, 0, -0.707106829, 0.707106829",
                     "MemberType": "Property",
                     "Name": "CoordinateFrame",
                     "Security": {
@@ -107655,7 +107658,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, -5, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Focus",
                     "Security": {
@@ -107799,7 +107802,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, -5, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "focus",
                     "Security": {
@@ -108295,7 +108298,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "ModelMeshCFrame",
                     "Security": {
@@ -108518,7 +108521,7 @@
                 },
                 {
                     "Category": "Pivot",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "WorldPivot",
                     "Security": {
@@ -109348,7 +109351,7 @@
                         ]
                     },
                     "Category": "Transform",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Grip",
                     "Security": {
@@ -126891,7 +126894,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "CFrame",
                     "Security": {
@@ -131208,7 +131211,7 @@
             "Members": [
                 {
                     "Category": "RenderingTest",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "CFrame",
                     "Security": {
@@ -135904,7 +135907,7 @@
                         ]
                     },
                     "Category": "Output",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "HitFrame",
                     "Security": {
@@ -139153,7 +139156,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone0",
                     "Security": {
@@ -139176,7 +139179,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone1",
                     "Security": {
@@ -139199,7 +139202,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone10",
                     "Security": {
@@ -139222,7 +139225,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone11",
                     "Security": {
@@ -139245,7 +139248,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone12",
                     "Security": {
@@ -139268,7 +139271,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone13",
                     "Security": {
@@ -139291,7 +139294,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone14",
                     "Security": {
@@ -139314,7 +139317,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone15",
                     "Security": {
@@ -139337,7 +139340,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone16",
                     "Security": {
@@ -139360,7 +139363,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone17",
                     "Security": {
@@ -139383,7 +139386,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone18",
                     "Security": {
@@ -139406,7 +139409,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone19",
                     "Security": {
@@ -139429,7 +139432,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone2",
                     "Security": {
@@ -139452,7 +139455,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone20",
                     "Security": {
@@ -139475,7 +139478,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone21",
                     "Security": {
@@ -139498,7 +139501,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone22",
                     "Security": {
@@ -139521,7 +139524,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone23",
                     "Security": {
@@ -139544,7 +139547,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone24",
                     "Security": {
@@ -139567,7 +139570,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone25",
                     "Security": {
@@ -139590,7 +139593,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone26",
                     "Security": {
@@ -139613,7 +139616,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone27",
                     "Security": {
@@ -139636,7 +139639,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone28",
                     "Security": {
@@ -139659,7 +139662,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone29",
                     "Security": {
@@ -139682,7 +139685,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone3",
                     "Security": {
@@ -139705,7 +139708,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone30",
                     "Security": {
@@ -139728,7 +139731,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone31",
                     "Security": {
@@ -139751,7 +139754,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone4",
                     "Security": {
@@ -139774,7 +139777,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone5",
                     "Security": {
@@ -139797,7 +139800,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone6",
                     "Security": {
@@ -139820,7 +139823,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone7",
                     "Security": {
@@ -139843,7 +139846,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone8",
                     "Security": {
@@ -139866,7 +139869,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "SlimBone9",
                     "Security": {
@@ -144842,7 +144845,8 @@
                     },
                     "Tags": [
                         "NotReplicated",
-                        "NotScriptable"
+                        "NotScriptable",
+                        "NotBrowsable"
                     ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
@@ -145112,6 +145116,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "NotBrowsable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -155336,7 +155343,7 @@
             "Members": [
                 {
                     "Category": "Camera",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "InitialCameraCFrame",
                     "Security": {
@@ -173353,7 +173360,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "PointerHitCFrame",
                     "Security": {
@@ -173992,7 +173999,7 @@
             "Members": [
                 {
                     "Category": "Data",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "Value",
                     "Security": {
@@ -179942,7 +179949,7 @@
                         ]
                     },
                     "Category": "Parts",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "CFrame0",
                     "Security": {
@@ -179970,7 +179977,7 @@
                         ]
                     },
                     "Category": "Parts",
-                    "Default": "__api_dump_no_string_value__",
+                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
                     "MemberType": "Property",
                     "Name": "CFrame1",
                     "Security": {
