@@ -10,14 +10,23 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R3 R1 K8 ["Styling"]
   GETTABLEKS R2 R3 K9 ["createStyleSheet"]
-  DUPTABLE R3 K12 [{"ActivityRingImage", "AddCollaboratorIcon"}]
-  LOADK R4 K13 ["rbxasset://studio_svg_textures/Lua/SocialPresence/Dark/Large/ActivityRing.png"]
-  SETTABLEKS R4 R3 K10 ["ActivityRingImage"]
-  LOADK R4 K14 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Dark/Standard/AddCollaborator.png"]
-  SETTABLEKS R4 R3 K11 ["AddCollaboratorIcon"]
-  MOVE R4 R2
-  LOADK R5 K15 ["SocialPresenceDarkTheme"]
-  NEWTABLE R6 0 0
-  MOVE R7 R3
-  CALL R4 3 -1
-  RETURN R4 -1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Bin"]
+  GETTABLEKS R4 R5 K11 ["defineLuaFlags"]
+  CALL R3 1 1
+  DUPTABLE R4 K14 [{"ActivityRingImage", "AddCollaboratorIcon"}]
+  LOADK R5 K15 ["rbxasset://studio_svg_textures/Lua/SocialPresence/Dark/Large/ActivityRing.png"]
+  SETTABLEKS R5 R4 K12 ["ActivityRingImage"]
+  GETTABLEKS R6 R3 K16 ["getFFlagFixOldRibbonCollaborateIcon"]
+  CALL R6 0 1
+  JUMPIFNOT R6 [+2]
+  LOADK R5 K17 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/AddCollaborator.png"]
+  JUMP [+1]
+  LOADK R5 K18 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Dark/Standard/AddCollaborator.png"]
+  SETTABLEKS R5 R4 K13 ["AddCollaboratorIcon"]
+  MOVE R5 R2
+  LOADK R6 K19 ["SocialPresenceDarkTheme"]
+  NEWTABLE R7 0 0
+  MOVE R8 R4
+  CALL R5 3 -1
+  RETURN R5 -1

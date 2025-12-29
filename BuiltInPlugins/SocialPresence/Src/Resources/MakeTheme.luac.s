@@ -29,181 +29,195 @@ MAIN:
   GETTABLEKS R3 R0 K5 ["Packages"]
   GETTABLEKS R2 R3 K6 ["Framework"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K7 ["Style"]
-  GETTABLEKS R4 R2 K8 ["Themes"]
-  GETTABLEKS R3 R4 K9 ["StudioTheme"]
-  GETTABLEKS R4 R2 K10 ["StyleKey"]
-  NEWTABLE R5 8 0
-  GETTABLEKS R6 R4 K11 ["ActivityRing"]
-  LOADK R7 K12 ["rbxasset://studio_svg_textures/Lua/SocialPresence/Light/Large/ActivityRing.png"]
-  SETTABLE R7 R5 R6
-  GETTABLEKS R6 R4 K13 ["AddCollaboratorIcon"]
-  LOADK R7 K14 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Light/Standard/AddCollaborator.png"]
-  SETTABLE R7 R5 R6
-  GETTABLEKS R6 R4 K15 ["CheckboxOnIcon"]
-  LOADK R7 K16 ["rbxasset://studio_svg_textures/Shared/Utility/Light/Standard/CheckboxOn.png"]
-  SETTABLE R7 R5 R6
-  GETTABLEKS R6 R4 K17 ["CheckboxOffIcon"]
-  LOADK R7 K18 ["rbxasset://studio_svg_textures/Shared/Utility/Light/Standard/CheckboxOff.png"]
-  SETTABLE R7 R5 R6
-  GETTABLEKS R6 R4 K19 ["MoreIcon"]
-  LOADK R7 K20 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/More.png"]
-  SETTABLE R7 R5 R6
-  GETTABLEKS R6 R4 K21 ["RibbonBarHover"]
-  GETIMPORT R7 K24 [Color3.fromRGB]
-  LOADN R8 228
-  LOADN R9 238
-  LOADN R10 254
-  CALL R7 3 1
-  SETTABLE R7 R5 R6
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Bin"]
+  GETTABLEKS R3 R4 K8 ["defineLuaFlags"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K9 ["Style"]
+  GETTABLEKS R5 R3 K10 ["Themes"]
+  GETTABLEKS R4 R5 K11 ["StudioTheme"]
+  GETTABLEKS R5 R3 K12 ["StyleKey"]
   NEWTABLE R6 8 0
-  GETTABLEKS R7 R4 K11 ["ActivityRing"]
-  LOADK R8 K25 ["rbxasset://studio_svg_textures/Lua/SocialPresence/Dark/Large/ActivityRing.png"]
+  GETTABLEKS R7 R5 K13 ["ActivityRing"]
+  LOADK R8 K14 ["rbxasset://studio_svg_textures/Lua/SocialPresence/Light/Large/ActivityRing.png"]
   SETTABLE R8 R6 R7
-  GETTABLEKS R7 R4 K13 ["AddCollaboratorIcon"]
-  LOADK R8 K26 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Dark/Standard/AddCollaborator.png"]
+  GETTABLEKS R7 R5 K15 ["AddCollaboratorIcon"]
+  GETTABLEKS R9 R2 K16 ["getFFlagFixOldRibbonCollaborateIcon"]
+  CALL R9 0 1
+  JUMPIFNOT R9 [+2]
+  LOADK R8 K17 ["rbxasset://studio_svg_textures/Shared/Ribbon/Light/Standard/AddCollaborator.png"]
+  JUMP [+1]
+  LOADK R8 K18 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Light/Standard/AddCollaborator.png"]
   SETTABLE R8 R6 R7
-  GETTABLEKS R7 R4 K15 ["CheckboxOnIcon"]
-  LOADK R8 K27 ["rbxasset://studio_svg_textures/Shared/Utility/Dark/Standard/CheckboxOn.png"]
+  GETTABLEKS R7 R5 K19 ["CheckboxOnIcon"]
+  LOADK R8 K20 ["rbxasset://studio_svg_textures/Shared/Utility/Light/Standard/CheckboxOn.png"]
   SETTABLE R8 R6 R7
-  GETTABLEKS R7 R4 K17 ["CheckboxOffIcon"]
-  LOADK R8 K28 ["rbxasset://studio_svg_textures/Shared/Utility/Dark/Standard/CheckboxOff.png"]
+  GETTABLEKS R7 R5 K21 ["CheckboxOffIcon"]
+  LOADK R8 K22 ["rbxasset://studio_svg_textures/Shared/Utility/Light/Standard/CheckboxOff.png"]
   SETTABLE R8 R6 R7
-  GETTABLEKS R7 R4 K19 ["MoreIcon"]
-  LOADK R8 K29 ["rbxasset://studio_svg_textures/Shared/Navigation/Dark/Standard/More.png"]
+  GETTABLEKS R7 R5 K23 ["MoreIcon"]
+  LOADK R8 K24 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/More.png"]
   SETTABLE R8 R6 R7
-  GETTABLEKS R7 R4 K21 ["RibbonBarHover"]
-  GETIMPORT R8 K24 [Color3.fromRGB]
-  LOADN R9 37
-  LOADN R10 37
-  LOADN R11 37
+  GETTABLEKS R7 R5 K25 ["RibbonBarHover"]
+  GETIMPORT R8 K28 [Color3.fromRGB]
+  LOADN R9 228
+  LOADN R10 238
+  LOADN R11 254
   CALL R8 3 1
   SETTABLE R8 R6 R7
-  DUPTABLE R7 K37 [{"activityRing", "ribbonItem", "footer", "highlightToggle", "collaboratorItem", "jumpButton", "userThumbnail"}]
-  GETTABLEKS R8 R4 K11 ["ActivityRing"]
-  SETTABLEKS R8 R7 K30 ["activityRing"]
-  DUPTABLE R8 K43 [{"size", "background", "overflowBackground", "addIcon", "buttonHover"}]
-  GETIMPORT R9 K46 [UDim2.new]
-  LOADN R10 0
-  LOADN R11 24
-  LOADN R12 1
-  LOADN R13 0
-  CALL R9 4 1
-  SETTABLEKS R9 R8 K38 ["size"]
-  GETTABLEKS R9 R4 K47 ["Tab"]
-  SETTABLEKS R9 R8 K39 ["background"]
-  GETTABLEKS R9 R4 K48 ["ImageButtonBackground"]
-  SETTABLEKS R9 R8 K40 ["overflowBackground"]
-  GETTABLEKS R9 R4 K13 ["AddCollaboratorIcon"]
-  SETTABLEKS R9 R8 K41 ["addIcon"]
-  GETTABLEKS R9 R4 K21 ["RibbonBarHover"]
-  SETTABLEKS R9 R8 K42 ["buttonHover"]
-  SETTABLEKS R8 R7 K31 ["ribbonItem"]
-  DUPTABLE R8 K56 [{"height", "borderColor", "iconColor", "moreIcon", "uncheckedIcon", "checkedIcon", "disableTeamCreateColor"}]
-  LOADN R9 24
-  SETTABLEKS R9 R8 K49 ["height"]
-  GETTABLEKS R9 R4 K57 ["Border"]
-  SETTABLEKS R9 R8 K50 ["borderColor"]
-  GETTABLEKS R9 R4 K58 ["ButtonText"]
-  SETTABLEKS R9 R8 K51 ["iconColor"]
-  GETTABLEKS R9 R4 K19 ["MoreIcon"]
-  SETTABLEKS R9 R8 K52 ["moreIcon"]
-  GETTABLEKS R9 R4 K17 ["CheckboxOffIcon"]
-  SETTABLEKS R9 R8 K53 ["uncheckedIcon"]
-  GETTABLEKS R9 R4 K15 ["CheckboxOnIcon"]
-  SETTABLEKS R9 R8 K54 ["checkedIcon"]
-  GETIMPORT R9 K24 [Color3.fromRGB]
-  LOADN R10 244
-  LOADN R11 100
-  LOADN R12 93
+  NEWTABLE R7 8 0
+  GETTABLEKS R8 R5 K13 ["ActivityRing"]
+  LOADK R9 K29 ["rbxasset://studio_svg_textures/Lua/SocialPresence/Dark/Large/ActivityRing.png"]
+  SETTABLE R9 R7 R8
+  GETTABLEKS R8 R5 K15 ["AddCollaboratorIcon"]
+  GETTABLEKS R10 R2 K16 ["getFFlagFixOldRibbonCollaborateIcon"]
+  CALL R10 0 1
+  JUMPIFNOT R10 [+2]
+  LOADK R9 K30 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/AddCollaborator.png"]
+  JUMP [+1]
+  LOADK R9 K31 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Dark/Standard/AddCollaborator.png"]
+  SETTABLE R9 R7 R8
+  GETTABLEKS R8 R5 K19 ["CheckboxOnIcon"]
+  LOADK R9 K32 ["rbxasset://studio_svg_textures/Shared/Utility/Dark/Standard/CheckboxOn.png"]
+  SETTABLE R9 R7 R8
+  GETTABLEKS R8 R5 K21 ["CheckboxOffIcon"]
+  LOADK R9 K33 ["rbxasset://studio_svg_textures/Shared/Utility/Dark/Standard/CheckboxOff.png"]
+  SETTABLE R9 R7 R8
+  GETTABLEKS R8 R5 K23 ["MoreIcon"]
+  LOADK R9 K34 ["rbxasset://studio_svg_textures/Shared/Navigation/Dark/Standard/More.png"]
+  SETTABLE R9 R7 R8
+  GETTABLEKS R8 R5 K25 ["RibbonBarHover"]
+  GETIMPORT R9 K28 [Color3.fromRGB]
+  LOADN R10 37
+  LOADN R11 37
+  LOADN R12 37
   CALL R9 3 1
-  SETTABLEKS R9 R8 K55 ["disableTeamCreateColor"]
-  SETTABLEKS R8 R7 K32 ["footer"]
-  DUPTABLE R8 K60 [{"height", "background", "border"}]
-  LOADN R9 28
-  SETTABLEKS R9 R8 K49 ["height"]
-  GETTABLEKS R9 R4 K61 ["SubBackground"]
-  SETTABLEKS R9 R8 K39 ["background"]
-  GETTABLEKS R9 R4 K57 ["Border"]
-  SETTABLEKS R9 R8 K59 ["border"]
-  SETTABLEKS R8 R7 K33 ["highlightToggle"]
-  DUPTABLE R8 K67 [{"size", "expandedSize", "thumbnailSize", "hoveredBackground", "usernamePosition", "subtitlePosition"}]
-  GETIMPORT R9 K46 [UDim2.new]
-  LOADN R10 1
+  SETTABLE R9 R7 R8
+  DUPTABLE R8 K42 [{"activityRing", "ribbonItem", "footer", "highlightToggle", "collaboratorItem", "jumpButton", "userThumbnail"}]
+  GETTABLEKS R9 R5 K13 ["ActivityRing"]
+  SETTABLEKS R9 R8 K35 ["activityRing"]
+  DUPTABLE R9 K48 [{"size", "background", "overflowBackground", "addIcon", "buttonHover"}]
+  GETIMPORT R10 K51 [UDim2.new]
   LOADN R11 0
-  LOADN R12 0
-  LOADN R13 58
-  CALL R9 4 1
-  SETTABLEKS R9 R8 K38 ["size"]
-  GETIMPORT R9 K46 [UDim2.new]
-  LOADN R10 1
-  LOADN R11 0
-  LOADN R12 0
-  LOADN R13 96
-  CALL R9 4 1
-  SETTABLEKS R9 R8 K62 ["expandedSize"]
-  GETIMPORT R9 K69 [UDim2.fromOffset]
-  LOADN R10 42
-  LOADN R11 42
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K63 ["thumbnailSize"]
-  GETTABLEKS R9 R4 K61 ["SubBackground"]
-  SETTABLEKS R9 R8 K64 ["hoveredBackground"]
-  GETIMPORT R9 K69 [UDim2.fromOffset]
-  LOADN R10 48
-  LOADN R11 4
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K65 ["usernamePosition"]
-  GETIMPORT R9 K69 [UDim2.fromOffset]
-  LOADN R10 48
-  LOADN R11 24
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K66 ["subtitlePosition"]
-  SETTABLEKS R8 R7 K34 ["collaboratorItem"]
-  DUPTABLE R8 K73 [{"background", "hoveredBackground", "pressedBackground", "textColor", "baseStyle"}]
-  GETTABLEKS R9 R4 K48 ["ImageButtonBackground"]
-  SETTABLEKS R9 R8 K39 ["background"]
-  GETTABLEKS R9 R4 K74 ["ButtonHover"]
-  SETTABLEKS R9 R8 K64 ["hoveredBackground"]
-  GETTABLEKS R9 R4 K75 ["ButtonPressed"]
-  SETTABLEKS R9 R8 K70 ["pressedBackground"]
-  GETTABLEKS R9 R4 K76 ["TextPrimary"]
-  SETTABLEKS R9 R8 K71 ["textColor"]
-  DUPTABLE R9 K80 [{"BackgroundImage", "SliceCenter", "BorderSize"}]
-  LOADK R10 K81 ["rbxasset://textures/StudioToolbox/RoundedBackground.png"]
-  SETTABLEKS R10 R9 K77 ["BackgroundImage"]
-  GETIMPORT R10 K83 [Rect.new]
-  LOADN R11 3
-  LOADN R12 3
-  LOADN R13 13
-  LOADN R14 13
+  LOADN R12 24
+  LOADN R13 1
+  LOADN R14 0
   CALL R10 4 1
-  SETTABLEKS R10 R9 K78 ["SliceCenter"]
-  LOADN R10 0
-  SETTABLEKS R10 R9 K79 ["BorderSize"]
-  SETTABLEKS R9 R8 K72 ["baseStyle"]
-  SETTABLEKS R8 R7 K35 ["jumpButton"]
-  DUPTABLE R8 K90 [{"avatarBackground", "avatarIdleBackground", "avatarSizeRatio", "idleTint", "loadingImage", "loadFailureImage"}]
-  GETTABLEKS R9 R4 K91 ["SecondaryContrast"]
-  SETTABLEKS R9 R8 K84 ["avatarBackground"]
-  GETTABLEKS R9 R4 K92 ["ForegroundContrast"]
-  SETTABLEKS R9 R8 K85 ["avatarIdleBackground"]
-  LOADK R9 K93 [0.75]
-  SETTABLEKS R9 R8 K86 ["avatarSizeRatio"]
-  GETIMPORT R9 K24 [Color3.fromRGB]
-  LOADN R10 140
+  SETTABLEKS R10 R9 K43 ["size"]
+  GETTABLEKS R10 R5 K52 ["Tab"]
+  SETTABLEKS R10 R9 K44 ["background"]
+  GETTABLEKS R10 R5 K53 ["ImageButtonBackground"]
+  SETTABLEKS R10 R9 K45 ["overflowBackground"]
+  GETTABLEKS R10 R5 K15 ["AddCollaboratorIcon"]
+  SETTABLEKS R10 R9 K46 ["addIcon"]
+  GETTABLEKS R10 R5 K25 ["RibbonBarHover"]
+  SETTABLEKS R10 R9 K47 ["buttonHover"]
+  SETTABLEKS R9 R8 K36 ["ribbonItem"]
+  DUPTABLE R9 K61 [{"height", "borderColor", "iconColor", "moreIcon", "uncheckedIcon", "checkedIcon", "disableTeamCreateColor"}]
+  LOADN R10 24
+  SETTABLEKS R10 R9 K54 ["height"]
+  GETTABLEKS R10 R5 K62 ["Border"]
+  SETTABLEKS R10 R9 K55 ["borderColor"]
+  GETTABLEKS R10 R5 K63 ["ButtonText"]
+  SETTABLEKS R10 R9 K56 ["iconColor"]
+  GETTABLEKS R10 R5 K23 ["MoreIcon"]
+  SETTABLEKS R10 R9 K57 ["moreIcon"]
+  GETTABLEKS R10 R5 K21 ["CheckboxOffIcon"]
+  SETTABLEKS R10 R9 K58 ["uncheckedIcon"]
+  GETTABLEKS R10 R5 K19 ["CheckboxOnIcon"]
+  SETTABLEKS R10 R9 K59 ["checkedIcon"]
+  GETIMPORT R10 K28 [Color3.fromRGB]
+  LOADN R11 244
+  LOADN R12 100
+  LOADN R13 93
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K60 ["disableTeamCreateColor"]
+  SETTABLEKS R9 R8 K37 ["footer"]
+  DUPTABLE R9 K65 [{"height", "background", "border"}]
+  LOADN R10 28
+  SETTABLEKS R10 R9 K54 ["height"]
+  GETTABLEKS R10 R5 K66 ["SubBackground"]
+  SETTABLEKS R10 R9 K44 ["background"]
+  GETTABLEKS R10 R5 K62 ["Border"]
+  SETTABLEKS R10 R9 K64 ["border"]
+  SETTABLEKS R9 R8 K38 ["highlightToggle"]
+  DUPTABLE R9 K72 [{"size", "expandedSize", "thumbnailSize", "hoveredBackground", "usernamePosition", "subtitlePosition"}]
+  GETIMPORT R10 K51 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 58
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K43 ["size"]
+  GETIMPORT R10 K51 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 96
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K67 ["expandedSize"]
+  GETIMPORT R10 K74 [UDim2.fromOffset]
+  LOADN R11 42
+  LOADN R12 42
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K68 ["thumbnailSize"]
+  GETTABLEKS R10 R5 K66 ["SubBackground"]
+  SETTABLEKS R10 R9 K69 ["hoveredBackground"]
+  GETIMPORT R10 K74 [UDim2.fromOffset]
+  LOADN R11 48
+  LOADN R12 4
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K70 ["usernamePosition"]
+  GETIMPORT R10 K74 [UDim2.fromOffset]
+  LOADN R11 48
+  LOADN R12 24
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K71 ["subtitlePosition"]
+  SETTABLEKS R9 R8 K39 ["collaboratorItem"]
+  DUPTABLE R9 K78 [{"background", "hoveredBackground", "pressedBackground", "textColor", "baseStyle"}]
+  GETTABLEKS R10 R5 K53 ["ImageButtonBackground"]
+  SETTABLEKS R10 R9 K44 ["background"]
+  GETTABLEKS R10 R5 K79 ["ButtonHover"]
+  SETTABLEKS R10 R9 K69 ["hoveredBackground"]
+  GETTABLEKS R10 R5 K80 ["ButtonPressed"]
+  SETTABLEKS R10 R9 K75 ["pressedBackground"]
+  GETTABLEKS R10 R5 K81 ["TextPrimary"]
+  SETTABLEKS R10 R9 K76 ["textColor"]
+  DUPTABLE R10 K85 [{"BackgroundImage", "SliceCenter", "BorderSize"}]
+  LOADK R11 K86 ["rbxasset://textures/StudioToolbox/RoundedBackground.png"]
+  SETTABLEKS R11 R10 K82 ["BackgroundImage"]
+  GETIMPORT R11 K88 [Rect.new]
+  LOADN R12 3
+  LOADN R13 3
+  LOADN R14 13
+  LOADN R15 13
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K83 ["SliceCenter"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K84 ["BorderSize"]
+  SETTABLEKS R10 R9 K77 ["baseStyle"]
+  SETTABLEKS R9 R8 K40 ["jumpButton"]
+  DUPTABLE R9 K95 [{"avatarBackground", "avatarIdleBackground", "avatarSizeRatio", "idleTint", "loadingImage", "loadFailureImage"}]
+  GETTABLEKS R10 R5 K96 ["SecondaryContrast"]
+  SETTABLEKS R10 R9 K89 ["avatarBackground"]
+  GETTABLEKS R10 R5 K97 ["ForegroundContrast"]
+  SETTABLEKS R10 R9 K90 ["avatarIdleBackground"]
+  LOADK R10 K98 [0.75]
+  SETTABLEKS R10 R9 K91 ["avatarSizeRatio"]
+  GETIMPORT R10 K28 [Color3.fromRGB]
   LOADN R11 140
   LOADN R12 140
-  CALL R9 3 1
-  SETTABLEKS R9 R8 K87 ["idleTint"]
-  LOADK R9 K94 ["rbxasset://textures/StudioSharedUI/default_user.png"]
-  SETTABLEKS R9 R8 K88 ["loadingImage"]
-  LOADK R9 K95 ["rbxasset://textures/GameSettings/ModeratedAsset.jpg"]
-  SETTABLEKS R9 R8 K89 ["loadFailureImage"]
-  SETTABLEKS R8 R7 K36 ["userThumbnail"]
-  DUPCLOSURE R8 K96 [PROTO_0]
-  CAPTURE VAL R3
-  CAPTURE VAL R6
-  CAPTURE VAL R5
+  LOADN R13 140
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K92 ["idleTint"]
+  LOADK R10 K99 ["rbxasset://textures/StudioSharedUI/default_user.png"]
+  SETTABLEKS R10 R9 K93 ["loadingImage"]
+  LOADK R10 K100 ["rbxasset://textures/GameSettings/ModeratedAsset.jpg"]
+  SETTABLEKS R10 R9 K94 ["loadFailureImage"]
+  SETTABLEKS R9 R8 K41 ["userThumbnail"]
+  DUPCLOSURE R9 K101 [PROTO_0]
+  CAPTURE VAL R4
   CAPTURE VAL R7
-  RETURN R8 1
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  RETURN R9 1

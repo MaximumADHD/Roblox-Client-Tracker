@@ -151,75 +151,82 @@ MAIN:
   LOADK R10 K17 ["MenuBar"]
   NAMECALL R8 R8 K18 ["extend"]
   CALL R8 2 1
-  LOADNIL R9
-  NEWTABLE R10 4 0
-  DUPTABLE R11 K22 [{"name", "description", "playableDevices"}]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K19 ["name"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K20 ["description"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K21 ["playableDevices"]
-  SETTABLEKS R11 R10 K23 ["BasicInfo"]
-  DUPTABLE R11 K25 [{"universeAvatarAssetOverrides"}]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K24 ["universeAvatarAssetOverrides"]
-  SETTABLEKS R11 R10 K26 ["Avatar"]
-  DUPTABLE R11 K30 [{"gravity", "walkSpeed", "maxSlopeAngle"}]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K27 ["gravity"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K28 ["walkSpeed"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K29 ["maxSlopeAngle"]
-  SETTABLEKS R11 R10 K31 ["World"]
-  MOVE R9 R10
-  NEWTABLE R10 2 0
-  DUPTABLE R11 K33 [{"isActive"}]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K32 ["isActive"]
-  SETTABLEKS R11 R10 K34 ["Permissions"]
-  DUPTABLE R11 K36 [{"universeAvatarType"}]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K35 ["universeAvatarType"]
-  SETTABLEKS R11 R10 K26 ["Avatar"]
-  GETTABLEKS R11 R9 K23 ["BasicInfo"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K37 ["thumbnails"]
-  GETTABLEKS R11 R9 K23 ["BasicInfo"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K38 ["gameIcon"]
-  GETIMPORT R11 K40 [settings]
-  CALL R11 0 1
-  LOADK R13 K41 ["DeveloperSubscriptionsEnabled"]
-  NAMECALL R11 R11 K42 ["GetFFlag"]
-  CALL R11 2 1
-  JUMPIFNOT R11 [+6]
-  DUPTABLE R11 K44 [{"DeveloperSubscriptions"}]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K43 ["DeveloperSubscriptions"]
-  SETTABLEKS R11 R9 K45 ["Monetization"]
-  NEWCLOSURE R11 P0
+  GETIMPORT R9 K20 [game]
+  LOADK R11 K21 ["RemoveGameSettingsPermissionsPage"]
+  NAMECALL R9 R9 K22 ["GetFastFlag"]
+  CALL R9 2 1
+  LOADNIL R10
+  NEWTABLE R11 4 0
+  DUPTABLE R12 K26 [{"name", "description", "playableDevices"}]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K23 ["name"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K24 ["description"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K25 ["playableDevices"]
+  SETTABLEKS R12 R11 K27 ["BasicInfo"]
+  DUPTABLE R12 K29 [{"universeAvatarAssetOverrides"}]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K28 ["universeAvatarAssetOverrides"]
+  SETTABLEKS R12 R11 K30 ["Avatar"]
+  DUPTABLE R12 K34 [{"gravity", "walkSpeed", "maxSlopeAngle"}]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K31 ["gravity"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K32 ["walkSpeed"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K33 ["maxSlopeAngle"]
+  SETTABLEKS R12 R11 K35 ["World"]
+  MOVE R10 R11
+  NEWTABLE R11 2 0
+  DUPTABLE R12 K37 [{"isActive"}]
+  JUMPIFNOT R9 [+2]
+  LOADB R13 0
+  JUMP [+1]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K36 ["isActive"]
+  SETTABLEKS R12 R11 K38 ["Permissions"]
+  DUPTABLE R12 K40 [{"universeAvatarType"}]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K39 ["universeAvatarType"]
+  SETTABLEKS R12 R11 K30 ["Avatar"]
+  GETTABLEKS R12 R10 K27 ["BasicInfo"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K41 ["thumbnails"]
+  GETTABLEKS R12 R10 K27 ["BasicInfo"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K42 ["gameIcon"]
+  GETIMPORT R12 K44 [settings]
+  CALL R12 0 1
+  LOADK R14 K45 ["DeveloperSubscriptionsEnabled"]
+  NAMECALL R12 R12 K46 ["GetFFlag"]
+  CALL R12 2 1
+  JUMPIFNOT R12 [+6]
+  DUPTABLE R12 K48 [{"DeveloperSubscriptions"}]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K47 ["DeveloperSubscriptions"]
+  SETTABLEKS R12 R10 K49 ["Monetization"]
+  NEWCLOSURE R12 P0
   CAPTURE VAL R1
-  CAPTURE REF R9
-  CAPTURE VAL R10
+  CAPTURE REF R10
+  CAPTURE VAL R11
   CAPTURE VAL R7
   CAPTURE VAL R6
-  SETTABLEKS R11 R8 K46 ["render"]
-  MOVE R11 R5
-  DUPTABLE R12 K49 [{"Stylizer", "Localization"}]
-  GETTABLEKS R13 R4 K47 ["Stylizer"]
-  SETTABLEKS R13 R12 K47 ["Stylizer"]
-  GETTABLEKS R13 R4 K48 ["Localization"]
-  SETTABLEKS R13 R12 K48 ["Localization"]
-  CALL R11 1 1
-  MOVE R12 R8
-  CALL R11 1 1
-  MOVE R8 R11
-  GETTABLEKS R11 R3 K50 ["connect"]
-  DUPCLOSURE R12 K51 [PROTO_2]
-  CALL R11 1 1
-  MOVE R12 R8
-  CALL R11 1 -1
-  CLOSEUPVALS R9
-  RETURN R11 -1
+  SETTABLEKS R12 R8 K50 ["render"]
+  MOVE R12 R5
+  DUPTABLE R13 K53 [{"Stylizer", "Localization"}]
+  GETTABLEKS R14 R4 K51 ["Stylizer"]
+  SETTABLEKS R14 R13 K51 ["Stylizer"]
+  GETTABLEKS R14 R4 K52 ["Localization"]
+  SETTABLEKS R14 R13 K52 ["Localization"]
+  CALL R12 1 1
+  MOVE R13 R8
+  CALL R12 1 1
+  MOVE R8 R12
+  GETTABLEKS R12 R3 K54 ["connect"]
+  DUPCLOSURE R13 K55 [PROTO_2]
+  CALL R12 1 1
+  MOVE R13 R8
+  CALL R12 1 -1
+  CLOSEUPVALS R10
+  RETURN R12 -1
