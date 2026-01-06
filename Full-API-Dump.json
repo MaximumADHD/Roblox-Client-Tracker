@@ -7567,6 +7567,17 @@
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Animation"
+                    ],
+                    "MemberType": "Event",
+                    "Name": "InputPinsChanged",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -11213,6 +11224,21 @@
                         "Yields"
                     ],
                     "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "StartSingleMeshImport",
+                    "Parameters": [
+                        {
+                            "Name": "fileName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 }
             ],
             "MemoryCategory": "Instances",
@@ -12056,6 +12082,25 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetOpaqueContentMetadataMap",
+                    "Parameters": [
+                        {
+                            "Name": "opaqueContent",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Content"
                             }
                         }
                     ],
@@ -55125,6 +55170,28 @@
                 },
                 {
                     "MemberType": "Event",
+                    "Name": "ShowFeatureInterventionDetailsV2",
+                    "Parameters": [
+                        {
+                            "Name": "featureRestrictionAbuseVector",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "FeatureRestrictionAbuseVector"
+                            }
+                        },
+                        {
+                            "Name": "isGameJoin",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
                     "Name": "TimeoutChatAttempt",
                     "Parameters": [
                         {
@@ -63893,6 +63960,36 @@
                         "UI"
                     ],
                     "MemberType": "Function",
+                    "Name": "GetScrollVelocity",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Vector2"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "UI"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "ResetScrollVelocity",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "UI"
+                    ],
+                    "MemberType": "Function",
                     "Name": "ScrollToTop",
                     "Parameters": [
                     ],
@@ -71838,6 +71935,25 @@
                         "Name": "Vector2"
                     },
                     "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetInsetArea",
+                    "Parameters": [
+                        {
+                            "Name": "screenInsets",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "ScreenInsets"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Rect"
+                    },
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -84754,6 +84870,30 @@
                         ]
                     },
                     "Category": "Behavior",
+                    "Default": "Unknown",
+                    "MemberType": "Property",
+                    "Name": "PrimaryModifier",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "KeyCode"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
+                    "Category": "Behavior",
                     "Default": "0.200000003",
                     "MemberType": "Property",
                     "Name": "ReleasedThreshold",
@@ -84841,6 +84981,30 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "float"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ]
+                    },
+                    "Category": "Behavior",
+                    "Default": "Unknown",
+                    "MemberType": "Property",
+                    "Name": "SecondaryModifier",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "KeyCode"
                     }
                 },
                 {
@@ -85329,25 +85493,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "LoadPackageAsset",
-                    "Parameters": [
-                        {
-                            "Name": "url",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "ContentId"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "DataType",
-                        "Name": "Instances"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "CreateMeshPartAsync",
                     "Parameters": [
                         {
@@ -85816,6 +85961,90 @@
             "Tags": [
                 "NotCreatable",
                 "Service"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "MemberType": "Function",
+                    "Name": "GetAllInstances",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "DataType",
+                        "Name": "Instances"
+                    },
+                    "Security": "PluginSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetStatus",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Enum",
+                        "Name": "InstanceFileSyncStatus"
+                    },
+                    "Security": "PluginSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetSyncedInstance",
+                    "Parameters": [
+                        {
+                            "Name": "filePath",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    },
+                    "Security": "PluginSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "StatusChanged",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "status",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "InstanceFileSyncStatus"
+                            }
+                        }
+                    ],
+                    "Security": "PluginSecurity",
+                    "ThreadSafety": "Unsafe"
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "InstanceFileSyncService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
             ]
         },
         {
@@ -132876,6 +133105,13 @@
                                 "Category": "Primitive",
                                 "Name": "string"
                             }
+                        },
+                        {
+                            "Name": "metadata",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
                         }
                     ],
                     "Security": "None",
@@ -136788,6 +137024,29 @@
                     "Category": "Data",
                     "Default": "__api_dump_class_not_creatable__",
                     "MemberType": "Property",
+                    "Name": "RunService",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "ReadOnly",
+                        "NotReplicated"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "Instance"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_class_not_creatable__",
+                    "MemberType": "Property",
                     "Name": "VIPServerId",
                     "Security": {
                         "Read": "None",
@@ -137219,6 +137478,18 @@
                         "Name": "null"
                     },
                     "Security": "LocalUserSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "OpenLogsFolder",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -154409,9 +154680,13 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "DataType",
@@ -161446,6 +161721,24 @@
                         }
                     ],
                     "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Chat"
+                    ],
+                    "MemberType": "Event",
+                    "Name": "OnIncomingMessageEvent",
+                    "Parameters": [
+                        {
+                            "Name": "textChatMessage",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "TextChatMessage"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -183547,19 +183840,6 @@
         {
             "Items": [
                 {
-                    "Name": "All",
-                    "Value": 1
-                },
-                {
-                    "Name": "TimedOptionOnly",
-                    "Value": 2
-                }
-            ],
-            "Name": "CatalogTimedOptionFilter"
-        },
-        {
-            "Items": [
-                {
                     "Name": "Solid",
                     "Value": 0
                 },
@@ -184395,6 +184675,9 @@
                     "Value": 278
                 },
                 {
+                    "LegacyNames": [
+                        "DisconnectNoResponse"
+                    ],
                     "Name": "DisconnectRaknetErrors",
                     "Value": 279
                 },
@@ -187774,6 +188057,27 @@
                 }
             ],
             "Name": "InputType"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "NotSynced",
+                    "Value": 0
+                },
+                {
+                    "Name": "Errored",
+                    "Value": 1
+                },
+                {
+                    "Name": "SyncedAsRoot",
+                    "Value": 2
+                },
+                {
+                    "Name": "SyncedAsDescendant",
+                    "Value": 3
+                }
+            ],
+            "Name": "InstanceFileSyncStatus"
         },
         {
             "Items": [

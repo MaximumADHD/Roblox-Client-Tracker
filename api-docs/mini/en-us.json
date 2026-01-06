@@ -6513,6 +6513,7 @@
       "isFeatureEnabled": "@roblox/globaltype/TestService.isFeatureEnabled",
       "Message": "@roblox/globaltype/TestService.Message",
       "Require": "@roblox/globaltype/TestService.Require",
+      "RunAsync": "@roblox/globaltype/TestService.RunAsync",
       "Run": "@roblox/globaltype/TestService.Run",
       "ScopeTime": "@roblox/globaltype/TestService.ScopeTime",
       "TakeSnapshot": "@roblox/globaltype/TestService.TakeSnapshot",
@@ -6858,11 +6859,26 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Require",
     "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Require(false, \"example\")"
   },
+  "@roblox/globaltype/TestService.RunAsync/param/0": {
+    "documentation": "A service used by Roblox to run controlled tests of the engine. It is available for developers to use, to a limited degree."
+  },
+  "@roblox/globaltype/TestService.RunAsync": {
+    "documentation": "Runs scripts which are parented to TestService.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TestService.RunAsync/param/0"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#RunAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TestService.Run/param/0": {
     "documentation": "A service used by Roblox to run controlled tests of the engine. It is available for developers to use, to a limited degree."
   },
   "@roblox/globaltype/TestService.Run": {
-    "documentation": "Runs scripts which are parented to TestService.",
+    "documentation": "<strong>Deprecated:</strong> <br>Runs scripts which are parented to TestService.",
     "params": [
       {
         "name": "self",
@@ -16620,6 +16636,7 @@
   "@roblox/globaltype/BadgeService": {
     "documentation": "Provides information on badges and awards them.",
     "keys": {
+      "AwardBadgeAsync": "@roblox/globaltype/BadgeService.AwardBadgeAsync",
       "AwardBadge": "@roblox/globaltype/BadgeService.AwardBadge",
       "CheckUserBadgesAsync": "@roblox/globaltype/BadgeService.CheckUserBadgesAsync",
       "GetBadgeInfoAsync": "@roblox/globaltype/BadgeService.GetBadgeInfoAsync",
@@ -16629,6 +16646,40 @@
       "UserHasBadgeAsync": "@roblox/globaltype/BadgeService.UserHasBadgeAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/BadgeService.AwardBadgeAsync/param/0": {
+    "documentation": "Provides information on badges and awards them."
+  },
+  "@roblox/globaltype/BadgeService.AwardBadgeAsync/param/1": {
+    "documentation": "The <code>Player.UserId</code> of the user the badge is to be awarded to."
+  },
+  "@roblox/globaltype/BadgeService.AwardBadgeAsync/param/2": {
+    "documentation": "The ID of the badge to be awarded."
+  },
+  "@roblox/globaltype/BadgeService.AwardBadgeAsync/return/0": {
+    "documentation": "Boolean of <code>true</code> if the badge was awarded successfully."
+  },
+  "@roblox/globaltype/BadgeService.AwardBadgeAsync": {
+    "documentation": "Award a badge to a player given the ID of each.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/BadgeService.AwardBadgeAsync/param/0"
+      },
+      {
+        "name": "userId",
+        "documentation": "@roblox/globaltype/BadgeService.AwardBadgeAsync/param/1"
+      },
+      {
+        "name": "badgeId",
+        "documentation": "@roblox/globaltype/BadgeService.AwardBadgeAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/BadgeService.AwardBadgeAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#AwardBadgeAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.AwardBadge/param/0": {
@@ -16644,7 +16695,7 @@
     "documentation": "Boolean of <code>true</code> if the badge was awarded successfully."
   },
   "@roblox/globaltype/BadgeService.AwardBadge": {
-    "documentation": "Award a badge to a player given the ID of each.",
+    "documentation": "<strong>Deprecated:</strong> <br>Award a badge to a player given the ID of each.",
     "params": [
       {
         "name": "self",
@@ -18540,7 +18591,9 @@
       "AddAccessory": "@roblox/globaltype/Humanoid.AddAccessory",
       "AddCustomStatus": "@roblox/globaltype/Humanoid.AddCustomStatus",
       "AddStatus": "@roblox/globaltype/Humanoid.AddStatus",
+      "ApplyDescriptionAsync": "@roblox/globaltype/Humanoid.ApplyDescriptionAsync",
       "ApplyDescription": "@roblox/globaltype/Humanoid.ApplyDescription",
+      "ApplyDescriptionResetAsync": "@roblox/globaltype/Humanoid.ApplyDescriptionResetAsync",
       "ApplyDescriptionReset": "@roblox/globaltype/Humanoid.ApplyDescriptionReset",
       "BuildRigFromAttachments": "@roblox/globaltype/Humanoid.BuildRigFromAttachments",
       "ChangeState": "@roblox/globaltype/Humanoid.ChangeState",
@@ -18560,6 +18613,7 @@
       "loadAnimation": "@roblox/globaltype/Humanoid.loadAnimation",
       "Move": "@roblox/globaltype/Humanoid.Move",
       "MoveTo": "@roblox/globaltype/Humanoid.MoveTo",
+      "PlayEmoteAsync": "@roblox/globaltype/Humanoid.PlayEmoteAsync",
       "PlayEmote": "@roblox/globaltype/Humanoid.PlayEmote",
       "RemoveAccessories": "@roblox/globaltype/Humanoid.RemoveAccessories",
       "RemoveCustomStatus": "@roblox/globaltype/Humanoid.RemoveCustomStatus",
@@ -18834,6 +18888,35 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Humanoid#AddStatus",
     "code_sample": ""
   },
+  "@roblox/globaltype/Humanoid.ApplyDescriptionAsync/param/0": {
+    "documentation": "A special object that gives models the functionality of a character."
+  },
+  "@roblox/globaltype/Humanoid.ApplyDescriptionAsync/param/1": {
+    "documentation": "The <code>HumanoidDescription</code> instance which you want to set the character to match."
+  },
+  "@roblox/globaltype/Humanoid.ApplyDescriptionAsync/param/2": {
+    "documentation": "The asset type verification mode."
+  },
+  "@roblox/globaltype/Humanoid.ApplyDescriptionAsync": {
+    "documentation": "Makes the character's look match that of the passed in <code>HumanoidDescription</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Humanoid.ApplyDescriptionAsync/param/0"
+      },
+      {
+        "name": "humanoidDescription",
+        "documentation": "@roblox/globaltype/Humanoid.ApplyDescriptionAsync/param/1"
+      },
+      {
+        "name": "assetTypeVerification",
+        "documentation": "@roblox/globaltype/Humanoid.ApplyDescriptionAsync/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Humanoid#ApplyDescriptionAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Humanoid.ApplyDescription/param/0": {
     "documentation": "A special object that gives models the functionality of a character."
   },
@@ -18844,7 +18927,7 @@
     "documentation": "The asset type verification mode."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription": {
-    "documentation": "Makes the character's look match that of the passed in <code>HumanoidDescription</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Makes the character's look match that of the passed in <code>HumanoidDescription</code>.",
     "params": [
       {
         "name": "self",
@@ -18863,6 +18946,35 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Humanoid#ApplyDescription",
     "code_sample": ""
   },
+  "@roblox/globaltype/Humanoid.ApplyDescriptionResetAsync/param/0": {
+    "documentation": "A special object that gives models the functionality of a character."
+  },
+  "@roblox/globaltype/Humanoid.ApplyDescriptionResetAsync/param/1": {
+    "documentation": "The <code>HumanoidDescription</code> instance which you want to set the character to match."
+  },
+  "@roblox/globaltype/Humanoid.ApplyDescriptionResetAsync/param/2": {
+    "documentation": "The asset type verification mode."
+  },
+  "@roblox/globaltype/Humanoid.ApplyDescriptionResetAsync": {
+    "documentation": "Makes the character's look match that of the passed in <code>HumanoidDescription</code>, even after external changes.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Humanoid.ApplyDescriptionResetAsync/param/0"
+      },
+      {
+        "name": "humanoidDescription",
+        "documentation": "@roblox/globaltype/Humanoid.ApplyDescriptionResetAsync/param/1"
+      },
+      {
+        "name": "assetTypeVerification",
+        "documentation": "@roblox/globaltype/Humanoid.ApplyDescriptionResetAsync/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Humanoid#ApplyDescriptionResetAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset/param/0": {
     "documentation": "A special object that gives models the functionality of a character."
   },
@@ -18873,7 +18985,7 @@
     "documentation": "The asset type verification mode."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset": {
-    "documentation": "Makes the character's look match that of the passed in <code>HumanoidDescription</code>, even after external changes.",
+    "documentation": "<strong>Deprecated:</strong> <br>Makes the character's look match that of the passed in <code>HumanoidDescription</code>, even after external changes.",
     "params": [
       {
         "name": "self",
@@ -19318,6 +19430,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Humanoid#MoveTo",
     "code_sample": ""
   },
+  "@roblox/globaltype/Humanoid.PlayEmoteAsync/param/0": {
+    "documentation": "A special object that gives models the functionality of a character."
+  },
+  "@roblox/globaltype/Humanoid.PlayEmoteAsync/param/1": {
+    "documentation": "name of the emote to play."
+  },
+  "@roblox/globaltype/Humanoid.PlayEmoteAsync/return/0": {
+    "documentation": "successfully played."
+  },
+  "@roblox/globaltype/Humanoid.PlayEmoteAsync": {
+    "documentation": "Plays emotes and returns if was successfully ran.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Humanoid.PlayEmoteAsync/param/0"
+      },
+      {
+        "name": "emoteName",
+        "documentation": "@roblox/globaltype/Humanoid.PlayEmoteAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Humanoid.PlayEmoteAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Humanoid#PlayEmoteAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Humanoid.PlayEmote/param/0": {
     "documentation": "A special object that gives models the functionality of a character."
   },
@@ -19328,7 +19467,7 @@
     "documentation": "successfully played."
   },
   "@roblox/globaltype/Humanoid.PlayEmote": {
-    "documentation": "Plays emotes and returns if was successfully ran.",
+    "documentation": "<strong>Deprecated:</strong> <br>Plays emotes and returns if was successfully ran.",
     "params": [
       {
         "name": "self",
@@ -25502,10 +25641,12 @@
       "MeshPartHeadsAndAccessories": "@roblox/globaltype/Workspace.MeshPartHeadsAndAccessories",
       "ModelStreamingBehavior": "@roblox/globaltype/Workspace.ModelStreamingBehavior",
       "MoverConstraintRootBehavior": "@roblox/globaltype/Workspace.MoverConstraintRootBehavior",
+      "NextGenerationReplication": "@roblox/globaltype/Workspace.NextGenerationReplication",
       "PathfindingUseImprovedSearch": "@roblox/globaltype/Workspace.PathfindingUseImprovedSearch",
       "PhysicsImprovedSleep": "@roblox/globaltype/Workspace.PhysicsImprovedSleep",
       "PhysicsSteppingMethod": "@roblox/globaltype/Workspace.PhysicsSteppingMethod",
       "PlayerCharacterDestroyBehavior": "@roblox/globaltype/Workspace.PlayerCharacterDestroyBehavior",
+      "PlayerScriptsUseInputActionSystem": "@roblox/globaltype/Workspace.PlayerScriptsUseInputActionSystem",
       "PrimalPhysicsSolver": "@roblox/globaltype/Workspace.PrimalPhysicsSolver",
       "RejectCharacterDeletions": "@roblox/globaltype/Workspace.RejectCharacterDeletions",
       "RenderingCacheOptimizations": "@roblox/globaltype/Workspace.RenderingCacheOptimizations",
@@ -25521,6 +25662,7 @@
       "Terrain": "@roblox/globaltype/Workspace.Terrain",
       "TouchesUseCollisionGroups": "@roblox/globaltype/Workspace.TouchesUseCollisionGroups",
       "TouchEventsUseCollisionGroups": "@roblox/globaltype/Workspace.TouchEventsUseCollisionGroups",
+      "UseFixedSimulation": "@roblox/globaltype/Workspace.UseFixedSimulation",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
@@ -25552,7 +25694,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AuthorityMode": {
-    "documentation": "",
+    "documentation": "Sets the server authority mode.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AuthorityMode",
     "code_sample": ""
   },
@@ -25641,6 +25783,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#MoverConstraintRootBehavior",
     "code_sample": ""
   },
+  "@roblox/globaltype/Workspace.NextGenerationReplication": {
+    "documentation": "When <code>true</code>, enables an alternate replication system that alters and improves how properties are replicated under the hood.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#NextGenerationReplication",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Workspace.PathfindingUseImprovedSearch": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PathfindingUseImprovedSearch",
@@ -25659,6 +25806,11 @@
   "@roblox/globaltype/Workspace.PlayerCharacterDestroyBehavior": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PlayerCharacterDestroyBehavior",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Workspace.PlayerScriptsUseInputActionSystem": {
+    "documentation": "Controls internal behavior of the built-in <code>Player</code> scripts.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#PlayerScriptsUseInputActionSystem",
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.PrimalPhysicsSolver": {
@@ -25736,6 +25888,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#TouchEventsUseCollisionGroups",
     "code_sample": ""
   },
+  "@roblox/globaltype/Workspace.UseFixedSimulation": {
+    "documentation": "When <code>true</code>, enables <code>RunService:BindToSimulation()</code> which calls a function at a fixed frequency, updates physics stepping logic, and makes the <code>time()</code> function return the fixed stepped frame time.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseFixedSimulation",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Workspace.UseNewLuauTypeSolver": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseNewLuauTypeSolver",
@@ -25787,7 +25944,7 @@
     "documentation": "<strong>Workspace</strong> houses 3D objects which are rendered to the 3D world. Objects not descending from it will not be rendered or physically interact with the world."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/return/0": {
-    "documentation": "The percentage of real-time that physics simulation is currently being throttled to."
+    "documentation": "The percentage of real time that physics simulation is currently being throttled to."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling": {
     "documentation": "Returns an integer, between 0 and 100, representing the percentage of real time that physics simulation is currently being throttled to.",
@@ -30035,7 +30192,9 @@
       "GetBaseCategories": "@roblox/globaltype/InsertService.GetBaseCategories",
       "GetBaseSets": "@roblox/globaltype/InsertService.GetBaseSets",
       "GetCollection": "@roblox/globaltype/InsertService.GetCollection",
+      "GetFreeDecalsAsync": "@roblox/globaltype/InsertService.GetFreeDecalsAsync",
       "GetFreeDecals": "@roblox/globaltype/InsertService.GetFreeDecals",
+      "GetFreeModelsAsync": "@roblox/globaltype/InsertService.GetFreeModelsAsync",
       "GetFreeModels": "@roblox/globaltype/InsertService.GetFreeModels",
       "GetLatestAssetVersionAsync": "@roblox/globaltype/InsertService.GetLatestAssetVersionAsync",
       "GetUserCategories": "@roblox/globaltype/InsertService.GetUserCategories",
@@ -30210,6 +30369,40 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InsertService#GetCollection",
     "code_sample": "local InsertService = game:GetService(\"InsertService\")\n\nlocal set = InsertService:GetBaseSets()[1]\nlocal list = InsertService:GetCollection(set[\"CategoryId\"])\n\nprint(list)"
   },
+  "@roblox/globaltype/InsertService.GetFreeDecalsAsync/param/0": {
+    "documentation": "Used to insert assets from the Roblox website."
+  },
+  "@roblox/globaltype/InsertService.GetFreeDecalsAsync/param/1": {
+    "documentation": "String used to search for free decals in the Catalog."
+  },
+  "@roblox/globaltype/InsertService.GetFreeDecalsAsync/param/2": {
+    "documentation": "The page number in the Catalog to return."
+  },
+  "@roblox/globaltype/InsertService.GetFreeDecalsAsync/return/0": {
+    "documentation": "A single table (of returned free decals) wrapped in a table."
+  },
+  "@roblox/globaltype/InsertService.GetFreeDecalsAsync": {
+    "documentation": "Retrieves a list of free Decals from the Catalog.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InsertService.GetFreeDecalsAsync/param/0"
+      },
+      {
+        "name": "searchText",
+        "documentation": "@roblox/globaltype/InsertService.GetFreeDecalsAsync/param/1"
+      },
+      {
+        "name": "pageNum",
+        "documentation": "@roblox/globaltype/InsertService.GetFreeDecalsAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InsertService.GetFreeDecalsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InsertService#GetFreeDecalsAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/InsertService.GetFreeDecals/param/0": {
     "documentation": "Used to insert assets from the Roblox website."
   },
@@ -30223,7 +30416,7 @@
     "documentation": "A single table (of returned free decals) wrapped in a table."
   },
   "@roblox/globaltype/InsertService.GetFreeDecals": {
-    "documentation": "Retrieves a list of free Decals from the Catalog.",
+    "documentation": "<strong>Deprecated:</strong> <br>Retrieves a list of free Decals from the Catalog.",
     "params": [
       {
         "name": "self",
@@ -30244,6 +30437,40 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InsertService#GetFreeDecals",
     "code_sample": ""
   },
+  "@roblox/globaltype/InsertService.GetFreeModelsAsync/param/0": {
+    "documentation": "Used to insert assets from the Roblox website."
+  },
+  "@roblox/globaltype/InsertService.GetFreeModelsAsync/param/1": {
+    "documentation": "String used to search for free decals in the Catalog."
+  },
+  "@roblox/globaltype/InsertService.GetFreeModelsAsync/param/2": {
+    "documentation": "The page number in the Catalog to return."
+  },
+  "@roblox/globaltype/InsertService.GetFreeModelsAsync/return/0": {
+    "documentation": "A single table (of returned free models) wrapped in a table."
+  },
+  "@roblox/globaltype/InsertService.GetFreeModelsAsync": {
+    "documentation": "Retrieves a list of Free Models from the Catalog.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InsertService.GetFreeModelsAsync/param/0"
+      },
+      {
+        "name": "searchText",
+        "documentation": "@roblox/globaltype/InsertService.GetFreeModelsAsync/param/1"
+      },
+      {
+        "name": "pageNum",
+        "documentation": "@roblox/globaltype/InsertService.GetFreeModelsAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InsertService.GetFreeModelsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InsertService#GetFreeModelsAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/InsertService.GetFreeModels/param/0": {
     "documentation": "Used to insert assets from the Roblox website."
   },
@@ -30257,7 +30484,7 @@
     "documentation": "A single table (of returned free models) wrapped in a table."
   },
   "@roblox/globaltype/InsertService.GetFreeModels": {
-    "documentation": "Retrieves a list of Free Models from the Catalog.",
+    "documentation": "<strong>Deprecated:</strong> <br>Retrieves a list of Free Models from the Catalog.",
     "params": [
       {
         "name": "self",
@@ -31469,7 +31696,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConfigSnapshot": {
-    "documentation": "",
+    "documentation": "A snapshot of configuration values at a given version. Can be player-specific.",
     "keys": {
       "Error": "@roblox/globaltype/ConfigSnapshot.Error",
       "Outdated": "@roblox/globaltype/ConfigSnapshot.Outdated",
@@ -31481,26 +31708,26 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConfigSnapshot.Error": {
-    "documentation": "",
+    "documentation": "Populated if snapshot was in an error state.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ConfigSnapshot#Error",
     "code_sample": ""
   },
   "@roblox/globaltype/ConfigSnapshot.Outdated": {
-    "documentation": "",
+    "documentation": "If true, indicates the snapshot is outdated and can be refreshed to newer values.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ConfigSnapshot#Outdated",
     "code_sample": ""
   },
   "@roblox/globaltype/ConfigSnapshot.GetValue/param/0": {
-    "documentation": ""
+    "documentation": "A snapshot of configuration values at a given version. Can be player-specific."
   },
   "@roblox/globaltype/ConfigSnapshot.GetValue/param/1": {
-    "documentation": ""
+    "documentation": "Key of the configuration to get the value for."
   },
   "@roblox/globaltype/ConfigSnapshot.GetValue/return/0": {
-    "documentation": ""
+    "documentation": "The value of the configuration for the given key."
   },
   "@roblox/globaltype/ConfigSnapshot.GetValue": {
-    "documentation": "",
+    "documentation": "Returns the value for the given key.",
     "params": [
       {
         "name": "self",
@@ -31518,16 +31745,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConfigSnapshot.GetValueChangedSignal/param/0": {
-    "documentation": ""
+    "documentation": "A snapshot of configuration values at a given version. Can be player-specific."
   },
   "@roblox/globaltype/ConfigSnapshot.GetValueChangedSignal/param/1": {
-    "documentation": ""
+    "documentation": "Key of the configuration to get the change signal for."
   },
   "@roblox/globaltype/ConfigSnapshot.GetValueChangedSignal/return/0": {
-    "documentation": ""
+    "documentation": "A <code>RBXScriptSignal</code> that fires when the value for the given key changes upon refresh."
   },
   "@roblox/globaltype/ConfigSnapshot.GetValueChangedSignal": {
-    "documentation": "",
+    "documentation": "Returns a signal that fires when the value for the given key changes due to a refresh.",
     "params": [
       {
         "name": "self",
@@ -31545,10 +31772,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConfigSnapshot.Refresh/param/0": {
-    "documentation": ""
+    "documentation": "A snapshot of configuration values at a given version. Can be player-specific."
   },
   "@roblox/globaltype/ConfigSnapshot.Refresh": {
-    "documentation": "",
+    "documentation": "Refreshes the snapshot to the latest configuration values.",
     "params": [
       {
         "name": "self",
@@ -31637,7 +31864,7 @@
     "returns": []
   },
   "@roblox/globaltype/ConfigSnapshot.UpdateAvailable": {
-    "documentation": "",
+    "documentation": "Fires when a newer version of the configuration is available.",
     "keys": {
       "Connect": "@roblox/globaltype/ConfigSnapshot.UpdateAvailable.Connect",
       "ConnectParallel": "@roblox/globaltype/ConfigSnapshot.UpdateAvailable.ConnectParallel",
@@ -31930,7 +32157,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatMessage": {
-    "documentation": "Immutable data object representing a text chat message.",
+    "documentation": "A data object representing a text chat message.",
     "keys": {
       "BubbleChatMessageProperties": "@roblox/globaltype/TextChatMessage.BubbleChatMessageProperties",
       "ChatWindowMessageProperties": "@roblox/globaltype/TextChatMessage.ChatWindowMessageProperties",
@@ -33266,6 +33493,7 @@
       "GridSize": "@roblox/globaltype/Plugin.GridSize",
       "IsDebuggable": "@roblox/globaltype/Plugin.IsDebuggable",
       "Activate": "@roblox/globaltype/Plugin.Activate",
+      "CreateDockWidgetPluginGuiAsync": "@roblox/globaltype/Plugin.CreateDockWidgetPluginGuiAsync",
       "CreateDockWidgetPluginGui": "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui",
       "CreatePluginAction": "@roblox/globaltype/Plugin.CreatePluginAction",
       "CreatePluginMenu": "@roblox/globaltype/Plugin.CreatePluginMenu",
@@ -33276,7 +33504,9 @@
       "GetSelectedRibbonTool": "@roblox/globaltype/Plugin.GetSelectedRibbonTool",
       "GetSetting": "@roblox/globaltype/Plugin.GetSetting",
       "GetStudioUserId": "@roblox/globaltype/Plugin.GetStudioUserId",
+      "ImportFbxAnimationAsync": "@roblox/globaltype/Plugin.ImportFbxAnimationAsync",
       "ImportFbxAnimation": "@roblox/globaltype/Plugin.ImportFbxAnimation",
+      "ImportFbxRigAsync": "@roblox/globaltype/Plugin.ImportFbxRigAsync",
       "ImportFbxRig": "@roblox/globaltype/Plugin.ImportFbxRig",
       "Intersect": "@roblox/globaltype/Plugin.Intersect",
       "IsActivated": "@roblox/globaltype/Plugin.IsActivated",
@@ -33284,7 +33514,9 @@
       "Negate": "@roblox/globaltype/Plugin.Negate",
       "OpenScript": "@roblox/globaltype/Plugin.OpenScript",
       "OpenWikiPage": "@roblox/globaltype/Plugin.OpenWikiPage",
+      "PromptForExistingAssetIdAsync": "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync",
       "PromptForExistingAssetId": "@roblox/globaltype/Plugin.PromptForExistingAssetId",
+      "PromptSaveSelectionAsync": "@roblox/globaltype/Plugin.PromptSaveSelectionAsync",
       "PromptSaveSelection": "@roblox/globaltype/Plugin.PromptSaveSelection",
       "SaveSelectedToRoblox": "@roblox/globaltype/Plugin.SaveSelectedToRoblox",
       "SelectRibbonTool": "@roblox/globaltype/Plugin.SelectRibbonTool",
@@ -33338,6 +33570,40 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#Activate",
     "code_sample": ""
   },
+  "@roblox/globaltype/Plugin.CreateDockWidgetPluginGuiAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Plugin.CreateDockWidgetPluginGuiAsync/param/1": {
+    "documentation": "A unique and consistent identifier used to storing the widget's dock state and other internal details."
+  },
+  "@roblox/globaltype/Plugin.CreateDockWidgetPluginGuiAsync/param/2": {
+    "documentation": "Describes the <code>DockWidgetPluginGui</code> to create (initial state, size, etc)."
+  },
+  "@roblox/globaltype/Plugin.CreateDockWidgetPluginGuiAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Plugin.CreateDockWidgetPluginGuiAsync": {
+    "documentation": "Creates a <code>DockWidgetPluginGui</code> given a <code>DockWidgetPluginGuiInfo</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Plugin.CreateDockWidgetPluginGuiAsync/param/0"
+      },
+      {
+        "name": "pluginGuiId",
+        "documentation": "@roblox/globaltype/Plugin.CreateDockWidgetPluginGuiAsync/param/1"
+      },
+      {
+        "name": "dockWidgetPluginGuiInfo",
+        "documentation": "@roblox/globaltype/Plugin.CreateDockWidgetPluginGuiAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Plugin.CreateDockWidgetPluginGuiAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CreateDockWidgetPluginGuiAsync",
+    "code_sample": "-- Create new 'DockWidgetPluginGuiInfo' object\nlocal widgetInfo = DockWidgetPluginGuiInfo.new(\n\tEnum.InitialDockState.Float, -- Widget will be initialized in floating panel\n\ttrue, -- Widget will be initially enabled\n\tfalse, -- Don't override the previous enabled state\n\t200, -- Default width of the floating window\n\t300, -- Default height of the floating window\n\t150, -- Minimum width of the floating window (optional)\n\t150 -- Minimum height of the floating window (optional)\n)\n\n-- Create new widget GUI\nlocal testWidget = plugin:CreateDockWidgetPluginGui(\"TestWidget\", widgetInfo)\n\nlocal testButton = Instance.new(\"TextButton\")\ntestButton.BorderSizePixel = 0\ntestButton.TextSize = 20\ntestButton.TextColor3 = Color3.new(1, 0.2, 0.4)\ntestButton.AnchorPoint = Vector2.new(0.5, 0.5)\ntestButton.Size = UDim2.new(1, 0, 1, 0)\ntestButton.Position = UDim2.new(0.5, 0, 0.5, 0)\ntestButton.SizeConstraint = Enum.SizeConstraint.RelativeYY\ntestButton.Text = \"Click Me\"\ntestButton.Parent = testWidget"
+  },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/param/0": {
     "documentation": ""
   },
@@ -33351,7 +33617,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui": {
-    "documentation": "Creates a <code>DockWidgetPluginGui</code> given a <code>DockWidgetPluginGuiInfo</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Creates a <code>DockWidgetPluginGui</code> given a <code>DockWidgetPluginGuiInfo</code>.",
     "params": [
       {
         "name": "self",
@@ -33617,6 +33883,40 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#GetStudioUserId",
     "code_sample": ""
   },
+  "@roblox/globaltype/Plugin.ImportFbxAnimationAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Plugin.ImportFbxAnimationAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Plugin.ImportFbxAnimationAsync/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Plugin.ImportFbxAnimationAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Plugin.ImportFbxAnimationAsync": {
+    "documentation": "Prompts the user to open a .fbx animation file that can be loaded onto the <code>rigModel</code>, then proceeds to insert the animation as a <code>KeyframeSequence</code> in the <code>Workspace</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Plugin.ImportFbxAnimationAsync/param/0"
+      },
+      {
+        "name": "rigModel",
+        "documentation": "@roblox/globaltype/Plugin.ImportFbxAnimationAsync/param/1"
+      },
+      {
+        "name": "isR15",
+        "documentation": "@roblox/globaltype/Plugin.ImportFbxAnimationAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Plugin.ImportFbxAnimationAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#ImportFbxAnimationAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Plugin.ImportFbxAnimation/param/0": {
     "documentation": ""
   },
@@ -33630,7 +33930,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimation": {
-    "documentation": "Prompts the user to open a .fbx animation file that can be loaded onto the <code>rigModel</code>, then proceeds to insert the animation as a <code>KeyframeSequence</code> in the <code>Workspace</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Prompts the user to open a .fbx animation file that can be loaded onto the <code>rigModel</code>, then proceeds to insert the animation as a <code>KeyframeSequence</code> in the <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -33651,6 +33951,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#ImportFbxAnimation",
     "code_sample": ""
   },
+  "@roblox/globaltype/Plugin.ImportFbxRigAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Plugin.ImportFbxRigAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Plugin.ImportFbxRigAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Plugin.ImportFbxRigAsync": {
+    "documentation": "Prompts the user to open a .fbx file, uploads the individual components of the model as meshes, and generates a character rig for use in animation, which is loaded into the <code>Workspace</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Plugin.ImportFbxRigAsync/param/0"
+      },
+      {
+        "name": "isR15",
+        "documentation": "@roblox/globaltype/Plugin.ImportFbxRigAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Plugin.ImportFbxRigAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#ImportFbxRigAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Plugin.ImportFbxRig/param/0": {
     "documentation": ""
   },
@@ -33661,7 +33988,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRig": {
-    "documentation": "Prompts the user to open a .fbx file, uploads the individual components of the model as meshes, and generates a character rig for use in animation, which is loaded into the <code>Workspace</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Prompts the user to open a .fbx file, uploads the individual components of the model as meshes, and generates a character rig for use in animation, which is loaded into the <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -33823,6 +34150,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#OpenWikiPage",
     "code_sample": "plugin:OpenWikiPage(\"API:Class/BasePart\")"
   },
+  "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync": {
+    "documentation": "Opens a window in Roblox Studio, which prompts the user to select an asset based on the <code>assetType</code> specified. Returns what assetId was selected, or -1 if the window was closed.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync/param/0"
+      },
+      {
+        "name": "assetType",
+        "documentation": "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#PromptForExistingAssetIdAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId/param/0": {
     "documentation": ""
   },
@@ -33850,6 +34204,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#PromptForExistingAssetId",
     "code_sample": ""
   },
+  "@roblox/globaltype/Plugin.PromptSaveSelectionAsync/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Plugin.PromptSaveSelectionAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Plugin.PromptSaveSelectionAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Plugin.PromptSaveSelectionAsync": {
+    "documentation": "Prompts the user to save their current selection with the specified file name. Returns true if the user did save the file.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Plugin.PromptSaveSelectionAsync/param/0"
+      },
+      {
+        "name": "suggestedFileName",
+        "documentation": "@roblox/globaltype/Plugin.PromptSaveSelectionAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Plugin.PromptSaveSelectionAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#PromptSaveSelectionAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Plugin.PromptSaveSelection/param/0": {
     "documentation": ""
   },
@@ -33860,7 +34241,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelection": {
-    "documentation": "Prompts the user to save their current selection with the specified file name. Returns true if the user did save the file.",
+    "documentation": "<strong>Deprecated:</strong> <br>Prompts the user to save their current selection with the specified file name. Returns true if the user did save the file.",
     "params": [
       {
         "name": "self",
@@ -36087,7 +36468,7 @@
     "documentation": "Projection configuration dictionary including the following key-value pairs: <ul> <li><code>Direction</code> (<code>Vector3</code>) where the projector is facing.</li> <li><code>Position</code> (<code>Vector3</code>) as the position in local space with   respect to the mesh.</li> <li><code>Size</code> (<code>Vector3</code>) as the size of the projector.</li> <li><code>Up</code> (<code>Vector3</code>) as the up vector of the projector in local   space with respect to the mesh.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/3": {
-    "documentation": "Brush configuration dictionary including the following key-value pairs: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) which determines how this   projection will blend alpha values.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) which determines how this   projection will blend color values.</li> <li><code>Decal</code> (<code>EditableImage</code>) as the image used for projection.</li> <li><code>FadeAngle</code> (number) as the angle in degrees for the projection   edges to fall off.</li> <li><code>BlendIntensity</code> (number) as the value between <code>0</code> and <code>1</code> which   controls how much of the projection is blended into the resulting   image.</li> </ul>"
+    "documentation": "Brush configuration dictionary including the following key-value pairs: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) which determines how this   projection will blend alpha values.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) which determines how this   projection will blend color values.</li> <li><code>Decal</code> (<code>EditableImage</code>) as the image used for projection.</li> <li><code>FadeAngle</code> (number) as the angle in degrees for the projection   edges to start to fall off. The projection will be fully faded out   at 90 degrees. An angle of 0 means fading starts immediately at 0   degrees and an angle of 90 means no fading but instead a hard edge   at 90 degrees. An angle of 70 degrees would mean the projection   starts to fade at 70 degrees and is fully faded out at 90 degrees.</li> <li><code>BlendIntensity</code> (number) as the value between <code>0</code> and <code>1</code> which   controls how much of the projection is blended into the resulting   image.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected": {
     "documentation": "Projects another <code>EditableImage</code> into an <code>EditableMesh</code> and stores the result on this <code>EditableImage</code>.",
@@ -40458,7 +40839,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ProximityPrompt.Enabled": {
-    "documentation": "Whether this prompt should be shown.",
+    "documentation": "Whether or not this prompt should be shown.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ProximityPrompt#Enabled",
     "code_sample": ""
   },
@@ -40977,7 +41358,7 @@
     "returns": []
   },
   "@roblox/globaltype/ProximityPrompt.PromptHidden": {
-    "documentation": "Triggers when the prompt becomes hidden.",
+    "documentation": "Triggers when the <code>prompt</code> becomes hidden.",
     "keys": {
       "Connect": "@roblox/globaltype/ProximityPrompt.PromptHidden.Connect",
       "ConnectParallel": "@roblox/globaltype/ProximityPrompt.PromptHidden.ConnectParallel",
@@ -42451,6 +42832,7 @@
       "GetAnimationClip": "@roblox/globaltype/AnimationClipProvider.GetAnimationClip",
       "GetAnimationClipAsync": "@roblox/globaltype/AnimationClipProvider.GetAnimationClipAsync",
       "GetAnimationClipById": "@roblox/globaltype/AnimationClipProvider.GetAnimationClipById",
+      "GetAnimationsAsync": "@roblox/globaltype/AnimationClipProvider.GetAnimationsAsync",
       "GetAnimations": "@roblox/globaltype/AnimationClipProvider.GetAnimations",
       "GetClipEvaluatorAsync": "@roblox/globaltype/AnimationClipProvider.GetClipEvaluatorAsync",
       "RegisterActiveAnimationClip": "@roblox/globaltype/AnimationClipProvider.RegisterActiveAnimationClip",
@@ -42547,6 +42929,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationClipProvider#GetAnimationClipById",
     "code_sample": ""
   },
+  "@roblox/globaltype/AnimationClipProvider.GetAnimationsAsync/param/0": {
+    "documentation": "Provides functions to load and preview <code>AnimationClips</code>."
+  },
+  "@roblox/globaltype/AnimationClipProvider.GetAnimationsAsync/param/1": {
+    "documentation": "The user ID of the user."
+  },
+  "@roblox/globaltype/AnimationClipProvider.GetAnimationsAsync/return/0": {
+    "documentation": "An <code>InventoryPages</code> of animations."
+  },
+  "@roblox/globaltype/AnimationClipProvider.GetAnimationsAsync": {
+    "documentation": "This function returns an <code>InventoryPages</code> object which can be used to iterate over animations owned by a specific user.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AnimationClipProvider.GetAnimationsAsync/param/0"
+      },
+      {
+        "name": "userId",
+        "documentation": "@roblox/globaltype/AnimationClipProvider.GetAnimationsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AnimationClipProvider.GetAnimationsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationClipProvider#GetAnimationsAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AnimationClipProvider.GetAnimations/param/0": {
     "documentation": "Provides functions to load and preview <code>AnimationClips</code>."
   },
@@ -42557,7 +42966,7 @@
     "documentation": "An <code>InventoryPages</code> of animations."
   },
   "@roblox/globaltype/AnimationClipProvider.GetAnimations": {
-    "documentation": "This function returns an <code>InventoryPages</code> object which can be used to iterate over animations owned by a specific user.",
+    "documentation": "<strong>Deprecated:</strong> <br>This function returns an <code>InventoryPages</code> object which can be used to iterate over animations owned by a specific user.",
     "params": [
       {
         "name": "self",
@@ -44740,23 +45149,30 @@
       "AddReplicationFocus": "@roblox/globaltype/Player.AddReplicationFocus",
       "ClearCharacterAppearance": "@roblox/globaltype/Player.ClearCharacterAppearance",
       "DistanceFromCharacter": "@roblox/globaltype/Player.DistanceFromCharacter",
+      "GetFriendsOnlineAsync": "@roblox/globaltype/Player.GetFriendsOnlineAsync",
       "GetFriendsOnline": "@roblox/globaltype/Player.GetFriendsOnline",
       "GetJoinData": "@roblox/globaltype/Player.GetJoinData",
       "GetMouse": "@roblox/globaltype/Player.GetMouse",
       "GetNetworkPing": "@roblox/globaltype/Player.GetNetworkPing",
+      "GetRankInGroupAsync": "@roblox/globaltype/Player.GetRankInGroupAsync",
       "GetRankInGroup": "@roblox/globaltype/Player.GetRankInGroup",
+      "GetRoleInGroupAsync": "@roblox/globaltype/Player.GetRoleInGroupAsync",
       "GetRoleInGroup": "@roblox/globaltype/Player.GetRoleInGroup",
       "HasAppearanceLoaded": "@roblox/globaltype/Player.HasAppearanceLoaded",
       "IsBestFriendsWith": "@roblox/globaltype/Player.IsBestFriendsWith",
+      "IsFriendsWithAsync": "@roblox/globaltype/Player.IsFriendsWithAsync",
       "IsFriendsWith": "@roblox/globaltype/Player.IsFriendsWith",
       "isFriendsWith": "@roblox/globaltype/Player.isFriendsWith",
+      "IsInGroupAsync": "@roblox/globaltype/Player.IsInGroupAsync",
       "IsInGroup": "@roblox/globaltype/Player.IsInGroup",
       "IsVerified": "@roblox/globaltype/Player.IsVerified",
       "Kick": "@roblox/globaltype/Player.Kick",
       "LoadBoolean": "@roblox/globaltype/Player.LoadBoolean",
       "loadBoolean": "@roblox/globaltype/Player.loadBoolean",
+      "LoadCharacterAsync": "@roblox/globaltype/Player.LoadCharacterAsync",
       "LoadCharacter": "@roblox/globaltype/Player.LoadCharacter",
       "LoadCharacterAppearance": "@roblox/globaltype/Player.LoadCharacterAppearance",
+      "LoadCharacterWithHumanoidDescriptionAsync": "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync",
       "LoadCharacterWithHumanoidDescription": "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription",
       "LoadInstance": "@roblox/globaltype/Player.LoadInstance",
       "loadInstance": "@roblox/globaltype/Player.loadInstance",
@@ -45022,6 +45438,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#DistanceFromCharacter",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nfor _, player in pairs(Players:GetPlayers()) do\n\tprint(player:DistanceFromCharacter(Vector3.new(0, 0, 0)))\nend"
   },
+  "@roblox/globaltype/Player.GetFriendsOnlineAsync/param/0": {
+    "documentation": "An object that represents a presently connected client to the experience."
+  },
+  "@roblox/globaltype/Player.GetFriendsOnlineAsync/param/1": {
+    "documentation": "The maximum number of online connections to return."
+  },
+  "@roblox/globaltype/Player.GetFriendsOnlineAsync/return/0": {
+    "documentation": "A dictionary of online connections (see the table above)."
+  },
+  "@roblox/globaltype/Player.GetFriendsOnlineAsync": {
+    "documentation": "Returns a dictionary of online connections.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Player.GetFriendsOnlineAsync/param/0"
+      },
+      {
+        "name": "maxFriends",
+        "documentation": "@roblox/globaltype/Player.GetFriendsOnlineAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Player.GetFriendsOnlineAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetFriendsOnlineAsync",
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Failed to get online players: \" .. result)\nend"
+  },
   "@roblox/globaltype/Player.GetFriendsOnline/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
   },
@@ -45032,7 +45475,7 @@
     "documentation": "A dictionary of online connections (see the table above)."
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "Returns a dictionary of online connections.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns a dictionary of online connections.",
     "params": [
       {
         "name": "self",
@@ -45096,7 +45539,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.GetNetworkPing": {
-    "documentation": "Returns the isolated network latency in seconds.",
+    "documentation": "Returns the round-trip, isolated network latency in seconds.",
     "params": [
       {
         "name": "self",
@@ -45109,6 +45552,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetNetworkPing",
     "code_sample": ""
   },
+  "@roblox/globaltype/Player.GetRankInGroupAsync/param/0": {
+    "documentation": "An object that represents a presently connected client to the experience."
+  },
+  "@roblox/globaltype/Player.GetRankInGroupAsync/param/1": {
+    "documentation": "The <code>groupId</code> of the specified group."
+  },
+  "@roblox/globaltype/Player.GetRankInGroupAsync/return/0": {
+    "documentation": "The player's rank in the group."
+  },
+  "@roblox/globaltype/Player.GetRankInGroupAsync": {
+    "documentation": "Returns the player's rank in the group as an integer.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Player.GetRankInGroupAsync/param/0"
+      },
+      {
+        "name": "groupId",
+        "documentation": "@roblox/globaltype/Player.GetRankInGroupAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Player.GetRankInGroupAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRankInGroupAsync",
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroup(2) == 255 then\n\t\tprint(\"Player is the owner of the group, 'LOL'!\")\n\telse\n\t\tprint(\"Player is NOT the owner of the group, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+  },
   "@roblox/globaltype/Player.GetRankInGroup/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
   },
@@ -45119,7 +45589,7 @@
     "documentation": "The player's rank in the group."
   },
   "@roblox/globaltype/Player.GetRankInGroup": {
-    "documentation": "Returns the player's rank in the group as an integer.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns the player's rank in the group as an integer.",
     "params": [
       {
         "name": "self",
@@ -45136,6 +45606,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRankInGroup",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroup(2) == 255 then\n\t\tprint(\"Player is the owner of the group, 'LOL'!\")\n\telse\n\t\tprint(\"Player is NOT the owner of the group, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
+  "@roblox/globaltype/Player.GetRoleInGroupAsync/param/0": {
+    "documentation": "An object that represents a presently connected client to the experience."
+  },
+  "@roblox/globaltype/Player.GetRoleInGroupAsync/param/1": {
+    "documentation": "The group ID of the specified group."
+  },
+  "@roblox/globaltype/Player.GetRoleInGroupAsync/return/0": {
+    "documentation": "The player's role in the specified group, or <code>Guest</code> if the player is not a member."
+  },
+  "@roblox/globaltype/Player.GetRoleInGroupAsync": {
+    "documentation": "Returns the player's role in the group as a string, or <code>Guest</code> if the player isn't part of the group.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Player.GetRoleInGroupAsync/param/0"
+      },
+      {
+        "name": "groupId",
+        "documentation": "@roblox/globaltype/Player.GetRoleInGroupAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Player.GetRoleInGroupAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRoleInGroupAsync",
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"Player is ranked as '\", player:GetRoleInGroup(2), \"' in group, 'LOL'!\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+  },
   "@roblox/globaltype/Player.GetRoleInGroup/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
   },
@@ -45146,7 +45643,7 @@
     "documentation": "The player's role in the specified group, or <code>Guest</code> if the player is not a member."
   },
   "@roblox/globaltype/Player.GetRoleInGroup": {
-    "documentation": "Returns the player's role in the group as a string, or <code>Guest</code> if the player isn't part of the group.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns the player's role in the group as a string, or <code>Guest</code> if the player isn't part of the group.",
     "params": [
       {
         "name": "self",
@@ -45210,6 +45707,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsBestFriendsWith",
     "code_sample": ""
   },
+  "@roblox/globaltype/Player.IsFriendsWithAsync/param/0": {
+    "documentation": "An object that represents a presently connected client to the experience."
+  },
+  "@roblox/globaltype/Player.IsFriendsWithAsync/param/1": {
+    "documentation": "The <code>Player.UserId</code> of the specified player."
+  },
+  "@roblox/globaltype/Player.IsFriendsWithAsync/return/0": {
+    "documentation": "A boolean indicating whether a player is a connection of the specified user."
+  },
+  "@roblox/globaltype/Player.IsFriendsWithAsync": {
+    "documentation": "Checks whether a player is a connection of the user with the given <code>Player.UserId</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Player.IsFriendsWithAsync/param/0"
+      },
+      {
+        "name": "userId",
+        "documentation": "@roblox/globaltype/Player.IsFriendsWithAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Player.IsFriendsWithAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsFriendsWithAsync",
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" is connections with gordonrox24!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+  },
   "@roblox/globaltype/Player.IsFriendsWith/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
   },
@@ -45220,7 +45744,7 @@
     "documentation": "A boolean indicating whether a player is a connection of the specified user."
   },
   "@roblox/globaltype/Player.IsFriendsWith": {
-    "documentation": "Checks whether a player is a connection of the user with the given <code>Player.UserId</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Checks whether a player is a connection of the user with the given <code>Player.UserId</code>.",
     "params": [
       {
         "name": "self",
@@ -45264,6 +45788,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#isFriendsWith",
     "code_sample": ""
   },
+  "@roblox/globaltype/Player.IsInGroupAsync/param/0": {
+    "documentation": "An object that represents a presently connected client to the experience."
+  },
+  "@roblox/globaltype/Player.IsInGroupAsync/param/1": {
+    "documentation": "The group ID of the specified group."
+  },
+  "@roblox/globaltype/Player.IsInGroupAsync/return/0": {
+    "documentation": "A boolean indicating whether the player is in the specified group."
+  },
+  "@roblox/globaltype/Player.IsInGroupAsync": {
+    "documentation": "Checks whether a player is a member of a group with the given ID.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Player.IsInGroupAsync/param/0"
+      },
+      {
+        "name": "groupId",
+        "documentation": "@roblox/globaltype/Player.IsInGroupAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Player.IsInGroupAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsInGroupAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Player.IsInGroup/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
   },
@@ -45274,7 +45825,7 @@
     "documentation": "A boolean indicating whether the player is in the specified group."
   },
   "@roblox/globaltype/Player.IsInGroup": {
-    "documentation": "Checks whether a player is a member of a group with the given ID.",
+    "documentation": "<strong>Deprecated:</strong> <br>Checks whether a player is a member of a group with the given ID.",
     "params": [
       {
         "name": "self",
@@ -45387,11 +45938,26 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#loadBoolean",
     "code_sample": ""
   },
+  "@roblox/globaltype/Player.LoadCharacterAsync/param/0": {
+    "documentation": "An object that represents a presently connected client to the experience."
+  },
+  "@roblox/globaltype/Player.LoadCharacterAsync": {
+    "documentation": "Creates a new character for the player, removing the old one. Also clears the player's <code>Backpack</code> and <code>PlayerGui</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Player.LoadCharacterAsync/param/0"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterAsync",
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+  },
   "@roblox/globaltype/Player.LoadCharacter/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.LoadCharacter": {
-    "documentation": "Creates a new character for the player, removing the old one. Also clears the player's <code>Backpack</code> and <code>PlayerGui</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Creates a new character for the player, removing the old one. Also clears the player's <code>Backpack</code> and <code>PlayerGui</code>.",
     "params": [
       {
         "name": "self",
@@ -45424,6 +45990,28 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterAppearance",
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal InsertService = game:GetService(\"InsertService\")\n\nlocal function onPlayerAdded(player)\n\tlocal function onChatted(message)\n\t\tlocal assetId = message:match(\"id=(%d+)\")\n\t\tif assetId then\n\t\t\tlocal model = InsertService:LoadAsset(assetId)\n\t\t\tfor _, child in pairs(model:GetChildren()) do\n\t\t\t\tplayer:LoadCharacterAppearance(child)\n\t\t\tend\n\t\tend\n\tend\n\n\tplayer.Chatted:Connect(onChatted)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
+  "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/0": {
+    "documentation": "An object that represents a presently connected client to the experience."
+  },
+  "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/1": {
+    "documentation": "A <code>HumanoidDescription</code> containing traits like body parts/colors, body scaling, accessories, clothing, and animations that will be equipped to the loaded character."
+  },
+  "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync": {
+    "documentation": "Spawns a player character with everything equipped in the passed in <code>HumanoidDescription</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/0"
+      },
+      {
+        "name": "humanoidDescription",
+        "documentation": "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescriptionAsync/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterWithHumanoidDescriptionAsync",
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+  },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
   },
@@ -45431,7 +46019,7 @@
     "documentation": "A <code>HumanoidDescription</code> containing traits like body parts/colors, body scaling, accessories, clothing, and animations that will be equipped to the loaded character."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription": {
-    "documentation": "Spawns a player character with everything equipped in the passed in <code>HumanoidDescription</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Spawns a player character with everything equipped in the passed in <code>HumanoidDescription</code>.",
     "params": [
       {
         "name": "self",
@@ -50340,9 +50928,10 @@
     "documentation": "Service responsible for all runtime activity and progression of time.",
     "keys": {
       "ClientGitHash": "@roblox/globaltype/RunService.ClientGitHash",
-      "FrameNumber": "@roblox/globaltype/RunService.FrameNumber",
       "RunState": "@roblox/globaltype/RunService.RunState",
       "BindToRenderStep": "@roblox/globaltype/RunService.BindToRenderStep",
+      "BindToSimulation": "@roblox/globaltype/RunService.BindToSimulation",
+      "GetPredictionStatus": "@roblox/globaltype/RunService.GetPredictionStatus",
       "IsClient": "@roblox/globaltype/RunService.IsClient",
       "IsEdit": "@roblox/globaltype/RunService.IsEdit",
       "IsRunMode": "@roblox/globaltype/RunService.IsRunMode",
@@ -50352,6 +50941,7 @@
       "Pause": "@roblox/globaltype/RunService.Pause",
       "Reset": "@roblox/globaltype/RunService.Reset",
       "Run": "@roblox/globaltype/RunService.Run",
+      "SetPredictionMode": "@roblox/globaltype/RunService.SetPredictionMode",
       "Stop": "@roblox/globaltype/RunService.Stop",
       "UnbindFromRenderStep": "@roblox/globaltype/RunService.UnbindFromRenderStep"
     },
@@ -50361,11 +50951,6 @@
   "@roblox/globaltype/RunService.ClientGitHash": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#ClientGitHash",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/RunService.FrameNumber": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#FrameNumber",
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.RunState": {
@@ -50380,7 +50965,7 @@
     "documentation": "Label for the binding which can be used with <code>Unbind</code> if the binding is no longer needed."
   },
   "@roblox/globaltype/RunService.BindToRenderStep/param/2": {
-    "documentation": "Priority of the binding as an integer; it determines when during the render step to call the custom function. The lower this number, the sooner the custom function will be called. If two bindings have the same priority the Roblox Engine will randomly pick one to run first."
+    "documentation": "Priority of the binding as an integer; it determines when during the render step to call the custom function. The lower this number, the sooner the custom function will be called. If two bindings have the same priority, the engine will randomly pick one to run first."
   },
   "@roblox/globaltype/RunService.BindToRenderStep/param/3": {
     "documentation": "The custom function being bound."
@@ -50407,6 +50992,67 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#BindToRenderStep",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RunService.BindToSimulation/param/0": {
+    "documentation": "Service responsible for all runtime activity and progression of time."
+  },
+  "@roblox/globaltype/RunService.BindToSimulation/param/1": {
+    "documentation": "The function to call. This function will be passed one parameter called <code>deltaTime</code> which shows how much time passed between the beginning of the previous simulation step and the beginning of the current simulation step."
+  },
+  "@roblox/globaltype/RunService.BindToSimulation/param/2": {
+    "documentation": "Optional <code>StepFrequency</code> value indicating the frequency at which to call the bound function. If not provided, the default frequency will be used."
+  },
+  "@roblox/globaltype/RunService.BindToSimulation/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RunService.BindToSimulation": {
+    "documentation": "Binds a custom function to be called at a fixed frequency which is independent of the frame rate.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.BindToSimulation/param/0"
+      },
+      {
+        "name": "function",
+        "documentation": "@roblox/globaltype/RunService.BindToSimulation/param/1"
+      },
+      {
+        "name": "frequency",
+        "documentation": "@roblox/globaltype/RunService.BindToSimulation/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RunService.BindToSimulation/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#BindToSimulation",
+    "code_sample": "local RunService = game:GetService(\"RunService\")\nlocal Workspace = game:GetService(\"Workspace\")\n\nlocal somePart:BasePart = Workspace:WaitForChild(\"Part\")\n\nRunService:BindToSimulation(function(deltaTime: number)\n\tlocal syncdColor = Color3.fromHSV(math.fmod(time(), 1.0), 1.0, 1.0)\n\tsomePart:SetAttribute(\"SyncdColor\", syncdColor)\nend)\n\nRunService.RenderStepped:Connect(function(deltaTime: number) \n\tlocal syncdColor = somePart:GetAttribute(\"SyncdColor\")\n\tsomePart.Color = syncdColor\nend)"
+  },
+  "@roblox/globaltype/RunService.GetPredictionStatus/param/0": {
+    "documentation": "Service responsible for all runtime activity and progression of time."
+  },
+  "@roblox/globaltype/RunService.GetPredictionStatus/param/1": {
+    "documentation": "The <code>Instance</code> for which to check prediction status."
+  },
+  "@roblox/globaltype/RunService.GetPredictionStatus/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/RunService.GetPredictionStatus": {
+    "documentation": "Checks the <code>PredictionStatus</code> of a specific context instance, useful for debugging scripts affecting multiple instances where some might be predicted and others might not.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.GetPredictionStatus/param/0"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/RunService.GetPredictionStatus/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/RunService.GetPredictionStatus/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#GetPredictionStatus",
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.IsClient/param/0": {
@@ -50572,6 +51218,35 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#Run",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/RunService.SetPredictionMode/param/0": {
+    "documentation": "Service responsible for all runtime activity and progression of time."
+  },
+  "@roblox/globaltype/RunService.SetPredictionMode/param/1": {
+    "documentation": "The <code>Instance</code> for which to set the prediction mode."
+  },
+  "@roblox/globaltype/RunService.SetPredictionMode/param/2": {
+    "documentation": "The <code>PredictionMode</code> to set for the context instance."
+  },
+  "@roblox/globaltype/RunService.SetPredictionMode": {
+    "documentation": "Sets the prediction mode for an <code>Instance</code> to an <code>PredictionMode</code> value.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/RunService.SetPredictionMode/param/0"
+      },
+      {
+        "name": "context",
+        "documentation": "@roblox/globaltype/RunService.SetPredictionMode/param/1"
+      },
+      {
+        "name": "mode",
+        "documentation": "@roblox/globaltype/RunService.SetPredictionMode/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RunService#SetPredictionMode",
     "code_sample": ""
   },
   "@roblox/globaltype/RunService.Stop/param/0": {
@@ -51228,7 +51903,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConfigService": {
-    "documentation": "",
+    "documentation": "A game service that gives access to in-experience configuration with updates in real time.",
     "keys": {
       "ClearTestingValue": "@roblox/globaltype/ConfigService.ClearTestingValue",
       "GetConfigAsync": "@roblox/globaltype/ConfigService.GetConfigAsync",
@@ -51239,13 +51914,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConfigService.ClearTestingValue/param/0": {
-    "documentation": ""
+    "documentation": "A game service that gives access to in-experience configuration with updates in real time."
   },
   "@roblox/globaltype/ConfigService.ClearTestingValue/param/1": {
-    "documentation": ""
+    "documentation": "Key of the configuration to clear testing value for."
   },
   "@roblox/globaltype/ConfigService.ClearTestingValue": {
-    "documentation": "",
+    "documentation": "Clears current testing value for the given key.",
     "params": [
       {
         "name": "self",
@@ -51261,13 +51936,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConfigService.GetConfigAsync/param/0": {
-    "documentation": ""
+    "documentation": "A game service that gives access to in-experience configuration with updates in real time."
   },
   "@roblox/globaltype/ConfigService.GetConfigAsync/return/0": {
-    "documentation": ""
+    "documentation": "A <code>ConfigSnapshot</code> instance with the latest configuration."
   },
   "@roblox/globaltype/ConfigService.GetConfigAsync": {
-    "documentation": "",
+    "documentation": "Retrieves a snapshot of the latest configuration.",
     "params": [
       {
         "name": "self",
@@ -51281,16 +51956,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConfigService.GetConfigForPlayerAsync/param/0": {
-    "documentation": ""
+    "documentation": "A game service that gives access to in-experience configuration with updates in real time."
   },
   "@roblox/globaltype/ConfigService.GetConfigForPlayerAsync/param/1": {
-    "documentation": ""
+    "documentation": "The player to get the configuration for."
   },
   "@roblox/globaltype/ConfigService.GetConfigForPlayerAsync/return/0": {
-    "documentation": ""
+    "documentation": "A <code>ConfigSnapshot</code> instance with the latest configuration targeted to the player."
   },
   "@roblox/globaltype/ConfigService.GetConfigForPlayerAsync": {
-    "documentation": "",
+    "documentation": "Retrieves a snapshot of the latest configuration for a specific player.",
     "params": [
       {
         "name": "self",
@@ -51308,16 +51983,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConfigService.SetTestingValue/param/0": {
-    "documentation": ""
+    "documentation": "A game service that gives access to in-experience configuration with updates in real time."
   },
   "@roblox/globaltype/ConfigService.SetTestingValue/param/1": {
-    "documentation": ""
+    "documentation": "Key of the configuration to override with a testing value."
   },
   "@roblox/globaltype/ConfigService.SetTestingValue/param/2": {
-    "documentation": ""
+    "documentation": "Value to set as the testing override."
   },
   "@roblox/globaltype/ConfigService.SetTestingValue": {
-    "documentation": "",
+    "documentation": "Sets a testing override for the given key.",
     "params": [
       {
         "name": "self",
@@ -51425,6 +52100,7 @@
       "Capabilities": "@roblox/globaltype/Instance.Capabilities",
       "Name": "@roblox/globaltype/Instance.Name",
       "Parent": "@roblox/globaltype/Instance.Parent",
+      "PredictionMode": "@roblox/globaltype/Instance.PredictionMode",
       "RobloxLocked": "@roblox/globaltype/Instance.RobloxLocked",
       "Sandboxed": "@roblox/globaltype/Instance.Sandboxed",
       "UniqueId": "@roblox/globaltype/Instance.UniqueId",
@@ -51494,6 +52170,11 @@
   "@roblox/globaltype/Instance.Parent": {
     "documentation": "Determines the hierarchical parent of the <code>Instance</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Parent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Instance.PredictionMode": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#PredictionMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.RobloxLocked": {
@@ -54432,7 +55113,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService": {
-    "documentation": "A service that determines various aspects of how <code>Sounds</code> play in the experience.",
+    "documentation": "A service that determines various aspects of how the audio engine works. Most of its properties affect how <code>Sounds</code> play in the experience.",
     "keys": {
       "AcousticSimulationEnabled": "@roblox/globaltype/SoundService.AcousticSimulationEnabled",
       "AmbientReverb": "@roblox/globaltype/SoundService.AmbientReverb",
@@ -54453,17 +55134,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.AcousticSimulationEnabled": {
-    "documentation": "",
+    "documentation": "Determines whether acoustic simulation is enabled globally in the advanced audio system.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#AcousticSimulationEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.AmbientReverb": {
-    "documentation": "The ambient sound environment preset used by <code>SoundService</code>.",
+    "documentation": "The ambient sound environment preset applied to all <code>Sounds</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#AmbientReverb",
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.CharacterSoundsUseNewApi": {
-    "documentation": "",
+    "documentation": "Determines whether the default character sounds will use instances in the advanced audio system vs. <code>Sounds</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#CharacterSoundsUseNewApi",
     "code_sample": ""
   },
@@ -54473,7 +55154,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.DistanceFactor": {
-    "documentation": "The number of studs to be considered a meter by <code>SoundService</code> when calculating volume attenuation of <code>Sounds</code> parented to a <code>BasePart</code> or <code>Attachment</code>.",
+    "documentation": "The number of studs to be considered a meter by <code>SoundService</code> when simulating the Doppler effect for <code>Sounds</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#DistanceFactor",
     "code_sample": ""
   },
@@ -54488,23 +55169,23 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.RolloffScale": {
-    "documentation": "Sets how fast <code>Sound</code> volume attenuates.",
+    "documentation": "Determines how fast the volume of a <code>Sound</code> attenuates beyond its <code>Sound.RollOffMinDistance</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#RolloffScale",
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.VolumetricAudio": {
-    "documentation": "",
+    "documentation": "Determines whether certain spatialized <code>Sounds</code> emit volumetrically, throughout the space of their parent object.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SoundService#VolumetricAudio",
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.GetListener/param/0": {
-    "documentation": "A service that determines various aspects of how <code>Sounds</code> play in the experience."
+    "documentation": "A service that determines various aspects of how the audio engine works. Most of its properties affect how <code>Sounds</code> play in the experience."
   },
   "@roblox/globaltype/SoundService.GetListener/return/0": {
-    "documentation": "The current <code>ListenerType</code> and what the listener has been set to. Listener can be a <code>BasePart</code>, a <code>CFrame</code>, or <code>nil</code>."
+    "documentation": "A table containing two results. The first result is the listener's <code>ListenerType</code> and the second result is dependent on that type: <table>       <thead>       <tr>           <th>Listener Type</th>           <th>Description</th>       </tr>       </thead>       <tbody>       <tr>           <td><code>Enum.ListenerType.Camera</code></td>           <td>Does not return a listener object as <code>Class.Workspace.CurrentCamera|CurrentCamera</code> is always used.</td>       </tr>       <tr>           <td><code>Enum.ListenerType.CFrame</code></td>           <td>Returns the <code>Datatype.CFrame</code> used in <code>Class.SoundService:SetListener()|SetListener()</code>.</td>       </tr>       <tr>           <td><code>Enum.ListenerType.ObjectPosition</code></td>           <td>Returns the <code>Class.BasePart</code> used in <code>Class.SoundService:SetListener()|SetListener()</code>.</td>       </tr>       <tr>           <td><code>Enum.ListenerType.ObjectCFrame</code></td>           <td>Returns the <code>Class.BasePart</code> used in <code>Class.SoundService:SetListener()|SetListener()</code>.</td>       </tr>       </tbody> </table>"
   },
   "@roblox/globaltype/SoundService.GetListener": {
-    "documentation": "Returns the current <code>SoundService</code> listener type and what is set as the listener.",
+    "documentation": "Returns the current listener type used by <code>Sounds</code>, as well as what that listener is currently set to.",
     "params": [
       {
         "name": "self",
@@ -54518,13 +55199,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.OpenAttenuationCurveEditor/param/0": {
-    "documentation": "A service that determines various aspects of how <code>Sounds</code> play in the experience."
+    "documentation": "A service that determines various aspects of how the audio engine works. Most of its properties affect how <code>Sounds</code> play in the experience."
   },
   "@roblox/globaltype/SoundService.OpenAttenuationCurveEditor/param/1": {
-    "documentation": ""
+    "documentation": "A list of <code>AudioEmitters</code> or <code>AudioListeners</code>."
   },
   "@roblox/globaltype/SoundService.OpenAttenuationCurveEditor": {
-    "documentation": "",
+    "documentation": "Opens the attenuation curve editor in Studio for the provided <code>AudioEmitter</code> or <code>AudioListener</code> instances.",
     "params": [
       {
         "name": "self",
@@ -54540,13 +55221,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.OpenDirectionalCurveEditor/param/0": {
-    "documentation": "A service that determines various aspects of how <code>Sounds</code> play in the experience."
+    "documentation": "A service that determines various aspects of how the audio engine works. Most of its properties affect how <code>Sounds</code> play in the experience."
   },
   "@roblox/globaltype/SoundService.OpenDirectionalCurveEditor/param/1": {
-    "documentation": ""
+    "documentation": "A list of <code>AudioEmitters</code> or <code>AudioListeners</code>."
   },
   "@roblox/globaltype/SoundService.OpenDirectionalCurveEditor": {
-    "documentation": "",
+    "documentation": "Opens the directional curve editor in Studio for the provided <code>AudioEmitter</code> or <code>AudioListener</code> instances.",
     "params": [
       {
         "name": "self",
@@ -54562,13 +55243,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.PlayLocalSound/param/0": {
-    "documentation": "A service that determines various aspects of how <code>Sounds</code> play in the experience."
+    "documentation": "A service that determines various aspects of how the audio engine works. Most of its properties affect how <code>Sounds</code> play in the experience."
   },
   "@roblox/globaltype/SoundService.PlayLocalSound/param/1": {
     "documentation": "The <code>Sound</code> to be played."
   },
   "@roblox/globaltype/SoundService.PlayLocalSound": {
-    "documentation": "Plays a <code>Sound</code> locally, meaning the sound will only be heard by the client calling this method, regardless of where it's parented to.",
+    "documentation": "Plays a copy of a <code>Sound</code> locally, such that it will only be heard by the client calling this method.",
     "params": [
       {
         "name": "self",
@@ -54584,7 +55265,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SoundService.SetListener/param/0": {
-    "documentation": "A service that determines various aspects of how <code>Sounds</code> play in the experience."
+    "documentation": "A service that determines various aspects of how the audio engine works. Most of its properties affect how <code>Sounds</code> play in the experience."
   },
   "@roblox/globaltype/SoundService.SetListener/param/1": {
     "documentation": "The <code>ListenerType</code> of the listener."
@@ -54593,7 +55274,7 @@
     "documentation": "Dependent on the <code>ListenerType</code>. Use a <code>BasePart</code> for <code>ListenerType.ObjectPosition</code> or <code>ListenerType.ObjectCFrame</code>, a <code>CFrame</code> for <code>ListenerType.CFrame</code>, or <code>nil</code> for <code>ListenerType.Camera</code>."
   },
   "@roblox/globaltype/SoundService.SetListener": {
-    "documentation": "Sets the listener for the <code>SoundService</code>.",
+    "documentation": "Sets the listener used by <code>Sounds</code>.",
     "params": [
       {
         "name": "self",
@@ -55302,6 +55983,113 @@
     "documentation": "The Configuration object is a container object that is designed to hold value objects to make values used in <code>Tools</code> or any model using <code>Scripts</code> more accessible.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Configuration",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioTestService": {
+    "documentation": "Service allowing plugins to automate and customize Test and Run mode testing.",
+    "keys": {
+      "EndTest": "@roblox/globaltype/StudioTestService.EndTest",
+      "ExecutePlayModeAsync": "@roblox/globaltype/StudioTestService.ExecutePlayModeAsync",
+      "ExecuteRunModeAsync": "@roblox/globaltype/StudioTestService.ExecuteRunModeAsync",
+      "GetTestArgs": "@roblox/globaltype/StudioTestService.GetTestArgs"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioTestService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioTestService.EndTest/param/0": {
+    "documentation": "Service allowing plugins to automate and customize Test and Run mode testing."
+  },
+  "@roblox/globaltype/StudioTestService.EndTest/param/1": {
+    "documentation": "Value returned to the calling <code>StudioTestService:ExecutePlayModeAsync()</code> or <code>StudioTestService:ExecuteRunModeAsync()</code> method."
+  },
+  "@roblox/globaltype/StudioTestService.EndTest": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioTestService.EndTest/param/0"
+      },
+      {
+        "name": "value",
+        "documentation": "@roblox/globaltype/StudioTestService.EndTest/param/1"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioTestService#EndTest",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioTestService.ExecutePlayModeAsync/param/0": {
+    "documentation": "Service allowing plugins to automate and customize Test and Run mode testing."
+  },
+  "@roblox/globaltype/StudioTestService.ExecutePlayModeAsync/param/1": {
+    "documentation": "Argument passed to the test session, or <code>nil</code>."
+  },
+  "@roblox/globaltype/StudioTestService.ExecutePlayModeAsync/return/0": {
+    "documentation": "Value passed from <code>StudioTestService:EndTest()</code>, or <code>nil</code>."
+  },
+  "@roblox/globaltype/StudioTestService.ExecutePlayModeAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioTestService.ExecutePlayModeAsync/param/0"
+      },
+      {
+        "name": "args",
+        "documentation": "@roblox/globaltype/StudioTestService.ExecutePlayModeAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StudioTestService.ExecutePlayModeAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioTestService#ExecutePlayModeAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioTestService.ExecuteRunModeAsync/param/0": {
+    "documentation": "Service allowing plugins to automate and customize Test and Run mode testing."
+  },
+  "@roblox/globaltype/StudioTestService.ExecuteRunModeAsync/param/1": {
+    "documentation": "Argument passed to the test session, or <code>nil</code>."
+  },
+  "@roblox/globaltype/StudioTestService.ExecuteRunModeAsync/return/0": {
+    "documentation": "Value passed from <code>StudioTestService:EndTest()</code>, or <code>nil</code>."
+  },
+  "@roblox/globaltype/StudioTestService.ExecuteRunModeAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioTestService.ExecuteRunModeAsync/param/0"
+      },
+      {
+        "name": "args",
+        "documentation": "@roblox/globaltype/StudioTestService.ExecuteRunModeAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StudioTestService.ExecuteRunModeAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioTestService#ExecuteRunModeAsync",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/StudioTestService.GetTestArgs/param/0": {
+    "documentation": "Service allowing plugins to automate and customize Test and Run mode testing."
+  },
+  "@roblox/globaltype/StudioTestService.GetTestArgs/return/0": {
+    "documentation": "Arguments passed to the test, or <code>nil</code>."
+  },
+  "@roblox/globaltype/StudioTestService.GetTestArgs": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioTestService.GetTestArgs/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StudioTestService.GetTestArgs/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioTestService#GetTestArgs",
     "code_sample": ""
   },
   "@roblox/globaltype/RocketPropulsion": {
@@ -56237,6 +57025,7 @@
   "@roblox/globaltype/KeyframeSequenceProvider": {
     "documentation": "Provides functions to load and preview <code>KeyframeSequence</code>.",
     "keys": {
+      "GetAnimationsAsync": "@roblox/globaltype/KeyframeSequenceProvider.GetAnimationsAsync",
       "GetAnimations": "@roblox/globaltype/KeyframeSequenceProvider.GetAnimations",
       "GetKeyframeSequence": "@roblox/globaltype/KeyframeSequenceProvider.GetKeyframeSequence",
       "GetKeyframeSequenceAsync": "@roblox/globaltype/KeyframeSequenceProvider.GetKeyframeSequenceAsync",
@@ -56246,6 +57035,33 @@
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequenceProvider",
     "code_sample": ""
+  },
+  "@roblox/globaltype/KeyframeSequenceProvider.GetAnimationsAsync/param/0": {
+    "documentation": "Provides functions to load and preview <code>KeyframeSequence</code>."
+  },
+  "@roblox/globaltype/KeyframeSequenceProvider.GetAnimationsAsync/param/1": {
+    "documentation": "The user ID of the user."
+  },
+  "@roblox/globaltype/KeyframeSequenceProvider.GetAnimationsAsync/return/0": {
+    "documentation": "An <code>InventoryPages</code> of animations."
+  },
+  "@roblox/globaltype/KeyframeSequenceProvider.GetAnimationsAsync": {
+    "documentation": "This function returns an <code>InventoryPages</code> object which can be used to iterate over animations owned by a specific user.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/KeyframeSequenceProvider.GetAnimationsAsync/param/0"
+      },
+      {
+        "name": "userId",
+        "documentation": "@roblox/globaltype/KeyframeSequenceProvider.GetAnimationsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/KeyframeSequenceProvider.GetAnimationsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequenceProvider#GetAnimationsAsync",
+    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- Insert your UserId here\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimations(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"total: \", #animationIds)"
   },
   "@roblox/globaltype/KeyframeSequenceProvider.GetAnimations/param/0": {
     "documentation": "Provides functions to load and preview <code>KeyframeSequence</code>."
@@ -56257,7 +57073,7 @@
     "documentation": "An <code>InventoryPages</code> of animations."
   },
   "@roblox/globaltype/KeyframeSequenceProvider.GetAnimations": {
-    "documentation": "This function returns an <code>InventoryPages</code> object which can be used to iterate over animations owned by a specific user.",
+    "documentation": "<strong>Deprecated:</strong> <br>This function returns an <code>InventoryPages</code> object which can be used to iterate over animations owned by a specific user.",
     "params": [
       {
         "name": "self",
@@ -57752,7 +58568,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- Update button text\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"Auto-Jump is ON\"\n\telse\n\t\tbutton.Text = \"Auto-Jump is OFF\"\n\tend\n\t-- Reflect the property in the player's character, if they have one\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- Toggle auto-jump\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- Update everything else\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/StarterPlayer.AvatarJointUpgrade": {
-    "documentation": "",
+    "documentation": "Controls whether avatars spawn with AnimationConstraint joints for physical simulation.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AvatarJointUpgrade",
     "code_sample": ""
   },
@@ -57772,7 +58588,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CameraMode = Enum.CameraMode.LockFirstPerson"
   },
   "@roblox/globaltype/StarterPlayer.CharacterBreakJointsOnDeath": {
-    "documentation": "",
+    "documentation": "Determines the starting value of <code>Humanoid.BreakJointsOnDeath</code> for <code>Player.Character</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CharacterBreakJointsOnDeath",
     "code_sample": ""
   },
@@ -57807,7 +58623,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CreateDefaultPlayerModule": {
-    "documentation": "",
+    "documentation": "Controls how the default player module and related scripts are handled.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CreateDefaultPlayerModule",
     "code_sample": ""
   },
@@ -58224,6 +59040,7 @@
       "CreatePlaceAsync": "@roblox/globaltype/AssetService.CreatePlaceAsync",
       "CreatePlaceInPlayerInventoryAsync": "@roblox/globaltype/AssetService.CreatePlaceInPlayerInventoryAsync",
       "CreateSurfaceAppearanceAsync": "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync",
+      "GetAssetIdsForPackageAsync": "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync",
       "GetAssetIdsForPackage": "@roblox/globaltype/AssetService.GetAssetIdsForPackage",
       "GetAudioMetadataAsync": "@roblox/globaltype/AssetService.GetAudioMetadataAsync",
       "GetBundleDetailsAsync": "@roblox/globaltype/AssetService.GetBundleDetailsAsync",
@@ -58233,6 +59050,7 @@
       "PromptCreateAssetAsync": "@roblox/globaltype/AssetService.PromptCreateAssetAsync",
       "PromptImportAnimationClipFromVideoAsync": "@roblox/globaltype/AssetService.PromptImportAnimationClipFromVideoAsync",
       "SavePlaceAsync": "@roblox/globaltype/AssetService.SavePlaceAsync",
+      "SearchAudioAsync": "@roblox/globaltype/AssetService.SearchAudioAsync",
       "SearchAudio": "@roblox/globaltype/AssetService.SearchAudio"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService",
@@ -58631,6 +59449,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#CreateSurfaceAppearanceAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync/param/0": {
+    "documentation": "A non-replicated service that handles asset-related queries to the Roblox web API."
+  },
+  "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync/return/0": {
+    "documentation": "Asset IDs that are contained in a specified package."
+  },
+  "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync": {
+    "documentation": "Returns an array of asset IDs that are contained in a specified package.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync/param/0"
+      },
+      {
+        "name": "packageAssetId",
+        "documentation": "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.GetAssetIdsForPackageAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#GetAssetIdsForPackageAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage/param/0": {
     "documentation": "A non-replicated service that handles asset-related queries to the Roblox web API."
   },
@@ -58641,7 +59486,7 @@
     "documentation": "Asset IDs that are contained in a specified package."
   },
   "@roblox/globaltype/AssetService.GetAssetIdsForPackage": {
-    "documentation": "Returns an array of asset IDs that are contained in a specified package.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns an array of asset IDs that are contained in a specified package.",
     "params": [
       {
         "name": "self",
@@ -58883,6 +59728,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#SavePlaceAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/AssetService.SearchAudioAsync/param/0": {
+    "documentation": "A non-replicated service that handles asset-related queries to the Roblox web API."
+  },
+  "@roblox/globaltype/AssetService.SearchAudioAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AssetService.SearchAudioAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AssetService.SearchAudioAsync": {
+    "documentation": "Finds audio assets matching a variety of search criteria.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AssetService.SearchAudioAsync/param/0"
+      },
+      {
+        "name": "searchParameters",
+        "documentation": "@roblox/globaltype/AssetService.SearchAudioAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AssetService.SearchAudioAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AssetService#SearchAudioAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AssetService.SearchAudio/param/0": {
     "documentation": "A non-replicated service that handles asset-related queries to the Roblox web API."
   },
@@ -58893,7 +59765,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AssetService.SearchAudio": {
-    "documentation": "Finds audio assets matching a variety of search criteria.",
+    "documentation": "<strong>Deprecated:</strong> <br>Finds audio assets matching a variety of search criteria.",
     "params": [
       {
         "name": "self",
@@ -66911,7 +67783,9 @@
       "GetClassIcon": "@roblox/globaltype/StudioService.GetClassIcon",
       "GetUserId": "@roblox/globaltype/StudioService.GetUserId",
       "GizmoRaycast": "@roblox/globaltype/StudioService.GizmoRaycast",
+      "PromptImportFileAsync": "@roblox/globaltype/StudioService.PromptImportFileAsync",
       "PromptImportFile": "@roblox/globaltype/StudioService.PromptImportFile",
+      "PromptImportFilesAsync": "@roblox/globaltype/StudioService.PromptImportFilesAsync",
       "PromptImportFiles": "@roblox/globaltype/StudioService.PromptImportFiles"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService",
@@ -67055,6 +67929,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#GizmoRaycast",
     "code_sample": ""
   },
+  "@roblox/globaltype/StudioService.PromptImportFileAsync/param/0": {
+    "documentation": "Provides access to configuration of Roblox Studio and allows importing files from the user's file system."
+  },
+  "@roblox/globaltype/StudioService.PromptImportFileAsync/param/1": {
+    "documentation": "A list of file types that the user is allowed to select. File types are formatted without a period. For example, {\"jpg\", \"png\"} would allow only a JPG or PNG file to be selected. If no filter is provided, the filter is <code>nil</code> and allows the user to select any file type."
+  },
+  "@roblox/globaltype/StudioService.PromptImportFileAsync/return/0": {
+    "documentation": "The imported <code>File</code>. Returns <code>nil</code> if no files were selected, or if the selected file was too large (FileSize greater than 100 megabytes)."
+  },
+  "@roblox/globaltype/StudioService.PromptImportFileAsync": {
+    "documentation": "Prompts the current Studio user to select one file to add as a <code>File</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioService.PromptImportFileAsync/param/0"
+      },
+      {
+        "name": "fileTypeFilter",
+        "documentation": "@roblox/globaltype/StudioService.PromptImportFileAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StudioService.PromptImportFileAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#PromptImportFileAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/StudioService.PromptImportFile/param/0": {
     "documentation": "Provides access to configuration of Roblox Studio and allows importing files from the user's file system."
   },
@@ -67065,7 +67966,7 @@
     "documentation": "The imported <code>File</code>. Returns <code>nil</code> if no files were selected, or if the selected file was too large (FileSize greater than 100 megabytes)."
   },
   "@roblox/globaltype/StudioService.PromptImportFile": {
-    "documentation": "Prompts the current Studio user to select one file to add as a <code>File</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Prompts the current Studio user to select one file to add as a <code>File</code>.",
     "params": [
       {
         "name": "self",
@@ -67082,6 +67983,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#PromptImportFile",
     "code_sample": ""
   },
+  "@roblox/globaltype/StudioService.PromptImportFilesAsync/param/0": {
+    "documentation": "Provides access to configuration of Roblox Studio and allows importing files from the user's file system."
+  },
+  "@roblox/globaltype/StudioService.PromptImportFilesAsync/param/1": {
+    "documentation": "A list of file types that the user is allowed to select. File types are formatted without a period. For example, {\"jpg\", \"png\"} would allow only JPG and PNG files to be selected. If no filter is provided, the filter is <code>nil</code> and allows the user to select any file type."
+  },
+  "@roblox/globaltype/StudioService.PromptImportFilesAsync/return/0": {
+    "documentation": "The imported <code>Files</code>. Returns an empty list if no files were selected. Returns <code>nil</code> if the user selected one or more files that were too large (FileSize greater than 100 megabytes)."
+  },
+  "@roblox/globaltype/StudioService.PromptImportFilesAsync": {
+    "documentation": "Prompts the current Studio user to select files to add as <code>Files</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/StudioService.PromptImportFilesAsync/param/0"
+      },
+      {
+        "name": "fileTypeFilter",
+        "documentation": "@roblox/globaltype/StudioService.PromptImportFilesAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/StudioService.PromptImportFilesAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#PromptImportFilesAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/StudioService.PromptImportFiles/param/0": {
     "documentation": "Provides access to configuration of Roblox Studio and allows importing files from the user's file system."
   },
@@ -67092,7 +68020,7 @@
     "documentation": "The imported <code>Files</code>. Returns an empty list if no files were selected. Returns <code>nil</code> if the user selected one or more files that were too large (FileSize greater than 100 megabytes)."
   },
   "@roblox/globaltype/StudioService.PromptImportFiles": {
-    "documentation": "Prompts the current Studio user to select files to add as <code>Files</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Prompts the current Studio user to select files to add as <code>Files</code>.",
     "params": [
       {
         "name": "self",
@@ -72254,7 +73182,8 @@
       "GetAlliesAsync": "@roblox/globaltype/GroupService.GetAlliesAsync",
       "GetEnemiesAsync": "@roblox/globaltype/GroupService.GetEnemiesAsync",
       "GetGroupInfoAsync": "@roblox/globaltype/GroupService.GetGroupInfoAsync",
-      "GetGroupsAsync": "@roblox/globaltype/GroupService.GetGroupsAsync"
+      "GetGroupsAsync": "@roblox/globaltype/GroupService.GetGroupsAsync",
+      "PromptJoinAsync": "@roblox/globaltype/GroupService.PromptJoinAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroupService",
     "code_sample": ""
@@ -72366,6 +73295,33 @@
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroupService#GetGroupsAsync",
     "code_sample": "local GroupService = game:GetService(\"GroupService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal function playerAdded(player)\n\t-- load a list of info on all groups the player is a member of\n\tlocal groups = GroupService:GetGroupsAsync(player.UserId)\n\n\tfor _, groupInfo in pairs(groups) do\n\t\tfor key, value in pairs(groupInfo) do\n\t\t\tprint(key .. \": \" .. tostring(value))\n\t\tend\n\n\t\tprint(\"--\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(playerAdded)\n\n-- go through existing players\nfor _, player in pairs(Players:GetPlayers()) do\n\tplayerAdded(player)\nend"
+  },
+  "@roblox/globaltype/GroupService.PromptJoinAsync/param/0": {
+    "documentation": "GroupService is a service that allows developers to fetch information about a Roblox group from within a game."
+  },
+  "@roblox/globaltype/GroupService.PromptJoinAsync/param/1": {
+    "documentation": "ID of the group to prompt the player to join. This must be a valid group ID."
+  },
+  "@roblox/globaltype/GroupService.PromptJoinAsync/return/0": {
+    "documentation": "<code>GroupMembershipStatus</code> indicating the player's group membership status after the prompt is closed. If the player closes the prompt without joining, this will return <code>GroupMembershipStatus.None</code> or their previous status if they were already a member."
+  },
+  "@roblox/globaltype/GroupService.PromptJoinAsync": {
+    "documentation": "Prompts the local <code>Player</code> to join a specified Roblox group via a native modal.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/GroupService.PromptJoinAsync/param/0"
+      },
+      {
+        "name": "groupId",
+        "documentation": "@roblox/globaltype/GroupService.PromptJoinAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/GroupService.PromptJoinAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/GroupService#PromptJoinAsync",
+    "code_sample": "local GroupService = game:GetService(\"GroupService\")\n\nlocal GROUP_ID = 377251\n\n-- This should be done in a script running on the client\nlocal success, result = pcall(function()\n    return GroupService:PromptJoinAsync(GROUP_ID)\nend)\n\nif success then\n    if result == Enum.GroupMembershipStatus.Joined then\n        print(\"Player joined the group!\")\n    elseif result == Enum.GroupMembershipStatus.JoinRequestPending then\n        print(\"Join request sent\")\n    elseif result == Enum.GroupMembershipStatus.AlreadyMember then\n        print(\"Already a member\")\n    else\n        print(\"Did not join or not eligible\")\n    end\nelse\n    warn(\"Prompt failed:\", result)\nend"
   },
   "@roblox/globaltype/AudioFilter": {
     "documentation": "Adjusts the frequency content of audio streams.",
@@ -73237,7 +74193,8 @@
       "Scale": "@roblox/globaltype/InputBinding.Scale",
       "UIButton": "@roblox/globaltype/InputBinding.UIButton",
       "Up": "@roblox/globaltype/InputBinding.Up",
-      "Vector2Scale": "@roblox/globaltype/InputBinding.Vector2Scale"
+      "Vector2Scale": "@roblox/globaltype/InputBinding.Vector2Scale",
+      "Vector3Scale": "@roblox/globaltype/InputBinding.Vector3Scale"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding",
     "code_sample": ""
@@ -73305,6 +74262,11 @@
   "@roblox/globaltype/InputBinding.Vector2Scale": {
     "documentation": "Amount by which to linearly scale the values of a two-directional <code>InputAction</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Vector2Scale",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputBinding.Vector3Scale": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Vector3Scale",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSpeechToText": {
@@ -78488,13 +79450,16 @@
     "documentation": "The service responsible for in-experience transactions.",
     "keys": {
       "GetDeveloperProductsAsync": "@roblox/globaltype/MarketplaceService.GetDeveloperProductsAsync",
+      "GetProductInfoAsync": "@roblox/globaltype/MarketplaceService.GetProductInfoAsync",
       "GetProductInfo": "@roblox/globaltype/MarketplaceService.GetProductInfo",
       "GetSubscriptionProductInfoAsync": "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync",
       "GetUsersPriceLevelsAsync": "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync",
       "GetUserSubscriptionDetailsAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync",
       "GetUserSubscriptionPaymentHistoryAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync",
       "GetUserSubscriptionStatusAsync": "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync",
+      "PlayerOwnsAssetAsync": "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync",
       "PlayerOwnsAsset": "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset",
+      "PlayerOwnsBundleAsync": "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync",
       "PlayerOwnsBundle": "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle",
       "PromptBulkPurchase": "@roblox/globaltype/MarketplaceService.PromptBulkPurchase",
       "PromptBundlePurchase": "@roblox/globaltype/MarketplaceService.PromptBundlePurchase",
@@ -78532,6 +79497,40 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetDeveloperProductsAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/MarketplaceService.GetProductInfoAsync/param/0": {
+    "documentation": "The service responsible for in-experience transactions."
+  },
+  "@roblox/globaltype/MarketplaceService.GetProductInfoAsync/param/1": {
+    "documentation": "The asset ID of the specified product."
+  },
+  "@roblox/globaltype/MarketplaceService.GetProductInfoAsync/param/2": {
+    "documentation": "An <code>InfoType</code> enum value specifying the type of information being retrieved."
+  },
+  "@roblox/globaltype/MarketplaceService.GetProductInfoAsync/return/0": {
+    "documentation": "A dictionary containing information about the queried item, described in the previous tables."
+  },
+  "@roblox/globaltype/MarketplaceService.GetProductInfoAsync": {
+    "documentation": "Returns the product information of an asset using its asset ID.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.GetProductInfoAsync/param/0"
+      },
+      {
+        "name": "assetId",
+        "documentation": "@roblox/globaltype/MarketplaceService.GetProductInfoAsync/param/1"
+      },
+      {
+        "name": "infoType",
+        "documentation": "@roblox/globaltype/MarketplaceService.GetProductInfoAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/MarketplaceService.GetProductInfoAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetProductInfoAsync",
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfo(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
+  },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/0": {
     "documentation": "The service responsible for in-experience transactions."
   },
@@ -78545,7 +79544,7 @@
     "documentation": "A dictionary containing information about the queried item, described in the previous tables."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo": {
-    "documentation": "Returns the product information of an asset using its asset ID.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns the product information of an asset using its asset ID.",
     "params": [
       {
         "name": "self",
@@ -78722,6 +79721,40 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetUserSubscriptionStatusAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/0": {
+    "documentation": "The service responsible for in-experience transactions."
+  },
+  "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/1": {
+    "documentation": "The <code>Player</code> whose inventory is tested for ownership of the given asset."
+  },
+  "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/2": {
+    "documentation": "The asset ID for which the given player's inventory is tested."
+  },
+  "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/return/0": {
+    "documentation": "Indicates whether the given player's inventory contains the given asset."
+  },
+  "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync": {
+    "documentation": "Returns whether the given user has the given asset.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/1"
+      },
+      {
+        "name": "assetId",
+        "documentation": "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/MarketplaceService.PlayerOwnsAssetAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsAssetAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/0": {
     "documentation": "The service responsible for in-experience transactions."
   },
@@ -78735,7 +79768,7 @@
     "documentation": "Indicates whether the given player's inventory contains the given asset."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset": {
-    "documentation": "Returns whether the given user has the given asset.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns whether the given user has the given asset.",
     "params": [
       {
         "name": "self",
@@ -78756,6 +79789,40 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsAsset",
     "code_sample": ""
   },
+  "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/0": {
+    "documentation": "The service responsible for in-experience transactions."
+  },
+  "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/1": {
+    "documentation": "The <code>Player</code> whose inventory is tested for ownership of the given bundle."
+  },
+  "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/2": {
+    "documentation": "The bundle ID for which the given player's inventory is tested."
+  },
+  "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/return/0": {
+    "documentation": "Indicates whether the given player's inventory contains the given bundle."
+  },
+  "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync": {
+    "documentation": "Returns whether the given player owns the given bundle.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/1"
+      },
+      {
+        "name": "bundleId",
+        "documentation": "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundleAsync",
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- The bundle we're checking for: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundle(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundle call failed: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" owns \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" doesn't own \" .. BUNDLE_NAME)\n\tend\nend)"
+  },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/0": {
     "documentation": "The service responsible for in-experience transactions."
   },
@@ -78769,7 +79836,7 @@
     "documentation": "Indicates whether the given player's inventory contains the given bundle."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle": {
-    "documentation": "Returns whether the given player owns the given bundle.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns whether the given player owns the given bundle.",
     "params": [
       {
         "name": "self",
@@ -79054,13 +80121,13 @@
     "documentation": "The service responsible for in-experience transactions."
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/param/1": {
-    "documentation": ""
+    "documentation": "An array of objects identifying the products you want to rank. This array can include up to 50 items. Each <code>ProductIdentifier</code> has: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>Must be either <code>InfoType.GamePass</code> or     <code>InfoType.Product</code>.</li> <li><code>Id</code>: number</li> <li>The ID of the game pass or developer product.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": ""
+    "documentation": "The array of ranked items in a personalized order for the current user. Each array has: <ul> <li><code>ProductIdentifier</code>: The corresponding ID from the input array.</li> <li><code>ProductInfo</code>: The standard product info dictionary returned by   <code>GetProductInfo</code>.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
-    "documentation": "",
+    "documentation": "Takes a list of product IDs and returns a personalized ordered list of those products.",
     "params": [
       {
         "name": "self",
@@ -79075,19 +80142,19 @@
       "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#RankProductsAsync",
-    "code_sample": ""
+    "code_sample": "-- Get the MarketplaceService\n  local MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- Create the array of products you want to rank\nlocal productIdentifiers = {\n    {InfoType = Enum.InfoType.GamePass, Id = 123},\n    {InfoType = Enum.InfoType.Product, Id = 456},\n    {InfoType = Enum.InfoType.Product, Id = 789}\n}\n\n-- Call in a protected call to handle errors gracefully\nlocal success, rankedProducts = pcall(function()\n    return MarketplaceService:RankProductsAsync(productIdentifiers)\nend)\n\nif not success then\n    error(\"Failed to rank products\")\nend\n\n-- Load the returned items into the store.\nfor i, rankedItem in ipairs(rankedProducts) do\n    local productIdentifier = rankedItem.ProductIdentifier\n    local productInfo = rankedItem.ProductInfo\n    -- ...\n    -- Logic to add products into store\nend"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/0": {
     "documentation": "The service responsible for in-experience transactions."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/1": {
-    "documentation": ""
+    "documentation": "An array of <code>InfoType</code> values specifying the types of product to retrieve recommendations for. Supported <code>InfoTypes</code>: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/return/0": {
-    "documentation": ""
+    "documentation": "A ranked list of up to 50 items the user is most likely to engage with, based on the provided <code>InfoTypes</code>. If no recommendations can be determined, the method returns an empty list."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync": {
-    "documentation": "",
+    "documentation": "<ul> <li>Takes an array of <code>InfoType</code> and returns up to 50 items   representing the products a user is most likely to engage with and   purchase.</li> </ul>",
     "params": [
       {
         "name": "self",
@@ -83834,17 +84901,28 @@
   "@roblox/globaltype/AvatarEditorService": {
     "documentation": "A service to support developer Avatar Editors.",
     "keys": {
+      "CheckApplyDefaultClothingAsync": "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothingAsync",
       "CheckApplyDefaultClothing": "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothing",
+      "ConformToAvatarRulesAsync": "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync",
       "ConformToAvatarRules": "@roblox/globaltype/AvatarEditorService.ConformToAvatarRules",
       "GetAccessoryType": "@roblox/globaltype/AvatarEditorService.GetAccessoryType",
+      "GetAvatarRulesAsync": "@roblox/globaltype/AvatarEditorService.GetAvatarRulesAsync",
       "GetAvatarRules": "@roblox/globaltype/AvatarEditorService.GetAvatarRules",
+      "GetBatchItemDetailsAsync": "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync",
       "GetBatchItemDetails": "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails",
+      "GetFavoriteAsync": "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync",
       "GetFavorite": "@roblox/globaltype/AvatarEditorService.GetFavorite",
+      "GetInventoryAsync": "@roblox/globaltype/AvatarEditorService.GetInventoryAsync",
       "GetInventory": "@roblox/globaltype/AvatarEditorService.GetInventory",
+      "GetItemDetailsAsync": "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync",
       "GetItemDetails": "@roblox/globaltype/AvatarEditorService.GetItemDetails",
+      "GetOutfitDetailsAsync": "@roblox/globaltype/AvatarEditorService.GetOutfitDetailsAsync",
       "GetOutfitDetails": "@roblox/globaltype/AvatarEditorService.GetOutfitDetails",
+      "GetOutfitsAsync": "@roblox/globaltype/AvatarEditorService.GetOutfitsAsync",
       "GetOutfits": "@roblox/globaltype/AvatarEditorService.GetOutfits",
+      "GetRecommendedAssetsAsync": "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync",
       "GetRecommendedAssets": "@roblox/globaltype/AvatarEditorService.GetRecommendedAssets",
+      "GetRecommendedBundlesAsync": "@roblox/globaltype/AvatarEditorService.GetRecommendedBundlesAsync",
       "GetRecommendedBundles": "@roblox/globaltype/AvatarEditorService.GetRecommendedBundles",
       "PromptAllowInventoryReadAccess": "@roblox/globaltype/AvatarEditorService.PromptAllowInventoryReadAccess",
       "PromptCreateOutfit": "@roblox/globaltype/AvatarEditorService.PromptCreateOutfit",
@@ -83853,9 +84931,37 @@
       "PromptSaveAvatar": "@roblox/globaltype/AvatarEditorService.PromptSaveAvatar",
       "PromptSetFavorite": "@roblox/globaltype/AvatarEditorService.PromptSetFavorite",
       "PromptUpdateOutfit": "@roblox/globaltype/AvatarEditorService.PromptUpdateOutfit",
+      "SearchCatalogAsync": "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync",
       "SearchCatalog": "@roblox/globaltype/AvatarEditorService.SearchCatalog"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothingAsync/param/0": {
+    "documentation": "A service to support developer Avatar Editors."
+  },
+  "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothingAsync/param/1": {
+    "documentation": "The HumanoidDescription to check if default clothing is required."
+  },
+  "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothingAsync/return/0": {
+    "documentation": "Returns a HumanoidDescription if default clothing was necessary. Otherwise returns <code>nil</code>."
+  },
+  "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothingAsync": {
+    "documentation": "Used to apply default clothing to the <code>HumanoidDescription</code> if necessary.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothingAsync/param/0"
+      },
+      {
+        "name": "humanoidDescription",
+        "documentation": "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothingAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothingAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#CheckApplyDefaultClothingAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothing/param/0": {
@@ -83868,7 +84974,7 @@
     "documentation": "Returns a HumanoidDescription if default clothing was necessary. Otherwise returns <code>nil</code>."
   },
   "@roblox/globaltype/AvatarEditorService.CheckApplyDefaultClothing": {
-    "documentation": "Used to apply default clothing to the <code>HumanoidDescription</code> if necessary.",
+    "documentation": "<strong>Deprecated:</strong> <br>Used to apply default clothing to the <code>HumanoidDescription</code> if necessary.",
     "params": [
       {
         "name": "self",
@@ -83885,6 +84991,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#CheckApplyDefaultClothing",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync/param/0": {
+    "documentation": "A service to support developer Avatar Editors."
+  },
+  "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync/param/0"
+      },
+      {
+        "name": "humanoidDescription",
+        "documentation": "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarEditorService.ConformToAvatarRulesAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#ConformToAvatarRulesAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AvatarEditorService.ConformToAvatarRules/param/0": {
     "documentation": "A service to support developer Avatar Editors."
   },
@@ -83895,7 +85028,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AvatarEditorService.ConformToAvatarRules": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -83939,6 +85072,26 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetAccessoryType",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarEditorService.GetAvatarRulesAsync/param/0": {
+    "documentation": "A service to support developer Avatar Editors."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetAvatarRulesAsync/return/0": {
+    "documentation": "A dictionary containing the platform Avatar rules for things like scaling, default shirts and pants, number of wearable assets, ect. See the example return in the main description above."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetAvatarRulesAsync": {
+    "documentation": "Returns the platform Avatar rules for things such as scaling, default shirts and pants, number of wearable assets.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetAvatarRulesAsync/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarEditorService.GetAvatarRulesAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetAvatarRulesAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AvatarEditorService.GetAvatarRules/param/0": {
     "documentation": "A service to support developer Avatar Editors."
   },
@@ -83946,7 +85099,7 @@
     "documentation": "A dictionary containing the platform Avatar rules for things like scaling, default shirts and pants, number of wearable assets, ect. See the example return in the main description above."
   },
   "@roblox/globaltype/AvatarEditorService.GetAvatarRules": {
-    "documentation": "Returns the platform Avatar rules for things such as scaling, default shirts and pants, number of wearable assets.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns the platform Avatar rules for things such as scaling, default shirts and pants, number of wearable assets.",
     "params": [
       {
         "name": "self",
@@ -83957,6 +85110,40 @@
       "@roblox/globaltype/AvatarEditorService.GetAvatarRules/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetAvatarRules",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/param/0": {
+    "documentation": "A service to support developer Avatar Editors."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/param/1": {
+    "documentation": "The list of item ids to get details of."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/param/2": {
+    "documentation": "The type of the item ids provided."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/return/0": {
+    "documentation": "Returns an array of item details with the following fields: <pre><code class=\"language-lua\">  {     &quot;AssetType&quot; = &quot;string&quot;,     &quot;CreatorName&quot; = &quot;string&quot;,     &quot;CreatorTargetId&quot; = 0,     &quot;CreatorType&quot; = &quot;string&quot;,     &quot;Description&quot; = &quot;string&quot;,     &quot;FavoriteCount&quot; = 0,     &quot;Genres&quot; = [       &quot;All&quot;     ],     &quot;Id&quot; = 0,     &quot;ItemRestrictions&quot; = [       &quot;Limited&quot;     ],     &quot;ItemStatus&quot;: [       &quot;New&quot;     ],     &quot;ItemType&quot; = &quot;string&quot;,     &quot;LowestPrice&quot; = 0,     &quot;Name&quot; = &quot;string&quot;,     &quot;Price&quot; = 0,     &quot;ProductId&quot; = 0   } </code></pre> ."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync": {
+    "documentation": "Gets the item details for a list of items at once.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/param/0"
+      },
+      {
+        "name": "itemIds",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/param/1"
+      },
+      {
+        "name": "itemType",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetBatchItemDetailsAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails/param/0": {
@@ -83972,7 +85159,7 @@
     "documentation": "Returns an array of item details with the following fields: <pre><code class=\"language-lua\">  {     &quot;AssetType&quot; = &quot;string&quot;,     &quot;CreatorName&quot; = &quot;string&quot;,     &quot;CreatorTargetId&quot; = 0,     &quot;CreatorType&quot; = &quot;string&quot;,     &quot;Description&quot; = &quot;string&quot;,     &quot;FavoriteCount&quot; = 0,     &quot;Genres&quot; = [       &quot;All&quot;     ],     &quot;Id&quot; = 0,     &quot;ItemRestrictions&quot; = [       &quot;Limited&quot;     ],     &quot;ItemStatus&quot;: [       &quot;New&quot;     ],     &quot;ItemType&quot; = &quot;string&quot;,     &quot;LowestPrice&quot; = 0,     &quot;Name&quot; = &quot;string&quot;,     &quot;Price&quot; = 0,     &quot;ProductId&quot; = 0   } </code></pre> ."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails": {
-    "documentation": "Gets the item details for a list of items at once.",
+    "documentation": "<strong>Deprecated:</strong> <br>Gets the item details for a list of items at once.",
     "params": [
       {
         "name": "self",
@@ -83993,6 +85180,40 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetBatchItemDetails",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync/param/0": {
+    "documentation": "A service to support developer Avatar Editors."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync/param/1": {
+    "documentation": "The ID of the specified asset or bundle."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync/param/2": {
+    "documentation": "The <code>AvatarItemType</code> of the specified asset or bundle."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync/return/0": {
+    "documentation": "Whether the <code>LocalPlayer</code> has favorited the given bundle or asset."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync": {
+    "documentation": "Returns if the <code>Players.LocalPlayer</code> has favorited the given bundle or asset.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync/param/0"
+      },
+      {
+        "name": "itemId",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync/param/1"
+      },
+      {
+        "name": "itemType",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarEditorService.GetFavoriteAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetFavoriteAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AvatarEditorService.GetFavorite/param/0": {
     "documentation": "A service to support developer Avatar Editors."
   },
@@ -84006,7 +85227,7 @@
     "documentation": "Whether the <code>LocalPlayer</code> has favorited the given bundle or asset."
   },
   "@roblox/globaltype/AvatarEditorService.GetFavorite": {
-    "documentation": "Returns if the <code>Players.LocalPlayer</code> has favorited the given bundle or asset.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns if the <code>Players.LocalPlayer</code> has favorited the given bundle or asset.",
     "params": [
       {
         "name": "self",
@@ -84027,6 +85248,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetFavorite",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarEditorService.GetInventoryAsync/param/0": {
+    "documentation": "A service to support developer Avatar Editors."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetInventoryAsync/param/1": {
+    "documentation": "The <code>AvatarAssetType</code> that can will be checked for in the player's inventory."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetInventoryAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarEditorService.GetInventoryAsync": {
+    "documentation": "Returns an <code>InventoryPages</code> object with information about owned items in the users inventory with the given AvatarAssetTypes.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetInventoryAsync/param/0"
+      },
+      {
+        "name": "assetTypes",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetInventoryAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarEditorService.GetInventoryAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetInventoryAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AvatarEditorService.GetInventory/param/0": {
     "documentation": "A service to support developer Avatar Editors."
   },
@@ -84037,7 +85285,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetInventory": {
-    "documentation": "Returns an <code>InventoryPages</code> object with information about owned items in the users inventory with the given AvatarAssetTypes.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns an <code>InventoryPages</code> object with information about owned items in the users inventory with the given AvatarAssetTypes.",
     "params": [
       {
         "name": "self",
@@ -84054,6 +85302,40 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetInventory",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/param/0": {
+    "documentation": "A service to support developer Avatar Editors."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/param/1": {
+    "documentation": "The ID of the item whose details are being retrieved."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/param/2": {
+    "documentation": "An enum value indicating the type of item whose details are being retrieved."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/return/0": {
+    "documentation": "A table containing the item info for the retrieved item. See above for a sample table."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync": {
+    "documentation": "Returns the item details for the given item.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/param/0"
+      },
+      {
+        "name": "itemId",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/param/1"
+      },
+      {
+        "name": "itemType",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetItemDetailsAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AvatarEditorService.GetItemDetails/param/0": {
     "documentation": "A service to support developer Avatar Editors."
   },
@@ -84067,7 +85349,7 @@
     "documentation": "A table containing the item info for the retrieved item. See above for a sample table."
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetails": {
-    "documentation": "Returns the item details for the given item.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns the item details for the given item.",
     "params": [
       {
         "name": "self",
@@ -84088,6 +85370,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetItemDetails",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarEditorService.GetOutfitDetailsAsync/param/0": {
+    "documentation": "A service to support developer Avatar Editors."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetOutfitDetailsAsync/param/1": {
+    "documentation": "The ID of the outfit whose details are being retrieved."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetOutfitDetailsAsync/return/0": {
+    "documentation": "A table containing the outfit info for the retrieved outfit. See above for a sample table."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetOutfitDetailsAsync": {
+    "documentation": "Returns the outfit details for the given outfit.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetOutfitDetailsAsync/param/0"
+      },
+      {
+        "name": "outfitId",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetOutfitDetailsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarEditorService.GetOutfitDetailsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetOutfitDetailsAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AvatarEditorService.GetOutfitDetails/param/0": {
     "documentation": "A service to support developer Avatar Editors."
   },
@@ -84098,7 +85407,7 @@
     "documentation": "A table containing the outfit info for the retrieved outfit. See above for a sample table."
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfitDetails": {
-    "documentation": "Returns the outfit details for the given outfit.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns the outfit details for the given outfit.",
     "params": [
       {
         "name": "self",
@@ -84115,6 +85424,40 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetOutfitDetails",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarEditorService.GetOutfitsAsync/param/0": {
+    "documentation": "A service to support developer Avatar Editors."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetOutfitsAsync/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarEditorService.GetOutfitsAsync/param/2": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarEditorService.GetOutfitsAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarEditorService.GetOutfitsAsync": {
+    "documentation": "Returns outfit data for the <code>Players.LocalPlayer</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetOutfitsAsync/param/0"
+      },
+      {
+        "name": "outfitSource",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetOutfitsAsync/param/1"
+      },
+      {
+        "name": "outfitType",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetOutfitsAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarEditorService.GetOutfitsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetOutfitsAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AvatarEditorService.GetOutfits/param/0": {
     "documentation": "A service to support developer Avatar Editors."
   },
@@ -84128,7 +85471,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AvatarEditorService.GetOutfits": {
-    "documentation": "Returns outfit data for the <code>Players.LocalPlayer</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns outfit data for the <code>Players.LocalPlayer</code>.",
     "params": [
       {
         "name": "self",
@@ -84149,6 +85492,40 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetOutfits",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync/param/0": {
+    "documentation": "A service to support developer Avatar Editors."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync/param/1": {
+    "documentation": "The type of asset recommendations to retrieve recommendations for. Only affects the response when item based recommendations don't exist for the given <code>contextAssetId</code>."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync/param/2": {
+    "documentation": "The ID of an asset with a type matching the provided assetType used for context when retrieving recommendations."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync/return/0": {
+    "documentation": "A list of recommendations based on the given <code>AssetType</code>."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync": {
+    "documentation": "Returns a list of recommended assets based on a given <code>AssetType</code> and asset ID.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync/param/0"
+      },
+      {
+        "name": "assetType",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync/param/1"
+      },
+      {
+        "name": "contextAssetId",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarEditorService.GetRecommendedAssetsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetRecommendedAssetsAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssets/param/0": {
     "documentation": "A service to support developer Avatar Editors."
   },
@@ -84162,7 +85539,7 @@
     "documentation": "A list of recommendations based on the given <code>AssetType</code>."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedAssets": {
-    "documentation": "Returns a list of recommended assets based on a given <code>AssetType</code> and asset ID.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns a list of recommended assets based on a given <code>AssetType</code> and asset ID.",
     "params": [
       {
         "name": "self",
@@ -84183,6 +85560,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetRecommendedAssets",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarEditorService.GetRecommendedBundlesAsync/param/0": {
+    "documentation": "A service to support developer Avatar Editors."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetRecommendedBundlesAsync/param/1": {
+    "documentation": "A list of recommended bundles."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetRecommendedBundlesAsync/return/0": {
+    "documentation": "The bundle ID that the recommended bundles will be returned for."
+  },
+  "@roblox/globaltype/AvatarEditorService.GetRecommendedBundlesAsync": {
+    "documentation": "Returns a list of recommended bundles for a given bundle id.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetRecommendedBundlesAsync/param/0"
+      },
+      {
+        "name": "bundleId",
+        "documentation": "@roblox/globaltype/AvatarEditorService.GetRecommendedBundlesAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarEditorService.GetRecommendedBundlesAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#GetRecommendedBundlesAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedBundles/param/0": {
     "documentation": "A service to support developer Avatar Editors."
   },
@@ -84193,7 +85597,7 @@
     "documentation": "The bundle ID that the recommended bundles will be returned for."
   },
   "@roblox/globaltype/AvatarEditorService.GetRecommendedBundles": {
-    "documentation": "Returns a list of recommended bundles for a given bundle id.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns a list of recommended bundles for a given bundle id.",
     "params": [
       {
         "name": "self",
@@ -84399,6 +85803,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#PromptUpdateOutfit",
     "code_sample": ""
   },
+  "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/param/0": {
+    "documentation": "A service to support developer Avatar Editors."
+  },
+  "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/param/1": {
+    "documentation": "An object containing the parameters used for the search."
+  },
+  "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync": {
+    "documentation": "Returns a <code>CatalogPages</code> object containing the result of the given search.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/param/0"
+      },
+      {
+        "name": "searchParameters",
+        "documentation": "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AvatarEditorService#SearchCatalogAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AvatarEditorService.SearchCatalog/param/0": {
     "documentation": "A service to support developer Avatar Editors."
   },
@@ -84409,7 +85840,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalog": {
-    "documentation": "Returns a <code>CatalogPages</code> object containing the result of the given search.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns a <code>CatalogPages</code> object containing the result of the given search.",
     "params": [
       {
         "name": "self",
@@ -87781,6 +89212,68 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/OpenCloudApiV1#CreateUserNotificationAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/CompositeValueCurve": {
+    "documentation": "An animation curve that groups child <code>FloatCurves</code> which each animate a different component of a non-unary value.",
+    "keys": {
+      "CurveType": "@roblox/globaltype/CompositeValueCurve.CurveType",
+      "GetValueAtTime": "@roblox/globaltype/CompositeValueCurve.GetValueAtTime",
+      "GetComponentCurves": "@roblox/globaltype/CompositeValueCurve.GetComponentCurves"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompositeValueCurve",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CompositeValueCurve.CurveType": {
+    "documentation": "The type of value animated by this <code>CompositeValueCurve</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompositeValueCurve#CurveType",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CompositeValueCurve.GetValueAtTime/param/0": {
+    "documentation": "An animation curve that groups child <code>FloatCurves</code> which each animate a different component of a non-unary value."
+  },
+  "@roblox/globaltype/CompositeValueCurve.GetValueAtTime/param/1": {
+    "documentation": "Time at which to get the value."
+  },
+  "@roblox/globaltype/CompositeValueCurve.GetValueAtTime/return/0": {
+    "documentation": "The value of the curve at the passed time."
+  },
+  "@roblox/globaltype/CompositeValueCurve.GetValueAtTime": {
+    "documentation": "Returns the sampled animated value at the passed <code>time</code> argument.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CompositeValueCurve.GetValueAtTime/param/0"
+      },
+      {
+        "name": "time",
+        "documentation": "@roblox/globaltype/CompositeValueCurve.GetValueAtTime/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/CompositeValueCurve.GetValueAtTime/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompositeValueCurve#GetValueAtTime",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CompositeValueCurve.GetComponentCurves/param/0": {
+    "documentation": "An animation curve that groups child <code>FloatCurves</code> which each animate a different component of a non-unary value."
+  },
+  "@roblox/globaltype/CompositeValueCurve.GetComponentCurves/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/CompositeValueCurve.GetComponentCurves": {
+    "documentation": "Returns the child curves with the given names for the <code>CurveType</code> of this <code>CompositeValueCurve</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CompositeValueCurve.GetComponentCurves/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/CompositeValueCurve.GetComponentCurves/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CompositeValueCurve#GetComponentCurves",
+    "code_sample": ""
+  },
   "@roblox/globaltype/AudioPlayer": {
     "documentation": "Used to play audio assets.",
     "keys": {
@@ -87830,7 +89323,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.AutoPlay": {
-    "documentation": "",
+    "documentation": "Denotes whether this <code>AudioPlayer</code> starts playing as soon as it spawns in for the first time.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#AutoPlay",
     "code_sample": ""
   },
@@ -89425,6 +90918,7 @@
       "GetPlayerPlaceInstanceAsync": "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync",
       "GetTeleportSetting": "@roblox/globaltype/TeleportService.GetTeleportSetting",
       "PromptExperienceDetailsAsync": "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync",
+      "ReserveServerAsync": "@roblox/globaltype/TeleportService.ReserveServerAsync",
       "ReserveServer": "@roblox/globaltype/TeleportService.ReserveServer",
       "SetTeleportGui": "@roblox/globaltype/TeleportService.SetTeleportGui",
       "SetTeleportSetting": "@roblox/globaltype/TeleportService.SetTeleportSetting",
@@ -89571,6 +91065,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#PromptExperienceDetailsAsync",
     "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(function()\n\tTeleportService:PromptExperienceDetailsAsync(player, 8357232245)\nend)\nif not success then\n\twarn(\"Error prompting experience details: \" .. tostring(result))\nend\n\nif result == Enum.PromptExperienceDetailsResult.PromptClosed then\n\tprint(\"Player closed the experience details prompt\")\nelseif result == Enum.PromptExperienceDetailsResult.TeleportAttempted then\n\tprint(\"Player chose to teleport to the experience\")\nend"
   },
+  "@roblox/globaltype/TeleportService.ReserveServerAsync/param/0": {
+    "documentation": "Enables transporting <code>Players</code> between places and servers."
+  },
+  "@roblox/globaltype/TeleportService.ReserveServerAsync/param/1": {
+    "documentation": "The <code>DataModel.PlaceId</code> of the place the reserved server is being created for."
+  },
+  "@roblox/globaltype/TeleportService.ReserveServerAsync/return/0": {
+    "documentation": "The server access code required by <code>TeleportService:TeleportToPrivateServer()</code> and the <code>DataModel.PrivateServerId</code> for the reserved server."
+  },
+  "@roblox/globaltype/TeleportService.ReserveServerAsync": {
+    "documentation": "Returns an access code that can be used to teleport players to a reserved server, along with the <code>DataModel.PrivateServerId</code> for it.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TeleportService.ReserveServerAsync/param/0"
+      },
+      {
+        "name": "placeId",
+        "documentation": "@roblox/globaltype/TeleportService.ReserveServerAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TeleportService.ReserveServerAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#ReserveServerAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/TeleportService.ReserveServer/param/0": {
     "documentation": "Enables transporting <code>Players</code> between places and servers."
   },
@@ -89581,7 +91102,7 @@
     "documentation": "The server access code required by <code>TeleportService:TeleportToPrivateServer()</code> and the <code>DataModel.PrivateServerId</code> for the reserved server."
   },
   "@roblox/globaltype/TeleportService.ReserveServer": {
-    "documentation": "Returns an access code that can be used to teleport players to a reserved server, along with the <code>DataModel.PrivateServerId</code> for it.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns an access code that can be used to teleport players to a reserved server, along with the <code>DataModel.PrivateServerId</code> for it.",
     "params": [
       {
         "name": "self",
@@ -94804,13 +96325,17 @@
       "UseStrafingAnimations": "@roblox/globaltype/Players.UseStrafingAnimations",
       "BanAsync": "@roblox/globaltype/Players.BanAsync",
       "Chat": "@roblox/globaltype/Players.Chat",
+      "CreateHumanoidModelFromDescriptionAsync": "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync",
       "CreateHumanoidModelFromDescription": "@roblox/globaltype/Players.CreateHumanoidModelFromDescription",
+      "CreateHumanoidModelFromUserIdAsync": "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync",
       "CreateHumanoidModelFromUserId": "@roblox/globaltype/Players.CreateHumanoidModelFromUserId",
       "GetBanHistoryAsync": "@roblox/globaltype/Players.GetBanHistoryAsync",
       "GetCharacterAppearanceAsync": "@roblox/globaltype/Players.GetCharacterAppearanceAsync",
       "GetCharacterAppearanceInfoAsync": "@roblox/globaltype/Players.GetCharacterAppearanceInfoAsync",
       "GetFriendsAsync": "@roblox/globaltype/Players.GetFriendsAsync",
+      "GetHumanoidDescriptionFromOutfitIdAsync": "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitIdAsync",
       "GetHumanoidDescriptionFromOutfitId": "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitId",
+      "GetHumanoidDescriptionFromUserIdAsync": "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync",
       "GetHumanoidDescriptionFromUserId": "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId",
       "GetNameFromUserIdAsync": "@roblox/globaltype/Players.GetNameFromUserIdAsync",
       "GetPlayerByUserId": "@roblox/globaltype/Players.GetPlayerByUserId",
@@ -94932,6 +96457,47 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#Chat",
     "code_sample": ""
   },
+  "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync/param/0": {
+    "documentation": "A service that contains presently connected <code>Player</code> objects."
+  },
+  "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync/param/1": {
+    "documentation": "Specifies the appearance of the returned character."
+  },
+  "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync/param/2": {
+    "documentation": "Specifies whether the returned character will be R6 or R15."
+  },
+  "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync/param/3": {
+    "documentation": "The asset type verification mode."
+  },
+  "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync/return/0": {
+    "documentation": "A <code>Humanoid</code> character <code>Model</code>."
+  },
+  "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync": {
+    "documentation": "Returns a character <code>Model</code> equipped with everything specified in the passed in <code>HumanoidDescription</code>.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync/param/0"
+      },
+      {
+        "name": "description",
+        "documentation": "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync/param/1"
+      },
+      {
+        "name": "rigType",
+        "documentation": "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync/param/2"
+      },
+      {
+        "name": "assetTypeVerification",
+        "documentation": "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync/param/3"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CreateHumanoidModelFromDescriptionAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription/param/0": {
     "documentation": "A service that contains presently connected <code>Player</code> objects."
   },
@@ -94948,7 +96514,7 @@
     "documentation": "A <code>Humanoid</code> character <code>Model</code>."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription": {
-    "documentation": "Returns a character <code>Model</code> equipped with everything specified in the passed in <code>HumanoidDescription</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns a character <code>Model</code> equipped with everything specified in the passed in <code>HumanoidDescription</code>.",
     "params": [
       {
         "name": "self",
@@ -94973,6 +96539,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CreateHumanoidModelFromDescription",
     "code_sample": ""
   },
+  "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync/param/0": {
+    "documentation": "A service that contains presently connected <code>Player</code> objects."
+  },
+  "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync/param/1": {
+    "documentation": "The userId for a Roblox user. (The UserId is the number in the profile of the user e.g www.roblox.com/users/1/profile)."
+  },
+  "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync/return/0": {
+    "documentation": "A Humanoid character Model."
+  },
+  "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync": {
+    "documentation": "Returns a character Model set-up with everything equipped to match the avatar of the user specified by the passed in userId.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync/param/0"
+      },
+      {
+        "name": "userId",
+        "documentation": "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CreateHumanoidModelFromUserIdAsync",
+    "code_sample": "game.Players:CreateHumanoidModelFromUserId(1).Parent = game.Workspace"
+  },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId/param/0": {
     "documentation": "A service that contains presently connected <code>Player</code> objects."
   },
@@ -94983,7 +96576,7 @@
     "documentation": "A Humanoid character Model."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId": {
-    "documentation": "Returns a character Model set-up with everything equipped to match the avatar of the user specified by the passed in userId.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns a character Model set-up with everything equipped to match the avatar of the user specified by the passed in userId.",
     "params": [
       {
         "name": "self",
@@ -95108,6 +96701,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#GetFriendsAsync",
     "code_sample": ""
   },
+  "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitIdAsync/param/0": {
+    "documentation": "A service that contains presently connected <code>Player</code> objects."
+  },
+  "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitIdAsync/param/1": {
+    "documentation": "The ID of the outfit for which the HumanoidDescription is sought."
+  },
+  "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitIdAsync/return/0": {
+    "documentation": "HumanoidDescription initialized with the specification for the passed in outfitId."
+  },
+  "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitIdAsync": {
+    "documentation": "Returns the HumanoidDescription for a specified outfit, which will be set with the parts/colors/Animations etc of the outfit.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitIdAsync/param/0"
+      },
+      {
+        "name": "outfitId",
+        "documentation": "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitIdAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitIdAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#GetHumanoidDescriptionFromOutfitIdAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitId/param/0": {
     "documentation": "A service that contains presently connected <code>Player</code> objects."
   },
@@ -95118,7 +96738,7 @@
     "documentation": "HumanoidDescription initialized with the specification for the passed in outfitId."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitId": {
-    "documentation": "Returns the HumanoidDescription for a specified outfit, which will be set with the parts/colors/Animations etc of the outfit.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns the HumanoidDescription for a specified outfit, which will be set with the parts/colors/Animations etc of the outfit.",
     "params": [
       {
         "name": "self",
@@ -95135,6 +96755,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#GetHumanoidDescriptionFromOutfitId",
     "code_sample": ""
   },
+  "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync/param/0": {
+    "documentation": "A service that contains presently connected <code>Player</code> objects."
+  },
+  "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync/param/1": {
+    "documentation": "The userId for a Roblox user. (The UserId is the number in the profile of the user e.g www.roblox.com/users/1/profile)."
+  },
+  "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync/return/0": {
+    "documentation": "HumanoidDescription initialized with the passed in user's avatar specification."
+  },
+  "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync": {
+    "documentation": "Returns a HumanoidDescription which specifies everything equipped for the avatar of the user specified by the passed in userId.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync/param/0"
+      },
+      {
+        "name": "userId",
+        "documentation": "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#GetHumanoidDescriptionFromUserIdAsync",
+    "code_sample": "game.Players:CreateHumanoidModelFromDescription(\n\tgame.Players:GetHumanoidDescriptionFromUserId(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
+  },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId/param/0": {
     "documentation": "A service that contains presently connected <code>Player</code> objects."
   },
@@ -95145,7 +96792,7 @@
     "documentation": "HumanoidDescription initialized with the passed in user's avatar specification."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId": {
-    "documentation": "Returns a HumanoidDescription which specifies everything equipped for the avatar of the user specified by the passed in userId.",
+    "documentation": "<strong>Deprecated:</strong> <br>Returns a HumanoidDescription which specifies everything equipped for the avatar of the user specified by the passed in userId.",
     "params": [
       {
         "name": "self",
@@ -96871,16 +98518,24 @@
     "keys": {
       "CelestialBodiesShown": "@roblox/globaltype/Sky.CelestialBodiesShown",
       "MoonAngularSize": "@roblox/globaltype/Sky.MoonAngularSize",
+      "MoonTextureContent": "@roblox/globaltype/Sky.MoonTextureContent",
       "MoonTextureId": "@roblox/globaltype/Sky.MoonTextureId",
+      "SkyboxBackContent": "@roblox/globaltype/Sky.SkyboxBackContent",
       "SkyboxBk": "@roblox/globaltype/Sky.SkyboxBk",
       "SkyboxDn": "@roblox/globaltype/Sky.SkyboxDn",
+      "SkyboxDownContent": "@roblox/globaltype/Sky.SkyboxDownContent",
+      "SkyboxFrontContent": "@roblox/globaltype/Sky.SkyboxFrontContent",
       "SkyboxFt": "@roblox/globaltype/Sky.SkyboxFt",
+      "SkyboxLeftContent": "@roblox/globaltype/Sky.SkyboxLeftContent",
       "SkyboxLf": "@roblox/globaltype/Sky.SkyboxLf",
       "SkyboxOrientation": "@roblox/globaltype/Sky.SkyboxOrientation",
+      "SkyboxRightContent": "@roblox/globaltype/Sky.SkyboxRightContent",
       "SkyboxRt": "@roblox/globaltype/Sky.SkyboxRt",
       "SkyboxUp": "@roblox/globaltype/Sky.SkyboxUp",
+      "SkyboxUpContent": "@roblox/globaltype/Sky.SkyboxUpContent",
       "StarCount": "@roblox/globaltype/Sky.StarCount",
       "SunAngularSize": "@roblox/globaltype/Sky.SunAngularSize",
+      "SunTextureContent": "@roblox/globaltype/Sky.SunTextureContent",
       "SunTextureId": "@roblox/globaltype/Sky.SunTextureId"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky",
@@ -96896,9 +98551,19 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#MoonAngularSize",
     "code_sample": ""
   },
+  "@roblox/globaltype/Sky.MoonTextureContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#MoonTextureContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Sky.MoonTextureId": {
     "documentation": "The texture of the moon while using this skybox.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#MoonTextureId",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Sky.SkyboxBackContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SkyboxBackContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Sky.SkyboxBk": {
@@ -96911,9 +98576,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SkyboxDn",
     "code_sample": ""
   },
+  "@roblox/globaltype/Sky.SkyboxDownContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SkyboxDownContent",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Sky.SkyboxFrontContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SkyboxFrontContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Sky.SkyboxFt": {
     "documentation": "Asset ID for the front surface of the skybox.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SkyboxFt",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Sky.SkyboxLeftContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SkyboxLeftContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Sky.SkyboxLf": {
@@ -96926,6 +98606,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SkyboxOrientation",
     "code_sample": ""
   },
+  "@roblox/globaltype/Sky.SkyboxRightContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SkyboxRightContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Sky.SkyboxRt": {
     "documentation": "Asset ID for the right surface of the skybox.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SkyboxRt",
@@ -96936,6 +98621,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SkyboxUp",
     "code_sample": ""
   },
+  "@roblox/globaltype/Sky.SkyboxUpContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SkyboxUpContent",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Sky.StarCount": {
     "documentation": "How many stars are shown in the skybox.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#StarCount",
@@ -96944,6 +98634,11 @@
   "@roblox/globaltype/Sky.SunAngularSize": {
     "documentation": "The perceived angular size of the sun while using this skybox, in degrees.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SunAngularSize",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/Sky.SunTextureContent": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sky#SunTextureContent",
     "code_sample": ""
   },
   "@roblox/globaltype/Sky.SunTextureId": {
@@ -98300,6 +99995,7 @@
       "HideSelfView": "@roblox/globaltype/SocialService.HideSelfView",
       "PromptFeedbackSubmissionAsync": "@roblox/globaltype/SocialService.PromptFeedbackSubmissionAsync",
       "PromptGameInvite": "@roblox/globaltype/SocialService.PromptGameInvite",
+      "PromptLinkSharingAsync": "@roblox/globaltype/SocialService.PromptLinkSharingAsync",
       "PromptLinkSharing": "@roblox/globaltype/SocialService.PromptLinkSharing",
       "PromptPhoneBook": "@roblox/globaltype/SocialService.PromptPhoneBook",
       "PromptRsvpToEventAsync": "@roblox/globaltype/SocialService.PromptRsvpToEventAsync",
@@ -98557,6 +100253,40 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#PromptGameInvite",
     "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- Function to check whether the player can send an invite\nlocal function canSendGameInvite(sendingPlayer)\n\tlocal success, canSend = pcall(function()\n\t\treturn SocialService:CanSendGameInviteAsync(sendingPlayer)\n\tend)\n\treturn success and canSend\nend\n\nlocal canInvite = canSendGameInvite(player)\nif canInvite then\n\tSocialService:PromptGameInvite(player)\nend"
   },
+  "@roblox/globaltype/SocialService.PromptLinkSharingAsync/param/0": {
+    "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
+  },
+  "@roblox/globaltype/SocialService.PromptLinkSharingAsync/param/1": {
+    "documentation": "Prompts the given <code>Player</code> with a Roblox platform-level share sheet with a generated share link."
+  },
+  "@roblox/globaltype/SocialService.PromptLinkSharingAsync/param/2": {
+    "documentation": "<code>Dictionary</code> that specifies the configuration for the generated link. It includes the following optional key-value pairs: <ul> <li><code>FallbackLinkId</code> (string). Determines how this share link will   direct player to once expired. Default to experience join link.</li> <li><code>ExpirationSeconds</code> (number). Determines time to expiration once the   share link is created. Truncates to nearest integer. Defaults to   86,400.</li> <li><code>PreviewTitle</code> (string) Preview title of the share link.</li> <li><code>PreviewDescription</code> (string) Preview description of the share link.</li> <li><code>PreviewAssetId</code> (number) Image asset ID used for share link   preview.</li> <li><code>LaunchData</code> (string). Used to set a parameter in   <code>Player:GetJoinData()</code> when a player joined using the   generated share link.</li> </ul>"
+  },
+  "@roblox/globaltype/SocialService.PromptLinkSharingAsync/return/0": {
+    "documentation": "A tuple containing an <code>PromptLinkSharingResult</code> indicating the result of the link sharing prompt."
+  },
+  "@roblox/globaltype/SocialService.PromptLinkSharingAsync": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/SocialService.PromptLinkSharingAsync/param/0"
+      },
+      {
+        "name": "player",
+        "documentation": "@roblox/globaltype/SocialService.PromptLinkSharingAsync/param/1"
+      },
+      {
+        "name": "options",
+        "documentation": "@roblox/globaltype/SocialService.PromptLinkSharingAsync/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/SocialService.PromptLinkSharingAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#PromptLinkSharingAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SocialService.PromptLinkSharing/param/0": {
     "documentation": "Facilitates social functions that impact relationships made on the Roblox platform."
   },
@@ -98570,7 +100300,7 @@
     "documentation": "A tuple containing an <code>PromptLinkSharingResult</code> indicating the result of the link sharing prompt."
   },
   "@roblox/globaltype/SocialService.PromptLinkSharing": {
-    "documentation": "",
+    "documentation": "<strong>Deprecated:</strong> ",
     "params": [
       {
         "name": "self",
@@ -107075,6 +108805,46 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/EnviromentalPhysicsThrottle",
     "code_sample": ""
   },
+  "@roblox/enum/PredictionStatus.Authoritative": {
+    "documentation": "This instance is authoritative.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictionStatus#Authoritative",
+    "code_sample": ""
+  },
+  "@roblox/enum/PredictionStatus.Predicted": {
+    "documentation": "This instance is being predicted.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictionStatus#Predicted",
+    "code_sample": ""
+  },
+  "@roblox/enum/PredictionStatus.None": {
+    "documentation": "The instance will not be resimulated; classic simulation rules apply instead.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictionStatus#None",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PredictionStatus": {
+    "documentation": "Enum used with <code>RunService:GetPredictionStatus()</code> to check the status of a specific instance.",
+    "keys": {
+      "Authoritative": "@roblox/enum/PredictionStatus.Authoritative",
+      "Predicted": "@roblox/enum/PredictionStatus.Predicted",
+      "None": "@roblox/enum/PredictionStatus.None"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictionStatus",
+    "code_sample": ""
+  },
   "@roblox/enum/DataStoreRequestType.GetAsync": {
     "documentation": "Refers to <code>GetAsync()</code> and the read of <code>UpdateAsync()</code>.",
     "keys": {
@@ -107165,6 +108935,86 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DataStoreRequestType#RemoveVersionAsync",
     "code_sample": ""
   },
+  "@roblox/enum/DataStoreRequestType.StandardRead": {
+    "documentation": "This request type is not yet active, <code>GetRequestBudgetForRequestType()</code> with this enum will return <code>0</code>.<br /><br /> Refers to <code>GetAsync()</code>, <code>GetVersionAsync()</code>, <code>GetVersionAtTimeAsync()</code>, and the read of <code>UpdateAsync()</code> for <code>DataStore</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DataStoreRequestType#StandardRead",
+    "code_sample": ""
+  },
+  "@roblox/enum/DataStoreRequestType.StandardWrite": {
+    "documentation": "This request type is not yet active, <code>GetRequestBudgetForRequestType()</code> with this enum will return <code>0</code>.<br /><br /> Refers to <code>SetAsync()</code>, <code>IncrementAsync()</code>, and the write of <code>UpdateAsync()</code> for <code>DataStore</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DataStoreRequestType#StandardWrite",
+    "code_sample": ""
+  },
+  "@roblox/enum/DataStoreRequestType.StandardList": {
+    "documentation": "This request type is not yet active, <code>GetRequestBudgetForRequestType()</code> with this enum will return <code>0</code>.<br /><br /> Refers to <code>ListDataStoresAsync()</code>, and <code>ListKeysAsync()</code> and <code>ListVersionsAsync()</code> for <code>DataStore</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DataStoreRequestType#StandardList",
+    "code_sample": ""
+  },
+  "@roblox/enum/DataStoreRequestType.StandardRemove": {
+    "documentation": "This request type is not yet active, <code>GetRequestBudgetForRequestType()</code> with this enum will return <code>0</code>.<br /><br /> Refers to <code>RemoveAsync()</code> for <code>DataStore</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DataStoreRequestType#StandardRemove",
+    "code_sample": ""
+  },
+  "@roblox/enum/DataStoreRequestType.OrderedRead": {
+    "documentation": "This request type is not yet active, <code>GetRequestBudgetForRequestType()</code> with this enum will return <code>0</code>.<br /><br /> Refers to <code>GetAsync()</code> and the read of <code>UpdateAsync()</code> for <code>OrderedDataStore</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DataStoreRequestType#OrderedRead",
+    "code_sample": ""
+  },
+  "@roblox/enum/DataStoreRequestType.OrderedWrite": {
+    "documentation": "This request type is not yet active, <code>GetRequestBudgetForRequestType()</code> with this enum will return <code>0</code>.<br /><br /> Refers to <code>SetAsync()</code>, <code>IncrementAsync()</code>, and the write of <code>UpdateAsync()</code> for <code>OrderedDataStore</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DataStoreRequestType#OrderedWrite",
+    "code_sample": ""
+  },
+  "@roblox/enum/DataStoreRequestType.OrderedList": {
+    "documentation": "This request type is not yet active, <code>GetRequestBudgetForRequestType()</code> with this enum will return <code>0</code>.<br /><br /> Refers to <code>GetSortedAsync()</code> for <code>OrderedDataStore</code>. GetRequestBudgetForRequestType()<code>with this enum will return</code>0`.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DataStoreRequestType#OrderedList",
+    "code_sample": ""
+  },
+  "@roblox/enum/DataStoreRequestType.OrderedRemove": {
+    "documentation": "This request type is not yet active, <code>GetRequestBudgetForRequestType()</code> with this enum will return <code>0</code>.<br /><br /> Refers to <code>RemoveAsync()</code> for <code>OrderedDataStore</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DataStoreRequestType#OrderedRemove",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.DataStoreRequestType": {
     "documentation": "Indicates the type of data store request being made.",
     "keys": {
@@ -107176,7 +109026,15 @@
       "OnUpdate": "@roblox/enum/DataStoreRequestType.OnUpdate",
       "ListAsync": "@roblox/enum/DataStoreRequestType.ListAsync",
       "GetVersionAsync": "@roblox/enum/DataStoreRequestType.GetVersionAsync",
-      "RemoveVersionAsync": "@roblox/enum/DataStoreRequestType.RemoveVersionAsync"
+      "RemoveVersionAsync": "@roblox/enum/DataStoreRequestType.RemoveVersionAsync",
+      "StandardRead": "@roblox/enum/DataStoreRequestType.StandardRead",
+      "StandardWrite": "@roblox/enum/DataStoreRequestType.StandardWrite",
+      "StandardList": "@roblox/enum/DataStoreRequestType.StandardList",
+      "StandardRemove": "@roblox/enum/DataStoreRequestType.StandardRemove",
+      "OrderedRead": "@roblox/enum/DataStoreRequestType.OrderedRead",
+      "OrderedWrite": "@roblox/enum/DataStoreRequestType.OrderedWrite",
+      "OrderedList": "@roblox/enum/DataStoreRequestType.OrderedList",
+      "OrderedRemove": "@roblox/enum/DataStoreRequestType.OrderedRemove"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/DataStoreRequestType",
     "code_sample": ""
@@ -114043,6 +115901,79 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StudioStyleGuideColor",
     "code_sample": ""
   },
+  "@roblox/enum/StepFrequency.Hz60": {
+    "documentation": "The bound function is called at 60 Hz.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StepFrequency#Hz60",
+    "code_sample": ""
+  },
+  "@roblox/enum/StepFrequency.Hz30": {
+    "documentation": "The bound function is called at 30 Hz.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StepFrequency#Hz30",
+    "code_sample": ""
+  },
+  "@roblox/enum/StepFrequency.Hz15": {
+    "documentation": "The bound function is called at 15 Hz.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StepFrequency#Hz15",
+    "code_sample": ""
+  },
+  "@roblox/enum/StepFrequency.Hz10": {
+    "documentation": "The bound function is called at 10 Hz.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StepFrequency#Hz10",
+    "code_sample": ""
+  },
+  "@roblox/enum/StepFrequency.Hz5": {
+    "documentation": "The bound function is called at 5 Hz.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StepFrequency#Hz5",
+    "code_sample": ""
+  },
+  "@roblox/enum/StepFrequency.Hz1": {
+    "documentation": "The bound function is called at 1 Hz.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StepFrequency#Hz1",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.StepFrequency": {
+    "documentation": "Enum used with <code>RunService:BindToSimulation()</code> to indicate the frequency at which the bound function is called.",
+    "keys": {
+      "Hz60": "@roblox/enum/StepFrequency.Hz60",
+      "Hz30": "@roblox/enum/StepFrequency.Hz30",
+      "Hz15": "@roblox/enum/StepFrequency.Hz15",
+      "Hz10": "@roblox/enum/StepFrequency.Hz10",
+      "Hz5": "@roblox/enum/StepFrequency.Hz5",
+      "Hz1": "@roblox/enum/StepFrequency.Hz1"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/StepFrequency",
+    "code_sample": ""
+  },
   "@roblox/enum/AdUnitStatus.Inactive": {
     "documentation": "The ad unit isn't currently serving an ad and it may be configured incorrectly. An <code>AdGui</code> with this status will display its fallback image.",
     "keys": {
@@ -117204,7 +119135,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AuthorityMode.Server": {
-    "documentation": "",
+    "documentation": "Server authority with client side prediction and rollback enabled.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117214,7 +119145,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AuthorityMode.Automatic": {
-    "documentation": "",
+    "documentation": "Traditional distributed authority model where, for each instance, the engine decides whether the server or a client should be the authority; <code>BasePart:SetNetworkOwner()</code> can be used to influence the decision.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -117224,7 +119155,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AuthorityMode": {
-    "documentation": "",
+    "documentation": "Enum used with <code>Workspace.AuthorityMode</code>.",
     "keys": {
       "Server": "@roblox/enum/AuthorityMode.Server",
       "Automatic": "@roblox/enum/AuthorityMode.Automatic"
@@ -135681,6 +137612,46 @@
       "Error": "@roblox/enum/FacialAgeEstimationResultType.Error"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/FacialAgeEstimationResultType",
+    "code_sample": ""
+  },
+  "@roblox/enum/PredictionMode.Automatic": {
+    "documentation": "The engine will automatically decide if this instance should be predicted or not. Currently, only <code>BaseParts</code> near the local player character's <code>Humanoid</code> will be predicted within a dynamic radius that grows and shrinks based on the device's capability to handle the simulation load.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictionMode#Automatic",
+    "code_sample": ""
+  },
+  "@roblox/enum/PredictionMode.On": {
+    "documentation": "The instance will be predicted. Mismatches in the attributes of this instance between the client and server will cause a rollback and resimulation. If the instance is a <code>BasePart</code>, its physics properties will be predicted ahead of the replicated authoritative server state.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictionMode#On",
+    "code_sample": ""
+  },
+  "@roblox/enum/PredictionMode.Off": {
+    "documentation": "The instance will <strong>not</strong> be predicted. Regular network ownership semantics apply.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictionMode#Off",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.PredictionMode": {
+    "documentation": "Enum used with <code>RunService:SetPredictionMode()</code> to define the prediction mode for the instance.",
+    "keys": {
+      "Automatic": "@roblox/enum/PredictionMode.Automatic",
+      "On": "@roblox/enum/PredictionMode.On",
+      "Off": "@roblox/enum/PredictionMode.Off"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/PredictionMode",
     "code_sample": ""
   },
   "@roblox/enum/ReadCapturesFromGalleryResult.Success": {
