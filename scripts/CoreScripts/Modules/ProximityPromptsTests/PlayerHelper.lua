@@ -26,10 +26,8 @@ function PlayerHelper.Init()
 	PlayerHelper.player = player -- This local player
 	
 	if player.Character == nil and RunService:IsServer() then
-		-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
-		-- Will be removed when that PR is merged.
 		if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-			(player :: any):LoadCharacterAsync()
+			player:LoadCharacterAsync()
 		else
 			(player :: any):LoadCharacter()
 		end

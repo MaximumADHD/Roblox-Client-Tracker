@@ -165,12 +165,12 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 
 	local snapValueToPosition = React.useCallback(function(value: number)
 		return snapValueToPixels(value) + safeAreaPadding
-	end, { safeAreaPadding :: unknown, snapValueToPixels })
+	end, { safeAreaPadding, snapValueToPixels } :: { unknown })
 
 	local springToSnapIndex = React.useCallback(function(index: number)
 		currentSnapIndex.current = index
 		startSpringSimulation(snapValueToPosition(snapPoints[index]))
-	end, { snapValueToPosition :: unknown, snapPoints })
+	end, { snapValueToPosition, snapPoints } :: { unknown })
 
 	local closeSheet = React.useCallback(function()
 		if isClosing.current then
@@ -193,7 +193,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 		elseif scrollVelocity.current < 0 and isAtMaxOfOuterScroll then
 			setInnerScrollingEnabled(true)
 		end
-	end, { maxSheetHeight, safeAreaPadding })
+	end, { maxSheetHeight, safeAreaPadding } :: { unknown })
 
 	local snapToClosestSwipeSnapPoint = React.useCallback(function()
 		local vel = scrollVelocity.current
@@ -226,7 +226,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 				springToSnapIndex(target.index)
 			end
 		end
-	end, { snapPoints :: unknown, springToSnapIndex, snapValueToPosition, closeSheet })
+	end, { snapPoints, springToSnapIndex, snapValueToPosition, closeSheet } :: { unknown })
 
 	React.useEffect(function()
 		if overlay then
@@ -245,7 +245,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 		return function()
 			stopSpringSimulation()
 		end
-	end, { overlay :: unknown, snapPoints, props.defaultSnapPointIndex, springToSnapIndex, snapValueToPixels })
+	end, { overlay, snapPoints, props.defaultSnapPointIndex, springToSnapIndex, snapValueToPixels } :: { unknown })
 
 	-- TODO: maybe attach these to the outer scroll view instead of input service (does it make a difference?)
 	-- TODO: create a ScrollingInertia property that can be used instead of touchpan
@@ -285,7 +285,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			inputBeganConnection:Disconnect()
 			inputEndedConnection:Disconnect()
 		end
-	end, { overlay :: unknown, snapToClosestSwipeSnapPoint, updateInnerScrolling, stopSpringSimulation })
+	end, { overlay, snapToClosestSwipeSnapPoint, updateInnerScrolling, stopSpringSimulation } :: { unknown })
 
 	local innerSurface, setInnerSurface = React.useState(nil :: Frame?)
 	local composedRef = ReactUtils.useComposedRef(ref, setInnerSurface)
@@ -319,7 +319,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			innerSurface = innerSurface,
 			testId = props.testId,
 		}
-	end, { props.testId :: unknown, closeSheet, safeAreaPadding, updateInnerScrolling, innerSurface })
+	end, { props.testId, closeSheet, safeAreaPadding, updateInnerScrolling, innerSurface } :: { unknown })
 
 	return overlay
 		and ReactRoblox.createPortal(

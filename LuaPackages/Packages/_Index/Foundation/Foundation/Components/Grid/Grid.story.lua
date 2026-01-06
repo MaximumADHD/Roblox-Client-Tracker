@@ -372,7 +372,7 @@ return {
 				}, {
 					Left = React.createElement(View, {
 						tag = "col flex-y-fill items-stretch auto-y",
-						Size = UDim2.new(0.666, 0, 1, 0),
+						Size = UDim2.fromScale(0.666, 1),
 					}, {
 						ChildL1 = (function()
 							local grid = React.createElement(Grid, {
@@ -402,7 +402,7 @@ return {
 					}),
 					Right = React.createElement(View, {
 						tag = "col flex-y-fill auto-y",
-						Size = UDim2.new(0.333, 0, 1, 0),
+						Size = UDim2.fromScale(0.333, 1),
 					}, {
 						ChildR1 = (function()
 							local grid = React.createElement(Grid, {

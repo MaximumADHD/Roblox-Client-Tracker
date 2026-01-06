@@ -4,7 +4,6 @@ local Flags = require(Foundation.Utility.Flags)
 
 local React = require(Packages.React)
 local ReactIs = require(Packages.ReactIs)
-local Cryo = require(Packages.Cryo)
 local Dash = require(Packages.Dash)
 
 local Interactable = require(Foundation.Components.Interactable)
@@ -113,7 +112,7 @@ local function Text(textProps: TextProps, ref: React.Ref<GuiObject>?)
 		local heightOffset = rawTextSize * rawLineHeight - props.fontStyle.FontSize
 		local paddingOffset = heightOffset / 2
 		return paddingOffset
-	end, { fontFace :: any, props.fontStyle })
+	end, { fontFace, props.fontStyle } :: { unknown })
 
 	-- Only set line height padding if it's not already set to mimic styling behavior
 	if props.padding == nil and lineHeightPaddingOffset ~= 0 then
@@ -154,9 +153,7 @@ local function Text(textProps: TextProps, ref: React.Ref<GuiObject>?)
 		cursor = props.cursor,
 	}
 	local componentProps = if isInteractable
-		then if Flags.FoundationMigrateCryoToDash
-			then Dash.union(engineComponentProps, textComponentProps)
-			else Cryo.Dictionary.union(engineComponentProps, textComponentProps)
+		then Dash.union(engineComponentProps, textComponentProps)
 		else engineComponentProps
 
 	return React.createElement(component, componentProps, GuiObjectChildren(props))

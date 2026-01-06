@@ -25,7 +25,7 @@ export type InputLabelProps = {
 	-- Whether the input is required or not. Leave nil for the majority case
 	isRequired: boolean?,
 	-- Size of the input label
-	size: InputLabelSize,
+	size: InputLabelSize?,
 	-- Callback for when the input label is activated.
 	-- This should trigger the activation of the associated input button.
 	onActivated: () -> ()?,
@@ -49,6 +49,7 @@ local function labelText(text: string, isRequired: boolean?): string
 end
 
 local defaultProps = {
+	size = InputLabelSize.Medium :: InputLabelSize,
 	testId = "--foundation-input-label",
 }
 

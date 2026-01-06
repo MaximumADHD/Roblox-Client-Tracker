@@ -60,7 +60,7 @@ local function CloseAffordance(closeAffordanceProps: CloseAffordanceProps, ref: 
 			offset = tokens.Size.Size_150,
 			borderWidth = tokens.Stroke.Thicker,
 		}
-	end, { tokens :: unknown, componentRadius })
+	end, { tokens, componentRadius } :: { unknown })
 
 	return React.createElement(
 		View,

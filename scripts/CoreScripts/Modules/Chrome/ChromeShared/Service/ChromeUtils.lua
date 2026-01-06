@@ -5,7 +5,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
 
-local FFlagChromeUsePolicies = SharedFlags.FFlagChromeUsePolicies
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
 local AvailabilitySignalState = {
 	Unavailable = 0,
@@ -33,7 +33,7 @@ AvailabilitySignal.__index = AvailabilitySignal
 function AvailabilitySignal.new(initialAvailability: number): AvailabilitySignal
 	local self = {
 		_state = (initialAvailability or AvailabilitySignalState.Unavailable) :: number,
-		_forceUnavailable = if FFlagChromeUsePolicies then false else nil :: never,
+		_forceUnavailable = if FFlagEnableConsoleExpControls then false else nil :: never,
 		_changeSignal = Signal.new(),
 	}
 	return (setmetatable(self, AvailabilitySignal) :: any) :: AvailabilitySignal
@@ -46,14 +46,14 @@ end
 function AvailabilitySignal:set(newState: number)
 	if self._state ~= newState then
 		self._state = newState
-		if not (FFlagChromeUsePolicies and self._forceUnavailable) then
+		if not (FFlagEnableConsoleExpControls and self._forceUnavailable) then
 			self._changeSignal:fire(newState :: any?)
 		end
 	end
 end
 
 function AvailabilitySignal:get(): number
-	if FFlagChromeUsePolicies and self._forceUnavailable then
+	if FFlagEnableConsoleExpControls and self._forceUnavailable then
 		return AvailabilitySignalState.Unavailable
 	else
 		return self._state
@@ -77,7 +77,7 @@ function AvailabilitySignal:pinned()
 end
 
 function AvailabilitySignal:forceUnavailable()
-	if FFlagChromeUsePolicies and not self._forceUnavailable then
+	if FFlagEnableConsoleExpControls and not self._forceUnavailable then
 		self._forceUnavailable = true
 
 		if self._state ~= AvailabilitySignalState.Unavailable then
@@ -87,7 +87,7 @@ function AvailabilitySignal:forceUnavailable()
 end
 
 function AvailabilitySignal:unforceUnavailable()
-	if FFlagChromeUsePolicies and self._forceUnavailable then
+	if FFlagEnableConsoleExpControls and self._forceUnavailable then
 		self._forceUnavailable = false
 
 		if self._state ~= AvailabilitySignalState.Unavailable then

@@ -13,8 +13,6 @@ local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
 local Constants = require(VRRoot.Constants)
 
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
-
 type VRControllerModel = {
 	update: () -> (),
 	setEnabled: (enabled: boolean) -> (),
@@ -80,11 +78,7 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 	local VREnabledCallback = React.useCallback(function()
 		if not LaserPointer.current then
 			LaserPointer.current = LaserPointerComponent.new()
-			if UIBloxConfig.enableBetterLaserPointerMode then
-				setLaserPointerModeBasedOnUserCFrame(LaserPointer, VRService)
-			else
-				LaserPointer.current:setMode(LaserPointer.current.Mode["DualPointer"])
-			end
+			setLaserPointerModeBasedOnUserCFrame(LaserPointer, VRService)
 			LaserPointer.current:setEnableAmbidexterousPointer(true)
 			LeftControllerModel.current = VRControllerModel.new(Enum.UserCFrame.LeftHand)
 			RightControllerModel.current = VRControllerModel.new(Enum.UserCFrame.RightHand)
@@ -112,11 +106,7 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 			RightControllerModel.current:setEnabled(false)
 		end
 		if LaserPointer.current then
-			if UIBloxConfig.fixLaserPointerDisable then
-				LaserPointer.current:disableComponent()
-			else
-				LaserPointer.current:setMode(LaserPointer.current.Mode["Disabled"])
-			end
+			LaserPointer.current:disableComponent()
 		end
 		ContextActionService:UnbindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonA)
 		ContextActionService:UnbindActivate(Enum.UserInputType.Gamepad1, Enum.KeyCode.ButtonR2)
@@ -129,11 +119,7 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 		)
 		if LaserPointer.current then
 			if overlayEnabled then
-				if UIBloxConfig.enableBetterLaserPointerMode then
-					setLaserPointerModeBasedOnUserCFrame(LaserPointer, VRService)
-				else
-					LaserPointer.current:setMode(LaserPointer.current.Mode["DualPointer"])
-				end
+				setLaserPointerModeBasedOnUserCFrame(LaserPointer, VRService)
 			else
 				LaserPointer.current:setMode(LaserPointer.current.Mode["Disabled"])
 			end
@@ -179,12 +165,10 @@ local function PointerOverlay(providedProps: PointerOverlayProps)
 			event = VRService:GetPropertyChangedSignal("VREnabled"),
 			callback = VREnabledCallback,
 		}),
-		VRUserCFrameEnabledConnection = if UIBloxConfig.enableBetterLaserPointerMode
-			then React.createElement(EventConnection, {
-				event = VRService.UserCFrameEnabled,
-				callback = VRUserCFrameEnabledCallback,
-			})
-			else nil,
+		VRUserCFrameEnabledConnection = React.createElement(EventConnection, {
+			event = VRService.UserCFrameEnabled,
+			callback = VRUserCFrameEnabledCallback,
+		}),
 		VRSessionStateConnection = if vrSessionStateAvailable
 			then React.createElement(EventConnection, {
 				event = vrSessionStateSignal,

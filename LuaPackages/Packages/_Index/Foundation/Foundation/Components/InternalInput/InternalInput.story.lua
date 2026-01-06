@@ -37,13 +37,13 @@ local function Story(props)
 			customVariantProps = if Flags.FoundationToggleVisualUpdate
 				then {
 					tag = "row gap-small align-x-center align-y-center",
-					size = UDim2.new(0, 200, 0, 50),
+					size = UDim2.fromOffset(200, 50),
 					cursorRadius = UDim.new(0, 8),
 					colors = { checkedStyle = tokens.Color.System[controls.checkedStyle] },
 				}
 				else {
 					tag = "row gap-small align-x-center align-y-center",
-					size = UDim2.new(0, 200, 0, 50),
+					size = UDim2.fromOffset(200, 50),
 					cursorRadius = UDim.new(0, 8),
 					checkedStyle = tokens.Color.System[controls.checkedStyle],
 				},

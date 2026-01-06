@@ -1,10 +1,6 @@
 --!strict
-local CorePackages = game:GetService("CorePackages")
 local CollectionService = game:GetService("CollectionService")
 local FFlagSelfViewAvatarJointUpgrade = game:DefineFastFlag("SelfViewAvatarJointUpgrade", false)
-local GetFFlagSelfieViewFixMigration = require(script.Parent.Parent.Flags.GetFFlagSelfieViewFixMigration)
-local GetFFlagSelfieViewMoreFixMigration =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfieViewMoreFixMigration
 
 --we want to trigger UpdateClone which recreates the clone fresh as rarely as possible (performance optimization),
 --so for triggering dirty on DescendantAdded or DescendantRemoving we only trigger it for things which make a visual difference
@@ -58,19 +54,13 @@ local function getNeck(character: Model, head: MeshPart): Motor6D?
 end
 
 local function findObjectOfNameAndTypeName(name: string, typeName: string, character: Model): any
-	if GetFFlagSelfieViewMoreFixMigration() and character == nil then
+	if character == nil then
 		return nil
 	end
 	local descendants = character:GetDescendants()
 	for _, child in descendants do
-		if GetFFlagSelfieViewMoreFixMigration() then
-			if child:IsA(typeName) and child.Name == name then
-				return child
-			end
-		else
-			if child.Name == name and child:IsA(typeName) then
-				return child
-			end
+		if child:IsA(typeName) and child.Name == name then
+			return child
 		end
 	end
 	return nil
@@ -86,14 +76,10 @@ local function getHead(character: Model): MeshPart?
 	--lookup for dynamic heads
 	local faceControls: FaceControls? = getFaceControls(character)
 	if faceControls ~= nil then
-		if GetFFlagSelfieViewFixMigration() then
-			if faceControls.Parent then
-				if faceControls.Parent.ClassName == "MeshPart" or faceControls.Parent.ClassName == "Part" then
-					head = faceControls.Parent :: MeshPart
-				end
+		if faceControls.Parent then
+			if faceControls.Parent.ClassName == "MeshPart" or faceControls.Parent.ClassName == "Part" then
+				head = faceControls.Parent :: MeshPart
 			end
-		else
-			head = faceControls.Parent :: MeshPart
 		end
 	end
 
@@ -118,24 +104,15 @@ local function getAnimator(character: Model, timeOut: number): Animator?
 
 	local humanoid: Humanoid? = nil
 	if timeOut > 0 then
-		if GetFFlagSelfieViewMoreFixMigration() then
-			local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
-			if maybeHumanoid then
-				if maybeHumanoid:IsA("Humanoid") then
-					humanoid = maybeHumanoid
-				else
-					humanoid = character:FindFirstChildWhichIsA("Humanoid")
-				end
-			else
-				humanoid = character:FindFirstChildWhichIsA("Humanoid")
-			end
-		else
-			local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
+		local maybeHumanoid = character:WaitForChild("Humanoid", timeOut)
+		if maybeHumanoid then
 			if maybeHumanoid:IsA("Humanoid") then
 				humanoid = maybeHumanoid
 			else
 				humanoid = character:FindFirstChildWhichIsA("Humanoid")
 			end
+		else
+			humanoid = character:FindFirstChildWhichIsA("Humanoid")
 		end
 	else
 		humanoid = character:FindFirstChildWhichIsA("Humanoid")
@@ -198,11 +175,8 @@ local function updateTransparency(character: Model, partsOrgTransparency: any)
 			if (part.Parent and part.Parent:IsA("Accessory")) or (table.find(r15bodyPartsToShow, part.Name)) then
 				part.Transparency = 0
 			end
-
-			if GetFFlagSelfieViewMoreFixMigration() then
-				if CollectionService:HasTag(part, ALWAYS_TRANSPARENT_PART_TAG) then
-					part.Transparency = 1
-				end
+			if CollectionService:HasTag(part, ALWAYS_TRANSPARENT_PART_TAG) then
+				part.Transparency = 1
 			end
 		end
 	end
@@ -250,12 +224,7 @@ end
 local function removeTags(character: Model)
 	local charactersTags = CollectionService:GetTags(character)
 	for _, v in ipairs(charactersTags) do
-		--log:trace("removing tag:"..v)
-		if GetFFlagSelfieViewFixMigration() then
-			if v ~= "NoFace" then
-				CollectionService:RemoveTag(character, v)
-			end
-		else
+		if v ~= "NoFace" then
 			CollectionService:RemoveTag(character, v)
 		end
 	end
@@ -263,12 +232,7 @@ local function removeTags(character: Model)
 	for _, part in ipairs(character:GetDescendants()) do
 		local descendantTags = CollectionService:GetTags(part)
 		for _, v2 in ipairs(descendantTags) do
-			--log:trace("removing tag2:"..v2)
-			if GetFFlagSelfieViewFixMigration() then
-				if v2 ~= "NoFace" then
-					CollectionService:RemoveTag(part, v2)
-				end
-			else
+			if v2 ~= "NoFace" then
 				CollectionService:RemoveTag(part, v2)
 			end
 		end
@@ -307,9 +271,9 @@ local ALLOWLISTED_INSTANCE_TYPES = {
 	AccessoryWeld = "AccessoryWeld",
 	--PackageLink is here since one can't nill out the parent of a PackageLink
 	PackageLink = "PackageLink",
-	Folder = if GetFFlagSelfieViewFixMigration() then "Folder" else nil,
+	Folder = "Folder",
 	--some games like Winds of Fortune connect things like hair with constraints so we keep those in
-	RigidConstraint = if GetFFlagSelfieViewFixMigration() then "RigidConstraint" else nil,
+	RigidConstraint = "RigidConstraint",
 	WrapTextureTransfer = "WrapTextureTransfer",
 }
 local function disableScripts(instance: Instance)

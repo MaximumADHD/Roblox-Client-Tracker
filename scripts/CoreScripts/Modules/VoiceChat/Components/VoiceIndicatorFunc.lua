@@ -21,17 +21,13 @@ local useSelectionCursor = UIBlox.App.SelectionImage.useSelectionCursor
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
 local useVoiceState = require(RobloxGui.Modules.VoiceChat.Hooks.useVoiceState)
-local Constants = require(RobloxGui.Modules.InGameChat.BubbleChat.Constants)
+local Constants = require(RobloxGui.Modules.VoiceChat.Constants)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
-
-local GetFFlagRemoveInGameChatBubbleChatReferences =
-	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 local FFlagVoiceToggleShowConnectingIconWhenHidden =
 	game:DefineFastFlag("VoiceToggleShowConnectingIconWhenHidden", false)
-
-if GetFFlagRemoveInGameChatBubbleChatReferences() then
-	Constants = require(RobloxGui.Modules.VoiceChat.Constants) :: any
-end
+local FFlagVoiceIndicatorPerformanceOptimizations =
+	game:DefineFastFlag("VoiceIndicatorPerformanceOptimizations", false)
+local FIntMicTalkingUpdateFrequency = game:DefineFastInt("MicTalkingUpdateFrequency", 3)
 
 local DEFAULT_SIZE = UDim2.fromOffset(28, 28)
 
@@ -124,18 +120,43 @@ local function VoiceIndicator(props: VoiceIndicatorProps)
 		return function() end
 	end, { isConnecting, showShimmer })
 
-	React.useEffect(function()
-		if isTalking then
-			RunService:BindToRenderStep(renderStepName, 1, function()
-				setLevel(math.random())
+	if FFlagVoiceIndicatorPerformanceOptimizations then
+		local isTalkingRef = React.useRef(false)
+		isTalkingRef.current = (voiceState == Constants.VOICE_STATE.TALKING) 
+
+		React.useEffect(function()
+			local frameCounter = 0
+
+			RunService:BindToRenderStep("VoiceIndicatorUpdate", 1, function()
+				if not isTalkingRef.current then
+					return
+				end
+
+				frameCounter += 1
+				if frameCounter >= FIntMicTalkingUpdateFrequency then
+					frameCounter = 0
+					setLevel(math.random())
+				end
 			end)
-		end
-		return function()
-			if isTalking then
-				RunService:UnbindFromRenderStep(renderStepName)
+
+			return function()
+				RunService:UnbindFromRenderStep("VoiceIndicatorUpdate")
 			end
-		end
-	end, { isTalking })
+		end, {})
+	else
+		React.useEffect(function()
+			if isTalking then
+				RunService:BindToRenderStep(renderStepName, 1, function()
+					setLevel(math.random())
+				end)
+			end
+			return function()
+				if isTalking then
+					RunService:UnbindFromRenderStep(renderStepName)
+				end
+			end
+		end, { isTalking })
+	end
 
 	local visible = not (props.hideOnError and (not voiceState or HIDE_ON_ERROR_STATES[voiceState]))
 	local imageTransparency = voiceState == Constants.VOICE_STATE.LOCAL_MUTED and 0.5 or 0

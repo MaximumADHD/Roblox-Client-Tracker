@@ -23,7 +23,6 @@ local IconButton = require(script.Parent.IconButton)
 
 local TopBar = script.Parent.Parent.Parent
 local TopBarAnalytics = require(TopBar.Analytics)
-local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local FFlagEnableTopBarAnalytics = require(TopBar.Flags.GetFFlagEnableTopBarAnalytics)()
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
@@ -131,19 +130,16 @@ function ChatIcon:render()
 				onAreaChanged(self.buttonRef.current)
 			end
 		end
-
-		if FFlagEnableChromeBackwardsSignalAPI then
-			if self.buttonRef.current then
-				onAreaChanged(self.buttonRef.current)
-			end
+		if self.buttonRef.current then
+			onAreaChanged(self.buttonRef.current)
 		end
 
 		local iconButton = Roact.createElement(IconButton, {
 			icon = chatIcon,
 			iconSize = if GetFFlagEnableAppChatInExperience() or FFlagUnibarHoldoutChatIconUseNewIconSize then iconSize else ICON_SIZE,
 			onActivated = self.chatIconActivated,
-			[Roact.Change.AbsoluteSize] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
-			[Roact.Change.AbsolutePosition] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
+			[Roact.Change.AbsoluteSize] = onAreaChanged,
+			[Roact.Change.AbsolutePosition] = onAreaChanged,
 			[Roact.Ref] = setButtonRef,
 		})
 

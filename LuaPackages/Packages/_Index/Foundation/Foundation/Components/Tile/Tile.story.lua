@@ -13,11 +13,9 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local Players = require(Foundation.Utility.Wrappers).Services.Players
-local Flags = require(Foundation.Utility.Flags)
 
 local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
-local Cryo = require(Packages.Cryo)
 local Dash = require(Packages.Dash)
 
 local Tile = require(Foundation.Components.Tile)
@@ -557,16 +555,10 @@ return {
 							},
 							onStateChanged = onStateChanged,
 						}, {
-							PlayerTileButtons = React.createElement(
-								View,
-								{
-									ZIndex = 2,
-									tag = "auto-y size-full-0 row gap-small align-x-right align-y-bottom anchor-bottom-right position-bottom-right",
-								},
-								if Flags.FoundationMigrateCryoToDash
-									then Dash.map(buttons, renderButton)
-									else Cryo.List.map(buttons, renderButton)
-							),
+							PlayerTileButtons = React.createElement(View, {
+								ZIndex = 2,
+								tag = "auto-y size-full-0 row gap-small align-x-right align-y-bottom anchor-bottom-right position-bottom-right",
+							}, Dash.map(buttons, renderButton)),
 						}),
 						TileContent = React.createElement(Tile.Content, {
 							spacing = tokens.Gap.XSmall,
@@ -649,7 +641,7 @@ return {
 				}, {
 					MarketplaceTile = React.createElement(Tile.Root, {
 						FillDirection = Enum.FillDirection.Horizontal,
-						Size = UDim2.new(0, 300, 0, 150),
+						Size = UDim2.fromOffset(300, 150),
 					}, {
 						TileContent = React.createElement(Tile.Content, {
 							spacing = tokens.Gap.XSmall,

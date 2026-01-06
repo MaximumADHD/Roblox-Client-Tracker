@@ -17,7 +17,6 @@ local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local FFlagChatIntegrationFixShortcut = require(Chrome.Flags.FFlagChatIntegrationFixShortcut)
 local FocusSelectExpChat = require(Chrome.ChromeShared.Utility.FocusSelectExpChat)
 local ViewportUtil = require(Chrome.ChromeShared.Service.ViewportUtil)
-local AvailabilitySignalState = ChromeUtils.AvailabilitySignalState
 local MappedSignal = ChromeUtils.MappedSignal
 local GameSettings = UserSettings().GameSettings
 local GuiService = game:GetService("GuiService")
@@ -30,22 +29,19 @@ local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
 local ExpChatFocusNavigationStore = ExpChat.Stores.GetFocusNavigationStore(false)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
-local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagExpChatWindowSyncUnibar = SharedFlags.FFlagExpChatWindowSyncUnibar
 
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
-local getFFlagExpChatGetLabelAndIconFromUtil = SharedFlags.getFFlagExpChatGetLabelAndIconFromUtil
 local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
 local GetFFlagDisableLegacyChatSimpleUnreadMessageCount = SharedFlags.GetFFlagDisableLegacyChatSimpleUnreadMessageCount
 local FFlagExpChatUnibarThumbstickNavigate = game:DefineFastFlag("ExpChatUnibarThumbstickNavigate", false)
 local FFlagExpChatUnibarAvailabilityRefactor = game:DefineFastFlag("ExpChatUnibarAvailabilityRefactor", false)
 local FFlagHideChatButtonForChatDisabledUsers = game:DefineFastFlag("HideChatButtonForChatDisabledUsers", false)
-local FFlagRemoveLegacyChatConsoleCheck = require(Chrome.Flags.FFlagRemoveLegacyChatConsoleCheck)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local InExperienceUIVRIXP = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).InExperienceUIVRIXP
@@ -136,7 +132,7 @@ local dismissCallback = function()
 
 	ChatSelector:SetVisible(true)
 
-	if FFlagConsoleChatOnExpControls then
+	if FFlagEnableConsoleExpControls then
 		FocusSelectExpChat(chatChromeIntegration.id)
 	end
 end
@@ -160,7 +156,7 @@ chatChromeIntegration = ChromeService:register({
 	isActivated = function()
 		return chatVisibilitySignal:get()
 	end,
-	selected = if FFlagConsoleChatOnExpControls
+	selected = if FFlagEnableConsoleExpControls
 		then function(self)
 			if FFlagExpChatUnibarThumbstickNavigate then
 				local connSelectedItem
@@ -208,12 +204,8 @@ chatChromeIntegration = ChromeService:register({
 		else nil,
 	components = {
 		Icon = function(props)
-			if getFFlagExpChatGetLabelAndIconFromUtil() then
-				local visualConfig = getExperienceChatVisualConfig()
-				return CommonIcon(visualConfig.icon.off, visualConfig.icon.on, chatVisibilitySignal)
-			else
-				return CommonIcon("icons/menu/chat_off", "icons/menu/chat_on", chatVisibilitySignal)
-			end
+			local visualConfig = getExperienceChatVisualConfig()
+			return CommonIcon(visualConfig.icon.off, visualConfig.icon.on, chatVisibilitySignal)
 		end,
 	},
 })
@@ -244,7 +236,7 @@ if FFlagExpChatUnibarAvailabilityRefactor then
 	end)
 end
 
-if FFlagChatIntegrationFixShortcut and FFlagEnableChromeShortcutBar then
+if FFlagChatIntegrationFixShortcut and FFlagEnableConsoleExpControls then
 	SignalsRoblox.createDetachedEffect(function(scope)
 		local isChatInputBarFocused = ExpChatFocusNavigationStore.getChatInputBarFocused(scope)
 		if isChatInputBarFocused then
@@ -347,33 +339,6 @@ coroutine.wrap(function()
 		end
 	end
 end)()
-
-if not FFlagRemoveLegacyChatConsoleCheck and FFlagConsoleChatOnExpControls then
-	-- APPEXP-2427: Remove once legacy chat is fully deprecated
-	local function UnavailableNotOnTCSConsole()
-		if not GuiService:IsTenFootInterface() then
-			return
-		end
-
-		local chatIsAvailable = chatChromeIntegration.availability:get() ~= AvailabilitySignalState.Unavailable
-
-		if TextChatService.ChatVersion ~= Enum.ChatVersion.TextChatService and chatIsAvailable then
-			if FFlagExpChatUnibarAvailabilityRefactor then
-				ChatIconVisibleSignals.setForceDisableForConsoleUsecase(true)
-			else
-				chatChromeIntegration.availability:unavailable()
-			end
-		end
-	end
-
-	if game:IsLoaded() then
-		UnavailableNotOnTCSConsole()
-	else
-		game.Loaded:Connect(function()
-			UnavailableNotOnTCSConsole()
-		end)
-	end
-end
 
 -- dev test code
 function _simulateChat()

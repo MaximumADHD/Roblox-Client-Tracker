@@ -1,3 +1,4 @@
+--!nolint LocalUnused
 -- add a shimmer effect to the parent GuiObject on CoreGui
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")

@@ -24,6 +24,7 @@ local getFFlagDebugUGCValidationPrintNewStructureResults =
 	require(root.flags.getFFlagDebugUGCValidationPrintNewStructureResults)
 local TelemetryService = game:GetService("TelemetryService")
 game:DefineFastInt("SingleValidationTelemetryThrottleHundrethsPercent", 10000)
+local verifySummaryFormat = require(root.util.verifySummaryFormat)
 
 local telemetryConfig = {
 	eventName = "UgcSingleValidationFinished",
@@ -55,6 +56,32 @@ local function reportSingleResult(
 	TelemetryService:LogEvent(telemetryConfig, { customFields = telemetryResult })
 end
 
+local function requiredDataInSharedData(
+	validationModule: Types.PreloadedValidationModule,
+	sharedData: Types.SharedData
+): (boolean, string?)
+	for _, reqData in validationModule.requiredData do
+		if sharedData[reqData] == nil or sharedData[reqData] == FetchAllDesiredData.DATA_FETCH_FAILURE then
+			return false, "Missing required data " .. reqData
+		end
+	end
+
+	if next(validationModule.requiredAqsReturnSchema) ~= nil then
+		local summary = sharedData.aqsSummaryData
+		if summary then
+			for reqDataName, reqDataFormat in validationModule.requiredAqsReturnSchema do
+				if not verifySummaryFormat(summary[reqDataName], reqDataFormat) then
+					return false, "AQS schema does not match expectations"
+				end
+			end
+		else
+			return false, "AQS fetch failed"
+		end
+	end
+
+	return true
+end
+
 local function ValidationTestWrapper(
 	testEnum: string,
 	sharedData: Types.SharedData,
@@ -63,44 +90,45 @@ local function ValidationTestWrapper(
 	-- First ensure we can start the test
 	local validationModule: Types.PreloadedValidationModule = ValidationModuleLoader.getValidationModule(testEnum)
 
-	for _, reqData in validationModule.required_data do
-		if sharedData[reqData] == nil or sharedData[reqData] == FetchAllDesiredData.DATA_FETCH_FAILURE then
-			reportSingleResult(testEnum, sharedData, ValidationEnums.Status.CANNOT_START, "", 0)
-			return {
-				status = ValidationEnums.Status.CANNOT_START,
-				errorTranslationContexts = {},
-				internalData = {},
-			}
-		end
-	end
-
-	for _, reqTest in validationModule.prereq_tests do
+	for _, reqTest in validationModule.prereqTests do
 		if testStates[reqTest] ~= ValidationEnums.Status.PASS then
-			reportSingleResult(testEnum, sharedData, ValidationEnums.Status.CANNOT_START, "", 0)
-			return {
+			local data = {
+				validationEnum = testEnum,
 				status = ValidationEnums.Status.CANNOT_START,
 				errorTranslationContexts = {},
 				internalData = {},
+				duration = 0,
+				telemetryContext = "Failed prereq",
 			}
+			reportSingleResult(testEnum, sharedData, data.status, data.telemetryContext, data.duration)
+			return data
 		end
 	end
 
-	-- run test
+	local dataFound, dataIssues = requiredDataInSharedData(validationModule, sharedData)
 	local reporter = ValidationReporter.new(testEnum) :: any
-	local success, issues = pcall(function() -- TODO: Add timeout
-		validationModule.run(reporter, sharedData)
-	end)
-
-	if not success then
-		if getFFlagDebugUGCValidationPrintNewStructureResults() then
-			print("Validation error:", issues)
-			print("As this is in debug mode, we will re-call the function for a full error trace: ")
+	if dataFound then
+		local success, issues = pcall(function()
 			validationModule.run(reporter, sharedData)
+		end)
+
+		if not success then
+			if getFFlagDebugUGCValidationPrintNewStructureResults() then
+				print("Validation error:", issues)
+				print("As this is in debug mode, we will re-call the function for a full error trace: ")
+				validationModule.run(reporter, sharedData)
+			end
+			reporter:err(issues)
 		end
-		reporter:_err(issues)
+	else
+		if getFFlagDebugUGCValidationPrintNewStructureResults() then
+			print("Validation data fetch error:", dataIssues)
+		end
+
+		reporter:err(dataIssues)
 	end
 
-	local data = reporter:_complete()
+	local data = reporter:complete()
 	reportSingleResult(testEnum, sharedData, data.status, data.telemetryContext, data.duration)
 	return data
 end

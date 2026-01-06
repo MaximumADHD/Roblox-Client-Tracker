@@ -4,13 +4,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Action = require(CorePackages.Packages.Rodux).makeActionCreator
 local t = require(CorePackages.Packages.t)
-local maybeAssert = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.maybeAssert)
-
-local GetFFlagRemoveInGameChatBubbleChatReferences =
-	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
-if GetFFlagRemoveInGameChatBubbleChatReferences() then
-	maybeAssert = require(RobloxGui.Modules.VoiceChat.Helpers.maybeAssert)
-end
+local maybeAssert = require(RobloxGui.Modules.VoiceChat.Helpers.maybeAssert)
 
 -- ParticipantRemoved is fired when someone leaves the voice call, whether or
 -- not they're still in the game.

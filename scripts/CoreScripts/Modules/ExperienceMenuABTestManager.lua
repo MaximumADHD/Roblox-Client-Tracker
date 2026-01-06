@@ -9,9 +9,13 @@ local AppStorageService = game:GetService("AppStorageService")
 local CorePackages = game:GetService("CorePackages")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagRemoveExperienceMenuABTestManager = SharedFlags.FFlagRemoveExperienceMenuABTestManager
+if FFlagRemoveExperienceMenuABTestManager then
+	return nil
+end
+
 local FFlagUnibarMenuOpenSelectionIXP = SharedFlags.FFlagUnibarMenuOpenSelectionIXP
 
-local InGameMenu = script.Parent.InGameMenu
 
 local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 local IsExperienceMenuABTestEnabled = require(script.Parent.IsExperienceMenuABTestEnabled)
@@ -24,7 +28,6 @@ local GetFFlagDisableChromeV4ClosedSelfView = require(script.Parent.Flags.GetFFl
 
 local LOCAL_STORAGE_KEY_EXPERIENCE_MENU_VERSION = "ExperienceMenuVersion"
 local ACTION_TRIGGER_THRESHOLD = game:DefineFastInt("CSATV3MenuActionThreshold", 7)
-local ACTION_TRIGGER_LATCHED = 10000
 
 local TEST_VERSION = "t10" -- bump on new A/B campaigns
 local REPORT_ABUSE_MENU_TEST_VERSION = "art2"
@@ -111,14 +114,6 @@ end
 
 function ExperienceMenuABTestManager.chromeV4ClosedSelfViewVersionId()
 	return MENU_VERSION_CHROME_V4_ENUM.CLOSED_SELF_VIEW
-end
-
-function parseCountData(data)
-	if not data or typeof(data) ~= "string" then
-		return nil, nil
-	end
-	local splitStr = data:split(":")
-	return splitStr[1], splitStr[2]
 end
 
 function ExperienceMenuABTestManager.new(ixpServiceWrapper)

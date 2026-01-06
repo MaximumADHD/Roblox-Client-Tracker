@@ -31,7 +31,6 @@ local Constants = require(Style.Constants)
 local StyleTypes = require(script.Parent.StyleTypes)
 local TokenPackage = require(script.Parent.Tokens)
 local StyleContext = require(UIBlox.Core.Style.StyleContext)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local Logger = require(UIBlox.Logger)
 
 local getTokens = TokenPackage.getTokens
@@ -61,9 +60,6 @@ export type Props = {
 		settings: Settings?,
 	},
 	children: { [string]: React.ReactElement? }?,
-
-	-- Only for color experiment on SignUp/Login
-	DONOTUSE_disableColorMapping: boolean?,
 }
 
 -- After join, there are no optional values
@@ -89,25 +85,10 @@ local function AppStyleProvider(props: Props)
 	local textSizeOffset, setTextSizeOffset = React.useState(0)
 	local theme = getThemeFromName(themeName)
 	local foundationProviderPresent = useTokens().Config ~= nil
-	local disableColorMapping = false
 
-	if UIBloxConfig.allowDisableColorMapping then
-		disableColorMapping = if props.DONOTUSE_disableColorMapping ~= nil
-			then props.DONOTUSE_disableColorMapping
-			else false
-	end
-
-	if UIBloxConfig.allowDisableColorMapping then
-		if not disableColorMapping then
-			local foundationTokens = getFoundationTokens(style.deviceType, themeName)
-			tokens = TokensMappers.mapColorTokensToFoundation(tokens, foundationTokens)
-			theme = TokensMappers.mapThemeToFoundation(theme, foundationTokens)
-		end
-	else
-		local foundationTokens = getFoundationTokens(style.deviceType, themeName)
-		tokens = TokensMappers.mapColorTokensToFoundation(tokens, foundationTokens)
-		theme = TokensMappers.mapThemeToFoundation(theme, foundationTokens)
-	end
+	local foundationTokens = getFoundationTokens(style.deviceType, themeName)
+	tokens = TokensMappers.mapColorTokensToFoundation(tokens, foundationTokens)
+	theme = TokensMappers.mapThemeToFoundation(theme, foundationTokens)
 
 	-- TODO: Add additional validation for tokens here to make it safe. We can remove the call after design token stuff is fully stable.
 	assert(validateTokens(tokens), "Invalid tokens!")

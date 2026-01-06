@@ -1,5 +1,8 @@
 --!nonstrict
-
+--!nolint LocalUnused
+--!nolint LocalShadow
+--!nolint FunctionUnused
+--!nolint ImplicitReturn
 -- Backpack Version 5.1
 -- OnlyTwentyCharacters, SolarCrane
 

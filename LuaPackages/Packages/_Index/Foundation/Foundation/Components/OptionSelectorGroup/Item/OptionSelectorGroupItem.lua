@@ -145,7 +145,7 @@ local function OptionSelectorGroupItem(
 			offset = tokens.Size.Size_200,
 			borderWidth = tokens.Stroke.Thicker,
 		}
-	end, { tokens :: unknown, variantProps.container.radius })
+	end, { tokens, variantProps.container.radius } :: { unknown })
 
 	local labelElement = React.createElement(Text, {
 		Text = escapeRichText(label),

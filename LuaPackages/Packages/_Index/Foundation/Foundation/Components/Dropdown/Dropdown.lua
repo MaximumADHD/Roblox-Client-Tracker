@@ -95,7 +95,7 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 			return Dash.find(props.items, function(item)
 				return item.id == props.value
 			end)
-		end, { props.value :: any, props.items })
+		end, { props.value, props.items } :: { unknown })
 	end
 
 	local toggleIsMenuOpen = React.useCallback(function()
@@ -120,7 +120,7 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 				dropdownProps.onAbsoluteSizeChanged(frame)
 			end
 			setAbsoluteWidth(UDim.new(0, frame.AbsoluteSize.X))
-		end, { setAbsoluteWidth :: unknown, dropdownProps.onAbsoluteSizeChanged })
+		end, { setAbsoluteWidth, dropdownProps.onAbsoluteSizeChanged } :: { unknown })
 	end
 
 	return React.createElement(Popover.Root, {

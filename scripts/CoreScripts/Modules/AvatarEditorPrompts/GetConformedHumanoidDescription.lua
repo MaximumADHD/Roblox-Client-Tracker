@@ -13,12 +13,10 @@ local lastConformedDescription = nil
 -- when actually saving the avatar.
 local function removeDefaultClothing(humanoidDescription, resolve, reject)
 	local avatarRules
-	-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
-	-- Will be removed when that PR is merged.
 	if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-		avatarRules = (AvatarEditorService :: any):GetAvatarRulesAsync()
+		avatarRules = AvatarEditorService:GetAvatarRulesAsync()
 	else
-		avatarRules = (AvatarEditorService :: any):GetAvatarRules()
+		avatarRules = (AvatarEditorService :: never):GetAvatarRules()
 	end
 
 	if not avatarRules.DefaultClothingAssetLists then
@@ -66,12 +64,10 @@ local function GetConformedHumanoidDescription(humanoidDescription, includeDefau
 	return Promise.new(function(resolve, reject)
 		coroutine.wrap(function()
 			local success, result = pcall(function()
-				-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
-				-- Will be removed when that PR is merged.
 				if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-					return (AvatarEditorService :: any):ConformToAvatarRulesAsync(humanoidDescription)
+					return AvatarEditorService:ConformToAvatarRulesAsync(humanoidDescription)
 				else
-					return (AvatarEditorService :: any):ConformToAvatarRules(humanoidDescription)
+					return (AvatarEditorService :: never):ConformToAvatarRules(humanoidDescription)
 				end
 			end)
 

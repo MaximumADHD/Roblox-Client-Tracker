@@ -1,8 +1,6 @@
 --!nonstrict
 local CorePackages = game:GetService("CorePackages")
 
-local PlayerList = script:FindFirstAncestor("PlayerList")
-
 local Cryo = require(CorePackages.Packages.Cryo)
 local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
@@ -26,9 +24,8 @@ local Colors = require(CorePackages.Workspace.Packages.Style).Colors
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 local Images = UIBlox.App.ImageSet.Images
 
-local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
+local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
-local FFlagPlayerListAddConnectionButtonFocusNav = require(PlayerList.Flags.FFlagPlayerListAddConnectionButtonFocusNav)
 
 local DropDownButton = Roact.PureComponent:extend("DropDownButton")
 
@@ -88,7 +85,7 @@ end
 function DropDownButton:render()
 	return WithLayoutValues(function(layoutValues)
 		return withStyle(function(style)
-			layoutValues = if FFlagAddMobilePlayerListScaling then self.props.layoutValues else layoutValues
+			layoutValues = if FFlagUseNewPlayerList then self.props.layoutValues else layoutValues
 
 			local overlayStyle = {
 				Transparency = 1,
@@ -153,7 +150,7 @@ function DropDownButton:render()
 				BackgroundColor3 = Color3.fromRGB(0, 0, 0),
 				AutoButtonColor = false,
 				BorderSizePixel = 0,
-				Selectable = if FFlagPlayerListAddConnectionButtonFocusNav then not rightButtonsVisible else nil,
+				Selectable = not rightButtonsVisible,
 
 				[Roact.Event.Activated] = (not rightButtonsVisible) and self.props.onActivated or nil,
 
@@ -308,7 +305,7 @@ function DropDownButton:render()
 end
 
 local DropDownButtonWrapper = function(props)
-	local layoutValues = if FFlagAddMobilePlayerListScaling then useLayoutValues() else nil
+	local layoutValues = if FFlagUseNewPlayerList then useLayoutValues() else nil
 
 	return Roact.createElement(DropDownButton, Cryo.Dictionary.join(props, {
 		layoutValues = layoutValues,
@@ -322,7 +319,7 @@ local function mapStateToProps(state)
 	}
 end
 
-if FFlagAddMobilePlayerListScaling then
+if FFlagUseNewPlayerList then
 	return RoactRodux.connect(mapStateToProps, nil)(DropDownButtonWrapper)
 else 
 	return RoactRodux.connect(mapStateToProps, nil)(DropDownButton)

@@ -124,7 +124,7 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 			sheetType = SheetType.Center,
 			testId = props.testId,
 		}
-	end, { props.testId :: unknown, closeSheet })
+	end, { props.testId, closeSheet } :: { unknown })
 
 	return overlay
 		and ReactRoblox.createPortal(

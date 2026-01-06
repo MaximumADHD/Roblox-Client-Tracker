@@ -3,7 +3,6 @@ local Packages = Foundation.Parent
 local Flags = require(Foundation.Utility.Flags)
 
 local React = require(Packages.React)
-local Cryo = require(Packages.Cryo)
 local Dash = require(Packages.Dash)
 
 local ScrollingFrame = require(script.Parent.ScrollingFrame)
@@ -102,11 +101,7 @@ local function ScrollView(scrollViewProps: ScrollViewProps, ref: React.Ref<GuiOb
 		ref = ref,
 		[React.Tag] = tag,
 	}
-	local viewProps = (
-		if Flags.FoundationMigrateCryoToDash
-			then Dash.union(props, viewComponentProps)
-			else Cryo.Dictionary.union(props, viewComponentProps)
-	)
+	local viewProps = Dash.union(props, viewComponentProps)
 
 	-- getting around stylua inconsistencies
 	do
@@ -156,9 +151,7 @@ local function ScrollView(scrollViewProps: ScrollViewProps, ref: React.Ref<GuiOb
 					and typeof(props.children) == "table"
 					and props.layout ~= nil
 					and props.layout.FillDirection ~= nil
-				then if Flags.FoundationMigrateCryoToDash
-					then Dash.union(listChildren, props.children)
-					else Cryo.Dictionary.union(listChildren, props.children)
+				then Dash.union(listChildren, props.children)
 				else props.children
 		),
 	})

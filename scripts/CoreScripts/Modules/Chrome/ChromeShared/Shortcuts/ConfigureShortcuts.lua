@@ -17,13 +17,11 @@ local ExpChat = require(CorePackages.Workspace.Packages.ExpChat)
 local ExpChatFocusNavigationStore = ExpChat.Stores.GetFocusNavigationStore(false)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
-local FFlagTweakTiltMenuShortcuts = SharedFlags.FFlagTweakTiltMenuShortcuts
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagChromeShortcutAddRespawnLeaveToIEM = SharedFlags.FFlagChromeShortcutAddRespawnLeaveToIEM
 local FFlagChromeShortcutRemoveLeaveOnRespawnPage = SharedFlags.FFlagChromeShortcutRemoveLeaveOnRespawnPage
 local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShortcutRemoveRespawnOnLeavePage
 local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
-local FFlagChromeFixMenuIconBackButton = SharedFlags.FFlagChromeFixMenuIconBackButton
 local FFlagChromeShortcutChatOpenKeyboard = SharedFlags.FFlagChromeShortcutChatOpenKeyboard
 local FFlagAddSwitchTabHintsToIEM = SharedFlags.FFlagAddSwitchTabHintsToIEM
 
@@ -37,12 +35,9 @@ local FFlagRemoveLeaveShortcutFromLeaveConfirm = ChromeSharedFlags.FFlagRemoveLe
 local FFlagRemoveRespawnShortcutFromRespawnConfirmation =
 	ChromeSharedFlags.FFlagRemoveRespawnShortcutFromRespawnConfirmation
 
-local FFlagFixBackOnTopBarTriggeringDevUI = game:DefineFastFlag("FFlagFixBackOnTopBarTriggeringDevUI", false)
-
-local ChatSelector = if FFlagConsoleChatOnExpControls then require(RobloxGui.Modules.ChatSelector) else nil :: never
+local ChatSelector = if FFlagEnableConsoleExpControls then require(RobloxGui.Modules.ChatSelector) else nil :: never
 local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
 
-local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
 
 local leaveActionProps = {
@@ -127,7 +122,7 @@ local repawnActionProps = {
 }
 
 local function activateBack(): Enum.ContextActionResult?
-	local isMenuIconSelected = FFlagChromeFixMenuIconBackButton and ChromeFocusUtils.MenuIconSelectedSignal:get()
+	local isMenuIconSelected = FFlagEnableConsoleExpControls and ChromeFocusUtils.MenuIconSelectedSignal:get()
 	local inFocusNav = (not FFlagConsoleChatUseChromeFocusUtils or ChromeService:inFocusNav():get())
 	local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 	if SettingsHub:GetVisibility() then
@@ -135,9 +130,7 @@ local function activateBack(): Enum.ContextActionResult?
 		if not SettingsHub:GetVisibility() then
 			ChromeService:selectMenuIcon()
 		end
-		if FFlagFixBackOnTopBarTriggeringDevUI then
-			return Enum.ContextActionResult.Sink
-		end
+		return Enum.ContextActionResult.Sink
 	elseif inFocusNav or isMenuIconSelected then
 		local subMenuId = ChromeService:currentSubMenu():get()
 		if subMenuId then
@@ -147,23 +140,16 @@ local function activateBack(): Enum.ContextActionResult?
 			ChromeService:disableFocusNav()
 			ChromeService:setShortcutBar(nil)
 			GuiService.SelectedCoreObject = nil
-			if FFlagChromeFixMenuIconBackButton then
+			if FFlagEnableConsoleExpControls then
 				ChromeFocusUtils.MenuIconSelectedSignal:set(false)
 			end
-			if not FFlagFixBackOnTopBarTriggeringDevUI and FFlagEnableChromeShortcutBar then
-				return Enum.ContextActionResult.Pass
-			end
 		end
-		if FFlagFixBackOnTopBarTriggeringDevUI then
-			return Enum.ContextActionResult.Sink
-		end
+		return Enum.ContextActionResult.Sink
 	elseif FFlagConsoleChatUseChromeFocusUtils and ExpChatFocusNavigationStore.getChatInputBarFocused(false) then
 		ChromeFocusUtils.FocusOnChrome(function()
 			ExpChatFocusNavigationStore.unfocusChatInputBar()
 		end, "chat")
-		if FFlagFixBackOnTopBarTriggeringDevUI then
-			return Enum.ContextActionResult.Sink
-		end
+		return Enum.ContextActionResult.Sink
 	end
 	return
 end
@@ -213,7 +199,7 @@ function registerShortcuts()
 		keyCode = if FFlagChromeShortcutChatOpenKeyboard then Enum.KeyCode.ButtonL2 else Enum.KeyCode.ButtonR1,
 		integration = "chat",
 		actionName = "UnibarGamepadChat",
-		activated = if FFlagConsoleChatOnExpControls
+		activated = if FFlagEnableConsoleExpControls
 			then function()
 				local chatVisible = ChatSelector:GetVisibility()
 				if FFlagChromeShortcutChatOpenKeyboard then
@@ -276,7 +262,7 @@ function registerShortcuts()
 		id = "back",
 		label = "CoreScripts.TopBar.Back",
 		keyCode = Enum.KeyCode.ButtonB,
-		displayPriority = if FFlagEnableChromeShortcutBar then -10 else nil,
+		displayPriority = if FFlagEnableConsoleExpControls then -10 else nil,
 		integration = nil,
 		actionName = "UnibarGamepadBack",
 		activated = activateBack,
@@ -369,8 +355,7 @@ function configureShortcutBars()
 				"back",
 				"close",
 			}
-			elseif FFlagTweakTiltMenuShortcuts then { "tiltMenuPreviousTab", "tiltMenuNextTab", "back", "close" }
-			else { "leave", "respawn", "tiltMenuPreviousTab", "tiltMenuNextTab", "back", "close" }
+			else { "tiltMenuPreviousTab", "tiltMenuNextTab", "back", "close" }
 	)
 
 	-- in the future, some kind of availability system for shortcuts would probably be cleaner

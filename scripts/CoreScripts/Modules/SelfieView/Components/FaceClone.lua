@@ -13,12 +13,7 @@ local EngineFeaturePlayerViewRemoteEventSupport = game:GetEngineFeature("PlayerV
 local newTrackerStreamAnimation: TrackerStreamAnimation? = nil
 local cloneStreamTrack: AnimationStreamTrack? = nil
 local FFlagDebugSelfViewPerfBenchmark = game:DefineFastFlag("DebugSelfViewPerfBenchmark", false)
-local GetFFlagSelfieViewMoreFixMigration =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfieViewMoreFixMigration
-
-local GetFFlagSelfViewAssertFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewAssertFix
 local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
-local FFlagFixSelfieViewErrorLoop = game:DefineFastFlag("FixSelfieViewErrorLoop", false)
 
 local RunService = game:GetService("RunService")
 
@@ -231,17 +226,10 @@ local function updateClone(player: Player?)
 	end
 
 	clone = character:Clone()
-	if GetFFlagSelfViewAssertFix() then
-		if clone == nil then
-			return
-		end
+	if clone == nil then
+		return
 	end
 	assert(clone ~= nil)
-
-	if not GetFFlagSelfieViewMoreFixMigration() then
-		--remove tags in Self View clone of avatar as it may otherwise cause gameplay issues
-		ModelUtils.removeTags(clone)
-	end
 
 	--resetting the joints orientations in the clone since it can happen that body/head IK like code was applied on the player avatar
 	--and we want to start with default pose setup in clone, else issues with clone avatar (parts) orientation etc
@@ -251,11 +239,8 @@ local function updateClone(player: Player?)
 	--we still want to show the self view avatar's head in that case (also because sometimes exiting vehicles would not cause a refresh of the self view and the head would stay transparent then)
 	--but we also want to respect it if the head was transparent to begin with on first usage like for a headless head look
 	ModelUtils.updateTransparency(clone, partsOrgTransparency)
-
-	if GetFFlagSelfieViewMoreFixMigration() then
-		--remove tags in Self View clone of avatar as it may otherwise cause gameplay issues
-		ModelUtils.removeTags(clone)
-	end
+	--remove tags in Self View clone of avatar as it may otherwise cause gameplay issues
+	ModelUtils.removeTags(clone)
 
 	clone.Name = cloneCharacterName
 
@@ -285,7 +270,7 @@ local function updateClone(player: Player?)
 			--and hence is then too small for some heads (like Piggy)
 
 			local head = ModelUtils.getHead(clone)
-			if not GetFFlagSelfieViewMoreFixMigration() or head then
+			if head then
 				assert(head ~= nil)
 
 				local headTargetCFrame = CFrameUtility.CalculateTargetCFrame(head.CFrame)
@@ -352,7 +337,7 @@ local function updateClone(player: Player?)
 
 	--prep sync streaming tracks
 	if cloneAnimator then
-		if not GetFFlagSelfieViewMoreFixMigration() or not EngineFeatureAnimatorAndADFRefactor then
+		if not EngineFeatureAnimatorAndADFRefactor then
 			-- clear cloned tracks
 			local clonedTracks = cloneAnimator:GetPlayingAnimationTracks()
 			local coreScriptTracks = cloneAnimator:GetPlayingAnimationTracksCoreScript()
@@ -378,7 +363,7 @@ local function updateClone(player: Player?)
 		end
 
 		if animator then
-			if GetFFlagSelfieViewMoreFixMigration() and EngineFeatureAnimatorAndADFRefactor then
+			if EngineFeatureAnimatorAndADFRefactor then
 				cloneAnimator:SynchronizeWith(animator)
 			else
 				-- clone tracks manually
@@ -452,10 +437,8 @@ local function addHumanoidStateChangedObserver(humanoid: any)
 end
 
 local function characterAdded(character)
-	if FFlagFixSelfieViewErrorLoop then
-		if viewportFrame == nil or wrapperFrame == nil then
-			return
-		end
+	if viewportFrame == nil or wrapperFrame == nil then
+		return
 	end
 	if not character then
 		return
@@ -479,10 +462,8 @@ local function characterAdded(character)
 
 	-- listen for updates on the original character's structure
 	observerInstances[Observer.DescendantAdded] = character.DescendantAdded:Connect(function(descendant)
-		if FFlagFixSelfieViewErrorLoop then
-			if viewportFrame == nil or wrapperFrame == nil then
-				return
-			end
+		if viewportFrame == nil or wrapperFrame == nil then
+			return
 		end
 		if descendant.Name == "Head" then
 			headRef = ModelUtils.getHead(character)
@@ -500,10 +481,8 @@ local function characterAdded(character)
 		end
 	end)
 	observerInstances[Observer.DescendantRemoving] = character.DescendantRemoving:Connect(function(descendant)
-		if FFlagFixSelfieViewErrorLoop then
-			if viewportFrame == nil or wrapperFrame == nil then
-				return
-			end
+		if viewportFrame == nil or wrapperFrame == nil then
+			return
 		end
 		--these checks are to avoid unnecessary additional refreshes
 		if descendant and (descendant:IsA("MeshPart") or descendant:IsA("Accessory")) then
@@ -545,7 +524,7 @@ local function createViewport(): ()
 
 	createCloneAnchor()
 
-	if GetFFlagSelfieViewMoreFixMigration() and wrapperFrame then
+	if wrapperFrame then
 		wrapperFrame.Destroying:Connect(clearViewportFrame)
 	end
 
@@ -616,10 +595,8 @@ function clearViewportFrame()
 	if viewportFrame then
 		viewportFrame:Destroy()
 	end
-	if GetFFlagSelfieViewMoreFixMigration() then
-		wrapperFrame = nil
-		stopRenderStepped()
-	end
+	wrapperFrame = nil
+	stopRenderStepped()
 end
 
 local function onOuterContainerVisibilityChanged()
@@ -775,20 +752,7 @@ function startRenderStepped(player: Player)
 						anim = value.Animation
 						if anim then
 							if anim:IsA("Animation") then
-								if GetFFlagSelfViewAssertFix() then
-									if anim.AnimationId ~= "" then
-										orgAnimationTracks[anim.AnimationId] = value
-										if not cloneAnimationTracks[anim.AnimationId] then
-											cloneAnimationTracks[anim.AnimationId] = cloneAnimator:LoadAnimation(anim)
-										end
-										local cloneAnimationTrack = cloneAnimationTracks[anim.AnimationId] --cloneAnimator:LoadAnimation(anim)
-
-										cloneAnimationTrack:Play()
-										cloneAnimationTrack.TimePosition = value.TimePosition
-										cloneAnimationTrack.Priority = value.Priority
-										cloneAnimationTrack:AdjustWeight(value.WeightCurrent, 0.1)
-									end
-								else
+								if anim.AnimationId ~= "" then
 									orgAnimationTracks[anim.AnimationId] = value
 									if not cloneAnimationTracks[anim.AnimationId] then
 										cloneAnimationTracks[anim.AnimationId] = cloneAnimator:LoadAnimation(anim)

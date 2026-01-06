@@ -8,8 +8,8 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local NoExtraTags = {}
 
 NoExtraTags.categories = Constants.AllAssetUploadCategories
-NoExtraTags.required_data = { ValidationEnums.SharedDataMember.rootInstance }
-NoExtraTags.expected_failures = { "Asset_EF_TaggedJacket", "Bundle_EF_BodyWithLLLTagged.LeftLeg" }
+NoExtraTags.requiredData = { ValidationEnums.SharedDataMember.rootInstance }
+NoExtraTags.expectedFailures = { "Asset_EF_TaggedJacket", "Bundle_EF_BodyWithLLLTagged.LeftLeg" }
 
 NoExtraTags.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local inst = data.rootInstance :: Instance

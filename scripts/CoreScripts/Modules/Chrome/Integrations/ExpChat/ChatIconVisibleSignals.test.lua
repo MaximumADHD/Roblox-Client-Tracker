@@ -3,15 +3,12 @@ local CorePackages = game:GetService("CorePackages")
 local JestGlobals = require(CorePackages.Packages.Dev.JestGlobals3)
 local expect = JestGlobals.expect
 local describe = JestGlobals.describe
-local beforeAll = JestGlobals.beforeAll
-local afterAll = JestGlobals.afterAll
 local it = JestGlobals.it
 
 local Signals = require(CorePackages.Packages.Signals)
 local ChatIconVisibleSignals = require(script.Parent.ChatIconVisibleSignals)
 
 local Chrome = script.Parent.Parent.Parent
-local FFlagRemoveLegacyChatConsoleCheck = require(Chrome.Flags.FFlagRemoveLegacyChatConsoleCheck)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagExpChatWindowSyncUnibar = SharedFlags.FFlagExpChatWindowSyncUnibar
 local FFlagEnableAEGIS2CommsFAEUpsell = SharedFlags.FFlagEnableAEGIS2CommsFAEUpsell
@@ -38,98 +35,15 @@ end
 
 it("should default unavailable and not visible when chat status is NoOne", function()
 	print("should default unavailable and not visible")
-	local signals, getValue = makeSignalsAndGetValue()
+	local _, getValue = makeSignalsAndGetValue()
 	print("getValue", getValue())
 	expect(getValue()).toBe(false)
 end)
 
 if AegisIsEnabled then
 	it("should default visible when chat status is Unknown", function()
-		local signals, getValue = makeSignalsAndGetValue("Unknown")
+		local _, getValue = makeSignalsAndGetValue("Unknown")
 		expect(getValue()).toBe(true)
-	end)
-end
-
-if not FFlagRemoveLegacyChatConsoleCheck then
-	describe("WHEN isForceDisabledForConsoleUsecase is true", function()
-		it("should return unavailable (not visible) even if all other conditions are true", function()
-			local signals, getValue = makeSignalsAndGetValue()
-			signals.setLocalUserChat(true)
-			signals.setCoreGuiEnabled(true)
-			if FFlagExpChatWindowSyncUnibar then
-				signals.setGameSettingsChatVisible(true)
-			else
-				signals.setChatActiveCalledByDeveloper(true)
-				signals.setVisibleViaChatSelector(true)
-			end
-			signals.setForceDisableForConsoleUsecase(true)
-			expect(getValue()).toBe(false)
-		end)
-
-		it("should return unavailable (not visible) if privacy settings are off", function()
-			local signals, getValue = makeSignalsAndGetValue()
-			signals.setLocalUserChat(false)
-			signals.setCoreGuiEnabled(true)
-			signals.setForceDisableForConsoleUsecase(true)
-			expect(getValue()).toBe(false)
-		end)
-
-		it("should return unavailable (not visible) if chat selector is visible", function()
-			local signals, getValue = makeSignalsAndGetValue()
-			signals.setLocalUserChat(false)
-			signals.setCoreGuiEnabled(false)
-			if FFlagExpChatWindowSyncUnibar then
-				signals.setGameSettingsChatVisible(true)
-			else
-				signals.setVisibleViaChatSelector(true)
-			end
-			signals.setForceDisableForConsoleUsecase(true)
-			expect(getValue()).toBe(false)
-		end)
-
-		it("should return unavailable (not visible) if developer tries to reveal chat", function()
-			local signals, getValue = makeSignalsAndGetValue()
-			signals.setLocalUserChat(false)
-			signals.setCoreGuiEnabled(true)
-			if FFlagExpChatWindowSyncUnibar then
-				signals.setGameSettingsChatVisible(true)
-			else
-				signals.setChatActiveCalledByDeveloper(true)
-			end
-			signals.setForceDisableForConsoleUsecase(true)
-			expect(getValue()).toBe(false)
-		end)
-
-		it("should return unavailable (not visible) if only isForceDisabledForConsoleUsecase is true", function()
-			local signals, getValue = makeSignalsAndGetValue()
-			signals.setForceDisableForConsoleUsecase(true)
-			expect(getValue()).toBe(false)
-		end)
-
-		it(
-			"should return unavailable (not visible) if toggling isForceDisabledForConsoleUsecase from false to true",
-			function()
-				local signals, getValue = makeSignalsAndGetValue()
-				signals.setLocalUserChat(true)
-				signals.setCoreGuiEnabled(true)
-				expect(getValue()).toBe(true)
-				signals.setForceDisableForConsoleUsecase(true)
-				expect(getValue()).toBe(false)
-			end
-		)
-
-		it(
-			"should return available (visible) again if isForceDisabledForConsoleUsecase is set back to false and other conditions allow",
-			function()
-				local signals, getValue = makeSignalsAndGetValue()
-				signals.setLocalUserChat(true)
-				signals.setCoreGuiEnabled(true)
-				signals.setForceDisableForConsoleUsecase(true)
-				expect(getValue()).toBe(false)
-				signals.setForceDisableForConsoleUsecase(false)
-				expect(getValue()).toBe(true)
-			end
-		)
 	end)
 end
 

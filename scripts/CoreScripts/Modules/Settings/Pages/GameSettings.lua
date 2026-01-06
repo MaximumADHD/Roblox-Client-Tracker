@@ -62,7 +62,6 @@ local GetFFlagEnableCrossExpVoice = SharedFlags.GetFFlagEnableCrossExpVoice
 local GetFFlagSelfViewCameraSettings = SharedFlags.GetFFlagSelfViewCameraSettings
 local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlwaysShowVRToggle)
 local GetFFlagEnableCrossExpVoiceVolumeIXPCheck = SharedFlags.GetFFlagEnableCrossExpVoiceVolumeIXPCheck
-local GetFFlagDebounceConnectDisconnectButton = require(RobloxGui.Modules.Flags.GetFFlagDebounceConnectDisconnectButton)
 local GetFFlagDebounceConnectDisconnectSelector = require(RobloxGui.Modules.Settings.Flags.GetFFlagDebounceConnectDisconnectSelector)
 local GetFIntDebounceDisconnectButtonDelay = require(RobloxGui.Modules.Flags.GetFIntDebounceDisconnectButtonDelay)
 local FFlagInExperienceMenuReorderFirstVariant =
@@ -79,9 +78,6 @@ local FFlagShowAntiHarassmentSettings = game:DefineFastFlag("ShowAntiHarassmentS
 local GetFFlagEnablePlayerNamesEnabledSetting = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnablePlayerNamesEnabledSetting)
 local FFlagUpdatePeopleNamesSettingCopy = require(RobloxGui.Modules.Settings.Flags.FFlagUpdatePeopleNamesSettingCopy)
 local FFlagBadgeVisibilitySettingEnabled = SharedFlags.FFlagBadgeVisibilitySettingEnabled
-local SettingsFlags = require(RobloxGui.Modules.Settings.Flags)
-local FFlagGameSettingsRefactorMovementModeLogic = SettingsFlags.FFlagGameSettingsRefactorMovementModeLogic
-local FFlagGameSettingsRespectDevModes = SettingsFlags.FFlagGameSettingsRespectDevModes
 local GetFFlagEnableVoiceUxUpdates = SharedFlags.GetFFlagEnableVoiceUxUpdates
 local GetFFlagEnableVrVoiceConnectDisconnect = SharedFlags.GetFFlagEnableVrVoiceConnectDisconnect
 local FFlagEnableNewBadgeVisibilityCopy = game:DefineFastFlag("EnableNewBadgeVisibilityCopy", false)
@@ -347,7 +343,6 @@ local GetFFlagVoiceChatUILogging = require(RobloxGui.Modules.Flags.GetFFlagVoice
 local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFlagEnableUniveralVoiceToasts)
 local GetFFlagEnableExplicitSettingsChangeAnalytics =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableExplicitSettingsChangeAnalytics)
-local GetFFlagGameSettingsCameraModeFixEnabled = SharedFlags.GetFFlagGameSettingsCameraModeFixEnabled
 local GetFFlagFixCyclicFullscreenIndexEvent =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagFixCyclicFullscreenIndexEvent)
 local FFlagDisableFeedbackSoothsayerCheck = game:DefineFastFlag("DisableFeedbackSoothsayerCheck", false)
@@ -1290,9 +1285,7 @@ local function Initialize()
 			if this.ShiftLockFrame then
 				this.ShiftLockFrame.Visible = enableShiftLock
 			end
-			if FFlagGameSettingsRespectDevModes then
-				applyDevOverrideShiftLockSelector()
-			end
+			applyDevOverrideShiftLockSelector()
 		end
 
 		updateShiftLockVisibility()
@@ -1386,14 +1379,6 @@ local function Initialize()
 					return
 				end
 
-				if not FFlagGameSettingsRespectDevModes then
-					if GetFFlagGameSettingsCameraModeFixEnabled() then
-						setCameraModeVisible(cameraModeIsUserChoice())
-					else
-						setCameraModeVisible(true)
-					end
-				end
-
 				for i = 1, #enumsToAdd do
 					local newCameraMode = enumsToAdd[i]
 					local displayName = newCameraMode.Name
@@ -1433,9 +1418,7 @@ local function Initialize()
 					updateCurrentCameraMovementIndex(currentSavedMode)
 					this.CameraMode:SetSelectionIndex(currentSavedMode)
 				end
-				if FFlagGameSettingsRespectDevModes then
-					setCameraModeVisible(cameraModeIsUserChoice())
-				end
+				setCameraModeVisible(cameraModeIsUserChoice())
 			end
 
 			this.CameraModeFrame, this.CameraModeLabel, this.CameraMode =
@@ -1570,7 +1553,6 @@ local function Initialize()
 
 		if movementModeEnabled then
 			local movementEnumNames = {}
-			local movementEnumNameToItem = {}
 
 			local PlayerScripts = CoreUtility.waitForChildOfClass(LocalPlayer, "PlayerScripts")
 
@@ -1615,38 +1597,6 @@ local function Initialize()
 				Parent = this.MovementModeFrame,
 			})
 
-			local function setMovementModeToIndex(index)
-				if FFlagGameSettingsRefactorMovementModeLogic then
-					return
-				end
-				local newEnumSetting = nil
-				local success = pcall(function()
-					newEnumSetting = movementEnumNameToItem[movementEnumNames[index]]
-				end)
-				if not success or newEnumSetting == nil then
-					return
-				end
-
-				local oldValue
-
-				local isTouchInput = UserInputService.PreferredInput == Enum.PreferredInput.Touch
-				if isTouchInput then
-					if GetFFlagEnableExplicitSettingsChangeAnalytics() then
-						oldValue = GameSettings.TouchMovementMode
-					end
-					GameSettings.TouchMovementMode = newEnumSetting
-				else
-					if GetFFlagEnableExplicitSettingsChangeAnalytics() then
-						oldValue = GameSettings.ComputerMovementMode
-					end
-					GameSettings.ComputerMovementMode = newEnumSetting
-				end
-
-				if GetFFlagEnableExplicitSettingsChangeAnalytics() then
-					reportSettingsChangeForAnalytics("movement_mode", oldValue, newEnumSetting)
-				end
-			end
-
 			local function setMovementMode(movementMode: Enum.TouchMovementMode | Enum.ComputerMovementMode)
 				local oldMovementMode: Enum.TouchMovementMode | Enum.ComputerMovementMode
 				if movementMode.EnumType == Enum.TouchMovementMode then
@@ -1664,19 +1614,16 @@ local function Initialize()
 					reportSettingsChangeForAnalytics("movement_mode", oldMovementMode, movementMode)
 				end
 			end
-
-			if FFlagGameSettingsRespectDevModes then
-				applyDevOverrideMovementModeSelector = function(isTouch: boolean)
-					local isUserChoice
-					if isTouch then
-						isUserChoice = LocalPlayer.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice
-					else
-						isUserChoice = LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.UserChoice
-					end
-					setMovementModeVisible(isUserChoice)
-					if this.MovementModeOverrideText then
-						this.MovementModeOverrideText.Visible = not isUserChoice
-					end
+			applyDevOverrideMovementModeSelector = function(isTouch: boolean)
+				local isUserChoice
+				if isTouch then
+					isUserChoice = LocalPlayer.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice
+				else
+					isUserChoice = LocalPlayer.DevComputerMovementMode == Enum.DevComputerMovementMode.UserChoice
+				end
+				setMovementModeVisible(isUserChoice)
+				if this.MovementModeOverrideText then
+					this.MovementModeOverrideText.Visible = not isUserChoice
 				end
 			end
 			local function updateMovementModes()
@@ -1688,8 +1635,6 @@ local function Initialize()
 						movementModes = PlayerScripts:GetRegisteredComputerMovementModes()
 					end
 				end
-
-				if FFlagGameSettingsRefactorMovementModeLogic then
 					movementEnumToIndex = {}
 					movementIndexToEnum = {}
 					movementIndexToDisplayName = {}
@@ -1719,58 +1664,7 @@ local function Initialize()
 						setMovementMode(currentMovementMode)
 						this.MovementMode:SetSelectionIndex(movementEnumToIndex[currentMovementMode])
 					end
-				else
-					movementEnumNames = {}
-					movementEnumNameToItem = {}
-
-					if #movementModes <= 0 then
-						setMovementModeVisible(false)
-						return
-					end
-
-					setMovementModeVisible(true)
-
-					for i = 1, #movementModes do
-						local movementMode = movementModes[i]
-
-						local displayName = getDisplayName(movementMode.Name)
-
-						movementEnumNames[#movementEnumNames + 1] = displayName
-						movementEnumNameToItem[displayName] = movementMode
-					end
-
-					if this.MovementMode then
-						this.MovementMode:UpdateOptions(movementEnumNames)
-					end
-
-					local currentSavedMode = -1
-
-					local isTouchInput
-					if not FFlagGameSettingsRespectDevModes then
-						isTouchInput = UserInputService.PreferredInput == Enum.PreferredInput.Touch
-					end
-					if isTouchInput then
-						currentSavedMode = GameSettings.TouchMovementMode.Value
-					else
-						currentSavedMode = GameSettings.ComputerMovementMode.Value
-					end
-
-					if currentSavedMode > -1 then
-						currentSavedMode = currentSavedMode + 1
-						local savedEnum = nil
-						local exists = pcall(function()
-							savedEnum = movementEnumNameToItem[movementEnumNames[currentSavedMode]]
-						end)
-						if exists and savedEnum then
-							setMovementModeToIndex(savedEnum.Value + 1)
-							this.MovementMode:SetSelectionIndex(savedEnum.Value + 1)
-						end
-					end
-				end
-
-				if FFlagGameSettingsRespectDevModes then
 					applyDevOverrideMovementModeSelector(isTouchInput)
-				end
 			end
 
 			updateMovementModes()
@@ -1794,11 +1688,7 @@ local function Initialize()
 			end)
 
 			this.MovementMode.IndexChanged:connect(function(newIndex)
-				if FFlagGameSettingsRefactorMovementModeLogic then
 					setMovementMode(movementIndexToEnum[newIndex])
-				else
-					setMovementModeToIndex(newIndex)
-				end
 				reportSettingsForAnalytics()
 			end)
 		end
@@ -1840,31 +1730,18 @@ local function Initialize()
 					setMovementModeVisible(true)
 				end
 			end
-
-			if FFlagGameSettingsRespectDevModes then
-				applyDevOverrideShiftLockSelector()
-			else
-				if this.ShiftLockOverrideText then
-					this.ShiftLockOverrideText.Visible = not LocalPlayer.DevEnableMouseLock
-					setShiftLockSelectorVisible(LocalPlayer.DevEnableMouseLock)
-				end
-			end
+			applyDevOverrideShiftLockSelector()
 		end
 
 		local function updateUserSettingsMenu(property)
-			if (FFlagGameSettingsRespectDevModes or this.ShiftLockOverrideText) and property == "DevEnableMouseLock" then
-				if FFlagGameSettingsRespectDevModes then
-					applyDevOverrideShiftLockSelector()
-				else
-					this.ShiftLockOverrideText.Visible = not LocalPlayer.DevEnableMouseLock
-					setShiftLockSelectorVisible(LocalPlayer.DevEnableMouseLock)
-				end
+			if property == "DevEnableMouseLock" then
+				applyDevOverrideShiftLockSelector()
 			elseif property == "DevComputerCameraMode" then
 				local isUserChoice = LocalPlayer.DevComputerCameraMode == Enum.DevComputerCameraMovementMode.UserChoice
 				setCameraModeVisible(isUserChoice)
 				this.CameraModeOverrideText.Visible = not isUserChoice
 			elseif property == "DevComputerMovementMode" then
-				if FFlagGameSettingsRespectDevModes and applyDevOverrideMovementModeSelector ~= nil then
+				if applyDevOverrideMovementModeSelector ~= nil then
 					applyDevOverrideMovementModeSelector(false)
 				else
 					-- TOUCH
@@ -1875,7 +1752,7 @@ local function Initialize()
 					end
 				end
 			elseif property == "DevTouchMovementMode" then
-				if FFlagGameSettingsRespectDevModes and applyDevOverrideMovementModeSelector ~= nil then
+				if applyDevOverrideMovementModeSelector ~= nil then
 					applyDevOverrideMovementModeSelector(true)
 				else
 					local isUserChoice = LocalPlayer.DevTouchMovementMode == Enum.DevTouchMovementMode.UserChoice
@@ -1892,15 +1769,11 @@ local function Initialize()
 		end
 
 		LocalPlayer.Changed:connect(function(property)
-			if FFlagGameSettingsRespectDevModes or UserInputService.TouchEnabled then
-				if TOUCH_CHANGED_PROPS[property] then
-					updateUserSettingsMenu(property)
-				end
+			if TOUCH_CHANGED_PROPS[property] then
+				updateUserSettingsMenu(property)
 			end
-			if FFlagGameSettingsRespectDevModes or UserInputService.KeyboardEnabled then
-				if PC_CHANGED_PROPS[property] then
-					updateUserSettingsMenu(property)
-				end
+			if PC_CHANGED_PROPS[property] then
+				updateUserSettingsMenu(property)
 			end
 		end)
 	end
@@ -3702,7 +3575,7 @@ local function Initialize()
 			local connectButtonText = locales:Format("Feature.SettingsHub.Label.Connect")
 			local disconnectButtonText = locales:Format("Feature.SettingsHub.Label.Disconnect")
 			local debounceDelay = GetFIntDebounceDisconnectButtonDelay()
-			local useDebounce = GetFFlagDebounceConnectDisconnectButton() and debounceDelay > 0
+			local useDebounce = debounceDelay > 0
 
 			local onJoinVoicePressed = function()
 				if VoiceChatServiceManager:getService() then

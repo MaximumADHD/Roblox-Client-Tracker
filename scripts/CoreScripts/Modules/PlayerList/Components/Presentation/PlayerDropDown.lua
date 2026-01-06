@@ -36,8 +36,6 @@ local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local PlayerList = Components.Parent
 
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
-
-local GetFFlagFixDropDownVisibility = require(PlayerList.Flags.GetFFlagFixDropDownVisibility)
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 local FFlagNavigateToBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagNavigateToBlockingModal)
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
@@ -297,9 +295,7 @@ end
 
 local function mapStateToProps(state)
 	local selectedPlayer = state.playerDropDown.selectedPlayer
-	local isVisible = if GetFFlagFixDropDownVisibility()
-		then state.playerDropDown.isVisible and state.displayOptions.isVisible
-		else state.playerDropDown.isVisible
+	local isVisible = state.playerDropDown.isVisible and state.displayOptions.isVisible
 
 	return {
 		selectedPlayer = selectedPlayer,

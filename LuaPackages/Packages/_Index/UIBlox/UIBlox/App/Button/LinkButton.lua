@@ -24,8 +24,6 @@ local CursorType = require(App.SelectionCursor.CursorType)
 local RoactGamepad = require(Packages.RoactGamepad)
 local Focusable = RoactGamepad.Focusable
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local UNDERLINED_HOVER_TRANSPARENCY = 0.3
 
 local LinkButton = Roact.PureComponent:extend("LinkButton")
@@ -170,54 +168,42 @@ function LinkButton:renderWithSelectionCursorProvider(getSelectionCursor, cursor
 
 		local selectionCursor = cursor
 
-		return Roact.createElement(
-			if UIBloxConfig.enableLinkButtonGamepadSupport then Focusable[Interactable] else Interactable,
-			{
-				AnchorPoint = self.props.anchorPoint,
-				LayoutOrder = self.props.layoutOrder,
-				Position = self.props.position,
-				Size = self.props.size,
+		return Roact.createElement(Focusable[Interactable], {
+			AnchorPoint = self.props.anchorPoint,
+			LayoutOrder = self.props.layoutOrder,
+			Position = self.props.position,
+			Size = self.props.size,
 
-				isDisabled = self.props.isDisabled,
-				onStateChanged = self.onStateChanged,
-				userInteractionEnabled = self.props.userInteractionEnabled,
+			isDisabled = self.props.isDisabled,
+			onStateChanged = self.onStateChanged,
+			userInteractionEnabled = self.props.userInteractionEnabled,
+			BackgroundTransparency = 1,
+			AutoButtonColor = false,
+			SelectionImageObject = selectionCursor,
+			[Roact.Event.Activated] = self.props.onActivated,
+
+			[Roact.Ref] = self.props.buttonRef,
+			NextSelectionLeft = self.props.NextSelectionLeft,
+			NextSelectionRight = self.props.NextSelectionRight,
+			NextSelectionUp = self.props.NextSelectionUp,
+			NextSelectionDown = self.props.NextSelectionDown,
+		}, {
+			sizeConstraint = Roact.createElement("UISizeConstraint", {
+				MinSize = minSize,
+			}),
+			textLabel = Roact.createElement(GenericTextLabel, {
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = UDim2.fromScale(0.5, 0.5),
 				BackgroundTransparency = 1,
-				AutoButtonColor = false,
-				SelectionImageObject = selectionCursor,
-				[Roact.Event.Activated] = self.props.onActivated,
-
-				[Roact.Ref] = if UIBloxConfig.enableLinkButtonGamepadSupport then self.props.buttonRef else nil,
-				NextSelectionLeft = if UIBloxConfig.enableLinkButtonGamepadSupport
-					then self.props.NextSelectionLeft
-					else nil,
-				NextSelectionRight = if UIBloxConfig.enableLinkButtonGamepadSupport
-					then self.props.NextSelectionRight
-					else nil,
-				NextSelectionUp = if UIBloxConfig.enableLinkButtonGamepadSupport
-					then self.props.NextSelectionUp
-					else nil,
-				NextSelectionDown = if UIBloxConfig.enableLinkButtonGamepadSupport
-					then self.props.NextSelectionDown
-					else nil,
-			},
-			{
-				sizeConstraint = Roact.createElement("UISizeConstraint", {
-					MinSize = minSize,
-				}),
-				textLabel = Roact.createElement(GenericTextLabel, {
-					AnchorPoint = Vector2.new(0.5, 0.5),
-					Position = UDim2.fromScale(0.5, 0.5),
-					BackgroundTransparency = 1,
-					Text = manipulatedText,
-					fontStyle = fontStyle,
-					colorStyle = textStyle,
-					RichText = true,
-				}),
-				background = self.props.hoverBackgroundEnabled
-					and currentState == ControlState.Hover
-					and Roact.createElement(HoverButtonBackground),
-			}
-		)
+				Text = manipulatedText,
+				fontStyle = fontStyle,
+				colorStyle = textStyle,
+				RichText = true,
+			}),
+			background = self.props.hoverBackgroundEnabled
+				and currentState == ControlState.Hover
+				and Roact.createElement(HoverButtonBackground),
+		})
 	end)
 end
 function LinkButtonFunctionalWrapper(props)

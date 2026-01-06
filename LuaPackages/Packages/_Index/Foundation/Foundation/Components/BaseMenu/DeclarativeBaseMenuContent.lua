@@ -33,7 +33,7 @@ type DeclarativeBaseMenuContentProps<Item = BaseMenuItem> = {
 
 local function DeclarativeBaseMenuContent(props: DeclarativeBaseMenuContentProps)
 	local items: { BaseMenuItemGroup } = React.useMemo(function()
-		if Dash.get(props.items :: { BaseMenuItemGroup }, { 1 :: unknown, "items" }) then
+		if Dash.get(props.items :: { BaseMenuItemGroup }, { 1, "items" } :: { unknown }) then
 			return props.items :: { BaseMenuItemGroup }
 		else
 			return { { items = props.items :: { BaseMenuItem } } }

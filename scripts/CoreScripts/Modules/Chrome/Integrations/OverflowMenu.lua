@@ -32,7 +32,6 @@ local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatia
 
 local SelfieView = require(RobloxGui.Modules.SelfieView)
 
-local GetFFlagUnpinUnavailable = require(Chrome.Flags.GetFFlagUnpinUnavailable)
 local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
 local FFlagEnableUnibarFtuxTooltips = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUnibarFtuxTooltips
 local GetFIntRobloxConnectFtuxShowDelayMs = require(Chrome.Flags.GetFIntRobloxConnectFtuxShowDelayMs)
@@ -211,9 +210,6 @@ function updateRespawn(enabled)
 		respawn.availability:available()
 	else
 		respawn.availability:unavailable()
-		if GetFFlagUnpinUnavailable() then
-			ChromeService:removeUserPin(respawn.id)
-		end
 	end
 end
 

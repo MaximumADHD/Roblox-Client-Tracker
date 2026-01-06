@@ -9,8 +9,6 @@ local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 
 local GetFFlagDebugEnableUnibarDummyIntegrations =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDebugEnableUnibarDummyIntegrations
-local GetFFlagChromeTrackWindowPosition = require(Chrome.Flags.GetFFlagChromeTrackWindowPosition)
-local GetFFlagChromeTrackWindowStatus = require(Chrome.Flags.GetFFlagChromeTrackWindowStatus)
 
 return ChromeService:register({
 	initialAvailability = if GetFFlagDebugEnableUnibarDummyIntegrations()
@@ -19,7 +17,7 @@ return ChromeService:register({
 	id = "dummy_window_2",
 	label = "CoreScripts.TopBar.Menu",
 	startingWindowPosition = UDim2.new(1, -245, 0, 95),
-	persistWindowState = GetFFlagChromeTrackWindowPosition() or GetFFlagChromeTrackWindowStatus() or nil,
+	persistWindowState = true,
 	components = {
 		Icon = function(props)
 			return CommonIcon("icons/menu/home_on")

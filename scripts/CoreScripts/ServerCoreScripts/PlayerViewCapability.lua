@@ -5,7 +5,6 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 assert(RobloxGui ~= nil, "RobloxGui should exist")
 
 local GetFFlagPlayerViewRemoteEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagPlayerViewRemoteEnabled)
-local FFlagEnablePlayerViewRemoteEventValidation = game:DefineFastFlag("EnablePlayerViewRemoteEventValidation", false)
 local FFlagEnablePlayerViewRemoteEventUserIdValidation =
 	game:DefineFastFlag("EnablePlayerViewRemoteEventUserIdValidation", false)
 local FFlagEnablePlayerViewRemoteEventCFrameValidation =
@@ -18,18 +17,16 @@ RequestDeviceCameraOrientationCapability.Parent = RobloxReplicatedStorage
 local cameraOrientationRequests: { [number]: number } = {}
 
 RequestDeviceCameraOrientationCapability.OnServerEvent:Connect(function(requestorPlayer, targetPlayer)
-	if FFlagEnablePlayerViewRemoteEventValidation then
-		local now = os.clock()
-		local lastTime = cameraOrientationRequests[requestorPlayer.UserId]
-		if lastTime and (now - lastTime) < 2 then
-			return
-		end
-		if typeof(targetPlayer) ~= "Instance" or not targetPlayer:IsA("Player") then
-			return
-		end
-
-		cameraOrientationRequests[requestorPlayer.UserId] = now
+	local now = os.clock()
+	local lastTime = cameraOrientationRequests[requestorPlayer.UserId]
+	if lastTime and (now - lastTime) < 2 then
+		return
 	end
+	if typeof(targetPlayer) ~= "Instance" or not targetPlayer:IsA("Player") then
+		return
+	end
+
+	cameraOrientationRequests[requestorPlayer.UserId] = now
 
 	local platform = targetPlayer.OsPlatform
 	RequestDeviceCameraOrientationCapability:FireClient(
@@ -39,11 +36,9 @@ RequestDeviceCameraOrientationCapability.OnServerEvent:Connect(function(requesto
 	)
 end)
 
-if FFlagEnablePlayerViewRemoteEventValidation then
-	Players.PlayerRemoving:Connect(function(player)
-		cameraOrientationRequests[player.UserId] = nil
-	end)
-end
+Players.PlayerRemoving:Connect(function(player)
+	cameraOrientationRequests[player.UserId] = nil
+end)
 
 if GetFFlagPlayerViewRemoteEnabled() then
 	local RequestDeviceCameraCFrameRemoteEvent = Instance.new("RemoteEvent")

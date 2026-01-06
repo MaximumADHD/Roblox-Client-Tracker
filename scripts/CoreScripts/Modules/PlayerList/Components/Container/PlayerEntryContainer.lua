@@ -5,18 +5,20 @@ local PlayerList = script.Parent.Parent.Parent
 local React = require(CorePackages.Packages.React)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
-local Signals = require(CorePackages.Packages.Signals)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local PlayerIconInfoStorePackage = require(CorePackages.Workspace.Packages.PlayerIconInfoStore)
 
 local useLeaderboardStore = PlayerListPackage.Hooks.useLeaderboardStore
 
 local PlayerEntryView = require(PlayerList.Components.PresentationCommon.PlayerEntryView)
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
+local FFlagReplacePlayerIconRoduxWithSignal = SharedFlags.FFlagReplacePlayerIconRoduxWithSignal
 
-local FFlagMoveNewPlayerListDividers = SharedFlags.FFlagMoveNewPlayerListDividers
+local PlayerIconInfoStore = if FFlagReplacePlayerIconRoduxWithSignal then PlayerIconInfoStorePackage.PlayerIconInfoStore else nil::never
+
 local FFlagPlayerListFixLeaderstatsStacking = SharedFlags.FFlagPlayerListFixLeaderstatsStacking
 
 type PlayerEntryViewProps = PlayerEntryView.PlayerEntryViewProps
@@ -24,7 +26,7 @@ type PlayerEntryViewProps = PlayerEntryView.PlayerEntryViewProps
 type LeaderboardStore = LeaderboardStore.LeaderboardStore
 type PlayerEntry = LeaderboardStore.PlayerEntry
 type TeamEntry = LeaderboardStore.TeamEntry
-type PlayerIconInfoProps = LeaderboardStore.PlayerIconInfoProps
+type PlayerIconInfoProps = PlayerIconInfoStorePackage.PlayerIconInfo
 type PlayerRelationshipProps = LeaderboardStore.PlayerRelationshipProps
 type GameStatList = LeaderboardStore.GameStatList
 type StatList = LeaderboardStore.StatList
@@ -38,7 +40,6 @@ type PlayerEntryContainerProps = {
 	-- Store data
 	player: Player,
 	titlePlayerEntry: boolean,
-	teamData: TeamEntry?,
 	playerIconInfo: PlayerIconInfoProps,
 	playerRelationship: PlayerRelationshipProps,
 	
@@ -63,30 +64,30 @@ type PlayerEntryContainerProps = {
 local function PlayerEntryContainer(props: PlayerEntryContainerProps)
 	local leaderboardStore: LeaderboardStore = useLeaderboardStore() :: LeaderboardStore
 
+	local playerIconInfo
+	if FFlagReplacePlayerIconRoduxWithSignal then
+		local playerIconInfoGetter = PlayerIconInfoStore.getPlayerIconInfoReactive(props.player.UserId)
+		playerIconInfo = SignalsReact.useSignalState(playerIconInfoGetter)
+	else
+		playerIconInfo = props.playerIconInfo
+	end
+
 	local gameStats: GameStatList = leaderboardStore.getGameStatsList()
 	local playerData: PlayerEntry? = leaderboardStore.getPlayerEntry(props.player, false :: any)
 
 	local gameStatsCount: number? = if FFlagPlayerListFixLeaderstatsStacking then nil else SignalsReact.useSignalState(gameStats.getCount)
-
-	local teamPlayersCount = if not FFlagMoveNewPlayerListDividers 
-		then Signals.createComputed(function(scope)
-			return if props.teamData then props.teamData.players.getCount(scope) else 1
-		end) 
-		else nil
 
 	return if playerData 
 		then React.createElement(PlayerEntryView, {
 				playerData = playerData,
 				gameStats = gameStats,
 				gameStatsCount = if FFlagPlayerListFixLeaderstatsStacking then nil else gameStatsCount,
-				
 				size = props.size,
 				entrySizeX = props.entrySizeX,
 				layoutOrder = props.layoutOrder,
 				player = props.player,
 				titlePlayerEntry = props.titlePlayerEntry,
-				teamPlayersCount = teamPlayersCount,
-				playerIconInfo = props.playerIconInfo,
+				playerIconInfo = playerIconInfo,
 				playerRelationship = props.playerRelationship,
 				dropdownOpen = props.dropdownOpen,
 				selectedPlayer = props.selectedPlayer,

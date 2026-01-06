@@ -7,8 +7,6 @@ local GetFFlagExpChatGuacChatDisabledReason = SharedFlags.GetFFlagExpChatGuacCha
 local FFlagExpChatWindowSyncUnibar = SharedFlags.FFlagExpChatWindowSyncUnibar
 local FFlagEnableAEGIS2CommsFAEUpsell = SharedFlags.FFlagEnableAEGIS2CommsFAEUpsell
 
-local Chrome = script.Parent.Parent.Parent
-local FFlagRemoveLegacyChatConsoleCheck = require(Chrome.Flags.FFlagRemoveLegacyChatConsoleCheck)
 local FFlagExpChatOnShowIconChatAvailabilityStatus =
 	game:DefineFastFlag("ExpChatOnShowIconChatAvailabilityStatus", false)
 local GetChatStatusStore
@@ -27,7 +25,6 @@ local function new(chatStatusStore: any?)
 	local getLocalUserCanChat, setLocalUserCanChat = Signals.createSignal(false)
 	local getChatActiveCalledByDeveloper, setChatActiveCalledByDeveloper = Signals.createSignal(false)
 	local getVisibleViaChatSelector, setVisibleViaChatSelector = Signals.createSignal(false)
-	local getForceDisableForConsoleUsecase, setForceDisableForConsoleUsecase = Signals.createSignal(false)
 	local getGameSettingsChatVisible, setGameSettingsChatVisible
 	if FFlagExpChatWindowSyncUnibar then
 		getGameSettingsChatVisible, setGameSettingsChatVisible = Signals.createSignal(false)
@@ -42,10 +39,7 @@ local function new(chatStatusStore: any?)
 	local AegisIsEnabled = FFlagEnableAEGIS2CommsFAEUpsell and FFlagExpChatOnShowIconChatAvailabilityStatus
 
 	local getIsChatIconVisible = Signals.createComputed(function(scope)
-		-- APPEXP-2427: We can remove this console edge case once legacy chat is fully deprecated
-		if not FFlagRemoveLegacyChatConsoleCheck and getForceDisableForConsoleUsecase(scope) then
-			return false
-		elseif not getIsCoreGuiEnabled(scope) then
+		if not getIsCoreGuiEnabled(scope) then
 			return false
 		elseif not AegisIsEnabled and getLocalUserCanChat(scope) then
 			return true
@@ -94,9 +88,6 @@ local function new(chatStatusStore: any?)
 		setLocalUserChat = setLocalUserCanChat,
 		setChatActiveCalledByDeveloper = setChatActiveCalledByDeveloper,
 		setVisibleViaChatSelector = setVisibleViaChatSelector,
-		setForceDisableForConsoleUsecase = if FFlagRemoveLegacyChatConsoleCheck
-			then (function() end) :: never
-			else setForceDisableForConsoleUsecase,
 		setGameSettingsChatVisible = setGameSettingsChatVisible,
 	}
 end

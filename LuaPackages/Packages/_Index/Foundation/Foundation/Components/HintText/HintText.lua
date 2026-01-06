@@ -24,7 +24,7 @@ local function HintText(props: HintTextProps, ref: React.Ref<GuiObject>?)
 				["size-full-0 auto-y text-caption-small text-align-x-left text-align-y-top text-wrap"] = true,
 				["content-default"] = not props.hasError,
 				["content-action-alert"] = props.hasError,
-			},
+			} :: { [string]: boolean },
 			ref = ref,
 		})
 	)

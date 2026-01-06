@@ -1,7 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local Cryo = require(Packages.Cryo)
 local Dash = require(Packages.Dash)
 
 local Types = require(Foundation.Components.Types)
@@ -22,8 +21,6 @@ type InputLabelSize = InputLabelSize.InputLabelSize
 
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
-
-local Flags = require(Foundation.Utility.Flags)
 
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
@@ -97,17 +94,11 @@ local function variantsFactory(tokens: Tokens)
 
 	-- Placeholder existence should take precendent of content styling in any case.
 	-- It should always be content-muted.
-	local placeholderStates = if Flags.FoundationMigrateCryoToDash
-		then Dash.map(states, function(state)
-			return Dash.join(state, {
-				text = { tag = "content-muted" },
-			})
-		end)
-		else Cryo.Dictionary.map(states, function(state)
-			return Cryo.Dictionary.join(state, {
-				text = { tag = "content-muted" },
-			})
-		end)
+	local placeholderStates = Dash.map(states, function(state)
+		return Dash.join(state, {
+			text = { tag = "content-muted" },
+		})
+	end)
 
 	return {
 		common = common,

@@ -42,7 +42,7 @@ local function GridStyleSheet(gridStyleSheetProps: GridStyleSheetProps)
 
 	local styleRules = React.useMemo(function()
 		return Dash.join(gridStyleRules.baseRules, gridStyleRules.rulesByBreakpoint[breakpoint])
-	end, { gridStyleRules :: unknown, breakpoint })
+	end, { gridStyleRules, breakpoint } :: { unknown })
 
 	React.useLayoutEffect(function()
 		if sheet.current then
@@ -65,7 +65,7 @@ local function GridStyleSheet(gridStyleSheetProps: GridStyleSheetProps)
 				sheet.current:SetAttribute("ColMax" .. i, sizeMax)
 			end
 		end
-	end, { responsive.config :: unknown, containerWidth, breakpoint })
+	end, { responsive.config, containerWidth, breakpoint } :: { unknown })
 
 	React.useLayoutEffect(function()
 		if sheet.current then

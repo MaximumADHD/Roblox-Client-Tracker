@@ -35,11 +35,7 @@ local function initializeLibrary(configs)
 	local strict = require(script.Utility.strict)
 
 	local function lazify<Props>(fn: () -> React.FC<Props> | React.ComponentType<Props>): React.FC<Props>
-		if configs.enableCreateLazyComponent then
-			return createLazyComponent(fn)
-		else
-			return fn() :: React.FC<Props>
-		end
+		return createLazyComponent(fn)
 	end
 
 	local UIBlox = {}
@@ -48,15 +44,9 @@ local function initializeLibrary(configs)
 		Layout = strict({
 			Responsive = strict({
 				ResponsiveLayoutProvider = require(script.Core.Layout.Responsive.ResponsiveLayoutProvider),
-				ResponsiveRow = lazify(function()
-					return require(script.Core.Layout.Responsive.ResponsiveRow)
-				end),
 				useResponsiveLayout = require(script.Core.Layout.Responsive.useResponsiveLayout),
 			}),
 			Grid = strict({
-				GridContainer_DEPRECATED = lazify(function()
-					return require(script.Core.Layout.Grid.GridContainer_DEPRECATED)
-				end),
 				withGridConfig_DEPRECATED = require(script.Core.Layout.Grid.withGridConfig_DEPRECATED),
 			}),
 			LayerCollector = strict({
@@ -91,20 +81,11 @@ local function initializeLibrary(configs)
 			Interactable = lazify(function()
 				return require(script.Core.Control.Interactable)
 			end),
-			InteractableList = lazify(function()
-				return require(script.Core.Control.InteractableList)
-			end),
 			StateLayer = lazify(function()
 				return require(script.Core.Control.StateLayer)
 			end),
 			-- TODO: UIBLOX-707 remove once package dependency is resolved
 			FeedbackManagerInjectionContext = require(script.Core.Control.FeedbackManagerInjectionContext),
-		}),
-
-		Spatial = strict({
-			SurfaceGuiWithAdornee = lazify(function()
-				return require(script.Core.Spatial.SurfaceGuiWithAdornee)
-			end),
 		}),
 
 		Style = strict({
@@ -130,9 +111,6 @@ local function initializeLibrary(configs)
 			ExpandableText = strict({
 				GetCanExpand = require(script.Core.Text.ExpandableText.ExpandableTextUtils).getCanExpand,
 			}),
-			GetWrappedTextWithIcon = lazify(function()
-				return require(script.Core.Text.GetWrappedTextWithIcon)
-			end),
 			EmojiTextLabel = lazify(function()
 				return require(script.Core.Text.EmojiTextLabel.EmojiTextLabel)
 			end),
@@ -178,11 +156,9 @@ local function initializeLibrary(configs)
 		}),
 
 		Bar = strict({
-			HeaderBar = if configs.useNewHeaderBar
-				then lazify(function()
-					return require(script.App.Bar.HeaderBar)
-				end)
-				else require(script.App.Bar.HeaderBar),
+			HeaderBar = lazify(function()
+				return require(script.App.Bar.HeaderBar)
+			end),
 			FullscreenTitleBar = lazify(function()
 				return require(script.App.Bar.FullscreenTitleBar)
 			end),
@@ -267,9 +243,6 @@ local function initializeLibrary(configs)
 			Checkbox = lazify(function()
 				return require(script.App.InputButton.Checkbox)
 			end),
-			Toggle = lazify(function()
-				return require(script.App.InputButton.Toggle)
-			end),
 		}),
 
 		Container = strict({
@@ -277,7 +250,6 @@ local function initializeLibrary(configs)
 				ScrollBarType = require(script.App.Container.Enum.ScrollBarType),
 			}),
 			Carousel = strict({
-				ResponsiveCarousel = require(script.App.Container.Carousel.ResponsiveCarousel),
 				FreeFlowCarousel = lazify(function()
 					return require(script.App.Container.Carousel.FreeFlowCarousel)
 				end),
@@ -310,18 +282,9 @@ local function initializeLibrary(configs)
 			SystemSlider = lazify(function()
 				return require(script.App.Slider.SystemSlider)
 			end),
-			TwoKnobSystemSlider = lazify(function()
-				return require(script.App.Slider.TwoKnobSystemSlider)
-			end),
-			TwoKnobContextualSlider = lazify(function()
-				return require(script.App.Slider.TwoKnobContextualSlider)
-			end),
 		}),
 
 		Emoji = strict({
-			Emoji = lazify(function()
-				return require(script.Core.Emoji.Emoji)
-			end),
 			Enum = strict({
 				Emoji = require(script.Core.Emoji.Enum.Emoji),
 			}),
@@ -354,9 +317,6 @@ local function initializeLibrary(configs)
 			),
 			ExperienceActionRow = lazify(function()
 				return require(script.App.Tile.SplitTile.ExperienceTile.ExperienceActionRow)
-			end),
-			ActionTile = lazify(function()
-				return require(script.App.Tile.SplitTile.ActionTile.ActionTile)
 			end),
 			VerticalTile = lazify(function()
 				return require(script.App.Tile.SplitTile.VerticalTile.VerticalTile)
@@ -396,9 +356,6 @@ local function initializeLibrary(configs)
 				end),
 			}),
 			Alert = strict({
-				InformativeAlert = lazify(function()
-					return require(script.App.Dialog.Alert.InformativeAlert)
-				end),
 				InteractiveAlert = lazify(function()
 					return require(script.App.Dialog.Alert.InteractiveAlert)
 				end),
@@ -509,9 +466,6 @@ local function initializeLibrary(configs)
 			PillGroup = lazify(function()
 				return require(script.App.Control.Pill.PillGroup)
 			end),
-			ScrollingListWithArrowsAndGradient = require(
-				script.App.Control.HorizontalNav.ScrollingListWithArrowsAndGradient
-			),
 		}),
 
 		Navigation = strict({
@@ -527,25 +481,13 @@ local function initializeLibrary(configs)
 			NavigationBar = lazify(function()
 				return require(script.App.Navigation.NavigationBar)
 			end),
-			NavigationRail = lazify(function()
-				return require(script.App.Navigation.NavigationRail)
-			end),
 			NavigationRailV2 = lazify(function()
 				return require(script.App.Navigation.NavigationRailV2)
 			end),
 			NavigationTab = require(script.App.Navigation.NavigationTab),
 			PrimaryNavBar = strict({
-				ContextBar = lazify(function()
-					return require(script.App.Navigation.PrimaryNavBar.ContextBar)
-				end),
-				IconTab = lazify(function()
-					return require(script.App.Navigation.PrimaryNavBar.IconTab)
-				end),
 				IconTabGroup = lazify(function()
 					return require(script.App.Navigation.PrimaryNavBar.IconTabGroup)
-				end),
-				Types = lazify(function()
-					return require(script.App.Navigation.PrimaryNavBar.Types)
 				end),
 			}),
 			ShortcutBar = lazify(function()
@@ -566,24 +508,8 @@ local function initializeLibrary(configs)
 		SelectionCursor = strict({
 			CursorProvider = require(script.App.SelectionCursor.CursorProvider),
 			useCursor = require(script.App.SelectionCursor.useCursor),
-			withCursor = require(script.App.SelectionCursor.withCursor),
 			useCursorByType = require(script.App.SelectionCursor.useCursorByType),
 			CursorType = require(script.App.SelectionCursor.CursorType),
-		}),
-
-		-- remove when cleaning up moveDetailsPageToLuaApps as true
-		Template = strict({
-			DetailsPage = {
-				Enum = {
-					ContentPosition = require(script.App.Template.DetailsPage.Enum.ContentPosition),
-				},
-				DetailsPageTemplate = lazify(function()
-					return require(script.App.Template.DetailsPage.DetailsPageTemplate)
-				end),
-				DetailsPageSelector = lazify(function()
-					return require(script.App.Template.DetailsPage.DetailsPageSelector)
-				end),
-			},
 		}),
 
 		Table = strict({

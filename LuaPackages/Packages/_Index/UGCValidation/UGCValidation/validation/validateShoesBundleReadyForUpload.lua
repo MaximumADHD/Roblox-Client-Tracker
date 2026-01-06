@@ -120,9 +120,9 @@ local function validateShoesBundleReadyForUpload(
 
 	progressCallback(response)
 
-	local telemetry_bundle_id
+	local telemetryBundleId
 	if getFFlagUGCValidationEnableFolderStructure() then
-		telemetry_bundle_id = HttpService:GenerateGUID()
+		telemetryBundleId = HttpService:GenerateGUID()
 	end
 	-- Calling serially because the UGC validation service gets throttled fast.
 	return Promise.each(pieces, function(piece: AvatarValidationPiece, index: number)
@@ -154,7 +154,7 @@ local function validateShoesBundleReadyForUpload(
 			if getFFlagUGCValidationEnableFolderStructure() then
 				success, problems = LegacyValidationAdapter.studioRFUAssetValidation(
 					validationContext,
-					telemetry_bundle_id,
+					telemetryBundleId,
 					success,
 					problems
 				)
@@ -234,7 +234,7 @@ local function validateShoesBundleReadyForUpload(
 							fullBodyData,
 							Enum.BundleType.Shoes,
 							validationContext,
-							telemetry_bundle_id,
+							telemetryBundleId,
 							success,
 							failures
 						)

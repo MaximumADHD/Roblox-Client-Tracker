@@ -72,7 +72,7 @@ local function getGridMetrics(
 	local cellWidth = if gridWidth > totalGutterWidth
 		then math.floor(colWidth * sizeMetrics.colCount + colOffset)
 		else 0
-	local cellSize = UDim2.new(0, cellWidth, 0, 0)
+	local cellSize = UDim2.fromOffset(cellWidth, 0)
 
 	return Dash.assign({
 		full = Dash.assign(fullMetrics, { margin = margin }),

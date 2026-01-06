@@ -32,9 +32,6 @@ local PageInstance = nil
 RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagIEMSettingsAddPlaySessionID = SharedFlags.FFlagIEMSettingsAddPlaySessionID
-
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
 local GetFFlagEnableInGameMenuDurationLogger = require(RobloxGui.Modules.Common.Flags.GetFFlagEnableInGameMenuDurationLogger)
@@ -56,7 +53,7 @@ local function Initialize()
 	local this = settingsPageFactory:CreateNewPage()
 
 	this.playsessionid = ""
-	if FFlagIEMSettingsAddPlaySessionID and EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+	if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
 		this.playsessionid = AnalyticsService:GetPlaySessionId()
 	end
 
@@ -75,7 +72,7 @@ local function Initialize()
 					confirmed = Constants.AnalyticsConfirmedName,
 					universeid = tostring(game.GameId),
 					source = Constants.AnalyticsLeaveToHomeSource,
-					playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playsessionid else nil,
+					playsessionid = this.playsessionid ,
 				}
 			)
 		end
@@ -106,7 +103,7 @@ local function Initialize()
 					confirmed = Constants.AnalyticsCancelledName,
 					universeid = tostring(game.GameId),
 					source = Constants.AnalyticsLeaveToHomeSource,
-					playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playsessionid else nil,
+					playsessionid = this.playsessionid ,
 				}
 			)								
 		end

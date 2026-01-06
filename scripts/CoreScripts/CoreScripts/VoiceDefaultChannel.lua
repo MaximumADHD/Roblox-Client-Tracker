@@ -19,18 +19,13 @@ local FFlagAlwaysJoinWhenUsingAudioAPI = game:DefineFastFlag("AlwaysJoinWhenUsin
 local FFlagDefaultChannelDontWaitOnCharacterWithAudioApi =
 	game:DefineFastFlag("DefaultChannelDontWaitOnCharacterWithAudioApi", false)
 local GetFFlagEnableLuaVoiceChatAnalytics = require(VoiceChatCore.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
-local GetFFlagRemoveInGameChatBubbleChatReferences =
-	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 local GetFFlagSeamlessVoiceFTUX = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSeamlessVoiceFTUX
 
 local GenerateDefaultChannelAvailable = game:GetEngineFeature("VoiceServiceGenerateDefaultChannelAvailable")
 local EnableDefaultVoiceAvailable = game:GetEngineFeature("VoiceServiceEnableDefaultVoiceAvailable")
 local NotificationServiceIsConnectedAvailable = game:GetEngineFeature("NotificationServiceIsConnectedAvailable")
 
-local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
-if GetFFlagRemoveInGameChatBubbleChatReferences() then
-	log = require(RobloxGui.Modules.VoiceChat.Logger)(script.Name)
-end
+local log = require(RobloxGui.Modules.VoiceChat.Logger)(script.Name)
 local Analytics = require(RobloxGui.Modules.VoiceChat.Analytics).new()
 
 local VoiceChatService = game:GetService("VoiceChatService")

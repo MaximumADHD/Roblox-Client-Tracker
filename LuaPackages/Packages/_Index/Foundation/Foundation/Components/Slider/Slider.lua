@@ -110,7 +110,7 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 			return motionStates.Hidden
 		end
 		return if isDragging then motionStates.Dragging else motionStates.Idle
-	end, { tokens :: any, isKnobVisible, isDragging, motionStates })
+	end, { tokens, isKnobVisible, isDragging, motionStates } :: { unknown })
 
 	React.useEffect(function()
 		if props.knobVisibility :: Visibility == Visibility.None then
@@ -125,7 +125,7 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 					or controlState == ControlState.Pressed
 			)
 		end
-	end, { props.knobVisibility :: any, controlState, isDragging })
+	end, { props.knobVisibility, controlState, isDragging } :: { unknown })
 
 	local calculateValueFromAbsPosition = React.useCallback(function(position: Vector2)
 		if ref.current then

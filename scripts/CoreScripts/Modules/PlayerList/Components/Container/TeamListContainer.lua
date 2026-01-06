@@ -7,6 +7,7 @@ local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
+local PlayerIconInfoStore = require(CorePackages.Workspace.Packages.PlayerIconInfoStore)
 
 local useLeaderboardStore = PlayerListPackage.Hooks.useLeaderboardStore
 
@@ -16,19 +17,18 @@ type TeamListViewProps = TeamListView.TeamListViewProps
 
 type LeaderboardStore = LeaderboardStore.LeaderboardStore
 type TeamEntry = LeaderboardStore.TeamEntry
-type PlayerIconInfoProps = LeaderboardStore.PlayerIconInfoProps
+type PlayerIconInfo = PlayerIconInfoStore.PlayerIconInfo
 type PlayerRelationshipProps = LeaderboardStore.PlayerRelationshipProps
 
 type TeamListContainerProps = {
 	-- Layout options
-	size: UDim2?,
 	entrySizeX: number,
 	layoutOrder: React.Binding<number>?,
 	showTeamEntry: boolean,
 
 	-- Team data
 	teamData: TeamEntry,
-	playerIconInfos: { [number]: PlayerIconInfoProps },
+	playerIconInfos: { [number]: PlayerIconInfo },
 	playerRelationships: { [number]: PlayerRelationshipProps },
 
 	-- Dropdown data
@@ -72,7 +72,6 @@ local function TeamListContainer(props: TeamListContainerProps)
 		showTeamEntry = showTeamEntry,
 		teamPlayersCount = teamPlayersCount,
 
-		size = props.size,
 		entrySizeX = props.entrySizeX,
 		teamData = props.teamData,
 		playerIconInfos = props.playerIconInfos,

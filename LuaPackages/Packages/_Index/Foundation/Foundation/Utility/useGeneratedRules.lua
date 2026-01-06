@@ -11,7 +11,7 @@ type Device = Device.Device
 local function useGeneratedRules(theme: Theme, device: Device)
 	return React.useMemo(function(): any
 		return getGeneratedRules(theme, device)
-	end, { theme :: any, device })
+	end, { theme, device } :: { unknown })
 end
 
 return useGeneratedRules

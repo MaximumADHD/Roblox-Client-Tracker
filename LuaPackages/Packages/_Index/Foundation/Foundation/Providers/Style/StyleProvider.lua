@@ -3,7 +3,6 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 local Flags = require(Foundation.Utility.Flags)
-local Cryo = require(Packages.Cryo)
 local Dash = require(Packages.Dash)
 
 local Theme = require(Foundation.Enums.Theme)
@@ -55,7 +54,7 @@ function StyleSheetContextWrapper(props: {
 	end
 
 	return React.createElement(StyleSheetContext.Provider, {
-		value = styleSheet or if Flags.FoundationMigrateCryoToDash then Dash.None else Cryo.None,
+		value = styleSheet or Dash.None,
 	}, props.children)
 end
 
@@ -73,7 +72,7 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 
 	local tokens: Tokens = React.useMemo(function()
 		return getTokens(props.device, props.theme, props.scale)
-	end, { props.device :: any, props.theme, props.scale })
+	end, { props.device, props.theme, props.scale } :: { unknown })
 
 	local rules = if not Flags.FoundationDisableStylingPolyfill
 		then useGeneratedRules(props.theme, props.device)

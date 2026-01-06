@@ -43,7 +43,7 @@ local function StyleSheet(props: StyleSheetProps)
 			sheet:SetDerives((props.derives or {}) :: { Instance })
 		end
 		-- There is no removeDerives, a new call overwrites the old one.
-	end, { sheet :: any, props.derives })
+	end, { sheet, props.derives } :: { unknown })
 
 	local styleRules = React.useMemo(function()
 		if sheet then
@@ -51,7 +51,7 @@ local function StyleSheet(props: StyleSheetProps)
 		else
 			return nil
 		end
-	end, { sheet :: any, rules, props.tags, props.scale })
+	end, { sheet, rules, props.tags, props.scale } :: { unknown })
 
 	return React.createElement(React.Fragment, nil, {
 		FoundationStyleSheet = React.createElement("StyleSheet", {

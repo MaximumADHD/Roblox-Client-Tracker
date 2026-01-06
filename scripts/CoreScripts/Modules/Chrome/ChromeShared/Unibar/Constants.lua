@@ -2,8 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
-local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
-local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagChromeShortcutRemoveLeaveOnRespawnPage = SharedFlags.FFlagChromeShortcutRemoveLeaveOnRespawnPage
 local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShortcutRemoveRespawnOnLeavePage
 
@@ -42,7 +41,7 @@ return {
 	ICON_CELL_WIDTH = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_1100 else 44,
 	DIVIDER_CELL_WIDTH = if FFlagAdaptUnibarAndTiltSizing then withUIScale(5) else 5,
 	ICON_SIZE = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_900 else 36,
-	ICON_NAME_PREFIX = if FFlagTiltIconUnibarFocusNav or FFlagConsoleChatOnExpControls then "IconHitArea_" else nil,
+	ICON_NAME_PREFIX = if FFlagEnableConsoleExpControls then "IconHitArea_" else nil,
 	ICON_HIGHLIGHT_SIZE = if FFlagAdaptUnibarAndTiltSizing
 		then UDim2.new(0, StyleTokens.Size.Size_900, 0, StyleTokens.Size.Size_900)
 		else UDim2.new(0, 36, 0, 36),
@@ -119,8 +118,6 @@ return {
 	WINDOW_DEFAULT_PADDING = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.Small else 8,
 	WINDOW_ICON_SIZE = if FFlagAdaptUnibarAndTiltSizing then withUIScale(42) else 42,
 
-	WINDOW_ACTIVE_SECONDS = 2,
-
 	-- the amount of travel to activate a WindowHost from dragging an icon
 	DRAG_MAGNITUDE_THRESHOLD = 10,
 
@@ -145,15 +142,6 @@ return {
 	NON_MOBILE_SLOTS = 9,
 
 	MAX_NUM_UNIVERSES_SHOWN = 5,
-
-	HEALTH = {
-		RED = Color3.fromRGB(255, 28, 0),
-		YELLOW = Color3.fromRGB(250, 235, 0),
-		GREEN = Color3.fromRGB(27, 252, 107),
-		RED_THRESHOLD = 0.1,
-		YELLOW_THRESHOLD = 0.5,
-		GREEN_THRESHOLD = 0.8,
-	},
 
 	ANALYTICS = {
 		SCREEN_ORIENTATION_MAP = {
@@ -190,7 +178,5 @@ return {
 		WINDOW_RESIZE = "chrome_unibar_window_resized",
 		WINDOW_OPENED = "chrome_unibar_window_opened",
 		WINDOW_CLOSED = "chrome_unibar_window_closed",
-		PIN_ADDED = "chrome_unibar_pin_added",
-		PIN_REMOVED = "chrome_unibar_pin_removed",
 	},
 }

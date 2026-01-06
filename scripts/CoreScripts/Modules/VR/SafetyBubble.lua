@@ -228,12 +228,10 @@ function SafetyBubble:update(dt)
 		for _, player in pairs(Players:GetPlayers()) do
 			if player.Character and player ~= Players.LocalPlayer then
 				if self.mode == Enum.VRSafetyBubbleMode.OnlyFriends and
-					-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
-					-- Will be removed when that PR is merged.
 					if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-						(Players.LocalPlayer :: any):IsFriendsWithAsync(player.UserId)
+						Players.LocalPlayer:IsFriendsWithAsync(player.UserId)
 					else
-						(Players.LocalPlayer :: any):IsFriendsWith(player.UserId)
+						(Players.LocalPlayer :: never):IsFriendsWith(player.UserId)
 				then
 					-- Clear hidden friends if existed
 					local subIndex = self:GetSubjectIndex(player.Character)

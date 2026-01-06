@@ -8,7 +8,6 @@ if not ChromeEnabled() then
 	return nil
 end
 
-local ChromeAnalytics = require(Chrome.ChromeShared.Analytics.ChromeAnalytics)
 local ChromeService = require(Chrome.Service)
 local PartyConstants = require(Chrome.Integrations.Party.Constants)
 local isConnectUnibarEnabled = require(Chrome.Integrations.Connect.isConnectUnibarEnabled)
@@ -20,8 +19,7 @@ local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagDebugEnableUnibarDummyIntegrations = SharedFlags.GetFFlagDebugEnableUnibarDummyIntegrations
-local GetFFlagEnableChromePinIntegrations = SharedFlags.GetFFlagEnableChromePinIntegrations
-local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
@@ -47,12 +45,6 @@ local function configureUnibar()
 
 	if isConnectDropdownEnabled() then
 		table.insert(nineDot, 1, "connect_dropdown")
-	end
-
-	-- insert trust and safety into pin, prioritize over leaderboard
-	if GetFFlagEnableChromePinIntegrations() and not ChromeService:isUserPinned("trust_and_safety") then
-		ChromeService:setUserPin("trust_and_safety", true)
-		ChromeAnalytics.default:setPin("trust_and_safety", true, ChromeService:userPins())
 	end
 
 	local v4Ordering = { "toggle_mic_mute", "chat", "nine_dot" }
@@ -105,7 +97,7 @@ local function configureUnibar()
 end
 
 initializeIntegrations()
-if FFlagEnableChromeShortcutBar then
+if FFlagEnableConsoleExpControls then
 	initializeShortcuts()
 end
 configureUnibar()

@@ -78,12 +78,10 @@ end
 local function getProductInfo(id)
 	return Promise.new(function(resolve, reject)
 		local success, result = pcall(function()
-			-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
-			-- Will be removed when that PR is merged.
 			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				return (MarketplaceService :: any):GetProductInfoAsync(id)
+				return MarketplaceService:GetProductInfoAsync(id)
 			else
-				return (MarketplaceService :: any):GetProductInfo(id)
+				return (MarketplaceService :: never):GetProductInfo(id)
 			end
 		end)
 
@@ -101,12 +99,10 @@ end
 local function getBatchItemDetails(itemIds, itemType)
 	return Promise.new(function(resolve, reject)
 		local success, result = pcall(function()
-			-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
-			-- Will be removed when that PR is merged.
 			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				return (AvatarEditorService :: any):GetBatchItemDetailsAsync(itemIds, itemType)
+				return AvatarEditorService:GetBatchItemDetailsAsync(itemIds, itemType)
 			else
-				return (AvatarEditorService :: any):GetBatchItemDetails(itemIds, itemType)
+				return (AvatarEditorService :: never):GetBatchItemDetails(itemIds, itemType)
 			end
 		end)
 			
@@ -144,12 +140,10 @@ end
 local function getItemDetails(itemId, itemType)
 	return Promise.new(function(resolve, reject)
 		local success, result = pcall(function()
-			-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
-			-- Will be removed when that PR is merged.
 			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				return (AvatarEditorService :: any):GetItemDetailsAsync(itemId, itemType)
+				return AvatarEditorService:GetItemDetailsAsync(itemId, itemType)
 			else
-				return (AvatarEditorService :: any):GetItemDetails(itemId, itemType)
+				return (AvatarEditorService :: never):GetItemDetails(itemId, itemType)
 			end
 		end)
 
@@ -198,12 +192,10 @@ local function getHumanoidDescriptionFromCostumeId(costumeId)
 	return Promise.new(function(resolve, reject)
 		spawn(function()
 			local humanoidDescription =
-				-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
-				-- Will be removed when that PR is merged.
 				if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-					(Players :: any):GetHumanoidDescriptionFromOutfitIdAsync(costumeId)
+					Players:GetHumanoidDescriptionFromOutfitIdAsync(costumeId)
 				else
-					(Players :: any):GetHumanoidDescriptionFromOutfitId(costumeId)
+					(Players :: never):GetHumanoidDescriptionFromOutfitId(costumeId)
 
 			if humanoidDescription then
 				resolve(humanoidDescription)
@@ -373,12 +365,10 @@ end
 local function getModelFromUserId(userId)
 	return Promise.new(function(resolve, reject)
 		spawn(function()
-			-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
-			-- Will be removed when that PR is merged.
 			local model = if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				(Players :: any):CreateHumanoidModelFromUserIdAsync(userId)
+				Players:CreateHumanoidModelFromUserIdAsync(userId)
 			else
-				(Players :: any):CreateHumanoidModelFromUserId(userId)
+				(Players :: never):CreateHumanoidModelFromUserId(userId)
 
 			if model then
 				resolve(model)

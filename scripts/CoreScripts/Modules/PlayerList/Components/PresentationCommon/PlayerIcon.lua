@@ -23,7 +23,7 @@ local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 
 local PlayerList = Components.Parent
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
-local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
+local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 
 local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
 
@@ -84,7 +84,7 @@ end
 
 function PlayerIcon:render()
 	return WithLayoutValues(function(layoutValues)
-		layoutValues = if FFlagAddMobilePlayerListScaling then self.props.layoutValues else layoutValues
+		layoutValues = if FFlagUseNewPlayerList then self.props.layoutValues else layoutValues
 
 		local avatarIcon = nil
 		if FFlagPlayerIconAvatarFix then
@@ -150,7 +150,7 @@ local function mapStateToProps(state)
 end
 
 local PlayerIconWrapper = function(props)
-	local layoutValues = if FFlagAddMobilePlayerListScaling then useLayoutValues() else nil
+	local layoutValues = if FFlagUseNewPlayerList then useLayoutValues() else nil
 
 	return React.createElement(PlayerIcon, Cryo.Dictionary.join(props, {
 		layoutValues = layoutValues,
@@ -158,7 +158,7 @@ local PlayerIconWrapper = function(props)
 end
 
 if FFlagPlayerListReduceRerenders then
-	return React.memo(RoactRodux.connect(mapStateToProps, nil)(if FFlagAddMobilePlayerListScaling then PlayerIconWrapper else PlayerIcon))
+	return React.memo(RoactRodux.connect(mapStateToProps, nil)(if FFlagUseNewPlayerList then PlayerIconWrapper else PlayerIcon))
 end
 
-return RoactRodux.connect(mapStateToProps, nil)(if FFlagAddMobilePlayerListScaling then PlayerIconWrapper else PlayerIcon)
+return RoactRodux.connect(mapStateToProps, nil)(if FFlagUseNewPlayerList then PlayerIconWrapper else PlayerIcon)

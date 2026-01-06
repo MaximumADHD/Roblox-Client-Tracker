@@ -238,28 +238,22 @@ function PreviewViewport:processAsset()
 		task.spawn(function()
 			local ok, humanoidDescription = pcall(function()
 				-- this is an outfit of Mannequin-Blocky bundle that is used to create emote thumbnails https://www.roblox.com/bundles/515/Mannequin-Blocky
-				-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
-				-- Will be removed when that PR is merged.
 				if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-					local mannequinRig = (Players :: any):GetHumanoidDescriptionFromOutfitIdAsync(MANNEQUIN_OUTFIT_ID)
+					local mannequinRig = Players:GetHumanoidDescriptionFromOutfitIdAsync(MANNEQUIN_OUTFIT_ID)
 					return mannequinRig
 				else
-					local mannequinRig = (Players :: any):GetHumanoidDescriptionFromOutfitId(MANNEQUIN_OUTFIT_ID)
+					local mannequinRig = (Players :: never):GetHumanoidDescriptionFromOutfitId(MANNEQUIN_OUTFIT_ID)
 					return mannequinRig
 				end
 			end)
 
 			local newModel
 			if ok then
-				-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
-				-- Will be removed when that PR is merged.
 				if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-					newModel = (Players :: any):CreateHumanoidModelFromDescriptionAsync(
-						humanoidDescription,
-						Enum.HumanoidRigType.R15
-					)
+					newModel =
+						Players:CreateHumanoidModelFromDescriptionAsync(humanoidDescription, Enum.HumanoidRigType.R15)
 				else
-					newModel = (Players :: any):CreateHumanoidModelFromDescription(
+					newModel = (Players :: never):CreateHumanoidModelFromDescription(
 						humanoidDescription,
 						Enum.HumanoidRigType.R15
 					)

@@ -41,8 +41,6 @@ local PlayerListManager = require(RobloxGui.Modules.PlayerList.PlayerListManager
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
-local GetFFlagAppChatInExpConnectIconEnableSquadIndicator =
-	require(RobloxGui.Modules.Chrome.Flags.GetFFlagAppChatInExpConnectIconEnableSquadIndicator)
 local TopBarConstants = require(RobloxGui.Modules.TopBar.Constants)
 local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
 
@@ -79,7 +77,7 @@ local parentContainerContext: AppChat.ParentContainerContextType = {
 		InExperienceAppChatModal.default:setVisible(true)
 	end,
 	updateCurrentSquadId = function(squadId)
-		if GetFFlagAppChatInExpConnectIconEnableSquadIndicator() and GetFFlagIsSquadEnabled() then
+		if GetFFlagIsSquadEnabled() then
 			InExperienceAppChatModal:setCurrentSquadId(squadId)
 		end
 	end,

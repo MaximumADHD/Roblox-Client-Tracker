@@ -44,8 +44,6 @@ local getFFlagAddApolloClientToExperienceChat = require(RobloxGui.Modules.Flags.
 local getFFlagDoNotPromptCameraPermissionsOnMount =
 	require(RobloxGui.Modules.Flags.getFFlagDoNotPromptCameraPermissionsOnMount)
 local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
-local GetFFlagRemoveInGameChatBubbleChatReferences =
-	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 local getFFlagRenderVoiceBubbleAfterAsyncInit = require(RobloxGui.Modules.Flags.getFFlagRenderVoiceBubbleAfterAsyncInit)
 local GetFFlagShowLikelySpeakingBubbles =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowLikelySpeakingBubbles
@@ -71,10 +69,7 @@ if FFlagAvatarChatCoreScriptSupport then
 	selfViewListenerChanged = require(RobloxGui.Modules.VoiceChat.Components.selfViewListenerChanged)
 
 	if getFFlagDoNotPromptCameraPermissionsOnMount() then
-		displayCameraDeniedToast = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.displayCameraDeniedToast)
-		if GetFFlagRemoveInGameChatBubbleChatReferences() then
-			displayCameraDeniedToast = require(RobloxGui.Modules.VoiceChat.Helpers.displayCameraDeniedToast)
-		end
+		displayCameraDeniedToast = require(RobloxGui.Modules.VoiceChat.Helpers.displayCameraDeniedToast)
 		isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnabledForUserAndPlace)
 	end
 

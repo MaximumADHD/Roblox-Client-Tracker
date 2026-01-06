@@ -5,22 +5,9 @@ local GuiService = game:GetService("GuiService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local GetFFlagEnableChromePinIntegrations = SharedFlags.GetFFlagEnableChromePinIntegrations
-local GetFFlagUseNewPinIcon = SharedFlags.GetFFlagUseNewPinIcon
-local GetFFlagKeepSubmenuOpenOnPin = SharedFlags.GetFFlagKeepSubmenuOpenOnPin
-local GetFFlagNewSubmenuTouchTargets = SharedFlags.GetFFlagNewSubmenuTouchTargets
-local GetFFlagFixSubmenuCloseIOS = SharedFlags.GetFFlagFixSubmenuCloseIOS
-local GetFFlagEnableCaptureBadge = SharedFlags.GetFFlagEnableCaptureBadge
-local GetFIntNumTimesNewBadgeIsDisplayed = SharedFlags.GetFIntNumTimesNewBadgeIsDisplayed
-local GetFStringNewFeatureList = SharedFlags.GetFStringNewFeatureList
-local GetFFlagAnimateSubMenu = SharedFlags.GetFFlagAnimateSubMenu
-local GetFFlagChromeUsePreferredTransparency = SharedFlags.GetFFlagChromeUsePreferredTransparency
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
-local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
-local FFlagFocusNavOutOfSubmenu = SharedFlags.FFlagFocusNavOutOfSubmenu
-local FFlagSubmenuFocusNavFixes = SharedFlags.FFlagSubmenuFocusNavFixes
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagChromeFixStopFocusBeforeMenuRowActive = SharedFlags.FFlagChromeFixStopFocusBeforeMenuRowActive
-local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagAvatarSwitcherHamburgerExposure = game:DefineFastFlag("AvatarSwitcherHamburgerExposure", false)
 local FStringAvatarSwitcherIXPLayer = game:DefineFastString("AvatarSwitcherIXPLayer", "UIEcosystem.User.Migration")
 
@@ -32,19 +19,15 @@ local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTok
 
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
-local GamepadUtils = if FFlagFocusNavOutOfSubmenu
+local GamepadUtils = if FFlagEnableConsoleExpControls
 	then require(CorePackages.Workspace.Packages.InputUi).Gamepad.GamepadUtils
 	else nil :: never
-local LocalStore = require(Root.Service.LocalStore)
 local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local useStyle = UIBlox.Core.Style.useStyle
 local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 local useSelectionCursor = if FFlagAdaptUnibarAndTiltSizing then nil else UIBlox.App.SelectionImage.useSelectionCursor
 local CursorKind = if FFlagAdaptUnibarAndTiltSizing then nil else UIBlox.App.SelectionImage.CursorKind
-local ImageSetLabel = UIBlox.Core.ImageSet.ImageSetLabel
-local Images = UIBlox.App.ImageSet.Images
-local Badge = UIBlox.App.Indicator.Badge
 local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
 local ScrollBarType = UIBlox.App.Container.Enum.ScrollBarType
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
@@ -55,10 +38,9 @@ local useCursor = if FFlagAdaptUnibarAndTiltSizing then Foundation.Hooks.useCurs
 
 local ChromeService = require(Root.Service)
 local ChromeTypes = require(Root.Service.Types)
-local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
 local ViewportUtil = require(Root.Service.ViewportUtil)
 local Constants = require(Root.Unibar.Constants)
-local MenuIconContext = if FFlagFocusNavOutOfSubmenu
+local MenuIconContext = if FFlagEnableConsoleExpControls
 	then require(Root.Parent.Parent.TopBar.Components.MenuIconContext)
 	else nil :: never
 local SubMenuContext = require(Root.Unibar.SubMenuContext)
@@ -89,31 +71,11 @@ local IconHost = require(Root.Unibar.ComponentHosts.IconHost)
 -- remove any casts after FFlagAdaptUnibarAndTiltSizing cleanup
 local CURSOR_TYPE = if FFlagAdaptUnibarAndTiltSizing then Foundation.Enums.CursorType.RoundedSlot else nil :: never
 
-local PINNED_ICON = nil
-local UNPINNED_ICON = nil
-if GetFFlagUseNewPinIcon() then
-	PINNED_ICON = Images["icons/controls/pinned_small"]
-	UNPINNED_ICON = Images["icons/controls/unpinned_small"]
-else
-	PINNED_ICON = Images["icons/actions/edit/remove"]
-	UNPINNED_ICON = Images["icons/actions/edit/add"]
-end
-
-local hasOpened9Dot = false
-local TIMES_SEEN = "TimesSeenNewFeatures"
-local NEW_BADGE_TEXT = "NEW"
-local newFeatures = {}
-
-local pinPressed = false
 local lastTouchPosition = Vector2.new(0, 0)
 
 local AnimationStatus = { Closed = 0, Open = 1 }
 local lastItemList = {}
 local lastSubMenu = nil
-
-for feature in string.gmatch(GetFStringNewFeatureList(), "([^, ]+)") do
-	newFeatures[feature] = true
-end
 
 type Table = { [any]: any }
 
@@ -121,17 +83,6 @@ export type SubMenuProps = {
 	items: { [number]: ChromeTypes.IntegrationComponentProps },
 	menuTransition: any?,
 }
-
-function ClearBadge(id)
-	if newFeatures[id] then
-		newFeatures[id] = false
-		if LocalStore.isEnabled() then
-			local current = LocalStore.loadForLocalPlayer(TIMES_SEEN) or {}
-			current[id] = GetFIntNumTimesNewBadgeIsDisplayed()
-			LocalStore.storeForLocalPlayer(TIMES_SEEN, current)
-		end
-	end
-end
 
 function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 	local style = useStyle()
@@ -169,16 +120,9 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 	end
 
 	local menuTransition = React.useContext(SubMenuContext)
-	local menuIconContext = if FFlagFocusNavOutOfSubmenu then React.useContext(MenuIconContext) else nil :: never
-
-	local useTouchTargets = GetFFlagNewSubmenuTouchTargets()
-	local currenlyPinned = if GetFFlagEnableChromePinIntegrations() then ChromeService:isUserPinned(props.id) else nil
-	local pinDisabled = if GetFFlagEnableChromePinIntegrations()
-		then ChromeService:areUserPinsFull() and not currenlyPinned
-		else nil
+	local menuIconContext = if FFlagEnableConsoleExpControls then React.useContext(MenuIconContext) else nil :: never
 
 	local highlightColor, setHighlightColor = React.useBinding(defaultBgColor)
-	local pinHighlightColor, setPinHighlightColor = React.useBinding(defaultBgColor)
 
 	local stateChange = React.useCallback(function(_, newState)
 		if newState == ControlState.Pressed then
@@ -190,22 +134,9 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		end
 	end)
 
-	local pinStateChange = React.useCallback(function(_, newState)
-		if newState == ControlState.Pressed then
-			setPinHighlightColor(theme.BackgroundOnPress)
-		elseif newState == ControlState.Hover then
-			setPinHighlightColor(theme.BackgroundOnHover)
-		else
-			setPinHighlightColor(defaultBgColor)
-		end
-	end)
-
 	local onMenuRowActivated = React.useCallback(function()
-		if GetFFlagEnableCaptureBadge() then
-			ClearBadge(props.id)
-		end
 		if FFlagChromeFixStopFocusBeforeMenuRowActive then
-			if FFlagConsoleChatOnExpControls or FFlagEnableChromeShortcutBar then
+			if FFlagEnableConsoleExpControls then
 				ChromeService:disableFocusNav()
 				GuiService.SelectedCoreObject = nil
 				ChromeService:setShortcutBar(nil)
@@ -213,7 +144,7 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 			props.activated()
 		else
 			props.activated()
-			if FFlagConsoleChatOnExpControls or FFlagEnableChromeShortcutBar then
+			if FFlagEnableConsoleExpControls then
 				ChromeService:disableFocusNav()
 				GuiService.SelectedCoreObject = nil
 			end
@@ -254,7 +185,7 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 			fontStyle = if FFlagAdaptUnibarAndTiltSizing or FFlagTokenizeUnibarConstantsWithStyleProvider
 				then submenuRowLabelFont
 				else font.Header2,
-			colorStyle = if GetFFlagAnimateSubMenu() and menuTransition
+			colorStyle = if menuTransition
 				then {
 					Color = theme.TextEmphasis.Color,
 					Transparency = menuTransition:map(function(v)
@@ -265,8 +196,8 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 			text = props.integration.label,
 			textTruncate = Enum.TextTruncate.AtEnd,
 			textXAlignment = Enum.TextXAlignment.Left,
-			fluidSizing = if GetFFlagEnableChromePinIntegrations() then false else true,
-			richText = if GetFFlagEnableChromePinIntegrations() then false else true,
+			fluidSizing = true,
+			richText = true,
 		}),
 	})
 	local heightScale = if isInExperienceUIVREnabled and not InExperienceUIVRIXP:isSpatialUIScalingFixEnabled()
@@ -284,26 +215,15 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		SelectionImageObject = if FFlagAdaptUnibarAndTiltSizing
 			then useCursor(CURSOR_TYPE :: any)
 			else useSelectionCursor(CursorKind.RoundedRectNoInset),
-		AutoButtonColor = if GetFFlagKeepSubmenuOpenOnPin() or useTouchTargets then false else nil,
 		[React.Event.Activated] = onMenuRowActivated,
 		LayoutOrder = props.order,
-		onStateChanged = if useTouchTargets then nil else stateChange,
-		NextSelectionLeft = if FFlagFocusNavOutOfSubmenu then menuIconContext.menuIconRef else nil,
+		onStateChanged = stateChange,
+		NextSelectionLeft = if FFlagEnableConsoleExpControls then menuIconContext.menuIconRef else nil,
 	}, {
 		UICorner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0, submenuCornerRadius),
 		}),
-		ButtonTouchTarget = if useTouchTargets
-			then React.createElement(Interactable, {
-				Size = UDim2.new(1, -Constants.PIN_BUTTON_SIZE - Constants.PIN_RIGHT_PADDING * 2, 0, rowHeight),
-				BackgroundTransparency = 1,
-				AutoButtonColor = false,
-				[React.Event.Activated] = onMenuRowActivated,
-				Selectable = false,
-				onStateChanged = stateChange,
-			})
-			else nil,
-		RowLabel = if FFlagFixChromeIntegrationLayoutBug or GetFFlagEnableChromePinIntegrations()
+		RowLabel = if FFlagFixChromeIntegrationLayoutBug
 			then React.createElement("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BorderSizePixel = 0,
@@ -313,101 +233,6 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 				rowFragment,
 			})
 			else rowFragment,
-		UserPin = if GetFFlagEnableChromePinIntegrations()
-			then React.createElement(Interactable, {
-				Size = if GetFFlagEnableCaptureBadge() and newFeatures[props.id]
-					then UDim2.new(0, Constants.NEW_BADGE_SIZE, 0, Constants.PIN_BUTTON_SIZE)
-					else UDim2.new(0, Constants.PIN_BUTTON_SIZE, 0, Constants.PIN_BUTTON_SIZE),
-				AnchorPoint = Vector2.new(0, 0.5),
-				Position = if GetFFlagEnableCaptureBadge() and newFeatures[props.id]
-					then UDim2.new(1, -Constants.NEW_BADGE_SIZE - Constants.PIN_RIGHT_PADDING, 0.5, 0)
-					else UDim2.new(1, -Constants.PIN_BUTTON_SIZE - Constants.PIN_RIGHT_PADDING, 0.5, 0),
-				BorderSizePixel = 0,
-				SelectionImageObject = if FFlagAdaptUnibarAndTiltSizing
-					then useCursor(CURSOR_TYPE :: any)
-					else useSelectionCursor(CursorKind.RoundedRectNoInset),
-				isDisabled = if GetFFlagKeepSubmenuOpenOnPin() then nil else pinDisabled,
-				Selectable = if GetFFlagKeepSubmenuOpenOnPin() then not pinDisabled else nil,
-				[React.Event.Activated] = function()
-					if GetFFlagKeepSubmenuOpenOnPin() then
-						pinPressed = true
-						if not pinDisabled then
-							ClearBadge(props.id)
-							pinActivated(props.id)
-						end
-					else
-						ClearBadge(props.id)
-						pinActivated(props.id)
-					end
-				end,
-				BackgroundTransparency = pinHighlightColor:map(function(v)
-					return if GetFFlagKeepSubmenuOpenOnPin() and pinDisabled then 1 else v.Transparency
-				end),
-				BackgroundColor3 = pinHighlightColor:map(function(v)
-					return v.Color
-				end),
-				LayoutOrder = 2,
-				AutoButtonColor = if GetFFlagNewSubmenuTouchTargets() then false else nil,
-				onStateChanged = if GetFFlagNewSubmenuTouchTargets() then nil else pinStateChange,
-			}, {
-				PinTouchTarget = if GetFFlagNewSubmenuTouchTargets()
-					then React.createElement(Interactable, {
-						Size = UDim2.new(0, Constants.PIN_BUTTON_SIZE + Constants.PIN_RIGHT_PADDING * 2, 0, rowHeight),
-						Position = UDim2.new(
-							0,
-							1 - Constants.PIN_RIGHT_PADDING,
-							0,
-							-(rowHeight - Constants.PIN_BUTTON_SIZE) / 2
-						),
-						BackgroundTransparency = 1,
-						AutoButtonColor = false,
-						Selectable = false,
-						[React.Event.Activated] = function()
-							if GetFFlagKeepSubmenuOpenOnPin() then
-								pinPressed = true
-								if not pinDisabled then
-									ClearBadge(props.id)
-									pinActivated(props.id)
-								end
-							else
-								ClearBadge(props.id)
-								pinActivated(props.id)
-							end
-						end,
-						onStateChanged = pinStateChange,
-					})
-					else nil,
-				UICorner = React.createElement("UICorner", {
-					CornerRadius = UDim.new(0, Constants.PIN_CORNER_RADIUS),
-				}),
-				UserPinIcon = if GetFFlagEnableCaptureBadge() and newFeatures[props.id]
-					then nil
-					else React.createElement(ImageSetLabel, {
-						AnchorPoint = Vector2.new(0.5, 0.5),
-						Position = UDim2.new(0.5, 0, 0.5, 0),
-						BackgroundTransparency = 1,
-						Image = if currenlyPinned then PINNED_ICON else UNPINNED_ICON,
-						Size = Constants.PIN_ICON_SIZE,
-						ImageColor3 = style.Theme.IconEmphasis.Color,
-						ImageTransparency = if GetFFlagAnimateSubMenu() and menuTransition
-							then menuTransition:map(function(v)
-								local transparency = if pinDisabled
-									then style.Theme.UIEmphasis.Transparency
-									else style.Theme.IconEmphasis.Transparency
-								return transparency + (1 - transparency) * (1 - v)
-							end)
-							elseif pinDisabled then style.Theme.UIEmphasis.Transparency
-							else style.Theme.IconEmphasis.Transparency,
-					}),
-				NewBadge = if GetFFlagEnableCaptureBadge() and newFeatures[props.id]
-					then React.createElement(Badge, {
-						anchorPoint = Vector2.new(0.5, 0.5),
-						position = UDim2.new(0.5, 0, 0.5, 0),
-						value = NEW_BADGE_TEXT,
-					})
-					else nil,
-			})
-			else nil,
 	})
 end
 
@@ -415,43 +240,7 @@ function isLeft(alignment)
 	return alignment == Enum.HorizontalAlignment.Left
 end
 
-function pinActivated(componentId: string)
-	if not GetFFlagEnableChromePinIntegrations() then
-		return
-	end
-
-	if ChromeService:isUserPinned(componentId) then
-		ChromeService:removeUserPin(componentId)
-		ChromeAnalytics.default:setPin(componentId, false, ChromeService:userPins())
-	else
-		ChromeService:setUserPin(componentId)
-		ChromeAnalytics.default:setPin(componentId, true, ChromeService:userPins())
-	end
-end
-
 function SubMenu(props: SubMenuProps)
-	if GetFFlagEnableCaptureBadge() then
-		if not hasOpened9Dot then
-			hasOpened9Dot = true
-			if LocalStore.isEnabled() then
-				local current = LocalStore.loadForLocalPlayer(TIMES_SEEN) or {}
-
-				for feature, enabled in pairs(newFeatures) do
-					if not enabled then
-						continue
-					end
-
-					local timesViewed = current[feature] or 0
-					current[feature] = timesViewed + 1
-
-					if current[feature] > GetFIntNumTimesNewBadgeIsDisplayed() then
-						newFeatures[feature] = false
-					end
-				end
-				LocalStore.storeForLocalPlayer(TIMES_SEEN, current)
-			end
-		end
-	end
 	local style = useStyle()
 	local unibarStyle
 	local theme = style.Theme
@@ -497,7 +286,7 @@ function SubMenu(props: SubMenuProps)
 		end
 
 		local connInputChanged
-		if FFlagFocusNavOutOfSubmenu then
+		if FFlagEnableConsoleExpControls then
 			-- A manual Left, Right exit out of the sub-menu, back into Unibar
 			-- Need two events since thumbstick and DPad trigger on different events
 			connInputChanged = UserInputService.InputChanged:Connect(function(input)
@@ -532,7 +321,7 @@ function SubMenu(props: SubMenuProps)
 		end)
 
 		return function()
-			if FFlagFocusNavOutOfSubmenu then
+			if FFlagEnableConsoleExpControls then
 				connInputChanged:Disconnect()
 			end
 			conn:Disconnect()
@@ -568,9 +357,7 @@ function SubMenu(props: SubMenuProps)
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		}),
 		UISizeConstraint = React.createElement("UISizeConstraint", {
-			MinSize = if GetFFlagAnimateSubMenu()
-					and not UserGameSettings.ReducedMotion
-					and props.menuTransition
+			MinSize = if not UserGameSettings.ReducedMotion and props.menuTransition
 				then props.menuTransition:map(function(v)
 					return Vector2.new(0, minSize * v)
 				end)
@@ -589,9 +376,7 @@ function SubMenu(props: SubMenuProps)
 
 	local leftAlign = useMappedObservableValue(ChromeService:orderAlignment(), isLeft)
 
-	local preferredTransparency = if GetFFlagChromeUsePreferredTransparency()
-		then style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency
-		else style.Theme.BackgroundUIContrast.Transparency
+	local preferredTransparency = style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency
 	local heightScale = if isInExperienceUIVREnabled and not InExperienceUIVRIXP:isSpatialUIScalingFixEnabled()
 		then UIManager.getInstance():getAdditionalCameraScaleIfNeeded()
 		else 1
@@ -610,15 +395,15 @@ function SubMenu(props: SubMenuProps)
 			then UDim2.new(0, 0, 1, 0)
 			else UDim2.new(0, -topbarInsetHeight - 2 + unibarLeftMargin, 0, 0),
 		BackgroundColor3 = theme.BackgroundUIContrast.Color,
-		BackgroundTransparency = if GetFFlagAnimateSubMenu() and props.menuTransition
+		BackgroundTransparency = if props.menuTransition
 			then props.menuTransition:map(function(v)
 				return preferredTransparency + (1 - preferredTransparency) * (1 - v)
 			end)
 			else preferredTransparency,
 		AutomaticSize = if isInExperienceUIVREnabled and isSpatial() then nil else Enum.AutomaticSize.Y,
 		ref = menuRef,
-		SelectionGroup = if FFlagSubmenuFocusNavFixes then true else nil,
-		SelectionBehaviorDown = if FFlagSubmenuFocusNavFixes then Enum.SelectionBehavior.Stop else nil,
+		SelectionGroup = if FFlagEnableConsoleExpControls then true else nil,
+		SelectionBehaviorDown = if FFlagEnableConsoleExpControls then Enum.SelectionBehavior.Stop else nil,
 	}, {
 		UICorner = React.createElement("UICorner", {
 			CornerRadius = UDim.new(0, submenuCornerRadius),
@@ -655,38 +440,27 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 
 	-- close submenu on click outside
 	React.useEffect(function()
-		if GetFFlagAnimateSubMenu() then
-			lastItemList = subMenuItems
-			lastSubMenu = currentSubMenu
-		end
+		lastItemList = subMenuItems
+		lastSubMenu = currentSubMenu
 
 		if currentSubMenu then
-			if GetFFlagAnimateSubMenu() then
-				if FFlagSubmenuFixInvisibleButtons then
-					setOpenState(AnimationStatus.Closed)
-				end
-				setMenuTransition(ReactOtter.spring(AnimationStatus.Open, Constants.MENU_ANIMATION_SPRING))
+			if FFlagSubmenuFixInvisibleButtons then
+				setOpenState(AnimationStatus.Closed)
 			end
+			setMenuTransition(ReactOtter.spring(AnimationStatus.Open, Constants.MENU_ANIMATION_SPRING))
 
-			if GetFFlagFixSubmenuCloseIOS() then
-				connectionTapStart.current = UserInputService.TouchStarted:Connect(function(touch)
-					lastTouchPosition = Vector2.new(touch.Position.X, touch.Position.Y)
-				end)
-			end
+			connectionTapStart.current = UserInputService.TouchStarted:Connect(function(touch)
+				lastTouchPosition = Vector2.new(touch.Position.X, touch.Position.Y)
+			end)
 
 			connectionTapped.current = UserInputService.TouchTap:Connect(function(evt)
-				if GetFFlagFixSubmenuCloseIOS() then
-					if evt[1] - lastTouchPosition ~= Vector2.zero then
-						return
-					end
+				if evt[1] - lastTouchPosition ~= Vector2.zero then
+					return
 				end
+
 				local subMenuId = ChromeService:currentSubMenu():get()
 				if subMenuId then
-					if GetFFlagKeepSubmenuOpenOnPin() and pinPressed then
-						pinPressed = false
-					else
-						ChromeService:toggleSubMenu(subMenuId)
-					end
+					ChromeService:toggleSubMenu(subMenuId)
 				end
 			end)
 
@@ -703,20 +477,14 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 
 				local subMenuId = ChromeService:currentSubMenu():get()
 				if subMenuId and pressed then
-					if GetFFlagKeepSubmenuOpenOnPin() and pinPressed then
-						pinPressed = false
-					else
-						ChromeService:toggleSubMenu(subMenuId)
-					end
+					ChromeService:toggleSubMenu(subMenuId)
 				end
 			end)
 		else
-			if GetFFlagAnimateSubMenu() then
-				if FFlagSubmenuFixInvisibleButtons then
-					setOpenState(AnimationStatus.Open)
-				end
-				setMenuTransition(ReactOtter.spring(AnimationStatus.Closed, Constants.MENU_ANIMATION_SPRING))
+			if FFlagSubmenuFixInvisibleButtons then
+				setOpenState(AnimationStatus.Open)
 			end
+			setMenuTransition(ReactOtter.spring(AnimationStatus.Closed, Constants.MENU_ANIMATION_SPRING))
 		end
 
 		return function()
@@ -748,26 +516,20 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 	if #subMenuItems > 0 then
 		children[currentSubMenu] = React.createElement(SubMenu, {
 			items = subMenuItems,
-			menuTransition = if GetFFlagAnimateSubMenu() then menuTransition else nil,
+			menuTransition = menuTransition,
 		})
-	elseif GetFFlagAnimateSubMenu() and #lastItemList > 0 then
+	elseif #lastItemList > 0 then
 		children[lastSubMenu] = React.createElement(SubMenu, {
 			items = lastItemList,
 			menuTransition = menuTransition,
 		})
 	end
 
-	return React.createElement(
-		"Frame",
-		{
-			Name = "SubMenuHost",
-			Size = if isInExperienceUIVREnabled and isSpatial() then UDim2.new(1, 0, 1, 0) else UDim2.new(0, 0, 1, 0),
-			BorderSizePixel = 0,
-			BackgroundTransparency = 1,
-			ref = if FFlagUnibarMenuOpenSubmenu then props.subMenuHostRef else nil,
-		},
-		if GetFFlagAnimateSubMenu()
-			then React.createElement(SubMenuContext.Provider, { value = menuTransition }, children)
-			else children
-	)
+	return React.createElement("Frame", {
+		Name = "SubMenuHost",
+		Size = if isInExperienceUIVREnabled and isSpatial() then UDim2.new(1, 0, 1, 0) else UDim2.new(0, 0, 1, 0),
+		BorderSizePixel = 0,
+		BackgroundTransparency = 1,
+		ref = if FFlagUnibarMenuOpenSubmenu then props.subMenuHostRef else nil,
+	}, React.createElement(SubMenuContext.Provider, { value = menuTransition }, children))
 end

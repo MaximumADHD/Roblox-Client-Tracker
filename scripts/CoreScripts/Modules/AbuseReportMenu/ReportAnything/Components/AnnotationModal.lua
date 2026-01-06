@@ -18,7 +18,6 @@ local ReportAnythingAnalytics = require(root.ReportAnything.Utility.ReportAnythi
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
-local FFlagChromeHideShortcutBarOnAnnotationModal = SharedFlags.FFlagChromeHideShortcutBarOnAnnotationModal
 
 local elements: any = {
 	annotationPageHandle = nil,
@@ -27,10 +26,7 @@ local elements: any = {
 }
 
 local function unmountAnnotationPage()
-	if
-		FFlagChromeHideShortcutBarOnAnnotationModal
-		and (if FFlagEnableConsoleExpControls then ChromeEnabled() else ChromeEnabled)
-	then
+	if FFlagEnableConsoleExpControls and (if FFlagEnableConsoleExpControls then ChromeEnabled() else ChromeEnabled) then
 		ChromeService:setHideShortcutBar("AnnotationModal", false)
 	end
 	if elements.annotationPageHandle ~= nil then
@@ -51,10 +47,7 @@ local function mountAnnotationPage(
 	reportAnythingState: Types.ReportAnythingState,
 	reportAnythingDispatch: (action: { type: string }) -> ()
 )
-	if
-		FFlagChromeHideShortcutBarOnAnnotationModal
-		and (if FFlagEnableConsoleExpControls then ChromeEnabled() else ChromeEnabled)
-	then
+	if FFlagEnableConsoleExpControls and (if FFlagEnableConsoleExpControls then ChromeEnabled() else ChromeEnabled) then
 		ChromeService:setHideShortcutBar("AnnotationModal", true)
 	end
 	local topCornerInset, _ = GuiService:GetGuiInset()

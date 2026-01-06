@@ -18,6 +18,8 @@ local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
 local isMigrated = iconMigrationUtils.isMigrated
 local isBuilderIconOrMigrated = iconMigrationUtils.isBuilderOrMigratedIcon
 
+local Flags = require(Foundation.Utility.Flags)
+
 local Constants = require(Foundation.Constants)
 
 type InputSize = InputSize.InputSize
@@ -48,7 +50,7 @@ export type TabItemProps = TabItem & {
 	testId: string?,
 }
 
-local function TabItem(props: TabItemProps)
+local function TabItem(props: TabItemProps, ref: React.Ref<GuiObject>?)
 	local tokens = useTokens()
 
 	local contentStyle = if props.isActive then tokens.Color.Content.Default else tokens.Color.Content.Emphasis
@@ -109,7 +111,7 @@ local function TabItem(props: TabItemProps)
 	else
 		local hoverAreaOffset = tokens.Size.Size_100
 		Size = UDim2.new(1, hoverAreaOffset * 2, 1, 0)
-		Position = UDim2.new(0, -hoverAreaOffset, 0, 0)
+		Position = UDim2.fromOffset(-hoverAreaOffset, 0)
 	end
 
 	return React.createElement(View, {
@@ -129,6 +131,7 @@ local function TabItem(props: TabItemProps)
 			},
 			cursor = cursor,
 			isDisabled = props.isDisabled,
+			ref = if Flags.FoundationAnimateTabs then ref else nil,
 		}),
 		Content = React.createElement(View, {
 			LayoutOrder = 2,
@@ -142,7 +145,7 @@ local function TabItem(props: TabItemProps)
 				LayoutOrder = 2,
 			}),
 		}),
-		Border = if props.isActive
+		Border = if props.isActive and not Flags.FoundationAnimateTabs
 			then React.createElement(View, {
 				LayoutOrder = 3,
 				Size = UDim2.new(1, 0, 0, borderSize),
@@ -154,4 +157,4 @@ local function TabItem(props: TabItemProps)
 	})
 end
 
-return TabItem
+return if Flags.FoundationAnimateTabs then React.memo(React.forwardRef(TabItem)) else TabItem

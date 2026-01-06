@@ -24,9 +24,8 @@ local SetMinimized = require(Actions.SetMinimized)
 local SetSubjectToChinaPolicies = require(Actions.SetSubjectToChinaPolicies)
 
 local FFlagPlayerListPersistVisibility = require(PlayerList.Flags.FFlagPlayerListPersistVisibility)
-local FFlagModalPlayerListCloseUnfocused = PlayerListPackage.Flags.FFlagModalPlayerListCloseUnfocused
+local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 local FFlagPlayerListUseMobileOnSmallDisplay = PlayerListPackage.Flags.FFlagPlayerListUseMobileOnSmallDisplay
-local FFlagPlayerListPersistVisibilityDesktopOnly = game:DefineFastFlag("PlayerListPersistVisibilityDesktopOnly", false)
 
 local GameSettings = if FFlagPlayerListPersistVisibility then UserSettings().GameSettings else nil
 
@@ -61,7 +60,7 @@ end
 local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 	[SetPlayerListVisibility.name] = function(state, action)
 		if FFlagPlayerListPersistVisibility then
-			if not FFlagPlayerListPersistVisibilityDesktopOnly or (FFlagPlayerListPersistVisibilityDesktopOnly and not state.isSmallTouchDevice and not state.isTenFootInterface) then
+			if not state.isSmallTouchDevice and not state.isTenFootInterface then
 				GameSettings.PlayerListVisible = action.isVisible
 			end
 		end
@@ -73,7 +72,7 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 
 	[SetPlayerListEnabled.name] = function(state, action)
 		local newSetVisible = nil
-		if FFlagModalPlayerListCloseUnfocused then
+		if FFlagAddNewPlayerListMobileFocusNav then
 			-- Ensure visibility is set to false if the player list is disabled
 			if not action.isEnabled then
 				newSetVisible = false
@@ -81,7 +80,7 @@ local DisplayOptions = Rodux.createReducer(initialDisplayOptions, {
 		end
 		return updateIsVisible(Cryo.Dictionary.join(state, {
 			playerlistCoreGuiEnabled = action.isEnabled,
-			setVisible = if FFlagModalPlayerListCloseUnfocused then newSetVisible else nil,
+			setVisible = if FFlagAddNewPlayerListMobileFocusNav then newSetVisible else nil,
 		}))
 	end,
 

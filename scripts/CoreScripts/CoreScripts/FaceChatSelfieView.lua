@@ -91,8 +91,6 @@ local GetFFlagJoinWithoutMicPermissions =
 
 local getFFlagEnableAlwaysAvailableCamera = require(RobloxGui.Modules.Flags.getFFlagEnableAlwaysAvailableCamera)
 local FFlagMockFTUXAlwaysAvailableCameraUser = game:DefineFastFlag("MockOpenSelfViewForCameraUser", false)
-local GetFFlagRemoveInGameChatBubbleChatReferences =
-	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 local globalShowSelfViewFunction = nil
 local FIntSelfViewTooltipLifetime = game:DefineFastInt("SelfViewTooltipLifetime", 10)
 local mountSelfViewOnCloseTooltip = require(RobloxGui.Modules.SelfView.mountSelfViewOnCloseTooltip)
@@ -100,10 +98,7 @@ local mountSelfViewOnOpenTooltip = require(RobloxGui.Modules.SelfView.mountSelfV
 local mountedOnOpenTooltipInstance = nil
 
 local isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnabledForUserAndPlace)
-local displayCameraDeniedToast = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.displayCameraDeniedToast)
-if GetFFlagRemoveInGameChatBubbleChatReferences() then
-	displayCameraDeniedToast = require(RobloxGui.Modules.VoiceChat.Helpers.displayCameraDeniedToast)
-end
+local displayCameraDeniedToast = require(RobloxGui.Modules.VoiceChat.Helpers.displayCameraDeniedToast)
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images

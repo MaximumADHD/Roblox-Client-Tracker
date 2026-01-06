@@ -21,7 +21,6 @@ local FFlagNavigateToBlockingModal = require(Modules.Common.Flags.FFlagNavigateT
 local FFlagEnableNewBlockingModal = require(Modules.Common.Flags.FFlagEnableNewBlockingModal)
 local FFlagEnableToastForBlockingModal = require(Modules.Common.Flags.FFlagEnableToastForBlockingModal)
 local FFlagRenderPeoplePageOnTabSwitch = game:DefineFastFlag("RenderPeoplePageOnTabSwitch", false)
-local FFlagRemovePeoplePageFoundationProvider = game:DefineFastFlag("RemovePeoplePageFoundationProvider", false)
 local FFlagRelocateMobileMenuButtons = require(Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 
@@ -31,8 +30,6 @@ local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local LocalStore = if ChromeEnabled then require(Chrome.ChromeShared.Service.LocalStore) else nil
 
 -- Modules
-local Foundation = require(CorePackages.Packages.Foundation)
-local FoundationProvider = Foundation.FoundationProvider
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 local Signals = require(CorePackages.Packages.Signals)
@@ -53,19 +50,16 @@ local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableS
 local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
 local useRegistryEntry = FocusNavigationUtils.FocusNavigableSurfaceRegistry.useRegistryEntry
 
-local Integrations
 local Constants
-local Utils
 if FFlagRefactorPeoplePage() then
 	Constants = require(CorePackages.Workspace.Packages.PeopleReactView).Constants
-	Integrations = require(Modules.Settings.Integrations)
-	Utils = Integrations.Utils
 end
 
 -- Flags
 local PeopleFlags = PeopleService.getService("Flags")
 local GetFFlagAddPeoplePageCardLayout = PeopleFlags.GetFFlagAddPeoplePageCardLayout
 local GetFFlagPeoplePageLazyRenderCards = PeopleFlags.GetFFlagPeoplePageLazyRenderCards
+local FFlagEnablePeopleListLazyRender = PeopleFlags.FFlagEnablePeopleListLazyRender
 
 local tree: ReactRoblox.RootType? = nil
 local getDisplayed, setDisplayed = Signals.createSignal(false)
@@ -124,43 +118,30 @@ local function createPeoplePage()
 			return
 		end
 		
-		local scrollingFrame = if GetFFlagPeoplePageLazyRenderCards() then PeoplePage.Page:FindFirstAncestorWhichIsA("ScrollingFrame") else nil
+		local scrollingFrame = if GetFFlagPeoplePageLazyRenderCards() or FFlagEnablePeopleListLazyRender then PeoplePage.Page:FindFirstAncestorWhichIsA("ScrollingFrame") else nil
 
 		local PeopleConditionalView = function()
 			local displayed = SignalsReact.useSignalState(getDisplayed)
 
-			-- Remove function and place elements inline when FFlagRemovePeoplePageFoundationProvider is cleaned up
-			local function withFoundationProvider(children)
-				if FFlagRemovePeoplePageFoundationProvider then
-					return children
-				else
-					return React.createElement(FoundationProvider, {
-						theme = Foundation.Enums.Theme.Dark,
-						device = Utils.getDeviceType(),
-					}, children)
-				end
-			end
-
 			local People = if displayed then React.createElement(CoreScriptsRootProvider, {}, {
 					LocalizationProvider = React.createElement(LocalizationProvider, {
 						localization = locales,
-					}, withFoundationProvider({
-							FocusRoot = React.createElement(PeopleFocusRoot, {}, {
-								PeopleReactView = React.createElement(PeopleReactView, {
-									blockingModalScreen = BlockingModalScreen,
-									blockingFlags = {
-										FFlagNavigateToBlockingModal = FFlagNavigateToBlockingModal,
-										FFlagEnableNewBlockingModal = FFlagEnableNewBlockingModal,
-										FFlagEnableToastForBlockingModal = FFlagEnableToastForBlockingModal,
-									},
-									scrollingFrame = if GetFFlagPeoplePageLazyRenderCards() then scrollingFrame else nil,
-									chromeEnabled = ChromeEnabled,
-									getUniversesExposedTo = if GetFFlagAddPeoplePageCardLayout() and LocalStore then LocalStore.getUniversesExposedTo else nil,
-									addUniverseToExposureList = if GetFFlagAddPeoplePageCardLayout() and LocalStore then LocalStore.addUniverseToExposureList else nil,
-								})
+					}, {
+						FocusRoot = React.createElement(PeopleFocusRoot, {}, {
+							PeopleReactView = React.createElement(PeopleReactView, {
+								blockingModalScreen = BlockingModalScreen,
+								blockingFlags = {
+									FFlagNavigateToBlockingModal = FFlagNavigateToBlockingModal,
+									FFlagEnableNewBlockingModal = FFlagEnableNewBlockingModal,
+									FFlagEnableToastForBlockingModal = FFlagEnableToastForBlockingModal,
+								},
+								scrollingFrame = if GetFFlagPeoplePageLazyRenderCards() or FFlagEnablePeopleListLazyRender then scrollingFrame else nil,
+								chromeEnabled = ChromeEnabled,
+								getUniversesExposedTo = if GetFFlagAddPeoplePageCardLayout() and LocalStore then LocalStore.getUniversesExposedTo else nil,
+								addUniverseToExposureList = if GetFFlagAddPeoplePageCardLayout() and LocalStore then LocalStore.addUniverseToExposureList else nil,
 							})
 						})
-					)
+					})
 				}) else nil
 
 			return People

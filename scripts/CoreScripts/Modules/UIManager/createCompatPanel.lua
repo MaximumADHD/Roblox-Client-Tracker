@@ -47,8 +47,8 @@ local function createPanelPart(spatialPanelProps: Constants.SpatialUIProps)
 	return part
 end
 
-local function createPanel(props: Constants.PanelCompatProps): Constants.CompatPanel?
-	local props: Constants.PanelCompatProps = Object.assign({}, defaultPanelCompatProps, props)
+local function createPanel(providedProps: Constants.PanelCompatProps): Constants.CompatPanel?
+	local props: Constants.PanelCompatProps = Object.assign({}, defaultPanelCompatProps, providedProps)
 	if props.type == SpatialUIType.SpatialUIPartOnly then
 		local spatialPanelProps = Object.assign({}, defaultSpatialPanelProps, props.spatialPanelProps)
 		local panelPart = createPanelPart(spatialPanelProps)

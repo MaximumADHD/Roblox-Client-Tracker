@@ -15,13 +15,11 @@ local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local MouseIconOverrideService = require(CorePackages.Workspace.Packages.CoreScriptsCommon).MouseIconOverrideService
 local Constants = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Constants
 local Shimmer = require(RobloxGui.Modules.Shimmer)
-local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization;
 local GetFFlagDisplayChannelNameOnErrorPrompt = require(RobloxGui.Modules.Flags.GetFFlagDisplayChannelNameOnErrorPrompt)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 
 -- Flags --
 
-local FFlagFixErrorPromptOnVR = game:DefineFastFlag("FixErrorPromptOnVR", false)
 local fflagLocalizeErrorCodeString = settings():GetFFlag("LocalizeErrorCodeString")
 
 local DEFAULT_ERROR_PROMPT_KEY = "ErrorPrompt"
@@ -228,22 +226,12 @@ function ErrorPrompt.new(style, extraConfiguration)
 		errorLabel.TextScaled = extraConfiguration.MessageTextScaled or false
 	end
 
-	if FFlagFixErrorPromptOnVR then
-		if not VRService.VREnabled and UserInputService.GamepadEnabled then
-			GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function()
-				if self._isOpen and GuiService.SelectedCoreObject == nil then
-					GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
-				end
-			end)
-		end
-	else
-		if UserInputService.GamepadEnabled then
-			GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function()
-				if self._isOpen and GuiService.SelectedCoreObject == nil then
-					GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
-				end
-			end)
-		end
+	if not VRService.VREnabled and UserInputService.GamepadEnabled then
+		GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function()
+			if self._isOpen and GuiService.SelectedCoreObject == nil then
+				GuiService:Select(self._frame.MessageArea.ErrorFrame.ButtonArea)
+			end
+		end)
 	end
 
 	return self

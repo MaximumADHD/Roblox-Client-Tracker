@@ -23,12 +23,10 @@ return function(isStudio, localPlayer, permissionsModule)
 		local inGroup = false
 		local success, err = pcall(function()
 			local group = GetFIntCanHideGuiGroupId()
-			-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
-			-- Will be removed when that PR is merged.
 			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				inGroup = (localPlayer :: any):IsInGroupAsync(group)
+				inGroup = localPlayer:IsInGroupAsync(group)
 			else
-				inGroup = (localPlayer :: any):IsInGroup(group)
+				inGroup = (localPlayer :: never):IsInGroup(group)
 			end
 		end)
 

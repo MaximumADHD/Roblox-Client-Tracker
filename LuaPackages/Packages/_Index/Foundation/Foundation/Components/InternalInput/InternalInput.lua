@@ -6,7 +6,6 @@ local Motion = require(Packages.Motion)
 local useMotion = Motion.useMotion
 
 local React = require(Packages.React)
-local Cryo = require(Packages.Cryo)
 local Dash = require(Packages.Dash)
 
 local Components = Foundation.Components
@@ -104,7 +103,7 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 			offset = tokens.Size.Size_200,
 			borderWidth = tokens.Stroke.Thicker,
 		}
-	end, { tokens :: unknown, hasLabel, props.customVariantProps.cursorRadius })
+	end, { tokens, hasLabel, props.customVariantProps.cursorRadius } :: { unknown })
 
 	local motionStates = useInputMotionStates(
 		tokens,
@@ -123,8 +122,7 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 		else
 			animate(motionStates.Default)
 		end
-		-- tokens are included in the dependency array to ensure that the component re-renders when theme changes
-	end, { props.isChecked, isHovering, tokens } :: { unknown })
+	end, { props.isChecked, isHovering, motionStates } :: { unknown })
 
 	local onInputStateChanged = React.useCallback(function(newState: ControlState)
 		setIsHovering(newState == ControlState.Hover)
@@ -135,7 +133,7 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 			return
 		end
 		props.onActivated(not props.isChecked)
-	end, { props.isDisabled :: any, props.isChecked, props.onActivated })
+	end, { props.isDisabled, props.isChecked, props.onActivated } :: { unknown })
 
 	local selectionProps = {
 		Selectable = if props.isDisabled then false else props.Selectable,
@@ -205,12 +203,7 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 	if not hasLabel then
 		return React.createElement(
 			View,
-			withCommonProps(
-				props,
-				if Flags.FoundationMigrateCryoToDash
-					then Dash.union(interactionProps, inputContainerProps)
-					else Cryo.Dictionary.union(interactionProps, inputContainerProps)
-			),
+			withCommonProps(props, Dash.union(interactionProps, inputContainerProps)),
 			props.children
 		)
 	end
@@ -227,26 +220,17 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 		},
 	}
 
-	return React.createElement(
-		View,
-		withCommonProps(
-			props,
-			if Flags.FoundationMigrateCryoToDash
-				then Dash.union(internalInputProps, interactionProps)
-				else Cryo.Dictionary.union(internalInputProps, interactionProps)
-		),
-		{
-			Input = React.createElement(View, inputContainerProps, props.children),
-			InputLabel = if typeof(label) == "string"
-				then React.createElement(InputLabel, {
-					Text = label,
-					textStyle = values.labelStyle,
-					size = getInputTextSize(props.size),
-					testId = `{props.testId}--label`,
-				})
-				else label,
-		}
-	)
+	return React.createElement(View, withCommonProps(props, Dash.union(internalInputProps, interactionProps)), {
+		Input = React.createElement(View, inputContainerProps, props.children),
+		InputLabel = if typeof(label) == "string"
+			then React.createElement(InputLabel, {
+				Text = label,
+				textStyle = values.labelStyle,
+				size = getInputTextSize(props.size),
+				testId = `{props.testId}--label`,
+			})
+			else label,
+	})
 end
 
 return React.memo(React.forwardRef(InternalInput))

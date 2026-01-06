@@ -1,5 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagEnableConsoleExpControlsV4 = SharedFlags.FFlagEnableConsoleExpControlsV4
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
-return FFlagEnableConsoleExpControlsV4 and game:DefineFastFlag("RemoveLeaveShortcutFromLeaveConfirm", false)
+return FFlagEnableConsoleExpControls and game:DefineFastFlag("RemoveLeaveShortcutFromLeaveConfirm", false)

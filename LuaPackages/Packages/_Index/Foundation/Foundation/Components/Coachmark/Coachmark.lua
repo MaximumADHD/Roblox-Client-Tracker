@@ -2,7 +2,6 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local React = require(Packages.React)
-local Cryo = require(Packages.Cryo)
 local Dash = require(Packages.Dash)
 type ReactNode = React.ReactNode
 
@@ -25,7 +24,6 @@ local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
 local Logger = require(Foundation.Utility.Logger)
 local Translator = require(Foundation.Utility.Localization.Translator)
-local Flags = require(Foundation.Utility.Flags)
 
 type ActionProps = Types.ActionProps
 type Bindable<T> = Types.Bindable<T>
@@ -75,7 +73,7 @@ local function stepsText(current: number, total: number)
 	return Translator:FormatByKey("CommonUI.Controls.Label.PageCount", { current = current, total = total })
 end
 
-local function Coachmark(coachmarkProps: CoachmarkProps)
+local function Coachmark(coachmarkProps: CoachmarkProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(coachmarkProps, defaultProps)
 	local tokens = useTokens()
 	local maxXSize = useScaledValue(320)
@@ -105,9 +103,7 @@ local function Coachmark(coachmarkProps: CoachmarkProps)
 				fillBehavior = FillBehavior.Fill,
 				testId = `{props.testId}--action-{i}`,
 			}
-			local buttonProps = if Flags.FoundationMigrateCryoToDash
-				then Dash.union(action, actionProps)
-				else Cryo.Dictionary.union(action, actionProps)
+			local buttonProps = Dash.union(action, actionProps)
 			buttons["CoachmarkButton" .. i] = React.createElement(Button, buttonProps :: any)
 		end
 		return buttons
@@ -137,6 +133,7 @@ local function Coachmark(coachmarkProps: CoachmarkProps)
 				backgroundStyle = tokens.Inverse.Surface.Surface_0,
 				selection = props.selection,
 				selectionGroup = props.selectionGroup,
+				ref = ref,
 			},
 			React.createElement(
 				PresentationContext.Provider,
@@ -206,4 +203,4 @@ local function Coachmark(coachmarkProps: CoachmarkProps)
 	})
 end
 
-return React.memo(Coachmark)
+return React.memo(React.forwardRef(Coachmark))

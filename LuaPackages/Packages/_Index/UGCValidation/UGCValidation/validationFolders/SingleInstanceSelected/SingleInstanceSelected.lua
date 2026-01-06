@@ -7,7 +7,7 @@ local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 
 SingleInstanceSelected.categories = Constants.AllAssetUploadCategories
-SingleInstanceSelected.required_data = {
+SingleInstanceSelected.requiredData = {
 	ValidationEnums.SharedDataMember.entrypointInput,
 	ValidationEnums.SharedDataMember.consumerConfig,
 	ValidationEnums.SharedDataMember.uploadEnum,

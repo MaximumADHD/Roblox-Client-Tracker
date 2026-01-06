@@ -8,9 +8,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
-local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
-local FFlagChromeEnabledRequireGamepadConnectorFix = SharedFlags.FFlagChromeEnabledRequireGamepadConnectorFix
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
 local useExternalEvent = UIBlox.Core.Hooks.useExternalEvent
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
@@ -19,15 +17,13 @@ local Topbar = script.Parent.Parent.Parent.Parent
 local Modules = Topbar.Parent
 local Chrome = Modules.Chrome
 local ChromeEnabled = require(Chrome.Enabled)()
-local GamepadConnector = if (not FFlagChromeEnabledRequireGamepadConnectorFix or ChromeEnabled) then require(Topbar.Components.GamepadConnector) else nil :: never
-local ChromeService = if not FFlagTiltIconUnibarFocusNav and ChromeEnabled then require(Chrome.Service) else nil :: never
+local GamepadConnector = if (not FFlagEnableConsoleExpControls or ChromeEnabled) then require(Topbar.Components.GamepadConnector) else nil :: never
 local useObservableValue = require(Chrome.ChromeShared.Hooks.useObservableValue)
 
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
 
 local FFlagLocalizeMenuNavigationToggleDialog =
 	require(CoreGui.RobloxGui.Modules.TopBar.Flags.FFlagLocalizeMenuNavigationToggleDialog)
-local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
 local SELECT_ICON_ASSET_ID = "rbxasset://textures/ui/Controls/DesignSystem/ButtonSelect@2x.png"
 local PRE_ICON_LOCALIZATION_KEY = "CoreScripts.InGameMenu.VirtualCursorHintPreIcon"
@@ -102,14 +98,8 @@ local function MenuNavigationToggleDialog(props: Props)
 
 	local topbarFocus: GuiObject? | boolean? 
 	if ChromeEnabled then 
-		if FFlagTiltIconUnibarFocusNav then 
-			if FFlagHideTopBarConsole then 
-				topbarFocus = useObservableValue(GamepadConnector:getSelectedCoreObject())
-			else
-				topbarFocus = useObservableValue(props.GamepadConnector:getSelectedCoreObject())
-			end
-		elseif FFlagEnableConsoleExpControls then 
-			topbarFocus = useObservableValue(ChromeService:inFocusNav())
+		if FFlagEnableConsoleExpControls then 
+			topbarFocus = useObservableValue(GamepadConnector:getSelectedCoreObject())
 		end
 	else 
 		topbarFocus = nil
@@ -121,8 +111,7 @@ local function MenuNavigationToggleDialog(props: Props)
 		AutomaticSize = Enum.AutomaticSize.XY,
 		AnchorPoint = Vector2.new(0.5, 0.5),
 		Position = props.Position,
-		Visible = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then topbarFocus ~= nil 
-			elseif ChromeEnabled and FFlagEnableConsoleExpControls then topbarFocus
+		Visible = if ChromeEnabled and FFlagEnableConsoleExpControls then topbarFocus ~= nil 
 			else true,
 	}, {
 		Corner = React.createElement("UICorner", {

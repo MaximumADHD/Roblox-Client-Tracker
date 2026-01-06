@@ -1,3 +1,4 @@
+--!nolint LocalUnused
 --[[
   Filename: StyleWidgets.lua
   Written by: dbanks

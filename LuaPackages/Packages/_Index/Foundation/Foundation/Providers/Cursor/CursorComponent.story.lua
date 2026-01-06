@@ -11,12 +11,12 @@ return {
 
 		return React.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Size = UDim2.new(0, 100, 0, 50),
+			Size = UDim2.fromOffset(100, 50),
 		}, {
 			Frame = React.createElement("Frame", {
 				BackgroundTransparency = 1,
 				Size = UDim2.new(1, -20, 1, -20),
-				Position = UDim2.new(0, 10, 0, 10),
+				Position = UDim2.fromOffset(10, 10),
 			}, {
 				Cursor = React.createElement(CursorComponent, {
 					cornerRadius = UDim.new(0, controls.cornerRadius),

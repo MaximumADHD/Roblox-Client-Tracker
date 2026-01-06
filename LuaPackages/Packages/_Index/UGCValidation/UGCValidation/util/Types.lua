@@ -24,6 +24,7 @@ export type BypassFlags = {
 	skipValidateHSR: boolean?,
 	skipPhysicsDataReset: boolean?,
 	studioPluginName: string?,
+	enforceShadowValidations: boolean?,
 	localizationCallback: ((failureStringContext) -> string)?,
 }
 export type ScriptTimes = { [string]: number }
@@ -84,6 +85,15 @@ export type EditableImageData = {
 	createdInValidation: boolean,
 }
 
+export type AssetQualityMetrics = {
+	fetchStatus: string,
+	fetchAttemptCount: number?,
+	fetchTimeMs: number?,
+	fetchFailureReason: string?,
+	visualizationUrl: string?,
+	returnVersion: number?,
+}
+
 export type SharedData = {
 	-- Names should match ValidationEnums.SharedDataMember.
 	-- NOT ALL THIS DATA IS GAURANTEED TO EXIST - If your test requires it, you should specify it in your test configs
@@ -93,8 +103,9 @@ export type SharedData = {
 	rootInstance: Instance,
 	uploadCategory: string,
 	uploadEnum: UploadEnum,
-	consumerConfig: UGCValidationConsumerConfigs,
-	qualityResults: { [string]: { [string]: number } }, -- also contains version and visualizationUrl if provided
+	consumerConfig: PreloadedConsumerConfigs,
+	aqsFetchMetrics: AssetQualityMetrics,
+	aqsSummaryData: { [string]: { [string]: number } },
 	renderMeshesData: { [string]: EditableMeshData },
 	innerCagesData: { [string]: EditableCageData },
 	outerCagesData: { [string]: EditableCageData },
@@ -107,9 +118,12 @@ export type failureStringContext = {
 }
 
 export type SingleValidationResult = {
+	validationEnum: string,
 	status: string,
 	errorTranslationContexts: { failureStringContext },
 	internalData: {},
+	duration: number,
+	telemetryContext: string?,
 }
 
 export type ValidationResultData = {
@@ -118,6 +132,7 @@ export type ValidationResultData = {
 	states: { [string]: string },
 	errorTranslationContexts: { failureStringContext },
 	internalData: { [string]: {} },
+	ranIntoInternalError: boolean,
 }
 
 export type ValidationReporterFailMethod = (
@@ -137,34 +152,50 @@ export type SingleValidationFileData = {
 	prereqs: { [string]: boolean },
 	postreqs: { string },
 	isQuality: boolean,
+	isShadow: boolean,
 }
 
 export type UGCValidationConsumerName = "Toolbox" | "AutoSetup" | "Backend" | "InExpClient" | "InExpServer"
 
 export type UGCValidationConsumerConfigs = {
 	source: UGCValidationConsumerName,
-	enforceR15FolderStructure: boolean,
-	telemetry_bundle_id: string, -- TODO: Rename to match case and update consumers to send new name
-	telemetry_root_id: string,
-	preloadedEditableMeshes: { string: EditableMesh }?,
-	preloadedEditableImages: { string: EditableImage }?,
+	enforceR15FolderStructure: boolean?, -- default TRUE
+	enforceShadowValidations: boolean?, -- default FALSE
+	telemetryBundleId: string?,
+	telemetryRootId: string?,
+	preloadedEditableMeshes: { [string]: EditableMesh }?,
+	preloadedEditableImages: { [string]: EditableImage }?,
+}
+
+export type PreloadedConsumerConfigs = {
+	source: UGCValidationConsumerName,
+	enforceR15FolderStructure: boolean, -- default TRUE
+	enforceShadowValidations: boolean, -- default FALSE
+	telemetryBundleId: string,
+	telemetryRootId: string,
+	preloadedEditableMeshes: { [string]: EditableMesh },
+	preloadedEditableImages: { [string]: EditableImage },
 }
 
 export type ValidationModule = {
 	fflag: (() -> boolean)?,
+	shadowFlag: (() -> boolean)?,
 	categories: { string }?,
-	required_data: { string }?,
-	prereq_tests: { string }?,
-	expected_failures: { string }?,
+	requiredData: { string }?,
+	prereqTests: { string }?,
+	expectedFailures: { string }?,
+	requiredAqsReturnSchema: { [string]: {} }?,
 	run: (ValidationReporter, SharedData) -> nil,
 }
 
 export type PreloadedValidationModule = {
 	fflag: () -> boolean,
+	shadowFlag: () -> boolean,
 	categories: { string },
-	required_data: { string },
-	prereq_tests: { string },
-	expected_failures: { string },
+	requiredData: { string },
+	prereqTests: { string },
+	expectedFailures: { string },
+	requiredAqsReturnSchema: { [string]: {} },
 	run: (ValidationReporter, SharedData) -> nil,
 }
 

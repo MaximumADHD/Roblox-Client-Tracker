@@ -27,7 +27,6 @@ local ChromeService = require(Root.Service)
 local Constants = require(Root.Unibar.Constants)
 local ChromeTypes = require(Root.Service.Types)
 local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
-local FFlagWindowFixes = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagWindowFixes()
 local shouldRejectMultiTouch = require(Root.Utility.shouldRejectMultiTouch)
 
 local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
@@ -35,10 +34,7 @@ local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
 
 local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
-local GetFFlagSelfViewAssertFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewAssertFix
 -- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
-local GetFFlagSelfieViewMoreFixMigration =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfieViewMoreFixMigration
 local FIntChromeWindowLayoutOrder = game:DefineFastInt("ChromeWindowLayoutOrder", 2)
 local FFlagWindowDragDetection = game:DefineFastFlag("WindowDragDetection", false)
 local FIntWindowMinDragDistance = game:DefineFastInt("WindowMinDragDistance", 25)
@@ -150,7 +146,7 @@ local WindowHost = function(props: WindowHostProps)
 		local originalInputObj: InputObject? = nil
 		local dragConnection: any = ChromeService:dragConnection(props.integration.id)
 
-		if not FFlagWindowFixes or dragConnection then
+		if dragConnection then
 			storedConnection = dragConnection.connection
 			originalInputObj = dragConnection.inputObject
 		end
@@ -227,26 +223,19 @@ local WindowHost = function(props: WindowHostProps)
 		end
 	end, { props.integration })
 
-	local mouseEntered = if GetFFlagSelfieViewMoreFixMigration()
-		then React.useCallback(function()
-			if not VRService.VREnabled then
-				didOverrideMouse = true
-				MouseIconOverrideService.push(
-					INGAME_SELFVIEW_CURSOR_OVERRIDE_KEY,
-					Enum.OverrideMouseIconBehavior.ForceShow
-				)
-			end
-		end)
-		else nil
+	local mouseEntered = React.useCallback(function()
+		if not VRService.VREnabled then
+			didOverrideMouse = true
+			MouseIconOverrideService.push(INGAME_SELFVIEW_CURSOR_OVERRIDE_KEY, Enum.OverrideMouseIconBehavior.ForceShow)
+		end
+	end)
 
-	local mouseLeft = if GetFFlagSelfieViewMoreFixMigration()
-		then React.useCallback(function()
-			if didOverrideMouse then
-				didOverrideMouse = false
-				MouseIconOverrideService.pop(INGAME_SELFVIEW_CURSOR_OVERRIDE_KEY)
-			end
-		end)
-		else nil
+	local mouseLeft = React.useCallback(function()
+		if didOverrideMouse then
+			didOverrideMouse = false
+			MouseIconOverrideService.pop(INGAME_SELFVIEW_CURSOR_OVERRIDE_KEY)
+		end
+	end)
 
 	local touchBegan = React.useCallback(function(_: Frame, inputObj: InputObject)
 		assert(windowRef.current ~= nil)
@@ -360,11 +349,9 @@ local WindowHost = function(props: WindowHostProps)
 
 	-- When the drag ends and the window frame is clipped, reposition it within the screen bounds
 	local repositionWindowWithinScreenBounds = React.useCallback(function(instant: boolean?)
-		if GetFFlagSelfViewAssertFix() then
-			-- Don't reposition if the window was closed within the debounce or umount
-			if windowRef == nil or windowRef.current == nil then
-				return
-			end
+		-- Don't reposition if the window was closed within the debounce or umount
+		if windowRef == nil or windowRef.current == nil then
+			return
 		end
 		assert(windowRef.current ~= nil)
 		assert(windowRef.current.Parent ~= nil)
@@ -507,15 +494,9 @@ local WindowHost = function(props: WindowHostProps)
 						BackgroundTransparency = 1,
 						[React.Event.InputBegan] = touchBegan,
 						[React.Event.InputEnded] = touchEnded,
-						[React.Event.MouseEnter] = if GetFFlagSelfieViewMoreFixMigration()
-							then mouseEntered
-							else nil :: any,
-						[React.Event.MouseLeave] = if GetFFlagSelfieViewMoreFixMigration()
-							then mouseLeft
-							else nil :: any,
-						[React.Event.Destroying] = if GetFFlagSelfieViewMoreFixMigration()
-							then mouseLeft
-							else nil :: any,
+						[React.Event.MouseEnter] = mouseEntered,
+						[React.Event.MouseLeave] = mouseLeft,
+						[React.Event.Destroying] = mouseLeft,
 					}),
 				}),
 			}),

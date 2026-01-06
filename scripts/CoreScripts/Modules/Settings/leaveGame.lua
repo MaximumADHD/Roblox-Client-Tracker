@@ -13,7 +13,6 @@ local Players = game:GetService("Players")
 
 -------------- Flags ----------------------------------------------------------
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagIEMSettingsAddPlaySessionID = SharedFlags.FFlagIEMSettingsAddPlaySessionID
 local FFlagEnableGameLeftMessage = SharedFlags.FFlagEnableGameLeftMessage
 
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
@@ -61,7 +60,7 @@ local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?
     GuiService.SelectedCoreObject = nil -- deselects the button and prevents spamming the popup to save in studio when using gamepad
 
 	local playsessionid = ""
-	if FFlagIEMSettingsAddPlaySessionID and EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+	if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
 		playsessionid = AnalyticsService:GetPlaySessionId()
 	end
 
@@ -69,7 +68,7 @@ local leaveGame = function(publishSurveyMessage: boolean, props: LeaveGameProps?
 		confirmed = Constants.AnalyticsConfirmedName,
 		universeid = tostring(game.GameId),
 		source = Constants.AnalyticsLeaveGameSource,
-		playsessionid = if FFlagIEMSettingsAddPlaySessionID then playsessionid else nil,
+		playsessionid = playsessionid ,
 	}
 	if FFlagLeaveActionChromeShortcutTelemetry and props and props.telemetryFields then
 		customTelemetryFields = Cryo.Dictionary.join(customTelemetryFields, props.telemetryFields)

@@ -11,8 +11,6 @@ local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 local FFlagEnableContactListRemoteEventValidation =
 	game:DefineFastFlag("EnableContactListRemoteEventValidation2", false)
 local FFlagEnableContactListTeleportWithCallId = game:DefineFastFlag("EnableContactListTeleportWithCallId", false)
-local FFlagDisableContactListTeleportWithoutCallId =
-	game:DefineFastFlag("DisableContactListTeleportWithoutCallId", false)
 local FFlagEnableContactListCallIdValidation = game:DefineFastFlag("EnableContactListCallIdValidation", false)
 local EngineFeatureEnableIrisRerouteToRCC = game:GetEngineFeature("EnableIrisRerouteToRCC")
 
@@ -90,50 +88,25 @@ RemoteIrisInviteTeleport.OnServerEvent:Connect(function(player, placeId, instanc
 		playerContactListTeleportAttempt[player.UserId] = contactListTeleportAttempt + 1
 	end
 
-	if FFlagEnableContactListTeleportWithCallId then
-		if FFlagEnableContactListCallIdValidation then
-			if not validateCallId(callId) or typeof(placeId) ~= "number" or placeId <= 0 then
-				return
-			end
-		end
-
-		if typeof(callId) == "string" and #callId <= kMaxCallIdLength then
-			local success, response = pcall(function()
-				local url = Url.APIS_URL .. `call/v1/get-call-status-rcc?callId={callId}&userId={player.UserId}`
-				local response = HttpRbxApiService:GetAsyncFullUrl(url)
-				return HttpService:JSONDecode(response)
-			end)
-
-			if success and response.status == "CallAccepted" and response.reservedServerAccessCode then
-				local teleportOptions = Instance.new("TeleportOptions")
-				teleportOptions.ReservedServerAccessCode = response.reservedServerAccessCode
-				TeleportService:TeleportAsync(placeId, { player }, teleportOptions)
-			end
+	if FFlagEnableContactListCallIdValidation then
+		if not validateCallId(callId) or typeof(placeId) ~= "number" or placeId <= 0 then
+			return
 		end
 	end
 
-	if FFlagDisableContactListTeleportWithoutCallId then
-		return
-	end
+	if typeof(callId) == "string" and #callId <= kMaxCallIdLength then
+		local success, response = pcall(function()
+			local url = Url.APIS_URL .. `call/v1/get-call-status-rcc?callId={callId}&userId={player.UserId}`
+			local response = HttpRbxApiService:GetAsyncFullUrl(url)
+			return HttpService:JSONDecode(response)
+		end)
 
-	if
-		typeof(instanceId) ~= "string"
-		or #instanceId > 1000
-		or typeof(reservedServerAccessCode) ~= "string"
-		or #reservedServerAccessCode > 1000
-	then
-		return
+		if success and response.status == "CallAccepted" and response.reservedServerAccessCode then
+			local teleportOptions = Instance.new("TeleportOptions")
+			teleportOptions.ReservedServerAccessCode = response.reservedServerAccessCode
+			TeleportService:TeleportAsync(placeId, { player }, teleportOptions)
+		end
 	end
-	-- Fired when an iris invite is made and the initiator needs to be
-	-- teleported to the correct location.
-	local teleportOptions = Instance.new("TeleportOptions")
-	if reservedServerAccessCode ~= nil then
-		teleportOptions.ReservedServerAccessCode = reservedServerAccessCode
-	else
-		teleportOptions.ServerInstanceId = instanceId
-	end
-
-	TeleportService:TeleportAsync(placeId, { player }, teleportOptions)
 end)
 
 local RemoteEventUpdateCurrentCall = Instance.new("RemoteEvent")

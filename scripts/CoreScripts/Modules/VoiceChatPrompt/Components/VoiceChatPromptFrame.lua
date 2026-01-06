@@ -46,12 +46,10 @@ local GetFFlagSupportGamepadNavInVoiceModals = VoiceChatFlags.GetFFlagSupportGam
 local GetFIntVoiceToxicityToastDurationSeconds =
 	require(RobloxGui.Modules.Flags.GetFIntVoiceToxicityToastDurationSeconds)
 local FFlagVoiceChatOnlyReportVoiceBans = game:DefineFastFlag("VoiceChatOnlyReportVoiceBans", false)
-local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
 local GetFFlagShowDevicePermissionsModal =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowDevicePermissionsModal
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
 	game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
-local GetFFlagEnableSeamlessVoiceUX = require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceUX)
 local GetFIntVoiceJoinM3ToastDurationSeconds = require(RobloxGui.Modules.Flags.GetFIntVoiceJoinM3ToastDurationSeconds)
 local GetFFlagEnableSeamlessVoiceDataConsentToast =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceDataConsentToast)
@@ -388,12 +386,12 @@ function VoiceChatPromptFrame:init()
 
 			local iconImage
 			if
-				(GetFFlagEnableInExpVoiceUpsell() and PromptTypeIsVoiceConsent(promptType))
-				or (GetFFlagEnableSeamlessVoiceUX() and promptType == PromptType.JoinedVoiceToast)
+				PromptTypeIsVoiceConsent(promptType)
+				or (promptType == PromptType.JoinedVoiceToast)
 				or (GetFFlagUpdateVoiceConnectionToasts() and promptType == PromptType.UnifiedJoinVoiceToast)
 			then
 				iconImage = Images["icons/controls/publicAudioJoin"]
-			elseif GetFFlagEnableSeamlessVoiceUX() and PromptTypeIsConnectDisconnectToast(promptType) then
+			elseif PromptTypeIsConnectDisconnectToast(promptType) then
 				iconImage = Images["icons/actions/info"]
 			elseif PromptTypeIsVoiceDataConsent(promptType) and GetFFlagEnableSeamlessVoiceDataConsentToast() then
 				iconImage = nil
@@ -496,7 +494,7 @@ function VoiceChatPromptFrame:render()
 	local isNudgeModal = IsModalNudge(self.state.promptType)
 	local isNudgeToast = self.state.promptType == PromptType.VoiceToxicityToast
 	local isUpdatedBanModalB = self.state.promptType == PromptType.VoiceChatSuspendedTemporaryB
-	local isVoiceConsentModal = GetFFlagEnableInExpVoiceUpsell() and IsVoiceConsentModal(self.state.promptType)
+	local isVoiceConsentModal = IsVoiceConsentModal(self.state.promptType)
 	local isDevicePermissionsModal = GetFFlagShowDevicePermissionsModal()
 		and IsDevicePermissionsModal(self.state.promptType)
 	local automaticSize = if GetFFlagEnableVoiceNudge() then Enum.AutomaticSize.Y else Enum.AutomaticSize.None
@@ -751,7 +749,7 @@ function VoiceChatPromptFrame:render()
 		}, {
 			InGameMenuInformationalDialog = inGameMenuInformationalDialog,
 		})
-	elseif GetFFlagEnableSeamlessVoiceUX() and self.state.promptType == PromptType.JoinVoiceSTUX then
+	elseif self.state.promptType == PromptType.JoinVoiceSTUX then
 		voiceChatPromptFrame = Roact.createElement(VoiceChatTooltip, {
 			titleText = PromptTitle[self.state.promptType],
 			subtitleText = PromptSubTitle[self.state.promptType],
@@ -766,14 +764,12 @@ function VoiceChatPromptFrame:render()
 		})
 	else
 		local toastDuration = nil
-		if GetFFlagEnableSeamlessVoiceUX() then
-			if isNudgeToast then
-				toastDuration = GetFIntVoiceToxicityToastDurationSeconds()
-			elseif self.state.promptType == PromptType.JoinedVoiceToast then
-				toastDuration = GetFIntVoiceJoinM3ToastDurationSeconds()
-			else
-				toastDuration = TOAST_DURATION
-			end
+		if isNudgeToast then
+			toastDuration = GetFIntVoiceToxicityToastDurationSeconds()
+		elseif self.state.promptType == PromptType.JoinedVoiceToast then
+			toastDuration = GetFIntVoiceJoinM3ToastDurationSeconds()
+		else
+			toastDuration = TOAST_DURATION
 		end
 
 		local showThisToast = self.state.showPrompt
@@ -792,8 +788,8 @@ function VoiceChatPromptFrame:render()
 			Toast = self.state.promptType ~= PromptType.None and Roact.createElement(SlideFromTopToast, {
 				duration = if isNudgeToast
 					then GetFIntVoiceToxicityToastDurationSeconds()
-					elseif GetFFlagEnableSeamlessVoiceUX() then toastDuration
-					else TOAST_DURATION,
+					else toastDuration
+,
 				toastContent = self.state.toastContent,
 				show = showThisToast,
 			}),
@@ -859,7 +855,7 @@ end
 VoiceChatPromptFrame = InGameMenuPolicy.connect(function(appPolicy, props)
 	return {
 		showNewContent = appPolicy.getGameInfoShowChatFeatures(),
-		showCheckbox = if GetFFlagEnableInExpVoiceUpsell() then appPolicy.getDisplayCheckboxInVoiceConsent() else true,
+		showCheckbox = appPolicy.getDisplayCheckboxInVoiceConsent(),
 		showDataConsentToast = if appPolicy.getDisplayCheckboxInVoiceConsent() == nil
 			then false
 			else appPolicy.getDisplayCheckboxInVoiceConsent(),

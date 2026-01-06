@@ -56,7 +56,7 @@ local function RadioGroupItem(radioGroupItemProps: RadioGroupItemProps, ref: Rea
 
 	local onActivated = React.useCallback(function()
 		radioGroupContext.onValueChanged(props.value)
-	end, { isDisabled :: any, props.value, radioGroupContext.onValueChanged })
+	end, { isDisabled, props.value, radioGroupContext.onValueChanged } :: { unknown })
 
 	-- Have to keep variantProps here for checkmark tag
 	local variantProps = useRadioGroupItemVariants(tokens, props.size)

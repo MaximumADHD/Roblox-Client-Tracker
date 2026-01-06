@@ -112,7 +112,7 @@ local function useBreakpoint(instance: GuiObject?, options: UseBreakpointOptions
 		if shouldChangeBreakpoint(breakpointConfig, absoluteSize.X, candidateBreakpoint, previousStableBreakpoint) then
 			setStableBreakpoint(candidateBreakpoint)
 		end
-	end, { breakpointConfig :: unknown, absoluteSize.X, candidateBreakpoint, previousStableBreakpoint })
+	end, { breakpointConfig, absoluteSize.X, candidateBreakpoint, previousStableBreakpoint } :: { unknown })
 
 	return stableBreakpoint :: Breakpoint, absoluteSize :: Vector2
 end

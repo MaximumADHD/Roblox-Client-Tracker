@@ -4,6 +4,7 @@
 
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
+local GuiService = game:GetService("GuiService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
@@ -56,6 +57,7 @@ local CONNECTIONS = {
 	CAMERA_MODE_CHANGED = "CAMERA_MODE_CHANGED",
 	CAMERA_MIN_DISTANCE_CHANGED = "CAMERA_MIN_DISTANCE_CHANGED",
 	CAMERA_MAX_DISTANCE_CHANGED = "CAMERA_MAX_DISTANCE_CHANGED",
+	SELECTION_MODE_CHANGED = "SELECTION_MODE_CHANGED",
 }
 
 type BaseCameraClass = {
@@ -138,6 +140,14 @@ function BaseCamera:GetModuleName()
 	return "BaseCamera"
 end
 
+local function onSelectedObjectChanged()
+	if GuiService.SelectedObject then
+		CameraInput.gamepadZoomPress.Enabled = false
+	else
+		CameraInput.gamepadZoomPress.Enabled = true
+	end
+end
+
 function BaseCamera:_setUpConfigurations()
 	self._connections:trackConnection(CONNECTIONS.CHARACTER_ADDED, player.CharacterAdded:Connect(function(char)
 		self:OnCharacterAdded(char)
@@ -152,6 +162,9 @@ function BaseCamera:_setUpConfigurations()
 	end))
 	self._connections:trackConnection(CONNECTIONS.CAMERA_MAX_DISTANCE_CHANGED, player:GetPropertyChangedSignal("CameraMaxZoomDistance"):Connect(function()
 		self:OnPlayerCameraPropertyChange()
+	end))
+	self._connections:trackConnection(CONNECTIONS.SELECTION_MODE_CHANGED, GuiService:GetPropertyChangedSignal("SelectedObject"):Connect(function()
+		onSelectedObjectChanged()
 	end))
 	self:OnPlayerCameraPropertyChange()
 end

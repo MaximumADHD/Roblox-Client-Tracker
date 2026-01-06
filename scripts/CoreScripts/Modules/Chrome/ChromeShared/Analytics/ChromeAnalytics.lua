@@ -14,7 +14,6 @@ local Cryo = require(CorePackages.Packages.Cryo)
 local ChromeService = require(Root.Service)
 local Constants = require(Root.Unibar.Constants)
 local Types = require(Root.Service.Types)
-local GetFFlagChromeTrackWindowPosition = require(Root.Parent.Flags.GetFFlagChromeTrackWindowPosition)
 local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
 
 local Tracker = require(Root.Analytics.Tracker)
@@ -48,12 +47,6 @@ export type ChromeAnalytics = {
 
 	setScreenSize: (ChromeAnalytics, screenSize: Vector2) -> nil,
 	setWindowDefaultPosition: (ChromeAnalytics, integrationId: Types.IntegrationId, windowPosition: Vector2) -> nil,
-	setPin: (
-		ChromeAnalytics,
-		integrationId: Types.IntegrationId,
-		enabled: boolean,
-		userPins: Types.IntegrationIdList
-	) -> nil,
 
 	onIconActivated: (ChromeAnalytics, integrationId: Types.IntegrationId, props: Types.ActivateProps?) -> nil,
 	onIconTouchBegan: (ChromeAnalytics, integrationId: Types.IntegrationId) -> nil,
@@ -248,17 +241,6 @@ function ChromeAnalytics.new(): ChromeAnalytics
 	return self
 end
 
-function ChromeAnalytics:setPin(integrationId: string, enabled: boolean, userPins: Types.IntegrationIdList)
-	local eventType = if enabled then Constants.ANALYTICS.PIN_ADDED else Constants.ANALYTICS.PIN_REMOVED
-	self._sendEvent(eventType, {
-		integration_id = integrationId,
-		source = getInteractionSource(integrationId),
-		user_pins = table.concat(userPins, ","),
-	})
-
-	return nil
-end
-
 function ChromeAnalytics:setScreenSize(screenSize: Vector2)
 	self._defaultProps.screen_width = screenSize.X
 	self._defaultProps.screen_height = screenSize.Y
@@ -341,37 +323,16 @@ function ChromeAnalytics:onWindowOpened(integrationId: Types.IntegrationId)
 
 	if integration and windowStatus ~= STATUS.ACTIVE then
 		self._defaultWindowTrackers(integrationId)
-		local iconDragStatus = self._tracker:get(getTrackerName(TRACKER_NAME_ICON_DRAG_STATUS, integrationId))
 
-		if GetFFlagChromeTrackWindowPosition() then
-			local windowPositionTrackerName = getTrackerName(TRACKER_NAME_WINDOW_DEFAULT_POSITION_PREFIX, integrationId)
-			if not self._tracker:get(windowPositionTrackerName) and integration.windowSize then
-				local windowSize = integration.windowSize:get()
-				if windowSize then
-					local windowPosition = ChromeService:windowPosition(integration.id)
-						or integration.startingWindowPosition
-						or UDim2.fromOffset(0, 0)
-					local windowAbsolutePosition = self._calculateWindowAbsolutePosition(windowPosition, windowSize)
-					self:setWindowDefaultPosition(integrationId, windowAbsolutePosition)
-				end
-			end
-		else
-			-- Window is opened but only record its position in case its not being activaly dragged from the Icon
-			if iconDragStatus ~= DRAG_STATUS.DRAGGED then
-				local windowPositionTrackerName =
-					getTrackerName(TRACKER_NAME_WINDOW_DEFAULT_POSITION_PREFIX, integrationId)
-				if
-					not self._tracker:get(windowPositionTrackerName)
-					and integration.windowSize
-					and integration.startingWindowPosition
-				then
-					local windowSize = integration.windowSize:get()
-					if windowSize then
-						local windowStartingPosition =
-							self._calculateWindowAbsolutePosition(integration.startingWindowPosition, windowSize)
-						self:setWindowDefaultPosition(integrationId, windowStartingPosition)
-					end
-				end
+		local windowPositionTrackerName = getTrackerName(TRACKER_NAME_WINDOW_DEFAULT_POSITION_PREFIX, integrationId)
+		if not self._tracker:get(windowPositionTrackerName) and integration.windowSize then
+			local windowSize = integration.windowSize:get()
+			if windowSize then
+				local windowPosition = ChromeService:windowPosition(integration.id)
+					or integration.startingWindowPosition
+					or UDim2.fromOffset(0, 0)
+				local windowAbsolutePosition = self._calculateWindowAbsolutePosition(windowPosition, windowSize)
+				self:setWindowDefaultPosition(integrationId, windowAbsolutePosition)
 			end
 		end
 

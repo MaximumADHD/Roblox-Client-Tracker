@@ -1,8 +1,5 @@
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 local AvatarChatService = game:GetService("AvatarChatService")
-local getFFlagMicrophoneDevicePermissionsPromptLogging = require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
 local FStringMicrophoneDevicePermissionsLoggingEventName = game:DefineFastString("MicrophoneDevicePermissionsLoggingEventName", "microphoneDevicePermissionPrompted")
 
 export type MicrophoneDeviceLoggingConfig = {
@@ -82,7 +79,7 @@ function MicrophoneDevicePermissionsLogging:_getEventPayload(uiType, config)
 end
 
 function MicrophoneDevicePermissionsLogging:_isReady()
-    return getFFlagMicrophoneDevicePermissionsPromptLogging() and self._initialized
+    return self._initialized
 end
 
 function MicrophoneDevicePermissionsLogging:init(hasMicPermissionsOnExperienceJoin)

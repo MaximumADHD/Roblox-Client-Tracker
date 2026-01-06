@@ -3,6 +3,7 @@ local Tile = ExperienceTileMetadata.Parent
 local App = Tile.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
+local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Cryo = require(Packages.Cryo)
 local React = require(Packages.React)
@@ -330,13 +331,26 @@ end
 
 local function CoPlayFooter(passedProps: Props): React.ReactElement?
 	local props = Cryo.Dictionary.join(defaultProps, passedProps)
-	if not props.users or #props.users == 0 then
-		return nil
+	if not UIBloxConfig.fixCoplayFooterConditionalHooks then
+		if not props.users or #props.users == 0 then
+			return nil
+		end
 	end
 
 	local style = useStyle()
 	local facesFrameSize, updateFacesFrameSize = React.useBinding(Vector2.new(0, 0))
 	local styleProps = Cryo.Dictionary.join(defaultStyleProps, props.styleProps)
+
+	local onFacesFrameSizeChange
+	if UIBloxConfig.fixCoplayFooterConditionalHooks then
+		onFacesFrameSizeChange = React.useCallback(function(rbx)
+			updateFacesFrameSize(rbx.AbsoluteSize)
+		end, { updateFacesFrameSize })
+
+		if not props.users or #props.users == 0 then
+			return nil
+		end
+	end
 
 	local containerGap = styleProps.containerGap
 	local labelContentColor = styleProps.labelContentColor or style.Theme.TextMuted
@@ -349,9 +363,11 @@ local function CoPlayFooter(passedProps: Props): React.ReactElement?
 
 	local maxFaceZindex = faceGroupCount + 1
 
-	local onFacesFrameSizeChange = React.useCallback(function(rbx)
-		updateFacesFrameSize(rbx.AbsoluteSize)
-	end, { updateFacesFrameSize })
+	if not UIBloxConfig.fixCoplayFooterConditionalHooks then
+		onFacesFrameSizeChange = React.useCallback(function(rbx)
+			updateFacesFrameSize(rbx.AbsoluteSize)
+		end, { updateFacesFrameSize })
+	end
 
 	return React.createElement("Frame", {
 		Size = props.size,

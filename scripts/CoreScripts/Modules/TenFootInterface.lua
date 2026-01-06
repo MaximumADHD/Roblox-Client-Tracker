@@ -1,5 +1,6 @@
 --!nonstrict
 --!nolint GlobalUsedAsLocal
+--!nolint LocalUnused
 
 --[[
 		Filename: TenFootInterface.lua
@@ -258,8 +259,14 @@ local function CreateModule()
 		local updateTenFootStat = nil
 
 		local function setDisplayedStat(newStat)
-			if displayedStatChangedCon then displayedStatChangedCon:disconnect() displayedStatChangedCon = nil end
-			if displayedStatParentedCon then displayedStatParentedCon:disconnect() displayedStatParentedCon = nil end
+			if displayedStatChangedCon then
+			    displayedStatChangedCon:disconnect()
+			    displayedStatChangedCon = nil
+            end
+			if displayedStatParentedCon then
+			    displayedStatParentedCon:disconnect()
+			    displayedStatParentedCon = nil
+            end
 
 			displayedStat = newStat
 

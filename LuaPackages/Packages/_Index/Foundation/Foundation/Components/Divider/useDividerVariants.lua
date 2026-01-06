@@ -33,7 +33,7 @@ local function variantsFactory(tokens: Tokens)
 		},
 		line = {
 			tag = "size-full-200",
-			position = UDim2.new(0, 0, 0, tokens.Size.Size_50),
+			position = UDim2.fromOffset(0, tokens.Size.Size_50),
 			backgroundStyle = tokens.Color.Common.HeavyDivider,
 		},
 	}

@@ -10,8 +10,6 @@ local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 local ChromeIntegrationUtils = require(Chrome.Integrations.ChromeIntegrationUtils)
 local LocalStore = require(Chrome.ChromeShared.Service.LocalStore)
 
-local GetFFlagAppChatInExpConnectIconEnableSquadIndicator =
-	require(Chrome.Flags.GetFFlagAppChatInExpConnectIconEnableSquadIndicator)
 local GetFStringConnectTooltipLocalStorageKey = require(Chrome.Flags.GetFStringConnectTooltipLocalStorageKey)
 local FFlagEnableUnibarFtuxTooltips = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableUnibarFtuxTooltips
 
@@ -30,9 +28,7 @@ local GetFFlagAppChatRebrandStringUpdates =
 
 return function(id: string, initialAvailability: number)
 	-- only enable squad (a.k.a. party) indicator for the unibar icon, other variants, like dropdown icon, won't need it
-	local isSquadIndicatorEnabled = id == "connect_unibar"
-		and GetFFlagAppChatInExpConnectIconEnableSquadIndicator()
-		and GetFFlagIsSquadEnabled()
+	local isSquadIndicatorEnabled = id == "connect_unibar" and GetFFlagIsSquadEnabled()
 	local integration = ChromeService:register({
 		id = id,
 		label = if GetFFlagAppChatRebrandStringUpdates() and GetFFlagIsSquadEnabled()

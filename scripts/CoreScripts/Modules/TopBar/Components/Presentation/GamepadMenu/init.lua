@@ -95,8 +95,7 @@ local GAMEPAD_MENU_KEY = "GamepadMenu"
 local GamepadMenu = Roact.PureComponent:extend("GamepadMenu")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationToggleDialog
-local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
-local FFlagGamepadMenuActionTelemetry = require(TopBar.Flags.FFlagGamepadMenuActionTelemetry)
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
 local FFlagMountCoreGuiBackpack = require(Modules.Flags.FFlagMountCoreGuiBackpack)
 
@@ -166,13 +165,11 @@ function GamepadMenu:init()
 	self.toggleChatVisibilityAction = function(actionName, userInputState, input)
 		if userInputState == Enum.UserInputState.Begin then
 			self.toggleChatVisible()
-			if FFlagGamepadMenuActionTelemetry then
-				GamepadMenuTelemetry.onOptionSelected({
-					menuOptionName = EnumGamepadMenuOptions.Chat,
-					usedShortcut = true,
-					isToggleOpen = ChatModule:GetVisibility(),
-				})
-			end
+			GamepadMenuTelemetry.onOptionSelected({
+				menuOptionName = EnumGamepadMenuOptions.Chat,
+				usedShortcut = true,
+				isToggleOpen = ChatModule:GetVisibility(),
+			})
 		end
 	end
 
@@ -216,14 +213,11 @@ function GamepadMenu:init()
 		GamepadMenu.leaveGame()
 
 		self.props.setGamepadMenuOpen(false)
-
-		if FFlagGamepadMenuActionTelemetry then
-			GamepadMenuTelemetry.onOptionSelected({
-				menuOptionName = EnumGamepadMenuOptions.Leave,
-				usedShortcut = true,
-				isToggleOpen = true,
-			})
-		end
+		GamepadMenuTelemetry.onOptionSelected({
+			menuOptionName = EnumGamepadMenuOptions.Leave,
+			usedShortcut = true,
+			isToggleOpen = true,
+		})
 
 		return Enum.ContextActionResult.Sink
 	end
@@ -236,14 +230,11 @@ function GamepadMenu:init()
 		GamepadMenu.respawnCharacter()
 
 		self.props.setGamepadMenuOpen(false)
-
-		if FFlagGamepadMenuActionTelemetry then
-			GamepadMenuTelemetry.onOptionSelected({
-				menuOptionName = EnumGamepadMenuOptions.Respawn,
-				usedShortcut = true,
-				isToggleOpen = true,
-			})
-		end
+		GamepadMenuTelemetry.onOptionSelected({
+			menuOptionName = EnumGamepadMenuOptions.Respawn,
+			usedShortcut = true,
+			isToggleOpen = true,
+		})
 
 		return Enum.ContextActionResult.Sink
 	end
@@ -326,22 +317,19 @@ function GamepadMenu:init()
 		GuiService:SetMenuIsOpen(false, GAMEPAD_MENU_KEY)
 
 		action.onActivated()
-
-		if FFlagGamepadMenuActionTelemetry then
-			local function isMenuOptionToggleOpenOnSelect(menuOptionName: EnumGamepadMenuOptions.GamepadMenuOptions)
-				if menuOptionName == EnumGamepadMenuOptions.Leaderboard then
-					return PlayerListMaster:GetSetVisible()
-				end
-
-				return true
+		local function isMenuOptionToggleOpenOnSelect(menuOptionName: EnumGamepadMenuOptions.GamepadMenuOptions)
+			if menuOptionName == EnumGamepadMenuOptions.Leaderboard then
+				return PlayerListMaster:GetSetVisible()
 			end
 
-			GamepadMenuTelemetry.onOptionSelected({
-				menuOptionName = action.name,
-				usedShortcut = false,
-				isToggleOpen = isMenuOptionToggleOpenOnSelect(action.name),
-			})
+			return true
 		end
+
+		GamepadMenuTelemetry.onOptionSelected({
+			menuOptionName = action.name,
+			usedShortcut = false,
+			isToggleOpen = isMenuOptionToggleOpenOnSelect(action.name),
+		})
 
 		return Enum.ContextActionResult.Sink
 	end
@@ -470,7 +458,7 @@ function GamepadMenu.getMenuActionsFromProps(props, prevProps)
 	local menuActions = {}
 
 	table.insert(menuActions, {
-		name = if FFlagGamepadMenuActionTelemetry then EnumGamepadMenuOptions.Menu else "Menu",
+		name = EnumGamepadMenuOptions.Menu ,
 		icon = MENU_ICON,
 		iconComponent = nil,
 		localizationKey = "CoreScripts.TopBar.Menu",
@@ -479,7 +467,7 @@ function GamepadMenu.getMenuActionsFromProps(props, prevProps)
 
 	if GamepadMenu.shouldShowChatMenuOption(props.chatVersion, props.chatEnabled) then
 		table.insert(menuActions, {
-			name = if FFlagGamepadMenuActionTelemetry then EnumGamepadMenuOptions.Chat else "Chat",
+			name = EnumGamepadMenuOptions.Chat ,
 			icon = nil,
 			iconComponent = ChatIcon,
 			localizationKey = "CoreScripts.TopBar.Chat",
@@ -489,7 +477,7 @@ function GamepadMenu.getMenuActionsFromProps(props, prevProps)
 
 	if ChromeEnabled() then
 		table.insert(menuActions, {
-			name = if FFlagGamepadMenuActionTelemetry then EnumGamepadMenuOptions.Unibar else "Unibar",
+			name = EnumGamepadMenuOptions.Unibar ,
 			icon = UNIBAR_ICON,
 			iconComponent = nil,
 			localizationKey = "CoreScripts.TopBar.Title.ExperienceControls",
@@ -506,7 +494,7 @@ function GamepadMenu.getMenuActionsFromProps(props, prevProps)
 		end
 
 		table.insert(menuActions, {
-			name = if FFlagGamepadMenuActionTelemetry then EnumGamepadMenuOptions.Leaderboard else "Leaderboard",
+			name = EnumGamepadMenuOptions.Leaderboard ,
 			icon = icon,
 			iconComponent = nil,
 			localizationKey = "CoreScripts.TopBar.Leaderboard",
@@ -525,7 +513,7 @@ function GamepadMenu.getMenuActionsFromProps(props, prevProps)
 		-- If changing the order in which the emotes menu is added,
 		-- you will need to update the unit test that tries to open the emotes menu in GamepadMenu.spec.lua
 		table.insert(menuActions, {
-			name = if FFlagGamepadMenuActionTelemetry then EnumGamepadMenuOptions.Emotes else "Emotes",
+			name = EnumGamepadMenuOptions.Emotes ,
 			icon = icon,
 			iconComponent = nil,
 			localizationKey = "CoreScripts.TopBar.Emotes",
@@ -549,7 +537,7 @@ function GamepadMenu.getMenuActionsFromProps(props, prevProps)
 		end
 
 		table.insert(menuActions, {
-			name = if FFlagGamepadMenuActionTelemetry then EnumGamepadMenuOptions.Inventory else "Inventory",
+			name = EnumGamepadMenuOptions.Inventory ,
 			icon = icon,
 			iconComponent = nil,
 			localizationKey = "CoreScripts.TopBar.Inventory",
@@ -559,7 +547,7 @@ function GamepadMenu.getMenuActionsFromProps(props, prevProps)
 
 	if props.respawnEnabled then
 		table.insert(menuActions, {
-			name = if FFlagGamepadMenuActionTelemetry then EnumGamepadMenuOptions.Respawn else "Respawn",
+			name = EnumGamepadMenuOptions.Respawn ,
 			icon = RESPAWN_ICON,
 			iconComponent = nil,
 			localizationKey = "CoreScripts.TopBar.Respawn",
@@ -568,7 +556,7 @@ function GamepadMenu.getMenuActionsFromProps(props, prevProps)
 	end
 
 	table.insert(menuActions, {
-		name = if FFlagGamepadMenuActionTelemetry then EnumGamepadMenuOptions.Leave else "Leave",
+		name = EnumGamepadMenuOptions.Leave ,
 		icon = LEAVE_ICON,
 		iconComponent = nil,
 		localizationKey = "CoreScripts.TopBar.Leave",
@@ -674,7 +662,7 @@ function GamepadMenu:render()
 			}, menuChildren),
 
 			ControllerBar = controllerBarComponent,
-			MenuNavigationToggleDialog = if not ChromeEnabled() and not FFlagTiltIconUnibarFocusNav and FFlagAddMenuNavigationToggleDialog
+			MenuNavigationToggleDialog = if not ChromeEnabled() and not FFlagEnableConsoleExpControls and FFlagAddMenuNavigationToggleDialog
 				then Roact.createElement(MenuNavigationToggleDialog, {
 					Position = UDim2.fromScale(0.5, 0.1),
 				} :: never)

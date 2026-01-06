@@ -80,6 +80,7 @@ export type Stroke = {
 	Thickness: Bindable<number>?,
 	Transparency: Bindable<number>?,
 	LineJoinMode: Bindable<Enum.LineJoinMode>?,
+	BorderStrokePosition: Bindable<Enum.BorderStrokePosition>?,
 }
 
 export type ColorStyleValue = {

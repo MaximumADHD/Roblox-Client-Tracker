@@ -1,10 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local Cryo = require(Packages.Cryo)
 local Dash = require(Packages.Dash)
 local Tokens = require(Foundation.Providers.Style.Tokens)
 local Types = require(script.Parent.Types)
-local Flags = require(Foundation.Utility.Flags)
 
 type Tokens = Tokens.Tokens
 type StyleRule = Types.StyleRule
@@ -237,9 +235,7 @@ local function ListLayoutRules(): { StyleRule }
 		})
 	end
 
-	return if Flags.FoundationMigrateCryoToDash
-		then Dash.joinArrays(direction, align, wraps, flexAlignments, items)
-		else Cryo.List.join(direction, align, wraps, flexAlignments, items)
+	return Dash.joinArrays(direction, align, wraps, flexAlignments, items)
 end
 
 local function ListLayoutSpacingRules(gaps: Gaps, gutters: Gutters): { StyleRule }
@@ -267,7 +263,7 @@ local function ListLayoutSpacingRules(gaps: Gaps, gutters: Gutters): { StyleRule
 		})
 	end
 
-	return if Flags.FoundationMigrateCryoToDash then Dash.joinArrays(gap, gutter) else Cryo.List.join(gap, gutter)
+	return Dash.joinArrays(gap, gutter)
 end
 
 local function FlexItemRules(): { StyleRule }
@@ -346,9 +342,7 @@ local function FlexItemRules(): { StyleRule }
 		})
 	end
 
-	return if Flags.FoundationMigrateCryoToDash
-		then Dash.joinArrays(flexMode, grows, shrinks, selfs)
-		else Cryo.List.join(flexMode, grows, shrinks, selfs)
+	return Dash.joinArrays(flexMode, grows, shrinks, selfs)
 end
 
 local function CornerRules(radii: Radii): { StyleRule }
@@ -466,6 +460,22 @@ local function StrokeRules(colors: ColorScopes, variants: Variants): { StyleRule
 			properties = {
 				Color = scope.Border.Color3,
 				Transparency = scope.Border.Transparency,
+			},
+		})
+	end
+
+	local strokePositions = {
+		["center"] = Enum.BorderStrokePosition.Center,
+		["inner"] = Enum.BorderStrokePosition.Inner,
+		["outer"] = Enum.BorderStrokePosition.Outer,
+	}
+
+	for name, strokePosition in strokePositions do
+		table.insert(rules, {
+			tag = `stroke-position-{name}`,
+			pseudo = "UIStroke",
+			properties = {
+				BorderStrokePosition = strokePosition,
 			},
 		})
 	end
@@ -857,67 +867,36 @@ local function rulesGenerator(
 	local paddings = formattedTokens.paddings
 	local margins = formattedTokens.margins
 
-	local common: { StyleRule } = if Flags.FoundationMigrateCryoToDash
-		then Dash.joinArrays(
-			DefaultRules(tokens),
-			EngineDefaultBypassRules(),
-			FlexItemRules(),
-			TextRules(),
-			AutomaticSizeRules(),
-			PositionRules(),
-			AnchorPointRules(),
-			ClipsDescendantRules(),
-			AspectRatioRules()
-		)
-		else Cryo.List.join(
-			DefaultRules(tokens),
-			EngineDefaultBypassRules(),
-			FlexItemRules(),
-			TextRules(),
-			AutomaticSizeRules(),
-			PositionRules(),
-			AnchorPointRules(),
-			ClipsDescendantRules(),
-			AspectRatioRules()
-		)
+	local common: { StyleRule } = Dash.joinArrays(
+		DefaultRules(tokens),
+		EngineDefaultBypassRules(),
+		FlexItemRules(),
+		TextRules(),
+		AutomaticSizeRules(),
+		PositionRules(),
+		AnchorPointRules(),
+		ClipsDescendantRules(),
+		AspectRatioRules()
+	)
 
-	local size: { StyleRule } = if Flags.FoundationMigrateCryoToDash
-		then Dash.joinArrays(
-			DefaultSizeRules(tokens),
-			ListLayoutRules(),
-			ListLayoutSpacingRules(gaps, gutters),
-			CornerRules(radii),
-			SizeRules(sizes),
-			StrokeSizeRules(strokes),
-			TypographyRules(typography, tokens.Config.Text.NominalScale),
-			PaddingRules(paddings, margins)
-		)
-		else Cryo.List.join(
-			DefaultSizeRules(tokens),
-			ListLayoutRules(),
-			ListLayoutSpacingRules(gaps, gutters),
-			CornerRules(radii),
-			SizeRules(sizes),
-			StrokeSizeRules(strokes),
-			TypographyRules(typography, tokens.Config.Text.NominalScale),
-			PaddingRules(paddings, margins)
-		)
+	local size: { StyleRule } = Dash.joinArrays(
+		DefaultSizeRules(tokens),
+		ListLayoutRules(),
+		ListLayoutSpacingRules(gaps, gutters),
+		CornerRules(radii),
+		SizeRules(sizes),
+		StrokeSizeRules(strokes),
+		TypographyRules(typography, tokens.Config.Text.NominalScale),
+		PaddingRules(paddings, margins)
+	)
 
-	local theme: { StyleRule } = if Flags.FoundationMigrateCryoToDash
-		then Dash.joinArrays(
-			DefaultColorRules(tokens),
-			DeprecatedColorRules(colors),
-			BackgroundRules(colors, variants),
-			StrokeRules(colors, variants),
-			ContentRules(colors, variants)
-		)
-		else Cryo.List.join(
-			DefaultColorRules(tokens),
-			DeprecatedColorRules(colors),
-			BackgroundRules(colors, variants),
-			StrokeRules(colors, variants),
-			ContentRules(colors, variants)
-		)
+	local theme: { StyleRule } = Dash.joinArrays(
+		DefaultColorRules(tokens),
+		DeprecatedColorRules(colors),
+		BackgroundRules(colors, variants),
+		StrokeRules(colors, variants),
+		ContentRules(colors, variants)
+	)
 
 	return common, size, theme
 end

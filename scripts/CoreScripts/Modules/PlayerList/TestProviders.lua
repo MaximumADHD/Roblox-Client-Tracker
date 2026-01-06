@@ -28,7 +28,7 @@ local Array = require(CorePackages.Packages.LuauPolyfill).Array
 
 local CreateLayoutValues = require(PlayerList.CreateLayoutValues)
 
-local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
+local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 
 local function TestProviders(props: any)
 	local store = Rodux.Store.new(Reducer)
@@ -74,7 +74,7 @@ local function TestProviders(props: any)
 				layoutValues = props.layoutValues or CreateLayoutValues(false),
 			}, {
 				ThemeProvider = Roact.createElement(UIBlox.App.Style.AppStyleProvider, {}, 
-					if FFlagAddMobilePlayerListScaling and LayoutValuesContext 
+					if FFlagUseNewPlayerList and LayoutValuesContext 
 						then {
 							LayoutValuesProvider = Roact.createElement(LayoutValuesContext.Provider, {
 								value = props.layoutValues or CreateLayoutValues(false),

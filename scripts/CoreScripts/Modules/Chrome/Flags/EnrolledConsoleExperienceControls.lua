@@ -2,6 +2,7 @@ local CorePackages = game:GetService("CorePackages")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableInExperienceHandheldControls = SharedFlags.FFlagEnableInExperienceHandheldControls
+local FFlagRemoveExperienceMenuABTestManager = SharedFlags.FFlagRemoveExperienceMenuABTestManager
 
 local Modules = script.Parent.Parent.Parent
 local Chrome = Modules.Chrome
@@ -13,7 +14,10 @@ local ExperienceMenuABTestManager = require(script.Parent.Parent.Parent.Experien
 
 local enrolledInConsoleExperienceControlsIXP = FFlagUnibarMenuOpenHamburger
 	or FFlagUnibarMenuOpenSubmenu
-	or ExperienceMenuABTestManager.default:showConsoleExpControlsMenuNotAvailable()
+	or (
+		not FFlagRemoveExperienceMenuABTestManager
+		and ExperienceMenuABTestManager.default:showConsoleExpControlsMenuNotAvailable()
+	)
 
 return (IsExperienceMenuABTestEnabled() and enrolledInConsoleExperienceControlsIXP)
 	or FFlagEnableInExperienceHandheldControls

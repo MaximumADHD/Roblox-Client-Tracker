@@ -14,6 +14,8 @@ ErrorSourceStrings.Keys = {
 	InstanceTagsFound = "Common.UGCValidation.ErrorLabel.InstanceTagsFound",
 	HeadNotDynamic = "Common.UGCValidation.ErrorLabel.HeadNotDynamic",
 	FailureWithoutReason = "Common.UGCValidation.ErrorLabel.FailureWithoutReason",
+	InternalError = "Common.UGCValidation.ErrorLabel.InternalError",
+	DynamicHeadCageMisaligned = "Common.UGCValidation.ErrorLabel.DynamicHeadCageMisaligned",
 }
 
 ErrorSourceStrings.Values = {
@@ -26,6 +28,8 @@ ErrorSourceStrings.Values = {
 	InstanceTagsFound = "The following instances have tags but marketplace assets cannot have any tags: {ProblematicDescendantPaths}",
 	HeadNotDynamic = "Dynamic Heads on the marketplace must be setup to properly animate the core facial movements, but our detection did not notice a substantial change.",
 	FailureWithoutReason = "Validation failed for an unknown reason. Please try again or open a bug report if this issue persists.",
+	InternalError = "Your asset could not be properly validated due to an internal error. If this issue persists, please create a bug report. ValidationJobId: {ValidationJobId}",
+	DynamicHeadCageMisaligned = "Dynamic Heads on the marketplace must be properly caged so that the eyes and mouth vertices on the cage line up with the mesh vertices. Please improve your caging and its alignment with the mesh.",
 }
 
 return ErrorSourceStrings

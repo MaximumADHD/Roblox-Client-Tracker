@@ -220,7 +220,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 			setHasInvalidInput(false)
 		end
 		props.onChanged(n :: number)
-	end, { focused :: unknown, props.onChanged })
+	end, { focused, props.onChanged } :: { unknown })
 
 	local onIncrement = React.useCallback(function()
 		if props.isDisabled or isDisabledUp then

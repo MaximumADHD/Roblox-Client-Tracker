@@ -29,7 +29,14 @@ local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 
 -- VARIABLES
 local FFlagGameplayPausePausesInteraction = game:DefineFastFlag("GameplayPausePausesInteraction", false)
+local FFlagGameplayPauseAntiFlicker = game:DefineFastFlag("GameplayPauseAntiFlicker", false)
+local FIntRapidGameplayPauseIntervalMs = game:DefineFastInt("RapidGameplayPauseIntervalMs", 1000) -- If we repause within this time since the last pause, keep the pause notification up longer to prevent oscillation
+local FIntRapidGameplayPauseMinNotificationDurationMs = game:DefineFastInt("RapidGameplayPauseMinNotificationDurationMs", 500) -- Min time to show pause notification for repeat pauses
 local isFirstPauseChange = true -- Skip showing UI on first pause to avoid displaying during loading process.
+local inRapidPause = false -- Tracks whether we've seen recent rapid pause/unpause/pause cycles
+local lastUnpauseTime = os.clock()
+local dismissDelayTimerHandle = nil
+local updatePauseState -- Forward declaration
 
 local Notification = NetworkPauseNotification.new()
 
@@ -54,6 +61,56 @@ local NetworkPauseGui = Create "ScreenGui" {
 
 }
 
+local function cancelNotificationDismissTimer()
+	if dismissDelayTimerHandle ~= nil then
+		task.cancel(dismissDelayTimerHandle)
+	end
+end
+
+local function scheduleNotificationDismissTimer()
+	cancelNotificationDismissTimer()
+	dismissDelayTimerHandle = task.delay(FIntRapidGameplayPauseMinNotificationDurationMs / 1000, function()
+		updatePauseState()
+	end)
+end
+
+local function setPauseUIState(paused)
+	if paused then
+		Notification:Show()
+	else
+		Notification:Hide()
+	end
+
+	if FFlagGameplayPausePausesInteraction then
+		NetworkPauseContainer.Active = paused
+	end
+	RunService:SetRobloxGuiFocused(paused)
+end
+
+function updatePauseState()
+	local paused = Player.GameplayPaused and NetworkPauseGui.Enabled and not isFirstPauseChange
+	isFirstPauseChange = false
+
+	if paused then
+		-- Enter paused state
+		setPauseUIState(paused)
+		inRapidPause = (os.clock() - lastUnpauseTime) * 1000 < FIntRapidGameplayPauseIntervalMs
+		cancelNotificationDismissTimer()
+	else
+		if inRapidPause then
+			-- We got an unpause signal but we've seen recent rapid pause state oscillations.
+			-- Wait a short time before dismissing the UI to avoid any UI flickering.
+			scheduleNotificationDismissTimer()
+		else
+			-- Leave paused state
+			inRapidPause = false
+			setPauseUIState(paused)
+		end
+
+		lastUnpauseTime = os.clock()
+	end
+end
+
 local function togglePauseState()
 	local paused = Player.GameplayPaused and NetworkPauseGui.Enabled and not isFirstPauseChange
 	isFirstPauseChange = false
@@ -68,7 +125,11 @@ local function togglePauseState()
 	RunService:SetRobloxGuiFocused(paused)
 end
 
-Player:GetPropertyChangedSignal("GameplayPaused"):Connect(togglePauseState)
+if FFlagGameplayPauseAntiFlicker then
+	Player:GetPropertyChangedSignal("GameplayPaused"):Connect(updatePauseState)
+else
+	Player:GetPropertyChangedSignal("GameplayPaused"):Connect(togglePauseState)
+end
 
 local function enableNotification(enabled)
 	assert(type(enabled) == "boolean", "Specified argument 'enabled' must be of type boolean")

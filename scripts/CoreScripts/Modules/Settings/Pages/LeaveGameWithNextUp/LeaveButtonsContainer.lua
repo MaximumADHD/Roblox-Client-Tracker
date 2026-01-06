@@ -35,7 +35,7 @@ local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local ChromeService = if ChromeEnabled then require(RobloxGui.Modules.Chrome.Service) else nil
 local ChromeConstants = if ChromeEnabled then require(RobloxGui.Modules.Chrome.ChromeShared.Unibar.Constants) else nil
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShortcutRemoveRespawnOnLeavePage
 
 local LEAVE_GAME_ACTION = "LeaveGameCancelAction"
@@ -69,7 +69,7 @@ local function LeaveButtonsContainer(props: Props)
 	end, { props.onDontLeave })
 
 	React.useEffect(function()
-		if FFlagEnableChromeShortcutBar then
+		if FFlagEnableConsoleExpControls then
 			if ChromeEnabled and ChromeService and ChromeConstants then
 				if FFlagChromeShortcutRemoveRespawnOnLeavePage then
 					ChromeService:setShortcutBar(ChromeConstants.TILTMENU_LEAVE_DIALOG_SHORTCUTBAR_ID)

@@ -58,7 +58,6 @@ if GetFFlagLuaInExperienceCoreScriptsGameInviteUnification() then
 end
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagIEMSettingsAddPlaySessionID = SharedFlags.FFlagIEMSettingsAddPlaySessionID
 local GetFFlagLuaAppEnableOpenTypeSupport = SharedFlags.GetFFlagLuaAppEnableOpenTypeSupport
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
@@ -161,8 +160,6 @@ local FFlagNullCheckPlayersNameLabel = game:DefineFastFlag("NullCheckPlayersName
 local GetFFlagCleanupMuteSelfButton = require(RobloxGui.Modules.Settings.Flags.GetFFlagCleanupMuteSelfButton)
 local BUTTON_ROW_HORIZONTAL_PADDING = 20
 local BUTTON_ROW_VERTICAL_PADDING = 16
-
-local FFlagEnablePlatformName = game:DefineFastFlag("EnablePlatformName", false)
 local FFlagCheckForNilUserIdOnPlayerList = game:DefineFastFlag("CheckForNilUserIdOnPlayerList", false)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 
@@ -175,12 +172,9 @@ local function Initialize()
 	local this = settingsPageFactory:CreateNewPage()
 
 	this.PageListLayout.Padding = UDim.new(0, 16)
-
-	if FFlagIEMSettingsAddPlaySessionID then 
-		this.playSessionId = ""
-		if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
-			this.playSessionId = AnalyticsService:GetPlaySessionId()
-		end
+	this.playSessionId = ""
+	if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+		this.playSessionId = AnalyticsService:GetPlaySessionId()
 	end
 
 	--[[ Localization Package Initialization ]]
@@ -845,7 +839,7 @@ local function Initialize()
 			Constants.AnalyticsMenuActionName,
 			{ 
 				source = Constants.AnalyticsResumeButtonSource, 
-				playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playSessionId else nil,
+				playsessionid = this.playSessionId ,
 				universeid = tostring(game.GameId) ,
 			}
 		)
@@ -925,10 +919,19 @@ local function Initialize()
 	end
 
 	local function updateMuteSelfButtonIcon()
-		local buttonInstance = buttonFrame:FindFirstChild(MUTE_SELF_IMAGE_LABEL_NAME, true)
+		local buttonInstance
+		if GetFFlagCleanupMuteSelfButton() then
+			if buttonFrame then
+				buttonInstance = buttonFrame:FindFirstChild(MUTE_SELF_IMAGE_LABEL_NAME, true)
+			end
+		else
+			buttonInstance = buttonFrame:FindFirstChild(MUTE_SELF_IMAGE_LABEL_NAME, true)
+		end
+
 		if not buttonInstance then
 			return
 		end
+
 		buttonInstance.Image = pollImage()
 	end
 
@@ -1440,7 +1443,7 @@ local function Initialize()
 				Constants.AnalyticsTargetName,
 				Constants.AnalyticsExamineAvatarName,
 				Constants.AnalyticsMenuActionName,
-				{ playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playSessionId else nil,
+				{ playsessionid = this.playSessionId ,
 					universeid = tostring(game.GameId) ,
 				}
 
@@ -2203,7 +2206,6 @@ local function Initialize()
 					if string.len(combinedName) > 0 and combinedName ~= labelFrame.DisplayNameLabel.Text then
 						labelFrame.DisplayNameLabel.Text = combinedName
 					end
-					if FFlagEnablePlatformName then
 						local rightSideButtons = labelFrame:FindFirstChild("RightSideButtons")
 						local platformName = nil
 
@@ -2219,7 +2221,6 @@ local function Initialize()
 						else
 							resizePlatformName(rightSideButtons, platformName)
 						end
-					end
 				end
 			end
 		end)

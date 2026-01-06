@@ -28,8 +28,13 @@ local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreens
 
 local GetFFlagEnableVoiceDefaultChannel = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceDefaultChannel)
 
-local IsExperienceMenuABTestEnabled = require(CoreGuiModules.IsExperienceMenuABTestEnabled)
-local ExperienceMenuABTestManager = require(CoreGuiModules.ExperienceMenuABTestManager)
+local FFlagRemoveExperienceMenuABTestManager = require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveExperienceMenuABTestManager
+local IsExperienceMenuABTestEnabled, ExperienceMenuABTestManager
+if not FFlagRemoveExperienceMenuABTestManager then
+	IsExperienceMenuABTestEnabled = require(CoreGuiModules.IsExperienceMenuABTestEnabled)
+	ExperienceMenuABTestManager = require(CoreGuiModules.ExperienceMenuABTestManager)
+end
+
 local GetFFlagEnableNewInviteMenuIXP = require(CoreGuiModules.Flags.GetFFlagEnableNewInviteMenuIXP)
 local NewInviteMenuExperimentManager = require(CoreGuiModules.Settings.Pages.ShareGame.NewInviteMenuExperimentManager)
 local GetFFlagEnableSoundSessionTelemetry = require(CoreGuiModules.Flags.GetFFlagEnableSoundSessionTelemetry)
@@ -63,8 +68,6 @@ local FFlagLuaAppEnableToastNotificationsCoreScripts =
 local GetFFlagVoiceUserAgency3 = require(RobloxGui.Modules.Flags.GetFFlagVoiceUserAgency3)
 local GetFFlagLuaInExperienceCoreScriptsGameInviteUnification =
 	require(RobloxGui.Modules.Flags.GetFFlagLuaInExperienceCoreScriptsGameInviteUnification)
-local getFFlagMicrophoneDevicePermissionsPromptLogging =
-	require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
 
 game:DefineFastFlag("MoodsEmoteFix3", false)
 local FFlagEnableSendCameraAccessAnalytics = game:DefineFastFlag("EnableSendCameraAccessAnalytics", false)
@@ -83,10 +86,20 @@ local FFlagPlayerFeedbackPromptEnabled = game:GetEngineFeature("PlayerFeedbackEn
 local FFlagLuaAppInExperienceDetailsPrompt =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagLuaAppInExperienceDetailsPrompt
 local FFlagEnableSystemScrim = game:DefineFastFlag("EnableSystemScrim", false)
+local FFlagEnableCorescriptsProfiler = game:DefineFastFlag("EnableCorescriptsProfiler", false)
+local FFlagCoreScriptsProfilerTelemetryContext = game:DefineFastFlag("CoreScriptsProfilerTelemetryContext", false)
+local FFlagFixExperimentCacheManagerCoreScriptInit =
+	game:DefineFastFlag("FixExperimentCacheManagerCoreScriptInit2", false)
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
 UIBlox.init(uiBloxConfig)
+
+if FFlagFixExperimentCacheManagerCoreScriptInit then
+	local ExperimentCacheManager =
+		require(CorePackages.Workspace.Packages.ExperimentCacheManager).ExperimentCacheManager
+	ExperimentCacheManager.default:initialize()
+end
 
 -- Add a label for internal React telemetry
 local FFlagReactTelemetryEnabled =
@@ -121,9 +134,11 @@ if GetFFlagEnableAppChatInExperience() then
 end
 
 if GetFFlagEnableCrossExpVoice() then
-	local ExperimentCacheManager =
-		require(CorePackages.Workspace.Packages.ExperimentCacheManager).ExperimentCacheManager
-	ExperimentCacheManager.default:initialize()
+	if not FFlagFixExperimentCacheManagerCoreScriptInit then
+		local ExperimentCacheManager =
+			require(CorePackages.Workspace.Packages.ExperimentCacheManager).ExperimentCacheManager
+		ExperimentCacheManager.default:initialize()
+	end
 
 	local CrossExperienceVoiceIXPManager =
 		require(CorePackages.Workspace.Packages.CrossExperienceVoice).IXPManager
@@ -368,9 +383,7 @@ if GetFFlagScreenshotHudApi() and not CachedPolicyService:IsSubjectToChinaPolici
 	ScriptContext:AddCoreScriptLocal("CoreScripts/ScreenshotHud", RobloxGui)
 end
 
-if getFFlagMicrophoneDevicePermissionsPromptLogging() then
-	ScriptContext:AddCoreScriptLocal("CoreScripts/MicrophoneDevicePermissionsLoggingInitializer", RobloxGui)
-end
+ScriptContext:AddCoreScriptLocal("CoreScripts/MicrophoneDevicePermissionsLoggingInitializer", RobloxGui)
 
 if game:GetEngineFeature("VoiceChatSupported") and GetFFlagEnableVoiceDefaultChannel() then
 	ScriptContext:AddCoreScriptLocal("CoreScripts/VoiceDefaultChannel", RobloxGui)
@@ -378,8 +391,11 @@ end
 coroutine.wrap(function()
 	local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 	IXPServiceWrapper:InitializeAsync(localPlayer.UserId, GetCoreScriptsLayers())
-	if IsExperienceMenuABTestEnabled() then
-		ExperienceMenuABTestManager.default:initialize()
+
+	if not FFlagRemoveExperienceMenuABTestManager then
+		if IsExperienceMenuABTestEnabled() then
+			ExperienceMenuABTestManager.default:initialize()
+		end
 	end
 
 	if GetFFlagEnableNewInviteMenuIXP() then
@@ -595,4 +611,18 @@ if FFlagAddGuiInsetToDisplayStore then
 			Display.GetDisplayStore().setTopBarHeight(GuiService.TopbarInset.Height)
 		end)
 	end)()
+end
+
+if FFlagEnableCorescriptsProfiler then
+	local CoreScriptsProfilerTelemetry = require(CorePackages.Workspace.Packages.CoreScriptsProfiler).CoreScriptsProfilerTelemetry
+
+	if CoreScriptsProfilerTelemetry then
+		-- Start the telemetry system
+		local context = nil
+		if FFlagCoreScriptsProfilerTelemetryContext then
+			context = FStringReactSchedulingContext
+		end
+		local coreScriptsProfilerTelemetry = CoreScriptsProfilerTelemetry(context)
+		coreScriptsProfilerTelemetry:start()
+	end
 end

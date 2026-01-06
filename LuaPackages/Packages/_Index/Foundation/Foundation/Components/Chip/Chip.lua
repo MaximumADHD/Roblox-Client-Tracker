@@ -87,7 +87,7 @@ local function Chip(chipProps: ChipProps, ref: React.Ref<GuiObject>?)
 		end
 
 		return props.leading or leading, props.trailing or trailing
-	end, { props.leading :: any, props.icon, props.trailing })
+	end, { props.leading, props.icon, props.trailing } :: { unknown })
 
 	local variantProps = useChipVariants(tokens, props.size, props.isChecked, leading ~= nil, trailing ~= nil)
 	local cursorBorderWidth = math.floor(tokens.Stroke.Thicker)

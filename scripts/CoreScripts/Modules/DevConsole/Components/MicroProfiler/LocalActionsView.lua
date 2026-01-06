@@ -1,4 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
+local RunService = game:GetService("RunService")
 local TelemetryService = game:GetService("TelemetryService")
 
 local Settings = UserSettings()
@@ -129,6 +130,8 @@ function LocalActionsView:render()
 						}),
 					},
 					if FFlagDevConsoleMpEnableOpenDumpsFolderButton
+							and game:GetEngineFeature("OpenLogsFolderApi")
+							and not RunService:IsStudio()
 						then {
 							UIPadding = Roact.createElement("UIPadding", {
 								PaddingBottom = UDim.new(0, 2),
@@ -140,7 +143,9 @@ function LocalActionsView:render()
 								text = "Open dump folder",
 								size = UDim2.fromScale(1, 1),
 								pos = UDim2.new(0, 0, 0, 0),
-								onClicked = function() end,
+								onClicked = function()
+									(game :: any):OpenLogsFolder()
+								end,
 							}),
 						}
 						else nil,

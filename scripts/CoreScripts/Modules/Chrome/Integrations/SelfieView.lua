@@ -18,19 +18,16 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TopBar = RobloxGui.Modules.TopBar
 local TopBarConstants = require(TopBar.Constants)
 local topBarHeight = TopBarConstants.ApplyDisplayScale(TopBarConstants.TopBarHeight)
-local topBarScreenSideOffset = TopBarConstants.ApplyDisplayScale(TopBarConstants.ScreenSideOffset)
 
 local SelfieViewModule = Chrome.Parent.SelfieView
 local GetFFlagSelfieViewEnabled = require(SelfieViewModule.Flags.GetFFlagSelfieViewEnabled)
 local GetFFlagChromeSelfViewIgnoreCoreGui = require(Chrome.Flags.GetFFlagChromeSelfViewIgnoreCoreGui)
-local GetFFlagChromeTrackWindowPosition = require(Chrome.Flags.GetFFlagChromeTrackWindowPosition)
-local GetFFlagChromeTrackWindowStatus = require(Chrome.Flags.GetFFlagChromeTrackWindowStatus)
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagChromeSelfieViewUsePolicy = SharedFlags.FFlagChromeSelfieViewUsePolicy
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
 local SelfieView = require(SelfieViewModule)
 local FaceChatUtils = require(SelfieViewModule.Utils.FaceChatUtils)
@@ -46,7 +43,6 @@ local windowSize = WindowSizeSignal.new(startingSize.X, startingSize.Y)
 local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
-local startingWindowPosition = UDim2.new(0, topBarScreenSideOffset, 0, Constants.WINDOW_DEFAULT_PADDING)
 -- TODO: Add Localizations
 local ID = Constants.SELFIE_VIEW_ID
 local LABEL = "CoreScripts.TopBar.SelfViewLabel"
@@ -58,10 +54,6 @@ end)
 local selfViewVisibleConnection: RBXScriptConnection? = nil
 local selfViewHiddenConnection: RBXScriptConnection? = nil
 
-if not GetFFlagChromeTrackWindowPosition() then
-	ChromeService:updateWindowPosition(ID, startingWindowPosition)
-end
-
 local selfieViewChromeIntegration = ChromeService:register({
 	id = ID,
 	-- TODO: update localizations
@@ -72,7 +64,7 @@ local selfieViewChromeIntegration = ChromeService:register({
 	windowSize = windowSize,
 	windowDefaultOpen = false,
 	initialAvailability = AvailabilitySignalState.Unavailable,
-	persistWindowState = GetFFlagChromeTrackWindowPosition() or GetFFlagChromeTrackWindowStatus() or nil,
+	persistWindowState = true,
 	activated = function()
 		ChromeService:toggleWindow(ID)
 	end,
@@ -157,7 +149,7 @@ local reportSettings = function()
 	Analytics:reportUserAccountSettings(permissions.userCamEnabled, permissions.userMicEnabled)
 end
 
-if FFlagChromeSelfieViewUsePolicy then
+if FFlagEnableConsoleExpControls then
 	local policy = SelfieViewPolicy.PolicyImplementation.read()
 	local eligibleForSelfieViewFeature = if policy
 		then SelfieViewPolicy.Mapper(policy).eligibleForSelfieViewFeature()

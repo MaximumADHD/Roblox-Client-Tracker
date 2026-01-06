@@ -13,6 +13,7 @@ local IconButton = require(Foundation.Components.IconButton)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local Visibility = require(Foundation.Enums.Visibility)
 local InputSize = require(Foundation.Enums.InputSize)
+local Flags = require(Foundation.Utility.Flags)
 
 type InputSize = InputSize.InputSize
 
@@ -127,6 +128,11 @@ local function OverflowScrollContainer(props: OverflowScrollContainerProps)
 			onCanvasPositionChanged = updateVisibility,
 			onAbsoluteWindowSizeChanged = updateVisibility,
 			scrollingFrameRef = scrollingFrameRef,
+			selection = if Flags.FoundationTabsDisableScrollSelection
+				then {
+					Selectable = false,
+				}
+				else nil,
 			scroll = {
 				AutomaticSize = Enum.AutomaticSize.Y,
 				AutomaticCanvasSize = Enum.AutomaticSize.X,

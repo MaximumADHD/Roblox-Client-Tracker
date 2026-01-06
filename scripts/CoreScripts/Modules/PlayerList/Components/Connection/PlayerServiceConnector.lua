@@ -12,11 +12,12 @@ local AddPlayer = require(PlayerList.Actions.AddPlayer)
 local RemovePlayer = require(PlayerList.Actions.RemovePlayer)
 
 local MakePlayerInfoRequests = require(PlayerList.Thunks.MakePlayerInfoRequests)
-
 local EventConnection = require(script.Parent.EventConnection)
 local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
+local FFlagReplacePlayerIconRoduxWithSignal = require(CorePackages.Workspace.Packages.SharedFlags).FFlagReplacePlayerIconRoduxWithSignal
 local FFlagDeferPlayerInfoRequests = game:DefineFastFlag("DeferPlayerInfoRequests", false)
-
+local PlayerIconInfoStorePackage = require(CorePackages.Workspace.Packages.PlayerIconInfoStore)
+local PlayerIconInfoStore = PlayerIconInfoStorePackage.PlayerIconInfoStore
 local PlayerServiceConnector = Roact.PureComponent:extend("PlayerServiceConnector")
 
 function PlayerServiceConnector:didMount()
@@ -25,6 +26,7 @@ function PlayerServiceConnector:didMount()
 		self.props.addPlayer(player)
 		self.props.makePlayerInfoRequests(player)
 	end
+
 	if FFlagBadgeVisibilitySettingEnabled then
 		spawn(function() 
 			local SendPlayerProfileSettings = RobloxReplicatedStorage:WaitForChild("SendPlayerProfileSettings", math.huge) :: RemoteEvent
@@ -86,6 +88,9 @@ local function mapDispatchToProps(dispatch)
 		end,
 
 		removePlayer = function(player)
+			if FFlagReplacePlayerIconRoduxWithSignal then
+				PlayerIconInfoStore.removePlayer(player.UserId)
+			end
 			return dispatch(RemovePlayer(player))
 		end,
 	}

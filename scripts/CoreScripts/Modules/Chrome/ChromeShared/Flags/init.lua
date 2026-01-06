@@ -4,5 +4,4 @@ return {
 	FFlagRemoveRespawnShortcutFromRespawnConfirmation = require(
 		script.FFlagRemoveRespawnShortcutFromRespawnConfirmation
 	),
-	FFlagIconHostSetZIndexToDefault = require(script.FFlagIconHostSetZIndexToDefault),
 }

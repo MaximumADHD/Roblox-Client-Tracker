@@ -17,7 +17,7 @@ local function StoryScrolling(props)
 		tag = "row gap-large auto-xy",
 	}, {
 		Vertical = React.createElement(ScrollView, {
-			Size = UDim2.new(0, 120, 0, 120),
+			Size = UDim2.fromOffset(120, 120),
 			layout = {
 				FillDirection = Enum.FillDirection.Vertical,
 			},
@@ -41,7 +41,7 @@ local function StoryScrolling(props)
 			}),
 		}),
 		Horizontal = React.createElement(ScrollView, {
-			Size = UDim2.new(0, 120, 0, 120),
+			Size = UDim2.fromOffset(120, 120),
 			layout = {
 				FillDirection = Enum.FillDirection.Horizontal,
 			},

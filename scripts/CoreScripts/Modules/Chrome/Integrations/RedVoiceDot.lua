@@ -13,14 +13,8 @@ local GetStyleTokens = if FFlagAdaptUnibarAndTiltSizing
 	else nil :: never
 
 local useVoiceState = require(RobloxGui.Modules.VoiceChat.Hooks.useVoiceState)
-local VoiceConstants = require(RobloxGui.Modules.InGameChat.BubbleChat.Constants)
+local VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants)
 local StyleTokens = if FFlagAdaptUnibarAndTiltSizing then GetStyleTokens() else nil :: never
-
-local GetFFlagRemoveInGameChatBubbleChatReferences =
-	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
-if GetFFlagRemoveInGameChatBubbleChatReferences() then
-	VoiceConstants = require(RobloxGui.Modules.VoiceChat.Constants) :: any
-end
 
 local RED_DOT_COLOR = Color3.new(0.918, 0.2, 0.137)
 local RED_DOT_SIZE = if FFlagAdaptUnibarAndTiltSizing

@@ -3,7 +3,6 @@ local Packages = Foundation.Parent
 local Flags = require(Foundation.Utility.Flags)
 
 local React = require(Packages.React)
-local Cryo = require(Packages.Cryo)
 local Dash = require(Packages.Dash)
 local ReactIs = require(Packages.ReactIs)
 local FoundationImages = require(Packages.FoundationImages)
@@ -131,7 +130,7 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 		end
 
 		return image, imageRectOffset, imageRectSize, aspectRatio
-	end, { props.Image, props.imageRect :: any, Images :: any })
+	end, { props.Image, props.imageRect, Images } :: { unknown })
 
 	local sliceCenter, sliceScale, scaleType = nil :: Bindable<Rect?>, nil :: Bindable<number?>, props.ScaleType
 	if props.slice then
@@ -200,9 +199,7 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 	}
 
 	local componentProps = if isInteractable
-		then if Flags.FoundationMigrateCryoToDash
-			then Dash.union(engineComponentProps, imageComponentProps)
-			else Cryo.Dictionary.union(engineComponentProps, imageComponentProps)
+		then Dash.union(engineComponentProps, imageComponentProps)
 		else engineComponentProps
 
 	return React.createElement(component, componentProps, GuiObjectChildren(props))

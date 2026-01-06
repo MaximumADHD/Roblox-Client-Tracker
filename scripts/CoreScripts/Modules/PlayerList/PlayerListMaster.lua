@@ -30,6 +30,7 @@ local GlobalConfig = require(PlayerList.GlobalConfig)
 local PlayerListSwitcher = require(PlayerList.PlayerListSwitcher)
 
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
+local PlayerIconInfoStorePackage = require(CorePackages.Workspace.Packages.PlayerIconInfoStore)
 local PlayerListConstants = PlayerListPackage.Common.Constants
 
 -- Actions
@@ -50,14 +51,15 @@ end
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 local FStringPlayerListOverrideType = require(PlayerList.Flags.FStringPlayerListOverrideType)
-local FFlagModalPlayerListCloseUnfocused = PlayerListPackage.Flags.FFlagModalPlayerListCloseUnfocused
-local FFlagSetIsGamepadOnMount = game:DefineFastFlag("PlayerListSetIsGamepadOnMount", false)
+local FFlagReplacePlayerIconRoduxWithSignal = require(CorePackages.Workspace.Packages.SharedFlags).FFlagReplacePlayerIconRoduxWithSignal
+local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 local FFlagPlayerListUseMobileOnSmallDisplay = PlayerListPackage.Flags.FFlagPlayerListUseMobileOnSmallDisplay
 local FFlagPlayerListIgnoreDevGamepadBindings = PlayerListPackage.Flags.FFlagPlayerListIgnoreDevGamepadBindings
 
 local PlayerListContainer = PlayerListPackage.Container.PlayerListContainer
 local LeaderboardStoreInstanceManager = PlayerListPackage.LeaderboardStoreInstanceManager
+local PlayerIconInfoStore = PlayerIconInfoStorePackage.PlayerIconInfoStore
 
 local FFlagTopBarSignalizeSetCores = CoreGuiCommon.Flags.FFlagTopBarSignalizeSetCores
 
@@ -135,7 +137,7 @@ function PlayerListMaster.new()
 		self.store:dispatch(SetSubjectToChinaPolicies(CachedPolicyService:IsSubjectToChinaPolicies()))
 	end)()
 
-	if not FFlagUseNewPlayerList or not FFlagSetIsGamepadOnMount then
+	if not FFlagUseNewPlayerList then
 		local lastInputType = UserInputService:GetLastInputType()
 		local isGamepad = lastInputType and lastInputType.Name:find("Gamepad")
 		self.store:dispatch(SetIsUsingGamepad(isGamepad ~= nil))
@@ -167,13 +169,10 @@ function PlayerListMaster.new()
 	}, {
 		StoreProvider = self.root,
 	})
-
-	if FFlagSetIsGamepadOnMount then
-		self._setIsUsingGamepad = function()
-			local lastInputType = UserInputService:GetLastInputType()
-			local isGamepad = lastInputType and lastInputType.Name:find("Gamepad")
-			self.store:dispatch(SetIsUsingGamepad(isGamepad ~= nil))
-		end
+	self._setIsUsingGamepad = function()
+		local lastInputType = UserInputService:GetLastInputType()
+		local isGamepad = lastInputType and lastInputType.Name:find("Gamepad")
+		self.store:dispatch(SetIsUsingGamepad(isGamepad ~= nil))
 	end
 
 	self._mountLeaderboardStore = function()
@@ -184,11 +183,13 @@ function PlayerListMaster.new()
 		LeaderboardStoreInstanceManager.cleanUpInstance()
 	end
 
+	self._unmountPlayerIconInfoStore = if FFlagReplacePlayerIconRoduxWithSignal then function()
+		PlayerIconInfoStore.cleanup()
+	end else nil
+
 	if FFlagUseNewPlayerList then
 		self._mountLeaderboardStore()
-		if FFlagSetIsGamepadOnMount then
-			self._setIsUsingGamepad()
-		end
+		self._setIsUsingGamepad()
 		self.root = Roact.createElement(PlayerListContainer, {
 			leaderboardStore = LeaderboardStoreInstanceManager.getLeaderboardStoreInstance,
 			TopBarConstants = require(RobloxGui.Modules.TopBar.Constants),
@@ -249,9 +250,7 @@ function PlayerListMaster:_updateMounted()
 		if shouldMount and not self.mounted then
 			if FFlagUseNewPlayerList then
 				self._mountLeaderboardStore()
-				if FFlagSetIsGamepadOnMount then
-					self._setIsUsingGamepad()
-				end
+				self._setIsUsingGamepad()
 			end
 			self.element = Roact.mount(self.root, CoreGui, "PlayerList")
 			self.mounted = true
@@ -259,6 +258,9 @@ function PlayerListMaster:_updateMounted()
 			Roact.unmount(self.element)
 			if FFlagUseNewPlayerList then
 				self._unmountLeaderboardStore()
+				if self._unmountPlayerIconInfoStore then
+					self._unmountPlayerIconInfoStore()
+				end
 			end
 			self.mounted = false
 			if self.inspector then
@@ -284,7 +286,7 @@ function PlayerListMaster:_trackEnabled()
 	end)
 end
 
-if FFlagModalPlayerListCloseUnfocused then
+if FFlagAddNewPlayerListMobileFocusNav then
 	function PlayerListMaster:GetIsModal()
 		return self.store:getState().displayOptions.isSmallTouchDevice
 	end

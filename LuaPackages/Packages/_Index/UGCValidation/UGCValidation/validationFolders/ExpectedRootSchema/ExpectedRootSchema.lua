@@ -8,7 +8,7 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local ExpectedRootSchema = {}
 
 ExpectedRootSchema.categories = Constants.AllUploadCategories
-ExpectedRootSchema.required_data = {
+ExpectedRootSchema.requiredData = {
 	ValidationEnums.SharedDataMember.entrypointInput,
 	ValidationEnums.SharedDataMember.rootInstance,
 	ValidationEnums.SharedDataMember.uploadCategory,

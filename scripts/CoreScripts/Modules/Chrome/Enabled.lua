@@ -6,6 +6,7 @@ local IsExperienceMenuABTestEnabled = require(Chrome.Parent.IsExperienceMenuABTe
 local ExperienceMenuABTestManager = require(Chrome.Parent.ExperienceMenuABTestManager)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
+local FFlagRemoveExperienceMenuABTestManager = SharedFlags.FFlagRemoveExperienceMenuABTestManager
 
 game:DefineFastFlag("EnableInGameMenuChrome", false)
 local FFlagDebugEnableChromeOnUnsupportedDevices = game:DefineFastFlag("DebugEnableChromeOnUnsupportedDevices", false)
@@ -30,8 +31,10 @@ return function()
 		end
 	end
 
-	if IsExperienceMenuABTestEnabled() and ExperienceMenuABTestManager.default:isChromeEnabled() then
-		return true
+	if not FFlagRemoveExperienceMenuABTestManager then
+		if IsExperienceMenuABTestEnabled() and ExperienceMenuABTestManager.default:isChromeEnabled() then
+			return true
+		end
 	end
 
 	if FFlagExperienceMenuGamepadExposureEnabled then

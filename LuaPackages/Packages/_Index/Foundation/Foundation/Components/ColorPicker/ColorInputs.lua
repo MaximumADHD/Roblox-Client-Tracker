@@ -138,7 +138,7 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 		--selene: allow(roblox_internal_custom_color)
 		local newColor = Color3.fromRGB(rgb.r, rgb.g, rgb.b)
 		onColorChanged(newColor)
-	end, { rgbValues :: unknown, onColorChanged })
+	end, { rgbValues, onColorChanged } :: { unknown })
 
 	local handleAlphaChange = React.useCallback(function(value: number)
 		if onAlphaChanged then
@@ -154,7 +154,7 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 		--selene: allow(roblox_internal_custom_color)
 		local newColor = Color3.fromHSV(hsv.h / 360, hsv.s / 100, hsv.v / 100)
 		onColorChanged(newColor)
-	end, { hsvValues :: unknown, onColorChanged })
+	end, { hsvValues, onColorChanged } :: { unknown })
 
 	local handleHexChange = React.useCallback(function(value: string)
 		local cleanHex = value:gsub("#", ""):upper()
@@ -213,7 +213,7 @@ local function ColorInputs(colorInputsProps: ColorInputsProps)
 				props.onModeChanged(ColorInputMode.RGB)
 			end
 		end
-	end, { mode, showAlpha :: any })
+	end, { mode, showAlpha } :: { unknown })
 
 	local renderInputs = function()
 		-- For Brick mode, we don't show any inputs (the picker handles the selection)

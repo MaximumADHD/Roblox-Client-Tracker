@@ -28,7 +28,6 @@ RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
 local FFlagFixIGMTabTransitions = require(script.Parent.Flags.GetFFlagFixIGMTabTransitions)
-local FFlagAddDropdownTypeToGetValueChanger = game:DefineFastFlag("AddDropdownTypeToValueChanger", false)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
@@ -268,7 +267,7 @@ local function Initialize()
 		if type(ValueChanger) ~= "table" then
 			valueChangerFrame = ValueChanger
 		else
-			valueChangerFrame = ValueChanger.SliderFrame and ValueChanger.SliderFrame or ValueChanger.SelectorFrame or (FFlagAddDropdownTypeToGetValueChanger and ValueChanger.DropDownFrame)
+			valueChangerFrame = ValueChanger.SliderFrame and ValueChanger.SliderFrame or ValueChanger.SelectorFrame or ValueChanger.DropDownFrame
 		end
 
 		return valueChangerFrame

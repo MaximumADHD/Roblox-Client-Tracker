@@ -59,7 +59,7 @@ local function useConnectSignals(
 				connection:Disconnect()
 			end
 		end
-	end, { instance :: any, callbackRef })
+	end, { instance, callbackRef } :: { unknown })
 end
 
 local function useFloating(
@@ -160,7 +160,7 @@ local function useFloating(
 		-- Force update re-layout for quantum GUI to prevent jello effect
 		-- https://roblox.atlassian.net/wiki/spaces/UIC/pages/1588593391/Quantum+Gui
 		local _ = content.AbsolutePosition
-	end, { isOpen :: unknown, anchor, content, overlay, sideConfig, alignConfig, arrowSize })
+	end, { isOpen, anchor, content, overlay, sideConfig, alignConfig, arrowSize } :: { unknown })
 	recalculatePositionRef.current = recalculatePosition
 
 	if Flags.FoundationPopoverFixArrowPositioning then

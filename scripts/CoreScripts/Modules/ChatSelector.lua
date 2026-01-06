@@ -1,4 +1,6 @@
 --!nonstrict
+--!nolint LocalUnused
+--!nolint ImplicitReturn
 --[[
 	// FileName: ChatSelector.lua
 	// Written by: Xsitsu
@@ -24,7 +26,7 @@ local BubbleChatEnabled = Players.BubbleChat
 local VRService = game:GetService("VRService")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagChromeChatGamepadSupportFix = SharedFlags.FFlagChromeChatGamepadSupportFix
 
 local useModule = nil
@@ -58,7 +60,7 @@ do
 
 	function interface:FocusSelectChatBar(onSelectionLost: ()->()?, keybinds: {Enum.KeyCode}?)
 		if (useModule) then
-			if FFlagConsoleChatOnExpControls then
+			if FFlagEnableConsoleExpControls then
 				useModule:FocusSelectChatBar(onSelectionLost, keybinds)
 			end
 		end

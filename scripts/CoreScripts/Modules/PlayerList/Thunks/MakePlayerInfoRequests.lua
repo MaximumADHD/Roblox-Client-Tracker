@@ -16,8 +16,15 @@ local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 
 local FFlagInExperienceUserProfileSettingsEnabled =
 	require(RobloxGui.Modules.Common.Flags.FFlagInExperienceUserProfileSettingsEnabled)
-local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagBadgeVisibilitySettingEnabled = SharedFlags.FFlagBadgeVisibilitySettingEnabled
+local FFlagReplacePlayerIconRoduxWithSignal = SharedFlags.FFlagReplacePlayerIconRoduxWithSignal
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
+local FFlagEnableBadgeCheckForUserCreator = game:DefineFastFlag("EnableBadgeCheckForUserCreator", false)
+
+local PlayerIconInfoStorePackage = require(CorePackages.Workspace.Packages.PlayerIconInfoStore)
+type PlayerIconInfo = PlayerIconInfoStorePackage.PlayerIconInfo
+local PlayerIconInfoStore = PlayerIconInfoStorePackage.PlayerIconInfoStore
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local Images = UIBlox.App.ImageSet.Images
@@ -70,38 +77,86 @@ local function getGroupsPermissionsInfo(store, player)
 		elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
 			icon = SPECIAL_PLAYER_ICONS.Intern
 		end
-		
+
 		if icon then
-			local shouldShowIcon = not isInExperienceNameEnabled(player)
-			local finalIcon = shouldShowIcon and icon or nil
-			
-			dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, finalIcon))
+			if FFlagReplacePlayerIconRoduxWithSignal then
+				local currentIconInfoGetter = PlayerIconInfoStore.getPlayerIconInfoReactive(player.UserId)
+				local currentIconInfo = currentIconInfoGetter(false)
+				PlayerIconInfoStore.setPlayerIconInfo(player.UserId, {
+					isPlaceOwner = currentIconInfo.isPlaceOwner,
+					avatarIcon = currentIconInfo.avatarIcon,
+					specialGroupIcon = icon,
+				})
+			else 
+				local shouldShowIcon = not isInExperienceNameEnabled(player)
+				local finalIcon = shouldShowIcon and icon or nil
+				
+				dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, finalIcon))
+			end
 		end
 	else
 		if PlayerPermissionsModule.IsPlayerAdminAsync(player) then
-			if not isInExperienceNameEnabled(player) then
-				dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Admin))
+			if FFlagReplacePlayerIconRoduxWithSignal then
+				local currentIconInfoGetter = PlayerIconInfoStore.getPlayerIconInfoReactive(player.UserId)
+				local currentIconInfo = currentIconInfoGetter(false)
+				PlayerIconInfoStore.setPlayerIconInfo(player.UserId, {
+					isPlaceOwner = currentIconInfo.isPlaceOwner,
+					avatarIcon = currentIconInfo.avatarIcon,
+					specialGroupIcon = SPECIAL_PLAYER_ICONS.Admin,
+				})
+			else if not isInExperienceNameEnabled(player) then
+					dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Admin))
+				end
 			end
 		elseif PlayerPermissionsModule.IsPlayerStarAsync(player) then
-			if not isInExperienceNameEnabled(player) then
+			if FFlagReplacePlayerIconRoduxWithSignal then
+				local currentIconInfoGetter = PlayerIconInfoStore.getPlayerIconInfoReactive(player.UserId)
+				local currentIconInfo = currentIconInfoGetter(false)
+				PlayerIconInfoStore.setPlayerIconInfo(player.UserId, {
+					isPlaceOwner = currentIconInfo.isPlaceOwner,
+					avatarIcon = currentIconInfo.avatarIcon,
+					specialGroupIcon = SPECIAL_PLAYER_ICONS.Star,
+				})
+			else if not isInExperienceNameEnabled(player) then
 				dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Star))
 			end
+		end
 		elseif PlayerPermissionsModule.IsPlayerInternAsync(player) then
+			if FFlagReplacePlayerIconRoduxWithSignal then
+				local currentIconInfoGetter = PlayerIconInfoStore.getPlayerIconInfoReactive(player.UserId)
+				local currentIconInfo = currentIconInfoGetter(false)
+				PlayerIconInfoStore.setPlayerIconInfo(player.UserId, {
+					isPlaceOwner = currentIconInfo.isPlaceOwner,
+					avatarIcon = currentIconInfo.avatarIcon,
+					specialGroupIcon = SPECIAL_PLAYER_ICONS.Intern,
+				})
+			else 
 			if not isInExperienceNameEnabled(player) then
-				dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
+					dispatchIfPlayerExists(store, player, SetPlayerSpecialGroupIcon(player, SPECIAL_PLAYER_ICONS.Intern))
+				end
 			end
 		end
 	end
 end
 
 local function getGameCreator(store, player)
-	if game.CreatorType ~= Enum.CreatorType.Group then
+	if not FFlagEnableBadgeCheckForUserCreator and game.CreatorType ~= Enum.CreatorType.Group then
 		return
 	end
 
 	if PlayerPermissionsModule.CanPlayerManagePlaceAsync(player) then
-		if not isInExperienceNameEnabled(player) then
-			dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
+		if FFlagReplacePlayerIconRoduxWithSignal then
+			local currentIconInfoGetter = PlayerIconInfoStore.getPlayerIconInfoReactive(player.UserId)
+			local currentIconInfo = currentIconInfoGetter(false)
+			PlayerIconInfoStore.setPlayerIconInfo(player.UserId, {
+				isPlaceOwner = true,
+				avatarIcon = currentIconInfo.avatarIcon,
+				specialGroupIcon = currentIconInfo.specialGroupIcon,
+			})
+		else
+			if not isInExperienceNameEnabled(player) then
+				dispatchIfPlayerExists(store, player, SetPlayerIsCreator(player, true))
+			end
 		end
 	end
 end
@@ -112,7 +167,17 @@ local function getPlayerAvatarIcon(store, player)
 	end
 
 	local thumbnail = "rbxthumb://type=Avatar&id=" .. player.UserId .. "&w=100&h=100"
-	dispatchIfPlayerExists(store, player, SetPlayerAvatarIcon(player, thumbnail))
+	if FFlagReplacePlayerIconRoduxWithSignal then
+		local currentIconInfoGetter = PlayerIconInfoStore.getPlayerIconInfoReactive(player.UserId)
+		local currentIconInfo = currentIconInfoGetter(false)
+		PlayerIconInfoStore.setPlayerIconInfo(player.UserId, {
+			isPlaceOwner = currentIconInfo.isPlaceOwner,
+			avatarIcon = thumbnail,
+			specialGroupIcon = currentIconInfo.specialGroupIcon,
+		})
+	else
+		dispatchIfPlayerExists(store, player, SetPlayerAvatarIcon(player, thumbnail))
+	end
 end
 
 local function getPlayerIsBlocked(store, player)
@@ -133,9 +198,25 @@ end
 
 local function MakePlayerInfoRequests(player)
 	return function(store)
-		coroutine.wrap(getGroupsPermissionsInfo)(store, player)
-		coroutine.wrap(getGameCreator)(store, player)
-		coroutine.wrap(getPlayerAvatarIcon)(store, player)
+		if FFlagReplacePlayerIconRoduxWithSignal then
+			coroutine.wrap(function()
+				if isInExperienceNameEnabled(player) then
+					PlayerIconInfoStore.setPlayerIconInfo(player.UserId, {
+						isPlaceOwner = false,
+						avatarIcon = nil,
+						specialGroupIcon = nil,
+					} :: PlayerIconInfo)
+				else
+					coroutine.wrap(getGroupsPermissionsInfo)(store, player)
+					coroutine.wrap(getGameCreator)(store, player)
+					coroutine.wrap(getPlayerAvatarIcon)(store, player)
+				end
+			end)()
+		else
+			coroutine.wrap(getGroupsPermissionsInfo)(store, player)
+			coroutine.wrap(getGameCreator)(store, player)
+			coroutine.wrap(getPlayerAvatarIcon)(store, player)
+		end
 		coroutine.wrap(getPlayerIsBlocked)(store, player)
 		coroutine.wrap(getPlayerFriendStatus)(store, player)
 	end

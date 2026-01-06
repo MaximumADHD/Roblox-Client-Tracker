@@ -114,7 +114,7 @@ local function Spinner(spinnerProps: SpinnerProps, ref: React.Ref<GuiObject>?)
 		Spinner = React.createElement(if Flags.FoundationUsePath2DSpinner then Path2DSpinner else IconSpinner, {
 			scale = values.scale,
 			style = React.joinBindings({
-				style = props.style,
+				style = props.style :: React.Binding<Types.ColorStyleValue>,
 				transparency = values.transparency,
 			}):map(function(styleValues)
 				return {

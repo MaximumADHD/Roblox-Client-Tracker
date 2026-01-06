@@ -18,22 +18,17 @@ local Constants = require(TopBar.Constants)
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
-
-local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local GetFFlagFixChromeReferences = SharedFlags.GetFFlagFixChromeReferences
 local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
-local ChromeService = if GetFFlagFixChromeReferences()
-	then if ChromeEnabled() then require(Chrome.Service) else nil
-	else if ChromeEnabled then require(Chrome.Service) else nil
+local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil
 
 local UseUpdatedHealthBar = ChromeEnabled()
 
@@ -146,11 +141,9 @@ function HealthBar:init()
 		self.coreGuiChangedSignalConn = StarterGui.CoreGuiChangedSignal:Connect(
 			function(coreGuiType: Enum.CoreGuiType, enabled: boolean)
 				if coreGuiType == Enum.CoreGuiType.Health or coreGuiType == Enum.CoreGuiType.All then
-					if self.state.mountHealthBar ~= enabled then
-						self:setState({
-							mountHealthBar = enabled,
-						})
-					end
+					self:setState({
+						mountHealthBar = enabled,
+					})
 				end
 			end
 		)
@@ -270,11 +263,8 @@ function HealthBar:renderHealth()
 			end
 		end
 	end
-
-	if FFlagEnableChromeBackwardsSignalAPI then
-		if self.rootRef.current then
-			onAreaChanged(self.rootRef.current)
-		end
+	if self.rootRef.current then
+		onAreaChanged(self.rootRef.current)
 	end
 
 	local healthBarColor = if FFlagTopBarSignalizeHealthBar then self.healthPercent:map(getHealthBarColor) else getHealthBarColor(healthPercent)
@@ -289,8 +279,8 @@ function HealthBar:renderHealth()
 			end) 
 			else UDim2.new(healthBarSize.X, UDim.new(1, 0)),
 		LayoutOrder = self.props.layoutOrder,
-		[Roact.Change.AbsoluteSize] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
-		[Roact.Change.AbsolutePosition] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
+		[Roact.Change.AbsoluteSize] = onAreaChanged,
+		[Roact.Change.AbsolutePosition] = onAreaChanged,
 		[Roact.Ref] = self.rootRef,
 	}, {
 		Padding = not ChromeEnabled and Roact.createElement("UIPadding", {

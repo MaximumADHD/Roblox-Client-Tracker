@@ -141,7 +141,7 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 			sheetType = SheetType.Side,
 			testId = props.testId,
 		}
-	end, { props.testId :: unknown, closeSheet })
+	end, { props.testId, closeSheet } :: { unknown })
 
 	return overlay
 		and ReactRoblox.createPortal(

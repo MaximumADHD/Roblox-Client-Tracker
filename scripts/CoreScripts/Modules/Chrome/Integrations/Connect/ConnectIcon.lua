@@ -17,28 +17,20 @@ local useTokens = Foundation.Hooks.useTokens
 local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
 
 local SubMenuContext = require(Chrome.ChromeShared.Unibar.SubMenuContext)
-local GetFFlagAnimateSubMenu = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAnimateSubMenu
 
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 
 local getAppChatNavbarItemConfig = AppChat.Utils.getAppChatNavbarItemConfig
 
-local FFlagConnectIconUsesAppChatConfig = game:DefineFastFlag("ConnectIconUsesAppChatConfig", false)
-
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
 local AVATAR_SIZE = 24
 
-local ICON_OFF = "icons/menu/platformChatOff"
-local ICON_ON = "icons/menu/platformChatOn"
-
-if FFlagConnectIconUsesAppChatConfig then
-	local visualConfig = getAppChatNavbarItemConfig()
-	ICON_OFF = visualConfig.icon.off
-	ICON_ON = visualConfig.icon.on
-end
+local visualConfig = getAppChatNavbarItemConfig()
+local ICON_OFF = visualConfig.icon.off
+local ICON_ON = visualConfig.icon.on
 
 export type Props = {
 	integrationId: string,
@@ -118,7 +110,7 @@ local function ConnectIcon(_props: Props): React.ReactElement
 
 	local submenuTransition = React.useContext(SubMenuContext)
 	local function getTransparency(transparency: number): any
-		return if GetFFlagAnimateSubMenu() and submenuTransition
+		return if submenuTransition
 			then submenuTransition:map(function(v)
 				return transparency + (1 - transparency) * (1 - v)
 			end)

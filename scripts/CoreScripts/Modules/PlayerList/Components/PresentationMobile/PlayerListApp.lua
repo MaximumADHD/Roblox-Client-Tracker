@@ -49,13 +49,10 @@ local LayoutValues = require(Connection.LayoutValues)
 local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local FFlagPlayerListFixMobileScrolling = require(PlayerList.Flags.FFlagPlayerListFixMobileScrolling)
-local GetFFlagFixDropDownVisibility = require(PlayerList.Flags.GetFFlagFixDropDownVisibility)
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
-local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 local FFlagPlayerListIgnoreDevGamepadBindings = PlayerListPackage.Flags.FFlagPlayerListIgnoreDevGamepadBindings
-local FFlagMobilePlayerListCheckGamepadOnVisible = game:DefineFastFlag("MobilePlayerListCheckGamepadOnVisible", false)
 
 local MOTOR_OPTIONS = {
 	dampingRatio = 1,
@@ -108,8 +105,8 @@ local function playerListSizeFromViewportSize(self, viewportSize, uiScale, playe
 	local sX = viewportSize.x > viewportSize.y and sMax or sMin
 	local sY = viewportSize.y > viewportSize.x and sMax or sMin
 
-	-- Remove when FFlagEnableMobilePlayerListOnConsole is enabled, even if FFlagAddMobilePlayerListScaling is enabled
-	if FFlagAddMobilePlayerListScaling and not FFlagEnableMobilePlayerListOnConsole then
+	-- Remove when FFlagEnableMobilePlayerListOnConsole is enabled, even if FFlagUseNewPlayerList is enabled
+	if FFlagUseNewPlayerList and not FFlagEnableMobilePlayerListOnConsole then
 		sX = sX * uiScale
 		sY = sY * uiScale
 	end
@@ -151,7 +148,7 @@ function PlayerListApp:init()
 		visible = false,
 	}
 
-	if FFlagTopBarStyleUseDisplayUIScale or FFlagAddMobilePlayerListScaling then
+	if FFlagTopBarStyleUseDisplayUIScale or FFlagUseNewPlayerList then
 		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
 			local DisplayStore = Display.GetDisplayStore(scope)
 			self:setState({
@@ -207,8 +204,8 @@ function PlayerListApp:renderBodyChildren(previousSizeBound, childElements)
 	local contentVisible = self.state.visible
 	local dropDownVisible = self.props.isDropDownVisible
 
-	local headerSizeY = if FFlagAddMobilePlayerListScaling then self.props.tokens.Size.Size_1100 else HEADER_SIZE_Y
-	local closeButtonSize = if FFlagAddMobilePlayerListScaling then self.props.tokens.Size.Size_500 else 22
+	local headerSizeY = if FFlagUseNewPlayerList then self.props.tokens.Size.Size_1100 else HEADER_SIZE_Y
+	local closeButtonSize = if FFlagUseNewPlayerList then self.props.tokens.Size.Size_500 else 22
 
 	return {
 		UIScale = Roact.createElement("UIScale", {
@@ -225,7 +222,7 @@ function PlayerListApp:renderBodyChildren(previousSizeBound, childElements)
 			BackgroundTransparency = 1,
 			Font = AppFonts.default:getBold(),
 			Visible = contentVisible and not dropDownVisible,
-			TextSize = if FFlagAddMobilePlayerListScaling then self.props.tokens.FontSize.FontSize_500 else 22,
+			TextSize = if FFlagUseNewPlayerList then self.props.tokens.FontSize.FontSize_500 else 22,
 			TextColor3 = Color3.fromRGB(240, 240, 240),
 			TextXAlignment = Enum.TextXAlignment.Center,
 			TextYAlignment = Enum.TextYAlignment.Center,
@@ -341,8 +338,8 @@ function PlayerListApp:render()
 					self, 
 					Vector2.new(self.props.screenSizeX, self.props.screenSizeY), 
 					self.state.UiScale, 
-					if FFlagAddMobilePlayerListScaling then layoutValues.PlayerListSizeMin else nil, 
-					if FFlagAddMobilePlayerListScaling then layoutValues.PlayerListSizeMax else nil
+					if FFlagUseNewPlayerList then layoutValues.PlayerListSizeMin else nil, 
+					if FFlagUseNewPlayerList then layoutValues.PlayerListSizeMax else nil
 				),
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
@@ -364,7 +361,7 @@ end
 
 function PlayerListApp:willUnmount()
 	self.props.setLayerCollectorEnabled(true)
-	if (FFlagTopBarStyleUseDisplayUIScale or FFlagAddMobilePlayerListScaling) and self.disposeUiScaleEffect then
+	if (FFlagTopBarStyleUseDisplayUIScale or FFlagUseNewPlayerList) and self.disposeUiScaleEffect then
 		self.disposeUiScaleEffect()
 	end
 end
@@ -392,21 +389,17 @@ function PlayerListApp:didUpdate(previousProps, previousState)
 			})
 		end
 	end
-	
-	if FFlagMobilePlayerListCheckGamepadOnVisible then
-		if isVisible ~= previousProps.displayOptions.isVisible and isVisible  then
-			local isGamepad = UserInputService:GetLastInputType().Name:find("Gamepad")
-			local isUsingGamepad = isGamepad ~= nil
-			self.props.setIsUsingGamepad(isUsingGamepad)
-		end
+
+	if isVisible ~= previousProps.displayOptions.isVisible and isVisible  then
+		local isGamepad = UserInputService:GetLastInputType().Name:find("Gamepad")
+		local isUsingGamepad = isGamepad ~= nil
+		self.props.setIsUsingGamepad(isUsingGamepad)
 	end
 
 	local backgroundTransparency = (isDropDownVisible or isVisible) and 0.7 or 1
 	self.bgTransparencyMotor:setGoal(Otter.spring(backgroundTransparency, MOTOR_OPTIONS))
 
-	local isDropDownEnabled = if GetFFlagFixDropDownVisibility
-		then isDropDownVisible and isVisible
-		else isDropDownVisible
+	local isDropDownEnabled = isDropDownVisible and isVisible
 
 	local bodyScale = 1.25
 	if isDropDownEnabled then
@@ -452,17 +445,15 @@ local function mapDispatchToProps(dispatch)
 		setPlayerListVisible = function(visible)
 			return dispatch(SetPlayerListVisibility(visible))
 		end,
-		setIsUsingGamepad = if FFlagMobilePlayerListCheckGamepadOnVisible 
-			then function(value)
-				return dispatch(SetIsUsingGamepad(value))
-			end 
-			else nil,
+		setIsUsingGamepad = function(value)
+			return dispatch(SetIsUsingGamepad(value))
+		end,
 	}
 end
 
 local PlayerListAppWrapper = function(props)
 	local layoutValues = if FFlagEnableMobilePlayerListOnConsole then useLayoutValues() else nil
-	local tokens = if FFlagAddMobilePlayerListScaling then useTokens() else nil
+	local tokens = if FFlagUseNewPlayerList then useTokens() else nil
 
 	return Roact.createElement(PlayerListApp, Cryo.Dictionary.join(props, {
 		layoutValues = if FFlagEnableMobilePlayerListOnConsole then layoutValues else nil,
@@ -470,7 +461,7 @@ local PlayerListAppWrapper = function(props)
 	}))
 end
 
-if FFlagAddMobilePlayerListScaling or FFlagEnableMobilePlayerListOnConsole then
+if FFlagUseNewPlayerList or FFlagEnableMobilePlayerListOnConsole then
 	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerListAppWrapper)
 else
 	return RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerListApp)

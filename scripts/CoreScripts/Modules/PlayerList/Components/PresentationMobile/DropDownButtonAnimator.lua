@@ -1,7 +1,5 @@
 local CorePackages = game:GetService("CorePackages")
 
-local PlayerList = script:FindFirstAncestor("PlayerList")
-
 local Cryo = require(CorePackages.Packages.Cryo)
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
@@ -17,8 +15,7 @@ local WithLayoutValues = LayoutValues.WithLayoutValues
 
 local DropDownButton = require(script.Parent.DropDownButton)
 
-local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
-local FFlagPlayerListAddConnectionButtonFocusNav = require(PlayerList.Flags.FFlagPlayerListAddConnectionButtonFocusNav)
+local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 
 local POSITION_MOTOR_OPTIONS = {
 	dampingRatio = 1,
@@ -44,8 +41,8 @@ DropDownAnimator.validateProps = t.strictInterface({
 	onDismiss = t.optional(t.callback),
 	contentVisible = t.boolean,
 	layoutValues = t.optional(t.table),
-	onAnimationComplete = if FFlagPlayerListAddConnectionButtonFocusNav then t.optional(t.callback) else nil :: never,
-	forwardRef = if FFlagPlayerListAddConnectionButtonFocusNav then t.optional(t.callback) else nil :: never,
+	onAnimationComplete = t.optional(t.callback),
+	forwardRef = t.optional(t.callback),
 })
 
 function DropDownAnimator:init()
@@ -134,7 +131,7 @@ end
 
 function DropDownAnimator:render()
 	return WithLayoutValues(function(layoutValues)
-		layoutValues = if FFlagAddMobilePlayerListScaling then self.props.layoutValues else layoutValues
+		layoutValues = if FFlagUseNewPlayerList then self.props.layoutValues else layoutValues
 		local children = {}
 
 		children.CurrentButtonContainer = Roact.createElement("Frame", {
@@ -164,7 +161,7 @@ function DropDownAnimator:render()
 			Size = UDim2.new(1, 0, 0, layoutValues.DropDownButtonSizeY),
 			BackgroundTransparency = 1,
 			LayoutOrder = self.props.layoutOrder,
-			[Roact.Ref] = if FFlagPlayerListAddConnectionButtonFocusNav then self.props.forwardRef else nil,
+			[Roact.Ref] = self.props.forwardRef,
 		}, children)
 	end)
 end
@@ -173,10 +170,7 @@ function DropDownAnimator:didUpdate(previousProps, previousState)
 	local updatedText = self.props.text ~= previousProps.text
 	local animatableLastProps = previousProps.onDecline ~= nil or self.props.forceShowOptions
 	local pressedAnOption = self.state.onDeclineCalled or self.state.onActivatedCalled
-	local animationComplete
-	if FFlagPlayerListAddConnectionButtonFocusNav then
-		animationComplete = self.state.lastButtonProps == nil and previousState.lastButtonProps ~= nil
-	end
+	local animationComplete = self.state.lastButtonProps == nil and previousState.lastButtonProps ~= nil
 
 	if updatedText and animatableLastProps and pressedAnOption then
 		if self.state.onActivatedCalled and not self.props.forceShowOptions then
@@ -196,11 +190,9 @@ function DropDownAnimator:didUpdate(previousProps, previousState)
 		self.overlayMotor:setGoal(Otter.spring(1, OVERLAY_MOTOR_OPTIONS))
 	end
 
-	if FFlagPlayerListAddConnectionButtonFocusNav then
-		if animationComplete then
-			if self.props.onAnimationComplete then
-				self.props.onAnimationComplete()
-			end
+	if animationComplete then
+		if self.props.onAnimationComplete then
+			self.props.onAnimationComplete()
 		end
 	end
 
@@ -224,14 +216,14 @@ function DropDownAnimator:willUnmount()
 end
 
 local DropDownAnimatorWrapper = function(props)
-	local layoutValues = if FFlagAddMobilePlayerListScaling then useLayoutValues() else nil
+	local layoutValues = if FFlagUseNewPlayerList then useLayoutValues() else nil
 
 	return Roact.createElement(DropDownAnimator, Cryo.Dictionary.join(props, {
 		layoutValues = layoutValues,
 	}))
 end
 
-if FFlagAddMobilePlayerListScaling then
+if FFlagUseNewPlayerList then
 	return DropDownAnimatorWrapper
 else
 	return DropDownAnimator

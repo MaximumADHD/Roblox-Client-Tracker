@@ -148,6 +148,12 @@ local styleMappings: { [string]: { [string]: StyleMapping } } = {
 				key = "Thickness",
 			},
 		},
+		BorderStrokePosition = {
+			property = {
+				table = "stroke",
+				key = "BorderStrokePosition",
+			},
+		},
 	},
 	UIListLayout = {
 		SortOrder = {

@@ -9,8 +9,6 @@ local t = require(Packages.t)
 local withStyle = require(Packages.UIBlox.Core.Style.withStyle)
 local ModalBottomSheetButton = require(script.Parent.ModalBottomSheetButton)
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-
 local ModalBottomSheet = Roact.PureComponent:extend("ModalBottomSheet")
 
 local WIDTH_THRESHOLD = 600
@@ -102,7 +100,7 @@ function ModalBottomSheet:render()
 				BackgroundColor3 = stylePalette.Theme.Overlay.Color,
 				BackgroundTransparency = stylePalette.Theme.Overlay.Transparency,
 				BorderSizePixel = 0,
-				Selectable = if UIBloxConfig.fixModalBottomSheetSelectable then false else nil,
+				Selectable = false,
 				Size = UDim2.new(1, 0, 1, 0),
 				Text = "",
 				[Roact.Event.Activated] = function()
@@ -114,7 +112,7 @@ function ModalBottomSheet:render()
 				BackgroundTransparency = 1,
 				Size = UDim2.new(sheetContentXSize.Scale, sheetContentXSize.Offset, 0, self.sheetHeight),
 				Position = UDim2.new(sheetContentXPosition.Scale, sheetContentXPosition.Offset, 1, 0),
-				Selectable = if UIBloxConfig.fixModalBottomSheetSelectable then false else nil,
+				Selectable = false,
 				ScrollBarThickness = 0,
 				CanvasSize = UDim2.new(
 					sheetContentXSize.Scale,

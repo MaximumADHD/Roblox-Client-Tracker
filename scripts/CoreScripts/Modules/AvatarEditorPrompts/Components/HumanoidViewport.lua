@@ -146,12 +146,10 @@ function HumanoidViewport:loadHumanoidModel()
 	coroutine.wrap(function()
 		local model
 		pcall(function()
-			-- SBT-5736: `any` cast present due to in-flight PR to rename methods.
-			-- Will be removed when that PR is merged.
 			if game:GetEngineFeature("AsyncRenamesUsedInLuaApps") then
-				model = (Players :: any):CreateHumanoidModelFromDescriptionAsync(humanoidDescription, rigType)
+				model = Players:CreateHumanoidModelFromDescriptionAsync(humanoidDescription, rigType)
 			else
-				model = (Players :: any):CreateHumanoidModelFromDescription(humanoidDescription, rigType)
+				model = (Players :: never):CreateHumanoidModelFromDescription(humanoidDescription, rigType)
 			end
 		end)
 

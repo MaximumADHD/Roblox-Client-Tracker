@@ -16,7 +16,7 @@ local function Story()
 	end
 
 	return React.createElement(Interactable, {
-		Size = UDim2.new(0, 100, 0, 100),
+		Size = UDim2.fromOffset(100, 100),
 		BackgroundTransparency = tokens.Color.Extended.Green.Green_500.Transparency,
 		BackgroundColor3 = tokens.Color.Extended.Green.Green_500.Color3,
 		onStateChanged = onStateChanged,
@@ -31,7 +31,7 @@ local function Story()
 			Text = state:map(function(controlState)
 				return tostring(controlState)
 			end),
-			Position = UDim2.new(0.5, 0, 0.5, 0),
+			Position = UDim2.fromScale(0.5, 0.5),
 			textStyle = tokens.Color.Content.Emphasis,
 		}),
 	})

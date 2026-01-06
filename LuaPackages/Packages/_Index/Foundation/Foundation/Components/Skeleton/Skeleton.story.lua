@@ -11,7 +11,7 @@ return {
 	story = function(props)
 		return React.createElement(Skeleton, {
 			radius = props.controls.radius,
-			Size = UDim2.new(0, 100, 0, 100),
+			Size = UDim2.fromOffset(100, 100),
 		})
 	end,
 	controls = {

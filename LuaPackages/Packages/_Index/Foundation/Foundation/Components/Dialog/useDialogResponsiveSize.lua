@@ -21,7 +21,7 @@ local function useDialogResponsiveSize(size: DialogSize)
 			return
 		end
 		dialog.setResponsiveSize(getResponsiveSize(overlay.AbsoluteSize.X, size, tokens))
-	end, { overlay :: unknown, size, tokens, dialog.size })
+	end, { overlay, size, tokens, dialog.size } :: { unknown })
 
 	React.useEffect(function()
 		if not overlay then
@@ -35,7 +35,7 @@ local function useDialogResponsiveSize(size: DialogSize)
 		return function()
 			connection:Disconnect()
 		end
-	end, { overlay, size })
+	end, { overlay, size } :: { unknown })
 end
 
 return useDialogResponsiveSize

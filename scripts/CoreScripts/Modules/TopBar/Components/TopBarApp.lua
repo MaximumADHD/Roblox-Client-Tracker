@@ -46,8 +46,6 @@ local InGameMenuConstants = require(RobloxGui.Modules:WaitForChild("InGameMenu")
 local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
 
-local GetFFlagFixChromeReferences = SharedFlags.GetFFlagFixChromeReferences
-
 local Presentation = script.Parent.Presentation
 local MenuIcon = require(Presentation.MenuIcon)
 local ChatIcon = require(Presentation.ChatIcon)
@@ -66,8 +64,6 @@ local ChromeEnabled = require(Chrome.Enabled)
 local MusicConstants = require(Chrome.Integrations.MusicUtility.Constants)
 
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
-local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
-local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
 
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
@@ -91,7 +87,7 @@ if ChromeEnabled() then
 end
 if game:GetEngineFeature("InGameChromeSignalAPI") then
 	KeepOutAreasHandler = require(Chrome.ChromeShared.Service.KeepOutAreasHandler)
-	if (not GetFFlagFixChromeReferences() or ChromeEnabled()) then
+	if (ChromeEnabled()) then
 		ChromeAnalytics = require(Chrome.ChromeShared.Analytics)
 	end
 end
@@ -107,12 +103,11 @@ local Connection = require(script.Parent.Connection)
 
 local TopBar = Presentation.Parent.Parent
 local Constants = require(TopBar.Constants)
-local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local FFlagUnibarMenuIconLayoutFix = require(TopBar.Flags.FFlagUnibarMenuIconLayoutFix)
 local SetScreenSize = require(TopBar.Actions.SetScreenSize)
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
-local MenuIconContext = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav
+local MenuIconContext = if ChromeEnabled() and FFlagEnableConsoleExpControls
 	then require(script.Parent.MenuIconContext)
 	else nil :: never
 local GamepadMenu = nil
@@ -308,15 +303,10 @@ function TopBarApp:init()
 		})
 
 		if FFlagEnableConsoleExpControls then
-			if FFlagHideTopBarConsole then
-				-- in flag cleanup, replace `self.GamepadConnector` with just `GamepadConnector`
-				self.GamepadConnector = GamepadConnector
-			else
-				self.GamepadConnector = GamepadConnector.new()
-			end
+			self.GamepadConnector = GamepadConnector
 		end
 
-		if FFlagTiltIconUnibarFocusNav then
+		if FFlagEnableConsoleExpControls then
 			self.unibarMenuRef = React.createRef()
 			self.menuIconRef = Roact.createRef()
 		end
@@ -403,7 +393,7 @@ end
 function TopBarApp:renderUnibarFrame(chromeEnabled: boolean)
 	if isInExperienceUIVREnabled and isSpatial() then 
 		return nil 
-	elseif FFlagTiltIconUnibarFocusNav then
+	elseif FFlagEnableConsoleExpControls then
 		return React.createElement(MenuIconContext.Provider, {
 			value = {
 				menuIconRef = self.menuIconRef,
@@ -511,8 +501,8 @@ function TopBarApp:renderWithStyle(style)
 		iconScale = if FFlagTopBarSignalizeMenuOpen then nil elseif self.props.menuOpen then Constants.MenuIconOpenScale else 1,
 		layoutOrder = 1,
 		showBadgeOver12 = self.props.showBadgeOver12,
-		menuIconRef = if chromeEnabled and FFlagTiltIconUnibarFocusNav then self.menuIconRef else nil :: never,
-		unibarMenuRef = if chromeEnabled and FFlagTiltIconUnibarFocusNav then self.unibarMenuRef else nil :: never,
+		menuIconRef = if chromeEnabled and FFlagEnableConsoleExpControls then self.menuIconRef else nil :: never,
+		unibarMenuRef = if chromeEnabled and FFlagEnableConsoleExpControls then self.unibarMenuRef else nil :: never,
 		onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas then self.keepOutAreasStore.setKeepOutArea else nil,
 	})
 	newMenuIcon = Roact.createElement(SelectionCursorProvider, {}, {
@@ -537,7 +527,7 @@ function TopBarApp:renderWithStyle(style)
 	if not FFlagFixUnibarRefactoringInTopBarApp then 
 		UnibarFrame = function() 
 			return if isInExperienceUIVREnabled and isSpatial() then nil 
-			elseif FFlagTiltIconUnibarFocusNav then 
+			elseif FFlagEnableConsoleExpControls then 
 				React.createElement(MenuIconContext.Provider, {
 					value = {
 						menuIconRef = self.menuIconRef,
@@ -549,7 +539,7 @@ function TopBarApp:renderWithStyle(style)
 						onMinWidthChanged = function(width: number)
 							self.setUnibarRightSidePosition(UDim2.new(0, width, 0, 0))
 						end,
-						menuRef = if chromeEnabled and FFlagTiltIconUnibarFocusNav
+						menuRef = if chromeEnabled and FFlagEnableConsoleExpControls
 							then self.unibarMenuRef
 							else nil :: never,
 					}),
@@ -587,7 +577,7 @@ function TopBarApp:renderWithStyle(style)
 				and FFlagEnableConsoleExpControls
 			then Roact.createElement(MenuNavigationToggleDialog, {
 				Position = UDim2.fromScale(0.5, 0.1),
-				GamepadConnector = if FFlagTiltIconUnibarFocusNav then self.GamepadConnector else nil :: never,
+				GamepadConnector = if FFlagEnableConsoleExpControls then self.GamepadConnector else nil :: never,
 			})
 			else nil,
 		GamepadNavigationDialog = if FFlagGamepadNavigationDialogABTest
@@ -595,7 +585,7 @@ function TopBarApp:renderWithStyle(style)
 			else nil,
 		HeadsetMenu = Roact.createElement(HeadsetMenu),
 		VRBottomBar = VRService.VREnabled and bottomBar or nil,
-		KeepOutAreasHandler = if not FFlagTopBarSignalizeKeepOutAreas and FFlagEnableChromeBackwardsSignalAPI and KeepOutAreasHandler
+		KeepOutAreasHandler = if not FFlagTopBarSignalizeKeepOutAreas and KeepOutAreasHandler
 			then Roact.createElement(KeepOutAreasHandler)
 			else nil,
 
@@ -801,9 +791,6 @@ function TopBarApp:renderWithStyle(style)
 						then Roact.createElement(PartyMicBinder)
 						else nil,
 					ChromeAnalytics = if ChromeAnalytics then Roact.createElement(ChromeAnalytics) else nil,
-					KeepOutAreasHandler = if not FFlagTopBarSignalizeKeepOutAreas and not FFlagEnableChromeBackwardsSignalAPI and KeepOutAreasHandler
-						then Roact.createElement(KeepOutAreasHandler)
-						else nil,
 					Padding = Roact.createElement("UIPadding", {
 						PaddingTop = UDim.new(0, unibarFramePaddingTop),
 						PaddingBottom = UDim.new(0, unibarFramePaddingBottom),
@@ -874,9 +861,6 @@ function TopBarApp:renderWithStyle(style)
 					AnchorPoint = Vector2.new(1, 0),
 				}, {
 					ChromeAnalytics = if ChromeAnalytics then Roact.createElement(ChromeAnalytics) else nil,
-					KeepOutAreasHandler = if not FFlagEnableChromeBackwardsSignalAPI and KeepOutAreasHandler
-						then Roact.createElement(KeepOutAreasHandler)
-						else nil,
 					Padding = Roact.createElement("UIPadding", {
 						PaddingTop = UDim.new(0, unibarFramePaddingTop),
 						PaddingBottom = UDim.new(0, unibarFramePaddingBottom),

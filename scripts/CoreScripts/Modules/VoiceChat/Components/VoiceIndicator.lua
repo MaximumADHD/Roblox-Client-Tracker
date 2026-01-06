@@ -15,7 +15,7 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local withSelectionCursorProvider = UIBlox.App.SelectionImage.withSelectionCursorProvider
 local CursorKind = UIBlox.App.SelectionImage.CursorKind
 
-local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
+local log = require(RobloxGui.Modules.VoiceChat.Logger)(script.Name)
 
 local Roact = require(CorePackages.Packages.Roact)
 local ReactIs = require(CorePackages.Packages.ReactIs)
@@ -23,16 +23,8 @@ local ReactIs = require(CorePackages.Packages.ReactIs)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 
-local GetFFlagRemoveInGameChatBubbleChatReferences =
-	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
-
-local Constants = require(RobloxGui.Modules.InGameChat.BubbleChat.Constants)
+local Constants = require(RobloxGui.Modules.VoiceChat.Constants)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
-
-if GetFFlagRemoveInGameChatBubbleChatReferences() then
-	log = require(RobloxGui.Modules.VoiceChat.Logger)(script.Name)
-	Constants = require(RobloxGui.Modules.VoiceChat.Constants) :: any
-end
 
 local VoiceIndicator = Roact.PureComponent:extend("VoiceIndicator")
 

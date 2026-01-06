@@ -15,7 +15,6 @@ local Otter = require(CorePackages.Packages.Otter)
 local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 
@@ -40,7 +39,6 @@ local FFlagPlayerListFixMobileScrolling = require(PlayerList.Flags.FFlagPlayerLi
 local FFlagDisablePlayerListDisplayCloseBtn = game:DefineFastFlag("DisablePlayerListDisplayCloseBtn", false)
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
-local FFlagMoveNewPlayerListDividers = SharedFlags.FFlagMoveNewPlayerListDividers
 
 local EnableCloseButton = ChromeEnabled() and not FFlagDisablePlayerListDisplayCloseBtn
 
@@ -335,7 +333,7 @@ local function PlayerListDisplayView(props: PlayerListDisplayViewProps): React.R
 	if LocalPlayer and props.isSmallTouchDevice and getShowTitlePlayer() then
 		childElements.TitlePlayer = React.createElement(PlayerEntryContainer, {
 			entrySizeX = props.entrySizeX,
-			layoutOrder = if FFlagMoveNewPlayerListDividers then -3 else -2,
+			layoutOrder = -3,
 			titlePlayerEntry = true,
 			player = LocalPlayer,
 			playerIconInfo = props.playerIconInfo[LocalPlayer.UserId] or { isPlaceOwner = false },
@@ -347,16 +345,14 @@ local function PlayerListDisplayView(props: PlayerListDisplayViewProps): React.R
 			},
 			setDropDownPlayerDimensionY = setDropDownPlayerDimensionY,
 		})
-		if FFlagMoveNewPlayerListDividers then
-			childElements.BottomDiv = React.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 1),
-				Position = UDim2.new(0, 0, 0, 0),
-				AnchorPoint = Vector2.new(0, 0),
-				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-				BackgroundTransparency = 0.8,
-				LayoutOrder = -2,
-			})
-		end
+		childElements.BottomDiv = React.createElement("Frame", {
+			Size = UDim2.new(1, 0, 0, 1),
+			Position = UDim2.new(0, 0, 0, 0),
+			AnchorPoint = Vector2.new(0, 0),
+			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+			BackgroundTransparency = 0.8,
+			LayoutOrder = -2,
+		})
 	end
 
 	if props.isSmallTouchDevice then
@@ -382,7 +378,6 @@ local function PlayerListDisplayView(props: PlayerListDisplayViewProps): React.R
 			end
 
 			childElements["TeamList_" .. tostring(teamName)] = React.createElement(TeamListContainer, {
-				size = if FFlagMoveNewPlayerListDividers then nil else UDim2.new(1, 0, 0, layoutValues.TeamEntrySizeY),
 				entrySizeX = props.entrySizeX,
 				teamData = teamData,
 				playerIconInfos = props.playerIconInfo,

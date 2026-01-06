@@ -11,7 +11,6 @@ local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatSer
 local VoiceIndicator = require(RobloxGui.Modules.VoiceChat.Components.VoiceIndicatorFunc)
 local VoiceAnalytics = require(RobloxGui.Modules.Settings.Analytics.VoiceAnalytics)
 local GetFFlagEnableVoiceMuteAnalytics = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceMuteAnalytics)
-local GetFFlagTweakedMicPinning = require(Chrome.Flags.GetFFlagTweakedMicPinning)
 local AudioFocusManagementEnabled = game:GetEngineFeature("AudioFocusManagement")
 local FFlagEnableChromeAudioFocusManagement = game:DefineFastFlag("EnableChromeAudioFocusManagement", false)
 local EnableChromeAudioFocusManagement = AudioFocusManagementEnabled and FFlagEnableChromeAudioFocusManagement
@@ -87,11 +86,7 @@ muteSelf = ChromeService:register({
 
 local function applyVoiceUIVisibility()
 	if VoiceChatServiceManager.voiceUIVisible then
-		if GetFFlagTweakedMicPinning() then
-			muteSelf.availability:pinned()
-		else
-			muteSelf.availability:available()
-		end
+		muteSelf.availability:pinned()
 	else
 		muteSelf.availability:unavailable()
 	end
@@ -103,11 +98,7 @@ local function updateVoiceState(_, voiceState)
 		if EnableChromeAudioFocusManagement then
 			applyVoiceUIVisibility()
 		else
-			if GetFFlagTweakedMicPinning() then
-				muteSelf.availability:pinned()
-			else
-				muteSelf.availability:available()
-			end
+			muteSelf.availability:pinned()
 		end
 	else
 		muteSelf.availability:unavailable()
@@ -139,11 +130,7 @@ if game:GetEngineFeature("VoiceChatSupported") then
 						VoiceChatServiceManager.hideVoiceUI.Event:Connect(applyVoiceUIVisibility)
 						applyVoiceUIVisibility()
 					else
-						if GetFFlagTweakedMicPinning() then
-							muteSelf.availability:pinned()
-						else
-							muteSelf.availability:available()
-						end
+						muteSelf.availability:pinned()
 					end
 				end
 			end)

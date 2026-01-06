@@ -26,7 +26,6 @@ type PlayerListDisplayContainerProps = {
 	entrySize: number,
 	screenSizeY: number,
 
-	-- Store data
 	playerIconInfo: PlayerIconInfoProps,
 	playerRelationship: PlayerRelationshipProps,
 

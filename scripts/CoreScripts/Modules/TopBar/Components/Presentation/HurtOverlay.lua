@@ -124,11 +124,9 @@ function HurtOverlay:init()
 		self.coreGuiChangedSignalConn = StarterGui.CoreGuiChangedSignal:Connect(
 			function(coreGuiType: Enum.CoreGuiType, enabled: boolean)
 				if coreGuiType == Enum.CoreGuiType.Health or coreGuiType == Enum.CoreGuiType.All then
-					if self.state.mountHurtOverlay ~= enabled then
-						self:setState({
-							mountHurtOverlay = enabled,
-						})
-					end
+					self:setState({
+						mountHurtOverlay = enabled,
+					})
 				end
 			end
 		)

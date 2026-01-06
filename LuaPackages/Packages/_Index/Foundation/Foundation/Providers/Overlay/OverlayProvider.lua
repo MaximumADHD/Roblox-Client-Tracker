@@ -46,20 +46,8 @@ local function OverlayProvider(overlayProps: Props)
 		end
 	end, { props.gui })
 
-	if not Flags.FoundationOverlayProviderFrameTiming then
-		React.useEffect(function()
-			if props.gui ~= nil and props.gui ~= overlay then
-				setOverlay(props.gui)
-			end
-		end, { props.gui, overlay })
-	end
-
 	local shouldRender = props.gui == nil and mainGui ~= nil and shouldMountOverlay
-
-	local overlayInstance = overlay
-	if Flags.FoundationOverlayProviderFrameTiming then
-		overlayInstance = if props.gui ~= nil then props.gui else overlay
-	end
+	local overlayInstance = if props.gui ~= nil then props.gui else overlay
 
 	return React.createElement(OverlayContext.Provider, {
 		value = {

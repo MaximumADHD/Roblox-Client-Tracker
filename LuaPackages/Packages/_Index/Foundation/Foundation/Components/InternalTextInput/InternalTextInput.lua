@@ -234,26 +234,30 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		end
 	end, {})
 
-	React.useImperativeHandle(ref, function()
-		return {
-			getIsFocused = getIsFocused,
-			focus = focusTextBox,
-			releaseFocus = releaseTextBoxFocus,
-			setHover = setHover,
-			getSelectionStart = getSelectionStart,
-			getCursorPosition = getCursorPosition,
-			setCursorPosition = setCursorPosition,
-			setSelectionStart = setSelectionStart,
-		}
-	end, {
-		getCursorPosition :: unknown,
-		getIsFocused,
-		getSelectionStart,
-		focusTextBox,
-		releaseTextBoxFocus,
-		setCursorPosition,
-		setSelectionStart,
-	})
+	React.useImperativeHandle(
+		ref,
+		function()
+			return {
+				getIsFocused = getIsFocused,
+				focus = focusTextBox,
+				releaseFocus = releaseTextBoxFocus,
+				setHover = setHover,
+				getSelectionStart = getSelectionStart,
+				getCursorPosition = getCursorPosition,
+				setCursorPosition = setCursorPosition,
+				setSelectionStart = setSelectionStart,
+			}
+		end,
+		{
+			getCursorPosition,
+			getIsFocused,
+			getSelectionStart,
+			focusTextBox,
+			releaseTextBoxFocus,
+			setCursorPosition,
+			setSelectionStart,
+		} :: { unknown }
+	)
 
 	local onTextChange = React.useCallback(function(textBox: TextBox?)
 		if Flags.FoundationInternalTextInputScrolling then
@@ -294,7 +298,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		if props.onFocus then
 			props.onFocus()
 		end
-	end, { props.onFocus :: unknown, props.isDisabled, isMobileDevice, isScrollable })
+	end, { props.onFocus, props.isDisabled, isMobileDevice, isScrollable } :: { unknown })
 
 	local onFocusLost = React.useCallback(
 		function(_rbx: TextBox, enterPressed: boolean, _inputThatCausedFocusLoss: InputObject)
@@ -312,7 +316,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 				props.onReturnPressed()
 			end
 		end,
-		{ props.onReturnPressed :: unknown, isScrollable, props.onFocusLost }
+		{ props.onReturnPressed, isScrollable, props.onFocusLost } :: { unknown }
 	)
 
 	local onInputStateChanged = React.useCallback(function(newState: ControlState)
@@ -351,7 +355,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 			offset = tokens.Stroke.Thick,
 			borderWidth = tokens.Stroke.Thick,
 		}
-	end, { tokens :: unknown, variantProps.innerContainer.radius })
+	end, { tokens, variantProps.innerContainer.radius } :: { unknown })
 
 	local textBoxViewportHeight = React.useMemo(function()
 		return getMultiLineTextHeight(fontSize, lineCount, lineHeight)

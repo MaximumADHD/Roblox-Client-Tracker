@@ -151,7 +151,7 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 	elseif props.cursorType == CursorType.Invisible then
 		return React.createElement("Frame", {
 			BackgroundTransparency = 1,
-			Size = UDim2.new(1, 0, 1, 0),
+			Size = UDim2.fromScale(1, 1),
 			ref = ref,
 		})
 	else

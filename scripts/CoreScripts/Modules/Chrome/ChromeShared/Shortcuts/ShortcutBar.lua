@@ -18,8 +18,7 @@ local useTokens = Foundation.Hooks.useTokens
 local ChromeService = require(Root.Service)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagChromeUnbindShortcutBarOnHide = SharedFlags.FFlagChromeUnbindShortcutBarOnHide
-local FFlagChromeShortcutBarInitHide = SharedFlags.FFlagChromeShortcutBarInitHide
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
 function ChromeShortcutBar(props)
 	local shortcuts, setShortcuts = React.useState({})
@@ -62,15 +61,12 @@ function ChromeShortcutBar(props)
 		local showTopBar = GamepadConnector:getShowTopBar()
 		local gamepadActive = GamepadConnector:getGamepadActive()
 
-		if FFlagChromeUnbindShortcutBarOnHide then
+		if FFlagEnableConsoleExpControls then
 			local function shouldHideShortcutBar()
 				local shouldHide = not showTopBar:get() or not gamepadActive:get()
 				ChromeService:setHideShortcutBar("TopBar", shouldHide)
 			end
-			if FFlagChromeShortcutBarInitHide then
-				shouldHideShortcutBar()
-			end
-
+			shouldHideShortcutBar()
 			showTopBar:connect(shouldHideShortcutBar)
 			gamepadActive:connect(shouldHideShortcutBar)
 		else
@@ -105,7 +101,7 @@ function ChromeShortcutBar(props)
 			Name = "ShortcutBar",
 			DisplayOrder = Constants.SHORTCUTBAR_DISPLAYORDER,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			Enabled = if FFlagChromeUnbindShortcutBarOnHide then nil else showShortcutBar,
+			Enabled = if FFlagEnableConsoleExpControls then nil else showShortcutBar,
 		}, {
 			React.createElement("Frame", {
 				Name = "ShortcutBarWrapper",

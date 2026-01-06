@@ -1,7 +1,7 @@
 local CorePackages = game:GetService("CorePackages")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagConnectGamepadChrome = SharedFlags.GetFFlagConnectGamepadChrome()
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
 local Chrome = script.Parent.Parent.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
@@ -17,6 +17,6 @@ local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeS
 local FFlagTopBarDeprecateDisplayOptionsRodux = game:DefineFastFlag("TopBarDeprecateDisplayOptionsRodux", false)
 
 return FFlagTopBarDeprecateDisplayOptionsRodux 
-    and ChromeEnabled and FFlagConnectGamepadChrome
+    and ChromeEnabled and FFlagEnableConsoleExpControls
     and FFlagRemoveTopBarInputTypeRodux and FFlagTopBarDeprecateGamepadNavigationDialogRodux
     and FFlagTopBarSignalizeMenuOpen and FFlagTopBarSignalizeKeepOutAreas and FFlagTopBarSignalizeScreenSize

@@ -44,6 +44,13 @@ type Props = {
 }
 
 local CALENDAR_WIDTH = 272
+--[[
+	To maintain a fixed height before for the dates grid we show 50 elements total which includes:
+		- 1 UIGridLayout element
+		- 7 date headers
+		- 7 days per week for 6 weeks
+]]
+local NUM_ELEMENTS_IN_DATES_GRID = 50
 
 local function Calendar(props: Props)
 	local tokens = useTokens()
@@ -420,8 +427,15 @@ local function Calendar(props: Props)
 			local prevMonthNumDays = DateTimeUtilities.getDaysInMonth(
 				DateTimeUtilities.getPrevMonthInfo(currViewDate.month, currViewDate.year)
 			)
-			for i = 1, firstDayOfWeek do
-				local day = prevMonthNumDays - firstDayOfWeek + i
+
+			-- If first day of the week is Sunday then show the 7 previous days leading up to it so that previous
+			-- month days are still shown
+			local daysToShow = if firstDayOfWeek == 0 then 7 else firstDayOfWeek
+
+			for i = 1, if Flags.FoundationFixedHeightDateTimePicker then daysToShow else firstDayOfWeek do
+				local day = prevMonthNumDays
+					- (if Flags.FoundationFixedHeightDateTimePicker then daysToShow else firstDayOfWeek)
+					+ i
 				local dateTime = DateTime.fromLocalTime(prevYear, prevMonth, day)
 
 				table.insert(
@@ -480,7 +494,19 @@ local function Calendar(props: Props)
 			]]
 			local lastDayOfWeek = DateTimeUtilities.getLastDayOfWeek(currViewDate.month, currViewDate.year)
 			local nextMonth, nextYear = DateTimeUtilities.getNextMonthInfo(currViewDate.month, currViewDate.year)
-			local daysToShow = 7 - (lastDayOfWeek + 1) -- +1 to account for 0-indexing
+			daysToShow = 7 - (lastDayOfWeek + 1) -- +1 to account for 0-indexing
+
+			if Flags.FoundationFixedHeightDateTimePicker then
+				-- If days to show is 0 then we add a whole extra week after it
+				-- so that we can show next month days
+				daysToShow = if daysToShow == 0 then 7 else daysToShow
+
+				-- Show extra days to fill the fixed height grid requirement
+				if daysToShow + #elements < NUM_ELEMENTS_IN_DATES_GRID then
+					daysToShow += NUM_ELEMENTS_IN_DATES_GRID - #elements - daysToShow
+				end
+			end
+
 			for i = 1, daysToShow do
 				local dateTime = DateTime.fromLocalTime(nextYear, nextMonth, i)
 
@@ -643,6 +669,7 @@ local function Calendar(props: Props)
 		WeekAndDates = React.createElement(View, {
 			LayoutOrder = if Flags.FoundationDateTimePickerTimeVariantEnabled then 4 else 3,
 			tag = "size-full-0 auto-y",
+			testId = `{props.testId}--weekAndDates`,
 		}, datesGrid),
 	})
 end

@@ -18,6 +18,9 @@ local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
 
 local withStyle = UIBlox.Style.withStyle
 
+local PlayerIconInfoStorePackage = require(CorePackages.Workspace.Packages.PlayerIconInfoStore)
+local PlayerIconInfoStore = PlayerIconInfoStorePackage.PlayerIconInfoStore
+
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 
@@ -35,6 +38,7 @@ local PlayerList = Components.Parent
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local OpenPlayerDropDown = require(PlayerList.Actions.OpenPlayerDropDown)
 local GetFFlagGateLeaderboardPlayerDropdownViaGUAC = require(SharedFlags).GetFFlagGateLeaderboardPlayerDropdownViaGUAC
+local FFlagReplacePlayerIconRoduxWithSignal = require(SharedFlags).FFlagReplacePlayerIconRoduxWithSignal
 local createShallowEqualAndTables = require(PlayerList.createShallowEqualAndTables)
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 
@@ -185,6 +189,13 @@ function PlayerEntry:getPlayerNameFont(layoutValues, style)
 	}
 end
 
+if FFlagReplacePlayerIconRoduxWithSignal then
+	function PlayerEntry:getPlayerIconInfo()
+		local playerIconInfoGetter = PlayerIconInfoStore.getPlayerIconInfoReactive(self.props.player.UserId)
+		return playerIconInfoGetter(false)
+	end
+end
+
 function PlayerEntry:render()
 	return WithLayoutValues(function(layoutValues)
 		return withStyle(function(style)
@@ -206,7 +217,7 @@ function PlayerEntry:render()
 			}, {
 				PlayerIcon = Roact.createElement(PlayerIcon, {
 					player = self.props.player,
-					playerIconInfo = self.props.playerIconInfo,
+					playerIconInfo = if FFlagReplacePlayerIconRoduxWithSignal then self:getPlayerIconInfo() else self.props.playerIconInfo,
 					playerRelationship = self.props.playerRelationship,
 				}),
 

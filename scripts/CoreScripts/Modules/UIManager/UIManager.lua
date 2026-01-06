@@ -128,13 +128,13 @@ end
 function UIManager.updateUIGroupForCurHeadCFrame(
 	self: UIManagerClassType,
 	uiGroupType: Constants.SpatialUIGroupTypeValue,
-	disableDragBarReposition: boolean?
+	providedDisableDragBarReposition: boolean?
 )
 	local uiGroupStruct: UIGroupStruct = self.uiGroups[uiGroupType]
 	local newCameraOffSet =
 		getCameraOffsetFromHeadRotationWithZAxisStabl(uiGroupStruct.positionProps.uiGroupHeadRotation)
 	uiGroupStruct.positionProps.uiGroupCameraOffSet = newCameraOffSet
-	local disableDragBarReposition = disableDragBarReposition or false
+	local disableDragBarReposition = providedDisableDragBarReposition or false
 	if uiGroupStruct.draggable and uiGroupStruct.dragBar and not disableDragBarReposition then
 		local dragBar = uiGroupStruct.dragBar :: DragBar.DragBarClassType
 		--- Bottom placement of dragbar

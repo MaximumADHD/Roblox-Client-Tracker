@@ -9,7 +9,6 @@ local View = Foundation.View
 local ModalBasedSelectorDialogController = require(root.Components.ModalBasedSelectorDialogController)
 
 local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
-local FFlagModalBasedSelectorOnCloseUseCallback = game:DefineFastFlag("ModalBasedSelectorOnCloseUseCallback", false)
 
 type Props = {
 	layoutOrder: number,
@@ -29,15 +28,12 @@ local function ModalBasedSelector(props)
 		end, { props.onMenuOpenChange })
 	end
 
-	local onClose
-	if FFlagModalBasedSelectorOnCloseUseCallback then
-		onClose = React.useCallback(function()
-			ModalBasedSelectorDialogController.unmountModalSelector()
-			if FFlagHideShortcutsOnReportDropdown then
-				props.onMenuOpenChange(false)
-			end
-		end, { props.onMenuOpenChange })
-	end
+	local onClose = React.useCallback(function()
+		ModalBasedSelectorDialogController.unmountModalSelector()
+		if FFlagHideShortcutsOnReportDropdown then
+			props.onMenuOpenChange(false)
+		end
+	end, { props.onMenuOpenChange })
 
 	return React.createElement("Frame", {
 		Size = UDim2.new(1, 0, 0, props.selectorHeight),
@@ -51,14 +47,7 @@ local function ModalBasedSelector(props)
 					props.viewportWidth,
 					props.selections,
 					props.onSelect,
-					if FFlagModalBasedSelectorOnCloseUseCallback
-						then onClose
-						else function()
-							ModalBasedSelectorDialogController.unmountModalSelector()
-							if FFlagHideShortcutsOnReportDropdown then
-								props.onMenuOpenChange(false)
-							end
-						end,
+					onClose,
 					onOpen
 				)
 			end,

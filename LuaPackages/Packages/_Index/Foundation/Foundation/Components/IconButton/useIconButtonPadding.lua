@@ -27,7 +27,7 @@ local function useIconButtonPadding(size: IconSize, isBuilderIcon: boolean): num
 				[IconSize.XLarge :: IconSize] = tokens.Size.Size_200,
 				[IconSize.XXLarge :: IconSize] = tokens.Size.Size_250,
 			}
-	end, { tokens :: unknown, isBuilderIcon })
+	end, { tokens, isBuilderIcon } :: { unknown })
 
 	local padding = iconButtonPaddings[size]
 	if padding == nil then

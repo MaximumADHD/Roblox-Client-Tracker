@@ -6,7 +6,7 @@ local Signals = require(CorePackages.Packages.Signals)
 local Display = require(CorePackages.Workspace.Packages.Display)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
@@ -33,7 +33,6 @@ local withCursor = if FFlagAdaptUnibarAndTiltSizing then Foundation.Hooks.withCu
 local ICON_BUTTON_CURSOR = if FFlagAdaptUnibarAndTiltSizing then Foundation.Enums.CursorType.SkinToneCircle else nil :: never
 
 local TopBar = script.Parent.Parent.Parent
-local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 
 local FlashingDot = require(script.Parent.FlashingDot)
 local FlashingDotV2 = require(script.Parent.FlashingDotV2)
@@ -41,7 +40,6 @@ local GetFFlagFlashingDotUseAsyncInit = require(CoreGui.RobloxGui.Modules.Flags.
 local ChromeEnabled = require(CoreGui.RobloxGui.Modules.Chrome.Enabled)()
 local isNewTiltIconEnabled = require(CoreGui.RobloxGui.Modules.isNewTiltIconEnabled)
 local Constants = require(script.Parent.Parent.Parent.Constants)
-local GetFFlagChromeUsePreferredTransparency = SharedFlags.GetFFlagChromeUsePreferredTransparency
 
 local IconButton = Roact.PureComponent:extend("IconButton")
 
@@ -58,10 +56,12 @@ IconButton.validateProps = t.strictInterface({
 	backgroundTransparency = t.optional(t.number),
 	backgroundColor3 = t.optional(t.Color3),
 	backgroundCornerRadius = t.optional(t.UDim),
-	forwardRef = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then t.optional(t.any) else nil :: never,
-	onSelectionChanged = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then t.optional(t.callback) else nil :: never,
-	nextSelectionRightRef = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then t.optional(t.any) else nil :: never,
+	forwardRef = t.optional(t.any),
+	onSelectionChanged = if ChromeEnabled and FFlagEnableConsoleExpControls then t.optional(t.callback) else nil :: never,
+	nextSelectionRightRef = if ChromeEnabled and FFlagEnableConsoleExpControls then t.optional(t.any) else nil :: never,
 	modal = if FFlagAddUILessMode and FIntAddUILessModeVariant == 2 then t.optional(t.boolean) else nil :: never,
+	[Roact.Change.AbsoluteSize] = t.optional(t.callback),
+	[Roact.Change.AbsolutePosition] = t.optional(t.callback),
 })
 
 function AnimatedScaleIcon(props)
@@ -156,9 +156,7 @@ function IconButton:renderWithCursor(getCursor)
 			ZIndex = 1,
 			Modal = if FFlagAddUILessMode and FIntAddUILessModeVariant == 2 then self.props.modal else nil,
 			BackgroundTransparency = if isNewTiltIconEnabled()
-				then if GetFFlagChromeUsePreferredTransparency()
-					then style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency
-					else style.Theme.BackgroundUIContrast.Transparency
+				then style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency
 				else 1,
 			Position = UDim2.fromScale(0, if isNewTiltIconEnabled() then 0.5 else 1),
 			AnchorPoint = Vector2.new(0, if isNewTiltIconEnabled() then 0.5 else 1),
@@ -169,9 +167,9 @@ function IconButton:renderWithCursor(getCursor)
 				if FFlagAdaptUnibarAndTiltSizing then getCursor.refCache[ICON_BUTTON_CURSOR]
 				else getCursor(CursorKind.SelectedKnob)
 			else nil,
-			NextSelectionRight = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then self.props.nextSelectionRightRef else nil :: never,
+			NextSelectionRight = if ChromeEnabled and FFlagEnableConsoleExpControls then self.props.nextSelectionRightRef else nil :: never,
 			[Roact.Event.Activated] = self.props.onActivated,
-			[Roact.Event.SelectionChanged] = if ChromeEnabled and FFlagTiltIconUnibarFocusNav then self.props.onSelectionChanged else nil,
+			[Roact.Event.SelectionChanged] = if ChromeEnabled and FFlagEnableConsoleExpControls then self.props.onSelectionChanged else nil,
 			[Roact.Ref] = self.props.forwardRef,
 		}, {
 
@@ -251,16 +249,11 @@ function IconButton:willUnmount()
 		self.disposeUiScaleEffect()
 	end
 end
-
-if FFlagEnableChromeBackwardsSignalAPI then
-	return Roact.forwardRef(function(props, ref)
-		return Roact.createElement(
-			IconButton,
-			Cryo.Dictionary.join(props, {
-				forwardRef = ref,
-			})
-		)
-	end)
-end
-
-return IconButton
+return Roact.forwardRef(function(props, ref)
+	return Roact.createElement(
+		IconButton,
+		Cryo.Dictionary.join(props, {
+			forwardRef = ref,
+		})
+	)
+end)

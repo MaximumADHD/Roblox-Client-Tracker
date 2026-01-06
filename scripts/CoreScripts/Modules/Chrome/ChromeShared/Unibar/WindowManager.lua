@@ -7,8 +7,6 @@ local ChromeService = require(Root.Service)
 local useChromeWindowItems = require(Root.Hooks.useChromeWindowItems)
 local WindowHost = require(Root.Unibar.ComponentHosts.WindowHost)
 
-local GetFFlagChromeTrackWindowPosition = require(Root.Parent.Flags.GetFFlagChromeTrackWindowPosition)
-
 type Array<T> = { [number]: T }
 type Table = { [any]: any }
 
@@ -20,9 +18,7 @@ return function(props)
 
 	for k, item in windowItems do
 		children[("window_" .. item.integration.id)] = React.createElement(WindowHost, {
-			position = if GetFFlagChromeTrackWindowPosition()
-				then ChromeService:windowPosition(item.integration.id)
-				else item.integration.startingWindowPosition,
+			position = ChromeService:windowPosition(item.integration.id),
 			integration = item,
 		})
 	end

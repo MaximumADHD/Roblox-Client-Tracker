@@ -4,13 +4,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Action = require(CorePackages.Packages.Rodux).makeActionCreator
 local t = require(CorePackages.Packages.t)
-local maybeAssert = require(RobloxGui.Modules.InGameChat.BubbleChat.Helpers.maybeAssert)
-
-local GetFFlagRemoveInGameChatBubbleChatReferences =
-	require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
-if GetFFlagRemoveInGameChatBubbleChatReferences() then
-	maybeAssert = require(RobloxGui.Modules.VoiceChat.Helpers.maybeAssert)
-end
+local maybeAssert = require(RobloxGui.Modules.VoiceChat.Helpers.maybeAssert)
 
 return Action(script.Name, function(enabled)
 	maybeAssert(t.boolean(enabled))

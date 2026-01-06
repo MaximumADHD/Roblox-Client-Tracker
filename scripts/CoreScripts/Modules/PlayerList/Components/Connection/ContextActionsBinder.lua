@@ -19,8 +19,6 @@ local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
-local FFlagModalPlayerListCloseUnfocused = PlayerListPackage.Flags.FFlagModalPlayerListCloseUnfocused
-local FFlagCheckPlayerListFocusNavSupported = game:DefineFastFlag("CheckPlayerListFocusNavSupported", false)
 local FFlagPlayerListUseMobileOnSmallDisplay = PlayerListPackage.Flags.FFlagPlayerListUseMobileOnSmallDisplay
 
 local ContextActionsBinder = Roact.PureComponent:extend("ContextActionsBinder")
@@ -71,7 +69,7 @@ function ContextActionsBinder:bindActions()
 		end
 
 		-- Pass input if focus nav is not supported
-		if FFlagCheckPlayerListFocusNavSupported and not (self.props.displayOptions.isTenFootInterface or (FFlagAddNewPlayerListMobileFocusNav and self.props.displayOptions.isSmallTouchDevice)) then
+		if not (self.props.displayOptions.isTenFootInterface or (FFlagAddNewPlayerListMobileFocusNav and self.props.displayOptions.isSmallTouchDevice)) then
 			return Enum.ContextActionResult.Pass
 		end
 
@@ -95,8 +93,8 @@ function ContextActionsBinder:bindActions()
 		end
 
 		return Enum.ContextActionResult.Pass
-		-- TODO: Remove Enum.KeyCode.ButtonStart and duplicate Enum.KeyCode.ButtonB when FFlagModalPlayerListCloseUnfocused is enabled
-	end, false, Enum.KeyCode.ButtonB, if FFlagModalPlayerListCloseUnfocused then Enum.KeyCode.ButtonB else Enum.KeyCode.ButtonStart)
+		-- TODO: Remove Enum.KeyCode.ButtonStart and duplicate Enum.KeyCode.ButtonB when FFlagAddNewPlayerListMobileFocusNav is enabled
+	end, false, Enum.KeyCode.ButtonB, if FFlagAddNewPlayerListMobileFocusNav then Enum.KeyCode.ButtonB else Enum.KeyCode.ButtonStart)
 	self.boundPlayerListActions = true
 end
 

@@ -2,10 +2,6 @@
 	This file contains tables in the format of {string = same string}.
 	The point is that indexing these tables with a typo will give you an error instead of nil, so they can be treated as enums.
 	We use ValidationEnums as a source of truth to run validations, log telemetry, etc.
-
-	- For validation modules, since they are going to be match module names we will use TitleCase
-	- For shared data, since they are going to be accessed in regular tests and match Types.lua, we will use camelCase
-	- For remaining enums, since they are intended to be checked for exact matches ( ie Status == PASS), we will use UPPER_CASE
 ]]
 
 local ValidationEnums = {}
@@ -38,6 +34,7 @@ local function finalizeEnumTable(enumTableName: string)
 	setmetatable(ValidationEnums[enumTableName], createEnumMetatable(enumTableName))
 end
 
+---- Title case enums (module names) ----
 ValidationEnums.ValidationModule = {
 	--[[
 	If a test doesn't have an enum, it will not be recognized and does not exist.
@@ -58,6 +55,7 @@ ValidationEnums.ValidationModule = {
 } :: { [string]: string }
 finalizeEnumTable("ValidationModule")
 
+---- Camel case enums (module members) ----
 ValidationEnums.SharedDataMember = {
 	--[[ 
 	Enum for Data that is made and used by validation tests. Should match Types.ValidationSharedData. 
@@ -75,9 +73,10 @@ ValidationEnums.SharedDataMember = {
 	uploadCategory = "uploadCategory",
 	uploadEnum = "uploadEnum",
 	consumerConfig = "consumerConfig",
+	aqsFetchMetrics = "aqsFetchMetrics",
 
 	-- ==== Data available upon request by any test ====
-	qualityResults = "qualityResults",
+	aqsSummaryData = "aqsSummaryData",
 	renderMeshesData = "renderMeshesData",
 	innerCagesData = "innerCagesData",
 	outerCagesData = "outerCagesData",
@@ -85,6 +84,19 @@ ValidationEnums.SharedDataMember = {
 } :: { [string]: string }
 finalizeEnumTable("SharedDataMember")
 
+ValidationEnums.ValidationConfig = {
+	categories = "categories", -- List of UploadCategory to run the test against. If missing, the test does NOT run.
+	fflag = "fflag", -- Function that returns true/false. If provided and the function returns false, the test does not run.
+	shadowFlag = "shadowFlag", -- Like an fflag, but runs the test with telemetry without including the result unless the consumer opts-in.
+	requiredData = "requiredData", -- List of SharedData enums that we need to fetch before we can run the test.
+	prereqTests = "prereqTests", -- List of Tests that must pass before running this test. If they fail, we get status CANNOT_START
+	expectedFailures = "expectedFailures", -- List of System tests that we expect to fail this specific check. For bundles, you must specify Name.AssetType or Name.FullBody
+	requiredAqsReturnSchema = "requiredAqsReturnSchema", -- Similar to required data, validations that request asset quality can demand specific return datas
+	run = "run", -- The main validation function
+} :: { [string]: string }
+finalizeEnumTable("ValidationConfig")
+
+---- Upper case enums (constants) ----
 ValidationEnums.Status = {
 	-- When a test is complete, it can be in any one of these states
 	CANNOT_START = "CANNOT_START",
@@ -108,15 +120,5 @@ ValidationEnums.UploadCategory = {
 	BOTH_SHOES = "BOTH_SHOES",
 } :: { [string]: string }
 finalizeEnumTable("UploadCategory")
-
-ValidationEnums.ValidationConfig = {
-	FFLAG = "FFLAG", -- Value will be a function that returns true/false, intended to be a function that gets the fflag. If false, the test is IGNORED.
-	CATEGORIES = "CATEGORIES", -- List of UploadCategory to run the test against. If missing, the test does NOT run.
-	REQUIRED_DATA = "REQUIRED_DATA", -- List of SharedData enums that we need to fetch before we can run the test
-	PREREQ_TESTS = "PREREQ_TESTS", -- List of Tests that must pass before running this test. If they fail, we get status CANNOT_START
-	EXPECTED_FAILURES = "EXPECTED_FAILURES", -- List of System tests that we expect to fail this specific check. For bundles, you must specify Name.AssetType or Name.FullBody
-	RUN = "RUN", -- The main validation function
-} :: { [string]: string }
-finalizeEnumTable("ValidationConfig")
 
 return ValidationEnums

@@ -45,6 +45,14 @@ return {
         assetId = "rbxassetid://88442114276054",
         size = Vector2.new(960, 540),
     },
+    ["pictograms/captures"] = {
+        assetId = "rbxassetid://117011861606730",
+        size = Vector2.new(960, 540),
+    },
+    ["pictograms/celebrate"] = {
+        assetId = "rbxassetid://79470525818005",
+        size = Vector2.new(960, 540),
+    },
     ["pictograms/chat"] = {
         assetId = "rbxassetid://72457785120997",
         size = Vector2.new(960, 540),
@@ -75,6 +83,10 @@ return {
     },
     ["pictograms/event_calendar"] = {
         assetId = "rbxassetid://108349034862038",
+        size = Vector2.new(960, 540),
+    },
+    ["pictograms/find_people"] = {
+        assetId = "rbxassetid://135252817961495",
         size = Vector2.new(960, 540),
     },
     ["pictograms/gift"] = {

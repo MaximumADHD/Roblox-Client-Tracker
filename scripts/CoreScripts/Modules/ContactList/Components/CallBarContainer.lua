@@ -16,16 +16,11 @@ local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local GetFFlagFixChromeReferences = SharedFlags.GetFFlagFixChromeReferences
 local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
 local Chrome = RobloxGui.Modules.Chrome
-local ChromeEnabled = if GetFFlagFixChromeReferences()
-	then require(Chrome.Enabled)
-	else require(RobloxGui.Modules.Chrome.Enabled)
-local ChromeService = if GetFFlagFixChromeReferences()
-	then if ChromeEnabled() then require(Chrome.Service) else nil
-	else require(Chrome.Service)
+local ChromeEnabled = require(Chrome.Enabled)
+local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil
 local ChromeConstants = require(Chrome.ChromeShared.Unibar.Constants)
 
 local TopBar = RobloxGui.Modules.TopBar

@@ -12,7 +12,7 @@ local ChromeService = require(Chrome.Service)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local CommonIcon = require(Chrome.Integrations.CommonIcon)
 local MappedSignal = ChromeUtils.MappedSignal
-local FFlagChromeCapturesUsePolicy = SharedFlags.FFlagChromeCapturesUsePolicy
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
 local initialAvailability = ChromeService.AvailabilitySignal.Available
 if StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.All) or StarterGui:GetCoreGuiEnabled(Enum.CoreGuiType.Captures) then
@@ -44,7 +44,7 @@ local capturesEntrypointIntegration = ChromeService:register({
 
 ChromeUtils.setCoreGuiAvailability(capturesEntrypointIntegration, Enum.CoreGuiType.Captures)
 
-if FFlagChromeCapturesUsePolicy then
+if FFlagEnableConsoleExpControls then
 	local policy = CapturesPolicy.PolicyImplementation.read()
 	local eligibleForCapturesFeature = if policy
 		then CapturesPolicy.Mapper(policy).eligibleForCapturesFeature()

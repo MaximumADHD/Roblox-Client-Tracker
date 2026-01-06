@@ -12,7 +12,6 @@ local Roact = require(Packages.Roact)
 local LuauPolyfill = require(Packages.LuauPolyfill)
 local Object = LuauPolyfill.Object
 local GetEngineFeatureSafe = require(UIBlox.Core.Utility.GetEngineFeatureSafe)
-local SurfaceGuiWithAdornee = require(CoreRoot.Spatial.SurfaceGuiWithAdornee)
 local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 -- Storybooks
@@ -45,129 +44,77 @@ local defaultProps: Props = {
 local function Panel3D(providedProps: Props)
 	local props = Object.assign({}, defaultProps, providedProps)
 
-	if UIBloxConfig.refactorPanel3D then
-		local surfaceGui: Constants.Ref<SurfaceGui?> = React.useRef(nil)
+	local basePart: Constants.Ref<Part?> = props.partRef or React.useRef(nil)
+	local surfaceGui: Constants.Ref<SurfaceGui?> = React.useRef(nil)
+	local folder: Constants.Ref<Folder?> = React.useRef(nil)
 
-		local adorneeSize, adorneeCFrame = usePanel3DRenderStep(props, nil :: any) -- Remove "nil :: any" with refactorPanel3D
-
-		if UIBloxConfig.enablePanelManagedAnchoring then
-			React.useEffect(function()
-				if props.anchoring :: Constants.Anchoring ~= Constants.AnchoringTypes.PanelManaged then
-					return function() end
-				end
-
-				if props.connectPanelManagerFunction == nil then
-					return function() end
-				end
-
-				if surfaceGui ~= nil and props.connectPanelManagerFunction then
-					local connectPanelManagerFunction = props.connectPanelManagerFunction :: (arg: any) -> ()
-					connectPanelManagerFunction(surfaceGui)
-					return function()
-						local connectPanelManagerFunction = props.connectPanelManagerFunction :: (arg: any) -> ()
-						connectPanelManagerFunction(nil)
-					end
-				else
-					return function() end
-				end
-			end, { surfaceGui, props.anchoring, props.connectPanelManagerFunction })
+	usePanel3DRenderStep(props, basePart)
+	React.useEffect(function()
+		if props.anchoring :: Constants.Anchoring ~= Constants.AnchoringTypes.PanelManaged then
+			return function() end
 		end
 
-		return React.createElement(SurfaceGuiWithAdornee, {
-			name = props.panelName,
-			detached = true,
-			adorneeProps = {
-				Size = adorneeSize,
-				CFrame = adorneeCFrame,
-				Parent = props.parent,
-			},
-			ref = surfaceGui,
-			surfaceGuiProps = {
-				Enabled = not props.hidden,
-				CanvasSize = props.virtualScreenSize,
-				Shape = if useCurvedPanel and (props.curvature :: number) ~= 0
-					then Enum.SurfaceGuiShape.CurvedHorizontally
-					else nil,
-				HorizontalCurvature = if useCurvedPanel then props.curvature else nil,
-				ZOffset = props.zOffset,
-			},
-		} :: any, props.children)
-	else
-		local basePart: Constants.Ref<Part?> = props.partRef or React.useRef(nil)
-		local surfaceGui: Constants.Ref<SurfaceGui?> = React.useRef(nil)
-		local folder: Constants.Ref<Folder?> = React.useRef(nil)
-
-		usePanel3DRenderStep(props, basePart)
-
-		if UIBloxConfig.enablePanelManagedAnchoring then
-			React.useEffect(function()
-				if props.anchoring :: Constants.Anchoring ~= Constants.AnchoringTypes.PanelManaged then
-					return function() end
-				end
-
-				if props.connectPanelManagerFunction == nil then
-					return function() end
-				end
-
-				if surfaceGui ~= nil and props.connectPanelManagerFunction then
-					local connectPanelManagerFunction = props.connectPanelManagerFunction :: (arg: any) -> ()
-					connectPanelManagerFunction(surfaceGui)
-					return function()
-						local connectPanelManagerFunction = props.connectPanelManagerFunction :: (arg: any) -> ()
-						connectPanelManagerFunction(nil)
-					end
-				else
-					return function() end
-				end
-			end, { surfaceGui, props.anchoring, props.connectPanelManagerFunction })
+		if props.connectPanelManagerFunction == nil then
+			return function() end
 		end
 
-		if UIBloxConfig.enablePanel3DSurfaceGuiRef and props.surfaceGuiRef then
-			React.useImperativeHandle(props.surfaceGuiRef, function()
-				return surfaceGui.current
-			end, { surfaceGui })
+		if surfaceGui ~= nil and props.connectPanelManagerFunction then
+			local connectPanelManagerFunction = props.connectPanelManagerFunction :: (arg: any) -> ()
+			connectPanelManagerFunction(surfaceGui)
+			return function()
+				local connectPanelManagerFunction = props.connectPanelManagerFunction :: (arg: any) -> ()
+				connectPanelManagerFunction(nil)
+			end
+		else
+			return function() end
 		end
+	end, { surfaceGui, props.anchoring, props.connectPanelManagerFunction })
 
-		return React.createElement("Folder", {
-			ref = folder,
-			Archivable = false,
-		}, {
-			WorkspacePortal = React.createElement(Roact.Portal, {
-				target = props.parent,
-			}, {
-				GUIPart = if props.hidden
-					then nil
-					else React.createElement("Part", {
-						Name = props.panelName .. "_Part",
-						ref = basePart,
-						Anchored = true,
-						CFrame = props.offset * CFrame.Angles(math.rad(props.tilt), 0, 0),
-						Size = Vector3.new(props.partSize.X, props.partSize.Y, 0.05),
-						Transparency = 1,
-						Color = Color3.new(0, 0, 0),
-						CanCollide = false,
-						CanTouch = false,
-					}),
-			}),
-			AppUI = React.createElement("SurfaceGui", {
-				Name = props.panelName .. "_SurfaceGui",
-				ref = surfaceGui,
-				Adornee = basePart,
-				Active = true,
-				Enabled = not props.hidden,
-				CanvasSize = props.virtualScreenSize,
-				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-				LightInfluence = 0,
-				children = props.children,
-				AlwaysOnTop = props.alwaysOnTop,
-				Shape = if useCurvedPanel and (props.curvature :: number) ~= 0
-					then Enum.SurfaceGuiShape.CurvedHorizontally
-					else nil,
-				HorizontalCurvature = if useCurvedPanel then props.curvature else nil,
-				ZOffset = props.zOffset,
-			}),
-		}) :: any
+	if UIBloxConfig.enablePanel3DSurfaceGuiRef and props.surfaceGuiRef then
+		React.useImperativeHandle(props.surfaceGuiRef, function()
+			return surfaceGui.current
+		end, { surfaceGui })
 	end
+
+	return React.createElement("Folder", {
+		ref = folder,
+		Archivable = false,
+	}, {
+		WorkspacePortal = React.createElement(Roact.Portal, {
+			target = props.parent,
+		}, {
+			GUIPart = if props.hidden
+				then nil
+				else React.createElement("Part", {
+					Name = props.panelName .. "_Part",
+					ref = basePart,
+					Anchored = true,
+					CFrame = props.offset * CFrame.Angles(math.rad(props.tilt), 0, 0),
+					Size = Vector3.new(props.partSize.X, props.partSize.Y, 0.05),
+					Transparency = 1,
+					Color = Color3.new(0, 0, 0),
+					CanCollide = false,
+					CanTouch = false,
+				}),
+		}),
+		AppUI = React.createElement("SurfaceGui", {
+			Name = props.panelName .. "_SurfaceGui",
+			ref = surfaceGui,
+			Adornee = basePart,
+			Active = true,
+			Enabled = not props.hidden,
+			CanvasSize = props.virtualScreenSize,
+			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
+			LightInfluence = 0,
+			children = props.children,
+			AlwaysOnTop = props.alwaysOnTop,
+			Shape = if useCurvedPanel and (props.curvature :: number) ~= 0
+				then Enum.SurfaceGuiShape.CurvedHorizontally
+				else nil,
+			HorizontalCurvature = if useCurvedPanel then props.curvature else nil,
+			ZOffset = props.zOffset,
+		}),
+	})
 end
 
 return Panel3D

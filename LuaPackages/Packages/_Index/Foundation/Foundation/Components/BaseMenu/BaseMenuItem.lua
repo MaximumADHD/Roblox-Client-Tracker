@@ -59,7 +59,7 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 		if props.icon and context.setHasLeading then
 			context.setHasLeading()
 		end
-	end, { props.icon :: unknown, context.setHasLeading })
+	end, { props.icon, context.setHasLeading } :: { unknown })
 
 	local onActivated = React.useCallback(function()
 		local callback = if props.onActivated then props.onActivated else context.onActivated
@@ -69,7 +69,7 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 		end
 		-- Type checker thinks it's still OnItemActivated? here
 		(callback :: OnItemActivated)(props.id)
-	end, { props.onActivated :: unknown, context.onActivated })
+	end, { props.onActivated, context.onActivated } :: { unknown })
 
 	local cursor = React.useMemo(function()
 		return {

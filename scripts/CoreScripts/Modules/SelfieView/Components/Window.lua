@@ -41,12 +41,9 @@ local useTrackerMessage = require(script.Parent.Parent.Hooks.useTrackerMessage)
 local useTooltipDismissal = require(script.Parent.Parent.Hooks.useTooltipDismissal)
 local useScreenSize = require(CoreGui.RobloxGui.Modules.Common.Hooks.useScreenSize)
 local Constants = require(script.Parent.Parent.Parent.Chrome.ChromeShared.Unibar.Constants)
-local GetFFlagFixChromeReferences = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixChromeReferences
 local Chrome = script.Parent.Parent.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
-local ChromeService = if GetFFlagFixChromeReferences()
-	then if ChromeEnabled() then require(Chrome.Service) else nil
-	else require(script.Parent.Parent.Parent.Chrome.Service)
+local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil
 local UnibarStyle = require(Chrome.ChromeShared.Unibar.UnibarStyle)
 
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
@@ -54,7 +51,6 @@ local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTok
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
-local FFlagSelfieViewReducedCornerWidth = game:DefineFastFlag("SelfieViewReducedCornerWidth", true)
 local FFlagReactDevtoolsFixTopbar = game:DefineFastFlag("ReactDevtoolsFixTopbar", true)
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
@@ -360,7 +356,7 @@ local function Window(props: WindowProps): React.ReactNode
 			else nil,
 
 		Corners = React.createElement("UICorner", {
-			CornerRadius = if FFlagSelfieViewReducedCornerWidth then UDim.new(0, 8) else UDim.new(0, 20),
+			CornerRadius = UDim.new(0, 8),
 		}),
 		ControlMessage = React.createElement("Frame", {
 			AnchorPoint = Vector2.new(0.5, 1),

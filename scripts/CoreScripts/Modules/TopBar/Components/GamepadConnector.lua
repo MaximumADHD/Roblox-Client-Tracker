@@ -20,26 +20,14 @@ local Signals = require(CorePackages.Packages.Signals)
 
 -- Modules
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
-local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
-local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
-local FFlagIgnoreDevGamepadBindingsMenuOpen = SharedFlags.FFlagIgnoreDevGamepadBindingsMenuOpen
-local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
-local FFlagChromeFixDelayLoadControlLock = SharedFlags.FFlagChromeFixDelayLoadControlLock
-local FFlagGamepadConnectorUseChromeFocusAPI = SharedFlags.FFlagGamepadConnectorUseChromeFocusAPI
-local FFlagGamepadConnectorSetCoreGuiNavEnabled = SharedFlags.FFlagGamepadConnectorSetCoreGuiNavEnabled
 local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
 local FFlagFixChromeConsoleNilRefs = SharedFlags.FFlagFixChromeConsoleNilRefs
 
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
-local FFlagModalPlayerListCloseUnfocused = PlayerListPackage.Flags.FFlagModalPlayerListCloseUnfocused
-
-local FFlagUseToBarFocusedToToggleTopBar = game:DefineFastFlag("UseToBarFocusedToToggleTopBar", false)
-local FFlagAddDismissTopBarFocus = game:DefineFastFlag("AddDismissTopBarFocus", false)
-local FFlagRefactorIsTopBarFocused = game:DefineFastFlag("RefactorIsTopBarFocused", false)
-local FFlagShowTopBarAlwaysOnTouchEnabled = game:DefineFastFlag("ShowTopBarAlwaysOnTouchEnabled", false)
+local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 
 local Modules = script.Parent.Parent.Parent
 local TopBar = Modules.TopBar
@@ -53,7 +41,7 @@ local ChromeEnabled = require(Chrome.Enabled)()
 local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: any
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local ChromeFocusUtils = require(CorePackages.Workspace.Packages.Chrome).FocusUtils
-local ObservableValue = if ChromeEnabled and (FFlagTiltIconUnibarFocusNav or FFlagHideTopBarConsole)
+local ObservableValue = if ChromeEnabled and FFlagEnableConsoleExpControls
 	then ChromeUtils.ObservableValue
 	else nil
 local ToastNotificationConstants = require(CorePackages.Workspace.Packages.ToastNotification).ToastNotificationConstants
@@ -131,15 +119,6 @@ local function createSelectedCoreObject(): ObservableValue<GuiObject?>
 	GuiService:GetPropertyChangedSignal("SelectedCoreObject"):Connect(function()
 		selectedCoreObject:set(GuiService.SelectedCoreObject)
 	end)
-	if not FFlagConsoleChatOnExpControls and FFlagIgnoreDevGamepadBindingsMenuOpen then
-		-- override any developer bindings when active
-		selectedCoreObject:connect(function(instance: Instance)
-			if not instance then
-				ChromeService:disableFocusNav()
-				GuiService:SetMenuIsOpen(false, TOPBAR_MENU)
-			end
-		end)
-	end
 
 	return selectedCoreObject
 end
@@ -164,16 +143,13 @@ function GamepadConnector.new(): GamepadConnector
 	self._chromeFocused = if not FFlagFixChromeConsoleNilRefs or ChromeService then ChromeService:inFocusNav() else false
 	self._lastMenuButtonPress = 0
 	self._dismissFocusConnections = {}
-	-- remove never cast when cleaning up GetFFlagTiltIconUnibarFocusNav
-	self._selectedCoreObject = if ChromeEnabled and (FFlagTiltIconUnibarFocusNav or FFlagHideTopBarConsole)
+	self._selectedCoreObject = if ChromeEnabled and FFlagEnableConsoleExpControls
 		then createSelectedCoreObject()
 		else nil :: never
 	self._connections = {}
-	if ChromeEnabled and FFlagHideTopBarConsole then
+	if ChromeEnabled and FFlagEnableConsoleExpControls then
 		self._gamepadActive = (ObservableValue :: never).new(isInputGamepad(UserInputService:GetLastInputType()))
-		self._tiltMenuOpen = if FFlagEnableChromeShortcutBar
-			then (ObservableValue :: never).new(false)
-			else nil :: never
+		self._tiltMenuOpen = (ObservableValue :: never).new(false)
 		self._playerListModalOpen = if FFlagAddNewPlayerListFocusNav
 			then (ObservableValue :: never).new(false)
 			else nil :: never
@@ -183,15 +159,13 @@ function GamepadConnector.new(): GamepadConnector
 			self._gamepadActive:set(isInputGamepad(lastInputType))
 		end)
 
-		if FFlagEnableChromeShortcutBar then
-			SettingsShowSignal:connect(function(isOpen)
-				self._tiltMenuOpen:set(isOpen)
-			end)
-		end
+		SettingsShowSignal:connect(function(isOpen)
+			self._tiltMenuOpen:set(isOpen)
+		end)
 
 		if FFlagAddNewPlayerListFocusNav then
 			PlayerListManager:GetVisibilityChangedEvent().Event:Connect(function()
-				local isModal = if FFlagModalPlayerListCloseUnfocused then PlayerListManager:GetIsModal() else true
+				local isModal = if FFlagAddNewPlayerListMobileFocusNav then PlayerListManager:GetIsModal() else true
 				self._playerListModalOpen:set(isModal and PlayerListManager:GetVisibility())
 			end)
 		end
@@ -200,50 +174,38 @@ function GamepadConnector.new(): GamepadConnector
 			local showTopBar = not self._gamepadActive:get()
 				or self._chromeFocused:get()
 				or self._selectedCoreObject:get() ~= nil
-				or (FFlagShowTopBarAlwaysOnTouchEnabled and UserInputService.TouchEnabled)
-				or (FFlagEnableChromeShortcutBar and self._tiltMenuOpen:get())
+				or UserInputService.TouchEnabled
+				or self._tiltMenuOpen:get()
 				or (FFlagAddNewPlayerListFocusNav and self._playerListModalOpen:get())
 				or (FFlagShowUnibarOnVirtualCursor and GamepadService.GamepadCursorEnabled)
 			self._showTopBar:set(showTopBar)
-			if FFlagGamepadConnectorSetCoreGuiNavEnabled then
-				if showTopBar then
-					GuiService.CoreGuiNavigationEnabled = true
-				else
-					GuiService.CoreGuiNavigationEnabled = self._devSetCoreGuiNavEnabled
-				end
+			if showTopBar then
+				GuiService.CoreGuiNavigationEnabled = true
+			else
+				GuiService.CoreGuiNavigationEnabled = self._devSetCoreGuiNavEnabled
 			end
 		end
 
 		self._selectedCoreObject:connect(shouldShowTopBar)
 		self._chromeFocused:connect(shouldShowTopBar)
-		if FFlagEnableChromeShortcutBar then
-			self._tiltMenuOpen:connect(shouldShowTopBar)
-		end
+		self._tiltMenuOpen:connect(shouldShowTopBar)
 		if FFlagShowUnibarOnVirtualCursor then
 			GamepadService:GetPropertyChangedSignal("GamepadCursorEnabled"):Connect(shouldShowTopBar)
 		end
 		self._gamepadActive:connect(shouldShowTopBar, true)
 	end
 
-	if FFlagGamepadConnectorSetCoreGuiNavEnabled then
+	if FFlagEnableConsoleExpControls then
 		GuiService:GetPropertyChangedSignal("CoreGuiNavigationEnabled"):Connect(function()
 			self._devSetCoreGuiNavEnabled = GuiService.CoreGuiNavigationEnabled
 		end)
 	end
-
-	if FFlagRefactorIsTopBarFocused then
 		self._isTopBarFocused = function(): boolean
 			return self._chromeFocused:get() or MenuIconSelectedSignal:get()
 		end
-	end
 
 	if FFlagAddTopBarScrim then
-		local isTopBarFocused
-		if FFlagRefactorIsTopBarFocused then
-			isTopBarFocused = self._isTopBarFocused()
-		else
-			isTopBarFocused = self._chromeFocused:get() or MenuIconSelectedSignal:get()
-		end
+		local isTopBarFocused = self._isTopBarFocused()
 		self._topBarFocused, self._setTopBarFocused = Signals.createSignal(isTopBarFocused)
 	end
 
@@ -252,7 +214,7 @@ end
 
 function GamepadConnector:connectToTopbar()
 	if ChromeEnabled then
-		if FFlagEnableChromeShortcutBar then
+		if FFlagEnableConsoleExpControls then
 			self:disconnectFromTopbar()
 		end
 		ContextActionService:BindCoreAction(
@@ -263,25 +225,16 @@ function GamepadConnector:connectToTopbar()
 		)
 		local onFocusChanged = function()
 			-- Top bar menu being focused is dependent on either unibar or menu being focused.
-			local focused
-			if FFlagRefactorIsTopBarFocused then
-				focused = self:_isTopBarFocused()
-			else
-				focused = self._chromeFocused:get() or MenuIconSelectedSignal:get()
-			end
+			local focused = self:_isTopBarFocused()
 			GuiService:SetMenuIsOpen(focused, TOPBAR_MENU)
 			if FFlagAddTopBarScrim then
 				self._setTopBarFocused(focused)
 			end
 
 			if focused then
-				if FFlagAddDismissTopBarFocus then
-					self:_addDismissFocusConnections()
-				end
+				self:_addDismissFocusConnections()
 			else
-				if FFlagAddDismissTopBarFocus then
-					self:_removeDismissFocusConnections()
-				end
+				self:_removeDismissFocusConnections()
 			end
 		end
 		table.insert(self._connections, self._chromeFocused:connect(onFocusChanged))
@@ -294,10 +247,7 @@ function GamepadConnector:disconnectFromTopbar()
 		connection:disconnect()
 	end
 	self._connections = {}
-
-	if FFlagAddDismissTopBarFocus then
-		self:_removeDismissFocusConnections()
-	end
+	self:_removeDismissFocusConnections()
 
 	ContextActionService:UnbindCoreAction(FOCUS_GAMEPAD_TO_TOPBAR)
 end
@@ -352,51 +302,28 @@ function GamepadConnector:_toggleTopbar(actionName, userInputState, input): Enum
 		ChromeEnabled
 		and not self:_focusToastNotification(userInputState)
 		and (
-			not FFlagEnableChromeShortcutBar and userInputState == Enum.UserInputState.End
-			or FFlagEnableChromeShortcutBar and userInputState == Enum.UserInputState.Begin
+			not FFlagEnableConsoleExpControls and userInputState == Enum.UserInputState.End
+			or FFlagEnableConsoleExpControls and userInputState == Enum.UserInputState.Begin
 		)
 	then
-		if FFlagTiltIconUnibarFocusNav or FFlagHideTopBarConsole then
-			if FFlagChromeFixDelayLoadControlLock then
-				if ChromeService:integrations().nine_dot == nil then
-					return Enum.ContextActionResult.Pass
-				end
+		if FFlagEnableConsoleExpControls then
+			if ChromeService:integrations().nine_dot == nil then
+				return Enum.ContextActionResult.Pass
 			end
-			local isTopBarFocused
-			if FFlagRefactorIsTopBarFocused then
-				isTopBarFocused = self:_isTopBarFocused()
-			else
-				isTopBarFocused = self._chromeFocused:get() or MenuIconSelectedSignal:get()
-			end
-			local toggleTopBarOpen = if FFlagUseToBarFocusedToToggleTopBar
-				then not (isTopBarFocused or ExpChatFocusNavigationStore.getChatInputBarFocused(false))
-				else self:getSelectedCoreObject():get() == nil
+			local isTopBarFocused = self:_isTopBarFocused()
+			local toggleTopBarOpen = not (isTopBarFocused or ExpChatFocusNavigationStore.getChatInputBarFocused(false))
 			if toggleTopBarOpen then
-				if FFlagGamepadConnectorUseChromeFocusAPI then
-					self:_focusGamepadToTopBar()
-				else
-					ChromeService:enableFocusNav()
-				end
+				self:_focusGamepadToTopBar()
 			else
-				if FFlagGamepadConnectorUseChromeFocusAPI then
-					self:_unfocusGamepadFromTopBar()
-				else
-					ChromeService:disableFocusNav()
-					GuiService.SelectedCoreObject = nil
-				end
+				self:_unfocusGamepadFromTopBar()
 			end
 			self:_logExperienceMenuGamepadExposure()
 			LogGamepadOpenExperienceControlsMenu(toggleTopBarOpen)
 		else
-			if FFlagChromeFixDelayLoadControlLock then
-				if ChromeService:integrations().nine_dot == nil then
-					return Enum.ContextActionResult.Pass
-				end
-			end
 			self:_toggleUnibarMenu()
 		end
 
-		if FFlagModalPlayerListCloseUnfocused then
+		if FFlagAddNewPlayerListMobileFocusNav then
 			-- Close modal PlayerList when the top bar is focused or closed
 			if PlayerListManager:GetIsModal() and PlayerListManager:GetVisibility() then
 				PlayerListManager:SetVisibility(false)
@@ -412,13 +339,13 @@ end
 function GamepadConnector:_toggleUnibarMenu()
 	local toggleUnibarOpen = self._chromeFocused:get()
 	if toggleUnibarOpen then
-		if FFlagGamepadConnectorUseChromeFocusAPI then
+		if FFlagEnableConsoleExpControls then
 			self:_unfocusGamepadFromTopBar()
 		else
 			ChromeService:disableFocusNav()
 		end
 	else
-		if FFlagGamepadConnectorUseChromeFocusAPI then
+		if FFlagEnableConsoleExpControls then
 			self:_focusGamepadToTopBar()
 		else
 			ChromeService:enableFocusNav()
@@ -470,7 +397,7 @@ function GamepadConnector:_bindSelf<T..., R...>(func: (GamepadConnector, T...) -
 	end
 end
 
-if FFlagHideTopBarConsole then
+if FFlagEnableConsoleExpControls then
 	local instance: GamepadConnector = GamepadConnector.new()
 	return instance
 else

@@ -21,39 +21,45 @@ local function useElevation(layer: ElevationLayer, options: Options): Token
 	local manager = useElevationManager()
 	local owner = useOwnerToken()
 
-	local token = React.useMemo(function()
-		if options.relativeToOwner then
-			if not owner then
-				return manager.acquire(layer)
+	local token = React.useMemo(
+		function()
+			if options.relativeToOwner then
+				if not owner then
+					return manager.acquire(layer)
+				end
+
+				local desired = owner.zIndex + 1
+
+				return {
+					layer = layer,
+					index = -1,
+					zIndex = desired,
+				}
 			end
 
-			local desired = owner.zIndex + 1
+			return manager.acquire(layer)
+		end,
+		{
+			layer,
+			owner,
+			manager,
+			options.relativeToOwner,
+		} :: { unknown }
+	)
 
-			return {
-				layer = layer,
-				index = -1,
-				zIndex = desired,
-			}
-		end
-
-		return manager.acquire(layer)
-	end, {
-		layer :: unknown,
-		owner,
-		manager,
-		options.relativeToOwner,
-	})
-
-	React.useEffect(function()
-		return function()
-			if token.index ~= nil and token.index >= 0 then
-				manager.releaseIfTop(layer, token.index)
+	React.useEffect(
+		function()
+			return function()
+				if token.index ~= nil and token.index >= 0 then
+					manager.releaseIfTop(layer, token.index)
+				end
 			end
-		end
-	end, {
-		layer :: unknown,
-		token.index,
-	})
+		end,
+		{
+			layer,
+			token.index,
+		} :: { unknown }
+	)
 
 	return token
 end

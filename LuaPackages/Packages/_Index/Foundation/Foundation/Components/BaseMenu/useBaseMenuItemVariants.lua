@@ -47,45 +47,37 @@ local variantsMap = function(tokens: Tokens)
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = {
 			container = {
-				tag = `size-full-600 radius-small {if Flags.FoundationMenuItemStyles
-					then "padding-x-medium"
-					else "padding-x-xsmall"} gap-xsmall`,
+				tag = "size-full-600 radius-small padding-x-medium gap-xsmall",
 			},
 			icon = { tag = "size-400", size = IconSize.XSmall :: IconSize },
-			text = { tag = if Flags.FoundationMenuItemStyles then "text-body-small" else "text-title-small" },
+			text = { tag = "text-body-small" },
 			title = { tag = "text-caption-small" },
 			check = { tag = "size-300", size = tokens.Size.Size_600 },
 		},
 		[InputSize.Small] = {
 			container = {
-				tag = `size-full-800 radius-medium {if Flags.FoundationMenuItemStyles
-					then "padding-x-medium"
-					else "padding-x-small"} gap-xsmall`,
+				tag = "size-full-800 radius-medium padding-x-medium gap-xsmall",
 			},
 			icon = { tag = "size-500", size = IconSize.Small :: IconSize },
-			text = { tag = if Flags.FoundationMenuItemStyles then "text-body-small" else "text-title-small" },
+			text = { tag = "text-body-small" },
 			title = { tag = "text-caption-small" },
 			check = { tag = "size-400", size = tokens.Size.Size_700 },
 		},
 		[InputSize.Medium] = {
 			container = {
-				tag = `size-full-1000 radius-medium {if Flags.FoundationMenuItemStyles
-					then "padding-x-medium"
-					else "padding-x-small"} gap-small`,
+				tag = "size-full-1000 radius-medium padding-x-medium gap-small",
 			},
 			icon = { tag = "size-600", size = IconSize.Medium :: IconSize },
-			text = { tag = if Flags.FoundationMenuItemStyles then "text-body-medium" else "text-title-medium" },
-			title = { tag = if Flags.FoundationMenuItemStyles then "text-caption-medium" else "text-title-medium" },
+			text = { tag = "text-body-medium" },
+			title = { tag = "text-caption-medium" },
 			check = { tag = "size-500", size = tokens.Size.Size_800 },
 		},
 		[InputSize.Large] = {
 			container = {
-				tag = `size-full-1200 radius-medium {if Flags.FoundationMenuItemStyles
-					then "padding-x-large"
-					else "padding-x-small"} gap-small`,
+				tag = "size-full-1200 radius-medium padding-x-large gap-small",
 			},
 			icon = { tag = "size-700", size = IconSize.Large :: IconSize },
-			text = { tag = if Flags.FoundationMenuItemStyles then "text-body-large" else "text-title-large" },
+			text = { tag = "text-body-large" },
 			title = { tag = "text-caption-large" },
 			check = { tag = "size-600", size = tokens.Size.Size_900 },
 		},

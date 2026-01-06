@@ -8,13 +8,7 @@ local HttpService = game:GetService("HttpService")
 local Promise = require(CorePackages.Packages.Promise)
 local AnalyticsService = game:GetService("RbxAnalyticsService")
 
-local CEVLogsToEventIngest = game:GetEngineFeature("CEVLogsToEventIngest")
-
 local CrossExperience = require(CorePackages.Workspace.Packages.CrossExperience)
-local FFlagEnableCEVErrorRCCTimeoutLogs =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableCEVErrorRCCTimeoutLogs
-local FFlagRecordTimestampforCEVEvents =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagRecordTimestampforCEVEvents
 local GetFFlagPartyVoiceMuteScopeFix =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagPartyVoiceMuteScopeFix
 local FStringTimeoutLoadingLocalPlayerInBackgroundDM =
@@ -32,9 +26,7 @@ local FIntPlayerAudioFocusReplicationTimeoutSeconds =
 	game:DefineFastInt("PlayerAudioFocusReplicationTimeoutSeconds", 10)
 
 local localUserId
-if
-	FStringTimeoutLoadingLocalPlayerInBackgroundDM == LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable and CEVLogsToEventIngest
-then
+if FStringTimeoutLoadingLocalPlayerInBackgroundDM == LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable then
 	localUserId = (Players.LocalPlayer and Players.LocalPlayer.UserId) or -1
 end
 
@@ -42,15 +34,12 @@ local function sendAnalyticsEvent(eventName: string, args: { [string]: any }?)
 	local analyticsPayload = args or {}
 
 	-- Automatically include cevJoinAttemptId in all analytics events
-	if CEVLogsToEventIngest then
-		local cevJoinAttemptId = getMemStorageKey(CEV_JOIN_ATTEMPT_ID_KEY)
-		analyticsPayload.cevJoinAttemptId = cevJoinAttemptId
-		analyticsPayload.clientTimeStamp = os.time()
-		analyticsPayload.userId = if FStringTimeoutLoadingLocalPlayerInBackgroundDM
-				~= LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable
-			then nil
-			else localUserId
-	end
+	local cevJoinAttemptId = getMemStorageKey(CEV_JOIN_ATTEMPT_ID_KEY)
+	analyticsPayload.cevJoinAttemptId = cevJoinAttemptId
+	analyticsPayload.clientTimeStamp = os.time()
+	analyticsPayload.userId = if FStringTimeoutLoadingLocalPlayerInBackgroundDM ~= LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable
+		then nil
+		else localUserId
 
 	AnalyticsService:SendEventDeferred("client", "partyVoice", eventName, analyticsPayload)
 end
@@ -135,34 +124,15 @@ if FStringTimeoutLoadingLocalPlayerInBackgroundDM ~= LOCAL_PLAYER_LOADING_TIMEOU
 	end
 end
 
-if not CEVLogsToEventIngest and FFlagEnableCEVErrorRCCTimeoutLogs then
-	localUserId = (Players.LocalPlayer and Players.LocalPlayer.UserId) or -1
-end
-
-if
-	FStringTimeoutLoadingLocalPlayerInBackgroundDM == LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable
-	and FFlagEnableCEVErrorRCCTimeoutLogs
-then
-	sendAnalyticsEvent("partyVoiceCEVChannelFileLoaded", {
-		userId = if not CEVLogsToEventIngest then localUserId else nil,
-		clientTimeStamp = if not CEVLogsToEventIngest and FFlagRecordTimestampforCEVEvents
-			then os.time()
-			else nil :: never,
-	})
+if FStringTimeoutLoadingLocalPlayerInBackgroundDM == LOCAL_PLAYER_LOADING_TIMEOUT_ENUM.Disable then
+	sendAnalyticsEvent("partyVoiceCEVChannelFileLoaded")
 end
 
 local PlayerAudioFocusChanged
 if not FFlagDelayAudioFocusReplication then
 	PlayerAudioFocusChanged = ReplicatedStorage:WaitForChild("PlayerAudioFocusChanged")
 
-	if FFlagEnableCEVErrorRCCTimeoutLogs then
-		sendAnalyticsEvent("partyVoicePlayerAudioFocusChangedLoaded", {
-			userId = if not CEVLogsToEventIngest then localUserId else nil,
-			clientTimeStamp = if not CEVLogsToEventIngest and FFlagRecordTimestampforCEVEvents
-				then os.time()
-				else nil :: never,
-		})
-	end
+	sendAnalyticsEvent("partyVoicePlayerAudioFocusChangedLoaded")
 end
 
 local VoiceChatCore = require(CorePackages.Workspace.Packages.VoiceChatCore)
@@ -235,11 +205,7 @@ local PersistenceMiddleware = createPersistenceMiddleware({
 	storeKey = CrossExperience.Constants.STORAGE_CEV_STORE_KEY,
 })
 
-if FFlagEnableCEVErrorRCCTimeoutLogs then
-	sendAnalyticsEvent("partyVoicePersistenceMiddlewareCreated", {
-		userId = if not CEVLogsToEventIngest then localUserId else nil,
-	})
-end
+sendAnalyticsEvent("partyVoicePersistenceMiddlewareCreated")
 
 local PartyAudioPlayer = CrossExperience.PartyAudioPlayer.default
 
@@ -252,14 +218,7 @@ local createReducers = function()
 	})
 end
 
-if FFlagEnableCEVErrorRCCTimeoutLogs then
-	sendAnalyticsEvent("partyVoiceCrossExperienceReducerLoaded", {
-		userId = if not CEVLogsToEventIngest then localUserId else nil,
-		clientTimeStamp = if not CEVLogsToEventIngest and FFlagRecordTimestampforCEVEvents
-			then os.time()
-			else nil :: never,
-	})
-end
+sendAnalyticsEvent("partyVoiceCrossExperienceReducerLoaded")
 
 local executePostVoiceAsyncInit = function(callback)
 	CoreVoiceManager:asyncInit()
@@ -296,11 +255,7 @@ local store = Rodux.Store.new(createReducers(), nil, {
 	PersistenceMiddleware.getMiddleware(),
 })
 
-if FFlagEnableCEVErrorRCCTimeoutLogs then
-	sendAnalyticsEvent("partyVoicePersistenceMiddlewareReducerLoaded", {
-		userId = if not CEVLogsToEventIngest then localUserId else nil,
-	})
-end
+sendAnalyticsEvent("partyVoicePersistenceMiddlewareReducerLoaded")
 
 -- For debugging purposes can pass "log" as a second parameter
 cevEventManager:subscribe(store)
@@ -310,30 +265,17 @@ if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
 
-if FFlagEnableCEVErrorRCCTimeoutLogs then
-	sendAnalyticsEvent("partyVoiceGameLoaded", {
-		userId = if not CEVLogsToEventIngest then localUserId else nil,
-		clientTimeStamp = if not CEVLogsToEventIngest and FFlagRecordTimestampforCEVEvents
-			then os.time()
-			else nil :: never,
-	})
-end
+sendAnalyticsEvent("partyVoiceGameLoaded")
 
 notifyVoiceStatusChange(Constants.VOICE_STATUS.RCC_CONNECTED)
 
-if CEVLogsToEventIngest then
-	sendAnalyticsEvent("partyVoiceRCCConnectedSignalFired")
-end
+sendAnalyticsEvent("partyVoiceRCCConnectedSignalFired")
 
 cevEventManager:notify(CrossExperience.Constants.EVENTS.PARTY_VOICE_EXPERIENCE_JOINED, {
 	jobId = if game.JobId == "" or game.JobId == nil then HttpService:GenerateGUID(true) else game.JobId,
 	placeId = game.PlaceId,
 	gameId = game.GameId,
 })
-
-if not FFlagEnableCEVErrorRCCTimeoutLogs then
-	localUserId = (Players.LocalPlayer and Players.LocalPlayer.UserId) or -1
-end
 
 if FFlagDelayAudioFocusReplication then
 	-- Capture context changes immediately to avoid missing initial state
@@ -360,14 +302,7 @@ if FFlagDelayAudioFocusReplication then
 
 	if PlayerAudioFocusChanged then
 		print("PlayerAudioFocusChanged replicated successfully.")
-		if FFlagEnableCEVErrorRCCTimeoutLogs then
-			sendAnalyticsEvent("partyVoicePlayerAudioFocusChangedLoaded", {
-				userId = if not CEVLogsToEventIngest then localUserId else nil,
-				clientTimeStamp = if not CEVLogsToEventIngest and FFlagRecordTimestampforCEVEvents
-					then os.time()
-					else nil :: never,
-			})
-		end
+		sendAnalyticsEvent("partyVoicePlayerAudioFocusChangedLoaded")
 
 		-- Establish connection before marking replication as ready
 		PlayerAudioFocusChanged.OnClientEvent:Connect(function(userId, currentContextId, currentContextIds)
@@ -391,15 +326,9 @@ if FFlagDelayAudioFocusReplication then
 			FIntPlayerAudioFocusReplicationTimeoutSeconds,
 			" seconds."
 		)
-		if FFlagEnableCEVErrorRCCTimeoutLogs then
-			sendAnalyticsEvent("partyVoicePlayerAudioFocusChangedReplicationTimeout", {
-				userId = if not CEVLogsToEventIngest then localUserId else nil,
-				timeoutSeconds = FIntPlayerAudioFocusReplicationTimeoutSeconds,
-				clientTimeStamp = if not CEVLogsToEventIngest and FFlagRecordTimestampforCEVEvents
-					then os.time()
-					else nil :: never,
-			})
-		end
+		sendAnalyticsEvent("partyVoicePlayerAudioFocusChangedReplicationTimeout", {
+			timeoutSeconds = FIntPlayerAudioFocusReplicationTimeoutSeconds,
+		})
 	end
 else
 	observeCurrentContextId(function(currentContextId)
@@ -934,7 +863,7 @@ local function setupListeners()
 				voicePlaySessionId = AnalyticsService:GetPlaySessionId(),
 				participants = playerUserIds,
 				numberActive = #Players:GetPlayers(),
-				cevJoinAttemptId = if CEVLogsToEventIngest then getMemStorageKey(CEV_JOIN_ATTEMPT_ID_KEY) else nil,
+				cevJoinAttemptId = getMemStorageKey(CEV_JOIN_ATTEMPT_ID_KEY),
 			})
 			coreVoiceManagerState.previousGroupId = CoreVoiceManager.service:GetGroupId()
 		elseif newState == Enum.VoiceChatState.Failed then
@@ -1196,9 +1125,7 @@ local function doStartVoice()
 	startVoice()
 end
 
-if CEVLogsToEventIngest then
-	sendAnalyticsEvent("startingVoiceFromCEVDefaultChannel")
-end
+sendAnalyticsEvent("startingVoiceFromCEVDefaultChannel")
 
 if CevReadinessSync then
 	if foregroundIsReady then
@@ -1225,11 +1152,7 @@ if CevReadinessSync then
 			else
 				log:info("Timed out waiting for readiness signal. Starting voice anyway.")
 				sendAnalyticsEvent("partyVoiceInitTimedOut", {
-					userId = if not CEVLogsToEventIngest then localUserId else nil,
 					timeout = FIntVoiceJoinTimeoutInSeconds,
-					clientTimeStamp = if not CEVLogsToEventIngest and FFlagRecordTimestampforCEVEvents
-						then os.time()
-						else nil :: never,
 				})
 			end
 

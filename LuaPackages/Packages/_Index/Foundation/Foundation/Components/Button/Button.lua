@@ -190,7 +190,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 			offset = tokens.Size.Size_200,
 			borderWidth = tokens.Stroke.Thicker,
 		}
-	end, { tokens :: unknown, variantProps.container.radius })
+	end, { tokens, variantProps.container.radius } :: { unknown })
 
 	local hasText = props.text and props.text ~= ""
 
@@ -200,7 +200,7 @@ local function Button(buttonProps: ButtonProps, ref: React.Ref<GuiObject>?)
 			return richTextFormat.format:format(props.text) :: string?
 		end
 		return props.text
-	end, { props.text :: any, props.variant, hasText })
+	end, { props.text, props.variant, hasText } :: { unknown })
 
 	return React.createElement(
 		View,

@@ -4,9 +4,7 @@ local FFlagEnableCorescriptMemoryTracker = game:DefineFastFlag("EnableCorescript
 
 -- Deps
 local StatsService = game:GetService("Stats")
-local RunService = game:GetService("RunService")
 local TelemetryService = game:GetService("TelemetryService")
-local CorePackages = game:GetService("CorePackages")
 local CommonUtil = require(script.Parent.CommonUtil)
 
 local DOCS_LINK = "https://docs.google.com/document/d/1BEOgxPzSelCLEHdrHdD_8Kh4ssIcGLlndDXrLmIBNmk"

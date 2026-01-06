@@ -66,7 +66,7 @@ local function DifferentLabelLengthsStory(props)
 
 	return React.createElement(View, {
 		tag = "auto-y",
-		Size = UDim2.new(0, 400, 0, 0),
+		Size = UDim2.fromOffset(400, 0),
 	}, {
 		RadioGroup = React.createElement(RadioGroup.Root, {
 			onValueChanged = function(value: string)

@@ -50,8 +50,6 @@ local GetFFlagJoinWithoutMicPermissions =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagJoinWithoutMicPermissions
 local GetFFlagRawMicrophonePermissions =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGetRawMicrophonePermissions
-local getFFlagMicrophoneDevicePermissionsPromptLogging =
-	require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
 local FFlagCheckCameraAvailabilityBeforePermissions =
 	game:DefineFastFlag("CheckCameraAvailabilityBeforePermissions", false)
 local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermissionCheck", false)
@@ -204,7 +202,7 @@ local function requestPermissions(
 			invokeNextRequest()
 			return hasPermissionsResult
 		else
-			if getFFlagMicrophoneDevicePermissionsPromptLogging() and checkingMic and context then
+			if checkingMic and context then
 				MicrophoneDevicePermissionsLogging:logPromptImpression({
 					didAuthorize = false,
 					uiContext = context :: string,
@@ -267,7 +265,7 @@ local function requestPermissions(
 					end
 				end
 
-				if getFFlagMicrophoneDevicePermissionsPromptLogging() and checkingMic and context then
+				if checkingMic and context then
 					MicrophoneDevicePermissionsLogging:logPromptInteraction({
 						didAuthorize = hasMicPermissions :: boolean,
 						uiContext = context :: string,

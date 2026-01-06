@@ -2,7 +2,6 @@ local Foundation = script:FindFirstAncestor("Foundation")
 
 local Packages = Foundation.Parent
 
-local Cryo = require(Packages.Cryo)
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 local ReactIs = require(Packages.ReactIs)
@@ -74,56 +73,61 @@ local function Interactable(interactableProps: InteractableProps, forwardedRef: 
 
 	local originalBackgroundStyle = React.useMemo(function(): ColorStyle
 		return getOriginalBackgroundStyle(props.BackgroundColor3, props.BackgroundTransparency)
-	end, { props.BackgroundColor3 :: unknown, props.BackgroundTransparency })
+	end, { props.BackgroundColor3, props.BackgroundTransparency } :: { unknown })
 
-	local getBackgroundStyle = React.useCallback(function(guiState, backgroundStyle: ColorStyleValue): ColorStyleValue
-		if
-			guiState == ControlState.Initialize
-			or guiState == ControlState.Default
-			or guiState == ControlState.Disabled
-			or (props.stateLayer and props.stateLayer.affordance == StateLayerAffordance.None)
-		then
-			return backgroundStyle
-		end
+	local getBackgroundStyle = React.useCallback(
+		function(guiState, backgroundStyle: ColorStyleValue): ColorStyleValue
+			if
+				guiState == ControlState.Initialize
+				or guiState == ControlState.Default
+				or guiState == ControlState.Disabled
+				or (props.stateLayer and props.stateLayer.affordance == StateLayerAffordance.None)
+			then
+				return backgroundStyle
+			end
 
-		local finalBackgroundStyle = {
-			Color3 = backgroundStyle.Color3,
-			Transparency = backgroundStyle.Transparency,
-		}
+			local finalBackgroundStyle = {
+				Color3 = backgroundStyle.Color3,
+				Transparency = backgroundStyle.Transparency,
+			}
 
-		if backgroundStyle.Color3 == nil then
-			finalBackgroundStyle.Color3 = if realBackgroundStyle.current
-				then realBackgroundStyle.current.Color3
-				else nil
-		end
-		if backgroundStyle.Transparency == nil then
-			finalBackgroundStyle.Transparency = if realBackgroundStyle.current
-				then realBackgroundStyle.current.Transparency
-				else nil
-		end
+			if backgroundStyle.Color3 == nil then
+				finalBackgroundStyle.Color3 = if realBackgroundStyle.current
+					then realBackgroundStyle.current.Color3
+					else nil
+			end
+			if backgroundStyle.Transparency == nil then
+				finalBackgroundStyle.Transparency = if realBackgroundStyle.current
+					then realBackgroundStyle.current.Transparency
+					else nil
+			end
 
-		local stateLayerStyle = getStateLayerStyle(tokens, props.stateLayer, guiState)
+			local stateLayerStyle = getStateLayerStyle(tokens, props.stateLayer, guiState)
 
-		return getBackgroundStyleWithStateLayer(finalBackgroundStyle, stateLayerStyle)
-	end, {
-		tokens :: unknown,
-		props.BackgroundColor3,
-		props.BackgroundTransparency,
-		props.stateLayer,
-	})
+			return getBackgroundStyleWithStateLayer(finalBackgroundStyle, stateLayerStyle)
+		end,
+		{
+			tokens,
+			props.BackgroundColor3,
+			props.BackgroundTransparency,
+			props.stateLayer,
+		} :: { unknown }
+	)
 
 	local backgroundStyleBinding = React.useMemo(function()
 		if ReactIs.isBinding(originalBackgroundStyle) then
-			return React.joinBindings({ controlState = controlState, backgroundStyle = originalBackgroundStyle })
-				:map(function(values)
-					return getBackgroundStyle(values.controlState, values.backgroundStyle)
-				end)
+			return React.joinBindings({
+				controlState = controlState,
+				backgroundStyle = originalBackgroundStyle :: React.Binding<ColorStyleValue>,
+			}):map(function(values)
+				return getBackgroundStyle(values.controlState, values.backgroundStyle)
+			end)
 		end
 
 		return controlState:map(function(guiState)
 			return getBackgroundStyle(guiState, originalBackgroundStyle :: ColorStyleValue)
 		end :: (any) -> ColorStyleValue)
-	end, { originalBackgroundStyle :: any, controlState, getBackgroundStyle })
+	end, { originalBackgroundStyle, controlState, getBackgroundStyle } :: { unknown })
 
 	local wrappedRef = useGuiControlState(guiObjectRef, onStateChanged)
 
@@ -146,9 +150,7 @@ local function Interactable(interactableProps: InteractableProps, forwardedRef: 
 		ref = wrappedRef,
 		SelectionImageObject = props.SelectionImageObject or cursor,
 	}
-	local mergedProps: any = if Flags.FoundationMigrateCryoToDash
-		then Dash.union(props, interactableComponentProps)
-		else Cryo.Dictionary.union(props, interactableComponentProps)
+	local mergedProps = Dash.union(props, interactableComponentProps)
 
 	-- To avoid passing these props to the component, we set them to nil
 	mergedProps.component = nil

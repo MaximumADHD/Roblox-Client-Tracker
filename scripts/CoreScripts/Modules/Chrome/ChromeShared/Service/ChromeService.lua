@@ -7,7 +7,6 @@ local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
 local reverse = LuauPolyfill.Array.reverse
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
@@ -28,12 +27,7 @@ local Types = require(Root.Service.Types)
 local Constants = require(Root.Unibar.Constants)
 local ShortcutService = require(Root.Service.ShortcutService)
 
-local GetFFlagEnableChromePinIntegrations = SharedFlags.GetFFlagEnableChromePinIntegrations
-local GetFFlagChromeTrackWindowStatus = require(Root.Parent.Flags.GetFFlagChromeTrackWindowStatus)
-local GetFFlagChromeTrackWindowPosition = require(Root.Parent.Flags.GetFFlagChromeTrackWindowPosition)
-local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
-local FFlagSubmenuFocusNavFixes = SharedFlags.FFlagSubmenuFocusNavFixes
-local FFlagChromeFixInitialFocusSubmenu = SharedFlags.FFlagChromeFixInitialFocusSubmenu
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
@@ -52,7 +46,6 @@ ChromeService.AvailabilitySignal = utils.AvailabilitySignalState
 ChromeService.IntegrationStatus = { None = 0, Icon = 1, Window = 2 }
 ChromeService.Key = {
 	MostRecentlyUsed = "MRU",
-	UserPinned = if GetFFlagEnableChromePinIntegrations then "UP" else nil,
 }
 
 export type UnibarLayoutInfo = Rect
@@ -126,11 +119,6 @@ export type ChromeService = {
 	withinCurrentSubmenu: (ChromeService, componentId: Types.IntegrationId) -> boolean,
 	removeRecentlyUsed: (ChromeService, componentId: Types.IntegrationId, force: boolean?) -> (),
 	rebuildMostRecentlyUsed: (ChromeService) -> (),
-	isUserPinned: (ChromeService, componentId: Types.IntegrationId) -> boolean,
-	setUserPin: (ChromeService, componentId: Types.IntegrationId, force: boolean?) -> (),
-	removeUserPin: (ChromeService, componentId: Types.IntegrationId, force: boolean?) -> (),
-	rebuildUserPins: (ChromeService) -> (),
-	areUserPinsFull: (ChromeService) -> boolean,
 	storeChromeInteracted: (ChromeService) -> (),
 	activate: (ChromeService, componentId: Types.IntegrationId, props: Types.ActivateProps?) -> (),
 	toggleWindow: (ChromeService, componentId: Types.IntegrationId) -> (),
@@ -176,7 +164,6 @@ export type ChromeService = {
 	onIntegrationStatusChanged: (ChromeService) -> SignalLib.Signal,
 	onIntegrationHovered: (ChromeService) -> SignalLib.Signal,
 	integrations: (ChromeService) -> Types.IntegrationList,
-	userPins: (ChromeService) -> Types.IntegrationIdList,
 	mostRecentlyUsed: (ChromeService) -> Types.IntegrationIdList,
 
 	setSelected: (ChromeService, Types.IntegrationId?) -> (),
@@ -205,7 +192,6 @@ export type ChromeService = {
 	_totalNotifications: utils.NotifySignal,
 	_mostRecentlyUsedFullRecord: { Types.IntegrationId },
 	_mostRecentlyUsed: Types.IntegrationIdList,
-	_userPins: Types.IntegrationIdList,
 	_mostRecentlyUsedAndPinnedLimit: number,
 	_notificationIndicator: ObservableIntegration,
 
@@ -244,7 +230,7 @@ end
 function ChromeService.new(): ChromeService
 	local localeId = LocalizationService.RobloxLocaleId
 	local self = {}
-	self._shortcutService = if FFlagEnableChromeShortcutBar then ShortcutService.new() else nil :: never
+	self._shortcutService = if FFlagEnableConsoleExpControls then ShortcutService.new() else nil :: never
 
 	self._layout = utils.ObservableValue.new(createUnibarLayoutInfo(Vector2.zero, Vector2.zero))
 	self._menuAbsolutePosition = Vector2.zero
@@ -267,7 +253,6 @@ function ChromeService.new(): ChromeService
 	self._totalNotifications = NotifySignal.new(true)
 	self._mostRecentlyUsedFullRecord = {}
 	self._mostRecentlyUsed = {}
-	self._userPins = {}
 	self._mostRecentlyUsedAndPinnedLimit = -1
 	self._localization = Localization.new(localeId)
 	self._localizedLabelKeys = {}
@@ -298,7 +283,7 @@ function ChromeService.new(): ChromeService
 		)
 	end, true)
 
-	if FFlagEnableChromeShortcutBar then
+	if FFlagEnableConsoleExpControls then
 		self._shortcutService.onShortcutBarChanged:connect(function(shortcutBarId: Types.ShortcutBarId)
 			service._currentShortcutBar:set(shortcutBarId)
 		end)
@@ -312,7 +297,7 @@ function ChromeService.new(): ChromeService
 	end)
 	FocusOffChromeSignal:connect(function()
 		service:disableFocusNav()
-		if FFlagEnableChromeShortcutBar then
+		if FFlagEnableConsoleExpControls then
 			service:setShortcutBar(nil)
 		end
 	end)
@@ -356,9 +341,6 @@ function ChromeService:updateScreenSize(
 		-- only run if slot count changes; limit updates
 		self._mostRecentlyUsedAndPinnedLimit = mostRecentlyUsedAndPinnedSlots
 
-		if GetFFlagEnableChromePinIntegrations() then
-			self:rebuildUserPins()
-		end
 		self:rebuildMostRecentlyUsed()
 	end
 
@@ -375,9 +357,6 @@ function ChromeService:rebuildMostRecentlyUsed()
 	local i = #self._mostRecentlyUsedFullRecord
 	if i > 0 then
 		local srcStartIndex = i - self._mostRecentlyUsedAndPinnedLimit + 1
-		if GetFFlagEnableChromePinIntegrations() then
-			srcStartIndex = i - self._mostRecentlyUsedAndPinnedLimit + #self._userPins + 1
-		end
 
 		-- slice a subset of the full record to repopulate slots
 		table.move(
@@ -391,25 +370,6 @@ function ChromeService:rebuildMostRecentlyUsed()
 
 	self:updateMenuList()
 	self:updateNotificationTotals()
-end
-
-function ChromeService:rebuildUserPins()
-	if GetFFlagEnableChromePinIntegrations() and self._mostRecentlyUsedAndPinnedLimit < #self._userPins then
-		local newUserPins = {}
-		local i = #self._userPins
-		table.move(
-			self._userPins, -- src
-			math.max(1, i - self._mostRecentlyUsedAndPinnedLimit + 1), -- src start index
-			i, -- src end index
-			1, -- dst insert index
-			newUserPins -- dst
-		)
-
-		self._userPins = newUserPins
-
-		self:updateMenuList()
-		self:updateNotificationTotals()
-	end
 end
 
 function ChromeService:updateWindowSizeSignals()
@@ -443,9 +403,6 @@ function ChromeService:toggleSubMenu(subMenuId: Types.IntegrationId)
 		self._currentSubMenu:set(nil :: string?)
 	else
 		-- otherwise open the menu
-		if not FFlagChromeFixInitialFocusSubmenu and FFlagSubmenuFocusNavFixes and not self._selectedItem:get() then
-			self._selectedItem:set(subMenuId)
-		end
 		self._currentSubMenu:set(subMenuId)
 	end
 end
@@ -463,7 +420,7 @@ function ChromeService:enableFocusNav()
 		self._inFocusNav:set(true)
 	end
 
-	if FFlagEnableChromeShortcutBar then
+	if FFlagEnableConsoleExpControls then
 		self:setShortcutBar(Constants.UNIBAR_SHORTCUTBAR_ID)
 	end
 end
@@ -492,7 +449,7 @@ function ChromeService:toggleWindow(componentId: Types.IntegrationId)
 		self._onIntegrationStatusChanged:fire(componentId, self._integrationsStatus[componentId])
 	end
 
-	if GetFFlagChromeTrackWindowStatus() and LocalStore.isEnabled() then
+	if LocalStore.isEnabled() then
 		if self._integrations[componentId] and self._integrations[componentId].persistWindowState then
 			local windowStore = LocalStore.loadForLocalPlayer(CHROME_WINDOW_STATE_KEY) or {}
 			windowStore[componentId] = self._integrationsStatus[componentId] == ChromeService.IntegrationStatus.Window
@@ -609,26 +566,22 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 	end
 
 	if
-		GetFFlagChromeTrackWindowStatus()
-			and ChromeService:getWindowStatusFromStore(component.id)
-			and component.persistWindowState
+		ChromeService:getWindowStatusFromStore(component.id) and component.persistWindowState
 		or component.windowDefaultOpen
 	then
 		self._integrationsStatus[component.id] = ChromeService.IntegrationStatus.Window
 		self._onIntegrationStatusChanged:fire(component.id, self._integrationsStatus[component.id])
 	end
 
-	if GetFFlagChromeTrackWindowPosition() then
-		local windowPos = UDim2.fromOffset(Constants.MENU_ICON_SCREEN_SIDE_OFFSET, Constants.WINDOW_DEFAULT_PADDING)
-		if component.startingWindowPosition then
-			if component.persistWindowState then
-				windowPos = self:getWindowPositionFromStore(component.id) or component.startingWindowPosition
-			else
-				windowPos = component.startingWindowPosition
-			end
+	local windowPos = UDim2.fromOffset(Constants.MENU_ICON_SCREEN_SIDE_OFFSET, Constants.WINDOW_DEFAULT_PADDING)
+	if component.startingWindowPosition then
+		if component.persistWindowState then
+			windowPos = self:getWindowPositionFromStore(component.id) or component.startingWindowPosition
+		else
+			windowPos = component.startingWindowPosition
 		end
-		self._windowPositions[component.id] = windowPos
 	end
+	self._windowPositions[component.id] = windowPos
 
 	-- Add a containerWidthSlots signal for integrations with containers if missing
 	if component.containerWidthSlots == nil and component.components and component.components.Container then
@@ -646,7 +599,7 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 	local populatedComponent = component :: Types.IntegrationProps
 	self._integrations[component.id] = populatedComponent
 
-	if FFlagConsoleChatOnExpControls and component.selected then
+	if FFlagEnableConsoleExpControls and component.selected then
 		conns[#conns + 1] = self:selectedItem():connect(function(id)
 			if populatedComponent.id == id then
 				component.selected(populatedComponent)
@@ -801,9 +754,6 @@ function ChromeService:updateMenuList()
 			if v == ChromeService.Key.MostRecentlyUsed then
 				-- If MostRecentlyUsed special key, substitute for the MostRecentlyUsed array
 				collectMenu(self._mostRecentlyUsed, parent, windowList)
-			elseif GetFFlagEnableChromePinIntegrations() and v == ChromeService.Key.UserPinned then
-				-- If UserPinned special key, substitute for the UserPinned array
-				collectMenu(self._userPins, parent, windowList)
 			elseif type(v) == "table" then
 				-- A list (non-string item) is a group of items that require visual dividers to bookend
 				if not #parent.children then
@@ -927,10 +877,6 @@ function ChromeService:integrations()
 	return self._integrations
 end
 
-function ChromeService:userPins()
-	return self._userPins
-end
-
 function ChromeService:mostRecentlyUsed()
 	return self._mostRecentlyUsed
 end
@@ -1002,7 +948,7 @@ function ChromeService:configureSubMenu(parent: Types.IntegrationId, menuConfig:
 	self:updateMenuList()
 end
 
-if FFlagEnableChromeShortcutBar then
+if FFlagEnableConsoleExpControls then
 	function ChromeService:registerShortcut(shortcutProps: Types.ShortcutRegisterProps)
 		self._shortcutService:registerShortcut(shortcutProps)
 		local shortcut = self._shortcutService:getShortcut(shortcutProps.id)
@@ -1169,46 +1115,12 @@ function ChromeService:removeRecentlyUsed(componentId: Types.IntegrationId)
 	self:rebuildMostRecentlyUsed()
 end
 
-function ChromeService:isUserPinned(componentId: Types.IntegrationId)
-	return GetFFlagEnableChromePinIntegrations() and table.find(self._userPins, componentId) ~= nil
-end
-
-function ChromeService:removeUserPin(componentId: Types.IntegrationId)
-	if not GetFFlagEnableChromePinIntegrations() then
-		return
-	end
-
-	local idx = table.find(self._userPins, componentId)
-	if idx then
-		table.remove(self._userPins, idx)
-	end
-
-	self:updateMenuList()
-	self:updateNotificationTotals()
-end
-
-function ChromeService:setUserPin(componentId: Types.IntegrationId, force: boolean?)
-	if
-		(force or (self:withinCurrentSubmenu(componentId) and not self:isUserPinned(componentId)))
-		and #self._userPins < self._mostRecentlyUsedAndPinnedLimit
-		and GetFFlagEnableChromePinIntegrations()
-	then
-		table.insert(self._userPins, componentId)
-
-		self:removeRecentlyUsed(componentId)
-	end
-end
-
-function ChromeService:areUserPinsFull()
-	return GetFFlagEnableChromePinIntegrations() and self._mostRecentlyUsedAndPinnedLimit <= #self._userPins
-end
-
 function ChromeService:windowPosition(componentId: Types.IntegrationId)
 	return self._windowPositions[componentId]
 end
 
 function ChromeService:updateWindowPosition(componentId: Types.IntegrationId, position: UDim2)
-	if GetFFlagChromeTrackWindowPosition() and LocalStore.isEnabled() then
+	if LocalStore.isEnabled() then
 		if self._integrations[componentId] and self._integrations[componentId].persistWindowState then
 			local windowStore = LocalStore.loadForLocalPlayer(CHROME_WINDOW_POSITION_KEY) or {}
 			-- JSON (and by extension LocalStore) doesn't play nice with UDims, so we have to encode it a bit
@@ -1221,7 +1133,7 @@ function ChromeService:updateWindowPosition(componentId: Types.IntegrationId, po
 end
 
 function ChromeService:getWindowStatusFromStore(componentId: Types.IntegrationId)
-	if GetFFlagChromeTrackWindowStatus() and LocalStore.isEnabled() then
+	if LocalStore.isEnabled() then
 		local storeStates = LocalStore.loadForLocalPlayer(CHROME_WINDOW_STATE_KEY) or {}
 		local windowState = storeStates[componentId] or false
 
@@ -1231,7 +1143,7 @@ function ChromeService:getWindowStatusFromStore(componentId: Types.IntegrationId
 end
 
 function ChromeService:getWindowPositionFromStore(componentId: Types.IntegrationId)
-	if GetFFlagChromeTrackWindowPosition() and LocalStore.isEnabled() then
+	if LocalStore.isEnabled() then
 		local storePositions = LocalStore.loadForLocalPlayer(CHROME_WINDOW_POSITION_KEY) or {}
 		local pos = storePositions[componentId] or nil
 		local windowPosition = if pos then UDim2.new(pos[1], pos[2], pos[3], pos[4]) else nil
@@ -1259,7 +1171,7 @@ function ChromeService:activate(componentId: Types.IntegrationId, props: Types.A
 
 			local success, err = pcall(function()
 				integrationActivated(self._integrations[componentId])
-				if not FFlagConsoleChatOnExpControls then
+				if not FFlagEnableConsoleExpControls then
 					self:disableFocusNav()
 				end
 			end)

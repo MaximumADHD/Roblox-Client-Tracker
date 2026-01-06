@@ -35,7 +35,6 @@ local EventStreamConstants = require(CorePackages.Workspace.Packages.AuthAnalyti
 local leaveGame = require(RobloxGui.Modules.Settings.leaveGame)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagIEMSettingsAddPlaySessionID = SharedFlags.FFlagIEMSettingsAddPlaySessionID
 local getFFlagDisablePVUpsellDataConsent = SharedFlags.GetFFlagDisablePVUpsellDataConsent
 
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
@@ -66,7 +65,7 @@ local function Initialize()
 	local this = settingsPageFactory:CreateNewPage()
 
 	this.playsessionid = ""
-	if FFlagIEMSettingsAddPlaySessionID and EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+	if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
 		this.playsessionid = AnalyticsService:GetPlaySessionId()
 	end
 
@@ -83,7 +82,7 @@ local function Initialize()
 				confirmed = Constants.AnalyticsCancelledName,
 				universeid = tostring(game.GameId),
 				source = Constants.AnalyticsLeaveGameSource,
-				playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playsessionid else nil,
+				playsessionid = this.playsessionid ,
 			}
 		)
 	end

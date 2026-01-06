@@ -61,7 +61,7 @@ local function AnchorWrapper(props: { onHover: (isHovered: boolean) -> () } & Po
 				listener.current:Disconnect()
 			end
 		end
-	end, { context.anchor :: unknown, props.onHover })
+	end, { context.anchor, props.onHover } :: { unknown })
 
 	return React.createElement(Popover.Anchor, withCommonProps(props, {}), props.children)
 end

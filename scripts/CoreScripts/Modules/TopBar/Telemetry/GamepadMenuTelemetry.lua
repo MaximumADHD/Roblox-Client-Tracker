@@ -4,8 +4,6 @@ local AnalyticsService = game:GetService("RbxAnalyticsService")
 local TopBar = script.Parent.Parent
 local GamepadMenu = TopBar.Components.Presentation.GamepadMenu
 local EnumGamepadMenuOptions = require(GamepadMenu.EnumGamepadMenuOptions)
-
-local FFlagGamepadMenuActionTelemetry = require(TopBar.Flags.FFlagGamepadMenuActionTelemetry)
 local EngineFeatureTelemetryServicePlaySessionInfoEnabled = game:GetEngineFeature("TelemetryServicePlaySessionInfoEnabled")
 local FIntGamepadMenuActionThrottleHundrethsPercent = game:DefineFastInt("GamepadMenuActionThrottleHundrethsPercent", 0)
 
@@ -39,9 +37,6 @@ function GamepadMenuTelemetry.new(): GamepadMenuTelemetry
 	return setmetatable(self, GamepadMenuTelemetry)
 end
 function GamepadMenuTelemetry.onOptionSelected(props: GamepadMenuActionProps)
-	if not FFlagGamepadMenuActionTelemetry then
-		return
-	end
 
 	local GamepadMenuActionConfig = {
 		eventName = "coreui_gamepad_menu_action",

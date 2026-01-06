@@ -13,8 +13,6 @@ local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local useMappedSignal = require(Chrome.ChromeShared.Hooks.useMappedSignal)
 local SubMenuContext = require(Chrome.ChromeShared.Unibar.SubMenuContext)
 
-local GetFFlagAnimateSubMenu = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAnimateSubMenu
-
 export type Props = {
 	isActive: ChromeUtils.MappedSignal<boolean>,
 }
@@ -24,7 +22,7 @@ local function AvatarSwitcherIcon(props: Props)
 	local submenuTransition = React.useContext(SubMenuContext)
 	local tokens = useTokens()
 
-	local style = if GetFFlagAnimateSubMenu() and submenuTransition
+	local style = if submenuTransition
 		then submenuTransition:map(function(v)
 			return {
 				Color3 = tokens.Color.Content.Default.Color3,

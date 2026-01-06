@@ -38,6 +38,10 @@ local function defaultFlagCheck()
 	return true
 end
 
+local function defaultShadowCheck()
+	return false
+end
+
 local preloads = {}
 for _, testEnum in ValidationEnums.ValidationModule do
 	-- First, ensure the module actually exists
@@ -55,10 +59,8 @@ for _, testEnum in ValidationEnums.ValidationModule do
 	-- Make sure the module doesnt have any unexpected properties
 	for k, _ in valModule do
 		if typeof(k) ~= "string" then
-			error(`{testEnum}.lua contains non-string key ` .. tostring(k))
-		elseif k:lower() ~= k then
-			error(`{testEnum}.lua contains non-lowercase key ` .. tostring(k))
-		elseif not existingEnums.ValidationConfig[k:upper()] then
+			error(`{testEnum}.lua contains non-string key {tostring(k)}`)
+		elseif not existingEnums.ValidationConfig[k] then
 			error(
 				`{testEnum}.lua contains unexpected member {k}. Check for typos or add an extra ValidationEnums.ValidationConfig`
 			)
@@ -67,15 +69,17 @@ for _, testEnum in ValidationEnums.ValidationModule do
 
 	-- Fill in default values for unspecified configs. CANNOT BE NIL (as we later enforce that indexing nil is an error)
 	valModule.fflag = valModule.fflag or defaultFlagCheck
+	valModule.shadowFlag = valModule.shadowFlag or defaultShadowCheck
 	valModule.categories = valModule.categories or {}
-	valModule.required_data = valModule.required_data or {}
-	valModule.prereq_tests = valModule.prereq_tests or {}
-	valModule.expected_failures = valModule.expected_failures or {}
+	valModule.requiredData = valModule.requiredData or {}
+	valModule.prereqTests = valModule.prereqTests or {}
+	valModule.expectedFailures = valModule.expectedFailures or {}
+	valModule.requiredAqsReturnSchema = valModule.requiredAqsReturnSchema or {}
 	if valModule.run == nil or typeof(valModule.run) ~= "function" then
 		error(`Missing module run function in {testEnum}`)
 	end
 
-	-- Ensure that anyone using this module is not indexing nil with a typo. I can already feel the time saved
+	-- Ensure that anyone using this module is not indexing nil due to a typo. I can already feel the time saved
 	setmetatable(valModule, {
 		__index = function(_, index)
 			error(`Invalid ValidationConfig {index} used on the module {testEnum}`)
@@ -86,9 +90,12 @@ for _, testEnum in ValidationEnums.ValidationModule do
 	if typeof(valModule.fflag) ~= "function" or typeof(valModule.fflag()) ~= "boolean" then
 		error(`Invalid FFlag config in {testEnum}`)
 	end
+	if typeof(valModule.shadowFlag) ~= "function" or typeof(valModule.shadowFlag()) ~= "boolean" then
+		error(`Invalid shadowFlag config in {testEnum}`)
+	end
 	tableOnlyHasExistingEnums(testEnum, valModule.categories, "UploadCategory")
-	tableOnlyHasExistingEnums(testEnum, valModule.required_data, "SharedDataMember")
-	tableOnlyHasExistingEnums(testEnum, valModule.prereq_tests, "ValidationModule")
+	tableOnlyHasExistingEnums(testEnum, valModule.requiredData, "SharedDataMember")
+	tableOnlyHasExistingEnums(testEnum, valModule.prereqTests, "ValidationModule")
 
 	preloads[testEnum] = valModule
 end

@@ -16,7 +16,7 @@ local function useUncontrolledState(isChecked: boolean?, onActivated: (value: bo
 			setIsChecked(value)
 		end
 		onActivated(value)
-	end, { isChecked :: unknown, onActivated })
+	end, { isChecked, onActivated } :: { unknown })
 
 	return internalIsChecked, internalOnActivated
 end

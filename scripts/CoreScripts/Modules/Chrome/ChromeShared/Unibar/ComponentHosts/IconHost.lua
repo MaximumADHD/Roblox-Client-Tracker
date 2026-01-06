@@ -6,8 +6,8 @@ local UserInputService = game:GetService("UserInputService")
 local React = require(CorePackages.Packages.React)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
 local ChromeFlags = require(script.Parent.Parent.Parent.Parent.Flags)
 local FFlagUnibarMenuOpenHamburger = ChromeFlags.FFlagUnibarMenuOpenHamburger
@@ -15,7 +15,6 @@ local FFlagUnibarMenuOpenSubmenu = ChromeFlags.FFlagUnibarMenuOpenSubmenu
 
 local ChromeSharedFlags = require(Root.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
-local FFlagIconHostSetZIndexToDefault = ChromeSharedFlags.FFlagIconHostSetZIndexToDefault
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 
@@ -42,8 +41,6 @@ local Constants = require(Root.Unibar.Constants)
 local ChromeService = require(Root.Service)
 local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
 local ChromeTypes = require(Root.Service.Types)
-local FFlagWindowFixes = SharedFlags.GetFFlagWindowFixes()
-local FFlagHamburgerCursorFix = SharedFlags.FFlagHamburgerCursorFix
 local UnibarStyle = require(Root.Unibar.UnibarStyle)
 
 local useObservableValue = require(Root.Hooks.useObservableValue)
@@ -84,7 +81,7 @@ if isInExperienceUIVREnabled then
 	end
 end
 
-local MenuIconContext = if FFlagTiltIconUnibarFocusNav
+local MenuIconContext = if FFlagEnableConsoleExpControls
 	then require(Root.Parent.Parent.TopBar.Components.MenuIconContext)
 	else nil :: never
 
@@ -432,10 +429,7 @@ function TooltipButton(props: TooltipButtonProps)
 
 					-- If the window is already open, we don't want to toggle it again. Similarly, connection.current
 					-- becomes nil when we close the window, and we don't want to toggle it back on.
-					if
-						FFlagWindowFixes
-						and (ChromeService:isWindowOpen(props.integration.id) or not connection.current)
-					then
+					if ChromeService:isWindowOpen(props.integration.id) or not connection.current then
 						return
 					end
 
@@ -480,18 +474,18 @@ function TooltipButton(props: TooltipButtonProps)
 	end
 	logTooltipState(props.integration.id, displayTooltip)
 
-	local menuIconContext = if FFlagTiltIconUnibarFocusNav then React.useContext(MenuIconContext) else nil :: never
+	local menuIconContext = if FFlagEnableConsoleExpControls then React.useContext(MenuIconContext) else nil :: never
 
 	local renderTooltipComponent = React.useCallback(function(triggerPointChanged)
 		local leftMostIconId
-		if FFlagTiltIconUnibarFocusNav then
+		if FFlagEnableConsoleExpControls then
 			leftMostIconId = ChromeService:menuList():get()[1].id
 		end
 
 		return React.createElement(
 			Interactable,
 			{
-				Name = (if FFlagTiltIconUnibarFocusNav then Constants.ICON_NAME_PREFIX :: string else "IconHitArea_")
+				Name = (if FFlagEnableConsoleExpControls then Constants.ICON_NAME_PREFIX :: string else "IconHitArea_")
 					.. props.integration.id,
 				Size = if FFlagAdaptUnibarAndTiltSizing or FFlagTokenizeUnibarConstantsWithStyleProvider
 					then iconHighlightSize
@@ -506,8 +500,18 @@ function TooltipButton(props: TooltipButtonProps)
 					else 100 - props.integration.order,
 				Position = props.isCurrentlyOpenSubMenu:map(function(activeSubmenu: boolean?)
 					return if FFlagAdaptUnibarAndTiltSizing
-						then UDim2.new(0.5, 0, 0.5, if not FFlagHamburgerCursorFix and activeSubmenu then 1 else 0)
-						else UDim2.new(0, 0, 0, if not FFlagHamburgerCursorFix and activeSubmenu then 1 else 0)
+						then UDim2.new(
+							0.5,
+							0,
+							0.5,
+							if not FFlagEnableConsoleExpControls and activeSubmenu then 1 else 0
+						)
+						else UDim2.new(
+							0,
+							0,
+							0,
+							if not FFlagEnableConsoleExpControls and activeSubmenu then 1 else 0
+						)
 				end),
 				SelectionImageObject = if FFlagAdaptUnibarAndTiltSizing
 					then useCursor(Foundation.Enums.CursorType.SkinToneCircle)
@@ -520,7 +524,8 @@ function TooltipButton(props: TooltipButtonProps)
 						then Enum.SelectionBehavior.Escape
 						else Enum.SelectionBehavior.Stop
 				end),
-				NextSelectionLeft = if FFlagTiltIconUnibarFocusNav and props.integration.id == leftMostIconId
+				NextSelectionLeft = if FFlagEnableConsoleExpControls
+						and props.integration.id == leftMostIconId
 					then menuIconContext.menuIconRef
 					else nil :: never,
 
@@ -563,7 +568,7 @@ function TooltipButton(props: TooltipButtonProps)
 		displayTooltip,
 		secondaryAction,
 		if isInExperienceUIVREnabled then shouldDisableInteraction else nil :: never,
-		if FFlagTiltIconUnibarFocusNav then menuIconContext.menuIconRef else nil :: never,
+		if FFlagEnableConsoleExpControls then menuIconContext.menuIconRef else nil :: never,
 	})
 
 	-- tooltipRefHandler attached mouse events to the tooltip in order to keep it open while the mouse is over
@@ -718,7 +723,7 @@ function IconHost(props: IconHostProps)
 		BackgroundTransparency = 1,
 		Position = props.position,
 		Visible = props.visible,
-		ZIndex = if FFlagIconHostSetZIndexToDefault then nil else props.integration.order,
+		ZIndex = if FFlagEnableConsoleExpControls then nil else props.integration.order,
 	}, {
 
 		React.createElement("Frame", {

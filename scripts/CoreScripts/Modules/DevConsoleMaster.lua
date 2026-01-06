@@ -2,7 +2,6 @@
 local CoreGui = game:GetService("CoreGui")
 local StarterGui = game:GetService("StarterGui")
 local UserInputService = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
 local CorePackages = game:GetService("CorePackages")
 local Players = game:GetService("Players")
 
@@ -170,17 +169,6 @@ local platformConversion = {
 
 local function isAdminAsync()
 	return PlayerPermissionsModule.IsPlayerAdminAsync(Players.LocalPlayer)
-end
-
-local function isDeveloper()
-	if RunService:IsStudio() then
-		return true
-	end
-
-	if PlayerPermissionsModule.CanPlayerManagePlaceAsync(Players.LocalPlayer) then
-		return true
-	end
-	return false
 end
 
 function DevConsoleMaster.new()

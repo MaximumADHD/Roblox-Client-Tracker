@@ -95,7 +95,7 @@ local function ScrollingFrame(scrollingFrameProps: ScrollingFrameProps, ref: Rea
 				if props.controlState == ControlState.Default then 0 else nil
 			)
 		end
-	end, { props.scrollBarVisibility :: any, props.controlState })
+	end, { props.scrollBarVisibility, props.controlState } :: { unknown })
 
 	return React.createElement("ScrollingFrame", {
 		-- Scrolling props

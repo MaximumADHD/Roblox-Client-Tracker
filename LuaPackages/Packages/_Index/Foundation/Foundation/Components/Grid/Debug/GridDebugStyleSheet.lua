@@ -49,13 +49,13 @@ local function GridDebugStyleSheet(props: GridDebugStyleSheetProps, ref: React.R
 		end
 
 		return children
-	end, { breakpoint :: any, breakpointConfig, gridConfig })
+	end, { breakpoint, breakpointConfig, gridConfig } :: { unknown })
 
 	React.useLayoutEffect(function()
 		if sheet then
 			sheet:SetDerives({ styleSheet :: StyleSheet })
 		end
-	end, { sheet :: unknown, styleSheet })
+	end, { sheet, styleSheet } :: { unknown })
 
 	return React.createElement(React.Fragment, nil, {
 		GridDebugStyleSheet = React.createElement("StyleSheet", {

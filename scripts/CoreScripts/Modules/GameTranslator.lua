@@ -1,7 +1,6 @@
 --!nonstrict
 local LocalizationService = game:GetService("LocalizationService")
 local Players = game:GetService("Players")
-local CoreGui = game:GetService("CoreGui")
 
 local playerTranslator = nil
 local player = nil

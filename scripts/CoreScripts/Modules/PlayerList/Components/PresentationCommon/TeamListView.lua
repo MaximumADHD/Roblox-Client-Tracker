@@ -7,7 +7,6 @@ local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
 local useStyle = UIBlox.Core.Style.useStyle
@@ -15,7 +14,11 @@ local useStyle = UIBlox.Core.Style.useStyle
 local PlayerEntryContainer = require(PlayerList.Components.Container.PlayerEntryContainer)
 local TeamEntryContainer = require(PlayerList.Components.Container.TeamEntryContainer)
 
-local FFlagMoveNewPlayerListDividers = SharedFlags.FFlagMoveNewPlayerListDividers
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+local FFlagReplacePlayerIconRoduxWithSignal = SharedFlags.FFlagReplacePlayerIconRoduxWithSignal
+local PlayerIconInfoStorePackage = require(CorePackages.Workspace.Packages.PlayerIconInfoStore)
+local PlayerIconInfoStore = PlayerIconInfoStorePackage.PlayerIconInfoStore 
+type PlayerIconInfo = PlayerIconInfoStorePackage.PlayerIconInfo
 
 type TeamEntry = LeaderboardStore.TeamEntry
 type PlayerIconInfoProps = LeaderboardStore.PlayerIconInfoProps
@@ -23,7 +26,6 @@ type PlayerRelationshipProps = LeaderboardStore.PlayerRelationshipProps
 
 export type TeamListViewProps = {
 	-- Layout options
-	size: UDim2?,
 	entrySizeX: number,
 	layoutOrder: React.Binding<number>?,
 	showTeamEntry: boolean,
@@ -31,7 +33,7 @@ export type TeamListViewProps = {
 	-- Store data
 	teamData: TeamEntry,
 	teamPlayersCount: number,
-	playerIconInfos: { [number]: PlayerIconInfoProps },
+	playerIconInfos: { [number]: PlayerIconInfo },
 	playerRelationships: { [number]: PlayerRelationshipProps },
 
 	-- Dropdown data
@@ -51,8 +53,6 @@ local function TeamListView(props: TeamListViewProps)
 	local layoutValues = useLayoutValues()
 	local style = useStyle()
 
-	local size = if props.size then props.size else UDim2.new(1, 0, 0, layoutValues.TeamEntrySizeY)
-
 	local childElements: { [string]: React.ReactNode } = {}
 
 	childElements.UIListLayout = React.createElement("UIListLayout", {
@@ -65,7 +65,7 @@ local function TeamListView(props: TeamListViewProps)
 
 	if props.showTeamEntry then
 		childElements.TeamEntry = React.createElement(TeamEntryContainer, {
-			size = if FFlagMoveNewPlayerListDividers then UDim2.new(1, 0, 0, layoutValues.TeamEntrySizeY) else size,
+			size = UDim2.new(1, 0, 0, layoutValues.TeamEntrySizeY) ,
 			teamData = props.teamData,
 			entrySizeX = props.entrySizeX,
 			isSmallTouchDevice = props.isSmallTouchDevice,
@@ -75,29 +75,29 @@ local function TeamListView(props: TeamListViewProps)
 	end
 
 	if props.teamPlayersCount > 0 then
-		local addedPlayerEntriesCount
+		local addedPlayerEntriesCount = 0
 
-		if FFlagMoveNewPlayerListDividers then
-			addedPlayerEntriesCount = 0
-
-			if props.isSmallTouchDevice then
-				childElements.BottomDiv = React.createElement("Frame", {
-					Size = UDim2.new(1, 0, 0, 1),
-					Position = UDim2.new(0, 0, 0, 0),
-					AnchorPoint = Vector2.new(0, 0),
-					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-					BackgroundTransparency = 0.8,
-					LayoutOrder = props.teamPlayersCount * 2,
-				})
-			end
+		if props.isSmallTouchDevice then
+			childElements.BottomDiv = React.createElement("Frame", {
+				Size = UDim2.new(1, 0, 0, 1),
+				Position = UDim2.new(0, 0, 0, 0),
+				AnchorPoint = Vector2.new(0, 0),
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				BackgroundTransparency = 0.8,
+				LayoutOrder = props.teamPlayersCount * 2,
+			})
 		end
 
-		props.teamData.players.iterateData(function(player, playerId)
-			if FFlagMoveNewPlayerListDividers then
-				addedPlayerEntriesCount += 1
+		props.teamData.players.iterateData(function(player, playerId)	
+      addedPlayerEntriesCount += 1
+			local playerIconInfo
+			if FFlagReplacePlayerIconRoduxWithSignal then
+				local playerIconInfoGetter = PlayerIconInfoStore.getPlayerIconInfoReactive(player.UserId)
+				playerIconInfo = playerIconInfoGetter(false)
+			else
+				playerIconInfo = props.playerIconInfos[playerId]
 			end
 
-			local playerIconInfo = props.playerIconInfos[playerId]
 			local playerRelationship = props.playerRelationships[playerId]
 
 			-- TODO: Remove when playerIconInfo and playerRelationship data gets moved to leaderboard store (APPEXP-2963)
@@ -114,36 +114,33 @@ local function TeamListView(props: TeamListViewProps)
 				entrySizeX = props.entrySizeX,
 				playerIconInfo = playerIconInfo,
 				playerRelationship = playerRelationship,
-				teamData = if FFlagMoveNewPlayerListDividers then nil else props.teamData,
 				setDropDownPlayerDimensionY = props.setDropDownPlayerDimensionY,
 				firstPlayerRef = props.firstPlayerRef,
 				prevFocusedEntry = props.prevFocusedEntry,
 				destroyedFocusedPlayerId = props.destroyedFocusedPlayerId,
 			})
 
-			if FFlagMoveNewPlayerListDividers then
-				if props.isSmallTouchDevice then
-					childElements["TopDiv_" .. addedPlayerEntriesCount] = React.createElement("Frame", {
-						Size = UDim2.new(1, 0, 0, 1),
-						Position = UDim2.new(0, 0, 0, 0),
-						AnchorPoint = Vector2.new(0, 0),
-						BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-						BackgroundTransparency = 0.8,
-						LayoutOrder = (addedPlayerEntriesCount - 1) * 2,
-					})
-				end
+			if props.isSmallTouchDevice then
+				childElements["TopDiv_" .. addedPlayerEntriesCount] = React.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, 1),
+					Position = UDim2.new(0, 0, 0, 0),
+					AnchorPoint = Vector2.new(0, 0),
+					BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+					BackgroundTransparency = 0.8,
+					LayoutOrder = (addedPlayerEntriesCount - 1) * 2,
+				})
+			end
 
-				if addedPlayerEntriesCount < props.teamPlayersCount and not props.isSmallTouchDevice and not props.isDirectionalPreferred then
-					childElements["Divider_" .. addedPlayerEntriesCount] = React.createElement("Frame", {
-						Size = UDim2.new(1, 0, 0, 1),
-						Position = UDim2.new(0, 0, 1, 0),
-						AnchorPoint = Vector2.new(0, 1),
-						BackgroundTransparency = style.Theme.Divider.Transparency,
-						BackgroundColor3 = style.Theme.Divider.Color,
-						BorderSizePixel = 0,
-						LayoutOrder = addedPlayerEntriesCount * 2,
-					})
-				end
+			if addedPlayerEntriesCount < props.teamPlayersCount and not props.isSmallTouchDevice and not props.isDirectionalPreferred then
+				childElements["Divider_" .. addedPlayerEntriesCount] = React.createElement("Frame", {
+					Size = UDim2.new(1, 0, 0, 1),
+					Position = UDim2.new(0, 0, 1, 0),
+					AnchorPoint = Vector2.new(0, 1),
+					BackgroundTransparency = style.Theme.Divider.Transparency,
+					BackgroundColor3 = style.Theme.Divider.Color,
+					BorderSizePixel = 0,
+					LayoutOrder = addedPlayerEntriesCount * 2,
+				})
 			end
 		end, false)
 	end

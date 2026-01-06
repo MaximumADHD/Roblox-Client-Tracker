@@ -99,7 +99,7 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 			onCustomColorChanged,
 			isUpdatingFromHSV
 		),
-		{ onCustomColorChanged, setCurrentHue, setCurrentSaturation, setCurrentValue, setColor }
+		{ onCustomColorChanged, setCurrentHue, setCurrentSaturation, setCurrentValue, setColor } :: { unknown }
 	)
 
 	local onColorInputChanged = React.useCallback(
@@ -110,7 +110,7 @@ local function ColorPicker(colorPickerProps: ColorPickerProps)
 			setCurrentSaturation,
 			setCurrentValue
 		),
-		{ onCustomColorChanged, isUpdatingFromHSV :: any, setCurrentHue, setCurrentSaturation, setCurrentValue }
+		{ onCustomColorChanged, isUpdatingFromHSV, setCurrentHue, setCurrentSaturation, setCurrentValue } :: { unknown }
 	)
 
 	React.useEffect(function()

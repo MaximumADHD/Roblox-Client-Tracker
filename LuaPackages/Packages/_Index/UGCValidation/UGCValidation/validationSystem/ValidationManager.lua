@@ -26,13 +26,14 @@ local ValidationTestWrapper = require(root.validationSystem.ValidationTestWrappe
 local FetchAllDesiredData = require(root.validationSystem.dataFetchModules.FetchAllDesiredData)
 local getUploadCategory = require(root.util.getUploadCategory)
 local RecreateSceneFromEditables = require(root.util.RecreateSceneFromEditables)
-local AssetQualityService
+local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local HttpService = game:GetService("HttpService")
 local TelemetryService = game:GetService("TelemetryService")
+local RunService = game:GetService("RunService")
+local AssetQualityService = game:GetService("AssetQualityService")
+
 game:DefineFastInt("FullValidationTelemetryThrottleHundrethsPercent", 10000)
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
-local RunService = game:GetService("RunService")
-local QUALITY_FETCH_FAILURE_PLACEHOLDER = {}
 
 local telemetryConfig = {
 	eventName = "UgcFullValidationFinished",
@@ -40,7 +41,7 @@ local telemetryConfig = {
 		"EventIngest",
 	},
 	throttlingPercentage = game:GetFastInt("FullValidationTelemetryThrottleHundrethsPercent"),
-	lastUpdated = { 25, 10, 10 },
+	lastUpdated = { 25, 11, 18 },
 	description = [[Report result of ugc validation suite]],
 	links = "https://create.roblox.com/docs/art/validation-errors",
 }
@@ -49,10 +50,6 @@ local getFFlagDebugUGCValidationPrintNewStructureResults =
 	require(root.flags.getFFlagDebugUGCValidationPrintNewStructureResults)
 local getEngineFeatureEngineAssetQualityEngineService =
 	require(root.flags.getEngineFeatureEngineAssetQualityEngineService)
-
-if getEngineFeatureEngineAssetQualityEngineService() then
-	AssetQualityService = game:GetService("AssetQualityService" :: any)
-end
 
 local getFIntUGCValidationFetchQualityMaxRetry = require(root.flags.getFIntUGCValidationFetchQualityMaxRetry)
 
@@ -65,6 +62,11 @@ local consumersThatWantExtraYeild = {
 	InExpClient = true,
 	InExpServer = true,
 }
+
+local kAssetQualityFetchNA = "assetQualityFetchNA"
+local kAssetQualityFetchInProgress = "assetQualityFetchInProgress"
+local kAssetQualityFetchSuccess = "assetQualityFetchSuccess"
+local kAssetQualityFetchFailure = "assetQualityFetchFailure"
 
 local function initRunVariables(
 	uploadCategory: string,
@@ -79,12 +81,13 @@ local function initRunVariables(
 		assert(key == testEnum)
 		local validationModule: Types.PreloadedValidationModule = ValidationModuleLoader.getValidationModule(testEnum)
 		local categories = validationModule.categories
+		local runAsShadow = validationModule.shadowFlag() and not validationModule.fflag()
 
-		if validationModule.fflag() and table.find(categories, uploadCategory) then
+		if (runAsShadow or validationModule.fflag()) and table.find(categories, uploadCategory) then
 			local is_quality = false
-			for _, dataEnum in validationModule.required_data do
+			for _, dataEnum in validationModule.requiredData do
 				desiredData[dataEnum] = true
-				if not is_quality and dataEnum == ValidationEnums.SharedDataMember.qualityResults then
+				if not is_quality and dataEnum == ValidationEnums.SharedDataMember.aqsSummaryData then
 					desiredData[ValidationEnums.SharedDataMember.renderMeshesData] = true
 					desiredData[ValidationEnums.SharedDataMember.innerCagesData] = true
 					desiredData[ValidationEnums.SharedDataMember.outerCagesData] = true
@@ -95,7 +98,7 @@ local function initRunVariables(
 			end
 
 			local prevTests = {}
-			for _, v in validationModule.prereq_tests do
+			for _, v in validationModule.prereqTests do
 				prevTests[v] = true
 			end
 
@@ -104,6 +107,7 @@ local function initRunVariables(
 				prereqs = prevTests,
 				postreqs = {},
 				isQuality = is_quality,
+				isShadow = runAsShadow,
 			} :: Types.SingleValidationFileData
 		end
 	end
@@ -128,34 +132,47 @@ end
 
 local function fetchQualityResults(sharedData: Types.SharedData, qualityTests: { string })
 	if not getEngineFeatureEngineAssetQualityEngineService() or not AssetQualityService then
-		sharedData.qualityResults = QUALITY_FETCH_FAILURE_PLACEHOLDER
+		sharedData.aqsFetchMetrics.fetchStatus = kAssetQualityFetchFailure
+		sharedData.aqsFetchMetrics.fetchFailureReason = "Not enabled"
 		return
 	end
 
 	local gltfScene = RecreateSceneFromEditables.createModelForGltfExport(sharedData)
-	local success, _errors
-	for _iter = 1, 1 + getFIntUGCValidationFetchQualityMaxRetry() do
-		-- TODO: Log retry count
-		success, _errors = pcall(function()
-			local gltfString = (AssetQualityService :: any):generateAssetQualityGltfFromInstanceAsync(gltfScene)
-			sharedData.qualityResults = (AssetQualityService :: any):fetchAssetQualitySummaryFromGltfAsync(
-				gltfString,
-				qualityTests
-			)
-		end)
+	local success, errors, gltfString
+	success, errors = pcall(function()
+		gltfString = AssetQualityService:GenerateAssetQualityGltfFromInstanceAsync(gltfScene)
+	end)
 
-		if success then
-			break
+	if success then
+		for iter = 1, 1 + getFIntUGCValidationFetchQualityMaxRetry() do
+			-- TODO: Log retry count
+			success, errors = pcall(function()
+				sharedData.aqsFetchMetrics.fetchAttemptCount = iter
+				local startTime = os.clock()
+				local results = AssetQualityService:FetchAssetQualitySummaryFromGltfAsync(gltfString, qualityTests)
+				local deltaTime = 1000 * (os.clock() - startTime)
+				sharedData.aqsFetchMetrics.visualizationUrl = results.visualizationUrl
+				sharedData.aqsFetchMetrics.returnVersion = results.version
+				sharedData.aqsFetchMetrics.fetchTimeMs = deltaTime
+				sharedData.aqsSummaryData = results
+			end)
+
+			if success then
+				break
+			end
 		end
 	end
 
-	if not success then
-		-- TODO: Log fetch failure and reason
+	if success then
+		sharedData.aqsFetchMetrics.fetchStatus = kAssetQualityFetchSuccess
+	else
+		sharedData.aqsFetchMetrics.fetchStatus = kAssetQualityFetchFailure
+		sharedData.aqsFetchMetrics.fetchFailureReason = errors
 		if getFFlagDebugUGCValidationPrintNewStructureResults() then
-			print("Storing quality placeholder due to", _errors)
+			print("Logged AQS fetch failure:", errors)
 		end
-		sharedData.qualityResults = QUALITY_FETCH_FAILURE_PLACEHOLDER
 	end
+
 	gltfScene:Destroy()
 end
 
@@ -175,10 +192,11 @@ local function getNextLayer(
 end
 
 local function reportFullResult(results: Types.ValidationResultData, sharedData: Types.SharedData, duration: number)
+	local containsAQData = sharedData.aqsFetchMetrics.fetchStatus ~= kAssetQualityFetchNA
 	local telemetryResult = {
 		validationJobId = sharedData.jobId,
-		bundleJobId = sharedData.consumerConfig.telemetry_bundle_id,
-		rootInstanceId = sharedData.consumerConfig.telemetry_root_id,
+		bundleJobId = sharedData.consumerConfig.telemetryBundleId,
+		rootInstanceId = sharedData.consumerConfig.telemetryRootId,
 		studioSid = RbxAnalyticsService:GetSessionId(),
 		clientId = RbxAnalyticsService:GetClientId(),
 		placeId = game.PlaceId,
@@ -189,6 +207,10 @@ local function reportFullResult(results: Types.ValidationResultData, sharedData:
 		passed = results.pass,
 		durationMs = duration,
 		uploadCategory = sharedData.uploadCategory,
+		aqFetchStatus = sharedData.aqsFetchMetrics.fetchStatus,
+		aqFetchAttemptCount = containsAQData and sharedData.aqsFetchMetrics.fetchAttemptCount or 0,
+		aqFetchTimeMs = containsAQData and sharedData.aqsFetchMetrics.fetchTimeMs or 0,
+		aqFetchFailureReason = containsAQData and sharedData.aqsFetchMetrics.fetchFailureReason or "",
 	}
 
 	TelemetryService:LogEvent(telemetryConfig, { customFields = telemetryResult })
@@ -198,8 +220,72 @@ local function reportFullResult(results: Types.ValidationResultData, sharedData:
 	end
 end
 
+local function updateResultData(
+	currentResults: Types.ValidationResultData,
+	desiredValidations: { [string]: Types.SingleValidationFileData },
+	newResult: Types.SingleValidationResult,
+	jobId: string,
+	enforceShadowValidations: boolean
+)
+	local validationEnum = newResult.validationEnum
+	if enforceShadowValidations or not desiredValidations[validationEnum].isShadow then
+		currentResults.states[validationEnum] = newResult.status
+		currentResults.internalData[validationEnum] = newResult.internalData
+		if #newResult.errorTranslationContexts > 0 then
+			table.move(
+				newResult.errorTranslationContexts,
+				1,
+				#newResult.errorTranslationContexts,
+				#currentResults.errorTranslationContexts + 1,
+				currentResults.errorTranslationContexts
+			)
+		end
+
+		if newResult.status ~= ValidationEnums.Status.PASS then
+			currentResults.pass = false
+			currentResults.numFailures += 1
+
+			if newResult.status == ValidationEnums.Status.ERROR and not currentResults.ranIntoInternalError then
+				currentResults.ranIntoInternalError = true
+				table.insert(currentResults.errorTranslationContexts, {
+					key = ErrorSourceStrings.Keys.InternalError,
+					params = {
+						ValidationJobId = jobId,
+					},
+				})
+			end
+		end
+	end
+
+	for _, nextTest in desiredValidations[validationEnum].postreqs do
+		desiredValidations[nextTest].prereqs[validationEnum] = nil
+	end
+
+	desiredValidations[validationEnum] = nil
+end
+
+local function createConsumerConfigWithDefaults(
+	configs: Types.UGCValidationConsumerConfigs
+): Types.PreloadedConsumerConfigs
+	local newConfigs: any = table.clone(configs)
+
+	if newConfigs.enforceR15FolderStructure == nil then
+		newConfigs.enforceR15FolderStructure = true
+	end
+	if newConfigs.enforceShadowValidations == nil then
+		newConfigs.enforceShadowValidations = false
+	end
+
+	newConfigs.telemetryBundleId = newConfigs.telemetryBundleId or ""
+	newConfigs.telemetryRootId = newConfigs.telemetryRootId or ""
+	newConfigs.preloadedEditableMeshes = newConfigs.preloadedEditableMeshes or {}
+	newConfigs.preloadedEditableImages = newConfigs.telemetryRootId or {}
+
+	return newConfigs :: Types.PreloadedConsumerConfigs
+end
+
 local function runValidationOnRootInstance(sharedData: Types.SharedData): Types.ValidationResultData
-	local startTime = tick()
+	local startTime = os.clock()
 	local instance, assetTypeEnum, bundleTypeEnum, configs =
 		sharedData.rootInstance,
 		sharedData.uploadEnum.assetType,
@@ -212,6 +298,7 @@ local function runValidationOnRootInstance(sharedData: Types.SharedData): Types.
 		states = {},
 		errorTranslationContexts = {},
 		internalData = {},
+		ranIntoInternalError = false,
 	} :: Types.ValidationResultData
 
 	-- Step 1, 2: get upload category then the required data tables
@@ -219,81 +306,65 @@ local function runValidationOnRootInstance(sharedData: Types.SharedData): Types.
 	local qualityTests: { string }, desiredValidations: { [string]: Types.SingleValidationFileData }, desiredData: { [string]: boolean } =
 		initRunVariables(uploadCategory, configs)
 	sharedData.uploadCategory = uploadCategory
+	sharedData.aqsFetchMetrics = {
+		fetchStatus = kAssetQualityFetchNA,
+	}
 
-	-- Step 3: Run schema check based on upload category
-	local function runSingleValidation(testEnum)
-		local validationFD: Types.SingleValidationFileData = desiredValidations[testEnum]
-		local singleResult: Types.SingleValidationResult = ValidationTestWrapper(testEnum, sharedData, results.states)
-
-		results.states[testEnum] = singleResult.status
-		if #singleResult.errorTranslationContexts > 0 then
-			table.move(
-				singleResult.errorTranslationContexts,
-				1,
-				#singleResult.errorTranslationContexts,
-				#results["errorTranslationContexts"] + 1,
-				results["errorTranslationContexts"]
-			)
-		end
-
-		results.internalData[testEnum] = singleResult.internalData
-		if singleResult.status ~= ValidationEnums.Status.PASS then
-			results.pass = false
-			results.numFailures += 1
-		end
-
-		for _, nextTest in validationFD.postreqs do
-			desiredValidations[nextTest].prereqs[testEnum] = nil
-		end
-
-		desiredValidations[testEnum] = nil
-	end
-
-	runSingleValidation(ValidationEnums.ValidationModule.ExpectedRootSchema)
+	-- Step 3: Run schema check based on upload category. If schema is wrong, no point in any validations
+	local schemaResults =
+		ValidationTestWrapper(ValidationEnums.ValidationModule.ExpectedRootSchema, sharedData, results.states)
+	updateResultData(results, desiredValidations, schemaResults, sharedData.jobId, configs.enforceShadowValidations)
 	if results.states[ValidationEnums.ValidationModule.ExpectedRootSchema] ~= ValidationEnums.Status.PASS then
 		reportFullResult(results, sharedData, -1)
 		return results
 	end
 
-	-- Step 4: Fetch data
+	-- Step 4: Fetch data and call AQS if needed
 	FetchAllDesiredData.storeDesiredData(sharedData, desiredData)
-	local _qualityFetchCoroutine
-	if #qualityTests > 0 and not consumersThatCannotYield[configs.source] then
-		-- if we are allowed to spawn up threads, lets start fetching quality from the start
-		-- TODO: Check if RCCService is okay with this, if so we can remove the consumer check.
-		_qualityFetchCoroutine = task.spawn(fetchQualityResults, sharedData, qualityTests)
+	if #qualityTests > 0 then
+		-- if we are allowed to spawn up threads, we can do the fetching async and yeild later when all validations are finished
+		-- TODO: Play around with rccservice to do async as well
+		sharedData.aqsFetchMetrics.fetchStatus = kAssetQualityFetchInProgress
+		if consumersThatCannotYield[configs.source] then
+			RunService:Run() -- Give rcc scripts a heartbeat so we can call delay() in cpp util
+			fetchQualityResults(sharedData, qualityTests)
+			RunService:Pause()
+		else
+			task.spawn(fetchQualityResults, sharedData, qualityTests)
+		end
 	end
 
-	-- Step 5: Run all tests.
+	-- Step 5: Run all tests. If a prepreq fails, the wrapper will say it cannot start
 	while next(desiredValidations) ~= nil do
-		-- TODO: Add single failure when quality results are needed but not fetched
-		local qualityReturned = sharedData.qualityResults ~= nil
-		local layerTests: { string } = getNextLayer(desiredValidations, qualityReturned)
+		local qualityInProgress = sharedData.aqsFetchMetrics.fetchStatus == kAssetQualityFetchInProgress
+		local layerTests: { string } = getNextLayer(desiredValidations, not qualityInProgress)
 
-		if #layerTests == 0 and (qualityReturned or #qualityTests == 0) then
+		if #layerTests == 0 and not qualityInProgress then
+			-- This should never happen. Can happen if we have cycle dependencies. TODO: Add a GHA to check for this in new validations.
 			error("Impossible to complete all layers")
 		end
 
 		for _, testEnum in layerTests do
-			runSingleValidation(testEnum)
+			local validationResult = ValidationTestWrapper(testEnum, sharedData, results.states)
+			updateResultData(
+				results,
+				desiredValidations,
+				validationResult,
+				sharedData.jobId,
+				configs.enforceShadowValidations
+			)
 			if consumersThatWantExtraYeild[configs.source] then
 				task.wait()
 			end
 		end
 
-		if not consumersThatCannotYield[configs.source] then
+		if qualityInProgress and not consumersThatCannotYield[configs.source] then
+			-- Avoid empty loop when waiting on quality results
 			task.wait()
-		end
-
-		if #layerTests == 0 and #qualityTests > 0 and consumersThatCannotYield[configs.source] then
-			-- We are waiting on quality, but never started the thread for it
-			RunService:Run() -- Give rcc scripts a heartbeat so we can call delay() in cpp util
-			fetchQualityResults(sharedData, qualityTests)
-			RunService:Pause()
 		end
 	end
 
-	reportFullResult(results, sharedData, tick() - startTime)
+	reportFullResult(results, sharedData, 1000 * (os.clock() - startTime))
 	return results
 end
 
@@ -330,7 +401,7 @@ function ValidationManager.ValidateAsset(
 		uploadEnum = {
 			assetType = assetTypeEnum,
 		},
-		consumerConfig = configs,
+		consumerConfig = createConsumerConfigWithDefaults(configs),
 	}
 
 	return runValidationOnRootInstance(sharedData)
@@ -367,7 +438,7 @@ function ValidationManager.ValidateFinalizedBundle(
 		uploadEnum = {
 			bundleType = bundleTypeEnum,
 		},
-		consumerConfig = configs,
+		consumerConfig = createConsumerConfigWithDefaults(configs),
 	}
 
 	return runValidationOnRootInstance(sharedData)

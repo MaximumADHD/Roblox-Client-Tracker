@@ -1,5 +1,5 @@
-game:DefineFastFlag("UGCValidationCombineEntrypointResults2", false)
+game:DefineFastFlag("UGCValidationCombineEntrypointResults4", false)
 
 return function()
-	return game:GetFastFlag("UGCValidationCombineEntrypointResults2")
+	return game:GetFastFlag("UGCValidationCombineEntrypointResults4")
 end

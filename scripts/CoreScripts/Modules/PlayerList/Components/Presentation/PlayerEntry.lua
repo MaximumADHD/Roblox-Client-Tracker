@@ -15,6 +15,9 @@ local InExperienceCapabilities =
 local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
 local withStyle = UIBlox.Style.withStyle
 
+local PlayerIconInfoStorePackage = require(CorePackages.Workspace.Packages.PlayerIconInfoStore)
+local PlayerIconInfoStore = PlayerIconInfoStorePackage.PlayerIconInfoStore
+
 local Components = script.Parent.Parent
 local Connection = Components.Connection
 local LayoutValues = require(Connection.LayoutValues)
@@ -36,6 +39,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local playerInterface = require(RobloxGui.Modules.Interfaces.playerInterface)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 local GetFFlagGateLeaderboardPlayerDropdownViaGUAC = require(SharedFlags).GetFFlagGateLeaderboardPlayerDropdownViaGUAC
+local FFlagReplacePlayerIconRoduxWithSignal = require(SharedFlags).FFlagReplacePlayerIconRoduxWithSignal
 
 local validatePropsWithForwardRef = require(CorePackages.Workspace.Packages.RoactUtils).validatePropsWithForwardRef
 
@@ -200,6 +204,12 @@ function PlayerEntry:getOverlayStyle(layoutValues, style)
 		Color = Color3.new(1, 1, 1),
 	}
 end
+if FFlagReplacePlayerIconRoduxWithSignal then
+	function PlayerEntry:getPlayerIconInfo()
+		local playerIconInfoGetter = PlayerIconInfoStore.getPlayerIconInfoReactive(self.props.player.UserId)
+		return playerIconInfoGetter(false)
+	end
+end
 
 function PlayerEntry:getTextStyle(layoutValues, style)
 	if layoutValues.IsTenFoot then
@@ -324,7 +334,7 @@ function PlayerEntry:render()
 
 					PlayerIcon = Roact.createElement(PlayerIcon, {
 						player = self.props.player,
-						playerIconInfo = self.props.playerIconInfo,
+						playerIconInfo = if FFlagReplacePlayerIconRoduxWithSignal then self:getPlayerIconInfo() else self.props.playerIconInfo,
 						playerRelationship = self.props.playerRelationship,
 						layoutOrder = 1,
 					}),

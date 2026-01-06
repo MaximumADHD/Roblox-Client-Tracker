@@ -10,8 +10,6 @@ local Roact = InGameMenuDependencies.Roact
 local RoactRodux = InGameMenuDependencies.RoactRodux
 local UIBlox = InGameMenuDependencies.UIBlox
 
-local GetFFlagEnableUISoundAndHaptics =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableUISoundAndHaptics
 local InteractionFeedbackPackage = require(CorePackages.Workspace.Packages.InteractionFeedback)
 local FeedbackManagerInjectionContextProvider = InteractionFeedbackPackage.FeedbackManagerInjectionContextProvider
 local AppInteractionFeedbackProvider =
@@ -115,13 +113,11 @@ return {
 			}),
 		})
 
-		if GetFFlagEnableUISoundAndHaptics() then
-			themeProvider = Roact.createElement(AppInteractionFeedbackProvider, {}, {
-				tree = Roact.createElement(FeedbackManagerInjectionContextProvider, nil, {
-					tree = themeProvider,
-				}),
-			})
-		end
+		themeProvider = Roact.createElement(AppInteractionFeedbackProvider, {}, {
+			tree = Roact.createElement(FeedbackManagerInjectionContextProvider, nil, {
+				tree = themeProvider,
+			}),
+		})
 
 		local _menuTree = Roact.createElement("ScreenGui", {
 			ResetOnSpawn = false,

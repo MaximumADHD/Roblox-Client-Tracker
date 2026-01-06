@@ -3,11 +3,6 @@ local App = Bar.Parent
 local UIBlox = App.Parent
 local Packages = UIBlox.Parent
 
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
-if not UIBloxConfig.useNewHeaderBar then
-	return require(Bar.HeaderBar_DEPRECATED)
-end
-
 local React = require(Packages.React)
 local Cryo = require(Packages.Cryo)
 
@@ -166,24 +161,13 @@ local function useRenderLeft(props: Props, style: StyleTypes.AppStyle)
 					}),
 				})
 				return React.createElement(React.Fragment, nil, {
-					Text = if UIBloxConfig.fixHeaderBarTitleFlickering
-						then React.createElement(GenericTextLabel, {
-							fluidSizing = true,
-							Text = title,
-							TextXAlignment = Enum.TextXAlignment.Left,
-							fontStyle = tokens.Semantic.Typography.Title,
-							colorStyle = tokens.Semantic.Color.Text.Emphasis,
-						}, textChildren)
-						else React.createElement("TextLabel", {
-							AutomaticSize = Enum.AutomaticSize.XY,
-							BackgroundTransparency = 1,
-							Text = title,
-							Font = tokens.Semantic.Typography.Title.Font,
-							TextSize = tokens.Semantic.Typography.Title.FontSize,
-							LineHeight = tokens.Semantic.Typography.Title.LineHeight,
-							TextColor3 = tokens.Semantic.Color.Text.Emphasis.Color3,
-							TextTransparency = tokens.Semantic.Color.Text.Emphasis.Transparency,
-						}, textChildren),
+					Text = React.createElement(GenericTextLabel, {
+						fluidSizing = true,
+						Text = title,
+						TextXAlignment = Enum.TextXAlignment.Left,
+						fontStyle = tokens.Semantic.Typography.Title,
+						colorStyle = tokens.Semantic.Color.Text.Emphasis,
+					}, textChildren),
 				})
 			end
 
@@ -319,38 +303,33 @@ local function HeaderBar(providedProps: Props)
 
 	local barRenderLeft = useRenderLeft(props, style)
 
-	local barRenderCenter = React.useMemo(
-		function()
-			local renderFun: (() -> React.ReactElement?)? = renderCenter
-			-- Render title in the center section if center renderer is empty and
-			-- title is centered
-			if not renderFun and not isRoot and not isSecondary and isTitleCentered then
-				local centerTextFontStyle = tokens.Semantic.Typography.Header
-				local centerTextSize = centerTextFontStyle.FontSize
-				renderFun = function()
-					return React.createElement(GenericTextLabel, {
-						Selectable = false,
-						ClipsDescendants = true,
-						Size = UDim2.new(1, 0, 0, centerTextSize),
-						Text = title,
-						TextTruncate = Enum.TextTruncate.AtEnd,
-						TextWrapped = false,
-						fontStyle = centerTextFontStyle,
-						colorStyle = tokens.Semantic.Color.Text.Emphasis,
-					}, {
-						TextPadding = React.createElement("UIPadding", {
-							PaddingTop = UDim.new(0, tokens.Global.Space_25),
-							PaddingBottom = UDim.new(0, tokens.Global.Space_25),
-						}),
-					})
-				end
+	local barRenderCenter = React.useMemo(function()
+		local renderFun: (() -> React.ReactElement?)? = renderCenter
+		-- Render title in the center section if center renderer is empty and
+		-- title is centered
+		if not renderFun and not isRoot and not isSecondary and isTitleCentered then
+			local centerTextFontStyle = tokens.Semantic.Typography.Header
+			local centerTextSize = centerTextFontStyle.FontSize
+			renderFun = function()
+				return React.createElement(GenericTextLabel, {
+					Selectable = false,
+					ClipsDescendants = true,
+					Size = UDim2.new(1, 0, 0, centerTextSize),
+					Text = title,
+					TextTruncate = Enum.TextTruncate.AtEnd,
+					TextWrapped = false,
+					fontStyle = centerTextFontStyle,
+					colorStyle = tokens.Semantic.Color.Text.Emphasis,
+				}, {
+					TextPadding = React.createElement("UIPadding", {
+						PaddingTop = UDim.new(0, tokens.Global.Space_25),
+						PaddingBottom = UDim.new(0, tokens.Global.Space_25),
+					}),
+				})
 			end
-			return renderFun
-		end,
-		if UIBloxConfig.fixHeaderBarDependenciesArray
-			then { renderCenter, isRoot, isSecondary, isTitleCentered, tokens, title } :: { any }
-			else { renderCenter, isRoot, isSecondary, isTitleCentered, tokens } :: { any }
-	)
+		end
+		return renderFun
+	end, { renderCenter, isRoot, isSecondary, isTitleCentered, tokens, title } :: { any })
 
 	local estimatedCenterWidth = React.useMemo(function()
 		-- Make center fixed-width components in the center, e.g search bar

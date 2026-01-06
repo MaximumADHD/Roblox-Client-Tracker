@@ -7,10 +7,6 @@ local ChromeEnabled = require(Chrome.Enabled)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
-local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
-local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
-local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
-local FFlagMenuIconRemoveBinding = SharedFlags.FFlagMenuIconRemoveBinding
 local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
@@ -34,7 +30,7 @@ return FFlagTopBarRefactor
     -- Rodux Deprecation
     and FFlagTopBarSignalizeKeepOutAreas and FFlagTopBarSignalizeMenuOpen and FFlagTopBarSignalizeScreenSize
     -- Console Controls
-    and FFlagEnableConsoleExpControls and FFlagTiltIconUnibarFocusNav and FFlagHideTopBarConsole and FFlagMenuIconRemoveBinding
+    and FFlagEnableConsoleExpControls
     -- TopBar Fixes
     and FFlagTopBarStyleUseDisplayUIScale and FFlagAdaptUnibarAndTiltSizing and FFlagUnibarMenuIconLayoutFix
     -- TopBar Features

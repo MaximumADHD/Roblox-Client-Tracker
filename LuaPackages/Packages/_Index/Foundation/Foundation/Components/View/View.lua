@@ -3,7 +3,6 @@ local Packages = Foundation.Parent
 local Flags = require(Foundation.Utility.Flags)
 
 local React = require(Packages.React)
-local Cryo = require(Packages.Cryo)
 local Dash = require(Packages.Dash)
 
 local Logger = require(Foundation.Utility.Logger)
@@ -105,9 +104,7 @@ local function View(viewProps: ViewProps, ref: React.Ref<GuiObject>?)
 		cursor = props.cursor,
 	}
 	local componentProps = if isInteractable
-		then if Flags.FoundationMigrateCryoToDash
-			then Dash.union(engineComponentProps, viewComponentProps)
-			else Cryo.Dictionary.union(engineComponentProps, viewComponentProps)
+		then Dash.union(engineComponentProps, viewComponentProps)
 		else engineComponentProps
 
 	return React.createElement(component, componentProps, GuiObjectChildren(props))

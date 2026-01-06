@@ -116,7 +116,7 @@ local function TokenSubsection(props: {
 }): React.ReactNode
 	local filteredTokens = React.useMemo(function()
 		return filterAndSortTokens(props.tokens, props.searchText, props.category)
-	end, { props.tokens :: unknown, props.searchText })
+	end, { props.tokens, props.searchText } :: { unknown })
 
 	if #filteredTokens == 0 then
 		return nil
@@ -212,7 +212,7 @@ local function TokenSection(props: {
 		-- Flat tokens (original behavior)
 		local filteredTokens = React.useMemo(function()
 			return filterAndSortTokens(props.tokens, props.searchText, props.category)
-		end, { props.tokens :: unknown, props.searchText })
+		end, { props.tokens, props.searchText } :: { unknown })
 
 		if #filteredTokens == 0 then
 			return nil

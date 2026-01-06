@@ -1,10 +1,17 @@
 --!nonstrict
+--!nolint LocalUnused
 local Players = game:GetService("Players")
 local VRService = game:GetService("VRService")
 local CorePackages = game:GetService("CorePackages")
 
-local IsExperienceMenuABTestEnabled = require(script.Parent.IsExperienceMenuABTestEnabled)
-local ExperienceMenuABTestManager = require(script.Parent.ExperienceMenuABTestManager)
+local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
+
+local FFlagRemoveExperienceMenuABTestManager = SharedFlags.FFlagRemoveExperienceMenuABTestManager
+local IsExperienceMenuABTestEnabled, ExperienceMenuABTestManager
+if not FFlagRemoveExperienceMenuABTestManager then
+	IsExperienceMenuABTestEnabled = require(script.Parent.IsExperienceMenuABTestEnabled)
+	ExperienceMenuABTestManager = require(script.Parent.ExperienceMenuABTestManager)
+end
 
 game:DefineFastInt("NewInGameMenuPercentRollout3", 0)
 game:DefineFastString("NewInGameMenuForcedUserIds", "")
@@ -13,7 +20,7 @@ game:DefineFastFlag("NewInGameMenuDisabledInVR", false)
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local isSubjectToDesktopPolicies = require(CorePackages.Workspace.Packages.SharedFlags).isSubjectToDesktopPolicies
+local isSubjectToDesktopPolicies = SharedFlags.isSubjectToDesktopPolicies
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 
@@ -40,8 +47,10 @@ return function()
 		end
 	end
 
-	if IsExperienceMenuABTestEnabled() and ExperienceMenuABTestManager.default:isV3MenuEnabled() then
-		return true
+	if not FFlagRemoveExperienceMenuABTestManager then
+		if IsExperienceMenuABTestEnabled() and ExperienceMenuABTestManager.default:isV3MenuEnabled() then
+			return true
+		end
 	end
 
 	local rolloutPercent = game:GetFastInt("NewInGameMenuPercentRollout3")

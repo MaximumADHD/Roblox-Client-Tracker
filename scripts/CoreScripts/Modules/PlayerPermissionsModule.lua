@@ -1,3 +1,4 @@
+--!nolint LocalUnused
 --!nonstrict
 local PlayerPermissionsModule = {}
 

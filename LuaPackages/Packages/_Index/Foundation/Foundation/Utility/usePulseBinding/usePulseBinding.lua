@@ -22,7 +22,7 @@ local function usePulseBinding(cycleTime: number?, pulseRange: NumberRange?)
 		return clock:map(function(value: number)
 			return math.map(math.sin(value * math.pi / period) ^ 2, 0, 1, range.Min, range.Max)
 		end)
-	end, { cycleTime :: unknown, pulseRange })
+	end, { cycleTime, pulseRange } :: { unknown })
 end
 
 return usePulseBinding

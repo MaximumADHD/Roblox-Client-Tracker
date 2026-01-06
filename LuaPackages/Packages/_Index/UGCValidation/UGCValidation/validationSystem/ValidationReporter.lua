@@ -38,7 +38,7 @@ function ValidationReporter:fail(
 	end
 end
 
-function ValidationReporter:_err(logMessage: string)
+function ValidationReporter:err(logMessage: string)
 	if getFFlagDebugUGCValidationPrintNewStructureResults() then
 		print("Reporting:", self._testEnum, "has error:", logMessage)
 	end
@@ -48,13 +48,14 @@ function ValidationReporter:_err(logMessage: string)
 	self._telemetryContext = logMessage
 end
 
-function ValidationReporter:_complete(): Types.SingleValidationResult
+function ValidationReporter:complete(): Types.SingleValidationResult
 	local duration = tick() - self._startTime
 	if getFFlagDebugUGCValidationPrintNewStructureResults() then
 		print("Reporting:", self._testEnum, "has status", self._status, "in", duration)
 	end
 
 	return {
+		validationEnum = self._testEnum,
 		status = self._status,
 		errorTranslationContexts = self._failureMessages,
 		internalData = self._internalData,

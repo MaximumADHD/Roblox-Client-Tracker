@@ -7,18 +7,10 @@ local React = require(CorePackages.Packages.React)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagDebugEnableUnibarDummyIntegrations = SharedFlags.GetFFlagDebugEnableUnibarDummyIntegrations
-local GetFFlagEnableChromePinIntegrations = SharedFlags.GetFFlagEnableChromePinIntegrations
-local GetFFlagUsePolishedAnimations = SharedFlags.GetFFlagUsePolishedAnimations
-local GetFFlagAnimateSubMenu = SharedFlags.GetFFlagAnimateSubMenu
 local GetFIntIconSelectionTimeout = SharedFlags.GetFIntIconSelectionTimeout
 local GetFFlagChromeCentralizedConfiguration = SharedFlags.GetFFlagChromeCentralizedConfiguration
-local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
-local GetFFlagChromeUsePreferredTransparency = SharedFlags.GetFFlagChromeUsePreferredTransparency
-local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
-local FFlagSubmenuFocusNavFixes = SharedFlags.FFlagSubmenuFocusNavFixes
-local FFlagChromeFixInitialFocusSubmenu = SharedFlags.FFlagChromeFixInitialFocusSubmenu
-local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
 local FFlagEnableInExperienceAvatarSwitcher = SharedFlags.FFlagEnableInExperienceAvatarSwitcher
@@ -32,7 +24,6 @@ local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTok
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local useStyle = UIBlox.Core.Style.useStyle
 local ChromeService = require(Root.Service)
-local ChromeAnalytics = require(Root.Analytics.ChromeAnalytics)
 local UnibarStyle = require(Root.Unibar.UnibarStyle)
 
 local _integrations = if GetFFlagChromeCentralizedConfiguration() then nil else require(Root.Parent.Integrations)
@@ -50,7 +41,6 @@ local ContainerHost = require(Root.Unibar.ComponentHosts.ContainerHost)
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
-local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
 local FFlagReduceTopBarInsetsWhileHidden = SharedFlags.FFlagReduceTopBarInsetsWhileHidden
 
 local CoreGuiCommonStores = require(CorePackages.Workspace.Packages.CoreGuiCommon).Stores
@@ -62,7 +52,7 @@ local PartyConstants = require(Root.Parent.Integrations.Party.Constants)
 local isConnectUnibarEnabled = require(Root.Parent.Integrations.Connect.isConnectUnibarEnabled)
 local isConnectDropdownEnabled = require(Root.Parent.Integrations.Connect.isConnectDropdownEnabled)
 
-local GamepadConnector = if FFlagHideTopBarConsole
+local GamepadConnector = if FFlagEnableConsoleExpControls
 	then require(Root.Parent.Parent.TopBar.Components.GamepadConnector)
 	else nil
 local isInExperienceUIVREnabled =
@@ -96,12 +86,6 @@ if not GetFFlagChromeCentralizedConfiguration() then
 
 		if isConnectDropdownEnabled() then
 			table.insert(nineDot, 1, "connect_dropdown")
-		end
-
-		-- insert trust and safety into pin, prioritize over leaderboard
-		if GetFFlagEnableChromePinIntegrations() and not ChromeService:isUserPinned("trust_and_safety") then
-			ChromeService:setUserPin("trust_and_safety", true)
-			ChromeAnalytics.default:setPin("trust_and_safety", true, ChromeService:userPins())
 		end
 
 		local v4Ordering = { "toggle_mic_mute", "chat", "nine_dot" }
@@ -155,7 +139,7 @@ if not GetFFlagChromeCentralizedConfiguration() then
 
 	configureUnibar()
 
-	if FFlagEnableChromeShortcutBar then
+	if FFlagEnableConsoleExpControls then
 		-- initialize shortcuts
 		require(script.Parent.Parent.Shortcuts.ConfigureShortcuts)()
 	end
@@ -192,7 +176,7 @@ function IconDivider(props: IconDividerProps)
 			Size = Constants.ICON_DIVIDER_SIZE,
 			BorderSizePixel = 0,
 			BackgroundColor3 = style.Theme.Divider.Color,
-			BackgroundTransparency = if GetFFlagUsePolishedAnimations() and props.toggleTransition
+			BackgroundTransparency = if props.toggleTransition
 				then props.toggleTransition:map(function(value)
 					return style.Theme.Divider.Transparency + ((1 - value) * (1 - style.Theme.Divider.Transparency))
 				end)
@@ -216,9 +200,9 @@ function AnimationStateHelper(props)
 
 	React.useEffect(function()
 		if inFocusNav then
-			if not FFlagEnableChromeShortcutBar then
+			if not FFlagEnableConsoleExpControls then
 				ContextActionService:BindCoreAction("RBXEscapeUnibar", function(actionName, userInputState, input)
-					if FFlagHideTopBarConsole then
+					if FFlagEnableConsoleExpControls then
 						if userInputState == Enum.UserInputState.End then
 							ChromeService:disableFocusNav()
 							GuiService.SelectedCoreObject = nil
@@ -229,14 +213,14 @@ function AnimationStateHelper(props)
 				end, false, Enum.KeyCode.ButtonB)
 			end
 
-			if FFlagTiltIconUnibarFocusNav or FFlagConsoleChatOnExpControls then
+			if FFlagEnableConsoleExpControls then
 				if props.menuFrameRef.current then
 					local selectedChild = getSelectedChild(props.menuFrameRef, selectedItem)
 					if selectedChild then
 						GuiService.SelectedCoreObject = selectedChild
 					else
 						if FFlagUnibarMenuOpenSubmenu then
-							if FFlagChromeFixInitialFocusSubmenu then
+							if FFlagEnableConsoleExpControls then
 								ChromeService:selectedItem():set("nine_dot")
 							end
 							ChromeService:toggleSubMenu("nine_dot")
@@ -274,47 +258,32 @@ function AnimationStateHelper(props)
 	end, { currentSubmenu })
 
 	React.useEffect(function()
-		if FFlagSubmenuFocusNavFixes and currentSubmenu == selectedItem then
+		if FFlagEnableConsoleExpControls and currentSubmenu == selectedItem then
 			return
 		end
 
-		if GetFFlagUsePolishedAnimations() then
-			local updateSelection = coroutine.create(function()
-				local counter = 0
-				-- React can sometimes take a few frames to update, so retry until successful
-				while counter < GetFIntIconSelectionTimeout() do
-					counter += 1
-					task.wait()
-					if props.menuFrameRef.current and selectedItem then
-						local selectChild: any?
-						if FFlagTiltIconUnibarFocusNav then
-							selectChild = getSelectedChild(props.menuFrameRef, selectedItem)
-						else
-							selectChild =
-								props.menuFrameRef.current:FindFirstChild("IconHitArea_" .. selectedItem, true)
-						end
-						if selectChild then
-							GuiService.SelectedCoreObject = selectChild
-							return
-						end
+		local updateSelection = coroutine.create(function()
+			local counter = 0
+			-- React can sometimes take a few frames to update, so retry until successful
+			while counter < GetFIntIconSelectionTimeout() do
+				counter += 1
+				task.wait()
+				if props.menuFrameRef.current and selectedItem then
+					local selectChild: any?
+					if FFlagEnableConsoleExpControls then
+						selectChild = getSelectedChild(props.menuFrameRef, selectedItem)
+					else
+						selectChild = props.menuFrameRef.current:FindFirstChild("IconHitArea_" .. selectedItem, true)
+					end
+					if selectChild then
+						GuiService.SelectedCoreObject = selectChild
+						return
 					end
 				end
-			end)
-			coroutine.resume(updateSelection)
-		else
-			if props.menuFrameRef.current and selectedItem then
-				local selectChild: any?
-				if FFlagTiltIconUnibarFocusNav then
-					selectChild = getSelectedChild(props.menuFrameRef, selectedItem)
-				else
-					selectChild = props.menuFrameRef.current:FindFirstChild("IconHitArea_" .. selectedItem, true)
-				end
-				if selectChild then
-					GuiService.SelectedCoreObject = selectChild
-				end
 			end
-		end
-	end, { selectedItem, if FFlagEnableChromeShortcutBar then currentSubmenu else nil })
+		end)
+		coroutine.resume(updateSelection)
+	end, { selectedItem, if FFlagEnableConsoleExpControls then currentSubmenu else nil })
 
 	return nil
 end
@@ -413,8 +382,6 @@ function Unibar(props: UnibarProp)
 	-- Tree of menu items to display
 	local menuItems = useChromeMenuItems()
 
-	-- Animation for menu open(toggleTransition = 1), closed(toggleTransition = 0) status
-	local toggleTransition, setToggleTransition = ReactOtter.useAnimatedBinding(1)
 	local toggleIconTransition, setToggleIconTransition = ReactOtter.useAnimatedBinding(1)
 	local toggleWidthTransition, setToggleWidthTransition = ReactOtter.useAnimatedBinding(1)
 	local unibarWidth, setUnibarWidth = ReactOtter.useAnimatedBinding(0)
@@ -482,12 +449,10 @@ function Unibar(props: UnibarProp)
 		end
 	end, {})
 
-	local unibarSizeBinding = React.joinBindings({
-		if GetFFlagUsePolishedAnimations() then toggleWidthTransition else toggleTransition,
-		unibarWidth,
-	}):map(function(val: { [number]: number })
-		return UDim2.new(0, linearInterpolation(minSize, val[2], val[1]), 0, iconCellWidth)
-	end)
+	local unibarSizeBinding = React.joinBindings({ toggleWidthTransition, unibarWidth })
+		:map(function(val: { [number]: number })
+			return UDim2.new(0, linearInterpolation(minSize, val[2], val[1]), 0, iconCellWidth)
+		end)
 
 	local leftAlign = useMappedObservableValue(ChromeService:orderAlignment(), isLeft)
 
@@ -513,7 +478,7 @@ function Unibar(props: UnibarProp)
 			currentOpenPositions[item.id] = xOffset
 			updatePositions = updatePositions or (prior ~= xOffset)
 			local positionBinding = IconPositionBinding(
-				if GetFFlagUsePolishedAnimations() then toggleIconTransition else toggleTransition,
+				toggleIconTransition,
 				prior,
 				xOffset,
 				closedPos,
@@ -542,7 +507,7 @@ function Unibar(props: UnibarProp)
 			children[item.id or ("icon" .. k)] = React.createElement(IconDivider, {
 				position = positionBinding,
 				visible = visibleBinding,
-				toggleTransition = if GetFFlagUsePolishedAnimations() then toggleWidthTransition else nil,
+				toggleTransition = toggleWidthTransition,
 			})
 			xOffset += Constants.DIVIDER_CELL_WIDTH
 		elseif item.integration then
@@ -557,7 +522,7 @@ function Unibar(props: UnibarProp)
 			currentOpenPositions[item.id] = xOffset
 			updatePositions = updatePositions or (prior ~= xOffset)
 			local positionBinding = IconPositionBinding(
-				if GetFFlagUsePolishedAnimations() then toggleIconTransition else toggleTransition,
+				toggleIconTransition,
 				prior,
 				xOffset,
 				closedPos,
@@ -709,7 +674,6 @@ function Unibar(props: UnibarProp)
 		},
 		{
 			React.createElement(AnimationStateHelper, {
-				setToggleTransition = setToggleTransition,
 				setToggleIconTransition = setToggleIconTransition,
 				setToggleWidthTransition = setToggleWidthTransition,
 				setToggleSubmenuTransition = setToggleSubmenuTransition,
@@ -721,9 +685,8 @@ function Unibar(props: UnibarProp)
 				Size = UDim2.new(1, 0, 1, 0),
 				BorderSizePixel = 0,
 				BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
-				BackgroundTransparency = if GetFFlagChromeUsePreferredTransparency()
-					then style.Theme.BackgroundUIContrast.Transparency * style.Settings.PreferredTransparency
-					else style.Theme.BackgroundUIContrast.Transparency,
+				BackgroundTransparency = style.Theme.BackgroundUIContrast.Transparency
+					* style.Settings.PreferredTransparency,
 			}, {
 				UICorner = React.createElement("UICorner", {
 					CornerRadius = UDim.new(1, 0),
@@ -867,7 +830,7 @@ local UnibarMenu = function(props: UnibarMenuProp)
 		menuSubmenuPadding = Constants.MENU_SUBMENU_PADDING
 	end
 	local menuFrame = React.useRef(nil)
-	if FFlagTiltIconUnibarFocusNav and props.menuRef then
+	if FFlagEnableConsoleExpControls and props.menuRef then
 		menuFrame = props.menuRef
 	end
 	local menuOutterFrame = React.useRef(nil)
@@ -890,7 +853,7 @@ local UnibarMenu = function(props: UnibarMenuProp)
 	local showUnibar, setShowUnibar
 	local showTopBarSignal
 
-	if FFlagHideTopBarConsole and GamepadConnector then
+	if FFlagEnableConsoleExpControls and GamepadConnector then
 		showUnibar, setShowUnibar = React.useBinding(GamepadConnector:getShowTopBar():get())
 		showTopBarSignal = GamepadConnector:getShowTopBar()
 	end
@@ -912,7 +875,7 @@ local UnibarMenu = function(props: UnibarMenuProp)
 
 		updateSize()
 
-		if FFlagHideTopBarConsole then
+		if FFlagEnableConsoleExpControls then
 			showTopBarSignal:connect(function()
 				setShowUnibar(showTopBarSignal:get())
 			end)
@@ -949,11 +912,11 @@ local UnibarMenu = function(props: UnibarMenuProp)
 			LayoutOrder = props.layoutOrder,
 			SelectionGroup = true,
 			SelectionBehaviorUp = Enum.SelectionBehavior.Stop,
-			SelectionBehaviorLeft = if FFlagTiltIconUnibarFocusNav then nil else Enum.SelectionBehavior.Stop,
+			SelectionBehaviorLeft = if FFlagEnableConsoleExpControls then nil else Enum.SelectionBehavior.Stop,
 			SelectionBehaviorRight = Enum.SelectionBehavior.Stop,
 			ref = menuOutterFrame,
-			[React.Event.SelectionChanged] = if FFlagTiltIconUnibarFocusNav then onUnibarSelectionChanged else nil,
-			Visible = if FFlagHideTopBarConsole
+			[React.Event.SelectionChanged] = if FFlagEnableConsoleExpControls then onUnibarSelectionChanged else nil,
+			Visible = if FFlagEnableConsoleExpControls
 					or (
 						FFlagAddUILessMode
 						and FIntAddUILessModeVariant ~= 0
@@ -984,18 +947,13 @@ local UnibarMenu = function(props: UnibarMenuProp)
 			if isInExperienceUIVREnabled
 				then React.createElement(SubMenuWrapper, { subMenuHostRef = subMenuHostRef }) :: any
 				else React.createElement(SubMenu, { subMenuHostRef = subMenuHostRef }) :: any,
-			if FFlagEnableChromeShortcutBar then React.createElement(ShortcutBar) else nil,
+			if FFlagEnableConsoleExpControls then React.createElement(ShortcutBar) else nil,
 			React.createElement(WindowManager) :: React.React_Element<any>,
 		}),
 	}
 end
 
 -- Unibar should never have to be rerendered
-return React.memo(
-	UnibarMenu :: any,
-	if GetFFlagAnimateSubMenu()
-		then function(_, _)
-			return true
-		end
-		else nil
-)
+return React.memo(UnibarMenu :: any, function(_, _)
+	return true
+end)

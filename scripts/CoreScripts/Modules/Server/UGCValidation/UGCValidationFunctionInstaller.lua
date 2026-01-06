@@ -87,8 +87,6 @@ local function UGCValidationFunction(args)
 		local valConfigs = {
 			source = (isServer and "InExpServer" or "InExpClient") :: any,
 			enforceR15FolderStructure = requireAllFolders or false,
-			telemetry_bundle_id = "", -- TODO: Send IDs from cpp for proper telemetry
-			telemetry_root_id = "",
 		}
 
 		local validationData

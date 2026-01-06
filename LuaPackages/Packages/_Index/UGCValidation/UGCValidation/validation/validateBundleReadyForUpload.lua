@@ -155,9 +155,9 @@ local function validateBundleReadyForUpload(
 	}
 
 	progressCallback(response)
-	local telemetry_bundle_id
+	local telemetryBundleId
 	if getFFlagUGCValidationEnableFolderStructure() then
-		telemetry_bundle_id = HttpService:GenerateGUID()
+		telemetryBundleId = HttpService:GenerateGUID()
 	end
 
 	-- Calling serially because the UGC validation service gets throttled fast.
@@ -198,7 +198,7 @@ local function validateBundleReadyForUpload(
 			if getFFlagUGCValidationEnableFolderStructure() then
 				success, problems = LegacyValidationAdapter.studioRFUAssetValidation(
 					validationContext,
-					telemetry_bundle_id,
+					telemetryBundleId,
 					success,
 					problems
 				)
@@ -284,7 +284,7 @@ local function validateBundleReadyForUpload(
 							fullBodyData,
 							Enum.BundleType.BodyParts,
 							validationContext,
-							telemetry_bundle_id,
+							telemetryBundleId,
 							success,
 							failures
 						)

@@ -98,13 +98,13 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 			-- When the width provided is UDim.new(1, 0) we have no min width, which is fine.
 			return if widthValue then widthValue.Offset else scaledMinWidth
 		end)
-	end, { width :: unknown, scaledMinWidth })
+	end, { width, scaledMinWidth } :: { unknown })
 
 	local autoSize = React.useMemo(function()
 		return width:map(function(widthValue: UDim?)
 			return not widthValue or (props.couldGrow and widthValue.Offset < scaledMaxWidth)
 		end)
-	end, { width :: unknown, scaledMaxWidth, props.couldGrow })
+	end, { width, scaledMaxWidth, props.couldGrow } :: { unknown })
 
 	local sizeConstraint = React.useMemo(function()
 		return {
@@ -117,7 +117,7 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 				return if autoSizeValue then Vector2.new(scaledMaxWidth, math.huge) else nil
 			end),
 		}
-	end, { autoSize :: unknown, minWidth, scaledMaxWidth })
+	end, { autoSize, minWidth, scaledMaxWidth } :: { unknown })
 
 	local isOverMaxHeight = React.useMemo(function()
 		return React.joinBindings({ canvasSize = canvasSize, maxHeight = maxHeight })

@@ -4,13 +4,11 @@ local Packages = Foundation.Parent
 local CoreGui = require(Foundation.Utility.Wrappers).Services.CoreGui
 local GuiService = require(Foundation.Utility.Wrappers).Services.GuiService
 
-local Cryo = require(Packages.Cryo)
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 local ReactUtils = require(Packages.ReactUtils)
 local useRefCache = ReactUtils.useRefCache
 local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
-local Flags = require(Foundation.Utility.Flags)
 
 local CursorContext = require(script.Parent.CursorContext)
 local CursorComponent = require(script.Parent.CursorComponent)
@@ -41,13 +39,9 @@ local function CursorProvider(props: Props)
 
 				setMountedCursors(function(mountedExisting)
 					if mountedExisting[key] == nil then
-						return if Flags.FoundationMigrateCryoToDash
-							then Dash.union(mountedExisting, {
-								[key] = true,
-							})
-							else Cryo.Dictionary.union(mountedExisting, {
-								[key] = true,
-							})
+						return Dash.union(mountedExisting, {
+							[key] = true,
+						})
 					end
 					return mountedExisting
 				end)
@@ -55,7 +49,7 @@ local function CursorProvider(props: Props)
 				return refCache[key]
 			end,
 		}
-	end, { refCache :: any, setMountedCursors, tokens })
+	end, { refCache, setMountedCursors, tokens } :: { unknown })
 
 	local renderCursors = function(): any
 		local cursors: { [string | CursorType]: React.ReactElement<any> } = {}

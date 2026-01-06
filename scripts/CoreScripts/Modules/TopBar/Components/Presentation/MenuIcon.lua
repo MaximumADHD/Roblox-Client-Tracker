@@ -6,17 +6,12 @@ local GamepadService = game:GetService("GamepadService")
 local ContextActionService = game:GetService("ContextActionService")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagTiltIconUnibarFocusNav = SharedFlags.FFlagTiltIconUnibarFocusNav
 local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
-local FFlagHideTopBarConsole = SharedFlags.FFlagHideTopBarConsole
-local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagReduceTopBarInsetsWhileHidden = SharedFlags.FFlagReduceTopBarInsetsWhileHidden
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
-local FFlagMenuIconRemoveBinding = SharedFlags.FFlagMenuIconRemoveBinding
-local FFlagChromeFixMenuIconBackButton = SharedFlags.FFlagChromeFixMenuIconBackButton
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
-local FFlagChromeEnabledRequireGamepadConnectorFix = SharedFlags.FFlagChromeEnabledRequireGamepadConnectorFix
 local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 local FFlagFixChromeConsoleNilRefs = SharedFlags.FFlagFixChromeConsoleNilRefs
 
@@ -37,8 +32,8 @@ local ChromeFocusUtils = require(CorePackages.Workspace.Packages.Chrome).FocusUt
 local ChromeEnabled = require(Chrome.Enabled)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
-local ChromeService = if ChromeEnabled() and (FFlagTiltIconUnibarFocusNav or FFlagEnableChromeShortcutBar or isInExperienceUIVREnabled) then require(Chrome.Service) else nil :: never
-local UnibarConstants = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then require(Chrome.ChromeShared.Unibar.Constants) else nil :: never
+local ChromeService = if ChromeEnabled() and (FFlagEnableConsoleExpControls or isInExperienceUIVREnabled) then require(Chrome.Service) else nil :: never
+local UnibarConstants = if ChromeEnabled() and FFlagEnableConsoleExpControls then require(Chrome.ChromeShared.Unibar.Constants) else nil :: never
 local TenFootInterface = require(RobloxGui.Modules.TenFootInterface)
 local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local InGameMenuConstants = require(RobloxGui.Modules.InGameMenuConstants)
@@ -59,9 +54,6 @@ local ExternalEventConnection = require(CorePackages.Workspace.Packages.RoactUti
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
-local FFlagEnableChromeBackwardsSignalAPI =
-	require(script.Parent.Parent.Parent.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
-local FFlagFixMenuIconBackground = game:DefineFastFlag("FixMenuIconBackground", false)
 local FFlagEnableReferralRewardTooltip = game:DefineFastFlag("EnableReferralRewardTooltip", false)
 local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMenuOpen
 local FFlagTopBarDeprecateDisplayOptionsRodux = require(script.Parent.Parent.Parent.Flags.FFlagTopBarDeprecateDisplayOptionsRodux)
@@ -72,7 +64,7 @@ local Constants = require(Components.Parent.Constants)
 local SetGamepadMenuOpen = require(Actions.SetGamepadMenuOpen)
 local SetKeepOutArea = require(Actions.SetKeepOutArea)
 local menuIconHoveredSignal = require(script.Parent.menuIconHoveredSignal)
-local GamepadConnector = if (not FFlagChromeEnabledRequireGamepadConnectorFix or ChromeEnabled()) then require(script.Parent.Parent.GamepadConnector) else nil :: never
+local GamepadConnector = if (not FFlagEnableConsoleExpControls or ChromeEnabled()) then require(script.Parent.Parent.GamepadConnector) else nil :: never
 
 local InGameMenu
 if isNewInGameMenuEnabled() then
@@ -128,8 +120,8 @@ MenuIcon.validateProps = t.strictInterface({
 	iconScale = if FFlagTopBarSignalizeMenuOpen then nil else t.optional(t.number),
 	onAreaChanged = t.optional(t.callback),
 	showBadgeOver12 = t.optional(t.boolean),
-	menuIconRef = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then t.optional(t.any) else nil :: never,
-	unibarMenuRef = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then t.optional(t.any) else nil :: never,
+	menuIconRef = if ChromeEnabled() and FFlagEnableConsoleExpControls then t.optional(t.any) else nil :: never,
+	unibarMenuRef = if ChromeEnabled() and FFlagEnableConsoleExpControls then t.optional(t.any) else nil :: never,
 	referralRewardTooltipText = t.optional(t.string),
 })
 
@@ -262,21 +254,18 @@ function MenuIcon:init()
 		end
 	end
 
-	if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then
+	if ChromeEnabled() and FFlagEnableConsoleExpControls then
 	self.onMenuIconSelectionChanged = function(MenuIcon: GuiObject, isMenuIconSelected: boolean, oldSelection: GuiObject, newSelection: GuiObject)
-			if FFlagMenuIconRemoveBinding then 
+			if FFlagEnableConsoleExpControls then 
 				if not (FFlagShowUnibarOnVirtualCursor and GamepadService.GamepadCursorEnabled) and newSelection and string.find(newSelection.Name, UnibarConstants.ICON_NAME_PREFIX :: string) then
 					ChromeService:enableFocusNav()
 				end
-				
-				if FFlagChromeFixMenuIconBackButton then
-					ChromeFocusUtils.MenuIconSelectedSignal:set(isMenuIconSelected)
-				end
+				ChromeFocusUtils.MenuIconSelectedSignal:set(isMenuIconSelected)
 			else
 				local UNFOCUS_TILT = "Unfocus_Tilt"
 				local function unfocusTilt(actionName, userInputState, input): Enum.ContextActionResult
-					if not FFlagEnableChromeShortcutBar and userInputState == Enum.UserInputState.End 
-						or FFlagEnableChromeShortcutBar and userInputState == Enum.UserInputState.Begin then
+					if not FFlagEnableConsoleExpControls and userInputState == Enum.UserInputState.End 
+						or FFlagEnableConsoleExpControls and userInputState == Enum.UserInputState.Begin then
 						GuiService.SelectedCoreObject = nil
 						return Enum.ContextActionResult.Sink
 					end
@@ -297,7 +286,7 @@ function MenuIcon:init()
 		end
 	end
 
-	if (if FFlagChromeEnabledRequireGamepadConnectorFix then ChromeEnabled() and GamepadConnector else ChromeEnabled) and FFlagHideTopBarConsole then 
+	if (if FFlagEnableConsoleExpControls then ChromeEnabled() and GamepadConnector else ChromeEnabled) and FFlagEnableConsoleExpControls then 
 		local showTopBarSignal = GamepadConnector:getShowTopBar()
 
 		self.showIcon, self.setShowIcon = Roact.createBinding(showTopBarSignal:get())
@@ -321,7 +310,7 @@ function MenuIcon:init()
 		end)
 	end
 
-	if ChromeEnabled() and FFlagEnableChromeShortcutBar then 
+	if ChromeEnabled() and FFlagEnableConsoleExpControls then 
 		ChromeService:onTriggerMenuIcon():connect(function() 
 			GuiService.SelectedCoreObject = self.props.menuIconRef:getValue()
 			ChromeFocusUtils.MenuIconSelectedSignal:set(true)
@@ -436,7 +425,7 @@ function MenuIcon:render()
 			if FFlagReduceTopBarInsetsWhileHidden then
 				self.priorAbsolutePosition = rbx.AbsolutePosition
 				self.priorAbsoluteSize = rbx.AbsoluteSize
-				if (not FFlagChromeEnabledRequireGamepadConnectorFix or ChromeEnabled()) and GamepadConnector:getShowTopBar():get() then 
+				if (not FFlagEnableConsoleExpControls or ChromeEnabled()) and GamepadConnector:getShowTopBar():get() then 
 					self.props.onAreaChanged(Constants.MenuIconKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
 				end 
 			elseif FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and self.uiLessStore.getUILessModeEnabled(false) then
@@ -515,7 +504,7 @@ function MenuIcon:render()
 			end
 
 			local IconHitArea
-			if ChromeEnabled() and FFlagTiltIconUnibarFocusNav and (not FFlagFixChromeConsoleNilRefs or self.props.unibarMenuRef and self.props.unibarMenuRef.current) then
+			if ChromeEnabled() and FFlagEnableConsoleExpControls and (not FFlagFixChromeConsoleNilRefs or self.props.unibarMenuRef and self.props.unibarMenuRef.current) then
 				local leftmostUnibarIcon = ChromeService:menuList():get()[1]
 				local leftmostUnibarIconId = if leftmostUnibarIcon then (UnibarConstants.ICON_NAME_PREFIX::string) .. leftmostUnibarIcon.id else nil
 				local nextSelectionRight = if self.props.unibarMenuRef.current and leftmostUnibarIconId then 
@@ -540,40 +529,35 @@ function MenuIcon:render()
 			end
 
 			return Roact.createElement("Frame", {
-				Visible = if (ChromeEnabled() and FFlagHideTopBarConsole) or (FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and self.uiLessStore.getUILessModeEnabled(false)) then self.showIcon:map(function(showIcon)
+				Visible = if (ChromeEnabled() and FFlagEnableConsoleExpControls) or (FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and self.uiLessStore.getUILessModeEnabled(false)) then self.showIcon:map(function(showIcon)
 					return visible and showIcon
 				end) else visible,
 				BackgroundTransparency = 1,
 				Size = UDim2.new(0, backgroundSize, 1, 0),
 				LayoutOrder = self.props.layoutOrder,
-				SelectionGroup = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then true else nil :: never,
-				SelectionBehaviorLeft = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then Enum.SelectionBehavior.Stop else nil :: never,
-				SelectionBehaviorUp = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then Enum.SelectionBehavior.Stop else nil :: never,
-				SelectionBehaviorDown =  if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then Enum.SelectionBehavior.Stop else nil :: never,
+				SelectionGroup = if ChromeEnabled() and FFlagEnableConsoleExpControls then true else nil :: never,
+				SelectionBehaviorLeft = if ChromeEnabled() and FFlagEnableConsoleExpControls then Enum.SelectionBehavior.Stop else nil :: never,
+				SelectionBehaviorUp = if ChromeEnabled() and FFlagEnableConsoleExpControls then Enum.SelectionBehavior.Stop else nil :: never,
+				SelectionBehaviorDown =  if ChromeEnabled() and FFlagEnableConsoleExpControls then Enum.SelectionBehavior.Stop else nil :: never,
 				[Roact.Change.AbsoluteSize] = onChange,
 				[Roact.Change.AbsolutePosition] = onChange,
 			}, {
 				BadgeOver12 = badgeOver12,
-				Background = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav and (not FFlagFixChromeConsoleNilRefs or self.props.unibarMenuRef and self.props.unibarMenuRef.current) then nil else background,
-				IconHitArea = if ChromeEnabled() and FFlagTiltIconUnibarFocusNav then IconHitArea else 
-					if FFlagFixMenuIconBackground then nil else background :: never,
-					ShowTopBarListener = showTopBarListener,
+				Background = if ChromeEnabled() and FFlagEnableConsoleExpControls and (not FFlagFixChromeConsoleNilRefs or self.props.unibarMenuRef and self.props.unibarMenuRef.current) then nil else background,
+				IconHitArea = if ChromeEnabled() and FFlagEnableConsoleExpControls then IconHitArea else nil ,
+				ShowTopBarListener = showTopBarListener,
 			})
 		end)
 	else
 		return Roact.createElement("Frame", {
-			Visible = if (ChromeEnabled() and FFlagHideTopBarConsole) or (FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and self.uiLessStore.getUILessModeEnabled(false)) then self.showIcon:map(function(showIcon) 
+			Visible = if (ChromeEnabled() and FFlagEnableConsoleExpControls) or (FFlagAddUILessMode and FIntAddUILessModeVariant ~= 0 and self.uiLessStore.getUILessModeEnabled(false)) then self.showIcon:map(function(showIcon) 
 				return visible and showIcon
 			end) else visible,
 			BackgroundTransparency = 1,
 			Size = UDim2.new(0, backgroundSize, 1, 0),
 			LayoutOrder = self.props.layoutOrder,
-			[Roact.Change.AbsoluteSize] = if (FFlagEnableChromeBackwardsSignalAPI or ChromeEnabled())
-				then onAreaChanged
-				else nil,
-			[Roact.Change.AbsolutePosition] = if (FFlagEnableChromeBackwardsSignalAPI or ChromeEnabled())
-				then onAreaChanged
-				else nil,
+			[Roact.Change.AbsoluteSize] = onAreaChanged,
+			[Roact.Change.AbsolutePosition] = onAreaChanged,
 		}, {
 			BadgeOver12 = badgeOver12,
 			Background = background,

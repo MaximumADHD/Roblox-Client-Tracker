@@ -10,7 +10,6 @@ return {
 	Chat = require(script.ExpChat.ChatChromeIntegration),
 	ConnectUnibar = require(script.Connect.ConnectIconUnibar),
 	ConnectDropdown = require(script.Connect.ConnectIconDropdown),
-	UnibarMenuToggleButton = require(script.UnibarMenuToggleButtonV2),
 	TrustAndSafety = require(script.TrustAndSafety),
 	DummyWindow = require(script.DummyWindow),
 	DummyWindow2 = require(script.DummyWindow2),

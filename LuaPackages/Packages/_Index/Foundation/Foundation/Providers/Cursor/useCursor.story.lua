@@ -106,7 +106,7 @@ local function UseCursorStory()
 		DefaultCursor = React.createElement(Interactable, {
 			LayoutOrder = 13,
 			cursor = {},
-			Size = UDim2.new(0, 50, 0, 50),
+			Size = UDim2.fromOffset(50, 50),
 		}),
 
 		Divider5 = React.createElement(Divider, { LayoutOrder = 14 }),

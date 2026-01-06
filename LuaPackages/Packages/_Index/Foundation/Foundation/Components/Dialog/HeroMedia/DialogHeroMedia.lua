@@ -64,7 +64,7 @@ local function DialogHeroMedia(mediaProps: DialogHeroMediaProps)
 			imageStyle = props.mediaStyle,
 			backgroundStyle = props.backgroundStyle,
 			aspectRatio = props.aspectRatio,
-			Position = UDim2.new(0, -offsetX, 0, 0),
+			Position = UDim2.fromOffset(-offsetX, 0),
 			Size = UDim2.new(1, offsetX * 2, props.height.Scale, props.height.Offset),
 			ZIndex = 0,
 		}, {
@@ -79,7 +79,7 @@ local function DialogHeroMedia(mediaProps: DialogHeroMediaProps)
 			backgroundStyle = props.backgroundStyle,
 			tag = variants.heroMedia.tag,
 			aspectRatio = props.aspectRatio,
-			Position = UDim2.new(0, -offsetX, 0, 0),
+			Position = UDim2.fromOffset(-offsetX, 0),
 			Size = UDim2.new(1, offsetX * 2, props.height.Scale, props.height.Offset),
 		}, {
 			TransparencyGradient = if Flags.FoundationDialogHeroMediaGradientFix

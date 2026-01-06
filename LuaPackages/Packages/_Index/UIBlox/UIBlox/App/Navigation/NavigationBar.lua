@@ -10,7 +10,6 @@ local useStyle = require(UIBlox.Core.Style.useStyle)
 local NavigationBarAlignment = require(App.Navigation.Enum.NavigationBarAlignment)
 
 export type NavigationBarItem = {
-	onActivated: (() -> ())?,
 	[any]: any,
 }
 
@@ -31,8 +30,6 @@ export type Props = {
 	visibility: React.Binding<number>?,
 	-- Overrides the default color and transparency of the navigation bar background
 	backgroundColor: StyleTypes.BackgroundStyle?,
-	-- Overrides the default color and transparency of the root background
-	rootBackgroundColor: StyleTypes.BackgroundStyle?,
 	-- Override paddings to adapt a navigation bar instance to Safe Area Insets
 	paddings: StyleTypes.PaddingItem?,
 	-- Override position of the NavigationBar
@@ -53,6 +50,8 @@ export type Props = {
 	automaticSize: Enum.AutomaticSize?,
 	-- ReactOtter animation spring settings
 	animationConfig: ReactOtter.SpringOptions?,
+	-- Determines whether sinks input
+	active: boolean?,
 }
 
 local defaultProps = {
@@ -147,6 +146,7 @@ local function NavigationBar(providedProps: Props)
 		end)
 
 	return React.createElement("Frame", {
+		Active = props.active,
 		BackgroundTransparency = 1,
 		ClipsDescendants = props.clipsDescendants,
 		Size = props.size,

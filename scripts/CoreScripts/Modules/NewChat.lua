@@ -25,9 +25,7 @@ local ExperienceChat = require(CorePackages.Workspace.Packages.ExpChat)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local getFFlagExpChatAlwaysRunTCS = SharedFlags.getFFlagExpChatAlwaysRunTCS
-local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
-local FFlagChromeChatGamepadSupportFix = SharedFlags.FFlagChromeChatGamepadSupportFix
-local FFlagChromeShortcutChatOpenKeyboard = SharedFlags.FFlagChromeShortcutChatOpenKeyboard
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagExpChatWindowSyncUnibar = SharedFlags.FFlagExpChatWindowSyncUnibar
 
 -- Hold strong references near root of features so they can be cleaned
@@ -150,7 +148,7 @@ do
 	end
 
 	function moduleApiTable:FocusSelectChatBar(onSelectionLost: ()->()?, keybinds: {Enum.KeyCode}?)
-		if FFlagConsoleChatOnExpControls then
+		if FFlagEnableConsoleExpControls then
 			ExperienceChat.Events.ChatTopBarFocusSelect(onSelectionLost, keybinds)
 		end
 	end

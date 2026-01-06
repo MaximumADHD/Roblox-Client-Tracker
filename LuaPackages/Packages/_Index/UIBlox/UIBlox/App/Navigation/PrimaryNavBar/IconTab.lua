@@ -28,14 +28,14 @@ local Constants = require(script.Parent.Constants)
 
 type Props = {
 	item: Types.IconTabItem,
-	selected: boolean,
+	selected: boolean?,
 	controlState: number?,
 	padding: Types.Padding?,
 }
 
 local defaultProps: Props = {
-	controlState = ControlState.Default,
 	selected = false,
+	controlState = ControlState.Default,
 	padding = {
 		left = Constants.ICON_TAB_ITEM_PADDING_LEFT,
 		right = Constants.ICON_TAB_ITEM_PADDING_RIGHT,

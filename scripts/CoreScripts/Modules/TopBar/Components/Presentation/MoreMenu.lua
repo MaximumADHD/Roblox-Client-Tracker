@@ -38,7 +38,6 @@ local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeS
 
 local FFlagEnableTopBarAnalytics = require(TopBar.Flags.GetFFlagEnableTopBarAnalytics)()
 local FFlagRemoveTopBarInputTypeRodux = require(TopBar.Flags.GetFFlagRemoveTopBarInputTypeRodux)()
-local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 
 local Constants = require(TopBar.Constants)
 local InputType = Constants.InputType
@@ -306,11 +305,8 @@ function MoreMenu:renderWithStyle(style)
 			end
 		end
 	end
-
-	if FFlagEnableChromeBackwardsSignalAPI then
-		if self.rootRef.current then
-			onAreaChanged(self.rootRef.current)
-		end
+	if self.rootRef.current then
+		onAreaChanged(self.rootRef.current)
 	end
 
 	return Roact.createElement("Frame", {
@@ -318,8 +314,8 @@ function MoreMenu:renderWithStyle(style)
 		BackgroundTransparency = 1,
 		Size = UDim2.new(0, MORE_BUTTON_SIZE, 1, 0),
 		LayoutOrder = self.props.layoutOrder,
-		[Roact.Change.AbsoluteSize] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
-		[Roact.Change.AbsolutePosition] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
+		[Roact.Change.AbsoluteSize] = onAreaChanged,
+		[Roact.Change.AbsolutePosition] = onAreaChanged,
 		[Roact.Ref] = self.rootRef,
 	}, {
 		OpenButton = Roact.createElement(IconButton, {

@@ -4,8 +4,6 @@ local Players = game:GetService("Players")
 local RbxAnalyticsService = game:GetService("RbxAnalyticsService")
 local LocalizationService = game:GetService("LocalizationService")
 
-local PlayerList = script:FindFirstAncestor("PlayerList")
-
 local Cryo = require(CorePackages.Packages.Cryo)
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
@@ -20,8 +18,6 @@ local DropDownButtonAnimator = require(script.Parent.DropDownButtonAnimator)
 local Images = UIBlox.App.ImageSet.Images
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
-
-local FFlagPlayerListAddConnectionButtonFocusNav = require(PlayerList.Flags.FFlagPlayerListAddConnectionButtonFocusNav)
 
 local LocalPlayer = Players.LocalPlayer
 
@@ -44,8 +40,8 @@ FriendDropDownButton.validateProps = t.strictInterface({
 	dropDownOpen = t.boolean,
 	requestFriendship = t.callback,
 	contentVisible = t.boolean,
-	isUsingGamepad = if FFlagPlayerListAddConnectionButtonFocusNav then t.optional(t.boolean) else nil :: never,
-	focusGuiObject = if FFlagPlayerListAddConnectionButtonFocusNav then t.optional(t.callback) else nil :: never,
+	isUsingGamepad = t.optional(t.boolean),
+	focusGuiObject = t.callback,
 })
 
 local function getFriendTextAndIcon(friendStatus)
@@ -71,13 +67,11 @@ function FriendDropDownButton:init()
 		unfriendConfirm = false,
 	}
 
-	if FFlagPlayerListAddConnectionButtonFocusNav then
-		self.dropDownButtonAnimatorRef = Roact.createRef()
+	self.dropDownButtonAnimatorRef = Roact.createRef()
 
-		self.onAnimationComplete = function()
-			if self.props.isUsingGamepad then
-				self.props.focusGuiObject(self.dropDownButtonAnimatorRef.current)
-			end
+	self.onAnimationComplete = function()
+		if self.props.isUsingGamepad then
+			self.props.focusGuiObject(self.dropDownButtonAnimatorRef.current)
 		end
 	end
 end
@@ -141,8 +135,8 @@ function FriendDropDownButton:render()
 		onDecline = onDecline,
 		onDismiss = onDismiss,
 		contentVisible = self.props.contentVisible,
-		forwardRef = if FFlagPlayerListAddConnectionButtonFocusNav then self.dropDownButtonAnimatorRef else nil,
-		onAnimationComplete = if FFlagPlayerListAddConnectionButtonFocusNav then self.onAnimationComplete else nil,
+		forwardRef = self.dropDownButtonAnimatorRef,
+		onAnimationComplete = self.onAnimationComplete,
 	})
 end
 
@@ -152,24 +146,23 @@ function FriendDropDownButton:didUpdate(prevProps, prevState)
 			unfriendConfirm = false,
 		})
 	end
+
 	if prevProps.selectedPlayer ~= self.props.selectedPlayer or prevProps.dropDownOpen ~= self.props.dropDownOpen then
 		self:setState({
 			unfriendConfirm = false,
 		})
 	end
 
-	if FFlagPlayerListAddConnectionButtonFocusNav then
-		if self.props.isUsingGamepad then
-			-- Focus the right-side buttons when they appear
-			local rightButtonsVisible = self.state.unfriendConfirm or (self.props.playerRelationship.friendStatus == Enum.FriendStatus.FriendRequestReceived)
-			local prevRightButtonsVisible = prevState.unfriendConfirm or (prevProps.playerRelationship.friendStatus == Enum.FriendStatus.FriendRequestReceived)
-			if rightButtonsVisible and (rightButtonsVisible ~= prevRightButtonsVisible) then
-				self.props.focusGuiObject(self.dropDownButtonAnimatorRef.current)
-			end
-		else
-			if prevProps.isUsingGamepad ~= self.props.isUsingGamepad then
-				self.props.focusGuiObject(nil)
-			end
+	if self.props.isUsingGamepad then
+		-- Focus the right-side buttons when they appear
+		local rightButtonsVisible = self.state.unfriendConfirm or (self.props.playerRelationship.friendStatus == Enum.FriendStatus.FriendRequestReceived)
+		local prevRightButtonsVisible = prevState.unfriendConfirm or (prevProps.playerRelationship.friendStatus == Enum.FriendStatus.FriendRequestReceived)
+		if rightButtonsVisible and (rightButtonsVisible ~= prevRightButtonsVisible) then
+			self.props.focusGuiObject(self.dropDownButtonAnimatorRef.current)
+		end
+	else
+		if prevProps.isUsingGamepad ~= self.props.isUsingGamepad then
+			self.props.focusGuiObject(nil)
 		end
 	end
 end
@@ -182,4 +175,4 @@ function FriendDropDownButtonWrapper(props)
 	}))
 end
 
-return if FFlagPlayerListAddConnectionButtonFocusNav then FriendDropDownButtonWrapper else FriendDropDownButton
+return FriendDropDownButtonWrapper

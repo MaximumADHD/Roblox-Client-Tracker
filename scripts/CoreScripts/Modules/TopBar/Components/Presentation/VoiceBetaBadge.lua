@@ -28,7 +28,6 @@ local GetFStringVoiceBetaBadgeLearnMore = require(RobloxGui.Modules.Flags.GetFSt
 local GetFFlagBetaBadgeLearnMoreLinkFormview = require(RobloxGui.Modules.Flags.GetFFlagBetaBadgeLearnMoreLinkFormview)
 
 local TopBar = script.Parent.Parent.Parent
-local FFlagEnableChromeBackwardsSignalAPI = require(TopBar.Flags.GetFFlagEnableChromeBackwardsSignalAPI)()
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
 local Constants = require(TopBar.Constants)
@@ -36,13 +35,9 @@ local Constants = require(TopBar.Constants)
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
 
-local GetFFlagFixChromeReferences = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagFixChromeReferences
-
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
-local ChromeService = if GetFFlagFixChromeReferences() then
-	if ChromeEnabled() then require(Chrome.Service) else nil
-	else if ChromeEnabled then require(Chrome.Service) else nil
+local ChromeService = 	if ChromeEnabled() then require(Chrome.Service) else nil
 
 VoiceBetaBadge.validateProps = t.strictInterface({
 	layoutOrder = t.integer,
@@ -146,11 +141,8 @@ function VoiceBetaBadge:render()
 			end
 		end
 	end
-
-	if FFlagEnableChromeBackwardsSignalAPI then
-		if self.buttonRef.current then
-			onAreaChanged(self.buttonRef.current)
-		end
+	if self.buttonRef.current then
+		onAreaChanged(self.buttonRef.current)
 	end
 
 	return withStyle(function(style)
@@ -253,8 +245,8 @@ function VoiceBetaBadge:render()
 				LayoutOrder = self.props.layoutOrder,
 				BackgroundTransparency = 1,
 				Size = UDim2.fromScale(0, 1),
-				[Roact.Change.AbsoluteSize] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
-				[Roact.Change.AbsolutePosition] = if FFlagEnableChromeBackwardsSignalAPI then onAreaChanged else nil,
+				[Roact.Change.AbsoluteSize] = onAreaChanged,
+				[Roact.Change.AbsolutePosition] = onAreaChanged,
 				[Roact.Ref] = self.buttonRef,
 			}, {
 				Layout = Roact.createElement("UIListLayout", {
@@ -299,26 +291,22 @@ function VoiceBetaBadge:render()
 	end)
 end
 
-if FFlagEnableChromeBackwardsSignalAPI then
-	local function mapDispatchToProps(dispatch)
-		if FFlagTopBarSignalizeKeepOutAreas then
-			return {}
-		end
-		return {
-			setKeepOutArea = function(id, position, size)
-				return dispatch(SetKeepOutArea(id, position, size))
-			end,
-			removeKeepOutArea = function(id)
-				return dispatch(RemoveKeepOutArea(id))
-			end,
-		}
+local function mapDispatchToProps(dispatch)
+	if FFlagTopBarSignalizeKeepOutAreas then
+		return {}
 	end
-
-	if FFlagTopBarSignalizeKeepOutAreas then 
-		return VoiceBetaBadge
-	else
-		return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(VoiceBetaBadge)
-	end
+	return {
+		setKeepOutArea = function(id, position, size)
+			return dispatch(SetKeepOutArea(id, position, size))
+		end,
+		removeKeepOutArea = function(id)
+			return dispatch(RemoveKeepOutArea(id))
+		end,
+	}
 end
 
-return VoiceBetaBadge
+if FFlagTopBarSignalizeKeepOutAreas then 
+	return VoiceBetaBadge
+else
+	return RoactRodux.UNSTABLE_connect2(nil, mapDispatchToProps)(VoiceBetaBadge)
+end

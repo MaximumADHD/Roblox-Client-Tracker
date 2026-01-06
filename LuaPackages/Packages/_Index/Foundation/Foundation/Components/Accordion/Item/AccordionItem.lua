@@ -6,8 +6,6 @@ local BuilderIcons = require(Packages.BuilderIcons)
 
 local ReactOtter = require(Packages.ReactOtter)
 
-local Flags = require(Foundation.Utility.Flags)
-
 local Divider = require(Foundation.Components.Divider)
 local Icon = require(Foundation.Components.Icon)
 local Text = require(Foundation.Components.Text)
@@ -67,59 +65,46 @@ end
 local function AccordionItem(accordionItemProps: AccordionItemProps, ref: React.Ref<GuiObject>?)
 	local props = withDefaults(accordionItemProps, defaultProps)
 	local tokens = useTokens()
-	local commonEaseConfig = if Flags.FoundationAnimateAccordion
-		then React.useMemo(function()
-			return getCommonEaseConfig(tokens)
-		end, { tokens })
-		else nil :: never
+	local commonEaseConfig = React.useMemo(function()
+		return getCommonEaseConfig(tokens)
+	end, { tokens })
 
 	local isExpanded, setIsExpanded = React.useState(props.isExpanded)
 
-	local isClosing = if Flags.FoundationAnimateAccordion then React.useRef(false) else nil :: never
-	local chevronRotation, setChevronRotation
-	local currentHeight, setCurrentHeight
-	if Flags.FoundationAnimateAccordion then
-		chevronRotation, setChevronRotation = ReactOtter.useAnimatedBinding(0)
-		currentHeight, setCurrentHeight = ReactOtter.useAnimatedBinding(0, function()
-			if isClosing.current then
-				setIsExpanded(false)
-				isClosing.current = false
-			end
-		end)
-	end
-	local contentRef = if Flags.FoundationAnimateAccordion then React.useRef(nil :: GuiObject?) else nil
+	local isClosing = React.useRef(false)
+	local chevronRotation, setChevronRotation = ReactOtter.useAnimatedBinding(0)
+	local currentHeight, setCurrentHeight = ReactOtter.useAnimatedBinding(0, function()
+		if isClosing.current then
+			setIsExpanded(false)
+			isClosing.current = false
+		end
+	end)
+	local contentRef = React.useRef(nil)
+	local onClose = React.useCallback(function()
+		isClosing.current = true
+		setCurrentHeight(ReactOtter.ease(0, commonEaseConfig))
+		setChevronRotation(ReactOtter.ease(0, commonEaseConfig))
+	end, {})
 
-	local onClose = if Flags.FoundationAnimateAccordion
-		then React.useCallback(function()
-			isClosing.current = true
-			setCurrentHeight(ReactOtter.ease(0, commonEaseConfig))
-			setChevronRotation(ReactOtter.ease(0, commonEaseConfig))
-		end, {})
-		else nil :: never
-
-	local onContentSizeChange = if Flags.FoundationAnimateAccordion
-		then React.useCallback(function()
-			if contentRef and contentRef.current and isExpanded then
-				setCurrentHeight(ReactOtter.ease(contentRef.current.AbsoluteSize.Y, commonEaseConfig))
-			end
-		end, { contentRef :: unknown, isExpanded })
-		else nil
+	local onContentSizeChange = React.useCallback(function()
+		if contentRef and contentRef.current and isExpanded then
+			setCurrentHeight(ReactOtter.ease(contentRef.current.AbsoluteSize.Y, commonEaseConfig))
+		end
+	end, { contentRef, isExpanded } :: { unknown })
 
 	React.useEffect(function()
-		if Flags.FoundationAnimateAccordion and isExpanded and not props.isExpanded then
+		if isExpanded and not props.isExpanded then
 			onClose()
 		else
 			setIsExpanded(props.isExpanded)
 		end
 	end, { props.isExpanded })
 
-	if Flags.FoundationAnimateAccordion then
-		React.useEffect(function()
-			if isExpanded then
-				setChevronRotation(ReactOtter.ease(-180, commonEaseConfig))
-			end
-		end, { isExpanded })
-	end
+	React.useEffect(function()
+		if isExpanded then
+			setChevronRotation(ReactOtter.ease(-180, commonEaseConfig))
+		end
+	end, { isExpanded })
 
 	local accordionContext = useAccordion()
 	local onAccordionItemActivated, itemSize = accordionContext.onAccordionItemActivated, accordionContext.itemSize
@@ -127,14 +112,10 @@ local function AccordionItem(accordionItemProps: AccordionItemProps, ref: React.
 	local variantProps = useAccordionItemVariants(tokens, itemSize :: InputSize, false)
 
 	local defaultOnActivated = React.useCallback(function()
-		if Flags.FoundationAnimateAccordion then
-			if isExpanded then
-				onClose()
-			else
-				setIsExpanded(true)
-			end
+		if isExpanded then
+			onClose()
 		else
-			setIsExpanded(not isExpanded)
+			setIsExpanded(true)
 		end
 	end, { isExpanded })
 
@@ -177,57 +158,43 @@ local function AccordionItem(accordionItemProps: AccordionItemProps, ref: React.
 					tag = variantProps.text.tag,
 					testId = `{props.testId}--title`,
 				}),
-				CollapseIcon = if Flags.FoundationAnimateAccordion
-					then React.createElement(View, {
-						tag = "auto-xy",
-						LayoutOrder = 3,
-					}, {
-						Icon = React.createElement(Icon, {
-							name = "chevron-large-down",
-							Rotation = chevronRotation,
-							style = variantProps.icon.style,
-							size = variantProps.icon.size,
-							testId = `{props.testId}--collapse-icon`,
-						}),
-					})
-					else React.createElement(Icon, {
-						LayoutOrder = 3,
-						name = if isExpanded then "chevron-large-up" else "chevron-large-down",
+				CollapseIcon = React.createElement(View, {
+					tag = "auto-xy",
+					LayoutOrder = 3,
+				}, {
+					Icon = React.createElement(Icon, {
+						name = "chevron-large-down",
+						Rotation = chevronRotation,
 						style = variantProps.icon.style,
 						size = variantProps.icon.size,
 						testId = `{props.testId}--collapse-icon`,
 					}),
+				}),
 			}),
 			Content = if isExpanded
-				then React.createElement(
-					View,
-					{
-						tag = if Flags.FoundationAnimateAccordion then "col" else variantProps.content.tag,
-						LayoutOrder = 2,
-						testId = `{props.testId}--content`,
-						Size = if Flags.FoundationAnimateAccordion and currentHeight
-							then currentHeight:map(function(height)
-								return UDim2.new(1, 0, 0, height)
-							end)
-							else nil,
-						ClipsDescendants = if Flags.FoundationAnimateAccordion then true else false,
-					},
-					if Flags.FoundationAnimateAccordion
-						then {
-							AnimatedContainer = React.createElement(View, {
-								tag = variantProps.content.tag,
-								ref = contentRef,
-								onAbsoluteSizeChanged = onContentSizeChange,
-								flexItem = {
-									FlexMode = Enum.UIFlexMode.None,
-								},
-								testId = `{props.testId}--animated-content`,
-							}, {
-								props.children,
-							}),
-						}
-						else { props.children }
-				)
+				then React.createElement(View, {
+					tag = "col",
+					LayoutOrder = 2,
+					testId = `{props.testId}--content`,
+					Size = if currentHeight
+						then currentHeight:map(function(height)
+							return UDim2.new(1, 0, 0, height)
+						end)
+						else nil,
+					ClipsDescendants = true,
+				}, {
+					AnimatedContainer = React.createElement(View, {
+						tag = variantProps.content.tag,
+						ref = contentRef,
+						onAbsoluteSizeChanged = onContentSizeChange,
+						flexItem = {
+							FlexMode = Enum.UIFlexMode.None,
+						},
+						testId = `{props.testId}--animated-content`,
+					}, {
+						props.children,
+					}),
+				})
 				else nil,
 			Divider = if props.hasDivider
 				then React.createElement(Divider, {

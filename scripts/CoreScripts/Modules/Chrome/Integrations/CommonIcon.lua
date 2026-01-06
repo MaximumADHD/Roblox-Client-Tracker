@@ -10,8 +10,6 @@ local Constants = require(Chrome.ChromeShared.Unibar.Constants)
 local ChromeUtils = require(Chrome.ChromeShared.Service.ChromeUtils)
 local SubMenuContext = require(Chrome.ChromeShared.Unibar.SubMenuContext)
 
-local GetFFlagAnimateSubMenu = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAnimateSubMenu
-
 local ChromeSharedFlags = require(Chrome.ChromeShared.Flags)
 local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTokenizeUnibarConstantsWithStyleProvider
 
@@ -52,7 +50,7 @@ function CommonIconComponent(props)
 		Image = icon,
 		Size = UDim2.new(0, iconSize, 0, iconSize),
 		ImageColor3 = style.Theme.IconEmphasis.Color,
-		ImageTransparency = if GetFFlagAnimateSubMenu() and submenuTransition
+		ImageTransparency = if submenuTransition
 			then submenuTransition:map(function(v)
 				return style.Theme.IconEmphasis.Transparency + (1 - style.Theme.IconEmphasis.Transparency) * (1 - v)
 			end)

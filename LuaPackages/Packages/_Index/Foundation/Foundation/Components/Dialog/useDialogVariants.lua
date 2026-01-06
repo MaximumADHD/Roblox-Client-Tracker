@@ -45,9 +45,7 @@ local DIALOG_SIZES: { [DialogSize]: number } = {
 local function variantsFactory(tokens: Tokens)
 	local common = {
 		backdrop = {
-			backgroundStyle = if Flags.FoundationDialogBackdropColorUpdate
-				then tokens.Color.Common.Backdrop
-				else tokens.Color.OverMedia.OverMedia_200,
+			backgroundStyle = tokens.Color.Common.Backdrop,
 		},
 		shadow = {
 			tag = "auto-xy",
@@ -89,9 +87,6 @@ local function variantsFactory(tokens: Tokens)
 			shadow = {
 				tag = "padding-large",
 			},
-			container = {
-				tag = if Flags.FoundationDialogRootZIndex then nil else "padding-large",
-			},
 			inner = {
 				maxWidth = DIALOG_SIZES[DialogSize.Small],
 				tag = "radius-medium",
@@ -120,9 +115,6 @@ local function variantsFactory(tokens: Tokens)
 			shadow = {
 				tag = "padding-xlarge",
 			},
-			container = {
-				tag = if Flags.FoundationDialogRootZIndex then nil else "padding-xlarge",
-			},
 			inner = {
 				maxWidth = DIALOG_SIZES[DialogSize.Medium],
 				tag = "radius-large",
@@ -150,9 +142,6 @@ local function variantsFactory(tokens: Tokens)
 		[DialogSize.Large] = {
 			shadow = {
 				tag = "padding-xlarge",
-			},
-			container = {
-				tag = if Flags.FoundationDialogRootZIndex then nil else "padding-xlarge",
 			},
 			inner = {
 				maxWidth = DIALOG_SIZES[DialogSize.Large],

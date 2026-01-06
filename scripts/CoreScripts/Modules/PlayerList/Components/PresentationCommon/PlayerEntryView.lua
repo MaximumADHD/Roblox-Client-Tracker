@@ -21,7 +21,7 @@ local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
 local SharedFlags = CorePackages.Workspace.Packages.SharedFlags
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local LeaderboardStore = require(CorePackages.Workspace.Packages.LeaderboardStore)
-
+local PlayerIconInfoStorePackage = require(CorePackages.Workspace.Packages.PlayerIconInfoStore)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)
 
 local useLayoutValues = PlayerListPackage.Common.useLayoutValues
@@ -43,11 +43,10 @@ local GetFFlagGateLeaderboardPlayerDropdownViaGUAC = require(SharedFlags).GetFFl
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 local FFlagRemoveNewPlayerListOverlay = PlayerListPackage.Flags.FFlagRemoveNewPlayerListOverlay
-local FFlagMoveNewPlayerListDividers = require(SharedFlags).FFlagMoveNewPlayerListDividers
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 local FFlagPlayerListFixLeaderstatsStacking = require(SharedFlags).FFlagPlayerListFixLeaderstatsStacking
 
-type PlayerIconInfoProps = LeaderboardStore.PlayerIconInfoProps
+type PlayerIconInfoProps = PlayerIconInfoStorePackage.PlayerIconInfo
 type PlayerRelationshipProps = LeaderboardStore.PlayerRelationshipProps
 type PlayerEntry = LeaderboardStore.PlayerEntry
 type GameStatList = LeaderboardStore.GameStatList
@@ -73,7 +72,6 @@ export type PlayerEntryViewProps = {
 	playerRelationship: PlayerRelationshipProps,
 	gameStats: GameStatList?,
 	gameStatsCount: number?, -- Remove prop when FFlagPlayerListFixLeaderstatsStacking is cleaned up
-	teamPlayersCount: Signals.getter<number>?,
 
 	-- Dropdown data
 	dropdownOpen: boolean?,
@@ -321,29 +319,9 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 	local playerStatsCount: number? = if FFlagPlayerListFixLeaderstatsStacking then nil else SignalsReact.useSignalState(props.playerData.stats.getCount)
 
 	-- Set player order to odd numbers (1, 3, 5, ...) to leave space for dividers
-	local playerOrder = SignalsReact.useSignalBinding(
-		if FFlagMoveNewPlayerListDividers 
-			then Signals.createComputed(function(scope)
-				return props.playerData.order(scope) * 2 - 1
-			end) 
-			else props.playerData.order
-	)
-
-	local bottomDiv = SignalsReact.useSignalBinding(function(scope)
-		if not FFlagMoveNewPlayerListDividers and props.teamPlayersCount then
-			return props.playerData.order(scope) == props.teamPlayersCount(scope) or props.titlePlayerEntry
-		else
-			return false
-		end
-	end)
-
-	local hasDivider = SignalsReact.useSignalBinding(function(scope)
-		if not FFlagMoveNewPlayerListDividers and props.teamPlayersCount then
-			return props.playerData.order(scope) ~= props.teamPlayersCount(scope)
-		else
-			return false
-		end
-	end)
+	local playerOrder = SignalsReact.useSignalBinding(Signals.createComputed(function(scope)
+		return props.playerData.order(scope) * 2 - 1
+	end))
 
 	local layoutOrder = React.useMemo(function()
 		return if props.layoutOrder then props.layoutOrder else playerOrder
@@ -702,23 +680,6 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 				Position = UDim2.new(0, 0, 0, 0),
 				BackgroundTransparency = 1,
 			}, React.createElement(PlayerEntryChildren, playerEntryChildrenProps)),
-
-			TopDiv = if not FFlagMoveNewPlayerListDividers and not props.titlePlayerEntry then React.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 1),
-				Position = UDim2.new(0, 0, 0, 0),
-				AnchorPoint = Vector2.new(0, 0),
-				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-				BackgroundTransparency = 0.8,
-			}) else nil,
-
-			BottomDiv = if not FFlagMoveNewPlayerListDividers then React.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 1),
-				Position = UDim2.new(0, 0, 1, 0),
-				AnchorPoint = Vector2.new(0, 1),
-				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-				BackgroundTransparency = 0.8,
-				Visible = bottomDiv,
-			}) else nil,
 		})
 	elseif isDirectionalPreferred then
 		return React.createElement("Frame", {
@@ -741,16 +702,6 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 				}),
 				React.createElement(PlayerEntryChildren, playerEntryChildrenProps)
 			),
-
-			Divider = if not FFlagMoveNewPlayerListDividers then React.createElement("Frame", {
-				Size = UDim2.new(1, 0, 0, 1),
-				Position = UDim2.new(0, 0, 1, 0),
-				AnchorPoint = Vector2.new(0, 1),
-				BackgroundTransparency = style.Theme.Divider.Transparency,
-				BackgroundColor3 = style.Theme.Divider.Color,
-				BorderSizePixel = 0,
-				Visible = hasDivider,
-			}) else nil,
 		})
 	end
 end

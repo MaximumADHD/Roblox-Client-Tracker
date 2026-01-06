@@ -50,10 +50,11 @@ RobloxGui:WaitForChild("Modules"):WaitForChild("TenFootInterface")
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagChromeShortcutRemoveLeaveOnRespawnPage = SharedFlags.FFlagChromeShortcutRemoveLeaveOnRespawnPage
 local FFlagRespawnActionChromeShortcutTelemetry = require(RobloxGui.Modules.Chrome.Flags.FFlagRespawnActionChromeShortcutTelemetry)
 local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
+local FFlagRenameRespawnConfirmationPage = SharedFlags.FFlagRenameRespawnConfirmationPage
 
 local Constants = require(RobloxGui.Modules:WaitForChild("InGameMenu"):WaitForChild("Resources"):WaitForChild("Constants"))
 
@@ -85,7 +86,7 @@ local function ResetCharacterButtonsContainer(props: Props)
 
 	local localizedText = useLocalization({
 		ConfirmResetCharacter = Constants.ConfirmResetCharacterLocalizedKey,
-		ResetCharacter = Constants.ResetCharacterLocalizedKey,
+		ResetCharacter = if FFlagRenameRespawnConfirmationPage then Constants.RespawnLocalizedKey else Constants.ResetCharacterLocalizedKey,
 		DontResetCharacter = Constants.DontResetCharacterLocalizedKey,
 	}) 
 
@@ -196,7 +197,7 @@ local function Initialize()
 		local resetCharacterText =  Create'TextLabel'
 		{
 			Name = "ResetCharacterText",
-			Text = "Are you sure you want to reset your character?",
+			Text = if FFlagRenameRespawnConfirmationPage then "Are you sure you want to respawn your character?" else "Are you sure you want to reset your character?",
 			Font = Theme.font(Enum.Font.SourceSansBold, "Confirmation"),
 			FontSize = Theme.fontSize(Enum.FontSize.Size36, "Confirmation"),
 			TextColor3 = Color3.new(1,1,1),
@@ -272,16 +273,16 @@ local function Initialize()
 		end
 	end
 
-	if FFlagEnableChromeShortcutBar then
+	if FFlagEnableConsoleExpControls then
 		this.ResetFunction = onResetFunction
 	end
 
 	if not FFlagRefactorMenuConfirmationButtons then
-		this.ResetCharacterButton = utility:MakeStyledButton("ResetCharacter", "Reset", nil, onResetFunction)
+		this.ResetCharacterButton = utility:MakeStyledButton("ResetCharacter", if FFlagRenameRespawnConfirmationPage then "Respawn" else "Reset", nil, onResetFunction)
 		this.ResetCharacterButton.NextSelectionRight = nil
 		this.ResetCharacterButton.Parent = resetButtonContainer
 
-		local dontResetCharacterButton = utility:MakeStyledButton("DontResetCharacter", "Don't Reset", nil, this.DontResetCharFromButton)
+		local dontResetCharacterButton = utility:MakeStyledButton("DontResetCharacter", if FFlagRenameRespawnConfirmationPage then "Don't Respawn" else "Don't Reset", nil, this.DontResetCharFromButton)
 		dontResetCharacterButton.NextSelectionLeft = nil
 		dontResetCharacterButton.Parent = resetButtonContainer
 
@@ -320,7 +321,7 @@ PageInstance.Displayed.Event:connect(function()
 	if not FFlagRefactorMenuConfirmationButtons then
 		GuiService.SelectedCoreObject = PageInstance.ResetCharacterButton
 	end
-	if FFlagEnableChromeShortcutBar then 
+	if FFlagEnableConsoleExpControls then 
 		if ChromeEnabled then 
 			if FFlagChromeShortcutRemoveLeaveOnRespawnPage then
 				ChromeService:setShortcutBar(ChromeConstants.TILTMENU_RESPAWN_DIALOG_SHORTCUTBAR_ID)

@@ -43,8 +43,6 @@ local GetFFlagUseLuaSignalrConsumer = require(VoiceChatCore.Flags.GetFFlagUseLua
 local GetFFlagNonVoiceFTUX = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagNonVoiceFTUX
 local GetFFlagJoinWithoutMicPermissions =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagJoinWithoutMicPermissions
-local GetFFlagEnableSeamlessVoiceConnectDisconnectButton =
-	require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceConnectDisconnectButton)
 local GetFIntVoiceReverseNudgeUXDisplayTimeSeconds =
 	require(RobloxGui.Modules.Flags.GetFIntVoiceReverseNudgeUXDisplayTimeSeconds)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId =
@@ -80,10 +78,6 @@ local FFlagDisableMicRejectedPromiseReject = game:DefineFastFlag("DisableMicReje
 local FFlagDisableLeaveToastInStudio = game:DefineFastFlag("DisableLeaveToastInStudio", false)
 local FFlagEnableVerifiedCheckViaOverlay = game:DefineFastFlag("EnableVerifiedCheckViaOverlay", false)
 local FFlagInExperienceVoiceUpsellAnalytics = game:DefineFastFlag("InExperienceVoiceUpsellAnalyticsV2", false)
-
-local getFFlagMicrophoneDevicePermissionsPromptLogging =
-	require(RobloxGui.Modules.Flags.getFFlagMicrophoneDevicePermissionsPromptLogging)
-local GetFFlagEnableInExpVoiceUpsell = require(RobloxGui.Modules.Flags.GetFFlagEnableInExpVoiceUpsell)
 local GetFIntThrottleParticipantsUpdateMs = require(VoiceChatCore.Flags.GetFIntThrottleParticipantsUpdateMs)
 local GetFFlagEnableConnectDisconnectAnalytics =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectAnalytics)
@@ -168,6 +162,9 @@ local getOverlayStore = SocialUpsell.Overlay.getOverlayStore
 local OverlayTypes = SocialUpsell.Overlay.OverlayTypes
 local SocialUpsellType = SocialUpsell.Enum.SocialUpsellType
 local SocialUpsellEnums = SocialUpsell.Analytics.Enum
+local SocialExperiments = require(CorePackages.Workspace.Packages.SocialExperiments)
+local FFlagTestDeviceForFAEUpsell = SocialExperiments.FFlagTestDeviceForFAEUpsell
+local deviceMeetsRequirementsForFAE = SocialExperiments.deviceMeetsRequirementsForFAE
 
 local FFlagUseLocalMutePropertyForMutingOthers = game:GetEngineFeature("EnableMutedByLocalUser")
 local FFlagEnablePartyVoiceChangersInLua =
@@ -527,9 +524,7 @@ function VoiceChatServiceManager.new(
 		end)
 	end
 	self.coreVoiceManager:subscribe("OnStateChanged", function(oldState, newState)
-		if getFFlagMicrophoneDevicePermissionsPromptLogging() then
-			MicrophoneDevicePermissionsLogging:setClientSessionId(self.coreVoiceManager:GetSessionId())
-		end
+		MicrophoneDevicePermissionsLogging:setClientSessionId(self.coreVoiceManager:GetSessionId())
 		local inEndedState = newState == (Enum :: any).VoiceChatState.Ended
 		if inEndedState and self.bannedUntil == nil then
 			if not GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
@@ -625,7 +620,6 @@ function VoiceChatServiceManager.new(
 			end
 		elseif
 			GetFFlagEnableSeamlessVoiceV2()
-			and GetFFlagEnableSeamlessVoiceConnectDisconnectButton()
 			and self:IsSeamlessVoice()
 		then
 			ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
@@ -1238,8 +1232,7 @@ function VoiceChatServiceManager:createPromptInstance(onReadyForSignal, promptTy
 	local isNudge = (
 		promptType == VoiceChatPromptType.VoiceToxicityModal or promptType == VoiceChatPromptType.VoiceToxicityToast
 	)
-	local isVoiceConsentModal = GetFFlagEnableInExpVoiceUpsell()
-		and (
+	local isVoiceConsentModal = (
 			promptType == VoiceChatPromptType.VoiceConsentModalV1
 			or promptType == VoiceChatPromptType.VoiceConsentModalV2
 			or promptType == VoiceChatPromptType.VoiceConsentModalV3
@@ -1787,6 +1780,7 @@ function VoiceChatServiceManager:EligibleForFaeUpsell()
 	return GetFFlagEnableVoiceUxUpdates()
 		and self.coreVoiceManager:EligibleForFaeUpsell()
 		and self.AvatarChatService:deviceMeetsRequirementsForFeature(Enum.DeviceFeatureType.InExperienceFAE)
+		and (if FFlagTestDeviceForFAEUpsell then deviceMeetsRequirementsForFAE() else true)
 end
 
 function VoiceChatServiceManager:EligibleForAgeCheckToast()

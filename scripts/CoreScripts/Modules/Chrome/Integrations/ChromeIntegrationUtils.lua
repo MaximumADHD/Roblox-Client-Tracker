@@ -5,10 +5,10 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local UserInputService = game:GetService("UserInputService")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagConsoleChatOnExpControls = SharedFlags.FFlagConsoleChatOnExpControls
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
 function dismissRobloxMenuAndRun(func)
-	if FFlagConsoleChatOnExpControls then
+	if FFlagEnableConsoleExpControls then
 		if UserInputService.GamepadEnabled then
 			GuiService.SelectedCoreObject = nil
 		end

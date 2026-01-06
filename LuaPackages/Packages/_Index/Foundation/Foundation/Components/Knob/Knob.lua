@@ -4,6 +4,7 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local ReactIs = require(Packages.ReactIs)
 local BuilderIcons = require(Packages.BuilderIcons)
+local Dash = require(Packages.Dash)
 
 local Components = Foundation.Components
 local Constants = require(Foundation.Constants)
@@ -14,8 +15,10 @@ local Types = require(Components.Types)
 type Bindable<T> = Types.Bindable<T>
 type ColorStyleValue = Types.ColorStyleValue
 
+local blendTransparencies = require(Foundation.Utility.blendTransparencies)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
+local useBindable = require(Foundation.Utility.useBindable)
 
 local useKnobVariants = require(script.Parent.useKnobVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -58,6 +61,15 @@ local function Knob(knobProps: KnobProps)
 		}
 	end, { tokens })
 
+	local strokeTransparency
+	local knobStyleBinding
+	local knobStyleVariantPropsBinding
+	if Flags.FoundationKnobRemoveGroupTransparency then
+		strokeTransparency = useBindable(if props.stroke then props.stroke.Transparency else nil)
+		knobStyleBinding = useBindable(knobStyle)
+		knobStyleVariantPropsBinding = useBindable(variantProps.knob.style)
+	end
+
 	local circleSize = React.useMemo(function(): Bindable<UDim2>
 		local size = variantProps.knob.size
 		if props.stroke and props.stroke.Thickness then
@@ -72,14 +84,16 @@ local function Knob(knobProps: KnobProps)
 		end
 
 		return size
-	end, { variantProps :: unknown, props.stroke })
+	end, { variantProps, props.stroke } :: { unknown })
 
 	return React.createElement(
 		View,
 		withCommonProps(props, {
 			Size = variantProps.knob.size,
 			isDisabled = if Flags.FoundationToggleVisualUpdate then props.isDisabled else nil,
-			GroupTransparency = if Flags.FoundationToggleVisualUpdate and props.isDisabled
+			GroupTransparency = if not Flags.FoundationKnobRemoveGroupTransparency
+					and Flags.FoundationToggleVisualUpdate
+					and props.isDisabled
 				then Constants.DISABLED_TRANSPARENCY
 				else nil,
 		}),
@@ -96,16 +110,50 @@ local function Knob(knobProps: KnobProps)
 					React.createElement(Icon, {
 						name = props.icon.name,
 						variant = props.icon.variant,
-						style = variantProps.knob.style,
+						style = if Flags.FoundationKnobRemoveGroupTransparency and props.isDisabled
+							then knobStyleVariantPropsBinding:map(function(style)
+								return {
+									Color3 = style.Color3,
+									Transparency = blendTransparencies(
+										style.Transparency,
+										Constants.DISABLED_TRANSPARENCY
+									),
+								}
+							end)
+							else variantProps.knob.style,
 						size = variantProps.knob.iconSize,
 						testId = `{props.testId}--icon`,
 					})
 				)
 				else React.createElement(View, {
 					tag = variantProps.knob.tag,
-					backgroundStyle = knobStyle,
+					backgroundStyle = if Flags.FoundationKnobRemoveGroupTransparency and props.isDisabled
+						then knobStyleBinding:map(function(style)
+							return {
+								Color3 = style.Color3,
+								Transparency = blendTransparencies(style.Transparency, Constants.DISABLED_TRANSPARENCY),
+							}
+						end)
+						else knobStyle,
 					Size = circleSize,
-					stroke = props.stroke,
+					stroke = if Flags.FoundationKnobRemoveGroupTransparency
+						then strokeTransparency
+							:map(function(strokeTransparency)
+								local stroke = props.stroke
+
+								if props.stroke and strokeTransparency ~= nil and props.isDisabled then
+									stroke = Dash.join(stroke, {
+										Transparency = blendTransparencies(
+											strokeTransparency,
+											Constants.DISABLED_TRANSPARENCY
+										),
+									})
+								end
+
+								return stroke
+							end)
+							:getValue()
+						else props.stroke,
 					ZIndex = 4,
 					testId = `{props.testId}--circle`,
 				}),

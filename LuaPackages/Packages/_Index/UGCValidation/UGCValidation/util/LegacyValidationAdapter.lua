@@ -75,7 +75,7 @@ local function fetchString(
 		end)
 	end
 
-	if success then
+	if success and localizedString ~= failContext.key then -- plugin fallback is the key, ours is the string
 		return localizedString :: string
 	else
 		return fallbackLocalizationFunction(failContext)
@@ -123,12 +123,14 @@ end
 -- Studio body validation needs to be refactored to call new entrypoints, may need a week of work to track down usage and test changes
 function LegacyValidationAdapter.studioRFUAssetValidation(
 	validationContext: Types.ValidationContext,
-	telemetry_bundle_id: string,
+	telemetryBundleId: string,
 	legacyPass: boolean,
 	legacyReasons: { string }?
 ): (boolean, { string }?)
 	local plugin: Types.UGCValidationConsumerName = "Toolbox"
-
+	local enforceShadowValidations = validationContext.bypassFlags
+			and validationContext.bypassFlags.enforceShadowValidations
+		or false
 	if validationContext.bypassFlags and validationContext.bypassFlags.studioPluginName then
 		plugin = validationContext.bypassFlags.studioPluginName :: Types.UGCValidationConsumerName
 	end
@@ -143,8 +145,8 @@ function LegacyValidationAdapter.studioRFUAssetValidation(
 		{
 			source = plugin,
 			enforceR15FolderStructure = validationContext.requireAllFolders or false,
-			telemetry_bundle_id = telemetry_bundle_id,
-			telemetry_root_id = "",
+			enforceShadowValidations = enforceShadowValidations,
+			telemetryBundleId = telemetryBundleId,
 			preloadedEditableMeshes = preloadedEditableMeshes,
 			preloadedEditableImages = preloadedEditableImages,
 		}
@@ -166,7 +168,7 @@ function LegacyValidationAdapter.studioRFUBundleValidation(
 	fullBodyData: Types.FullBodyData,
 	bundleTypeEnum: Enum.BundleType,
 	validationContext: Types.ValidationContext,
-	telemetry_bundle_id: string,
+	telemetryBundleId: string,
 	legacyPass: boolean,
 	legacyReasons: { string }?
 ): (boolean, { string }?)
@@ -175,6 +177,9 @@ function LegacyValidationAdapter.studioRFUBundleValidation(
 		plugin = validationContext.bypassFlags.studioPluginName :: Types.UGCValidationConsumerName
 	end
 
+	local enforceShadowValidations = validationContext.bypassFlags
+			and validationContext.bypassFlags.enforceShadowValidations
+		or false
 	local preloadedEditableMeshes, preloadedEditableImages = LegacyValidationAdapter.getPrecomputedEditables(
 		validationContext.editableMeshes or {},
 		validationContext.editableImages or {}
@@ -182,8 +187,8 @@ function LegacyValidationAdapter.studioRFUBundleValidation(
 	local validationData = newValidationManager.ValidateFinalizedBundle(fullBodyData, bundleTypeEnum, {
 		source = plugin,
 		enforceR15FolderStructure = validationContext.requireAllFolders or false,
-		telemetry_bundle_id = telemetry_bundle_id,
-		telemetry_root_id = "",
+		enforceShadowValidations = enforceShadowValidations,
+		telemetryBundleId = telemetryBundleId,
 		preloadedEditableMeshes = preloadedEditableMeshes,
 		preloadedEditableImages = preloadedEditableImages,
 	})

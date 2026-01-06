@@ -22,7 +22,7 @@ local function Story(props)
 		},
 	}, {
 		React.createElement(View, {
-			Size = UDim2.new(0, 100, 0, 100),
+			Size = UDim2.fromOffset(100, 100),
 			backgroundStyle = tokens.Color.Surface.Surface_200,
 			tag = "row align-x-center align-y-center",
 		}, {
@@ -48,7 +48,7 @@ local function StoryGuiState(props)
 	end
 
 	return React.createElement(View, {
-		Size = UDim2.new(0, 120, 0, 120),
+		Size = UDim2.fromOffset(120, 120),
 		LayoutOrder = 2,
 		GroupTransparency = props.GroupTransparency,
 		backgroundStyle = tokens.Color.Extended.Purple.Purple_500,

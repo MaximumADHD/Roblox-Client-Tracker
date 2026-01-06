@@ -51,8 +51,7 @@ local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagIEMSettingsAddPlaySessionID = SharedFlags.FFlagIEMSettingsAddPlaySessionID
-local FFlagEnableChromeShortcutBar = SharedFlags.FFlagEnableChromeShortcutBar
+local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShortcutRemoveRespawnOnLeavePage
 local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRefactorMenuConfirmationButtons)
 
@@ -168,7 +167,7 @@ local function Initialize()
 	local this = settingsPageFactory:CreateNewPage()
 
 	this.playsessionid = ""
-	if FFlagIEMSettingsAddPlaySessionID and EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
+	if EngineFeatureRbxAnalyticsServiceExposePlaySessionId then
 		this.playsessionid = AnalyticsService:GetPlaySessionId()
 	end
 
@@ -185,7 +184,7 @@ local function Initialize()
 				confirmed = Constants.AnalyticsCancelledName,
 				universeid = tostring(game.GameId),
 				source = Constants.AnalyticsLeaveGameSource,
-				playsessionid = if FFlagIEMSettingsAddPlaySessionID then this.playsessionid else nil,
+				playsessionid = this.playsessionid ,
 			}
 		)
 	end
@@ -300,7 +299,7 @@ PageInstance.Displayed.Event:connect(function()
 	if not FFlagRefactorMenuConfirmationButtons then
 		GuiService.SelectedCoreObject = PageInstance.LeaveGameButton
 	end
-	if FFlagEnableChromeShortcutBar then 
+	if FFlagEnableConsoleExpControls then 
 		if ChromeEnabled then 
 			if FFlagChromeShortcutRemoveRespawnOnLeavePage then
 				ChromeService:setShortcutBar(ChromeConstants.TILTMENU_LEAVE_DIALOG_SHORTCUTBAR_ID)

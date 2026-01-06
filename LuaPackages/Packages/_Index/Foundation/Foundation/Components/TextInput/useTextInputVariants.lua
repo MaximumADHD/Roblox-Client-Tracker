@@ -16,8 +16,6 @@ type VariantProps = composeStyleVariant.VariantProps
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
-local Flags = require(Foundation.Utility.Flags)
-
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 
 type TextInputVariantProps = {
@@ -125,7 +123,7 @@ local function variantsFactory(tokens: Tokens)
 		[InputSize.Small] = computeProps({
 			canvasTag = "size-full-800",
 			outerContainerTag = "radius-medium",
-			radius = if Flags.FoundationInputInnerRadiusFix then tokens.Radius.Medium else tokens.Radius.Small,
+			radius = tokens.Radius.Medium,
 			innerContainerTag = "gap-medium",
 			horizontalPadding = tokens.Padding.Small,
 			gap = tokens.Gap.Medium,
@@ -139,7 +137,7 @@ local function variantsFactory(tokens: Tokens)
 		[InputSize.Medium] = computeProps({
 			canvasTag = "size-full-1000",
 			outerContainerTag = "radius-medium",
-			radius = if Flags.FoundationInputInnerRadiusFix then tokens.Radius.Medium else tokens.Radius.Small,
+			radius = tokens.Radius.Medium,
 			innerContainerTag = "gap-large",
 			horizontalPadding = tokens.Padding.Small,
 			gap = tokens.Gap.Large,

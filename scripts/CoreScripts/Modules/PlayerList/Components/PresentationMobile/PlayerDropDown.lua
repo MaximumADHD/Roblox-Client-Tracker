@@ -41,14 +41,10 @@ local PlayerList = Components.Parent
 
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
-
-local GetFFlagFixDropDownVisibility = require(PlayerList.Flags.GetFFlagFixDropDownVisibility)
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
 local FFlagNavigateToBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagNavigateToBlockingModal)
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
-local FFlagAddMobilePlayerListScaling = PlayerListPackage.Flags.FFlagAddMobilePlayerListScaling
-local FFlagPlayerListAddConnectionButtonFocusNav = require(PlayerList.Flags.FFlagPlayerListAddConnectionButtonFocusNav)
-local FFlagFixPlayerListBlockingModalFocusNav = PlayerListPackage.Flags.FFlagFixPlayerListBlockingModalFocusNav
+local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 
 local BlockPlayer = require(PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(PlayerList.Thunks.UnblockPlayer)
@@ -140,7 +136,7 @@ function PlayerDropDown:createFriendButton(playerRelationship)
 		dropDownOpen = self.props.isVisible,
 		requestFriendship = self.props.requestFriendship,
 		contentVisible = self.state.contentVisible,
-		isUsingGamepad = if FFlagPlayerListAddConnectionButtonFocusNav then self.props.isUsingGamepad else nil,
+		isUsingGamepad = self.props.isUsingGamepad,
 	})
 end
 
@@ -167,7 +163,7 @@ function PlayerDropDown:createBlockButton(playerRelationship)
 						onBlockingSuccess = function()
 							self.props.blockPlayerSuccess(selectedPlayer)
 						end,
-						onBlockingModalClose = if FFlagFixPlayerListBlockingModalFocusNav 
+						onBlockingModalClose = if FFlagAddNewPlayerListMobileFocusNav 
 							then function()
 								if self.props.isUsingGamepad then
 										self.props.focusGuiObject(self.buttonsContainerRef.current)
@@ -231,7 +227,7 @@ end
 
 function PlayerDropDown:render()
 	return WithLayoutValues(function(layoutValues)
-		layoutValues = if FFlagAddMobilePlayerListScaling then self.props.layoutValues else layoutValues
+		layoutValues = if FFlagUseNewPlayerList then self.props.layoutValues else layoutValues
 
 		local selectedPlayer = self.props.selectedPlayer
 
@@ -292,11 +288,11 @@ function PlayerDropDown:render()
 			AutoButtonColor = false,
 			Active = self.props.isVisible,
 			Image = "",
-			SelectionGroup = if FFlagFixPlayerListBlockingModalFocusNav then true else nil,
-			SelectionBehaviorUp = if FFlagFixPlayerListBlockingModalFocusNav then Enum.SelectionBehavior.Stop else nil,
-			SelectionBehaviorDown = if FFlagFixPlayerListBlockingModalFocusNav then Enum.SelectionBehavior.Stop else nil,
-			SelectionBehaviorLeft = if FFlagFixPlayerListBlockingModalFocusNav then Enum.SelectionBehavior.Stop else nil,
-			SelectionBehaviorRight = if FFlagFixPlayerListBlockingModalFocusNav then Enum.SelectionBehavior.Stop else nil,
+			SelectionGroup = if FFlagAddNewPlayerListMobileFocusNav then true else nil,
+			SelectionBehaviorUp = if FFlagAddNewPlayerListMobileFocusNav then Enum.SelectionBehavior.Stop else nil,
+			SelectionBehaviorDown = if FFlagAddNewPlayerListMobileFocusNav then Enum.SelectionBehavior.Stop else nil,
+			SelectionBehaviorLeft = if FFlagAddNewPlayerListMobileFocusNav then Enum.SelectionBehavior.Stop else nil,
+			SelectionBehaviorRight = if FFlagAddNewPlayerListMobileFocusNav then Enum.SelectionBehavior.Stop else nil,
 			[Roact.Event.Activated] = self.props.closeDropDown,
 			[Roact.Ref] = self.imageButtonRef,
 		}, {
@@ -343,7 +339,7 @@ function PlayerDropDown:didUpdate(previousProps, previousState)
 		if self.props.isUsingGamepad and (previousState.contentVisible ~= self.state.contentVisible or not self.props.focusedGuiObject) then
 			if self.state.contentVisible and self.buttonsContainerRef.current then
 				self.props.focusGuiObject(self.buttonsContainerRef.current)
-				if not FFlagFixPlayerListBlockingModalFocusNav then
+				if not FFlagAddNewPlayerListMobileFocusNav then
 					self.buttonsContainerRef.current.SelectionGroup = true
 					self.buttonsContainerRef.current.SelectionBehaviorUp = Enum.SelectionBehavior.Stop
 					self.buttonsContainerRef.current.SelectionBehaviorDown = Enum.SelectionBehavior.Stop
@@ -370,9 +366,7 @@ end
 local function mapStateToProps(state)
 	local selectedPlayer = state.playerDropDown.selectedPlayer
 
-	local isVisible = if GetFFlagFixDropDownVisibility()
-		then state.playerDropDown.isVisible and state.displayOptions.isVisible
-		else state.playerDropDown.isVisible
+	local isVisible = state.playerDropDown.isVisible and state.displayOptions.isVisible
 
 	return {
 		selectedPlayer = selectedPlayer,
@@ -415,7 +409,7 @@ local function mapDispatchToProps(dispatch)
 end
 
 local function PlayerDropDownWrapper(props)
-	local layoutValues = if FFlagAddMobilePlayerListScaling then useLayoutValues() else nil
+	local layoutValues = if FFlagUseNewPlayerList then useLayoutValues() else nil
 
 	local focusGuiObject = ReactFocusNavigation.useFocusGuiObject()
 	local focusedGuiObject = ReactFocusNavigation.useFocusedGuiObject()
@@ -427,7 +421,7 @@ local function PlayerDropDownWrapper(props)
 	}))
 end
 
-if FFlagAddNewPlayerListMobileFocusNav or FFlagAddMobilePlayerListScaling then
+if FFlagAddNewPlayerListMobileFocusNav or FFlagUseNewPlayerList then
 	if FFlagPlayerListReduceRerenders then
 		return React.memo(RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PlayerDropDownWrapper))
 	end

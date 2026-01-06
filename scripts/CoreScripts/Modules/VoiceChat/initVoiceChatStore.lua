@@ -6,7 +6,6 @@ local Players = game:GetService("Players")
 
 local FFlagEnableVoiceChatStorybookFix = require(RobloxGui.Modules.Flags.FFlagEnableVoiceChatStorybookFix)
 local GetFFlagLocalMutedNilFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagLocalMutedNilFix
-local GetFFlagRemoveInGameChatBubbleChatReferences = require(RobloxGui.Modules.Flags.GetFFlagRemoveInGameChatBubbleChatReferences)
 
 local VoiceEnabledChanged = require(script.Parent.Actions.VoiceEnabledChanged)
 local VoiceStateChanged = require(script.Parent.Actions.VoiceStateChanged)
@@ -17,10 +16,7 @@ local PlayerRemoved = require(script.Parent.Actions.PlayerRemoved)
 local VoiceChatServiceManager = require(script.Parent.VoiceChatServiceManager).default
 local VoiceConstants = require(CorePackages.Workspace.Packages.VoiceChat).Constants
 local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
-local log = require(RobloxGui.Modules.InGameChat.BubbleChat.Logger)(script.Name)
-if GetFFlagRemoveInGameChatBubbleChatReferences() then
-	log = require(RobloxGui.Modules.VoiceChat.Logger)(script.Name)
-end
+local log = require(RobloxGui.Modules.VoiceChat.Logger)(script.Name)
 
 local VOICE_STATE
 if FFlagEnableVoiceChatStorybookFix() then
