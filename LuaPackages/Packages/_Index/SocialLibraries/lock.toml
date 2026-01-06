@@ -18,7 +18,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 4.3.0 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "Symbol lua-symbol 0.1.0 registry",
-    "UIBlox UIBlox 0.2.181 registry",
+    "UIBlox UIBlox 0.2.214 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
     "t t 1.2.6 registry",

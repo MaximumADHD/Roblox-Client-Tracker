@@ -1,0 +1,45 @@
+[package]
+name = "InlineLayout"
+version = "0.0.2"
+readme = "README.md"
+content_root = "src"
+files = [
+    "*",
+    "!**/*.test.lua",
+    "!src/jest.config.lua",
+]
+publish = true
+authors = [
+    "Evgeniy Valyaev <evalyaev@roblox.com>",
+    "Elvis Wei <ewei@roblox.com>",
+]
+description = "Components for Inline Layout"
+keywords = ["inline-layout"]
+[dependencies.Dash]
+version = "^2.0.0"
+
+[dependencies.Foundation]
+version = "^1.63.1"
+
+[dependencies.MarkdownCore]
+package = "MarkdownCore"
+version = "^0.0.2"
+
+[dependencies.React]
+version = "^17.3.6"
+
+[dependencies.ReactIs]
+version = "^17.3.6"
+[dev_dependencies.Jest]
+version = "= 3.13.3"
+
+[dev_dependencies.JestGlobals]
+version = "= 3.13.3"
+
+[dev_dependencies.ReactTestingLibrary]
+version = "^12.3.4"
+
+[dev_dependencies.Roact]
+target = "https://github.com/roblox/roact-alignment"
+package = "RoactCompat"
+version = "^17.3.6"

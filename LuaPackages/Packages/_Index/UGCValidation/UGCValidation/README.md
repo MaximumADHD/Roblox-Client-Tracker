@@ -28,7 +28,7 @@ local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
 local AccessoryIsNamedAccessory = {}
 
 AccessoryIsNamedAccessory.categories = { ValidationEnums.UploadCategory.LAYERED_CLOTHING }
-AccessoryIsNamedAccessory.required_data = {ValidationEnums.SharedDataMember.rootInstance }
+AccessoryIsNamedAccessory.requiredData = {ValidationEnums.SharedDataMember.rootInstance }
 
 AccessoryIsNamedAccessory.run = function(reporter: Types.ValidationReporter, data: Types.SharedData)
 	local accessory = data.rootInstance 

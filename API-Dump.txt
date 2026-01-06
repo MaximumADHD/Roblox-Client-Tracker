@@ -342,6 +342,7 @@ Class AnimationNodeDefinition : Instance
 	Function AnimationNodeDefinition:GetOutputPins() -> { any } {🔐Animation}
 	Function AnimationNodeDefinition:RemoveInputPin(pin: string) -> () {🔐Animation} {RobloxScriptSecurity}
 	Function AnimationNodeDefinition:SetInputPinNames(pins: { any }) -> () {🔐Animation} {RobloxScriptSecurity}
+	Event AnimationNodeDefinition.InputPinsChanged() {🔐Animation} {RobloxScriptSecurity}
 Class AnimationRigData : Instance
 	Property AnimationRigData.label: BinaryString {🔐Animation} [Hidden] [NotScriptable]
 	Property AnimationRigData.name: BinaryString {🔐Animation} [Hidden] [NotScriptable]
@@ -512,6 +513,7 @@ Class AssetImportService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AssetImportService:StartSessionWithPathAsync(filePath: string) -> AssetImportSession {RobloxScriptSecurity} [Yields]
 	Function AssetImportService:UploadAssetFromContentAsync(content: string, createAssetRequest: { [string]: any }) -> ...any {RobloxScriptSecurity} [Yields]
 	Function AssetImportService:UploadAssetFromPathAsync(filepath: string, createAssetRequest: { [string]: any }) -> ...any {RobloxScriptSecurity} [Yields]
+	Event AssetImportService.StartSingleMeshImport(fileName: string) {RobloxScriptSecurity}
 Class AssetManagerService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AssetManagerService:AddNewPlace() -> number {RobloxScriptSecurity} [Yields]
 	Function AssetManagerService:CreateAlias(assetType: number, assetId: number, aliasName: string) -> () {RobloxScriptSecurity} [Yields]
@@ -571,6 +573,7 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:GetBundleDetailsSync(bundleId: number) -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetService:GetCreatorAssetID(creationID: number) -> number [Yields] [Deprecated]
 	Function AssetService:GetGamePlacesAsync() -> Instance? [Yields]
+	Function AssetService:GetOpaqueContentMetadataMap(opaqueContent: Content) -> { [string]: any } {RobloxScriptSecurity}
 	Function AssetService:LoadAssetAsync(assetId: number) -> Instance? [Yields]
 	Function AssetService:PromptCreateAssetAsync(player: Player, instance: Instance, assetType: Enum.AssetType) -> ...any [Yields]
 	Function AssetService:PromptImportAnimationClipFromVideoAsync(player: Player, progressCallback: (...any) -> ...any) -> ...any [Yields]
@@ -2573,6 +2576,7 @@ Class FeatureRestrictionManager : Instance [NotCreatable] [Service]
 	Event FeatureRestrictionManager.FeatureTimeoutRestored(featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxScriptSecurity}
 	Event FeatureRestrictionManager.RefreshFeatureRestrictions(featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxSecurity} [Hidden]
 	Event FeatureRestrictionManager.ShowFeatureInterventionDetails(featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxScriptSecurity}
+	Event FeatureRestrictionManager.ShowFeatureInterventionDetailsV2(featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector, isGameJoin: boolean) {RobloxScriptSecurity}
 	Event FeatureRestrictionManager.TimeoutChatAttempt(isPermanentTimeout: boolean, endTime: number) {RobloxScriptSecurity}
 	Event FeatureRestrictionManager.UpdateClientFeatureTimeout(acknowledgeable: boolean, permanent: boolean, startTime: number, duration: number, featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {RobloxSecurity} [Hidden]
 	Event FeatureRestrictionManager.UpdateExperienceChatTimeout(startTime: number, duration: number) {RobloxSecurity} [Hidden]
@@ -2933,6 +2937,8 @@ Class ScrollingFrame : GuiObject
 	Property ScrollingFrame.VerticalScrollBarPosition: Enum.VerticalScrollBarPosition {🔐UI}
 	Function ScrollingFrame:ClearInertialScrolling() -> () {🔐UI} {RobloxScriptSecurity}
 	Function ScrollingFrame:GetSampledInertialVelocity() -> Vector2 {🔐UI} {RobloxScriptSecurity}
+	Function ScrollingFrame:GetScrollVelocity() -> Vector2 {🔐UI}
+	Function ScrollingFrame:ResetScrollVelocity() -> () {🔐UI}
 	Function ScrollingFrame:ScrollToTop() -> () {🔐UI} {RobloxScriptSecurity}
 Class TextBox : GuiObject
 	Property TextBox.ClearTextOnFocus: boolean {🔐UI}
@@ -3299,6 +3305,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GuiService:GetGuiInset() -> ...any
 	Function GuiService:GetGuiIsVisible(guiType: Enum.GuiType) -> boolean {RobloxScriptSecurity}
 	Function GuiService:GetHardwareSafeViewport() -> Vector2 {RobloxScriptSecurity}
+	Function GuiService:GetInsetArea(screenInsets: Enum.ScreenInsets) -> Rect
 	Function GuiService:GetInspectMenuEnabled() -> boolean
 	Function GuiService:GetNotificationTypeList() -> { [string]: any } {RobloxScriptSecurity}
 	Function GuiService:GetRawScreenScale() -> number {RobloxScriptSecurity}
@@ -3881,9 +3888,11 @@ Class InputBinding : Instance
 	Property InputBinding.KeyCode: Enum.KeyCode {🔐Input}
 	Property InputBinding.PointerIndex: number {🔐Input}
 	Property InputBinding.PressedThreshold: number {🔐Input}
+	Property InputBinding.PrimaryModifier: Enum.KeyCode {🔐Input}
 	Property InputBinding.ReleasedThreshold: number {🔐Input}
 	Property InputBinding.ResponseCurve: number {🔐Input}
 	Property InputBinding.Scale: number {🔐Input}
+	Property InputBinding.SecondaryModifier: Enum.KeyCode {🔐Input}
 	Property InputBinding.UIButton: GuiButton? {🔐Input}
 	Property InputBinding.Vector2Scale: Vector2 {🔐Input}
 	Property InputBinding.Vector3Scale: Vector3 {🔐Input}
@@ -3926,12 +3935,16 @@ Class InsertService : Instance [NotCreatable] [Service]
 	Function InsertService:LoadAssetVersion(assetVersionId: number) -> Instance? [Yields]
 	Function InsertService:LoadAssetWithFormat(assetId: number, format: string) -> { Instance } {RobloxScriptSecurity} [Yields]
 	Function InsertService:LoadLocalAsset(assetPath: string) -> Instance? {RobloxScriptSecurity}
-	Function InsertService:LoadPackageAsset(url: string) -> { Instance } {RobloxScriptSecurity}
 	Function InsertService:LoadPackageAssetAsync(url: string) -> { Instance } {RobloxScriptSecurity} [Yields]
 	Function InsertService:loadAsset(assetId: number) -> Instance? [Yields] [Deprecated]
 	Event InsertService.InternalDelete(instance: Instance) [Hidden]
 Class InstanceExtensionsService : Instance [NotCreatable] [Service]
 	Function InstanceExtensionsService:CountChildren(instance: Instance) -> number {RobloxScriptSecurity}
+Class InstanceFileSyncService : Instance [NotCreatable] [Service] [NotReplicated]
+	Function InstanceFileSyncService:GetAllInstances() -> { Instance } {PluginSecurity}
+	Function InstanceFileSyncService:GetStatus(instance: Instance) -> Enum.InstanceFileSyncStatus {PluginSecurity}
+	Function InstanceFileSyncService:GetSyncedInstance(filePath: string) -> Instance? {PluginSecurity}
+	Event InstanceFileSyncService.StatusChanged(instance: Instance, status: Enum.InstanceFileSyncStatus) {PluginSecurity}
 Class InternalSyncItem : Instance [NotReplicated]
 	Property InternalSyncItem.AutoSync: boolean {RobloxScriptSecurity} [NotReplicated]
 	Property InternalSyncItem.Enabled: boolean {RobloxScriptSecurity} [NotReplicated]
@@ -6093,7 +6106,7 @@ Class RuntimeContentService : Instance [NotCreatable] [Service]
 	Event RuntimeContentService.RuntimeContentFail(id: string)
 	Event RuntimeContentService.RuntimeContentLRCleanup(id: string, priorityList: string)
 	Event RuntimeContentService.RuntimeContentQuery(id: string, expectedType: string, priorityList: string)
-	Event RuntimeContentService.RuntimeContentShare(id: string, content: string)
+	Event RuntimeContentService.RuntimeContentShare(id: string, content: string, metadata: string)
 Class RuntimeScriptService : Instance [NotCreatable] [Service] [NotReplicated]
 Class SafetyService : Instance [NotCreatable] [Service]
 	Property SafetyService.IsCaptureModeForReport: boolean {RobloxScriptSecurity}
@@ -6280,6 +6293,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Property DataModel.MatchmakingType: Enum.MatchmakingType [ReadOnly]
 	Property DataModel.PrivateServerId: string [ReadOnly]
 	Property DataModel.PrivateServerOwnerId: number [ReadOnly]
+	Property DataModel.RunService: Instance? [ReadOnly]
 	Property DataModel.VIPServerId: string [Hidden] [ReadOnly] [Deprecated]
 	Property DataModel.VIPServerOwnerId: number [Hidden] [ReadOnly] [Deprecated]
 	Property DataModel.Workspace: Workspace? [ReadOnly]
@@ -6321,6 +6335,7 @@ Class DataModel : ServiceProvider [NotCreatable]
 	Function DataModel:IsLoaded() -> boolean
 	Function DataModel:IsUniverseMetadataLoaded() -> boolean {RobloxScriptSecurity}
 	Function DataModel:Load(url: string) -> () {LocalUserSecurity}
+	Function DataModel:OpenLogsFolder() -> () {RobloxScriptSecurity}
 	Function DataModel:OpenScreenshotsFolder() -> () {RobloxScriptSecurity}
 	Function DataModel:OpenVideosFolder() -> () {RobloxScriptSecurity}
 	Function DataModel:ReportInGoogleAnalytics(category: string, action: string? = "custom", label: string? = "none", value: number? = 0) -> () {RobloxScriptSecurity}
@@ -7154,7 +7169,7 @@ Class StyleLink : Instance
 Class StyleQuery : Instance [NotReplicated] [NotBrowsable]
 	Property StyleQuery.AspectRatioRange: NumberRange
 	Property StyleQuery.IsActive: boolean [ReadOnly]
-	Property StyleQuery.MaxSize: Vector2
+	Property StyleQuery.MaxSize: Vector2 [NotReplicated] [NotScriptable]
 	Property StyleQuery.MinSize: Vector2
 	Property StyleQuery.ConditionsSerialize: BinaryString [Hidden] [NotScriptable]
 	Function StyleQuery:GetCondition(name: string) -> any
@@ -7467,6 +7482,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Event TextChatService.ClientToServerMessageReplicateSignalV2(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel) {🔐Chat} {RobloxSecurity} [Hidden]
 	Event TextChatService.ClientToServerMessageReplicateSignalV3(text: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, verified: boolean, isEscapedFlagEnabled: boolean) {🔐Chat} {RobloxSecurity} [Hidden]
 	Event TextChatService.MessageReceived(textChatMessage: TextChatMessage) {🔐Chat}
+	Event TextChatService.OnIncomingMessageEvent(textChatMessage: TextChatMessage) {🔐Chat} {RobloxScriptSecurity}
 	Event TextChatService.SendingMessage(textChatMessage: TextChatMessage) {🔐Chat}
 	Event TextChatService.ServerToClientMessageReplicateSignal(text: string, prefixText: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, timestamp: number, status: Enum.TextChatMessageStatus) {🔐Chat} {RobloxSecurity} [Hidden]
 	Event TextChatService.ServerToClientMessageReplicateSignalV2(data: { [string]: any }) {🔐Chat} {RobloxSecurity} [Hidden]
@@ -9021,9 +9037,6 @@ Enum CatalogSortType
 	EnumItem CatalogSortType.MostFavorited : 5
 	EnumItem CatalogSortType.RecentlyCreated : 6
 	EnumItem CatalogSortType.Bestselling : 7
-Enum CatalogTimedOptionFilter
-	EnumItem CatalogTimedOptionFilter.All : 1
-	EnumItem CatalogTimedOptionFilter.TimedOptionOnly : 2
 Enum CellBlock
 	EnumItem CellBlock.Solid : 0
 	EnumItem CellBlock.VerticalWedge : 1
@@ -10022,6 +10035,11 @@ Enum InputType
 	EnumItem InputType.NoInput : 0
 	EnumItem InputType.Constant : 12
 	EnumItem InputType.Sin : 13
+Enum InstanceFileSyncStatus
+	EnumItem InstanceFileSyncStatus.NotSynced : 0
+	EnumItem InstanceFileSyncStatus.Errored : 1
+	EnumItem InstanceFileSyncStatus.SyncedAsRoot : 2
+	EnumItem InstanceFileSyncStatus.SyncedAsDescendant : 3
 Enum IntermediateMeshGenerationResult
 	EnumItem IntermediateMeshGenerationResult.HighQualityMesh : 0
 Enum InterpolationThrottlingMode

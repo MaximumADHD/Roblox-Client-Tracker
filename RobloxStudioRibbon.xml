@@ -278,8 +278,8 @@
           <addaction name="ScriptLargeAction" text="Script" value="Script" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAScript" icon=":/images/server_script.png" modernIcon="Script"/>
           <addaction name="LocalScriptLargeAction" text="LocalScript" value="LocalScript" tooltip="Studio.App.RobloxRibbonMainWindow.InsertALocalScript" icon=":/images/local_script.png" modernIcon="LocalScript"/>
           <addaction name="ModuleScriptLargeAction" text="ModuleScript" value="ModuleScript" tooltip="Studio.App.RobloxRibbonMainWindow.InsertAModuleScript" icon=":/images/module_script.png" modernIcon="ModuleScript"/>
-          <addaction fflagList="DebugHashTableMetrics,EnableRibbonPlugin3" name="BehaviorScriptLargeAction" value="BehaviorScript" icon=":/images/behavior_script.png" modernIcon="Placeholder"/>
-          <addaction fflagList="DebugHashTableMetrics,!EnableRibbonPlugin3" name="BehaviorScriptLargeAction" text="BehaviorScript" value="BehaviorScript" tooltip="Studio.App.RobloxRibbonMainWindow.InsertABehaviorScript" icon=":/images/behavior_script.png" modernIcon="Placeholder"/>
+          <addaction fflagList="ProfileZstdCompressionMetrics,DebugHashTableMetrics,EnableRibbonPlugin3" name="BehaviorScriptLargeAction" value="BehaviorScript" icon=":/images/behavior_script.png" modernIcon="Placeholder"/>
+          <addaction fflagList="ProfileZstdCompressionMetrics,DebugHashTableMetrics,!EnableRibbonPlugin3" name="BehaviorScriptLargeAction" text="BehaviorScript" value="BehaviorScript" tooltip="Studio.App.RobloxRibbonMainWindow.InsertABehaviorScript" icon=":/images/behavior_script.png" modernIcon="Placeholder"/>
         </ActionGroup>
       </Group>
     </TabPage>
