@@ -3,12 +3,14 @@ Studio.Actions.ConnectionIndicator,,Connection Status,Connection Status
 Studio.Actions.TBD,,TBD,TBD
 Studio.Actions.Title.Assistant,"Button that opens Studio Assistant - an AI helper that accelerates content creation by helping you get started, supplementing your skills, and assisting with ongoing development",AI Assistant,AI Assistant
 Studio.Actions.Title.Diagnostics,Action to view diagnostic information of your game,Performance Diagnostics,Performance Diagnostics
+Studio.Actions.Title.ExperienceSettings,"The title for the ""Experience Settings"" window, the way that Creators configure their experience's settings in Studio",Experience Settings,Experience Settings
 Studio.Actions.Title.LogoutMenu,Label for the logout menu in Studio,Current User,Current User
 Studio.Actions.Title.MicroProfiler,The MicroProfiler is a performance optimization and troubleshooting tool available in Roblox Studio and the Roblox client. It provides detailed timing information for task scheduler tasks called tags.,MicroProfiler,MicroProfiler
 Studio.Actions.Title.SceneMonitor,Scene Monitor,Scene Monitor,Scene Monitor
 Studio.Actions.Title.VerifyAge,"This string will be displayed as an menu item in the account dropdown menu, prompting the user to click on the item, which will redirect them to the web to start the age verification process.",Age check needed,Age check needed
 Studio.Actions.Tooltip.Assistant,"Tooltip for button that opens Studio Assistant - an AI helper that accelerates content creation by helping you get started, supplementing your skills, and assisting with ongoing development",Chat with Studio Assistant to get help and accelerate creation,Chat with Studio Assistant to get help and accelerate creation
 Studio.Actions.Tooltip.ConnectionIndicator,"Tooltip for the button for connection status, which shows the status of your connection to the Team Create server",This shows the status of your connection to the Team Create server,This shows the status of your connection to the Team Create server
+Studio.Actions.Tooltip.ExperienceSettings,"The tooltip for the button that opens the ""Experience Settings"" window - the window that allows Creators to configure their Experience's settings in Studio.",Update settings related to current experience,Update settings related to current experience
 Studio.Actions.Tooltip.LiveCollaborators,Tooltip for the Social Presence widget in Studio about the current users who are active in the open place,Team members actively creating in this place,Team members actively creating in this place
 Studio.Actions.Tooltip.LogoutMenu,This is the tooltip for the logout menu. The %1 is not supposed to be localized as it's the variable placeholder for the username,You are logged in as %1,You are logged in as %1
 Studio.Actions.Tooltip.MicroProfiler,Tooltip for the MicroProfiler - a performance optimization and troubleshooting tool available in Roblox Studio and the Roblox client. It provides detailed timing information for task scheduler tasks called tags.,Performance optimization and troubleshooting tool that provides detailed timing information for task scheduler tasks,Performance optimization and troubleshooting tool that provides detailed timing information for task scheduler tasks
@@ -5561,10 +5563,14 @@ Due to its nature, Material Generator may generate irrelevant, inaccurate, offen
 Studio.BetaFeatures.MaterialGeneratorTitle,,Material Generator,Material Generator
 Studio.BetaFeatures.MaterialPickerDescription,,Adds a new Material button to the Home and Edit tabs to quickly change materials.,Adds a new Material button to the Home and Edit tabs to quickly change materials.
 Studio.BetaFeatures.MaterialPickerTitle,,Material Picker,Material Picker
+Studio.BetaFeatures.MaterialVariantAlphaModeDescription,Adds AlphaMode.Opaque and enables AlphaMode for MaterialVariant. This allows MaterialVariants attached to parts to have different AlphaMode properties.,Enable AlphaMode on MaterialVariants and add Opaque AlphaMode.,Enable AlphaMode on MaterialVariants and add Opaque AlphaMode.
+Studio.BetaFeatures.MaterialVariantAlphaModeTitle,Feature that adds AlphaMode on MaterialVariant and adds Opaque AlphaMode.,MaterialVariant Alpha Mode,MaterialVariant Alpha Mode
 Studio.BetaFeatures.MinPartSizeDescription,,"Reduces the minimum limit on part sizes from 0.05 to 0.001. Parts can be visually smaller, but will still limit to 0.05 for collision geometry for now.","Reduces the minimum limit on part sizes from 0.05 to 0.001. Parts can be visually smaller, but will still limit to 0.05 for collision geometry for now."
 Studio.BetaFeatures.MinPartSizeTitle,,Lower minimum part size,Lower minimum part size
 Studio.BetaFeatures.MultilayerWrapFixDescription,,Outer layers of multilayer outfits will fit better with less distortion. Single layer outfits will be unaffected. Also faster.,Outer layers of multilayer outfits will fit better with less distortion. Single layer outfits will be unaffected. Also faster.
 Studio.BetaFeatures.MultilayerWrapFixTitle,,Multilayer Wrap Fix,Multilayer Wrap Fix
+Studio.BetaFeatures.MultitouchSimulationDescription,Description for the Multi-touch Simulation beta feature,Enables multi-touch gestures for simulated touch devices,Enables multi-touch gestures for simulated touch devices
+Studio.BetaFeatures.MultitouchSimulationTitle,Title for the Multi-touch Simulation beta feature,Multi-touch Simulation,Multi-touch Simulation
 Studio.BetaFeatures.NewBaseMaterialsDescription,,Adds 8 new base materials.,Adds 8 new base materials.
 Studio.BetaFeatures.NewBaseMaterialsTitle,,New Base Materials,New Base Materials
 Studio.BetaFeatures.NewCameraControlsDescription,,Enables improved camera controls for Studio.,Enables improved camera controls for Studio.
@@ -5873,6 +5879,12 @@ Studio.DeviceEmulator.Tooltip.OnlyEnabledIn3D,"When the 3D viewport is not activ
 Studio.DistributedScripts.AddBehaviorBindingPopup.CreateBehaviorBindingFmt1,Displayed in the AddBehaviorBindingPopup to label a Behavior that will be newly created and bound to the selected Instances.,Create and bind Behavior: %1,Create and bind Behavior: %1
 Studio.DistributedScripts.AddBehaviorBindingPopup.LineEditText,Text that appears in the text box of the AddBehaviorBindingPopup letting users know how to use it.,Search for a Behavior to bind to,Search for a Behavior to bind to
 Studio.DistributedScripts.AddBehaviorBindingPopup.NoBehaviorBindingsCreated,Displayed in the AddBehaviorBindingPopup when no behaviors have been bound yet.,No Behaviors have been bound yet,No Behaviors have been bound yet
+Studio.DistributedScripts.AuroraScriptBindingsUploadWarning,"In the current implementation, AuroraScript bindings can't survive upload to the marketplace - this is a popup message warning creator about the outcome and confirming the intent. NB: please keep the line breaks","AuroraScript bindings will be removed during upload, which may break functionality. Consider converting to local scripts first.
+
+Continue with upload anyway?","AuroraScript bindings will be removed during upload, which may break functionality. Consider converting to local scripts first.
+
+Continue with upload anyway?"
+Studio.DistributedScripts.AuroraScriptUploadError,"AuroraScripts can't be included in any uploads - ""save to roblox"" or ""convert to package"" will prompt this error if creator tries to include AuroraScipt",AuroraScripts can't be included in uploads,AuroraScripts can't be included in uploads
 Studio.DistributedScripts.BehaviorName,"The name of a Behavior (otherwise known as an AuroraScript, or a Distributed Script).",Behavior,Behavior
 Studio.DistributedScripts.BehaviorScript,A script that defines a behavior,Behavior Script,Behavior Script
 Studio.DistributedScripts.NoBehaviorBindingsLabelItem.NoBehaviorsFound,"Displays when the user goes to bind a Behavior, but there aren't any Behaviors for them to bind.",No bindable Behaviors were found,No bindable Behaviors were found
@@ -5966,6 +5978,8 @@ CoreScript (Resim)
 
 These are all derived from Studio.App.RobloxOutputRibbonDropdown.Client, Studio.App.RobloxOutputRibbonDropdown.Server, etc.",Studio (Resim),Studio (Resim)
 Studio.DistributedScripts.RobloxRibbonMainWindow.InsertABehavior,Describes how inserting a Behavior from the Studio ribbon works.,Insert a behavior,Insert a behavior
+Studio.DistributedScripts.SelectAndOpenAuroraScript,"AuroraScripts are bound to Instances. When Instance(s) are selected, Properties widget shows a list of bindings to AuroraScripts  - this a right-click drop-down menu item that allows creator to select and open the AuroraScript in question.",Select + Open AuroraScript,Select + Open AuroraScript
+Studio.DistributedScripts.SelectAuroraScript,"AuroraScripts are bound to Instances. When Instance(s) are selected, Properties widget shows a list of bindings to AuroraScripts  - this a right-click drop-down menu item that allows creator to select the AuroraScript in question.",Select AuroraScript,Select AuroraScript
 Studio.Docking.PlaceholerPanelText,QtitanDocking: The text that will be displayed in placeholder panels,Empty Docking Area,Empty Docking Area
 Studio.DownloadPlaceCopy.DownloadingPlaceFile,place file download in progress message,Downloading place file… this may take some time.,Downloading place file… this may take some time.
 Studio.DownloadPlaceCopy.FallbackToLocal,fall back to saving the local place content,Saving local place content ...,Saving local place content ...
@@ -6246,6 +6260,8 @@ Studio.LiveSync.InvalidFileNameError,Error message shown when a file with an inv
 Studio.LiveSync.KeepLocalAfterSync,Property name for the action to take when stopping sync,Keep local files/directories after sync,Keep local files/directories after sync
 Studio.LiveSync.KeepLocalVersion,The button in the dialog that prompts user on which source of truth to use for the initial sync pass in starting File Sync for a single script. This button chooses to use the file system contents to overwrite the datamodel,Disk version,Disk version
 Studio.LiveSync.KeepStudioVersion,The button in the dialog that prompts user on which source of truth to use for the initial sync pass in starting File Sync for a single script. This button chooses to use the datamodel contents to overwrite the file system,Studio's version,Studio's version
+Studio.LiveSync.OpenInExternalEditor,Context menu text for opening the selected script with the users os default editor,Open in External Editor,Open in External Editor
+Studio.LiveSync.OpenInExternalEditorTooltip,tooltip that displays when hovering the action to open the selected file/folder in the users default app,Open the synced file in the users default editor,Open the synced file in the users default editor
 Studio.LiveSync.PackageLinkAdded,Instance cannot be synced now because it is a package,Unable to sync '%1' because it is part of a package.,Unable to sync '%1' because it is part of a package.
 Studio.LiveSync.PathTranslationError,Header text for the dialog that is shown when a file with an invalid extension is chosen for start sync according to the selected script type and/or runcontext,<b>Path Translation Error</b>,<b>Path Translation Error</b>
 Studio.LiveSync.PathTranslationErrorContent,Content text for the dialog that is shown when a file with an invalid extension is chosen for start sync according to the selected script type and/or runcontext,Can't sync %1 to disk: Encountered an error with the chosen file's extension. See output window for details.,Can't sync %1 to disk: Encountered an error with the chosen file's extension. See output window for details.
