@@ -1,0 +1,172 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["beginEditingPropertyAsync"]
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["setPropertyPart"]
+  GETUPVAL R3 1
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R2 3 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["finishEditingProperty"]
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["aggregatePropertyInfo"]
+  GETTABLEKS R1 R2 K1 ["type"]
+  GETUPVAL R2 2
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_4:
+  GETIMPORT R1 K2 [UDim2.new]
+  LOADN R2 1
+  MINUS R3 R0
+  LOADN R4 0
+  LOADN R5 0
+  CALL R1 4 -1
+  RETURN R1 -1
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["record"]
+  GETUPVAL R2 0
+  CALL R2 0 1
+  GETTABLEKS R3 R1 K1 ["id"]
+  GETTABLEKS R4 R0 K2 ["session"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["useCallback"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  NEWTABLE R7 0 2
+  MOVE R8 R4
+  MOVE R9 R3
+  SETLIST R7 R8 2 [1]
+  CALL R5 2 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K3 ["useCallback"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  NEWTABLE R8 0 2
+  MOVE R9 R4
+  MOVE R10 R3
+  SETLIST R8 R9 2 [1]
+  CALL R6 2 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K3 ["useCallback"]
+  NEWCLOSURE R8 P2
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  NEWTABLE R9 0 2
+  MOVE R10 R4
+  MOVE R11 R3
+  SETLIST R9 R10 2 [1]
+  CALL R7 2 1
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K4 ["useMemo"]
+  NEWCLOSURE R9 P3
+  CAPTURE UPVAL U2
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  NEWTABLE R10 0 2
+  MOVE R11 R3
+  GETTABLEKS R13 R1 K5 ["aggregatePropertyInfo"]
+  GETTABLEKS R12 R13 K6 ["type"]
+  SETLIST R10 R11 2 [1]
+  CALL R8 2 1
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K7 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K12 [{"tag", "LayoutOrder", "ZIndex", "Size"}]
+  LOADK R12 K13 ["auto-y row flex-x-between align-y-center align-x-left"]
+  SETTABLEKS R12 R11 K8 ["tag"]
+  GETTABLEKS R12 R0 K14 ["layoutOrder"]
+  SETTABLEKS R12 R11 K9 ["LayoutOrder"]
+  GETTABLEKS R12 R0 K15 ["zIndex"]
+  SETTABLEKS R12 R11 K10 ["ZIndex"]
+  GETTABLEKS R12 R0 K16 ["labelWidthBinding"]
+  DUPCLOSURE R14 K17 [PROTO_4]
+  NAMECALL R12 R12 K18 ["map"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K11 ["Size"]
+  DUPTABLE R12 K21 [{"SpecificView", "SizeConstraint"}]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K7 ["createElement"]
+  MOVE R14 R8
+  DUPTABLE R15 K28 [{"info", "beginEditingAsync", "setPart", "finishEditing", "labelPressedSignal", "instancePicker"}]
+  GETTABLEKS R16 R1 K5 ["aggregatePropertyInfo"]
+  SETTABLEKS R16 R15 K22 ["info"]
+  SETTABLEKS R5 R15 K23 ["beginEditingAsync"]
+  SETTABLEKS R6 R15 K24 ["setPart"]
+  SETTABLEKS R7 R15 K25 ["finishEditing"]
+  GETTABLEKS R16 R0 K26 ["labelPressedSignal"]
+  SETTABLEKS R16 R15 K26 ["labelPressedSignal"]
+  GETTABLEKS R16 R4 K27 ["instancePicker"]
+  SETTABLEKS R16 R15 K27 ["instancePicker"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K19 ["SpecificView"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K7 ["createElement"]
+  LOADK R14 K29 ["UISizeConstraint"]
+  DUPTABLE R15 K31 [{"MinSize"}]
+  GETIMPORT R16 K34 [Vector2.new]
+  LOADN R17 0
+  GETTABLEKS R19 R2 K11 ["Size"]
+  GETTABLEKS R18 R19 K35 ["Size_600"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K30 ["MinSize"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K20 ["SizeConstraint"]
+  CALL R9 3 -1
+  RETURN R9 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R0 K8 ["PropertyTypes"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K9 ["React"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R0 K10 ["RpcTypes"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R7 R1 K11 ["Signal"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K12 ["getPropertyView"]
+  CALL R7 1 1
+  GETTABLEKS R8 R2 K13 ["View"]
+  GETTABLEKS R10 R2 K14 ["Hooks"]
+  GETTABLEKS R9 R10 K15 ["useTokens"]
+  DUPCLOSURE R10 K16 [PROTO_5]
+  CAPTURE VAL R9
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  RETURN R10 1

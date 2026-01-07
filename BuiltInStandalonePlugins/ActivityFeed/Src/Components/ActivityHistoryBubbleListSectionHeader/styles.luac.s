@@ -21,49 +21,56 @@ MAIN:
   GETTABLEKS R8 R3 K14 ["normalFontSize"]
   ADD R7 R8 R5
   ADD R6 R7 R4
-  MOVE R7 R2
-  LOADK R8 K15 [".Component-ActivityHistoryBubbleListSectionHeader"]
-  DUPTABLE R9 K17 [{"Size"}]
-  GETIMPORT R10 K20 [UDim2.new]
-  LOADN R11 1
-  LOADN R12 0
+  GETIMPORT R7 K16 [game]
+  LOADK R9 K17 ["ActivityHistoryCompactUI"]
+  NAMECALL R7 R7 K18 ["GetFastFlag"]
+  CALL R7 2 1
+  MOVE R8 R2
+  LOADK R9 K19 [".Component-ActivityHistoryBubbleListSectionHeader"]
+  DUPTABLE R10 K21 [{"Size"}]
+  GETIMPORT R11 K24 [UDim2.new]
+  LOADN R12 1
   LOADN R13 0
-  MOVE R14 R6
-  CALL R10 4 1
-  SETTABLEKS R10 R9 K16 ["Size"]
-  NEWTABLE R10 0 2
-  MOVE R11 R2
-  LOADK R12 K21 ["::UIPadding"]
-  DUPTABLE R13 K26 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-  GETIMPORT R14 K28 [UDim.new]
-  LOADN R15 0
-  MOVE R16 R5
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K22 ["PaddingTop"]
-  GETIMPORT R14 K28 [UDim.new]
-  LOADN R15 0
-  MOVE R16 R4
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K23 ["PaddingBottom"]
-  GETIMPORT R14 K28 [UDim.new]
-  LOADN R15 0
-  MOVE R16 R4
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K24 ["PaddingLeft"]
-  GETIMPORT R14 K28 [UDim.new]
-  LOADN R15 0
-  MOVE R16 R4
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K25 ["PaddingRight"]
-  CALL R11 2 1
+  LOADN R14 0
+  MOVE R15 R6
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K20 ["Size"]
+  NEWTABLE R11 0 2
   MOVE R12 R2
-  LOADK R13 K29 ["> #Title"]
-  DUPTABLE R14 K32 [{"TextColor3", "Font"}]
-  LOADK R15 K33 ["$TextPrimary"]
-  SETTABLEKS R15 R14 K30 ["TextColor3"]
-  GETTABLEKS R15 R3 K34 ["boldedFont"]
-  SETTABLEKS R15 R14 K31 ["Font"]
-  CALL R12 2 -1
-  SETLIST R10 R11 -1 [1]
-  CALL R7 3 -1
-  RETURN R7 -1
+  LOADK R13 K25 ["::UIPadding"]
+  DUPTABLE R14 K30 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R15 K32 [UDim.new]
+  LOADN R16 0
+  MOVE R17 R5
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K26 ["PaddingTop"]
+  GETIMPORT R15 K32 [UDim.new]
+  LOADN R16 0
+  MOVE R17 R4
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K27 ["PaddingBottom"]
+  GETIMPORT R15 K32 [UDim.new]
+  LOADN R16 0
+  MOVE R17 R4
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K28 ["PaddingLeft"]
+  GETIMPORT R15 K32 [UDim.new]
+  LOADN R16 0
+  MOVE R17 R4
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K29 ["PaddingRight"]
+  CALL R12 2 1
+  MOVE R13 R2
+  LOADK R14 K33 ["> #Title"]
+  DUPTABLE R15 K36 [{"TextColor3", "Font"}]
+  JUMPIFNOT R7 [+2]
+  LOADK R16 K37 ["$FoundationColorsContentEmphasis"]
+  JUMP [+1]
+  LOADK R16 K38 ["$TextPrimary"]
+  SETTABLEKS R16 R15 K34 ["TextColor3"]
+  GETTABLEKS R16 R3 K39 ["boldedFont"]
+  SETTABLEKS R16 R15 K35 ["Font"]
+  CALL R13 2 -1
+  SETLIST R11 R12 -1 [1]
+  CALL R8 3 -1
+  RETURN R8 -1

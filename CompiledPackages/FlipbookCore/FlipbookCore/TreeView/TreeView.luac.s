@@ -1,0 +1,68 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["use"]
+  CALL R1 0 1
+  NEWTABLE R2 0 0
+  GETTABLEKS R3 R1 K1 ["getRoots"]
+  CALL R3 0 3
+  FORGPREP R3
+  GETTABLEKS R8 R7 K2 ["label"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K3 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K6 [{"LayoutOrder", "node"}]
+  SETTABLEKS R6 R11 K4 ["LayoutOrder"]
+  SETTABLEKS R7 R11 K5 ["node"]
+  CALL R9 2 1
+  SETTABLE R9 R2 R8
+  FORGLOOP R3 2 [-14]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K3 ["createElement"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K7 ["View"]
+  DUPTABLE R5 K9 [{"tag", "LayoutOrder"}]
+  LOADK R6 K10 ["auto-xy col"]
+  SETTABLEKS R6 R5 K8 ["tag"]
+  GETTABLEKS R6 R0 K11 ["layoutOrder"]
+  SETTABLEKS R6 R5 K4 ["LayoutOrder"]
+  MOVE R6 R2
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["RobloxPackages"]
+  GETTABLEKS R1 R2 K6 ["Foundation"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K7 ["Packages"]
+  GETTABLEKS R2 R3 K8 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["TreeNode"]
+  CALL R2 1 1
+  GETIMPORT R3 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K10 ["TreeViewContext"]
+  CALL R3 1 1
+  GETIMPORT R4 K1 [require]
+  GETIMPORT R7 K3 [script]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K11 ["types"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K12 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  RETURN R5 1

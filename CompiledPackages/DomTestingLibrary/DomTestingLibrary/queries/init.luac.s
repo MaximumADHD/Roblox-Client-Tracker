@@ -1,0 +1,39 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["LuauPolyfill"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K6 ["Object"]
+  NEWTABLE R3 0 0
+  GETTABLEKS R4 R2 K7 ["assign"]
+  MOVE R5 R3
+  GETIMPORT R6 K4 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K8 ["placeholder-text"]
+  CALL R6 1 -1
+  CALL R4 -1 0
+  GETTABLEKS R4 R2 K7 ["assign"]
+  MOVE R5 R3
+  GETIMPORT R6 K4 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K9 ["text"]
+  CALL R6 1 -1
+  CALL R4 -1 0
+  GETTABLEKS R4 R2 K7 ["assign"]
+  MOVE R5 R3
+  GETIMPORT R6 K4 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K10 ["display-value"]
+  CALL R6 1 -1
+  CALL R4 -1 0
+  GETTABLEKS R4 R2 K7 ["assign"]
+  MOVE R5 R3
+  GETIMPORT R6 K4 [require]
+  GETIMPORT R8 K1 [script]
+  GETTABLEKS R7 R8 K11 ["test-id"]
+  CALL R6 1 -1
+  CALL R4 -1 0
+  RETURN R3 1

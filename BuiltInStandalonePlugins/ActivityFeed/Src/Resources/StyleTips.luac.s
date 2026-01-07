@@ -21,45 +21,48 @@ MAIN:
   LOADN R4 14
   GETIMPORT R5 K8 [Enum.Font.SourceSans]
   GETIMPORT R6 K10 [Enum.Font.SourceSansSemibold]
-  DUPTABLE R7 K34 [{"defaultIconSize", "largeIconSize", "emptyScreenContentPaddingPercentage", "buttonPaddingVertical", "buttonPaddingHorizontal", "buttonCornerRadius", "defaultPadding", "smallPadding", "bubblePaddingHalf", "bubbleTopHeight", "bubbleMiddleHeight", "bubbleBottomHeight", "bubbleHeight", "bubbleCornerRadius", "byHeight", "checkBoxRowHeight", "detailFontSize", "normalFontSize", "buttonFontSize", "headerFontSize", "defaultFont", "boldedFont", "filterHeaderHeight"}]
-  LOADN R8 16
-  SETTABLEKS R8 R7 K11 ["defaultIconSize"]
-  SETTABLEKS R1 R7 K12 ["largeIconSize"]
-  LOADK R8 K35 [0.2]
-  SETTABLEKS R8 R7 K13 ["emptyScreenContentPaddingPercentage"]
-  LOADN R8 2
-  SETTABLEKS R8 R7 K14 ["buttonPaddingVertical"]
-  LOADN R8 12
-  SETTABLEKS R8 R7 K15 ["buttonPaddingHorizontal"]
-  LOADN R8 4
-  SETTABLEKS R8 R7 K16 ["buttonCornerRadius"]
-  LOADN R8 8
-  SETTABLEKS R8 R7 K17 ["defaultPadding"]
-  LOADN R8 4
-  SETTABLEKS R8 R7 K18 ["smallPadding"]
-  SETTABLEKS R2 R7 K19 ["bubblePaddingHalf"]
-  LOADN R8 16
-  SETTABLEKS R8 R7 K20 ["bubbleTopHeight"]
-  LOADN R8 22
-  SETTABLEKS R8 R7 K21 ["bubbleMiddleHeight"]
-  LOADN R8 16
-  SETTABLEKS R8 R7 K22 ["bubbleBottomHeight"]
-  SETTABLEKS R3 R7 K23 ["bubbleHeight"]
-  LOADN R8 2
-  SETTABLEKS R8 R7 K24 ["bubbleCornerRadius"]
-  LOADN R8 20
-  SETTABLEKS R8 R7 K25 ["byHeight"]
-  LOADN R8 32
-  SETTABLEKS R8 R7 K26 ["checkBoxRowHeight"]
-  SETTABLEKS R4 R7 K27 ["detailFontSize"]
-  LOADN R8 18
-  SETTABLEKS R8 R7 K28 ["normalFontSize"]
-  LOADN R8 18
-  SETTABLEKS R8 R7 K29 ["buttonFontSize"]
-  LOADN R8 18
-  SETTABLEKS R8 R7 K30 ["headerFontSize"]
-  SETTABLEKS R5 R7 K31 ["defaultFont"]
-  SETTABLEKS R6 R7 K32 ["boldedFont"]
-  LOADN R8 34
-  SETTABLEKS R8 R7 K33 ["filterHeaderHeight"]
-  RETURN R7 1
+  JUMPIFNOT R0 [+2]
+  LOADN R7 22
+  JUMP [+1]
+  LOADN R7 34
+  DUPTABLE R8 K34 [{"defaultIconSize", "largeIconSize", "emptyScreenContentPaddingPercentage", "buttonPaddingVertical", "buttonPaddingHorizontal", "buttonCornerRadius", "defaultPadding", "smallPadding", "bubblePaddingHalf", "bubbleTopHeight", "bubbleMiddleHeight", "bubbleBottomHeight", "bubbleHeight", "bubbleCornerRadius", "byHeight", "checkBoxRowHeight", "detailFontSize", "normalFontSize", "buttonFontSize", "headerFontSize", "defaultFont", "boldedFont", "filterHeaderHeight"}]
+  LOADN R9 16
+  SETTABLEKS R9 R8 K11 ["defaultIconSize"]
+  SETTABLEKS R1 R8 K12 ["largeIconSize"]
+  LOADK R9 K35 [0.2]
+  SETTABLEKS R9 R8 K13 ["emptyScreenContentPaddingPercentage"]
+  LOADN R9 2
+  SETTABLEKS R9 R8 K14 ["buttonPaddingVertical"]
+  LOADN R9 12
+  SETTABLEKS R9 R8 K15 ["buttonPaddingHorizontal"]
+  LOADN R9 4
+  SETTABLEKS R9 R8 K16 ["buttonCornerRadius"]
+  LOADN R9 8
+  SETTABLEKS R9 R8 K17 ["defaultPadding"]
+  LOADN R9 4
+  SETTABLEKS R9 R8 K18 ["smallPadding"]
+  SETTABLEKS R2 R8 K19 ["bubblePaddingHalf"]
+  LOADN R9 16
+  SETTABLEKS R9 R8 K20 ["bubbleTopHeight"]
+  LOADN R9 22
+  SETTABLEKS R9 R8 K21 ["bubbleMiddleHeight"]
+  LOADN R9 16
+  SETTABLEKS R9 R8 K22 ["bubbleBottomHeight"]
+  SETTABLEKS R3 R8 K23 ["bubbleHeight"]
+  LOADN R9 2
+  SETTABLEKS R9 R8 K24 ["bubbleCornerRadius"]
+  LOADN R9 20
+  SETTABLEKS R9 R8 K25 ["byHeight"]
+  LOADN R9 32
+  SETTABLEKS R9 R8 K26 ["checkBoxRowHeight"]
+  SETTABLEKS R4 R8 K27 ["detailFontSize"]
+  LOADN R9 18
+  SETTABLEKS R9 R8 K28 ["normalFontSize"]
+  LOADN R9 18
+  SETTABLEKS R9 R8 K29 ["buttonFontSize"]
+  LOADN R9 18
+  SETTABLEKS R9 R8 K30 ["headerFontSize"]
+  SETTABLEKS R5 R8 K31 ["defaultFont"]
+  SETTABLEKS R6 R8 K32 ["boldedFont"]
+  SETTABLEKS R7 R8 K33 ["filterHeaderHeight"]
+  RETURN R8 1

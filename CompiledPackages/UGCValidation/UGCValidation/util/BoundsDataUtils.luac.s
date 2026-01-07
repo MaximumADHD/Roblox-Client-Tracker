@@ -1,0 +1,152 @@
+PROTO_0:
+  NEWTABLE R2 4 0
+  GETUPVAL R3 0
+  GETTABLEKS R4 R0 K0 ["minMeshCorner"]
+  GETTABLEKS R5 R0 K1 ["maxMeshCorner"]
+  GETTABLEKS R6 R1 K0 ["minMeshCorner"]
+  GETTABLEKS R7 R1 K1 ["maxMeshCorner"]
+  CALL R3 4 2
+  SETTABLEKS R3 R2 K0 ["minMeshCorner"]
+  SETTABLEKS R4 R2 K1 ["maxMeshCorner"]
+  GETUPVAL R3 0
+  GETTABLEKS R4 R0 K2 ["minRigAttachment"]
+  GETTABLEKS R5 R0 K3 ["maxRigAttachment"]
+  GETTABLEKS R6 R1 K2 ["minRigAttachment"]
+  GETTABLEKS R7 R1 K3 ["maxRigAttachment"]
+  CALL R3 4 2
+  SETTABLEKS R3 R2 K2 ["minRigAttachment"]
+  SETTABLEKS R4 R2 K3 ["maxRigAttachment"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["setOverallBounds"]
+  MOVE R4 R2
+  CALL R3 1 0
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K0 ["minMeshCorner"]
+  GETTABLEKS R4 R0 K1 ["maxMeshCorner"]
+  MOVE R5 R1
+  MOVE R6 R1
+  CALL R2 4 2
+  SETTABLEKS R2 R0 K0 ["minMeshCorner"]
+  SETTABLEKS R3 R0 K1 ["maxMeshCorner"]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K0 ["minRigAttachment"]
+  GETTABLEKS R4 R0 K1 ["maxRigAttachment"]
+  MOVE R5 R1
+  MOVE R6 R1
+  CALL R2 4 2
+  SETTABLEKS R2 R0 K0 ["minRigAttachment"]
+  SETTABLEKS R3 R0 K1 ["maxRigAttachment"]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R2 R0 K0 ["minMeshCorner"]
+  GETTABLEKS R3 R0 K1 ["maxMeshCorner"]
+  GETTABLEKS R4 R0 K2 ["minRigAttachment"]
+  GETTABLEKS R5 R0 K3 ["maxRigAttachment"]
+  CALL R1 4 2
+  SETTABLEKS R1 R0 K4 ["minOverall"]
+  SETTABLEKS R2 R0 K5 ["maxOverall"]
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["minMeshCorner"]
+  JUMPIFNOT R2 [+10]
+  GETTABLEKS R2 R0 K1 ["maxMeshCorner"]
+  JUMPIFNOT R2 [+7]
+  GETTABLEKS R3 R0 K0 ["minMeshCorner"]
+  GETTABLEKS R4 R0 K1 ["maxMeshCorner"]
+  ADD R2 R3 R4
+  DIVK R1 R2 K2 [2]
+  JUMP [+1]
+  LOADNIL R1
+  GETTABLEKS R3 R0 K3 ["minRigAttachment"]
+  JUMPIFNOT R3 [+10]
+  GETTABLEKS R3 R0 K4 ["maxRigAttachment"]
+  JUMPIFNOT R3 [+7]
+  GETTABLEKS R4 R0 K3 ["minRigAttachment"]
+  GETTABLEKS R5 R0 K4 ["maxRigAttachment"]
+  ADD R3 R4 R5
+  DIVK R2 R3 K2 [2]
+  JUMP [+1]
+  LOADNIL R2
+  GETTABLEKS R4 R0 K5 ["minOverall"]
+  JUMPIFNOT R4 [+10]
+  GETTABLEKS R4 R0 K6 ["maxOverall"]
+  JUMPIFNOT R4 [+7]
+  GETTABLEKS R5 R0 K5 ["minOverall"]
+  GETTABLEKS R6 R0 K6 ["maxOverall"]
+  ADD R4 R5 R6
+  DIVK R3 R4 K2 [2]
+  RETURN R1 3
+  LOADNIL R3
+  RETURN R1 3
+
+PROTO_5:
+  GETTABLEKS R2 R0 K0 ["minMeshCorner"]
+  JUMPIFNOT R2 [+9]
+  GETTABLEKS R2 R0 K1 ["maxMeshCorner"]
+  JUMPIFNOT R2 [+6]
+  GETTABLEKS R2 R0 K1 ["maxMeshCorner"]
+  GETTABLEKS R3 R0 K0 ["minMeshCorner"]
+  SUB R1 R2 R3
+  JUMP [+1]
+  LOADNIL R1
+  GETTABLEKS R3 R0 K2 ["minRigAttachment"]
+  JUMPIFNOT R3 [+9]
+  GETTABLEKS R3 R0 K3 ["maxRigAttachment"]
+  JUMPIFNOT R3 [+6]
+  GETTABLEKS R3 R0 K3 ["maxRigAttachment"]
+  GETTABLEKS R4 R0 K2 ["minRigAttachment"]
+  SUB R2 R3 R4
+  JUMP [+1]
+  LOADNIL R2
+  GETTABLEKS R4 R0 K4 ["minOverall"]
+  JUMPIFNOT R4 [+9]
+  GETTABLEKS R4 R0 K5 ["maxOverall"]
+  JUMPIFNOT R4 [+6]
+  GETTABLEKS R4 R0 K5 ["maxOverall"]
+  GETTABLEKS R5 R0 K4 ["minOverall"]
+  SUB R3 R4 R5
+  RETURN R1 3
+  LOADNIL R3
+  RETURN R1 3
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["util"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["util"]
+  GETTABLEKS R3 R4 K7 ["calculateMinMax"]
+  CALL R2 1 1
+  NEWTABLE R3 8 0
+  DUPCLOSURE R4 K8 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  SETTABLEKS R4 R3 K9 ["combineBounds"]
+  DUPCLOSURE R4 K10 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K11 ["expandMeshBounds"]
+  DUPCLOSURE R4 K12 [PROTO_2]
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K13 ["expandRigAttachmentBounds"]
+  DUPCLOSURE R4 K14 [PROTO_3]
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K15 ["setOverallBounds"]
+  DUPCLOSURE R4 K16 [PROTO_4]
+  SETTABLEKS R4 R3 K17 ["calculateBoundsCenters"]
+  DUPCLOSURE R4 K18 [PROTO_5]
+  SETTABLEKS R4 R3 K19 ["calculateBoundsDimensions"]
+  RETURN R3 1

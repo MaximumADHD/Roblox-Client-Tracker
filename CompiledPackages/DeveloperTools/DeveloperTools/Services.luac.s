@@ -1,0 +1,72 @@
+PROTO_0:
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  LOADK R2 K3 ["RunningUnderCLI"]
+  NAMECALL R0 R0 K4 ["FindFirstChild"]
+  CALL R0 2 1
+  JUMPIFNOT R0 [+3]
+  GETTABLEKS R1 R0 K5 ["Value"]
+  JUMPIF R1 [+1]
+  LOADB R1 0
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["isRunningUnderCLI"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+5]
+  GETIMPORT R0 K3 [Instance.new]
+  LOADK R1 K4 ["Frame"]
+  CALL R0 1 1
+  JUMPIF R0 [+6]
+  GETIMPORT R0 K6 [game]
+  LOADK R2 K7 ["StudioService"]
+  NAMECALL R0 R0 K8 ["GetService"]
+  CALL R0 2 1
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["isRunningUnderCLI"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+5]
+  GETIMPORT R0 K3 [Instance.new]
+  LOADK R1 K4 ["Frame"]
+  CALL R0 1 1
+  JUMPIF R0 [+6]
+  GETIMPORT R0 K6 [game]
+  LOADK R2 K7 ["CoreGui"]
+  NAMECALL R0 R0 K8 ["GetService"]
+  CALL R0 2 1
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["isRunningUnderCLI"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+5]
+  GETIMPORT R0 K3 [Instance.new]
+  LOADK R1 K4 ["Frame"]
+  CALL R0 1 1
+  JUMPIF R0 [+6]
+  GETIMPORT R0 K6 [game]
+  LOADK R2 K7 ["RobloxPluginGuiService"]
+  NAMECALL R0 R0 K8 ["GetService"]
+  CALL R0 2 1
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 4 0
+  DUPCLOSURE R1 K0 [PROTO_0]
+  SETTABLEKS R1 R0 K1 ["isRunningUnderCLI"]
+  DUPCLOSURE R1 K2 [PROTO_1]
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K3 ["getStudioService"]
+  DUPCLOSURE R1 K4 [PROTO_2]
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K5 ["getCoreGui"]
+  DUPCLOSURE R1 K6 [PROTO_3]
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K7 ["getRobloxPluginGuiService"]
+  RETURN R0 1

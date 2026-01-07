@@ -47,7 +47,7 @@ PROTO_1:
   GETUPVAL R6 4
   GETTABLEKS R5 R6 K3 ["View"]
   DUPTABLE R6 K7 [{"tag", "testId", "LayoutOrder"}]
-  LOADK R7 K8 ["size-0-0 auto-xy col flex-x-fill align-x-left gap-xsmall"]
+  LOADK R7 K8 ["size-0-0 auto-xy col flex-x-fill align-x-left gap-small"]
   SETTABLEKS R7 R6 K4 ["tag"]
   LOADK R7 K9 ["--place-version-group"]
   SETTABLEKS R7 R6 K5 ["testId"]
@@ -59,7 +59,7 @@ PROTO_1:
   GETUPVAL R10 4
   GETTABLEKS R9 R10 K3 ["View"]
   DUPTABLE R10 K13 [{"tag", "LayoutOrder"}]
-  LOADK R11 K14 ["size-0-0 auto-xy row align-y-center gap-small"]
+  LOADK R11 K14 ["size-0-0 auto-xy row align-y-top gap-small"]
   SETTABLEKS R11 R10 K4 ["tag"]
   MOVE R11 R1
   CALL R11 0 1

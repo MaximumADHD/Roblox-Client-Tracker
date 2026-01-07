@@ -1,0 +1,29 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["Consumer"]
+  DUPTABLE R3 K3 [{"render"}]
+  SETTABLEKS R0 R3 K2 ["render"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K8 ["CursorContext"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K9 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R4 1

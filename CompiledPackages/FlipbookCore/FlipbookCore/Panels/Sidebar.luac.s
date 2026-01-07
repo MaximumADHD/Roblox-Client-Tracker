@@ -1,0 +1,176 @@
+PROTO_0:
+  GETUPVAL R1 0
+  JUMPIFNOTEQKS R0 K0 [""] [+3]
+  LOADNIL R2
+  JUMP [+1]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["findOrphanedStoryModules"]
+  GETIMPORT R1 K2 [game]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K3 ["storybooks"]
+  GETTABLEKS R2 R3 K4 ["available"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_2:
+  GETUPVAL R1 0
+  LOADNIL R2
+  CALL R1 1 2
+  GETUPVAL R3 1
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R2
+  NEWTABLE R5 0 0
+  CALL R3 2 1
+  GETUPVAL R4 2
+  NEWCLOSURE R5 P1
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  NEWTABLE R6 0 1
+  GETTABLEKS R8 R0 K0 ["storybooks"]
+  GETTABLEKS R7 R8 K1 ["available"]
+  SETLIST R6 R7 1 [1]
+  CALL R4 2 1
+  GETUPVAL R5 4
+  GETUPVAL R6 5
+  GETUPVAL R7 6
+  MOVE R8 R0
+  DUPTABLE R9 K3 [{"tag"}]
+  LOADK R10 K4 ["bg-surface-0 col size-full"]
+  SETTABLEKS R10 R9 K2 ["tag"]
+  CALL R7 2 1
+  DUPTABLE R8 K7 [{"Search", "Content"}]
+  GETUPVAL R9 4
+  GETUPVAL R10 5
+  DUPTABLE R11 K9 [{"LayoutOrder", "tag"}]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K8 ["LayoutOrder"]
+  LOADK R12 K10 ["auto-y padding-x-medium padding-y-large size-full-0"]
+  SETTABLEKS R12 R11 K2 ["tag"]
+  DUPTABLE R12 K12 [{"SearchBar"}]
+  GETUPVAL R13 4
+  GETUPVAL R14 7
+  DUPTABLE R15 K20 [{"label", "leadingIcon", "onChanged", "placeholder", "size", "text", "width"}]
+  LOADK R16 K21 [""]
+  SETTABLEKS R16 R15 K13 ["label"]
+  GETUPVAL R17 8
+  GETTABLEKS R16 R17 K22 ["MagnifyingGlass"]
+  SETTABLEKS R16 R15 K14 ["leadingIcon"]
+  SETTABLEKS R3 R15 K15 ["onChanged"]
+  LOADK R16 K23 ["Search..."]
+  SETTABLEKS R16 R15 K16 ["placeholder"]
+  GETUPVAL R17 9
+  GETTABLEKS R16 R17 K24 ["Small"]
+  SETTABLEKS R16 R15 K17 ["size"]
+  LOADK R16 K21 [""]
+  SETTABLEKS R16 R15 K18 ["text"]
+  GETIMPORT R16 K27 [UDim.new]
+  LOADN R17 1
+  LOADN R18 0
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K19 ["width"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K11 ["SearchBar"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K5 ["Search"]
+  GETUPVAL R9 4
+  GETUPVAL R10 10
+  DUPTABLE R11 K29 [{"LayoutOrder", "scroll", "tag"}]
+  LOADN R12 2
+  SETTABLEKS R12 R11 K8 ["LayoutOrder"]
+  DUPTABLE R12 K33 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
+  GETIMPORT R13 K37 [Enum.AutomaticSize.Y]
+  SETTABLEKS R13 R12 K30 ["AutomaticCanvasSize"]
+  GETIMPORT R13 K40 [UDim2.fromScale]
+  LOADN R14 0
+  LOADN R15 0
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K31 ["CanvasSize"]
+  GETIMPORT R13 K41 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R13 R12 K32 ["ScrollingDirection"]
+  SETTABLEKS R12 R11 K28 ["scroll"]
+  LOADK R12 K42 ["shrink size-full"]
+  SETTABLEKS R12 R11 K2 ["tag"]
+  DUPTABLE R12 K44 [{"StorybookTreeView"}]
+  GETUPVAL R13 4
+  GETUPVAL R14 11
+  DUPTABLE R15 K49 [{"onShowErrorPage", "onStoryChanged", "orphanedStoryModules", "searchTerm", "storybooks"}]
+  GETTABLEKS R16 R0 K45 ["onShowErrorPage"]
+  SETTABLEKS R16 R15 K45 ["onShowErrorPage"]
+  GETTABLEKS R16 R0 K46 ["onStoryChanged"]
+  SETTABLEKS R16 R15 K46 ["onStoryChanged"]
+  SETTABLEKS R4 R15 K47 ["orphanedStoryModules"]
+  SETTABLEKS R1 R15 K48 ["searchTerm"]
+  GETTABLEKS R16 R0 K0 ["storybooks"]
+  SETTABLEKS R16 R15 K0 ["storybooks"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K43 ["StorybookTreeView"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K6 ["Content"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["RobloxPackages"]
+  GETTABLEKS R1 R2 K6 ["Foundation"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K7 ["Packages"]
+  GETTABLEKS R2 R3 K8 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R7 K3 [script]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K9 ["Storybook"]
+  GETTABLEKS R3 R4 K10 ["StorybookTreeView"]
+  CALL R2 1 1
+  GETIMPORT R3 K1 [require]
+  GETIMPORT R8 K3 [script]
+  GETTABLEKS R7 R8 K4 ["Parent"]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K7 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Storyteller"]
+  CALL R3 1 1
+  GETTABLEKS R5 R0 K12 ["Enums"]
+  GETTABLEKS R4 R5 K13 ["IconName"]
+  GETTABLEKS R6 R0 K12 ["Enums"]
+  GETTABLEKS R5 R6 K14 ["InputSize"]
+  GETTABLEKS R6 R0 K15 ["ScrollView"]
+  GETTABLEKS R7 R0 K16 ["TextInput"]
+  GETTABLEKS R8 R0 K17 ["View"]
+  GETTABLEKS R10 R0 K18 ["Utility"]
+  GETTABLEKS R9 R10 K19 ["withCommonProps"]
+  GETTABLEKS R10 R1 K20 ["createElement"]
+  GETTABLEKS R11 R1 K21 ["useCallback"]
+  GETTABLEKS R12 R1 K22 ["useMemo"]
+  GETTABLEKS R13 R1 K23 ["useState"]
+  DUPCLOSURE R14 K24 [PROTO_2]
+  CAPTURE VAL R13
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R3
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  GETTABLEKS R15 R1 K25 ["memo"]
+  MOVE R16 R14
+  CALL R15 1 -1
+  RETURN R15 -1

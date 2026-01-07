@@ -16,80 +16,86 @@ PROTO_1:
   MOVE R5 R3
   GETIMPORT R4 K3 [typeof]
   CALL R4 1 1
-  JUMPIFEQKS R4 K4 ["table"] [+7]
-  LOADK R6 K5 ["HttpError"]
-  LOADK R7 K6 ["500"]
-  NAMECALL R4 R1 K7 ["getText"]
+  JUMPIFEQKS R4 K4 ["table"] [+15]
+  JUMPIFNOTEQKS R0 K5 ["Could not read file content"] [+7]
+  LOADK R6 K6 ["Error"]
+  LOADK R7 K7 ["FileOpenError"]
+  NAMECALL R4 R1 K8 ["getText"]
+  CALL R4 3 -1
+  RETURN R4 -1
+  LOADK R6 K9 ["HttpError"]
+  LOADK R7 K10 ["500"]
+  NAMECALL R4 R1 K8 ["getText"]
   CALL R4 3 -1
   RETURN R4 -1
   LOADNIL R4
-  GETIMPORT R5 K9 [next]
-  GETTABLEKS R6 R3 K10 ["httpResponse"]
+  GETIMPORT R5 K12 [next]
+  GETTABLEKS R6 R3 K13 ["httpResponse"]
   CALL R5 1 1
   JUMPIFEQKNIL R5 [+10]
   GETUPVAL R5 1
   MOVE R6 R1
-  LOADK R7 K5 ["HttpError"]
-  GETTABLEKS R9 R3 K10 ["httpResponse"]
-  GETTABLEKS R8 R9 K11 ["statusCode"]
+  LOADK R7 K9 ["HttpError"]
+  GETTABLEKS R9 R3 K13 ["httpResponse"]
+  GETTABLEKS R8 R9 K14 ["statusCode"]
   CALL R5 3 1
   MOVE R4 R5
-  GETIMPORT R5 K14 [string.find]
-  GETTABLEKS R6 R3 K15 ["simpleErrorMessage"]
+  GETIMPORT R5 K17 [string.find]
+  GETTABLEKS R6 R3 K18 ["simpleErrorMessage"]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K16 ["ErrorCode"]
-  GETTABLEKS R7 R8 K17 ["CorruptedFile"]
+  GETTABLEKS R8 R9 K19 ["ErrorCode"]
+  GETTABLEKS R7 R8 K20 ["CorruptedFile"]
   CALL R5 2 1
   JUMPIFNOT R5 [+6]
-  LOADK R7 K18 ["ParseError"]
-  LOADK R8 K17 ["CorruptedFile"]
-  NAMECALL R5 R1 K7 ["getText"]
+  LOADK R7 K21 ["ParseError"]
+  LOADK R8 K20 ["CorruptedFile"]
+  NAMECALL R5 R1 K8 ["getText"]
   CALL R5 3 -1
   RETURN R5 -1
-  GETTABLEKS R5 R3 K19 ["reason"]
+  GETTABLEKS R5 R3 K22 ["reason"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K16 ["ErrorCode"]
-  GETTABLEKS R6 R7 K20 ["AssetDependencyError"]
+  GETTABLEKS R7 R8 K19 ["ErrorCode"]
+  GETTABLEKS R6 R7 K23 ["AssetDependencyError"]
   JUMPIFNOTEQ R5 R6 [+10]
   GETUPVAL R5 1
   MOVE R6 R1
-  LOADK R7 K5 ["HttpError"]
-  LOADK R8 K21 ["DependenciesLimitExceeded"]
-  GETTABLEKS R9 R3 K22 ["metadata"]
+  LOADK R7 K9 ["HttpError"]
+  LOADK R8 K24 ["DependenciesLimitExceeded"]
+  GETTABLEKS R9 R3 K25 ["metadata"]
   CALL R5 4 1
   MOVE R4 R5
   JUMP [+45]
-  GETIMPORT R5 K14 [string.find]
-  GETTABLEKS R6 R3 K15 ["simpleErrorMessage"]
+  GETIMPORT R5 K17 [string.find]
+  GETTABLEKS R6 R3 K18 ["simpleErrorMessage"]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K16 ["ErrorCode"]
-  GETTABLEKS R7 R8 K23 ["ModerationError"]
+  GETTABLEKS R8 R9 K19 ["ErrorCode"]
+  GETTABLEKS R7 R8 K26 ["ModerationError"]
   CALL R5 2 1
   JUMPIFNOT R5 [+7]
   GETUPVAL R5 1
   MOVE R6 R1
-  LOADK R7 K5 ["HttpError"]
-  LOADK R8 K24 ["UploadResultBadIdParse"]
+  LOADK R7 K9 ["HttpError"]
+  LOADK R8 K27 ["UploadResultBadIdParse"]
   CALL R5 3 1
   MOVE R4 R5
   JUMP [+27]
-  GETIMPORT R5 K14 [string.find]
-  GETTABLEKS R6 R3 K15 ["simpleErrorMessage"]
+  GETIMPORT R5 K17 [string.find]
+  GETTABLEKS R6 R3 K18 ["simpleErrorMessage"]
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K16 ["ErrorCode"]
-  GETTABLEKS R7 R8 K25 ["ImageResolutionError"]
+  GETTABLEKS R8 R9 K19 ["ErrorCode"]
+  GETTABLEKS R7 R8 K28 ["ImageResolutionError"]
   CALL R5 2 1
   JUMPIFNOT R5 [+16]
-  DUPTABLE R5 K27 [{"pixelLimit"}]
-  GETIMPORT R6 K29 [string.match]
-  GETTABLEKS R7 R3 K15 ["simpleErrorMessage"]
-  LOADK R8 K30 ["(%d+)%s+pixels"]
+  DUPTABLE R5 K30 [{"pixelLimit"}]
+  GETIMPORT R6 K32 [string.match]
+  GETTABLEKS R7 R3 K18 ["simpleErrorMessage"]
+  LOADK R8 K33 ["(%d+)%s+pixels"]
   CALL R6 2 1
-  SETTABLEKS R6 R5 K26 ["pixelLimit"]
+  SETTABLEKS R6 R5 K29 ["pixelLimit"]
   GETUPVAL R6 1
   MOVE R7 R1
-  LOADK R8 K5 ["HttpError"]
-  LOADK R9 K31 ["ImageResolution"]
+  LOADK R8 K9 ["HttpError"]
+  LOADK R9 K34 ["ImageResolution"]
   MOVE R10 R5
   CALL R6 4 1
   MOVE R4 R6
@@ -99,22 +105,22 @@ PROTO_1:
   JUMPIFNOT R4 [+2]
   MOVE R5 R4
   JUMP [+2]
-  GETTABLEKS R5 R3 K15 ["simpleErrorMessage"]
+  GETTABLEKS R5 R3 K18 ["simpleErrorMessage"]
   MOVE R7 R5
-  LOADK R8 K32 ["
+  LOADK R8 K35 ["
 "]
-  LOADK R11 K33 ["Upload"]
-  LOADK R12 K34 ["OperationId"]
-  DUPTABLE R13 K36 [{"operationId"}]
-  GETTABLEKS R14 R3 K35 ["operationId"]
-  SETTABLEKS R14 R13 K35 ["operationId"]
-  NAMECALL R9 R1 K7 ["getText"]
+  LOADK R11 K36 ["Upload"]
+  LOADK R12 K37 ["OperationId"]
+  DUPTABLE R13 K39 [{"operationId"}]
+  GETTABLEKS R14 R3 K38 ["operationId"]
+  SETTABLEKS R14 R13 K38 ["operationId"]
+  NAMECALL R9 R1 K8 ["getText"]
   CALL R9 4 1
   CONCAT R6 R7 R9
   RETURN R6 1
   JUMPIFNOT R4 [+1]
   RETURN R4 1
-  GETTABLEKS R5 R3 K15 ["simpleErrorMessage"]
+  GETTABLEKS R5 R3 K18 ["simpleErrorMessage"]
   RETURN R5 1
 
 MAIN:

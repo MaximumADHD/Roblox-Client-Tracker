@@ -1,0 +1,78 @@
+PROTO_0:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  LOADB R1 0
+  LOADK R3 K0 ["The current renderer does not support hydration. "]
+  LOADK R4 K1 ["This error is likely caused by a bug in React. "]
+  LOADK R5 K2 ["Please file an issue."]
+  CONCAT R2 R3 R5
+  CALL R0 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["invariant"]
+  CALL R0 1 1
+  DUPCLOSURE R1 K6 [PROTO_0]
+  CAPTURE VAL R0
+  SETGLOBAL R1 K7 ["shim"]
+  DUPTABLE R1 K35 [{"supportsHydration", "canHydrateInstance", "canHydrateTextInstance", "canHydrateSuspenseInstance", "isSuspenseInstancePending", "isSuspenseInstanceFallback", "registerSuspenseInstanceRetry", "getNextHydratableSibling", "getFirstHydratableChild", "hydrateInstance", "hydrateTextInstance", "hydrateSuspenseInstance", "getNextHydratableInstanceAfterSuspenseInstance", "commitHydratedContainer", "commitHydratedSuspenseInstance", "clearSuspenseBoundary", "clearSuspenseBoundaryFromContainer", "didNotMatchHydratedContainerTextInstance", "didNotMatchHydratedTextInstance", "didNotHydrateContainerInstance", "didNotHydrateInstance", "didNotFindHydratableContainerInstance", "didNotFindHydratableContainerTextInstance", "didNotFindHydratableContainerSuspenseInstance", "didNotFindHydratableInstance", "didNotFindHydratableTextInstance", "didNotFindHydratableSuspenseInstance"}]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K8 ["supportsHydration"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K9 ["canHydrateInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K10 ["canHydrateTextInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K11 ["canHydrateSuspenseInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K12 ["isSuspenseInstancePending"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K13 ["isSuspenseInstanceFallback"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K14 ["registerSuspenseInstanceRetry"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K15 ["getNextHydratableSibling"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K16 ["getFirstHydratableChild"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K17 ["hydrateInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K18 ["hydrateTextInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K19 ["hydrateSuspenseInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K20 ["getNextHydratableInstanceAfterSuspenseInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K21 ["commitHydratedContainer"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K22 ["commitHydratedSuspenseInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K23 ["clearSuspenseBoundary"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K24 ["clearSuspenseBoundaryFromContainer"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K25 ["didNotMatchHydratedContainerTextInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K26 ["didNotMatchHydratedTextInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K27 ["didNotHydrateContainerInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K28 ["didNotHydrateInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K29 ["didNotFindHydratableContainerInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K30 ["didNotFindHydratableContainerTextInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K31 ["didNotFindHydratableContainerSuspenseInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K32 ["didNotFindHydratableInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K33 ["didNotFindHydratableTextInstance"]
+  GETGLOBAL R2 K7 ["shim"]
+  SETTABLEKS R2 R1 K34 ["didNotFindHydratableSuspenseInstance"]
+  RETURN R1 1

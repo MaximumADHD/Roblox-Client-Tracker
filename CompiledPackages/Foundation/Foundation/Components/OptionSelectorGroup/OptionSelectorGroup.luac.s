@@ -1,0 +1,152 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["value"]
+  JUMPIFEQKNIL R0 [+6]
+  GETUPVAL R0 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["value"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["onValueChanged"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  GETUPVAL R4 1
+  CALL R2 2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K0 ["useState"]
+  GETTABLEKS R4 R2 K1 ["value"]
+  CALL R3 1 2
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K2 ["useEffect"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  NEWTABLE R7 0 1
+  GETTABLEKS R8 R2 K1 ["value"]
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 0
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["useCallback"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  NEWTABLE R7 0 2
+  MOVE R8 R4
+  GETTABLEKS R9 R2 K4 ["onValueChanged"]
+  SETLIST R7 R8 2 [1]
+  CALL R5 2 1
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K5 ["createElement"]
+  GETUPVAL R7 3
+  GETUPVAL R8 4
+  MOVE R9 R2
+  DUPTABLE R10 K8 [{"tag", "ref"}]
+  NEWTABLE R11 4 0
+  GETTABLEKS R13 R2 K9 ["orientation"]
+  GETUPVAL R15 5
+  GETTABLEKS R14 R15 K10 ["Vertical"]
+  JUMPIFEQ R13 R14 [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  SETTABLEKS R12 R11 K11 ["auto-xy col"]
+  GETTABLEKS R13 R2 K9 ["orientation"]
+  GETUPVAL R15 5
+  GETTABLEKS R14 R15 K12 ["Horizontal"]
+  JUMPIFEQ R13 R14 [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  SETTABLEKS R12 R11 K13 ["auto-x row"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K14 ["gap-small"]
+  SETTABLEKS R11 R10 K6 ["tag"]
+  SETTABLEKS R1 R10 K7 ["ref"]
+  CALL R8 2 1
+  DUPTABLE R9 K16 [{"OptionSelectorGroupContext"}]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K5 ["createElement"]
+  GETUPVAL R12 6
+  GETTABLEKS R11 R12 K17 ["Provider"]
+  DUPTABLE R12 K18 [{"value"}]
+  DUPTABLE R13 K21 [{"value", "onValueChanged", "orientation", "Selectable", "testId"}]
+  SETTABLEKS R3 R13 K1 ["value"]
+  SETTABLEKS R5 R13 K4 ["onValueChanged"]
+  GETTABLEKS R14 R2 K9 ["orientation"]
+  SETTABLEKS R14 R13 K9 ["orientation"]
+  GETTABLEKS R14 R2 K19 ["Selectable"]
+  SETTABLEKS R14 R13 K19 ["Selectable"]
+  GETTABLEKS R14 R2 K20 ["testId"]
+  SETTABLEKS R14 R13 K20 ["testId"]
+  SETTABLEKS R13 R12 K1 ["value"]
+  GETTABLEKS R13 R2 K22 ["children"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K15 ["OptionSelectorGroupContext"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Enums"]
+  GETTABLEKS R4 R5 K9 ["Orientation"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K10 ["Components"]
+  GETTABLEKS R5 R6 K11 ["Types"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K10 ["Components"]
+  GETTABLEKS R6 R7 K12 ["View"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K13 ["Utility"]
+  GETTABLEKS R7 R8 K14 ["withDefaults"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K13 ["Utility"]
+  GETTABLEKS R8 R9 K15 ["withCommonProps"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETIMPORT R11 K1 [script]
+  GETTABLEKS R10 R11 K4 ["Parent"]
+  GETTABLEKS R9 R10 K16 ["OptionSelectorGroupContext"]
+  CALL R8 1 1
+  DUPTABLE R9 K20 [{"orientation", "Selectable", "testId"}]
+  GETTABLEKS R10 R3 K21 ["Vertical"]
+  SETTABLEKS R10 R9 K17 ["orientation"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K18 ["Selectable"]
+  LOADK R10 K22 ["--foundation-option-selector-group"]
+  SETTABLEKS R10 R9 K19 ["testId"]
+  DUPCLOSURE R10 K23 [PROTO_2]
+  CAPTURE VAL R6
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  GETTABLEKS R11 R2 K24 ["memo"]
+  GETTABLEKS R12 R2 K25 ["forwardRef"]
+  MOVE R13 R10
+  CALL R12 1 -1
+  CALL R11 -1 -1
+  RETURN R11 -1

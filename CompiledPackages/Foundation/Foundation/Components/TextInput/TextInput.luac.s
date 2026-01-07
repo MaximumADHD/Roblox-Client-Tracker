@@ -1,0 +1,291 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K16 [{"ref", "hasError", "isDisabled", "text", "textInputType", "size", "horizontalPadding", "onChanged", "onFocus", "onFocusLost", "onReturnPressed", "placeholder", "leadingElement", "trailingElement", "testId"}]
+  SETTABLEKS R0 R3 K1 ["ref"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K2 ["hasError"]
+  SETTABLEKS R4 R3 K2 ["hasError"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K3 ["isDisabled"]
+  SETTABLEKS R4 R3 K3 ["isDisabled"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K4 ["text"]
+  SETTABLEKS R4 R3 K4 ["text"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K5 ["textInputType"]
+  SETTABLEKS R4 R3 K5 ["textInputType"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K6 ["size"]
+  SETTABLEKS R4 R3 K6 ["size"]
+  DUPTABLE R4 K19 [{"left", "right"}]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K20 ["innerContainer"]
+  GETTABLEKS R5 R6 K7 ["horizontalPadding"]
+  SETTABLEKS R5 R4 K17 ["left"]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K20 ["innerContainer"]
+  GETTABLEKS R5 R6 K7 ["horizontalPadding"]
+  SETTABLEKS R5 R4 K18 ["right"]
+  SETTABLEKS R4 R3 K7 ["horizontalPadding"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K8 ["onChanged"]
+  SETTABLEKS R4 R3 K8 ["onChanged"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K21 ["onFocusGained"]
+  SETTABLEKS R4 R3 K9 ["onFocus"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K10 ["onFocusLost"]
+  SETTABLEKS R4 R3 K10 ["onFocusLost"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K11 ["onReturnPressed"]
+  SETTABLEKS R4 R3 K11 ["onReturnPressed"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K12 ["placeholder"]
+  SETTABLEKS R4 R3 K12 ["placeholder"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K22 ["leadingIcon"]
+  JUMPIFNOT R5 [+35]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 4
+  DUPTABLE R6 K24 [{"tag"}]
+  LOADK R7 K25 ["size-0-full auto-x row align-y-center"]
+  SETTABLEKS R7 R6 K23 ["tag"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["createElement"]
+  GETUPVAL R8 5
+  DUPTABLE R9 K28 [{"name", "style", "size"}]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K22 ["leadingIcon"]
+  SETTABLEKS R10 R9 K26 ["name"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K29 ["icon"]
+  GETTABLEKS R10 R11 K27 ["style"]
+  SETTABLEKS R10 R9 K27 ["style"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K29 ["icon"]
+  GETTABLEKS R10 R11 K6 ["size"]
+  SETTABLEKS R10 R9 K6 ["size"]
+  CALL R7 2 -1
+  CALL R4 -1 1
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K13 ["leadingElement"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K30 ["iconTrailing"]
+  JUMPIFNOT R5 [+98]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 4
+  DUPTABLE R6 K24 [{"tag"}]
+  LOADK R7 K25 ["size-0-full auto-x row align-y-center"]
+  SETTABLEKS R7 R6 K23 ["tag"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K30 ["iconTrailing"]
+  FASTCALL1 TYPE R9 [+2]
+  GETIMPORT R8 K32 [type]
+  CALL R8 1 1
+  JUMPIFNOTEQKS R8 K33 ["table"] [+40]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K30 ["iconTrailing"]
+  GETTABLEKS R8 R9 K34 ["onActivated"]
+  JUMPIFNOT R8 [+33]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["createElement"]
+  GETUPVAL R8 6
+  DUPTABLE R9 K35 [{"onActivated", "isDisabled", "size", "icon"}]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K30 ["iconTrailing"]
+  GETTABLEKS R10 R11 K34 ["onActivated"]
+  SETTABLEKS R10 R9 K34 ["onActivated"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K3 ["isDisabled"]
+  SETTABLEKS R10 R9 K3 ["isDisabled"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K29 ["icon"]
+  GETTABLEKS R10 R11 K6 ["size"]
+  SETTABLEKS R10 R9 K6 ["size"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K30 ["iconTrailing"]
+  GETTABLEKS R10 R11 K26 ["name"]
+  SETTABLEKS R10 R9 K29 ["icon"]
+  CALL R7 2 1
+  JUMP [+40]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["createElement"]
+  GETUPVAL R8 5
+  DUPTABLE R9 K28 [{"name", "style", "size"}]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K30 ["iconTrailing"]
+  FASTCALL1 TYPE R12 [+2]
+  GETIMPORT R11 K32 [type]
+  CALL R11 1 1
+  JUMPIFNOTEQKS R11 K33 ["table"] [+7]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K30 ["iconTrailing"]
+  GETTABLEKS R10 R11 K26 ["name"]
+  JUMP [+3]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K30 ["iconTrailing"]
+  SETTABLEKS R10 R9 K26 ["name"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K29 ["icon"]
+  GETTABLEKS R10 R11 K27 ["style"]
+  SETTABLEKS R10 R9 K27 ["style"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K29 ["icon"]
+  GETTABLEKS R10 R11 K6 ["size"]
+  SETTABLEKS R10 R9 K6 ["size"]
+  CALL R7 2 1
+  CALL R4 3 1
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K14 ["trailingElement"]
+  LOADK R5 K36 ["%*--internal-text-input"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K15 ["testId"]
+  NAMECALL R5 R5 K37 ["format"]
+  CALL R5 2 1
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K15 ["testId"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  GETUPVAL R4 1
+  CALL R2 2 1
+  GETUPVAL R3 2
+  CALL R3 0 1
+  GETUPVAL R4 3
+  MOVE R5 R3
+  GETTABLEKS R6 R2 K0 ["size"]
+  CALL R4 2 1
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K1 ["createElement"]
+  GETUPVAL R6 5
+  GETUPVAL R7 6
+  MOVE R8 R2
+  DUPTABLE R9 K10 [{"width", "ref", "label", "size", "isRequired", "hasError", "hint", "textBoxRef", "input"}]
+  GETTABLEKS R10 R2 K2 ["width"]
+  SETTABLEKS R10 R9 K2 ["width"]
+  SETTABLEKS R1 R9 K3 ["ref"]
+  GETTABLEKS R10 R2 K4 ["label"]
+  SETTABLEKS R10 R9 K4 ["label"]
+  GETUPVAL R10 7
+  GETTABLEKS R11 R2 K0 ["size"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K0 ["size"]
+  GETTABLEKS R10 R2 K5 ["isRequired"]
+  SETTABLEKS R10 R9 K5 ["isRequired"]
+  GETTABLEKS R10 R2 K6 ["hasError"]
+  SETTABLEKS R10 R9 K6 ["hasError"]
+  GETTABLEKS R10 R2 K7 ["hint"]
+  SETTABLEKS R10 R9 K7 ["hint"]
+  GETTABLEKS R10 R2 K8 ["textBoxRef"]
+  SETTABLEKS R10 R9 K8 ["textBoxRef"]
+  NEWCLOSURE R10 P0
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U8
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE UPVAL U9
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U11
+  SETTABLEKS R10 R9 K9 ["input"]
+  CALL R7 2 -1
+  CALL R5 -1 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R3 R0 K8 ["Components"]
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R3 K9 ["InternalTextInput"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R3 K10 ["InputField"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R7 R3 K11 ["Icon"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R8 R3 K12 ["View"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R9 R3 K13 ["IconButton"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K8 ["Components"]
+  GETTABLEKS R10 R11 K14 ["Types"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R13 R0 K8 ["Components"]
+  GETTABLEKS R12 R13 K15 ["TextInput"]
+  GETTABLEKS R11 R12 K16 ["useTextInputVariants"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R14 R0 K17 ["Providers"]
+  GETTABLEKS R13 R14 K18 ["Style"]
+  GETTABLEKS R12 R13 K19 ["useTokens"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R0 K20 ["Utility"]
+  GETTABLEKS R13 R14 K21 ["withDefaults"]
+  CALL R12 1 1
+  GETIMPORT R13 K6 [require]
+  GETTABLEKS R15 R0 K20 ["Utility"]
+  GETTABLEKS R14 R15 K22 ["withCommonProps"]
+  CALL R13 1 1
+  GETIMPORT R14 K6 [require]
+  GETTABLEKS R16 R0 K23 ["Enums"]
+  GETTABLEKS R15 R16 K24 ["InputSize"]
+  CALL R14 1 1
+  GETIMPORT R15 K6 [require]
+  GETTABLEKS R17 R0 K20 ["Utility"]
+  GETTABLEKS R16 R17 K25 ["getInputTextSize"]
+  CALL R15 1 1
+  GETIMPORT R16 K6 [require]
+  GETTABLEKS R18 R0 K23 ["Enums"]
+  GETTABLEKS R17 R18 K26 ["ControlState"]
+  CALL R16 1 1
+  DUPTABLE R17 K30 [{"size", "width", "testId"}]
+  GETTABLEKS R18 R14 K31 ["Large"]
+  SETTABLEKS R18 R17 K27 ["size"]
+  GETIMPORT R18 K34 [UDim.new]
+  LOADN R19 0
+  LOADN R20 144
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K28 ["width"]
+  LOADK R18 K35 ["--foundation-text-input"]
+  SETTABLEKS R18 R17 K29 ["testId"]
+  DUPCLOSURE R18 K36 [PROTO_1]
+  CAPTURE VAL R12
+  CAPTURE VAL R17
+  CAPTURE VAL R11
+  CAPTURE VAL R10
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R13
+  CAPTURE VAL R15
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  GETTABLEKS R19 R2 K37 ["memo"]
+  GETTABLEKS R20 R2 K38 ["forwardRef"]
+  MOVE R21 R18
+  CALL R20 1 -1
+  CALL R19 -1 -1
+  RETURN R19 -1

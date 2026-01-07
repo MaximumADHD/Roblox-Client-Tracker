@@ -185,6 +185,7 @@ PROTO_8:
   SETTABLEKS R5 R4 K6 ["OnItemClicked"]
   SETLIST R3 R4 1 [1]
   GETUPVAL R4 0
+  CALL R4 0 1
   JUMPIFNOT R4 [+19]
   DUPTABLE R6 K7 [{"Text", "OnItemClicked"}]
   LOADK R9 K2 ["Menu"]
@@ -602,13 +603,12 @@ MAIN:
   LOADB R19 0
   NAMECALL R16 R16 K32 ["DefineFastFlag"]
   CALL R16 3 1
-  GETIMPORT R17 K30 [game]
-  LOADK R19 K33 ["ImportFromFileWithRestPoseInAnimationEditor"]
-  LOADB R20 0
-  NAMECALL R17 R17 K32 ["DefineFastFlag"]
-  CALL R17 3 1
+  GETIMPORT R17 K5 [require]
+  GETTABLEKS R19 R0 K33 ["LuaFlags"]
+  GETTABLEKS R18 R19 K34 ["GetFFlagImportFromFileWithRestPoseInAnimationEditor"]
+  CALL R17 1 1
   GETIMPORT R18 K5 [require]
-  GETTABLEKS R20 R0 K34 ["LuaFlags"]
+  GETTABLEKS R20 R0 K33 ["LuaFlags"]
   GETTABLEKS R19 R20 K35 ["GetFFlagControlRig"]
   CALL R18 1 1
   GETTABLEKS R19 R1 K36 ["PureComponent"]

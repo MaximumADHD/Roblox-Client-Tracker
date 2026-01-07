@@ -1,0 +1,159 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K0 ["editableMesh"]
+  NAMECALL R0 R0 K1 ["ValidateEditableMeshUVDuplicates"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R3 0
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  GETUPVAL R5 2
+  CALL R3 2 2
+  JUMPIF R3 [+25]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K0 ["reportFailure"]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K1 ["ErrorType"]
+  GETTABLEKS R6 R7 K2 ["validateCageUVDuplicate_FailedToExecute"]
+  LOADNIL R7
+  GETUPVAL R8 2
+  CALL R5 3 0
+  GETIMPORT R5 K5 [string.format]
+  LOADK R6 K6 ["Failed to load UVs for Inner cage of '%s'. Make sure the UV map exists and try again."]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K7 ["fullName"]
+  CALL R5 2 1
+  LOADB R6 0
+  NEWTABLE R7 0 1
+  MOVE R8 R5
+  SETLIST R7 R8 1 [1]
+  RETURN R6 2
+  GETUPVAL R5 5
+  CALL R5 0 1
+  JUMPIFNOTLT R5 R4 [+34]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K0 ["reportFailure"]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K1 ["ErrorType"]
+  GETTABLEKS R6 R7 K8 ["validateCageUVDuplicate_UnexpectedUVValue"]
+  LOADNIL R7
+  GETUPVAL R8 2
+  CALL R5 3 0
+  GETIMPORT R5 K5 [string.format]
+  LOADK R6 K9 ["There are %d UV values in %s cage that do not belong to the template. Please correct the cage UV."]
+  MOVE R7 R4
+  JUMPIFNOT R2 [+2]
+  LOADK R8 K10 ["inner"]
+  JUMP [+1]
+  LOADK R8 K11 ["outer"]
+  CALL R5 3 1
+  GETUPVAL R6 6
+  CALL R6 0 1
+  JUMPIFNOT R6 [+3]
+  MOVE R6 R5
+  LOADK R7 K12 ["[Read more](https://create.roblox.com/docs/art/validation-errors#cageExtraUvs)"]
+  CONCAT R5 R6 R7
+  LOADB R6 0
+  NEWTABLE R7 0 1
+  MOVE R8 R5
+  SETLIST R7 R8 1 [1]
+  RETURN R6 2
+  LOADB R5 1
+  RETURN R5 1
+
+PROTO_2:
+  NEWTABLE R4 0 0
+  GETIMPORT R5 K1 [pairs]
+  GETUPVAL R6 0
+  CALL R5 1 3
+  FORGPREP_NEXT R5
+  GETIMPORT R10 K1 [pairs]
+  MOVE R11 R9
+  CALL R10 1 3
+  FORGPREP_NEXT R10
+  FASTCALL2 TABLE_INSERT R4 R14 [+5]
+  MOVE R16 R4
+  MOVE R17 R14
+  GETIMPORT R15 K4 [table.insert]
+  CALL R15 2 0
+  FORGLOOP R10 2 [-8]
+  FORGLOOP R5 2 [-15]
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R3
+  CAPTURE UPVAL U3
+  CAPTURE VAL R2
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  GETUPVAL R7 6
+  GETTABLEKS R6 R7 K5 ["new"]
+  CALL R6 0 1
+  MOVE R9 R5
+  MOVE R10 R4
+  MOVE R11 R0
+  LOADB R12 1
+  CALL R9 3 -1
+  NAMECALL R7 R6 K6 ["updateReasons"]
+  CALL R7 -1 0
+  MOVE R9 R5
+  MOVE R10 R4
+  MOVE R11 R1
+  LOADB R12 0
+  CALL R9 3 -1
+  NAMECALL R7 R6 K6 ["updateReasons"]
+  CALL R7 -1 0
+  NAMECALL R7 R6 K7 ["getFinalResults"]
+  CALL R7 1 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["util"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["util"]
+  GETTABLEKS R3 R4 K7 ["pcallDeferred"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R0 K8 ["WrapTargetCageUVReferenceValues"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K9 ["flags"]
+  GETTABLEKS R5 R6 K10 ["getFIntUGCValidateCageDuplicateUVThreshold"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K9 ["flags"]
+  GETTABLEKS R6 R7 K11 ["getFFlagUGCValidationHyperlinksInCageQuality"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K5 ["util"]
+  GETTABLEKS R7 R8 K12 ["FailureReasonsAccumulator"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R0 K13 ["Analytics"]
+  CALL R7 1 1
+  GETIMPORT R8 K15 [game]
+  LOADK R10 K16 ["UGCValidationService"]
+  NAMECALL R8 R8 K17 ["GetService"]
+  CALL R8 2 1
+  DUPCLOSURE R9 K18 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  RETURN R9 1

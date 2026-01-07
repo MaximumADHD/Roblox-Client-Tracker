@@ -1,0 +1,264 @@
+PROTO_0:
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  GETUPVAL R0 2
+  CALL R0 0 1
+  SETUPVAL R0 1
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R1 2
+  CALL R1 0 1
+  SETUPVAL R1 1
+  GETTABLEKS R1 R0 K0 ["actualStartTime"]
+  JUMPIFEQKNIL R1 [+10]
+  GETTABLEKS R1 R0 K0 ["actualStartTime"]
+  LOADN R2 0
+  JUMPIFNOTLT R1 R2 [+5]
+  GETUPVAL R1 2
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K0 ["actualStartTime"]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  LOADN R1 255
+  SETUPVAL R1 1
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  GETUPVAL R2 1
+  LOADN R3 0
+  JUMPIFNOTLE R3 R2 [+15]
+  GETUPVAL R3 2
+  CALL R3 0 1
+  GETUPVAL R4 1
+  SUB R2 R3 R4
+  GETTABLEKS R3 R0 K0 ["actualDuration"]
+  ADD R3 R3 R2
+  SETTABLEKS R3 R0 K0 ["actualDuration"]
+  JUMPIFNOT R1 [+2]
+  SETTABLEKS R2 R0 K1 ["selfBaseDuration"]
+  LOADN R3 255
+  SETUPVAL R3 1
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+2]
+  GETUPVAL R1 1
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R1 2
+  LOADN R2 0
+  JUMPIFNOTLE R2 R1 [+27]
+  GETUPVAL R2 3
+  CALL R2 0 1
+  GETUPVAL R3 2
+  SUB R1 R2 R3
+  LOADN R2 255
+  SETUPVAL R2 2
+  GETTABLEKS R2 R0 K0 ["return_"]
+  JUMPIFEQKNIL R2 [+17]
+  GETTABLEKS R3 R2 K1 ["tag"]
+  GETUPVAL R4 4
+  JUMPIFNOTEQ R3 R4 [+9]
+  GETTABLEKS R3 R2 K2 ["stateNode"]
+  GETTABLEKS R4 R3 K3 ["effectDuration"]
+  ADD R4 R4 R1
+  SETTABLEKS R4 R3 K3 ["effectDuration"]
+  RETURN R0 0
+  GETTABLEKS R2 R2 K0 ["return_"]
+  JUMPBACK [-18]
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+2]
+  GETUPVAL R1 1
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R1 2
+  LOADN R2 0
+  JUMPIFNOTLE R2 R1 [+29]
+  GETUPVAL R2 3
+  CALL R2 0 1
+  GETUPVAL R3 2
+  SUB R1 R2 R3
+  LOADN R2 255
+  SETUPVAL R2 2
+  GETTABLEKS R2 R0 K0 ["return_"]
+  JUMPIFEQKNIL R2 [+19]
+  GETTABLEKS R3 R2 K1 ["tag"]
+  GETUPVAL R4 4
+  JUMPIFNOTEQ R3 R4 [+11]
+  GETTABLEKS R3 R2 K2 ["stateNode"]
+  JUMPIFEQKNIL R3 [+10]
+  GETTABLEKS R4 R3 K3 ["passiveEffectDuration"]
+  ADD R4 R4 R1
+  SETTABLEKS R4 R3 K3 ["passiveEffectDuration"]
+  RETURN R0 0
+  GETTABLEKS R2 R2 K0 ["return_"]
+  JUMPBACK [-20]
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+2]
+  GETUPVAL R0 1
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  GETUPVAL R0 3
+  CALL R0 0 1
+  SETUPVAL R0 2
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+2]
+  GETUPVAL R0 1
+  JUMPIF R0 [+1]
+  RETURN R0 0
+  GETUPVAL R0 3
+  CALL R0 0 1
+  SETUPVAL R0 2
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["child"]
+  JUMPIFNOT R1 [+10]
+  GETTABLEKS R2 R0 K1 ["actualDuration"]
+  GETTABLEKS R3 R1 K1 ["actualDuration"]
+  ADD R2 R2 R3
+  SETTABLEKS R2 R0 K1 ["actualDuration"]
+  GETTABLEKS R1 R1 K2 ["sibling"]
+  JUMPBACK [-11]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R2 K3 [script]
+  GETTABLEKS R1 R2 K4 ["Parent"]
+  LOADK R3 K5 ["ReactInternalTypes"]
+  NAMECALL R1 R1 K6 ["WaitForChild"]
+  CALL R1 2 -1
+  CALL R0 -1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  LOADK R5 K7 ["shared"]
+  NAMECALL R3 R3 K6 ["WaitForChild"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R1 R2 K8 ["ReactFeatureFlags"]
+  GETTABLEKS R2 R1 K9 ["enableProfilerTimer"]
+  GETTABLEKS R3 R1 K10 ["enableProfilerCommitHooks"]
+  GETIMPORT R4 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  LOADK R7 K11 ["ReactWorkTags"]
+  NAMECALL R5 R5 K6 ["WaitForChild"]
+  CALL R5 2 -1
+  CALL R4 -1 1
+  GETTABLEKS R5 R4 K12 ["Profiler"]
+  GETIMPORT R6 K1 [require]
+  GETIMPORT R9 K3 [script]
+  GETTABLEKS R8 R9 K4 ["Parent"]
+  GETTABLEKS R7 R8 K4 ["Parent"]
+  LOADK R9 K13 ["scheduler"]
+  NAMECALL R7 R7 K6 ["WaitForChild"]
+  CALL R7 2 -1
+  CALL R6 -1 1
+  GETTABLEKS R7 R6 K14 ["unstable_now"]
+  LOADN R8 0
+  LOADN R9 255
+  LOADN R10 255
+  LOADN R11 255
+  NEWCLOSURE R12 P0
+  CAPTURE REF R8
+  SETGLOBAL R12 K15 ["getCommitTime"]
+  NEWCLOSURE R12 P1
+  CAPTURE VAL R2
+  CAPTURE REF R8
+  CAPTURE VAL R7
+  SETGLOBAL R12 K16 ["recordCommitTime"]
+  NEWCLOSURE R12 P2
+  CAPTURE VAL R2
+  CAPTURE REF R10
+  CAPTURE VAL R7
+  SETGLOBAL R12 K17 ["startProfilerTimer"]
+  NEWCLOSURE R12 P3
+  CAPTURE VAL R2
+  CAPTURE REF R10
+  SETGLOBAL R12 K18 ["stopProfilerTimerIfRunning"]
+  NEWCLOSURE R12 P4
+  CAPTURE VAL R2
+  CAPTURE REF R10
+  CAPTURE VAL R7
+  SETGLOBAL R12 K19 ["stopProfilerTimerIfRunningAndRecordDelta"]
+  NEWCLOSURE R12 P5
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE REF R9
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  SETGLOBAL R12 K20 ["recordLayoutEffectDuration"]
+  NEWCLOSURE R12 P6
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE REF R11
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  SETGLOBAL R12 K21 ["recordPassiveEffectDuration"]
+  NEWCLOSURE R12 P7
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE REF R9
+  CAPTURE VAL R7
+  SETGLOBAL R12 K22 ["startLayoutEffectTimer"]
+  NEWCLOSURE R12 P8
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE REF R11
+  CAPTURE VAL R7
+  SETGLOBAL R12 K23 ["startPassiveEffectTimer"]
+  DUPCLOSURE R12 K24 [PROTO_9]
+  SETGLOBAL R12 K25 ["transferActualDuration"]
+  DUPTABLE R12 K26 [{"getCommitTime", "recordCommitTime", "recordLayoutEffectDuration", "recordPassiveEffectDuration", "startLayoutEffectTimer", "startPassiveEffectTimer", "startProfilerTimer", "stopProfilerTimerIfRunning", "stopProfilerTimerIfRunningAndRecordDelta", "transferActualDuration"}]
+  GETGLOBAL R13 K15 ["getCommitTime"]
+  SETTABLEKS R13 R12 K15 ["getCommitTime"]
+  GETGLOBAL R13 K16 ["recordCommitTime"]
+  SETTABLEKS R13 R12 K16 ["recordCommitTime"]
+  GETGLOBAL R13 K20 ["recordLayoutEffectDuration"]
+  SETTABLEKS R13 R12 K20 ["recordLayoutEffectDuration"]
+  GETGLOBAL R13 K21 ["recordPassiveEffectDuration"]
+  SETTABLEKS R13 R12 K21 ["recordPassiveEffectDuration"]
+  GETGLOBAL R13 K22 ["startLayoutEffectTimer"]
+  SETTABLEKS R13 R12 K22 ["startLayoutEffectTimer"]
+  GETGLOBAL R13 K23 ["startPassiveEffectTimer"]
+  SETTABLEKS R13 R12 K23 ["startPassiveEffectTimer"]
+  GETGLOBAL R13 K17 ["startProfilerTimer"]
+  SETTABLEKS R13 R12 K17 ["startProfilerTimer"]
+  GETGLOBAL R13 K18 ["stopProfilerTimerIfRunning"]
+  SETTABLEKS R13 R12 K18 ["stopProfilerTimerIfRunning"]
+  GETGLOBAL R13 K19 ["stopProfilerTimerIfRunningAndRecordDelta"]
+  SETTABLEKS R13 R12 K19 ["stopProfilerTimerIfRunningAndRecordDelta"]
+  GETGLOBAL R13 K25 ["transferActualDuration"]
+  SETTABLEKS R13 R12 K25 ["transferActualDuration"]
+  CLOSEUPVALS R8
+  RETURN R12 1

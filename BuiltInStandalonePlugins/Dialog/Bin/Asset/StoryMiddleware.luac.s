@@ -1,0 +1,173 @@
+PROTO_0:
+  GETUPVAL R1 0
+  JUMPIF R1 [+51]
+  GETUPVAL R1 1
+  LOADK R3 K0 ["Plugin"]
+  NAMECALL R1 R1 K1 ["FindFirstChild"]
+  CALL R1 2 1
+  MOVE R3 R1
+  JUMPIFNOT R3 [+4]
+  LOADK R5 K2 ["ObjectValue"]
+  NAMECALL R3 R1 K3 ["IsA"]
+  CALL R3 2 1
+  FASTCALL2K ASSERT R3 K4 [+4]
+  LOADK R4 K4 ["Plugin ObjectValue not found in StoryMiddleware"]
+  GETIMPORT R2 K6 [assert]
+  CALL R2 2 0
+  GETTABLEKS R2 R1 K7 ["Value"]
+  MOVE R4 R2
+  JUMPIFNOT R4 [+4]
+  LOADK R6 K0 ["Plugin"]
+  NAMECALL R4 R2 K3 ["IsA"]
+  CALL R4 2 1
+  FASTCALL2K ASSERT R4 K8 [+4]
+  LOADK R5 K8 ["Plugin value is not a Plugin in StoryMiddleware"]
+  GETIMPORT R3 K6 [assert]
+  CALL R3 2 0
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["createFoundationDesignBinding"]
+  CALL R3 0 2
+  DUPTABLE R5 K13 [{"design", "onStyleSheetChange"}]
+  GETUPVAL R6 3
+  MOVE R7 R2
+  GETUPVAL R8 1
+  LOADNIL R9
+  DUPTABLE R10 K15 [{"FoundationBinding"}]
+  SETTABLEKS R3 R10 K14 ["FoundationBinding"]
+  CALL R6 4 1
+  SETTABLEKS R6 R5 K11 ["design"]
+  SETTABLEKS R4 R5 K12 ["onStyleSheetChange"]
+  SETUPVAL R5 0
+  DUPTABLE R1 K19 [{"Design", "Localization", "Plugin", "ThemeSwitcher"}]
+  GETUPVAL R3 4
+  GETTABLEKS R2 R3 K20 ["new"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K11 ["design"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K16 ["Design"]
+  GETUPVAL R2 5
+  SETTABLEKS R2 R1 K17 ["Localization"]
+  GETUPVAL R3 6
+  GETTABLEKS R2 R3 K20 ["new"]
+  GETTABLEKS R3 R0 K21 ["plugin"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K0 ["Plugin"]
+  GETUPVAL R3 7
+  GETTABLEKS R2 R3 K20 ["new"]
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K18 ["ThemeSwitcher"]
+  GETUPVAL R2 8
+  MOVE R3 R1
+  DUPTABLE R4 K23 [{"FoundationProvider"}]
+  GETUPVAL R5 9
+  GETUPVAL R6 10
+  DUPTABLE R7 K25 [{"onStyleSheetChange", "overlayGui"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K12 ["onStyleSheetChange"]
+  SETTABLEKS R8 R7 K12 ["onStyleSheetChange"]
+  GETTABLEKS R8 R0 K26 ["focus"]
+  SETTABLEKS R8 R7 K24 ["overlayGui"]
+  DUPTABLE R8 K29 [{"Child", "Link"}]
+  GETUPVAL R9 9
+  GETUPVAL R10 11
+  MOVE R11 R0
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K27 ["Child"]
+  GETUPVAL R9 9
+  LOADK R10 K30 ["StyleLink"]
+  DUPTABLE R11 K32 [{"StyleSheet"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K11 ["design"]
+  SETTABLEKS R12 R11 K31 ["StyleSheet"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K28 ["Link"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K22 ["FoundationProvider"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  DUPTABLE R2 K4 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R3 1
+  SETTABLEKS R3 R2 K1 ["stringResourceTable"]
+  GETUPVAL R3 2
+  SETTABLEKS R3 R2 K2 ["translationResourceTable"]
+  LOADK R3 K5 ["Dialog"]
+  SETTABLEKS R3 R2 K3 ["pluginName"]
+  CALL R1 1 1
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  CAPTURE VAL R1
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U9
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U11
+  CAPTURE UPVAL U12
+  CAPTURE VAL R0
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Dialog"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["StudioFoundation"]
+  CALL R3 1 1
+  GETTABLEKS R5 R1 K10 ["ContextServices"]
+  GETTABLEKS R4 R5 K11 ["Design"]
+  GETTABLEKS R6 R3 K12 ["Components"]
+  GETTABLEKS R5 R6 K13 ["FoundationProviderAdapter"]
+  GETTABLEKS R7 R1 K10 ["ContextServices"]
+  GETTABLEKS R6 R7 K14 ["Localization"]
+  GETTABLEKS R10 R0 K15 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Resources"]
+  GETTABLEKS R8 R9 K14 ["Localization"]
+  GETTABLEKS R7 R8 K17 ["LocalizedStrings"]
+  GETTABLEKS R9 R1 K10 ["ContextServices"]
+  GETTABLEKS R8 R9 K18 ["Plugin"]
+  GETTABLEKS R12 R0 K15 ["Src"]
+  GETTABLEKS R11 R12 K16 ["Resources"]
+  GETTABLEKS R10 R11 K14 ["Localization"]
+  GETTABLEKS R9 R10 K19 ["SourceStrings"]
+  GETTABLEKS R11 R1 K20 ["Style"]
+  GETTABLEKS R10 R11 K21 ["ThemeSwitcher"]
+  GETTABLEKS R11 R2 K22 ["createElement"]
+  GETTABLEKS R13 R1 K10 ["ContextServices"]
+  GETTABLEKS R12 R13 K23 ["provide"]
+  GETTABLEKS R14 R1 K24 ["Styling"]
+  GETTABLEKS R13 R14 K25 ["registerPluginStyles"]
+  LOADNIL R14
+  NEWCLOSURE R15 P0
+  CAPTURE VAL R6
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE REF R14
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE VAL R13
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  CAPTURE VAL R12
+  CAPTURE VAL R11
+  CAPTURE VAL R5
+  CLOSEUPVALS R14
+  RETURN R15 1

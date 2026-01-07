@@ -21,15 +21,19 @@ PROTO_1:
   RETURN R2 1
 
 PROTO_2:
-  DUPTABLE R0 K2 [{"_mockTemplateCache", "_mockFiles"}]
+  DUPTABLE R0 K4 [{"_mockTemplateCache", "_mockFiles", "_isMockGlobalLibrary", "_mockSessions"}]
   NEWTABLE R1 0 0
   SETTABLEKS R1 R0 K0 ["_mockTemplateCache"]
   NEWTABLE R1 0 0
   SETTABLEKS R1 R0 K1 ["_mockFiles"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K2 ["_isMockGlobalLibrary"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K3 ["_mockSessions"]
   GETUPVAL R3 0
   FASTCALL2 SETMETATABLE R0 R3 [+4]
   MOVE R2 R0
-  GETIMPORT R1 K4 [setmetatable]
+  GETIMPORT R1 K6 [setmetatable]
   CALL R1 2 1
   RETURN R1 1
 
@@ -79,6 +83,27 @@ PROTO_10:
   GETTABLEKS R1 R0 K0 ["_mockFiles"]
   RETURN R1 1
 
+PROTO_11:
+  LOADN R3 0
+  LOADK R4 K0 [""]
+  RETURN R3 2
+
+PROTO_12:
+  GETTABLEKS R3 R0 K0 ["_mockSessions"]
+  SETTABLE R2 R3 R1
+  RETURN R0 0
+
+PROTO_13:
+  GETTABLEKS R3 R0 K0 ["_mockSessions"]
+  GETTABLE R2 R3 R1
+  JUMPIFEQKNIL R2 [+2]
+  RETURN R2 1
+  GETUPVAL R3 0
+  MOVE R5 R1
+  NAMECALL R3 R3 K1 ["StartSessionWithPathAsync"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
@@ -114,4 +139,11 @@ MAIN:
   SETTABLEKS R3 R2 K23 ["PickMeshFileWithPrompt"]
   DUPCLOSURE R3 K24 [PROTO_10]
   SETTABLEKS R3 R2 K25 ["PickMultipleFilesWithPrompt"]
+  DUPCLOSURE R3 K26 [PROTO_11]
+  SETTABLEKS R3 R2 K27 ["UploadAssetFromPathAsync"]
+  DUPCLOSURE R3 K28 [PROTO_12]
+  SETTABLEKS R3 R2 K29 ["_setSessionFromPath"]
+  DUPCLOSURE R3 K30 [PROTO_13]
+  CAPTURE VAL R0
+  SETTABLEKS R3 R2 K31 ["StartSessionWithPathAsync"]
   RETURN R2 1

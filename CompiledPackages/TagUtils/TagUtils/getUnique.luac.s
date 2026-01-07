@@ -1,0 +1,45 @@
+PROTO_0:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETVARARGS R1 -1
+  CALL R0 -1 1
+  LENGTH R1 R0
+  JUMPIFNOTEQKN R1 K0 [1] [+3]
+  GETTABLEN R2 R0 1
+  RETURN R2 1
+  JUMPIFNOTEQKN R1 K1 [0] [+17]
+  GETIMPORT R2 K3 [error]
+  LOADK R3 K4 ["unable to find instance tagged with %s"]
+  GETIMPORT R5 K7 [table.concat]
+  NEWTABLE R6 0 0
+  GETVARARGS R7 -1
+  SETLIST R6 R7 -1 [1]
+  LOADK R7 K8 [", "]
+  CALL R5 2 -1
+  NAMECALL R3 R3 K9 ["format"]
+  CALL R3 -1 -1
+  CALL R2 -1 0
+  GETIMPORT R2 K3 [error]
+  LOADK R3 K10 ["expected to find only one instance tagged with %s, but found %d"]
+  GETIMPORT R5 K7 [table.concat]
+  NEWTABLE R6 0 0
+  GETVARARGS R7 -1
+  SETLIST R6 R7 -1 [1]
+  LOADK R7 K8 [", "]
+  CALL R5 2 1
+  LENGTH R6 R0
+  NAMECALL R3 R3 K9 ["format"]
+  CALL R3 3 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["getAll"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K6 [PROTO_0]
+  CAPTURE VAL R1
+  RETURN R2 1

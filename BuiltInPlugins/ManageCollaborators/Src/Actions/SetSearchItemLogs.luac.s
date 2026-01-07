@@ -4,7 +4,7 @@ PROTO_0:
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["Collab8766_LogCollabSearchItemClickedEventV3"]
+  LOADK R2 K2 ["Collab8766_LogCollabSearchItemClickedEventV4"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
   JUMPIFNOT R0 [+25]

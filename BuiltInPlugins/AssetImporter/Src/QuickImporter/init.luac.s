@@ -240,10 +240,7 @@ PROTO_7:
   SETTABLEKS R15 R14 K34 ["ExistingPackageId"]
   GETUPVAL R16 4
   GETTABLEKS R15 R16 K28 ["new"]
-  DUPTABLE R16 K38 [{"uploadErrorsExpanded"}]
-  NEWTABLE R17 0 0
-  SETTABLEKS R17 R16 K37 ["uploadErrorsExpanded"]
-  CALL R15 1 1
+  CALL R15 0 1
   SETTABLEKS R15 R14 K35 ["UploadWidgetItem"]
   CALL R12 2 1
   SETTABLEKS R12 R11 K30 ["Content"]

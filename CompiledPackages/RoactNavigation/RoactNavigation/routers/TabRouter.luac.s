@@ -1,0 +1,42 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Dictionary"]
+  GETTABLEKS R1 R2 K1 ["join"]
+  DUPTABLE R2 K4 [{"resetOnBlur", "backBehavior"}]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K2 ["resetOnBlur"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K5 ["InitialRoute"]
+  SETTABLEKS R3 R2 K3 ["backBehavior"]
+  MOVE R3 R0
+  CALL R1 2 1
+  GETUPVAL R2 2
+  MOVE R3 R1
+  CALL R2 1 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["Cryo"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["SwitchRouter"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K7 ["BackBehavior"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K8 [PROTO_0]
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  RETURN R3 1

@@ -1137,7 +1137,7 @@ MAIN:
   CALL R30 3 1
   LOADNIL R31
   GETIMPORT R32 K42 [game]
-  LOADK R34 K59 ["Collab8766_LogCollabSearchItemClickedEventV3"]
+  LOADK R34 K59 ["Collab8766_LogCollabSearchItemClickedEventV4"]
   NAMECALL R32 R32 K44 ["GetFastFlag"]
   CALL R32 2 1
   JUMPIFNOT R32 [+17]

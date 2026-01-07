@@ -146,21 +146,21 @@ PROTO_3:
   GETUPVAL R18 2
   GETTABLEKS R17 R18 K16 ["createElement"]
   GETUPVAL R18 3
-  DUPTABLE R19 K25 [{"jointInstance", "jointLabel", "mappedLookup", "childJoints", "rigDescriptor", "selectedJointInstance", "onJointClicked", "standardRadius", "applyTposeAdjustment", "updatePositions", "isPlayingAnimation"}]
+  DUPTABLE R19 K26 [{"jointInstance", "DEPRECATED_jointLabel", "mappedLookup", "childJoints", "DEPRECATED_rigDescriptor", "selectedJointInstance", "onJointClicked", "standardRadius", "DEPRECATED_applyTposeAdjustment", "updatePositions", "isPlayingAnimation"}]
   SETTABLEKS R14 R19 K17 ["jointInstance"]
-  SETTABLEKS R15 R19 K18 ["jointLabel"]
+  SETTABLEKS R15 R19 K18 ["DEPRECATED_jointLabel"]
   SETTABLEKS R7 R19 K19 ["mappedLookup"]
   SETTABLEKS R16 R19 K20 ["childJoints"]
-  SETTABLEKS R2 R19 K1 ["rigDescriptor"]
+  SETTABLEKS R2 R19 K21 ["DEPRECATED_rigDescriptor"]
   SETTABLEKS R3 R19 K2 ["selectedJointInstance"]
   SETTABLEKS R4 R19 K3 ["onJointClicked"]
-  SETTABLEKS R10 R19 K21 ["standardRadius"]
-  GETTABLEKS R20 R0 K22 ["applyTposeAdjustment"]
-  SETTABLEKS R20 R19 K22 ["applyTposeAdjustment"]
-  GETTABLEKS R20 R0 K23 ["updatePositions"]
-  SETTABLEKS R20 R19 K23 ["updatePositions"]
-  GETTABLEKS R20 R0 K24 ["isPlayingAnimation"]
-  SETTABLEKS R20 R19 K24 ["isPlayingAnimation"]
+  SETTABLEKS R10 R19 K22 ["standardRadius"]
+  GETTABLEKS R20 R0 K27 ["applyTposeAdjustment"]
+  SETTABLEKS R20 R19 K23 ["DEPRECATED_applyTposeAdjustment"]
+  GETTABLEKS R20 R0 K24 ["updatePositions"]
+  SETTABLEKS R20 R19 K24 ["updatePositions"]
+  GETTABLEKS R20 R0 K25 ["isPlayingAnimation"]
+  SETTABLEKS R20 R19 K25 ["isPlayingAnimation"]
   CALL R17 2 1
   FASTCALL2 TABLE_INSERT R9 R17 [+5]
   MOVE R19 R9
@@ -170,7 +170,7 @@ PROTO_3:
   JUMPBACK [-85]
   GETUPVAL R13 2
   GETTABLEKS R12 R13 K16 ["createElement"]
-  LOADK R13 K26 ["Folder"]
+  LOADK R13 K28 ["Folder"]
   LOADNIL R14
   MOVE R15 R9
   CALL R12 3 -1

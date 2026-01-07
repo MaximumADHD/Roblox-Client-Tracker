@@ -1,0 +1,318 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["ClickedItem"]
+  GETTABLEKS R3 R0 K1 ["ClickedPosition"]
+  JUMPIFNOT R2 [+58]
+  LOADK R6 K2 ["Part"]
+  NAMECALL R4 R2 K3 ["IsA"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+53]
+  GETTABLEKS R4 R2 K4 ["Shape"]
+  GETIMPORT R5 K8 [Enum.PartType.Ball]
+  JUMPIFNOTEQ R4 R5 [+48]
+  GETTABLEKS R4 R2 K9 ["CFrame"]
+  MOVE R6 R3
+  NAMECALL R4 R4 K10 ["PointToObjectSpace"]
+  CALL R4 2 1
+  GETTABLEKS R9 R4 K12 ["X"]
+  DIV R8 R9 R1
+  ADDK R7 R8 K11 [0.5]
+  FASTCALL1 MATH_FLOOR R7 [+2]
+  GETIMPORT R6 K15 [math.floor]
+  CALL R6 1 1
+  MUL R5 R6 R1
+  GETTABLEKS R10 R4 K16 ["Y"]
+  DIV R9 R10 R1
+  ADDK R8 R9 K11 [0.5]
+  FASTCALL1 MATH_FLOOR R8 [+2]
+  GETIMPORT R7 K15 [math.floor]
+  CALL R7 1 1
+  MUL R6 R7 R1
+  GETTABLEKS R11 R4 K17 ["Z"]
+  DIV R10 R11 R1
+  ADDK R9 R10 K11 [0.5]
+  FASTCALL1 MATH_FLOOR R9 [+2]
+  GETIMPORT R8 K15 [math.floor]
+  CALL R8 1 1
+  MUL R7 R8 R1
+  GETTABLEKS R8 R2 K9 ["CFrame"]
+  FASTCALL3 VECTOR R5 R6 R7
+  MOVE R11 R5
+  MOVE R12 R6
+  MOVE R13 R7
+  GETIMPORT R10 K20 [Vector3.new]
+  CALL R10 3 1
+  NAMECALL R8 R8 K21 ["PointToWorldSpace"]
+  CALL R8 2 -1
+  RETURN R8 -1
+  GETTABLEKS R5 R0 K22 ["ClickedMetadata"]
+  GETTABLEKS R4 R5 K23 ["TargetMatrix"]
+  GETTABLEKS R7 R0 K1 ["ClickedPosition"]
+  NAMECALL R5 R4 K10 ["PointToObjectSpace"]
+  CALL R5 2 1
+  GETTABLEKS R11 R5 K12 ["X"]
+  DIV R10 R11 R1
+  ADDK R9 R10 K11 [0.5]
+  FASTCALL1 MATH_FLOOR R9 [+2]
+  GETIMPORT R8 K15 [math.floor]
+  CALL R8 1 1
+  MUL R7 R8 R1
+  GETTABLEKS R8 R5 K16 ["Y"]
+  GETTABLEKS R13 R5 K17 ["Z"]
+  DIV R12 R13 R1
+  ADDK R11 R12 K11 [0.5]
+  FASTCALL1 MATH_FLOOR R11 [+2]
+  GETIMPORT R10 K15 [math.floor]
+  CALL R10 1 1
+  MUL R9 R10 R1
+  FASTCALL VECTOR [+2]
+  GETIMPORT R6 K20 [Vector3.new]
+  CALL R6 3 1
+  MOVE R5 R6
+  MOVE R8 R5
+  NAMECALL R6 R4 K21 ["PointToWorldSpace"]
+  CALL R6 2 -1
+  RETURN R6 -1
+
+PROTO_1:
+  LOADNIL R3
+  LOADNIL R4
+  GETTABLEKS R5 R2 K0 ["ClickedItem"]
+  JUMPIFNOT R5 [+12]
+  LOADK R8 K1 ["Attachment"]
+  NAMECALL R6 R5 K2 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+7]
+  GETTABLEKS R6 R2 K0 ["ClickedItem"]
+  GETTABLEKS R4 R6 K3 ["WorldPosition"]
+  GETTABLEKS R3 R2 K0 ["ClickedItem"]
+  JUMP [+14]
+  NAMECALL R6 R0 K4 ["getGridSnapEnabled"]
+  CALL R6 1 1
+  JUMPIFNOT R6 [+8]
+  GETUPVAL R6 0
+  MOVE R7 R2
+  NAMECALL R8 R0 K5 ["getGridSize"]
+  CALL R8 1 -1
+  CALL R6 -1 1
+  MOVE R4 R6
+  JUMP [+2]
+  GETTABLEKS R4 R2 K6 ["ClickedPosition"]
+  GETTABLEKS R6 R1 K7 ["_selectionInfo"]
+  NAMECALL R6 R6 K8 ["getLocalBoundingBox"]
+  CALL R6 1 1
+  MOVE R9 R4
+  NAMECALL R7 R6 K9 ["PointToObjectSpace"]
+  CALL R7 2 1
+  GETTABLEKS R10 R2 K6 ["ClickedPosition"]
+  NAMECALL R8 R6 K9 ["PointToObjectSpace"]
+  CALL R8 2 1
+  GETTABLEKS R10 R2 K10 ["ClickedMetadata"]
+  GETTABLEKS R9 R10 K11 ["IsPivot"]
+  JUMPIFNOT R9 [+2]
+  LOADK R8 K12 [{0, 0, 0}]
+  LOADK R7 K12 [{0, 0, 0}]
+  LOADNIL R9
+  NAMECALL R10 R0 K13 ["isAltKeyDown"]
+  CALL R10 1 1
+  JUMPIF R10 [+19]
+  GETTABLEKS R10 R2 K14 ["SelectionDidContainSelectable"]
+  JUMPIF R10 [+3]
+  GETTABLEKS R10 R2 K15 ["DoubleClicked"]
+  JUMPIFNOT R10 [+13]
+  JUMPIFNOT R5 [+12]
+  LOADK R12 K16 ["BasePart"]
+  NAMECALL R10 R5 K2 ["IsA"]
+  CALL R10 2 1
+  JUMPIFNOT R10 [+7]
+  GETUPVAL R10 1
+  GETTABLEKS R11 R2 K0 ["ClickedItem"]
+  GETTABLEKS R12 R2 K6 ["ClickedPosition"]
+  CALL R10 2 1
+  MOVE R9 R10
+  DUPTABLE R10 K22 [{"draggedPoint", "clickedPoint", "clickedMetadata", "clickedFaceInstance", "attachmentBeingDragged"}]
+  SETTABLEKS R7 R10 K17 ["draggedPoint"]
+  SETTABLEKS R8 R10 K18 ["clickedPoint"]
+  GETTABLEKS R11 R2 K10 ["ClickedMetadata"]
+  SETTABLEKS R11 R10 K19 ["clickedMetadata"]
+  SETTABLEKS R9 R10 K20 ["clickedFaceInstance"]
+  SETTABLEKS R3 R10 K21 ["attachmentBeingDragged"]
+  RETURN R10 1
+
+PROTO_2:
+  GETTABLEKS R3 R2 K0 ["ClickedItem"]
+  JUMPIFNOT R3 [+17]
+  LOADK R6 K1 ["Constraint"]
+  NAMECALL R4 R3 K2 ["IsA"]
+  CALL R4 2 1
+  JUMPIF R4 [+10]
+  LOADK R6 K3 ["WeldConstraint"]
+  NAMECALL R4 R3 K2 ["IsA"]
+  CALL R4 2 1
+  JUMPIF R4 [+5]
+  LOADK R6 K4 ["NoCollisionConstraint"]
+  NAMECALL R4 R3 K2 ["IsA"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+2]
+  LOADK R4 K5 ["Ready"]
+  RETURN R4 1
+  GETTABLEKS R4 R2 K6 ["SelectionNowContainsSelectable"]
+  JUMPIFNOT R4 [+18]
+  NAMECALL R4 R1 K7 ["doesAllowFreeformDrag"]
+  CALL R4 1 1
+  JUMPIFNOT R4 [+12]
+  GETTABLEKS R4 R2 K8 ["ClickedPosition"]
+  JUMPIF R4 [+2]
+  LOADK R4 K5 ["Ready"]
+  RETURN R4 1
+  LOADK R4 K9 ["FreeformSelectionDrag"]
+  GETUPVAL R5 0
+  MOVE R6 R0
+  MOVE R7 R1
+  MOVE R8 R2
+  CALL R5 3 1
+  RETURN R4 2
+  LOADK R4 K5 ["Ready"]
+  RETURN R4 1
+  LOADK R4 K10 ["DragSelecting"]
+  RETURN R4 1
+
+PROTO_3:
+  LOADNIL R3
+  LOADNIL R4
+  GETTABLEKS R5 R2 K0 ["ClickedItem"]
+  LOADK R7 K1 ["Attachment"]
+  NAMECALL R5 R5 K2 ["IsA"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+7]
+  GETTABLEKS R5 R2 K0 ["ClickedItem"]
+  GETTABLEKS R3 R5 K3 ["WorldPosition"]
+  GETTABLEKS R4 R2 K0 ["ClickedItem"]
+  JUMP [+27]
+  GETUPVAL R5 0
+  GETTABLEKS R6 R2 K0 ["ClickedItem"]
+  GETTABLEKS R7 R2 K4 ["ClickedPosition"]
+  CALL R5 2 1
+  LOADK R6 K5 [∞]
+  GETIMPORT R7 K7 [ipairs]
+  GETTABLEKS R8 R5 K8 ["vertices"]
+  CALL R7 1 3
+  FORGPREP_INEXT R7
+  GETTABLEKS R14 R11 K9 ["position"]
+  GETTABLEKS R15 R2 K4 ["ClickedPosition"]
+  SUB R13 R14 R15
+  GETTABLEKS R12 R13 K10 ["Magnitude"]
+  JUMPIFNOTLT R12 R6 [+4]
+  MOVE R6 R12
+  GETTABLEKS R3 R11 K9 ["position"]
+  FORGLOOP R7 2 [inext] [-13]
+  GETTABLEKS R5 R1 K11 ["_selectionInfo"]
+  NAMECALL R5 R5 K12 ["getLocalBoundingBox"]
+  CALL R5 1 1
+  MOVE R8 R3
+  NAMECALL R6 R5 K13 ["PointToObjectSpace"]
+  CALL R6 2 1
+  GETTABLEKS R9 R2 K4 ["ClickedPosition"]
+  NAMECALL R7 R5 K13 ["PointToObjectSpace"]
+  CALL R7 2 1
+  LOADNIL R8
+  NAMECALL R9 R0 K14 ["isAltKeyDown"]
+  CALL R9 1 1
+  JUMPIF R9 [+20]
+  GETTABLEKS R9 R2 K15 ["SelectionDidContainSelectable"]
+  JUMPIF R9 [+3]
+  GETTABLEKS R9 R2 K16 ["DoubleClicked"]
+  JUMPIFNOT R9 [+14]
+  GETTABLEKS R9 R2 K0 ["ClickedItem"]
+  LOADK R11 K17 ["BasePart"]
+  NAMECALL R9 R9 K2 ["IsA"]
+  CALL R9 2 1
+  JUMPIFNOT R9 [+7]
+  GETUPVAL R9 1
+  GETTABLEKS R10 R2 K0 ["ClickedItem"]
+  GETTABLEKS R11 R2 K4 ["ClickedPosition"]
+  CALL R9 2 1
+  MOVE R8 R9
+  DUPTABLE R9 K22 [{"basisPoint", "clickPoint", "clickedFaceInstance", "attachmentBeingDragged"}]
+  SETTABLEKS R6 R9 K18 ["basisPoint"]
+  SETTABLEKS R7 R9 K19 ["clickPoint"]
+  SETTABLEKS R8 R9 K20 ["clickedFaceInstance"]
+  SETTABLEKS R4 R9 K21 ["attachmentBeingDragged"]
+  RETURN R9 1
+
+PROTO_4:
+  GETTABLEKS R3 R2 K0 ["ClickedItem"]
+  JUMPIF R3 [+2]
+  LOADK R3 K1 ["DragSelecting"]
+  RETURN R3 1
+  GETTABLEKS R3 R2 K0 ["ClickedItem"]
+  LOADK R5 K2 ["Constraint"]
+  NAMECALL R3 R3 K3 ["IsA"]
+  CALL R3 2 1
+  JUMPIF R3 [+14]
+  GETTABLEKS R3 R2 K0 ["ClickedItem"]
+  LOADK R5 K4 ["WeldConstraint"]
+  NAMECALL R3 R3 K3 ["IsA"]
+  CALL R3 2 1
+  JUMPIF R3 [+7]
+  GETTABLEKS R3 R2 K0 ["ClickedItem"]
+  LOADK R5 K5 ["NoCollisionConstraint"]
+  NAMECALL R3 R3 K3 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+2]
+  LOADK R3 K6 ["Ready"]
+  RETURN R3 1
+  GETTABLEKS R3 R2 K7 ["SelectionNowContainsSelectable"]
+  JUMPIFNOT R3 [+18]
+  NAMECALL R3 R1 K8 ["doesAllowFreeformDrag"]
+  CALL R3 1 1
+  JUMPIFNOT R3 [+12]
+  GETTABLEKS R3 R2 K9 ["ClickedPosition"]
+  JUMPIF R3 [+2]
+  LOADK R3 K6 ["Ready"]
+  RETURN R3 1
+  LOADK R3 K10 ["FreeformSelectionDrag"]
+  GETUPVAL R4 0
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  RETURN R3 2
+  LOADK R3 K6 ["Ready"]
+  RETURN R3 1
+  LOADK R3 K1 ["DragSelecting"]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  GETTABLEKS R2 R1 K3 ["DraggerFramework"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R2 K6 ["Utility"]
+  GETTABLEKS R4 R5 K7 ["getGeometry"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R2 K6 ["Utility"]
+  GETTABLEKS R5 R6 K8 ["getFaceInstance"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R2 K9 ["Flags"]
+  GETTABLEKS R6 R7 K10 ["getFFlagDraggerImprovements"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K11 [PROTO_0]
+  MOVE R7 R5
+  CALL R7 0 1
+  JUMPIFNOT R7 [+6]
+  DUPCLOSURE R7 K12 [PROTO_1]
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  DUPCLOSURE R8 K13 [PROTO_2]
+  CAPTURE VAL R7
+  RETURN R8 1
+  DUPCLOSURE R7 K14 [PROTO_3]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  DUPCLOSURE R8 K15 [PROTO_4]
+  CAPTURE VAL R7
+  RETURN R8 1

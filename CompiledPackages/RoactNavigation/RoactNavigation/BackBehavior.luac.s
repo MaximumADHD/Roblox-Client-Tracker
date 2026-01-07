@@ -1,0 +1,25 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["NavigationSymbol"]
+  CALL R0 1 1
+  MOVE R1 R0
+  LOADK R2 K6 ["NONE"]
+  CALL R1 1 1
+  MOVE R2 R0
+  LOADK R3 K7 ["INITIAL_ROUTE"]
+  CALL R2 1 1
+  MOVE R3 R0
+  LOADK R4 K8 ["ORDER"]
+  CALL R3 1 1
+  MOVE R4 R0
+  LOADK R5 K9 ["HISTORY"]
+  CALL R4 1 1
+  DUPTABLE R5 K14 [{"None", "InitialRoute", "Order", "History"}]
+  SETTABLEKS R1 R5 K10 ["None"]
+  SETTABLEKS R2 R5 K11 ["InitialRoute"]
+  SETTABLEKS R3 R5 K12 ["Order"]
+  SETTABLEKS R4 R5 K13 ["History"]
+  RETURN R5 1

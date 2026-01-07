@@ -1,60 +1,28 @@
 PROTO_0:
-  MOVE R2 R1
-  FASTCALL1 TYPEOF R2 [+3]
+  GETTABLEN R2 R1 1
+  JUMPIFNOT R2 [+6]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["getGlobalCoordinateFrame"]
   MOVE R4 R2
-  GETIMPORT R3 K1 [typeof]
   CALL R3 1 1
-  JUMPIFNOTEQKS R3 K2 ["table"] [+7]
-  JUMPIFNOT R2 [+5]
-  GETTABLEN R3 R2 1
-  JUMPIFEQKNIL R3 [+3]
-  LENGTH R3 R2
-  GETTABLE R2 R2 R3
-  LOADNIL R3
-  LOADNIL R4
-  FASTCALL1 TYPEOF R2 [+3]
-  MOVE R6 R2
-  GETIMPORT R5 K1 [typeof]
-  CALL R5 1 1
-  JUMPIFNOTEQKS R5 K2 ["table"] [+21]
-  MOVE R5 R2
-  GETTABLEKS R6 R5 K3 ["joint"]
-  JUMPIFEQKNIL R6 [+4]
-  GETTABLEKS R3 R5 K3 ["joint"]
-  JUMP [+6]
-  GETTABLEKS R6 R5 K4 ["_bone"]
-  JUMPIFEQKNIL R6 [+3]
-  GETTABLEKS R3 R5 K4 ["_bone"]
-  GETTABLEKS R6 R5 K5 ["Transform"]
-  JUMPIFEQKNIL R6 [+3]
-  GETTABLEKS R4 R5 K5 ["Transform"]
-  JUMPIFNOTEQKNIL R4 [+15]
-  JUMPIFNOT R3 [+9]
-  GETIMPORT R5 K8 [CFrame.new]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K9 ["getJointPosition"]
-  MOVE R7 R3
-  CALL R6 1 -1
-  CALL R5 -1 1
-  JUMPIF R5 [+3]
-  GETIMPORT R5 K8 [CFrame.new]
+  JUMPIF R3 [+3]
+  GETIMPORT R3 K3 [CFrame.new]
+  CALL R3 0 1
+  DUPTABLE R5 K6 [{"_selectionItem", "_draggerContext"}]
+  DUPTABLE R6 K9 [{"joint", "Transform"}]
+  SETTABLEKS R2 R6 K7 ["joint"]
+  SETTABLEKS R3 R6 K8 ["Transform"]
+  SETTABLEKS R6 R5 K4 ["_selectionItem"]
+  SETTABLEKS R0 R5 K5 ["_draggerContext"]
+  GETUPVAL R6 1
+  FASTCALL2 SETMETATABLE R5 R6 [+3]
+  GETIMPORT R4 K11 [setmetatable]
+  CALL R4 2 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K2 ["new"]
   CALL R5 0 1
-  MOVE R4 R5
-  DUPTABLE R6 K12 [{"_selectionItem", "_draggerContext"}]
-  DUPTABLE R7 K13 [{"Transform", "_bone"}]
-  SETTABLEKS R4 R7 K5 ["Transform"]
-  SETTABLEKS R3 R7 K4 ["_bone"]
-  SETTABLEKS R7 R6 K10 ["_selectionItem"]
-  SETTABLEKS R0 R6 K11 ["_draggerContext"]
-  GETUPVAL R7 1
-  FASTCALL2 SETMETATABLE R6 R7 [+3]
-  GETIMPORT R5 K15 [setmetatable]
-  CALL R5 2 1
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K7 ["new"]
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K16 ["SelectionChanged"]
-  RETURN R5 1
+  SETTABLEKS R5 R4 K12 ["SelectionChanged"]
+  RETURN R4 1
 
 PROTO_1:
   SETTABLEKS R1 R0 K0 ["_draggerContext"]
@@ -62,17 +30,15 @@ PROTO_1:
 
 PROTO_2:
   GETTABLEKS R2 R0 K0 ["_selectionItem"]
-  SETTABLEKS R1 R2 K1 ["_bone"]
+  SETTABLEKS R1 R2 K1 ["joint"]
   GETTABLEKS R2 R0 K0 ["_selectionItem"]
-  JUMPIFNOT R1 [+9]
-  GETIMPORT R3 K4 [CFrame.new]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K5 ["getJointPosition"]
-  MOVE R5 R1
-  CALL R4 1 -1
-  CALL R3 -1 1
+  JUMPIFNOT R1 [+6]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["getGlobalCoordinateFrame"]
+  MOVE R4 R1
+  CALL R3 1 1
   JUMPIF R3 [+3]
-  GETIMPORT R3 K4 [CFrame.new]
+  GETIMPORT R3 K5 [CFrame.new]
   CALL R3 0 1
   SETTABLEKS R3 R2 K6 ["Transform"]
   RETURN R0 0
@@ -111,7 +77,7 @@ PROTO_7:
 
 PROTO_8:
   GETTABLEKS R3 R0 K0 ["_selectionItem"]
-  GETTABLEKS R2 R3 K1 ["_bone"]
+  GETTABLEKS R2 R3 K1 ["joint"]
   JUMPIFEQKNIL R2 [+2]
   LOADB R1 0 +1
   LOADB R1 1
@@ -119,63 +85,84 @@ PROTO_8:
 
 PROTO_9:
   GETTABLEKS R2 R0 K0 ["_selectionItem"]
-  GETTABLEKS R1 R2 K1 ["Transform"]
-  JUMPIF R1 [+3]
-  GETIMPORT R1 K4 [CFrame.new]
-  CALL R1 0 1
+  GETTABLEKS R1 R2 K1 ["joint"]
+  LOADNIL R2
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["getGlobalCoordinateFrame"]
+  MOVE R4 R1
+  CALL R3 1 1
+  MOVE R2 R3
+  JUMP [+4]
+  GETIMPORT R3 K5 [CFrame.new]
+  CALL R3 0 1
+  MOVE R2 R3
+  MOVE R3 R2
   FASTCALL VECTOR [+2]
-  GETIMPORT R2 K6 [Vector3.new]
-  CALL R2 0 1
-  GETTABLEKS R3 R0 K7 ["_draggerContext"]
-  JUMPIFNOT R3 [+10]
-  GETTABLEKS R3 R0 K7 ["_draggerContext"]
-  NAMECALL R3 R3 K8 ["shouldUseLocalSpace"]
-  CALL R3 1 1
-  JUMPIFNOT R3 [+4]
-  MOVE R3 R1
-  MOVE R4 R2
-  LOADK R5 K9 [{0.8, 0.8, 0.8}]
-  RETURN R3 3
-  GETIMPORT R3 K4 [CFrame.new]
-  GETTABLEKS R4 R1 K10 ["Position"]
-  CALL R3 1 1
-  MOVE R4 R2
-  LOADK R5 K9 [{0.8, 0.8, 0.8}]
+  GETIMPORT R4 K7 [Vector3.new]
+  CALL R4 0 1
+  LOADK R5 K8 [{0.8, 0.8, 0.8}]
   RETURN R3 3
 
 PROTO_10:
   GETTABLEKS R2 R0 K0 ["_selectionItem"]
-  GETTABLEKS R1 R2 K1 ["Transform"]
-  JUMPIF R1 [+3]
-  GETIMPORT R1 K4 [CFrame.new]
-  CALL R1 0 1
+  GETTABLEKS R1 R2 K1 ["joint"]
+  LOADNIL R2
+  JUMPIFNOT R1 [+25]
+  LOADK R5 K2 ["Motor6D"]
+  NAMECALL R3 R1 K3 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+20]
+  GETTABLEKS R3 R1 K4 ["Part0"]
+  JUMPIFNOT R3 [+12]
+  GETTABLEKS R5 R3 K5 ["CFrame"]
+  GETTABLEKS R6 R1 K6 ["C0"]
+  MUL R4 R5 R6
+  GETIMPORT R5 K8 [CFrame.new]
+  GETTABLEKS R6 R4 K9 ["Position"]
+  CALL R5 1 1
+  MOVE R2 R5
+  JUMP [+17]
+  GETIMPORT R4 K8 [CFrame.new]
+  CALL R4 0 1
+  MOVE R2 R4
+  JUMP [+12]
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K10 ["getGlobalCoordinateFrame"]
+  MOVE R4 R1
+  CALL R3 1 1
+  MOVE R2 R3
+  JUMP [+4]
+  GETIMPORT R3 K8 [CFrame.new]
+  CALL R3 0 1
+  MOVE R2 R3
+  MOVE R3 R2
   FASTCALL VECTOR [+2]
-  GETIMPORT R2 K6 [Vector3.new]
-  CALL R2 0 1
-  MOVE R3 R1
-  MOVE R4 R2
-  LOADK R5 K7 [{0.2, 0.2, 0.2}]
+  GETIMPORT R4 K12 [Vector3.new]
+  CALL R4 0 1
+  LOADK R5 K13 [{0.2, 0.2, 0.2}]
   RETURN R3 3
 
 PROTO_11:
   GETTABLEKS R2 R0 K0 ["_selectionItem"]
-  GETTABLEKS R1 R2 K1 ["_bone"]
+  GETTABLEKS R1 R2 K1 ["joint"]
   JUMPIFNOT R1 [+9]
   NEWTABLE R1 0 1
   GETTABLEKS R3 R0 K0 ["_selectionItem"]
-  GETTABLEKS R2 R3 K1 ["_bone"]
+  GETTABLEKS R2 R3 K1 ["joint"]
   SETLIST R1 R2 1 [1]
   RETURN R1 1
   NEWTABLE R1 0 0
   RETURN R1 1
 
 PROTO_12:
-  LOADB R1 0
+  LOADB R1 1
   RETURN R1 1
 
 PROTO_13:
   GETTABLEKS R4 R0 K0 ["_selectionItem"]
-  GETTABLEKS R3 R4 K1 ["_bone"]
+  GETTABLEKS R3 R4 K1 ["joint"]
   JUMPIFEQ R1 R3 [+2]
   LOADB R2 0 +1
   LOADB R2 1
@@ -222,8 +209,10 @@ MAIN:
   DUPCLOSURE R5 K28 [PROTO_8]
   SETTABLEKS R5 R4 K29 ["isEmpty"]
   DUPCLOSURE R5 K30 [PROTO_9]
+  CAPTURE VAL R3
   SETTABLEKS R5 R4 K31 ["getBoundingBox"]
   DUPCLOSURE R5 K32 [PROTO_10]
+  CAPTURE VAL R3
   SETTABLEKS R5 R4 K33 ["getLocalBoundingBox"]
   DUPCLOSURE R5 K34 [PROTO_11]
   SETTABLEKS R5 R4 K35 ["getObjects"]

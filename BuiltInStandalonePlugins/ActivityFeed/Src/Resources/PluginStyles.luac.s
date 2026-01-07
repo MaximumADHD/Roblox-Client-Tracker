@@ -17,57 +17,70 @@ MAIN:
   GETTABLEKS R3 R4 K11 ["createStyleRule"]
   GETTABLEKS R5 R1 K10 ["Styling"]
   GETTABLEKS R4 R5 K12 ["createStyleSheet"]
-  NEWTABLE R5 0 5
-  MOVE R6 R3
-  LOADK R7 K13 [".CX-Invisible"]
-  DUPTABLE R8 K15 [{"BackgroundTransparency"}]
-  LOADN R9 1
-  SETTABLEKS R9 R8 K14 ["BackgroundTransparency"]
-  CALL R6 2 1
+  GETIMPORT R5 K14 [game]
+  LOADK R7 K15 ["ActivityHistoryCompactUI"]
+  NAMECALL R5 R5 K16 ["GetFastFlag"]
+  CALL R5 2 1
+  NEWTABLE R6 0 5
   MOVE R7 R3
-  LOADK R8 K16 [".CX-Divider"]
-  DUPTABLE R9 K19 [{"Size", "BackgroundColor3"}]
-  GETIMPORT R10 K22 [UDim2.new]
-  LOADN R11 1
-  LOADN R12 0
-  LOADN R13 0
-  LOADN R14 1
-  CALL R10 4 1
-  SETTABLEKS R10 R9 K17 ["Size"]
-  LOADK R10 K23 ["$Divider"]
-  SETTABLEKS R10 R9 K18 ["BackgroundColor3"]
+  LOADK R8 K17 [".CX-Invisible"]
+  DUPTABLE R9 K19 [{"BackgroundTransparency"}]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K18 ["BackgroundTransparency"]
   CALL R7 2 1
   MOVE R8 R3
-  LOADK R9 K24 ["Frame"]
-  DUPTABLE R10 K26 [{"BorderSizePixel"}]
-  LOADN R11 0
-  SETTABLEKS R11 R10 K25 ["BorderSizePixel"]
+  LOADK R9 K20 [".CX-Divider"]
+  DUPTABLE R10 K23 [{"Size", "BackgroundColor3"}]
+  GETIMPORT R11 K26 [UDim2.new]
+  LOADN R12 1
+  LOADN R13 0
+  LOADN R14 0
+  LOADN R15 1
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K21 ["Size"]
+  JUMPIFNOT R5 [+2]
+  LOADK R11 K27 ["$FoundationColorsShift300"]
+  JUMP [+1]
+  LOADK R11 K28 ["$Divider"]
+  SETTABLEKS R11 R10 K22 ["BackgroundColor3"]
   CALL R8 2 1
   MOVE R9 R3
-  LOADK R10 K27 ["TextLabel"]
-  DUPTABLE R11 K31 [{"Font", "TextSize", "TextColor"}]
-  GETTABLEKS R12 R2 K32 ["defaultFont"]
-  SETTABLEKS R12 R11 K28 ["Font"]
-  GETTABLEKS R12 R2 K33 ["normalFontSize"]
-  SETTABLEKS R12 R11 K29 ["TextSize"]
-  LOADK R12 K34 ["$TextPrimary"]
-  SETTABLEKS R12 R11 K30 ["TextColor"]
+  LOADK R10 K29 ["Frame"]
+  DUPTABLE R11 K31 [{"BorderSizePixel"}]
+  LOADN R12 0
+  SETTABLEKS R12 R11 K30 ["BorderSizePixel"]
   CALL R9 2 1
   MOVE R10 R3
-  LOADK R11 K35 ["TextButton"]
-  DUPTABLE R12 K31 [{"Font", "TextSize", "TextColor"}]
-  GETTABLEKS R13 R2 K32 ["defaultFont"]
-  SETTABLEKS R13 R12 K28 ["Font"]
-  GETTABLEKS R13 R2 K36 ["buttonFontSize"]
-  SETTABLEKS R13 R12 K29 ["TextSize"]
-  LOADK R13 K34 ["$TextPrimary"]
-  SETTABLEKS R13 R12 K30 ["TextColor"]
-  CALL R10 2 -1
-  SETLIST R5 R6 -1 [1]
-  NEWTABLE R6 0 0
-  MOVE R7 R4
-  LOADK R8 K37 ["ActivityHistoryPlugin"]
-  MOVE R9 R5
+  LOADK R11 K32 ["TextLabel"]
+  DUPTABLE R12 K36 [{"Font", "TextSize", "TextColor"}]
+  GETTABLEKS R13 R2 K37 ["defaultFont"]
+  SETTABLEKS R13 R12 K33 ["Font"]
+  GETTABLEKS R13 R2 K38 ["normalFontSize"]
+  SETTABLEKS R13 R12 K34 ["TextSize"]
+  JUMPIFNOT R5 [+2]
+  LOADK R13 K39 ["$FoundationColorsContentEmphasis"]
+  JUMP [+1]
+  LOADK R13 K40 ["$TextPrimary"]
+  SETTABLEKS R13 R12 K35 ["TextColor"]
+  CALL R10 2 1
+  MOVE R11 R3
+  LOADK R12 K41 ["TextButton"]
+  DUPTABLE R13 K36 [{"Font", "TextSize", "TextColor"}]
+  GETTABLEKS R14 R2 K37 ["defaultFont"]
+  SETTABLEKS R14 R13 K33 ["Font"]
+  GETTABLEKS R14 R2 K42 ["buttonFontSize"]
+  SETTABLEKS R14 R13 K34 ["TextSize"]
+  JUMPIFNOT R5 [+2]
+  LOADK R14 K39 ["$FoundationColorsContentEmphasis"]
+  JUMP [+1]
+  LOADK R14 K40 ["$TextPrimary"]
+  SETTABLEKS R14 R13 K35 ["TextColor"]
+  CALL R11 2 -1
+  SETLIST R6 R7 -1 [1]
+  NEWTABLE R7 0 0
+  MOVE R8 R4
+  LOADK R9 K43 ["ActivityHistoryPlugin"]
   MOVE R10 R6
-  CALL R7 3 -1
-  RETURN R7 -1
+  MOVE R11 R7
+  CALL R8 3 -1
+  RETURN R8 -1

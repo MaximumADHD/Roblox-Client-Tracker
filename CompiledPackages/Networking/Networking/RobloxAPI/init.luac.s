@@ -1,0 +1,195 @@
+PROTO_0:
+  LOADK R6 K0 ["Instance"]
+  NAMECALL R4 R0 K1 ["IsA"]
+  CALL R4 2 1
+  FASTCALL2K ASSERT R4 K2 [+4]
+  LOADK R5 K2 ["dir is expected to be an Instance"]
+  GETIMPORT R3 K4 [assert]
+  CALL R3 2 0
+  NEWTABLE R3 0 0
+  GETIMPORT R4 K6 [ipairs]
+  NAMECALL R5 R0 K7 ["GetChildren"]
+  CALL R5 1 -1
+  CALL R4 -1 3
+  FORGPREP_INEXT R4
+  GETTABLEKS R9 R8 K8 ["ClassName"]
+  JUMPIFNOTEQKS R9 K9 ["Folder"] [+10]
+  GETTABLEKS R9 R8 K10 ["Name"]
+  GETUPVAL R10 0
+  MOVE R11 R8
+  MOVE R12 R1
+  MOVE R13 R2
+  CALL R10 3 1
+  SETTABLE R10 R3 R9
+  JUMP [+26]
+  GETTABLEKS R9 R8 K8 ["ClassName"]
+  JUMPIFNOTEQKS R9 K11 ["ModuleScript"] [+13]
+  GETIMPORT R9 K13 [require]
+  MOVE R10 R8
+  CALL R9 1 1
+  GETTABLEKS R10 R8 K10 ["Name"]
+  MOVE R11 R9
+  MOVE R12 R1
+  MOVE R13 R2
+  CALL R11 2 1
+  SETTABLE R11 R3 R10
+  JUMP [+10]
+  GETIMPORT R9 K15 [warn]
+  GETIMPORT R10 K18 [string.format]
+  LOADK R11 K19 ["Unexpected object found when constructing children table : %s"]
+  NAMECALL R12 R8 K20 ["GetFullName"]
+  CALL R12 1 -1
+  CALL R10 -1 -1
+  CALL R9 -1 0
+  FORGLOOP R4 2 [inext] [-40]
+  GETIMPORT R4 K22 [next]
+  MOVE R5 R3
+  CALL R4 1 1
+  JUMPIFNOTEQKNIL R4 [+11]
+  GETIMPORT R4 K15 [warn]
+  GETIMPORT R5 K18 [string.format]
+  LOADK R6 K23 ["Could not find any children for %s"]
+  NAMECALL R7 R0 K20 ["GetFullName"]
+  CALL R7 1 -1
+  CALL R5 -1 -1
+  CALL R4 -1 0
+  GETUPVAL R4 1
+  MOVE R5 R3
+  CALL R4 1 -1
+  RETURN R4 -1
+
+PROTO_1:
+  JUMPIF R0 [+2]
+  NEWTABLE R0 0 0
+  GETTABLEKS R1 R0 K0 ["networking"]
+  JUMPIF R1 [+9]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["new"]
+  DUPTABLE R3 K3 [{"isInternal"}]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K2 ["isInternal"]
+  CALL R2 1 1
+  MOVE R1 R2
+  GETTABLEKS R2 R0 K4 ["baseUrl"]
+  JUMPIF R2 [+5]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["new"]
+  CALL R3 0 1
+  MOVE R2 R3
+  DUPTABLE R3 K17 [{"_baseUrls", "APIS", "API", "AssetGame", "Catalog", "GameInternationalization", "Inventory", "Locale", "LocalizationTables", "Develop", "TranslationRoles", "WWW"}]
+  SETTABLEKS R2 R3 K5 ["_baseUrls"]
+  GETUPVAL R4 2
+  GETIMPORT R6 K19 [script]
+  GETTABLEKS R5 R6 K6 ["APIS"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K6 ["APIS"]
+  GETUPVAL R4 2
+  GETIMPORT R6 K19 [script]
+  GETTABLEKS R5 R6 K7 ["API"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K7 ["API"]
+  GETUPVAL R4 2
+  GETIMPORT R6 K19 [script]
+  GETTABLEKS R5 R6 K8 ["AssetGame"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K8 ["AssetGame"]
+  GETUPVAL R4 2
+  GETIMPORT R6 K19 [script]
+  GETTABLEKS R5 R6 K9 ["Catalog"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K9 ["Catalog"]
+  GETUPVAL R4 2
+  GETIMPORT R6 K19 [script]
+  GETTABLEKS R5 R6 K10 ["GameInternationalization"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K10 ["GameInternationalization"]
+  GETUPVAL R4 2
+  GETIMPORT R6 K19 [script]
+  GETTABLEKS R5 R6 K11 ["Inventory"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K11 ["Inventory"]
+  GETUPVAL R4 2
+  GETIMPORT R6 K19 [script]
+  GETTABLEKS R5 R6 K12 ["Locale"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K12 ["Locale"]
+  GETUPVAL R4 2
+  GETIMPORT R6 K19 [script]
+  GETTABLEKS R5 R6 K13 ["LocalizationTables"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K13 ["LocalizationTables"]
+  GETUPVAL R4 2
+  GETIMPORT R6 K19 [script]
+  GETTABLEKS R5 R6 K14 ["Develop"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K14 ["Develop"]
+  GETUPVAL R4 2
+  GETIMPORT R6 K19 [script]
+  GETTABLEKS R5 R6 K15 ["TranslationRoles"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K15 ["TranslationRoles"]
+  GETUPVAL R4 2
+  GETIMPORT R6 K19 [script]
+  GETTABLEKS R5 R6 K16 ["WWW"]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K16 ["WWW"]
+  GETUPVAL R6 3
+  FASTCALL2 SETMETATABLE R3 R6 [+4]
+  MOVE R5 R3
+  GETIMPORT R4 K21 [setmetatable]
+  CALL R4 2 0
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Networking"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K6 ["Url"]
+  CALL R1 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R0 K7 ["Http"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K2 ["Networking"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Util"]
+  GETTABLEKS R4 R5 K9 ["strict"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K10 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  DUPTABLE R5 K11 [{"Url"}]
+  SETTABLEKS R1 R5 K6 ["Url"]
+  SETTABLEKS R5 R5 K12 ["__index"]
+  DUPCLOSURE R6 K13 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  SETTABLEKS R6 R5 K14 ["new"]
+  RETURN R5 1

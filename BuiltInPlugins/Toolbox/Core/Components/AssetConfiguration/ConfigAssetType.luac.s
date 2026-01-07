@@ -1203,14 +1203,14 @@ PROTO_40:
   JUMP [+3]
   LOADB R1 1
   NEWTABLE R2 0 0
-  JUMPIFNOT R4 [+55]
+  JUMPIFNOT R4 [+49]
   GETUPVAL R6 4
   GETTABLEKS R5 R6 K14 ["isFolderStructureEnabled"]
-  JUMPIFNOT R5 [+51]
+  JUMPIFNOT R5 [+45]
   GETUPVAL R6 4
   GETTABLEKS R5 R6 K14 ["isFolderStructureEnabled"]
   CALL R5 0 1
-  JUMPIFNOT R5 [+46]
+  JUMPIFNOT R5 [+40]
   GETUPVAL R6 4
   GETTABLEKS R5 R6 K15 ["ValidateAsset"]
   MOVE R6 R0
@@ -1219,25 +1219,21 @@ PROTO_40:
   CALL R6 1 1
   GETUPVAL R8 3
   GETTABLEKS R7 R8 K10 ["currentAssetType"]
-  DUPTABLE R8 K20 [{"source", "enforceR15FolderStructure", "telemetry_bundle_id", "telemetry_root_id"}]
-  LOADK R9 K21 ["Toolbox"]
+  DUPTABLE R8 K18 [{"source", "enforceR15FolderStructure"}]
+  LOADK R9 K19 ["Toolbox"]
   SETTABLEKS R9 R8 K16 ["source"]
   LOADB R9 0
   SETTABLEKS R9 R8 K17 ["enforceR15FolderStructure"]
-  LOADK R9 K1 [""]
-  SETTABLEKS R9 R8 K18 ["telemetry_bundle_id"]
-  LOADK R9 K1 [""]
-  SETTABLEKS R9 R8 K19 ["telemetry_root_id"]
   CALL R5 3 1
   GETUPVAL R7 4
-  GETTABLEKS R6 R7 K22 ["isEntrypointMergingEnabled"]
+  GETTABLEKS R6 R7 K20 ["isEntrypointMergingEnabled"]
   JUMPIFNOT R6 [+17]
   GETUPVAL R7 4
-  GETTABLEKS R6 R7 K22 ["isEntrypointMergingEnabled"]
+  GETTABLEKS R6 R7 K20 ["isEntrypointMergingEnabled"]
   CALL R6 0 1
   JUMPIFNOT R6 [+12]
   GETUPVAL R7 4
-  GETTABLEKS R6 R7 K23 ["combineResultsIntoLegacy"]
+  GETTABLEKS R6 R7 K21 ["combineResultsIntoLegacy"]
   MOVE R7 R1
   MOVE R8 R2
   MOVE R9 R5
@@ -1248,7 +1244,7 @@ PROTO_40:
   MOVE R1 R6
   MOVE R2 R7
   GETUPVAL R6 7
-  GETTABLEKS R5 R6 K24 ["validationCallback"]
+  GETTABLEKS R5 R6 K22 ["validationCallback"]
   MOVE R6 R1
   MOVE R7 R2
   CALL R5 2 0

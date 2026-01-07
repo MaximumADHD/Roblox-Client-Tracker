@@ -1,0 +1,295 @@
+PROTO_0:
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_1:
+  GETIMPORT R1 K1 [pcall]
+  MOVE R2 R0
+  CALL R1 1 2
+  JUMPIF R1 [+26]
+  FASTCALL1 TOSTRING R2 [+3]
+  MOVE R4 R2
+  GETIMPORT R3 K3 [tostring]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [string.find]
+  MOVE R5 R3
+  LOADK R6 K7 [" "]
+  CALL R4 2 1
+  ADDK R7 R4 K8 [1]
+  FASTCALL2 STRING_SUB R3 R7 [+4]
+  MOVE R6 R3
+  GETIMPORT R5 K10 [string.sub]
+  CALL R5 2 1
+  DUPTABLE R6 K13 [{"pass", "message"}]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K11 ["pass"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R5
+  SETTABLEKS R7 R6 K12 ["message"]
+  RETURN R6 1
+  DUPTABLE R3 K14 [{"pass"}]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K11 ["pass"]
+  RETURN R3 1
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["unstable_clearYields"]
+  CALL R1 0 1
+  LENGTH R2 R1
+  JUMPIFEQKN R2 K1 [0] [+8]
+  GETIMPORT R2 K3 [error]
+  LOADK R4 K4 ["Log of yielded values is not empty. "]
+  LOADK R5 K5 ["Call expectToHaveYielded(scheduler, ...) first."]
+  CONCAT R3 R4 R5
+  LOADN R4 3
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  CALL R1 1 1
+  GETTABLEKS R0 R1 K0 ["toEqual"]
+  GETUPVAL R1 2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R3 R1 K0 ["unstable_clearYields"]
+  CALL R3 0 1
+  LENGTH R4 R3
+  JUMPIFEQKN R4 K1 [0] [+8]
+  GETIMPORT R4 K3 [error]
+  LOADK R6 K4 ["Log of yielded values is not empty. "]
+  LOADK R7 K5 ["Call expectToHaveYielded(scheduler, ...) first."]
+  CONCAT R5 R6 R7
+  LOADN R6 3
+  CALL R4 2 0
+  GETTABLEKS R3 R1 K6 ["unstable_flushAllWithoutAsserting"]
+  CALL R3 0 0
+  GETTABLEKS R3 R1 K0 ["unstable_clearYields"]
+  CALL R3 0 1
+  GETUPVAL R4 0
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CALL R4 1 1
+  RETURN R4 1
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  CALL R1 1 1
+  GETTABLEKS R0 R1 K0 ["toEqual"]
+  GETUPVAL R1 2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R3 R1 K0 ["unstable_clearYields"]
+  CALL R3 0 1
+  LENGTH R4 R3
+  JUMPIFEQKN R4 K1 [0] [+8]
+  GETIMPORT R4 K3 [error]
+  LOADK R6 K4 ["Log of yielded values is not empty. "]
+  LOADK R7 K5 ["Call expectToHaveYielded(scheduler, ...) first."]
+  CONCAT R5 R6 R7
+  LOADN R6 3
+  CALL R4 2 0
+  GETTABLEKS R3 R1 K6 ["unstable_flushNumberOfYields"]
+  LENGTH R4 R2
+  CALL R3 1 0
+  GETTABLEKS R3 R1 K0 ["unstable_clearYields"]
+  CALL R3 0 1
+  GETUPVAL R4 0
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CALL R4 1 1
+  RETURN R4 1
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  CALL R1 1 1
+  GETTABLEKS R0 R1 K0 ["toEqual"]
+  GETUPVAL R1 2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETTABLEKS R3 R1 K0 ["unstable_clearYields"]
+  CALL R3 0 1
+  LENGTH R4 R3
+  JUMPIFEQKN R4 K1 [0] [+8]
+  GETIMPORT R4 K3 [error]
+  LOADK R6 K4 ["Log of yielded values is not empty. "]
+  LOADK R7 K5 ["Call expectToHaveYielded(scheduler, ...) first."]
+  CONCAT R5 R6 R7
+  LOADN R6 3
+  CALL R4 2 0
+  GETTABLEKS R3 R1 K6 ["unstable_flushUntilNextPaint"]
+  CALL R3 0 0
+  GETTABLEKS R3 R1 K0 ["unstable_clearYields"]
+  CALL R3 0 1
+  GETUPVAL R4 0
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CALL R4 1 1
+  RETURN R4 1
+
+PROTO_9:
+  NEWTABLE R3 0 0
+  GETTABLEKS R4 R1 K0 ["unstable_clearYields"]
+  CALL R4 0 1
+  LENGTH R5 R4
+  JUMPIFEQKN R5 K1 [0] [+8]
+  GETIMPORT R5 K3 [error]
+  LOADK R7 K4 ["Log of yielded values is not empty. "]
+  LOADK R8 K5 ["Call expectToHaveYielded(scheduler, ...) first."]
+  CONCAT R6 R7 R8
+  LOADN R7 3
+  CALL R5 2 0
+  GETTABLEKS R4 R1 K6 ["unstable_flushAllWithoutAsserting"]
+  CALL R4 0 0
+  GETTABLEKS R4 R1 K0 ["unstable_clearYields"]
+  CALL R4 0 1
+  GETUPVAL R5 0
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CALL R5 1 1
+  MOVE R2 R5
+  RETURN R2 1
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  CALL R1 1 1
+  GETTABLEKS R0 R1 K0 ["toEqual"]
+  GETUPVAL R1 2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R3 R1 K0 ["unstable_clearYields"]
+  CALL R3 0 1
+  LENGTH R4 R3
+  JUMPIFEQKN R4 K1 [0] [+8]
+  GETIMPORT R4 K3 [error]
+  LOADK R6 K4 ["Log of yielded values is not empty. "]
+  LOADK R7 K5 ["Call expectToHaveYielded(scheduler, ...) first."]
+  CONCAT R5 R6 R7
+  LOADN R6 3
+  CALL R4 2 0
+  GETTABLEKS R3 R1 K6 ["unstable_flushExpired"]
+  CALL R3 0 0
+  GETTABLEKS R3 R1 K0 ["unstable_clearYields"]
+  CALL R3 0 1
+  GETUPVAL R4 0
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CALL R4 1 1
+  RETURN R4 1
+
+PROTO_12:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  CALL R1 1 1
+  GETTABLEKS R0 R1 K0 ["toEqual"]
+  GETUPVAL R1 2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETTABLEKS R3 R1 K0 ["unstable_clearYields"]
+  CALL R3 0 1
+  GETUPVAL R4 0
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CALL R4 1 1
+  RETURN R4 1
+
+PROTO_14:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["unstable_flushAllWithoutAsserting"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R1 0
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U1
+  CALL R1 1 1
+  GETTABLEKS R0 R1 K0 ["toThrow"]
+  GETUPVAL R1 2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_16:
+  GETTABLEKS R3 R1 K0 ["unstable_clearYields"]
+  CALL R3 0 1
+  LENGTH R4 R3
+  JUMPIFEQKN R4 K1 [0] [+8]
+  GETIMPORT R4 K3 [error]
+  LOADK R6 K4 ["Log of yielded values is not empty. "]
+  LOADK R7 K5 ["Call expectToHaveYielded(scheduler, ...) first."]
+  CONCAT R5 R6 R7
+  LOADN R6 3
+  CALL R4 2 0
+  GETUPVAL R3 0
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CALL R3 1 1
+  RETURN R3 1
+
+PROTO_17:
+  DUPCLOSURE R1 K0 [PROTO_2]
+  NEWCLOSURE R2 P1
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  NEWCLOSURE R3 P2
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  NEWCLOSURE R4 P3
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  NEWCLOSURE R5 P4
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  NEWCLOSURE R6 P5
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  NEWCLOSURE R7 P6
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  NEWCLOSURE R8 P7
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  DUPTABLE R9 K8 [{"toFlushAndYield", "toFlushAndYieldThrough", "toFlushWithoutYielding", "toFlushUntilNextPaint", "toFlushExpired", "toHaveYielded", "toFlushAndThrow"}]
+  SETTABLEKS R2 R9 K1 ["toFlushAndYield"]
+  SETTABLEKS R3 R9 K2 ["toFlushAndYieldThrough"]
+  SETTABLEKS R5 R9 K3 ["toFlushWithoutYielding"]
+  SETTABLEKS R4 R9 K4 ["toFlushUntilNextPaint"]
+  SETTABLEKS R6 R9 K5 ["toFlushExpired"]
+  SETTABLEKS R7 R9 K6 ["toHaveYielded"]
+  SETTABLEKS R8 R9 K7 ["toFlushAndThrow"]
+  RETURN R9 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_1]
+  DUPCLOSURE R1 K1 [PROTO_17]
+  CAPTURE VAL R0
+  RETURN R1 1

@@ -1,0 +1,21 @@
+PROTO_0:
+  DUPTABLE R3 K2 [{"value", "complete"}]
+  GETTABLEKS R4 R0 K3 ["__targetValue"]
+  SETTABLEKS R4 R3 K0 ["value"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K1 ["complete"]
+  RETURN R3 1
+
+PROTO_1:
+  DUPTABLE R1 K2 [{"__targetValue", "step"}]
+  SETTABLEKS R0 R1 K0 ["__targetValue"]
+  GETUPVAL R2 0
+  SETTABLEKS R2 R1 K1 ["step"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  DUPCLOSURE R1 K1 [PROTO_1]
+  CAPTURE VAL R0
+  RETURN R1 1

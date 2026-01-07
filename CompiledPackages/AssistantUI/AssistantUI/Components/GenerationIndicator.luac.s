@@ -1,0 +1,148 @@
+PROTO_0:
+  DUPTABLE R0 K1 [{"TimeWarning"}]
+  GETUPVAL R1 0
+  LOADK R3 K2 ["GenerationIndicator"]
+  LOADK R4 K0 ["TimeWarning"]
+  NAMECALL R1 R1 K3 ["getText"]
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K0 ["TimeWarning"]
+  RETURN R0 1
+
+PROTO_1:
+  DIVK R3 R0 K2 [0.25]
+  MODK R2 R3 K1 [3]
+  ADDK R1 R2 K0 [1]
+  GETIMPORT R2 K5 [string.rep]
+  LOADK R3 K6 [". "]
+  MOVE R4 R1
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETIMPORT R1 K2 [os.clock]
+  CALL R1 0 1
+  GETUPVAL R2 0
+  SUB R0 R1 R2
+  LOADB R1 0
+  GETUPVAL R2 0
+  LOADN R3 0
+  JUMPIFNOTLT R3 R2 [+6]
+  GETUPVAL R2 1
+  JUMPIFLE R2 R0 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useClock"]
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["useContext"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["Context"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K3 ["lastPacketTime"]
+  GETUPVAL R4 3
+  CALL R4 0 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["useMemo"]
+  DUPCLOSURE R6 K5 [PROTO_0]
+  CAPTURE UPVAL U4
+  NEWTABLE R7 0 0
+  CALL R5 2 1
+  GETUPVAL R6 5
+  CALL R6 0 1
+  GETUPVAL R7 6
+  GETUPVAL R8 7
+  DUPTABLE R9 K8 [{"tag", "LayoutOrder"}]
+  LOADK R10 K9 ["col size-full-0 auto-y gap-xsmall"]
+  SETTABLEKS R10 R9 K6 ["tag"]
+  GETTABLEKS R10 R0 K7 ["LayoutOrder"]
+  SETTABLEKS R10 R9 K7 ["LayoutOrder"]
+  DUPTABLE R10 K12 [{"Ellipsis", "Warning"}]
+  GETUPVAL R11 6
+  GETUPVAL R12 8
+  DUPTABLE R13 K14 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R14 K15 ["size-full-600 text-title-small content-emphasis text-align-x-left text-wrap"]
+  SETTABLEKS R14 R13 K6 ["tag"]
+  DUPCLOSURE R16 K16 [PROTO_1]
+  NAMECALL R14 R1 K17 ["map"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K13 ["Text"]
+  MOVE R14 R6
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K7 ["LayoutOrder"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K10 ["Ellipsis"]
+  GETUPVAL R11 6
+  GETUPVAL R12 8
+  DUPTABLE R13 K19 [{"tag", "Text", "LayoutOrder", "Visible"}]
+  LOADK R14 K20 ["auto-xy text-caption-small content-secondary text-wrap"]
+  SETTABLEKS R14 R13 K6 ["tag"]
+  GETTABLEKS R14 R5 K21 ["TimeWarning"]
+  SETTABLEKS R14 R13 K13 ["Text"]
+  MOVE R14 R6
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K7 ["LayoutOrder"]
+  NEWCLOSURE R16 P2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  NAMECALL R14 R1 K17 ["map"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K18 ["Visible"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K11 ["Warning"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["Contexts"]
+  GETTABLEKS R3 R4 K10 ["PacketReceivedContext"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K11 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["ReactUtils"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K13 ["Resources"]
+  GETTABLEKS R7 R8 K14 ["Localization"]
+  GETTABLEKS R6 R7 K15 ["Translator"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K16 ["Flags"]
+  GETTABLEKS R7 R8 K17 ["FIntMCPAssistantGenerationIndicatorWarningTime"]
+  CALL R6 1 1
+  GETTABLEKS R7 R1 K18 ["Text"]
+  GETTABLEKS R8 R1 K19 ["View"]
+  GETTABLEKS R9 R4 K20 ["createNextOrder"]
+  GETTABLEKS R10 R3 K21 ["createElement"]
+  DUPCLOSURE R11 K22 [PROTO_3]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  GETTABLEKS R12 R3 K23 ["memo"]
+  MOVE R13 R11
+  CALL R12 1 -1
+  RETURN R12 -1

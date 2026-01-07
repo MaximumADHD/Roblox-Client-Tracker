@@ -1,0 +1,150 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["GetAnimationNodeTypes"]
+  CALL R0 1 1
+  NEWTABLE R1 0 0
+  MOVE R2 R0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETUPVAL R7 0
+  MOVE R9 R6
+  NAMECALL R7 R7 K1 ["GetAnimationNodeDefinition"]
+  CALL R7 2 1
+  GETTABLEKS R9 R7 K2 ["Group"]
+  GETTABLE R8 R1 R9
+  JUMPIF R8 [+12]
+  GETTABLEKS R8 R7 K2 ["Group"]
+  DUPTABLE R9 K5 [{"name", "nodes"}]
+  GETTABLEKS R10 R7 K2 ["Group"]
+  SETTABLEKS R10 R9 K3 ["name"]
+  NEWTABLE R10 0 0
+  SETTABLEKS R10 R9 K4 ["nodes"]
+  SETTABLE R9 R1 R8
+  GETUPVAL R9 1
+  GETTABLEKS R10 R7 K6 ["Type"]
+  GETTABLE R8 R9 R10
+  GETTABLEKS R12 R7 K2 ["Group"]
+  GETTABLE R11 R1 R12
+  GETTABLEKS R10 R11 K4 ["nodes"]
+  DUPTABLE R11 K9 [{"nodeType", "name", "isDisabled"}]
+  SETTABLEKS R6 R11 K7 ["nodeType"]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K10 ["formatName"]
+  GETTABLEKS R14 R7 K6 ["Type"]
+  JUMPIFNOT R14 [+5]
+  GETTABLEKS R14 R7 K6 ["Type"]
+  GETTABLEKS R13 R14 K11 ["Name"]
+  JUMPIF R13 [+1]
+  LOADK R13 K12 ["No Definition Type"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K3 ["name"]
+  NOT R12 R8
+  SETTABLEKS R12 R11 K8 ["isDisabled"]
+  FASTCALL2 TABLE_INSERT R10 R11 [+3]
+  GETIMPORT R9 K15 [table.insert]
+  CALL R9 2 0
+  FORGLOOP R2 2 [-57]
+  MOVE R2 R1
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  SETTABLE R6 R1 R5
+  LOADNIL R7
+  SETTABLE R7 R1 R6
+  FORGLOOP R2 2 [-4]
+  RETURN R1 1
+
+PROTO_1:
+  DUPTABLE R1 K1 [{"nodeGroups"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["nodeGroups"]
+  SETTABLEKS R2 R1 K0 ["nodeGroups"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["createElement"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K3 ["Provider"]
+  DUPTABLE R4 K5 [{"value"}]
+  SETTABLEKS R1 R4 K4 ["value"]
+  GETTABLEKS R5 R0 K6 ["children"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["AnimationNodeWrapper"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Util"]
+  GETTABLEKS R4 R5 K8 ["Nodes"]
+  GETTABLEKS R3 R4 K9 ["NodeNameFormattingUtils"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R0 K10 ["NodeViewTypes"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K11 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["React"]
+  CALL R4 1 1
+  NEWTABLE R5 16 0
+  GETIMPORT R6 K16 [Enum.AnimationNodeType.AddNode]
+  LOADB R7 1
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K18 [Enum.AnimationNodeType.BlendNode]
+  LOADB R7 1
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K20 [Enum.AnimationNodeType.Blend1DNode]
+  LOADB R7 1
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K22 [Enum.AnimationNodeType.Blend2DNode]
+  LOADB R7 1
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K24 [Enum.AnimationNodeType.ClipNode]
+  LOADB R7 1
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K26 [Enum.AnimationNodeType.SelectNode]
+  LOADB R7 1
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K28 [Enum.AnimationNodeType.SequenceNode]
+  LOADB R7 1
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K30 [Enum.AnimationNodeType.RandomSequenceNode]
+  LOADB R7 1
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K32 [Enum.AnimationNodeType.SpeedNode]
+  LOADB R7 1
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K34 [Enum.AnimationNodeType.SubtractNode]
+  LOADB R7 1
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K36 [Enum.AnimationNodeType.PrioritySelectNode]
+  LOADB R7 1
+  SETTABLE R7 R5 R6
+  GETIMPORT R6 K38 [Enum.AnimationNodeType.MaskNode]
+  LOADB R7 1
+  SETTABLE R7 R5 R6
+  DUPCLOSURE R6 K39 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  DUPTABLE R7 K41 [{"nodeGroups"}]
+  MOVE R8 R6
+  CALL R8 0 1
+  SETTABLEKS R8 R7 K40 ["nodeGroups"]
+  GETTABLEKS R8 R4 K42 ["createContext"]
+  MOVE R9 R7
+  CALL R8 1 1
+  DUPCLOSURE R9 K43 [PROTO_1]
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  DUPTABLE R10 K46 [{"Context", "Provider"}]
+  SETTABLEKS R8 R10 K44 ["Context"]
+  SETTABLEKS R9 R10 K45 ["Provider"]
+  RETURN R10 1

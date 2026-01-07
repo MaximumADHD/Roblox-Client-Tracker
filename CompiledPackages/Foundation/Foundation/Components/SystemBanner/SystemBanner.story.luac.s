@@ -1,0 +1,162 @@
+PROTO_0:
+  GETIMPORT R0 K1 [print]
+  LOADK R2 K2 ["%* Action %* activated"]
+  GETUPVAL R4 0
+  GETUPVAL R5 1
+  NAMECALL R2 R2 K3 ["format"]
+  CALL R2 3 1
+  MOVE R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R0 K1 [print]
+  LOADK R2 K2 ["%* Close activated"]
+  GETUPVAL R4 0
+  NAMECALL R2 R2 K3 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  NEWTABLE R1 0 0
+  GETTABLEKS R3 R0 K0 ["controls"]
+  GETTABLEKS R2 R3 K1 ["actionCount"]
+  LOADN R5 1
+  MOVE R3 R2
+  LOADN R4 1
+  FORNPREP R3
+  DUPTABLE R8 K5 [{"text", "variant", "onActivated"}]
+  LOADK R10 K6 ["Action %*"]
+  MOVE R12 R5
+  NAMECALL R10 R10 K7 ["format"]
+  CALL R10 2 1
+  MOVE R9 R10
+  SETTABLEKS R9 R8 K2 ["text"]
+  JUMPIFNOTEQ R5 R2 [+5]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K8 ["Standard"]
+  JUMP [+3]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K9 ["Utility"]
+  SETTABLEKS R9 R8 K3 ["variant"]
+  NEWCLOSURE R9 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R5
+  SETTABLEKS R9 R8 K4 ["onActivated"]
+  FASTCALL2 TABLE_INSERT R1 R8 [+4]
+  MOVE R7 R1
+  GETIMPORT R6 K12 [table.insert]
+  CALL R6 2 0
+  FORNLOOP R3
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K13 ["createElement"]
+  GETUPVAL R4 3
+  DUPTABLE R5 K19 [{"title", "description", "variant", "severity", "actions", "onClose"}]
+  GETTABLEKS R7 R0 K0 ["controls"]
+  GETTABLEKS R6 R7 K14 ["title"]
+  SETTABLEKS R6 R5 K14 ["title"]
+  GETTABLEKS R8 R0 K0 ["controls"]
+  GETTABLEKS R7 R8 K15 ["description"]
+  JUMPIFEQKS R7 K20 [""] [+6]
+  GETTABLEKS R7 R0 K0 ["controls"]
+  GETTABLEKS R6 R7 K15 ["description"]
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K15 ["description"]
+  GETTABLEKS R7 R0 K0 ["controls"]
+  GETTABLEKS R6 R7 K3 ["variant"]
+  SETTABLEKS R6 R5 K3 ["variant"]
+  GETUPVAL R6 4
+  SETTABLEKS R6 R5 K16 ["severity"]
+  LENGTH R7 R1
+  LOADN R8 0
+  JUMPIFNOTLT R8 R7 [+3]
+  MOVE R6 R1
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K17 ["actions"]
+  GETTABLEKS R8 R0 K0 ["controls"]
+  GETTABLEKS R7 R8 K21 ["hasCloseAffordance"]
+  JUMPIFNOT R7 [+3]
+  NEWCLOSURE R6 P1
+  CAPTURE UPVAL U1
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K18 ["onClose"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_3:
+  DUPTABLE R2 K2 [{"name", "story"}]
+  SETTABLEKS R1 R2 K0 ["name"]
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  SETTABLEKS R3 R2 K1 ["story"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["Dash"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K9 ["Components"]
+  GETTABLEKS R5 R6 K10 ["SystemBanner"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K11 ["Enums"]
+  GETTABLEKS R6 R7 K12 ["AlertSeverity"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K11 ["Enums"]
+  GETTABLEKS R7 R8 K13 ["AlertVariant"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K11 ["Enums"]
+  GETTABLEKS R8 R9 K14 ["ButtonVariant"]
+  CALL R7 1 1
+  DUPTABLE R8 K18 [{"summary", "stories", "controls"}]
+  LOADK R9 K10 ["SystemBanner"]
+  SETTABLEKS R9 R8 K15 ["summary"]
+  GETTABLEKS R9 R3 K19 ["map"]
+  MOVE R10 R5
+  DUPCLOSURE R11 K20 [PROTO_3]
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K16 ["stories"]
+  DUPTABLE R9 K26 [{"title", "description", "variant", "actionCount", "hasCloseAffordance"}]
+  LOADK R10 K27 ["Hi, I'm a title"]
+  SETTABLEKS R10 R9 K21 ["title"]
+  LOADK R10 K28 ["I'm a description"]
+  SETTABLEKS R10 R9 K22 ["description"]
+  GETTABLEKS R10 R3 K29 ["values"]
+  MOVE R11 R6
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K23 ["variant"]
+  NEWTABLE R10 0 4
+  LOADN R11 0
+  LOADN R12 1
+  LOADN R13 2
+  LOADN R14 3
+  SETLIST R10 R11 4 [1]
+  SETTABLEKS R10 R9 K24 ["actionCount"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K25 ["hasCloseAffordance"]
+  SETTABLEKS R9 R8 K17 ["controls"]
+  RETURN R8 1

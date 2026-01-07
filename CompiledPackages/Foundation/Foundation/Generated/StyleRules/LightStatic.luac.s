@@ -1,0 +1,1328 @@
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 128 0
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 1
+  LOADN R5 1
+  LOADN R6 1
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K6 ["bg-surface-200"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K9 [0.2]
+  LOADK R5 K10 [0.372549]
+  LOADN R6 1
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K13 ["stroke-system-emphasis"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADK R3 K14 [0.08]
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K15 [0.968627]
+  LOADK R5 K15 [0.968627]
+  LOADK R6 K16 [0.972549]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K17 ["bg-over-media-100"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K18 [0.94902]
+  LOADK R5 K19 [0.729412]
+  LOADK R6 K20 [0.164706]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K21 ["bg-system-warning"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K15 [0.968627]
+  LOADK R5 K15 [0.968627]
+  LOADK R6 K16 [0.972549]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K15 [0.968627]
+  LOADK R5 K15 [0.968627]
+  LOADK R6 K16 [0.972549]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K26 ["content-action-sub-emphasis"]
+  NEWTABLE R1 2 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K27 [0.223529]
+  LOADK R5 K28 [0.772549]
+  LOADK R6 K29 [0.509804]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  LOADK R2 K30 ["bg-system-success"]
+  SETTABLEKS R2 R1 K31 ["deprecatedFor"]
+  SETTABLEKS R1 R0 K32 ["bg-success"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADK R3 K14 [0.08]
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 1
+  LOADN R5 1
+  LOADN R6 1
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K33 ["bg-over-media-0"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 1
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K34 ["stroke-action-sub-emphasis"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K35 [0.286275]
+  LOADK R5 K36 [0.301961]
+  LOADK R6 K37 [0.352941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K35 [0.286275]
+  LOADK R5 K36 [0.301961]
+  LOADK R6 K37 [0.352941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K38 ["content-default"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K35 [0.286275]
+  LOADK R5 K36 [0.301961]
+  LOADK R6 K37 [0.352941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K39 ["stroke-system-neutral"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 0
+  LOADK R5 K40 [0.0784314]
+  LOADK R6 K41 [0.360784]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 0
+  LOADK R5 K40 [0.0784314]
+  LOADK R6 K41 [0.360784]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K42 ["content-action-soft-emphasis"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K15 [0.968627]
+  LOADK R5 K15 [0.968627]
+  LOADK R6 K16 [0.972549]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K15 [0.968627]
+  LOADK R5 K15 [0.968627]
+  LOADK R6 K16 [0.972549]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K43 ["content-action-over-media"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K40 [0.0784314]
+  LOADK R5 K44 [0.27451]
+  LOADN R6 1
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K40 [0.0784314]
+  LOADK R5 K44 [0.27451]
+  LOADN R6 1
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K45 ["content-link"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K46 [0.415686]
+  LOADK R5 K47 [0.435294]
+  LOADK R6 K48 [0.505882]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K46 [0.415686]
+  LOADK R5 K47 [0.435294]
+  LOADK R6 K48 [0.505882]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K49 ["content-muted"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K15 [0.968627]
+  LOADK R5 K15 [0.968627]
+  LOADK R6 K16 [0.972549]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K15 [0.968627]
+  LOADK R5 K15 [0.968627]
+  LOADK R6 K16 [0.972549]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K50 ["content-inverse-emphasis"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADK R3 K51 [0.7]
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K9 [0.2]
+  LOADK R5 K10 [0.372549]
+  LOADN R6 1
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K52 ["bg-action-soft-emphasis"]
+  NEWTABLE R1 2 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K35 [0.286275]
+  LOADK R5 K36 [0.301961]
+  LOADK R6 K37 [0.352941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  LOADK R2 K53 ["bg-system-neutral"]
+  SETTABLEKS R2 R1 K31 ["deprecatedFor"]
+  SETTABLEKS R1 R0 K54 ["bg-neutral"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K58 ["bg-action-over-media"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADK R3 K59 [0.88]
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K60 [0.105882]
+  LOADK R5 K61 [0.145098]
+  LOADK R6 K62 [0.294118]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K63 ["bg-action-alert"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K15 [0.968627]
+  LOADK R5 K15 [0.968627]
+  LOADK R6 K16 [0.972549]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K15 [0.968627]
+  LOADK R5 K15 [0.968627]
+  LOADK R6 K16 [0.972549]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K64 ["content-action-emphasis"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K60 [0.105882]
+  LOADK R5 K61 [0.145098]
+  LOADK R6 K62 [0.294118]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADK R3 K65 [0.84]
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K66 ["stroke-emphasis"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K67 [0.835294]
+  LOADK R5 K68 [0.843137]
+  LOADK R6 K69 [0.866667]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K67 [0.835294]
+  LOADK R5 K68 [0.843137]
+  LOADK R6 K69 [0.866667]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K70 ["content-inverse-default"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K71 ["content-emphasis"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K72 ["bg-action-sub-emphasis"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K73 [0.87451]
+  LOADK R5 K74 [0.156863]
+  LOADK R6 K75 [0.121569]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K76 ["bg-system-alert"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K15 [0.968627]
+  LOADK R5 K15 [0.968627]
+  LOADK R6 K16 [0.972549]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K77 ["bg-surface-300"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 1
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K78 ["stroke-action-emphasis"]
+  NEWTABLE R1 2 0
+  LOADN R2 255
+  SETTABLEKS R2 R1 K79 ["priority"]
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K35 [0.286275]
+  LOADK R5 K36 [0.301961]
+  LOADK R6 K37 [0.352941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K80 ["text-color-defaults"]
+  NEWTABLE R1 2 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K27 [0.223529]
+  LOADK R5 K28 [0.772549]
+  LOADK R6 K29 [0.509804]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K27 [0.223529]
+  LOADK R5 K28 [0.772549]
+  LOADK R6 K29 [0.509804]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  LOADK R2 K81 ["content-system-success"]
+  SETTABLEKS R2 R1 K31 ["deprecatedFor"]
+  SETTABLEKS R1 R0 K82 ["content-success"]
+  NEWTABLE R1 2 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K73 [0.87451]
+  LOADK R5 K74 [0.156863]
+  LOADK R6 K75 [0.121569]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  LOADK R2 K76 ["bg-system-alert"]
+  SETTABLEKS R2 R1 K31 ["deprecatedFor"]
+  SETTABLEKS R1 R0 K83 ["bg-alert"]
+  NEWTABLE R1 2 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  LOADK R2 K84 ["bg-system-contrast"]
+  SETTABLEKS R2 R1 K31 ["deprecatedFor"]
+  SETTABLEKS R1 R0 K85 ["bg-contrast"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K86 ["content-action-utility"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADK R3 K87 [0.96]
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K60 [0.105882]
+  LOADK R5 K61 [0.145098]
+  LOADK R6 K62 [0.294118]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K88 ["bg-shift-100"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K27 [0.223529]
+  LOADK R5 K28 [0.772549]
+  LOADK R6 K29 [0.509804]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K27 [0.223529]
+  LOADK R5 K28 [0.772549]
+  LOADK R6 K29 [0.509804]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K81 ["content-system-success"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADK R3 K59 [0.88]
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K60 [0.105882]
+  LOADK R5 K61 [0.145098]
+  LOADK R6 K62 [0.294118]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K89 ["bg-action-standard"]
+  NEWTABLE R1 4 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  LOADK R2 K90 ["stroke-system-contrast"]
+  SETTABLEKS R2 R1 K31 ["deprecatedFor"]
+  SETTABLEKS R1 R0 K91 ["stroke-contrast"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K35 [0.286275]
+  LOADK R5 K36 [0.301961]
+  LOADK R6 K37 [0.352941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K35 [0.286275]
+  LOADK R5 K36 [0.301961]
+  LOADK R6 K37 [0.352941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K92 ["content-system-neutral"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K18 [0.94902]
+  LOADK R5 K19 [0.729412]
+  LOADK R6 K20 [0.164706]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K93 ["stroke-system-warning"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADN R3 1
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K94 ["bg-action-utility"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 1
+  LOADN R5 1
+  LOADN R6 1
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K95 ["bg-surface-0"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADK R3 K14 [0.08]
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K15 [0.968627]
+  LOADK R5 K15 [0.968627]
+  LOADK R6 K16 [0.972549]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K96 ["bg-over-media-300"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 1
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K97 ["stroke-action-alert"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K98 [0.85098]
+  LOADK R5 K99 [0.109804]
+  LOADK R6 K100 [0.0823529]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K98 [0.85098]
+  LOADK R5 K99 [0.109804]
+  LOADK R6 K100 [0.0823529]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K101 ["content-action-alert"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K102 ["content-action-link"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K103 ["content-action-standard"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K104 [0.321569]
+  LOADK R5 K105 [0.545098]
+  LOADN R6 1
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K104 [0.321569]
+  LOADK R5 K105 [0.545098]
+  LOADN R6 1
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K106 ["content-inverse-link"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K9 [0.2]
+  LOADK R5 K10 [0.372549]
+  LOADN R6 1
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K107 ["bg-system-emphasis"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K35 [0.286275]
+  LOADK R5 K36 [0.301961]
+  LOADK R6 K37 [0.352941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K53 ["bg-system-neutral"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K9 [0.2]
+  LOADK R5 K10 [0.372549]
+  LOADN R6 1
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K108 ["bg-action-emphasis"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K109 ["content-system-contrast"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADN R3 1
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K110 ["bg-action-subtle"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K73 [0.87451]
+  LOADK R5 K74 [0.156863]
+  LOADK R6 K75 [0.121569]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K73 [0.87451]
+  LOADK R5 K74 [0.156863]
+  LOADK R6 K75 [0.121569]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K111 ["content-system-alert"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K60 [0.105882]
+  LOADK R5 K61 [0.145098]
+  LOADK R6 K62 [0.294118]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADK R3 K59 [0.88]
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K112 ["stroke-default"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K18 [0.94902]
+  LOADK R5 K19 [0.729412]
+  LOADK R6 K20 [0.164706]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K18 [0.94902]
+  LOADK R5 K19 [0.729412]
+  LOADK R6 K20 [0.164706]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K113 ["content-system-warning"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 1
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K114 ["stroke-action-over-media"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K9 [0.2]
+  LOADK R5 K10 [0.372549]
+  LOADN R6 1
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K9 [0.2]
+  LOADK R5 K10 [0.372549]
+  LOADN R6 1
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K115 ["content-system-emphasis"]
+  NEWTABLE R1 4 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K73 [0.87451]
+  LOADK R5 K74 [0.156863]
+  LOADK R6 K75 [0.121569]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  LOADK R2 K116 ["stroke-system-alert"]
+  SETTABLEKS R2 R1 K31 ["deprecatedFor"]
+  SETTABLEKS R1 R0 K117 ["stroke-alert"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K84 ["bg-system-contrast"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K15 [0.968627]
+  LOADK R5 K15 [0.968627]
+  LOADK R6 K16 [0.972549]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K118 ["bg-surface-100"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K60 [0.105882]
+  LOADK R5 K61 [0.145098]
+  LOADK R6 K62 [0.294118]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADK R3 K119 [0.92]
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K120 ["stroke-muted"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K35 [0.286275]
+  LOADK R5 K36 [0.301961]
+  LOADK R6 K37 [0.352941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K121 ["stroke-action-subtle"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K122 ["content-action-subtle"]
+  NEWTABLE R1 4 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K18 [0.94902]
+  LOADK R5 K19 [0.729412]
+  LOADK R6 K20 [0.164706]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  LOADK R2 K93 ["stroke-system-warning"]
+  SETTABLEKS R2 R1 K31 ["deprecatedFor"]
+  SETTABLEKS R1 R0 K123 ["stroke-warning"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADN R3 1
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K124 ["bg-action-link"]
+  NEWTABLE R1 2 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  LOADK R2 K109 ["content-system-contrast"]
+  SETTABLEKS R2 R1 K31 ["deprecatedFor"]
+  SETTABLEKS R1 R0 K125 ["content-contrast"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 1
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K126 ["stroke-action-link"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 1
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K127 ["stroke-action-utility"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 1
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K128 ["stroke-action-standard"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADK R3 K65 [0.84]
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K60 [0.105882]
+  LOADK R5 K61 [0.145098]
+  LOADK R6 K62 [0.294118]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K129 ["bg-shift-400"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 0
+  LOADN R5 0
+  LOADN R6 0
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 1
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K130 ["stroke-action-soft-emphasis"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADK R3 K14 [0.08]
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADN R4 1
+  LOADN R5 1
+  LOADN R6 1
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K131 ["bg-over-media-200"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K27 [0.223529]
+  LOADK R5 K28 [0.772549]
+  LOADK R6 K29 [0.509804]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K132 ["stroke-system-success"]
+  NEWTABLE R1 4 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K27 [0.223529]
+  LOADK R5 K28 [0.772549]
+  LOADK R6 K29 [0.509804]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  LOADK R2 K132 ["stroke-system-success"]
+  SETTABLEKS R2 R1 K31 ["deprecatedFor"]
+  SETTABLEKS R1 R0 K133 ["stroke-success"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K134 [0.737255]
+  LOADK R5 K135 [0.745098]
+  LOADK R6 K136 [0.784314]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K134 [0.737255]
+  LOADK R5 K135 [0.745098]
+  LOADK R6 K136 [0.784314]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K137 ["content-inverse-muted"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K55 [0.12549]
+  LOADK R5 K56 [0.133333]
+  LOADK R6 K57 [0.152941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K90 ["stroke-system-contrast"]
+  NEWTABLE R1 2 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K73 [0.87451]
+  LOADK R5 K74 [0.156863]
+  LOADK R6 K75 [0.121569]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K73 [0.87451]
+  LOADK R5 K74 [0.156863]
+  LOADK R6 K75 [0.121569]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  LOADK R2 K111 ["content-system-alert"]
+  SETTABLEKS R2 R1 K31 ["deprecatedFor"]
+  SETTABLEKS R1 R0 K138 ["content-alert"]
+  NEWTABLE R1 2 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K35 [0.286275]
+  LOADK R5 K36 [0.301961]
+  LOADK R6 K37 [0.352941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K35 [0.286275]
+  LOADK R5 K36 [0.301961]
+  LOADK R6 K37 [0.352941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  LOADK R2 K92 ["content-system-neutral"]
+  SETTABLEKS R2 R1 K31 ["deprecatedFor"]
+  SETTABLEKS R1 R0 K139 ["content-neutral"]
+  NEWTABLE R1 2 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K18 [0.94902]
+  LOADK R5 K19 [0.729412]
+  LOADK R6 K20 [0.164706]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  LOADK R2 K21 ["bg-system-warning"]
+  SETTABLEKS R2 R1 K31 ["deprecatedFor"]
+  SETTABLEKS R1 R0 K140 ["bg-warning"]
+  NEWTABLE R1 4 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K35 [0.286275]
+  LOADK R5 K36 [0.301961]
+  LOADK R6 K37 [0.352941]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  LOADK R2 K39 ["stroke-system-neutral"]
+  SETTABLEKS R2 R1 K31 ["deprecatedFor"]
+  SETTABLEKS R1 R0 K141 ["stroke-neutral"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADK R3 K119 [0.92]
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K60 [0.105882]
+  LOADK R5 K61 [0.145098]
+  LOADK R6 K62 [0.294118]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K142 ["bg-shift-200"]
+  NEWTABLE R1 2 0
+  LOADK R2 K7 ["UIStroke"]
+  SETTABLEKS R2 R1 K8 ["pseudo"]
+  NEWTABLE R2 2 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K73 [0.87451]
+  LOADK R5 K74 [0.156863]
+  LOADK R6 K75 [0.121569]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K11 ["Color"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K12 ["Transparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K116 ["stroke-system-alert"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K27 [0.223529]
+  LOADK R5 K28 [0.772549]
+  LOADK R6 K29 [0.509804]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K30 ["bg-system-success"]
+  NEWTABLE R1 1 0
+  NEWTABLE R2 2 0
+  LOADK R3 K59 [0.88]
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K60 [0.105882]
+  LOADK R5 K61 [0.145098]
+  LOADK R6 K62 [0.294118]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  SETTABLEKS R1 R0 K143 ["bg-shift-300"]
+  NEWTABLE R1 2 0
+  NEWTABLE R2 2 0
+  LOADN R3 0
+  SETTABLEKS R3 R2 K0 ["BackgroundTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K9 [0.2]
+  LOADK R5 K10 [0.372549]
+  LOADN R6 1
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K4 ["BackgroundColor3"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  LOADK R2 K107 ["bg-system-emphasis"]
+  SETTABLEKS R2 R1 K31 ["deprecatedFor"]
+  SETTABLEKS R1 R0 K144 ["bg-emphasis"]
+  NEWTABLE R1 2 0
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K18 [0.94902]
+  LOADK R5 K19 [0.729412]
+  LOADK R6 K20 [0.164706]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K22 ["ImageColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K23 ["TextTransparency"]
+  GETIMPORT R3 K3 [Color3.new]
+  LOADK R4 K18 [0.94902]
+  LOADK R5 K19 [0.729412]
+  LOADK R6 K20 [0.164706]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K24 ["TextColor3"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K25 ["ImageTransparency"]
+  SETTABLEKS R2 R1 K5 ["properties"]
+  LOADK R2 K113 ["content-system-warning"]
+  SETTABLEKS R2 R1 K31 ["deprecatedFor"]
+  SETTABLEKS R1 R0 K145 ["content-warning"]
+  RETURN R0 1

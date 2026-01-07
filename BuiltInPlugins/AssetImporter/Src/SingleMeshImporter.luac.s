@@ -1,0 +1,208 @@
+PROTO_0:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["startImport"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWTABLE R3 8 0
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R3 R4 [+3]
+  GETIMPORT R2 K1 [setmetatable]
+  CALL R2 2 1
+  SETTABLEKS R0 R2 K2 ["plugin"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K3 ["new"]
+  MOVE R4 R0
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K4 ["pluginContext"]
+  JUMPIFNOT R1 [+14]
+  DUPTABLE R3 K8 [{"Colors", "Font", "Theme"}]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K5 ["Colors"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K6 ["Font"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K7 ["Theme"]
+  JUMP [+7]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K3 ["new"]
+  GETUPVAL R4 3
+  MOVE R5 R0
+  CALL R4 1 -1
+  CALL R3 -1 1
+  SETTABLEKS R3 R2 K9 ["design"]
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K10 ["mock"]
+  CALL R3 0 1
+  JUMP [+14]
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K3 ["new"]
+  DUPTABLE R4 K14 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R5 5
+  SETTABLEKS R5 R4 K11 ["stringResourceTable"]
+  GETUPVAL R5 6
+  SETTABLEKS R5 R4 K12 ["translationResourceTable"]
+  LOADK R5 K15 ["AssetImporter"]
+  SETTABLEKS R5 R4 K13 ["pluginName"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K16 ["localization"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K17 ["_root"]
+  GETUPVAL R4 7
+  GETTABLEKS R3 R4 K18 ["StartSingleMeshImport"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R2
+  NAMECALL R3 R3 K19 ["Connect"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K20 ["_actionConnection"]
+  GETUPVAL R4 8
+  GETTABLEKS R3 R4 K3 ["new"]
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K21 ["singleMeshController"]
+  RETURN R2 1
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["_root"]
+  JUMPIFNOTEQKNIL R1 [+12]
+  GETIMPORT R1 K3 [Instance.new]
+  LOADK R2 K4 ["Frame"]
+  CALL R1 1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["createRoot"]
+  MOVE R3 R1
+  CALL R2 1 1
+  SETTABLEKS R2 R0 K0 ["_root"]
+  GETTABLEKS R1 R0 K0 ["_root"]
+  RETURN R1 1
+
+PROTO_3:
+  NAMECALL R2 R0 K0 ["_getRoot"]
+  CALL R2 1 1
+  NEWTABLE R3 0 4
+  GETTABLEKS R4 R0 K1 ["pluginContext"]
+  GETTABLEKS R5 R0 K2 ["localization"]
+  GETTABLEKS R6 R0 K3 ["singleMeshController"]
+  GETTABLEKS R7 R0 K4 ["design"]
+  SETLIST R3 R4 4 [1]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["provide"]
+  MOVE R7 R3
+  NEWTABLE R8 0 1
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K6 ["createElement"]
+  GETUPVAL R10 2
+  CALL R9 1 -1
+  SETLIST R8 R9 -1 [1]
+  CALL R6 2 -1
+  NAMECALL R4 R2 K7 ["render"]
+  CALL R4 -1 0
+  GETTABLEKS R4 R0 K3 ["singleMeshController"]
+  MOVE R6 R1
+  NAMECALL R4 R4 K8 ["startImport"]
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["_actionConnection"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K0 ["_actionConnection"]
+  NAMECALL R1 R1 K1 ["disconnet"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["_actionConnection"]
+  GETTABLEKS R1 R0 K2 ["_root"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K2 ["_root"]
+  NAMECALL R1 R1 K3 ["destroy"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["_root"]
+  GETTABLEKS R1 R0 K4 ["singleMeshController"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K4 ["singleMeshController"]
+  NAMECALL R1 R1 K3 ["destroy"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K4 ["singleMeshController"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetImporter"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Utility"]
+  GETTABLEKS R2 R3 K8 ["Services"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K9 ["GetService"]
+  LOADK R3 K10 ["AssetImportService"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K11 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K11 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["ReactRoblox"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K11 ["Packages"]
+  GETTABLEKS R6 R7 K14 ["React"]
+  CALL R5 1 1
+  GETTABLEKS R6 R3 K15 ["ContextServices"]
+  GETTABLEKS R7 R6 K16 ["Design"]
+  GETTABLEKS R8 R6 K17 ["Localization"]
+  GETTABLEKS R9 R6 K18 ["Plugin"]
+  GETTABLEKS R11 R3 K19 ["Styling"]
+  GETTABLEKS R10 R11 K20 ["registerPluginStyles"]
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R15 R0 K6 ["Src"]
+  GETTABLEKS R14 R15 K21 ["Components"]
+  GETTABLEKS R13 R14 K22 ["SingleImport"]
+  GETTABLEKS R12 R13 K23 ["SingleImportMain"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R15 R0 K6 ["Src"]
+  GETTABLEKS R14 R15 K24 ["Controllers"]
+  GETTABLEKS R13 R14 K25 ["SingleMeshController"]
+  CALL R12 1 1
+  GETTABLEKS R16 R0 K6 ["Src"]
+  GETTABLEKS R15 R16 K26 ["Resources"]
+  GETTABLEKS R14 R15 K17 ["Localization"]
+  GETTABLEKS R13 R14 K27 ["LocalizedStrings"]
+  GETTABLEKS R17 R0 K6 ["Src"]
+  GETTABLEKS R16 R17 K26 ["Resources"]
+  GETTABLEKS R15 R16 K17 ["Localization"]
+  GETTABLEKS R14 R15 K28 ["SourceStrings"]
+  NEWTABLE R15 8 0
+  SETTABLEKS R15 R15 K29 ["__index"]
+  DUPCLOSURE R16 K30 [PROTO_1]
+  CAPTURE VAL R15
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R14
+  CAPTURE VAL R13
+  CAPTURE VAL R2
+  CAPTURE VAL R12
+  SETTABLEKS R16 R15 K31 ["new"]
+  DUPCLOSURE R16 K32 [PROTO_2]
+  CAPTURE VAL R4
+  SETTABLEKS R16 R15 K33 ["_getRoot"]
+  DUPCLOSURE R16 K34 [PROTO_3]
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R11
+  SETTABLEKS R16 R15 K35 ["startImport"]
+  DUPCLOSURE R16 K36 [PROTO_4]
+  SETTABLEKS R16 R15 K37 ["destroy"]
+  RETURN R15 1

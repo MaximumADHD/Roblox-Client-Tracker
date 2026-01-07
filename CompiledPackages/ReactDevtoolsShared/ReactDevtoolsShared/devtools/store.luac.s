@@ -1,0 +1,1774 @@
+PROTO_0:
+  PREPVARARGS 1
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+6]
+  GETIMPORT R1 K1 [print]
+  LOADK R2 K2 ["Store"]
+  MOVE R3 R0
+  GETVARARGS R4 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_1:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K0 ["_onBridgeOperations"]
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_2:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K0 ["_onBridgeOverrideComponentFilters"]
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_3:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K0 ["_onBridgeShutdown"]
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_4:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K0 ["_onBridgeStorageSupported"]
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_5:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K0 ["_onBridgeNativeStyleEditorSupported"]
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_6:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K0 ["_onBridgeUnsupportedRendererVersion"]
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["new"]
+  CALL R3 0 1
+  GETUPVAL R4 1
+  FASTCALL2 SETMETATABLE R3 R4 [+3]
+  GETIMPORT R2 K2 [setmetatable]
+  CALL R2 2 1
+  MOVE R3 R1
+  JUMPIF R3 [+2]
+  NEWTABLE R3 0 0
+  MOVE R1 R3
+  SETTABLEKS R0 R2 K3 ["_bridge"]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K4 ["_collapseNodesByDefault"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K5 ["_componentFilters"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K6 ["_hasOwnerMetadata"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K0 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K7 ["_idToElement"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K8 ["_isNativeStyleEditorSupported"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K9 ["_isBackendStorageAPISupported"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K10 ["_nativeStyleEditorValidAttributes"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K0 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K11 ["_ownersMap"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K12 ["_recordChangeDescriptions"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K13 ["_revision"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K14 ["_roots"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K0 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K15 ["_rootIDToCapabilities"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K0 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K16 ["_rootIDToRendererID"]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K17 ["_supportsNativeInspection"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K18 ["_supportsProfiling"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K19 ["_supportsReloadAndProfile"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K20 ["_supportsTraceUpdates"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K21 ["_unsupportedRendererVersionDetected"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K22 ["_weightAcrossRoots"]
+  GETUPVAL R3 3
+  JUMPIFNOT R3 [+4]
+  GETUPVAL R3 4
+  LOADK R4 K23 ["constructor"]
+  LOADK R5 K24 ["subscribing to Bridge"]
+  CALL R3 2 0
+  GETUPVAL R4 5
+  LOADK R5 K25 ["React::DevTools::collapseNodesByDefault"]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K26 ["true"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  SETTABLEKS R3 R2 K4 ["_collapseNodesByDefault"]
+  GETUPVAL R4 5
+  LOADK R5 K27 ["React::DevTools::recordChangeDescriptions"]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K26 ["true"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  SETTABLEKS R3 R2 K12 ["_recordChangeDescriptions"]
+  GETUPVAL R3 6
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K5 ["_componentFilters"]
+  LOADB R3 0
+  JUMPIFEQKNIL R1 [+33]
+  GETTABLEKS R4 R1 K28 ["isProfiling"]
+  JUMPIFEQKB R4 TRUE [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  GETTABLEKS R4 R1 K29 ["supportsNativeInspection"]
+  GETTABLEKS R5 R1 K30 ["supportsProfiling"]
+  GETTABLEKS R6 R1 K31 ["supportsReloadAndProfile"]
+  GETTABLEKS R7 R1 K32 ["supportsTraceUpdates"]
+  JUMPIFNOTEQKB R4 FALSE [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  SETTABLEKS R8 R2 K17 ["_supportsNativeInspection"]
+  JUMPIFNOT R5 [+3]
+  LOADB R8 1
+  SETTABLEKS R8 R2 K18 ["_supportsProfiling"]
+  JUMPIFNOT R6 [+3]
+  LOADB R8 1
+  SETTABLEKS R8 R2 K19 ["_supportsReloadAndProfile"]
+  JUMPIFNOT R7 [+3]
+  LOADB R8 1
+  SETTABLEKS R8 R2 K20 ["_supportsTraceUpdates"]
+  GETUPVAL R5 7
+  GETTABLEKS R4 R5 K0 ["new"]
+  MOVE R5 R0
+  MOVE R6 R2
+  MOVE R7 R3
+  CALL R4 3 1
+  SETTABLEKS R4 R2 K33 ["_profilerStore"]
+  GETTABLEKS R4 R2 K34 ["onBridgeOperations"]
+  SETTABLEKS R4 R2 K35 ["_onBridgeOperations"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R2
+  SETTABLEKS R4 R2 K34 ["onBridgeOperations"]
+  GETTABLEKS R4 R2 K36 ["onBridgeOverrideComponentFilters"]
+  SETTABLEKS R4 R2 K37 ["_onBridgeOverrideComponentFilters"]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R2
+  SETTABLEKS R4 R2 K36 ["onBridgeOverrideComponentFilters"]
+  GETTABLEKS R4 R2 K38 ["onBridgeShutdown"]
+  SETTABLEKS R4 R2 K39 ["_onBridgeShutdown"]
+  NEWCLOSURE R4 P2
+  CAPTURE VAL R2
+  SETTABLEKS R4 R2 K38 ["onBridgeShutdown"]
+  GETTABLEKS R4 R2 K40 ["onBridgeStorageSupported"]
+  SETTABLEKS R4 R2 K41 ["_onBridgeStorageSupported"]
+  NEWCLOSURE R4 P3
+  CAPTURE VAL R2
+  SETTABLEKS R4 R2 K40 ["onBridgeStorageSupported"]
+  GETTABLEKS R4 R2 K42 ["onBridgeNativeStyleEditorSupported"]
+  SETTABLEKS R4 R2 K43 ["_onBridgeNativeStyleEditorSupported"]
+  NEWCLOSURE R4 P4
+  CAPTURE VAL R2
+  SETTABLEKS R4 R2 K42 ["onBridgeNativeStyleEditorSupported"]
+  GETTABLEKS R4 R2 K44 ["onBridgeUnsupportedRendererVersion"]
+  SETTABLEKS R4 R2 K45 ["_onBridgeUnsupportedRendererVersion"]
+  NEWCLOSURE R4 P5
+  CAPTURE VAL R2
+  SETTABLEKS R4 R2 K44 ["onBridgeUnsupportedRendererVersion"]
+  LOADK R6 K46 ["operations"]
+  GETTABLEKS R7 R2 K34 ["onBridgeOperations"]
+  NAMECALL R4 R0 K47 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K48 ["overrideComponentFilters"]
+  GETTABLEKS R7 R2 K36 ["onBridgeOverrideComponentFilters"]
+  NAMECALL R4 R0 K47 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K49 ["shutdown"]
+  GETTABLEKS R7 R2 K38 ["onBridgeShutdown"]
+  NAMECALL R4 R0 K47 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K50 ["isBackendStorageAPISupported"]
+  GETTABLEKS R7 R2 K40 ["onBridgeStorageSupported"]
+  NAMECALL R4 R0 K47 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K51 ["isNativeStyleEditorSupported"]
+  GETTABLEKS R7 R2 K42 ["onBridgeNativeStyleEditorSupported"]
+  NAMECALL R4 R0 K47 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K52 ["unsupportedRendererVersion"]
+  GETTABLEKS R7 R2 K44 ["onBridgeUnsupportedRendererVersion"]
+  NAMECALL R4 R0 K47 ["addListener"]
+  CALL R4 3 0
+  RETURN R2 1
+
+PROTO_8:
+  GETTABLEKS R2 R0 K0 ["_roots"]
+  LENGTH R1 R2
+  JUMPIFNOTEQKN R1 K1 [0] [+13]
+  GETTABLEKS R3 R0 K2 ["_idToElement"]
+  LOADK R4 K2 ["_idToElement"]
+  NAMECALL R1 R0 K3 ["assertMapSizeMatchesRootCount"]
+  CALL R1 3 0
+  GETTABLEKS R3 R0 K4 ["_ownersMap"]
+  LOADK R4 K4 ["_ownersMap"]
+  NAMECALL R1 R0 K3 ["assertMapSizeMatchesRootCount"]
+  CALL R1 3 0
+  GETTABLEKS R3 R0 K5 ["_rootIDToCapabilities"]
+  LOADK R4 K5 ["_rootIDToCapabilities"]
+  NAMECALL R1 R0 K3 ["assertMapSizeMatchesRootCount"]
+  CALL R1 3 0
+  GETTABLEKS R3 R0 K6 ["_rootIDToRendererID"]
+  LOADK R4 K6 ["_rootIDToRendererID"]
+  NAMECALL R1 R0 K3 ["assertMapSizeMatchesRootCount"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R4 R0 K0 ["_roots"]
+  LENGTH R3 R4
+  GETTABLEKS R4 R1 K1 ["size"]
+  JUMPIFEQ R4 R3 [+31]
+  GETIMPORT R4 K3 [error]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["new"]
+  GETIMPORT R6 K7 [string.format]
+  LOADK R7 K8 ["Expected %s to contain %s items, but it contains %s items
+
+%s"]
+  MOVE R8 R2
+  FASTCALL1 TOSTRING R3 [+3]
+  MOVE R10 R3
+  GETIMPORT R9 K10 [tostring]
+  CALL R9 1 1
+  GETTABLEKS R11 R1 K1 ["size"]
+  FASTCALL1 TOSTRING R11 [+2]
+  GETIMPORT R10 K10 [tostring]
+  CALL R10 1 1
+  GETUPVAL R11 1
+  MOVE R12 R1
+  DUPTABLE R13 K12 [{"depth"}]
+  LOADN R14 20
+  SETTABLEKS R14 R13 K11 ["depth"]
+  CALL R11 2 -1
+  CALL R6 -1 -1
+  CALL R5 -1 -1
+  CALL R4 -1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETTABLEKS R1 R0 K0 ["_collapseNodesByDefault"]
+  RETURN R1 1
+
+PROTO_11:
+  SETTABLEKS R1 R0 K0 ["_collapseNodesByDefault"]
+  GETUPVAL R2 0
+  LOADK R3 K1 ["React::DevTools::collapseNodesByDefault"]
+  JUMPIFNOT R1 [+2]
+  LOADK R4 K2 ["true"]
+  JUMP [+1]
+  LOADK R4 K3 ["false"]
+  CALL R2 2 0
+  LOADK R4 K4 ["collapseNodesByDefault"]
+  NAMECALL R2 R0 K5 ["emit"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_12:
+  GETTABLEKS R1 R0 K0 ["_componentFilters"]
+  RETURN R1 1
+
+PROTO_13:
+  GETTABLEKS R1 R0 K0 ["isEnabled"]
+  RETURN R1 1
+
+PROTO_14:
+  GETTABLEKS R1 R0 K0 ["isEnabled"]
+  RETURN R1 1
+
+PROTO_15:
+  GETTABLEKS R2 R0 K0 ["_profilerStore"]
+  NAMECALL R2 R2 K1 ["isProfiling"]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+4]
+  GETIMPORT R2 K3 [error]
+  LOADK R3 K4 ["Cannot modify filter preferences while profiling"]
+  CALL R2 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["filter"]
+  GETTABLEKS R3 R0 K6 ["_componentFilters"]
+  DUPCLOSURE R4 K7 [PROTO_13]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["filter"]
+  MOVE R4 R1
+  DUPCLOSURE R5 K8 [PROTO_14]
+  CALL R3 2 1
+  LENGTH R5 R2
+  LENGTH R6 R3
+  JUMPIFNOTEQ R5 R6 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  JUMPIF R4 [+14]
+  LOADN R7 1
+  LENGTH R5 R3
+  LOADN R6 1
+  FORNPREP R5
+  GETTABLE R8 R2 R7
+  GETTABLE R9 R3 R7
+  GETUPVAL R10 1
+  MOVE R11 R8
+  MOVE R12 R9
+  CALL R10 2 1
+  JUMPIFNOT R10 [+2]
+  LOADB R4 1
+  JUMP [+1]
+  FORNLOOP R5
+  SETTABLEKS R1 R0 K6 ["_componentFilters"]
+  GETUPVAL R5 2
+  MOVE R6 R1
+  CALL R5 1 0
+  JUMPIFNOT R4 [+7]
+  GETTABLEKS R5 R0 K9 ["_bridge"]
+  LOADK R7 K10 ["updateComponentFilters"]
+  MOVE R8 R1
+  NAMECALL R5 R5 K11 ["send"]
+  CALL R5 3 0
+  LOADK R7 K12 ["componentFilters"]
+  NAMECALL R5 R0 K13 ["emit"]
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_16:
+  GETTABLEKS R1 R0 K0 ["_hasOwnerMetadata"]
+  RETURN R1 1
+
+PROTO_17:
+  GETTABLEKS R1 R0 K0 ["_nativeStyleEditorValidAttributes"]
+  RETURN R1 1
+
+PROTO_18:
+  GETTABLEKS R1 R0 K0 ["_weightAcrossRoots"]
+  RETURN R1 1
+
+PROTO_19:
+  GETTABLEKS R1 R0 K0 ["_profilerStore"]
+  RETURN R1 1
+
+PROTO_20:
+  GETTABLEKS R1 R0 K0 ["_recordChangeDescriptions"]
+  RETURN R1 1
+
+PROTO_21:
+  SETTABLEKS R1 R0 K0 ["_recordChangeDescriptions"]
+  GETUPVAL R2 0
+  LOADK R3 K1 ["React::DevTools::recordChangeDescriptions"]
+  JUMPIFNOT R1 [+2]
+  LOADK R4 K2 ["true"]
+  JUMP [+1]
+  LOADK R4 K3 ["false"]
+  CALL R2 2 0
+  LOADK R4 K4 ["recordChangeDescriptions"]
+  NAMECALL R2 R0 K5 ["emit"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_22:
+  GETTABLEKS R1 R0 K0 ["_revision"]
+  RETURN R1 1
+
+PROTO_23:
+  GETTABLEKS R1 R0 K0 ["_rootIDToRendererID"]
+  RETURN R1 1
+
+PROTO_24:
+  GETTABLEKS R1 R0 K0 ["_roots"]
+  RETURN R1 1
+
+PROTO_25:
+  GETTABLEKS R1 R0 K0 ["_supportsNativeInspection"]
+  RETURN R1 1
+
+PROTO_26:
+  GETTABLEKS R1 R0 K0 ["_isNativeStyleEditorSupported"]
+  RETURN R1 1
+
+PROTO_27:
+  GETTABLEKS R1 R0 K0 ["_supportsProfiling"]
+  RETURN R1 1
+
+PROTO_28:
+  GETTABLEKS R1 R0 K0 ["_supportsReloadAndProfile"]
+  JUMPIFNOT R1 [+2]
+  GETTABLEKS R1 R0 K1 ["_isBackendStorageAPISupported"]
+  RETURN R1 1
+
+PROTO_29:
+  GETTABLEKS R1 R0 K0 ["_supportsTraceUpdates"]
+  RETURN R1 1
+
+PROTO_30:
+  GETTABLEKS R1 R0 K0 ["_unsupportedRendererVersionDetected"]
+  RETURN R1 1
+
+PROTO_31:
+  GETTABLEKS R3 R0 K0 ["_idToElement"]
+  MOVE R5 R1
+  NAMECALL R3 R3 K1 ["get"]
+  CALL R3 2 1
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_32:
+  LOADN R2 0
+  JUMPIFLT R1 R2 [+6]
+  NAMECALL R2 R0 K0 ["getNumElements"]
+  CALL R2 1 1
+  JUMPIFNOTLE R2 R1 [+15]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["warn"]
+  GETIMPORT R3 K4 [string.format]
+  LOADK R4 K5 ["Invalid index %d specified; store contains %d items."]
+  MOVE R5 R1
+  NAMECALL R6 R0 K0 ["getNumElements"]
+  CALL R6 1 -1
+  CALL R3 -1 -1
+  CALL R2 -1 0
+  LOADNIL R2
+  RETURN R2 1
+  LOADNIL R2
+  LOADNIL R3
+  LOADN R4 0
+  LOADN R7 1
+  GETTABLEKS R8 R0 K6 ["_roots"]
+  LENGTH R5 R8
+  LOADN R6 1
+  FORNPREP R5
+  GETTABLEKS R8 R0 K6 ["_roots"]
+  GETTABLE R2 R8 R7
+  GETTABLEKS R8 R0 K7 ["_idToElement"]
+  MOVE R10 R2
+  NAMECALL R8 R8 K8 ["get"]
+  CALL R8 2 1
+  MOVE R3 R8
+  GETTABLEKS R9 R3 K9 ["children"]
+  LENGTH R8 R9
+  JUMPIFNOTEQKN R8 K10 [0] [+2]
+  JUMP [+9]
+  GETTABLEKS R9 R3 K11 ["weight"]
+  ADD R8 R4 R9
+  JUMPIFNOTLT R1 R8 [+2]
+  JUMP [+4]
+  GETTABLEKS R8 R3 K11 ["weight"]
+  ADD R4 R4 R8
+  FORNLOOP R5
+  MOVE R5 R3
+  SUBK R6 R4 K12 [1]
+  JUMPIFEQ R1 R6 [+33]
+  GETTABLEKS R8 R5 K9 ["children"]
+  LENGTH R7 R8
+  LOADN R10 1
+  MOVE R8 R7
+  LOADN R9 1
+  FORNPREP R8
+  GETTABLEKS R12 R5 K9 ["children"]
+  GETTABLE R11 R12 R10
+  GETTABLEKS R12 R0 K7 ["_idToElement"]
+  MOVE R14 R11
+  NAMECALL R12 R12 K8 ["get"]
+  CALL R12 2 1
+  GETTABLEKS R14 R12 K13 ["isCollapsed"]
+  JUMPIFNOT R14 [+2]
+  LOADN R13 1
+  JUMP [+2]
+  GETTABLEKS R13 R12 K11 ["weight"]
+  ADD R14 R6 R13
+  JUMPIFNOTLE R1 R14 [+4]
+  ADDK R6 R6 K12 [1]
+  MOVE R5 R12
+  JUMP [+2]
+  ADD R6 R6 R13
+  FORNLOOP R8
+  JUMPBACK [-34]
+  ORK R7 R5 K14 []
+  RETURN R7 1
+
+PROTO_33:
+  GETUPVAL R0 0
+  JUMPIFNOTEQKNIL R0 [+3]
+  LOADNIL R0
+  RETURN R0 1
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["id"]
+  RETURN R0 1
+
+PROTO_34:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["getElementAtIndex"]
+  CALL R2 2 1
+  JUMPIFNOTEQKNIL R2 [+3]
+  LOADNIL R3
+  RETURN R3 1
+  GETTABLEKS R3 R2 K1 ["id"]
+  RETURN R3 1
+
+PROTO_35:
+  GETTABLEKS R2 R0 K0 ["_idToElement"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["get"]
+  CALL R2 2 1
+  JUMPIFNOTEQKNIL R2 [+16]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["warn"]
+  GETIMPORT R4 K5 [string.format]
+  LOADK R5 K6 ["No element found with id \"%s\""]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R7 R1
+  GETIMPORT R6 K8 [tostring]
+  CALL R6 1 1
+  CALL R4 2 -1
+  CALL R3 -1 0
+  LOADNIL R3
+  RETURN R3 1
+  RETURN R2 1
+
+PROTO_36:
+  MOVE R4 R1
+  NAMECALL R2 R0 K0 ["getElementByID"]
+  CALL R2 2 1
+  JUMPIFEQKNIL R2 [+5]
+  GETTABLEKS R3 R2 K1 ["parentID"]
+  JUMPIFNOTEQKN R3 K2 [0] [+3]
+  LOADNIL R3
+  RETURN R3 1
+  MOVE R3 R1
+  GETTABLEKS R4 R2 K1 ["parentID"]
+  LOADN R5 0
+  GETTABLEKS R6 R0 K3 ["_idToElement"]
+  MOVE R8 R4
+  NAMECALL R6 R6 K4 ["get"]
+  CALL R6 2 1
+  GETTABLEKS R7 R6 K5 ["children"]
+  LOADN R10 1
+  LENGTH R8 R7
+  LOADN R9 1
+  FORNPREP R8
+  GETTABLE R11 R7 R10
+  JUMPIFEQ R11 R3 [+16]
+  GETTABLEKS R12 R0 K3 ["_idToElement"]
+  MOVE R14 R11
+  NAMECALL R12 R12 K4 ["get"]
+  CALL R12 2 1
+  GETTABLEKS R14 R12 K6 ["isCollapsed"]
+  JUMPIFNOT R14 [+2]
+  LOADN R13 1
+  JUMP [+2]
+  GETTABLEKS R13 R12 K7 ["weight"]
+  ADD R5 R5 R13
+  FORNLOOP R8
+  GETTABLEKS R8 R6 K1 ["parentID"]
+  JUMPIFEQKN R8 K2 [0] [+7]
+  ADDK R5 R5 K8 [1]
+  GETTABLEKS R3 R6 K9 ["id"]
+  GETTABLEKS R4 R6 K1 ["parentID"]
+  JUMPBACK [-40]
+  LOADN R8 1
+  GETTABLEKS R9 R0 K10 ["_roots"]
+  LENGTH R6 R9
+  LOADN R7 1
+  FORNPREP R6
+  GETTABLEKS R10 R0 K10 ["_roots"]
+  GETTABLE R9 R10 R8
+  JUMPIFEQ R9 R4 [+11]
+  GETTABLEKS R10 R0 K3 ["_idToElement"]
+  MOVE R12 R9
+  NAMECALL R10 R10 K4 ["get"]
+  CALL R10 2 1
+  GETTABLEKS R11 R10 K7 ["weight"]
+  ADD R5 R5 R11
+  FORNLOOP R6
+  RETURN R5 1
+
+PROTO_37:
+  GETUPVAL R4 0
+  MOVE R6 R0
+  NAMECALL R4 R4 K1 ["getIndexOfElementID"]
+  CALL R4 2 1
+  ORK R3 R4 K0 [0]
+  GETUPVAL R5 0
+  MOVE R7 R1
+  NAMECALL R5 R5 K1 ["getIndexOfElementID"]
+  CALL R5 2 1
+  ORK R4 R5 K0 [0]
+  SUB R2 R3 R4
+  RETURN R2 1
+
+PROTO_38:
+  NEWTABLE R2 0 0
+  GETTABLEKS R3 R0 K0 ["_idToElement"]
+  MOVE R5 R1
+  NAMECALL R3 R3 K1 ["get"]
+  CALL R3 2 1
+  JUMPIFEQKNIL R3 [+120]
+  MOVE R5 R2
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["assign"]
+  NEWTABLE R7 0 0
+  MOVE R8 R3
+  DUPTABLE R9 K4 [{"depth"}]
+  LOADN R10 0
+  SETTABLEKS R10 R9 K3 ["depth"]
+  CALL R6 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R4 K7 [table.insert]
+  CALL R4 -1 0
+  GETTABLEKS R4 R0 K8 ["_ownersMap"]
+  MOVE R6 R1
+  NAMECALL R4 R4 K1 ["get"]
+  CALL R4 2 1
+  JUMPIFEQKNIL R4 [+96]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K9 ["new"]
+  NEWTABLE R6 0 1
+  NEWTABLE R7 0 2
+  MOVE R8 R1
+  LOADN R9 0
+  SETLIST R7 R8 2 [1]
+  SETLIST R6 R7 1 [1]
+  CALL R5 1 1
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K10 ["sort"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K11 ["from"]
+  MOVE R8 R4
+  CALL R7 1 1
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R0
+  CALL R6 2 1
+  MOVE R7 R6
+  LOADNIL R8
+  LOADNIL R9
+  FORGPREP R7
+  GETTABLEKS R12 R0 K0 ["_idToElement"]
+  MOVE R14 R11
+  NAMECALL R12 R12 K1 ["get"]
+  CALL R12 2 1
+  JUMPIFEQKNIL R12 [+57]
+  GETTABLEKS R13 R12 K12 ["parentID"]
+  LOADN R14 0
+  LOADN R15 0
+  JUMPIFNOTLT R15 R13 [+30]
+  JUMPIFEQ R13 R1 [+6]
+  MOVE R17 R13
+  NAMECALL R15 R4 K13 ["has"]
+  CALL R15 2 1
+  JUMPIFNOT R15 [+11]
+  MOVE R17 R13
+  NAMECALL R15 R5 K1 ["get"]
+  CALL R15 2 1
+  ADDK R14 R15 K14 [1]
+  MOVE R17 R11
+  MOVE R18 R14
+  NAMECALL R15 R5 K15 ["set"]
+  CALL R15 3 0
+  JUMP [+11]
+  GETTABLEKS R15 R0 K0 ["_idToElement"]
+  MOVE R17 R13
+  NAMECALL R15 R15 K1 ["get"]
+  CALL R15 2 1
+  JUMPIFEQKNIL R15 [+4]
+  GETTABLEKS R13 R15 K12 ["parentID"]
+  JUMPBACK [-32]
+  JUMPIFNOTEQKN R14 K16 [0] [+5]
+  GETIMPORT R15 K18 [error]
+  LOADK R16 K19 ["Invalid owners list"]
+  CALL R15 1 0
+  MOVE R16 R2
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K2 ["assign"]
+  NEWTABLE R18 0 0
+  MOVE R19 R12
+  DUPTABLE R20 K4 [{"depth"}]
+  SETTABLEKS R14 R20 K3 ["depth"]
+  CALL R17 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R15 K7 [table.insert]
+  CALL R15 -1 0
+  FORGLOOP R7 2 [-65]
+  RETURN R2 1
+
+PROTO_39:
+  GETTABLEKS R2 R0 K0 ["_idToElement"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["get"]
+  CALL R2 2 1
+  JUMPIFEQKNIL R2 [+26]
+  GETTABLEKS R3 R2 K2 ["parentID"]
+  JUMPIFNOTEQKN R3 K3 [0] [+13]
+  GETTABLEKS R3 R0 K4 ["_rootIDToRendererID"]
+  GETTABLEKS R5 R2 K5 ["id"]
+  NAMECALL R3 R3 K1 ["get"]
+  CALL R3 2 1
+  JUMPIFNOTEQKNIL R3 [+3]
+  LOADNIL R4
+  RETURN R4 1
+  RETURN R3 1
+  GETTABLEKS R3 R0 K0 ["_idToElement"]
+  GETTABLEKS R5 R2 K2 ["parentID"]
+  NAMECALL R3 R3 K1 ["get"]
+  CALL R3 2 1
+  MOVE R2 R3
+  JUMPBACK [-27]
+  LOADNIL R3
+  RETURN R3 1
+
+PROTO_40:
+  GETTABLEKS R2 R0 K0 ["_idToElement"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["get"]
+  CALL R2 2 1
+  JUMPIFEQKNIL R2 [+17]
+  GETTABLEKS R3 R2 K2 ["parentID"]
+  JUMPIFNOTEQKN R3 K3 [0] [+4]
+  GETTABLEKS R3 R2 K4 ["id"]
+  RETURN R3 1
+  GETTABLEKS R3 R0 K0 ["_idToElement"]
+  GETTABLEKS R5 R2 K2 ["parentID"]
+  NAMECALL R3 R3 K1 ["get"]
+  CALL R3 2 1
+  MOVE R2 R3
+  JUMPBACK [-18]
+  LOADNIL R3
+  RETURN R3 1
+
+PROTO_41:
+  GETTABLEKS R2 R0 K0 ["_idToElement"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K1 ["get"]
+  CALL R2 2 1
+  JUMPIFEQKNIL R2 [+23]
+  GETTABLEKS R3 R2 K2 ["parentID"]
+  JUMPIFNOTEQKN R3 K3 [0] [+3]
+  LOADB R3 0
+  RETURN R3 1
+  GETTABLEKS R3 R0 K0 ["_idToElement"]
+  GETTABLEKS R5 R2 K2 ["parentID"]
+  NAMECALL R3 R3 K1 ["get"]
+  CALL R3 2 1
+  MOVE R2 R3
+  JUMPIFEQKNIL R2 [+6]
+  GETTABLEKS R3 R2 K4 ["isCollapsed"]
+  JUMPIFNOT R3 [+2]
+  LOADB R3 1
+  RETURN R3 1
+  JUMPBACK [-24]
+  LOADB R3 0
+  RETURN R3 1
+
+PROTO_42:
+  LOADB R3 0
+  MOVE R6 R1
+  NAMECALL R4 R0 K0 ["getElementByID"]
+  CALL R4 2 1
+  JUMPIFEQKNIL R4 [+139]
+  JUMPIFNOT R2 [+43]
+  GETTABLEKS R5 R4 K1 ["type"]
+  GETUPVAL R6 0
+  JUMPIFNOTEQ R5 R6 [+5]
+  GETIMPORT R5 K3 [error]
+  LOADK R6 K4 ["Root nodes cannot be collapsed"]
+  CALL R5 1 0
+  GETTABLEKS R5 R4 K5 ["isCollapsed"]
+  JUMPIF R5 [+95]
+  LOADB R3 1
+  LOADB R5 1
+  SETTABLEKS R5 R4 K5 ["isCollapsed"]
+  GETTABLEKS R6 R4 K7 ["weight"]
+  SUBRK R5 R6 K6 [1]
+  GETTABLEKS R6 R0 K8 ["_idToElement"]
+  GETTABLEKS R8 R4 K9 ["parentID"]
+  NAMECALL R6 R6 K10 ["get"]
+  CALL R6 2 1
+  JUMPIFEQKNIL R6 [+80]
+  GETTABLEKS R7 R6 K7 ["weight"]
+  ADD R7 R7 R5
+  SETTABLEKS R7 R6 K7 ["weight"]
+  GETTABLEKS R7 R0 K8 ["_idToElement"]
+  GETTABLEKS R9 R6 K9 ["parentID"]
+  NAMECALL R7 R7 K10 ["get"]
+  CALL R7 2 1
+  MOVE R6 R7
+  JUMPBACK [-16]
+  JUMP [+64]
+  MOVE R5 R4
+  JUMPIFEQKNIL R5 [+62]
+  GETTABLEKS R7 R5 K5 ["isCollapsed"]
+  JUMPIFNOT R7 [+2]
+  LOADN R6 1
+  JUMP [+2]
+  GETTABLEKS R6 R5 K7 ["weight"]
+  GETTABLEKS R7 R5 K5 ["isCollapsed"]
+  JUMPIFNOT R7 [+38]
+  LOADB R3 1
+  LOADB R7 0
+  SETTABLEKS R7 R5 K5 ["isCollapsed"]
+  GETTABLEKS R8 R5 K5 ["isCollapsed"]
+  JUMPIFNOT R8 [+2]
+  LOADN R7 1
+  JUMP [+2]
+  GETTABLEKS R7 R5 K7 ["weight"]
+  SUB R8 R7 R6
+  GETTABLEKS R9 R0 K8 ["_idToElement"]
+  GETTABLEKS R11 R5 K9 ["parentID"]
+  NAMECALL R9 R9 K10 ["get"]
+  CALL R9 2 1
+  JUMPIFEQKNIL R9 [+18]
+  GETTABLEKS R10 R9 K7 ["weight"]
+  ADD R10 R10 R8
+  SETTABLEKS R10 R9 K7 ["weight"]
+  GETTABLEKS R10 R9 K5 ["isCollapsed"]
+  JUMPIF R10 [+9]
+  GETTABLEKS R10 R0 K8 ["_idToElement"]
+  GETTABLEKS R12 R9 K9 ["parentID"]
+  NAMECALL R10 R10 K10 ["get"]
+  CALL R10 2 1
+  MOVE R9 R10
+  JUMPBACK [-19]
+  GETTABLEKS R7 R5 K9 ["parentID"]
+  JUMPIFEQKN R7 K11 [0] [+8]
+  GETTABLEKS R9 R5 K9 ["parentID"]
+  NAMECALL R7 R0 K0 ["getElementByID"]
+  CALL R7 2 1
+  MOVE R5 R7
+  JUMP [+1]
+  LOADNIL R5
+  JUMPBACK [-63]
+  JUMPIFNOT R3 [+29]
+  LOADN R5 0
+  GETTABLEKS R6 R0 K12 ["_roots"]
+  LOADNIL R7
+  LOADNIL R8
+  FORGPREP R6
+  MOVE R13 R10
+  NAMECALL R11 R0 K0 ["getElementByID"]
+  CALL R11 2 1
+  GETTABLEKS R12 R11 K7 ["weight"]
+  ADD R5 R5 R12
+  FORGLOOP R6 2 [-8]
+  SETTABLEKS R5 R0 K13 ["_weightAcrossRoots"]
+  LOADK R8 K14 ["mutated"]
+  NEWTABLE R9 0 2
+  NEWTABLE R10 0 0
+  NEWTABLE R11 0 0
+  SETLIST R9 R10 2 [1]
+  NAMECALL R6 R0 K15 ["emit"]
+  CALL R6 3 0
+  RETURN R0 0
+
+PROTO_43:
+  LOADB R3 0
+  JUMPIFEQKNIL R1 [+20]
+  GETTABLEKS R4 R1 K0 ["weight"]
+  ADD R4 R4 R2
+  SETTABLEKS R4 R1 K0 ["weight"]
+  GETTABLEKS R4 R1 K1 ["isCollapsed"]
+  JUMPIFNOT R4 [+2]
+  LOADB R3 1
+  JUMP [+9]
+  GETTABLEKS R4 R0 K2 ["_idToElement"]
+  GETTABLEKS R6 R1 K3 ["parentID"]
+  NAMECALL R4 R4 K4 ["get"]
+  CALL R4 2 1
+  MOVE R1 R4
+  JUMPBACK [-21]
+  JUMPIF R3 [+5]
+  GETTABLEKS R4 R0 K5 ["_weightAcrossRoots"]
+  ADD R4 R4 R2
+  SETTABLEKS R4 R0 K5 ["_weightAcrossRoots"]
+  RETURN R0 0
+
+PROTO_44:
+  GETTABLEKS R2 R1 K0 ["isSupported"]
+  GETTABLEKS R3 R1 K1 ["validAttributes"]
+  SETTABLEKS R2 R0 K2 ["_isNativeStyleEditorSupported"]
+  ORK R4 R3 K3 []
+  SETTABLEKS R4 R0 K4 ["_nativeStyleEditorValidAttributes"]
+  LOADK R6 K5 ["supportsNativeStyleEditor"]
+  NAMECALL R4 R0 K6 ["emit"]
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_45:
+  GETUPVAL R0 0
+  GETUPVAL R1 0
+  ADDK R1 R1 K0 [1]
+  SETUPVAL R1 0
+  RETURN R0 1
+
+PROTO_46:
+  GETUPVAL R2 0
+  JUMPIFNOTEQ R0 R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_47:
+  GETUPVAL R2 0
+  JUMPIFNOT R2 [+13]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["groupCollapsed"]
+  LOADK R3 K1 ["onBridgeOperations"]
+  CALL R2 1 0
+  GETUPVAL R2 2
+  LOADK R3 K1 ["onBridgeOperations"]
+  GETIMPORT R4 K4 [table.concat]
+  MOVE R5 R1
+  LOADK R6 K5 [","]
+  CALL R4 2 -1
+  CALL R2 -1 0
+  LOADB R2 0
+  GETTABLEN R3 R1 1
+  NEWTABLE R4 0 0
+  NEWTABLE R5 0 0
+  LOADN R6 3
+  NEWTABLE R7 0 1
+  LOADK R8 K6 [""]
+  SETLIST R7 R8 1 [1]
+  NEWCLOSURE R8 P0
+  CAPTURE REF R6
+  MOVE R11 R6
+  ADDK R6 R6 K7 [1]
+  MOVE R10 R11
+  GETTABLE R9 R1 R10
+  ADD R10 R6 R9
+  JUMPIFNOTLT R6 R10 [+23]
+  MOVE R13 R6
+  ADDK R6 R6 K7 [1]
+  MOVE R12 R13
+  GETTABLE R11 R1 R12
+  GETUPVAL R12 3
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K8 ["slice"]
+  MOVE R14 R1
+  MOVE R15 R6
+  ADD R16 R6 R11
+  CALL R13 3 -1
+  CALL R12 -1 1
+  FASTCALL2 TABLE_INSERT R7 R12 [+5]
+  MOVE R14 R7
+  MOVE R15 R12
+  GETIMPORT R13 K10 [table.insert]
+  CALL R13 2 0
+  ADD R6 R6 R11
+  JUMPBACK [-24]
+  LENGTH R11 R1
+  JUMPIFNOTLE R6 R11 [+613]
+  GETTABLE R11 R1 R6
+  GETUPVAL R12 5
+  JUMPIFNOTEQ R11 R12 [+288]
+  ADDK R13 R6 K7 [1]
+  GETTABLE R12 R1 R13
+  ADDK R14 R6 K11 [2]
+  GETTABLE R13 R1 R14
+  ADDK R6 R6 K12 [3]
+  GETTABLEKS R14 R0 K13 ["_idToElement"]
+  MOVE R16 R12
+  NAMECALL R14 R14 K14 ["has"]
+  CALL R14 2 1
+  JUMPIFNOT R14 [+16]
+  GETIMPORT R14 K16 [error]
+  GETUPVAL R16 6
+  GETTABLEKS R15 R16 K17 ["new"]
+  LOADK R16 K18 ["Cannot add node %s because a node with that id is already in the Store."]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R19 R12
+  GETIMPORT R18 K20 [tostring]
+  CALL R18 1 1
+  NAMECALL R16 R16 K21 ["format"]
+  CALL R16 2 -1
+  CALL R15 -1 -1
+  CALL R14 -1 0
+  LOADN R14 0
+  LOADNIL R15
+  GETUPVAL R16 7
+  JUMPIFNOTEQ R13 R16 [+97]
+  GETUPVAL R16 0
+  JUMPIFNOT R16 [+12]
+  GETUPVAL R16 2
+  LOADK R17 K22 ["Add"]
+  GETIMPORT R18 K24 [string.format]
+  LOADK R19 K25 ["new root node %s"]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R21 R12
+  GETIMPORT R20 K20 [tostring]
+  CALL R20 1 1
+  CALL R18 2 -1
+  CALL R16 -1 0
+  GETTABLE R17 R1 R6
+  LOADN R18 0
+  JUMPIFLT R18 R17 [+2]
+  LOADB R16 0 +1
+  LOADB R16 1
+  ADDK R6 R6 K7 [1]
+  GETTABLE R18 R1 R6
+  LOADN R19 0
+  JUMPIFLT R19 R18 [+2]
+  LOADB R17 0 +1
+  LOADB R17 1
+  ADDK R6 R6 K7 [1]
+  GETUPVAL R19 4
+  GETTABLEKS R18 R19 K3 ["concat"]
+  GETTABLEKS R19 R0 K26 ["_roots"]
+  MOVE R20 R12
+  CALL R18 2 1
+  SETTABLEKS R18 R0 K26 ["_roots"]
+  GETTABLEKS R18 R0 K27 ["_rootIDToRendererID"]
+  MOVE R20 R12
+  MOVE R21 R3
+  NAMECALL R18 R18 K28 ["set"]
+  CALL R18 3 0
+  GETTABLEKS R18 R0 K29 ["_rootIDToCapabilities"]
+  MOVE R20 R12
+  DUPTABLE R21 K32 [{"hasOwnerMetadata", "supportsProfiling"}]
+  SETTABLEKS R17 R21 K30 ["hasOwnerMetadata"]
+  SETTABLEKS R16 R21 K31 ["supportsProfiling"]
+  NAMECALL R18 R18 K28 ["set"]
+  CALL R18 3 0
+  GETTABLEKS R18 R0 K13 ["_idToElement"]
+  MOVE R20 R12
+  DUPTABLE R21 K44 [{"children", "depth", "displayName", "hocDisplayNames", "id", "isCollapsed", "key", "ownerID", "parentID", "type", "weight"}]
+  NEWTABLE R22 0 0
+  SETTABLEKS R22 R21 K33 ["children"]
+  LOADN R22 255
+  SETTABLEKS R22 R21 K34 ["depth"]
+  LOADNIL R22
+  SETTABLEKS R22 R21 K35 ["displayName"]
+  LOADNIL R22
+  SETTABLEKS R22 R21 K36 ["hocDisplayNames"]
+  SETTABLEKS R12 R21 K37 ["id"]
+  LOADB R22 0
+  SETTABLEKS R22 R21 K38 ["isCollapsed"]
+  LOADNIL R22
+  SETTABLEKS R22 R21 K39 ["key"]
+  LOADN R22 0
+  SETTABLEKS R22 R21 K40 ["ownerID"]
+  LOADN R22 0
+  SETTABLEKS R22 R21 K41 ["parentID"]
+  SETTABLEKS R13 R21 K42 ["type"]
+  LOADN R22 0
+  SETTABLEKS R22 R21 K43 ["weight"]
+  NAMECALL R18 R18 K28 ["set"]
+  CALL R18 3 0
+  LOADB R2 1
+  JUMP [+478]
+  GETTABLE R15 R1 R6
+  ADDK R6 R6 K7 [1]
+  GETTABLE R14 R1 R6
+  ADDK R6 R6 K7 [1]
+  GETTABLE R16 R1 R6
+  ADDK R18 R16 K7 [1]
+  GETTABLE R17 R7 R18
+  ADDK R6 R6 K7 [1]
+  GETTABLE R18 R1 R6
+  ADDK R20 R18 K7 [1]
+  GETTABLE R19 R7 R20
+  ADDK R6 R6 K7 [1]
+  GETUPVAL R20 0
+  JUMPIFNOT R20 [+18]
+  GETUPVAL R20 2
+  LOADK R21 K22 ["Add"]
+  GETIMPORT R22 K24 [string.format]
+  LOADK R23 K45 ["node %s (%s) as child of %s"]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R25 R12
+  GETIMPORT R24 K20 [tostring]
+  CALL R24 1 1
+  ORK R25 R17 K46 ["null"]
+  FASTCALL1 TOSTRING R15 [+3]
+  MOVE R27 R15
+  GETIMPORT R26 K20 [tostring]
+  CALL R26 1 1
+  CALL R22 4 -1
+  CALL R20 -1 0
+  GETTABLEKS R20 R0 K13 ["_idToElement"]
+  MOVE R22 R15
+  NAMECALL R20 R20 K14 ["has"]
+  CALL R20 2 1
+  JUMPIF R20 [+21]
+  GETIMPORT R20 K16 [error]
+  GETUPVAL R22 6
+  GETTABLEKS R21 R22 K17 ["new"]
+  LOADK R22 K47 ["Cannot add child %s to parent %s because parent node was not found in the Store."]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R25 R12
+  GETIMPORT R24 K20 [tostring]
+  CALL R24 1 1
+  FASTCALL1 TOSTRING R15 [+3]
+  MOVE R26 R15
+  GETIMPORT R25 K20 [tostring]
+  CALL R25 1 1
+  NAMECALL R22 R22 K21 ["format"]
+  CALL R22 3 -1
+  CALL R21 -1 -1
+  CALL R20 -1 0
+  GETTABLEKS R20 R0 K13 ["_idToElement"]
+  MOVE R22 R15
+  NAMECALL R20 R20 K48 ["get"]
+  CALL R20 2 1
+  GETTABLEKS R22 R20 K33 ["children"]
+  FASTCALL2 TABLE_INSERT R22 R12 [+4]
+  MOVE R23 R12
+  GETIMPORT R21 K10 [table.insert]
+  CALL R21 2 0
+  GETUPVAL R21 8
+  MOVE R22 R17
+  MOVE R23 R13
+  CALL R21 2 2
+  DUPTABLE R23 K44 [{"children", "depth", "displayName", "hocDisplayNames", "id", "isCollapsed", "key", "ownerID", "parentID", "type", "weight"}]
+  NEWTABLE R24 0 0
+  SETTABLEKS R24 R23 K33 ["children"]
+  GETTABLEKS R25 R20 K34 ["depth"]
+  ADDK R24 R25 K7 [1]
+  SETTABLEKS R24 R23 K34 ["depth"]
+  SETTABLEKS R21 R23 K35 ["displayName"]
+  SETTABLEKS R22 R23 K36 ["hocDisplayNames"]
+  SETTABLEKS R12 R23 K37 ["id"]
+  GETTABLEKS R24 R0 K49 ["_collapseNodesByDefault"]
+  SETTABLEKS R24 R23 K38 ["isCollapsed"]
+  SETTABLEKS R19 R23 K39 ["key"]
+  SETTABLEKS R14 R23 K40 ["ownerID"]
+  GETTABLEKS R24 R20 K37 ["id"]
+  SETTABLEKS R24 R23 K41 ["parentID"]
+  SETTABLEKS R13 R23 K42 ["type"]
+  LOADN R24 1
+  SETTABLEKS R24 R23 K43 ["weight"]
+  GETTABLEKS R24 R0 K13 ["_idToElement"]
+  MOVE R26 R12
+  MOVE R27 R23
+  NAMECALL R24 R24 K28 ["set"]
+  CALL R24 3 0
+  FASTCALL2 TABLE_INSERT R4 R12 [+5]
+  MOVE R25 R4
+  MOVE R26 R12
+  GETIMPORT R24 K10 [table.insert]
+  CALL R24 2 0
+  MOVE R26 R20
+  LOADN R27 1
+  NAMECALL R24 R0 K50 ["_adjustParentTreeWeight"]
+  CALL R24 3 0
+  LOADN R24 0
+  JUMPIFNOTLT R24 R14 [+346]
+  GETTABLEKS R24 R0 K51 ["_ownersMap"]
+  MOVE R26 R14
+  NAMECALL R24 R24 K48 ["get"]
+  CALL R24 2 1
+  JUMPIFNOTEQKNIL R24 [+13]
+  GETUPVAL R26 9
+  GETTABLEKS R25 R26 K17 ["new"]
+  CALL R25 0 1
+  MOVE R24 R25
+  GETTABLEKS R25 R0 K51 ["_ownersMap"]
+  MOVE R27 R14
+  MOVE R28 R24
+  NAMECALL R25 R25 K28 ["set"]
+  CALL R25 3 0
+  MOVE R27 R12
+  NAMECALL R25 R24 K52 ["add"]
+  CALL R25 2 0
+  JUMP [+320]
+  GETUPVAL R12 10
+  JUMPIFNOTEQ R11 R12 [+203]
+  ADDK R13 R6 K7 [1]
+  GETTABLE R12 R1 R13
+  ADDK R6 R6 K11 [2]
+  LOADN R15 1
+  MOVE R13 R12
+  LOADN R14 1
+  FORNPREP R13
+  GETTABLE R16 R1 R6
+  GETTABLEKS R17 R0 K13 ["_idToElement"]
+  MOVE R19 R16
+  NAMECALL R17 R17 K14 ["has"]
+  CALL R17 2 1
+  JUMPIF R17 [+16]
+  GETIMPORT R17 K16 [error]
+  GETUPVAL R19 6
+  GETTABLEKS R18 R19 K17 ["new"]
+  LOADK R19 K53 ["Cannot remove node %s because no matching node was found in the Store."]
+  FASTCALL1 TOSTRING R16 [+3]
+  MOVE R22 R16
+  GETIMPORT R21 K20 [tostring]
+  CALL R21 1 1
+  NAMECALL R19 R19 K21 ["format"]
+  CALL R19 2 -1
+  CALL R18 -1 -1
+  CALL R17 -1 0
+  ADDK R6 R6 K7 [1]
+  GETTABLEKS R17 R0 K13 ["_idToElement"]
+  MOVE R19 R16
+  NAMECALL R17 R17 K48 ["get"]
+  CALL R17 2 1
+  GETTABLEKS R18 R17 K33 ["children"]
+  GETTABLEKS R19 R17 K40 ["ownerID"]
+  GETTABLEKS R20 R17 K41 ["parentID"]
+  GETTABLEKS R21 R17 K43 ["weight"]
+  LENGTH R22 R18
+  LOADN R23 0
+  JUMPIFNOTLT R23 R22 [+17]
+  GETIMPORT R22 K16 [error]
+  GETUPVAL R24 6
+  GETTABLEKS R23 R24 K17 ["new"]
+  GETIMPORT R24 K24 [string.format]
+  LOADK R25 K54 ["Node %s was removed before its children."]
+  FASTCALL1 TOSTRING R16 [+3]
+  MOVE R27 R16
+  GETIMPORT R26 K20 [tostring]
+  CALL R26 1 1
+  CALL R24 2 -1
+  CALL R23 -1 -1
+  CALL R22 -1 0
+  GETTABLEKS R22 R0 K13 ["_idToElement"]
+  MOVE R24 R16
+  NAMECALL R22 R22 K55 ["delete"]
+  CALL R22 2 0
+  LOADNIL R22
+  JUMPIFNOTEQKN R20 K56 [0] [+39]
+  GETUPVAL R23 0
+  JUMPIFNOT R23 [+12]
+  GETUPVAL R23 2
+  LOADK R24 K57 ["Remove"]
+  GETIMPORT R25 K24 [string.format]
+  LOADK R26 K58 ["node %s root"]
+  FASTCALL1 TOSTRING R16 [+3]
+  MOVE R28 R16
+  GETIMPORT R27 K20 [tostring]
+  CALL R27 1 1
+  CALL R25 2 -1
+  CALL R23 -1 0
+  GETUPVAL R24 4
+  GETTABLEKS R23 R24 K59 ["filter"]
+  GETTABLEKS R24 R0 K26 ["_roots"]
+  NEWCLOSURE R25 P1
+  CAPTURE VAL R16
+  CALL R23 2 1
+  SETTABLEKS R23 R0 K26 ["_roots"]
+  GETTABLEKS R23 R0 K27 ["_rootIDToRendererID"]
+  MOVE R25 R16
+  NAMECALL R23 R23 K55 ["delete"]
+  CALL R23 2 0
+  GETTABLEKS R23 R0 K29 ["_rootIDToCapabilities"]
+  MOVE R25 R16
+  NAMECALL R23 R23 K55 ["delete"]
+  CALL R23 2 0
+  LOADB R2 1
+  JUMP [+60]
+  GETUPVAL R23 0
+  JUMPIFNOT R23 [+17]
+  GETUPVAL R23 2
+  LOADK R24 K57 ["Remove"]
+  GETIMPORT R25 K24 [string.format]
+  LOADK R26 K60 ["node %s from parent %s"]
+  FASTCALL1 TOSTRING R16 [+3]
+  MOVE R28 R16
+  GETIMPORT R27 K20 [tostring]
+  CALL R27 1 1
+  FASTCALL1 TOSTRING R20 [+3]
+  MOVE R29 R20
+  GETIMPORT R28 K20 [tostring]
+  CALL R28 1 1
+  CALL R25 3 -1
+  CALL R23 -1 0
+  GETTABLEKS R23 R0 K13 ["_idToElement"]
+  MOVE R25 R20
+  NAMECALL R23 R23 K48 ["get"]
+  CALL R23 2 1
+  MOVE R22 R23
+  JUMPIFNOTEQKNIL R22 [+18]
+  GETIMPORT R23 K16 [error]
+  LOADK R24 K61 ["Cannot remove node %s from parent %s because no matching node was found in the Store."]
+  FASTCALL1 TOSTRING R16 [+3]
+  MOVE R27 R16
+  GETIMPORT R26 K20 [tostring]
+  CALL R26 1 1
+  FASTCALL1 TOSTRING R20 [+3]
+  MOVE R28 R20
+  GETIMPORT R27 K20 [tostring]
+  CALL R27 1 1
+  NAMECALL R24 R24 K21 ["format"]
+  CALL R24 3 -1
+  CALL R23 -1 0
+  GETUPVAL R24 4
+  GETTABLEKS R23 R24 K62 ["indexOf"]
+  GETTABLEKS R24 R22 K33 ["children"]
+  MOVE R25 R16
+  CALL R23 2 1
+  GETUPVAL R25 4
+  GETTABLEKS R24 R25 K63 ["splice"]
+  GETTABLEKS R25 R22 K33 ["children"]
+  MOVE R26 R23
+  LOADN R27 1
+  CALL R24 3 0
+  MOVE R25 R22
+  MINUS R26 R21
+  NAMECALL R23 R0 K50 ["_adjustParentTreeWeight"]
+  CALL R23 3 0
+  SETTABLE R20 R5 R16
+  GETTABLEKS R23 R0 K51 ["_ownersMap"]
+  MOVE R25 R16
+  NAMECALL R23 R23 K55 ["delete"]
+  CALL R23 2 0
+  LOADN R23 0
+  JUMPIFNOTLT R23 R19 [+13]
+  GETTABLEKS R23 R0 K51 ["_ownersMap"]
+  MOVE R25 R19
+  NAMECALL R23 R23 K48 ["get"]
+  CALL R23 2 1
+  JUMPIFEQKNIL R23 [+5]
+  MOVE R26 R16
+  NAMECALL R24 R23 K55 ["delete"]
+  CALL R24 2 0
+  FORNLOOP R13
+  JUMP [+115]
+  GETUPVAL R12 11
+  JUMPIFNOTEQ R11 R12 [+98]
+  ADDK R13 R6 K7 [1]
+  GETTABLE R12 R1 R13
+  ADDK R14 R6 K11 [2]
+  GETTABLE R13 R1 R14
+  ADDK R6 R6 K12 [3]
+  GETTABLEKS R14 R0 K13 ["_idToElement"]
+  MOVE R16 R12
+  NAMECALL R14 R14 K14 ["has"]
+  CALL R14 2 1
+  JUMPIF R14 [+16]
+  GETIMPORT R14 K16 [error]
+  GETUPVAL R16 6
+  GETTABLEKS R15 R16 K17 ["new"]
+  LOADK R16 K64 ["Cannot reorder children for node %s because no matching node was found in the Store."]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R19 R12
+  GETIMPORT R18 K20 [tostring]
+  CALL R18 1 1
+  NAMECALL R16 R16 K21 ["format"]
+  CALL R16 2 -1
+  CALL R15 -1 -1
+  CALL R14 -1 0
+  GETTABLEKS R14 R0 K13 ["_idToElement"]
+  MOVE R16 R12
+  NAMECALL R14 R14 K48 ["get"]
+  CALL R14 2 1
+  GETTABLEKS R15 R14 K33 ["children"]
+  LENGTH R16 R15
+  JUMPIFEQ R16 R13 [+5]
+  GETIMPORT R16 K16 [error]
+  LOADK R17 K65 ["Children cannot be added or removed during a reorder operation."]
+  CALL R16 1 0
+  LOADN R18 1
+  MOVE R16 R13
+  LOADN R17 1
+  FORNPREP R16
+  ADD R21 R6 R18
+  SUBK R20 R21 K7 [1]
+  GETTABLE R19 R1 R20
+  SETTABLE R19 R15 R18
+  GETUPVAL R21 12
+  GETTABLEKS R20 R21 K66 ["__DEV__"]
+  JUMPIFNOT R20 [+17]
+  GETTABLEKS R20 R0 K13 ["_idToElement"]
+  MOVE R22 R19
+  NAMECALL R20 R20 K48 ["get"]
+  CALL R20 2 1
+  JUMPIFEQKNIL R20 [+5]
+  GETTABLEKS R21 R20 K41 ["parentID"]
+  JUMPIFEQ R21 R12 [+6]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K15 ["error"]
+  LOADK R22 K65 ["Children cannot be added or removed during a reorder operation."]
+  CALL R21 1 0
+  FORNLOOP R16
+  ADD R6 R6 R13
+  GETUPVAL R17 12
+  GETTABLEKS R16 R17 K67 ["__DEBUG__"]
+  JUMPIFNOT R16 [+34]
+  GETUPVAL R16 2
+  LOADK R17 K68 ["Re-order"]
+  GETIMPORT R18 K24 [string.format]
+  LOADK R19 K69 ["Node %s children %s"]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R21 R12
+  GETIMPORT R20 K20 [tostring]
+  CALL R20 1 1
+  GETUPVAL R22 4
+  GETTABLEKS R21 R22 K70 ["join"]
+  MOVE R22 R15
+  LOADK R23 K5 [","]
+  CALL R21 2 -1
+  CALL R18 -1 -1
+  CALL R16 -1 0
+  JUMP [+15]
+  GETUPVAL R12 13
+  JUMPIFNOTEQ R11 R12 [+3]
+  ADDK R6 R6 K12 [3]
+  JUMP [+10]
+  GETIMPORT R12 K16 [error]
+  LOADK R14 K71 ["Unsupported Bridge operation "]
+  FASTCALL1 TOSTRING R11 [+3]
+  MOVE R16 R11
+  GETIMPORT R15 K20 [tostring]
+  CALL R15 1 1
+  CONCAT R13 R14 R15
+  CALL R12 1 0
+  JUMPBACK [-615]
+  GETTABLEKS R11 R0 K72 ["_revision"]
+  ADDK R11 R11 K7 [1]
+  SETTABLEKS R11 R0 K72 ["_revision"]
+  JUMPIFNOT R2 [+39]
+  GETTABLEKS R11 R0 K73 ["_supportsProfiling"]
+  LOADB R12 0
+  SETTABLEKS R12 R0 K74 ["_hasOwnerMetadata"]
+  LOADB R12 0
+  SETTABLEKS R12 R0 K73 ["_supportsProfiling"]
+  GETTABLEKS R12 R0 K29 ["_rootIDToCapabilities"]
+  LOADNIL R13
+  LOADNIL R14
+  FORGPREP R12
+  GETTABLEKS R17 R16 K30 ["hasOwnerMetadata"]
+  GETTABLEKS R18 R16 K31 ["supportsProfiling"]
+  JUMPIFNOT R17 [+3]
+  LOADB R19 1
+  SETTABLEKS R19 R0 K74 ["_hasOwnerMetadata"]
+  JUMPIFNOT R18 [+3]
+  LOADB R19 1
+  SETTABLEKS R19 R0 K73 ["_supportsProfiling"]
+  FORGLOOP R12 2 [-13]
+  LOADK R14 K75 ["roots"]
+  NAMECALL R12 R0 K76 ["emit"]
+  CALL R12 2 0
+  GETTABLEKS R12 R0 K73 ["_supportsProfiling"]
+  JUMPIFEQ R12 R11 [+5]
+  LOADK R14 K31 ["supportsProfiling"]
+  NAMECALL R12 R0 K76 ["emit"]
+  CALL R12 2 0
+  GETUPVAL R11 0
+  JUMPIFNOT R11 [+23]
+  GETIMPORT R11 K78 [require]
+  GETIMPORT R14 K80 [script]
+  GETTABLEKS R13 R14 K81 ["Parent"]
+  GETTABLEKS R12 R13 K82 ["utils"]
+  CALL R11 1 1
+  GETTABLEKS R12 R11 K83 ["printStore"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K84 ["log"]
+  MOVE R14 R12
+  MOVE R15 R0
+  LOADB R16 1
+  CALL R14 2 -1
+  CALL R13 -1 0
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K85 ["groupEnd"]
+  CALL R13 0 0
+  LOADK R13 K86 ["mutated"]
+  NEWTABLE R14 0 2
+  MOVE R15 R4
+  MOVE R16 R5
+  SETLIST R14 R15 2 [1]
+  NAMECALL R11 R0 K76 ["emit"]
+  CALL R11 3 0
+  CLOSEUPVALS R6
+  RETURN R0 0
+
+PROTO_48:
+  SETTABLEKS R1 R0 K0 ["_componentFilters"]
+  GETUPVAL R2 0
+  MOVE R3 R1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_49:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+4]
+  GETUPVAL R1 1
+  LOADK R2 K0 ["onBridgeShutdown"]
+  LOADK R3 K1 ["unsubscribing from Bridge"]
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K2 ["_bridge"]
+  LOADK R3 K3 ["operations"]
+  GETTABLEKS R4 R0 K4 ["onBridgeOperations"]
+  NAMECALL R1 R1 K5 ["removeListener"]
+  CALL R1 3 0
+  GETTABLEKS R1 R0 K2 ["_bridge"]
+  LOADK R3 K6 ["shutdown"]
+  GETTABLEKS R4 R0 K0 ["onBridgeShutdown"]
+  NAMECALL R1 R1 K5 ["removeListener"]
+  CALL R1 3 0
+  GETTABLEKS R1 R0 K2 ["_bridge"]
+  LOADK R3 K7 ["isBackendStorageAPISupported"]
+  GETTABLEKS R4 R0 K8 ["onBridgeStorageSupported"]
+  NAMECALL R1 R1 K5 ["removeListener"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_50:
+  SETTABLEKS R1 R0 K0 ["_isBackendStorageAPISupported"]
+  LOADK R4 K1 ["supportsReloadAndProfile"]
+  NAMECALL R2 R0 K2 ["emit"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_51:
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["_unsupportedRendererVersionDetected"]
+  LOADK R3 K1 ["unsupportedRendererVersionDetected"]
+  NAMECALL R1 R0 K2 ["emit"]
+  CALL R1 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["ReactGlobals"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R0 K6 ["LuauPolyfill"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K7 ["util"]
+  GETTABLEKS R3 R4 K8 ["inspect"]
+  GETTABLEKS R4 R2 K9 ["Array"]
+  GETTABLEKS R5 R2 K10 ["Error"]
+  GETTABLEKS R6 R2 K11 ["Map"]
+  GETTABLEKS R7 R2 K12 ["Object"]
+  GETTABLEKS R8 R2 K13 ["Set"]
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R11 R0 K14 ["Shared"]
+  CALL R10 1 1
+  GETTABLEKS R9 R10 K15 ["console"]
+  GETIMPORT R10 K4 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K2 ["Parent"]
+  GETTABLEKS R12 R13 K2 ["Parent"]
+  GETTABLEKS R11 R12 K16 ["events"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K2 ["Parent"]
+  GETTABLEKS R13 R14 K2 ["Parent"]
+  GETTABLEKS R12 R13 K17 ["constants"]
+  CALL R11 1 1
+  GETTABLEKS R12 R11 K18 ["TREE_OPERATION_ADD"]
+  GETTABLEKS R13 R11 K19 ["TREE_OPERATION_REMOVE"]
+  GETTABLEKS R14 R11 K20 ["TREE_OPERATION_REORDER_CHILDREN"]
+  GETTABLEKS R15 R11 K21 ["TREE_OPERATION_UPDATE_TREE_BASE_DURATION"]
+  GETIMPORT R16 K4 [require]
+  GETIMPORT R20 K1 [script]
+  GETTABLEKS R19 R20 K2 ["Parent"]
+  GETTABLEKS R18 R19 K2 ["Parent"]
+  GETTABLEKS R17 R18 K22 ["types"]
+  CALL R16 1 1
+  GETTABLEKS R17 R16 K23 ["ElementTypeRoot"]
+  GETIMPORT R18 K4 [require]
+  GETIMPORT R22 K1 [script]
+  GETTABLEKS R21 R22 K2 ["Parent"]
+  GETTABLEKS R20 R21 K2 ["Parent"]
+  GETTABLEKS R19 R20 K24 ["utils"]
+  CALL R18 1 1
+  GETTABLEKS R19 R18 K25 ["getSavedComponentFilters"]
+  GETTABLEKS R20 R18 K26 ["saveComponentFilters"]
+  GETTABLEKS R21 R18 K27 ["separateDisplayNameAndHOCs"]
+  GETTABLEKS R22 R18 K28 ["shallowDiffers"]
+  GETTABLEKS R23 R18 K29 ["utfDecodeString"]
+  GETIMPORT R24 K4 [require]
+  GETIMPORT R28 K1 [script]
+  GETTABLEKS R27 R28 K2 ["Parent"]
+  GETTABLEKS R26 R27 K2 ["Parent"]
+  GETTABLEKS R25 R26 K30 ["storage"]
+  CALL R24 1 1
+  GETTABLEKS R25 R24 K31 ["localStorageGetItem"]
+  GETTABLEKS R26 R24 K32 ["localStorageSetItem"]
+  GETTABLEKS R27 R11 K33 ["__DEBUG__"]
+  GETIMPORT R28 K4 [require]
+  GETIMPORT R31 K1 [script]
+  GETTABLEKS R30 R31 K2 ["Parent"]
+  GETTABLEKS R29 R30 K34 ["ProfilerStore"]
+  CALL R28 1 1
+  GETIMPORT R29 K4 [require]
+  GETIMPORT R36 K1 [script]
+  GETTABLEKS R35 R36 K2 ["Parent"]
+  GETTABLEKS R34 R35 K2 ["Parent"]
+  GETTABLEKS R33 R34 K35 ["devtools"]
+  GETTABLEKS R32 R33 K36 ["views"]
+  GETTABLEKS R31 R32 K37 ["Components"]
+  GETTABLEKS R30 R31 K22 ["types"]
+  CALL R29 1 1
+  GETIMPORT R30 K4 [require]
+  GETIMPORT R34 K1 [script]
+  GETTABLEKS R33 R34 K2 ["Parent"]
+  GETTABLEKS R32 R33 K2 ["Parent"]
+  GETTABLEKS R31 R32 K22 ["types"]
+  CALL R30 1 1
+  GETIMPORT R31 K4 [require]
+  GETIMPORT R35 K1 [script]
+  GETTABLEKS R34 R35 K2 ["Parent"]
+  GETTABLEKS R33 R34 K2 ["Parent"]
+  GETTABLEKS R32 R33 K38 ["bridge"]
+  CALL R31 1 1
+  GETIMPORT R32 K4 [require]
+  GETIMPORT R35 K1 [script]
+  GETTABLEKS R34 R35 K2 ["Parent"]
+  GETTABLEKS R33 R34 K22 ["types"]
+  CALL R32 1 1
+  DUPCLOSURE R33 K39 [PROTO_0]
+  CAPTURE VAL R27
+  NEWTABLE R35 0 0
+  DUPTABLE R36 K41 [{"__index"}]
+  SETTABLEKS R10 R36 K40 ["__index"]
+  FASTCALL2 SETMETATABLE R35 R36 [+3]
+  GETIMPORT R34 K43 [setmetatable]
+  CALL R34 2 1
+  DUPTABLE R35 K41 [{"__index"}]
+  SETTABLEKS R34 R35 K40 ["__index"]
+  DUPCLOSURE R36 K44 [PROTO_7]
+  CAPTURE VAL R10
+  CAPTURE VAL R35
+  CAPTURE VAL R6
+  CAPTURE VAL R27
+  CAPTURE VAL R33
+  CAPTURE VAL R25
+  CAPTURE VAL R19
+  CAPTURE VAL R28
+  SETTABLEKS R36 R34 K45 ["new"]
+  DUPCLOSURE R36 K46 [PROTO_8]
+  SETTABLEKS R36 R34 K47 ["assertExpectedRootMapSizes"]
+  DUPCLOSURE R36 K48 [PROTO_9]
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  SETTABLEKS R36 R34 K49 ["assertMapSizeMatchesRootCount"]
+  DUPCLOSURE R36 K50 [PROTO_10]
+  SETTABLEKS R36 R34 K51 ["getCollapseNodesByDefault"]
+  DUPCLOSURE R36 K52 [PROTO_11]
+  CAPTURE VAL R26
+  SETTABLEKS R36 R34 K53 ["setCollapseNodesByDefault"]
+  DUPCLOSURE R36 K54 [PROTO_12]
+  SETTABLEKS R36 R34 K55 ["getComponentFilters"]
+  DUPCLOSURE R36 K56 [PROTO_15]
+  CAPTURE VAL R4
+  CAPTURE VAL R22
+  CAPTURE VAL R20
+  SETTABLEKS R36 R34 K57 ["setComponentFilters"]
+  DUPCLOSURE R36 K58 [PROTO_16]
+  SETTABLEKS R36 R34 K59 ["getHasOwnerMetadata"]
+  DUPCLOSURE R36 K60 [PROTO_17]
+  SETTABLEKS R36 R34 K61 ["getNativeStyleEditorValidAttributes"]
+  DUPCLOSURE R36 K62 [PROTO_18]
+  SETTABLEKS R36 R34 K63 ["getNumElements"]
+  DUPCLOSURE R36 K64 [PROTO_19]
+  SETTABLEKS R36 R34 K65 ["getProfilerStore"]
+  DUPCLOSURE R36 K66 [PROTO_20]
+  SETTABLEKS R36 R34 K67 ["getRecordChangeDescriptions"]
+  DUPCLOSURE R36 K68 [PROTO_21]
+  CAPTURE VAL R26
+  SETTABLEKS R36 R34 K69 ["setRecordChangeDescriptions"]
+  DUPCLOSURE R36 K70 [PROTO_22]
+  SETTABLEKS R36 R34 K71 ["getRevision"]
+  DUPCLOSURE R36 K72 [PROTO_23]
+  SETTABLEKS R36 R34 K73 ["getRootIDToRendererID"]
+  DUPCLOSURE R36 K74 [PROTO_24]
+  SETTABLEKS R36 R34 K75 ["getRoots"]
+  DUPCLOSURE R36 K76 [PROTO_25]
+  SETTABLEKS R36 R34 K77 ["getSupportsNativeInspection"]
+  DUPCLOSURE R36 K78 [PROTO_26]
+  SETTABLEKS R36 R34 K79 ["getSupportsNativeStyleEditor"]
+  DUPCLOSURE R36 K80 [PROTO_27]
+  SETTABLEKS R36 R34 K81 ["getSupportsProfiling"]
+  DUPCLOSURE R36 K82 [PROTO_28]
+  SETTABLEKS R36 R34 K83 ["getSupportsReloadAndProfile"]
+  DUPCLOSURE R36 K84 [PROTO_29]
+  SETTABLEKS R36 R34 K85 ["getSupportsTraceUpdates"]
+  DUPCLOSURE R36 K86 [PROTO_30]
+  SETTABLEKS R36 R34 K87 ["getUnsupportedRendererVersionDetected"]
+  DUPCLOSURE R36 K88 [PROTO_31]
+  SETTABLEKS R36 R34 K89 ["containsElement"]
+  DUPCLOSURE R36 K90 [PROTO_32]
+  CAPTURE VAL R9
+  SETTABLEKS R36 R34 K91 ["getElementAtIndex"]
+  DUPCLOSURE R36 K92 [PROTO_34]
+  SETTABLEKS R36 R34 K93 ["getElementIDAtIndex"]
+  DUPCLOSURE R36 K94 [PROTO_35]
+  CAPTURE VAL R9
+  SETTABLEKS R36 R34 K95 ["getElementByID"]
+  DUPCLOSURE R36 K96 [PROTO_36]
+  SETTABLEKS R36 R34 K97 ["getIndexOfElementID"]
+  DUPCLOSURE R36 K98 [PROTO_38]
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  SETTABLEKS R36 R34 K99 ["getOwnersListForElement"]
+  DUPCLOSURE R36 K100 [PROTO_39]
+  SETTABLEKS R36 R34 K101 ["getRendererIDForElement"]
+  DUPCLOSURE R36 K102 [PROTO_40]
+  SETTABLEKS R36 R34 K103 ["getRootIDForElement"]
+  DUPCLOSURE R36 K104 [PROTO_41]
+  SETTABLEKS R36 R34 K105 ["isInsideCollapsedSubTree"]
+  DUPCLOSURE R36 K106 [PROTO_42]
+  CAPTURE VAL R17
+  SETTABLEKS R36 R34 K107 ["toggleIsCollapsed"]
+  DUPCLOSURE R36 K108 [PROTO_43]
+  SETTABLEKS R36 R34 K109 ["_adjustParentTreeWeight"]
+  DUPCLOSURE R36 K110 [PROTO_44]
+  SETTABLEKS R36 R34 K111 ["onBridgeNativeStyleEditorSupported"]
+  DUPCLOSURE R36 K112 [PROTO_47]
+  CAPTURE VAL R27
+  CAPTURE VAL R9
+  CAPTURE VAL R33
+  CAPTURE VAL R23
+  CAPTURE VAL R4
+  CAPTURE VAL R12
+  CAPTURE VAL R5
+  CAPTURE VAL R17
+  CAPTURE VAL R21
+  CAPTURE VAL R8
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  CAPTURE VAL R1
+  CAPTURE VAL R15
+  SETTABLEKS R36 R34 K113 ["onBridgeOperations"]
+  DUPCLOSURE R36 K114 [PROTO_48]
+  CAPTURE VAL R20
+  SETTABLEKS R36 R34 K115 ["onBridgeOverrideComponentFilters"]
+  DUPCLOSURE R36 K116 [PROTO_49]
+  CAPTURE VAL R27
+  CAPTURE VAL R33
+  SETTABLEKS R36 R34 K117 ["onBridgeShutdown"]
+  DUPCLOSURE R36 K118 [PROTO_50]
+  SETTABLEKS R36 R34 K119 ["onBridgeStorageSupported"]
+  DUPCLOSURE R36 K120 [PROTO_51]
+  SETTABLEKS R36 R34 K121 ["onBridgeUnsupportedRendererVersion"]
+  RETURN R34 1

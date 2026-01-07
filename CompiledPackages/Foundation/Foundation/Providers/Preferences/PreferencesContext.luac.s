@@ -1,0 +1,15 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  LOADK R3 K3 ["Foundation"]
+  NAMECALL R1 R0 K4 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETTABLEKS R2 R1 K2 ["Parent"]
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R2 K7 ["React"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K8 ["createContext"]
+  NEWTABLE R5 0 0
+  CALL R4 1 1
+  RETURN R4 1

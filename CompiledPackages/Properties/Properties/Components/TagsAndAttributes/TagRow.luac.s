@@ -1,0 +1,164 @@
+PROTO_0:
+  GETIMPORT R0 K1 [print]
+  LOADK R2 K2 ["remove %*"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["tag"]
+  GETTABLEKS R5 R6 K4 ["id"]
+  GETTABLEKS R4 R5 K5 ["name"]
+  NAMECALL R2 R2 K6 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R0 K1 [print]
+  LOADK R2 K2 ["context menu for %*"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K3 ["tag"]
+  GETTABLEKS R5 R6 K4 ["id"]
+  GETTABLEKS R4 R5 K5 ["name"]
+  NAMECALL R2 R2 K6 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createNextOrder"]
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["useCallback"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NEWTABLE R4 0 1
+  GETTABLEKS R7 R0 K2 ["tag"]
+  GETTABLEKS R6 R7 K3 ["id"]
+  GETTABLEKS R5 R6 K4 ["name"]
+  SETLIST R4 R5 1 [1]
+  CALL R2 2 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["useCallback"]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R0
+  NEWTABLE R5 0 1
+  GETTABLEKS R8 R0 K2 ["tag"]
+  GETTABLEKS R7 R8 K3 ["id"]
+  GETTABLEKS R6 R7 K4 ["name"]
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 1
+  GETUPVAL R4 2
+  GETUPVAL R5 3
+  DUPTABLE R6 K8 [{"tag", "LayoutOrder", "onSecondaryActivated", "stateLayer"}]
+  LOADK R7 K9 ["row align-y-center padding-left-medium gap-small size-full-700"]
+  SETTABLEKS R7 R6 K2 ["tag"]
+  GETTABLEKS R7 R0 K5 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K5 ["LayoutOrder"]
+  SETTABLEKS R3 R6 K6 ["onSecondaryActivated"]
+  DUPTABLE R7 K11 [{"affordance"}]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K12 ["None"]
+  SETTABLEKS R8 R7 K10 ["affordance"]
+  SETTABLEKS R7 R6 K7 ["stateLayer"]
+  DUPTABLE R7 K17 [{"ArrowSpacer", "Icon", "TagName", "Remove"}]
+  GETUPVAL R8 2
+  GETUPVAL R9 5
+  DUPTABLE R10 K18 [{"LayoutOrder"}]
+  MOVE R11 R1
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K5 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K13 ["ArrowSpacer"]
+  GETUPVAL R8 2
+  GETUPVAL R10 6
+  GETTABLEKS R9 R10 K19 ["Image"]
+  DUPTABLE R10 K20 [{"tag", "LayoutOrder"}]
+  LOADK R11 K21 ["size-300-300 bg-alert"]
+  SETTABLEKS R11 R10 K2 ["tag"]
+  MOVE R11 R1
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K5 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K14 ["Icon"]
+  GETUPVAL R8 2
+  GETUPVAL R9 7
+  DUPTABLE R10 K23 [{"tag", "LayoutOrder", "Text"}]
+  LOADK R11 K24 ["clip text-no-wrap text-align-x-left text-align-y-center text-body-small size-full-full shrink"]
+  SETTABLEKS R11 R10 K2 ["tag"]
+  MOVE R11 R1
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K5 ["LayoutOrder"]
+  GETTABLEKS R13 R0 K2 ["tag"]
+  GETTABLEKS R12 R13 K3 ["id"]
+  GETTABLEKS R11 R12 K4 ["name"]
+  SETTABLEKS R11 R10 K22 ["Text"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K15 ["TagName"]
+  GETUPVAL R8 2
+  GETUPVAL R9 8
+  DUPTABLE R10 K28 [{"LayoutOrder", "icon", "size", "onActivated"}]
+  MOVE R11 R1
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K5 ["LayoutOrder"]
+  DUPTABLE R11 K29 [{"name"}]
+  GETUPVAL R13 9
+  GETTABLEKS R12 R13 K30 ["Minus"]
+  SETTABLEKS R12 R11 K4 ["name"]
+  SETTABLEKS R11 R10 K25 ["icon"]
+  GETUPVAL R12 10
+  GETTABLEKS R11 R12 K31 ["XSmall"]
+  SETTABLEKS R11 R10 K26 ["size"]
+  SETTABLEKS R2 R10 K27 ["onActivated"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K16 ["Remove"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R6 R0 K8 ["Components"]
+  GETTABLEKS R5 R6 K9 ["Util"]
+  GETTABLEKS R4 R5 K10 ["LeftArrowSpacer"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R0 K11 ["PropertyTypes"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R1 K12 ["React"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R7 R1 K13 ["ReactUtils"]
+  CALL R6 1 1
+  GETTABLEKS R7 R5 K14 ["createElement"]
+  GETTABLEKS R8 R2 K15 ["IconButton"]
+  GETTABLEKS R9 R2 K16 ["Text"]
+  GETTABLEKS R10 R2 K17 ["View"]
+  GETTABLEKS R12 R2 K18 ["Enums"]
+  GETTABLEKS R11 R12 K19 ["StateLayerAffordance"]
+  GETTABLEKS R13 R2 K18 ["Enums"]
+  GETTABLEKS R12 R13 K20 ["IconName"]
+  GETTABLEKS R14 R2 K18 ["Enums"]
+  GETTABLEKS R13 R14 K21 ["InputSize"]
+  DUPCLOSURE R14 K22 [PROTO_2]
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  RETURN R14 1

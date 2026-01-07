@@ -1,0 +1,814 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["observeProperty"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["selectedMaskInstance"]
+  LOADK R2 K2 ["Name"]
+  CALL R0 2 1
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["sharedMasks"]
+  GETTABLEKS R1 R2 K1 ["observeMasks"]
+  LOADB R2 0
+  CALL R1 1 3
+  FORGPREP R1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["selectedMaskInstance"]
+  JUMPIFEQ R5 R6 [+16]
+  GETTABLEKS R6 R5 K3 ["Name"]
+  JUMPIFNOTEQ R6 R0 [+12]
+  GETUPVAL R6 1
+  DUPTABLE R7 K6 [{"maskInstance", "inProgressName"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K2 ["selectedMaskInstance"]
+  SETTABLEKS R8 R7 K4 ["maskInstance"]
+  SETTABLEKS R0 R7 K5 ["inProgressName"]
+  CALL R6 1 0
+  RETURN R0 0
+  FORGLOOP R1 2 [-21]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["selectedMaskInstance"]
+  SETTABLEKS R0 R1 K3 ["Name"]
+  GETUPVAL R1 1
+  LOADNIL R2
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["observeAttribute"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["selectedMaskInstance"]
+  LOADK R2 K2 ["RBX_MaskRigType"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["observeAttribute"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["selectedMaskInstance"]
+  LOADK R2 K2 ["RBX_MaskRigName"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["getChildrenByParent"]
+  CALL R0 0 -1
+  RETURN R0 -1
+
+PROTO_5:
+  GETUPVAL R3 0
+  GETTABLE R2 R3 R1
+  JUMPIFEQKNIL R2 [+31]
+  MOVE R3 R2
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETIMPORT R8 K2 [Instance.new]
+  LOADK R9 K3 ["NumberValue"]
+  CALL R8 1 1
+  GETTABLEKS R9 R7 K4 ["Name"]
+  SETTABLEKS R9 R8 K4 ["Name"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K5 ["Value"]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K6 ["orderAttribute"]
+  MOVE R12 R6
+  NAMECALL R9 R8 K7 ["SetAttribute"]
+  CALL R9 3 0
+  SETTABLEKS R0 R8 K8 ["Parent"]
+  GETUPVAL R9 2
+  MOVE R10 R8
+  MOVE R11 R7
+  CALL R9 2 0
+  FORGLOOP R3 2 [-25]
+  RETURN R0 0
+
+PROTO_6:
+  NEWCLOSURE R0 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  RETURN R0 1
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["selectedMaskInstance"]
+  LOADK R3 K1 ["RBX_MaskRigType"]
+  MOVE R4 R0
+  NAMECALL R1 R1 K2 ["SetAttribute"]
+  CALL R1 3 0
+  JUMPIFNOTEQKS R0 K3 ["HRD"] [+28]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["selectedMaskInstance"]
+  NAMECALL R1 R1 K4 ["GetChildren"]
+  CALL R1 1 3
+  FORGPREP R1
+  LOADNIL R6
+  SETTABLEKS R6 R5 K5 ["Parent"]
+  FORGLOOP R1 2 [-4]
+  GETUPVAL R1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["selectedMaskInstance"]
+  GETIMPORT R3 K9 [Enum.RigLabel.Root]
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["selectedMaskInstance"]
+  LOADK R3 K10 ["RBX_MaskRigName"]
+  LOADK R4 K11 [""]
+  NAMECALL R1 R1 K2 ["SetAttribute"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["selectedMaskInstance"]
+  NAMECALL R1 R1 K1 ["GetChildren"]
+  CALL R1 1 1
+  LENGTH R0 R1
+  LOADN R1 0
+  JUMPIFNOTLT R1 R0 [+2]
+  RETURN R0 0
+  GETUPVAL R0 1
+  JUMPIFNOTEQKNIL R0 [+2]
+  RETURN R0 0
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K3 [typeof]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K4 ["string"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K5 [+4]
+  LOADK R3 K5 ["Rig type value is not a string"]
+  GETIMPORT R1 K7 [assert]
+  CALL R1 2 0
+  JUMPIFNOTEQKS R0 K8 ["HRD"] [+28]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["selectedMaskInstance"]
+  NAMECALL R1 R1 K1 ["GetChildren"]
+  CALL R1 1 3
+  FORGPREP R1
+  LOADNIL R6
+  SETTABLEKS R6 R5 K9 ["Parent"]
+  FORGLOOP R1 2 [-4]
+  GETUPVAL R1 2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["selectedMaskInstance"]
+  GETIMPORT R3 K13 [Enum.RigLabel.Root]
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["selectedMaskInstance"]
+  LOADK R3 K14 ["RBX_MaskRigName"]
+  LOADK R4 K15 [""]
+  NAMECALL R1 R1 K16 ["SetAttribute"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_9:
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_10:
+  MOVE R2 R0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETIMPORT R7 K2 [Instance.new]
+  LOADK R8 K3 ["NumberValue"]
+  CALL R7 1 1
+  GETTABLEKS R9 R6 K4 ["joint"]
+  GETTABLEKS R8 R9 K5 ["Name"]
+  SETTABLEKS R8 R7 K5 ["Name"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K6 ["Value"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K7 ["orderAttribute"]
+  MOVE R11 R5
+  NAMECALL R8 R7 K8 ["SetAttribute"]
+  CALL R8 3 0
+  SETTABLEKS R1 R7 K9 ["Parent"]
+  GETUPVAL R8 1
+  GETTABLEKS R9 R6 K10 ["children"]
+  MOVE R10 R7
+  CALL R8 2 0
+  FORGLOOP R2 2 [-28]
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["InstancePicker"]
+  NAMECALL R0 R0 K1 ["GetPluginComponent"]
+  CALL R0 2 1
+  DUPCLOSURE R3 K2 [PROTO_9]
+  NAMECALL R1 R0 K3 ["PickInstanceAsync"]
+  CALL R1 2 1
+  LOADNIL R2
+  JUMPIFEQKNIL R1 [+17]
+  LOADK R5 K4 ["Model"]
+  NAMECALL R3 R1 K5 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+2]
+  MOVE R2 R1
+  JUMP [+9]
+  LOADK R5 K4 ["Model"]
+  NAMECALL R3 R1 K6 ["FindFirstAncestorWhichIsA"]
+  CALL R3 2 1
+  MOVE R2 R3
+  GETUPVAL R3 1
+  JUMPIFNOTEQ R2 R3 [+2]
+  LOADNIL R2
+  JUMPIFEQKNIL R2 [+45]
+  MOVE R3 R2
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K7 ["selectedMaskInstance"]
+  LOADK R6 K8 ["RBX_MaskRigType"]
+  LOADK R7 K9 ["Custom"]
+  NAMECALL R4 R4 K10 ["SetAttribute"]
+  CALL R4 3 0
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K7 ["selectedMaskInstance"]
+  LOADK R6 K11 ["RBX_MaskRigName"]
+  GETTABLEKS R7 R3 K12 ["Name"]
+  NAMECALL R4 R4 K10 ["SetAttribute"]
+  CALL R4 3 0
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K7 ["selectedMaskInstance"]
+  NAMECALL R4 R4 K13 ["GetChildren"]
+  CALL R4 1 3
+  FORGPREP R4
+  LOADNIL R9
+  SETTABLEKS R9 R8 K14 ["Parent"]
+  FORGLOOP R4 2 [-4]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K15 ["buildSkeleton"]
+  MOVE R5 R3
+  CALL R4 1 1
+  DUPCLOSURE R5 K16 [PROTO_10]
+  CAPTURE UPVAL U4
+  CAPTURE VAL R5
+  MOVE R6 R5
+  MOVE R7 R4
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K7 ["selectedMaskInstance"]
+  CALL R6 2 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+3]
+  JUMPIFEQKS R0 K0 [""] [+2]
+  RETURN R0 1
+  GETUPVAL R1 1
+  LOADK R3 K1 ["MaskConfiguration"]
+  LOADK R4 K2 ["NoRigSelected"]
+  NAMECALL R1 R1 K3 ["getText"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_13:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["ContextServices"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  NAMECALL R1 R1 K2 ["use"]
+  CALL R1 1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["ContextServices"]
+  GETTABLEKS R2 R3 K3 ["Plugin"]
+  NAMECALL R2 R2 K2 ["use"]
+  CALL R2 1 1
+  NAMECALL R3 R2 K4 ["get"]
+  CALL R3 1 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["useSignalState"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K6 ["useMemo"]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  NEWTABLE R7 0 1
+  GETTABLEKS R8 R0 K7 ["selectedMaskInstance"]
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 -1
+  CALL R4 -1 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K8 ["useState"]
+  LOADNIL R6
+  CALL R5 1 2
+  JUMPIFNOT R5 [+9]
+  GETTABLEKS R8 R5 K9 ["maskInstance"]
+  GETTABLEKS R9 R0 K7 ["selectedMaskInstance"]
+  JUMPIFNOTEQ R8 R9 [+4]
+  GETTABLEKS R7 R5 K10 ["inProgressName"]
+  JUMP [+1]
+  LOADNIL R7
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K11 ["useCallback"]
+  NEWCLOSURE R9 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R6
+  NEWTABLE R10 0 2
+  GETTABLEKS R12 R0 K12 ["sharedMasks"]
+  GETTABLEKS R11 R12 K13 ["observeMasks"]
+  GETTABLEKS R12 R0 K7 ["selectedMaskInstance"]
+  SETLIST R10 R11 2 [1]
+  CALL R8 2 1
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K14 ["createNextOrder"]
+  CALL R9 0 1
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K5 ["useSignalState"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K6 ["useMemo"]
+  NEWCLOSURE R12 P2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  NEWTABLE R13 0 1
+  GETTABLEKS R14 R0 K7 ["selectedMaskInstance"]
+  SETLIST R13 R14 1 [1]
+  CALL R11 2 -1
+  CALL R10 -1 1
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K5 ["useSignalState"]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K6 ["useMemo"]
+  NEWCLOSURE R13 P3
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  NEWTABLE R14 0 1
+  GETTABLEKS R15 R0 K7 ["selectedMaskInstance"]
+  SETLIST R14 R15 1 [1]
+  CALL R12 2 -1
+  CALL R11 -1 1
+  JUMPIFEQKS R10 K15 ["Custom"] [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K6 ["useMemo"]
+  DUPCLOSURE R14 K16 [PROTO_4]
+  CAPTURE UPVAL U5
+  NEWTABLE R15 0 0
+  CALL R13 2 1
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K6 ["useMemo"]
+  NEWCLOSURE R15 P5
+  CAPTURE VAL R13
+  CAPTURE UPVAL U6
+  NEWTABLE R16 0 1
+  MOVE R17 R13
+  SETLIST R16 R17 1 [1]
+  CALL R14 2 1
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K11 ["useCallback"]
+  NEWCLOSURE R16 P6
+  CAPTURE VAL R0
+  CAPTURE VAL R14
+  NEWTABLE R17 0 2
+  GETTABLEKS R18 R0 K7 ["selectedMaskInstance"]
+  MOVE R19 R14
+  SETLIST R17 R18 2 [1]
+  CALL R15 2 1
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K17 ["useEffect"]
+  NEWCLOSURE R17 P7
+  CAPTURE VAL R0
+  CAPTURE VAL R10
+  CAPTURE VAL R14
+  NEWTABLE R18 0 3
+  GETTABLEKS R19 R0 K7 ["selectedMaskInstance"]
+  MOVE R20 R10
+  MOVE R21 R11
+  SETLIST R18 R19 3 [1]
+  CALL R16 2 0
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K11 ["useCallback"]
+  NEWCLOSURE R17 P8
+  CAPTURE VAL R3
+  CAPTURE UPVAL U7
+  CAPTURE VAL R0
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  NEWTABLE R18 0 2
+  MOVE R19 R3
+  GETTABLEKS R20 R0 K7 ["selectedMaskInstance"]
+  SETLIST R18 R19 2 [1]
+  CALL R16 2 1
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K18 ["createElement"]
+  GETUPVAL R19 8
+  GETTABLEKS R18 R19 K19 ["View"]
+  DUPTABLE R19 K21 [{"tag"}]
+  LOADK R20 K22 ["col size-full"]
+  SETTABLEKS R20 R19 K20 ["tag"]
+  DUPTABLE R20 K25 [{"TopFields", "Joints"}]
+  GETUPVAL R22 2
+  GETTABLEKS R21 R22 K18 ["createElement"]
+  GETUPVAL R23 8
+  GETTABLEKS R22 R23 K19 ["View"]
+  DUPTABLE R23 K27 [{"tag", "LayoutOrder"}]
+  LOADK R24 K28 ["size-full-0 auto-y col gap-medium"]
+  SETTABLEKS R24 R23 K20 ["tag"]
+  MOVE R24 R9
+  CALL R24 0 1
+  SETTABLEKS R24 R23 K26 ["LayoutOrder"]
+  DUPTABLE R24 K32 [{"Name", "Rig", "CustomRig"}]
+  GETUPVAL R26 2
+  GETTABLEKS R25 R26 K18 ["createElement"]
+  GETUPVAL R27 8
+  GETTABLEKS R26 R27 K19 ["View"]
+  DUPTABLE R27 K27 [{"tag", "LayoutOrder"}]
+  LOADK R28 K33 ["size-full-500 row gap-small align-y-center"]
+  SETTABLEKS R28 R27 K20 ["tag"]
+  MOVE R28 R9
+  CALL R28 0 1
+  SETTABLEKS R28 R27 K26 ["LayoutOrder"]
+  DUPTABLE R28 K36 [{"Label", "Value"}]
+  GETUPVAL R30 2
+  GETTABLEKS R29 R30 K18 ["createElement"]
+  GETUPVAL R31 8
+  GETTABLEKS R30 R31 K37 ["Text"]
+  DUPTABLE R31 K39 [{"LayoutOrder", "Text", "sizeConstraint", "tag"}]
+  MOVE R32 R9
+  CALL R32 0 1
+  SETTABLEKS R32 R31 K26 ["LayoutOrder"]
+  LOADK R34 K40 ["MaskConfiguration"]
+  LOADK R35 K29 ["Name"]
+  NAMECALL R32 R1 K41 ["getText"]
+  CALL R32 3 1
+  SETTABLEKS R32 R31 K37 ["Text"]
+  DUPTABLE R32 K43 [{"MinSize"}]
+  GETIMPORT R33 K46 [Vector2.new]
+  LOADN R34 50
+  LOADN R35 0
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K42 ["MinSize"]
+  SETTABLEKS R32 R31 K38 ["sizeConstraint"]
+  LOADK R32 K47 ["content-emphasis text-body-small text-align-x-left auto-xy"]
+  SETTABLEKS R32 R31 K20 ["tag"]
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K34 ["Label"]
+  GETUPVAL R30 2
+  GETTABLEKS R29 R30 K18 ["createElement"]
+  GETUPVAL R31 8
+  GETTABLEKS R30 R31 K19 ["View"]
+  DUPTABLE R31 K48 [{"LayoutOrder", "tag"}]
+  MOVE R32 R9
+  CALL R32 0 1
+  SETTABLEKS R32 R31 K26 ["LayoutOrder"]
+  LOADK R32 K49 ["size-0-full grow"]
+  SETTABLEKS R32 R31 K20 ["tag"]
+  GETUPVAL R33 2
+  GETTABLEKS R32 R33 K18 ["createElement"]
+  GETUPVAL R34 8
+  GETTABLEKS R33 R34 K50 ["TextInput"]
+  DUPTABLE R34 K57 [{"label", "text", "onChanged", "hasError", "width", "size"}]
+  LOADK R35 K58 [""]
+  SETTABLEKS R35 R34 K51 ["label"]
+  OR R35 R7 R4
+  SETTABLEKS R35 R34 K52 ["text"]
+  SETTABLEKS R8 R34 K53 ["onChanged"]
+  JUMPIFNOTEQKNIL R7 [+2]
+  LOADB R35 0 +1
+  LOADB R35 1
+  SETTABLEKS R35 R34 K54 ["hasError"]
+  GETIMPORT R35 K60 [UDim.new]
+  LOADN R36 1
+  LOADN R37 0
+  CALL R35 2 1
+  SETTABLEKS R35 R34 K55 ["width"]
+  GETUPVAL R38 8
+  GETTABLEKS R37 R38 K61 ["Enums"]
+  GETTABLEKS R36 R37 K62 ["InputSize"]
+  GETTABLEKS R35 R36 K63 ["XSmall"]
+  SETTABLEKS R35 R34 K56 ["size"]
+  CALL R32 2 -1
+  CALL R29 -1 1
+  SETTABLEKS R29 R28 K35 ["Value"]
+  CALL R25 3 1
+  SETTABLEKS R25 R24 K29 ["Name"]
+  GETUPVAL R26 2
+  GETTABLEKS R25 R26 K18 ["createElement"]
+  GETUPVAL R27 8
+  GETTABLEKS R26 R27 K19 ["View"]
+  DUPTABLE R27 K27 [{"tag", "LayoutOrder"}]
+  LOADK R28 K33 ["size-full-500 row gap-small align-y-center"]
+  SETTABLEKS R28 R27 K20 ["tag"]
+  MOVE R28 R9
+  CALL R28 0 1
+  SETTABLEKS R28 R27 K26 ["LayoutOrder"]
+  DUPTABLE R28 K36 [{"Label", "Value"}]
+  GETUPVAL R30 2
+  GETTABLEKS R29 R30 K18 ["createElement"]
+  GETUPVAL R31 8
+  GETTABLEKS R30 R31 K37 ["Text"]
+  DUPTABLE R31 K39 [{"LayoutOrder", "Text", "sizeConstraint", "tag"}]
+  MOVE R32 R9
+  CALL R32 0 1
+  SETTABLEKS R32 R31 K26 ["LayoutOrder"]
+  LOADK R34 K40 ["MaskConfiguration"]
+  LOADK R35 K64 ["RigType"]
+  NAMECALL R32 R1 K41 ["getText"]
+  CALL R32 3 1
+  SETTABLEKS R32 R31 K37 ["Text"]
+  DUPTABLE R32 K43 [{"MinSize"}]
+  GETIMPORT R33 K46 [Vector2.new]
+  LOADN R34 50
+  LOADN R35 0
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K42 ["MinSize"]
+  SETTABLEKS R32 R31 K38 ["sizeConstraint"]
+  LOADK R32 K47 ["content-emphasis text-body-small text-align-x-left auto-xy"]
+  SETTABLEKS R32 R31 K20 ["tag"]
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K34 ["Label"]
+  GETUPVAL R30 2
+  GETTABLEKS R29 R30 K18 ["createElement"]
+  GETUPVAL R31 8
+  GETTABLEKS R30 R31 K19 ["View"]
+  DUPTABLE R31 K27 [{"tag", "LayoutOrder"}]
+  LOADK R32 K49 ["size-0-full grow"]
+  SETTABLEKS R32 R31 K20 ["tag"]
+  MOVE R32 R9
+  CALL R32 0 1
+  SETTABLEKS R32 R31 K26 ["LayoutOrder"]
+  GETUPVAL R33 2
+  GETTABLEKS R32 R33 K18 ["createElement"]
+  GETUPVAL R34 8
+  GETTABLEKS R33 R34 K19 ["View"]
+  DUPTABLE R34 K27 [{"tag", "LayoutOrder"}]
+  LOADK R35 K65 ["col gap-xsmall size-full-0"]
+  SETTABLEKS R35 R34 K20 ["tag"]
+  MOVE R35 R9
+  CALL R35 0 1
+  SETTABLEKS R35 R34 K26 ["LayoutOrder"]
+  DUPTABLE R35 K66 [{"RigType"}]
+  GETUPVAL R37 2
+  GETTABLEKS R36 R37 K18 ["createElement"]
+  GETUPVAL R39 8
+  GETTABLEKS R38 R39 K67 ["Dropdown"]
+  GETTABLEKS R37 R38 K68 ["Root"]
+  DUPTABLE R38 K72 [{"label", "onItemChanged", "size", "width", "value", "items"}]
+  LOADK R39 K58 [""]
+  SETTABLEKS R39 R38 K51 ["label"]
+  SETTABLEKS R15 R38 K69 ["onItemChanged"]
+  GETUPVAL R42 8
+  GETTABLEKS R41 R42 K61 ["Enums"]
+  GETTABLEKS R40 R41 K62 ["InputSize"]
+  GETTABLEKS R39 R40 K63 ["XSmall"]
+  SETTABLEKS R39 R38 K56 ["size"]
+  GETIMPORT R39 K60 [UDim.new]
+  LOADN R40 1
+  LOADN R41 0
+  CALL R39 2 1
+  SETTABLEKS R39 R38 K55 ["width"]
+  ORK R39 R10 K73 ["HRD"]
+  SETTABLEKS R39 R38 K70 ["value"]
+  NEWTABLE R39 0 2
+  DUPTABLE R40 K75 [{"id", "text"}]
+  LOADK R41 K73 ["HRD"]
+  SETTABLEKS R41 R40 K74 ["id"]
+  LOADK R43 K40 ["MaskConfiguration"]
+  LOADK R44 K73 ["HRD"]
+  NAMECALL R41 R1 K41 ["getText"]
+  CALL R41 3 1
+  SETTABLEKS R41 R40 K52 ["text"]
+  DUPTABLE R41 K75 [{"id", "text"}]
+  LOADK R42 K15 ["Custom"]
+  SETTABLEKS R42 R41 K74 ["id"]
+  LOADK R44 K40 ["MaskConfiguration"]
+  LOADK R45 K15 ["Custom"]
+  NAMECALL R42 R1 K41 ["getText"]
+  CALL R42 3 1
+  SETTABLEKS R42 R41 K52 ["text"]
+  SETLIST R39 R40 2 [1]
+  SETTABLEKS R39 R38 K71 ["items"]
+  CALL R36 2 1
+  SETTABLEKS R36 R35 K64 ["RigType"]
+  CALL R32 3 -1
+  CALL R29 -1 1
+  SETTABLEKS R29 R28 K35 ["Value"]
+  CALL R25 3 1
+  SETTABLEKS R25 R24 K30 ["Rig"]
+  JUMPIFNOT R12 [+164]
+  GETUPVAL R26 2
+  GETTABLEKS R25 R26 K18 ["createElement"]
+  GETUPVAL R27 8
+  GETTABLEKS R26 R27 K19 ["View"]
+  DUPTABLE R27 K27 [{"tag", "LayoutOrder"}]
+  LOADK R28 K33 ["size-full-500 row gap-small align-y-center"]
+  SETTABLEKS R28 R27 K20 ["tag"]
+  MOVE R28 R9
+  CALL R28 0 1
+  SETTABLEKS R28 R27 K26 ["LayoutOrder"]
+  DUPTABLE R28 K36 [{"Label", "Value"}]
+  GETUPVAL R30 2
+  GETTABLEKS R29 R30 K18 ["createElement"]
+  GETUPVAL R31 8
+  GETTABLEKS R30 R31 K37 ["Text"]
+  DUPTABLE R31 K39 [{"LayoutOrder", "Text", "sizeConstraint", "tag"}]
+  MOVE R32 R9
+  CALL R32 0 1
+  SETTABLEKS R32 R31 K26 ["LayoutOrder"]
+  LOADK R34 K40 ["MaskConfiguration"]
+  LOADK R35 K30 ["Rig"]
+  NAMECALL R32 R1 K41 ["getText"]
+  CALL R32 3 1
+  SETTABLEKS R32 R31 K37 ["Text"]
+  DUPTABLE R32 K43 [{"MinSize"}]
+  GETIMPORT R33 K46 [Vector2.new]
+  LOADN R34 50
+  LOADN R35 0
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K42 ["MinSize"]
+  SETTABLEKS R32 R31 K38 ["sizeConstraint"]
+  LOADK R32 K47 ["content-emphasis text-body-small text-align-x-left auto-xy"]
+  SETTABLEKS R32 R31 K20 ["tag"]
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K34 ["Label"]
+  GETUPVAL R30 2
+  GETTABLEKS R29 R30 K18 ["createElement"]
+  GETUPVAL R31 8
+  GETTABLEKS R30 R31 K19 ["View"]
+  DUPTABLE R31 K27 [{"tag", "LayoutOrder"}]
+  LOADK R32 K76 ["row size-0-full align-y-center"]
+  SETTABLEKS R32 R31 K20 ["tag"]
+  MOVE R32 R9
+  CALL R32 0 1
+  SETTABLEKS R32 R31 K26 ["LayoutOrder"]
+  DUPTABLE R32 K80 [{"CurrentName", "Spacer", "PickButton"}]
+  GETUPVAL R34 2
+  GETTABLEKS R33 R34 K18 ["createElement"]
+  GETUPVAL R35 8
+  GETTABLEKS R34 R35 K37 ["Text"]
+  DUPTABLE R35 K81 [{"LayoutOrder", "Text", "tag"}]
+  MOVE R36 R9
+  CALL R36 0 1
+  SETTABLEKS R36 R35 K26 ["LayoutOrder"]
+  JUMPIFNOT R11 [+4]
+  JUMPIFEQKS R11 K58 [""] [+3]
+  MOVE R36 R11
+  JUMP [+5]
+  LOADK R38 K40 ["MaskConfiguration"]
+  LOADK R39 K82 ["NoRigSelected"]
+  NAMECALL R36 R1 K41 ["getText"]
+  CALL R36 3 1
+  SETTABLEKS R36 R35 K37 ["Text"]
+  LOADK R36 K47 ["content-emphasis text-body-small text-align-x-left auto-xy"]
+  SETTABLEKS R36 R35 K20 ["tag"]
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K77 ["CurrentName"]
+  GETUPVAL R34 2
+  GETTABLEKS R33 R34 K18 ["createElement"]
+  GETUPVAL R35 8
+  GETTABLEKS R34 R35 K19 ["View"]
+  DUPTABLE R35 K83 [{"tag", "width", "LayoutOrder"}]
+  LOADK R36 K84 ["size-100-full grow"]
+  SETTABLEKS R36 R35 K20 ["tag"]
+  GETIMPORT R36 K60 [UDim.new]
+  LOADN R37 20
+  LOADN R38 20
+  CALL R36 2 1
+  SETTABLEKS R36 R35 K55 ["width"]
+  MOVE R36 R9
+  CALL R36 0 1
+  SETTABLEKS R36 R35 K26 ["LayoutOrder"]
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K78 ["Spacer"]
+  GETUPVAL R34 2
+  GETTABLEKS R33 R34 K18 ["createElement"]
+  GETUPVAL R35 8
+  GETTABLEKS R34 R35 K85 ["Button"]
+  DUPTABLE R35 K87 [{"label", "text", "onActivated", "size", "width", "LayoutOrder"}]
+  LOADK R36 K58 [""]
+  SETTABLEKS R36 R35 K51 ["label"]
+  LOADK R38 K40 ["MaskConfiguration"]
+  LOADK R39 K88 ["PickRig"]
+  NAMECALL R36 R1 K41 ["getText"]
+  CALL R36 3 1
+  SETTABLEKS R36 R35 K52 ["text"]
+  SETTABLEKS R16 R35 K86 ["onActivated"]
+  GETUPVAL R39 8
+  GETTABLEKS R38 R39 K61 ["Enums"]
+  GETTABLEKS R37 R38 K62 ["InputSize"]
+  GETTABLEKS R36 R37 K63 ["XSmall"]
+  SETTABLEKS R36 R35 K56 ["size"]
+  GETIMPORT R36 K60 [UDim.new]
+  LOADN R37 0
+  LOADN R38 70
+  CALL R36 2 1
+  SETTABLEKS R36 R35 K55 ["width"]
+  MOVE R36 R9
+  CALL R36 0 1
+  SETTABLEKS R36 R35 K26 ["LayoutOrder"]
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K79 ["PickButton"]
+  CALL R29 3 1
+  SETTABLEKS R29 R28 K35 ["Value"]
+  CALL R25 3 1
+  JUMPIF R25 [+1]
+  LOADNIL R25
+  SETTABLEKS R25 R24 K31 ["CustomRig"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K23 ["TopFields"]
+  GETUPVAL R22 2
+  GETTABLEKS R21 R22 K18 ["createElement"]
+  GETUPVAL R23 8
+  GETTABLEKS R22 R23 K19 ["View"]
+  DUPTABLE R23 K27 [{"tag", "LayoutOrder"}]
+  LOADK R24 K89 ["size-full grow col padding-top-medium"]
+  SETTABLEKS R24 R23 K20 ["tag"]
+  MOVE R24 R9
+  CALL R24 0 1
+  SETTABLEKS R24 R23 K26 ["LayoutOrder"]
+  DUPTABLE R24 K91 [{"List"}]
+  GETUPVAL R26 2
+  GETTABLEKS R25 R26 K18 ["createElement"]
+  GETUPVAL R26 9
+  DUPTABLE R27 K92 [{"maskInstance", "LayoutOrder"}]
+  GETTABLEKS R28 R0 K7 ["selectedMaskInstance"]
+  SETTABLEKS R28 R27 K9 ["maskInstance"]
+  MOVE R28 R9
+  CALL R28 0 1
+  SETTABLEKS R28 R27 K26 ["LayoutOrder"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K90 ["List"]
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K24 ["Joints"]
+  CALL R17 3 -1
+  RETURN R17 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["AdaptiveAnimationTools"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K6 ["Parent"]
+  GETTABLEKS R5 R6 K10 ["MaskWeightEditors"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K11 ["Components"]
+  GETTABLEKS R8 R9 K12 ["NodeView"]
+  GETTABLEKS R7 R8 K13 ["Masks"]
+  GETTABLEKS R6 R7 K14 ["MasksConstants"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Parent"]
+  GETTABLEKS R7 R8 K15 ["React"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Parent"]
+  GETTABLEKS R8 R9 K16 ["ReactUtils"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K6 ["Parent"]
+  GETTABLEKS R9 R10 K17 ["Signals"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K18 ["Util"]
+  GETTABLEKS R11 R12 K17 ["Signals"]
+  GETTABLEKS R10 R11 K19 ["SignalsInstanceUtils"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R12 R0 K6 ["Parent"]
+  GETTABLEKS R11 R12 K20 ["SignalsReact"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K6 ["Parent"]
+  GETTABLEKS R12 R13 K21 ["useSharedMasks"]
+  CALL R11 1 1
+  GETIMPORT R12 K23 [game]
+  LOADK R14 K24 ["Workspace"]
+  NAMECALL R12 R12 K25 ["GetService"]
+  CALL R12 2 1
+  DUPCLOSURE R13 K26 [PROTO_13]
+  CAPTURE VAL R3
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  CAPTURE VAL R12
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  RETURN R13 1

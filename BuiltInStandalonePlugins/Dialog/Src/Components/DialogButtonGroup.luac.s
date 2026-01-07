@@ -1,0 +1,339 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R3 R0 K0 ["AbsoluteSize"]
+  GETTABLEKS R2 R3 K1 ["X"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  JUMPIFNOTEQKN R1 K0 [0] [+7]
+  GETIMPORT R1 K3 [Vector2.new]
+  LOADK R2 K4 [∞]
+  LOADK R3 K4 [∞]
+  CALL R1 2 -1
+  RETURN R1 -1
+  GETUPVAL R5 0
+  SUBK R4 R5 K5 [1]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K6 ["Gap"]
+  GETTABLEKS R5 R6 K7 ["Small"]
+  MUL R3 R4 R5
+  SUB R2 R0 R3
+  GETUPVAL R3 0
+  DIV R1 R2 R3
+  GETIMPORT R2 K3 [Vector2.new]
+  FASTCALL2K MATH_MAX R1 K0 [+5]
+  MOVE R4 R1
+  LOADK R5 K0 [0]
+  GETIMPORT R3 K10 [math.max]
+  CALL R3 2 1
+  LOADK R4 K4 [∞]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETUPVAL R0 0
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  NAMECALL R0 R0 K0 ["map"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R2 R0 K0 ["LayoutOrder"]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  CALL R2 0 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["useBinding"]
+  LOADN R4 0
+  CALL R3 1 2
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K2 ["useCallback"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R4
+  NEWTABLE R7 0 1
+  MOVE R8 R4
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 1
+  GETTABLEKS R9 R0 K3 ["primaryAction"]
+  JUMPIFEQKNIL R9 [+3]
+  LOADN R8 1
+  JUMP [+1]
+  LOADN R8 0
+  GETTABLEKS R10 R0 K4 ["secondaryAction"]
+  JUMPIFEQKNIL R10 [+3]
+  LOADN R9 1
+  JUMP [+1]
+  LOADN R9 0
+  ADD R7 R8 R9
+  GETTABLEKS R9 R0 K5 ["tertiaryAction"]
+  JUMPIFEQKNIL R9 [+3]
+  LOADN R8 1
+  JUMP [+1]
+  LOADN R8 0
+  ADD R6 R7 R8
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K6 ["Hooks"]
+  GETTABLEKS R7 R8 K7 ["useTokens"]
+  CALL R7 0 1
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K8 ["useMemo"]
+  NEWCLOSURE R9 P1
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  NEWTABLE R10 0 3
+  MOVE R11 R3
+  MOVE R12 R6
+  MOVE R13 R7
+  SETLIST R10 R11 3 [1]
+  CALL R8 2 1
+  GETUPVAL R9 4
+  CALL R9 0 2
+  GETUPVAL R11 5
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K9 ["View"]
+  DUPTABLE R13 K13 [{"tag", "onAbsoluteSizeChanged", "LayoutOrder", "testId"}]
+  NEWTABLE R14 4 0
+  LOADB R15 1
+  SETTABLEKS R15 R14 K14 ["component-dialog-button-group row size-full-0 auto-y items-stretch gap-small"]
+  GETTABLEKS R16 R0 K5 ["tertiaryAction"]
+  JUMPIFNOTEQKNIL R16 [+2]
+  LOADB R15 0 +1
+  LOADB R15 1
+  SETTABLEKS R15 R14 K15 ["flex-x-between"]
+  GETTABLEKS R16 R0 K5 ["tertiaryAction"]
+  JUMPIFEQKNIL R16 [+2]
+  LOADB R15 0 +1
+  LOADB R15 1
+  SETTABLEKS R15 R14 K16 ["align-x-right"]
+  SETTABLEKS R14 R13 K10 ["tag"]
+  SETTABLEKS R5 R13 K11 ["onAbsoluteSizeChanged"]
+  SETTABLEKS R1 R13 K0 ["LayoutOrder"]
+  LOADK R14 K17 ["--dialog-button-group"]
+  SETTABLEKS R14 R13 K12 ["testId"]
+  DUPTABLE R14 K20 [{"Tertiary", "PrimaryAndSecondary"}]
+  GETTABLEKS R16 R0 K5 ["tertiaryAction"]
+  JUMPIFNOT R16 [+77]
+  GETUPVAL R15 5
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K9 ["View"]
+  DUPTABLE R17 K23 [{"ref", "tag", "Size", "LayoutOrder"}]
+  SETTABLEKS R10 R17 K21 ["ref"]
+  LOADK R18 K24 ["auto-xy"]
+  SETTABLEKS R18 R17 K10 ["tag"]
+  SETTABLEKS R9 R17 K22 ["Size"]
+  MOVE R18 R2
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K0 ["LayoutOrder"]
+  DUPTABLE R18 K27 [{"Button", "UISizeConstraint"}]
+  GETUPVAL R19 5
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K25 ["Button"]
+  DUPTABLE R21 K33 [{"text", "variant", "size", "fillBehavior", "onActivated", "testId"}]
+  GETTABLEKS R23 R0 K5 ["tertiaryAction"]
+  GETTABLEKS R22 R23 K28 ["text"]
+  SETTABLEKS R22 R21 K28 ["text"]
+  GETUPVAL R25 3
+  GETTABLEKS R24 R25 K34 ["Enums"]
+  GETTABLEKS R23 R24 K35 ["ButtonVariant"]
+  GETTABLEKS R22 R23 K36 ["Standard"]
+  SETTABLEKS R22 R21 K29 ["variant"]
+  GETUPVAL R25 3
+  GETTABLEKS R24 R25 K34 ["Enums"]
+  GETTABLEKS R23 R24 K37 ["InputSize"]
+  GETTABLEKS R22 R23 K38 ["XSmall"]
+  SETTABLEKS R22 R21 K30 ["size"]
+  GETUPVAL R25 3
+  GETTABLEKS R24 R25 K34 ["Enums"]
+  GETTABLEKS R23 R24 K39 ["FillBehavior"]
+  GETTABLEKS R22 R23 K40 ["Fill"]
+  SETTABLEKS R22 R21 K31 ["fillBehavior"]
+  GETTABLEKS R23 R0 K5 ["tertiaryAction"]
+  GETTABLEKS R22 R23 K32 ["onActivated"]
+  SETTABLEKS R22 R21 K32 ["onActivated"]
+  LOADK R22 K41 ["--dialog-button-tertiary"]
+  SETTABLEKS R22 R21 K12 ["testId"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K25 ["Button"]
+  GETUPVAL R19 5
+  LOADK R20 K26 ["UISizeConstraint"]
+  DUPTABLE R21 K43 [{"MaxSize"}]
+  SETTABLEKS R8 R21 K42 ["MaxSize"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K26 ["UISizeConstraint"]
+  CALL R15 3 1
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K18 ["Tertiary"]
+  GETUPVAL R15 5
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K9 ["View"]
+  DUPTABLE R17 K44 [{"tag", "LayoutOrder"}]
+  LOADK R18 K45 ["row auto-xy flex-x-between items-stretch gap-small"]
+  SETTABLEKS R18 R17 K10 ["tag"]
+  MOVE R18 R2
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K0 ["LayoutOrder"]
+  DUPTABLE R18 K48 [{"Primary", "Secondary"}]
+  GETTABLEKS R20 R0 K3 ["primaryAction"]
+  JUMPIFNOT R20 [+77]
+  GETUPVAL R19 5
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K9 ["View"]
+  DUPTABLE R21 K23 [{"ref", "tag", "Size", "LayoutOrder"}]
+  SETTABLEKS R10 R21 K21 ["ref"]
+  LOADK R22 K24 ["auto-xy"]
+  SETTABLEKS R22 R21 K10 ["tag"]
+  SETTABLEKS R9 R21 K22 ["Size"]
+  MOVE R22 R2
+  CALL R22 0 1
+  SETTABLEKS R22 R21 K0 ["LayoutOrder"]
+  DUPTABLE R22 K27 [{"Button", "UISizeConstraint"}]
+  GETUPVAL R23 5
+  GETUPVAL R25 3
+  GETTABLEKS R24 R25 K25 ["Button"]
+  DUPTABLE R25 K33 [{"text", "variant", "size", "fillBehavior", "onActivated", "testId"}]
+  GETTABLEKS R27 R0 K3 ["primaryAction"]
+  GETTABLEKS R26 R27 K28 ["text"]
+  SETTABLEKS R26 R25 K28 ["text"]
+  GETUPVAL R29 3
+  GETTABLEKS R28 R29 K34 ["Enums"]
+  GETTABLEKS R27 R28 K35 ["ButtonVariant"]
+  GETTABLEKS R26 R27 K49 ["Emphasis"]
+  SETTABLEKS R26 R25 K29 ["variant"]
+  GETUPVAL R29 3
+  GETTABLEKS R28 R29 K34 ["Enums"]
+  GETTABLEKS R27 R28 K37 ["InputSize"]
+  GETTABLEKS R26 R27 K38 ["XSmall"]
+  SETTABLEKS R26 R25 K30 ["size"]
+  GETUPVAL R29 3
+  GETTABLEKS R28 R29 K34 ["Enums"]
+  GETTABLEKS R27 R28 K39 ["FillBehavior"]
+  GETTABLEKS R26 R27 K40 ["Fill"]
+  SETTABLEKS R26 R25 K31 ["fillBehavior"]
+  GETTABLEKS R27 R0 K3 ["primaryAction"]
+  GETTABLEKS R26 R27 K32 ["onActivated"]
+  SETTABLEKS R26 R25 K32 ["onActivated"]
+  LOADK R26 K50 ["--dialog-button-primary"]
+  SETTABLEKS R26 R25 K12 ["testId"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K25 ["Button"]
+  GETUPVAL R23 5
+  LOADK R24 K26 ["UISizeConstraint"]
+  DUPTABLE R25 K43 [{"MaxSize"}]
+  SETTABLEKS R8 R25 K42 ["MaxSize"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K26 ["UISizeConstraint"]
+  CALL R19 3 1
+  JUMP [+1]
+  LOADNIL R19
+  SETTABLEKS R19 R18 K46 ["Primary"]
+  GETTABLEKS R20 R0 K4 ["secondaryAction"]
+  JUMPIFNOT R20 [+77]
+  GETUPVAL R19 5
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K9 ["View"]
+  DUPTABLE R21 K23 [{"ref", "tag", "Size", "LayoutOrder"}]
+  SETTABLEKS R10 R21 K21 ["ref"]
+  LOADK R22 K24 ["auto-xy"]
+  SETTABLEKS R22 R21 K10 ["tag"]
+  SETTABLEKS R9 R21 K22 ["Size"]
+  MOVE R22 R2
+  CALL R22 0 1
+  SETTABLEKS R22 R21 K0 ["LayoutOrder"]
+  DUPTABLE R22 K27 [{"Button", "UISizeConstraint"}]
+  GETUPVAL R23 5
+  GETUPVAL R25 3
+  GETTABLEKS R24 R25 K25 ["Button"]
+  DUPTABLE R25 K33 [{"text", "variant", "size", "fillBehavior", "onActivated", "testId"}]
+  GETTABLEKS R27 R0 K4 ["secondaryAction"]
+  GETTABLEKS R26 R27 K28 ["text"]
+  SETTABLEKS R26 R25 K28 ["text"]
+  GETUPVAL R29 3
+  GETTABLEKS R28 R29 K34 ["Enums"]
+  GETTABLEKS R27 R28 K35 ["ButtonVariant"]
+  GETTABLEKS R26 R27 K36 ["Standard"]
+  SETTABLEKS R26 R25 K29 ["variant"]
+  GETUPVAL R29 3
+  GETTABLEKS R28 R29 K34 ["Enums"]
+  GETTABLEKS R27 R28 K37 ["InputSize"]
+  GETTABLEKS R26 R27 K38 ["XSmall"]
+  SETTABLEKS R26 R25 K30 ["size"]
+  GETUPVAL R29 3
+  GETTABLEKS R28 R29 K34 ["Enums"]
+  GETTABLEKS R27 R28 K39 ["FillBehavior"]
+  GETTABLEKS R26 R27 K40 ["Fill"]
+  SETTABLEKS R26 R25 K31 ["fillBehavior"]
+  GETTABLEKS R27 R0 K4 ["secondaryAction"]
+  GETTABLEKS R26 R27 K32 ["onActivated"]
+  SETTABLEKS R26 R25 K32 ["onActivated"]
+  LOADK R26 K51 ["--dialog-button-secondary"]
+  SETTABLEKS R26 R25 K12 ["testId"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K25 ["Button"]
+  GETUPVAL R23 5
+  LOADK R24 K26 ["UISizeConstraint"]
+  DUPTABLE R25 K43 [{"MaxSize"}]
+  SETTABLEKS R8 R25 K42 ["MaxSize"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K26 ["UISizeConstraint"]
+  CALL R19 3 1
+  JUMP [+1]
+  LOADNIL R19
+  SETTABLEKS R19 R18 K47 ["Secondary"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K19 ["PrimaryAndSecondary"]
+  CALL R11 3 -1
+  RETURN R11 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Dialog"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K10 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Types"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K10 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Hooks"]
+  GETTABLEKS R6 R7 K13 ["useBindable"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K10 ["Src"]
+  GETTABLEKS R8 R9 K12 ["Hooks"]
+  GETTABLEKS R7 R8 K14 ["useButtonGroupSizeAlignment"]
+  CALL R6 1 1
+  GETTABLEKS R8 R2 K15 ["Util"]
+  GETTABLEKS R7 R8 K16 ["counter"]
+  GETTABLEKS R8 R3 K17 ["createElement"]
+  DUPCLOSURE R9 K18 [PROTO_3]
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  GETTABLEKS R10 R3 K19 ["memo"]
+  MOVE R11 R9
+  CALL R10 1 -1
+  RETURN R10 -1

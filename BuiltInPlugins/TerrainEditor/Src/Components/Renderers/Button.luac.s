@@ -1,30 +1,72 @@
 PROTO_0:
   GETTABLEKS R1 R0 K0 ["Schema"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+62]
   GETUPVAL R3 1
-  DUPTABLE R4 K8 [{"Disabled", "OnClick", "Size", "Style", "Text", "TextXAlignment"}]
-  GETTABLEKS R5 R0 K2 ["Disabled"]
-  SETTABLEKS R5 R4 K2 ["Disabled"]
-  GETTABLEKS R5 R1 K3 ["OnClick"]
-  SETTABLEKS R5 R4 K3 ["OnClick"]
-  GETIMPORT R5 K11 [UDim2.new]
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["View"]
+  DUPTABLE R4 K4 [{"tag"}]
+  LOADK R5 K5 ["size-full-0 align-x-center"]
+  SETTABLEKS R5 R4 K3 ["tag"]
+  DUPTABLE R5 K7 [{"Button"}]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K1 ["createElement"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K6 ["Button"]
+  DUPTABLE R8 K14 [{"text", "variant", "onActivated", "isDisabled", "size", "testId"}]
+  GETTABLEKS R9 R1 K15 ["Label"]
+  SETTABLEKS R9 R8 K8 ["text"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K16 ["Enums"]
+  GETTABLEKS R10 R11 K17 ["ButtonVariant"]
+  GETTABLEKS R9 R10 K18 ["Emphasis"]
+  SETTABLEKS R9 R8 K9 ["variant"]
+  GETTABLEKS R9 R1 K19 ["OnClick"]
+  SETTABLEKS R9 R8 K10 ["onActivated"]
+  GETTABLEKS R9 R0 K20 ["Disabled"]
+  SETTABLEKS R9 R8 K11 ["isDisabled"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K16 ["Enums"]
+  GETTABLEKS R10 R11 K21 ["InputSize"]
+  GETTABLEKS R9 R10 K22 ["Small"]
+  SETTABLEKS R9 R8 K12 ["size"]
+  LOADK R10 K23 ["button-%*"]
+  GETTABLEKS R12 R1 K15 ["Label"]
+  NAMECALL R10 R10 K24 ["format"]
+  CALL R10 2 1
+  MOVE R9 R10
+  SETTABLEKS R9 R8 K13 ["testId"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K6 ["Button"]
+  CALL R2 3 -1
+  RETURN R2 -1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R3 3
+  DUPTABLE R4 K29 [{"Disabled", "OnClick", "Size", "Style", "Text", "TextXAlignment"}]
+  GETTABLEKS R5 R0 K20 ["Disabled"]
+  SETTABLEKS R5 R4 K20 ["Disabled"]
+  GETTABLEKS R5 R1 K19 ["OnClick"]
+  SETTABLEKS R5 R4 K19 ["OnClick"]
+  GETIMPORT R5 K32 [UDim2.new]
   LOADN R6 1
   LOADN R7 0
   LOADN R8 0
   LOADN R9 32
   CALL R5 4 1
-  SETTABLEKS R5 R4 K4 ["Size"]
-  GETTABLEKS R6 R0 K2 ["Disabled"]
+  SETTABLEKS R5 R4 K25 ["Size"]
+  GETTABLEKS R6 R0 K20 ["Disabled"]
   JUMPIFNOT R6 [+2]
   LOADNIL R5
   JUMP [+1]
-  LOADK R5 K12 ["PrimaryBrand"]
-  SETTABLEKS R5 R4 K5 ["Style"]
-  GETTABLEKS R5 R1 K13 ["Label"]
-  SETTABLEKS R5 R4 K6 ["Text"]
-  GETIMPORT R5 K16 [Enum.TextXAlignment.Center]
-  SETTABLEKS R5 R4 K7 ["TextXAlignment"]
+  LOADK R5 K33 ["PrimaryBrand"]
+  SETTABLEKS R5 R4 K26 ["Style"]
+  GETTABLEKS R5 R1 K15 ["Label"]
+  SETTABLEKS R5 R4 K27 ["Text"]
+  GETIMPORT R5 K36 [Enum.TextXAlignment.Center]
+  SETTABLEKS R5 R4 K28 ["TextXAlignment"]
   CALL R2 2 -1
   RETURN R2 -1
 
@@ -36,19 +78,30 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Framework"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["React"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R4 R1 K9 ["UI"]
-  GETTABLEKS R3 R4 K10 ["Button"]
-  GETTABLEKS R5 R1 K9 ["UI"]
-  GETTABLEKS R4 R5 K11 ["IconButton"]
-  GETTABLEKS R6 R1 K12 ["Util"]
-  GETTABLEKS R5 R6 K13 ["StyleModifier"]
-  DUPCLOSURE R6 K14 [PROTO_0]
-  CAPTURE VAL R2
-  CAPTURE VAL R4
-  RETURN R6 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["React"]
+  CALL R3 1 1
+  GETTABLEKS R5 R2 K10 ["UI"]
+  GETTABLEKS R4 R5 K11 ["Button"]
+  GETTABLEKS R6 R2 K10 ["UI"]
+  GETTABLEKS R5 R6 K12 ["IconButton"]
+  GETTABLEKS R7 R2 K13 ["Util"]
+  GETTABLEKS R6 R7 K14 ["StyleModifier"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K15 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Flags"]
+  GETTABLEKS R8 R9 K17 ["getFFlagTerrainEditorMigrateFoundationFonts"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K18 [PROTO_0]
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  RETURN R8 1

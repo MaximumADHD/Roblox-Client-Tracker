@@ -1,0 +1,167 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["navigation"]
+  GETUPVAL R2 0
+  JUMPIFNOTEQKNIL R1 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  LOADK R4 K2 ["AppNavigationContext.Provider requires a 'navigation' prop."]
+  CALL R2 2 0
+  GETTABLEKS R2 R0 K3 ["_context"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K4 [{"navigation"}]
+  SETTABLEKS R1 R4 K1 ["navigation"]
+  SETTABLE R4 R2 R3
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["oneChild"]
+  GETTABLEKS R3 R0 K1 ["props"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["Children"]
+  GETTABLE R2 R3 R4
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["render"]
+  GETTABLEKS R3 R0 K2 ["_context"]
+  GETUPVAL R4 0
+  GETTABLE R2 R3 R4
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K3 ["navigation"]
+  JUMPIF R3 [+2]
+  GETTABLEKS R3 R2 K3 ["navigation"]
+  GETUPVAL R4 1
+  JUMPIFNOTEQKNIL R1 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  LOADK R6 K4 ["AppNavigationContext.Consumer requires 'render' prop."]
+  CALL R4 2 0
+  GETUPVAL R4 1
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  LOADK R6 K5 ["AppNavigationContext.Consumer requires a navigation prop or context entry."]
+  CALL R4 2 0
+  MOVE R4 R1
+  MOVE R5 R3
+  CALL R4 1 -1
+  RETURN R4 -1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K1 ["Dictionary"]
+  GETTABLEKS R3 R4 K2 ["join"]
+  DUPTABLE R4 K4 [{"navigation"}]
+  SETTABLEKS R0 R4 K3 ["navigation"]
+  GETUPVAL R5 3
+  CALL R3 2 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K4 [{"navigation", "render"}]
+  GETTABLEKS R5 R1 K2 ["navigation"]
+  SETTABLEKS R5 R4 K2 ["navigation"]
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R1
+  SETTABLEKS R5 R4 K3 ["render"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_5:
+  GETIMPORT R1 K2 [string.format]
+  LOADK R2 K3 ["NavigationConnection(%s)"]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K5 [tostring]
+  CALL R3 1 1
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["Component"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K7 ["extend"]
+  CALL R2 2 1
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R3 R2 K8 ["render"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["Roact"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Cryo"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K7 ["NavigationSymbol"]
+  CALL R2 1 1
+  GETIMPORT R3 K1 [require]
+  GETIMPORT R8 K3 [script]
+  GETTABLEKS R7 R8 K4 ["Parent"]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K8 ["utils"]
+  GETTABLEKS R4 R5 K9 ["validate"]
+  CALL R3 1 1
+  MOVE R4 R2
+  LOADK R5 K10 ["APP_NAVIGATION_CONTEXT"]
+  CALL R4 1 1
+  GETTABLEKS R5 R0 K11 ["Component"]
+  LOADK R7 K12 ["NavigationProvider"]
+  NAMECALL R5 R5 K13 ["extend"]
+  CALL R5 2 1
+  DUPCLOSURE R6 K14 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K15 ["init"]
+  DUPCLOSURE R6 K16 [PROTO_1]
+  CAPTURE VAL R0
+  SETTABLEKS R6 R5 K17 ["render"]
+  GETTABLEKS R6 R0 K11 ["Component"]
+  LOADK R8 K18 ["NavigationConsumer"]
+  NAMECALL R6 R6 K13 ["extend"]
+  CALL R6 2 1
+  DUPCLOSURE R7 K19 [PROTO_2]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  SETTABLEKS R7 R6 K17 ["render"]
+  DUPCLOSURE R7 K20 [PROTO_5]
+  CAPTURE VAL R0
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  DUPTABLE R8 K24 [{"Provider", "Consumer", "connect"}]
+  SETTABLEKS R5 R8 K21 ["Provider"]
+  SETTABLEKS R6 R8 K22 ["Consumer"]
+  SETTABLEKS R7 R8 K23 ["connect"]
+  RETURN R8 1

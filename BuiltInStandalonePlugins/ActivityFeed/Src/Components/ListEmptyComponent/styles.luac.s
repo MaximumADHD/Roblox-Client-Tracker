@@ -21,115 +21,128 @@ MAIN:
   GETTABLEKS R6 R3 K14 ["buttonCornerRadius"]
   GETTABLEKS R7 R3 K15 ["largeIconSize"]
   GETTABLEKS R8 R3 K16 ["emptyScreenContentPaddingPercentage"]
-  MOVE R9 R2
-  LOADK R10 K17 [".Component-ListEmptyComponent"]
-  DUPTABLE R11 K20 [{"Size", "BackgroundColor3"}]
-  GETIMPORT R12 K23 [UDim2.new]
-  LOADN R13 1
-  LOADN R14 0
-  LOADN R15 1
-  LOADN R16 0
-  CALL R12 4 1
-  SETTABLEKS R12 R11 K18 ["Size"]
-  LOADK R12 K24 ["$BackgroundPaper"]
-  SETTABLEKS R12 R11 K19 ["BackgroundColor3"]
-  NEWTABLE R12 0 5
-  MOVE R13 R2
-  LOADK R14 K25 ["::UIPadding"]
-  DUPTABLE R15 K27 [{"PaddingTopPercentage"}]
-  GETIMPORT R16 K29 [UDim.new]
-  MOVE R17 R8
-  LOADN R18 2
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K26 ["PaddingTopPercentage"]
-  CALL R13 2 1
+  GETIMPORT R9 K18 [game]
+  LOADK R11 K19 ["ActivityHistoryCompactUI"]
+  NAMECALL R9 R9 K20 ["GetFastFlag"]
+  CALL R9 2 1
+  MOVE R10 R2
+  LOADK R11 K21 [".Component-ListEmptyComponent"]
+  DUPTABLE R12 K24 [{"Size", "BackgroundColor3"}]
+  GETIMPORT R13 K27 [UDim2.new]
+  LOADN R14 1
+  LOADN R15 0
+  LOADN R16 1
+  LOADN R17 0
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K22 ["Size"]
+  JUMPIFNOT R9 [+2]
+  LOADK R13 K28 ["$FoundationColorsBackgroundPaper"]
+  JUMP [+1]
+  LOADK R13 K29 ["$BackgroundPaper"]
+  SETTABLEKS R13 R12 K23 ["BackgroundColor3"]
+  NEWTABLE R13 0 5
   MOVE R14 R2
-  LOADK R15 K30 ["::UIListLayout"]
-  DUPTABLE R16 K32 [{"Padding"}]
-  GETIMPORT R17 K29 [UDim.new]
-  LOADN R18 0
-  LOADN R19 8
+  LOADK R15 K30 ["::UIPadding"]
+  DUPTABLE R16 K32 [{"PaddingTopPercentage"}]
+  GETIMPORT R17 K34 [UDim.new]
+  MOVE R18 R8
+  LOADN R19 2
   CALL R17 2 1
-  SETTABLEKS R17 R16 K31 ["Padding"]
+  SETTABLEKS R17 R16 K31 ["PaddingTopPercentage"]
   CALL R14 2 1
   MOVE R15 R2
-  LOADK R16 K33 ["> #NoFilterResultsIcon"]
-  DUPTABLE R17 K36 [{"Size", "Image", "BackgroundTransparency"}]
-  GETIMPORT R18 K23 [UDim2.new]
+  LOADK R16 K35 ["::UIListLayout"]
+  DUPTABLE R17 K37 [{"Padding"}]
+  GETIMPORT R18 K34 [UDim.new]
   LOADN R19 0
-  MOVE R20 R7
-  LOADN R21 0
-  MOVE R22 R7
-  CALL R18 4 1
-  SETTABLEKS R18 R17 K18 ["Size"]
-  LOADK R18 K37 ["$nofilterresults"]
-  SETTABLEKS R18 R17 K34 ["Image"]
-  LOADN R18 1
-  SETTABLEKS R18 R17 K35 ["BackgroundTransparency"]
+  LOADN R20 8
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K36 ["Padding"]
   CALL R15 2 1
   MOVE R16 R2
-  LOADK R17 K38 ["> #Description"]
-  DUPTABLE R18 K43 [{"TextXAlignment", "TextColor3", "TextSize", "Font"}]
-  GETIMPORT R19 K46 [Enum.TextXAlignment.Center]
-  SETTABLEKS R19 R18 K39 ["TextXAlignment"]
-  LOADK R19 K47 ["$TextPrimary"]
-  SETTABLEKS R19 R18 K40 ["TextColor3"]
-  GETTABLEKS R19 R3 K48 ["normalFontSize"]
-  SETTABLEKS R19 R18 K41 ["TextSize"]
-  GETTABLEKS R19 R3 K49 ["boldedFont"]
-  SETTABLEKS R19 R18 K42 ["Font"]
+  LOADK R17 K38 ["> #NoFilterResultsIcon"]
+  DUPTABLE R18 K41 [{"Size", "Image", "BackgroundTransparency"}]
+  GETIMPORT R19 K27 [UDim2.new]
+  LOADN R20 0
+  MOVE R21 R7
+  LOADN R22 0
+  MOVE R23 R7
+  CALL R19 4 1
+  SETTABLEKS R19 R18 K22 ["Size"]
+  LOADK R19 K42 ["$nofilterresults"]
+  SETTABLEKS R19 R18 K39 ["Image"]
+  LOADN R19 1
+  SETTABLEKS R19 R18 K40 ["BackgroundTransparency"]
   CALL R16 2 1
   MOVE R17 R2
-  LOADK R18 K50 ["> #Edit"]
-  DUPTABLE R19 K52 [{"AutoButtonColor", "TextColor3", "BackgroundColor3"}]
-  LOADB R20 0
-  SETTABLEKS R20 R19 K51 ["AutoButtonColor"]
-  LOADK R20 K47 ["$TextPrimary"]
-  SETTABLEKS R20 R19 K40 ["TextColor3"]
-  LOADK R20 K53 ["$SecondaryMain"]
-  SETTABLEKS R20 R19 K19 ["BackgroundColor3"]
-  NEWTABLE R20 0 3
-  MOVE R21 R2
-  LOADK R22 K54 ["::UICorner"]
-  DUPTABLE R23 K56 [{"CornerRadius"}]
-  GETIMPORT R24 K29 [UDim.new]
-  LOADN R25 0
-  MOVE R26 R6
-  CALL R24 2 1
-  SETTABLEKS R24 R23 K55 ["CornerRadius"]
-  CALL R21 2 1
+  LOADK R18 K43 ["> #Description"]
+  DUPTABLE R19 K48 [{"TextXAlignment", "TextColor3", "TextSize", "Font"}]
+  GETIMPORT R20 K51 [Enum.TextXAlignment.Center]
+  SETTABLEKS R20 R19 K44 ["TextXAlignment"]
+  JUMPIFNOT R9 [+2]
+  LOADK R20 K52 ["$FoundationColorsContentEmphasis"]
+  JUMP [+1]
+  LOADK R20 K53 ["$TextPrimary"]
+  SETTABLEKS R20 R19 K45 ["TextColor3"]
+  GETTABLEKS R20 R3 K54 ["normalFontSize"]
+  SETTABLEKS R20 R19 K46 ["TextSize"]
+  GETTABLEKS R20 R3 K55 ["boldedFont"]
+  SETTABLEKS R20 R19 K47 ["Font"]
+  CALL R17 2 1
+  MOVE R18 R2
+  LOADK R19 K56 ["> #Edit"]
+  DUPTABLE R20 K58 [{"AutoButtonColor", "TextColor3", "BackgroundColor3"}]
+  LOADB R21 0
+  SETTABLEKS R21 R20 K57 ["AutoButtonColor"]
+  JUMPIFNOT R9 [+2]
+  LOADK R21 K52 ["$FoundationColorsContentEmphasis"]
+  JUMP [+1]
+  LOADK R21 K53 ["$TextPrimary"]
+  SETTABLEKS R21 R20 K45 ["TextColor3"]
+  LOADK R21 K59 ["$SecondaryMain"]
+  SETTABLEKS R21 R20 K23 ["BackgroundColor3"]
+  NEWTABLE R21 0 3
   MOVE R22 R2
-  LOADK R23 K25 ["::UIPadding"]
-  DUPTABLE R24 K61 [{"PaddingRight", "PaddingLeft", "PaddingTop", "PaddingBottom"}]
-  GETIMPORT R25 K29 [UDim.new]
+  LOADK R23 K60 ["::UICorner"]
+  DUPTABLE R24 K62 [{"CornerRadius"}]
+  GETIMPORT R25 K34 [UDim.new]
   LOADN R26 0
-  MOVE R27 R4
+  MOVE R27 R6
   CALL R25 2 1
-  SETTABLEKS R25 R24 K57 ["PaddingRight"]
-  GETIMPORT R25 K29 [UDim.new]
-  LOADN R26 0
-  MOVE R27 R4
-  CALL R25 2 1
-  SETTABLEKS R25 R24 K58 ["PaddingLeft"]
-  GETIMPORT R25 K29 [UDim.new]
-  LOADN R26 0
-  MOVE R27 R5
-  CALL R25 2 1
-  SETTABLEKS R25 R24 K59 ["PaddingTop"]
-  GETIMPORT R25 K29 [UDim.new]
-  LOADN R26 0
-  MOVE R27 R5
-  CALL R25 2 1
-  SETTABLEKS R25 R24 K60 ["PaddingBottom"]
+  SETTABLEKS R25 R24 K61 ["CornerRadius"]
   CALL R22 2 1
   MOVE R23 R2
-  LOADK R24 K62 [":hover"]
-  DUPTABLE R25 K63 [{"BackgroundColor3"}]
-  LOADK R26 K64 ["$SecondaryHoverBackground"]
-  SETTABLEKS R26 R25 K19 ["BackgroundColor3"]
-  CALL R23 2 -1
-  SETLIST R20 R21 -1 [1]
-  CALL R17 3 -1
-  SETLIST R12 R13 -1 [1]
-  CALL R9 3 -1
-  RETURN R9 -1
+  LOADK R24 K30 ["::UIPadding"]
+  DUPTABLE R25 K67 [{"PaddingRight", "PaddingLeft", "PaddingTop", "PaddingBottom"}]
+  GETIMPORT R26 K34 [UDim.new]
+  LOADN R27 0
+  MOVE R28 R4
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K63 ["PaddingRight"]
+  GETIMPORT R26 K34 [UDim.new]
+  LOADN R27 0
+  MOVE R28 R4
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K64 ["PaddingLeft"]
+  GETIMPORT R26 K34 [UDim.new]
+  LOADN R27 0
+  MOVE R28 R5
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K65 ["PaddingTop"]
+  GETIMPORT R26 K34 [UDim.new]
+  LOADN R27 0
+  MOVE R28 R5
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K66 ["PaddingBottom"]
+  CALL R23 2 1
+  MOVE R24 R2
+  LOADK R25 K68 [":hover"]
+  DUPTABLE R26 K69 [{"BackgroundColor3"}]
+  LOADK R27 K70 ["$SecondaryHoverBackground"]
+  SETTABLEKS R27 R26 K23 ["BackgroundColor3"]
+  CALL R24 2 -1
+  SETLIST R21 R22 -1 [1]
+  CALL R18 3 -1
+  SETLIST R13 R14 -1 [1]
+  CALL R10 3 -1
+  RETURN R10 -1

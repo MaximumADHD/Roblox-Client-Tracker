@@ -1,0 +1,279 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Dictionary"]
+  GETTABLEKS R1 R2 K1 ["join"]
+  MOVE R2 R0
+  DUPTABLE R3 K3 [{"wasUserPromptedForTelemetry"}]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K2 ["wasUserPromptedForTelemetry"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Dictionary"]
+  GETTABLEKS R1 R2 K1 ["join"]
+  MOVE R2 R0
+  DUPTABLE R3 K3 [{"collectAnonymousUsageData"}]
+  GETUPVAL R4 1
+  SETTABLEKS R4 R3 K2 ["collectAnonymousUsageData"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_2:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+7]
+  GETUPVAL R0 1
+  DUPTABLE R1 K1 [{"eventName"}]
+  LOADK R2 K2 ["TelemetryOptedIn"]
+  SETTABLEKS R2 R1 K0 ["eventName"]
+  CALL R0 1 0
+  RETURN R0 0
+  GETUPVAL R0 1
+  DUPTABLE R1 K1 [{"eventName"}]
+  LOADK R2 K3 ["TelemetryOptedOut"]
+  SETTABLEKS R2 R1 K0 ["eventName"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["setStorage"]
+  DUPCLOSURE R1 K1 [PROTO_0]
+  CAPTURE UPVAL U1
+  CALL R0 1 0
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K0 ["setStorage"]
+  NEWCLOSURE R1 P1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U3
+  CALL R0 1 0
+  GETIMPORT R0 K4 [task.spawn]
+  NEWCLOSURE R1 P2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["get"]
+  CALL R0 1 1
+  GETUPVAL R1 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K0 ["get"]
+  CALL R1 1 1
+  GETUPVAL R2 0
+  GETTABLEKS R3 R1 K1 ["getStorage"]
+  CALL R2 1 1
+  GETUPVAL R3 0
+  GETTABLEKS R4 R1 K2 ["getIsLoading"]
+  CALL R3 1 1
+  GETUPVAL R4 3
+  LOADB R5 1
+  CALL R4 1 2
+  GETUPVAL R6 4
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U5
+  CAPTURE VAL R0
+  CAPTURE VAL R4
+  CAPTURE UPVAL U6
+  NEWTABLE R8 0 3
+  GETTABLEKS R9 R1 K3 ["setStorage"]
+  GETTABLEKS R10 R0 K3 ["setStorage"]
+  MOVE R11 R4
+  SETLIST R8 R9 3 [1]
+  CALL R6 2 1
+  JUMPIF R3 [+3]
+  GETTABLEKS R7 R2 K4 ["wasUserPromptedForTelemetry"]
+  JUMPIFNOT R7 [+2]
+  LOADNIL R7
+  RETURN R7 1
+  GETUPVAL R8 7
+  GETTABLEKS R7 R8 K5 ["createElement"]
+  GETUPVAL R10 8
+  GETTABLEKS R9 R10 K6 ["Dialog"]
+  GETTABLEKS R8 R9 K7 ["Root"]
+  DUPTABLE R9 K12 [{"disablePortal", "hasBackdrop", "onClose", "onPressedOutside"}]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K8 ["disablePortal"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K9 ["hasBackdrop"]
+  SETTABLEKS R6 R9 K10 ["onClose"]
+  SETTABLEKS R6 R9 K11 ["onPressedOutside"]
+  DUPTABLE R10 K16 [{"Title", "Content", "Actions"}]
+  GETUPVAL R12 7
+  GETTABLEKS R11 R12 K5 ["createElement"]
+  GETUPVAL R14 8
+  GETTABLEKS R13 R14 K6 ["Dialog"]
+  GETTABLEKS R12 R13 K13 ["Title"]
+  DUPTABLE R13 K18 [{"text"}]
+  LOADK R14 K19 ["Help us improve Flipbook"]
+  SETTABLEKS R14 R13 K17 ["text"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K13 ["Title"]
+  GETUPVAL R12 7
+  GETTABLEKS R11 R12 K5 ["createElement"]
+  GETUPVAL R14 8
+  GETTABLEKS R13 R14 K6 ["Dialog"]
+  GETTABLEKS R12 R13 K14 ["Content"]
+  DUPTABLE R13 K21 [{"LayoutOrder"}]
+  GETUPVAL R14 9
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K20 ["LayoutOrder"]
+  DUPTABLE R14 K23 [{"Wrapper"}]
+  GETUPVAL R16 7
+  GETTABLEKS R15 R16 K5 ["createElement"]
+  GETUPVAL R17 8
+  GETTABLEKS R16 R17 K24 ["View"]
+  DUPTABLE R17 K26 [{"tag"}]
+  LOADK R18 K27 ["auto-xy col gap-large"]
+  SETTABLEKS R18 R17 K25 ["tag"]
+  DUPTABLE R18 K31 [{"MainParagraph", "WhereToOptOut", "Checkbox"}]
+  GETUPVAL R20 7
+  GETTABLEKS R19 R20 K5 ["createElement"]
+  GETUPVAL R22 8
+  GETTABLEKS R21 R22 K6 ["Dialog"]
+  GETTABLEKS R20 R21 K32 ["Text"]
+  DUPTABLE R21 K33 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R22 K34 ["auto-xy text-wrap text-body-medium"]
+  SETTABLEKS R22 R21 K25 ["tag"]
+  LOADK R22 K35 ["Flipbook would like to send anonymized usage data to help us improve the quality of the plugin."]
+  SETTABLEKS R22 R21 K32 ["Text"]
+  GETUPVAL R22 9
+  CALL R22 0 1
+  SETTABLEKS R22 R21 K20 ["LayoutOrder"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K28 ["MainParagraph"]
+  GETUPVAL R20 7
+  GETTABLEKS R19 R20 K5 ["createElement"]
+  GETUPVAL R22 8
+  GETTABLEKS R21 R22 K6 ["Dialog"]
+  GETTABLEKS R20 R21 K32 ["Text"]
+  DUPTABLE R21 K33 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R22 K34 ["auto-xy text-wrap text-body-medium"]
+  SETTABLEKS R22 R21 K25 ["tag"]
+  LOADK R22 K36 ["You can opt out at any time in the settings."]
+  SETTABLEKS R22 R21 K32 ["Text"]
+  GETUPVAL R22 9
+  CALL R22 0 1
+  SETTABLEKS R22 R21 K20 ["LayoutOrder"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K29 ["WhereToOptOut"]
+  GETUPVAL R20 7
+  GETTABLEKS R19 R20 K5 ["createElement"]
+  GETUPVAL R21 8
+  GETTABLEKS R20 R21 K30 ["Checkbox"]
+  DUPTABLE R21 K40 [{"label", "isChecked", "onActivated", "LayoutOrder"}]
+  LOADK R22 K41 ["Help improve Flipbook by sending anonymous usage data"]
+  SETTABLEKS R22 R21 K37 ["label"]
+  SETTABLEKS R4 R21 K38 ["isChecked"]
+  SETTABLEKS R5 R21 K39 ["onActivated"]
+  GETUPVAL R22 9
+  CALL R22 0 1
+  SETTABLEKS R22 R21 K20 ["LayoutOrder"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K30 ["Checkbox"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K22 ["Wrapper"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K14 ["Content"]
+  GETUPVAL R12 7
+  GETTABLEKS R11 R12 K5 ["createElement"]
+  GETUPVAL R14 8
+  GETTABLEKS R13 R14 K6 ["Dialog"]
+  GETTABLEKS R12 R13 K15 ["Actions"]
+  DUPTABLE R13 K43 [{"actions", "LayoutOrder"}]
+  NEWTABLE R14 0 1
+  DUPTABLE R15 K45 [{"text", "variant", "onActivated"}]
+  LOADK R16 K46 ["Done"]
+  SETTABLEKS R16 R15 K17 ["text"]
+  GETUPVAL R19 8
+  GETTABLEKS R18 R19 K47 ["Enums"]
+  GETTABLEKS R17 R18 K48 ["ButtonVariant"]
+  GETTABLEKS R16 R17 K49 ["Emphasis"]
+  SETTABLEKS R16 R15 K44 ["variant"]
+  SETTABLEKS R6 R15 K39 ["onActivated"]
+  SETLIST R14 R15 1 [1]
+  SETTABLEKS R14 R13 K42 ["actions"]
+  GETUPVAL R14 9
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K20 ["LayoutOrder"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K15 ["Actions"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["RobloxPackages"]
+  GETTABLEKS R1 R2 K6 ["Foundation"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K7 ["Packages"]
+  GETTABLEKS R2 R3 K8 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R7 K3 [script]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K7 ["Packages"]
+  GETTABLEKS R3 R4 K9 ["Sift"]
+  CALL R2 1 1
+  GETIMPORT R3 K1 [require]
+  GETIMPORT R8 K3 [script]
+  GETTABLEKS R7 R8 K4 ["Parent"]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K5 ["RobloxPackages"]
+  GETTABLEKS R4 R5 K10 ["SignalsReact"]
+  CALL R3 1 1
+  GETIMPORT R4 K1 [require]
+  GETIMPORT R9 K3 [script]
+  GETTABLEKS R8 R9 K4 ["Parent"]
+  GETTABLEKS R7 R8 K4 ["Parent"]
+  GETTABLEKS R6 R7 K11 ["Plugin"]
+  GETTABLEKS R5 R6 K12 ["LocalStorageStore"]
+  CALL R4 1 1
+  GETIMPORT R5 K1 [require]
+  GETIMPORT R10 K3 [script]
+  GETTABLEKS R9 R10 K4 ["Parent"]
+  GETTABLEKS R8 R9 K4 ["Parent"]
+  GETTABLEKS R7 R8 K13 ["UserSettings"]
+  GETTABLEKS R6 R7 K14 ["UserSettingsStore"]
+  CALL R5 1 1
+  GETIMPORT R6 K1 [require]
+  GETIMPORT R9 K3 [script]
+  GETTABLEKS R8 R9 K4 ["Parent"]
+  GETTABLEKS R7 R8 K15 ["fireEventAsync"]
+  CALL R6 1 1
+  GETIMPORT R7 K1 [require]
+  GETIMPORT R12 K3 [script]
+  GETTABLEKS R11 R12 K4 ["Parent"]
+  GETTABLEKS R10 R11 K4 ["Parent"]
+  GETTABLEKS R9 R10 K16 ["Common"]
+  GETTABLEKS R8 R9 K17 ["nextLayoutOrder"]
+  CALL R7 1 1
+  GETTABLEKS R8 R3 K18 ["useSignalState"]
+  GETTABLEKS R9 R1 K19 ["useCallback"]
+  GETTABLEKS R10 R1 K20 ["useState"]
+  DUPCLOSURE R11 K21 [PROTO_4]
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CAPTURE VAL R7
+  RETURN R11 1

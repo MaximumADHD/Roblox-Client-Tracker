@@ -26,7 +26,8 @@ PROTO_0:
   FORGLOOP R9 2 [-15]
   FORGLOOP R4 2 [inext] [-24]
   GETUPVAL R6 5
-  CALL R6 0 -1
+  NEWTABLE R7 0 0
+  CALL R6 1 -1
   NAMECALL R4 R0 K9 ["dispatch"]
   CALL R4 -1 0
   RETURN R0 0
@@ -44,7 +45,7 @@ PROTO_1:
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["Collab8766_LogCollabSearchItemClickedEventV3"]
+  LOADK R2 K2 ["Collab8766_LogCollabSearchItemClickedEventV4"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
   JUMPIFNOT R0 [+67]
@@ -59,7 +60,7 @@ MAIN:
   GETIMPORT R3 K9 [require]
   GETTABLEKS R6 R1 K12 ["Src"]
   GETTABLEKS R5 R6 K13 ["Actions"]
-  GETTABLEKS R4 R5 K14 ["ResetStore"]
+  GETTABLEKS R4 R5 K14 ["SetSearchItemLogs"]
   CALL R3 1 1
   GETIMPORT R4 K9 [require]
   GETTABLEKS R8 R1 K12 ["Src"]

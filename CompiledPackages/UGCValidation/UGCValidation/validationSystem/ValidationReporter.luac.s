@@ -1,0 +1,138 @@
+PROTO_0:
+  NEWTABLE R1 8 0
+  GETIMPORT R2 K1 [tick]
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K2 ["_startTime"]
+  SETTABLEKS R0 R1 K3 ["_testEnum"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["Status"]
+  GETTABLEKS R2 R3 K5 ["PASS"]
+  SETTABLEKS R2 R1 K6 ["_status"]
+  LOADK R2 K7 [""]
+  SETTABLEKS R2 R1 K8 ["_telemetryContext"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K9 ["_failureMessages"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K10 ["_internalData"]
+  GETUPVAL R4 1
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K12 [setmetatable]
+  CALL R2 2 1
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["Status"]
+  GETTABLEKS R5 R6 K1 ["FAIL"]
+  SETTABLEKS R5 R0 K2 ["_status"]
+  GETTABLEKS R6 R0 K3 ["_internalData"]
+  FASTCALL2 TABLE_INSERT R6 R3 [+4]
+  MOVE R7 R3
+  GETIMPORT R5 K6 [table.insert]
+  CALL R5 2 0
+  GETTABLEKS R6 R0 K7 ["_failureMessages"]
+  NEWTABLE R7 2 0
+  SETTABLEKS R1 R7 K8 ["key"]
+  MOVE R8 R2
+  JUMPIF R8 [+2]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K9 ["params"]
+  FASTCALL2 TABLE_INSERT R6 R7 [+3]
+  GETIMPORT R5 K6 [table.insert]
+  CALL R5 2 0
+  JUMPIFEQKNIL R4 [+11]
+  LOADK R6 K10 ["%* -- %*"]
+  MOVE R8 R4
+  GETTABLEKS R9 R0 K11 ["_telemetryContext"]
+  NAMECALL R6 R6 K12 ["format"]
+  CALL R6 3 1
+  MOVE R5 R6
+  SETTABLEKS R5 R0 K11 ["_telemetryContext"]
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+8]
+  GETIMPORT R2 K1 [print]
+  LOADK R3 K2 ["Reporting:"]
+  GETTABLEKS R4 R0 K3 ["_testEnum"]
+  LOADK R5 K4 ["has error:"]
+  MOVE R6 R1
+  CALL R2 4 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K5 ["Status"]
+  GETTABLEKS R2 R3 K6 ["ERROR"]
+  SETTABLEKS R2 R0 K7 ["_status"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K8 ["_internalData"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K9 ["_failureMessages"]
+  SETTABLEKS R1 R0 K10 ["_telemetryContext"]
+  RETURN R0 0
+
+PROTO_3:
+  GETIMPORT R2 K1 [tick]
+  CALL R2 0 1
+  GETTABLEKS R3 R0 K2 ["_startTime"]
+  SUB R1 R2 R3
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+11]
+  GETIMPORT R2 K4 [print]
+  LOADK R3 K5 ["Reporting:"]
+  GETTABLEKS R4 R0 K6 ["_testEnum"]
+  LOADK R5 K7 ["has status"]
+  GETTABLEKS R6 R0 K8 ["_status"]
+  LOADK R7 K9 ["in"]
+  MOVE R8 R1
+  CALL R2 6 0
+  DUPTABLE R2 K16 [{"validationEnum", "status", "errorTranslationContexts", "internalData", "duration", "telemetryContext"}]
+  GETTABLEKS R3 R0 K6 ["_testEnum"]
+  SETTABLEKS R3 R2 K10 ["validationEnum"]
+  GETTABLEKS R3 R0 K8 ["_status"]
+  SETTABLEKS R3 R2 K11 ["status"]
+  GETTABLEKS R3 R0 K17 ["_failureMessages"]
+  SETTABLEKS R3 R2 K12 ["errorTranslationContexts"]
+  GETTABLEKS R3 R0 K18 ["_internalData"]
+  SETTABLEKS R3 R2 K13 ["internalData"]
+  SETTABLEKS R1 R2 K14 ["duration"]
+  GETTABLEKS R3 R0 K19 ["_telemetryContext"]
+  SETTABLEKS R3 R2 K15 ["telemetryContext"]
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["util"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["validationSystem"]
+  GETTABLEKS R3 R4 K8 ["ValidationEnums"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K9 ["flags"]
+  GETTABLEKS R4 R5 K10 ["getFFlagDebugUGCValidationPrintNewStructureResults"]
+  CALL R3 1 1
+  NEWTABLE R4 8 0
+  SETTABLEKS R4 R4 K11 ["__index"]
+  DUPCLOSURE R5 K12 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K13 ["new"]
+  DUPCLOSURE R5 K14 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLEKS R5 R4 K15 ["fail"]
+  DUPCLOSURE R5 K16 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  SETTABLEKS R5 R4 K17 ["err"]
+  DUPCLOSURE R5 K18 [PROTO_3]
+  CAPTURE VAL R3
+  SETTABLEKS R5 R4 K19 ["complete"]
+  RETURN R4 1

@@ -1,0 +1,167 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["ContextServices"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  NAMECALL R1 R1 K2 ["use"]
+  CALL R1 1 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K3 ["Hooks"]
+  GETTABLEKS R2 R3 K4 ["useStyleSheet"]
+  CALL R2 0 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K5 ["useContext"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K6 ["Context"]
+  CALL R3 1 1
+  GETUPVAL R4 4
+  CALL R4 0 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K7 ["useState"]
+  LOADNIL R6
+  CALL R5 1 2
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K7 ["useState"]
+  LOADNIL R8
+  CALL R7 1 2
+  GETUPVAL R10 5
+  GETTABLEKS R9 R10 K8 ["createNextOrder"]
+  CALL R9 0 1
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K9 ["createElement"]
+  GETTABLEKS R11 R3 K10 ["popupComponent"]
+  DUPTABLE R12 K15 [{"id", "onClose", "title", "size"}]
+  LOADK R13 K16 ["MaskEditorPopup"]
+  SETTABLEKS R13 R12 K11 ["id"]
+  GETTABLEKS R13 R0 K12 ["onClose"]
+  SETTABLEKS R13 R12 K12 ["onClose"]
+  LOADK R15 K16 ["MaskEditorPopup"]
+  LOADK R16 K17 ["Title"]
+  NAMECALL R13 R1 K18 ["getText"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K13 ["title"]
+  GETIMPORT R13 K21 [Vector2.new]
+  LOADN R14 194
+  LOADN R15 204
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K14 ["size"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K9 ["createElement"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K22 ["OverlayProvider"]
+  DUPTABLE R15 K24 [{"gui"}]
+  SETTABLEKS R7 R15 K23 ["gui"]
+  DUPTABLE R16 K28 [{"StyleLink", "View", "Overlay"}]
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K9 ["createElement"]
+  LOADK R18 K25 ["StyleLink"]
+  DUPTABLE R19 K30 [{"StyleSheet"}]
+  SETTABLEKS R2 R19 K29 ["StyleSheet"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K25 ["StyleLink"]
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K9 ["createElement"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K26 ["View"]
+  DUPTABLE R19 K32 [{"tag"}]
+  LOADK R20 K33 ["size-full bg-surface-200 padding-xlarge row gap-large"]
+  SETTABLEKS R20 R19 K31 ["tag"]
+  DUPTABLE R20 K36 [{"MasksSidebar", "MaskControls"}]
+  GETUPVAL R22 2
+  GETTABLEKS R21 R22 K9 ["createElement"]
+  GETUPVAL R22 6
+  DUPTABLE R23 K41 [{"sharedMasks", "layoutOrder", "selectedMaskInstance", "setSelectedMaskInstance"}]
+  SETTABLEKS R4 R23 K37 ["sharedMasks"]
+  MOVE R24 R9
+  CALL R24 0 1
+  SETTABLEKS R24 R23 K38 ["layoutOrder"]
+  SETTABLEKS R5 R23 K39 ["selectedMaskInstance"]
+  SETTABLEKS R6 R23 K40 ["setSelectedMaskInstance"]
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K34 ["MasksSidebar"]
+  GETUPVAL R22 2
+  GETTABLEKS R21 R22 K9 ["createElement"]
+  GETUPVAL R23 1
+  GETTABLEKS R22 R23 K26 ["View"]
+  DUPTABLE R23 K43 [{"tag", "LayoutOrder"}]
+  LOADK R24 K44 ["size-0-full grow"]
+  SETTABLEKS R24 R23 K31 ["tag"]
+  MOVE R24 R9
+  CALL R24 0 1
+  SETTABLEKS R24 R23 K42 ["LayoutOrder"]
+  MOVE R24 R5
+  JUMPIFNOT R24 [+10]
+  GETUPVAL R25 2
+  GETTABLEKS R24 R25 K9 ["createElement"]
+  GETUPVAL R25 7
+  DUPTABLE R26 K45 [{"sharedMasks", "selectedMaskInstance"}]
+  SETTABLEKS R4 R26 K37 ["sharedMasks"]
+  SETTABLEKS R5 R26 K39 ["selectedMaskInstance"]
+  CALL R24 2 1
+  CALL R21 3 1
+  SETTABLEKS R21 R20 K35 ["MaskControls"]
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K26 ["View"]
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K9 ["createElement"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K26 ["View"]
+  DUPTABLE R19 K48 [{"tag", "ref", "ZIndex"}]
+  LOADK R20 K49 ["size-full"]
+  SETTABLEKS R20 R19 K31 ["tag"]
+  SETTABLEKS R8 R19 K46 ["ref"]
+  LOADN R20 100
+  SETTABLEKS R20 R19 K47 ["ZIndex"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K27 ["Overlay"]
+  CALL R13 3 -1
+  CALL R10 -1 -1
+  RETURN R10 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETIMPORT R5 K1 [script]
+  GETTABLEKS R4 R5 K9 ["MaskConfiguration"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K10 ["MasksSidebar"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K11 ["Contexts"]
+  GETTABLEKS R6 R7 K12 ["PopupContext"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Parent"]
+  GETTABLEKS R7 R8 K13 ["React"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Parent"]
+  GETTABLEKS R8 R9 K14 ["ReactUtils"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K15 ["useSharedMasks"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K16 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  RETURN R9 1

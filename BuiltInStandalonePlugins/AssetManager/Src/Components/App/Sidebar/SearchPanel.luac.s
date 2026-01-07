@@ -95,39 +95,37 @@ PROTO_6:
   GETUPVAL R5 4
   GETTABLEKS R4 R5 K1 ["createElement"]
   GETUPVAL R5 5
-  NEWTABLE R6 4 0
+  NEWTABLE R6 2 0
   GETTABLEKS R7 R0 K2 ["LayoutOrder"]
   SETTABLEKS R7 R6 K2 ["LayoutOrder"]
-  GETIMPORT R7 K21 [Enum.AutomaticSize.Y]
-  SETTABLEKS R7 R6 K19 ["AutomaticSize"]
   GETUPVAL R8 4
   GETTABLEKS R7 R8 K3 ["Tag"]
-  LOADK R8 K22 ["X-Stroke"]
+  LOADK R8 K4 ["SearchPanel X-Stroke"]
   SETTABLE R8 R6 R7
-  DUPTABLE R7 K24 [{"MyView"}]
+  DUPTABLE R7 K19 [{"MyView"}]
   GETUPVAL R9 4
   GETTABLEKS R8 R9 K1 ["createElement"]
   GETUPVAL R10 7
-  GETTABLEKS R9 R10 K25 ["View"]
-  DUPTABLE R10 K27 [{"tag"}]
-  LOADK R11 K28 ["row size-full-0 auto-y align-y-bottom"]
-  SETTABLEKS R11 R10 K26 ["tag"]
+  GETTABLEKS R9 R10 K20 ["View"]
+  DUPTABLE R10 K22 [{"tag"}]
+  LOADK R11 K23 ["row size-full"]
+  SETTABLEKS R11 R10 K21 ["tag"]
   NEWTABLE R11 0 2
   GETUPVAL R13 4
   GETTABLEKS R12 R13 K1 ["createElement"]
   GETUPVAL R14 7
-  GETTABLEKS R13 R14 K25 ["View"]
-  DUPTABLE R14 K27 [{"tag"}]
-  LOADK R15 K29 ["TopSidebarButtonPadding"]
-  SETTABLEKS R15 R14 K26 ["tag"]
+  GETTABLEKS R13 R14 K20 ["View"]
+  DUPTABLE R14 K22 [{"tag"}]
+  LOADK R15 K24 ["TopSidebarButtonPadding"]
+  SETTABLEKS R15 R14 K21 ["tag"]
   CALL R12 2 1
   GETUPVAL R14 4
   GETTABLEKS R13 R14 K1 ["createElement"]
   GETUPVAL R15 7
-  GETTABLEKS R14 R15 K25 ["View"]
-  DUPTABLE R15 K27 [{"tag"}]
-  LOADK R16 K30 ["auto-y fill SearchPanel"]
-  SETTABLEKS R16 R15 K26 ["tag"]
+  GETTABLEKS R14 R15 K20 ["View"]
+  DUPTABLE R15 K22 [{"tag"}]
+  LOADK R16 K25 ["size-0-full fill"]
+  SETTABLEKS R16 R15 K21 ["tag"]
   DUPTABLE R16 K6 [{"SearchBar"}]
   GETUPVAL R18 4
   GETTABLEKS R17 R18 K1 ["createElement"]
@@ -162,7 +160,7 @@ PROTO_6:
   CALL R13 3 -1
   SETLIST R11 R12 -1 [1]
   CALL R8 3 1
-  SETTABLEKS R8 R7 K23 ["MyView"]
+  SETTABLEKS R8 R7 K18 ["MyView"]
   CALL R4 3 -1
   RETURN R4 -1
 

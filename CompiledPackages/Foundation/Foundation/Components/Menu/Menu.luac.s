@@ -1,0 +1,209 @@
+PROTO_0:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  GETUPVAL R4 1
+  CALL R2 2 1
+  GETUPVAL R3 2
+  CALL R3 0 1
+  GETTABLEKS R5 R3 K0 ["Stroke"]
+  GETTABLEKS R4 R5 K1 ["Standard"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K2 ["createElement"]
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K3 ["Root"]
+  DUPTABLE R7 K6 [{"isOpen", "testId"}]
+  GETTABLEKS R8 R2 K4 ["isOpen"]
+  SETTABLEKS R8 R7 K4 ["isOpen"]
+  GETTABLEKS R8 R2 K5 ["testId"]
+  SETTABLEKS R8 R7 K5 ["testId"]
+  DUPTABLE R8 K9 [{"Anchor", "Content"}]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K2 ["createElement"]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K7 ["Anchor"]
+  GETUPVAL R11 5
+  MOVE R12 R2
+  DUPTABLE R13 K11 [{"anchorRef"}]
+  GETTABLEKS R14 R2 K10 ["anchorRef"]
+  SETTABLEKS R14 R13 K10 ["anchorRef"]
+  CALL R11 2 1
+  GETTABLEKS R13 R2 K10 ["anchorRef"]
+  JUMPIFNOT R13 [+2]
+  LOADNIL R12
+  JUMP [+2]
+  GETTABLEKS R12 R2 K12 ["children"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K7 ["Anchor"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K2 ["createElement"]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K8 ["Content"]
+  DUPTABLE R11 K22 [{"side", "align", "hasArrow", "onPressedOutside", "backgroundStyle", "radius", "ref", "selection", "selectionGroup"}]
+  DUPTABLE R12 K25 [{"position", "offset"}]
+  GETTABLEKS R13 R2 K13 ["side"]
+  SETTABLEKS R13 R12 K23 ["position"]
+  GETTABLEKS R15 R3 K26 ["Padding"]
+  GETTABLEKS R14 R15 K27 ["Small"]
+  ADD R13 R4 R14
+  SETTABLEKS R13 R12 K24 ["offset"]
+  SETTABLEKS R12 R11 K13 ["side"]
+  GETTABLEKS R12 R2 K14 ["align"]
+  SETTABLEKS R12 R11 K14 ["align"]
+  LOADB R12 0
+  SETTABLEKS R12 R11 K15 ["hasArrow"]
+  GETTABLEKS R12 R2 K16 ["onPressedOutside"]
+  SETTABLEKS R12 R11 K16 ["onPressedOutside"]
+  GETTABLEKS R14 R3 K28 ["Color"]
+  GETTABLEKS R13 R14 K29 ["Surface"]
+  GETTABLEKS R12 R13 K30 ["Surface_100"]
+  SETTABLEKS R12 R11 K17 ["backgroundStyle"]
+  GETUPVAL R14 6
+  GETTABLEKS R13 R14 K31 ["FoundationBaseMenuBorderFix"]
+  JUMPIFNOT R13 [+4]
+  GETUPVAL R13 7
+  GETTABLEKS R12 R13 K32 ["Medium"]
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K18 ["radius"]
+  SETTABLEKS R1 R11 K19 ["ref"]
+  GETTABLEKS R12 R2 K20 ["selection"]
+  SETTABLEKS R12 R11 K20 ["selection"]
+  GETTABLEKS R12 R2 K21 ["selectionGroup"]
+  SETTABLEKS R12 R11 K21 ["selectionGroup"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K2 ["createElement"]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K33 ["Fragment"]
+  LOADNIL R14
+  DUPTABLE R15 K36 [{"Menu", "Border"}]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K2 ["createElement"]
+  GETUPVAL R18 8
+  GETTABLEKS R17 R18 K3 ["Root"]
+  DUPTABLE R18 K41 [{"items", "size", "width", "onActivated", "radius"}]
+  GETTABLEKS R19 R2 K37 ["items"]
+  SETTABLEKS R19 R18 K37 ["items"]
+  GETTABLEKS R19 R2 K38 ["size"]
+  SETTABLEKS R19 R18 K38 ["size"]
+  GETTABLEKS R19 R2 K39 ["width"]
+  SETTABLEKS R19 R18 K39 ["width"]
+  GETTABLEKS R19 R2 K40 ["onActivated"]
+  SETTABLEKS R19 R18 K40 ["onActivated"]
+  GETUPVAL R21 6
+  GETTABLEKS R20 R21 K31 ["FoundationBaseMenuBorderFix"]
+  JUMPIFNOT R20 [+4]
+  GETUPVAL R20 7
+  GETTABLEKS R19 R20 K32 ["Medium"]
+  JUMP [+1]
+  LOADNIL R19
+  SETTABLEKS R19 R18 K18 ["radius"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K34 ["Menu"]
+  GETUPVAL R18 6
+  GETTABLEKS R17 R18 K31 ["FoundationBaseMenuBorderFix"]
+  JUMPIFNOT R17 [+2]
+  LOADNIL R16
+  JUMP [+28]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K2 ["createElement"]
+  LOADK R17 K42 ["UIStroke"]
+  DUPTABLE R18 K45 [{"Color", "Transparency", "Thickness"}]
+  GETTABLEKS R22 R3 K28 ["Color"]
+  GETTABLEKS R21 R22 K0 ["Stroke"]
+  GETTABLEKS R20 R21 K46 ["Default"]
+  GETTABLEKS R19 R20 K47 ["Color3"]
+  SETTABLEKS R19 R18 K28 ["Color"]
+  GETTABLEKS R22 R3 K28 ["Color"]
+  GETTABLEKS R21 R22 K0 ["Stroke"]
+  GETTABLEKS R20 R21 K46 ["Default"]
+  GETTABLEKS R19 R20 K43 ["Transparency"]
+  SETTABLEKS R19 R18 K43 ["Transparency"]
+  SETTABLEKS R4 R18 K44 ["Thickness"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K35 ["Border"]
+  CALL R12 3 -1
+  CALL R9 -1 1
+  SETTABLEKS R9 R8 K8 ["Content"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K8 ["Components"]
+  GETTABLEKS R5 R6 K10 ["Popover"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K8 ["Components"]
+  GETTABLEKS R6 R7 K11 ["BaseMenu"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R9 R0 K12 ["Providers"]
+  GETTABLEKS R8 R9 K13 ["Style"]
+  GETTABLEKS R7 R8 K14 ["useTokens"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K15 ["Utility"]
+  GETTABLEKS R8 R9 K16 ["Flags"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R0 K15 ["Utility"]
+  GETTABLEKS R9 R10 K17 ["withDefaults"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K15 ["Utility"]
+  GETTABLEKS R10 R11 K18 ["withCommonProps"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R12 R0 K19 ["Enums"]
+  GETTABLEKS R11 R12 K20 ["PopoverSide"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R13 R0 K19 ["Enums"]
+  GETTABLEKS R12 R13 K21 ["PopoverAlign"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R0 K19 ["Enums"]
+  GETTABLEKS R13 R14 K22 ["InputSize"]
+  CALL R12 1 1
+  GETIMPORT R13 K6 [require]
+  GETTABLEKS R15 R0 K19 ["Enums"]
+  GETTABLEKS R14 R15 K23 ["Radius"]
+  CALL R13 1 1
+  DUPTABLE R14 K28 [{"size", "side", "align", "testId"}]
+  GETTABLEKS R15 R12 K29 ["Medium"]
+  SETTABLEKS R15 R14 K24 ["size"]
+  GETTABLEKS R15 R10 K30 ["Bottom"]
+  SETTABLEKS R15 R14 K25 ["side"]
+  GETTABLEKS R15 R11 K31 ["Start"]
+  SETTABLEKS R15 R14 K26 ["align"]
+  LOADK R15 K32 ["--foundation-menu"]
+  SETTABLEKS R15 R14 K27 ["testId"]
+  DUPCLOSURE R15 K33 [PROTO_0]
+  CAPTURE VAL R8
+  CAPTURE VAL R14
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R13
+  CAPTURE VAL R5
+  GETTABLEKS R16 R2 K34 ["memo"]
+  GETTABLEKS R17 R2 K35 ["forwardRef"]
+  MOVE R18 R15
+  CALL R17 1 -1
+  CALL R16 -1 -1
+  RETURN R16 -1

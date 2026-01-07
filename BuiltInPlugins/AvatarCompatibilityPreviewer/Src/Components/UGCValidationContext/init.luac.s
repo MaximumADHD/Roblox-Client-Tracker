@@ -125,27 +125,29 @@ PROTO_8:
   SETTABLEKS R4 R3 K8 ["skipValidateHSR"]
   GETUPVAL R5 2
   GETTABLEKS R4 R5 K10 ["isFolderStructureEnabled"]
-  JUMPIFNOT R4 [+19]
+  JUMPIFNOT R4 [+22]
   GETUPVAL R5 2
   GETTABLEKS R4 R5 K10 ["isFolderStructureEnabled"]
   CALL R4 0 1
-  JUMPIFNOT R4 [+14]
+  JUMPIFNOT R4 [+17]
   LOADK R4 K11 ["AutoSetup"]
   SETTABLEKS R4 R3 K12 ["studioPluginName"]
+  LOADB R4 1
+  SETTABLEKS R4 R3 K13 ["enforceShadowValidations"]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K13 ["isEntrypointMergingEnabled"]
+  GETTABLEKS R4 R5 K14 ["isEntrypointMergingEnabled"]
   JUMPIFNOT R4 [+7]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K13 ["isEntrypointMergingEnabled"]
+  GETTABLEKS R4 R5 K14 ["isEntrypointMergingEnabled"]
   CALL R4 0 1
   JUMPIFNOT R4 [+2]
-  SETTABLEKS R2 R3 K14 ["localizationCallback"]
+  SETTABLEKS R2 R3 K15 ["localizationCallback"]
   GETUPVAL R5 2
-  GETTABLEKS R4 R5 K15 ["validateBundleReadyForUpload"]
+  GETTABLEKS R4 R5 K16 ["validateBundleReadyForUpload"]
   GETUPVAL R5 3
-  GETTABLEKS R7 R0 K16 ["metadata"]
-  GETTABLEKS R6 R7 K17 ["allowedBundleTypeSettings"]
-  LOADK R7 K18 ["Body"]
+  GETTABLEKS R7 R0 K17 ["metadata"]
+  GETTABLEKS R6 R7 K18 ["allowedBundleTypeSettings"]
+  LOADK R7 K19 ["Body"]
   NEWCLOSURE R8 P1
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
@@ -156,9 +158,9 @@ PROTO_8:
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
   CAPTURE VAL R1
-  NAMECALL R4 R4 K19 ["andThen"]
+  NAMECALL R4 R4 K20 ["andThen"]
   CALL R4 2 1
-  NAMECALL R4 R4 K20 ["finally"]
+  NAMECALL R4 R4 K21 ["finally"]
   CALL R4 1 0
   RETURN R0 0
 

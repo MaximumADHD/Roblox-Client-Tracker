@@ -1,0 +1,45 @@
+PROTO_0:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 2
+  DUPTABLE R4 K4 [{"LayoutOrder", "tag", "testId"}]
+  LOADN R5 2
+  SETTABLEKS R5 R4 K1 ["LayoutOrder"]
+  LOADK R5 K5 ["size-full-0 auto-y shrink"]
+  SETTABLEKS R5 R4 K2 ["tag"]
+  LOADK R6 K6 ["%*--footer"]
+  GETTABLEKS R8 R1 K3 ["testId"]
+  NAMECALL R6 R6 K7 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K3 ["testId"]
+  GETTABLEKS R5 R0 K8 ["children"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["View"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R7 R0 K8 ["Components"]
+  GETTABLEKS R6 R7 K10 ["Tile"]
+  GETTABLEKS R5 R6 K11 ["useTile"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K12 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R5 1

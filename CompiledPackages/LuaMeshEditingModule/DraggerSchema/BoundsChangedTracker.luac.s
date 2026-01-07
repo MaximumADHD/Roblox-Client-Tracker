@@ -1,0 +1,53 @@
+PROTO_0:
+  DUPTABLE R3 K2 [{"_handler", "_draggerContext"}]
+  SETTABLEKS R1 R3 K0 ["_handler"]
+  SETTABLEKS R0 R3 K1 ["_draggerContext"]
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R3 R4 [+3]
+  GETIMPORT R2 K4 [setmetatable]
+  CALL R2 2 1
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_handler"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["_draggerContext"]
+  GETTABLEKS R1 R2 K1 ["vertexEditingTool"]
+  NAMECALL R1 R1 K2 ["getBoundsChangedSignal"]
+  CALL R1 1 1
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  NAMECALL R2 R1 K3 ["Connect"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K4 ["_boundsChangedConnection"]
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["_boundsChangedConnection"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K0 ["_boundsChangedConnection"]
+  NAMECALL R1 R1 K1 ["Disconnect"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 8 0
+  SETTABLEKS R0 R0 K0 ["__index"]
+  DUPCLOSURE R1 K1 [PROTO_0]
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K2 ["new"]
+  DUPCLOSURE R1 K3 [PROTO_2]
+  SETTABLEKS R1 R0 K4 ["install"]
+  DUPCLOSURE R1 K5 [PROTO_3]
+  SETTABLEKS R1 R0 K6 ["uninstall"]
+  DUPCLOSURE R1 K7 [PROTO_4]
+  SETTABLEKS R1 R0 K8 ["setSelection"]
+  RETURN R0 1

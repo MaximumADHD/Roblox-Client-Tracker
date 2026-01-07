@@ -1,0 +1,96 @@
+PROTO_0:
+  GETTABLEKS R3 R0 K1 ["Text"]
+  LENGTH R2 R3
+  ADDK R1 R2 K0 [1]
+  SETTABLEKS R1 R0 K2 ["CursorPosition"]
+  LOADN R1 1
+  SETTABLEKS R1 R0 K3 ["SelectionStart"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["onFocused"]
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["onFocused"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useCallback"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  NEWTABLE R3 0 1
+  GETTABLEKS R4 R0 K1 ["onFocused"]
+  SETLIST R3 R4 1 [1]
+  CALL R1 2 1
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  DUPTABLE R4 K4 [{"LayoutOrder", "tag"}]
+  GETTABLEKS R5 R0 K5 ["layoutOrder"]
+  SETTABLEKS R5 R4 K2 ["LayoutOrder"]
+  LOADK R5 K6 ["size-full-full padding-left-xxsmall"]
+  SETTABLEKS R5 R4 K3 ["tag"]
+  DUPTABLE R5 K8 [{"BrickColorBox"}]
+  GETUPVAL R6 1
+  GETUPVAL R7 3
+  DUPTABLE R8 K12 [{"layoutOrder", "size", "text", "onFocused", "onFocusLost"}]
+  GETTABLEKS R9 R0 K5 ["layoutOrder"]
+  SETTABLEKS R9 R8 K5 ["layoutOrder"]
+  GETIMPORT R9 K15 [UDim2.fromScale]
+  LOADN R10 1
+  LOADN R11 1
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K9 ["size"]
+  GETTABLEKS R11 R0 K16 ["brickColorPart"]
+  GETTABLEKS R10 R11 K17 ["multiple"]
+  JUMPIFNOT R10 [+2]
+  LOADK R9 K17 ["multiple"]
+  JUMP [+13]
+  LOADK R10 K18 ["'%*'"]
+  GETTABLEKS R14 R0 K16 ["brickColorPart"]
+  GETTABLEKS R13 R14 K19 ["value"]
+  FASTCALL1 TOSTRING R13 [+2]
+  GETIMPORT R12 K21 [tostring]
+  CALL R12 1 1
+  NAMECALL R10 R10 K22 ["format"]
+  CALL R10 2 1
+  MOVE R9 R10
+  SETTABLEKS R9 R8 K10 ["text"]
+  SETTABLEKS R1 R8 K1 ["onFocused"]
+  GETTABLEKS R9 R0 K11 ["onFocusLost"]
+  SETTABLEKS R9 R8 K11 ["onFocusLost"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K7 ["BrickColorBox"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["PlaceholderTextBox"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R0 K11 ["PropertyTypes"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["React"]
+  CALL R4 1 1
+  GETTABLEKS R5 R1 K13 ["View"]
+  GETTABLEKS R6 R4 K14 ["createElement"]
+  DUPCLOSURE R7 K15 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  RETURN R7 1

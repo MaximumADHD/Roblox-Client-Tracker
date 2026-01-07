@@ -5,66 +5,148 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
   GETTABLEKS R1 R0 K0 ["Icon"]
   GETTABLEKS R2 R0 K1 ["Key"]
   GETTABLEKS R3 R0 K2 ["Name"]
   GETTABLEKS R4 R0 K3 ["OnClick"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K4 ["createElement"]
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIFNOT R5 [+108]
   GETUPVAL R6 1
-  DUPTABLE R7 K9 [{"OnClick", "Position", "Size", "Style", "StyleModifier"}]
-  NEWCLOSURE R8 P0
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K5 ["View"]
+  DUPTABLE R7 K8 [{"Position", "tag"}]
+  GETTABLEKS R8 R0 K6 ["Position"]
+  SETTABLEKS R8 R7 K6 ["Position"]
+  LOADK R8 K9 ["radius-small col align-y-center align-x-center size-2100-1500 gap-small"]
+  SETTABLEKS R8 R7 K7 ["tag"]
+  DUPTABLE R8 K12 [{"ButtonContainer", "Text"}]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K4 ["createElement"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K5 ["View"]
+  DUPTABLE R11 K14 [{"tag", "LayoutOrder"}]
+  NEWTABLE R12 2 0
+  LOADB R13 1
+  SETTABLEKS R13 R12 K15 ["auto-xy radius-small row align-y-center align-x-center"]
+  GETTABLEKS R14 R0 K16 ["Selected"]
+  JUMPIFEQ R2 R14 [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  SETTABLEKS R13 R12 K17 ["bg-action-standard"]
+  SETTABLEKS R12 R11 K7 ["tag"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K13 ["LayoutOrder"]
+  DUPTABLE R12 K19 [{"Button"}]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K4 ["createElement"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K5 ["View"]
+  DUPTABLE R15 K21 [{"tag", "onActivated", "LayoutOrder"}]
+  NEWTABLE R16 2 0
+  LOADB R17 1
+  SETTABLEKS R17 R16 K22 ["auto-xy radius-small align-y-center align-x-center row padding-xsmall"]
+  GETTABLEKS R18 R0 K16 ["Selected"]
+  JUMPIFEQ R2 R18 [+2]
+  LOADB R17 0 +1
+  LOADB R17 1
+  SETTABLEKS R17 R16 K17 ["bg-action-standard"]
+  SETTABLEKS R16 R15 K7 ["tag"]
+  NEWCLOSURE R16 P0
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  SETTABLEKS R16 R15 K20 ["onActivated"]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K13 ["LayoutOrder"]
+  DUPTABLE R16 K24 [{"ButtonIcon"}]
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K4 ["createElement"]
+  GETUPVAL R19 2
+  GETTABLEKS R18 R19 K25 ["Image"]
+  MOVE R19 R1
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K23 ["ButtonIcon"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K18 ["Button"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K10 ["ButtonContainer"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K4 ["createElement"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K11 ["Text"]
+  DUPTABLE R11 K26 [{"LayoutOrder", "tag", "Text"}]
+  LOADN R12 2
+  SETTABLEKS R12 R11 K13 ["LayoutOrder"]
+  LOADK R12 K27 ["text-caption-small"]
+  SETTABLEKS R12 R11 K7 ["tag"]
+  SETTABLEKS R3 R11 K11 ["Text"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K11 ["Text"]
+  CALL R5 3 -1
+  RETURN R5 -1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  GETUPVAL R6 3
+  DUPTABLE R7 K31 [{"OnClick", "Position", "Size", "Style", "StyleModifier"}]
+  NEWCLOSURE R8 P1
   CAPTURE VAL R4
   CAPTURE VAL R2
   SETTABLEKS R8 R7 K3 ["OnClick"]
-  GETTABLEKS R8 R0 K5 ["Position"]
-  SETTABLEKS R8 R7 K5 ["Position"]
-  GETTABLEKS R8 R0 K6 ["Size"]
-  SETTABLEKS R8 R7 K6 ["Size"]
-  LOADK R8 K10 ["RoundSubtle"]
-  SETTABLEKS R8 R7 K7 ["Style"]
-  GETTABLEKS R9 R0 K11 ["Selected"]
+  GETTABLEKS R8 R0 K6 ["Position"]
+  SETTABLEKS R8 R7 K6 ["Position"]
+  GETTABLEKS R8 R0 K28 ["Size"]
+  SETTABLEKS R8 R7 K28 ["Size"]
+  LOADK R8 K32 ["RoundSubtle"]
+  SETTABLEKS R8 R7 K29 ["Style"]
+  GETTABLEKS R9 R0 K16 ["Selected"]
   JUMPIFNOTEQ R2 R9 [+5]
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K11 ["Selected"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K16 ["Selected"]
   JUMP [+1]
   LOADNIL R8
-  SETTABLEKS R8 R7 K8 ["StyleModifier"]
-  DUPTABLE R8 K13 [{"Pane"}]
-  GETUPVAL R10 0
+  SETTABLEKS R8 R7 K30 ["StyleModifier"]
+  DUPTABLE R8 K34 [{"Pane"}]
+  GETUPVAL R10 1
   GETTABLEKS R9 R10 K4 ["createElement"]
-  GETUPVAL R10 3
-  DUPTABLE R11 K18 [{"HorizontalAlignment", "Layout", "Padding", "Spacing"}]
-  GETIMPORT R12 K21 [Enum.HorizontalAlignment.Center]
-  SETTABLEKS R12 R11 K14 ["HorizontalAlignment"]
-  GETIMPORT R12 K24 [Enum.FillDirection.Vertical]
-  SETTABLEKS R12 R11 K15 ["Layout"]
+  GETUPVAL R10 5
+  DUPTABLE R11 K39 [{"HorizontalAlignment", "Layout", "Padding", "Spacing"}]
+  GETIMPORT R12 K42 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R12 R11 K35 ["HorizontalAlignment"]
+  GETIMPORT R12 K45 [Enum.FillDirection.Vertical]
+  SETTABLEKS R12 R11 K36 ["Layout"]
   LOADN R12 2
-  SETTABLEKS R12 R11 K16 ["Padding"]
+  SETTABLEKS R12 R11 K37 ["Padding"]
   LOADN R12 2
-  SETTABLEKS R12 R11 K17 ["Spacing"]
-  DUPTABLE R12 K26 [{"Icon", "Text"}]
-  GETUPVAL R14 0
+  SETTABLEKS R12 R11 K38 ["Spacing"]
+  DUPTABLE R12 K46 [{"Icon", "Text"}]
+  GETUPVAL R14 1
   GETTABLEKS R13 R14 K4 ["createElement"]
-  GETUPVAL R14 4
+  GETUPVAL R14 6
   MOVE R15 R1
   CALL R13 2 1
   SETTABLEKS R13 R12 K0 ["Icon"]
-  GETUPVAL R14 0
+  GETUPVAL R14 1
   GETTABLEKS R13 R14 K4 ["createElement"]
-  GETUPVAL R14 5
-  DUPTABLE R15 K30 [{"AutomaticSize", "LayoutOrder", "Text", "TextSize"}]
-  GETIMPORT R16 K32 [Enum.AutomaticSize.XY]
-  SETTABLEKS R16 R15 K27 ["AutomaticSize"]
+  GETUPVAL R14 7
+  DUPTABLE R15 K49 [{"AutomaticSize", "LayoutOrder", "Text", "TextSize"}]
+  GETIMPORT R16 K51 [Enum.AutomaticSize.XY]
+  SETTABLEKS R16 R15 K47 ["AutomaticSize"]
   LOADN R16 2
-  SETTABLEKS R16 R15 K28 ["LayoutOrder"]
-  SETTABLEKS R3 R15 K25 ["Text"]
-  GETTABLEKS R16 R0 K29 ["TextSize"]
-  SETTABLEKS R16 R15 K29 ["TextSize"]
+  SETTABLEKS R16 R15 K13 ["LayoutOrder"]
+  SETTABLEKS R3 R15 K11 ["Text"]
+  GETTABLEKS R16 R0 K48 ["TextSize"]
+  SETTABLEKS R16 R15 K48 ["TextSize"]
   CALL R13 2 1
-  SETTABLEKS R13 R12 K25 ["Text"]
+  SETTABLEKS R13 R12 K11 ["Text"]
   CALL R9 3 1
-  SETTABLEKS R9 R8 K12 ["Pane"]
+  SETTABLEKS R9 R8 K33 ["Pane"]
   CALL R5 3 -1
   RETURN R5 -1
 
@@ -76,24 +158,35 @@ MAIN:
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
   GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Framework"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["React"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R4 R1 K9 ["Util"]
-  GETTABLEKS R3 R4 K10 ["StyleModifier"]
-  GETTABLEKS R4 R1 K11 ["UI"]
-  GETTABLEKS R5 R4 K12 ["Button"]
-  GETTABLEKS R6 R4 K13 ["Pane"]
-  GETTABLEKS R7 R4 K14 ["Image"]
-  GETTABLEKS R8 R4 K15 ["TextLabel"]
-  DUPCLOSURE R9 K16 [PROTO_1]
-  CAPTURE VAL R2
-  CAPTURE VAL R5
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Flags"]
+  GETTABLEKS R5 R6 K12 ["getFFlagTerrainEditorMigrateFoundationFonts"]
+  CALL R4 1 1
+  GETTABLEKS R6 R2 K13 ["Util"]
+  GETTABLEKS R5 R6 K14 ["StyleModifier"]
+  GETTABLEKS R6 R2 K15 ["UI"]
+  GETTABLEKS R7 R6 K16 ["Button"]
+  GETTABLEKS R8 R6 K17 ["Pane"]
+  GETTABLEKS R9 R6 K18 ["Image"]
+  GETTABLEKS R10 R6 K19 ["TextLabel"]
+  DUPCLOSURE R11 K20 [PROTO_2]
+  CAPTURE VAL R4
   CAPTURE VAL R3
-  CAPTURE VAL R6
+  CAPTURE VAL R1
   CAPTURE VAL R7
+  CAPTURE VAL R5
   CAPTURE VAL R8
-  RETURN R9 1
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  RETURN R11 1

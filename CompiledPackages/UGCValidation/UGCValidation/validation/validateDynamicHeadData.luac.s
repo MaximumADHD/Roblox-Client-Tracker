@@ -1,0 +1,512 @@
+PROTO_0:
+  GETIMPORT R3 K2 [string.format]
+  LOADK R4 K3 ["Failed to load model for dynamic head '%s'. Make sure model exists and try again."]
+  MOVE R5 R1
+  CALL R3 2 1
+  JUMPIFNOT R0 [+4]
+  GETIMPORT R4 K5 [error]
+  MOVE R5 R3
+  CALL R4 1 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["reportFailure"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K7 ["ErrorType"]
+  GETTABLEKS R5 R6 K8 ["validateDynamicHeadMeshPartFormat_FailedToLoadMesh"]
+  LOADNIL R6
+  MOVE R7 R2
+  CALL R4 3 0
+  LOADB R4 0
+  NEWTABLE R5 0 1
+  MOVE R6 R3
+  SETLIST R5 R6 1 [1]
+  RETURN R4 2
+
+PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  CALL R0 2 1
+  GETUPVAL R1 3
+  CALL R1 0 1
+  JUMPIFNOT R1 [+18]
+  GETUPVAL R1 4
+  GETUPVAL R2 1
+  LOADK R3 K0 ["MeshId"]
+  GETUPVAL R4 2
+  CALL R1 3 2
+  JUMPIF R1 [+4]
+  GETIMPORT R3 K2 [error]
+  LOADK R4 K3 ["Failed to retrieve MeshContent"]
+  CALL R3 1 0
+  GETUPVAL R3 5
+  MOVE R5 R2
+  GETUPVAL R6 6
+  MOVE R7 R0
+  NAMECALL R3 R3 K4 ["ValidateEditableMeshFacialBounds"]
+  CALL R3 4 -1
+  RETURN R3 -1
+  GETUPVAL R1 7
+  GETUPVAL R2 1
+  GETUPVAL R3 8
+  CALL R1 2 1
+  GETUPVAL R2 5
+  MOVE R4 R1
+  GETUPVAL R5 6
+  MOVE R6 R0
+  NAMECALL R2 R2 K5 ["ValidateFacialBounds"]
+  CALL R2 4 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETTABLEKS R2 R1 K0 ["isServer"]
+  GETTABLEKS R3 R1 K1 ["allowEditableInstances"]
+  GETUPVAL R4 0
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE VAL R3
+  MOVE R6 R1
+  CALL R4 2 2
+  JUMPIF R4 [+21]
+  GETIMPORT R6 K4 [string.format]
+  LOADK R7 K5 ["Failed to load mesh data for '%s'. Make sure the mesh exists and try again."]
+  NAMECALL R8 R0 K6 ["GetFullName"]
+  CALL R8 1 -1
+  CALL R6 -1 1
+  JUMPIFEQKNIL R2 [+6]
+  JUMPIFNOT R2 [+4]
+  GETIMPORT R7 K8 [error]
+  MOVE R8 R6
+  CALL R7 1 0
+  LOADB R7 0
+  NEWTABLE R8 0 1
+  MOVE R9 R6
+  SETLIST R8 R9 1 [1]
+  RETURN R7 2
+  JUMPIF R5 [+13]
+  LOADB R6 0
+  NEWTABLE R7 0 1
+  GETIMPORT R8 K4 [string.format]
+  LOADK R9 K9 ["DynamicHead (%s) when emoting surpasses the expected bounding box"]
+  NAMECALL R10 R0 K6 ["GetFullName"]
+  CALL R10 1 -1
+  CALL R8 -1 -1
+  SETLIST R7 R8 -1 [1]
+  RETURN R6 2
+  LOADB R6 1
+  RETURN R6 1
+
+PROTO_3:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  CALL R0 2 1
+  GETUPVAL R1 3
+  CALL R1 0 1
+  JUMPIFNOT R1 [+18]
+  GETUPVAL R1 4
+  GETUPVAL R2 1
+  LOADK R3 K0 ["MeshId"]
+  GETUPVAL R4 2
+  CALL R1 3 2
+  JUMPIF R1 [+4]
+  GETIMPORT R3 K2 [error]
+  LOADK R4 K3 ["Failed to retrieve MeshContent"]
+  CALL R3 1 0
+  GETUPVAL R3 5
+  MOVE R5 R2
+  GETUPVAL R6 6
+  MOVE R7 R0
+  NAMECALL R3 R3 K4 ["ValidateEditableMeshFacialExpressiveness"]
+  CALL R3 4 -1
+  RETURN R3 -1
+  GETUPVAL R1 7
+  GETUPVAL R2 1
+  GETUPVAL R3 8
+  CALL R1 2 1
+  GETUPVAL R2 5
+  MOVE R4 R1
+  GETUPVAL R5 6
+  MOVE R6 R0
+  NAMECALL R2 R2 K5 ["ValidateFacialExpressiveness"]
+  CALL R2 4 -1
+  RETURN R2 -1
+
+PROTO_4:
+  GETTABLEKS R2 R1 K0 ["isServer"]
+  GETTABLEKS R3 R1 K1 ["allowEditableInstances"]
+  GETUPVAL R4 0
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE VAL R3
+  MOVE R6 R1
+  CALL R4 2 2
+  JUMPIF R4 [+21]
+  GETIMPORT R6 K4 [string.format]
+  LOADK R7 K5 ["Failed to load mesh data for '%s'. Make sure the mesh exists and try again."]
+  NAMECALL R8 R0 K6 ["GetFullName"]
+  CALL R8 1 -1
+  CALL R6 -1 1
+  JUMPIFEQKNIL R2 [+6]
+  JUMPIFNOT R2 [+4]
+  GETIMPORT R7 K8 [error]
+  MOVE R8 R6
+  CALL R7 1 0
+  LOADB R7 0
+  NEWTABLE R8 0 1
+  MOVE R9 R6
+  SETLIST R8 R9 1 [1]
+  RETURN R7 2
+  GETUPVAL R6 7
+  JUMPIFNOTLT R5 R6 [+16]
+  LOADB R6 0
+  NEWTABLE R7 0 1
+  GETIMPORT R8 K4 [string.format]
+  LOADK R9 K9 ["DynamicHead (%s) did not pass threshold (%f < %f) for percent change when emoting"]
+  NAMECALL R10 R0 K6 ["GetFullName"]
+  CALL R10 1 1
+  MOVE R11 R5
+  GETUPVAL R12 7
+  CALL R8 4 -1
+  SETLIST R7 R8 -1 [1]
+  RETURN R6 2
+  LOADB R6 1
+  RETURN R6 1
+
+PROTO_5:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+16]
+  GETUPVAL R0 1
+  GETUPVAL R1 2
+  LOADK R2 K0 ["MeshId"]
+  GETUPVAL R3 3
+  CALL R0 3 2
+  JUMPIF R0 [+4]
+  GETIMPORT R2 K2 [error]
+  LOADK R3 K3 ["Failed to retrieve MeshContent"]
+  CALL R2 1 0
+  GETUPVAL R2 4
+  MOVE R4 R1
+  NAMECALL R2 R2 K4 ["ValidateDynamicHeadEditableMesh"]
+  CALL R2 2 -1
+  RETURN R2 -1
+  GETUPVAL R0 4
+  GETUPVAL R2 5
+  GETUPVAL R3 2
+  GETUPVAL R4 6
+  CALL R2 2 -1
+  NAMECALL R0 R0 K5 ["ValidateDynamicHeadMesh"]
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_6:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+17]
+  GETUPVAL R0 1
+  GETUPVAL R1 2
+  LOADK R2 K0 ["MeshId"]
+  GETUPVAL R3 3
+  CALL R0 3 2
+  JUMPIF R0 [+4]
+  GETIMPORT R2 K2 [error]
+  LOADK R3 K3 ["Failed to retrieve MeshContent"]
+  CALL R2 1 0
+  GETUPVAL R2 4
+  MOVE R4 R1
+  GETUPVAL R5 5
+  NAMECALL R2 R2 K4 ["GetDynamicHeadEditableMeshInactiveControls"]
+  CALL R2 3 -1
+  RETURN R2 -1
+  GETUPVAL R0 4
+  GETUPVAL R2 6
+  GETUPVAL R3 2
+  GETUPVAL R4 7
+  CALL R2 2 1
+  GETUPVAL R3 5
+  NAMECALL R0 R0 K5 ["GetDynamicHeadMeshInactiveControls"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+PROTO_7:
+  GETIMPORT R2 K1 [tick]
+  CALL R2 0 1
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+2]
+  LOADB R3 1
+  RETURN R3 1
+  GETTABLEKS R3 R1 K2 ["isServer"]
+  GETTABLEKS R4 R1 K3 ["allowEditableInstances"]
+  GETIMPORT R5 K5 [pcall]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE VAL R4
+  CALL R5 1 2
+  JUMPIF R5 [+7]
+  GETUPVAL R7 5
+  MOVE R8 R3
+  GETTABLEKS R9 R0 K6 ["Name"]
+  MOVE R10 R1
+  CALL R7 3 -1
+  RETURN R7 -1
+  JUMPIF R6 [+23]
+  GETUPVAL R8 6
+  GETTABLEKS R7 R8 K7 ["reportFailure"]
+  GETUPVAL R10 6
+  GETTABLEKS R9 R10 K8 ["ErrorType"]
+  GETTABLEKS R8 R9 K9 ["validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMesh"]
+  LOADNIL R9
+  MOVE R10 R1
+  CALL R7 3 0
+  LOADB R7 0
+  NEWTABLE R8 0 1
+  GETIMPORT R9 K12 [string.format]
+  LOADK R10 K13 ["Failed validation for dynamic head '%s' due to missing FACS information. You need to provide FACS controls for at least 17 poses (see documentation)."]
+  GETTABLEKS R11 R0 K6 ["Name"]
+  CALL R9 2 -1
+  SETLIST R8 R9 -1 [1]
+  RETURN R7 2
+  GETUPVAL R6 7
+  GETTABLEKS R5 R6 K14 ["new"]
+  CALL R5 0 1
+  GETUPVAL R6 8
+  CALL R6 0 1
+  JUMPIFNOT R6 [+101]
+  GETIMPORT R6 K5 [pcall]
+  NEWCLOSURE R7 P1
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U9
+  CAPTURE UPVAL U4
+  CAPTURE VAL R4
+  CALL R6 1 3
+  JUMPIF R6 [+21]
+  GETIMPORT R9 K16 [string.find]
+  MOVE R10 R7
+  LOADK R11 K17 ["Download Error"]
+  CALL R9 2 1
+  JUMPIFNOTEQKN R9 K18 [1] [+8]
+  GETUPVAL R9 5
+  MOVE R10 R3
+  GETTABLEKS R11 R0 K6 ["Name"]
+  MOVE R12 R1
+  CALL R9 3 -1
+  RETURN R9 -1
+  LOADB R10 0
+  FASTCALL2 ASSERT R10 R7 [+4]
+  MOVE R11 R7
+  GETIMPORT R9 K20 [assert]
+  CALL R9 2 0
+  LENGTH R10 R7
+  JUMPIFEQKN R10 K21 [0] [+2]
+  LOADB R9 0 +1
+  LOADB R9 1
+  LENGTH R11 R8
+  JUMPIFEQKN R11 K21 [0] [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  JUMPIFNOT R9 [+1]
+  JUMPIF R10 [+55]
+  GETUPVAL R12 6
+  GETTABLEKS R11 R12 K7 ["reportFailure"]
+  GETUPVAL R14 6
+  GETTABLEKS R13 R14 K8 ["ErrorType"]
+  GETTABLEKS R12 R13 K22 ["validateDynamicHeadMeshPartFormat_ValidateDynamicHeadMeshControls"]
+  LOADNIL R13
+  MOVE R14 R1
+  CALL R11 3 0
+  MOVE R13 R9
+  NEWTABLE R14 0 1
+  LOADK R16 K23 ["%*.MeshId (%*) is missing FACS controls: %*"]
+  GETTABLEKS R18 R0 K6 ["Name"]
+  GETTABLEKS R19 R0 K24 ["MeshId"]
+  GETIMPORT R20 K27 [table.concat]
+  MOVE R21 R7
+  LOADK R22 K28 [", "]
+  CALL R20 2 1
+  NAMECALL R16 R16 K11 ["format"]
+  CALL R16 4 1
+  MOVE R15 R16
+  SETLIST R14 R15 1 [1]
+  NAMECALL R11 R5 K29 ["updateReasons"]
+  CALL R11 3 0
+  MOVE R13 R10
+  NEWTABLE R14 0 1
+  LOADK R16 K30 ["%*.MeshId (%*) has inactive FACS controls: %*"]
+  GETTABLEKS R18 R0 K6 ["Name"]
+  GETTABLEKS R19 R0 K24 ["MeshId"]
+  GETIMPORT R20 K27 [table.concat]
+  MOVE R21 R8
+  LOADK R22 K28 [", "]
+  CALL R20 2 1
+  NAMECALL R16 R16 K11 ["format"]
+  CALL R16 4 1
+  MOVE R15 R16
+  SETLIST R14 R15 1 [1]
+  NAMECALL R11 R5 K29 ["updateReasons"]
+  CALL R11 3 0
+  GETUPVAL R8 10
+  MOVE R9 R0
+  MOVE R10 R1
+  CALL R8 2 -1
+  NAMECALL R6 R5 K29 ["updateReasons"]
+  CALL R6 -1 0
+  GETUPVAL R8 11
+  MOVE R9 R0
+  MOVE R10 R1
+  CALL R8 2 -1
+  NAMECALL R6 R5 K29 ["updateReasons"]
+  CALL R6 -1 0
+  GETUPVAL R7 6
+  GETTABLEKS R6 R7 K31 ["recordScriptTime"]
+  GETIMPORT R8 K33 [script]
+  GETTABLEKS R7 R8 K6 ["Name"]
+  MOVE R8 R2
+  MOVE R9 R1
+  CALL R6 3 0
+  NAMECALL R6 R5 K34 ["getFinalResults"]
+  CALL R6 1 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["UGCValidationService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R3 K5 [script]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R3 R1 K9 ["Analytics"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R5 R1 K10 ["util"]
+  GETTABLEKS R4 R5 K11 ["FailureReasonsAccumulator"]
+  CALL R3 1 1
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R6 R1 K12 ["flags"]
+  GETTABLEKS R5 R6 K13 ["getEngineFeatureEngineUGCValidateBodyParts"]
+  CALL R4 1 1
+  GETIMPORT R5 K8 [require]
+  GETTABLEKS R7 R1 K12 ["flags"]
+  GETTABLEKS R6 R7 K14 ["getEngineFeatureUGCValidateGetInactiveControls"]
+  CALL R5 1 1
+  GETIMPORT R6 K8 [require]
+  GETTABLEKS R8 R1 K12 ["flags"]
+  GETTABLEKS R7 R8 K15 ["getEngineFeatureEngineEditableMeshAvatarPublish"]
+  CALL R6 1 1
+  GETIMPORT R8 K1 [game]
+  LOADK R10 K17 ["UGCValidateFacialBoundsScale"]
+  LOADN R11 120
+  NAMECALL R8 R8 K18 ["DefineFastInt"]
+  CALL R8 3 1
+  DIVK R7 R8 K16 [100]
+  GETIMPORT R9 K1 [game]
+  LOADK R11 K19 ["UGCValidateFacialExpressivenessThreshold"]
+  LOADN R12 10
+  NAMECALL R9 R9 K18 ["DefineFastInt"]
+  CALL R9 3 1
+  DIVK R8 R9 K16 [100]
+  GETIMPORT R10 K1 [game]
+  LOADK R12 K20 ["UGCValidateFacialExpressivenessMinVertDelta"]
+  LOADN R13 2
+  NAMECALL R10 R10 K18 ["DefineFastInt"]
+  CALL R10 3 1
+  DIVK R9 R10 K16 [100]
+  GETIMPORT R10 K8 [require]
+  GETTABLEKS R12 R1 K10 ["util"]
+  GETTABLEKS R11 R12 K21 ["getExpectedPartSize"]
+  CALL R10 1 1
+  GETIMPORT R11 K8 [require]
+  GETTABLEKS R13 R1 K10 ["util"]
+  GETTABLEKS R12 R13 K22 ["Types"]
+  CALL R11 1 1
+  GETIMPORT R12 K8 [require]
+  GETTABLEKS R14 R1 K10 ["util"]
+  GETTABLEKS R13 R14 K23 ["pcallDeferred"]
+  CALL R12 1 1
+  GETIMPORT R13 K8 [require]
+  GETTABLEKS R15 R1 K10 ["util"]
+  GETTABLEKS R14 R15 K24 ["getMeshIdForSkinningValidation"]
+  CALL R13 1 1
+  GETIMPORT R14 K8 [require]
+  GETTABLEKS R16 R1 K10 ["util"]
+  GETTABLEKS R15 R16 K25 ["getEditableMeshFromContext"]
+  CALL R14 1 1
+  NEWTABLE R15 0 17
+  LOADK R16 K26 ["LipsTogether"]
+  LOADK R17 K27 ["Pucker"]
+  LOADK R18 K28 ["LeftLipStretcher"]
+  LOADK R19 K29 ["RightLipStretcher"]
+  LOADK R20 K30 ["LeftLipCornerPuller"]
+  LOADK R21 K31 ["RightLipCornerPuller"]
+  LOADK R22 K32 ["LeftUpperLipRaiser"]
+  LOADK R23 K33 ["RightUpperLipRaiser"]
+  LOADK R24 K34 ["LeftLowerLipDepressor"]
+  LOADK R25 K35 ["RightLowerLipDepressor"]
+  LOADK R26 K36 ["JawDrop"]
+  LOADK R27 K37 ["LeftEyeClosed"]
+  LOADK R28 K38 ["RightEyeClosed"]
+  LOADK R29 K39 ["EyesLookRight"]
+  LOADK R30 K40 ["EyesLookLeft"]
+  LOADK R31 K41 ["EyesLookUp"]
+  SETLIST R15 R16 16 [1]
+  LOADK R16 K42 ["EyesLookDown"]
+  SETLIST R15 R16 1 [17]
+  DUPCLOSURE R16 K43 [PROTO_0]
+  CAPTURE VAL R2
+  DUPCLOSURE R17 K44 [PROTO_2]
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  CAPTURE VAL R14
+  CAPTURE VAL R0
+  CAPTURE VAL R7
+  CAPTURE VAL R13
+  DUPCLOSURE R18 K45 [PROTO_4]
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  CAPTURE VAL R14
+  CAPTURE VAL R0
+  CAPTURE VAL R9
+  CAPTURE VAL R13
+  CAPTURE VAL R8
+  DUPCLOSURE R19 K46 [PROTO_7]
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R14
+  CAPTURE VAL R0
+  CAPTURE VAL R13
+  CAPTURE VAL R16
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R15
+  CAPTURE VAL R18
+  CAPTURE VAL R17
+  RETURN R19 1

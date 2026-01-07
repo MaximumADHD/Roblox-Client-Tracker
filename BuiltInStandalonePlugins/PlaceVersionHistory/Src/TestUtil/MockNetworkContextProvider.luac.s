@@ -86,109 +86,134 @@ PROTO_1:
   RETURN R2 1
 
 PROTO_2:
-  GETIMPORT R2 K2 [task.wait]
-  LOADK R3 K3 [0.5]
-  CALL R2 1 0
-  DUPTABLE R2 K7 [{"page", "cursor", "hasMore"}]
-  NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K4 ["page"]
-  LOADNIL R3
-  SETTABLEKS R3 R2 K5 ["cursor"]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K6 ["hasMore"]
   GETUPVAL R3 0
-  SETTABLEKS R3 R2 K4 ["page"]
+  GETTABLEKS R2 R3 K0 ["networkDelay"]
+  CALL R2 0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["networkFailure"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+3]
+  MOVE R2 R1
+  CALL R2 0 -1
+  RETURN R2 -1
+  DUPTABLE R2 K5 [{"page", "cursor", "hasMore"}]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K2 ["page"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K3 ["cursor"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K4 ["hasMore"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["places"]
+  SETTABLEKS R3 R2 K2 ["page"]
   MOVE R3 R0
   MOVE R4 R2
-  CALL R3 1 0
-  RETURN R0 0
+  CALL R3 1 -1
+  RETURN R3 -1
 
 PROTO_3:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["defer"]
-  DUPCLOSURE R2 K1 [PROTO_2]
+  NEWCLOSURE R2 P0
   CAPTURE UPVAL U1
   CALL R1 1 -1
   RETURN R1 -1
 
 PROTO_4:
-  GETIMPORT R2 K2 [task.wait]
-  LOADK R3 K3 [0.5]
-  CALL R2 1 0
-  DUPTABLE R2 K7 [{"page", "cursor", "hasMore"}]
-  NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K4 ["page"]
-  LOADNIL R3
-  SETTABLEKS R3 R2 K5 ["cursor"]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K6 ["hasMore"]
   GETUPVAL R3 0
-  SETTABLEKS R3 R2 K4 ["page"]
+  GETTABLEKS R2 R3 K0 ["networkDelay"]
+  CALL R2 0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["networkFailure"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+3]
+  MOVE R2 R1
+  CALL R2 0 -1
+  RETURN R2 -1
+  DUPTABLE R2 K5 [{"page", "cursor", "hasMore"}]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K2 ["page"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K3 ["cursor"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K4 ["hasMore"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["usernames"]
+  SETTABLEKS R3 R2 K2 ["page"]
   MOVE R3 R0
   MOVE R4 R2
-  CALL R3 1 0
-  RETURN R0 0
+  CALL R3 1 -1
+  RETURN R3 -1
 
 PROTO_5:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["defer"]
-  DUPCLOSURE R2 K1 [PROTO_4]
+  NEWCLOSURE R2 P0
   CAPTURE UPVAL U1
   CALL R1 1 -1
   RETURN R1 -1
 
 PROTO_6:
-  GETIMPORT R2 K2 [task.wait]
-  LOADK R3 K3 [0.5]
-  CALL R2 1 0
-  DUPTABLE R2 K7 [{"page", "cursor", "hasMore"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["networkDelay"]
+  CALL R2 0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["networkFailure"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+3]
+  MOVE R2 R1
+  CALL R2 0 -1
+  RETURN R2 -1
+  DUPTABLE R2 K5 [{"page", "cursor", "hasMore"}]
   NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K4 ["page"]
+  SETTABLEKS R3 R2 K2 ["page"]
   LOADNIL R3
-  SETTABLEKS R3 R2 K5 ["cursor"]
+  SETTABLEKS R3 R2 K3 ["cursor"]
   LOADB R3 0
-  SETTABLEKS R3 R2 K6 ["hasMore"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K5 ["cursor"]
+  SETTABLEKS R3 R2 K4 ["hasMore"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["cursor"]
   JUMPIFNOT R4 [+8]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K5 ["cursor"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["cursor"]
   FASTCALL1 TONUMBER R4 [+2]
-  GETIMPORT R3 K9 [tonumber]
+  GETIMPORT R3 K7 [tonumber]
   CALL R3 1 1
-  JUMP [+2]
-  GETUPVAL R4 1
+  JUMP [+4]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K8 ["versionHistory"]
   LENGTH R3 R4
   LOADN R4 0
-  JUMPIFNOTLT R4 R3 [+59]
-  GETTABLEKS R5 R2 K4 ["page"]
+  JUMPIFNOTLT R4 R3 [+61]
+  GETTABLEKS R5 R2 K2 ["page"]
   LENGTH R4 R5
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K9 ["pageSize"]
+  JUMPIFEQ R4 R5 [+53]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K10 ["pageSize"]
-  JUMPIFEQ R4 R5 [+51]
-  GETUPVAL R5 1
+  GETTABLEKS R5 R6 K8 ["versionHistory"]
   GETTABLE R4 R5 R3
-  SUBK R3 R3 K11 [1]
+  SUBK R3 R3 K10 [1]
   GETUPVAL R5 2
-  GETUPVAL R6 0
+  GETUPVAL R6 1
   MOVE R7 R4
   CALL R5 2 1
   JUMPIFNOT R5 [+41]
-  GETUPVAL R6 0
-  GETTABLEKS R7 R6 K12 ["search"]
+  GETUPVAL R6 1
+  GETTABLEKS R7 R6 K11 ["search"]
   JUMPIFNOT R7 [+27]
-  GETTABLEKS R8 R4 K13 ["notes"]
-  GETTABLEKS R7 R8 K14 ["title"]
+  GETTABLEKS R8 R4 K12 ["notes"]
+  GETTABLEKS R7 R8 K13 ["title"]
   JUMPIF R7 [+2]
   LOADB R5 0
   JUMP [+21]
-  GETIMPORT R7 K17 [string.match]
-  GETIMPORT R8 K19 [string.lower]
-  GETTABLEKS R10 R4 K13 ["notes"]
-  GETTABLEKS R9 R10 K14 ["title"]
+  GETIMPORT R7 K16 [string.match]
+  GETIMPORT R8 K18 [string.lower]
+  GETTABLEKS R10 R4 K12 ["notes"]
+  GETTABLEKS R9 R10 K13 ["title"]
   CALL R8 1 1
-  GETIMPORT R9 K19 [string.lower]
-  GETTABLEKS R10 R6 K12 ["search"]
+  GETIMPORT R9 K18 [string.lower]
+  GETTABLEKS R10 R6 K11 ["search"]
   CALL R9 1 -1
   CALL R7 -1 1
   JUMPIFNOTEQKNIL R7 [+2]
@@ -197,22 +222,22 @@ PROTO_6:
   JUMP [+1]
   LOADB R5 1
   JUMPIFNOT R5 [+8]
-  GETTABLEKS R6 R2 K4 ["page"]
+  GETTABLEKS R6 R2 K2 ["page"]
   FASTCALL2 TABLE_INSERT R6 R4 [+4]
   MOVE R7 R4
-  GETIMPORT R5 K22 [table.insert]
+  GETIMPORT R5 K21 [table.insert]
   CALL R5 2 0
-  JUMPBACK [-61]
+  JUMPBACK [-63]
   LOADN R5 0
   JUMPIFLT R5 R3 [+2]
   LOADB R4 0 +1
   LOADB R4 1
-  SETTABLEKS R4 R2 K6 ["hasMore"]
+  SETTABLEKS R4 R2 K4 ["hasMore"]
   FASTCALL1 TOSTRING R3 [+3]
   MOVE R5 R3
-  GETIMPORT R4 K24 [tostring]
+  GETIMPORT R4 K23 [tostring]
   CALL R4 1 1
-  SETTABLEKS R4 R2 K5 ["cursor"]
+  SETTABLEKS R4 R2 K3 ["cursor"]
   MOVE R4 R0
   MOVE R5 R2
   CALL R4 1 -1
@@ -222,56 +247,69 @@ PROTO_7:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["defer"]
   NEWCLOSURE R2 P0
-  CAPTURE VAL R0
   CAPTURE UPVAL U1
+  CAPTURE VAL R0
   CAPTURE UPVAL U2
   CALL R1 1 -1
   RETURN R1 -1
 
 PROTO_8:
-  GETIMPORT R2 K2 [task.wait]
-  LOADK R3 K3 [0.5]
-  CALL R2 1 0
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K4 ["version"]
-  JUMPIF R2 [+42]
+  GETTABLEKS R2 R3 K0 ["networkDelay"]
+  CALL R2 0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["networkFailure"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+3]
+  MOVE R2 R1
+  CALL R2 0 -1
+  RETURN R2 -1
   GETUPVAL R3 1
-  DUPTABLE R4 K11 [{"version", "saveType", "published", "date", "contributors", "notes", "saver"}]
-  GETUPVAL R7 1
+  GETTABLEKS R2 R3 K2 ["version"]
+  JUMPIF R2 [+52]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["versionHistory"]
+  DUPTABLE R4 K10 [{"version", "saveType", "published", "date", "contributors", "notes", "saver"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K3 ["versionHistory"]
   LENGTH R6 R7
-  ADDK R5 R6 K12 [1]
-  SETTABLEKS R5 R4 K4 ["version"]
-  LOADK R5 K13 ["Manual"]
-  SETTABLEKS R5 R4 K5 ["saveType"]
+  ADDK R5 R6 K11 [1]
+  SETTABLEKS R5 R4 K2 ["version"]
+  LOADK R5 K12 ["Manual"]
+  SETTABLEKS R5 R4 K4 ["saveType"]
   LOADB R5 0
-  SETTABLEKS R5 R4 K6 ["published"]
-  GETIMPORT R5 K16 [DateTime.now]
+  SETTABLEKS R5 R4 K5 ["published"]
+  GETIMPORT R5 K15 [DateTime.now]
   CALL R5 0 1
-  SETTABLEKS R5 R4 K7 ["date"]
-  GETUPVAL R5 2
-  SETTABLEKS R5 R4 K8 ["contributors"]
+  SETTABLEKS R5 R4 K6 ["date"]
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K9 ["notes"]
-  SETTABLEKS R5 R4 K9 ["notes"]
-  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K16 ["users"]
+  SETTABLEKS R5 R4 K7 ["contributors"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K8 ["notes"]
+  SETTABLEKS R5 R4 K8 ["notes"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K16 ["users"]
   GETIMPORT R7 K19 [math.random]
   LOADN R8 1
-  GETUPVAL R10 2
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K16 ["users"]
   LENGTH R9 R10
   CALL R7 2 1
   GETTABLE R5 R6 R7
-  SETTABLEKS R5 R4 K10 ["saver"]
+  SETTABLEKS R5 R4 K9 ["saver"]
   FASTCALL2 TABLE_INSERT R3 R4 [+3]
   GETIMPORT R2 K22 [table.insert]
   CALL R2 2 0
-  JUMP [+10]
-  GETUPVAL R3 1
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K4 ["version"]
-  GETTABLE R2 R3 R4
+  JUMP [+12]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K9 ["notes"]
-  SETTABLEKS R3 R2 K9 ["notes"]
+  GETTABLEKS R3 R4 K3 ["versionHistory"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["version"]
+  GETTABLE R2 R3 R4
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K8 ["notes"]
+  SETTABLEKS R3 R2 K8 ["notes"]
   MOVE R2 R0
   CALL R2 0 -1
   RETURN R2 -1
@@ -280,29 +318,35 @@ PROTO_9:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["defer"]
   NEWCLOSURE R2 P0
-  CAPTURE VAL R0
   CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
+  CAPTURE VAL R0
   CALL R1 1 -1
   RETURN R1 -1
 
 PROTO_10:
-  GETIMPORT R2 K2 [task.wait]
-  LOADK R3 K3 [0.5]
-  CALL R2 1 0
-  GETUPVAL R2 0
-  JUMPIFNOTEQKN R2 K4 [0] [+5]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["networkDelay"]
+  CALL R2 0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["networkFailure"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+3]
+  MOVE R2 R1
+  CALL R2 0 -1
+  RETURN R2 -1
+  GETUPVAL R2 1
+  JUMPIFNOTEQKN R2 K2 [0] [+5]
   MOVE R2 R0
-  LOADK R3 K5 ["<DeletedUser>"]
+  LOADK R3 K3 ["<DeletedUser>"]
   CALL R2 1 -1
   RETURN R2 -1
-  GETUPVAL R3 1
   GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["usernames"]
+  GETUPVAL R4 1
   GETTABLE R2 R3 R4
-  JUMPIF R2 [+4]
+  JUMPIF R2 [+3]
   MOVE R3 R1
-  LOADK R4 K6 ["Missing username"]
-  CALL R3 1 -1
+  CALL R3 0 -1
   RETURN R3 -1
   MOVE R3 R0
   MOVE R4 R2
@@ -313,16 +357,24 @@ PROTO_11:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["defer"]
   NEWCLOSURE R2 P0
-  CAPTURE VAL R0
   CAPTURE UPVAL U1
+  CAPTURE VAL R0
   CALL R1 1 -1
   RETURN R1 -1
 
 PROTO_12:
-  GETIMPORT R2 K2 [task.wait]
-  LOADK R3 K3 [0.5]
-  CALL R2 1 0
   GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["networkDelay"]
+  CALL R2 0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["networkFailure"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+3]
+  MOVE R2 R1
+  CALL R2 0 -1
+  RETURN R2 -1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["places"]
   GETUPVAL R4 1
   GETTABLE R2 R3 R4
   JUMPIFNOT R2 [+4]
@@ -331,9 +383,9 @@ PROTO_12:
   CALL R3 1 -1
   RETURN R3 -1
   MOVE R3 R0
-  LOADK R5 K4 ["Place %*"]
+  LOADK R5 K3 ["Place %*"]
   GETUPVAL R7 1
-  NAMECALL R5 R5 K5 ["format"]
+  NAMECALL R5 R5 K4 ["format"]
   CALL R5 2 1
   MOVE R4 R5
   CALL R3 1 -1
@@ -349,11 +401,18 @@ PROTO_13:
   RETURN R1 -1
 
 PROTO_14:
-  GETIMPORT R2 K2 [task.wait]
-  LOADK R3 K3 [0.5]
-  CALL R2 1 0
   GETUPVAL R3 0
-  JUMPIFNOTEQKS R3 K4 ["BAD"] [+2]
+  GETTABLEKS R2 R3 K0 ["networkDelay"]
+  CALL R2 0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["networkFailure"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+3]
+  MOVE R2 R1
+  CALL R2 0 -1
+  RETURN R2 -1
+  GETUPVAL R3 1
+  JUMPIFNOTEQKS R3 K2 ["BAD"] [+2]
   LOADB R2 0 +1
   LOADB R2 1
   MOVE R3 R0
@@ -365,33 +424,56 @@ PROTO_15:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["defer"]
   NEWCLOSURE R2 P0
+  CAPTURE UPVAL U1
   CAPTURE VAL R0
   CALL R1 1 -1
   RETURN R1 -1
 
 PROTO_16:
+  GETUPVAL R0 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K0 ["mockNetworkConfig"]
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K0 ["mockNetworkConfig"]
+  JUMP [+1]
+  GETUPVAL R1 3
+  CALL R0 1 1
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_17:
   GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createElement"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["Provider"]
-  DUPTABLE R3 K3 [{"value"}]
-  DUPTABLE R4 K11 [{"getPlaces", "getContributors", "getVersionHistory", "saveVersionNotes", "getUserName", "getPlaceName", "getNotesValidation"}]
-  GETUPVAL R5 2
-  SETTABLEKS R5 R4 K4 ["getPlaces"]
-  GETUPVAL R5 3
-  SETTABLEKS R5 R4 K5 ["getContributors"]
-  GETUPVAL R5 4
-  SETTABLEKS R5 R4 K6 ["getVersionHistory"]
+  GETTABLEKS R1 R2 K0 ["useEffect"]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  NEWTABLE R3 0 0
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["createElement"]
+  GETUPVAL R3 4
+  GETTABLEKS R2 R3 K2 ["Provider"]
+  DUPTABLE R3 K4 [{"value"}]
+  DUPTABLE R4 K12 [{"getPlaces", "getContributors", "getVersionHistory", "saveVersionNotes", "getUserName", "getPlaceName", "getNotesValidation"}]
   GETUPVAL R5 5
-  SETTABLEKS R5 R4 K7 ["saveVersionNotes"]
+  SETTABLEKS R5 R4 K5 ["getPlaces"]
   GETUPVAL R5 6
-  SETTABLEKS R5 R4 K8 ["getUserName"]
+  SETTABLEKS R5 R4 K6 ["getContributors"]
   GETUPVAL R5 7
-  SETTABLEKS R5 R4 K9 ["getPlaceName"]
+  SETTABLEKS R5 R4 K7 ["getVersionHistory"]
   GETUPVAL R5 8
-  SETTABLEKS R5 R4 K10 ["getNotesValidation"]
-  SETTABLEKS R4 R3 K2 ["value"]
-  GETTABLEKS R4 R0 K12 ["children"]
+  SETTABLEKS R5 R4 K8 ["saveVersionNotes"]
+  GETUPVAL R5 9
+  SETTABLEKS R5 R4 K9 ["getUserName"]
+  GETUPVAL R5 10
+  SETTABLEKS R5 R4 K10 ["getPlaceName"]
+  GETUPVAL R5 11
+  SETTABLEKS R5 R4 K11 ["getNotesValidation"]
+  SETTABLEKS R4 R3 K3 ["value"]
+  GETTABLEKS R4 R0 K13 ["children"]
   CALL R1 3 -1
   RETURN R1 -1
 
@@ -414,208 +496,59 @@ MAIN:
   GETTABLEKS R5 R6 K10 ["Contexts"]
   GETTABLEKS R4 R5 K11 ["NetworkContext"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K12 ["Types"]
-  CALL R4 1 1
-  GETIMPORT R7 K16 [DateTime.now]
-  CALL R7 0 1
-  GETTABLEKS R6 R7 K17 ["UnixTimestamp"]
-  SUBK R5 R6 K13 [21578400]
-  NEWTABLE R6 0 5
-  DUPTABLE R7 K20 [{"title", "description"}]
-  LOADK R8 K21 ["feat: optimized enemy AI pathfinding logic"]
-  SETTABLEKS R8 R7 K18 ["title"]
-  LOADK R8 K22 [" • Designed a player inventory system that allows users to collect, store, and manage various items throughout gameplay, with support for item stacking and categorization.
- • Implemented a responsive health bar UI that visually updates in real-time based on incoming damage and player healing events.
- • Optimized enemy AI pathfinding logic to improve movement efficiency, reduce CPU usage, and enhance performance in larger game environments.
- • Identified and resolved complex lighting issues within the cave environment, ensuring consistent shadows and ambient effects for better visual fidelity."]
-  SETTABLEKS R8 R7 K19 ["description"]
-  SETTABLEN R7 R6 1
-  DUPTABLE R7 K20 [{"title", "description"}]
+  GETTABLEKS R5 R0 K9 ["Src"]
+  GETTABLEKS R4 R5 K12 ["TestUtil"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R4 K13 ["MockNetwork"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Src"]
+  GETTABLEKS R7 R8 K14 ["Types"]
+  CALL R6 1 1
+  DUPTABLE R7 K18 [{"numVersions", "latencySec", "failureRate"}]
+  LOADN R8 231
+  SETTABLEKS R8 R7 K15 ["numVersions"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K16 ["latencySec"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K17 ["failureRate"]
   LOADNIL R8
-  SETTABLEKS R8 R7 K18 ["title"]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K19 ["description"]
-  SETTABLEN R7 R6 2
-  DUPTABLE R7 K20 [{"title", "description"}]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K18 ["title"]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K19 ["description"]
-  SETTABLEN R7 R6 3
-  DUPTABLE R7 K20 [{"title", "description"}]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K18 ["title"]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K19 ["description"]
-  SETTABLEN R7 R6 4
-  DUPTABLE R7 K20 [{"title", "description"}]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K18 ["title"]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K19 ["description"]
-  SETTABLEN R7 R6 5
-  NEWTABLE R7 16 0
-  LOADK R8 K23 [2725162051]
-  LOADK R9 K24 ["code4xp"]
-  SETTABLE R9 R7 R8
-  LOADK R8 K25 [3706781386]
-  LOADK R9 K26 ["wingedbreadsticks"]
-  SETTABLE R9 R7 R8
-  LOADK R8 K27 [4687564904]
-  LOADK R9 K28 ["vreddym"]
-  SETTABLE R9 R7 R8
-  LOADK R8 K29 [7328747770]
-  LOADK R9 K30 ["PixelPlumber"]
-  SETTABLE R9 R7 R8
-  LOADK R8 K31 [9051275465]
-  LOADK R9 K32 ["VV_Wesco"]
-  SETTABLE R9 R7 R8
-  LOADK R8 K33 [5005422365]
-  LOADK R9 K34 ["s1lly_g00se8"]
-  SETTABLE R9 R7 R8
-  LOADK R8 K35 [4733584246]
-  LOADK R9 K36 ["shibaxixi"]
-  SETTABLE R9 R7 R8
-  LOADK R8 K37 [2720453386]
-  LOADK R9 K38 ["GeneralTso58"]
-  SETTABLE R9 R7 R8
-  LOADK R8 K39 [3570764360]
-  LOADK R9 K40 ["Kresselia1"]
-  SETTABLE R9 R7 R8
-  LOADK R8 K41 [9253989021]
-  LOADK R9 K42 ["LuckyRainGG"]
-  SETTABLE R9 R7 R8
-  NEWTABLE R8 0 0
-  MOVE R9 R7
-  LOADNIL R10
-  LOADNIL R11
-  FORGPREP R9
-  FASTCALL2 TABLE_INSERT R8 R12 [+5]
-  MOVE R15 R8
-  MOVE R16 R12
-  GETIMPORT R14 K45 [table.insert]
-  CALL R14 2 0
-  FORGLOOP R9 2 [-8]
-  NEWTABLE R9 0 10
-  LOADK R10 K46 ["Lobby (Live)"]
-  SETTABLEN R10 R9 1
-  LOADK R10 K47 ["Lobby (QA)"]
-  SETTABLEN R10 R9 2
-  LOADK R10 K48 ["Lobby (Staging)"]
-  SETTABLEN R10 R9 3
-  LOADK R10 K49 ["Lobby (Test)"]
-  SETTABLEN R10 R9 4
-  LOADK R10 K50 ["Lobby (Branch v12)"]
-  SETTABLEN R10 R9 5
-  LOADK R10 K51 ["Lobby (Branch v13)"]
-  SETTABLEN R10 R9 6
-  LOADK R10 K52 ["Lobby (Branch v14)"]
-  SETTABLEN R10 R9 7
-  LOADK R10 K53 ["Lobby (Branch v15)"]
-  SETTABLEN R10 R9 8
-  LOADK R10 K54 ["Lobby (Branch v16)"]
-  SETTABLEN R10 R9 9
-  LOADK R10 K55 ["Lobby (Branch v117)"]
-  SETTABLEN R10 R9 10
-  NEWTABLE R10 0 0
-  LOADN R13 1
-  LOADN R11 231
-  LOADN R12 1
-  FORNPREP R11
-  MODK R15 R13 K56 [3]
-  JUMPIFEQKN R15 K57 [0] [+2]
-  LOADB R14 0 +1
-  LOADB R14 1
-  MODK R16 R13 K58 [2]
-  JUMPIFEQKN R16 K57 [0] [+2]
-  LOADB R15 0 +1
-  LOADB R15 1
-  MODK R17 R13 K59 [4]
-  JUMPIFEQKN R17 K57 [0] [+2]
-  LOADB R16 0 +1
-  LOADB R16 1
-  JUMPIFNOT R16 [+1]
-  ADDK R5 R5 K60 [86400]
-  NEWTABLE R17 0 0
-  MOVE R18 R8
-  LOADNIL R19
-  LOADNIL R20
-  FORGPREP R18
-  GETIMPORT R23 K63 [math.random]
-  LOADN R24 0
-  LOADN R25 1
-  CALL R23 2 1
-  JUMPIFEQKN R23 K64 [1] [+8]
-  FASTCALL2 TABLE_INSERT R17 R22 [+5]
-  MOVE R24 R17
-  MOVE R25 R22
-  GETIMPORT R23 K45 [table.insert]
-  CALL R23 2 0
-  FORGLOOP R18 2 [-15]
-  DUPTABLE R20 K72 [{"version", "saveType", "published", "date", "contributors", "notes", "saver"}]
-  SETTABLEKS R13 R20 K65 ["version"]
-  JUMPIFNOT R15 [+2]
-  LOADK R21 K73 ["Auto"]
-  JUMP [+1]
-  LOADK R21 K74 ["Manual"]
-  SETTABLEKS R21 R20 K66 ["saveType"]
-  SETTABLEKS R14 R20 K67 ["published"]
-  GETIMPORT R21 K76 [DateTime.fromUnixTimestamp]
-  MOVE R22 R5
-  CALL R21 1 1
-  SETTABLEKS R21 R20 K68 ["date"]
-  SETTABLEKS R17 R20 K69 ["contributors"]
-  GETIMPORT R22 K63 [math.random]
-  LOADN R23 1
-  LENGTH R24 R6
-  CALL R22 2 1
-  GETTABLE R21 R6 R22
-  SETTABLEKS R21 R20 K70 ["notes"]
-  GETIMPORT R22 K63 [math.random]
-  LOADN R23 1
-  LENGTH R24 R8
-  CALL R22 2 1
-  GETTABLE R21 R8 R22
-  SETTABLEKS R21 R20 K71 ["saver"]
-  FASTCALL2 TABLE_INSERT R10 R20 [+4]
-  MOVE R19 R10
-  GETIMPORT R18 K45 [table.insert]
-  CALL R18 2 0
-  FORNLOOP R11
-  DUPCLOSURE R11 K77 [PROTO_0]
-  DUPCLOSURE R12 K78 [PROTO_1]
-  DUPCLOSURE R13 K79 [PROTO_3]
+  DUPCLOSURE R9 K19 [PROTO_0]
+  DUPCLOSURE R10 K20 [PROTO_1]
+  NEWCLOSURE R11 P2
   CAPTURE VAL R2
-  CAPTURE VAL R9
-  DUPCLOSURE R14 K80 [PROTO_5]
+  CAPTURE REF R8
+  NEWCLOSURE R12 P3
   CAPTURE VAL R2
-  CAPTURE VAL R7
-  DUPCLOSURE R15 K81 [PROTO_7]
+  CAPTURE REF R8
+  NEWCLOSURE R13 P4
   CAPTURE VAL R2
+  CAPTURE REF R8
   CAPTURE VAL R10
-  CAPTURE VAL R12
-  DUPCLOSURE R16 K82 [PROTO_9]
+  NEWCLOSURE R14 P5
   CAPTURE VAL R2
-  CAPTURE VAL R10
-  CAPTURE VAL R8
-  DUPCLOSURE R17 K83 [PROTO_11]
+  CAPTURE REF R8
+  NEWCLOSURE R15 P6
   CAPTURE VAL R2
-  CAPTURE VAL R7
-  DUPCLOSURE R18 K84 [PROTO_13]
+  CAPTURE REF R8
+  NEWCLOSURE R16 P7
   CAPTURE VAL R2
-  CAPTURE VAL R9
-  DUPCLOSURE R19 K85 [PROTO_15]
+  CAPTURE REF R8
+  NEWCLOSURE R17 P8
   CAPTURE VAL R2
-  DUPCLOSURE R20 K86 [PROTO_16]
+  CAPTURE REF R8
+  NEWCLOSURE R18 P9
   CAPTURE VAL R1
+  CAPTURE REF R8
+  CAPTURE VAL R5
+  CAPTURE VAL R7
   CAPTURE VAL R3
+  CAPTURE VAL R11
+  CAPTURE VAL R12
   CAPTURE VAL R13
   CAPTURE VAL R14
   CAPTURE VAL R15
   CAPTURE VAL R16
   CAPTURE VAL R17
-  CAPTURE VAL R18
-  CAPTURE VAL R19
-  RETURN R20 1
+  CLOSEUPVALS R8
+  RETURN R18 1

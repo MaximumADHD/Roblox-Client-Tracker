@@ -1,0 +1,28 @@
+PROTO_0:
+  LOADK R0 K0 ["UsageGraphSentinel"]
+  RETURN R0 1
+
+PROTO_1:
+  GETIMPORT R1 K2 [table.clone]
+  GETUPVAL R3 0
+  GETTABLE R2 R0 R3
+  CALL R1 1 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [newproxy]
+  LOADB R1 1
+  CALL R0 1 1
+  FASTCALL1 GETMETATABLE R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K3 [getmetatable]
+  CALL R1 1 1
+  DUPCLOSURE R2 K4 [PROTO_0]
+  SETTABLEKS R2 R1 K5 ["__tostring"]
+  DUPCLOSURE R1 K6 [PROTO_1]
+  CAPTURE VAL R0
+  DUPTABLE R2 K9 [{"UsageGraphKey", "getUsageGraph"}]
+  SETTABLEKS R0 R2 K7 ["UsageGraphKey"]
+  SETTABLEKS R1 R2 K8 ["getUsageGraph"]
+  RETURN R2 1

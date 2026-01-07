@@ -1,0 +1,94 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K5 [{"name", "size", "variant", "LayoutOrder"}]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K1 ["name"]
+  SETTABLEKS R5 R4 K1 ["name"]
+  SETTABLEKS R0 R4 K2 ["size"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["variant"]
+  SETTABLEKS R5 R4 K3 ["variant"]
+  SETTABLEKS R1 R4 K4 ["LayoutOrder"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["controls"]
+  NEWTABLE R2 0 4
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["Large"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["Medium"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["Small"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["XSmall"]
+  SETLIST R2 R3 4 [1]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K5 ["createElement"]
+  GETUPVAL R4 2
+  DUPTABLE R5 K7 [{"tag"}]
+  LOADK R6 K8 ["row gap-xxlarge auto-xy align-y-center"]
+  SETTABLEKS R6 R5 K6 ["tag"]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K9 ["map"]
+  MOVE R7 R2
+  NEWCLOSURE R8 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U4
+  CAPTURE VAL R1
+  CALL R6 2 -1
+  CALL R3 -1 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["BuilderIcons"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K9 ["Dash"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K10 ["Components"]
+  GETTABLEKS R6 R7 K11 ["Icon"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K12 ["Enums"]
+  GETTABLEKS R7 R8 K13 ["IconSize"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K10 ["Components"]
+  GETTABLEKS R8 R9 K14 ["View"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K15 [PROTO_1]
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  DUPTABLE R9 K19 [{"summary", "story", "controls"}]
+  LOADK R10 K20 ["Icon component for displaying icons"]
+  SETTABLEKS R10 R9 K16 ["summary"]
+  SETTABLEKS R8 R9 K17 ["story"]
+  DUPTABLE R10 K23 [{"name", "variant"}]
+  GETTABLEKS R11 R4 K24 ["values"]
+  GETTABLEKS R12 R3 K11 ["Icon"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K21 ["name"]
+  GETTABLEKS R11 R4 K24 ["values"]
+  GETTABLEKS R12 R3 K25 ["IconVariant"]
+  CALL R11 1 1
+  SETTABLEKS R11 R10 K22 ["variant"]
+  SETTABLEKS R10 R9 K18 ["controls"]
+  RETURN R9 1

@@ -1,0 +1,894 @@
+PROTO_0:
+  NEWTABLE R2 0 0
+  NEWTABLE R3 0 0
+  NEWTABLE R4 0 0
+  GETUPVAL R8 0
+  GETTABLEKS R5 R8 K0 ["ValidationModule"]
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  JUMPIFEQ R8 R9 [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  FASTCALL1 ASSERT R11 [+2]
+  GETIMPORT R10 K2 [assert]
+  CALL R10 1 0
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K3 ["getValidationModule"]
+  MOVE R11 R9
+  CALL R10 1 1
+  GETTABLEKS R11 R10 K4 ["categories"]
+  GETTABLEKS R12 R10 K5 ["shadowFlag"]
+  CALL R12 0 1
+  JUMPIFNOT R12 [+4]
+  GETTABLEKS R13 R10 K6 ["fflag"]
+  CALL R13 0 1
+  NOT R12 R13
+  JUMPIF R12 [+4]
+  GETTABLEKS R13 R10 K6 ["fflag"]
+  CALL R13 0 1
+  JUMPIFNOT R13 [+85]
+  GETIMPORT R13 K9 [table.find]
+  MOVE R14 R11
+  MOVE R15 R0
+  CALL R13 2 1
+  JUMPIFNOT R13 [+79]
+  LOADB R13 0
+  GETTABLEKS R14 R10 K10 ["requiredData"]
+  LOADNIL R15
+  LOADNIL R16
+  FORGPREP R14
+  LOADB R19 1
+  SETTABLE R19 R4 R18
+  JUMPIF R13 [+43]
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K11 ["SharedDataMember"]
+  GETTABLEKS R19 R20 K12 ["aqsSummaryData"]
+  JUMPIFNOTEQ R18 R19 [+37]
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K11 ["SharedDataMember"]
+  GETTABLEKS R19 R20 K13 ["renderMeshesData"]
+  LOADB R20 1
+  SETTABLE R20 R4 R19
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K11 ["SharedDataMember"]
+  GETTABLEKS R19 R20 K14 ["innerCagesData"]
+  LOADB R20 1
+  SETTABLE R20 R4 R19
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K11 ["SharedDataMember"]
+  GETTABLEKS R19 R20 K15 ["outerCagesData"]
+  LOADB R20 1
+  SETTABLE R20 R4 R19
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K11 ["SharedDataMember"]
+  GETTABLEKS R19 R20 K16 ["meshTextures"]
+  LOADB R20 1
+  SETTABLE R20 R4 R19
+  FASTCALL2 TABLE_INSERT R2 R9 [+5]
+  MOVE R20 R2
+  MOVE R21 R9
+  GETIMPORT R19 K18 [table.insert]
+  CALL R19 2 0
+  LOADB R13 1
+  FORGLOOP R14 2 [-47]
+  NEWTABLE R14 0 0
+  GETTABLEKS R15 R10 K19 ["prereqTests"]
+  LOADNIL R16
+  LOADNIL R17
+  FORGPREP R15
+  LOADB R20 1
+  SETTABLE R20 R14 R19
+  FORGLOOP R15 2 [-3]
+  DUPTABLE R15 K25 [{"name", "prereqs", "postreqs", "isQuality", "isShadow"}]
+  SETTABLEKS R9 R15 K20 ["name"]
+  SETTABLEKS R14 R15 K21 ["prereqs"]
+  NEWTABLE R16 0 0
+  SETTABLEKS R16 R15 K22 ["postreqs"]
+  SETTABLEKS R13 R15 K23 ["isQuality"]
+  SETTABLEKS R12 R15 K24 ["isShadow"]
+  SETTABLE R15 R3 R9
+  FORGLOOP R5 2 [-114]
+  MOVE R5 R3
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  GETTABLEKS R10 R9 K21 ["prereqs"]
+  LOADNIL R11
+  LOADNIL R12
+  FORGPREP R10
+  GETTABLE R15 R3 R13
+  JUMPIFNOTEQKNIL R15 [+10]
+  GETIMPORT R15 K27 [error]
+  GETIMPORT R16 K30 [string.format]
+  LOADK R17 K31 ["%s is needed for %s to run, but is not an included test"]
+  MOVE R18 R13
+  MOVE R19 R8
+  CALL R16 3 -1
+  CALL R15 -1 0
+  GETTABLE R17 R3 R13
+  GETTABLEKS R16 R17 K22 ["postreqs"]
+  FASTCALL2 TABLE_INSERT R16 R8 [+4]
+  MOVE R17 R8
+  GETIMPORT R15 K18 [table.insert]
+  CALL R15 2 0
+  FORGLOOP R10 2 [-22]
+  FORGLOOP R5 2 [-29]
+  RETURN R2 3
+
+PROTO_1:
+  GETUPVAL R0 1
+  GETUPVAL R2 2
+  NAMECALL R0 R0 K0 ["GenerateAssetQualityGltfFromInstanceAsync"]
+  CALL R0 2 1
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["aqsFetchMetrics"]
+  GETUPVAL R1 1
+  SETTABLEKS R1 R0 K1 ["fetchAttemptCount"]
+  GETIMPORT R0 K4 [os.clock]
+  CALL R0 0 1
+  GETUPVAL R1 2
+  GETUPVAL R3 3
+  GETUPVAL R4 4
+  NAMECALL R1 R1 K5 ["FetchAssetQualitySummaryFromGltfAsync"]
+  CALL R1 3 1
+  LOADN R3 232
+  GETIMPORT R5 K4 [os.clock]
+  CALL R5 0 1
+  SUB R4 R5 R0
+  MUL R2 R3 R4
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["aqsFetchMetrics"]
+  GETTABLEKS R4 R1 K6 ["visualizationUrl"]
+  SETTABLEKS R4 R3 K6 ["visualizationUrl"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["aqsFetchMetrics"]
+  GETTABLEKS R4 R1 K7 ["version"]
+  SETTABLEKS R4 R3 K8 ["returnVersion"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["aqsFetchMetrics"]
+  SETTABLEKS R2 R3 K9 ["fetchTimeMs"]
+  GETUPVAL R3 0
+  SETTABLEKS R1 R3 K10 ["aqsSummaryData"]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+2]
+  GETUPVAL R2 1
+  JUMPIF R2 [+11]
+  GETTABLEKS R2 R0 K0 ["aqsFetchMetrics"]
+  LOADK R3 K1 ["assetQualityFetchFailure"]
+  SETTABLEKS R3 R2 K2 ["fetchStatus"]
+  GETTABLEKS R2 R0 K0 ["aqsFetchMetrics"]
+  LOADK R3 K3 ["Not enabled"]
+  SETTABLEKS R3 R2 K4 ["fetchFailureReason"]
+  RETURN R0 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K5 ["createModelForGltfExport"]
+  MOVE R3 R0
+  CALL R2 1 1
+  LOADNIL R3
+  LOADNIL R4
+  LOADNIL R5
+  GETIMPORT R6 K7 [pcall]
+  NEWCLOSURE R7 P0
+  CAPTURE REF R5
+  CAPTURE UPVAL U1
+  CAPTURE VAL R2
+  CALL R6 1 2
+  MOVE R3 R6
+  MOVE R4 R7
+  JUMPIFNOT R3 [+20]
+  LOADN R8 1
+  LOADN R9 1
+  GETUPVAL R10 3
+  CALL R10 0 1
+  ADD R6 R9 R10
+  LOADN R7 1
+  FORNPREP R6
+  GETIMPORT R9 K7 [pcall]
+  NEWCLOSURE R10 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R8
+  CAPTURE UPVAL U1
+  CAPTURE REF R5
+  CAPTURE VAL R1
+  CALL R9 1 2
+  MOVE R3 R9
+  MOVE R4 R10
+  JUMPIF R3 [+1]
+  FORNLOOP R6
+  JUMPIFNOT R3 [+6]
+  GETTABLEKS R6 R0 K0 ["aqsFetchMetrics"]
+  LOADK R7 K8 ["assetQualityFetchSuccess"]
+  SETTABLEKS R7 R6 K2 ["fetchStatus"]
+  JUMP [+17]
+  GETTABLEKS R6 R0 K0 ["aqsFetchMetrics"]
+  LOADK R7 K1 ["assetQualityFetchFailure"]
+  SETTABLEKS R7 R6 K2 ["fetchStatus"]
+  GETTABLEKS R6 R0 K0 ["aqsFetchMetrics"]
+  SETTABLEKS R4 R6 K4 ["fetchFailureReason"]
+  GETUPVAL R6 4
+  CALL R6 0 1
+  JUMPIFNOT R6 [+5]
+  GETIMPORT R6 K10 [print]
+  LOADK R7 K11 ["Logged AQS fetch failure:"]
+  MOVE R8 R4
+  CALL R6 2 0
+  NAMECALL R6 R2 K12 ["Destroy"]
+  CALL R6 1 0
+  CLOSEUPVALS R5
+  RETURN R0 0
+
+PROTO_4:
+  NEWTABLE R2 0 0
+  MOVE R3 R0
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETIMPORT R8 K1 [next]
+  GETTABLEKS R9 R7 K2 ["prereqs"]
+  CALL R8 1 1
+  JUMPIFNOTEQKNIL R8 [+12]
+  JUMPIF R1 [+3]
+  GETTABLEKS R8 R7 K3 ["isQuality"]
+  JUMPIF R8 [+7]
+  FASTCALL2 TABLE_INSERT R2 R6 [+5]
+  MOVE R9 R2
+  MOVE R10 R6
+  GETIMPORT R8 K6 [table.insert]
+  CALL R8 2 0
+  FORGLOOP R3 2 [-19]
+  RETURN R2 1
+
+PROTO_5:
+  GETTABLEKS R5 R1 K0 ["aqsFetchMetrics"]
+  GETTABLEKS R4 R5 K1 ["fetchStatus"]
+  JUMPIFNOTEQKS R4 K2 ["assetQualityFetchNA"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  DUPTABLE R4 K20 [{"validationJobId", "bundleJobId", "rootInstanceId", "studioSid", "clientId", "placeId", "validationSource", "assetType", "bundleType", "numFailures", "passed", "durationMs", "uploadCategory", "aqFetchStatus", "aqFetchAttemptCount", "aqFetchTimeMs", "aqFetchFailureReason"}]
+  GETTABLEKS R5 R1 K21 ["jobId"]
+  SETTABLEKS R5 R4 K3 ["validationJobId"]
+  GETTABLEKS R6 R1 K22 ["consumerConfig"]
+  GETTABLEKS R5 R6 K23 ["telemetryBundleId"]
+  SETTABLEKS R5 R4 K4 ["bundleJobId"]
+  GETTABLEKS R6 R1 K22 ["consumerConfig"]
+  GETTABLEKS R5 R6 K24 ["telemetryRootId"]
+  SETTABLEKS R5 R4 K5 ["rootInstanceId"]
+  GETUPVAL R5 0
+  NAMECALL R5 R5 K25 ["GetSessionId"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K6 ["studioSid"]
+  GETUPVAL R5 0
+  NAMECALL R5 R5 K26 ["GetClientId"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K7 ["clientId"]
+  GETIMPORT R6 K28 [game]
+  GETTABLEKS R5 R6 K29 ["PlaceId"]
+  SETTABLEKS R5 R4 K8 ["placeId"]
+  GETTABLEKS R6 R1 K22 ["consumerConfig"]
+  GETTABLEKS R5 R6 K30 ["source"]
+  SETTABLEKS R5 R4 K9 ["validationSource"]
+  GETTABLEKS R7 R1 K31 ["uploadEnum"]
+  GETTABLEKS R6 R7 K10 ["assetType"]
+  JUMPIFNOT R6 [+7]
+  GETTABLEKS R7 R1 K31 ["uploadEnum"]
+  GETTABLEKS R6 R7 K10 ["assetType"]
+  GETTABLEKS R5 R6 K32 ["Value"]
+  JUMPIF R5 [+1]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K10 ["assetType"]
+  GETTABLEKS R7 R1 K31 ["uploadEnum"]
+  GETTABLEKS R6 R7 K11 ["bundleType"]
+  JUMPIFNOT R6 [+7]
+  GETTABLEKS R7 R1 K31 ["uploadEnum"]
+  GETTABLEKS R6 R7 K11 ["bundleType"]
+  GETTABLEKS R5 R6 K32 ["Value"]
+  JUMPIF R5 [+1]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K11 ["bundleType"]
+  GETTABLEKS R5 R0 K12 ["numFailures"]
+  SETTABLEKS R5 R4 K12 ["numFailures"]
+  GETTABLEKS R5 R0 K33 ["pass"]
+  SETTABLEKS R5 R4 K13 ["passed"]
+  SETTABLEKS R2 R4 K14 ["durationMs"]
+  GETTABLEKS R5 R1 K15 ["uploadCategory"]
+  SETTABLEKS R5 R4 K15 ["uploadCategory"]
+  GETTABLEKS R6 R1 K0 ["aqsFetchMetrics"]
+  GETTABLEKS R5 R6 K1 ["fetchStatus"]
+  SETTABLEKS R5 R4 K16 ["aqFetchStatus"]
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R6 R1 K0 ["aqsFetchMetrics"]
+  GETTABLEKS R5 R6 K34 ["fetchAttemptCount"]
+  JUMPIF R5 [+1]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K17 ["aqFetchAttemptCount"]
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R6 R1 K0 ["aqsFetchMetrics"]
+  GETTABLEKS R5 R6 K35 ["fetchTimeMs"]
+  JUMPIF R5 [+1]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K18 ["aqFetchTimeMs"]
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R6 R1 K0 ["aqsFetchMetrics"]
+  GETTABLEKS R5 R6 K36 ["fetchFailureReason"]
+  JUMPIF R5 [+1]
+  LOADK R5 K37 [""]
+  SETTABLEKS R5 R4 K19 ["aqFetchFailureReason"]
+  GETUPVAL R5 1
+  GETUPVAL R7 2
+  DUPTABLE R8 K39 [{"customFields"}]
+  SETTABLEKS R4 R8 K38 ["customFields"]
+  NAMECALL R5 R5 K40 ["LogEvent"]
+  CALL R5 3 0
+  GETUPVAL R5 3
+  CALL R5 0 1
+  JUMPIFNOT R5 [+4]
+  GETIMPORT R5 K42 [print]
+  MOVE R6 R0
+  CALL R5 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R5 R2 K0 ["validationEnum"]
+  JUMPIF R4 [+4]
+  GETTABLE R7 R1 R5
+  GETTABLEKS R6 R7 K1 ["isShadow"]
+  JUMPIF R6 [+83]
+  GETTABLEKS R6 R0 K2 ["states"]
+  GETTABLEKS R7 R2 K3 ["status"]
+  SETTABLE R7 R6 R5
+  GETTABLEKS R6 R0 K4 ["internalData"]
+  GETTABLEKS R7 R2 K4 ["internalData"]
+  SETTABLE R7 R6 R5
+  GETTABLEKS R7 R2 K5 ["errorTranslationContexts"]
+  LENGTH R6 R7
+  LOADN R7 0
+  JUMPIFNOTLT R7 R6 [+16]
+  GETIMPORT R6 K8 [table.move]
+  GETTABLEKS R7 R2 K5 ["errorTranslationContexts"]
+  LOADN R8 1
+  GETTABLEKS R10 R2 K5 ["errorTranslationContexts"]
+  LENGTH R9 R10
+  GETTABLEKS R12 R0 K5 ["errorTranslationContexts"]
+  LENGTH R11 R12
+  ADDK R10 R11 K9 [1]
+  GETTABLEKS R11 R0 K5 ["errorTranslationContexts"]
+  CALL R6 5 0
+  GETTABLEKS R6 R2 K3 ["status"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K10 ["Status"]
+  GETTABLEKS R7 R8 K11 ["PASS"]
+  JUMPIFEQ R6 R7 [+44]
+  LOADB R6 0
+  SETTABLEKS R6 R0 K12 ["pass"]
+  GETTABLEKS R6 R0 K13 ["numFailures"]
+  ADDK R6 R6 K9 [1]
+  SETTABLEKS R6 R0 K13 ["numFailures"]
+  GETTABLEKS R6 R2 K3 ["status"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K10 ["Status"]
+  GETTABLEKS R7 R8 K14 ["ERROR"]
+  JUMPIFNOTEQ R6 R7 [+27]
+  GETTABLEKS R6 R0 K15 ["ranIntoInternalError"]
+  JUMPIF R6 [+23]
+  LOADB R6 1
+  SETTABLEKS R6 R0 K15 ["ranIntoInternalError"]
+  GETTABLEKS R7 R0 K5 ["errorTranslationContexts"]
+  DUPTABLE R8 K18 [{"key", "params"}]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K19 ["Keys"]
+  GETTABLEKS R9 R10 K20 ["InternalError"]
+  SETTABLEKS R9 R8 K16 ["key"]
+  DUPTABLE R9 K22 [{"ValidationJobId"}]
+  SETTABLEKS R3 R9 K21 ["ValidationJobId"]
+  SETTABLEKS R9 R8 K17 ["params"]
+  FASTCALL2 TABLE_INSERT R7 R8 [+3]
+  GETIMPORT R6 K24 [table.insert]
+  CALL R6 2 0
+  GETTABLE R9 R1 R5
+  GETTABLEKS R6 R9 K25 ["postreqs"]
+  LOADNIL R7
+  LOADNIL R8
+  FORGPREP R6
+  GETTABLE R12 R1 R10
+  GETTABLEKS R11 R12 K26 ["prereqs"]
+  LOADNIL R12
+  SETTABLE R12 R11 R5
+  FORGLOOP R6 2 [-6]
+  LOADNIL R6
+  SETTABLE R6 R1 R5
+  RETURN R0 0
+
+PROTO_7:
+  GETIMPORT R1 K2 [table.clone]
+  MOVE R2 R0
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K3 ["enforceR15FolderStructure"]
+  JUMPIFNOTEQKNIL R2 [+4]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K3 ["enforceR15FolderStructure"]
+  GETTABLEKS R2 R1 K4 ["enforceShadowValidations"]
+  JUMPIFNOTEQKNIL R2 [+4]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K4 ["enforceShadowValidations"]
+  GETTABLEKS R3 R1 K6 ["telemetryBundleId"]
+  ORK R2 R3 K5 [""]
+  SETTABLEKS R2 R1 K6 ["telemetryBundleId"]
+  GETTABLEKS R3 R1 K7 ["telemetryRootId"]
+  ORK R2 R3 K5 [""]
+  SETTABLEKS R2 R1 K7 ["telemetryRootId"]
+  GETTABLEKS R2 R1 K8 ["preloadedEditableMeshes"]
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K8 ["preloadedEditableMeshes"]
+  GETTABLEKS R2 R1 K7 ["telemetryRootId"]
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K9 ["preloadedEditableImages"]
+  RETURN R1 1
+
+PROTO_8:
+  GETIMPORT R1 K2 [os.clock]
+  CALL R1 0 1
+  GETTABLEKS R2 R0 K3 ["rootInstance"]
+  GETTABLEKS R6 R0 K4 ["uploadEnum"]
+  GETTABLEKS R3 R6 K5 ["assetType"]
+  GETTABLEKS R6 R0 K4 ["uploadEnum"]
+  GETTABLEKS R4 R6 K6 ["bundleType"]
+  GETTABLEKS R5 R0 K7 ["consumerConfig"]
+  DUPTABLE R6 K14 [{"pass", "numFailures", "states", "errorTranslationContexts", "internalData", "ranIntoInternalError"}]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K8 ["pass"]
+  LOADN R7 0
+  SETTABLEKS R7 R6 K9 ["numFailures"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K10 ["states"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K11 ["errorTranslationContexts"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K12 ["internalData"]
+  LOADB R7 0
+  SETTABLEKS R7 R6 K13 ["ranIntoInternalError"]
+  GETUPVAL R7 0
+  MOVE R8 R2
+  MOVE R9 R3
+  MOVE R10 R4
+  CALL R7 3 1
+  GETUPVAL R8 1
+  MOVE R9 R7
+  MOVE R10 R5
+  CALL R8 2 3
+  SETTABLEKS R7 R0 K15 ["uploadCategory"]
+  DUPTABLE R11 K17 [{"fetchStatus"}]
+  LOADK R12 K18 ["assetQualityFetchNA"]
+  SETTABLEKS R12 R11 K16 ["fetchStatus"]
+  SETTABLEKS R11 R0 K19 ["aqsFetchMetrics"]
+  GETUPVAL R11 2
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K20 ["ValidationModule"]
+  GETTABLEKS R12 R13 K21 ["ExpectedRootSchema"]
+  MOVE R13 R0
+  GETTABLEKS R14 R6 K10 ["states"]
+  CALL R11 3 1
+  GETUPVAL R12 4
+  MOVE R13 R6
+  MOVE R14 R9
+  MOVE R15 R11
+  GETTABLEKS R16 R0 K22 ["jobId"]
+  GETTABLEKS R17 R5 K23 ["enforceShadowValidations"]
+  CALL R12 5 0
+  GETTABLEKS R13 R6 K10 ["states"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K20 ["ValidationModule"]
+  GETTABLEKS R14 R15 K21 ["ExpectedRootSchema"]
+  GETTABLE R12 R13 R14
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K24 ["Status"]
+  GETTABLEKS R13 R14 K25 ["PASS"]
+  JUMPIFEQ R12 R13 [+7]
+  GETUPVAL R12 5
+  MOVE R13 R6
+  MOVE R14 R0
+  LOADN R15 255
+  CALL R12 3 0
+  RETURN R6 1
+  GETUPVAL R13 6
+  GETTABLEKS R12 R13 K26 ["storeDesiredData"]
+  MOVE R13 R0
+  MOVE R14 R10
+  CALL R12 2 0
+  LENGTH R12 R8
+  LOADN R13 0
+  JUMPIFNOTLT R13 R12 [+30]
+  GETTABLEKS R12 R0 K19 ["aqsFetchMetrics"]
+  LOADK R13 K27 ["assetQualityFetchInProgress"]
+  SETTABLEKS R13 R12 K16 ["fetchStatus"]
+  GETUPVAL R13 7
+  GETTABLEKS R14 R5 K28 ["source"]
+  GETTABLE R12 R13 R14
+  JUMPIFNOT R12 [+13]
+  GETUPVAL R12 8
+  NAMECALL R12 R12 K29 ["Run"]
+  CALL R12 1 0
+  GETUPVAL R12 9
+  MOVE R13 R0
+  MOVE R14 R8
+  CALL R12 2 0
+  GETUPVAL R12 8
+  NAMECALL R12 R12 K30 ["Pause"]
+  CALL R12 1 0
+  JUMP [+6]
+  GETIMPORT R12 K33 [task.spawn]
+  GETUPVAL R13 9
+  MOVE R14 R0
+  MOVE R15 R8
+  CALL R12 3 0
+  GETIMPORT R12 K35 [next]
+  MOVE R13 R9
+  CALL R12 1 1
+  JUMPIFEQKNIL R12 [+60]
+  GETTABLEKS R14 R0 K19 ["aqsFetchMetrics"]
+  GETTABLEKS R13 R14 K16 ["fetchStatus"]
+  JUMPIFEQKS R13 K27 ["assetQualityFetchInProgress"] [+2]
+  LOADB R12 0 +1
+  LOADB R12 1
+  GETUPVAL R13 10
+  MOVE R14 R9
+  NOT R15 R12
+  CALL R13 2 1
+  LENGTH R14 R13
+  JUMPIFNOTEQKN R14 K36 [0] [+6]
+  JUMPIF R12 [+4]
+  GETIMPORT R14 K38 [error]
+  LOADK R15 K39 ["Impossible to complete all layers"]
+  CALL R14 1 0
+  MOVE R14 R13
+  LOADNIL R15
+  LOADNIL R16
+  FORGPREP R14
+  GETUPVAL R19 2
+  MOVE R20 R18
+  MOVE R21 R0
+  GETTABLEKS R22 R6 K10 ["states"]
+  CALL R19 3 1
+  GETUPVAL R20 4
+  MOVE R21 R6
+  MOVE R22 R9
+  MOVE R23 R19
+  GETTABLEKS R24 R0 K22 ["jobId"]
+  GETTABLEKS R25 R5 K23 ["enforceShadowValidations"]
+  CALL R20 5 0
+  GETUPVAL R21 11
+  GETTABLEKS R22 R5 K28 ["source"]
+  GETTABLE R20 R21 R22
+  JUMPIFNOT R20 [+3]
+  GETIMPORT R20 K41 [task.wait]
+  CALL R20 0 0
+  FORGLOOP R14 2 [-24]
+  JUMPIFNOT R12 [+8]
+  GETUPVAL R15 7
+  GETTABLEKS R16 R5 K28 ["source"]
+  GETTABLE R14 R15 R16
+  JUMPIF R14 [+3]
+  GETIMPORT R14 K41 [task.wait]
+  CALL R14 0 0
+  JUMPBACK [-65]
+  GETUPVAL R12 5
+  MOVE R13 R6
+  MOVE R14 R0
+  LOADN R16 232
+  GETIMPORT R18 K2 [os.clock]
+  CALL R18 0 1
+  SUB R17 R18 R1
+  MUL R15 R16 R17
+  CALL R12 3 0
+  RETURN R6 1
+
+PROTO_9:
+  LENGTH R1 R0
+  JUMPIFNOTEQKN R1 K0 [0] [+3]
+  LOADNIL R1
+  RETURN R1 1
+  MOVE R1 R0
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  GETTABLEKS R6 R5 K1 ["Name"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K2 ["FOLDER_NAMES"]
+  GETTABLEKS R7 R8 K3 ["R15ArtistIntent"]
+  JUMPIFNOTEQ R6 R7 [+2]
+  RETURN R5 1
+  FORGLOOP R1 2 [-11]
+  GETTABLEN R1 R0 1
+  RETURN R1 1
+
+PROTO_10:
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+10]
+  GETIMPORT R3 K1 [print]
+  LOADK R5 K2 ["==== %* Validation begin ===="]
+  GETTABLEKS R7 R1 K3 ["Name"]
+  NAMECALL R5 R5 K4 ["format"]
+  CALL R5 2 1
+  MOVE R4 R5
+  CALL R3 1 0
+  DUPTABLE R3 K10 [{"jobId", "entrypointInput", "rootInstance", "uploadEnum", "consumerConfig"}]
+  GETUPVAL R4 1
+  NAMECALL R4 R4 K11 ["GenerateGUID"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K5 ["jobId"]
+  SETTABLEKS R0 R3 K6 ["entrypointInput"]
+  LENGTH R5 R0
+  JUMPIFNOTEQKN R5 K12 [0] [+3]
+  LOADNIL R4
+  JUMP [+18]
+  MOVE R5 R0
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  GETTABLEKS R10 R9 K3 ["Name"]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K13 ["FOLDER_NAMES"]
+  GETTABLEKS R11 R12 K14 ["R15ArtistIntent"]
+  JUMPIFNOTEQ R10 R11 [+3]
+  MOVE R4 R9
+  JUMP [+3]
+  FORGLOOP R5 2 [-12]
+  GETTABLEN R4 R0 1
+  SETTABLEKS R4 R3 K7 ["rootInstance"]
+  DUPTABLE R4 K16 [{"assetType"}]
+  SETTABLEKS R1 R4 K15 ["assetType"]
+  SETTABLEKS R4 R3 K8 ["uploadEnum"]
+  GETUPVAL R4 3
+  MOVE R5 R2
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K9 ["consumerConfig"]
+  GETUPVAL R4 4
+  MOVE R5 R3
+  CALL R4 1 1
+  RETURN R4 1
+
+PROTO_11:
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+10]
+  GETIMPORT R3 K1 [print]
+  LOADK R5 K2 ["==== %* Validation begin ===="]
+  GETTABLEKS R7 R1 K3 ["Name"]
+  NAMECALL R5 R5 K4 ["format"]
+  CALL R5 2 1
+  MOVE R4 R5
+  CALL R3 1 0
+  GETIMPORT R3 K7 [Instance.new]
+  LOADK R4 K8 ["Folder"]
+  CALL R3 1 1
+  MOVE R4 R0
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  GETTABLEKS R10 R8 K9 ["allSelectedInstances"]
+  LENGTH R11 R10
+  JUMPIFNOTEQKN R11 K10 [0] [+3]
+  LOADNIL R9
+  JUMP [+18]
+  MOVE R11 R10
+  LOADNIL R12
+  LOADNIL R13
+  FORGPREP R11
+  GETTABLEKS R16 R15 K3 ["Name"]
+  GETUPVAL R19 1
+  GETTABLEKS R18 R19 K11 ["FOLDER_NAMES"]
+  GETTABLEKS R17 R18 K12 ["R15ArtistIntent"]
+  JUMPIFNOTEQ R16 R17 [+3]
+  MOVE R9 R15
+  JUMP [+3]
+  FORGLOOP R11 2 [-12]
+  GETTABLEN R9 R10 1
+  JUMPIFEQKNIL R9 [+28]
+  LOADK R12 K8 ["Folder"]
+  NAMECALL R10 R9 K13 ["IsA"]
+  CALL R10 2 1
+  JUMPIF R10 [+5]
+  LOADK R12 K14 ["Model"]
+  NAMECALL R10 R9 K13 ["IsA"]
+  CALL R10 2 1
+  JUMPIFNOT R10 [+12]
+  NAMECALL R10 R9 K15 ["GetChildren"]
+  CALL R10 1 3
+  FORGPREP R10
+  NAMECALL R15 R14 K16 ["Clone"]
+  CALL R15 1 1
+  SETTABLEKS R3 R15 K17 ["Parent"]
+  FORGLOOP R10 2 [-6]
+  JUMP [+5]
+  NAMECALL R10 R9 K16 ["Clone"]
+  CALL R10 1 1
+  SETTABLEKS R3 R10 K17 ["Parent"]
+  FORGLOOP R4 2 [-55]
+  DUPTABLE R4 K23 [{"jobId", "entrypointInput", "rootInstance", "uploadEnum", "consumerConfig"}]
+  GETUPVAL R5 2
+  NAMECALL R5 R5 K24 ["GenerateGUID"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K18 ["jobId"]
+  SETTABLEKS R0 R4 K19 ["entrypointInput"]
+  SETTABLEKS R3 R4 K20 ["rootInstance"]
+  DUPTABLE R5 K26 [{"bundleType"}]
+  SETTABLEKS R1 R5 K25 ["bundleType"]
+  SETTABLEKS R5 R4 K21 ["uploadEnum"]
+  GETUPVAL R5 3
+  MOVE R6 R2
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K22 ["consumerConfig"]
+  GETUPVAL R5 4
+  MOVE R6 R4
+  CALL R5 1 1
+  RETURN R5 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["util"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["validationSystem"]
+  GETTABLEKS R3 R4 K8 ["ValidationEnums"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["validationSystem"]
+  GETTABLEKS R4 R5 K9 ["ValidationModuleLoader"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R5 R0 K10 ["Constants"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K7 ["validationSystem"]
+  GETTABLEKS R6 R7 K11 ["ValidationTestWrapper"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R9 R0 K7 ["validationSystem"]
+  GETTABLEKS R8 R9 K12 ["dataFetchModules"]
+  GETTABLEKS R7 R8 K13 ["FetchAllDesiredData"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K5 ["util"]
+  GETTABLEKS R8 R9 K14 ["getUploadCategory"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R0 K5 ["util"]
+  GETTABLEKS R9 R10 K15 ["RecreateSceneFromEditables"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R11 R0 K7 ["validationSystem"]
+  GETTABLEKS R10 R11 K16 ["ErrorSourceStrings"]
+  CALL R9 1 1
+  GETIMPORT R10 K18 [game]
+  LOADK R12 K19 ["HttpService"]
+  NAMECALL R10 R10 K20 ["GetService"]
+  CALL R10 2 1
+  GETIMPORT R11 K18 [game]
+  LOADK R13 K21 ["TelemetryService"]
+  NAMECALL R11 R11 K20 ["GetService"]
+  CALL R11 2 1
+  GETIMPORT R12 K18 [game]
+  LOADK R14 K22 ["RunService"]
+  NAMECALL R12 R12 K20 ["GetService"]
+  CALL R12 2 1
+  GETIMPORT R13 K18 [game]
+  LOADK R15 K23 ["AssetQualityService"]
+  NAMECALL R13 R13 K20 ["GetService"]
+  CALL R13 2 1
+  GETIMPORT R14 K18 [game]
+  LOADK R16 K24 ["FullValidationTelemetryThrottleHundrethsPercent"]
+  LOADN R17 16
+  NAMECALL R14 R14 K25 ["DefineFastInt"]
+  CALL R14 3 0
+  GETIMPORT R14 K18 [game]
+  LOADK R16 K26 ["RbxAnalyticsService"]
+  NAMECALL R14 R14 K20 ["GetService"]
+  CALL R14 2 1
+  DUPTABLE R15 K33 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
+  LOADK R16 K34 ["UgcFullValidationFinished"]
+  SETTABLEKS R16 R15 K27 ["eventName"]
+  NEWTABLE R16 0 1
+  LOADK R17 K35 ["EventIngest"]
+  SETLIST R16 R17 1 [1]
+  SETTABLEKS R16 R15 K28 ["backends"]
+  GETIMPORT R16 K18 [game]
+  LOADK R18 K24 ["FullValidationTelemetryThrottleHundrethsPercent"]
+  NAMECALL R16 R16 K36 ["GetFastInt"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K29 ["throttlingPercentage"]
+  NEWTABLE R16 0 3
+  LOADN R17 25
+  LOADN R18 11
+  LOADN R19 18
+  SETLIST R16 R17 3 [1]
+  SETTABLEKS R16 R15 K30 ["lastUpdated"]
+  LOADK R16 K37 ["Report result of ugc validation suite"]
+  SETTABLEKS R16 R15 K31 ["description"]
+  LOADK R16 K38 ["https://create.roblox.com/docs/art/validation-errors"]
+  SETTABLEKS R16 R15 K32 ["links"]
+  GETIMPORT R16 K4 [require]
+  GETTABLEKS R18 R0 K39 ["flags"]
+  GETTABLEKS R17 R18 K40 ["getFFlagDebugUGCValidationPrintNewStructureResults"]
+  CALL R16 1 1
+  GETIMPORT R17 K4 [require]
+  GETTABLEKS R19 R0 K39 ["flags"]
+  GETTABLEKS R18 R19 K41 ["getEngineFeatureEngineAssetQualityEngineService"]
+  CALL R17 1 1
+  GETIMPORT R18 K4 [require]
+  GETTABLEKS R20 R0 K39 ["flags"]
+  GETTABLEKS R19 R20 K42 ["getFIntUGCValidationFetchQualityMaxRetry"]
+  CALL R18 1 1
+  NEWTABLE R19 2 0
+  DUPTABLE R20 K44 [{"Backend"}]
+  LOADB R21 1
+  SETTABLEKS R21 R20 K43 ["Backend"]
+  DUPTABLE R21 K47 [{"InExpClient", "InExpServer"}]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K45 ["InExpClient"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K46 ["InExpServer"]
+  DUPCLOSURE R22 K48 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  DUPCLOSURE R23 K49 [PROTO_3]
+  CAPTURE VAL R17
+  CAPTURE VAL R13
+  CAPTURE VAL R8
+  CAPTURE VAL R18
+  CAPTURE VAL R16
+  DUPCLOSURE R24 K50 [PROTO_4]
+  DUPCLOSURE R25 K51 [PROTO_5]
+  CAPTURE VAL R14
+  CAPTURE VAL R11
+  CAPTURE VAL R15
+  CAPTURE VAL R16
+  DUPCLOSURE R26 K52 [PROTO_6]
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  DUPCLOSURE R27 K53 [PROTO_7]
+  DUPCLOSURE R28 K54 [PROTO_8]
+  CAPTURE VAL R7
+  CAPTURE VAL R22
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R26
+  CAPTURE VAL R25
+  CAPTURE VAL R6
+  CAPTURE VAL R20
+  CAPTURE VAL R12
+  CAPTURE VAL R23
+  CAPTURE VAL R24
+  CAPTURE VAL R21
+  DUPCLOSURE R29 K55 [PROTO_9]
+  CAPTURE VAL R4
+  DUPCLOSURE R30 K56 [PROTO_10]
+  CAPTURE VAL R16
+  CAPTURE VAL R10
+  CAPTURE VAL R4
+  CAPTURE VAL R27
+  CAPTURE VAL R28
+  SETTABLEKS R30 R19 K57 ["ValidateAsset"]
+  DUPCLOSURE R30 K58 [PROTO_11]
+  CAPTURE VAL R16
+  CAPTURE VAL R4
+  CAPTURE VAL R10
+  CAPTURE VAL R27
+  CAPTURE VAL R28
+  SETTABLEKS R30 R19 K59 ["ValidateFinalizedBundle"]
+  RETURN R19 1

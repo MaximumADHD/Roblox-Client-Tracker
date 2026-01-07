@@ -1,0 +1,217 @@
+PROTO_0:
+  DUPTABLE R2 K4 [{"container", "title", "description", "icon"}]
+  DUPTABLE R3 K7 [{"tag", "colorMode"}]
+  LOADK R4 K8 ["bg-shift-200"]
+  SETTABLEKS R4 R3 K5 ["tag"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K9 ["Color"]
+  SETTABLEKS R4 R3 K6 ["colorMode"]
+  SETTABLEKS R3 R2 K0 ["container"]
+  DUPTABLE R3 K11 [{"style"}]
+  GETTABLEKS R6 R0 K9 ["Color"]
+  GETTABLEKS R5 R6 K12 ["Content"]
+  GETTABLEKS R4 R5 K13 ["Emphasis"]
+  SETTABLEKS R4 R3 K10 ["style"]
+  SETTABLEKS R3 R2 K1 ["title"]
+  DUPTABLE R3 K11 [{"style"}]
+  GETTABLEKS R6 R0 K9 ["Color"]
+  GETTABLEKS R5 R6 K12 ["Content"]
+  GETTABLEKS R4 R5 K14 ["Default"]
+  SETTABLEKS R4 R3 K10 ["style"]
+  SETTABLEKS R3 R2 K2 ["description"]
+  DUPTABLE R3 K11 [{"style"}]
+  SETTABLEKS R1 R3 K10 ["style"]
+  SETTABLEKS R3 R2 K3 ["icon"]
+  RETURN R2 1
+
+PROTO_1:
+  DUPTABLE R3 K4 [{"container", "title", "description", "icon"}]
+  DUPTABLE R4 K7 [{"tag", "colorMode"}]
+  SETTABLEKS R1 R4 K5 ["tag"]
+  SETTABLEKS R2 R4 K6 ["colorMode"]
+  SETTABLEKS R4 R3 K0 ["container"]
+  DUPTABLE R4 K9 [{"style"}]
+  GETTABLE R7 R0 R2
+  GETTABLEKS R6 R7 K10 ["Content"]
+  GETTABLEKS R5 R6 K11 ["Emphasis"]
+  SETTABLEKS R5 R4 K8 ["style"]
+  SETTABLEKS R4 R3 K1 ["title"]
+  DUPTABLE R4 K9 [{"style"}]
+  GETTABLE R7 R0 R2
+  GETTABLEKS R6 R7 K10 ["Content"]
+  GETTABLEKS R5 R6 K12 ["Default"]
+  SETTABLEKS R5 R4 K8 ["style"]
+  SETTABLEKS R4 R3 K2 ["description"]
+  DUPTABLE R4 K9 [{"style"}]
+  GETTABLE R7 R0 R2
+  GETTABLEKS R6 R7 K10 ["Content"]
+  GETTABLEKS R5 R6 K11 ["Emphasis"]
+  SETTABLEKS R5 R4 K8 ["style"]
+  SETTABLEKS R4 R3 K3 ["icon"]
+  RETURN R3 1
+
+PROTO_2:
+  DUPTABLE R1 K3 [{"container", "title", "description"}]
+  DUPTABLE R2 K5 [{"tag"}]
+  LOADK R3 K6 ["size-full-0 auto-y row padding-y-large padding-x-medium gap-medium"]
+  SETTABLEKS R3 R2 K4 ["tag"]
+  SETTABLEKS R2 R1 K0 ["container"]
+  DUPTABLE R2 K5 [{"tag"}]
+  LOADK R3 K7 ["text-align-x-left text-wrap auto-xy text-title-medium padding-y-xxsmall"]
+  SETTABLEKS R3 R2 K4 ["tag"]
+  SETTABLEKS R2 R1 K1 ["title"]
+  DUPTABLE R2 K5 [{"tag"}]
+  LOADK R3 K8 ["text-align-x-left text-wrap auto-xy text-body-medium text-wrap"]
+  SETTABLEKS R3 R2 K4 ["tag"]
+  SETTABLEKS R2 R1 K2 ["description"]
+  NEWTABLE R2 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K9 ["Standard"]
+  NEWTABLE R4 4 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K10 ["Info"]
+  GETUPVAL R6 2
+  MOVE R7 R0
+  GETTABLEKS R10 R0 K11 ["Color"]
+  GETTABLEKS R9 R10 K12 ["System"]
+  GETTABLEKS R8 R9 K13 ["Emphasis"]
+  CALL R6 2 1
+  SETTABLE R6 R4 R5
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K14 ["Warning"]
+  GETUPVAL R6 2
+  MOVE R7 R0
+  GETTABLEKS R10 R0 K11 ["Color"]
+  GETTABLEKS R9 R10 K12 ["System"]
+  GETTABLEKS R8 R9 K14 ["Warning"]
+  CALL R6 2 1
+  SETTABLE R6 R4 R5
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K15 ["Success"]
+  GETUPVAL R6 2
+  MOVE R7 R0
+  GETTABLEKS R10 R0 K11 ["Color"]
+  GETTABLEKS R9 R10 K12 ["System"]
+  GETTABLEKS R8 R9 K15 ["Success"]
+  CALL R6 2 1
+  SETTABLE R6 R4 R5
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K16 ["Error"]
+  GETUPVAL R6 2
+  MOVE R7 R0
+  GETTABLEKS R10 R0 K11 ["Color"]
+  GETTABLEKS R9 R10 K12 ["System"]
+  GETTABLEKS R8 R9 K17 ["Alert"]
+  CALL R6 2 1
+  SETTABLE R6 R4 R5
+  SETTABLE R4 R2 R3
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K13 ["Emphasis"]
+  NEWTABLE R4 4 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K10 ["Info"]
+  GETUPVAL R6 3
+  MOVE R7 R0
+  LOADK R8 K18 ["bg-system-emphasis"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K19 ["DarkMode"]
+  CALL R6 3 1
+  SETTABLE R6 R4 R5
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K14 ["Warning"]
+  GETUPVAL R6 3
+  MOVE R7 R0
+  LOADK R8 K20 ["bg-system-warning"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K21 ["LightMode"]
+  CALL R6 3 1
+  SETTABLE R6 R4 R5
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K15 ["Success"]
+  GETUPVAL R6 3
+  MOVE R7 R0
+  LOADK R8 K22 ["bg-system-success"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K21 ["LightMode"]
+  CALL R6 3 1
+  SETTABLE R6 R4 R5
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K16 ["Error"]
+  GETUPVAL R6 3
+  MOVE R7 R0
+  LOADK R8 K23 ["bg-system-alert"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K19 ["DarkMode"]
+  CALL R6 3 1
+  SETTABLE R6 R4 R5
+  SETTABLE R4 R2 R3
+  DUPTABLE R3 K26 [{"common", "severity"}]
+  SETTABLEKS R1 R3 K24 ["common"]
+  SETTABLEKS R2 R3 K25 ["severity"]
+  RETURN R3 1
+
+PROTO_3:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["useVariants"]
+  LOADK R4 K1 ["SystemBanner"]
+  GETUPVAL R5 1
+  MOVE R6 R0
+  CALL R3 3 1
+  GETUPVAL R4 2
+  GETTABLEKS R5 R3 K2 ["common"]
+  GETTABLEKS R8 R3 K3 ["severity"]
+  GETTABLE R7 R8 R1
+  GETTABLE R6 R7 R2
+  CALL R4 2 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Components"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Enums"]
+  GETTABLEKS R3 R4 K9 ["ColorMode"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Enums"]
+  GETTABLEKS R4 R5 K10 ["AlertVariant"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Enums"]
+  GETTABLEKS R5 R6 K11 ["AlertSeverity"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K12 ["Utility"]
+  GETTABLEKS R6 R7 K13 ["composeStyleVariant"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K14 ["Providers"]
+  GETTABLEKS R8 R9 K15 ["Style"]
+  GETTABLEKS R7 R8 K16 ["Tokens"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K14 ["Providers"]
+  GETTABLEKS R9 R10 K15 ["Style"]
+  GETTABLEKS R8 R9 K17 ["VariantsContext"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K18 [PROTO_0]
+  CAPTURE VAL R2
+  DUPCLOSURE R9 K19 [PROTO_1]
+  DUPCLOSURE R10 K20 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  DUPCLOSURE R11 K21 [PROTO_3]
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R5
+  RETURN R11 1

@@ -1,0 +1,177 @@
+PROTO_0:
+  JUMPIFNOTEQKS R0 K0 ["C"] [+3]
+  GETUPVAL R1 0
+  JUMP [+1]
+  LOADK R1 K1 [""]
+  GETUPVAL R3 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K2 ["createElement"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K3 ["Item"]
+  DUPTABLE R6 K9 [{"value", "icon", "label", "description", "size"}]
+  SETTABLEKS R0 R6 K4 ["value"]
+  GETUPVAL R8 4
+  GETIMPORT R9 K12 [math.random]
+  LOADN R10 1
+  GETUPVAL R12 4
+  LENGTH R11 R12
+  CALL R9 2 1
+  GETTABLE R7 R8 R9
+  SETTABLEKS R7 R6 K5 ["icon"]
+  GETUPVAL R9 5
+  LENGTH R8 R9
+  LOADN R9 0
+  JUMPIFNOTLT R9 R8 [+10]
+  LOADK R8 K13 ["%*%* %*"]
+  GETUPVAL R10 5
+  MOVE R11 R1
+  MOVE R12 R0
+  NAMECALL R8 R8 K14 ["format"]
+  CALL R8 4 1
+  MOVE R7 R8
+  JUMP [+1]
+  LOADK R7 K1 [""]
+  SETTABLEKS R7 R6 K6 ["label"]
+  GETUPVAL R9 6
+  LENGTH R8 R9
+  LOADN R9 0
+  JUMPIFNOTLT R9 R8 [+10]
+  LOADK R8 K13 ["%*%* %*"]
+  GETUPVAL R10 6
+  MOVE R11 R1
+  MOVE R12 R0
+  NAMECALL R8 R8 K14 ["format"]
+  CALL R8 4 1
+  MOVE R7 R8
+  JUMP [+1]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K7 ["description"]
+  GETUPVAL R8 7
+  GETTABLEKS R7 R8 K8 ["size"]
+  SETTABLEKS R7 R6 K8 ["size"]
+  CALL R4 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R2 K17 [table.insert]
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R1 K1 [print]
+  LOADK R2 K2 ["Checking value"]
+  MOVE R3 R0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["controls"]
+  GETTABLEKS R2 R1 K1 ["optionLabel"]
+  GETTABLEKS R3 R1 K2 ["optionDescription"]
+  NEWTABLE R4 0 0
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["forEach"]
+  GETUPVAL R6 1
+  NEWCLOSURE R7 P0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R4
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CALL R5 2 0
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K4 ["createElement"]
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K5 ["Root"]
+  DUPTABLE R7 K9 [{"value", "onValueChanged", "orientation"}]
+  GETTABLEKS R8 R1 K6 ["value"]
+  SETTABLEKS R8 R7 K6 ["value"]
+  DUPCLOSURE R8 K10 [PROTO_1]
+  SETTABLEKS R8 R7 K7 ["onValueChanged"]
+  GETTABLEKS R8 R1 K8 ["orientation"]
+  SETTABLEKS R8 R7 K8 ["orientation"]
+  MOVE R8 R4
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["Dash"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K9 ["Enums"]
+  GETTABLEKS R5 R6 K10 ["InputSize"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K9 ["Enums"]
+  GETTABLEKS R6 R7 K11 ["Orientation"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K12 ["Components"]
+  GETTABLEKS R7 R8 K13 ["OptionSelectorGroup"]
+  CALL R6 1 1
+  NEWTABLE R7 0 6
+  LOADK R8 K14 ["A"]
+  LOADK R9 K15 ["B"]
+  LOADK R10 K16 ["C"]
+  LOADK R11 K17 ["D"]
+  LOADK R12 K18 ["E"]
+  LOADK R13 K19 ["F"]
+  SETLIST R7 R8 6 [1]
+  NEWTABLE R8 0 6
+  LOADK R9 K20 ["arm-left"]
+  LOADK R10 K21 ["hat-fedora"]
+  LOADK R11 K22 ["chart-pie"]
+  LOADK R12 K23 ["lipstick"]
+  LOADK R13 K24 ["moon"]
+  LOADK R14 K25 ["star"]
+  SETLIST R8 R9 6 [1]
+  LOADK R10 K26 [" With A Lot Of Extra Text To See How It Behaves When It Might Need To Be Wrapped"]
+  LOADK R11 K27 ["To Multiple Lines Because It's Just So Long We Simply Cannot Fit It On One Line"]
+  CONCAT R9 R10 R11
+  DUPCLOSURE R10 K28 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  DUPTABLE R11 K32 [{"summary", "stories", "controls"}]
+  LOADK R12 K33 ["OptionSelectorGroup component"]
+  SETTABLEKS R12 R11 K29 ["summary"]
+  NEWTABLE R12 0 1
+  DUPTABLE R13 K36 [{"name", "story"}]
+  LOADK R14 K37 ["Basic"]
+  SETTABLEKS R14 R13 K34 ["name"]
+  SETTABLEKS R10 R13 K35 ["story"]
+  SETLIST R12 R13 1 [1]
+  SETTABLEKS R12 R11 K30 ["stories"]
+  DUPTABLE R12 K43 [{"optionLabel", "optionDescription", "orientation", "size", "value"}]
+  LOADK R13 K44 ["Option"]
+  SETTABLEKS R13 R12 K38 ["optionLabel"]
+  LOADK R13 K45 ["Description"]
+  SETTABLEKS R13 R12 K39 ["optionDescription"]
+  GETTABLEKS R13 R3 K46 ["values"]
+  MOVE R14 R5
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K40 ["orientation"]
+  GETTABLEKS R13 R3 K46 ["values"]
+  MOVE R14 R4
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K41 ["size"]
+  GETTABLEKS R13 R3 K46 ["values"]
+  MOVE R14 R7
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K42 ["value"]
+  SETTABLEKS R12 R11 K31 ["controls"]
+  RETURN R11 1

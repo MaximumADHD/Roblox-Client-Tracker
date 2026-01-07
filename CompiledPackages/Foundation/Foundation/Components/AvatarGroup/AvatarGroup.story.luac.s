@@ -1,0 +1,95 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K5 [{"avatars", "type", "max", "size"}]
+  NEWTABLE R4 0 9
+  DUPTABLE R5 K8 [{"userId", "userPresence"}]
+  LOADK R6 K9 [24813339]
+  SETTABLEKS R6 R5 K6 ["userId"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K10 ["InExperience"]
+  SETTABLEKS R6 R5 K7 ["userPresence"]
+  LOADK R6 K11 [24813338]
+  DUPTABLE R7 K8 [{"userId", "userPresence"}]
+  LOADK R8 K12 [24813333]
+  SETTABLEKS R8 R7 K6 ["userId"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K10 ["InExperience"]
+  SETTABLEKS R8 R7 K7 ["userPresence"]
+  LOADK R8 K13 [24813337]
+  LOADK R9 K14 [24813336]
+  LOADK R10 K15 [24813335]
+  LOADK R11 K16 [24813334]
+  LOADK R12 K17 [24813332]
+  LOADK R13 K18 [24813331]
+  SETLIST R4 R5 9 [1]
+  SETTABLEKS R4 R3 K1 ["avatars"]
+  GETTABLEKS R5 R0 K19 ["controls"]
+  GETTABLEKS R4 R5 K2 ["type"]
+  SETTABLEKS R4 R3 K2 ["type"]
+  GETTABLEKS R5 R0 K19 ["controls"]
+  GETTABLEKS R4 R5 K3 ["max"]
+  SETTABLEKS R4 R3 K3 ["max"]
+  GETTABLEKS R5 R0 K19 ["controls"]
+  GETTABLEKS R4 R5 K4 ["size"]
+  SETTABLEKS R4 R3 K4 ["size"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["Dash"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K9 ["Components"]
+  GETTABLEKS R5 R6 K10 ["AvatarGroup"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K11 ["Enums"]
+  GETTABLEKS R6 R7 K12 ["InputSize"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K11 ["Enums"]
+  GETTABLEKS R7 R8 K13 ["AvatarGroupType"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K11 ["Enums"]
+  GETTABLEKS R8 R9 K14 ["UserPresence"]
+  CALL R7 1 1
+  DUPTABLE R8 K18 [{"summary", "stories", "controls"}]
+  LOADK R9 K10 ["AvatarGroup"]
+  SETTABLEKS R9 R8 K15 ["summary"]
+  NEWTABLE R9 0 1
+  DUPTABLE R10 K21 [{"name", "story"}]
+  LOADK R11 K22 ["Base"]
+  SETTABLEKS R11 R10 K19 ["name"]
+  DUPCLOSURE R11 K23 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  SETTABLEKS R11 R10 K20 ["story"]
+  SETLIST R9 R10 1 [1]
+  SETTABLEKS R9 R8 K16 ["stories"]
+  DUPTABLE R9 K27 [{"type", "max", "size"}]
+  GETTABLEKS R10 R3 K28 ["values"]
+  MOVE R11 R6
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K24 ["type"]
+  LOADN R10 5
+  SETTABLEKS R10 R9 K25 ["max"]
+  GETTABLEKS R10 R3 K28 ["values"]
+  MOVE R11 R5
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K26 ["size"]
+  SETTABLEKS R9 R8 K17 ["controls"]
+  RETURN R8 1

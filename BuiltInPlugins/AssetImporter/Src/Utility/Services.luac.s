@@ -31,13 +31,22 @@ MAIN:
   GETTABLEKS R4 R5 K10 ["Mocks"]
   GETTABLEKS R3 R4 K11 ["AssetImportServiceMock"]
   CALL R2 1 1
-  NEWTABLE R3 1 0
-  DUPTABLE R4 K13 [{"AssetImportService"}]
-  GETTABLEKS R5 R2 K14 ["new"]
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K12 ["AssetImportService"]
-  DUPCLOSURE R5 K15 [PROTO_0]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K9 ["Testing"]
+  GETTABLEKS R5 R6 K10 ["Mocks"]
+  GETTABLEKS R4 R5 K12 ["StudioServiceMock"]
+  CALL R3 1 1
+  NEWTABLE R4 1 0
+  DUPTABLE R5 K15 [{"AssetImportService", "StudioService"}]
+  GETTABLEKS R6 R2 K16 ["new"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K13 ["AssetImportService"]
+  GETTABLEKS R6 R3 K16 ["new"]
+  CALL R6 0 1
+  SETTABLEKS R6 R5 K14 ["StudioService"]
+  DUPCLOSURE R6 K17 [PROTO_0]
   CAPTURE VAL R1
-  CAPTURE VAL R4
-  SETTABLEKS R5 R3 K16 ["GetService"]
-  RETURN R3 1
+  CAPTURE VAL R5
+  SETTABLEKS R6 R4 K18 ["GetService"]
+  RETURN R4 1

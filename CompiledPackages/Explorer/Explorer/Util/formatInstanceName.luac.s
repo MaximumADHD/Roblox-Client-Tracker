@@ -1,0 +1,20 @@
+PROTO_0:
+  GETIMPORT R1 K2 [string.gsub]
+  GETIMPORT R2 K2 [string.gsub]
+  LOADN R5 1
+  LOADN R6 100
+  NAMECALL R3 R0 K3 ["sub"]
+  CALL R3 3 1
+  LOADK R4 K4 ["
+"]
+  LOADK R5 K5 [" "]
+  CALL R2 3 1
+  LOADK R3 K6 [""]
+  LOADK R4 K7 [""]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

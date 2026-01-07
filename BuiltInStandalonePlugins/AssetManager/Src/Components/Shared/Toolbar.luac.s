@@ -33,15 +33,30 @@ PROTO_1:
   GETUPVAL R1 0
   GETTABLEKS R2 R0 K0 ["Buttons"]
   CALL R1 1 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R2 1
+  CALL R2 0 1
+  JUMPIFNOT R2 [+17]
   GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K2 ["View"]
+  DUPTABLE R4 K5 [{"LayoutOrder", "tag"}]
+  GETTABLEKS R5 R0 K3 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K3 ["LayoutOrder"]
+  LOADK R5 K6 ["row gap-small wrap flex-x-none size-full-0 auto-y align-x-center anchor-bottom-left position-bottom-left padding-bottom-medium"]
+  SETTABLEKS R5 R4 K4 ["tag"]
+  MOVE R5 R1
+  CALL R2 3 -1
+  RETURN R2 -1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R3 4
   NEWTABLE R4 2 0
-  GETTABLEKS R5 R0 K2 ["LayoutOrder"]
-  SETTABLEKS R5 R4 K2 ["LayoutOrder"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K3 ["Tag"]
-  LOADK R6 K4 ["Toolbar X-FitY X-Center anchor-bottom-left position-bottom-left am-padding-bottom-medium"]
+  GETTABLEKS R5 R0 K3 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K3 ["LayoutOrder"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K7 ["Tag"]
+  LOADK R6 K8 ["Toolbar X-FitY X-Center anchor-bottom-left position-bottom-left am-padding-bottom-medium"]
   SETTABLE R6 R4 R5
   MOVE R5 R1
   CALL R2 3 -1
@@ -59,19 +74,30 @@ MAIN:
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
   GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Framework"]
+  GETTABLEKS R3 R4 K8 ["Foundation"]
   CALL R2 1 1
-  GETTABLEKS R4 R2 K9 ["Styling"]
-  GETTABLEKS R3 R4 K10 ["joinTags"]
-  GETTABLEKS R4 R2 K11 ["UI"]
-  GETTABLEKS R5 R4 K12 ["IconButton"]
-  GETTABLEKS R6 R4 K13 ["Pane"]
-  DUPCLOSURE R7 K14 [PROTO_0]
-  CAPTURE VAL R1
-  CAPTURE VAL R5
-  CAPTURE VAL R3
-  DUPCLOSURE R8 K15 [PROTO_1]
-  CAPTURE VAL R7
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R5 R3 K10 ["Styling"]
+  GETTABLEKS R4 R5 K11 ["joinTags"]
+  GETTABLEKS R5 R3 K12 ["UI"]
+  GETTABLEKS R6 R5 K13 ["IconButton"]
+  GETTABLEKS R7 R5 K14 ["Pane"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K15 ["Src"]
+  GETTABLEKS R10 R11 K16 ["Flags"]
+  GETTABLEKS R9 R10 K17 ["getFFlagAmrFixCustomizeGroups"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K18 [PROTO_0]
   CAPTURE VAL R1
   CAPTURE VAL R6
-  RETURN R8 1
+  CAPTURE VAL R4
+  DUPCLOSURE R10 K19 [PROTO_1]
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  RETURN R10 1

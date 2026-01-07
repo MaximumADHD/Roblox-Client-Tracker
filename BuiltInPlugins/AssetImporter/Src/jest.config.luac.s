@@ -1,8 +1,10 @@
 MAIN:
   PREPVARARGS 0
-  DUPTABLE R0 K1 [{"testMatch"}]
+  DUPTABLE R0 K2 [{"testMatch", "__ROACT_17_MOCK_SCHEDULER__"}]
   NEWTABLE R1 0 1
-  LOADK R2 K2 ["**/*.spec"]
+  LOADK R2 K3 ["**/*.spec"]
   SETLIST R1 R2 1 [1]
   SETTABLEKS R1 R0 K0 ["testMatch"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K1 ["__ROACT_17_MOCK_SCHEDULER__"]
   RETURN R0 1

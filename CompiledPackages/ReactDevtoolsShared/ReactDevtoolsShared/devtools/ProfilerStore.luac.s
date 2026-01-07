@@ -1,0 +1,636 @@
+PROTO_0:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  GETUPVAL R4 1
+  NAMECALL R1 R1 K0 ["_takeProfilingSnapshotRecursive"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["_store"]
+  MOVE R5 R1
+  NAMECALL R3 R3 K1 ["getElementByID"]
+  CALL R3 2 1
+  JUMPIFEQKNIL R3 [+43]
+  DUPTABLE R4 K8 [{"id", "children", "displayName", "hocDisplayNames", "key", "type"}]
+  SETTABLEKS R1 R4 K2 ["id"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K9 ["slice"]
+  GETTABLEKS R6 R3 K3 ["children"]
+  LOADN R7 0
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K3 ["children"]
+  GETTABLEKS R5 R3 K4 ["displayName"]
+  SETTABLEKS R5 R4 K4 ["displayName"]
+  GETTABLEKS R5 R3 K5 ["hocDisplayNames"]
+  SETTABLEKS R5 R4 K5 ["hocDisplayNames"]
+  GETTABLEKS R5 R3 K6 ["key"]
+  SETTABLEKS R5 R4 K6 ["key"]
+  GETTABLEKS R5 R3 K7 ["type"]
+  SETTABLEKS R5 R4 K7 ["type"]
+  MOVE R7 R1
+  MOVE R8 R4
+  NAMECALL R5 R2 K10 ["set"]
+  CALL R5 3 0
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K11 ["forEach"]
+  GETTABLEKS R6 R3 K3 ["children"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEN R2 R1 1
+  GETTABLEN R3 R1 2
+  GETTABLEKS R4 R0 K0 ["_isProfiling"]
+  JUMPIFNOT R4 [+65]
+  GETTABLEKS R4 R0 K1 ["_inProgressOperationsByRootID"]
+  MOVE R6 R3
+  NAMECALL R4 R4 K2 ["get"]
+  CALL R4 2 1
+  JUMPIFNOTEQKNIL R4 [+15]
+  NEWTABLE R5 0 1
+  MOVE R6 R1
+  SETLIST R5 R6 1 [1]
+  MOVE R4 R5
+  GETTABLEKS R5 R0 K1 ["_inProgressOperationsByRootID"]
+  MOVE R7 R3
+  MOVE R8 R4
+  NAMECALL R5 R5 K3 ["set"]
+  CALL R5 3 0
+  JUMP [+7]
+  FASTCALL2 TABLE_INSERT R4 R1 [+5]
+  MOVE R6 R4
+  MOVE R7 R1
+  GETIMPORT R5 K6 [table.insert]
+  CALL R5 2 0
+  GETTABLEKS R5 R0 K7 ["_initialRendererIDs"]
+  MOVE R7 R2
+  NAMECALL R5 R5 K8 ["has"]
+  CALL R5 2 1
+  JUMPIF R5 [+6]
+  GETTABLEKS R5 R0 K7 ["_initialRendererIDs"]
+  MOVE R7 R2
+  NAMECALL R5 R5 K9 ["add"]
+  CALL R5 2 0
+  GETTABLEKS R5 R0 K10 ["_initialSnapshotsByRootID"]
+  MOVE R7 R3
+  NAMECALL R5 R5 K8 ["has"]
+  CALL R5 2 1
+  JUMPIF R5 [+10]
+  GETTABLEKS R5 R0 K10 ["_initialSnapshotsByRootID"]
+  MOVE R7 R3
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K11 ["new"]
+  CALL R8 0 -1
+  NAMECALL R5 R5 K3 ["set"]
+  CALL R5 -1 0
+  GETTABLEKS R5 R0 K12 ["_rendererIDsThatReportedProfilingData"]
+  MOVE R7 R2
+  NAMECALL R5 R5 K9 ["add"]
+  CALL R5 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R2 R0 K0 ["_isProfiling"]
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  GETTABLEKS R2 R1 K1 ["rendererID"]
+  GETTABLEKS R3 R0 K2 ["_rendererQueue"]
+  MOVE R5 R2
+  NAMECALL R3 R3 K3 ["has"]
+  CALL R3 2 1
+  JUMPIF R3 [+12]
+  GETIMPORT R3 K5 [error]
+  GETIMPORT R4 K8 [string.format]
+  LOADK R5 K9 ["Unexpected profiling data update from renderer \"%s\""]
+  FASTCALL1 TOSTRING R2 [+3]
+  MOVE R7 R2
+  GETIMPORT R6 K11 [tostring]
+  CALL R6 1 1
+  CALL R4 2 -1
+  CALL R3 -1 0
+  GETTABLEKS R4 R0 K12 ["_dataBackends"]
+  FASTCALL2 TABLE_INSERT R4 R1 [+4]
+  MOVE R5 R1
+  GETIMPORT R3 K15 [table.insert]
+  CALL R3 2 0
+  GETTABLEKS R3 R0 K2 ["_rendererQueue"]
+  MOVE R5 R2
+  NAMECALL R3 R3 K16 ["delete"]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K2 ["_rendererQueue"]
+  GETTABLEKS R3 R4 K17 ["size"]
+  JUMPIFNOTEQKN R3 K18 [0] [+22]
+  GETUPVAL R3 0
+  GETTABLEKS R4 R0 K12 ["_dataBackends"]
+  GETTABLEKS R5 R0 K19 ["_inProgressOperationsByRootID"]
+  GETTABLEKS R6 R0 K20 ["_initialSnapshotsByRootID"]
+  CALL R3 3 1
+  SETTABLEKS R3 R0 K21 ["_dataFrontend"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K22 ["splice"]
+  GETTABLEKS R4 R0 K12 ["_dataBackends"]
+  LOADN R5 0
+  CALL R3 2 0
+  LOADK R5 K23 ["isProcessingData"]
+  NAMECALL R3 R0 K24 ["emit"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R1 R0 K0 ["_bridge"]
+  LOADK R3 K1 ["operations"]
+  GETTABLEKS R4 R0 K2 ["onBridgeOperations"]
+  NAMECALL R1 R1 K3 ["removeListener"]
+  CALL R1 3 0
+  GETTABLEKS R1 R0 K0 ["_bridge"]
+  LOADK R3 K4 ["profilingData"]
+  GETTABLEKS R4 R0 K5 ["onBridgeProfilingData"]
+  NAMECALL R1 R1 K3 ["removeListener"]
+  CALL R1 3 0
+  GETTABLEKS R1 R0 K0 ["_bridge"]
+  LOADK R3 K6 ["profilingStatus"]
+  GETTABLEKS R4 R0 K7 ["onProfilingStatus"]
+  NAMECALL R1 R1 K3 ["removeListener"]
+  CALL R1 3 0
+  GETTABLEKS R1 R0 K0 ["_bridge"]
+  LOADK R3 K8 ["shutdown"]
+  GETTABLEKS R4 R0 K9 ["onBridgeShutdown"]
+  NAMECALL R1 R1 K3 ["removeListener"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_5:
+  JUMPIFNOT R1 [+80]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["splice"]
+  GETTABLEKS R3 R0 K1 ["_dataBackends"]
+  LOADN R4 0
+  CALL R2 2 0
+  LOADNIL R2
+  SETTABLEKS R2 R0 K2 ["_dataFrontend"]
+  GETTABLEKS R2 R0 K3 ["_initialRendererIDs"]
+  NAMECALL R2 R2 K4 ["clear"]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K5 ["_initialSnapshotsByRootID"]
+  NAMECALL R2 R2 K4 ["clear"]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K6 ["_inProgressOperationsByRootID"]
+  NAMECALL R2 R2 K4 ["clear"]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K7 ["_rendererIDsThatReportedProfilingData"]
+  NAMECALL R2 R2 K4 ["clear"]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K8 ["_rendererQueue"]
+  NAMECALL R2 R2 K4 ["clear"]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K9 ["_store"]
+  NAMECALL R2 R2 K10 ["getRootIDToRendererID"]
+  CALL R2 1 3
+  FORGPREP R2
+  GETTABLEKS R7 R0 K3 ["_initialRendererIDs"]
+  MOVE R9 R6
+  NAMECALL R7 R7 K11 ["has"]
+  CALL R7 2 1
+  JUMPIF R7 [+6]
+  GETTABLEKS R7 R0 K3 ["_initialRendererIDs"]
+  MOVE R9 R6
+  NAMECALL R7 R7 K12 ["add"]
+  CALL R7 2 0
+  FORGLOOP R2 2 [-14]
+  GETTABLEKS R2 R0 K9 ["_store"]
+  NAMECALL R2 R2 K13 ["getRoots"]
+  CALL R2 1 3
+  FORGPREP R2
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K14 ["new"]
+  CALL R7 0 1
+  GETTABLEKS R8 R0 K5 ["_initialSnapshotsByRootID"]
+  MOVE R10 R6
+  MOVE R11 R7
+  NAMECALL R8 R8 K15 ["set"]
+  CALL R8 3 0
+  MOVE R10 R6
+  MOVE R11 R7
+  NAMECALL R8 R0 K16 ["_takeProfilingSnapshotRecursive"]
+  CALL R8 3 0
+  FORGLOOP R2 2 [-17]
+  GETTABLEKS R2 R0 K17 ["_isProfiling"]
+  JUMPIFEQ R2 R1 [+58]
+  SETTABLEKS R1 R0 K17 ["_isProfiling"]
+  GETTABLEKS R2 R0 K18 ["_cache"]
+  NAMECALL R2 R2 K19 ["invalidate"]
+  CALL R2 1 0
+  LOADK R4 K20 ["isProfiling"]
+  NAMECALL R2 R0 K21 ["emit"]
+  CALL R2 2 0
+  JUMPIF R1 [+45]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["splice"]
+  GETTABLEKS R3 R0 K1 ["_dataBackends"]
+  LOADN R4 0
+  CALL R2 2 0
+  GETTABLEKS R2 R0 K8 ["_rendererQueue"]
+  NAMECALL R2 R2 K4 ["clear"]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K7 ["_rendererIDsThatReportedProfilingData"]
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETTABLEKS R7 R0 K8 ["_rendererQueue"]
+  MOVE R9 R6
+  NAMECALL R7 R7 K11 ["has"]
+  CALL R7 2 1
+  JUMPIF R7 [+15]
+  GETTABLEKS R7 R0 K8 ["_rendererQueue"]
+  MOVE R9 R6
+  NAMECALL R7 R7 K12 ["add"]
+  CALL R7 2 0
+  GETTABLEKS R7 R0 K22 ["_bridge"]
+  LOADK R9 K23 ["getProfilingData"]
+  DUPTABLE R10 K25 [{"rendererID"}]
+  SETTABLEKS R6 R10 K24 ["rendererID"]
+  NAMECALL R7 R7 K26 ["send"]
+  CALL R7 3 0
+  FORGLOOP R2 2 [-23]
+  LOADK R4 K27 ["isProcessingData"]
+  NAMECALL R2 R0 K21 ["emit"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_6:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K0 ["onBridgeOperations"]
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_7:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K0 ["onBridgeProfilingData"]
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_8:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K0 ["onProfilingStatus"]
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_9:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K0 ["onBridgeShutdown"]
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_10:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["new"]
+  CALL R4 0 1
+  GETUPVAL R5 1
+  FASTCALL2 SETMETATABLE R4 R5 [+3]
+  GETIMPORT R3 K2 [setmetatable]
+  CALL R3 2 1
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K3 ["_dataBackends"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K4 ["_dataFrontend"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K0 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K5 ["_initialRendererIDs"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K0 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K6 ["_initialSnapshotsByRootID"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K0 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K7 ["_inProgressOperationsByRootID"]
+  SETTABLEKS R2 R3 K8 ["_isProfiling"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K0 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K9 ["_rendererIDsThatReportedProfilingData"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K0 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K10 ["_rendererQueue"]
+  SETTABLEKS R0 R3 K11 ["_bridge"]
+  SETTABLEKS R1 R3 K12 ["_store"]
+  DUPCLOSURE R4 K13 [PROTO_1]
+  CAPTURE UPVAL U4
+  SETTABLEKS R4 R3 K14 ["_takeProfilingSnapshotRecursive"]
+  DUPCLOSURE R4 K15 [PROTO_2]
+  CAPTURE UPVAL U3
+  SETTABLEKS R4 R3 K16 ["onBridgeOperations"]
+  DUPCLOSURE R4 K17 [PROTO_3]
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U4
+  SETTABLEKS R4 R3 K18 ["onBridgeProfilingData"]
+  DUPCLOSURE R4 K19 [PROTO_4]
+  SETTABLEKS R4 R3 K20 ["onBridgeShutdown"]
+  DUPCLOSURE R4 K21 [PROTO_5]
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U3
+  SETTABLEKS R4 R3 K22 ["onProfilingStatus"]
+  LOADK R6 K23 ["operations"]
+  NEWCLOSURE R7 P5
+  CAPTURE VAL R3
+  NAMECALL R4 R0 K24 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K25 ["profilingData"]
+  NEWCLOSURE R7 P6
+  CAPTURE VAL R3
+  NAMECALL R4 R0 K24 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K26 ["profilingStatus"]
+  NEWCLOSURE R7 P7
+  CAPTURE VAL R3
+  NAMECALL R4 R0 K24 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K27 ["shutdown"]
+  NEWCLOSURE R7 P8
+  CAPTURE VAL R3
+  NAMECALL R4 R0 K24 ["addListener"]
+  CALL R4 3 0
+  LOADK R6 K28 ["getProfilingStatus"]
+  NAMECALL R4 R0 K29 ["send"]
+  CALL R4 2 0
+  GETUPVAL R5 6
+  GETTABLEKS R4 R5 K0 ["new"]
+  MOVE R5 R3
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K30 ["_cache"]
+  RETURN R3 1
+
+PROTO_11:
+  GETTABLEKS R3 R0 K0 ["_dataFrontend"]
+  JUMPIFEQKNIL R3 [+17]
+  GETTABLEKS R4 R0 K0 ["_dataFrontend"]
+  GETTABLEKS R3 R4 K1 ["dataForRoots"]
+  MOVE R5 R1
+  NAMECALL R3 R3 K2 ["get"]
+  CALL R3 2 1
+  JUMPIFEQKNIL R3 [+7]
+  GETTABLEKS R5 R3 K3 ["commitData"]
+  GETTABLE R4 R5 R2
+  JUMPIFEQKNIL R4 [+2]
+  RETURN R4 1
+  GETIMPORT R3 K5 [error]
+  GETIMPORT R4 K8 [string.format]
+  LOADK R5 K9 ["Could not find commit data for root \"%s\" and commit %s"]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R7 R1
+  GETIMPORT R6 K11 [tostring]
+  CALL R6 1 1
+  FASTCALL1 TOSTRING R2 [+3]
+  MOVE R8 R2
+  GETIMPORT R7 K11 [tostring]
+  CALL R7 1 1
+  CALL R4 3 -1
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETTABLEKS R2 R0 K0 ["_dataFrontend"]
+  JUMPIFEQKNIL R2 [+12]
+  GETTABLEKS R3 R0 K0 ["_dataFrontend"]
+  GETTABLEKS R2 R3 K1 ["dataForRoots"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K2 ["get"]
+  CALL R2 2 1
+  JUMPIFEQKNIL R2 [+2]
+  RETURN R2 1
+  GETIMPORT R2 K4 [error]
+  GETIMPORT R3 K7 [string.format]
+  LOADK R4 K8 ["Could not find commit data for root \"%s\""]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R6 R1
+  GETIMPORT R5 K10 [tostring]
+  CALL R5 1 1
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_13:
+  LOADB R1 0
+  GETTABLEKS R2 R0 K0 ["_dataFrontend"]
+  JUMPIFEQKNIL R2 [+12]
+  GETTABLEKS R4 R0 K0 ["_dataFrontend"]
+  GETTABLEKS R3 R4 K1 ["dataForRoots"]
+  GETTABLEKS R2 R3 K2 ["size"]
+  LOADN R3 0
+  JUMPIFLT R3 R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_14:
+  LOADB R1 1
+  GETTABLEKS R3 R0 K0 ["_rendererQueue"]
+  GETTABLEKS R2 R3 K1 ["size"]
+  LOADN R3 0
+  JUMPIFLT R3 R2 [+9]
+  GETTABLEKS R3 R0 K2 ["_dataBackends"]
+  LENGTH R2 R3
+  LOADN R3 0
+  JUMPIFLT R3 R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_15:
+  GETTABLEKS R1 R0 K0 ["_isProfiling"]
+  RETURN R1 1
+
+PROTO_16:
+  GETTABLEKS R1 R0 K0 ["_cache"]
+  RETURN R1 1
+
+PROTO_17:
+  JUMPIFNOTEQKNIL R1 [+4]
+  GETTABLEKS R2 R0 K0 ["_dataFrontend"]
+  RETURN R2 1
+  GETTABLEKS R2 R0 K1 ["_isProfiling"]
+  JUMPIFNOT R2 [+6]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["warn"]
+  LOADK R3 K3 ["Profiling data cannot be updated while profiling is in progress."]
+  CALL R2 1 0
+  RETURN R0 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["splice"]
+  GETTABLEKS R3 R0 K5 ["_dataBackends"]
+  LOADN R4 0
+  CALL R2 2 0
+  SETTABLEKS R1 R0 K0 ["_dataFrontend"]
+  GETTABLEKS R2 R0 K6 ["_initialRendererIDs"]
+  NAMECALL R2 R2 K7 ["clear"]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K8 ["_initialSnapshotsByRootID"]
+  NAMECALL R2 R2 K7 ["clear"]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K9 ["_inProgressOperationsByRootID"]
+  NAMECALL R2 R2 K7 ["clear"]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K10 ["_cache"]
+  NAMECALL R2 R2 K11 ["invalidate"]
+  CALL R2 1 0
+  LOADK R4 K12 ["profilingData"]
+  NAMECALL R2 R0 K13 ["emit"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_18:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["splice"]
+  GETTABLEKS R2 R0 K1 ["_dataBackends"]
+  LOADN R3 0
+  CALL R1 2 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["_dataFrontend"]
+  GETTABLEKS R1 R0 K3 ["_initialRendererIDs"]
+  NAMECALL R1 R1 K4 ["clear"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K5 ["_initialSnapshotsByRootID"]
+  NAMECALL R1 R1 K4 ["clear"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K6 ["_inProgressOperationsByRootID"]
+  NAMECALL R1 R1 K4 ["clear"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K7 ["_rendererQueue"]
+  NAMECALL R1 R1 K4 ["clear"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K8 ["_cache"]
+  NAMECALL R1 R1 K9 ["invalidate"]
+  CALL R1 1 0
+  LOADK R3 K10 ["profilingData"]
+  NAMECALL R1 R0 K11 ["emit"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_19:
+  GETTABLEKS R1 R0 K0 ["_bridge"]
+  LOADK R3 K1 ["startProfiling"]
+  GETTABLEKS R4 R0 K2 ["_store"]
+  NAMECALL R4 R4 K3 ["getRecordChangeDescriptions"]
+  CALL R4 1 -1
+  NAMECALL R1 R1 K4 ["send"]
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_20:
+  GETTABLEKS R1 R0 K0 ["_bridge"]
+  LOADK R3 K1 ["stopProfiling"]
+  NAMECALL R1 R1 K2 ["send"]
+  CALL R1 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["LuauPolyfill"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K6 ["Array"]
+  GETTABLEKS R3 R1 K7 ["Map"]
+  GETTABLEKS R4 R1 K8 ["Set"]
+  GETTABLEKS R5 R1 K9 ["console"]
+  GETIMPORT R6 K4 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K2 ["Parent"]
+  GETTABLEKS R8 R9 K2 ["Parent"]
+  GETTABLEKS R7 R8 K10 ["events"]
+  CALL R6 1 1
+  GETIMPORT R8 K4 [require]
+  GETIMPORT R13 K1 [script]
+  GETTABLEKS R12 R13 K2 ["Parent"]
+  GETTABLEKS R11 R12 K11 ["views"]
+  GETTABLEKS R10 R11 K12 ["Profiler"]
+  GETTABLEKS R9 R10 K13 ["utils"]
+  CALL R8 1 1
+  GETTABLEKS R7 R8 K14 ["prepareProfilingDataFrontendFromBackendAndStore"]
+  GETIMPORT R8 K4 [require]
+  GETIMPORT R11 K1 [script]
+  GETTABLEKS R10 R11 K2 ["Parent"]
+  GETTABLEKS R9 R10 K15 ["types"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETIMPORT R13 K1 [script]
+  GETTABLEKS R12 R13 K2 ["Parent"]
+  GETTABLEKS R11 R12 K2 ["Parent"]
+  GETTABLEKS R10 R11 K16 ["bridge"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K2 ["Parent"]
+  GETTABLEKS R13 R14 K2 ["Parent"]
+  GETTABLEKS R12 R13 K17 ["backend"]
+  GETTABLEKS R11 R12 K15 ["types"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETIMPORT R16 K1 [script]
+  GETTABLEKS R15 R16 K2 ["Parent"]
+  GETTABLEKS R14 R15 K11 ["views"]
+  GETTABLEKS R13 R14 K12 ["Profiler"]
+  GETTABLEKS R12 R13 K15 ["types"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K2 ["Parent"]
+  GETTABLEKS R13 R14 K18 ["ProfilingCache"]
+  CALL R12 1 1
+  NEWTABLE R14 0 0
+  DUPTABLE R15 K20 [{"__index"}]
+  SETTABLEKS R6 R15 K19 ["__index"]
+  FASTCALL2 SETMETATABLE R14 R15 [+3]
+  GETIMPORT R13 K22 [setmetatable]
+  CALL R13 2 1
+  SETTABLEKS R13 R13 K19 ["__index"]
+  DUPCLOSURE R14 K23 [PROTO_10]
+  CAPTURE VAL R6
+  CAPTURE VAL R13
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R12
+  SETTABLEKS R14 R13 K24 ["new"]
+  DUPCLOSURE R14 K25 [PROTO_11]
+  SETTABLEKS R14 R13 K26 ["getCommitData"]
+  DUPCLOSURE R14 K27 [PROTO_12]
+  SETTABLEKS R14 R13 K28 ["getDataForRoot"]
+  DUPCLOSURE R14 K29 [PROTO_13]
+  SETTABLEKS R14 R13 K30 ["didRecordCommits"]
+  DUPCLOSURE R14 K31 [PROTO_14]
+  SETTABLEKS R14 R13 K32 ["isProcessingData"]
+  DUPCLOSURE R14 K33 [PROTO_15]
+  SETTABLEKS R14 R13 K34 ["isProfiling"]
+  DUPCLOSURE R14 K35 [PROTO_16]
+  SETTABLEKS R14 R13 K36 ["profilingCache"]
+  DUPCLOSURE R14 K37 [PROTO_17]
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  SETTABLEKS R14 R13 K38 ["profilingData"]
+  DUPCLOSURE R14 K39 [PROTO_18]
+  CAPTURE VAL R2
+  SETTABLEKS R14 R13 K40 ["clear"]
+  DUPCLOSURE R14 K41 [PROTO_19]
+  SETTABLEKS R14 R13 K42 ["startProfiling"]
+  DUPCLOSURE R14 K43 [PROTO_20]
+  SETTABLEKS R14 R13 K44 ["stopProfiling"]
+  RETURN R13 1

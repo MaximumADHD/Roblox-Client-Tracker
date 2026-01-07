@@ -1,0 +1,47 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useContext"]
+  GETUPVAL R1 1
+  CALL R0 1 1
+  GETUPVAL R1 2
+  CALL R1 0 1
+  JUMPIFNOTEQKNIL R0 [+8]
+  GETTABLEKS R4 R1 K1 ["Color"]
+  GETTABLEKS R3 R4 K2 ["Surface"]
+  GETTABLEKS R2 R3 K3 ["Surface_0"]
+  RETURN R2 1
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R7 R0 K10 ["Providers"]
+  GETTABLEKS R6 R7 K11 ["Style"]
+  GETTABLEKS R5 R6 K12 ["useTokens"]
+  CALL R4 1 1
+  GETTABLEKS R5 R2 K13 ["createContext"]
+  LOADNIL R6
+  CALL R5 1 1
+  DUPCLOSURE R6 K14 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  SETGLOBAL R6 K15 ["useBackgroundStyle"]
+  DUPTABLE R6 K17 [{"useBackgroundStyle", "Provider"}]
+  GETGLOBAL R7 K15 ["useBackgroundStyle"]
+  SETTABLEKS R7 R6 K15 ["useBackgroundStyle"]
+  GETTABLEKS R7 R5 K16 ["Provider"]
+  SETTABLEKS R7 R6 K16 ["Provider"]
+  RETURN R6 1

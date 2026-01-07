@@ -1,0 +1,177 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["PreviewContext"]
+  GETTABLEKS R3 R1 K2 ["UserInputType"]
+  GETIMPORT R4 K5 [Enum.UserInputType.Keyboard]
+  JUMPIFNOTEQ R3 R4 [+22]
+  GETTABLEKS R3 R1 K6 ["KeyCode"]
+  GETIMPORT R4 K8 [Enum.KeyCode.Left]
+  JUMPIFNOTEQ R3 R4 [+6]
+  LOADB R5 0
+  NAMECALL R3 R2 K9 ["cyclePreviewAvatarIndex"]
+  CALL R3 2 0
+  RETURN R0 0
+  GETTABLEKS R3 R1 K6 ["KeyCode"]
+  GETIMPORT R4 K11 [Enum.KeyCode.Right]
+  JUMPIFNOTEQ R3 R4 [+5]
+  LOADB R5 1
+  NAMECALL R3 R2 K9 ["cyclePreviewAvatarIndex"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K0 ["onInputBegan"]
+  RETURN R0 0
+
+PROTO_2:
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["PreviewContext"]
+  GETTABLEKS R3 R1 K2 ["Stylizer"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  GETUPVAL R5 1
+  DUPTABLE R6 K14 [{"Id", "Title", "Name", "ZIndexBehavior", "InitialDockState", "InitialEnabled", "Size", "MinSize", "OnClose", "Enabled"}]
+  LOADK R7 K15 ["PreviewWidget"]
+  SETTABLEKS R7 R6 K4 ["Id"]
+  LOADK R7 K16 ["Preview Widget"]
+  SETTABLEKS R7 R6 K5 ["Title"]
+  LOADK R7 K16 ["Preview Widget"]
+  SETTABLEKS R7 R6 K6 ["Name"]
+  GETIMPORT R7 K19 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R7 R6 K7 ["ZIndexBehavior"]
+  GETTABLEKS R7 R1 K8 ["InitialDockState"]
+  SETTABLEKS R7 R6 K8 ["InitialDockState"]
+  GETTABLEKS R7 R1 K9 ["InitialEnabled"]
+  SETTABLEKS R7 R6 K9 ["InitialEnabled"]
+  GETTABLEKS R7 R3 K10 ["Size"]
+  SETTABLEKS R7 R6 K10 ["Size"]
+  GETTABLEKS R7 R3 K11 ["MinSize"]
+  SETTABLEKS R7 R6 K11 ["MinSize"]
+  GETTABLEKS R7 R1 K12 ["OnClose"]
+  JUMPIF R7 [+1]
+  DUPCLOSURE R7 K20 [PROTO_2]
+  SETTABLEKS R7 R6 K12 ["OnClose"]
+  GETTABLEKS R7 R1 K13 ["Enabled"]
+  SETTABLEKS R7 R6 K13 ["Enabled"]
+  DUPTABLE R7 K22 [{"Container"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  LOADK R9 K23 ["Frame"]
+  NEWTABLE R10 2 0
+  GETIMPORT R11 K26 [UDim2.new]
+  LOADN R12 1
+  LOADN R13 0
+  LOADN R14 1
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K10 ["Size"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K27 ["Event"]
+  GETTABLEKS R11 R12 K28 ["InputBegan"]
+  GETTABLEKS R12 R0 K29 ["onInputBegan"]
+  SETTABLE R12 R10 R11
+  DUPTABLE R11 K31 [{"PreviewViewportFrame"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R13 2
+  DUPTABLE R14 K33 [{"Size", "OnCapacityReached"}]
+  GETIMPORT R15 K26 [UDim2.new]
+  LOADN R16 1
+  LOADN R17 0
+  LOADN R18 1
+  LOADN R19 0
+  CALL R15 4 1
+  SETTABLEKS R15 R14 K10 ["Size"]
+  GETTABLEKS R16 R0 K0 ["props"]
+  GETTABLEKS R15 R16 K32 ["OnCapacityReached"]
+  SETTABLEKS R15 R14 K32 ["OnCapacityReached"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K30 ["PreviewViewportFrame"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K21 ["Container"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["PreviewContext"]
+  NAMECALL R1 R1 K2 ["getAvatars"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [ipairs]
+  MOVE R3 R1
+  CALL R2 1 3
+  FORGPREP_INEXT R2
+  GETTABLEKS R7 R6 K5 ["model"]
+  JUMPIFNOT R7 [+5]
+  GETTABLEKS R7 R6 K5 ["model"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K6 ["Parent"]
+  FORGLOOP R2 2 [inext] [-9]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["Roact"]
+  CALL R1 1 1
+  GETTABLEKS R2 R0 K6 ["AvatarToolsShared"]
+  GETTABLEKS R4 R2 K7 ["Util"]
+  GETTABLEKS R3 R4 K8 ["AccessoryAndBodyToolShared"]
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R2 K9 ["Components"]
+  GETTABLEKS R5 R6 K10 ["PreviewViewportFrame"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R6 R0 K11 ["Framework"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K12 ["ContextServices"]
+  GETTABLEKS R7 R6 K13 ["withContext"]
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R2 K14 ["Contexts"]
+  GETTABLEKS R9 R10 K15 ["PreviewContext"]
+  CALL R8 1 1
+  GETTABLEKS R9 R5 K16 ["UI"]
+  GETTABLEKS R10 R9 K17 ["DockWidget"]
+  GETTABLEKS R11 R1 K18 ["PureComponent"]
+  LOADK R13 K19 ["PreviewDockWidget"]
+  NAMECALL R11 R11 K20 ["extend"]
+  CALL R11 2 1
+  DUPTABLE R12 K24 [{"InitialDockState", "InitialEnabled", "Enabled"}]
+  GETIMPORT R13 K27 [Enum.InitialDockState.Left]
+  SETTABLEKS R13 R12 K21 ["InitialDockState"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K22 ["InitialEnabled"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K23 ["Enabled"]
+  SETTABLEKS R12 R11 K28 ["defaultProps"]
+  DUPCLOSURE R12 K29 [PROTO_1]
+  SETTABLEKS R12 R11 K30 ["init"]
+  DUPCLOSURE R12 K31 [PROTO_3]
+  CAPTURE VAL R1
+  CAPTURE VAL R10
+  CAPTURE VAL R4
+  SETTABLEKS R12 R11 K32 ["render"]
+  DUPCLOSURE R12 K33 [PROTO_4]
+  SETTABLEKS R12 R11 K34 ["willUnmount"]
+  MOVE R12 R7
+  DUPTABLE R13 K37 [{"Stylizer", "Plugin", "PreviewContext"}]
+  GETTABLEKS R14 R6 K35 ["Stylizer"]
+  SETTABLEKS R14 R13 K35 ["Stylizer"]
+  GETTABLEKS R14 R6 K36 ["Plugin"]
+  SETTABLEKS R14 R13 K36 ["Plugin"]
+  SETTABLEKS R8 R13 K15 ["PreviewContext"]
+  CALL R12 1 1
+  MOVE R13 R11
+  CALL R12 1 1
+  MOVE R11 R12
+  RETURN R11 1

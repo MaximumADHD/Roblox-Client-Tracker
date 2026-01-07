@@ -13,43 +13,91 @@ MAIN:
   GETIMPORT R3 K5 [require]
   GETTABLEKS R4 R2 K9 ["DraggerSchema"]
   CALL R3 1 1
-  GETTABLEKS R4 R1 K10 ["join"]
-  MOVE R5 R3
-  DUPTABLE R6 K18 [{"dispatchWorldClick", "getMouseTarget", "getNextSelectables", "isExclusiveSelectable", "Selection", "SelectionInfo", "BoneTransformHandlesImplementation"}]
-  GETIMPORT R7 K5 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K11 ["dispatchWorldClick"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K11 ["dispatchWorldClick"]
-  GETIMPORT R7 K5 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K12 ["getMouseTarget"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K12 ["getMouseTarget"]
-  GETIMPORT R7 K5 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K13 ["getNextSelectables"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K13 ["getNextSelectables"]
-  GETIMPORT R7 K5 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K14 ["isExclusiveSelectable"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K14 ["isExclusiveSelectable"]
-  GETIMPORT R7 K5 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K15 ["Selection"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K15 ["Selection"]
-  GETIMPORT R7 K5 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K16 ["SelectionInfo"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K16 ["SelectionInfo"]
-  GETIMPORT R7 K5 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K17 ["BoneTransformHandlesImplementation"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K17 ["BoneTransformHandlesImplementation"]
-  CALL R4 2 -1
-  RETURN R4 -1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["Flags"]
+  GETTABLEKS R5 R6 K12 ["getFFlagAdaptiveAnimatonImprovements"]
+  CALL R4 1 1
+  MOVE R5 R4
+  CALL R5 0 1
+  JUMPIFNOT R5 [+69]
+  GETTABLEKS R5 R1 K13 ["join"]
+  MOVE R6 R3
+  DUPTABLE R7 K21 [{"dispatchWorldClick", "getMouseTarget", "getNextSelectables", "isExclusiveSelectable", "SelectionInfo", "JointRotateHandlesImplementation", "JointTranslateHandlesImplementation"}]
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K14 ["dispatchWorldClick"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K14 ["dispatchWorldClick"]
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K15 ["getMouseTarget"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K15 ["getMouseTarget"]
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K16 ["getNextSelectables"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K16 ["getNextSelectables"]
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K17 ["isExclusiveSelectable"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K17 ["isExclusiveSelectable"]
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K18 ["SelectionInfo"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K18 ["SelectionInfo"]
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K19 ["JointRotateHandlesImplementation"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K19 ["JointRotateHandlesImplementation"]
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K20 ["JointTranslateHandlesImplementation"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K20 ["JointTranslateHandlesImplementation"]
+  CALL R5 2 -1
+  RETURN R5 -1
+  GETTABLEKS R5 R1 K13 ["join"]
+  MOVE R6 R3
+  DUPTABLE R7 K24 [{"dispatchWorldClick", "getMouseTarget", "getNextSelectables", "isExclusiveSelectable", "Selection", "SelectionInfo", "BoneTransformHandlesImplementation"}]
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K14 ["dispatchWorldClick"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K14 ["dispatchWorldClick"]
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K15 ["getMouseTarget"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K15 ["getMouseTarget"]
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K16 ["getNextSelectables"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K16 ["getNextSelectables"]
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K17 ["isExclusiveSelectable"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K17 ["isExclusiveSelectable"]
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K25 ["DEPRECATED_Selection"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K22 ["Selection"]
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K26 ["DEPRECATED_SelectionInfo"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K18 ["SelectionInfo"]
+  GETIMPORT R8 K5 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K23 ["BoneTransformHandlesImplementation"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K23 ["BoneTransformHandlesImplementation"]
+  CALL R5 2 -1
+  RETURN R5 -1

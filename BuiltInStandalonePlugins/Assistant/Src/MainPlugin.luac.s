@@ -193,20 +193,39 @@ PROTO_11:
   RETURN R0 -1
 
 PROTO_12:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["openAssistant"]
-  CALL R0 0 0
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K1 ["generateExplainCodePrompt"]
+  GETUPVAL R0 0
   CALL R0 0 1
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K2 ["Components"]
-  GETTABLEKS R1 R2 K3 ["ExternalHooks"]
-  GETTABLEKS R2 R1 K4 ["sendMessage"]
-  DUPTABLE R3 K7 [{"text", "retry"}]
-  SETTABLEKS R0 R3 K5 ["text"]
+  JUMPIFNOT R0 [+25]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["props"]
+  GETTABLEKS R0 R1 K1 ["Plugin"]
+  GETTABLEKS R1 R0 K2 ["MultipleDocumentInterfaceInstance"]
+  JUMPIFNOT R1 [+3]
+  GETTABLEKS R2 R1 K3 ["FocusedDataModelSession"]
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  GETTABLEKS R3 R1 K3 ["FocusedDataModelSession"]
+  GETTABLEKS R2 R3 K4 ["CurrentDataModelType"]
+  GETIMPORT R3 K8 [Enum.StudioDataModelType.Edit]
+  JUMPIFEQ R2 R3 [+6]
+  GETIMPORT R3 K10 [warn]
+  LOADK R4 K11 ["Explain Code is only available in Edit mode, not during play/run"]
+  CALL R3 1 0
+  RETURN R0 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K12 ["openAssistant"]
+  CALL R0 0 0
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K13 ["generateExplainCodePrompt"]
+  CALL R0 0 1
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K14 ["Components"]
+  GETTABLEKS R1 R2 K15 ["ExternalHooks"]
+  GETTABLEKS R2 R1 K16 ["sendMessage"]
+  DUPTABLE R3 K19 [{"text", "retry"}]
+  SETTABLEKS R0 R3 K17 ["text"]
   LOADB R4 0
-  SETTABLEKS R4 R3 K6 ["retry"]
+  SETTABLEKS R4 R3 K18 ["retry"]
   CALL R2 1 0
   RETURN R0 0
 
@@ -241,16 +260,17 @@ PROTO_14:
   CAPTURE VAL R0
   CAPTURE VAL R1
   CALL R2 1 2
-  JUMPIFNOT R2 [+9]
+  JUMPIFNOT R2 [+10]
   NEWCLOSURE R6 P1
-  CAPTURE VAL R0
   CAPTURE UPVAL U0
+  CAPTURE VAL R0
   CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
   NAMECALL R4 R3 K11 ["Connect"]
   CALL R4 2 1
   SETTABLEKS R4 R0 K12 ["mcpExplainCodeConnection"]
   GETTABLEKS R4 R0 K7 ["Actions"]
-  GETUPVAL R6 2
+  GETUPVAL R6 3
   NAMECALL R4 R4 K13 ["BindToActivatedAsync"]
   CALL R4 2 1
   NEWCLOSURE R6 P2
@@ -440,62 +460,65 @@ MAIN:
   GETTABLEKS R15 R16 K25 ["Util"]
   GETTABLEKS R14 R15 K26 ["StudioScriptHelper"]
   CALL R13 1 1
-  GETTABLEKS R17 R0 K6 ["Src"]
-  GETTABLEKS R16 R17 K27 ["Resources"]
-  GETTABLEKS R15 R16 K28 ["Localization"]
-  GETTABLEKS R14 R15 K29 ["SourceStrings"]
+  GETTABLEKS R15 R12 K27 ["Flags"]
+  GETTABLEKS R14 R15 K28 ["getFFlagFixMCPExplainCodeContext"]
   GETTABLEKS R18 R0 K6 ["Src"]
-  GETTABLEKS R17 R18 K27 ["Resources"]
-  GETTABLEKS R16 R17 K28 ["Localization"]
-  GETTABLEKS R15 R16 K30 ["LocalizedStrings"]
-  GETTABLEKS R16 R3 K31 ["createElement"]
-  GETTABLEKS R17 R3 K32 ["PureComponent"]
-  LOADK R19 K33 ["MainPlugin"]
-  NAMECALL R17 R17 K34 ["extend"]
-  CALL R17 2 1
-  DUPTABLE R18 K38 [{"Category", "ItemId", "PluginId"}]
-  LOADK R19 K39 ["Actions"]
-  SETTABLEKS R19 R18 K35 ["Category"]
-  LOADK R19 K40 ["FocusAssistant"]
-  SETTABLEKS R19 R18 K36 ["ItemId"]
-  LOADK R19 K2 ["Assistant"]
-  SETTABLEKS R19 R18 K37 ["PluginId"]
-  DUPCLOSURE R19 K41 [PROTO_10]
+  GETTABLEKS R17 R18 K29 ["Resources"]
+  GETTABLEKS R16 R17 K30 ["Localization"]
+  GETTABLEKS R15 R16 K31 ["SourceStrings"]
+  GETTABLEKS R19 R0 K6 ["Src"]
+  GETTABLEKS R18 R19 K29 ["Resources"]
+  GETTABLEKS R17 R18 K30 ["Localization"]
+  GETTABLEKS R16 R17 K32 ["LocalizedStrings"]
+  GETTABLEKS R17 R3 K33 ["createElement"]
+  GETTABLEKS R18 R3 K34 ["PureComponent"]
+  LOADK R20 K35 ["MainPlugin"]
+  NAMECALL R18 R18 K36 ["extend"]
+  CALL R18 2 1
+  DUPTABLE R19 K40 [{"Category", "ItemId", "PluginId"}]
+  LOADK R20 K41 ["Actions"]
+  SETTABLEKS R20 R19 K37 ["Category"]
+  LOADK R20 K42 ["FocusAssistant"]
+  SETTABLEKS R20 R19 K38 ["ItemId"]
+  LOADK R20 K2 ["Assistant"]
+  SETTABLEKS R20 R19 K39 ["PluginId"]
+  DUPCLOSURE R20 K43 [PROTO_10]
   CAPTURE VAL R6
-  CAPTURE VAL R14
   CAPTURE VAL R15
+  CAPTURE VAL R16
   CAPTURE VAL R10
   CAPTURE VAL R4
   CAPTURE VAL R11
   CAPTURE VAL R9
   CAPTURE VAL R3
-  SETTABLEKS R19 R17 K42 ["init"]
-  DUPCLOSURE R19 K43 [PROTO_14]
+  SETTABLEKS R20 R18 K44 ["init"]
+  DUPCLOSURE R20 K45 [PROTO_14]
+  CAPTURE VAL R14
   CAPTURE VAL R13
   CAPTURE VAL R12
-  CAPTURE VAL R18
-  SETTABLEKS R19 R17 K44 ["setupActionBindings"]
-  DUPCLOSURE R19 K45 [PROTO_15]
-  SETTABLEKS R19 R17 K46 ["didUpdate"]
-  DUPCLOSURE R19 K47 [PROTO_16]
-  SETTABLEKS R19 R17 K48 ["willUnmount"]
-  DUPTABLE R19 K50 [{"DataModel", "PluginId", "Category", "ItemId"}]
-  LOADK R20 K51 ["Standalone"]
-  SETTABLEKS R20 R19 K49 ["DataModel"]
-  LOADK R20 K52 ["AssistantPlugin"]
-  SETTABLEKS R20 R19 K37 ["PluginId"]
-  LOADK R20 K39 ["Actions"]
-  SETTABLEKS R20 R19 K35 ["Category"]
-  LOADK R20 K53 ["Toggle"]
-  SETTABLEKS R20 R19 K36 ["ItemId"]
-  DUPCLOSURE R20 K54 [PROTO_17]
   CAPTURE VAL R19
+  SETTABLEKS R20 R18 K46 ["setupActionBindings"]
+  DUPCLOSURE R20 K47 [PROTO_15]
+  SETTABLEKS R20 R18 K48 ["didUpdate"]
+  DUPCLOSURE R20 K49 [PROTO_16]
+  SETTABLEKS R20 R18 K50 ["willUnmount"]
+  DUPTABLE R20 K52 [{"DataModel", "PluginId", "Category", "ItemId"}]
+  LOADK R21 K53 ["Standalone"]
+  SETTABLEKS R21 R20 K51 ["DataModel"]
+  LOADK R21 K54 ["AssistantPlugin"]
+  SETTABLEKS R21 R20 K39 ["PluginId"]
+  LOADK R21 K41 ["Actions"]
+  SETTABLEKS R21 R20 K37 ["Category"]
+  LOADK R21 K55 ["Toggle"]
+  SETTABLEKS R21 R20 K38 ["ItemId"]
+  DUPCLOSURE R21 K56 [PROTO_17]
+  CAPTURE VAL R20
   CAPTURE VAL R6
   CAPTURE VAL R8
   CAPTURE VAL R7
-  CAPTURE VAL R16
+  CAPTURE VAL R17
   CAPTURE VAL R5
   CAPTURE VAL R3
   CAPTURE VAL R1
-  SETTABLEKS R20 R17 K55 ["render"]
-  RETURN R17 1
+  SETTABLEKS R21 R18 K57 ["render"]
+  RETURN R18 1

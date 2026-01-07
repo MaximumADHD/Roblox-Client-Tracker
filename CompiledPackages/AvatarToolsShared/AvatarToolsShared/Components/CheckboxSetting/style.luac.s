@@ -1,0 +1,13 @@
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K2 [{"BoxSize", "FramePadding"}]
+  GETIMPORT R1 K5 [UDim2.new]
+  LOADN R2 0
+  LOADN R3 20
+  LOADN R4 0
+  LOADN R5 20
+  CALL R1 4 1
+  SETTABLEKS R1 R0 K0 ["BoxSize"]
+  LOADN R1 96
+  SETTABLEKS R1 R0 K1 ["FramePadding"]
+  RETURN R0 1

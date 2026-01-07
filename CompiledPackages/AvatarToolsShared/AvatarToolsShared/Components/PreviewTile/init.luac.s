@@ -1,0 +1,144 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R3 R1 K2 ["LayoutOrder"]
+  ORK R2 R3 K1 [1]
+  GETTABLEKS R4 R1 K3 ["ZIndex"]
+  ORK R3 R4 K1 [1]
+  GETTABLEKS R5 R1 K5 ["IsOn"]
+  ORK R4 R5 K4 [False]
+  GETTABLEKS R5 R1 K6 ["Text"]
+  GETTABLEKS R6 R1 K7 ["OnClick"]
+  GETTABLEKS R7 R1 K8 ["Stylizer"]
+  GETTABLEKS R8 R1 K9 ["Model"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K10 ["createElement"]
+  GETUPVAL R10 1
+  DUPTABLE R11 K15 [{"Style", "StyleModifier", "Size", "Position", "LayoutOrder", "ZIndex", "OnClick"}]
+  NEWTABLE R12 4 0
+  GETUPVAL R13 2
+  SETTABLEKS R13 R12 K16 ["Background"]
+  DUPTABLE R13 K19 [{"Color", "BorderSize"}]
+  GETTABLEKS R14 R7 K20 ["ButtonBackgroundColor"]
+  SETTABLEKS R14 R13 K17 ["Color"]
+  LOADN R14 0
+  SETTABLEKS R14 R13 K18 ["BorderSize"]
+  SETTABLEKS R13 R12 K21 ["BackgroundStyle"]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K22 ["Pressed"]
+  DUPTABLE R14 K23 [{"BackgroundStyle"}]
+  DUPTABLE R15 K19 [{"Color", "BorderSize"}]
+  GETTABLEKS R16 R7 K24 ["ButtonPressedColor"]
+  SETTABLEKS R16 R15 K17 ["Color"]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K18 ["BorderSize"]
+  SETTABLEKS R15 R14 K21 ["BackgroundStyle"]
+  SETTABLE R14 R12 R13
+  SETTABLEKS R12 R11 K11 ["Style"]
+  JUMPIFNOT R4 [+4]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K22 ["Pressed"]
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K12 ["StyleModifier"]
+  GETTABLEKS R12 R7 K25 ["TileSize"]
+  SETTABLEKS R12 R11 K13 ["Size"]
+  GETTABLEKS R12 R1 K14 ["Position"]
+  SETTABLEKS R12 R11 K14 ["Position"]
+  SETTABLEKS R2 R11 K2 ["LayoutOrder"]
+  SETTABLEKS R3 R11 K3 ["ZIndex"]
+  SETTABLEKS R6 R11 K7 ["OnClick"]
+  DUPTABLE R12 K28 [{"PreviewThumbnail", "TextLabel"}]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K10 ["createElement"]
+  GETUPVAL R14 4
+  DUPTABLE R15 K29 [{"Model"}]
+  SETTABLEKS R8 R15 K9 ["Model"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K26 ["PreviewThumbnail"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K10 ["createElement"]
+  GETUPVAL R14 5
+  DUPTABLE R15 K35 [{"Text", "AutomaticSize", "TextXAlignment", "TextYAlignment", "ZIndex", "AnchorPoint", "Position", "TextTruncate"}]
+  SETTABLEKS R5 R15 K6 ["Text"]
+  GETIMPORT R16 K38 [Enum.AutomaticSize.XY]
+  SETTABLEKS R16 R15 K30 ["AutomaticSize"]
+  GETIMPORT R16 K40 [Enum.TextXAlignment.Left]
+  SETTABLEKS R16 R15 K31 ["TextXAlignment"]
+  GETIMPORT R16 K42 [Enum.TextYAlignment.Bottom]
+  SETTABLEKS R16 R15 K32 ["TextYAlignment"]
+  ADDK R16 R3 K1 [1]
+  SETTABLEKS R16 R15 K3 ["ZIndex"]
+  GETIMPORT R16 K45 [Vector2.new]
+  LOADN R17 0
+  LOADN R18 1
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K33 ["AnchorPoint"]
+  GETIMPORT R16 K47 [UDim2.new]
+  LOADN R17 0
+  LOADN R18 0
+  LOADN R19 1
+  LOADN R20 0
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K14 ["Position"]
+  GETIMPORT R16 K49 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R16 R15 K34 ["TextTruncate"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K27 ["TextLabel"]
+  CALL R9 3 -1
+  RETURN R9 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R1 K5 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R1 K6 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K7 ["ContextServices"]
+  GETTABLEKS R5 R4 K8 ["withContext"]
+  GETTABLEKS R6 R3 K9 ["UI"]
+  GETTABLEKS R7 R6 K10 ["Pane"]
+  GETTABLEKS R8 R6 K11 ["Button"]
+  GETTABLEKS R9 R6 K12 ["TextLabel"]
+  GETTABLEKS R10 R6 K13 ["Box"]
+  GETTABLEKS R11 R3 K14 ["Util"]
+  GETTABLEKS R12 R11 K15 ["Typecheck"]
+  GETTABLEKS R13 R11 K16 ["StyleModifier"]
+  GETTABLEKS R14 R6 K17 ["AssetRenderModel"]
+  GETIMPORT R15 K4 [require]
+  GETTABLEKS R17 R0 K18 ["Components"]
+  GETTABLEKS R16 R17 K19 ["StaticLCAssetRenderModel"]
+  CALL R15 1 1
+  GETTABLEKS R16 R2 K20 ["PureComponent"]
+  LOADK R18 K21 ["PreviewTile"]
+  NAMECALL R16 R16 K22 ["extend"]
+  CALL R16 2 1
+  GETTABLEKS R17 R12 K23 ["wrap"]
+  MOVE R18 R16
+  GETIMPORT R19 K1 [script]
+  CALL R17 2 0
+  DUPCLOSURE R17 K24 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  CAPTURE VAL R13
+  CAPTURE VAL R15
+  CAPTURE VAL R9
+  SETTABLEKS R17 R16 K25 ["render"]
+  MOVE R17 R5
+  DUPTABLE R18 K27 [{"Stylizer"}]
+  GETTABLEKS R19 R4 K26 ["Stylizer"]
+  SETTABLEKS R19 R18 K26 ["Stylizer"]
+  CALL R17 1 1
+  MOVE R18 R16
+  CALL R17 1 1
+  MOVE R16 R17
+  RETURN R16 1

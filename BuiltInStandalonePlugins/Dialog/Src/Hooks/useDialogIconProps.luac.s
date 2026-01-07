@@ -1,0 +1,71 @@
+PROTO_0:
+  GETIMPORT R0 K2 [table.freeze]
+  DUPTABLE R1 K5 [{"Warning", "Critical"}]
+  GETIMPORT R2 K2 [table.freeze]
+  DUPTABLE R3 K8 [{"icon", "color"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K9 ["Icon"]
+  GETTABLEKS R4 R5 K10 ["TriangleExclamation"]
+  SETTABLEKS R4 R3 K6 ["icon"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K11 ["Color"]
+  GETTABLEKS R5 R6 K12 ["System"]
+  GETTABLEKS R4 R5 K3 ["Warning"]
+  SETTABLEKS R4 R3 K7 ["color"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K3 ["Warning"]
+  GETIMPORT R2 K2 [table.freeze]
+  DUPTABLE R3 K8 [{"icon", "color"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K9 ["Icon"]
+  GETTABLEKS R4 R5 K13 ["CircleX"]
+  SETTABLEKS R4 R3 K6 ["icon"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K11 ["Color"]
+  GETTABLEKS R5 R6 K12 ["System"]
+  GETTABLEKS R4 R5 K14 ["Alert"]
+  SETTABLEKS R4 R3 K7 ["color"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K4 ["Critical"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useMemo"]
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  NEWTABLE R4 0 1
+  MOVE R5 R0
+  SETLIST R4 R5 1 [1]
+  CALL R2 2 1
+  GETTABLE R3 R2 R1
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Dialog"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["BuilderIcons"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K10 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Types"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K12 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  RETURN R5 1

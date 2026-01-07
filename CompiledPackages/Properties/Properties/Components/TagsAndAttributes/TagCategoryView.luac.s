@@ -1,0 +1,80 @@
+PROTO_0:
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["add tag"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useCallback"]
+  DUPCLOSURE R2 K1 [PROTO_0]
+  NEWTABLE R3 0 0
+  CALL R1 2 1
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  DUPTABLE R4 K5 [{"categoryName", "layoutOrder", "trailingIcon"}]
+  GETUPVAL R5 3
+  LOADK R7 K6 ["TagsAndAttributes"]
+  LOADK R8 K7 ["TagsHeader"]
+  NAMECALL R5 R5 K8 ["getText"]
+  CALL R5 3 1
+  SETTABLEKS R5 R4 K2 ["categoryName"]
+  GETTABLEKS R5 R0 K3 ["layoutOrder"]
+  SETTABLEKS R5 R4 K3 ["layoutOrder"]
+  DUPTABLE R5 K11 [{"name", "onActivated"}]
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K12 ["PlusLarge"]
+  SETTABLEKS R6 R5 K9 ["name"]
+  SETTABLEKS R1 R5 K10 ["onActivated"]
+  SETTABLEKS R5 R4 K4 ["trailingIcon"]
+  GETUPVAL R5 1
+  GETUPVAL R6 5
+  DUPTABLE R7 K14 [{"tags"}]
+  GETTABLEKS R8 R0 K13 ["tags"]
+  SETTABLEKS R8 R7 K13 ["tags"]
+  CALL R5 2 -1
+  CALL R2 -1 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R5 R0 K7 ["Components"]
+  GETTABLEKS R4 R5 K8 ["Util"]
+  GETTABLEKS R3 R4 K9 ["CategoryView"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K10 ["Foundation"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R0 K11 ["PropertyTypes"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R1 K12 ["React"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R9 R0 K7 ["Components"]
+  GETTABLEKS R8 R9 K13 ["TagsAndAttributes"]
+  GETTABLEKS R7 R8 K14 ["TagList"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R10 R0 K15 ["Resources"]
+  GETTABLEKS R9 R10 K16 ["Localization"]
+  GETTABLEKS R8 R9 K17 ["Translator"]
+  CALL R7 1 1
+  GETTABLEKS R8 R5 K18 ["createElement"]
+  GETTABLEKS R10 R3 K19 ["Enums"]
+  GETTABLEKS R9 R10 K20 ["IconName"]
+  DUPCLOSURE R10 K21 [PROTO_1]
+  CAPTURE VAL R5
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R6
+  RETURN R10 1

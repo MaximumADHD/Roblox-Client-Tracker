@@ -1,0 +1,606 @@
+PROTO_0:
+  DUPTABLE R5 K4 [{"fullName", "contentId", "fieldName", "context"}]
+  NAMECALL R6 R0 K5 ["GetFullName"]
+  CALL R6 1 1
+  SETTABLEKS R6 R5 K0 ["fullName"]
+  SETTABLEKS R2 R5 K1 ["contentId"]
+  SETTABLEKS R1 R5 K2 ["fieldName"]
+  SETTABLEKS R3 R5 K3 ["context"]
+  GETUPVAL R6 0
+  MOVE R7 R0
+  MOVE R8 R1
+  MOVE R9 R4
+  CALL R6 3 2
+  JUMPIF R6 [+3]
+  LOADB R8 0
+  MOVE R9 R5
+  RETURN R8 2
+  SETTABLEKS R7 R5 K6 ["editableMesh"]
+  LOADB R8 1
+  MOVE R9 R5
+  RETURN R8 2
+
+PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["editableMesh"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K0 ["editableMesh"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K1 ["CageOrigin"]
+  GETUPVAL R5 4
+  NAMECALL R0 R0 K2 ["CalculateBodyPartMaxCageDistance"]
+  CALL R0 5 -1
+  RETURN R0 -1
+
+PROTO_2:
+  LOADNIL R2
+  LOADNIL R3
+  LOADNIL R4
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIFNOT R5 [+13]
+  GETUPVAL R5 1
+  MOVE R6 R0
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K0 ["MESH_CONTENT_TYPE"]
+  GETTABLEKS R7 R8 K1 ["RENDER_MESH"]
+  MOVE R8 R1
+  CALL R5 3 3
+  MOVE R2 R5
+  MOVE R3 R6
+  MOVE R4 R7
+  JUMP [+32]
+  GETTABLEKS R7 R0 K2 ["MeshId"]
+  GETTABLEKS R8 R0 K3 ["Name"]
+  DUPTABLE R9 K8 [{"fullName", "contentId", "fieldName", "context"}]
+  NAMECALL R10 R0 K9 ["GetFullName"]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K4 ["fullName"]
+  SETTABLEKS R7 R9 K5 ["contentId"]
+  LOADK R10 K2 ["MeshId"]
+  SETTABLEKS R10 R9 K6 ["fieldName"]
+  SETTABLEKS R8 R9 K7 ["context"]
+  GETUPVAL R10 3
+  MOVE R11 R0
+  LOADK R12 K2 ["MeshId"]
+  MOVE R13 R1
+  CALL R10 3 2
+  JUMPIF R10 [+3]
+  LOADB R5 0
+  MOVE R6 R9
+  JUMP [+4]
+  SETTABLEKS R11 R9 K10 ["editableMesh"]
+  LOADB R5 1
+  MOVE R6 R9
+  MOVE R2 R5
+  MOVE R4 R6
+  JUMPIF R2 [+19]
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIFNOT R5 [+4]
+  LOADB R5 0
+  MOVE R6 R3
+  CLOSEUPVALS R4
+  RETURN R5 2
+  LOADB R5 0
+  NEWTABLE R6 0 1
+  LOADK R8 K11 ["Failed to load "]
+  GETTABLEKS R9 R0 K3 ["Name"]
+  LOADK R10 K12 ["'s render mesh data"]
+  CONCAT R7 R8 R10
+  SETLIST R6 R7 1 [1]
+  CLOSEUPVALS R4
+  RETURN R5 2
+  LOADK R7 K13 ["WrapTarget"]
+  NAMECALL R5 R0 K14 ["FindFirstChildWhichIsA"]
+  CALL R5 2 1
+  LOADK R9 K15 ["Missing WrapTarget child for "]
+  GETTABLEKS R10 R0 K3 ["Name"]
+  CONCAT R8 R9 R10
+  FASTCALL2 ASSERT R5 R8 [+4]
+  MOVE R7 R5
+  GETIMPORT R6 K17 [assert]
+  CALL R6 2 0
+  LOADNIL R6
+  LOADNIL R7
+  LOADNIL R8
+  GETUPVAL R9 0
+  CALL R9 0 1
+  JUMPIFNOT R9 [+13]
+  GETUPVAL R9 1
+  MOVE R10 R5
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K0 ["MESH_CONTENT_TYPE"]
+  GETTABLEKS R11 R12 K18 ["OUTER_CAGE"]
+  MOVE R12 R1
+  CALL R9 3 3
+  MOVE R6 R9
+  MOVE R7 R10
+  MOVE R8 R11
+  JUMP [+32]
+  GETTABLEKS R11 R5 K19 ["CageMeshId"]
+  GETTABLEKS R12 R5 K20 ["ClassName"]
+  DUPTABLE R13 K8 [{"fullName", "contentId", "fieldName", "context"}]
+  NAMECALL R14 R5 K9 ["GetFullName"]
+  CALL R14 1 1
+  SETTABLEKS R14 R13 K4 ["fullName"]
+  SETTABLEKS R11 R13 K5 ["contentId"]
+  LOADK R14 K19 ["CageMeshId"]
+  SETTABLEKS R14 R13 K6 ["fieldName"]
+  SETTABLEKS R12 R13 K7 ["context"]
+  GETUPVAL R14 3
+  MOVE R15 R5
+  LOADK R16 K19 ["CageMeshId"]
+  MOVE R17 R1
+  CALL R14 3 2
+  JUMPIF R14 [+3]
+  LOADB R9 0
+  MOVE R10 R13
+  JUMP [+4]
+  SETTABLEKS R15 R13 K10 ["editableMesh"]
+  LOADB R9 1
+  MOVE R10 R13
+  MOVE R6 R9
+  MOVE R8 R10
+  JUMPIF R6 [+19]
+  GETUPVAL R9 0
+  CALL R9 0 1
+  JUMPIFNOT R9 [+4]
+  LOADB R9 0
+  MOVE R10 R7
+  CLOSEUPVALS R4
+  RETURN R9 2
+  LOADB R9 0
+  NEWTABLE R10 0 1
+  LOADK R12 K11 ["Failed to load "]
+  GETTABLEKS R13 R0 K3 ["Name"]
+  LOADK R14 K21 ["'s WrapTarget's cage mesh data"]
+  CONCAT R11 R12 R14
+  SETLIST R10 R11 1 [1]
+  CLOSEUPVALS R4
+  RETURN R9 2
+  GETUPVAL R10 4
+  MOVE R11 R0
+  MOVE R12 R1
+  CALL R10 2 1
+  GETUPVAL R11 4
+  MOVE R12 R0
+  MOVE R13 R1
+  LOADB R14 1
+  CALL R11 3 1
+  DIV R9 R10 R11
+  GETUPVAL R10 5
+  NEWCLOSURE R11 P0
+  CAPTURE UPVAL U6
+  CAPTURE REF R8
+  CAPTURE REF R4
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  MOVE R12 R1
+  CALL R10 2 2
+  JUMPIF R10 [+37]
+  LOADK R13 K22 ["Failed to execute body part max cage distance check. Make sure %*'s render mesh and its WrapTarget's cage mesh exist, and try again."]
+  GETTABLEKS R15 R0 K3 ["Name"]
+  NAMECALL R13 R13 K23 ["format"]
+  CALL R13 2 1
+  MOVE R12 R13
+  GETTABLEKS R13 R1 K24 ["isServer"]
+  JUMPIFEQKNIL R13 [+8]
+  GETTABLEKS R13 R1 K24 ["isServer"]
+  JUMPIFNOT R13 [+4]
+  GETIMPORT R13 K26 [error]
+  MOVE R14 R12
+  CALL R13 1 0
+  GETUPVAL R14 7
+  GETTABLEKS R13 R14 K27 ["reportFailure"]
+  GETUPVAL R16 7
+  GETTABLEKS R15 R16 K28 ["ErrorType"]
+  GETTABLEKS R14 R15 K29 ["validateBodyPartCage_FailedToExecute"]
+  LOADNIL R15
+  MOVE R16 R1
+  CALL R13 3 0
+  LOADB R13 0
+  NEWTABLE R14 0 1
+  MOVE R15 R12
+  SETLIST R14 R15 1 [1]
+  CLOSEUPVALS R4
+  RETURN R13 2
+  GETUPVAL R13 8
+  GETTABLEKS R12 R13 K30 ["asNumber"]
+  CALL R12 0 1
+  JUMPIFNOTLT R12 R11 [+34]
+  GETUPVAL R13 7
+  GETTABLEKS R12 R13 K27 ["reportFailure"]
+  GETUPVAL R15 7
+  GETTABLEKS R14 R15 K28 ["ErrorType"]
+  GETTABLEKS R13 R14 K31 ["validateBodyPartCage_VertsAreTooFarInFrontOfRenderMesh"]
+  LOADNIL R14
+  MOVE R15 R1
+  CALL R12 3 0
+  LOADB R12 0
+  NEWTABLE R13 0 1
+  GETIMPORT R14 K33 [string.format]
+  LOADK R15 K34 ["Cage mesh verts referenced in %s.%s.CageMeshId were found that are %.2f studs outside the %s render mesh. %s studs is the maximum. Reduce the size of your cage mesh."]
+  GETTABLEKS R16 R0 K3 ["Name"]
+  GETTABLEKS R17 R5 K3 ["Name"]
+  MOVE R18 R11
+  GETTABLEKS R19 R0 K3 ["Name"]
+  GETUPVAL R21 8
+  GETTABLEKS R20 R21 K35 ["asString"]
+  CALL R20 0 -1
+  CALL R14 -1 -1
+  SETLIST R13 R14 -1 [1]
+  CLOSEUPVALS R4
+  RETURN R12 2
+  LOADB R12 1
+  CLOSEUPVALS R4
+  RETURN R12 1
+
+PROTO_3:
+  GETIMPORT R2 K1 [tick]
+  CALL R2 0 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["ASSET_TYPE_INFO"]
+  GETTABLEKS R5 R1 K3 ["assetTypeEnum"]
+  GETTABLE R3 R4 R5
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K4 ["new"]
+  CALL R4 0 1
+  GETIMPORT R5 K8 [Enum.AssetType.DynamicHead]
+  GETTABLEKS R6 R1 K3 ["assetTypeEnum"]
+  JUMPIFNOTEQ R5 R6 [+6]
+  GETUPVAL R5 2
+  MOVE R6 R0
+  MOVE R7 R1
+  CALL R5 2 -1
+  RETURN R5 -1
+  GETIMPORT R5 K10 [pairs]
+  GETTABLEKS R6 R3 K11 ["subParts"]
+  CALL R5 1 3
+  FORGPREP_NEXT R5
+  MOVE R12 R8
+  NAMECALL R10 R0 K12 ["FindFirstChild"]
+  CALL R10 2 1
+  FASTCALL2K ASSERT R10 K13 [+5]
+  MOVE R12 R10
+  LOADK R13 K13 ["expected parts have been checked for existance before calling this function"]
+  GETIMPORT R11 K15 [assert]
+  CALL R11 2 0
+  GETUPVAL R13 2
+  MOVE R14 R10
+  MOVE R15 R1
+  CALL R13 2 -1
+  NAMECALL R11 R4 K16 ["updateReasons"]
+  CALL R11 -1 0
+  FORGLOOP R5 1 [-19]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K17 ["recordScriptTime"]
+  GETIMPORT R7 K19 [script]
+  GETTABLEKS R6 R7 K20 ["Name"]
+  MOVE R7 R2
+  MOVE R8 R1
+  CALL R5 3 0
+  NAMECALL R5 R4 K21 ["getFinalResults"]
+  CALL R5 1 -1
+  RETURN R5 -1
+
+PROTO_4:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["CalculateBodyMaxCageDistance"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_5:
+  GETIMPORT R2 K1 [tick]
+  CALL R2 0 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["calculateAllTransformsForFullBody"]
+  MOVE R4 R0
+  CALL R3 1 1
+  NEWTABLE R4 0 0
+  MOVE R5 R0
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  LOADNIL R10
+  LOADNIL R11
+  LOADNIL R12
+  GETUPVAL R13 1
+  CALL R13 0 1
+  JUMPIFNOT R13 [+13]
+  GETUPVAL R13 2
+  MOVE R14 R9
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K3 ["MESH_CONTENT_TYPE"]
+  GETTABLEKS R15 R16 K4 ["RENDER_MESH"]
+  MOVE R16 R1
+  CALL R13 3 3
+  MOVE R10 R13
+  MOVE R11 R14
+  MOVE R12 R15
+  JUMP [+32]
+  GETTABLEKS R15 R9 K5 ["MeshId"]
+  GETTABLEKS R16 R9 K6 ["Name"]
+  DUPTABLE R17 K11 [{"fullName", "contentId", "fieldName", "context"}]
+  NAMECALL R18 R9 K12 ["GetFullName"]
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K7 ["fullName"]
+  SETTABLEKS R15 R17 K8 ["contentId"]
+  LOADK R18 K5 ["MeshId"]
+  SETTABLEKS R18 R17 K9 ["fieldName"]
+  SETTABLEKS R16 R17 K10 ["context"]
+  GETUPVAL R18 4
+  MOVE R19 R9
+  LOADK R20 K5 ["MeshId"]
+  MOVE R21 R1
+  CALL R18 3 2
+  JUMPIF R18 [+3]
+  LOADB R13 0
+  MOVE R14 R17
+  JUMP [+4]
+  SETTABLEKS R19 R17 K13 ["editableMesh"]
+  LOADB R13 1
+  MOVE R14 R17
+  MOVE R10 R13
+  MOVE R12 R14
+  JUMPIF R10 [+17]
+  GETUPVAL R13 1
+  CALL R13 0 1
+  JUMPIFNOT R13 [+3]
+  LOADB R13 0
+  MOVE R14 R11
+  RETURN R13 2
+  LOADB R13 0
+  NEWTABLE R14 0 1
+  LOADK R16 K14 ["Failed to load "]
+  GETTABLEKS R17 R9 K6 ["Name"]
+  LOADK R18 K15 ["'s render mesh data"]
+  CONCAT R15 R16 R18
+  SETLIST R14 R15 1 [1]
+  RETURN R13 2
+  LOADK R15 K16 ["WrapTarget"]
+  NAMECALL R13 R9 K17 ["FindFirstChildWhichIsA"]
+  CALL R13 2 1
+  LOADK R17 K18 ["Missing WrapTarget child for "]
+  GETTABLEKS R18 R9 K6 ["Name"]
+  CONCAT R16 R17 R18
+  FASTCALL2 ASSERT R13 R16 [+4]
+  MOVE R15 R13
+  GETIMPORT R14 K20 [assert]
+  CALL R14 2 0
+  LOADNIL R14
+  LOADNIL R15
+  LOADNIL R16
+  GETUPVAL R17 1
+  CALL R17 0 1
+  JUMPIFNOT R17 [+13]
+  GETUPVAL R17 2
+  MOVE R18 R13
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K3 ["MESH_CONTENT_TYPE"]
+  GETTABLEKS R19 R20 K21 ["OUTER_CAGE"]
+  MOVE R20 R1
+  CALL R17 3 3
+  MOVE R14 R17
+  MOVE R15 R18
+  MOVE R16 R19
+  JUMP [+32]
+  GETTABLEKS R19 R13 K22 ["CageMeshId"]
+  GETTABLEKS R20 R13 K23 ["ClassName"]
+  DUPTABLE R21 K11 [{"fullName", "contentId", "fieldName", "context"}]
+  NAMECALL R22 R13 K12 ["GetFullName"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K7 ["fullName"]
+  SETTABLEKS R19 R21 K8 ["contentId"]
+  LOADK R22 K22 ["CageMeshId"]
+  SETTABLEKS R22 R21 K9 ["fieldName"]
+  SETTABLEKS R20 R21 K10 ["context"]
+  GETUPVAL R22 4
+  MOVE R23 R13
+  LOADK R24 K22 ["CageMeshId"]
+  MOVE R25 R1
+  CALL R22 3 2
+  JUMPIF R22 [+3]
+  LOADB R17 0
+  MOVE R18 R21
+  JUMP [+4]
+  SETTABLEKS R23 R21 K13 ["editableMesh"]
+  LOADB R17 1
+  MOVE R18 R21
+  MOVE R14 R17
+  MOVE R16 R18
+  JUMPIF R14 [+17]
+  GETUPVAL R17 1
+  CALL R17 0 1
+  JUMPIFNOT R17 [+3]
+  LOADB R17 0
+  MOVE R18 R15
+  RETURN R17 2
+  LOADB R17 0
+  NEWTABLE R18 0 1
+  LOADK R20 K14 ["Failed to load "]
+  GETTABLEKS R21 R9 K6 ["Name"]
+  LOADK R22 K24 ["'s WrapTarget's cage mesh data"]
+  CONCAT R19 R20 R22
+  SETLIST R18 R19 1 [1]
+  RETURN R17 2
+  GETUPVAL R18 5
+  MOVE R19 R9
+  MOVE R20 R1
+  CALL R18 2 1
+  GETUPVAL R19 5
+  MOVE R20 R9
+  MOVE R21 R1
+  LOADB R22 1
+  CALL R19 3 1
+  DIV R17 R18 R19
+  DUPTABLE R20 K31 [{"renderMesh", "outerCage", "renderMeshTransform", "outerCageLocalTransform", "scale", "name"}]
+  GETTABLEKS R21 R12 K13 ["editableMesh"]
+  SETTABLEKS R21 R20 K25 ["renderMesh"]
+  GETTABLEKS R21 R16 K13 ["editableMesh"]
+  SETTABLEKS R21 R20 K26 ["outerCage"]
+  GETTABLEKS R22 R9 K6 ["Name"]
+  GETTABLE R21 R3 R22
+  SETTABLEKS R21 R20 K27 ["renderMeshTransform"]
+  GETTABLEKS R21 R13 K32 ["CageOrigin"]
+  SETTABLEKS R21 R20 K28 ["outerCageLocalTransform"]
+  SETTABLEKS R17 R20 K29 ["scale"]
+  GETTABLEKS R21 R9 K6 ["Name"]
+  SETTABLEKS R21 R20 K30 ["name"]
+  FASTCALL2 TABLE_INSERT R4 R20 [+4]
+  MOVE R19 R4
+  GETIMPORT R18 K35 [table.insert]
+  CALL R18 2 0
+  FORGLOOP R5 2 [-193]
+  GETUPVAL R5 6
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U7
+  CAPTURE VAL R4
+  MOVE R7 R1
+  CALL R5 2 3
+  GETUPVAL R9 8
+  GETTABLEKS R8 R9 K36 ["recordScriptTime"]
+  GETIMPORT R10 K38 [script]
+  GETTABLEKS R9 R10 K6 ["Name"]
+  MOVE R10 R2
+  MOVE R11 R1
+  CALL R8 3 0
+  JUMPIF R5 [+29]
+  GETTABLEKS R8 R1 K39 ["isServer"]
+  JUMPIFEQKNIL R8 [+8]
+  GETTABLEKS R8 R1 K39 ["isServer"]
+  JUMPIFNOT R8 [+4]
+  GETIMPORT R8 K41 [error]
+  LOADK R9 K42 ["Failed to execute body max cage distance check. Make sure all render meshes and their WrapTarget cage meshes exist, and try again."]
+  CALL R8 1 0
+  GETUPVAL R9 8
+  GETTABLEKS R8 R9 K43 ["reportFailure"]
+  GETUPVAL R11 8
+  GETTABLEKS R10 R11 K44 ["ErrorType"]
+  GETTABLEKS R9 R10 K45 ["validateBodyPartCage_FailedToExecute"]
+  LOADNIL R10
+  MOVE R11 R1
+  CALL R8 3 0
+  LOADB R8 0
+  NEWTABLE R9 0 1
+  LOADK R10 K42 ["Failed to execute body max cage distance check. Make sure all render meshes and their WrapTarget cage meshes exist, and try again."]
+  SETLIST R9 R10 1 [1]
+  RETURN R8 2
+  GETUPVAL R9 9
+  GETTABLEKS R8 R9 K46 ["asNumber"]
+  CALL R8 0 1
+  JUMPIFNOTLT R8 R6 [+35]
+  GETUPVAL R9 8
+  GETTABLEKS R8 R9 K43 ["reportFailure"]
+  GETUPVAL R11 8
+  GETTABLEKS R10 R11 K44 ["ErrorType"]
+  GETTABLEKS R9 R10 K47 ["validateBodyPartCage_VertsAreTooFarInFrontOfRenderMesh"]
+  LOADNIL R10
+  MOVE R11 R1
+  CALL R8 3 0
+  GETIMPORT R8 K50 [string.format]
+  LOADK R9 K51 ["A vertex was found on the %s's cage mesh that is %.2f studs away from the closest render mesh. %s studs is the maximum. Make the cage mesh more closely match the shape and size of the render mesh."]
+  MOVE R10 R7
+  MOVE R11 R6
+  GETUPVAL R13 9
+  GETTABLEKS R12 R13 K52 ["asString"]
+  CALL R12 0 -1
+  CALL R8 -1 1
+  GETUPVAL R9 10
+  CALL R9 0 1
+  JUMPIFNOT R9 [+3]
+  MOVE R9 R8
+  LOADK R10 K53 ["[Read more](https://create.roblox.com/docs/art/validation-errors#bodyCageMaxSize)"]
+  CONCAT R8 R9 R10
+  LOADB R9 0
+  NEWTABLE R10 0 1
+  MOVE R11 R8
+  SETLIST R10 R11 1 [1]
+  RETURN R9 2
+  LOADB R8 1
+  RETURN R8 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [game]
+  LOADK R3 K5 ["UGCValidationService"]
+  NAMECALL R1 R1 K6 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R3 R0 K9 ["Analytics"]
+  CALL R2 1 1
+  GETIMPORT R3 K8 [require]
+  GETTABLEKS R4 R0 K10 ["Constants"]
+  CALL R3 1 1
+  GETTABLEKS R4 R0 K11 ["util"]
+  GETIMPORT R5 K8 [require]
+  GETTABLEKS R6 R4 K12 ["Types"]
+  CALL R5 1 1
+  GETIMPORT R6 K8 [require]
+  GETTABLEKS R7 R4 K13 ["pcallDeferred"]
+  CALL R6 1 1
+  GETIMPORT R7 K8 [require]
+  GETTABLEKS R8 R4 K14 ["getEditableMeshFromContext"]
+  CALL R7 1 1
+  GETIMPORT R8 K8 [require]
+  GETTABLEKS R9 R4 K15 ["FailureReasonsAccumulator"]
+  CALL R8 1 1
+  GETIMPORT R9 K8 [require]
+  GETTABLEKS R10 R4 K16 ["getExpectedPartSize"]
+  CALL R9 1 1
+  GETIMPORT R10 K8 [require]
+  GETTABLEKS R11 R4 K17 ["getMeshInfo"]
+  CALL R10 1 1
+  GETIMPORT R11 K8 [require]
+  GETTABLEKS R12 R4 K18 ["AssetCalculator"]
+  CALL R11 1 1
+  GETTABLEKS R12 R0 K19 ["flags"]
+  GETIMPORT R13 K8 [require]
+  GETTABLEKS R14 R12 K20 ["GetFStringUGCValidationMaxCageDistance"]
+  CALL R13 1 1
+  GETIMPORT R14 K8 [require]
+  GETTABLEKS R16 R0 K19 ["flags"]
+  GETTABLEKS R15 R16 K21 ["getFFlagUGCValidationConsolidateGetMeshInfos"]
+  CALL R14 1 1
+  GETIMPORT R15 K8 [require]
+  GETTABLEKS R17 R0 K19 ["flags"]
+  GETTABLEKS R16 R17 K22 ["getFFlagUGCValidationHyperlinksInCageQuality"]
+  CALL R15 1 1
+  NEWTABLE R16 2 0
+  DUPCLOSURE R17 K23 [PROTO_0]
+  CAPTURE VAL R7
+  DUPCLOSURE R18 K24 [PROTO_2]
+  CAPTURE VAL R14
+  CAPTURE VAL R10
+  CAPTURE VAL R3
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R13
+  DUPCLOSURE R19 K25 [PROTO_3]
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R18
+  CAPTURE VAL R2
+  SETTABLEKS R19 R16 K26 ["validateSingleBodyPart"]
+  DUPCLOSURE R19 K27 [PROTO_5]
+  CAPTURE VAL R11
+  CAPTURE VAL R14
+  CAPTURE VAL R10
+  CAPTURE VAL R3
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R13
+  CAPTURE VAL R15
+  SETTABLEKS R19 R16 K28 ["validateFullBody"]
+  RETURN R16 1

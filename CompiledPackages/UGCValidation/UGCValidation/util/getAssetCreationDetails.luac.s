@@ -1,0 +1,48 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["requestAndRetryPost"]
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  DUPTABLE R5 K2 [{"assetIds"}]
+  SETTABLEKS R0 R5 K1 ["assetIds"]
+  NAMECALL R3 R3 K3 ["JSONEncode"]
+  CALL R3 2 -1
+  CALL R1 -1 2
+  JUMPIFNOT R1 [+7]
+  LOADB R3 1
+  GETUPVAL R4 2
+  MOVE R6 R2
+  NAMECALL R4 R4 K4 ["JSONDecode"]
+  CALL R4 2 -1
+  RETURN R3 -1
+  LOADB R3 0
+  MOVE R4 R2
+  RETURN R3 2
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["util"]
+  GETTABLEKS R2 R3 K6 ["APIUtil"]
+  CALL R1 1 1
+  GETIMPORT R2 K8 [game]
+  LOADK R4 K9 ["HttpService"]
+  NAMECALL R2 R2 K10 ["GetService"]
+  CALL R2 2 1
+  GETTABLEKS R3 R1 K11 ["getBaseDomain"]
+  CALL R3 0 1
+  GETIMPORT R4 K14 [string.format]
+  LOADK R5 K15 ["https://itemconfiguration.%s"]
+  MOVE R6 R3
+  CALL R4 2 1
+  MOVE R6 R4
+  LOADK R7 K16 ["v1/creations/get-asset-details"]
+  CONCAT R5 R6 R7
+  DUPCLOSURE R6 K17 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  RETURN R6 1
