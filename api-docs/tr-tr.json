@@ -4031,7 +4031,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Font#fromEnum",
-    "code_sample": "script.Parent.FontFace = Font.fromEnum(Enum.Font.SciFi)\nprint(script.Parent.FontFace)"
+    "code_sample": ""
   },
   "@roblox/global/Font.fromName/param/0": {
     "documentation": "Yazı tipinin ismi."
@@ -4043,7 +4043,7 @@
     "documentation": "Metnin normal mı yoksa italik mi olduğu."
   },
   "@roblox/global/Font.fromName": {
-    "documentation": "<code>FredokaOne</code> gibi bir isimden bir Yazı Tipi oluşturur.",
+    "documentation": "Bir <code>Font</code> oluşturur, örneğin <code>FredokaOne</code> gibi bir isimle.",
     "params": [
       {
         "name": "name",
@@ -4060,7 +4060,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Font#fromName",
-    "code_sample": "script.Parent.FontFace = Font.fromName(\"FredokaOne\")\nprint(script.Parent.FontFace.Family)"
+    "code_sample": ""
   },
   "@roblox/global/Font.fromId/param/0": {
     "documentation": "Yazı tipinin varlık ID'si sayı olarak."
@@ -4072,7 +4072,7 @@
     "documentation": "Metnin normal mı yoksa italik mi olduğu."
   },
   "@roblox/global/Font.fromId": {
-    "documentation": "Sayısal bir varlık ID'sinden bir Yazı Tipi oluşturur.",
+    "documentation": "Bir sayısal varlık ID'sinden bir <code>Font</code> oluşturur.",
     "params": [
       {
         "name": "id",
@@ -4089,7 +4089,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Font#fromId",
-    "code_sample": "script.Parent.FontFace = Font.fromId(8836875837)\nprint(script.Parent.FontFace.Family)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Font": {
     "documentation": "Metni görüntülemek için kullanılan yazı tipini açıklar.",
@@ -6099,10 +6099,10 @@
     "documentation": "Kullanıcının düğmenin üzerine geldiğinde gösterilen ipucu metnidir."
   },
   "@roblox/globaltype/PluginToolbar.CreateButton/param/3": {
-    "documentation": "Düğmede gösterilen simgenin varlık kimliği (örneğin, rbxassetid://1507949215)."
+    "documentation": "Düğmede görüntülenen simgenin varlık kimliği."
   },
   "@roblox/globaltype/PluginToolbar.CreateButton/param/4": {
-    "documentation": "Düğme simgesinin altında gösterilen metin. Opsiyonel. Bu alan sağlanmazsa, <strong>ID</strong> kullanılacaktır."
+    "documentation": "Düğme simgesinin altında görüntülenen isteğe bağlı metin."
   },
   "@roblox/globaltype/PluginToolbar.CreateButton/return/0": {
     "documentation": "Oluşturulan <code>PluginToolbarButton</code> örneği."
@@ -6523,7 +6523,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.AutoRuns": {
-    "documentation": "Doğru olarak ayarlandığında, TestService'in <code>TestService:Run()</code> metodu çağrıldığında oyun çalışmaya başlayacaktır.",
+    "documentation": "<code>true</code> olarak ayarlandığında, oyun, servisin <code>TestService:Run()</code> metodunun çağrılmasıyla çalışmaya başlayacaktır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#AutoRuns",
     "code_sample": ""
   },
@@ -6538,7 +6538,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ExecuteWithStudioRun": {
-    "documentation": "Doğru olarak ayarlandığında, <em>Run</em> açıklamasını kullanırken TestService yürütülecektir.",
+    "documentation": "<code>true</code> olarak ayarlandığında, <code>TestService</code>, Roblox Studio'da <strong>Çalıştır</strong> açıkken yürütülecektir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ExecuteWithStudioRun",
     "code_sample": ""
   },
@@ -6603,7 +6603,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Check": {
-    "documentation": "Koşulun sonucunu çıktıya yazdırır.",
+    "documentation": "Bir koşulun sonucunu çıktıya yazdırır.",
     "params": [
       {
         "name": "self",
@@ -6628,7 +6628,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Check",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Check(false, \"örnek\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Checkpoint/param/0": {
     "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
@@ -6643,7 +6643,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Checkpoint": {
-    "documentation": "\"Test kontrol noktası: \", ardından metni mavi metin olarak çıktıya yazdırır.",
+    "documentation": "<code>Test checkpoint:</code> ifadesini ardından bir dizeyi çıkışa mavi metin olarak yazdırır.",
     "params": [
       {
         "name": "self",
@@ -6664,13 +6664,13 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Checkpoint",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Checkpoint(\"örnek\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Done/param/0": {
     "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Done": {
-    "documentation": "Çıktıya Test Tamamlandı yazdırır, mavi metin olarak.",
+    "documentation": "<code>Testing Done</code> ifadesini çıkışa mavi metin olarak yazdırır.",
     "params": [
       {
         "name": "self",
@@ -6679,7 +6679,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Done",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Done()"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Error/param/0": {
     "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
@@ -6694,7 +6694,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Error": {
-    "documentation": "<code>TestService:</code> ile öne çıkan kırmızı bir mesajı çıktıya yazdırır.",
+    "documentation": "Çıkışa, <code>TestService:</code> öneki ile kırmızı bir hata mesajı yazdırır.",
     "params": [
       {
         "name": "self",
@@ -6715,7 +6715,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Error",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Error(\"bu bir hata\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Fail/param/0": {
     "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
@@ -6730,7 +6730,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Fail": {
-    "documentation": "Bir TestService çalışmasında ölümcül bir hatayı gösterir. Bu, TestService içinde çalışan bir betik içinde çağrılırsa, hatanın çağrıldığı satırda bir duraklama başlatır.",
+    "documentation": "<code>TestService</code> yürütmesinde ölümcül bir hatayı gösterir.",
     "params": [
       {
         "name": "self",
@@ -6793,7 +6793,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Message": {
-    "documentation": "Test mesajını, ardından metni mavi metin olarak çıktıya yazdırır.",
+    "documentation": "Çıkışa, <code>TestService:</code> ifadesini ardından bir dizeyi mavi metin olarak yazdırır.",
     "params": [
       {
         "name": "self",
@@ -6814,7 +6814,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Message",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Message(\"örnek\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Require/param/0": {
     "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
@@ -6832,7 +6832,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Require": {
-    "documentation": "Bir koşulun doğru olup olmadığını açıklama metni ile yazdırır.",
+    "documentation": "Bir koşulun doğru olup olmadığını ve bir açıklama dizesini yazdırır.",
     "params": [
       {
         "name": "self",
@@ -6857,13 +6857,13 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Require",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Require(false, \"örnek\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.RunAsync/param/0": {
     "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.RunAsync": {
-    "documentation": "TestService'e ait olan betikleri çalıştırır.",
+    "documentation": "<code>TestService</code>'e bağlı olan betikleri çalıştırır.",
     "params": [
       {
         "name": "self",
@@ -6878,7 +6878,7 @@
     "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Run": {
-    "documentation": "<strong>Deprecated:</strong> <br>TestService'a bağlı olan scriptleri çalıştırır.",
+    "documentation": "<strong>Deprecated:</strong> <br><code>TestService</code>'e bağlı olan betikleri çalıştırır.",
     "params": [
       {
         "name": "self",
@@ -6947,7 +6947,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Warn": {
-    "documentation": "Bir koşul doğruysa yazdırır, aksi takdirde bir uyarı yazdırır.",
+    "documentation": "Bir koşulun <code>true</code> olup olmadığını kontrol eder, aksi takdirde bir uyarı gösterir.",
     "params": [
       {
         "name": "self",
@@ -6972,7 +6972,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Warn",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Warn(false, \"bu işlem geçersizdir\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.ServerCollectConditionalResult.Connect/param/0": {
     "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
@@ -7052,7 +7052,7 @@
     "returns": []
   },
   "@roblox/globaltype/TestService.ServerCollectConditionalResult": {
-    "documentation": "Sunucunun bir koşullu test sonucunu toplaması gerektiğinde tetiklenir.",
+    "documentation": "Sunucunun koşullu bir test sonucunu toplaması gerektiğinde ateş eder.",
     "keys": {
       "Connect": "@roblox/globaltype/TestService.ServerCollectConditionalResult.Connect",
       "ConnectParallel": "@roblox/globaltype/TestService.ServerCollectConditionalResult.ConnectParallel",
@@ -7140,7 +7140,7 @@
     "returns": []
   },
   "@roblox/globaltype/TestService.ServerCollectResult": {
-    "documentation": "Sunucunun bir test sonucunu toplaması gerektiğinde tetiklenir.",
+    "documentation": "Sunucunun bir test sonucunu toplaması gerektiğinde ateş eder.",
     "keys": {
       "Connect": "@roblox/globaltype/TestService.ServerCollectResult.Connect",
       "ConnectParallel": "@roblox/globaltype/TestService.ServerCollectResult.ConnectParallel",
@@ -11414,12 +11414,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PluginAction.AllowBinding": {
-    "documentation": "<code>PluginAction</code>'ın Studio'nun kısayol görünümünden gizlenip gizlenmeyeceği.",
+    "documentation": "Eylemin, Studio'da bir klavye kısayolu atanıp atanamayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginAction#AllowBinding",
     "code_sample": ""
   },
   "@roblox/globaltype/PluginAction.StatusTip": {
-    "documentation": "Klavye kısayolu penceresinden bu eylemi görüntülerken eylemin açıklaması.",
+    "documentation": "Roblox Studio'daki klavye kısayolları penceresinden görüntülenirken eylemin açıklaması.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginAction#StatusTip",
     "code_sample": ""
   },
@@ -11506,7 +11506,7 @@
     "returns": []
   },
   "@roblox/globaltype/PluginAction.Triggered": {
-    "documentation": "Eylem tetiklendiğinde ateşlenir. Bu, Hızlı Erişim Araç Çubuğundan eylemi etkinleştirerek veya ona bağlı olan klavye kısayolunu kullanarak yapılabilir.",
+    "documentation": "Eylem tetiklendiğinde ateşlenir.",
     "keys": {
       "Connect": "@roblox/globaltype/PluginAction.Triggered.Connect",
       "ConnectParallel": "@roblox/globaltype/PluginAction.Triggered.ConnectParallel",
@@ -11883,7 +11883,7 @@
     "returns": []
   },
   "@roblox/globaltype/NetworkClient.ConnectionAccepted": {
-    "documentation": "İstemci bir sunucuya başarıyla bağlandığında tetiklenir. Sunucunun IP'sini ve Portunu, ve istemcinin <code>ClientReplicator</code>'ını gösteren bir dize döner.",
+    "documentation": "İstemcinin bir sunucuya başarıyla bağlandığında tetiklenir. Sunucunun IP'sini ve portunu, istemcinin <code>ClientReplicator</code>'ını gösteren bir string döner.",
     "keys": {
       "Connect": "@roblox/globaltype/NetworkClient.ConnectionAccepted.Connect",
       "ConnectParallel": "@roblox/globaltype/NetworkClient.ConnectionAccepted.ConnectParallel",
@@ -16829,7 +16829,7 @@
       "@roblox/globaltype/BadgeService.IsLegal/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#IsLegal",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal BADGE_ID = 0\n\nlocal function awardBadge(player, badgeId)\n\t-- rozetin ödüllendirilip ödüllendirilemeyeceğini kontrol et\n\tif BadgeService:IsLegal(badgeId) and not BadgeService:IsDisabled(badgeId) then\n\t\t-- rozeti ödüllendir\n\t\tBadgeService:AwardBadge(player.UserId, badgeId)\n\tend\nend\n\nlocal function onPlayerAdded(player)\n\tawardBadge(player, BADGE_ID)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.UserHasBadge/param/0": {
     "documentation": "Rozetler hakkında bilgi sağlar ve onları ödüllendirir."
@@ -16844,7 +16844,7 @@
     "documentation": "Kullanıcının rozetinin var olup olmadığını gösteren doğru değerini döndürür."
   },
   "@roblox/globaltype/BadgeService.UserHasBadge": {
-    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, yeni işler için kullanılacak <code>BadgeService:UserHasBadgeAsync()</code> ile değiştirilmiştir.<br>Bir kullanıcının rozetinin <code>Player.UserId</code>'sı ve rozet kimliği verildiğinde olup olmadığını kontrol eder.",
+    "documentation": "<strong>Deprecated:</strong> Bu metot, yeni kullanıcılar için kullanılacak olan <code>BadgeService:UserHasBadgeAsync()</code> ile değiştirilmiştir.<br>Bir kullanıcının rozetinin <code>Player.UserId</code>'sı ve rozet kimliği verildiğinde olup olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -16863,7 +16863,7 @@
       "@roblox/globaltype/BadgeService.UserHasBadge/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#UserHasBadge",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal BADGE_ID = 123\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif BadgeService:UserHasBadge(player.UserId, BADGE_ID) then\n\t\tprint(\"Kullanıcının bu rozeti var\")\n\telse\n\t\tprint(\"Kullanıcının bu rozeti yoktur\")\n\tend\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.UserHasBadgeAsync/param/0": {
     "documentation": "Rozetler hakkında bilgi sağlar ve onları ödüllendirir."
@@ -23025,12 +23025,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PluginMenu.Icon": {
-    "documentation": "Alt menü olarak kullanıldığında gösterilecek simge.",
+    "documentation": "Alt menü olarak kullanıldığında görüntülenecek simge.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginMenu#Icon",
     "code_sample": ""
   },
   "@roblox/globaltype/PluginMenu.Title": {
-    "documentation": "Alt menü olarak kullanıldığında gösterilecek metin.",
+    "documentation": "Alt menü olarak kullanıldığında görüntülenecek metin.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginMenu#Title",
     "code_sample": ""
   },
@@ -23060,7 +23060,7 @@
     "documentation": "Studio'da gösterilebilen bir bağlam menüsü. Bir liste gösterir <code>PluginActions</code> ve alt menüleri destekler."
   },
   "@roblox/globaltype/PluginMenu.AddMenu/param/1": {
-    "documentation": "Alt menü olarak eklemek için menü. Gösterim için <code>PluginMenu.Title</code> ve <code>PluginMenu.Icon</code> kullanır."
+    "documentation": "Alt menü olarak eklenmesi gereken menü. Görüntülemek için <code>Title</code> ve <code>Icon</code>'unu kullanır."
   },
   "@roblox/globaltype/PluginMenu.AddMenu": {
     "documentation": "Verilen menüyü bir ayırıcı olarak ekler.",
@@ -23082,7 +23082,7 @@
     "documentation": "Studio'da gösterilebilen bir bağlam menüsü. Bir liste gösterir <code>PluginActions</code> ve alt menüleri destekler."
   },
   "@roblox/globaltype/PluginMenu.AddNewAction/param/1": {
-    "documentation": "Diğer PluginAction'lardan ayıran benzersiz bir dize olmalıdır."
+    "documentation": "Bu <code>PluginAction</code>'ı diğerlerinden ayırt etmek için tanımlayıcı olan benzersiz bir dize olmalıdır."
   },
   "@roblox/globaltype/PluginMenu.AddNewAction/param/2": {
     "documentation": "Gösterilecek metin."
@@ -31881,7 +31881,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Capture": {
-    "documentation": "Bir deneyimde çekilen bir içerik parçasını, örneğin bir ekran görüntüsü veya video, tanımlayan bir sınıf.",
+    "documentation": "Bir içeriğin, örneğin deneyim içinde çekilen bir ekran görüntüsü veya video gibi bir parçayı tanımlayan bir sınıf.",
     "keys": {
       "CaptureTime": "@roblox/globaltype/Capture.CaptureTime",
       "CaptureType": "@roblox/globaltype/Capture.CaptureType",
@@ -33529,7 +33529,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Plugin.CollisionEnabled": {
-    "documentation": "Kullanıcının Model sekmesi altında Stüdyo'da <code>Çarpışmalar</code>ı etkinleştirip etkinleştirmediğini döndürür.",
+    "documentation": "Kullanıcının Studio'nun araç çubuğunda <strong>Çarpışmaları</strong> etkinleştirip etkinleştirmediğini döndürür.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CollisionEnabled",
     "code_sample": ""
   },
@@ -33552,7 +33552,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Activate/param/1": {
-    "documentation": "Eklentiyi özel fare ile etkinleştirip etkinleştirmeyeceğini belirten bir boolean. Eğer doğru ise, <code>PluginMouse</code> <code>Plugin:GetMouse()</code> aracılığıyla alınabilir."
+    "documentation": "Eklentiyi özel fare ile etkinleştirip etkinleştirmeyeceğini belirten bir boolean. Eğer <code>true</code> ise, <code>PluginMouse</code> <code>GetMouse()</code> ile alınabilir."
   },
   "@roblox/globaltype/Plugin.Activate": {
     "documentation": "Çağıran eklentinin durumunu etkinleştirir.",
@@ -33617,7 +33617,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui": {
-    "documentation": "<strong>Deprecated:</strong> <br>Bir <code>DockWidgetPluginGuiInfo</code> verilen <code>DockWidgetPluginGui</code> oluşturur.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>CreateDockWidgetPluginGuiAsync()</code> ile değiştirilmiştir.<br>Bir <code>DockWidgetPluginGuiInfo</code> verilen <code>DockWidgetPluginGui</code> oluşturur.",
     "params": [
       {
         "name": "self",
@@ -33636,7 +33636,7 @@
       "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CreateDockWidgetPluginGui",
-    "code_sample": "-- Yeni 'DockWidgetPluginGuiInfo' nesnesi oluştur\nlocal widgetInfo = DockWidgetPluginGuiInfo.new(\n\tEnum.InitialDockState.Float, -- Widget, yüzer panel içinde başlatılacak\n\ttrue, -- Widget başlangıçta etkin olacak\n\tfalse, -- Önceki etkin durumu geçersiz kılma\n\t200, -- Yüzer pencerenin varsayılan genişliği\n\t300, -- Yüzer pencerenin varsayılan yüksekliği\n\t150, -- Yüzer pencerenin minimum genişliği (isteğe bağlı)\n\t150 -- Yüzer pencerenin minimum yüksekliği (isteğe bağlı)\n)\n\n-- Yeni widget GUI oluştur\nlocal testWidget = plugin:CreateDockWidgetPluginGui(\"TestWidget\", widgetInfo)\n\nlocal testButton = Instance.new(\"TextButton\")\ntestButton.BorderSizePixel = 0\ntestButton.TextSize = 20\ntestButton.TextColor3 = Color3.new(1, 0.2, 0.4)\ntestButton.AnchorPoint = Vector2.new(0.5, 0.5)\ntestButton.Size = UDim2.new(1, 0, 1, 0)\ntestButton.Position = UDim2.new(0.5, 0, 0.5, 0)\ntestButton.SizeConstraint = Enum.SizeConstraint.RelativeYY\ntestButton.Text = \"Bana Tıkla\"\ntestButton.Parent = testWidget"
+    "code_sample": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/0": {
     "documentation": ""
@@ -33660,7 +33660,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction": {
-    "documentation": "Roblox Studio'da doğrudan ilişkili bir <code>Toolbar</code> veya <code>Button</code> olmayan, genel bir gerçekleştirilebilir eylemi temsil eden bir <code>PluginAction</code> oluşturur.",
+    "documentation": "Studio'da doğrudan ilişkili bir <code>PluginToolbarButton</code> olmayan genel bir gerçekleştirilebilir eylemi temsil eden bir <code>PluginAction</code> oluşturur.",
     "params": [
       {
         "name": "self",
@@ -33783,7 +33783,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetJoinMode": {
-    "documentation": "Kullanıcının Model sekmesinde Studio'da ayarladığı <code>JointCreationMode</code>'u döndürür.",
+    "documentation": "Kullanıcının Studio'nun araç çubuğunda ayarladığı <code>JointCreationMode</code>'u döndürür.",
     "params": [
       {
         "name": "self",
@@ -33896,7 +33896,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimationAsync": {
-    "documentation": ".fbx animasyon dosyasını açmak için kullanıcıya bir istem önermektedir; bu dosya <code>rigModel</code> üzerine yüklenebilir ve ardından animasyonu <code>Workspace</code>'te <code>KeyframeSequence</code> olarak ekler.",
+    "documentation": "Kullanıcıdan, <code>rigModel</code>'e yüklenebilecek bir <code>.fbx</code> animasyon dosyası açması istenir, ardından animasyonu bir <code>KeyframeSequence</code> olarak <code>Workspace</code>'a ekler.",
     "params": [
       {
         "name": "self",
@@ -33930,7 +33930,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimation": {
-    "documentation": "<strong>Deprecated:</strong> <br>.fbx animasyon dosyasını açmak için kullanıcıya bir istem önerir; bu dosya <code>rigModel</code> üzerine yüklenebilir ve ardından animasyonu <code>Workspace</code>'te <code>KeyframeSequence</code> olarak ekler.",
+    "documentation": "<strong>Deprecated:</strong> <br>Kullanıcıdan, <code>rigModel</code>'e yüklenebilecek bir <code>.fbx</code> animasyon dosyası açması istenir, ardından animasyonu bir <code>KeyframeSequence</code> olarak <code>Workspace</code>'a ekler.",
     "params": [
       {
         "name": "self",
@@ -33961,7 +33961,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRigAsync": {
-    "documentation": ".fbx dosyasını açmak için kullanıcıya bir istem önerir, modelin bireysel bileşenlerini mesh olarak yükler ve animasyon için kullanılacak bir karakter rig'i oluşturur; bu da <code>Workspace</code>'e yüklenir.",
+    "documentation": "Kullanıcıdan, bir <code>.fbx</code> dosyası açması istenir, modelin bireysel bileşenleri, ızgaralar olarak yüklenir ve animasyon için kullanılacak bir karakter rig'i oluşturulur, bu <code>Workspace</code>'a yüklenir.",
     "params": [
       {
         "name": "self",
@@ -33988,7 +33988,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRig": {
-    "documentation": "<strong>Deprecated:</strong> <br>.fbx dosyasını açmak için kullanıcıya bir istem önerir, modelin bireysel bileşenlerini mesh olarak yükler ve animasyon için kullanılacak bir karakter rig'i oluşturur; bu da <code>Workspace</code>'e yüklenir.",
+    "documentation": "<strong>Deprecated:</strong> <br>Kullanıcıdan, bir <code>.fbx</code> dosyası açması istenir, modelin bireysel bileşenleri, ızgaralar olarak yüklenir ve animasyon için kullanılacak bir karakter rig'i oluşturulur, bu <code>Workspace</code>'a yüklenir.",
     "params": [
       {
         "name": "self",
@@ -34015,7 +34015,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Intersect": {
-    "documentation": "",
+    "documentation": "Verilen parçaları kesen ve sonuçta elde edilen <code>IntersectOperation</code>'ı döndüren bir yöntemdir.",
     "params": [
       {
         "name": "self",
@@ -34039,7 +34039,7 @@
     "documentation": "Eklentinin şu anda aktif olup olmadığını belirten bir boolean."
   },
   "@roblox/globaltype/Plugin.IsActivated": {
-    "documentation": "Bu eklenti şu anda <code>Plugin:Activate()</code> işlevi aracılığıyla etkinleştirildikten sonra aktifse true döner.",
+    "documentation": "Eğer bu eklenti, <code>Activate()</code> fonksiyonu aracılığıyla etkinleştirildikten sonra şu anda etkindir, <code>true</code> döndürür.",
     "params": [
       {
         "name": "self",
@@ -34059,7 +34059,7 @@
     "documentation": "Bu eklentinin şu anda özel bir fare ile aktif olup olmadığını belirten boolean."
   },
   "@roblox/globaltype/Plugin.IsActivatedWithExclusiveMouse": {
-    "documentation": "Bu eklenti şu anda, <code>Plugin:Activate()</code> işlevi aracılığıyla etkinleştirildikten sonra özel bir fare ile aktifse true döner.",
+    "documentation": "Bu eklentinin şu anda özel bir fare ile etkin olup olmadığını <code>true</code> döndürür.",
     "params": [
       {
         "name": "self",
@@ -34082,7 +34082,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Negate": {
-    "documentation": "Verilen parçaları negatife çevirir ve sonuçta elde edilen NegateOperations'ı döndürür.",
+    "documentation": "Verilen parçaları olumsuzlaştırır ve sonuçta elde edilen <code>NegateOperations</code>'ı döndürür.",
     "params": [
       {
         "name": "self",
@@ -34160,7 +34160,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync": {
-    "documentation": "Kullanıcıdan belirtilen <code>assetType</code>'a bağlı olarak bir varlık seçmesi için bir pencere açar. Seçilen assetId'yi döndürür veya pencere kapatıldığında -1 döner.",
+    "documentation": "Kullanıcıdan belirtilen <code>assetType</code>'a göre bir varlık seçmesi için bir pencere açar.",
     "params": [
       {
         "name": "self",
@@ -34187,7 +34187,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId": {
-    "documentation": "Kullanıcıdan belirtilen <code>assetType</code>'a bağlı olarak bir varlık seçmesi için bir pencere açar. Seçilen assetId'yi döndürür veya pencere kapatıldığında -1 döner.",
+    "documentation": "Kullanıcıdan belirtilen <code>assetType</code>'a göre bir varlık seçmesi için bir pencere açar.",
     "params": [
       {
         "name": "self",
@@ -34214,7 +34214,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelectionAsync": {
-    "documentation": "Kullanıcıdan belirtilen dosya adı ile mevcut seçimini kaydetmesini istemektedir. Kullanıcı dosyayı kaydederse true döner.",
+    "documentation": "Kullanıcıdan, belirtilen dosya adıyla mevcut seçimini kaydetmesi için bir istemde bulunur.",
     "params": [
       {
         "name": "self",
@@ -34241,7 +34241,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelection": {
-    "documentation": "<strong>Deprecated:</strong> <br>Kullanıcıdan belirtilen dosya adı ile mevcut seçimini kaydetmesini istemektedir. Kullanıcı dosyayı kaydederse true döner.",
+    "documentation": "<strong>Deprecated:</strong> <br>Kullanıcıdan, belirtilen dosya adıyla mevcut seçimini kaydetmesi için bir istemde bulunur.",
     "params": [
       {
         "name": "self",
@@ -34312,7 +34312,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Separate": {
-    "documentation": "Verilen UnionOperations'ı ayırır ve sonuçta elde edilen parçaları döndürür.",
+    "documentation": "Verilen <code>UnionOperations</code>'ı ayırır ve sonuçta elde edilen parçaları döndürür.",
     "params": [
       {
         "name": "self",
@@ -34390,7 +34390,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Union": {
-    "documentation": "Verilen parçaları birleştirir ve sonuçta elde edilen UnionOperation'ı döndürür.",
+    "documentation": "Verilen parçaları birleştirir ve sonuçta elde edilen <code>UnionOperation</code>'ı döndürür.",
     "params": [
       {
         "name": "self",
@@ -45577,7 +45577,7 @@
       "@roblox/globaltype/Player.GetRankInGroupAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRankInGroupAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroup(2) == 255 then\n\t\tprint(\"Oyuncu grubun sahibi, 'LOL'!\")\n\telse\n\t\tprint(\"Oyuncu grubun sahibi DEĞİL, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroupAsync(2) == 255 then\n\t\tprint(\"Oyuncu grubun sahibi, 'LOL'!\")\n\telse\n\t\tprint(\"Oyuncu grubun sahibi DEĞİL, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/0": {
     "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
@@ -45604,7 +45604,7 @@
       "@roblox/globaltype/Player.GetRankInGroup/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRankInGroup",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroup(2) == 255 then\n\t\tprint(\"Oyuncu grubun sahibi, 'LOL'!\")\n\telse\n\t\tprint(\"Oyuncu grubun sahibi DEĞİL, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroupAsync(2) == 255 then\n\t\tprint(\"Oyuncu grubun sahibi, 'LOL'!\")\n\telse\n\t\tprint(\"Oyuncu grubun sahibi DEĞİL, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync/param/0": {
     "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
@@ -45690,7 +45690,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.IsBestFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon, En İyi Arkadaşlar özelliği kaldırıldığı için geçersizdir. Bunun yerine <code>Player:IsFriendsWith()</code> kullanın.<br>Bir oyuncunun belirtilen kullanıcı ile bağlantısının olup olmadığını döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu fonksiyon geçersizdir çünkü \"en iyi arkadaşlar\" özelliği kaldırıldı. Bunun yerine <code>Player:IsFriendsWithAsync()</code> kullanın.<br>Bir oyuncunun belirtilen kullanıcı ile bağlantısının olup olmadığını döndürür.",
     "params": [
       {
         "name": "self",
@@ -45732,7 +45732,7 @@
       "@roblox/globaltype/Player.IsFriendsWithAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsFriendsWithAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" gordonrox24 ile bağlantıda!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/0": {
     "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
@@ -45744,7 +45744,7 @@
     "documentation": "Belirtilen kullanıcının bağlantısı olup olmadığını gösteren bir boolean değer."
   },
   "@roblox/globaltype/Player.IsFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> <br>Belirtilen <code>Player.UserId</code> kullanıcısı ile bağlantısının olup olmadığını kontrol eder.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, yeni çalışmalar için kullanılacak <code>Player:IsFriendsWithAsync()</code> yöntemi ile değiştirilmiştir.<br>Belirtilen <code>Player.UserId</code> kullanıcısı ile bağlantısının olup olmadığını kontrol eder.",
     "params": [
       {
         "name": "self",
@@ -45759,7 +45759,7 @@
       "@roblox/globaltype/Player.IsFriendsWith/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsFriendsWith",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" gordonrox24 ile bağlantıda!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.isFriendsWith/param/0": {
     "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
@@ -45771,7 +45771,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.isFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> Bu geçersiz fonksiyon, <code>Player:IsFriendsWith()</code>'in bir varyantı olup bunun yerine kullanılmalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, yeni çalışmalar için kullanılacak <code>Player:IsFriendsWithAsync()</code> yöntemi ile değiştirilmiştir.",
     "params": [
       {
         "name": "self",
@@ -50998,7 +50998,7 @@
     "documentation": "Tüm çalışma zamanı etkinlikleri ve zaman ilerlemesinden sorumlu hizmet."
   },
   "@roblox/globaltype/RunService.BindToSimulation/param/1": {
-    "documentation": "Çağrılacak fonksiyon. Bu fonksiyona, önceki simülasyon adımının başlangıcı ile mevcut simülasyon adımının başlangıcı arasındaki geçen süreyi gösteren <code>deltaTime</code> adlı bir parametre geçirilecektir."
+    "documentation": "Çağrılacak fonksiyon. Bu fonksiyon, önceki simülasyon adımının başlangıcı ile mevcut simülasyon adımının başlangıcı arasındaki geçen süreyi gösteren <code>deltaTime</code> adında bir parametre alacaktır."
   },
   "@roblox/globaltype/RunService.BindToSimulation/param/2": {
     "documentation": "Bağlı fonksiyonu çağırma sıklığını belirten isteğe bağlı <code>StepFrequency</code> değeri. Sağlanmazsa, varsayılan sıklık kullanılacaktır."
@@ -51007,7 +51007,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/RunService.BindToSimulation": {
-    "documentation": "Kendi başına kare hızından bağımsız olan sabit bir sıklıkta çağrılacak bir özel fonksiyonu bağlar.",
+    "documentation": "Belirli bir frekansta çağrılacak özel bir fonksiyonu bağlar. Bu frekans, kare hızından bağımsızdır.",
     "params": [
       {
         "name": "self",
@@ -51038,7 +51038,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/RunService.GetPredictionStatus": {
-    "documentation": "Belirli bir bağlam örneğinin <code>PredictionStatus</code>'ını kontrol eder, birden fazla örneği etkileyen scriptlerin hatalarını ayıklamak için kullanışlıdır.",
+    "documentation": "Belirli bir bağlam örneğinin <code>PredictionStatus</code> değerini kontrol eder, bu da bazı örneklerin tahmin edilip edilmediği durumlarda birkaç örneği etkileyen scriptlerin hata ayıklaması için yararlıdır.",
     "params": [
       {
         "name": "self",
@@ -51230,7 +51230,7 @@
     "documentation": "Bağlam örneği için ayarlanacak <code>PredictionMode</code>."
   },
   "@roblox/globaltype/RunService.SetPredictionMode": {
-    "documentation": "Bir <code>Instance</code> için tahmin modunu bir <code>PredictionMode</code> değerine ayarlar.",
+    "documentation": "Bir <code>Instance</code> için tahmin modunu <code>PredictionMode</code> değerine ayarlar.",
     "params": [
       {
         "name": "self",
@@ -54658,6 +54658,7 @@
   "@roblox/globaltype/MaterialVariant": {
     "documentation": "Bir Malzemenin varyantını temsil eder.",
     "keys": {
+      "AlphaMode": "@roblox/globaltype/MaterialVariant.AlphaMode",
       "BaseMaterial": "@roblox/globaltype/MaterialVariant.BaseMaterial",
       "ColorMap": "@roblox/globaltype/MaterialVariant.ColorMap",
       "ColorMapContent": "@roblox/globaltype/MaterialVariant.ColorMapContent",
@@ -54677,8 +54678,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant",
     "code_sample": ""
   },
+  "@roblox/globaltype/MaterialVariant.AlphaMode": {
+    "documentation": "<code>MaterialVariant.ColorMap</code>'in alfa kanalının nasıl kullanıldığını belirler.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#AlphaMode",
+    "code_sample": ""
+  },
   "@roblox/globaltype/MaterialVariant.BaseMaterial": {
-    "documentation": "Bu varyantın ait olduğu Malzeme Kategorisi.",
+    "documentation": "Bu varyantın ait olduğu kategori materyali.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#BaseMaterial",
     "code_sample": ""
   },
@@ -54703,12 +54709,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.EmissiveStrength": {
-    "documentation": "Emisif katkının gücünü belirler.",
+    "documentation": "Emisyondan gelen katkının gücünü belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#EmissiveStrength",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.EmissiveTint": {
-    "documentation": "Emisif katkının tonlama rengini belirler.",
+    "documentation": "Emisyondan gelen katkı için tonlama rengini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#EmissiveTint",
     "code_sample": ""
   },
@@ -54718,32 +54724,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.MetalnessMap": {
-    "documentation": "Yüzeyin hangi kısımlarının metal ve hangi kısımlarının metal dışı olduğunu belirler.",
+    "documentation": "Yüzeyin hangi kısımlarının metal olduğunu ve metal olmayan kısımlarını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#MetalnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.MetalnessMapContent": {
-    "documentation": "Yüzeyin hangi kısımlarının metal ve hangi kısımlarının metal dışı olduğunu belirler. Sadece varlık URI'lerini doku olarak destekler.",
+    "documentation": "Yüzeyin hangi kısımlarının metal olduğunu ve metal olmayan kısımlarını belirler. Sadece varlık URI'lerini doku olarak destekler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#MetalnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.NormalMap": {
-    "documentation": "Daha fazla poligon eklemeden yüzeyin aydınlatmasını, yumrular, çukurlar, çatlaklar ve kıvrımlar ekleyerek değiştirir.",
+    "documentation": "Daha fazla poligon eklemeden yüzeyin aydınlatmasını, tümsekler, çukurlar, çatlaklar ve eğriler ekleyerek değiştirir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#NormalMap",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.NormalMapContent": {
-    "documentation": "Daha fazla poligon eklemeden yüzeyin aydınlatmasını, yumrular, çukurlar, çatlaklar ve kıvrımlar ekleyerek değiştirir. Sadece varlık URI'lerini doku olarak destekler.",
+    "documentation": "Daha fazla poligon eklemeden yüzeyin aydınlatmasını, tümsekler, çukurlar, çatlaklar ve eğriler ekleyerek değiştirir. Sadece varlık URI'lerini doku olarak destekler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#NormalMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.RoughnessMap": {
-    "documentation": "Yüzeydeki görünür pürüzlülüğü belirler.",
+    "documentation": "Yüzey üzerindeki görünür pürüzlülüğü belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#RoughnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.RoughnessMapContent": {
-    "documentation": "Yüzeydeki görünür pürüzlülüğü belirler. Sadece varlık URI'lerini doku olarak destekler.",
+    "documentation": "Yüzey üzerindeki görünür pürüzlülüğü belirler. Sadece varlık URI'lerini doku olarak destekler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#RoughnessMapContent",
     "code_sample": ""
   },
@@ -72375,7 +72381,6 @@
       "ReadCapturesFromGalleryAsync": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync",
       "StartVideoCaptureAsync": "@roblox/globaltype/CaptureService.StartVideoCaptureAsync",
       "StopVideoCapture": "@roblox/globaltype/CaptureService.StopVideoCapture",
-      "TakeCapture": "@roblox/globaltype/CaptureService.TakeCapture",
       "UploadCaptureAsync": "@roblox/globaltype/CaptureService.UploadCaptureAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService",
@@ -72578,35 +72583,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#StopVideoCapture",
     "code_sample": ""
   },
-  "@roblox/globaltype/CaptureService.TakeCapture/param/0": {
-    "documentation": "Ekran görüntüsü ve video yakalama özellikleri üzerinde kontrol sağlayan bir hizmet."
-  },
-  "@roblox/globaltype/CaptureService.TakeCapture/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/CaptureService.TakeCapture/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/CaptureService.TakeCapture": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/CaptureService.TakeCapture/param/0"
-      },
-      {
-        "name": "onCaptureReady",
-        "documentation": "@roblox/globaltype/CaptureService.TakeCapture/param/1"
-      },
-      {
-        "name": "captureParams",
-        "documentation": "@roblox/globaltype/CaptureService.TakeCapture/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#TakeCapture",
-    "code_sample": ""
-  },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
     "documentation": "Ekran görüntüsü ve video yakalama özellikleri üzerinde kontrol sağlayan bir hizmet."
   },
@@ -72614,7 +72590,7 @@
     "documentation": "<code>Capture</code> türünde bir yakalama nesnesi"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
-    "documentation": "Tuple of (result: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
+    "documentation": "(result: <code>UploadCaptureResult</code>, assetId: <code>number</code>) demeti"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync": {
     "documentation": "",
@@ -77179,7 +77155,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/PluginManager.ExportPlace": {
-    "documentation": "Yeri, kullanıcı tarafından bir dosya kaydetme diyalogunda seçilen yola kaydedilen bir .OBJ dosyasına dışa aktarır ( <code>filePath</code> argümanı yoksayılır).",
+    "documentation": "Yerini, kullanıcının bir dosya kaydetme diyaloğunda seçtiği yola kaydedilen bir <code>.obj</code> dosyasına aktarır.",
     "params": [
       {
         "name": "self",
@@ -77201,7 +77177,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/PluginManager.ExportSelection": {
-    "documentation": "Mevcut <code>Selection</code>'ı, kullanıcı tarafından bir dosya kaydetme diyalogunda seçilen yola kaydedilen bir .OBJ dosyasına dışa aktarır ( <code>filePath</code> argümanı yoksayılır).",
+    "documentation": "Mevcut <code>Selection</code>'ı, kullanıcının bir dosya kaydetme diyaloğunda seçtiği yola kaydedilen bir <code>.obj</code> dosyasına aktarır.",
     "params": [
       {
         "name": "self",
@@ -78327,7 +78303,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PluginToolbarButton.ClickableWhenViewportHidden": {
-    "documentation": "Butonun, oyun görünümü gizli olduğunda tıklanıp tıklanamayacağını belirler, örneğin başka bir Studio sekmesinde bir script düzenlerken.",
+    "documentation": "Düğmenin 3D görünümü gizli olduğunda, örneğin başka bir sekmede bir <code>Script</code> düzenlenirken tıklanıp tıklanmayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginToolbarButton#ClickableWhenViewportHidden",
     "code_sample": ""
   },
@@ -79535,16 +79511,16 @@
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/1": {
-    "documentation": "Belirtilen ürünün varlık ID'sidir."
+    "documentation": "Belirtilen ürünün varlık kimliği."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/2": {
-    "documentation": "Alınan bilginin türünü belirten bir <code>InfoType</code> enum değeridir."
+    "documentation": "Alınan bilginin türünü belirten bir <code>InfoType</code> enum değeri."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/return/0": {
-    "documentation": "Önceki tablolarla açıklanan sorgulanan öğe hakkında bilgi içeren bir sözlük sunar."
+    "documentation": "Önceki tablolarda tanımlanan sorgulanan öğeye ilişkin bilgileri içeren bir sözlük."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo": {
-    "documentation": "<strong>Deprecated:</strong> <br>Bir varlığın ürün bilgisini varlık ID'sini kullanarak döndürür.",
+    "documentation": "<strong>Deprecated:</strong> <br>Bir varlığın ürün bilgilerini varlık kimliğini kullanarak döndürür.",
     "params": [
       {
         "name": "self",
@@ -79569,13 +79545,13 @@
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/param/1": {
-    "documentation": "Kontrol edilecek abonelik ID'sidir."
+    "documentation": "Kontrol edilecek abonelik kimliği."
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync": {
-    "documentation": "Verilen <code>subscriptionId</code> için bir abonelik ürün bilgisini döndürür.",
+    "documentation": "Verilen <code>subscriptionId</code> için bir aboneliğin ürün bilgilerini döndürür.",
     "params": [
       {
         "name": "self",
@@ -79596,13 +79572,13 @@
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/param/1": {
-    "documentation": "Bir dizi kullanıcı ID'si."
+    "documentation": "Kullanıcı kimliklerinin bir dizisi."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
-    "documentation": "<code>PriceLevelInfo</code> nesnelerinin bir dizisini döndürür, anahtarların kullanıcı ID'leri (dizeler) ve değerlerin ilgili fiyat seviyeleri (1 ile 1000 arasında tam sayılar) olduğunu gösterir."
+    "documentation": "Anahtarlar kullanıcı kimlikleri (dizeler) ve değerleri karşılık gelen fiyat seviyeleri (1 ile 1000 arasında tam sayılar) olan bir sözlükle <code>PriceLevelInfo</code> nesnelerinin bir dizisini döndürür."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "Bir kullanıcının bölgesel fiyat seviyesini döndürür, bunun önerilen fiyatı temsil eder.",
+    "documentation": "Kullanıcının bölgesel fiyat seviyesini döndürür, bu da onların bölgesel pazarındaki bir ürünün önerilen fiyatını temsil eder.",
     "params": [
       {
         "name": "self",
@@ -79623,16 +79599,16 @@
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/1": {
-    "documentation": "Abonelik detaylarını kontrol etmek istediğiniz <code>Player</code> nesnesidir."
+    "documentation": "Ayrıntılarını kontrol etmek istediğiniz <code>Player</code> nesnesi."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/2": {
-    "documentation": "Kontrol edilecek abonelik ID'sidir."
+    "documentation": "Kontrol edilecek abonelik kimliği."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync": {
-    "documentation": "Verilen <code>subscriptionId</code> için kullanıcının abonelik detaylarını içeren bir tablo döndürür.",
+    "documentation": "Verilen <code>subscriptionId</code> için kullanıcının aboneliğinin ayrıntılarını içeren bir tablo döndürür.",
     "params": [
       {
         "name": "self",
@@ -79666,7 +79642,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync": {
-    "documentation": "Verilen <code>subscriptionId</code> için kullanıcının abonelik ödeme geçmişinin bir yıl kadarını içeren bir <code>Array</code> döndürür.",
+    "documentation": "Verilen <code>subscriptionId</code> için kullanıcının abonelik ödeme geçmişinden bir yıla kadar içeren bir <code>Array</code> döndürür.",
     "params": [
       {
         "name": "self",
@@ -79691,10 +79667,10 @@
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/param/1": {
-    "documentation": "Kontrol etmek istediğiniz <code>Player</code> nesnesidir."
+    "documentation": "Abonelik durumunu kontrol etmek istediğiniz <code>Player</code> nesnesi."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/param/2": {
-    "documentation": "Kontrol edilecek abonelik ID'sidir."
+    "documentation": "Kontrol edilecek abonelik kimliği."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/return/0": {
     "documentation": ""
@@ -79759,16 +79735,16 @@
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/1": {
-    "documentation": "Sahip olduğu belirtilen varlığın envanterini test edeceğiniz <code>Player</code> nesnesi."
+    "documentation": "Verilen varlığa sahipliği test etmek için kontrol edilen <code>Player</code>."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/2": {
-    "documentation": "Kontrol edilecek varlık ID'sidir."
+    "documentation": "Verilen oyuncunun envanterinin test edildiği varlık kimliği."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/return/0": {
-    "documentation": "Belirtilen oyuncunun envanterinin belirtilen varlığı içerip içermediğini gösterir."
+    "documentation": "Verilen oyuncunun envanterinin verilen varlığı içerip içermediğini belirtir."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset": {
-    "documentation": "<strong>Deprecated:</strong> <br>Verilen kullanıcının, verilen varlığa sahip olup olmadığını döndürür.",
+    "documentation": "<strong>Deprecated:</strong> <br>Verilen kullanıcının verilen varlığa sahip olup olmadığını döndürür.",
     "params": [
       {
         "name": "self",
@@ -79827,16 +79803,16 @@
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/1": {
-    "documentation": "Sahip olduğu belirtilen paketin envanterini test edeceğiniz <code>Player</code> nesnesi."
+    "documentation": "Verilen pakete sahipliği test etmek için kontrol edilen <code>Player</code>."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/2": {
-    "documentation": "Kontrol edilecek paket ID'sidir."
+    "documentation": "Verilen oyuncunun envanterinin test edildiği paket kimliği."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0": {
-    "documentation": "Belirtilen oyuncunun envanterinin belirtilen paketi içerip içermediğini gösterir."
+    "documentation": "Verilen oyuncunun envanterinin verilen paketi içerip içermediğini belirtir."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle": {
-    "documentation": "<strong>Deprecated:</strong> <br>Verilen oyuncunun, verilen pakete sahip olup olmadığını döndürür.",
+    "documentation": "<strong>Deprecated:</strong> <br>Verilen oyuncunun verilen pakete sahip olup olmadığını döndürür.",
     "params": [
       {
         "name": "self",
@@ -79861,16 +79837,16 @@
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/1": {
-    "documentation": "Öğeleri satın almak için ikna edilecek kullanıcı."
+    "documentation": "Öğeleri satın alması için yönlendirilecek kullanıcı."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
-    "documentation": "Toplu satın almaya dahil edilecek avatar öğelerinin bir dizisi. Her bir satır öğesi aşağıdaki yapıya sahiptir: <pre><code class=\"language-lua\">{   Tür: MarketplaceProductType,   Id: string } </code></pre> Her bir satır öğesi aşağıdaki çiftleri içerir: <ul> <li><code>Tür</code>: İlgili <code>MarketplaceProductType</code> (Enum).</li> <li><code>Id</code>: Varlık veya paket ID'sidir.</li> </ul>"
+    "documentation": "Toplu satın almaya dahil edilecek avatar öğeleri dizisi. Her satır öğesi aşağıdaki yapıyı içerir: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> Her satır öğesi aşağıdaki çiftleri içerir: <ul> <li><code>Type</code>: İlgili <code>MarketplaceProductType</code> (Enum).</li> <li><code>Id</code>: Varlığın veya paketinin kimliği.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
-    "documentation": "Bu süre zarfında mevcut değildir."
+    "documentation": "Bu zaman mevcut değil."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase": {
-    "documentation": "Bir kullanıcıyı verilen <code>assetId</code> veya <code>bundleId</code> ile birden fazla avatar öğesi satın almak için ikna eder.",
+    "documentation": "Kullanıcıyı verilen <code>assetId</code> veya <code>bundleId</code> ile birden fazla avatar öğesi satın almaya yönlendirir.",
     "params": [
       {
         "name": "self",
@@ -79903,7 +79879,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptBundlePurchase": {
-    "documentation": "Verilen <code>bundleId</code> ile bir kullanıcıyı paket satın alması için ikna eder.",
+    "documentation": "Kullanıcıyı verilen <code>bundleId</code> ile bir paketi satın almaya yönlendirir.",
     "params": [
       {
         "name": "self",
@@ -79932,7 +79908,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptCancelSubscription": {
-    "documentation": "Verilen <code>subscriptionId</code> için bir kullanıcıyı aboneliği iptal etmesi için ikna eder.",
+    "documentation": "Kullanıcıyı verilen <code>subscriptionId</code> için bir aboneliği iptal etmeye yönlendirir.",
     "params": [
       {
         "name": "self",
@@ -79961,7 +79937,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase": {
-    "documentation": "Verilen <code>gamePassId</code> ile bir kullanıcıyı bir geçit satın alması için ikna eder.",
+    "documentation": "Kullanıcıyı verilen <code>gamePassId</code> ile bir geçiş satın almaya yönlendirir.",
     "params": [
       {
         "name": "self",
@@ -79984,10 +79960,10 @@
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/1": {
-    "documentation": "Premium satın alması için ikna edilen kullanıcı."
+    "documentation": "Premium satın alması için yönlendirilen kullanıcı."
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase": {
-    "documentation": "Bir kullanıcıyı Roblox Premium satın alması için ikna eder.",
+    "documentation": "Kullanıcıyı Roblox Premium satın almaya yönlendirir.",
     "params": [
       {
         "name": "self",
@@ -80018,7 +79994,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase": {
-    "documentation": "Verilen <code>productId</code> ile bir kullanıcıyı bir geliştirici ürünü satın alması için ikna eder.",
+    "documentation": "Kullanıcıyı verilen <code>productId</code> ile bir geliştirici ürün satın almaya yönlendirir.",
     "params": [
       {
         "name": "self",
@@ -80058,10 +80034,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase/param/4": {
-    "documentation": "Göz ardı edilmiştir."
+    "documentation": "Göz ardı edildi."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase": {
-    "documentation": "Verilen <code>assetId</code> ile bir kullanıcıyı bir varlık satın alması için ikna eder. USD Yaratıcı Mağaza satın alımları için çalışmaz.",
+    "documentation": "Kullanıcıyı verilen <code>assetId</code> ile bir öğe satın almaya yönlendirir. USD Yaratıcı Mağazası satın alımları için çalışmaz.",
     "params": [
       {
         "name": "self",
@@ -80092,13 +80068,13 @@
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/1": {
-    "documentation": "Abone olması için ikna edilecek <code>Player</code> nesnesidir."
+    "documentation": "Abone olmak için yönlendirilecek <code>Player</code> nesnesi."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2": {
-    "documentation": "Abone olunacak abonelik ID'sidir."
+    "documentation": "Abone olunacak abonelik kimliği."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase": {
-    "documentation": "Verilen <code>subscriptionId</code> için bir kullanıcıyı abonelik satın alması için ikna eder.",
+    "documentation": "Kullanıcıyı verilen <code>subscriptionId</code> için bir abonelik satın almaya yönlendirir.",
     "params": [
       {
         "name": "self",
@@ -80121,13 +80097,13 @@
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/param/1": {
-    "documentation": "Sıralamak istediğiniz ürünleri tanımlayan bir nesneler dizisidir. Bu dizi 50 öğeye kadar içerebilir. Her <code>ProductIdentifier</code> şunları içerir: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>Yalnızca <code>InfoType.GamePass</code> veya     <code>InfoType.Product</code> olmalıdır.</li> <li><code>Id</code>: number</li> <li>Oyun geçidi veya geliştirici ürün ID'si.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
+    "documentation": "Sıralamak istediğiniz ürünleri tanımlayan nesnelerin dizisi. Bu dizi en fazla 50 öğe içerebilir. Her <code>ProductIdentifier</code> şunlara sahiptir: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li><code>InfoType.GamePass</code> veya     <code>InfoType.Product</code> olmalıdır.</li> <li><code>Id</code>: number</li> <li>Oyun geçidi veya geliştirici ürünün kimliği.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "Kişiselleştirilmiş sıralı bir biçimdeki kullanıcı için sıralanmış öğeler dizisidir. Her dizi şunları içerir: <ul> <li><code>ProductIdentifier</code>: Girdi dizisinden ilgili ID.</li> <li><code>ProductInfo</code>:  <code>GetProductInfo</code> tarafından döndürülen standart ürün bilgi sözlüğü.</li> </ul>"
+    "documentation": "Kendi kullanıcılarınız için sıralı bir şekilde kişiselleştirilmiş ürünlerin dizisi. Her dizi şunları içerir: <ul> <li><code>ProductIdentifier</code>: Giriş dizisinden karşılık gelen kimlik.</li> <li><code>ProductInfo</code>: <code>GetProductInfo</code> tarafından döndürülen standart ürün bilgisi sözlüğü.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
-    "documentation": "Bir ürün ID'si listesi alır ve bu ürünlerin kişiselleştirilmiş sıralı bir listesini döndürür.",
+    "documentation": "Ürün kimliklerinin bir listesini alır ve bu ürünlerin kişiselleştirilmiş sıralı listesini döndürür.",
     "params": [
       {
         "name": "self",
@@ -80148,13 +80124,13 @@
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/1": {
-    "documentation": "Öneri almak için ürün türlerini belirten <code>InfoType</code> değerlerinin bir dizisidir. Desteklenen <code>InfoTypes</code>: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
+    "documentation": "Öneri almak için ürün türlerini belirtmek üzere bir <code>InfoType</code> dizisi. Desteklenen <code>InfoTypes</code>: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/return/0": {
-    "documentation": "Verilen <code>InfoTypes</code>'e dayanarak, kullanıcının en yüksek satın alma olasılığına sahip 50 öğeden oluşan sıralı bir liste. Eğer hiçbir öneri belirlenemezse, yöntem boş bir liste döndürür."
+    "documentation": "Kullanıcının sağlanan <code>InfoTypes</code> esasına dayanan en olası etkileşimlerinin sıralı listesi. Eğer öneri sağlanamazsa, yöntem boş bir liste döndürür."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync": {
-    "documentation": "<ul> <li><code>InfoType</code> dizisini alır ve kullanıcıların satın alma olasılığı en yüksek olan 50 öğeyi temsil eden öğeleri döndürür.</li> </ul>",
+    "documentation": "<ul> <li><code>InfoType</code> dizisini alır ve kullanıcının en olası etkileşim ve   satın alma durumlarını temsil eden en fazla 50 öğe döndürür.</li> </ul>",
     "params": [
       {
         "name": "self",
@@ -80175,16 +80151,16 @@
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/1": {
-    "documentation": "Kontrol ettiğiniz <code>Player</code>'in <code>UserId</code>'sidir."
+    "documentation": "Kontrol edilen <code>Player</code> nesnesinin <code>UserId</code>."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/2": {
-    "documentation": "Kontrol edilmek istenen geçit ID'sidir. Bir varlık ID'si ile karıştırılmamalıdır."
+    "documentation": "Kontrol edilmek istenen geçiş kimliği. Varlık kimliği ile karıştırılmamalıdır."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync": {
-    "documentation": "Verilen <code>UserId</code>'ye sahip olan oyuncunun, belirtilen <code>gamePassId</code>'ye sahip olup olmadığını döndürür.",
+    "documentation": "Verilen <code>UserId</code> olan oyuncunun, verilen <code>gamePassId</code> ile geçişe sahip olup olmadığını döndürür.",
     "params": [
       {
         "name": "self",
@@ -87789,7 +87765,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction": {
-    "documentation": "Bir oyun mekaniği eylemini tanımlar. Bu eylemler daha sonra <code>InputBinding</code> kullanılarak donanım girişlerine eşlenir.",
+    "documentation": "Oyun oynama eylem mekaniğini tanımlar. Bu eylemler daha sonra donanım  girişlerine <code>InputBinding</code> kullanılarak eşlenir.",
     "keys": {
       "BoolState": "@roblox/globaltype/InputAction.BoolState",
       "Direction1DState": "@roblox/globaltype/InputAction.Direction1DState",
@@ -87809,17 +87785,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Direction1DState": {
-    "documentation": "Hata ayıklamak için yararlı olan scriptlenemez salt okunur özellik <code>Direction1D</code> giriş eylemleridir.",
+    "documentation": "Hata ayıklama için yararlı olan, script ile yazılamayan salt okunur özellik <code>Direction1D</code> giriş eylemleri için.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction1DState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Direction2DState": {
-    "documentation": "Hata ayıklamak için yararlı olan scriptlenemez salt okunur özellik <code>Direction2D</code> giriş eylemleridir.",
+    "documentation": "Hata ayıklama için yararlı olan, script ile yazılamayan salt okunur özellik <code>Direction2D</code> giriş eylemleri için.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction2DState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Direction3DState": {
-    "documentation": "Hata ayıklamak için yararlı olan scriptlenemez salt okunur özellik <code>Direction3D</code> giriş eylemleridir.",
+    "documentation": "Hata ayıklama için yararlı olan, script ile yazılamayan salt okunur özellik <code>Direction3D</code> giriş eylemleri için.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction3DState",
     "code_sample": ""
   },
@@ -87829,18 +87805,18 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Type": {
-    "documentation": "Eylemin hangi tür giriş değerini beklediğini belirtir.",
+    "documentation": "Eylemin beklediği giriş değerinin türünü belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Type",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Fire/param/0": {
-    "documentation": "Bir oyun mekaniği eylemini tanımlar. Bu eylemler daha sonra <code>InputBinding</code> kullanılarak donanım girişlerine eşlenir."
+    "documentation": "Oyun oynama eylem mekaniğini tanımlar. Bu eylemler daha sonra donanım  girişlerine <code>InputBinding</code> kullanılarak eşlenir."
   },
   "@roblox/globaltype/InputAction.Fire/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/InputAction.Fire": {
-    "documentation": "Verilen duruma <code>InputAction</code>'ı günceller ve uygun semaforları ateşler.",
+    "documentation": "<code>InputAction</code>'ı verilen duruma günceller ve uygun sinyalleri ateşler.",
     "params": [
       {
         "name": "self",
@@ -87856,7 +87832,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.GetState/param/0": {
-    "documentation": "Bir oyun mekaniği eylemini tanımlar. Bu eylemler daha sonra <code>InputBinding</code> kullanılarak donanım girişlerine eşlenir."
+    "documentation": "Oyun oynama eylem mekaniğini tanımlar. Bu eylemler daha sonra donanım  girişlerine <code>InputBinding</code> kullanılarak eşlenir."
   },
   "@roblox/globaltype/InputAction.GetState/return/0": {
     "documentation": "<code>InputAction</code>'ın mevcut durumu."
@@ -87953,7 +87929,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.Pressed": {
-    "documentation": "<code>InputAction.Type</code> <code>Bool</code>\\olarak ayarlandığında sadece <code>false</code> durumundan <code>true</code> durumuna geçildiğinde açılır.",
+    "documentation": "<code>InputAction.Type</code> değeri <code>Bool</code> olarak belirlendiğinde yalnızca <code>false</code> durumundan <code>true</code> durumuna geçişte ateş eder.",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.Pressed.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.Pressed.ConnectParallel",
@@ -88041,7 +88017,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.Released": {
-    "documentation": "<code>InputAction.Type</code> <code>Bool</code>\\olarak ayarlandığında sadece <code>true</code> durumundan <code>false</code> durumuna geçildiğinde açılır.",
+    "documentation": "<code>InputAction.Type</code> değeri <code>Bool</code> olarak belirlendiğinde yalnızca <code>true</code> durumundan <code>false</code> durumuna geçişte ateş eder.",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.Released.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.Released.ConnectParallel",
@@ -88129,7 +88105,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.StateChanged": {
-    "documentation": "Durum değiştiği her zaman <code>InputActionType</code> türleri için açılır; yalnızca durumla aynı duruma geçiş yapılmaya çalışıldığında ateşlenmez.",
+    "documentation": "Durum değiştiğinde, durum aynı duruma geçiş yapmaya çalışmadıkça, <code>InputActionType</code> türleri için ateş eder.",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.StateChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel",
@@ -88248,9 +88224,9 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.EmitterSize": {
-    "documentation": "<strong>Deprecated:</strong> <code>RollOffMinDistance</code> ve <code>RollOffMaxDistance</code> lehine bu özellik kullanımdan kaldırılmıştır; bunların yeni çalışmalarınızda kullanılmalıdır.<br>Bir 3D <code>Sound</code>'un (bir <code>BasePart</code> veya <code>Attachment</code>'ın doğrudan çocuğu) sesini azaltmaya (sesin azalması) başlayacağı minimum mesafe, birim olarak.",
+    "documentation": "<strong>Deprecated:</strong> <code>Sound.RollOffMinDistance</code> ve <code>Sound.RollOffMaxDistance</code> lehine bu özellik kullanımdan kaldırılmıştır; yeni çalışmalarda bunun yerine kullanılmalıdır.<br>Bir 3D <code>Sound</code>'un (bir <code>BasePart</code> veya <code>Attachment</code>'ın doğrudan çocuğu) sesini azaltmaya (sesin azalması) başlayacağı minimum mesafe, birim olarak.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#EmitterSize",
-    "code_sample": ""
+    "code_sample": "local part = Instance.new(\"Part\")\npart.Anchored = true\npart.Position = Vector3.new(0, 3, 0)\npart.BrickColor = BrickColor.new(\"Bright red\")\npart.Name = \"MusicBox\"\npart.Parent = workspace\n\n-- bir ses oluştur\nlocal sound = Instance.new(\"Sound\", part)\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.EmitterSize = 5 -- yayıcı boyutunu azalt (daha erken hacim düşüşü için)\nsound.Looped = true\nsound.Parent = part\n\nlocal clickDetector = Instance.new(\"ClickDetector\")\nclickDetector.Parent = part\n\n-- sesi çalma / durdurma\nclickDetector.MouseClick:Connect(function()\n\tif not sound.IsPlaying then\n\t\tpart.BrickColor = BrickColor.new(\"Bright green\")\n\t\tsound:Play()\n\telse\n\t\tpart.BrickColor = BrickColor.new(\"Bright red\")\n\t\tsound:Stop()\n\tend\nend)"
   },
   "@roblox/globaltype/Sound.IsLoaded": {
     "documentation": "<code>Sound</code> Roblox sunucularından yüklendiğinde ve çalmaya hazır olduğunda bu özellik <code>true</code> değerini alır.",
@@ -88288,17 +88264,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MaxDistance": {
-    "documentation": "<strong>Deprecated:</strong> <code>RollOffMaxDistance</code> lehine bu özellik kullanımdan kaldırılmıştır; bunun yerine yeni çalışmalarınızda kullanılmalıdır.<br>Bir istemcinin dinleyicisi sesin kaynağından ne kadar uzakta olabileceği ve hâlâ onu duyabileceği maksimum mesafe, stud cinsinden. Sadece <code>BasePart</code> veya <code>Attachment</code>'a bağlı sesler (3D sesler) için geçerlidir.",
+    "documentation": "<strong>Deprecated:</strong> <code>Sound.RollOffMinDistance</code> ve <code>Sound.RollOffMaxDistance</code> lehine bu özellik kullanımdan kaldırılmıştır; yeni çalışmalarda bunun yerine kullanılmalıdır.<br><code>Sound\\\\s</code> kökünden bir istemci dinleyicisinin hala duyabileceği maksimum mesafe, birim cinsinden. Sadece <code>Part</code> veya <code>Attachment</code>'a bağlı sesler için geçerlidir (3D sesler).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MaxDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MinDistance": {
-    "documentation": "<strong>Deprecated:</strong> <code>RollOffMinDistance</code> lehine bu özellik kullanımdan kaldırılmıştır; bunun yerine yeni çalışmalarınızda kullanılmalıdır.<br>Bir 3D <code>Sound</code>'un (bir <code>BasePart</code> veya <code>Attachment</code>'ın doğrudan çocuğu) zayıflamaya başlayacağı minimum mesafe, stud cinsinden. Etkili olarak, yayımcı boyutu.",
+    "documentation": "<strong>Deprecated:</strong> MinDistance, bu özelliğin davranışını daha iyi tanımlayan <code>Sound.EmitterSize</code> ile geçersiz kılınmıştır.<br>3D <code>Sound</code>'ın (bir <code>BasePart</code> veya <code>Attachment</code>'ın doğrudan çocuğu) azalmaya başlayacağı minimum mesafe. Etkili olarak, emitter boyutu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MinDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.Pitch": {
-    "documentation": "<strong>Deprecated:</strong> <code>PlaybackSpeed</code> lehine bu özellik kullanımdan kaldırılmıştır; bu isim davranışa daha uygundur.<br>Bir <code>Sound</code> çalındığında ne kadar yüksek tonlu ve hızlı olacağını ayarlar. Tamamlayıcı tam sayı büyüdükçe, <code>Sound</code> daha yüksek ve daha hızlı olur.",
+    "documentation": "<strong>Deprecated:</strong> <code>Sound.PlaybackSpeed</code> lehine bu özellik kullanımdan kaldırılmıştır; adı davranışı daha iyi temsil eder.<br>Bir <code>Sound</code> çalındığında ne kadar yüksek tonlu ve hızlı olacağını ayarlar. Tamamlayıcı tam sayı büyüdükçe, <code>Sound</code> daha yüksek ve daha hızlı olur.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Pitch",
     "code_sample": ""
   },
@@ -88313,7 +88289,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackRegionsEnabled": {
-    "documentation": "<code>true</code> ise, bu özellik <code>Sound</code>'unuza <code>PlaybackRegion</code> ve <code>LoopRegion</code> özelliklerine erişim verir; bu da oynatımını daha doğru bir şekilde kontrol edebilmektedir.",
+    "documentation": "<code>true</code> ise, bu özellik <code>Sound</code>'ınıza erişim sağlar <code>PlaybackRegion</code> ve <code>LoopRegion</code> özellikleri, böylece çalmasını daha doğru bir şekilde kontrol edebilirsiniz.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackRegionsEnabled",
     "code_sample": ""
   },
@@ -106503,7 +106479,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size8": {
-    "documentation": "Yazı tipi boyutu 8.",
+    "documentation": "Font boyutu <code>8</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106513,7 +106489,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size9": {
-    "documentation": "Yazı tipi boyutu 9.",
+    "documentation": "Font boyutu <code>9</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106523,7 +106499,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size10": {
-    "documentation": "Yazı tipi boyutu 10.",
+    "documentation": "Font boyutu <code>10</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106533,7 +106509,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size11": {
-    "documentation": "Yazı tipi boyutu 11.",
+    "documentation": "Font boyutu <code>11</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106543,7 +106519,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size12": {
-    "documentation": "Yazı tipi boyutu 12.",
+    "documentation": "Font boyutu <code>12</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106553,7 +106529,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size14": {
-    "documentation": "Yazı tipi boyutu 14.",
+    "documentation": "Font boyutu <code>14</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106563,7 +106539,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size18": {
-    "documentation": "Yazı tipi boyutu 18.",
+    "documentation": "Font boyutu <code>18</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106573,7 +106549,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size24": {
-    "documentation": "Yazı tipi boyutu 24.",
+    "documentation": "Font boyutu <code>24</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106583,7 +106559,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size36": {
-    "documentation": "Yazı tipi boyutu 36.",
+    "documentation": "Font boyutu <code>36</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106593,7 +106569,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size48": {
-    "documentation": "Yazı tipi boyutu 48.",
+    "documentation": "Font boyutu <code>48</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106603,7 +106579,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size28": {
-    "documentation": "Yazı tipi boyutu 28.",
+    "documentation": "Font boyutu <code>28</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106613,7 +106589,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size32": {
-    "documentation": "Yazı tipi boyutu 32.",
+    "documentation": "Font boyutu <code>32</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106623,7 +106599,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size42": {
-    "documentation": "Yazı tipi boyutu 42.",
+    "documentation": "Font boyutu <code>42</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106633,7 +106609,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size60": {
-    "documentation": "Yazı tipi boyutu 60.",
+    "documentation": "Font boyutu <code>60</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106643,7 +106619,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size96": {
-    "documentation": "Yazı tipi boyutu 96.",
+    "documentation": "Font boyutu <code>96</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119554,7 +119530,7 @@
     "code_sample": ""
   },
   "@roblox/enum/UICaptureMode.All": {
-    "documentation": "",
+    "documentation": "Tüm UI bileşenlerini yakala.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119564,7 +119540,7 @@
     "code_sample": ""
   },
   "@roblox/enum/UICaptureMode.None": {
-    "documentation": "",
+    "documentation": "Hiçbir UI bileşenini yakalama.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119574,7 +119550,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.UICaptureMode": {
-    "documentation": "",
+    "documentation": "Hangi UI bileşenlerinin <code>CaptureService</code> ile yakalanması gerektiğini belirlemek için kullanılır.",
     "keys": {
       "All": "@roblox/enum/UICaptureMode.All",
       "None": "@roblox/enum/UICaptureMode.None"
@@ -123403,7 +123379,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Play": {
-    "documentation": "Kullanıcı öğe aracılığıyla bir deneyime katıldı.",
+    "documentation": "Kullanıcı, öğe üzerinden bir deneyime katıldı veya öğe ile ilişkili bir mini oyun oynadı.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123437,7 +123413,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Legacy": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Legacy.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Legacy.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123447,7 +123423,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Arial": {
-    "documentation": "Arial, Roblox'tan kaldırıldı. Arial kullanmak Arimo'ya eşleştirilecektir.",
+    "documentation": "<code>Arial</code> kaldırıldı. Kullanılması, <code>Font</code> veri türündeki <code>Arimo</code> font ailesine eşlenecektir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123457,7 +123433,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.ArialBold": {
-    "documentation": "Arial, Roblox'tan kaldırıldı. Arial kullanmak Arimo'ya eşleştirilecektir.",
+    "documentation": "<code>ArialBold</code> kaldırıldı. Kullanılması, <code>Font</code> veri türündeki <code>Arimo</code> font ailesine eşlenecektir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123467,7 +123443,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSans": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSans.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSans.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123477,7 +123453,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansBold.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansBold.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123487,7 +123463,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansLight": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansLight.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansLight.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123497,7 +123473,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansItalic": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansItalic.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansItalic.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123507,7 +123483,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Bodoni": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Bodoni.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Bodoni.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123517,7 +123493,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Garamond": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Garamond.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Garamond.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123527,7 +123503,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Cartoon": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Cartoon.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Cartoon.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123537,7 +123513,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Code": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Code.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Code.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123547,7 +123523,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Highway": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Highway.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Highway.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123557,7 +123533,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SciFi": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SciFi.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SciFi.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123567,7 +123543,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Arcade": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Arcade.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Arcade.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123577,7 +123553,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Fantasy": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Fantasy.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Fantasy.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123587,7 +123563,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Antique": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Antique.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Antique.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123597,7 +123573,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansSemibold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansSemibold.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansSemibold.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123607,7 +123583,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Gotham": {
-    "documentation": "Gotham, Roblox'tan kaldırıldı. Gotham kullanmak Montserrat'a eşleştirilecektir.",
+    "documentation": "<code>Gotham</code> kaldırıldı. Kullanılması, <code>Font</code> veri türündeki <code>Montserrat</code> font ailesine eşlenecektir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123617,7 +123593,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GothamMedium": {
-    "documentation": "Gotham, Roblox'tan kaldırıldı. Gotham kullanmak Montserrat'a eşleştirilecektir.",
+    "documentation": "<code>GothamMedium</code> kaldırıldı. Kullanılması, <code>Font</code> veri türündeki <code>Montserrat</code> font ailesine eşlenecektir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123627,7 +123603,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GothamBold": {
-    "documentation": "Gotham, Roblox'tan kaldırıldı. Gotham kullanmak Montserrat'a eşleştirilecektir.",
+    "documentation": "<code>GothamBold</code> kaldırıldı. Kullanılması, <code>Font</code> veri türündeki <code>Montserrat</code> font ailesine eşlenecektir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123637,7 +123613,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GothamBlack": {
-    "documentation": "Gotham, Roblox'tan kaldırıldı. Gotham kullanmak Montserrat'a eşleştirilecektir.",
+    "documentation": "<code>GothamBlack</code> kaldırıldı. Kullanılması, <code>Font</code> veri türündeki <code>Montserrat</code> font ailesine eşlenecektir.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123647,7 +123623,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.AmaticSC": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/AmaticSC.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/AmaticSC.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123657,7 +123633,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Bangers": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Bangers.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Bangers.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123667,7 +123643,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Creepster": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Creepster.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Creepster.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123677,7 +123653,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.DenkOne": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/DenkOne.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/DenkOne.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123687,7 +123663,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Fondamento": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Fondamento.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Fondamento.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123697,7 +123673,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.FredokaOne": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/FredokaOne.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/FredokaOne.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123707,7 +123683,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GrenzeGotisch": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/GrenzeGotisch.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/GrenzeGotisch.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123717,7 +123693,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.IndieFlower": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/IndieFlower.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/IndieFlower.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123727,7 +123703,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.JosefinSans": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/JosefinSans.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/JosefinSans.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123737,7 +123713,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Jura": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Jura.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Jura.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123747,7 +123723,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Kalam": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Kalam.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Kalam.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123757,7 +123733,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.LuckiestGuy": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/LuckiestGuy.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/LuckiestGuy.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123767,7 +123743,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Merriweather": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Merriweather.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Merriweather.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123777,7 +123753,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Michroma": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Michroma.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Michroma.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123787,7 +123763,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Nunito": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Nunito.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Nunito.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123797,7 +123773,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Oswald": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Oswald.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Oswald.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123807,7 +123783,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.PatrickHand": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/PatrickHand.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/PatrickHand.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123817,7 +123793,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.PermanentMarker": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/PermanentMarker.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/PermanentMarker.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123827,7 +123803,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Roboto": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Roboto.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Roboto.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123837,7 +123813,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.RobotoCondensed": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/RobotoCondensed.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/RobotoCondensed.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123847,7 +123823,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.RobotoMono": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/RobotoMono.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/RobotoMono.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123857,7 +123833,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Sarpanch": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Sarpanch.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Sarpanch.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123867,7 +123843,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SpecialElite": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SpecialElite.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SpecialElite.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123877,7 +123853,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.TitilliumWeb": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/TitilliumWeb.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/TitilliumWeb.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123887,7 +123863,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Ubuntu": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Ubuntu.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Ubuntu.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123897,7 +123873,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSans": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSans.png\" /> <a href=\"../../../resources/builder-font-license.md\">Builder Yazı Tipi Lisansı</a> için bakınız.",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSans.png\" /> <a href=\"../../../resources/builder-font-license.md\">Builder Font Lisansı</a> için bakın.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123907,7 +123883,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSansMedium": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSansMedium.png\" /> <a href=\"../../../resources/builder-font-license.md\">Builder Yazı Tipi Lisansı</a> için bakınız.",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSansMedium.png\" /> <a href=\"../../../resources/builder-font-license.md\">Builder Font Lisansı</a> için bakın.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123917,7 +123893,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSansBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSansBold.png\" /> <a href=\"../../../resources/builder-font-license.md\">Builder Yazı Tipi Lisansı</a> için bakınız.",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSansBold.png\" /> <a href=\"../../../resources/builder-font-license.md\">Builder Font Lisansı</a> için bakın.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123927,7 +123903,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSansExtraBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSansExtraBold.png\" /> <a href=\"../../../resources/builder-font-license.md\">Builder Yazı Tipi Lisansı</a> için bakınız.",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSansExtraBold.png\" /> <a href=\"../../../resources/builder-font-license.md\">Builder Font Lisansı</a> için bakın.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123937,7 +123913,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Arimo": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Arimo.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Arimo.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123947,7 +123923,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.ArimoBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/ArimoBold.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/ArimoBold.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123957,7 +123933,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Unknown": {
-    "documentation": "<code>TextLabel.FontFace</code> özelliği, karşılık gelen bir enum değeri olmayan bir <code>Font</code>'a ayarlandığında ayarlanır.",
+    "documentation": "GUI nesnesinin font yüzü, karşılık gelen bir enum değeri olmayan bir <code>Font</code> olarak ayarlandığında ayarlanır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127706,7 +127682,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ScreenInsets.TopbarSafeInsets": {
-    "documentation": "Üst çubuk güvenli alan kenar boşlukları <code>DeviceSafeInsets</code> alanına eklenmiştir; bu da hem cihaz ekran çentikleri hem de Roblox ana kullanıcı arayüzü öğeleri (deneyim kontrolleri gibi) tarafından engellenmeyecek bir alan garanti eder. <code>CoreUISafeInsets</code>'in aksine, bu alanın konumu ve boyutu dinamiktir ve yalnızca üst çubuk alanı içindeki mevcut alanla sınırlıdır; <code>CoreUISafeInsets</code>'in dışında.",
+    "documentation": "Üst çubuk güvenli alan kenar boşlukları <code>DeviceSafeInsets</code> alanına eklenir, sonuç olarak her iki cihaz ekranı kesiklerinin ve Roblox temel UI öğelerinin (deneyim kontrolleri gibi) gizlemeyecek şekilde garantili bir alan elde edilir. <code>CoreUISafeInsets</code>'in aksine, bu alanın konumu ve boyutu dinamiktir ve <code>CoreUISafeInsets</code> dışındaki üst çubuk alanında mevcut olan boşlukla sınırlıdır. Üst çubuk alanındaki engellenmemiş alanın mutlak boyutunu ve konumunu temsil eden <code>GuiService.TopbarInset</code> özelliğine bakın.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130776,7 +130752,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.FontStyle": {
-    "documentation": "<code>Font</code>'ın italik olup olmadığını açıklar.",
+    "documentation": "<code>Font</code> stilinin normal mi yoksa italik mi olduğunu açıklar.",
     "keys": {
       "Normal": "@roblox/enum/FontStyle.Normal",
       "Italic": "@roblox/enum/FontStyle.Italic"
@@ -142770,7 +142746,7 @@
     "documentation": "<code>delayTime</code> saniye geçtikten sonra yürütülecek fonksiyon."
   },
   "@roblox/global/delay": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem <code>task.delay()</code> ile değiştirilmiştir ve gelecekteki çalışmalar için kullanılmamalıdır.<br>Verilen sürenin (saniye cinsinden) geçmesinin ardından bir fonksiyonun bir sonraki Heartbeat'te çağrılması için planlar, throttling ile.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>task.delay()</code> ile değiştirilmiştir ve gelecekteki çalışmalarda kullanılmamalıdır.<br>Verilen sürenin (saniye cinsinden) geçmesinin ardından bir fonksiyonun bir sonraki Heartbeat'te çağrılmasını planlar.",
     "params": [
       {
         "name": "delayTime",
@@ -142789,7 +142765,7 @@
     "documentation": ""
   },
   "@roblox/global/DebuggerManager": {
-    "documentation": "<strong>Deprecated:</strong> <code>DebuggerManager</code> artık geçerli değildir ve geliştiriciler için pek bir kullanım durumu sağlamaz.<br>Luau hata ayıklama özelliği için bir arayüz görevi gören eski <code>DebuggerManager</code> sınıfına atıfta bulunur.",
+    "documentation": "<strong>Deprecated:</strong> <code>DebuggerManager</code> eski ve geliştiriciler için çok az veya hiç kullanım durumu taşımamaktadır.<br>Luau hata ayıklayıcı özelliği için bir arayüz görevi gören eski <code>DebuggerManager</code> sınıfına atıfta bulunur.",
     "params": [],
     "returns": [
       "@roblox/global/DebuggerManager/return/0"
@@ -142801,7 +142777,7 @@
     "documentation": ""
   },
   "@roblox/global/elapsedTime": {
-    "documentation": "Mevcut Roblox örneğinin ne kadar süredir çalıştığını saniye cinsinden döndürür.",
+    "documentation": "Mevcut Roblox örneğinin kaç saniye boyunca çalıştığını döndürür.",
     "params": [],
     "returns": [
       "@roblox/global/elapsedTime/return/0"
@@ -142813,7 +142789,7 @@
     "documentation": ""
   },
   "@roblox/global/PluginManager": {
-    "documentation": "Artık kullanılmayan PluginManager'a atıfta bulunur, bu daha önce eklentiler oluşturmak için gerekliydi.",
+    "documentation": "<code>PluginManager</code>'a, daha önce eklentileri oluşturmak için gerekli olan artık kullanılmayan bir singleton'a atıfta bulunur.",
     "params": [],
     "returns": [
       "@roblox/global/PluginManager/return/0"
@@ -142825,7 +142801,7 @@
     "documentation": ""
   },
   "@roblox/global/printidentity": {
-    "documentation": "<strong>Deprecated:</strong> <br>\"Mevcut kimlik X'tir\" yazdırır. Burada X, mevcut iş parçacığının güvenlik bağlamı seviyesine karşılık gelir.",
+    "documentation": "<strong>Deprecated:</strong> <br>Mevcut iş parçacığının güvenlik bağlamı seviyesine göre \"Geçerli kimlik X\" yazdırır.",
     "params": [
       {
         "name": "prefix",
@@ -142840,7 +142816,7 @@
     "documentation": ""
   },
   "@roblox/global/settings": {
-    "documentation": "Roblox Studio'nun davranışını yapılandıran ayar nesnelerine erişmek için kullanılabilecek <code>GlobalSettings</code> nesnesini döndürür.",
+    "documentation": "Roblox Studio'nun davranışını yapılandıran ayarlar nesnelerine erişim sağlamak için kullanılabilecek <code>GlobalSettings</code> nesnesini döndürür.",
     "params": [],
     "returns": [
       "@roblox/global/settings/return/0"
@@ -142852,7 +142828,7 @@
     "documentation": "Yürütülecek fonksiyon."
   },
   "@roblox/global/spawn": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem <code>task.spawn()</code> ile değiştirilmiştir ve gelecekteki çalışmalar için kullanılmamalıdır.<br>Fonksiyonu hemen motor zamanlayıcısı aracılığıyla çağırır, throttling ile.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>task.spawn()</code> ile değiştirilmiştir ve gelecekteki çalışmalarda kullanılmamalıdır.<br>Kısıtlama ile, motor zamanlayıcısı aracılığıyla bir fonksiyonu hemen çağırır.",
     "params": [
       {
         "name": "callback",
@@ -142879,7 +142855,7 @@
     "documentation": ""
   },
   "@roblox/global/tick": {
-    "documentation": "Unix çağından bu cihazın saatine göre geçen süreyi saniye cinsinden döndürür.",
+    "documentation": "Bu cihazın zamanına göre Unix epoch'tan bu yana geçen süreyi döndürür.",
     "params": [],
     "returns": [
       "@roblox/global/tick/return/0"
@@ -142891,7 +142867,7 @@
     "documentation": ""
   },
   "@roblox/global/time": {
-    "documentation": "Mevcut oyun örneği çalışmaya başladığından beri geçen süreyi saniye cinsinden döndürür.",
+    "documentation": "Mevcut oyun örneği çalışmaya başladığından bu yana geçen süreyi döndürür.",
     "params": [],
     "returns": [
       "@roblox/global/time/return/0"
@@ -142906,7 +142882,7 @@
     "documentation": ""
   },
   "@roblox/global/typeof": {
-    "documentation": "Verilen nesnenin türünü bir dize olarak döndürür, aynı zamanda Roblox'a özgü türleri (örneğin Vector3) de destekler.",
+    "documentation": "Verilen nesnenin türünü bir dize olarak döndürür; ayrıca Roblox'a özgü türleri de destekler (örn. Vector3).",
     "params": [
       {
         "name": "object",
@@ -142935,7 +142911,7 @@
     "documentation": ""
   },
   "@roblox/global/version": {
-    "documentation": "Roblox'ın mevcut sürümünü bir dize olarak döndürür; bu, nesil, sürüm, yamanın ve taahhüdün içeriğini de içerir.",
+    "documentation": "Roblox'un mevcut sürümünü bir dize olarak döndürür; bu, nesil, sürüm, yamanın tümünü ve commit'i içerir.",
     "params": [],
     "returns": [
       "@roblox/global/version/return/0"
@@ -142944,7 +142920,7 @@
     "code_sample": ""
   },
   "@roblox/global/wait/param/0": {
-    "documentation": "İş parçacığının bekletileceği süreyi belirtir."
+    "documentation": "İş parçacığının ne kadar süre bekleyeceğini belirtir."
   },
   "@roblox/global/wait/return/0": {
     "documentation": ""
@@ -142953,7 +142929,7 @@
     "documentation": ""
   },
   "@roblox/global/wait": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem <code>task.wait()</code> ile değiştirilmiştir ve gelecekteki çalışmalar için kullanılmamalıdır.<br>Belirtilen süre kadar iş parçacığını bekletir, throttling ile.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>task.wait()</code> ile değiştirilmiştir ve gelecekteki çalışmalarda kullanılmamalıdır.<br>Belirtilen süre boyunca mevcut iş parçacığını bekletir; kısıtlamalarla.",
     "params": [
       {
         "name": "seconds",
@@ -142968,10 +142944,10 @@
     "code_sample": ""
   },
   "@roblox/global/warn/param/0": {
-    "documentation": "Bu fonksiyon herhangi bir sayıda argümanı kabul eder ve bunları dizeye dönüştürmeye çalışır; aralarına boşluk koyarak birleştirir."
+    "documentation": "Bu fonksiyon herhangi bir sayıda argümanı kabul eder ve bunları dizeye dönüştürmeye çalışır; ardından aralarına boşluk koyarak birleştirir."
   },
   "@roblox/global/warn": {
-    "documentation": "Yazdırma ile benzer davranır, ancak daha belirgin bir biçimlendirme ile (sarı); potansiyel sorunları açıklayan mesajlar için tasarlanmıştır.",
+    "documentation": "Print ile benzer şekilde davranır, ancak daha belirgin bir formatlamaya sahiptir (sarı); potansiyel sorunları tanımlayan mesajlar için tasarlanmıştır.",
     "params": [
       {
         "name": "params",
@@ -142995,7 +142971,7 @@
     "documentation": ""
   },
   "@roblox/global/ypcall": {
-    "documentation": "<strong>Deprecated:</strong> <br><code>pcall()</code>'ın eski görev zamanlama kısıtlaması ile başa çıkmak için eski bir işlev.",
+    "documentation": "<strong>Deprecated:</strong> <br><code>pcall()</code>'in eski görev zamanlama sınırlamasının üstesinden gelmek için var olan eski bir fonksiyon.",
     "params": [
       {
         "name": "f",
@@ -143019,12 +142995,12 @@
     "code_sample": ""
   },
   "@roblox/global/game": {
-    "documentation": "Bir yerin hiyerarşisindeki kök nesne olan DataModel singleton'una atıfta bulunur.",
+    "documentation": "Bir yerin hiyerarşisinin kök örneği olan DataModel singleton'una referans verir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/RobloxGlobals#game",
     "code_sample": ""
   },
   "@roblox/global/plugin": {
-    "documentation": "Kodun bir Studio eklentisi bağlamında çalıştırılması durumunda bir Plugin singleton'una atıfta bulunur.",
+    "documentation": "Kodun bir Studio eklentisi bağlamında çalışırken bir Plugin singleton'una referans verir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/RobloxGlobals#plugin",
     "code_sample": ""
   },
@@ -143034,12 +143010,12 @@
     "code_sample": ""
   },
   "@roblox/global/script": {
-    "documentation": "Bu kodu çalıştıran LuaSourceContainer nesnesine (Betik, LocalScript veya ModuleScript) bir referans.",
+    "documentation": "Bu kodu yürüten LuaSourceContainer nesnesine (Script, LocalScript veya ModuleScript) bir referans.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/RobloxGlobals#script",
     "code_sample": ""
   },
   "@roblox/global/workspace": {
-    "documentation": "Bir yerin tüm fiziksel bileşenlerini içeren Workspace hizmetine bir referans.",
+    "documentation": "Bir yerin fiziksel bileşenlerinin tümünü içeren Workspace hizmetine ait bir referans.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/RobloxGlobals#workspace",
     "code_sample": ""
   }

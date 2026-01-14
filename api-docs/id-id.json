@@ -4031,7 +4031,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Font#fromEnum",
-    "code_sample": "script.Parent.FontFace = Font.fromEnum(Enum.Font.SciFi)\nprint(script.Parent.FontFace)"
+    "code_sample": ""
   },
   "@roblox/global/Font.fromName/param/0": {
     "documentation": "Nama dari font."
@@ -4043,7 +4043,7 @@
     "documentation": "Apakah teks tersebut normal atau miring."
   },
   "@roblox/global/Font.fromName": {
-    "documentation": "Membuat Font dari nama seperti <code>FredokaOne</code>.",
+    "documentation": "Membuat <code>Font</code> dari nama seperti <code>FredokaOne</code>.",
     "params": [
       {
         "name": "name",
@@ -4060,7 +4060,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Font#fromName",
-    "code_sample": "script.Parent.FontFace = Font.fromName(\"FredokaOne\")\nprint(script.Parent.FontFace.Family)"
+    "code_sample": ""
   },
   "@roblox/global/Font.fromId/param/0": {
     "documentation": "ID aset dari font sebagai angka."
@@ -4072,7 +4072,7 @@
     "documentation": "Apakah teks tersebut normal atau miring."
   },
   "@roblox/global/Font.fromId": {
-    "documentation": "Membuat Font dari ID aset numerik.",
+    "documentation": "Membuat <code>Font</code> dari ID aset numerik.",
     "params": [
       {
         "name": "id",
@@ -4089,7 +4089,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Font#fromId",
-    "code_sample": "script.Parent.FontFace = Font.fromId(8836875837)\nprint(script.Parent.FontFace.Family)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Font": {
     "documentation": "Menjelaskan jenis huruf yang digunakan untuk merender teks.",
@@ -6099,10 +6099,10 @@
     "documentation": "Teks yang ditampilkan dalam tooltip yang muncul saat pengguna mengarahkan mouse ke tombol."
   },
   "@roblox/globaltype/PluginToolbar.CreateButton/param/3": {
-    "documentation": "ID aset (misalnya rbxassetid://1507949215) dari ikon yang ditampilkan di tombol."
+    "documentation": "ID aset dari ikon yang ditampilkan di dalam tombol."
   },
   "@roblox/globaltype/PluginToolbar.CreateButton/param/4": {
-    "documentation": "Teks yang ditampilkan di bawah ikon tombol. Opsional. Jika bidang ini tidak disediakan, <strong>ID</strong> akan digunakan sebagai gantinya."
+    "documentation": "Teks opsional yang ditampilkan di bawah ikon tombol."
   },
   "@roblox/globaltype/PluginToolbar.CreateButton/return/0": {
     "documentation": "Instansi <code>PluginToolbarButton</code> yang dibuat."
@@ -6523,7 +6523,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.AutoRuns": {
-    "documentation": "Jika diatur ke true, permainan akan mulai berjalan ketika metode <code>TestService:Run()</code> dipanggil.",
+    "documentation": "Jika diatur ke <code>true</code>, permainan akan mulai berjalan ketika metode <code>TestService:Run()</code> dari layanan dipanggil.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#AutoRuns",
     "code_sample": ""
   },
@@ -6538,7 +6538,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ExecuteWithStudioRun": {
-    "documentation": "Ketika diatur ke true, TestService akan dieksekusi saat menggunakan aksi <em>Run</em> di Roblox Studio.",
+    "documentation": "Ketika diatur ke <code>true</code>, <code>TestService</code> akan dieksekusi saat menggunakan aksi <strong>Run</strong> di Roblox Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ExecuteWithStudioRun",
     "code_sample": ""
   },
@@ -6603,7 +6603,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Check": {
-    "documentation": "Mencetak hasil kondisi ke keluaran.",
+    "documentation": "Mencetak hasil dari suatu kondisi ke output.",
     "params": [
       {
         "name": "self",
@@ -6628,7 +6628,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Check",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\n\n    TestService:Check(false, \"example\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Checkpoint/param/0": {
     "documentation": "Layanan yang digunakan oleh Roblox untuk menjalankan tes yang terkontrol pada mesin. Ini tersedia untuk digunakan oleh pengembang, hingga tingkat tertentu."
@@ -6643,7 +6643,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Checkpoint": {
-    "documentation": "Mencetak \"Test checkpoint: \", diikuti oleh teks, ke keluaran, dalam teks berwarna biru.",
+    "documentation": "Mencetak <code>Test checkpoint:</code> diikuti oleh sebuah string ke output dalam teks berwarna biru.",
     "params": [
       {
         "name": "self",
@@ -6664,13 +6664,13 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Checkpoint",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\n\n    TestService:Checkpoint(\"contoh\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Done/param/0": {
     "documentation": "Layanan yang digunakan oleh Roblox untuk menjalankan tes yang terkontrol pada mesin. Ini tersedia untuk digunakan oleh pengembang, hingga tingkat tertentu."
   },
   "@roblox/globaltype/TestService.Done": {
-    "documentation": "Mencetak Testing Done ke keluaran, dalam teks berwarna biru.",
+    "documentation": "Mencetak <code>Testing Done</code> ke output dalam teks berwarna biru.",
     "params": [
       {
         "name": "self",
@@ -6679,7 +6679,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Done",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\n\n    TestService:Done()"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Error/param/0": {
     "documentation": "Layanan yang digunakan oleh Roblox untuk menjalankan tes yang terkontrol pada mesin. Ini tersedia untuk digunakan oleh pengembang, hingga tingkat tertentu."
@@ -6694,7 +6694,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Error": {
-    "documentation": "Mencetak pesan merah ke keluaran, dengan awalan <code>TestService:</code>.",
+    "documentation": "Mencetak pesan kesalahan merah ke output, diawali dengan <code>TestService:</code>.",
     "params": [
       {
         "name": "self",
@@ -6715,7 +6715,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Error",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\n\n    TestService:Error(\"ini adalah kesalahan\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Fail/param/0": {
     "documentation": "Layanan yang digunakan oleh Roblox untuk menjalankan tes yang terkontrol pada mesin. Ini tersedia untuk digunakan oleh pengembang, hingga tingkat tertentu."
@@ -6730,7 +6730,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Fail": {
-    "documentation": "Menunjukkan kesalahan fatal dalam eksekusi TestService. Jika ini dipanggil di dalam skrip yang berjalan di dalam TestService, ini akan memulai sebuah breakpoint di baris yang memicu kesalahan.",
+    "documentation": "Menunjukkan kesalahan fatal dalam eksekusi <code>TestService</code>.",
     "params": [
       {
         "name": "self",
@@ -6793,7 +6793,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Message": {
-    "documentation": "Mencetak pesan Test, diikuti dengan teks ke output, dalam teks berwarna biru.",
+    "documentation": "Mencetak <code>TestService:</code> diikuti oleh sebuah string ke output dalam teks berwarna biru.",
     "params": [
       {
         "name": "self",
@@ -6814,7 +6814,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Message",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\n\n    TestService:Message(\"contoh\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Require/param/0": {
     "documentation": "Layanan yang digunakan oleh Roblox untuk menjalankan tes yang terkontrol pada mesin. Ini tersedia untuk digunakan oleh pengembang, hingga tingkat tertentu."
@@ -6832,7 +6832,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Require": {
-    "documentation": "Mencetak apakah kondisi benar bersamaan dengan teks deskripsi.",
+    "documentation": "Mencetak apakah suatu kondisi benar beserta string deskripsi.",
     "params": [
       {
         "name": "self",
@@ -6863,7 +6863,7 @@
     "documentation": "Layanan yang digunakan oleh Roblox untuk menjalankan tes yang terkontrol pada mesin. Ini tersedia untuk digunakan oleh pengembang, hingga tingkat tertentu."
   },
   "@roblox/globaltype/TestService.RunAsync": {
-    "documentation": "Menjalankan skrip yang diparent ke TestService.",
+    "documentation": "Menjalankan skrip yang diparent ke <code>TestService</code>.",
     "params": [
       {
         "name": "self",
@@ -6878,7 +6878,7 @@
     "documentation": "Layanan yang digunakan oleh Roblox untuk menjalankan tes yang terkontrol pada mesin. Ini tersedia untuk digunakan oleh pengembang, hingga tingkat tertentu."
   },
   "@roblox/globaltype/TestService.Run": {
-    "documentation": "<strong>Deprecated:</strong> <br>Menjalankan skrip yang di-parents-kan ke TestService.",
+    "documentation": "<strong>Deprecated:</strong> <br>Menjalankan skrip yang diparent ke <code>TestService</code>.",
     "params": [
       {
         "name": "self",
@@ -6947,7 +6947,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Warn": {
-    "documentation": "Mencetak jika suatu kondisi benar, jika tidak mencetak peringatan.",
+    "documentation": "Mencetak jika suatu kondisi adalah <code>true</code>, jika tidak mencetak peringatan.",
     "params": [
       {
         "name": "self",
@@ -6972,7 +6972,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Warn",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Warn(false, \"tindakan ini tidak valid\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.ServerCollectConditionalResult.Connect/param/0": {
     "documentation": "Sebuah objek yang menjalankan fungsi terkait saat terjadinya suatu kejadian."
@@ -7052,7 +7052,7 @@
     "returns": []
   },
   "@roblox/globaltype/TestService.ServerCollectConditionalResult": {
-    "documentation": "Ditembak ketika server harus mengumpulkan hasil uji bersyarat.",
+    "documentation": "Ditembak ketika server harus mengumpulkan hasil uji kondisional.",
     "keys": {
       "Connect": "@roblox/globaltype/TestService.ServerCollectConditionalResult.Connect",
       "ConnectParallel": "@roblox/globaltype/TestService.ServerCollectConditionalResult.ConnectParallel",
@@ -11414,12 +11414,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PluginAction.AllowBinding": {
-    "documentation": "Apakah <code>PluginAction</code> akan disembunyikan dari tampilan pintasan Studio.",
+    "documentation": "Menentukan apakah tindakan dapat diberikan pintasan keyboard di Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginAction#AllowBinding",
     "code_sample": ""
   },
   "@roblox/globaltype/PluginAction.StatusTip": {
-    "documentation": "Deskripsi dari aksi, saat melihatnya dari jendela pintasan keyboard di Roblox Studio.",
+    "documentation": "Deskripsi tindakan saat dilihat dari jendela pintasan keyboard di Roblox Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginAction#StatusTip",
     "code_sample": ""
   },
@@ -11506,7 +11506,7 @@
     "returns": []
   },
   "@roblox/globaltype/PluginAction.Triggered": {
-    "documentation": "Terjadi saat aksi dipicu. Ini dapat dilakukan baik dengan mengaktifkan tindakan dari Quick Access Toolbar, atau dengan menggunakan pintasan keyboard yang terikat padanya.",
+    "documentation": "Ditembak saat tindakan diaktifkan.",
     "keys": {
       "Connect": "@roblox/globaltype/PluginAction.Triggered.Connect",
       "ConnectParallel": "@roblox/globaltype/PluginAction.Triggered.ConnectParallel",
@@ -11883,7 +11883,7 @@
     "returns": []
   },
   "@roblox/globaltype/NetworkClient.ConnectionAccepted": {
-    "documentation": "Dikembangkan ketika klien berhasil terhubung ke server. Mengembalikan string menunjukkan IP dan Port server, dan klien <code>ClientReplicator</code>.",
+    "documentation": "Dibakar saat klien berhasil terhubung ke server. Mengembalikan string yang menunjukkan IP dan port server, serta <code>ClientReplicator</code> klien.",
     "keys": {
       "Connect": "@roblox/globaltype/NetworkClient.ConnectionAccepted.Connect",
       "ConnectParallel": "@roblox/globaltype/NetworkClient.ConnectionAccepted.ConnectParallel",
@@ -16829,7 +16829,7 @@
       "@roblox/globaltype/BadgeService.IsLegal/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#IsLegal",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal BADGE_ID = 0\n\nlocal function awardBadge(player, badgeId)\n\t-- periksa apakah lencana dapat diberikan\n\tif BadgeService:IsLegal(badgeId) and not BadgeService:IsDisabled(badgeId) then\n\t\t-- berikan lencana\n\t\tBadgeService:AwardBadge(player.UserId, badgeId)\n\tend\nend\n\nlocal function onPlayerAdded(player)\n\tawardBadge(player, BADGE_ID)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.UserHasBadge/param/0": {
     "documentation": "Memberikan informasi tentang badge dan memberikannya."
@@ -16844,7 +16844,7 @@
     "documentation": "True jika pengguna mempunyai badge tersebut."
   },
   "@roblox/globaltype/BadgeService.UserHasBadge": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini telah digantikan oleh <code>BadgeService:UserHasBadgeAsync()</code> yang seharusnya digunakan untuk yang baru.<br>Memeriksa apakah pengguna memiliki badge berdasarkan <code>Player.UserId</code> dan ID badge.",
+    "documentation": "<strong>Deprecated:</strong> Metode ini telah digantikan oleh <code>BadgeService:UserHasBadgeAsync()</code> yang harus digunakan untuk yang baru sebaliknya.<br>Memeriksa apakah pengguna memiliki badge berdasarkan <code>Player.UserId</code> dan ID badge.",
     "params": [
       {
         "name": "self",
@@ -16863,7 +16863,7 @@
       "@roblox/globaltype/BadgeService.UserHasBadge/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#UserHasBadge",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal BADGE_ID = 123\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif BadgeService:UserHasBadge(player.UserId, BADGE_ID) then\n\t\tprint(\"Pengguna memiliki lencana ini\")\n\telse\n\t\tprint(\"Pengguna tidak memiliki lencana ini\")\n\tend\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.UserHasBadgeAsync/param/0": {
     "documentation": "Memberikan informasi tentang badge dan memberikannya."
@@ -23060,7 +23060,7 @@
     "documentation": "Menu konteks yang dapat ditampilkan di Studio. Menampilkan daftar <code>PluginActions</code> dan mendukung submenu."
   },
   "@roblox/globaltype/PluginMenu.AddMenu/param/1": {
-    "documentation": "Menu yang akan ditambahkan sebagai submenu. Menggunakan <code>PluginMenu.Title</code> dan <code>PluginMenu.Icon</code> untuk ditampilkan."
+    "documentation": "Menu yang akan ditambahkan sebagai submenu. Menggunakan <code>Title</code> dan <code>Icon</code> untuk ditampilkan."
   },
   "@roblox/globaltype/PluginMenu.AddMenu": {
     "documentation": "Menambahkan menu yang diberikan sebagai pemisah.",
@@ -23082,7 +23082,7 @@
     "documentation": "Menu konteks yang dapat ditampilkan di Studio. Menampilkan daftar <code>PluginActions</code> dan mendukung submenu."
   },
   "@roblox/globaltype/PluginMenu.AddNewAction/param/1": {
-    "documentation": "Harus berupa string unik yang mengidentifikasi PluginAction ini dari yang lain."
+    "documentation": "Harus berupa string unik yang mengidentifikasi <code>PluginAction</code> ini dari yang lainnya."
   },
   "@roblox/globaltype/PluginMenu.AddNewAction/param/2": {
     "documentation": "Teks yang akan ditampilkan."
@@ -31881,7 +31881,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Capture": {
-    "documentation": "Kelas yang mendefinisikan sepotong konten, seperti tangkapan layar atau video, yang diambil dalam pengalaman.",
+    "documentation": "Sebuah kelas yang mendefinisikan sepotong konten, seperti tangkapan layar atau video, yang diambil selama pengalaman.",
     "keys": {
       "CaptureTime": "@roblox/globaltype/Capture.CaptureTime",
       "CaptureType": "@roblox/globaltype/Capture.CaptureType",
@@ -33529,7 +33529,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Plugin.CollisionEnabled": {
-    "documentation": "Mengembalikan apakah pengguna mengaktifkan <code>Collisions</code> di Studio di bawah tab Model.",
+    "documentation": "Mengembalikan apakah pengguna telah mengaktifkan <strong>Kolisi</strong> di toolbar Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CollisionEnabled",
     "code_sample": ""
   },
@@ -33552,7 +33552,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Activate/param/1": {
-    "documentation": "Sebuah boolean yang menentukan apakah akan mengaktifkan plugin dengan mouse eksklusif. Jika true, <code>PluginMouse</code> dapat diambil melalui <code>Plugin:GetMouse()</code>."
+    "documentation": "Sebuah boolean yang menentukan apakah mengaktifkan plugin dengan mouse eksklusif. Jika <code>true</code>, <code>PluginMouse</code> dapat diambil melalui <code>GetMouse()</code>."
   },
   "@roblox/globaltype/Plugin.Activate": {
     "documentation": "Mengatur status plugin yang memanggil menjadi diaktifkan.",
@@ -33617,7 +33617,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui": {
-    "documentation": "<strong>Deprecated:</strong> <br>Membuat <code>DockWidgetPluginGui</code> berdasarkan <code>DockWidgetPluginGuiInfo</code>.",
+    "documentation": "<strong>Deprecated:</strong> Metode ini telah digantikan oleh <code>CreateDockWidgetPluginGuiAsync()</code>.<br>Membuat <code>DockWidgetPluginGui</code> berdasarkan <code>DockWidgetPluginGuiInfo</code>.",
     "params": [
       {
         "name": "self",
@@ -33660,7 +33660,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction": {
-    "documentation": "Membuat <code>PluginAction</code> yang merupakan objek yang mewakili aksi umum yang dapat dilakukan di Roblox Studio, tanpa terkait langsung dengan <code>Toolbar</code> atau <code>Button</code>.",
+    "documentation": "Membuat <code>PluginAction</code> yang mewakili aksi yang dapat dilakukan secara umum di Studio tanpa <code>PluginToolbarButton</code> yang terkait langsung.",
     "params": [
       {
         "name": "self",
@@ -33700,10 +33700,10 @@
     "documentation": "ID unik untuk menu."
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/param/2": {
-    "documentation": "Teks yang ditampilkan ketika digunakan sebagai submenu."
+    "documentation": "Teks yang ditampilkan saat digunakan sebagai submenu."
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/param/3": {
-    "documentation": "Ikon yang ditampilkan ketika digunakan sebagai submenu."
+    "documentation": "Ikon yang ditampilkan saat digunakan sebagai submenu."
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/return/0": {
     "documentation": ""
@@ -33783,7 +33783,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetJoinMode": {
-    "documentation": "Mengembalikan <code>JointCreationMode</code> yang telah ditetapkan pengguna di Studio di bawah tab Model.",
+    "documentation": "Mengembalikan <code>JointCreationMode</code> yang telah ditetapkan pengguna di toolbar Studio.",
     "params": [
       {
         "name": "self",
@@ -33896,7 +33896,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimationAsync": {
-    "documentation": "Mengundang pengguna untuk membuka file animasi .fbx yang dapat dimuat ke <code>rigModel</code>, kemudian melanjutkan untuk memasukkan animasi sebagai <code>KeyframeSequence</code> di <code>Workspace</code>.",
+    "documentation": "Meminta pengguna untuk membuka file animasi <code>.fbx</code> yang dapat dimuat ke dalam <code>rigModel</code>, kemudian melanjutkan untuk menyisipkan animasi sebagai <code>KeyframeSequence</code> di <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -33930,7 +33930,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimation": {
-    "documentation": "<strong>Deprecated:</strong> <br>Mengundang pengguna untuk membuka file animasi .fbx yang dapat dimuat ke <code>rigModel</code>, kemudian melanjutkan untuk memasukkan animasi sebagai <code>KeyframeSequence</code> di <code>Workspace</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Meminta pengguna untuk membuka file animasi <code>.fbx</code> yang dapat dimuat ke dalam <code>rigModel</code>, kemudian melanjutkan untuk menyisipkan animasi sebagai <code>KeyframeSequence</code> di <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -33961,7 +33961,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRigAsync": {
-    "documentation": "Mengundang pengguna untuk membuka file .fbx, mengunggah komponen individu dari model sebagai mesh, dan menghasilkan rig karakter untuk digunakan dalam animasi, yang dimuat ke dalam <code>Workspace</code>.",
+    "documentation": "Meminta pengguna untuk membuka file <code>.fbx</code>, mengunggah komponen individual model sebagai mesh, dan menghasilkan rig karakter untuk digunakan dalam animasi, yang dimuat ke dalam <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -33988,7 +33988,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRig": {
-    "documentation": "<strong>Deprecated:</strong> <br>Mengundang pengguna untuk membuka file .fbx, mengunggah komponen individu dari model sebagai mesh, dan menghasilkan rig karakter untuk digunakan dalam animasi, yang dimuat ke dalam <code>Workspace</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Meminta pengguna untuk membuka file <code>.fbx</code>, mengunggah komponen individual model sebagai mesh, dan menghasilkan rig karakter untuk digunakan dalam animasi, yang dimuat ke dalam <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -34015,7 +34015,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Intersect": {
-    "documentation": "",
+    "documentation": "Menginterseksi bagian yang diberikan dan mengembalikan <code>IntersectOperation</code> yang dihasilkan.",
     "params": [
       {
         "name": "self",
@@ -34039,7 +34039,7 @@
     "documentation": "Sebuah boolean yang menunjukkan apakah plugin saat ini aktif."
   },
   "@roblox/globaltype/Plugin.IsActivated": {
-    "documentation": "Mengembalikan true jika plugin ini saat ini aktif, setelah diaktifkan melalui fungsi <code>Plugin:Activate()</code>.",
+    "documentation": "Mengembalikan <code>true</code> jika plugin ini saat ini aktif, setelah diaktifkan melalui fungsi <code>Activate()</code>.",
     "params": [
       {
         "name": "self",
@@ -34059,7 +34059,7 @@
     "documentation": "Apakah plugin ini saat ini aktif dengan mouse eksklusif."
   },
   "@roblox/globaltype/Plugin.IsActivatedWithExclusiveMouse": {
-    "documentation": "Mengembalikan true jika plugin ini saat ini aktif dengan mouse eksklusif, setelah diaktifkan melalui fungsi <code>Plugin:Activate()</code>.",
+    "documentation": "Mengembalikan <code>true</code> jika plugin ini saat ini aktif dengan mouse eksklusif.",
     "params": [
       {
         "name": "self",
@@ -34082,7 +34082,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Negate": {
-    "documentation": "Negasi bagian yang diberikan dan mengembalikan NegateOperations yang dihasilkan.",
+    "documentation": "Negasi bagian yang diberikan dan mengembalikan <code>NegateOperations</code> yang dihasilkan.",
     "params": [
       {
         "name": "self",
@@ -34160,7 +34160,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync": {
-    "documentation": "Membuka jendela di Roblox Studio, yang mengundang pengguna untuk memilih sebuah aset berdasarkan <code>assetType</code> yang ditentukan. Mengembalikan assetId yang dipilih, atau -1 jika jendela ditutup.",
+    "documentation": "Membuka jendela di Roblox Studio yang meminta pengguna untuk memilih aset berdasarkan <code>assetType</code> yang ditentukan.",
     "params": [
       {
         "name": "self",
@@ -34187,7 +34187,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId": {
-    "documentation": "Membuka jendela di Roblox Studio, yang mengundang pengguna untuk memilih sebuah aset berdasarkan <code>assetType</code> yang ditentukan. Mengembalikan assetId yang dipilih, atau -1 jika jendela ditutup.",
+    "documentation": "Membuka jendela di Roblox Studio yang meminta pengguna untuk memilih aset berdasarkan <code>assetType</code> yang ditentukan.",
     "params": [
       {
         "name": "self",
@@ -34214,7 +34214,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelectionAsync": {
-    "documentation": "Mengundang pengguna untuk menyimpan pilihan mereka saat ini dengan nama file yang ditentukan. Mengembalikan true jika pengguna menyimpan file tersebut.",
+    "documentation": "Meminta pengguna untuk menyimpan pilihan mereka saat ini dengan nama file yang ditentukan.",
     "params": [
       {
         "name": "self",
@@ -34241,7 +34241,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelection": {
-    "documentation": "<strong>Deprecated:</strong> <br>Mengundang pengguna untuk menyimpan pilihan mereka saat ini dengan nama file yang ditentukan. Mengembalikan true jika pengguna menyimpan file tersebut.",
+    "documentation": "<strong>Deprecated:</strong> <br>Meminta pengguna untuk menyimpan pilihan mereka saat ini dengan nama file yang ditentukan.",
     "params": [
       {
         "name": "self",
@@ -34312,7 +34312,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Separate": {
-    "documentation": "Memisahkan UnionOperations yang diberikan dan mengembalikan bagian yang dihasilkan.",
+    "documentation": "Memisahkan <code>UnionOperations</code> yang diberikan dan mengembalikan bagian yang dihasilkan.",
     "params": [
       {
         "name": "self",
@@ -34390,7 +34390,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Union": {
-    "documentation": "Menggabungkan bagian yang diberikan dan mengembalikan UnionOperation hasilnya.",
+    "documentation": "Menyatukan bagian yang diberikan dan mengembalikan <code>UnionOperation</code> yang dihasilkan.",
     "params": [
       {
         "name": "self",
@@ -45577,7 +45577,7 @@
       "@roblox/globaltype/Player.GetRankInGroupAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRankInGroupAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroup(2) == 255 then\n\t\tprint(\"Pemain adalah pemilik grup, 'LOL'!\")\n\telse\n\t\tprint(\"Pemain BUKAN pemilik grup, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroupAsync(2) == 255 then\n\t\tprint(\"Pemain adalah pemilik grup, 'LOL'!\")\n\telse\n\t\tprint(\"Pemain BUKAN pemilik grup, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/0": {
     "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
@@ -45604,7 +45604,7 @@
       "@roblox/globaltype/Player.GetRankInGroup/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRankInGroup",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroup(2) == 255 then\n\t\tprint(\"Pemain adalah pemilik grup, 'LOL'!\")\n\telse\n\t\tprint(\"Pemain BUKAN pemilik grup, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroupAsync(2) == 255 then\n\t\tprint(\"Pemain adalah pemilik grup, 'LOL'!\")\n\telse\n\t\tprint(\"Pemain BUKAN pemilik grup, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync/param/0": {
     "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
@@ -45690,7 +45690,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.IsBestFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi ini sudah usang karena fitur Best Friends telah dihapus. Gunakan <code>Player:IsFriendsWith()</code> sebagai gantinya.<br>Mengembalikan apakah pemain terhubung dengan pengguna tertentu.",
+    "documentation": "<strong>Deprecated:</strong> Fungsi ini sudah tidak berlaku karena fitur \"sahabat terbaik\" telah dihapus. Gunakan <code>Player:IsFriendsWithAsync()</code> sebagai gantinya.<br>Mengembalikan apakah pemain terhubung dengan pengguna tertentu.",
     "params": [
       {
         "name": "self",
@@ -45732,7 +45732,7 @@
       "@roblox/globaltype/Player.IsFriendsWithAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsFriendsWithAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" adalah koneksi dengan gordonrox24!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/0": {
     "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
@@ -45744,7 +45744,7 @@
     "documentation": "Sebuah boolean yang menunjukkan apakah pemain adalah koneksi dari pengguna tertentu."
   },
   "@roblox/globaltype/Player.IsFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> <br>Memeriksa apakah pemain adalah koneksi dari pengguna dengan <code>Player.UserId</code> tertentu.",
+    "documentation": "<strong>Deprecated:</strong> Metode ini telah digantikan oleh metode <code>Player:IsFriendsWithAsync()</code> yang harus digunakan untuk pekerjaan baru.<br>Memeriksa apakah pemain adalah koneksi dari pengguna dengan <code>Player.UserId</code> tertentu.",
     "params": [
       {
         "name": "self",
@@ -45759,7 +45759,7 @@
       "@roblox/globaltype/Player.IsFriendsWith/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsFriendsWith",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" adalah koneksi dengan gordonrox24!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.isFriendsWith/param/0": {
     "documentation": "Objek yang mewakili klien yang saat ini terhubung ke pengalaman."
@@ -45771,7 +45771,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.isFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> Fungsi yang sudah tidak digunakan ini adalah varian dari <code>Player:IsFriendsWith()</code> yang seharusnya digunakan sebagai gantinya.",
+    "documentation": "<strong>Deprecated:</strong> Metode ini telah digantikan oleh metode <code>Player:IsFriendsWithAsync()</code> yang harus digunakan untuk pekerjaan baru.",
     "params": [
       {
         "name": "self",
@@ -50998,16 +50998,16 @@
     "documentation": "Layanan yang bertanggung jawab atas semua aktivitas runtime dan kemajuan waktu."
   },
   "@roblox/globaltype/RunService.BindToSimulation/param/1": {
-    "documentation": "Fungsi yang harus dipanggil. Fungsi ini akan menerima satu parameter yang disebut <code>deltaTime</code> yang menunjukkan berapa lama waktu berlalu antara awal langkah simulasi sebelumnya dan awal langkah simulasi yang sedang berlangsung."
+    "documentation": "Fungsi yang akan dipanggil. Fungsi ini akan diberikan satu parameter  yang disebut <code>deltaTime</code> yang menunjukkan berapa banyak waktu yang lewat antara  awal langkah simulasi sebelumnya dan awal langkah simulasi saat ini."
   },
   "@roblox/globaltype/RunService.BindToSimulation/param/2": {
-    "documentation": "Nilai <code>StepFrequency</code> opsional yang menunjukkan frekuensi untuk memanggil fungsi yang terikat. Jika tidak diberikan, frekuensi default akan digunakan."
+    "documentation": "Nilai <code>StepFrequency</code> opsional yang menunjukkan frekuensi untuk memanggil fungsi yang terikat. Jika tidak disediakan, frekuensi default akan digunakan."
   },
   "@roblox/globaltype/RunService.BindToSimulation/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/RunService.BindToSimulation": {
-    "documentation": "Mengikat fungsi kustom untuk dipanggil dengan frekuensi tetap yang tidak tergantung pada frame rate.",
+    "documentation": "Mengikat fungsi kustom untuk dipanggil pada frekuensi tetap yang independen dari frame rate.",
     "params": [
       {
         "name": "self",
@@ -51038,7 +51038,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/RunService.GetPredictionStatus": {
-    "documentation": "Memeriksa <code>PredictionStatus</code> dari sebuah konteks instance tertentu, berguna untuk debugging skrip yang mempengaruhi banyak instance di mana beberapa mungkin diprediksi dan yang lainnya mungkin tidak.",
+    "documentation": "Memeriksa <code>PredictionStatus</code> dari instance konteks tertentu, berguna  untuk debugging skrip yang mempengaruhi beberapa instance dimana beberapa mungkin  diprediksi dan yang lainnya mungkin tidak.",
     "params": [
       {
         "name": "self",
@@ -54658,6 +54658,7 @@
   "@roblox/globaltype/MaterialVariant": {
     "documentation": "Mewakili varian dari Material.",
     "keys": {
+      "AlphaMode": "@roblox/globaltype/MaterialVariant.AlphaMode",
       "BaseMaterial": "@roblox/globaltype/MaterialVariant.BaseMaterial",
       "ColorMap": "@roblox/globaltype/MaterialVariant.ColorMap",
       "ColorMapContent": "@roblox/globaltype/MaterialVariant.ColorMapContent",
@@ -54677,8 +54678,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant",
     "code_sample": ""
   },
+  "@roblox/globaltype/MaterialVariant.AlphaMode": {
+    "documentation": "Menentukan bagaimana saluran alfa dari <code>MaterialVariant.ColorMap</code> digunakan.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#AlphaMode",
+    "code_sample": ""
+  },
   "@roblox/globaltype/MaterialVariant.BaseMaterial": {
-    "documentation": "Kategori Material yang dimiliki varian ini.",
+    "documentation": "Kategori Material yang termasuk varian ini.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#BaseMaterial",
     "code_sample": ""
   },
@@ -54713,37 +54719,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.MaterialPattern": {
-    "documentation": "Menentukan metode tiling tekstur.",
+    "documentation": "Menentukan metode pemasangan tekstur.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#MaterialPattern",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.MetalnessMap": {
-    "documentation": "Menentukan bagian mana dari permukaan yang adalah logam dan yang bukan logam.",
+    "documentation": "Menentukan bagian permukaan mana yang metal dan mana yang non-metal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#MetalnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.MetalnessMapContent": {
-    "documentation": "Menentukan bagian mana dari permukaan yang adalah logam dan yang bukan logam. Hanya mendukung URI aset sebagai tekstur.",
+    "documentation": "Menentukan bagian permukaan mana yang metal dan mana yang non-metal. Hanya mendukung URI aset sebagai tekstur.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#MetalnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.NormalMap": {
-    "documentation": "Memodifikasi pencahayaan permukaan dengan menambahkan tonjolan, cekungan, retakan, dan kurva tanpa menambah lebih banyak polygon.",
+    "documentation": "Memodifikasi pencahayaan permukaan dengan menambahkan tonjolan, penyok, retakan, dan kurva tanpa menambahkan lebih banyak poligon.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#NormalMap",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.NormalMapContent": {
-    "documentation": "Memodifikasi pencahayaan permukaan dengan menambahkan tonjolan, cekungan, retakan, dan kurva tanpa menambah lebih banyak polygon. Hanya mendukung URI aset sebagai tekstur.",
+    "documentation": "Memodifikasi pencahayaan permukaan dengan menambahkan tonjolan, penyok, retakan, dan kurva tanpa menambahkan lebih banyak poligon. Hanya mendukung URI aset sebagai tekstur.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#NormalMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.RoughnessMap": {
-    "documentation": "Menentukan kekasaran yang terlihat di seluruh permukaan.",
+    "documentation": "Menentukan kekasaran yang tampak di seluruh permukaan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#RoughnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.RoughnessMapContent": {
-    "documentation": "Menentukan kekasaran yang terlihat di seluruh permukaan. Hanya mendukung URI aset sebagai tekstur.",
+    "documentation": "Menentukan kekasaran yang tampak di seluruh permukaan. Hanya mendukung URI aset sebagai tekstur.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#RoughnessMapContent",
     "code_sample": ""
   },
@@ -72375,7 +72381,6 @@
       "ReadCapturesFromGalleryAsync": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync",
       "StartVideoCaptureAsync": "@roblox/globaltype/CaptureService.StartVideoCaptureAsync",
       "StopVideoCapture": "@roblox/globaltype/CaptureService.StopVideoCapture",
-      "TakeCapture": "@roblox/globaltype/CaptureService.TakeCapture",
       "UploadCaptureAsync": "@roblox/globaltype/CaptureService.UploadCaptureAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService",
@@ -72578,35 +72583,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#StopVideoCapture",
     "code_sample": ""
   },
-  "@roblox/globaltype/CaptureService.TakeCapture/param/0": {
-    "documentation": "Sebuah layanan yang menyediakan kontrol atas fitur tangkapan layar dan rekaman video."
-  },
-  "@roblox/globaltype/CaptureService.TakeCapture/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/CaptureService.TakeCapture/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/CaptureService.TakeCapture": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/CaptureService.TakeCapture/param/0"
-      },
-      {
-        "name": "onCaptureReady",
-        "documentation": "@roblox/globaltype/CaptureService.TakeCapture/param/1"
-      },
-      {
-        "name": "captureParams",
-        "documentation": "@roblox/globaltype/CaptureService.TakeCapture/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#TakeCapture",
-    "code_sample": ""
-  },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
     "documentation": "Sebuah layanan yang menyediakan kontrol atas fitur tangkapan layar dan rekaman video."
   },
@@ -72614,7 +72590,7 @@
     "documentation": "sebuah objek tangkapan dari tipe <code>Capture</code>"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
-    "documentation": "Tuple dari (result: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
+    "documentation": "Tuple dari (hasil: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync": {
     "documentation": "",
@@ -77179,7 +77155,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/PluginManager.ExportPlace": {
-    "documentation": "Mengekspor tempat ke file .OBJ yang disimpan ke jalur yang dipilih oleh pengguna dalam dialog simpan file (argumen <code>filePath</code> diabaikan).",
+    "documentation": "Mengekspor tempat ke file <code>.obj</code> yang disimpan di jalur yang dipilih oleh  pengguna dalam dialog simpan file.",
     "params": [
       {
         "name": "self",
@@ -77201,7 +77177,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/PluginManager.ExportSelection": {
-    "documentation": "Mengekspor <code>Selection</code> saat ini ke file .OBJ yang disimpan ke jalur yang dipilih oleh pengguna dalam dialog simpan file (argumen <code>filePath</code> diabaikan).",
+    "documentation": "Mengekspor <code>Selection</code> saat ini ke file <code>.obj</code> yang disimpan di  jalur yang dipilih oleh pengguna dalam dialog simpan file.",
     "params": [
       {
         "name": "self",
@@ -78327,7 +78303,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PluginToolbarButton.ClickableWhenViewportHidden": {
-    "documentation": "Menentukan apakah tombol dapat diklik ketika jendela game disembunyikan, seperti saat mengedit skrip di tab Studio yang berbeda.",
+    "documentation": "Menentukan apakah tombol dapat diklik ketika viewport 3D tersembunyi, seperti saat <code>Script</code> sedang diedit di tab lain.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginToolbarButton#ClickableWhenViewportHidden",
     "code_sample": ""
   },
@@ -79538,10 +79514,10 @@
     "documentation": "ID aset dari produk yang ditentukan."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/2": {
-    "documentation": "Sebuah nilai enum <code>InfoType</code> yang menentukan jenis informasi yang sedang diambil."
+    "documentation": "Nilai enum <code>InfoType</code> yang menentukan jenis informasi yang sedang diambil."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/return/0": {
-    "documentation": "Sebuah kamus yang berisi informasi tentang item yang ditanyakan, yang dijelaskan dalam tabel sebelumnya."
+    "documentation": "Sebuah kamus yang berisi informasi tentang item yang diquery, dijelaskan pada tabel sebelumnya."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo": {
     "documentation": "<strong>Deprecated:</strong> <br>Mengembalikan informasi produk dari sebuah aset menggunakan ID asetnya.",
@@ -79569,13 +79545,13 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/param/1": {
-    "documentation": "ID langganan yang akan diperiksa."
+    "documentation": "ID langganan yang akan dicek."
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync": {
-    "documentation": "Mengembalikan informasi produk dari sebuah langganan untuk <code>subscriptionId</code> yang diberikan.",
+    "documentation": "Mengembalikan informasi produk dari langganan untuk <code>subscriptionId</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -79599,10 +79575,10 @@
     "documentation": "Sebuah array dari ID pengguna."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
-    "documentation": "Mengembalikan sebuah array dari objek <code>PriceLevelInfo</code> dengan kamus di mana kuncinya adalah ID pengguna (string) dan nilai mereka adalah tingkat harga yang sesuai (integer antara 1 dan 1000)."
+    "documentation": "Mengembalikan array dari objek <code>PriceLevelInfo</code> dengan kamus di mana kuncinya adalah ID pengguna (string) dan nilai mereka adalah level harga yang sesuai (integer antara 1 dan 1000)."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "Mengembalikan tingkat harga regional pengguna, mewakili harga yang direkomendasikan untuk sebuah item di pasar regional mereka.",
+    "documentation": "Mengembalikan tingkat harga yang terregionalisasi dari seorang pengguna, mewakili harga yang direkomendasikan untuk sebuah item di pasar regional mereka.",
     "params": [
       {
         "name": "self",
@@ -79623,10 +79599,10 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/1": {
-    "documentation": "Objek <code>Player</code> yang ingin Anda periksa detail langganannya."
+    "documentation": "Objek <code>Player</code> yang rincian langganannya ingin Anda cek."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/2": {
-    "documentation": "ID langganan yang akan diperiksa."
+    "documentation": "ID langganan yang akan dicek."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/return/0": {
     "documentation": ""
@@ -79666,7 +79642,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync": {
-    "documentation": "Mengembalikan sebuah <code>Array</code> yang berisi hingga satu tahun dari riwayat pembayaran langganan pengguna untuk <code>subscriptionId</code> yang diberikan.",
+    "documentation": "Mengembalikan <code>Array</code> yang berisi hingga satu tahun dari riwayat pembayaran langganan pengguna untuk <code>subscriptionId</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -79691,16 +79667,16 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/param/1": {
-    "documentation": "Objek <code>Player</code> yang ingin Anda periksa status langganannya."
+    "documentation": "Objek <code>Player</code> yang status langganannya ingin Anda cek."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/param/2": {
-    "documentation": "ID langganan yang akan diperiksa."
+    "documentation": "ID langganan yang akan dicek."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync": {
-    "documentation": "Mengembalikan sebuah <code>table</code> yang berisi status langganan pengguna untuk <code>subscriptionId</code> yang diberikan.",
+    "documentation": "Mengembalikan <code>table</code> yang berisi status langganan pengguna untuk <code>subscriptionId</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -79762,7 +79738,7 @@
     "documentation": "Objek <code>Player</code> yang inventarisnya diuji untuk kepemilikan aset yang diberikan."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/2": {
-    "documentation": "ID aset yang akan diuji dalam inventaris pemain yang diberikan."
+    "documentation": "ID aset yang inventaris pemain yang diberikan diuji."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/return/0": {
     "documentation": "Menunjukkan apakah inventaris pemain yang diberikan mengandung aset yang diberikan."
@@ -79827,16 +79803,16 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/1": {
-    "documentation": "Objek <code>Player</code> yang inventarisnya diuji untuk kepemilikan bundle yang diberikan."
+    "documentation": "Objek <code>Player</code> yang inventarisnya diuji untuk kepemilikan bundel yang diberikan."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/2": {
-    "documentation": "ID bundle yang akan diuji dalam inventaris pemain yang diberikan."
+    "documentation": "ID bundel yang inventaris pemain yang diberikan diuji."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0": {
-    "documentation": "Menunjukkan apakah inventaris pemain yang diberikan mengandung bundle yang diberikan."
+    "documentation": "Menunjukkan apakah inventaris pemain yang diberikan mengandung bundel yang diberikan."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle": {
-    "documentation": "<strong>Deprecated:</strong> <br>Mengembalikan apakah pemain yang diberikan memiliki bundle yang diberikan.",
+    "documentation": "<strong>Deprecated:</strong> <br>Mengembalikan apakah pemain yang diberikan memiliki bundel yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -79861,16 +79837,16 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/1": {
-    "documentation": "Pengguna yang diajak untuk membeli item."
+    "documentation": "Pengguna yang ingin diajak membeli item."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
-    "documentation": "Array item avatar yang akan disertakan dalam pembelian massal. Setiap item baris mengandung struktur berikut: <pre><code class=\"language-lua\">{   Tipe: MarketplaceProductType,   Id: string } </code></pre> Setiap item baris mengandung pasangan berikut: <ul> <li><code>Tipe</code>: <code>MarketplaceProductType</code> yang sesuai (Enum).</li> <li><code>Id</code>: ID dari aset atau bundle.</li> </ul>"
+    "documentation": "Sebuah array dari item avatar untuk dimasukkan dalam pembelian massal. Setiap item dalam baris berisi struktur berikut: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> Setiap item dalam baris berisi pasangan berikut: <ul> <li><code>Type</code>: <code>MarketplaceProductType</code> yang sesuai (Enum).</li> <li><code>Id</code>: ID dari aset atau bundel.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
     "documentation": "Tidak tersedia saat ini."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase": {
-    "documentation": "Mengajak pengguna untuk membeli beberapa item avatar dengan <code>assetId</code> atau <code>bundleId</code> yang diberikan.",
+    "documentation": "Mengajak pengguna untuk membeli beberapa item avatar dengan <code>assetId</code> yang diberikan atau <code>bundleId</code>.",
     "params": [
       {
         "name": "self",
@@ -79903,7 +79879,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptBundlePurchase": {
-    "documentation": "Mengajak pengguna untuk membeli sebuah bundle dengan <code>bundleId</code> yang diberikan.",
+    "documentation": "Mengajak pengguna untuk membeli bundel dengan <code>bundleId</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -79961,7 +79937,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase": {
-    "documentation": "Mengajak pengguna untuk membeli sebuah pass dengan <code>gamePassId</code> yang diberikan.",
+    "documentation": "Mengajak pengguna untuk membeli pasar dengan <code>gamePassId</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -79984,7 +79960,7 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/1": {
-    "documentation": "Pengguna yang dipromosikan untuk membeli Premium."
+    "documentation": "Pengguna yang diajak membeli Premium."
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase": {
     "documentation": "Mengajak pengguna untuk membeli Roblox Premium.",
@@ -80061,7 +80037,7 @@
     "documentation": "Diabaikan."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase": {
-    "documentation": "Mengajak pengguna untuk membeli sebuah item dengan <code>assetId</code> yang diberikan. Tidak berfungsi untuk pembelian di Toko Kreator USD.",
+    "documentation": "Mengajak pengguna untuk membeli item dengan <code>assetId</code> yang diberikan. Tidak berfungsi untuk pembelian Toko Kreator USD.",
     "params": [
       {
         "name": "self",
@@ -80092,10 +80068,10 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/1": {
-    "documentation": "Objek <code>Player</code> yang akan diajak untuk berlangganan."
+    "documentation": "Objek <code>Player</code> untuk diajak berlangganan."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2": {
-    "documentation": "ID langganan yang akan diikutsertakan."
+    "documentation": "ID langganan yang akan diajak."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase": {
     "documentation": "Mengajak pengguna untuk membeli langganan untuk <code>subscriptionId</code> yang diberikan.",
@@ -80121,10 +80097,10 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/param/1": {
-    "documentation": "Array objek yang mengidentifikasi produk yang ingin Anda peringkat. Array ini bisa mencakup hingga 50 item. Setiap <code>ProductIdentifier</code> memiliki: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>Harus berupa <code>InfoType.GamePass</code> atau     <code>InfoType.Product</code>.</li> <li><code>Id</code>: number</li> <li>ID dari game pass atau produk pengembang.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
+    "documentation": "Sebuah array dari objek yang mengidentifikasi produk yang ingin Anda urutkan. Array ini bisa mencakup hingga 50 item. Setiap <code>ProductIdentifier</code> memiliki: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>Harus berupa baik <code>InfoType.GamePass</code> atau     <code>InfoType.Product</code>.</li> <li><code>Id</code>: number</li> <li>ID dari game pass atau produk pengembang.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "Array item yang ter排ka urut dalam urutan yang dipersonalisasi untuk pengguna saat ini. Setiap array memiliki: <ul> <li><code>ProductIdentifier</code>: ID yang sesuai dari array input.</li> <li><code>ProductInfo</code>: Kamus info produk standar yang dikembalikan oleh   <code>GetProductInfo</code>.</li> </ul>"
+    "documentation": "Array dari item yang diurutkan dalam urutan yang dipersonalisasi untuk pengguna saat ini. Setiap array memiliki: <ul> <li><code>ProductIdentifier</code>: ID yang sesuai dari array masukan.</li> <li><code>ProductInfo</code>: Kamus informasi produk standar yang dikembalikan oleh   <code>GetProductInfo</code>.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
     "documentation": "Mengambil daftar ID produk dan mengembalikan daftar terurut yang dipersonalisasi dari produk-produk tersebut.",
@@ -80148,13 +80124,13 @@
     "documentation": "Layanan yang bertanggung jawab untuk transaksi dalam pengalaman."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/1": {
-    "documentation": "Array nilai <code>InfoType</code> yang menentukan jenis produk untuk mengambil rekomendasi. <code>InfoTypes</code> yang didukung: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
+    "documentation": "Sebuah array dari nilai <code>InfoType</code> yang menentukan jenis produk yang ingin direkomendasikan untuk diambil. Dukung <code>InfoTypes</code>: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/return/0": {
-    "documentation": "Daftar terurut hingga 50 item yang paling mungkin dilibatkan pengguna, berdasarkan <code>InfoTypes</code> yang diberikan. Jika tidak ada rekomendasi yang dapat ditentukan, metode ini mengembalikan daftar kosong."
+    "documentation": "Daftar terurut hingga 50 item yang paling mungkin untuk terlibat oleh pengguna, dibandingkan pada <code>InfoTypes</code> yang diberikan. Jika tidak ada rekomendasi yang dapat ditentukan, metode ini mengembalikan daftar kosong."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync": {
-    "documentation": "<ul> <li>Mengambil array <code>InfoType</code> dan mengembalikan hingga 50 item   yang mewakili produk yang paling mungkin dilibatkan dan dibeli pengguna.</li> </ul>",
+    "documentation": "<ul> <li>Mengambil array dari <code>InfoType</code> dan mengembalikan hingga 50 item   yang mewakili produk yang paling mungkin untuk terlibat dan dibeli oleh pengguna.</li> </ul>",
     "params": [
       {
         "name": "self",
@@ -80178,13 +80154,13 @@
     "documentation": "ID <code>UserId</code> dari <code>Player</code> yang inventarisnya Anda periksa."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/2": {
-    "documentation": "ID pass yang ingin Anda periksa. Tidak boleh membingungkan dengan ID aset."
+    "documentation": "ID pass yang ingin Anda periksa. Tidak boleh bingung dengan ID aset."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync": {
-    "documentation": "Mengembalikan true jika pemain dengan <code>UserId</code> yang diberikan memiliki pass dengan <code>gamePassId</code> yang diberikan.",
+    "documentation": "Mengembalikan benar jika pemain dengan <code>UserId</code> yang diberikan memiliki pass dengan <code>gamePassId</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -87789,7 +87765,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction": {
-    "documentation": "Mendefinisikan mekanik aksi gameplay. Aksi ini kemudian dipetakan ke input perangkat keras menggunakan <code>InputBinding</code>.",
+    "documentation": "Menentukan mekanik aksi gameplay. Aksi ini kemudian dipetakan ke input perangkat keras menggunakan <code>InputBinding</code>.",
     "keys": {
       "BoolState": "@roblox/globaltype/InputAction.BoolState",
       "Direction1DState": "@roblox/globaltype/InputAction.Direction1DState",
@@ -87809,17 +87785,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Direction1DState": {
-    "documentation": "Properti hanya-baca yang tidak dapat diprogram berguna untuk debugging aksi input <code>Direction1D</code>.",
+    "documentation": "Properti read-only yang tidak dapat diprogram yang berguna untuk debugging aksi input <code>Direction1D</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction1DState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Direction2DState": {
-    "documentation": "Properti hanya-baca yang tidak dapat diprogram berguna untuk debugging aksi input <code>Direction2D</code>.",
+    "documentation": "Properti read-only yang tidak dapat diprogram yang berguna untuk debugging aksi input <code>Direction2D</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction2DState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Direction3DState": {
-    "documentation": "Properti hanya-baca yang tidak dapat diprogram berguna untuk debugging aksi input <code>Direction3D</code>.",
+    "documentation": "Properti read-only yang tidak dapat diprogram yang berguna untuk debugging aksi input <code>Direction3D</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction3DState",
     "code_sample": ""
   },
@@ -87829,18 +87805,18 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Type": {
-    "documentation": "Menentukan jenis nilai input apa yang diharapkan oleh aksi tersebut.",
+    "documentation": "Menentukan tipe nilai input yang diharapkan oleh aksi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Type",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Fire/param/0": {
-    "documentation": "Mendefinisikan mekanik aksi gameplay. Aksi ini kemudian dipetakan ke input perangkat keras menggunakan <code>InputBinding</code>."
+    "documentation": "Menentukan mekanik aksi gameplay. Aksi ini kemudian dipetakan ke input perangkat keras menggunakan <code>InputBinding</code>."
   },
   "@roblox/globaltype/InputAction.Fire/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/InputAction.Fire": {
-    "documentation": "Memperbarui <code>InputAction</code> ke status yang diberikan dan memicu sinyal yang sesuai.",
+    "documentation": "Memperbarui <code>InputAction</code> ke keadaan yang diberikan dan memicu sinyal yang sesuai.",
     "params": [
       {
         "name": "self",
@@ -87856,13 +87832,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.GetState/param/0": {
-    "documentation": "Mendefinisikan mekanik aksi gameplay. Aksi ini kemudian dipetakan ke input perangkat keras menggunakan <code>InputBinding</code>."
+    "documentation": "Menentukan mekanik aksi gameplay. Aksi ini kemudian dipetakan ke input perangkat keras menggunakan <code>InputBinding</code>."
   },
   "@roblox/globaltype/InputAction.GetState/return/0": {
-    "documentation": "Status saat ini dari <code>InputAction</code>."
+    "documentation": "Keadaan saat ini dari <code>InputAction</code>."
   },
   "@roblox/globaltype/InputAction.GetState": {
-    "documentation": "Mengembalikan status saat ini dari <code>InputAction</code>.",
+    "documentation": "Mengembalikan keadaan saat ini dari <code>InputAction</code>.",
     "params": [
       {
         "name": "self",
@@ -87953,7 +87929,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.Pressed": {
-    "documentation": "Hanya dipicu ketika <code>InputAction.Type</code> diatur ke <code>Bool</code> pada transisi status dari <code>false</code> ke <code>true</code>.",
+    "documentation": "Dipicu hanya ketika <code>InputAction.Type</code> diatur ke <code>Bool</code> pada transisi keadaan dari <code>false</code> ke <code>true</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.Pressed.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.Pressed.ConnectParallel",
@@ -88041,7 +88017,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.Released": {
-    "documentation": "Hanya dipicu ketika <code>InputAction.Type</code> diatur ke <code>Bool</code> pada transisi status dari <code>true</code> ke <code>false</code>.",
+    "documentation": "Dipicu hanya ketika <code>InputAction.Type</code> diatur ke <code>Bool</code> pada transisi keadaan dari <code>true</code> ke <code>false</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.Released.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.Released.ConnectParallel",
@@ -88129,7 +88105,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.StateChanged": {
-    "documentation": "Dipicu untuk semua tipe <code>InputActionType</code> kapan pun status berubah, kecuali jika status mencoba bertransisi ke status yang sama.",
+    "documentation": "Dipicu untuk semua tipe <code>InputActionType</code> setiap kali keadaan berubah, kecuali jika keadaan mencoba untuk transisi ke keadaan yang sama.",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.StateChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel",
@@ -88248,7 +88224,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.EmitterSize": {
-    "documentation": "<strong>Deprecated:</strong> Properti ini telah dihapus demi <code>RollOffMinDistance</code> dan <code>RollOffMaxDistance</code> yang sebaiknya digunakan sebaliknya dalam pekerjaan baru.<br>Jarak minimum, dalam studs, di mana <code>Sound</code> 3D (anak langsung <code>BasePart</code> atau <code>Attachment</code>) akan mulai melemah (mengurangi volume).",
+    "documentation": "<strong>Deprecated:</strong> Properti ini telah dinyatakan tidak digunakan lagi demi <code>Sound.RollOffMinDistance</code> dan <code>Sound.RollOffMaxDistance</code> yang seharusnya digunakan sebagai penggantinya pada karyakarya baru.<br>Jarak minimum, dalam studs, di mana <code>Sound</code> 3D (anak langsung <code>BasePart</code> atau <code>Attachment</code>) akan mulai melemah (mengurangi volume).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#EmitterSize",
     "code_sample": ""
   },
@@ -88288,17 +88264,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MaxDistance": {
-    "documentation": "<strong>Deprecated:</strong> Properti ini telah dihapus demi <code>RollOffMaxDistance</code> yang sebaiknya digunakan sebaliknya dalam pekerjaan baru.<br>Jarak maksimum, dalam stud, pendengar klien dapat berada dari titik asal suara dan masih dapat mendengarnya. Hanya berlaku untuk suara yang diparent ke <code>BasePart</code> atau <code>Attachment</code> (suara 3D).",
+    "documentation": "<strong>Deprecated:</strong> Properti ini telah dinyatakan tidak digunakan lagi demi<code>Sound.RollOffMinDistance</code> dan <code>Sound.RollOffMaxDistance</code> yang seharusnya digunakan sebagai gantinya pada karyakarya baru.<br>Jarak maksimum, dalam stud, di mana pendengar klien dapat berada dari asal <code>Sound\\\\s</code> dan masih mendengarnya. Hanya berlaku untuk Suara yang diparentkan ke <code>Part</code> atau <code>Attachment</code> (suara 3D).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MaxDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MinDistance": {
-    "documentation": "<strong>Deprecated:</strong> Properti ini telah dihapus demi <code>RollOffMinDistance</code> yang sebaiknya digunakan sebaliknya dalam pekerjaan baru.<br>Jarak minimum, dalam stud, di mana sebuah 3D <code>Sound</code> (anak langsung dari <code>BasePart</code> atau <code>Attachment</code>) akan mulai menurun. Secara efektif, ukuran emitter.",
+    "documentation": "<strong>Deprecated:</strong> MinDistance telah digantikan oleh <code>Sound.EmitterSize</code>, yang namanya lebih baik menggambarkan perilaku properti ini.<br>Jarak minimum di mana <code>Sound</code> 3D (anak langsung dari <code>BasePart</code> atau <code>Attachment</code>) akan mulai mengurangi. Secara efektif, ukuran emitter.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MinDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.Pitch": {
-    "documentation": "<strong>Deprecated:</strong> Properti ini telah dihapus demi <code>PlaybackSpeed</code> yang namanya lebih sesuai dengan perilaku.<br>Menentukan seberapa tinggi nada dan cepatnya <code>Sound</code> ketika diputar. Semakin besar bilangan bulat, semakin tinggi dan cepat <code>Sound</code>.",
+    "documentation": "<strong>Deprecated:</strong> Properti ini telah dinyatakan tidak digunakan lagi demi <code>Sound.PlaybackSpeed</code> yang namanya lebih cocok dengan perilakunya.<br>Menentukan seberapa tinggi nada dan cepatnya <code>Sound</code> ketika diputar. Semakin besar bilangan bulat, semakin tinggi dan cepat <code>Sound</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Pitch",
     "code_sample": ""
   },
@@ -88313,7 +88289,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackRegionsEnabled": {
-    "documentation": "Jika <code>true</code>, properti ini memberikan akses pada <code>Sound</code> Anda ke <code>PlaybackRegion</code> dan <code>LoopRegion</code> yang dapat lebih akurat mengontrol pemutaran.",
+    "documentation": "Jika <code>true</code>, properti ini memberikan akses kepada <code>Sound</code> ke properti <code>PlaybackRegion</code> dan <code>LoopRegion</code> yang dapat mengontrol pemutaran lebih akurat.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackRegionsEnabled",
     "code_sample": ""
   },
@@ -106503,7 +106479,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size8": {
-    "documentation": "Ukuran font 8.",
+    "documentation": "Ukuran font <code>8</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106513,7 +106489,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size9": {
-    "documentation": "Ukuran font 9.",
+    "documentation": "Ukuran font <code>9</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106523,7 +106499,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size10": {
-    "documentation": "Ukuran font 10.",
+    "documentation": "Ukuran font <code>10</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106533,7 +106509,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size11": {
-    "documentation": "Ukuran font 11.",
+    "documentation": "Ukuran font <code>11</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106543,7 +106519,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size12": {
-    "documentation": "Ukuran font 12.",
+    "documentation": "Ukuran font <code>12</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106553,7 +106529,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size14": {
-    "documentation": "Ukuran font 14.",
+    "documentation": "Ukuran font <code>14</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106563,7 +106539,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size18": {
-    "documentation": "Ukuran font 18.",
+    "documentation": "Ukuran font <code>18</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106573,7 +106549,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size24": {
-    "documentation": "Ukuran font 24.",
+    "documentation": "Ukuran font <code>24</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106583,7 +106559,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size36": {
-    "documentation": "Ukuran font 36.",
+    "documentation": "Ukuran font <code>36</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106593,7 +106569,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size48": {
-    "documentation": "Ukuran font 48.",
+    "documentation": "Ukuran font <code>48</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106603,7 +106579,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size28": {
-    "documentation": "Ukuran font 28.",
+    "documentation": "Ukuran font <code>28</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106613,7 +106589,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size32": {
-    "documentation": "Ukuran font 32.",
+    "documentation": "Ukuran font <code>32</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106623,7 +106599,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size42": {
-    "documentation": "Ukuran font 42.",
+    "documentation": "Ukuran font <code>42</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106633,7 +106609,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size60": {
-    "documentation": "Ukuran font 60.",
+    "documentation": "Ukuran font <code>60</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106643,7 +106619,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size96": {
-    "documentation": "Ukuran font 96.",
+    "documentation": "Ukuran font <code>96</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119554,7 +119530,7 @@
     "code_sample": ""
   },
   "@roblox/enum/UICaptureMode.All": {
-    "documentation": "",
+    "documentation": "Tangkap semua elemen UI.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119564,7 +119540,7 @@
     "code_sample": ""
   },
   "@roblox/enum/UICaptureMode.None": {
-    "documentation": "",
+    "documentation": "Tidak menangkap elemen UI manapun.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119574,7 +119550,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.UICaptureMode": {
-    "documentation": "",
+    "documentation": "Digunakan untuk menentukan elemen UI mana yang harus ditangkap dengan <code>CaptureService</code>.",
     "keys": {
       "All": "@roblox/enum/UICaptureMode.All",
       "None": "@roblox/enum/UICaptureMode.None"
@@ -123403,7 +123379,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Play": {
-    "documentation": "Pengguna bergabung dengan pengalaman melalui item.",
+    "documentation": "Pengguna bergabung dengan pengalaman melalui item, atau memainkan mini-game yang terkait dengan item tersebut.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123437,7 +123413,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Legacy": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Legacy.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Legacy.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123447,7 +123423,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Arial": {
-    "documentation": "Arial telah dihapus dari Roblox. Menggunakan Arial akan dipetakan ke Arimo.",
+    "documentation": "<code>Arial</code> telah dihapus. Menggunakannya akan dipetakan ke keluarga font <code>Arimo</code> dari tipe data <code>Font</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123457,7 +123433,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.ArialBold": {
-    "documentation": "Arial telah dihapus dari Roblox. Menggunakan Arial akan dipetakan ke Arimo.",
+    "documentation": "<code>ArialBold</code> telah dihapus. Menggunakannya akan dipetakan ke keluarga font <code>Arimo</code> dari tipe data <code>Font</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123467,7 +123443,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSans": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSans.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSans.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123477,7 +123453,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansBold.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansBold.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123487,7 +123463,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansLight": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansLight.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansLight.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123497,7 +123473,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansItalic": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansItalic.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansItalic.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123507,7 +123483,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Bodoni": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Bodoni.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Bodoni.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123517,7 +123493,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Garamond": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Garamond.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Garamond.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123527,7 +123503,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Cartoon": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Cartoon.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Cartoon.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123537,7 +123513,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Code": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Code.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Code.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123547,7 +123523,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Highway": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Highway.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Highway.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123557,7 +123533,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SciFi": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SciFi.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SciFi.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123567,7 +123543,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Arcade": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Arcade.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Arcade.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123577,7 +123553,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Fantasy": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Fantasy.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Fantasy.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123587,7 +123563,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Antique": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Antique.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Antique.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123597,7 +123573,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansSemibold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansSemibold.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansSemibold.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123607,7 +123583,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Gotham": {
-    "documentation": "Gotham telah dihapus dari Roblox. Menggunakan Gotham akan dipetakan ke Montserrat.",
+    "documentation": "<code>Gotham</code> telah dihapus. Menggunakannya akan dipetakan ke keluarga font <code>Montserrat</code> dari tipe data <code>Font</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123617,7 +123593,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GothamMedium": {
-    "documentation": "Gotham telah dihapus dari Roblox. Menggunakan Gotham akan dipetakan ke Montserrat.",
+    "documentation": "<code>GothamMedium</code> telah dihapus. Menggunakannya akan dipetakan ke keluarga font <code>Montserrat</code> dari tipe data <code>Font</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123627,7 +123603,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GothamBold": {
-    "documentation": "Gotham telah dihapus dari Roblox. Menggunakan Gotham akan dipetakan ke Montserrat.",
+    "documentation": "<code>GothamBold</code> telah dihapus. Menggunakannya akan dipetakan ke keluarga font <code>Montserrat</code> dari tipe data <code>Font</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123637,7 +123613,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GothamBlack": {
-    "documentation": "Gotham telah dihapus dari Roblox. Menggunakan Gotham akan dipetakan ke Montserrat.",
+    "documentation": "<code>GothamBlack</code> telah dihapus. Menggunakannya akan dipetakan ke keluarga font <code>Montserrat</code> dari tipe data <code>Font</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123647,7 +123623,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.AmaticSC": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/AmaticSC.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/AmaticSC.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123657,7 +123633,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Bangers": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Bangers.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Bangers.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123667,7 +123643,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Creepster": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Creepster.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Creepster.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123677,7 +123653,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.DenkOne": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/DenkOne.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/DenkOne.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123687,7 +123663,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Fondamento": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Fondamento.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Fondamento.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123697,7 +123673,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.FredokaOne": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/FredokaOne.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/FredokaOne.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123707,7 +123683,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GrenzeGotisch": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/GrenzeGotisch.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/GrenzeGotisch.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123717,7 +123693,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.IndieFlower": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/IndieFlower.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/IndieFlower.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123727,7 +123703,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.JosefinSans": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/JosefinSans.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/JosefinSans.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123737,7 +123713,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Jura": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Jura.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Jura.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123747,7 +123723,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Kalam": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Kalam.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Kalam.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123757,7 +123733,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.LuckiestGuy": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/LuckiestGuy.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/LuckiestGuy.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123767,7 +123743,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Merriweather": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Merriweather.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Merriweather.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123777,7 +123753,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Michroma": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Michroma.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Michroma.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123787,7 +123763,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Nunito": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Nunito.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Nunito.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123797,7 +123773,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Oswald": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Oswald.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Oswald.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123807,7 +123783,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.PatrickHand": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/PatrickHand.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/PatrickHand.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123817,7 +123793,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.PermanentMarker": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/PermanentMarker.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/PermanentMarker.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123827,7 +123803,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Roboto": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Roboto.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Roboto.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123837,7 +123813,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.RobotoCondensed": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/RobotoCondensed.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/RobotoCondensed.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123847,7 +123823,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.RobotoMono": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/RobotoMono.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/RobotoMono.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123857,7 +123833,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Sarpanch": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Sarpanch.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Sarpanch.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123867,7 +123843,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SpecialElite": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SpecialElite.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SpecialElite.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123877,7 +123853,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.TitilliumWeb": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/TitilliumWeb.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/TitilliumWeb.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123887,7 +123863,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Ubuntu": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Ubuntu.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Ubuntu.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123897,7 +123873,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSans": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSans.png\" /> Lihat <a href=\"../../../resources/builder-font-license.md\">Lisensi Font Builder</a>.",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSans.png\" /> Lihat <a href=\"../../../resources/builder-font-license.md\">Lisensi Font Builder</a>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123907,7 +123883,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSansMedium": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSansMedium.png\" /> Lihat <a href=\"../../../resources/builder-font-license.md\">Lisensi Font Builder</a>.",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSansMedium.png\" /> Lihat <a href=\"../../../resources/builder-font-license.md\">Lisensi Font Builder</a>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123917,7 +123893,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSansBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSansBold.png\" /> Lihat <a href=\"../../../resources/builder-font-license.md\">Lisensi Font Builder</a>.",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSansBold.png\" /> Lihat <a href=\"../../../resources/builder-font-license.md\">Lisensi Font Builder</a>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123927,7 +123903,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSansExtraBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSansExtraBold.png\" /> Lihat <a href=\"../../../resources/builder-font-license.md\">Lisensi Font Builder</a>.",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSansExtraBold.png\" /> Lihat <a href=\"../../../resources/builder-font-license.md\">Lisensi Font Builder</a>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123937,7 +123913,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Arimo": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Arimo.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Arimo.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123947,7 +123923,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.ArimoBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/ArimoBold.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/ArimoBold.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123957,7 +123933,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Unknown": {
-    "documentation": "Ditetapkan saat properti <code>TextLabel.FontFace</code> diatur ke <code>Font</code> yang tidak memiliki nilai enum yang sesuai.",
+    "documentation": "Ditetapkan ketika wajah font objek GUI disetel ke <code>Font</code> yang tidak memiliki nilai enum yang sesuai.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127706,7 +127682,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ScreenInsets.TopbarSafeInsets": {
-    "documentation": "Inset area aman bar atas ditambahkan ke area <code>DeviceSafeInsets</code>, hasilnya adalah area yang dijamin tidak akan terhalang oleh potongan layar perangkat maupun elemen UI inti Roblox seperti kontrol pengalaman. Berbeda dengan <code>CoreUISafeInsets</code>, posisi dan ukuran area ini dinamis dan terbatas pada ruang yang tersedia dalam area bar atas itu sendiri, di luar <code>CoreUISafeInsets</code>.",
+    "documentation": "Inset area aman pada bilah atas ditambahkan ke area <code>DeviceSafeInsets</code>, menghasilkan area yang dijamin tidak terhalang oleh potongan layar perangkat dan elemen UI inti Roblox seperti kontrol pengalaman. Tidak seperti <code>CoreUISafeInsets</code>, posisi dan ukuran area ini dinamis dan dibatasi pada ruang yang tersedia dalam area bilah atas itu sendiri, di luar <code>CoreUISafeInsets</code>. Lihat properti <code>GuiService.TopbarInset</code> yang mewakili ukuran dan posisi absolut dari area yang tidak terhalang dalam ruang bilah atas.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130776,7 +130752,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.FontStyle": {
-    "documentation": "Menjelaskan apakah <code>Font</code> adalah miring atau tidak.",
+    "documentation": "Menjelaskan apakah gaya <code>Font</code> normal atau miring.",
     "keys": {
       "Normal": "@roblox/enum/FontStyle.Normal",
       "Italic": "@roblox/enum/FontStyle.Italic"
@@ -142764,13 +142740,13 @@
     "code_sample": ""
   },
   "@roblox/global/delay/param/0": {
-    "documentation": "Jumlah waktu yang akan diurutkan sebelum fungsi ini dieksekusi."
+    "documentation": "Jumlah waktu fungsi ini akan dibariskan sebelum dieksekusi."
   },
   "@roblox/global/delay/param/1": {
-    "documentation": "Fungsi yang akan dieksekusi setelah <code>delayTime</code> detik telah dilewati."
+    "documentation": "Fungsi yang akan dieksekusi setelah <code>delayTime</code> detik telah berlalu."
   },
   "@roblox/global/delay": {
-    "documentation": "<strong>Deprecated:</strong> Metode ini telah digantikan oleh <code>task.delay()</code> dan sebaiknya tidak digunakan untuk pekerjaan mendatang.<br>Menjadwalkan sebuah fungsi untuk dipanggil pada Heartbeat berikutnya setelah lama yang diberikan (dalam detik) telah berlalu, dengan throttling.",
+    "documentation": "<strong>Deprecated:</strong> Metode ini telah digantikan oleh <code>task.delay()</code> dan tidak boleh  digunakan untuk pekerjaan di masa depan.<br>Menjadwalkan sebuah fungsi untuk dipanggil pada Heartbeat berikutnya setelah jangka waktu yang diberikan (dalam detik) berlalu, dengan throttling.",
     "params": [
       {
         "name": "delayTime",
@@ -142789,7 +142765,7 @@
     "documentation": ""
   },
   "@roblox/global/DebuggerManager": {
-    "documentation": "<strong>Deprecated:</strong> <code>DebuggerManager</code> sudah tidak terpakai dan tidak memiliki banyak kasus penggunaan untuk pengembang.<br>Mengacu pada kelas <code>DebuggerManager</code> yang sudah usang yang bertindak sebagai antarmuka untuk fitur debugger Luau.",
+    "documentation": "<strong>Deprecated:</strong> <code>DebuggerManager</code> sudah usang dan tidak memberikan manfaat berarti bagi developer.<br>Merujuk ke kelas <code>DebuggerManager</code> yang sudah usang yang bertindak sebagai antarmuka untuk fitur debugger Luau.",
     "params": [],
     "returns": [
       "@roblox/global/DebuggerManager/return/0"
@@ -142801,7 +142777,7 @@
     "documentation": ""
   },
   "@roblox/global/elapsedTime": {
-    "documentation": "Mengembalikan jumlah waktu dalam detik bahwa instansi Roblox saat ini sudah berjalan.",
+    "documentation": "Mengembalikan jumlah waktu dalam detik bahwa instance Roblox saat ini telah berjalan.",
     "params": [],
     "returns": [
       "@roblox/global/elapsedTime/return/0"
@@ -142813,7 +142789,7 @@
     "documentation": ""
   },
   "@roblox/global/PluginManager": {
-    "documentation": "Mengacu pada PluginManager, sebuah singleton yang sudah tidak terpakai yang sebelumnya diperlukan untuk membuat plugin.",
+    "documentation": "Merujuk pada <code>PluginManager</code>, sebuah singleton yang telah dihapus yang sebelumnya diperlukan untuk membuat plugin.",
     "params": [],
     "returns": [
       "@roblox/global/PluginManager/return/0"
@@ -142825,7 +142801,7 @@
     "documentation": ""
   },
   "@roblox/global/printidentity": {
-    "documentation": "<strong>Deprecated:</strong> <br>Mencetak \"Identitas saat ini adalah X\", di mana X sesuai dengan level konteks keamanan utas saat ini.",
+    "documentation": "<strong>Deprecated:</strong> <br>Mencetak \"Identitas saat ini adalah X\", di mana X sesuai dengan  level konteks keamanan thread saat ini.",
     "params": [
       {
         "name": "prefix",
@@ -142840,7 +142816,7 @@
     "documentation": ""
   },
   "@roblox/global/settings": {
-    "documentation": "Mengembalikan objek <code>GlobalSettings</code>, yang dapat digunakan untuk mengakses objek pengaturan yang mengkonfigurasi perilaku Roblox Studio.",
+    "documentation": "Mengembalikan objek <code>GlobalSettings</code>, yang dapat digunakan untuk  mengakses objek pengaturan yang mengonfigurasi perilaku Roblox Studio.",
     "params": [],
     "returns": [
       "@roblox/global/settings/return/0"
@@ -142852,7 +142828,7 @@
     "documentation": "Fungsi yang akan dieksekusi."
   },
   "@roblox/global/spawn": {
-    "documentation": "<strong>Deprecated:</strong> Metode ini telah digantikan oleh <code>task.spawn()</code> dan sebaiknya tidak digunakan untuk pekerjaan mendatang.<br>Memanggil fungsi segera melalui penjadwal mesin, dengan throttling.",
+    "documentation": "<strong>Deprecated:</strong> Metode ini telah digantikan oleh <code>task.spawn()</code> dan tidak boleh  digunakan untuk pekerjaan di masa depan.<br>Memanggil sebuah fungsi segera melalui penjadwal engine, dengan  throttling.",
     "params": [
       {
         "name": "callback",
@@ -142879,7 +142855,7 @@
     "documentation": ""
   },
   "@roblox/global/tick": {
-    "documentation": "Mengembalikan jumlah waktu dalam detik sejak epoch Unix menurut waktu perangkat ini.",
+    "documentation": "Mengembalikan jumlah waktu dalam detik sejak epoch Unix menurut  waktu perangkat ini.",
     "params": [],
     "returns": [
       "@roblox/global/tick/return/0"
@@ -142891,7 +142867,7 @@
     "documentation": ""
   },
   "@roblox/global/time": {
-    "documentation": "Mengembalikan jumlah waktu dalam detik yang telah berlalu sejak instansi game saat ini mulai berjalan.",
+    "documentation": "Mengembalikan jumlah waktu dalam detik yang telah berlalu sejak instance  game saat ini mulai berjalan.",
     "params": [],
     "returns": [
       "@roblox/global/time/return/0"
@@ -142906,7 +142882,7 @@
     "documentation": ""
   },
   "@roblox/global/typeof": {
-    "documentation": "Mengembalikan tipe dari objek yang diberikan sebagai string, juga mendukung tipe khusus Roblox (misalnya Vector3).",
+    "documentation": "Mengembalikan tipe objek yang diberikan sebagai string, juga mendukung tipe khusus Roblox (contohnya Vector3).",
     "params": [
       {
         "name": "object",
@@ -142923,7 +142899,7 @@
     "documentation": ""
   },
   "@roblox/global/UserSettings": {
-    "documentation": "Mengembalikan objek UserSettings, yang digunakan untuk membaca informasi dari pengaturan menu game pengguna saat ini.",
+    "documentation": "Mengembalikan objek UserSettings, yang digunakan untuk membaca informasi dari  pengaturan menu game pengguna saat ini.",
     "params": [],
     "returns": [
       "@roblox/global/UserSettings/return/0"
@@ -142935,7 +142911,7 @@
     "documentation": ""
   },
   "@roblox/global/version": {
-    "documentation": "Mengembalikan versi saat ini dari Roblox sebagai string, yang mencakup generasi, versi, patch, dan commit.",
+    "documentation": "Mengembalikan versi saat ini dari Roblox sebagai string, yang mencakup  generasi, versi, patch, dan commit.",
     "params": [],
     "returns": [
       "@roblox/global/version/return/0"
@@ -142944,7 +142920,7 @@
     "code_sample": ""
   },
   "@roblox/global/wait/param/0": {
-    "documentation": "Menentukan berapa lama thread harus menunggu."
+    "documentation": "Menentukan berapa lama thread harus ditahan."
   },
   "@roblox/global/wait/return/0": {
     "documentation": ""
@@ -142953,7 +142929,7 @@
     "documentation": ""
   },
   "@roblox/global/wait": {
-    "documentation": "<strong>Deprecated:</strong> Metode ini telah digantikan oleh <code>task.wait()</code> dan sebaiknya tidak digunakan untuk pekerjaan mendatang.<br>Menunggu utas saat ini hingga jumlah waktu yang ditentukan dalam detik berlalu, dengan throttling.",
+    "documentation": "<strong>Deprecated:</strong> Metode ini telah digantikan oleh <code>task.wait()</code> dan tidak boleh  digunakan untuk pekerjaan di masa depan.<br>Menahan thread saat ini hingga jumlah waktu yang ditentukan dalam detik  telah berlalu, dengan throttling.",
     "params": [
       {
         "name": "seconds",
@@ -142968,10 +142944,10 @@
     "code_sample": ""
   },
   "@roblox/global/warn/param/0": {
-    "documentation": "Fungsi ini menerima berapapun jumlah argumen, dan akan berusaha untuk mengubahnya menjadi string yang kemudian akan digabungkan dengan spasi di antara mereka."
+    "documentation": "Fungsi ini menerima any jumlah argumen, dan akan mencoba mengonversinya  menjadi string yang kemudian akan digabungkan dengan spasi di antaranya."
   },
   "@roblox/global/warn": {
-    "documentation": "Bertindak serupa dengan print, kecuali dengan formatting yang lebih mencolok (kuning); ditujukan untuk pesan yang menjelaskan potensi masalah.",
+    "documentation": "Berkelakuan mirip dengan print, kecuali dengan format yang lebih jelas (kuning);  ditujukan untuk pesan yang menjelaskan masalah potensial.",
     "params": [
       {
         "name": "params",
@@ -142995,7 +142971,7 @@
     "documentation": ""
   },
   "@roblox/global/ypcall": {
-    "documentation": "<strong>Deprecated:</strong> <br>Fungsi warisan untuk mengatasi keterbatasan penjadwalan tugas lama dari <code>pcall()</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Fungsi legacy untuk mengatasi batasan penjadwalan tugas lama dari  <code>pcall()</code>.",
     "params": [
       {
         "name": "f",
@@ -143014,22 +142990,22 @@
     "code_sample": ""
   },
   "@roblox/global/Enum": {
-    "documentation": "Berisi semua objek Enum.",
+    "documentation": "Mengandung semua objek Enum.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/RobloxGlobals#Enum",
     "code_sample": ""
   },
   "@roblox/global/game": {
-    "documentation": "Mengacu pada singleton DataModel, instansi root dari hirarki sebuah tempat.",
+    "documentation": "Merujuk ke singleton DataModel, instance root dari hierarki tempat.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/RobloxGlobals#game",
     "code_sample": ""
   },
   "@roblox/global/plugin": {
-    "documentation": "Mengacu pada singleton Plugin saat kode dijalankan dalam konteks plugin Studio.",
+    "documentation": "Merujuk ke singleton Plugin saat kode dijalankan dalam konteks plugin Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/RobloxGlobals#plugin",
     "code_sample": ""
   },
   "@roblox/global/shared": {
-    "documentation": "Sebuah tabel yang dibagikan antara semua kode yang berjalan pada tingkat konteks eksekusi yang sama.",
+    "documentation": "Sebuah tabel yang dibagikan antara semua kode yang berjalan pada level konteks eksekusi yang sama.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/RobloxGlobals#shared",
     "code_sample": ""
   },
@@ -143039,7 +143015,7 @@
     "code_sample": ""
   },
   "@roblox/global/workspace": {
-    "documentation": "Referensi ke layanan Workspace, yang berisi semua komponen fisik dari sebuah tempat.",
+    "documentation": "Referensi ke layanan Workspace, yang berisi semua komponen fisik sebuah tempat.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/RobloxGlobals#workspace",
     "code_sample": ""
   }

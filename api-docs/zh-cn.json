@@ -4031,7 +4031,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Font#fromEnum",
-    "code_sample": "script.Parent.FontFace = Font.fromEnum(Enum.Font.SciFi)\nprint(script.Parent.FontFace)"
+    "code_sample": ""
   },
   "@roblox/global/Font.fromName/param/0": {
     "documentation": "字体的名称。"
@@ -4043,7 +4043,7 @@
     "documentation": "文本是正常样式还是斜体。"
   },
   "@roblox/global/Font.fromName": {
-    "documentation": "从类似 <code>FredokaOne</code> 的名称创建字体。",
+    "documentation": "从像 <code>FredokaOne</code> 这样的名称创建一个 <code>Font</code>。",
     "params": [
       {
         "name": "name",
@@ -4060,7 +4060,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Font#fromName",
-    "code_sample": "script.Parent.FontFace = Font.fromName(\"FredokaOne\")\nprint(script.Parent.FontFace.Family)"
+    "code_sample": ""
   },
   "@roblox/global/Font.fromId/param/0": {
     "documentation": "字体的资产 ID，作为数字。"
@@ -4072,7 +4072,7 @@
     "documentation": "文本是正常样式还是斜体。"
   },
   "@roblox/global/Font.fromId": {
-    "documentation": "从数值资产 ID 创建字体。",
+    "documentation": "从数字资产 ID 创建一个 <code>Font</code>。",
     "params": [
       {
         "name": "id",
@@ -4089,7 +4089,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Font#fromId",
-    "code_sample": "script.Parent.FontFace = Font.fromId(8836875837)\nprint(script.Parent.FontFace.Family)"
+    "code_sample": "local label = script.Parent.TextLabel\nlabel.FontFace = Font.fromId(8836875837)\n\nprint(label.FontFace) --> 字体 { 家族 = rbxassetid://8836875837, 重量 = 常规, 风格 = 正常 }"
   },
   "@roblox/globaltype/Font": {
     "documentation": "描述用于渲染文本的字体。",
@@ -6099,10 +6099,10 @@
     "documentation": "用户将光标悬停在按钮上时显示的工具提示中的文本。"
   },
   "@roblox/globaltype/PluginToolbar.CreateButton/param/3": {
-    "documentation": "按钮中显示的图标的资产 ID（例如 rbxassetid://1507949215）。"
+    "documentation": "按钮中显示的图标的资产 ID。"
   },
   "@roblox/globaltype/PluginToolbar.CreateButton/param/4": {
-    "documentation": "在按钮图标下显示的文本。可选。如果未提供此字段，将使用 <strong>ID</strong>。"
+    "documentation": "显示在按钮图标下方的可选文本。"
   },
   "@roblox/globaltype/PluginToolbar.CreateButton/return/0": {
     "documentation": "创建的 <code>PluginToolbarButton</code> 实例。"
@@ -6523,7 +6523,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.AutoRuns": {
-    "documentation": "如果设置为true，当调用TestService的 <code>TestService:Run()</code>方法时，游戏将开始运行。",
+    "documentation": "如果设置为 <code>true</code>，则在服务的 <code>TestService:Run()</code> 方法被调用时，游戏将开始运行。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#AutoRuns",
     "code_sample": ""
   },
@@ -6538,7 +6538,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ExecuteWithStudioRun": {
-    "documentation": "设置为true时，当在Roblox Studio中使用 _Run_操作时，将执行TestService。",
+    "documentation": "当设置为 <code>true</code> 时，在 Roblox Studio 中使用 <strong>Run</strong> 动作时，将执行 <code>TestService</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ExecuteWithStudioRun",
     "code_sample": ""
   },
@@ -6603,7 +6603,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Check": {
-    "documentation": "将条件结果打印到输出。",
+    "documentation": "将条件的结果打印到输出中。",
     "params": [
       {
         "name": "self",
@@ -6628,7 +6628,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Check",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Check(false, \"example\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Checkpoint/param/0": {
     "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
@@ -6643,7 +6643,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Checkpoint": {
-    "documentation": "打印\"测试检查点：\"，后面跟着文本，输出为蓝色文本。",
+    "documentation": "打印以 <code>Test checkpoint:</code> 开头的字符串到输出，使用蓝色文本。",
     "params": [
       {
         "name": "self",
@@ -6664,13 +6664,13 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Checkpoint",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Checkpoint(\"示例\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Done/param/0": {
     "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
   },
   "@roblox/globaltype/TestService.Done": {
-    "documentation": "在输出中打印测试完成，使用蓝色文本。",
+    "documentation": "以蓝色文本打印 <code>Testing Done</code> 到输出。",
     "params": [
       {
         "name": "self",
@@ -6679,7 +6679,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Done",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\n-- 这将调用完成方法\nTestService:Done()  -- 完成"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Error/param/0": {
     "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
@@ -6694,7 +6694,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Error": {
-    "documentation": "打印红色消息到输出，前缀为<code>TestService:</code>。",
+    "documentation": "以红色错误消息打印到输出，前缀为 <code>TestService:</code>。",
     "params": [
       {
         "name": "self",
@@ -6715,7 +6715,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Error",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Error(\"这是一个错误\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Fail/param/0": {
     "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
@@ -6730,7 +6730,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Fail": {
-    "documentation": "表示TestService运行中的致命错误。如果在TestService内部的脚本中调用该函数， 将会在引发错误的行上启动一个断点。",
+    "documentation": "指示 <code>TestService</code> 运行中的致命错误。",
     "params": [
       {
         "name": "self",
@@ -6793,7 +6793,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Message": {
-    "documentation": "打印测试消息，后面跟着文本到输出，使用蓝色文本。",
+    "documentation": "以蓝色文本打印 <code>TestService:</code> 后跟字符串到输出。",
     "params": [
       {
         "name": "self",
@@ -6814,7 +6814,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Message",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\n-- 发送消息\nTestService:Message(\"示例\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Require/param/0": {
     "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
@@ -6832,7 +6832,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Require": {
-    "documentation": "打印条件是否为真以及描述文本。",
+    "documentation": "打印条件是否为真以及描述字符串。",
     "params": [
       {
         "name": "self",
@@ -6857,13 +6857,13 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Require",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Require(false, \"example\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.RunAsync/param/0": {
     "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
   },
   "@roblox/globaltype/TestService.RunAsync": {
-    "documentation": "运行父级为TestService的脚本。",
+    "documentation": "运行与 <code>TestService</code> 关联的脚本。",
     "params": [
       {
         "name": "self",
@@ -6878,7 +6878,7 @@
     "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
   },
   "@roblox/globaltype/TestService.Run": {
-    "documentation": "<strong>Deprecated:</strong> <br>运行父级为 TestService 的脚本。",
+    "documentation": "<strong>Deprecated:</strong> <br>运行与 <code>TestService</code> 关联的脚本。",
     "params": [
       {
         "name": "self",
@@ -6947,7 +6947,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Warn": {
-    "documentation": "如果条件为真，则打印，否则打印警告。",
+    "documentation": "打印条件是否为 <code>true</code>，否则打印警告。",
     "params": [
       {
         "name": "self",
@@ -6972,7 +6972,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Warn",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Warn(false, \"该操作无效\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.ServerCollectConditionalResult.Connect/param/0": {
     "documentation": "一个在特定事件发生时运行连接的函数的对象。"
@@ -11414,12 +11414,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PluginAction.AllowBinding": {
-    "documentation": "是否从 Studio 的快捷键视图中隐藏 <code>PluginAction</code>。",
+    "documentation": "确定操作是否可以在 Studio 中分配键盘快捷键。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginAction#AllowBinding",
     "code_sample": ""
   },
   "@roblox/globaltype/PluginAction.StatusTip": {
-    "documentation": "在 Roblox Studio 的键盘快捷键窗口中查看此操作时的描述。",
+    "documentation": "在 Roblox Studio 的键盘快捷键窗口中查看操作时的描述。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginAction#StatusTip",
     "code_sample": ""
   },
@@ -11506,7 +11506,7 @@
     "returns": []
   },
   "@roblox/globaltype/PluginAction.Triggered": {
-    "documentation": "当操作被触发时触发此事件。这可以通过从快速访问工具栏激活操作或使用 绑定到它的键盘快捷键来完成。",
+    "documentation": "当操作被触发时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/PluginAction.Triggered.Connect",
       "ConnectParallel": "@roblox/globaltype/PluginAction.Triggered.ConnectParallel",
@@ -11883,7 +11883,7 @@
     "returns": []
   },
   "@roblox/globaltype/NetworkClient.ConnectionAccepted": {
-    "documentation": "当客户端成功连接到服务器时触发。返回一个字符串 显示服务器的 IP 和端口，以及客户端的 <code>ClientReplicator</code>。",
+    "documentation": "当客户端成功连接到服务器时触发。返回一个字符串 显示服务器的IP和端口，以及客户端的 <code>ClientReplicator</code>。",
     "keys": {
       "Connect": "@roblox/globaltype/NetworkClient.ConnectionAccepted.Connect",
       "ConnectParallel": "@roblox/globaltype/NetworkClient.ConnectionAccepted.ConnectParallel",
@@ -16748,7 +16748,7 @@
       "@roblox/globaltype/BadgeService.CheckUserBadgesAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#CheckUserBadgesAsync",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\nlocal badgeIds = { 0000000000, 1111111111, 2222222222 } -- 将此更改为您的徽章ID列表\nlocal function onPlayerAdded(player)\n\t-- 检查玩家是否拥有任何徽章\n\tlocal success, result = pcall(function()\n\t\treturn BadgeService:CheckUserBadgesAsync(player.UserId, badgeIds)\n\tend)\n\t-- 如果发生错误，发出警告并退出函数\n\tif not success then\n\t\twarn(\"检查玩家\", player.Name, \"是否拥有徽章时发生错误:\", result)\n\t\treturn\n\tend\n\n\tlocal ownedBadgeIds = result\n\n\tif #ownedBadgeIds == 0 then\n\t\tprint(player.Name, \"没有任何徽章\")\n\telse\n\t\tprint(player.Name, \"拥有以下徽章:\", table.concat(ownedBadgeIds, \", \"))\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal badgeIds = { 0000000000, 1111111111, 2222222222 } -- 将此更改为您的徽章 ID 列表\n\nlocal function onPlayerAdded(player)\n\t-- 检查玩家是否拥有任何徽章\n\tlocal success, result = pcall(function()\n\t\treturn BadgeService:CheckUserBadgesAsync(player.UserId, badgeIds)\n\tend)\n\t-- 如果发生错误，发出警告并退出函数\n\tif not success then\n\t\twarn(\"检查玩家\", player.Name, \"是否拥有徽章时出错:\", result)\n\t\treturn\n\tend\n\n\tlocal ownedBadgeIds = result\n\n\tif #ownedBadgeIds == 0 then\n\t\tprint(player.Name, \"没有任何徽章\")\n\telse\n\t\tprint(player.Name, \"拥有以下徽章:\", table.concat(ownedBadgeIds, \", \"))\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/BadgeService.GetBadgeInfoAsync/param/0": {
     "documentation": "提供有关徽章的信息并授予它们。"
@@ -16829,7 +16829,7 @@
       "@roblox/globaltype/BadgeService.IsLegal/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#IsLegal",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal BADGE_ID = 0\n\nlocal function awardBadge(player, badgeId)\n\t-- 检查徽章是否可以颁发\n\tif BadgeService:IsLegal(badgeId) and not BadgeService:IsDisabled(badgeId) then\n\t\t-- 颁发徽章\n\t\tBadgeService:AwardBadge(player.UserId, badgeId)\n\tend\nend\n\nlocal function onPlayerAdded(player)\n\tawardBadge(player, BADGE_ID)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.UserHasBadge/param/0": {
     "documentation": "提供有关徽章的信息并授予它们。"
@@ -16844,7 +16844,7 @@
     "documentation": "如果用户拥有徽章，则为真。"
   },
   "@roblox/globaltype/BadgeService.UserHasBadge": {
-    "documentation": "<strong>Deprecated:</strong> 此函数已被替代，使用 <code>BadgeService:UserHasBadgeAsync()</code> 进行新工作。<br>根据 <code>Player.UserId</code> 和徽章 ID 检查用户是否拥有该徽章。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>BadgeService:UserHasBadgeAsync()</code> 所取代，后者应被用于新的开发中。<br>根据 <code>Player.UserId</code> 和徽章 ID 检查用户是否拥有该徽章。",
     "params": [
       {
         "name": "self",
@@ -16863,7 +16863,7 @@
       "@roblox/globaltype/BadgeService.UserHasBadge/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#UserHasBadge",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal BADGE_ID = 123\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif BadgeService:UserHasBadge(player.UserId, BADGE_ID) then\n\t\tprint(\"用户拥有此徽章\")\n\telse\n\t\tprint(\"用户没有这个徽章\")\n\tend\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.UserHasBadgeAsync/param/0": {
     "documentation": "提供有关徽章的信息并授予它们。"
@@ -23025,12 +23025,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PluginMenu.Icon": {
-    "documentation": "用作子菜单时显示的图标。",
+    "documentation": "作为子菜单使用时要显示的图标。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginMenu#Icon",
     "code_sample": ""
   },
   "@roblox/globaltype/PluginMenu.Title": {
-    "documentation": "用作子菜单时显示的文本。",
+    "documentation": "作为子菜单使用时要显示的文本。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginMenu#Title",
     "code_sample": ""
   },
@@ -23060,7 +23060,7 @@
     "documentation": "在 Studio 中显示的上下文菜单。显示 <code>PluginActions</code> 的列表并支持子菜单。"
   },
   "@roblox/globaltype/PluginMenu.AddMenu/param/1": {
-    "documentation": "作为子菜单添加的菜单。使用其 <code>PluginMenu.Title</code> 和 <code>PluginMenu.Icon</code> 进行显示。"
+    "documentation": "要添加为子菜单的菜单。使用其 <code>Title</code> 和 <code>Icon</code> 进行显示。"
   },
   "@roblox/globaltype/PluginMenu.AddMenu": {
     "documentation": "将给定菜单作为分隔符添加。",
@@ -23082,7 +23082,7 @@
     "documentation": "在 Studio 中显示的上下文菜单。显示 <code>PluginActions</code> 的列表并支持子菜单。"
   },
   "@roblox/globaltype/PluginMenu.AddNewAction/param/1": {
-    "documentation": "必须是唯一的字符串，以识别此 PluginAction。"
+    "documentation": "必须是一个唯一的字符串，用于将此 <code>PluginAction</code> 与其他操作区分开。"
   },
   "@roblox/globaltype/PluginMenu.AddNewAction/param/2": {
     "documentation": "要显示的文本。"
@@ -31881,7 +31881,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Capture": {
-    "documentation": "一个定义了内容片段的类，例如在体验中拍摄的截图或视频。",
+    "documentation": "一个定义内容的类，例如在体验中拍摄的截图或视频。",
     "keys": {
       "CaptureTime": "@roblox/globaltype/Capture.CaptureTime",
       "CaptureType": "@roblox/globaltype/Capture.CaptureType",
@@ -33529,7 +33529,7 @@
     "code_sample": "assert(plugin, \"此脚本必须作为插件运行！\")\n-- 此后代码仅在脚本作为插件运行时执行\n\n-- 加载模块并传递插件引用\nlocal pluginModule = require(script.Parent.PluginModule)\npluginModule:Initialize(plugin)\n\n-- 验证插件引用是否已初始化\npluginModule:CheckForPluginGlobal()"
   },
   "@roblox/globaltype/Plugin.CollisionEnabled": {
-    "documentation": "返回用户在模型选项卡下是否启用了<code>Collisions</code>。",
+    "documentation": "返回用户是否在 Studio 的工具栏中启用了 <strong>碰撞</strong>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CollisionEnabled",
     "code_sample": ""
   },
@@ -33552,7 +33552,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Activate/param/1": {
-    "documentation": "一个布尔值，指示是否以独占鼠标激活插件。如果为true，可以通过<code>Plugin:GetMouse()</code>获取<code>PluginMouse</code>。"
+    "documentation": "一个布尔值，指示是否以独占鼠标激活插件。如果 <code>true</code>，可以通过 <code>GetMouse()</code> 获取 <code>PluginMouse</code>。"
   },
   "@roblox/globaltype/Plugin.Activate": {
     "documentation": "将调用插件的状态设置为激活。",
@@ -33617,7 +33617,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui": {
-    "documentation": "<strong>Deprecated:</strong> <br>根据给定的 <code>DockWidgetPluginGuiInfo</code> 创建一个 <code>DockWidgetPluginGui</code>。",
+    "documentation": "<strong>Deprecated:</strong> 该方法已被 <code>CreateDockWidgetPluginGuiAsync()</code> 取代。<br>根据给定的 <code>DockWidgetPluginGuiInfo</code> 创建一个 <code>DockWidgetPluginGui</code>。",
     "params": [
       {
         "name": "self",
@@ -33636,7 +33636,7 @@
       "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CreateDockWidgetPluginGui",
-    "code_sample": "-- 创建新的 'DockWidgetPluginGuiInfo' 对象\nlocal widgetInfo = DockWidgetPluginGuiInfo.new(\n\tEnum.InitialDockState.Float, -- 小部件将在浮动面板中初始化\n\ttrue, -- 小部件将最初启用\n\tfalse, -- 不覆盖之前的启用状态\n\t200, -- 浮动窗口的默认宽度\n\t300, -- 浮动窗口的默认高度\n\t150, -- 浮动窗口的最小宽度（可选）\n\t150 -- 浮动窗口的最小高度（可选）\n)\n\n-- 创建新的小部件 GUI\nlocal testWidget = plugin:CreateDockWidgetPluginGui(\"TestWidget\", widgetInfo)\n\nlocal testButton = Instance.new(\"TextButton\")\ntestButton.BorderSizePixel = 0\ntestButton.TextSize = 20\ntestButton.TextColor3 = Color3.new(1, 0.2, 0.4)\ntestButton.AnchorPoint = Vector2.new(0.5, 0.5)\ntestButton.Size = UDim2.new(1, 0, 1, 0)\ntestButton.Position = UDim2.new(0.5, 0, 0.5, 0)\ntestButton.SizeConstraint = Enum.SizeConstraint.RelativeYY\ntestButton.Text = \"点击我\"\ntestButton.Parent = testWidget"
+    "code_sample": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/0": {
     "documentation": ""
@@ -33660,7 +33660,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction": {
-    "documentation": "创建一个 <code>PluginAction</code>，它是一个表示在 Roblox Studio 中的通用可执行动作的对象，没有直接相关的 <code>Toolbar</code> 或 <code>Button</code>。",
+    "documentation": "创建一个 <code>PluginAction</code>，表示 Studio 中的一个通用可执行动作，没有直接关联的 <code>PluginToolbarButton</code>。",
     "params": [
       {
         "name": "self",
@@ -33700,10 +33700,10 @@
     "documentation": "菜单的唯一 ID。"
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/param/2": {
-    "documentation": "作为子菜单使用时显示的文本。"
+    "documentation": "用作子菜单时要显示的文本。"
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/param/3": {
-    "documentation": "作为子菜单使用时显示的图标。"
+    "documentation": "用作子菜单时要显示的图标。"
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/return/0": {
     "documentation": ""
@@ -33783,7 +33783,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetJoinMode": {
-    "documentation": "返回用户在模型选项卡中所设置的 <code>JointCreationMode</code>。",
+    "documentation": "返回用户在 Studio 工具栏中设置的 <code>JointCreationMode</code>。",
     "params": [
       {
         "name": "self",
@@ -33896,7 +33896,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimationAsync": {
-    "documentation": "提示用户打开可加载到 <code>rigModel</code> 的 .fbx 动画文件，然后将动画作为 <code>KeyframeSequence</code> 插入到 <code>Workspace</code>。",
+    "documentation": "提示用户打开可以加载到 <code>rigModel</code> 上的 <code>.fbx</code> 动画文件，然后将动画作为 <code>KeyframeSequence</code> 插入到 <code>Workspace</code> 中。",
     "params": [
       {
         "name": "self",
@@ -33930,7 +33930,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimation": {
-    "documentation": "<strong>Deprecated:</strong> <br>提示用户打开可加载到 <code>rigModel</code> 的 .fbx 动画文件，然后将动画作为 <code>KeyframeSequence</code> 插入到 <code>Workspace</code>。",
+    "documentation": "<strong>Deprecated:</strong> <br>提示用户打开可以加载到 <code>rigModel</code> 上的 <code>.fbx</code> 动画文件，然后将动画作为 <code>KeyframeSequence</code> 插入到 <code>Workspace</code> 中。",
     "params": [
       {
         "name": "self",
@@ -33961,7 +33961,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRigAsync": {
-    "documentation": "提示用户打开 .fbx 文件，上传模型的各个组件作为网格，并生成用于动画的角色绑定，加载到 <code>Workspace</code> 中。",
+    "documentation": "提示用户打开一个 <code>.fbx</code> 文件，将模型的各个组件作为网格上传，并生成用于动画的角色骨架，加载到 <code>Workspace</code> 中。",
     "params": [
       {
         "name": "self",
@@ -33988,7 +33988,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRig": {
-    "documentation": "<strong>Deprecated:</strong> <br>提示用户打开 .fbx 文件，上传模型的各个组件作为网格，并生成用于动画的角色绑定，加载到 <code>Workspace</code> 中。",
+    "documentation": "<strong>Deprecated:</strong> <br>提示用户打开一个 <code>.fbx</code> 文件，将模型的各个组件作为网格上传，并生成用于动画的角色骨架，加载到 <code>Workspace</code> 中。",
     "params": [
       {
         "name": "self",
@@ -34015,7 +34015,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Intersect": {
-    "documentation": "",
+    "documentation": "求交给定的部件并返回结果 <code>IntersectOperation</code>。",
     "params": [
       {
         "name": "self",
@@ -34039,7 +34039,7 @@
     "documentation": "一个布尔值，指示插件是否当前处于激活状态。"
   },
   "@roblox/globaltype/Plugin.IsActivated": {
-    "documentation": "如果此插件当前处于激活状态，返回 true，前提是通过 <code>Plugin:Activate()</code> 函数激活。",
+    "documentation": "如果该插件在通过 <code>Activate()</code> 函数激活后当前处于活动状态，则返回 <code>true</code>。",
     "params": [
       {
         "name": "self",
@@ -34059,7 +34059,7 @@
     "documentation": "指示此插件当前是否使用独占鼠标处于激活状态。"
   },
   "@roblox/globaltype/Plugin.IsActivatedWithExclusiveMouse": {
-    "documentation": "如果此插件当前使用独占鼠标处于激活状态，返回 true，前提是通过 <code>Plugin:Activate()</code> 函数激活。",
+    "documentation": "如果该插件当前处于独占鼠标下的活动状态，则返回 <code>true</code>。",
     "params": [
       {
         "name": "self",
@@ -34082,7 +34082,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Negate": {
-    "documentation": "对给定的部分进行取反并返回结果 NegateOperations。",
+    "documentation": "取反给定的部件并返回结果 <code>NegateOperations</code>。",
     "params": [
       {
         "name": "self",
@@ -34160,7 +34160,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync": {
-    "documentation": "在 Roblox Studio 中打开一个窗口，提示用户根据指定的 <code>assetType</code> 选择一个资产。返回所选的 assetId，如果窗口关闭则返回 -1。",
+    "documentation": "在 Roblox Studio 中打开一个窗口，提示用户根据指定的 <code>assetType</code> 选择资产。",
     "params": [
       {
         "name": "self",
@@ -34187,7 +34187,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId": {
-    "documentation": "在 Roblox Studio 中打开一个窗口，提示用户根据指定的 <code>assetType</code> 选择一个资产。返回所选的 assetId，如果窗口关闭则返回 -1。",
+    "documentation": "在 Roblox Studio 中打开一个窗口，提示用户根据指定的 <code>assetType</code> 选择资产。",
     "params": [
       {
         "name": "self",
@@ -34214,7 +34214,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelectionAsync": {
-    "documentation": "提示用户使用指定的文件名保存当前选择。如果用户确实保存了文件则返回 true。",
+    "documentation": "提示用户使用指定的文件名保存当前选择。",
     "params": [
       {
         "name": "self",
@@ -34241,7 +34241,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelection": {
-    "documentation": "<strong>Deprecated:</strong> <br>提示用户使用指定的文件名保存当前选择。如果用户确实保存了文件则返回 true。",
+    "documentation": "<strong>Deprecated:</strong> <br>提示用户使用指定的文件名保存当前选择。",
     "params": [
       {
         "name": "self",
@@ -34312,7 +34312,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Separate": {
-    "documentation": "分离给定的 UnionOperations 并返回结果部件。",
+    "documentation": "分离给定的 <code>UnionOperations</code> 并返回结果部件。",
     "params": [
       {
         "name": "self",
@@ -34390,7 +34390,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Union": {
-    "documentation": "将给定部分合并并返回结果 UnionOperation。",
+    "documentation": "联合给定的部件并返回结果 <code>UnionOperation</code>。",
     "params": [
       {
         "name": "self",
@@ -45577,7 +45577,7 @@
       "@roblox/globaltype/Player.GetRankInGroupAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRankInGroupAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroup(2) == 255 then\n\t\tprint(\"玩家是该组的拥有者，'LOL'！\")\n\telse\n\t\tprint(\"玩家不是该组的拥有者，'LOL'！\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroupAsync(2) == 255 then\n\t\tprint(\"玩家是该组的拥有者，'LOL'！\")\n\telse\n\t\tprint(\"玩家不是该组的拥有者，'LOL'！\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/0": {
     "documentation": "表示当前已连接的客户端的对象。"
@@ -45604,7 +45604,7 @@
       "@roblox/globaltype/Player.GetRankInGroup/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRankInGroup",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroup(2) == 255 then\n\t\tprint(\"玩家是该组的拥有者，'LOL'！\")\n\telse\n\t\tprint(\"玩家不是该组的拥有者，'LOL'！\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroupAsync(2) == 255 then\n\t\tprint(\"玩家是该组的拥有者，'LOL'！\")\n\telse\n\t\tprint(\"玩家不是该组的拥有者，'LOL'！\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync/param/0": {
     "documentation": "表示当前已连接的客户端的对象。"
@@ -45690,7 +45690,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.IsBestFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> 此功能已废弃，因为最佳朋友功能被移除。请使用<code>Player:IsFriendsWith()</code>代替。<br>返回玩家是否与指定用户有连接。",
+    "documentation": "<strong>Deprecated:</strong> 此函数已不再使用，因为\"最好的朋友\"功能已被移除。 请使用 <code>Player:IsFriendsWithAsync()</code> 代替。<br>返回玩家是否与指定用户有连接。",
     "params": [
       {
         "name": "self",
@@ -45732,7 +45732,7 @@
       "@roblox/globaltype/Player.IsFriendsWithAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsFriendsWithAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" 与 gordonrox24 连接！\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/0": {
     "documentation": "表示当前已连接的客户端的对象。"
@@ -45744,7 +45744,7 @@
     "documentation": "一个布尔值，指示玩家是否是指定用户的连接。"
   },
   "@roblox/globaltype/Player.IsFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> <br>检查玩家是否是具有给定<code>Player.UserId</code>的用户的连接。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>Player:IsFriendsWithAsync()</code> 方法取代，此方法应在新工作中使用。<br>检查玩家是否是具有给定<code>Player.UserId</code>的用户的连接。",
     "params": [
       {
         "name": "self",
@@ -45759,7 +45759,7 @@
       "@roblox/globaltype/Player.IsFriendsWith/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsFriendsWith",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" 与 gordonrox24 连接！\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.isFriendsWith/param/0": {
     "documentation": "表示当前已连接的客户端的对象。"
@@ -45771,7 +45771,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.isFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> 此废弃函数是<code>Player:IsFriendsWith()</code>的一个变体，应代替使用。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>Player:IsFriendsWithAsync()</code> 方法取代，此方法应在新工作中使用。",
     "params": [
       {
         "name": "self",
@@ -50998,16 +50998,16 @@
     "documentation": "负责所有运行时活动和时间进展的服务。"
   },
   "@roblox/globaltype/RunService.BindToSimulation/param/1": {
-    "documentation": "要调用的函数。此函数将传递一个名为<code>deltaTime</code>的参数，表示从上一个仿真步骤开始到当前仿真步骤开始之间经过的时间。"
+    "documentation": "要调用的函数。此函数将被传递一个名为 <code>deltaTime</code> 的参数，该参数显示前一个模拟步骤开始和当前模拟步骤开始之间经过了多少时间。"
   },
   "@roblox/globaltype/RunService.BindToSimulation/param/2": {
-    "documentation": "可选的<code>StepFrequency</code>值，指示调用绑定函数的频率。如果未提供，将使用默认频率。"
+    "documentation": "可选的 <code>StepFrequency</code> 值，指示调用绑定函数的频率。如果未提供，将使用默认频率。"
   },
   "@roblox/globaltype/RunService.BindToSimulation/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/RunService.BindToSimulation": {
-    "documentation": "将自定义函数绑定为以固定频率调用，该频率独立于帧率。",
+    "documentation": "绑定一个自定义函数在独立于帧速率的固定频率下被调用。",
     "params": [
       {
         "name": "self",
@@ -51038,7 +51038,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/RunService.GetPredictionStatus": {
-    "documentation": "检查特定上下文实例的<code>PredictionStatus</code>，对调试影响多个实例的脚本非常有用，其中一些可能会被预测，而另一些则可能不会。",
+    "documentation": "检查特定上下文实例的 <code>PredictionStatus</code>，对于调试影响多个实例的脚本非常有用，其中某些实例可能会被预测，而其他实例则可能不会。",
     "params": [
       {
         "name": "self",
@@ -51230,7 +51230,7 @@
     "documentation": "要为上下文实例设置的<code>PredictionMode</code>。"
   },
   "@roblox/globaltype/RunService.SetPredictionMode": {
-    "documentation": "将<code>Instance</code>的预测模式设置为<code>PredictionMode</code>值。",
+    "documentation": "将 <code>Instance</code> 的预测模式设置为 <code>PredictionMode</code> 值。",
     "params": [
       {
         "name": "self",
@@ -54658,6 +54658,7 @@
   "@roblox/globaltype/MaterialVariant": {
     "documentation": "表示材质的一个变体。",
     "keys": {
+      "AlphaMode": "@roblox/globaltype/MaterialVariant.AlphaMode",
       "BaseMaterial": "@roblox/globaltype/MaterialVariant.BaseMaterial",
       "ColorMap": "@roblox/globaltype/MaterialVariant.ColorMap",
       "ColorMapContent": "@roblox/globaltype/MaterialVariant.ColorMapContent",
@@ -54677,6 +54678,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant",
     "code_sample": ""
   },
+  "@roblox/globaltype/MaterialVariant.AlphaMode": {
+    "documentation": "确定 <code>MaterialVariant.ColorMap</code> 的 alpha 通道如何使用。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#AlphaMode",
+    "code_sample": ""
+  },
   "@roblox/globaltype/MaterialVariant.BaseMaterial": {
     "documentation": "此变体所属的材质类别。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#BaseMaterial",
@@ -54688,7 +54694,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.ColorMapContent": {
-    "documentation": "确定表面的颜色。仅支持作为纹理的资产 URI。",
+    "documentation": "确定表面的颜色。仅支持资产 URI 作为纹理。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#ColorMapContent",
     "code_sample": ""
   },
@@ -54713,7 +54719,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.MaterialPattern": {
-    "documentation": "确定纹理平铺方法。",
+    "documentation": "确定纹理的平铺方法。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#MaterialPattern",
     "code_sample": ""
   },
@@ -54728,12 +54734,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.NormalMap": {
-    "documentation": "通过添加隆起、凹陷、裂缝和曲线来修改表面的光照，而无需添加更多多边形。",
+    "documentation": "通过添加凸起、凹陷、裂缝和曲线来修改表面的照明，而无需添加更多多边形。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#NormalMap",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.NormalMapContent": {
-    "documentation": "通过添加隆起、凹陷、裂缝和曲线来修改表面的光照，而无需添加更多多边形。仅支持资产 URI 作为纹理。",
+    "documentation": "通过添加凸起、凹陷、裂缝和曲线来修改表面的照明，而无需添加更多多边形。仅支持资产 URI 作为纹理。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#NormalMapContent",
     "code_sample": ""
   },
@@ -54748,7 +54754,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.StudsPerTile": {
-    "documentation": "确定纹理的尺度。",
+    "documentation": "确定纹理的缩放。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#StudsPerTile",
     "code_sample": ""
   },
@@ -72375,7 +72381,6 @@
       "ReadCapturesFromGalleryAsync": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync",
       "StartVideoCaptureAsync": "@roblox/globaltype/CaptureService.StartVideoCaptureAsync",
       "StopVideoCapture": "@roblox/globaltype/CaptureService.StopVideoCapture",
-      "TakeCapture": "@roblox/globaltype/CaptureService.TakeCapture",
       "UploadCaptureAsync": "@roblox/globaltype/CaptureService.UploadCaptureAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService",
@@ -72576,35 +72581,6 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#StopVideoCapture",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/CaptureService.TakeCapture/param/0": {
-    "documentation": "提供对屏幕截图和视频捕获功能控制的服务。"
-  },
-  "@roblox/globaltype/CaptureService.TakeCapture/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/CaptureService.TakeCapture/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/CaptureService.TakeCapture": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/CaptureService.TakeCapture/param/0"
-      },
-      {
-        "name": "onCaptureReady",
-        "documentation": "@roblox/globaltype/CaptureService.TakeCapture/param/1"
-      },
-      {
-        "name": "captureParams",
-        "documentation": "@roblox/globaltype/CaptureService.TakeCapture/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#TakeCapture",
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
@@ -77179,7 +77155,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/PluginManager.ExportPlace": {
-    "documentation": "将地点导出为 .OBJ 文件，并保存在用户在文件保存对话框中选择的路径下（<code>filePath</code> 参数会被忽略）。",
+    "documentation": "将场景导出到一个保存在用户在文件保存对话框中选择的路径的 <code>.obj</code> 文件。",
     "params": [
       {
         "name": "self",
@@ -77201,7 +77177,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/PluginManager.ExportSelection": {
-    "documentation": "将当前的 <code>Selection</code> 导出为 .OBJ 文件，并保存在用户在文件保存对话框中选择的路径下（<code>filePath</code> 参数会被忽略）。",
+    "documentation": "将当前的 <code>Selection</code> 导出到一个保存在用户在文件保存对话框中选择的路径的 <code>.obj</code> 文件。",
     "params": [
       {
         "name": "self",
@@ -78327,7 +78303,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PluginToolbarButton.ClickableWhenViewportHidden": {
-    "documentation": "确定当游戏视口隐藏时，按钮是否可以被点击，例如在编辑其他 Studio 选项卡的脚本时。",
+    "documentation": "确定按钮是否可以在 3D 视口隐藏时被点击，例如在另一个选项卡中编辑 <code>Script</code> 时。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginToolbarButton#ClickableWhenViewportHidden",
     "code_sample": ""
   },
@@ -79541,10 +79517,10 @@
     "documentation": "一个 <code>InfoType</code> 枚举值，指定要检索的信息类型。"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/return/0": {
-    "documentation": "包含有关查询项的信息的字典，描述在前面的表格中。"
+    "documentation": "一个字典，包含关于查询项的信息，如前面的表所述。"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo": {
-    "documentation": "<strong>Deprecated:</strong> <br>返回使用其资产 ID 的资产的产品信息。",
+    "documentation": "<strong>Deprecated:</strong> <br>使用资产 ID 返回资产的产品信息。",
     "params": [
       {
         "name": "self",
@@ -79569,13 +79545,13 @@
     "documentation": "负责体验内交易的服务。"
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/param/1": {
-    "documentation": "要检查的订阅的 ID。"
+    "documentation": "要检查的订阅 ID。"
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync": {
-    "documentation": "返回给定 <code>subscriptionId</code> 的订阅的产品信息。",
+    "documentation": "返回给定 <code>subscriptionId</code> 的订阅产品信息。",
     "params": [
       {
         "name": "self",
@@ -79599,10 +79575,10 @@
     "documentation": "用户 ID 的数组。"
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
-    "documentation": "返回一个 <code>PriceLevelInfo</code> 对象的数组，其中字典的键是用户 ID（字符串），值是相应的价格水平（1 到 1000 之间的整数）。"
+    "documentation": "返回一个包含 <code>PriceLevelInfo</code> 对象的数组，字典的键是用户 ID（字符串），对应的值是相应的价格水平（1 到 1000 之间的整数）。"
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "返回用户的地区化价格水平，代表其地区市场中商品的推荐价格。",
+    "documentation": "返回用户的地区化价格水平，代表在其地区市场上项目的建议价格。",
     "params": [
       {
         "name": "self",
@@ -79623,7 +79599,7 @@
     "documentation": "负责体验内交易的服务。"
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/1": {
-    "documentation": "要检查的 <code>Player</code> 对象的订阅详细信息。"
+    "documentation": "要检查其订阅详细信息的 <code>Player</code> 对象。"
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/2": {
     "documentation": "要检查的订阅的 ID。"
@@ -79632,7 +79608,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync": {
-    "documentation": "返回包含给定 <code>subscriptionId</code> 的用户订阅详细信息的表。",
+    "documentation": "返回一个包含给定 <code>subscriptionId</code> 的用户订阅详细信息的表。",
     "params": [
       {
         "name": "self",
@@ -79666,7 +79642,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync": {
-    "documentation": "返回一个最多包含一年用户订阅支付历史的 <code>Array</code>，用于给定的 <code>subscriptionId</code>。",
+    "documentation": "返回一个包含最多一年用户订阅支付历史的 <code>Array</code>，针对给定的 <code>subscriptionId</code>。",
     "params": [
       {
         "name": "self",
@@ -79700,7 +79676,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync": {
-    "documentation": "返回包含给定 <code>subscriptionId</code> 的用户订阅状态的 <code>table</code>。",
+    "documentation": "返回一个 <code>table</code>，包含用户针对给定 <code>subscriptionId</code> 的订阅状态。",
     "params": [
       {
         "name": "self",
@@ -79759,16 +79735,16 @@
     "documentation": "负责体验内交易的服务。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/1": {
-    "documentation": "要检查给定资产拥有情况的 <code>Player</code>。"
+    "documentation": "要测试其库存是否拥有给定资产的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/2": {
-    "documentation": "要检查的资产 ID。"
+    "documentation": "要测试的资产 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/return/0": {
     "documentation": "指示给定玩家的库存是否包含给定资产。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset": {
-    "documentation": "<strong>Deprecated:</strong> <br>返回给定用户是否拥有给定资产。",
+    "documentation": "<strong>Deprecated:</strong> <br>返回该用户是否拥有给定资产。",
     "params": [
       {
         "name": "self",
@@ -79827,16 +79803,16 @@
     "documentation": "负责体验内交易的服务。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/1": {
-    "documentation": "要检查给定套装拥有情况的 <code>Player</code>。"
+    "documentation": "要测试其库存是否拥有给定捆绑包的 <code>Player</code>。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/2": {
-    "documentation": "要检查的套装 ID。"
+    "documentation": "要测试的捆绑包 ID。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0": {
-    "documentation": "指示给定玩家的库存是否包含给定套装。"
+    "documentation": "指示给定玩家的库存是否包含给定捆绑包。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle": {
-    "documentation": "<strong>Deprecated:</strong> <br>返回给定玩家是否拥有给定套装。",
+    "documentation": "<strong>Deprecated:</strong> <br>返回该玩家是否拥有给定的捆绑包。",
     "params": [
       {
         "name": "self",
@@ -79861,16 +79837,16 @@
     "documentation": "负责体验内交易的服务。"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/1": {
-    "documentation": "要提示购买物品的用户。"
+    "documentation": "提示用户购买物品的用户。"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
-    "documentation": "要包含在批量购买中的头像物品数组。 每个物品条目包含以下结构： <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> 每个条目包含以下键值对： <ul> <li><code>Type</code>: 对应的<code>MarketplaceProductType</code> （Enum）。</li> <li><code>Id</code>: 资产或套装的 ID。</li> </ul>"
+    "documentation": "包含在批量购买中的头像物品数组。 每个行项目包含以下结构： <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> 每个行项目包含以下配对： <ul> <li><code>Type</code>: 对应的 <code>MarketplaceProductType</code> （枚举）。</li> <li><code>Id</code>: 资产或捆绑包的 ID。</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
-    "documentation": "当前不可用。"
+    "documentation": "此时不可用。"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase": {
-    "documentation": "提示用户购买带有给定 <code>assetId</code> 或 <code>bundleId</code> 的多个头像物品。",
+    "documentation": "提示用户购买多个具有给定 <code>assetId</code> 或 <code>bundleId</code> 的头像物品。",
     "params": [
       {
         "name": "self",
@@ -79903,7 +79879,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptBundlePurchase": {
-    "documentation": "提示用户购买带有给定 <code>bundleId</code> 的套装。",
+    "documentation": "提示用户购买具有给定 <code>bundleId</code> 的捆绑包。",
     "params": [
       {
         "name": "self",
@@ -79961,7 +79937,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase": {
-    "documentation": "提示用户购买给定 <code>gamePassId</code> 的通行证。",
+    "documentation": "提示用户购买具有给定 <code>gamePassId</code> 的通行证。",
     "params": [
       {
         "name": "self",
@@ -79984,7 +79960,7 @@
     "documentation": "负责体验内交易的服务。"
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase/param/1": {
-    "documentation": "要提示购买 Premium 的用户。"
+    "documentation": "提示购买 Premium 的用户。"
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase": {
     "documentation": "提示用户购买 Roblox Premium。",
@@ -80018,7 +79994,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase": {
-    "documentation": "提示用户购买带有给定 <code>productId</code> 的开发者产品。",
+    "documentation": "提示用户购买具有给定 <code>productId</code> 的开发者产品。",
     "params": [
       {
         "name": "self",
@@ -80061,7 +80037,7 @@
     "documentation": "被忽略。"
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase": {
-    "documentation": "提示用户购买带有给定 <code>assetId</code> 的物品。对于 USD 创作者商店购买无效。",
+    "documentation": "提示用户购买具有给定 <code>assetId</code> 的项目。此方法不适用于美元创作者商店的购买。",
     "params": [
       {
         "name": "self",
@@ -80092,7 +80068,7 @@
     "documentation": "负责体验内交易的服务。"
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/1": {
-    "documentation": "要提示订阅的 <code>Player</code> 对象。"
+    "documentation": "要提示购买的 <code>Player</code> 对象。"
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2": {
     "documentation": "要订阅的 ID。"
@@ -80121,13 +80097,13 @@
     "documentation": "负责体验内交易的服务。"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/param/1": {
-    "documentation": "一个对象数组，标识您希望排序的产品。该数组最多可以包含 50 个项。 每个 <code>ProductIdentifier</code> 包含： <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>必须是 <code>InfoType.GamePass</code> 或     <code>InfoType.Product</code>。</li> <li><code>Id</code>: number</li> <li>游戏通行证或开发者产品的 ID。</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
+    "documentation": "一个对象数组，标识您想要排名的产品。此数组最多可以包含 50 项。 每个 <code>ProductIdentifier</code> 具有： <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>必须是 <code>InfoType.GamePass</code> 或     <code>InfoType.Product</code>。</li> <li><code>Id</code>: number</li> <li>游戏通行证或开发者产品的 ID。</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "按当前用户个性化排序的项目数组。 每个数组包含： <ul> <li><code>ProductIdentifier</code>: 输入数组中的相应 ID。</li> <li><code>ProductInfo</code>: <code>GetProductInfo</code> 返回的标准产品信息字典。</li> </ul>"
+    "documentation": "当前用户个性化排序的项目数组。 每个数组包含： <ul> <li><code>ProductIdentifier</code>: 输入数组的对应 ID。</li> <li><code>ProductInfo</code>: 由 <code>GetProductInfo</code> 返回的标准产品信息字典。</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
-    "documentation": "接受一组产品 ID，返回这些产品的个性化排序列表。",
+    "documentation": "接受产品 ID 列表并返回这些产品的个性化排序列表。",
     "params": [
       {
         "name": "self",
@@ -80148,13 +80124,13 @@
     "documentation": "负责体验内交易的服务。"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/1": {
-    "documentation": "一个 <code>InfoType</code> 值数组，指定要检索建议的产品类型。 支持的 <code>InfoTypes</code>: <code>InfoType.GamePass</code>，<code>InfoType.Product</code>。 <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
+    "documentation": "一个 <code>InfoType</code> 值的数组，指定要检索推荐的产品类型。 支持的 <code>InfoTypes</code>: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>。 <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/return/0": {
-    "documentation": "用户最有可能参与的最多 50 个项目的排序列表，基于提供的 <code>InfoTypes</code>。如果无法确定推荐，方法返回一个空列表。"
+    "documentation": "用户最有可能参与的、基于提供的 <code>InfoTypes</code> 的最多 50 个项目的排名列表。如果无法确定推荐，则该方法返回空列表。"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync": {
-    "documentation": "<ul> <li>接受一个 <code>InfoType</code> 数组，返回最多 50 个用户最有可能参与和购买的产品。</li> </ul>",
+    "documentation": "<ul> <li>接受一个 <code>InfoType</code> 数组，返回用户最有可能参与和购买的最多 50 个项目。</li> </ul>",
     "params": [
       {
         "name": "self",
@@ -80175,16 +80151,16 @@
     "documentation": "负责体验内交易的服务。"
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/1": {
-    "documentation": "您要检查的 <code>Player</code> 的 <code>UserId|UserId</code>。"
+    "documentation": "要检查的 <code>Player</code> 的 <code>UserId</code>。"
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/2": {
-    "documentation": "要检查的通行证 ID。不可与资产 ID 混淆。"
+    "documentation": "您要检查的通行证 ID。不要与资产 ID 混淆。"
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync": {
-    "documentation": "如果具有给定 <code>UserId</code> 的玩家拥有具有给定 <code>gamePassId</code> 的通行证，则返回 true。",
+    "documentation": "如果具有给定 <code>UserId</code> 的玩家拥有给定 <code>gamePassId</code> 的通行证，则返回 true。",
     "params": [
       {
         "name": "self",
@@ -87840,7 +87816,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/InputAction.Fire": {
-    "documentation": "将 <code>InputAction</code> 更新到给定状态并触发适当的信号。",
+    "documentation": "将 <code>InputAction</code> 更新为给定状态，并触发适当的信号。",
     "params": [
       {
         "name": "self",
@@ -87859,7 +87835,7 @@
     "documentation": "定义了一种游戏玩法动作机制。这些动作随后通过 <code>InputBinding</code> 映射到硬件输入。"
   },
   "@roblox/globaltype/InputAction.GetState/return/0": {
-    "documentation": "当前 <code>InputAction</code> 的状态。"
+    "documentation": "当前的 <code>InputAction</code> 状态。"
   },
   "@roblox/globaltype/InputAction.GetState": {
     "documentation": "返回当前的 <code>InputAction</code> 状态。",
@@ -87953,7 +87929,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.Pressed": {
-    "documentation": "仅在 <code>InputAction.Type</code> 设置为 <code>Bool</code>，且状态从 <code>false</code> 过渡到 <code>true</code> 时触发。",
+    "documentation": "仅在 <code>InputAction.Type</code> 设置为 <code>Bool</code>，并且状态从 <code>false</code> 切换到 <code>true</code> 时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.Pressed.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.Pressed.ConnectParallel",
@@ -88041,7 +88017,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.Released": {
-    "documentation": "仅在 <code>InputAction.Type</code> 设置为 <code>Bool</code>，且状态从 <code>true</code> 过渡到 <code>false</code> 时触发。",
+    "documentation": "仅在 <code>InputAction.Type</code> 设置为 <code>Bool</code>，并且状态从 <code>true</code> 切换到 <code>false</code> 时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.Released.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.Released.ConnectParallel",
@@ -88129,7 +88105,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.StateChanged": {
-    "documentation": "在所有 <code>InputActionType</code> 类型中，当状态变化时触发，除非状态尝试过渡到相同状态。",
+    "documentation": "每当状态更改时，对于所有 <code>InputActionType</code> 类型触发，除了当状态尝试转换为相同状态时。",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.StateChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel",
@@ -88248,9 +88224,9 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.EmitterSize": {
-    "documentation": "<strong>Deprecated:</strong> 此属性已被弃用，建议使用 <code>RollOffMinDistance</code> 和 <code>RollOffMaxDistance</code>，应在新工作中使用。<br>3D <code>Sound</code>（<code>BasePart</code>或<code>Attachment</code>的直接子级）开始衰减（音量降低）的最小距离，以 Stud 为单位。",
+    "documentation": "<strong>Deprecated:</strong> 该属性已被弃用，取而代之的是 <code>Sound.RollOffMinDistance</code> 和 <code>Sound.RollOffMaxDistance</code>，应在新工作中使用它们。<br>3D <code>Sound</code>（<code>BasePart</code>或<code>Attachment</code>的直接子级）开始衰减（音量降低）的最小距离，以 Stud 为单位。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#EmitterSize",
-    "code_sample": ""
+    "code_sample": "local part = Instance.new(\"Part\")\npart.Anchored = true\npart.Position = Vector3.new(0, 3, 0)\npart.BrickColor = BrickColor.new(\"Bright red\")\npart.Name = \"MusicBox\"\npart.Parent = workspace\n\n-- 创建一个声音\nlocal sound = Instance.new(\"Sound\", part)\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.EmitterSize = 5 -- 减小发射器大小（以便更早音量降低）\nsound.Looped = true\nsound.Parent = part\n\nlocal clickDetector = Instance.new(\"ClickDetector\")\nclickDetector.Parent = part\n\n-- 切换声音播放与停止\nclickDetector.MouseClick:Connect(function()\n\tif not sound.IsPlaying then\n\t\tpart.BrickColor = BrickColor.new(\"Bright green\")\n\t\tsound:Play()\n\telse\n\t\tpart.BrickColor = BrickColor.new(\"Bright red\")\n\t\tsound:Stop()\n\tend\nend)"
   },
   "@roblox/globaltype/Sound.IsLoaded": {
     "documentation": "<code>Sound</code> 从 Roblox 服务器加载完毕并准备播放时，此属性为 <code>true</code>。",
@@ -88288,17 +88264,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MaxDistance": {
-    "documentation": "<strong>Deprecated:</strong> 此属性已被弃用，建议使用 <code>RollOffMaxDistance</code>，应在新工作中使用。<br>客户端监听器可以距离声音源的最大距离（以stud为单位），并且仍然能听到声音。仅适用于归属于 <code>BasePart</code> 或 <code>Attachment</code> 的声音（3D声音）。",
+    "documentation": "<strong>Deprecated:</strong> 该属性已被弃用，取而代之的是 <code>Sound.RollOffMinDistance</code> 和 <code>Sound.RollOffMaxDistance</code>，应在新工作中使用它们。<br>客户端监听器与 <code>Sound\\\\s</code> 原点之间能够仍然听到的最大距离，单位为 studs。仅适用于父级为 <code>Part</code> 或 <code>Attachment</code> 的声音（3D 声音）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MaxDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MinDistance": {
-    "documentation": "<strong>Deprecated:</strong> 此属性已被弃用，建议使用 <code>RollOffMinDistance</code>，应在新工作中使用。<br>3D <code>Sound</code>（<code>BasePart</code> 或 <code>Attachment</code> 的直接子项）开始衰减的最小距离（以stud为单位）。实际上，是发射器大小。",
+    "documentation": "<strong>Deprecated:</strong> MinDistance 已被 <code>Sound.EmitterSize</code> 取代，其名称更好地描述了该属性的行为。<br>3D <code>Sound</code>（<code>BasePart</code> 或 <code>Attachment</code> 的直接子项）开始衰减的最小距离。实际上，相当于发射器的大小。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MinDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.Pitch": {
-    "documentation": "<strong>Deprecated:</strong> 此属性已被弃用，建议使用 <code>PlaybackSpeed</code>，其名称更符合行为。<br>设置 <code>Sound</code> 播放时的音调和速度。整数值越大，<code>Sound</code> 显得越高和越快。",
+    "documentation": "<strong>Deprecated:</strong> 该属性已被弃用，取而代之的是 <code>Sound.PlaybackSpeed</code>，其名称更适合该行为。<br>设置 <code>Sound</code> 播放时的音调和速度。整数值越大，<code>Sound</code> 显得越高和越快。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Pitch",
     "code_sample": ""
   },
@@ -88313,7 +88289,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackRegionsEnabled": {
-    "documentation": "如果为 <code>true</code>，此属性让您的 <code>Sound</code> 访问 <code>PlaybackRegion</code> 和 <code>LoopRegion</code> 属性，可以更准确地控制其播放。",
+    "documentation": "如果为 <code>true</code>，该属性给予您的 <code>Sound</code> 访问 <code>PlaybackRegion</code> 和 <code>LoopRegion</code> 属性的权限，可以更准确地控制其播放。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackRegionsEnabled",
     "code_sample": ""
   },
@@ -106503,7 +106479,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size8": {
-    "documentation": "字体大小 8。",
+    "documentation": "字体大小 <code>8</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106513,7 +106489,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size9": {
-    "documentation": "字体大小 9。",
+    "documentation": "字体大小 <code>9</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106523,7 +106499,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size10": {
-    "documentation": "字体大小 10。",
+    "documentation": "字体大小 <code>10</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106533,7 +106509,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size11": {
-    "documentation": "字体大小 11。",
+    "documentation": "字体大小 <code>11</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106543,7 +106519,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size12": {
-    "documentation": "字体大小 12。",
+    "documentation": "字体大小 <code>12</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106553,7 +106529,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size14": {
-    "documentation": "字体大小 14。",
+    "documentation": "字体大小 <code>14</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106563,7 +106539,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size18": {
-    "documentation": "字体大小 18。",
+    "documentation": "字体大小 <code>18</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106573,7 +106549,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size24": {
-    "documentation": "字体大小 24。",
+    "documentation": "字体大小 <code>24</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106583,7 +106559,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size36": {
-    "documentation": "字体大小 36。",
+    "documentation": "字体大小 <code>36</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106593,7 +106569,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size48": {
-    "documentation": "字体大小 48。",
+    "documentation": "字体大小 <code>48</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106603,7 +106579,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size28": {
-    "documentation": "字体大小 28。",
+    "documentation": "字体大小 <code>28</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106613,7 +106589,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size32": {
-    "documentation": "字体大小 32。",
+    "documentation": "字体大小 <code>32</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106623,7 +106599,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size42": {
-    "documentation": "字体大小 42。",
+    "documentation": "字体大小 <code>42</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106633,7 +106609,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size60": {
-    "documentation": "字体大小 60。",
+    "documentation": "字体大小 <code>60</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106643,7 +106619,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size96": {
-    "documentation": "字体大小 96。",
+    "documentation": "字体大小 <code>96</code>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119554,7 +119530,7 @@
     "code_sample": ""
   },
   "@roblox/enum/UICaptureMode.All": {
-    "documentation": "",
+    "documentation": "捕获所有 UI 元素。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119564,7 +119540,7 @@
     "code_sample": ""
   },
   "@roblox/enum/UICaptureMode.None": {
-    "documentation": "",
+    "documentation": "不捕获任何 UI 元素。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119574,7 +119550,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.UICaptureMode": {
-    "documentation": "",
+    "documentation": "用于确定应通过 <code>CaptureService</code> 捕获哪些 UI 元素。",
     "keys": {
       "All": "@roblox/enum/UICaptureMode.All",
       "None": "@roblox/enum/UICaptureMode.None"
@@ -123403,7 +123379,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Play": {
-    "documentation": "用户通过该项目加入了一个体验。",
+    "documentation": "用户通过该物品加入了一个体验，或者玩了与该物品相关的迷你游戏。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123437,7 +123413,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Legacy": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Legacy.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Legacy.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123447,7 +123423,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Arial": {
-    "documentation": "Arial 已从 Roblox 中移除。使用 Arial 将映射到 Arimo。",
+    "documentation": "<code>Arial</code> 已被移除。使用它将映射到 <code>Font</code> 数据类型的 <code>Arimo</code> 字体系列。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123457,7 +123433,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.ArialBold": {
-    "documentation": "Arial 已从 Roblox 中移除。使用 Arial 将映射到 Arimo。",
+    "documentation": "<code>ArialBold</code> 已被移除。使用它将映射到 <code>Font</code> 数据类型的 <code>Arimo</code> 字体系列。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123467,7 +123443,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSans": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSans.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSans.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123477,7 +123453,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansBold.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansBold.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123487,7 +123463,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansLight": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansLight.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansLight.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123497,7 +123473,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansItalic": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansItalic.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansItalic.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123507,7 +123483,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Bodoni": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Bodoni.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Bodoni.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123517,7 +123493,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Garamond": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Garamond.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Garamond.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123527,7 +123503,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Cartoon": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Cartoon.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Cartoon.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123537,7 +123513,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Code": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Code.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Code.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123547,7 +123523,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Highway": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Highway.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Highway.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123557,7 +123533,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SciFi": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SciFi.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SciFi.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123567,7 +123543,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Arcade": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Arcade.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Arcade.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123577,7 +123553,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Fantasy": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Fantasy.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Fantasy.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123587,7 +123563,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Antique": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Antique.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Antique.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123597,7 +123573,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansSemibold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansSemibold.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansSemibold.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123607,7 +123583,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Gotham": {
-    "documentation": "Gotham 已从 Roblox 中移除。使用 Gotham 将映射到 Montserrat。",
+    "documentation": "<code>Gotham</code> 已被移除。使用它将映射到 <code>Font</code> 数据类型的 <code>Montserrat</code> 字体系列。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123617,7 +123593,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GothamMedium": {
-    "documentation": "Gotham 已从 Roblox 中移除。使用 Gotham 将映射到 Montserrat。",
+    "documentation": "<code>GothamMedium</code> 已被移除。使用它将映射到 <code>Font</code> 数据类型的 <code>Montserrat</code> 字体系列。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123627,7 +123603,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GothamBold": {
-    "documentation": "Gotham 已从 Roblox 中移除。使用 Gotham 将映射到 Montserrat。",
+    "documentation": "<code>GothamBold</code> 已被移除。使用它将映射到 <code>Font</code> 数据类型的 <code>Montserrat</code> 字体系列。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123637,7 +123613,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GothamBlack": {
-    "documentation": "Gotham 已从 Roblox 中移除。使用 Gotham 将映射到 Montserrat。",
+    "documentation": "<code>GothamBlack</code> 已被移除。使用它将映射到 <code>Font</code> 数据类型的 <code>Montserrat</code> 字体系列。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123647,7 +123623,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.AmaticSC": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/AmaticSC.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/AmaticSC.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123657,7 +123633,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Bangers": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Bangers.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Bangers.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123667,7 +123643,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Creepster": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Creepster.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Creepster.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123677,7 +123653,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.DenkOne": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/DenkOne.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/DenkOne.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123687,7 +123663,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Fondamento": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Fondamento.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Fondamento.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123697,7 +123673,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.FredokaOne": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/FredokaOne.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/FredokaOne.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123707,7 +123683,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GrenzeGotisch": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/GrenzeGotisch.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/GrenzeGotisch.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123717,7 +123693,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.IndieFlower": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/IndieFlower.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/IndieFlower.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123727,7 +123703,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.JosefinSans": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/JosefinSans.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/JosefinSans.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123737,7 +123713,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Jura": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Jura.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Jura.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123747,7 +123723,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Kalam": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Kalam.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Kalam.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123757,7 +123733,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.LuckiestGuy": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/LuckiestGuy.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/LuckiestGuy.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123767,7 +123743,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Merriweather": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Merriweather.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Merriweather.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123777,7 +123753,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Michroma": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Michroma.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Michroma.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123787,7 +123763,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Nunito": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Nunito.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Nunito.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123797,7 +123773,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Oswald": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Oswald.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Oswald.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123807,7 +123783,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.PatrickHand": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/PatrickHand.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/PatrickHand.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123817,7 +123793,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.PermanentMarker": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/PermanentMarker.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/PermanentMarker.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123827,7 +123803,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Roboto": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Roboto.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Roboto.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123837,7 +123813,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.RobotoCondensed": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/RobotoCondensed.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/RobotoCondensed.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123847,7 +123823,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.RobotoMono": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/RobotoMono.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/RobotoMono.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123857,7 +123833,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Sarpanch": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Sarpanch.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Sarpanch.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123867,7 +123843,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SpecialElite": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SpecialElite.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SpecialElite.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123877,7 +123853,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.TitilliumWeb": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/TitilliumWeb.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/TitilliumWeb.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123887,7 +123863,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Ubuntu": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Ubuntu.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Ubuntu.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123897,7 +123873,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSans": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSans.png\" /> 请参阅 <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>。",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSans.png\" /> 请参见 <a href=\"../../../resources/builder-font-license.md\">Builder 字体许可</a>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123907,7 +123883,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSansMedium": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSansMedium.png\" /> 请参阅 <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>。",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSansMedium.png\" /> 请参见 <a href=\"../../../resources/builder-font-license.md\">Builder 字体许可</a>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123917,7 +123893,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSansBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSansBold.png\" /> 请参阅 <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>。",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSansBold.png\" /> 请参见 <a href=\"../../../resources/builder-font-license.md\">Builder 字体许可</a>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123927,7 +123903,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSansExtraBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSansExtraBold.png\" /> 请参阅 <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>。",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSansExtraBold.png\" /> 请参见 <a href=\"../../../resources/builder-font-license.md\">Builder 字体许可</a>。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123937,7 +123913,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Arimo": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Arimo.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Arimo.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123947,7 +123923,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.ArimoBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/ArimoBold.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/ArimoBold.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123957,7 +123933,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Unknown": {
-    "documentation": "当 <code>TextLabel.FontFace</code> 属性被设置为没有对应枚举值的 <code>Font</code> 时设置。",
+    "documentation": "当 GUI 对象的字体面设置为没有相应枚举值的 <code>Font</code> 时设置。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127706,7 +127682,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ScreenInsets.TopbarSafeInsets": {
-    "documentation": "顶部栏安全区域内边距添加到 <code>DeviceSafeInsets</code> 区域， resulting in an area guaranteed to be unobscured by both device screen cutouts and Roblox core UI elements like the experience controls. 与 <code>CoreUISafeInsets</code> 不同，该区域的位置和大小是动态的，并且仅限于顶部栏区域本身的可用空间，超出 <code>CoreUISafeInsets</code>。",
+    "documentation": "顶部栏安全区域插图被添加到 <code>DeviceSafeInsets</code> 区域，  resulting in an area guaranteed to be unobscured by both device screen cutouts and Roblox core UI elements like the experience controls. Unlike <code>CoreUISafeInsets</code>，该区域的位置和大小是动态的，  并且仅限于顶部栏区域内部的可用空间，超出 <code>CoreUISafeInsets</code>。 请参见 <code>GuiService.TopbarInset</code> 属性， 它表示顶部栏空间内未被遮挡区域的绝对大小和位置。",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130776,7 +130752,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.FontStyle": {
-    "documentation": "描述 <code>Font</code> 是否为斜体。",
+    "documentation": "描述 <code>Font</code> 样式是正常还是斜体。",
     "keys": {
       "Normal": "@roblox/enum/FontStyle.Normal",
       "Italic": "@roblox/enum/FontStyle.Italic"
@@ -142813,7 +142789,7 @@
     "documentation": ""
   },
   "@roblox/global/PluginManager": {
-    "documentation": "引用 PluginManager，一个已弃用的单例，之前用于创建插件。",
+    "documentation": "指的是 <code>PluginManager</code>，一个已经弃用的单例，以前在创建插件时是必需的。",
     "params": [],
     "returns": [
       "@roblox/global/PluginManager/return/0"

@@ -9376,76 +9376,6 @@
                         "Animation"
                     ],
                     "MemberType": "Event",
-                    "Name": "OnCombinedUpdate2",
-                    "Parameters": [
-                        {
-                            "Name": "animation",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "ContentId"
-                            }
-                        },
-                        {
-                            "Name": "playState",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        },
-                        {
-                            "Name": "fadeTime",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "float"
-                            }
-                        },
-                        {
-                            "Name": "weight",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "float"
-                            }
-                        },
-                        {
-                            "Name": "speed",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "float"
-                            }
-                        },
-                        {
-                            "Name": "timePosition",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "float"
-                            }
-                        },
-                        {
-                            "Name": "priority",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "AnimationPriority"
-                            }
-                        },
-                        {
-                            "Name": "valuesUpdated",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxSecurity",
-                    "Tags": [
-                        "Hidden"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "Capabilities": [
-                        "Animation"
-                    ],
-                    "MemberType": "Event",
                     "Name": "OnStreamingUpdated",
                     "Parameters": [
                         {
@@ -23299,45 +23229,6 @@
                             }
                         },
                         {
-                            "Name": "model",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Model"
-                            }
-                        },
-                        {
-                            "Name": "progressCallback",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "Function?"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "string"
-                    },
-                    "Security": "None",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "Capabilities": [
-                        "InternalTest"
-                    ],
-                    "MemberType": "Function",
-                    "Name": "AutoSetupAvatarNewAsync",
-                    "Parameters": [
-                        {
-                            "Name": "player",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Player"
-                            }
-                        },
-                        {
                             "Name": "autoSetupParams",
                             "Type": {
                                 "Category": "Group",
@@ -24966,6 +24857,21 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetHeadShapesAsync",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
                     },
                     "Security": "None",
                     "Tags": [
@@ -32938,7 +32844,7 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "TakeCapture",
+                    "Name": "TakeScreenshotCaptureAsync",
                     "Parameters": [
                         {
                             "Name": "onCaptureReady",
@@ -48307,32 +48213,6 @@
                             "Type": {
                                 "Category": "Class",
                                 "Name": "DataModel"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "int"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
-                    "Name": "ConnectRemote",
-                    "Parameters": [
-                        {
-                            "Name": "host",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "port",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
                             }
                         }
                     ],
@@ -84646,7 +84526,7 @@
                         "Name": "Variant"
                     },
                     "Security": "None",
-                    "ThreadSafety": "Unsafe"
+                    "ThreadSafety": "Safe"
                 },
                 {
                     "Capabilities": [
@@ -99423,13 +99303,6 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "int"
-                            }
-                        },
-                        {
-                            "Name": "reason",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
                             }
                         }
                     ],
@@ -117154,6 +117027,34 @@
                             "Players"
                         ]
                     },
+                    "Category": "Data",
+                    "Default": "__api_dump_skipped_class__",
+                    "MemberType": "Property",
+                    "Name": "CameraFrustumRequested",
+                    "Security": {
+                        "Read": "RobloxSecurity",
+                        "Write": "RobloxSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Players"
+                        ]
+                    },
                     "Category": "Camera",
                     "Default": "__api_dump_skipped_class__",
                     "MemberType": "Property",
@@ -121168,6 +121069,27 @@
                         }
                     ],
                     "Security": "LocalUserSecurity",
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Players"
+                    ],
+                    "MemberType": "Event",
+                    "Name": "SendCameraFrustum",
+                    "Parameters": [
+                        {
+                            "Name": "pv",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "ReplicationPV"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxSecurity",
                     "Tags": [
                         "Hidden"
                     ],
@@ -154615,9 +154537,13 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "DataType",
@@ -154703,9 +154629,13 @@
                         "Write": "None"
                     },
                     "Serialization": {
-                        "CanLoad": true,
-                        "CanSave": true
+                        "CanLoad": false,
+                        "CanSave": false
                     },
+                    "Tags": [
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "DataType",
@@ -162929,6 +162859,18 @@
                 {
                     "MemberType": "Function",
                     "Name": "HaveActiveUser",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "IsAccountSwitchingSupported",
                     "Parameters": [
                     ],
                     "ReturnType": {
@@ -187636,6 +187578,14 @@
                 {
                     "Name": "CreatorEnvironmentsNotSupportedByService",
                     "Value": 15
+                },
+                {
+                    "Name": "InactivityTimeout",
+                    "Value": 16
+                },
+                {
+                    "Name": "TooManyOutstandingRequests",
+                    "Value": 17
                 }
             ],
             "Name": "HttpError"
@@ -193263,6 +193213,27 @@
                 }
             ],
             "Name": "ScreenOrientation"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Success",
+                    "Value": 0
+                },
+                {
+                    "Name": "OtherError",
+                    "Value": 1
+                },
+                {
+                    "Name": "NoDeviceSupport",
+                    "Value": 2
+                },
+                {
+                    "Name": "NoSpaceOnDevice",
+                    "Value": 3
+                }
+            ],
+            "Name": "ScreenshotCaptureResult"
         },
         {
             "Items": [

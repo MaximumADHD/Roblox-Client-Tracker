@@ -4031,7 +4031,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Font#fromEnum",
-    "code_sample": "script.Parent.FontFace = Font.fromEnum(Enum.Font.SciFi)\nprint(script.Parent.FontFace)"
+    "code_sample": ""
   },
   "@roblox/global/Font.fromName/param/0": {
     "documentation": "글꼴의 이름입니다."
@@ -4043,7 +4043,7 @@
     "documentation": "텍스트가 일반인지 또는 이탤릭체인지입니다."
   },
   "@roblox/global/Font.fromName": {
-    "documentation": "<code>FredokaOne</code>과 같은 이름에서 글꼴을 생성합니다.",
+    "documentation": "<code>FredokaOne</code>와 같은 이름으로부터 <code>Font</code>를 생성합니다.",
     "params": [
       {
         "name": "name",
@@ -4060,7 +4060,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Font#fromName",
-    "code_sample": "script.Parent.FontFace = Font.fromName(\"FredokaOne\")\nprint(script.Parent.FontFace.Family)"
+    "code_sample": ""
   },
   "@roblox/global/Font.fromId/param/0": {
     "documentation": "숫자로 된 글꼴의 자산 ID입니다."
@@ -4072,7 +4072,7 @@
     "documentation": "텍스트가 일반인지 또는 이탤릭체인지입니다."
   },
   "@roblox/global/Font.fromId": {
-    "documentation": "숫자 자산 ID에서 글꼴을 생성합니다.",
+    "documentation": "숫자 자산 ID로부터 <code>Font</code>를 생성합니다.",
     "params": [
       {
         "name": "id",
@@ -4089,7 +4089,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Font#fromId",
-    "code_sample": "script.Parent.FontFace = Font.fromId(8836875837)\nprint(script.Parent.FontFace.Family)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Font": {
     "documentation": "텍스트를 렌더링하는 데 사용되는 글꼴을 설명합니다.",
@@ -6099,10 +6099,10 @@
     "documentation": "사용자가 버튼 위에 마우스를 올렸을 때 표시되는 툴팁의 텍스트입니다."
   },
   "@roblox/globaltype/PluginToolbar.CreateButton/param/3": {
-    "documentation": "버튼에 표시되는 아이콘의 자산 ID(예: rbxassetid://1507949215)입니다."
+    "documentation": "버튼에 표시되는 아이콘의 자산 ID입니다."
   },
   "@roblox/globaltype/PluginToolbar.CreateButton/param/4": {
-    "documentation": "버튼 아이콘 아래에 표시되는 텍스트입니다. 선택사항입니다. 이 필드가 제공되지 않으면 <strong>ID</strong>가 대신 사용됩니다."
+    "documentation": "버튼 아이콘 아래에 표시되는 선택적 텍스트입니다."
   },
   "@roblox/globaltype/PluginToolbar.CreateButton/return/0": {
     "documentation": "생성된 <code>PluginToolbarButton</code> 인스턴스입니다."
@@ -6523,7 +6523,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.AutoRuns": {
-    "documentation": "true로 설정하면 TestService의 <code>TestService:Run()</code> 메서드가 호출될 때 게임이 실행되기 시작합니다.",
+    "documentation": "<code>true</code>로 설정되면 서비스의 <code>TestService:Run()</code> 메서드가 호출될 때 게임이 실행됩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#AutoRuns",
     "code_sample": ""
   },
@@ -6538,7 +6538,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ExecuteWithStudioRun": {
-    "documentation": "true로 설정하면 Roblox Studio에서 <em>Run</em> 작업을 사용할 때 TestService가 실행됩니다.",
+    "documentation": "<code>true</code>로 설정하면 <code>TestService</code>가 Roblox Studio에서 <strong>실행</strong> 작업을 사용할 때 실행됩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ExecuteWithStudioRun",
     "code_sample": ""
   },
@@ -6628,7 +6628,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Check",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Check(false, \"example\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Checkpoint/param/0": {
     "documentation": "Roblox에서 엔진의 제어된 테스트를 실행하는 데 사용하는 서비스입니다. 개발자가 제한된 정도로 사용할 수 있습니다."
@@ -6643,7 +6643,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Checkpoint": {
-    "documentation": "\"Test checkpoint: \"과 함께 텍스트를 파란색 텍스트로 출력합니다.",
+    "documentation": "<code>Test checkpoint:</code>라는 문구와 문자열을 파란색 텍스트로 출력합니다.",
     "params": [
       {
         "name": "self",
@@ -6664,13 +6664,13 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Checkpoint",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Checkpoint(\"예제\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Done/param/0": {
     "documentation": "Roblox에서 엔진의 제어된 테스트를 실행하는 데 사용하는 서비스입니다. 개발자가 제한된 정도로 사용할 수 있습니다."
   },
   "@roblox/globaltype/TestService.Done": {
-    "documentation": "Testing Done을 파란색 텍스트로 출력합니다.",
+    "documentation": "<code>Testing Done</code>을 파란색 텍스트로 출력합니다.",
     "params": [
       {
         "name": "self",
@@ -6679,7 +6679,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Done",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Done()"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Error/param/0": {
     "documentation": "Roblox에서 엔진의 제어된 테스트를 실행하는 데 사용하는 서비스입니다. 개발자가 제한된 정도로 사용할 수 있습니다."
@@ -6694,7 +6694,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Error": {
-    "documentation": "빨간 메시지를 출력하며, <code>TestService:</code>이 접두어로 붙습니다.",
+    "documentation": "<code>TestService:</code>로 시작하는 빨간색 오류 메시지를 출력합니다.",
     "params": [
       {
         "name": "self",
@@ -6715,7 +6715,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Error",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Error(\"이것은 오류입니다\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Fail/param/0": {
     "documentation": "Roblox에서 엔진의 제어된 테스트를 실행하는 데 사용하는 서비스입니다. 개발자가 제한된 정도로 사용할 수 있습니다."
@@ -6730,7 +6730,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Fail": {
-    "documentation": "TestService 실행 중 치명적 오류를 나타냅니다. TestService 내에서 실행 중인 스크립트 안에서 호출되면 오류를 발생시킨 줄에서 중단점을 시작합니다.",
+    "documentation": "<code>TestService</code> 실행 중 치명적인 오류를 나타냅니다.",
     "params": [
       {
         "name": "self",
@@ -6793,7 +6793,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Message": {
-    "documentation": "Test 메시지를 출력하며, 텍스트가 뒤따릅니다.",
+    "documentation": "<code>TestService:</code>라는 문구와 함께 문자열을 파란색 텍스트로 출력합니다.",
     "params": [
       {
         "name": "self",
@@ -6814,7 +6814,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Message",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\n-- 'example' 메시지를 전송합니다.\nTestService:Message(\"example\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Require/param/0": {
     "documentation": "Roblox에서 엔진의 제어된 테스트를 실행하는 데 사용하는 서비스입니다. 개발자가 제한된 정도로 사용할 수 있습니다."
@@ -6832,7 +6832,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Require": {
-    "documentation": "조건이 true인지 여부와 설명 텍스트를 출력합니다.",
+    "documentation": "조건이 참인지 여부와 설명 문자열을 출력합니다.",
     "params": [
       {
         "name": "self",
@@ -6857,13 +6857,13 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Require",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Require(false, \"example\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.RunAsync/param/0": {
     "documentation": "Roblox에서 엔진의 제어된 테스트를 실행하는 데 사용하는 서비스입니다. 개발자가 제한된 정도로 사용할 수 있습니다."
   },
   "@roblox/globaltype/TestService.RunAsync": {
-    "documentation": "TestService에 부모가 설정된 스크립트를 실행합니다.",
+    "documentation": "<code>TestService</code>에 부모로 속한 스크립트를 실행합니다.",
     "params": [
       {
         "name": "self",
@@ -6878,7 +6878,7 @@
     "documentation": "Roblox에서 엔진의 제어된 테스트를 실행하는 데 사용하는 서비스입니다. 개발자가 제한된 정도로 사용할 수 있습니다."
   },
   "@roblox/globaltype/TestService.Run": {
-    "documentation": "<strong>Deprecated:</strong> <br>TestService에 부모가 된 스크립트를 실행합니다.",
+    "documentation": "<strong>Deprecated:</strong> <br><code>TestService</code>에 부모로 속한 스크립트를 실행합니다.",
     "params": [
       {
         "name": "self",
@@ -6947,7 +6947,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Warn": {
-    "documentation": "조건이 참이면 출력하고, 그렇지 않으면 경고를 출력합니다.",
+    "documentation": "조건이 <code>true</code>이면 출력하고, 그렇지 않으면 경고를 출력합니다.",
     "params": [
       {
         "name": "self",
@@ -6972,7 +6972,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Warn",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Warn(false, \"이 작업은 유효하지 않습니다\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.ServerCollectConditionalResult.Connect/param/0": {
     "documentation": "특정 발생 시 연결된 함수를 실행하는 객체입니다."
@@ -11414,12 +11414,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PluginAction.AllowBinding": {
-    "documentation": "<code>PluginAction</code>이 Studio의 단축키 보기에서 숨겨질지 여부입니다.",
+    "documentation": "이 작업에 키보드 단축키를 할당할 수 있는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginAction#AllowBinding",
     "code_sample": ""
   },
   "@roblox/globaltype/PluginAction.StatusTip": {
-    "documentation": "Roblox Studio의 키보드 단축키 창에서 이 작업을 볼 때의 설명입니다.",
+    "documentation": "Roblox Studio에서 키보드 단축키 창을 통해 이 작업을 볼 때의 설명입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginAction#StatusTip",
     "code_sample": ""
   },
@@ -11506,7 +11506,7 @@
     "returns": []
   },
   "@roblox/globaltype/PluginAction.Triggered": {
-    "documentation": "작업이 트리거될 때 발생합니다. 이는 Quick Access Toolbar에서 작업을 활성화하거나 이를 바인딩한 키보드 단축키를 사용하여 수행할 수 있습니다.",
+    "documentation": "작업이 트리거될 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/PluginAction.Triggered.Connect",
       "ConnectParallel": "@roblox/globaltype/PluginAction.Triggered.ConnectParallel",
@@ -11883,7 +11883,7 @@
     "returns": []
   },
   "@roblox/globaltype/NetworkClient.ConnectionAccepted": {
-    "documentation": "클라이언트가 서버에 성공적으로 연결되었을 때 발생합니다. 서버의 IP와 포트를 보여주는 문자열과 클라이언트의 <code>ClientReplicator</code>를 반환합니다.",
+    "documentation": "클라이언트가 서버에 성공적으로 연결되었을 때 발생합니다. 서버의 IP와 포트를 보여주는 문자열을 반환하며, 클라이언트의 <code>ClientReplicator</code>를 포함합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/NetworkClient.ConnectionAccepted.Connect",
       "ConnectParallel": "@roblox/globaltype/NetworkClient.ConnectionAccepted.ConnectParallel",
@@ -16748,7 +16748,7 @@
       "@roblox/globaltype/BadgeService.CheckUserBadgesAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#CheckUserBadgesAsync",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\nlocal badgeIds = { 0000000000, 1111111111, 2222222222 } -- 배지 ID 목록으로 변경하세요\nlocal function onPlayerAdded(player)\n\t-- 플레이어가 배지를 가지고 있는지 확인합니다.\n\tlocal success, result = pcall(function()\n\t\treturn BadgeService:CheckUserBadgesAsync(player.UserId, badgeIds)\n\tend)\n\t-- 오류가 있는 경우 경고를 발하고 함수에서 나옵니다.\n\tif not success then\n\t\twarn(\"플레이어\", player.Name, \"의 배지를 확인하는 중 오류 발생:\", result)\n\t\treturn\n\tend\n\n\tlocal ownedBadgeIds = result\n\n\tif #ownedBadgeIds == 0 then\n\t\tprint(player.Name, \"은 배지를 가지고 있지 않습니다.\")\n\telse\n\t\tprint(player.Name, \"은 다음 배지를 가지고 있습니다:\", table.concat(ownedBadgeIds, \", \"))\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.GetBadgeInfoAsync/param/0": {
     "documentation": "배지에 대한 정보를 제공하고 이를 수여합니다."
@@ -16829,7 +16829,7 @@
       "@roblox/globaltype/BadgeService.IsLegal/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#IsLegal",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal BADGE_ID = 0\n\nlocal function awardBadge(player, badgeId)\n\t-- 배지를 수여할 수 있는지 확인\n\tif BadgeService:IsLegal(badgeId) and not BadgeService:IsDisabled(badgeId) then\n\t\t-- 배지 수여\n\t\tBadgeService:AwardBadge(player.UserId, badgeId)\n\tend\nend\n\nlocal function onPlayerAdded(player)\n\tawardBadge(player, BADGE_ID)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.UserHasBadge/param/0": {
     "documentation": "배지에 대한 정보를 제공하고 이를 수여합니다."
@@ -16844,7 +16844,7 @@
     "documentation": "사용자가 배지를 가지고 있다면 true입니다."
   },
   "@roblox/globaltype/BadgeService.UserHasBadge": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 <code>BadgeService:UserHasBadgeAsync()</code>로 대체되었으며 새로운 작업에는 이를 사용해야 합니다.<br>주어진 <code>Player.UserId</code> 및 배지 ID에 따라 사용자가 배지를 소유하고 있는지 확인합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>BadgeService:UserHasBadgeAsync()</code>에 의해 대체되었으며, 새로 사용할 때는 이를 사용해야 합니다.<br>주어진 <code>Player.UserId</code> 및 배지 ID에 따라 사용자가 배지를 소유하고 있는지 확인합니다.",
     "params": [
       {
         "name": "self",
@@ -16863,7 +16863,7 @@
       "@roblox/globaltype/BadgeService.UserHasBadge/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#UserHasBadge",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal BADGE_ID = 123\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif BadgeService:UserHasBadge(player.UserId, BADGE_ID) then\n\t\tprint(\"사용자가 이 배지를 가지고 있습니다\")\n\telse\n\t\tprint(\"사용자가 이 배지를 가지고 있지 않습니다.\")\n\tend\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.UserHasBadgeAsync/param/0": {
     "documentation": "배지에 대한 정보를 제공하고 이를 수여합니다."
@@ -23025,12 +23025,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PluginMenu.Icon": {
-    "documentation": "서브 메뉴로 사용될 때 표시될 아이콘입니다.",
+    "documentation": "하위 메뉴로 사용될 때 표시될 아이콘입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginMenu#Icon",
     "code_sample": ""
   },
   "@roblox/globaltype/PluginMenu.Title": {
-    "documentation": "서브 메뉴로 사용될 때 표시될 텍스트입니다.",
+    "documentation": "하위 메뉴로 사용될 때 표시될 텍스트입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginMenu#Title",
     "code_sample": ""
   },
@@ -23060,7 +23060,7 @@
     "documentation": "스튜디오에서 표시할 수 있는 컨텍스트 메뉴입니다. <code>PluginActions</code> 목록을 표시하며 서브 메뉴를 지원합니다."
   },
   "@roblox/globaltype/PluginMenu.AddMenu/param/1": {
-    "documentation": "서브 메뉴로 추가할 메뉴입니다. 그것의 <code>PluginMenu.Title</code>와 <code>PluginMenu.Icon</code>을 사용하여 표시됩니다."
+    "documentation": "하위 메뉴로 추가할 메뉴입니다. <code>Title</code> 및 <code>Icon</code>을 사용하여 표시합니다."
   },
   "@roblox/globaltype/PluginMenu.AddMenu": {
     "documentation": "주어진 메뉴를 구분 기호로 추가합니다.",
@@ -23082,7 +23082,7 @@
     "documentation": "스튜디오에서 표시할 수 있는 컨텍스트 메뉴입니다. <code>PluginActions</code> 목록을 표시하며 서브 메뉴를 지원합니다."
   },
   "@roblox/globaltype/PluginMenu.AddNewAction/param/1": {
-    "documentation": "이 PluginAction을 다른 것들과 구별하는 고유한 문자열이어야 합니다."
+    "documentation": "다른 <code>PluginAction</code>과 구별되는 고유한 문자열이어야 합니다."
   },
   "@roblox/globaltype/PluginMenu.AddNewAction/param/2": {
     "documentation": "표시될 텍스트입니다."
@@ -31881,7 +31881,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Capture": {
-    "documentation": "경험 중에 촬영된 스크린샷이나 비디오와 같은 콘텐츠 조각을 정의하는 클래스입니다.",
+    "documentation": "스크린샷이나 비디오와 같이 경험 중에 촬영된 콘텐츠의 조각을 정의하는 클래스입니다.",
     "keys": {
       "CaptureTime": "@roblox/globaltype/Capture.CaptureTime",
       "CaptureType": "@roblox/globaltype/Capture.CaptureType",
@@ -33529,7 +33529,7 @@
     "code_sample": "assert(plugin, \"이 스크립트는 플러그인으로 실행되어야 합니다!\")\n-- 이 지점을 넘어서 작성된 코드는 스크립트가 플러그인으로 실행될 때만 실행됩니다\n\n-- 모듈을 로드하고 플러그인 참조를 전달합니다\nlocal pluginModule = require(script.Parent.PluginModule)\npluginModule:Initialize(plugin)\n\n-- 플러그인 참조가 초기화되었는지 확인합니다\npluginModule:CheckForPluginGlobal()"
   },
   "@roblox/globaltype/Plugin.CollisionEnabled": {
-    "documentation": "모델 탭에서 사용자가 Studio에서 <code>Collisions</code>를 활성화했는지를 반환합니다.",
+    "documentation": "사용자가 Studio의 도구 모음에서 <strong>충돌</strong>을 활성화했는지 여부를 반환합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CollisionEnabled",
     "code_sample": ""
   },
@@ -33552,7 +33552,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Activate/param/1": {
-    "documentation": "독점 마우스로 플러그인을 활성화할지를 지정하는 불리언 값입니다. true인 경우, <code>PluginMouse</code>를 <code>Plugin:GetMouse()</code>를 통해 가져올 수 있습니다."
+    "documentation": "플러그인을 독점 마우스와 함께 활성화할지 여부를 지정하는 부울입니다. <code>true</code>일 경우, <code>PluginMouse</code>는 <code>GetMouse()</code>를 통해 검색할 수 있습니다."
   },
   "@roblox/globaltype/Plugin.Activate": {
     "documentation": "호출하는 플러그인의 상태를 활성화로 설정합니다.",
@@ -33617,7 +33617,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui": {
-    "documentation": "<strong>Deprecated:</strong> <br><code>DockWidgetPluginGuiInfo</code>를 기반으로 <code>DockWidgetPluginGui</code>를 생성합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>CreateDockWidgetPluginGuiAsync()</code>로 대체되었습니다.<br><code>DockWidgetPluginGuiInfo</code>를 기반으로 <code>DockWidgetPluginGui</code>를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -33636,7 +33636,7 @@
       "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CreateDockWidgetPluginGui",
-    "code_sample": "-- 새로운 'DockWidgetPluginGuiInfo' 객체 생성\nlocal widgetInfo = DockWidgetPluginGuiInfo.new(\n\tEnum.InitialDockState.Float, -- 위젯이 플로팅 패널에 초기화됩니다\n\ttrue, -- 위젯이 초기에는 활성화됩니다\n\tfalse, -- 이전 활성화 상태를 덮어쓰지 않습니다\n\t200, -- 플로팅 창의 기본 너비\n\t300, -- 플로팅 창의 기본 높이\n\t150, -- 플로팅 창의 최소 너비 (선택사항)\n\t150 -- 플로팅 창의 최소 높이 (선택사항)\n)\n\n-- 새로운 위젯 GUI 생성\nlocal testWidget = plugin:CreateDockWidgetPluginGui(\"테스트 위젯\", widgetInfo)\n\nlocal testButton = Instance.new(\"TextButton\")\ntestButton.BorderSizePixel = 0\ntestButton.TextSize = 20\ntestButton.TextColor3 = Color3.new(1, 0.2, 0.4)\ntestButton.AnchorPoint = Vector2.new(0.5, 0.5)\ntestButton.Size = UDim2.new(1, 0, 1, 0)\ntestButton.Position = UDim2.new(0.5, 0, 0.5, 0)\ntestButton.SizeConstraint = Enum.SizeConstraint.RelativeYY\ntestButton.Text = \"클릭하세요\"\ntestButton.Parent = testWidget"
+    "code_sample": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/0": {
     "documentation": ""
@@ -33660,7 +33660,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction": {
-    "documentation": "<code>Toolbar</code> 또는 <code>Button</code>와 직접적으로 연결되지 않은 일반적인 실행 가능한 작업을 나타내는 <code>PluginAction</code>을 생성합니다.",
+    "documentation": "Studio에서 직접 관련된 <code>PluginToolbarButton</code> 없이 일반적인 수행 가능한 행동을 나타내는 <code>PluginAction</code>을 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -33700,10 +33700,10 @@
     "documentation": "메뉴의 고유 ID입니다."
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/param/2": {
-    "documentation": "하위 메뉴로 사용될 때 표시할 텍스트입니다."
+    "documentation": "하위 메뉴로 사용될 때 표시될 텍스트입니다."
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/param/3": {
-    "documentation": "하위 메뉴로 사용될 때 표시할 아이콘입니다."
+    "documentation": "하위 메뉴로 사용될 때 표시될 아이콘입니다."
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/return/0": {
     "documentation": ""
@@ -33783,7 +33783,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetJoinMode": {
-    "documentation": "사용자가 모델 탭 아래에서 설정한 <code>JointCreationMode</code>를 반환합니다.",
+    "documentation": "사용자가 Studio의 도구 모음에서 설정한 <code>JointCreationMode</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -33896,7 +33896,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimationAsync": {
-    "documentation": ".fbx 애니메이션 파일을 열어 <code>rigModel</code>에 로드할 수 있도록 사용자에게 프롬프트를 표시한 다음, 애니메이션을 <code>KeyframeSequence</code>로 <code>Workspace</code>에 삽입합니다.",
+    "documentation": "사용자에게 <code>rigModel</code>에 로드될 수 있는 <code>.fbx</code> 애니메이션 파일을 열도록 요청한 다음, 애니메이션을 <code>KeyframeSequence</code>로 <code>Workspace</code>에 삽입합니다.",
     "params": [
       {
         "name": "self",
@@ -33930,7 +33930,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimation": {
-    "documentation": "<strong>Deprecated:</strong> <br>.fbx 애니메이션 파일을 열어 <code>rigModel</code>에 로드할 수 있도록 사용자에게 프롬프트를 표시한 다음, 애니메이션을 <code>KeyframeSequence</code>로 <code>Workspace</code>에 삽입합니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>사용자에게 <code>rigModel</code>에 로드될 수 있는 <code>.fbx</code> 애니메이션 파일을 열도록 요청한 다음, 애니메이션을 <code>KeyframeSequence</code>로 <code>Workspace</code>에 삽입합니다.",
     "params": [
       {
         "name": "self",
@@ -33961,7 +33961,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRigAsync": {
-    "documentation": ".fbx 파일을 열어 모델의 개별 구성 요소를 메쉬로 업로드하고 애니메이션에 사용할 캐릭터 리그를 생성하여 <code>Workspace</code>에 로드합니다.",
+    "documentation": "사용자에게 <code>.fbx</code> 파일을 열도록 요청하고, 모델의 개별 구성 요소를 메쉬로 업로드한 후 애니메이션에 사용할 캐릭터 리그를 생성하여 <code>Workspace</code>에 로드합니다.",
     "params": [
       {
         "name": "self",
@@ -33988,7 +33988,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRig": {
-    "documentation": "<strong>Deprecated:</strong> <br>.fbx 파일을 열어 모델의 개별 구성 요소를 메쉬로 업로드하고 애니메이션에 사용할 캐릭터 리그를 생성하여 <code>Workspace</code>에 로드합니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>사용자에게 <code>.fbx</code> 파일을 열도록 요청하고, 모델의 개별 구성 요소를 메쉬로 업로드한 후 애니메이션에 사용할 캐릭터 리그를 생성하여 <code>Workspace</code>에 로드합니다.",
     "params": [
       {
         "name": "self",
@@ -34015,7 +34015,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Intersect": {
-    "documentation": "",
+    "documentation": "주어진 부품들을 교차하여 결과의 <code>IntersectOperation</code>을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -34039,7 +34039,7 @@
     "documentation": "플러그인이 현재 활성화되어 있는지를 나타내는 부울 값입니다."
   },
   "@roblox/globaltype/Plugin.IsActivated": {
-    "documentation": "이 플러그인이 현재 활성화되어 있는 경우 true를 반환합니다. <code>Plugin:Activate()</code> 함수로 활성화된 후.",
+    "documentation": "이 플러그인이 현재 활성화되었다면 <code>true</code>를 반환하며, 이는 <code>Activate()</code> 함수를 통해 활성화된 것입니다.",
     "params": [
       {
         "name": "self",
@@ -34059,7 +34059,7 @@
     "documentation": "이 플러그인이 현재 독점 마우스와 함께 활성화되어 있는지 여부입니다."
   },
   "@roblox/globaltype/Plugin.IsActivatedWithExclusiveMouse": {
-    "documentation": "이 플러그인이 독점 마우스와 함께 현재 활성화되어 있는 경우 true를 반환합니다. <code>Plugin:Activate()</code> 함수로 활성화된 후.",
+    "documentation": "이 플러그인이 현재 독점 마우스와 함께 활성화되었다면 <code>true</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -34082,7 +34082,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Negate": {
-    "documentation": "주어진 부품의 부정을 수행하고 결과 NegateOperations를 반환합니다.",
+    "documentation": "주어진 부품들을 부정하여 결과의 <code>NegateOperations</code>을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -34160,7 +34160,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync": {
-    "documentation": "사용자에게 지정된 <code>assetType</code>에 따라 자산을 선택하라는 메시지를 표시하는 Roblox Studio에 창을 엽니다. 선택된 assetId를 반환하거나 창이 닫히면 -1을 반환합니다.",
+    "documentation": "사용자에게 지정된 <code>assetType</code>에 따라 자산을 선택하도록 요청하는 Roblox Studio에서 창을 엽니다.",
     "params": [
       {
         "name": "self",
@@ -34187,7 +34187,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId": {
-    "documentation": "사용자에게 지정된 <code>assetType</code>에 따라 자산을 선택하라는 메시지를 표시하는 Roblox Studio에 창을 엽니다. 선택된 assetId를 반환하거나 창이 닫히면 -1을 반환합니다.",
+    "documentation": "사용자에게 지정된 <code>assetType</code>에 따라 자산을 선택하도록 요청하는 로블록스 스튜디오에서 창을 엽니다.",
     "params": [
       {
         "name": "self",
@@ -34214,7 +34214,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelectionAsync": {
-    "documentation": "사용자에게 지정된 파일 이름으로 현재 선택 항목을 저장하라는 메시지를 표시합니다. 사용자가 파일을 저장하면 true를 반환합니다.",
+    "documentation": "현재 선택을 지정된 파일 이름으로 저장하도록 사용자에게 요청합니다.",
     "params": [
       {
         "name": "self",
@@ -34241,7 +34241,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelection": {
-    "documentation": "<strong>Deprecated:</strong> <br>사용자에게 지정된 파일 이름으로 현재 선택 항목을 저장하라는 메시지를 표시합니다. 사용자가 파일을 저장하면 true를 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>현재 선택을 지정된 파일 이름으로 저장하도록 사용자에게 요청합니다.",
     "params": [
       {
         "name": "self",
@@ -34312,7 +34312,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Separate": {
-    "documentation": "주어진 UnionOperations를 분리하고 결과 부품을 반환합니다.",
+    "documentation": "주어진 <code>UnionOperations</code>를 분리하고 결과 부품을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -34390,7 +34390,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Union": {
-    "documentation": "주어진 부품을 통합하고 결과 UnionOperation을 반환합니다.",
+    "documentation": "주어진 부품들을 결합하여 결과의 <code>UnionOperation</code>을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -45577,7 +45577,7 @@
       "@roblox/globaltype/Player.GetRankInGroupAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRankInGroupAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroup(2) == 255 then\n\t\tprint(\"플레이어는 그룹의 소유자입니다, 'LOL'!\")\n\telse\n\t\tprint(\"플레이어는 그룹의 소유자가 아닙니다, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroupAsync(2) == 255 then\n\t\tprint(\"플레이어는 그룹의 소유자입니다, 'LOL'!\")\n\telse\n\t\tprint(\"플레이어는 그룹의 소유자가 아닙니다, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/0": {
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
@@ -45604,7 +45604,7 @@
       "@roblox/globaltype/Player.GetRankInGroup/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRankInGroup",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroup(2) == 255 then\n\t\tprint(\"플레이어는 그룹의 소유자입니다, 'LOL'!\")\n\telse\n\t\tprint(\"플레이어는 그룹의 소유자가 아닙니다, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroupAsync(2) == 255 then\n\t\tprint(\"플레이어는 그룹의 소유자입니다, 'LOL'!\")\n\telse\n\t\tprint(\"플레이어는 그룹의 소유자가 아닙니다, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync/param/0": {
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
@@ -45690,7 +45690,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.IsBestFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> 이 함수는 Best Friends 기능이 제거되었기 때문에 더 이상 사용되지 않습니다. 대신 <code>Player:IsFriendsWith()</code>를 사용하십시오.<br>플레이어가 지정된 사용자와 연결되어 있는지 여부를 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> \"가장 친한 친구\" 기능이 제거되었기 때문에 이 함수는 더 이상 사용되지 않습니다. 대신 <code>Player:IsFriendsWithAsync()</code>를 사용하세요.<br>플레이어가 지정된 사용자와 연결되어 있는지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -45732,7 +45732,7 @@
       "@roblox/globaltype/Player.IsFriendsWithAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsFriendsWithAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \"는 gordonrox24와 연결되어 있습니다!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/0": {
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
@@ -45744,7 +45744,7 @@
     "documentation": "플레이어가 지정된 사용자와 연결되어 있는지 여부를 나타내는 부울입니다."
   },
   "@roblox/globaltype/Player.IsFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> <br>지정된 <code>Player.UserId</code>를 가진 사용자와 플레이어가 연결되어 있는지 확인합니다.",
+    "documentation": "<strong>Deprecated:</strong> <code>Player:IsFriendsWithAsync()</code> 메서드가 새 작업에 사용해야 할 메서드를 대체하였습니다.<br>지정된 <code>Player.UserId</code>를 가진 사용자와 플레이어가 연결되어 있는지 확인합니다.",
     "params": [
       {
         "name": "self",
@@ -45759,7 +45759,7 @@
       "@roblox/globaltype/Player.IsFriendsWith/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsFriendsWith",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \"는 gordonrox24와 연결되어 있습니다!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.isFriendsWith/param/0": {
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
@@ -45771,7 +45771,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.isFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> 이 deprecated 함수는 <code>Player:IsFriendsWith()</code>의 변형으로, 대신 사용해야 합니다.",
+    "documentation": "<strong>Deprecated:</strong> <code>Player:IsFriendsWithAsync()</code> 메서드가 새 작업에 사용해야 할 메서드를 대체하였습니다.",
     "params": [
       {
         "name": "self",
@@ -50998,16 +50998,16 @@
     "documentation": "모든 실행 시간 활동과 시간 진행을 책임지는 서비스입니다."
   },
   "@roblox/globaltype/RunService.BindToSimulation/param/1": {
-    "documentation": "호출할 함수입니다. 이 함수는 <code>deltaTime</code>이라는 매개변수를 전달받으며, 이는 이전 시뮬레이션 단계의 시작과 현재 시뮬레이션 단계의 시작 간에 경과한 시간을 표시합니다."
+    "documentation": "호출할 함수입니다. 이 함수는 <code>deltaTime</code>이라는 매개변수를 전달받으며, 이는 이전 시뮬레이션 단계의 시작과 현재 시뮬레이션 단계의 시작 사이에 얼마나 많은 시간이 지났는지를 보여줍니다."
   },
   "@roblox/globaltype/RunService.BindToSimulation/param/2": {
-    "documentation": "바인딩된 함수를 호출할 빈도수를 나타내는 선택적 <code>StepFrequency</code> 값입니다. 제공되지 않을 경우 기본 빈도가 사용됩니다."
+    "documentation": "바인딩된 함수를 호출할 주기를 나타내는 선택적 <code>StepFrequency</code> 값입니다. 제공되지 않으면 기본 주기가 사용됩니다."
   },
   "@roblox/globaltype/RunService.BindToSimulation/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/RunService.BindToSimulation": {
-    "documentation": "프레임 속도에 독립적으로 고정 주기로 호출될 사용자 정의 함수를 바인딩합니다.",
+    "documentation": "프레임 속도와 독립적으로 고정 주기로 호출되는 커스텀 함수를 바인딩합니다.",
     "params": [
       {
         "name": "self",
@@ -51038,7 +51038,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/RunService.GetPredictionStatus": {
-    "documentation": "특정 컨텍스트 인스턴스의 <code>PredictionStatus</code>를 검사합니다. 여러 인스턴스에 영향을 주는 스크립트를 디버깅하는 데 유용합니다. 일부는 예측되고 일부는 그렇지 않을 수 있습니다.",
+    "documentation": "특정 컨텍스트 인스턴스의 <code>PredictionStatus</code>를 확인합니다. 여러 인스턴스에 영향을 미치는 스크립트를 디버깅하는 데 유용하며, 일부는 예측되고 일부는 예측되지 않을 수 있습니다.",
     "params": [
       {
         "name": "self",
@@ -54658,6 +54658,7 @@
   "@roblox/globaltype/MaterialVariant": {
     "documentation": "재료의 변형을 나타냅니다.",
     "keys": {
+      "AlphaMode": "@roblox/globaltype/MaterialVariant.AlphaMode",
       "BaseMaterial": "@roblox/globaltype/MaterialVariant.BaseMaterial",
       "ColorMap": "@roblox/globaltype/MaterialVariant.ColorMap",
       "ColorMapContent": "@roblox/globaltype/MaterialVariant.ColorMapContent",
@@ -54677,8 +54678,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant",
     "code_sample": ""
   },
+  "@roblox/globaltype/MaterialVariant.AlphaMode": {
+    "documentation": "<code>MaterialVariant.ColorMap</code>의 알파 채널이 어떻게 사용되는지를 결정합니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#AlphaMode",
+    "code_sample": ""
+  },
   "@roblox/globaltype/MaterialVariant.BaseMaterial": {
-    "documentation": "이 변형이 속한 재료 범주.",
+    "documentation": "이 변형이 속하는 카테고리 재질입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#BaseMaterial",
     "code_sample": ""
   },
@@ -54698,7 +54704,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.EmissiveMaskContent": {
-    "documentation": "표면의 방사율을 결정합니다.",
+    "documentation": "표면 전반에 걸친 방사율을 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#EmissiveMaskContent",
     "code_sample": ""
   },
@@ -54708,7 +54714,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.EmissiveTint": {
-    "documentation": "방사 기여의 색조를 결정합니다.",
+    "documentation": "방사 기여를 위한 색조 색상을 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#EmissiveTint",
     "code_sample": ""
   },
@@ -54718,32 +54724,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.MetalnessMap": {
-    "documentation": "표면의 어느 부분이 금속이고 비금속인지 결정합니다.",
+    "documentation": "표면의 어떤 부분이 금속이고 비금속인지 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#MetalnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.MetalnessMapContent": {
-    "documentation": "표면의 어느 부분이 금속이고 비금속인지 결정합니다. 텍스처로는 자산 URI만 지원합니다.",
+    "documentation": "표면의 어떤 부분이 금속이고 비금속인지 결정합니다. 텍스처로 자산 URI만 지원합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#MetalnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.NormalMap": {
-    "documentation": "다각형을 추가하지 않고 표면의 조명을 변경하여 bumps, dents, cracks 및 curves를 추가합니다.",
+    "documentation": "더 많은 폴리곤을 추가하지 않고 표면의 조명을 높여 범프, 움푹 들어간 곳, 균열 및 곡선을 추가합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#NormalMap",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.NormalMapContent": {
-    "documentation": "다각형을 추가하지 않고 표면의 조명을 변경하여 bumps, dents, cracks 및 curves를 추가합니다. 텍스처로는 자산 URI만 지원합니다.",
+    "documentation": "더 많은 폴리곤을 추가하지 않고 표면의 조명을 높여 범프, 움푹 들어간 곳, 균열 및 곡선을 추가합니다. 텍스처로 자산 URI만 지원합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#NormalMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.RoughnessMap": {
-    "documentation": "표면의 겉보기 거칠기를 결정합니다.",
+    "documentation": "표면 전반에 걸친 겉보기 거칠기를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#RoughnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.RoughnessMapContent": {
-    "documentation": "표면의 겉보기 거칠기를 결정합니다. 텍스처로는 자산 URI만 지원합니다.",
+    "documentation": "표면 전반에 걸친 겉보기 거칠기를 결정합니다. 텍스처로 자산 URI만 지원합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#RoughnessMapContent",
     "code_sample": ""
   },
@@ -72375,7 +72381,6 @@
       "ReadCapturesFromGalleryAsync": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync",
       "StartVideoCaptureAsync": "@roblox/globaltype/CaptureService.StartVideoCaptureAsync",
       "StopVideoCapture": "@roblox/globaltype/CaptureService.StopVideoCapture",
-      "TakeCapture": "@roblox/globaltype/CaptureService.TakeCapture",
       "UploadCaptureAsync": "@roblox/globaltype/CaptureService.UploadCaptureAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService",
@@ -72578,43 +72583,14 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#StopVideoCapture",
     "code_sample": ""
   },
-  "@roblox/globaltype/CaptureService.TakeCapture/param/0": {
-    "documentation": "스크린샷 및 비디오 캡처 기능에 대한 제어를 제공하는 서비스입니다."
-  },
-  "@roblox/globaltype/CaptureService.TakeCapture/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/CaptureService.TakeCapture/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/CaptureService.TakeCapture": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/CaptureService.TakeCapture/param/0"
-      },
-      {
-        "name": "onCaptureReady",
-        "documentation": "@roblox/globaltype/CaptureService.TakeCapture/param/1"
-      },
-      {
-        "name": "captureParams",
-        "documentation": "@roblox/globaltype/CaptureService.TakeCapture/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#TakeCapture",
-    "code_sample": ""
-  },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
     "documentation": "스크린샷 및 비디오 캡처 기능에 대한 제어를 제공하는 서비스입니다."
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1": {
-    "documentation": "<code>Capture</code> 유형의 캡처 객체입니다."
+    "documentation": "<code>Capture</code> 타입의 캡처 객체"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
-    "documentation": "(결과: <code>UploadCaptureResult</code>, 자산 ID: <code>number</code>)의 튜플입니다."
+    "documentation": "튜플 (result: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync": {
     "documentation": "",
@@ -77179,7 +77155,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/PluginManager.ExportPlace": {
-    "documentation": "사용자가 파일 저장 대화상자에서 선택한 경로에 저장된 .OBJ 파일로 장소를 내보냅니다(<code>filePath</code> 인수는 무시됩니다).",
+    "documentation": "플레이스를 사용자가 파일 저장 대화상자에서 선택한 경로에 저장되는 <code>.obj</code> 파일로 내보냅니다.",
     "params": [
       {
         "name": "self",
@@ -77201,7 +77177,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/PluginManager.ExportSelection": {
-    "documentation": "현재 <code>Selection</code>을 사용자가 파일 저장 대화상자에서 선택한 경로에 저장된 .OBJ 파일로 내보냅니다(<code>filePath</code> 인수는 무시됩니다).",
+    "documentation": "현재 <code>Selection</code>을 사용자가 파일 저장 대화상자에서 선택한 경로에 저장되는 <code>.obj</code> 파일로 내보냅니다.",
     "params": [
       {
         "name": "self",
@@ -78327,7 +78303,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PluginToolbarButton.ClickableWhenViewportHidden": {
-    "documentation": "게임 뷰포트가 숨겨졌을 때 버튼을 클릭할 수 있는지 여부를 결정합니다, 예를 들어 다른 Studio 탭에서 스크립트를 편집하는 동안.",
+    "documentation": "3D 뷰포트가 숨겨졌을 때 (예: <code>Script</code>가 다른 탭에서 편집 중일 때) 버튼을 클릭할 수 있는지 여부를 결정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginToolbarButton#ClickableWhenViewportHidden",
     "code_sample": ""
   },
@@ -79538,10 +79514,10 @@
     "documentation": "지정된 제품의 자산 ID입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/2": {
-    "documentation": "가져올 정보의 유형을 지정하는 <code>InfoType</code> 열거형 값입니다."
+    "documentation": "조회할 정보의 유형을 지정하는 <code>InfoType</code> 열거형 값입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/return/0": {
-    "documentation": "쿼리된 항목에 대한 정보를 포함하는 사전입니다. 이전 표에서 설명한 항목입니다."
+    "documentation": "쿼리된 항목에 대한 정보를 포함하는 딕셔너리입니다. 이전 표에서 설명되었습니다."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo": {
     "documentation": "<strong>Deprecated:</strong> <br>자산 ID를 사용하여 자산의 제품 정보를 반환합니다.",
@@ -79599,10 +79575,10 @@
     "documentation": "사용자 ID의 배열입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
-    "documentation": "<code>PriceLevelInfo</code> 객체의 배열을 반환하며, 그 사전의 키는 사용자 ID(문자열)이고 값은 해당 가격 수준(1에서 1000 사이의 정수)입니다."
+    "documentation": "사용자 ID(문자열)를 키로 하고 해당 가격 수준(1에서 1000 사이의 정수)을 값으로 하는 딕셔너리의 <code>PriceLevelInfo</code> 객체 배열을 반환합니다."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "사용자의 지역화된 가격 수준을 반환하며, 해당 사용자의 지역 시장에서 아이템에 대한 권장 가격을 나타냅니다.",
+    "documentation": "사용자의 지역화된 가격 수준을 반환하며, 이는 해당 지역 시장에서 항목의 권장 가격을 나타냅니다.",
     "params": [
       {
         "name": "self",
@@ -79623,7 +79599,7 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/1": {
-    "documentation": "구독 세부 정보를 확인하려는 <code>Player</code> 객체입니다."
+    "documentation": "구독 세부 정보를 확인할 <code>Player</code> 객체입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/2": {
     "documentation": "확인할 구독의 ID입니다."
@@ -79632,7 +79608,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync": {
-    "documentation": "주어진 <code>subscriptionId</code>에 대한 사용자의 구독 세부 정보를 포함하는 테이블을 반환합니다.",
+    "documentation": "주어진 <code>subscriptionId</code>에 대한 사용자 구독 세부 정보를 포함하는 테이블을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -79666,7 +79642,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync": {
-    "documentation": "<code>subscriptionId</code>에 대한 사용자의 구독 결제 내역을 최대 1년까지 포함하는 <code>Array</code>를 반환합니다.",
+    "documentation": "주어진 <code>subscriptionId</code>에 대한 사용자의 구독 결제 내역을 최대 1년까지 포함하는 <code>Array</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -79691,7 +79667,7 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/param/1": {
-    "documentation": "구독 상태를 확인하려는 <code>Player</code> 객체입니다."
+    "documentation": "구독 상태를 확인할 <code>Player</code> 객체입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/param/2": {
     "documentation": "확인할 구독의 ID입니다."
@@ -79700,7 +79676,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync": {
-    "documentation": "<code>subscriptionId</code>에 대한 사용자의 구독 상태를 포함하는 <code>table</code>을 반환합니다.",
+    "documentation": "주어진 <code>subscriptionId</code>에 대한 사용자의 구독 상태를 포함하는 <code>table</code>을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -79759,16 +79735,16 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/1": {
-    "documentation": "주어진 자산의 소유권을 테스트할 <code>Player</code>입니다."
+    "documentation": "주어진 자산의 소유 여부를 테스트할 <code>Player</code>입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/2": {
-    "documentation": "주어진 플레이어의 인벤토리를 테스트할 자산 ID입니다."
+    "documentation": "주어진 플레이어의 인벤토리 테스트에 사용할 자산 ID입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/return/0": {
-    "documentation": "주어진 플레이어의 인벤토리에 주어진 자산이 포함되어 있는지를 나타냅니다."
+    "documentation": "주어진 플레이어의 인벤토리가 주어진 자산을 포함하는지 여부를 나타냅니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset": {
-    "documentation": "<strong>Deprecated:</strong> <br>주어진 사용자가 주어진 자산을 소유하고 있는지 여부를 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>주어진 사용자가 주어진 자산을 보유하고 있는지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -79827,13 +79803,13 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/1": {
-    "documentation": "주어진 번들의 소유권을 테스트할 <code>Player</code>입니다."
+    "documentation": "주어진 번들의 소유 여부를 테스트할 <code>Player</code>입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/2": {
-    "documentation": "주어진 플레이어의 인벤토리를 테스트할 번들 ID입니다."
+    "documentation": "주어진 플레이어의 인벤토리 테스트에 사용할 번들 ID입니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0": {
-    "documentation": "주어진 플레이어의 인벤토리에 주어진 번들이 포함되어 있는지를 나타냅니다."
+    "documentation": "주어진 플레이어의 인벤토리가 주어진 번들을 포함하는지 여부를 나타냅니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle": {
     "documentation": "<strong>Deprecated:</strong> <br>주어진 플레이어가 주어진 번들을 소유하고 있는지 여부를 반환합니다.",
@@ -79864,13 +79840,13 @@
     "documentation": "아이템 구매를 유도할 사용자입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
-    "documentation": "대량 구매에 포함될 아바타 아이템의 배열입니다. 각 항목은 다음 구조를 포함합니다: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> 각 항목에는 다음 쌍이 포함됩니다: <ul> <li><code>Type</code>: 해당하는 <code>MarketplaceProductType</code> (Enum).</li> <li><code>Id</code>: 자산 또는 번들의 ID입니다.</li> </ul>"
+    "documentation": "대량 구매에 포함될 아바타 아이템의 배열입니다. 각 항목은 다음 구조를 포함합니다: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> 각 항목은 다음 쌍을 포함합니다: <ul> <li><code>Type</code>: 해당하는 <code>MarketplaceProductType</code> (열거형).</li> <li><code>Id</code>: 자산 또는 번들의 ID입니다.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
     "documentation": "현재로서는 사용할 수 없습니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase": {
-    "documentation": "주어진 <code>assetId</code> 또는 <code>bundleId</code>로 여러 아바타 아이템을 구매하도록 사용자를 유도합니다.",
+    "documentation": "주어진 <code>assetId</code> 또는 <code>bundleId</code>로 사용자가 여러 아바타 아이템 구매를 유도합니다.",
     "params": [
       {
         "name": "self",
@@ -79903,7 +79879,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptBundlePurchase": {
-    "documentation": "주어진 <code>bundleId</code>로 사용자가 번들을 구매하도록 유도합니다.",
+    "documentation": "주어진 <code>bundleId</code>로 사용자가 번구 구매를 유도합니다.",
     "params": [
       {
         "name": "self",
@@ -79932,7 +79908,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptCancelSubscription": {
-    "documentation": "주어진 <code>subscriptionId</code>에 대한 구독 취소를 사용자에게 유도합니다.",
+    "documentation": "주어진 <code>subscriptionId</code>의 구독을 취소하도록 사용자를 유도합니다.",
     "params": [
       {
         "name": "self",
@@ -79987,7 +79963,7 @@
     "documentation": "프리미엄 구매를 유도할 사용자입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase": {
-    "documentation": "사용자가 Roblox Premium을 구매하도록 유도합니다.",
+    "documentation": "사용자가 Roblox 프리미엄을 구매하도록 유도합니다.",
     "params": [
       {
         "name": "self",
@@ -80058,10 +80034,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase/param/4": {
-    "documentation": "무시합니다."
+    "documentation": "무시됨."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase": {
-    "documentation": "주어진 <code>assetId</code>로 사용자가 아이템을 구매하도록 유도합니다. USD 제작자 상점 구매에는 작동하지 않습니다.",
+    "documentation": "주어진 <code>assetId</code>로 사용자가 항목을 구매하도록 유도합니다. USD 창작자 상점 구매에는 사용되지 않습니다.",
     "params": [
       {
         "name": "self",
@@ -80092,13 +80068,13 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/1": {
-    "documentation": "구독을 유도할 <code>Player</code> 객체입니다."
+    "documentation": "구독하도록 유도할 <code>Player</code> 객체입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2": {
-    "documentation": "구독할 구독의 ID입니다."
+    "documentation": "구독할 ID입니다."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase": {
-    "documentation": "주어진 <code>subscriptionId</code>에 대한 구독을 사용자에게 유도합니다.",
+    "documentation": "주어진 <code>subscriptionId</code>에 대한 구독을 구매하도록 사용자를 유도합니다.",
     "params": [
       {
         "name": "self",
@@ -80121,13 +80097,13 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/param/1": {
-    "documentation": "정렬하고자 하는 제품을 식별하는 객체 배열입니다. 이 배열은 최대 50개의 항목을 포함할 수 있습니다. 각 <code>ProductIdentifier</code>는: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li><code>InfoType.GamePass</code> 또는 <code>InfoType.Product</code> 중 하나여야 합니다.</li> <li><code>Id</code>: number</li> <li>게임 패스 또는 개발자 제품의 ID입니다.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
+    "documentation": "정렬하고자 하는 제품을 식별하는 객체의 배열입니다. 이 배열은 최대 50개의 항목을 포함할 수 있습니다. 각 <code>ProductIdentifier</code>는 다음을 포함합니다: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li><code>InfoType.GamePass</code> 또는     <code>InfoType.Product</code> 중 하나여야 합니다.</li> <li><code>Id</code>: number</li> <li>게임 패스 또는 개발자 제품의 ID입니다.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "현재 사용자에 대한 개인화된 정렬로 된 항목 배열입니다. 각 배열은: <ul> <li><code>ProductIdentifier</code>: 입력 배열의 해당 ID입니다.</li> <li><code>ProductInfo</code>: <code>GetProductInfo</code>에서 반환된 표준 제품 정보 사전입니다.</li> </ul>"
+    "documentation": "현재 사용자에 대한 개인화된 순서의 정렬된 항목 배열입니다. 각 배열에는 다음이 포함됩니다: <ul> <li><code>ProductIdentifier</code>: 입력 배열의 해당 ID입니다.</li> <li><code>ProductInfo</code>: <code>GetProductInfo</code>에 의해 반환되는 표준 제품 정보 사전입니다.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
-    "documentation": "제품 ID 목록을 받아 해당 제품의 개인화된 정렬 목록을 반환합니다.",
+    "documentation": "제품 ID 목록을 가져와 개인화된 정렬된 목록을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -80148,13 +80124,13 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/1": {
-    "documentation": "추천을 검색할 제품 유형을 지정하는 <code>InfoType</code> 값의 배열입니다. 지원되는 <code>InfoTypes</code>: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
+    "documentation": "추천을 받을 제품 유형을 지정하는 <code>InfoType</code> 값 배열입니다. 지원되는 <code>InfoTypes</code>: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/return/0": {
-    "documentation": "제공된 <code>InfoTypes</code>를 기반으로 사용자가 가장 많이 참여할 가능성이 있는 최대 50개의 항목을 정렬하여 반환합니다. 추천할 수 있는 항목이 없으면 빈 목록을 반환합니다."
+    "documentation": "제공된 <code>InfoTypes</code>를 기반으로 사용자가 가장 참여할 가능성이 높은 최대 50개 항목의 정렬된 목록입니다. 추천을 결정할 수 없는 경우 메서드는 빈 목록을 반환합니다."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync": {
-    "documentation": "<ul> <li><code>InfoType</code> 배열을 받아 사용자가 가장 많이 참여하고 구매할 가능성이 높은 제품을 나타내는 최대 50개의 항목을 반환합니다.</li> </ul>",
+    "documentation": "<ul> <li><code>InfoType</code> 배열을 가져와 사용자가 가장 참여할 가능성이 높은 제품을 나타내는 최대 50개 항목을 반환합니다.</li> </ul>",
     "params": [
       {
         "name": "self",
@@ -80175,7 +80151,7 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/1": {
-    "documentation": "체크하려는 <code>Player</code>의 <code>UserId</code>입니다."
+    "documentation": "<code>Player</code>의 <code>UserId</code>입니다. 자신이 확인할 인벤토리입니다."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/2": {
     "documentation": "확인할 패스 ID입니다. 자산 ID와 혼동하지 마십시오."
@@ -80184,7 +80160,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync": {
-    "documentation": "주어진 <code>UserId</code>를 가진 플레이어가 주어진 <code>gamePassId</code>를 소유하고 있는 경우 true를 반환합니다.",
+    "documentation": "주어진 <code>UserId</code>를 가진 선수가 주어진 <code>gamePassId</code>를 소유하는지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -87789,7 +87765,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction": {
-    "documentation": "게임 플레이 동작 메커니즘을 정의합니다. 이러한 동작은 <code>InputBinding</code>을 사용하여 하드웨어 입력에 매핑됩니다.",
+    "documentation": "게임 플레이 액션 메커니즘을 정의합니다. 이러한 액션은 이후에 <code>InputBinding</code>을 사용하여 하드웨어 입력에 매핑됩니다.",
     "keys": {
       "BoolState": "@roblox/globaltype/InputAction.BoolState",
       "Direction1DState": "@roblox/globaltype/InputAction.Direction1DState",
@@ -87809,17 +87785,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Direction1DState": {
-    "documentation": "디버깅에 유용한 비스크립트 가능 읽기 전용 속성 <code>Direction1D</code> 입력 동작에 대해.",
+    "documentation": "디버깅에 유용한 스크립트화할 수 없는 읽기 전용 속성입니다 <code>Direction1D</code> 입력 액션에 대해.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction1DState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Direction2DState": {
-    "documentation": "디버깅에 유용한 비스크립트 가능 읽기 전용 속성 <code>Direction2D</code> 입력 동작에 대해.",
+    "documentation": "디버깅에 유용한 스크립트화할 수 없는 읽기 전용 속성입니다 <code>Direction2D</code> 입력 액션에 대해.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction2DState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Direction3DState": {
-    "documentation": "디버깅에 유용한 비스크립트 가능 읽기 전용 속성 <code>Direction3D</code> 입력 동작에 대해.",
+    "documentation": "디버깅에 유용한 스크립트화할 수 없는 읽기 전용 속성입니다 <code>Direction3D</code> 입력 액션에 대해.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction3DState",
     "code_sample": ""
   },
@@ -87829,18 +87805,18 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Type": {
-    "documentation": "동작이 기대하는 입력 값의 유형을 지정합니다.",
+    "documentation": "액션이 기대하는 입력 값의 유형을 지정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Type",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Fire/param/0": {
-    "documentation": "게임 플레이 동작 메커니즘을 정의합니다. 이러한 동작은 <code>InputBinding</code>을 사용하여 하드웨어 입력에 매핑됩니다."
+    "documentation": "게임 플레이 액션 메커니즘을 정의합니다. 이러한 액션은 이후에 <code>InputBinding</code>을 사용하여 하드웨어 입력에 매핑됩니다."
   },
   "@roblox/globaltype/InputAction.Fire/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/InputAction.Fire": {
-    "documentation": "<code>InputAction</code>을 주어진 상태로 업데이트하고 적절한 신호를 발사합니다.",
+    "documentation": "<code>InputAction</code>을 주어진 상태로 업데이트하고 적절한 신호를 발생시킵니다.",
     "params": [
       {
         "name": "self",
@@ -87856,7 +87832,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.GetState/param/0": {
-    "documentation": "게임 플레이 동작 메커니즘을 정의합니다. 이러한 동작은 <code>InputBinding</code>을 사용하여 하드웨어 입력에 매핑됩니다."
+    "documentation": "게임 플레이 액션 메커니즘을 정의합니다. 이러한 액션은 이후에 <code>InputBinding</code>을 사용하여 하드웨어 입력에 매핑됩니다."
   },
   "@roblox/globaltype/InputAction.GetState/return/0": {
     "documentation": "<code>InputAction</code>의 현재 상태입니다."
@@ -87953,7 +87929,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.Pressed": {
-    "documentation": "<code>InputAction.Type</code>이 <code>Bool</code>로 설정되고 상태가 <code>false</code>에서 <code>true</code>로 변경될 때만 발사됩니다.",
+    "documentation": "<code>InputAction.Type</code>가 <code>Bool</code>로 설정되어 있고, 상태가 <code>false</code>에서 <code>true</code>로 전이될 때만 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.Pressed.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.Pressed.ConnectParallel",
@@ -88041,7 +88017,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.Released": {
-    "documentation": "<code>InputAction.Type</code>이 <code>Bool</code>로 설정되고 상태가 <code>true</code>에서 <code>false</code>로 변경될 때만 발사됩니다.",
+    "documentation": "<code>InputAction.Type</code>가 <code>Bool</code>로 설정되어 있고, 상태가 <code>true</code>에서 <code>false</code>로 전이될 때만 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.Released.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.Released.ConnectParallel",
@@ -88129,7 +88105,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.StateChanged": {
-    "documentation": "상태가 변경될 때마다 모든 <code>InputActionType</code> 유형에 대해 발사되며, 단 상태가 같은 상태로 전환하려 할 경우 제외됩니다.",
+    "documentation": "상태가 변경될 때마다 모든 <code>InputActionType</code> 유형에 대해 발생하며, 상태가 동일한 상태로 전이되려는 경우는 제외됩니다.",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.StateChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel",
@@ -88248,9 +88224,9 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.EmitterSize": {
-    "documentation": "<strong>Deprecated:</strong> <code>RollOffMinDistance</code> 및 <code>RollOffMaxDistance</code>의 이점을 위해 이 속성은 더 이상 사용되지 않으며 새 작업에는 이 속성을 사용해야 합니다.<br>3D <code>Sound</code> (직접 자식인 <code>BasePart</code> 또는 <code>Attachment</code>)가 감쇠(볼륨 감소)를 시작하는 최소 거리(스투드).",
+    "documentation": "<strong>Deprecated:</strong> <code>Sound.RollOffMinDistance</code> 및 <code>Sound.RollOffMaxDistance</code>에 대한 지원을 위해 이 속성이 더 이상 사용되지 않습니다. 새로운 작업에서는 대신 이들이 사용되어야 합니다.<br>3D <code>Sound</code> (직접 자식인 <code>BasePart</code> 또는 <code>Attachment</code>)가 감쇠(볼륨 감소)를 시작하는 최소 거리(스투드).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#EmitterSize",
-    "code_sample": ""
+    "code_sample": "local part = Instance.new(\"Part\")\npart.Anchored = true\npart.Position = Vector3.new(0, 3, 0)\npart.BrickColor = BrickColor.new(\"Bright red\")\npart.Name = \"MusicBox\"\npart.Parent = workspace\n\n-- 사운드 생성\nlocal sound = Instance.new(\"Sound\", part)\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.EmitterSize = 5 -- 방출기 크기를 줄임 (볼륨 감소를 위해)\nsound.Looped = true\nsound.Parent = part\n\nlocal clickDetector = Instance.new(\"ClickDetector\")\nclickDetector.Parent = part\n\n-- 사운드 재생 / 정지 전환\nclickDetector.MouseClick:Connect(function()\n\tif not sound.IsPlaying then\n\t\tpart.BrickColor = BrickColor.new(\"Bright green\")\n\t\tsound:Play()\n\telse\n\t\tpart.BrickColor = BrickColor.new(\"Bright red\")\n\t\tsound:Stop()\n\tend\nend)"
   },
   "@roblox/globaltype/Sound.IsLoaded": {
     "documentation": "<code>Sound</code>가 Roblox 서버에서 로드되었고 재생 준비가 되었을 때 <code>true</code>입니다.",
@@ -88288,17 +88264,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MaxDistance": {
-    "documentation": "<strong>Deprecated:</strong> <code>RollOffMaxDistance</code>의 이점을 위해 이 속성은 더 이상 사용되지 않으며 새 작업에는 이 속성을 사용해야 합니다.<br>클라이언트의 리스너가 사운드의 원점에서 얼마만큼 멀리 있을 수 있는지(스튜드)와 여전히 들을 수 있는 최대 거리입니다. <code>BasePart</code> 또는 <code>Attachment</code>에 부모로 설정된 소리에만 적용됩니다 (3D 사운드).",
+    "documentation": "<strong>Deprecated:</strong> <code>Sound.RollOffMinDistance</code> 및 <code>Sound.RollOffMaxDistance</code>에 대한 지원을 위해 이 속성이 더 이상 사용되지 않습니다. 새로운 작업에서는 대신 이들이 사용되어야 합니다.<br>클라이언트의 리스너가 <code>Sound</code>의 원점에서 들을 수 있는 최대 거리(스튜드 단위)입니다. <code>Part</code> 또는 <code>Attachment</code>에 부모로 연결된 사운드에만 적용됩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MaxDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MinDistance": {
-    "documentation": "<strong>Deprecated:</strong> <code>RollOffMinDistance</code>의 이점을 위해 이 속성은 더 이상 사용되지 않으며 새 작업에는 이 속성을 사용해야 합니다.<br>3D <code>Sound</code>(직접 자식인 <code>BasePart</code> 또는 <code>Attachment</code>)가 감쇠를 시작하는 최소 거리(스튜드). 효과적으로, 발신기 크기입니다.",
+    "documentation": "<strong>Deprecated:</strong> <code>Sound.EmitterSize</code>에 의해 MinDistance가 대체되었습니다. 이 속성의 동작을 더 잘 설명하는 이름을 가지고 있습니다.<br>3D <code>Sound</code> (직접 자식인 <code>BasePart</code> 또는 <code>Attachment</code>)이 감쇠를 시작하는 최소 거리입니다. 실질적으로는 발신기 크기입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MinDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.Pitch": {
-    "documentation": "<strong>Deprecated:</strong> <code>PlaybackSpeed</code>의 이름이 동작에 더 적합하기 때문에 이 속성은 더 이상 사용되지 않습니다.<br><code>Sound</code>가 재생될 때 얼마나 높은 음과 빠르게 재생될지를 설정합니다. 정수가 커질수록 <code>Sound</code>는 더 높고 빠르게 됩니다.",
+    "documentation": "<strong>Deprecated:</strong> <code>Sound.PlaybackSpeed</code>에 대한 지원을 위해 이 속성이 더 이상 사용되지 않습니다. 이 이름이 동작을 더 잘 표현합니다.<br><code>Sound</code>가 재생될 때 얼마나 높은 음과 빠르게 재생될지를 설정합니다. 정수가 커질수록 <code>Sound</code>는 더 높고 빠르게 됩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Pitch",
     "code_sample": ""
   },
@@ -88313,7 +88289,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackRegionsEnabled": {
-    "documentation": "<code>true</code>일 경우 이 속성은 <code>Sound</code>에 <code>PlaybackRegion</code> 및 <code>LoopRegion</code> 속성에 대한 접근을 허용하여 더 정확하게 재생을 제어할 수 있습니다.",
+    "documentation": "<code>true</code>인 경우 이 속성은 <code>Sound</code>에 <code>PlaybackRegion</code> 및 <code>LoopRegion</code> 속성에 접근할 수 있게 하여 재생을 더 정확하게 제어할 수 있게 합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackRegionsEnabled",
     "code_sample": ""
   },
@@ -106503,7 +106479,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size8": {
-    "documentation": "글자 크기 8.",
+    "documentation": "폰트 크기 <code>8</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106513,7 +106489,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size9": {
-    "documentation": "글자 크기 9.",
+    "documentation": "폰트 크기 <code>9</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106523,7 +106499,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size10": {
-    "documentation": "글자 크기 10.",
+    "documentation": "폰트 크기 <code>10</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106533,7 +106509,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size11": {
-    "documentation": "글자 크기 11.",
+    "documentation": "폰트 크기 <code>11</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106543,7 +106519,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size12": {
-    "documentation": "글자 크기 12.",
+    "documentation": "폰트 크기 <code>12</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106553,7 +106529,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size14": {
-    "documentation": "글자 크기 14.",
+    "documentation": "폰트 크기 <code>14</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106563,7 +106539,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size18": {
-    "documentation": "글자 크기 18.",
+    "documentation": "폰트 크기 <code>18</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106573,7 +106549,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size24": {
-    "documentation": "글자 크기 24.",
+    "documentation": "폰트 크기 <code>24</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106583,7 +106559,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size36": {
-    "documentation": "글자 크기 36.",
+    "documentation": "폰트 크기 <code>36</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106593,7 +106569,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size48": {
-    "documentation": "글자 크기 48.",
+    "documentation": "폰트 크기 <code>48</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106603,7 +106579,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size28": {
-    "documentation": "글자 크기 28.",
+    "documentation": "폰트 크기 <code>28</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106613,7 +106589,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size32": {
-    "documentation": "글자 크기 32.",
+    "documentation": "폰트 크기 <code>32</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106623,7 +106599,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size42": {
-    "documentation": "글자 크기 42.",
+    "documentation": "폰트 크기 <code>42</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106633,7 +106609,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size60": {
-    "documentation": "글자 크기 60.",
+    "documentation": "폰트 크기 <code>60</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106643,7 +106619,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size96": {
-    "documentation": "글자 크기 96.",
+    "documentation": "폰트 크기 <code>96</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119554,7 +119530,7 @@
     "code_sample": ""
   },
   "@roblox/enum/UICaptureMode.All": {
-    "documentation": "",
+    "documentation": "모든 UI 요소를 캡처합니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119564,7 +119540,7 @@
     "code_sample": ""
   },
   "@roblox/enum/UICaptureMode.None": {
-    "documentation": "",
+    "documentation": "UI 요소를 캡처하지 않습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119574,7 +119550,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.UICaptureMode": {
-    "documentation": "",
+    "documentation": "어떤 UI 요소를 <code>CaptureService</code>로 캡처해야 하는지를 결정하는 데 사용됩니다.",
     "keys": {
       "All": "@roblox/enum/UICaptureMode.All",
       "None": "@roblox/enum/UICaptureMode.None"
@@ -123403,7 +123379,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Play": {
-    "documentation": "사용자가 항목을 통해 경험에 참여했습니다.",
+    "documentation": "사용자가 항목을 통해 경험에 참여했거나, 항목과 관련된 미니게임을 플레이했습니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123437,7 +123413,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Legacy": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Legacy.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Legacy.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123447,7 +123423,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Arial": {
-    "documentation": "Arial는 Roblox에서 제거되었습니다. Arial을 사용하면 Arimo로 매핑됩니다.",
+    "documentation": "<code>Arial</code>이 제거되었습니다. 이 폰트를 사용하면 <code>Font</code> 데이터 타입의 <code>Arimo</code> 폰트 패밀리로 매핑됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123457,7 +123433,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.ArialBold": {
-    "documentation": "Arial는 Roblox에서 제거되었습니다. Arial을 사용하면 Arimo로 매핑됩니다.",
+    "documentation": "<code>ArialBold</code>가 제거되었습니다. 이 폰트를 사용하면 <code>Font</code> 데이터 타입의 <code>Arimo</code> 폰트 패밀리로 매핑됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123467,7 +123443,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSans": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSans.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSans.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123477,7 +123453,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansBold.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansBold.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123487,7 +123463,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansLight": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansLight.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansLight.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123497,7 +123473,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansItalic": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansItalic.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansItalic.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123507,7 +123483,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Bodoni": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Bodoni.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Bodoni.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123517,7 +123493,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Garamond": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Garamond.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Garamond.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123527,7 +123503,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Cartoon": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Cartoon.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Cartoon.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123537,7 +123513,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Code": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Code.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Code.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123547,7 +123523,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Highway": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Highway.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Highway.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123557,7 +123533,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SciFi": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SciFi.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SciFi.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123567,7 +123543,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Arcade": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Arcade.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Arcade.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123577,7 +123553,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Fantasy": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Fantasy.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Fantasy.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123587,7 +123563,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Antique": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Antique.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Antique.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123597,7 +123573,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansSemibold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansSemibold.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansSemibold.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123607,7 +123583,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Gotham": {
-    "documentation": "Gotham은 Roblox에서 제거되었습니다. Gotham을 사용하면 Montserrat로 매핑됩니다.",
+    "documentation": "<code>Gotham</code>이 제거되었습니다. 이 폰트를 사용하면 <code>Font</code> 데이터 타입의 <code>Montserrat</code> 폰트 패밀리로 매핑됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123617,7 +123593,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GothamMedium": {
-    "documentation": "Gotham은 Roblox에서 제거되었습니다. Gotham을 사용하면 Montserrat로 매핑됩니다.",
+    "documentation": "<code>GothamMedium</code>이 제거되었습니다. 이 폰트를 사용하면 <code>Font</code> 데이터 타입의 <code>Montserrat</code> 폰트 패밀리로 매핑됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123627,7 +123603,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GothamBold": {
-    "documentation": "Gotham은 Roblox에서 제거되었습니다. Gotham을 사용하면 Montserrat로 매핑됩니다.",
+    "documentation": "<code>GothamBold</code>가 제거되었습니다. 이 폰트를 사용하면 <code>Font</code> 데이터 타입의 <code>Montserrat</code> 폰트 패밀리로 매핑됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123637,7 +123613,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GothamBlack": {
-    "documentation": "Gotham은 Roblox에서 제거되었습니다. Gotham을 사용하면 Montserrat로 매핑됩니다.",
+    "documentation": "<code>GothamBlack</code>가 제거되었습니다. 이 폰트를 사용하면 <code>Font</code> 데이터 타입의 <code>Montserrat</code> 폰트 패밀리로 매핑됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123647,7 +123623,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.AmaticSC": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/AmaticSC.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/AmaticSC.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123657,7 +123633,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Bangers": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Bangers.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Bangers.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123667,7 +123643,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Creepster": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Creepster.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Creepster.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123677,7 +123653,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.DenkOne": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/DenkOne.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/DenkOne.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123687,7 +123663,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Fondamento": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Fondamento.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Fondamento.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123697,7 +123673,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.FredokaOne": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/FredokaOne.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/FredokaOne.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123707,7 +123683,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GrenzeGotisch": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/GrenzeGotisch.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/GrenzeGotisch.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123717,7 +123693,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.IndieFlower": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/IndieFlower.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/IndieFlower.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123727,7 +123703,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.JosefinSans": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/JosefinSans.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/JosefinSans.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123737,7 +123713,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Jura": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Jura.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Jura.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123747,7 +123723,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Kalam": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Kalam.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Kalam.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123757,7 +123733,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.LuckiestGuy": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/LuckiestGuy.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/LuckiestGuy.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123767,7 +123743,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Merriweather": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Merriweather.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Merriweather.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123777,7 +123753,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Michroma": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Michroma.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Michroma.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123787,7 +123763,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Nunito": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Nunito.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Nunito.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123797,7 +123773,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Oswald": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Oswald.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Oswald.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123807,7 +123783,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.PatrickHand": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/PatrickHand.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/PatrickHand.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123817,7 +123793,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.PermanentMarker": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/PermanentMarker.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/PermanentMarker.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123827,7 +123803,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Roboto": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Roboto.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Roboto.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123837,7 +123813,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.RobotoCondensed": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/RobotoCondensed.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/RobotoCondensed.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123847,7 +123823,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.RobotoMono": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/RobotoMono.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/RobotoMono.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123857,7 +123833,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Sarpanch": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Sarpanch.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Sarpanch.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123867,7 +123843,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SpecialElite": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SpecialElite.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SpecialElite.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123877,7 +123853,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.TitilliumWeb": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/TitilliumWeb.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/TitilliumWeb.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123887,7 +123863,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Ubuntu": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Ubuntu.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Ubuntu.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123897,7 +123873,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSans": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSans.png\" /> <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>를 참조하십시오.",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSans.png\" /> <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>를 참조하세요.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123907,7 +123883,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSansMedium": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSansMedium.png\" /> <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>를 참조하십시오.",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSansMedium.png\" /> <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>를 참조하세요.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123917,7 +123893,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSansBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSansBold.png\" /> <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>를 참조하십시오.",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSansBold.png\" /> <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>를 참조하세요.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123927,7 +123903,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSansExtraBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSansExtraBold.png\" /> <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>를 참조하십시오.",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSansExtraBold.png\" /> <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>를 참조하세요.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123937,7 +123913,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Arimo": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Arimo.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Arimo.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123947,7 +123923,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.ArimoBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/ArimoBold.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/ArimoBold.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123957,7 +123933,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Unknown": {
-    "documentation": "<code>TextLabel.FontFace</code> 속성이 해당하는 열거형 값이 없는 <code>Font</code>로 설정될 때 설정됩니다.",
+    "documentation": "GUI 객체의 폰트 페이스가 해당하는 열거형 값이 없는 <code>Font</code>로 설정될 때 설정됩니다.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127706,7 +127682,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ScreenInsets.TopbarSafeInsets": {
-    "documentation": "상단 바 안전 영역 인셋이 <code>DeviceSafeInsets</code> 영역에 추가되어, 장치 화면 컷아웃 및 Roblox 핵심 UI 요소(경험 제어판 등)에 의해 가려지지 않는 영역이 보장됩니다. <code>CoreUISafeInsets</code>와 달리, 이 영역의 위치와 크기는 동적이며 상단 바 영역 내에서 제공되는 공간에 제한됩니다.",
+    "documentation": "상단 바의 안전 영역 인셋은 <code>DeviceSafeInsets</code> 영역에 추가되어, 장치 화면 컷아웃 및 경험 컨트롤과 같은 Roblox 핵심 UI 요소에 의해 가려지지 않는 영역을 보장합니다. <code>CoreUISafeInsets</code>와 달리 이 영역의 위치와 크기는 동적이며 상단 바 영역 내에서 사용 가능한 공간으로 제한됩니다. 상단 바 공간 내에서 방해받지 않는 영역의 절대 크기와 위치를 나타내는 <code>GuiService.TopbarInset</code> 속성을 참조하십시오.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130776,7 +130752,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.FontStyle": {
-    "documentation": "<code>Font</code>가 이탤릭체인지 여부를 설명합니다.",
+    "documentation": "<code>Font</code> 스타일이 일반인지 기울임인지 설명합니다.",
     "keys": {
       "Normal": "@roblox/enum/FontStyle.Normal",
       "Italic": "@roblox/enum/FontStyle.Italic"
@@ -142770,7 +142746,7 @@
     "documentation": "<code>delayTime</code> 초가 경과한 후에 실행될 함수입니다."
   },
   "@roblox/global/delay": {
-    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>task.delay()</code>에 의해 대체되었으며, 향후 작업에 사용되어서는 안 됩니다.<br>주어진 기간(초)이 지나면 다음 Heartbeat에서 호출될 함수를 예약합니다. 이를 통해 스로틀링이 발생합니다.",
+    "documentation": "<strong>Deprecated:</strong> <code>task.delay()</code>로 대체되었으며, 향후 작업에 사용하지 말아야 합니다.<br>주어진 지속 시간(초)이 지나고 다음 Heartbeat에서 호출될 함수를 예약합니다.",
     "params": [
       {
         "name": "delayTime",
@@ -142789,7 +142765,7 @@
     "documentation": ""
   },
   "@roblox/global/DebuggerManager": {
-    "documentation": "<strong>Deprecated:</strong> <code>DebuggerManager</code>는 구식이며 개발자에게는 거의 사용 사례가 없습니다.<br>Luau 디버거 기능의 인터페이스 역할을 하는 레거시 <code>DebuggerManager</code> 클래스를 참조합니다.",
+    "documentation": "<strong>Deprecated:</strong> <code>DebuggerManager</code>는 더 이상 사용되지 않으며 개발자에게 거의 필요하지 않습니다.<br>Luau 디버거 기능의 인터페이스 역할을 하는 레거시 <code>DebuggerManager</code> 클래스를 참조합니다.",
     "params": [],
     "returns": [
       "@roblox/global/DebuggerManager/return/0"
@@ -142801,7 +142777,7 @@
     "documentation": ""
   },
   "@roblox/global/elapsedTime": {
-    "documentation": "현재 Roblox 인스턴스가 실행된 시간을 초 단위로 반환합니다.",
+    "documentation": "현재 인스턴스의 Roblox가 실행된 시간을 초 단위로 반환합니다.",
     "params": [],
     "returns": [
       "@roblox/global/elapsedTime/return/0"
@@ -142813,7 +142789,7 @@
     "documentation": ""
   },
   "@roblox/global/PluginManager": {
-    "documentation": "플러그인을 생성하는 데 이전에 필요했던 deprecated singleton인 PluginManager를 참조합니다.",
+    "documentation": "<code>PluginManager</code>를 참조하며, 이전에 플러그인을 생성하는 데 필요했던 더 이상 사용되지 않는 싱글톤입니다.",
     "params": [],
     "returns": [
       "@roblox/global/PluginManager/return/0"
@@ -142825,7 +142801,7 @@
     "documentation": ""
   },
   "@roblox/global/printidentity": {
-    "documentation": "<strong>Deprecated:</strong> <br>\"현재 ID는 X입니다\"를 출력하며, 여기서 X는 현재 스레드의 보안 컨텍스트 수준에 해당합니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>현재 스레드의 보안 컨텍스트 수준에 해당하는 \"현재 신원은 X입니다\"로 출력합니다.",
     "params": [
       {
         "name": "prefix",
@@ -142852,7 +142828,7 @@
     "documentation": "실행될 함수입니다."
   },
   "@roblox/global/spawn": {
-    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>task.spawn()</code>에 의해 대체되었으며, 향후 작업에 사용되어서는 안 됩니다.<br>엔진 스케줄러를 통해 즉시 함수를 호출합니다. 이를 통해 스로틀링이 발생합니다.",
+    "documentation": "<strong>Deprecated:</strong> <code>task.spawn()</code>로 대체되었으며, 향후 작업에 사용하지 말아야 합니다.<br>엔진 스케줄러를 통해 즉시 함수를 호출하며, 제한이 적용됩니다.",
     "params": [
       {
         "name": "callback",
@@ -142879,7 +142855,7 @@
     "documentation": ""
   },
   "@roblox/global/tick": {
-    "documentation": "이 장치의 시간에 따라 유닉스 에포크 이후 초 단위의 경과 시간을 반환합니다.",
+    "documentation": "현재 장치의 시간에 따라 Unix epoch 이후 경과한 시간을 초 단위로 반환합니다.",
     "params": [],
     "returns": [
       "@roblox/global/tick/return/0"
@@ -142891,7 +142867,7 @@
     "documentation": ""
   },
   "@roblox/global/time": {
-    "documentation": "현재 게임 인스턴스가 실행된 이후 경과한 시간(초 단위)을 반환합니다.",
+    "documentation": "현재 게임 인스턴스가 실행된 이후 경과한 시간을 초 단위로 반환합니다.",
     "params": [],
     "returns": [
       "@roblox/global/time/return/0"
@@ -142900,13 +142876,13 @@
     "code_sample": ""
   },
   "@roblox/global/typeof/param/0": {
-    "documentation": "유형 검사를 수행할 Luau 유형입니다."
+    "documentation": "유형이 확인될 Luau 타입입니다."
   },
   "@roblox/global/typeof/return/0": {
     "documentation": ""
   },
   "@roblox/global/typeof": {
-    "documentation": "주어진 객체의 유형을 문자열로 반환하며, Roblox 고유 유형도 지원합니다(예: Vector3).",
+    "documentation": "주어진 객체의 유형을 문자열로 반환하며, Roblox 특정 유형도 지원합니다(예: Vector3).",
     "params": [
       {
         "name": "object",
@@ -142935,7 +142911,7 @@
     "documentation": ""
   },
   "@roblox/global/version": {
-    "documentation": "세대, 버전, 패치 및 커밋을 포함하여 Roblox의 현재 버전을 문자열로 반환합니다.",
+    "documentation": "현재 Roblox의 버전을 문자열로 반환하며, 생성, 버전, 패치 및 커밋을 포함합니다.",
     "params": [],
     "returns": [
       "@roblox/global/version/return/0"
@@ -142944,7 +142920,7 @@
     "code_sample": ""
   },
   "@roblox/global/wait/param/0": {
-    "documentation": "스레드가 양보해야 하는 시간을 지정합니다."
+    "documentation": "스레드가 정지해야 하는 시간입니다."
   },
   "@roblox/global/wait/return/0": {
     "documentation": ""
@@ -142953,7 +142929,7 @@
     "documentation": ""
   },
   "@roblox/global/wait": {
-    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>task.wait()</code>에 의해 대체되었으며, 향후 작업에 사용되어서는 안 됩니다.<br>지정된 시간(초)이 경과할 때까지 현재 스레드를 양보합니다. 스로틀링이 발생합니다.",
+    "documentation": "<strong>Deprecated:</strong> <code>task.wait()</code>로 대체되었으며, 향후 작업에 사용하지 말아야 합니다.<br>지정된 초만큼 현재 스레드를 정지시키며, 제한이 적용됩니다.",
     "params": [
       {
         "name": "seconds",
@@ -142968,10 +142944,10 @@
     "code_sample": ""
   },
   "@roblox/global/warn/param/0": {
-    "documentation": "이 함수는 인수를 여러 개 받을 수 있으며, 이들 인수를 문자열로 변환한 후 공백으로 구분하여 결합하려고 시도합니다."
+    "documentation": "이 함수는 아무 개수의 인수를 받아들이며, 이를 문자열로 변환한 후 공백으로 구분하여 결합합니다."
   },
   "@roblox/global/warn": {
-    "documentation": "print와 비슷한 동작을 하지만 더 뚜렷한 포맷(노란색)으로, 잠재적인 문제를 설명하는 메시지를 위한 것입니다.",
+    "documentation": "프린트와 비슷하게 동작하지만 더 구별된 형식(노란색)을 가지며, 잠재적인 문제를 설명하는 메시지를 위한 것입니다.",
     "params": [
       {
         "name": "params",
@@ -142983,7 +142959,7 @@
     "code_sample": ""
   },
   "@roblox/global/ypcall/param/0": {
-    "documentation": "보호 모드로 호출할 함수입니다."
+    "documentation": "보호 모드에서 호출될 함수입니다."
   },
   "@roblox/global/ypcall/param/1": {
     "documentation": ""
@@ -142995,7 +142971,7 @@
     "documentation": ""
   },
   "@roblox/global/ypcall": {
-    "documentation": "<strong>Deprecated:</strong> <br>이전 작업 스케줄링 제한 사항인 <code>pcall()</code>을 우회하기 위한 레거시 함수입니다.",
+    "documentation": "<strong>Deprecated:</strong> <br><code>pcall()</code>의 오래된 작업 스케줄링 제한을 우회하기 위한 레거시 함수입니다.",
     "params": [
       {
         "name": "f",
@@ -143019,22 +142995,22 @@
     "code_sample": ""
   },
   "@roblox/global/game": {
-    "documentation": "장소의 계층 구조의 루트 인스턴스인 DataModel 싱글톤을 참조합니다.",
+    "documentation": "장소의 계층 구조의 루트 인스턴스인 DataModel singleton을 참조합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/RobloxGlobals#game",
     "code_sample": ""
   },
   "@roblox/global/plugin": {
-    "documentation": "코드가 Studio 플러그인의 컨텍스트에서 실행될 때 플러그인 싱글톤을 참조합니다.",
+    "documentation": "코드가 스튜디오 플러그인의 맥락에서 실행될 때 플러그인 singleton을 참조합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/RobloxGlobals#plugin",
     "code_sample": ""
   },
   "@roblox/global/shared": {
-    "documentation": "동일한 실행 컨텍스트 레벨에서 실행되는 모든 코드 간에 공유되는 테이블입니다.",
+    "documentation": "같은 실행 맥락 수준에서 실행되는 모든 코드 간에 공유되는 테이블입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/RobloxGlobals#shared",
     "code_sample": ""
   },
   "@roblox/global/script": {
-    "documentation": "이 코드를 실행하는 LuaSourceContainer 객체(Script, LocalScript 또는 ModuleScript)에 대한 참조입니다.",
+    "documentation": "이 코드를 실행하는 LuaSourceContainer 객체(스크립트, 로컬 스크립트 또는 모듈 스크립트)에 대한 참조입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/globals/RobloxGlobals#script",
     "code_sample": ""
   },

@@ -4031,7 +4031,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Font#fromEnum",
-    "code_sample": "```lua\nscript.Parent.FontFace = Font.fromEnum(Enum.Font.SciFi)\nprint(script.Parent.FontFace)\n```"
+    "code_sample": ""
   },
   "@roblox/global/Font.fromName/param/0": {
     "documentation": "ชื่อฟอนต์。"
@@ -4043,7 +4043,7 @@
     "documentation": "ข้อความปกติหรือเอียง。"
   },
   "@roblox/global/Font.fromName": {
-    "documentation": "สร้างฟอนต์จากชื่อเช่น <code>FredokaOne</code>。",
+    "documentation": "สร้าง <code>Font</code> จากชื่อเช่น <code>FredokaOne</code>.",
     "params": [
       {
         "name": "name",
@@ -4060,7 +4060,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Font#fromName",
-    "code_sample": "script.Parent.FontFace = Font.fromName(\"FredokaOne\")\nprint(script.Parent.FontFace.Family)"
+    "code_sample": ""
   },
   "@roblox/global/Font.fromId/param/0": {
     "documentation": "ID แอสเซ็ทของฟอนต์ในรูปแบบหมายเลข。"
@@ -4072,7 +4072,7 @@
     "documentation": "ข้อความปกติหรือเอียง。"
   },
   "@roblox/global/Font.fromId": {
-    "documentation": "สร้างฟอนต์จาก ID แอสเซ็ทเชิงตัวเลข。",
+    "documentation": "สร้าง <code>Font</code> จาก ID แอสเซ็ตประเภทตัวเลข.",
     "params": [
       {
         "name": "id",
@@ -4089,7 +4089,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/Font#fromId",
-    "code_sample": "script.Parent.FontFace = Font.fromId(8836875837)\nprint(script.Parent.FontFace.Family)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Font": {
     "documentation": "อธิบายฟอนต์ที่ใช้ในการเรนเดอร์ข้อความ。",
@@ -6099,10 +6099,10 @@
     "documentation": "ข้อความที่แสดงในคำบรรยายเมื่อผู้ใช้เลื่อนเมาส์เหนือปุ่ม."
   },
   "@roblox/globaltype/PluginToolbar.CreateButton/param/3": {
-    "documentation": "หมายเลขประจำทรัพย์สิน (เช่น rbxassetid://1507949215) ของไอคอนที่แสดงในปุ่ม."
+    "documentation": "หมายเลข ID ของทรัพย์สินของไอคอนที่แสดงในปุ่ม."
   },
   "@roblox/globaltype/PluginToolbar.CreateButton/param/4": {
-    "documentation": "ข้อความที่แสดงใต้ไอคอนปุ่ม ตัวเลือก หากไม่ระบุช่องนี้ <strong>ID</strong> จะถูกใช้แทน."
+    "documentation": "ข้อความเสริมที่แสดงใต้ไอคอนปุ่ม."
   },
   "@roblox/globaltype/PluginToolbar.CreateButton/return/0": {
     "documentation": "อินสแตนซ์ของ <code>PluginToolbarButton</code> ที่ถูกสร้างขึ้น."
@@ -6523,7 +6523,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.AutoRuns": {
-    "documentation": "หากตั้งค่าเป็น true เกมจะเริ่มทำงานเมื่อเรียกใช้เมธอด <code>TestService:Run()</code> ของ TestService",
+    "documentation": "หากตั้งค่าเป็น <code>true</code> เกมจะเริ่มทำงานเมื่อเรียกใช้เมธอด <code>TestService:Run()</code> ของบริการ.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#AutoRuns",
     "code_sample": ""
   },
@@ -6538,7 +6538,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ExecuteWithStudioRun": {
-    "documentation": "เมื่อถูกตั้งค่าเป็น true TestService จะถูกดำเนินการเมื่อใช้การกระทำ <em>Run</em> ใน Roblox Studio",
+    "documentation": "เมื่อตั้งค่าเป็น <code>true</code> <code>TestService</code> จะถูกรันเมื่อใช้การกระทำ <strong>Run</strong> ใน Roblox Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ExecuteWithStudioRun",
     "code_sample": ""
   },
@@ -6603,7 +6603,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Check": {
-    "documentation": "พิมพ์ผลลัพธ์ของเงื่อนไขไปยังเอาต์พุต",
+    "documentation": "พิมพ์ผลลัพธ์ของเงื่อนไขลงในเอาต์พุต.",
     "params": [
       {
         "name": "self",
@@ -6628,7 +6628,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Check",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Check(false, \"ตัวอย่าง\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Checkpoint/param/0": {
     "documentation": "บริการที่ใช้โดย Roblox ในการทำการทดสอบที่ควบคุมได้ของเอนจิน มันสามารถใช้ได้สำหรับนักพัฒนาในระดับที่จำกัด"
@@ -6643,7 +6643,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Checkpoint": {
-    "documentation": "พิมพ์ \"Test checkpoint: \", ตามด้วยข้อความ ไปยังเอาต์พุต ในข้อความสีน้ำเงิน",
+    "documentation": "พิมพ์ <code>Test checkpoint:</code> ตามด้วยสตริงลงในเอาต์พุตด้วยข้อความสีฟ้า.",
     "params": [
       {
         "name": "self",
@@ -6664,13 +6664,13 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Checkpoint",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\n-- แสดงข้อความที่จุดตรวจ\nTestService:Checkpoint(\"example\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Done/param/0": {
     "documentation": "บริการที่ใช้โดย Roblox ในการทำการทดสอบที่ควบคุมได้ของเอนจิน มันสามารถใช้ได้สำหรับนักพัฒนาในระดับที่จำกัด"
   },
   "@roblox/globaltype/TestService.Done": {
-    "documentation": "พิมพ์ Testing Done ไปยังเอาต์พุต ในข้อความสีน้ำเงิน",
+    "documentation": "พิมพ์ <code>Testing Done</code> ลงในเอาต์พุตด้วยข้อความสีฟ้า.",
     "params": [
       {
         "name": "self",
@@ -6679,7 +6679,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Done",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Done()"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Error/param/0": {
     "documentation": "บริการที่ใช้โดย Roblox ในการทำการทดสอบที่ควบคุมได้ของเอนจิน มันสามารถใช้ได้สำหรับนักพัฒนาในระดับที่จำกัด"
@@ -6694,7 +6694,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Error": {
-    "documentation": "พิมพ์ข้อความสีแดงไปยังเอาต์พุต โดยมี <code>TestService:</code> เป็นคำนำหน้า",
+    "documentation": "พิมพ์ข้อความแสดงข้อผิดพลาดสีแดงลงในเอาต์พุต โดยมีคำนำหน้าเป็น <code>TestService:</code>.",
     "params": [
       {
         "name": "self",
@@ -6715,7 +6715,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Error",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Error(\"นี่คือข้อผิดพลาด\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Fail/param/0": {
     "documentation": "บริการที่ใช้โดย Roblox ในการทำการทดสอบที่ควบคุมได้ของเอนจิน มันสามารถใช้ได้สำหรับนักพัฒนาในระดับที่จำกัด"
@@ -6730,7 +6730,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Fail": {
-    "documentation": "ระบุข้อผิดพลาดที่ร้ายแรงในการรัน TestService หากเรียกใช้ภายในสคริปต์ที่ทำงานภายใน TestService จะเริ่มจุดหยุดในบรรทัดที่ทำการเรียกใช้ข้อผิดพลาด",
+    "documentation": "ระบุข้อผิดพลาดที่ร้ายแรงในการทำงานของ <code>TestService</code>.",
     "params": [
       {
         "name": "self",
@@ -6793,7 +6793,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Message": {
-    "documentation": "พิมพ์ข้อความทดสอบ ตามด้วยข้อความไปยังเอาต์พุต ในข้อความสีน้ำเงิน",
+    "documentation": "พิมพ์ <code>TestService:</code> ตามด้วยสตริงลงในเอาต์พุตด้วยข้อความสีฟ้า.",
     "params": [
       {
         "name": "self",
@@ -6814,7 +6814,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Message",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Message(\"ตัวอย่าง\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.Require/param/0": {
     "documentation": "บริการที่ใช้โดย Roblox ในการทำการทดสอบที่ควบคุมได้ของเอนจิน มันสามารถใช้ได้สำหรับนักพัฒนาในระดับที่จำกัด"
@@ -6832,7 +6832,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Require": {
-    "documentation": "พิมพ์ว่าเงื่อนไขเป็นจริงหรือไม่พร้อมกับข้อความคำอธิบาย",
+    "documentation": "พิมพ์ว่าความจริงของเงื่อนไขเป็นจริงพร้อมกับสตริงคำอธิบาย.",
     "params": [
       {
         "name": "self",
@@ -6857,13 +6857,13 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Require",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Require(false, \"ตัวอย่าง\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.RunAsync/param/0": {
     "documentation": "บริการที่ใช้โดย Roblox ในการทำการทดสอบที่ควบคุมได้ของเอนจิน มันสามารถใช้ได้สำหรับนักพัฒนาในระดับที่จำกัด"
   },
   "@roblox/globaltype/TestService.RunAsync": {
-    "documentation": "รันสคริปต์ที่ถูกป้อนอยู่ใน TestService",
+    "documentation": "รันสคริปต์ที่เป็นลูกของ <code>TestService</code>.",
     "params": [
       {
         "name": "self",
@@ -6878,7 +6878,7 @@
     "documentation": "บริการที่ใช้โดย Roblox ในการทำการทดสอบที่ควบคุมได้ของเอนจิน มันสามารถใช้ได้สำหรับนักพัฒนาในระดับที่จำกัด"
   },
   "@roblox/globaltype/TestService.Run": {
-    "documentation": "<strong>Deprecated:</strong> <br>เรียกใช้สคริปต์ที่เป็นลูกของ TestService。",
+    "documentation": "<strong>Deprecated:</strong> <br>รันสคริปต์ที่เป็นลูกของ <code>TestService</code>.",
     "params": [
       {
         "name": "self",
@@ -6947,7 +6947,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Warn": {
-    "documentation": "พิมพ์ถ้าสภาพเป็นจริง ไม่เช่นนั้นพิมพ์คำเตือน。",
+    "documentation": "พิมพ์หากเงื่อนไขเป็น <code>true</code> มิฉะนั้นพิมพ์คำเตือน.",
     "params": [
       {
         "name": "self",
@@ -6972,7 +6972,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Warn",
-    "code_sample": "local TestService = game:GetService(\"TestService\")\n\nTestService:Warn(false, \"this action is invalid\")"
+    "code_sample": ""
   },
   "@roblox/globaltype/TestService.ServerCollectConditionalResult.Connect/param/0": {
     "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
@@ -7052,7 +7052,7 @@
     "returns": []
   },
   "@roblox/globaltype/TestService.ServerCollectConditionalResult": {
-    "documentation": "เกิดขึ้นเมื่อเซิร์ฟเวอร์ควรเก็บผลการทดสอบที่มีเงื่อนไข",
+    "documentation": "เกิดขึ้นเมื่อเซิร์ฟเวอร์ควรเก็บผลการทดสอบตามเงื่อนไข.",
     "keys": {
       "Connect": "@roblox/globaltype/TestService.ServerCollectConditionalResult.Connect",
       "ConnectParallel": "@roblox/globaltype/TestService.ServerCollectConditionalResult.ConnectParallel",
@@ -7140,7 +7140,7 @@
     "returns": []
   },
   "@roblox/globaltype/TestService.ServerCollectResult": {
-    "documentation": "เกิดขึ้นเมื่อเซิร์ฟเวอร์ควรเก็บผลการทดสอบ",
+    "documentation": "เกิดขึ้นเมื่อเซิร์ฟเวอร์ควรเก็บผลการทดสอบ.",
     "keys": {
       "Connect": "@roblox/globaltype/TestService.ServerCollectResult.Connect",
       "ConnectParallel": "@roblox/globaltype/TestService.ServerCollectResult.ConnectParallel",
@@ -11414,12 +11414,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PluginAction.AllowBinding": {
-    "documentation": "ว่า <code>PluginAction</code> จะถูกซ่อนจากมุมมองทางลัดของ Studio หรือไม่",
+    "documentation": "กำหนดว่าการดำเนินการสามารถกำหนดช็อตคัตแป้นพิมพ์ใน Studio ได้หรือไม่",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginAction#AllowBinding",
     "code_sample": ""
   },
   "@roblox/globaltype/PluginAction.StatusTip": {
-    "documentation": "คำอธิบายของการกระทำ เมื่อดูจากหน้าต่างทางลัดคีย์บอร์ด ใน Roblox Studio",
+    "documentation": "คำอธิบายของการดำเนินการเมื่อดูจากหน้าต่างช็อตคัตแป้นพิมพ์ใน Roblox Studio",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginAction#StatusTip",
     "code_sample": ""
   },
@@ -11506,7 +11506,7 @@
     "returns": []
   },
   "@roblox/globaltype/PluginAction.Triggered": {
-    "documentation": "ถูกเรียกเมื่อการกระทำถูกกระตุ้น ซึ่งสามารถทำได้โดยการเปิดใช้งาน การกระจากจาก Quick Access Toolbar หรือโดยการใช้ทางลัด คีย์บอร์ดที่ผูกไว้กับมัน",
+    "documentation": "เกิดขึ้นเมื่อการดำเนินการถูกเรียกใช้",
     "keys": {
       "Connect": "@roblox/globaltype/PluginAction.Triggered.Connect",
       "ConnectParallel": "@roblox/globaltype/PluginAction.Triggered.ConnectParallel",
@@ -11883,7 +11883,7 @@
     "returns": []
   },
   "@roblox/globaltype/NetworkClient.ConnectionAccepted": {
-    "documentation": "เกิดขึ้นเมื่อไคลเอนต์เชื่อมต่อกับเซิร์ฟเวอร์ได้สำเร็จ คืนค่าข้อความ ที่แสดง IP และ Port ของเซิร์ฟเวอร์ และ <code>ClientReplicator</code> ของไคลเอนต์。",
+    "documentation": "ถูกเรียกเมื่อไคลเอนต์เชื่อมต่อสำเร็จไปยังเซิร์ฟเวอร์ คืนค่าสตริง แสดงที่อยู่ IP และพอร์ตของเซิร์ฟเวอร์ และของไคลเอนต์ <code>ClientReplicator</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/NetworkClient.ConnectionAccepted.Connect",
       "ConnectParallel": "@roblox/globaltype/NetworkClient.ConnectionAccepted.ConnectParallel",
@@ -16829,7 +16829,7 @@
       "@roblox/globaltype/BadgeService.IsLegal/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#IsLegal",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal BADGE_ID = 0\n\nlocal function awardBadge(player, badgeId)\n\t-- ตรวจสอบว่าเหรียญตราสามารถมอบให้ได้หรือไม่\n\tif BadgeService:IsLegal(badgeId) and not BadgeService:IsDisabled(badgeId) then\n\t\t-- มอบเหรียญตรา\n\t\tBadgeService:AwardBadge(player.UserId, badgeId)\n\tend\nend\n\nlocal function onPlayerAdded(player)\n\tawardBadge(player, BADGE_ID)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.UserHasBadge/param/0": {
     "documentation": "ให้ข้อมูลเกี่ยวกับเหรียญรางวัลและมอบให้กับผู้เล่น"
@@ -16844,7 +16844,7 @@
     "documentation": "True หากผู้มีเหรียญตรานั้นมีเหรียญตรา."
   },
   "@roblox/globaltype/BadgeService.UserHasBadge": {
-    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ถูกแทนที่ด้วย <code>BadgeService:UserHasBadgeAsync()</code> ซึ่งควรใช้สำหรับใหม่ แทน.<br>ตรวจสอบว่าผู้ใช้มีเหรียญตราโดยมี <code>Player.UserId</code> และ รหัสเหรียญตราหรือไม่.",
+    "documentation": "<strong>Deprecated:</strong> วิธีนี้ถูกแทนที่โดย <code>BadgeService:UserHasBadgeAsync()</code> ซึ่งควรใช้สำหรับใหม่แทน。<br>ตรวจสอบว่าผู้ใช้มีเหรียญตราโดยมี <code>Player.UserId</code> และ รหัสเหรียญตราหรือไม่.",
     "params": [
       {
         "name": "self",
@@ -16863,7 +16863,7 @@
       "@roblox/globaltype/BadgeService.UserHasBadge/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BadgeService#UserHasBadge",
-    "code_sample": "local BadgeService = game:GetService(\"BadgeService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal BADGE_ID = 123\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif BadgeService:UserHasBadge(player.UserId, BADGE_ID) then\n\t\tprint(\"ผู้ใช้มีเหรียญนี้\")\n\telse\n\t\tprint(\"ผู้ใช้ไม่มีเหรียญนี้\")\n\tend\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/BadgeService.UserHasBadgeAsync/param/0": {
     "documentation": "ให้ข้อมูลเกี่ยวกับเหรียญรางวัลและมอบให้กับผู้เล่น"
@@ -23025,12 +23025,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PluginMenu.Icon": {
-    "documentation": "ไอคอนที่จะถูกแสดงเมื่อใช้เป็นซับเมนู",
+    "documentation": "ไอคอนที่จะถูกแสดงเมื่อถูกใช้เป็นซับเมนู.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginMenu#Icon",
     "code_sample": ""
   },
   "@roblox/globaltype/PluginMenu.Title": {
-    "documentation": "ข้อความที่จะถูกแสดงเมื่อใช้เป็นซับเมนู",
+    "documentation": "ข้อความที่จะถูกแสดงเมื่อถูกใช้เป็นซับเมนู.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginMenu#Title",
     "code_sample": ""
   },
@@ -23060,7 +23060,7 @@
     "documentation": "เมนูบริบทที่สามารถแสดงใน Studio แสดงรายการของ <code>PluginActions</code> และรองรับซับเมนู"
   },
   "@roblox/globaltype/PluginMenu.AddMenu/param/1": {
-    "documentation": "เมนูที่จะเพิ่มเป็นซับเมนู ใช้ <code>PluginMenu.Title</code> และ <code>PluginMenu.Icon</code> ในการแสดง"
+    "documentation": "เมนูที่จะเพิ่มเป็นซับเมนู. ใช้ <code>Title</code> และ <code>Icon</code> เพื่อแสดง."
   },
   "@roblox/globaltype/PluginMenu.AddMenu": {
     "documentation": "เพิ่มเมนูที่กำหนดเป็นตัวแยก",
@@ -23082,7 +23082,7 @@
     "documentation": "เมนูบริบทที่สามารถแสดงใน Studio แสดงรายการของ <code>PluginActions</code> และรองรับซับเมนู"
   },
   "@roblox/globaltype/PluginMenu.AddNewAction/param/1": {
-    "documentation": "ต้องเป็นสตริงที่ไม่ซ้ำกันซึ่งระบุว่า PluginAction นี้ต่างจาก อันอื่น"
+    "documentation": "ต้องเป็นสตริงที่ไม่ซ้ำกันที่ระบุ <code>PluginAction</code> นี้จาก รายการอื่นๆ."
   },
   "@roblox/globaltype/PluginMenu.AddNewAction/param/2": {
     "documentation": "ข้อความที่จะถูกแสดง"
@@ -31881,7 +31881,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Capture": {
-    "documentation": "คลาสที่กำหนดชิ้นส่วนของเนื้อหา เช่น ภาพหน้าจอหรือวิดีโอ ที่ถูกจับภาพ ในประสบการณ์.",
+    "documentation": "คลาสที่กำหนดชิ้นส่วนของเนื้อหา เช่น ภาพหน้าจอหรือวิดีโอ ที่ถูกถ่าย ภายในประสบการณ์.",
     "keys": {
       "CaptureTime": "@roblox/globaltype/Capture.CaptureTime",
       "CaptureType": "@roblox/globaltype/Capture.CaptureType",
@@ -33529,7 +33529,7 @@
     "code_sample": "assert(plugin, \"สคริปต์นี้ต้องทำงานเป็นปลั๊กอิน!\")\n-- โค้ดหลังจากจุดนี้จะทำงานเฉพาะเมื่อสคริปต์ถูกเรียกใช้เป็นปลั๊กอิน\n\n-- โหลดโมดูลและส่งการอ้างอิงปลั๊กอิน\nlocal pluginModule = require(script.Parent.PluginModule)\npluginModule:Initialize(plugin)\n\n-- ตรวจสอบว่าการอ้างอิงปลั๊กอินถูกเริ่มต้นแล้วหรือไม่\npluginModule:CheckForPluginGlobal()"
   },
   "@roblox/globaltype/Plugin.CollisionEnabled": {
-    "documentation": "ส่งค่ากลับว่าผู้ใช้เปิดใช้งาน <code>Collisions</code> ใน Studio ภายใต้แท็บ Model หรือไม่.",
+    "documentation": "คืนค่าว่าผู้ใช้ได้เปิดใช้งาน <strong>Collisions</strong> ในแถบเครื่องมือของ Studio หรือไม่。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CollisionEnabled",
     "code_sample": ""
   },
@@ -33552,7 +33552,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Activate/param/1": {
-    "documentation": "เป็น boolean ที่ระบุว่าจะแสดงให้เปิดใช้งานปลั๊กอินด้วย เมาส์ลักษณะเฉพาะ ถ้าเป็น true, <code>PluginMouse</code> สามารถนำมาได้ผ่าน <code>Plugin:GetMouse()</code>."
+    "documentation": "บูลีนที่ระบุว่าจะแสดงให้เห็นว่าต้องการเปิดใช้งานปลั๊กอินด้วยเมาส์เฉพาะ หาก <code>true</code> จะสามารถดึง <code>PluginMouse</code> ผ่าน <code>GetMouse()</code>。"
   },
   "@roblox/globaltype/Plugin.Activate": {
     "documentation": "ตั้งค่าสถานะของปลั๊กอินที่เรียกให้เปิดใช้งาน.",
@@ -33617,7 +33617,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui": {
-    "documentation": "<strong>Deprecated:</strong> <br>สร้าง <code>DockWidgetPluginGui</code> โดยที่มี <code>DockWidgetPluginGuiInfo</code>.",
+    "documentation": "<strong>Deprecated:</strong> วิธีนี้ถูกแทนที่โดย <code>CreateDockWidgetPluginGuiAsync()</code>。<br>สร้าง <code>DockWidgetPluginGui</code> โดยที่มี <code>DockWidgetPluginGuiInfo</code>.",
     "params": [
       {
         "name": "self",
@@ -33636,7 +33636,7 @@
       "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CreateDockWidgetPluginGui",
-    "code_sample": "-- สร้างอ็อบเจ็กต์ 'DockWidgetPluginGuiInfo' ใหม่\nlocal widgetInfo = DockWidgetPluginGuiInfo.new(\n\tEnum.InitialDockState.Float, -- วิดเจ็ตจะถูกเริ่มต้นในแผงลอย\n\ttrue, -- วิดเจ็ตจะเปิดใช้งานเริ่มต้น\n\tfalse, -- ไม่เขียนทับสถานะที่เคยเปิดใช้งาน\n\t200, -- ความกว้างเริ่มต้นของหน้าต่างลอย\n\t300, -- ความสูงเริ่มต้นของหน้าต่างลอย\n\t150, -- ความกว้างขั้นต่ำของหน้าต่างลอย (อoptional)\n\t150 -- ความสูงขั้นต่ำของหน้าต่างลอย (อoptional)\n)\n\n-- สร้าง GUI วิดเจ็ตใหม่\nlocal testWidget = plugin:CreateDockWidgetPluginGui(\"TestWidget\", widgetInfo)\n\nlocal testButton = Instance.new(\"TextButton\")\ntestButton.BorderSizePixel = 0\ntestButton.TextSize = 20\ntestButton.TextColor3 = Color3.new(1, 0.2, 0.4)\ntestButton.AnchorPoint = Vector2.new(0.5, 0.5)\ntestButton.Size = UDim2.new(1, 0, 1, 0)\ntestButton.Position = UDim2.new(0.5, 0, 0.5, 0)\ntestButton.SizeConstraint = Enum.SizeConstraint.RelativeYY\ntestButton.Text = \"คลิกที่นี่\"\ntestButton.Parent = testWidget"
+    "code_sample": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction/param/0": {
     "documentation": ""
@@ -33660,7 +33660,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction": {
-    "documentation": "สร้าง <code>PluginAction</code> ซึ่งเป็นวัตถุที่แสดงถึง การดำเนินการทั่วไปที่สามารถทำได้ใน Roblox Studio โดยไม่มี <code>Toolbar</code> หรือ <code>Button</code> ที่เกี่ยวข้องโดยตรง.",
+    "documentation": "สร้าง <code>PluginAction</code> ซึ่งแสดงถึงการกระทำทั่วไปใน Studio โดยไม่มี <code>PluginToolbarButton</code> ที่เชื่อมโยงโดยตรง。",
     "params": [
       {
         "name": "self",
@@ -33700,10 +33700,10 @@
     "documentation": "รหัสเฉพาะสำหรับเมนู."
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/param/2": {
-    "documentation": "ข้อความที่จะถูกแสดงเมื่อใช้เป็นซับเมนู."
+    "documentation": "ข้อความที่จะแสดงเมื่อใช้เป็นซับเมนู。"
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/param/3": {
-    "documentation": "ไอคอนที่จะถูกแสดงเมื่อใช้เป็นซับเมนู."
+    "documentation": "ไอคอนที่จะใช้แสดงเมื่อใช้เป็นซับเมนู。"
   },
   "@roblox/globaltype/Plugin.CreatePluginMenu/return/0": {
     "documentation": ""
@@ -33783,7 +33783,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.GetJoinMode": {
-    "documentation": "ส่งคืน <code>JointCreationMode</code> ที่ผู้ใช้ตั้งไว้ใน Studio ภายใต้แท็บ Model.",
+    "documentation": "คืนค่า <code>JointCreationMode</code> ที่ผู้ใช้ตั้งค่าในแถบเครื่องมือของ Studio。",
     "params": [
       {
         "name": "self",
@@ -33896,7 +33896,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimationAsync": {
-    "documentation": "เรียกร้องให้ผู้ใช้เปิดไฟล์เซ็นเซอร์ .fbx ที่สามารถโหลดลงบน <code>rigModel</code> จากนั้นดำเนินการแทรกการเคลื่อนไหวเป็น <code>KeyframeSequence</code> ใน <code>Workspace</code>.",
+    "documentation": "แจ้งให้ผู้ใช้เปิดไฟล์อนิเมชัน <code>.fbx</code> ที่สามารถโหลดลงใน <code>rigModel</code> จากนั้นจะดำเนินการแทรกอนิเมชันเป็น <code>KeyframeSequence</code> ใน <code>Workspace</code>。",
     "params": [
       {
         "name": "self",
@@ -33930,7 +33930,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimation": {
-    "documentation": "<strong>Deprecated:</strong> <br>เรียกร้องให้ผู้ใช้เปิดไฟล์เซ็นเซอร์ .fbx ที่สามารถโหลดลงบน <code>rigModel</code> จากนั้นดำเนินการแทรกการเคลื่อนไหวเป็น <code>KeyframeSequence</code> ใน <code>Workspace</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>แจ้งให้ผู้ใช้เปิดไฟล์อนิเมชัน <code>.fbx</code> ที่สามารถโหลดลงใน <code>rigModel</code> จากนั้นจะดำเนินการแทรกอนิเมชันเป็น <code>KeyframeSequence</code> ใน <code>Workspace</code>。",
     "params": [
       {
         "name": "self",
@@ -33961,7 +33961,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRigAsync": {
-    "documentation": "เรียกร้องให้ผู้ใช้เปิดไฟล์ .fbx ทำการอัพโหลดส่วนประกอบแต่ละส่วนของ โมเดลเป็นเมช และสร้าง rig ตัวละครสำหรับใช้ในการเคลื่อนไหว, ซึ่งจะถูกโหลดลงใน <code>Workspace</code>.",
+    "documentation": "แจ้งให้ผู้ใช้เปิดไฟล์ <code>.fbx</code> จากนั้นจะอัปโหลดส่วนประกอบแต่ละรายการ ของโมเดลเป็น Meshes และสร้าง Character Rig สำหรับใช้ใน อนิเมชัน ซึ่งจะถูกโหลดลงใน <code>Workspace</code>。",
     "params": [
       {
         "name": "self",
@@ -33988,7 +33988,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRig": {
-    "documentation": "<strong>Deprecated:</strong> <br>เรียกร้องให้ผู้ใช้เปิดไฟล์ .fbx ทำการอัพโหลดส่วนประกอบแต่ละส่วนของ โมเดลเป็นเมช และสร้าง rig ตัวละครสำหรับใช้ในการเคลื่อนไหว, ซึ่งจะถูกโหลดลงใน <code>Workspace</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>แจ้งให้ผู้ใช้เปิดไฟล์ <code>.fbx</code> จากนั้นจะอัปโหลดส่วนประกอบแต่ละรายการ ของโมเดลเป็น Meshes และสร้าง Character Rig สำหรับใช้ใน อนิเมชัน ซึ่งจะถูกโหลดลงใน <code>Workspace</code>。",
     "params": [
       {
         "name": "self",
@@ -34015,7 +34015,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Intersect": {
-    "documentation": "",
+    "documentation": "ตัดเฉือนชิ้นส่วนที่กำหนดและคืนค่าผลลัพธ์เป็น <code>IntersectOperation</code>。",
     "params": [
       {
         "name": "self",
@@ -34039,7 +34039,7 @@
     "documentation": "บูลีนที่บ่งชี้ว่าปลั๊กอินกำลังเปิดใช้งานอยู่ในปัจจุบัน."
   },
   "@roblox/globaltype/Plugin.IsActivated": {
-    "documentation": "ส่งคืน true หากปลั๊กอินนี้เปิดใช้งานอยู่ปัจจุบันหลังจากที่ได้ถูก เปิดใช้งานผ่านฟังก์ชัน <code>Plugin:Activate()</code>.",
+    "documentation": "คืนค่า <code>true</code> หากปลั๊กอินนี้เปิดใช้งานอยู่ในปัจจุบัน หลังจากที่ได้ เปิดใช้งานผ่านฟังก์ชัน <code>Activate()</code>。",
     "params": [
       {
         "name": "self",
@@ -34059,7 +34059,7 @@
     "documentation": "ว่าปลั๊กอินนี้เปิดใช้งานอยู่ในขณะนี้ด้วยเมาส์เฉพาะ."
   },
   "@roblox/globaltype/Plugin.IsActivatedWithExclusiveMouse": {
-    "documentation": "ส่งคืน true หากปลั๊กอินนี้เปิดใช้งานอยู่ในขณะนี้ด้วยเมาส์เฉพาะ, หลังจากที่ได้ถูกเปิดใช้งานผ่านฟังก์ชัน <code>Plugin:Activate()</code>.",
+    "documentation": "คืนค่า <code>true</code> หากปลั๊กอินนี้เปิดใช้งานอยู่ในปัจจุบันด้วยเมาส์พิเศษ。",
     "params": [
       {
         "name": "self",
@@ -34082,7 +34082,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Negate": {
-    "documentation": "ปฏิเสธส่วนประกอบที่กำหนดและส่งคืนผลลัพธ์ NegateOperations.",
+    "documentation": "ทำให้เป็นโมฆะชิ้นส่วนที่กำหนดและคืนค่าผลลัพธ์เป็น <code>NegateOperations</code>。",
     "params": [
       {
         "name": "self",
@@ -34160,7 +34160,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetIdAsync": {
-    "documentation": "เปิดหน้าต่างใน Roblox Studio ซึ่งเรียกร้องให้ผู้ใช้เลือกทรัพยากร ตาม <code>assetType</code> ที่กำหนด ส่งคืน assetId ที่ถูกเลือก หรือ -1 หากหน้าต่างถูกปิด.",
+    "documentation": "เปิดหน้าต่างใน Roblox Studio ซึ่งแจ้งให้ผู้ใช้เลือกทรัพย์สิน ตาม <code>assetType</code> ที่ระบุ。",
     "params": [
       {
         "name": "self",
@@ -34187,7 +34187,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptForExistingAssetId": {
-    "documentation": "เปิดหน้าต่างใน Roblox Studio ซึ่งเรียกร้องให้ผู้ใช้เลือกทรัพยากร ตาม <code>assetType</code> ที่กำหนด ส่งคืน assetId ที่ถูกเลือก หรือ -1 หากหน้าต่างถูกปิด.",
+    "documentation": "เปิดหน้าต่างใน Roblox Studio ซึ่งแจ้งให้ผู้ใช้เลือกทรัพย์สิน ตาม <code>assetType</code> ที่ระบุ。",
     "params": [
       {
         "name": "self",
@@ -34214,7 +34214,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelectionAsync": {
-    "documentation": "เรียกร้องให้ผู้ใช้บันทึกการเลือกปัจจุบันด้วยชื่อไฟล์ที่ระบุ ส่งคืน true หากผู้ใช้ได้บันทึกไฟล์.",
+    "documentation": "แจ้งให้ผู้ใช้บันทึกการเลือกปัจจุบันด้วยชื่อไฟล์ที่ระบุ。",
     "params": [
       {
         "name": "self",
@@ -34241,7 +34241,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelection": {
-    "documentation": "<strong>Deprecated:</strong> <br>เรียกร้องให้ผู้ใช้บันทึกการเลือกปัจจุบันด้วยชื่อไฟล์ที่ระบุ ส่งคืน true หากผู้ใช้ได้บันทึกไฟล์.",
+    "documentation": "<strong>Deprecated:</strong> <br>แจ้งให้ผู้ใช้บันทึกการเลือกปัจจุบันด้วยชื่อไฟล์ที่ระบุ。",
     "params": [
       {
         "name": "self",
@@ -34312,7 +34312,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Separate": {
-    "documentation": "แยก UnionOperations ที่กำหนดและส่งคืนส่วนประกอบที่เกิดขึ้น.",
+    "documentation": "แยก <code>UnionOperations</code> ที่กำหนดและคืนค่าชิ้นส่วนที่ผลลัพธ์。",
     "params": [
       {
         "name": "self",
@@ -34390,7 +34390,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Union": {
-    "documentation": "รวมส่วนที่กำหนดและส่งคืน UnionOperation ที่เกิดขึ้น.",
+    "documentation": "รวมชิ้นส่วนที่กำหนดและคืนค่าผลลัพธ์เป็น <code>UnionOperation</code>。",
     "params": [
       {
         "name": "self",
@@ -45577,7 +45577,7 @@
       "@roblox/globaltype/Player.GetRankInGroupAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRankInGroupAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroup(2) == 255 then\n\t\tprint(\"ผู้เล่นเป็นเจ้าของกลุ่ม, 'LOL'!\")\n\telse\n\t\tprint(\"ผู้เล่นไม่ใช่เจ้าของกลุ่ม, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroupAsync(2) == 255 then\n\t\tprint(\"ผู้เล่นเป็นเจ้าของกลุ่ม, 'LOL'!\")\n\telse\n\t\tprint(\"ผู้เล่นไม่ใช่เจ้าของกลุ่ม, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRankInGroup/param/0": {
     "documentation": "วัตถุที่แสดงถึงไคลเอ็นต์ที่เชื่อมต่ออยู่ในปัจจุบันกับประสบการณ์"
@@ -45604,7 +45604,7 @@
       "@roblox/globaltype/Player.GetRankInGroup/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRankInGroup",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroup(2) == 255 then\n\t\tprint(\"ผู้เล่นเป็นเจ้าของกลุ่ม, 'LOL'!\")\n\telse\n\t\tprint(\"ผู้เล่นไม่ใช่เจ้าของกลุ่ม, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:GetRankInGroupAsync(2) == 255 then\n\t\tprint(\"ผู้เล่นเป็นเจ้าของกลุ่ม, 'LOL'!\")\n\telse\n\t\tprint(\"ผู้เล่นไม่ใช่เจ้าของกลุ่ม, 'LOL'!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRoleInGroupAsync/param/0": {
     "documentation": "วัตถุที่แสดงถึงไคลเอ็นต์ที่เชื่อมต่ออยู่ในปัจจุบันกับประสบการณ์"
@@ -45690,7 +45690,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.IsBestFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ล้าสมัยเพราะฟีเจอร์เพื่อนที่ดีที่สุดถูกลบออก. ใช้ <code>Player:IsFriendsWith()</code> แทน.<br>คืนค่าหากผู้เล่นมีการเชื่อมต่อกับผู้ใช้ที่กำหนด.",
+    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันนี้ล้าสมัยเนื่องจากฟีเจอร์ \"เพื่อนที่ดีที่สุด\" ถูกลบออกไปแล้ว ให้ใช้ <code>Player:IsFriendsWithAsync()</code> แทน.<br>คืนค่าหากผู้เล่นมีการเชื่อมต่อกับผู้ใช้ที่กำหนด.",
     "params": [
       {
         "name": "self",
@@ -45732,7 +45732,7 @@
       "@roblox/globaltype/Player.IsFriendsWithAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsFriendsWithAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" เป็นการเชื่อมต่อกับ gordonrox24!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.IsFriendsWith/param/0": {
     "documentation": "วัตถุที่แสดงถึงไคลเอ็นต์ที่เชื่อมต่ออยู่ในปัจจุบันกับประสบการณ์"
@@ -45744,7 +45744,7 @@
     "documentation": "บูลีนที่แสดงว่าผู้เล่นเป็นการเชื่อมต่อของผู้ใช้ที่ระบุ."
   },
   "@roblox/globaltype/Player.IsFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> <br>ตรวจสอบว่าผู้เล่นเป็นการเชื่อมต่อของผู้ใช้ที่ให้ <code>Player.UserId</code> หรือไม่.",
+    "documentation": "<strong>Deprecated:</strong> วิธีการนี้ถูกแทนที่โดย <code>Player:IsFriendsWithAsync()</code> ซึ่งควรใช้สำหรับงานใหม่.<br>ตรวจสอบว่าผู้เล่นเป็นการเชื่อมต่อของผู้ใช้ที่ให้ <code>Player.UserId</code> หรือไม่.",
     "params": [
       {
         "name": "self",
@@ -45759,7 +45759,7 @@
       "@roblox/globaltype/Player.IsFriendsWith/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#IsFriendsWith",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tif player:IsFriendsWith(146569) then\n\t\tprint(player.Name .. \" เป็นการเชื่อมต่อกับ gordonrox24!\")\n\tend\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.isFriendsWith/param/0": {
     "documentation": "วัตถุที่แสดงถึงไคลเอ็นต์ที่เชื่อมต่ออยู่ในปัจจุบันกับประสบการณ์"
@@ -45771,7 +45771,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Player.isFriendsWith": {
-    "documentation": "<strong>Deprecated:</strong> ฟังก์ชันที่เลิกใช้แล้วนี้เป็นเวอร์ชันหนึ่งของ <code>Player:IsFriendsWith()</code> ซึ่งควรใช้แทน.",
+    "documentation": "<strong>Deprecated:</strong> วิธีการนี้ถูกแทนที่โดย <code>Player:IsFriendsWithAsync()</code> ซึ่งควรใช้สำหรับงานใหม่.",
     "params": [
       {
         "name": "self",
@@ -50998,16 +50998,16 @@
     "documentation": "บริการที่รับผิดชอบกิจกรรมทั้งหมดที่ทำงานและความก้าวหน้าของเวลา."
   },
   "@roblox/globaltype/RunService.BindToSimulation/param/1": {
-    "documentation": "ฟังก์ชันที่ต้องเรียก ฟังก์ชันนี้จะถูกส่งพารามิเตอร์หนึ่งที่เรียกว่า <code>deltaTime</code> ซึ่งแสดงให้เห็นว่าเวลาที่ผ่านไประหว่างจุดเริ่มต้นของขั้นตอนการจำลองก่อนหน้าและจุดเริ่มต้นของขั้นตอนการจำลองปัจจุบันคือเท่าใด."
+    "documentation": "ฟังก์ชันที่จะเรียก ฟังก์ชันนี้จะถูกส่งพารามิเตอร์หนึ่งชื่อ <code>deltaTime</code> ซึ่งแสดงถึงระยะเวลาที่ผ่านไประหว่างการ เริ่มต้นของขั้นตอนการจำลองก่อนหน้าและการเริ่มต้นของ ขั้นตอนการจำลองปัจจุบัน"
   },
   "@roblox/globaltype/RunService.BindToSimulation/param/2": {
-    "documentation": "ค่า <code>StepFrequency</code> ที่เลือกเพื่อบ่งบอกความถี่ที่เรียกฟังก์ชันที่ถูกผูก หากไม่มีการระบุ ความถี่เริ่มต้นจะถูกใช้."
+    "documentation": "ค่า <code>StepFrequency</code> ที่ไม่บังคับซึ่งระบุความถี่ที่ควรเรียกฟังก์ชันที่เชื่อมโยง หากไม่ระบุ ความถี่เริ่มต้นจะถูกนำมาใช้"
   },
   "@roblox/globaltype/RunService.BindToSimulation/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/RunService.BindToSimulation": {
-    "documentation": "ผูกฟังก์ชันที่กำหนดเองเพื่อต้องเรียกที่ความถี่คงที่ซึ่งไม่ขึ้นอยู่กับอัตราเฟรม.",
+    "documentation": "เชื่อมโยงฟังก์ชันที่กำหนดเองเพื่อให้เรียกได้ที่ความถี่ที่กำหนดและเป็นอิสระจากอัตราเฟรม",
     "params": [
       {
         "name": "self",
@@ -51038,7 +51038,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/RunService.GetPredictionStatus": {
-    "documentation": "ตรวจสอบ <code>PredictionStatus</code> ของบริบทเฉพาะ ใช้สำหรับการดีบักสคริปต์ที่มีผลกระทบต่อหลายอินสแตนซ์ที่บางตัวอาจถูกคาดการณ์และบางตัวอาจไม่ถูก.",
+    "documentation": "ตรวจสอบ <code>PredictionStatus</code> ของอินสแตนซ์บริบทเฉพาะ อันมีประโยชน์สำหรับการดีบักสคริปต์ที่ส่งผลกระทบต่อหลายอินสแตนซ์ซึ่งบางอย่างอาจถูกทำนายและบางอย่างอาจไม่ถูก",
     "params": [
       {
         "name": "self",
@@ -51230,7 +51230,7 @@
     "documentation": "ค่า <code>PredictionMode</code> ที่จะตั้งค่าสำหรับอินสแตนซ์บริบท."
   },
   "@roblox/globaltype/RunService.SetPredictionMode": {
-    "documentation": "ตั้งค่าโหมดการคาดการณ์ให้กับ <code>Instance</code> กับค่า <code>PredictionMode</code>.",
+    "documentation": "ตั้งค่าโหมดการทำนายสำหรับ <code>Instance</code> เป็นค่า <code>PredictionMode</code>",
     "params": [
       {
         "name": "self",
@@ -54658,6 +54658,7 @@
   "@roblox/globaltype/MaterialVariant": {
     "documentation": "แสดงถึงตัวแปรของวัสดุ.",
     "keys": {
+      "AlphaMode": "@roblox/globaltype/MaterialVariant.AlphaMode",
       "BaseMaterial": "@roblox/globaltype/MaterialVariant.BaseMaterial",
       "ColorMap": "@roblox/globaltype/MaterialVariant.ColorMap",
       "ColorMapContent": "@roblox/globaltype/MaterialVariant.ColorMapContent",
@@ -54677,18 +54678,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant",
     "code_sample": ""
   },
+  "@roblox/globaltype/MaterialVariant.AlphaMode": {
+    "documentation": "กำหนดวิธีการใช้ช่องอัลฟาของ <code>MaterialVariant.ColorMap</code>",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#AlphaMode",
+    "code_sample": ""
+  },
   "@roblox/globaltype/MaterialVariant.BaseMaterial": {
-    "documentation": "ประเภทวัสดุที่ตัวแปรนี้สังกัดอยู่.",
+    "documentation": "หมวดหมู่วัสดุที่กลุ่มนี้สังกัดอยู่",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#BaseMaterial",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.ColorMap": {
-    "documentation": "กำหนดสีของพื้นผิว.",
+    "documentation": "กำหนดสีของพื้นผิว",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#ColorMap",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.ColorMapContent": {
-    "documentation": "กำหนดสีของพื้นผิว รองรับเฉพาะ URIs ของสินทรัพย์เป็นเท็กซ์เจอร์.",
+    "documentation": "กำหนดสีของพื้นผิว รองรับ URI ของแอสเซทเป็นพื้นผิวเท่านั้น",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#ColorMapContent",
     "code_sample": ""
   },
@@ -54698,57 +54704,57 @@
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.EmissiveMaskContent": {
-    "documentation": "กำหนดอัตราการปล่อยรังสีทั่วพื้นผิว。",
+    "documentation": "กำหนดความสามารถในการปล่อยแสงทั่วทั้งพื้นผิว",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#EmissiveMaskContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.EmissiveStrength": {
-    "documentation": "กำหนดความแรงของการมีส่วนร่วมจากการปล่อยรังสี。",
+    "documentation": "กำหนดความเข้มของการมีส่วนร่วมในการปล่อยแสง",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#EmissiveStrength",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.EmissiveTint": {
-    "documentation": "กำหนดสีที่ใช้ในการย้อมสำหรับการมีส่วนร่วมจากการปล่อยรังสี。",
+    "documentation": "กำหนดสีของการมีส่วนร่วมในการปล่อยแสง",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#EmissiveTint",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.MaterialPattern": {
-    "documentation": "กำหนดวิธีการปูกระเบื้องของเท็กซ์เจอร์。",
+    "documentation": "กำหนดวิธีการจัดเรียงพื้นผิว",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#MaterialPattern",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.MetalnessMap": {
-    "documentation": "กำหนดว่าบริเวณไหนของพื้นผิวเป็นโลหะและไม่ใช่โลหะ。",
+    "documentation": "กำหนดส่วนใดของพื้นผิวเป็นโลหะและไม่เป็นโลหะ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#MetalnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.MetalnessMapContent": {
-    "documentation": "กำหนดว่าบริเวณไหนของพื้นผิวเป็นโลหะและไม่ใช่โลหะ รองรับเฉพาะ URI แหล่งข้อมูลเป็นเท็กซ์เจอร์เท่านั้น。",
+    "documentation": "กำหนดส่วนใดของพื้นผิวเป็นโลหะและไม่เป็นโลหะ รองรับ URI ของแอสเซท เป็นพื้นผิวเท่านั้น",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#MetalnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.NormalMap": {
-    "documentation": "ปรับแสงของพื้นผิวโดยการเพิ่มปุ่ม, รอยบุบ, รอยแตก, และโค้งโดยไม่ต้องเพิ่มพอลิกอนเพิ่มเติม。",
+    "documentation": "แก้ไขแสงของพื้นผิวโดยการเพิ่มอาการนูน รอยบุบ รอยแตก และ โค้งโดยไม่เพิ่มโพลิกอนมากขึ้น",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#NormalMap",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.NormalMapContent": {
-    "documentation": "ปรับแสงของพื้นผิวโดยการเพิ่มปุ่ม, รอยบุบ, รอยแตก, และโค้งโดยไม่ต้องเพิ่มพอลิกอนเพิ่มเติม รองรับเฉพาะ URI แหล่งข้อมูลเป็นเท็กซ์เจอร์เท่านั้น。",
+    "documentation": "แก้ไขแสงของพื้นผิวโดยการเพิ่มอาการนูน รอยบุบ รอยแตก และ โค้งโดยไม่เพิ่มโพลิกอนมากขึ้น รองรับ URI ของแอสเซทเป็นพื้นผิวเท่านั้น",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#NormalMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.RoughnessMap": {
-    "documentation": "กำหนดความหยาบที่ปรากฏทั่วพื้นผิว。",
+    "documentation": "กำหนดความหยาบที่ปรากฏทั่วทั้งพื้นผิว",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#RoughnessMap",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.RoughnessMapContent": {
-    "documentation": "กำหนดความหยาบที่ปรากฏทั่วพื้นผิว รองรับเฉพาะ URI แหล่งข้อมูลเป็นเท็กซ์เจอร์เท่านั้น。",
+    "documentation": "กำหนดความหยาบที่ปรากฏทั่วทั้งพื้นผิว รองรับ URI ของแอสเซท เป็นพื้นผิวเท่านั้น",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#RoughnessMapContent",
     "code_sample": ""
   },
   "@roblox/globaltype/MaterialVariant.StudsPerTile": {
-    "documentation": "กำหนดขนาดของเท็กซ์เจอร์。",
+    "documentation": "กำหนดขนาดของพื้นผิว",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MaterialVariant#StudsPerTile",
     "code_sample": ""
   },
@@ -72375,7 +72381,6 @@
       "ReadCapturesFromGalleryAsync": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync",
       "StartVideoCaptureAsync": "@roblox/globaltype/CaptureService.StartVideoCaptureAsync",
       "StopVideoCapture": "@roblox/globaltype/CaptureService.StopVideoCapture",
-      "TakeCapture": "@roblox/globaltype/CaptureService.TakeCapture",
       "UploadCaptureAsync": "@roblox/globaltype/CaptureService.UploadCaptureAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService",
@@ -72578,43 +72583,14 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#StopVideoCapture",
     "code_sample": ""
   },
-  "@roblox/globaltype/CaptureService.TakeCapture/param/0": {
-    "documentation": "บริการที่ให้การควบคุมคุณสมบัติการบันทึกภาพหน้าจอและวิดีโอ"
-  },
-  "@roblox/globaltype/CaptureService.TakeCapture/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/CaptureService.TakeCapture/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/CaptureService.TakeCapture": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/CaptureService.TakeCapture/param/0"
-      },
-      {
-        "name": "onCaptureReady",
-        "documentation": "@roblox/globaltype/CaptureService.TakeCapture/param/1"
-      },
-      {
-        "name": "captureParams",
-        "documentation": "@roblox/globaltype/CaptureService.TakeCapture/param/2"
-      }
-    ],
-    "returns": [],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#TakeCapture",
-    "code_sample": ""
-  },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
     "documentation": "บริการที่ให้การควบคุมคุณสมบัติการบันทึกภาพหน้าจอและวิดีโอ"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1": {
-    "documentation": "วัตถุการบันทึกประเภท <code>Capture</code>"
+    "documentation": "วัตถุการจับภาพประเภท <code>Capture</code>"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
-    "documentation": "คู่ของ (result: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
+    "documentation": "ทูเพิลของ (ผลลัพธ์: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync": {
     "documentation": "",
@@ -77179,7 +77155,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/PluginManager.ExportPlace": {
-    "documentation": "ส่งออกสถานที่ไปยังไฟล์ .OBJ ที่ถูกบันทึกไปยังเส้นทางที่เลือกโดยผู้ใช้ในกล่องโต้ตอบบันทึกไฟล์ (ตัวแปร <code>filePath</code> จะถูกมองข้าม).",
+    "documentation": "ส่งออกสถานที่ไปยังไฟล์ <code>.obj</code> ที่บันทึกไปยังเส้นทางที่ผู้ใช้เลือกในกล่องสนทนาการบันทึกไฟล์.",
     "params": [
       {
         "name": "self",
@@ -77201,7 +77177,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/PluginManager.ExportSelection": {
-    "documentation": "ส่งออก <code>Selection</code> ปัจจุบันไปยังไฟล์ .OBJ ที่ถูกบันทึกไปยังเส้นทางที่เลือกโดยผู้ใช้ในกล่องโต้ตอบบันทึกไฟล์ (ตัวแปร <code>filePath</code> จะถูกมองข้าม).",
+    "documentation": "ส่งออก <code>Selection</code> ปัจจุบันไปยังไฟล์ <code>.obj</code> ที่บันทึกไปยังเส้นทางที่ผู้ใช้เลือกในกล่องสนทนาการบันทึกไฟล์.",
     "params": [
       {
         "name": "self",
@@ -78327,7 +78303,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/PluginToolbarButton.ClickableWhenViewportHidden": {
-    "documentation": "กำหนดว่าปุ่มสามารถถูกคลิกได้เมื่อมุมมองเกมถูกซ่อนอยู่หรือไม่ เช่น ในขณะที่แก้ไขสคริปต์ในแท็บ Studio ที่แตกต่างกัน.",
+    "documentation": "กำหนดว่าปุ่มสามารถถูกคลิกเมื่อมุมมอง 3D ถูกซ่อนอยู่หรือไม่, เช่นเมื่อ <code>Script</code> ถูกแก้ไขในแท็บอื่น.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginToolbarButton#ClickableWhenViewportHidden",
     "code_sample": ""
   },
@@ -79535,16 +79511,16 @@
     "documentation": "บริการที่รับผิดชอบในการทำธุรกรรมภายในประสบการณ์。"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/1": {
-    "documentation": "Asset ID ของผลิตภัณฑ์ที่ระบุ."
+    "documentation": "ID ของทรัพย์สินสำหรับผลิตภัณฑ์ที่ระบุ."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/2": {
-    "documentation": "ค่าของ enum <code>InfoType</code> ที่กำหนดประเภทของข้อมูลที่ ถูกดึงมา."
+    "documentation": "ค่า Enum <code>InfoType</code> ที่ระบุประเภทของข้อมูลที่ถูก ดึงข้อมูล."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/return/0": {
-    "documentation": "พจนานุกรมที่ประกอบด้วยข้อมูลเกี่ยวกับรายการที่สอบถาม, อธิบาย ในตารางก่อนหน้านี้."
+    "documentation": "พจนานุกรมที่มีข้อมูลเกี่ยวกับรายการที่สอบถาม, อธิบาย ในตารางก่อนหน้า."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo": {
-    "documentation": "<strong>Deprecated:</strong> <br>ส่งคืนข้อมูลผลิตภัณฑ์ของสินทรัพย์โดยใช้ Asset ID ของมัน.",
+    "documentation": "<strong>Deprecated:</strong> <br>ส่งคืนข้อมูลผลิตภัณฑ์ของทรัพย์สินโดยใช้ ID ของทรัพย์สินนั้น",
     "params": [
       {
         "name": "self",
@@ -79569,13 +79545,13 @@
     "documentation": "บริการที่รับผิดชอบในการทำธุรกรรมภายในประสบการณ์。"
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/param/1": {
-    "documentation": "ID ของการสมัครสมาชิกที่ต้องการตรวจสอบ."
+    "documentation": "ID ของการสมัครสมาชิกที่จะตรวจสอบ."
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync": {
-    "documentation": "ส่งคืนข้อมูลผลิตภัณฑ์ของการสมัครสมาชิกสำหรับ <code>subscriptionId</code> ที่กำหนด.",
+    "documentation": "ส่งคืนข้อมูลผลิตภัณฑ์ของการสมัครสมาชิกสำหรับ <code>subscriptionId</code> ที่ให้ไว้.",
     "params": [
       {
         "name": "self",
@@ -79596,13 +79572,13 @@
     "documentation": "บริการที่รับผิดชอบในการทำธุรกรรมภายในประสบการณ์。"
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/param/1": {
-    "documentation": "อาร์เรย์ของ ID ผู้ใช้."
+    "documentation": "อาเรย์ของ ID ผู้ใช้."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
-    "documentation": "ส่งคืนอาร์เรย์ของวัตถุ <code>PriceLevelInfo</code> ที่มีพจนานุกรมซึ่ง คีย์เป็น ID ของผู้ใช้ (สตริง) และค่าของพวกเขาคือ ระดับราคาที่เกี่ยวข้อง (จำนวนเต็มระหว่าง 1 และ 1000)."
+    "documentation": "ส่งคืนอาเรย์ของวัตถุ <code>PriceLevelInfo</code> ที่มีพจนานุกรมซึ่ง กุญแจคือ ID ของผู้ใช้ (สตริง) และค่าของพวกเขาคือ ระดับราคา (จำนวนเต็มระหว่าง 1 ถึง 1000)."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "ส่งคืนระดับราคาของผู้ใช้ที่มีการปรับให้เหมาะสม, แสดงถึง ราคาที่แนะนำสำหรับรายการในตลาดของเขา.",
+    "documentation": "ส่งคืนระดับราคาที่ปรับให้กลมกลืนกับภูมิภาคของผู้ใช้, ซึ่งเป็นตัวแทนของ ราคาที่แนะนำสำหรับรายการในตลาดภูมิภาคของพวกเขา.",
     "params": [
       {
         "name": "self",
@@ -79626,13 +79602,13 @@
     "documentation": "วัตถุ <code>Player</code> ที่คุณต้องการตรวจสอบรายละเอียดการสมัครสมาชิก."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/param/2": {
-    "documentation": "ID ของการสมัครสมาชิกที่คุณต้องการตรวจสอบ."
+    "documentation": "ID ของการสมัครสมาชิกที่ต้องการตรวจสอบ."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionDetailsAsync": {
-    "documentation": "ส่งคืนตารางที่มีรายละเอียดของการสมัครสมาชิกของผู้ใช้สำหรับ <code>subscriptionId</code> ที่กำหนด.",
+    "documentation": "ส่งคืนตารางที่มีรายละเอียดเกี่ยวกับการสมัครสมาชิกของผู้ใช้สำหรับ <code>subscriptionId</code> ที่ให้ไว้.",
     "params": [
       {
         "name": "self",
@@ -79666,7 +79642,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionPaymentHistoryAsync": {
-    "documentation": "ส่งคืน <code>Array</code> ที่มีประวัติการชำระเงินการสมัครสมาชิกของผู้ใช้, สูงสุดถึงหนึ่งปี, สำหรับ <code>subscriptionId</code> ที่กำหนด.",
+    "documentation": "ส่งคืน <code>Array</code> ที่มีข้อมูลประวัติการชำระเงินของการสมัครสมาชิกของผู้ใช้ในระยะเวลา สูงสุดถึงหนึ่งปีสำหรับ <code>subscriptionId</code> ที่ให้ไว้.",
     "params": [
       {
         "name": "self",
@@ -79694,13 +79670,13 @@
     "documentation": "วัตถุ <code>Player</code> ที่คุณต้องการตรวจสอบสถานะการสมัครสมาชิก."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/param/2": {
-    "documentation": "ID ของการสมัครสมาชิกเพื่อทำการตรวจสอบ."
+    "documentation": "ID ของการสมัครสมาชิกที่จะตรวจสอบ."
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.GetUserSubscriptionStatusAsync": {
-    "documentation": "ส่งคืน <code>table</code> ที่มีสถานะการสมัครสมาชิกของผู้ใช้สำหรับ <code>subscriptionId</code> ที่กำหนด.",
+    "documentation": "ส่งคืน <code>table</code> ที่มีสถานะการสมัครสมาชิกของผู้ใช้สำหรับ <code>subscriptionId</code> ที่ให้ไว้.",
     "params": [
       {
         "name": "self",
@@ -79759,16 +79735,16 @@
     "documentation": "บริการที่รับผิดชอบในการทำธุรกรรมภายในประสบการณ์。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/1": {
-    "documentation": "วัตถุ <code>Player</code> ที่คลังของมันจะถูกทดสอบสำหรับการเป็นเจ้าของสินทรัพย์ที่ กำหนด."
+    "documentation": "ผู้ใช้ <code>Player</code> ที่คลังสินค้าของเขาถูกทดสอบสำหรับความเป็นเจ้าของของทรัพย์สินที่ให้ไว้."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/param/2": {
-    "documentation": "ID สินทรัพย์ที่คลังของผู้เล่นที่กำหนดจะถูกทดสอบ."
+    "documentation": "ID ของทรัพย์สินที่คลังสินค้าของผู้ใช้จะถูกทดสอบ."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset/return/0": {
-    "documentation": "บ่งชี้ว่าในคลังของผู้เล่นที่กำหนดมีสินทรัพย์ที่กำหนดอยู่."
+    "documentation": "บ่งชี้ว่าคลังสินค้าของผู้ใช้ที่ให้ไว้มีกิจกรรมที่ให้ไว้หรือไม่."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset": {
-    "documentation": "<strong>Deprecated:</strong> <br>ส่งคืนว่าใช่ไหมว่าผู้ใช้ที่กำหนดมีสินทรัพย์ที่กำหนด.",
+    "documentation": "<strong>Deprecated:</strong> <br>ส่งคืนว่าผู้ใช้ที่ให้ไว้นั้นมีทรัพย์สินที่ให้ไว้หรือไม่.",
     "params": [
       {
         "name": "self",
@@ -79827,16 +79803,16 @@
     "documentation": "บริการที่รับผิดชอบในการทำธุรกรรมภายในประสบการณ์。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/1": {
-    "documentation": "วัตถุ <code>Player</code> ที่คลังของมันจะถูกทดสอบสำหรับการเป็นเจ้าของชุดที่ กำหนด."
+    "documentation": "วัตถุ <code>Player</code> ที่คุณต้องการทดสอบความเป็นเจ้าของของชุดที่ให้ไว้นั้น."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/2": {
-    "documentation": "ID ชุดที่คลังของผู้เล่นที่กำหนดจะถูกทดสอบ."
+    "documentation": "ID ของชุดที่วางจำหน่ายตามที่คลังสินค้าของผู้เล่นจะถูกทดสอบ."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0": {
-    "documentation": "บ่งชี้ว่าในคลังของผู้เล่นที่กำหนดมีชุดที่กำหนดอยู่."
+    "documentation": "บ่งชี้ว่าคลังสินค้าของผู้เล่นที่ให้ไว้มีกิจกรรมที่ให้ไว้หรือไม่."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle": {
-    "documentation": "<strong>Deprecated:</strong> <br>ส่งคืนว่าใช่ไหมว่าผู้เล่นที่กำหนดเป็นเจ้าของชุดที่กำหนด.",
+    "documentation": "<strong>Deprecated:</strong> <br>ส่งคืนว่าผู้เล่นที่ให้ไว้มีชุดที่ให้ไว้หรือไม่.",
     "params": [
       {
         "name": "self",
@@ -79861,16 +79837,16 @@
     "documentation": "บริการที่รับผิดชอบในการทำธุรกรรมภายในประสบการณ์。"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/1": {
-    "documentation": "ผู้ใช้ที่จะกระตุ้นให้ซื้อสินค้านั้น."
+    "documentation": "ผู้ใช้ที่ถูกขอให้ซื้อรายการ."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/2": {
-    "documentation": "อาร์เรย์ของรายการอวาตาร์ที่จะรวมอยู่ในการซื้อจำนวนมาก. แต่ละบรรทัดประกอบด้วยโครงสร้างดังต่อไปนี้: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> แต่ละบรรทัดประกอบด้วยคู่ดังต่อไปนี้: <ul> <li><code>Type</code>: <code>MarketplaceProductType</code> (Enum) ที่ตรงกัน.</li> <li><code>Id</code>: ID ของสินทรัพย์หรือชุด.</li> </ul>"
+    "documentation": "อาเรย์ของรายการอวาตาร์ที่จะรวมอยู่ในคำขอซื้อแบบ bulk. แต่ละรายการบรรทัดมีโครงสร้างดังนี้: <pre><code class=\"language-lua\">{   Type: MarketplaceProductType,   Id: string } </code></pre> แต่ละรายการบรรทัดมีคู่ต่อไปนี้: <ul> <li><code>Type</code>: <code>MarketplaceProductType</code> ที่สอดคล้อง (Enum).</li> <li><code>Id</code>: ID ของทรัพย์สินหรือชุด.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/3": {
-    "documentation": "ไม่สามารถใช้งานในเวลานี้."
+    "documentation": "ไม่สามารถใช้งานได้ในขณะนี้."
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase": {
-    "documentation": "กระตุ้นให้ผู้ใช้งานซื้อหลายรายการอวตาร์ด้วย <code>assetId</code> หรือ <code>bundleId</code> ที่กำหนด.",
+    "documentation": "ขอให้ผู้ใช้ซื้อรายการอวาตาร์หลายรายการด้วย <code>assetId</code> หรือ <code>bundleId</code> ที่ให้ไว้.",
     "params": [
       {
         "name": "self",
@@ -79903,7 +79879,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptBundlePurchase": {
-    "documentation": "กระตุ้นให้ผู้ใช้งานซื้อชุดด้วย <code>bundleId</code> ที่กำหนด.",
+    "documentation": "ขอให้ผู้ใช้ซื้อชุดด้วย <code>bundleId</code> ที่ให้ไว้.",
     "params": [
       {
         "name": "self",
@@ -79932,7 +79908,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptCancelSubscription": {
-    "documentation": "กระตุ้นให้ผู้ใช้งานยกเลิกการสมัครสมาชิกสำหรับ <code>subscriptionId</code> ที่กำหนด.",
+    "documentation": "ขอให้ผู้ใช้ยกเลิกการสมัครสมาชิกสำหรับ <code>subscriptionId</code> ที่ให้ไว้.",
     "params": [
       {
         "name": "self",
@@ -79961,7 +79937,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptGamePassPurchase": {
-    "documentation": "กระตุ้นให้ผู้ใช้งานซื้อพาสด้วย <code>gamePassId</code> ที่กำหนด.",
+    "documentation": "ขอให้ผู้ใช้ซื้อพาสด้วย <code>gamePassId</code> ที่ให้ไว้.",
     "params": [
       {
         "name": "self",
@@ -79987,7 +79963,7 @@
     "documentation": "ผู้ใช้ที่ถูกกระตุ้นให้ซื้อ Premium."
   },
   "@roblox/globaltype/MarketplaceService.PromptPremiumPurchase": {
-    "documentation": "กระตุ้นให้ผู้ใช้งานซื้อ Roblox Premium.",
+    "documentation": "ขอให้ผู้ใช้ซื้อ Roblox Premium.",
     "params": [
       {
         "name": "self",
@@ -80018,7 +79994,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptProductPurchase": {
-    "documentation": "กระตุ้นให้ผู้ใช้งานซื้อผลิตภัณฑ์นักพัฒนาด้วย <code>productId</code> ที่กำหนด.",
+    "documentation": "ขอให้ผู้ใช้ซื้อผลิตภัณฑ์นักพัฒนาด้วย <code>productId</code> ที่ให้ไว้.",
     "params": [
       {
         "name": "self",
@@ -80061,7 +80037,7 @@
     "documentation": "ถูกละเว้น."
   },
   "@roblox/globaltype/MarketplaceService.PromptPurchase": {
-    "documentation": "กระตุ้นให้ผู้ใช้งานซื้อสินค้าที่มี <code>assetId</code> ที่กำหนด. ไม่ทำงาน สำหรับการซื้อใน Creator Store โดย USD.",
+    "documentation": "ขอให้ผู้ใช้ซื้อรายการด้วย <code>assetId</code> ที่ให้ไว้. ไม่ทำงาน สำหรับการซื้อใน USD Creator Store.",
     "params": [
       {
         "name": "self",
@@ -80095,10 +80071,10 @@
     "documentation": "วัตถุ <code>Player</code> ที่จะถูกกระตุ้นให้สมัครสมาชิก."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase/param/2": {
-    "documentation": "ID ของการสมัครสมาชิกที่ต้องสมัคร."
+    "documentation": "ID ของการสมัครสมาชิกที่ต้องการสมัคร."
   },
   "@roblox/globaltype/MarketplaceService.PromptSubscriptionPurchase": {
-    "documentation": "กระตุ้นให้ผู้ใช้งานซื้อการสมัครสมาชิกสำหรับ <code>subscriptionId</code> ที่กำหนด.",
+    "documentation": "ขอให้ผู้ใช้ซื้อการสมัครสมาชิกสำหรับ <code>subscriptionId</code> ที่ให้ไว้.",
     "params": [
       {
         "name": "self",
@@ -80121,13 +80097,13 @@
     "documentation": "บริการที่รับผิดชอบในการทำธุรกรรมภายในประสบการณ์。"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/param/1": {
-    "documentation": "อาร์เรย์ของวัตถุที่ระบุผลิตภัณฑ์ที่คุณต้องการจัดอันดับ. อาร์เรย์นี้สามารถรวมได้สูงสุด 50 รายการ. แต่ละ <code>ProductIdentifier</code> มี: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>ต้องเป็น <code>InfoType.GamePass</code> หรือ     <code>InfoType.Product</code>.</li> <li><code>Id</code>: number</li> <li>ID ของเกมพาสหรือผลิตภัณฑ์นักพัฒนา.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
+    "documentation": "อาเรย์ของวัตถุที่ระบุตำแหน่งที่ผลิตภัณฑ์ที่คุณต้องการให้จัดอันดับ. อาเรย์นี้สามารถรวมถึงรายการได้สูงสุด 50 รายการ. แต่ละ <code>ProductIdentifier</code> มี: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>ต้องเป็นทั้ง <code>InfoType.GamePass</code> หรือ     <code>InfoType.Product</code>.</li> <li><code>Id</code>: number</li> <li>ID ของเกมพาสหรือผลิตภัณฑ์นักพัฒนา.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "อาร์เรย์ของรายการที่จัดอันดับในลำดับที่เป็นส่วนตัวสำหรับผู้ใช้ในปัจจุบัน. แต่ละอาร์เรย์มี: <ul> <li><code>ProductIdentifier</code>: ID ที่ตรงกันจากอาร์เรย์ที่ป้อนเข้ามา.</li> <li><code>ProductInfo</code>: พจนานุกรมข้อมูลผลิตภัณฑ์มาตรฐานที่ส่งคืนโดย   <code>GetProductInfo</code>.</li> </ul>"
+    "documentation": "อาเรย์ที่มีรายการที่จัดอันดับตามลำดับเฉพาะของผู้ใช้อยู่ที่ปัจจุบัน. แต่ละอาเรย์มี: <ul> <li><code>ProductIdentifier</code>: ID ที่สอดคล้องจากอาเรย์นำเข้า.</li> <li><code>ProductInfo</code>: พจนานุกรมข้อมูลผลิตภัณฑ์มาตรฐานที่ส่งคืนโดย   <code>GetProductInfo</code>.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
-    "documentation": "รับรายการ ID ผลิตภัณฑ์และส่งคืนรายการที่จัดลำดับส่วนบุคคลของผลิตภัณฑ์เหล่านั้น.",
+    "documentation": "รับรายการของ ID ผลิตภัณฑ์และส่งคืนรายการที่จัดอันดับเฉพาะของผลิตภัณฑ์เหล่านั้น.",
     "params": [
       {
         "name": "self",
@@ -80148,13 +80124,13 @@
     "documentation": "บริการที่รับผิดชอบในการทำธุรกรรมภายในประสบการณ์。"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/1": {
-    "documentation": "อาร์เรย์ของค่าของ <code>InfoType</code> ระบุประเภทผลิตภัณฑ์ที่ต้องการดึงคำแนะนำ. รองรับ <code>InfoTypes</code>: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
+    "documentation": "อาเรย์ของค่าของ <code>InfoType</code> ที่ระบุประเภทของผลิตภัณฑ์ที่จะดึงคำแนะนำ. <code>InfoTypes</code> ที่รองรับ: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/return/0": {
-    "documentation": "รายการที่จัดอันดับสูงสุดถึง 50 รายการที่ผู้ใช้น่าจะใช้งาน, โดยอิงจาก <code>InfoTypes</code> ที่ให้ไว้. หากไม่มีคำแนะนำที่สามารถกำหนดได้, วิธีการนี้จะส่งคืนรายการว่าง."
+    "documentation": "รายการที่จัดอันดับสูงสุด 50 รายการซึ่งผู้ใช้น่าจะมีส่วนร่วมกับ, อิงจาก <code>InfoTypes</code> ที่ให้ไว้. หากไม่มีคำแนะนำให้กำหนด, วิธีนี้จะคืนเป็นลิสต์ว่าง."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync": {
-    "documentation": "<ul> <li>รับอาร์เรย์ของ <code>InfoType</code> และส่งคืนได้สูงสุด 50 รายการ   ที่แสดงถึงผลิตภัณฑ์ที่ผู้ใช้น่าจะใช้งานและ   ซื้อ.</li> </ul>",
+    "documentation": "<ul> <li>รับอาเรย์ของ <code>InfoType</code> และส่งคืนสูงสุด 50 รายการ   ที่แสดงผลิตภัณฑ์ที่ผู้ใช้มีแนวโน้มที่จะมีส่วนร่วมและ   ซื้อ.</li> </ul>",
     "params": [
       {
         "name": "self",
@@ -80175,16 +80151,16 @@
     "documentation": "บริการที่รับผิดชอบในการทำธุรกรรมภายในประสบการณ์。"
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/1": {
-    "documentation": "ID ผู้ใช้ <code>UserId</code> ของ <code>Player</code> ที่คุณกำลังตรวจสอบ."
+    "documentation": "ผู้ใช้ <code>UserId</code> ของ <code>Player</code> ที่คุณกำลังตรวจสอบ."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/param/2": {
-    "documentation": "ID ของพาสที่คุณต้องการตรวจสอบ. อย่าสับสนกับ ID สินทรัพย์."
+    "documentation": "ID ของพาสที่คุณต้องการตรวจสอบ. ไม่ควรสับสนกับ ID ของทรัพย์สิน."
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/MarketplaceService.UserOwnsGamePassAsync": {
-    "documentation": "ส่งคืนเป็นจริงถ้าผู้เล่นที่มี <code>UserId</code> ที่กำหนด เป็นเจ้าของพาสด้วย <code>gamePassId</code> ที่กำหนด.",
+    "documentation": "ส่งคืนว่า ผู้เล่นที่มี <code>UserId</code> ให้ไว้นั้น มีพาสที่มี <code>gamePassId</code> ที่ให้ไว้หรือไม่.",
     "params": [
       {
         "name": "self",
@@ -87789,7 +87765,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction": {
-    "documentation": "กำหนดกลไกการกระทำการเล่นเกม การกระทำเหล่านี้จะถูกแมพไปยังฮาร์ดแวร์ อินพุตโดยใช้ <code>InputBinding</code>.",
+    "documentation": "กำหนดกลไกการกระทำในเกม การกระทำเหล่านี้จะถูกแมพไปยังอินพุตฮาร์ดแวร์ โดยใช้ <code>InputBinding</code>.",
     "keys": {
       "BoolState": "@roblox/globaltype/InputAction.BoolState",
       "Direction1DState": "@roblox/globaltype/InputAction.Direction1DState",
@@ -87809,38 +87785,38 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Direction1DState": {
-    "documentation": "คุณสมบัติที่ไม่สามารถเขียนสคริปต์ได้และเป็นแบบอ่านอย่างเดียวที่มีประโยชน์สำหรับการตรวจสอบข้อผิดพลาด สำหรับการกระทำอินพุต <code>Direction1D</code>.",
+    "documentation": "คุณสมบัติที่ไม่สามารถเขียนสคริปต์ได้ ที่เป็นแบบอ่านอย่างเดียว ซึ่งมีประโยชน์สำหรับการดีบัก การกระทำอินพุต <code>Direction1D</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction1DState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Direction2DState": {
-    "documentation": "คุณสมบัติที่ไม่สามารถเขียนสคริปต์ได้และเป็นแบบอ่านอย่างเดียวที่มีประโยชน์สำหรับการตรวจสอบข้อผิดพลาด สำหรับการกระทำอินพุต <code>Direction2D</code>.",
+    "documentation": "คุณสมบัติที่ไม่สามารถเขียนสคริปต์ได้ ที่เป็นแบบอ่านอย่างเดียว ซึ่งมีประโยชน์สำหรับการดีบัก การกระทำอินพุต <code>Direction2D</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction2DState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Direction3DState": {
-    "documentation": "คุณสมบัติที่ไม่สามารถเขียนสคริปต์ได้และเป็นแบบอ่านอย่างเดียวที่มีประโยชน์สำหรับการตรวจสอบข้อผิดพลาด สำหรับการกระทำอินพุต <code>Direction3D</code>.",
+    "documentation": "คุณสมบัติที่ไม่สามารถเขียนสคริปต์ได้ ที่เป็นแบบอ่านอย่างเดียว ซึ่งมีประโยชน์สำหรับการดีบัก การกระทำอินพุต <code>Direction3D</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Direction3DState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Enabled": {
-    "documentation": "กำหนดว่า <code>InputAction</code> ถูกเปิดใช้งานหรือไม่.",
+    "documentation": "กำหนดว่ากระทำ <code>InputAction</code> ถูกเปิดใช้งานหรือไม่.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Enabled",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Type": {
-    "documentation": "กำหนดประเภทของค่าอินพุตที่การกระทำคาดหวัง.",
+    "documentation": "ระบุว่ากระทำคาดหวังค่าการอินพุตประเภทใด.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Type",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Fire/param/0": {
-    "documentation": "กำหนดกลไกการกระทำการเล่นเกม การกระทำเหล่านี้จะถูกแมพไปยังฮาร์ดแวร์ อินพุตโดยใช้ <code>InputBinding</code>."
+    "documentation": "กำหนดกลไกการกระทำในเกม การกระทำเหล่านี้จะถูกแมพไปยังอินพุตฮาร์ดแวร์ โดยใช้ <code>InputBinding</code>."
   },
   "@roblox/globaltype/InputAction.Fire/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/InputAction.Fire": {
-    "documentation": "อัปเดต <code>InputAction</code> ให้เป็นสถานะที่กำหนดและส่งสัญญาณที่เหมาะสม.",
+    "documentation": "อัปเดต <code>InputAction</code> เป็นสถานะที่กำหนดและส่งสัญญาณที่เหมาะสม.",
     "params": [
       {
         "name": "self",
@@ -87856,13 +87832,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.GetState/param/0": {
-    "documentation": "กำหนดกลไกการกระทำการเล่นเกม การกระทำเหล่านี้จะถูกแมพไปยังฮาร์ดแวร์ อินพุตโดยใช้ <code>InputBinding</code>."
+    "documentation": "กำหนดกลไกการกระทำในเกม การกระทำเหล่านี้จะถูกแมพไปยังอินพุตฮาร์ดแวร์ โดยใช้ <code>InputBinding</code>."
   },
   "@roblox/globaltype/InputAction.GetState/return/0": {
     "documentation": "สถานะปัจจุบันของ <code>InputAction</code>."
   },
   "@roblox/globaltype/InputAction.GetState": {
-    "documentation": "ส่งคืนสถานะปัจจุบันของ <code>InputAction</code>.",
+    "documentation": "คืนค่าสถานะปัจจุบันของ <code>InputAction</code>.",
     "params": [
       {
         "name": "self",
@@ -87953,7 +87929,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.Pressed": {
-    "documentation": "จะถูกกระตุ้นเฉพาะเมื่อ <code>InputAction.Type</code> ถูกตั้งค่าเป็น <code>Bool</code> ในการเปลี่ยนแปลงสถานะจาก <code>false</code> เป็น <code>true</code>.",
+    "documentation": "จะถูกเรียกใช้เฉพาะเมื่อ <code>InputAction.Type</code> ถูกตั้งค่าเป็น <code>Bool</code> ในการเปลี่ยนสถานะจาก <code>false</code> เป็น <code>true</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.Pressed.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.Pressed.ConnectParallel",
@@ -88041,7 +88017,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.Released": {
-    "documentation": "จะถูกกระตุ้นเฉพาะเมื่อ <code>InputAction.Type</code> ถูกตั้งค่าเป็น <code>Bool</code> ในการเปลี่ยนแปลงสถานะจาก <code>true</code> เป็น <code>false</code>.",
+    "documentation": "จะถูกเรียกใช้เฉพาะเมื่อ <code>InputAction.Type</code> ถูกตั้งค่าเป็น <code>Bool</code> ในการเปลี่ยนสถานะจาก <code>true</code> เป็น <code>false</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.Released.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.Released.ConnectParallel",
@@ -88129,7 +88105,7 @@
     "returns": []
   },
   "@roblox/globaltype/InputAction.StateChanged": {
-    "documentation": "จะถูกกระตุ้นสำหรับประเภท <code>InputActionType</code> ทั้งหมดเมื่อใดก็ตามที่สถานะเปลี่ยนแปลง, ยกเว้นเมื่อสถานะพยายามเปลี่ยนแปลงไปยังสถานะเดียวกัน.",
+    "documentation": "จะถูกเรียกใช้สำหรับประเภท <code>InputActionType</code> ทั้งหมดเมื่อใดก็ตามที่สถานะเปลี่ยนไป, ยกเว้นเมื่อสถานะพยายามเปลี่ยนเป็นสถานะเดิม.",
     "keys": {
       "Connect": "@roblox/globaltype/InputAction.StateChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/InputAction.StateChanged.ConnectParallel",
@@ -88248,9 +88224,9 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.EmitterSize": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ได้ถูกยกเลิกแล้วเพื่อสนับสนุน <code>RollOffMinDistance</code> และ <code>RollOffMaxDistance</code> ที่ควรใช้แทนในงานใหม่.<br>ระยะทางขั้นต่ำในหน่วยสตัดที่ <code>Sound</code> 3D (เป็นลูกหลานโดยตรงของ <code>BasePart</code> หรือ <code>Attachment</code>) จะเริ่มมีการลดเสียง (ลดระดับเสียงลง)",
+    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกเลิกใช้เพื่อสนับสนุน <code>Sound.RollOffMinDistance</code> และ <code>Sound.RollOffMaxDistance</code> ที่ควรใช้แทนในงานใหม่.<br>ระยะทางขั้นต่ำในหน่วยสตัดที่ <code>Sound</code> 3D (เป็นลูกหลานโดยตรงของ <code>BasePart</code> หรือ <code>Attachment</code>) จะเริ่มมีการลดเสียง (ลดระดับเสียงลง)",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#EmitterSize",
-    "code_sample": ""
+    "code_sample": "local part = Instance.new(\"Part\")\npart.Anchored = true\npart.Position = Vector3.new(0, 3, 0)\npart.BrickColor = BrickColor.new(\"Bright red\")\npart.Name = \"MusicBox\"\npart.Parent = workspace\n\n-- สร้างเสียง\nlocal sound = Instance.new(\"Sound\", part)\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.EmitterSize = 5 -- ลดขนาดตัวกระจายเสียง (เพื่อให้ลดระดับเสียงได้เร็ว)\nsound.Looped = true\nsound.Parent = part\n\nlocal clickDetector = Instance.new(\"ClickDetector\")\nclickDetector.Parent = part\n\n-- สลับการเล่นเสียง / ไม่เล่นเสียง\nclickDetector.MouseClick:Connect(function()\n\tif not sound.IsPlaying then\n\t\tpart.BrickColor = BrickColor.new(\"Bright green\")\n\t\tsound:Play()\n\telse\n\t\tpart.BrickColor = BrickColor.new(\"Bright red\")\n\t\tsound:Stop()\n\tend\nend)"
   },
   "@roblox/globaltype/Sound.IsLoaded": {
     "documentation": "คุณสมบัตินี้เป็น <code>true</code> เมื่อ <code>Sound</code> ถูกโหลดจากเซิร์ฟเวอร์ Roblox และพร้อมที่จะเล่น",
@@ -88288,17 +88264,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MaxDistance": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ได้ถูกยกเลิกแล้วเพื่อสนับสนุน <code>RollOffMaxDistance</code> ที่ควรใช้แทนในงานใหม่.<br>ระยะทางสูงสุดในหน่วย Studs ที่ผู้ฟังของลูกค้าสามารถอยู่ห่างจากต้นกำเนิดเสียงและยังสามารถได้ยินได้. ใช้ได้เฉพาะกับเสียงที่เป็นลูกของ <code>BasePart</code> หรือ <code>Attachment</code> (เสียง 3D).",
+    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกเลิกใช้เพื่อสนับสนุน <code>Sound.RollOffMinDistance</code> และ <code>Sound.RollOffMaxDistance</code> ที่ควรใช้แทนในงานใหม่.<br>ระยะทางสูงสุด, ในหน่วยสตัด, ที่ผู้ฟังของลูกค้าสามารถอยู่ห่างจากแหล่งที่มาของ <code>Sound\\\\s</code> และยังได้ยินเสียง. ใช้ได้เฉพาะกับเสียงที่มีพ่อแม่เป็น <code>Part</code> หรือ <code>Attachment</code> (เสียง 3D).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MaxDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MinDistance": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ได้ถูกยกเลิกแล้วเพื่อสนับสนุน <code>RollOffMinDistance</code> ที่ควรใช้แทนในงานใหม่.<br>ระยะทางขั้นต่ำในหน่วย Studs ที่ <code>Sound</code> 3D (ที่เป็นลูกโดยตรงของ <code>BasePart</code> หรือ <code>Attachment</code>) จะเริ่มลดระดับเสียง. มีผลต่อขนาดของตัวสร้างเสียง.",
+    "documentation": "<strong>Deprecated:</strong> MinDistance ถูกแทนที่โดย <code>Sound.EmitterSize</code> ซึ่งชื่อของมันอธิบายพฤติกรรมของคุณสมบัตินี้ได้ดีกว่า.<br>ระยะทางขั้นต่ำที่เสียง 3D <code>Sound</code> (เป็นลูกตรงของ <code>BasePart</code> หรือ <code>Attachment</code>) จะเริ่มลดระดับเสียง. มีผลโดยตรงต่อขนาดของตัวส่งเสียง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MinDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.Pitch": {
-    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ได้ถูกยกเลิกแล้วเพื่อสนับสนุน <code>PlaybackSpeed</code> ซึ่งชื่อที่เหมาะสมกว่าต่อยอดพฤติกรรม.<br>ตั้งค่าความสูงต่ำและความเร็วของ <code>Sound</code> เมื่อถูกเล่น ค่าที่มากขึ้นหมายถึงเสียงที่สูงขึ้นและเร็วขึ้น",
+    "documentation": "<strong>Deprecated:</strong> คุณสมบัตินี้ถูกเลิกใช้เพื่อสนับสนุน <code>Sound.PlaybackSpeed</code> ซึ่งชื่อของมันเหมาะสมกับพฤติกรรมมากกว่า.<br>ตั้งค่าความสูงต่ำและความเร็วของ <code>Sound</code> เมื่อถูกเล่น ค่าที่มากขึ้นหมายถึงเสียงที่สูงขึ้นและเร็วขึ้น",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Pitch",
     "code_sample": ""
   },
@@ -88313,7 +88289,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackRegionsEnabled": {
-    "documentation": "ถ้า <code>true</code>, คุณสมบัตินี้จะให้การเข้าถึง <code>Sound</code> ของคุณไปยัง <code>PlaybackRegion</code> และ <code>LoopRegion</code> ซึ่งสามารถควบคุมการเล่นของมันได้แม่นยำยิ่งขึ้น.",
+    "documentation": "หาก <code>true</code>, คุณสมบัตินี้จะให้เสียงของคุณ <code>Sound</code> เข้าถึงคุณสมบัติ <code>PlaybackRegion</code> และ <code>LoopRegion</code> ซึ่งสามารถควบคุมการเล่นได้แม่นยำยิ่งขึ้น.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackRegionsEnabled",
     "code_sample": ""
   },
@@ -106503,7 +106479,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size8": {
-    "documentation": "ขนาดฟอนต์ 8.",
+    "documentation": "ขนาดฟอนต์ <code>8</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106513,7 +106489,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size9": {
-    "documentation": "ขนาดฟอนต์ 9.",
+    "documentation": "ขนาดฟอนต์ <code>9</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106523,7 +106499,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size10": {
-    "documentation": "ขนาดฟอนต์ 10.",
+    "documentation": "ขนาดฟอนต์ <code>10</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106533,7 +106509,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size11": {
-    "documentation": "ขนาดฟอนต์ 11.",
+    "documentation": "ขนาดฟอนต์ <code>11</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106543,7 +106519,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size12": {
-    "documentation": "ขนาดฟอนต์ 12.",
+    "documentation": "ขนาดฟอนต์ <code>12</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106553,7 +106529,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size14": {
-    "documentation": "ขนาดฟอนต์ 14.",
+    "documentation": "ขนาดฟอนต์ <code>14</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106563,7 +106539,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size18": {
-    "documentation": "ขนาดฟอนต์ 18.",
+    "documentation": "ขนาดฟอนต์ <code>18</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106573,7 +106549,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size24": {
-    "documentation": "ขนาดฟอนต์ 24.",
+    "documentation": "ขนาดฟอนต์ <code>24</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106583,7 +106559,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size36": {
-    "documentation": "ขนาดฟอนต์ 36.",
+    "documentation": "ขนาดฟอนต์ <code>36</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106593,7 +106569,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size48": {
-    "documentation": "ขนาดฟอนต์ 48.",
+    "documentation": "ขนาดฟอนต์ <code>48</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106603,7 +106579,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size28": {
-    "documentation": "ขนาดฟอนต์ 28.",
+    "documentation": "ขนาดฟอนต์ <code>28</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106613,7 +106589,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size32": {
-    "documentation": "ขนาดฟอนต์ 32.",
+    "documentation": "ขนาดฟอนต์ <code>32</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106623,7 +106599,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size42": {
-    "documentation": "ขนาดฟอนต์ 42.",
+    "documentation": "ขนาดฟอนต์ <code>42</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106633,7 +106609,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size60": {
-    "documentation": "ขนาดฟอนต์ 60.",
+    "documentation": "ขนาดฟอนต์ <code>60</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -106643,7 +106619,7 @@
     "code_sample": ""
   },
   "@roblox/enum/FontSize.Size96": {
-    "documentation": "ขนาดฟอนต์ 96.",
+    "documentation": "ขนาดฟอนต์ <code>96</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119554,7 +119530,7 @@
     "code_sample": ""
   },
   "@roblox/enum/UICaptureMode.All": {
-    "documentation": "",
+    "documentation": "จับทุก UI elements.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119564,7 +119540,7 @@
     "code_sample": ""
   },
   "@roblox/enum/UICaptureMode.None": {
-    "documentation": "",
+    "documentation": "ไม่จับ UI elements ใด ๆ.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -119574,7 +119550,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.UICaptureMode": {
-    "documentation": "",
+    "documentation": "ใช้ในการกำหนดว่า UI elements ใดควรจะถูกจับด้วย <code>CaptureService</code>.",
     "keys": {
       "All": "@roblox/enum/UICaptureMode.All",
       "None": "@roblox/enum/UICaptureMode.None"
@@ -123403,7 +123379,7 @@
     "code_sample": ""
   },
   "@roblox/enum/RecommendationActionType.Play": {
-    "documentation": "ผู้ใช้ได้เข้าร่วมประสบการณ์ผ่านสิ่งของ.",
+    "documentation": "ผู้ใช้เข้าร่วมประสบการณ์ผ่านไอเทม หรือเล่นเกมย่อยที่เกี่ยวข้องกับไอเทม",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123437,7 +123413,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Legacy": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Legacy.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Legacy.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123447,7 +123423,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Arial": {
-    "documentation": "Arial ถูกลบออกจาก Roblox การใช้ Arial จะถูกแปลงเป็น Arimo。",
+    "documentation": "<code>Arial</code> ถูกลบออกแล้ว การใช้มันจะแมพไปยังครอบครัวฟอนต์ <code>Arimo</code> ของประเภทข้อมูล <code>Font</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123457,7 +123433,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.ArialBold": {
-    "documentation": "Arial ถูกลบออกจาก Roblox การใช้ Arial จะถูกแปลงเป็น Arimo。",
+    "documentation": "<code>ArialBold</code> ถูกลบออกแล้ว การใช้มันจะแมพไปยังครอบครัวฟอนต์ <code>Arimo</code> ของประเภทข้อมูล <code>Font</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123467,7 +123443,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSans": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSans.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSans.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123477,7 +123453,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansBold.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansBold.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123487,7 +123463,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansLight": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansLight.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansLight.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123497,7 +123473,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansItalic": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansItalic.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansItalic.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123507,7 +123483,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Bodoni": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Bodoni.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Bodoni.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123517,7 +123493,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Garamond": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Garamond.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Garamond.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123527,7 +123503,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Cartoon": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Cartoon.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Cartoon.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123537,7 +123513,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Code": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Code.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Code.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123547,7 +123523,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Highway": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Highway.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Highway.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123557,7 +123533,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SciFi": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SciFi.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SciFi.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123567,7 +123543,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Arcade": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Arcade.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Arcade.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123577,7 +123553,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Fantasy": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Fantasy.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Fantasy.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123587,7 +123563,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Antique": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Antique.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Antique.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123597,7 +123573,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SourceSansSemibold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SourceSansSemibold.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SourceSansSemibold.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123607,7 +123583,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Gotham": {
-    "documentation": "Gotham ถูกลบออกจาก Roblox การใช้ Gotham จะถูกแปลงเป็น Montserrat。",
+    "documentation": "<code>Gotham</code> ถูกลบออกแล้ว การใช้มันจะแมพไปยังครอบครัวฟอนต์ <code>Montserrat</code> ของประเภทข้อมูล <code>Font</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123617,7 +123593,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GothamMedium": {
-    "documentation": "Gotham ถูกลบออกจาก Roblox การใช้ Gotham จะถูกแปลงเป็น Montserrat。",
+    "documentation": "<code>GothamMedium</code> ถูกลบออกแล้ว การใช้มันจะแมพไปยังครอบครัวฟอนต์ <code>Montserrat</code> ของประเภทข้อมูล <code>Font</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123627,7 +123603,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GothamBold": {
-    "documentation": "Gotham ถูกลบออกจาก Roblox การใช้ Gotham จะถูกแปลงเป็น Montserrat。",
+    "documentation": "<code>GothamBold</code> ถูกลบออกแล้ว การใช้มันจะแมพไปยังครอบครัวฟอนต์ <code>Montserrat</code> ของประเภทข้อมูล <code>Font</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123637,7 +123613,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GothamBlack": {
-    "documentation": "Gotham ถูกลบออกจาก Roblox การใช้ Gotham จะถูกแปลงเป็น Montserrat。",
+    "documentation": "<code>GothamBlack</code> ถูกลบออกแล้ว การใช้มันจะแมพไปยังครอบครัวฟอนต์ <code>Montserrat</code> ของประเภทข้อมูล <code>Font</code>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123647,7 +123623,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.AmaticSC": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/AmaticSC.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/AmaticSC.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123657,7 +123633,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Bangers": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Bangers.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Bangers.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123667,7 +123643,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Creepster": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Creepster.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Creepster.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123677,7 +123653,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.DenkOne": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/DenkOne.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/DenkOne.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123687,7 +123663,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Fondamento": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Fondamento.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Fondamento.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123697,7 +123673,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.FredokaOne": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/FredokaOne.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/FredokaOne.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123707,7 +123683,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.GrenzeGotisch": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/GrenzeGotisch.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/GrenzeGotisch.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123717,7 +123693,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.IndieFlower": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/IndieFlower.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/IndieFlower.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123727,7 +123703,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.JosefinSans": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/JosefinSans.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/JosefinSans.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123737,7 +123713,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Jura": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Jura.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Jura.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123747,7 +123723,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Kalam": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Kalam.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Kalam.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123757,7 +123733,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.LuckiestGuy": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/LuckiestGuy.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/LuckiestGuy.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123767,7 +123743,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Merriweather": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Merriweather.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Merriweather.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123777,7 +123753,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Michroma": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Michroma.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Michroma.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123787,7 +123763,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Nunito": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Nunito.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Nunito.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123797,7 +123773,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Oswald": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Oswald.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Oswald.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123807,7 +123783,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.PatrickHand": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/PatrickHand.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/PatrickHand.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123817,7 +123793,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.PermanentMarker": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/PermanentMarker.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/PermanentMarker.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123827,7 +123803,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Roboto": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Roboto.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Roboto.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123837,7 +123813,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.RobotoCondensed": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/RobotoCondensed.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/RobotoCondensed.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123847,7 +123823,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.RobotoMono": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/RobotoMono.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/RobotoMono.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123857,7 +123833,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Sarpanch": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Sarpanch.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Sarpanch.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123867,7 +123843,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.SpecialElite": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/SpecialElite.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/SpecialElite.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123877,7 +123853,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.TitilliumWeb": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/TitilliumWeb.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/TitilliumWeb.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123887,7 +123863,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Ubuntu": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Ubuntu.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Ubuntu.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123897,7 +123873,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSans": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSans.png\" /> ดู <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>。",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSans.png\" /> ดู <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123907,7 +123883,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSansMedium": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSansMedium.png\" /> ดู <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>。",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSansMedium.png\" /> ดู <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123917,7 +123893,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSansBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSansBold.png\" /> ดู <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>。",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSansBold.png\" /> ดู <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123927,7 +123903,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.BuilderSansExtraBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/BuilderSansExtraBold.png\" /> ดู <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>。",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/BuilderSansExtraBold.png\" /> ดู <a href=\"../../../resources/builder-font-license.md\">Builder Font License</a>.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123937,7 +123913,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Arimo": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/Arimo.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/Arimo.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123947,7 +123923,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.ArimoBold": {
-    "documentation": "<img width=\"80%\" src=\"../../../assets/engine-api/enums/Font/ArimoBold.png\" />",
+    "documentation": "<img src=\"../../../assets/engine-api/enums/Font/ArimoBold.png\" />",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123957,7 +123933,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Font.Unknown": {
-    "documentation": "ตั้งค่าเมื่อคุณสมบัติ <code>TextLabel.FontFace</code> ถูกตั้งค่าให้กับ <code>Font</code> ที่ไม่มีค่าอีฟที่ตรงกัน。",
+    "documentation": "ตั้งเมื่อฟอนต์ของวัตถุ GUI ถูกตั้งค่าเป็น <code>Font</code> ที่ไม่มี ค่ที่เป็นอีหน่วยที่ตรงกัน.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -127706,7 +127682,7 @@
     "code_sample": ""
   },
   "@roblox/enum/ScreenInsets.TopbarSafeInsets": {
-    "documentation": "ขอบเขตพื้นที่ปลอดภัยของแถบด้านบนถูกเพิ่มเข้าไปในพื้นที่ <code>DeviceSafeInsets</code> ทำให้เกิดพื้นที่ที่รับประกันว่า ไม่ถูกบดบังจากทั้งรอยตัดหน้าจอของอุปกรณ์และองค์ประกอบ UI พื้นฐานของ Roblox เช่นการควบคุมประสบการณ์ ต่างจาก <code>CoreUISafeInsets</code> ขนาดและตำแหน่งของพื้นที่นี้มีความพลศาสตร์ และ ถูกจำกัดอยู่ในพื้นที่ที่มีอยู่ภายในพื้นที่แถบด้านบนเอง นอกเหนือจาก <code>CoreUISafeInsets</code>。",
+    "documentation": "พื้นที่ปลอดภัยในส่วนบนของแถบถูกเพิ่มไปยังพื้นที่ <code>DeviceSafeInsets</code> โดยส่งผลให้เกิดพื้นที่ที่การแสดงผลจะไม่ถูกบดบังโดยทั้งการตัดหน้าจอของอุปกรณ์ และองค์ประกอบ UI หลักของ Roblox เช่นการควบคุมประสบการณ์ แตกต่างจาก <code>CoreUISafeInsets</code> ขนาดและตำแหน่งของพื้นที่นี้เป็นแบบพลศาสตร์และถูกจำกัด เฉพาะพื้นที่ที่มีอยู่ในบริเวณแถบด้านบนเท่านั้น ภายนอก <code>CoreUISafeInsets</code> ดูที่ คุณสมบัติ <code>GuiService.TopbarInset</code> ซึ่งแสดงถึงขนาดและตำแหน่งสัมบูรณ์ของพื้นที่ที่ ไม่ถูกขัดขวางภายในพื้นที่แถบด้านบน",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -130776,7 +130752,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.FontStyle": {
-    "documentation": "อธิบายว่าฟอนต์ <code>Font</code> มีลักษณะเป็นตัวเอียงหรือไม่",
+    "documentation": "อธิบายว่าสไตล์ <code>Font</code> เป็นปกติหรือเอียง",
     "keys": {
       "Normal": "@roblox/enum/FontStyle.Normal",
       "Italic": "@roblox/enum/FontStyle.Italic"
@@ -142813,7 +142789,7 @@
     "documentation": ""
   },
   "@roblox/global/PluginManager": {
-    "documentation": "อ้างอิงถึง PluginManager ซึ่งเป็น singleton เก่าที่เคย จำเป็นต้องสร้างปลั๊กอิน。",
+    "documentation": "หมายถึง <code>PluginManager</code> ซึ่งเป็นซิงเกิลตันที่เลิกใช้ไปแล้วซึ่ง เคยจำเป็นต้องใช้ในการสร้างปลั๊กอิน",
     "params": [],
     "returns": [
       "@roblox/global/PluginManager/return/0"
