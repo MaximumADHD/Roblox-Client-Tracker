@@ -2,18 +2,18 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
-local SVPicker = require(Foundation.Components.ColorPicker.SVPicker)
-local ColorSlider = require(Foundation.Components.ColorPicker.ColorSlider)
-local ColorInputs = require(Foundation.Components.ColorPicker.ColorInputs)
 local BrickColorPicker = require(Foundation.Components.ColorPicker.BrickColorPicker)
-local ColorSliderType = require(Foundation.Enums.ColorSliderType)
 local ColorInputMode = require(Foundation.Enums.ColorInputMode)
+local ColorInputs = require(Foundation.Components.ColorPicker.ColorInputs)
+local ColorSlider = require(Foundation.Components.ColorPicker.ColorSlider)
+local ColorSliderType = require(Foundation.Enums.ColorSliderType)
+local SVPicker = require(Foundation.Components.ColorPicker.SVPicker)
+local View = require(Foundation.Components.View)
 type ColorInputMode = ColorInputMode.ColorInputMode
+local colorUtils = require(Foundation.Components.ColorPicker.colorUtils)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local useTokens = require(Foundation.Providers.Style.useTokens)
-local colorUtils = require(Foundation.Components.ColorPicker.colorUtils)
 
 local Types = require(Foundation.Components.Types)
 type CommonProps = Types.CommonProps

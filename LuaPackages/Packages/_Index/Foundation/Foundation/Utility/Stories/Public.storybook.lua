@@ -5,9 +5,9 @@ local Packages = Foundation.Parent
 
 -- local DocUtils = require(Packages.Dev.DocUtils)
 -- local DocParser = require(DocUtils.DocParser)
-local StoryMiddleware = require(Stories.StoryMiddleware)
-local Roact = require(Packages.Roact)
 local GetStories = require(Stories.GetStories)
+local Roact = require(Packages.Roact)
+local StoryMiddleware = require(Stories.StoryMiddleware)
 
 return {
 	name = "Public",

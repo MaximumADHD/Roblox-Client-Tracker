@@ -6,9 +6,9 @@ local React = require(Packages.React)
 local Constants = require(Foundation.Constants)
 
 local Components = Foundation.Components
-local View = require(Components.View)
-local Types = require(Components.Types)
 local Input = require(Components.InternalInput)
+local Types = require(Components.Types)
+local View = require(Components.View)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)

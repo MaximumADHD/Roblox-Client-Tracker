@@ -2,10 +2,10 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
-local Text = require(Foundation.Components.Text)
-local ColorPicker = require(Foundation.Components.ColorPicker)
 local ColorInputMode = require(Foundation.Enums.ColorInputMode)
+local ColorPicker = require(Foundation.Components.ColorPicker)
+local Text = require(Foundation.Components.Text)
+local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 type ColorPreviewProps = {

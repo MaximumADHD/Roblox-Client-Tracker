@@ -5,8 +5,8 @@ local React = require(Packages.React)
 
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
-local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local AccordionContext = require(script.Parent.AccordionContext)
 local useAccordion = require(script.Parent.useAccordion)

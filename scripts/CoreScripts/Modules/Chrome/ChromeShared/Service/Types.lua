@@ -2,19 +2,15 @@ local Root = script:FindFirstAncestor("ChromeShared")
 
 local ChromeUtils = require(Root.Service.ChromeUtils)
 local WindowSizeSignal = require(Root.Service.WindowSizeSignal)
-local ContainerSlotSignal = require(Root.Service.ContainerSlotSignal)
 
 export type IntegrationComponents = {
 	Icon: any?,
 	Window: any?,
-	Container: any?,
 }
 
 export type IntegrationId = string
 export type IntegrationIdList = { [number]: string }
 export type MenuConfig = { [number]: IntegrationIdList }
-export type CompactUtilityId = string
-export type CompactUtilityConfig = { [CompactUtilityId]: MenuConfig }
 
 export type ShortcutId = string
 export type ShortcutIdList = { [number]: ShortcutId }
@@ -65,7 +61,6 @@ export type IntegrationProps = {
 	windowDefaultOpen: boolean?,
 	windowAnchorPoint: Vector2?,
 	windowSize: WindowSizeSignal.WindowSizeSignal?,
-	containerWidthSlots: ContainerSlotSignal.ContainerSlotSignal?,
 	cachePosition: boolean?,
 	hotkeyCodes: { [number]: Enum.KeyCode }?,
 	secondaryAction: SecondaryAction?,
@@ -86,7 +81,6 @@ export type IntegrationRegisterProps = {
 	notification: ChromeUtils.NotifySignal?,
 	hideNotificationCountWhileOpen: boolean?,
 	windowSize: WindowSizeSignal.WindowSizeSignal?,
-	containerWidthSlots: ContainerSlotSignal.ContainerSlotSignal?,
 	cachePosition: boolean?,
 	startingWindowPosition: UDim2?,
 	windowDefaultOpen: boolean?,
@@ -105,7 +99,6 @@ export type IntegrationComponentProps = {
 	order: number,
 	children: { [number]: IntegrationComponentProps },
 	isDivider: boolean?,
-	recentlyUsedItem: boolean?,
 }
 
 export type IntegrationList = { [IntegrationId]: IntegrationProps }

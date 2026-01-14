@@ -8,7 +8,6 @@ local Images = require(Packages.UIBlox.App.ImageSet.Images)
 local InputButton = require(Packages.UIBlox.Core.InputButton.InputButton)
 local CursorKind = require(Packages.UIBlox.App.SelectionImage.CursorKind)
 local withSelectionCursorProvider = require(Packages.UIBlox.App.SelectionImage.withSelectionCursorProvider)
-local UIBloxConfig = require(Packages.UIBlox.UIBloxConfig)
 local useCursorByType = require(Packages.UIBlox.App.SelectionCursor.useCursorByType)
 
 --TODO: This code is considered Control.Checkbox by design, consider moving this out of InputButton for consistency.
@@ -52,8 +51,7 @@ Checkbox.defaultProps = {
 	isRoactGamepadEnabled = true,
 }
 
-local CHECKMARK_SIZE = if UIBloxConfig.migrateBuilderIcon then 20 else 14
-
+local CHECKMARK_SIZE = 20
 function Checkbox:init()
 	self.state = {
 		value = self.props.isSelected,

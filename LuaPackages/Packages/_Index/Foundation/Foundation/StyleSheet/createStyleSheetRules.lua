@@ -5,9 +5,9 @@ local React = require(Packages.React)
 local StyleRule = require(StyleSheetRoot.StyleRule)
 local Types = require(StyleSheetRoot.Rules.Types)
 
-local scaleValue = require(Foundation.Utility.scaleValue)
-local Theme = require(Foundation.Enums.Theme)
 local Device = require(Foundation.Enums.Device)
+local Theme = require(Foundation.Enums.Theme)
+local scaleValue = require(Foundation.Utility.scaleValue)
 
 type Theme = Theme.Theme
 type Device = Device.Device

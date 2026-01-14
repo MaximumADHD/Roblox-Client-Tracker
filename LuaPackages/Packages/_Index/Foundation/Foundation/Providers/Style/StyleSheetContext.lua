@@ -1,8 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local None = Dash.None
 -- typeof(None) is any, it's a known issue

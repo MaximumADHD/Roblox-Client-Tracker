@@ -1,15 +1,15 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
-local View = require(Foundation.Components.View)
 local Button = require(Foundation.Components.Button)
-local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
 local ColorMode = require(Foundation.Enums.ColorMode)
-local useTokens = require(Foundation.Providers.Style.useTokens)
+local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
+local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
+local View = require(Foundation.Components.View)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 type InputSize = InputSize.InputSize
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
@@ -88,6 +88,7 @@ return {
 			"icons/navigation/externallink_medium",
 			"icons/actions/info",
 			"icons/actions/info_small",
+			"component_assets/hexagon_24",
 			"",
 		},
 		text = "Lorem ipsum",

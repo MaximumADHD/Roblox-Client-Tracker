@@ -3,14 +3,9 @@ local Roact = require(CorePackages.Packages.Roact)
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local TopBarConstants = require(RobloxGui.Modules.TopBar.Constants)
-local ScreenSideOffset = TopBarConstants.ScreenSideOffset
-local TopBarButtonHeight = TopBarConstants.TopBarButtonHeight
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local AppStyleProvider = UIBlox.App.Style.AppStyleProvider
 local DarkTheme = UIBlox.App.Style.Constants.ThemeName.Dark
-
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
 local Promise = require(CorePackages.Packages.Promise)
 
@@ -24,15 +19,8 @@ return function(props)
 	screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	screenGui.Parent = CoreGui
 
-	local topBarButtonHeight
-	local screenSideOffset
-	if FFlagTopBarStyleUseDisplayUIScale then
-		topBarButtonHeight = TopBarConstants.useDisplayScaleState(TopBarConstants.TopBarButtonHeight)
-		screenSideOffset = TopBarConstants.useDisplayScaleState(TopBarConstants.ScreenSideOffset)
-	else
-		topBarButtonHeight = TopBarButtonHeight
-		screenSideOffset = ScreenSideOffset
-	end
+	local topBarButtonHeight = TopBarConstants.useDisplayScaleState(TopBarConstants.TopBarButtonHeight)
+	local screenSideOffset = TopBarConstants.useDisplayScaleState(TopBarConstants.ScreenSideOffset)
 
 	local root = Roact.createElement(AppStyleProvider, {
 		style = {

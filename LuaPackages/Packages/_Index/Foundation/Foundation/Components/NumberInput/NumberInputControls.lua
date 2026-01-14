@@ -1,24 +1,24 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local BuilderIcons = require(Packages.BuilderIcons)
+local React = require(Packages.React)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local Components = Foundation.Components
-local View = require(Components.View)
-local Image = require(Components.Image)
-local Icon = require(Components.Icon)
 local FoundationConstants = require(Foundation.Constants)
-local withCommonProps = require(Foundation.Utility.withCommonProps)
+local Icon = require(Components.Icon)
+local Image = require(Components.Image)
 local Types = require(Foundation.Components.Types)
+local View = require(Components.View)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
 
 local NumberInputControlsVariant = require(Foundation.Enums.NumberInputControlsVariant)
 type NumberInputControlsVariant = NumberInputControlsVariant.NumberInputControlsVariant
 
-local useNumberInputVariants = require(script.Parent.useNumberInputVariants)
 local InputSize = require(Foundation.Enums.InputSize)
+local useNumberInputVariants = require(script.Parent.useNumberInputVariants)
 type InputSize = InputSize.InputSize
 
 type NumberInputControlProps = {

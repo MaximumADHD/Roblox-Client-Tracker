@@ -4,8 +4,8 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 
 local Components = Foundation.Components
-local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
@@ -16,15 +16,15 @@ type InputLabelSize = InputLabelSize.InputLabelSize
 local NumberInputControlsVariant = require(Foundation.Enums.NumberInputControlsVariant)
 type NumberInputControlsVariant = NumberInputControlsVariant.NumberInputControlsVariant
 
-local InternalTextInput = require(Components.InternalTextInput)
-local InputField = require(Components.InputField)
+local Flags = require(Foundation.Utility.Flags)
 local Icon = require(Components.Icon)
+local InputField = require(Components.InputField)
+local InternalTextInput = require(Components.InternalTextInput)
+local Types = require(Components.Types)
 local View = require(Components.View)
 local getInputTextSize = require(Foundation.Utility.getInputTextSize)
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local useTextInputVariants = require(Components.TextInput.useTextInputVariants)
-local Types = require(Components.Types)
-local Flags = require(Foundation.Utility.Flags)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local NumberInputControls = require(script.Parent.NumberInputControls)
 local useNumberInputVariants = require(script.Parent.useNumberInputVariants)

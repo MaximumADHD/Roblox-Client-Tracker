@@ -2,16 +2,16 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
-local Slider = require(Foundation.Components.Slider)
 local Checkbox = require(Foundation.Components.Checkbox)
-local Text = require(Foundation.Components.Text)
 local InputLabel = require(Foundation.Components.InputLabel)
 local InputSize = require(Foundation.Enums.InputSize)
+local Slider = require(Foundation.Components.Slider)
+local Text = require(Foundation.Components.Text)
+local View = require(Foundation.Components.View)
 local Visibility = require(Foundation.Enums.Visibility)
 
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local useCumulativeBackground = require(script.Parent.useCumulativeBackground)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 return {
 	summary = "Sometimes we need to get a color matching that of the semi-transparent element on a solid background. \z

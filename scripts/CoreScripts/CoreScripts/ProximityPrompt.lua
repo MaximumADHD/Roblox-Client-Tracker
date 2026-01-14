@@ -13,7 +13,6 @@ local AppFonts = require(CorePackages.Workspace.Packages.Style).AppFonts
 
 local EnableAutomaticSizeVerticalOffsetWidthFix = require(RobloxGui.Modules.Flags.FFlagEnableAutomaticSizeVerticalOffsetWidthFix)
 
-local FFlagFixProximityPromptRadialProgressGap = game:DefineFastFlag("FixProximityPromptRadialProgressGap", false)
 game:DefineFastFlag("EnableProximityPromptIndicatorGui", false)
 local GetFFlagEnableProximityPromptIndicatorGui = function()
 	return game:GetEngineFeature("ProximityPromptIndicators") and
@@ -117,16 +116,14 @@ local function getScreenGui()
 	return screenGui
 end
 
-local progressGradientFuzz = if FFlagFixProximityPromptRadialProgressGap then .01 else nil :: never
+local progressGradientFuzz = 0.01
 local function createProgressBarGradient(parent, leftSide, tweensForFadeOut, tweensForFadeIn)
 	local frame = Instance.new("Frame")
 	frame.Size = UDim2.fromScale(0.5, 1)
 	frame.Position = UDim2.fromScale(leftSide and 0 or 0.5, 0)
 	frame.BackgroundTransparency = 1
 	frame.ClipsDescendants = true
-	if FFlagFixProximityPromptRadialProgressGap then 
-		frame.Visible = false
-	end
+	frame.Visible = false
 	frame.Parent = parent
 
 	local image = Instance.new("ImageLabel")
@@ -139,8 +136,8 @@ local function createProgressBarGradient(parent, leftSide, tweensForFadeOut, twe
 	local gradient = Instance.new("UIGradient")
 	gradient.Transparency = NumberSequence.new {
 		NumberSequenceKeypoint.new(0, 0),
-		NumberSequenceKeypoint.new(if FFlagFixProximityPromptRadialProgressGap then 0.5 else.4999, 0),
-		NumberSequenceKeypoint.new(if FFlagFixProximityPromptRadialProgressGap then 0.5 + progressGradientFuzz else .5, 1),
+		NumberSequenceKeypoint.new(0.5, 0),
+		NumberSequenceKeypoint.new(0.5 + progressGradientFuzz, 1),
 		NumberSequenceKeypoint.new(1, 1)
 	}
 	gradient.Rotation = leftSide and 180 or 0
@@ -149,7 +146,7 @@ local function createProgressBarGradient(parent, leftSide, tweensForFadeOut, twe
 	table.insert(tweensForFadeOut, TweenService:Create(image, tweenInfoQuick, { ImageTransparency = 1 }))
 	table.insert(tweensForFadeIn, TweenService:Create(image, tweenInfoQuick, { ImageTransparency = 0 }))
 
-	return gradient, if FFlagFixProximityPromptRadialProgressGap then frame else nil :: never
+	return gradient, frame
 end
 
 local function createCircularProgressBar(tweensForFadeOut, tweensForFadeIn)
@@ -168,14 +165,9 @@ local function createCircularProgressBar(tweensForFadeOut, tweensForFadeIn)
 	progress.Parent = bar
 	progress.Changed:Connect(function(value)
 		local angle = math.clamp(value * 360, 0, 360)
-		if FFlagFixProximityPromptRadialProgressGap then 
-			leftFrame.Visible = progress.Value > 0.5
-		end
+		leftFrame.Visible = progress.Value > 0.5
 		leftGradient.Rotation = math.clamp(angle, 180, 360)
-		
-		if FFlagFixProximityPromptRadialProgressGap then 
-			rightFrame.Visible = progress.Value > progressGradientFuzz
-		end
+		rightFrame.Visible = progress.Value > progressGradientFuzz
 		rightGradient.Rotation = math.clamp(angle, 0, 180)
 	end)
 

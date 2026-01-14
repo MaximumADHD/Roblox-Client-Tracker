@@ -24,9 +24,6 @@ local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration['uiblox']
 
------------ Flags --------------
-local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
-
 ------------ Variables -------------------
 local PageInstance = nil
 
@@ -48,15 +45,9 @@ local function Initialize()
 	function this:IsRecording()
 		return isRecordingVideo
 	end
-
-	------ TAB CUSTOMIZATION -------
-	if FFlagBuilderIcons then
-		local migratedIcon = migrationLookup["icons/controls/screenrecord"]
-		this.TabHeader.TabLabel.Icon.Text = migratedIcon.name
-		this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[migratedIcon.variant]
-	else
-		this.TabHeader.TabLabel.Icon.Image = "rbxasset://textures/ui/Settings/MenuBarIcons/RecordTab.png"
-	end
+	local migratedIcon = migrationLookup["icons/controls/screenrecord"]
+	this.TabHeader.TabLabel.Icon.Text = migratedIcon.name
+	this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[migratedIcon.variant]
 	this.TabHeader.Name = "RecordTab"
 	this.TabHeader.TabLabel.Title.Text = "Record"
 

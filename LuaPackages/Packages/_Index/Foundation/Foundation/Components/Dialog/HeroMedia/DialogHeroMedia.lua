@@ -3,18 +3,17 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
+local Constants = require(Foundation.Constants)
 local Image = require(Foundation.Components.Image)
 local Types = require(Foundation.Components.Types)
-local Constants = require(Foundation.Constants)
+local View = require(Foundation.Components.View)
 
 local DialogSize = require(Foundation.Enums.DialogSize)
 type DialogSize = DialogSize.DialogSize
 
-local Flags = require(Foundation.Utility.Flags)
-local withDefaults = require(Foundation.Utility.withDefaults)
 local Gradient = require(Foundation.Components.Gradient)
 local useDialog = require(script.Parent.Parent.useDialog)
+local withDefaults = require(Foundation.Utility.withDefaults)
 local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDialogVariants
 
 type Bindable<T> = Types.Bindable<T>
@@ -53,12 +52,6 @@ local function DialogHeroMedia(mediaProps: DialogHeroMediaProps)
 		LayoutOrder = Constants.MIN_LAYOUT_ORDER,
 		testId = `{dialogContext.testId}--hero-media`,
 	}, {
-		TransparencyGradient = if Flags.FoundationDialogHeroMediaGradientFix
-			then nil
-			else React.createElement(Gradient, {
-				fillDirection = Enum.FillDirection.Vertical,
-				top = true,
-			}),
 		RoundedCorners = React.createElement(Image, {
 			Image = props.media,
 			imageStyle = props.mediaStyle,
@@ -82,12 +75,10 @@ local function DialogHeroMedia(mediaProps: DialogHeroMediaProps)
 			Position = UDim2.fromOffset(-offsetX, 0),
 			Size = UDim2.new(1, offsetX * 2, props.height.Scale, props.height.Offset),
 		}, {
-			TransparencyGradient = if Flags.FoundationDialogHeroMediaGradientFix
-				then React.createElement(Gradient, {
-					fillDirection = Enum.FillDirection.Vertical,
-					top = true,
-				})
-				else nil,
+			TransparencyGradient = React.createElement(Gradient, {
+				fillDirection = Enum.FillDirection.Vertical,
+				top = true,
+			}),
 		}),
 	})
 end

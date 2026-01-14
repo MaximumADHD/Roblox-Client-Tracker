@@ -9,14 +9,14 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
-local Types = require(Foundation.Components.Types)
-local View = require(Foundation.Components.View)
 local Image = require(Foundation.Components.Image)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
+local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 
+local BRICK_COLOR_PALETTES = require(Foundation.Components.ColorPicker.BrickColorConstants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
-local BRICK_COLOR_PALETTES = require(Foundation.Components.ColorPicker.BrickColorConstants)
 
 export type BrickColorPickerProps = {
 	selectedColor: React.Binding<Color3>?,

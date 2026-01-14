@@ -1,15 +1,13 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
-local Flags = require(Foundation.Utility.Flags)
-
+local AvatarGroupType = require(Foundation.Enums.AvatarGroupType)
+local BackgroundStyleContext = require(Foundation.Providers.Style.BackgroundStyleContext)
 local ChipSize = require(Foundation.Enums.ChipSize)
 local IconPosition = require(Foundation.Enums.IconPosition)
 local View = require(Foundation.Components.View)
-local AvatarGroupType = require(Foundation.Enums.AvatarGroupType)
-local BackgroundStyleContext = require(Foundation.Providers.Style.BackgroundStyleContext)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local Chip = require(Foundation.Components.Chip.Chip)
@@ -32,7 +30,6 @@ return {
 		{
 			name = "Basic",
 			story = function(props)
-				Flags.FoundationMigrateIconNames = props.controls.migrateIconNames
 				return Story({
 					text = props.controls.text,
 					onActivated = function()
@@ -202,6 +199,5 @@ return {
 		text = "Filter",
 		isChecked = false,
 		isDisabled = false,
-		migrateIconNames = Flags.FoundationMigrateIconNames,
 	},
 }

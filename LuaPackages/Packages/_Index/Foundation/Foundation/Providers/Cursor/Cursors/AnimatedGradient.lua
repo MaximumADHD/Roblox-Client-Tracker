@@ -4,8 +4,8 @@ local Packages = Foundation.Parent
 local RunService = require(Foundation.Utility.Wrappers).Services.RunService
 
 local React = require(Packages.React)
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 -- Can remove this component with FoundationRemoveSelectionCursorHeartbeat
 

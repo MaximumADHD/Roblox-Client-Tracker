@@ -1,17 +1,17 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
-local View = require(Foundation.Components.View)
-local Types = require(Foundation.Components.Types)
-local withDefaults = require(Foundation.Utility.withDefaults)
-local withCommonProps = require(Foundation.Utility.withCommonProps)
-local useBreakpoint = require(Foundation.Providers.Responsive.Hooks.useBreakpoint)
-local getGridMetrics = require(Foundation.Utility.getGridMetrics)
-local useResponsive = require(Foundation.Providers.Responsive.useResponsive)
 local Breakpoint = require(Foundation.Enums.Breakpoint)
 local GridStyleSheet = require(script.Parent.GridStyleSheet)
+local React = require(Packages.React)
 local ResponsiveContext = require(Foundation.Providers.Responsive.ResponsiveContext)
+local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
+local getGridMetrics = require(Foundation.Utility.getGridMetrics)
+local useBreakpoint = require(Foundation.Providers.Responsive.Hooks.useBreakpoint)
+local useResponsive = require(Foundation.Providers.Responsive.useResponsive)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 type ResponsiveConfig = ResponsiveContext.ResponsiveConfig
 type Breakpoint = Breakpoint.Breakpoint

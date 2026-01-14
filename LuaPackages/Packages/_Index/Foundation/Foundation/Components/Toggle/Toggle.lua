@@ -8,16 +8,16 @@ local Constants = require(Foundation.Constants)
 
 local Components = Foundation.Components
 local Input = require(Components.InternalInput)
-local useUncontrolledState = require(Components.InternalInput.useUncontrolledState)
-local Types = require(Components.Types)
 local Knob = require(Components.Knob)
 local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
+local Types = require(Components.Types)
+local useUncontrolledState = require(Components.InternalInput.useUncontrolledState)
 
+local BuilderIcons = require(Packages.BuilderIcons)
+local Flags = require(Foundation.Utility.Flags)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local Flags = require(Foundation.Utility.Flags)
-local BuilderIcons = require(Packages.BuilderIcons)
 
 local ColorMode = require(Foundation.Enums.ColorMode)
 local ControlState = require(Foundation.Enums.ControlState)
@@ -56,7 +56,7 @@ export type ToggleProps = {
 
 local defaultProps = {
 	size = InputSize.Medium,
-	placement = if Flags.FoundationToggleDefaultPlacement then InputPlacement.Start else InputPlacement.End,
+	placement = InputPlacement.Start,
 	Selectable = true,
 	testId = "--foundation-toggle",
 }
@@ -109,8 +109,6 @@ local function Toggle(toggleProps: ToggleProps, ref: React.Ref<GuiObject>?)
 		withCommonProps(props, {
 			isChecked = isChecked,
 			isDisabled = props.isDisabled,
-			-- remove justifyContent prop when Flags.FoundationToggleEndPlacementJustifyContent is removed
-			justifyContent = Flags.FoundationToggleEndPlacementJustifyContent,
 			onActivated = onActivated,
 			label = {
 				text = props.label,

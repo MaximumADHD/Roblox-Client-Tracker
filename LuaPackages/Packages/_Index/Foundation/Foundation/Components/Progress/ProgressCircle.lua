@@ -3,19 +3,19 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
+local Constants = require(script.Parent.constants)
 local Image = require(Foundation.Components.Image)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
-local useTokens = require(Foundation.Providers.Style.useTokens)
+local View = require(Foundation.Components.View)
 local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
 local useProgressBinding = require(script.Parent.useProgressBinding)
+local useProgressVariants = require(script.Parent.useProgressVariants)
 local usePulseBinding = require(Foundation.Utility.usePulseBinding)
 local useRotation = require(Foundation.Utility.useRotation)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
-local useProgressVariants = require(script.Parent.useProgressVariants)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local Constants = require(script.Parent.constants)
 
 local ProgressShape = require(Foundation.Enums.ProgressShape)
 type ProgressShape = ProgressShape.ProgressShape

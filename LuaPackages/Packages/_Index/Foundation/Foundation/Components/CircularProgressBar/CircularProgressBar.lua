@@ -3,12 +3,12 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
+local Image = require(Foundation.Components.Image)
+local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local Types = require(Foundation.Components.Types)
-local View = require(Foundation.Components.View)
-local Image = require(Foundation.Components.Image)
 
 type CircularProgressBarProps = {
 	-- Progress is expected to be a value from 0 to 1

@@ -1,17 +1,16 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local BuilderIcons = require(Packages.BuilderIcons)
+local React = require(Packages.React)
 
 local Constants = require(Foundation.Constants)
 
 local Components = Foundation.Components
-local Image = require(Components.Image)
-local Text = require(Components.Text)
 local Input = require(Components.InternalInput)
-local useUncontrolledState = require(Components.InternalInput.useUncontrolledState)
+local Text = require(Components.Text)
 local Types = require(Components.Types)
+local useUncontrolledState = require(Components.InternalInput.useUncontrolledState)
 
 local Flags = require(Foundation.Utility.Flags)
 
@@ -91,23 +90,17 @@ local function Checkbox(checkboxProps: CheckboxProps, ref: React.Ref<GuiObject>?
 		}),
 		{
 			Checkmark = if isChecked or (Flags.FoundationCheckboxIndeterminate and isIndeterminate)
-				then if Flags.FoundationMigrateIconNames
-					then React.createElement(Text, {
-						Text = if Flags.FoundationCheckboxIndeterminate and isIndeterminate
-							then BuilderIcons.Icon.Minus
-							else BuilderIcons.Icon.Check,
-						fontStyle = {
-							Font = BuilderIcons.Font[BuilderIcons.IconVariant.Filled],
-						},
-						TextScaled = true,
-						tag = variantProps.checkmark.tag,
-						testId = `{props.testId}--checkmark`,
-					})
-					else React.createElement(Image, {
-						Image = "icons/status/success_small",
-						tag = variantProps.checkmark.tag,
-						testId = `{props.testId}--checkmark`,
-					})
+				then React.createElement(Text, {
+					Text = if Flags.FoundationCheckboxIndeterminate and isIndeterminate
+						then BuilderIcons.Icon.Minus
+						else BuilderIcons.Icon.Check,
+					fontStyle = {
+						Font = BuilderIcons.Font[BuilderIcons.IconVariant.Filled],
+					},
+					TextScaled = true,
+					tag = variantProps.checkmark.tag,
+					testId = `{props.testId}--checkmark`,
+				})
 				else nil,
 		}
 	)

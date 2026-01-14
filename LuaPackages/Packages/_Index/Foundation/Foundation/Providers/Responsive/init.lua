@@ -1,5 +1,5 @@
-local ResponsiveProvider = require(script.ResponsiveProvider)
 local Hooks = require(script.Hooks)
+local ResponsiveProvider = require(script.ResponsiveProvider)
 
 return {
 	ResponsiveProvider = ResponsiveProvider,

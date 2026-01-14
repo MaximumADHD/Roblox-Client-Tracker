@@ -12,7 +12,6 @@ local useTextSizeOffset = Foundation.Hooks.useTextSizeOffset
 local scaleSliceToResolution = require(UIBlox.App.ImageSet.scaleSliceToResolution)
 local ImagesInverse = require(UIBlox.App.ImageSet.ImagesInverse)
 local getBuilderIconElement = require(ImageSet.getBuilderIconElement)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 return function(innerComponent, resolutionScale)
 	assert(
@@ -36,28 +35,26 @@ return function(innerComponent, resolutionScale)
 				fullProps[key] = value
 			end
 		end
-		if UIBloxConfig.migrateBuilderIcon then
-			local tokens = useTokens()
-			local textSizeOffset = useTextSizeOffset()
-			if usesImageSet then
-				local imageName = ImagesInverse[imageSetProps]
-				if imageName and migrationLookup[imageName] then
-					if not tokens.Stroke then
-						error(
-							`No StyleProvider in tree for migrated icon ImageSetComponent.\n UIBlox Icon: {imageName}, BuilderIcon: {migrationLookup[imageName]}`
-						)
-					end
-					local scaleValue = tokens.Stroke.Standard -- 1pt scaled
-					return getBuilderIconElement(
-						fullProps,
-						innerComponent,
-						migrationLookup[imageName],
-						imageName,
-						tokens,
-						textSizeOffset,
-						scaleValue
+		local tokens = useTokens()
+		local textSizeOffset = useTextSizeOffset()
+		if usesImageSet then
+			local imageName = ImagesInverse[imageSetProps]
+			if imageName and migrationLookup[imageName] then
+				if not tokens.Stroke then
+					error(
+						`No StyleProvider in tree for migrated icon ImageSetComponent.\n UIBlox Icon: {imageName}, BuilderIcon: {migrationLookup[imageName]}`
 					)
 				end
+				local scaleValue = tokens.Stroke.Standard -- 1pt scaled
+				return getBuilderIconElement(
+					fullProps,
+					innerComponent,
+					migrationLookup[imageName],
+					imageName,
+					tokens,
+					textSizeOffset,
+					scaleValue
+				)
 			end
 		end
 

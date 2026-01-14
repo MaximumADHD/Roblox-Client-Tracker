@@ -355,7 +355,6 @@ local FFlagFeedbackEntryPointButtonSizeAdjustment =
 	game:DefineFastFlag("FeedbackEntryPointButtonSizeAdjustment2", false)
 local FFlagFeedbackEntryPointImprovedStrictnessCheck =
 	game:DefineFastFlag("FeedbackEntryPointImprovedStrictnessCheck", false)
-local FFlagBuilderIcon = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
 local GetFFlagEnableLocalesForExperienceLanguageSwitcher = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLocalesForExperienceLanguageSwitcher)
 local CreateExperienceLanguageSwitcher = require(
 	RobloxGui.Modules.Settings.Pages.GameSettingsRowInitializers.ExperienceLanguageSwitcherInitializer
@@ -4182,18 +4181,10 @@ local function Initialize()
 
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "GameSettingsTab"
-	if FFlagBuilderIcon then
-		local icon = migrationLookup['uiblox']["icons/common/settings"]
-		this.TabHeader.TabLabel.Icon.Text = icon.name
-		this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
-		this.TabHeader.TabLabel.Title.Text = "Settings"
-	else
-		local icon = Theme.Images["icons/common/settings"]
-		this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
-		this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
-		this.TabHeader.TabLabel.Icon.Image = icon.Image
-		this.TabHeader.TabLabel.Title.Text = "Settings"
-	end
+	local icon = migrationLookup['uiblox']["icons/common/settings"]
+	this.TabHeader.TabLabel.Icon.Text = icon.name
+	this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
+	this.TabHeader.TabLabel.Title.Text = "Settings"
 
 	------ PAGE CUSTOMIZATION -------
 	this.Page.ZIndex = 5

@@ -2,11 +2,11 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
+local ControlState = require(Foundation.Enums.ControlState)
+local ScrollView = require(Foundation.Components.ScrollView)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
-local ScrollView = require(Foundation.Components.ScrollView)
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 
 local function StoryScrolling(props)

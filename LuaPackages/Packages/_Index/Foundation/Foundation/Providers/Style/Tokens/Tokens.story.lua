@@ -1,16 +1,16 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
+local View = require(Foundation.Components.View)
 
-local Theme = require(Foundation.Enums.Theme)
 local Device = require(Foundation.Enums.Device)
-local Tokens = require(Foundation.Providers.Style.Tokens)
+local Theme = require(Foundation.Enums.Theme)
 local TokenProcessingUtilities = require(Foundation.Providers.Style.Tokens.TokenProcessingUtilities)
+local Tokens = require(Foundation.Providers.Style.Tokens)
 
 type StoryProps = {
 	theme: string,

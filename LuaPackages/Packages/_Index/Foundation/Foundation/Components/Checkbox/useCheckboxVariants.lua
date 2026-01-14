@@ -35,9 +35,7 @@ local function variantsFactory(tokens: Tokens)
 				colors = {
 					checkedStyle = tokens.Color.ActionSubEmphasis.Background,
 				},
-				cursorRadius = if Flags.FoundationInternalInputSelectedStylesAndSpacing
-					then UDim.new(0, tokens.Radius.Small)
-					else UDim.new(0, 0),
+				cursorRadius = UDim.new(0, tokens.Radius.Small),
 			},
 			checkmark = { tag = "position-center-center anchor-center-center content-action-sub-emphasis" },
 		}
@@ -45,9 +43,7 @@ local function variantsFactory(tokens: Tokens)
 			input = {
 				tag = "radius-small",
 				checkedStyle = tokens.Color.ActionSubEmphasis.Background,
-				cursorRadius = if Flags.FoundationInternalInputSelectedStylesAndSpacing
-					then UDim.new(0, tokens.Radius.Small)
-					else UDim.new(0, 0),
+				cursorRadius = UDim.new(0, tokens.Radius.Small),
 			},
 			checkmark = { tag = "position-center-center anchor-center-center content-action-sub-emphasis" },
 		}
@@ -55,19 +51,19 @@ local function variantsFactory(tokens: Tokens)
 	local sizes: { [InputSize]: VariantProps } = {
 		[InputSize.XSmall] = {
 			input = { size = UDim2.fromOffset(tokens.Size.Size_400, tokens.Size.Size_400) },
-			checkmark = { tag = if Flags.FoundationMigrateIconNames then "size-400" else "size-300" },
+			checkmark = { tag = "size-400" },
 		},
 		[InputSize.Small] = {
 			input = { size = UDim2.fromOffset(tokens.Size.Size_500, tokens.Size.Size_500) },
-			checkmark = { tag = if Flags.FoundationMigrateIconNames then "size-500" else "size-350" },
+			checkmark = { tag = "size-500" },
 		},
 		[InputSize.Medium] = {
 			input = { size = UDim2.fromOffset(tokens.Size.Size_600, tokens.Size.Size_600) },
-			checkmark = { tag = if Flags.FoundationMigrateIconNames then "size-600" else "size-400" },
+			checkmark = { tag = "size-600" },
 		},
 		[InputSize.Large] = {
 			input = { size = UDim2.fromOffset(tokens.Size.Size_700, tokens.Size.Size_700) },
-			checkmark = { tag = if Flags.FoundationMigrateIconNames then "size-700" else "size-500" },
+			checkmark = { tag = "size-700" },
 		},
 	}
 

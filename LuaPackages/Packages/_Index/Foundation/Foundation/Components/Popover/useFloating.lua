@@ -1,9 +1,9 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
-local PopoverSide = require(Foundation.Enums.PopoverSide)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
+local PopoverSide = require(Foundation.Enums.PopoverSide)
+local React = require(Packages.React)
 local positioning = require(script.Parent.positioning)
 local Services = require(Foundation.Utility.Wrappers).Services
 local UserInputService = Services.UserInputService

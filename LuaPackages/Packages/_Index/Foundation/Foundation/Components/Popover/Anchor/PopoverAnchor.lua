@@ -1,10 +1,10 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local Types = require(Foundation.Components.Types)
-local withCommonProps = require(Foundation.Utility.withCommonProps)
-local View = require(Foundation.Components.View)
 local PopoverContext = require(script.Parent.Parent.PopoverContext)
+local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
 
 local React = require(Packages.React)
 type PopoverAnchor = Types.PopoverAnchor

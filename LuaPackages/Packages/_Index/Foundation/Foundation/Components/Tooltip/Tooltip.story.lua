@@ -1,14 +1,14 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
-local Tooltip = require(Foundation.Components.Tooltip)
-local View = require(Foundation.Components.View)
 local Icon = require(Foundation.Components.Icon)
 local IconSize = require(Foundation.Enums.IconSize)
-local PopoverSide = require(Foundation.Enums.PopoverSide)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
+local PopoverSide = require(Foundation.Enums.PopoverSide)
+local Tooltip = require(Foundation.Components.Tooltip)
+local View = require(Foundation.Components.View)
 
 -- Used as a constant on purpose; otherwise a new table will be created each render, causing extra renders.
 local shortcut = { Enum.KeyCode.F2, Enum.KeyCode.One, Enum.KeyCode.ButtonR3 }

@@ -50,7 +50,7 @@ export type Props = {
 	automaticSize: Enum.AutomaticSize?,
 	-- ReactOtter animation spring settings
 	animationConfig: ReactOtter.SpringOptions?,
-	-- Determines whether sinks input
+	-- Determines whether sinks input when content is visible
 	active: boolean?,
 }
 
@@ -146,7 +146,6 @@ local function NavigationBar(providedProps: Props)
 		end)
 
 	return React.createElement("Frame", {
-		Active = props.active,
 		BackgroundTransparency = 1,
 		ClipsDescendants = props.clipsDescendants,
 		Size = props.size,
@@ -156,6 +155,7 @@ local function NavigationBar(providedProps: Props)
 		[React.Change.AbsoluteSize] = onAbsoluteSizeChanged,
 	}, {
 		AnimatedFrame = React.createElement("Frame", {
+			Active = props.active,
 			Position = visibilityPos,
 			BorderSizePixel = 0,
 			Size = UDim2.fromScale(1, 1),

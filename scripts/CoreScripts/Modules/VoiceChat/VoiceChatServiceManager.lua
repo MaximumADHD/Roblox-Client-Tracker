@@ -79,8 +79,6 @@ local FFlagDisableLeaveToastInStudio = game:DefineFastFlag("DisableLeaveToastInS
 local FFlagEnableVerifiedCheckViaOverlay = game:DefineFastFlag("EnableVerifiedCheckViaOverlay", false)
 local FFlagInExperienceVoiceUpsellAnalytics = game:DefineFastFlag("InExperienceVoiceUpsellAnalyticsV2", false)
 local GetFIntThrottleParticipantsUpdateMs = require(VoiceChatCore.Flags.GetFIntThrottleParticipantsUpdateMs)
-local GetFFlagEnableConnectDisconnectAnalytics =
-	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectAnalytics)
 local GetFFlagEnableConnectDisconnectInSettingsAndChrome =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectInSettingsAndChrome)
 local FStringVoiceUIImprovementsIXPLayerName =
@@ -612,12 +610,11 @@ function VoiceChatServiceManager.new(
 			else
 				self:showPrompt(VoiceChatPromptType.JoinedVoiceToast)
 			end
-			if GetFFlagEnableConnectDisconnectAnalytics() then
-				self.Analytics:reportConnectDisconnectEvents(
-					"voiceConnectFtuxLeaveEvent",
-					self:GetConnectDisconnectAnalyticsData()
-				)
-			end
+
+			self.Analytics:reportConnectDisconnectEvents(
+				"voiceConnectFtuxLeaveEvent",
+				self:GetConnectDisconnectAnalyticsData()
+			)
 		elseif
 			GetFFlagEnableSeamlessVoiceV2()
 			and self:IsSeamlessVoice()
@@ -645,7 +642,7 @@ function VoiceChatServiceManager.new(
 			end
 		end
 
-		if GetFFlagEnableConnectDisconnectAnalytics() and shouldSendConnectDisconnectAnalytics then
+		if shouldSendConnectDisconnectAnalytics then
 			self.Analytics:reportConnectDisconnectEvents("voiceConnectEvent", self:GetConnectDisconnectAnalyticsData())
 			attemptVoiceRejoinConnection:Disconnect()
 		end
@@ -808,12 +805,11 @@ function VoiceChatServiceManager:_VoiceChatFirstTimeUX(appStorageService: AppSto
 	if not hasShownFTUX then
 		log:debug("Showing FTUX")
 		self.isShowingFTUX = true
-		if GetFFlagEnableConnectDisconnectAnalytics() then
-			self.Analytics:reportConnectDisconnectEvents(
-				"voiceConnectFtuxJoinEvent",
-				self:GetConnectDisconnectAnalyticsData()
-			)
-		end
+		self.Analytics:reportConnectDisconnectEvents(
+			"voiceConnectFtuxJoinEvent",
+			self:GetConnectDisconnectAnalyticsData()
+		)
+
 		if GetFFlagNonVoiceFTUX() then
 			ExperienceChat.Events.VoiceUIVisibilityChanged(true)
 		else
@@ -844,12 +840,10 @@ function VoiceChatServiceManager:_VoiceChatFirstTimeUX(appStorageService: AppSto
 				end)
 				self.muteAllChanged.Event:Once(function()
 					self:HideFTUX(appStorageService)
-					if GetFFlagEnableConnectDisconnectAnalytics() then
-						self.Analytics:reportConnectDisconnectEvents(
-							"voiceConnectFtuxLeaveEvent",
-							self:GetConnectDisconnectAnalyticsData()
-						)
-					end
+					self.Analytics:reportConnectDisconnectEvents(
+						"voiceConnectFtuxLeaveEvent",
+						self:GetConnectDisconnectAnalyticsData()
+					)
 				end)
 				self.talkingChanged.Event:Once(function()
 					self:HideFTUX(appStorageService)
@@ -1906,9 +1900,7 @@ function VoiceChatServiceManager:Leave()
 	if GetFFlagDisconnectToastClientRewrite() and GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
 		self:SetVoiceConnectCookieValue(false)
 	end
-	if GetFFlagEnableConnectDisconnectAnalytics() then
-		self.Analytics:reportConnectDisconnectEvents("voiceDisconnectEvent", self:GetConnectDisconnectAnalyticsData())
-	end
+	self.Analytics:reportConnectDisconnectEvents("voiceDisconnectEvent", self:GetConnectDisconnectAnalyticsData())
 	local previousGroupId = self.service:GetGroupId()
 	local previousMutedState = self.service:IsPublishPaused()
 	if GetFFlagVoiceChatClientRewriteMasterLua() then
@@ -2009,19 +2001,17 @@ function VoiceChatServiceManager:RejoinPreviousChannel()
 	pcall(function()
 		if GetFFlagVoiceChatClientRewriteMasterLua() then
 			self.coreVoiceManager:RejoinVoice()
-			if GetFFlagEnableConnectDisconnectAnalytics() then
-				self.Analytics:reportConnectDisconnectEvents(
-					"voiceConnectEvent",
-					self:GetConnectDisconnectAnalyticsData()
-				)
-			end
+			self.Analytics:reportConnectDisconnectEvents(
+				"voiceConnectEvent",
+				self:GetConnectDisconnectAnalyticsData()
+			)
 		else
 			if groupId and groupId ~= "" then
 				self.service:Leave()
 				local joinInProgress = self.service:JoinByGroupIdToken(groupId, muted, true)
 				if not joinInProgress then
 					self:InitialJoinFailedPrompt()
-				elseif GetFFlagEnableConnectDisconnectAnalytics() then
+				else
 					self.Analytics:reportConnectDisconnectEvents(
 						"voiceConnectEvent",
 						self:GetConnectDisconnectAnalyticsData()

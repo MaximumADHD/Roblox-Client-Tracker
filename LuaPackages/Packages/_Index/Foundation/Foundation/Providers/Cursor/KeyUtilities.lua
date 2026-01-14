@@ -1,8 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local Types = require(Foundation.Components.Types)
 local CursorType = require(Foundation.Enums.CursorType)
 local Tokens = require(Foundation.Providers.Style.Tokens)
+local Types = require(Foundation.Components.Types)
 type Tokens = Tokens.Tokens
 
 local function encodeKey(tokens: Tokens, radius: UDim?, offset: number?, borderWidth: number?): string

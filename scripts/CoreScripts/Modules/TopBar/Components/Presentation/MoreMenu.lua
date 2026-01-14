@@ -29,9 +29,6 @@ local SetMoreMenuOpen = require(Actions.SetMoreMenuOpen)
 
 local TopBarAnalytics = require(TopBar.Analytics)
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
-
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
@@ -116,15 +113,12 @@ function MoreMenu:init()
 	if FFlagEnableTopBarAnalytics then
 		self.analytics = TopBarAnalytics.default
 	end
-
-	if FFlagTopBarStyleUseDisplayUIScale then
-		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
-			local DisplayStore = Display.GetDisplayStore(scope)
-			self:setState({
-				UiScale = DisplayStore.getUIScale(scope),
-			})
-		end)
-	end
+	self.disposeUiScaleEffect = Signals.createEffect(function(scope)
+		local DisplayStore = Display.GetDisplayStore(scope)
+		self:setState({
+			UiScale = DisplayStore.getUIScale(scope),
+		})
+	end)
 
 	if FFlagMountCoreGuiBackpack then
 		self:setState({
@@ -175,7 +169,7 @@ function MoreMenu:willUnmount()
 	if FFlagTopBarSignalizeScreenSize then 
 		self.disposeScreenSize()
 	end
-	if FFlagTopBarStyleUseDisplayUIScale and self.disposeUiScaleEffect then
+	if self.disposeUiScaleEffect then
 		self.disposeUiScaleEffect()
 	end
 end
@@ -338,7 +332,7 @@ function MoreMenu:renderWithStyle(style)
 
 				open = self.props.moreMenuOpen,
 				menuDirection = MenuDirection.Down,
-				openPositionY = UDim.new(0, Constants.TopBarHeight * (if FFlagTopBarStyleUseDisplayUIScale then self.state.UiScale else 1) + MENU_GAP),
+				openPositionY = UDim.new(0, Constants.TopBarHeight * self.state.UiScale + MENU_GAP),
 
 				background = style.Theme.BackgroundUIContrast,
 				closeBackgroundVisible = false,

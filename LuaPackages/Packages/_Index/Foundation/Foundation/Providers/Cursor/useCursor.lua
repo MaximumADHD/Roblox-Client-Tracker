@@ -1,13 +1,13 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
-local Types = require(Foundation.Components.Types)
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local CursorContext = require(script.Parent.CursorContext)
 local KeyUtilities = require(script.Parent.KeyUtilities)
+local Types = require(Foundation.Components.Types)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local function useCursor(cursor: Types.Cursor?): React.Ref<GuiObject>?
 	local tokens = useTokens()

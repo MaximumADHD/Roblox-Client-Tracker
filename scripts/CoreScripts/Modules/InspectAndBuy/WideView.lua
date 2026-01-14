@@ -1,10 +1,5 @@
-local CorePackages = game:GetService("CorePackages")
-
 local Colors = require(script.Parent.Colors)
 local TopBarConstants = require(script.Parent.Parent.TopBar.Constants)
-
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
 local WideView = {
 	UseContainerAspectRatio = false,
@@ -12,17 +7,15 @@ local WideView = {
 	ContainerBackgroundColor = Colors.Black,
 	ContainerAspectRatio = 0.9,
 	MaxAssetCardsPerRow = 4,
-	ContainerSize = if FFlagTopBarStyleUseDisplayUIScale
-		then function(scale: number)
+	ContainerSize = function(scale: number)
 			return UDim2.new(0.7, 0, 0.95, -TopBarConstants.TopBarHeight * scale)
 		end
-		else UDim2.new(0.7, 0, 0.95, -TopBarConstants.TopBarHeight),
+,
 	ContainerAnchorPoint = Vector2.new(0.5, 0.5),
-	ContainerPosition = if FFlagTopBarStyleUseDisplayUIScale
-		then function(scale: number)
+	ContainerPosition = function(scale: number)
 			return UDim2.new(0.5, 0, 0.5, TopBarConstants.TopBarHeight * scale)
 		end
-		else UDim2.new(0.5, 0, 0.5, TopBarConstants.TopBarHeight),
+,
 	AvatarHeadShotSize = 48,
 	TopSizeY = 50,
 	ClipsDescendants = true,

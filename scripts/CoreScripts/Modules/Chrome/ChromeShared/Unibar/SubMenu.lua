@@ -5,9 +5,7 @@ local GuiService = game:GetService("GuiService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
-local FFlagChromeFixStopFocusBeforeMenuRowActive = SharedFlags.FFlagChromeFixStopFocusBeforeMenuRowActive
 local FFlagAvatarSwitcherHamburgerExposure = game:DefineFastFlag("AvatarSwitcherHamburgerExposure", false)
 local FStringAvatarSwitcherIXPLayer = game:DefineFastString("AvatarSwitcherIXPLayer", "UIEcosystem.User.Migration")
 
@@ -26,15 +24,13 @@ local StyledTextLabel = UIBlox.App.Text.StyledTextLabel
 local useStyle = UIBlox.Core.Style.useStyle
 local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
-local useSelectionCursor = if FFlagAdaptUnibarAndTiltSizing then nil else UIBlox.App.SelectionImage.useSelectionCursor
-local CursorKind = if FFlagAdaptUnibarAndTiltSizing then nil else UIBlox.App.SelectionImage.CursorKind
 local VerticalScrollView = UIBlox.App.Container.VerticalScrollView
 local ScrollBarType = UIBlox.App.Container.Enum.ScrollBarType
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 
-local Foundation = if FFlagAdaptUnibarAndTiltSizing then require(CorePackages.Packages.Foundation) else nil :: never
-local useCursor = if FFlagAdaptUnibarAndTiltSizing then Foundation.Hooks.useCursor else nil :: never
+local Foundation = require(CorePackages.Packages.Foundation)
+local useCursor = Foundation.Hooks.useCursor
 
 local ChromeService = require(Root.Service)
 local ChromeTypes = require(Root.Service.Types)
@@ -68,8 +64,7 @@ if isInExperienceUIVREnabled then
 end
 
 local IconHost = require(Root.Unibar.ComponentHosts.IconHost)
--- remove any casts after FFlagAdaptUnibarAndTiltSizing cleanup
-local CURSOR_TYPE = if FFlagAdaptUnibarAndTiltSizing then Foundation.Enums.CursorType.RoundedSlot else nil :: never
+local CURSOR_TYPE = Foundation.Enums.CursorType.RoundedSlot
 
 local lastTouchPosition = Vector2.new(0, 0)
 
@@ -88,7 +83,6 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 	local style = useStyle()
 	local unibarStyle
 	local theme = style.Theme
-	local font = if FFlagAdaptUnibarAndTiltSizing then nil else style.Font
 	local defaultBgColor = {
 		Color = Color3.new(0, 0, 0),
 		Transparency = 1,
@@ -135,19 +129,13 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 	end)
 
 	local onMenuRowActivated = React.useCallback(function()
-		if FFlagChromeFixStopFocusBeforeMenuRowActive then
-			if FFlagEnableConsoleExpControls then
-				ChromeService:disableFocusNav()
-				GuiService.SelectedCoreObject = nil
-				ChromeService:setShortcutBar(nil)
-			end
+		if FFlagEnableConsoleExpControls then
+			ChromeService:disableFocusNav()
+			GuiService.SelectedCoreObject = nil
+			ChromeService:setShortcutBar(nil)
 			props.activated()
 		else
 			props.activated()
-			if FFlagEnableConsoleExpControls then
-				ChromeService:disableFocusNav()
-				GuiService.SelectedCoreObject = nil
-			end
 		end
 	end, { props.id })
 
@@ -173,18 +161,9 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		),
 
 		StyledTextLabel = React.createElement(StyledTextLabel, {
-			size = UDim2.new(
-				1,
-				if FFlagAdaptUnibarAndTiltSizing
-					then -iconSize - submenuPaddingLeft - submenuPaddingRight
-					else -iconSize - submenuPaddingLeft * 2,
-				1,
-				0
-			),
+			size = UDim2.new(1, -iconSize - submenuPaddingLeft - submenuPaddingRight, 1, 0),
 			lineHeight = 1,
-			fontStyle = if FFlagAdaptUnibarAndTiltSizing or FFlagTokenizeUnibarConstantsWithStyleProvider
-				then submenuRowLabelFont
-				else font.Header2,
+			fontStyle = submenuRowLabelFont,
 			colorStyle = if menuTransition
 				then {
 					Color = theme.TextEmphasis.Color,
@@ -212,9 +191,7 @@ function MenuRow(props: ChromeTypes.IntegrationComponentProps)
 		BackgroundColor3 = highlightColor:map(function(v)
 			return v.Color
 		end),
-		SelectionImageObject = if FFlagAdaptUnibarAndTiltSizing
-			then useCursor(CURSOR_TYPE :: any)
-			else useSelectionCursor(CursorKind.RoundedRectNoInset),
+		SelectionImageObject = useCursor(CURSOR_TYPE :: any),
 		[React.Event.Activated] = onMenuRowActivated,
 		LayoutOrder = props.order,
 		onStateChanged = stateChange,

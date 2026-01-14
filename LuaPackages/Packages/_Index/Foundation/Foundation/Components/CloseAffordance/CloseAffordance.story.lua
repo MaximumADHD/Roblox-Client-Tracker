@@ -1,12 +1,12 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
-local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
 local ColorMode = require(Foundation.Enums.ColorMode)
+local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
+local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local InputSize = require(Foundation.Enums.InputSize)

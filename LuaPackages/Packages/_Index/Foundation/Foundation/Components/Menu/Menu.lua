@@ -3,17 +3,17 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local Types = require(Foundation.Components.Types)
-local Popover = require(Foundation.Components.Popover)
 local BaseMenu = require(Foundation.Components.BaseMenu)
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local Flags = require(Foundation.Utility.Flags)
-local withDefaults = require(Foundation.Utility.withDefaults)
+local Popover = require(Foundation.Components.Popover)
+local Types = require(Foundation.Components.Types)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
-local PopoverSide = require(Foundation.Enums.PopoverSide)
-local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local InputSize = require(Foundation.Enums.InputSize)
+local PopoverAlign = require(Foundation.Enums.PopoverAlign)
+local PopoverSide = require(Foundation.Enums.PopoverSide)
 local Radius = require(Foundation.Enums.Radius)
 
 type InputSize = InputSize.InputSize

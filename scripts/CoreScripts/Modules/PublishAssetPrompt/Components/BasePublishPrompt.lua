@@ -43,9 +43,6 @@ local ValidationErrorModal = require(Components.ValidationErrorModal)
 local PurchasePrompt = require(CorePackages.Workspace.Packages.PurchasePrompt)
 local Analytics = PurchasePrompt.PublishAssetAnalytics
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
-
 local NAME_HEIGHT_PIXELS = 30
 local DISCLAIMER_HEIGHT_PIXELS = 50
 local LABEL_PADDING = 24
@@ -112,14 +109,12 @@ function BasePublishPrompt:init()
 	self.inputState = nil
 	self.inputObject = nil
 	self.connection = nil
-	if FFlagTopBarStyleUseDisplayUIScale then
-		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
-			local DisplayStore = Display.GetDisplayStore(scope)
-			self:setState({
-				UiScale = DisplayStore.getUIScale(scope),
-			})
-		end)
-	end
+	self.disposeUiScaleEffect = Signals.createEffect(function(scope)
+		local DisplayStore = Display.GetDisplayStore(scope)
+		self:setState({
+			UiScale = DisplayStore.getUIScale(scope),
+		})
+	end)
 
 	self.storeInput = function(actionName, inputState, inputObject)
 		self.inputState = inputState
@@ -335,8 +330,7 @@ function BasePublishPrompt:renderAlertLocalized(localized)
 	local topCornerInset, _ = GuiService:GetGuiInset()
 	local overlayPosition = UDim2.new(0, 0, 0, -topCornerInset.Y)
 	local overlaySize = UDim2.new(1, 0, 1, topCornerInset.Y)
-	local topBarHeight = TopBarConstants.TopBarHeight
-		* (if FFlagTopBarStyleUseDisplayUIScale then self.state.UiScale else 1)
+	local topBarHeight = TopBarConstants.TopBarHeight * self.state.UiScale
 
 	return withStyle(function(style)
 		local theme = style.Theme
@@ -471,7 +465,7 @@ function BasePublishPrompt:willUnmount()
 
 	self:cleanupGamepad()
 
-	if FFlagTopBarStyleUseDisplayUIScale and self.disposeUiScaleEffect then
+	if self.disposeUiScaleEffect then
 		self.disposeUiScaleEffect()
 	end
 

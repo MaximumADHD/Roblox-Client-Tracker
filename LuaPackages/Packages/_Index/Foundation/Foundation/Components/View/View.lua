@@ -2,19 +2,19 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local Flags = require(Foundation.Utility.Flags)
 
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local Logger = require(Foundation.Utility.Logger)
 
 local Interactable = require(Foundation.Components.Interactable)
 
-local Types = require(Foundation.Components.Types)
-local withDefaults = require(Foundation.Utility.withDefaults)
-local useDefaultTags = require(Foundation.Utility.useDefaultTags)
-local withGuiObjectProps = require(Foundation.Utility.withGuiObjectProps)
-local useStyledDefaults = require(Foundation.Utility.useStyledDefaults)
 local GuiObjectChildren = require(Foundation.Utility.GuiObjectChildren)
+local Types = require(Foundation.Components.Types)
+local useDefaultTags = require(Foundation.Utility.useDefaultTags)
+local useStyledDefaults = require(Foundation.Utility.useStyledDefaults)
+local withDefaults = require(Foundation.Utility.withDefaults)
+local withGuiObjectProps = require(Foundation.Utility.withGuiObjectProps)
 
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 

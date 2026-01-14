@@ -1,8 +1,8 @@
-local DialogRoot = require(script.Dialog)
 local DialogActions = require(script.Actions)
 local DialogContent = require(script.Content)
-local DialogText = require(script.Text)
 local DialogHeroMedia = require(script.HeroMedia)
+local DialogRoot = require(script.Dialog)
+local DialogText = require(script.Text)
 local DialogTitle = require(script.Title)
 
 export type DialogProps = DialogRoot.DialogProps

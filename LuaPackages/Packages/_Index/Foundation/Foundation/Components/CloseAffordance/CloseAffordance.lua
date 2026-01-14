@@ -1,9 +1,9 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
-local Icon = require(Foundation.Components.Icon)
 local BuilderIcons = require(Packages.BuilderIcons)
+local Icon = require(Foundation.Components.Icon)
+local React = require(Packages.React)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
@@ -27,8 +27,8 @@ local withDefaults = require(Foundation.Utility.withDefaults)
 
 local Constants = require(Foundation.Constants)
 
-local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 
 local useCloseAffordanceVariants = require(script.Parent.useCloseAffordanceVariants)
 

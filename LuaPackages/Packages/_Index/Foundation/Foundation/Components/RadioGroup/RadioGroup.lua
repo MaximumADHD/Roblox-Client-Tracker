@@ -3,8 +3,8 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 

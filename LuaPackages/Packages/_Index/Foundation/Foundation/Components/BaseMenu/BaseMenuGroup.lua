@@ -3,10 +3,10 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
-local BaseMenuTitleItem = require(script.Parent.BaseMenuTitleItem)
-local BaseMenuDivider = require(script.Parent.BaseMenuDivider)
 local BaseMenuContext = require(script.Parent.BaseMenuContext)
+local BaseMenuDivider = require(script.Parent.BaseMenuDivider)
+local BaseMenuTitleItem = require(script.Parent.BaseMenuTitleItem)
+local View = require(Foundation.Components.View)
 type BaseMenuContextType = BaseMenuContext.BaseMenuContextType
 
 local SIZE_TO_PADDING: { [any]: string } = {

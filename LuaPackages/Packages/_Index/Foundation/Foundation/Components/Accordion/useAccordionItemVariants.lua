@@ -7,8 +7,8 @@ local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
 
-local Types = require(Foundation.Components.Types)
 local Tokens = require(Foundation.Providers.Style.Tokens)
+local Types = require(Foundation.Components.Types)
 type Tokens = Tokens.Tokens
 type StateLayer = Types.StateLayer
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)

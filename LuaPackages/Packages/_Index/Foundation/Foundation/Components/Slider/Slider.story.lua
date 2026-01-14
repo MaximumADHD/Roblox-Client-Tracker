@@ -4,16 +4,16 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local Icon = require(Foundation.Components.Icon)
-local View = require(Foundation.Components.View)
 local Button = require(Foundation.Components.Button)
+local Icon = require(Foundation.Components.Icon)
 local Knob = require(Foundation.Components.Knob)
+local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local InputSize = require(Foundation.Enums.InputSize)
 local IconSize = require(Foundation.Enums.IconSize)
-local Visibility = require(Foundation.Enums.Visibility)
+local InputSize = require(Foundation.Enums.InputSize)
 local SliderVariant = require(Foundation.Enums.SliderVariant)
+local Visibility = require(Foundation.Enums.Visibility)
 
 local Slider = require(Foundation.Components.Slider)
 

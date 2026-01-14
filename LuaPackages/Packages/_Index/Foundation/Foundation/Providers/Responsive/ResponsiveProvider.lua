@@ -3,9 +3,9 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
-local ResponsiveContext = require(Responsive.ResponsiveContext)
 local BreakpointConfig = require(Foundation.Utility.Responsive.BreakpointConfig)
 local GridConfig = require(Foundation.Utility.Responsive.GridConfig)
+local ResponsiveContext = require(Responsive.ResponsiveContext)
 
 local withDefaults = require(Foundation.Utility.withDefaults)
 

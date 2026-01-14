@@ -41,7 +41,6 @@ local GetFFlagEnableAppChatInExperience =
 local GetShouldShowPlatformChatBasedOnPolicy = require(Chrome.Flags.GetShouldShowPlatformChatBasedOnPolicy)
 local FFlagFixIntegrationActivated = game:DefineFastFlag("FixIntegrationActivated1", false)
 local FFlagFixInventoryFilledIcon = game:DefineFastFlag("FixInventoryFilledIcon", false)
-local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
 local FFlagEnableUnibarTooltipQueue = require(Chrome.Flags.FFlagEnableUnibarTooltipQueue)()
 local FFlagRemoveUnusedTopBarNotifications = game:DefineFastFlag("RemoveUnusedTopBarNotifications", false)
 
@@ -179,9 +178,7 @@ local backpack = ChromeService:register({
 		Icon = function(props)
 			return CommonIcon(
 				"icons/menu/inventoryOff",
-				if FFlagFixInventoryFilledIcon and FFlagBuilderIcons
-					then "icons/menu/inventoryOn"
-					else "icons/menu/inventory",
+				if FFlagFixInventoryFilledIcon then "icons/menu/inventoryOn" else "icons/menu/inventory",
 				backpackVisibility
 			)
 		end,

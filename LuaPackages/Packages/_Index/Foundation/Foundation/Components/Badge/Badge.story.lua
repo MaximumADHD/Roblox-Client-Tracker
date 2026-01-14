@@ -1,22 +1,22 @@
 local MarketplaceService = game:GetService("MarketplaceService")
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
-local Tile = require(Foundation.Components.Tile)
 local MediaType = require(Foundation.Enums.MediaType)
 local Theme = require(Foundation.Enums.Theme)
+local Tile = require(Foundation.Components.Tile)
 
-local View = require(Foundation.Components.View)
-local Text = require(Foundation.Components.Text)
-local Badge_NEW = require(Foundation.Components.Badge.Badge)
-local Badge_DEPRECATED = require(Foundation.Components.Badge.Badge_DEPRECATED)
 local BadgeVariant = require(Foundation.Enums.BadgeVariant)
+local Badge_DEPRECATED = require(Foundation.Components.Badge.Badge_DEPRECATED)
+local Badge_NEW = require(Foundation.Components.Badge.Badge)
+local Text = require(Foundation.Components.Text)
+local View = require(Foundation.Components.View)
 type BadgeVariant = BadgeVariant.BadgeVariant
 
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local Flags = require(Foundation.Utility.Flags)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local itemTileSize = UDim2.fromOffset(150, 240)
 local itemId = 21070012

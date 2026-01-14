@@ -1,19 +1,19 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
 local Otter = require(Packages.Otter)
+local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
 
+local Flags = require(Foundation.Utility.Flags)
+local IconButton = require(Foundation.Components.IconButton)
+local InputSize = require(Foundation.Enums.InputSize)
+local ScrollView = require(Foundation.Components.ScrollView)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
-local ScrollView = require(Foundation.Components.ScrollView)
-local IconButton = require(Foundation.Components.IconButton)
-local withCommonProps = require(Foundation.Utility.withCommonProps)
 local Visibility = require(Foundation.Enums.Visibility)
-local InputSize = require(Foundation.Enums.InputSize)
-local Flags = require(Foundation.Utility.Flags)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
 
 type InputSize = InputSize.InputSize
 

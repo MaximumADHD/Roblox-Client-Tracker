@@ -63,7 +63,6 @@ local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local FFlagRelocateMobileMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 local FFlagMenuButtonsMountWithIEM = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsMountWithIEM)
-local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
 local SettingsFlags = require(script.Parent.Parent.Flags)
@@ -83,24 +82,11 @@ local Constants =
 
 local FRAME_DEFAULT_TRANSPARENCY = 0.85
 local FRAME_SELECTED_TRANSPARENCY = 0.65
-local REPORT_PLAYER_IMAGE
-local INSPECT_IMAGE
-local BLOCK_IMAGE
-local ADD_FRIEND_IMAGE
-local FRIEND_IMAGE
-if FFlagBuilderIcons then
-	REPORT_PLAYER_IMAGE = "icons/actions/feedback"
-	INSPECT_IMAGE = "icons/actions/zoomIn"
-	BLOCK_IMAGE = "icons/actions/block"
-	ADD_FRIEND_IMAGE = "icons/actions/friends/friendAdd"
-	FRIEND_IMAGE = "icons/menu/friends"
-else
-	REPORT_PLAYER_IMAGE = Theme.Images["icons/actions/feedback"]
-	INSPECT_IMAGE = Theme.Images["icons/actions/zoomIn"]
-	BLOCK_IMAGE = Theme.Images["icons/actions/block"]
-	ADD_FRIEND_IMAGE = Theme.Images["icons/actions/friends/friendAdd"]
-	FRIEND_IMAGE = Theme.Images["icons/menu/friends"]
-end
+local REPORT_PLAYER_IMAGE = "icons/actions/feedback"
+local INSPECT_IMAGE = "icons/actions/zoomIn"
+local BLOCK_IMAGE = "icons/actions/block"
+local ADD_FRIEND_IMAGE = "icons/actions/friends/friendAdd"
+local FRIEND_IMAGE = "icons/menu/friends"
 
 local PLAYER_ROW_HEIGHT = 62
 local PLAYER_ROW_HEIGHT_PORTRAIT = 105
@@ -186,17 +172,9 @@ local function Initialize()
 
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "PlayersTab"
-
-	if FFlagBuilderIcons then 
-		local icon = migrationLookup["icons/menu/friends"]
-		this.TabHeader.TabLabel.Icon.Text = icon.name
-		this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
-	else
-		local icon = Theme.Images["icons/menu/friends"]
-		this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
-		this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
-		this.TabHeader.TabLabel.Icon.Image = icon.Image
-	end
+	local icon = migrationLookup["icons/menu/friends"]
+	this.TabHeader.TabLabel.Icon.Text = icon.name
+	this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
 
 	this.TabHeader.TabLabel.Title.Text = "People"
 
@@ -316,12 +294,7 @@ local function Initialize()
 			)
 			addFriendButton.Name = "FriendStatus"
 			addFriendButton.Selectable = false
-
-			if FFlagBuilderIcons then
-				addFriendButton.FriendStatusTextLabel.TextTransparency = imgTrans
-			else
-				addFriendButton.FriendStatusImageLabel.ImageTransparency = imgTrans
-			end
+			addFriendButton.FriendStatusTextLabel.TextTransparency = imgTrans
 
 			return addFriendButton
 		elseif
@@ -333,11 +306,7 @@ local function Initialize()
 			local addFriendFunc = function()
 				if addFriendButton and addFriendImage and addFriendButton.ImageTransparency ~= 1 then
 					addFriendButton.ImageTransparency = 1
-					if FFlagBuilderIcons then
-						addFriendImage.TextTransparency = 1
-					else
-						addFriendImage.ImageTransparency = 1
-					end
+					addFriendImage.TextTransparency = 1
 					if localPlayer and player then
 						AnalyticsService:ReportCounter("PlayersMenu-RequestFriendship")
 						AnalyticsService:SetRBXEventStream(
@@ -1062,7 +1031,7 @@ local function Initialize()
 		})
 
 		local icon
-		if FFlagBuilderIcons and usesMigratedIcon then
+		if usesMigratedIcon then
 			icon = Instance.new("TextLabel")
 			icon.TextColor3 = Color3.new(1, 1, 1)
 			icon.TextSize = 24
@@ -1109,7 +1078,7 @@ local function Initialize()
 
 	local TAP_ACCURACY_THREASHOLD = 20
 	createShareGameButton = function()
-		local frame = createRow("ImageButton", nil, FFlagBuilderIcons)
+		local frame = createRow("ImageButton", nil, true)
 		frame.Size = UDim2.new(1, 0, 0, BUTTON_ROW_HEIGHT)
 		local textLabel = frame.TextLabel
 		local icon = frame.Icon
@@ -1129,7 +1098,7 @@ local function Initialize()
 
 		icon.AnchorPoint = Vector2.new(0, 0.5)
 		icon.Position = UDim2.new(0, 18, 0.5, 0)
-		local isMigrated = FFlagBuilderIcons and migrationLookup["icons/actions/friends/friendInvite"]
+		local isMigrated = migrationLookup["icons/actions/friends/friendInvite"]
 		local iconImg = if isMigrated then migrationLookup["icons/actions/friends/friendInvite"] else Theme.Images["icons/actions/friends/friendInvite"]
 		if iconImg then
 			if isMigrated then
@@ -1333,7 +1302,7 @@ local function Initialize()
 
 	if GetFFlagEnableConsoleJoinVoice() then
 		createJoinVoiceButton = function()
-			local frame = createRow("ImageButton", nil, FFlagBuilderIcons)
+			local frame = createRow("ImageButton", nil, true)
 			frame.Size = UDim2.new(1, 0, 0, BUTTON_ROW_HEIGHT)
 			frame.Size = HALF_SIZE_SHARE_GAME_BUTTON_SIZE
 			frame.AnchorPoint = Vector2.new(0, 0)
@@ -1354,7 +1323,7 @@ local function Initialize()
 			icon.AnchorPoint = Vector2.new(0, 0.5)
 			icon.Position = UDim2.new(0, 18, 0.5, 0)
 
-			local isMigrated = FFlagBuilderIcons and migrationLookup["icons/controls/publicAudioJoin"]
+			local isMigrated = migrationLookup["icons/controls/publicAudioJoin"]
 			local iconImg = if isMigrated then migrationLookup["icons/controls/publicAudioJoin"] else Theme.Images["icons/controls/publicAudioJoin"]
 			if iconImg then
 				if isMigrated then

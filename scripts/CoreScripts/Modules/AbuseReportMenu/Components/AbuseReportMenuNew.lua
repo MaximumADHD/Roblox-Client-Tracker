@@ -24,6 +24,9 @@ local AnnotationModal = require(root.ReportAnything.Components.AnnotationModal)
 local ChatModalSelectorDialogController = require(root.Components.ChatModalSelectorDialogController)
 local ModalBasedSelectorDialogController = require(root.Components.ModalBasedSelectorDialogController)
 local Localization = require(CorePackages.Workspace.Packages.InExperienceLocales).Localization
+local LuauPolyfill = require(CorePackages.Packages.LuauPolyfill)
+local setTimeout = LuauPolyfill.setTimeout
+
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 local useLocalization = require(CorePackages.Workspace.Packages.Localization).Hooks.useLocalization
 local useReportAnythingWithScreenshot = require(root.Hooks.useReportAnythingWithScreenshot)
@@ -40,6 +43,8 @@ local isShowEUDSAIllegalContentReportingLink = DSAReportingPackage.isShowEUDSAIl
 local DSAReportLink = DSAReportingPackage.DSAReportLink
 local isShowUKOSAIllegalContentReportingLink = DSAReportingPackage.isShowUKOSAIllegalContentReportingLink
 local OSAReportLink = DSAReportingPackage.OSAReportLink
+local isShowGenericIllegalContentReportingLink = DSAReportingPackage.isShowGenericIllegalContentReportingLink
+local GenericReportLink = DSAReportingPackage.GenericReportLink
 local StyleProviderWithDefaultTheme = Style.StyleProviderWithDefaultTheme
 
 local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
@@ -59,6 +64,10 @@ local FFlagHighlightModePreciseSelectionEnabled = SharedFlags.FFlagHighlightMode
 local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
 local FFlagFixDuplicateFoundationStylesheets = game:DefineFastFlag("FixDuplicateFoundationStylesheets", false)
 local FFlagUKOSAUpdatedCopy = SharedFlags.FFlagUKOSAUpdatedCopy
+local FFlagAbuseReportTabClearCapturedScreenshotOnCloseFix =
+	game:DefineFastFlag("AbuseReportTabClearCapturedScreenshotOnCloseFix", false)
+local FIntAbuseReportTabClearCapturedScreenshotOnCloseFixDelay =
+	game:DefineFastInt("AbuseReportTabClearCapturedScreenshotOnCloseFixDelay", 500)
 
 local isShowSelectInSceneReportMenu = require(root.Utility.isShowSelectInSceneReportMenu)
 
@@ -171,10 +180,26 @@ local AbuseReportMenuNew = function(props: Props)
 			setMenuWidth(width)
 		end)
 		props.registerOnSettingsHidden(function()
-			if ReportAbuseAnalytics:getAbuseReportSessionEntryPoint() == "" then
-				reportAnythingDispatch({
-					type = Constants.ReportAnythingActions.ClearAll,
-				})
+			if FFlagAbuseReportTabClearCapturedScreenshotOnCloseFix then
+				-- When the user has Reduce Motion enabled, the signal for the IGM closing
+				-- can come before the signal for the Report tab closing. Given that the AR
+				-- session (which we are checking below) is cleared as a result of the Report
+				-- tab closing, we want to make sure this check happens after that, rather
+				-- than relying on the assumption that it does, as is the case without Reduce Motion.
+				setTimeout(function()
+					if ReportAbuseAnalytics:getAbuseReportSessionEntryPoint() == "" then
+						reportAnythingDispatch({
+							type = Constants.ReportAnythingActions.ClearAll,
+						})
+					else
+					end
+				end, FIntAbuseReportTabClearCapturedScreenshotOnCloseFixDelay)
+			else
+				if ReportAbuseAnalytics:getAbuseReportSessionEntryPoint() == "" then
+					reportAnythingDispatch({
+						type = Constants.ReportAnythingActions.ClearAll,
+					})
+				end
 			end
 		end)
 	end, { reportAnythingState })
@@ -429,6 +454,12 @@ local AbuseReportMenuNew = function(props: Props)
 								}, {
 									OSALink = React.createElement(OSAReportLink),
 								})
+								else nil,
+							GenericIllegalContentReportLink = if isShowGenericIllegalContentReportingLink()
+								then React.createElement(View, {
+									tag = "size-full-0 auto-y",
+									LayoutOrder = if FFlagUKOSAUpdatedCopy then 3 else 2,
+								}, React.createElement(GenericReportLink))
 								else nil,
 						})
 						else nil,

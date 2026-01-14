@@ -32,15 +32,13 @@ CellTailDescription.validateProps = t.strictInterface({
 	renderTextOverride = t.optional(t.callback),
 	showArrow = t.optional(t.boolean),
 	infoIcon = t.optional(t.string),
-	testId = if UIBloxConfig.addTestIdToComboButtonAndCellTailDescription then t.optional(t.string) else nil,
+	testId = t.optional(t.string),
 })
 
 CellTailDescription.defaultProps = {
 	showArrow = false,
 	infoIcon = nil,
-	testId = if UIBloxConfig.addTestIdToComboButtonAndCellTailDescription
-		then "--uiblox-cell-tail-description"
-		else nil,
+	testId = "--uiblox-cell-tail-description",
 }
 
 function CellTailDescription:init()
@@ -86,9 +84,7 @@ function CellTailDescription:render()
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			AutomaticSize = Enum.AutomaticSize.XY,
-			[React.Tag] = if UIBloxConfig.addTestIdToComboButtonAndCellTailDescription and self.props.testId
-				then `data-testid={self.props.testId}`
-				else nil,
+			[React.Tag] = if self.props.testId then `data-testid={self.props.testId}` else nil,
 		}, {
 			ListLayout = Roact.createElement("UIListLayout", {
 				SortOrder = Enum.SortOrder.LayoutOrder,

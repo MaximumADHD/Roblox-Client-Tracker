@@ -4,8 +4,8 @@ local React = require(Packages.React)
 
 local ElevationLayer = require(Foundation.Enums.ElevationLayer)
 
-local elevation = require(script.Parent.elevation)
 local Provider = require(script.Parent.ElevationProvider)
+local elevation = require(script.Parent.elevation)
 
 local useElevationManager = Provider.useElevationManager
 local useOwnerToken = Provider.useOwnerToken

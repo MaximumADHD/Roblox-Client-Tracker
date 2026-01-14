@@ -1,10 +1,10 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
-local StyleRule = require(Foundation.StyleSheet.StyleRule)
 local Breakpoint = require(Foundation.Enums.Breakpoint)
 local BreakpointShortName = require(Foundation.Enums.BreakpointShortName)
+local React = require(Packages.React)
 local ResponsiveContext = require(Foundation.Providers.Responsive.ResponsiveContext)
+local StyleRule = require(Foundation.StyleSheet.StyleRule)
 
 type ResponsiveConfig = ResponsiveContext.ResponsiveConfig
 type Breakpoint = Breakpoint.Breakpoint

@@ -1,11 +1,11 @@
 local Foundation = script:FindFirstAncestor("Providers").Parent
 
-local React = require(Foundation.Parent.React)
-local Dash = require(Foundation.Parent.Dash)
-local View = require(Foundation.Components.View)
-local TextInput = require(Foundation.Components.TextInput)
 local Checkbox = require(Foundation.Components.Checkbox)
+local Dash = require(Foundation.Parent.Dash)
 local Flags = require(Foundation.Utility.Flags)
+local React = require(Foundation.Parent.React)
+local TextInput = require(Foundation.Components.TextInput)
+local View = require(Foundation.Components.View)
 
 local function FlagsStory()
 	local searchText, setSearchText = React.useState("")

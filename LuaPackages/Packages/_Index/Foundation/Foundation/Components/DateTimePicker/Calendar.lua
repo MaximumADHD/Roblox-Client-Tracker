@@ -17,9 +17,9 @@ local LocalizationService = require(Foundation.Utility.Wrappers).Services.Locali
 local Text = require(Foundation.Components.Text)
 local TextInput = require(Foundation.Components.TextInput)
 local TimeDropdown = require(script.Parent.TimeDropdown)
+local View = require(Foundation.Components.View)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local View = require(Foundation.Components.View)
 
 type Props = {
 	-- Default dates
@@ -317,19 +317,26 @@ local function Calendar(props: Props)
 			local dateTime = DateTimeUtilities.getDateTimeFromText(txt)
 			if dateTime then
 				local newSelectedDateTimes
-				if props.showEndDateTimeCalendarInput then
-					-- Don't update the selectedDateTime state if the date is after the end date
-					if
-						selectedDateTimes[2]
-						and DateTimeUtilities.roundToStartOfDay(dateTime)
-							> DateTimeUtilities.roundToStartOfDay(selectedDateTimes[2])
-					then
-						return
-					end
 
-					newSelectedDateTimes = { dateTime, selectedDateTimes[2] }
+				if Flags.FoundationDateTimePickerDualBugFix then
+					newSelectedDateTimes = if props.showEndDateTimeCalendarInput
+						then { dateTime, selectedDateTimes[2] }
+						else { dateTime }
 				else
-					newSelectedDateTimes = { dateTime }
+					if props.showEndDateTimeCalendarInput then
+						-- Don't update the selectedDateTime state if the date is after the end date
+						if
+							selectedDateTimes[2]
+							and DateTimeUtilities.roundToStartOfDay(dateTime)
+								> DateTimeUtilities.roundToStartOfDay(selectedDateTimes[2])
+						then
+							return
+						end
+
+						newSelectedDateTimes = { dateTime, selectedDateTimes[2] }
+					else
+						newSelectedDateTimes = { dateTime }
+					end
 				end
 
 				local localDateTime = dateTime:ToLocalTime()

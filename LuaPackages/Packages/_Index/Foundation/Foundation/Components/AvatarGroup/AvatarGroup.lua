@@ -3,17 +3,17 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
+local Avatar = require(Foundation.Components.Avatar)
+local ColorMode = require(Foundation.Enums.ColorMode)
+local Icon = require(Foundation.Components.Icon)
+local IconSize = require(Foundation.Enums.IconSize)
+local InputSize = require(Foundation.Enums.InputSize)
+local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
-local Text = require(Foundation.Components.Text)
-local Icon = require(Foundation.Components.Icon)
-local Avatar = require(Foundation.Components.Avatar)
-local withDefaults = require(Foundation.Utility.withDefaults)
-local withCommonProps = require(Foundation.Utility.withCommonProps)
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local ColorMode = require(Foundation.Enums.ColorMode)
-local InputSize = require(Foundation.Enums.InputSize)
-local IconSize = require(Foundation.Enums.IconSize)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 type InputSize = InputSize.InputSize
 local UserPresence = require(Foundation.Enums.UserPresence)
 type UserPresence = UserPresence.UserPresence

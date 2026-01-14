@@ -1,8 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local PopoverSide = require(Foundation.Enums.PopoverSide)
-local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local Flags = require(Foundation.Utility.Flags)
+local PopoverAlign = require(Foundation.Enums.PopoverAlign)
+local PopoverSide = require(Foundation.Enums.PopoverSide)
 
 type PopoverSide = PopoverSide.PopoverSide
 type PopoverAlign = PopoverAlign.PopoverAlign

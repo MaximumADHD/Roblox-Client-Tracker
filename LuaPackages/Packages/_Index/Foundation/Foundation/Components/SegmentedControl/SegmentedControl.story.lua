@@ -3,10 +3,10 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
+local InputSize = require(Foundation.Enums.InputSize)
+local SegmentedControl = require(Foundation.Components.SegmentedControl)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
-local SegmentedControl = require(Foundation.Components.SegmentedControl)
-local InputSize = require(Foundation.Enums.InputSize)
 
 local segments = {
 	{

@@ -4,8 +4,8 @@ local BuilderIcons = require(Packages.BuilderIcons)
 local IconName = BuilderIcons.Icon
 local React = require(Packages.React)
 local Text = require(Foundation.Components.Text)
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local getIconRichText = require(Foundation.Utility.getIconRichText)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 return {
 	summary = "Text",

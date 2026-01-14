@@ -1,18 +1,18 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 local ReactUtils = require(Packages.ReactUtils)
 local usePrevious = ReactUtils.usePrevious
 local Wrappers = require(Foundation.Utility.Wrappers)
 local Instance = Wrappers.Instance
 
 local Breakpoint = require(Foundation.Enums.Breakpoint)
-local useResponsive = require(Foundation.Providers.Responsive.useResponsive)
-local ResponsiveContext = require(Foundation.Providers.Responsive.ResponsiveContext)
-local withDefaults = require(Foundation.Utility.withDefaults)
 local Constants = require(Foundation.Constants)
+local ResponsiveContext = require(Foundation.Providers.Responsive.ResponsiveContext)
+local useResponsive = require(Foundation.Providers.Responsive.useResponsive)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 type BreakpointConfig = ResponsiveContext.BreakpointConfig
 type Breakpoint = Breakpoint.Breakpoint

@@ -4,8 +4,8 @@ local Types = require(Foundation.Components.Types)
 
 type Tags = Types.Tags
 
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local function useDefaultTags(tags: Tags?, defaults: string): Tags
 	return React.useMemo(function()

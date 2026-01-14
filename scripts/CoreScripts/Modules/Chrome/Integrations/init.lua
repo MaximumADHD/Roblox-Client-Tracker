@@ -13,7 +13,6 @@ return {
 	TrustAndSafety = require(script.TrustAndSafety),
 	DummyWindow = require(script.DummyWindow),
 	DummyWindow2 = require(script.DummyWindow2),
-	DummyContainer = require(script.DummyContainer),
 	ToggleMic = require(script.ToggleMic),
 	JoinVoice = require(script.JoinVoice),
 	SelfieView = require(script.SelfieView),

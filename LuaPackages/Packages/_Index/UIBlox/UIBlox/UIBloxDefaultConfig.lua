@@ -2,12 +2,6 @@ return {
 	-- fix conditional hooks in CoPlayFooter
 	fixCoplayFooterConditionalHooks = false,
 
-	-- add testid prop to combo button
-	addTestIdToComboButtonAndCellTailDescription = false,
-
-	-- add testid prop to action bar
-	addTestIdToActionBar = false,
-
 	-- enable trace level log
 	enableTraceLevelLog = false,
 
@@ -23,9 +17,6 @@ return {
 	-- Indicate whether the fix for the the TooltipV2 body font is enabled
 	enableTooltipV2BodyFontFix = false,
 
-	-- Disable token scaling for console
-	disableTokenScalingForConsole = false,
-
 	-- Enable OpenType support
 	enableOpenTypeSupport = false,
 
@@ -37,15 +28,6 @@ return {
 
 	-- Update FullPageModal sizing on mount
 	didMountUpdateFullPageModal = false,
-
-	-- Consolidate AnimatedGradients and update to use Foundation tokens
-	updateAnimatedGradient = false,
-
-	-- Uses engine rich text support for GetTextBoundsAsync
-	useEngineRichTextBounds = false,
-
-	-- Adds BuilderIcon migration to createImageSetComponent,
-	migrateBuilderIcon = false,
 
 	-- Use design tokens for sizing the shortcut bar
 	useTokenizedShortcutBar = false,

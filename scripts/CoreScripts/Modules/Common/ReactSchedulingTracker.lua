@@ -90,7 +90,8 @@ local KllSketch = InExperiencePerformance.KllSketch
 
 local SKETCH_ALL_KEY = "all"
 local SKETCH_PERCENTILES = string.split(FStringReactSchedulingPercentiles)
-local CommonUtil = require(script.Parent.CommonUtil)
+local CorePackages = game:GetService("CorePackages")
+local DeviceTier = require(CorePackages.Workspace.Packages.Devices).DeviceTier
 
 type FiberRoot = ReactReconciler.FiberRoot
 
@@ -110,7 +111,7 @@ local function getCurrentTimeMs(): number
 	return os.clock() * 1000
 end
 
-local deviceTier = CommonUtil.GetDeviceMemoryTier()
+local deviceTier = DeviceTier.GetDeviceMemoryTier()
 
 local SchedulerStateMachine = {}
 SchedulerStateMachine.__index = SchedulerStateMachine

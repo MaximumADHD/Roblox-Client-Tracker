@@ -19,15 +19,19 @@ local log = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).Core
 local CallProtocol = require(CorePackages.Workspace.Packages.CallProtocol).CallProtocol.default
 local CallProtocolEnums = require(CorePackages.Workspace.Packages.CallProtocol).Enums
 
-local FFlagLoadStreamAnimationReplaceErrorsWithTelemetry = game:GetEngineFeature("LoadStreamAnimationReplaceErrorsWithTelemetryFeature")
-local FFlagFaceAnimatorNotifyLODRecommendCameraInputDisable = game:GetEngineFeature("FaceAnimatorNotifyLODRecommendCameraInputDisable")
-local FFlagFacialAnimationStreamingClearTrackImprovementsV2 = game:DefineFastFlag("FacialAnimationStreamingClearTrackImprovementsV2", false)
-game:DefineFastFlag("FacialAnimationStreamingValidateAnimatorBeforeRemoving",false)
+local FFlagLoadStreamAnimationReplaceErrorsWithTelemetry =
+	game:GetEngineFeature("LoadStreamAnimationReplaceErrorsWithTelemetryFeature")
+local FFlagFaceAnimatorNotifyLODRecommendCameraInputDisable =
+	game:GetEngineFeature("FaceAnimatorNotifyLODRecommendCameraInputDisable")
+local FFlagFacialAnimationStreamingClearTrackImprovementsV2 =
+	game:DefineFastFlag("FacialAnimationStreamingClearTrackImprovementsV2", false)
+game:DefineFastFlag("FacialAnimationStreamingValidateAnimatorBeforeRemoving", false)
 game:DefineFastFlag("FacialAnimationStreamingSearchForReplacementWhenRemovingAnimator", false)
 game:DefineFastFlag("StopStreamTrackOnDeath", false)
 game:DefineFastFlag("FacialAnimationStreamingClearAllConnectionsFix2", false)
 game:DefineFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C", false)
-local GetFFlagAvatarChatServiceEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
+local GetFFlagAvatarChatServiceEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
 local AvatarChatService = if GetFFlagAvatarChatServiceEnabled() then game:GetService("AvatarChatService") else nil
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 local FFlagUXForCameraPerformanceEnabled = game:DefineFastFlag("UXForCameraPerformanceEnabled", false)
@@ -35,8 +39,10 @@ local FFlagDisableCameraOnLowspecAndroidCalls = game:DefineFastFlag("DisableCame
 
 local FIntUXForCameraPerformanceSessionDelay = game:DefineFastInt("UXForCameraPerformanceSessionDelay", 300) -- in seconds
 local FIntUXForCameraPerformanceDeviceDelay = game:DefineFastInt("UXForCameraPerformanceDeviceDelay", 43200) -- in seconds
-local GetFFlagUXForCameraPerformanceIXPEnabled = require(RobloxGui.Modules.Flags.GetFFlagUXForCameraPerformanceIXPEnabled)
-local GetFStringUXForCameraPerformanceIXPLayerName = require(RobloxGui.Modules.Flags.GetFStringUXForCameraPerformanceIXPLayerName)
+local GetFFlagUXForCameraPerformanceIXPEnabled =
+	require(RobloxGui.Modules.Flags.GetFFlagUXForCameraPerformanceIXPEnabled)
+local GetFStringUXForCameraPerformanceIXPLayerName =
+	require(RobloxGui.Modules.Flags.GetFStringUXForCameraPerformanceIXPLayerName)
 
 local isCamEnabledForUserAndPlace = function()
 	return true
@@ -70,7 +76,7 @@ local Connections = {
 	PlayerEmoted = "PlayerEmoted",
 	PlayerChatted = "PlayerChatted",
 	EmoteFinished = "EmoteFinished",
-	PlayerDied = "PlayerDied"
+	PlayerDied = "PlayerDied",
 }
 
 local PlaceUnavailableMessage = RobloxTranslator:FormatByKey("Feature.FaceChat.Message.PlaceUnavailable")
@@ -120,11 +126,11 @@ end
 
 local function clearAllConnections(player)
 	if game:GetFastFlag("FacialAnimationStreamingClearAllConnectionsFix2") then
-		for _,connectionType in pairs(Connections) do
+		for _, connectionType in pairs(Connections) do
 			clearConnection(player, connectionType)
 		end
 	else
-		for _,connectionType in ipairs(Connections) do
+		for _, connectionType in ipairs(Connections) do
 			clearConnection(player, connectionType)
 		end
 	end
@@ -226,18 +232,24 @@ local function handleEmote(player, emoteTrack, isChatTriggered)
 		pauseStreamingAnimationForPlayer(player)
 
 		-- wait for the emote to finish
-		playerConnections[player.UserId][Connections.EmoteFinished] = EmoteHelper.createEmoteFinishEvent(player, emoteTrack, isChatTriggered):Connect(function()
-			-- clear observer
-			clearConnection(player, Connections.EmoteFinished)
-			-- resume streaming animations
-			--shouldPlayStreamTrack check here so it does not increase the weight of the stream track if mic/ cam not on and so then idle anims work after emote played
-			local shouldPlayStreamTrack = FaceAnimatorService.AudioAnimationEnabled or FaceAnimatorService.VideoAnimationEnabled
-			if shouldPlayStreamTrack then
-				resumeStreamingAnimationForPlayer(player)
-			else
-				pauseStreamingAnimationForPlayer(player)
-			end
-		end)
+		playerConnections[player.UserId][Connections.EmoteFinished] = EmoteHelper.createEmoteFinishEvent(
+			player,
+			emoteTrack,
+			isChatTriggered
+		)
+			:Connect(function()
+				-- clear observer
+				clearConnection(player, Connections.EmoteFinished)
+				-- resume streaming animations
+				--shouldPlayStreamTrack check here so it does not increase the weight of the stream track if mic/ cam not on and so then idle anims work after emote played
+				local shouldPlayStreamTrack = FaceAnimatorService.AudioAnimationEnabled
+					or FaceAnimatorService.VideoAnimationEnabled
+				if shouldPlayStreamTrack then
+					resumeStreamingAnimationForPlayer(player)
+				else
+					pauseStreamingAnimationForPlayer(player)
+				end
+			end)
 	end
 end
 
@@ -301,7 +313,8 @@ local function onAnimatorAdded(player, animator)
 		playerAnimation.animationTrack:Play(0.1, 1)
 
 		playerAnimations[player.UserId] = playerAnimation
-		local shouldPlayStreamTrack = FaceAnimatorService.AudioAnimationEnabled or FaceAnimatorService.VideoAnimationEnabled
+		local shouldPlayStreamTrack = FaceAnimatorService.AudioAnimationEnabled
+			or FaceAnimatorService.VideoAnimationEnabled
 		if player == Players.LocalPlayer and not shouldPlayStreamTrack then
 			pauseStreamingAnimationForPlayer(player)
 		end
@@ -318,14 +331,16 @@ local function onAnimatorAdded(player, animator)
 	else
 		-- animator's DataModel is not ready yet
 		-- we listen for changes in the ancestry
-		playerConnections[player.UserId][Connections.AnimatorDataModelReady] = animator.AncestryChanged:Connect(function (child, parent)
-			-- check if data model is ready
-			if animator:IsDescendantOf(game) then
-				-- stop listening for changes in the ancestry
-				clearConnection(player, Connections.AnimatorDataModelReady)
-				setupAnimator()
+		playerConnections[player.UserId][Connections.AnimatorDataModelReady] = animator.AncestryChanged:Connect(
+			function(child, parent)
+				-- check if data model is ready
+				if animator:IsDescendantOf(game) then
+					-- stop listening for changes in the ancestry
+					clearConnection(player, Connections.AnimatorDataModelReady)
+					setupAnimator()
+				end
 			end
-		end)
+		)
 	end
 end
 
@@ -336,11 +351,13 @@ local function onHumanoidAdded(player, humanoid)
 
 	-- start listening for emotes
 	clearConnection(player, Connections.PlayerEmoted)
-	playerConnections[player.UserId][Connections.PlayerEmoted] = humanoid.EmoteTriggered:Connect(function(emoteSuccess, emoteTrack)
-		if emoteSuccess then
-			handleEmote(player, emoteTrack, false)
+	playerConnections[player.UserId][Connections.PlayerEmoted] = humanoid.EmoteTriggered:Connect(
+		function(emoteSuccess, emoteTrack)
+			if emoteSuccess then
+				handleEmote(player, emoteTrack, false)
+			end
 		end
-	end)
+	)
 
 	if game:GetFastFlag("StopStreamTrackOnDeath") then
 		-- listen for when player dies
@@ -392,9 +409,15 @@ local function onCharacterDescendantAdded(player, descendant)
 			onAnimatorAdded(player, descendant)
 		elseif descendant:IsA("Humanoid") then
 			onHumanoidAdded(player, descendant)
-		elseif game:GetFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C") and descendant:IsA("MeshPart") and descendant.Name == "Head" then
+		elseif
+			game:GetFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C")
+			and descendant:IsA("MeshPart")
+			and descendant.Name == "Head"
+		then
 			onFaceControlsAdded(player, getPlayerFaceControls(player))
-		elseif game:GetFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C") and descendant:IsA("FaceControls") then
+		elseif
+			game:GetFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C") and descendant:IsA("FaceControls")
+		then
 			onFaceControlsAdded(player, descendant)
 		end
 	end
@@ -425,8 +448,10 @@ local function onCharacterDescendantRemoving(player, descendant)
 		if game:GetFastFlag("StopStreamTrackOnDeath") then
 			clearConnection(player, Connections.PlayerDied)
 		end
-	elseif game:GetFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C")
-		and ((descendant:IsA("MeshPart") and descendant.Name == "Head") or descendant:IsA("FaceControls")) then
+	elseif
+		game:GetFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C")
+		and ((descendant:IsA("MeshPart") and descendant.Name == "Head") or descendant:IsA("FaceControls"))
+	then
 		onFaceControlsAdded(player, getPlayerFaceControls(player))
 	end
 end
@@ -439,12 +464,16 @@ local function onCharacterAdded(player, character)
 	clearConnection(player, Connections.CharacterDescendantRemoving)
 
 	-- listen for descendants of the character
-	playerConnections[player.UserId][Connections.CharacterDescendantAdded] = character.DescendantAdded:Connect(function(descendant)
-		onCharacterDescendantAdded(player, descendant)
-	end)
-	playerConnections[player.UserId][Connections.CharacterDescendantRemoving] = character.DescendantRemoving:Connect(function(descendant)
-		onCharacterDescendantRemoving(player, descendant)
-	end)
+	playerConnections[player.UserId][Connections.CharacterDescendantAdded] = character.DescendantAdded:Connect(
+		function(descendant)
+			onCharacterDescendantAdded(player, descendant)
+		end
+	)
+	playerConnections[player.UserId][Connections.CharacterDescendantRemoving] = character.DescendantRemoving:Connect(
+		function(descendant)
+			onCharacterDescendantRemoving(player, descendant)
+		end
+	)
 
 	if game:GetFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C") then
 		onFaceControlsAdded(player, getPlayerFaceControls(player))
@@ -500,9 +529,11 @@ local function playerUpdate(player)
 		playerConnections[player.UserId][Connections.CharacterAdded] = player.CharacterAdded:Connect(function(character)
 			onCharacterAdded(player, character)
 		end)
-		playerConnections[player.UserId][Connections.CharacterRemoving] = player.CharacterRemoving:Connect(function(character)
-			onCharacterRemoving(player, character)
-		end)
+		playerConnections[player.UserId][Connections.CharacterRemoving] = player.CharacterRemoving:Connect(
+			function(character)
+				onCharacterRemoving(player, character)
+			end
+		)
 		playerConnections[player.UserId][Connections.PlayerChatted] = player.Chatted:Connect(function(msg)
 			onPlayerChatted(player, msg)
 		end)
@@ -649,19 +680,25 @@ function InitializeVoiceChat()
 	end
 
 	if VoiceChatServiceManager then
-		VoiceChatServiceManager:asyncInit():catch(function(error)
-			log:trace("VoiceChat:asyncInit failed (possibly denied mic permission)")
-		end):finally(onCompletion)
+		VoiceChatServiceManager:asyncInit()
+			:catch(function(error)
+				log:trace("VoiceChat:asyncInit failed (possibly denied mic permission)")
+			end)
+			:finally(onCompletion)
 
 		-- Sync VoiceChat mute status with FaceAnimatorService.AudioAnimationEnabled
 		voiceChatMuteConnection = VoiceChatServiceManager.muteChanged.Event:connect(function(muted)
 			if game:GetFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C") then
 				local faceControls = getPlayerFaceControls(Players.LocalPlayer)
-				log:trace("Syncing audio processing with VoiceChat mute changed: muted="..tostring(muted)
-					.. " hasFaceControls="..tostring(faceControls ~= nil))
+				log:trace(
+					"Syncing audio processing with VoiceChat mute changed: muted="
+						.. tostring(muted)
+						.. " hasFaceControls="
+						.. tostring(faceControls ~= nil)
+				)
 				FaceAnimatorService.AudioAnimationEnabled = not muted and faceControls ~= nil
 			else
-				log:trace("Syncing audio processing with VoiceChat mute changed: muted="..tostring(muted))
+				log:trace("Syncing audio processing with VoiceChat mute changed: muted=" .. tostring(muted))
 				FaceAnimatorService.AudioAnimationEnabled = not muted
 			end
 		end)
@@ -669,12 +706,17 @@ function InitializeVoiceChat()
 		-- Initially set audio enable to false until VoiceChat mic is enabled
 		local initialAudioEnabled = false
 		if VoiceChatServiceManager.localMuted ~= nil then
-			log:trace("Syncing audio processing with VoiceChat mute status: muted="..tostring(VoiceChatServiceManager.localMuted))
+			log:trace(
+				"Syncing audio processing with VoiceChat mute status: muted="
+					.. tostring(VoiceChatServiceManager.localMuted)
+			)
 			initialAudioEnabled = not VoiceChatServiceManager.localMuted
 		end
 		if game:GetFastFlag("FacialAnimationStreamingIfNoDynamicHeadDisableA2C") then
 			local faceControls = getPlayerFaceControls(Players.LocalPlayer)
-			log:trace("Syncing audio processing with Dynamic Head status: hasFaceControls="..tostring(faceControls ~= nil))
+			log:trace(
+				"Syncing audio processing with Dynamic Head status: hasFaceControls=" .. tostring(faceControls ~= nil)
+			)
 			initialAudioEnabled = initialAudioEnabled and faceControls ~= nil
 		end
 		FaceAnimatorService.AudioAnimationEnabled = initialAudioEnabled
@@ -700,11 +742,11 @@ function InitializeFacialAnimationStreaming(settings)
 	-- Handle TrackerErrors
 	trackerErrorConnection = FaceAnimatorService.TrackerError:Connect(function(error)
 		playerTrace(string.format("TrackerError: %s", tostring(error)), nil)
-		if error == (Enum::any).TrackerError.VideoNoPermission then
+		if error == (Enum :: any).TrackerError.VideoNoPermission then
 			TrackerMenu:showPrompt(TrackerPromptType.VideoNoPermission)
-		elseif error == (Enum::any).TrackerError.VideoUnsupported then
+		elseif error == (Enum :: any).TrackerError.VideoUnsupported then
 			TrackerMenu:showPrompt(TrackerPromptType.VideoUnsupported)
-		elseif error == (Enum::any).TrackerError.UnsupportedDevice then
+		elseif error == (Enum :: any).TrackerError.UnsupportedDevice then
 			TrackerMenu:showPrompt(TrackerPromptType.UnsupportedDevice)
 		else
 			TrackerMenu:showPrompt(TrackerPromptType.NotAvailable)
@@ -719,14 +761,15 @@ function InitializeFacialAnimationStreaming(settings)
 	if GetFFlagAvatarChatServiceEnabled() then
 		FaceAnimatorService:Init(
 			AvatarChatService:IsEnabled(settings, Enum.AvatarChatServiceFeature.UserVideo),
-			AvatarChatService:IsEnabled(settings, Enum.AvatarChatServiceFeature.UserAudio))
+			AvatarChatService:IsEnabled(settings, Enum.AvatarChatServiceFeature.UserAudio)
+		)
 	end
 
 	if FFlagFaceAnimatorNotifyLODRecommendCameraInputDisable then
 		-- Handle prompts from FaceAnimatorService
 		trackerPromptConnection = FaceAnimatorService.TrackerPrompt:Connect(function(prompt)
 			playerTrace(string.format("TrackerPrompt: %s", tostring(prompt)), nil)
-			if prompt == (Enum::any).TrackerPromptEvent.LODCameraRecommendDisable then
+			if prompt == (Enum :: any).TrackerPromptEvent.LODCameraRecommendDisable then
 				if FFlagUXForCameraPerformanceEnabled then
 					AttemptToShowCameraPerformanceToast()
 				else
@@ -756,7 +799,7 @@ function InitializeFacialAnimationStreaming(settings)
 
 		InitializeVoiceChat()
 		-- we want to let eligible players join with FAS regardless of their voice status
-		-- therefore we can add players and connect their audio/video states without waiting for VCSM 
+		-- therefore we can add players and connect their audio/video states without waiting for VCSM
 		JoinAllExistingPlayers()
 		heartbeatStats.Initialize()
 	end)
@@ -804,8 +847,10 @@ local function updateWithServiceState(settings)
 	log:trace(string.format("[updateWithServiceState] state: %s", tostring(settings)))
 
 	if GetFFlagAvatarChatServiceEnabled() then
-		local avatarChatEligible = AvatarChatService:IsEnabled(settings, Enum.AvatarChatServiceFeature.UserAudioEligible)
-			or AvatarChatService:IsEnabled(settings, Enum.AvatarChatServiceFeature.UserVideoEligible)
+		local avatarChatEligible = AvatarChatService:IsEnabled(
+			settings,
+			Enum.AvatarChatServiceFeature.UserAudioEligible
+		) or AvatarChatService:IsEnabled(settings, Enum.AvatarChatServiceFeature.UserVideoEligible)
 
 		if avatarChatEligible and AvatarChatService:IsPlaceEnabled() then
 			InitializeFacialAnimationStreaming(settings)
@@ -818,12 +863,14 @@ local function updateWithServiceState(settings)
 	end
 end
 
-audioAnimationToggledConnection = FaceAnimatorService:GetPropertyChangedSignal("AudioAnimationEnabled"):Connect(function()
-	updateStreamTrackStatus()
-end)
-videoAnimationToggledConnection = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"):Connect(function()
-	updateStreamTrackStatus()
-end)
+audioAnimationToggledConnection = FaceAnimatorService:GetPropertyChangedSignal("AudioAnimationEnabled")
+	:Connect(function()
+		updateStreamTrackStatus()
+	end)
+videoAnimationToggledConnection = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled")
+	:Connect(function()
+		updateStreamTrackStatus()
+	end)
 
 -- Listen for service state
 if GetFFlagAvatarChatServiceEnabled() then

@@ -5,7 +5,8 @@ local FFlagEnableCorescriptMemoryTracker = game:DefineFastFlag("EnableCorescript
 -- Deps
 local StatsService = game:GetService("Stats")
 local TelemetryService = game:GetService("TelemetryService")
-local CommonUtil = require(script.Parent.CommonUtil)
+local CorePackages = game:GetService("CorePackages")
+local DeviceTier = require(CorePackages.Workspace.Packages.Devices).DeviceTier
 
 local DOCS_LINK = "https://docs.google.com/document/d/1BEOgxPzSelCLEHdrHdD_8Kh4ssIcGLlndDXrLmIBNmk"
 
@@ -126,7 +127,7 @@ function CorescriptMemoryTracker.report(self: CorescriptMemoryTracker, context, 
     TelemetryService:LogStat(
         MemoryStatConfig,
         { customFields = {
-            deviceTier = CommonUtil.GetDeviceMemoryTier(),
+            deviceTier = DeviceTier.GetDeviceMemoryTier(),
             context = context,
         } },
         memory
@@ -137,7 +138,7 @@ function CorescriptMemoryTracker.reportMaxMemoryUsed(self: CorescriptMemoryTrack
     TelemetryService:LogStat(
         SessionMaxMemoryStatConfig,
         { customFields = {
-            deviceTier = CommonUtil.GetDeviceMemoryTier(),
+            deviceTier = DeviceTier.GetDeviceMemoryTier(),
             context = context,
         } },
         maxMemoryInSession

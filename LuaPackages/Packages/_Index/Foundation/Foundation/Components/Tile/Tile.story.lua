@@ -1,6 +1,6 @@
-local UserService = game:GetService("UserService")
 local MarketplaceService = game:GetService("MarketplaceService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserService = game:GetService("UserService")
 
 local _, InsertService = pcall(function()
 	return game:GetService("InsertService")
@@ -14,28 +14,28 @@ local Packages = Foundation.Parent
 
 local Players = require(Foundation.Utility.Wrappers).Services.Players
 
+local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
-local Dash = require(Packages.Dash)
 
-local Tile = require(Foundation.Components.Tile)
-local MediaType = require(Foundation.Enums.MediaType)
 local MediaShape = require(Foundation.Enums.MediaShape)
+local MediaType = require(Foundation.Enums.MediaType)
 local Theme = require(Foundation.Enums.Theme)
+local Tile = require(Foundation.Components.Tile)
 
 local Icon = require(Foundation.Components.Icon)
-local Image = require(Foundation.Components.Image)
 local IconSize = require(Foundation.Enums.IconSize)
+local Image = require(Foundation.Components.Image)
 
 local Button = require(Foundation.Components.Button)
-local InputSize = require(Foundation.Enums.InputSize)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+local InputSize = require(Foundation.Enums.InputSize)
 
 local Text = require(Foundation.Components.Text)
-local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
-local useTokens = require(Foundation.Providers.Style.useTokens)
+local View = require(Foundation.Components.View)
 local useTextSizeOffset = require(Foundation.Providers.Style.useTextSizeOffset)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local ObjectViewport = require(script.Parent.ObjectViewport)
 

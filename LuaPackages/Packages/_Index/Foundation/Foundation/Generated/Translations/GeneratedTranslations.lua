@@ -960,7 +960,7 @@ return {
 			["id"] = "Pilih waktu",
 			["it"] = "Seleziona l'ora",
 			["ja"] = "時間を選択",
-			["ko"] = "",
+			["ko"] = "시간 선택",
 			["pt"] = "Selecione o horário",
 			["pt-br"] = "Selecione o horário",
 			["ru"] = "",

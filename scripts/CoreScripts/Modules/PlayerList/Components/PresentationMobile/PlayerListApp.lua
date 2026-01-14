@@ -26,9 +26,6 @@ local ChromeEnabled = require(Modules.Chrome.Enabled)()
 local Foundation = require(CorePackages.Packages.Foundation)
 local useTokens = Foundation.Hooks.useTokens
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
-
 local Presentation = script.Parent
 local PlayerList = Presentation.Parent.Parent
 
@@ -113,7 +110,7 @@ local function playerListSizeFromViewportSize(self, viewportSize, uiScale, playe
 
 	-- Increase y-axis border to avoid chrome overlap on landscape
 	if ChromeEnabled and viewportSize.y < viewportSize.x then
-		sY -= (TopBarConstants.TopBarHeight * (if FFlagTopBarStyleUseDisplayUIScale then self.state.UiScale else 1) - BORDER_SIZE)
+		sY -= (TopBarConstants.TopBarHeight * self.state.UiScale - BORDER_SIZE)
 	end
 
 	return UDim2.fromOffset(sX, sY)
@@ -148,14 +145,12 @@ function PlayerListApp:init()
 		visible = false,
 	}
 
-	if FFlagTopBarStyleUseDisplayUIScale or FFlagUseNewPlayerList then
-		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
-			local DisplayStore = Display.GetDisplayStore(scope)
-			self:setState({
-				UiScale = DisplayStore.getUIScale(scope),
-			})
-		end)
-	end
+	self.disposeUiScaleEffect = Signals.createEffect(function(scope)
+		local DisplayStore = Display.GetDisplayStore(scope)
+		self:setState({
+			UiScale = DisplayStore.getUIScale(scope),
+		})
+	end)
 
 	self.bodyTransparency, self.updateBodyTransparency = Roact.createBinding(0.5)
 	self.bodyTransparencyMotor = Otter.createSingleMotor(1)
@@ -286,12 +281,7 @@ function PlayerListApp:render()
 			local teamCount = getTeamCount(self.props.teams, self.props.players)
 			previousSizeBound = previousSizeBound + teamCount * OLD_PLAYERLIST_TEAM_ENTRY_SIZE
 		end
-		local topBarHeight
-		if FFlagTopBarStyleUseDisplayUIScale then
-			topBarHeight = TopBarConstants.TopBarHeight * self.state.UiScale
-		else
-			topBarHeight = TopBarConstants.TopBarHeight
-		end
+		local topBarHeight = TopBarConstants.TopBarHeight * self.state.UiScale
 
 		local childElements = {}
 
@@ -361,7 +351,7 @@ end
 
 function PlayerListApp:willUnmount()
 	self.props.setLayerCollectorEnabled(true)
-	if (FFlagTopBarStyleUseDisplayUIScale or FFlagUseNewPlayerList) and self.disposeUiScaleEffect then
+	if self.disposeUiScaleEffect then
 		self.disposeUiScaleEffect()
 	end
 end

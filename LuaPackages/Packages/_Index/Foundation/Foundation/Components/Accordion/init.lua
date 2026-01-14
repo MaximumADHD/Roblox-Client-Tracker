@@ -1,5 +1,5 @@
-local AccordionRoot = require(script.Accordion)
 local AccordionItem = require(script.Item)
+local AccordionRoot = require(script.Accordion)
 
 local Accordion = {
 	Root = AccordionRoot,

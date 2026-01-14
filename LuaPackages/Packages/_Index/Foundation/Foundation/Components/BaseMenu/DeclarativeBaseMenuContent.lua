@@ -1,15 +1,15 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local Types = require(Foundation.Components.Types)
 type ItemId = Types.ItemId
 type OnItemActivated = Types.OnItemActivated
 
-local BaseMenuItem = require(script.Parent.BaseMenuItem)
 local BaseMenuGroup = require(script.Parent.BaseMenuGroup)
+local BaseMenuItem = require(script.Parent.BaseMenuItem)
 
 export type BaseMenuItem = {
 	id: ItemId,

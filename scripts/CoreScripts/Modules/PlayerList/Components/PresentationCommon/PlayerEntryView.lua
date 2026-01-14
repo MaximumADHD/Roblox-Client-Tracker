@@ -52,6 +52,7 @@ type PlayerEntry = LeaderboardStore.PlayerEntry
 type GameStatList = LeaderboardStore.GameStatList
 type GameStat = LeaderboardStore.GameStat
 type StatList = LeaderboardStore.StatList
+type StatEntry = LeaderboardStore.StatEntry
 
 type ColorStyle = {
 	Color: Color3,
@@ -257,21 +258,22 @@ local function PlayerEntryChildren(props: PlayerEntryChildrenProps)
 			return if gameStats then gameStats.getAllData(scope) else {}
 		end))
 
-		if playerStats then
-			for gameStatName, gameStatData in gameStatsData do
-				if gameStatData.order(false) > maxLeaderstats then
-					continue
-				end
+		local playerStatsData = SignalsReact.useSignalState(Signals.createComputed(function(scope): { [string]: StatEntry }
+			return if playerStats then playerStats.getAllData(scope) else {}
+		end))
 
-				local playerStat = playerStats.getData(gameStatName, false)
-				children["GameStat_" .. gameStatName] = React.createElement(
-					StatEntryContainer,
-					Cryo.Dictionary.join(statProps, {
-						statName = gameStatName,
-						stat = playerStat,
-					})
-				)
+		for gameStatName, gameStatData in gameStatsData do
+			if gameStatData.order(false) > maxLeaderstats then
+				continue
 			end
+
+			children["GameStat_" .. gameStatName] = React.createElement(
+				StatEntryContainer,
+				Cryo.Dictionary.join(statProps, {
+					statName = gameStatName,
+					stat = playerStatsData[gameStatName],
+				})
+			)
 		end
 	else
 		if gameStats and gameStatsCount and gameStatsCount > 0 and playerStats and playerStatsCount and playerStatsCount >= 0 then

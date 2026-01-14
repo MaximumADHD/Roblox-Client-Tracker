@@ -14,29 +14,20 @@ local Modules = RobloxGui.Modules
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local SettingsPageFactory = require(Modules.Settings.SettingsPageFactory)
-local Theme = require(Modules.Settings.Theme)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration['uiblox']
 
 local GetFFlagFixIGMTabTransitions = require(script.Parent.Parent.Flags.GetFFlagFixIGMTabTransitions)
-local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
 
 -- Initialize page
 local this = SettingsPageFactory:CreateNewPage()
 
 -- Tab Header customization
 this.TabHeader.Name = "CapturesTab"
-if FFlagBuilderIcons then
-	local icon = if ChromeEnabled then migrationLookup["icons/controls/cameraOff"] else migrationLookup["icons/controls/screenshot"]
-	this.TabHeader.TabLabel.Icon.Text = icon.name
-	this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
-else
-	local icon = if ChromeEnabled then Theme.Images["icons/controls/cameraOff"] else Theme.Images["icons/controls/screenshot"]
-	this.TabHeader.TabLabel.Icon.Image = icon.Image
-	this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
-	this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
-end
+local icon = if ChromeEnabled then migrationLookup["icons/controls/cameraOff"] else migrationLookup["icons/controls/screenshot"]
+this.TabHeader.TabLabel.Icon.Text = icon.name
+this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
 
 this.TabHeader.TabLabel.Title.AutoLocalize = false
 this.TabHeader.TabLabel.Title.Text = RobloxTranslator:FormatByKey("Feature.SettingsHub.Label.Captures")

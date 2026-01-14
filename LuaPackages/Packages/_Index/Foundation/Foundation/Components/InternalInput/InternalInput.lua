@@ -5,26 +5,26 @@ local Flags = require(Foundation.Utility.Flags)
 local Motion = require(Packages.Motion)
 local useMotion = Motion.useMotion
 
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local Components = Foundation.Components
 local InputLabel = require(Components.InputLabel)
-local View = require(Components.View)
 local Types = require(Components.Types)
+local View = require(Components.View)
 type ColorStyleValue = Types.ColorStyleValue
 type Padding = Types.Padding
 
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 
-local useInputVariants = require(script.Parent.useInputVariants)
 local useInputMotionStates = require(script.Parent.useInputMotionStates)
+local useInputVariants = require(script.Parent.useInputVariants)
 export type InputColors = useInputMotionStates.InputColors
 
+local getInputTextSize = require(Foundation.Utility.getInputTextSize)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local getInputTextSize = require(Foundation.Utility.getInputTextSize)
 
 local Constants = require(Foundation.Constants)
 
@@ -57,8 +57,6 @@ type Props = {
 	-- Whether the input is disabled. When `true`, the `onActivated` callback
 	-- will not be invoked, even if the user interacts with the input.
 	isDisabled: boolean?,
-	-- remove when Flags.FoundationToggleEndPlacementJustifyContent is removed
-	justifyContent: boolean?,
 	-- A function that will be called whenever the input is activated.
 	-- Returns the new value of the input when uncontrolled.
 	onActivated: (boolean) -> (),
@@ -76,7 +74,6 @@ type Props = {
 local defaultProps = {
 	size = InputSize.Medium,
 	Selectable = true,
-	justifyContent = true,
 	testId = "--foundation-internal-input",
 }
 
@@ -89,17 +86,11 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 	local isHovering, setIsHovering = React.useState(false)
 	local tokens = useTokens()
 
-	-- TODO: Use labelPosition instead of justifyContent when Flags.FoundationToggleEndPlacementJustifyContent is removed
-	local variantProps =
-		useInputVariants(tokens, props.size, labelPosition == Enum.HorizontalAlignment.Left and props.justifyContent)
+	local variantProps = useInputVariants(tokens, props.size, labelPosition)
 
 	local cursor = React.useMemo(function()
 		return {
-			radius = if Flags.FoundationInternalInputSelectedStylesAndSpacing
-				then props.customVariantProps.cursorRadius or UDim.new(0, 0)
-				else if hasLabel
-					then UDim.new(0, tokens.Radius.Small)
-					else props.customVariantProps.cursorRadius or UDim.new(0, 0),
+			radius = props.customVariantProps.cursorRadius or UDim.new(0, 0),
 			offset = tokens.Size.Size_200,
 			borderWidth = tokens.Stroke.Thicker,
 		}
@@ -149,12 +140,8 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 		onActivated = onActivated,
 		onStateChanged = onInputStateChanged,
 		stateLayer = { affordance = StateLayerAffordance.None },
-		selection = if Flags.FoundationInternalInputSelectedStylesAndSpacing
-			then (if hasLabel then { Selectable = false } else selectionProps)
-			else selectionProps,
-		cursor = if Flags.FoundationInternalInputSelectedStylesAndSpacing
-			then (if hasLabel then nil else cursor)
-			else cursor,
+		selection = (if hasLabel then { Selectable = false } else selectionProps),
+		cursor = (if hasLabel then nil else cursor),
 		isDisabled = props.isDisabled,
 		ref = ref,
 	}
@@ -186,12 +173,8 @@ local function InternalInput(inputProps: Props, ref: React.Ref<GuiObject>?)
 			end),
 			Thickness = strokeThickness,
 		},
-		selection = if Flags.FoundationInternalInputSelectedStylesAndSpacing
-			then selectionProps
-			else (if not hasLabel then selectionProps else { Selectable = false }),
-		cursor = if Flags.FoundationInternalInputSelectedStylesAndSpacing
-			then (if hasLabel then cursor else nil)
-			else nil,
+		selection = selectionProps,
+		cursor = (if hasLabel then cursor else nil),
 		--[[
 			Labels for radio buttons and most other inputs should be positioned after the field.
 			Source: https://www.w3.org/TR/WCAG20-TECHS/G162.html

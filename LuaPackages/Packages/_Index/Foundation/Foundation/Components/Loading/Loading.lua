@@ -7,11 +7,11 @@ local Icon = require(Foundation.Components.Icon)
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize
 
-local useTokens = require(Foundation.Providers.Style.useTokens)
-local withDefaults = require(Foundation.Utility.withDefaults)
-local useRotation = require(Foundation.Utility.useRotation)
 local Types = require(Foundation.Components.Types)
+local useRotation = require(Foundation.Utility.useRotation)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 export type LoadingProps = {
 	size: IconSize?,

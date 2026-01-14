@@ -5,16 +5,16 @@ local React = require(Packages.React)
 
 local Dash = require(Packages.Dash)
 
-local Types = require(Foundation.Components.Types)
-local View = require(Foundation.Components.View)
 local Image = require(Foundation.Components.Image)
 local Indicator = require(script.Parent.Indicator)
-local withDefaults = require(Foundation.Utility.withDefaults)
+local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
-local getRbxThumb = require(Foundation.Utility.getRbxThumb)
-local ThumbnailType = require(Foundation.Enums.ThumbnailType)
 local ThumbnailSize = require(Foundation.Enums.ThumbnailSize)
+local ThumbnailType = require(Foundation.Enums.ThumbnailType)
+local getRbxThumb = require(Foundation.Utility.getRbxThumb)
 
 local useAvatarVariants = require(script.Parent.useAvatarVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)

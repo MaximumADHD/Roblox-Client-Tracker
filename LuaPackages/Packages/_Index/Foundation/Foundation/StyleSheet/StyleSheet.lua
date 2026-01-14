@@ -6,8 +6,8 @@ local Types = require(StyleSheetRoot.Rules.Types)
 local createStyleSheetRules = require(StyleSheetRoot.createStyleSheetRules)
 local useGeneratedRules = require(Foundation.Utility.useGeneratedRules)
 
-local Theme = require(Foundation.Enums.Theme)
 local Device = require(Foundation.Enums.Device)
+local Theme = require(Foundation.Enums.Theme)
 
 type Theme = Theme.Theme
 type Device = Device.Device

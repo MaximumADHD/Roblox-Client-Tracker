@@ -6,9 +6,7 @@ assert(RobloxGui ~= nil, "RobloxGui should exist")
 
 local GetFFlagPlayerViewRemoteEnabled = require(RobloxGui.Modules.Common.Flags.GetFFlagPlayerViewRemoteEnabled)
 local FFlagEnablePlayerViewRemoteEventUserIdValidation =
-	game:DefineFastFlag("EnablePlayerViewRemoteEventUserIdValidation", false)
-local FFlagEnablePlayerViewRemoteEventCFrameValidation =
-	game:DefineFastFlag("EnablePlayerViewRemoteEventCFrameValidation", false)
+	game:DefineFastFlag("EnablePlayerViewRemoteEventUserIdValidation2", false)
 
 local RequestDeviceCameraOrientationCapability = Instance.new("RemoteEvent")
 RequestDeviceCameraOrientationCapability.Name = "RequestDeviceCameraOrientationCapability"
@@ -58,6 +56,10 @@ if GetFFlagPlayerViewRemoteEnabled() then
 
 	RequestDeviceCameraCFrameRemoteEvent.OnServerEvent:Connect(function(player, requesteeUserId)
 		if FFlagEnablePlayerViewRemoteEventUserIdValidation then
+			if typeof(requesteeUserId) ~= "number" or requesteeUserId <= 0 or player.UserId == requesteeUserId or math.floor(requesteeUserId) ~= requesteeUserId then
+				return
+			end
+		else
 			if typeof(requesteeUserId) ~= "number" or requesteeUserId <= 0 or player.UserId == requesteeUserId then
 				return
 			end
@@ -68,9 +70,7 @@ if GetFFlagPlayerViewRemoteEnabled() then
 			return
 		end
 
-		local requesteeUserIdStr = if FFlagEnablePlayerViewRemoteEventUserIdValidation
-			then tostring(requestee.UserId)
-			else tostring(requesteeUserId)
+		local requesteeUserIdStr = tostring(requestee.UserId)
 
 		if not requests[requesteeUserIdStr] then
 			requests[requesteeUserIdStr] = {}
@@ -81,10 +81,8 @@ if GetFFlagPlayerViewRemoteEnabled() then
 	end)
 
 	ReplicateDeviceCameraCFrameRemoteEvent.OnServerEvent:Connect(function(player, cframe, cframeTs)
-		if FFlagEnablePlayerViewRemoteEventCFrameValidation then
-			if typeof(cframe) ~= "CFrame" or typeof(cframeTs) ~= "number" or cframeTs <= 0 then
-				return
-			end
+		if typeof(cframe) ~= "CFrame" or typeof(cframeTs) ~= "number" or cframeTs <= 0 then
+			return
 		end
 
 		local requesteeUserIdStr = tostring(player.UserId)

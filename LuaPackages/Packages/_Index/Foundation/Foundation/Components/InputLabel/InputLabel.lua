@@ -3,11 +3,11 @@ local Packages = Foundation.Parent
 
 local Text = require(Foundation.Components.Text)
 
-local Translator = require(Foundation.Utility.Localization.Translator)
 local React = require(Packages.React)
+local Translator = require(Foundation.Utility.Localization.Translator)
 
-local Types = require(Foundation.Components.Types)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
+local Types = require(Foundation.Components.Types)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 

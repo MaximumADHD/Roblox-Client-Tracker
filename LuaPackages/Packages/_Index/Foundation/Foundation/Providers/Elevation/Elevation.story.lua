@@ -2,18 +2,18 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
-local Dialog = require(Foundation.Components.Dialog)
-local View = require(Foundation.Components.View)
 local Button = require(Foundation.Components.Button)
-local IconButton = require(Foundation.Components.IconButton)
-local PopoverSide = require(Foundation.Enums.PopoverSide)
-local PopoverAlign = require(Foundation.Enums.PopoverAlign)
-local Popover = require(Foundation.Components.Popover)
-local Text = require(Foundation.Components.Text)
-local InputSize = require(Foundation.Enums.InputSize)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+local Dialog = require(Foundation.Components.Dialog)
 local DialogSize = require(Foundation.Enums.DialogSize)
+local IconButton = require(Foundation.Components.IconButton)
+local InputSize = require(Foundation.Enums.InputSize)
+local Popover = require(Foundation.Components.Popover)
+local PopoverAlign = require(Foundation.Enums.PopoverAlign)
+local PopoverSide = require(Foundation.Enums.PopoverSide)
 local Sheet = require(Foundation.Components.Sheet)
+local Text = require(Foundation.Components.Text)
+local View = require(Foundation.Components.View)
 
 type ButtonVariant = ButtonVariant.ButtonVariant
 type DialogSize = DialogSize.DialogSize

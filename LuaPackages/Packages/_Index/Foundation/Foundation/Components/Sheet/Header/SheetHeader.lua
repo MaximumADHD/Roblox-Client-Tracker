@@ -7,9 +7,9 @@ local Sheet = script:FindFirstAncestor("Sheet")
 local SheetContext = require(Sheet.SheetContext)
 local SheetType = require(Sheet.SheetType)
 
-local View = require(Foundation.Components.View)
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
 local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
+local View = require(Foundation.Components.View)
 
 export type SheetHeaderProps = {
 	hasCloseAffordance: boolean?,

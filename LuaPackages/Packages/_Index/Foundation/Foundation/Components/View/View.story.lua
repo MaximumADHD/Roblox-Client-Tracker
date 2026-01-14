@@ -2,9 +2,9 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
-local Text = require(Foundation.Components.Text)
 local ControlState = require(Foundation.Enums.ControlState)
+local Text = require(Foundation.Components.Text)
+local View = require(Foundation.Components.View)
 type ControlState = ControlState.ControlState
 
 local useTokens = require(Foundation.Providers.Style.useTokens)

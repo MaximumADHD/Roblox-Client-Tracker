@@ -3,7 +3,6 @@ local CorePackages = game:GetService("CorePackages")
 local GuiService = game:GetService("GuiService")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
@@ -76,10 +75,7 @@ local function VoiceChatTooltip(props: Props)
 	if GetFFlagEnableConnectDisconnectInSettingsAndChrome() then
 		anchorHeight = TopBarHeight
 	end
-
-	if FFlagTopBarStyleUseDisplayUIScale then
-		anchorHeight = TopBarConstants.useDisplayScaleState(TopBarHeight)
-	end
+	anchorHeight = TopBarConstants.useDisplayScaleState(TopBarHeight)
 
 	local tooltipProps = {
 		headerText = props.titleText,

@@ -4,13 +4,13 @@ local React = require(Packages.React)
 
 local Dash = require(Packages.Dash)
 
+local Image = require(Foundation.Components.Image)
 local RadioGroup = require(Foundation.Components.RadioGroup)
 local View = require(Foundation.Components.View)
-local Image = require(Foundation.Components.Image)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local InputSize = require(Foundation.Enums.InputSize)
 local InputPlacement = require(Foundation.Enums.InputPlacement)
+local InputSize = require(Foundation.Enums.InputSize)
 
 local values = { "A", "B", "C", "D", "E" }
 

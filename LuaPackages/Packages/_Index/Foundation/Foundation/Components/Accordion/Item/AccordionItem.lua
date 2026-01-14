@@ -1,8 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local BuilderIcons = require(Packages.BuilderIcons)
+local React = require(Packages.React)
 
 local ReactOtter = require(Packages.ReactOtter)
 
@@ -12,11 +12,11 @@ local Text = require(Foundation.Components.Text)
 
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
-local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local useAccordion = require(script.Parent.Parent.useAccordion)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize

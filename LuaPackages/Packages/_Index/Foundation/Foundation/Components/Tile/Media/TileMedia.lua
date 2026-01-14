@@ -14,10 +14,10 @@ type ThumbnailSize = ThumbnailSize.ThumbnailSize
 local MediaShape = require(Foundation.Enums.MediaShape)
 type MediaShape = MediaShape.MediaShape
 
+local Gradient = require(Foundation.Components.Gradient)
+local getRbxThumb = require(Foundation.Utility.getRbxThumb)
 local useTile = require(Foundation.Components.Tile.useTile)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local getRbxThumb = require(Foundation.Utility.getRbxThumb)
-local Gradient = require(Foundation.Components.Gradient)
 
 local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)

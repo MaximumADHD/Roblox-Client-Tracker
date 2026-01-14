@@ -3,13 +3,13 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
-local Text = require(Foundation.Components.Text)
-local Image = require(Foundation.Components.Image)
-local Icon = require(Foundation.Components.Icon)
-local Types = require(Foundation.Components.Types)
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local BuilderIcons = require(Packages.BuilderIcons)
+local Icon = require(Foundation.Components.Icon)
+local Image = require(Foundation.Components.Image)
+local Text = require(Foundation.Components.Text)
+local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 local migrationLookup = BuilderIcons.Migration["uiblox"]
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 local InputSize = require(Foundation.Enums.InputSize)

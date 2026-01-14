@@ -3,10 +3,10 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local useTile = require(Foundation.Components.Tile.useTile)
-local withDefaults = require(Foundation.Utility.withDefaults)
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local View = require(Foundation.Components.View)
+local useTile = require(Foundation.Components.Tile.useTile)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 type TileContentProps = {
 	children: React.ReactNode?,

@@ -3,9 +3,9 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 type ItemId = Types.ItemId
 type OnItemActivated = Types.OnItemActivated
 

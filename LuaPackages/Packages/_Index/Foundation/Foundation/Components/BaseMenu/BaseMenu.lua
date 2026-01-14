@@ -3,14 +3,14 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
 local ScrollView = require(Foundation.Components.ScrollView)
+local View = require(Foundation.Components.View)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
 
 local Flags = require(Foundation.Utility.Flags)
-local withDefaults = require(Foundation.Utility.withDefaults)
-local withCommonProps = require(Foundation.Utility.withCommonProps)
 local useBindable = require(Foundation.Utility.useBindable)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local ControlState = require(Foundation.Enums.ControlState)
 local Radius = require(Foundation.Enums.Radius)
@@ -142,7 +142,7 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 		then radiusToTag[props.radius]
 		else ""
 
-	if Flags.FoundationBaseMenuScroll and props.maxHeight then
+	if props.maxHeight then
 		local automaticSize = React.joinBindings({ autoSize = autoSize, isOverMaxHeight = isOverMaxHeight })
 			:map(computeAutomaticSize)
 
@@ -192,26 +192,16 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 					[`col`] = true,
 					[`stroke-standard stroke-default {radiusTag}`] = Flags.FoundationBaseMenuBorderFix,
 				},
-				AutomaticSize = if Flags.FoundationMenuWidthGrowth
-					then autoSize:map(function(autoSizeValue): Enum.AutomaticSize
-						return if autoSizeValue then Enum.AutomaticSize.XY else Enum.AutomaticSize.Y
-					end)
-					else width:map(function(widthValue): Enum.AutomaticSize
-						return if widthValue then Enum.AutomaticSize.Y else Enum.AutomaticSize.XY
-					end),
-				Size = if Flags.FoundationMenuWidthGrowth
-					then React.joinBindings({ autoSize, width }):map(function(values): UDim2?
-						local autoSizeValue = values[1]
-						local widthValue = values[2]
-						return if autoSizeValue then nil else UDim2.new(widthValue, UDim.new())
-					end)
-					else width:map(function(widthValue: UDim?): UDim2?
-						return if widthValue
-							then UDim2.new(widthValue, UDim.new())
-							else UDim2.fromOffset(scaledMinWidth, 0)
-					end),
+				AutomaticSize = autoSize:map(function(autoSizeValue): Enum.AutomaticSize
+					return if autoSizeValue then Enum.AutomaticSize.XY else Enum.AutomaticSize.Y
+				end),
+				Size = React.joinBindings({ autoSize, width }):map(function(values): UDim2?
+					local autoSizeValue = values[1]
+					local widthValue = values[2]
+					return if autoSizeValue then nil else UDim2.new(widthValue, UDim.new())
+				end),
 				ref = ref,
-				sizeConstraint = if Flags.FoundationMenuWidthGrowth then sizeConstraint else nil,
+				sizeConstraint = sizeConstraint,
 			}),
 			React.createElement(BaseMenuContext.Provider, {
 				value = {

@@ -8,8 +8,6 @@ type IconSize = IconSize.IconSize
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local Flags = require(Foundation.Utility.Flags)
-
 local function isNumber(value: any): boolean
 	return typeof(value) == "number" or (typeof(value) == "table" and typeof(value:getValue()) == "number")
 end
@@ -23,18 +21,10 @@ local function useIconSize(
 
 	local iconSizes = if isBuilderIcon
 		then {
-			[IconSize.XSmall :: IconSize] = if Flags.FoundationIconButtonBiggerBuilderIcons and isIconButton
-				then tokens.Size.Size_400
-				else tokens.Size.Size_300,
-			[IconSize.Small :: IconSize] = if Flags.FoundationIconButtonBiggerBuilderIcons and isIconButton
-				then tokens.Size.Size_500
-				else tokens.Size.Size_400,
-			[IconSize.Medium :: IconSize] = if Flags.FoundationIconButtonBiggerBuilderIcons and isIconButton
-				then tokens.Size.Size_600
-				else tokens.Size.Size_500,
-			[IconSize.Large :: IconSize] = if Flags.FoundationIconButtonBiggerBuilderIcons and isIconButton
-				then tokens.Size.Size_700
-				else tokens.Size.Size_600,
+			[IconSize.XSmall :: IconSize] = if isIconButton then tokens.Size.Size_400 else tokens.Size.Size_300,
+			[IconSize.Small :: IconSize] = if isIconButton then tokens.Size.Size_500 else tokens.Size.Size_400,
+			[IconSize.Medium :: IconSize] = if isIconButton then tokens.Size.Size_600 else tokens.Size.Size_500,
+			[IconSize.Large :: IconSize] = if isIconButton then tokens.Size.Size_700 else tokens.Size.Size_600,
 		}
 		else {
 			[IconSize.XSmall :: IconSize] = tokens.Size.Size_200,

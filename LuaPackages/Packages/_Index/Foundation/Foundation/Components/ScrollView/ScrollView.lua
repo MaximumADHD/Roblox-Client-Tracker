@@ -2,16 +2,16 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local Flags = require(Foundation.Utility.Flags)
 
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local ScrollingFrame = require(script.Parent.ScrollingFrame)
 
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
-local withDefaults = require(Foundation.Utility.withDefaults)
 local useDefaultTags = require(Foundation.Utility.useDefaultTags)
 local useStyledDefaults = require(Foundation.Utility.useStyledDefaults)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 

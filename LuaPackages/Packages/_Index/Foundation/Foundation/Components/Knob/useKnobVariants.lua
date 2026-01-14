@@ -12,9 +12,9 @@ type ColorStyleValue = Types.ColorStyleValue
 local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
-local getKnobSize = require(script.Parent.getKnobSize)
-local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 local Flags = require(Foundation.Utility.Flags)
+local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
+local getKnobSize = require(script.Parent.getKnobSize)
 
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize

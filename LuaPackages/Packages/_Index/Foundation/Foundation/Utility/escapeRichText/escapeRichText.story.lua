@@ -2,8 +2,8 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
+local View = require(Foundation.Components.View)
 local escapeRichText = require(Foundation.Utility.escapeRichText)
 
 local function SideBySideStory(props)

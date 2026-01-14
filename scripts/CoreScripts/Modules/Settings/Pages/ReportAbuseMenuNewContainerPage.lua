@@ -16,14 +16,12 @@ local ChromeEnabled = require(Chrome.Enabled)()
 local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: never
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
 local FFlagInExperienceReportClosingBugfix = SharedFlags.FFlagInExperienceReportClosingBugfix
 
 local FFlagHideShortcutsOnReportDropdown = require(RobloxGui.Modules.AbuseReportMenu.Flags.FFlagHideShortcutsOnReportDropdown)
 
 ------------ Variables -------------------
 local PageInstance = nil
-local Theme = require(RobloxGui.Modules.Settings.Theme)
 
 ----------- CLASS DECLARATION --------------
 
@@ -84,17 +82,9 @@ local function Initialize()
 
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "ReportAbuseTab"
-
-	if FFlagBuilderIcons then
-		local icon = migrationLookup["icons/actions/feedback"]
-		this.TabHeader.TabLabel.Icon.Text = icon.name
-		this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
-	else
-		local icon = Theme.Images["icons/actions/feedback"]
-		this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
-		this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
-		this.TabHeader.TabLabel.Icon.Image = icon.Image
-	end
+	local icon = migrationLookup["icons/actions/feedback"]
+	this.TabHeader.TabLabel.Icon.Text = icon.name
+	this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
 	this.TabHeader.TabLabel.Title.Text = "Report"
 
 	------ PAGE CUSTOMIZATION -------

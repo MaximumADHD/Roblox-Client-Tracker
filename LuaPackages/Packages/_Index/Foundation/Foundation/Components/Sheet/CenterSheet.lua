@@ -1,20 +1,20 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
-local ReactRoblox = require(Packages.ReactRoblox)
-local Otter = require(Packages.Otter)
-local ReactOtter = require(Packages.ReactOtter)
 local Dash = require(Packages.Dash)
+local Otter = require(Packages.Otter)
+local React = require(Packages.React)
+local ReactOtter = require(Packages.ReactOtter)
+local ReactRoblox = require(Packages.ReactRoblox)
 local useAnimatedBinding = ReactOtter.useAnimatedBinding
-local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
-local useTokens = require(Foundation.Providers.Style.useTokens)
-local useScaledValue = require(Foundation.Utility.useScaledValue)
-local withDefaults = require(Foundation.Utility.withDefaults)
-local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
+local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
+local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
+local useScaledValue = require(Foundation.Utility.useScaledValue)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withDefaults = require(Foundation.Utility.withDefaults)
 local DIALOG_SIZES = require(Foundation.Components.Dialog.useDialogVariants).DIALOG_SIZES
-local DialogSize = require(Foundation.Enums.DialogSize)
 local Constants = require(Foundation.Constants)
+local DialogSize = require(Foundation.Enums.DialogSize)
 type DialogSize = DialogSize.DialogSize
 local ElevationLayer = require(Foundation.Enums.ElevationLayer)
 type ElevationLayer = ElevationLayer.ElevationLayer
@@ -29,9 +29,9 @@ type SheetRef = SheetTypes.SheetRef
 type SheetProps = SheetTypes.SheetProps
 local SheetType = require(script.Parent.SheetType)
 
-local View = require(Foundation.Components.View)
-local Image = require(Foundation.Components.Image)
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
+local Image = require(Foundation.Components.Image)
+local View = require(Foundation.Components.View)
 
 type CenterSheetProps = SheetProps
 
@@ -129,7 +129,7 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 	return overlay
 		and ReactRoblox.createPortal(
 			React.createElement(View, {
-				ZIndex = if Flags.FoundationElevationSystem then elevation.zIndex else 5,
+				ZIndex = elevation.zIndex,
 				tag = "size-full",
 				testId = `{props.testId}--surface`,
 			}, {
@@ -174,15 +174,9 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 									then "size-full-0 auto-y col items-center clip"
 									else "size-full-0 auto-y shrink col items-center clip",
 							},
-							React.createElement(
-								SheetContext.Provider,
-								{
-									value = contextValue,
-								},
-								if Flags.FoundationElevationSystem
-									then React.createElement(OwnerScope, { owner = elevation }, props.children)
-									else props.children
-							)
+							React.createElement(SheetContext.Provider, {
+								value = contextValue,
+							}, React.createElement(OwnerScope, { owner = elevation }, props.children))
 						),
 						CloseAffordance = React.createElement(CloseAffordance, {
 							onActivated = closeSheet,

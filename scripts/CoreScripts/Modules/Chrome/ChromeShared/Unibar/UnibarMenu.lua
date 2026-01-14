@@ -37,7 +37,6 @@ local useObservableValue = require(Root.Hooks.useObservableValue)
 local useMappedObservableValue = require(Root.Hooks.useMappedObservableValue)
 
 local IconHost = require(Root.Unibar.ComponentHosts.IconHost)
-local ContainerHost = require(Root.Unibar.ComponentHosts.ContainerHost)
 
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
@@ -94,7 +93,6 @@ if not GetFFlagChromeCentralizedConfiguration() then
 		if GetFFlagDebugEnableUnibarDummyIntegrations() then
 			table.insert(v4Ordering, 1, "dummy_window")
 			table.insert(v4Ordering, 1, "dummy_window_2")
-			table.insert(v4Ordering, 1, "dummy_container")
 		end
 
 		if isConnectUnibarEnabled() then
@@ -548,35 +546,18 @@ function Unibar(props: UnibarProp)
 				end)
 			end
 
-			if item.integration.components.Container then
-				local containerWidthSlots = if item.integration.containerWidthSlots
-					then item.integration.containerWidthSlots:get()
-					else 0
-
-				children[item.id or ("container" .. k)] = React.createElement(ContainerHost, {
-					position = positionBinding :: any,
-					visible = pinned or visibleBinding :: any,
-					integration = item,
-					containerWidthSlots = containerWidthSlots,
-				}) :: any
-				xOffset += containerWidthSlots * iconCellWidth
-				if pinned then
-					xOffsetPinned += containerWidthSlots * iconCellWidth
-				end
-			else
-				children[item.id or ("icon" .. k)] = React.createElement(IconHost, {
-					position = positionBinding :: any,
-					visible = pinned or visibleBinding :: any,
-					toggleTransition = toggleSubmenuTransition,
-					integration = item,
-					disableBadgeNumber = if GetFFlagSimpleChatUnreadMessageCount() and item.id == "chat"
-						then true
-						else false,
-				}) :: any
-				xOffset += iconCellWidth
-				if pinned then
-					xOffsetPinned += iconCellWidth
-				end
+			children[item.id or ("icon" .. k)] = React.createElement(IconHost, {
+				position = positionBinding :: any,
+				visible = pinned or visibleBinding :: any,
+				toggleTransition = toggleSubmenuTransition,
+				integration = item,
+				disableBadgeNumber = if GetFFlagSimpleChatUnreadMessageCount() and item.id == "chat"
+					then true
+					else false,
+			}) :: any
+			xOffset += iconCellWidth
+			if pinned then
+				xOffsetPinned += iconCellWidth
 			end
 		end
 	end

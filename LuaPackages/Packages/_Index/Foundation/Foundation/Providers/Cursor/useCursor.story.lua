@@ -2,13 +2,13 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
+local BaseMenu = require(Foundation.Components.BaseMenu)
 local Button = require(Foundation.Components.Button)
 local Checkbox = require(Foundation.Components.Checkbox)
-local BaseMenu = require(Foundation.Components.BaseMenu)
 local Chip = require(Foundation.Components.Chip)
-local View = require(Foundation.Components.View)
 local Divider = require(Foundation.Components.Divider)
 local Interactable = require(Foundation.Components.Interactable)
+local View = require(Foundation.Components.View)
 
 local function DynamicComponent()
 	return React.createElement(View, {

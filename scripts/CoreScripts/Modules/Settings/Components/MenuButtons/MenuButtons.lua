@@ -23,6 +23,7 @@ local useLastInput = Responsive.useLastInput
 local View = Foundation.View
 
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
+local FFlagMenuButtonsDisconnectGamepadConnected = game:DefineFastFlag("MenuButtonsDisconnectGamepadConnected", false)
 
 type ButtonsData = { MenuButton.ButtonData }
 
@@ -208,13 +209,19 @@ local function MenuButtons(props: MenuButtonsProps)
 	end, { initialButtonsData })
 
 	React.useEffect(function()
-		UserInputService.GamepadConnected:Connect(function()
+		local gamepadConnectedConnection = UserInputService.GamepadConnected:Connect(function()
 			for i = 1, #buttonsData do
 				buttonsData[i].hint.setGamepadButtonImage(
 					UserInputService:GetImageForKeyCode(buttonsData[i].hint.gamepadButton)
 				)
 			end
 		end)
+
+		return function()
+			if FFlagMenuButtonsDisconnectGamepadConnected then
+				gamepadConnectedConnection:Disconnect()
+			end
+		end
 	end, { buttonsData })
 
 	return React.createElement(View, {

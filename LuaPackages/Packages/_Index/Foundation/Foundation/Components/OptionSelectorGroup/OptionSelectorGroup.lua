@@ -10,8 +10,8 @@ type Orientation = Orientation.Orientation
 
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
-local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local OptionSelectorGroupContext = require(script.Parent.OptionSelectorGroupContext)
 

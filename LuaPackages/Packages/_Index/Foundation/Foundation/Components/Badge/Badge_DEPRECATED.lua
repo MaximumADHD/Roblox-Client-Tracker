@@ -6,22 +6,22 @@ local React = require(Packages.React)
 local BuilderIcons = require(Packages.BuilderIcons)
 type IconVariant = BuilderIcons.IconVariant
 
-local useTokens = require(Foundation.Providers.Style.useTokens)
-local Types = require(Foundation.Components.Types)
 local Icon = require(Foundation.Components.Icon)
-local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
-local withDefaults = require(Foundation.Utility.withDefaults)
-local withCommonProps = require(Foundation.Utility.withCommonProps)
+local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 local useBadgeVariants = require(script.Parent.useBadgeVariants_DEPRECATED)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local BadgeVariant = require(Foundation.Enums.BadgeVariant)
 type BadgeVariant = BadgeVariant.BadgeVariant
 local BadgeSize = require(Foundation.Enums.BadgeSize)
 type BadgeSize = BadgeSize.BadgeSize
 
-local IconSize = require(Foundation.Enums.IconSize)
 local IconPosition = require(Foundation.Enums.IconPosition)
+local IconSize = require(Foundation.Enums.IconSize)
 type IconPosition = IconPosition.IconPosition
 
 type Icon = {

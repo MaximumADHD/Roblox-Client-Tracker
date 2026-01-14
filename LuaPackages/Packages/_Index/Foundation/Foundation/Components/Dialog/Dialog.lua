@@ -1,14 +1,14 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
+local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
-local Dash = require(Packages.Dash)
 
-local Constants = require(Foundation.Constants)
-local View = require(Foundation.Components.View)
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
+local Constants = require(Foundation.Constants)
 local Image = require(Foundation.Components.Image)
+local View = require(Foundation.Components.View)
 
 local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 
@@ -17,16 +17,16 @@ local OnCloseCallbackReason = require(Foundation.Enums.OnCloseCallbackReason)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 
 local Flags = require(Foundation.Utility.Flags)
+local useScaledValue = require(Foundation.Utility.useScaledValue)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local useScaledValue = require(Foundation.Utility.useScaledValue)
 
-local Types = require(Foundation.Components.Types)
 local DialogTypes = require(script.Parent.Types)
+local Types = require(Foundation.Components.Types)
 local useDialogVariants = require(script.Parent.useDialogVariants).useDialogVariants
-local useDialogSize = require(script.Parent.useDialogSize)
-local useDialogResponsiveSize = require(script.Parent.useDialogResponsiveSize)
 local DialogProvider = require(script.Parent.DialogProvider)
+local useDialogResponsiveSize = require(script.Parent.useDialogResponsiveSize)
+local useDialogSize = require(script.Parent.useDialogSize)
 
 local useElevation = require(Foundation.Providers.Elevation.useElevation)
 local OwnerScope = require(Foundation.Providers.Elevation.ElevationProvider).ElevationOwnerScope
@@ -59,8 +59,6 @@ local defaultProps = {
 local SHADOW_IMAGE = Constants.SHADOW_IMAGE
 local SHADOW_SIZE = Constants.SHADOW_SIZE
 
-local ROOT_Z_INDEX = 6
-
 local function Dialog(dialogProps: DialogInternalProps)
 	local props = Dash.assign({}, dialogProps, { LayoutOrder = 1 })
 	local variants = useDialogVariants()
@@ -75,9 +73,7 @@ local function Dialog(dialogProps: DialogInternalProps)
 	local dialogSurface = if not Flags.FoundationDialogOversizedBackdrop
 		then React.createElement(View, {
 			tag = variants.container.tag,
-			ZIndex = if props.hasBackdrop
-				then nil
-				else if Flags.FoundationElevationSystem then elevation.zIndex else ROOT_Z_INDEX,
+			ZIndex = if props.hasBackdrop then nil else elevation.zIndex,
 			testId = `{props.testId}--surface`,
 		}, {
 			Shadow = React.createElement(Image, {
@@ -121,17 +117,11 @@ local function Dialog(dialogProps: DialogInternalProps)
 								testId = `{props.testId}--close-affordance`,
 							})
 							else nil,
-						DialogBody = React.createElement(
-							View,
-							{
-								tag = variants.body.tag,
-								ref = dialogBodyRef,
-								testId = `{props.testId}--body`,
-							},
-							if Flags.FoundationElevationSystem
-								then React.createElement(OwnerScope, { owner = elevation }, props.children)
-								else props.children
-						),
+						DialogBody = React.createElement(View, {
+							tag = variants.body.tag,
+							ref = dialogBodyRef,
+							testId = `{props.testId}--body`,
+						}, React.createElement(OwnerScope, { owner = elevation }, props.children)),
 					}
 				),
 			}),
@@ -152,7 +142,7 @@ local function Dialog(dialogProps: DialogInternalProps)
 						end
 					end,
 					backgroundStyle = variants.backdrop.backgroundStyle,
-					ZIndex = if Flags.FoundationElevationSystem then elevation.zIndex else ROOT_Z_INDEX,
+					ZIndex = elevation.zIndex,
 					testId = `{props.testId}--backdrop`,
 				}, {
 					DialogSurface = dialogSurface,
@@ -160,7 +150,7 @@ local function Dialog(dialogProps: DialogInternalProps)
 				else dialogSurface,
 		})
 		else React.createElement(View, {
-			ZIndex = if Flags.FoundationElevationSystem then elevation.zIndex else ROOT_Z_INDEX,
+			ZIndex = elevation.zIndex,
 			tag = "size-full",
 			testId = `{props.testId}--container`,
 		}, {
@@ -240,17 +230,11 @@ local function Dialog(dialogProps: DialogInternalProps)
 								testId = `{props.testId}--close-affordance`,
 							})
 							else nil,
-						DialogBody = React.createElement(
-							View,
-							{
-								tag = variants.body.tag,
-								ref = dialogBodyRef,
-								testId = `{props.testId}--body`,
-							},
-							if Flags.FoundationElevationSystem
-								then React.createElement(OwnerScope, { owner = elevation }, props.children)
-								else props.children
-						),
+						DialogBody = React.createElement(View, {
+							tag = variants.body.tag,
+							ref = dialogBodyRef,
+							testId = `{props.testId}--body`,
+						}, React.createElement(OwnerScope, { owner = elevation }, props.children)),
 					}
 				),
 				DialogFlexEnd = React.createElement(View, {

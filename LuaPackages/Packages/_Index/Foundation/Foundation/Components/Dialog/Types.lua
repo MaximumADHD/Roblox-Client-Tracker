@@ -1,8 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local Constants = require(Foundation.Constants)
 local DialogSize = require(Foundation.Enums.DialogSize)
 local OnCloseCallbackReason = require(Foundation.Enums.OnCloseCallbackReason)
-local Constants = require(Foundation.Constants)
 
 type DialogSize = DialogSize.DialogSize
 type OnCloseCallbackReason = OnCloseCallbackReason.OnCloseCallbackReason

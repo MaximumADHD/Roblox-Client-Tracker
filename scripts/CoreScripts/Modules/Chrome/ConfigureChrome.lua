@@ -53,7 +53,6 @@ local function configureUnibar()
 	if GetFFlagDebugEnableUnibarDummyIntegrations() then
 		table.insert(v4Ordering, 1, "dummy_window")
 		table.insert(v4Ordering, 1, "dummy_window_2")
-		table.insert(v4Ordering, 1, "dummy_container")
 	end
 
 	if isConnectUnibarEnabled() then

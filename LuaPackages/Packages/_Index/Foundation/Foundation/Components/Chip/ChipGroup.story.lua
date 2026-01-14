@@ -3,8 +3,8 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 
 local Chip = require(Foundation.Components.Chip)
-local View = require(Foundation.Components.View)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
+local View = require(Foundation.Components.View)
 type FillBehavior = FillBehavior.FillBehavior
 
 return {

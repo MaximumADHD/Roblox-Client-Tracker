@@ -8,8 +8,6 @@ local LocalizationService = game:GetService("LocalizationService")
 
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
-local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 local FFlagAddGuiInsetToDisplayStore = SharedFlags.FFlagAddGuiInsetToDisplayStore
 local FFlagFixChromeConsoleNilRefs = SharedFlags.FFlagFixChromeConsoleNilRefs
 
@@ -59,7 +57,7 @@ local FFlagTopBarDeprecateChatRodux = require(script.Flags.FFlagTopBarDeprecateC
 local FFlagTopBarDeprecateDisplayOptionsRodux = require(script.Flags.FFlagTopBarDeprecateDisplayOptionsRodux)
 local FFlagTopBarRefactor = require(script.Flags.FFlagTopBarRefactor)
 
-if ChromeEnabled and (not TenFootInterface:IsEnabled() or FFlagAdaptUnibarAndTiltSizing or FFlagTopBarStyleUseDisplayUIScale) then
+if ChromeEnabled then
 	local function SetGlobalGuiInset()
 		-- set this prior to TopBarApp require
 		local guiInsetTopLeft, guiInsetBottomRight = GuiService:GetGuiInset()
@@ -80,7 +78,7 @@ if ChromeEnabled and (not TenFootInterface:IsEnabled() or FFlagAdaptUnibarAndTil
 	end
 	SetGlobalGuiInset()
 	
-	if not FFlagAddGuiInsetToDisplayStore and FFlagTopBarStyleUseDisplayUIScale then
+	if not FFlagAddGuiInsetToDisplayStore then
 		Signals.createEffect(function(scope)
 			SetGlobalGuiInset()
 		end)

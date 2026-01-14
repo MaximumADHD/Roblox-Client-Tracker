@@ -72,13 +72,27 @@ local function DateTimePicker(dateTimePickerProps: DateTimePickerProps)
 	local props: DateTimePickerProps = withDefaults(dateTimePickerProps, defaultProps)
 
 	local tokens = useTokens()
-	local inputText, setInputText = React.useState("")
 	local isOpen, setIsOpen = React.useState(false)
 	local textInputRef = React.useRef(nil)
 
 	if props.defaultDates and typeof(props.defaultDates) ~= "table" then
 		props.defaultDates = { props.defaultDates :: DateTime }
 	end
+
+	local inputText, setInputText = React.useState(
+		if Flags.FoundationDateTimePickerDefaultInputText and props.defaultDates
+			then if props.variant == DateTimePickerVariant.Dual
+				then `{DateTimeUtilities.formatLocalTime((props.defaultDates :: { DateTime })[1])} - {if (
+						props.defaultDates :: { DateTime }
+					)[2]
+					then DateTimeUtilities.formatLocalTime((props.defaultDates :: { DateTime })[2])
+					else ""}`
+				else DateTimeUtilities.formatLocalTime(
+					(props.defaultDates :: { DateTime })[1],
+					props.variant == DateTimePickerVariant.SingleWithTime
+				)
+			else ""
+	)
 
 	-- DateTime objects that we track under the hood to monitor valid calendar changes
 	local calendarDates, setCalendarDates = React.useState(props.defaultDates)

@@ -1,7 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local InputLabel = require(Foundation.Components.InputLabel)
 local View = require(Foundation.Components.View)

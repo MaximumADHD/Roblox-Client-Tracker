@@ -19,9 +19,6 @@ local Modules = CoreGui.RobloxGui.Modules
 local Theme = require(Modules.Settings.Theme)
 local TopBarConstants = require(Modules.TopBar.Constants)
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
-
 local InspectAndBuyContext = require(InspectAndBuyFolder.Components.InspectAndBuyContext)
 
 local Container = Roact.PureComponent:extend("Container")
@@ -29,14 +26,12 @@ local Container = Roact.PureComponent:extend("Container")
 function Container:init()
 	self.frameRef = Roact.createRef()
 	self.lastSavedSelectedCoreGui = nil
-	if FFlagTopBarStyleUseDisplayUIScale then
-		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
-			local DisplayStore = Display.GetDisplayStore(scope)
-			self:setState({
-				UiScale = DisplayStore.getUIScale(scope),
-			})
-		end)
-	end
+	self.disposeUiScaleEffect = Signals.createEffect(function(scope)
+		local DisplayStore = Display.GetDisplayStore(scope)
+		self:setState({
+			UiScale = DisplayStore.getUIScale(scope),
+		})
+	end)
 end
 
 function Container:didMount()
@@ -78,7 +73,7 @@ function Container:willUnmount()
 	self.selectedCoreObjectChangedSignal:disconnect();
 	(GuiService :: any):RemoveSelectionGroup("InspectMenu") -- AddSelectionParent/RemoveSelectionGroup is deprecated
 	GuiService.SelectedCoreObject = nil
-	if FFlagTopBarStyleUseDisplayUIScale and self.disposeUiScaleEffect then
+	if self.disposeUiScaleEffect then
 		self.disposeUiScaleEffect()
 	end
 end
@@ -88,28 +83,15 @@ function Container:render()
 	local localPlayerModel = self.props.localPlayerModel
 	local visible = self.props.visible
 	local panelLayout = Theme.UseInspectAndBuyPanel()
-	local topBarHeight
-	local screenSideOffset
-	if FFlagTopBarStyleUseDisplayUIScale then
-		topBarHeight = TopBarConstants.TopBarHeight * self.state.UiScale
-		screenSideOffset = TopBarConstants.ScreenSideOffset * self.state.UiScale
-	else
-		topBarHeight = TopBarConstants.TopBarHeight
-		screenSideOffset = TopBarConstants.ScreenSideOffset
-	end
+	local topBarHeight = TopBarConstants.TopBarHeight * self.state.UiScale
+	local screenSideOffset = TopBarConstants.ScreenSideOffset * self.state.UiScale
 
 	return Roact.createElement(InspectAndBuyContext.Consumer, {
 		render = function(views)
 			local viewMapping = views[view]
-			local mainContainerSize
-			local mainContainerPosition
-			if FFlagTopBarStyleUseDisplayUIScale then
-				mainContainerSize = viewMapping.ContainerSize(self.state.UiScale)
-				mainContainerPosition = viewMapping.ContainerPosition(self.state.UiScale)
-			else
-				mainContainerSize = viewMapping.ContainerSize
-				mainContainerPosition = viewMapping.ContainerPosition
-			end
+			local mainContainerSize = viewMapping.ContainerSize(self.state.UiScale)
+			local mainContainerPosition = viewMapping.ContainerPosition(self.state.UiScale)
+
 			return Roact.createElement("ImageButton", {
 				Size = UDim2.new(
 					1,

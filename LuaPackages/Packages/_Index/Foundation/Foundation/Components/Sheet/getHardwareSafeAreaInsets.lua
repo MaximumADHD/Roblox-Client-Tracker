@@ -1,7 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local Wrappers = require(Foundation.Utility.Wrappers)
 local Flags = require(Foundation.Utility.Flags)
+local Wrappers = require(Foundation.Utility.Wrappers)
 
 local CoreGui = Wrappers.Services.CoreGui
 local RunService = Wrappers.Services.RunService

@@ -1,12 +1,12 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local Button = require(Foundation.Components.Button)
-local View = require(Foundation.Components.View)
-local InputSize = require(Foundation.Enums.InputSize)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+local InputSize = require(Foundation.Enums.InputSize)
+local View = require(Foundation.Components.View)
 type ButtonVariant = ButtonVariant.ButtonVariant
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 type FillBehavior = FillBehavior.FillBehavior

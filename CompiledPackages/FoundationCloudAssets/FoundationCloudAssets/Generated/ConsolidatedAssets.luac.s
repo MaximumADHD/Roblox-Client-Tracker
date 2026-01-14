@@ -47,462 +47,426 @@ MAIN:
   SETTABLEKS R2 R1 K1 ["size"]
   SETTABLEKS R1 R0 K15 ["pictograms/audio"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K16 ["rbxassetid://105161717715713"]
+  LOADK R2 K16 ["rbxassetid://86534715071943"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K17 ["pictograms/avatar"]
+  SETTABLEKS R1 R0 K17 ["pictograms/avatar_setup"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K18 ["rbxassetid://106409086139457"]
+  LOADK R2 K18 ["rbxassetid://112706460486099"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K19 ["pictograms/avatar_issue"]
+  SETTABLEKS R1 R0 K19 ["pictograms/badge"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K20 ["rbxassetid://86534715071943"]
+  LOADK R2 K20 ["rbxassetid://136773697996212"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K21 ["pictograms/avatar_setup"]
+  SETTABLEKS R1 R0 K21 ["pictograms/bar_graph"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K22 ["rbxassetid://112706460486099"]
+  LOADK R2 K22 ["rbxassetid://88442114276054"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K23 ["pictograms/badge"]
+  SETTABLEKS R1 R0 K23 ["pictograms/bookmark"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K24 ["rbxassetid://136773697996212"]
+  LOADK R2 K24 ["rbxassetid://72457785120997"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K25 ["pictograms/bar_graph"]
+  SETTABLEKS R1 R0 K25 ["pictograms/chat"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K26 ["rbxassetid://88442114276054"]
+  LOADK R2 K26 ["rbxassetid://139542773429953"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K27 ["pictograms/bookmark"]
+  SETTABLEKS R1 R0 K27 ["pictograms/collaborators"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K28 ["rbxassetid://117011861606730"]
+  LOADK R2 K28 ["rbxassetid://138483168377802"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K29 ["pictograms/captures"]
+  SETTABLEKS R1 R0 K29 ["pictograms/collaborators_strike"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K30 ["rbxassetid://72457785120997"]
+  LOADK R2 K30 ["rbxassetid://82504555390606"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K31 ["pictograms/chat"]
+  SETTABLEKS R1 R0 K31 ["pictograms/customize"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K32 ["rbxassetid://94532826819081"]
+  LOADK R2 K32 ["rbxassetid://87841701353435"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K33 ["pictograms/chat_security"]
+  SETTABLEKS R1 R0 K33 ["pictograms/decals"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K34 ["rbxassetid://139542773429953"]
+  LOADK R2 K34 ["rbxassetid://122347682481157"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K35 ["pictograms/collaborators"]
+  SETTABLEKS R1 R0 K35 ["pictograms/envelope"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K36 ["rbxassetid://138483168377802"]
+  LOADK R2 K36 ["rbxassetid://108349034862038"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K37 ["pictograms/collaborators_strike"]
+  SETTABLEKS R1 R0 K37 ["pictograms/event_calendar"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K38 ["rbxassetid://82504555390606"]
+  LOADK R2 K38 ["rbxassetid://92546076747282"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K39 ["pictograms/customize"]
+  SETTABLEKS R1 R0 K39 ["pictograms/gift"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K40 ["rbxassetid://87841701353435"]
+  LOADK R2 K40 ["rbxassetid://112049075204369"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K41 ["pictograms/decals"]
+  SETTABLEKS R1 R0 K41 ["pictograms/group_exp"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K42 ["rbxassetid://122347682481157"]
+  LOADK R2 K42 ["rbxassetid://117501310187277"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K43 ["pictograms/envelope"]
+  SETTABLEKS R1 R0 K43 ["pictograms/hanger"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K44 ["rbxassetid://108349034862038"]
+  LOADK R2 K44 ["rbxassetid://110309479292036"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K45 ["pictograms/event_calendar"]
+  SETTABLEKS R1 R0 K45 ["pictograms/heart"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K46 ["rbxassetid://92546076747282"]
+  LOADK R2 K46 ["rbxassetid://128491184102946"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K47 ["pictograms/gift"]
+  SETTABLEKS R1 R0 K47 ["pictograms/image"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K48 ["rbxassetid://112049075204369"]
+  LOADK R2 K48 ["rbxassetid://103093448687588"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K49 ["pictograms/group_exp"]
+  SETTABLEKS R1 R0 K49 ["pictograms/line_chart"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K50 ["rbxassetid://117501310187277"]
+  LOADK R2 K50 ["rbxassetid://130786444466106"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K51 ["pictograms/hanger"]
+  SETTABLEKS R1 R0 K51 ["pictograms/localization"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K52 ["rbxassetid://110309479292036"]
+  LOADK R2 K52 ["rbxassetid://81853033195662"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K53 ["pictograms/heart"]
+  SETTABLEKS R1 R0 K53 ["pictograms/lock_closed"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K54 ["rbxassetid://128491184102946"]
+  LOADK R2 K54 ["rbxassetid://90454816739386"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K55 ["pictograms/image"]
+  SETTABLEKS R1 R0 K55 ["pictograms/lock_secrets"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K56 ["rbxassetid://103093448687588"]
+  LOADK R2 K56 ["rbxassetid://80325486497687"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K57 ["pictograms/line_chart"]
+  SETTABLEKS R1 R0 K57 ["pictograms/logo"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K58 ["rbxassetid://130786444466106"]
+  LOADK R2 K58 ["rbxassetid://137071965581451"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K59 ["pictograms/localization"]
+  SETTABLEKS R1 R0 K59 ["pictograms/meshes"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K60 ["rbxassetid://81853033195662"]
+  LOADK R2 K60 ["rbxassetid://114502351642491"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K61 ["pictograms/lock_closed"]
+  SETTABLEKS R1 R0 K61 ["pictograms/models"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K62 ["rbxassetid://90454816739386"]
+  LOADK R2 K62 ["rbxassetid://112114657870611"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K63 ["pictograms/lock_secrets"]
+  SETTABLEKS R1 R0 K63 ["pictograms/models_plugins_parts"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K64 ["rbxassetid://80325486497687"]
+  LOADK R2 K64 ["rbxassetid://84583067251237"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K65 ["pictograms/logo"]
+  SETTABLEKS R1 R0 K65 ["pictograms/nexus"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K66 ["rbxassetid://137071965581451"]
+  LOADK R2 K66 ["rbxassetid://95594417429233"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K67 ["pictograms/meshes"]
+  SETTABLEKS R1 R0 K67 ["pictograms/notifications"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K68 ["rbxassetid://114502351642491"]
+  LOADK R2 K68 ["rbxassetid://130484025103253"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K69 ["pictograms/models"]
+  SETTABLEKS R1 R0 K69 ["pictograms/notifications_2"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K70 ["rbxassetid://112114657870611"]
+  LOADK R2 K70 ["rbxassetid://132176780843548"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K71 ["pictograms/models_plugins_parts"]
+  SETTABLEKS R1 R0 K71 ["pictograms/oauth"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K72 ["rbxassetid://84583067251237"]
+  LOADK R2 K72 ["rbxassetid://112959107461951"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K73 ["pictograms/nexus"]
+  SETTABLEKS R1 R0 K73 ["pictograms/passkey"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K74 ["rbxassetid://95594417429233"]
+  LOADK R2 K74 ["rbxassetid://129382655285262"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K75 ["pictograms/notifications"]
+  SETTABLEKS R1 R0 K75 ["pictograms/payments"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K76 ["rbxassetid://130484025103253"]
+  LOADK R2 K76 ["rbxassetid://92754134331047"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K77 ["pictograms/notifications_2"]
+  SETTABLEKS R1 R0 K77 ["pictograms/protection_shield"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K78 ["rbxassetid://132176780843548"]
+  LOADK R2 K78 ["rbxassetid://116758499737371"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K79 ["pictograms/oauth"]
+  SETTABLEKS R1 R0 K79 ["pictograms/qr_code"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K80 ["rbxassetid://112959107461951"]
+  LOADK R2 K80 ["rbxassetid://125486555200571"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K81 ["pictograms/passkey"]
+  SETTABLEKS R1 R0 K81 ["pictograms/rights_manager"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K82 ["rbxassetid://129382655285262"]
+  LOADK R2 K82 ["rbxassetid://117442646107613"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K83 ["pictograms/payments"]
+  SETTABLEKS R1 R0 K83 ["pictograms/roblox_badge"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K84 ["rbxassetid://92754134331047"]
+  LOADK R2 K84 ["rbxassetid://105922646125917"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K85 ["pictograms/protection_shield"]
+  SETTABLEKS R1 R0 K85 ["pictograms/robux"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K86 ["rbxassetid://116758499737371"]
+  LOADK R2 K86 ["rbxassetid://85254501760808"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K87 ["pictograms/qr_code"]
+  SETTABLEKS R1 R0 K87 ["pictograms/run"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K88 ["rbxassetid://125486555200571"]
+  LOADK R2 K88 ["rbxassetid://100521638291530"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K89 ["pictograms/rights_manager"]
+  SETTABLEKS R1 R0 K89 ["pictograms/share_links"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K90 ["rbxassetid://117442646107613"]
+  LOADK R2 K90 ["rbxassetid://137163510625362"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K91 ["pictograms/roblox_badge"]
+  SETTABLEKS R1 R0 K91 ["pictograms/signin"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K92 ["rbxassetid://105922646125917"]
+  LOADK R2 K92 ["rbxassetid://106884446231171"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K93 ["pictograms/robux"]
+  SETTABLEKS R1 R0 K93 ["pictograms/token"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K94 ["rbxassetid://85254501760808"]
+  LOADK R2 K94 ["rbxassetid://118606484712015"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K95 ["pictograms/run"]
+  SETTABLEKS R1 R0 K95 ["pictograms/trusted_connections_2"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K96 ["rbxassetid://100521638291530"]
+  LOADK R2 K96 ["rbxassetid://105100634058999"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K97 ["pictograms/share_links"]
+  SETTABLEKS R1 R0 K97 ["pictograms/trusted_connections_dark"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K98 ["rbxassetid://137163510625362"]
+  LOADK R2 K98 ["rbxassetid://80181662804246"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K99 ["pictograms/signin"]
+  SETTABLEKS R1 R0 K99 ["pictograms/trusted_connections_light"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K100 ["rbxassetid://106884446231171"]
+  LOADK R2 K100 ["rbxassetid://126541265820631"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K101 ["pictograms/token"]
+  SETTABLEKS R1 R0 K101 ["pictograms/two_people"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K102 ["rbxassetid://118606484712015"]
+  LOADK R2 K102 ["rbxassetid://136143298495066"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K103 ["pictograms/trusted_connections_2"]
+  SETTABLEKS R1 R0 K103 ["pictograms/verify_code"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K104 ["rbxassetid://105100634058999"]
+  LOADK R2 K104 ["rbxassetid://118546583729140"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K105 ["pictograms/trusted_connections_dark"]
+  SETTABLEKS R1 R0 K105 ["pictograms/video"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K106 ["rbxassetid://80181662804246"]
+  LOADK R2 K106 ["rbxassetid://83894582959326"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K107 ["pictograms/trusted_connections_light"]
+  SETTABLEKS R1 R0 K107 ["pictograms/video_game"]
   DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K108 ["rbxassetid://126541265820631"]
+  LOADK R2 K108 ["rbxassetid://79458177302684"]
   SETTABLEKS R2 R1 K0 ["assetId"]
   GETIMPORT R2 K6 [Vector2.new]
   LOADN R3 192
   LOADN R4 28
   CALL R2 2 1
   SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K109 ["pictograms/two_people"]
-  DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K110 ["rbxassetid://136143298495066"]
-  SETTABLEKS R2 R1 K0 ["assetId"]
-  GETIMPORT R2 K6 [Vector2.new]
-  LOADN R3 192
-  LOADN R4 28
-  CALL R2 2 1
-  SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K111 ["pictograms/verify_code"]
-  DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K112 ["rbxassetid://118546583729140"]
-  SETTABLEKS R2 R1 K0 ["assetId"]
-  GETIMPORT R2 K6 [Vector2.new]
-  LOADN R3 192
-  LOADN R4 28
-  CALL R2 2 1
-  SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K113 ["pictograms/video"]
-  DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K114 ["rbxassetid://83894582959326"]
-  SETTABLEKS R2 R1 K0 ["assetId"]
-  GETIMPORT R2 K6 [Vector2.new]
-  LOADN R3 192
-  LOADN R4 28
-  CALL R2 2 1
-  SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K115 ["pictograms/video_game"]
-  DUPTABLE R1 K2 [{"assetId", "size"}]
-  LOADK R2 K116 ["rbxassetid://79458177302684"]
-  SETTABLEKS R2 R1 K0 ["assetId"]
-  GETIMPORT R2 K6 [Vector2.new]
-  LOADN R3 192
-  LOADN R4 28
-  CALL R2 2 1
-  SETTABLEKS R2 R1 K1 ["size"]
-  SETTABLEKS R1 R0 K117 ["pictograms/voice_chat"]
+  SETTABLEKS R1 R0 K109 ["pictograms/voice_chat"]
   RETURN R0 1

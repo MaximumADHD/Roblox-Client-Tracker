@@ -3,10 +3,10 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
 local Divider = require(Foundation.Components.Divider)
 local DividerVariant = require(Foundation.Enums.DividerVariant)
 local Orientation = require(Foundation.Enums.Orientation)
+local View = require(Foundation.Components.View)
 
 local function HorizontalStory()
 	local children: { [string]: React.ReactNode } = {}

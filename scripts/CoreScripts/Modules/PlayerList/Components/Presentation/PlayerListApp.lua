@@ -44,9 +44,6 @@ local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListR
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
-
 local MOTOR_OPTIONS = {
 	dampingRatio = 1,
 	frequency = 7,
@@ -102,15 +99,12 @@ function PlayerListApp:init()
 			})
 		end
 	end)
-
-	if FFlagTopBarStyleUseDisplayUIScale then
-		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
-			local DisplayStore = Display.GetDisplayStore(scope)
-			self:setState({
-				UiScale = DisplayStore.getUIScale(scope),
-			})
-		end)
-	end
+	self.disposeUiScaleEffect = Signals.createEffect(function(scope)
+		local DisplayStore = Display.GetDisplayStore(scope)
+		self:setState({
+			UiScale = DisplayStore.getUIScale(scope),
+		})
+	end)
 end
 
 function PlayerListApp:render()
@@ -129,7 +123,7 @@ function PlayerListApp:render()
 			containerPosition += UDim2.fromOffset(0, StatsUtils.ButtonHeight)
 		end
 
-		containerPosition += UDim2.fromOffset(0, layoutValues.TopBarOffset * (if FFlagTopBarStyleUseDisplayUIScale then self.state.UiScale else 1))
+		containerPosition += UDim2.fromOffset(0, layoutValues.TopBarOffset * self.state.UiScale)
 
 		local maxLeaderstats = layoutValues.MaxLeaderstats
 		if self.props.displayOptions.isSmallTouchDevice then
@@ -287,7 +281,7 @@ function PlayerListApp:willUnmount()
 	self.positionMotor:destroy()
 	self.positionMotor = nil
 
-	if FFlagTopBarStyleUseDisplayUIScale and self.disposeUiScaleEffect then
+	if self.disposeUiScaleEffect then
 		self.disposeUiScaleEffect()
 	end
 end

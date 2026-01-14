@@ -19,7 +19,6 @@ local utils = require(Root.Service.ChromeUtils)
 local LocalStore = require(Root.Service.LocalStore)
 local ViewportUtil = require(Root.Service.ViewportUtil)
 local WindowSizeSignal = require(Root.Service.WindowSizeSignal)
-local ContainerSlotSignal = require(Root.Service.ContainerSlotSignal)
 local ObservableValue = utils.ObservableValue
 local NotifySignal = utils.NotifySignal
 local AvailabilitySignal = utils.AvailabilitySignal
@@ -31,6 +30,7 @@ local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 local FFlagIntegrationsChromeShortcutTelemetry = require(Root.Parent.Flags.FFlagIntegrationsChromeShortcutTelemetry)
+local FFlagChromeDeprecateMRUs = game:DefineFastFlag("ChromeDeprecateMRUs", false)
 
 local CHROME_INTERACTED_KEY = "ChromeInteracted3"
 local CHROME_WINDOW_POSITION_KEY = "ChromeWindowPosition"
@@ -44,9 +44,6 @@ ChromeService.__index = ChromeService
 
 ChromeService.AvailabilitySignal = utils.AvailabilitySignalState
 ChromeService.IntegrationStatus = { None = 0, Icon = 1, Window = 2 }
-ChromeService.Key = {
-	MostRecentlyUsed = "MRU",
-}
 
 export type UnibarLayoutInfo = Rect
 
@@ -56,7 +53,6 @@ export type ObservableIntegration = utils.ObservableValue<Types.IntegrationCompo
 export type ObservableIntegrationList = utils.ObservableValue<Types.IntegrationList>
 export type ObservableIntegrationId = utils.ObservableValue<string?>
 export type ObservableMenuLayout = utils.ObservableValue<UnibarLayoutInfo>
-export type ObservableCompactUtility = utils.ObservableValue<Types.CompactUtilityId?>
 export type ObservableInFocusNav = utils.ObservableValue<boolean>
 export type ObservableShowTopBar = utils.ObservableValue<boolean>
 
@@ -97,7 +93,6 @@ export type ChromeService = {
 	register: (ChromeService, Types.IntegrationRegisterProps) -> Types.IntegrationProps,
 	updateMenuList: (ChromeService) -> (),
 	availabilityChanged: (ChromeService, Types.IntegrationProps) -> (),
-	containerWidthSlotsChanged: (ChromeService, Types.IntegrationProps) -> (),
 	subMenuNotifications: (ChromeService, subMenuId: Types.IntegrationId) -> utils.NotifySignal,
 	totalNotifications: (ChromeService) -> utils.NotifySignal,
 	notificationIndicator: (ChromeService) -> ObservableIntegration,
@@ -105,7 +100,6 @@ export type ChromeService = {
 	configureReset: (ChromeService) -> (),
 	configureMenu: (ChromeService, menuConfig: Types.MenuConfig) -> (),
 	configureSubMenu: (ChromeService, parent: Types.IntegrationId, menuConfig: Types.IntegrationIdList) -> (),
-	getCurrentUtility: (ChromeService) -> ObservableCompactUtility,
 	gesture: (
 		ChromeService,
 		componentId: Types.IntegrationId,
@@ -117,8 +111,6 @@ export type ChromeService = {
 		componentId: Types.IntegrationId
 	) -> (Types.IntegrationComponentProps?, number),
 	withinCurrentSubmenu: (ChromeService, componentId: Types.IntegrationId) -> boolean,
-	removeRecentlyUsed: (ChromeService, componentId: Types.IntegrationId, force: boolean?) -> (),
-	rebuildMostRecentlyUsed: (ChromeService) -> (),
 	storeChromeInteracted: (ChromeService) -> (),
 	activate: (ChromeService, componentId: Types.IntegrationId, props: Types.ActivateProps?) -> (),
 	toggleWindow: (ChromeService, componentId: Types.IntegrationId) -> (),
@@ -126,7 +118,6 @@ export type ChromeService = {
 	updateWindowSizeSignals: (ChromeService) -> (),
 	getWindowStatusFromStore: (ChromeService, componentId: Types.IntegrationId) -> boolean?,
 	getWindowPositionFromStore: (ChromeService, componentId: Types.IntegrationId) -> UDim2?,
-	updateContainerSlotSignals: (ChromeService) -> (),
 	windowPosition: (ChromeService, componentId: Types.IntegrationId) -> UDim2?,
 	updateScreenSize: (
 		ChromeService,
@@ -137,7 +128,6 @@ export type ChromeService = {
 	) -> (),
 	updateWindowPosition: (ChromeService, componentId: Types.IntegrationId, position: UDim2) -> (),
 	createIconProps: (ChromeService, Types.IntegrationId, number?, boolean?) -> Types.IntegrationComponentProps,
-	createContainerProps: (ChromeService, Types.IntegrationId, number?, boolean?) -> Types.IntegrationComponentProps,
 	orderAlignment: (ChromeService) -> ObservableAlignment,
 	configureOrderAlignment: (ChromeService, alignment: Enum.HorizontalAlignment) -> (),
 
@@ -164,7 +154,6 @@ export type ChromeService = {
 	onIntegrationStatusChanged: (ChromeService) -> SignalLib.Signal,
 	onIntegrationHovered: (ChromeService) -> SignalLib.Signal,
 	integrations: (ChromeService) -> Types.IntegrationList,
-	mostRecentlyUsed: (ChromeService) -> Types.IntegrationIdList,
 
 	setSelected: (ChromeService, Types.IntegrationId?) -> (),
 	selectedItem: (ChromeService, Types.IntegrationId?) -> ObservableIntegrationId,
@@ -183,15 +172,11 @@ export type ChromeService = {
 	_menuConfig: Types.MenuConfig,
 	_subMenuConfig: { [Types.IntegrationId]: Types.IntegrationIdList },
 	_subMenuNotifications: { [Types.IntegrationId]: utils.NotifySignal },
-	_compactUtilityConfig: { [Types.CompactUtilityId]: Types.MenuConfig },
-	_currentCompactUtility: ObservableCompactUtility,
 	_menuList: ObservableMenuList,
 	_dragConnection: { [Types.IntegrationId]: DragConnectionObjectType },
 	_windowPositions: { [Types.IntegrationId]: UDim2? },
 	_windowList: ObservableWindowList,
 	_totalNotifications: utils.NotifySignal,
-	_mostRecentlyUsedFullRecord: { Types.IntegrationId },
-	_mostRecentlyUsed: Types.IntegrationIdList,
 	_mostRecentlyUsedAndPinnedLimit: number,
 	_notificationIndicator: ObservableIntegration,
 
@@ -243,16 +228,12 @@ function ChromeService.new(): ChromeService
 	self._integrationsStatus = {} -- Icon/Window
 	self._menuConfig = {} :: Types.MenuConfig
 	self._subMenuConfig = {}
-	self._compactUtilityConfig = {} :: Types.CompactUtilityConfig
-	self._currentCompactUtility = ObservableValue.new(nil)
 	self._subMenuNotifications = {}
 	self._menuList = ObservableValue.new({})
 	self._windowList = ObservableValue.new({})
 	self._dragConnection = {}
 	self._windowPositions = ObservableValue.new({})
 	self._totalNotifications = NotifySignal.new(true)
-	self._mostRecentlyUsedFullRecord = {}
-	self._mostRecentlyUsed = {}
 	self._mostRecentlyUsedAndPinnedLimit = -1
 	self._localization = Localization.new(localeId)
 	self._localizedLabelKeys = {}
@@ -275,12 +256,16 @@ function ChromeService.new(): ChromeService
 
 	-- todo: Consider moving this outside of ChromeService to reduce dependency on Roblox instances
 	ViewportUtil.viewport:connect(function(viewportInfo: ViewportUtil.ViewportInfo)
-		service:updateScreenSize(
-			viewportInfo.size,
-			viewportInfo.isMobileDevice,
-			viewportInfo.portraitOrientation,
-			viewportInfo.tinyPortrait
-		)
+		if FFlagChromeDeprecateMRUs then
+			service:updateWindowSizeSignals()
+		else
+			service:updateScreenSize(
+				viewportInfo.size,
+				viewportInfo.isMobileDevice,
+				viewportInfo.portraitOrientation,
+				viewportInfo.tinyPortrait
+			)
+		end
 	end, true)
 
 	if FFlagEnableConsoleExpControls then
@@ -341,49 +326,18 @@ function ChromeService:updateScreenSize(
 		-- only run if slot count changes; limit updates
 		self._mostRecentlyUsedAndPinnedLimit = mostRecentlyUsedAndPinnedSlots
 
-		self:rebuildMostRecentlyUsed()
+		self:updateMenuList()
+		self:updateNotificationTotals()
 	end
 
 	-- 3) Update window size signals
 	self:updateWindowSizeSignals()
-
-	-- 4) Update container slot width signals
-	self:updateContainerSlotSignals()
-end
-
-function ChromeService:rebuildMostRecentlyUsed()
-	table.clear(self._mostRecentlyUsed)
-
-	local i = #self._mostRecentlyUsedFullRecord
-	if i > 0 then
-		local srcStartIndex = i - self._mostRecentlyUsedAndPinnedLimit + 1
-
-		-- slice a subset of the full record to repopulate slots
-		table.move(
-			self._mostRecentlyUsedFullRecord, -- src
-			math.max(1, srcStartIndex), -- src start index
-			i, -- src end index
-			1, -- dst insert index
-			self._mostRecentlyUsed -- dst
-		)
-	end
-
-	self:updateMenuList()
-	self:updateNotificationTotals()
 end
 
 function ChromeService:updateWindowSizeSignals()
 	for i, v in self._integrations do
 		if v.windowSize then
 			v.windowSize:updateConstraints()
-		end
-	end
-end
-
-function ChromeService:updateContainerSlotSignals()
-	for i, v in self._integrations do
-		if v.containerWidthSlots then
-			v.containerWidthSlots:updateConstraints()
 		end
 	end
 end
@@ -583,17 +537,6 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 	end
 	self._windowPositions[component.id] = windowPos
 
-	-- Add a containerWidthSlots signal for integrations with containers if missing
-	if component.containerWidthSlots == nil and component.components and component.components.Container then
-		component.containerWidthSlots = ContainerSlotSignal.new()
-	end
-
-	if component.containerWidthSlots then
-		conns[#conns + 1] = component.containerWidthSlots:connect(function()
-			self:containerWidthSlotsChanged(component :: Types.IntegrationProps)
-		end)
-	end
-
 	component = self:updateLocalization(component)
 
 	local populatedComponent = component :: Types.IntegrationProps
@@ -610,11 +553,7 @@ function ChromeService:register(component: Types.IntegrationRegisterProps): Type
 	return populatedComponent
 end
 
-function ChromeService:createIconProps(
-	id: Types.IntegrationId,
-	order: number?,
-	recentlyUsedItem: boolean?
-): Types.IntegrationComponentProps
+function ChromeService:createIconProps(id: Types.IntegrationId, order: number?): Types.IntegrationComponentProps
 	local iconOrder = order or 0
 	if self._integrations[id] then
 		return {
@@ -624,37 +563,6 @@ function ChromeService:createIconProps(
 			component = self._integrations[id].components.Icon,
 			integration = self._integrations[id],
 			isDivider = false,
-			recentlyUsedItem = recentlyUsedItem or false,
-			activated = function()
-				self:activate(id)
-			end,
-		}
-	else
-		return {
-			id = id,
-			children = {},
-			order = iconOrder,
-			activated = noop,
-			integration = DummyIntegration,
-		}
-	end
-end
-
-function ChromeService:createContainerProps(
-	id: Types.IntegrationId,
-	order: number?,
-	recentlyUsedItem: boolean?
-): Types.IntegrationComponentProps
-	local iconOrder = order or 0
-	if self._integrations[id] then
-		return {
-			id = id,
-			children = {},
-			order = iconOrder,
-			component = self._integrations[id].components.Container,
-			integration = self._integrations[id],
-			isDivider = false,
-			recentlyUsedItem = recentlyUsedItem or false,
 			activated = function()
 				self:activate(id)
 			end,
@@ -687,14 +595,9 @@ function ChromeService:updateMenuList()
 	local divId = 0 -- Unique ID for divider elements
 	local order = 0 -- A general order that items are adding to the menu. Can be used to control LayoutOrder
 
-	local function iconProps(id, recentlyUsedItem: boolean?): Types.IntegrationComponentProps
+	local function iconProps(id): Types.IntegrationComponentProps
 		order += 1
-		return self:createIconProps(id, order, recentlyUsedItem)
-	end
-
-	local function containerProps(id, recentlyUsedItem: boolean?): Types.IntegrationComponentProps
-		order += 1
-		return self:createContainerProps(id, order, recentlyUsedItem)
+		return self:createIconProps(id, order)
 	end
 
 	local function windowProps(id): Types.IntegrationComponentProps
@@ -746,15 +649,11 @@ function ChromeService:updateMenuList()
 	local function collectMenu(
 		items: Types.MenuConfig | Types.MenuList | Types.IntegrationIdList,
 		parent: any,
-		windowList: Types.WindowList,
-		recentlyUsedItem: boolean?
+		windowList: Types.WindowList
 	)
 		local validIconCount = 0
 		for k, v in pairs(items) do
-			if v == ChromeService.Key.MostRecentlyUsed then
-				-- If MostRecentlyUsed special key, substitute for the MostRecentlyUsed array
-				collectMenu(self._mostRecentlyUsed, parent, windowList)
-			elseif type(v) == "table" then
+			if type(v) == "table" then
 				-- A list (non-string item) is a group of items that require visual dividers to bookend
 				if not #parent.children then
 					table.insert(parent.children, divider(divId))
@@ -770,7 +669,7 @@ function ChromeService:updateMenuList()
 				if self._subMenuConfig[v] then
 					-- This item has a sub-menu configured, populate the children
 					if valid(v) then
-						local child = iconProps(v, recentlyUsedItem)
+						local child = iconProps(v)
 						validIconCount += 1
 						collectMenu(self._subMenuConfig[v], child, windowList)
 						if #child.children > 0 then
@@ -787,11 +686,7 @@ function ChromeService:updateMenuList()
 							table.insert(parent.children, iconProps(v))
 							validIconCount += 1
 						else
-							if self._integrations[v].components.Container then
-								table.insert(parent.children, containerProps(v))
-							else
-								table.insert(parent.children, iconProps(v))
-							end
+							table.insert(parent.children, iconProps(v))
 							validIconCount += 1
 						end
 					end
@@ -803,13 +698,7 @@ function ChromeService:updateMenuList()
 
 	local root = { children = {} }
 	local windowList = {}
-	local currentUtility = self._currentCompactUtility:get()
-	-- recursively collectMenu for current unibar (compact utility or default)
-	if currentUtility and self._compactUtilityConfig[currentUtility] then
-		collectMenu(self._compactUtilityConfig[currentUtility], root, windowList)
-	else
-		collectMenu(self._menuConfig, root, windowList)
-	end
+	collectMenu(self._menuConfig, root, windowList)
 
 	-- Remove dangling dividers
 	if #root.children and root.children[#root.children] and root.children[#root.children].isDivider then
@@ -821,15 +710,6 @@ function ChromeService:updateMenuList()
 		reverseOrder(root.children)
 	end
 
-	-- preserve any open windows when switching to a compact utility
-	if currentUtility and self._compactUtilityConfig[currentUtility] then
-		for k, v in self._windowList:get() do
-			if self:isWindowOpen(v.integration.id) then
-				table.insert(windowList, v)
-			end
-		end
-	end
-
 	-- todo: nice to have optimization, only update if we fail an equality check
 	self._menuList:set(root.children)
 	self._windowList:set(windowList)
@@ -838,11 +718,6 @@ end
 
 function ChromeService:availabilityChanged(component: Types.IntegrationProps)
 	self:updateNotificationTotals()
-	self:updateMenuList()
-end
-
--- Update menu list when visible container size changes
-function ChromeService:containerWidthSlotsChanged(component: Types.IntegrationProps)
 	self:updateMenuList()
 end
 
@@ -875,10 +750,6 @@ end
 
 function ChromeService:integrations()
 	return self._integrations
-end
-
-function ChromeService:mostRecentlyUsed()
-	return self._mostRecentlyUsed
 end
 
 function ChromeService:updateNotificationTotals()
@@ -928,7 +799,6 @@ end
 function ChromeService:configureReset()
 	self._menuConfig = {}
 	self._subMenuConfig = {}
-	self._compactUtilityConfig = {}
 	self._subMenuNotifications = {}
 	self:updateMenuList()
 end
@@ -1050,10 +920,6 @@ if isInExperienceUIVREnabled then
 	end
 end
 
-function ChromeService:getCurrentUtility()
-	return self._currentCompactUtility
-end
-
 function ChromeService:gesture(
 	componentId: Types.IntegrationId,
 	connection: { current: RBXScriptConnection? }?,
@@ -1104,15 +970,6 @@ function ChromeService:withinCurrentSubmenu(componentId: Types.IntegrationId)
 	end
 
 	return false
-end
-
-function ChromeService:removeRecentlyUsed(componentId: Types.IntegrationId)
-	local idx = table.find(self._mostRecentlyUsedFullRecord, componentId)
-	if idx then
-		table.remove(self._mostRecentlyUsedFullRecord, idx)
-	end
-
-	self:rebuildMostRecentlyUsed()
 end
 
 function ChromeService:windowPosition(componentId: Types.IntegrationId)

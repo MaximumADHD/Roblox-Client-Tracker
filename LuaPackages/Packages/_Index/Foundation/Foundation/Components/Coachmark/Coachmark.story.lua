@@ -1,16 +1,16 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
+local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local Coachmark = require(Foundation.Components.Coachmark)
-local View = require(Foundation.Components.View)
 local IconButton = require(Foundation.Components.IconButton)
 local InputSize = require(Foundation.Enums.InputSize)
-local PopoverSide = require(Foundation.Enums.PopoverSide)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
-local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+local PopoverSide = require(Foundation.Enums.PopoverSide)
 local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 
 local function generateActions(hasSecondaryButton: boolean)
 	local actions: { Types.ActionProps } = {

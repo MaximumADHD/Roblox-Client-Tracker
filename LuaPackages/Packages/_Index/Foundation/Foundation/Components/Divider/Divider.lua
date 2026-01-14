@@ -3,14 +3,14 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local Types = require(Foundation.Components.Types)
-local View = require(Foundation.Components.View)
-local useTokens = require(Foundation.Providers.Style.useTokens)
-local withDefaults = require(Foundation.Utility.withDefaults)
-local withCommonProps = require(Foundation.Utility.withCommonProps)
 local DividerVariant = require(Foundation.Enums.DividerVariant)
 local Orientation = require(Foundation.Enums.Orientation)
+local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 local useDividerVariants = require(script.Parent.useDividerVariants)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 type DividerVariant = DividerVariant.DividerVariant
 type Orientation = Orientation.Orientation

@@ -1,12 +1,12 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
-local View = require(Foundation.Components.View)
+local React = require(Packages.React)
 local Types = require(Foundation.Components.Types)
-local withDefaults = require(Foundation.Utility.withDefaults)
+local View = require(Foundation.Components.View)
 local getGridSizeTag = require(Foundation.Utility.getGridSizeTag)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 type GuiObjectProps = Types.GuiObjectProps
 type CommonProps = Types.CommonProps

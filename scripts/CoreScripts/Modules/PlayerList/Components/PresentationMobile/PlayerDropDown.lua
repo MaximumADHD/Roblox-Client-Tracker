@@ -42,11 +42,9 @@ local PlayerList = Components.Parent
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local SetPlayerListVisibility = require(PlayerList.Actions.SetPlayerListVisibility)
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
-local FFlagNavigateToBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagNavigateToBlockingModal)
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 
-local BlockPlayer = require(PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(PlayerList.Thunks.UnblockPlayer)
 local RequestFriendship = require(PlayerList.Thunks.RequestFriendship)
 local SetPlayerIsBlocked = require(PlayerList.Actions.SetPlayerIsBlocked)
@@ -71,8 +69,7 @@ PlayerDropDown.validateProps = t.strictInterface({
 	preferredTransparency = t.number,
 
 	closeDropDown = t.callback,
-	blockPlayer = if FFlagNavigateToBlockingModal then nil else t.callback,
-	blockPlayerSuccess = if FFlagNavigateToBlockingModal then t.callback else nil,
+	blockPlayerSuccess = t.callback,
 	unblockPlayer = t.callback,
 	requestFriendship = t.callback,
 	setPlayerListVisibility = t.callback,
@@ -158,22 +155,18 @@ function PlayerDropDown:createBlockButton(playerRelationship)
 			if playerRelationship.isBlocked then
 				self.props.unblockPlayer(selectedPlayer)
 			else
-				if FFlagNavigateToBlockingModal then
-					onBlockButtonActivated(selectedPlayer, nil, self.__componentName, {
-						onBlockingSuccess = function()
-							self.props.blockPlayerSuccess(selectedPlayer)
-						end,
-						onBlockingModalClose = if FFlagAddNewPlayerListMobileFocusNav 
-							then function()
-								if self.props.isUsingGamepad then
-										self.props.focusGuiObject(self.buttonsContainerRef.current)
-									end
+				onBlockButtonActivated(selectedPlayer, nil, self.__componentName, {
+					onBlockingSuccess = function()
+						self.props.blockPlayerSuccess(selectedPlayer)
+					end,
+					onBlockingModalClose = if FFlagAddNewPlayerListMobileFocusNav
+						then function()
+							if self.props.isUsingGamepad then
+									self.props.focusGuiObject(self.buttonsContainerRef.current)
 								end
-							else nil,
-					})
-				else
-					self.props.blockPlayer(selectedPlayer)
-				end
+							end
+						else nil,
+				})
 			end
 		end,
 	})
@@ -390,13 +383,9 @@ local function mapDispatchToProps(dispatch)
 			return dispatch(SetPlayerListVisibility(visible))
 		end,
 
-		blockPlayer = if FFlagNavigateToBlockingModal then nil else function(player)
-			return dispatch(BlockPlayer(player))
-		end,
-
-		blockPlayerSuccess = if FFlagNavigateToBlockingModal then function(player)
+		blockPlayerSuccess = function(player)
 			dispatch(SetPlayerIsBlocked(player, true))
-		end else nil,
+		end,
 
 		unblockPlayer = function(player)
 			return dispatch(UnblockPlayer(player))

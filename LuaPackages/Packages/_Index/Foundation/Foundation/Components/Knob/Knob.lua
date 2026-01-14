@@ -1,24 +1,24 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
-local ReactIs = require(Packages.ReactIs)
 local BuilderIcons = require(Packages.BuilderIcons)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
+local ReactIs = require(Packages.ReactIs)
 
 local Components = Foundation.Components
 local Constants = require(Foundation.Constants)
-local Image = require(Components.Image)
 local Icon = require(Components.Icon)
-local View = require(Components.View)
+local Image = require(Components.Image)
 local Types = require(Components.Types)
+local View = require(Components.View)
 type Bindable<T> = Types.Bindable<T>
 type ColorStyleValue = Types.ColorStyleValue
 
 local blendTransparencies = require(Foundation.Utility.blendTransparencies)
+local useBindable = require(Foundation.Utility.useBindable)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local useBindable = require(Foundation.Utility.useBindable)
 
 local useKnobVariants = require(script.Parent.useKnobVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)

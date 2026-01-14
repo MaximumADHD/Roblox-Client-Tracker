@@ -1,10 +1,10 @@
 local SheetTypes = require(script.Types)
 export type SheetRef = SheetTypes.SheetRef
 
-local SheetRoot = require(script.Sheet)
 local SheetActions = require(script.Actions)
 local SheetContent = require(script.Content)
 local SheetHeader = require(script.Header)
+local SheetRoot = require(script.Sheet)
 
 export type SheetProps = SheetRoot.SheetProps
 export type SheetActionsProps = SheetActions.SheetActionsProps

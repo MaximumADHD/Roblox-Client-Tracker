@@ -37,10 +37,8 @@ local PlayerList = Components.Parent
 
 local ClosePlayerDropDown = require(PlayerList.Actions.ClosePlayerDropDown)
 local FFlagPlayerListReduceRerenders = require(PlayerList.Flags.FFlagPlayerListReduceRerenders)
-local FFlagNavigateToBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagNavigateToBlockingModal)
 local FFlagUseNewPlayerList = PlayerListPackage.Flags.FFlagUseNewPlayerList
 
-local BlockPlayer = require(PlayerList.Thunks.BlockPlayer)
 local UnblockPlayer = require(PlayerList.Thunks.UnblockPlayer)
 local RequestFriendship = require(PlayerList.Thunks.RequestFriendship)
 local SetPlayerIsBlocked = require(PlayerList.Actions.SetPlayerIsBlocked)
@@ -66,8 +64,7 @@ PlayerDropDown.validateProps = t.strictInterface({
 	subjectToChinaPolicies = t.boolean,
 
 	closeDropDown = t.callback,
-	blockPlayer = if FFlagNavigateToBlockingModal then nil else t.callback,
-	blockPlayerSuccess = if FFlagNavigateToBlockingModal then t.callback else nil,
+	blockPlayerSuccess = t.callback,
 	unblockPlayer = t.callback,
 	requestFriendship = t.callback,
 })
@@ -126,15 +123,11 @@ function PlayerDropDown:createBlockButton(playerRelationship)
 			if playerRelationship.isBlocked then
 				self.props.unblockPlayer(selectedPlayer)
 			else
-				if FFlagNavigateToBlockingModal then
-					onBlockButtonActivated(selectedPlayer, nil, self.__componentName, {
-						onBlockingSuccess = function()
-							self.props.blockPlayerSuccess(selectedPlayer)
-						end
-					})
-				else
-					self.props.blockPlayer(selectedPlayer)
-				end
+				onBlockButtonActivated(selectedPlayer, nil, self.__componentName, {
+					onBlockingSuccess = function()
+						self.props.blockPlayerSuccess(selectedPlayer)
+					end
+				})
 			end
 		end,
 	})
@@ -313,13 +306,9 @@ local function mapDispatchToProps(dispatch)
 			return dispatch(ClosePlayerDropDown())
 		end,
 
-		blockPlayer = if FFlagNavigateToBlockingModal then nil else function(player)
-			return dispatch(BlockPlayer(player))
-		end,
-
-		blockPlayerSuccess = if FFlagNavigateToBlockingModal then function(player)
+		blockPlayerSuccess = function(player)
 			dispatch(SetPlayerIsBlocked(player, true))
-		end else nil,
+		end,
 
 		unblockPlayer = function(player)
 			return dispatch(UnblockPlayer(player))

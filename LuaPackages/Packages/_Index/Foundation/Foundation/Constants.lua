@@ -1,6 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
-local Types = require(Foundation.Components.Types)
 local ColorMode = require(Foundation.Enums.ColorMode)
+local Types = require(Foundation.Components.Types)
 type ColorMode = ColorMode.ColorMode
 local StateLayerMode = require(Foundation.Enums.StateLayerMode)
 type StateLayerMode = StateLayerMode.StateLayerMode

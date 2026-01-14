@@ -1,8 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
+local StaticRules = require(Foundation.StyleSheet.Rules.staticRules)
 local Tokens = require(Foundation.Providers.Style.Tokens)
 local formatTokens = require(Foundation.StyleSheet.formatTokens)
-local StaticRules = require(Foundation.StyleSheet.Rules.staticRules)
 
 -- Extract layout tag names from static rules
 local function getLayoutTags(): { [string]: boolean }

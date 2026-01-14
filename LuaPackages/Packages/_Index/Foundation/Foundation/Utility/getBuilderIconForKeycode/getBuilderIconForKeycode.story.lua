@@ -4,9 +4,9 @@ local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 
-local getBuilderIconForKeycode = require(script.Parent.getBuilderIconForKeycode)
 local Icon = require(Foundation.Components.Icon)
 local Text = require(Foundation.Components.Text)
+local getBuilderIconForKeycode = require(script.Parent.getBuilderIconForKeycode)
 
 return {
 	name = "getBuilderIconForKeycode",

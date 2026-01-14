@@ -3,9 +3,9 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local Flags = require(Foundation.Utility.Flags)
 
-local getFormattedTags = require(Foundation.Utility.getFormattedTags)
-local TagsContext = require(Style.TagsContext)
 local React = require(Packages.React)
+local TagsContext = require(Style.TagsContext)
+local getFormattedTags = require(Foundation.Utility.getFormattedTags)
 
 local Types = require(Foundation.Components.Types)
 type Tags = Types.Tags

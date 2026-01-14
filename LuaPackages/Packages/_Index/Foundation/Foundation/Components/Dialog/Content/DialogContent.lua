@@ -3,8 +3,8 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local Types = require(Foundation.Components.Types)
 local ScrollView = require(Foundation.Components.ScrollView)
+local Types = require(Foundation.Components.Types)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
 local useScrollBarPadding = require(script.Parent.useScrollBarPadding)

@@ -2,8 +2,8 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local RbxDesignFoundations = require(Packages.RbxDesignFoundations)
 
-local Theme = require(Foundation.Enums.Theme)
 local Device = require(Foundation.Enums.Device)
+local Theme = require(Foundation.Enums.Theme)
 type Theme = Theme.Theme
 type Device = Device.Device
 

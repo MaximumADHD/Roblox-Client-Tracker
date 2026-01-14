@@ -1,11 +1,11 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local AvatarGroup = require(Foundation.Components.AvatarGroup)
-local InputSize = require(Foundation.Enums.InputSize)
 local AvatarGroupType = require(Foundation.Enums.AvatarGroupType)
+local InputSize = require(Foundation.Enums.InputSize)
 local UserPresence = require(Foundation.Enums.UserPresence)
 
 return {

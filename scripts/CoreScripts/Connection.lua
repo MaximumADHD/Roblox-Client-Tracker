@@ -32,8 +32,6 @@ local FIntConfigurableReconnectWaitMs = game:DefineFastInt("ConfigurableReconnec
 
 local fflagReconnectToSameServer = game:DefineFastFlag("ReconnectToSameServer", false)
 local fflagShowScreentimeLockoutKickMessage = game:DefineFastFlag("ShowScreentimeLockoutKickMessage", false)
-
-local fflagShowNewConnectErrorsMessage = game:DefineFastFlag("ShowNewConnectErrorsMessage", false)
 local fflagAddConnectionErrorLocalizationKeys = game:DefineFastFlag("AddConnectionErrorLocalizationKeys", false)
 
 local FFlagAddClientDisconnectVerboselyModeratedGame = game:DefineFastFlag("AddClientDisconnectVerboselyModeratedGame", false)
@@ -173,12 +171,9 @@ local ErrorTitles = {
 	[ConnectionPromptState.TELEPORT_FAILED] = "Teleport Failed",
 	[ConnectionPromptState.RECONNECT_DISABLED] = "Error",
 	[ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_LEAVE] = "Low Memory Warning",
+	[ConnectionPromptState.RECONNECT_CONNECT_FAILURE] = "Connection Failed",
+	[ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE] = "Connection Failed",
 }
-
-if fflagShowNewConnectErrorsMessage then
-	ErrorTitles[ConnectionPromptState.RECONNECT_CONNECT_FAILURE] = "Connection Failed"
-	ErrorTitles[ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE] = "Connection Failed"
-end
 
 local ErrorTitleLocalizationKey = {
 	[ConnectionPromptState.RECONNECT_PLACELAUNCH] = "InGame.ConnectionError.Title.JoinError",
@@ -188,12 +183,9 @@ local ErrorTitleLocalizationKey = {
 	[ConnectionPromptState.TELEPORT_FAILED] = "InGame.ConnectionError.Title.TeleportFailed",
 	[ConnectionPromptState.RECONNECT_DISABLED] = "InGame.CommonUI.Title.Error",
 	[ConnectionPromptState.OUT_OF_MEMORY_KEEPPLAYING_LEAVE] = "InGame.ConnectionError.Title.LowMemoryWarning",
+	[ConnectionPromptState.RECONNECT_CONNECT_FAILURE] = "InGame.ConnectionError.Title.ConnectionFailed",
+	[ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE] = "InGame.ConnectionError.Title.ConnectionFailed",
 }
-
-if fflagShowNewConnectErrorsMessage then
-	ErrorTitleLocalizationKey[ConnectionPromptState.RECONNECT_CONNECT_FAILURE] = "InGame.ConnectionError.Title.ConnectionFailed"
-	ErrorTitleLocalizationKey[ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE] = "InGame.ConnectionError.Title.ConnectionFailed"
-end
 
 -- only return success when a valid root id is given
 local function fetchStarterPlaceId(universeId)
@@ -334,6 +326,11 @@ end
 
 -- Reconnect Disabled List
 local reconnectDisabledList = {
+	[Enum.ConnectionError.IPRecentlyConnected] = true,
+	[Enum.ConnectionError.ConnectionBanned] = true,
+	[Enum.ConnectionError.InvalidPassword] = true,
+	[Enum.ConnectionError.OurSystemRequiresSecurity] = true,
+	[Enum.ConnectionError.IncompatibleProtocolVersion] = true,
 	[Enum.ConnectionError.DisconnectLuaKick] = true,
 	[Enum.ConnectionError.DisconnectSecurityKeyMismatch] = true,
 	[Enum.ConnectionError.DisconnectNewSecurityKeyMismatch] = true,
@@ -346,7 +343,6 @@ local reconnectDisabledList = {
 	[Enum.ConnectionError.DisconnectCloudEditKick] = true,
 	[Enum.ConnectionError.DisconnectOnRemoteSysStats] = true,
 	[Enum.ConnectionError.DisconnectPrivateServerKickout] = true,
-	[Enum.ConnectionError.DisconnectRaknetErrors] = true,
 	[Enum.ConnectionError.PlacelaunchFlooded] = true,
 	[Enum.ConnectionError.PlacelaunchHashException] = true,
 	[Enum.ConnectionError.PlacelaunchHashExpired] = true,
@@ -368,15 +364,6 @@ end
 
 if fflagShowScreentimeLockoutKickMessage then
 	reconnectDisabledList[Enum.ConnectionError.ScreentimeLockoutKick] = true
-end
-
-if fflagShowNewConnectErrorsMessage then
-	reconnectDisabledList[Enum.ConnectionError.IPRecentlyConnected] = true
-	reconnectDisabledList[Enum.ConnectionError.ConnectionBanned] = true
-	reconnectDisabledList[Enum.ConnectionError.InvalidPassword] = true
-	reconnectDisabledList[Enum.ConnectionError.OurSystemRequiresSecurity] = true
-	reconnectDisabledList[Enum.ConnectionError.IncompatibleProtocolVersion] = true
-	reconnectDisabledList[Enum.ConnectionError.DisconnectRaknetErrors] = false
 end
 
 if fflagAddConnectionErrorLocalizationKeys then
@@ -468,10 +455,7 @@ local ButtonList = {
 			Primary = true,
 		},
 	},
-}
-
-if fflagShowNewConnectErrorsMessage then
-	ButtonList[ConnectionPromptState.RECONNECT_CONNECT_FAILURE] = {
+	[ConnectionPromptState.RECONNECT_CONNECT_FAILURE] = {
 		{
 			Text = "Retry",
 			LocalizationKey = "InGame.CommonUI.Button.Retry",
@@ -485,8 +469,8 @@ if fflagShowNewConnectErrorsMessage then
 			LayoutOrder = 1,
 			Callback = leaveFunction,
 		},
-	}
-	ButtonList[ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE] = {
+	},
+	[ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE] = {
 		{
 			Text = "Leave",
 			LocalizationKey = "Feature.SettingsHub.Label.LeaveButton",
@@ -494,8 +478,8 @@ if fflagShowNewConnectErrorsMessage then
 			Callback = leaveFunction,
 			Primary = true,
 		},
-	}
-end
+	},
+}
 
 local updateFullScreenEffect = {
 	[ConnectionPromptState.NONE] = function()
@@ -545,20 +529,17 @@ local updateFullScreenEffect = {
 		promptOverlay.Active = true
 		promptOverlay.Transparency = 1
 	end,
+	[ConnectionPromptState.RECONNECT_CONNECT_FAILURE] = function()
+		RunService:SetRobloxGuiFocused(false)
+		promptOverlay.Active = true
+		promptOverlay.Transparency = 0.3
+	end,
+	[ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE] = function()
+		RunService:SetRobloxGuiFocused(false)
+		promptOverlay.Active = true
+		promptOverlay.Transparency = 0.3
+	end,
 }
-
-if fflagShowNewConnectErrorsMessage then
-	updateFullScreenEffect[ConnectionPromptState.RECONNECT_CONNECT_FAILURE] = function()
-		RunService:SetRobloxGuiFocused(false)
-		promptOverlay.Active = true
-		promptOverlay.Transparency = 0.3
-	end
-	updateFullScreenEffect[ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE] = function()
-		RunService:SetRobloxGuiFocused(false)
-		promptOverlay.Active = true
-		promptOverlay.Transparency = 0.3
-	end
-end
 
 local function onEnter(newState)
 	if not errorPrompt then
@@ -612,19 +593,17 @@ local function stateTransit(errorType, errorCode, oldState)
 			end
 		end
 
-		if fflagShowNewConnectErrorsMessage then
-			if errorType == Enum.ConnectionError.ConnectErrors then
-				graceTimeout = tick() + defaultTimeoutTime
-				errorForReconnect = Enum.ConnectionError.ConnectErrors
-				if reconnectDisabledList[errorCode] then
-					return ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE
-				end
-				if fflagConnectionEventMetrics then
-					TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ConnectError"}}, 1.0)
-				end
-				TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ConnectFailed"}}, 1.0)
-				return ConnectionPromptState.RECONNECT_CONNECT_FAILURE
+		if errorType == Enum.ConnectionError.ConnectErrors then
+			graceTimeout = tick() + defaultTimeoutTime
+			errorForReconnect = Enum.ConnectionError.ConnectErrors
+			if reconnectDisabledList[errorCode] then
+				return ConnectionPromptState.RECONNECT_DISABLED_CONNECT_FAILURE
 			end
+			if fflagConnectionEventMetrics then
+				TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ConnectError"}}, 1.0)
+			end
+			TelemetryService:LogCounter(connectionEventConfig, {customFields = {selectedItem = "ConnectFailed"}}, 1.0)
+			return ConnectionPromptState.RECONNECT_CONNECT_FAILURE
 		end
 		if errorType == Enum.ConnectionError.DisconnectErrors then
 			-- reconnection will be delayed after graceTimeout
@@ -774,6 +753,14 @@ end
 local FFlagRemoveRefToMissingLocInConnection = game:DefineFastFlag("RemoveRefToMissingLocInConnection", false)
 
 local enumToLocalizationKey = {
+	[Enum.ConnectionError.ConnectErrors] = "InGame.ConnectionError.ConnectErrors",
+	[Enum.ConnectionError.AlreadyConnected] = "InGame.ConnectionError.ConnectionFailedWaitAndTry",
+	[Enum.ConnectionError.NoFreeIncomingConnections] = "InGame.ConnectionError.ConnectionFailedWaitAndTry",
+	[Enum.ConnectionError.IPRecentlyConnected] = "InGame.ConnectionError.ConnectErrors",
+	[Enum.ConnectionError.ConnectionBanned] = "InGame.ConnectionError.ConnectionBanned",
+	[Enum.ConnectionError.InvalidPassword] = "InGame.ConnectionError.ConnectionFailedRobloxVersion",
+	[Enum.ConnectionError.OurSystemRequiresSecurity] = "InGame.ConnectionError.ConnectionFailedRobloxVersion",
+	[Enum.ConnectionError.IncompatibleProtocolVersion] = "InGame.ConnectionError.ConnectionFailedRobloxVersion",
 	[Enum.ConnectionError.DisconnectErrors] = "InGame.ConnectionError.DisconnectErrors",
 	[Enum.ConnectionError.DisconnectBadhash] = "InGame.ConnectionError.DisconnectBadhash",
 	[Enum.ConnectionError.DisconnectSecurityKeyMismatch] = "InGame.ConnectionError.DisconnectSecurityKeyMismatch",
@@ -797,7 +784,7 @@ local enumToLocalizationKey = {
 	[Enum.ConnectionError.DisconnectRejoin] = "InGame.ConnectionError.DisconnectRejoin",
 	[Enum.ConnectionError.DisconnectConnectionLost] = "InGame.ConnectionError.DisconnectConnectionLost",
 	[Enum.ConnectionError.DisconnectIdle] = "InGame.ConnectionError.DisconnectIdle",
-	[Enum.ConnectionError.DisconnectRaknetErrors] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.DisconnectRaknetErrors",
+	[Enum.ConnectionError.DisconnectRaknetErrors] = "InGame.ConnectionError.DisconnectRaknetErrors",
 	[Enum.ConnectionError.DisconnectWrongVersion] = "InGame.ConnectionError.DisconnectWrongVersion",
 	[Enum.ConnectionError.DisconnectBySecurityPolicy] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.DisconnectBySecurityPolicy",
 	[Enum.ConnectionError.DisconnectBlockedIP] = if FFlagRemoveRefToMissingLocInConnection then nil else "InGame.ConnectionError.DisconnectBlockedIP",
@@ -856,18 +843,6 @@ end
 
 if fflagShowScreentimeLockoutKickMessage then
 	enumToLocalizationKey[Enum.ConnectionError.ScreentimeLockoutKick] = "Feature.Screentime.Content.ScreentimeLimitDialog"
-end
-
-if fflagShowNewConnectErrorsMessage then
-	enumToLocalizationKey[Enum.ConnectionError.ConnectErrors] = "InGame.ConnectionError.ConnectErrors"
-	enumToLocalizationKey[Enum.ConnectionError.AlreadyConnected] = "InGame.ConnectionError.ConnectionFailedWaitAndTry"
-	enumToLocalizationKey[Enum.ConnectionError.NoFreeIncomingConnections] = "InGame.ConnectionError.ConnectionFailedWaitAndTry"
-	enumToLocalizationKey[Enum.ConnectionError.IPRecentlyConnected] = "InGame.ConnectionError.ConnectErrors"
-	enumToLocalizationKey[Enum.ConnectionError.ConnectionBanned] = "InGame.ConnectionError.ConnectionBanned"
-	enumToLocalizationKey[Enum.ConnectionError.InvalidPassword] = "InGame.ConnectionError.ConnectionFailedRobloxVersion"
-	enumToLocalizationKey[Enum.ConnectionError.OurSystemRequiresSecurity] = "InGame.ConnectionError.ConnectionFailedRobloxVersion"
-	enumToLocalizationKey[Enum.ConnectionError.IncompatibleProtocolVersion] = "InGame.ConnectionError.ConnectionFailedRobloxVersion"
-	enumToLocalizationKey[Enum.ConnectionError.DisconnectRaknetErrors] = "InGame.ConnectionError.DisconnectRaknetErrors"
 end
 
 if fflagAddConnectionErrorLocalizationKeys then

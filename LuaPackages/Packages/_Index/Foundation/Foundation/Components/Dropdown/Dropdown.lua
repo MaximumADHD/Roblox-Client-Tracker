@@ -2,20 +2,19 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local React = require(Packages.React)
-local Dash = require(Packages.Dash)
 
-local Types = require(Foundation.Components.Types)
-local Popover = require(Foundation.Components.Popover)
 local BaseMenu = require(Foundation.Components.BaseMenu)
+local Popover = require(Foundation.Components.Popover)
+local Types = require(Foundation.Components.Types)
 
-local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local Flags = require(Foundation.Utility.Flags)
 
-local PopoverSide = require(Foundation.Enums.PopoverSide)
-local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local InputSize = require(Foundation.Enums.InputSize)
+local PopoverAlign = require(Foundation.Enums.PopoverAlign)
+local PopoverSide = require(Foundation.Enums.PopoverSide)
 local Radius = require(Foundation.Enums.Radius)
 type InputSize = InputSize.InputSize
 type Radius = Radius.Radius
@@ -77,26 +76,7 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 	-- This may cause blinking for UDim.new(1, 0) size if the menu is open from the start. Shouldn't be the case?
 	local absoluteWidth, setAbsoluteWidth = React.useBinding(props.width)
 
-	local items, selectedItem
-
-	if Flags.FoundationDropdownGroups then
-		items, selectedItem = markSelectedItem(props.items, props.value)
-	else
-		items = Dash.map(props.items, function(item)
-			return {
-				id = item.id,
-				icon = item.icon,
-				text = item.text,
-				isDisabled = item.isDisabled,
-				isChecked = item.id == props.value,
-			}
-		end)
-		selectedItem = React.useMemo(function()
-			return Dash.find(props.items, function(item)
-				return item.id == props.value
-			end)
-		end, { props.value, props.items } :: { unknown })
-	end
+	local items, selectedItem = markSelectedItem(props.items, props.value)
 
 	local toggleIsMenuOpen = React.useCallback(function()
 		setIsMenuOpen(function(oldValue)
@@ -112,16 +92,13 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 		setIsMenuOpen(false)
 		props.onItemChanged(id)
 	end, { props.onItemChanged })
-
-	if Flags.FoundationMenuWidthGrowth then
-		-- We do the copy of props in withDefaults already, no need to make it once more.
-		props.onAbsoluteSizeChanged = React.useCallback(function(frame: GuiObject)
-			if dropdownProps.onAbsoluteSizeChanged then
-				dropdownProps.onAbsoluteSizeChanged(frame)
-			end
-			setAbsoluteWidth(UDim.new(0, frame.AbsoluteSize.X))
-		end, { setAbsoluteWidth, dropdownProps.onAbsoluteSizeChanged } :: { unknown })
-	end
+	-- We do the copy of props in withDefaults already, no need to make it once more.
+	props.onAbsoluteSizeChanged = React.useCallback(function(frame: GuiObject)
+		if dropdownProps.onAbsoluteSizeChanged then
+			dropdownProps.onAbsoluteSizeChanged(frame)
+		end
+		setAbsoluteWidth(UDim.new(0, frame.AbsoluteSize.X))
+	end, { setAbsoluteWidth, dropdownProps.onAbsoluteSizeChanged } :: { unknown })
 
 	return React.createElement(Popover.Root, {
 		isOpen = isMenuOpen,
@@ -161,8 +138,8 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 			},
 			React.createElement(BaseMenu.Root, {
 				size = props.size,
-				couldGrow = if Flags.FoundationMenuWidthGrowth then true else nil,
-				width = if Flags.FoundationMenuWidthGrowth then absoluteWidth else props.width,
+				couldGrow = true,
+				width = absoluteWidth,
 				items = items,
 				maxHeight = props.maxHeight,
 				onActivated = onActivated,

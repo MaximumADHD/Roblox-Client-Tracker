@@ -4,11 +4,9 @@ local React = require(Packages.React)
 
 local Dash = require(Packages.Dash)
 
-local Types = require(Foundation.Components.Types)
 local Dropdown = require(Foundation.Components.Dropdown)
-local Text = require(Foundation.Components.Text)
 local InputSize = require(Foundation.Enums.InputSize)
-local Flags = require(Foundation.Utility.Flags)
+local Types = require(Foundation.Components.Types)
 
 type DropdownItem = Dropdown.DropdownItem
 type DropdownItems = Dropdown.DropdownItems
@@ -94,13 +92,6 @@ return {
 			story = function(props): React.ReactNode
 				local controls = props.controls
 				local id, setId = React.useState(nil :: ItemId?)
-
-				if not Flags.FoundationDropdownGroups then
-					return React.createElement(
-						Text,
-						{ tag = "auto-xy", Text = "Enable FoundationDropdownGroups to see the story" }
-					)
-				end
 
 				return React.createElement(Dropdown.Root, {
 					value = id,

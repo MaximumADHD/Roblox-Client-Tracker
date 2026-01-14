@@ -12,8 +12,8 @@ local PlayerGui = if Players.LocalPlayer and RunService:IsRunning()
 	then Players.LocalPlayer:WaitForChild("PlayerGui", 3)
 	else nil
 
-local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 local Flags = require(Foundation.Utility.Flags)
+local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local useStyleSheet = require(Foundation.Providers.Style.StyleSheetContext).useStyleSheet
 local Types = require(Foundation.Components.Types)

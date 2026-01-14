@@ -1,8 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local ColorMode = require(Foundation.Enums.ColorMode)
+local React = require(Packages.React)
 
 type ColorMode = ColorMode.ColorMode
 

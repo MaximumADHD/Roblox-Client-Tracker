@@ -5,14 +5,14 @@ local React = require(Packages.React)
 local Types = require(Foundation.Components.Types)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local View = require(Foundation.Components.View)
-local Slider = require(Foundation.Components.Slider)
 local Knob = require(Foundation.Components.Knob)
+local Slider = require(Foundation.Components.Slider)
+local View = require(Foundation.Components.View)
 
-local SliderVariant = require(Foundation.Enums.SliderVariant)
-local InputSize = require(Foundation.Enums.InputSize)
-local Visibility = require(Foundation.Enums.Visibility)
 local ColorSliderType = require(Foundation.Enums.ColorSliderType)
+local InputSize = require(Foundation.Enums.InputSize)
+local SliderVariant = require(Foundation.Enums.SliderVariant)
+local Visibility = require(Foundation.Enums.Visibility)
 type ColorSliderType = ColorSliderType.ColorSliderType
 
 local withCommonProps = require(Foundation.Utility.withCommonProps)

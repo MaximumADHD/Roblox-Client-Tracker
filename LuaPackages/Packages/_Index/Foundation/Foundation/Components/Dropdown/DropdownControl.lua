@@ -4,19 +4,19 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 
 local Components = Foundation.Components
-local View = require(Components.View)
 local BaseMenu = require(Components.BaseMenu)
+local View = require(Components.View)
 type BaseMenuItem = BaseMenu.BaseMenuItem
-local Text = require(Components.Text)
-local Types = require(Foundation.Components.Types)
-local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local Icon = require(Components.Icon)
 local InputField = require(Components.InputField)
+local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
+local Text = require(Components.Text)
+local Types = require(Foundation.Components.Types)
 
-local useTokens = require(Foundation.Providers.Style.useTokens)
-local withDefaults = require(Foundation.Utility.withDefaults)
-local withCommonProps = require(Foundation.Utility.withCommonProps)
 local getInputTextSize = require(Foundation.Utility.getInputTextSize)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local useDropdownVariants = require(script.Parent.useDropdownVariants)
 

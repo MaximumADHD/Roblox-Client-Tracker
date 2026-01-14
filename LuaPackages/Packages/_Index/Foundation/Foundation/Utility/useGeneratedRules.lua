@@ -2,9 +2,9 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
-local getGeneratedRules = require(Foundation.Utility.getGeneratedRules)
-local Theme = require(Foundation.Enums.Theme)
 local Device = require(Foundation.Enums.Device)
+local Theme = require(Foundation.Enums.Theme)
+local getGeneratedRules = require(Foundation.Utility.getGeneratedRules)
 type Theme = Theme.Theme
 type Device = Device.Device
 

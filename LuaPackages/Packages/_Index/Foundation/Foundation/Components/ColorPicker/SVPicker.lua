@@ -2,12 +2,12 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
-local useTokens = require(Foundation.Providers.Style.useTokens)
-local View = require(Foundation.Components.View)
-local Knob = require(Foundation.Components.Knob)
 local InputSize = require(Foundation.Enums.InputSize)
-local withCommonProps = require(Foundation.Utility.withCommonProps)
+local Knob = require(Foundation.Components.Knob)
+local View = require(Foundation.Components.View)
 local colorUtils = require(Foundation.Components.ColorPicker.colorUtils)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
 
 local Types = require(Foundation.Components.Types)
 type CommonProps = Types.CommonProps

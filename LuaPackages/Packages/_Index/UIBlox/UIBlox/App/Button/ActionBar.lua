@@ -121,7 +121,7 @@ ActionBar.validateProps = t.strictInterface({
 	-- Whether to enable RoactGamepad functionality
 	isRoactGamepadEnabled = t.optional(t.boolean),
 
-	testId = if UIBloxConfig.addTestIdToActionBar then t.optional(t.string) else nil,
+	testId = t.optional(t.string),
 })
 
 ActionBar.defaultProps = {
@@ -130,7 +130,7 @@ ActionBar.defaultProps = {
 	buttonHeight = 48,
 	buttonPadding = 12,
 	isRoactGamepadEnabled = true,
-	testId = if UIBloxConfig.addTestIdToActionBar then "--uiblox-action-bar" else nil,
+	testId = "--uiblox-action-bar",
 }
 
 function ActionBar:render()
@@ -205,7 +205,7 @@ function ActionBar:render()
 									) or nil,
 								}
 								else nil,
-							[React.Tag] = if UIBloxConfig.addTestIdToActionBar and self.props.testId
+							[React.Tag] = if self.props.testId
 								then `data-testid={self.props.testId}--icon-button`
 								else nil,
 						},
@@ -312,9 +312,7 @@ function ActionBar:render()
 								else nil,
 						}
 						else nil,
-					[React.Tag] = if UIBloxConfig.addTestIdToActionBar and self.props.testId
-						then `data-testid={self.props.testId}--primary-button`
-						else nil,
+					[React.Tag] = if self.props.testId then `data-testid={self.props.testId}--primary-button` else nil,
 				}, {
 					Icon = if UIBloxConfig.enableActionBarButtonOverride and self.props.buttonOverride
 						then self.props.buttonOverride

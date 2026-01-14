@@ -2,8 +2,8 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local Dash = require(Packages.Dash)
 local Tokens = require(Foundation.Providers.Style.Tokens)
-local staticRules = require(script.Parent.staticRules)
 local Types = require(script.Parent.Types)
+local staticRules = require(script.Parent.staticRules)
 
 type Tokens = Tokens.Tokens
 type StyleRule = Types.StyleRule

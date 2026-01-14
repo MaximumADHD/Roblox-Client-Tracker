@@ -7,14 +7,12 @@ local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 local composeStyleVariant = require(Foundation.Utility.composeStyleVariant)
 type VariantProps = composeStyleVariant.VariantProps
 
-local Types = require(Foundation.Components.Types)
 local Tokens = require(Foundation.Providers.Style.Tokens)
+local Types = require(Foundation.Components.Types)
 type Tokens = Tokens.Tokens
 
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize
-
-local Flags = require(Foundation.Utility.Flags)
 
 type BaseMenuItemVariantProps = {
 	container: { tag: string },
@@ -28,15 +26,11 @@ local variantsMap = function(tokens: Tokens)
 	local common = {
 		-- It's not a mistake having size-full (see sizes) and auto-x. It makes the minimal size full and allow item to grow to fill up the max width of the menu
 		container = {
-			tag = if Flags.FoundationMenuWidthGrowth
-				then "row align-y-center flex-x-between auto-x"
-				else "row align-y-center flex-x-between",
+			tag = "row align-y-center flex-x-between auto-x",
 		},
 		icon = { tag = "content-emphasis", style = tokens.Color.Content.Emphasis },
 		text = {
-			tag = if Flags.FoundationMenuWidthGrowth
-				then "content-emphasis auto-xy fill text-align-x-left text-truncate-split"
-				else "content-emphasis auto-y grow text-align-x-left text-truncate-end",
+			tag = "content-emphasis auto-xy fill text-align-x-left text-truncate-split",
 		},
 		title = {
 			tag = "content-default auto-xy fill text-align-x-left text-truncate-split",

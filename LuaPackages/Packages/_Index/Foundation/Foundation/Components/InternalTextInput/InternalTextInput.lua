@@ -5,27 +5,27 @@ local Flags = require(Foundation.Utility.Flags)
 local React = require(Packages.React)
 
 local Components = Foundation.Components
-local View = require(Components.View)
 local Padding = require(Components.Padding)
 local ScrollView = require(Components.ScrollView)
 local Types = require(Components.Types)
+local View = require(Components.View)
 
 local FoundationConstants = require(Foundation.Constants)
+local getMultiLineTextHeight = require(Foundation.Utility.getMultiLineTextHeight)
+local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
+local truncateTextToCursor = require(script.Parent.truncateTextToCursor)
+local usePreferredInput = require(Foundation.Utility.usePreferredInput)
+local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 local useTextInputVariants = require(Components.TextInput.useTextInputVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
-local usePreferredInput = require(Foundation.Utility.usePreferredInput)
-local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
-local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
-local getMultiLineTextHeight = require(Foundation.Utility.getMultiLineTextHeight)
-local truncateTextToCursor = require(script.Parent.truncateTextToCursor)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
-local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local ControlState = require(Foundation.Enums.ControlState)
+local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 type ControlState = ControlState.ControlState
 type InternalTextInputRef = Types.InternalTextInputRef
 type Padding = Types.Padding

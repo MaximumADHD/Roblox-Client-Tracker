@@ -3,13 +3,13 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local withDefaults = require(Foundation.Utility.withDefaults)
-local withCommonProps = require(Foundation.Utility.withCommonProps)
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local Image = require(Foundation.Components.Image)
-local View = require(Foundation.Components.View)
-local Types = require(Foundation.Components.Types)
 local IndicatorShape = require(Foundation.Enums.IndicatorShape)
+local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 type IndicatorShape = IndicatorShape.IndicatorShape
 local IndicatorVariant = require(Foundation.Enums.IndicatorVariant)
 type IndicatorVariant = IndicatorVariant.IndicatorVariant

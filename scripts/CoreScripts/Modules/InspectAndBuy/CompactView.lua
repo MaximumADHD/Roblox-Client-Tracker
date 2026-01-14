@@ -1,10 +1,5 @@
-local CorePackages = game:GetService("CorePackages")
-
 local Colors = require(script.Parent.Colors)
 local TopBarConstants = require(script.Parent.Parent.TopBar.Constants)
-
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
 local CompactView = {
 	ContainerBackgroundTransparency = 0,
@@ -12,17 +7,15 @@ local CompactView = {
 	UseContainerAspectRatio = false,
 	ContainerAspectRatio = nil,
 	MaxAssetCardsPerRow = 3,
-	ContainerSize = if FFlagTopBarStyleUseDisplayUIScale
-		then function(scale: number)
+	ContainerSize = function(scale: number)
 			return UDim2.new(1, 0, 1, -TopBarConstants.TopBarHeight * scale)
 		end 
-		else UDim2.new(1, 0, 1, -TopBarConstants.TopBarHeight),
+,
 	ContainerAnchorPoint = Vector2.new(0.5, 0),
-	ContainerPosition = if FFlagTopBarStyleUseDisplayUIScale
-		then function(scale: number)
+	ContainerPosition = function(scale: number)
 			return UDim2.new(0.5, 0, 0, TopBarConstants.TopBarHeight * scale)
 		end
-		else UDim2.new(0.5, 0, 0, TopBarConstants.TopBarHeight),
+,
 	AvatarHeadShotSize = 48,
 	TopSizeY = 90,
 	ClipsDescendants = false,

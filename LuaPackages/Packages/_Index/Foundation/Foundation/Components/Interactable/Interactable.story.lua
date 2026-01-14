@@ -1,10 +1,10 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
+local ControlState = require(Foundation.Enums.ControlState)
 local Interactable = require(Foundation.Components.Interactable)
+local React = require(Packages.React)
 local Text = require(Foundation.Components.Text)
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 
 local function Story()

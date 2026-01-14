@@ -1,19 +1,19 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local Flags = require(Foundation.Utility.Flags)
 
-local Types = require(Foundation.Components.Types)
-local View = require(Foundation.Components.View)
-local withDefaults = require(Foundation.Utility.withDefaults)
-local withCommonProps = require(Foundation.Utility.withCommonProps)
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 local InputSize = require(Foundation.Enums.InputSize)
 local TabItem = require(script.Parent.TabItem)
+local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local useAnimatedHighlight = require(Foundation.Utility.useAnimatedHighlight)
 

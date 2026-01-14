@@ -3,8 +3,8 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local Types = require(Foundation.Components.Types)
 local InputSize = require(Foundation.Enums.InputSize)
+local Types = require(Foundation.Components.Types)
 
 local AccordionContext = require(script.Parent.AccordionContext)
 

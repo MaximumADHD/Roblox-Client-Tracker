@@ -10,14 +10,14 @@ local ReactUtils = require(Packages.ReactUtils)
 local useRefCache = ReactUtils.useRefCache
 local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 
-local CursorContext = require(script.Parent.CursorContext)
-local CursorComponent = require(script.Parent.CursorComponent)
 local Cursor = require(script.Parent.Cursors.Cursor)
-local KeyUtilities = require(script.Parent.KeyUtilities)
+local CursorComponent = require(script.Parent.CursorComponent)
+local CursorContext = require(script.Parent.CursorContext)
 local CursorType = require(Foundation.Enums.CursorType)
+local KeyUtilities = require(script.Parent.KeyUtilities)
 type CursorType = CursorType.CursorType
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local Types = require(Foundation.Components.Types)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 type Props = {
 	children: React.ReactNode,

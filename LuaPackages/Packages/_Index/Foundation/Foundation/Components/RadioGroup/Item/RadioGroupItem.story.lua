@@ -1,12 +1,12 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
-local RadioGroupContext = require(script.Parent.Parent.RadioGroupContext)
-local RadioGroup = require(Foundation.Components.RadioGroup)
-local InputSize = require(Foundation.Enums.InputSize)
 local InputPlacement = require(Foundation.Enums.InputPlacement)
+local InputSize = require(Foundation.Enums.InputSize)
+local RadioGroup = require(Foundation.Components.RadioGroup)
+local RadioGroupContext = require(script.Parent.Parent.RadioGroupContext)
 type InputSize = InputSize.InputSize
 
 local function Story(props)

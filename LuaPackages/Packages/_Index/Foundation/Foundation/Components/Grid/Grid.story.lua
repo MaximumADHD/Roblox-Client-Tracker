@@ -5,11 +5,11 @@ local React = require(Packages.React)
 local View = require(Foundation.Components.View)
 local Grid = require(Foundation.Components.Grid).Root
 local GridCell = require(Foundation.Components.Grid).Cell
+local GridDebug = require(Foundation.Components.Grid.Debug)
 local Text = require(Foundation.Components.Text)
+local Types = require(Foundation.Components.Types)
 local getGridMetrics = require(Foundation.Utility.getGridMetrics)
 local getGridSizeTag = require(Foundation.Utility.getGridSizeTag)
-local Types = require(Foundation.Components.Types)
-local GridDebug = require(Foundation.Components.Grid.Debug)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 type ResponsiveValue<T> = Types.ResponsiveValue<T>

@@ -5,11 +5,11 @@ local React = require(Packages.React)
 local DialogSize = require(Foundation.Enums.DialogSize)
 type DialogSize = DialogSize.DialogSize
 
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local useDialog = require(script.Parent.useDialog)
 local getResponsiveSize = require(script.Parent.getResponsiveSize)
+local useDialog = require(script.Parent.useDialog)
 
 local function useDialogResponsiveSize(size: DialogSize)
 	local tokens = useTokens()

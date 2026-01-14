@@ -1,11 +1,11 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local Checkbox = require(Foundation.Components.Checkbox)
-local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
+local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local CheckedState = require(Foundation.Enums.CheckedState)

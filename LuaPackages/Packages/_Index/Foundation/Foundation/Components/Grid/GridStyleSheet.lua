@@ -1,14 +1,14 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local useStyleSheet = require(Foundation.Providers.Style.StyleSheetContext).useStyleSheet
-local withDefaults = require(Foundation.Utility.withDefaults)
-local getGridMetrics = require(Foundation.Utility.getGridMetrics)
-local useResponsive = require(Foundation.Providers.Responsive.useResponsive)
 local Breakpoint = require(Foundation.Enums.Breakpoint)
 local createGridStyleRules = require(script.Parent.createGridStyleRules)
+local getGridMetrics = require(Foundation.Utility.getGridMetrics)
+local useResponsive = require(Foundation.Providers.Responsive.useResponsive)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 type Breakpoint = Breakpoint.Breakpoint
 type GridMetrics = getGridMetrics.GridMetrics

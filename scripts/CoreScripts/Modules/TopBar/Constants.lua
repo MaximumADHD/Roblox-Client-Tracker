@@ -5,33 +5,27 @@ local SignalsReact = require(CorePackages.Packages.SignalsReact)
 local Display = require(CorePackages.Workspace.Packages.Display)
 local getUIScale = Display.GetDisplayStore(false).getUIScale
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
-local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
-
 local Modules = script.Parent.Parent
 local TenFootInterface = require(Modules.TenFootInterface)
 local ChromeEnabled = require(Modules.Chrome.Enabled)
 local ChromeShared = Modules.Chrome.ChromeShared
 local isNewTiltIconEnabled = require(Modules.isNewTiltIconEnabled)
-local FFlagUnibarMenuIconLayoutFix = require(script.Parent.Flags.FFlagUnibarMenuIconLayoutFix)
 local FFlagTopBarRefactor = require(script.Parent.Flags.FFlagTopBarRefactor)
 
-local StyleTokens = if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing
+local StyleTokens = if ChromeEnabled()
 	then require(ChromeShared.Utility.GetStyleTokens)()
 	else nil :: never
 
 local function withUIScale(value: number)
 	local scale = if TenFootInterface:IsEnabled() then 1.5 else 1 -- APPEXP-2377: Replace with Scale token
-	return if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing then scale * value else value
+	return if ChromeEnabled() then scale * value else value
 end
 
-local DEFAULT_TOPBAR_HEIGHT = if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_900 else 36
+local DEFAULT_TOPBAR_HEIGHT = if ChromeEnabled() then StyleTokens.Size.Size_900 else 36
 local DEFAULT_TOPBAR_BUTTON_HEIGHT = DEFAULT_TOPBAR_HEIGHT - 4
 
-local DEFAULT_CHROME_TOPBAR_HEIGHT = if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing then withUIScale(58) else 58
-local DEFAULT_CHROME_TOPBAR_BUTTON_HEIGHT = if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_1100 else 44
-
+local DEFAULT_CHROME_TOPBAR_HEIGHT = if ChromeEnabled() then withUIScale(58) else 58
+local DEFAULT_CHROME_TOPBAR_BUTTON_HEIGHT = if ChromeEnabled() then StyleTokens.Size.Size_1100 else 44
 local function getTopbarHeight()
 	if not isNewTiltIconEnabled() then
 		return DEFAULT_TOPBAR_HEIGHT
@@ -46,9 +40,9 @@ end
 
 local topbarHeight = getTopbarHeight()
 local topbarButtonHeight = if ChromeEnabled() then DEFAULT_CHROME_TOPBAR_BUTTON_HEIGHT else DEFAULT_TOPBAR_BUTTON_HEIGHT
-local topbarButtonPadding = if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.XXSmall else 2
-local screenSideOffset = if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing then StyleTokens.Gap.Large else 16
-local topBarPadding = if ChromeEnabled() then if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.Small else 8 else 12
+local topbarButtonPadding = if ChromeEnabled() then StyleTokens.Padding.XXSmall else 2
+local screenSideOffset = if ChromeEnabled() then StyleTokens.Gap.Large else 16
+local topBarPadding = if ChromeEnabled() then StyleTokens.Padding.Small else 12
 
 
 local GAMEPAD_INPUT_TYPES = {
@@ -64,31 +58,29 @@ local GAMEPAD_INPUT_TYPES = {
 
 return {
 	ApplyDisplayScale = function(value: number)
-		return if FFlagTopBarStyleUseDisplayUIScale then getUIScale(false) * value else value
+		return getUIScale(false) * value 
 	end,
 	useDisplayScaleState = function(value: number)
-		return if FFlagTopBarStyleUseDisplayUIScale 
-			then SignalsReact.useSignalState(Signals.createComputed(function(scope) 
+		return SignalsReact.useSignalState(Signals.createComputed(function(scope) 
 				local UiScale = Display.GetDisplayStore(scope).getUIScale
 				return value * UiScale(scope)
 			end)) 
-		else value
 	end,
 	TopBarHeight = topbarHeight,
-	TopBarHeightTenFoot = if FFlagUnibarMenuIconLayoutFix and ChromeEnabled() then nil else 72,
+	TopBarHeightTenFoot = if ChromeEnabled() then nil else 72,
 	TopBarButtonHeight = topbarButtonHeight,
 	TopBarButtonPadding = topbarButtonPadding,
 	TopBarTopMargin = if FFlagTopBarRefactor then StyleTokens.Gap.Medium else topbarHeight - topbarButtonHeight - 2 * topbarButtonPadding,
 
-	LegacyCloseMenuIconSize = if isNewTiltIconEnabled() then (topbarHeight - if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_100 else 4) else 30,
-	MENU_ICON_SIZE = if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_600 else 24,
+	LegacyCloseMenuIconSize = if isNewTiltIconEnabled() then (topbarHeight - StyleTokens.Size.Size_100) else 30,
+	MENU_ICON_SIZE = if ChromeEnabled() then StyleTokens.Size.Size_600 else 24,
 	MenuIconOpenScale = 1.25,
 
 	UnibarFrame = {
-		PaddingTop = if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.XXSmall else 2,
-		PaddingBottom = if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.XXSmall else 2,
-		PaddingLeft = screenSideOffset + topBarPadding + topbarHeight + if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.XXSmall else 2,
-		ExtendedSize = topbarHeight- if ChromeEnabled() and FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_100 else 4,
+		PaddingTop = if ChromeEnabled() then StyleTokens.Padding.XXSmall else 2,
+		PaddingBottom = if ChromeEnabled() then StyleTokens.Padding.XXSmall else 2,
+		PaddingLeft = screenSideOffset + topBarPadding + topbarHeight + if ChromeEnabled() then StyleTokens.Padding.XXSmall else 2,
+		ExtendedSize = topbarHeight- if ChromeEnabled() then StyleTokens.Size.Size_100 else 4,
 	},
 
 	MenuIconKeepOutAreaId = "roblox-menu-icon",
@@ -101,7 +93,7 @@ return {
 	TopBarKeepOutAreaId = "roblox-topbar",
 
 	ScreenSideOffset = screenSideOffset,
-	ScreenSideOffsetTenFoot = if FFlagUnibarMenuIconLayoutFix and ChromeEnabled() then nil else 48,
+	ScreenSideOffsetTenFoot = if ChromeEnabled() then nil else 48,
 
 	TopBarPadding = topBarPadding,
 

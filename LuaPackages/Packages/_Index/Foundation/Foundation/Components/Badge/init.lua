@@ -1,8 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Flags = require(Foundation.Utility.Flags)
 
-local Badge_DEPRECATED = require(script.Badge_DEPRECATED)
 local Badge = require(script.Badge)
+local Badge_DEPRECATED = require(script.Badge_DEPRECATED)
 
 export type BadgeProps = Badge.BadgeProps
 

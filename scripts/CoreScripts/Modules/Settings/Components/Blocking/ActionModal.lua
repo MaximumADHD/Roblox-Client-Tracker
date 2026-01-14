@@ -1,6 +1,4 @@
 local CorePackages = game:GetService("CorePackages")
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local Roact = require(CorePackages.Packages.Roact)
 local t = require(CorePackages.Packages.t)
@@ -9,8 +7,6 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 local withStyle = UIBlox.Style.withStyle
 local ButtonType = UIBlox.App.Button.Enum.ButtonType
 local InteractiveAlert = UIBlox.App.Dialog.Alert.InteractiveAlert
-
-local FFlagEnableNewBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagEnableNewBlockingModal)
 local FFlagAddNewPlayerListMobileFocusNav = require(CorePackages.Workspace.Packages.PlayerList).Flags.FFlagAddNewPlayerListMobileFocusNav
 
 local ActionModal = Roact.PureComponent:extend("ActionModal")
@@ -20,14 +16,11 @@ ActionModal.defaultProps = {
 }
 
 ActionModal.validateProps = t.interface({
-	action = if FFlagEnableNewBlockingModal then nil else t.callback,
-	actionText = if FFlagEnableNewBlockingModal then nil else t.string,
+	block = t.callback ,
+	blockText = t.string ,
 
-	block = if FFlagEnableNewBlockingModal then t.callback else nil,
-	blockText = if FFlagEnableNewBlockingModal then t.string else nil,
-
-	blockAndReport = if FFlagEnableNewBlockingModal then t.callback else nil,
-	blockAndReportText = if FFlagEnableNewBlockingModal then t.string else nil,
+	blockAndReport = t.callback ,
+	blockAndReportText = t.string ,
 
 	cancel = t.callback,
 	cancelText = t.string,
@@ -53,34 +46,10 @@ function ActionModal:render()
 				screenSize = self.props.screenSize,
 				title = self.props.title,
 				bodyText = self.props.body,
-				richText = if FFlagEnableNewBlockingModal then true else nil,
+				richText = true ,
 				isRoactGamepadEnabled = if FFlagAddNewPlayerListMobileFocusNav then false else nil,
 				buttonStackInfo = {
-					buttons = if FFlagEnableNewBlockingModal then
-						{
-							{
-								buttonType = ButtonType.Secondary,
-								props = {
-									text = self.props.cancelText,
-									onActivated = self.props.cancel,
-								},
-							},
-							{
-								buttonType = ButtonType.Alert,
-								props = {
-									text = self.props.blockAndReportText,
-									onActivated = self.props.blockAndReport,
-								},
-							},
-							{
-								buttonType = ButtonType.Alert,
-								props = {
-									text = self.props.blockText,
-									onActivated = self.props.block,
-								},
-							},
-						}
-					else {
+					buttons = {
 						{
 							buttonType = ButtonType.Secondary,
 							props = {
@@ -91,8 +60,15 @@ function ActionModal:render()
 						{
 							buttonType = ButtonType.Alert,
 							props = {
-								text = self.props.actionText,
-								onActivated = self.props.action,
+								text = self.props.blockAndReportText,
+								onActivated = self.props.blockAndReport,
+							},
+						},
+						{
+							buttonType = ButtonType.Alert,
+							props = {
+								text = self.props.blockText,
+								onActivated = self.props.block,
 							},
 						},
 					},

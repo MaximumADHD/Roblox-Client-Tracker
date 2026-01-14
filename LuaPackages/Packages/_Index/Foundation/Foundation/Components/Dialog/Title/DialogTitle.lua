@@ -5,8 +5,8 @@ local React = require(Packages.React)
 
 local Constants = require(Foundation.Constants)
 local Text = require(Foundation.Components.Text)
-local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local useDialog = require(script.Parent.Parent.useDialog)

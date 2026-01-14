@@ -7,10 +7,10 @@ local React = require(Packages.React)
 
 local Dash = require(Packages.Dash)
 
-local View = require(Foundation.Components.View)
-local Text = require(Foundation.Components.Text)
 local StatusIndicator = require(Foundation.Components.StatusIndicator)
 local StatusIndicatorVariant = require(Foundation.Enums.StatusIndicatorVariant)
+local Text = require(Foundation.Components.Text)
+local View = require(Foundation.Components.View)
 type StatusIndicatorVariant = StatusIndicatorVariant.StatusIndicatorVariant
 
 return {

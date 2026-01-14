@@ -29,8 +29,6 @@ local function UnibarStyleConstants()
 		SUBMENU_ROW_PADDING = tokens.Padding.Small,
 		SUBMENU_ROW_CORNER_RADIUS = tokens.Radius.Medium,
 		SUBMENU_BOTTOM_PADDING = tokens.Padding.XLarge,
-		CONTAINER_PADDING_TOP_BOTTOM = UDim.new(0, tokens.Padding.XSmall),
-		CONTAINER_PADDING_LEFT_RIGHT = UDim.new(0, tokens.Padding.XXSmall),
 		CLOSE_BUTTON_FRAME = UDim2.new(0, tokens.Size.Size_1100, 0, tokens.Size.Size_1100),
 		WINDOW_DEFAULT_PADDING = tokens.Padding.Small,
 	}

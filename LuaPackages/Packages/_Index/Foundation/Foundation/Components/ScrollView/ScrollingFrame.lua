@@ -8,9 +8,9 @@ local Types = require(Foundation.Components.Types)
 local withDefaults = require(Foundation.Utility.withDefaults)
 local withGuiObjectProps = require(Foundation.Utility.withGuiObjectProps)
 
+local useCursor = require(Foundation.Providers.Cursor.useCursor)
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local useCursor = require(Foundation.Providers.Cursor.useCursor)
 
 local Visibility = require(Foundation.Enums.Visibility)
 type Visibility = Visibility.Visibility

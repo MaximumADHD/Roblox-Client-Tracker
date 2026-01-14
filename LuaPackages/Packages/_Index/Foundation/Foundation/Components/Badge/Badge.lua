@@ -7,18 +7,18 @@ local BuilderIcons = require(Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration["uiblox"]
 type IconVariant = BuilderIcons.IconVariant
 
-local useTokens = require(Foundation.Providers.Style.useTokens)
-local Types = require(Foundation.Components.Types)
-local Image = require(Foundation.Components.Image)
 local Icon = require(Foundation.Components.Icon)
-local View = require(Foundation.Components.View)
+local Image = require(Foundation.Components.Image)
 local Text = require(Foundation.Components.Text)
-local withDefaults = require(Foundation.Utility.withDefaults)
-local withCommonProps = require(Foundation.Utility.withCommonProps)
-local useBadgeVariants = require(script.Parent.useBadgeVariants)
+local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 local getIconScale = require(Foundation.Utility.getIconScale)
-local useIconSize = require(Foundation.Utility.useIconSize)
 local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
+local useBadgeVariants = require(script.Parent.useBadgeVariants)
+local useIconSize = require(Foundation.Utility.useIconSize)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 local isMigrated = iconMigrationUtils.isMigrated
 local isBuilderIconOrMigrated = iconMigrationUtils.isBuilderOrMigratedIcon
 

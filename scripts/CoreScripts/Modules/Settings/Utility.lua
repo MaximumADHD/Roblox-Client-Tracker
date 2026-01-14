@@ -52,8 +52,6 @@ local FFlagRefactorMenuConfirmationButtons = require(RobloxGui.Modules.Settings.
 local FFlagAddNextUpContainer = require(RobloxGui.Modules.Settings.Pages.LeaveGameWithNextUp.Flags.FFlagAddNextUpContainer)
 local FFlagRepositionDropDownScrim = game:DefineFastFlag("RepositionDropDownScrim", false)
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-
 local Chrome = RobloxGui.Modules.Chrome
 local ChromeEnabled = require(Chrome.Enabled)()
 local ChromeService = if ChromeEnabled then require(Chrome.Service) else nil :: never
@@ -68,8 +66,6 @@ local isPreferredTextSizePropValid = game:GetEngineFeature("EnablePreferredTextS
 
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
-
-local FFlagUIBloxMigrateBuilderIcon = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
 local FFlagIncreaseLegacyPeopleRowButtonSize = game:DefineFastFlag("IncreaseLegacyPeopleRowButtonSize", false)
 
 ------------------ Modules --------------------
@@ -509,11 +505,8 @@ local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef,
 	local imageRectOffset = nil
 	local imageRectSize = nil
 
-	local migrationImage = nil
-	if FFlagUIBloxMigrateBuilderIcon then
-		migrationImage = migrationLookup['uiblox'][image] or migrationLookup['luaApps'][image]
+	local migrationImage = migrationLookup['uiblox'][image] or migrationLookup['luaApps'][image]
 		image = if string.match(image, "^rbxasset://") then image else Theme.Images[image]
-	end
 	
 	if typeof(image) == "table" then
 		imageRectOffset = image.ImageRectOffset
@@ -522,7 +515,7 @@ local function MakeImageButton(name, image, size, imageSize, clickFunc, pageRef,
 	end
 
 	local imageLabel
-	if FFlagUIBloxMigrateBuilderIcon and migrationImage then
+	if migrationImage then
 		imageLabel = Create("TextLabel")({
 			Name = name .. "TextLabel",
 			BackgroundTransparency = 1,

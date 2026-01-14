@@ -1,5 +1,5 @@
 --[[
-Wraps old People.lua page and its new refactored version that uses the 
+Wraps old People.lua page and its new refactored version that uses the
 Settings Framework.
 Flag flip will determine whether the old or new page is attached.
 ]]
@@ -8,7 +8,7 @@ local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
 local LocalizationService = game:GetService("LocalizationService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local Modules = RobloxGui.Modules 
+local Modules = RobloxGui.Modules
 
 -- React
 local React = require(CorePackages.Packages.React)
@@ -16,9 +16,6 @@ local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 
 -- Flags
 local FFlagRefactorPeoplePage = require(Modules.Settings.Flags.FFlagRefactorPeoplePage)
-local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
-local FFlagNavigateToBlockingModal = require(Modules.Common.Flags.FFlagNavigateToBlockingModal)
-local FFlagEnableNewBlockingModal = require(Modules.Common.Flags.FFlagEnableNewBlockingModal)
 local FFlagEnableToastForBlockingModal = require(Modules.Common.Flags.FFlagEnableToastForBlockingModal)
 local FFlagRenderPeoplePageOnTabSwitch = game:DefineFastFlag("RenderPeoplePageOnTabSwitch", false)
 local FFlagRelocateMobileMenuButtons = require(Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
@@ -36,7 +33,6 @@ local Signals = require(CorePackages.Packages.Signals)
 local SignalsReact = require(CorePackages.Packages.SignalsReact)
 local SettingsPageFactory = require(Modules.Settings.SettingsPageFactory)
 local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
-local Theme = require(RobloxGui.Modules.Settings.Theme)
 local locales = Localization.new(LocalizationService.RobloxLocaleId)
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
 local BlockingModalScreen = require(Modules.Settings.Components.Blocking.BlockingModalScreen)
@@ -68,7 +64,7 @@ local function PeopleFocusRoot(props)
 	local centralOverlay = useRegistryEntry(FocusNavigableSurfaceIdentifierEnum.CentralOverlay)
 	-- Only enable auto focus when no modal is open
 	local shouldAutoFocus = centralOverlay == nil
-	
+
 	return React.createElement(FocusRoot, {
 		surfaceIdentifier = FocusNavigableSurfaceIdentifierEnum.RouterView,
 		isAutoFocusRoot = shouldAutoFocus,
@@ -81,21 +77,13 @@ local function createPeoplePage()
 	local PeopleReactView = require(CorePackages.Workspace.Packages.PeopleReactView).PeopleReactView
 	local PeopleService = require(CorePackages.Workspace.Packages.PeopleService)
 	local PeoplePage = SettingsPageFactory:CreateNewPage()
-	
+
 	------ TAB CUSTOMIZATION -------
 	PeoplePage.TabHeader.Name = Constants.PEOPLEPAGE.TAB_HEADER.NAME
 	PeoplePage.Page.Name = Constants.PEOPLEPAGE.PAGE_ID
-	local icon
-	if FFlagBuilderIcons then
-		icon = migrationLookup[Constants.PEOPLEPAGE.TAB_HEADER.ICON]
-		PeoplePage.TabHeader.TabLabel.Icon.Text = icon.name
-		PeoplePage.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
-	else
-		icon = Theme.Images[Constants.PEOPLEPAGE.TAB_HEADER.ICON]
-		PeoplePage.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
-		PeoplePage.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
-		PeoplePage.TabHeader.TabLabel.Icon.Image = icon.Image
-	end
+	local icon = migrationLookup[Constants.PEOPLEPAGE.TAB_HEADER.ICON]
+	PeoplePage.TabHeader.TabLabel.Icon.Text = icon.name
+	PeoplePage.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
 	PeoplePage.TabHeader.TabLabel.Title.Text = locales:Format(Constants.PEOPLEPAGE.TAB_HEADER.TEXT)
 
 	-- Register the SettingsHub instance with the PeopleService
@@ -112,12 +100,12 @@ local function createPeoplePage()
 		end
 	end
 
-	------ PAGE CUSTOMIZATION -------	
+	------ PAGE CUSTOMIZATION -------
 	local function createReactTree()
 		if tree then
 			return
 		end
-		
+
 		local scrollingFrame = if GetFFlagPeoplePageLazyRenderCards() or FFlagEnablePeopleListLazyRender then PeoplePage.Page:FindFirstAncestorWhichIsA("ScrollingFrame") else nil
 
 		local PeopleConditionalView = function()
@@ -131,8 +119,6 @@ local function createPeoplePage()
 							PeopleReactView = React.createElement(PeopleReactView, {
 								blockingModalScreen = BlockingModalScreen,
 								blockingFlags = {
-									FFlagNavigateToBlockingModal = FFlagNavigateToBlockingModal,
-									FFlagEnableNewBlockingModal = FFlagEnableNewBlockingModal,
 									FFlagEnableToastForBlockingModal = FFlagEnableToastForBlockingModal,
 								},
 								scrollingFrame = if GetFFlagPeoplePageLazyRenderCards() or FFlagEnablePeopleListLazyRender then scrollingFrame else nil,

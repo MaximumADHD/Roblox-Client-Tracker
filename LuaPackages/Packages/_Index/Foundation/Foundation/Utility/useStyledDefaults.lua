@@ -3,18 +3,18 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local Types = require(Foundation.Components.Types)
 local RulesTypes = require(Foundation.StyleSheet.Rules.Types)
+local Types = require(Foundation.Components.Types)
 
 type Tags = Types.Tags
 type StyleRuleNoTag = RulesTypes.StyleRuleNoTag
 type StyleAttribute<T> = RulesTypes.StyleAttribute<T>
 type AttributesCache = { scale: { [string]: number }, values: { [string]: unknown } }
 
+local getFormattedTags = require(Foundation.Utility.getFormattedTags)
 local scaleValue = require(script.Parent.scaleValue)
 local styleMappings = require(script.Parent.styleMappings)
 local useRules = require(Foundation.Providers.Style.useRules)
-local getFormattedTags = require(Foundation.Utility.getFormattedTags)
 
 local function updateRuleAttributes(
 	attributes: { StyleAttribute<unknown> }?,

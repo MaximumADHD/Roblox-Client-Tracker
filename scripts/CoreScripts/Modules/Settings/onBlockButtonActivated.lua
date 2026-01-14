@@ -8,15 +8,12 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Roact = require(CorePackages.Packages.Roact)
 local Promise = require(CorePackages.Packages.Promise)
 
-local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 local CoreScriptsRootProvider = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon).CoreScriptsRootProvider
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 
 local BlockingAnalytics = require(script.Parent.Analytics.BlockingAnalytics)
 local BlockingModalScreen = require(script.Parent.Components.Blocking.BlockingModalScreen)
 
-local FFlagNavigateToBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagNavigateToBlockingModal)
-local FFlagEnableNewBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagEnableNewBlockingModal)
 local FFlagEnableToastForBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagEnableToastForBlockingModal)
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 
@@ -37,20 +34,11 @@ end
 if FFlagEnableToastForBlockingModal then
 	return function(player, analytics, source, config)
 		return Promise.new(function(resolve)
-			local blockingAnalytics
-
-			if FFlagNavigateToBlockingModal then
-				blockingAnalytics = analytics or BlockingAnalytics.new()
-				blockingAnalytics:action("SettingsHub", "blockUserButtonClick", {
-					blockeeUserId = player.UserId,
-					source = source,
-				})
-			else
-				analytics:action("SettingsHub", "blockUserButtonClick", {
-					blockeeUserId = player.UserId,
-					source = source,
-				})
-			end
+			local blockingAnalytics = analytics or BlockingAnalytics.new()
+			blockingAnalytics:action("SettingsHub", "blockUserButtonClick", {
+				blockeeUserId = player.UserId,
+				source = source,
+			})
 
 			unmount()
 
@@ -71,10 +59,9 @@ if FFlagEnableToastForBlockingModal then
 			local blockingScreen = Roact.createElement(BlockingModalScreen, {
 				player = player,
 				closeModal = closeModal,
-				analytics = if FFlagNavigateToBlockingModal then blockingAnalytics else analytics,
-				translator = if FFlagEnableNewBlockingModal then nil else (config and config.RobloxTranslator) or RobloxTranslator,
+				analytics = blockingAnalytics,
 				source = source,
-				onBlockingSuccess = if FFlagNavigateToBlockingModal then config and config.onBlockingSuccess or nil else nil
+				onBlockingSuccess = config and config.onBlockingSuccess or nil
 			})
 
 			local coreScriptsRootProvider = Roact.createElement(CoreScriptsRootProvider, {}, {
@@ -92,20 +79,11 @@ if FFlagEnableToastForBlockingModal then
 	end
 else
 	return function(player, analytics, source, config)
-		local blockingAnalytics
-
-		if FFlagNavigateToBlockingModal then
-			blockingAnalytics = analytics or BlockingAnalytics.new()
-			blockingAnalytics:action("SettingsHub", "blockUserButtonClick", {
-				blockeeUserId = player.UserId,
-				source = source,
-			})
-		else
-			analytics:action("SettingsHub", "blockUserButtonClick", {
-				blockeeUserId = player.UserId,
-				source = source,
-			})
-		end
+		local blockingAnalytics = analytics or BlockingAnalytics.new()
+		blockingAnalytics:action("SettingsHub", "blockUserButtonClick", {
+			blockeeUserId = player.UserId,
+			source = source,
+		})
 
 		unmount()
 
@@ -117,10 +95,9 @@ else
 		local blockingScreen = Roact.createElement(BlockingModalScreen, {
 			player = player,
 			closeModal = closeModal,
-			analytics = if FFlagNavigateToBlockingModal then blockingAnalytics else analytics,
-			translator = if FFlagEnableNewBlockingModal then nil else (config and config.RobloxTranslator) or RobloxTranslator,
+			analytics = blockingAnalytics,
 			source = source,
-			onBlockingSuccess = if FFlagNavigateToBlockingModal then config and config.onBlockingSuccess or nil else nil
+			onBlockingSuccess = config and config.onBlockingSuccess or nil,
 		})
 
 		local coreScriptsRootProvider = Roact.createElement(CoreScriptsRootProvider, {}, {

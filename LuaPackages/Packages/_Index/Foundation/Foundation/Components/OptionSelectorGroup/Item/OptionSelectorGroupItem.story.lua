@@ -10,8 +10,8 @@ type InputSize = InputSize.InputSize
 
 local Orientation = require(Foundation.Enums.Orientation)
 
-local OptionSelectorGroupContext = require(script.Parent.Parent.OptionSelectorGroupContext)
 local OptionSelectorGroup = require(Foundation.Components.OptionSelectorGroup)
+local OptionSelectorGroupContext = require(script.Parent.Parent.OptionSelectorGroupContext)
 
 local LONG_TEXT_SUFFIX =
 	" that goes on and on and on to test how the component handles text overflow and wrapping in various scenarios with extremely long content"

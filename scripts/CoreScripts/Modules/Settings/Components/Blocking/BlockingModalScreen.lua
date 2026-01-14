@@ -12,8 +12,6 @@ local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNaviga
 local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 
-local FFlagEnableNewBlockingModal = require(RobloxGui.Modules.Common.Flags.FFlagEnableNewBlockingModal)
-
 local BlockingModalScreen = Roact.PureComponent:extend("BlockingModalScreen")
 
 BlockingModalScreen.validateProps = t.interface({
@@ -25,7 +23,7 @@ BlockingModalScreen.validateProps = t.interface({
 	}),
 	translator = t.optional(t.table),
 	source = t.optional(t.string),
-	onBlockingSuccess = if FFlagEnableNewBlockingModal then t.optional(t.callback) else nil,
+	onBlockingSuccess = t.optional(t.callback) ,
 })
 
 function BlockingModalScreen:render()

@@ -65,7 +65,6 @@ local Signals = require(CorePackages.Packages.Signals)
 local createSignal = Signals.createSignal
 local AppStyleProvider = require(CorePackages.Packages.UIBlox).App.Style.AppStyleProvider
 local DarkTheme = require(CorePackages.Packages.UIBlox).App.Style.Constants.ThemeName.Dark 
-local FFlagBuilderIcons = SharedFlags.UIBlox.FFlagUIBloxMigrateBuilderIcon
 local FFlagInExperienceUseAppStyleProvider = SharedFlags.FFlagInExperienceUseAppStyleProvider
 local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
@@ -1621,8 +1620,7 @@ local function CreateSettingsHub()
 			if Flags.EngineFeatureTeleportHistoryButtons then
 				this.BackBarRef = Roact.createRef()
 				this.FrontBarRef = Roact.createRef()
-				this.BackBar = if FFlagBuilderIcons then
-					Roact.createElement(RoactAppExperiment.Provider, {
+				this.BackBar = Roact.createElement(RoactAppExperiment.Provider, {
 						value = IXPService,
 					}, 
 					{
@@ -1649,34 +1647,11 @@ local function CreateSettingsHub()
 								}),
 							})
 						})
-					}) else
-					Roact.createElement(RoactAppExperiment.Provider, {
-						value = IXPService,
-					}, 
-					{
-						ButtonsFrame = Roact.createElement("Frame", {
-							BackgroundTransparency = 1,
-							LayoutOrder = -1,
-							AutomaticSize = Enum.AutomaticSize.Y,
-							Size = UDim2.new(1, 0, 0, 0)
-						}, {
-							BackButton = Roact.createElement(MenuBackButton, {
-								BackBarRef = this.BackBarRef,
-								HubBar = this.HubBar,
-								LayoutOrder = 1,
-							}),
-							FrontButton = Roact.createElement(MenuFrontButton, {
-								FrontBarRef = this.FrontBarRef,
-								HubBar = this.HubBar,
-								LayoutOrder = 2,
-							}),
-						})
 					})
 				Roact.mount(this.BackBar, menuParent, "BackBar")	
 			else
 				this.BackBarRef = Roact.createRef()
-				this.BackBar = if FFlagBuilderIcons then 
-					Roact.createElement(RoactAppExperiment.Provider, {
+				this.BackBar = Roact.createElement(RoactAppExperiment.Provider, {
 						value = IXPService,
 					}, {
 						AppStyleProvider = Roact.createElement(AppStyleProvider, {
@@ -1686,11 +1661,6 @@ local function CreateSettingsHub()
 						}, {
 							BackButton = Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),
 						})
-					}) else
-					Roact.createElement(RoactAppExperiment.Provider, {
-						value = IXPService,
-					}, {
-						BackButton = Roact.createElement(MenuBackButton,{BackBarRef=this.BackBarRef, HubBar=this.HubBar}),
 					})
 				Roact.mount(this.BackBar, menuParent, "BackBar")
 			end

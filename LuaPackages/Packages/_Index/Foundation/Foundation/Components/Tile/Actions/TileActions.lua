@@ -5,8 +5,8 @@ local React = require(Packages.React)
 
 local useTile = require(Foundation.Components.Tile.useTile)
 
-local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 type Bindable<T> = Types.Bindable<T>
 
 type TileActionsProps = {

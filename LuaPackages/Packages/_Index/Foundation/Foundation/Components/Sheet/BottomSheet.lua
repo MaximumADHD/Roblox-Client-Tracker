@@ -1,17 +1,17 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
-local ReactUtils = require(Packages.ReactUtils)
-local ReactRoblox = require(Packages.ReactRoblox)
-local Otter = require(Packages.Otter)
-local ReactOtter = require(Packages.ReactOtter)
 local Dash = require(Packages.Dash)
+local Otter = require(Packages.Otter)
+local React = require(Packages.React)
+local ReactOtter = require(Packages.ReactOtter)
+local ReactRoblox = require(Packages.ReactRoblox)
+local ReactUtils = require(Packages.ReactUtils)
 local useAnimatedBinding = ReactOtter.useAnimatedBinding
+local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
+local useElevation = require(Foundation.Providers.Elevation.useElevation)
 local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local useElevation = require(Foundation.Providers.Elevation.useElevation)
 local OwnerScope = require(Foundation.Providers.Elevation.ElevationProvider).ElevationOwnerScope
 local ElevationLayer = require(Foundation.Enums.ElevationLayer)
 type ElevationLayer = ElevationLayer.ElevationLayer
@@ -26,9 +26,9 @@ local SheetType = require(script.Parent.SheetType)
 local useHardwareInsets = require(script.Parent.useHardwareInsets)
 local useScreenHeight = require(script.Parent.useScreenHeight)
 
-local View = require(Foundation.Components.View)
-local Image = require(Foundation.Components.Image)
 local Flags = require(Foundation.Utility.Flags)
+local Image = require(Foundation.Components.Image)
+local View = require(Foundation.Components.View)
 
 local SPRING_FREQUENCY = 18
 local SPRING_DAMPING = 0.9
@@ -326,7 +326,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 			React.createElement(
 				View,
 				{
-					ZIndex = if Flags.FoundationElevationSystem then elevation.zIndex else 5,
+					ZIndex = elevation.zIndex,
 					ref = composedRef,
 					selection = SheetTypes.nonSelectable,
 					selectionGroup = SheetTypes.isolatedSelectionGroup,
@@ -409,15 +409,9 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 										end,
 									}),
 								}),
-								Content = React.createElement(
-									SheetContext.Provider,
-									{
-										value = contextValue,
-									},
-									if Flags.FoundationElevationSystem
-										then React.createElement(OwnerScope, { owner = elevation }, props.children)
-										else props.children
-								),
+								Content = React.createElement(SheetContext.Provider, {
+									value = contextValue,
+								}, React.createElement(OwnerScope, { owner = elevation }, props.children)),
 							}),
 						}
 					),

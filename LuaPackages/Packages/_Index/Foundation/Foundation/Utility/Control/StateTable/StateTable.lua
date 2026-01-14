@@ -1,8 +1,8 @@
 --!nonstrict
 local Foundation = script:FindFirstAncestor("Foundation")
-local Logger = require(Foundation.Utility.Logger)
 local ControlState = require(Foundation.Enums.ControlState)
 local ControlStateEvent = require(Foundation.Enums.ControlStateEvent)
+local Logger = require(Foundation.Utility.Logger)
 type ControlState = ControlState.ControlState
 type ControlStateEvent = ControlStateEvent.ControlStateEvent
 

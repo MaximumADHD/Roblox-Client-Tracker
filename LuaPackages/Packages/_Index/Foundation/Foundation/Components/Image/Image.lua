@@ -2,27 +2,27 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local Flags = require(Foundation.Utility.Flags)
 
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
-local ReactIs = require(Packages.ReactIs)
-local FoundationImages = require(Packages.FoundationImages)
 local FoundationCloudAssets = require(Packages.FoundationCloudAssets)
+local FoundationImages = require(Packages.FoundationImages)
+local React = require(Packages.React)
+local ReactIs = require(Packages.ReactIs)
 
 local Assets = FoundationCloudAssets.Assets
 local Interactable = require(Foundation.Components.Interactable)
 local Images = FoundationImages.Images
 type ImageSetImage = FoundationImages.ImageSetImage
 local getScaledSlice = require(script.Parent.ImageSet.getScaledSlice)
-local isFoundationImage = require(script.Parent.ImageSet.isFoundationImage)
 local isCloudAsset = require(script.Parent.CloudAsset.isCloudAsset)
+local isFoundationImage = require(script.Parent.ImageSet.isFoundationImage)
 
-local Types = require(Foundation.Components.Types)
-local withDefaults = require(Foundation.Utility.withDefaults)
-local useDefaultTags = require(Foundation.Utility.useDefaultTags)
-local withGuiObjectProps = require(Foundation.Utility.withGuiObjectProps)
-local useStyledDefaults = require(Foundation.Utility.useStyledDefaults)
-local indexBindable = require(Foundation.Utility.indexBindable)
 local GuiObjectChildren = require(Foundation.Utility.GuiObjectChildren)
+local Types = require(Foundation.Components.Types)
+local indexBindable = require(Foundation.Utility.indexBindable)
+local useDefaultTags = require(Foundation.Utility.useDefaultTags)
+local useStyledDefaults = require(Foundation.Utility.useStyledDefaults)
+local withDefaults = require(Foundation.Utility.withDefaults)
+local withGuiObjectProps = require(Foundation.Utility.withGuiObjectProps)
 type ColorStyle = Types.ColorStyle
 
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)

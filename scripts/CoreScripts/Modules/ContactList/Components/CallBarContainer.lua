@@ -15,9 +15,6 @@ local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
-
 local Chrome = RobloxGui.Modules.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
 local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil
@@ -61,15 +58,8 @@ local function CallBarContainer(passedProps: Props)
 
 	local dispatch = useDispatch()
 
-	local topBarButtonPadding
-	local topBarTopMargin
-	if FFlagTopBarStyleUseDisplayUIScale then
-		topBarButtonPadding = TopBarConstants.useDisplayScaleState(TopBarConstants.TopBarButtonPadding)
-		topBarTopMargin = TopBarConstants.useDisplayScaleState(TopBarConstants.TopBarTopMargin)
-	else
-		topBarButtonPadding = TopBarConstants.TopBarButtonPadding
-		topBarTopMargin = TopBarConstants.TopBarTopMargin
-	end
+	local topBarButtonPadding = TopBarConstants.useDisplayScaleState(TopBarConstants.TopBarButtonPadding)
+	local topBarTopMargin = TopBarConstants.useDisplayScaleState(TopBarConstants.TopBarTopMargin)
 	local isCallBarEnabled, setIsCallBarEnabled = React.useState(false)
 	local callBarPosition, setCallBarPosition
 

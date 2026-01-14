@@ -5,9 +5,9 @@ local React = require(Packages.React)
 local useForwardRef = require(Packages.ReactUtils).useForwardRef
 local StyleRule = require(Foundation.StyleSheet.StyleRule)
 local useStyleSheet = require(Foundation.Providers.Style.StyleSheetContext).useStyleSheet
-local useResponsive = require(Foundation.Providers.Responsive.useResponsive)
 local Breakpoint = require(Foundation.Enums.Breakpoint)
 local BreakpointShortName = require(Foundation.Enums.BreakpointShortName)
+local useResponsive = require(Foundation.Providers.Responsive.useResponsive)
 
 type Breakpoint = Breakpoint.Breakpoint
 type BreakpointShortName = BreakpointShortName.BreakpointShortName

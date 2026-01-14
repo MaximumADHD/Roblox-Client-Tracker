@@ -1,14 +1,14 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
-local Progress = require(Foundation.Components.Progress)
-local View = require(Foundation.Components.View)
-local Text = require(Foundation.Components.Text)
 local Button = require(Foundation.Components.Button)
+local Progress = require(Foundation.Components.Progress)
 local ProgressShape = require(Foundation.Enums.ProgressShape)
 local ProgressSize = require(Foundation.Enums.ProgressSize)
+local Text = require(Foundation.Components.Text)
+local View = require(Foundation.Components.View)
 
 local function ConfigurableStory(props)
 	local controls = props.controls

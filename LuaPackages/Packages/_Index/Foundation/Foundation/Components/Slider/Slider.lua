@@ -5,21 +5,21 @@ local React = require(Packages.React)
 
 local Constants = require(Foundation.Constants)
 
-local View = require(Foundation.Components.View)
+local InputMode = require(Foundation.Utility.Input.InputMode)
 local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
+local useBindable = require(Foundation.Utility.useBindable)
+local useLastInputMode = require(Foundation.Utility.Input.useLastInputMode)
+local usePointerPosition = require(Foundation.Utility.usePointerPosition)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local useBindable = require(Foundation.Utility.useBindable)
-local usePointerPosition = require(Foundation.Utility.usePointerPosition)
-local useLastInputMode = require(Foundation.Utility.Input.useLastInputMode)
-local InputMode = require(Foundation.Utility.Input.InputMode)
 
-local calculateSliderValueFromPosition = require(script.Parent.calculateSliderValueFromPosition)
-local calculateSliderPositionDelta = require(script.Parent.calculateSliderPositionDelta)
-local calculateSliderValueFromDelta = require(script.Parent.calculateSliderValueFromDelta)
-local calculatePixelsPerStep = require(script.Parent.calculatePixelsPerStep)
 local calculateNextStepValue = require(script.Parent.calculateNextStepValue)
+local calculatePixelsPerStep = require(script.Parent.calculatePixelsPerStep)
+local calculateSliderPositionDelta = require(script.Parent.calculateSliderPositionDelta)
 local calculateSliderStepValue = require(script.Parent.calculateSliderStepValue)
+local calculateSliderValueFromDelta = require(script.Parent.calculateSliderValueFromDelta)
+local calculateSliderValueFromPosition = require(script.Parent.calculateSliderValueFromPosition)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
@@ -31,16 +31,16 @@ local SliderVariant = require(Foundation.Enums.SliderVariant)
 type SliderVariant = SliderVariant.SliderVariant
 
 local ColorMode = require(Foundation.Enums.ColorMode)
-local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local ControlState = require(Foundation.Enums.ControlState)
+local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 type ControlState = ControlState.ControlState
 
-local useTokens = require(Foundation.Providers.Style.useTokens)
-local useSliderVariants = require(Foundation.Components.Slider.useSliderVariants)
-local useSliderMotionStates = require(Foundation.Components.Slider.useSliderMotionStates)
+local Flags = require(Foundation.Utility.Flags)
 local Knob = require(Foundation.Components.Knob)
 local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
-local Flags = require(Foundation.Utility.Flags)
+local useSliderMotionStates = require(Foundation.Components.Slider.useSliderMotionStates)
+local useSliderVariants = require(Foundation.Components.Slider.useSliderVariants)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 -- When observing the drag deltas this was a reasonably large value that would
 -- only realistically be reached from the directional input jumping back to the

@@ -16,8 +16,8 @@ local Tokens = require(Foundation.Providers.Style.Tokens)
 type Tokens = Tokens.Tokens
 
 local Flags = require(Foundation.Utility.Flags)
-local getKnobSize = require(Foundation.Components.Knob.getKnobSize)
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
+local getKnobSize = require(Foundation.Components.Knob.getKnobSize)
 
 type ToggleVariantProps = {
 	input: InputVariantProps,
@@ -68,9 +68,7 @@ local function variantsFactory(tokens: Tokens)
 		else {
 			input = {
 				checkedStyle = tokens.Color.ActionEmphasis.Background,
-				cursorRadius = if Flags.FoundationInternalInputSelectedStylesAndSpacing
-					then UDim.new(0, tokens.Radius.Circle)
-					else UDim.new(0, tokens.Radius.Medium),
+				cursorRadius = UDim.new(0, tokens.Radius.Circle),
 			},
 		}
 

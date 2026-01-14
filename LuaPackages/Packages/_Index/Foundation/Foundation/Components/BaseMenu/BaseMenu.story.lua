@@ -1,14 +1,14 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
-local Dash = require(Packages.Dash)
 local BuilderIcons = require(Packages.BuilderIcons)
+local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local Types = require(Foundation.Components.Types)
 type ItemId = Types.ItemId
 local BaseMenu = require(Foundation.Components.BaseMenu)
-local View = require(Foundation.Components.View)
 local InputSize = require(Foundation.Enums.InputSize)
+local View = require(Foundation.Components.View)
 
 type InputSize = InputSize.InputSize
 type BaseMenuItem = BaseMenu.BaseMenuItem

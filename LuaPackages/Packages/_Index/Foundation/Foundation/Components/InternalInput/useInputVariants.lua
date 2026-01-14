@@ -1,6 +1,5 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
 type Padding = Types.Padding
@@ -35,33 +34,22 @@ local function variantsFactory(tokens: Tokens)
 		input = { stroke = { thickness = strokeThickness } },
 	}
 
-	local sizes: { [InputSize]: VariantProps }
-	-- TODO: Remove sizes and move gap to common when we remove the flag FoundationInternalInputSelectedStylesAndSpacing
-	if Flags.FoundationInternalInputSelectedStylesAndSpacing then
-		sizes = {
-			[InputSize.XSmall] = { container = { tag = "gap-medium" } },
-			[InputSize.Small] = { container = { tag = "gap-medium" } },
-			[InputSize.Medium] = { container = { tag = "gap-medium" } },
-			[InputSize.Large] = { container = { tag = "gap-medium" } },
-		}
-	else
-		sizes = {
-			[InputSize.XSmall] = { container = { tag = "gap-small" } },
-			[InputSize.Small] = { container = { tag = "gap-small" } },
-			[InputSize.Medium] = { container = { tag = "gap-medium" } },
-			[InputSize.Large] = { container = { tag = "gap-large" } },
-		}
-	end
-
-	-- remove when Flags.FoundationToggleEndPlacementJustifyContent is removed
-	local justifyContent: { [boolean]: VariantProps } = {
-		[true] = { container = { tag = "flex-x-between size-full-0" } },
+	local sizes: { [InputSize]: VariantProps } = {
+		[InputSize.XSmall] = { container = { tag = "gap-medium" } },
+		[InputSize.Small] = { container = { tag = "gap-medium" } },
+		[InputSize.Medium] = { container = { tag = "gap-medium" } },
+		[InputSize.Large] = { container = { tag = "gap-medium" } },
 	}
 
-	return { common = common, sizes = sizes, justifyContent = justifyContent }
+	local labelPosition: { [Enum.HorizontalAlignment]: VariantProps } = {
+		[Enum.HorizontalAlignment.Left] = { container = { tag = "flex-x-between size-full-0" } },
+		[Enum.HorizontalAlignment.Right] = { container = { tag = "" } },
+	}
+
+	return { common = common, sizes = sizes, labelPosition = labelPosition }
 end
 
-return function(tokens: Tokens, size: InputSize, justifyContent: boolean?): InputVariantProps
+return function(tokens: Tokens, size: InputSize, labelPosition: Enum.HorizontalAlignment): InputVariantProps
 	local props = VariantsContext.useVariants("InternalInput", variantsFactory, tokens)
-	return composeStyleVariant(props.common, props.sizes[size], props.justifyContent[justifyContent or false])
+	return composeStyleVariant(props.common, props.sizes[size], props.labelPosition[labelPosition])
 end

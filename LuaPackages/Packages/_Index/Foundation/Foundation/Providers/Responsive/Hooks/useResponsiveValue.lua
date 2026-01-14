@@ -1,10 +1,10 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local Types = require(Foundation.Components.Types)
 local Breakpoint = require(Foundation.Enums.Breakpoint)
 local ResponsiveContext = require(Foundation.Providers.Responsive.ResponsiveContext)
-local useResponsive = require(Foundation.Providers.Responsive.useResponsive)
+local Types = require(Foundation.Components.Types)
 local useBreakpoint = require(script.Parent.useBreakpoint)
+local useResponsive = require(Foundation.Providers.Responsive.useResponsive)
 
 type ResponsiveConfig = ResponsiveContext.ResponsiveConfig
 type Breakpoint = Breakpoint.Breakpoint

@@ -54,7 +54,6 @@ local GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableInExpPhoneVoiceUpsellEntrypoints
 local GetFFlagEnableConnectDisconnectInSettingsAndChrome =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectInSettingsAndChrome)
-local GetFFlagHideVoiceDisconnectButton = require(RobloxGui.Modules.Flags.GetFFlagHideVoiceDisconnectButton)
 
 local Analytics = require(RobloxGui.Modules.SelfView.Analytics).new()
 local VOICE_JOIN_PROGRESS = VoiceConstants.VOICE_JOIN_PROGRESS
@@ -480,14 +479,6 @@ function PermissionsButtons:getJoinVoiceButtonVisibleAtMount()
 end
 
 function PermissionsButtons:getLeaveVoiceButtonVisibleAtMount()
-	-- M3 Treatment
-	if
-		not GetFFlagHideVoiceDisconnectButton()
-		and VoiceChatServiceManager:IsSeamlessVoice()
-	then
-		return self.state.isVoiceUIVisible and not VoiceChatServiceManager.isShowingFTUX
-	end
-
 	return false
 end
 

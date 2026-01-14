@@ -1,8 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local FoundationImages = require(Packages.FoundationImages)
+local React = require(Packages.React)
 
 local Images = FoundationImages.Images
 local CursorComponent = require(script.Parent.Parent.CursorComponent)
@@ -12,7 +12,6 @@ local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local Components = script.Parent.Parent.Parent.Parent.Components
 local getScaledSlice = require(Components.Image.ImageSet.getScaledSlice)
-local Flags = require(Foundation.Utility.Flags)
 
 --selene: allow(roblox_internal_custom_color)
 local NAV_HIGHLIGHT_HEIGHT = 3
@@ -174,9 +173,7 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 		elseif cursorDetails.Tag == "SlicedImage" then
 			local inset = cursorDetails.InsetAdjustment
 			local size = UDim2.new(1, inset.X * 2, 1, inset.Y * 2)
-			local scaledSlice = if Flags.FoundationCursorScaledSliceFix
-				then getScaledSlice(cursorDetails.SliceCenter)
-				else nil :: never
+			local scaledSlice = getScaledSlice(cursorDetails.SliceCenter)
 			local padding = if cursorDetails.Padding
 				then React.createElement("UIPadding", {
 					PaddingTop = UDim.new(0, cursorDetails.Padding),
@@ -190,10 +187,8 @@ local Cursor = React.forwardRef(function(props: Props, ref: React.Ref<Frame>)
 				BackgroundTransparency = 1,
 				ImageRectOffset = Images[cursorDetails.Image].ImageRectOffset,
 				ImageRectSize = Images[cursorDetails.Image].ImageRectSize,
-				SliceCenter = if Flags.FoundationCursorScaledSliceFix
-					then scaledSlice.center
-					else cursorDetails.SliceCenter,
-				SliceScale = if Flags.FoundationCursorScaledSliceFix then scaledSlice.scale else nil,
+				SliceCenter = scaledSlice.center,
+				SliceScale = scaledSlice.scale,
 				ScaleType = Enum.ScaleType.Slice,
 				Size = size,
 				Position = UDim2.fromOffset(-inset.X, -inset.Y),

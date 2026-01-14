@@ -31,7 +31,6 @@ local ChromeEnabled = require(Chrome.Enabled)
 local ChromeService = if ChromeEnabled() then require(Chrome.Service) else nil :: never
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagChromeHideShortcutBarOnInspectAndBuy = SharedFlags.FFlagChromeHideShortcutBarOnInspectAndBuy
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
 local InspectAndBuyFolder = script.Parent.Parent
@@ -213,10 +212,7 @@ function InspectAndBuy:didMount()
 		IXPUtils.logLayerExposure(FStringAXInspectAndBuyLayerName)
 	end
 
-	if
-		FFlagChromeHideShortcutBarOnInspectAndBuy
-		and (if FFlagEnableConsoleExpControls then ChromeEnabled() else ChromeEnabled)
-	then
+	if FFlagEnableConsoleExpControls and ChromeEnabled() then
 		ChromeService:setHideShortcutBar(MODULE_NAME, true)
 	end
 
@@ -322,10 +318,7 @@ function InspectAndBuy:willUnmount()
 	ContextActionService:UnbindCoreAction(BACK_BUTTON_KEY)
 	self:popMouseIconOverride()
 
-	if
-		FFlagChromeHideShortcutBarOnInspectAndBuy
-		and (if FFlagEnableConsoleExpControls then ChromeEnabled() else ChromeEnabled)
-	then
+	if FFlagEnableConsoleExpControls and ChromeEnabled() then
 		ChromeService:setHideShortcutBar(MODULE_NAME, false)
 	end
 end

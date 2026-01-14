@@ -6,18 +6,18 @@ local ReactUtils = require(Packages.ReactUtils)
 local useClock = ReactUtils.useClock
 
 local Components = Foundation.Components
-local View = require(Components.View)
 local Types = require(Components.Types)
+local View = require(Components.View)
 type Bindable<T> = Types.Bindable<T>
 
 local Radius = require(Foundation.Enums.Radius)
 type Radius = Radius.Radius
 
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
 local usePulseBinding = require(Foundation.Utility.usePulseBinding)
-local withDefaults = require(Foundation.Utility.withDefaults)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local lerp = require(Foundation.Utility.lerp)
 

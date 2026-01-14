@@ -7,8 +7,8 @@ local Sheet = script:FindFirstAncestor("Sheet")
 local SheetContext = require(Sheet.SheetContext)
 local SheetType = require(Sheet.SheetType)
 
-local View = require(Foundation.Components.View)
 local ScrollView = require(Foundation.Components.ScrollView)
+local View = require(Foundation.Components.View)
 
 export type SheetContentProps = {
 	children: React.ReactNode,
@@ -38,6 +38,7 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 	)
 
 	local updateHasActionsDivider = React.useCallback(function(rbx: ScrollingFrame)
+		setInnerScrollY(rbx.CanvasPosition.Y)
 		local canvasSizeY = rbx.AbsoluteCanvasSize.Y
 		local windowSizeY = rbx.AbsoluteWindowSize.Y
 		setHasActionsDivider(canvasSizeY > windowSizeY + 1)

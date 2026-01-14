@@ -6,7 +6,6 @@ local UserInputService = game:GetService("UserInputService")
 local React = require(CorePackages.Packages.React)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
 local ChromeFlags = require(script.Parent.Parent.Parent.Parent.Flags)
@@ -19,7 +18,7 @@ local FFlagTokenizeUnibarConstantsWithStyleProvider = ChromeSharedFlags.FFlagTok
 local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local Foundation = require(CorePackages.Packages.Foundation)
-local useCursor = if FFlagAdaptUnibarAndTiltSizing then Foundation.Hooks.useCursor else nil :: never
+local useCursor = Foundation.Hooks.useCursor
 local Badge = Foundation.Badge
 local BadgeVariant = Foundation.Enums.BadgeVariant
 local BadgeSize = Foundation.Enums.BadgeSize
@@ -33,8 +32,6 @@ local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
 local useStyle = UIBlox.Core.Style.useStyle
 local withTooltip = UIBlox.App.Dialog.TooltipV2.withTooltip
-local useSelectionCursor = if FFlagAdaptUnibarAndTiltSizing then nil else UIBlox.App.SelectionImage.useSelectionCursor
-local CursorKind = if FFlagAdaptUnibarAndTiltSizing then nil else UIBlox.App.SelectionImage.CursorKind
 
 local Constants = require(Root.Unibar.Constants)
 
@@ -482,82 +479,59 @@ function TooltipButton(props: TooltipButtonProps)
 			leftMostIconId = ChromeService:menuList():get()[1].id
 		end
 
-		return React.createElement(
-			Interactable,
-			{
-				Name = (if FFlagEnableConsoleExpControls then Constants.ICON_NAME_PREFIX :: string else "IconHitArea_")
-					.. props.integration.id,
-				Size = if FFlagAdaptUnibarAndTiltSizing or FFlagTokenizeUnibarConstantsWithStyleProvider
-					then iconHighlightSize
-					else UDim2.new(1, 0, 1, 0),
-				AnchorPoint = if FFlagAdaptUnibarAndTiltSizing then Vector2.new(0.5, 0.5) else nil,
-				BackgroundTransparency = 1,
-				BorderSizePixel = 0,
-				onStateChanged = hoverHandler,
-				ref = localBtnRef,
-				SelectionOrder = if FFlagUnibarMenuOpenHamburger or FFlagUnibarMenuOpenSubmenu
-					then props.integration.order
-					else 100 - props.integration.order,
-				Position = props.isCurrentlyOpenSubMenu:map(function(activeSubmenu: boolean?)
-					return if FFlagAdaptUnibarAndTiltSizing
-						then UDim2.new(
-							0.5,
-							0,
-							0.5,
-							if not FFlagEnableConsoleExpControls and activeSubmenu then 1 else 0
-						)
-						else UDim2.new(
-							0,
-							0,
-							0,
-							if not FFlagEnableConsoleExpControls and activeSubmenu then 1 else 0
-						)
-				end),
-				SelectionImageObject = if FFlagAdaptUnibarAndTiltSizing
-					then useCursor(Foundation.Enums.CursorType.SkinToneCircle)
-					else useSelectionCursor(CursorKind.SelectedKnob),
-				SelectionGroup = true,
-				SelectionBehaviorUp = Enum.SelectionBehavior.Stop,
-				SelectionBehaviorDown = props.isCurrentlyOpenSubMenu:map(function(activeSubmenu: boolean?)
-					-- only allow down nav if secondaryAction or an active open submenu
-					return if (displayTooltip and secondaryAction) or activeSubmenu
-						then Enum.SelectionBehavior.Escape
-						else Enum.SelectionBehavior.Stop
-				end),
-				NextSelectionLeft = if FFlagEnableConsoleExpControls
-						and props.integration.id == leftMostIconId
-					then menuIconContext.menuIconRef
-					else nil :: never,
+		return React.createElement(Interactable, {
+			Name = (if FFlagEnableConsoleExpControls then Constants.ICON_NAME_PREFIX :: string else "IconHitArea_")
+				.. props.integration.id,
+			Size = iconHighlightSize,
+			AnchorPoint = Vector2.new(0.5, 0.5),
+			BackgroundTransparency = 1,
+			BorderSizePixel = 0,
+			onStateChanged = hoverHandler,
+			ref = localBtnRef,
+			SelectionOrder = if FFlagUnibarMenuOpenHamburger or FFlagUnibarMenuOpenSubmenu
+				then props.integration.order
+				else 100 - props.integration.order,
+			Position = props.isCurrentlyOpenSubMenu:map(function(activeSubmenu: boolean?)
+				return UDim2.new(0.5, 0, 0.5, if not FFlagEnableConsoleExpControls and activeSubmenu then 1 else 0)
+			end),
+			SelectionImageObject = useCursor(Foundation.Enums.CursorType.SkinToneCircle),
+			SelectionGroup = true,
+			SelectionBehaviorUp = Enum.SelectionBehavior.Stop,
+			SelectionBehaviorDown = props.isCurrentlyOpenSubMenu:map(function(activeSubmenu: boolean?)
+				-- only allow down nav if secondaryAction or an active open submenu
+				return if (displayTooltip and secondaryAction) or activeSubmenu
+					then Enum.SelectionBehavior.Escape
+					else Enum.SelectionBehavior.Stop
+			end),
+			NextSelectionLeft = if FFlagEnableConsoleExpControls and props.integration.id == leftMostIconId
+				then menuIconContext.menuIconRef
+				else nil :: never,
 
-				[React.Change.AbsolutePosition] = triggerPointChanged,
-				[React.Change.AbsoluteSize] = triggerPointChanged,
-				[React.Event.InputBegan] = touchBegan,
-				[React.Event.InputEnded] = touchEnded,
-				[React.Event.Activated] = function()
-					if isInExperienceUIVREnabled and isSpatial then
-						if shouldDisableInteraction then
-							return
-						else
-							ChromeService:onTriggerVRToggleButton():fire(true)
-						end
+			[React.Change.AbsolutePosition] = triggerPointChanged,
+			[React.Change.AbsoluteSize] = triggerPointChanged,
+			[React.Event.InputBegan] = touchBegan,
+			[React.Event.InputEnded] = touchEnded,
+			[React.Event.Activated] = function()
+				if isInExperienceUIVREnabled and isSpatial then
+					if shouldDisableInteraction then
+						return
+					else
+						ChromeService:onTriggerVRToggleButton():fire(true)
 					end
-					setClicked(true, true)
-					props.integration.activated()
-					if connection.current then
-						connection.current:Disconnect()
-						connection.current = nil
-						ChromeService:gesture(props.integration.id, nil)
-					end
-				end,
-			},
-			if FFlagAdaptUnibarAndTiltSizing
-				then {
-					corner = React.createElement("UICorner", {
-						CornerRadius = UDim.new(1, 0),
-					}),
-				}
-				else nil
-		)
+				end
+				setClicked(true, true)
+				props.integration.activated()
+				if connection.current then
+					connection.current:Disconnect()
+					connection.current = nil
+					ChromeService:gesture(props.integration.id, nil)
+				end
+			end,
+		}, {
+			corner = React.createElement("UICorner", {
+				CornerRadius = UDim.new(1, 0),
+			}),
+		})
 	end, {
 		hoverHandler :: any,
 		setHovered,

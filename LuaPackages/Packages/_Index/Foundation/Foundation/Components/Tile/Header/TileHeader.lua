@@ -3,14 +3,14 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
-local Text = require(Foundation.Components.Text)
 local Skeleton = require(Foundation.Components.Skeleton)
+local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
-local useTokens = require(Foundation.Providers.Style.useTokens)
-local withDefaults = require(Foundation.Utility.withDefaults)
+local View = require(Foundation.Components.View)
 local useTextSizeOffset = require(Foundation.Providers.Style.useTextSizeOffset)
 local useTile = require(Foundation.Components.Tile.useTile)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 type ColorStyle = Types.ColorStyle
 

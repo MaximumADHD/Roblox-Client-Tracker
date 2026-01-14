@@ -9,8 +9,6 @@ local TextChatService = game:GetService("TextChatService")
 local TweenService = game:GetService("TweenService")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
-local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
 local FFlagFixUnibarRefactoringInTopBarApp = require(script.Parent.Parent.Flags.FFlagFixUnibarRefactoringInTopBarApp)
 local FFlagTraversalBackUseSettingsSignal = require(script.Parent.Parent.Flags.FFlagTraversalBackUseSettingsSignal)
@@ -103,7 +101,6 @@ local Connection = require(script.Parent.Connection)
 
 local TopBar = Presentation.Parent.Parent
 local Constants = require(TopBar.Constants)
-local FFlagUnibarMenuIconLayoutFix = require(TopBar.Flags.FFlagUnibarMenuIconLayoutFix)
 local SetScreenSize = require(TopBar.Actions.SetScreenSize)
 local SetKeepOutArea = require(TopBar.Actions.SetKeepOutArea)
 local RemoveKeepOutArea = require(TopBar.Actions.RemoveKeepOutArea)
@@ -176,15 +173,12 @@ TopBarApp.validateProps = t.strictInterface({
 function TopBarApp:init()
 	self.unibarRightSidePosition, self.setUnibarRightSidePosition = Roact.createBinding(UDim2.new())
 	self.closeButtonState, self.setCloseButtonState = Roact.createBinding(false)
-
-	if FFlagTopBarStyleUseDisplayUIScale then
-		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
-			local DisplayStore = Display.GetDisplayStore(scope)
-			self:setState({
-				UiScale = DisplayStore.getUIScale(scope),
-			})
-		end)
-	end
+	self.disposeUiScaleEffect = Signals.createEffect(function(scope)
+		local DisplayStore = Display.GetDisplayStore(scope)
+		self:setState({
+			UiScale = DisplayStore.getUIScale(scope),
+		})
+	end)
 
 	if FFlagAddUILessMode then
 		self.uiLessStore = CoreGuiCommonStores.GetUILessStore(false)
@@ -354,7 +348,7 @@ function TopBarApp:willUnmount()
 		end
 	end
 
-	if FFlagTopBarStyleUseDisplayUIScale and self.disposeUiScaleEffect then
+	if self.disposeUiScaleEffect then
 		self.disposeUiScaleEffect()
 	end
 
@@ -433,41 +427,20 @@ function TopBarApp:renderWithStyle(style)
 		unibarAlignment = self.state.unibarAlignment
 	end
 
-	local screenSideOffset
-	local topBarHeight
-	local topBarTopMargin
-	local topBarPadding
-	local legacyCloseMenuIconSize
-	local unibarFramePaddingTop
-	local unibarFramePaddingBottom
-	local unibarFramePaddingLeft
-	local unibarFrameExtendedSize
-	if FFlagTopBarStyleUseDisplayUIScale then
-		screenSideOffset = Constants.ScreenSideOffset * self.state.UiScale
-		topBarHeight = Constants.TopBarHeight * self.state.UiScale
-		topBarTopMargin = Constants.TopBarTopMargin * self.state.UiScale
-		topBarPadding = Constants.TopBarPadding * self.state.UiScale
-		legacyCloseMenuIconSize = Constants.LegacyCloseMenuIconSize * self.state.UiScale
-		unibarFramePaddingTop = Constants.UnibarFrame.PaddingTop * self.state.UiScale
-		unibarFramePaddingBottom = Constants.UnibarFrame.PaddingBottom * self.state.UiScale
-		unibarFramePaddingLeft = Constants.UnibarFrame.PaddingLeft * self.state.UiScale
-		unibarFrameExtendedSize = Constants.UnibarFrame.ExtendedSize * self.state.UiScale
-	else
-		screenSideOffset = Constants.ScreenSideOffset
-		topBarHeight = Constants.TopBarHeight
-		topBarTopMargin = Constants.TopBarTopMargin
-		topBarPadding = Constants.TopBarPadding
-		legacyCloseMenuIconSize = Constants.LegacyCloseMenuIconSize
-		unibarFramePaddingTop = Constants.UnibarFrame.PaddingTop
-		unibarFramePaddingBottom = Constants.UnibarFrame.PaddingBottom
-		unibarFramePaddingLeft = Constants.UnibarFrame.PaddingLeft
-		unibarFrameExtendedSize = Constants.UnibarFrame.ExtendedSize
-	end
+	local screenSideOffset = Constants.ScreenSideOffset * self.state.UiScale
+	local topBarHeight = Constants.TopBarHeight * self.state.UiScale
+	local topBarTopMargin = Constants.TopBarTopMargin * self.state.UiScale
+	local topBarPadding = Constants.TopBarPadding * self.state.UiScale
+	local legacyCloseMenuIconSize = Constants.LegacyCloseMenuIconSize * self.state.UiScale
+	local unibarFramePaddingTop = Constants.UnibarFrame.PaddingTop * self.state.UiScale
+	local unibarFramePaddingBottom = Constants.UnibarFrame.PaddingBottom * self.state.UiScale
+	local unibarFramePaddingLeft = Constants.UnibarFrame.PaddingLeft * self.state.UiScale
+	local unibarFrameExtendedSize = Constants.UnibarFrame.ExtendedSize * self.state.UiScale
 
 	local isTiltMenuOpen = if FFlagTopBarSignalizeMenuOpen then self.tiltMenuOpen else self.props.menuOpen
 
 	if TenFootInterface:IsEnabled() then
-		if not FFlagUnibarMenuIconLayoutFix or not ChromeEnabled() then
+		if not ChromeEnabled() then
 			screenSideOffset = Constants.ScreenSideOffsetTenFoot
 			topBarHeight = Constants.TopBarHeightTenFoot
 		end
@@ -897,7 +870,7 @@ function TopBarApp:renderWithStyle(style)
 			Visible = isTopBarVisible,
 			Position = topBarFramePosition,
 		}, {
-			LeftFrame = (chromeEnabled and FFlagAdaptUnibarAndTiltSizing or not TenFootInterface:IsEnabled())
+			LeftFrame = (chromeEnabled or not TenFootInterface:IsEnabled())
 				and Roact.createElement("Frame", {
 					BackgroundTransparency = 1,
 					Size = UDim2.new(0.5, -screenSideOffset, 1, 0),

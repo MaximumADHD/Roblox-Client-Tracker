@@ -2,14 +2,14 @@ local HttpService = game:GetService("HttpService")
 
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
+local Dash = require(Packages.Dash)
 local React = require(Packages.React)
 local ReactRoblox = require(Packages.ReactRoblox)
-local Dash = require(Packages.Dash)
 
-local Text = require(Foundation.Components.Text)
 local Button = require(Foundation.Components.Button)
-local View = require(Foundation.Components.View)
 local OverlayProvider = require(script.Parent.OverlayProvider)
+local Text = require(Foundation.Components.Text)
+local View = require(Foundation.Components.View)
 local useOverlay = require(script.Parent.useOverlay)
 
 local Wrappers = require(Foundation.Utility.Wrappers)

@@ -1,25 +1,25 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local Logger = require(Foundation.Utility.Logger)
 
+local Button = require(Foundation.Components.Button)
+local Image = require(Foundation.Components.Image)
+local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
-local Text = require(Foundation.Components.Text)
-local Image = require(Foundation.Components.Image)
-local Button = require(Foundation.Components.Button)
 local useCursor = require(Foundation.Providers.Cursor.useCursor)
+local useScaledValue = require(Foundation.Utility.useScaledValue)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local useScaledValue = require(Foundation.Utility.useScaledValue)
 
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
-local InputSize = require(Foundation.Enums.InputSize)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
+local InputSize = require(Foundation.Enums.InputSize)
 
 type ButtonVariant = ButtonVariant.ButtonVariant
 type FillBehavior = FillBehavior.FillBehavior

@@ -1,8 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local Theme = require(Foundation.Enums.Theme)
 local Device = require(Foundation.Enums.Device)
 local StyleTagFormat = require(Foundation.Enums.StyleTagFormat)
+local Theme = require(Foundation.Enums.Theme)
 
 type Theme = Theme.Theme
 type Device = Device.Device

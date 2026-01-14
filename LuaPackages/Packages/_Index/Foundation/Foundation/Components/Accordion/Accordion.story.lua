@@ -1,15 +1,15 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
-local Dash = require(Packages.Dash)
 local BuilderIcons = require(Packages.BuilderIcons)
+local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local Types = require(Foundation.Components.Types)
 local Accordion = require(Foundation.Components.Accordion).Root
 local AccordionItem = require(script.Parent.Item)
+local Button = require(Foundation.Components.Button)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
-local Button = require(Foundation.Components.Button)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize

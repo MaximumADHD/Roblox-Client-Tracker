@@ -1,12 +1,12 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
-local SystemBanner = require(Foundation.Components.SystemBanner)
 local AlertSeverity = require(Foundation.Enums.AlertSeverity)
 local AlertVariant = require(Foundation.Enums.AlertVariant)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+local SystemBanner = require(Foundation.Components.SystemBanner)
 
 return {
 	summary = "SystemBanner",

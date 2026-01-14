@@ -4,15 +4,15 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 
 local Components = Foundation.Components
-local InputLabel = require(Components.InputLabel)
 local HintText = require(Components.HintText)
-local View = require(Components.View)
+local InputLabel = require(Components.InputLabel)
 local Types = require(Components.Types)
+local View = require(Components.View)
 type InternalTextInputRef = Types.InternalTextInputRef
 type TextInputRef = Types.TextInputRef
 
-local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local InputLabelSize = require(Foundation.Enums.InputLabelSize)
 type InputLabelSize = InputLabelSize.InputLabelSize

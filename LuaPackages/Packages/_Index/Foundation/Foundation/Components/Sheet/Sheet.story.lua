@@ -2,22 +2,22 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 local React = require(Packages.React)
 
-local Sheet = require(Foundation.Components.Sheet)
-local Button = require(Foundation.Components.Button)
-local View = require(Foundation.Components.View)
-local Text = require(Foundation.Components.Text)
-local Image = require(Foundation.Components.Image)
-local IconButton = require(Foundation.Components.IconButton)
-local Icon = require(Foundation.Components.Icon)
 local Avatar = require(Foundation.Components.Avatar)
+local Button = require(Foundation.Components.Button)
+local Icon = require(Foundation.Components.Icon)
+local IconButton = require(Foundation.Components.IconButton)
+local Image = require(Foundation.Components.Image)
+local Sheet = require(Foundation.Components.Sheet)
+local Text = require(Foundation.Components.Text)
+local View = require(Foundation.Components.View)
 
 local IconName = require(Packages.BuilderIcons).Icon
+local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+local DialogSize = require(Foundation.Enums.DialogSize)
+local FillBehavior = require(Foundation.Enums.FillBehavior)
 local IconSize = require(Foundation.Enums.IconSize)
 local InputSize = require(Foundation.Enums.InputSize)
-local ButtonVariant = require(Foundation.Enums.ButtonVariant)
-local FillBehavior = require(Foundation.Enums.FillBehavior)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
-local DialogSize = require(Foundation.Enums.DialogSize)
 type DialogSize = DialogSize.DialogSize
 
 local function Story(props)

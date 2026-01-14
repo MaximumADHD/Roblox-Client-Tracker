@@ -1,8 +1,8 @@
 local BaseMenu = require(script.BaseMenu)
 
-local BaseMenuItem = require(script.BaseMenuItem)
 local BaseMenuContext = require(script.BaseMenuContext)
 local BaseMenuGroup = require(script.BaseMenuGroup)
+local BaseMenuItem = require(script.BaseMenuItem)
 
 export type BaseMenuProps<Item = BaseMenuItem> = BaseMenu.BaseMenuProps<Item>
 export type BaseMenuItem = BaseMenu.BaseMenuItem

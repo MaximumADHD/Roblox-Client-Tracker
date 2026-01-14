@@ -5,13 +5,13 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local ContextStack = require(Packages.ReactUtils).ContextStack
 
-local Types = require(Foundation.Components.Types)
-local PreferencesProvider = require(Providers.Preferences.PreferencesProvider)
-local StyleProvider = require(Providers.Style.StyleProvider)
 local CursorProvider = require(Providers.Cursor)
 local OverlayProvider = require(Providers.Overlay)
+local PreferencesProvider = require(Providers.Preferences.PreferencesProvider)
 local ResponsiveContext = require(Providers.Responsive.ResponsiveContext)
 local ResponsiveProvider = require(Providers.Responsive.ResponsiveProvider)
+local StyleProvider = require(Providers.Style.StyleProvider)
+local Types = require(Foundation.Components.Types)
 local ElevationProvider = require(Providers.Elevation.ElevationProvider).ElevationProvider
 local Flags = require(Foundation.Utility.Flags)
 

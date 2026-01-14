@@ -1,15 +1,15 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
+local Text = require(Foundation.Components.Text)
 local Toggle = require(Foundation.Components.Toggle)
 local View = require(Foundation.Components.View)
-local Text = require(Foundation.Components.Text)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local InputSize = require(Foundation.Enums.InputSize)
 local InputPlacement = require(Foundation.Enums.InputPlacement)
+local InputSize = require(Foundation.Enums.InputSize)
 
 local function BasicStory(props)
 	local controls = props.controls

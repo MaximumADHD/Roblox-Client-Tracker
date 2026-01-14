@@ -1,14 +1,14 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local Types = require(Foundation.Components.Types)
 type CommonProps = Types.CommonProps
-local View = require(Foundation.Components.View)
-local TextInput = require(Foundation.Components.TextInput)
-local NumberInput = require(Foundation.Components.NumberInput)
 local Dropdown = require(Foundation.Components.Dropdown)
+local NumberInput = require(Foundation.Components.NumberInput)
+local TextInput = require(Foundation.Components.TextInput)
+local View = require(Foundation.Components.View)
 type DropdownItem = Dropdown.DropdownItem
 type ItemId = Types.ItemId
 
@@ -17,12 +17,12 @@ type ColorInputMode = ColorInputMode.ColorInputMode
 local InputSize = require(Foundation.Enums.InputSize)
 local NumberInputControlsVariant = require(Foundation.Enums.NumberInputControlsVariant)
 
+local colorInputUtils = require(Foundation.Components.ColorPicker.colorInputUtils)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local colorInputUtils = require(Foundation.Components.ColorPicker.colorInputUtils)
 
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local Tokens = require(Foundation.Providers.Style.Tokens)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 type Tokens = Tokens.Tokens
 
 local RGB_MAX_VALUE = 255

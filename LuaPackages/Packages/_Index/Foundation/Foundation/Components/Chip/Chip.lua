@@ -3,14 +3,14 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local useTokens = require(Foundation.Providers.Style.useTokens)
+local Constants = require(Foundation.Constants)
+local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
+local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
-local Text = require(Foundation.Components.Text)
-local withDefaults = require(Foundation.Utility.withDefaults)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
-local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
-local Constants = require(Foundation.Constants)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local Accessory = require(script.Parent.Accessory)
 

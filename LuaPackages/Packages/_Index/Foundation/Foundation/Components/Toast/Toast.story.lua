@@ -5,8 +5,8 @@ local React = require(Packages.React)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
 
-local getRbxThumb = require(Foundation.Utility.getRbxThumb)
 local ThumbnailType = require(Foundation.Enums.ThumbnailType)
+local getRbxThumb = require(Foundation.Utility.getRbxThumb)
 
 local Toast = require(Foundation.Components.Toast)
 

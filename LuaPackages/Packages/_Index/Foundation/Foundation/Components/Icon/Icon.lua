@@ -8,20 +8,20 @@ local Font = BuilderIcons.Font
 local IconVariant = BuilderIcons.IconVariant
 type IconVariant = BuilderIcons.IconVariant
 
-local Text = require(Foundation.Components.Text)
-local Image = require(Foundation.Components.Image)
 local IconSize = require(Foundation.Enums.IconSize)
+local Image = require(Foundation.Components.Image)
+local Text = require(Foundation.Components.Text)
 type IconSize = IconSize.IconSize
 
+local Logger = require(Foundation.Utility.Logger)
+local isBuilderIcon = require(Foundation.Utility.isBuilderIcon)
+local migrateFontSize = require(script.Parent.migrateFontSize)
+local migrateIconName = require(script.Parent.migrateIconName)
+local useIconSize = require(Foundation.Utility.useIconSize)
 local useTextSizeOffset = require(Foundation.Providers.Style.useTextSizeOffset)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local useIconSize = require(Foundation.Utility.useIconSize)
-local Logger = require(Foundation.Utility.Logger)
-local isBuilderIcon = require(Foundation.Utility.isBuilderIcon)
-local migrateIconName = require(script.Parent.migrateIconName)
-local migrateFontSize = require(script.Parent.migrateFontSize)
 
 local Types = require(Foundation.Components.Types)
 type Bindable<T> = Types.Bindable<T>

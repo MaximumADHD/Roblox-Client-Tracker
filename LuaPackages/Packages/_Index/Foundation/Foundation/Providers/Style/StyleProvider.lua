@@ -1,25 +1,25 @@
 local Style = script.Parent
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
-local Flags = require(Foundation.Utility.Flags)
 local Dash = require(Packages.Dash)
+local Flags = require(Foundation.Utility.Flags)
+local React = require(Packages.React)
 
-local Theme = require(Foundation.Enums.Theme)
 local Device = require(Foundation.Enums.Device)
-local StyleSheet = require(Foundation.StyleSheet)
-local TokensContext = require(Style.TokensContext)
-local Tokens = require(Style.Tokens)
-local TagsContext = require(Style.TagsContext)
 local RulesContext = require(Style.RulesContext)
-local useTagsState = require(Style.useTagsState)
-local VariantsContext = require(Style.VariantsContext)
-local withDefaults = require(Foundation.Utility.withDefaults)
-local useGeneratedRules = require(Foundation.Utility.useGeneratedRules)
+local StyleSheet = require(Foundation.StyleSheet)
 local StyleSheetContext = require(Style.StyleSheetContext)
+local TagsContext = require(Style.TagsContext)
 local TextSizeOffsetContext = require(Style.TextSizeOffsetContext)
-local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
+local Theme = require(Foundation.Enums.Theme)
+local Tokens = require(Style.Tokens)
+local TokensContext = require(Style.TokensContext)
+local VariantsContext = require(Style.VariantsContext)
 local getTextSizeOffset = require(Foundation.Utility.getTextSizeOffset)
+local useGeneratedRules = require(Foundation.Utility.useGeneratedRules)
+local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
+local useTagsState = require(Style.useTagsState)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local getTokens = Tokens.getTokens
 

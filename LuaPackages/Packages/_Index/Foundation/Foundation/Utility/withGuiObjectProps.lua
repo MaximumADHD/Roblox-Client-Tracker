@@ -4,9 +4,9 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local ReactIs = require(Packages.ReactIs)
 
+local Types = require(Foundation.Components.Types)
 local indexBindable = require(Foundation.Utility.indexBindable)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
-local Types = require(Foundation.Components.Types)
 
 type Bindable<T> = Types.Bindable<T>
 type GuiObjectProps = Types.GuiObjectProps

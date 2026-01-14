@@ -28,9 +28,6 @@ return {
 	-- Foundation@1.29.0
 	FoundationUpdateBadgeDesign = SafeFlags.createGetFFlag("FoundationUpdateBadgeDesign")(),
 
-	-- Foundation@1.30.0
-	FoundationMigrateIconNames = SafeFlags.createGetFFlag("FoundationMigrateIconNames")(),
-
 	-- Foundation@1.33.0
 	FoundationDisableStylingPolyfill = SafeFlags.createGetFFlag("FoundationDisableStylingPolyfill")(),
 
@@ -42,27 +39,12 @@ return {
 	FoundationUsePath2DSpinner = SafeFlags.createGetFFlag("FoundationUsePath2DSpinner")(),
 
 	-- Foundation@1.50.0
-	FoundationMenuWidthGrowth = SafeFlags.createGetFFlag("FoundationMenuWidthGrowth")(),
 	FoundationScrollViewMoveClipOutside = SafeFlags.createGetFFlag("FoundationScrollViewMoveClipOutside")(),
-
-	-- Foundation@1.52.0
-	FoundationDialogHeroMediaGradientFix = SafeFlags.createGetFFlag("FoundationDialogHeroMediaGradientFix")(),
-	FoundationTooltipTextAutosize = SafeFlags.createGetFFlag("FoundationTooltipTextAutosize")(),
 
 	-- Foundation@1.54.0
 	FoundationStatusIndicatorVariantExperiment = SafeFlags.createGetFFlag("FoundationStatusIndicatorVariantExperiment")(),
 
-	-- Foundation@1.55.0
-	FoundationBaseMenuScroll = SafeFlags.createGetFFlag("FoundationBaseMenuScroll")(),
-
-	-- Foundation@1.56.0
-	FoundationIconButtonBiggerBuilderIcons = SafeFlags.createGetFFlag("FoundationIconButtonBiggerBuilderIcons")(),
-	FoundationInternalInputSelectedStylesAndSpacing = SafeFlags.createGetFFlag(
-		"FoundationInternalInputSelectedStylesAndSpacing"
-	)(),
-
 	-- Foundation@1.58.0
-	FoundationDropdownGroups = SafeFlags.createGetFFlag("FoundationDropdownGroups")(),
 	FoundationPopoverNegateAlignOffsetOnFlip = SafeFlags.createGetFFlag("FoundationPopoverNegateAlignOffsetOnFlip")(),
 	FoundationPopoverOverflow = SafeFlags.createGetFFlag("FoundationPopoverOverflow")(),
 
@@ -72,14 +54,11 @@ return {
 	)(),
 
 	-- Foundation@1.60.0
-	FoundationPopoverRootZIndex = SafeFlags.createGetFFlag("FoundationPopoverRootZIndex")(),
 	FoundationToggleVisualUpdate = SafeFlags.createGetFFlag("FoundationToggleVisualUpdate")(),
 
 	-- Foundation@1.61.0
 	FoundationBaseMenuBorderFix = SafeFlags.createGetFFlag("FoundationBaseMenuBorderFix2")(),
 	FoundationDateTimePickerTimeVariantEnabled = SafeFlags.createGetFFlag("FoundationDateTimePickerTimeVariantEnabled")(),
-	FoundationElevationSystem = SafeFlags.createGetFFlag("FoundationElevationSystem")(),
-	FoundationPopoverFocusTrap = SafeFlags.createGetFFlag("FoundationPopoverFocusTrap")(),
 	FoundationSheetCenterSheetNoShrink = SafeFlags.createGetFFlag("FoundationSheetCenterSheetNoShrink")(),
 
 	-- Foundation@1.62.0
@@ -91,12 +70,6 @@ return {
 	FoundationOverlayLuaAppInsetsFix = SafeFlags.createGetFFlag("FoundationOverlayLuaAppInsetsFix2")(),
 	FoundationPopoverOversizedBackdrop = SafeFlags.createGetFFlag("FoundationPopoverOversizedBackdrop")(),
 	FoundationSheetBottomSheetAutoSize = SafeFlags.createGetFFlag("FoundationSheetBottomSheetAutoSize")(),
-	FoundationToggleDefaultPlacement = SafeFlags.createGetFFlag("FoundationToggleDefaultPlacement")(),
-	FoundationToggleEndPlacementJustifyContent = SafeFlags.createGetFFlag("FoundationToggleEndPlacementJustifyContent")(),
-	FoundationUseAlphaCompositingForStateLayer = SafeFlags.createGetFFlag("FoundationUseAlphaCompositingForStateLayer")(),
-
-	-- Foundation@1.63.0
-	FoundationCursorScaledSliceFix = SafeFlags.createGetFFlag("FoundationCursorScaledSliceFix")(),
 
 	-- Foundation@1.63.2
 	FoundationDialogBodyUpdate = SafeFlags.createGetFFlag("FoundationDialogBodyUpdate1")(),
@@ -120,4 +93,11 @@ return {
 	FoundationFixedHeightDateTimePicker = SafeFlags.createGetFFlag("FoundationFixedHeightDateTimePicker")(),
 	FoundationKnobRemoveGroupTransparency = SafeFlags.createGetFFlag("FoundationKnobRemoveGroupTransparency")(),
 	FoundationTabsDisableScrollSelection = SafeFlags.createGetFFlag("FoundationTabsDisableScrollSelection")(),
+
+	-- Foundation@1.67.0
+	FoundationAnimateSegmentedControl = SafeFlags.createGetFFlag("FoundationAnimateSegmentedControl")(),
+	FoundationButtonLoadingHideTextWithIcon = SafeFlags.createGetFFlag("FoundationButtonLoadingHideTextWithIcon")(),
+	FoundationDateTimePickerDefaultInputText = SafeFlags.createGetFFlag("FoundationDateTimePickerDefaultInputText")(),
+	FoundationDateTimePickerDualBugFix = SafeFlags.createGetFFlag("FoundationDateTimePickerDualBugFix")(),
+	FoundationRemoveDividerSegmentedControl = SafeFlags.createGetFFlag("FoundationRemoveDividerSegmentedControl")(),
 }

@@ -1,10 +1,10 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
-local Skeleton = require(Foundation.Components.Skeleton)
 local Radius = require(Foundation.Enums.Radius)
+local Skeleton = require(Foundation.Components.Skeleton)
 
 return {
 	summary = "Skeleton component",

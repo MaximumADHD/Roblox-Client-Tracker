@@ -19,7 +19,6 @@ local locales = Localization.new(LocalizationService.RobloxLocaleId)
 local LocalizationProvider = require(CorePackages.Workspace.Packages.Localization).LocalizationProvider
 local React = require(CorePackages.Packages.React)
 local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
-local Theme = require(RobloxGui.Modules.Settings.Theme)
 local Foundation = require(CorePackages.Packages.Foundation)
 local FoundationProvider = Foundation.FoundationProvider
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
@@ -29,7 +28,6 @@ local SignalsReact = require(CorePackages.Packages.SignalsReact)
 
 -- Flags
 local FFlagRefactorHelpPage = HelpPage.Flags.FFlagRefactorHelpPage
-local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
 
 
 local Integrations = nil
@@ -49,17 +47,9 @@ local function createHelpPage()
 
     ------ TAB CUSTOMIZATION -------
     HelpPage.TabHeader.Name = Constants.HELP_PAGE.TAB_HEADER.NAME
-    local icon
-    if FFlagBuilderIcons then
-        icon = migrationLookup[Constants.HELP_PAGE.TAB_HEADER.ICON]
-        HelpPage.TabHeader.TabLabel.Icon.Text = icon.name
-        HelpPage.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
-    else
-        icon = Theme.Images[Constants.HELP_PAGE.TAB_HEADER.ICON]
-        HelpPage.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
-        HelpPage.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
-        HelpPage.TabHeader.TabLabel.Icon.Image = icon.Image
-    end
+    local icon = migrationLookup[Constants.HELP_PAGE.TAB_HEADER.ICON]
+    HelpPage.TabHeader.TabLabel.Icon.Text = icon.name
+    HelpPage.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
     HelpPage.TabHeader.TabLabel.Title.Text = locales:Format(Constants.HELP_PAGE.TAB_HEADER.TEXT)
 
     ------ PAGE CUSTOMIZATION -------

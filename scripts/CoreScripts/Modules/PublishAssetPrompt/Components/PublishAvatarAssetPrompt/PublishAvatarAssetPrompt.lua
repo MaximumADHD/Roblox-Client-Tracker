@@ -27,8 +27,6 @@ local useSelector = RoactUtils.Hooks.RoactRodux.useSelector
 
 local Constants = require(PublishAssetPrompt.Constants)
 
-local FFlagFixAssetIECPromptNaming = game:DefineFastFlag("FixAssetIECPromptNaming2", false)
-
 local PADDING = UDim.new(0, 20)
 local CAMERA_FOV = 30
 local DELAYED_INPUT_ANIM_SEC = 3
@@ -53,15 +51,9 @@ local function PublishAvatarAssetPrompt(props: Props)
 
 	local dispatch = useDispatch()
 
-	local defaultText
-	if FFlagFixAssetIECPromptNaming then
-		-- UGC creation does not localize similar text, so we don't localize here
-		local defaultAvatarAssetTypeName = Constants.AvatarAssetTypeDefaultName[promptInfo.accessoryType]
-		defaultText = LocalPlayer.Name .. "'s " .. defaultAvatarAssetTypeName
-	else
-		local accessoryTypeString = promptInfo.accessoryType.Name
-		defaultText = LocalPlayer.Name .. "'s " .. accessoryTypeString
-	end
+	-- UGC creation does not localize similar text, so we don't localize here
+	local defaultAvatarAssetTypeName = Constants.AvatarAssetTypeDefaultName[promptInfo.accessoryType]
+	local defaultText = LocalPlayer.Name .. "'s " .. defaultAvatarAssetTypeName
 
 	-- state
 	local showingPreviewView, setShowingPreviewView = React.useState(false)
@@ -181,13 +173,10 @@ local function PublishAvatarAssetPrompt(props: Props)
 		end
 	end, {})
 
-	local typeName = promptInfo.accessoryType.Name
-	if FFlagFixAssetIECPromptNaming then
-		local categoryLocalized = RobloxTranslator:FormatByKey("Feature.Avatar.Label.Accessory")
-		local avatarAssetTypeLocalized =
-			RobloxTranslator:FormatByKey(Constants.AvatarAssetTypeLocalized[promptInfo.accessoryType])
-		typeName = categoryLocalized .. " | " .. avatarAssetTypeLocalized
-	end
+	local categoryLocalized = RobloxTranslator:FormatByKey("Feature.Avatar.Label.Accessory")
+	local avatarAssetTypeLocalized =
+		RobloxTranslator:FormatByKey(Constants.AvatarAssetTypeLocalized[promptInfo.accessoryType])
+	local typeName = categoryLocalized .. " | " .. avatarAssetTypeLocalized
 
 	local renderPromptBody = React.useCallback(function()
 		local isLoading = promptInfo.accessoryInstance == nil

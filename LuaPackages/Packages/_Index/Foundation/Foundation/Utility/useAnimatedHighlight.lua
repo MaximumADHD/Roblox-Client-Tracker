@@ -1,8 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local Otter = require(Packages.Otter)
+local React = require(Packages.React)
 local ReactOtter = require(Packages.ReactOtter)
 local ReactUtils = require(Packages.ReactUtils)
 
@@ -27,19 +27,21 @@ local function useAnimatedHighlight(activeItemId: number? | string?, containerRe
 		} :: Otter.EaseOptions
 	end, { tokens })
 
+	local previousItemId = React.useRef(activeItemId)
+
 	local highlightPosition, setHighlightPosition = ReactOtter.useAnimatedBinding(0)
 	local highlightWidth, setHighlightWidth = ReactOtter.useAnimatedBinding(0)
 	local activeItemHeight, setActiveItemHeight = React.useBinding(0)
 	local itemRefs = useRefCache()
 
-	local updateHighlight = React.useCallback(function(activeItemRef: GuiObjectRef)
+	local updateHighlight = React.useCallback(function(activeItemRef: GuiObjectRef, sameItem: boolean?)
 		if activeItemRef.current and containerRef.current then
 			local activeItemPosition = activeItemRef.current.AbsolutePosition.X
 			local currentContainerPosition = containerRef.current.AbsolutePosition.X
 			local positionOffset = activeItemPosition - currentContainerPosition
 			local itemSize = activeItemRef.current.AbsoluteSize.X
 
-			if highlightWidth:getValue() == 0 then
+			if sameItem then
 				setHighlightWidth(ReactOtter.instant(itemSize) :: any)
 				setHighlightPosition(ReactOtter.instant(positionOffset) :: any)
 			else
@@ -49,15 +51,17 @@ local function useAnimatedHighlight(activeItemId: number? | string?, containerRe
 
 			setActiveItemHeight(activeItemRef.current.AbsoluteSize.Y)
 		end
-	end, { easeConfig })
+	end, { easeConfig, activeItemId } :: { unknown })
 
 	-- on activeItemChange, update connections
 	React.useEffect(function()
 		if activeItemId then
 			local activeItemRef = itemRefs[activeItemId] :: GuiObjectRef
+			local isSameItem = activeItemId == previousItemId.current
 			local function animateHighlight()
-				updateHighlight(activeItemRef)
+				updateHighlight(activeItemRef, isSameItem)
 			end
+
 			if activeItemRef.current and containerRef.current then
 				local sizeConnection = Signal.Connect(
 					Instance.GetPropertyChangedSignal(activeItemRef.current, "AbsoluteSize"),
@@ -87,8 +91,9 @@ local function useAnimatedHighlight(activeItemId: number? | string?, containerRe
 		if activeItemId then
 			local activeItemRef = itemRefs[activeItemId] :: GuiObjectRef
 			if activeItemRef.current and containerRef.current then
-				updateHighlight(activeItemRef)
+				updateHighlight(activeItemRef, activeItemId == previousItemId.current)
 			end
+			previousItemId.current = activeItemId
 		end
 	end, { activeItemId, ... })
 

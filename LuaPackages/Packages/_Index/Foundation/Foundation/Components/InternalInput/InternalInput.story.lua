@@ -1,7 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local Flags = require(Foundation.Utility.Flags)
 local Text = require(Foundation.Components.Text)

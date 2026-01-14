@@ -7,12 +7,12 @@ local BuilderIcons = require(Packages.BuilderIcons)
 local migrationLookup = BuilderIcons.Migration["uiblox"]
 type IconVariant = BuilderIcons.IconVariant
 
-local useTokens = require(Foundation.Providers.Style.useTokens)
+local Icon = require(Foundation.Components.Icon)
 local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
-local Icon = require(Foundation.Components.Icon)
 local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
 local useCumulativeBackground = require(Foundation.Utility.useCumulativeBackground)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 local isMigrated = iconMigrationUtils.isMigrated
 local isBuilderIconOrMigrated = iconMigrationUtils.isBuilderOrMigratedIcon
 local AvatarGroup = require(Foundation.Components.AvatarGroup)

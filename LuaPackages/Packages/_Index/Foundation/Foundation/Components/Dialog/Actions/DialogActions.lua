@@ -1,17 +1,17 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local Button = require(Foundation.Components.Button)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
+local DialogSize = require(Foundation.Enums.DialogSize)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 local Orientation = require(Foundation.Enums.Orientation)
-local DialogSize = require(Foundation.Enums.DialogSize)
 local Text = require(Foundation.Components.Text)
-local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
 local useDialogVariants = require(script.Parent.Parent.useDialogVariants).useDialogVariants

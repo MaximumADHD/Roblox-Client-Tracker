@@ -4,9 +4,9 @@ local React = require(Foundation.Parent.React)
 local Theme = require(Foundation.Enums.Theme)
 type Theme = Theme.Theme
 
-local View = require(Foundation.Components.View)
 local FoundationProvider = require(Foundation.Providers.Foundation)
 local PreferencesProvider = require(Foundation.Providers.Preferences.PreferencesProvider)
+local View = require(Foundation.Components.View)
 type Preferences = PreferencesProvider.PreferencesProps
 
 return function(elements, preferences: Preferences?, theme: Theme?)

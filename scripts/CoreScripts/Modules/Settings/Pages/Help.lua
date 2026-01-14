@@ -49,7 +49,6 @@ local success, result = pcall(function() return settings():GetFFlag('UseNotifica
 local FFlagUseNotificationsLocalization = success and result
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
-local FFlagBuilderIcons = require(CorePackages.Workspace.Packages.SharedFlags).UIBlox.FFlagUIBloxMigrateBuilderIcon
 
 ------------ Localization -------------------
 local locales = nil
@@ -738,17 +737,9 @@ local function Initialize()
 
 	------ TAB CUSTOMIZATION -------
 	this.TabHeader.Name = "HelpTab"
-	if FFlagBuilderIcons then
-		local icon = migrationLookup["icons/menu/help"]
-		this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
-		this.TabHeader.TabLabel.Icon.Text = icon.name
-	else
-		this.TabHeader.TabLabel.Icon.Image ="rbxasset://textures/ui/Settings/MenuBarIcons/HelpTab.png"
-		local icon = Theme.Images["icons/menu/help"]
-		this.TabHeader.TabLabel.Icon.ImageRectOffset = icon.ImageRectOffset
-		this.TabHeader.TabLabel.Icon.ImageRectSize = icon.ImageRectSize
-		this.TabHeader.TabLabel.Icon.Image = icon.Image
-	end
+	local icon = migrationLookup["icons/menu/help"]
+	this.TabHeader.TabLabel.Icon.FontFace = BuilderIcons.Font[icon.variant]
+	this.TabHeader.TabLabel.Icon.Text = icon.name
 	this.TabHeader.TabLabel.Title.Text = "Help"
 	
 	------ PAGE CUSTOMIZATION -------

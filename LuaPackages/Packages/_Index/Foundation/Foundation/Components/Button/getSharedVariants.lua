@@ -1,8 +1,8 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local Dash = require(Packages.Dash)
 local Constants = require(Foundation.Constants)
+local Dash = require(Packages.Dash)
 local Types = require(Foundation.Components.Types)
 type ColorStyleValue = Types.ColorStyleValue
 type StateLayer = Types.StateLayer

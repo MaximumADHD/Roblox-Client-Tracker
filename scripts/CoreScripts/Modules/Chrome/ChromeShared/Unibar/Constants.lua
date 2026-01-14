@@ -1,7 +1,6 @@
 local CorePackages = game:GetService("CorePackages")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagChromeShortcutRemoveLeaveOnRespawnPage = SharedFlags.FFlagChromeShortcutRemoveLeaveOnRespawnPage
 local FFlagChromeShortcutRemoveRespawnOnLeavePage = SharedFlags.FFlagChromeShortcutRemoveRespawnOnLeavePage
@@ -26,7 +25,7 @@ local ScreenOrientations = {
 	Sensor = "Sensor",
 }
 
-local StyleTokens = if FFlagAdaptUnibarAndTiltSizing then GetStyleTokens() else nil :: never
+local StyleTokens = GetStyleTokens()
 
 local socialSlots = 3
 local toggleSlots = 1
@@ -34,55 +33,39 @@ local nineDotSlots = 1
 
 local function withUIScale(value: number)
 	local scale = if TenFootInterface:IsEnabled() then 1.5 else 1 -- APPEXP-2377: Replace with Scale token
-	return if FFlagAdaptUnibarAndTiltSizing then scale * value else value
+	return scale * value
 end
 
 return {
-	ICON_CELL_WIDTH = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_1100 else 44,
-	DIVIDER_CELL_WIDTH = if FFlagAdaptUnibarAndTiltSizing then withUIScale(5) else 5,
-	ICON_SIZE = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_900 else 36,
+	ICON_CELL_WIDTH = StyleTokens.Size.Size_1100,
+	DIVIDER_CELL_WIDTH = withUIScale(5),
+	ICON_SIZE = StyleTokens.Size.Size_900,
 	ICON_NAME_PREFIX = if FFlagEnableConsoleExpControls then "IconHitArea_" else nil,
-	ICON_HIGHLIGHT_SIZE = if FFlagAdaptUnibarAndTiltSizing
-		then UDim2.new(0, StyleTokens.Size.Size_900, 0, StyleTokens.Size.Size_900)
-		else UDim2.new(0, 36, 0, 36),
-	ICON_DIVIDER_SIZE = if FFlagAdaptUnibarAndTiltSizing
-		then UDim2.new(0, withUIScale(1), 0, StyleTokens.Size.Size_700)
-		else UDim2.new(0, 1, 0, 28),
-	ICON_DIVIDER_POSITION = if FFlagAdaptUnibarAndTiltSizing
-		then UDim2.new(0, StyleTokens.Size.Size_50, 0.5, 0)
-		else UDim2.new(0, 2, 0.5, 0),
-	ICON_BADGE_OFFSET_X = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Gap.XXLarge else 24,
-	ICON_BADGE_OFFSET_Y = if FFlagAdaptUnibarAndTiltSizing then withUIScale(5) else 5,
-	MEDIUM_ICON_SIZE = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_700 else 28,
-	UNIBAR_END_PADDING = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.XSmall else 4,
-	MENU_SUBMENU_PADDING = if FFlagAdaptUnibarAndTiltSizing then withUIScale(10) else 10,
+	ICON_HIGHLIGHT_SIZE = UDim2.new(0, StyleTokens.Size.Size_900, 0, StyleTokens.Size.Size_900),
+	ICON_DIVIDER_SIZE = UDim2.new(0, withUIScale(1), 0, StyleTokens.Size.Size_700),
+	ICON_DIVIDER_POSITION = UDim2.new(0, StyleTokens.Size.Size_50, 0.5, 0),
+	ICON_BADGE_OFFSET_X = StyleTokens.Gap.XXLarge,
+	ICON_BADGE_OFFSET_Y = withUIScale(5),
+	MEDIUM_ICON_SIZE = StyleTokens.Size.Size_700,
+	UNIBAR_END_PADDING = StyleTokens.Padding.XSmall,
+	MENU_SUBMENU_PADDING = withUIScale(10),
 	-- Duplicate of TopBarConstants.Padding
-	UNIBAR_LEFT_MARGIN = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.Small else 8,
+	UNIBAR_LEFT_MARGIN = StyleTokens.Padding.Small,
 	-- Duplicate of TopBarConstants.ScreenSideOffset
-	MENU_ICON_SCREEN_SIDE_OFFSET = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Gap.Large else 16,
-	SUB_MENU_ROW_HEIGHT = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_1400 else 56,
-	SUBMENU_CORNER_RADIUS = if FFlagAdaptUnibarAndTiltSizing then withUIScale(10) else 10,
-	SUBMENU_PADDING_LEFT = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.Small else 8,
-	SUBMENU_PADDING_RIGHT = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.Small else 8,
-	SUBMENU_ROW_LABEL_FONT = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Typography.TitleLarge else nil,
-	SUBMENU_ROW_PADDING = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.Small else 8,
-	SUBMENU_ROW_CORNER_RADIUS = if FFlagAdaptUnibarAndTiltSizing then withUIScale(10) else 10,
-	SUBMENU_BOTTOM_PADDING = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.XLarge else 20,
-	CONTAINER_PADDING_TOP_BOTTOM = UDim.new(0, if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.XSmall else 4),
-	CONTAINER_PADDING_LEFT_RIGHT = UDim.new(
-		0,
-		if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.XXSmall else 2
-	),
-	PIN_ICON_SIZE = UDim2.new(
-		0,
-		if FFlagAdaptUnibarAndTiltSizing then withUIScale(18) else 18,
-		0,
-		if FFlagAdaptUnibarAndTiltSizing then withUIScale(18) else 18
-	),
-	PIN_BUTTON_SIZE = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Size.Size_1000 else 40,
-	PIN_RIGHT_PADDING = if FFlagAdaptUnibarAndTiltSizing then withUIScale(13) else 13,
-	PIN_CORNER_RADIUS = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Radius.Medium else 8,
-	NEW_BADGE_SIZE = if FFlagAdaptUnibarAndTiltSizing then withUIScale(66) else 66,
+	MENU_ICON_SCREEN_SIDE_OFFSET = StyleTokens.Gap.Large,
+	SUB_MENU_ROW_HEIGHT = StyleTokens.Size.Size_1400,
+	SUBMENU_CORNER_RADIUS = withUIScale(10),
+	SUBMENU_PADDING_LEFT = StyleTokens.Padding.Small,
+	SUBMENU_PADDING_RIGHT = StyleTokens.Padding.Small,
+	SUBMENU_ROW_LABEL_FONT = StyleTokens.Typography.TitleLarge,
+	SUBMENU_ROW_PADDING = StyleTokens.Padding.Small,
+	SUBMENU_ROW_CORNER_RADIUS = withUIScale(10),
+	SUBMENU_BOTTOM_PADDING = StyleTokens.Padding.XLarge,
+	PIN_ICON_SIZE = UDim2.new(0, withUIScale(18), 0, withUIScale(18)),
+	PIN_BUTTON_SIZE = StyleTokens.Size.Size_1000,
+	PIN_RIGHT_PADDING = withUIScale(13),
+	PIN_CORNER_RADIUS = StyleTokens.Radius.Medium,
+	NEW_BADGE_SIZE = withUIScale(66),
 	MENU_ANIMATION_SPRING = {
 		dampingRatio = 1.1,
 		frequency = 1 / 0.15, -- @150ms size anim
@@ -107,29 +90,25 @@ return {
 
 	-- WindowHost constants
 	WINDOW_HOST_GUI_NAME = "WindowHost",
-	CLOSE_BUTTON_FRAME = if FFlagAdaptUnibarAndTiltSizing
-		then UDim2.fromOffset(StyleTokens.Size.Size_1100, StyleTokens.Size.Size_1100)
-		else UDim2.fromOffset(44, 44),
-	CLOSE_BUTTON_SIZE = if FFlagAdaptUnibarAndTiltSizing
-		then UDim2.fromOffset(withUIScale(22), withUIScale(22))
-		else UDim2.fromOffset(22, 22),
+	CLOSE_BUTTON_FRAME = UDim2.fromOffset(StyleTokens.Size.Size_1100, StyleTokens.Size.Size_1100),
+	CLOSE_BUTTON_SIZE = UDim2.fromOffset(withUIScale(22), withUIScale(22)),
 	CLOSE_ICON_SIZE = IconSize.Small,
-	CORNER_RADIUS = UDim.new(0, if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Radius.Medium else 8),
-	WINDOW_DEFAULT_PADDING = if FFlagAdaptUnibarAndTiltSizing then StyleTokens.Padding.Small else 8,
-	WINDOW_ICON_SIZE = if FFlagAdaptUnibarAndTiltSizing then withUIScale(42) else 42,
+	CORNER_RADIUS = UDim.new(0, StyleTokens.Radius.Medium),
+	WINDOW_DEFAULT_PADDING = StyleTokens.Padding.Small,
+	WINDOW_ICON_SIZE = withUIScale(42),
 
 	-- the amount of travel to activate a WindowHost from dragging an icon
 	DRAG_MAGNITUDE_THRESHOLD = 10,
 
-	DEFAULT_HEIGHT_LARGE = if FFlagAdaptUnibarAndTiltSizing then withUIScale(285) else 285,
-	DEFAULT_WIDTH_LARGE = if FFlagAdaptUnibarAndTiltSizing then withUIScale(176) else 176,
-	DEFAULT_HEIGHT = if FFlagAdaptUnibarAndTiltSizing then withUIScale(130) else 130,
-	DEFAULT_WIDTH = if FFlagAdaptUnibarAndTiltSizing then withUIScale(176) else 176,
+	DEFAULT_HEIGHT_LARGE = withUIScale(285),
+	DEFAULT_WIDTH_LARGE = withUIScale(176),
+	DEFAULT_HEIGHT = withUIScale(130),
+	DEFAULT_WIDTH = withUIScale(176),
 
-	MAX_HEIGHT_PORTRAIT = if FFlagAdaptUnibarAndTiltSizing then withUIScale(285) else 285,
-	MAX_WIDTH_PORTRAIT = if FFlagAdaptUnibarAndTiltSizing then withUIScale(260) else 260,
-	MAX_HEIGHT_LANDSCAPE = if FFlagAdaptUnibarAndTiltSizing then withUIScale(285) else 285,
-	MAX_WIDTH_LANDSCAPE = if FFlagAdaptUnibarAndTiltSizing then withUIScale(260) else 260,
+	MAX_HEIGHT_PORTRAIT = withUIScale(285),
+	MAX_WIDTH_PORTRAIT = withUIScale(260),
+	MAX_HEIGHT_LANDSCAPE = withUIScale(285),
+	MAX_WIDTH_LANDSCAPE = withUIScale(260),
 
 	-- Integration Constraints per device type
 	SOCIAL_SLOTS = socialSlots, -- Chat, mic, and self view always present in open standard unibar (when available)

@@ -3,8 +3,8 @@ local Packages = Foundation.Parent
 
 local Flags = require(Foundation.Utility.Flags)
 
-local React = require(Packages.React)
 local BuilderIcons = require(Packages.BuilderIcons)
+local React = require(Packages.React)
 local migrationLookup = BuilderIcons.Migration["uiblox"]
 
 local InputSize = require(Foundation.Enums.InputSize)
@@ -31,22 +31,22 @@ type Radius = Radius.Radius
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local usePresentationContext = require(Foundation.Providers.Style.PresentationContext).usePresentationContext
+local getIconScale = require(Foundation.Utility.getIconScale)
+local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
+local isBuilderIcon = require(Foundation.Utility.isBuilderIcon)
+local useIconButtonVariants = require(script.Parent.useIconButtonVariants)
+local useIconSize = require(Foundation.Utility.useIconSize)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local useIconSize = require(Foundation.Utility.useIconSize)
-local getIconScale = require(Foundation.Utility.getIconScale)
-local useIconButtonVariants = require(script.Parent.useIconButtonVariants)
-local isBuilderIcon = require(Foundation.Utility.isBuilderIcon)
-local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
 local isMigrated = iconMigrationUtils.isMigrated
 local isBuilderOrMigratedIcon = iconMigrationUtils.isBuilderOrMigratedIcon
 
 local Constants = require(Foundation.Constants)
 
-local View = require(Foundation.Components.View)
-local Text = require(Foundation.Components.Text)
 local Image = require(Foundation.Components.Image)
+local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 
 export type IconButtonProps = {
 	onActivated: () -> (),

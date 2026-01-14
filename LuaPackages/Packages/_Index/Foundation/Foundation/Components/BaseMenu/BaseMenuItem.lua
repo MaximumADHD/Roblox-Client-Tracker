@@ -3,33 +3,32 @@ local Packages = Foundation.Parent
 
 local BuilderIcons = require(Packages.BuilderIcons)
 local React = require(Packages.React)
-local Flags = require(Foundation.Utility.Flags)
 local iconMigrationUtils = require(Foundation.Utility.iconMigrationUtils)
 local isBuilderIconOrMigrated = iconMigrationUtils.isBuilderOrMigratedIcon
 local Logger = require(Foundation.Utility.Logger)
 
 local Constants = require(Foundation.Constants)
 
-local View = require(Foundation.Components.View)
-local Image = require(Foundation.Components.Image)
 local Icon = require(Foundation.Components.Icon)
+local Image = require(Foundation.Components.Image)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 type ItemId = Types.ItemId
 type OnItemActivated = Types.OnItemActivated
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local withDefaults = require(Foundation.Utility.withDefaults)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local ControlState = require(Foundation.Enums.ControlState)
 type ControlState = ControlState.ControlState
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
-local useBaseMenuItemVariants = require(script.Parent.useBaseMenuItemVariants)
 local BaseMenuContext = require(script.Parent.BaseMenuContext)
+local useBaseMenuItemVariants = require(script.Parent.useBaseMenuItemVariants)
 
 export type BaseMenuItemProps = {
 	id: ItemId,
@@ -121,20 +120,13 @@ local function BaseMenuItem(menuItemProps: BaseMenuItemProps, ref: React.Ref<Gui
 				tag = variantProps.text.tag,
 			}),
 			Check = if props.isChecked
-				then if Flags.FoundationMigrateIconNames
-					then React.createElement(Icon, {
-						LayoutOrder = 3,
-						name = BuilderIcons.Icon.Check,
-						style = variantProps.check.style,
-						size = variantProps.check.size,
-						testId = `{props.testId}--checkmark`,
-					})
-					else React.createElement(Image, {
-						LayoutOrder = 3,
-						Image = "icons/status/success",
-						tag = variantProps.check.tag,
-						testId = `{props.testId}--checkmark`,
-					})
+				then React.createElement(Icon, {
+					LayoutOrder = 3,
+					name = BuilderIcons.Icon.Check,
+					style = variantProps.check.style,
+					size = variantProps.check.size,
+					testId = `{props.testId}--checkmark`,
+				})
 				else nil,
 		}
 	)

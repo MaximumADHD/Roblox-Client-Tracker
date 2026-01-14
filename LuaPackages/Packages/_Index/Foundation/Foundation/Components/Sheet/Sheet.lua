@@ -6,12 +6,12 @@ local ReactUtils = require(Packages.ReactUtils)
 local Flags = require(Foundation.Utility.Flags)
 
 local BottomSheet = require(script.Parent.BottomSheet)
-local SideSheet = require(script.Parent.SideSheet)
 local CenterSheet = require(script.Parent.CenterSheet)
+local SideSheet = require(script.Parent.SideSheet)
 local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
 local GuiService = require(Foundation.Utility.Wrappers).Services.GuiService
-local withDefaults = require(Foundation.Utility.withDefaults)
 local DialogSize = require(Foundation.Enums.DialogSize)
+local withDefaults = require(Foundation.Utility.withDefaults)
 type DialogSize = DialogSize.DialogSize
 
 local SheetTypes = require(script.Parent.Types)

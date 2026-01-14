@@ -7,10 +7,8 @@ local Display = require(CorePackages.Workspace.Packages.Display)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
-local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
-local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 
 local Roact = require(CorePackages.Packages.Roact)
 local React = require(CorePackages.Packages.React)
@@ -29,8 +27,8 @@ local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local ReactOtter = require(CorePackages.Packages.ReactOtter)
 
 local Foundation = require(CorePackages.Packages.Foundation)
-local withCursor = if FFlagAdaptUnibarAndTiltSizing then Foundation.Hooks.withCursor else nil :: never
-local ICON_BUTTON_CURSOR = if FFlagAdaptUnibarAndTiltSizing then Foundation.Enums.CursorType.SkinToneCircle else nil :: never
+local withCursor = Foundation.Hooks.withCursor
+local ICON_BUTTON_CURSOR = Foundation.Enums.CursorType.SkinToneCircle
 
 local TopBar = script.Parent.Parent.Parent
 
@@ -108,19 +106,16 @@ function IconButton:init()
 			controlState = newControlState,
 		})
 	end
-
-	if FFlagTopBarStyleUseDisplayUIScale then
-		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
-			local DisplayStore = Display.GetDisplayStore(scope)
-			self:setState({
-				UiScale = DisplayStore.getUIScale(scope),
-			})
-		end)
-	end
+	self.disposeUiScaleEffect = Signals.createEffect(function(scope)
+		local DisplayStore = Display.GetDisplayStore(scope)
+		self:setState({
+			UiScale = DisplayStore.getUIScale(scope),
+		})
+	end)
 end
 
 function IconButton:render()
-	if ChromeEnabled and FFlagAdaptUnibarAndTiltSizing then
+	if ChromeEnabled then
 		return withCursor(function(getCursor)
 			return self:renderWithCursor(getCursor)
 		end)
@@ -133,12 +128,7 @@ end
 
 function IconButton:renderWithCursor(getCursor)
 	local hasBackgroundFrame = not isNewTiltIconEnabled() and self.props.backgroundColor3
-	local backgroundSize
-	if FFlagTopBarStyleUseDisplayUIScale then
-		backgroundSize = Constants.TopBarButtonHeight * self.state.UiScale
-	else
-		backgroundSize = Constants.TopBarButtonHeight
-	end
+	local backgroundSize = Constants.TopBarButtonHeight * self.state.UiScale
 	return withStyle(function(style: any)
 		local overlayTheme = {
 			Color = Color3.new(1, 1, 1),
@@ -164,8 +154,7 @@ function IconButton:renderWithCursor(getCursor)
 			Image = if not isNewTiltIconEnabled() then "rbxasset://textures/ui/TopBar/iconBase.png" else nil,
 			BackgroundColor3 = style.Theme.BackgroundUIContrast.Color,
 			SelectionImageObject = if isNewTiltIconEnabled() then 
-				if FFlagAdaptUnibarAndTiltSizing then getCursor.refCache[ICON_BUTTON_CURSOR]
-				else getCursor(CursorKind.SelectedKnob)
+				getCursor.refCache[ICON_BUTTON_CURSOR]
 			else nil,
 			NextSelectionRight = if ChromeEnabled and FFlagEnableConsoleExpControls then self.props.nextSelectionRightRef else nil :: never,
 			[Roact.Event.Activated] = self.props.onActivated,
@@ -245,7 +234,7 @@ end
 
 
 function IconButton:willUnmount()
-	if FFlagTopBarStyleUseDisplayUIScale and self.disposeUiScaleEffect then
+	if self.disposeUiScaleEffect then
 		self.disposeUiScaleEffect()
 	end
 end

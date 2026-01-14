@@ -3,8 +3,8 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 local Wrappers = require(Foundation.Utility.Wrappers)
+local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 local Connection = Wrappers.Connection
 local Instance = Wrappers.Instance
 local Signal = Wrappers.Signal

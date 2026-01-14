@@ -1,17 +1,17 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
-local Menu = require(Foundation.Components.Menu)
 local Button = require(Foundation.Components.Button)
 local IconButton = require(Foundation.Components.IconButton)
-local View = require(Foundation.Components.View)
-local Text = require(Foundation.Components.Text)
 local IconSize = require(Foundation.Enums.IconSize)
 local InputSize = require(Foundation.Enums.InputSize)
-local PopoverSide = require(Foundation.Enums.PopoverSide)
+local Menu = require(Foundation.Components.Menu)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
+local PopoverSide = require(Foundation.Enums.PopoverSide)
+local Text = require(Foundation.Components.Text)
+local View = require(Foundation.Components.View)
 
 type MenuItem = Menu.MenuItem
 type MenuItems = Menu.MenuItems

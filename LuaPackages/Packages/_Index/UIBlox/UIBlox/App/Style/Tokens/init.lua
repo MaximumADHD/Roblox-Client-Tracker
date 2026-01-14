@@ -12,8 +12,6 @@ local GetFoundationTokens = dependencies.GetFoundationTokens
 local Types = require(script.Types)
 local Constants = require(script.Parent.Constants)
 
-local UIBloxConfig = require(Style.Parent.Parent.UIBloxConfig)
-
 type ThemeName = Constants.ThemeName
 type DeviceType = Constants.DeviceType
 
@@ -25,7 +23,7 @@ local function getPlatformScale(deviceType: DeviceType, scaleFactor: number?)
 	-- Platform scale will be from engine API as soon as it's ready.
 	-- For now scale values are hard-coded, and only console uses 1.5
 	-- differently according to design specs.
-	if not UIBloxConfig.disableTokenScalingForConsole and deviceType == Constants.DeviceType.Console then
+	if deviceType == Constants.DeviceType.Console then
 		baseScale = 1.5
 	end
 

@@ -1,19 +1,19 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
 local Dash = require(Packages.Dash)
+local React = require(Packages.React)
 
 local AssetService = game:GetService("AssetService")
 
-local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 type ColorStyleValue = Types.ColorStyleValue
-local Tokens = require(Foundation.Providers.Style.Tokens)
+
 local Device = require(Foundation.Enums.Device)
 local Theme = require(Foundation.Enums.Theme)
+local Tokens = require(Foundation.Providers.Style.Tokens)
 local useTokens = require(Foundation.Providers.Style.useTokens)
-local Flags = require(Foundation.Utility.Flags)
 
 local getBackgroundStyleWithStateLayer = require(script.Parent.getBackgroundStyleWithStateLayer)
 
@@ -55,7 +55,6 @@ end
 
 local function BlendingVisualization(props)
 	local controls = props.controls
-	Flags.FoundationUseAlphaCompositingForStateLayer = controls.useAlphaCompositing
 
 	local tokens = useTokens()
 
@@ -232,7 +231,6 @@ return {
 	summary = "Visualizes results of getBackgroundStyleWithStateLayer, allowing a comparison with blending approaches used by EditableImages",
 	story = BlendingVisualization,
 	controls = {
-		useAlphaCompositing = Flags.FoundationUseAlphaCompositingForStateLayer,
 		backgroundTransparency = 0.5,
 		overlayTransparency = 0.5,
 		backgroundColor = Dash.keys(tokens.Color.Extended),

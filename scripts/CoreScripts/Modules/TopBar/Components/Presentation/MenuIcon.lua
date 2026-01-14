@@ -12,7 +12,6 @@ local FFlagReduceTopBarInsetsWhileHidden = SharedFlags.FFlagReduceTopBarInsetsWh
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
 local FIntAddUILessModeVariant = SharedFlags.FIntAddUILessModeVariant
-local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 local FFlagFixChromeConsoleNilRefs = SharedFlags.FFlagFixChromeConsoleNilRefs
 
 local Signals = require(CorePackages.Packages.Signals)
@@ -133,15 +132,12 @@ function MenuIcon:init()
 		clickLatched = if tooltipEnabled then false else nil,
 		enableFlashingDot = false,
 	})
-	
-	if FFlagTopBarStyleUseDisplayUIScale then
-		self.disposeUiScaleEffect = Signals.createEffect(function(scope)
-			local DisplayStore = Display.GetDisplayStore(scope)
-			self:setState({
-				UiScale = DisplayStore.getUIScale(scope),
-			})
-		end)
-	end
+	self.disposeUiScaleEffect = Signals.createEffect(function(scope)
+		local DisplayStore = Display.GetDisplayStore(scope)
+		self:setState({
+			UiScale = DisplayStore.getUIScale(scope),
+		})
+	end)
 
 
 	if FFlagTopBarSignalizeMenuOpen then 
@@ -394,7 +390,7 @@ function MenuIcon:willUnmount()
 		end
 	end
 
-	if FFlagTopBarStyleUseDisplayUIScale and self.disposeUiScaleEffect then
+	if self.disposeUiScaleEffect then
 		self.disposeUiScaleEffect()
 	end
 end
@@ -407,18 +403,9 @@ function MenuIcon:render()
 		visible = (not VRService.VREnabled or self.state.vrShowMenuIcon)
 	end
 
-	local backgroundSize
-	local topBarButtonPadding
-	local menuIconSize
-	if FFlagTopBarStyleUseDisplayUIScale then
-		backgroundSize = Constants.TopBarButtonHeight * self.state.UiScale
-		topBarButtonPadding = Constants.TopBarButtonPadding * self.state.UiScale
-		menuIconSize = Constants.MENU_ICON_SIZE * self.state.UiScale
-	else
-		backgroundSize = Constants.TopBarButtonHeight
-		topBarButtonPadding = Constants.TopBarButtonPadding
-		menuIconSize = Constants.MENU_ICON_SIZE
-	end
+	local backgroundSize = Constants.TopBarButtonHeight * self.state.UiScale
+	local topBarButtonPadding = Constants.TopBarButtonPadding * self.state.UiScale
+	local menuIconSize = Constants.MENU_ICON_SIZE * self.state.UiScale
 
 	local onAreaChanged = function(rbx)
 		if rbx then

@@ -1,7 +1,5 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local Flags = require(Foundation.Utility.Flags)
-
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
@@ -41,13 +39,7 @@ type IconButtonVariantProps = {
 }
 
 local variantsMap = function(tokens: Tokens)
-	local common = if Flags.FoundationIconButtonBiggerBuilderIcons
-		then {}
-		else {
-			container = {
-				tag = "row align-y-center align-x-center clip",
-			},
-		}
+	local common = {}
 
 	local sharedVariants = getSharedVariants(tokens)
 

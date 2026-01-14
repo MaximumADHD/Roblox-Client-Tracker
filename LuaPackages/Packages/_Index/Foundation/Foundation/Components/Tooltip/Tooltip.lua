@@ -6,19 +6,18 @@ type ReactNode = React.ReactNode
 
 local UserInputService = require(Foundation.Utility.Wrappers).Services.UserInputService
 
+local Logger = require(Foundation.Utility.Logger)
+local PopoverAlign = require(Foundation.Enums.PopoverAlign)
+local PopoverContext = require(Foundation.Components.Popover.PopoverContext)
+local PopoverSide = require(Foundation.Enums.PopoverSide)
+local Radius = require(Foundation.Enums.Radius)
+local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
-local Text = require(Foundation.Components.Text)
-local withDefaults = require(Foundation.Utility.withDefaults)
-local withCommonProps = require(Foundation.Utility.withCommonProps)
-local useTokens = require(Foundation.Providers.Style.useTokens)
-local PopoverSide = require(Foundation.Enums.PopoverSide)
-local PopoverAlign = require(Foundation.Enums.PopoverAlign)
-local Radius = require(Foundation.Enums.Radius)
-local PopoverContext = require(Foundation.Components.Popover.PopoverContext)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
-local Logger = require(Foundation.Utility.Logger)
-local Flags = require(Foundation.Utility.Flags)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 type PopoverAlign = PopoverAlign.PopoverAlign
 type PopoverSide = PopoverSide.PopoverSide
@@ -148,7 +147,7 @@ local function Tooltip(tooltipProps: TooltipProps)
 					then React.createElement(Text, {
 						LayoutOrder = 2,
 						Text = props.text,
-						tag = `{if Flags.FoundationTooltipTextAutosize then "auto-xy" else "size-full-0 auto-y"} text-wrap text-align-x-left text-body-small content-inverse-default`,
+						tag = "auto-xy text-wrap text-align-x-left text-body-small content-inverse-default",
 						testId = `{props.testId}--text`,
 					})
 					else nil,

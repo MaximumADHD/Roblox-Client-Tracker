@@ -4,19 +4,19 @@ local Packages = Foundation.Parent
 local UserInputService = require(Foundation.Utility.Wrappers).Services.UserInputService
 
 local React = require(Packages.React)
-local ReactUtils = require(Packages.ReactUtils)
 local ReactOtter = require(Packages.ReactOtter)
+local ReactUtils = require(Packages.ReactUtils)
 
 local getVisualForKey = require(script.Parent.getVisualForKey)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
-local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local Types = require(Foundation.Components.Types)
-local View = require(Foundation.Components.View)
+local CircularProgressBar = require(Foundation.Components.CircularProgressBar)
 local Image = require(Foundation.Components.Image)
 local Text = require(Foundation.Components.Text)
-local CircularProgressBar = require(Foundation.Components.CircularProgressBar)
+local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 
 local EventConnection = ReactUtils.EventConnection
 

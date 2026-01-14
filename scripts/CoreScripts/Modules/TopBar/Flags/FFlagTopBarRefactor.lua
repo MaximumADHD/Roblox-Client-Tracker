@@ -7,11 +7,8 @@ local ChromeEnabled = require(Chrome.Enabled)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
-local FFlagTopBarStyleUseDisplayUIScale = SharedFlags.FFlagTopBarStyleUseDisplayUIScale
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
-local FFlagAdaptUnibarAndTiltSizing = SharedFlags.GetFFlagAdaptUnibarAndTiltSizing()
 local FFlagWaitForGameLoadToAddLocalHistory = SharedFlags.FFlagWaitForGameLoadToAddLocalHistory
-local FFlagUnibarMenuIconLayoutFix = require(script.Parent.FFlagUnibarMenuIconLayoutFix)
 
 local CoreScriptsRoactCommon
 local FFlagAddTraversalBackButton
@@ -31,7 +28,5 @@ return FFlagTopBarRefactor
     and FFlagTopBarSignalizeKeepOutAreas and FFlagTopBarSignalizeMenuOpen and FFlagTopBarSignalizeScreenSize
     -- Console Controls
     and FFlagEnableConsoleExpControls
-    -- TopBar Fixes
-    and FFlagTopBarStyleUseDisplayUIScale and FFlagAdaptUnibarAndTiltSizing and FFlagUnibarMenuIconLayoutFix
     -- TopBar Features
     and (FFlagWaitForGameLoadToAddLocalHistory and FFlagAddTraversalBackButton) and not FFlagAddUILessMode

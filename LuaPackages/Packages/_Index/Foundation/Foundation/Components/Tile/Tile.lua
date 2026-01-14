@@ -3,17 +3,17 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local View = require(Foundation.Components.View)
 local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 type StateChangedCallback = Types.StateChangedCallback
 type Bindable<T> = Types.Bindable<T>
 
-local withDefaults = require(Foundation.Utility.withDefaults)
 local TileContext = require(script.Parent.TileContext)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
-local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
+local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 type FillBehavior = FillBehavior.FillBehavior
 
 type Padding = Types.Padding

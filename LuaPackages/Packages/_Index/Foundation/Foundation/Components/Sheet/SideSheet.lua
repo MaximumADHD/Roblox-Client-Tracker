@@ -1,18 +1,18 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
-local React = require(Packages.React)
-local ReactRoblox = require(Packages.ReactRoblox)
-local Otter = require(Packages.Otter)
-local ReactOtter = require(Packages.ReactOtter)
 local Dash = require(Packages.Dash)
+local Otter = require(Packages.Otter)
+local React = require(Packages.React)
+local ReactOtter = require(Packages.ReactOtter)
+local ReactRoblox = require(Packages.ReactRoblox)
 local useAnimatedBinding = ReactOtter.useAnimatedBinding
-local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
-local useTokens = require(Foundation.Providers.Style.useTokens)
-local useScaledValue = require(Foundation.Utility.useScaledValue)
-local withDefaults = require(Foundation.Utility.withDefaults)
-local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
 local Constants = require(Foundation.Constants)
+local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
+local useOverlay = require(Foundation.Providers.Overlay.useOverlay)
+local useScaledValue = require(Foundation.Utility.useScaledValue)
+local useTokens = require(Foundation.Providers.Style.useTokens)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local SheetContext = require(script.Parent.SheetContext)
 local SheetTypes = require(script.Parent.Types)
@@ -27,10 +27,10 @@ type ElevationLayer = ElevationLayer.ElevationLayer
 
 local useHardwareInsets = require(script.Parent.useHardwareInsets)
 
-local View = require(Foundation.Components.View)
-local Image = require(Foundation.Components.Image)
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
 local Flags = require(Foundation.Utility.Flags)
+local Image = require(Foundation.Components.Image)
+local View = require(Foundation.Components.View)
 
 type SideSheetProps = {
 	displaySize: Enum.DisplaySize,
@@ -146,7 +146,7 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 	return overlay
 		and ReactRoblox.createPortal(
 			React.createElement(View, {
-				ZIndex = if Flags.FoundationElevationSystem then elevation.zIndex else 5,
+				ZIndex = elevation.zIndex,
 				tag = "size-full",
 				testId = `{props.testId}--surface`,
 			}, {
@@ -179,15 +179,9 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 						{
 							tag = "size-full-full col items-center clip",
 						},
-						React.createElement(
-							SheetContext.Provider,
-							{
-								value = contextValue,
-							},
-							if Flags.FoundationElevationSystem
-								then React.createElement(OwnerScope, { owner = elevation }, props.children)
-								else props.children
-						)
+						React.createElement(SheetContext.Provider, {
+							value = contextValue,
+						}, React.createElement(OwnerScope, { owner = elevation }, props.children))
 					),
 					CloseAffordance = React.createElement(CloseAffordance, {
 						onActivated = closeSheet,

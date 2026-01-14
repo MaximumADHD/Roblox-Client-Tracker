@@ -48,8 +48,6 @@ local getFFlagEnableAnalyticsForCameraDevicePermissions =
 	require(RobloxGui.Modules.Flags.getFFlagEnableAnalyticsForCameraDevicePermissions)
 local GetFFlagJoinWithoutMicPermissions =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagJoinWithoutMicPermissions
-local GetFFlagRawMicrophonePermissions =
-	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagGetRawMicrophonePermissions
 local FFlagCheckCameraAvailabilityBeforePermissions =
 	game:DefineFastFlag("CheckCameraAvailabilityBeforePermissions", false)
 local FFlagSkipVoicePermissionCheck = game:DefineFastFlag("DebugSkipVoicePermissionCheck", false)
@@ -361,7 +359,7 @@ local function getCamMicPermissions(
 
 	if
 		(FFlagAvatarChatCoreScriptSupport or GetFFlagSelfieViewEnabled())
-		and (if GetFFlagRawMicrophonePermissions() then not getRawPermission else true)
+		and (not getRawPermission )
 	then
 		local cachedResults = tryGetCachedResults(permsToCheck)
 		if cachedResults then
@@ -386,7 +384,7 @@ local function getCamMicPermissions(
 
 	inProgress = true
 
-	if GetFFlagRawMicrophonePermissions() and getRawPermission then
+	if getRawPermission then
 		return PermissionsProtocol:hasPermissions(permsToCheck):andThen(function(results)
 			callback(results)
 			inProgress = false

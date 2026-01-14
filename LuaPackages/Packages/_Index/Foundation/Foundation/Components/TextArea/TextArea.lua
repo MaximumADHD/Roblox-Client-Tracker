@@ -4,14 +4,14 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 
 local Components = Foundation.Components
-local InternalTextInput = require(Components.InternalTextInput)
 local InputField = require(Components.InputField)
+local InternalTextInput = require(Components.InternalTextInput)
 local Types = require(Foundation.Components.Types)
 
-local useTokens = require(Foundation.Providers.Style.useTokens)
 local useTextInputVariants = require(Components.TextInput.useTextInputVariants)
-local withDefaults = require(Foundation.Utility.withDefaults)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize

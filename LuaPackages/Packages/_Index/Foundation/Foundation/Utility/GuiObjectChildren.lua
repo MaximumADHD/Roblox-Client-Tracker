@@ -3,8 +3,8 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
-local Padding = require(Foundation.Components.Padding)
 local AspectRatio = require(Foundation.Components.AspectRatio)
+local Padding = require(Foundation.Components.Padding)
 
 local Types = require(Foundation.Components.Types)
 type GuiObjectProps = Types.GuiObjectProps

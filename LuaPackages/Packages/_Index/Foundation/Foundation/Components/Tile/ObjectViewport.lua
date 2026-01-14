@@ -8,8 +8,8 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local ReactUtils = require(Packages.ReactUtils)
 local EventConnection = ReactUtils.EventConnection
-local withDefaults = require(Foundation.Utility.withDefaults)
 local useTokens = require(Foundation.Providers.Style.useTokens)
+local withDefaults = require(Foundation.Utility.withDefaults)
 
 local RunService = require(Foundation.Utility.Wrappers).Services.RunService
 

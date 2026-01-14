@@ -1,7 +1,7 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local Types = require(Foundation.Components.Types)
 local BaseMenu = require(Foundation.Components.BaseMenu)
+local Types = require(Foundation.Components.Types)
 
 type BaseMenuItem = BaseMenu.BaseMenuItem
 type BaseMenuItems<Item> = BaseMenu.BaseMenuItems<Item>

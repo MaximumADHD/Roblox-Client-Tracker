@@ -24,6 +24,7 @@ export type AlertVariant = Package.AlertVariant
 export type AvatarGroupType = Package.AvatarGroupType
 export type BadgeSize = Package.BadgeSize
 export type BadgeVariant = Package.BadgeVariant
+export type Breakpoint = Package.Breakpoint
 export type ButtonVariant = Package.ButtonVariant
 export type CheckedState = Package.CheckedState
 export type ChipSize = Package.ChipSize

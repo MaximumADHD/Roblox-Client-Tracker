@@ -4,9 +4,9 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local ReactUtils = require(Packages.ReactUtils)
 local useForwardRef = ReactUtils.useForwardRef
-local Types = require(Foundation.Components.Types)
 local ControlState = require(Foundation.Enums.ControlState)
 local ControlStateEvent = require(Foundation.Enums.ControlStateEvent)
+local Types = require(Foundation.Components.Types)
 
 type ControlState = ControlState.ControlState
 type ControlStateEvent = ControlStateEvent.ControlStateEvent

@@ -8,10 +8,10 @@ local usePresence = Motion.usePresence
 
 local useSpinnerMotionStates = require(script.Parent.useSpinnerMotionStates)
 
-local Image = require(Foundation.Components.Image)
-local View = require(Foundation.Components.View)
-local Types = require(Foundation.Components.Types)
 local Flags = require(Foundation.Utility.Flags)
+local Image = require(Foundation.Components.Image)
+local Types = require(Foundation.Components.Types)
+local View = require(Foundation.Components.View)
 local useRotation = require(Foundation.Utility.useRotation)
 local withDefaults = require(Foundation.Utility.withDefaults)
 

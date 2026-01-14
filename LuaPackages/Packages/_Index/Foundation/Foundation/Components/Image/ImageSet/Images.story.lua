@@ -1,12 +1,12 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local React = require(Packages.React)
 local FoundationImages = require(Packages.FoundationImages)
+local React = require(Packages.React)
 
 local Image = require(Foundation.Components.Image)
-local View = require(Foundation.Components.View)
 local Text = require(Foundation.Components.Text)
+local View = require(Foundation.Components.View)
 
 local Images = FoundationImages.Images
 

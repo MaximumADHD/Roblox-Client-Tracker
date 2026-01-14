@@ -8,9 +8,6 @@ local TeleportService = game:GetService("TeleportService")
 
 local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 
-local FFlagEnableContactListRemoteEventValidation =
-	game:DefineFastFlag("EnableContactListRemoteEventValidation2", false)
-local FFlagEnableContactListTeleportWithCallId = game:DefineFastFlag("EnableContactListTeleportWithCallId", false)
 local FFlagEnableContactListCallIdValidation = game:DefineFastFlag("EnableContactListCallIdValidation", false)
 local EngineFeatureEnableIrisRerouteToRCC = game:GetEngineFeature("EnableIrisRerouteToRCC")
 
@@ -24,17 +21,15 @@ RemoteInvokeIrisInvite.Parent = RobloxReplicatedStorage
 
 RemoteInvokeIrisInvite.OnServerEvent:Connect(
 	function(player, tag, calleeId, calleeCombinedName, muted, camEnabled, userAgent, version)
-		if FFlagEnableContactListRemoteEventValidation then
-			-- Validation for invalid parameters.
-			if
-				typeof(tag) ~= "string"
-				or #tag > 1000
-				or typeof(calleeCombinedName) ~= "string"
-				or #calleeCombinedName > 1000
-				or typeof(calleeId) ~= "number"
-			then
-				return
-			end
+		-- Validation for invalid parameters.
+		if
+			typeof(tag) ~= "string"
+			or #tag > 1000
+			or typeof(calleeCombinedName) ~= "string"
+			or #calleeCombinedName > 1000
+			or typeof(calleeId) ~= "number"
+		then
+			return
 		end
 
 		-- We want to fire this event from the server because there's a callback it
