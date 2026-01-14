@@ -174,7 +174,6 @@ DefaultUnifiedGridVS_80000000,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_80000002,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_80000006,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_80000010,Vertex,✔,✔,✔,❌,✔
-DefaultUnifiedGridVS_80000012,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_80001000,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_80001002,Vertex,✔,✔,✔,❌,✔
 DefaultUnifiedGridVS_80001006,Vertex,✔,✔,✔,❌,✔
@@ -227,7 +226,6 @@ DefaultUnifiedPlasticReflectionVS_14000016,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_14000406,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_14001006,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedPlasticReflectionVS_14001016,Vertex,❌,❌,❌,✔,❌
-DefaultUnifiedPlasticReflectionVS_14001406,Vertex,❌,❌,❌,✔,❌
 DefaultUnifiedWangFallbackFS,Fragment,✔,✔,✔,✔,✔
 DepthResolveMax2FS,Fragment,❌,✔,✔,✔,✔
 DepthResolveMax4FS,Fragment,❌,✔,✔,✔,✔

@@ -4858,8 +4858,8 @@ Studio.App.Property.SolverConvergenceMetricType,,,Solver Convergence Metric Type
 Studio.App.PropertyEnum.IterationBased,,,Iteration Based,Iteration Based
 Studio.App.PropertyEnum.AlgorithmAgnostic,,,Algorithm Agnostic,Algorithm Agnostic
 Studio.App.PackageMassUpdate.PartiallyUpdated,,,Partially Updated,Partially Updated
-Studio.App.RobloxRibbonMainWindow.CompositorDebugger,,,Compositor Debugger,Compositor Debugger
-Studio.App.RobloxRibbonMainWindow.CompositorDebuggerTooltip,,,Connect to an animation compositor graph to see its layers and their properties in real time,Connect to an animation compositor graph to see its layers and their properties in real time
+Studio.App.RobloxRibbonMainWindow.CompositorDebugger,,,Anim Graph,Anim Graph
+Studio.App.RobloxRibbonMainWindow.CompositorDebuggerTooltip,,,"Create, preview and publish animation graphs","Create, preview and publish animation graphs"
 Studio.App.Property.CameraTweenFocus,,,'Zoom To' - Tween Transition,'Zoom To' - Tween Transition
 Studio.App.Property.CameraAdaptiveSpeed,,,'Zoom To' - Adapt Camera Speed,'Zoom To' - Adapt Camera Speed
 Studio.App.BetaFeatures.NewCameraControlsTitle,,,New Studio Camera Controls,New Studio Camera Controls
@@ -8016,6 +8016,7 @@ Studio.Toolbox.General.FaceMakeup,,,Face Makeup,Face Makeup
 Studio.Toolbox.General.CategoryCreationsGroupEyebrowAccessory,,,Group Eyebrows,Group Eyebrows
 Studio.Toolbox.General.CategoryCreationsGroupEyelashAccessory,,,Group Eyelashes,Group Eyelashes
 Studio.Toolbox.General.ThumbnailColor,,,Thumbnail Color,Thumbnail Color
+Studio.Toolbox.General.ThumbnailSkinColor,,,Thumbnail skin color,Thumbnail skin color
 Studio.Common.Action.Apply,,,Apply,Apply
 Studio.Common.Action.Back,,,Back,Back
 Studio.Common.Action.Cancel,,,Cancel,Cancel
@@ -8510,7 +8511,7 @@ Studio.CGE.CannotConfigureSelectionDialog.WarningMessage,,,The {1} group is crea
 Studio.CGE.Info.NewName,,,New Name,New Name
 Studio.AnimationClipEditor.Plugin.Name,,,Animation Editor,Animation Editor
 Studio.AnimationClipEditor.Plugin.Toolbar,,,Animations,Animations
-Studio.AnimationClipEditor.Plugin.Button,,,Animation Editor,Animation Editor
+Studio.AnimationClipEditor.Plugin.Button,,,Anim Clip,Anim Clip
 Studio.AnimationClipEditor.Plugin.Description,,,"Create, preview, and publish Animation clips","Create, preview, and publish Animation clips"
 Studio.AnimationClipEditor.ContextMenu.AddKeyframeHere,,,Add Keyframe Here,Add Keyframe Here
 Studio.AnimationClipEditor.ContextMenu.AddResetKeyframe,,,Add Reset Keyframe Here,Add Reset Keyframe Here
@@ -8728,8 +8729,8 @@ Studio.AnimationClipEditor.Title.ResetAll,,,Reset All,Reset All
 Studio.AnimationClipEditor.FaceControlsEditorButtonCallout.Title,,,Face Animation Editor,Face Animation Editor
 Studio.AnimationClipEditor.FaceControlsEditorButtonCallout.Description,,,The Face Animation Editor provides a user-friendly interface for creating and editing facial animations for dynamic heads.,The Face Animation Editor provides a user-friendly interface for creating and editing facial animations for dynamic heads.
 Studio.AnimationClipEditor.AnimationFromVideo.Initializing,,,Getting started...,Getting started...
-Studio.AnimationClipEditor.AnimationFromVideo.Pending,,,Video pending – please wait...,Video pending – please wait...
-Studio.AnimationClipEditor.AnimationFromVideo.Processing,,,Your video is processing...,Your video is processing...
+Studio.AnimationClipEditor.AnimationFromVideo.Pending,,,Animation is pending – please wait...,Animation is pending – please wait...
+Studio.AnimationClipEditor.AnimationFromVideo.Processing,,,Your animation is processing...,Your animation is processing...
 Studio.AnimationClipEditor.AnimationFromVideo.RequiresModeration,,,Our moderation team is taking a look – we'll be in touch shortly.,Our moderation team is taking a look – we'll be in touch shortly.
 Studio.AnimationClipEditor.AnimationFromVideo.Error,,,"We encountered an error. Please try again in a bit, and if you continue to see this error, you may need to try a new video.","We encountered an error. Please try again in a bit, and if you continue to see this error, you may need to try a new video."
 Studio.AnimationClipEditor.AnimationFromVideo.ModerationRejected,,,Your animation did not comply with our moderation rules. Please try a different video.,Your animation did not comply with our moderation rules. Please try a different video.
@@ -8739,8 +8740,8 @@ Studio.AnimationClipEditor.AnimationFromVideo.InputHasNoPerson,,,"Couldn't detec
 Studio.AnimationClipEditor.AnimationFromVideo.InputUnstable,,,That video is too shaky – try a more stable video.,That video is too shaky – try a more stable video.
 Studio.AnimationClipEditor.AnimationFromVideo.TimedOut,,,"Sorry, we're unable to process your video right now due to a high volume of requests. Please try again in a bit.","Sorry, we're unable to process your video right now due to a high volume of requests. Please try again in a bit."
 Studio.AnimationClipEditor.AnimationFromVideo.Cancelled,,,Your animation creation has been canceled.,Your animation creation has been canceled.
-Studio.AnimationClipEditor.AnimationFromVideo.TutorialTitle,,,Create animation from video,Create animation from video
-Studio.AnimationClipEditor.AnimationFromVideo.TutorialText,,,"Choose a short video (15 seconds or less) containing a single person, fully in frame. Try to use a video with a stable, unmoving camera.","Choose a short video (15 seconds or less) containing a single person, fully in frame. Try to use a video with a stable, unmoving camera."
+Studio.AnimationClipEditor.AnimationFromVideo.TutorialTitle,,,Create animation from video or text,Create animation from video or text
+Studio.AnimationClipEditor.AnimationFromVideo.TutorialText,,,"Choose a short video (15 seconds or less) containing a single person, fully in frame, with a stable, unmoving camera. Alternatively, type the action description, then press Enter to continue.","Choose a short video (15 seconds or less) containing a single person, fully in frame, with a stable, unmoving camera. Alternatively, type the action description, then press Enter to continue."
 Studio.AnimationClipEditor.AnimationFromVideo.ChooseVideo,,,Choose Video,Choose Video
 Studio.AnimationClipEditor.CurveEditorCallout.Title,,,Curve Editor,Curve Editor
 Studio.AnimationClipEditor.CurveEditorCallout.Description,,,The Curve Editor is a new way to visually create and edit rich animations within the Animation Editor.,The Curve Editor is a new way to visually create and edit rich animations within the Animation Editor.
@@ -9033,6 +9034,12 @@ Studio.PublishPlaceAs.Error.DescriptionInvalidString,,,Description cannot includ
 Studio.PublishPlaceAs.Error.NameInvalidString,,,Name cannot include invalid utf-8 characters.,Name cannot include invalid utf-8 characters.
 Studio.PublishPlaceAs.Banner.PublishEligibility,,,Check your eligibility status to publish public experiences.,Check your eligibility status to publish public experiences.
 Studio.PublishPlaceAs.Button.Manage,,,Manage,Manage
+Studio.PublishPlaceAs.ScreenHeader.ChooseExperienceNew,,,Choose an experience to add this place to.,Choose an experience to add this place to.
+Studio.PublishPlaceAs.GroupDropdown.MyExperiences,,,My Experiences,My Experiences
+Studio.PublishPlaceAs.FooterButton.CreateNewExperience,,,Create new experience…,Create new experience…
+Studio.PublishPlaceAs.FooterButton.UpdateExistingExperience,,,Update existing experience…,Update existing experience…
+Studio.PublishPlaceAs.General.SaveExperience,,,Save Experience,Save Experience
+Studio.PublishPlaceAs.General.PublishExperience,,,Publish Experience,Publish Experience
 Studio.PluginInstallation.Meta.PluginWindowName,,,Plugin Installation,Plugin Installation
 Studio.PluginInstallation.Main.InstallingPlugin,,,Installing plugin : {1},Installing plugin : {1}
 Studio.PluginInstallation.Main.ErrorNoId,,,Error : No plugin to install,Error : No plugin to install
@@ -12005,7 +12012,7 @@ Studio.AvatarCompatibilityPreviewer.SortClothingTable.AvatarExplanationTitle,,,A
 Studio.AvatarCompatibilityPreviewer.ProgressBar.HeadCagePostProcessing,,,Improving facial caging,Improving facial caging
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
-Studio.CompositorDebugger.Plugin.Button,,,Compositor Debugger,Compositor Debugger
+Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
 Studio.CompositorDebugger.Plugin.Description,,,Toggles the Compositor Debugger window.,Toggles the Compositor Debugger window.
 Studio.CompositorDebugger.Plugin.Text,,,Example Text!,Example Text!
 Studio.CompositorDebugger.LayerView.layerDetails,,,Layer Details,Layer Details
@@ -12070,6 +12077,10 @@ Studio.CompositorDebugger.CompositorMenu.Stop,,,Stop,Stop
 Studio.CompositorDebugger.CompositorMenu.Open,,,Open,Open
 Studio.CompositorDebugger.CompositorMenu.AutoLayout,,,Auto-Layout,Auto-Layout
 Studio.CompositorDebugger.CompositorMenu.GraphDefaultName,,,Graph,Graph
+Studio.CompositorDebugger.CompositorMenu.CreateScriptForSelection,,,Create Animate script for selection,Create Animate script for selection
+Studio.CompositorDebugger.CompositorMenu.CreateScriptForStarterPlayer,,,Create Animate script for StarterPlayer,Create Animate script for StarterPlayer
+Studio.CompositorDebugger.CompositorMenu.CreateScriptFor,,,Create Animate script for '{selectionName}',Create Animate script for '{selectionName}'
+Studio.CompositorDebugger.CompositorMenu.Graph,,,Graph,Graph
 Studio.Tutorials.Plugin.Name,,,Tutorials,Tutorials
 Studio.Tutorials.Plugin.Button,,,Toggle,Toggle
 Studio.Tutorials.Plugin.Description,,,Toggles the Template plugin window.,Toggles the Template plugin window.
@@ -13394,6 +13405,10 @@ Studio.StartPage.Plugin.VerifyAgeBanner.Body,,,Age checks will be required in ea
 Studio.StartPage.Plugin.VerifyAgeBanner.Title,,,Check your age early,Check your age early
 Studio.StartPage.Plugin.VerifyAgeBanner.PrimaryAction,,,Get started,Get started
 Studio.StartPage.Plugin.VerifyAgeBanner.SecondaryAction,,,View details,View details
+Studio.StartPage.Plugin.UnratedExperiencesBanner.Title,,,You have unrated experiences that are currently unplayable.,You have unrated experiences that are currently unplayable.
+Studio.StartPage.Plugin.UnratedExperiencesBanner.Description,,,Every public experience must have a content maturity label to be playable.,Every public experience must have a content maturity label to be playable.
+Studio.StartPage.Plugin.UnratedExperiencesBanner.PolicyDetailsAction,,,See policy details,See policy details
+Studio.StartPage.Plugin.UnratedExperiencesBanner.ViewExperiencesAction,,,View unrated experiences,View unrated experiences
 Studio.ConstraintTool.Plugin.Name,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Toolbar,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Button,,,Create,Create
@@ -14134,6 +14149,10 @@ Studio.BetaFeatures.PlaceVersionHistoryTitle,,,Detailed Place Version History,De
 Studio.BetaFeatures.PlaceVersionHistoryDescription,,,"Enable the new Place Version History with a revamped UI and new functionality. Adds new metadata to each Place version including: collaborators, save type, and custom notes. Tag your Place versions and then use the new search and filters to find them later.","Enable the new Place Version History with a revamped UI and new functionality. Adds new metadata to each Place version including: collaborators, save type, and custom notes. Tag your Place versions and then use the new search and filters to find them later."
 Studio.BetaFeatures.MultitouchSimulationTitle,,,Multi-touch Simulation,Multi-touch Simulation
 Studio.BetaFeatures.MultitouchSimulationDescription,,,Enables multi-touch gestures for simulated touch devices,Enables multi-touch gestures for simulated touch devices
+Studio.BetaFeatures.StudioPreferredTextSizeSettingDescription,,,Enables a text size setting in Studio settings that scales text in Studio and Studio plugins according to a user's selection.,Enables a text size setting in Studio settings that scales text in Studio and Studio plugins according to a user's selection.
+Studio.BetaFeatures.StudioPreferredTextSizeSettingTitle,,,Studio Preferred Text Size Setting,Studio Preferred Text Size Setting
+Studio.BetaFeatures.ACE3DImporterTitle,,,3D Importer in ACE,3D Importer in ACE
+Studio.BetaFeatures.ACE3DImporterDescription,,,Upgrade the ACE's  'Import from file' button to use the modern 3D Importer instead of the legacy importer,Upgrade the ACE's  'Import from file' button to use the modern 3D Importer instead of the legacy importer
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -14200,6 +14219,7 @@ Studio.LiveSync.KeepLocalAfterSync,,,Keep local files/directories after sync,Kee
 Studio.LiveSync.ErrorDuringSyncWithCode,,,Can't sync %1 to disk: Error during sync (code %2),Can't sync %1 to disk: Error during sync (code %2)
 Studio.LiveSync.StudioStreamingNotSupported,,,Can't sync %1 to disk: Syncing under Workspace is not supported while Studio Streaming is enabled,Can't sync %1 to disk: Syncing under Workspace is not supported while Studio Streaming is enabled
 Studio.LiveSync.ErrorFromPreviousSession,,,Error from previous session -,Error from previous session -
+Studio.LiveSync.ErrorServiceCannotUseInitFile,,,Can't sync %1: Services cannot be converted to Scripts using init files,Can't sync %1: Services cannot be converted to Scripts using init files
 Studio.ScriptEditor.TypeColor,,,Type Color,Type Color
 Studio.PlaceVersionHistory.Label.PlaceVersionHistory,,,Place Version History,Place Version History
 Studio.PlaceVersionHistory.VersionHistory,,,Version History,Version History
