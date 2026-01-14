@@ -26,6 +26,6 @@ void main()
     v5.y = v3.y;
     gl_Position = v5;
     VARYING0 = TEXCOORD0;
-    VARYING1 = mod(mod(v0.zyx / vec3(float(1 << (CB4[0].w + 4))), vec3(1024.0)) + vec3(1024.0), vec3(1024.0));
+    VARYING1 = mod(mod(v0 / vec3(float(1 << (CB4[0].w + 4))), vec3(1024.0)) + vec3(1024.0), vec3(1024.0));
 }
 

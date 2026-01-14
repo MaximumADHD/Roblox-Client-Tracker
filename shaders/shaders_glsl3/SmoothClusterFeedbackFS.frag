@@ -17,6 +17,6 @@ void main()
     int f4 = int(floor((f3 - min(f3 - (0.5 * max(0.0, log2(f3))), 0.0)) + CB6[0].z));
     vec2 f5 = floor((vec2(4096.0) * VARYING0) / vec2(float(128 * (1 << f4))));
     ivec3 f6 = ivec3(VARYING1) & ivec3(3);
-    _entryPointOutput = ((((((1 | ((int(f5.y) & 31) << 1)) | ((int(f5.x) & 31) << 6)) | ((CB4[0].z & 4095) << 11)) | ((f4 & 15) << 23)) | (f6.x << 26)) | (f6.y << 28)) | (f6.z << 30);
+    _entryPointOutput = ((((((1 | ((int(f5.y) & 31) << 1)) | ((int(f5.x) & 31) << 6)) | ((CB4[0].z & 4095) << 11)) | ((f4 & 7) << 23)) | (f6.x << 26)) | (f6.y << 28)) | (f6.z << 30);
 }
 
