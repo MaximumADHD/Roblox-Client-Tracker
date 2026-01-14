@@ -98,10 +98,10 @@ dependencies = [
     "EmojiList EmojiList 1.0.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
     "FocusBehaviors FocusBehaviors 2.0.0 registry",
-    "Foundation Foundation 1.66.0 registry",
+    "Foundation Foundation 1.67.0 registry",
     "FoundationCloudAssets FoundationCloudAssets 0.4.3 registry",
     "FoundationImages FoundationImages 1.32.0 registry",
-    "FoundationTestingLibrary FoundationTestingLibrary 0.1.1 registry",
+    "FoundationTestingLibrary FoundationTestingLibrary 0.1.3 registry",
     "GraphQL GraphQL 15.6.3 registry",
     "GraphqlToolsUtils Utils 0.3.1 registry",
     "HMR HMR 0.1.1 registry",
@@ -172,7 +172,7 @@ dependencies = [
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 0.5.1 registry",
     "UGCValidation UGCValidation 1.17.18 registry",
-    "UIBlox UIBlox 0.2.214 registry",
+    "UIBlox UIBlox 0.2.223 registry",
     "UrlBuilder UrlBuilder 1.2.16 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList VirtualizedList 1.4.3 registry",
@@ -312,7 +312,7 @@ source = "registry"
 
 [[package]]
 name = "Foundation"
-version = "1.66.0"
+version = "1.67.0"
 source = "registry"
 dependencies = [
     "BuilderIcons BuilderIcons 0.1.22 registry",
@@ -347,13 +347,13 @@ dependencies = ["SafeFlags SafeFlags 0.1.1 registry"]
 
 [[package]]
 name = "FoundationTestingLibrary"
-version = "0.1.1"
+version = "0.1.3"
 source = "registry"
 dependencies = [
     "BuilderIcons BuilderIcons 0.1.22 registry",
-    "Cryo Cryo 1.1.0 registry",
+    "Dash <patched> Dash 3.3.1 registry",
     "DomTestingLibrary DomTestingLibrary 8.15.0 registry",
-    "Foundation Foundation 1.66.0 registry",
+    "Foundation Foundation 1.67.0 registry",
     "FoundationImages FoundationImages 1.32.0 registry",
     "JestGlobals JestGlobals 3.13.3 registry",
     "React React 17.3.6 registry",
@@ -425,7 +425,7 @@ dependencies = [
     "Roact RoactCompat 17.3.6 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
-    "UIBlox UIBlox 0.2.214 registry",
+    "UIBlox UIBlox 0.2.223 registry",
     "t t 1.2.6 registry",
 ]
 
@@ -435,7 +435,7 @@ version = "0.0.2"
 source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.66.0 registry",
+    "Foundation Foundation 1.67.0 registry",
     "MarkdownCore MarkdownCore 0.0.2 registry",
     "React React 17.3.6 registry",
     "ReactIs ReactIs 17.3.6 registry",
@@ -1063,7 +1063,7 @@ version = "0.0.2"
 source = "registry"
 dependencies = [
     "Dash <patched> Dash 3.3.1 registry",
-    "Foundation Foundation 1.66.0 registry",
+    "Foundation Foundation 1.67.0 registry",
     "React React 17.3.6 registry",
     "ReactIs ReactIs 17.3.6 registry",
     "ReactRoblox ReactRoblox 17.3.6 registry",
@@ -1894,7 +1894,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 4.3.0 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "Symbol lua-symbol 0.1.0 registry",
-    "UIBlox UIBlox 0.2.214 registry",
+    "UIBlox UIBlox 0.2.223 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
     "t t 1.2.6 registry",
@@ -1991,13 +1991,13 @@ dependencies = [
 
 [[package]]
 name = "UIBlox"
-version = "0.2.214"
+version = "0.2.223"
 source = "registry"
 dependencies = [
     "BuilderIcons BuilderIcons 0.1.22 registry",
     "Cryo Cryo 1.1.0 registry",
     "FitFrame RoactFitComponents 2.0.0 registry",
-    "Foundation Foundation 1.66.0 registry",
+    "Foundation Foundation 1.67.0 registry",
     "FoundationImages FoundationImages 1.32.0 registry",
     "LazyRequire LazyRequire 0.1.4 registry",
     "LuauPolyfill LuauPolyfill 1.2.3 registry",

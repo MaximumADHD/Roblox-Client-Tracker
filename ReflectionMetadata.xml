@@ -2672,7 +2672,7 @@
           <Properties>
             <string name="Name">Volume</string>
             <double name="UIMinimum">0</double>
-            <double name="UIMaximum">3</double>
+            <double name="UIMaximum">10</double>
             <double name="UINumTicks">100</double>
             <string name="SliderScaling">Square</string>
           </Properties>

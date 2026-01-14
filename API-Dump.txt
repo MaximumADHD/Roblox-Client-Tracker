@@ -422,7 +422,6 @@ Class Animator : Instance
 	Event Animator.AnimationPlayedCoreScript(animationTrack: AnimationTrack) {🔐Animation} {RobloxScriptSecurity}
 	Event Animator.AnimationStreamTrackPlayed(animationTrack: AnimationStreamTrack) {🔐Animation} {RobloxScriptSecurity}
 	Event Animator.OnCombinedUpdate(animation: string, playState: boolean, fadeTime: number, weight: number, speed: number, timePosition: number, priority: Enum.AnimationPriority, looping: boolean, valuesUpdated: number) {🔐Animation} {RobloxSecurity} [Hidden]
-	Event Animator.OnCombinedUpdate2(animation: string, playState: boolean, fadeTime: number, weight: number, speed: number, timePosition: number, priority: Enum.AnimationPriority, valuesUpdated: number) {🔐Animation} {RobloxSecurity} [Hidden]
 	Event Animator.OnStreamingUpdated(fadeTime: number, weight: number, priority: Enum.AnimationPriority, valuesUpdated: number) {🔐Animation} {RobloxSecurity} [Hidden]
 	Event Animator.OnStreamingUpdated2(fadeTime: number, weight: number, priority: Enum.AnimationPriority, maskEnabled: boolean, valuesUpdated: number) {🔐Animation} {RobloxSecurity} [Hidden]
 	Event Animator.StreamSyncRequest(player: Player) {🔐Animation} {RobloxSecurity} [Hidden]
@@ -1092,8 +1091,7 @@ Class AvatarCollisionRules : Instance {RobloxScriptSecurity}
 	Property AvatarCollisionRules.LegacyCollisionMode: Enum.AvatarSettingsLegacyCollisionMode {RobloxScriptSecurity}
 	Property AvatarCollisionRules.SingleColliderSize: Vector3 {RobloxScriptSecurity}
 Class AvatarCreationService : Instance [NotCreatable] [Service]
-	Function AvatarCreationService:AutoSetupAvatarAsync(player: Player, model: Model, progressCallback: ((...any) -> ...any)?) -> string [Yields]
-	Function AvatarCreationService:AutoSetupAvatarNewAsync(player: Player, autoSetupParams: { [string]: any }, progressCallback: ((...any) -> ...any)?) -> string {🔐InternalTest} [Yields]
+	Function AvatarCreationService:AutoSetupAvatarAsync(player: Player, autoSetupParams: { [string]: any }, progressCallback: ((...any) -> ...any)?) -> string [Yields]
 	Function AvatarCreationService:GenerateAvatar2DPreviewAsync(avatarGeneration2dPreviewParams: { [string]: any }) -> string [Yields]
 	Function AvatarCreationService:GenerateAvatarAsync(avatarGenerationParams: { [string]: any }) -> string [Yields]
 	Function AvatarCreationService:GetBatchTokenDetailsAsync(tokenIds: { any }) -> { any } [Yields]
@@ -1128,6 +1126,7 @@ Class AvatarEditorService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function AvatarEditorService:GetAvatarRulesAsync() -> { [string]: any } [Yields]
 	Function AvatarEditorService:GetBatchItemDetailsAsync(itemIds: { any }, itemType: Enum.AvatarItemType) -> { any } [Yields]
 	Function AvatarEditorService:GetFavoriteAsync(itemId: number, itemType: Enum.AvatarItemType) -> boolean [Yields]
+	Function AvatarEditorService:GetHeadShapesAsync() -> { any } [Yields]
 	Function AvatarEditorService:GetInventoryAsync(assetTypes: { any }) -> InventoryPages [Yields]
 	Function AvatarEditorService:GetItemDetailsAsync(itemId: number, itemType: Enum.AvatarItemType) -> { [string]: any } [Yields]
 	Function AvatarEditorService:GetOutfitDetailsAsync(outfitId: number) -> { [string]: any } [Yields]
@@ -1531,7 +1530,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:ReadCapturesFromGalleryAsync(captureTypeFilters: { any }? = {}) -> ...any [Yields]
 	Function CaptureService:StartVideoCaptureAsync(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> Enum.VideoCaptureStartedResult [Yields]
 	Function CaptureService:StopVideoCapture() -> ()
-	Function CaptureService:TakeCapture(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> ()
+	Function CaptureService:TakeScreenshotCaptureAsync(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> ()
 	Function CaptureService:UploadCaptureAsync(capture: Capture) -> ...any [Yields]
 	Function CaptureService:CanCaptureVideo() -> boolean {RobloxScriptSecurity}
 	Function CaptureService:CreatePostAsync(pathArr: { any }, caption: string) -> { [string]: any } {RobloxScriptSecurity} [Yields]
@@ -2244,7 +2243,6 @@ Class LocalDebuggerConnection : DebuggerConnection [NotCreatable] [NotReplicated
 Class DebuggerConnectionManager : Instance {RobloxScriptSecurity} [NotCreatable] [Service] [NotReplicated]
 	Property DebuggerConnectionManager.Timeout: number {RobloxScriptSecurity} [Hidden] [NotReplicated]
 	Function DebuggerConnectionManager:ConnectLocal(dataModel: DataModel) -> number {RobloxScriptSecurity}
-	Function DebuggerConnectionManager:ConnectRemote(host: string, port: number) -> number {RobloxScriptSecurity}
 	Function DebuggerConnectionManager:FocusConnection(connection: DebuggerConnection) -> () {RobloxScriptSecurity}
 	Function DebuggerConnectionManager:GetAvailableConnection() -> DebuggerConnection {RobloxScriptSecurity}
 	Function DebuggerConnectionManager:GetConnectionById(id: number) -> DebuggerConnection {RobloxScriptSecurity}
@@ -3880,7 +3878,7 @@ Class InputAction : Instance
 	Property InputAction.Direction2DState: Vector2 {🔐Input} {RobloxScriptSecurity} [ReadOnly] [NotScriptable]
 	Property InputAction.Direction3DState: Vector3 {🔐Input} {RobloxScriptSecurity} [ReadOnly] [NotScriptable]
 	Function InputAction:Fire(state: any) -> () {🔐Input}
-	Function InputAction:GetState() -> any {🔐Input}
+	Function InputAction:GetState() -> any {🔐Input} {🧬Safe}
 	Event InputAction.Pressed() {🔐Input}
 	Event InputAction.Released() {🔐Input}
 	Event InputAction.StateChanged(value: any) {🔐Input}
@@ -4556,7 +4554,7 @@ Class NetworkPeer : Instance [NotCreatable] [NotBrowsable]
 	Function NetworkPeer:InitializeRemoteAllowList(names: { any }) -> () {RobloxScriptSecurity}
 Class NetworkClient : NetworkPeer [NotCreatable] [Service] [NotReplicated]
 	Event NetworkClient.ConnectionAccepted(peer: string, replicator: Instance)
-	Event NetworkClient.ConnectionFailed(peer: string, code: number, reason: string)
+	Event NetworkClient.ConnectionFailed(peer: string, code: number)
 Class NetworkServer : NetworkPeer [NotCreatable] [Service] [NotReplicated]
 	Function NetworkServer:EncryptStringForPlayerId(toEncrypt: string, playerId: number) -> string
 Class NetworkReplicator : Instance [NotCreatable] [NotReplicated]
@@ -5395,6 +5393,7 @@ Class Player : Instance
 	Property Player.GameplayPaused: boolean {🔐Players} {✏️NotAccessibleSecurity} [Hidden]
 	Property Player.AccountAgeReplicate: number {🔐Players} [Hidden] [NotScriptable]
 	Property Player.AppearanceDidLoad: boolean {🔐Players} {RobloxScriptSecurity} [Hidden] [ReadOnly] [Deprecated]
+	Property Player.CameraFrustumRequested: boolean {🔐Players} {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Player.CharacterAppearance: string {🔐Players} [NotBrowsable] [Deprecated]
 	Property Player.ChararacterRegionId: Vector3 {🔐Players} {RobloxSecurity} [Hidden] [NotScriptable]
 	Property Player.ChatAvailabilityStatus: string {🔐Players} {RobloxScriptSecurity} [Hidden] [NotReplicated]
@@ -5530,6 +5529,7 @@ Class Player : Instance
 	Event Player.RequestStreamingPinByUniqueId(uniqueIdString: string, depth: number) {🔐Players} {RobloxSecurity} [Hidden]
 	Event Player.ScopeCheckInitiated(guid: string, serializedScopes: { any }, metadata: { [string]: any }) {🔐Players} {RobloxSecurity} [Hidden]
 	Event Player.ScriptSecurityError(hash: string, error: string, stack: string) {🔐Players} {LocalUserSecurity} [Hidden]
+	Event Player.SendCameraFrustum(pv: ReplicationPV) {🔐Players} {RobloxSecurity} [Hidden]
 	Event Player.ServerToClientUnfilteredChatReplicate(value: boolean) {🔐Players} {RobloxSecurity} [Hidden]
 	Event Player.ServerUpdatedHead(assetType: Enum.AssetType, assetId: number) {🔐Players} {RobloxSecurity} [Hidden]
 	Event Player.SetShutdownMessage(message: string) {🔐Players} {RobloxSecurity} [Hidden]
@@ -7167,10 +7167,10 @@ Class StyleDerive : Instance
 Class StyleLink : Instance
 	Property StyleLink.StyleSheet: StyleSheet?
 Class StyleQuery : Instance [NotReplicated] [NotBrowsable]
-	Property StyleQuery.AspectRatioRange: NumberRange
+	Property StyleQuery.AspectRatioRange: NumberRange [NotReplicated] [NotScriptable]
 	Property StyleQuery.IsActive: boolean [ReadOnly]
 	Property StyleQuery.MaxSize: Vector2 [NotReplicated] [NotScriptable]
-	Property StyleQuery.MinSize: Vector2
+	Property StyleQuery.MinSize: Vector2 [NotReplicated] [NotScriptable]
 	Property StyleQuery.ConditionsSerialize: BinaryString [Hidden] [NotScriptable]
 	Function StyleQuery:GetCondition(name: string) -> any
 	Function StyleQuery:GetConditions() -> { [string]: any }
@@ -7539,6 +7539,7 @@ Class ThirdPartyUserService : Instance {RobloxScriptSecurity} [NotCreatable] [Se
 	Function ThirdPartyUserService:GetUserPlatformName() -> string {RobloxScriptSecurity}
 	Function ThirdPartyUserService:GetVoiceChatRestrictionStatus() -> Enum.ChatRestrictionStatus {RobloxScriptSecurity}
 	Function ThirdPartyUserService:HaveActiveUser() -> boolean {RobloxScriptSecurity}
+	Function ThirdPartyUserService:IsAccountSwitchingSupported() -> boolean {RobloxScriptSecurity}
 	Function ThirdPartyUserService:IsChatRestrictionSupported() -> boolean {RobloxScriptSecurity}
 	Function ThirdPartyUserService:IsSingleSignOnSupported() -> boolean {RobloxScriptSecurity}
 	Function ThirdPartyUserService:RegisterActiveUser(gamepadId: Enum.UserInputType) -> number {RobloxScriptSecurity} [Yields]
@@ -9938,6 +9939,8 @@ Enum HttpError
 	EnumItem HttpError.ConnectionClosed : 13
 	EnumItem HttpError.ServerProtocolError : 14
 	EnumItem HttpError.CreatorEnvironmentsNotSupportedByService : 15
+	EnumItem HttpError.InactivityTimeout : 16
+	EnumItem HttpError.TooManyOutstandingRequests : 17
 Enum HttpRequestType
 	EnumItem HttpRequestType.Default : 0
 	EnumItem HttpRequestType.MarketplaceService : 2
@@ -11193,6 +11196,11 @@ Enum ScreenOrientation
 	EnumItem ScreenOrientation.LandscapeSensor : 2
 	EnumItem ScreenOrientation.Portrait : 3
 	EnumItem ScreenOrientation.Sensor : 4
+Enum ScreenshotCaptureResult
+	EnumItem ScreenshotCaptureResult.Success : 0
+	EnumItem ScreenshotCaptureResult.OtherError : 1
+	EnumItem ScreenshotCaptureResult.NoDeviceSupport : 2
+	EnumItem ScreenshotCaptureResult.NoSpaceOnDevice : 3
 Enum ScrollBarInset
 	EnumItem ScrollBarInset.None : 0
 	EnumItem ScrollBarInset.ScrollBar : 1

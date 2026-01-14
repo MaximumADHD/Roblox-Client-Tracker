@@ -169,8 +169,7 @@ type UnbanConfigType = {
 }
 
 type CaptureParams = {
-    UICaptureMode: Enum.UICaptureMode,
-    Metadata: string
+    UICaptureMode: Enum.UICaptureMode
 }
 
 type Creator = {

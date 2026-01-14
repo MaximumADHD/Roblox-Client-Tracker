@@ -1,6 +1,6 @@
 [package]
 name = "Foundation"
-version = "1.66.0"
+version = "1.67.0"
 readme = "README.md"
 content_root = "src"
 files = [
@@ -10,6 +10,7 @@ files = [
     "!*.snap.lua",
     "!Utility/benchmarks.lua",
     "!Utility/mockService.lua",
+    "!Utility/mockUserInputService.lua",
     "!*.csv",
 ]
 publish = true
