@@ -752,7 +752,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CatalogSearchParams": {
-    "documentation": "Stores parameters used in catalog searches via <code>AvatarEditorService:SearchCatalog()</code>.",
+    "documentation": "Stores parameters used in catalog searches via <code>AvatarEditorService:SearchCatalogAsync()</code>.",
     "keys": {
       "SearchKeyword": "@roblox/globaltype/CatalogSearchParams.SearchKeyword",
       "MinPrice": "@roblox/globaltype/CatalogSearchParams.MinPrice",
@@ -6523,7 +6523,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.AutoRuns": {
-    "documentation": "If set to <code>true</code>, the game will start running when the service's <code>TestService:Run()</code> method is called.",
+    "documentation": "If set to <code>true</code>, the game will start running when the service's <code>TestService:RunAsync()</code> method is called.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#AutoRuns",
     "code_sample": ""
   },
@@ -7289,7 +7289,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPages": {
-    "documentation": "A special version of the <code>Pages</code> class returned by <code>AssetService:SearchAudio()</code>.",
+    "documentation": "A special version of the <code>Pages</code> class returned by <code>AssetService:SearchAudioAsync()</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPages",
     "code_sample": ""
@@ -14129,7 +14129,7 @@
       "@roblox/globaltype/PluginGui.GetRelativeMousePosition/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginGui#GetRelativeMousePosition",
-    "code_sample": "local RunService = game:GetService(\"RunService\")\n\nlocal widgetInfo = DockWidgetPluginGuiInfo.new(\n\tEnum.InitialDockState.Float,\n\ttrue,\n\tfalse, -- Enabled state, override\n\t200,\n\t300, -- Size\n\t150,\n\t150 -- Minimum size\n)\n\nlocal testWidget = plugin:CreateDockWidgetPluginGui(\"TestWidget\", widgetInfo)\n\nfunction update()\n\tlocal v2 = testWidget:GetRelativeMousePosition()\n\ttestWidget.Title = (\"(%d, %d)\"):format(v2.x, v2.y)\nend\n\nRunService.Stepped:Connect(update)\n\nupdate()"
+    "code_sample": ""
   },
   "@roblox/globaltype/PluginGui.PluginDragDropped.Connect/param/0": {
     "documentation": "An object that runs connected functions upon a specific occurrence."
@@ -24865,12 +24865,12 @@
   "@roblox/globaltype/DataModel.CreatorId": {
     "documentation": "Describes the ID of the user or group that owns the place.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorId",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"The place owner has joined the game!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"A member of the group that owns the place has joined the game!\")\n\t\tend\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"The place owner has joined the game!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"A member of the group that owns the place has joined the game!\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.CreatorType": {
     "documentation": "Describes the <code>CreatorType</code> of the place, whether the place is owned by a user or a group.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorType",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"The place owner has joined the game!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"A member of the group that owns the place has joined the game!\")\n\t\tend\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"The place owner has joined the game!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"A member of the group that owns the place has joined the game!\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.Environment": {
     "documentation": "",
@@ -35084,7 +35084,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService": {
-    "documentation": "The TextService is a service internally responsible for handling the display of text in the game.",
+    "documentation": "Service internally responsible for handling the display of text.",
     "keys": {
       "FilterAndTranslateStringAsync": "@roblox/globaltype/TextService.FilterAndTranslateStringAsync",
       "FilterStringAsync": "@roblox/globaltype/TextService.FilterStringAsync",
@@ -35097,7 +35097,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync/param/0": {
-    "documentation": "The TextService is a service internally responsible for handling the display of text in the game."
+    "documentation": "Service internally responsible for handling the display of text."
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync/param/1": {
     "documentation": ""
@@ -35115,7 +35115,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync": {
-    "documentation": "Chat translation is not supported in legacy chat. This method is no longer supported and should not be used.",
+    "documentation": "Filters and translates a string.",
     "params": [
       {
         "name": "self",
@@ -35145,22 +35145,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/0": {
-    "documentation": "The TextService is a service internally responsible for handling the display of text in the game."
+    "documentation": "Service internally responsible for handling the display of text."
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/1": {
     "documentation": "The text to be filtered."
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/2": {
-    "documentation": "The userId of the player filtering the text."
+    "documentation": "The <code>Player.UserId</code> of the player filtering the text."
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/3": {
-    "documentation": "The context that the filtered message will be used in."
+    "documentation": "The context that the filtered message will be used in. This parameter does not impact the filtered result of the query and is only used to improve Roblox's text filtering."
   },
   "@roblox/globaltype/TextService.FilterStringAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/TextService.FilterStringAsync": {
-    "documentation": "Filters a string being received from a user, and returns a <code>TextFilterResult</code> which can be used to distribute the correctly filtered text accordingly.",
+    "documentation": "Filters a string being received from a user and returns a <code>TextFilterResult</code> which can be used to distribute the correctly filtered text accordingly.",
     "params": [
       {
         "name": "self",
@@ -35186,7 +35186,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.GetFamilyInfoAsync/param/0": {
-    "documentation": "The TextService is a service internally responsible for handling the display of text in the game."
+    "documentation": "Service internally responsible for handling the display of text."
   },
   "@roblox/globaltype/TextService.GetFamilyInfoAsync/param/1": {
     "documentation": "Asset ID of the font family to look up."
@@ -35210,10 +35210,10 @@
       "@roblox/globaltype/TextService.GetFamilyInfoAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextService#GetFamilyInfoAsync",
-    "code_sample": ""
+    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal familyToCheck = \"rbxasset://fonts/families/Arimo.json\"\n\nlocal success, info = pcall(function()\n\treturn TextService:GetFamilyInfoAsync(familyToCheck)\nend)\nif success then\n\tprint(\"Name of the font:\", info.Name)\n\tprint(\"Faces:\")\n\tfor _, face in info.Faces do\n\t\tprint(\"--------\")\n\t\tprint(\"Name:\", face.Name)\n\t\tprint(\"Weight:\", face.Weight.Name)\n\t\tprint(\"Style:\", face.Style.Name)\n\tend\nend"
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync/param/0": {
-    "documentation": "The TextService is a service internally responsible for handling the display of text in the game."
+    "documentation": "Service internally responsible for handling the display of text."
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync/param/1": {
     "documentation": "A reference to a <code>GetTextBoundsParams</code> object."
@@ -35222,7 +35222,7 @@
     "documentation": "The size of the text as a <code>Vector2</code>."
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync": {
-    "documentation": "Calculates the width and height of text given parameters.",
+    "documentation": "Computes the <code>Vector2</code> dimensions (in pixels) that will be taken up with text when using a <code>GetTextBoundsParams</code> object.",
     "params": [
       {
         "name": "self",
@@ -35240,19 +35240,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.GetTextSize/param/0": {
-    "documentation": "The TextService is a service internally responsible for handling the display of text in the game."
+    "documentation": "Service internally responsible for handling the display of text."
   },
   "@roblox/globaltype/TextService.GetTextSize/param/1": {
     "documentation": "The string for which the text size is to be calculated."
   },
   "@roblox/globaltype/TextService.GetTextSize/param/2": {
-    "documentation": "The integer representing the font size used."
+    "documentation": "The integer representing the font size used. Does not accept an <code>FontSize</code> value."
   },
   "@roblox/globaltype/TextService.GetTextSize/param/3": {
     "documentation": "The font used."
   },
   "@roblox/globaltype/TextService.GetTextSize/param/4": {
-    "documentation": "The <code>TextLabel.AbsoluteSize</code> of the text object to be used. Required to compute how the text will wrap."
+    "documentation": "The <code>GuiBase2d.AbsoluteSize</code> of the text object to be used. Required to compute how the text will wrap."
   },
   "@roblox/globaltype/TextService.GetTextSize/return/0": {
     "documentation": "The size of the space required, in pixels, by the string with the specified formatting."
@@ -35285,10 +35285,10 @@
       "@roblox/globaltype/TextService.GetTextSize/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextService#GetTextSize",
-    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal function getTextBounds()\n\tlocal message = \"Hello World\"\n\tlocal size = Vector2.new(1, 1)\n\tlocal bounds = TextService:GetTextSize(message, 12, \"SourceSans\", size)\n\treturn bounds + Vector2.new(1, 1)\nend\n\nprint(getTextBounds())"
+    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal function getTextBounds()\n\tlocal message = \"Hello world!\"\n\tlocal size = Vector2.new(1, 1)\n\tlocal bounds = TextService:GetTextSize(message, 12, \"SourceSans\", size)\n\treturn bounds\nend\n\nprint(getTextBounds())"
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync/param/0": {
-    "documentation": "The TextService is a service internally responsible for handling the display of text in the game."
+    "documentation": "Service internally responsible for handling the display of text."
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync/param/1": {
     "documentation": ""
@@ -35300,7 +35300,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync": {
-    "documentation": "",
+    "documentation": "Returns the offset used to up-scale text based on the current <code>GuiService.PreferredTextSize</code> setting.",
     "params": [
       {
         "name": "self",
@@ -45463,7 +45463,7 @@
       "@roblox/globaltype/Player.GetFriendsOnlineAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetFriendsOnlineAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Failed to get online players: \" .. result)\nend"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Failed to get online players: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
@@ -45490,7 +45490,7 @@
       "@roblox/globaltype/Player.GetFriendsOnline/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetFriendsOnline",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Failed to get online players: \" .. result)\nend"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Failed to get online players: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetJoinData/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
@@ -45951,7 +45951,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacterAsync()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacter/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
@@ -45966,7 +45966,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacter",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacterAsync()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
@@ -46010,7 +46010,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterWithHumanoidDescriptionAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
@@ -46032,7 +46032,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterWithHumanoidDescription",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadInstance/param/0": {
     "documentation": "An object that represents a presently connected client to the experience."
@@ -57067,7 +57067,7 @@
       "@roblox/globaltype/KeyframeSequenceProvider.GetAnimationsAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequenceProvider#GetAnimationsAsync",
-    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- Insert your UserId here\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimations(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"total: \", #animationIds)"
+    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- Insert your UserId here\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimationsAsync(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"total: \", #animationIds)"
   },
   "@roblox/globaltype/KeyframeSequenceProvider.GetAnimations/param/0": {
     "documentation": "Provides functions to load and preview <code>KeyframeSequence</code>."
@@ -57094,7 +57094,7 @@
       "@roblox/globaltype/KeyframeSequenceProvider.GetAnimations/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequenceProvider#GetAnimations",
-    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- Insert your UserId here\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimations(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"total: \", #animationIds)"
+    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- Insert your UserId here\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimationsAsync(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"total: \", #animationIds)"
   },
   "@roblox/globaltype/KeyframeSequenceProvider.GetKeyframeSequence/param/0": {
     "documentation": "Provides functions to load and preview <code>KeyframeSequence</code>."
@@ -79505,7 +79505,7 @@
       "@roblox/globaltype/MarketplaceService.GetProductInfoAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetProductInfoAsync",
-    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfo(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfoAsync(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/0": {
     "documentation": "The service responsible for in-experience transactions."
@@ -79539,7 +79539,7 @@
       "@roblox/globaltype/MarketplaceService.GetProductInfo/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetProductInfo",
-    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfo(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfoAsync(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/param/0": {
     "documentation": "The service responsible for in-experience transactions."
@@ -79797,7 +79797,7 @@
       "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundleAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- The bundle we're checking for: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundle(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundle call failed: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" owns \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" doesn't own \" .. BUNDLE_NAME)\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- The bundle we're checking for: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundleAsync(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundleAsync call failed: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" owns \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" doesn't own \" .. BUNDLE_NAME)\n\tend\nend)"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/0": {
     "documentation": "The service responsible for in-experience transactions."
@@ -79831,7 +79831,7 @@
       "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundle",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- The bundle we're checking for: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundle(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundle call failed: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" owns \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" doesn't own \" .. BUNDLE_NAME)\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- The bundle we're checking for: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundleAsync(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundleAsync call failed: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" owns \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" doesn't own \" .. BUNDLE_NAME)\n\tend\nend)"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/0": {
     "documentation": "The service responsible for in-experience transactions."
@@ -80100,7 +80100,7 @@
     "documentation": "An array of objects identifying the products you want to rank. This array can include up to 50 items. Each <code>ProductIdentifier</code> has: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>Must be either <code>InfoType.GamePass</code> or     <code>InfoType.Product</code>.</li> <li><code>Id</code>: number</li> <li>The ID of the game pass or developer product.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "The array of ranked items in a personalized order for the current user. Each array has: <ul> <li><code>ProductIdentifier</code>: The corresponding ID from the input array.</li> <li><code>ProductInfo</code>: The standard product info dictionary returned by   <code>GetProductInfo</code>.</li> </ul>"
+    "documentation": "The array of ranked items in a personalized order for the current user. Each array has: <ul> <li><code>ProductIdentifier</code>: The corresponding ID from the input array.</li> <li><code>ProductInfo</code>: The standard product info dictionary returned by   <code>GetProductInfoAsync</code>.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
     "documentation": "Takes a list of product IDs and returns a personalized ordered list of those products.",
@@ -83394,7 +83394,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSearchParams": {
-    "documentation": "Instance to be passed to <code>AssetService:SearchAudio()</code> to search for audio assets.",
+    "documentation": "Instance to be passed to <code>AssetService:SearchAudioAsync()</code> to search for audio assets.",
     "keys": {
       "Album": "@roblox/globaltype/AudioSearchParams.Album",
       "Artist": "@roblox/globaltype/AudioSearchParams.Artist",
@@ -91342,7 +91342,7 @@
     "documentation": "The ID of the place to teleport to."
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer/param/2": {
-    "documentation": "The reserved server access code returned by <code>TeleportService:ReserveServer()</code>."
+    "documentation": "The reserved server access code returned by <code>TeleportService:ReserveServerAsync()</code>."
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer/param/3": {
     "documentation": "An array of <code>Players</code> to teleport."
@@ -91357,7 +91357,7 @@
     "documentation": "Optional custom loading screen to be placed in the <code>CoreGui</code> at the destination place. Can be retrieved using <code>TeleportService:GetArrivingTeleportGui()</code>."
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer": {
-    "documentation": "Teleport a group of <code>Players</code> to a reserved server created using <code>TeleportService:ReserveServer()</code>.",
+    "documentation": "Teleport a group of <code>Players</code> to a reserved server created using <code>TeleportService:ReserveServerAsync()</code>.",
     "params": [
       {
         "name": "self",
@@ -91390,7 +91390,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#TeleportToPrivateServer",
-    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal dataStore = DataStoreService:GetGlobalDataStore()\n\n-- Get the saved code\nlocal code = dataStore:GetAsync(\"ReservedServer\")\nif typeof(code) ~= \"string\" then -- None saved, create one\n\tcode = TeleportService:ReserveServer(game.PlaceId)\n\tdataStore:SetAsync(\"ReservedServer\", code)\nend\n\nlocal function joined(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tif message == \"reserved\" then\n\t\t\tTeleportService:TeleportToPrivateServer(game.PlaceId, code, { player })\n\t\tend\n\tend)\nend\n\nPlayers.PlayerAdded:Connect(joined)"
+    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal dataStore = DataStoreService:GetGlobalDataStore()\n\n-- Get the saved code\nlocal code = dataStore:GetAsync(\"ReservedServer\")\nif typeof(code) ~= \"string\" then -- None saved, create one\n\tcode = TeleportService:ReserveServerAsync(game.PlaceId)\n\tdataStore:SetAsync(\"ReservedServer\", code)\nend\n\nlocal function joined(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tif message == \"reserved\" then\n\t\t\tTeleportService:TeleportToPrivateServer(game.PlaceId, code, { player })\n\t\tend\n\tend)\nend\n\nPlayers.PlayerAdded:Connect(joined)"
   },
   "@roblox/globaltype/TeleportService.TeleportToSpawnByName/param/0": {
     "documentation": "Enables transporting <code>Players</code> between places and servers."
@@ -92884,7 +92884,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/HapticEffect.SetWaveformKeys": {
-    "documentation": "Method used to define a custom waveform as a table and apply it to the haptic.",
+    "documentation": "Defines a custom waveform as a table and applies it to the haptic. <pre><code>This method takes in an array of `FloatCurveKey` objects. </code></pre>",
     "params": [
       {
         "name": "self",
@@ -93950,6 +93950,178 @@
   "@roblox/globaltype/VideoCapture.TimeLength": {
     "documentation": "",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoCapture#TimeLength",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService": {
+    "documentation": "A service for interacting with file sync from a plugin.",
+    "keys": {
+      "GetAllInstances": "@roblox/globaltype/InstanceFileSyncService.GetAllInstances",
+      "GetStatus": "@roblox/globaltype/InstanceFileSyncService.GetStatus",
+      "GetSyncedInstance": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/param/0": {
+    "documentation": "A service for interacting with file sync from a plugin."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/return/0": {
+    "documentation": "Returns an array of <code>Instances</code>."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances": {
+    "documentation": "Returns an array of all instances currently involved in file synchronization.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetAllInstances",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/0": {
+    "documentation": "A service for interacting with file sync from a plugin."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/1": {
+    "documentation": "The instance to check."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/return/0": {
+    "documentation": "Returns the <code>InstanceFileSyncStatus</code> for the instance."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus": {
+    "documentation": "Returns the synchronization status of a specific instance.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/0"
+      },
+      {
+        "name": "instance",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetStatus/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetStatus",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/0": {
+    "documentation": "A service for interacting with file sync from a plugin."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/1": {
+    "documentation": "The absolute path to the file."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/return/0": {
+    "documentation": "Returns the Instance being synced to the file path, if one exists. Otherwise, returns nil."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance": {
+    "documentation": "Returns the instance corresponding to a given file path.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/0"
+      },
+      {
+        "name": "filePath",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetSyncedInstance",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel": {
+    "documentation": "Connects the given function to the event and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once": {
+    "documentation": "Connects the given function to the event (for a single invocation) and returns an <code>RBXScriptConnection</code> that represents it.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait/param/0": {
+    "documentation": "An object that runs connected functions upon a specific occurrence."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait": {
+    "documentation": "Yields the current thread until the signal fires and returns the arguments provided by the signal.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged": {
+    "documentation": "Fires when the synchronization status of an instance changes.",
+    "keys": {
+      "Connect": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once",
+      "Wait": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#StatusChanged",
     "code_sample": ""
   },
   "@roblox/globaltype/SlidingBallConstraint": {
@@ -96540,7 +96712,7 @@
       "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CreateHumanoidModelFromUserIdAsync",
-    "code_sample": "game.Players:CreateHumanoidModelFromUserId(1).Parent = game.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromUserIdAsync(1).Parent = game.Workspace"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId/param/0": {
     "documentation": "A service that contains presently connected <code>Player</code> objects."
@@ -96567,7 +96739,7 @@
       "@roblox/globaltype/Players.CreateHumanoidModelFromUserId/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CreateHumanoidModelFromUserId",
-    "code_sample": "game.Players:CreateHumanoidModelFromUserId(1).Parent = game.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromUserIdAsync(1).Parent = game.Workspace"
   },
   "@roblox/globaltype/Players.GetBanHistoryAsync/param/0": {
     "documentation": "A service that contains presently connected <code>Player</code> objects."
@@ -96756,7 +96928,7 @@
       "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#GetHumanoidDescriptionFromUserIdAsync",
-    "code_sample": "game.Players:CreateHumanoidModelFromDescription(\n\tgame.Players:GetHumanoidDescriptionFromUserId(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromDescriptionAsync(\n\tgame.Players:GetHumanoidDescriptionFromUserIdAsync(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId/param/0": {
     "documentation": "A service that contains presently connected <code>Player</code> objects."
@@ -96783,7 +96955,7 @@
       "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#GetHumanoidDescriptionFromUserId",
-    "code_sample": "game.Players:CreateHumanoidModelFromDescription(\n\tgame.Players:GetHumanoidDescriptionFromUserId(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromDescriptionAsync(\n\tgame.Players:GetHumanoidDescriptionFromUserIdAsync(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
   },
   "@roblox/globaltype/Players.GetNameFromUserIdAsync/param/0": {
     "documentation": "A service that contains presently connected <code>Player</code> objects."
@@ -100382,7 +100554,7 @@
     "documentation": "Array containing all of the players involved in the call. The caller will always be the first player in the array."
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/return/0": {
-    "documentation": "Table including the <code>PlaceId</code> and <code>ReservedServerAccessCode</code> keys whose values are the <code>DataModel.PlaceId</code> and the server access code returned by <code>TeleportService:ReserveServer()</code>, respectively."
+    "documentation": "Table including the <code>PlaceId</code> and <code>ReservedServerAccessCode</code> keys whose values are the <code>DataModel.PlaceId</code> and the server access code returned by <code>TeleportService:ReserveServerAsync()</code>, respectively."
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked": {
     "documentation": "Callback for when a call is placed from the phone book.",
@@ -118036,6 +118208,57 @@
       "OculusQuest": "@roblox/enum/VRDeviceType.OculusQuest"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VRDeviceType",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.NotSynced": {
+    "documentation": "The <code>Instance</code> is not being synced or errored.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#NotSynced",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.Errored": {
+    "documentation": "The <code>Instance</code> is a sync root that has errored and stopped syncing.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#Errored",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot": {
+    "documentation": "The <code>Instance</code> is being synced as the root of a sync tree.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsRoot",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant": {
+    "documentation": "The <code>Instance</code> is being synced because it is a descendant of a sync root.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsDescendant",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.InstanceFileSyncStatus": {
+    "documentation": "Describes the file sync status of an Instance.",
+    "keys": {
+      "NotSynced": "@roblox/enum/InstanceFileSyncStatus.NotSynced",
+      "Errored": "@roblox/enum/InstanceFileSyncStatus.Errored",
+      "SyncedAsRoot": "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot",
+      "SyncedAsDescendant": "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus",
     "code_sample": ""
   },
   "@roblox/enum/PathStatus.Success": {
@@ -137248,7 +137471,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AssetType": {
-    "documentation": "This Enum can be used to match the AssetTypeId from <code>MarketplaceService:GetProductInfo()</code> to an asset type.",
+    "documentation": "This Enum can be used to match the AssetTypeId from <code>MarketplaceService:GetProductInfoAsync()</code> to an asset type.",
     "keys": {
       "Image": "@roblox/enum/AssetType.Image",
       "TShirt": "@roblox/enum/AssetType.TShirt",

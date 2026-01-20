@@ -752,7 +752,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CatalogSearchParams": {
-    "documentation": "カタログ検索で使用されるパラメータを保存します。 <code>AvatarEditorService:SearchCatalog()</code>を介して。",
+    "documentation": "カタログ検索で使用されるパラメータを格納します。<code>AvatarEditorService:SearchCatalogAsync()</code>を介して。",
     "keys": {
       "SearchKeyword": "@roblox/globaltype/CatalogSearchParams.SearchKeyword",
       "MinPrice": "@roblox/globaltype/CatalogSearchParams.MinPrice",
@@ -6523,7 +6523,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.AutoRuns": {
-    "documentation": "<code>true</code>に設定すると、サービスの<code>TestService:Run()</code>メソッドが呼び出されたときにゲームが開始されます。",
+    "documentation": "<code>true</code> に設定すると、サービスの <code>TestService:RunAsync()</code> メソッドが呼び出されたときにゲームが実行され始めます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#AutoRuns",
     "code_sample": ""
   },
@@ -7289,7 +7289,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPages": {
-    "documentation": "<code>AssetService:SearchAudio()</code> によって返される <code>Pages</code> クラスの特別なバージョンです。",
+    "documentation": "<code>AssetService:SearchAudioAsync()</code>によって返される特別なバージョンの<code>Pages</code>クラスです。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPages",
     "code_sample": ""
@@ -14129,7 +14129,7 @@
       "@roblox/globaltype/PluginGui.GetRelativeMousePosition/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginGui#GetRelativeMousePosition",
-    "code_sample": "local RunService = game:GetService(\"RunService\")\n\nlocal widgetInfo = DockWidgetPluginGuiInfo.new(\n\tEnum.InitialDockState.Float,\n\ttrue,\n\tfalse, -- 有効状態、オーバーライド\n\t200,\n\t300, -- サイズ\n\t150,\n\t150 -- 最小サイズ\n)\n\nlocal testWidget = plugin:CreateDockWidgetPluginGui(\"テストウィジェット\", widgetInfo)\n\nfunction update()\n\tlocal v2 = testWidget:GetRelativeMousePosition()\n\ttestWidget.Title = (\"(%d, %d)\"):format(v2.x, v2.y)\nend\n\nRunService.Stepped:Connect(update)\n\nupdate()"
+    "code_sample": ""
   },
   "@roblox/globaltype/PluginGui.PluginDragDropped.Connect/param/0": {
     "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
@@ -24865,12 +24865,12 @@
   "@roblox/globaltype/DataModel.CreatorId": {
     "documentation": "プレースの所有者であるユーザーまたはグループのIDを説明します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorId",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"プレイスのオーナーがゲームに参加しました！\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"そのプレイスを所有するグループのメンバーがゲームに参加しました！\")\n\t\tend\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"プレースのオーナーがゲームに参加しました！\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"プレースを所有しているグループのメンバーがゲームに参加しました！\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.CreatorType": {
     "documentation": "プレースの<code>CreatorType</code>を説明します。つまり、プレースがユーザーによって 所有されているのか、グループによって所有されているのかを示します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorType",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"プレイスのオーナーがゲームに参加しました！\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"そのプレイスを所有するグループのメンバーがゲームに参加しました！\")\n\t\tend\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"プレースのオーナーがゲームに参加しました！\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"プレースを所有しているグループのメンバーがゲームに参加しました！\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.Environment": {
     "documentation": "",
@@ -24918,7 +24918,7 @@
     "code_sample": "local StarterGui = game:GetService(\"StarterGui\")\n\nlocal versionGui = Instance.new(\"ScreenGui\")\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Position = UDim2.new(1, -10, 1, 0)\ntextLabel.AnchorPoint = Vector2.new(1, 1)\ntextLabel.Size = UDim2.new(0, 150, 0, 40)\n\ntextLabel.BackgroundTransparency = 1\ntextLabel.TextColor3 = Color3.new(1, 1, 1)\ntextLabel.TextStrokeTransparency = 0\ntextLabel.TextXAlignment = Enum.TextXAlignment.Right\ntextLabel.TextScaled = true\n\nlocal placeVersion = game.PlaceVersion\ntextLabel.Text = string.format(\"サーバーバージョン: %s\", placeVersion)\n\ntextLabel.Parent = versionGui\nversionGui.Parent = StarterGui"
   },
   "@roblox/globaltype/DataModel.PrivateServerId": {
-    "documentation": "サーバーがプライベートサーバーまたは <code>予約サーバー</code> の場合、サーバーのプライベートサーバーIDを説明します。",
+    "documentation": "サーバーがプライベートサーバーまたは <code>予約済みサーバー</code> の場合、サーバーのプライベートサーバーIDを説明します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PrivateServerId",
     "code_sample": "local function getServerType()\n\tif game.PrivateServerId ~= \"\" then\n\t\tif game.PrivateServerOwnerId ~= 0 then\n\t\t\treturn \"VIPServer\"\n\t\telse\n\t\t\treturn \"ReservedServer\"\n\t\tend\n\telse\n\t\treturn \"StandardServer\"\n\tend\nend\n\nprint(getServerType())"
   },
@@ -27280,7 +27280,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.BackAccessory": {
-    "documentation": "カンマ区切りの資産IDのリストで、<code>適用</code> されたときに <code>Humanoid</code> リグに <code>アクセサリー</code> として追加されるものです。通常は背中に付属するもの (ケープなど) です。",
+    "documentation": "カンマ区切りのアセット ID のリストで、通常は背中に取り付けられている <code>Humanoid</code> リグの <code>Accessories</code> として追加されるものです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#BackAccessory",
     "code_sample": ""
   },
@@ -27290,7 +27290,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.ClimbAnimation": {
-    "documentation": "この説明が <code>適用</code> されたとき、<code>Humanoid</code> の <code>状態</code> が <code>Climbing</code> のときに再生される <code>Animation.AnimationId</code> を決定します。",
+    "documentation": "この説明が <code>適用</code> された場合、<code>Humanoid</code> にこの<code>Animation.AnimationId</code>を再生することを決定します。 その状態は <code>Climbing</code> です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#ClimbAnimation",
     "code_sample": ""
   },
@@ -27305,17 +27305,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.FaceAccessory": {
-    "documentation": "カンマ区切りの資産 ID のリストで、<code>適用</code> されたときに <code>Humanoid</code> リグに <code>アクセサリー</code> として追加されるものです。通常はその顔の前面に取り付けられたもの (メガネなど) です。",
+    "documentation": "カンマ区切りのアセット ID のリストで、通常は眼鏡のように前面に取り付けられる <code>Humanoid</code> リグの <code>Accessories</code> として追加されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#FaceAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.FallAnimation": {
-    "documentation": "この説明が <code>適用</code> されたとき、<code>Humanoid</code> の <code>状態</code> が <code>Freefall</code> のときに再生される <code>Animation.AnimationId</code> を決定します。",
+    "documentation": "この説明が <code>適用</code> された場合、<code>Humanoid</code> にこの <code>Animation.AnimationId</code> を再生することを決定します。 その状態が <code>Freefall</code> です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#FallAnimation",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.FrontAccessory": {
-    "documentation": "カンマ区切りの資産 ID のリストで、<code>適用</code> されたときに <code>Humanoid</code> リグに <code>アクセサリー</code> として追加されるものです。通常はその胴体の前面に取り付けられたもの (メダルやネクタイなど) です。",
+    "documentation": "カンマ区切りのアセット ID のリストで、通常はメダルやネクタイのようにトルソに前面に取り付けられる <code>Humanoid</code> リグの <code>Accessories</code> として追加されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#FrontAccessory",
     "code_sample": ""
   },
@@ -27325,12 +27325,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.HairAccessory": {
-    "documentation": "カンマ区切りの資産 ID のリストで、<code>適用</code> されたときに <code>Humanoid</code> リグに <code>アクセサリー</code> として追加されるものです。通常は髪に似た頭に取り付けられたものです。",
+    "documentation": "カンマ区切りのアセット ID のリストで、通常は髪に似たもので頭部に取り付けられる <code>Humanoid</code> リグの <code>Accessories</code> として追加されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#HairAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.HatAccessory": {
-    "documentation": "カンマ区切りの資産 ID のリストで、<code>適用</code> されたときに <code>Humanoid</code> リグに <code>アクセサリー</code> として追加されるものです。通常は頭に取り付けられたものです。",
+    "documentation": "カンマ区切りのアセット ID のリストで、通常は頭部に取り付けられる <code>Humanoid</code> リグの <code>Accessories</code> として追加されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#HatAccessory",
     "code_sample": ""
   },
@@ -27340,7 +27340,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.HeadColor": {
-    "documentation": "<code>適用</code> されたときの <code>Humanoid</code> の <code>BodyColors.HeadColor3</code> および <code>BodyColors.HeadColor</code> を決定します。",
+    "documentation": "この説明が <code>適用</code> された場合、<code>Humanoid</code> の <code>BodyColors.HeadColor3</code> および <code>BodyColors.HeadColor</code> を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#HeadColor",
     "code_sample": ""
   },
@@ -27355,12 +27355,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.IdleAnimation": {
-    "documentation": "この説明が <code>適用</code> されたとき、<code>Humanoid</code> の <code>状態</code> が <code>Running</code> のときに再生される <code>Animation.AnimationId</code> を決定します。速度がほぼゼロのときに。",
+    "documentation": "この説明が <code>適用</code> された場合、<code>Humanoid</code> にこの <code>Animation.AnimationId</code> を再生することを決定します。 その状態が <code>Running</code> で速度がほぼゼロです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#IdleAnimation",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.JumpAnimation": {
-    "documentation": "この説明が <code>適用</code> されたとき、<code>Humanoid</code> の <code>状態</code> が <code>Jumping</code> のときに再生される <code>Animation.AnimationId</code> を決定します。",
+    "documentation": "この説明が <code>適用</code> された場合、<code>Humanoid</code> にこの <code>Animation.AnimationId</code> を再生することを決定します。 その状態が <code>Jumping</code> です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#JumpAnimation",
     "code_sample": ""
   },
@@ -27390,7 +27390,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.NeckAccessory": {
-    "documentation": "カンマ区切りのアセットIDリストで、<code>Humanoid</code>リグに <code>適用</code>される際に<code>Accessories</code>として 追加されます。通常は首に取り付けられているもの（スカーフやネックレスなど）です。",
+    "documentation": "カンマ区切りのアセット ID のリストで、通常はスカーフやネックレスのように首に取り付けられる <code>Humanoid</code> リグの <code>Accessories</code> として追加されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#NeckAccessory",
     "code_sample": ""
   },
@@ -27425,7 +27425,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.RunAnimation": {
-    "documentation": "この記述が<code>適用</code>されると、 <code>Humanoid</code>の<code>Animation.AnimationId</code>を決定します。 この<code>状態</code>が<code>Running</code>のときに 再生されます。",
+    "documentation": "この説明が <code>適用</code> された場合、<code>Humanoid</code> にこの <code>Animation.AnimationId</code> を再生することを決定します。 その状態が <code>Running</code> で、速度が中程度です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#RunAnimation",
     "code_sample": ""
   },
@@ -27435,12 +27435,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.ShouldersAccessory": {
-    "documentation": "カンマ区切りのアセットIDリストで、<code>Humanoid</code>リグに <code>適用</code>される際に<code>Accessories</code>として 追加されます。通常は肩に取り付けられているもの（肩に取り付けたクリッターなど）です。",
+    "documentation": "カンマ区切りのアセット ID のリストで、通常は肩に取り付けられる <code>Humanoid</code> リグの <code>Accessories</code> として追加されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#ShouldersAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.SwimAnimation": {
-    "documentation": "この記述が<code>適用</code>されると、 <code>Humanoid</code>の<code>Animation.AnimationId</code>を決定します。 この<code>状態</code>が <code>Swimming</code>のときに再生されます。",
+    "documentation": "この説明が <code>適用</code> された場合、<code>Humanoid</code> にこの <code>Animation.AnimationId</code> を再生することを決定します。 その状態が <code>Swimming</code> です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#SwimAnimation",
     "code_sample": ""
   },
@@ -27455,12 +27455,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.WaistAccessory": {
-    "documentation": "カンマ区切りのアセットIDリストで、<code>Humanoid</code>リグに <code>適用</code>される際に<code>Accessories</code>として 追加されます。通常はウエストに取り付けられているもの（ベルトなど）です。",
+    "documentation": "カンマ区切りのアセット ID のリストで、通常はベルトのように腰に取り付けられる <code>Humanoid</code> リグの <code>Accessories</code> として追加されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#WaistAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.WalkAnimation": {
-    "documentation": "この記述が<code>適用</code>されると、 <code>Humanoid</code>の<code>Animation.AnimationId</code>を決定します。 この<code>状態</code>が <code>Running</code>のときに再生されます。",
+    "documentation": "この説明が <code>適用</code> された場合、<code>Humanoid</code> にこの <code>Animation.AnimationId</code> を再生することを決定します。 その状態が <code>Running</code> で、速度が低いです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#WalkAnimation",
     "code_sample": ""
   },
@@ -33602,7 +33602,7 @@
       "@roblox/globaltype/Plugin.CreateDockWidgetPluginGuiAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CreateDockWidgetPluginGuiAsync",
-    "code_sample": "-- 新しい 'DockWidgetPluginGuiInfo' オブジェクトを作成\nlocal widgetInfo = DockWidgetPluginGuiInfo.new(\n\tEnum.InitialDockState.Float, -- ウィジェットは浮動パネルで初期化されます\n\ttrue, -- ウィジェットは最初に有効になります\n\tfalse, -- 前の有効状態を上書きしない\n\t200, -- 浮動ウィンドウのデフォルト幅\n\t300, -- 浮動ウィンドウのデフォルト高さ\n\t150, -- 浮動ウィンドウの最小幅 (オプション)\n\t150 -- 浮動ウィンドウの最小高さ (オプション)\n)\n\n-- 新しいウィジェット GUI を作成\nlocal testWidget = plugin:CreateDockWidgetPluginGui(\"TestWidget\", widgetInfo)\n\nlocal testButton = Instance.new(\"TextButton\")\ntestButton.BorderSizePixel = 0\ntestButton.TextSize = 20\ntestButton.TextColor3 = Color3.new(1, 0.2, 0.4)\ntestButton.AnchorPoint = Vector2.new(0.5, 0.5)\ntestButton.Size = UDim2.new(1, 0, 1, 0)\ntestButton.Position = UDim2.new(0.5, 0, 0.5, 0)\ntestButton.SizeConstraint = Enum.SizeConstraint.RelativeYY\ntestButton.Text = \"クリックしてください\"\ntestButton.Parent = testWidget"
+    "code_sample": ""
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/param/0": {
     "documentation": ""
@@ -35084,7 +35084,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService": {
-    "documentation": "TextServiceは、ゲーム内でのテキストの表示を処理する内部サービスです。",
+    "documentation": "テキストの表示を処理する内部サービスです。",
     "keys": {
       "FilterAndTranslateStringAsync": "@roblox/globaltype/TextService.FilterAndTranslateStringAsync",
       "FilterStringAsync": "@roblox/globaltype/TextService.FilterStringAsync",
@@ -35097,7 +35097,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync/param/0": {
-    "documentation": "TextServiceは、ゲーム内でのテキストの表示を処理する内部サービスです。"
+    "documentation": "テキストの表示を処理する内部サービスです。"
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync/param/1": {
     "documentation": ""
@@ -35115,7 +35115,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync": {
-    "documentation": "レガシーチャットではチャット翻訳はサポートされていません。このメソッドはもはやサポートされておらず、使用しないでください。",
+    "documentation": "文字列をフィルタリングして翻訳します。",
     "params": [
       {
         "name": "self",
@@ -35145,16 +35145,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/0": {
-    "documentation": "TextServiceは、ゲーム内でのテキストの表示を処理する内部サービスです。"
+    "documentation": "テキストの表示を処理する内部サービスです。"
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/1": {
     "documentation": "フィルタリング対象のテキスト。"
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/2": {
-    "documentation": "テキストをフィルタリングしているプレイヤーのuserId。"
+    "documentation": "テキストをフィルタリングしているプレイヤーの<code>Player.UserId</code>。"
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/3": {
-    "documentation": "フィルタリングされたメッセージが使用されるコンテキスト。"
+    "documentation": "フィルタリングされたメッセージが使用されるコンテキスト。このパラメータはクエリのフィルタリング結果に影響を与えず、Robloxのテキストフィルタリングを改善するためのみに使用されます。"
   },
   "@roblox/globaltype/TextService.FilterStringAsync/return/0": {
     "documentation": ""
@@ -35186,7 +35186,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.GetFamilyInfoAsync/param/0": {
-    "documentation": "TextServiceは、ゲーム内でのテキストの表示を処理する内部サービスです。"
+    "documentation": "テキストの表示を処理する内部サービスです。"
   },
   "@roblox/globaltype/TextService.GetFamilyInfoAsync/param/1": {
     "documentation": "検索するフォントファミリーのアセットID。"
@@ -35210,10 +35210,10 @@
       "@roblox/globaltype/TextService.GetFamilyInfoAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextService#GetFamilyInfoAsync",
-    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal familyToCheck = \"rbxasset://fonts/families/Arial.json\"\n\n-- これは、フォントのダウンロードに数秒かかる可能性のある待機関数です。\nlocal info = TextService:GetFamilyInfoAsync(familyToCheck)\n\nprint(\"フォントの名前:\", info.Name)\nprint(\"フェイス:\")\nfor _, face in info.Faces do\n\tprint(\"--------\")\n\tprint(\"名前:\", face.Name)\n\tprint(\"ウェイト:\", face.Weight.Name)\n\tprint(\"スタイル:\", face.Style.Name)\nend"
+    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal familyToCheck = \"rbxasset://fonts/families/Arimo.json\"\n\nlocal success, info = pcall(function()\n\treturn TextService:GetFamilyInfoAsync(familyToCheck)\nend)\nif success then\n\tprint(\"フォントの名前:\", info.Name)\n\tprint(\"フェイス:\")\n\tfor _, face in info.Faces do\n\t\tprint(\"--------\")\n\t\tprint(\"名前:\", face.Name)\n\t\tprint(\"ウェイト:\", face.Weight.Name)\n\t\tprint(\"スタイル:\", face.Style.Name)\n\tend\nend"
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync/param/0": {
-    "documentation": "TextServiceは、ゲーム内でのテキストの表示を処理する内部サービスです。"
+    "documentation": "テキストの表示を処理する内部サービスです。"
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync/param/1": {
     "documentation": "Class.GetTextBoundsParamsオブジェクトへの参照。"
@@ -35222,7 +35222,7 @@
     "documentation": "テキストのサイズを<code>Vector2</code>として返します。"
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync": {
-    "documentation": "指定されたパラメータに基づいてテキストの幅と高さを計算します。",
+    "documentation": "<code>Vector2</code>の次元（ピクセル単位）を計算し、<code>GetTextBoundsParams</code>オブジェクトを使用する際にテキストが占有するスペースを示します。",
     "params": [
       {
         "name": "self",
@@ -35240,19 +35240,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.GetTextSize/param/0": {
-    "documentation": "TextServiceは、ゲーム内でのテキストの表示を処理する内部サービスです。"
+    "documentation": "テキストの表示を処理する内部サービスです。"
   },
   "@roblox/globaltype/TextService.GetTextSize/param/1": {
     "documentation": "テキストサイズを計算する文字列。"
   },
   "@roblox/globaltype/TextService.GetTextSize/param/2": {
-    "documentation": "使用されるフォントサイズを表す整数。"
+    "documentation": "使用されるフォントサイズを表す整数。<code>FontSize</code>の値は受け付けません。"
   },
   "@roblox/globaltype/TextService.GetTextSize/param/3": {
     "documentation": "使用されるフォント。"
   },
   "@roblox/globaltype/TextService.GetTextSize/param/4": {
-    "documentation": "テキストオブジェクトの<code>TextLabel.AbsoluteSize</code>。 テキストがどのように折り返されるかを計算するのに必要です。"
+    "documentation": "テキストオブジェクトの<code>GuiBase2d.AbsoluteSize</code>。テキストがどのようにラップされるかを計算するために必要です。"
   },
   "@roblox/globaltype/TextService.GetTextSize/return/0": {
     "documentation": "指定されたフォーマットで、文字列によって必要とされるスペースのサイズ（ピクセル単位）。"
@@ -35285,10 +35285,10 @@
       "@roblox/globaltype/TextService.GetTextSize/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextService#GetTextSize",
-    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal function getTextBounds()\n\tlocal message = \"Hello World\"\n\tlocal size = Vector2.new(1, 1)\n\tlocal bounds = TextService:GetTextSize(message, 12, \"SourceSans\", size)\n\treturn bounds + Vector2.new(1, 1)\nend\n\nprint(getTextBounds())"
+    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal function getTextBounds()\n\tlocal message = \"こんにちは、世界！\"\n\tlocal size = Vector2.new(1, 1)\n\tlocal bounds = TextService:GetTextSize(message, 12, \"SourceSans\", size)\n\treturn bounds\nend\n\nprint(getTextBounds())"
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync/param/0": {
-    "documentation": "TextServiceは、ゲーム内でのテキストの表示を処理する内部サービスです。"
+    "documentation": "テキストの表示を処理する内部サービスです。"
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync/param/1": {
     "documentation": ""
@@ -35300,7 +35300,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync": {
-    "documentation": "",
+    "documentation": "現在の<code>GuiService.PreferredTextSize</code>設定に基づいてテキストをスケールアップするために使用されるオフセットを返します。",
     "params": [
       {
         "name": "self",
@@ -45463,7 +45463,7 @@
       "@roblox/globaltype/Player.GetFriendsOnlineAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetFriendsOnlineAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"オンラインプレイヤーの取得に失敗しました: \" .. result)\nend"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"オンラインプレイヤーの取得に失敗しました: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/0": {
     "documentation": "現在接続されているクライアントを表すオブジェクト。"
@@ -45490,7 +45490,7 @@
       "@roblox/globaltype/Player.GetFriendsOnline/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetFriendsOnline",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"オンラインプレイヤーの取得に失敗しました: \" .. result)\nend"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"オンラインプレイヤーの取得に失敗しました: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetJoinData/param/0": {
     "documentation": "現在接続されているクライアントを表すオブジェクト。"
@@ -45631,7 +45631,7 @@
       "@roblox/globaltype/Player.GetRoleInGroupAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRoleInGroupAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"プレイヤーはグループ 'LOL' で '\", player:GetRoleInGroup(2), \"' としてランク付けされています！\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"プレイヤーはグループ、'LOL'でのランクが '\", player:GetRoleInGroupAsync(2), \"'です！\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/0": {
     "documentation": "現在接続されているクライアントを表すオブジェクト。"
@@ -45658,7 +45658,7 @@
       "@roblox/globaltype/Player.GetRoleInGroup/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRoleInGroup",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"プレイヤーはグループ 'LOL' で '\", player:GetRoleInGroup(2), \"' としてランク付けされています！\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"プレイヤーはグループ、'LOL'でのランクが '\", player:GetRoleInGroupAsync(2), \"'です！\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/param/0": {
     "documentation": "現在接続されているクライアントを表すオブジェクト。"
@@ -45951,7 +45951,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacterAsync()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacter/param/0": {
     "documentation": "現在接続されているクライアントを表すオブジェクト。"
@@ -45966,7 +45966,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacter",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacterAsync()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/0": {
     "documentation": "現在接続されているクライアントを表すオブジェクト。"
@@ -46010,7 +46010,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterWithHumanoidDescriptionAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/0": {
     "documentation": "現在接続されているクライアントを表すオブジェクト。"
@@ -46032,7 +46032,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterWithHumanoidDescription",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadInstance/param/0": {
     "documentation": "現在接続されているクライアントを表すオブジェクト。"
@@ -57067,7 +57067,7 @@
       "@roblox/globaltype/KeyframeSequenceProvider.GetAnimationsAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequenceProvider#GetAnimationsAsync",
-    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- ここにあなたのUserIdを挿入してください\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimations(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"合計: \", #animationIds)"
+    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- ここにあなたのUserIdを挿入してください\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimationsAsync(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"合計: \", #animationIds)"
   },
   "@roblox/globaltype/KeyframeSequenceProvider.GetAnimations/param/0": {
     "documentation": "<code>KeyframeSequence</code>をロードしてプレビューするための関数を提供します。"
@@ -57094,7 +57094,7 @@
       "@roblox/globaltype/KeyframeSequenceProvider.GetAnimations/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequenceProvider#GetAnimations",
-    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- ここにあなたのUserIdを挿入してください\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimations(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"合計: \", #animationIds)"
+    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- ここにあなたのUserIdを挿入してください\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimationsAsync(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"合計: \", #animationIds)"
   },
   "@roblox/globaltype/KeyframeSequenceProvider.GetKeyframeSequence/param/0": {
     "documentation": "<code>KeyframeSequence</code>をロードしてプレビューするための関数を提供します。"
@@ -79505,7 +79505,7 @@
       "@roblox/globaltype/MarketplaceService.GetProductInfoAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetProductInfoAsync",
-    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfo(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfoAsync(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/0": {
     "documentation": "体験内取引を担当するサービスです。"
@@ -79539,7 +79539,7 @@
       "@roblox/globaltype/MarketplaceService.GetProductInfo/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetProductInfo",
-    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfo(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfoAsync(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/param/0": {
     "documentation": "体験内取引を担当するサービスです。"
@@ -79797,7 +79797,7 @@
       "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundleAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- 確認しているバンドル: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundle(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundleの呼び出しに失敗しました: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" は \" .. BUNDLE_NAME .. \" を所有しています\")\n\telse\n\t\tprint(player.Name .. \" は \" .. BUNDLE_NAME .. \" を所有していません\")\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- 確認しているバンドル: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundleAsync(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundleAsync の呼び出しに失敗しました: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" は \" .. BUNDLE_NAME .. \" を所有しています\")\n\telse\n\t\tprint(player.Name .. \" は \" .. BUNDLE_NAME .. \" を所有していません\")\n\tend\nend)"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/0": {
     "documentation": "体験内取引を担当するサービスです。"
@@ -79831,7 +79831,7 @@
       "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundle",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- 確認しているバンドル: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundle(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundleの呼び出しに失敗しました: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" は \" .. BUNDLE_NAME .. \" を所有しています\")\n\telse\n\t\tprint(player.Name .. \" は \" .. BUNDLE_NAME .. \" を所有していません\")\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- 確認しているバンドル: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundleAsync(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundleAsync の呼び出しに失敗しました: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" は \" .. BUNDLE_NAME .. \" を所有しています\")\n\telse\n\t\tprint(player.Name .. \" は \" .. BUNDLE_NAME .. \" を所有していません\")\n\tend\nend)"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/0": {
     "documentation": "体験内取引を担当するサービスです。"
@@ -80100,7 +80100,7 @@
     "documentation": "ランク付けしたい製品を特定するオブジェクトの配列。この配列には最大50項目を含めることができます。 各<code>ProductIdentifier</code>は： <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li><code>InfoType.GamePass</code>または     <code>InfoType.Product</code>でなければなりません。</li> <li><code>Id</code>: number</li> <li>ゲームパスまたはデベロッパー製品のID。</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "現在のユーザーにとって個別に順位付けされた項目の配列。 各配列は： <ul> <li><code>ProductIdentifier</code>: 入力配列からの対応するID。</li> <li><code>ProductInfo</code>: <code>GetProductInfo</code>によって返される標準製品情報辞書。</li> </ul>"
+    "documentation": "現在のユーザーのためにパーソナライズされた順序でランク付けされたアイテムの配列です。 各配列には: <ul> <li><code>ProductIdentifier</code>: 入力配列から対応する ID。</li> <li><code>ProductInfo</code>: <code>GetProductInfoAsync</code> から返される標準の製品情報辞書。</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
     "documentation": "製品IDのリストを取得し、それらの製品の個別に順位付けされたリストを返します。",
@@ -83394,7 +83394,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSearchParams": {
-    "documentation": "<code>AssetService:SearchAudio()</code>に渡すインスタンスで、オーディオアセットを検索するためのものです。",
+    "documentation": "<code>AssetService:SearchAudioAsync()</code> に渡されるインスタンスで、オーディオアセットを検索するためのものです。",
     "keys": {
       "Album": "@roblox/globaltype/AudioSearchParams.Album",
       "Artist": "@roblox/globaltype/AudioSearchParams.Artist",
@@ -91066,7 +91066,7 @@
       "@roblox/globaltype/TeleportService.ReserveServerAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#ReserveServerAsync",
-    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal code = TeleportService:ReserveServer(game.PlaceId)\n\nlocal players = Players:GetPlayers()\n\nTeleportService:TeleportToPrivateServer(game.PlaceId, code, players)\n-- この関数に追加の引数を加えることができます: spawnName, teleportData および customLoadingScreen"
+    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal code = TeleportService:ReserveServerAsync(game.PlaceId)\n\nlocal players = Players:GetPlayers()\n\nTeleportService:TeleportToPrivateServer(game.PlaceId, code, players)\n-- この関数に追加の引数を追加することができます: spawnName, teleportData と customLoadingScreen"
   },
   "@roblox/globaltype/TeleportService.ReserveServer/param/0": {
     "documentation": "<code>Players</code>を場所やサーバー間で輸送することを可能にします。"
@@ -91093,7 +91093,7 @@
       "@roblox/globaltype/TeleportService.ReserveServer/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#ReserveServer",
-    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal code = TeleportService:ReserveServer(game.PlaceId)\n\nlocal players = Players:GetPlayers()\n\nTeleportService:TeleportToPrivateServer(game.PlaceId, code, players)\n-- この関数に追加の引数を加えることができます: spawnName, teleportData および customLoadingScreen"
+    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal code = TeleportService:ReserveServerAsync(game.PlaceId)\n\nlocal players = Players:GetPlayers()\n\nTeleportService:TeleportToPrivateServer(game.PlaceId, code, players)\n-- この関数に追加の引数を追加することができます: spawnName, teleportData と customLoadingScreen"
   },
   "@roblox/globaltype/TeleportService.SetTeleportGui/param/0": {
     "documentation": "<code>Players</code>を場所やサーバー間で輸送することを可能にします。"
@@ -91342,7 +91342,7 @@
     "documentation": "テレポートする場所のID。"
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer/param/2": {
-    "documentation": "スポーンする<code>SpawnLocation</code>の名前。"
+    "documentation": "<code>TeleportService:ReserveServerAsync()</code> によって返される予約サーバーアクセスコード。"
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer/param/3": {
     "documentation": "テレポートする<code>Player</code>。クライアントからこの関数が呼び出される場合は、デフォルトで<code>Players.LocalPlayer</code>になります。"
@@ -91357,7 +91357,7 @@
     "documentation": "Optional custom loading screen to be placed in the <code>CoreGui</code> at the destination place. Can be retrieved using <code>TeleportService:GetArrivingTeleportGui()</code>."
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer": {
-    "documentation": "指定された名前の<code>SpawnLocation</code>にプレイヤーが出現することを引き起こす<code>TeleportService:Teleport()</code>のバリアントです。",
+    "documentation": "<code>Players</code> のグループを、<code>TeleportService:ReserveServerAsync()</code> を使用して作成された予約サーバーにテレポートします。",
     "params": [
       {
         "name": "self",
@@ -91390,7 +91390,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#TeleportToPrivateServer",
-    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal dataStore = DataStoreService:GetGlobalDataStore()\n\n-- 保存されたコードを取得\nlocal code = dataStore:GetAsync(\"ReservedServer\")\nif typeof(code) ~= \"string\" then -- 保存されていない場合、作成\n\tcode = TeleportService:ReserveServer(game.PlaceId)\n\tdataStore:SetAsync(\"ReservedServer\", code)\nend\n\nlocal function joined(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tif message == \"reserved\" then\n\t\t\tTeleportService:TeleportToPrivateServer(game.PlaceId, code, { player })\n\t\tend\n\tend)\nend\n\nPlayers.PlayerAdded:Connect(joined)"
+    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal dataStore = DataStoreService:GetGlobalDataStore()\n\n-- 保存されたコードを取得\nlocal code = dataStore:GetAsync(\"ReservedServer\")\nif typeof(code) ~= \"string\" then -- 保存されていない、作成する\n\tcode = TeleportService:ReserveServerAsync(game.PlaceId)\n\tdataStore:SetAsync(\"ReservedServer\", code)\nend\n\nlocal function joined(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tif message == \"reserved\" then\n\t\t\tTeleportService:TeleportToPrivateServer(game.PlaceId, code, { player })\n\t\tend\n\tend)\nend\n\nPlayers.PlayerAdded:Connect(joined)"
   },
   "@roblox/globaltype/TeleportService.TeleportToSpawnByName/param/0": {
     "documentation": "<code>Players</code>を場所やサーバー間で輸送することを可能にします。"
@@ -91619,7 +91619,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService": {
-    "documentation": "開発者アバタークリエイターをサポートするサービス。",
+    "documentation": "開発者のアバタークリエイターをサポートするサービスです。",
     "keys": {
       "AutoSetupAvatarAsync": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync",
       "GenerateAvatar2DPreviewAsync": "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync",
@@ -91641,22 +91641,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/0": {
-    "documentation": "開発者アバタークリエイターをサポートするサービス。"
+    "documentation": "開発者のアバタークリエイターをサポートするサービスです。"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/1": {
-    "documentation": "アバターが設定される <code>Player</code>。"
+    "documentation": "アバターがセットアップされる <code>Player</code> です。"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/2": {
-    "documentation": "アバターとして設定されるヒューマノイド <code>Model</code>。"
+    "documentation": "アバターとしてセットアップされるヒューマノイド <code>Model</code> です。"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/3": {
-    "documentation": "進捗情報テーブルを使用して定期的に呼び出されるオプションのコールバック関数。 タイプ：<code>(progressInfo: { Progress: number }) -&gt; ()</code>"
+    "documentation": "進行状況の情報を持つ progressInfo テーブルが定期的に呼び出されるオプションのコールバック関数です。 タイプ： <code>(progressInfo: { Progress: number }) -&gt; ()</code>"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/return/0": {
-    "documentation": "生成されたアバターの一意の識別子。"
+    "documentation": "生成されたアバターのユニークな識別子です。"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync": {
-    "documentation": "カスタム <code>Model</code> をアバター資産として自動的に設定します。",
+    "documentation": "カスタム <code>Model</code> をアバターアセットとして自動的にセットアップします。",
     "params": [
       {
         "name": "self",
@@ -91682,10 +91682,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/param/0": {
-    "documentation": "開発者アバタークリエイターをサポートするサービス。"
+    "documentation": "開発者のアバタークリエイターをサポートするサービスです。"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/param/1": {
-    "documentation": "2D プレビュー生成のための引数のテーブル。タイプ： <code>avatarGeneration2dPreviewParams: {SessionId: string, FileId: string, TextPrompt: string?}</code>"
+    "documentation": "2D プレビュー生成のための引数のテーブルです。タイプ： <code>avatarGeneration2dPreviewParams: {SessionId: string, FileId: string, TextPrompt: string?}</code>"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/return/0": {
     "documentation": "文字列の previewId"
@@ -91709,13 +91709,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/param/0": {
-    "documentation": "開発者アバタークリエイターをサポートするサービス。"
+    "documentation": "開発者のアバタークリエイターをサポートするサービスです。"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/param/1": {
-    "documentation": "アバター生成のための引数のテーブル。タイプ： <code>avatarGenerationParams: {SessionId: string, PreviewId: string}</code>"
+    "documentation": "アバター生成のための引数のテーブルです。タイプ： <code>avatarGenerationParams: {SessionId: string, PreviewId: string}</code>"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/return/0": {
-    "documentation": "文字列 generationId。"
+    "documentation": "文字列の generationId です。"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync": {
     "documentation": "アバターを生成し、generationId を返します。",
@@ -91736,16 +91736,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync/param/0": {
-    "documentation": "開発者アバタークリエイターをサポートするサービス。"
+    "documentation": "開発者のアバタークリエイターをサポートするサービスです。"
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync/param/1": {
-    "documentation": "詳細を取得したいアバター作成トークンの ID のリスト。"
+    "documentation": "詳細を取得するアバター作成トークン ID のリストです。"
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync/return/0": {
-    "documentation": "上記のように示されたアバター作成トークンの詳細の配列。"
+    "documentation": "上記のように、アバター作成トークンの詳細の配列です。"
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync": {
-    "documentation": "同時にアバター作成トークンのリストのアバター作成トークンの詳細を取得します。",
+    "documentation": "アバター作成トークンの一覧に対してアバター作成トークンの詳細を取得します。",
     "params": [
       {
         "name": "self",
@@ -91763,13 +91763,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.GetValidationRules/param/0": {
-    "documentation": "開発者アバタークリエイターをサポートするサービス。"
+    "documentation": "開発者のアバタークリエイターをサポートするサービスです。"
   },
   "@roblox/globaltype/AvatarCreationService.GetValidationRules/return/0": {
-    "documentation": "上記のように詳細に説明されたバリデーションルールの辞書。"
+    "documentation": "上記のように詳細が記載されたバリデーションルールの辞書です。"
   },
   "@roblox/globaltype/AvatarCreationService.GetValidationRules": {
-    "documentation": "資産が UGC バリデーションを通過するために遵守しなければならないルールに関するデータを取得します。",
+    "documentation": "アセットが UGC バリデーションを通過するために従うべきルールに関するデータを取得します。",
     "params": [
       {
         "name": "self",
@@ -91783,16 +91783,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/param/0": {
-    "documentation": "開発者アバタークリエイターをサポートするサービス。"
+    "documentation": "開発者のアバタークリエイターをサポートするサービスです。"
   },
   "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/param/1": {
-    "documentation": "<code>GenerateAvatar2DPreviewAsync()</code> から生成されたプレビューを読み込みます。"
+    "documentation": "生成されたプレビューをロードします。 <code>GenerateAvatar2DPreviewAsync()</code> からの。"
   },
   "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/return/0": {
-    "documentation": "プレビュー画像を含む <code>EditableImage</code>。"
+    "documentation": "プレビュー画像を含む <code>EditableImage</code> です。"
   },
   "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync": {
-    "documentation": "クライアント上で previewId から AvatarGeneration 2D プレビューを読み込みます。",
+    "documentation": "クライアントで、previewId から AvatarGeneration 2D プレビューをロードします。",
     "params": [
       {
         "name": "self",
@@ -91810,16 +91810,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync/param/0": {
-    "documentation": "開発者アバタークリエイターをサポートするサービス。"
+    "documentation": "開発者のアバタークリエイターをサポートするサービスです。"
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync/param/1": {
-    "documentation": "<code>AutoSetupAvatarAsync()</code> によって返された、生成されたアバターを識別する一意の文字列。"
+    "documentation": "生成されたアバターを識別するユニークな文字列で、 <code>AutoSetupAvatarAsync()</code> で返されます。"
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync/return/0": {
-    "documentation": "生成されたアバターの <code>HumanoidDescription</code>、 すべての生成されたインスタンスとプロパティを含みます。"
+    "documentation": "生成されたアバターの <code>HumanoidDescription</code>。これは、すべての生成されたインスタンスとプロパティを含みます。"
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync": {
-    "documentation": "アバター生成 ID を使用して生成されたアバターを読み込みます。",
+    "documentation": "アバター生成 ID を使用して生成されたアバターをロードします。",
     "params": [
       {
         "name": "self",
@@ -91837,13 +91837,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync/param/0": {
-    "documentation": "開発者アバタークリエイターをサポートするサービス。"
+    "documentation": "開発者のアバタークリエイターをサポートするサービスです。"
   },
   "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync/param/1": {
-    "documentation": "プレビュー用に HSR データの更新が必要な <code>MeshPart</code> のインスタンスを含む <code>Model</code>。"
+    "documentation": "<code>WrapDeformer</code> インスタンスを持ち、プレビューのために HSR データの更新が必要な <code>MeshPart</code> 子を含む <code>Model</code> です。"
   },
   "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync": {
-    "documentation": "プレビュー用に体験内アバターを準備します。",
+    "documentation": "体験内でのアバターのプレビューを準備します。",
     "params": [
       {
         "name": "self",
@@ -91859,25 +91859,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/0": {
-    "documentation": "開発者アバタークリエイターをサポートするサービス。"
+    "documentation": "開発者のアバタークリエイターをサポートするサービスです。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/1": {
-    "documentation": "作成トークンの ID。このトークンは有効でなければなりません。つまり、メソッドが呼び出されるユニバースは、トークンが作成されたユニバースと同じである必要があります。さらに、トークンの作成者は ID 検証を維持しなければならず、 <a href=\"https://www.roblox.com/premium/membership\">Roblox プレミアム</a>。この API で利用するためのトークンを作成するには、 <a href=\"../../../production/monetization/avatar-creation-token.md\">トークン作成</a>のプロセスに従ってください。トークンの作成タイプは、メソッドに渡された <code>AvatarAssetType</code> と一致する必要があります。"
+    "documentation": "作成トークンの ID。トークンは有効でなければなりません。このメソッドが呼び出される宇宙は、トークンが作成された宇宙と同じである必要があります。 さらに、トークンの作成者はID確認を維持し、 <a href=\"https://www.roblox.com/premium/membership\">Roblox Premium</a> を持っている必要があります。この API で使用するためのトークンを作成するには、 <a href=\"../../../production/monetization/avatar-creation-token.md\">token creation</a> プロセスに従ってください。トークンの作成タイプは、メソッドに渡される <code>AvatarAssetType</code> と一致しなければなりません。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/2": {
-    "documentation": "作成プロンプトを表示することを意図した <code>Player</code>。"
+    "documentation": "作成プロンプトが提示される <code>Player</code> です。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/3": {
-    "documentation": "作成を予定しているアバターアセットの <code>Instance</code>。"
+    "documentation": "作成対象のアバターアセットの <code>Instance</code> です。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/4": {
-    "documentation": "期待される作成の <code>AvatarAssetType</code>。これは提供されたトークンの作成タイプと一致する必要があります。"
+    "documentation": "期待される作成の <code>AvatarAssetType</code> です。 これは提供されたトークンの作成タイプと一致しなければなりません。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/return/0": {
-    "documentation": "次の要素を含むタプル： <ul> <li>作成プロンプトの結果を示す <code>PromptCreateAssetResult</code>。</li> <li>文字列結果。<code>PromptCreateAssetResult.Success</code> の場合、これがアセット ID を示します。いかなる失敗 enum の場合、これが結果のエラーメッセージを示します。</li> </ul>"
+    "documentation": "順に含まれるタプル： <ul> <li> 作成プロンプトの結果を示す <code>PromptCreateAssetResult</code>。 </li> <li> 文字列の結果。<code>PromptCreateAssetResult.Success</code> の場合、これはアセット ID を示します。 失敗するすべての enum の場合、これは resultant error message を示します。 </li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync": {
-    "documentation": "<code>Player</code> に対して、<code>Instance</code> からアバターアセットを購入して作成するよう促します。",
+    "documentation": "<code>Instance</code> からアバターアセットを購入して作成するよう <code>Player</code> に促します。",
     "params": [
       {
         "name": "self",
@@ -91907,22 +91907,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/0": {
-    "documentation": "開発者アバタークリエイターをサポートするサービス。"
+    "documentation": "開発者のアバタークリエイターをサポートするサービスです。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/1": {
-    "documentation": "アバター作成トークンの ID。このトークンは有効でなければなりません。つまり、メソッドが呼び出されるユニバースは、トークンが作成されたユニバースと同じである必要があります。さらに、トークンの作成者は ID 検証を維持しなければならず、 <a href=\"https://www.roblox.com/premium/membership\">Roblox プレミアム</a>。この API で利用するためのトークンを作成するには、 <a href=\"../../../production/monetization/avatar-creation-token.md\">トークン作成</a>のプロセスに従ってください。"
+    "documentation": "アバター作成トークンの ID。トークンは有効でなければなりません。このメソッドが呼び出される宇宙は、トークンが作成された宇宙と同じである必要があります。 さらに、トークンの作成者は ID 確認を維持し、 <a href=\"https://www.roblox.com/premium/membership\">Roblox Premium</a> を持っている必要があります。この API で使用するためのトークンを作成するには、 <a href=\"../../../production/monetization/avatar-creation-token.md\">token creation</a> プロセスに従ってください。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/2": {
-    "documentation": "作成プロンプトを提示される予定の <code>Player</code>。"
+    "documentation": "作成プロンプトが提示される <code>Player</code> です。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/3": {
-    "documentation": "作成を予定しているアバターの <code>HumanoidDescription</code>。"
+    "documentation": "作成対象のアバターの <code>HumanoidDescription</code> です。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/return/0": {
-    "documentation": "次の要素を含むタプル： <ul> <li>作成プロンプトの結果を示す <code>PromptCreateAvatarResult</code>。</li> <li>文字列結果。<code>PromptCreateAvatarResult.Success</code> の場合、これがバンドル ID を示します。いかなる失敗 enum の場合、これが結果のエラーメッセージを示します。</li> <li>2番目のオプショナルな文字列結果。<code>PromptCreateAvatarResult.Success</code> の場合、これがアウトフィット ID を示します。いかなる失敗 enum の場合、これが <code>nil</code> になります。</li> </ul>"
+    "documentation": "順に含まれるタプル： <ul> <li> 作成プロンプトの結果を示す <code>PromptCreateAvatarResult</code>。 </li> <li> 文字列の結果。<code>PromptCreateAvatarResult.Success</code> の場合、これはバンドル ID を示します。 失敗するすべての enum の場合、これは resultant error message を示します。 </li> <li> 二次的なオプションの文字列結果。<code>PromptCreateAvatarResult.Success</code> の場合、これは アウトフィット ID を示します。失敗するすべての enum の場合、これは <code>nil</code> になります。 </li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync": {
-    "documentation": "<code>HumanoidDescription</code> からアバターを購入して作成するよう、<code>Player</code> に促します。",
+    "documentation": "<code>HumanoidDescription</code> からアバターを購入して作成するよう <code>Player</code> に促します。",
     "params": [
       {
         "name": "self",
@@ -91948,16 +91948,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/param/0": {
-    "documentation": "開発者アバタークリエイターをサポートするサービス。"
+    "documentation": "開発者のアバタークリエイターをサポートするサービスです。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/param/1": {
-    "documentation": "自撮りを促すための <code>Player</code>。"
+    "documentation": "自撮りを促す <code>Player</code> です。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/return/0": {
-    "documentation": "自撮りの文字列 FileId。"
+    "documentation": "自撮りの文字列 FileId です。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync": {
-    "documentation": "<code>Player</code> に対して自撮りを促し、FileId を返します。",
+    "documentation": "プレイヤーに自撮りを促し、FileId を返します。",
     "params": [
       {
         "name": "self",
@@ -91975,16 +91975,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/0": {
-    "documentation": "開発者アバタークリエイターをサポートするサービス。"
+    "documentation": "開発者のアバタークリエイターをサポートするサービスです。"
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/1": {
-    "documentation": "AvatarGeneration セッションをリクエストする <code>Player</code>。"
+    "documentation": "AvatarGeneration セッションをリクエストする <code>Player</code> です。"
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/2": {
-    "documentation": "セッションに関する情報を持つ SessionInfo テーブルを使って呼び出されるコールバック関数。タイプ： <code>(SessionInfo: { SessionId: string, Allowed2DGenerations: number, Allowed3DGenerations: number, SessionTime: number }) -&gt; ()</code>"
+    "documentation": "セッションに関する情報を持つ SessionInfo テーブルで呼び出されるコールバック関数。 タイプ： <code>(SessionInfo: { SessionId: string, Allowed2DGenerations: number, Allowed3DGenerations: number, SessionTime: number }) -&gt; ()</code>"
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/return/0": {
-    "documentation": "セッションリクエストをキャンセルするために使用できる <code>RBXScriptConnection</code> と推定待機時間（秒単位）を含むタプル。"
+    "documentation": "セッションリクエストをキャンセルするために使用できる <code>RBXScriptConnection</code> と、推定待機時間（秒単位）を含むタプルです。"
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync": {
     "documentation": "<code>Player</code> のために AvatarGeneration セッションをリクエストします。",
@@ -92009,22 +92009,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/0": {
-    "documentation": "開発者アバタークリエイターをサポートするサービス。"
+    "documentation": "開発者のアバタークリエイターをサポートするサービスです。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/1": {
-    "documentation": "バリデーションが完了した <code>Player</code>。"
+    "documentation": "バリデーションを実行する <code>Player</code> です。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/2": {
-    "documentation": "バリデーションが実行されるインスタンス。"
+    "documentation": "バリデーションを行うインスタンスです。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/3": {
-    "documentation": "<code>AccessoryType</code> がインスタンスで期待されるものです。<code>Eyebrow</code>、 <code>Eyelash</code>、または <code>Hair</code> を期待します。"
+    "documentation": "予想されるインスタンスの <code>AccessoryType</code> です。 <code>Eyebrow</code>、 <code>Eyelash</code>、または <code>Hair</code> を期待します。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/return/0": {
-    "documentation": "次の要素を含むタプル： <ul> <li>アクセサリーの検証が成功したかどうかを示すブール値。</li> <li>オプショナルな文字列のテーブル。これは検証が失敗した場合の失敗理由を含み、検証が成功した場合は <code>nil</code> います。</li> </ul>"
+    "documentation": "順に含まれるタプル： <ul> <li>アクセサリーに対するバリデーションが成功したかどうかを示すブール値。</li> <li>オプションの文字列のテーブル。これは、バリデーションが失敗した場合の理由を含みます。   それ以外の場合、バリデーションが成功した場合は <code>nil</code> になります。</li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync": {
-    "documentation": "スタジオ専用。<code>AccessoryType</code> の UGC 検証を実行します。",
+    "documentation": "スタジオ専用。<code>AccessoryType</code> の UGC バリデーションを実行します。",
     "params": [
       {
         "name": "self",
@@ -92050,22 +92050,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/0": {
-    "documentation": "開発者アバタークリエイターをサポートするサービス。"
+    "documentation": "開発者のアバタークリエイターをサポートするサービスです。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/1": {
-    "documentation": "バリデーションが完了した <code>Player</code>。"
+    "documentation": "バリデーションを実行する <code>Player</code> です。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/2": {
-    "documentation": "検証を実行するインスタンス。"
+    "documentation": "バリデーションを行うインスタンスです。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/3": {
-    "documentation": "<code>BodyPart</code> がインスタンスで期待されるものです。"
+    "documentation": "予想されるインスタンスの <code>BodyPart</code> です。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/return/0": {
-    "documentation": "次の要素を含むタプル： <ul> <li>身体部分の検証が成功したかどうかを示すブール値。</li> <li>オプショナルな文字列のテーブル。これは検証が失敗した場合の失敗理由を含み、検証が成功した場合は <code>nil</code> になります。</li> </ul>"
+    "documentation": "順に含まれるタプル： <ul> <li>ボディパーツのバリデーションが成功したかどうかを示すブール値。</li> <li>オプションの文字列のテーブル。これは、バリデーションが失敗した理由を含んでいます。   それ以外の場合、バリデーションが成功した場合は <code>nil</code> になります。</li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync": {
-    "documentation": "スタジオ専用。<code>BodyPart</code> の UGC 検証を実行します。",
+    "documentation": "スタジオ専用。<code>BodyPart</code> の UGC バリデーションを実行します。",
     "params": [
       {
         "name": "self",
@@ -92091,19 +92091,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/param/0": {
-    "documentation": "開発者アバタークリエイターをサポートするサービス。"
+    "documentation": "開発者のアバタークリエイターをサポートするサービスです。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/param/1": {
-    "documentation": "検証が完了する <code>Player</code>。"
+    "documentation": "バリデーションを実行する <code>Player</code> です。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/param/2": {
-    "documentation": "検証が行われる身体を表す <code>HumanoidDescription</code>。"
+    "documentation": "バリデーションを実行する <code>HumanoidDescription</code> です。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/return/0": {
-    "documentation": "次の要素を含むタプル： <ul> <li>身体の検証が成功したかどうかを示すブール値。</li> <li>オプショナルな文字列のテーブル。これは検証が失敗した場合の失敗理由を含み、検証が成功した場合は <code>nil</code> になります。</li> </ul>"
+    "documentation": "順に含まれるタプル： <ul> <li>ボディのバリデーションが成功したかどうかを示すブール値。</li> <li>オプションの文字列のテーブル。これは、バリデーションが失敗した場合の理由を含んでいます。   それ以外の場合、バリデーションが成功した場合は <code>nil</code> になります。</li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync": {
-    "documentation": "スタジオ専用。全身の UGC 検証を実行します。",
+    "documentation": "スタジオ専用。全体のボディに対する UGC バリデーションを実行します。",
     "params": [
       {
         "name": "self",
@@ -92202,7 +92202,7 @@
     "returns": []
   },
   "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted": {
-    "documentation": "保留中から更新された体験内で作成されたアバターアセットのモデレーション状況がトリガーされます。",
+    "documentation": "体験内で作成されたアバターアセットのモデレーションステータスが保留から更新されたときに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect",
       "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel",
@@ -92290,7 +92290,7 @@
     "returns": []
   },
   "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted": {
-    "documentation": "保留中から更新された体験内で作成されたアバターのモデレーション状況がトリガーされます。",
+    "documentation": "体験内で作成されたアバターのモデレーションステータスが保留から更新されたときに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect",
       "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel",
@@ -93952,6 +93952,178 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoCapture#TimeLength",
     "code_sample": ""
   },
+  "@roblox/globaltype/InstanceFileSyncService": {
+    "documentation": "プラグインからファイル同期に対話するためのサービス。",
+    "keys": {
+      "GetAllInstances": "@roblox/globaltype/InstanceFileSyncService.GetAllInstances",
+      "GetStatus": "@roblox/globaltype/InstanceFileSyncService.GetStatus",
+      "GetSyncedInstance": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/param/0": {
+    "documentation": "プラグインからファイル同期に対話するためのサービス。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/return/0": {
+    "documentation": "<code>Instances</code> の配列を返します。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances": {
+    "documentation": "現在ファイル同期に関与している全てのインスタンスの配列を返します。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetAllInstances",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/0": {
+    "documentation": "プラグインからファイル同期に対話するためのサービス。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/1": {
+    "documentation": "確認するインスタンス。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/return/0": {
+    "documentation": "インスタンスのための <code>InstanceFileSyncStatus</code> を返します。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus": {
+    "documentation": "特定のインスタンスの同期状況を返します。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/0"
+      },
+      {
+        "name": "instance",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetStatus/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetStatus",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/0": {
+    "documentation": "プラグインからファイル同期に対話するためのサービス。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/1": {
+    "documentation": "ファイルの絶対パス。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/return/0": {
+    "documentation": "ファイルパスに同期されているインスタンスが存在する場合はそれを返します。存在しない場合は、nil を返します。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance": {
+    "documentation": "指定されたファイルパスに対応するインスタンスを返します。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/0"
+      },
+      {
+        "name": "filePath",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetSyncedInstance",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel": {
+    "documentation": "指定された関数をイベントに接続し、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once": {
+    "documentation": "指定された関数をイベントに接続し（単一の呼び出しのため）、それを表す <code>RBXScriptConnection</code> を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait/param/0": {
+    "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait": {
+    "documentation": "信号が発火するまで現在のスレッドを一時停止し、信号によって提供された引数を返します。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged": {
+    "documentation": "インスタンスの同期状況が変更されたときに発火します。",
+    "keys": {
+      "Connect": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once",
+      "Wait": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#StatusChanged",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SlidingBallConstraint": {
     "documentation": "添付物が軸に沿ってスライドできるが、回転はできない制約の基本クラスです。",
     "keys": {
@@ -95307,10 +95479,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/2": {
-    "documentation": ""
+    "documentation": "体験内の報酬付きビデオ広告の配置のIDです。個々の広告配置のパフォーマンスを報告することができます。"
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync": {
-    "documentation": "",
+    "documentation": "ユーザーがビデオ広告を見る機会があった回数と、実際に広告を見た割合を追跡します。",
     "params": [
       {
         "name": "self",
@@ -96342,7 +96514,7 @@
   "@roblox/globaltype/Players.CharacterAutoLoads": {
     "documentation": "<code>キャラクター</code> が自動的に再出現するかどうかを示します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CharacterAutoLoads",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\n-- CharacterAutoLoadsをfalseに設定\nPlayers.CharacterAutoLoads = false\n\n-- 死亡時にワークスペースからプレイヤーのキャラクターを削除\nPlayers.PlayerAdded:Connect(function(player)\n\twhile true do\n\t\tlocal char = player.CharacterAdded:Wait()\n\t\tchar.Humanoid.Died:Connect(function()\n\t\t\tchar:Destroy()\n\t\tend)\n\tend\nend)\n\n-- 死亡したすべてのプレイヤーを10秒ごとにリスポーン\nwhile true do\n\tlocal players = Players:GetChildren()\n\n\t-- 各プレイヤーが死亡しているかどうかを確認し、死亡している場合はそのプレイヤーのキャラクターをロード\n\tfor _, player in pairs(players) do\n\t\tif not workspace:FindFirstChild(player.Name) then\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\tend\n\n\t-- 次のリスポーンチェックまで10秒待機\n\ttask.wait(10)\nend"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\n-- CharacterAutoLoads を false に設定\nPlayers.CharacterAutoLoads = false\n\n-- 死亡時にワークスペースからプレイヤーのキャラクターを削除\nPlayers.PlayerAdded:Connect(function(player)\n\twhile true do\n\t\tlocal char = player.CharacterAdded:Wait()\n\t\tchar.Humanoid.Died:Connect(function()\n\t\t\tchar:Destroy()\n\t\tend)\n\tend\nend)\n\n-- すべての死亡プレイヤーを10秒ごとに再出現\nwhile true do\n\tlocal players = Players:GetChildren()\n\n\t-- 各プレイヤーが死亡しているか、キャラクターがないかを確認し、死亡している場合はそのプレイヤーのキャラクターを読み込む\n\tfor _, player in pairs(players) do\n\t\tif not workspace:FindFirstChild(player.Name) then\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\tend\n\n\t-- 次の再出現チェックまで10秒待つ\n\ttask.wait(10)\nend"
   },
   "@roblox/globaltype/Players.ClassicChat": {
     "documentation": "クラシックチャットが有効かどうかを示します; <code>Players:SetChatStyle()</code> メソッドで設定されています。",
@@ -96540,7 +96712,7 @@
       "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CreateHumanoidModelFromUserIdAsync",
-    "code_sample": "game.Players:CreateHumanoidModelFromUserId(1).Parent = game.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromUserIdAsync(1).Parent = game.Workspace"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId/param/0": {
     "documentation": "現在接続されている <code>Player</code> オブジェクトを含むサービス。"
@@ -96567,7 +96739,7 @@
       "@roblox/globaltype/Players.CreateHumanoidModelFromUserId/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CreateHumanoidModelFromUserId",
-    "code_sample": "game.Players:CreateHumanoidModelFromUserId(1).Parent = game.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromUserIdAsync(1).Parent = game.Workspace"
   },
   "@roblox/globaltype/Players.GetBanHistoryAsync/param/0": {
     "documentation": "現在接続されている <code>Player</code> オブジェクトを含むサービス。"
@@ -96756,7 +96928,7 @@
       "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#GetHumanoidDescriptionFromUserIdAsync",
-    "code_sample": "game.Players:CreateHumanoidModelFromDescription(\n\tgame.Players:GetHumanoidDescriptionFromUserId(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromDescriptionAsync(\n\tgame.Players:GetHumanoidDescriptionFromUserIdAsync(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId/param/0": {
     "documentation": "現在接続されている <code>Player</code> オブジェクトを含むサービス。"
@@ -96783,7 +96955,7 @@
       "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#GetHumanoidDescriptionFromUserId",
-    "code_sample": "game.Players:CreateHumanoidModelFromDescription(\n\tgame.Players:GetHumanoidDescriptionFromUserId(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromDescriptionAsync(\n\tgame.Players:GetHumanoidDescriptionFromUserIdAsync(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
   },
   "@roblox/globaltype/Players.GetNameFromUserIdAsync/param/0": {
     "documentation": "現在接続されている <code>Player</code> オブジェクトを含むサービス。"
@@ -100382,7 +100554,7 @@
     "documentation": "コールに関与するすべてのプレイヤーを含む配列。コーラーは常に配列の最初のプレイヤーになります。"
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/return/0": {
-    "documentation": "<code>DataModel.PlaceId</code> と <code>TeleportService:ReserveServer()</code> によって返されるサーバーアクセスコードの値を持つ <code>PlaceId</code> と <code>ReservedServerAccessCode</code> キーを含むテーブル。"
+    "documentation": "<code>PlaceId</code>と<code>ReservedServerAccessCode</code>キーを含むテーブルで、各値はそれぞれ<code>DataModel.PlaceId</code>と、<code>TeleportService:ReserveServerAsync()</code>によって返されるサーバーアクセスコードです。"
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked": {
     "documentation": "電話帳からコールが行われたときのコールバック。",
@@ -100400,7 +100572,7 @@
       "@roblox/globaltype/SocialService.OnCallInviteInvoked/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#OnCallInviteInvoked",
-    "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal TeleportService = game:GetService(\"TeleportService\")\n\nSocialService.OnCallInviteInvoked = function()\n\tlocal placeId = 0123456789 -- これは、通話参加者をドロップするための目的地の場所IDです\n\tlocal accessCode = TeleportService:ReserveServer(placeId)\n\n\treturn { ReservedServerAccessCode = accessCode, PlaceId = placeId }\nend"
+    "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal TeleportService = game:GetService(\"TeleportService\")\n\nSocialService.OnCallInviteInvoked = function()\n\tlocal placeId = 0123456789 -- これはコール参加者を落とすための対象場所の場所IDです\n\tlocal accessCode = TeleportService:ReserveServerAsync(placeId)\n\n\treturn { ReservedServerAccessCode = accessCode, PlaceId = placeId }\nend"
   },
   "@roblox/globaltype/SocialService.CallInviteStateChanged.Connect/param/0": {
     "documentation": "特定の事象が発生した際に接続された関数を実行するオブジェクトです。"
@@ -118036,6 +118208,57 @@
       "OculusQuest": "@roblox/enum/VRDeviceType.OculusQuest"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VRDeviceType",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.NotSynced": {
+    "documentation": "<code>Instance</code>は同期されていないか、エラーが発生しています。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#NotSynced",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.Errored": {
+    "documentation": "<code>Instance</code>はエラーが発生した同期ルートで、同期を停止しています。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#Errored",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot": {
+    "documentation": "<code>Instance</code>は同期ツリーのルートとして同期されています。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsRoot",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant": {
+    "documentation": "<code>Instance</code>は同期ルートの子孫であるため、同期されています。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsDescendant",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.InstanceFileSyncStatus": {
+    "documentation": "インスタンスのファイル同期状態を説明します。",
+    "keys": {
+      "NotSynced": "@roblox/enum/InstanceFileSyncStatus.NotSynced",
+      "Errored": "@roblox/enum/InstanceFileSyncStatus.Errored",
+      "SyncedAsRoot": "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot",
+      "SyncedAsDescendant": "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus",
     "code_sample": ""
   },
   "@roblox/enum/PathStatus.Success": {
@@ -137248,7 +137471,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AssetType": {
-    "documentation": "この enum は、<code>MarketplaceService:GetProductInfo()</code> からの AssetTypeId をアセットタイプに照合するのに使用できます。",
+    "documentation": "この列挙体は、<code>MarketplaceService:GetProductInfoAsync()</code> からの AssetTypeId をアセットタイプに一致させるために使用できます。",
     "keys": {
       "Image": "@roblox/enum/AssetType.Image",
       "TShirt": "@roblox/enum/AssetType.TShirt",

@@ -752,7 +752,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CatalogSearchParams": {
-    "documentation": "จัดเก็บพารามิเตอร์ที่ใช้ในการค้นหาจากแคตตาล็อกผ่าน <code>AvatarEditorService:SearchCatalog()</code>.",
+    "documentation": "จัดเก็บพารามิเตอร์ที่ใช้ในการค้นหาคลังสินค้าผ่าน <code>AvatarEditorService:SearchCatalogAsync()</code>.",
     "keys": {
       "SearchKeyword": "@roblox/globaltype/CatalogSearchParams.SearchKeyword",
       "MinPrice": "@roblox/globaltype/CatalogSearchParams.MinPrice",
@@ -6523,7 +6523,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.AutoRuns": {
-    "documentation": "หากตั้งค่าเป็น <code>true</code> เกมจะเริ่มทำงานเมื่อเรียกใช้เมธอด <code>TestService:Run()</code> ของบริการ.",
+    "documentation": "ถ้าตั้งค่าเป็น <code>true</code> เกมจะเริ่มทำงานเมื่อเรียกใช้ เมธอด <code>TestService:RunAsync()</code> ของบริการ",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#AutoRuns",
     "code_sample": ""
   },
@@ -7289,7 +7289,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPages": {
-    "documentation": "เวอร์ชันพิเศษของคลาส <code>Pages</code> ที่ส่งคืนโดย <code>AssetService:SearchAudio()</code>.",
+    "documentation": "เวอร์ชันพิเศษของคลาส <code>Pages</code> ที่ส่งคืนโดย <code>AssetService:SearchAudioAsync()</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPages",
     "code_sample": ""
@@ -14129,7 +14129,7 @@
       "@roblox/globaltype/PluginGui.GetRelativeMousePosition/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginGui#GetRelativeMousePosition",
-    "code_sample": "local RunService = game:GetService(\"RunService\")\n\nlocal widgetInfo = DockWidgetPluginGuiInfo.new(\n\tEnum.InitialDockState.Float,\n\ttrue,\n\tfalse, -- สถานะเปิดใช้งาน, แทนที่\n\t200,\n\t300, -- ขนาด\n\t150,\n\t150 -- ขนาดขั้นต่ำ\n)\n\nlocal testWidget = plugin:CreateDockWidgetPluginGui(\"TestWidget\", widgetInfo)\n\nfunction update()\n\tlocal v2 = testWidget:GetRelativeMousePosition()\n\ttestWidget.Title = (\"(%d, %d)\"):format(v2.x, v2.y)\nend\n\nRunService.Stepped:Connect(update)\n\nupdate()"
+    "code_sample": ""
   },
   "@roblox/globaltype/PluginGui.PluginDragDropped.Connect/param/0": {
     "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
@@ -24865,12 +24865,12 @@
   "@roblox/globaltype/DataModel.CreatorId": {
     "documentation": "คำอธิบาย ID ของผู้ใช้หรือกลุ่มที่เป็นเจ้าของสถานที่",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorId",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"เจ้าของสถานที่ได้เข้าร่วมเกม!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"สมาชิกของกลุ่มที่เป็นเจ้าของสถานที่ได้เข้าร่วมเกม!\")\n\t\tend\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"เจ้าของสถานที่ได้เข้าร่วมเกมแล้ว!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"สมาชิกของกลุ่มที่เป็นเจ้าของสถานที่ได้เข้าร่วมเกมแล้ว!\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.CreatorType": {
     "documentation": "คำอธิบาย <code>CreatorType</code> ของสถานที่ ว่าสถานที่นั้นเป็นของผู้ใช้หรือกลุ่ม",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorType",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"เจ้าของสถานที่ได้เข้าร่วมเกม!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"สมาชิกของกลุ่มที่เป็นเจ้าของสถานที่ได้เข้าร่วมเกม!\")\n\t\tend\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"เจ้าของสถานที่ได้เข้าร่วมเกมแล้ว!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"สมาชิกของกลุ่มที่เป็นเจ้าของสถานที่ได้เข้าร่วมเกมแล้ว!\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.Environment": {
     "documentation": "",
@@ -24918,7 +24918,7 @@
     "code_sample": "local StarterGui = game:GetService(\"StarterGui\")\n\nlocal versionGui = Instance.new(\"ScreenGui\")\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Position = UDim2.new(1, -10, 1, 0)\ntextLabel.AnchorPoint = Vector2.new(1, 1)\ntextLabel.Size = UDim2.new(0, 150, 0, 40)\n\ntextLabel.BackgroundTransparency = 1\ntextLabel.TextColor3 = Color3.new(1, 1, 1)\ntextLabel.TextStrokeTransparency = 0\ntextLabel.TextXAlignment = Enum.TextXAlignment.Right\ntextLabel.TextScaled = true\n\nlocal placeVersion = game.PlaceVersion\ntextLabel.Text = string.format(\"หมายเลขเวอร์ชันเซิร์ฟเวอร์: %s\", placeVersion)\n\ntextLabel.Parent = versionGui\nversionGui.Parent = StarterGui"
   },
   "@roblox/globaltype/DataModel.PrivateServerId": {
-    "documentation": "อธิบาย ID ของเซิร์ฟเวอร์ส่วนตัว หากเซิร์ฟเวอร์เป็นเซิร์ฟเวอร์ส่วนตัว หรือเซิร์ฟเวอร์ที่ <code>จอง</code>",
+    "documentation": "อธิบาย ID เซิร์ฟเวอร์ส่วนตัวของเซิร์ฟเวอร์ หากเซิร์ฟเวอร์เป็นเซิร์ฟเวอร์ส่วนตัว หรือเป็น <code>เซิร์ฟเวอร์ที่สำรอง</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PrivateServerId",
     "code_sample": "local function getServerType()\n\tif game.PrivateServerId ~= \"\" then\n\t\tif game.PrivateServerOwnerId ~= 0 then\n\t\t\treturn \"VIPServer\"\n\t\telse\n\t\t\treturn \"ReservedServer\"\n\t\tend\n\telse\n\t\treturn \"StandardServer\"\n\tend\nend\n\nprint(getServerType())"
   },
@@ -27280,7 +27280,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.BackAccessory": {
-    "documentation": "รายการ ID ของสินทรัพย์ที่คั่นด้วยเครื่องหมายจุลภาคซึ่งจะถูกเพิ่ม เป็น <code>Accessories</code> ไปยัง rig <code>Humanoid</code> เมื่อ <code>นำมาใช้</code>, โดยปกติแล้วจะเป็น อุปกรณ์ที่ติดอยู่ที่หลัง (เช่น เสื้อคลุม).",
+    "documentation": "รายการ ID ของแอสเซ็ตที่คั่นด้วยลูกน้ำซึ่งจะถูกเพิ่มเป็น <code>Accessories</code> ให้กับ rig <code>Humanoid</code> เมื่อ <code>นำไปใช้</code>, โดยทั่วไปจะเป็นรายการที่ติดอยู่ ที่ด้านหลัง (เช่น ผ้าคลุม).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#BackAccessory",
     "code_sample": ""
   },
@@ -27290,7 +27290,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.ClimbAnimation": {
-    "documentation": "เมื่อคำอธิบายนี้ถูก <code>นำไปใช้</code> กับ <code>Humanoid</code>, จะกำหนด <code>Animation.AnimationId</code> ที่จะ วางเมื่อ <code>state</code> ของมันคือ <code>Climbing</code>.",
+    "documentation": "เมื่อคำอธิบายนี้ถูก <code>นำไปใช้</code> กับ <code>Humanoid</code>, นี่จะกำหนด <code>Animation.AnimationId</code> ที่จะเล่นเมื่อ <code>state</code> เป็น <code>Climbing</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#ClimbAnimation",
     "code_sample": ""
   },
@@ -27305,17 +27305,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.FaceAccessory": {
-    "documentation": "รายการ ID ของสินทรัพย์ที่คั่นด้วยเครื่องหมายจุลภาคซึ่งจะถูกเพิ่ม เป็น <code>Accessories</code> ไปยัง rig <code>Humanoid</code> เมื่อ <code>นำมาใช้</code>, ปกติจะเป็น อุปกรณ์ที่ติดอยู่ที่หน้า (เช่น แว่นตา).",
+    "documentation": "รายการ ID ของแอสเซ็ตที่คั่นด้วยลูกน้ำซึ่งจะถูกเพิ่มเป็น <code>Accessories</code> ให้กับ rig <code>Humanoid</code> เมื่อ <code>นำไปใช้</code>, โดยทั่วไปจะเป็นรายการที่ติดอยู่ ที่ด้านหน้าของใบหน้า (เช่น แว่นตา).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#FaceAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.FallAnimation": {
-    "documentation": "เมื่อคำอธิบายนี้ถูก <code>นำไปใช้</code> กับ <code>Humanoid</code>, จะกำหนด <code>Animation.AnimationId</code> ที่จะ วางเมื่อ <code>state</code> ของมันคือ <code>Freefall</code>.",
+    "documentation": "เมื่อคำอธิบายนี้ถูก <code>นำไปใช้</code> กับ <code>Humanoid</code>, นี่จะกำหนด <code>Animation.AnimationId</code> ที่จะเล่นเมื่อ <code>state</code> เป็น <code>Freefall</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#FallAnimation",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.FrontAccessory": {
-    "documentation": "รายการ ID ของสินทรัพย์ที่คั่นด้วยเครื่องหมายจุลภาคซึ่งจะถูกเพิ่ม เป็น <code>Accessories</code> ไปยัง rig <code>Humanoid</code> เมื่อ <code>นำมาใช้</code>, ปกติจะเป็น อุปกรณ์ที่ติดอยู่ที่หน้าอก (เช่น เหรียญหรือเนคไท).",
+    "documentation": "รายการ ID ของแอสเซ็ตที่คั่นด้วยลูกน้ำซึ่งจะถูกเพิ่มเป็น <code>Accessories</code> ให้กับ rig <code>Humanoid</code> เมื่อ <code>นำไปใช้</code>, โดยทั่วไปจะเป็นรายการที่ติดอยู่ ที่ด้านหน้าของลำตัว (เช่น เหรียญหรือลูกชายผูกคอ).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#FrontAccessory",
     "code_sample": ""
   },
@@ -27325,12 +27325,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.HairAccessory": {
-    "documentation": "รายการ ID ของสินทรัพย์ที่คั่นด้วยเครื่องหมายจุลภาคซึ่งจะถูกเพิ่ม เป็น <code>Accessories</code> ไปยัง rig <code>Humanoid</code> เมื่อ <code>นำมาใช้</code>, ปกติจะเป็น อุปกรณ์ที่ติดอยู่ที่หัวคล้ายผม.",
+    "documentation": "รายการ ID ของแอสเซ็ตที่คั่นด้วยลูกน้ำซึ่งจะถูกเพิ่มเป็น <code>Accessories</code> ให้กับ rig <code>Humanoid</code> เมื่อ <code>นำไปใช้</code>, โดยทั่วไปจะเป็นรายการที่ติดอยู่ ที่หัวของมันซึ่งมีลักษณะคล้ายผม.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#HairAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.HatAccessory": {
-    "documentation": "รายการ ID ของสินทรัพย์ที่คั่นด้วยเครื่องหมายจุลภาคซึ่งจะถูกเพิ่ม เป็น <code>Accessories</code> ไปยัง rig <code>Humanoid</code> เมื่อ <code>นำมาใช้</code>, ปกติจะเป็น อุปกรณ์ที่ติดอยู่ที่หัว.",
+    "documentation": "รายการ ID ของแอสเซ็ตที่คั่นด้วยลูกน้ำซึ่งจะถูกเพิ่มเป็น <code>Accessories</code> ให้กับ rig <code>Humanoid</code> เมื่อ <code>นำไปใช้</code>, โดยทั่วไปจะเป็นรายการที่ติดอยู่ ที่หัวของมัน.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#HatAccessory",
     "code_sample": ""
   },
@@ -27340,7 +27340,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.HeadColor": {
-    "documentation": "กำหนด <code>BodyColors.HeadColor3</code> และ <code>BodyColors.HeadColor</code> ของ <code>Humanoid</code> เมื่อ <code>นำมาใช้</code>.",
+    "documentation": "กำหนด <code>BodyColors.HeadColor3</code> และ <code>BodyColors.HeadColor</code> ของ <code>Humanoid</code> เมื่อ <code>นำไปใช้</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#HeadColor",
     "code_sample": ""
   },
@@ -27355,12 +27355,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.IdleAnimation": {
-    "documentation": "เมื่อคำอธิบายนี้ถูก <code>นำไปใช้</code> กับ <code>Humanoid</code>, จะกำหนด <code>Animation.AnimationId</code> ที่จะ วางเมื่อ <code>state</code> ของมันคือ <code>Running</code> ที่ความเร็วใกล้ศูนย์.",
+    "documentation": "เมื่อคำอธิบายนี้ถูก <code>นำไปใช้</code> กับ <code>Humanoid</code>, นี่จะกำหนด <code>Animation.AnimationId</code> ที่จะเล่นเมื่อ <code>state</code> เป็น <code>Running</code> ที่ความเร็วใกล้ศูนย์.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#IdleAnimation",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.JumpAnimation": {
-    "documentation": "เมื่อคำอธิบายนี้ถูก <code>นำไปใช้</code> กับ <code>Humanoid</code>, จะกำหนด <code>Animation.AnimationId</code> ที่จะ วางเมื่อ <code>state</code> ของมันคือ <code>Jumping</code>.",
+    "documentation": "เมื่อคำอธิบายนี้ถูก <code>นำไปใช้</code> กับ <code>Humanoid</code>, นี่จะกำหนด <code>Animation.AnimationId</code> ที่จะเล่นเมื่อ <code>state</code> เป็น <code>Jumping</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#JumpAnimation",
     "code_sample": ""
   },
@@ -27390,7 +27390,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.NeckAccessory": {
-    "documentation": "รายการ ID ของสินทรัพย์ที่คั่นด้วยเครื่องหมายจุลภาคซึ่งจะถูกเพิ่ม เป็น <code>Accessories</code> ไปยัง rig <code>Humanoid</code> เมื่อ <code>นำมาใช้</code>, โดยปกติจะเป็น อุปกรณ์ที่ติดอยู่ที่คอ (เช่น ผ้าพันคอหรือสร้อยคอ).",
+    "documentation": "รายการ ID ของแอสเซ็ตที่คั่นด้วยลูกน้ำซึ่งจะถูกเพิ่มเป็น <code>Accessories</code> ให้กับ rig <code>Humanoid</code> เมื่อ <code>นำไปใช้</code>, โดยทั่วไปจะเป็นรายการที่ติดอยู่ ที่คอของมัน (เช่น ผ้าพันคอหรือลูกปัด).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#NeckAccessory",
     "code_sample": ""
   },
@@ -27425,7 +27425,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.RunAnimation": {
-    "documentation": "เมื่อคำอธิบายนี้ถูก <code>นำไปใช้</code> กับ <code>Humanoid</code>, จะกำหนด <code>Animation.AnimationId</code> ที่จะ วางเมื่อ <code>state</code> ของมันคือ <code>Running</code> ที่ความเร็วปานกลาง.",
+    "documentation": "เมื่อคำอธิบายนี้ถูก <code>นำไปใช้</code> กับ <code>Humanoid</code>, นี่จะกำหนด <code>Animation.AnimationId</code> ที่จะเล่นเมื่อ <code>state</code> เป็น <code>Running</code> โดยมีความเร็วปานกลาง.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#RunAnimation",
     "code_sample": ""
   },
@@ -27435,12 +27435,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.ShouldersAccessory": {
-    "documentation": "รายการ ID ของสินทรัพย์ที่คั่นด้วยเครื่องหมายจุลภาคซึ่งจะถูกเพิ่ม เป็น <code>Accessories</code> ไปยัง rig <code>Humanoid</code> เมื่อ <code>นำมาใช้</code>, โดยปกติจะเป็น อุปกรณ์ที่ติดอยู่ที่ไหล่ (เช่น สิ่งมีชีวิตที่ติดอยู่บนไหล่).",
+    "documentation": "รายการ ID ของแอสเซ็ตที่คั่นด้วยลูกน้ำซึ่งจะถูกเพิ่มเป็น <code>Accessories</code> ให้กับ rig <code>Humanoid</code> เมื่อ <code>นำไปใช้</code>, โดยทั่วไปจะเป็นรายการที่ติดอยู่ ที่ไหล่ของมัน (เช่น สิ่งมีชีวิตที่ติดอยู่ที่ไหล่).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#ShouldersAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.SwimAnimation": {
-    "documentation": "เมื่อคำอธิบายนี้ถูก <code>นำไปใช้</code> กับ <code>Humanoid</code>, จะกำหนด <code>Animation.AnimationId</code> ที่จะ วางเมื่อ <code>state</code> ของมันคือ <code>Swimming</code>.",
+    "documentation": "เมื่อคำอธิบายนี้ถูก <code>นำไปใช้</code> กับ <code>Humanoid</code>, นี่จะกำหนด <code>Animation.AnimationId</code> ที่จะเล่นเมื่อ <code>state</code> เป็น <code>Swimming</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#SwimAnimation",
     "code_sample": ""
   },
@@ -27455,12 +27455,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.WaistAccessory": {
-    "documentation": "รายการที่แยกด้วยเครื่องหมายจุลภาคของ Asset IDs ที่จะถูกเพิ่มเป็น <code>Accessories</code> ให้กับ rig ของ <code>Humanoid</code> เมื่อ <code>นำไปใช้</code>, มักจะเป็นอุปกรณ์ที่เชื่อมต่อกับเอวของมัน (เช่น เข็มขัด).",
+    "documentation": "รายการ ID ของแอสเซ็ตที่คั่นด้วยลูกน้ำซึ่งจะถูกเพิ่มเป็น <code>Accessories</code> ให้กับ rig <code>Humanoid</code> เมื่อ <code>นำไปใช้</code>, โดยทั่วไปจะเป็นรายการที่ติดอยู่ ที่เอว (เช่น เข็มขัด).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#WaistAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.WalkAnimation": {
-    "documentation": "เมื่อคำอธิบายนี้ถูก <code>นำไปใช้</code> กับ <code>Humanoid</code>, จะกำหนด <code>Animation.AnimationId</code> ที่จะ เล่นเมื่อ <code>สถานะ</code> ของมันคือ <code>Running</code> ที่ความเร็วต่ำ.",
+    "documentation": "เมื่อคำอธิบายนี้ถูก <code>นำไปใช้</code> กับ <code>Humanoid</code>, นี่จะกำหนด <code>Animation.AnimationId</code> ที่จะเล่นเมื่อ <code>state</code> เป็น <code>Running</code> ที่ความเร็วต่ำ.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#WalkAnimation",
     "code_sample": ""
   },
@@ -33602,7 +33602,7 @@
       "@roblox/globaltype/Plugin.CreateDockWidgetPluginGuiAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CreateDockWidgetPluginGuiAsync",
-    "code_sample": "-- สร้างอ็อบเจ็กต์ 'DockWidgetPluginGuiInfo' ใหม่\nlocal widgetInfo = DockWidgetPluginGuiInfo.new(\n\tEnum.InitialDockState.Float, -- วิดเจ็ตจะถูกเริ่มต้นในแผงลอย\n\ttrue, -- วิดเจ็ตจะเปิดใช้งานเริ่มต้น\n\tfalse, -- ไม่เขียนทับสถานะที่เคยเปิดใช้งาน\n\t200, -- ความกว้างเริ่มต้นของหน้าต่างลอย\n\t300, -- ความสูงเริ่มต้นของหน้าต่างลอย\n\t150, -- ความกว้างขั้นต่ำของหน้าต่างลอย (อoptional)\n\t150 -- ความสูงขั้นต่ำของหน้าต่างลอย (อoptional)\n)\n\n-- สร้าง GUI วิดเจ็ตใหม่\nlocal testWidget = plugin:CreateDockWidgetPluginGui(\"TestWidget\", widgetInfo)\n\nlocal testButton = Instance.new(\"TextButton\")\ntestButton.BorderSizePixel = 0\ntestButton.TextSize = 20\ntestButton.TextColor3 = Color3.new(1, 0.2, 0.4)\ntestButton.AnchorPoint = Vector2.new(0.5, 0.5)\ntestButton.Size = UDim2.new(1, 0, 1, 0)\ntestButton.Position = UDim2.new(0.5, 0, 0.5, 0)\ntestButton.SizeConstraint = Enum.SizeConstraint.RelativeYY\ntestButton.Text = \"คลิกที่นี่\"\ntestButton.Parent = testWidget"
+    "code_sample": ""
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/param/0": {
     "documentation": ""
@@ -35084,7 +35084,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService": {
-    "documentation": "TextService คือบริการภายในที่รับผิดชอบในการจัดการการแสดงผล ของข้อความในเกม。",
+    "documentation": "บริการที่รับผิดชอบในการจัดการการแสดงผลของข้อความภายใน",
     "keys": {
       "FilterAndTranslateStringAsync": "@roblox/globaltype/TextService.FilterAndTranslateStringAsync",
       "FilterStringAsync": "@roblox/globaltype/TextService.FilterStringAsync",
@@ -35097,7 +35097,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync/param/0": {
-    "documentation": "TextService คือบริการภายในที่รับผิดชอบในการจัดการการแสดงผล ของข้อความในเกม。"
+    "documentation": "บริการที่รับผิดชอบในการจัดการการแสดงผลของข้อความภายใน"
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync/param/1": {
     "documentation": ""
@@ -35115,7 +35115,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync": {
-    "documentation": "การแปลแชทไม่ได้รับการสนับสนุนในแชทเก่า วิธีนี้ไม่มีการสนับสนุนและไม่ควรใช้งาน。",
+    "documentation": "กรองและแปลสตริง",
     "params": [
       {
         "name": "self",
@@ -35145,22 +35145,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/0": {
-    "documentation": "TextService คือบริการภายในที่รับผิดชอบในการจัดการการแสดงผล ของข้อความในเกม。"
+    "documentation": "บริการที่รับผิดชอบในการจัดการการแสดงผลของข้อความภายใน"
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/1": {
     "documentation": "ข้อความที่จะถูกกรอง。"
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/2": {
-    "documentation": "userId ของผู้เล่นที่กำลังกรองข้อความ。"
+    "documentation": "<code>Player.UserId</code> ของผู้เล่นที่กรองข้อความ."
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/3": {
-    "documentation": "บริบทที่ข้อความที่กรองจะถูกใช้。"
+    "documentation": "บริบทที่ข้อความที่ถูกกรองจะถูกใช้ นี่คือพารามิเตอร์ ไม่ส่งผลต่อผลลัพธ์ที่กรองของควอรีและใช้เพื่อ ปรับปรุงการกรองข้อความของ Roblox เท่านั้น."
   },
   "@roblox/globaltype/TextService.FilterStringAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/TextService.FilterStringAsync": {
-    "documentation": "กรองสตริงที่ได้รับจากผู้ใช้ และคืนค่า <code>TextFilterResult</code> ซึ่งสามารถนำไปใช้ในการแจกจ่ายข้อความที่ผ่านการกรองอย่างถูกต้อง。",
+    "documentation": "กรองสตริงที่ได้รับจากผู้ใช้และคืนค่า <code>TextFilterResult</code> ซึ่งสามารถใช้ในการแจกจ่ายข้อความที่ถูกกรอง อย่างถูกต้องตามลำดับ",
     "params": [
       {
         "name": "self",
@@ -35186,7 +35186,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.GetFamilyInfoAsync/param/0": {
-    "documentation": "TextService คือบริการภายในที่รับผิดชอบในการจัดการการแสดงผล ของข้อความในเกม。"
+    "documentation": "บริการที่รับผิดชอบในการจัดการการแสดงผลของข้อความภายใน"
   },
   "@roblox/globaltype/TextService.GetFamilyInfoAsync/param/1": {
     "documentation": "Asset ID ของตระกูลฟอนต์ที่ต้องการค้นหา。"
@@ -35210,10 +35210,10 @@
       "@roblox/globaltype/TextService.GetFamilyInfoAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextService#GetFamilyInfoAsync",
-    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal familyToCheck = \"rbxasset://fonts/families/Arial.json\"\n\n-- นี่คือฟังก์ชันทียืดเวลาซึ่งอาจใช้เวลาถึงไม่กี่วินาทีในการดาวน์โหลดแบบอักษร\nlocal info = TextService:GetFamilyInfoAsync(familyToCheck)\n\nprint(\"ชื่อของแบบอักษร:\", info.Name)\nprint(\"หน้าตา:\")\nfor _, face in info.Faces do\n\tprint(\"--------\")\n\tprint(\"ชื่อ:\", face.Name)\n\tprint(\"น้ำหนัก:\", face.Weight.Name)\n\tprint(\"สไตล์:\", face.Style.Name)\nend"
+    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal familyToCheck = \"rbxasset://fonts/families/Arimo.json\"\n\nlocal success, info = pcall(function()\n\treturn TextService:GetFamilyInfoAsync(familyToCheck)\nend)\nif success then\n\tprint(\"ชื่อฟอนต์:\", info.Name)\n\tprint(\"ฟอนต์ต่างๆ:\")\n\tfor _, face in info.Faces do\n\t\tprint(\"--------\")\n\t\tprint(\"ชื่อ:\", face.Name)\n\t\tprint(\"น้ำหนัก:\", face.Weight.Name)\n\t\tprint(\"สไตล์:\", face.Style.Name)\n\tend\nend"
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync/param/0": {
-    "documentation": "TextService คือบริการภายในที่รับผิดชอบในการจัดการการแสดงผล ของข้อความในเกม。"
+    "documentation": "บริการที่รับผิดชอบในการจัดการการแสดงผลของข้อความภายใน"
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync/param/1": {
     "documentation": "การอ้างอิงถึงวัตถุ <code>GetTextBoundsParams</code>。"
@@ -35222,7 +35222,7 @@
     "documentation": "ขนาดของข้อความเป็น <code>Vector2</code>。"
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync": {
-    "documentation": "คำนวณความกว้างและความสูงของข้อความที่ได้รับพารามิเตอร์。",
+    "documentation": "คำนวณมิติ <code>Vector2</code> (เป็นพิกเซล) ที่จะใช้ กับข้อความเมื่อใช้วัตถุ <code>GetTextBoundsParams</code>",
     "params": [
       {
         "name": "self",
@@ -35240,19 +35240,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.GetTextSize/param/0": {
-    "documentation": "TextService คือบริการภายในที่รับผิดชอบในการจัดการการแสดงผล ของข้อความในเกม。"
+    "documentation": "บริการที่รับผิดชอบในการจัดการการแสดงผลของข้อความภายใน"
   },
   "@roblox/globaltype/TextService.GetTextSize/param/1": {
     "documentation": "ข้อความที่ต้องการคำนวณขนาดข้อความ。"
   },
   "@roblox/globaltype/TextService.GetTextSize/param/2": {
-    "documentation": "จำนวนเต็มที่แสดงถึงขนาดฟอนต์ที่ใช้。"
+    "documentation": "จำนวนเต็มที่แสดงถึงขนาดฟอนต์ที่ใช้ ไม่รับ ค่าจาก <code>FontSize</code>."
   },
   "@roblox/globaltype/TextService.GetTextSize/param/3": {
     "documentation": "ฟอนต์ที่ใช้。"
   },
   "@roblox/globaltype/TextService.GetTextSize/param/4": {
-    "documentation": "ขนาด <code>TextLabel.AbsoluteSize</code> ของวัตถุข้อความที่จะใช้ จำเป็นในการคำนวณว่าข้อความจะถูกจัดเรียงอย่างไร。"
+    "documentation": "ขนาดของวัตถุข้อความ <code>GuiBase2d.AbsoluteSize</code> ที่จะใช้. จำเป็นต้องคำนวณว่าข้อความจะพับตัวอย่างไร."
   },
   "@roblox/globaltype/TextService.GetTextSize/return/0": {
     "documentation": "ขนาดพื้นที่ที่ต้องการในพิกเซลโดยสตริงที่มีการจัดรูปแบบที่ระบุ。"
@@ -35285,10 +35285,10 @@
       "@roblox/globaltype/TextService.GetTextSize/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextService#GetTextSize",
-    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal function getTextBounds()\n\tlocal message = \"Hello World\"\n\tlocal size = Vector2.new(1, 1)\n\tlocal bounds = TextService:GetTextSize(message, 12, \"SourceSans\", size)\n\treturn bounds + Vector2.new(1, 1)\nend\n\nprint(getTextBounds())"
+    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal function getTextBounds()\n\tlocal message = \"สวัสดีโลก!\"\n\tlocal size = Vector2.new(1, 1)\n\tlocal bounds = TextService:GetTextSize(message, 12, \"SourceSans\", size)\n\treturn bounds\nend\n\nprint(getTextBounds())"
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync/param/0": {
-    "documentation": "TextService คือบริการภายในที่รับผิดชอบในการจัดการการแสดงผล ของข้อความในเกม。"
+    "documentation": "บริการที่รับผิดชอบในการจัดการการแสดงผลของข้อความภายใน"
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync/param/1": {
     "documentation": ""
@@ -35300,7 +35300,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync": {
-    "documentation": "",
+    "documentation": "คืนค่าออฟเซ็ตที่ใช้ในการขยายข้อความตาม การตั้งค่า <code>GuiService.PreferredTextSize</code> ปัจจุบัน.",
     "params": [
       {
         "name": "self",
@@ -45463,7 +45463,7 @@
       "@roblox/globaltype/Player.GetFriendsOnlineAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetFriendsOnlineAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"ไม่สามารถรับผู้เล่นออนไลน์ได้: \" .. result)\nend"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"ไม่สามารถดึงผู้เล่นออนไลน์ได้: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/0": {
     "documentation": "วัตถุที่แสดงถึงไคลเอ็นต์ที่เชื่อมต่ออยู่ในปัจจุบันกับประสบการณ์"
@@ -45490,7 +45490,7 @@
       "@roblox/globaltype/Player.GetFriendsOnline/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetFriendsOnline",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"ไม่สามารถรับผู้เล่นออนไลน์ได้: \" .. result)\nend"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"ไม่สามารถดึงผู้เล่นออนไลน์ได้: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetJoinData/param/0": {
     "documentation": "วัตถุที่แสดงถึงไคลเอ็นต์ที่เชื่อมต่ออยู่ในปัจจุบันกับประสบการณ์"
@@ -45631,7 +45631,7 @@
       "@roblox/globaltype/Player.GetRoleInGroupAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRoleInGroupAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"ผู้เล่นมีอันดับเป็น '\", player:GetRoleInGroup(2), \"' ในกลุ่ม, 'LOL'!\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/0": {
     "documentation": "วัตถุที่แสดงถึงไคลเอ็นต์ที่เชื่อมต่ออยู่ในปัจจุบันกับประสบการณ์"
@@ -45658,7 +45658,7 @@
       "@roblox/globaltype/Player.GetRoleInGroup/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRoleInGroup",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"ผู้เล่นมีอันดับเป็น '\", player:GetRoleInGroup(2), \"' ในกลุ่ม, 'LOL'!\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/param/0": {
     "documentation": "วัตถุที่แสดงถึงไคลเอ็นต์ที่เชื่อมต่ออยู่ในปัจจุบันกับประสบการณ์"
@@ -45951,7 +45951,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacterAsync()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacter/param/0": {
     "documentation": "วัตถุที่แสดงถึงไคลเอ็นต์ที่เชื่อมต่ออยู่ในปัจจุบันกับประสบการณ์"
@@ -45966,7 +45966,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacter",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacterAsync()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/0": {
     "documentation": "วัตถุที่แสดงถึงไคลเอ็นต์ที่เชื่อมต่ออยู่ในปัจจุบันกับประสบการณ์"
@@ -46010,7 +46010,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterWithHumanoidDescriptionAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\n-- ฟังก์ชันนี้จะถูกเรียกเมื่อผู้เล่นเข้ามา\nlocal function onPlayerAdded(player)\n\t-- สร้างอธิบายของมนุษย์\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\t-- โหลดตัวละครด้วยคำอธิบายของมนุษย์\n\tplayer:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/0": {
     "documentation": "วัตถุที่แสดงถึงไคลเอ็นต์ที่เชื่อมต่ออยู่ในปัจจุบันกับประสบการณ์"
@@ -46032,7 +46032,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterWithHumanoidDescription",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\n-- ฟังก์ชันนี้จะถูกเรียกเมื่อผู้เล่นเข้ามา\nlocal function onPlayerAdded(player)\n\t-- สร้างอธิบายของมนุษย์\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\t-- โหลดตัวละครด้วยคำอธิบายของมนุษย์\n\tplayer:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadInstance/param/0": {
     "documentation": "วัตถุที่แสดงถึงไคลเอ็นต์ที่เชื่อมต่ออยู่ในปัจจุบันกับประสบการณ์"
@@ -57067,7 +57067,7 @@
       "@roblox/globaltype/KeyframeSequenceProvider.GetAnimationsAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequenceProvider#GetAnimationsAsync",
-    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- ใส่ UserId ของคุณที่นี่\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimations(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"ทั้งหมด: \", #animationIds)"
+    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- ใส่ UserId ของคุณที่นี่\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimationsAsync(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"ทั้งหมด: \", #animationIds)"
   },
   "@roblox/globaltype/KeyframeSequenceProvider.GetAnimations/param/0": {
     "documentation": "ให้ฟังก์ชันในการโหลดและดูตัวอย่าง <code>KeyframeSequence</code>。"
@@ -57094,7 +57094,7 @@
       "@roblox/globaltype/KeyframeSequenceProvider.GetAnimations/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequenceProvider#GetAnimations",
-    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- ใส่ UserId ของคุณที่นี่\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimations(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"ทั้งหมด: \", #animationIds)"
+    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- ใส่ UserId ของคุณที่นี่\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimationsAsync(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"ทั้งหมด: \", #animationIds)"
   },
   "@roblox/globaltype/KeyframeSequenceProvider.GetKeyframeSequence/param/0": {
     "documentation": "ให้ฟังก์ชันในการโหลดและดูตัวอย่าง <code>KeyframeSequence</code>。"
@@ -79505,7 +79505,7 @@
       "@roblox/globaltype/MarketplaceService.GetProductInfoAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetProductInfoAsync",
-    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfo(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfoAsync(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/0": {
     "documentation": "บริการที่รับผิดชอบในการทำธุรกรรมภายในประสบการณ์。"
@@ -79539,7 +79539,7 @@
       "@roblox/globaltype/MarketplaceService.GetProductInfo/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetProductInfo",
-    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfo(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfoAsync(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/param/0": {
     "documentation": "บริการที่รับผิดชอบในการทำธุรกรรมภายในประสบการณ์。"
@@ -79797,7 +79797,7 @@
       "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundleAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- แบนเดิลที่เรากำลังตรวจสอบ: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundle(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"การเรียก PlayerOwnsBundle ล้มเหลว: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" เป็นเจ้าของ \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" ไม่เป็นเจ้าของ \" .. BUNDLE_NAME)\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- ชุดที่เรากำลังตรวจสอบ: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundleAsync(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"การเรียก PlayerOwnsBundleAsync ล้มเหลว: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" เป็นเจ้าของ \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" ไม่เป็นเจ้าของ \" .. BUNDLE_NAME)\n\tend\nend)"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/0": {
     "documentation": "บริการที่รับผิดชอบในการทำธุรกรรมภายในประสบการณ์。"
@@ -79831,7 +79831,7 @@
       "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundle",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- แบนเดิลที่เรากำลังตรวจสอบ: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundle(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"การเรียก PlayerOwnsBundle ล้มเหลว: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" เป็นเจ้าของ \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" ไม่เป็นเจ้าของ \" .. BUNDLE_NAME)\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- ชุดที่เรากำลังตรวจสอบ: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundleAsync(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"การเรียก PlayerOwnsBundleAsync ล้มเหลว: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" เป็นเจ้าของ \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" ไม่เป็นเจ้าของ \" .. BUNDLE_NAME)\n\tend\nend)"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/0": {
     "documentation": "บริการที่รับผิดชอบในการทำธุรกรรมภายในประสบการณ์。"
@@ -80100,7 +80100,7 @@
     "documentation": "อาเรย์ของวัตถุที่ระบุตำแหน่งที่ผลิตภัณฑ์ที่คุณต้องการให้จัดอันดับ. อาเรย์นี้สามารถรวมถึงรายการได้สูงสุด 50 รายการ. แต่ละ <code>ProductIdentifier</code> มี: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>ต้องเป็นทั้ง <code>InfoType.GamePass</code> หรือ     <code>InfoType.Product</code>.</li> <li><code>Id</code>: number</li> <li>ID ของเกมพาสหรือผลิตภัณฑ์นักพัฒนา.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "อาเรย์ที่มีรายการที่จัดอันดับตามลำดับเฉพาะของผู้ใช้อยู่ที่ปัจจุบัน. แต่ละอาเรย์มี: <ul> <li><code>ProductIdentifier</code>: ID ที่สอดคล้องจากอาเรย์นำเข้า.</li> <li><code>ProductInfo</code>: พจนานุกรมข้อมูลผลิตภัณฑ์มาตรฐานที่ส่งคืนโดย   <code>GetProductInfo</code>.</li> </ul>"
+    "documentation": "อาร์เรย์ของรายการที่จัดอันดับในลำดับที่ปรับให้เหมาะสมสำหรับผู้ใช้ในปัจจุบัน อาร์เรย์แต่ละรายการมี: <ul> <li><code>ProductIdentifier</code>: รหัสที่เกี่ยวข้องจากอาร์เรย์ที่ป้อน</li> <li><code>ProductInfo</code>: พจนานุกรมข้อมูลผลิตภัณฑ์มาตรฐานที่ส่งคืนโดย   <code>GetProductInfoAsync</code></li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
     "documentation": "รับรายการของ ID ผลิตภัณฑ์และส่งคืนรายการที่จัดอันดับเฉพาะของผลิตภัณฑ์เหล่านั้น.",
@@ -83394,7 +83394,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSearchParams": {
-    "documentation": "ตัวอย่างที่จะถูกส่งไปยัง <code>AssetService:SearchAudio()</code> เพื่อค้นหาทรัพย์สินเสียง",
+    "documentation": "อินสแตนซ์ที่จะถูกส่งไปยัง <code>AssetService:SearchAudioAsync()</code> เพื่อค้นหา ทรัพย์สินเสียง。",
     "keys": {
       "Album": "@roblox/globaltype/AudioSearchParams.Album",
       "Artist": "@roblox/globaltype/AudioSearchParams.Artist",
@@ -91342,7 +91342,7 @@
     "documentation": "รหัสสถานที่ที่จะโทรเลขไป"
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer/param/2": {
-    "documentation": "รหัสการเข้าถึงเซิร์ฟเวอร์ที่จองไว้ที่ส่งกลับโดย <code>TeleportService:ReserveServer()</code>."
+    "documentation": "รหัสการเข้าถึงเซิร์ฟเวอร์ที่สำรองไว้ที่ส่งคืนโดย <code>TeleportService:ReserveServerAsync()</code>."
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer/param/3": {
     "documentation": "อาร์เรย์ของ <code>Players</code> ที่จะโทร."
@@ -91357,7 +91357,7 @@
     "documentation": "หน้าจอโหลดแบบกำหนดเองที่สามารถวางใน <code>CoreGui</code> ที่สถานที่ปลายทางได้ สามารถดึงได้โดยใช้ <code>TeleportService:GetArrivingTeleportGui()</code>."
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer": {
-    "documentation": "โทรกลุ่ม <code>Players</code> ไปยังเซิร์ฟเวอร์ที่จองไว้ที่สร้างขึ้นโดยใช้ <code>TeleportService:ReserveServer()</code>.",
+    "documentation": "เทเลพอร์ตกลุ่มของ <code>Players</code> ไปยังเซิร์ฟเวอร์ที่สำรองไว้ที่สร้างขึ้น โดยใช้ <code>TeleportService:ReserveServerAsync()</code>.",
     "params": [
       {
         "name": "self",
@@ -91390,7 +91390,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#TeleportToPrivateServer",
-    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal dataStore = DataStoreService:GetGlobalDataStore()\n\n-- ดึงโค้ดที่บันทึกไว้\nlocal code = dataStore:GetAsync(\"ReservedServer\")\nif typeof(code) ~= \"string\" then -- ไม่มีการบันทึก สร้างโค้ดใหม่\n\tcode = TeleportService:ReserveServer(game.PlaceId)\n\tdataStore:SetAsync(\"ReservedServer\", code)\nend\n\nlocal function joined(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tif message == \"reserved\" then\n\t\t\tTeleportService:TeleportToPrivateServer(game.PlaceId, code, { player })\n\t\tend\n\tend)\nend\n\nPlayers.PlayerAdded:Connect(joined)"
+    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal dataStore = DataStoreService:GetGlobalDataStore()\n\n-- รับรหัสที่บันทึกไว้\nlocal code = dataStore:GetAsync(\"ReservedServer\")\nif typeof(code) ~= \"string\" then -- ไม่มีที่บันทึกไว้ สร้างใหม่\n\tcode = TeleportService:ReserveServerAsync(game.PlaceId)\n\tdataStore:SetAsync(\"ReservedServer\", code)\nend\n\nlocal function joined(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tif message == \"reserved\" then\n\t\t\tTeleportService:TeleportToPrivateServer(game.PlaceId, code, { player })\n\t\tend\n\tend)\nend\n\nPlayers.PlayerAdded:Connect(joined)"
   },
   "@roblox/globaltype/TeleportService.TeleportToSpawnByName/param/0": {
     "documentation": "อนุญาตให้ขนส่ง <code>Players</code> ระหว่างสถานที่และเซิร์ฟเวอร์ต่างๆ"
@@ -93952,6 +93952,178 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoCapture#TimeLength",
     "code_sample": ""
   },
+  "@roblox/globaltype/InstanceFileSyncService": {
+    "documentation": "บริการสำหรับการทำงานกับการซิงค์ไฟล์จากปลั๊กอิน。",
+    "keys": {
+      "GetAllInstances": "@roblox/globaltype/InstanceFileSyncService.GetAllInstances",
+      "GetStatus": "@roblox/globaltype/InstanceFileSyncService.GetStatus",
+      "GetSyncedInstance": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/param/0": {
+    "documentation": "บริการสำหรับการทำงานกับการซิงค์ไฟล์จากปลั๊กอิน。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/return/0": {
+    "documentation": "คืนค่าอาร์เรย์ของ <code>Instances</code>。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances": {
+    "documentation": "คืนค่าอาร์เรย์ของอินสแตนซ์ทั้งหมดที่กำลังมีส่วนร่วมใน การซิงโครไนซ์ไฟล์ในปัจจุบัน。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetAllInstances",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/0": {
+    "documentation": "บริการสำหรับการทำงานกับการซิงค์ไฟล์จากปลั๊กอิน。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/1": {
+    "documentation": "อินสแตนซ์ที่จะเช็ค。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/return/0": {
+    "documentation": "คืนค่า <code>InstanceFileSyncStatus</code> สำหรับอินสแตนซ์นั้น。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus": {
+    "documentation": "คืนสถานะการซิงโครไนซ์ของอินสแตนซ์เฉพาะ。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/0"
+      },
+      {
+        "name": "instance",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetStatus/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetStatus",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/0": {
+    "documentation": "บริการสำหรับการทำงานกับการซิงค์ไฟล์จากปลั๊กอิน。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/1": {
+    "documentation": "เส้นทางแบบสัมบูรณ์ไปยังไฟล์。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/return/0": {
+    "documentation": "คืนค่าอินสแตนซ์ที่กำลังซิงค์ไปยังเส้นทางไฟล์ ถ้ามีอยู่。 ถ้าไม่, คืนค่า nil。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance": {
+    "documentation": "คืนค่าอินสแตนซ์ที่ตรงกับเส้นทางไฟล์ที่กำหนด。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/0"
+      },
+      {
+        "name": "filePath",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetSyncedInstance",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/0": {
+    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect": {
+    "documentation": "เชื่อมต่อฟังก์ชันที่กำหนดกับเหตุการณ์และส่งคืน <code>RBXScriptConnection</code> ที่เป็นตัวแทนของมัน。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/0": {
+    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel": {
+    "documentation": "เชื่อมต่อฟังก์ชันที่กำหนดกับเหตุการณ์และส่งคืน <code>RBXScriptConnection</code> ที่เป็นตัวแทนของมัน。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/0": {
+    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once": {
+    "documentation": "เชื่อมต่อฟังก์ชันที่กำหนดกับเหตุการณ์ (สำหรับการเรียกใช้งานครั้งเดียว) และ ส่งคืน <code>RBXScriptConnection</code> ที่เป็นตัวแทนของมัน。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait/param/0": {
+    "documentation": "วัตถุที่เรียกใช้งานฟังก์ชันที่เชื่อมต่อเมื่อมีเหตุการณ์เฉพาะเกิดขึ้น。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait": {
+    "documentation": "หยุดการทำงานของเธรดปัจจุบันจนกว่าสัญญาณจะถูกเรียกใช้งานและส่งคืนอาร์กิวเมนต์ ที่ถูกส่งมาจากสัญญาณ。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged": {
+    "documentation": "เกิดขึ้นเมื่อสถานะการซิงโครไนซ์ของอินสแตนซ์เปลี่ยนแปลง。",
+    "keys": {
+      "Connect": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once",
+      "Wait": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#StatusChanged",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SlidingBallConstraint": {
     "documentation": "คลาสพื้นฐานสำหรับข้อจำกัดที่อนุญาตให้การติดตั้งเลื่อนตาม แกน แต่ไม่หมุน",
     "keys": {
@@ -95307,10 +95479,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/2": {
-    "documentation": ""
+    "documentation": "รหัสประจำตัวของตำแหน่งโฆษณาวิดีโอที่ได้รับรางวัลภายใน ประสบการณ์ ช่วยให้สามารถรายงานเกี่ยวกับประสิทธิภาพของตำแหน่งโฆษณาแต่ละรายการ"
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync": {
-    "documentation": "",
+    "documentation": "ติดตามจำนวนครั้งที่ผู้ใช้มีโอกาสดูโฆษณาวิดีโอและอัตราที่พวกเขาดูโฆษณาจริง ๆ",
     "params": [
       {
         "name": "self",
@@ -96540,7 +96712,7 @@
       "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CreateHumanoidModelFromUserIdAsync",
-    "code_sample": "game.Players:CreateHumanoidModelFromUserId(1).Parent = game.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromUserIdAsync(1).Parent = game.Workspace"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId/param/0": {
     "documentation": "บริการที่มี <code>Player</code> อ็อบเจ็กต์ที่เชื่อมต่ออยู่ในปัจจุบัน。"
@@ -96567,7 +96739,7 @@
       "@roblox/globaltype/Players.CreateHumanoidModelFromUserId/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CreateHumanoidModelFromUserId",
-    "code_sample": "game.Players:CreateHumanoidModelFromUserId(1).Parent = game.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromUserIdAsync(1).Parent = game.Workspace"
   },
   "@roblox/globaltype/Players.GetBanHistoryAsync/param/0": {
     "documentation": "บริการที่มี <code>Player</code> อ็อบเจ็กต์ที่เชื่อมต่ออยู่ในปัจจุบัน。"
@@ -96756,7 +96928,7 @@
       "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#GetHumanoidDescriptionFromUserIdAsync",
-    "code_sample": "game.Players:CreateHumanoidModelFromDescription(\n\tgame.Players:GetHumanoidDescriptionFromUserId(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromDescriptionAsync(\n\tgame.Players:GetHumanoidDescriptionFromUserIdAsync(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId/param/0": {
     "documentation": "บริการที่มี <code>Player</code> อ็อบเจ็กต์ที่เชื่อมต่ออยู่ในปัจจุบัน。"
@@ -96783,7 +96955,7 @@
       "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#GetHumanoidDescriptionFromUserId",
-    "code_sample": "game.Players:CreateHumanoidModelFromDescription(\n\tgame.Players:GetHumanoidDescriptionFromUserId(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromDescriptionAsync(\n\tgame.Players:GetHumanoidDescriptionFromUserIdAsync(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
   },
   "@roblox/globaltype/Players.GetNameFromUserIdAsync/param/0": {
     "documentation": "บริการที่มี <code>Player</code> อ็อบเจ็กต์ที่เชื่อมต่ออยู่ในปัจจุบัน。"
@@ -100382,7 +100554,7 @@
     "documentation": "อาเรย์ที่มีผู้เล่นทั้งหมดที่เกี่ยวข้องในการโทร ผู้โทร จะเป็นผู้เล่นคนแรกในอาเรย์เสมอ"
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/return/0": {
-    "documentation": "ตารางซึ่งรวมคีย์ <code>PlaceId</code> และ <code>ReservedServerAccessCode</code> ซึ่งค่าคือ <code>DataModel.PlaceId</code> และรหัสการเข้าถึงเซิร์ฟเวอร์ที่ส่งคืนโดย <code>TeleportService:ReserveServer()</code>, ตามลำดับ"
+    "documentation": "ตารางที่รวมถึงคีย์ <code>PlaceId</code> และ <code>ReservedServerAccessCode</code> ซึ่งค่าเป็น <code>DataModel.PlaceId</code> และโค้ดการเข้าใช้งานเซิร์ฟเวอร์ ที่ส่งกลับโดย <code>TeleportService:ReserveServerAsync()</code>"
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked": {
     "documentation": "การตอบสนองเมื่อมีการโทรจากสมุดโทรศัพท์",
@@ -118036,6 +118208,57 @@
       "OculusQuest": "@roblox/enum/VRDeviceType.OculusQuest"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VRDeviceType",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.NotSynced": {
+    "documentation": "<code>Instance</code> ไม่ได้ถูกซิงก์หรือเกิดข้อผิดพลาด.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#NotSynced",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.Errored": {
+    "documentation": "<code>Instance</code> เป็น root ของการซิงก์ที่เกิดข้อผิดพลาดและหยุดการซิงก์.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#Errored",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot": {
+    "documentation": "<code>Instance</code> ถูกซิงก์เป็น root ของต้นไม้การซิงก์.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsRoot",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant": {
+    "documentation": "<code>Instance</code> กำลังถูกซิงก์เนื่องจากมันเป็นลูกหลานของ root การซิงก์.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsDescendant",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.InstanceFileSyncStatus": {
+    "documentation": "บรรยายสถานะการซิงก์ไฟล์ของ Instance.",
+    "keys": {
+      "NotSynced": "@roblox/enum/InstanceFileSyncStatus.NotSynced",
+      "Errored": "@roblox/enum/InstanceFileSyncStatus.Errored",
+      "SyncedAsRoot": "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot",
+      "SyncedAsDescendant": "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus",
     "code_sample": ""
   },
   "@roblox/enum/PathStatus.Success": {
@@ -137248,7 +137471,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AssetType": {
-    "documentation": "Enum นี้สามารถใช้จับคู่ AssetTypeId จาก <code>MarketplaceService:GetProductInfo()</code> กับประเภทของสินทรัพย์",
+    "documentation": "อีโมนี้สามารถใช้เพื่อจับคู่ AssetTypeId จาก <code>MarketplaceService:GetProductInfoAsync()</code> กับประเภทสินทรัพย์",
     "keys": {
       "Image": "@roblox/enum/AssetType.Image",
       "TShirt": "@roblox/enum/AssetType.TShirt",

@@ -752,7 +752,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CatalogSearchParams": {
-    "documentation": "Katalog aramaları için kullanılan parametreleri saklar <code>AvatarEditorService:SearchCatalog()</code> aracılığıyla.",
+    "documentation": "Katalog aramalarında kullanılan parametreleri depolar <code>AvatarEditorService:SearchCatalogAsync()</code>.",
     "keys": {
       "SearchKeyword": "@roblox/globaltype/CatalogSearchParams.SearchKeyword",
       "MinPrice": "@roblox/globaltype/CatalogSearchParams.MinPrice",
@@ -6523,7 +6523,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.AutoRuns": {
-    "documentation": "<code>true</code> olarak ayarlandığında, oyun, servisin <code>TestService:Run()</code> metodunun çağrılmasıyla çalışmaya başlayacaktır.",
+    "documentation": "<code>true</code> olarak ayarlandığında, oyunun hizmetin <code>TestService:RunAsync()</code> metodunun çağrılmasıyla çalışmaya başlayacaktır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#AutoRuns",
     "code_sample": ""
   },
@@ -7289,7 +7289,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPages": {
-    "documentation": "Class.Pages sınıfının <code>AssetService:SearchAudio()</code> tarafından döndürülen özel bir versiyonu.",
+    "documentation": "<code>Pages</code> sınıfının özel bir versiyonu, <code>AssetService:SearchAudioAsync()</code> tarafından döndürülür.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPages",
     "code_sample": ""
@@ -14129,7 +14129,7 @@
       "@roblox/globaltype/PluginGui.GetRelativeMousePosition/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginGui#GetRelativeMousePosition",
-    "code_sample": "local RunService = game:GetService(\"RunService\")\n\nlocal widgetInfo = DockWidgetPluginGuiInfo.new(\n\tEnum.InitialDockState.Float,\n\ttrue,\n\tfalse, -- Etkin durum, override\n\t200,\n\t300, -- Boyut\n\t150,\n\t150 -- Minimum boyut\n)\n\nlocal testWidget = plugin:CreateDockWidgetPluginGui(\"TestWidget\", widgetInfo)\n\nfunction update()\n\tlocal v2 = testWidget:GetRelativeMousePosition()\n\ttestWidget.Title = (\"(%d, %d)\"):format(v2.x, v2.y)\nend\n\nRunService.Stepped:Connect(update)\n\nupdate()"
+    "code_sample": ""
   },
   "@roblox/globaltype/PluginGui.PluginDragDropped.Connect/param/0": {
     "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
@@ -24865,12 +24865,12 @@
   "@roblox/globaltype/DataModel.CreatorId": {
     "documentation": "Yerin sahibi olan kullanıcı veya grubun kimliğini tanımlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorId",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"Oyun sahibi oyuna katıldı!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"Oyun sahibi grubun bir üyesi oyuna katıldı!\")\n\t\tend\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"Oyun sahibi oyuna katıldı!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"Yerin sahibi grubun bir üyesi oyuna katıldı!\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.CreatorType": {
     "documentation": "Yerinin hangi <code>CreatorType</code>'a ait olduğunu, yerin bir kullanıcıya ya da bir gruba ait olup olmadığını tanımlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorType",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"Oyun sahibi oyuna katıldı!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"Oyun sahibi grubun bir üyesi oyuna katıldı!\")\n\t\tend\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"Oyun sahibi oyuna katıldı!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"Yerin sahibi grubun bir üyesi oyuna katıldı!\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.Environment": {
     "documentation": "",
@@ -24918,7 +24918,7 @@
     "code_sample": "local StarterGui = game:GetService(\"StarterGui\")\n\nlocal versionGui = Instance.new(\"ScreenGui\")\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Position = UDim2.new(1, -10, 1, 0)\ntextLabel.AnchorPoint = Vector2.new(1, 1)\ntextLabel.Size = UDim2.new(0, 150, 0, 40)\n\ntextLabel.BackgroundTransparency = 1\ntextLabel.TextColor3 = Color3.new(1, 1, 1)\ntextLabel.TextStrokeTransparency = 0\ntextLabel.TextXAlignment = Enum.TextXAlignment.Right\ntextLabel.TextScaled = true\n\nlocal placeVersion = game.PlaceVersion\ntextLabel.Text = string.format(\"Sunucu sürümü: %s\", placeVersion)\n\ntextLabel.Parent = versionGui\nversionGui.Parent = StarterGui"
   },
   "@roblox/globaltype/DataModel.PrivateServerId": {
-    "documentation": "Sunucu, özel bir sunucu veya <code>rezervlenmiş sunucu</code> ise sunucunun özel sunucu kimliğini açıklar.",
+    "documentation": "Sunucu, eğer bir özel sunucuysa veya bir <code>rezervli sunucu</code>ysa, özel sunucu kimliğini tanımlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PrivateServerId",
     "code_sample": "local function getServerType()\n\tif game.PrivateServerId ~= \"\" then\n\t\tif game.PrivateServerOwnerId ~= 0 then\n\t\t\treturn \"VIPSunucu\"\n\t\telse\n\t\t\treturn \"RezerveEdilmişSunucu\"\n\t\tend\n\telse\n\t\treturn \"StandartSunucu\"\n\tend\nend\n\nprint(getServerType())"
   },
@@ -27280,7 +27280,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.BackAccessory": {
-    "documentation": "Bir <code>Aksesuarlar</code> olarak eklenecek asset ID'lerinin virgülle ayrılmış bir listesi, genellikle sırtına eklenenler (pelerin gibi).",
+    "documentation": "Bu, bir <code>Humanoid</code> rig'ine <code>uygulandığında</code> <code>Aksesuarlar</code> olarak eklenecek varlık ID'lerinin virgülle ayrılmış listesidir; genellikle sırtına takılanlar (pelerin gibi).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#BackAccessory",
     "code_sample": ""
   },
@@ -27290,7 +27290,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.ClimbAnimation": {
-    "documentation": "Bu tanım <code>applied</code> olduğunda, <code>Humanoid</code> için, <code>state</code> değeri <code>Climbing</code> olduğunda oynatılacak <code>Animation.AnimationId</code>'yi belirler.",
+    "documentation": "Bu tanım <code>uygulandığında</code>, <code>durumu</code> <code>Climbing</code> konumundayken çalınacak olan <code>Animation.AnimationId</code>'yi belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#ClimbAnimation",
     "code_sample": ""
   },
@@ -27305,17 +27305,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.FaceAccessory": {
-    "documentation": "Bir <code>Humanoid</code> rig'ine eklenecek <code>Aksesuarlar</code> olarak, genellikle yüzünün önüne eklenen asset ID'lerinin virgülle ayrılmış bir listesi (gözlük gibi).",
+    "documentation": "Bu, bir <code>Humanoid</code> rig'ine <code>uygulandığında</code> <code>Aksesuarlar</code> olarak eklenecek varlık ID'lerinin virgülle ayrılmış listesidir; genellikle yüzünün ön kısmına takılanlar (gözlük gibi).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#FaceAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.FallAnimation": {
-    "documentation": "Bu tanım <code>applied</code> olduğunda, <code>Humanoid</code> için, <code>state</code> değeri <code>Freefall</code> olduğunda oynatılacak <code>Animation.AnimationId</code>'yi belirler.",
+    "documentation": "Bu tanım <code>uygulandığında</code> <code>Humanoid</code>'e, <code>durumu</code> <code>Freefall</code> olduğunda çalınacak olan <code>Animation.AnimationId</code>'yi belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#FallAnimation",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.FrontAccessory": {
-    "documentation": "Bir <code>Humanoid</code> rig'ine eklenecek <code>Aksesuarlar</code> olarak, genellikle gövdesinin önüne eklenen asset ID'lerinin virgülle ayrılmış bir listesi (madalya veya kravat gibi).",
+    "documentation": "Bu, bir <code>Humanoid</code> rig'ine <code>uygulandığında</code> <code>Aksesuarlar</code> olarak eklenecek varlık ID'lerinin virgülle ayrılmış listesidir; genellikle gövdesinin ön kısmına takılanlar (madalya veya kravat gibi).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#FrontAccessory",
     "code_sample": ""
   },
@@ -27325,12 +27325,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.HairAccessory": {
-    "documentation": "Bir <code>Humanoid</code> rig'ine eklenecek <code>Aksesuarlar</code> olarak, genellikle görünüşü andıran asset ID'lerinin virgülle ayrılmış bir listesi (saç gibi).",
+    "documentation": "Bu, bir <code>Humanoid</code> rig'ine <code>uygulandığında</code> <code>Aksesuarlar</code> olarak eklenecek varlık ID'lerinin virgülle ayrılmış listesidir; genellikle başına benzer görünüşte olarak takılanlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#HairAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.HatAccessory": {
-    "documentation": "Bir <code>Humanoid</code> rig'ine eklenecek <code>Aksesuarlar</code> olarak, genellikle başına eklenen asset ID'lerinin virgülle ayrılmış bir listesi.",
+    "documentation": "Bu, bir <code>Humanoid</code> rig'ine <code>uygulandığında</code> <code>Aksesuarlar</code> olarak eklenecek varlık ID'lerinin virgülle ayrılmış listesidir; genellikle başına takılanlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#HatAccessory",
     "code_sample": ""
   },
@@ -27340,7 +27340,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.HeadColor": {
-    "documentation": "<code>applied</code> sırasında <code>Humanoid</code>'ın <code>BodyColors.HeadColor3</code> ve <code>BodyColors.HeadColor</code> değerlerini belirler.",
+    "documentation": "Bu, tanım <code>uygulandığında</code> bir <code>Humanoid</code>'un <code>BodyColors.HeadColor3</code> ve <code>BodyColors.HeadColor</code>'unu belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#HeadColor",
     "code_sample": ""
   },
@@ -27355,12 +27355,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.IdleAnimation": {
-    "documentation": "Bu tanım <code>applied</code> olduğunda, <code>Humanoid</code>'ı çalıştırmakta olan çarın <code>state değeri</code>érieurs-<code>Running</code> olduğunda yetkili <code>Animation.AnimationId</code>'yi hangi değil çalıştırıldığını belirler.",
+    "documentation": "Bu tanım <code>uygulandığında</code>, <code>Humanoid</code>'e, <code>durumu</code> <code>Running</code> düşük bir hızda olduğunda çalınacak olan <code>Animation.AnimationId</code>'yi belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#IdleAnimation",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.JumpAnimation": {
-    "documentation": "Bu tanım <code>applied</code> olduğunda, <code>Humanoid</code> için, <code>state</code> değeri <code>Jumping</code> olduğunda oynatılacak <code>Animation.AnimationId</code>'yi belirler.",
+    "documentation": "Bu tanım <code>uygulandığında</code> <code>Humanoid</code>'e çalınacak olan <code>Animation.AnimationId</code>'yi belirlerken <code>durumu</code> <code>Jumping</code>'dir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#JumpAnimation",
     "code_sample": ""
   },
@@ -27390,7 +27390,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.NeckAccessory": {
-    "documentation": "Bir <code>Humanoid</code> rig'ine eklenecek <code>Aksesuarlar</code> olarak, genellikle boynuna eklenen asset ID'lerinin virgülle ayrılmış bir listesi (atkı veya kolye gibi).",
+    "documentation": "Bu, bir <code>Humanoid</code> rig'ine <code>uygulandığında</code> <code>Aksesuarlar</code> olarak eklenecek varlık ID'lerinin virgülle ayrılmış listesidir; genellikle boynuna takılanlar (atkı veya kolye gibi).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#NeckAccessory",
     "code_sample": ""
   },
@@ -27425,7 +27425,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.RunAnimation": {
-    "documentation": "Bu tanım <code>applied</code> olduğunda, <code>Humanoid</code>'ı çalıştırma sistemi olduğu için, bunun <code>Running</code> olduğu zamanı belirler.",
+    "documentation": "Bu tanım <code>uygulandığında</code>, <code>Humanoid</code>'e, <code>durumu</code> <code>Running</code> orta bir hızda olduğunda çalınacak olan <code>Animation.AnimationId</code>'yi belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#RunAnimation",
     "code_sample": ""
   },
@@ -27435,12 +27435,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.ShouldersAccessory": {
-    "documentation": "Bir <code>Humanoid</code> rig'ine eklenecek <code>Aksesuarlar</code> olarak, genellikle omzuna eklenen asset ID'lerinin virgülle ayrılmış bir listesi (omuzlarındaki) hayvanlar gibi.",
+    "documentation": "Bu, bir <code>Humanoid</code> rig'ine <code>uygulandığında</code> <code>Aksesuarlar</code> olarak eklenecek varlık ID'lerinin virgülle ayrılmış listesidir; genellikle omuzlarına takılanlar (ş shoulder-mounted critters gibi).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#ShouldersAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.SwimAnimation": {
-    "documentation": "Bu tanım <code>applied</code> olduğunda, <code>Swimming</code> olduğunda oynatılacak <code>Animation.AnimationId</code>'yi belirler.",
+    "documentation": "Bu tanım <code>uygulandığında</code> <code>Humanoid</code>'e <code>durumu</code> <code>Swimming</code> olduğunda çalınacak olan <code>Animation.AnimationId</code>'yi belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#SwimAnimation",
     "code_sample": ""
   },
@@ -27455,12 +27455,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.WaistAccessory": {
-    "documentation": "Bir <code>Humanoid</code> rig'ine eklenecek <code>Aksesuarlar</code> olarak, genellikle beline eklenen asset ID'lerinin virgülle ayrılmış bir listesi (kemer gibi).",
+    "documentation": "Bu, bir <code>Humanoid</code> rig'ine <code>uygulanırken</code> <code>Aksesuarlar</code> olarak eklenecek varlık ID'lerinin virgülle ayrılmış listesidir; genellikle beline takılanlar (kemer gibi).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#WaistAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.WalkAnimation": {
-    "documentation": "Bu tanım <code>applied</code> olduğunda, bir <code>Humanoid</code> için hangi animasyonların oynatılacağını belirler <code>Running</code> dörtlüsü oldukça düşük bir hızda.",
+    "documentation": "Bu tanım <code>uygulandığında</code>, <code>Humanoid</code>'e çalınacak olan <code>Animation.AnimationId</code>'yi belirlerken <code>durumu</code> <code>Running</code> düşük bir hızda olacaktır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#WalkAnimation",
     "code_sample": ""
   },
@@ -33602,7 +33602,7 @@
       "@roblox/globaltype/Plugin.CreateDockWidgetPluginGuiAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CreateDockWidgetPluginGuiAsync",
-    "code_sample": "-- Yeni 'DockWidgetPluginGuiInfo' nesnesi oluştur\nlocal widgetInfo = DockWidgetPluginGuiInfo.new(\n\tEnum.InitialDockState.Float, -- Widget, yüzer panel içinde başlatılacak\n\ttrue, -- Widget başlangıçta etkin olacak\n\tfalse, -- Önceki etkin durumu geçersiz kılma\n\t200, -- Yüzer pencerenin varsayılan genişliği\n\t300, -- Yüzer pencerenin varsayılan yüksekliği\n\t150, -- Yüzer pencerenin minimum genişliği (isteğe bağlı)\n\t150 -- Yüzer pencerenin minimum yüksekliği (isteğe bağlı)\n)\n\n-- Yeni widget GUI oluştur\nlocal testWidget = plugin:CreateDockWidgetPluginGui(\"TestWidget\", widgetInfo)\n\nlocal testButton = Instance.new(\"TextButton\")\ntestButton.BorderSizePixel = 0\ntestButton.TextSize = 20\ntestButton.TextColor3 = Color3.new(1, 0.2, 0.4)\ntestButton.AnchorPoint = Vector2.new(0.5, 0.5)\ntestButton.Size = UDim2.new(1, 0, 1, 0)\ntestButton.Position = UDim2.new(0.5, 0, 0.5, 0)\ntestButton.SizeConstraint = Enum.SizeConstraint.RelativeYY\ntestButton.Text = \"Bana Tıkla\"\ntestButton.Parent = testWidget"
+    "code_sample": ""
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/param/0": {
     "documentation": ""
@@ -35084,7 +35084,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService": {
-    "documentation": "TextService, oyunda metin görüntüleme ile ilgilenen dahili bir hizmettir.",
+    "documentation": "Metin görüntülemeden sorumlu hizmet.",
     "keys": {
       "FilterAndTranslateStringAsync": "@roblox/globaltype/TextService.FilterAndTranslateStringAsync",
       "FilterStringAsync": "@roblox/globaltype/TextService.FilterStringAsync",
@@ -35097,7 +35097,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync/param/0": {
-    "documentation": "TextService, oyunda metin görüntüleme ile ilgilenen dahili bir hizmettir."
+    "documentation": "Metin görüntülemeden sorumlu hizmet."
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync/param/1": {
     "documentation": ""
@@ -35115,7 +35115,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync": {
-    "documentation": "Eski sohbette sohbet çevirisi desteklenmemektedir. Bu yöntem artık desteklenmiyor ve kullanılmamalıdır.",
+    "documentation": "Bir dizgeyi filtreler ve çevirir.",
     "params": [
       {
         "name": "self",
@@ -35145,22 +35145,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/0": {
-    "documentation": "TextService, oyunda metin görüntüleme ile ilgilenen dahili bir hizmettir."
+    "documentation": "Metin görüntülemeden sorumlu hizmet."
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/1": {
     "documentation": "Filtrelenecek metin."
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/2": {
-    "documentation": "Metni filtreleyen oyuncunun userId'si."
+    "documentation": "Metni filtreleyen oyuncunun <code>Player.UserId</code>'sidir."
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/3": {
-    "documentation": "Filtrelenen mesajın kullanılacağı bağlam."
+    "documentation": "Filtrelenmiş mesajın kullanılacağı bağlam. Bu parametre, filtrelenmiş sonuç üzerinde bir etki yaratmaz ve yalnızca Roblox'un metin filtrelemesini iyileştirmek için kullanılır."
   },
   "@roblox/globaltype/TextService.FilterStringAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/TextService.FilterStringAsync": {
-    "documentation": "Bir kullanıcıdan alınan bir metni filtreler ve doğru bir şekilde filtrelenmiş metni dağıtmak için kullanılabilecek bir <code>TextFilterResult</code> döndürür.",
+    "documentation": "Bir kullanıcıdan alınan bir dizgeyi filtreler ve doğru bir şekilde filtrelenmiş metni dağıtmak için kullanılabilecek bir <code>TextFilterResult</code> döndürür.",
     "params": [
       {
         "name": "self",
@@ -35186,7 +35186,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.GetFamilyInfoAsync/param/0": {
-    "documentation": "TextService, oyunda metin görüntüleme ile ilgilenen dahili bir hizmettir."
+    "documentation": "Metin görüntülemeden sorumlu hizmet."
   },
   "@roblox/globaltype/TextService.GetFamilyInfoAsync/param/1": {
     "documentation": "Aranacak yazı ailesinin Varlık ID'si."
@@ -35210,10 +35210,10 @@
       "@roblox/globaltype/TextService.GetFamilyInfoAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextService#GetFamilyInfoAsync",
-    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal familyToCheck = \"rbxasset://fonts/families/Arial.json\"\n\n-- Bu, fontu indirmek için birkaç saniye sürebilecek bir yield fonksiyonudur.\nlocal info = TextService:GetFamilyInfoAsync(familyToCheck)\n\nprint(\"Fontun adı:\", info.Name)\nprint(\"Yüzler:\")\nfor _, face in info.Faces do\n\tprint(\"--------\")\n\tprint(\"Adı:\", face.Name)\n\tprint(\"Ağırlık:\", face.Weight.Name)\n\tprint(\"Stil:\", face.Style.Name)\nend"
+    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal familyToCheck = \"rbxasset://fonts/families/Arimo.json\"\n\nlocal success, info = pcall(function()\n\treturn TextService:GetFamilyInfoAsync(familyToCheck)\nend)\nif success then\n\tprint(\"Yazı tipinin adı:\", info.Name)\n\tprint(\"Yüzler:\")\n\tfor _, face in info.Faces do\n\t\tprint(\"--------\")\n\t\tprint(\"Ad:\", face.Name)\n\t\tprint(\"Ağırlık:\", face.Weight.Name)\n\t\tprint(\"Stil:\", face.Style.Name)\n\tend\nend"
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync/param/0": {
-    "documentation": "TextService, oyunda metin görüntüleme ile ilgilenen dahili bir hizmettir."
+    "documentation": "Metin görüntülemeden sorumlu hizmet."
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync/param/1": {
     "documentation": "Bir <code>GetTextBoundsParams</code> nesnesine referans."
@@ -35222,7 +35222,7 @@
     "documentation": "Bir <code>Vector2</code> olarak metnin boyutu."
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync": {
-    "documentation": "Verilen parametrelerle metnin genişliğini ve yüksekliğini hesaplar.",
+    "documentation": "<code>Vector2</code> boyutlarını (piksel cinsinden) hesaplar ve bu, <code>GetTextBoundsParams</code> nesnesi kullanıldığında metinle kaplanacak olan yer miktarını belirtir.",
     "params": [
       {
         "name": "self",
@@ -35240,19 +35240,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.GetTextSize/param/0": {
-    "documentation": "TextService, oyunda metin görüntüleme ile ilgilenen dahili bir hizmettir."
+    "documentation": "Metin görüntülemeden sorumlu hizmet."
   },
   "@roblox/globaltype/TextService.GetTextSize/param/1": {
     "documentation": "Metin boyutunun hesaplanacağı dize."
   },
   "@roblox/globaltype/TextService.GetTextSize/param/2": {
-    "documentation": "Kullanılan yazı tipinin boyutunu temsil eden tam sayı."
+    "documentation": "Kullanılan yazı tipi boyutunu temsil eden tam sayıdır. <code>FontSize</code> değerini kabul etmez."
   },
   "@roblox/globaltype/TextService.GetTextSize/param/3": {
     "documentation": "Kullanılan yazı tipi."
   },
   "@roblox/globaltype/TextService.GetTextSize/param/4": {
-    "documentation": "Hangi metin nesnesinin <code>TextLabel.AbsoluteSize</code> kullanılacağını. Metnin nasıl sarılacağını hesaplamak için gereklidir."
+    "documentation": "Kullanılacak metin nesnesinin <code>GuiBase2d.AbsoluteSize</code>'ıdır. Metnin nasıl sarılacağını hesaplamak için gereklidir."
   },
   "@roblox/globaltype/TextService.GetTextSize/return/0": {
     "documentation": "Belirtilen formatlamaya sahip dize için gerekli alan boyutu, piksel cinsindendir."
@@ -35285,10 +35285,10 @@
       "@roblox/globaltype/TextService.GetTextSize/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextService#GetTextSize",
-    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal function getTextBounds()\n\tlocal message = \"Merhaba Dünya\"\n\tlocal size = Vector2.new(1, 1)\n\tlocal bounds = TextService:GetTextSize(message, 12, \"SourceSans\", size)\n\treturn bounds + Vector2.new(1, 1)\nend\n\nprint(getTextBounds())"
+    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal function getTextBounds()\n\tlocal message = \"Merhaba dünya!\"\n\tlocal size = Vector2.new(1, 1)\n\tlocal bounds = TextService:GetTextSize(message, 12, \"SourceSans\", size)\n\treturn bounds\nend\n\nprint(getTextBounds())"
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync/param/0": {
-    "documentation": "TextService, oyunda metin görüntüleme ile ilgilenen dahili bir hizmettir."
+    "documentation": "Metin görüntülemeden sorumlu hizmet."
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync/param/1": {
     "documentation": ""
@@ -35300,7 +35300,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync": {
-    "documentation": "",
+    "documentation": "Mevcut <code>GuiService.PreferredTextSize</code> ayarına göre metni ölçeklendirmek için kullanılan ofseti döndürür.",
     "params": [
       {
         "name": "self",
@@ -45463,7 +45463,7 @@
       "@roblox/globaltype/Player.GetFriendsOnlineAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetFriendsOnlineAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Çevrimiçi oyuncuları alma başarısız oldu: \" .. result)\nend"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Çevrimiçi oyuncuları almakta başarısız: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/0": {
     "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
@@ -45490,7 +45490,7 @@
       "@roblox/globaltype/Player.GetFriendsOnline/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetFriendsOnline",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Çevrimiçi oyuncuları alma başarısız oldu: \" .. result)\nend"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Çevrimiçi oyuncuları almakta başarısız: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetJoinData/param/0": {
     "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
@@ -45631,7 +45631,7 @@
       "@roblox/globaltype/Player.GetRoleInGroupAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRoleInGroupAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"Oyuncu, '\", player:GetRoleInGroup(2), \"' rütbesindedir, 'LOL'!\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/0": {
     "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
@@ -45658,7 +45658,7 @@
       "@roblox/globaltype/Player.GetRoleInGroup/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRoleInGroup",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"Oyuncu, '\", player:GetRoleInGroup(2), \"' rütbesindedir, 'LOL'!\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": ""
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/param/0": {
     "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
@@ -45951,7 +45951,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacterAsync()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacter/param/0": {
     "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
@@ -45966,7 +45966,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacter",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacterAsync()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/0": {
     "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
@@ -46010,7 +46010,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterWithHumanoidDescriptionAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/0": {
     "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
@@ -46032,7 +46032,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterWithHumanoidDescription",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadInstance/param/0": {
     "documentation": "Deneyime şu anda bağlı olan bir istemciyi temsil eden bir nesne."
@@ -57067,7 +57067,7 @@
       "@roblox/globaltype/KeyframeSequenceProvider.GetAnimationsAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequenceProvider#GetAnimationsAsync",
-    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- Kullanıcı ID'nizi buraya girin\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimations(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"toplam: \", #animationIds)"
+    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- Kullanıcı ID'nizi buraya yerleştirin\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimationsAsync(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"toplam: \", #animationIds)"
   },
   "@roblox/globaltype/KeyframeSequenceProvider.GetAnimations/param/0": {
     "documentation": "<code>KeyframeSequence</code> yüklemek ve ön izleme yapmak için fonksiyonlar sağlar."
@@ -57094,7 +57094,7 @@
       "@roblox/globaltype/KeyframeSequenceProvider.GetAnimations/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequenceProvider#GetAnimations",
-    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- Kullanıcı ID'nizi buraya girin\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimations(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"toplam: \", #animationIds)"
+    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- Kullanıcı ID'nizi buraya yerleştirin\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimationsAsync(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"toplam: \", #animationIds)"
   },
   "@roblox/globaltype/KeyframeSequenceProvider.GetKeyframeSequence/param/0": {
     "documentation": "<code>KeyframeSequence</code> yüklemek ve ön izleme yapmak için fonksiyonlar sağlar."
@@ -79505,7 +79505,7 @@
       "@roblox/globaltype/MarketplaceService.GetProductInfoAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetProductInfoAsync",
-    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfo(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfoAsync(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/0": {
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
@@ -79539,7 +79539,7 @@
       "@roblox/globaltype/MarketplaceService.GetProductInfo/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetProductInfo",
-    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfo(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfoAsync(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/param/0": {
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
@@ -79797,7 +79797,7 @@
       "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundleAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- Kontrol ettiğimiz paket: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundle(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundle çağrısı başarısız oldu: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" sahip \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" sahip değil \" .. BUNDLE_NAME)\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- Kontrol ettiğimiz paket: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundleAsync(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundleAsync çağrısı başarısız oldu: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" sahip \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" sahip değil \" .. BUNDLE_NAME)\n\tend\nend)"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/0": {
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
@@ -79831,7 +79831,7 @@
       "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundle",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- Kontrol ettiğimiz paket: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundle(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundle çağrısı başarısız oldu: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" sahip \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" sahip değil \" .. BUNDLE_NAME)\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- Kontrol ettiğimiz paket: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundleAsync(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundleAsync çağrısı başarısız oldu: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" sahip \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" sahip değil \" .. BUNDLE_NAME)\n\tend\nend)"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/0": {
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
@@ -80100,7 +80100,7 @@
     "documentation": "Sıralamak istediğiniz ürünleri tanımlayan nesnelerin dizisi. Bu dizi en fazla 50 öğe içerebilir. Her <code>ProductIdentifier</code> şunlara sahiptir: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li><code>InfoType.GamePass</code> veya     <code>InfoType.Product</code> olmalıdır.</li> <li><code>Id</code>: number</li> <li>Oyun geçidi veya geliştirici ürünün kimliği.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "Kendi kullanıcılarınız için sıralı bir şekilde kişiselleştirilmiş ürünlerin dizisi. Her dizi şunları içerir: <ul> <li><code>ProductIdentifier</code>: Giriş dizisinden karşılık gelen kimlik.</li> <li><code>ProductInfo</code>: <code>GetProductInfo</code> tarafından döndürülen standart ürün bilgisi sözlüğü.</li> </ul>"
+    "documentation": "Mevcut kullanıcı için kişiselleştirilmiş sırada sıralanmış öğelerin dizisi. Her dizi şunları içerir: <ul> <li><code>ProductIdentifier</code>: Giriş dizisinden karşılık gelen ID.</li> <li><code>ProductInfo</code>: <code>GetProductInfoAsync</code> tarafından döndürülen standart ürün bilgisi sözlüğü.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
     "documentation": "Ürün kimliklerinin bir listesini alır ve bu ürünlerin kişiselleştirilmiş sıralı listesini döndürür.",
@@ -83394,7 +83394,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSearchParams": {
-    "documentation": "<code>AssetService:SearchAudio()</code> yöntemine ses varlıklarını aramak için geçirilecek örnek.",
+    "documentation": "Ses varlıklarını aramak için <code>AssetService:SearchAudioAsync()</code>'ye geçirilecek örnek.",
     "keys": {
       "Album": "@roblox/globaltype/AudioSearchParams.Album",
       "Artist": "@roblox/globaltype/AudioSearchParams.Artist",
@@ -91342,7 +91342,7 @@
     "documentation": "Teleport edilecek yerin kimliği."
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer/param/2": {
-    "documentation": "<code>TeleportService:ReserveServer()</code> tarafından döndürülen rezerve edilmiş sunucu erişim kodu."
+    "documentation": "<code>TeleportService:ReserveServerAsync()</code> tarafından döndürülen rezerve edilmiş sunucu erişim kodu."
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer/param/3": {
     "documentation": "Teleport edilecek <code>Players</code> dizisi."
@@ -91357,7 +91357,7 @@
     "documentation": "Varış yerinde <code>CoreGui</code>'nde yer alacak isteğe bağlı özel yükleme ekranı. <code>TeleportService:GetArrivingTeleportGui()</code> ile alınabilir."
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer": {
-    "documentation": "<code>TeleportService:ReserveServer()</code> kullanılarak oluşturulmuş bir rezerve edilmiş sunucuya bir grup <code>Players</code>'ı teleport eder.",
+    "documentation": "Bir grup <code>Players</code>'ı <code>TeleportService:ReserveServerAsync()</code> kullanarak oluşturulmuş rezerve edilmiş bir sunucuya teleport et.",
     "params": [
       {
         "name": "self",
@@ -91390,7 +91390,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#TeleportToPrivateServer",
-    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal dataStore = DataStoreService:GetGlobalDataStore()\n\n-- Kaydedilen kodu al\nlocal code = dataStore:GetAsync(\"ReservedServer\")\nif typeof(code) ~= \"string\" then -- Hiçbiri kaydedilmedi, bir tane oluştur\n\tcode = TeleportService:ReserveServer(game.PlaceId)\n\tdataStore:SetAsync(\"ReservedServer\", code)\nend\n\nlocal function joined(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tif message == \"rezervasyon\" then\n\t\t\tTeleportService:TeleportToPrivateServer(game.PlaceId, code, { player })\n\t\tend\n\tend)\nend\n\nPlayers.PlayerAdded:Connect(joined)"
+    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal dataStore = DataStoreService:GetGlobalDataStore()\n\n-- Kaydedilen kodu al\nlocal code = dataStore:GetAsync(\"ReservedServer\")\nif typeof(code) ~= \"string\" then -- Hiç yok, bir tane oluştur\n\tcode = TeleportService:ReserveServerAsync(game.PlaceId)\n\tdataStore:SetAsync(\"ReservedServer\", code)\nend\n\nlocal function joined(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tif message == \"reserved\" then\n\t\t\tTeleportService:TeleportToPrivateServer(game.PlaceId, code, { player })\n\t\tend\n\tend)\nend\n\nPlayers.PlayerAdded:Connect(joined)"
   },
   "@roblox/globaltype/TeleportService.TeleportToSpawnByName/param/0": {
     "documentation": "<code>Players</code>'ı yerler ve sunucular arasında taşımayı etkinleştirir."
@@ -91619,7 +91619,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService": {
-    "documentation": "Geliştirici avatar yaratıcılarına destek sunan bir hizmet.",
+    "documentation": "Geliştirici avatar oluşturucularını desteklemek için bir hizmet.",
     "keys": {
       "AutoSetupAvatarAsync": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync",
       "GenerateAvatar2DPreviewAsync": "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync",
@@ -91641,22 +91641,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/0": {
-    "documentation": "Geliştirici avatar yaratıcılarına destek sunan bir hizmet."
+    "documentation": "Geliştirici avatar oluşturucularını desteklemek için bir hizmet."
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/1": {
     "documentation": "Avatarın ayarlandığı <code>Player</code>."
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/2": {
-    "documentation": "Avatar olarak ayarlanacak humanoid <code>Model</code>."
+    "documentation": "Avatar olarak ayarlanacak olan insansı <code>Model</code>."
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/3": {
-    "documentation": "İlerleme durumu bilgisi ile birlikte belirli aralıklarla çağrılacak opsiyonel geri çağırma işlevi.  İlerleme durumu: <code>progressInfo: { Progress: number }</code>."
+    "documentation": "İlerlemenin genel ilerlemesi ile birlikte süreli olarak çağrılacak opsiyonel geri arama işlevi (0 ile 1 arasında). Tüp: <code>(progressInfo: { Progress: number }) -&gt; ()</code>"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/return/0": {
-    "documentation": "Üretilen avatar için benzersiz bir tanımlayıcı."
+    "documentation": "Oluşturulan avatar için benzersiz bir tanımlayıcı."
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync": {
-    "documentation": "Özelleştirilmiş bir <code>Model</code>'i avatar varlığı olarak otomatik olarak ayarlar.",
+    "documentation": "Özel bir <code>Model</code>'i avatar varlığı olarak otomatik olarak kurar.",
     "params": [
       {
         "name": "self",
@@ -91682,13 +91682,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/param/0": {
-    "documentation": "Geliştirici avatar yaratıcılarına destek sunan bir hizmet."
+    "documentation": "Geliştirici avatar oluşturucularını desteklemek için bir hizmet."
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/param/1": {
-    "documentation": "2D önizleme oluşturma için argümanlar tablosu. Tür: <code>avatarGeneration2dPreviewParams: {SessionId: string, FileId: string, TextPrompt: string?}</code>"
+    "documentation": "2D önizleme üretimi için argümanlar tablosu. Tüp: <code>avatarGeneration2dPreviewParams: {SessionId: string, FileId: string, TextPrompt: string?}</code>"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/return/0": {
-    "documentation": "Bir dize previewId"
+    "documentation": "Bir string previewId"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync": {
     "documentation": "2D avatar önizlemesi oluşturur ve bir previewId döndürür.",
@@ -91709,13 +91709,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/param/0": {
-    "documentation": "Geliştirici avatar yaratıcılarına destek sunan bir hizmet."
+    "documentation": "Geliştirici avatar oluşturucularını desteklemek için bir hizmet."
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/param/1": {
-    "documentation": "Bir avatar oluşturma için argümanlar tablosu. Tür: <code>avatarGenerationParams: {SessionId: string, PreviewId: string}</code>"
+    "documentation": "Bir avatar oluşturmak için argümanlar tablosu. Tüp: <code>avatarGenerationParams: {SessionId: string, PreviewId: string}</code>"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/return/0": {
-    "documentation": "Bir dize generationId."
+    "documentation": "Bir string generationId."
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync": {
     "documentation": "Bir avatar oluşturur ve bir generationId döndürür.",
@@ -91736,16 +91736,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync/param/0": {
-    "documentation": "Geliştirici avatar yaratıcılarına destek sunan bir hizmet."
+    "documentation": "Geliştirici avatar oluşturucularını desteklemek için bir hizmet."
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync/param/1": {
-    "documentation": "Detaylarını almak için avatar oluşturma token ID'lerinin listesi."
+    "documentation": "Detaylarını alacak avatar oluşturma tokenı kimlikleri listesi."
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync/return/0": {
-    "documentation": "Yukarıda özetlenen şekilde avatar oluşturma token detaylarının dizisi."
+    "documentation": "Yukarıda detaylandırıldığı gibi avatar oluşturma tokenı detaylarının dizisi."
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync": {
-    "documentation": "Bir liste avatar oluşturma token'larının detaylarını bir defada alır.",
+    "documentation": "Bir avatar oluşturma tokenı listesi için avatar oluşturma tokenlarının detaylarını alır.",
     "params": [
       {
         "name": "self",
@@ -91763,13 +91763,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.GetValidationRules/param/0": {
-    "documentation": "Geliştirici avatar yaratıcılarına destek sunan bir hizmet."
+    "documentation": "Geliştirici avatar oluşturucularını desteklemek için bir hizmet."
   },
   "@roblox/globaltype/AvatarCreationService.GetValidationRules/return/0": {
-    "documentation": "Yukarıda ayrıntılı bir şekilde açıklanan doğrulama kurallarının sözlüğü."
+    "documentation": "Yukarıda detaylandırıldığı gibi doğrulama kuralları sözlüğü."
   },
   "@roblox/globaltype/AvatarCreationService.GetValidationRules": {
-    "documentation": "Varlıkların UGC doğrulamasını geçmesi için uyması gereken kurallar hakkında veri alır.",
+    "documentation": "Varlıkların UGC doğrulamasından geçmek için uyması gereken kurallar hakkında veri alır.",
     "params": [
       {
         "name": "self",
@@ -91783,16 +91783,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/param/0": {
-    "documentation": "Geliştirici avatar yaratıcılarına destek sunan bir hizmet."
+    "documentation": "Geliştirici avatar oluşturucularını desteklemek için bir hizmet."
   },
   "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/param/1": {
-    "documentation": "Yükle;  <code>GenerateAvatar2DPreviewAsync()</code> aracılığıyla oluşturulan önizlemeyi yükler."
+    "documentation": "<code>GenerateAvatar2DPreviewAsync()</code> ile oluşturulan önizlemeyi yükler."
   },
   "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/return/0": {
     "documentation": "Önizleme görüntüsünü içeren bir <code>EditableImage</code>."
   },
   "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync": {
-    "documentation": "İstemcide bir previewId'den bir AvatarGeneration 2D önizlemesi yükler.",
+    "documentation": "Bir previewId'dan istemcide bir AvatarGeneration 2D önizlemesi yükler.",
     "params": [
       {
         "name": "self",
@@ -91810,16 +91810,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync/param/0": {
-    "documentation": "Geliştirici avatar yaratıcılarına destek sunan bir hizmet."
+    "documentation": "Geliştirici avatar oluşturucularını desteklemek için bir hizmet."
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync/param/1": {
-    "documentation": "Oluşturulan avatarı tanımlayan benzersiz bir dize, <code>AutoSetupAvatarAsync()</code> ile döndürülen."
+    "documentation": "Oluşturulan avatarın tanımlayıcısı olan benzersiz bir dize; <code>AutoSetupAvatarAsync()</code> tarafından döndürülür."
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync/return/0": {
-    "documentation": "Oluşturulan avatarın, tüm oluşturulan örnekler ve özelliklerle birlikte <code>HumanoidDescription</code>'ı."
+    "documentation": "Oluşturulan avatarın <code>HumanoidDescription</code>'ı; tüm oluşturulan örnekleri ve özellikleri içerir."
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync": {
-    "documentation": "Bir avatar oluşturma kimliğini kullanarak oluşturulan bir avatar yükler.",
+    "documentation": "Bir avatar oluşturma kimliği kullanarak oluşturulan bir avatar yükler.",
     "params": [
       {
         "name": "self",
@@ -91837,13 +91837,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync/param/0": {
-    "documentation": "Geliştirici avatar yaratıcılarına destek sunan bir hizmet."
+    "documentation": "Geliştirici avatar oluşturucularını desteklemek için bir hizmet."
   },
   "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync/param/1": {
-    "documentation": "HSR verileri güncellenmesi gereken <code>WrapDeformer</code> örnekleri ile birlikte <code>MeshPart</code> çocuklarını barındıran <code>Model</code>."
+    "documentation": "Önizleme için HSR verileri güncellenmesi gereken <code>MeshPart</code> çocuklarına sahip <code>Model</code>."
   },
   "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync": {
-    "documentation": "Deneyim içindeki avatarı önizleme için hazırlayın.",
+    "documentation": "Deneyim içinde avatarı önizleme için hazırlar.",
     "params": [
       {
         "name": "self",
@@ -91859,25 +91859,25 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/0": {
-    "documentation": "Geliştirici avatar yaratıcılarına destek sunan bir hizmet."
+    "documentation": "Geliştirici avatar oluşturucularını desteklemek için bir hizmet."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/1": {
-    "documentation": "Bir oluşturma token'ının ID'si. Token, metodun çağrıldığı evrenin, token'ın oluşturulduğu evrenle aynı olması açısından geçerli olmalıdır. Dahası, token'ı oluşturan kişi ID doğrulamasını sürdürmelidir ve <a href=\"https://www.roblox.com/premium/membership\">Roblox Premium</a> hesabına sahip olmalıdır. Bu API'de kullanılmak üzere bir token oluşturmak için, <a href=\"../../../production/monetization/avatar-creation-token.md\">token oluşturma</a>  işlemini izleyin. Token'ının oluşturma türü, metoda geçirilen <code>AvatarAssetType</code> ile eşleşmelidir."
+    "documentation": "Oluşturma tokenının kimliği. Token, çağrının yapıldığı evrenin tokenın oluşturulduğu evrenle aynı olması gerektiğinden geçerli olmalıdır. Ayrıca, token yaratıcı ID doğrulamasını sağlamalıdır ve <a href=\"https://www.roblox.com/premium/membership\">Roblox Premium</a>. Bu API'de kullanılabilecek bir token oluşturmak için <a href=\"../../../production/monetization/avatar-creation-token.md\">token oluşturma</a> sürecini izleyin. Tokenın oluşturma türü, yönteme geçirilen <code>AvatarAssetType</code> ile eşleşmelidir."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/2": {
-    "documentation": "Yaratım isteminin sunulacağı <code>Player</code>."
+    "documentation": "Oluşturma istemiyle karşılaşması beklenen <code>Player</code>."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/3": {
-    "documentation": "Oluşturulması amaçlanan avatar varlığının <code>Instance</code>'ı."
+    "documentation": "Oluşturulacak avatar varlığının <code>Instance</code>'ı."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/4": {
-    "documentation": "Beklenen oluşturmanın <code>AvatarAssetType</code>'ı. Bu, sağlanan token'ın oluşturma türüyle eşleşmelidir."
+    "documentation": "Beklenen oluşturma türünün <code>AvatarAssetType</code>'ıdır. Bu, sağlanan tokenın oluşturma türü ile eşleşmelidir."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/return/0": {
-    "documentation": "Sırasıyla içeren bir tuple: <ul> <li> Oluşturma isteğinin sonucunu belirten bir <code>PromptCreateAssetResult</code>. </li> <li> Bir string sonucu. <code>PromptCreateAssetResult.Success</code> durumunda, bu varlık ID'sini gösterecektir. Herhangi bir hata durumunda, bu sonucunda oluşan hata mesajını gösterecektir. </li> </ul>"
+    "documentation": "Sırasıyla aşağıdaki unsurları içeren bir demet: <ul> <li> Oluşturma isteminin sonucunu belirten bir <code>PromptCreateAssetResult</code>. </li> <li> Bir string sonucu. <code>PromptCreateAssetResult.Success</code> durumunda, bu varlık ID'sini belirtecektir. Herhangi bir hata enum durumunda, bu sonuç hata mesajını belirtecektir. </li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync": {
-    "documentation": "<code>Player</code>'ın bir avatar varlığı satın almasını ve oluşturmasını <code>Instance</code> üzerinden istemektedir.",
+    "documentation": "Bir <code>Instance</code>'dan bir avatar varlığı satın alması ve oluşturması için <code>Player</code>'ı istemde bulunur.",
     "params": [
       {
         "name": "self",
@@ -91907,22 +91907,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/0": {
-    "documentation": "Geliştirici avatar yaratıcılarına destek sunan bir hizmet."
+    "documentation": "Geliştirici avatar oluşturucularını desteklemek için bir hizmet."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/1": {
-    "documentation": "Bir avatar oluşturma token'ının ID'si. Token geçerli olmalıdır, yani metodun çağrıldığı evrenin, token'ın oluşturulduğu evrenle aynı olması gerekiyor. Ayrıca, token'ı oluşturan kişi ID doğrulamasını sürdürmelidir ve <a href=\"https://www.roblox.com/premium/membership\">Roblox Premium</a> hesabına sahip olmalıdır. Bu API'de kullanılmak üzere bir token oluşturmak için, <a href=\"../../../production/monetization/avatar-creation-token.md\">token oluşturma</a>  işlemini izleyin."
+    "documentation": "Bir avatar oluşturma tokenının kimliği. Token, çağrının yapıldığı evrenin tokenın oluşturulduğu evrenle aynı olması gerektiğinden geçerli olmalıdır. Ayrıca, token yaratıcı ID doğrulamasını sağlamalıdır ve <a href=\"https://www.roblox.com/premium/membership\">Roblox Premium</a>. Bu API'de kullanılabilecek bir token oluşturmak için <a href=\"../../../production/monetization/avatar-creation-token.md\">token oluşturma</a> sürecini izleyin."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/2": {
-    "documentation": "Oluşturma isteminin sunulacağı <code>Player</code>."
+    "documentation": "Oluşturma istemiyle karşılaşması beklenen <code>Player</code>."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/3": {
-    "documentation": "Oluşturulması amaçlanan avatarın <code>HumanoidDescription</code>'ı."
+    "documentation": "Oluşturulacak avatarın <code>HumanoidDescription</code>'ı."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/return/0": {
-    "documentation": "Sırasıyla içeren bir tuple: <ul> <li> Oluşturma isteğinin sonucunu belirten bir <code>PromptCreateAvatarResult</code>. </li> <li> Bir string sonucu. <code>PromptCreateAvatarResult.Success</code> durumunda, bu, paket ID'sini gösterecektir. Herhangi bir hata durumunda, bu, sonuçta oluşan hata mesajını gösterecektir. </li> <li> İkincil isteğe bağlı bir string sonucu. <code>PromptCreateAvatarResult.Success</code> durumunda, bu kıyafet ID'sini gösterecektir. Herhangi bir hata durumunda, bu <code>nil</code> olacaktır. </li> </ul>"
+    "documentation": "Sırasıyla aşağıdaki unsurları içeren bir demet: <ul> <li> Oluşturma isteminin sonucunu belirten bir <code>PromptCreateAvatarResult</code>. </li> <li> Bir string sonucu. <code>PromptCreateAvatarResult.Success</code> durumunda, bu paket ID'sini belirtecektir. Herhangi bir hata enum durumunda, bu sonuç hata mesajını belirtecektir. </li> <li> İkincil opsiyonel bir string sonucu. <code>PromptCreateAvatarResult.Success</code> durumunda, bu giysi ID'sini belirtecektir. Herhangi bir hata enum durumunda, bu <code>nil</code> olacaktır. </li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync": {
-    "documentation": "<code>Player</code>'ın bir <code>HumanoidDescription</code>'dan bir avatar satın almasını ve oluşturmasını istemektedir.",
+    "documentation": "Bir <code>HumanoidDescription</code>'dan bir avatar satın alması ve oluşturması için <code>Player</code>'ı istemde bulunur.",
     "params": [
       {
         "name": "self",
@@ -91948,16 +91948,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/param/0": {
-    "documentation": "Geliştirici avatar yaratıcılarına destek sunan bir hizmet."
+    "documentation": "Geliştirici avatar oluşturucularını desteklemek için bir hizmet."
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/param/1": {
-    "documentation": "Selfie çekmesi istenen <code>Player</code>."
+    "documentation": "Selfie çekmesi için istemde bulunulacak <code>Player</code>."
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/return/0": {
-    "documentation": "Selfie'nin string FileId'si."
+    "documentation": "Selfie'nin bir string FileId'si."
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync": {
-    "documentation": "<code>Player</code>'ı bir selfie çekmeye yönlendirir ve FileId'yi döner.",
+    "documentation": "İstemciye bir selfie çekmesi için <code>Player</code>'ı istemde bulunur ve FileId'yi döndürür.",
     "params": [
       {
         "name": "self",
@@ -91975,19 +91975,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/0": {
-    "documentation": "Geliştirici avatar yaratıcılarına destek sunan bir hizmet."
+    "documentation": "Geliştirici avatar oluşturucularını desteklemek için bir hizmet."
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/1": {
-    "documentation": "Bir AvatarGeneration oturumu talep edilecek <code>Player</code>."
+    "documentation": "AvatarGeneration oturumu için talep edilecek <code>Player</code>."
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/2": {
-    "documentation": "Oturumla ilgili bilgileri içeren SessionInfo tablosuyla  çağrılan geri çağırma fonksiyonu. Tür: <code>(SessionInfo: { SessionId: string, Allowed2DGenerations: number, Allowed3DGenerations: number, SessionTime: number }) -&gt; ()</code>"
+    "documentation": "Oturum hakkında bilgi içeren bir SessionInfo tablosuyla çağrıldığı zaman geri çağrılan işlev. Tüp: <code>(SessionInfo: { SessionId: string, Allowed2DGenerations: number, Allowed3DGenerations: number, SessionTime: number }) -&gt; ()</code>"
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/return/0": {
-    "documentation": "İptal edilecek oturum talebi için kullanılan <code>RBXScriptConnection</code>'ı ve tahmini bekleme süresini içeren bir tuple."
+    "documentation": "Bir oturum isteğinin iptal edilmesi için kullanılabilecek <code>RBXScriptConnection</code> ve tahmini bekleme süresini içeren bir demet."
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync": {
-    "documentation": "<code>Player</code> için bir AvatarGeneration oturumu talep eder.",
+    "documentation": "Bir <code>Player</code> için AvatarGeneration oturumu talebinde bulunur.",
     "params": [
       {
         "name": "self",
@@ -92009,22 +92009,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/0": {
-    "documentation": "Geliştirici avatar yaratıcılarına destek sunan bir hizmet."
+    "documentation": "Geliştirici avatar oluşturucularını desteklemek için bir hizmet."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/1": {
     "documentation": "Doğrulamanın tamamlandığı <code>Player</code>."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/2": {
-    "documentation": "Doğrulamanın yapıldığı örnek."
+    "documentation": "Üzerinde doğrulamanın çalışıldığı örnek."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/3": {
-    "documentation": "Örneğin <code>AccessoryType</code> olması beklenir. <code>Eyebrow</code>, <code>Eyelash</code> veya <code>Hair</code> beklenir."
+    "documentation": "Belirtilen örneğin beklenen türü olan <code>AccessoryType</code>. <code>Kaş</code>, <code>Kirpik</code> veya <code>Saç</code> beklemektedir."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/return/0": {
-    "documentation": "Sırasıyla içeren bir tuple: <ul> <li>Aksesuar için doğrulamanın başarılı olup olmadığını belirten bir boolean.</li> <li>Opsiyonel bir string tablosu. Bu, doğrulama başarılı olmadığında başarısızlık nedenlerini içerir, aksi takdirde başarılı olduğunda <code>nil</code> olur.</li> </ul>"
+    "documentation": "Sırasıyla aşağıdaki unsurları içeren bir demet: <ul> <li>Aksesuar için doğrulamanın başarılı olup olmadığını belirten bir boolean.</li> <li>İsteğe bağlı bir dize tablosu. Bu, doğrulama başarısız olursa hata nedenlerini içerir; aksi takdirde doğrulamanın başarılı olması durumunda <code>nil</code> olacaktır.</li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync": {
-    "documentation": "Sadece Studio. Bir <code>AccessoryType</code> için UGC doğrulaması yapar.",
+    "documentation": "Sadece stüdyo ortamında. <code>AccessoryType</code> için UGC doğrulamasını gerçekleştirir.",
     "params": [
       {
         "name": "self",
@@ -92050,22 +92050,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/0": {
-    "documentation": "Geliştirici avatar yaratıcılarına destek sunan bir hizmet."
+    "documentation": "Geliştirici avatar oluşturucularını desteklemek için bir hizmet."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/1": {
     "documentation": "Doğrulamanın tamamlandığı <code>Player</code>."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/2": {
-    "documentation": "Doğrulamanın yapıldığı instance."
+    "documentation": "Üzerinde doğrulamanın çalışıldığı örnek."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/3": {
-    "documentation": "Instance'ın olması beklenen <code>BodyPart</code>."
+    "documentation": "Beklenen türdeki <code>BodyPart</code> örneği."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/return/0": {
-    "documentation": "Sırasıyla içeren bir tuple: <ul> <li>Vücut parçasının doğrulamanın başarılı olup olmadığını belirten bir boolean.</li> <li>Opsiyonel bir string tablosu. Bu, doğrulama başarılı olmadığında başarısızlık nedenlerini içerir, aksi takdirde başarılı olduğunda <code>nil</code> olur.</li> </ul>"
+    "documentation": "Sırasıyla aşağıdaki unsurları içeren bir demet: <ul> <li>Beden parçası için doğrulamanın başarılı olup olmadığını belirten bir boolean.</li> <li>İsteğe bağlı bir dize tablosu. Bu, doğrulama başarısız olursa hata nedenlerini içerir; aksi takdirde doğrulamanın başarılı olması durumunda <code>nil</code> olacaktır.</li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync": {
-    "documentation": "Sadece Studio. Bir <code>BodyPart</code> için UGC doğrulaması yapar.",
+    "documentation": "Sadece stüdyo ortamında. <code>BodyPart</code> için UGC doğrulamasını gerçekleştirir.",
     "params": [
       {
         "name": "self",
@@ -92091,19 +92091,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/param/0": {
-    "documentation": "Geliştirici avatar yaratıcılarına destek sunan bir hizmet."
+    "documentation": "Geliştirici avatar oluşturucularını desteklemek için bir hizmet."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/param/1": {
     "documentation": "Doğrulamanın tamamlandığı <code>Player</code>."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/param/2": {
-    "documentation": "Doğrulamanın yapıldığı vücudu temsil eden <code>HumanoidDescription</code>."
+    "documentation": "Doğrulama yapılan bedenin <code>HumanoidDescription</code>'ı."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/return/0": {
-    "documentation": "Sırasıyla içeren bir tuple: <ul> <li>Vücudun doğrulamanın başarılı olup olmadığını belirten bir boolean.</li> <li>Opsiyonel bir string tablosu. Bu, doğrulama başarılı olmadığında başarısızlık nedenlerini içerir, aksi takdirde başarılı olduğunda <code>nil</code> olur.</li> </ul>"
+    "documentation": "Sırasıyla aşağıdaki unsurları içeren bir demet: <ul> <li>Beden için doğrulamanın başarılı olup olmadığını belirten bir boolean.</li> <li>İsteğe bağlı bir dize tablosu. Bu, doğrulama başarısız olursa hata nedenlerini içerir; aksi takdirde doğrulamanın başarılı olması durumunda <code>nil</code> olacaktır.</li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync": {
-    "documentation": "Sadece Studio. Bütün bir vücut için UGC doğrulaması yapar.",
+    "documentation": "Sadece stüdyo ortamında. Tam bir beden için UGC doğrulaması gerçekleştirir.",
     "params": [
       {
         "name": "self",
@@ -92202,7 +92202,7 @@
     "returns": []
   },
   "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted": {
-    "documentation": "Pending durumundan güncellenmiş bir deneyim oluşturulmuş avatar varlığının moderasyon durumunda değişiklik olduğunda tetiklenir.",
+    "documentation": "Deneyim içinde oluşturulan avatar varlığının moderasyon durumu beklemeden güncellendiğinde tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect",
       "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel",
@@ -92290,7 +92290,7 @@
     "returns": []
   },
   "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted": {
-    "documentation": "Pending durumundan güncellenmiş bir deneyim oluşturulmuş avatarın moderasyon durumunda değişiklik olduğunda tetiklenir.",
+    "documentation": "Deneyim içinde oluşturulan avatarın moderasyon durumu beklemeden güncellendiğinde tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect",
       "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel",
@@ -93952,6 +93952,178 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoCapture#TimeLength",
     "code_sample": ""
   },
+  "@roblox/globaltype/InstanceFileSyncService": {
+    "documentation": "Bir eklenti üzerinden dosya senkronizasyonu ile etkileşim kurmak için bir hizmet.",
+    "keys": {
+      "GetAllInstances": "@roblox/globaltype/InstanceFileSyncService.GetAllInstances",
+      "GetStatus": "@roblox/globaltype/InstanceFileSyncService.GetStatus",
+      "GetSyncedInstance": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/param/0": {
+    "documentation": "Bir eklenti üzerinden dosya senkronizasyonu ile etkileşim kurmak için bir hizmet."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/return/0": {
+    "documentation": "<code>Instances</code> dizisini döner."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances": {
+    "documentation": "Dosya senkronizasyonuna şu anda dahil olan tüm örneklerin bir dizisini döner.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetAllInstances",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/0": {
+    "documentation": "Bir eklenti üzerinden dosya senkronizasyonu ile etkileşim kurmak için bir hizmet."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/1": {
+    "documentation": "Kontrol edilecek örnek."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/return/0": {
+    "documentation": "Örneğin <code>InstanceFileSyncStatus</code> değerini döner."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus": {
+    "documentation": "Belirli bir örneğin senkronizasyon durumunu döner.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/0"
+      },
+      {
+        "name": "instance",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetStatus/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetStatus",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/0": {
+    "documentation": "Bir eklenti üzerinden dosya senkronizasyonu ile etkileşim kurmak için bir hizmet."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/1": {
+    "documentation": "Dosyaya giden mutlak yol."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/return/0": {
+    "documentation": "Eğer varsa dosya yoluna senkronize edilen örneği döner. Aksi takdirde, nil döner."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance": {
+    "documentation": "Verilen bir dosya yoluna karşılık gelen örneği döner.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/0"
+      },
+      {
+        "name": "filePath",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetSyncedInstance",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect": {
+    "documentation": "Verilen işlevi olaya bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel": {
+    "documentation": "Verilen işlevi olaya bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once": {
+    "documentation": "Verilen işlevi olaya (tek bir çağrı için) bağlar ve onu temsil eden bir <code>RBXScriptConnection</code> döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait/param/0": {
+    "documentation": "Belirli bir olay meydana geldiğinde bağlı işlevleri çalıştıran bir nesne."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait": {
+    "documentation": "Sinyal tetiklenene kadar mevcut iş parçacığını duraklatır ve sinyal tarafından sağlanan argümanları döner.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged": {
+    "documentation": "Bir örneğin senkronizasyon durumu değiştiğinde tetiklenir.",
+    "keys": {
+      "Connect": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once",
+      "Wait": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#StatusChanged",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SlidingBallConstraint": {
     "documentation": "Bağlantıların bir eksen boyunca kaymasına izin veren ve dönmesine izin vermeyen kısıtlamalar için temel sınıf.",
     "keys": {
@@ -95307,10 +95479,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/2": {
-    "documentation": ""
+    "documentation": "Deneyim içindeki ödüllü video reklamının yerleştirme kimliği. Bireysel reklam yerleştirmelerinin performansı hakkında raporlamaya olanak tanır."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync": {
-    "documentation": "",
+    "documentation": "Bir kullanıcının bir video reklamı izleme şansını kaç kez elde ettiğini ve reklamı ne kadar izleme oranını takip eder.",
     "params": [
       {
         "name": "self",
@@ -96540,7 +96712,7 @@
       "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CreateHumanoidModelFromUserIdAsync",
-    "code_sample": "game.Players:CreateHumanoidModelFromUserId(1).Parent = game.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromUserIdAsync(1).Parent = game.Workspace"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId/param/0": {
     "documentation": "Şu anda bağlı olan <code>Player</code> nesnelerini içeren bir hizmet."
@@ -96567,7 +96739,7 @@
       "@roblox/globaltype/Players.CreateHumanoidModelFromUserId/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CreateHumanoidModelFromUserId",
-    "code_sample": "game.Players:CreateHumanoidModelFromUserId(1).Parent = game.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromUserIdAsync(1).Parent = game.Workspace"
   },
   "@roblox/globaltype/Players.GetBanHistoryAsync/param/0": {
     "documentation": "Şu anda bağlı olan <code>Player</code> nesnelerini içeren bir hizmet."
@@ -96756,7 +96928,7 @@
       "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#GetHumanoidDescriptionFromUserIdAsync",
-    "code_sample": "game.Players:CreateHumanoidModelFromDescription(\n\tgame.Players:GetHumanoidDescriptionFromUserId(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromDescriptionAsync(\n\tgame.Players:GetHumanoidDescriptionFromUserIdAsync(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId/param/0": {
     "documentation": "Şu anda bağlı olan <code>Player</code> nesnelerini içeren bir hizmet."
@@ -96783,7 +96955,7 @@
       "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#GetHumanoidDescriptionFromUserId",
-    "code_sample": "game.Players:CreateHumanoidModelFromDescription(\n\tgame.Players:GetHumanoidDescriptionFromUserId(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromDescriptionAsync(\n\tgame.Players:GetHumanoidDescriptionFromUserIdAsync(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
   },
   "@roblox/globaltype/Players.GetNameFromUserIdAsync/param/0": {
     "documentation": "Şu anda bağlı olan <code>Player</code> nesnelerini içeren bir hizmet."
@@ -100382,7 +100554,7 @@
     "documentation": "Çağrıda yer alan tüm oyuncuları içeren bir dizi. Çağrıyı yapan her zaman dizinin ilk oyuncusudur."
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/return/0": {
-    "documentation": "<code>PlaceId</code> ve <code>ReservedServerAccessCode</code> anahtarlarını içeren bir tablo; bunların değerleri <code>DataModel.PlaceId</code> ve <code>TeleportService:ReserveServer()</code> tarafından döndürülen sunucu erişim kodudur."
+    "documentation": "<code>PlaceId</code> ve <code>ReservedServerAccessCode</code> anahtarlarını içeren bir tablo, değerleri sırasıyla <code>DataModel.PlaceId</code> ve <code>TeleportService:ReserveServerAsync()</code> tarafından döndürülen sunucu erişim kodudur."
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked": {
     "documentation": "Telefon defterinden bir çağrı yapıldığında çağrılacak geri dönüş.",
@@ -118036,6 +118208,57 @@
       "OculusQuest": "@roblox/enum/VRDeviceType.OculusQuest"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VRDeviceType",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.NotSynced": {
+    "documentation": "<code>Instance</code> senkronize edilmemektedir veya hata verilmiştir.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#NotSynced",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.Errored": {
+    "documentation": "<code>Instance</code> hata vermiş ve senkronizasyonu durdurmuş bir senkronizasyon köküdür.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#Errored",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot": {
+    "documentation": "<code>Instance</code> bir senkronizasyon ağacının kökü olarak senkronize edilmektedir.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsRoot",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant": {
+    "documentation": "<code>Instance</code> bir senkronizasyon kökünün alt öğesi olduğu için senkronize edilmektedir.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsDescendant",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.InstanceFileSyncStatus": {
+    "documentation": "Bir Instance'ın dosya senkronizasyon durumunu açıklar.",
+    "keys": {
+      "NotSynced": "@roblox/enum/InstanceFileSyncStatus.NotSynced",
+      "Errored": "@roblox/enum/InstanceFileSyncStatus.Errored",
+      "SyncedAsRoot": "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot",
+      "SyncedAsDescendant": "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus",
     "code_sample": ""
   },
   "@roblox/enum/PathStatus.Success": {
@@ -137248,7 +137471,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AssetType": {
-    "documentation": "Bu Enum, <code>MarketplaceService:GetProductInfo()</code>'dan alınan AssetTypeId'yi bir varlık türü ile eşleştirmek için kullanılabilir.",
+    "documentation": "Bu Enum, <code>MarketplaceService:GetProductInfoAsync()</code>'ten alınan AssetTypeId'yi bir varlık türüne eşleştirmek için kullanılabilir.",
     "keys": {
       "Image": "@roblox/enum/AssetType.Image",
       "TShirt": "@roblox/enum/AssetType.TShirt",

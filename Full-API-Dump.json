@@ -4734,7 +4734,7 @@
                         ]
                     },
                     "Category": "Transform",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "AttachmentPoint",
                     "Security": {
@@ -8901,7 +8901,7 @@
                         ]
                     },
                     "Category": "Behavior",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "RootMotion",
                     "Security": {
@@ -9355,48 +9355,6 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "bool"
-                            }
-                        },
-                        {
-                            "Name": "valuesUpdated",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxSecurity",
-                    "Tags": [
-                        "Hidden"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "Capabilities": [
-                        "Animation"
-                    ],
-                    "MemberType": "Event",
-                    "Name": "OnStreamingUpdated",
-                    "Parameters": [
-                        {
-                            "Name": "fadeTime",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "float"
-                            }
-                        },
-                        {
-                            "Name": "weight",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "float"
-                            }
-                        },
-                        {
-                            "Name": "priority",
-                            "Type": {
-                                "Category": "Enum",
-                                "Name": "AnimationPriority"
                             }
                         },
                         {
@@ -11032,6 +10990,21 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PickFileWithPromptAsync",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "PickImageFileWithPrompt",
                     "Parameters": [
                     ],
@@ -12005,25 +11978,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GetBundleDetailsSync",
-                    "Parameters": [
-                        {
-                            "Name": "bundleId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "int64"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Dictionary"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "GetOpaqueContentMetadataMap",
                     "Parameters": [
                         {
@@ -12979,7 +12933,7 @@
                         ]
                     },
                     "Category": "Transform",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "CFrame",
                     "Security": {
@@ -13170,7 +13124,7 @@
                         ]
                     },
                     "Category": "Derived World Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "WorldCFrame",
                     "Security": {
@@ -13439,7 +13393,7 @@
                         ]
                     },
                     "Category": "Transform",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Transform",
                     "Security": {
@@ -13467,7 +13421,7 @@
                         ]
                     },
                     "Category": "Derived Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "TransformedCFrame",
                     "Security": {
@@ -13497,7 +13451,7 @@
                         ]
                     },
                     "Category": "Derived World Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "TransformedWorldCFrame",
                     "Security": {
@@ -20562,39 +20516,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "SetPropertyIsInput",
-                    "Parameters": [
-                        {
-                            "Name": "target",
-                            "Type": {
-                                "Category": "Class",
-                                "Name": "Instance"
-                            }
-                        },
-                        {
-                            "Name": "propertyName",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        },
-                        {
-                            "Name": "isInput",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "bool"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Primitive",
-                        "Name": "null"
-                    },
-                    "Security": "None",
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "ShowDebugVisualizer",
                     "Parameters": [
                         {
@@ -26102,6 +26023,126 @@
         {
             "Members": [
                 {
+                    "Category": "State",
+                    "Default": "__api_dump_class_not_creatable__",
+                    "MemberType": "Property",
+                    "Name": "Enabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "BaseCoreGuiConfiguration",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "State",
+                    "Default": "false",
+                    "MemberType": "Property",
+                    "Name": "Open",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "CapturesViewConfiguration",
+            "Superclass": "BaseCoreGuiConfiguration",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "State",
+                    "Default": "true",
+                    "MemberType": "Property",
+                    "Name": "Open",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "PlayerListConfiguration",
+            "Superclass": "BaseCoreGuiConfiguration",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "State",
+                    "Default": "false",
+                    "MemberType": "Property",
+                    "Name": "Open",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "SelfViewConfiguration",
+            "Superclass": "BaseCoreGuiConfiguration",
+            "Tags": [
+                "NotCreatable",
+                "NotReplicated"
+            ]
+        },
+        {
+            "Members": [
+                {
                     "Category": "Data",
                     "Default": "__api_dump_class_not_creatable__",
                     "MemberType": "Property",
@@ -29054,7 +29095,7 @@
                         ]
                     },
                     "Category": "Tuning",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "BindOffset",
                     "Security": {
@@ -29308,7 +29349,7 @@
                         ]
                     },
                     "Category": "Appearance",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "ReferenceOrigin",
                     "Security": {
@@ -29332,7 +29373,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "ReferenceOriginWorld",
                     "Security": {
@@ -30340,7 +30381,7 @@
                         ]
                     },
                     "Category": "Goals",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "CFrame",
                     "Security": {
@@ -30436,7 +30477,7 @@
                         ]
                     },
                     "Category": "Goals",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "cframe",
                     "Security": {
@@ -35694,7 +35735,7 @@
                         ]
                     },
                     "Category": "Dragged Amount",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "DragFrame",
                     "Security": {
@@ -36106,7 +36147,7 @@
                         ]
                     },
                     "Category": "Internal",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "PhysicalDragTargetFrame",
                     "Security": {
@@ -36915,7 +36956,7 @@
             "Members": [
                 {
                     "Category": "Camera",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "CFrame",
                     "Security": {
@@ -38365,7 +38406,7 @@
                         ]
                     },
                     "Category": "TargetOrientation",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "CFrame",
                     "Security": {
@@ -39020,7 +39061,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "C0",
                     "Security": {
@@ -39051,7 +39092,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "C1",
                     "Security": {
@@ -39219,7 +39260,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Transform",
                     "Security": {
@@ -45300,6 +45341,75 @@
             "Tags": [
                 "NotCreatable",
                 "Service"
+            ]
+        },
+        {
+            "Members": [
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "CapturesViewConfiguration",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "CapturesViewConfiguration"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "PlayerListConfiguration",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "PlayerListConfiguration"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_no_string_value__",
+                    "MemberType": "Property",
+                    "Name": "SelfViewConfiguration",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Class",
+                        "Name": "SelfViewConfiguration"
+                    }
+                }
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "CoreGuiConfiguration",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
             ]
         },
         {
@@ -51763,12 +51873,43 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetPlaybackCurrentFrame",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int64"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetPlaybackMode",
                     "Parameters": [
                     ],
                     "ReturnType": {
                         "Category": "Enum",
                         "Name": "ExperienceStateRecordingPlaybackMode"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetPlaybackFrame",
+                    "Parameters": [
+                        {
+                            "Name": "frame",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -65953,7 +66094,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "CameraCFrame",
                     "Security": {
@@ -72990,7 +73131,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Index1TposeAdjustment",
                     "Security": {
@@ -73038,7 +73179,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Index2TposeAdjustment",
                     "Security": {
@@ -73086,7 +73227,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Index3TposeAdjustment",
                     "Security": {
@@ -73182,7 +73323,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Middle1TposeAdjustment",
                     "Security": {
@@ -73230,7 +73371,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Middle2TposeAdjustment",
                     "Security": {
@@ -73278,7 +73419,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Middle3TposeAdjustment",
                     "Security": {
@@ -73374,7 +73515,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Pinky1TposeAdjustment",
                     "Security": {
@@ -73422,7 +73563,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Pinky2TposeAdjustment",
                     "Security": {
@@ -73470,7 +73611,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Pinky3TposeAdjustment",
                     "Security": {
@@ -73566,7 +73707,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Ring1TposeAdjustment",
                     "Security": {
@@ -73614,7 +73755,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Ring2TposeAdjustment",
                     "Security": {
@@ -73662,7 +73803,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Ring3TposeAdjustment",
                     "Security": {
@@ -73782,7 +73923,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Thumb1TposeAdjustment",
                     "Security": {
@@ -73830,7 +73971,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Thumb2TposeAdjustment",
                     "Security": {
@@ -73878,7 +74019,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Thumb3TposeAdjustment",
                     "Security": {
@@ -80111,7 +80252,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "ChestTposeAdjustment",
                     "Security": {
@@ -80231,7 +80372,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "HeadBaseTposeAdjustment",
                     "Security": {
@@ -80351,7 +80492,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "LeftAnkleTposeAdjustment",
                     "Security": {
@@ -80471,7 +80612,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "LeftClavicleTposeAdjustment",
                     "Security": {
@@ -80591,7 +80732,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "LeftElbowTposeAdjustment",
                     "Security": {
@@ -80711,7 +80852,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "LeftHipTposeAdjustment",
                     "Security": {
@@ -80831,7 +80972,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "LeftKneeTposeAdjustment",
                     "Security": {
@@ -80951,7 +81092,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "LeftShoulderTposeAdjustment",
                     "Security": {
@@ -81071,7 +81212,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "LeftToesTposeAdjustment",
                     "Security": {
@@ -81191,7 +81332,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "LeftWristTposeAdjustment",
                     "Security": {
@@ -81311,7 +81452,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "NeckTposeAdjustment",
                     "Security": {
@@ -81335,7 +81476,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "OriginOffset",
                     "Security": {
@@ -81455,7 +81596,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "PelvisTposeAdjustment",
                     "Security": {
@@ -81575,7 +81716,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "RightAnkleTposeAdjustment",
                     "Security": {
@@ -81695,7 +81836,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "RightClavicleTposeAdjustment",
                     "Security": {
@@ -81815,7 +81956,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "RightElbowTposeAdjustment",
                     "Security": {
@@ -81935,7 +82076,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "RightHipTposeAdjustment",
                     "Security": {
@@ -82055,7 +82196,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "RightKneeTposeAdjustment",
                     "Security": {
@@ -82175,7 +82316,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "RightShoulderTposeAdjustment",
                     "Security": {
@@ -82295,7 +82436,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "RightToesTposeAdjustment",
                     "Security": {
@@ -82415,7 +82556,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "RightWristTposeAdjustment",
                     "Security": {
@@ -82535,7 +82676,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "RootTposeAdjustment",
                     "Security": {
@@ -82655,7 +82796,7 @@
                         ]
                     },
                     "Category": "Tpose",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "WaistTposeAdjustment",
                     "Security": {
@@ -83169,7 +83310,7 @@
                         ]
                     },
                     "Category": "Behavior",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "EndEffectorOffset",
                     "Security": {
@@ -83193,7 +83334,7 @@
                         ]
                     },
                     "Category": "Behavior",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Offset",
                     "Security": {
@@ -85896,6 +86037,25 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "MemberType": "Function",
+                    "Name": "GetTooltip",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "string?"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
                     "MemberType": "Event",
                     "Name": "StatusChanged",
                     "Parameters": [
@@ -86698,7 +86858,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Transform",
                     "Security": {
@@ -90333,7 +90493,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "EntityPosition",
                     "Security": {
@@ -90444,6 +90604,29 @@
                     "ValueType": {
                         "Category": "Class",
                         "Name": "SlimAnimationDataEntity"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "0",
+                    "MemberType": "Property",
+                    "Name": "SlimReplicationTimestampSec",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "double"
                     }
                 }
             ],
@@ -92880,21 +93063,6 @@
                 },
                 {
                     "MemberType": "Function",
-                    "Name": "GetDeveloperProductsForExperienceDetailsPageAsync",
-                    "Parameters": [
-                    ],
-                    "ReturnType": {
-                        "Category": "Class",
-                        "Name": "Instance"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Function",
                     "Name": "GetProductInfo",
                     "Parameters": [
                         {
@@ -93268,6 +93436,14 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "0",
+                            "Name": "timedOptionsDays",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
                             }
                         }
                     ],
@@ -107615,7 +107791,7 @@
             "Members": [
                 {
                     "Category": "Data",
-                    "Default": "0, 20, 20, 1, 0, -0, -0, 0.707106829, 0.707106829, 0, -0.707106829, 0.707106829",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "CFrame",
                     "Security": {
@@ -107672,7 +107848,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 20, 20, 1, 0, -0, -0, 0.707106829, 0.707106829, 0, -0.707106829, 0.707106829",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "CoordinateFrame",
                     "Security": {
@@ -107760,7 +107936,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, -5, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Focus",
                     "Security": {
@@ -107904,7 +108080,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, -5, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "focus",
                     "Security": {
@@ -108400,7 +108576,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "ModelMeshCFrame",
                     "Security": {
@@ -108623,7 +108799,7 @@
                 },
                 {
                     "Category": "Pivot",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "WorldPivot",
                     "Security": {
@@ -109453,7 +109629,7 @@
                         ]
                     },
                     "Category": "Transform",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Grip",
                     "Security": {
@@ -127045,7 +127221,7 @@
                         ]
                     },
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "CFrame",
                     "Security": {
@@ -131362,7 +131538,7 @@
             "Members": [
                 {
                     "Category": "RenderingTest",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "CFrame",
                     "Security": {
@@ -136065,7 +136241,7 @@
                         ]
                     },
                     "Category": "Output",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "HitFrame",
                     "Security": {
@@ -139349,7 +139525,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone0",
                     "Security": {
@@ -139372,7 +139548,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone1",
                     "Security": {
@@ -139395,7 +139571,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone10",
                     "Security": {
@@ -139418,7 +139594,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone11",
                     "Security": {
@@ -139441,7 +139617,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone12",
                     "Security": {
@@ -139464,7 +139640,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone13",
                     "Security": {
@@ -139487,7 +139663,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone14",
                     "Security": {
@@ -139510,7 +139686,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone15",
                     "Security": {
@@ -139533,7 +139709,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone16",
                     "Security": {
@@ -139556,7 +139732,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone17",
                     "Security": {
@@ -139579,7 +139755,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone18",
                     "Security": {
@@ -139602,7 +139778,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone19",
                     "Security": {
@@ -139625,7 +139801,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone2",
                     "Security": {
@@ -139648,7 +139824,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone20",
                     "Security": {
@@ -139671,7 +139847,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone21",
                     "Security": {
@@ -139694,7 +139870,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone22",
                     "Security": {
@@ -139717,7 +139893,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone23",
                     "Security": {
@@ -139740,7 +139916,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone24",
                     "Security": {
@@ -139763,7 +139939,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone25",
                     "Security": {
@@ -139786,7 +139962,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone26",
                     "Security": {
@@ -139809,7 +139985,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone27",
                     "Security": {
@@ -139832,7 +140008,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone28",
                     "Security": {
@@ -139855,7 +140031,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone29",
                     "Security": {
@@ -139878,7 +140054,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone3",
                     "Security": {
@@ -139901,7 +140077,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone30",
                     "Security": {
@@ -139924,7 +140100,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone31",
                     "Security": {
@@ -139947,7 +140123,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone4",
                     "Security": {
@@ -139970,7 +140146,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone5",
                     "Security": {
@@ -139993,7 +140169,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone6",
                     "Security": {
@@ -140016,7 +140192,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone7",
                     "Security": {
@@ -140039,7 +140215,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone8",
                     "Security": {
@@ -140062,7 +140238,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "SlimBone9",
                     "Security": {
@@ -140081,6 +140257,29 @@
                     "ValueType": {
                         "Category": "DataType",
                         "Name": "CFrame"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "0",
+                    "MemberType": "Property",
+                    "Name": "SlimReplicationTimestampSec",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "double"
                     }
                 }
             ],
@@ -148381,6 +148580,25 @@
                     }
                 },
                 {
+                    "Category": "Script Editor",
+                    "Default": "__api_dump_skipped_class__",
+                    "MemberType": "Property",
+                    "Name": "CommandBarFont",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "QFont"
+                    }
+                },
+                {
                     "Category": "Lua Debugger",
                     "Default": "__api_dump_skipped_class__",
                     "MemberType": "Property",
@@ -148609,6 +148827,25 @@
                     "Category": "Data",
                     "Default": "__api_dump_skipped_class__",
                     "MemberType": "Property",
+                    "Name": "DraggerLengthFactor",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_skipped_class__",
+                    "MemberType": "Property",
                     "Name": "DraggerMajorGridIncrement",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -148666,6 +148903,44 @@
                     "Category": "Data",
                     "Default": "__api_dump_skipped_class__",
                     "MemberType": "Property",
+                    "Name": "DraggerScaleFactor",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_skipped_class__",
+                    "MemberType": "Property",
+                    "Name": "DraggerShowAxisTicks",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_skipped_class__",
+                    "MemberType": "Property",
                     "Name": "DraggerShowHoverRuler",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -148704,7 +148979,83 @@
                     "Category": "Data",
                     "Default": "__api_dump_skipped_class__",
                     "MemberType": "Property",
+                    "Name": "DraggerShowNegativeAxes",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_skipped_class__",
+                    "MemberType": "Property",
+                    "Name": "DraggerShowPlanes",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_skipped_class__",
+                    "MemberType": "Property",
                     "Name": "DraggerShowTargetSnap",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_skipped_class__",
+                    "MemberType": "Property",
+                    "Name": "DraggerShowTrackball",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "__api_dump_skipped_class__",
+                    "MemberType": "Property",
+                    "Name": "DraggerShowWhileDragging",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
                         "Write": "RobloxScriptSecurity"
@@ -154643,6 +154994,77 @@
                     }
                 },
                 {
+                    "Category": "Data",
+                    "Default": "",
+                    "MemberType": "Property",
+                    "Name": "PreferredInput",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "PreferredInput"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "false",
+                    "MemberType": "Property",
+                    "Name": "ReducedMotionEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "Default": "",
+                    "MemberType": "Property",
+                    "Name": "ViewportDisplaySize",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden",
+                        "NotReplicated",
+                        "NotScriptable"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "DisplaySize"
+                    }
+                },
+                {
                     "MemberType": "Function",
                     "Name": "GetCondition",
                     "Parameters": [
@@ -155548,7 +155970,7 @@
             "Members": [
                 {
                     "Category": "Camera",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "InitialCameraCFrame",
                     "Security": {
@@ -165029,6 +165451,25 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetMaximalJointDistancesWithinFacs",
+                    "Parameters": [
+                        {
+                            "Name": "editableMesh",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "EditableMesh"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetPropertyValue",
                     "Parameters": [
                         {
@@ -173595,7 +174036,7 @@
                 },
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "PointerHitCFrame",
                     "Security": {
@@ -174234,7 +174675,7 @@
             "Members": [
                 {
                     "Category": "Data",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "Value",
                     "Security": {
@@ -179184,24 +179625,6 @@
                 },
                 {
                     "MemberType": "Event",
-                    "Name": "SubscriptionDropped",
-                    "Parameters": [
-                        {
-                            "Name": "sessionId",
-                            "Type": {
-                                "Category": "Primitive",
-                                "Name": "string"
-                            }
-                        }
-                    ],
-                    "Security": "RobloxSecurity",
-                    "Tags": [
-                        "Hidden"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
-                    "MemberType": "Event",
                     "Name": "SubscriptionFeedStarted",
                     "Parameters": [
                         {
@@ -180184,7 +180607,7 @@
                         ]
                     },
                     "Category": "Parts",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "CFrame0",
                     "Security": {
@@ -180212,7 +180635,7 @@
                         ]
                     },
                     "Category": "Parts",
-                    "Default": "0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1",
+                    "Default": "__api_dump_no_string_value__",
                     "MemberType": "Property",
                     "Name": "CFrame1",
                     "Security": {
@@ -184954,6 +185377,10 @@
                 {
                     "Name": "Captures",
                     "Value": 7
+                },
+                {
+                    "Name": "AvatarSwitcher",
+                    "Value": 8
                 }
             ],
             "Name": "CoreGuiType"
@@ -191371,8 +191798,12 @@
                     "Value": 20
                 },
                 {
-                    "Name": "None",
+                    "Name": "Web",
                     "Value": 21
+                },
+                {
+                    "Name": "None",
+                    "Value": 22
                 }
             ],
             "Name": "Platform"
@@ -195441,6 +195872,14 @@
                 {
                     "Name": "OneTimePassword",
                     "Value": 8
+                },
+                {
+                    "Name": "NewPassword",
+                    "Value": 9
+                },
+                {
+                    "Name": "NewPasswordShown",
+                    "Value": 10
                 }
             ],
             "Name": "TextInputType"

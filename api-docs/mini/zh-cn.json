@@ -752,7 +752,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CatalogSearchParams": {
-    "documentation": "存储通过 <code>AvatarEditorService:SearchCatalog()</code> 进行目录搜索时使用的参数。",
+    "documentation": "存储通过 <code>AvatarEditorService:SearchCatalogAsync()</code>使用的目录搜索参数。",
     "keys": {
       "SearchKeyword": "@roblox/globaltype/CatalogSearchParams.SearchKeyword",
       "MinPrice": "@roblox/globaltype/CatalogSearchParams.MinPrice",
@@ -6523,7 +6523,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.AutoRuns": {
-    "documentation": "如果设置为 <code>true</code>，则在服务的 <code>TestService:Run()</code> 方法被调用时，游戏将开始运行。",
+    "documentation": "如果设置为 <code>true</code>，当服务的 <code>TestService:RunAsync()</code> 方法被调用时，游戏将开始运行。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#AutoRuns",
     "code_sample": ""
   },
@@ -7289,7 +7289,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPages": {
-    "documentation": "由 <code>AssetService:SearchAudio()</code> 返回的 <code>Pages</code> 类的特殊版本。",
+    "documentation": "由 <code>AssetService:SearchAudioAsync()</code> 返回的 <code>Pages</code> 类的特殊版本。",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPages",
     "code_sample": ""
@@ -14129,7 +14129,7 @@
       "@roblox/globaltype/PluginGui.GetRelativeMousePosition/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginGui#GetRelativeMousePosition",
-    "code_sample": "local RunService = game:GetService(\"RunService\")\n\nlocal widgetInfo = DockWidgetPluginGuiInfo.new(\n\tEnum.InitialDockState.Float,\n\ttrue,\n\tfalse, -- 启用状态，覆盖\n\t200,\n\t300, -- 尺寸\n\t150,\n\t150 -- 最小尺寸\n)\n\nlocal testWidget = plugin:CreateDockWidgetPluginGui(\"测试小部件\", widgetInfo)\n\nfunction update()\n\tlocal v2 = testWidget:GetRelativeMousePosition()\n\ttestWidget.Title = (\"(%d, %d)\"):format(v2.x, v2.y)\nend\n\nRunService.Stepped:Connect(update)\n\nupdate()"
+    "code_sample": "local RunService = game:GetService(\"RunService\")\n\nlocal widgetInfo = DockWidgetPluginGuiInfo.new(\n\tEnum.InitialDockState.Float,\n\ttrue,\n\tfalse, -- 启用状态，覆盖\n\t200,\n\t300, -- 大小\n\t150,\n\t150 -- 最小大小\n)\n\nlocal testWidget = plugin:CreateDockWidgetPluginGuiAsync(\"测试小部件\", widgetInfo)\n\nfunction update()\n\tlocal v2 = testWidget:GetRelativeMousePosition()\n\ttestWidget.Title = (\"(%d, %d)\"):format(v2.x, v2.y)\nend\n\nRunService.Stepped:Connect(update)\n\nupdate()"
   },
   "@roblox/globaltype/PluginGui.PluginDragDropped.Connect/param/0": {
     "documentation": "一个在特定事件发生时运行连接的函数的对象。"
@@ -24865,12 +24865,12 @@
   "@roblox/globaltype/DataModel.CreatorId": {
     "documentation": "描述拥有此地点的用户或组的 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorId",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"游戏所有者已加入游戏！\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"拥有此游戏的组的成员已加入游戏！\")\n\t\tend\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"游戏创建者已加入游戏！\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"拥有此地点的组的成员已加入游戏！\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.CreatorType": {
     "documentation": "描述此地点的 <code>CreatorType</code>，即地点是由用户还是组拥有。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorType",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"游戏所有者已加入游戏！\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"拥有此游戏的组的成员已加入游戏！\")\n\t\tend\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"游戏创建者已加入游戏！\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"拥有此地点的组的成员已加入游戏！\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.Environment": {
     "documentation": "",
@@ -24918,7 +24918,7 @@
     "code_sample": "local StarterGui = game:GetService(\"StarterGui\")\n\nlocal versionGui = Instance.new(\"ScreenGui\")\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Position = UDim2.new(1, -10, 1, 0)\ntextLabel.AnchorPoint = Vector2.new(1, 1)\ntextLabel.Size = UDim2.new(0, 150, 0, 40)\n\ntextLabel.BackgroundTransparency = 1\ntextLabel.TextColor3 = Color3.new(1, 1, 1)\ntextLabel.TextStrokeTransparency = 0\ntextLabel.TextXAlignment = Enum.TextXAlignment.Right\ntextLabel.TextScaled = true\n\nlocal placeVersion = game.PlaceVersion\ntextLabel.Text = string.format(\"服务器版本: %s\", placeVersion)\n\ntextLabel.Parent = versionGui\nversionGui.Parent = StarterGui"
   },
   "@roblox/globaltype/DataModel.PrivateServerId": {
-    "documentation": "描述服务器的私有服务器 ID，如果该服务器是私有服务器或 <code>保留服务器</code>。",
+    "documentation": "描述服务器的私人服务器 ID，如果服务器是私人服务器或<code>保留的服务器</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PrivateServerId",
     "code_sample": "local function getServerType()\n\tif game.PrivateServerId ~= \"\" then\n\t\tif game.PrivateServerOwnerId ~= 0 then\n\t\t\treturn \"VIPServer\"\n\t\telse\n\t\t\treturn \"ReservedServer\"\n\t\tend\n\telse\n\t\treturn \"StandardServer\"\n\tend\nend\n\nprint(getServerType())"
   },
@@ -27280,7 +27280,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.BackAccessory": {
-    "documentation": "一个以逗号分隔的资产 ID 列表，这些资产将在 <code>Humanoid</code> 骨架上作为 <code>配饰</code> 添加，当 <code>应用</code> 时，通常是那些附加在其背部的（如斗篷）。",
+    "documentation": "一组用逗号分隔的资产 ID，当 <code>应用</code> 时，将作为 <code>配件</code> 添加到 <code>Humanoid</code> 骨架，通常是附加在其背部的（如斗篷）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#BackAccessory",
     "code_sample": ""
   },
@@ -27290,7 +27290,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.ClimbAnimation": {
-    "documentation": "当此描述被 <code>应用</code> 到 <code>Humanoid</code> 时，决定在其 <code>state</code> 为 <code>Climbing</code> 时播放的 <code>Animation.AnimationId</code>。",
+    "documentation": "当此描述被 <code>应用</code> 到 <code>Humanoid</code> 时，决定在其 <code>状态</code> 是 <code>Climbing</code> 时播放的 <code>Animation.AnimationId</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#ClimbAnimation",
     "code_sample": ""
   },
@@ -27305,17 +27305,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.FaceAccessory": {
-    "documentation": "一个以逗号分隔的资产 ID 列表，这些资产将在 <code>Humanoid</code> 骨架上作为 <code>配饰</code> 添加，当 <code>应用</code> 时，通常是那些附加在其脸部前面的（如眼镜）。",
+    "documentation": "一组用逗号分隔的资产 ID，当 <code>应用</code> 时，将作为 <code>配件</code> 添加到 <code>Humanoid</code> 骨架，通常是附加在其面部前面的（如眼镜）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#FaceAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.FallAnimation": {
-    "documentation": "当此描述被 <code>应用</code> 到 <code>Humanoid</code> 时，决定在其 <code>state</code> 为 <code>Freefall</code> 时播放的 <code>Animation.AnimationId</code>。",
+    "documentation": "当此描述被 <code>应用</code> 到 <code>Humanoid</code> 时，决定在其 <code>状态</code> 是 <code>Freefall</code> 时播放的 <code>Animation.AnimationId</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#FallAnimation",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.FrontAccessory": {
-    "documentation": "一个以逗号分隔的资产 ID 列表，这些资产将在 <code>Humanoid</code> 骨架上作为 <code>配饰</code> 添加，当 <code>应用</code> 时，通常是那些附加在其上身前面的（如奖牌或领带）。",
+    "documentation": "一组用逗号分隔的资产 ID，当 <code>应用</code> 时，将作为 <code>配件</code> 添加到 <code>Humanoid</code> 骨架，通常是附加在其躯干前面的（如奖牌或领带）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#FrontAccessory",
     "code_sample": ""
   },
@@ -27325,12 +27325,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.HairAccessory": {
-    "documentation": "一个以逗号分隔的资产 ID 列表，这些资产将在 <code>Humanoid</code> 骨架上作为 <code>配饰</code> 添加，当 <code>应用</code> 时，通常是那些附加在其头部，类似于头发的。",
+    "documentation": "一组用逗号分隔的资产 ID，当 <code>应用</code> 时，将作为 <code>配件</code> 添加到 <code>Humanoid</code> 骨架，通常是附加在其头部看起来像头发的配件。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#HairAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.HatAccessory": {
-    "documentation": "一个以逗号分隔的资产 ID 列表，这些资产将在 <code>Humanoid</code> 骨架上作为 <code>配饰</code> 添加，当 <code>应用</code> 时，通常是那些附加在其头部。",
+    "documentation": "一组用逗号分隔的资产 ID，当 <code>应用</code> 时，将作为 <code>配件</code> 添加到 <code>Humanoid</code> 骨架，通常是附加在其头部的配件。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#HatAccessory",
     "code_sample": ""
   },
@@ -27340,7 +27340,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.HeadColor": {
-    "documentation": "决定当 <code>应用</code> 时 <code>BodyColors.HeadColor3</code> 和 <code>BodyColors.HeadColor</code> 的值。",
+    "documentation": "确定在 <code>应用</code> 时 <code>BodyColors.HeadColor3</code> 和 <code>BodyColors.HeadColor</code> 的 <code>Humanoid</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#HeadColor",
     "code_sample": ""
   },
@@ -27355,12 +27355,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.IdleAnimation": {
-    "documentation": "当此描述被 <code>应用</code> 到 <code>Humanoid</code> 时，决定在其 <code>state</code> 为 <code>Running</code> 且速度接近于零时播放的 <code>Animation.AnimationId</code>。",
+    "documentation": "当此描述被 <code>应用</code> 到 <code>Humanoid</code> 时，决定在其 <code>状态</code> 是 <code>Running</code> 时播放的 <code>Animation.AnimationId</code>，在接近零的速度下。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#IdleAnimation",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.JumpAnimation": {
-    "documentation": "当此描述被 <code>应用</code> 到 <code>Humanoid</code> 时，决定在其 <code>state</code> 为 <code>Jumping</code> 时播放的 <code>Animation.AnimationId</code>。",
+    "documentation": "当此描述被 <code>应用</code> 到 <code>Humanoid</code> 时，决定在其 <code>状态</code> 是 <code>Jumping</code> 时播放的 <code>Animation.AnimationId</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#JumpAnimation",
     "code_sample": ""
   },
@@ -27390,7 +27390,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.NeckAccessory": {
-    "documentation": "一个以逗号分隔的资产 ID 列表，这些资产将在 <code>Humanoid</code> 骨架上作为 <code>配饰</code> 添加，当 <code>应用</code> 时，通常是那些附加在其脖子上的（如围巾或项链）。",
+    "documentation": "一组用逗号分隔的资产 ID，当 <code>应用</code> 时，将作为 <code>配件</code> 添加到 <code>Humanoid</code> 骨架，通常是附加在其脖子上的（如围巾或项链）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#NeckAccessory",
     "code_sample": ""
   },
@@ -27425,7 +27425,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.RunAnimation": {
-    "documentation": "当此描述被 <code>应用</code> 到 <code>Humanoid</code> 时，决定在其 <code>state</code> 为 <code>Running</code> 且速度适中时播放的 <code>Animation.AnimationId</code>。",
+    "documentation": "当此描述被 <code>应用</code> 到 <code>Humanoid</code> 时，决定在其 <code>状态</code> 是 <code>Running</code>，以适中的速度播放的 <code>Animation.AnimationId</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#RunAnimation",
     "code_sample": ""
   },
@@ -27435,12 +27435,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.ShouldersAccessory": {
-    "documentation": "一个以逗号分隔的资产 ID 列表，这些资产将在 <code>Humanoid</code> 骨架上作为 <code>配饰</code> 添加，当 <code>应用</code> 时，通常是那些附加在其肩部的（如肩甲生物）。",
+    "documentation": "一组用逗号分隔的资产 ID，当 <code>应用</code> 时，将作为 <code>配件</code> 添加到 <code>Humanoid</code> 骨架，通常是附加在其肩部的（如肩膀上挂着的生物）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#ShouldersAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.SwimAnimation": {
-    "documentation": "当该描述被 <code>应用</code> 到一个 <code>Humanoid</code> 时，这决定了在 <code>状态</code> 为 <code>游泳</code> 时播放的 <code>Animation.AnimationId</code>。",
+    "documentation": "当此描述被 <code>应用</code> 到 <code>Humanoid</code> 时，决定在其 <code>状态</code> 是 <code>Swimming</code> 时播放的 <code>Animation.AnimationId</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#SwimAnimation",
     "code_sample": ""
   },
@@ -27455,12 +27455,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.WaistAccessory": {
-    "documentation": "以逗号分隔的资产 ID 列表，当 <code>应用</code> 于 <code>Humanoid</code> 装置时，会被添加为 <code>Accessories</code>， 通常是那些附加在它的腰部的（例如腰带）。",
+    "documentation": "一组用逗号分隔的资产 ID，当 <code>应用</code> 时，将作为 <code>配件</code> 添加到 <code>Humanoid</code> 骨架，通常是附加在其腰部的（如皮带）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#WaistAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.WalkAnimation": {
-    "documentation": "当该描述被 <code>应用</code> 到一个 <code>Humanoid</code> 时，这决定了在其 <code>状态</code> 为 <code>低速运行</code> 时播放的 <code>Animation.AnimationId</code>。",
+    "documentation": "当此描述被 <code>应用</code> 到 <code>Humanoid</code> 时，决定在其 <code>状态</code> 是 <code>Running</code> 时播放的 <code>Animation.AnimationId</code>，以较低的速度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#WalkAnimation",
     "code_sample": ""
   },
@@ -30401,7 +30401,7 @@
       "@roblox/globaltype/InsertService.GetFreeDecalsAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InsertService#GetFreeDecalsAsync",
-    "code_sample": "local InsertService = game:GetService(\"InsertService\")\n\nlocal page = unpack(InsertService:GetFreeDecals(\"Cats\", 0)) -- 在第 1 页搜索 \"Cats\"。\n\nfor i = 1, page.TotalCount do\n\tlocal item = page.Results[i]\n\tprint(\"项目 #\" .. i)\n\tfor key, value in pairs(item) do\n\t\tprint(\" \" .. key .. \": \" .. value)\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/InsertService.GetFreeDecals/param/0": {
     "documentation": "用于从 Roblox 网站插入资产。"
@@ -30435,7 +30435,7 @@
       "@roblox/globaltype/InsertService.GetFreeDecals/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InsertService#GetFreeDecals",
-    "code_sample": "local InsertService = game:GetService(\"InsertService\")\n\nlocal page = unpack(InsertService:GetFreeDecals(\"Cats\", 0)) -- 在第 1 页搜索 \"Cats\"。\n\nfor i = 1, page.TotalCount do\n\tlocal item = page.Results[i]\n\tprint(\"项目 #\" .. i)\n\tfor key, value in pairs(item) do\n\t\tprint(\" \" .. key .. \": \" .. value)\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/InsertService.GetFreeModelsAsync/param/0": {
     "documentation": "用于从 Roblox 网站插入资产。"
@@ -30469,7 +30469,7 @@
       "@roblox/globaltype/InsertService.GetFreeModelsAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InsertService#GetFreeModelsAsync",
-    "code_sample": "local InsertService = game:GetService(\"InsertService\")\n\nlocal page = unpack(InsertService:GetFreeModels(\"Cats\", 0)) -- 在第1页搜索 \"Cats\"。\n\nfor i = 1, page.TotalCount do\n\tlocal item = page.Results[i]\n\tprint(\"项目 #\" .. i)\n\tfor key, value in pairs(item) do\n\t\tprint(\" \" .. key .. \": \" .. value)\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/InsertService.GetFreeModels/param/0": {
     "documentation": "用于从 Roblox 网站插入资产。"
@@ -30503,7 +30503,7 @@
       "@roblox/globaltype/InsertService.GetFreeModels/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InsertService#GetFreeModels",
-    "code_sample": "local InsertService = game:GetService(\"InsertService\")\n\nlocal page = unpack(InsertService:GetFreeModels(\"Cats\", 0)) -- 在第1页搜索 \"Cats\"。\n\nfor i = 1, page.TotalCount do\n\tlocal item = page.Results[i]\n\tprint(\"项目 #\" .. i)\n\tfor key, value in pairs(item) do\n\t\tprint(\" \" .. key .. \": \" .. value)\n\tend\nend"
+    "code_sample": ""
   },
   "@roblox/globaltype/InsertService.GetLatestAssetVersionAsync/param/0": {
     "documentation": "用于从 Roblox 网站插入资产。"
@@ -33602,7 +33602,7 @@
       "@roblox/globaltype/Plugin.CreateDockWidgetPluginGuiAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Plugin#CreateDockWidgetPluginGuiAsync",
-    "code_sample": "-- 创建新的 'DockWidgetPluginGuiInfo' 对象\nlocal widgetInfo = DockWidgetPluginGuiInfo.new(\n\tEnum.InitialDockState.Float, -- 小部件将在浮动面板中初始化\n\ttrue, -- 小部件将最初启用\n\tfalse, -- 不覆盖之前的启用状态\n\t200, -- 浮动窗口的默认宽度\n\t300, -- 浮动窗口的默认高度\n\t150, -- 浮动窗口的最小宽度（可选）\n\t150 -- 浮动窗口的最小高度（可选）\n)\n\n-- 创建新的小部件 GUI\nlocal testWidget = plugin:CreateDockWidgetPluginGui(\"TestWidget\", widgetInfo)\n\nlocal testButton = Instance.new(\"TextButton\")\ntestButton.BorderSizePixel = 0\ntestButton.TextSize = 20\ntestButton.TextColor3 = Color3.new(1, 0.2, 0.4)\ntestButton.AnchorPoint = Vector2.new(0.5, 0.5)\ntestButton.Size = UDim2.new(1, 0, 1, 0)\ntestButton.Position = UDim2.new(0.5, 0, 0.5, 0)\ntestButton.SizeConstraint = Enum.SizeConstraint.RelativeYY\ntestButton.Text = \"点击我\"\ntestButton.Parent = testWidget"
+    "code_sample": ""
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui/param/0": {
     "documentation": ""
@@ -35084,7 +35084,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService": {
-    "documentation": "TextService 是一个服务，负责在游戏中处理文本的显示。",
+    "documentation": "内部负责处理文本显示的服务。",
     "keys": {
       "FilterAndTranslateStringAsync": "@roblox/globaltype/TextService.FilterAndTranslateStringAsync",
       "FilterStringAsync": "@roblox/globaltype/TextService.FilterStringAsync",
@@ -35097,7 +35097,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync/param/0": {
-    "documentation": "TextService 是一个服务，负责在游戏中处理文本的显示。"
+    "documentation": "内部负责处理文本显示的服务。"
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync/param/1": {
     "documentation": ""
@@ -35115,7 +35115,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync": {
-    "documentation": "不支持在旧版聊天中进行聊天翻译。此方法不再被支持，且不应使用。",
+    "documentation": "过滤并翻译字符串。",
     "params": [
       {
         "name": "self",
@@ -35145,22 +35145,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/0": {
-    "documentation": "TextService 是一个服务，负责在游戏中处理文本的显示。"
+    "documentation": "内部负责处理文本显示的服务。"
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/1": {
     "documentation": "要过滤的文本。"
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/2": {
-    "documentation": "过滤文本的玩家的用户 ID。"
+    "documentation": "过滤文本的玩家的 <code>Player.UserId</code>。"
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/3": {
-    "documentation": "过滤后的消息将使用的上下文。"
+    "documentation": "过滤消息将要使用的上下文。此参数 不会影响查询的过滤结果，仅用于 改善 Roblox 的文本过滤。"
   },
   "@roblox/globaltype/TextService.FilterStringAsync/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/TextService.FilterStringAsync": {
-    "documentation": "过滤从用户接收的字符串，并返回一个 <code>TextFilterResult</code>，可用于正确分发过滤后的文本。",
+    "documentation": "过滤从用户接收的字符串，并返回一个 <code>TextFilterResult</code>，可用于相应地分发正确的 过滤文本。",
     "params": [
       {
         "name": "self",
@@ -35186,7 +35186,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.GetFamilyInfoAsync/param/0": {
-    "documentation": "TextService 是一个服务，负责在游戏中处理文本的显示。"
+    "documentation": "内部负责处理文本显示的服务。"
   },
   "@roblox/globaltype/TextService.GetFamilyInfoAsync/param/1": {
     "documentation": "要查找的字体系列的资产 ID。"
@@ -35210,10 +35210,10 @@
       "@roblox/globaltype/TextService.GetFamilyInfoAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextService#GetFamilyInfoAsync",
-    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal familyToCheck = \"rbxasset://fonts/families/Arial.json\"\n\n-- 这是一个可能需要几秒钟下载字体的耽搁函数。\nlocal info = TextService:GetFamilyInfoAsync(familyToCheck)\n\nprint(\"字体名称：\", info.Name)\nprint(\"面：\")\nfor _, face in info.Faces do\n\tprint(\"--------\")\n\tprint(\"名称：\", face.Name)\n\tprint(\"粗细：\", face.Weight.Name)\n\tprint(\"风格：\", face.Style.Name)\nend"
+    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal familyToCheck = \"rbxasset://fonts/families/Arimo.json\"\n\nlocal success, info = pcall(function()\n\treturn TextService:GetFamilyInfoAsync(familyToCheck)\nend)\nif success then\n\tprint(\"字体名称：\", info.Name)\n\tprint(\"字形:\")\n\tfor _, face in info.Faces do\n\t\tprint(\"--------\")\n\t\tprint(\"名称：\", face.Name)\n\t\tprint(\"粗细：\", face.Weight.Name)\n\t\tprint(\"样式：\", face.Style.Name)\n\tend\nend"
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync/param/0": {
-    "documentation": "TextService 是一个服务，负责在游戏中处理文本的显示。"
+    "documentation": "内部负责处理文本显示的服务。"
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync/param/1": {
     "documentation": "对 <code>GetTextBoundsParams</code> 对象的引用。"
@@ -35222,7 +35222,7 @@
     "documentation": "文本的大小，作为 <code>Vector2</code>。"
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync": {
-    "documentation": "根据参数计算文本的宽度和高度。",
+    "documentation": "计算在使用 <code>GetTextBoundsParams</code> 对象时，文本所占用的 <code>Vector2</code> 尺寸（以像素为单位）。",
     "params": [
       {
         "name": "self",
@@ -35240,19 +35240,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.GetTextSize/param/0": {
-    "documentation": "TextService 是一个服务，负责在游戏中处理文本的显示。"
+    "documentation": "内部负责处理文本显示的服务。"
   },
   "@roblox/globaltype/TextService.GetTextSize/param/1": {
     "documentation": "要计算文本大小的字符串。"
   },
   "@roblox/globaltype/TextService.GetTextSize/param/2": {
-    "documentation": "表示所用字体大小的整数。"
+    "documentation": "表示所使用的字体大小的整数。不能接受 <code>FontSize</code> 值。"
   },
   "@roblox/globaltype/TextService.GetTextSize/param/3": {
     "documentation": "所用的字体。"
   },
   "@roblox/globaltype/TextService.GetTextSize/param/4": {
-    "documentation": "要使用的文本对象的 <code>TextLabel.AbsoluteSize</code>。 计算文本如何换行所必需。"
+    "documentation": "将要使用的文本对象的 <code>GuiBase2d.AbsoluteSize</code>。 计算文本如何换行所需。"
   },
   "@roblox/globaltype/TextService.GetTextSize/return/0": {
     "documentation": "使用指定格式的字符串所需的空间大小（以像素为单位）。"
@@ -35285,10 +35285,10 @@
       "@roblox/globaltype/TextService.GetTextSize/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextService#GetTextSize",
-    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal function getTextBounds()\n\tlocal message = \"Hello World\"\n\tlocal size = Vector2.new(1, 1)\n\tlocal bounds = TextService:GetTextSize(message, 12, \"SourceSans\", size)\n\treturn bounds + Vector2.new(1, 1)\nend\n\nprint(getTextBounds())"
+    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal function getTextBounds()\n\tlocal message = \"你好，世界！\"\n\tlocal size = Vector2.new(1, 1)\n\tlocal bounds = TextService:GetTextSize(message, 12, \"SourceSans\", size)\n\treturn bounds\nend\n\nprint(getTextBounds())"
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync/param/0": {
-    "documentation": "TextService 是一个服务，负责在游戏中处理文本的显示。"
+    "documentation": "内部负责处理文本显示的服务。"
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync/param/1": {
     "documentation": ""
@@ -35300,7 +35300,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync": {
-    "documentation": "",
+    "documentation": "返回用于根据当前的 <code>GuiService.PreferredTextSize</code> 设置对文本进行放大的偏移量。",
     "params": [
       {
         "name": "self",
@@ -45463,7 +45463,7 @@
       "@roblox/globaltype/Player.GetFriendsOnlineAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetFriendsOnlineAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"获取在线玩家失败: \" .. result)\nend"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"无法获取在线玩家: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/0": {
     "documentation": "表示当前已连接的客户端的对象。"
@@ -45490,7 +45490,7 @@
       "@roblox/globaltype/Player.GetFriendsOnline/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetFriendsOnline",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"获取在线玩家失败: \" .. result)\nend"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"无法获取在线玩家: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetJoinData/param/0": {
     "documentation": "表示当前已连接的客户端的对象。"
@@ -45631,7 +45631,7 @@
       "@roblox/globaltype/Player.GetRoleInGroupAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRoleInGroupAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"玩家在组 'LOL' 中的等级为 '\", player:GetRoleInGroup(2), \"'！\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"玩家在群体 'LOL' 中的排名为 '\", player:GetRoleInGroupAsync(2), \"'!\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.GetRoleInGroup/param/0": {
     "documentation": "表示当前已连接的客户端的对象。"
@@ -45658,7 +45658,7 @@
       "@roblox/globaltype/Player.GetRoleInGroup/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetRoleInGroup",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"玩家在组 'LOL' 中的等级为 '\", player:GetRoleInGroup(2), \"'！\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal function onPlayerAdded(player)\n\tprint(\"玩家在群体 'LOL' 中的排名为 '\", player:GetRoleInGroupAsync(2), \"'!\")\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.HasAppearanceLoaded/param/0": {
     "documentation": "表示当前已连接的客户端的对象。"
@@ -45951,7 +45951,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacterAsync()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacter/param/0": {
     "documentation": "表示当前已连接的客户端的对象。"
@@ -45966,7 +45966,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacter",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacterAsync()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/0": {
     "documentation": "表示当前已连接的客户端的对象。"
@@ -46010,7 +46010,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterWithHumanoidDescriptionAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/0": {
     "documentation": "表示当前已连接的客户端的对象。"
@@ -46032,7 +46032,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterWithHumanoidDescription",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadInstance/param/0": {
     "documentation": "表示当前已连接的客户端的对象。"
@@ -57067,7 +57067,7 @@
       "@roblox/globaltype/KeyframeSequenceProvider.GetAnimationsAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequenceProvider#GetAnimationsAsync",
-    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- 在此处插入您的用户 ID\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimations(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"总数: \", #animationIds)"
+    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- 在此处插入您的用户 ID\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimationsAsync(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"总计: \", #animationIds)"
   },
   "@roblox/globaltype/KeyframeSequenceProvider.GetAnimations/param/0": {
     "documentation": "提供加载和预览 <code>KeyframeSequence</code> 的功能。"
@@ -57094,7 +57094,7 @@
       "@roblox/globaltype/KeyframeSequenceProvider.GetAnimations/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequenceProvider#GetAnimations",
-    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- 在此处插入您的用户 ID\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimations(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"总数: \", #animationIds)"
+    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- 在此处插入您的用户 ID\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimationsAsync(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"总计: \", #animationIds)"
   },
   "@roblox/globaltype/KeyframeSequenceProvider.GetKeyframeSequence/param/0": {
     "documentation": "提供加载和预览 <code>KeyframeSequence</code> 的功能。"
@@ -79505,7 +79505,7 @@
       "@roblox/globaltype/MarketplaceService.GetProductInfoAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetProductInfoAsync",
-    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfo(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfoAsync(ASSET_ID)\n-- 打印资产的名称和描述\nprint(asset.Name .. \" :: \" .. asset.Description)"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/0": {
     "documentation": "负责体验内交易的服务。"
@@ -79539,7 +79539,7 @@
       "@roblox/globaltype/MarketplaceService.GetProductInfo/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetProductInfo",
-    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfo(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfoAsync(ASSET_ID)\n-- 打印资产的名称和描述\nprint(asset.Name .. \" :: \" .. asset.Description)"
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/param/0": {
     "documentation": "负责体验内交易的服务。"
@@ -79797,7 +79797,7 @@
       "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundleAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- 我们正在检查的捆绑物: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundle(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundle 调用失败: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" 拥有 \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" 不拥有 \" .. BUNDLE_NAME)\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- 我们正在检查的捆绑包: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundleAsync(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundleAsync 调用失败: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" 拥有 \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" 不拥有 \" .. BUNDLE_NAME)\n\tend\nend)"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/0": {
     "documentation": "负责体验内交易的服务。"
@@ -79831,7 +79831,7 @@
       "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundle",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- 我们正在检查的捆绑物: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundle(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundle 调用失败: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" 拥有 \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" 不拥有 \" .. BUNDLE_NAME)\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- 我们正在检查的捆绑包: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundleAsync(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundleAsync 调用失败: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" 拥有 \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" 不拥有 \" .. BUNDLE_NAME)\n\tend\nend)"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/0": {
     "documentation": "负责体验内交易的服务。"
@@ -80100,7 +80100,7 @@
     "documentation": "一个对象数组，标识您想要排名的产品。此数组最多可以包含 50 项。 每个 <code>ProductIdentifier</code> 具有： <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>必须是 <code>InfoType.GamePass</code> 或     <code>InfoType.Product</code>。</li> <li><code>Id</code>: number</li> <li>游戏通行证或开发者产品的 ID。</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "当前用户个性化排序的项目数组。 每个数组包含： <ul> <li><code>ProductIdentifier</code>: 输入数组的对应 ID。</li> <li><code>ProductInfo</code>: 由 <code>GetProductInfo</code> 返回的标准产品信息字典。</li> </ul>"
+    "documentation": "为当前用户以个性化顺序排列的项目数组。 每个数组包含： <ul> <li><code>ProductIdentifier</code>: 输入数组中的相应 ID。</li> <li><code>ProductInfo</code>: 由 <code>GetProductInfoAsync</code> 返回的标准产品信息字典。</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
     "documentation": "接受产品 ID 列表并返回这些产品的个性化排序列表。",
@@ -83394,7 +83394,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSearchParams": {
-    "documentation": "要传递给 <code>AssetService:SearchAudio()</code> 的实例，以搜索音频资产。",
+    "documentation": "要传递给 <code>AssetService:SearchAudioAsync()</code> 的实例，以搜索音频资产。",
     "keys": {
       "Album": "@roblox/globaltype/AudioSearchParams.Album",
       "Artist": "@roblox/globaltype/AudioSearchParams.Artist",
@@ -91066,7 +91066,7 @@
       "@roblox/globaltype/TeleportService.ReserveServerAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#ReserveServerAsync",
-    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal code = TeleportService:ReserveServer(game.PlaceId)\n\nlocal players = Players:GetPlayers()\n\nTeleportService:TeleportToPrivateServer(game.PlaceId, code, players)\n-- 你可以向这个函数添加额外的参数：spawnName, teleportData 和 customLoadingScreen"
+    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal code = TeleportService:ReserveServerAsync(game.PlaceId)\n\nlocal players = Players:GetPlayers()\n\nTeleportService:TeleportToPrivateServer(game.PlaceId, code, players)\n-- 您可以向此函数添加额外的参数：spawnName，teleportData和customLoadingScreen"
   },
   "@roblox/globaltype/TeleportService.ReserveServer/param/0": {
     "documentation": "启用在不同地点和服务器之间传送 <code>Players</code>。"
@@ -91093,7 +91093,7 @@
       "@roblox/globaltype/TeleportService.ReserveServer/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#ReserveServer",
-    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal code = TeleportService:ReserveServer(game.PlaceId)\n\nlocal players = Players:GetPlayers()\n\nTeleportService:TeleportToPrivateServer(game.PlaceId, code, players)\n-- 你可以向这个函数添加额外的参数：spawnName, teleportData 和 customLoadingScreen"
+    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal code = TeleportService:ReserveServerAsync(game.PlaceId)\n\nlocal players = Players:GetPlayers()\n\nTeleportService:TeleportToPrivateServer(game.PlaceId, code, players)\n-- 您可以向此函数添加额外的参数：spawnName，teleportData和customLoadingScreen"
   },
   "@roblox/globaltype/TeleportService.SetTeleportGui/param/0": {
     "documentation": "启用在不同地点和服务器之间传送 <code>Players</code>。"
@@ -91342,7 +91342,7 @@
     "documentation": "要传送到的地点的 ID。"
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer/param/2": {
-    "documentation": "由 <code>TeleportService:ReserveServer()</code> 返回的保留服务器访问代码。"
+    "documentation": "由 <code>TeleportService:ReserveServerAsync()</code> 返回的保留服务器访问代码。"
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer/param/3": {
     "documentation": "要传送的 <code>Players</code> 数组。"
@@ -91357,7 +91357,7 @@
     "documentation": "可选的自定义加载屏幕，将放置在目标地点的 <code>CoreGui</code> 中。可以使用 <code>TeleportService:GetArrivingTeleportGui()</code> 检索。"
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer": {
-    "documentation": "将一组 <code>Players</code> 传送到使用 <code>TeleportService:ReserveServer()</code> 创建的保留服务器。",
+    "documentation": "将一组 <code>Players</code> 传送到使用 <code>TeleportService:ReserveServerAsync()</code> 创建的保留服务器。",
     "params": [
       {
         "name": "self",
@@ -91390,7 +91390,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#TeleportToPrivateServer",
-    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal dataStore = DataStoreService:GetGlobalDataStore()\n\n-- 获取保存的代码\nlocal code = dataStore:GetAsync(\"ReservedServer\")\nif typeof(code) ~= \"string\" then -- 没有保存，创建一个\n\tcode = TeleportService:ReserveServer(game.PlaceId)\n\tdataStore:SetAsync(\"ReservedServer\", code)\nend\n\nlocal function joined(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tif message == \"reserved\" then\n\t\t\tTeleportService:TeleportToPrivateServer(game.PlaceId, code, { player })\n\t\tend\n\tend)\nend\n\nPlayers.PlayerAdded:Connect(joined)"
+    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal dataStore = DataStoreService:GetGlobalDataStore()\n\n-- 获取已保存的代码\nlocal code = dataStore:GetAsync(\"ReservedServer\")\nif typeof(code) ~= \"string\" then -- 没有保存，创建一个\n\tcode = TeleportService:ReserveServerAsync(game.PlaceId)\n\tdataStore:SetAsync(\"ReservedServer\", code)\nend\n\nlocal function joined(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tif message == \"reserved\" then\n\t\t\tTeleportService:TeleportToPrivateServer(game.PlaceId, code, { player })\n\t\tend\n\tend)\nend\n\nPlayers.PlayerAdded:Connect(joined)"
   },
   "@roblox/globaltype/TeleportService.TeleportToSpawnByName/param/0": {
     "documentation": "启用在不同地点和服务器之间传送 <code>Players</code>。"
@@ -91619,7 +91619,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService": {
-    "documentation": "一个支持开发者创建头像的服务。",
+    "documentation": "支持开发者头像创建者的服务。",
     "keys": {
       "AutoSetupAvatarAsync": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync",
       "GenerateAvatar2DPreviewAsync": "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync",
@@ -91641,19 +91641,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/0": {
-    "documentation": "一个支持开发者创建头像的服务。"
+    "documentation": "支持开发者头像创建者的服务。"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/1": {
-    "documentation": "为其设置头像的 <code>Player</code> 。"
+    "documentation": "为其设置头像的 <code>Player</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/2": {
-    "documentation": "将作为头像进行设置的类人的 <code>Model</code> 。"
+    "documentation": "将被设置为头像的人形 <code>Model</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/3": {
-    "documentation": "一个可选的回调函数，会定期被调用，带有一个 包含整体进度的 progressInfo 表（范围从 0 到 1）。类型： <code>(progressInfo: { Progress: number }) -&gt; ()</code>"
+    "documentation": "可选的回调函数，将定期调用，带有一个包含整体进度的 progressInfo 表（从 0 到 1）。类型： <code>(progressInfo: { Progress: number }) -&gt; ()</code>"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/return/0": {
-    "documentation": "生成的头像的唯一标识符。"
+    "documentation": "生成头像的唯一标识符。"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync": {
     "documentation": "自动设置自定义 <code>Model</code> 作为头像资产。",
@@ -91682,16 +91682,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/param/0": {
-    "documentation": "一个支持开发者创建头像的服务。"
+    "documentation": "支持开发者头像创建者的服务。"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/param/1": {
-    "documentation": "生成 2D 预览的参数表。类型： <code>avatarGeneration2dPreviewParams: {SessionId: string, FileId: string, TextPrompt: string?}</code>"
+    "documentation": "用于 2D 预览生成的参数表。类型： <code>avatarGeneration2dPreviewParams: {SessionId: string, FileId: string, TextPrompt: string?}</code>"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/return/0": {
     "documentation": "一个字符串 previewId"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync": {
-    "documentation": "创建一个 2D 头像预览并返回一个 previewId。",
+    "documentation": "创建一个 2D 头像预览并返回预览 ID。",
     "params": [
       {
         "name": "self",
@@ -91709,7 +91709,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/param/0": {
-    "documentation": "一个支持开发者创建头像的服务。"
+    "documentation": "支持开发者头像创建者的服务。"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/param/1": {
     "documentation": "用于生成头像的参数表。类型： <code>avatarGenerationParams: {SessionId: string, PreviewId: string}</code>"
@@ -91718,7 +91718,7 @@
     "documentation": "一个字符串 generationId。"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync": {
-    "documentation": "生成一个头像并返回一个 generationId。",
+    "documentation": "生成一个头像并返回生成 ID。",
     "params": [
       {
         "name": "self",
@@ -91736,16 +91736,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync/param/0": {
-    "documentation": "一个支持开发者创建头像的服务。"
+    "documentation": "支持开发者头像创建者的服务。"
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync/param/1": {
     "documentation": "要获取详细信息的头像创建令牌 ID 列表。"
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync/return/0": {
-    "documentation": "上述详细信息的头像创建令牌的数组。"
+    "documentation": "如上所述的头像创建令牌详细信息数组。"
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync": {
-    "documentation": "一次获取一组头像创建令牌的详细信息。",
+    "documentation": "一次性获取一组头像创建令牌的详细信息。",
     "params": [
       {
         "name": "self",
@@ -91763,13 +91763,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.GetValidationRules/param/0": {
-    "documentation": "一个支持开发者创建头像的服务。"
+    "documentation": "支持开发者头像创建者的服务。"
   },
   "@roblox/globaltype/AvatarCreationService.GetValidationRules/return/0": {
-    "documentation": "字典形式的验证规则，如上所述。"
+    "documentation": "如上所述的验证规则字典。"
   },
   "@roblox/globaltype/AvatarCreationService.GetValidationRules": {
-    "documentation": "获取资产必须遵循的规则的数据，以通过 UGC 验证。",
+    "documentation": "获取必须遵循的规则数据，以通过 UGC 验证。",
     "params": [
       {
         "name": "self",
@@ -91783,16 +91783,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/param/0": {
-    "documentation": "一个支持开发者创建头像的服务。"
+    "documentation": "支持开发者头像创建者的服务。"
   },
   "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/param/1": {
-    "documentation": "加载从 <code>GenerateAvatar2DPreviewAsync()</code>生成的预览。"
+    "documentation": "加载从 <code>GenerateAvatar2DPreviewAsync()</code> 生成的预览。"
   },
   "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync/return/0": {
-    "documentation": "包含预览图像的 <code>EditableImage</code>。"
+    "documentation": "一个包含预览图像的 <code>EditableImage</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync": {
-    "documentation": "从 previewId 在客户端加载 AvatarGeneration 2D 预览。",
+    "documentation": "从预览 ID 在客户端加载一个 AvatarGeneration 2D 预览。",
     "params": [
       {
         "name": "self",
@@ -91810,13 +91810,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync/param/0": {
-    "documentation": "一个支持开发者创建头像的服务。"
+    "documentation": "支持开发者头像创建者的服务。"
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync/param/1": {
-    "documentation": "一个唯一的字符串，用于标识生成的头像，由 <code>AutoSetupAvatarAsync()</code> 返回。"
+    "documentation": "一个唯一字符串，用于标识生成的头像，该字符串由 <code>AutoSetupAvatarAsync()</code> 返回。"
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync/return/0": {
-    "documentation": "生成头像的 <code>HumanoidDescription</code>，其中 包含所有生成的实例和属性。"
+    "documentation": "生成头像的 <code>HumanoidDescription</code>，其中包括所有生成的实例和属性。"
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync": {
     "documentation": "使用头像生成 ID 加载生成的头像。",
@@ -91837,13 +91837,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync/param/0": {
-    "documentation": "一个支持开发者创建头像的服务。"
+    "documentation": "支持开发者头像创建者的服务。"
   },
   "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync/param/1": {
-    "documentation": "包含需要更新 HSR 数据的 <code>WrapDeformer</code> 实例的 <code>MeshPart</code> 子项的 <code>Model</code> 。"
+    "documentation": "包含需要更新预览的 HSR 数据的 <code>Model</code>，其中有 <code>MeshPart</code> 子项和 <code>WrapDeformer</code> 实例。"
   },
   "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync": {
-    "documentation": "准备体验中的头像以供预览。",
+    "documentation": "为体验中的头像准备预览。",
     "params": [
       {
         "name": "self",
@@ -91859,13 +91859,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/0": {
-    "documentation": "一个支持开发者创建头像的服务。"
+    "documentation": "支持开发者头像创建者的服务。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/1": {
-    "documentation": "创建令牌的 ID。该令牌必须有效，即调用该方法的宇宙必须与创建该令牌的宇宙相同。此外，令牌创建者必须维持 ID 验证和 <a href=\"https://www.roblox.com/premium/membership\">Roblox Premium</a>。要为此 API 创建令牌，请遵循 <a href=\"../../../production/monetization/avatar-creation-token.md\">token creation</a> 过程。令牌的创建类型必须与传递给方法的 <code>AvatarAssetType</code> 匹配。"
+    "documentation": "创建令牌的 ID。令牌必须有效，即调用该方法的宇宙必须是令牌创建的相同宇宙。此外，令牌创建者必须保持 ID 验证和 <a href=\"https://www.roblox.com/premium/membership\">Roblox Premium</a>。要创建用于此 API 的令牌，请遵循 <a href=\"../../../production/monetization/avatar-creation-token.md\">令牌创建</a> 过程。令牌的创建类型必须与提供的 <code>AvatarAssetType</code> 匹配。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/2": {
-    "documentation": "打算向其显示创建提示的 <code>Player</code>。"
+    "documentation": "要呈现创建提示的 <code>Player</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/3": {
     "documentation": "用于创建的头像资产的 <code>Instance</code>。"
@@ -91874,10 +91874,10 @@
     "documentation": "预期创建的 <code>AvatarAssetType</code>。这必须与提供的令牌的创建类型匹配。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/return/0": {
-    "documentation": "一个元组，包含以下内容： <ul> <li> 一个 <code>PromptCreateAssetResult</code>，表示创建提示的结果。 </li> <li> 一个字符串结果。在 <code>PromptCreateAssetResult.Success</code> 的情况下，这将表示资产 ID。在任何失败枚举的情况下，这将表示结果错误消息。 </li> </ul>"
+    "documentation": "一个元组，包含按顺序排列的内容： <ul> <li> 一个 <code>PromptCreateAssetResult</code>，指示创建提示的结果。 </li> <li> 一个字符串结果。在 <code>PromptCreateAssetResult.Success</code> 的情况下，这将指示资产 ID。在任何失败枚举的情况下，这将指示结果错误消息。 </li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync": {
-    "documentation": "提示 <code>Player</code> 从 <code>Instance</code> 购买并创建一个头像资产。",
+    "documentation": "提示 <code>Player</code> 从 <code>Instance</code> 购买并创建头像资产。",
     "params": [
       {
         "name": "self",
@@ -91907,22 +91907,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/0": {
-    "documentation": "一个支持开发者创建头像的服务。"
+    "documentation": "支持开发者头像创建者的服务。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/1": {
-    "documentation": "头像创建令牌的 ID。该令牌必须有效，即调用该方法的宇宙必须与创建该令牌的宇宙相同。此外，令牌创建者必须维持 ID 验证和 <a href=\"https://www.roblox.com/premium/membership\">Roblox Premium</a>。要为此 API 创建令牌，请遵循 <a href=\"../../../production/monetization/avatar-creation-token.md\">token creation</a> 过程。"
+    "documentation": "头像创建令牌的 ID。令牌必须有效，即调用该方法的宇宙必须是令牌创建的相同宇宙。此外，令牌创建者必须保持 ID 验证和 <a href=\"https://www.roblox.com/premium/membership\">Roblox Premium</a>。要创建用于此 API 的令牌，请遵循 <a href=\"../../../production/monetization/avatar-creation-token.md\">令牌创建</a> 过程。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/2": {
-    "documentation": "要展示创建提示的 <code>Player</code>。"
+    "documentation": "要呈现创建提示的 <code>Player</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/3": {
-    "documentation": "用于创建的头像的 <code>HumanoidDescription</code>。"
+    "documentation": "要创建的头像的 <code>HumanoidDescription</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/return/0": {
-    "documentation": "一个元组，包含以下内容： <ul> <li> 一个 <code>PromptCreateAvatarResult</code>，表示创建提示的结果。 </li> <li> 一个字符串结果。在 <code>PromptCreateAvatarResult.Success</code> 的情况下，这将表示捆绑 ID。在任何失败枚举的情况下，这将表示结果错误消息。 </li> <li> 一个可选的二级字符串结果。在 <code>PromptCreateAvatarResult.Success</code> 的情况下，这将表示服装 ID。在任何失败枚举的情况下，这将是 <code>nil</code>。 </li> </ul>"
+    "documentation": "一个元组，包含按顺序排列的内容： <ul> <li> 一个 <code>PromptCreateAvatarResult</code>，指示创建提示的结果。 </li> <li> 一个字符串结果。在 <code>PromptCreateAvatarResult.Success</code> 的情况下，这将指示捆绑 ID。在任何失败枚举的情况下，这将指示结果错误消息。 </li> <li> 一个可选的次要字符串结果。在 <code>PromptCreateAvatarResult.Success</code> 的情况下，这将指示服装 ID。在任何失败枚举的情况下，这将是 <code>nil</code>。 </li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync": {
-    "documentation": "提示 <code>Player</code> 从 <code>HumanoidDescription</code> 购买并创建一个头像。",
+    "documentation": "提示 <code>Player</code> 从 <code>HumanoidDescription</code> 购买并创建头像。",
     "params": [
       {
         "name": "self",
@@ -91948,13 +91948,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/param/0": {
-    "documentation": "一个支持开发者创建头像的服务。"
+    "documentation": "支持开发者头像创建者的服务。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/param/1": {
-    "documentation": "要提示自拍的 <code>Player</code>。"
+    "documentation": "要提示拍摄自拍的 <code>Player</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/return/0": {
-    "documentation": "自拍的字符串 FileId。"
+    "documentation": "一个字符串 FileId 的自拍。"
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync": {
     "documentation": "提示 <code>Player</code> 拍摄自拍并返回 FileId。",
@@ -91975,19 +91975,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/0": {
-    "documentation": "一个支持开发者创建头像的服务。"
+    "documentation": "支持开发者头像创建者的服务。"
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/1": {
-    "documentation": "请求 AvatarGeneration 会话的 <code>Player</code>。"
+    "documentation": "要请求 AvatarGeneration 会话的 <code>Player</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/2": {
-    "documentation": "回调函数，使用一个 SessionInfo 表，该表包含有关会话的信息。类型： <code>(SessionInfo: { SessionId: string, Allowed2DGenerations: number, Allowed3DGenerations: number, SessionTime: number }) -&gt; ()</code>"
+    "documentation": "通过回调发起的 sessionInfo 表函数，其包含有关会话的信息。类型： <code>(SessionInfo: { SessionId: string, Allowed2DGenerations: number, Allowed3DGenerations: number, SessionTime: number }) -&gt; ()</code>"
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/return/0": {
-    "documentation": "一个元组，包含一个 <code>RBXScriptConnection</code>，可用于取消会话请求，以及预计的等待时间（以秒为单位）。"
+    "documentation": "一个元组，包含一个 <code>RBXScriptConnection</code>，可用于取消会话请求，以及以秒为单位的估计等待时间。"
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync": {
-    "documentation": "请求 <code>Player</code> 的 AvatarGeneration 会话。",
+    "documentation": "为 <code>Player</code> 请求一个 AvatarGeneration 会话。",
     "params": [
       {
         "name": "self",
@@ -92009,22 +92009,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/0": {
-    "documentation": "一个支持开发者创建头像的服务。"
+    "documentation": "支持开发者头像创建者的服务。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/1": {
-    "documentation": "完成验证的 <code>Player</code> 。"
+    "documentation": "为其完成验证的 <code>Player</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/2": {
-    "documentation": "执行验证的实例。"
+    "documentation": "进行验证的实例。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/3": {
-    "documentation": "<code>AccessoryType</code> 预期实例的类型。期待 <code>Eyebrow</code>、 <code>Eyelash</code> 或 <code>Hair</code>。"
+    "documentation": "<code>AccessoryType</code> 实例的预期类型。期望是 <code>Eyebrow</code>， <code>Eyelash</code>，或 <code>Hair</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/return/0": {
-    "documentation": "一个元组，包含以下内容： <ul> <li>一个布尔值，指示配件的验证是否成功。</li> <li>一个可选的字符串表。如果验证不成功，将包括失败原因；否则如果验证成功，则为 <code>nil</code>。</li> </ul>"
+    "documentation": "一个元组，按顺序包括： <ul> <li>一个布尔值，指示配饰验证是否成功。</li> <li>一个可选的字符串表。如果验证不成功，则包含失败原因；否则，如果验证成功，则为 <code>nil</code>。</li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync": {
-    "documentation": "仅限工作室。对 <code>AccessoryType</code> 运行 UGC 验证。",
+    "documentation": "仅限工作室。对一个 <code>AccessoryType</code> 进行 UGC 验证。",
     "params": [
       {
         "name": "self",
@@ -92050,22 +92050,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/0": {
-    "documentation": "一个支持开发者创建头像的服务。"
+    "documentation": "支持开发者头像创建者的服务。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/1": {
-    "documentation": "完成验证的 <code>Player</code> 。"
+    "documentation": "为其完成验证的 <code>Player</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/2": {
-    "documentation": "目标对象进行验证的实例。"
+    "documentation": "进行验证的实例。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/3": {
-    "documentation": "<code>BodyPart</code> 预期实例的类型。"
+    "documentation": "实例的预期类型 <code>BodyPart</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/return/0": {
-    "documentation": "一个元组，包含以下内容： <ul> <li>一个布尔值，指示身体部位的验证是否成功。</li> <li>一个可选的字符串表。如果验证不成功，将包括失败原因；否则如果验证成功，则为 <code>nil</code>。</li> </ul>"
+    "documentation": "一个元组，按顺序包括： <ul> <li>一个布尔值，指示身体部位验证是否成功。</li> <li>一个可选的字符串表。如果验证不成功，则包含失败原因；否则如果验证成功，则为 <code>nil</code>。</li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync": {
-    "documentation": "仅限工作室。对 <code>BodyPart</code> 运行 UGC 验证。",
+    "documentation": "仅限工作室。对一个 <code>BodyPart</code> 进行 UGC 验证。",
     "params": [
       {
         "name": "self",
@@ -92091,19 +92091,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/param/0": {
-    "documentation": "一个支持开发者创建头像的服务。"
+    "documentation": "支持开发者头像创建者的服务。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/param/1": {
-    "documentation": "对 <code>Player</code> 进行验证。"
+    "documentation": "为其完成验证的 <code>Player</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/param/2": {
-    "documentation": "<code>HumanoidDescription</code> 表示进行验证的身体。"
+    "documentation": "<code>HumanoidDescription</code> 表示执行验证的身体。"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/return/0": {
-    "documentation": "一个元组，包含以下内容： <ul> <li>一个布尔值，指示身体的验证是否成功。</li> <li>一个可选的字符串表。如果验证不成功，将包括失败原因；否则如果验证成功，则为 <code>nil</code>。</li> </ul>"
+    "documentation": "一个元组，按顺序包括： <ul> <li>一个布尔值，指示身体验证是否成功。</li> <li>一个可选的字符串表。如果验证不成功，则包含失败原因；否则如果验证成功，则为 <code>nil</code>。</li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync": {
-    "documentation": "仅限工作室。对整个身体运行 UGC 验证。",
+    "documentation": "仅限工作室。对整个身体进行 UGC 验证。",
     "params": [
       {
         "name": "self",
@@ -92202,7 +92202,7 @@
     "returns": []
   },
   "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted": {
-    "documentation": "在体验中创建的头像资产的审核状态从待审核更新时触发。",
+    "documentation": "当在体验中创建的头像资产的审核状态从待定状态更新时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect",
       "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel",
@@ -92290,7 +92290,7 @@
     "returns": []
   },
   "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted": {
-    "documentation": "在体验中创建的头像的审核状态从待审核更新时触发。",
+    "documentation": "当在体验中创建的头像的审核状态从待定状态更新时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect",
       "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel",
@@ -93952,6 +93952,178 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoCapture#TimeLength",
     "code_sample": ""
   },
+  "@roblox/globaltype/InstanceFileSyncService": {
+    "documentation": "一个用于与插件文件同步交互的服务。",
+    "keys": {
+      "GetAllInstances": "@roblox/globaltype/InstanceFileSyncService.GetAllInstances",
+      "GetStatus": "@roblox/globaltype/InstanceFileSyncService.GetStatus",
+      "GetSyncedInstance": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/param/0": {
+    "documentation": "一个用于与插件文件同步交互的服务。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/return/0": {
+    "documentation": "返回一个 <code>Instances</code> 数组。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances": {
+    "documentation": "返回当前参与文件同步的所有实例的数组。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetAllInstances",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/0": {
+    "documentation": "一个用于与插件文件同步交互的服务。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/1": {
+    "documentation": "要检查的实例。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/return/0": {
+    "documentation": "返回该实例的 <code>InstanceFileSyncStatus</code>。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus": {
+    "documentation": "返回特定实例的同步状态。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/0"
+      },
+      {
+        "name": "instance",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetStatus/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetStatus",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/0": {
+    "documentation": "一个用于与插件文件同步交互的服务。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/1": {
+    "documentation": "文件的绝对路径。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/return/0": {
+    "documentation": "如果存在，则返回与文件路径同步的实例。否则，返回 nil。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance": {
+    "documentation": "返回与给定文件路径对应的实例。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/0"
+      },
+      {
+        "name": "filePath",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetSyncedInstance",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect": {
+    "documentation": "将给定的函数连接到事件，并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel": {
+    "documentation": "将给定的函数连接到事件，并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once": {
+    "documentation": "将给定的函数连接到事件（用于单次调用），并返回一个 <code>RBXScriptConnection</code> 代表该连接。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait/param/0": {
+    "documentation": "一个在特定事件发生时运行连接的函数的对象。"
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait": {
+    "documentation": "直到信号触发才让当前线程挂起，并返回信号提供的参数。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged": {
+    "documentation": "当实例的同步状态改变时触发。",
+    "keys": {
+      "Connect": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once",
+      "Wait": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#StatusChanged",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SlidingBallConstraint": {
     "documentation": "允许其附件沿着轴滑动但不旋转的约束的基类。",
     "keys": {
@@ -95307,10 +95479,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/2": {
-    "documentation": ""
+    "documentation": "体验中奖励视频广告的位置 ID。允许对单个广告位置的性能进行报告。"
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync": {
-    "documentation": "",
+    "documentation": "跟踪用户观看视频广告的机会次数以及他们实际观看广告的比率。",
     "params": [
       {
         "name": "self",
@@ -96342,7 +96514,7 @@
   "@roblox/globaltype/Players.CharacterAutoLoads": {
     "documentation": "指示 <code>characters</code> 是否会自动重生。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CharacterAutoLoads",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\n-- 将 CharacterAutoLoads 设置为 false\nPlayers.CharacterAutoLoads = false\n\n-- 玩家死亡时从工作区移除角色\nPlayers.PlayerAdded:Connect(function(player)\n\twhile true do\n\t\tlocal char = player.CharacterAdded:Wait()\n\t\tchar.Humanoid.Died:Connect(function()\n\t\t\tchar:Destroy()\n\t\tend)\n\tend\nend)\n\n-- 每10秒重生所有死掉的玩家\nwhile true do\n\tlocal players = Players:GetChildren()\n\n\t-- 检查每个玩家是否死亡，通过检查他们是否没有角色，如果死亡则加载该玩家的角色\n\tfor _, player in pairs(players) do\n\t\tif not workspace:FindFirstChild(player.Name) then\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\tend\n\n\t-- 等待10秒，直到下一个重生检查\n\ttask.wait(10)\nend"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\n-- 将 CharacterAutoLoads 设置为 false\nPlayers.CharacterAutoLoads = false\n\n-- 在玩家死亡时从工作区移除玩家的角色\nPlayers.PlayerAdded:Connect(function(player)\n\twhile true do\n\t\tlocal char = player.CharacterAdded:Wait()\n\t\tchar.Humanoid.Died:Connect(function()\n\t\t\tchar:Destroy()\n\t\tend)\n\tend\nend)\n\n-- 每 10 秒重生所有死亡的玩家\nwhile true do\n\tlocal players = Players:GetChildren()\n\n\t-- 检查每个玩家是否死亡，通过检查他们是否没有角色，如果死亡则加载该玩家的角色\n\tfor _, player in pairs(players) do\n\t\tif not workspace:FindFirstChild(player.Name) then\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\tend\n\n\t-- 等待 10 秒直到下一个重生检查\n\ttask.wait(10)\nend"
   },
   "@roblox/globaltype/Players.ClassicChat": {
     "documentation": "指示经典聊天是否启用；由 <code>Players:SetChatStyle()</code> 方法设置。",
@@ -96540,7 +96712,7 @@
       "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CreateHumanoidModelFromUserIdAsync",
-    "code_sample": "game.Players:CreateHumanoidModelFromUserId(1).Parent = game.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromUserIdAsync(1).Parent = game.Workspace"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId/param/0": {
     "documentation": "一个包含当前连接的 <code>Player</code> 对象的服务。"
@@ -96567,7 +96739,7 @@
       "@roblox/globaltype/Players.CreateHumanoidModelFromUserId/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CreateHumanoidModelFromUserId",
-    "code_sample": "game.Players:CreateHumanoidModelFromUserId(1).Parent = game.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromUserIdAsync(1).Parent = game.Workspace"
   },
   "@roblox/globaltype/Players.GetBanHistoryAsync/param/0": {
     "documentation": "一个包含当前连接的 <code>Player</code> 对象的服务。"
@@ -96756,7 +96928,7 @@
       "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#GetHumanoidDescriptionFromUserIdAsync",
-    "code_sample": "game.Players:CreateHumanoidModelFromDescription(\n\tgame.Players:GetHumanoidDescriptionFromUserId(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromDescriptionAsync(\n\tgame.Players:GetHumanoidDescriptionFromUserIdAsync(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId/param/0": {
     "documentation": "一个包含当前连接的 <code>Player</code> 对象的服务。"
@@ -96783,7 +96955,7 @@
       "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#GetHumanoidDescriptionFromUserId",
-    "code_sample": "game.Players:CreateHumanoidModelFromDescription(\n\tgame.Players:GetHumanoidDescriptionFromUserId(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromDescriptionAsync(\n\tgame.Players:GetHumanoidDescriptionFromUserIdAsync(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
   },
   "@roblox/globaltype/Players.GetNameFromUserIdAsync/param/0": {
     "documentation": "一个包含当前连接的 <code>Player</code> 对象的服务。"
@@ -100382,7 +100554,7 @@
     "documentation": "包含所有参与通话的玩家的数组。呼叫者将始终是数组中的第一个玩家。"
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/return/0": {
-    "documentation": "包含 <code>PlaceId</code> 和 <code>ReservedServerAccessCode</code> 键的表，其值为 <code>DataModel.PlaceId</code> 和 <code>TeleportService:ReserveServer()</code> 返回的服务器访问代码。"
+    "documentation": "包含<code>PlaceId</code>和<code>ReservedServerAccessCode</code>键的表，其值分别是<code>DataModel.PlaceId</code>和<code>TeleportService:ReserveServerAsync()</code>返回的服务器访问代码。"
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked": {
     "documentation": "从手机联系人拨打电话时的回调。",
@@ -100400,7 +100572,7 @@
       "@roblox/globaltype/SocialService.OnCallInviteInvoked/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SocialService#OnCallInviteInvoked",
-    "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal TeleportService = game:GetService(\"TeleportService\")\n\nSocialService.OnCallInviteInvoked = function()\n\tlocal placeId = 0123456789 -- 这是要将呼叫参与者放入的目标地点的地点 ID\n\tlocal accessCode = TeleportService:ReserveServer(placeId)\n\n\treturn { ReservedServerAccessCode = accessCode, PlaceId = placeId }\nend"
+    "code_sample": "local SocialService = game:GetService(\"SocialService\")\nlocal TeleportService = game:GetService(\"TeleportService\")\n\nSocialService.OnCallInviteInvoked = function()\n\tlocal placeId = 0123456789 -- 这是要将通话参与者丢弃到的目标地点的地点 ID\n\tlocal accessCode = TeleportService:ReserveServerAsync(placeId)\n\n\treturn { ReservedServerAccessCode = accessCode, PlaceId = placeId }\nend"
   },
   "@roblox/globaltype/SocialService.CallInviteStateChanged.Connect/param/0": {
     "documentation": "一个在特定事件发生时运行连接的函数的对象。"
@@ -118036,6 +118208,57 @@
       "OculusQuest": "@roblox/enum/VRDeviceType.OculusQuest"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VRDeviceType",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.NotSynced": {
+    "documentation": "该 <code>Instance</code> 没有在同步或出现错误。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#NotSynced",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.Errored": {
+    "documentation": "该 <code>Instance</code> 是一个同步根，发生了错误并停止了同步。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#Errored",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot": {
+    "documentation": "该 <code>Instance</code> 正在作为同步树的根节点进行同步。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsRoot",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant": {
+    "documentation": "该 <code>Instance</code> 正在同步，因为它是一个同步根的后代。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsDescendant",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.InstanceFileSyncStatus": {
+    "documentation": "描述一个实例的文件同步状态。",
+    "keys": {
+      "NotSynced": "@roblox/enum/InstanceFileSyncStatus.NotSynced",
+      "Errored": "@roblox/enum/InstanceFileSyncStatus.Errored",
+      "SyncedAsRoot": "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot",
+      "SyncedAsDescendant": "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus",
     "code_sample": ""
   },
   "@roblox/enum/PathStatus.Success": {
@@ -137248,7 +137471,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AssetType": {
-    "documentation": "此枚举可用于将 <code>MarketplaceService:GetProductInfo()</code> 返回的 AssetTypeId 与资产类型匹配。",
+    "documentation": "此枚举可用于将来自 <code>MarketplaceService:GetProductInfoAsync()</code> 的 AssetTypeId 匹配到资产类型。",
     "keys": {
       "Image": "@roblox/enum/AssetType.Image",
       "TShirt": "@roblox/enum/AssetType.TShirt",

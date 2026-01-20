@@ -752,7 +752,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CatalogSearchParams": {
-    "documentation": "Memorizza i parametri utilizzati nelle ricerche del catalogo tramite <code>AvatarEditorService:SearchCatalog()</code>.",
+    "documentation": "Memorizza i parametri utilizzati nelle ricerche di catalogo tramite <code>AvatarEditorService:SearchCatalogAsync()</code>.",
     "keys": {
       "SearchKeyword": "@roblox/globaltype/CatalogSearchParams.SearchKeyword",
       "MinPrice": "@roblox/globaltype/CatalogSearchParams.MinPrice",
@@ -6523,7 +6523,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.AutoRuns": {
-    "documentation": "Se impostato a <code>true</code>, il gioco inizierà a girare quando viene chiamato il metodo <code>TestService:Run()</code> del servizio.",
+    "documentation": "Se impostato su <code>true</code>, il gioco inizierà a funzionare quando viene chiamato il metodo <code>TestService:RunAsync()</code> del servizio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#AutoRuns",
     "code_sample": ""
   },
@@ -7289,7 +7289,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPages": {
-    "documentation": "Una versione speciale della classe <code>Pages</code> restituita da <code>AssetService:SearchAudio()</code>.",
+    "documentation": "Una versione speciale della classe <code>Pages</code> restituita da <code>AssetService:SearchAudioAsync()</code>.",
     "keys": {},
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPages",
     "code_sample": ""
@@ -14129,7 +14129,7 @@
       "@roblox/globaltype/PluginGui.GetRelativeMousePosition/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PluginGui#GetRelativeMousePosition",
-    "code_sample": "local RunService = game:GetService(\"RunService\")\n\nlocal widgetInfo = DockWidgetPluginGuiInfo.new(\n\tEnum.InitialDockState.Float,\n\ttrue,\n\tfalse, -- Stato abilitato, sovrascrivi\n\t200,\n\t300, -- Dimensione\n\t150,\n\t150 -- Dimensione minima\n)\n\nlocal testWidget = plugin:CreateDockWidgetPluginGui(\"TestWidget\", widgetInfo)\n\nfunction update()\n\tlocal v2 = testWidget:GetRelativeMousePosition()\n\ttestWidget.Title = (\"(%d, %d)\"):format(v2.x, v2.y)\nend\n\nRunService.Stepped:Connect(update)\n\nupdate()"
+    "code_sample": ""
   },
   "@roblox/globaltype/PluginGui.PluginDragDropped.Connect/param/0": {
     "documentation": "Un oggetto che esegue funzioni connesse al verificarsi di un evento specifico."
@@ -24865,12 +24865,12 @@
   "@roblox/globaltype/DataModel.CreatorId": {
     "documentation": "Descrive l'ID dell'utente o del gruppo che possiede il luogo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorId",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"Il proprietario del posto è entrato nel gioco!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"Un membro del gruppo che possiede il posto è entrato nel gioco!\")\n\t\tend\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"Il proprietario del posto è entrato nel gioco!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"Un membro del gruppo che possiede il posto è entrato nel gioco!\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.CreatorType": {
     "documentation": "Descrive il <code>CreatorType</code> del luogo, se il luogo è posseduto  da un utente o da un gruppo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#CreatorType",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"Il proprietario del posto è entrato nel gioco!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroup(game.CreatorId) then\n\t\t\tprint(\"Un membro del gruppo che possiede il posto è entrato nel gioco!\")\n\t\tend\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.PlayerAdded:Connect(function(player)\n\tif game.CreatorType == Enum.CreatorType.User then\n\t\tif player.UserId == game.CreatorId then\n\t\t\tprint(\"Il proprietario del posto è entrato nel gioco!\")\n\t\tend\n\telseif game.CreatorType == Enum.CreatorType.Group then\n\t\tif player:IsInGroupAsync(game.CreatorId) then\n\t\t\tprint(\"Un membro del gruppo che possiede il posto è entrato nel gioco!\")\n\t\tend\n\tend\nend)"
   },
   "@roblox/globaltype/DataModel.Environment": {
     "documentation": "",
@@ -24918,7 +24918,7 @@
     "code_sample": "local StarterGui = game:GetService(\"StarterGui\")\n\nlocal versionGui = Instance.new(\"ScreenGui\")\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Position = UDim2.new(1, -10, 1, 0)\ntextLabel.AnchorPoint = Vector2.new(1, 1)\ntextLabel.Size = UDim2.new(0, 150, 0, 40)\n\ntextLabel.BackgroundTransparency = 1\ntextLabel.TextColor3 = Color3.new(1, 1, 1)\ntextLabel.TextStrokeTransparency = 0\ntextLabel.TextXAlignment = Enum.TextXAlignment.Right\ntextLabel.TextScaled = true\n\nlocal placeVersion = game.PlaceVersion\ntextLabel.Text = string.format(\"Versione del server: %s\", placeVersion)\n\ntextLabel.Parent = versionGui\nversionGui.Parent = StarterGui"
   },
   "@roblox/globaltype/DataModel.PrivateServerId": {
-    "documentation": "Descrive l'ID del server privato del server, se il server è un server privato o un <code>server riservato</code>.",
+    "documentation": "Descrive l'ID del server privato del server, se il server è un server privato oppure un <code>server riservato</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/DataModel#PrivateServerId",
     "code_sample": "local function getServerType()\n\tif game.PrivateServerId ~= \"\" then\n\t\tif game.PrivateServerOwnerId ~= 0 then\n\t\t\treturn \"VIPServer\"\n\t\telse\n\t\t\treturn \"ReservedServer\"\n\t\tend\n\telse\n\t\treturn \"StandardServer\"\n\tend\nend\n\nprint(getServerType())"
   },
@@ -27280,7 +27280,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.BackAccessory": {
-    "documentation": "Un elenco separato da virgole di ID asset che verranno aggiunti come <code>Accessori</code> a un rig <code>Humanoid</code> quando <code>applicato</code>, solitamente quelli attaccati alla sua schiena (come mantelli).",
+    "documentation": "Un elenco di ID asset separati da virgola che verranno aggiunti come <code>Accessori</code> a un rig <code>Humanoid</code> quando <code>applicato</code>, di solito quelli attaccati alla schiena (come mantelli).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#BackAccessory",
     "code_sample": ""
   },
@@ -27290,7 +27290,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.ClimbAnimation": {
-    "documentation": "Quando questa descrizione è <code>applicata</code> a un <code>Humanoid</code>, questo determina l'<code>Animation.AnimationId</code> da riprodurre quando il suo <code>stato</code> è <code>Climbing</code>.",
+    "documentation": "Quando questa descrizione è <code>applicata</code> a un <code>Humanoid</code>, questo determina il <code>Animation.AnimationId</code> da riprodurre quando il suo <code>stato</code> è <code>Climbing</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#ClimbAnimation",
     "code_sample": ""
   },
@@ -27305,17 +27305,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.FaceAccessory": {
-    "documentation": "Un elenco separato da virgole di ID asset che verranno aggiunti come <code>Accessori</code> a un rig <code>Humanoid</code> quando <code>applicato</code>, solitamente quelli attaccati alla fronte della sua faccia (come occhiali).",
+    "documentation": "Un elenco di ID asset separati da virgola che verranno aggiunti come <code>Accessori</code> a un rig <code>Humanoid</code> quando <code>applicato</code>, di solito quelli attaccati al davanti del suo viso (come occhiali).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#FaceAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.FallAnimation": {
-    "documentation": "Quando questa descrizione è <code>applicata</code> a un <code>Humanoid</code>, questo determina l'<code>Animation.AnimationId</code> da riprodurre quando il suo <code>stato</code> è <code>Freefall</code>.",
+    "documentation": "Quando questa descrizione è <code>applicata</code> to un <code>Humanoid</code>, questo determina il <code>Animation.AnimationId</code> dare riprodurre quando il suo <code>stato</code> è <code>Freefall</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#FallAnimation",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.FrontAccessory": {
-    "documentation": "Un elenco separato da virgole di ID asset che verranno aggiunti come <code>Accessori</code> a un rig <code>Humanoid</code> quando <code>applicato</code>, solitamente quelli attaccati a davanti al suo torso (come medaglie o cravatte).",
+    "documentation": "Un elenco di ID asset separati da virgola che verranno aggiunti come <code>Accessori</code> a un rig <code>Humanoid</code> quando <code>applicato</code>, di solito quelli attaccati alla parte anteriore del suo torso (come medaglie o cravatte).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#FrontAccessory",
     "code_sample": ""
   },
@@ -27325,12 +27325,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.HairAccessory": {
-    "documentation": "Un elenco separato da virgole di ID asset che verranno aggiunti come <code>Accessori</code> a un rig <code>Humanoid</code> quando <code>applicato</code>, solitamente quelli attaccati alla sua testa che somigliano ai capelli.",
+    "documentation": "Un elenco di ID asset separati da virgola che verranno aggiunti come <code>Accessori</code> a un rig <code>Humanoid</code> quando <code>applicato</code>, di solito quelli attaccati alla sua testa simili ai capelli.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#HairAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.HatAccessory": {
-    "documentation": "Un elenco separato da virgole di ID asset che verranno aggiunti come <code>Accessori</code> a un rig <code>Humanoid</code> quando <code>applicato</code>, solitamente quelli attaccati alla sua testa.",
+    "documentation": "Un elenco di ID asset separati da virgola che verranno aggiunti come <code>Accessori</code> a un rig <code>Humanoid</code> quando <code>applicato</code>, di solito quelli attaccati alla sua testa.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#HatAccessory",
     "code_sample": ""
   },
@@ -27355,12 +27355,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.IdleAnimation": {
-    "documentation": "Quando questa descrizione è <code>applicata</code> a un <code>Humanoid</code>, questo determina l'<code>Animation.AnimationId</code> da riprodurre quando il suo <code>stato</code> è <code>Running</code> a una velocità vicina a zero.",
+    "documentation": "Quando questa descrizione è <code>applicata</code> to un <code>Humanoid</code>, questo determina il <code>Animation.AnimationId</code> da riprodurre quando il suo <code>stato</code> è <code>Running</code> a una velocità vicina a zero.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#IdleAnimation",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.JumpAnimation": {
-    "documentation": "Quando questa descrizione è <code>applicata</code> a un <code>Humanoid</code>, questo determina l'<code>Animation.AnimationId</code> da riprodurre quando il suo <code>stato</code> è <code>Jumping</code>.",
+    "documentation": "Quando questa descrizione è <code>applicata</code> to un <code>Humanoid</code>, questo determina il <code>Animation.AnimationId</code> da riprodurre quando il suo <code>stato</code> è <code>Jumping</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#JumpAnimation",
     "code_sample": ""
   },
@@ -27390,7 +27390,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.NeckAccessory": {
-    "documentation": "Un elenco separato da virgole di ID asset che verranno aggiunti come <code>Accessori</code> a un rig <code>Humanoid</code> quando <code>applicato</code>, solitamente quelli attaccati al suo collo (come sciarpe o collane).",
+    "documentation": "Un elenco di ID asset separati da virgola che verranno aggiunti come <code>Accessori</code> a un rig <code>Humanoid</code> quando <code>applicato</code>, di solito quelli attaccati al suo collo (come sciarpe o collane).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#NeckAccessory",
     "code_sample": ""
   },
@@ -27425,7 +27425,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.RunAnimation": {
-    "documentation": "Quando questa descrizione è <code>applicata</code> a un <code>Humanoid</code>, questo determina l'<code>Animation.AnimationId</code> da riprodurre quando il suo <code>stato</code> è <code>Running</code> a una velocità moderata.",
+    "documentation": "Quando questa descrizione è <code>applicata</code> to un <code>Humanoid</code>, questo determina il <code>Animation.AnimationId</code> da riprodurre quando il suo <code>stato</code> è <code>Running</code> a una velocità moderata.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#RunAnimation",
     "code_sample": ""
   },
@@ -27435,12 +27435,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.ShouldersAccessory": {
-    "documentation": "Un elenco separato da virgole di ID asset che verranno aggiunti come <code>Accessori</code> a un rig <code>Humanoid</code> quando <code>applicato</code>, solitamente quelli attaccati alle sue spalle (come creature montate sulle spalle).",
+    "documentation": "Un elenco di ID asset separati da virgola che verranno aggiunti come <code>Accessori</code> a un rig <code>Humanoid</code> quando <code>applicato</code>, di solito quelli attaccati alle sue spalle (come creature montate sulle spalle).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#ShouldersAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.SwimAnimation": {
-    "documentation": "Quando questa descrizione è <code>applicata</code> a un <code>Humanoid</code>, questo determina l'<code>Animation.AnimationId</code> da riprodurre quando il suo <code>stato</code> è <code>Swimming</code>.",
+    "documentation": "Quando questa descrizione è <code>applicata</code> to un <code>Humanoid</code>, questo determina il <code>Animation.AnimationId</code> da riprodurre quando il suo <code>stato</code> è <code>Swimming</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#SwimAnimation",
     "code_sample": ""
   },
@@ -27455,12 +27455,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.WaistAccessory": {
-    "documentation": "Un elenco separato da virgole di ID di asset che saranno aggiunti come <code>Accessori</code> a un rig <code>Humanoid</code> quando <code>applicato</code>, di solito quelli attaccati alla sua vita (come le cinture).",
+    "documentation": "Un elenco di ID asset separati da virgola che verranno aggiunti come <code>Accessori</code> a un rig <code>Humanoid</code> quando <code>applicato</code>, di solito quelli attaccati alla sua vita (come cinture).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#WaistAccessory",
     "code_sample": ""
   },
   "@roblox/globaltype/HumanoidDescription.WalkAnimation": {
-    "documentation": "Quando questa descrizione è <code>applicata</code> a un <code>Humanoid</code>, questo determina il <code>Animation.AnimationId</code> da riprodurre quando il suo <code>stato</code> è <code>Running</code> a bassa velocità.",
+    "documentation": "Quando questa descrizione è <code>applicata</code> to un <code>Humanoid</code>, questo determina il <code>Animation.AnimationId</code> da riprodurre quando il suo <code>stato</code> è <code>Running</code> a bassa velocità.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HumanoidDescription#WalkAnimation",
     "code_sample": ""
   },
@@ -35084,7 +35084,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService": {
-    "documentation": "Il TextService è un servizio responsabile internamente della gestione della visualizzazione del testo nel gioco.",
+    "documentation": "Servizio internamente responsabile per la gestione della visualizzazione del testo.",
     "keys": {
       "FilterAndTranslateStringAsync": "@roblox/globaltype/TextService.FilterAndTranslateStringAsync",
       "FilterStringAsync": "@roblox/globaltype/TextService.FilterStringAsync",
@@ -35097,7 +35097,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync/param/0": {
-    "documentation": "Il TextService è un servizio responsabile internamente della gestione della visualizzazione del testo nel gioco."
+    "documentation": "Servizio internamente responsabile per la gestione della visualizzazione del testo."
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync/param/1": {
     "documentation": ""
@@ -35115,7 +35115,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextService.FilterAndTranslateStringAsync": {
-    "documentation": "La traduzione della chat non è supportata nella chat legacy. Questo metodo non è più supportato e non dovrebbe essere utilizzato.",
+    "documentation": "Filtra e traduce una stringa.",
     "params": [
       {
         "name": "self",
@@ -35145,16 +35145,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/0": {
-    "documentation": "Il TextService è un servizio responsabile internamente della gestione della visualizzazione del testo nel gioco."
+    "documentation": "Servizio internamente responsabile per la gestione della visualizzazione del testo."
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/1": {
     "documentation": "Il testo da filtrare."
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/2": {
-    "documentation": "L'userId del giocatore che filtra il testo."
+    "documentation": "L'<code>Player.UserId</code> del giocatore che filtra il testo."
   },
   "@roblox/globaltype/TextService.FilterStringAsync/param/3": {
-    "documentation": "Il contesto in cui sarà utilizzato il messaggio filtrato."
+    "documentation": "Il contesto in cui il messaggio filtrato sarà utilizzato. Questo parametro non influisce sul risultato filtrato della query ed è utilizzato solo per migliorare il filtraggio del testo di Roblox."
   },
   "@roblox/globaltype/TextService.FilterStringAsync/return/0": {
     "documentation": ""
@@ -35186,7 +35186,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.GetFamilyInfoAsync/param/0": {
-    "documentation": "Il TextService è un servizio responsabile internamente della gestione della visualizzazione del testo nel gioco."
+    "documentation": "Servizio internamente responsabile per la gestione della visualizzazione del testo."
   },
   "@roblox/globaltype/TextService.GetFamilyInfoAsync/param/1": {
     "documentation": "ID dell'asset della famiglia di font da cercare."
@@ -35210,10 +35210,10 @@
       "@roblox/globaltype/TextService.GetFamilyInfoAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextService#GetFamilyInfoAsync",
-    "code_sample": ""
+    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal familyToCheck = \"rbxasset://fonts/families/Arimo.json\"\n\nlocal success, info = pcall(function()\n\treturn TextService:GetFamilyInfoAsync(familyToCheck)\nend)\nif success then\n\tprint(\"Nome del font:\", info.Name)\n\tprint(\"Facce:\")\n\tfor _, face in info.Faces do\n\t\tprint(\"--------\")\n\t\tprint(\"Nome:\", face.Name)\n\t\tprint(\"Peso:\", face.Weight.Name)\n\t\tprint(\"Stile:\", face.Style.Name)\n\tend\nend"
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync/param/0": {
-    "documentation": "Il TextService è un servizio responsabile internamente della gestione della visualizzazione del testo nel gioco."
+    "documentation": "Servizio internamente responsabile per la gestione della visualizzazione del testo."
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync/param/1": {
     "documentation": "Un riferimento a un oggetto <code>GetTextBoundsParams</code>."
@@ -35222,7 +35222,7 @@
     "documentation": "La dimensione del testo come <code>Vector2</code>."
   },
   "@roblox/globaltype/TextService.GetTextBoundsAsync": {
-    "documentation": "Calcola la larghezza e l'altezza del testo date le specifiche.",
+    "documentation": "Calcola le dimensioni <code>Vector2</code> (in pixel) che saranno occupate con il testo quando si utilizza un oggetto <code>GetTextBoundsParams</code>.",
     "params": [
       {
         "name": "self",
@@ -35240,19 +35240,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TextService.GetTextSize/param/0": {
-    "documentation": "Il TextService è un servizio responsabile internamente della gestione della visualizzazione del testo nel gioco."
+    "documentation": "Servizio internamente responsabile per la gestione della visualizzazione del testo."
   },
   "@roblox/globaltype/TextService.GetTextSize/param/1": {
     "documentation": "La stringa per la quale deve essere calcolata la dimensione del testo."
   },
   "@roblox/globaltype/TextService.GetTextSize/param/2": {
-    "documentation": "L'intero che rappresenta la dimensione del font utilizzato."
+    "documentation": "L'intero che rappresenta la dimensione del font utilizzata. Non accetta un valore di <code>FontSize</code>."
   },
   "@roblox/globaltype/TextService.GetTextSize/param/3": {
     "documentation": "Il font utilizzato."
   },
   "@roblox/globaltype/TextService.GetTextSize/param/4": {
-    "documentation": "La <code>TextLabel.AbsoluteSize</code> dell'oggetto di testo da utilizzare. Necessaria per calcolare come il testo si avvolgerà."
+    "documentation": "La <code>GuiBase2d.AbsoluteSize</code> dell'oggetto di testo da utilizzare. Richiesta per calcolare come il testo si avvolgerà."
   },
   "@roblox/globaltype/TextService.GetTextSize/return/0": {
     "documentation": "La dimensione dello spazio richiesto, in pixel, dalla stringa con la formattazione specificata."
@@ -35285,10 +35285,10 @@
       "@roblox/globaltype/TextService.GetTextSize/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextService#GetTextSize",
-    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal function getTextBounds()\n\tlocal message = \"Hello World\"\n\tlocal size = Vector2.new(1, 1)\n\tlocal bounds = TextService:GetTextSize(message, 12, \"SourceSans\", size)\n\treturn bounds + Vector2.new(1, 1)\nend\n\nprint(getTextBounds())"
+    "code_sample": "local TextService = game:GetService(\"TextService\")\n\nlocal function getTextBounds()\n\tlocal message = \"Ciao mondo!\"\n\tlocal size = Vector2.new(1, 1)\n\tlocal bounds = TextService:GetTextSize(message, 12, \"SourceSans\", size)\n\treturn bounds\nend\n\nprint(getTextBounds())"
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync/param/0": {
-    "documentation": "Il TextService è un servizio responsabile internamente della gestione della visualizzazione del testo nel gioco."
+    "documentation": "Servizio internamente responsabile per la gestione della visualizzazione del testo."
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync/param/1": {
     "documentation": ""
@@ -35300,7 +35300,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TextService.GetTextSizeOffsetAsync": {
-    "documentation": "",
+    "documentation": "Restituisce l'offset utilizzato per scalare il testo in base all'attuale impostazione di <code>GuiService.PreferredTextSize</code>.",
     "params": [
       {
         "name": "self",
@@ -45463,7 +45463,7 @@
       "@roblox/globaltype/Player.GetFriendsOnlineAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetFriendsOnlineAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Impossibile ottenere i giocatori online: \" .. result)\nend"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Impossibile ottenere i giocatori online: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetFriendsOnline/param/0": {
     "documentation": "Un oggetto che rappresenta un client attualmente connesso all'esperienza."
@@ -45490,7 +45490,7 @@
       "@roblox/globaltype/Player.GetFriendsOnline/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#GetFriendsOnline",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnline, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Impossibile ottenere i giocatori online: \" .. result)\nend"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(player.GetFriendsOnlineAsync, player, 10)\n\nif success then\n\tfor _, friend in pairs(result) do\n\t\tprint(friend.UserName)\n\tend\nelse\n\twarn(\"Impossibile ottenere i giocatori online: \" .. result)\nend"
   },
   "@roblox/globaltype/Player.GetJoinData/param/0": {
     "documentation": "Un oggetto che rappresenta un client attualmente connesso all'esperienza."
@@ -45951,7 +45951,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacterAsync()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacter/param/0": {
     "documentation": "Un oggetto che rappresenta un client attualmente connesso all'esperienza."
@@ -45966,7 +45966,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacter",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacter()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacter()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal RESPAWN_DELAY = 5\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal function onCharacterAdded(character)\n\t\tlocal humanoid = character:WaitForChild(\"Humanoid\")\n\n\t\tlocal function onDied()\n\t\t\ttask.wait(RESPAWN_DELAY)\n\t\t\tplayer:LoadCharacterAsync()\n\t\tend\n\n\t\thumanoid.Died:Connect(onDied)\n\tend\n\n\tplayer.CharacterAdded:Connect(onCharacterAdded)\n\n\tplayer:LoadCharacterAsync()\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterAppearance/param/0": {
     "documentation": "Un oggetto che rappresenta un client attualmente connesso all'esperienza."
@@ -46010,7 +46010,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterWithHumanoidDescriptionAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription/param/0": {
     "documentation": "Un oggetto che rappresenta un client attualmente connesso all'esperienza."
@@ -46032,7 +46032,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Player#LoadCharacterWithHumanoidDescription",
-    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescription(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
+    "code_sample": "local Players = game:GetService(\"Players\")\n\nPlayers.CharacterAutoLoads = false\n\nlocal function onPlayerAdded(player)\n\tlocal humanoidDescription = Instance.new(\"HumanoidDescription\")\n\thumanoidDescription.HatAccessory = \"2551510151,2535600138\"\n\thumanoidDescription.BodyTypeScale = 0.1\n\thumanoidDescription.ClimbAnimation = 619521311\n\thumanoidDescription.Face = 86487700\n\thumanoidDescription.GraphicTShirt = 1711661\n\thumanoidDescription.HeadColor = Color3.new(0, 1, 0)\n\tplayer:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription)\nend\n\nPlayers.PlayerAdded:Connect(onPlayerAdded)"
   },
   "@roblox/globaltype/Player.LoadInstance/param/0": {
     "documentation": "Un oggetto che rappresenta un client attualmente connesso all'esperienza."
@@ -57067,7 +57067,7 @@
       "@roblox/globaltype/KeyframeSequenceProvider.GetAnimationsAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequenceProvider#GetAnimationsAsync",
-    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- Inserisci qui il tuo UserId\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimations(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"totale: \", #animationIds)"
+    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- Inserisci qui il tuo UserId\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimationsAsync(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"totale: \", #animationIds)"
   },
   "@roblox/globaltype/KeyframeSequenceProvider.GetAnimations/param/0": {
     "documentation": "Fornisce funzioni per caricare e visualizzare in anteprima <code>KeyframeSequence</code>."
@@ -57094,7 +57094,7 @@
       "@roblox/globaltype/KeyframeSequenceProvider.GetAnimations/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/KeyframeSequenceProvider#GetAnimations",
-    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- Inserisci qui il tuo UserId\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimations(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"totale: \", #animationIds)"
+    "code_sample": "local KeyframeSequenceProvider = game:GetService(\"KeyframeSequenceProvider\")\n\nlocal USER_ID = 0 -- Inserisci qui il tuo UserId\n\nlocal function extractPages(pagesObject)\n\tlocal array = {}\n\twhile true do\n\t\tlocal thisPage = pagesObject:GetCurrentPage()\n\t\tfor _, v in pairs(thisPage) do\n\t\t\ttable.insert(array, v)\n\t\tend\n\t\tif pagesObject.IsFinished then\n\t\t\tbreak\n\t\tend\n\t\tpagesObject:AdvanceToNextPageAsync()\n\tend\n\treturn array\nend\n\nlocal inventoryPages = KeyframeSequenceProvider:GetAnimationsAsync(USER_ID)\n\nlocal animationIds = extractPages(inventoryPages)\n\nfor _, id in pairs(animationIds) do\n\tprint(id)\nend\nprint(\"totale: \", #animationIds)"
   },
   "@roblox/globaltype/KeyframeSequenceProvider.GetKeyframeSequence/param/0": {
     "documentation": "Fornisce funzioni per caricare e visualizzare in anteprima <code>KeyframeSequence</code>."
@@ -79505,7 +79505,7 @@
       "@roblox/globaltype/MarketplaceService.GetProductInfoAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetProductInfoAsync",
-    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfo(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfoAsync(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo/param/0": {
     "documentation": "Il servizio responsabile delle transazioni in esperienza."
@@ -79539,7 +79539,7 @@
       "@roblox/globaltype/MarketplaceService.GetProductInfo/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#GetProductInfo",
-    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfo(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
+    "code_sample": "local MarketplaceService = game:GetService(\"MarketplaceService\")\n\nlocal ASSET_ID = 125378389\n\nlocal asset = MarketplaceService:GetProductInfoAsync(ASSET_ID)\nprint(asset.Name .. \" :: \" .. asset.Description)"
   },
   "@roblox/globaltype/MarketplaceService.GetSubscriptionProductInfoAsync/param/0": {
     "documentation": "Il servizio responsabile delle transazioni in esperienza."
@@ -79797,7 +79797,7 @@
       "@roblox/globaltype/MarketplaceService.PlayerOwnsBundleAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundleAsync",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- Il bundle che stiamo controllando: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundle(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"La chiamata a PlayerOwnsBundle è fallita: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" possiede \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" non possiede \" .. BUNDLE_NAME)\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- Il bundle che stiamo controllando: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundleAsync(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"La chiamata a PlayerOwnsBundleAsync è fallita: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" possiede \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" non possiede \" .. BUNDLE_NAME)\n\tend\nend)"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/param/0": {
     "documentation": "Il servizio responsabile delle transazioni in esperienza."
@@ -79831,7 +79831,7 @@
       "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundle",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- Il bundle che stiamo controllando: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundle(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"La chiamata a PlayerOwnsBundle è fallita: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" possiede \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" non possiede \" .. BUNDLE_NAME)\n\tend\nend)"
+    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- Il bundle che stiamo controllando: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundleAsync(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"La chiamata a PlayerOwnsBundleAsync è fallita: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" possiede \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" non possiede \" .. BUNDLE_NAME)\n\tend\nend)"
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/0": {
     "documentation": "Il servizio responsabile delle transazioni in esperienza."
@@ -80100,7 +80100,7 @@
     "documentation": "Un array di oggetti che identificano i prodotti che desideri classificare. Questo array può includere un massimo di 50 articoli. Ogni <code>ProductIdentifier</code> ha: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>Deve essere o <code>InfoType.GamePass</code> o     <code>InfoType.Product</code>.</li> <li><code>Id</code>: number</li> <li>L'ID del pass di gioco o del prodotto per sviluppatori.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "L'array di elementi classificati in ordine personalizzato per l'utente attuale. Ogni array ha: <ul> <li><code>ProductIdentifier</code>: L'ID corrispondente dall'array di input.</li> <li><code>ProductInfo</code>: Il dizionario delle informazioni sul prodotto standard restituito da   <code>GetProductInfo</code>.</li> </ul>"
+    "documentation": "L'array degli articoli classificati in un ordine personalizzato per l'utente corrente. Ogni array ha: <ul> <li><code>ProductIdentifier</code>: L'ID corrispondente dall'array di input.</li> <li><code>ProductInfo</code>: Il dizionario standard delle informazioni sul prodotto restituito da   <code>GetProductInfoAsync</code>.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
     "documentation": "Prende un elenco di ID prodotto e restituisce un elenco ordinato personalizzato di quei prodotti.",
@@ -83394,7 +83394,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioSearchParams": {
-    "documentation": "Istanza da passare a <code>AssetService:SearchAudio()</code> per cercare asset audio.",
+    "documentation": "Istanze da passare a <code>AssetService:SearchAudioAsync()</code> per cercare  asset audio.",
     "keys": {
       "Album": "@roblox/globaltype/AudioSearchParams.Album",
       "Artist": "@roblox/globaltype/AudioSearchParams.Artist",
@@ -91342,7 +91342,7 @@
     "documentation": "L'ID del luogo a cui teletrasportarsi."
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer/param/2": {
-    "documentation": "Il codice di accesso del server riservato restituito da <code>TeleportService:ReserveServer()</code>."
+    "documentation": "Il codice di accesso del server riservato restituito da <code>TeleportService:ReserveServerAsync()</code>."
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer/param/3": {
     "documentation": "Un array di <code>Players</code> da teletrasportare."
@@ -91357,7 +91357,7 @@
     "documentation": "Schermata di caricamento personalizzata opzionale da posizionare nel <code>CoreGui</code> al luogo di destinazione. Può essere recuperata usando <code>TeleportService:GetArrivingTeleportGui()</code>."
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer": {
-    "documentation": "Teletrasporta un gruppo di <code>Players</code> a un server riservato creato utilizzando <code>TeleportService:ReserveServer()</code>.",
+    "documentation": "Teletrasporta un gruppo di <code>Players</code> a un server riservato creato utilizzando <code>TeleportService:ReserveServerAsync()</code>.",
     "params": [
       {
         "name": "self",
@@ -91390,7 +91390,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TeleportService#TeleportToPrivateServer",
-    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal dataStore = DataStoreService:GetGlobalDataStore()\n\n-- Ottieni il codice salvato\nlocal code = dataStore:GetAsync(\"ReservedServer\")\nif typeof(code) ~= \"string\" then -- Nessuno salvato, creane uno\n\tcode = TeleportService:ReserveServer(game.PlaceId)\n\tdataStore:SetAsync(\"ReservedServer\", code)\nend\n\nlocal function joined(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tif message == \"riservato\" then\n\t\t\tTeleportService:TeleportToPrivateServer(game.PlaceId, code, { player })\n\t\tend\n\tend)\nend\n\nPlayers.PlayerAdded:Connect(joined)"
+    "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal dataStore = DataStoreService:GetGlobalDataStore()\n\n-- Ottieni il codice salvato\nlocal code = dataStore:GetAsync(\"ReservedServer\")\nif typeof(code) ~= \"string\" then -- Nessuno salvato, crearne uno\n\tcode = TeleportService:ReserveServerAsync(game.PlaceId)\n\tdataStore:SetAsync(\"ReservedServer\", code)\nend\n\nlocal function joined(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tif message == \"riservato\" then\n\t\t\tTeleportService:TeleportToPrivateServer(game.PlaceId, code, { player })\n\t\tend\n\tend)\nend\n\nPlayers.PlayerAdded:Connect(joined)"
   },
   "@roblox/globaltype/TeleportService.TeleportToSpawnByName/param/0": {
     "documentation": "Abilita il trasporto di <code>Players</code> tra luoghi e server."
@@ -91644,19 +91644,19 @@
     "documentation": "Un servizio per supportare i creatori di avatar degli sviluppatori."
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/1": {
-    "documentation": "Il <code>Player</code> per il quale l'avatar viene impostato."
+    "documentation": "Il <code>Player</code> per cui l'avatar viene configurato."
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/2": {
-    "documentation": "Il <code>Model</code> umanoide che sarà impostato come avatar."
+    "documentation": "Il <code>Model</code> umanoide che sarà configurato come un avatar."
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/3": {
-    "documentation": "Funzione di callback opzionale che verrà invocata periodicamente con una tabella progressInfo con il progresso complessivo (da 0 a 1). Tipo: <code>(progressInfo: { Progress: number }) -&gt; ()</code>"
+    "documentation": "Funzione di callback facoltativa che verrà invocata periodicamente con una tabella progressInfo con il progresso complessivo (da 0 a 1). Tipo: <code>(progressInfo: { Progress: number }) -&gt; ()</code>"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/return/0": {
     "documentation": "Un identificatore unico per l'avatar generato."
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync": {
-    "documentation": "Imposta automaticamente un <code>Model</code> personalizzato come un asset dell'avatar.",
+    "documentation": "Configura automaticamente un <code>Model</code> personalizzato come un asset avatar.",
     "params": [
       {
         "name": "self",
@@ -91688,7 +91688,7 @@
     "documentation": "Una tabella di argomenti per la generazione dell'anteprima 2D. Tipo: <code>avatarGeneration2dPreviewParams: {SessionId: string, FileId: string, TextPrompt: string?}</code>"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync/return/0": {
-    "documentation": "Un previewId di tipo string."
+    "documentation": "Un stringa previewId"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatar2DPreviewAsync": {
     "documentation": "Crea un'anteprima 2D dell'avatar e restituisce un previewId.",
@@ -91715,7 +91715,7 @@
     "documentation": "Una tabella di argomenti per generare un avatar. Tipo: <code>avatarGenerationParams: {SessionId: string, PreviewId: string}</code>"
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync/return/0": {
-    "documentation": "Un generationId di tipo string."
+    "documentation": "Una stringa generationId."
   },
   "@roblox/globaltype/AvatarCreationService.GenerateAvatarAsync": {
     "documentation": "Genera un avatar e restituisce un generationId.",
@@ -91739,13 +91739,13 @@
     "documentation": "Un servizio per supportare i creatori di avatar degli sviluppatori."
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync/param/1": {
-    "documentation": "L'elenco degli ID dei token di creazione dell'avatar di cui ottenere i dettagli."
+    "documentation": "L'elenco degli ID dei token di creazione avatar di cui ottenere dettagli."
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync/return/0": {
-    "documentation": "Array di dettagli del token di creazione dell'avatar come dettagliato sopra."
+    "documentation": "Array di dettagli del token di creazione avatar come dettagliato sopra."
   },
   "@roblox/globaltype/AvatarCreationService.GetBatchTokenDetailsAsync": {
-    "documentation": "Ottiene i dettagli del token di creazione dell'avatar per un elenco di token di creazione  dell'avatar in una sola volta.",
+    "documentation": "Ottiene i dettagli del token di creazione avatar per un elenco di token di creazione avatar contemporaneamente.",
     "params": [
       {
         "name": "self",
@@ -91769,7 +91769,7 @@
     "documentation": "Dizionario delle regole di validazione come dettagliato sopra."
   },
   "@roblox/globaltype/AvatarCreationService.GetValidationRules": {
-    "documentation": "Ottiene dati riguardanti le regole che gli asset devono rispettare per superare la validazione UGC.",
+    "documentation": "Ottiene dati riguardanti le regole che gli asset devono rispettare per superare il valutazione UGC.",
     "params": [
       {
         "name": "self",
@@ -91792,7 +91792,7 @@
     "documentation": "Un <code>EditableImage</code> contenente l'immagine di anteprima."
   },
   "@roblox/globaltype/AvatarCreationService.LoadAvatar2DPreviewAsync": {
-    "documentation": "Carica un'anteprima 2D di AvatarGeneration sul client da un previewId.",
+    "documentation": "Carica un'anteprima AvatarGeneration 2D sul client da un previewId.",
     "params": [
       {
         "name": "self",
@@ -91816,10 +91816,10 @@
     "documentation": "Una stringa unica che identifica l'avatar generato, come restituito da <code>AutoSetupAvatarAsync()</code>."
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync/return/0": {
-    "documentation": "La <code>HumanoidDescription</code> dell'avatar generato, che include tutti gli oggetti e le proprietà generate."
+    "documentation": "La <code>HumanoidDescription</code> dell'avatar generato, che includerà tutte le istanze e proprietà generate."
   },
   "@roblox/globaltype/AvatarCreationService.LoadGeneratedAvatarAsync": {
-    "documentation": "Carica un avatar generato usando un ID di generazione dell'avatar.",
+    "documentation": "Carica un avatar generato utilizzando un ID di generazione avatar.",
     "params": [
       {
         "name": "self",
@@ -91840,7 +91840,7 @@
     "documentation": "Un servizio per supportare i creatori di avatar degli sviluppatori."
   },
   "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync/param/1": {
-    "documentation": "Il <code>Model</code> contenente i figli <code>MeshPart</code> con istanze <code>WrapDeformer</code> che richiedono un aggiornamento dei dati HSR per l'anteprima."
+    "documentation": "Il <code>Model</code> contenente figli <code>MeshPart</code> con istanze <code>WrapDeformer</code> che richiedono un aggiornamento dei dati HSR per l'anteprima."
   },
   "@roblox/globaltype/AvatarCreationService.PrepareAvatarForPreviewAsync": {
     "documentation": "Prepara l'avatar in esperienza per l'anteprima.",
@@ -91862,19 +91862,19 @@
     "documentation": "Un servizio per supportare i creatori di avatar degli sviluppatori."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/1": {
-    "documentation": "L'ID di un token di creazione. Il token deve essere valido nel senso che l'universo da cui viene chiamato il metodo è lo stesso universo per cui è stato creato il token. Inoltre, il creatore del token deve mantenere la verifica dell'ID e <a href=\"https://www.roblox.com/premium/membership\">Roblox Premium</a>. Per creare un token per l'utilizzo in questa API, seguire il <a href=\"../../../production/monetization/avatar-creation-token.md\">processo di creazione del token</a>. Il tipo di creazione del token deve corrispondere all' <code>AvatarAssetType</code> passato al metodo."
+    "documentation": "L'ID di un token di creazione. Il token deve essere valido in quanto l'universo da cui viene chiamato il metodo è lo stesso universo in cui il token è stato creato. Inoltre, il creatore del token deve mantenere la verifica dell'ID e <a href=\"https://www.roblox.com/premium/membership\">Roblox Premium</a>. Per creare un token per l'utilizzo in questa API, seguire il <a href=\"../../../production/monetization/avatar-creation-token.md\">processo di creazione token</a> . Il tipo di creazione del token deve corrispondere al <code>AvatarAssetType</code> passato al metodo."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/2": {
-    "documentation": "Il <code>Player</code> a cui presentare la richiesta di creazione."
+    "documentation": "Il <code>Player</code> a cui verrà presentato il prompt di creazione."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/3": {
     "documentation": "Il <code>Instance</code> dell'asset avatar destinato alla creazione."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/param/4": {
-    "documentation": "Il <code>AvatarAssetType</code> della creazione attesa. Questo deve corrispondere al tipo di creazione del token fornito."
+    "documentation": "Il <code>AvatarAssetType</code> della creazione prevista. Questo deve corrispondere tipologia di creazione del token fornito."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync/return/0": {
-    "documentation": "Una tupla contenente, in ordine: <ul> <li> Un <code>PromptCreateAssetResult</code> che indica il risultato del   prompt di creazione. </li> <li> Un risultato di tipo stringa. In caso di   <code>PromptCreateAssetResult.Success</code>, questo indicherà l'ID dell'asset.   In caso di un qualsiasi enum di errore, questo indicherà il   messaggio di errore risultante. </li> </ul>"
+    "documentation": "Una tupla contenente, in ordine: <ul> <li> Un <code>PromptCreateAssetResult</code> che indica il risultato del   prompt di creazione. </li> <li> Un risultato in stringa. Nel caso di   <code>PromptCreateAssetResult.Success</code>, ciò indicherà l'ID asset. Nel caso di qualsiasi   enum di errore, questo indicherà il messaggio di errore risultante. </li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAssetAsync": {
     "documentation": "Richiede a un <code>Player</code> di acquistare e creare un asset avatar da un <code>Instance</code>.",
@@ -91910,19 +91910,19 @@
     "documentation": "Un servizio per supportare i creatori di avatar degli sviluppatori."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/1": {
-    "documentation": "L'ID di un token di creazione avatar. Il token deve essere valido nel senso che l'universo da cui viene chiamato il metodo è lo stesso universo per cui è stato creato il token. Inoltre, il creatore del token deve mantenere la verifica dell'ID e <a href=\"https://www.roblox.com/premium/membership\">Roblox Premium</a>. Per creare un token per l'utilizzo in questa API, seguire il <a href=\"../../../production/monetization/avatar-creation-token.md\">processo di creazione del token</a>."
+    "documentation": "L'ID di un token di creazione avatar. Il token deve essere valido in quanto l'universo da cui viene chiamato il metodo è lo stesso universo per cui il token è stato creato. Inoltre, il creatore del token deve mantenere la verifica dell'ID e <a href=\"https://www.roblox.com/premium/membership\">Roblox Premium</a>. Per creare un token per l'utilizzo in questa API, seguire il <a href=\"../../../production/monetization/avatar-creation-token.md\">processo di creazione token</a> ."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/2": {
-    "documentation": "Il <code>Player</code> destinato a ricevere il prompt di creazione."
+    "documentation": "Il <code>Player</code> a cui verrà presentato il prompt di creazione."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/param/3": {
-    "documentation": "Il <code>HumanoidDescription</code> dell'avatar destinato alla creazione."
+    "documentation": "La <code>HumanoidDescription</code> dell'avatar destinato per la creazione."
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync/return/0": {
-    "documentation": "Una tupla contenente, in ordine: <ul> <li> Un <code>PromptCreateAvatarResult</code> che indica il risultato del   prompt di creazione. </li> <li> Un risultato di tipo stringa. In caso di   <code>PromptCreateAvatarResult.Success</code>, questo indicherà l'ID del bundle.   In caso di un qualsiasi enum di errore, questo indicherà il   messaggio di errore risultante. </li> <li> Un secondo risultato di tipo stringa facoltativo. In caso di   <code>PromptCreateAvatarResult.Success</code>, questo indicherà l'ID dell'outfit.   In caso di un qualsiasi enum di errore, questo sarà <code>nil</code>. </li> </ul>"
+    "documentation": "Una tupla contenente, in ordine: <ul> <li> Un <code>PromptCreateAvatarResult</code> che indica il risultato del   prompt di creazione. </li> <li> Un risultato in stringa. Nel caso di   <code>PromptCreateAvatarResult.Success</code>, questo indicherà il   ID bundle. Nel caso di qualsiasi enum di errore, questo indicherà il   messaggio di errore risultante. </li> <li> Un secondo risultato facoltativo in stringa. Nel caso di   <code>PromptCreateAvatarResult.Success</code>, questo indicherà il   ID dell'outfit. Nel caso di qualsiasi enum di errore, questo sarà <code>nil</code>. </li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.PromptCreateAvatarAsync": {
-    "documentation": "Richiede a un <code>Player</code> di acquistare e creare un avatar da un <code>HumanoidDescription</code>.",
+    "documentation": "Richiede a un <code>Player</code> di acquistare e creare un avatar da una <code>HumanoidDescription</code>.",
     "params": [
       {
         "name": "self",
@@ -91954,10 +91954,10 @@
     "documentation": "Il <code>Player</code> per cui richiedere di scattare un selfie."
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync/return/0": {
-    "documentation": "Un FileId di tipo stringa del selfie."
+    "documentation": "Una stringa FileId del selfie."
   },
   "@roblox/globaltype/AvatarCreationService.PromptSelectAvatarGenerationImageAsync": {
-    "documentation": "Richiedi al <code>Player</code> di scattare un selfie e restituisci il FileId.",
+    "documentation": "Richiede al <code>Player</code> di scattare un selfie e restituisce il FileId.",
     "params": [
       {
         "name": "self",
@@ -91978,16 +91978,16 @@
     "documentation": "Un servizio per supportare i creatori di avatar degli sviluppatori."
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/1": {
-    "documentation": "Il <code>Player</code> per cui richiedere una sessione di AvatarGeneration."
+    "documentation": "Il <code>Player</code> per cui richiedere una sessione AvatarGeneration."
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/param/2": {
-    "documentation": "Funzione di callback che viene invocata con una tabella SessionInfo, con informazioni sulla sessione. Tipo: <code>(SessionInfo: { SessionId: string, Allowed2DGenerations: number, Allowed3DGenerations: number, SessionTime: number }) -&gt; ()</code>"
+    "documentation": "Funzione di callback invocata con una tabella SessionInfo, con informazioni sulla sessione. Tipo: <code>(SessionInfo: { SessionId: string, Allowed2DGenerations: number, Allowed3DGenerations: number, SessionTime: number }) -&gt; ()</code>"
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync/return/0": {
     "documentation": "Una tupla contenente un <code>RBXScriptConnection</code> che può essere utilizzato per annullare la richiesta di sessione e il tempo di attesa stimato in secondi."
   },
   "@roblox/globaltype/AvatarCreationService.RequestAvatarGenerationSessionAsync": {
-    "documentation": "Richiedi una sessione di AvatarGeneration per un <code>Player</code>.",
+    "documentation": "Richiede una sessione AvatarGeneration per un <code>Player</code>.",
     "params": [
       {
         "name": "self",
@@ -92012,16 +92012,16 @@
     "documentation": "Un servizio per supportare i creatori di avatar degli sviluppatori."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/1": {
-    "documentation": "Il <code>Player</code> per cui viene completata la validazione."
+    "documentation": "Il <code>Player</code> per cui è completata la validazione."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/2": {
     "documentation": "L'istanza su cui viene eseguita la validazione."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/param/3": {
-    "documentation": "<code>AccessoryType</code> che l'istanza deve aspettarsi. Si aspetta <code>Eyebrow</code>, <code>Eyelash</code>, o <code>Hair</code>."
+    "documentation": "<code>AccessoryType</code> che l'istanza ci si aspetta sia. Ci si aspetta <code>Eyebrow</code>, <code>Eyelash</code>, o <code>Hair</code>."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync/return/0": {
-    "documentation": "Una tupla contenente, in ordine: <ul> <li>Un booleano che indica se la validazione è stata positiva per l'accessorio.</li> <li>Una tabella opzionale di stringhe. Include i motivi di fallimento se   la validazione non è stata positiva; altrimenti <code>nil</code> se la validazione è   stata positiva.</li> </ul>"
+    "documentation": "Una tupla contenente, in ordine: <ul> <li>Un booleano che indica se la validazione è stata   efficace per l'accessorio.</li> <li>Una tabella di stringhe facoltativa. Queste includono i motivi di   fallimento se la validazione non è stata efficace; altrimenti <code>nil</code> se la validazione è   andata a buon fine.</li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCAccessoryAsync": {
     "documentation": "Solo per Studio. Esegue la validazione UGC per un <code>AccessoryType</code>.",
@@ -92053,16 +92053,16 @@
     "documentation": "Un servizio per supportare i creatori di avatar degli sviluppatori."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/1": {
-    "documentation": "Il <code>Player</code> per cui viene completata la validazione."
+    "documentation": "Il <code>Player</code> per cui è completata la validazione."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/2": {
     "documentation": "L'istanza su cui viene eseguita la validazione."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/param/3": {
-    "documentation": "<code>BodyPart</code> che l'istanza deve aspettarsi."
+    "documentation": "<code>BodyPart</code> che l'istanza è attesa essere."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync/return/0": {
-    "documentation": "Una tupla contenente, in ordine: <ul> <li>Un booleano che indica se la validazione è stata positiva per la parte del corpo.</li> <li>Una tabella opzionale di stringhe. Include i motivi di fallimento se   la validazione non è stata positiva; altrimenti <code>nil</code> se la validazione è   stata positiva.</li> </ul>"
+    "documentation": "Una tupla contenente, in ordine: <ul> <li>Un booleano che indica se la validazione è stata   efficace per la parte del corpo.</li> <li>Una tabella di stringhe facoltativa. Queste includono i motivi di   fallimento se la validazione non è stata efficace; altrimenti <code>nil</code> se la validazione è   andata a buon fine.</li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCBodyPartAsync": {
     "documentation": "Solo per Studio. Esegue la validazione UGC per un <code>BodyPart</code>.",
@@ -92094,16 +92094,16 @@
     "documentation": "Un servizio per supportare i creatori di avatar degli sviluppatori."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/param/1": {
-    "documentation": "Il <code>Player</code> per cui la validazione è completata."
+    "documentation": "Il <code>Player</code> per cui è completata la validazione."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/param/2": {
-    "documentation": "<code>HumanoidDescription</code> che rappresenta il corpo su cui è eseguita la validazione."
+    "documentation": "<code>HumanoidDescription</code> che rappresenta il corpo su cui viene eseguita la validazione."
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync/return/0": {
-    "documentation": "Una tupla contenente, in ordine: <ul> <li>Un booleano che indica se la validazione è stata positiva per il corpo.</li> <li>Una tabella opzionale di stringhe. Include i motivi di fallimento se   la validazione non è stata positiva; altrimenti <code>nil</code> se la validazione è   stata positiva.</li> </ul>"
+    "documentation": "Una tupla contenente, in ordine: <ul> <li>Un booleano che indica se la validazione è stata efficace per il corpo.</li> <li>Una tabella di stringhe facoltativa. Queste includono i motivi di   fallimento se la validazione non è stata efficace; altrimenti <code>nil</code> se la validazione è   andata a buon fine.</li> </ul>"
   },
   "@roblox/globaltype/AvatarCreationService.ValidateUGCFullBodyAsync": {
-    "documentation": "Solo per Studio. Esegue la validazione UGC per un corpo intero.",
+    "documentation": "Solo per Studio. Esegue la validazione UGC per un intero corpo.",
     "params": [
       {
         "name": "self",
@@ -92202,7 +92202,7 @@
     "returns": []
   },
   "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted": {
-    "documentation": "Si attiva quando lo stato di moderazione di un asset avatar creato nell'esperienza è stato aggiornato da in attesa.",
+    "documentation": "Si attiva quando lo stato di moderazione di un asset avatar creato in esperienza è stato aggiornato da in attesa.",
     "keys": {
       "Connect": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.Connect",
       "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarAssetModerationCompleted.ConnectParallel",
@@ -92290,7 +92290,7 @@
     "returns": []
   },
   "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted": {
-    "documentation": "Si attiva quando lo stato di moderazione di un avatar creato nell'esperienza è stato aggiornato da in attesa.",
+    "documentation": "Si attiva quando lo stato di moderazione di un avatar creato in esperienza è stato aggiornato da in attesa.",
     "keys": {
       "Connect": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.Connect",
       "ConnectParallel": "@roblox/globaltype/AvatarCreationService.AvatarModerationCompleted.ConnectParallel",
@@ -93952,6 +93952,178 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VideoCapture#TimeLength",
     "code_sample": ""
   },
+  "@roblox/globaltype/InstanceFileSyncService": {
+    "documentation": "Un servizio per interagire con la sincronizzazione dei file da un plugin.",
+    "keys": {
+      "GetAllInstances": "@roblox/globaltype/InstanceFileSyncService.GetAllInstances",
+      "GetStatus": "@roblox/globaltype/InstanceFileSyncService.GetStatus",
+      "GetSyncedInstance": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/param/0": {
+    "documentation": "Un servizio per interagire con la sincronizzazione dei file da un plugin."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/return/0": {
+    "documentation": "Restituisce un array di <code>Instances</code>."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetAllInstances": {
+    "documentation": "Restituisce un array di tutte le istanze attualmente coinvolte nella sincronizzazione dei file.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetAllInstances/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetAllInstances",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/0": {
+    "documentation": "Un servizio per interagire con la sincronizzazione dei file da un plugin."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/1": {
+    "documentation": "L'istanza da controllare."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus/return/0": {
+    "documentation": "Restituisce il <code>InstanceFileSyncStatus</code> per l'istanza."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetStatus": {
+    "documentation": "Restituisce lo stato di sincronizzazione di una specifica istanza.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/0"
+      },
+      {
+        "name": "instance",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetStatus/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetStatus/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetStatus",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/0": {
+    "documentation": "Un servizio per interagire con la sincronizzazione dei file da un plugin."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/1": {
+    "documentation": "Il percorso assoluto del file."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/return/0": {
+    "documentation": "Restituisce l'istanza sincronizzata con il percorso file, se esiste. Altrimenti, restituisce nil."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance": {
+    "documentation": "Restituisce l'istanza corrispondente a un dato percorso file.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/0"
+      },
+      {
+        "name": "filePath",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/InstanceFileSyncService.GetSyncedInstance/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#GetSyncedInstance",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/0": {
+    "documentation": "Un oggetto che esegue funzioni connesse al verificarsi di un evento specifico."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect": {
+    "documentation": "Collega la funzione fornita all'evento e restituisce un <code>RBXScriptConnection</code> che la rappresenta.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Connect",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/0": {
+    "documentation": "Un oggetto che esegue funzioni connesse al verificarsi di un evento specifico."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel": {
+    "documentation": "Collega la funzione fornita all'evento e restituisce un <code>RBXScriptConnection</code> che la rappresenta.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#ConnectParallel",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/0": {
+    "documentation": "Un oggetto che esegue funzioni connesse al verificarsi di un evento specifico."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once": {
+    "documentation": "Collega la funzione fornita all'evento (per un'unica invocazione) e restituisce un <code>RBXScriptConnection</code> che la rappresenta.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Once",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/0"
+      },
+      {
+        "name": "func",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once/param/1"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait/param/0": {
+    "documentation": "Un oggetto che esegue funzioni connesse al verificarsi di un evento specifico."
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait": {
+    "documentation": "Sospende il thread corrente fino a quando il segnale non si attiva e restituisce gli argomenti forniti dal segnale.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/RBXScriptSignal#Wait",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait/param/0"
+      }
+    ],
+    "returns": []
+  },
+  "@roblox/globaltype/InstanceFileSyncService.StatusChanged": {
+    "documentation": "Si attiva quando lo stato di sincronizzazione di un'istanza cambia.",
+    "keys": {
+      "Connect": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Connect",
+      "ConnectParallel": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.ConnectParallel",
+      "Once": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Once",
+      "Wait": "@roblox/globaltype/InstanceFileSyncService.StatusChanged.Wait"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InstanceFileSyncService#StatusChanged",
+    "code_sample": ""
+  },
   "@roblox/globaltype/SlidingBallConstraint": {
     "documentation": "La classe base per i vincoli che consentono alle loro giunzioni di scorrere lungo un asse ma non ruotare.",
     "keys": {
@@ -95307,10 +95479,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync/param/2": {
-    "documentation": ""
+    "documentation": "L'ID della posizione dell'annuncio video premiato all'interno dell' esperienza. Consente di riferire sulle prestazioni dei singoli annuncio inserzioni."
   },
   "@roblox/globaltype/AdService.RegisterAdOpportunityAsync": {
-    "documentation": "",
+    "documentation": "Rileva quante volte un utente ha avuto la possibilità di vedere un annuncio video e il tasso con cui ha effettivamente guardato l'annuncio.",
     "params": [
       {
         "name": "self",
@@ -96540,7 +96712,7 @@
       "@roblox/globaltype/Players.CreateHumanoidModelFromUserIdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CreateHumanoidModelFromUserIdAsync",
-    "code_sample": "game.Players:CreateHumanoidModelFromUserId(1).Parent = game.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromUserIdAsync(1).Parent = game.Workspace"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId/param/0": {
     "documentation": "Un servizio che contiene gli oggetti <code>Player</code> attualmente connessi."
@@ -96567,7 +96739,7 @@
       "@roblox/globaltype/Players.CreateHumanoidModelFromUserId/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#CreateHumanoidModelFromUserId",
-    "code_sample": "game.Players:CreateHumanoidModelFromUserId(1).Parent = game.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromUserIdAsync(1).Parent = game.Workspace"
   },
   "@roblox/globaltype/Players.GetBanHistoryAsync/param/0": {
     "documentation": "Un servizio che contiene gli oggetti <code>Player</code> attualmente connessi."
@@ -96756,7 +96928,7 @@
       "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserIdAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#GetHumanoidDescriptionFromUserIdAsync",
-    "code_sample": "game.Players:CreateHumanoidModelFromDescription(\n\tgame.Players:GetHumanoidDescriptionFromUserId(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromDescriptionAsync(\n\tgame.Players:GetHumanoidDescriptionFromUserIdAsync(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId/param/0": {
     "documentation": "Un servizio che contiene gli oggetti <code>Player</code> attualmente connessi."
@@ -96783,7 +96955,7 @@
       "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Players#GetHumanoidDescriptionFromUserId",
-    "code_sample": "game.Players:CreateHumanoidModelFromDescription(\n\tgame.Players:GetHumanoidDescriptionFromUserId(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
+    "code_sample": "game.Players:CreateHumanoidModelFromDescriptionAsync(\n\tgame.Players:GetHumanoidDescriptionFromUserIdAsync(1),\n\tEnum.HumanoidRigType.R15\n).Parent =\n\tgame.Workspace"
   },
   "@roblox/globaltype/Players.GetNameFromUserIdAsync/param/0": {
     "documentation": "Un servizio che contiene gli oggetti <code>Player</code> attualmente connessi."
@@ -100382,7 +100554,7 @@
     "documentation": "Array contenente tutti i giocatori coinvolti nella chiamata. Il chiamante sarà sempre il primo giocatore nell'array."
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked/return/0": {
-    "documentation": "Tabella che include le chiavi <code>PlaceId</code> e <code>ReservedServerAccessCode</code> le cui valori sono il <code>DataModel.PlaceId</code> e il codice di accesso al server restituito da <code>TeleportService:ReserveServer()</code>, rispettivamente."
+    "documentation": "Tabella che include le chiavi <code>PlaceId</code> e <code>ReservedServerAccessCode</code> con i cui valori sono rispettivamente il <code>DataModel.PlaceId</code> e il codice di accesso al server restituito da <code>TeleportService:ReserveServerAsync()</code>."
   },
   "@roblox/globaltype/SocialService.OnCallInviteInvoked": {
     "documentation": "Callback per quando viene effettuata una chiamata dalla rubrica.",
@@ -118036,6 +118208,57 @@
       "OculusQuest": "@roblox/enum/VRDeviceType.OculusQuest"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/VRDeviceType",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.NotSynced": {
+    "documentation": "Il <code>Instance</code> non è in fase di sincronizzazione o ha generato un errore.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#NotSynced",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.Errored": {
+    "documentation": "Il <code>Instance</code> è una radice di sincronizzazione che ha generato un errore e ha smesso di sincronizzarsi.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#Errored",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot": {
+    "documentation": "Il <code>Instance</code> è in fase di sincronizzazione come radice di un albero di sincronizzazione.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsRoot",
+    "code_sample": ""
+  },
+  "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant": {
+    "documentation": "Il <code>Instance</code> è in fase di sincronizzazione perché è un discendente di una radice di sincronizzazione.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsDescendant",
+    "code_sample": ""
+  },
+  "@roblox/global/Enum.InstanceFileSyncStatus": {
+    "documentation": "Descrive lo stato di sincronizzazione dei file di un'istanza.",
+    "keys": {
+      "NotSynced": "@roblox/enum/InstanceFileSyncStatus.NotSynced",
+      "Errored": "@roblox/enum/InstanceFileSyncStatus.Errored",
+      "SyncedAsRoot": "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot",
+      "SyncedAsDescendant": "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus",
     "code_sample": ""
   },
   "@roblox/enum/PathStatus.Success": {
@@ -137248,7 +137471,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AssetType": {
-    "documentation": "Questo Enum può essere utilizzato per abbinare l'AssetTypeId da <code>MarketplaceService:GetProductInfo()</code> a un tipo di asset.",
+    "documentation": "Questo Enum può essere utilizzato per abbinare l'AssetTypeId da <code>MarketplaceService:GetProductInfoAsync()</code> a un tipo di asset.",
     "keys": {
       "Image": "@roblox/enum/AssetType.Image",
       "TShirt": "@roblox/enum/AssetType.TShirt",
