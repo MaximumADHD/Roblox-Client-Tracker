@@ -90,6 +90,7 @@ local FFlagEnableCorescriptsProfiler = game:DefineFastFlag("EnableCorescriptsPro
 local FFlagCoreScriptsProfilerTelemetryContext = game:DefineFastFlag("CoreScriptsProfilerTelemetryContext", false)
 local FFlagFixExperimentCacheManagerCoreScriptInit =
 	game:DefineFastFlag("FixExperimentCacheManagerCoreScriptInit2", false)
+local FFlagLuaAppEnableEnhancedVideoScripts = game:DefineFastFlag("LuaAppEnableEnhancedVideoScripts2", false)
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
@@ -344,8 +345,15 @@ coroutine.wrap(safeRequire)(RobloxGui.Modules.Captures.CapturesApp)
 
 coroutine.wrap(safeRequire)(CoreGuiModules.AvatarEditorPrompts)
 
+
+local FFlagVirtualCursorModularization =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagVirtualCursorModularization
 -- GamepadVirtualCursor
-coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.VirtualCursor)
+if FFlagVirtualCursorModularization then
+	coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.VirtualCursorModular)
+else
+	coroutine.wrap(safeRequire)(CorePackages.Workspace.Packages.VirtualCursor)
+end
 
 ScriptContext:AddCoreScriptLocal("CoreScripts/VehicleHud", RobloxGui)
 ScriptContext:AddCoreScriptLocal("CoreScripts/InviteToGamePrompt", RobloxGui)
@@ -458,6 +466,16 @@ if game:GetEngineFeature("EnableAdGuiInteractivityControlRefactor") then
 
 		if AdGuiInteractivity and AdGuiInteractivity.starterScript then
 			AdGuiInteractivity.starterScript()
+		end
+	end)()
+end
+
+if FFlagLuaAppEnableEnhancedVideoScripts then 
+	coroutine.wrap(function()
+		local EnhancedVideo = safeRequire(CorePackages.Workspace.Packages.EnhancedVideo)
+
+		if EnhancedVideo and EnhancedVideo.starterScript then
+			EnhancedVideo.starterScript()
 		end
 	end)()
 end

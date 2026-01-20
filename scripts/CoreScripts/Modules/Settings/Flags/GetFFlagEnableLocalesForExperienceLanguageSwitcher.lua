@@ -1,5 +1,5 @@
-game:DefineFastFlag("EnableLocalesForExperienceLanguageSwitcher3", false)
+game:DefineFastFlag("EnableLocalesForExperienceLanguageSwitcher4", false)
 
 return function()
-  return game:GetFastFlag("EnableLocalesForExperienceLanguageSwitcher3")
+  return game:GetFastFlag("EnableLocalesForExperienceLanguageSwitcher4")
 end

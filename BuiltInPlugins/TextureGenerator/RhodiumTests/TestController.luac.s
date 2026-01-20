@@ -59,11 +59,10 @@ PROTO_3:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K4 ["XPath"]
   GETTABLEKS R2 R3 K5 ["new"]
-  LOADK R4 K6 ["game.CoreGui.%*.%*"]
-  LOADK R6 K7 ["TextureGenerator"]
-  MOVE R7 R1
-  NAMECALL R4 R4 K8 ["format"]
-  CALL R4 3 1
+  LOADK R4 K6 ["game.CoreGui.TextureGenerator.%*"]
+  MOVE R6 R1
+  NAMECALL R4 R4 K7 ["format"]
+  CALL R4 2 1
   MOVE R3 R4
   CALL R2 1 -1
   RETURN R2 -1

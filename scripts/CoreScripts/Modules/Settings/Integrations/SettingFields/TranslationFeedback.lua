@@ -66,7 +66,7 @@ end
 local value = TranslationFeedbackValue()
 local available = TranslationFeedbackAvailability()
 
-local TranslationFeedbackConfig = {
+local TranslationFeedbackConfig: SettingsServiceLib.TextButtonRegisterConfig = {
     field_type = FieldType.TextButton,
     id = "translation-feedback",
     onActivated = value,
@@ -75,6 +75,6 @@ local TranslationFeedbackConfig = {
     layoutOrder = SettingsLayoutOrder.FeedbackModeButton,
     alreadyLocalized = false,
     availability = available,
-} :: SettingsServiceLib.TextButtonRegisterConfig
+}
 
 return TranslationFeedbackConfig

@@ -24,6 +24,7 @@ local GameSettings = Settings.GameSettings
 --[[ Imports ]]
 local CameraUtils = require(script.Parent:WaitForChild("CameraUtils"))
 
+local FFlagUserFixStuckShiftLock = FlagUtil.getUserFlag("UserFixStuckShiftLock")
 
 --[[ The Module ]]--
 local MouseLockController = {}
@@ -187,13 +188,21 @@ function MouseLockController:EnableMouseLock(enable: boolean)
 			CameraUtils.restoreMouseIcon()
 
 			self:UnbindContextActions()
+			
+			if FFlagUserFixStuckShiftLock then
+				-- If the mode is disabled while being used, fire the event to toggle it off
+				if self.isMouseLocked then
+					self.isMouseLocked = false
+					self.mouseLockToggledEvent:Fire()
+				end
+			else
+				-- If the mode is disabled while being used, fire the event to toggle it off
+				if self.isMouseLocked then
+					self.mouseLockToggledEvent:Fire()
+				end
 
-			-- If the mode is disabled while being used, fire the event to toggle it off
-			if self.isMouseLocked then
-				self.mouseLockToggledEvent:Fire()
+				self.isMouseLocked = false
 			end
-
-			self.isMouseLocked = false
 		end
 
 	end

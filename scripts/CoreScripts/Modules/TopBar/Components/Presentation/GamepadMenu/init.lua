@@ -35,6 +35,7 @@ local TenFootInterface = require(Modules.TenFootInterface)
 local BackpackModule = require(Modules.BackpackScript)
 local EmotesModule = require(Modules.EmotesMenu.EmotesMenuMaster)
 local ChatModule = require(Modules.ChatSelector)
+local PlayerListPackage = require(CorePackages.Workspace.Packages.PlayerList)
 local PlayerListMaster = require(Modules.PlayerList.PlayerListManager)
 
 local isNewInGameMenuEnabled = require(Modules.isNewInGameMenuEnabled)
@@ -98,6 +99,7 @@ local FFlagAddMenuNavigationToggleDialog = SharedFlags.FFlagAddMenuNavigationTog
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
 local FFlagMountCoreGuiBackpack = require(Modules.Flags.FFlagMountCoreGuiBackpack)
+local FFlagPlayerListUseFocusNavHook = PlayerListPackage.Flags.FFlagPlayerListUseFocusNavHook
 
 local getFFlagExpChatAlwaysRunTCS = SharedFlags.getFFlagExpChatAlwaysRunTCS
 
@@ -184,8 +186,17 @@ function GamepadMenu:init()
 				return Enum.ContextActionResult.Pass
 			elseif userInputState == Enum.UserInputState.End then
 				if not isToastVisible or tick() - self.lastMenuButtonPress < MENU_BUTTON_PRESS_MAX_HOLD_TIME then
-					self.props.setGamepadMenuOpen(not self.props.isGamepadMenuOpen)
-					LogGamepadOpenExperienceControlsMenu(not self.props.isGamepadMenuOpen)
+					local toggledIsGamepadMenuOpen = not self.props.isGamepadMenuOpen
+
+					-- Automatically close modal PlayerList when the gamepad menu is opened
+					if FFlagPlayerListUseFocusNavHook then
+						if toggledIsGamepadMenuOpen and PlayerListMaster:GetIsModal() and PlayerListMaster:GetVisibility() then
+							PlayerListMaster:SetVisibility(false)
+						end
+					end
+
+					self.props.setGamepadMenuOpen(toggledIsGamepadMenuOpen)
+					LogGamepadOpenExperienceControlsMenu(toggledIsGamepadMenuOpen)
 					self:logExperienceMenuGamepadExposure()
 
 					return Enum.ContextActionResult.Sink

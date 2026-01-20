@@ -45,7 +45,7 @@ local function CameraInvertedAvailability()
 	return availability
 end
 
-local CameraInvertedConfig = {
+local CameraInvertedConfig: SettingsServiceLib.ToggleRegisterConfig = {
 	id = "camera-inverted",
 	field_type = FieldType.Toggle,
 	label = "CoreScripts.InGameMenu.GameSettings.InvertedCamera",
@@ -53,6 +53,6 @@ local CameraInvertedConfig = {
 	onChanged = CameraInvertedValue(),
 	availability = CameraInvertedAvailability(),
 	layoutOrder = SettingsLayoutOrder.CameraInvertedFrame,
-} :: SettingsServiceLib.ToggleRegisterConfig
+}
 
 return CameraInvertedConfig

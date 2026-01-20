@@ -119,6 +119,7 @@ Constants.AnalyticsActions = {
 	SetViewportInformation = "SetViewportInformation",
 	SetSubmissionCompleted = "SetSubmissionCompleted",
 	SetTypeOfAbuseSelection = "SetTypeOfAbuseSelection",
+	SetPreselectedAbuseSelection = "SetPreselectedAbuseSelection",
 	SetReasonSelection = "SetReasonSelection",
 	SetCommentAdded = "SetCommentAdded",
 	SwitchToExperienceInitialSelections = "SwitchToExperienceInitialSelections",

@@ -15,6 +15,7 @@ local GameSettings = Settings.GameSettings
 local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 local FFlagInExperienceUserProfileSettingsEnabled = require(RobloxGui.Modules.Common.Flags.FFlagInExperienceUserProfileSettingsEnabled)
 local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
+local FFlagInExperienceRequestProfileSettings = require(RobloxGui.Modules.Common.Flags.FFlagInExperienceRequestProfileSettings)
 
 local UserProfiles = require(CorePackages.Workspace.Packages.UserProfiles)
 local VerifiedBadgeDisplayStore = UserProfiles.Stores.VerifiedBadgeDisplayStore
@@ -189,13 +190,22 @@ if FFlagInExperienceUserProfileSettingsEnabled then
 				if info then
 					info:setProfileSettings(profileSettings)
 				end
-										
+									
 				if FFlagEnableVerifiedBadgeStore and profileSettings.isInExperienceNameEnabled ~= nil then
 					local verifiedBadgeDisplayStore = VerifiedBadgeDisplayStore.get()
 					verifiedBadgeDisplayStore.setBadgeVisibility(player.UserId, not profileSettings.isInExperienceNameEnabled)
 				end
 			end
 		end)
+		
+		if FFlagInExperienceRequestProfileSettings then
+			-- Request profile settings for local player after listener is connected
+			local RemoteEvent_RequestPlayerProfileSettings = RobloxReplicatedStorage:WaitForChild(
+				"RequestPlayerProfileSettings",
+				math.huge
+			)	
+			RemoteEvent_RequestPlayerProfileSettings:FireServer()
+		end
 	end)()
 end
 

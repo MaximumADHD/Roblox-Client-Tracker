@@ -1,10 +1,9 @@
 PROTO_0:
-  LOADK R3 K0 ["%*%*/places/%*/configure"]
-  LOADK R5 K1 ["https://create.roblox.com/dashboard/creations/experiences/"]
-  MOVE R6 R1
-  MOVE R7 R0
-  NAMECALL R3 R3 K2 ["format"]
-  CALL R3 4 1
+  LOADK R3 K0 ["https://create.roblox.com/dashboard/creations/experiences/%*/places/%*/configure"]
+  MOVE R5 R1
+  MOVE R6 R0
+  NAMECALL R3 R3 K1 ["format"]
+  CALL R3 3 1
   MOVE R2 R3
   RETURN R2 1
 
@@ -20,7 +19,7 @@ PROTO_1:
   GETUPVAL R11 0
   GETTABLEKS R10 R11 K1 ["AssetType"]
   GETTABLEKS R9 R10 K2 ["Place"]
-  JUMPIFNOTEQ R8 R9 [+46]
+  JUMPIFNOTEQ R8 R9 [+45]
   NAMECALL R8 R1 K3 ["getCurrentScope"]
   CALL R8 1 1
   LOADB R10 1
@@ -42,23 +41,22 @@ PROTO_1:
   CALL R9 2 0
   GETUPVAL R9 1
   GETTABLEKS R12 R8 K11 ["Id"]
-  LOADK R13 K12 ["%*%*/places/%*/configure"]
-  LOADK R15 K13 ["https://create.roblox.com/dashboard/creations/experiences/"]
-  MOVE R16 R12
-  MOVE R17 R7
-  NAMECALL R13 R13 K14 ["format"]
-  CALL R13 4 1
+  LOADK R13 K12 ["https://create.roblox.com/dashboard/creations/experiences/%*/places/%*/configure"]
+  MOVE R15 R12
+  MOVE R16 R7
+  NAMECALL R13 R13 K13 ["format"]
+  CALL R13 3 1
   MOVE R11 R13
-  NAMECALL R9 R9 K15 ["openLink"]
+  NAMECALL R9 R9 K14 ["openLink"]
   CALL R9 2 0
   JUMP [+7]
   GETUPVAL R8 2
   GETUPVAL R10 3
   MOVE R11 R7
   CALL R10 1 -1
-  NAMECALL R8 R8 K16 ["OpenBrowserWindow"]
+  NAMECALL R8 R8 K15 ["OpenBrowserWindow"]
   CALL R8 -1 0
-  FORGLOOP R3 2 [-66]
+  FORGLOOP R3 2 [-65]
   RETURN R0 0
 
 MAIN:

@@ -34,7 +34,7 @@ local function ReducedMotionValue()
 	return value
 end
 
-local ReducedMotion = {
+local ReducedMotion: SettingsServiceLib.ToggleRegisterConfig = {
 	id = 'reduced-motion',
 	field_type = FieldType.Toggle,
 	label = "CoreScripts.InGameMenu.GameSettings.ReduceMotionLabel",
@@ -42,6 +42,6 @@ local ReducedMotion = {
 	alreadyLocalized = false,
 	onChanged = ReducedMotionValue(),
 	layoutOrder = SettingsLayoutOrder.ReducedMotionFrame,
-} :: SettingsServiceLib.ToggleRegisterConfig
+}
 
 return ReducedMotion

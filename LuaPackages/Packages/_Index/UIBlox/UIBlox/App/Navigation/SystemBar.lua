@@ -14,7 +14,6 @@ local withStyle = require(UIBlox.Core.Style.withStyle)
 local ControlState = require(UIBlox.Core.Control.Enum.ControlState)
 local ImageSetComponent = require(UIBlox.Core.ImageSet.ImageSetComponent)
 local validateImageSetData = require(UIBlox.Core.ImageSet.Validator.validateImageSetData)
-local Badge = require(UIBlox.App.Indicator.Badge)
 local BadgeVariant = require(UIBlox.App.Indicator.Enum.BadgeVariant)
 local BadgeStates = require(UIBlox.App.Indicator.Enum.BadgeStates)
 local IconSize = require(UIBlox.App.ImageSet.Enum.IconSize)
@@ -24,7 +23,6 @@ local InteractableList = require(UIBlox.Core.Control.InteractableList)
 local withAnimation = require(UIBlox.Core.Animation.withAnimation)
 
 local migrateBadgeVariant = require(UIBlox.Utility.migrateBadgeVariant)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local Placement = require(script.Parent.Enum.Placement)
 
@@ -218,21 +216,14 @@ function SystemBar:renderItem(item, state, selected, order)
 				ImageColor3 = theme.IconDefault.Color,
 				ImageTransparency = pressed and ICON_TRANSPARENCY_HOVERED or ICON_TRANSPARENCY,
 			}, {
-				Badge = hasBadge and if UIBloxConfig.useFoundationStatusIndicator
-					then Roact.createElement(StatusIndicator, {
-						position = if item.badgeValue == BadgeStates.isEmpty
-							then UDim2.fromOffset(EMPTY_BADGE_POSITION_X, EMPTY_BADGE_POSITION_Y)
-							else UDim2.fromOffset(BADGE_POSITION_X, BADGE_POSITION_Y),
-						value = tonumber(item.badgeValue),
-						variant = migrateBadgeVariant(BadgeVariant.Default),
-						max = if tonumber(item.badgeValue) then 99 else nil,
-					})
-					else Roact.createElement(Badge, {
-						position = if item.badgeValue == BadgeStates.isEmpty
-							then UDim2.fromOffset(EMPTY_BADGE_POSITION_X, EMPTY_BADGE_POSITION_Y)
-							else UDim2.fromOffset(BADGE_POSITION_X, BADGE_POSITION_Y),
-						value = item.badgeValue,
-					}) or nil,
+				Badge = hasBadge and Roact.createElement(StatusIndicator, {
+					position = if item.badgeValue == BadgeStates.isEmpty
+						then UDim2.fromOffset(EMPTY_BADGE_POSITION_X, EMPTY_BADGE_POSITION_Y)
+						else UDim2.fromOffset(BADGE_POSITION_X, BADGE_POSITION_Y),
+					value = tonumber(item.badgeValue),
+					variant = migrateBadgeVariant(BadgeVariant.Default),
+					max = if tonumber(item.badgeValue) then 99 else nil,
+				}),
 				UICorner = self.props.roundCorners and Roact.createElement("UICorner", {
 					CornerRadius = UDim.new(0.15, 0),
 				}) or nil,

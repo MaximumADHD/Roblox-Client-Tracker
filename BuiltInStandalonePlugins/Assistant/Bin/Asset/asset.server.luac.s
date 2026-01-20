@@ -61,8 +61,7 @@ MAIN:
   SETTABLEKS R9 R8 K24 ["profileOnStart"]
   CALL R7 1 0
   GETIMPORT R6 K7 [require]
-  GETTABLEKS R9 R0 K16 ["Bin"]
-  GETTABLEKS R8 R9 K17 ["Common"]
+  GETTABLEKS R8 R0 K11 ["Src"]
   GETTABLEKS R7 R8 K26 ["toolInit"]
   CALL R6 1 1
   MOVE R7 R6

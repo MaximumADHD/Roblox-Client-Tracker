@@ -12,6 +12,7 @@ type _Messages = {
 }
 local messages: _Messages = {} :: _Messages
 
+local _roblox_apppageplatform_shared_v1beta1_actions = require(script.Parent.actions)
 local _roblox_apppageplatform_shared_v1beta1_prop_types = require(script.Parent.prop_types)
 local _roblox_apppageplatform_shared_v1beta1_component_shared = require(script.Parent.component_shared)
 
@@ -67,6 +68,8 @@ type _CollectionGridSchema_PropsFields = {
 	should_use_frame_bounds_for_impressions: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	disable_selection_order: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	title_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	threshold_rows_from_bottom: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	on_reached_threshold_from_end: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 }
 
 type _CollectionGridSchema_PropsPartialFields = {
@@ -85,6 +88,8 @@ type _CollectionGridSchema_PropsPartialFields = {
 	should_use_frame_bounds_for_impressions: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	disable_selection_order: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	title_text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	threshold_rows_from_bottom: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	on_reached_threshold_from_end: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 }
 
 export type CollectionGridSchema_Props = typeof(setmetatable(
@@ -255,6 +260,12 @@ do
 				then nil
 				else data.disable_selection_order,
 			title_text = if data == nil or data.title_text == nil then nil else data.title_text,
+			threshold_rows_from_bottom = if data == nil or data.threshold_rows_from_bottom == nil
+				then nil
+				else data.threshold_rows_from_bottom,
+			on_reached_threshold_from_end = if data == nil or data.on_reached_threshold_from_end == nil
+				then nil
+				else data.on_reached_threshold_from_end,
 		}, _CollectionGridSchema_PropsImpl :: _CollectionGridSchema_PropsImpl)
 	end
 
@@ -349,6 +360,18 @@ do
 		if self.title_text ~= nil then
 			local encoded = self.title_text:encode()
 			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.threshold_rows_from_bottom ~= nil then
+			local encoded = self.threshold_rows_from_bottom:encode()
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.on_reached_threshold_from_end ~= nil then
+			local encoded = self.on_reached_threshold_from_end:encode()
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -455,6 +478,18 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.title_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.threshold_rows_from_bottom =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_reached_threshold_from_end =
+						_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
+					continue
 				end
 
 				local length
@@ -540,6 +575,14 @@ do
 
 		if self.title_text ~= nil then
 			output.titleText = self.title_text:jsonEncode()
+		end
+
+		if self.threshold_rows_from_bottom ~= nil then
+			output.thresholdRowsFromBottom = self.threshold_rows_from_bottom:jsonEncode()
+		end
+
+		if self.on_reached_threshold_from_end ~= nil then
+			output.onReachedThresholdFromEnd = self.on_reached_threshold_from_end:jsonEncode()
 		end
 
 		return output
@@ -684,6 +727,27 @@ do
 
 		if input.titleText ~= nil then
 			self.title_text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.titleText)
+		end
+
+		if input.threshold_rows_from_bottom ~= nil then
+			self.threshold_rows_from_bottom =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.threshold_rows_from_bottom)
+		end
+
+		if input.thresholdRowsFromBottom ~= nil then
+			self.threshold_rows_from_bottom =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.thresholdRowsFromBottom)
+		end
+
+		if input.on_reached_threshold_from_end ~= nil then
+			self.on_reached_threshold_from_end = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(
+				input.on_reached_threshold_from_end
+			)
+		end
+
+		if input.onReachedThresholdFromEnd ~= nil then
+			self.on_reached_threshold_from_end =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onReachedThresholdFromEnd)
 		end
 
 		return self

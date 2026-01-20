@@ -46,986 +46,977 @@ MAIN:
   GETTABLEKS R13 R14 K23 ["getFFlagGameSettingsFixMoreLayoutIssues"]
   CALL R12 1 1
   CALL R12 0 1
-  GETTABLEKS R14 R1 K24 ["SharedFlags"]
-  GETTABLEKS R13 R14 K25 ["getFFlagDevFrameworkEnableFoundationColors"]
-  CALL R13 0 1
-  GETIMPORT R14 K18 [game]
-  LOADK R16 K26 ["RemoveGameSettingsPermissionsPage"]
-  NAMECALL R14 R14 K20 ["GetFastFlag"]
-  CALL R14 2 1
-  DUPTABLE R15 K39 [{"Title", "Header", "Subtitle", "Normal", "SemiBold", "Smaller", "Warning", "Error", "HeaderLink", "Small", "Subtext", "SmallError"}]
-  DUPTABLE R16 K43 [{"Font", "TextSize", "TextColor3"}]
-  GETIMPORT R17 K46 [Enum.Font.SourceSans]
-  SETTABLEKS R17 R16 K40 ["Font"]
-  LOADN R17 22
-  SETTABLEKS R17 R16 K41 ["TextSize"]
-  GETTABLEKS R17 R5 K47 ["TitlebarText"]
-  SETTABLEKS R17 R16 K42 ["TextColor3"]
-  SETTABLEKS R16 R15 K27 ["Title"]
-  DUPTABLE R16 K43 [{"Font", "TextSize", "TextColor3"}]
-  GETIMPORT R17 K46 [Enum.Font.SourceSans]
-  SETTABLEKS R17 R16 K40 ["Font"]
-  LOADN R17 22
-  SETTABLEKS R17 R16 K41 ["TextSize"]
-  GETTABLEKS R17 R5 K48 ["BrightText"]
-  SETTABLEKS R17 R16 K42 ["TextColor3"]
-  SETTABLEKS R16 R15 K28 ["Header"]
-  DUPTABLE R16 K43 [{"Font", "TextSize", "TextColor3"}]
-  GETIMPORT R17 K46 [Enum.Font.SourceSans]
-  SETTABLEKS R17 R16 K40 ["Font"]
-  LOADN R17 20
-  SETTABLEKS R17 R16 K41 ["TextSize"]
-  GETTABLEKS R17 R5 K49 ["SubText"]
-  SETTABLEKS R17 R16 K42 ["TextColor3"]
-  SETTABLEKS R16 R15 K29 ["Subtitle"]
-  DUPTABLE R16 K43 [{"Font", "TextSize", "TextColor3"}]
-  GETIMPORT R17 K46 [Enum.Font.SourceSans]
-  SETTABLEKS R17 R16 K40 ["Font"]
-  LOADN R17 20
-  SETTABLEKS R17 R16 K41 ["TextSize"]
-  GETTABLEKS R17 R5 K50 ["MainText"]
-  SETTABLEKS R17 R16 K42 ["TextColor3"]
-  SETTABLEKS R16 R15 K30 ["Normal"]
-  DUPTABLE R16 K43 [{"Font", "TextSize", "TextColor3"}]
-  GETIMPORT R17 K52 [Enum.Font.SourceSansSemibold]
-  SETTABLEKS R17 R16 K40 ["Font"]
-  LOADN R17 20
-  SETTABLEKS R17 R16 K41 ["TextSize"]
-  GETTABLEKS R17 R5 K50 ["MainText"]
-  SETTABLEKS R17 R16 K42 ["TextColor3"]
-  SETTABLEKS R16 R15 K31 ["SemiBold"]
-  DUPTABLE R16 K43 [{"Font", "TextSize", "TextColor3"}]
-  GETIMPORT R17 K46 [Enum.Font.SourceSans]
-  SETTABLEKS R17 R16 K40 ["Font"]
-  LOADN R17 18
-  SETTABLEKS R17 R16 K41 ["TextSize"]
-  GETTABLEKS R17 R5 K50 ["MainText"]
-  SETTABLEKS R17 R16 K42 ["TextColor3"]
-  SETTABLEKS R16 R15 K32 ["Smaller"]
-  DUPTABLE R16 K43 [{"Font", "TextSize", "TextColor3"}]
-  GETIMPORT R17 K46 [Enum.Font.SourceSans]
-  SETTABLEKS R17 R16 K40 ["Font"]
-  LOADN R17 18
-  SETTABLEKS R17 R16 K41 ["TextSize"]
-  GETTABLEKS R17 R5 K53 ["WarningText"]
-  SETTABLEKS R17 R16 K42 ["TextColor3"]
-  SETTABLEKS R16 R15 K33 ["Warning"]
-  DUPTABLE R16 K43 [{"Font", "TextSize", "TextColor3"}]
-  GETIMPORT R17 K46 [Enum.Font.SourceSans]
-  SETTABLEKS R17 R16 K40 ["Font"]
-  LOADN R17 18
-  SETTABLEKS R17 R16 K41 ["TextSize"]
-  GETTABLEKS R17 R5 K54 ["ErrorText"]
-  SETTABLEKS R17 R16 K42 ["TextColor3"]
-  SETTABLEKS R16 R15 K34 ["Error"]
+  GETIMPORT R13 K18 [game]
+  LOADK R15 K24 ["RemoveGameSettingsPermissionsPage"]
+  NAMECALL R13 R13 K20 ["GetFastFlag"]
+  CALL R13 2 1
+  DUPTABLE R14 K37 [{"Title", "Header", "Subtitle", "Normal", "SemiBold", "Smaller", "Warning", "Error", "HeaderLink", "Small", "Subtext", "SmallError"}]
+  DUPTABLE R15 K41 [{"Font", "TextSize", "TextColor3"}]
+  GETIMPORT R16 K44 [Enum.Font.SourceSans]
+  SETTABLEKS R16 R15 K38 ["Font"]
+  LOADN R16 22
+  SETTABLEKS R16 R15 K39 ["TextSize"]
+  GETTABLEKS R16 R5 K45 ["TitlebarText"]
+  SETTABLEKS R16 R15 K40 ["TextColor3"]
+  SETTABLEKS R15 R14 K25 ["Title"]
+  DUPTABLE R15 K41 [{"Font", "TextSize", "TextColor3"}]
+  GETIMPORT R16 K44 [Enum.Font.SourceSans]
+  SETTABLEKS R16 R15 K38 ["Font"]
+  LOADN R16 22
+  SETTABLEKS R16 R15 K39 ["TextSize"]
+  GETTABLEKS R16 R5 K46 ["BrightText"]
+  SETTABLEKS R16 R15 K40 ["TextColor3"]
+  SETTABLEKS R15 R14 K26 ["Header"]
+  DUPTABLE R15 K41 [{"Font", "TextSize", "TextColor3"}]
+  GETIMPORT R16 K44 [Enum.Font.SourceSans]
+  SETTABLEKS R16 R15 K38 ["Font"]
+  LOADN R16 20
+  SETTABLEKS R16 R15 K39 ["TextSize"]
+  GETTABLEKS R16 R5 K47 ["SubText"]
+  SETTABLEKS R16 R15 K40 ["TextColor3"]
+  SETTABLEKS R15 R14 K27 ["Subtitle"]
+  DUPTABLE R15 K41 [{"Font", "TextSize", "TextColor3"}]
+  GETIMPORT R16 K44 [Enum.Font.SourceSans]
+  SETTABLEKS R16 R15 K38 ["Font"]
+  LOADN R16 20
+  SETTABLEKS R16 R15 K39 ["TextSize"]
+  GETTABLEKS R16 R5 K48 ["MainText"]
+  SETTABLEKS R16 R15 K40 ["TextColor3"]
+  SETTABLEKS R15 R14 K28 ["Normal"]
+  DUPTABLE R15 K41 [{"Font", "TextSize", "TextColor3"}]
+  GETIMPORT R16 K50 [Enum.Font.SourceSansSemibold]
+  SETTABLEKS R16 R15 K38 ["Font"]
+  LOADN R16 20
+  SETTABLEKS R16 R15 K39 ["TextSize"]
+  GETTABLEKS R16 R5 K48 ["MainText"]
+  SETTABLEKS R16 R15 K40 ["TextColor3"]
+  SETTABLEKS R15 R14 K29 ["SemiBold"]
+  DUPTABLE R15 K41 [{"Font", "TextSize", "TextColor3"}]
+  GETIMPORT R16 K44 [Enum.Font.SourceSans]
+  SETTABLEKS R16 R15 K38 ["Font"]
+  LOADN R16 18
+  SETTABLEKS R16 R15 K39 ["TextSize"]
+  GETTABLEKS R16 R5 K48 ["MainText"]
+  SETTABLEKS R16 R15 K40 ["TextColor3"]
+  SETTABLEKS R15 R14 K30 ["Smaller"]
+  DUPTABLE R15 K41 [{"Font", "TextSize", "TextColor3"}]
+  GETIMPORT R16 K44 [Enum.Font.SourceSans]
+  SETTABLEKS R16 R15 K38 ["Font"]
+  LOADN R16 18
+  SETTABLEKS R16 R15 K39 ["TextSize"]
+  GETTABLEKS R16 R5 K51 ["WarningText"]
+  SETTABLEKS R16 R15 K40 ["TextColor3"]
+  SETTABLEKS R15 R14 K31 ["Warning"]
+  DUPTABLE R15 K41 [{"Font", "TextSize", "TextColor3"}]
+  GETIMPORT R16 K44 [Enum.Font.SourceSans]
+  SETTABLEKS R16 R15 K38 ["Font"]
+  LOADN R16 18
+  SETTABLEKS R16 R15 K39 ["TextSize"]
+  GETTABLEKS R16 R5 K52 ["ErrorText"]
+  SETTABLEKS R16 R15 K40 ["TextColor3"]
+  SETTABLEKS R15 R14 K32 ["Error"]
   JUMPIFNOT R11 [+13]
-  DUPTABLE R16 K43 [{"Font", "TextSize", "TextColor3"}]
-  GETIMPORT R17 K46 [Enum.Font.SourceSans]
-  SETTABLEKS R17 R16 K40 ["Font"]
-  LOADN R17 16
-  SETTABLEKS R17 R16 K41 ["TextSize"]
-  GETTABLEKS R17 R5 K50 ["MainText"]
-  SETTABLEKS R17 R16 K42 ["TextColor3"]
+  DUPTABLE R15 K41 [{"Font", "TextSize", "TextColor3"}]
+  GETIMPORT R16 K44 [Enum.Font.SourceSans]
+  SETTABLEKS R16 R15 K38 ["Font"]
+  LOADN R16 16
+  SETTABLEKS R16 R15 K39 ["TextSize"]
+  GETTABLEKS R16 R5 K48 ["MainText"]
+  SETTABLEKS R16 R15 K40 ["TextColor3"]
   JUMP [+1]
-  LOADNIL R16
-  SETTABLEKS R16 R15 K35 ["HeaderLink"]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K33 ["HeaderLink"]
   JUMPIFNOT R11 [+13]
-  DUPTABLE R16 K43 [{"Font", "TextSize", "TextColor3"}]
-  GETIMPORT R17 K46 [Enum.Font.SourceSans]
-  SETTABLEKS R17 R16 K40 ["Font"]
-  LOADN R17 14
-  SETTABLEKS R17 R16 K41 ["TextSize"]
-  GETTABLEKS R17 R5 K50 ["MainText"]
-  SETTABLEKS R17 R16 K42 ["TextColor3"]
+  DUPTABLE R15 K41 [{"Font", "TextSize", "TextColor3"}]
+  GETIMPORT R16 K44 [Enum.Font.SourceSans]
+  SETTABLEKS R16 R15 K38 ["Font"]
+  LOADN R16 14
+  SETTABLEKS R16 R15 K39 ["TextSize"]
+  GETTABLEKS R16 R5 K48 ["MainText"]
+  SETTABLEKS R16 R15 K40 ["TextColor3"]
   JUMP [+1]
-  LOADNIL R16
-  SETTABLEKS R16 R15 K36 ["Small"]
-  DUPTABLE R16 K43 [{"Font", "TextSize", "TextColor3"}]
-  GETIMPORT R17 K46 [Enum.Font.SourceSans]
-  SETTABLEKS R17 R16 K40 ["Font"]
-  LOADN R17 14
-  SETTABLEKS R17 R16 K41 ["TextSize"]
-  GETTABLEKS R17 R5 K55 ["DimmedText"]
-  SETTABLEKS R17 R16 K42 ["TextColor3"]
-  SETTABLEKS R16 R15 K37 ["Subtext"]
-  DUPTABLE R16 K43 [{"Font", "TextSize", "TextColor3"}]
-  GETIMPORT R17 K46 [Enum.Font.SourceSans]
-  SETTABLEKS R17 R16 K40 ["Font"]
-  LOADN R17 14
-  SETTABLEKS R17 R16 K41 ["TextSize"]
-  GETTABLEKS R17 R5 K54 ["ErrorText"]
-  SETTABLEKS R17 R16 K42 ["TextColor3"]
-  SETTABLEKS R16 R15 K38 ["SmallError"]
-  MOVE R16 R6
-  LOADK R17 K56 ["Button"]
-  CALL R16 1 1
+  LOADNIL R15
+  SETTABLEKS R15 R14 K34 ["Small"]
+  DUPTABLE R15 K41 [{"Font", "TextSize", "TextColor3"}]
+  GETIMPORT R16 K44 [Enum.Font.SourceSans]
+  SETTABLEKS R16 R15 K38 ["Font"]
+  LOADN R16 14
+  SETTABLEKS R16 R15 K39 ["TextSize"]
+  GETTABLEKS R16 R5 K53 ["DimmedText"]
+  SETTABLEKS R16 R15 K40 ["TextColor3"]
+  SETTABLEKS R15 R14 K35 ["Subtext"]
+  DUPTABLE R15 K41 [{"Font", "TextSize", "TextColor3"}]
+  GETIMPORT R16 K44 [Enum.Font.SourceSans]
+  SETTABLEKS R16 R15 K38 ["Font"]
+  LOADN R16 14
+  SETTABLEKS R16 R15 K39 ["TextSize"]
+  GETTABLEKS R16 R5 K52 ["ErrorText"]
+  SETTABLEKS R16 R15 K40 ["TextColor3"]
+  SETTABLEKS R15 R14 K36 ["SmallError"]
+  MOVE R15 R6
+  LOADK R16 K54 ["Button"]
+  CALL R15 1 1
+  MOVE R16 R10
+  MOVE R17 R15
+  NEWTABLE R18 2 0
+  MOVE R19 R10
+  GETTABLEKS R20 R15 K55 ["&RoundPrimary"]
+  DUPTABLE R21 K56 [{"TextSize"}]
+  GETTABLEKS R23 R14 K28 ["Normal"]
+  GETTABLEKS R22 R23 K39 ["TextSize"]
+  SETTABLEKS R22 R21 K39 ["TextSize"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K57 ["&GameSettingsPrimaryButton"]
+  MOVE R19 R10
+  GETTABLEKS R20 R15 K58 ["&Round"]
+  DUPTABLE R21 K56 [{"TextSize"}]
+  GETTABLEKS R23 R14 K28 ["Normal"]
+  GETTABLEKS R22 R23 K39 ["TextSize"]
+  SETTABLEKS R22 R21 K39 ["TextSize"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K59 ["&GameSettingsButton"]
+  CALL R16 2 1
   MOVE R17 R10
-  MOVE R18 R16
+  MOVE R18 R6
+  LOADK R19 K60 ["Image"]
+  CALL R18 1 1
   NEWTABLE R19 2 0
-  MOVE R20 R10
-  GETTABLEKS R21 R16 K57 ["&RoundPrimary"]
-  DUPTABLE R22 K58 [{"TextSize"}]
-  GETTABLEKS R24 R15 K30 ["Normal"]
-  GETTABLEKS R23 R24 K41 ["TextSize"]
-  SETTABLEKS R23 R22 K41 ["TextSize"]
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K59 ["&GameSettingsPrimaryButton"]
-  MOVE R20 R10
-  GETTABLEKS R21 R16 K60 ["&Round"]
-  DUPTABLE R22 K58 [{"TextSize"}]
-  GETTABLEKS R24 R15 K30 ["Normal"]
-  GETTABLEKS R23 R24 K41 ["TextSize"]
-  SETTABLEKS R23 R22 K41 ["TextSize"]
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K61 ["&GameSettingsButton"]
+  NEWTABLE R20 4 0
+  LOADK R21 K61 ["rbxasset://textures/GameSettings/MoreDetails.png"]
+  SETTABLEKS R21 R20 K60 ["Image"]
+  GETTABLEKS R21 R5 K47 ["SubText"]
+  SETTABLEKS R21 R20 K62 ["Color"]
+  GETTABLEKS R21 R4 K63 ["Hover"]
+  DUPTABLE R22 K64 [{"Color"}]
+  GETTABLEKS R23 R5 K65 ["MainTextHover"]
+  SETTABLEKS R23 R22 K62 ["Color"]
+  SETTABLE R22 R20 R21
+  SETTABLEKS R20 R19 K66 ["&TooltipStyle"]
+  DUPTABLE R20 K67 [{"Image"}]
+  LOADK R21 K68 ["rbxasset://textures/GameSettings/Warning.png"]
+  SETTABLEKS R21 R20 K60 ["Image"]
+  SETTABLEKS R20 R19 K69 ["&WarningStyle"]
   CALL R17 2 1
-  MOVE R18 R10
-  MOVE R19 R6
-  LOADK R20 K62 ["Image"]
-  CALL R19 1 1
-  NEWTABLE R20 2 0
-  NEWTABLE R21 4 0
-  LOADK R22 K63 ["rbxasset://textures/GameSettings/MoreDetails.png"]
-  SETTABLEKS R22 R21 K62 ["Image"]
-  GETTABLEKS R22 R5 K49 ["SubText"]
-  SETTABLEKS R22 R21 K64 ["Color"]
-  GETTABLEKS R22 R4 K65 ["Hover"]
-  DUPTABLE R23 K66 [{"Color"}]
-  GETTABLEKS R24 R5 K67 ["MainTextHover"]
-  SETTABLEKS R24 R23 K64 ["Color"]
-  SETTABLE R23 R21 R22
-  SETTABLEKS R21 R20 K68 ["&TooltipStyle"]
-  DUPTABLE R21 K69 [{"Image"}]
-  LOADK R22 K70 ["rbxasset://textures/GameSettings/Warning.png"]
-  SETTABLEKS R22 R21 K62 ["Image"]
-  SETTABLEKS R21 R20 K71 ["&WarningStyle"]
-  CALL R18 2 1
-  DUPTABLE R19 K79 [{"icon", "priceField", "subText", "height", "spacing", "transparency", "pricePadding"}]
-  DUPTABLE R20 K83 [{"imageColor", "image", "size"}]
-  GETTABLEKS R21 R5 K50 ["MainText"]
-  SETTABLEKS R21 R20 K80 ["imageColor"]
-  LOADK R21 K84 ["rbxasset://textures/ui/common/robux_small.png"]
-  SETTABLEKS R21 R20 K81 ["image"]
-  LOADN R21 16
-  SETTABLEKS R21 R20 K82 ["size"]
-  SETTABLEKS R20 R19 K72 ["icon"]
-  DUPTABLE R20 K86 [{"width"}]
-  LOADN R21 150
-  SETTABLEKS R21 R20 K85 ["width"]
-  SETTABLEKS R20 R19 K73 ["priceField"]
+  DUPTABLE R18 K77 [{"icon", "priceField", "subText", "height", "spacing", "transparency", "pricePadding"}]
+  DUPTABLE R19 K81 [{"imageColor", "image", "size"}]
+  GETTABLEKS R20 R5 K48 ["MainText"]
+  SETTABLEKS R20 R19 K78 ["imageColor"]
+  LOADK R20 K82 ["rbxasset://textures/ui/common/robux_small.png"]
+  SETTABLEKS R20 R19 K79 ["image"]
+  LOADN R20 16
+  SETTABLEKS R20 R19 K80 ["size"]
+  SETTABLEKS R19 R18 K70 ["icon"]
+  DUPTABLE R19 K84 [{"width"}]
+  LOADN R20 150
+  SETTABLEKS R20 R19 K83 ["width"]
+  SETTABLEKS R19 R18 K71 ["priceField"]
   JUMPIFNOT R12 [+2]
-  LOADNIL R20
+  LOADNIL R19
   JUMP [+4]
-  DUPTABLE R20 K86 [{"width"}]
-  LOADN R21 244
-  SETTABLEKS R21 R20 K85 ["width"]
-  SETTABLEKS R20 R19 K74 ["subText"]
+  DUPTABLE R19 K84 [{"width"}]
+  LOADN R20 244
+  SETTABLEKS R20 R19 K83 ["width"]
+  SETTABLEKS R19 R18 K72 ["subText"]
   JUMPIFNOT R12 [+2]
-  LOADNIL R20
+  LOADNIL R19
   JUMP [+7]
-  DUPTABLE R20 K89 [{"withSubText", "withoutSubText"}]
-  LOADN R21 137
-  SETTABLEKS R21 R20 K87 ["withSubText"]
-  LOADN R21 121
-  SETTABLEKS R21 R20 K88 ["withoutSubText"]
-  SETTABLEKS R20 R19 K75 ["height"]
+  DUPTABLE R19 K87 [{"withSubText", "withoutSubText"}]
+  LOADN R20 137
+  SETTABLEKS R20 R19 K85 ["withSubText"]
+  LOADN R20 121
+  SETTABLEKS R20 R19 K86 ["withoutSubText"]
+  SETTABLEKS R19 R18 K73 ["height"]
   JUMPIFNOT R12 [+2]
-  LOADN R20 5
+  LOADN R19 5
   JUMP [+1]
-  LOADN R20 10
-  SETTABLEKS R20 R19 K76 ["spacing"]
-  DUPTABLE R20 K92 [{"enabled", "disabled"}]
-  LOADN R21 0
-  SETTABLEKS R21 R20 K90 ["enabled"]
-  LOADK R21 K93 [0.5]
-  SETTABLEKS R21 R20 K91 ["disabled"]
-  SETTABLEKS R20 R19 K77 ["transparency"]
+  LOADN R19 10
+  SETTABLEKS R19 R18 K74 ["spacing"]
+  DUPTABLE R19 K90 [{"enabled", "disabled"}]
+  LOADN R20 0
+  SETTABLEKS R20 R19 K88 ["enabled"]
+  LOADK R20 K91 [0.5]
+  SETTABLEKS R20 R19 K89 ["disabled"]
+  SETTABLEKS R19 R18 K75 ["transparency"]
   JUMPIFNOT R12 [+2]
-  LOADN R20 10
+  LOADN R19 10
   JUMP [+1]
-  LOADN R20 25
-  SETTABLEKS R20 R19 K78 ["pricePadding"]
-  DUPTABLE R20 K101 [{"border", "borderHover", "borderSelected", "placeholderText", "searchIcon", "clearButton", "dropDown"}]
-  GETTABLEKS R21 R5 K102 ["Border"]
-  SETTABLEKS R21 R20 K94 ["border"]
-  GETTABLEKS R21 R5 K103 ["DialogMainButton"]
-  SETTABLEKS R21 R20 K95 ["borderHover"]
-  GETTABLEKS R21 R5 K103 ["DialogMainButton"]
-  SETTABLEKS R21 R20 K96 ["borderSelected"]
-  GETTABLEKS R21 R5 K55 ["DimmedText"]
-  SETTABLEKS R21 R20 K97 ["placeholderText"]
-  GETTABLEKS R21 R5 K49 ["SubText"]
-  SETTABLEKS R21 R20 K98 ["searchIcon"]
-  DUPTABLE R21 K105 [{"imageSelected", "image"}]
-  GETTABLEKS R22 R5 K49 ["SubText"]
-  SETTABLEKS R22 R21 K104 ["imageSelected"]
-  GETTABLEKS R22 R5 K49 ["SubText"]
-  SETTABLEKS R22 R21 K81 ["image"]
-  SETTABLEKS R21 R20 K99 ["clearButton"]
-  DUPTABLE R21 K112 [{"backgroundColor", "itemText", "headerText", "hovered", "item", "selected"}]
-  GETTABLEKS R22 R5 K113 ["InputFieldBackground"]
-  SETTABLEKS R22 R21 K106 ["backgroundColor"]
-  GETTABLEKS R22 R5 K50 ["MainText"]
-  SETTABLEKS R22 R21 K107 ["itemText"]
-  GETTABLEKS R22 R5 K49 ["SubText"]
-  SETTABLEKS R22 R21 K108 ["headerText"]
-  DUPTABLE R22 K114 [{"backgroundColor"}]
-  GETTABLEKS R23 R5 K115 ["ButtonHover"]
-  SETTABLEKS R23 R22 K106 ["backgroundColor"]
-  SETTABLEKS R22 R21 K109 ["hovered"]
-  DUPTABLE R22 K117 [{"offset"}]
-  LOADN R23 2
-  SETTABLEKS R23 R22 K116 ["offset"]
-  SETTABLEKS R22 R21 K110 ["item"]
-  DUPTABLE R22 K114 [{"backgroundColor"}]
-  GETTABLEKS R23 R5 K118 ["ButtonSelected"]
-  SETTABLEKS R23 R22 K106 ["backgroundColor"]
-  SETTABLEKS R22 R21 K111 ["selected"]
-  SETTABLEKS R21 R20 K100 ["dropDown"]
-  NEWTABLE R21 128 0
-  SETTABLEKS R15 R21 K119 ["fontStyle"]
-  GETTABLEKS R22 R5 K120 ["MainBackground"]
-  SETTABLEKS R22 R21 K106 ["backgroundColor"]
-  GETTABLEKS R22 R5 K121 ["LinkText"]
-  SETTABLEKS R22 R21 K122 ["hyperlink"]
-  GETTABLEKS R22 R5 K53 ["WarningText"]
-  SETTABLEKS R22 R21 K123 ["warningColor"]
-  LOADK R22 K70 ["rbxasset://textures/GameSettings/Warning.png"]
-  SETTABLEKS R22 R21 K124 ["warningIcon"]
-  GETTABLEKS R22 R5 K125 ["SubBackground2"]
-  SETTABLEKS R22 R21 K126 ["separator"]
-  GETTABLEKS R22 R5 K127 ["ScrollBar"]
-  SETTABLEKS R22 R21 K128 ["scrollBar"]
-  GETTABLEKS R22 R5 K129 ["ScrollBarBackground"]
-  SETTABLEKS R22 R21 K130 ["scrollBarBackground"]
-  DUPTABLE R22 K131 [{"width", "height"}]
-  LOADN R23 125
-  SETTABLEKS R23 R22 K85 ["width"]
-  LOADN R23 35
-  SETTABLEKS R23 R22 K75 ["height"]
-  SETTABLEKS R22 R21 K132 ["button"]
-  DUPTABLE R22 K117 [{"offset"}]
-  LOADN R23 227
-  SETTABLEKS R23 R22 K116 ["offset"]
-  SETTABLEKS R22 R21 K133 ["buttonBar"]
-  DUPTABLE R22 K134 [{"height"}]
-  LOADN R23 45
-  SETTABLEKS R23 R22 K75 ["height"]
-  SETTABLEKS R22 R21 K135 ["header"]
-  DUPTABLE R22 K114 [{"backgroundColor"}]
-  GETTABLEKS R23 R5 K136 ["MenuBarBackground"]
-  SETTABLEKS R23 R22 K106 ["backgroundColor"]
-  SETTABLEKS R22 R21 K137 ["menuBar"]
+  LOADN R19 25
+  SETTABLEKS R19 R18 K76 ["pricePadding"]
+  DUPTABLE R19 K99 [{"border", "borderHover", "borderSelected", "placeholderText", "searchIcon", "clearButton", "dropDown"}]
+  GETTABLEKS R20 R5 K100 ["Border"]
+  SETTABLEKS R20 R19 K92 ["border"]
+  GETTABLEKS R20 R5 K101 ["DialogMainButton"]
+  SETTABLEKS R20 R19 K93 ["borderHover"]
+  GETTABLEKS R20 R5 K101 ["DialogMainButton"]
+  SETTABLEKS R20 R19 K94 ["borderSelected"]
+  GETTABLEKS R20 R5 K53 ["DimmedText"]
+  SETTABLEKS R20 R19 K95 ["placeholderText"]
+  GETTABLEKS R20 R5 K47 ["SubText"]
+  SETTABLEKS R20 R19 K96 ["searchIcon"]
+  DUPTABLE R20 K103 [{"imageSelected", "image"}]
+  GETTABLEKS R21 R5 K47 ["SubText"]
+  SETTABLEKS R21 R20 K102 ["imageSelected"]
+  GETTABLEKS R21 R5 K47 ["SubText"]
+  SETTABLEKS R21 R20 K79 ["image"]
+  SETTABLEKS R20 R19 K97 ["clearButton"]
+  DUPTABLE R20 K110 [{"backgroundColor", "itemText", "headerText", "hovered", "item", "selected"}]
+  GETTABLEKS R21 R5 K111 ["InputFieldBackground"]
+  SETTABLEKS R21 R20 K104 ["backgroundColor"]
+  GETTABLEKS R21 R5 K48 ["MainText"]
+  SETTABLEKS R21 R20 K105 ["itemText"]
+  GETTABLEKS R21 R5 K47 ["SubText"]
+  SETTABLEKS R21 R20 K106 ["headerText"]
+  DUPTABLE R21 K112 [{"backgroundColor"}]
+  GETTABLEKS R22 R5 K113 ["ButtonHover"]
+  SETTABLEKS R22 R21 K104 ["backgroundColor"]
+  SETTABLEKS R21 R20 K107 ["hovered"]
+  DUPTABLE R21 K115 [{"offset"}]
+  LOADN R22 2
+  SETTABLEKS R22 R21 K114 ["offset"]
+  SETTABLEKS R21 R20 K108 ["item"]
+  DUPTABLE R21 K112 [{"backgroundColor"}]
+  GETTABLEKS R22 R5 K116 ["ButtonSelected"]
+  SETTABLEKS R22 R21 K104 ["backgroundColor"]
+  SETTABLEKS R21 R20 K109 ["selected"]
+  SETTABLEKS R20 R19 K98 ["dropDown"]
+  NEWTABLE R20 128 0
+  SETTABLEKS R14 R20 K117 ["fontStyle"]
+  GETTABLEKS R21 R5 K118 ["MainBackground"]
+  SETTABLEKS R21 R20 K104 ["backgroundColor"]
+  GETTABLEKS R21 R5 K119 ["LinkText"]
+  SETTABLEKS R21 R20 K120 ["hyperlink"]
+  GETTABLEKS R21 R5 K51 ["WarningText"]
+  SETTABLEKS R21 R20 K121 ["warningColor"]
+  LOADK R21 K68 ["rbxasset://textures/GameSettings/Warning.png"]
+  SETTABLEKS R21 R20 K122 ["warningIcon"]
+  GETTABLEKS R21 R5 K123 ["SubBackground2"]
+  SETTABLEKS R21 R20 K124 ["separator"]
+  GETTABLEKS R21 R5 K125 ["ScrollBar"]
+  SETTABLEKS R21 R20 K126 ["scrollBar"]
+  GETTABLEKS R21 R5 K127 ["ScrollBarBackground"]
+  SETTABLEKS R21 R20 K128 ["scrollBarBackground"]
+  DUPTABLE R21 K129 [{"width", "height"}]
+  LOADN R22 125
+  SETTABLEKS R22 R21 K83 ["width"]
   LOADN R22 35
-  SETTABLEKS R22 R21 K138 ["rowHeight"]
-  SETTABLEKS R19 R21 K139 ["robuxFeeBase"]
-  SETTABLEKS R20 R21 K140 ["searchBar"]
-  DUPTABLE R22 K144 [{"hover", "highlight", "text"}]
-  GETTABLEKS R23 R5 K145 ["MenuEntryHover"]
-  SETTABLEKS R23 R22 K141 ["hover"]
-  GETTABLEKS R23 R5 K146 ["MenuEntryHighlight"]
-  SETTABLEKS R23 R22 K142 ["highlight"]
-  JUMPIFNOT R13 [+3]
-  GETTABLEKS R23 R5 K147 ["MainTextSelected"]
-  JUMP [+6]
-  JUMPIFNOT R12 [+3]
-  GETTABLEKS R23 R5 K148 ["TextContrast"]
-  JUMP [+2]
-  GETTABLEKS R23 R5 K48 ["BrightText"]
-  SETTABLEKS R23 R22 K143 ["text"]
-  SETTABLEKS R22 R21 K149 ["menuEntry"]
-  DUPTABLE R22 K151 [{"gradient", "height"}]
-  GETTABLEKS R23 R5 K50 ["MainText"]
-  SETTABLEKS R23 R22 K150 ["gradient"]
-  LOADN R23 65
-  SETTABLEKS R23 R22 K75 ["height"]
-  SETTABLEKS R22 R21 K152 ["footer"]
+  SETTABLEKS R22 R21 K73 ["height"]
+  SETTABLEKS R21 R20 K130 ["button"]
+  DUPTABLE R21 K115 [{"offset"}]
+  LOADN R22 227
+  SETTABLEKS R22 R21 K114 ["offset"]
+  SETTABLEKS R21 R20 K131 ["buttonBar"]
+  DUPTABLE R21 K132 [{"height"}]
+  LOADN R22 45
+  SETTABLEKS R22 R21 K73 ["height"]
+  SETTABLEKS R21 R20 K133 ["header"]
+  DUPTABLE R21 K112 [{"backgroundColor"}]
+  GETTABLEKS R22 R5 K134 ["MenuBarBackground"]
+  SETTABLEKS R22 R21 K104 ["backgroundColor"]
+  SETTABLEKS R21 R20 K135 ["menuBar"]
+  LOADN R21 35
+  SETTABLEKS R21 R20 K136 ["rowHeight"]
+  SETTABLEKS R18 R20 K137 ["robuxFeeBase"]
+  SETTABLEKS R19 R20 K138 ["searchBar"]
+  DUPTABLE R21 K142 [{"hover", "highlight", "text"}]
+  GETTABLEKS R22 R5 K143 ["MenuEntryHover"]
+  SETTABLEKS R22 R21 K139 ["hover"]
+  GETTABLEKS R22 R5 K144 ["MenuEntryHighlight"]
+  SETTABLEKS R22 R21 K140 ["highlight"]
+  GETTABLEKS R22 R5 K145 ["MainTextSelected"]
+  SETTABLEKS R22 R21 K141 ["text"]
+  SETTABLEKS R21 R20 K146 ["menuEntry"]
+  DUPTABLE R21 K148 [{"gradient", "height"}]
+  GETTABLEKS R22 R5 K48 ["MainText"]
+  SETTABLEKS R22 R21 K147 ["gradient"]
+  LOADN R22 65
+  SETTABLEKS R22 R21 K73 ["height"]
+  SETTABLEKS R21 R20 K149 ["footer"]
+  JUMPIFNOT R12 [+2]
+  LOADN R21 20
+  JUMP [+1]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K150 ["titleSpacing"]
+  DUPTABLE R21 K154 [{"background", "disabled", "borderDefault", "borderHover", "tooltip", "text", "height"}]
+  GETTABLEKS R22 R5 K111 ["InputFieldBackground"]
+  SETTABLEKS R22 R21 K151 ["background"]
+  GETTABLEKS R22 R5 K155 ["InputFieldBackgroundDisabled"]
+  SETTABLEKS R22 R21 K89 ["disabled"]
+  GETTABLEKS R22 R5 K100 ["Border"]
+  SETTABLEKS R22 R21 K152 ["borderDefault"]
+  GETTABLEKS R22 R5 K101 ["DialogMainButton"]
+  SETTABLEKS R22 R21 K93 ["borderHover"]
+  GETTABLEKS R22 R5 K53 ["DimmedText"]
+  SETTABLEKS R22 R21 K153 ["tooltip"]
+  GETTABLEKS R22 R5 K48 ["MainText"]
+  SETTABLEKS R22 R21 K141 ["text"]
+  LOADN R22 42
+  SETTABLEKS R22 R21 K73 ["height"]
+  SETTABLEKS R21 R20 K156 ["textBox"]
+  DUPTABLE R21 K158 [{"maxWidth"}]
+  LOADN R22 124
+  SETTABLEKS R22 R21 K157 ["maxWidth"]
+  SETTABLEKS R21 R20 K159 ["textWithInlineLink"]
+  DUPTABLE R21 K167 [{"background", "title", "description", "size", "padding", "descriptionWidth", "sapcing", "image", "offImage", "onImage"}]
+  GETTABLEKS R22 R5 K111 ["InputFieldBackground"]
+  SETTABLEKS R22 R21 K151 ["background"]
+  GETTABLEKS R22 R5 K46 ["BrightText"]
+  SETTABLEKS R22 R21 K160 ["title"]
+  GETTABLEKS R22 R5 K53 ["DimmedText"]
+  SETTABLEKS R22 R21 K161 ["description"]
+  LOADN R22 16
+  SETTABLEKS R22 R21 K80 ["size"]
+  JUMPIFNOT R12 [+2]
+  LOADN R22 10
+  JUMP [+1]
+  LOADN R22 5
+  SETTABLEKS R22 R21 K162 ["padding"]
+  LOADN R22 244
+  SETTABLEKS R22 R21 K163 ["descriptionWidth"]
+  LOADN R22 10
+  SETTABLEKS R22 R21 K164 ["sapcing"]
+  DUPTABLE R22 K169 [{"background", "selected", "selectedDisabled"}]
+  LOADK R23 K170 ["rbxasset://textures/GameSettings/RadioButton.png"]
+  SETTABLEKS R23 R22 K151 ["background"]
+  GETTABLEKS R23 R5 K171 ["RadioButtonImage"]
+  SETTABLEKS R23 R22 K109 ["selected"]
+  GETTABLEKS R23 R5 K172 ["RadioButtonDisabledImage"]
+  SETTABLEKS R23 R22 K168 ["selectedDisabled"]
+  SETTABLEKS R22 R21 K79 ["image"]
+  GETTABLEKS R22 R5 K173 ["RadioOffImage"]
+  SETTABLEKS R22 R21 K165 ["offImage"]
+  GETTABLEKS R22 R5 K174 ["RadioOnImage"]
+  SETTABLEKS R22 R21 K166 ["onImage"]
+  SETTABLEKS R21 R20 K175 ["radioButton"]
+  DUPTABLE R21 K183 [{"image", "imageSize", "imageTextGap", "BodyBodyDefault", "paneBackgroundColor", "paneBorderColor", "panePadding", "paneBorderSize"}]
+  GETTABLEKS R22 R5 K184 ["InformationImage"]
+  SETTABLEKS R22 R21 K79 ["image"]
+  LOADN R22 20
+  SETTABLEKS R22 R21 K176 ["imageSize"]
+  LOADN R22 2
+  SETTABLEKS R22 R21 K177 ["imageTextGap"]
+  DUPTABLE R22 K186 [{"Font", "TextSize", "TextColor"}]
+  GETIMPORT R23 K44 [Enum.Font.SourceSans]
+  SETTABLEKS R23 R22 K38 ["Font"]
+  LOADN R23 18
+  SETTABLEKS R23 R22 K39 ["TextSize"]
+  GETTABLEKS R23 R5 K48 ["MainText"]
+  SETTABLEKS R23 R22 K185 ["TextColor"]
+  SETTABLEKS R22 R21 K178 ["BodyBodyDefault"]
+  GETTABLEKS R22 R5 K187 ["ForegroundContrast"]
+  SETTABLEKS R22 R21 K179 ["paneBackgroundColor"]
+  GETTABLEKS R22 R5 K188 ["OtherDivider"]
+  SETTABLEKS R22 R21 K180 ["paneBorderColor"]
+  LOADN R22 8
+  SETTABLEKS R22 R21 K181 ["panePadding"]
+  LOADN R22 1
+  SETTABLEKS R22 R21 K182 ["paneBorderSize"]
+  SETTABLEKS R21 R20 K189 ["genreInfo"]
+  DUPTABLE R21 K191 [{"warningLabel", "description", "padding"}]
+  DUPTABLE R22 K193 [{"color", "height"}]
+  GETTABLEKS R23 R5 K51 ["WarningText"]
+  SETTABLEKS R23 R22 K192 ["color"]
+  LOADN R23 30
+  SETTABLEKS R23 R22 K73 ["height"]
+  SETTABLEKS R22 R21 K190 ["warningLabel"]
+  DUPTABLE R22 K132 [{"height"}]
+  LOADN R23 25
+  SETTABLEKS R23 R22 K73 ["height"]
+  SETTABLEKS R22 R21 K161 ["description"]
+  LOADN R22 5
+  SETTABLEKS R22 R21 K162 ["padding"]
+  SETTABLEKS R21 R20 K194 ["radioButtonSet"]
+  DUPTABLE R21 K195 [{"background", "title"}]
+  GETTABLEKS R22 R5 K111 ["InputFieldBackground"]
+  SETTABLEKS R22 R21 K151 ["background"]
+  GETTABLEKS R22 R5 K46 ["BrightText"]
+  SETTABLEKS R22 R21 K160 ["title"]
+  SETTABLEKS R21 R20 K196 ["checkBox"]
+  DUPTABLE R21 K199 [{"headerPadding", "titlePadding"}]
+  LOADN R22 20
+  SETTABLEKS R22 R21 K197 ["headerPadding"]
+  LOADN R22 12
+  SETTABLEKS R22 R21 K198 ["titlePadding"]
+  SETTABLEKS R21 R20 K200 ["devProducts"]
+  DUPTABLE R21 K202 [{"headerPadding", "titlePadding", "refreshButton"}]
+  LOADN R22 20
+  SETTABLEKS R22 R21 K197 ["headerPadding"]
+  LOADN R22 12
+  SETTABLEKS R22 R21 K198 ["titlePadding"]
+  DUPTABLE R22 K203 [{"icon", "offset", "size"}]
+  GETTABLEKS R23 R5 K204 ["RefreshImage"]
+  SETTABLEKS R23 R22 K70 ["icon"]
+  DUPTABLE R23 K206 [{"x"}]
+  LOADN R24 246
+  SETTABLEKS R24 R23 K205 ["x"]
+  SETTABLEKS R23 R22 K114 ["offset"]
+  LOADN R23 18
+  SETTABLEKS R23 R22 K80 ["size"]
+  SETTABLEKS R22 R21 K201 ["refreshButton"]
+  SETTABLEKS R21 R20 K207 ["badges"]
+  DUPTABLE R21 K209 [{"background", "hover", "text", "disabled", "handle", "border", "gradient"}]
+  GETTABLEKS R22 R5 K54 ["Button"]
+  SETTABLEKS R22 R21 K151 ["background"]
+  GETTABLEKS R22 R5 K113 ["ButtonHover"]
+  SETTABLEKS R22 R21 K139 ["hover"]
+  GETTABLEKS R22 R5 K46 ["BrightText"]
+  SETTABLEKS R22 R21 K141 ["text"]
+  GETTABLEKS R22 R5 K155 ["InputFieldBackgroundDisabled"]
+  SETTABLEKS R22 R21 K89 ["disabled"]
+  GETTABLEKS R22 R5 K48 ["MainText"]
+  SETTABLEKS R22 R21 K208 ["handle"]
+  GETTABLEKS R22 R5 K100 ["Border"]
+  SETTABLEKS R22 R21 K92 ["border"]
+  GETTABLEKS R22 R5 K123 ["SubBackground2"]
+  SETTABLEKS R22 R21 K147 ["gradient"]
+  SETTABLEKS R21 R20 K98 ["dropDown"]
+  DUPTABLE R21 K210 [{"background", "hover", "highlight", "text"}]
+  GETTABLEKS R22 R5 K134 ["MenuBarBackground"]
+  SETTABLEKS R22 R21 K151 ["background"]
+  GETTABLEKS R22 R5 K143 ["MenuEntryHover"]
+  SETTABLEKS R22 R21 K139 ["hover"]
+  GETTABLEKS R22 R5 K144 ["MenuEntryHighlight"]
+  SETTABLEKS R22 R21 K140 ["highlight"]
+  GETTABLEKS R22 R5 K48 ["MainText"]
+  SETTABLEKS R22 R21 K141 ["text"]
+  SETTABLEKS R21 R20 K211 ["dropDownEntry"]
+  DUPTABLE R21 K212 [{"background", "text", "size", "spacing"}]
+  GETTABLEKS R22 R5 K118 ["MainBackground"]
+  SETTABLEKS R22 R21 K151 ["background"]
+  GETTABLEKS R22 R5 K48 ["MainText"]
+  SETTABLEKS R22 R21 K141 ["text"]
+  DUPTABLE R22 K129 [{"width", "height"}]
+  LOADN R23 224
+  SETTABLEKS R23 R22 K83 ["width"]
+  LOADN R23 52
+  SETTABLEKS R23 R22 K73 ["height"]
+  SETTABLEKS R22 R21 K80 ["size"]
+  LOADN R22 20
+  SETTABLEKS R22 R21 K74 ["spacing"]
+  SETTABLEKS R21 R20 K213 ["dialog"]
+  DUPTABLE R21 K217 [{"background", "maskImage", "loadingImage", "loadFailureImage"}]
+  GETTABLEKS R22 R5 K218 ["TableItem"]
+  SETTABLEKS R22 R21 K151 ["background"]
+  LOADK R22 K219 ["rbxasset://textures/StudioSharedUI/avatarMask.png"]
+  SETTABLEKS R22 R21 K214 ["maskImage"]
+  LOADK R22 K220 ["rbxasset://textures/StudioSharedUI/default_user.png"]
+  SETTABLEKS R22 R21 K215 ["loadingImage"]
+  LOADK R22 K221 ["rbxasset://textures/GameSettings/ModeratedAsset.jpg"]
+  SETTABLEKS R22 R21 K216 ["loadFailureImage"]
+  SETTABLEKS R21 R20 K222 ["subjectThumbnail"]
+  DUPTABLE R21 K223 [{"loadingImage", "loadFailureImage"}]
+  LOADK R22 K224 ["rbxasset://textures/StudioSharedUI/default_group.png"]
+  SETTABLEKS R22 R21 K215 ["loadingImage"]
+  LOADK R22 K221 ["rbxasset://textures/GameSettings/ModeratedAsset.jpg"]
+  SETTABLEKS R22 R21 K216 ["loadFailureImage"]
+  SETTABLEKS R21 R20 K225 ["groupThumbnail"]
+  DUPTABLE R21 K223 [{"loadingImage", "loadFailureImage"}]
+  LOADK R22 K226 ["rbxasset://textures/StudioSharedUI/default_badge.png"]
+  SETTABLEKS R22 R21 K215 ["loadingImage"]
+  LOADK R22 K221 ["rbxasset://textures/GameSettings/ModeratedAsset.jpg"]
+  SETTABLEKS R22 R21 K216 ["loadFailureImage"]
+  SETTABLEKS R21 R20 K227 ["badgeIconThumbnail"]
+  DUPTABLE R21 K230 [{"image", "sliceCenter", "square"}]
+  LOADK R22 K231 ["rbxasset://textures/GameSettings/DottedBorder.png"]
+  SETTABLEKS R22 R21 K79 ["image"]
+  GETIMPORT R22 K234 [Rect.new]
+  LOADN R23 2
+  LOADN R24 2
+  LOADN R25 9
+  LOADN R26 148
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K228 ["sliceCenter"]
+  DUPTABLE R22 K235 [{"image", "sliceCenter"}]
+  LOADK R23 K236 ["rbxasset://textures/GameSettings/DottedBorder_Square.png"]
+  SETTABLEKS R23 R22 K79 ["image"]
+  GETIMPORT R23 K234 [Rect.new]
+  LOADN R24 2
+  LOADN R25 2
+  LOADN R26 148
+  LOADN R27 148
+  CALL R23 4 1
+  SETTABLEKS R23 R22 K228 ["sliceCenter"]
+  SETTABLEKS R22 R21 K229 ["square"]
+  SETTABLEKS R21 R20 K237 ["dottedBorder"]
+  DUPTABLE R21 K240 [{"image", "rectOffset", "rectSize"}]
+  LOADK R22 K241 ["rbxasset://textures/GameSettings/CenterPlus.png"]
+  SETTABLEKS R22 R21 K79 ["image"]
+  GETIMPORT R22 K243 [Vector2.new]
+  LOADN R23 121
+  LOADN R24 63
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K238 ["rectOffset"]
+  GETIMPORT R22 K243 [Vector2.new]
+  LOADN R23 24
+  LOADN R24 24
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K239 ["rectSize"]
+  SETTABLEKS R21 R20 K244 ["plus"]
+  DUPTABLE R21 K246 [{"background", "count"}]
+  GETTABLEKS R22 R5 K123 ["SubBackground2"]
+  SETTABLEKS R22 R21 K151 ["background"]
+  GETTABLEKS R22 R5 K53 ["DimmedText"]
+  SETTABLEKS R22 R21 K245 ["count"]
+  SETTABLEKS R21 R20 K247 ["thumbnail"]
+  DUPTABLE R21 K248 [{"background", "border", "plus"}]
+  GETTABLEKS R22 R5 K249 ["SubBackground"]
+  SETTABLEKS R22 R21 K151 ["background"]
+  GETTABLEKS R22 R5 K123 ["SubBackground2"]
+  SETTABLEKS R22 R21 K92 ["border"]
+  GETTABLEKS R22 R5 K48 ["MainText"]
+  SETTABLEKS R22 R21 K244 ["plus"]
+  SETTABLEKS R21 R20 K250 ["newThumbnail"]
+  DUPTABLE R21 K251 [{"background", "border"}]
+  GETTABLEKS R22 R5 K249 ["SubBackground"]
+  SETTABLEKS R22 R21 K151 ["background"]
+  GETTABLEKS R22 R5 K252 ["CurrentMarkerSelected"]
+  SETTABLEKS R22 R21 K92 ["border"]
+  SETTABLEKS R21 R20 K253 ["thumbnailDrag"]
+  DUPTABLE R21 K256 [{"ButtonColor", "TextColor", "BorderColor"}]
+  GETTABLEKS R22 R5 K54 ["Button"]
+  SETTABLEKS R22 R21 K254 ["ButtonColor"]
+  GETTABLEKS R22 R5 K48 ["MainText"]
+  SETTABLEKS R22 R21 K185 ["TextColor"]
+  GETTABLEKS R22 R5 K100 ["Border"]
+  SETTABLEKS R22 R21 K255 ["BorderColor"]
+  SETTABLEKS R21 R20 K257 ["cancelButton"]
+  DUPTABLE R21 K256 [{"ButtonColor", "TextColor", "BorderColor"}]
+  GETTABLEKS R22 R5 K101 ["DialogMainButton"]
+  SETTABLEKS R22 R21 K254 ["ButtonColor"]
+  GETIMPORT R22 K259 [Color3.new]
+  LOADN R23 1
+  LOADN R24 1
+  LOADN R25 1
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K185 ["TextColor"]
+  GETTABLEKS R22 R5 K123 ["SubBackground2"]
+  SETTABLEKS R22 R21 K255 ["BorderColor"]
+  SETTABLEKS R21 R20 K260 ["defaultButton"]
+  DUPTABLE R21 K263 [{"collapseStateArrow", "deleteButton"}]
+  GETTABLEKS R22 R5 K48 ["MainText"]
+  SETTABLEKS R22 R21 K261 ["collapseStateArrow"]
+  GETTABLEKS R22 R5 K249 ["SubBackground"]
+  SETTABLEKS R22 R21 K262 ["deleteButton"]
+  SETTABLEKS R21 R20 K264 ["collaboratorItem"]
+  DUPTABLE R21 K267 [{"height", "header", "item", "icon", "menu", "textPadding"}]
+  LOADN R22 94
+  SETTABLEKS R22 R21 K73 ["height"]
+  DUPTABLE R22 K132 [{"height"}]
+  LOADN R23 32
+  SETTABLEKS R23 R22 K73 ["height"]
+  SETTABLEKS R22 R21 K133 ["header"]
+  DUPTABLE R22 K268 [{"background", "height", "padding"}]
+  GETTABLEKS R23 R5 K218 ["TableItem"]
+  SETTABLEKS R23 R22 K151 ["background"]
+  LOADN R23 32
+  SETTABLEKS R23 R22 K73 ["height"]
+  LOADN R23 5
+  SETTABLEKS R23 R22 K162 ["padding"]
+  SETTABLEKS R22 R21 K108 ["item"]
+  DUPTABLE R22 K132 [{"height"}]
+  LOADN R23 40
+  SETTABLEKS R23 R22 K73 ["height"]
+  SETTABLEKS R22 R21 K70 ["icon"]
+  DUPTABLE R22 K272 [{"itemPadding", "buttonSize", "buttonPaddingY"}]
+  LOADN R23 30
+  SETTABLEKS R23 R22 K269 ["itemPadding"]
+  LOADN R23 32
+  SETTABLEKS R23 R22 K270 ["buttonSize"]
+  LOADN R23 10
+  SETTABLEKS R23 R22 K271 ["buttonPaddingY"]
+  SETTABLEKS R22 R21 K265 ["menu"]
+  LOADN R22 6
+  SETTABLEKS R22 R21 K266 ["textPadding"]
+  SETTABLEKS R21 R20 K273 ["table"]
+  DUPTABLE R21 K132 [{"height"}]
+  LOADN R22 24
+  SETTABLEKS R22 R21 K73 ["height"]
+  SETTABLEKS R21 R20 K274 ["toggleButton"]
+  DUPTABLE R21 K275 [{"image", "imageColor"}]
+  LOADK R22 K20 ["GetFastFlag"]
+  SETTABLEKS R22 R21 K79 ["image"]
+  GETTABLEKS R22 R5 K48 ["MainText"]
+  SETTABLEKS R22 R21 K78 ["imageColor"]
+  SETTABLEKS R21 R20 K277 ["editButton"]
+  DUPTABLE R21 K275 [{"image", "imageColor"}]
+  LOADK R22 K22 ["Flags"]
+  SETTABLEKS R22 R21 K79 ["image"]
+  GETTABLEKS R22 R5 K48 ["MainText"]
+  SETTABLEKS R22 R21 K78 ["imageColor"]
+  SETTABLEKS R21 R20 K279 ["copyButton"]
+  DUPTABLE R21 K280 [{"padding"}]
+  LOADN R22 10
+  SETTABLEKS R22 R21 K162 ["padding"]
+  SETTABLEKS R21 R20 K281 ["uiListLayout"]
+  DUPTABLE R21 K284 [{"PaddingX", "PaddingY"}]
+  LOADN R22 75
+  SETTABLEKS R22 R21 K282 ["PaddingX"]
+  LOADN R22 10
+  SETTABLEKS R22 R21 K283 ["PaddingY"]
+  SETTABLEKS R21 R20 K285 ["createButton"]
+  DUPTABLE R21 K284 [{"PaddingX", "PaddingY"}]
+  LOADN R22 75
+  SETTABLEKS R22 R21 K282 ["PaddingX"]
+  LOADN R22 10
+  SETTABLEKS R22 R21 K283 ["PaddingY"]
+  SETTABLEKS R21 R20 K286 ["viewButton"]
+  DUPTABLE R21 K289 [{"publishText", "publishButton"}]
+  DUPTABLE R22 K290 [{"offset", "width"}]
+  LOADN R23 70
+  SETTABLEKS R23 R22 K114 ["offset"]
+  LOADN R23 250
+  SETTABLEKS R23 R22 K83 ["width"]
+  SETTABLEKS R22 R21 K287 ["publishText"]
+  DUPTABLE R22 K293 [{"offset", "paddingX", "paddingY"}]
+  LOADN R23 125
+  SETTABLEKS R23 R22 K114 ["offset"]
+  LOADN R23 75
+  SETTABLEKS R23 R22 K291 ["paddingX"]
+  LOADN R23 15
+  SETTABLEKS R23 R22 K292 ["paddingY"]
+  SETTABLEKS R22 R21 K288 ["publishButton"]
+  SETTABLEKS R21 R20 K294 ["mainView"]
+  DUPTABLE R21 K284 [{"PaddingX", "PaddingY"}]
+  LOADN R22 75
+  SETTABLEKS R22 R21 K282 ["PaddingX"]
+  LOADN R22 10
+  SETTABLEKS R22 R21 K283 ["PaddingY"]
+  SETTABLEKS R21 R20 K295 ["shutdownButton"]
+  DUPTABLE R21 K304 [{"settingPadding", "marginX", "marginY", "headerPadding", "reloadButton", "failLabelPaddingX", "failPageListPaddingY", "toggleButtonSize", "toggleButtonTitleWidth"}]
+  LOADN R22 32
+  SETTABLEKS R22 R21 K296 ["settingPadding"]
+  LOADN R22 25
+  SETTABLEKS R22 R21 K297 ["marginX"]
   JUMPIFNOT R12 [+2]
   LOADN R22 20
   JUMP [+1]
   LOADNIL R22
-  SETTABLEKS R22 R21 K153 ["titleSpacing"]
-  DUPTABLE R22 K157 [{"background", "disabled", "borderDefault", "borderHover", "tooltip", "text", "height"}]
-  GETTABLEKS R23 R5 K113 ["InputFieldBackground"]
-  SETTABLEKS R23 R22 K154 ["background"]
-  GETTABLEKS R23 R5 K158 ["InputFieldBackgroundDisabled"]
-  SETTABLEKS R23 R22 K91 ["disabled"]
-  GETTABLEKS R23 R5 K102 ["Border"]
-  SETTABLEKS R23 R22 K155 ["borderDefault"]
-  GETTABLEKS R23 R5 K103 ["DialogMainButton"]
-  SETTABLEKS R23 R22 K95 ["borderHover"]
-  GETTABLEKS R23 R5 K55 ["DimmedText"]
-  SETTABLEKS R23 R22 K156 ["tooltip"]
-  GETTABLEKS R23 R5 K50 ["MainText"]
-  SETTABLEKS R23 R22 K143 ["text"]
-  LOADN R23 42
-  SETTABLEKS R23 R22 K75 ["height"]
-  SETTABLEKS R22 R21 K159 ["textBox"]
-  DUPTABLE R22 K161 [{"maxWidth"}]
-  LOADN R23 124
-  SETTABLEKS R23 R22 K160 ["maxWidth"]
-  SETTABLEKS R22 R21 K162 ["textWithInlineLink"]
-  DUPTABLE R22 K170 [{"background", "title", "description", "size", "padding", "descriptionWidth", "sapcing", "image", "offImage", "onImage"}]
-  GETTABLEKS R23 R5 K113 ["InputFieldBackground"]
-  SETTABLEKS R23 R22 K154 ["background"]
-  GETTABLEKS R23 R5 K48 ["BrightText"]
-  SETTABLEKS R23 R22 K163 ["title"]
-  GETTABLEKS R23 R5 K55 ["DimmedText"]
-  SETTABLEKS R23 R22 K164 ["description"]
-  LOADN R23 16
-  SETTABLEKS R23 R22 K82 ["size"]
-  JUMPIFNOT R12 [+2]
-  LOADN R23 10
-  JUMP [+1]
-  LOADN R23 5
-  SETTABLEKS R23 R22 K165 ["padding"]
-  LOADN R23 244
-  SETTABLEKS R23 R22 K166 ["descriptionWidth"]
-  LOADN R23 10
-  SETTABLEKS R23 R22 K167 ["sapcing"]
-  DUPTABLE R23 K172 [{"background", "selected", "selectedDisabled"}]
-  LOADK R24 K173 ["rbxasset://textures/GameSettings/RadioButton.png"]
-  SETTABLEKS R24 R23 K154 ["background"]
-  GETTABLEKS R24 R5 K174 ["RadioButtonImage"]
-  SETTABLEKS R24 R23 K111 ["selected"]
-  GETTABLEKS R24 R5 K175 ["RadioButtonDisabledImage"]
-  SETTABLEKS R24 R23 K171 ["selectedDisabled"]
-  SETTABLEKS R23 R22 K81 ["image"]
-  GETTABLEKS R23 R5 K176 ["RadioOffImage"]
-  SETTABLEKS R23 R22 K168 ["offImage"]
-  GETTABLEKS R23 R5 K177 ["RadioOnImage"]
-  SETTABLEKS R23 R22 K169 ["onImage"]
-  SETTABLEKS R22 R21 K178 ["radioButton"]
-  DUPTABLE R22 K186 [{"image", "imageSize", "imageTextGap", "BodyBodyDefault", "paneBackgroundColor", "paneBorderColor", "panePadding", "paneBorderSize"}]
-  GETTABLEKS R23 R5 K187 ["InformationImage"]
-  SETTABLEKS R23 R22 K81 ["image"]
-  LOADN R23 20
-  SETTABLEKS R23 R22 K179 ["imageSize"]
-  LOADN R23 2
-  SETTABLEKS R23 R22 K180 ["imageTextGap"]
-  DUPTABLE R23 K189 [{"Font", "TextSize", "TextColor"}]
-  GETIMPORT R24 K46 [Enum.Font.SourceSans]
-  SETTABLEKS R24 R23 K40 ["Font"]
-  LOADN R24 18
-  SETTABLEKS R24 R23 K41 ["TextSize"]
-  GETTABLEKS R24 R5 K50 ["MainText"]
-  SETTABLEKS R24 R23 K188 ["TextColor"]
-  SETTABLEKS R23 R22 K181 ["BodyBodyDefault"]
-  GETTABLEKS R23 R5 K190 ["ForegroundContrast"]
-  SETTABLEKS R23 R22 K182 ["paneBackgroundColor"]
-  GETTABLEKS R23 R5 K191 ["OtherDivider"]
-  SETTABLEKS R23 R22 K183 ["paneBorderColor"]
-  LOADN R23 8
-  SETTABLEKS R23 R22 K184 ["panePadding"]
-  LOADN R23 1
-  SETTABLEKS R23 R22 K185 ["paneBorderSize"]
-  SETTABLEKS R22 R21 K192 ["genreInfo"]
-  DUPTABLE R22 K194 [{"warningLabel", "description", "padding"}]
-  DUPTABLE R23 K196 [{"color", "height"}]
-  GETTABLEKS R24 R5 K53 ["WarningText"]
-  SETTABLEKS R24 R23 K195 ["color"]
-  LOADN R24 30
-  SETTABLEKS R24 R23 K75 ["height"]
-  SETTABLEKS R23 R22 K193 ["warningLabel"]
-  DUPTABLE R23 K134 [{"height"}]
-  LOADN R24 25
-  SETTABLEKS R24 R23 K75 ["height"]
-  SETTABLEKS R23 R22 K164 ["description"]
-  LOADN R23 5
-  SETTABLEKS R23 R22 K165 ["padding"]
-  SETTABLEKS R22 R21 K197 ["radioButtonSet"]
-  DUPTABLE R22 K198 [{"background", "title"}]
-  GETTABLEKS R23 R5 K113 ["InputFieldBackground"]
-  SETTABLEKS R23 R22 K154 ["background"]
-  GETTABLEKS R23 R5 K48 ["BrightText"]
-  SETTABLEKS R23 R22 K163 ["title"]
-  SETTABLEKS R22 R21 K199 ["checkBox"]
-  DUPTABLE R22 K202 [{"headerPadding", "titlePadding"}]
-  LOADN R23 20
-  SETTABLEKS R23 R22 K200 ["headerPadding"]
-  LOADN R23 12
-  SETTABLEKS R23 R22 K201 ["titlePadding"]
-  SETTABLEKS R22 R21 K203 ["devProducts"]
-  DUPTABLE R22 K205 [{"headerPadding", "titlePadding", "refreshButton"}]
-  LOADN R23 20
-  SETTABLEKS R23 R22 K200 ["headerPadding"]
-  LOADN R23 12
-  SETTABLEKS R23 R22 K201 ["titlePadding"]
-  DUPTABLE R23 K206 [{"icon", "offset", "size"}]
-  GETTABLEKS R24 R5 K207 ["RefreshImage"]
-  SETTABLEKS R24 R23 K72 ["icon"]
-  DUPTABLE R24 K209 [{"x"}]
-  LOADN R25 246
-  SETTABLEKS R25 R24 K208 ["x"]
-  SETTABLEKS R24 R23 K116 ["offset"]
-  LOADN R24 18
-  SETTABLEKS R24 R23 K82 ["size"]
-  SETTABLEKS R23 R22 K204 ["refreshButton"]
-  SETTABLEKS R22 R21 K210 ["badges"]
-  DUPTABLE R22 K212 [{"background", "hover", "text", "disabled", "handle", "border", "gradient"}]
-  GETTABLEKS R23 R5 K56 ["Button"]
-  SETTABLEKS R23 R22 K154 ["background"]
-  GETTABLEKS R23 R5 K115 ["ButtonHover"]
-  SETTABLEKS R23 R22 K141 ["hover"]
-  GETTABLEKS R23 R5 K48 ["BrightText"]
-  SETTABLEKS R23 R22 K143 ["text"]
-  GETTABLEKS R23 R5 K158 ["InputFieldBackgroundDisabled"]
-  SETTABLEKS R23 R22 K91 ["disabled"]
-  GETTABLEKS R23 R5 K50 ["MainText"]
-  SETTABLEKS R23 R22 K211 ["handle"]
-  GETTABLEKS R23 R5 K102 ["Border"]
-  SETTABLEKS R23 R22 K94 ["border"]
-  GETTABLEKS R23 R5 K125 ["SubBackground2"]
-  SETTABLEKS R23 R22 K150 ["gradient"]
-  SETTABLEKS R22 R21 K100 ["dropDown"]
-  DUPTABLE R22 K213 [{"background", "hover", "highlight", "text"}]
-  GETTABLEKS R23 R5 K136 ["MenuBarBackground"]
-  SETTABLEKS R23 R22 K154 ["background"]
-  GETTABLEKS R23 R5 K145 ["MenuEntryHover"]
-  SETTABLEKS R23 R22 K141 ["hover"]
-  GETTABLEKS R23 R5 K146 ["MenuEntryHighlight"]
-  SETTABLEKS R23 R22 K142 ["highlight"]
-  GETTABLEKS R23 R5 K50 ["MainText"]
-  SETTABLEKS R23 R22 K143 ["text"]
-  SETTABLEKS R22 R21 K214 ["dropDownEntry"]
-  DUPTABLE R22 K215 [{"background", "text", "size", "spacing"}]
-  GETTABLEKS R23 R5 K120 ["MainBackground"]
-  SETTABLEKS R23 R22 K154 ["background"]
-  GETTABLEKS R23 R5 K50 ["MainText"]
-  SETTABLEKS R23 R22 K143 ["text"]
-  DUPTABLE R23 K131 [{"width", "height"}]
-  LOADN R24 224
-  SETTABLEKS R24 R23 K85 ["width"]
-  LOADN R24 52
-  SETTABLEKS R24 R23 K75 ["height"]
-  SETTABLEKS R23 R22 K82 ["size"]
-  LOADN R23 20
-  SETTABLEKS R23 R22 K76 ["spacing"]
-  SETTABLEKS R22 R21 K216 ["dialog"]
-  DUPTABLE R22 K220 [{"background", "maskImage", "loadingImage", "loadFailureImage"}]
-  GETTABLEKS R23 R5 K221 ["TableItem"]
-  SETTABLEKS R23 R22 K154 ["background"]
-  LOADK R23 K222 ["rbxasset://textures/StudioSharedUI/avatarMask.png"]
-  SETTABLEKS R23 R22 K217 ["maskImage"]
-  LOADK R23 K223 ["rbxasset://textures/StudioSharedUI/default_user.png"]
-  SETTABLEKS R23 R22 K218 ["loadingImage"]
-  LOADK R23 K224 ["rbxasset://textures/GameSettings/ModeratedAsset.jpg"]
-  SETTABLEKS R23 R22 K219 ["loadFailureImage"]
-  SETTABLEKS R22 R21 K225 ["subjectThumbnail"]
-  DUPTABLE R22 K226 [{"loadingImage", "loadFailureImage"}]
-  LOADK R23 K227 ["rbxasset://textures/StudioSharedUI/default_group.png"]
-  SETTABLEKS R23 R22 K218 ["loadingImage"]
-  LOADK R23 K224 ["rbxasset://textures/GameSettings/ModeratedAsset.jpg"]
-  SETTABLEKS R23 R22 K219 ["loadFailureImage"]
-  SETTABLEKS R22 R21 K228 ["groupThumbnail"]
-  DUPTABLE R22 K226 [{"loadingImage", "loadFailureImage"}]
-  LOADK R23 K229 ["rbxasset://textures/StudioSharedUI/default_badge.png"]
-  SETTABLEKS R23 R22 K218 ["loadingImage"]
-  LOADK R23 K224 ["rbxasset://textures/GameSettings/ModeratedAsset.jpg"]
-  SETTABLEKS R23 R22 K219 ["loadFailureImage"]
-  SETTABLEKS R22 R21 K230 ["badgeIconThumbnail"]
-  DUPTABLE R22 K233 [{"image", "sliceCenter", "square"}]
-  LOADK R23 K234 ["rbxasset://textures/GameSettings/DottedBorder.png"]
-  SETTABLEKS R23 R22 K81 ["image"]
-  GETIMPORT R23 K237 [Rect.new]
-  LOADN R24 2
-  LOADN R25 2
-  LOADN R26 9
-  LOADN R27 148
-  CALL R23 4 1
-  SETTABLEKS R23 R22 K231 ["sliceCenter"]
-  DUPTABLE R23 K238 [{"image", "sliceCenter"}]
-  LOADK R24 K239 ["rbxasset://textures/GameSettings/DottedBorder_Square.png"]
-  SETTABLEKS R24 R23 K81 ["image"]
-  GETIMPORT R24 K237 [Rect.new]
-  LOADN R25 2
-  LOADN R26 2
-  LOADN R27 148
-  LOADN R28 148
-  CALL R24 4 1
-  SETTABLEKS R24 R23 K231 ["sliceCenter"]
-  SETTABLEKS R23 R22 K232 ["square"]
-  SETTABLEKS R22 R21 K240 ["dottedBorder"]
-  DUPTABLE R22 K243 [{"image", "rectOffset", "rectSize"}]
-  LOADK R23 K244 ["rbxasset://textures/GameSettings/CenterPlus.png"]
-  SETTABLEKS R23 R22 K81 ["image"]
-  GETIMPORT R23 K246 [Vector2.new]
-  LOADN R24 121
-  LOADN R25 63
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K241 ["rectOffset"]
-  GETIMPORT R23 K246 [Vector2.new]
-  LOADN R24 24
-  LOADN R25 24
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K242 ["rectSize"]
-  SETTABLEKS R22 R21 K247 ["plus"]
-  DUPTABLE R22 K249 [{"background", "count"}]
-  GETTABLEKS R23 R5 K125 ["SubBackground2"]
-  SETTABLEKS R23 R22 K154 ["background"]
-  GETTABLEKS R23 R5 K55 ["DimmedText"]
-  SETTABLEKS R23 R22 K248 ["count"]
-  SETTABLEKS R22 R21 K250 ["thumbnail"]
-  DUPTABLE R22 K251 [{"background", "border", "plus"}]
-  GETTABLEKS R23 R5 K252 ["SubBackground"]
-  SETTABLEKS R23 R22 K154 ["background"]
-  GETTABLEKS R23 R5 K125 ["SubBackground2"]
-  SETTABLEKS R23 R22 K94 ["border"]
-  GETTABLEKS R23 R5 K50 ["MainText"]
-  SETTABLEKS R23 R22 K247 ["plus"]
-  SETTABLEKS R22 R21 K253 ["newThumbnail"]
-  DUPTABLE R22 K254 [{"background", "border"}]
-  GETTABLEKS R23 R5 K252 ["SubBackground"]
-  SETTABLEKS R23 R22 K154 ["background"]
-  GETTABLEKS R23 R5 K255 ["CurrentMarkerSelected"]
-  SETTABLEKS R23 R22 K94 ["border"]
-  SETTABLEKS R22 R21 K256 ["thumbnailDrag"]
-  DUPTABLE R22 K259 [{"ButtonColor", "TextColor", "BorderColor"}]
-  GETTABLEKS R23 R5 K56 ["Button"]
-  SETTABLEKS R23 R22 K257 ["ButtonColor"]
-  GETTABLEKS R23 R5 K50 ["MainText"]
-  SETTABLEKS R23 R22 K188 ["TextColor"]
-  GETTABLEKS R23 R5 K102 ["Border"]
-  SETTABLEKS R23 R22 K258 ["BorderColor"]
-  SETTABLEKS R22 R21 K260 ["cancelButton"]
-  DUPTABLE R22 K259 [{"ButtonColor", "TextColor", "BorderColor"}]
-  GETTABLEKS R23 R5 K103 ["DialogMainButton"]
-  SETTABLEKS R23 R22 K257 ["ButtonColor"]
-  GETIMPORT R23 K262 [Color3.new]
-  LOADN R24 1
-  LOADN R25 1
-  LOADN R26 1
-  CALL R23 3 1
-  SETTABLEKS R23 R22 K188 ["TextColor"]
-  GETTABLEKS R23 R5 K125 ["SubBackground2"]
-  SETTABLEKS R23 R22 K258 ["BorderColor"]
-  SETTABLEKS R22 R21 K263 ["defaultButton"]
-  DUPTABLE R22 K266 [{"collapseStateArrow", "deleteButton"}]
-  GETTABLEKS R23 R5 K50 ["MainText"]
-  SETTABLEKS R23 R22 K264 ["collapseStateArrow"]
-  GETTABLEKS R23 R5 K252 ["SubBackground"]
-  SETTABLEKS R23 R22 K265 ["deleteButton"]
-  SETTABLEKS R22 R21 K267 ["collaboratorItem"]
-  DUPTABLE R22 K270 [{"height", "header", "item", "icon", "menu", "textPadding"}]
-  LOADN R23 94
-  SETTABLEKS R23 R22 K75 ["height"]
-  DUPTABLE R23 K134 [{"height"}]
-  LOADN R24 32
-  SETTABLEKS R24 R23 K75 ["height"]
-  SETTABLEKS R23 R22 K135 ["header"]
-  DUPTABLE R23 K271 [{"background", "height", "padding"}]
-  GETTABLEKS R24 R5 K221 ["TableItem"]
-  SETTABLEKS R24 R23 K154 ["background"]
-  LOADN R24 32
-  SETTABLEKS R24 R23 K75 ["height"]
-  LOADN R24 5
-  SETTABLEKS R24 R23 K165 ["padding"]
-  SETTABLEKS R23 R22 K110 ["item"]
-  DUPTABLE R23 K134 [{"height"}]
-  LOADN R24 40
-  SETTABLEKS R24 R23 K75 ["height"]
-  SETTABLEKS R23 R22 K72 ["icon"]
-  DUPTABLE R23 K275 [{"itemPadding", "buttonSize", "buttonPaddingY"}]
-  LOADN R24 30
-  SETTABLEKS R24 R23 K272 ["itemPadding"]
-  LOADN R24 32
-  SETTABLEKS R24 R23 K273 ["buttonSize"]
-  LOADN R24 10
-  SETTABLEKS R24 R23 K274 ["buttonPaddingY"]
-  SETTABLEKS R23 R22 K268 ["menu"]
-  LOADN R23 6
-  SETTABLEKS R23 R22 K269 ["textPadding"]
-  SETTABLEKS R22 R21 K276 ["table"]
-  DUPTABLE R22 K134 [{"height"}]
-  LOADN R23 24
-  SETTABLEKS R23 R22 K75 ["height"]
-  SETTABLEKS R22 R21 K277 ["toggleButton"]
-  DUPTABLE R22 K278 [{"image", "imageColor"}]
-  LOADK R23 K23 ["getFFlagGameSettingsFixMoreLayoutIssues"]
-  SETTABLEKS R23 R22 K81 ["image"]
-  GETTABLEKS R23 R5 K50 ["MainText"]
-  SETTABLEKS R23 R22 K80 ["imageColor"]
-  SETTABLEKS R22 R21 K280 ["editButton"]
-  DUPTABLE R22 K278 [{"image", "imageColor"}]
-  LOADK R23 K25 ["getFFlagDevFrameworkEnableFoundationColors"]
-  SETTABLEKS R23 R22 K81 ["image"]
-  GETTABLEKS R23 R5 K50 ["MainText"]
-  SETTABLEKS R23 R22 K80 ["imageColor"]
-  SETTABLEKS R22 R21 K282 ["copyButton"]
-  DUPTABLE R22 K283 [{"padding"}]
-  LOADN R23 10
-  SETTABLEKS R23 R22 K165 ["padding"]
-  SETTABLEKS R22 R21 K284 ["uiListLayout"]
-  DUPTABLE R22 K287 [{"PaddingX", "PaddingY"}]
+  SETTABLEKS R22 R21 K298 ["marginY"]
+  LOADN R22 6
+  SETTABLEKS R22 R21 K197 ["headerPadding"]
+  DUPTABLE R22 K305 [{"paddingX", "paddingY"}]
   LOADN R23 75
-  SETTABLEKS R23 R22 K285 ["PaddingX"]
-  LOADN R23 10
-  SETTABLEKS R23 R22 K286 ["PaddingY"]
-  SETTABLEKS R22 R21 K288 ["createButton"]
-  DUPTABLE R22 K287 [{"PaddingX", "PaddingY"}]
-  LOADN R23 75
-  SETTABLEKS R23 R22 K285 ["PaddingX"]
-  LOADN R23 10
-  SETTABLEKS R23 R22 K286 ["PaddingY"]
-  SETTABLEKS R22 R21 K289 ["viewButton"]
-  DUPTABLE R22 K292 [{"publishText", "publishButton"}]
-  DUPTABLE R23 K293 [{"offset", "width"}]
-  LOADN R24 70
-  SETTABLEKS R24 R23 K116 ["offset"]
-  LOADN R24 250
-  SETTABLEKS R24 R23 K85 ["width"]
-  SETTABLEKS R23 R22 K290 ["publishText"]
-  DUPTABLE R23 K296 [{"offset", "paddingX", "paddingY"}]
-  LOADN R24 125
-  SETTABLEKS R24 R23 K116 ["offset"]
-  LOADN R24 75
-  SETTABLEKS R24 R23 K294 ["paddingX"]
-  LOADN R24 15
-  SETTABLEKS R24 R23 K295 ["paddingY"]
-  SETTABLEKS R23 R22 K291 ["publishButton"]
-  SETTABLEKS R22 R21 K297 ["mainView"]
-  DUPTABLE R22 K287 [{"PaddingX", "PaddingY"}]
-  LOADN R23 75
-  SETTABLEKS R23 R22 K285 ["PaddingX"]
-  LOADN R23 10
-  SETTABLEKS R23 R22 K286 ["PaddingY"]
-  SETTABLEKS R22 R21 K298 ["shutdownButton"]
-  DUPTABLE R22 K307 [{"settingPadding", "marginX", "marginY", "headerPadding", "reloadButton", "failLabelPaddingX", "failPageListPaddingY", "toggleButtonSize", "toggleButtonTitleWidth"}]
-  LOADN R23 32
-  SETTABLEKS R23 R22 K299 ["settingPadding"]
-  LOADN R23 25
-  SETTABLEKS R23 R22 K300 ["marginX"]
-  JUMPIFNOT R12 [+2]
-  LOADN R23 20
-  JUMP [+1]
-  LOADNIL R23
-  SETTABLEKS R23 R22 K301 ["marginY"]
-  LOADN R23 6
-  SETTABLEKS R23 R22 K200 ["headerPadding"]
-  DUPTABLE R23 K308 [{"paddingX", "paddingY"}]
-  LOADN R24 75
-  SETTABLEKS R24 R23 K294 ["paddingX"]
-  LOADN R24 15
-  SETTABLEKS R24 R23 K295 ["paddingY"]
-  SETTABLEKS R23 R22 K302 ["reloadButton"]
-  LOADN R23 144
-  SETTABLEKS R23 R22 K303 ["failLabelPaddingX"]
-  LOADN R23 16
-  SETTABLEKS R23 R22 K304 ["failPageListPaddingY"]
-  GETIMPORT R23 K311 [UDim2.fromOffset]
-  LOADN R24 40
-  LOADN R25 24
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K305 ["toggleButtonSize"]
-  LOADN R23 200
-  SETTABLEKS R23 R22 K306 ["toggleButtonTitleWidth"]
-  SETTABLEKS R22 R21 K312 ["settingsPage"]
-  DUPTABLE R22 K313 [{"image", "size"}]
-  LOADK R23 K58 [{"TextSize"}]
-  SETTABLEKS R23 R22 K81 ["image"]
-  LOADN R23 32
-  SETTABLEKS R23 R22 K82 ["size"]
-  SETTABLEKS R22 R21 K315 ["backButton"]
-  DUPTABLE R22 K316 [{"textBox"}]
-  DUPTABLE R23 K318 [{"length"}]
-  LOADN R24 100
-  SETTABLEKS R24 R23 K317 ["length"]
-  SETTABLEKS R23 R22 K159 ["textBox"]
-  SETTABLEKS R22 R21 K319 ["placePage"]
-  DUPTABLE R22 K320 [{"height", "length", "paddingY", "paddingX"}]
-  LOADN R23 22
-  SETTABLEKS R23 R22 K75 ["height"]
-  LOADN R23 250
-  SETTABLEKS R23 R22 K317 ["length"]
-  LOADN R23 25
-  SETTABLEKS R23 R22 K295 ["paddingY"]
-  LOADN R23 5
-  SETTABLEKS R23 R22 K294 ["paddingX"]
-  SETTABLEKS R22 R21 K321 ["requirementsLink"]
-  DUPTABLE R22 K322 [{"paddingX", "paddingY", "size"}]
-  LOADN R23 5
-  SETTABLEKS R23 R22 K294 ["paddingX"]
-  LOADN R23 30
-  SETTABLEKS R23 R22 K295 ["paddingY"]
-  LOADN R23 14
-  SETTABLEKS R23 R22 K82 ["size"]
-  SETTABLEKS R22 R21 K323 ["tooltipIcon"]
-  DUPTABLE R22 K325 [{"Size"}]
-  DUPTABLE R23 K328 [{"X", "Y"}]
-  LOADN R24 244
-  SETTABLEKS R24 R23 K326 ["X"]
-  LOADN R24 94
-  SETTABLEKS R24 R23 K327 ["Y"]
-  SETTABLEKS R23 R22 K324 ["Size"]
-  SETTABLEKS R22 R21 K329 ["emailDialog"]
-  DUPTABLE R22 K330 [{"padding", "size", "transparency"}]
-  LOADN R23 5
-  SETTABLEKS R23 R22 K165 ["padding"]
-  LOADN R23 20
-  SETTABLEKS R23 R22 K82 ["size"]
-  LOADK R23 K93 [0.5]
-  SETTABLEKS R23 R22 K77 ["transparency"]
-  SETTABLEKS R22 R21 K331 ["optInWarning"]
-  DUPTABLE R22 K332 [{"padding", "length", "height"}]
-  LOADN R23 30
-  SETTABLEKS R23 R22 K165 ["padding"]
-  LOADN R23 250
-  SETTABLEKS R23 R22 K317 ["length"]
-  LOADN R23 150
-  SETTABLEKS R23 R22 K75 ["height"]
-  SETTABLEKS R22 R21 K333 ["extraOptInInfo"]
-  DUPTABLE R22 K335 [{"headerOffset", "description", "icon"}]
-  LOADN R23 196
-  SETTABLEKS R23 R22 K334 ["headerOffset"]
-  DUPTABLE R23 K318 [{"length"}]
-  LOADN R24 131
-  SETTABLEKS R24 R23 K317 ["length"]
-  SETTABLEKS R23 R22 K164 ["description"]
-  DUPTABLE R23 K336 [{"size"}]
-  LOADN R24 16
-  SETTABLEKS R24 R23 K82 ["size"]
-  SETTABLEKS R23 R22 K72 ["icon"]
-  SETTABLEKS R22 R21 K337 ["warningDialog"]
-  DUPTABLE R22 K338 [{"button", "padding", "width"}]
-  DUPTABLE R23 K134 [{"height"}]
-  LOADN R24 50
-  SETTABLEKS R24 R23 K75 ["height"]
-  SETTABLEKS R23 R22 K132 ["button"]
-  LOADN R23 10
-  SETTABLEKS R23 R22 K165 ["padding"]
-  LOADN R23 195
-  SETTABLEKS R23 R22 K85 ["width"]
-  SETTABLEKS R22 R21 K339 ["selectInput"]
-  DUPTABLE R22 K342 [{"buttonPane", "spacing", "titlePane"}]
-  DUPTABLE R23 K343 [{"padding", "spacing"}]
-  LOADN R24 165
-  SETTABLEKS R24 R23 K165 ["padding"]
-  LOADN R24 20
-  SETTABLEKS R24 R23 K76 ["spacing"]
-  SETTABLEKS R23 R22 K340 ["buttonPane"]
-  LOADN R23 45
-  SETTABLEKS R23 R22 K76 ["spacing"]
-  DUPTABLE R23 K344 [{"spacing"}]
-  LOADN R24 15
-  SETTABLEKS R24 R23 K76 ["spacing"]
-  SETTABLEKS R23 R22 K341 ["titlePane"]
-  SETTABLEKS R22 R21 K345 ["playabilityWidget"]
-  JUMPIFNOT R11 [+17]
-  DUPTABLE R22 K348 [{"BackgroundTransparency", "BorderSizePixel", "Size"}]
-  LOADN R23 1
-  SETTABLEKS R23 R22 K346 ["BackgroundTransparency"]
-  LOADN R23 0
-  SETTABLEKS R23 R22 K347 ["BorderSizePixel"]
-  GETIMPORT R23 K349 [UDim2.new]
-  LOADN R24 1
-  LOADN R25 0
-  LOADN R26 0
-  LOADN R27 130
-  CALL R23 4 1
-  SETTABLEKS R23 R22 K324 ["Size"]
-  JUMP [+1]
-  LOADNIL R22
-  SETTABLEKS R22 R21 K350 ["guidelinesFrame"]
-  JUMPIFNOT R11 [+43]
-  DUPTABLE R22 K353 [{"BackgroundTransparency", "BorderSizePixel", "Size", "TextXAlignment", "TextYAlignment", "Font", "TextColor3", "TextSize"}]
-  LOADN R23 1
-  SETTABLEKS R23 R22 K346 ["BackgroundTransparency"]
-  LOADN R23 0
-  SETTABLEKS R23 R22 K347 ["BorderSizePixel"]
-  GETIMPORT R23 K349 [UDim2.new]
-  LOADN R24 0
-  LOADN R25 180
-  LOADN R26 1
-  LOADN R27 0
-  CALL R23 4 1
-  SETTABLEKS R23 R22 K324 ["Size"]
-  GETIMPORT R23 K355 [Enum.TextXAlignment.Left]
-  SETTABLEKS R23 R22 K351 ["TextXAlignment"]
-  GETIMPORT R23 K357 [Enum.TextYAlignment.Top]
-  SETTABLEKS R23 R22 K352 ["TextYAlignment"]
-  GETTABLEKS R24 R15 K27 ["Title"]
-  GETTABLEKS R23 R24 K40 ["Font"]
-  SETTABLEKS R23 R22 K40 ["Font"]
-  GETTABLEKS R24 R15 K27 ["Title"]
-  GETTABLEKS R23 R24 K42 ["TextColor3"]
-  SETTABLEKS R23 R22 K42 ["TextColor3"]
-  GETTABLEKS R24 R15 K27 ["Title"]
-  GETTABLEKS R23 R24 K41 ["TextSize"]
-  SETTABLEKS R23 R22 K41 ["TextSize"]
-  JUMP [+1]
-  LOADNIL R22
-  SETTABLEKS R22 R21 K358 ["guidelinesTitle"]
-  JUMPIFNOT R11 [+33]
-  DUPTABLE R22 K362 [{"BackgroundTransparency", "LayoutOrder", "Size", "AnchorPoint", "Position"}]
-  LOADN R23 1
-  SETTABLEKS R23 R22 K346 ["BackgroundTransparency"]
-  LOADN R23 1
-  SETTABLEKS R23 R22 K359 ["LayoutOrder"]
-  GETIMPORT R23 K349 [UDim2.new]
-  LOADN R24 1
-  LOADN R25 76
-  LOADN R26 1
-  LOADN R27 0
-  CALL R23 4 1
-  SETTABLEKS R23 R22 K324 ["Size"]
-  GETIMPORT R23 K246 [Vector2.new]
-  LOADN R24 1
-  LOADN R25 0
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K360 ["AnchorPoint"]
-  GETIMPORT R23 K349 [UDim2.new]
-  LOADN R24 1
-  LOADN R25 10
-  LOADN R26 0
-  LOADN R27 0
-  CALL R23 4 1
-  SETTABLEKS R23 R22 K361 ["Position"]
-  JUMP [+1]
-  LOADNIL R22
-  SETTABLEKS R22 R21 K363 ["guidelinesDescriptionFrame"]
-  JUMPIFNOT R11 [+31]
-  DUPTABLE R22 K364 [{"Size", "Font", "TextYAlignment", "TextSize", "TextXAlignment"}]
-  GETIMPORT R23 K349 [UDim2.new]
-  LOADN R24 1
-  LOADN R25 0
-  LOADN R26 0
-  LOADN R27 19
-  CALL R23 4 1
-  SETTABLEKS R23 R22 K324 ["Size"]
-  GETTABLEKS R24 R15 K30 ["Normal"]
-  GETTABLEKS R23 R24 K40 ["Font"]
-  SETTABLEKS R23 R22 K40 ["Font"]
-  GETIMPORT R23 K357 [Enum.TextYAlignment.Top]
-  SETTABLEKS R23 R22 K352 ["TextYAlignment"]
-  GETTABLEKS R24 R15 K30 ["Normal"]
-  GETTABLEKS R23 R24 K41 ["TextSize"]
-  SETTABLEKS R23 R22 K41 ["TextSize"]
-  GETIMPORT R23 K355 [Enum.TextXAlignment.Left]
-  SETTABLEKS R23 R22 K351 ["TextXAlignment"]
-  JUMP [+1]
-  LOADNIL R22
-  SETTABLEKS R22 R21 K365 ["chosenGuidelineText"]
-  DUPTABLE R22 K366 [{"Style", "PaddingX", "PaddingY"}]
-  LOADK R23 K111 ["selected"]
-  SETTABLEKS R23 R22 K8 ["Style"]
-  LOADN R23 40
-  SETTABLEKS R23 R22 K285 ["PaddingX"]
+  SETTABLEKS R23 R22 K291 ["paddingX"]
   LOADN R23 15
-  SETTABLEKS R23 R22 K286 ["PaddingY"]
-  SETTABLEKS R22 R21 K368 ["openQuestionnaireButton"]
+  SETTABLEKS R23 R22 K292 ["paddingY"]
+  SETTABLEKS R22 R21 K299 ["reloadButton"]
+  LOADN R22 144
+  SETTABLEKS R22 R21 K300 ["failLabelPaddingX"]
+  LOADN R22 16
+  SETTABLEKS R22 R21 K301 ["failPageListPaddingY"]
+  GETIMPORT R22 K308 [UDim2.fromOffset]
+  LOADN R23 40
+  LOADN R24 24
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K302 ["toggleButtonSize"]
+  LOADN R22 200
+  SETTABLEKS R22 R21 K303 ["toggleButtonTitleWidth"]
+  SETTABLEKS R21 R20 K309 ["settingsPage"]
+  DUPTABLE R21 K310 [{"image", "size"}]
+  LOADK R22 K55 ["&RoundPrimary"]
+  SETTABLEKS R22 R21 K79 ["image"]
+  LOADN R22 32
+  SETTABLEKS R22 R21 K80 ["size"]
+  SETTABLEKS R21 R20 K312 ["backButton"]
+  DUPTABLE R21 K313 [{"textBox"}]
+  DUPTABLE R22 K315 [{"length"}]
+  LOADN R23 100
+  SETTABLEKS R23 R22 K314 ["length"]
+  SETTABLEKS R22 R21 K156 ["textBox"]
+  SETTABLEKS R21 R20 K316 ["placePage"]
+  DUPTABLE R21 K317 [{"height", "length", "paddingY", "paddingX"}]
+  LOADN R22 22
+  SETTABLEKS R22 R21 K73 ["height"]
+  LOADN R22 250
+  SETTABLEKS R22 R21 K314 ["length"]
+  LOADN R22 25
+  SETTABLEKS R22 R21 K292 ["paddingY"]
+  LOADN R22 5
+  SETTABLEKS R22 R21 K291 ["paddingX"]
+  SETTABLEKS R21 R20 K318 ["requirementsLink"]
+  DUPTABLE R21 K319 [{"paddingX", "paddingY", "size"}]
+  LOADN R22 5
+  SETTABLEKS R22 R21 K291 ["paddingX"]
+  LOADN R22 30
+  SETTABLEKS R22 R21 K292 ["paddingY"]
+  LOADN R22 14
+  SETTABLEKS R22 R21 K80 ["size"]
+  SETTABLEKS R21 R20 K320 ["tooltipIcon"]
+  DUPTABLE R21 K322 [{"Size"}]
+  DUPTABLE R22 K325 [{"X", "Y"}]
+  LOADN R23 244
+  SETTABLEKS R23 R22 K323 ["X"]
+  LOADN R23 94
+  SETTABLEKS R23 R22 K324 ["Y"]
+  SETTABLEKS R22 R21 K321 ["Size"]
+  SETTABLEKS R21 R20 K326 ["emailDialog"]
+  DUPTABLE R21 K327 [{"padding", "size", "transparency"}]
+  LOADN R22 5
+  SETTABLEKS R22 R21 K162 ["padding"]
+  LOADN R22 20
+  SETTABLEKS R22 R21 K80 ["size"]
+  LOADK R22 K91 [0.5]
+  SETTABLEKS R22 R21 K75 ["transparency"]
+  SETTABLEKS R21 R20 K328 ["optInWarning"]
+  DUPTABLE R21 K329 [{"padding", "length", "height"}]
+  LOADN R22 30
+  SETTABLEKS R22 R21 K162 ["padding"]
+  LOADN R22 250
+  SETTABLEKS R22 R21 K314 ["length"]
+  LOADN R22 150
+  SETTABLEKS R22 R21 K73 ["height"]
+  SETTABLEKS R21 R20 K330 ["extraOptInInfo"]
+  DUPTABLE R21 K332 [{"headerOffset", "description", "icon"}]
+  LOADN R22 196
+  SETTABLEKS R22 R21 K331 ["headerOffset"]
+  DUPTABLE R22 K315 [{"length"}]
+  LOADN R23 131
+  SETTABLEKS R23 R22 K314 ["length"]
+  SETTABLEKS R22 R21 K161 ["description"]
+  DUPTABLE R22 K333 [{"size"}]
+  LOADN R23 16
+  SETTABLEKS R23 R22 K80 ["size"]
+  SETTABLEKS R22 R21 K70 ["icon"]
+  SETTABLEKS R21 R20 K334 ["warningDialog"]
+  DUPTABLE R21 K335 [{"button", "padding", "width"}]
+  DUPTABLE R22 K132 [{"height"}]
+  LOADN R23 50
+  SETTABLEKS R23 R22 K73 ["height"]
+  SETTABLEKS R22 R21 K130 ["button"]
+  LOADN R22 10
+  SETTABLEKS R22 R21 K162 ["padding"]
+  LOADN R22 195
+  SETTABLEKS R22 R21 K83 ["width"]
+  SETTABLEKS R21 R20 K336 ["selectInput"]
+  DUPTABLE R21 K339 [{"buttonPane", "spacing", "titlePane"}]
+  DUPTABLE R22 K340 [{"padding", "spacing"}]
+  LOADN R23 165
+  SETTABLEKS R23 R22 K162 ["padding"]
+  LOADN R23 20
+  SETTABLEKS R23 R22 K74 ["spacing"]
+  SETTABLEKS R22 R21 K337 ["buttonPane"]
+  LOADN R22 45
+  SETTABLEKS R22 R21 K74 ["spacing"]
+  DUPTABLE R22 K341 [{"spacing"}]
+  LOADN R23 15
+  SETTABLEKS R23 R22 K74 ["spacing"]
+  SETTABLEKS R22 R21 K338 ["titlePane"]
+  SETTABLEKS R21 R20 K342 ["playabilityWidget"]
   JUMPIFNOT R11 [+17]
-  DUPTABLE R22 K369 [{"Position", "TextSize"}]
-  GETIMPORT R23 K349 [UDim2.new]
+  DUPTABLE R21 K345 [{"BackgroundTransparency", "BorderSizePixel", "Size"}]
+  LOADN R22 1
+  SETTABLEKS R22 R21 K343 ["BackgroundTransparency"]
+  LOADN R22 0
+  SETTABLEKS R22 R21 K344 ["BorderSizePixel"]
+  GETIMPORT R22 K346 [UDim2.new]
+  LOADN R23 1
   LOADN R24 0
   LOADN R25 0
-  LOADK R26 K114 [{"backgroundColor"}]
-  LOADN R27 0
-  CALL R23 4 1
-  SETTABLEKS R23 R22 K361 ["Position"]
-  GETTABLEKS R24 R15 K35 ["HeaderLink"]
-  GETTABLEKS R23 R24 K41 ["TextSize"]
-  SETTABLEKS R23 R22 K41 ["TextSize"]
+  LOADN R26 130
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K321 ["Size"]
   JUMP [+1]
-  LOADNIL R22
-  SETTABLEKS R22 R21 K371 ["titleLink"]
-  JUMPIFNOT R11 [+21]
-  DUPTABLE R22 K376 [{"SortOrder", "FillDirection", "Padding", "HorizontalAlignment"}]
-  GETIMPORT R23 K377 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R23 R22 K372 ["SortOrder"]
-  GETIMPORT R23 K379 [Enum.FillDirection.Vertical]
-  SETTABLEKS R23 R22 K373 ["FillDirection"]
-  GETIMPORT R23 K381 [UDim.new]
-  LOADN R24 0
-  LOADN R25 16
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K374 ["Padding"]
-  GETIMPORT R23 K382 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R23 R22 K375 ["HorizontalAlignment"]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K347 ["guidelinesFrame"]
+  JUMPIFNOT R11 [+43]
+  DUPTABLE R21 K350 [{"BackgroundTransparency", "BorderSizePixel", "Size", "TextXAlignment", "TextYAlignment", "Font", "TextColor3", "TextSize"}]
+  LOADN R22 1
+  SETTABLEKS R22 R21 K343 ["BackgroundTransparency"]
+  LOADN R22 0
+  SETTABLEKS R22 R21 K344 ["BorderSizePixel"]
+  GETIMPORT R22 K346 [UDim2.new]
+  LOADN R23 0
+  LOADN R24 180
+  LOADN R25 1
+  LOADN R26 0
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K321 ["Size"]
+  GETIMPORT R22 K352 [Enum.TextXAlignment.Left]
+  SETTABLEKS R22 R21 K348 ["TextXAlignment"]
+  GETIMPORT R22 K354 [Enum.TextYAlignment.Top]
+  SETTABLEKS R22 R21 K349 ["TextYAlignment"]
+  GETTABLEKS R23 R14 K25 ["Title"]
+  GETTABLEKS R22 R23 K38 ["Font"]
+  SETTABLEKS R22 R21 K38 ["Font"]
+  GETTABLEKS R23 R14 K25 ["Title"]
+  GETTABLEKS R22 R23 K40 ["TextColor3"]
+  SETTABLEKS R22 R21 K40 ["TextColor3"]
+  GETTABLEKS R23 R14 K25 ["Title"]
+  GETTABLEKS R22 R23 K39 ["TextSize"]
+  SETTABLEKS R22 R21 K39 ["TextSize"]
   JUMP [+1]
-  LOADNIL R22
-  SETTABLEKS R22 R21 K383 ["guidelinesDescriptionListLayout"]
-  JUMPIFNOT R11 [+40]
-  DUPTABLE R22 K387 [{"TextColor3", "BackgroundTransparency", "Font", "TextSize", "TextXAlignment", "TextYAlignment", "TextWrapped", "TextTransparency", "ClipsDescendants"}]
-  GETTABLEKS R24 R15 K36 ["Small"]
-  GETTABLEKS R23 R24 K42 ["TextColor3"]
-  SETTABLEKS R23 R22 K42 ["TextColor3"]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K355 ["guidelinesTitle"]
+  JUMPIFNOT R11 [+33]
+  DUPTABLE R21 K359 [{"BackgroundTransparency", "LayoutOrder", "Size", "AnchorPoint", "Position"}]
+  LOADN R22 1
+  SETTABLEKS R22 R21 K343 ["BackgroundTransparency"]
+  LOADN R22 1
+  SETTABLEKS R22 R21 K356 ["LayoutOrder"]
+  GETIMPORT R22 K346 [UDim2.new]
   LOADN R23 1
-  SETTABLEKS R23 R22 K346 ["BackgroundTransparency"]
-  GETTABLEKS R24 R15 K36 ["Small"]
-  GETTABLEKS R23 R24 K40 ["Font"]
-  SETTABLEKS R23 R22 K40 ["Font"]
-  GETTABLEKS R24 R15 K36 ["Small"]
-  GETTABLEKS R23 R24 K41 ["TextSize"]
-  SETTABLEKS R23 R22 K41 ["TextSize"]
-  GETIMPORT R23 K355 [Enum.TextXAlignment.Left]
-  SETTABLEKS R23 R22 K351 ["TextXAlignment"]
-  GETIMPORT R23 K357 [Enum.TextYAlignment.Top]
-  SETTABLEKS R23 R22 K352 ["TextYAlignment"]
-  LOADB R23 1
-  SETTABLEKS R23 R22 K384 ["TextWrapped"]
-  LOADK R23 K132 ["button"]
-  SETTABLEKS R23 R22 K385 ["TextTransparency"]
-  LOADB R23 1
-  SETTABLEKS R23 R22 K386 ["ClipsDescendants"]
+  LOADN R24 76
+  LOADN R25 1
+  LOADN R26 0
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K321 ["Size"]
+  GETIMPORT R22 K243 [Vector2.new]
+  LOADN R23 1
+  LOADN R24 0
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K357 ["AnchorPoint"]
+  GETIMPORT R22 K346 [UDim2.new]
+  LOADN R23 1
+  LOADN R24 10
+  LOADN R25 0
+  LOADN R26 0
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K358 ["Position"]
   JUMP [+1]
-  LOADNIL R22
-  SETTABLEKS R22 R21 K389 ["guidelinesDescriptionText"]
-  DUPTABLE R22 K391 [{"PaddingBottom"}]
-  LOADN R23 5
-  SETTABLEKS R23 R22 K390 ["PaddingBottom"]
-  SETTABLEKS R22 R21 K392 ["atcFrame"]
-  JUMPIFNOT R14 [+25]
-  DUPTABLE R22 K394 [{"backgroundColor", "textColor", "padding"}]
-  GETTABLEKS R23 R5 K113 ["InputFieldBackground"]
-  SETTABLEKS R23 R22 K106 ["backgroundColor"]
-  GETTABLEKS R23 R5 K48 ["BrightText"]
-  SETTABLEKS R23 R22 K393 ["textColor"]
-  DUPTABLE R23 K397 [{"Top", "Bottom", "Left", "Right"}]
-  LOADN R24 12
-  SETTABLEKS R24 R23 K356 ["Top"]
-  LOADN R24 12
-  SETTABLEKS R24 R23 K395 ["Bottom"]
-  LOADN R24 16
-  SETTABLEKS R24 R23 K354 ["Left"]
-  LOADN R24 16
-  SETTABLEKS R24 R23 K396 ["Right"]
-  SETTABLEKS R23 R22 K165 ["padding"]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K360 ["guidelinesDescriptionFrame"]
+  JUMPIFNOT R11 [+31]
+  DUPTABLE R21 K361 [{"Size", "Font", "TextYAlignment", "TextSize", "TextXAlignment"}]
+  GETIMPORT R22 K346 [UDim2.new]
+  LOADN R23 1
+  LOADN R24 0
+  LOADN R25 0
+  LOADN R26 19
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K321 ["Size"]
+  GETTABLEKS R23 R14 K28 ["Normal"]
+  GETTABLEKS R22 R23 K38 ["Font"]
+  SETTABLEKS R22 R21 K38 ["Font"]
+  GETIMPORT R22 K354 [Enum.TextYAlignment.Top]
+  SETTABLEKS R22 R21 K349 ["TextYAlignment"]
+  GETTABLEKS R23 R14 K28 ["Normal"]
+  GETTABLEKS R22 R23 K39 ["TextSize"]
+  SETTABLEKS R22 R21 K39 ["TextSize"]
+  GETIMPORT R22 K352 [Enum.TextXAlignment.Left]
+  SETTABLEKS R22 R21 K348 ["TextXAlignment"]
   JUMP [+1]
-  LOADNIL R22
-  SETTABLEKS R22 R21 K398 ["permissionsBanner"]
-  GETTABLEKS R22 R7 K56 ["Button"]
-  SETTABLE R17 R21 R22
-  GETTABLEKS R22 R7 K62 ["Image"]
-  SETTABLE R18 R21 R22
+  LOADNIL R21
+  SETTABLEKS R21 R20 K362 ["chosenGuidelineText"]
+  DUPTABLE R21 K363 [{"Style", "PaddingX", "PaddingY"}]
+  LOADK R22 K108 ["item"]
+  SETTABLEKS R22 R21 K8 ["Style"]
+  LOADN R22 40
+  SETTABLEKS R22 R21 K282 ["PaddingX"]
+  LOADN R22 15
+  SETTABLEKS R22 R21 K283 ["PaddingY"]
+  SETTABLEKS R21 R20 K365 ["openQuestionnaireButton"]
+  JUMPIFNOT R11 [+17]
+  DUPTABLE R21 K366 [{"Position", "TextSize"}]
+  GETIMPORT R22 K346 [UDim2.new]
+  LOADN R23 0
+  LOADN R24 0
+  LOADK R25 K111 ["InputFieldBackground"]
+  LOADN R26 0
+  CALL R22 4 1
+  SETTABLEKS R22 R21 K358 ["Position"]
+  GETTABLEKS R23 R14 K33 ["HeaderLink"]
+  GETTABLEKS R22 R23 K39 ["TextSize"]
+  SETTABLEKS R22 R21 K39 ["TextSize"]
+  JUMP [+1]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K368 ["titleLink"]
+  JUMPIFNOT R11 [+21]
+  DUPTABLE R21 K373 [{"SortOrder", "FillDirection", "Padding", "HorizontalAlignment"}]
+  GETIMPORT R22 K374 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R22 R21 K369 ["SortOrder"]
+  GETIMPORT R22 K376 [Enum.FillDirection.Vertical]
+  SETTABLEKS R22 R21 K370 ["FillDirection"]
+  GETIMPORT R22 K378 [UDim.new]
+  LOADN R23 0
+  LOADN R24 16
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K371 ["Padding"]
+  GETIMPORT R22 K379 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R22 R21 K372 ["HorizontalAlignment"]
+  JUMP [+1]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K380 ["guidelinesDescriptionListLayout"]
+  JUMPIFNOT R11 [+40]
+  DUPTABLE R21 K384 [{"TextColor3", "BackgroundTransparency", "Font", "TextSize", "TextXAlignment", "TextYAlignment", "TextWrapped", "TextTransparency", "ClipsDescendants"}]
+  GETTABLEKS R23 R14 K34 ["Small"]
+  GETTABLEKS R22 R23 K40 ["TextColor3"]
+  SETTABLEKS R22 R21 K40 ["TextColor3"]
+  LOADN R22 1
+  SETTABLEKS R22 R21 K343 ["BackgroundTransparency"]
+  GETTABLEKS R23 R14 K34 ["Small"]
+  GETTABLEKS R22 R23 K38 ["Font"]
+  SETTABLEKS R22 R21 K38 ["Font"]
+  GETTABLEKS R23 R14 K34 ["Small"]
+  GETTABLEKS R22 R23 K39 ["TextSize"]
+  SETTABLEKS R22 R21 K39 ["TextSize"]
+  GETIMPORT R22 K352 [Enum.TextXAlignment.Left]
+  SETTABLEKS R22 R21 K348 ["TextXAlignment"]
+  GETIMPORT R22 K354 [Enum.TextYAlignment.Top]
+  SETTABLEKS R22 R21 K349 ["TextYAlignment"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K381 ["TextWrapped"]
+  LOADK R22 K129 [{"width", "height"}]
+  SETTABLEKS R22 R21 K382 ["TextTransparency"]
+  LOADB R22 1
+  SETTABLEKS R22 R21 K383 ["ClipsDescendants"]
+  JUMP [+1]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K386 ["guidelinesDescriptionText"]
+  DUPTABLE R21 K388 [{"PaddingBottom"}]
+  LOADN R22 5
+  SETTABLEKS R22 R21 K387 ["PaddingBottom"]
+  SETTABLEKS R21 R20 K389 ["atcFrame"]
+  JUMPIFNOT R13 [+25]
+  DUPTABLE R21 K391 [{"backgroundColor", "textColor", "padding"}]
+  GETTABLEKS R22 R5 K111 ["InputFieldBackground"]
+  SETTABLEKS R22 R21 K104 ["backgroundColor"]
+  GETTABLEKS R22 R5 K46 ["BrightText"]
+  SETTABLEKS R22 R21 K390 ["textColor"]
+  DUPTABLE R22 K394 [{"Top", "Bottom", "Left", "Right"}]
+  LOADN R23 12
+  SETTABLEKS R23 R22 K353 ["Top"]
+  LOADN R23 12
+  SETTABLEKS R23 R22 K392 ["Bottom"]
+  LOADN R23 16
+  SETTABLEKS R23 R22 K351 ["Left"]
+  LOADN R23 16
+  SETTABLEKS R23 R22 K393 ["Right"]
+  SETTABLEKS R22 R21 K162 ["padding"]
+  JUMP [+1]
+  LOADNIL R21
+  SETTABLEKS R21 R20 K395 ["permissionsBanner"]
+  GETTABLEKS R21 R7 K54 ["Button"]
+  SETTABLE R16 R20 R21
+  GETTABLEKS R21 R7 K60 ["Image"]
+  SETTABLE R17 R20 R21
+  NEWTABLE R21 4 0
+  GETTABLEKS R22 R5 K171 ["RadioButtonImage"]
+  LOADK R23 K140 ["highlight"]
+  SETTABLE R23 R21 R22
+  GETTABLEKS R22 R5 K172 ["RadioButtonDisabledImage"]
+  LOADK R23 K141 ["text"]
+  SETTABLE R23 R21 R22
+  GETTABLEKS R22 R5 K204 ["RefreshImage"]
+  LOADK R23 K142 [{"hover", "highlight", "text"}]
+  SETTABLE R23 R21 R22
+  GETTABLEKS R22 R5 K184 ["InformationImage"]
+  LOADK R23 K143 ["MenuEntryHover"]
+  SETTABLE R23 R21 R22
   NEWTABLE R22 4 0
-  GETTABLEKS R23 R5 K174 ["RadioButtonImage"]
-  LOADK R24 K143 ["text"]
+  GETTABLEKS R23 R5 K171 ["RadioButtonImage"]
+  LOADK R24 K144 ["MenuEntryHighlight"]
   SETTABLE R24 R22 R23
-  GETTABLEKS R23 R5 K175 ["RadioButtonDisabledImage"]
-  LOADK R24 K144 [{"hover", "highlight", "text"}]
+  GETTABLEKS R23 R5 K172 ["RadioButtonDisabledImage"]
+  LOADK R24 K145 ["MainTextSelected"]
   SETTABLE R24 R22 R23
-  GETTABLEKS R23 R5 K207 ["RefreshImage"]
-  LOADK R24 K145 ["MenuEntryHover"]
+  GETTABLEKS R23 R5 K204 ["RefreshImage"]
+  LOADK R24 K146 ["menuEntry"]
   SETTABLE R24 R22 R23
-  GETTABLEKS R23 R5 K187 ["InformationImage"]
-  LOADK R24 K146 ["MenuEntryHighlight"]
+  GETTABLEKS R23 R5 K184 ["InformationImage"]
+  LOADK R24 K147 ["gradient"]
   SETTABLE R24 R22 R23
-  NEWTABLE R23 4 0
-  GETTABLEKS R24 R5 K174 ["RadioButtonImage"]
-  LOADK R25 K147 ["MainTextSelected"]
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R5 K175 ["RadioButtonDisabledImage"]
-  LOADK R25 K148 ["TextContrast"]
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R5 K207 ["RefreshImage"]
-  LOADK R25 K149 ["menuEntry"]
-  SETTABLE R25 R23 R24
-  GETTABLEKS R24 R5 K187 ["InformationImage"]
-  LOADK R25 K150 ["gradient"]
-  SETTABLE R25 R23 R24
-  DUPCLOSURE R24 K407 [PROTO_0]
+  DUPCLOSURE R23 K404 [PROTO_0]
   CAPTURE VAL R8
-  CAPTURE VAL R22
-  CAPTURE VAL R23
   CAPTURE VAL R21
-  RETURN R24 1
+  CAPTURE VAL R22
+  CAPTURE VAL R20
+  RETURN R23 1

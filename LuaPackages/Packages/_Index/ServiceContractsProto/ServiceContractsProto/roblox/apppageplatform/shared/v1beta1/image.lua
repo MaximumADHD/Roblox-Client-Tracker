@@ -57,6 +57,12 @@ type _ImageSchema_PropsFields = {
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
+	scale_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	resample_mode: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	tile_size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	slice: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+	image_rect: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+	image_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
 }
 
 type _ImageSchema_PropsPartialFields = {
@@ -67,6 +73,12 @@ type _ImageSchema_PropsPartialFields = {
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
+	scale_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	resample_mode: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	tile_size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	slice: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+	image_rect: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+	image_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
 }
 
 export type ImageSchema_Props = typeof(setmetatable({} :: _ImageSchema_PropsFields, {} :: _ImageSchema_PropsImpl))
@@ -204,6 +216,12 @@ do
 			size = if data == nil or data.size == nil then nil else data.size,
 			on_activated = if data == nil or data.on_activated == nil then nil else data.on_activated,
 			image = if data == nil or data.image == nil then nil else data.image,
+			scale_type = if data == nil or data.scale_type == nil then nil else data.scale_type,
+			resample_mode = if data == nil or data.resample_mode == nil then nil else data.resample_mode,
+			tile_size = if data == nil or data.tile_size == nil then nil else data.tile_size,
+			slice = if data == nil or data.slice == nil then nil else data.slice,
+			image_rect = if data == nil or data.image_rect == nil then nil else data.image_rect,
+			image_style = if data == nil or data.image_style == nil then nil else data.image_style,
 		}, _ImageSchema_PropsImpl :: _ImageSchema_PropsImpl)
 	end
 
@@ -250,6 +268,42 @@ do
 		if self.image ~= nil then
 			local encoded = self.image:encode()
 			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.scale_type ~= nil then
+			local encoded = self.scale_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.resample_mode ~= nil then
+			local encoded = self.resample_mode:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.tile_size ~= nil then
+			local encoded = self.tile_size:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.slice ~= nil then
+			local encoded = self.slice:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.image_rect ~= nil then
+			local encoded = self.image_rect:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.image_style ~= nil then
+			local encoded = self.image_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -307,6 +361,36 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.image = _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp.decode(value)
 					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.scale_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.resample_mode = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.tile_size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.slice = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.image_rect = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.decode(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.image_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.decode(value)
+					continue
 				end
 
 				local length
@@ -360,6 +444,30 @@ do
 
 		if self.image ~= nil then
 			output.image = self.image:jsonEncode()
+		end
+
+		if self.scale_type ~= nil then
+			output.scaleType = self.scale_type:jsonEncode()
+		end
+
+		if self.resample_mode ~= nil then
+			output.resampleMode = self.resample_mode:jsonEncode()
+		end
+
+		if self.tile_size ~= nil then
+			output.tileSize = self.tile_size:jsonEncode()
+		end
+
+		if self.slice ~= nil then
+			output.slice = self.slice:jsonEncode()
+		end
+
+		if self.image_rect ~= nil then
+			output.imageRect = self.image_rect:jsonEncode()
+		end
+
+		if self.image_style ~= nil then
+			output.imageStyle = self.image_style:jsonEncode()
 		end
 
 		return output
@@ -416,6 +524,52 @@ do
 
 		if input.image ~= nil then
 			self.image = _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp.jsonDecode(input.image)
+		end
+
+		if input.scale_type ~= nil then
+			self.scale_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.scale_type)
+		end
+
+		if input.scaleType ~= nil then
+			self.scale_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.scaleType)
+		end
+
+		if input.resample_mode ~= nil then
+			self.resample_mode =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.resample_mode)
+		end
+
+		if input.resampleMode ~= nil then
+			self.resample_mode =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.resampleMode)
+		end
+
+		if input.tile_size ~= nil then
+			self.tile_size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.jsonDecode(input.tile_size)
+		end
+
+		if input.tileSize ~= nil then
+			self.tile_size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.jsonDecode(input.tileSize)
+		end
+
+		if input.slice ~= nil then
+			self.slice = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.slice)
+		end
+
+		if input.image_rect ~= nil then
+			self.image_rect = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.image_rect)
+		end
+
+		if input.imageRect ~= nil then
+			self.image_rect = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.imageRect)
+		end
+
+		if input.image_style ~= nil then
+			self.image_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.image_style)
+		end
+
+		if input.imageStyle ~= nil then
+			self.image_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.imageStyle)
 		end
 
 		return self

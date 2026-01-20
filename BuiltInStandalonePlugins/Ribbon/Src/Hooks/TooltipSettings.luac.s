@@ -21,41 +21,30 @@ PROTO_1:
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["TooltipDelayToFInt2"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
+  LOADK R2 K2 ["TooltipShowDelay"]
+  LOADN R3 44
+  NAMECALL R0 R0 K3 ["DefineFastInt"]
   CALL R0 3 1
   GETIMPORT R1 K1 [game]
-  LOADK R3 K4 ["TooltipShowDelay"]
+  LOADK R3 K4 ["TooltipHideDelay"]
   LOADN R4 44
-  NAMECALL R1 R1 K5 ["DefineFastInt"]
+  NAMECALL R1 R1 K3 ["DefineFastInt"]
   CALL R1 3 1
-  GETIMPORT R2 K1 [game]
-  LOADK R4 K6 ["TooltipHideDelay"]
-  LOADN R5 44
-  NAMECALL R2 R2 K5 ["DefineFastInt"]
-  CALL R2 3 1
-  DUPTABLE R3 K12 [{"showDelay", "hideDelay", "uniqueTooltipId", "disableAllTooltips", "panel"}]
-  JUMPIFNOT R0 [+2]
-  DIVK R4 R1 K13 [1000]
-  JUMP [+1]
-  LOADK R4 K14 [0.3]
-  SETTABLEKS R4 R3 K7 ["showDelay"]
-  JUMPIFNOT R0 [+2]
-  DIVK R4 R2 K13 [1000]
-  JUMP [+1]
-  LOADK R4 K14 [0.3]
-  SETTABLEKS R4 R3 K8 ["hideDelay"]
-  LOADN R4 0
-  SETTABLEKS R4 R3 K9 ["uniqueTooltipId"]
-  LOADB R4 0
-  SETTABLEKS R4 R3 K10 ["disableAllTooltips"]
-  LOADNIL R4
-  SETTABLEKS R4 R3 K11 ["panel"]
-  DUPCLOSURE R4 K15 [PROTO_0]
-  CAPTURE VAL R3
-  SETTABLEKS R4 R3 K16 ["closeTooltips"]
-  DUPCLOSURE R4 K17 [PROTO_1]
-  CAPTURE VAL R3
-  SETTABLEKS R4 R3 K18 ["cancelShowTooltip"]
-  RETURN R3 1
+  DUPTABLE R2 K10 [{"showDelay", "hideDelay", "uniqueTooltipId", "disableAllTooltips", "panel"}]
+  DIVK R3 R0 K11 [1000]
+  SETTABLEKS R3 R2 K5 ["showDelay"]
+  DIVK R3 R1 K11 [1000]
+  SETTABLEKS R3 R2 K6 ["hideDelay"]
+  LOADN R3 0
+  SETTABLEKS R3 R2 K7 ["uniqueTooltipId"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K8 ["disableAllTooltips"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K9 ["panel"]
+  DUPCLOSURE R3 K12 [PROTO_0]
+  CAPTURE VAL R2
+  SETTABLEKS R3 R2 K13 ["closeTooltips"]
+  DUPCLOSURE R3 K14 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLEKS R3 R2 K15 ["cancelShowTooltip"]
+  RETURN R2 1

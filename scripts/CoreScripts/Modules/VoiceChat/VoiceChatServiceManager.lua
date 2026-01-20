@@ -35,11 +35,11 @@ local GetFFlagEnableUniveralVoiceToasts = require(RobloxGui.Modules.Flags.GetFFl
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
 local GetFFlagAvatarChatServiceEnabled =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatServiceEnabled
-local GetFFlagVoiceChatServiceManagerUseAvatarChat =
-	require(VoiceChatCore.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat)
+local FFlagRemoveScriptRefAsReturnInVoiceChatCore = VoiceChatCore.Flags.FFlagRemoveScriptRefAsReturnInVoiceChatCore
+local GetFFlagVoiceChatServiceManagerUseAvatarChat = if FFlagRemoveScriptRefAsReturnInVoiceChatCore then VoiceChatCore.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat else require(VoiceChatCore.Flags.GetFFlagVoiceChatServiceManagerUseAvatarChat)
 local FFlagAvatarChatCoreScriptSupport =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagAvatarChatCoreScriptSupport()
-local GetFFlagUseLuaSignalrConsumer = require(VoiceChatCore.Flags.GetFFlagUseLuaSignalrConsumer)
+local GetFFlagUseLuaSignalrConsumer = if FFlagRemoveScriptRefAsReturnInVoiceChatCore then VoiceChatCore.Flags.GetFFlagUseLuaSignalrConsumer else require(VoiceChatCore.Flags.GetFFlagUseLuaSignalrConsumer)
 local GetFFlagNonVoiceFTUX = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagNonVoiceFTUX
 local GetFFlagJoinWithoutMicPermissions =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagJoinWithoutMicPermissions
@@ -51,7 +51,7 @@ local GetFFlagEnableSeamlessVoiceDataConsentToast =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceDataConsentToast)
 local GetFFlagSeamlessVoiceConsentToastPolicy =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSeamlessVoiceConsentToastPolicy
-local GetFFlagEnableFtuxExitOnMuteToggle = require(VoiceChatCore.Flags.GetFFlagEnableFtuxExitOnMuteToggle)
+local GetFFlagEnableFtuxExitOnMuteToggle = if FFlagRemoveScriptRefAsReturnInVoiceChatCore then VoiceChatCore.Flags.GetFFlagEnableFtuxExitOnMuteToggle else require(VoiceChatCore.Flags.GetFFlagEnableFtuxExitOnMuteToggle)
 local GetFFlagEnableVoiceChatMuteForVideoCaptures =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceChatMuteForVideoCaptures
 local GetFFlagEnableCrossExperienceVoiceCaptureMute =
@@ -78,7 +78,7 @@ local FFlagDisableMicRejectedPromiseReject = game:DefineFastFlag("DisableMicReje
 local FFlagDisableLeaveToastInStudio = game:DefineFastFlag("DisableLeaveToastInStudio", false)
 local FFlagEnableVerifiedCheckViaOverlay = game:DefineFastFlag("EnableVerifiedCheckViaOverlay", false)
 local FFlagInExperienceVoiceUpsellAnalytics = game:DefineFastFlag("InExperienceVoiceUpsellAnalyticsV2", false)
-local GetFIntThrottleParticipantsUpdateMs = require(VoiceChatCore.Flags.GetFIntThrottleParticipantsUpdateMs)
+local GetFIntThrottleParticipantsUpdateMs = if FFlagRemoveScriptRefAsReturnInVoiceChatCore then VoiceChatCore.Flags.GetFIntThrottleParticipantsUpdateMs else require(VoiceChatCore.Flags.GetFIntThrottleParticipantsUpdateMs)
 local GetFFlagEnableConnectDisconnectInSettingsAndChrome =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectInSettingsAndChrome)
 local FStringVoiceUIImprovementsIXPLayerName =
@@ -991,6 +991,10 @@ end
 
 function VoiceChatServiceManager:ChangeVoiceJoinProgress(state: VoiceConstants.VoiceJoinProgressType)
 	return self.coreVoiceManager:ChangeVoiceJoinProgress(state)
+end
+
+function VoiceChatServiceManager:GetVoiceJoinProgress(): VoiceConstants.VoiceJoinProgressType
+	return self.coreVoiceManager.VoiceJoinProgress
 end
 
 function VoiceChatServiceManager:UserOnlyEligibleForVoice(): boolean

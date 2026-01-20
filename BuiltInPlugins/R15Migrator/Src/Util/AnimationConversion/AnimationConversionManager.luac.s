@@ -183,14 +183,13 @@ PROTO_6:
   GETTABLEKS R5 R6 K2 ["TempId"]
   NAMECALL R3 R1 K3 ["GetAttribute"]
   CALL R3 2 1
-  JUMPIFEQKS R2 K4 [""] [+12]
-  JUMPIFNOT R3 [+10]
+  JUMPIFEQKS R2 K4 [""] [+11]
+  JUMPIFNOT R3 [+9]
   GETIMPORT R4 K6 [warn]
-  LOADK R6 K7 ["StringValue %* has both val and tempId - has %* been manually edited?"]
+  LOADK R6 K7 ["StringValue %* has both val and tempId - has converted_animation_cache been manually edited?"]
   MOVE R8 R0
-  LOADK R9 K8 ["converted_animation_cache"]
-  NAMECALL R6 R6 K9 ["format"]
-  CALL R6 3 1
+  NAMECALL R6 R6 K8 ["format"]
+  CALL R6 2 1
   MOVE R5 R6
   CALL R4 1 0
   OR R4 R3 R2
@@ -210,44 +209,43 @@ PROTO_7:
   CALL R5 2 1
   JUMPIF R5 [+2]
   LOADNIL R4
-  JUMP [+23]
+  JUMP [+22]
   GETTABLEKS R6 R5 K3 ["Value"]
   GETUPVAL R10 1
   GETTABLEKS R9 R10 K4 ["TempId"]
   NAMECALL R7 R5 K5 ["GetAttribute"]
   CALL R7 2 1
-  JUMPIFEQKS R6 K6 [""] [+12]
-  JUMPIFNOT R7 [+10]
+  JUMPIFEQKS R6 K6 [""] [+11]
+  JUMPIFNOT R7 [+9]
   GETIMPORT R8 K8 [warn]
-  LOADK R10 K9 ["StringValue %* has both val and tempId - has %* been manually edited?"]
+  LOADK R10 K9 ["StringValue %* has both val and tempId - has converted_animation_cache been manually edited?"]
   MOVE R12 R0
-  LOADK R13 K10 ["converted_animation_cache"]
-  NAMECALL R10 R10 K11 ["format"]
-  CALL R10 3 1
+  NAMECALL R10 R10 K10 ["format"]
+  CALL R10 2 1
   MOVE R9 R10
   CALL R8 1 0
   OR R8 R7 R6
   MOVE R4 R5
   JUMPIF R4 [+8]
-  GETIMPORT R5 K14 [Instance.new]
-  LOADK R6 K15 ["StringValue"]
+  GETIMPORT R5 K13 [Instance.new]
+  LOADK R6 K14 ["StringValue"]
   GETUPVAL R7 0
   CALL R5 2 1
   MOVE R4 R5
-  SETTABLEKS R0 R4 K16 ["Name"]
+  SETTABLEKS R0 R4 K15 ["Name"]
   ORK R5 R1 K6 [""]
   SETTABLEKS R5 R4 K3 ["Value"]
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K4 ["TempId"]
   MOVE R8 R3
-  NAMECALL R5 R4 K17 ["SetAttribute"]
+  NAMECALL R5 R4 K16 ["SetAttribute"]
   CALL R5 3 0
   JUMPIFNOT R2 [+8]
-  NAMECALL R5 R4 K18 ["ClearAllChildren"]
+  NAMECALL R5 R4 K17 ["ClearAllChildren"]
   CALL R5 1 0
-  NAMECALL R5 R2 K19 ["Clone"]
+  NAMECALL R5 R2 K18 ["Clone"]
   CALL R5 1 1
-  SETTABLEKS R4 R5 K20 ["Parent"]
+  SETTABLEKS R4 R5 K19 ["Parent"]
   RETURN R0 0
 
 PROTO_8:
@@ -441,20 +439,19 @@ PROTO_13:
   JUMPIF R6 [+3]
   LOADNIL R4
   LOADNIL R5
-  JUMP [+24]
+  JUMP [+23]
   GETTABLEKS R7 R6 K1 ["Value"]
   GETUPVAL R11 2
   GETTABLEKS R10 R11 K2 ["TempId"]
   NAMECALL R8 R6 K3 ["GetAttribute"]
   CALL R8 2 1
-  JUMPIFEQKS R7 K4 [""] [+12]
-  JUMPIFNOT R8 [+10]
+  JUMPIFEQKS R7 K4 [""] [+11]
+  JUMPIFNOT R8 [+9]
   GETIMPORT R9 K6 [warn]
-  LOADK R11 K7 ["StringValue %* has both val and tempId - has %* been manually edited?"]
+  LOADK R11 K7 ["StringValue %* has both val and tempId - has converted_animation_cache been manually edited?"]
   MOVE R13 R1
-  LOADK R14 K8 ["converted_animation_cache"]
-  NAMECALL R11 R11 K9 ["format"]
-  CALL R11 3 1
+  NAMECALL R11 R11 K8 ["format"]
+  CALL R11 2 1
   MOVE R10 R11
   CALL R9 1 0
   OR R9 R8 R7
@@ -463,7 +460,7 @@ PROTO_13:
   JUMPIF R4 [+1]
   RETURN R0 0
   GETUPVAL R9 2
-  GETTABLEKS R8 R9 K10 ["Name"]
+  GETTABLEKS R8 R9 K9 ["Name"]
   NAMECALL R6 R4 K3 ["GetAttribute"]
   CALL R6 2 -1
   RETURN R6 -1
@@ -513,7 +510,7 @@ PROTO_17:
   GETTABLEKS R6 R7 K1 ["RobloxAsset"]
   NAMECALL R4 R2 K2 ["IsA"]
   CALL R4 2 1
-  JUMPIFNOT R4 [+112]
+  JUMPIFNOT R4 [+111]
   GETTABLEKS R4 R2 K3 ["id"]
   JUMPIF R4 [+2]
   LOADB R4 0
@@ -533,20 +530,19 @@ PROTO_17:
   CALL R6 2 1
   JUMPIF R6 [+2]
   LOADNIL R4
-  JUMP [+23]
+  JUMP [+22]
   GETTABLEKS R7 R6 K5 ["Value"]
   GETUPVAL R11 4
   GETTABLEKS R10 R11 K6 ["TempId"]
   NAMECALL R8 R6 K7 ["GetAttribute"]
   CALL R8 2 1
-  JUMPIFEQKS R7 K8 [""] [+12]
-  JUMPIFNOT R8 [+10]
+  JUMPIFEQKS R7 K8 [""] [+11]
+  JUMPIFNOT R8 [+9]
   GETIMPORT R9 K10 [warn]
-  LOADK R11 K11 ["StringValue %* has both val and tempId - has %* been manually edited?"]
+  LOADK R11 K11 ["StringValue %* has both val and tempId - has converted_animation_cache been manually edited?"]
   MOVE R13 R5
-  LOADK R14 K12 ["converted_animation_cache"]
-  NAMECALL R11 R11 K13 ["format"]
-  CALL R11 3 1
+  NAMECALL R11 R11 K12 ["format"]
+  CALL R11 2 1
   MOVE R10 R11
   CALL R9 1 0
   OR R9 R8 R7
@@ -559,17 +555,17 @@ PROTO_17:
   LOADB R5 1
   RETURN R5 1
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K14 ["AnimationInstance"]
+  GETTABLEKS R7 R8 K13 ["AnimationInstance"]
   NAMECALL R5 R2 K2 ["IsA"]
   CALL R5 2 1
   JUMPIFNOT R5 [+31]
   GETUPVAL R8 4
-  GETTABLEKS R7 R8 K15 ["OriginalId"]
+  GETTABLEKS R7 R8 K14 ["OriginalId"]
   NAMECALL R5 R0 K7 ["GetAttribute"]
   CALL R5 2 1
   JUMPIFNOT R5 [+24]
   GETUPVAL R8 4
-  GETTABLEKS R7 R8 K15 ["OriginalId"]
+  GETTABLEKS R7 R8 K14 ["OriginalId"]
   NAMECALL R5 R0 K7 ["GetAttribute"]
   CALL R5 2 1
   GETUPVAL R6 2
@@ -593,7 +589,7 @@ PROTO_17:
   CALL R5 1 1
   MOVE R3 R5
   GETUPVAL R6 0
-  GETTABLEKS R5 R6 K16 ["isR6KeyframeSequence"]
+  GETTABLEKS R5 R6 K15 ["isR6KeyframeSequence"]
   MOVE R6 R3
   CALL R5 1 1
   GETUPVAL R6 2
@@ -601,13 +597,13 @@ PROTO_17:
   SETTABLE R5 R6 R7
   RETURN R5 1
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K17 ["LocalAsset"]
+  GETTABLEKS R6 R7 K16 ["LocalAsset"]
   NAMECALL R4 R2 K2 ["IsA"]
   CALL R4 2 1
   JUMPIFNOT R4 [+1]
   MOVE R3 R0
   GETUPVAL R5 0
-  GETTABLEKS R4 R5 K16 ["isR6KeyframeSequence"]
+  GETTABLEKS R4 R5 K15 ["isR6KeyframeSequence"]
   MOVE R5 R3
   CALL R4 1 -1
   RETURN R4 -1
@@ -721,20 +717,19 @@ PROTO_21:
   CALL R3 2 1
   JUMPIF R3 [+2]
   LOADNIL R2
-  JUMP [+23]
+  JUMP [+22]
   GETTABLEKS R4 R3 K1 ["Value"]
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K2 ["TempId"]
   NAMECALL R5 R3 K3 ["GetAttribute"]
   CALL R5 2 1
-  JUMPIFEQKS R4 K4 [""] [+12]
-  JUMPIFNOT R5 [+10]
+  JUMPIFEQKS R4 K4 [""] [+11]
+  JUMPIFNOT R5 [+9]
   GETIMPORT R6 K6 [warn]
-  LOADK R8 K7 ["StringValue %* has both val and tempId - has %* been manually edited?"]
+  LOADK R8 K7 ["StringValue %* has both val and tempId - has converted_animation_cache been manually edited?"]
   MOVE R10 R1
-  LOADK R11 K8 ["converted_animation_cache"]
-  NAMECALL R8 R8 K9 ["format"]
-  CALL R8 3 1
+  NAMECALL R8 R8 K8 ["format"]
+  CALL R8 2 1
   MOVE R7 R8
   CALL R6 1 0
   OR R6 R5 R4
@@ -742,11 +737,11 @@ PROTO_21:
   JUMPIF R2 [+2]
   LOADNIL R3
   RETURN R3 1
-  NAMECALL R3 R2 K10 ["GetChildren"]
+  NAMECALL R3 R2 K9 ["GetChildren"]
   CALL R3 1 3
   FORGPREP R3
-  LOADK R10 K11 ["KeyframeSequence"]
-  NAMECALL R8 R7 K12 ["IsA"]
+  LOADK R10 K10 ["KeyframeSequence"]
+  NAMECALL R8 R7 K11 ["IsA"]
   CALL R8 2 1
   JUMPIFNOT R8 [+1]
   RETURN R7 1
@@ -806,20 +801,19 @@ PROTO_24:
   JUMPIF R6 [+3]
   LOADNIL R4
   LOADNIL R5
-  JUMP [+24]
+  JUMP [+23]
   GETTABLEKS R7 R6 K2 ["Value"]
   GETUPVAL R11 3
   GETTABLEKS R10 R11 K3 ["TempId"]
   NAMECALL R8 R6 K4 ["GetAttribute"]
   CALL R8 2 1
-  JUMPIFEQKS R7 K5 [""] [+12]
-  JUMPIFNOT R8 [+10]
+  JUMPIFEQKS R7 K5 [""] [+11]
+  JUMPIFNOT R8 [+9]
   GETIMPORT R9 K7 [warn]
-  LOADK R11 K8 ["StringValue %* has both val and tempId - has %* been manually edited?"]
+  LOADK R11 K8 ["StringValue %* has both val and tempId - has converted_animation_cache been manually edited?"]
   MOVE R13 R1
-  LOADK R14 K9 ["converted_animation_cache"]
-  NAMECALL R11 R11 K10 ["format"]
-  CALL R11 3 1
+  NAMECALL R11 R11 K9 ["format"]
+  CALL R11 2 1
   MOVE R10 R11
   CALL R9 1 0
   OR R9 R8 R7

@@ -21,8 +21,7 @@ local MEM_STAT_STR_SMALL = "Client Mem:"
 local memStatStrSmallWidth = TextService:GetTextSize(MEM_STAT_STR_SMALL, TOP_BAR_FONT_SIZE, FONT, Vector2.new(0, 0))
 local MEM_STAT_STR = "Client Memory Usage:"
 local memStatStrWidth = TextService:GetTextSize(MEM_STAT_STR, TOP_BAR_FONT_SIZE, FONT, Vector2.new(0, 0))
-local AVG_PING_STR_DEPRECATED = "Avg. Ping:" -- remove with ClarifyPingNamingEnabled
-local avgPingStrDeprecatedWidth = TextService:GetTextSize(AVG_PING_STR_DEPRECATED, TOP_BAR_FONT_SIZE, FONT, Vector2.new(0, 0))
+
 local AVG_DATA_PING_STR = "Avg. Data Ping:"
 local avgDataPingStrWidth = TextService:GetTextSize(AVG_DATA_PING_STR, TOP_BAR_FONT_SIZE, FONT, Vector2.new(0, 0))
 
@@ -160,13 +159,8 @@ function LiveUpdateElement:render()
 
 	local showNetworkPing = averagePing > 0
 
-	local avgPingNameStr = AVG_PING_STR_DEPRECATED
-	local avgPingNameStrWidth = avgPingStrDeprecatedWidth
-
-	if game:GetEngineFeature("ClarifyPingNamingEnabled") then
-		avgPingNameStr = AVG_DATA_PING_STR
-		avgPingNameStrWidth = avgDataPingStrWidth
-	end
+	local avgPingNameStr = AVG_DATA_PING_STR
+	local avgPingNameStrWidth = avgDataPingStrWidth
 
 	return Roact.createElement("Frame", {
 		Position = position,

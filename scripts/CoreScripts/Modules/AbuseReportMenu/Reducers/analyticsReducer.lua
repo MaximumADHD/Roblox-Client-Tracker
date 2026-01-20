@@ -8,6 +8,8 @@ local Actions = Constants.AnalyticsActions
 
 local FFlagInGameMenuAddChatLineReporting =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagInGameMenuAddChatLineReporting
+local FFlagAddPreselectedAbuseTypeAnalytics =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagAddPreselectedAbuseTypeAnalytics
 
 -- using Cryo.Dictionary.join will not overwrite an existing value with one that is nil, use this for that
 local ClearNillableValues = {
@@ -52,6 +54,8 @@ local function analyticsReducer(state: Types.AnalyticsState, action: any): Types
 	-- a user initiating it, and we don't want to count non-user-initiated state changes.
 	elseif actionType == Actions.SetTypeOfAbuseSelection then
 		newState.typeofabuseSelection = action.selection
+	elseif FFlagAddPreselectedAbuseTypeAnalytics and actionType == Actions.SetPreselectedAbuseSelection then
+		newState.preselectedAbuseSelection = action.selection
 	elseif actionType == Actions.SetReasonSelection then
 		newState.reasonSelection = action.selection
 	elseif actionType == Actions.SetCommentAdded then

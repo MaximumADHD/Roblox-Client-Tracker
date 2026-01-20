@@ -30,11 +30,8 @@ PROTO_0:
   NAMECALL R0 R0 K14 ["sendEvent"]
   CALL R0 3 0
   GETUPVAL R0 2
-  LOADK R3 K15 ["studioLua"]
-  LOADK R4 K11 ["Transform"]
-  LOADK R5 K16 ["DraggerSelected"]
-  CONCAT R2 R3 R5
-  NAMECALL R0 R0 K17 ["reportCounter"]
+  LOADK R2 K15 ["studioLuaTransformDraggerSelected"]
+  NAMECALL R0 R0 K16 ["reportCounter"]
   CALL R0 2 0
   RETURN R0 0
 

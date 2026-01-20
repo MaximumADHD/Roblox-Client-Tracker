@@ -47,7 +47,7 @@ local function UINavAvailability()
 end
 
 
-local UINavToggleConfig = {
+local UINavToggleConfig: SettingsServiceLib.ToggleRegisterConfig = {
 	id = 'ui-nav-toggle',
 	field_type = FieldType.Toggle,
 	label = "CoreScripts.InGameMenu.GameSettings.UINavToggle",
@@ -56,6 +56,6 @@ local UINavToggleConfig = {
 	onChanged = UINavValue(),
 	availability = UINavAvailability(),
 	layoutOrder = SettingsLayoutOrder.UiNavigationKeyBindEnabledFrame,
-} :: SettingsServiceLib.ToggleRegisterConfig
+}
 
 return UINavToggleConfig

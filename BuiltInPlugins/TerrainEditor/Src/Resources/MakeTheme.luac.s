@@ -124,206 +124,98 @@ MAIN:
   LOADK R20 K27 ["Dark"]
   SETTABLE R20 R18 R19
   GETTABLEKS R19 R5 K13 ["BrushShape"]
-  LOADK R22 K28 ["rbxasset://studio_svg_textures/Lua/Terrain/Dark/"]
-  LOADK R23 K29 ["Large/"]
-  CONCAT R21 R22 R23
   NEWTABLE R20 4 0
-  GETTABLEKS R22 R6 K30 ["Sphere"]
-  LOADK R24 K31 ["%*TerrainBrushTypeSphere.png"]
-  MOVE R26 R21
-  NAMECALL R24 R24 K32 ["format"]
-  CALL R24 2 1
-  MOVE R23 R24
-  SETTABLE R23 R20 R22
-  GETTABLEKS R22 R6 K33 ["Cube"]
-  LOADK R24 K34 ["%*TerrainBrushTypeCube.png"]
-  MOVE R26 R21
-  NAMECALL R24 R24 K32 ["format"]
-  CALL R24 2 1
-  MOVE R23 R24
-  SETTABLE R23 R20 R22
-  GETTABLEKS R22 R6 K35 ["Cylinder"]
-  LOADK R24 K36 ["%*TerrainBrushTypeCylinder.png"]
-  MOVE R26 R21
-  NAMECALL R24 R24 K32 ["format"]
-  CALL R24 2 1
-  MOVE R23 R24
-  SETTABLE R23 R20 R22
+  GETTABLEKS R21 R6 K28 ["Sphere"]
+  LOADK R22 K29 ["rbxasset://studio_svg_textures/Lua/Terrain/Dark/Large/TerrainBrushTypeSphere.png"]
+  SETTABLE R22 R20 R21
+  GETTABLEKS R21 R6 K30 ["Cube"]
+  LOADK R22 K31 ["rbxasset://studio_svg_textures/Lua/Terrain/Dark/Large/TerrainBrushTypeCube.png"]
+  SETTABLE R22 R20 R21
+  GETTABLEKS R21 R6 K32 ["Cylinder"]
+  LOADK R22 K33 ["rbxasset://studio_svg_textures/Lua/Terrain/Dark/Large/TerrainBrushTypeCylinder.png"]
+  SETTABLE R22 R20 R21
   SETTABLE R20 R18 R19
   GETTABLEKS R19 R5 K14 ["FlattenMode"]
-  LOADK R22 K28 ["rbxasset://studio_svg_textures/Lua/Terrain/Dark/"]
-  LOADK R23 K29 ["Large/"]
-  CONCAT R21 R22 R23
   NEWTABLE R20 4 0
-  GETTABLEKS R22 R7 K37 ["Both"]
-  LOADK R24 K38 ["%*FlattenModeRemoveAboveFillBelow.png"]
-  MOVE R26 R21
-  NAMECALL R24 R24 K32 ["format"]
-  CALL R24 2 1
-  MOVE R23 R24
-  SETTABLE R23 R20 R22
-  GETTABLEKS R22 R7 K39 ["Erode"]
-  LOADK R24 K40 ["%*FlattenModeRemoveAbove.png"]
-  MOVE R26 R21
-  NAMECALL R24 R24 K32 ["format"]
-  CALL R24 2 1
-  MOVE R23 R24
-  SETTABLE R23 R20 R22
-  GETTABLEKS R22 R7 K41 ["Grow"]
-  LOADK R24 K42 ["%*FlattenModeFillBelow.png"]
-  MOVE R26 R21
-  NAMECALL R24 R24 K32 ["format"]
-  CALL R24 2 1
-  MOVE R23 R24
-  SETTABLE R23 R20 R22
+  GETTABLEKS R21 R7 K34 ["Both"]
+  LOADK R22 K35 ["rbxasset://studio_svg_textures/Lua/Terrain/Dark/Large/FlattenModeRemoveAboveFillBelow.png"]
+  SETTABLE R22 R20 R21
+  GETTABLEKS R21 R7 K36 ["Erode"]
+  LOADK R22 K37 ["rbxasset://studio_svg_textures/Lua/Terrain/Dark/Large/FlattenModeRemoveAbove.png"]
+  SETTABLE R22 R20 R21
+  GETTABLEKS R21 R7 K38 ["Grow"]
+  LOADK R22 K39 ["rbxasset://studio_svg_textures/Lua/Terrain/Dark/Large/FlattenModeFillBelow.png"]
+  SETTABLE R22 R20 R21
   SETTABLE R20 R18 R19
-  GETTABLEKS R19 R9 K43 ["Add"]
-  LOADK R21 K44 ["%*Standard/Add.png"]
-  LOADK R23 K45 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/"]
-  NAMECALL R21 R21 K32 ["format"]
-  CALL R21 2 1
-  MOVE R20 R21
+  GETTABLEKS R19 R9 K40 ["Add"]
+  LOADK R20 K41 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Standard/Add.png"]
   SETTABLE R20 R18 R19
-  GETTABLEKS R19 R9 K46 ["Locked"]
-  LOADK R21 K47 ["%*Standard/Locked.png"]
-  LOADK R23 K45 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/"]
-  NAMECALL R21 R21 K32 ["format"]
-  CALL R21 2 1
-  MOVE R20 R21
+  GETTABLEKS R19 R9 K42 ["Locked"]
+  LOADK R20 K43 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Standard/Locked.png"]
   SETTABLE R20 R18 R19
-  GETTABLEKS R19 R9 K48 ["Randomize"]
-  LOADK R21 K49 ["%*Standard/Randomize.png"]
-  LOADK R23 K45 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/"]
-  NAMECALL R21 R21 K32 ["format"]
-  CALL R21 2 1
-  MOVE R20 R21
+  GETTABLEKS R19 R9 K44 ["Randomize"]
+  LOADK R20 K45 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Standard/Randomize.png"]
   SETTABLE R20 R18 R19
-  GETTABLEKS R19 R9 K50 ["Remove"]
-  LOADK R21 K51 ["%*Standard/Remove.png"]
-  LOADK R23 K45 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/"]
-  NAMECALL R21 R21 K32 ["format"]
-  CALL R21 2 1
-  MOVE R20 R21
+  GETTABLEKS R19 R9 K46 ["Remove"]
+  LOADK R20 K47 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Standard/Remove.png"]
   SETTABLE R20 R18 R19
-  GETTABLEKS R19 R9 K52 ["Reset"]
-  LOADK R21 K53 ["%*Standard/Reset.png"]
-  LOADK R23 K45 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/"]
-  NAMECALL R21 R21 K32 ["format"]
-  CALL R21 2 1
-  MOVE R20 R21
+  GETTABLEKS R19 R9 K48 ["Reset"]
+  LOADK R20 K49 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Standard/Reset.png"]
   SETTABLE R20 R18 R19
-  GETTABLEKS R19 R9 K54 ["Unlocked"]
-  LOADK R21 K55 ["%*Standard/Unlocked.png"]
-  LOADK R23 K45 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/"]
-  NAMECALL R21 R21 K32 ["format"]
-  CALL R21 2 1
-  MOVE R20 R21
+  GETTABLEKS R19 R9 K50 ["Unlocked"]
+  LOADK R20 K51 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Dark/Standard/Unlocked.png"]
   SETTABLE R20 R18 R19
   CALL R16 2 1
   GETTABLEKS R17 R1 K25 ["join"]
   MOVE R18 R11
   NEWTABLE R19 16 0
   GETTABLEKS R20 R9 K26 ["StudioTheme"]
-  LOADK R21 K56 ["Light"]
+  LOADK R21 K52 ["Light"]
   SETTABLE R21 R19 R20
   GETTABLEKS R20 R5 K13 ["BrushShape"]
-  LOADK R23 K57 ["rbxasset://studio_svg_textures/Lua/Terrain/Light/"]
-  LOADK R24 K29 ["Large/"]
-  CONCAT R22 R23 R24
   NEWTABLE R21 4 0
-  GETTABLEKS R23 R6 K30 ["Sphere"]
-  LOADK R25 K31 ["%*TerrainBrushTypeSphere.png"]
-  MOVE R27 R22
-  NAMECALL R25 R25 K32 ["format"]
-  CALL R25 2 1
-  MOVE R24 R25
-  SETTABLE R24 R21 R23
-  GETTABLEKS R23 R6 K33 ["Cube"]
-  LOADK R25 K34 ["%*TerrainBrushTypeCube.png"]
-  MOVE R27 R22
-  NAMECALL R25 R25 K32 ["format"]
-  CALL R25 2 1
-  MOVE R24 R25
-  SETTABLE R24 R21 R23
-  GETTABLEKS R23 R6 K35 ["Cylinder"]
-  LOADK R25 K36 ["%*TerrainBrushTypeCylinder.png"]
-  MOVE R27 R22
-  NAMECALL R25 R25 K32 ["format"]
-  CALL R25 2 1
-  MOVE R24 R25
-  SETTABLE R24 R21 R23
+  GETTABLEKS R22 R6 K28 ["Sphere"]
+  LOADK R23 K53 ["rbxasset://studio_svg_textures/Lua/Terrain/Light/Large/TerrainBrushTypeSphere.png"]
+  SETTABLE R23 R21 R22
+  GETTABLEKS R22 R6 K30 ["Cube"]
+  LOADK R23 K54 ["rbxasset://studio_svg_textures/Lua/Terrain/Light/Large/TerrainBrushTypeCube.png"]
+  SETTABLE R23 R21 R22
+  GETTABLEKS R22 R6 K32 ["Cylinder"]
+  LOADK R23 K55 ["rbxasset://studio_svg_textures/Lua/Terrain/Light/Large/TerrainBrushTypeCylinder.png"]
+  SETTABLE R23 R21 R22
   SETTABLE R21 R19 R20
   GETTABLEKS R20 R5 K14 ["FlattenMode"]
-  LOADK R23 K57 ["rbxasset://studio_svg_textures/Lua/Terrain/Light/"]
-  LOADK R24 K29 ["Large/"]
-  CONCAT R22 R23 R24
   NEWTABLE R21 4 0
-  GETTABLEKS R23 R7 K37 ["Both"]
-  LOADK R25 K38 ["%*FlattenModeRemoveAboveFillBelow.png"]
-  MOVE R27 R22
-  NAMECALL R25 R25 K32 ["format"]
-  CALL R25 2 1
-  MOVE R24 R25
-  SETTABLE R24 R21 R23
-  GETTABLEKS R23 R7 K39 ["Erode"]
-  LOADK R25 K40 ["%*FlattenModeRemoveAbove.png"]
-  MOVE R27 R22
-  NAMECALL R25 R25 K32 ["format"]
-  CALL R25 2 1
-  MOVE R24 R25
-  SETTABLE R24 R21 R23
-  GETTABLEKS R23 R7 K41 ["Grow"]
-  LOADK R25 K42 ["%*FlattenModeFillBelow.png"]
-  MOVE R27 R22
-  NAMECALL R25 R25 K32 ["format"]
-  CALL R25 2 1
-  MOVE R24 R25
-  SETTABLE R24 R21 R23
+  GETTABLEKS R22 R7 K34 ["Both"]
+  LOADK R23 K56 ["rbxasset://studio_svg_textures/Lua/Terrain/Light/Large/FlattenModeRemoveAboveFillBelow.png"]
+  SETTABLE R23 R21 R22
+  GETTABLEKS R22 R7 K36 ["Erode"]
+  LOADK R23 K57 ["rbxasset://studio_svg_textures/Lua/Terrain/Light/Large/FlattenModeRemoveAbove.png"]
+  SETTABLE R23 R21 R22
+  GETTABLEKS R22 R7 K38 ["Grow"]
+  LOADK R23 K58 ["rbxasset://studio_svg_textures/Lua/Terrain/Light/Large/FlattenModeFillBelow.png"]
+  SETTABLE R23 R21 R22
   SETTABLE R21 R19 R20
-  GETTABLEKS R20 R9 K43 ["Add"]
-  LOADK R22 K44 ["%*Standard/Add.png"]
-  LOADK R24 K58 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/"]
-  NAMECALL R22 R22 K32 ["format"]
-  CALL R22 2 1
-  MOVE R21 R22
+  GETTABLEKS R20 R9 K40 ["Add"]
+  LOADK R21 K59 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/Standard/Add.png"]
   SETTABLE R21 R19 R20
-  GETTABLEKS R20 R9 K46 ["Locked"]
-  LOADK R22 K47 ["%*Standard/Locked.png"]
-  LOADK R24 K58 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/"]
-  NAMECALL R22 R22 K32 ["format"]
-  CALL R22 2 1
-  MOVE R21 R22
+  GETTABLEKS R20 R9 K42 ["Locked"]
+  LOADK R21 K60 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/Standard/Locked.png"]
   SETTABLE R21 R19 R20
-  GETTABLEKS R20 R9 K48 ["Randomize"]
-  LOADK R22 K49 ["%*Standard/Randomize.png"]
-  LOADK R24 K58 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/"]
-  NAMECALL R22 R22 K32 ["format"]
-  CALL R22 2 1
-  MOVE R21 R22
+  GETTABLEKS R20 R9 K44 ["Randomize"]
+  LOADK R21 K61 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/Standard/Randomize.png"]
   SETTABLE R21 R19 R20
-  GETTABLEKS R20 R9 K50 ["Remove"]
-  LOADK R22 K51 ["%*Standard/Remove.png"]
-  LOADK R24 K58 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/"]
-  NAMECALL R22 R22 K32 ["format"]
-  CALL R22 2 1
-  MOVE R21 R22
+  GETTABLEKS R20 R9 K46 ["Remove"]
+  LOADK R21 K62 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/Standard/Remove.png"]
   SETTABLE R21 R19 R20
-  GETTABLEKS R20 R9 K52 ["Reset"]
-  LOADK R22 K53 ["%*Standard/Reset.png"]
-  LOADK R24 K58 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/"]
-  NAMECALL R22 R22 K32 ["format"]
-  CALL R22 2 1
-  MOVE R21 R22
+  GETTABLEKS R20 R9 K48 ["Reset"]
+  LOADK R21 K63 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/Standard/Reset.png"]
   SETTABLE R21 R19 R20
-  GETTABLEKS R20 R9 K54 ["Unlocked"]
-  LOADK R22 K55 ["%*Standard/Unlocked.png"]
-  LOADK R24 K58 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/"]
-  NAMECALL R22 R22 K32 ["format"]
-  CALL R22 2 1
-  MOVE R21 R22
+  GETTABLEKS R20 R9 K50 ["Unlocked"]
+  LOADK R21 K64 ["rbxasset://studio_svg_textures/Lua/TerrainEditor/Light/Standard/Unlocked.png"]
   SETTABLE R21 R19 R20
   CALL R17 2 1
-  DUPCLOSURE R18 K59 [PROTO_2]
+  DUPCLOSURE R18 K65 [PROTO_2]
   CAPTURE VAL R12
   CAPTURE VAL R16
   CAPTURE VAL R17

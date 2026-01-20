@@ -28,7 +28,7 @@ return function(menu, layoutOrderTable, reportSettingsChangeForAnalyticsFunc)
 
   -- Check experience settings
   local experienceSourceLocaleCode = nil -- corresponding locale code of the game, example: "en_us"
-  local playerLocaleCode = Players.LocalPlayer.LocaleId
+  local playerLocaleCode = Players.LocalPlayer.LocaleId:gsub("-", "_")
   local playerPreferredLocaleCode = nil -- Player preferred locale code, calculated by checking result of user-localization-settings-API call. Either the call returns a locale directly or it returns a language, and the preferred locale is treated as that language's default locale according to the map that we set (populated statically from source of truth as Locale API).
   local localeNameToLocaleCodeMapping = {}
   local supportedLocaleCodes = {}

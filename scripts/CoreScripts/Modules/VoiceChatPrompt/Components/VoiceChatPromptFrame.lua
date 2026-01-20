@@ -41,7 +41,8 @@ local CoreGui = game:GetService("CoreGui")
 local runService = game:GetService("RunService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local GetFFlagEnableVoicePromptReasonText = require(RobloxGui.Modules.Flags.GetFFlagEnableVoicePromptReasonText)
-local GetFFlagEnableVoiceNudge = require(VoiceChatCore.Flags.GetFFlagEnableVoiceNudge)
+local FFlagRemoveScriptRefAsReturnInVoiceChatCore = VoiceChatCore.Flags.FFlagRemoveScriptRefAsReturnInVoiceChatCore
+local GetFFlagEnableVoiceNudge = if FFlagRemoveScriptRefAsReturnInVoiceChatCore then VoiceChatCore.Flags.GetFFlagEnableVoiceNudge else require(VoiceChatCore.Flags.GetFFlagEnableVoiceNudge)
 local GetFFlagSupportGamepadNavInVoiceModals = VoiceChatFlags.GetFFlagSupportGamepadNavInVoiceModals
 local GetFIntVoiceToxicityToastDurationSeconds =
 	require(RobloxGui.Modules.Flags.GetFIntVoiceToxicityToastDurationSeconds)

@@ -112,101 +112,101 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
-  GETUPVAL R3 0
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K0 ["DEFAULT"]
-  GETTABLEKS R4 R5 K1 ["name"]
-  NAMECALL R1 R0 K2 ["_getSetting"]
+  LOADK R3 K0 ["Toolbox_SelectedCategoryName"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K1 ["DEFAULT"]
+  GETTABLEKS R4 R5 K2 ["name"]
+  NAMECALL R1 R0 K3 ["_getSetting"]
   CALL R1 3 -1
   RETURN R1 -1
 
 PROTO_4:
-  GETUPVAL R4 0
+  LOADK R4 K0 ["Toolbox_SelectedCategoryName"]
   MOVE R5 R1
-  NAMECALL R2 R0 K0 ["_setSetting"]
+  NAMECALL R2 R0 K1 ["_setSetting"]
   CALL R2 3 -1
   RETURN R2 -1
 
 PROTO_5:
-  GETUPVAL R3 0
-  LOADK R4 K0 [""]
-  NAMECALL R1 R0 K1 ["_getSetting"]
+  LOADK R3 K0 ["Toolbox_SelectedSearchTerm"]
+  LOADK R4 K1 [""]
+  NAMECALL R1 R0 K2 ["_getSetting"]
   CALL R1 3 -1
   RETURN R1 -1
 
 PROTO_6:
-  GETUPVAL R4 0
+  LOADK R4 K0 ["Toolbox_SelectedSearchTerm"]
   MOVE R5 R1
-  NAMECALL R2 R0 K0 ["_setSetting"]
+  NAMECALL R2 R0 K1 ["_setSetting"]
   CALL R2 3 -1
   RETURN R2 -1
 
 PROTO_7:
-  GETUPVAL R3 0
+  LOADK R3 K0 ["Toolbox_SelectedSortIndex"]
   LOADN R4 1
-  NAMECALL R1 R0 K0 ["_getSetting"]
+  NAMECALL R1 R0 K1 ["_getSetting"]
   CALL R1 3 -1
   RETURN R1 -1
 
 PROTO_8:
-  GETUPVAL R4 0
+  LOADK R4 K0 ["Toolbox_SelectedSortIndex"]
   MOVE R5 R1
-  NAMECALL R2 R0 K0 ["_setSetting"]
+  NAMECALL R2 R0 K1 ["_setSetting"]
   CALL R2 3 -1
   RETURN R2 -1
 
 PROTO_9:
-  GETUPVAL R4 0
-  LOADK R5 K0 ["true"]
-  NAMECALL R2 R0 K1 ["_getSetting"]
+  LOADK R4 K0 ["Toolbox_ShowScriptWarning"]
+  LOADK R5 K1 ["true"]
+  NAMECALL R2 R0 K2 ["_getSetting"]
   CALL R2 3 1
-  JUMPIFEQKS R2 K0 ["true"] [+2]
+  JUMPIFEQKS R2 K1 ["true"] [+2]
   LOADB R1 0 +1
   LOADB R1 1
   RETURN R1 1
 
 PROTO_10:
-  GETUPVAL R4 0
+  LOADK R4 K0 ["Toolbox_ShowScriptWarning"]
   FASTCALL1 TOSTRING R1 [+3]
   MOVE R6 R1
-  GETIMPORT R5 K1 [tostring]
+  GETIMPORT R5 K2 [tostring]
   CALL R5 1 1
-  NAMECALL R2 R0 K2 ["_setSetting"]
+  NAMECALL R2 R0 K3 ["_setSetting"]
   CALL R2 3 -1
   RETURN R2 -1
 
 PROTO_11:
-  GETUPVAL R3 0
-  LOADK R4 K0 [""]
-  NAMECALL R1 R0 K1 ["_getSetting"]
+  LOADK R3 K0 ["Toolbox_LastAnnouncementViewedKey"]
+  LOADK R4 K1 [""]
+  NAMECALL R1 R0 K2 ["_getSetting"]
   CALL R1 3 -1
   RETURN R1 -1
 
 PROTO_12:
-  GETUPVAL R4 0
+  LOADK R4 K0 ["Toolbox_LastAnnouncementViewedKey"]
   FASTCALL1 TOSTRING R1 [+3]
   MOVE R6 R1
-  GETIMPORT R5 K1 [tostring]
+  GETIMPORT R5 K2 [tostring]
   CALL R5 1 1
-  NAMECALL R2 R0 K2 ["_setSetting"]
+  NAMECALL R2 R0 K3 ["_setSetting"]
   CALL R2 3 -1
   RETURN R2 -1
 
 PROTO_13:
-  GETUPVAL R3 0
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K0 ["Grid"]
-  NAMECALL R1 R0 K1 ["_getSetting"]
+  LOADK R3 K0 ["Toolbox_LayoutModeKey"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["Grid"]
+  NAMECALL R1 R0 K2 ["_getSetting"]
   CALL R1 3 -1
   RETURN R1 -1
 
 PROTO_14:
-  GETUPVAL R4 0
+  LOADK R4 K0 ["Toolbox_LayoutModeKey"]
   FASTCALL1 TOSTRING R1 [+3]
   MOVE R6 R1
-  GETIMPORT R5 K1 [tostring]
+  GETIMPORT R5 K2 [tostring]
   CALL R5 1 1
-  NAMECALL R2 R0 K2 ["_setSetting"]
+  NAMECALL R2 R0 K3 ["_setSetting"]
   CALL R2 3 -1
   RETURN R2 -1
 
@@ -336,82 +336,52 @@ MAIN:
   GETTABLEKS R10 R11 K16 ["SharedFlags"]
   GETTABLEKS R9 R10 K17 ["getFFlagToolboxEnableAssetRows"]
   CALL R8 1 1
-  LOADK R10 K18 ["Toolbox_"]
-  LOADK R11 K19 ["SelectedCategoryName"]
-  CONCAT R9 R10 R11
-  LOADK R11 K18 ["Toolbox_"]
-  LOADK R12 K20 ["SelectedSearchTerm"]
-  CONCAT R10 R11 R12
-  LOADK R12 K18 ["Toolbox_"]
-  LOADK R13 K21 ["SelectedSortIndex"]
-  CONCAT R11 R12 R13
-  LOADK R13 K18 ["Toolbox_"]
-  LOADK R14 K22 ["ShowScriptWarning"]
-  CONCAT R12 R13 R14
-  LOADK R14 K18 ["Toolbox_"]
-  LOADK R15 K23 ["LastAnnouncementViewedKey"]
-  CONCAT R13 R14 R15
-  LOADK R15 K18 ["Toolbox_"]
-  LOADK R16 K24 ["LayoutModeKey"]
-  CONCAT R14 R15 R16
-  DUPCLOSURE R15 K25 [PROTO_0]
+  DUPCLOSURE R9 K18 [PROTO_0]
   CAPTURE VAL R5
-  SETTABLEKS R15 R5 K26 ["new"]
-  DUPCLOSURE R15 K27 [PROTO_1]
+  SETTABLEKS R9 R5 K19 ["new"]
+  DUPCLOSURE R9 K20 [PROTO_1]
   CAPTURE VAL R1
-  SETTABLEKS R15 R5 K28 ["_getSetting"]
-  DUPCLOSURE R15 K29 [PROTO_2]
+  SETTABLEKS R9 R5 K21 ["_getSetting"]
+  DUPCLOSURE R9 K22 [PROTO_2]
   CAPTURE VAL R1
-  SETTABLEKS R15 R5 K30 ["_setSetting"]
-  DUPCLOSURE R15 K31 [PROTO_3]
-  CAPTURE VAL R9
+  SETTABLEKS R9 R5 K23 ["_setSetting"]
+  DUPCLOSURE R9 K24 [PROTO_3]
   CAPTURE VAL R2
-  SETTABLEKS R15 R5 K32 ["getSelectedCategoryName"]
-  DUPCLOSURE R15 K33 [PROTO_4]
-  CAPTURE VAL R9
-  SETTABLEKS R15 R5 K34 ["setSelectedCategoryName"]
-  DUPCLOSURE R15 K35 [PROTO_5]
-  CAPTURE VAL R10
-  SETTABLEKS R15 R5 K36 ["getSelectedSearchTerm"]
-  DUPCLOSURE R15 K37 [PROTO_6]
-  CAPTURE VAL R10
-  SETTABLEKS R15 R5 K38 ["setSelectedSearchTerm"]
-  DUPCLOSURE R15 K39 [PROTO_7]
-  CAPTURE VAL R11
-  SETTABLEKS R15 R5 K40 ["getSelectedSortIndex"]
-  DUPCLOSURE R15 K41 [PROTO_8]
-  CAPTURE VAL R11
-  SETTABLEKS R15 R5 K42 ["setSelectedSortIndex"]
-  DUPCLOSURE R15 K43 [PROTO_9]
-  CAPTURE VAL R12
-  SETTABLEKS R15 R5 K44 ["getShowScriptWarning"]
-  DUPCLOSURE R15 K45 [PROTO_10]
-  CAPTURE VAL R12
-  SETTABLEKS R15 R5 K46 ["setShowScriptWarning"]
-  DUPCLOSURE R15 K47 [PROTO_11]
-  CAPTURE VAL R13
-  SETTABLEKS R15 R5 K48 ["getLastAnnouncementViewedKey"]
-  DUPCLOSURE R15 K49 [PROTO_12]
-  CAPTURE VAL R13
-  SETTABLEKS R15 R5 K50 ["setLastAnnouncementViewedKey"]
-  MOVE R15 R8
-  CALL R15 0 1
-  JUMPIFNOT R15 [+9]
-  DUPCLOSURE R15 K51 [PROTO_13]
-  CAPTURE VAL R14
+  SETTABLEKS R9 R5 K25 ["getSelectedCategoryName"]
+  DUPCLOSURE R9 K26 [PROTO_4]
+  SETTABLEKS R9 R5 K27 ["setSelectedCategoryName"]
+  DUPCLOSURE R9 K28 [PROTO_5]
+  SETTABLEKS R9 R5 K29 ["getSelectedSearchTerm"]
+  DUPCLOSURE R9 K30 [PROTO_6]
+  SETTABLEKS R9 R5 K31 ["setSelectedSearchTerm"]
+  DUPCLOSURE R9 K32 [PROTO_7]
+  SETTABLEKS R9 R5 K33 ["getSelectedSortIndex"]
+  DUPCLOSURE R9 K34 [PROTO_8]
+  SETTABLEKS R9 R5 K35 ["setSelectedSortIndex"]
+  DUPCLOSURE R9 K36 [PROTO_9]
+  SETTABLEKS R9 R5 K37 ["getShowScriptWarning"]
+  DUPCLOSURE R9 K38 [PROTO_10]
+  SETTABLEKS R9 R5 K39 ["setShowScriptWarning"]
+  DUPCLOSURE R9 K40 [PROTO_11]
+  SETTABLEKS R9 R5 K41 ["getLastAnnouncementViewedKey"]
+  DUPCLOSURE R9 K42 [PROTO_12]
+  SETTABLEKS R9 R5 K43 ["setLastAnnouncementViewedKey"]
+  MOVE R9 R8
+  CALL R9 0 1
+  JUMPIFNOT R9 [+7]
+  DUPCLOSURE R9 K44 [PROTO_13]
   CAPTURE VAL R4
-  SETTABLEKS R15 R5 K52 ["getLayoutMode"]
-  DUPCLOSURE R15 K53 [PROTO_14]
-  CAPTURE VAL R14
-  SETTABLEKS R15 R5 K54 ["setLayoutMode"]
-  DUPCLOSURE R15 K55 [PROTO_15]
+  SETTABLEKS R9 R5 K45 ["getLayoutMode"]
+  DUPCLOSURE R9 K46 [PROTO_14]
+  SETTABLEKS R9 R5 K47 ["setLayoutMode"]
+  DUPCLOSURE R9 K48 [PROTO_15]
   CAPTURE VAL R1
-  SETTABLEKS R15 R5 K56 ["updateFromPageInfo"]
-  DUPCLOSURE R15 K57 [PROTO_16]
+  SETTABLEKS R9 R5 K49 ["updateFromPageInfo"]
+  DUPCLOSURE R9 K50 [PROTO_16]
   CAPTURE VAL R1
   CAPTURE VAL R6
   CAPTURE VAL R2
   CAPTURE VAL R7
   CAPTURE VAL R3
-  SETTABLEKS R15 R5 K58 ["loadInitialSettings"]
+  SETTABLEKS R9 R5 K51 ["loadInitialSettings"]
   RETURN R5 1

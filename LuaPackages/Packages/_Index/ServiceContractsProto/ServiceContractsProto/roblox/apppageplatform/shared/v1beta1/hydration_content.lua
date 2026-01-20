@@ -9,10 +9,14 @@ local typeRegistry = require(script.Parent.Parent.Parent.Parent.Parent.proto.typ
 type _Messages = {
 	HydrationContent: _HydrationContentMessage,
 	HydrationContent_BadgeEntry: _HydrationContent_BadgeEntryMessage,
+	HydrationContent_UniverseEntry: _HydrationContent_UniverseEntryMessage,
+	HydrationContent_CreatorEntry: _HydrationContent_CreatorEntryMessage,
 }
 local messages: _Messages = {} :: _Messages
 
 local _roblox_apppageplatform_shared_v1beta1_badge_data = require(script.Parent.badge_data)
+local _roblox_apppageplatform_shared_v1beta1_universe_data = require(script.Parent.universe_data)
+local _roblox_apppageplatform_shared_v1beta1_creator_data = require(script.Parent.creator_data)
 
 type _HydrationContentImpl = {
 	__index: _HydrationContentImpl,
@@ -26,10 +30,14 @@ type _HydrationContentImpl = {
 
 type _HydrationContentFields = {
 	badge: { [string]: _roblox_apppageplatform_shared_v1beta1_badge_data.BadgeData },
+	universe: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_data.UniverseData },
+	creator: { [string]: _roblox_apppageplatform_shared_v1beta1_creator_data.CreatorData },
 }
 
 type _HydrationContentPartialFields = {
 	badge: { [string]: _roblox_apppageplatform_shared_v1beta1_badge_data.BadgeData }?,
+	universe: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_data.UniverseData }?,
+	creator: { [string]: _roblox_apppageplatform_shared_v1beta1_creator_data.CreatorData }?,
 }
 
 export type HydrationContent = typeof(setmetatable({} :: _HydrationContentFields, {} :: _HydrationContentImpl))
@@ -64,6 +72,64 @@ type _HydrationContent_BadgeEntryMessage = proto.Message<
 	_HydrationContent_BadgeEntryPartialFields
 >
 
+type _HydrationContent_UniverseEntryImpl = {
+	__index: _HydrationContent_UniverseEntryImpl,
+	new: (fields: _HydrationContent_UniverseEntryPartialFields?) -> HydrationContent_UniverseEntry,
+	encode: (self: HydrationContent_UniverseEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_UniverseEntry,
+	jsonEncode: (self: HydrationContent_UniverseEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_UniverseEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_UniverseEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_universe_data.UniverseData?,
+}
+
+type _HydrationContent_UniverseEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_universe_data.UniverseData?,
+}
+
+export type HydrationContent_UniverseEntry = typeof(setmetatable(
+	{} :: _HydrationContent_UniverseEntryFields,
+	{} :: _HydrationContent_UniverseEntryImpl
+))
+type _HydrationContent_UniverseEntryMessage = proto.Message<
+	HydrationContent_UniverseEntry,
+	_HydrationContent_UniverseEntryPartialFields
+>
+
+type _HydrationContent_CreatorEntryImpl = {
+	__index: _HydrationContent_CreatorEntryImpl,
+	new: (fields: _HydrationContent_CreatorEntryPartialFields?) -> HydrationContent_CreatorEntry,
+	encode: (self: HydrationContent_CreatorEntry) -> buffer,
+	decode: (input: buffer) -> HydrationContent_CreatorEntry,
+	jsonEncode: (self: HydrationContent_CreatorEntry) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HydrationContent_CreatorEntry,
+	descriptor: proto.Descriptor,
+}
+
+type _HydrationContent_CreatorEntryFields = {
+	key: string,
+	value: _roblox_apppageplatform_shared_v1beta1_creator_data.CreatorData?,
+}
+
+type _HydrationContent_CreatorEntryPartialFields = {
+	key: string?,
+	value: _roblox_apppageplatform_shared_v1beta1_creator_data.CreatorData?,
+}
+
+export type HydrationContent_CreatorEntry = typeof(setmetatable(
+	{} :: _HydrationContent_CreatorEntryFields,
+	{} :: _HydrationContent_CreatorEntryImpl
+))
+type _HydrationContent_CreatorEntryMessage = proto.Message<
+	HydrationContent_CreatorEntry,
+	_HydrationContent_CreatorEntryPartialFields
+>
+
 do
 	local _HydrationContentImpl = {}
 	_HydrationContentImpl.__index = _HydrationContentImpl
@@ -71,6 +137,8 @@ do
 	function _HydrationContentImpl.new(data: _HydrationContentPartialFields?): HydrationContent
 		return setmetatable({
 			badge = if data == nil or data.badge == nil then {} else data.badge,
+			universe = if data == nil or data.universe == nil then {} else data.universe,
+			creator = if data == nil or data.creator == nil then {} else data.creator,
 		}, _HydrationContentImpl :: _HydrationContentImpl)
 	end
 
@@ -88,6 +156,34 @@ do
 				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
 				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.universe ~= nil and next(self.universe) ~= nil then
+			for key, value in self.universe do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
+			end
+		end
+
+		if self.creator ~= nil and next(self.creator) ~= nil then
+			for key, value in self.creator do
+				local mapBuffer = buffer.create(0)
+				local mapCursor = 0
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 1, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeString(mapBuffer, mapCursor, key)
+				local encoded = value:encode()
+				mapBuffer, mapCursor = proto.writeTag(mapBuffer, mapCursor, 2, proto.wireTypes.lengthDelimited)
+				mapBuffer, mapCursor = proto.writeBuffer(mapBuffer, mapCursor, encoded, buffer.len(encoded))
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
 			end
 		end
@@ -121,6 +217,30 @@ do
 					local valueDefault = _roblox_apppageplatform_shared_v1beta1_badge_data.BadgeData.new()
 
 					self.badge[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_UniverseEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = _roblox_apppageplatform_shared_v1beta1_universe_data.UniverseData.new()
+
+					self.universe[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
+
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+
+					local mapEntry = messages.HydrationContent_CreatorEntry.decode(value)
+
+					local keyDefault = ""
+					local valueDefault = _roblox_apppageplatform_shared_v1beta1_creator_data.CreatorData.new()
+
+					self.creator[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
 				end
@@ -158,6 +278,22 @@ do
 			output.badge = newOutput
 		end
 
+		if self.universe ~= nil and next(self.universe) ~= nil then
+			local newOutput = {}
+			for key, value in self.universe do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.universe = newOutput
+		end
+
+		if self.creator ~= nil and next(self.creator) ~= nil then
+			local newOutput = {}
+			for key, value in self.creator do
+				newOutput[key] = value:jsonEncode()
+			end
+			output.creator = newOutput
+		end
+
 		return output
 	end
 
@@ -171,6 +307,24 @@ do
 			end
 
 			self.badge = newOutput
+		end
+
+		if input.universe ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_universe_data.UniverseData } = {}
+			for key, value in input.universe do
+				newOutput[key] = _roblox_apppageplatform_shared_v1beta1_universe_data.UniverseData.jsonDecode(value)
+			end
+
+			self.universe = newOutput
+		end
+
+		if input.creator ~= nil then
+			local newOutput: { [string]: _roblox_apppageplatform_shared_v1beta1_creator_data.CreatorData } = {}
+			for key, value in input.creator do
+				newOutput[key] = _roblox_apppageplatform_shared_v1beta1_creator_data.CreatorData.jsonDecode(value)
+			end
+
+			self.creator = newOutput
 		end
 
 		return self
@@ -303,6 +457,244 @@ do
 	messages.HydrationContent_BadgeEntry = _HydrationContent_BadgeEntryImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.HydrationContent_BadgeEntry)
+end
+
+do
+	local _HydrationContent_UniverseEntryImpl = {}
+	_HydrationContent_UniverseEntryImpl.__index = _HydrationContent_UniverseEntryImpl
+
+	function _HydrationContent_UniverseEntryImpl.new(
+		data: _HydrationContent_UniverseEntryPartialFields?
+	): HydrationContent_UniverseEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_UniverseEntryImpl :: _HydrationContent_UniverseEntryImpl)
+	end
+
+	function _HydrationContent_UniverseEntryImpl.encode(self: HydrationContent_UniverseEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_UniverseEntryImpl.decode(input: buffer): HydrationContent_UniverseEntry
+		local self = _HydrationContent_UniverseEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = _roblox_apppageplatform_shared_v1beta1_universe_data.UniverseData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_UniverseEntryImpl.jsonEncode(self: HydrationContent_UniverseEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_UniverseEntryImpl.jsonDecode(input: { [string]: any }): HydrationContent_UniverseEntry
+		local self = _HydrationContent_UniverseEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = _roblox_apppageplatform_shared_v1beta1_universe_data.UniverseData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_HydrationContent_UniverseEntryImpl.descriptor = {
+		name = "HydrationContent_UniverseEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UniverseEntry",
+	}
+
+	messages.HydrationContent_UniverseEntry = _HydrationContent_UniverseEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_UniverseEntry)
+end
+
+do
+	local _HydrationContent_CreatorEntryImpl = {}
+	_HydrationContent_CreatorEntryImpl.__index = _HydrationContent_CreatorEntryImpl
+
+	function _HydrationContent_CreatorEntryImpl.new(
+		data: _HydrationContent_CreatorEntryPartialFields?
+	): HydrationContent_CreatorEntry
+		return setmetatable({
+			key = if data == nil or data.key == nil then "" else data.key,
+			value = if data == nil or data.value == nil then nil else data.value,
+		}, _HydrationContent_CreatorEntryImpl :: _HydrationContent_CreatorEntryImpl)
+	end
+
+	function _HydrationContent_CreatorEntryImpl.encode(self: HydrationContent_CreatorEntry): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.key ~= nil and self.key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.key)
+		end
+
+		if self.value ~= nil then
+			local encoded = self.value:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HydrationContent_CreatorEntryImpl.decode(input: buffer): HydrationContent_CreatorEntry
+		local self = _HydrationContent_CreatorEntryImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.key = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.value = _roblox_apppageplatform_shared_v1beta1_creator_data.CreatorData.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HydrationContent_CreatorEntryImpl.jsonEncode(self: HydrationContent_CreatorEntry): any
+		local output = {}
+
+		if self.key ~= nil and self.key ~= "" then
+			output.key = self.key
+		end
+
+		if self.value ~= nil then
+			output.value = self.value:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _HydrationContent_CreatorEntryImpl.jsonDecode(input: { [string]: any }): HydrationContent_CreatorEntry
+		local self = _HydrationContent_CreatorEntryImpl.new()
+
+		if input.key ~= nil then
+			self.key = input.key
+		end
+
+		if input.value ~= nil then
+			self.value = _roblox_apppageplatform_shared_v1beta1_creator_data.CreatorData.jsonDecode(input.value)
+		end
+
+		return self
+	end
+
+	_HydrationContent_CreatorEntryImpl.descriptor = {
+		name = "HydrationContent_CreatorEntry",
+		fullName = "roblox.apppageplatform.shared.v1beta1.CreatorEntry",
+	}
+
+	messages.HydrationContent_CreatorEntry = _HydrationContent_CreatorEntryImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HydrationContent_CreatorEntry)
 end
 
 return {

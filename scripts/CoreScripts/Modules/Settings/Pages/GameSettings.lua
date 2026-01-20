@@ -64,15 +64,10 @@ local GetFFlagAlwaysShowVRToggle = require(RobloxGui.Modules.Flags.GetFFlagAlway
 local GetFFlagEnableCrossExpVoiceVolumeIXPCheck = SharedFlags.GetFFlagEnableCrossExpVoiceVolumeIXPCheck
 local GetFFlagDebounceConnectDisconnectSelector = require(RobloxGui.Modules.Settings.Flags.GetFFlagDebounceConnectDisconnectSelector)
 local GetFIntDebounceDisconnectButtonDelay = require(RobloxGui.Modules.Flags.GetFIntDebounceDisconnectButtonDelay)
-local FFlagInExperienceMenuReorderFirstVariant =
-	require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant)
-local FFlagOverrideInExperienceMenuReorderFirstVariant =
-	require(RobloxGui.Modules.Settings.Flags.FFlagOverrideInExperienceMenuReorderFirstVariant)
 local FFlagMicroprofileGameSettingsFix = game:DefineFastFlag("MicroprofileGameSettingsFix", false)
 local GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice = SharedFlags.GetFFlagFixSeamlessVoiceIntegrationWithPrivateVoice
 local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatClientRewriteMasterLua
 local GetFFlagVoiceChatClientRewriteDisableVCSDevice = SharedFlags.GetFFlagVoiceChatClientRewriteDisableVCSDevice
-local GetFFlagAudioDevicesCanDefaultToOSLua = SharedFlags.GetFFlagAudioDevicesCanDefaultToOSLua
 local FFlagIEMFocusNavToButtons = SharedFlags.FFlagIEMFocusNavToButtons
 local FFlagShowAntiHarassmentSettings = game:DefineFastFlag("ShowAntiHarassmentSettings", false)
 local GetFFlagEnablePlayerNamesEnabledSetting = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnablePlayerNamesEnabledSetting)
@@ -92,7 +87,7 @@ local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslato
 local CrossExpVoiceIXPManager = require(CorePackages.Workspace.Packages.CrossExperienceVoice).IXPManager.default
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 
-local GameSettingsConstants
+local GameSettingsConstants = require(RobloxGui.Modules.Settings.Resources.GameSettingsConstants)
 
 local hasPartyVoiceVolume = GetFFlagEnableCrossExpVoiceVolumeIXPCheck()
 	and CrossExpVoiceIXPManager
@@ -200,78 +195,7 @@ local VOICE_DISCONNECT_FRAME_KEY = "VoiceDisconnectFrame"
 local VOICE_CONNECT_DISCONNECT_SELECTOR_KEY = "VoiceConnectDisconnectSelector"
 
 ----------- LAYOUT ORDER ------------
-local SETTINGS_MENU_LAYOUT_ORDER
-if FFlagInExperienceMenuReorderFirstVariant or FFlagOverrideInExperienceMenuReorderFirstVariant then
-	GameSettingsConstants = require(RobloxGui.Modules.Settings.Resources.GameSettingsConstants)
-	SETTINGS_MENU_LAYOUT_ORDER = GameSettingsConstants.SETTINGS_MENU_LAYOUT_ORDER
-else
-	-- Recall that layout order values are relative
-	SETTINGS_MENU_LAYOUT_ORDER = {
-		-- Overscan Entry point, console only
-		["OverscanAdjustButton"] = 1,
-		-- Movement and Camera Mode
-		["ShiftLockFrame"] = 10,
-		["CameraModeFrame"] = 11,
-		["MovementModeFrame"] = 12,
-		["GamepadSensitivityFrame"] = 13,
-		-- Voice Connect Disconnect
-		[VOICE_CONNECT_DISCONNECT_SELECTOR_KEY] = 17,
-		-- TODO: remove these two entries once VoiceConnectDisconnectSelector is fully rolled out
-		[VOICE_CONNECT_FRAME_KEY] = 18,
-		[VOICE_DISCONNECT_FRAME_KEY] = 19,
-		-- Experience Language
-		["LanguageSelectorFrame"] = 20,
-		-- Feedback Mode
-		["FeedbackModeButton"] = 30,
-		-- Chat Translation
-		["ChatTranslationFrame"] = 40,
-		["ChatLanguageSelectorFrame"] = 41,
-		["ChatTranslationToggleFrame"] = 42,
-		-- Camera Sensitivity
-		["MouseAdvancedFrame"] = 50,
-		-- VR Settings
-		["VRComfortSettingFrame"] = if isInExperienceUIVREnabled then 54 else nil,
-		["VRVignetteEnabledFrame"] = if isInExperienceUIVREnabled then 55 else nil,
-		["VRSteppedRotationEnabledFrame"] = if isInExperienceUIVREnabled then 56 else nil,
-		["VRThirdPersonFixedCamEnabledFrame"] = if isInExperienceUIVREnabled then 57 else nil,
-		["VRSafetyBubbleModeFrame"] = if isInExperienceUIVREnabled then 58 else nil,
-		-- Input/Output and Volume
-		["DeviceFrameInput"] = 60,
-		["DeviceFrameOutput"] = 61,
-		["VolumeFrame"] = 62,
-		["HapticsFrame"] = if hasPartyVoiceVolume then 64 else 63,
-		-- Graphics
-		["FullScreenFrame"] = 70,
-		["GraphicsEnablerFrame"] = 71,
-		["GraphicsQualityFrame"] = 72,
-		["ReducedMotionFrame"] = 73,
-		["PreferredTransparencyFrame"] = 74,
-		["PreferredTextSizeFrame"] = 75,
-		["UiNavigationKeyBindEnabledFrame"] = 76,
-		-- Performance
-		["PerformanceStatsFrame"] = 80,
-		["MicroProfilerFrame"] = 81,
-		-- More camera
-		["CameraInvertedFrame"] = 90,
-		[CAMERA_DEVICE_FRAME_KEY] = 91,
-		-- VR, Dev Console, Special
-		["VREnabledFrame"] = 100,
-		["DeveloperConsoleButton"] = 101,
-		-- AntiHarassment Settings
-		["PlayerNamesEnabledFrame"] = if GetFFlagEnablePlayerNamesEnabledSetting() then 105 else nil,
-		["BadgeVisibilityFrame"] = if FFlagBadgeVisibilitySettingEnabled then 106 else nil,
-		["UiToggleRow"] = 200,
-		["UiToggleRowCustom"] = 200, -- Replaces "UiToggleRow" when FFlagUserShowGuiHideToggles == true
-		["UiToggleRowBillboards"] = 201,
-		["UiToggleRowNameplates"] = 202,
-		["FreecamToggleRow"] = 203,
-		["InformationFrame"] = 999, -- Reserved to be last
-	}
-
-	if hasPartyVoiceVolume then
-		SETTINGS_MENU_LAYOUT_ORDER["PartyVoiceVolumeFrame"] = 63
-	end
-end
+local SETTINGS_MENU_LAYOUT_ORDER = GameSettingsConstants.SETTINGS_MENU_LAYOUT_ORDER
 
 -------- CHAT TRANSLATION ----------
 local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
@@ -625,11 +549,7 @@ local function Initialize()
 						nil,
 						RobloxTranslator:FormatByKey("Feature.SettingsHub.GameSettings.MaximumFramerate.Description")
 					)
-					if FFlagInExperienceMenuReorderFirstVariant or FFlagOverrideInExperienceMenuReorderFirstVariant then
-						this.FramerateCapFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER.FramerateCap
-					else
-						this.FramerateCapFrame.LayoutOrder = 12
-					end
+					this.FramerateCapFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER.FramerateCap
 
 					this.FramerateCapMode.IndexChanged:Connect(function(newIndex)
 						local oldValue = GameSettings.FramerateCap
@@ -3232,7 +3152,7 @@ local function Initialize()
 
 		if GetFFlagVoiceChatClientRewriteDisableVCSDevice() then
 			if success and isValidDeviceList(deviceNames, deviceGuids, selectedIndex) then
-				if GetFFlagAudioDevicesCanDefaultToOSLua() and deviceGuids[1] == "" then
+				if deviceGuids[1] == "" then
 					deviceNames[1] = locales:Format("CoreScripts.InGameMenu.GameSettings.Default") .. " (" .. deviceNames[1] .. ")"
 				end
 
@@ -3249,7 +3169,7 @@ local function Initialize()
 			end
 		else
 			if success and isValidDeviceList(deviceNames, deviceGuids, selectedIndex) then
-				if GetFFlagAudioDevicesCanDefaultToOSLua() and deviceGuids[1] == "" then
+				if deviceGuids[1] == "" then
 					deviceNames[1] = locales:Format("CoreScripts.InGameMenu.GameSettings.Default") .. " (" .. deviceNames[1] .. ")"
 				end
 				
@@ -3298,7 +3218,7 @@ local function Initialize()
 				success
 				and isValidDeviceList(deviceNames, deviceGuids, selectedIndex)
 			then
-				if GetFFlagAudioDevicesCanDefaultToOSLua() and deviceGuids[1] == "" then
+				if deviceGuids[1] == "" then
 					deviceNames[1] = locales:Format("CoreScripts.InGameMenu.GameSettings.Default") .. " (" .. deviceNames[1] .. ")"
 				end
 
@@ -3332,7 +3252,7 @@ local function Initialize()
 				and isValidDeviceList(deviceNames, deviceGuids, selectedIndex)
 				and isValidDeviceList(VCSDeviceNames, VCSDeviceGuids, VCSIndex)
 			then
-				if GetFFlagAudioDevicesCanDefaultToOSLua() and deviceGuids[1] == "" then
+				if deviceGuids[1] == "" then
 					deviceNames[1] = locales:Format("CoreScripts.InGameMenu.GameSettings.Default") .. " (" .. deviceNames[1] .. ")"
 				end
 

@@ -19,14 +19,10 @@ local UIBlox = require(CorePackages.Packages.UIBlox)
 
 local Foundation = require(CorePackages.Packages.Foundation)
 local useCursor = Foundation.Hooks.useCursor
-local Badge = Foundation.Badge
-local BadgeVariant = Foundation.Enums.BadgeVariant
-local BadgeSize = Foundation.Enums.BadgeSize
 local FoundationFlags = Foundation.Utility.Flags
 local StatusIndicator = Foundation.StatusIndicator
 local StatusIndicatorVariant = Foundation.Enums.StatusIndicatorVariant
 local MAX_BADGE_VALUE = 99
-local MAX_BADGE_TEXT = "99"
 
 local Interactable = UIBlox.Core.Control.Interactable
 local ControlState = UIBlox.Core.Control.Enum.ControlState
@@ -84,7 +80,6 @@ local MenuIconContext = if FFlagEnableConsoleExpControls
 
 local FFlagEnableUnibarFtuxTooltips = SharedFlags.FFlagEnableUnibarFtuxTooltips
 local GetFFlagSimpleChatUnreadMessageCount = SharedFlags.GetFFlagSimpleChatUnreadMessageCount
-local FFlagMigrateBadgeToStatusIndicatorInExperience = SharedFlags.FFlagMigrateBadgeToStatusIndicatorInExperience
 local FFlagUseBindingForUnreadChat = game:DefineFastFlag("UseBindingForUnreadChat", false)
 
 type TooltipState = {
@@ -135,7 +130,7 @@ function NotificationBadge(props: IconHostProps): any?
 	local shouldShowBadge, setShouldShowBadge
 	local hideNotificationCountWhileOpen = false
 
-	if FFlagUseBindingForUnreadChat and FFlagMigrateBadgeToStatusIndicatorInExperience then
+	if FFlagUseBindingForUnreadChat then
 		local notification = props.integration.integration and props.integration.integration.notification or nil
 		notificationData, setNotificationData = React.useBinding(notification and notification:get().value or 0)
 		shouldShowBadge, setShouldShowBadge = React.useState(false)
@@ -171,17 +166,6 @@ function NotificationBadge(props: IconHostProps): any?
 		end
 	end
 
-	local notificationBadgeText -- remove with FFlagMigrateBadgeToStatusIndicator
-	if not FFlagMigrateBadgeToStatusIndicatorInExperience then
-		if notificationCount > 0 then
-			if notificationCount > MAX_BADGE_VALUE then
-				notificationBadgeText = MAX_BADGE_TEXT
-			else
-				notificationBadgeText = tostring(notificationCount)
-			end
-		end
-	end
-
 	local tokens
 	if GetFFlagSimpleChatUnreadMessageCount() and props.disableBadgeNumber then
 		tokens = useTokens()
@@ -201,9 +185,7 @@ function NotificationBadge(props: IconHostProps): any?
 		iconBadgeOffsetY = Constants.ICON_BADGE_OFFSET_Y
 	end
 
-	local displayBadge = if FFlagUseBindingForUnreadChat and FFlagMigrateBadgeToStatusIndicatorInExperience
-		then shouldShowBadge
-		else notificationCount > 0
+	local displayBadge = if FFlagUseBindingForUnreadChat then shouldShowBadge else notificationCount > 0
 
 	return React.createElement("Frame", {
 		BackgroundTransparency = 1,
@@ -235,7 +217,7 @@ function NotificationBadge(props: IconHostProps): any?
 					tag = "anchor-top-right radius-circle size-200 stroke-thicker",
 					ZIndex = 2,
 				})
-				elseif FFlagMigrateBadgeToStatusIndicatorInExperience then React.createElement(
+				else React.createElement(
 					StatusIndicator,
 					{
 						value = if FFlagUseBindingForUnreadChat
@@ -250,14 +232,6 @@ function NotificationBadge(props: IconHostProps): any?
 						Position = UDim2.new(0, iconBadgeOffsetX, 0, iconBadgeOffsetY),
 					} :: any
 				)
-				elseif notificationBadgeText then React.createElement(Badge, {
-					AnchorPoint = Vector2.new(0, 0),
-					Position = UDim2.new(0, iconBadgeOffsetX, 0, iconBadgeOffsetY),
-					variant = BadgeVariant.Primary,
-					size = BadgeSize.Small :: any,
-					text = notificationBadgeText,
-				})
-				else nil
 			else nil,
 	})
 end

@@ -11,7 +11,6 @@ local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.Ro
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
-local FFlagDeroduxVRMenuIcon = game:DefineFastFlag("DeroduxVRMenuIcon", false)
 
 type Props = {
 	showBadgeOver12: boolean?,
@@ -22,7 +21,7 @@ type Props = {
 
 local function MenuIconWrapper(props: any)
 	local keepOutAreasStore 
-	if FFlagTopBarSignalizeKeepOutAreas and FFlagDeroduxVRMenuIcon then 
+	if FFlagTopBarSignalizeKeepOutAreas then 
 		keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
 	end
 
@@ -34,7 +33,7 @@ local function MenuIconWrapper(props: any)
 		layout = props.layout,
 		iconScale = iconScale,
 		showBadgeOver12 = props.showBadgeOver12,
-		onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas and FFlagDeroduxVRMenuIcon then keepOutAreasStore.setKeepOutArea else nil,
+		onAreaChanged = if FFlagTopBarSignalizeKeepOutAreas then keepOutAreasStore.setKeepOutArea else nil,
 	})
 end
 

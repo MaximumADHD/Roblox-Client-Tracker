@@ -57,7 +57,7 @@ end
 local value = DeveloperConsoleValue()
 local available = DeveloperConsoleAvailability()
 
-local DeveloperConsoleConfig = {
+local DeveloperConsoleConfig: SettingsServiceLib.TextButtonRegisterConfig = {
     field_type = FieldType.TextButton,
     id = "developer-console",
     onActivated = value,
@@ -66,6 +66,6 @@ local DeveloperConsoleConfig = {
     layoutOrder = SettingsLayoutOrder.DeveloperConsoleButton,
     alreadyLocalized = false,
     availability = available,
-} :: SettingsServiceLib.TextButtonRegisterConfig
+}
 
 return DeveloperConsoleConfig

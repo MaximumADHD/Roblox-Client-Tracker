@@ -58,7 +58,7 @@ PROTO_2:
   GETTABLEKS R1 R0 K0 ["props"]
   GETTABLEKS R2 R1 K1 ["Localization"]
   GETUPVAL R3 0
-  JUMPIFNOT R3 [+377]
+  JUMPIFNOT R3 [+385]
   NEWTABLE R3 0 3
   LOADK R6 K2 ["Security"]
   LOADK R7 K3 ["SecretNameLabel"]
@@ -211,8 +211,15 @@ PROTO_2:
   GETTABLEKS R21 R7 K18 ["fontStyle"]
   GETTABLEKS R20 R21 K76 ["Small"]
   SETTABLEKS R20 R19 K44 ["Style"]
+  GETUPVAL R21 10
+  JUMPIFNOT R21 [+6]
   LOADK R22 K2 ["Security"]
-  LOADK R23 K77 ["LocalSecretsDesc"]
+  LOADK R23 K77 ["LocalSecretsDescExp"]
+  NAMECALL R20 R2 K4 ["getText"]
+  CALL R20 3 1
+  JUMP [+5]
+  LOADK R22 K2 ["Security"]
+  LOADK R23 K78 ["LocalSecretsDesc"]
   NAMECALL R20 R2 K4 ["getText"]
   CALL R20 3 1
   SETTABLEKS R20 R19 K60 ["Text"]
@@ -226,11 +233,11 @@ PROTO_2:
   JUMP [+6]
   GETTABLEKS R22 R7 K18 ["fontStyle"]
   GETTABLEKS R21 R22 K76 ["Small"]
-  GETTABLEKS R20 R21 K78 ["TextColor3"]
+  GETTABLEKS R20 R21 K79 ["TextColor3"]
   SETTABLEKS R20 R19 K20 ["TextColor"]
   LOADB R20 1
   SETTABLEKS R20 R19 K73 ["TextWrapped"]
-  GETIMPORT R20 K80 [Enum.TextXAlignment.Left]
+  GETIMPORT R20 K81 [Enum.TextXAlignment.Left]
   SETTABLEKS R20 R19 K74 ["TextXAlignment"]
   CALL R17 2 1
   SETTABLEKS R17 R16 K53 ["Description"]
@@ -240,65 +247,65 @@ PROTO_2:
   JUMPIFNOT R13 [+75]
   GETUPVAL R14 3
   GETTABLEKS R13 R14 K28 ["createElement"]
-  GETUPVAL R14 10
-  DUPTABLE R15 K86 [{"LayoutOrder", "Headers", "Data", "MenuItems", "OnItemClicked", "TableHeight"}]
+  GETUPVAL R14 11
+  DUPTABLE R15 K87 [{"LayoutOrder", "Headers", "Data", "MenuItems", "OnItemClicked", "TableHeight"}]
   NAMECALL R16 R5 K46 ["getNextOrder"]
   CALL R16 1 1
   SETTABLEKS R16 R15 K31 ["LayoutOrder"]
-  SETTABLEKS R3 R15 K81 ["Headers"]
-  GETUPVAL R17 11
+  SETTABLEKS R3 R15 K82 ["Headers"]
+  GETUPVAL R17 12
   JUMPIFNOT R17 [+3]
   GETTABLEKS R16 R1 K8 ["SecretsAsTableRows"]
   JUMP [+16]
   GETUPVAL R17 7
-  GETTABLEKS R16 R17 K87 ["maskValueColumn"]
+  GETTABLEKS R16 R17 K88 ["maskValueColumn"]
   GETTABLEKS R17 R1 K8 ["SecretsAsTableRows"]
   LOADK R20 K2 ["Security"]
-  LOADK R21 K88 ["TextSecretValueHidden"]
+  LOADK R21 K89 ["TextSecretValueHidden"]
   NAMECALL R18 R2 K4 ["getText"]
   CALL R18 3 1
   LOADK R21 K2 ["Security"]
-  LOADK R22 K89 ["TextSecretValueUpdated"]
+  LOADK R22 K90 ["TextSecretValueUpdated"]
   NAMECALL R19 R2 K4 ["getText"]
   CALL R19 3 -1
   CALL R16 -1 1
-  SETTABLEKS R16 R15 K82 ["Data"]
+  SETTABLEKS R16 R15 K83 ["Data"]
   NEWTABLE R16 0 2
-  DUPTABLE R17 K91 [{"Key", "Text"}]
-  GETUPVAL R18 12
+  DUPTABLE R17 K92 [{"Key", "Text"}]
+  GETUPVAL R18 13
   CALL R18 0 1
-  SETTABLEKS R18 R17 K90 ["Key"]
+  SETTABLEKS R18 R17 K91 ["Key"]
   LOADK R20 K47 ["General"]
-  LOADK R21 K92 ["ButtonEdit"]
+  LOADK R21 K93 ["ButtonEdit"]
   NAMECALL R18 R2 K4 ["getText"]
   CALL R18 3 1
   SETTABLEKS R18 R17 K60 ["Text"]
-  DUPTABLE R18 K91 [{"Key", "Text"}]
-  GETUPVAL R19 13
+  DUPTABLE R18 K92 [{"Key", "Text"}]
+  GETUPVAL R19 14
   CALL R19 0 1
-  SETTABLEKS R19 R18 K90 ["Key"]
+  SETTABLEKS R19 R18 K91 ["Key"]
   LOADK R21 K47 ["General"]
-  LOADK R22 K93 ["ButtonDelete"]
+  LOADK R22 K94 ["ButtonDelete"]
   NAMECALL R19 R2 K4 ["getText"]
   CALL R19 3 1
   SETTABLEKS R19 R18 K60 ["Text"]
   SETLIST R16 R17 2 [1]
-  SETTABLEKS R16 R15 K83 ["MenuItems"]
+  SETTABLEKS R16 R15 K84 ["MenuItems"]
   NEWCLOSURE R16 P1
-  CAPTURE UPVAL U12
-  CAPTURE VAL R1
   CAPTURE UPVAL U13
+  CAPTURE VAL R1
+  CAPTURE UPVAL U14
   CAPTURE UPVAL U7
-  SETTABLEKS R16 R15 K84 ["OnItemClicked"]
-  SETTABLEKS R6 R15 K85 ["TableHeight"]
+  SETTABLEKS R16 R15 K85 ["OnItemClicked"]
+  SETTABLEKS R6 R15 K86 ["TableHeight"]
   CALL R13 2 1
   SETTABLEKS R13 R12 K40 ["SecretsTable"]
   MOVE R13 R4
   JUMPIFNOT R13 [+23]
   GETUPVAL R14 3
   GETTABLEKS R13 R14 K28 ["createElement"]
-  LOADK R14 K94 ["Frame"]
-  DUPTABLE R15 K95 [{"LayoutOrder", "Size", "BackgroundTransparency"}]
+  LOADK R14 K95 ["Frame"]
+  DUPTABLE R15 K96 [{"LayoutOrder", "Size", "BackgroundTransparency"}]
   NAMECALL R16 R5 K46 ["getNextOrder"]
   CALL R16 1 1
   SETTABLEKS R16 R15 K31 ["LayoutOrder"]
@@ -315,8 +322,8 @@ PROTO_2:
   SETTABLEKS R13 R12 K41 ["Spacer"]
   GETUPVAL R14 3
   GETTABLEKS R13 R14 K28 ["createElement"]
-  GETUPVAL R14 14
-  DUPTABLE R15 K96 [{"LayoutOrder"}]
+  GETUPVAL R14 15
+  DUPTABLE R15 K97 [{"LayoutOrder"}]
   NAMECALL R16 R5 K46 ["getNextOrder"]
   CALL R16 1 1
   SETTABLEKS R16 R15 K31 ["LayoutOrder"]
@@ -327,7 +334,7 @@ PROTO_2:
   GETUPVAL R4 3
   GETTABLEKS R3 R4 K28 ["createElement"]
   GETUPVAL R4 5
-  DUPTABLE R5 K97 [{"LayoutOrder", "Title"}]
+  DUPTABLE R5 K98 [{"LayoutOrder", "Title"}]
   GETTABLEKS R6 R1 K31 ["LayoutOrder"]
   SETTABLEKS R6 R5 K31 ["LayoutOrder"]
   LOADK R8 K47 ["General"]
@@ -335,26 +342,33 @@ PROTO_2:
   NAMECALL R6 R2 K4 ["getText"]
   CALL R6 3 1
   SETTABLEKS R6 R5 K19 ["Title"]
-  DUPTABLE R6 K99 [{"TextBox"}]
+  DUPTABLE R6 K100 [{"TextBox"}]
   GETUPVAL R8 3
   GETTABLEKS R7 R8 K28 ["createElement"]
-  GETUPVAL R8 15
-  DUPTABLE R9 K104 [{"Height", "MultiLine", "OnTextChanged", "Text", "BottomText"}]
+  GETUPVAL R8 16
+  DUPTABLE R9 K105 [{"Height", "MultiLine", "OnTextChanged", "Text", "BottomText"}]
   LOADN R10 130
-  SETTABLEKS R10 R9 K100 ["Height"]
+  SETTABLEKS R10 R9 K101 ["Height"]
   LOADB R10 1
-  SETTABLEKS R10 R9 K101 ["MultiLine"]
-  GETTABLEKS R10 R1 K105 ["OnChanged"]
-  SETTABLEKS R10 R9 K102 ["OnTextChanged"]
-  GETTABLEKS R10 R1 K106 ["Secrets"]
+  SETTABLEKS R10 R9 K102 ["MultiLine"]
+  GETTABLEKS R10 R1 K106 ["OnChanged"]
+  SETTABLEKS R10 R9 K103 ["OnTextChanged"]
+  GETTABLEKS R10 R1 K107 ["Secrets"]
   SETTABLEKS R10 R9 K60 ["Text"]
+  GETUPVAL R11 10
+  JUMPIFNOT R11 [+6]
   LOADK R12 K2 ["Security"]
-  LOADK R13 K77 ["LocalSecretsDesc"]
+  LOADK R13 K77 ["LocalSecretsDescExp"]
   NAMECALL R10 R2 K4 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K103 ["BottomText"]
+  JUMP [+5]
+  LOADK R12 K2 ["Security"]
+  LOADK R13 K78 ["LocalSecretsDesc"]
+  NAMECALL R10 R2 K4 ["getText"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K104 ["BottomText"]
   CALL R7 2 1
-  SETTABLEKS R7 R6 K98 ["TextBox"]
+  SETTABLEKS R7 R6 K99 ["TextBox"]
   CALL R3 3 -1
   RETURN R3 -1
 
@@ -423,7 +437,13 @@ MAIN:
   GETTABLEKS R23 R24 K33 ["getFFlagShowSecretValues"]
   CALL R22 1 1
   CALL R22 0 1
-  DUPCLOSURE R23 K34 [PROTO_2]
+  GETIMPORT R23 K4 [require]
+  GETTABLEKS R26 R0 K8 ["Src"]
+  GETTABLEKS R25 R26 K31 ["Flags"]
+  GETTABLEKS R24 R25 K34 ["getFFlagGameSettingsGameToExperience"]
+  CALL R23 1 1
+  CALL R23 0 1
+  DUPCLOSURE R24 K35 [PROTO_2]
   CAPTURE VAL R21
   CAPTURE VAL R14
   CAPTURE VAL R2
@@ -434,21 +454,22 @@ MAIN:
   CAPTURE VAL R20
   CAPTURE VAL R15
   CAPTURE VAL R11
+  CAPTURE VAL R23
   CAPTURE VAL R16
   CAPTURE VAL R22
   CAPTURE VAL R4
   CAPTURE VAL R5
   CAPTURE VAL R10
   CAPTURE VAL R12
-  SETTABLEKS R23 R19 K35 ["render"]
-  MOVE R23 R18
-  DUPTABLE R24 K38 [{"Localization", "Stylizer"}]
-  GETTABLEKS R25 R17 K36 ["Localization"]
-  SETTABLEKS R25 R24 K36 ["Localization"]
-  GETTABLEKS R25 R17 K37 ["Stylizer"]
-  SETTABLEKS R25 R24 K37 ["Stylizer"]
-  CALL R23 1 1
-  MOVE R24 R19
-  CALL R23 1 1
-  MOVE R19 R23
+  SETTABLEKS R24 R19 K36 ["render"]
+  MOVE R24 R18
+  DUPTABLE R25 K39 [{"Localization", "Stylizer"}]
+  GETTABLEKS R26 R17 K37 ["Localization"]
+  SETTABLEKS R26 R25 K37 ["Localization"]
+  GETTABLEKS R26 R17 K38 ["Stylizer"]
+  SETTABLEKS R26 R25 K38 ["Stylizer"]
+  CALL R24 1 1
+  MOVE R25 R19
+  CALL R24 1 1
+  MOVE R19 R24
   RETURN R19 1

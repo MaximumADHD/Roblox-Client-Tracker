@@ -13,6 +13,8 @@ local CorePackages = game:GetService("CorePackages")
 local Modules = RobloxGui.Modules
 local Signals = require(CorePackages.Packages.Signals)
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
+local CoreScriptsCommon = require(CorePackages.Workspace.Packages.CoreScriptsCommon)
+local SettingsShowSignal = CoreScriptsCommon.SettingsShowSignal
 
 local InExperienceAppChatModal = require(CorePackages.Workspace.Packages.AppChat).App.InExperienceAppChatModal
 local FFlagMountCoreGuiBackpack = require(Modules.Flags.FFlagMountCoreGuiBackpack)
@@ -24,7 +26,7 @@ local InExperienceUIVRIXP =
 local FFlagTopBarSignalizeSetCores = CoreGuiCommon.Flags.FFlagTopBarSignalizeSetCores
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
-
+local FFlagEnableHotbarHide = game:DefineFastFlag("EnableHotbarHide", false)
 
 local BackpackScript = {}
 BackpackScript.OpenClose = nil -- Function to toggle open/close
@@ -231,15 +233,16 @@ local function UseGazeSelection()
 	return false -- disabled in new VR system
 end
 
-local function AdjustHotbarFrames()
+local function AdjustHotbarFrames(forceClose)
 	local inventoryOpen = InventoryFrame.Visible -- (Show all)
 	local visualTotal = (inventoryOpen) and NumberOfHotbarSlots or FullHotbarSlots
 	local visualIndex = 0
-	local hotbarIsVisible = (visualTotal >= 1)
+	local hotbarIsVisible = if FFlagEnableHotbarHide then (visualTotal >= 1) and not forceClose else (visualTotal >= 1)
 
 	for i = 1, NumberOfHotbarSlots do
 		local slot = Slots[i]
-		if slot.Tool or inventoryOpen then
+		local showTool = if FFlagEnableHotbarHide then (slot.Tool and not forceClose) else slot.Tool
+		if showTool or inventoryOpen then
 			visualIndex = visualIndex + 1
 			slot:Readjust(visualIndex, visualTotal)
 			slot.Frame.Visible = true
@@ -1883,6 +1886,18 @@ StarterGui.CoreGuiChangedSignal:connect(OnCoreGuiChanged)
 local backpackType, healthType = Enum.CoreGuiType.Backpack, Enum.CoreGuiType.Health
 OnCoreGuiChanged(backpackType, StarterGui:GetCoreGuiEnabled(backpackType))
 OnCoreGuiChanged(healthType, StarterGui:GetCoreGuiEnabled(healthType))
+
+if FFlagEnableHotbarHide then
+	SettingsShowSignal:connect(function(isOpen)
+		if isOpen then
+			if BackpackScript.IsHotbarVisible then
+				AdjustHotbarFrames(true)
+			end
+		else
+			AdjustHotbarFrames(false)
+		end
+	end)
+end
 
 GuiService.MenuOpened:Connect(function()
 	if

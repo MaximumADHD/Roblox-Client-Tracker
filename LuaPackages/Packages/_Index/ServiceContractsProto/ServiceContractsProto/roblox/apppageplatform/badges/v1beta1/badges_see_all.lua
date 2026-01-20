@@ -92,6 +92,7 @@ type _BadgesGridPageEntryFields = {
 	badges: { BadgesGridPageEntry_BadgeInputData },
 	collection_id: string,
 	collection_position: string,
+	universe_id: string,
 }
 
 type _BadgesGridPageEntryPartialFields = {
@@ -99,6 +100,7 @@ type _BadgesGridPageEntryPartialFields = {
 	badges: { BadgesGridPageEntry_BadgeInputData }?,
 	collection_id: string?,
 	collection_position: string?,
+	universe_id: string?,
 }
 
 export type BadgesGridPageEntry = typeof(setmetatable({} :: _BadgesGridPageEntryFields, {} :: _BadgesGridPageEntryImpl))
@@ -560,6 +562,7 @@ do
 			collection_position = if data == nil or data.collection_position == nil
 				then ""
 				else data.collection_position,
+			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
 		}, _BadgesGridPageEntryImpl :: _BadgesGridPageEntryImpl)
 	end
 
@@ -588,6 +591,11 @@ do
 		if self.collection_position ~= nil and self.collection_position ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.collection_position)
+		end
+
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.universe_id)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -628,6 +636,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.collection_position = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = buffer.tostring(value)
 					continue
 				end
 
@@ -676,6 +689,10 @@ do
 			output.collectionPosition = self.collection_position
 		end
 
+		if self.universe_id ~= nil and self.universe_id ~= "" then
+			output.universeId = self.universe_id
+		end
+
 		return output
 	end
 
@@ -713,6 +730,14 @@ do
 
 		if input.collectionPosition ~= nil then
 			self.collection_position = input.collectionPosition
+		end
+
+		if input.universe_id ~= nil then
+			self.universe_id = input.universe_id
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = input.universeId
 		end
 
 		return self

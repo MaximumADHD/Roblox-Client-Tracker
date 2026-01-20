@@ -20,6 +20,7 @@ local FFlagReplacePlayerIconRoduxWithSignal = SharedFlags.FFlagReplacePlayerIcon
 local PlayerIconInfoStore = if FFlagReplacePlayerIconRoduxWithSignal then PlayerIconInfoStorePackage.PlayerIconInfoStore else nil::never
 
 local FFlagPlayerListFixLeaderstatsStacking = SharedFlags.FFlagPlayerListFixLeaderstatsStacking
+local FFlagPlayerListUseFocusNavHook = PlayerListPackage.Flags.FFlagPlayerListUseFocusNavHook
 
 type PlayerEntryViewProps = PlayerEntryView.PlayerEntryViewProps
 
@@ -30,6 +31,10 @@ type PlayerIconInfoProps = PlayerIconInfoStorePackage.PlayerIconInfo
 type PlayerRelationshipProps = LeaderboardStore.PlayerRelationshipProps
 type GameStatList = LeaderboardStore.GameStatList
 type StatList = LeaderboardStore.StatList
+
+type RegisterPlayerInstance = PlayerListPackage.RegisterPlayerInstance
+type UnregisterPlayerInstance = PlayerListPackage.UnregisterPlayerInstance
+type SetSelectedPlayerId = PlayerListPackage.SetSelectedPlayerId
 
 type PlayerEntryContainerProps = {
 	-- Layout options
@@ -54,11 +59,13 @@ type PlayerEntryContainerProps = {
 	-- Focus nav data
 	prevFocusedEntry: React.RefObject<GuiObject?>?,
 	destroyedFocusedPlayerId: React.RefObject<number?>?,
-	
+	registerPlayerInstance: RegisterPlayerInstance?,
+	unregisterPlayerInstance: UnregisterPlayerInstance?,
+	setSelectedPlayerId: SetSelectedPlayerId?,
+
 	-- Device type
 	isSmallTouchDevice: boolean?,
 	isDirectionalPreferred: boolean?,
-
 }
 
 local function PlayerEntryContainer(props: PlayerEntryContainerProps)
@@ -97,6 +104,9 @@ local function PlayerEntryContainer(props: PlayerEntryContainerProps)
 				setDropDownPlayerDimensionY = props.setDropDownPlayerDimensionY,
 				prevFocusedEntry = props.prevFocusedEntry,
 				destroyedFocusedPlayerId = props.destroyedFocusedPlayerId,
+				registerPlayerInstance = if FFlagPlayerListUseFocusNavHook then props.registerPlayerInstance else nil,
+				unregisterPlayerInstance = if FFlagPlayerListUseFocusNavHook then props.unregisterPlayerInstance else nil,
+				setSelectedPlayerId = if FFlagPlayerListUseFocusNavHook then props.setSelectedPlayerId else nil,
 				isSmallTouchDevice = props.isSmallTouchDevice,
 				isDirectionalPreferred = props.isDirectionalPreferred,
 			})

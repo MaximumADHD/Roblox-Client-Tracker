@@ -12,7 +12,6 @@ local t = require(Packages.t)
 local Cryo = require(Packages.Cryo)
 local Foundation = require(Packages.Foundation)
 
-local Badge = require(App.Indicator.Badge)
 local BadgeStates = require(App.Indicator.Enum.BadgeStates)
 local IconSize = require(App.ImageSet.Enum.IconSize)
 local getIconSize = require(App.ImageSet.getIconSize)
@@ -34,7 +33,6 @@ local useCursorByType = require(App.SelectionCursor.useCursorByType)
 local GetTextSize = require(UIBlox.Core.Text.GetTextSize)
 
 local migrateBadgeVariant = require(UIBlox.Utility.migrateBadgeVariant)
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local FULLY_TRANSPARENT = 1
 local LIST_PADDING = UDim.new(0, 12)
@@ -298,16 +296,11 @@ function MenuTile:render()
 						PaddingRight = PADDING_PADDING,
 						PaddingTop = PADDING_PADDING,
 					}),
-					Badge = if UIBloxConfig.useFoundationStatusIndicator
-						then Roact.createElement(StatusIndicator, {
-							value = tonumber(badgeValue),
-							max = if tonumber(badgeValue) then 99 else nil,
-							variant = migrateBadgeVariant(self.props.badgeVariant),
-						})
-						else Roact.createElement(Badge, {
-							value = badgeValue,
-							badgeVariant = self.props.badgeVariant,
-						}),
+					Badge = Roact.createElement(StatusIndicator, {
+						value = tonumber(badgeValue),
+						max = if tonumber(badgeValue) then 99 else nil,
+						variant = migrateBadgeVariant(self.props.badgeVariant),
+					}),
 				}),
 			}),
 		})

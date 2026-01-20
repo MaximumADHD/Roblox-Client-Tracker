@@ -183,6 +183,7 @@ type PartialAnalyticsState = {
 	-- Keep a copy of these in here since we don't have access to the real
 	-- source of truth when at the top level of the menu
 	typeofabuseSelection: string?,
+	preselectedAbuseSelection: string?,
 	reasonSelection: string?,
 	commentAdded: boolean,
 	experiencePersonSelection: string?,

@@ -10,38 +10,48 @@ PROTO_1:
   GETIMPORT R2 K1 [require]
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K2 ["Packages"]
-  GETTABLEKS R3 R4 K3 ["React"]
+  GETTABLEKS R3 R4 K3 ["ReactDeveloperTools"]
   CALL R2 1 1
+  GETTABLEKS R3 R2 K4 ["tryEnableDevtools"]
+  DUPTABLE R4 K6 [{"pluginName"}]
+  LOADK R5 K7 ["PlaceVersionHistory"]
+  SETTABLEKS R5 R4 K5 ["pluginName"]
+  CALL R3 1 0
   GETIMPORT R3 K1 [require]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K2 ["Packages"]
-  GETTABLEKS R4 R5 K4 ["ReactRoblox"]
+  GETTABLEKS R4 R5 K8 ["React"]
   CALL R3 1 1
   GETIMPORT R4 K1 [require]
   GETUPVAL R7 0
-  GETTABLEKS R6 R7 K5 ["Src"]
-  GETTABLEKS R5 R6 K6 ["MainPlugin"]
+  GETTABLEKS R6 R7 K2 ["Packages"]
+  GETTABLEKS R5 R6 K9 ["ReactRoblox"]
   CALL R4 1 1
-  GETTABLEKS R5 R2 K7 ["createElement"]
-  MOVE R6 R4
-  DUPTABLE R7 K10 [{"plugin", "widget"}]
-  SETTABLEKS R0 R7 K8 ["plugin"]
-  SETTABLEKS R1 R7 K9 ["widget"]
-  CALL R5 2 1
-  GETIMPORT R6 K13 [Instance.new]
-  LOADK R7 K14 ["Frame"]
-  CALL R6 1 1
-  GETTABLEKS R7 R3 K15 ["createRoot"]
-  MOVE R8 R6
+  GETIMPORT R5 K1 [require]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K10 ["Src"]
+  GETTABLEKS R6 R7 K11 ["MainPlugin"]
+  CALL R5 1 1
+  GETTABLEKS R6 R3 K12 ["createElement"]
+  MOVE R7 R5
+  DUPTABLE R8 K15 [{"plugin", "widget"}]
+  SETTABLEKS R0 R8 K13 ["plugin"]
+  SETTABLEKS R1 R8 K14 ["widget"]
+  CALL R6 2 1
+  GETIMPORT R7 K18 [Instance.new]
+  LOADK R8 K19 ["Frame"]
   CALL R7 1 1
-  MOVE R10 R5
-  NAMECALL R8 R7 K16 ["render"]
-  CALL R8 2 0
-  GETTABLEKS R8 R0 K17 ["Unloading"]
-  NEWCLOSURE R10 P0
-  CAPTURE VAL R7
-  NAMECALL R8 R8 K18 ["Connect"]
-  CALL R8 2 0
+  GETTABLEKS R8 R4 K20 ["createRoot"]
+  MOVE R9 R7
+  CALL R8 1 1
+  MOVE R11 R6
+  NAMECALL R9 R8 K21 ["render"]
+  CALL R9 2 0
+  GETTABLEKS R9 R0 K22 ["Unloading"]
+  NEWCLOSURE R11 P0
+  CAPTURE VAL R8
+  NAMECALL R9 R9 K23 ["Connect"]
+  CALL R9 2 0
   RETURN R0 0
 
 PROTO_2:

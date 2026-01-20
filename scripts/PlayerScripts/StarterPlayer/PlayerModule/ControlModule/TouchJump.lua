@@ -44,12 +44,12 @@ export type TouchJump = typeof(setmetatable({} :: {
 
 
 --[[ The Module ]]--
-local BaseCharacterController = require(script.Parent:WaitForChild("BaseCharacterController"))
-local TouchJump = setmetatable({}, BaseCharacterController)
+local ActionController = require(script.Parent:WaitForChild("ActionController"))
+local TouchJump = setmetatable({}, ActionController)
 TouchJump.__index = TouchJump
 
 function TouchJump.new()
-	local self = setmetatable(BaseCharacterController.new() :: any, TouchJump)
+	local self = setmetatable(ActionController.new() :: any, TouchJump)
 
 	self.parentUIFrame = nil
 	self.jumpButton = nil
@@ -162,6 +162,7 @@ function TouchJump:Enable(enable, parentFrame)
 
 	if self.externallyEnabled == enable then return end
 	self.externallyEnabled = enable
+	ActionController.Enable(self, enable)
 
 	self:UpdateEnabled()
 

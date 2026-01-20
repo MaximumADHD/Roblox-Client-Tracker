@@ -58,12 +58,12 @@ if not LocalPlayer then
 end
 
 --[[ The Module ]]--
-local BaseCharacterController = require(script.Parent:WaitForChild("BaseCharacterController"))
-local DynamicThumbstick = setmetatable({}, BaseCharacterController)
+local ActionController = require(script.Parent:WaitForChild("ActionController"))
+local DynamicThumbstick = setmetatable({}, ActionController)
 DynamicThumbstick.__index = DynamicThumbstick
 
 function DynamicThumbstick.new()
-	local self = setmetatable(BaseCharacterController.new() :: any, DynamicThumbstick)
+	local self = setmetatable(ActionController.new() :: any, DynamicThumbstick)
 
 	self.moveTouchObject = nil
 	self.moveTouchLockedIn = false

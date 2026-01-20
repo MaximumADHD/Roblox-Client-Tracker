@@ -18,6 +18,6 @@ MAIN:
   CALL R1 1 0
   GETTABLEKS R1 R0 K9 ["createFFlag"]
   LOADK R2 K10 ["EnableNewAssistant2"]
-  LOADB R3 0
+  LOADB R3 1
   CALL R1 2 -1
   RETURN R1 -1

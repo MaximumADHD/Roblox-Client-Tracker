@@ -79,6 +79,10 @@ PROTO_0:
   MOVE R9 R4
   MOVE R10 R7
   CALL R8 2 0
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K28 ["updateSimulatedAnimConstraintParts"]
+  MOVE R9 R4
+  CALL R8 1 0
   RETURN R0 0
 
 PROTO_1:

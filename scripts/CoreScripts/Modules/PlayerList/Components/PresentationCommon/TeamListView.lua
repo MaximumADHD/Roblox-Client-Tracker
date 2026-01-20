@@ -16,6 +16,8 @@ local TeamEntryContainer = require(PlayerList.Components.Container.TeamEntryCont
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagReplacePlayerIconRoduxWithSignal = SharedFlags.FFlagReplacePlayerIconRoduxWithSignal
+local FFlagPlayerListUseFocusNavHook = PlayerListPackage.Flags.FFlagPlayerListUseFocusNavHook
+
 local PlayerIconInfoStorePackage = require(CorePackages.Workspace.Packages.PlayerIconInfoStore)
 local PlayerIconInfoStore = PlayerIconInfoStorePackage.PlayerIconInfoStore 
 type PlayerIconInfo = PlayerIconInfoStorePackage.PlayerIconInfo
@@ -23,6 +25,10 @@ type PlayerIconInfo = PlayerIconInfoStorePackage.PlayerIconInfo
 type TeamEntry = LeaderboardStore.TeamEntry
 type PlayerIconInfoProps = LeaderboardStore.PlayerIconInfoProps
 type PlayerRelationshipProps = LeaderboardStore.PlayerRelationshipProps
+
+type RegisterPlayerInstance = PlayerListPackage.RegisterPlayerInstance
+type UnregisterPlayerInstance = PlayerListPackage.UnregisterPlayerInstance
+type SetSelectedPlayerId = PlayerListPackage.SetSelectedPlayerId
 
 export type TeamListViewProps = {
 	-- Layout options
@@ -41,8 +47,11 @@ export type TeamListViewProps = {
 	setDropDownPlayerDimensionY: ((vec2: Vector2) -> ())?,
 
 	-- Focus nav data
-	prevFocusedEntry: React.RefObject<GuiObject?>?,
-	destroyedFocusedPlayerId: React.RefObject<number?>?,
+	prevFocusedEntry: React.RefObject<GuiObject?>?, -- Remove when FFlagMobilePlayerListUseFocusNavHook is enabled
+	destroyedFocusedPlayerId: React.RefObject<number?>?, -- Remove when FFlagMobilePlayerListUseFocusNavHook is enabled
+	registerPlayerInstance: RegisterPlayerInstance?,
+	unregisterPlayerInstance: UnregisterPlayerInstance?,
+	setSelectedPlayerId: SetSelectedPlayerId?,
 
 	-- Device type
 	isSmallTouchDevice: boolean?,
@@ -88,8 +97,8 @@ local function TeamListView(props: TeamListViewProps)
 			})
 		end
 
-		props.teamData.players.iterateData(function(player, playerId)	
-      addedPlayerEntriesCount += 1
+		props.teamData.players.iterateData(function(player, playerId)
+			addedPlayerEntriesCount += 1
 			local playerIconInfo
 			if FFlagReplacePlayerIconRoduxWithSignal then
 				local playerIconInfoGetter = PlayerIconInfoStore.getPlayerIconInfoReactive(player.UserId)
@@ -118,6 +127,9 @@ local function TeamListView(props: TeamListViewProps)
 				firstPlayerRef = props.firstPlayerRef,
 				prevFocusedEntry = props.prevFocusedEntry,
 				destroyedFocusedPlayerId = props.destroyedFocusedPlayerId,
+				registerPlayerInstance = if FFlagPlayerListUseFocusNavHook then props.registerPlayerInstance else nil,
+				unregisterPlayerInstance = if FFlagPlayerListUseFocusNavHook then props.unregisterPlayerInstance else nil,
+				setSelectedPlayerId = if FFlagPlayerListUseFocusNavHook then props.setSelectedPlayerId else nil,
 			})
 
 			if props.isSmallTouchDevice then

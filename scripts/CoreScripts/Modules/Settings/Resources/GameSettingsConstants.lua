@@ -12,11 +12,12 @@ local Modules = RobloxGui.Modules
 local CorePackages = game:GetService("CorePackages")
 
 -------------- Flags ------------------
+local SettingsFlags = require(Modules.Settings.Flags)
+local FFlagRemoveSettingsReorderFirstVariantIXPSetup = SettingsFlags.FFlagRemoveSettingsReorderFirstVariantIXPSetup
+
 local PartyVoiceVolumeFeatureAvailable = game:GetEngineFeature("PartyVoiceVolume")
 local GetFStringInExperienceMenuIXPLayer = require(Modules.Settings.Flags.GetFStringInExperienceMenuIXPLayer)
 local GetFStringInExperienceMenuIXPVar = require(Modules.Settings.Flags.GetFStringInExperienceMenuIXPVar)
-local FFlagInExperienceMenuReorderFirstVariant = require(Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant)
-local FFlagOverrideInExperienceMenuReorderFirstVariant = require(Modules.Settings.Flags.FFlagOverrideInExperienceMenuReorderFirstVariant)
 local GetFFlagEnablePlayerNamesEnabledSetting = require(Modules.Settings.Flags.GetFFlagEnablePlayerNamesEnabledSetting)
 local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
 
@@ -166,6 +167,7 @@ LAYOUT_REORDER_VARIANT_1.UiToggleRowNameplates = 202
 LAYOUT_REORDER_VARIANT_1.FreecamToggleRow = 203
 LAYOUT_REORDER_VARIANT_1.InformationFrame = 999 -- Reserved to be last
 
+-- delete with FFlagRemoveSettingsReorderFirstVariantIXPSetup cleaned up as true
 local function LayoutReOrderIXP()
 	local LAYOUT_ORDER_MT = {}
 	LAYOUT_ORDER_MT.ixp_variant = -1
@@ -190,7 +192,7 @@ local function LayoutReOrderIXP()
 		if LAYOUT_ORDER_MT.ixp_variant == -1 then
 			LAYOUT_ORDER_MT.ixp_variant = fetchSettingReorderIXPVariant()
 		end
-		if FFlagInExperienceMenuReorderFirstVariant and LAYOUT_ORDER_MT.ixp_variant == LAYOUT_ORDER_MT.variants.VARIANT then
+		if LAYOUT_ORDER_MT.ixp_variant == LAYOUT_ORDER_MT.variants.VARIANT then
 			return LAYOUT_REORDER_VARIANT_1[setting]
 		else
 			return SETTINGS_MENU_LAYOUT_ORDER[setting]
@@ -207,9 +209,7 @@ end
 -- Returns a LayoutOrder of Settings Menu with flagging
 local function getLayoutOrder()
 	local layoutOrder = {} :: any
-	if FFlagOverrideInExperienceMenuReorderFirstVariant then 
-		layoutOrder = LAYOUT_REORDER_VARIANT_1 
-	elseif FFlagInExperienceMenuReorderFirstVariant then 
+	if not FFlagRemoveSettingsReorderFirstVariantIXPSetup then 
 		layoutOrder = LayoutReOrderIXP() 
 	else
 		layoutOrder = SETTINGS_MENU_LAYOUT_ORDER

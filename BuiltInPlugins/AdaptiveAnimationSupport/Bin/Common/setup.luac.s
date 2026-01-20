@@ -118,28 +118,32 @@ PROTO_9:
   LOADNIL R2
   LOADNIL R3
   GETUPVAL R4 1
-  JUMPIFNOT R4 [+43]
+  JUMPIFNOT R4 [+50]
   NEWTABLE R4 0 1
   DUPTABLE R5 K10 [{"uri", "isPreexistingAction", "getText", "getTooltip", "icon", "enabled", "visible", "checkable", "checked"}]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K11 ["fromAction"]
-  LOADK R7 K12 ["AdaptiveAnimationSupport"]
-  LOADK R8 K13 ["Toggle"]
-  CALL R6 2 1
+  DUPTABLE R6 K15 [{"DataModel", "PluginId", "Category", "ItemId"}]
+  LOADK R7 K16 ["Standalone"]
+  SETTABLEKS R7 R6 K11 ["DataModel"]
+  LOADK R7 K17 ["AdaptiveAnimationSupport"]
+  SETTABLEKS R7 R6 K12 ["PluginId"]
+  LOADK R7 K18 ["Actions"]
+  SETTABLEKS R7 R6 K13 ["Category"]
+  LOADK R7 K19 ["Toggle"]
+  SETTABLEKS R7 R6 K14 ["ItemId"]
   SETTABLEKS R6 R5 K1 ["uri"]
   LOADB R6 0
   SETTABLEKS R6 R5 K2 ["isPreexistingAction"]
-  DUPCLOSURE R6 K14 [PROTO_0]
+  DUPCLOSURE R6 K20 [PROTO_0]
   SETTABLEKS R6 R5 K3 ["getText"]
-  DUPCLOSURE R6 K15 [PROTO_1]
+  DUPCLOSURE R6 K21 [PROTO_1]
   SETTABLEKS R6 R5 K4 ["getTooltip"]
-  LOADK R6 K16 ["rbxlocaltheme://GameSettings"]
+  LOADK R6 K22 ["rbxlocaltheme://GameSettings"]
   SETTABLEKS R6 R5 K5 ["icon"]
   LOADB R6 1
   SETTABLEKS R6 R5 K6 ["enabled"]
   LOADB R6 1
   SETTABLEKS R6 R5 K7 ["visible"]
-  GETUPVAL R7 3
+  GETUPVAL R7 2
   JUMPIFNOT R7 [+2]
   LOADB R6 1
   JUMP [+1]
@@ -150,57 +154,57 @@ PROTO_9:
   SETLIST R4 R5 1 [1]
   MOVE R3 R4
   JUMP [+14]
-  DUPTABLE R4 K19 [{"getName", "getDescription", "icon", "enabled"}]
-  DUPCLOSURE R5 K20 [PROTO_2]
-  SETTABLEKS R5 R4 K17 ["getName"]
-  DUPCLOSURE R5 K21 [PROTO_3]
-  SETTABLEKS R5 R4 K18 ["getDescription"]
-  LOADK R5 K16 ["rbxlocaltheme://GameSettings"]
+  DUPTABLE R4 K25 [{"getName", "getDescription", "icon", "enabled"}]
+  DUPCLOSURE R5 K26 [PROTO_2]
+  SETTABLEKS R5 R4 K23 ["getName"]
+  DUPCLOSURE R5 K27 [PROTO_3]
+  SETTABLEKS R5 R4 K24 ["getDescription"]
+  LOADK R5 K22 ["rbxlocaltheme://GameSettings"]
   SETTABLEKS R5 R4 K5 ["icon"]
   LOADB R5 0
   SETTABLEKS R5 R4 K6 ["enabled"]
   MOVE R2 R4
-  DUPTABLE R4 K30 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar", "getToolbarName", "buttonInfo", "actionInfos"}]
-  SETTABLEKS R0 R4 K22 ["plugin"]
-  LOADK R5 K12 ["AdaptiveAnimationSupport"]
-  SETTABLEKS R5 R4 K23 ["pluginName"]
+  DUPTABLE R4 K36 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar", "getToolbarName", "buttonInfo", "actionInfos"}]
+  SETTABLEKS R0 R4 K28 ["plugin"]
+  LOADK R5 K17 ["AdaptiveAnimationSupport"]
+  SETTABLEKS R5 R4 K29 ["pluginName"]
+  GETUPVAL R5 3
+  SETTABLEKS R5 R4 K30 ["translationResourceTable"]
   GETUPVAL R5 4
-  SETTABLEKS R5 R4 K24 ["translationResourceTable"]
-  GETUPVAL R5 5
-  SETTABLEKS R5 R4 K25 ["fallbackResourceTable"]
+  SETTABLEKS R5 R4 K31 ["fallbackResourceTable"]
   GETUPVAL R5 1
-  SETTABLEKS R5 R4 K26 ["noToolbar"]
+  SETTABLEKS R5 R4 K32 ["noToolbar"]
   GETUPVAL R6 1
   JUMPIFNOT R6 [+2]
   LOADNIL R5
   JUMP [+1]
-  DUPCLOSURE R5 K31 [PROTO_4]
-  SETTABLEKS R5 R4 K27 ["getToolbarName"]
+  DUPCLOSURE R5 K37 [PROTO_4]
+  SETTABLEKS R5 R4 K33 ["getToolbarName"]
   GETUPVAL R6 1
   JUMPIFNOT R6 [+2]
   LOADNIL R5
   JUMP [+1]
   MOVE R5 R2
-  SETTABLEKS R5 R4 K28 ["buttonInfo"]
+  SETTABLEKS R5 R4 K34 ["buttonInfo"]
   GETUPVAL R6 1
   JUMPIFNOT R6 [+2]
   MOVE R5 R3
   JUMP [+1]
   LOADNIL R5
-  SETTABLEKS R5 R4 K29 ["actionInfos"]
-  GETIMPORT R5 K33 [game]
-  LOADK R7 K34 ["RunService"]
-  NAMECALL R5 R5 K35 ["GetService"]
+  SETTABLEKS R5 R4 K35 ["actionInfos"]
+  GETIMPORT R5 K39 [game]
+  LOADK R7 K40 ["RunService"]
+  NAMECALL R5 R5 K41 ["GetService"]
   CALL R5 2 1
-  GETUPVAL R8 6
-  GETTABLEKS R7 R8 K36 ["get"]
+  GETUPVAL R8 5
+  GETTABLEKS R7 R8 K42 ["get"]
   CALL R7 0 1
-  GETUPVAL R9 6
-  GETTABLEKS R8 R9 K37 ["Standalone"]
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K16 ["Standalone"]
   JUMPIFEQ R7 R8 [+2]
   LOADB R6 0 +1
   LOADB R6 1
-  NAMECALL R7 R5 K38 ["IsEdit"]
+  NAMECALL R7 R5 K43 ["IsEdit"]
   CALL R7 1 1
   JUMPIF R6 [+1]
   JUMPIFNOT R7 [+70]
@@ -208,49 +212,49 @@ PROTO_9:
   JUMPIF R8 [+3]
   LOADB R8 1
   SETTABLEKS R8 R2 K6 ["enabled"]
-  GETUPVAL R9 7
-  GETTABLEKS R8 R9 K39 ["build"]
+  GETUPVAL R9 6
+  GETTABLEKS R8 R9 K44 ["build"]
   MOVE R9 R4
   CALL R8 1 1
-  GETIMPORT R9 K33 [game]
-  LOADK R11 K40 ["Selection"]
-  NAMECALL R9 R9 K35 ["GetService"]
+  GETIMPORT R9 K39 [game]
+  LOADK R11 K45 ["Selection"]
+  NAMECALL R9 R9 K41 ["GetService"]
   CALL R9 2 1
-  GETIMPORT R10 K33 [game]
-  LOADK R12 K41 ["UseSelectionChangedThisFrameForSomePlugins"]
+  GETIMPORT R10 K39 [game]
+  LOADK R12 K46 ["UseSelectionChangedThisFrameForSomePlugins"]
   LOADB R13 0
-  NAMECALL R10 R10 K42 ["DefineFastFlag"]
+  NAMECALL R10 R10 K47 ["DefineFastFlag"]
   CALL R10 3 1
   JUMPIFNOT R10 [+3]
-  GETTABLEKS R11 R9 K43 ["SelectionChangedThisFrame"]
+  GETTABLEKS R11 R9 K48 ["SelectionChangedThisFrame"]
   JUMPIF R11 [+2]
-  GETTABLEKS R11 R9 K44 ["SelectionChanged"]
+  GETTABLEKS R11 R9 K49 ["SelectionChanged"]
   NEWCLOSURE R12 P5
   CAPTURE VAL R9
   NEWCLOSURE R15 P6
   CAPTURE VAL R9
   CAPTURE VAL R8
-  NAMECALL R13 R11 K45 ["Connect"]
+  NAMECALL R13 R11 K50 ["Connect"]
   CALL R13 2 1
-  GETTABLEKS R14 R0 K46 ["Unloading"]
+  GETTABLEKS R14 R0 K51 ["Unloading"]
   NEWCLOSURE R16 P7
   CAPTURE VAL R13
-  NAMECALL R14 R14 K45 ["Connect"]
+  NAMECALL R14 R14 K50 ["Connect"]
   CALL R14 2 0
   MOVE R14 R12
   CALL R14 0 1
   JUMPIFNOT R14 [+11]
   LOADNIL R15
-  GETTABLEKS R16 R5 K47 ["Heartbeat"]
+  GETTABLEKS R16 R5 K52 ["Heartbeat"]
   NEWCLOSURE R18 P8
   CAPTURE REF R15
   CAPTURE VAL R8
-  NAMECALL R16 R16 K45 ["Connect"]
+  NAMECALL R16 R16 K50 ["Connect"]
   CALL R16 2 1
   MOVE R15 R16
   CLOSEUPVALS R15
-  GETTABLEKS R15 R8 K48 ["pluginLoader"]
-  NAMECALL R15 R15 K49 ["waitForUserInteraction"]
+  GETTABLEKS R15 R8 K53 ["pluginLoader"]
+  NAMECALL R15 R15 K54 ["waitForUserInteraction"]
   CALL R15 1 1
   JUMPIF R15 [+1]
   RETURN R0 0
@@ -259,8 +263,8 @@ PROTO_9:
   MOVE R18 R8
   CALL R16 2 0
   RETURN R0 0
-  GETUPVAL R9 7
-  GETTABLEKS R8 R9 K39 ["build"]
+  GETUPVAL R9 6
+  GETTABLEKS R8 R9 K44 ["build"]
   MOVE R9 R4
   CALL R8 1 0
   RETURN R0 0
@@ -280,42 +284,32 @@ MAIN:
   GETTABLEKS R5 R6 K10 ["Resources"]
   GETTABLEKS R4 R5 K11 ["Localization"]
   GETTABLEKS R3 R4 K12 ["SourceStrings"]
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Packages"]
-  GETTABLEKS R5 R6 K13 ["StudioFoundation"]
-  CALL R4 1 1
-  GETTABLEKS R8 R0 K9 ["Src"]
-  GETTABLEKS R7 R8 K10 ["Resources"]
-  GETTABLEKS R6 R7 K11 ["Localization"]
-  GETTABLEKS R5 R6 K14 ["LocalizedStrings"]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Resources"]
+  GETTABLEKS R5 R6 K11 ["Localization"]
+  GETTABLEKS R4 R5 K13 ["LocalizedStrings"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K14 ["Bin"]
+  GETTABLEKS R7 R8 K15 ["Common"]
+  GETTABLEKS R6 R7 K16 ["pluginType"]
+  CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K15 ["Bin"]
-  GETTABLEKS R8 R9 K16 ["Common"]
-  GETTABLEKS R7 R8 K17 ["pluginType"]
+  GETTABLEKS R9 R0 K14 ["Bin"]
+  GETTABLEKS R8 R9 K15 ["Common"]
+  GETTABLEKS R7 R8 K17 ["defineLuaFlags"]
   CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K15 ["Bin"]
-  GETTABLEKS R9 R10 K16 ["Common"]
-  GETTABLEKS R8 R9 K18 ["defineLuaFlags"]
-  CALL R7 1 1
-  GETTABLEKS R9 R4 K19 ["Util"]
-  GETTABLEKS R8 R9 K20 ["StudioUri"]
-  GETTABLEKS R9 R7 K21 ["getFFlagEnableRibbonPlugin"]
-  CALL R9 0 1
-  GETTABLEKS R10 R7 K22 ["getFFlagRegisterActionsPluginLoader"]
-  CALL R10 0 1
-  GETIMPORT R11 K24 [game]
-  LOADK R13 K25 ["ReplaceIsCheckableWithCheckable"]
-  NAMECALL R11 R11 K26 ["GetEngineFeature"]
-  CALL R11 2 1
-  AND R12 R10 R9
-  DUPCLOSURE R13 K27 [PROTO_9]
+  GETTABLEKS R7 R6 K18 ["getFFlagRegisterActionsPluginLoader"]
+  CALL R7 0 1
+  GETIMPORT R8 K20 [game]
+  LOADK R10 K21 ["ReplaceIsCheckableWithCheckable"]
+  NAMECALL R8 R8 K22 ["GetEngineFeature"]
+  CALL R8 2 1
+  DUPCLOSURE R9 K23 [PROTO_9]
   CAPTURE VAL R0
-  CAPTURE VAL R12
+  CAPTURE VAL R7
   CAPTURE VAL R8
-  CAPTURE VAL R11
-  CAPTURE VAL R5
+  CAPTURE VAL R4
   CAPTURE VAL R3
-  CAPTURE VAL R6
+  CAPTURE VAL R5
   CAPTURE VAL R2
-  RETURN R13 1
+  RETURN R9 1

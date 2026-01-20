@@ -13,13 +13,12 @@ PROTO_0:
   LOADK R4 K8 ["FTFUtil"]
   NAMECALL R2 R1 K9 ["GetPluginComponent"]
   CALL R2 2 1
-  LOADK R4 K10 ["%*/%*/%*"]
+  LOADK R4 K10 ["%*/AssetImport/AssetImportTest.Lib/resources/%*"]
   NAMECALL R6 R2 K11 ["ClientFolderPathAsync"]
   CALL R6 1 1
-  LOADK R7 K12 ["AssetImport/AssetImportTest.Lib/resources"]
-  MOVE R8 R0
-  NAMECALL R4 R4 K13 ["format"]
-  CALL R4 4 1
+  MOVE R7 R0
+  NAMECALL R4 R4 K12 ["format"]
+  CALL R4 3 1
   MOVE R3 R4
   RETURN R3 1
 

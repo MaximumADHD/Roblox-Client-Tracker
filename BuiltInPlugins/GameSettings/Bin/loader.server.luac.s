@@ -7,13 +7,22 @@ PROTO_1:
   RETURN R0 1
 
 PROTO_2:
+  GETUPVAL R4 0
+  JUMPIFNOT R4 [+7]
   MOVE R3 R0
   MOVE R4 R1
   MOVE R5 R2
   LOADK R6 K0 ["General"]
-  LOADK R7 K1 ["PluginDescription"]
-  CALL R3 4 -1
-  RETURN R3 -1
+  LOADK R7 K1 ["PluginDescriptionExp"]
+  CALL R3 4 1
+  RETURN R3 1
+  MOVE R3 R0
+  MOVE R4 R1
+  MOVE R5 R2
+  LOADK R6 K0 ["General"]
+  LOADK R7 K2 ["PluginDescription"]
+  CALL R3 4 1
+  RETURN R3 1
 
 PROTO_3:
   GETUPVAL R1 0
@@ -58,56 +67,63 @@ MAIN:
   LOADK R9 K20 ["StudioService"]
   NAMECALL R7 R7 K13 ["GetService"]
   CALL R7 2 1
-  DUPTABLE R8 K31 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "extraTriggers"}]
-  GETIMPORT R9 K32 [plugin]
-  SETTABLEKS R9 R8 K21 ["plugin"]
-  LOADK R9 K33 ["GameSettingsPlugin"]
-  SETTABLEKS R9 R8 K22 ["pluginName"]
-  SETTABLEKS R6 R8 K23 ["translationResourceTable"]
-  SETTABLEKS R5 R8 K24 ["fallbackResourceTable"]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K25 ["overrideLocaleId"]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K26 ["localizationNamespace"]
-  DUPCLOSURE R9 K34 [PROTO_0]
-  SETTABLEKS R9 R8 K27 ["getToolbarName"]
-  DUPTABLE R9 K41 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden", "enabled"}]
-  DUPCLOSURE R10 K42 [PROTO_1]
-  SETTABLEKS R10 R9 K35 ["getName"]
-  DUPCLOSURE R10 K43 [PROTO_2]
-  SETTABLEKS R10 R9 K36 ["getDescription"]
-  LOADK R10 K44 ["rbxlocaltheme://GameSettings"]
-  SETTABLEKS R10 R9 K37 ["icon"]
+  GETIMPORT R8 K1 [require]
+  GETTABLEKS R11 R0 K6 ["Src"]
+  GETTABLEKS R10 R11 K21 ["Flags"]
+  GETTABLEKS R9 R10 K22 ["getFFlagGameSettingsGameToExperience"]
+  CALL R8 1 1
+  CALL R8 0 1
+  DUPTABLE R9 K33 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "extraTriggers"}]
+  GETIMPORT R10 K34 [plugin]
+  SETTABLEKS R10 R9 K23 ["plugin"]
+  LOADK R10 K35 ["GameSettingsPlugin"]
+  SETTABLEKS R10 R9 K24 ["pluginName"]
+  SETTABLEKS R6 R9 K25 ["translationResourceTable"]
+  SETTABLEKS R5 R9 K26 ["fallbackResourceTable"]
   LOADNIL R10
-  SETTABLEKS R10 R9 K38 ["text"]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K39 ["clickableWhenViewportHidden"]
-  NAMECALL R10 R2 K45 ["IsEdit"]
-  CALL R10 1 1
-  SETTABLEKS R10 R9 K40 ["enabled"]
-  SETTABLEKS R9 R8 K28 ["buttonInfo"]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K29 ["dockWidgetInfo"]
-  NEWTABLE R9 1 0
-  DUPCLOSURE R10 K46 [PROTO_3]
-  CAPTURE VAL R7
-  SETTABLEKS R10 R9 K47 ["StudioService.OnOpenGameSettings"]
-  SETTABLEKS R9 R8 K30 ["extraTriggers"]
-  GETTABLEKS R9 R4 K48 ["build"]
-  MOVE R10 R8
-  CALL R9 1 1
-  GETTABLEKS R10 R9 K49 ["pluginLoader"]
-  NAMECALL R10 R10 K50 ["waitForUserInteraction"]
-  CALL R10 1 1
-  JUMPIF R10 [+1]
-  RETURN R0 0
-  GETIMPORT R11 K1 [require]
-  GETIMPORT R14 K3 [script]
-  GETTABLEKS R13 R14 K4 ["Parent"]
-  GETTABLEKS R12 R13 K51 ["main"]
+  SETTABLEKS R10 R9 K27 ["overrideLocaleId"]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K28 ["localizationNamespace"]
+  DUPCLOSURE R10 K36 [PROTO_0]
+  SETTABLEKS R10 R9 K29 ["getToolbarName"]
+  DUPTABLE R10 K43 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden", "enabled"}]
+  DUPCLOSURE R11 K44 [PROTO_1]
+  SETTABLEKS R11 R10 K37 ["getName"]
+  DUPCLOSURE R11 K45 [PROTO_2]
+  CAPTURE VAL R8
+  SETTABLEKS R11 R10 K38 ["getDescription"]
+  LOADK R11 K46 ["rbxlocaltheme://GameSettings"]
+  SETTABLEKS R11 R10 K39 ["icon"]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K40 ["text"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K41 ["clickableWhenViewportHidden"]
+  NAMECALL R11 R2 K47 ["IsEdit"]
   CALL R11 1 1
-  MOVE R12 R11
-  GETIMPORT R13 K32 [plugin]
-  MOVE R14 R9
-  CALL R12 2 0
+  SETTABLEKS R11 R10 K42 ["enabled"]
+  SETTABLEKS R10 R9 K30 ["buttonInfo"]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K31 ["dockWidgetInfo"]
+  NEWTABLE R10 1 0
+  DUPCLOSURE R11 K48 [PROTO_3]
+  CAPTURE VAL R7
+  SETTABLEKS R11 R10 K49 ["StudioService.OnOpenGameSettings"]
+  SETTABLEKS R10 R9 K32 ["extraTriggers"]
+  GETTABLEKS R10 R4 K50 ["build"]
+  MOVE R11 R9
+  CALL R10 1 1
+  GETTABLEKS R11 R10 K51 ["pluginLoader"]
+  NAMECALL R11 R11 K52 ["waitForUserInteraction"]
+  CALL R11 1 1
+  JUMPIF R11 [+1]
+  RETURN R0 0
+  GETIMPORT R12 K1 [require]
+  GETIMPORT R15 K3 [script]
+  GETTABLEKS R14 R15 K4 ["Parent"]
+  GETTABLEKS R13 R14 K53 ["main"]
+  CALL R12 1 1
+  MOVE R13 R12
+  GETIMPORT R14 K34 [plugin]
+  MOVE R15 R10
+  CALL R13 2 0
   RETURN R0 0

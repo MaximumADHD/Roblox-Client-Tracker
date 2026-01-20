@@ -1106,12 +1106,12 @@ type _TypographyProp_ConditionalOptionImpl = {
 
 type _TypographyProp_ConditionalOptionFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	token: string,
+	kind: { type: "token", value: string }?,
 }
 
 type _TypographyProp_ConditionalOptionPartialFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	token: string?,
+	kind: { type: "token", value: string }?,
 }
 
 export type TypographyProp_ConditionalOption = typeof(setmetatable(
@@ -1183,12 +1183,12 @@ type _TypographyFontProp_ConditionalOptionImpl = {
 
 type _TypographyFontProp_ConditionalOptionFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	token: string,
+	kind: { type: "token", value: string }?,
 }
 
 type _TypographyFontProp_ConditionalOptionPartialFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	token: string?,
+	kind: { type: "token", value: string }?,
 }
 
 export type TypographyFontProp_ConditionalOption = typeof(setmetatable(
@@ -1578,12 +1578,12 @@ type _NestedComponentProp_ConditionalOptionImpl = {
 
 type _NestedComponentProp_ConditionalOptionFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	literal: NestedComponentProp_TemplateData?,
+	kind: { type: "literal", value: NestedComponentProp_TemplateData }?,
 }
 
 type _NestedComponentProp_ConditionalOptionPartialFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	literal: NestedComponentProp_TemplateData?,
+	kind: { type: "literal", value: NestedComponentProp_TemplateData }?,
 }
 
 export type NestedComponentProp_ConditionalOption = typeof(setmetatable(
@@ -2000,12 +2000,12 @@ type _GradientProp_ConditionalOptionImpl = {
 
 type _GradientProp_ConditionalOptionFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	literal: GradientProp_GradientData?,
+	kind: { type: "literal", value: GradientProp_GradientData }?,
 }
 
 type _GradientProp_ConditionalOptionPartialFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	literal: GradientProp_GradientData?,
+	kind: { type: "literal", value: GradientProp_GradientData }?,
 }
 
 export type GradientProp_ConditionalOption = typeof(setmetatable(
@@ -6844,7 +6844,7 @@ do
 	): TypographyProp_ConditionalOption
 		return setmetatable({
 			condition = if data == nil or data.condition == nil then nil else data.condition,
-			token = if data == nil or data.token == nil then "" else data.token,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
 		}, _TypographyProp_ConditionalOptionImpl :: _TypographyProp_ConditionalOptionImpl)
 	end
 
@@ -6858,9 +6858,11 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.token ~= nil and self.token ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.token)
+		if self.kind ~= nil then
+			if self.kind.type == "token" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -6890,7 +6892,7 @@ do
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.token = buffer.tostring(value)
+					self.kind = { type = "token", value = buffer.tostring(value) }
 					continue
 				end
 
@@ -6923,8 +6925,10 @@ do
 			output.condition = self.condition:jsonEncode()
 		end
 
-		if self.token ~= nil and self.token ~= "" then
-			output.token = self.token
+		if self.kind ~= nil then
+			if self.kind.type == "token" then
+				output.token = self.kind.value
+			end
 		end
 
 		return output
@@ -6941,7 +6945,7 @@ do
 		end
 
 		if input.token ~= nil then
-			self.token = input.token
+			self.kind = { type = "token", value = input.token }
 		end
 
 		return self
@@ -7199,7 +7203,7 @@ do
 	): TypographyFontProp_ConditionalOption
 		return setmetatable({
 			condition = if data == nil or data.condition == nil then nil else data.condition,
-			token = if data == nil or data.token == nil then "" else data.token,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
 		}, _TypographyFontProp_ConditionalOptionImpl :: _TypographyFontProp_ConditionalOptionImpl)
 	end
 
@@ -7213,9 +7217,11 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.token ~= nil and self.token ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.token)
+		if self.kind ~= nil then
+			if self.kind.type == "token" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -7245,7 +7251,7 @@ do
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.token = buffer.tostring(value)
+					self.kind = { type = "token", value = buffer.tostring(value) }
 					continue
 				end
 
@@ -7278,8 +7284,10 @@ do
 			output.condition = self.condition:jsonEncode()
 		end
 
-		if self.token ~= nil and self.token ~= "" then
-			output.token = self.token
+		if self.kind ~= nil then
+			if self.kind.type == "token" then
+				output.token = self.kind.value
+			end
 		end
 
 		return output
@@ -7296,7 +7304,7 @@ do
 		end
 
 		if input.token ~= nil then
-			self.token = input.token
+			self.kind = { type = "token", value = input.token }
 		end
 
 		return self
@@ -8993,7 +9001,7 @@ do
 	): NestedComponentProp_ConditionalOption
 		return setmetatable({
 			condition = if data == nil or data.condition == nil then nil else data.condition,
-			literal = if data == nil or data.literal == nil then nil else data.literal,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
 		}, _NestedComponentProp_ConditionalOptionImpl :: _NestedComponentProp_ConditionalOptionImpl)
 	end
 
@@ -9007,10 +9015,12 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.literal ~= nil then
-			local encoded = self.literal:encode()
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -9040,7 +9050,7 @@ do
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.literal = messages.NestedComponentProp_TemplateData.decode(value)
+					self.kind = { type = "literal", value = messages.NestedComponentProp_TemplateData.decode(value) }
 					continue
 				end
 
@@ -9073,8 +9083,10 @@ do
 			output.condition = self.condition:jsonEncode()
 		end
 
-		if self.literal ~= nil then
-			output.literal = self.literal:jsonEncode()
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			end
 		end
 
 		return output
@@ -9091,7 +9103,8 @@ do
 		end
 
 		if input.literal ~= nil then
-			self.literal = messages.NestedComponentProp_TemplateData.jsonDecode(input.literal)
+			self.kind =
+				{ type = "literal", value = messages.NestedComponentProp_TemplateData.jsonDecode(input.literal) }
 		end
 
 		return self
@@ -11009,7 +11022,7 @@ do
 	): GradientProp_ConditionalOption
 		return setmetatable({
 			condition = if data == nil or data.condition == nil then nil else data.condition,
-			literal = if data == nil or data.literal == nil then nil else data.literal,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
 		}, _GradientProp_ConditionalOptionImpl :: _GradientProp_ConditionalOptionImpl)
 	end
 
@@ -11023,10 +11036,12 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.literal ~= nil then
-			local encoded = self.literal:encode()
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -11056,7 +11071,7 @@ do
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.literal = messages.GradientProp_GradientData.decode(value)
+					self.kind = { type = "literal", value = messages.GradientProp_GradientData.decode(value) }
 					continue
 				end
 
@@ -11089,8 +11104,10 @@ do
 			output.condition = self.condition:jsonEncode()
 		end
 
-		if self.literal ~= nil then
-			output.literal = self.literal:jsonEncode()
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value:jsonEncode()
+			end
 		end
 
 		return output
@@ -11105,7 +11122,7 @@ do
 		end
 
 		if input.literal ~= nil then
-			self.literal = messages.GradientProp_GradientData.jsonDecode(input.literal)
+			self.kind = { type = "literal", value = messages.GradientProp_GradientData.jsonDecode(input.literal) }
 		end
 
 		return self

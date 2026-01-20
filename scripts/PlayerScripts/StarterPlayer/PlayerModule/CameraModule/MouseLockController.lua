@@ -6,6 +6,8 @@
 
 --[[ Constants ]]--
 
+local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 local DEFAULT_MOUSE_LOCK_CURSOR = "rbxasset://textures/MouseLockedCursor.png"
 local CAMERA_OFFSET_DEFAULT = Vector3.new(1.75,0,0)  
 
@@ -21,6 +23,8 @@ local GameSettings = Settings.GameSettings
 
 --[[ Imports ]]
 local CameraUtils = require(script.Parent:WaitForChild("CameraUtils"))
+
+local FFlagUserFixStuckShiftLock = FlagUtil.getUserFlag("UserFixStuckShiftLock")
 
 --[[ The Module ]]--
 local MouseLockController = {}
@@ -136,12 +140,20 @@ function MouseLockController:EnableMouseLock(enable: boolean)
 
 		mouseLockSwitchAction.Enabled = false
 
-		-- If the mode is disabled while being used, fire the event to toggle it off
-		if self.isMouseLocked then
-			self.mouseLockToggledEvent:Fire()
-		end
+		if FFlagUserFixStuckShiftLock then
+			-- If the mode is disabled while being used, fire the event to toggle it off
+			if self.isMouseLocked then
+				self.isMouseLocked = false
+				self.mouseLockToggledEvent:Fire()
+			end
+		else
+			-- If the mode is disabled while being used, fire the event to toggle it off
+			if self.isMouseLocked then
+				self.mouseLockToggledEvent:Fire()
+			end
 
-		self.isMouseLocked = false
+			self.isMouseLocked = false
+		end
 	end
 end
 

@@ -122,8 +122,6 @@ local GetFFlagDefaultFriendingLabelTextNonEmpty =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagDefaultFriendingLabelTextNonEmpty)
 local GetFFlagEnableLeaveGameUpsellEntrypoint =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint)
-local GetFFlagDisableMuteAllCheckForIsMuted =
-	require(RobloxGui.Modules.Settings.Flags.GetFFlagDisableMuteAllCheckForIsMuted)
 local GetFFlagDestroyPlayerCardOnLeave =
 	require(RobloxGui.Modules.Settings.Flags.GetFFlagDestroyPlayerCardOnLeave)
 local GetFFlagEnableConsoleJoinVoice =
@@ -1818,14 +1816,8 @@ local function Initialize()
 				local status = VoiceChatServiceManager.participants[tostring(player.UserId)]
 				-- Check if a player is not muted to update the Mute All button.
 				if status then
-					if GetFFlagDisableMuteAllCheckForIsMuted() then
-						if not status.isMutedLocally then
-							allMuted = false
-						end
-					else
-						if not status.isMutedLocally and not status.isMuted then
-							allMuted = false
-						end
+					if not status.isMutedLocally then
+						allMuted = false
 					end
 				end
 				muteButtonUpdate(frame, status)

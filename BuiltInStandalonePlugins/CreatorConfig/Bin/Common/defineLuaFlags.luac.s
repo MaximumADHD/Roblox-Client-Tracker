@@ -1,25 +1,18 @@
 PROTO_0:
   GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["EnableRibbonPluginFeature"]
-  NAMECALL R0 R0 K3 ["GetEngineFeature"]
-  CALL R0 2 -1
-  RETURN R0 -1
-
-PROTO_1:
-  GETIMPORT R0 K1 [game]
   LOADK R2 K2 ["RegisterActionsPluginLoader"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 -1
   RETURN R0 -1
 
-PROTO_2:
+PROTO_1:
   GETIMPORT R0 K1 [game]
   LOADK R2 K2 ["CreatorConfigOnCloseSkipActionTrigger"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 -1
   RETURN R0 -1
 
-PROTO_3:
+PROTO_2:
   GETIMPORT R0 K1 [game]
   LOADK R2 K2 ["CreatorConfigDmChangedListener"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
@@ -43,21 +36,19 @@ MAIN:
   LOADB R4 0
   NAMECALL R1 R1 K9 ["DefineFastFlag"]
   CALL R1 3 0
-  DUPTABLE R1 K17 [{"getFFlagEnableCreatorConfig", "getFFlagEnableRibbonPlugin", "getFFlagRegisterActionsPluginLoader", "getFFlagEnableCreatorConfigSystemMenu", "getFFlagOnCloseSkipActionTrigger", "getFFlagCreatorConfigDmChangedListener"}]
+  DUPTABLE R1 K16 [{"getFFlagEnableCreatorConfig", "getFFlagRegisterActionsPluginLoader", "getFFlagEnableCreatorConfigSystemMenu", "getFFlagOnCloseSkipActionTrigger", "getFFlagCreatorConfigDmChangedListener"}]
   MOVE R2 R0
-  LOADK R3 K18 ["EnableCreatorConfig"]
+  LOADK R3 K17 ["EnableCreatorConfig"]
   CALL R2 1 1
   SETTABLEKS R2 R1 K11 ["getFFlagEnableCreatorConfig"]
-  DUPCLOSURE R2 K19 [PROTO_0]
-  SETTABLEKS R2 R1 K12 ["getFFlagEnableRibbonPlugin"]
-  DUPCLOSURE R2 K20 [PROTO_1]
-  SETTABLEKS R2 R1 K13 ["getFFlagRegisterActionsPluginLoader"]
+  DUPCLOSURE R2 K18 [PROTO_0]
+  SETTABLEKS R2 R1 K12 ["getFFlagRegisterActionsPluginLoader"]
   MOVE R2 R0
-  LOADK R3 K21 ["EnableCreatorConfigSystemMenu"]
+  LOADK R3 K19 ["EnableCreatorConfigSystemMenu"]
   CALL R2 1 1
-  SETTABLEKS R2 R1 K14 ["getFFlagEnableCreatorConfigSystemMenu"]
-  DUPCLOSURE R2 K22 [PROTO_2]
-  SETTABLEKS R2 R1 K15 ["getFFlagOnCloseSkipActionTrigger"]
-  DUPCLOSURE R2 K23 [PROTO_3]
-  SETTABLEKS R2 R1 K16 ["getFFlagCreatorConfigDmChangedListener"]
+  SETTABLEKS R2 R1 K13 ["getFFlagEnableCreatorConfigSystemMenu"]
+  DUPCLOSURE R2 K20 [PROTO_1]
+  SETTABLEKS R2 R1 K14 ["getFFlagOnCloseSkipActionTrigger"]
+  DUPCLOSURE R2 K21 [PROTO_2]
+  SETTABLEKS R2 R1 K15 ["getFFlagCreatorConfigDmChangedListener"]
   RETURN R1 1

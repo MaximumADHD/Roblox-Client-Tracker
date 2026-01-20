@@ -43,7 +43,7 @@ end
 
 local PerfStatsAvailable = AvailabilitySignal.new(not CachedPolicyService:IsSubjectToChinaPolicies())
 
-local PerfStatsConfig = {
+local PerfStatsConfig: SettingsServiceLib.ToggleRegisterConfig = {
 	id = 'perf-stats',
 	field_type = FieldType.Toggle,
 	alreadyLocalized = false,
@@ -51,6 +51,6 @@ local PerfStatsConfig = {
 	onChanged = PerfStatsValue(),
 	availability = PerfStatsAvailable,
 	layoutOrder = SettingsLayoutOrder.PerformanceStatsFrame,
-} :: SettingsServiceLib.ToggleRegisterConfig
+}
 
 return PerfStatsConfig

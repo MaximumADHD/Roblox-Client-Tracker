@@ -1081,16 +1081,14 @@ MAIN:
   SETTABLEKS R25 R24 K368 ["WarningColor"]
   GETIMPORT R25 K374 [Enum.Font.SourceSansSemibold]
   SETTABLEKS R25 R24 K369 ["WarningFont"]
-  LOADK R26 K119 ["MinimumSizes"]
-  LOADK R27 K120 ["HiddenSizes"]
-  CONCAT R25 R26 R27
+  LOADK R25 K119 ["MinimumSizes"]
   SETTABLEKS R25 R24 K370 ["WarningImage"]
   SETTABLE R24 R22 R23
-  LOADK R25 K121 [{"DefaultSizes", "CollapsedSizes", "CollapsedTolerance", "MinimumSizes", "HiddenSizes"}]
+  LOADK R25 K120 ["HiddenSizes"]
   NAMECALL R23 R6 K36 ["add"]
   CALL R23 2 0
-  GETTABLEKS R23 R6 K377 ["UGCValidationNotice"]
-  DUPTABLE R24 K379 [{"Position", "Size", "ValidationIconSize", "WarningColor", "WarningImage"}]
+  GETTABLEKS R23 R6 K376 ["UGCValidationNotice"]
+  DUPTABLE R24 K378 [{"Position", "Size", "ValidationIconSize", "WarningColor", "WarningImage"}]
   GETIMPORT R25 K172 [UDim2.fromOffset]
   LOADN R26 10
   LOADN R27 10
@@ -1107,18 +1105,16 @@ MAIN:
   LOADN R26 24
   LOADN R27 24
   CALL R25 2 1
-  SETTABLEKS R25 R24 K378 ["ValidationIconSize"]
+  SETTABLEKS R25 R24 K377 ["ValidationIconSize"]
   GETTABLEKS R25 R4 K372 ["WarningText"]
   SETTABLEKS R25 R24 K368 ["WarningColor"]
-  LOADK R26 K119 ["MinimumSizes"]
-  LOADK R27 K120 ["HiddenSizes"]
-  CONCAT R25 R26 R27
+  LOADK R25 K119 ["MinimumSizes"]
   SETTABLEKS R25 R24 K370 ["WarningImage"]
   SETTABLE R24 R22 R23
-  LOADK R25 K124 [0.01]
+  LOADK R25 K123 [0.35]
   NAMECALL R23 R6 K36 ["add"]
   CALL R23 2 0
-  DUPTABLE R23 K381 [{"Color", "Position", "Size"}]
+  DUPTABLE R23 K380 [{"Color", "Position", "Size"}]
   GETIMPORT R24 K259 [Color3.new]
   LOADN R25 1
   LOADN R26 1
@@ -1135,30 +1131,28 @@ MAIN:
   LOADN R26 24
   CALL R24 2 1
   SETTABLEKS R24 R23 K56 ["Size"]
-  GETTABLEKS R24 R6 K380 ["UGCValidationStatusIcon"]
+  GETTABLEKS R24 R6 K379 ["UGCValidationStatusIcon"]
   NEWTABLE R25 4 0
   GETTABLEKS R27 R1 K86 ["Dictionary"]
   GETTABLEKS R26 R27 K87 ["join"]
   MOVE R27 R23
-  DUPTABLE R28 K382 [{"Color", "Image"}]
+  DUPTABLE R28 K381 [{"Color", "Image"}]
   GETTABLEKS R29 R4 K372 ["WarningText"]
   SETTABLEKS R29 R28 K179 ["Color"]
-  LOADK R30 K119 ["MinimumSizes"]
-  LOADK R31 K120 ["HiddenSizes"]
-  CONCAT R29 R30 R31
+  LOADK R29 K119 ["MinimumSizes"]
   SETTABLEKS R29 R28 K20 ["Image"]
   CALL R26 2 1
-  SETTABLEKS R26 R25 K383 ["&Failure"]
+  SETTABLEKS R26 R25 K382 ["&Failure"]
   GETTABLEKS R27 R1 K86 ["Dictionary"]
   GETTABLEKS R26 R27 K87 ["join"]
   MOVE R27 R23
   DUPTABLE R28 K138 [{"Image"}]
-  GETTABLEKS R29 R4 K384 ["UGCValidationSuccessImage"]
+  GETTABLEKS R29 R4 K383 ["UGCValidationSuccessImage"]
   SETTABLEKS R29 R28 K20 ["Image"]
   CALL R26 2 1
-  SETTABLEKS R26 R25 K385 ["&Success"]
-  DUPTABLE R26 K386 [{"Color", "Position", "Size", "Image"}]
-  GETTABLEKS R27 R4 K387 ["DimmedText"]
+  SETTABLEKS R26 R25 K384 ["&Success"]
+  DUPTABLE R26 K385 [{"Color", "Position", "Size", "Image"}]
+  GETTABLEKS R27 R4 K386 ["DimmedText"]
   SETTABLEKS R27 R26 K179 ["Color"]
   GETIMPORT R27 K172 [UDim2.fromOffset]
   LOADN R28 4
@@ -1170,98 +1164,98 @@ MAIN:
   LOADN R29 20
   CALL R27 2 1
   SETTABLEKS R27 R26 K56 ["Size"]
-  LOADK R27 K132 ["Width"]
+  LOADK R27 K131 ["SeparatorWidth"]
   SETTABLEKS R27 R26 K20 ["Image"]
-  SETTABLEKS R26 R25 K389 ["&InProgress"]
+  SETTABLEKS R26 R25 K388 ["&InProgress"]
   SETTABLE R25 R22 R24
-  LOADK R26 K134 ["SubBackground"]
+  LOADK R26 K133 [{"BackgroundColor", "SeparatorColor", "SeparatorWidth", "Width"}]
   NAMECALL R24 R6 K36 ["add"]
   CALL R24 2 0
-  GETTABLEKS R24 R6 K390 ["DisambiguationMenu"]
-  DUPTABLE R25 K400 [{"MinContentSize", "ConfirmCancelContentSize", "HorizontalSpacing", "VerticalSpacing", "TitleContentsSpacing", "TextSpacing", "DropdownWidth", "AttachmentDropdownWidth", "IconBackground", "IconSize"}]
+  GETTABLEKS R24 R6 K389 ["DisambiguationMenu"]
+  DUPTABLE R25 K399 [{"MinContentSize", "ConfirmCancelContentSize", "HorizontalSpacing", "VerticalSpacing", "TitleContentsSpacing", "TextSpacing", "DropdownWidth", "AttachmentDropdownWidth", "IconBackground", "IconSize"}]
   GETIMPORT R26 K111 [Vector2.new]
   LOADN R27 244
   LOADN R28 44
   CALL R26 2 1
-  SETTABLEKS R26 R25 K391 ["MinContentSize"]
+  SETTABLEKS R26 R25 K390 ["MinContentSize"]
   GETIMPORT R26 K111 [Vector2.new]
   LOADN R27 200
   LOADN R28 150
   CALL R26 2 1
-  SETTABLEKS R26 R25 K392 ["ConfirmCancelContentSize"]
+  SETTABLEKS R26 R25 K391 ["ConfirmCancelContentSize"]
   LOADN R26 8
-  SETTABLEKS R26 R25 K393 ["HorizontalSpacing"]
+  SETTABLEKS R26 R25 K392 ["HorizontalSpacing"]
   LOADN R26 8
-  SETTABLEKS R26 R25 K394 ["VerticalSpacing"]
+  SETTABLEKS R26 R25 K393 ["VerticalSpacing"]
   LOADN R26 24
-  SETTABLEKS R26 R25 K395 ["TitleContentsSpacing"]
+  SETTABLEKS R26 R25 K394 ["TitleContentsSpacing"]
   LOADN R26 8
-  SETTABLEKS R26 R25 K396 ["TextSpacing"]
+  SETTABLEKS R26 R25 K395 ["TextSpacing"]
   LOADN R26 150
-  SETTABLEKS R26 R25 K397 ["DropdownWidth"]
+  SETTABLEKS R26 R25 K396 ["DropdownWidth"]
   LOADN R26 120
-  SETTABLEKS R26 R25 K398 ["AttachmentDropdownWidth"]
+  SETTABLEKS R26 R25 K397 ["AttachmentDropdownWidth"]
   GETTABLEKS R26 R4 K134 ["SubBackground"]
-  SETTABLEKS R26 R25 K399 ["IconBackground"]
+  SETTABLEKS R26 R25 K398 ["IconBackground"]
   GETIMPORT R26 K172 [UDim2.fromOffset]
   LOADN R27 72
   LOADN R28 72
   CALL R26 2 1
   SETTABLEKS R26 R25 K238 ["IconSize"]
   SETTABLE R25 R22 R24
-  LOADK R26 K145 ["Symmetry"]
+  LOADK R26 K144 ["Projection"]
   NAMECALL R24 R6 K36 ["add"]
   CALL R24 2 0
-  GETTABLEKS R24 R6 K401 ["AvatarSizeRuler"]
-  DUPTABLE R25 K408 [{"GridSize", "DimTransparency", "MainTransparency", "Padding", "TextSize", "PixelsPerStud", "MajorStep", "RulerColor"}]
+  GETTABLEKS R24 R6 K400 ["AvatarSizeRuler"]
+  DUPTABLE R25 K407 [{"GridSize", "DimTransparency", "MainTransparency", "Padding", "TextSize", "PixelsPerStud", "MajorStep", "RulerColor"}]
+  LOADK R26 K152 ["SymmetryImage"]
+  SETTABLEKS R26 R25 K401 ["GridSize"]
   LOADK R26 K153 [{"FalloffImage", "MirrorToLeftImage", "MirrorToRightImage", "RadiusImage", "ResetChangesImage", "SymmetryImage"}]
-  SETTABLEKS R26 R25 K402 ["GridSize"]
-  LOADK R26 K154 ["Falloff"]
-  SETTABLEKS R26 R25 K403 ["DimTransparency"]
+  SETTABLEKS R26 R25 K402 ["DimTransparency"]
   LOADK R26 K68 [0.5]
-  SETTABLEKS R26 R25 K404 ["MainTransparency"]
+  SETTABLEKS R26 R25 K403 ["MainTransparency"]
   LOADN R26 30
   SETTABLEKS R26 R25 K54 ["Padding"]
   LOADN R26 60
   SETTABLEKS R26 R25 K196 ["TextSize"]
   LOADN R26 200
-  SETTABLEKS R26 R25 K405 ["PixelsPerStud"]
+  SETTABLEKS R26 R25 K404 ["PixelsPerStud"]
   LOADN R26 10
-  SETTABLEKS R26 R25 K406 ["MajorStep"]
+  SETTABLEKS R26 R25 K405 ["MajorStep"]
   GETIMPORT R26 K259 [Color3.new]
   LOADN R27 1
   LOADN R28 1
   LOADN R29 1
   CALL R26 3 1
-  SETTABLEKS R26 R25 K407 ["RulerColor"]
+  SETTABLEKS R26 R25 K406 ["RulerColor"]
   SETTABLE R25 R22 R24
-  LOADK R26 K155 ["MirrorToLeft"]
+  LOADK R26 K154 ["Falloff"]
   NAMECALL R24 R6 K36 ["add"]
   CALL R24 2 0
-  GETTABLEKS R24 R6 K411 ["AvatarSizingBoundingBox"]
-  DUPTABLE R25 K417 [{"NeutralColor", "ValidColor", "InvalidColor", "ValidTransparency", "NeutralTransparency"}]
+  GETTABLEKS R24 R6 K410 ["AvatarSizingBoundingBox"]
+  DUPTABLE R25 K416 [{"NeutralColor", "ValidColor", "InvalidColor", "ValidTransparency", "NeutralTransparency"}]
   GETIMPORT R26 K259 [Color3.new]
   LOADK R27 K68 [0.5]
   LOADK R28 K68 [0.5]
   LOADK R29 K68 [0.5]
   CALL R26 3 1
-  SETTABLEKS R26 R25 K412 ["NeutralColor"]
+  SETTABLEKS R26 R25 K411 ["NeutralColor"]
   GETIMPORT R26 K259 [Color3.new]
   LOADK R27 K68 [0.5]
   LOADN R28 1
   LOADK R29 K68 [0.5]
   CALL R26 3 1
-  SETTABLEKS R26 R25 K413 ["ValidColor"]
+  SETTABLEKS R26 R25 K412 ["ValidColor"]
   GETIMPORT R26 K259 [Color3.new]
   LOADN R27 1
   LOADK R28 K68 [0.5]
   LOADK R29 K68 [0.5]
   CALL R26 3 1
-  SETTABLEKS R26 R25 K414 ["InvalidColor"]
+  SETTABLEKS R26 R25 K413 ["InvalidColor"]
   LOADK R26 K5 [require]
-  SETTABLEKS R26 R25 K415 ["ValidTransparency"]
+  SETTABLEKS R26 R25 K414 ["ValidTransparency"]
   LOADK R26 K68 [0.5]
-  SETTABLEKS R26 R25 K416 ["NeutralTransparency"]
+  SETTABLEKS R26 R25 K415 ["NeutralTransparency"]
   SETTABLE R25 R22 R24
   GETTABLEKS R24 R6 K15 ["Alert"]
   GETTABLEKS R26 R1 K86 ["Dictionary"]
@@ -1270,86 +1264,86 @@ MAIN:
   NEWTABLE R27 8 0
   GETTABLEKS R29 R1 K86 ["Dictionary"]
   GETTABLEKS R28 R29 K87 ["join"]
-  GETTABLEKS R29 R8 K418 ["&Warning"]
-  DUPTABLE R30 K421 [{"HorizontalPadding", "TopPadding"}]
+  GETTABLEKS R29 R8 K417 ["&Warning"]
+  DUPTABLE R30 K420 [{"HorizontalPadding", "TopPadding"}]
   GETIMPORT R31 K52 [UDim.new]
   LOADN R32 0
   LOADN R33 0
   CALL R31 2 1
-  SETTABLEKS R31 R30 K419 ["HorizontalPadding"]
+  SETTABLEKS R31 R30 K418 ["HorizontalPadding"]
   GETIMPORT R31 K52 [UDim.new]
   LOADN R32 0
   LOADN R33 0
   CALL R31 2 1
-  SETTABLEKS R31 R30 K420 ["TopPadding"]
+  SETTABLEKS R31 R30 K419 ["TopPadding"]
   CALL R28 2 1
-  SETTABLEKS R28 R27 K418 ["&Warning"]
+  SETTABLEKS R28 R27 K417 ["&Warning"]
   GETTABLEKS R29 R1 K86 ["Dictionary"]
   GETTABLEKS R28 R29 K87 ["join"]
-  GETTABLEKS R29 R8 K422 ["&Error"]
-  DUPTABLE R30 K421 [{"HorizontalPadding", "TopPadding"}]
+  GETTABLEKS R29 R8 K421 ["&Error"]
+  DUPTABLE R30 K420 [{"HorizontalPadding", "TopPadding"}]
   GETIMPORT R31 K52 [UDim.new]
   LOADN R32 0
   LOADN R33 0
   CALL R31 2 1
-  SETTABLEKS R31 R30 K419 ["HorizontalPadding"]
+  SETTABLEKS R31 R30 K418 ["HorizontalPadding"]
   GETIMPORT R31 K52 [UDim.new]
   LOADN R32 0
   LOADN R33 0
   CALL R31 2 1
-  SETTABLEKS R31 R30 K420 ["TopPadding"]
+  SETTABLEKS R31 R30 K419 ["TopPadding"]
   CALL R28 2 1
-  SETTABLEKS R28 R27 K422 ["&Error"]
+  SETTABLEKS R28 R27 K421 ["&Error"]
   GETTABLEKS R29 R1 K86 ["Dictionary"]
   GETTABLEKS R28 R29 K87 ["join"]
-  GETTABLEKS R29 R8 K385 ["&Success"]
-  DUPTABLE R30 K421 [{"HorizontalPadding", "TopPadding"}]
+  GETTABLEKS R29 R8 K384 ["&Success"]
+  DUPTABLE R30 K420 [{"HorizontalPadding", "TopPadding"}]
   GETIMPORT R31 K52 [UDim.new]
   LOADN R32 0
   LOADN R33 0
   CALL R31 2 1
-  SETTABLEKS R31 R30 K419 ["HorizontalPadding"]
+  SETTABLEKS R31 R30 K418 ["HorizontalPadding"]
   GETIMPORT R31 K52 [UDim.new]
   LOADN R32 0
   LOADN R33 0
   CALL R31 2 1
-  SETTABLEKS R31 R30 K420 ["TopPadding"]
+  SETTABLEKS R31 R30 K419 ["TopPadding"]
   CALL R28 2 1
-  SETTABLEKS R28 R27 K385 ["&Success"]
+  SETTABLEKS R28 R27 K384 ["&Success"]
   GETTABLEKS R29 R1 K86 ["Dictionary"]
   GETTABLEKS R28 R29 K87 ["join"]
-  GETTABLEKS R29 R8 K423 ["&Info"]
-  DUPTABLE R30 K421 [{"HorizontalPadding", "TopPadding"}]
+  GETTABLEKS R29 R8 K422 ["&Info"]
+  DUPTABLE R30 K420 [{"HorizontalPadding", "TopPadding"}]
   GETIMPORT R31 K52 [UDim.new]
   LOADN R32 0
   LOADN R33 0
   CALL R31 2 1
-  SETTABLEKS R31 R30 K419 ["HorizontalPadding"]
+  SETTABLEKS R31 R30 K418 ["HorizontalPadding"]
   GETIMPORT R31 K52 [UDim.new]
   LOADN R32 0
   LOADN R33 0
   CALL R31 2 1
-  SETTABLEKS R31 R30 K420 ["TopPadding"]
+  SETTABLEKS R31 R30 K419 ["TopPadding"]
   CALL R28 2 1
-  SETTABLEKS R28 R27 K423 ["&Info"]
+  SETTABLEKS R28 R27 K422 ["&Info"]
   GETTABLEKS R29 R1 K86 ["Dictionary"]
   GETTABLEKS R28 R29 K87 ["join"]
-  GETTABLEKS R29 R8 K418 ["&Warning"]
-  DUPTABLE R30 K424 [{"HorizontalPadding", "TopPadding", "MaxWidth"}]
+  GETTABLEKS R29 R8 K417 ["&Warning"]
+  DUPTABLE R30 K423 [{"HorizontalPadding", "TopPadding", "MaxWidth"}]
   GETIMPORT R31 K52 [UDim.new]
   LOADN R32 0
   LOADN R33 0
   CALL R31 2 1
-  SETTABLEKS R31 R30 K419 ["HorizontalPadding"]
+  SETTABLEKS R31 R30 K418 ["HorizontalPadding"]
   GETIMPORT R31 K52 [UDim.new]
   LOADN R32 0
   LOADN R33 0
   CALL R31 2 1
-  SETTABLEKS R31 R30 K420 ["TopPadding"]
+  SETTABLEKS R31 R30 K419 ["TopPadding"]
   LOADN R31 132
   SETTABLEKS R31 R30 K199 ["MaxWidth"]
   CALL R28 2 1
-  SETTABLEKS R28 R27 K425 ["&WarningLong"]
+  SETTABLEKS R28 R27 K424 ["&WarningLong"]
   CALL R25 2 1
   SETTABLE R25 R22 R24
   GETTABLEKS R24 R6 K17 ["Button"]
@@ -1359,36 +1353,36 @@ MAIN:
   NEWTABLE R27 1 0
   GETTABLEKS R29 R1 K86 ["Dictionary"]
   GETTABLEKS R28 R29 K87 ["join"]
-  GETTABLEKS R29 R9 K426 ["&Round"]
+  GETTABLEKS R29 R9 K425 ["&Round"]
   NEWTABLE R30 2 0
   GETTABLEKS R32 R1 K86 ["Dictionary"]
   GETTABLEKS R31 R32 K87 ["join"]
-  GETTABLEKS R32 R9 K427 ["BackgroundStyle"]
-  DUPTABLE R33 K428 [{"BorderColor"}]
-  GETTABLEKS R34 R4 K429 ["SubText"]
+  GETTABLEKS R32 R9 K426 ["BackgroundStyle"]
+  DUPTABLE R33 K427 [{"BorderColor"}]
+  GETTABLEKS R34 R4 K428 ["SubText"]
   SETTABLEKS R34 R33 K326 ["BorderColor"]
   CALL R31 2 1
-  SETTABLEKS R31 R30 K427 ["BackgroundStyle"]
-  GETTABLEKS R31 R5 K430 ["Hover"]
+  SETTABLEKS R31 R30 K426 ["BackgroundStyle"]
+  GETTABLEKS R31 R5 K429 ["Hover"]
   GETTABLEKS R33 R1 K86 ["Dictionary"]
   GETTABLEKS R32 R33 K87 ["join"]
-  GETTABLEKS R34 R5 K430 ["Hover"]
+  GETTABLEKS R34 R5 K429 ["Hover"]
   GETTABLE R33 R9 R34
-  DUPTABLE R34 K431 [{"BackgroundStyle"}]
+  DUPTABLE R34 K430 [{"BackgroundStyle"}]
   GETTABLEKS R36 R1 K86 ["Dictionary"]
   GETTABLEKS R35 R36 K87 ["join"]
-  GETTABLEKS R38 R5 K430 ["Hover"]
+  GETTABLEKS R38 R5 K429 ["Hover"]
   GETTABLE R37 R9 R38
-  GETTABLEKS R36 R37 K427 ["BackgroundStyle"]
-  DUPTABLE R37 K428 [{"BorderColor"}]
-  GETTABLEKS R38 R4 K429 ["SubText"]
+  GETTABLEKS R36 R37 K426 ["BackgroundStyle"]
+  DUPTABLE R37 K427 [{"BorderColor"}]
+  GETTABLEKS R38 R4 K428 ["SubText"]
   SETTABLEKS R38 R37 K326 ["BorderColor"]
   CALL R35 2 1
-  SETTABLEKS R35 R34 K427 ["BackgroundStyle"]
+  SETTABLEKS R35 R34 K426 ["BackgroundStyle"]
   CALL R32 2 1
   SETTABLE R32 R30 R31
   CALL R28 2 1
-  SETTABLEKS R28 R27 K432 ["&RoundHighlighted"]
+  SETTABLEKS R28 R27 K431 ["&RoundHighlighted"]
   CALL R25 2 1
   SETTABLE R25 R22 R24
   JUMPIFNOT R21 [+36]
@@ -1396,22 +1390,22 @@ MAIN:
   GETTABLEKS R26 R1 K86 ["Dictionary"]
   GETTABLEKS R25 R26 K87 ["join"]
   MOVE R26 R10
-  DUPTABLE R27 K434 [{"MaxHeight"}]
-  LOADK R28 K179 ["Color"]
-  SETTABLEKS R28 R27 K433 ["MaxHeight"]
+  DUPTABLE R27 K433 [{"MaxHeight"}]
+  LOADK R28 K178 [{"HoverX", "AccessoryTypeImage", "UserImage", "Padding", "TextLabelPadding"}]
+  SETTABLEKS R28 R27 K432 ["MaxHeight"]
   CALL R25 2 1
   SETTABLE R25 R22 R24
   GETTABLEKS R24 R6 K23 ["SelectInput"]
   GETTABLEKS R26 R1 K86 ["Dictionary"]
   GETTABLEKS R25 R26 K87 ["join"]
   MOVE R26 R15
-  DUPTABLE R27 K436 [{"DropdownMenu"}]
+  DUPTABLE R27 K435 [{"DropdownMenu"}]
   GETTABLEKS R29 R1 K86 ["Dictionary"]
   GETTABLEKS R28 R29 K87 ["join"]
   GETTABLEKS R29 R15 K18 ["DropdownMenu"]
-  DUPTABLE R30 K434 [{"MaxHeight"}]
-  LOADK R31 K179 ["Color"]
-  SETTABLEKS R31 R30 K433 ["MaxHeight"]
+  DUPTABLE R30 K433 [{"MaxHeight"}]
+  LOADK R31 K178 [{"HoverX", "AccessoryTypeImage", "UserImage", "Padding", "TextLabelPadding"}]
+  SETTABLEKS R31 R30 K432 ["MaxHeight"]
   CALL R28 2 1
   SETTABLEKS R28 R27 K18 ["DropdownMenu"]
   CALL R25 2 1
@@ -1421,16 +1415,16 @@ MAIN:
   GETTABLEKS R25 R26 K87 ["join"]
   MOVE R26 R11
   NEWTABLE R27 1 0
-  DUPTABLE R28 K437 [{"BackgroundColor", "TextColor", "Hover"}]
-  GETTABLEKS R29 R4 K438 ["IconButtonSecondaryMain"]
+  DUPTABLE R28 K436 [{"BackgroundColor", "TextColor", "Hover"}]
+  GETTABLEKS R29 R4 K437 ["IconButtonSecondaryMain"]
   SETTABLEKS R29 R28 K81 ["BackgroundColor"]
   GETTABLEKS R29 R4 K210 ["TextPrimary"]
   SETTABLEKS R29 R28 K195 ["TextColor"]
-  DUPTABLE R29 K439 [{"Background"}]
-  GETTABLEKS R30 R4 K440 ["IconButtonSecondaryHover"]
+  DUPTABLE R29 K438 [{"Background"}]
+  GETTABLEKS R30 R4 K439 ["IconButtonSecondaryHover"]
   SETTABLEKS R30 R29 K137 ["Background"]
-  SETTABLEKS R29 R28 K430 ["Hover"]
-  SETTABLEKS R28 R27 K441 ["&Secondary"]
+  SETTABLEKS R29 R28 K429 ["Hover"]
+  SETTABLEKS R28 R27 K440 ["&Secondary"]
   CALL R25 2 1
   SETTABLE R25 R22 R24
   GETTABLEKS R24 R6 K20 ["Image"]
@@ -1438,68 +1432,68 @@ MAIN:
   GETTABLEKS R25 R26 K87 ["join"]
   MOVE R26 R12
   NEWTABLE R27 16 0
-  DUPTABLE R28 K442 [{"Image", "Size"}]
-  GETTABLEKS R29 R4 K443 ["Collapse"]
+  DUPTABLE R28 K441 [{"Image", "Size"}]
+  GETTABLEKS R29 R4 K442 ["Collapse"]
   SETTABLEKS R29 R28 K20 ["Image"]
   GETIMPORT R29 K172 [UDim2.fromOffset]
   LOADN R30 16
   LOADN R31 16
   CALL R29 2 1
   SETTABLEKS R29 R28 K56 ["Size"]
-  SETTABLEKS R28 R27 K444 ["&Collapse"]
+  SETTABLEKS R28 R27 K443 ["&Collapse"]
   DUPTABLE R28 K138 [{"Image"}]
-  GETTABLEKS R29 R4 K445 ["Hide"]
+  GETTABLEKS R29 R4 K444 ["Hide"]
   SETTABLEKS R29 R28 K20 ["Image"]
-  SETTABLEKS R28 R27 K446 ["&EquippedItemHideIcon"]
+  SETTABLEKS R28 R27 K445 ["&EquippedItemHideIcon"]
   DUPTABLE R28 K138 [{"Image"}]
-  GETTABLEKS R29 R4 K447 ["HideHover"]
+  GETTABLEKS R29 R4 K446 ["HideHover"]
   SETTABLEKS R29 R28 K20 ["Image"]
-  SETTABLEKS R28 R27 K448 ["&EquippedItemHideHoverIcon"]
+  SETTABLEKS R28 R27 K447 ["&EquippedItemHideHoverIcon"]
   DUPTABLE R28 K138 [{"Image"}]
-  GETTABLEKS R29 R4 K449 ["HoverMenu"]
+  GETTABLEKS R29 R4 K448 ["HoverMenu"]
   SETTABLEKS R29 R28 K20 ["Image"]
-  SETTABLEKS R28 R27 K450 ["&EquippedItemHoverMenuBackground"]
+  SETTABLEKS R28 R27 K449 ["&EquippedItemHoverMenuBackground"]
   DUPTABLE R28 K138 [{"Image"}]
-  GETTABLEKS R29 R4 K451 ["Unhide"]
+  GETTABLEKS R29 R4 K450 ["Unhide"]
   SETTABLEKS R29 R28 K20 ["Image"]
-  SETTABLEKS R28 R27 K452 ["&EquippedItemUnhideIcon"]
+  SETTABLEKS R28 R27 K451 ["&EquippedItemUnhideIcon"]
   DUPTABLE R28 K138 [{"Image"}]
-  GETTABLEKS R29 R4 K453 ["UnhideHover"]
+  GETTABLEKS R29 R4 K452 ["UnhideHover"]
   SETTABLEKS R29 R28 K20 ["Image"]
-  SETTABLEKS R28 R27 K454 ["&EquippedItemUnhideHoverIcon"]
+  SETTABLEKS R28 R27 K453 ["&EquippedItemUnhideHoverIcon"]
   DUPTABLE R28 K138 [{"Image"}]
-  GETTABLEKS R29 R4 K455 ["HoverMenuDisabled"]
+  GETTABLEKS R29 R4 K454 ["HoverMenuDisabled"]
   SETTABLEKS R29 R28 K20 ["Image"]
-  SETTABLEKS R28 R27 K456 ["&EquippedItemDisabledBackground"]
+  SETTABLEKS R28 R27 K455 ["&EquippedItemDisabledBackground"]
   NEWTABLE R28 4 0
-  GETTABLEKS R29 R4 K457 ["Dots"]
+  GETTABLEKS R29 R4 K456 ["Dots"]
   SETTABLEKS R29 R28 K20 ["Image"]
   GETTABLEKS R29 R4 K17 ["Button"]
-  SETTABLEKS R29 R28 K458 ["ImageColor3"]
-  GETTABLEKS R29 R5 K430 ["Hover"]
-  DUPTABLE R30 K459 [{"ImageColor3"}]
-  GETTABLEKS R31 R4 K460 ["ImageButtonHover"]
-  SETTABLEKS R31 R30 K458 ["ImageColor3"]
+  SETTABLEKS R29 R28 K457 ["ImageColor3"]
+  GETTABLEKS R29 R5 K429 ["Hover"]
+  DUPTABLE R30 K458 [{"ImageColor3"}]
+  GETTABLEKS R31 R4 K459 ["ImageButtonHover"]
+  SETTABLEKS R31 R30 K457 ["ImageColor3"]
   SETTABLE R30 R28 R29
-  SETTABLEKS R28 R27 K461 ["&EquippedItemDotsIcon"]
-  DUPTABLE R28 K442 [{"Image", "Size"}]
-  GETTABLEKS R29 R4 K462 ["DotsVertical"]
+  SETTABLEKS R28 R27 K460 ["&EquippedItemDotsIcon"]
+  DUPTABLE R28 K441 [{"Image", "Size"}]
+  GETTABLEKS R29 R4 K461 ["DotsVertical"]
   SETTABLEKS R29 R28 K20 ["Image"]
   GETIMPORT R29 K172 [UDim2.fromOffset]
   LOADN R30 20
   LOADN R31 20
   CALL R29 2 1
   SETTABLEKS R29 R28 K56 ["Size"]
-  SETTABLEKS R28 R27 K463 ["&PickTabMenu"]
-  DUPTABLE R28 K442 [{"Image", "Size"}]
-  GETTABLEKS R29 R4 K464 ["Unfold"]
+  SETTABLEKS R28 R27 K462 ["&PickTabMenu"]
+  DUPTABLE R28 K441 [{"Image", "Size"}]
+  GETTABLEKS R29 R4 K463 ["Unfold"]
   SETTABLEKS R29 R28 K20 ["Image"]
   GETIMPORT R29 K172 [UDim2.fromOffset]
   LOADN R30 32
   LOADN R31 32
   CALL R29 2 1
   SETTABLEKS R29 R28 K56 ["Size"]
-  SETTABLEKS R28 R27 K465 ["&Unfold"]
+  SETTABLEKS R28 R27 K464 ["&Unfold"]
   CALL R25 2 1
   SETTABLE R25 R22 R24
   GETTABLEKS R24 R6 K24 ["Separator"]
@@ -1507,10 +1501,10 @@ MAIN:
   GETTABLEKS R25 R26 K87 ["join"]
   MOVE R26 R16
   NEWTABLE R27 1 0
-  DUPTABLE R28 K467 [{"StretchMargin"}]
+  DUPTABLE R28 K466 [{"StretchMargin"}]
   LOADN R29 5
-  SETTABLEKS R29 R28 K466 ["StretchMargin"]
-  SETTABLEKS R28 R27 K468 ["&SelectScreenSeparator"]
+  SETTABLEKS R29 R28 K465 ["StretchMargin"]
+  SETTABLEKS R28 R27 K467 ["&SelectScreenSeparator"]
   CALL R25 2 1
   SETTABLE R25 R22 R24
   GETTABLEKS R24 R6 K21 ["Pane"]
@@ -1526,35 +1520,35 @@ MAIN:
   LOADN R31 4
   CALL R29 2 1
   SETTABLEKS R29 R28 K197 ["CornerRadius"]
-  GETTABLEKS R29 R5 K430 ["Hover"]
-  DUPTABLE R30 K439 [{"Background"}]
+  GETTABLEKS R29 R5 K429 ["Hover"]
+  DUPTABLE R30 K438 [{"Background"}]
   GETTABLEKS R31 R4 K332 ["ButtonHover"]
   SETTABLEKS R31 R30 K137 ["Background"]
   SETTABLE R30 R28 R29
-  GETTABLEKS R29 R5 K469 ["Disabled"]
-  DUPTABLE R30 K439 [{"Background"}]
-  GETTABLEKS R31 R4 K470 ["ButtonPressed"]
+  GETTABLEKS R29 R5 K468 ["Disabled"]
+  DUPTABLE R30 K438 [{"Background"}]
+  GETTABLEKS R31 R4 K469 ["ButtonPressed"]
   SETTABLEKS R31 R30 K137 ["Background"]
   SETTABLE R30 R28 R29
-  SETTABLEKS R28 R27 K471 ["&EquippedItemPreview"]
-  DUPTABLE R28 K472 [{"CornerRadius"}]
+  SETTABLEKS R28 R27 K470 ["&EquippedItemPreview"]
+  DUPTABLE R28 K471 [{"CornerRadius"}]
   GETIMPORT R29 K52 [UDim.new]
   LOADN R30 0
   LOADN R31 4
   CALL R29 2 1
   SETTABLEKS R29 R28 K197 ["CornerRadius"]
-  SETTABLEKS R28 R27 K473 ["&EquippedItemPreviewInner"]
-  DUPTABLE R28 K439 [{"Background"}]
-  GETTABLEKS R29 R4 K474 ["ForegroundMuted"]
+  SETTABLEKS R28 R27 K472 ["&EquippedItemPreviewInner"]
+  DUPTABLE R28 K438 [{"Background"}]
+  GETTABLEKS R29 R4 K473 ["ForegroundMuted"]
   SETTABLEKS R29 R28 K137 ["Background"]
-  SETTABLEKS R28 R27 K475 ["&EquippedItemHoverMenu"]
-  DUPTABLE R28 K472 [{"CornerRadius"}]
+  SETTABLEKS R28 R27 K474 ["&EquippedItemHoverMenu"]
+  DUPTABLE R28 K471 [{"CornerRadius"}]
   GETIMPORT R29 K52 [UDim.new]
   LOADN R30 0
   LOADN R31 4
   CALL R29 2 1
   SETTABLEKS R29 R28 K197 ["CornerRadius"]
-  SETTABLEKS R28 R27 K476 ["&SkinPreview"]
+  SETTABLEKS R28 R27 K475 ["&SkinPreview"]
   CALL R25 2 1
   SETTABLE R25 R22 R24
   GETTABLEKS R24 R6 K25 ["SimpleTab"]
@@ -1568,8 +1562,8 @@ MAIN:
   LOADN R29 1
   SETTABLEKS R29 R28 K89 ["BackgroundTransparency"]
   LOADN R29 0
-  SETTABLEKS R29 R28 K477 ["BorderSize"]
-  DUPTABLE R29 K478 [{"Left", "Top", "Bottom", "Right"}]
+  SETTABLEKS R29 R28 K476 ["BorderSize"]
+  DUPTABLE R29 K477 [{"Left", "Top", "Bottom", "Right"}]
   LOADN R30 12
   SETTABLEKS R30 R29 K281 ["Left"]
   LOADN R30 2
@@ -1580,21 +1574,21 @@ MAIN:
   SETTABLEKS R30 R29 K282 ["Right"]
   SETTABLEKS R29 R28 K54 ["Padding"]
   LOADN R29 0
-  SETTABLEKS R29 R28 K479 ["TopLineHeight"]
-  GETTABLEKS R29 R5 K480 ["Selected"]
-  DUPTABLE R30 K481 [{"BackgroundColor", "Font"}]
+  SETTABLEKS R29 R28 K478 ["TopLineHeight"]
+  GETTABLEKS R29 R5 K479 ["Selected"]
+  DUPTABLE R30 K480 [{"BackgroundColor", "Font"}]
   GETTABLEKS R31 R4 K84 ["SubBackground2"]
   SETTABLEKS R31 R30 K81 ["BackgroundColor"]
   GETIMPORT R31 K205 [Enum.Font.SourceSansBold]
   SETTABLEKS R31 R30 K203 ["Font"]
   SETTABLE R30 R28 R29
-  SETTABLEKS R28 R27 K482 ["&AssetPaletteTab"]
-  DUPTABLE R28 K483 [{"BorderSize", "TopLineHeight"}]
+  SETTABLEKS R28 R27 K481 ["&AssetPaletteTab"]
+  DUPTABLE R28 K482 [{"BorderSize", "TopLineHeight"}]
   LOADN R29 0
-  SETTABLEKS R29 R28 K477 ["BorderSize"]
+  SETTABLEKS R29 R28 K476 ["BorderSize"]
   LOADN R29 3
-  SETTABLEKS R29 R28 K479 ["TopLineHeight"]
-  SETTABLEKS R28 R27 K484 ["&CategoryTab"]
+  SETTABLEKS R29 R28 K478 ["TopLineHeight"]
+  SETTABLEKS R28 R27 K483 ["&CategoryTab"]
   CALL R25 2 1
   SETTABLE R25 R22 R24
   GETTABLEKS R24 R6 K26 ["Tooltip"]
@@ -1602,10 +1596,10 @@ MAIN:
   GETTABLEKS R25 R26 K87 ["join"]
   MOVE R26 R18
   NEWTABLE R27 1 0
-  DUPTABLE R28 K486 [{"ShowDelay"}]
+  DUPTABLE R28 K485 [{"ShowDelay"}]
   LOADN R29 0
-  SETTABLEKS R29 R28 K485 ["ShowDelay"]
-  SETTABLEKS R28 R27 K487 ["&NoDelay"]
+  SETTABLEKS R29 R28 K484 ["ShowDelay"]
+  SETTABLEKS R28 R27 K486 ["&NoDelay"]
   CALL R25 2 1
   SETTABLE R25 R22 R24
   RETURN R22 1

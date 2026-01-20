@@ -14,7 +14,6 @@ local createUIGroupDragBar = require(script.Parent.createUIGroupDragBar)
 local DragBar = require(UIManagerRoot.DragBar)
 local Players = game:GetService("Players")
 local FIntUIResetDelayInSec = game:DefineFastInt("FIntUIResetDelayInSec", 3)
-local FFlagFixHeadSacleAdjustment = game:DefineFastFlag("FixHeadSacleAdjustment", false)
 
 export type UIGroupPositionProps = {
 	-- The rotation of the UI group relative to the head, used to update the CFrame of the UI group
@@ -462,11 +461,7 @@ function UIManager.new()
 	--- Immediately initialize the UI groups after creation
 	self:setUpUiGroups()
 	self:rescaleUIForCurrentHeadScale()
-	if FFlagFixHeadSacleAdjustment then
-		self:updateUIGroupsForCurCamera()
-	else
-		self:updateUIGroupsForCurHeadCFrame()
-	end
+	self:updateUIGroupsForCurCamera()
 
 	RunService:BindToRenderStep("UIManagerRenderStep", Enum.RenderPriority.Last.Value, function()
 		self:step()

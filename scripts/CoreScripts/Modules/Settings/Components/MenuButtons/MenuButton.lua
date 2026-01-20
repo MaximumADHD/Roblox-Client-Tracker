@@ -13,6 +13,9 @@ local View = Foundation.View
 local Text = Foundation.Text
 local Image = Foundation.Image
 
+local TraversalHistoryMenu = require(RobloxGui.Modules.Settings.Components.Traversal.TraversalHistoryMenu)
+
+local FFlagAddTraversalHistoryReactMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagAddTraversalHistoryReactMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
 
 export type ButtonData = {
@@ -29,6 +32,8 @@ export type ButtonData = {
 	onActivated: () -> (),
 	hotkeys: { Enum.KeyCode },
 	hotkeyFunc: ((...any) -> ...any),
+	addTraversalHistoryMenu: boolean?,
+	currentPageChangeSignal: any,
 }
 
 local getDisabledTransparency = function(transparency: number)
@@ -57,6 +62,46 @@ local function KeyLabelIcon(key: string, isDisabled: boolean)
 	})
 end
 
+local function Hint(props) : React.React_Node
+	if FIntRelocateMobileMenuButtonsVariant == 2 and Utility:IsSmallTouchScreen() then 
+		return nil
+	elseif props.lastInput == Responsive.Input.Pointer then 
+		return KeyLabelIcon(props.keyboardHint, props.isDisabled)
+	elseif props.lastInput == Responsive.Input.Directional then 
+		return React.createElement(Image, {
+			Image = props.gamepadButtonImageHint,
+			imageStyle = {
+				Color3 = props.foregroundStyle.Color3,
+				Transparency = if props.isDisabled then 0.5 else props.foregroundStyle.Transparency,
+			},
+			tag = {
+				["size-600"] = not props.isSmall,
+				["size-500"] = props.isSmall,
+			},
+		})
+	else 
+		return nil
+	end
+end
+
+local function ButtonText(props) : React.React_Node
+	return React.createElement(Text, {
+		Text = props.text,
+		LayoutOrder = 2,
+		textStyle = {
+			Color3 = props.foregroundStyle.Color3,
+			Transparency = if props.isDisabled then 0.5 else props.foregroundStyle.Transparency,
+		},
+		tag = {
+			["auto-x"] = true,
+			["text-title-medium"] = not props.isSmall,
+			["text-title-small"] = props.isSmall,
+			["content-action-standard"] = not props.isEmphasized,
+			["content-action-soft-emphasis"] = props.isEmphasized,
+		},
+	})
+end
+
 type Props = {
 	text: string,
 	lastInput: string,
@@ -67,11 +112,13 @@ type Props = {
 	isEmphasized: boolean,
 	isSmall: boolean,
 	isDisabled: boolean,
+	addTraversalHistoryMenu: boolean?,
+	currentPageChangeSignal: any,
 }
 
 local function MenuButton(props: Props)
 	local tokens = useTokens()
-
+	local buttonRef = if FFlagAddTraversalHistoryReactMenuButtons then React.useRef(nil) else nil
 	local backgroundStyle = if props.isEmphasized then tokens.Color.ActionSoftEmphasis.Background else tokens.Color.ActionStandard.Background
 	local foregroundStyle = if props.isEmphasized then tokens.Color.ActionSoftEmphasis.Foreground else tokens.Color.ActionStandard.Foreground
 
@@ -90,8 +137,29 @@ local function MenuButton(props: Props)
 			["bg-action-standard"] = not props.isEmphasized,
 			["bg-action-soft-emphasis"] = props.isEmphasized,
 		},
+		ref = if FFlagAddTraversalHistoryReactMenuButtons then buttonRef else nil,
 	}, {
-		Hint = if FIntRelocateMobileMenuButtonsVariant == 2 and Utility:IsSmallTouchScreen() then nil
+		Button = if FFlagAddTraversalHistoryReactMenuButtons then React.createElement(View, {
+			tag = "auto-xy row align-y-center align-x-center grow gap-small",
+		}, {
+			Hint = React.createElement(Hint, {
+				lastInput = props.lastInput,
+				keyboardHint = props.keyboardHint,
+				gamepadButtonImageHint = props.gamepadButtonImageHint,
+				isDisabled = props.isDisabled,
+				foregroundStyle = foregroundStyle,
+				isSmall = props.isSmall,
+			}),
+			ButtonText = React.createElement(ButtonText, {
+				text = props.text,
+				isDisabled = props.isDisabled,
+				foregroundStyle = foregroundStyle,
+				isEmphasized = props.isEmphasized,
+				isSmall = props.isSmall,
+			}),
+		}) else nil,
+		Hint = if not FFlagAddTraversalHistoryReactMenuButtons then 
+			(if FIntRelocateMobileMenuButtonsVariant == 2 and Utility:IsSmallTouchScreen() then nil
 			elseif props.lastInput == Responsive.Input.Pointer then KeyLabelIcon(props.keyboardHint, props.isDisabled)
 			elseif props.lastInput == Responsive.Input.Directional then React.createElement(Image, {
 				Image = props.gamepadButtonImageHint,
@@ -104,8 +172,9 @@ local function MenuButton(props: Props)
 					["size-500"] = props.isSmall,
 				},
 			})
-			else nil,
-		ButtonText = React.createElement(Text, {
+			else nil) 
+		else nil,
+		ButtonText = if not FFlagAddTraversalHistoryReactMenuButtons then React.createElement(Text, {
 			Text = props.text,
 			LayoutOrder = 2,
 			textStyle = {
@@ -119,7 +188,15 @@ local function MenuButton(props: Props)
 				["content-action-standard"] = not props.isEmphasized,
 				["content-action-soft-emphasis"] = props.isEmphasized,
 			},
-		}),
+		}) else nil,
+		TraversalHistoryMenu = if FFlagAddTraversalHistoryReactMenuButtons and props.addTraversalHistoryMenu 
+			then React.createElement(TraversalHistoryMenu, {
+				anchorRef = buttonRef,
+				idleButtonStateIsDown = not props.isSmall,
+				currentPageChangeSignal = props.currentPageChangeSignal,
+				isDarkOnDarkMode = true,
+			})
+		else nil,
 	})
 end
 

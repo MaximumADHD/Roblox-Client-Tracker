@@ -16,7 +16,6 @@ local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
 
 -- Flags
 local FFlagRefactorPeoplePage = require(Modules.Settings.Flags.FFlagRefactorPeoplePage)
-local FFlagEnableToastForBlockingModal = require(Modules.Common.Flags.FFlagEnableToastForBlockingModal)
 local FFlagRenderPeoplePageOnTabSwitch = game:DefineFastFlag("RenderPeoplePageOnTabSwitch", false)
 local FFlagRelocateMobileMenuButtons = require(Modules.Settings.Flags.FFlagRelocateMobileMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
@@ -118,9 +117,7 @@ local function createPeoplePage()
 						FocusRoot = React.createElement(PeopleFocusRoot, {}, {
 							PeopleReactView = React.createElement(PeopleReactView, {
 								blockingModalScreen = BlockingModalScreen,
-								blockingFlags = {
-									FFlagEnableToastForBlockingModal = FFlagEnableToastForBlockingModal,
-								},
+								blockingFlags = {},
 								scrollingFrame = if GetFFlagPeoplePageLazyRenderCards() or FFlagEnablePeopleListLazyRender then scrollingFrame else nil,
 								chromeEnabled = ChromeEnabled,
 								getUniversesExposedTo = if GetFFlagAddPeoplePageCardLayout() and LocalStore then LocalStore.getUniversesExposedTo else nil,

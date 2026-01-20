@@ -29,6 +29,8 @@ type _Messages = {
 	OpenTooltipAction_Params: _OpenTooltipAction_ParamsMessage,
 	OpenBadgeDetailsAction: _OpenBadgeDetailsActionMessage,
 	OpenBadgeDetailsAction_Params: _OpenBadgeDetailsAction_ParamsMessage,
+	LoadMoreFromApiAction: _LoadMoreFromApiActionMessage,
+	LoadMoreFromApiAction_Params: _LoadMoreFromApiAction_ParamsMessage,
 	Action: _ActionMessage,
 	ActionProp: _ActionPropMessage,
 	ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -622,6 +624,61 @@ type _OpenBadgeDetailsAction_ParamsMessage = proto.Message<
 	_OpenBadgeDetailsAction_ParamsPartialFields
 >
 
+type _LoadMoreFromApiActionImpl = {
+	__index: _LoadMoreFromApiActionImpl,
+	new: (fields: _LoadMoreFromApiActionPartialFields?) -> LoadMoreFromApiAction,
+	encode: (self: LoadMoreFromApiAction) -> buffer,
+	decode: (input: buffer) -> LoadMoreFromApiAction,
+	jsonEncode: (self: LoadMoreFromApiAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LoadMoreFromApiAction,
+	descriptor: proto.Descriptor,
+}
+
+type _LoadMoreFromApiActionFields = {
+	action_type: ActionType,
+	action_params: LoadMoreFromApiAction_Params?,
+}
+
+type _LoadMoreFromApiActionPartialFields = {
+	action_type: ActionType?,
+	action_params: LoadMoreFromApiAction_Params?,
+}
+
+export type LoadMoreFromApiAction = typeof(setmetatable(
+	{} :: _LoadMoreFromApiActionFields,
+	{} :: _LoadMoreFromApiActionImpl
+))
+type _LoadMoreFromApiActionMessage = proto.Message<LoadMoreFromApiAction, _LoadMoreFromApiActionPartialFields>
+
+type _LoadMoreFromApiAction_ParamsImpl = {
+	__index: _LoadMoreFromApiAction_ParamsImpl,
+	new: (fields: _LoadMoreFromApiAction_ParamsPartialFields?) -> LoadMoreFromApiAction_Params,
+	encode: (self: LoadMoreFromApiAction_Params) -> buffer,
+	decode: (input: buffer) -> LoadMoreFromApiAction_Params,
+	jsonEncode: (self: LoadMoreFromApiAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> LoadMoreFromApiAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _LoadMoreFromApiAction_ParamsFields = {
+	surface_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	config_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _LoadMoreFromApiAction_ParamsPartialFields = {
+	surface_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	config_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type LoadMoreFromApiAction_Params = typeof(setmetatable(
+	{} :: _LoadMoreFromApiAction_ParamsFields,
+	{} :: _LoadMoreFromApiAction_ParamsImpl
+))
+type _LoadMoreFromApiAction_ParamsMessage = proto.Message<
+	LoadMoreFromApiAction_Params,
+	_LoadMoreFromApiAction_ParamsPartialFields
+>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -645,6 +702,7 @@ type _ActionFields = {
 		| { type: "update_user_settings_action", value: UpdateUserSettingsAction }
 		| { type: "open_tooltip_action", value: OpenTooltipAction }
 		| { type: "open_badge_details_action", value: OpenBadgeDetailsAction }
+		| { type: "load_more_from_api_action", value: LoadMoreFromApiAction }
 	)?,
 }
 
@@ -661,6 +719,7 @@ type _ActionPartialFields = {
 		| { type: "update_user_settings_action", value: UpdateUserSettingsAction }
 		| { type: "open_tooltip_action", value: OpenTooltipAction }
 		| { type: "open_badge_details_action", value: OpenBadgeDetailsAction }
+		| { type: "load_more_from_api_action", value: LoadMoreFromApiAction }
 	)?,
 }
 
@@ -932,6 +991,7 @@ export type ActionType =
 	| "ACTION_TYPE_UPDATE_USER_SETTINGS"
 	| "ACTION_TYPE_OPEN_TOOLTIP"
 	| "ACTION_TYPE_OPEN_BADGE_DETAILS"
+	| "ACTION_TYPE_LOAD_MORE_FROM_API"
 	| number -- Unknown
 
 do
@@ -3852,6 +3912,280 @@ do
 end
 
 do
+	local _LoadMoreFromApiActionImpl = {}
+	_LoadMoreFromApiActionImpl.__index = _LoadMoreFromApiActionImpl
+
+	function _LoadMoreFromApiActionImpl.new(data: _LoadMoreFromApiActionPartialFields?): LoadMoreFromApiAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _LoadMoreFromApiActionImpl :: _LoadMoreFromApiActionImpl)
+	end
+
+	function _LoadMoreFromApiActionImpl.encode(self: LoadMoreFromApiAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LoadMoreFromApiActionImpl.decode(input: buffer): LoadMoreFromApiAction
+		local self = _LoadMoreFromApiActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.LoadMoreFromApiAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LoadMoreFromApiActionImpl.jsonEncode(self: LoadMoreFromApiAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _LoadMoreFromApiActionImpl.jsonDecode(input: { [string]: any }): LoadMoreFromApiAction
+		local self = _LoadMoreFromApiActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.LoadMoreFromApiAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.LoadMoreFromApiAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_LoadMoreFromApiActionImpl.descriptor = {
+		name = "LoadMoreFromApiAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.LoadMoreFromApiAction",
+	}
+
+	messages.LoadMoreFromApiAction = _LoadMoreFromApiActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LoadMoreFromApiAction)
+end
+
+do
+	local _LoadMoreFromApiAction_ParamsImpl = {}
+	_LoadMoreFromApiAction_ParamsImpl.__index = _LoadMoreFromApiAction_ParamsImpl
+
+	function _LoadMoreFromApiAction_ParamsImpl.new(
+		data: _LoadMoreFromApiAction_ParamsPartialFields?
+	): LoadMoreFromApiAction_Params
+		return setmetatable({
+			surface_key = if data == nil or data.surface_key == nil then nil else data.surface_key,
+			config_key = if data == nil or data.config_key == nil then nil else data.config_key,
+		}, _LoadMoreFromApiAction_ParamsImpl :: _LoadMoreFromApiAction_ParamsImpl)
+	end
+
+	function _LoadMoreFromApiAction_ParamsImpl.encode(self: LoadMoreFromApiAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.surface_key ~= nil then
+			local encoded = self.surface_key:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.config_key ~= nil then
+			local encoded = self.config_key:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _LoadMoreFromApiAction_ParamsImpl.decode(input: buffer): LoadMoreFromApiAction_Params
+		local self = _LoadMoreFromApiAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.surface_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.config_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _LoadMoreFromApiAction_ParamsImpl.jsonEncode(self: LoadMoreFromApiAction_Params): any
+		local output = {}
+
+		if self.surface_key ~= nil then
+			output.surfaceKey = self.surface_key:jsonEncode()
+		end
+
+		if self.config_key ~= nil then
+			output.configKey = self.config_key:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _LoadMoreFromApiAction_ParamsImpl.jsonDecode(input: { [string]: any }): LoadMoreFromApiAction_Params
+		local self = _LoadMoreFromApiAction_ParamsImpl.new()
+
+		if input.surface_key ~= nil then
+			self.surface_key =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.surface_key)
+		end
+
+		if input.surfaceKey ~= nil then
+			self.surface_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.surfaceKey)
+		end
+
+		if input.config_key ~= nil then
+			self.config_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.config_key)
+		end
+
+		if input.configKey ~= nil then
+			self.config_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.configKey)
+		end
+
+		return self
+	end
+
+	_LoadMoreFromApiAction_ParamsImpl.descriptor = {
+		name = "LoadMoreFromApiAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.LoadMoreFromApiAction_Params = _LoadMoreFromApiAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.LoadMoreFromApiAction_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -3909,6 +4243,10 @@ do
 			elseif self.kind.type == "open_badge_details_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "load_more_from_api_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -4000,6 +4338,12 @@ do
 					self.kind =
 						{ type = "open_badge_details_action", value = messages.OpenBadgeDetailsAction.decode(value) }
 					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "load_more_from_api_action", value = messages.LoadMoreFromApiAction.decode(value) }
+					continue
 				end
 
 				local length
@@ -4050,6 +4394,8 @@ do
 				output.openTooltipAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "open_badge_details_action" then
 				output.openBadgeDetailsAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "load_more_from_api_action" then
+				output.loadMoreFromApiAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -4200,6 +4546,20 @@ do
 			self.kind = {
 				type = "open_badge_details_action",
 				value = messages.OpenBadgeDetailsAction.jsonDecode(input.openBadgeDetailsAction),
+			}
+		end
+
+		if input.load_more_from_api_action ~= nil then
+			self.kind = {
+				type = "load_more_from_api_action",
+				value = messages.LoadMoreFromApiAction.jsonDecode(input.load_more_from_api_action),
+			}
+		end
+
+		if input.loadMoreFromApiAction ~= nil then
+			self.kind = {
+				type = "load_more_from_api_action",
+				value = messages.LoadMoreFromApiAction.jsonDecode(input.loadMoreFromApiAction),
 			}
 		end
 
@@ -5371,6 +5731,8 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_TOOLTIP"
 		elseif value == 11 then
 			return "ACTION_TYPE_OPEN_BADGE_DETAILS"
+		elseif value == 12 then
+			return "ACTION_TYPE_LOAD_MORE_FROM_API"
 		else
 			return nil
 		end
@@ -5401,6 +5763,8 @@ messages.ActionType = {
 			return 10
 		elseif self == "ACTION_TYPE_OPEN_BADGE_DETAILS" then
 			return 11
+		elseif self == "ACTION_TYPE_LOAD_MORE_FROM_API" then
+			return 12
 		else
 			return self
 		end
@@ -5431,6 +5795,8 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_TOOLTIP"
 		elseif name == "ACTION_TYPE_OPEN_BADGE_DETAILS" then
 			return "ACTION_TYPE_OPEN_BADGE_DETAILS"
+		elseif name == "ACTION_TYPE_LOAD_MORE_FROM_API" then
+			return "ACTION_TYPE_LOAD_MORE_FROM_API"
 		else
 			return nil
 		end
@@ -5460,6 +5826,8 @@ return {
 	OpenTooltipAction_Params = messages.OpenTooltipAction_Params,
 	OpenBadgeDetailsAction = messages.OpenBadgeDetailsAction,
 	OpenBadgeDetailsAction_Params = messages.OpenBadgeDetailsAction_Params,
+	LoadMoreFromApiAction = messages.LoadMoreFromApiAction,
+	LoadMoreFromApiAction_Params = messages.LoadMoreFromApiAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

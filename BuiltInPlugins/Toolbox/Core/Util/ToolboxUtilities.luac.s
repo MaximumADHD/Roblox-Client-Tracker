@@ -80,11 +80,9 @@ PROTO_13:
   MOVE R2 R0
   GETIMPORT R1 K2 [type]
   CALL R1 1 1
-  JUMPIFEQKS R1 K3 ["table"] [+10]
+  JUMPIFEQKS R1 K3 ["table"] [+8]
   GETIMPORT R1 K5 [warn]
-  LOADK R3 K0 ["AssetConfigDistributionQuotas"]
-  LOADK R4 K6 [" is expected to be a table if defined"]
-  CONCAT R2 R3 R4
+  LOADK R2 K6 ["AssetConfigDistributionQuotas is expected to be a table if defined"]
   CALL R1 1 0
   NEWTABLE R1 0 0
   RETURN R1 1
@@ -115,11 +113,9 @@ PROTO_14:
   MOVE R2 R0
   GETIMPORT R1 K2 [type]
   CALL R1 1 1
-  JUMPIFEQKS R1 K3 ["table"] [+10]
+  JUMPIFEQKS R1 K3 ["table"] [+8]
   GETIMPORT R1 K5 [warn]
-  LOADK R3 K0 ["AnnouncementConfiguration"]
-  LOADK R4 K6 [" is expected to be a table if defined"]
-  CONCAT R2 R3 R4
+  LOADK R2 K6 ["AnnouncementConfiguration is expected to be a table if defined"]
   CALL R1 1 0
   NEWTABLE R1 0 0
   RETURN R1 1

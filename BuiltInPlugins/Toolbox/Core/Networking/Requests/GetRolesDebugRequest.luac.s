@@ -831,7 +831,7 @@ PROTO_1:
   CALL R4 -1 0
   GETUPVAL R4 3
   CALL R4 0 1
-  JUMPIFNOT R4 [+57]
+  JUMPIFNOT R4 [+60]
   DUPTABLE R4 K56 [{"isItemTagsFeatureEnabled", "enabledAssetTypes", "maximumItemTagsPerItem"}]
   LOADB R5 1
   SETTABLEKS R5 R4 K53 ["isItemTagsFeatureEnabled"]
@@ -869,20 +869,23 @@ PROTO_1:
   LOADK R7 K28 ["EmoteAnimation"]
   GETIMPORT R5 K59 [table.insert]
   CALL R5 2 0
-  GETUPVAL R7 4
+  GETUPVAL R5 4
+  CALL R5 0 1
+  JUMPIF R5 [+11]
+  GETUPVAL R7 5
   GETTABLEKS R8 R4 K53 ["isItemTagsFeatureEnabled"]
   GETTABLEKS R9 R4 K54 ["enabledAssetTypes"]
   GETTABLEKS R10 R4 K55 ["maximumItemTagsPerItem"]
   CALL R7 3 -1
   NAMECALL R5 R0 K52 ["dispatch"]
   CALL R5 -1 0
-  GETUPVAL R6 5
+  GETUPVAL R6 6
   GETGLOBAL R7 K60 ["getDebugUgcBundleMetadata"]
   CALL R7 0 -1
   CALL R6 -1 -1
   NAMECALL R4 R0 K52 ["dispatch"]
   CALL R4 -1 0
-  GETUPVAL R5 6
+  GETUPVAL R5 7
   GETTABLEKS R4 R5 K61 ["resolve"]
   NEWTABLE R5 0 0
   CALL R4 1 -1
@@ -897,6 +900,7 @@ PROTO_2:
   CAPTURE UPVAL U4
   CAPTURE UPVAL U5
   CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
   RETURN R1 1
 
 MAIN:
@@ -929,56 +933,67 @@ MAIN:
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
   GETTABLEKS R9 R0 K9 ["Core"]
-  GETTABLEKS R8 R9 K10 ["Actions"]
-  GETTABLEKS R7 R8 K14 ["SetTagsMetadata"]
+  GETTABLEKS R8 R9 K7 ["Util"]
+  GETTABLEKS R7 R8 K14 ["DebugFlags"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K9 ["Core"]
-  GETTABLEKS R9 R10 K7 ["Util"]
-  GETTABLEKS R8 R9 K15 ["DebugFlags"]
+  GETTABLEKS R11 R0 K9 ["Core"]
+  GETTABLEKS R10 R11 K7 ["Util"]
+  GETTABLEKS R9 R10 K15 ["SharedFlags"]
+  GETTABLEKS R8 R9 K16 ["getFFlagToolboxAddAvatarTagDataIntoMock"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
-  GETTABLEKS R12 R0 K9 ["Core"]
-  GETTABLEKS R11 R12 K7 ["Util"]
-  GETTABLEKS R10 R11 K16 ["SharedFlags"]
-  GETTABLEKS R9 R10 K17 ["getFFlagToolboxAddAvatarTagDataIntoMock"]
+  GETTABLEKS R11 R0 K9 ["Core"]
+  GETTABLEKS R10 R11 K17 ["Flags"]
+  GETTABLEKS R9 R10 K18 ["getFFlagEnableUploadingEmote"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
   GETTABLEKS R12 R0 K9 ["Core"]
-  GETTABLEKS R11 R12 K18 ["Flags"]
-  GETTABLEKS R10 R11 K19 ["getFFlagEnableUploadingEmote"]
+  GETTABLEKS R11 R12 K17 ["Flags"]
+  GETTABLEKS R10 R11 K19 ["getFFlagRemoveItemTags"]
   CALL R9 1 1
-  DUPTABLE R10 K23 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
-  DUPTABLE R11 K26 [{"minRobux", "maxRobux"}]
-  LOADN R12 50
-  SETTABLEKS R12 R11 K24 ["minRobux"]
-  LOADN R12 136
-  SETTABLEKS R12 R11 K25 ["maxRobux"]
-  SETTABLEKS R11 R10 K20 ["allowedPriceRange"]
-  LOADN R11 70
-  SETTABLEKS R11 R10 K21 ["marketplaceFeesPercentage"]
-  DUPTABLE R11 K28 [{"allowedDiscountPercentages", "allowedPriceRange"}]
-  NEWTABLE R12 0 3
-  LOADN R13 25
-  LOADN R14 50
-  LOADN R15 75
-  SETLIST R12 R13 3 [1]
-  SETTABLEKS R12 R11 K27 ["allowedDiscountPercentages"]
-  DUPTABLE R12 K26 [{"minRobux", "maxRobux"}]
+  MOVE R11 R9
+  CALL R11 0 1
+  JUMPIFNOT R11 [+2]
+  LOADNIL R10
+  JUMP [+9]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R13 R0 K9 ["Core"]
+  GETTABLEKS R12 R13 K10 ["Actions"]
+  GETTABLEKS R11 R12 K20 ["SetTagsMetadata"]
+  CALL R10 1 1
+  DUPTABLE R11 K24 [{"allowedPriceRange", "marketplaceFeesPercentage", "premiumPricing"}]
+  DUPTABLE R12 K27 [{"minRobux", "maxRobux"}]
   LOADN R13 50
-  SETTABLEKS R13 R12 K24 ["minRobux"]
+  SETTABLEKS R13 R12 K25 ["minRobux"]
   LOADN R13 136
-  SETTABLEKS R13 R12 K25 ["maxRobux"]
-  SETTABLEKS R12 R11 K20 ["allowedPriceRange"]
-  SETTABLEKS R11 R10 K22 ["premiumPricing"]
-  DUPCLOSURE R11 K29 [PROTO_0]
-  SETGLOBAL R11 K30 ["getDebugUgcBundleMetadata"]
-  DUPCLOSURE R11 K31 [PROTO_2]
+  SETTABLEKS R13 R12 K26 ["maxRobux"]
+  SETTABLEKS R12 R11 K21 ["allowedPriceRange"]
+  LOADN R12 70
+  SETTABLEKS R12 R11 K22 ["marketplaceFeesPercentage"]
+  DUPTABLE R12 K29 [{"allowedDiscountPercentages", "allowedPriceRange"}]
+  NEWTABLE R13 0 3
+  LOADN R14 25
+  LOADN R15 50
+  LOADN R16 75
+  SETLIST R13 R14 3 [1]
+  SETTABLEKS R13 R12 K28 ["allowedDiscountPercentages"]
+  DUPTABLE R13 K27 [{"minRobux", "maxRobux"}]
+  LOADN R14 50
+  SETTABLEKS R14 R13 K25 ["minRobux"]
+  LOADN R14 136
+  SETTABLEKS R14 R13 K26 ["maxRobux"]
+  SETTABLEKS R13 R12 K21 ["allowedPriceRange"]
+  SETTABLEKS R12 R11 K23 ["premiumPricing"]
+  DUPCLOSURE R12 K30 [PROTO_0]
+  SETGLOBAL R12 K31 ["getDebugUgcBundleMetadata"]
+  DUPCLOSURE R12 K32 [PROTO_2]
+  CAPTURE VAL R8
+  CAPTURE VAL R11
+  CAPTURE VAL R4
+  CAPTURE VAL R7
   CAPTURE VAL R9
   CAPTURE VAL R10
-  CAPTURE VAL R4
-  CAPTURE VAL R8
-  CAPTURE VAL R6
   CAPTURE VAL R5
   CAPTURE VAL R2
-  RETURN R11 1
+  RETURN R12 1

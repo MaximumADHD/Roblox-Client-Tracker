@@ -29,20 +29,34 @@ MAIN:
   GETTABLEKS R5 R0 K8 ["Core"]
   GETTABLEKS R4 R5 K9 ["Actions"]
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R6 R4 K10 ["SetTagsMetadata"]
+  GETTABLEKS R8 R0 K8 ["Core"]
+  GETTABLEKS R7 R8 K10 ["Flags"]
+  GETTABLEKS R6 R7 K11 ["getFFlagRemoveItemTags"]
   CALL R5 1 1
-  GETTABLEKS R6 R3 K11 ["createReducer"]
-  DUPTABLE R7 K15 [{"isItemTagsFeatureEnabled", "enabledAssetTypesForItemTags", "maximumItemTagsPerItem"}]
-  LOADB R8 0
-  SETTABLEKS R8 R7 K12 ["isItemTagsFeatureEnabled"]
-  NEWTABLE R8 0 0
-  SETTABLEKS R8 R7 K13 ["enabledAssetTypesForItemTags"]
-  LOADN R8 0
-  SETTABLEKS R8 R7 K14 ["maximumItemTagsPerItem"]
-  NEWTABLE R8 1 0
-  GETTABLEKS R9 R5 K16 ["name"]
-  DUPCLOSURE R10 K17 [PROTO_0]
+  MOVE R7 R5
+  CALL R7 0 1
+  JUMPIFNOT R7 [+2]
+  LOADNIL R6
+  JUMP [+5]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R4 K12 ["SetTagsMetadata"]
+  CALL R6 1 1
+  MOVE R7 R5
+  CALL R7 0 1
+  JUMPIF R7 [+22]
+  GETTABLEKS R7 R3 K13 ["createReducer"]
+  DUPTABLE R8 K17 [{"isItemTagsFeatureEnabled", "enabledAssetTypesForItemTags", "maximumItemTagsPerItem"}]
+  LOADB R9 0
+  SETTABLEKS R9 R8 K14 ["isItemTagsFeatureEnabled"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K15 ["enabledAssetTypesForItemTags"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K16 ["maximumItemTagsPerItem"]
+  NEWTABLE R9 1 0
+  GETTABLEKS R10 R6 K18 ["name"]
+  DUPCLOSURE R11 K19 [PROTO_0]
   CAPTURE VAL R2
-  SETTABLE R10 R8 R9
-  CALL R6 2 -1
-  RETURN R6 -1
+  SETTABLE R11 R9 R10
+  CALL R7 2 -1
+  RETURN R7 -1
+  RETURN R0 0

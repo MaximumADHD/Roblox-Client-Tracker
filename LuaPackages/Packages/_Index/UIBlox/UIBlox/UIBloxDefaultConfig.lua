@@ -50,9 +50,6 @@ return {
 	-- Enable SurfaceGui ref exposure through Panel3D
 	enablePanel3DSurfaceGuiRef = false,
 
-	-- Use StatusIndicator instead of Badge, where applicable
-	useFoundationStatusIndicator = false,
-
 	-- Enable rich text support for TooltipV2 header and body text
 	enableTooltipRichText = false,
 

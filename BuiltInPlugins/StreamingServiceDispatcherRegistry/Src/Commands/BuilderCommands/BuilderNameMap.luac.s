@@ -40,28 +40,27 @@ PROTO_2:
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K4 ["requestToRecordName"]
   GETTABLE R2 R3 R0
-  JUMPIF R2 [+19]
-  LOADK R3 K5 ["%* %*"]
-  LOADK R5 K6 ["Assistant Actions"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K7 ["recordingActionNumber"]
-  NAMECALL R3 R3 K8 ["format"]
-  CALL R3 3 1
+  JUMPIF R2 [+18]
+  LOADK R3 K5 ["Assistant Actions %*"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K6 ["recordingActionNumber"]
+  NAMECALL R3 R3 K7 ["format"]
+  CALL R3 2 1
   MOVE R2 R3
   GETUPVAL R3 2
-  GETTABLEKS R4 R3 K7 ["recordingActionNumber"]
-  ADDK R4 R4 K9 [1]
-  SETTABLEKS R4 R3 K7 ["recordingActionNumber"]
+  GETTABLEKS R4 R3 K6 ["recordingActionNumber"]
+  ADDK R4 R4 K8 [1]
+  SETTABLEKS R4 R3 K6 ["recordingActionNumber"]
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K4 ["requestToRecordName"]
   SETTABLE R2 R3 R0
   GETUPVAL R3 1
   MOVE R5 R2
-  NAMECALL R3 R3 K10 ["TryBeginRecording"]
+  NAMECALL R3 R3 K9 ["TryBeginRecording"]
   CALL R3 2 1
   JUMPIF R3 [+6]
   GETIMPORT R4 K2 [warn]
-  LOADK R5 K11 ["StartRecordingActions failed: TryBeginRecording returned nil"]
+  LOADK R5 K10 ["StartRecordingActions failed: TryBeginRecording returned nil"]
   CALL R4 1 0
   LOADB R4 0
   RETURN R4 1

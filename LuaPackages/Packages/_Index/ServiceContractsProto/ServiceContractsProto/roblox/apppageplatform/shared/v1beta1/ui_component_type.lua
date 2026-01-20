@@ -39,6 +39,11 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_HOLD_TO_PLAY"
 	| "UI_COMPONENT_TYPE_PLAY_BUTTON"
 	| "UI_COMPONENT_TYPE_COUNTDOWN_TEXT_ICON_ROW"
+	| "UI_COMPONENT_TYPE_INFO_TABLE"
+	| "UI_COMPONENT_TYPE_INFO_TABLE_CELL"
+	| "UI_COMPONENT_TYPE_CHIP"
+	| "UI_COMPONENT_TYPE_DUAL_ACTION_CHIP"
+	| "UI_COMPONENT_TYPE_EXPANDABLE_TEXT"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -99,6 +104,16 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_PLAY_BUTTON"
 		elseif value == 216 then
 			return "UI_COMPONENT_TYPE_COUNTDOWN_TEXT_ICON_ROW"
+		elseif value == 217 then
+			return "UI_COMPONENT_TYPE_INFO_TABLE"
+		elseif value == 218 then
+			return "UI_COMPONENT_TYPE_INFO_TABLE_CELL"
+		elseif value == 219 then
+			return "UI_COMPONENT_TYPE_CHIP"
+		elseif value == 220 then
+			return "UI_COMPONENT_TYPE_DUAL_ACTION_CHIP"
+		elseif value == 221 then
+			return "UI_COMPONENT_TYPE_EXPANDABLE_TEXT"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -165,6 +180,16 @@ messages.UiComponentType = {
 			return 215
 		elseif self == "UI_COMPONENT_TYPE_COUNTDOWN_TEXT_ICON_ROW" then
 			return 216
+		elseif self == "UI_COMPONENT_TYPE_INFO_TABLE" then
+			return 217
+		elseif self == "UI_COMPONENT_TYPE_INFO_TABLE_CELL" then
+			return 218
+		elseif self == "UI_COMPONENT_TYPE_CHIP" then
+			return 219
+		elseif self == "UI_COMPONENT_TYPE_DUAL_ACTION_CHIP" then
+			return 220
+		elseif self == "UI_COMPONENT_TYPE_EXPANDABLE_TEXT" then
+			return 221
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -231,6 +256,16 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_PLAY_BUTTON"
 		elseif name == "UI_COMPONENT_TYPE_COUNTDOWN_TEXT_ICON_ROW" then
 			return "UI_COMPONENT_TYPE_COUNTDOWN_TEXT_ICON_ROW"
+		elseif name == "UI_COMPONENT_TYPE_INFO_TABLE" then
+			return "UI_COMPONENT_TYPE_INFO_TABLE"
+		elseif name == "UI_COMPONENT_TYPE_INFO_TABLE_CELL" then
+			return "UI_COMPONENT_TYPE_INFO_TABLE_CELL"
+		elseif name == "UI_COMPONENT_TYPE_CHIP" then
+			return "UI_COMPONENT_TYPE_CHIP"
+		elseif name == "UI_COMPONENT_TYPE_DUAL_ACTION_CHIP" then
+			return "UI_COMPONENT_TYPE_DUAL_ACTION_CHIP"
+		elseif name == "UI_COMPONENT_TYPE_EXPANDABLE_TEXT" then
+			return "UI_COMPONENT_TYPE_EXPANDABLE_TEXT"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then

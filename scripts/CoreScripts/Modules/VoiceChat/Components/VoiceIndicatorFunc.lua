@@ -23,10 +23,7 @@ local CursorKind = UIBlox.App.SelectionImage.CursorKind
 local useVoiceState = require(RobloxGui.Modules.VoiceChat.Hooks.useVoiceState)
 local Constants = require(RobloxGui.Modules.VoiceChat.Constants)
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
-local FFlagVoiceToggleShowConnectingIconWhenHidden =
-	game:DefineFastFlag("VoiceToggleShowConnectingIconWhenHidden", false)
-local FFlagVoiceIndicatorPerformanceOptimizations =
-	game:DefineFastFlag("VoiceIndicatorPerformanceOptimizations", false)
+local FFlagVoiceIndicatorPerformanceOptimizations = game:DefineFastFlag("VoiceIndicatorPerformanceOptimizations", false)
 local FIntMicTalkingUpdateFrequency = game:DefineFastInt("MicTalkingUpdateFrequency", 3)
 
 local DEFAULT_SIZE = UDim2.fromOffset(28, 28)
@@ -44,11 +41,7 @@ local function mapLevelToIcon(iconStyle, showShimmer)
 		local level = values[2]
 		if voiceState == Constants.VOICE_STATE.MUTED or voiceState == Constants.VOICE_STATE.LOCAL_MUTED then
 			return VoiceChatServiceManager:GetIcon("Muted", iconStyle)
-		elseif voiceState == Constants.VOICE_STATE.CONNECTING or
-			if FFlagVoiceToggleShowConnectingIconWhenHidden
-				then voiceState == Constants.VOICE_STATE.HIDDEN
-				else nil
-		then
+		elseif voiceState == Constants.VOICE_STATE.CONNECTING or voiceState == Constants.VOICE_STATE.HIDDEN then
 			if showShimmer and iconStyle == "MicLight" then
 				return VoiceChatServiceManager:GetIcon("Connecting", "MicDark")
 			else
@@ -122,7 +115,7 @@ local function VoiceIndicator(props: VoiceIndicatorProps)
 
 	if FFlagVoiceIndicatorPerformanceOptimizations then
 		local isTalkingRef = React.useRef(false)
-		isTalkingRef.current = (voiceState == Constants.VOICE_STATE.TALKING) 
+		isTalkingRef.current = (voiceState == Constants.VOICE_STATE.TALKING)
 
 		React.useEffect(function()
 			local frameCounter = 0

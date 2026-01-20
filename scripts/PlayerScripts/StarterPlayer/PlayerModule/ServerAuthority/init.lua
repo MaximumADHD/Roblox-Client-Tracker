@@ -11,6 +11,10 @@ local ControlModule = require(script.Parent:WaitForChild("ControlModule"))
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
+local CommonUtils = script.Parent:WaitForChild("CommonUtils")
+local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+local FFlagUserDisableForceLocalHumanoidPrediction = FlagUtil.getUserFlag("UserDisableForceLocalHumanoidPrediction")
+
 function ServerAuthority.new()
 	local self = setmetatable({}, ServerAuthority)
 	return self
@@ -29,8 +33,10 @@ function ServerAuthority:PredictLocalHumanoid()
 end
 
 function ServerAuthority:Initialize()
-	if RunService:IsClient() then
-		self:PredictLocalHumanoid()
+	if not FFlagUserDisableForceLocalHumanoidPrediction then
+		if RunService:IsClient() then
+			self:PredictLocalHumanoid()
+		end
 	end
 	ControlModule:InitializeServerAuthority()
 end

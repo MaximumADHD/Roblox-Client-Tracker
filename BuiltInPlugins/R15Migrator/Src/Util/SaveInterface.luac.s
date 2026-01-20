@@ -1036,35 +1036,34 @@ PROTO_29:
   GETTABLEKS R7 R5 K13 ["Value"]
   LENGTH R6 R7
   LOADN R7 0
-  JUMPIFNOTLT R7 R6 [+38]
+  JUMPIFNOTLT R7 R6 [+37]
   GETIMPORT R6 K15 [warn]
-  LOADK R8 K16 ["%*.Value in folder %* should be empty. Was the %* folder edited?"]
+  LOADK R8 K16 ["%*.Value in folder R15KeyframeSequences should be empty. Was the %* folder edited?"]
   MOVE R10 R2
-  LOADK R11 K11 ["R15KeyframeSequences"]
-  GETUPVAL R13 0
-  JUMPIF R13 [+24]
-  GETUPVAL R14 1
-  LOADK R17 K2 ["R15MigratorProgress"]
-  NAMECALL R15 R14 K3 ["FindFirstChild"]
-  CALL R15 2 1
-  JUMPIFNOT R15 [+7]
-  LOADK R18 K4 ["Folder"]
-  NAMECALL R16 R15 K5 ["IsA"]
-  CALL R16 2 1
-  JUMPIFNOT R16 [+2]
-  MOVE R13 R15
-  JUMP [+10]
-  GETIMPORT R16 K8 [Instance.new]
-  LOADK R17 K4 ["Folder"]
-  CALL R16 1 1
-  LOADK R17 K2 ["R15MigratorProgress"]
-  SETTABLEKS R17 R16 K9 ["Name"]
-  SETTABLEKS R14 R16 K10 ["Parent"]
-  MOVE R13 R16
-  SETUPVAL R13 0
   GETUPVAL R12 0
+  JUMPIF R12 [+24]
+  GETUPVAL R13 1
+  LOADK R16 K2 ["R15MigratorProgress"]
+  NAMECALL R14 R13 K3 ["FindFirstChild"]
+  CALL R14 2 1
+  JUMPIFNOT R14 [+7]
+  LOADK R17 K4 ["Folder"]
+  NAMECALL R15 R14 K5 ["IsA"]
+  CALL R15 2 1
+  JUMPIFNOT R15 [+2]
+  MOVE R12 R14
+  JUMP [+10]
+  GETIMPORT R15 K8 [Instance.new]
+  LOADK R16 K4 ["Folder"]
+  CALL R15 1 1
+  LOADK R16 K2 ["R15MigratorProgress"]
+  SETTABLEKS R16 R15 K9 ["Name"]
+  SETTABLEKS R13 R15 K10 ["Parent"]
+  MOVE R12 R15
+  SETUPVAL R12 0
+  GETUPVAL R11 0
   NAMECALL R8 R8 K17 ["format"]
-  CALL R8 4 1
+  CALL R8 3 1
   MOVE R7 R8
   CALL R6 1 0
   SETTABLEKS R3 R5 K13 ["Value"]

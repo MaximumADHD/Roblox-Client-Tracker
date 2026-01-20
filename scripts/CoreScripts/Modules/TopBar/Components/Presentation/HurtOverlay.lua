@@ -20,6 +20,7 @@ local Constants = require(TopBar.Constants)
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
+local FFlagUseNewHurtOverlayImage = game:DefineFastFlag("UseNewHurtOverlayImage", false)
 
 local MOTOR_OPTIONS = {
 	frequency = 0.75,
@@ -142,7 +143,9 @@ function HurtOverlay:renderOverlay()
 		overlayVisible = self.props.healthEnabled and self.state.isAnimating
 	end
 
-	local hurtOverlayImage = "rbxasset://textures/ui/TopBar/WhiteOverlayAsset.png"
+	local hurtOverlayImage = if FFlagUseNewHurtOverlayImage 
+		then "rbxasset://textures/ui/TopBar/HurtOverlayAsset.png" 
+		else "rbxasset://textures/ui/TopBar/WhiteOverlayAsset.png"
 	local hurtOverlayColor = RED_OVERLAY_COLOR
 	if CachedPolicyService:IsSubjectToChinaPolicies() then
 		hurtOverlayColor = WHITE_OVERLAY_COLOR

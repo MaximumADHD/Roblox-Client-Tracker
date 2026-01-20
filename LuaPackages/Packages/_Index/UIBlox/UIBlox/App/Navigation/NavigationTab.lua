@@ -10,13 +10,11 @@ local Foundation = require(Packages.Foundation)
 local StateLayer = require(UIBlox.Core.Control.StateLayer)
 local useStyle = require(UIBlox.Core.Style.useStyle)
 local ImageSetLabel = require(UIBlox.Core.ImageSet.ImageSetComponent).Label
-local Badge = require(UIBlox.App.Indicator.Badge)
 local NavigationTabLayout = require(UIBlox.App.Navigation.Enum.NavigationTabLayout)
 local ImagesTypes = require(UIBlox.App.ImageSet.ImagesTypes)
 local StyleTypes = require(UIBlox.App.Style.StyleTypes)
 
 local StatusIndicator = Foundation.StatusIndicator
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 local migrateBadgeVariant = require(UIBlox.Utility.migrateBadgeVariant)
 
 local HUGE_VECTOR = Vector2.new(math.huge, math.huge)
@@ -117,20 +115,13 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 			LayoutOrder = 1,
 		}, {
 			Icon = iconComponent,
-			Badge = if UIBloxConfig.useFoundationStatusIndicator
-				then React.createElement(StatusIndicator, {
-					Position = UDim2.fromScale(1, 0),
-					AnchorPoint = Vector2.new(0.6, 0.35),
-					value = tonumber(props.badgeValue),
-					variant = migrateBadgeVariant(props.badgeVariant),
-					max = if tonumber(props.badgeValue) then 99 else nil,
-				})
-				else React.createElement(Badge, {
-					position = UDim2.fromScale(1, 0),
-					anchorPoint = Vector2.new(0.6, 0.35),
-					value = props.badgeValue,
-					badgeVariant = props.badgeVariant,
-				}),
+			Badge = React.createElement(StatusIndicator, {
+				Position = UDim2.fromScale(1, 0),
+				AnchorPoint = Vector2.new(0.6, 0.35),
+				value = tonumber(props.badgeValue),
+				variant = migrateBadgeVariant(props.badgeVariant),
+				max = if tonumber(props.badgeValue) then 99 else nil,
+			}),
 		})
 	end
 
@@ -215,18 +206,12 @@ local NavigationTab = React.forwardRef(function(providedProps: Props, ref: React
 			Icon = iconComponent,
 			Label = labelComponent,
 			Badge = if props.badgeValue ~= nil
-				then if UIBloxConfig.useFoundationStatusIndicator
-					then React.createElement(StatusIndicator, {
-						LayoutOrder = 3,
-						value = tonumber(props.badgeValue),
-						variant = migrateBadgeVariant(props.badgeVariant),
-						max = if tonumber(props.badgeValue) then 99 else nil,
-					})
-					else React.createElement(Badge, {
-						layoutOrder = 3,
-						value = props.badgeValue,
-						badgeVariant = props.badgeVariant,
-					})
+				then React.createElement(StatusIndicator, {
+					LayoutOrder = 3,
+					value = tonumber(props.badgeValue),
+					variant = migrateBadgeVariant(props.badgeVariant),
+					max = if tonumber(props.badgeValue) then 99 else nil,
+				})
 				else nil,
 		})
 	end

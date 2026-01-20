@@ -16,10 +16,7 @@ local StyleTypes = require(UIBlox.App.Style.StyleTypes)
 local withHoverTooltip = require(UIBlox.App.Dialog.TooltipV2.Controllers).withHoverTooltip
 local TooltipOrientation = require(UIBlox.App.Dialog.Tooltip.Enum.TooltipOrientation)
 local StateLayer = require(UIBlox.Core.Control.StateLayer)
-local Badge = require(UIBlox.App.Indicator.Badge)
 local BadgeVariant = require(UIBlox.App.Indicator.Enum.BadgeVariant)
-
-local UIBloxConfig = require(UIBlox.UIBloxConfig)
 
 local migrateBadgeVariant = require(UIBlox.Utility.migrateBadgeVariant)
 
@@ -167,20 +164,13 @@ local function UtilityActionIcon(providedProps: Props, ref: React.Ref<Frame>)
 					CornerRadius = UDim.new(0, tokens.Semantic.Radius.Circle),
 				}),
 				Badge = if badgeValue
-					then if UIBloxConfig.useFoundationStatusIndicator
-						then React.createElement(StatusIndicator, {
-							Position = badgePosition,
-							AnchorPoint = badgeAnchor,
-							value = tonumber(badgeValue),
-							variant = migrateBadgeVariant(badgeVariant),
-							max = if tonumber(badgeValue) then 99 else nil,
-						})
-						else React.createElement(Badge, {
-							position = badgePosition,
-							anchorPoint = badgeAnchor,
-							value = badgeValue,
-							badgeVariant = badgeVariant,
-						})
+					then React.createElement(StatusIndicator, {
+						Position = badgePosition,
+						AnchorPoint = badgeAnchor,
+						value = tonumber(badgeValue),
+						variant = migrateBadgeVariant(badgeVariant),
+						max = if tonumber(badgeValue) then 99 else nil,
+					})
 					else nil,
 			}, props.children),
 		})

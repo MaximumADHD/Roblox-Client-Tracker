@@ -23,6 +23,7 @@ local useLastInput = Responsive.useLastInput
 local View = Foundation.View
 
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
+local FFlagAddTraversalHistoryReactMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagAddTraversalHistoryReactMenuButtons)
 local FFlagMenuButtonsDisconnectGamepadConnected = game:DefineFastFlag("MenuButtonsDisconnectGamepadConnected", false)
 
 type ButtonsData = { MenuButton.ButtonData }
@@ -44,6 +45,8 @@ local function createMenuButtons(buttonsData: ButtonsData, lastInput: string, is
 				isEmphasized = buttonsData[i].isEmphasized,
 				isSmall = isSmall,
 				isDisabled = buttonsData[i].getIsDisabled(),
+				addTraversalHistoryMenu = if FFlagAddTraversalHistoryReactMenuButtons then buttonsData[i].addTraversalHistoryMenu else nil,
+				currentPageChangeSignal = if FFlagAddTraversalHistoryReactMenuButtons then buttonsData[i].currentPageChangeSignal else nil,
 			})
 		})
 	end
@@ -58,6 +61,7 @@ export type MenuButtonsProps = {
 	setRemoveMenuKeyBindings: (removeMenuKeyBindings: () -> ()) -> (),
 	getVisibility: () -> boolean,
 	getCanRespawn: Signals.getter<boolean>,
+	currentPageChangeSignal: any,
 }
 
 local function MenuButtons(props: MenuButtonsProps)
@@ -99,6 +103,8 @@ local function MenuButtons(props: MenuButtonsProps)
 				hotkeyFunc = function()
 					props.onLeaveGame(Constants.AnalyticsMenuHotkeySource)
 				end,
+				addTraversalHistoryMenu = if FFlagAddTraversalHistoryReactMenuButtons then true else nil,
+				currentPageChangeSignal = if FFlagAddTraversalHistoryReactMenuButtons then props.currentPageChangeSignal else nil,
 			},
 			{
 				name = "ResetButton",
@@ -142,7 +148,7 @@ local function MenuButtons(props: MenuButtonsProps)
 				end,
 				hotkeys = { Enum.KeyCode.ButtonB, Enum.KeyCode.ButtonStart },
 			},
-		}
+		} :: ButtonsData
 	end, { localizedText, props.onLeaveGame, props.onRespawn, props.onResume, props.getCanRespawn })
 
 	local addKeyBindings = React.useCallback(function(buttonsData: ButtonsData)

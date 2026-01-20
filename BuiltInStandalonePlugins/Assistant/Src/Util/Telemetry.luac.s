@@ -73,11 +73,9 @@ MAIN:
   GETTABLEKS R4 R0 K10 ["Packages"]
   GETTABLEKS R3 R4 K11 ["AssistantUI"]
   CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R6 R0 K12 ["Src"]
-  GETTABLEKS R5 R6 K13 ["Flags"]
-  GETTABLEKS R4 R5 K14 ["FFlagDebugLogAssistantUI"]
-  CALL R3 1 1
+  GETTABLEKS R5 R2 K12 ["Flags"]
+  GETTABLEKS R4 R5 K13 ["Shared"]
+  GETTABLEKS R3 R4 K14 ["FFlagDebugLogAssistantUI"]
   DUPTABLE R4 K19 [{"EventIngest", "Points", "RobloxTelemetryCounter", "RobloxTelemetryStat"}]
   LOADK R5 K15 ["EventIngest"]
   SETTABLEKS R5 R4 K15 ["EventIngest"]

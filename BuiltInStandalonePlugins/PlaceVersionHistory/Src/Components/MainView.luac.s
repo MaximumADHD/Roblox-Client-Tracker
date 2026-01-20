@@ -290,198 +290,201 @@ PROTO_5:
   CALL R2 1 1
   GETTABLEKS R3 R2 K1 ["pageController"]
   GETTABLEKS R4 R3 K2 ["isEmpty"]
-  GETTABLEKS R5 R3 K3 ["isFiltered"]
-  GETTABLEKS R6 R3 K4 ["isDone"]
-  MOVE R7 R4
-  JUMPIFNOT R7 [+1]
-  NOT R7 R6
-  AND R8 R4 R6
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K5 ["createElement"]
-  GETUPVAL R11 3
-  GETTABLEKS R10 R11 K6 ["View"]
-  DUPTABLE R11 K9 [{"tag", "LayoutOrder"}]
-  LOADK R12 K10 ["size-full-0 fill clip"]
-  SETTABLEKS R12 R11 K7 ["tag"]
-  GETTABLEKS R12 R0 K8 ["LayoutOrder"]
-  SETTABLEKS R12 R11 K8 ["LayoutOrder"]
-  DUPTABLE R12 K13 [{"EmptyPage", "PlaceVersionList"}]
-  MOVE R13 R4
-  JUMPIFNOT R13 [+229]
-  GETUPVAL R14 1
-  GETTABLEKS R13 R14 K5 ["createElement"]
-  GETUPVAL R15 3
-  GETTABLEKS R14 R15 K6 ["View"]
-  DUPTABLE R15 K9 [{"tag", "LayoutOrder"}]
-  LOADK R16 K14 ["size-full-full col align-x-center gap-medium padding-small"]
-  SETTABLEKS R16 R15 K7 ["tag"]
-  MOVE R16 R1
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K8 ["LayoutOrder"]
-  DUPTABLE R16 K22 [{"StartSpacer", "LoadingIcon", "NoResultsText", "SuggestionText", "ClearFiltersButton", "RefreshButton", "EndSpacer"}]
-  GETUPVAL R18 1
-  GETTABLEKS R17 R18 K5 ["createElement"]
-  GETUPVAL R19 3
-  GETTABLEKS R18 R19 K6 ["View"]
-  DUPTABLE R19 K23 [{"LayoutOrder", "tag"}]
-  MOVE R20 R1
-  CALL R20 0 1
-  SETTABLEKS R20 R19 K8 ["LayoutOrder"]
-  LOADK R20 K24 ["fill"]
-  SETTABLEKS R20 R19 K7 ["tag"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K15 ["StartSpacer"]
-  MOVE R17 R7
-  JUMPIFNOT R17 [+39]
-  GETUPVAL R18 1
-  GETTABLEKS R17 R18 K5 ["createElement"]
-  GETUPVAL R19 3
-  GETTABLEKS R18 R19 K25 ["Button"]
-  DUPTABLE R19 K31 [{"onActivated", "variant", "isLoading", "isDisabled", "size", "LayoutOrder"}]
-  LOADNIL R20
-  SETTABLEKS R20 R19 K26 ["onActivated"]
-  GETUPVAL R23 3
-  GETTABLEKS R22 R23 K32 ["Enums"]
-  GETTABLEKS R21 R22 K33 ["ButtonVariant"]
-  GETTABLEKS R20 R21 K34 ["Text"]
-  SETTABLEKS R20 R19 K27 ["variant"]
-  LOADB R20 1
-  SETTABLEKS R20 R19 K28 ["isLoading"]
-  LOADB R20 1
-  SETTABLEKS R20 R19 K29 ["isDisabled"]
-  GETUPVAL R23 3
-  GETTABLEKS R22 R23 K32 ["Enums"]
-  GETTABLEKS R21 R22 K35 ["InputSize"]
-  GETTABLEKS R20 R21 K36 ["Large"]
-  SETTABLEKS R20 R19 K30 ["size"]
-  MOVE R20 R1
-  CALL R20 0 1
-  SETTABLEKS R20 R19 K8 ["LayoutOrder"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K16 ["LoadingIcon"]
-  MOVE R17 R8
-  JUMPIFNOT R17 [+21]
-  GETUPVAL R18 1
-  GETTABLEKS R17 R18 K5 ["createElement"]
-  GETUPVAL R19 3
-  GETTABLEKS R18 R19 K34 ["Text"]
-  DUPTABLE R19 K37 [{"tag", "Text", "LayoutOrder"}]
-  LOADK R20 K38 ["size-0-0 auto-xy text-label-medium text-wrap content-emphasis"]
-  SETTABLEKS R20 R19 K7 ["tag"]
-  JUMPIFNOT R5 [+2]
-  LOADK R20 K39 ["Nothing matches your filters"]
+  GETTABLEKS R5 R3 K3 ["isDone"]
+  GETTABLEKS R6 R3 K4 ["isFiltered"]
+  GETTABLEKS R7 R3 K5 ["isFailure"]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K6 ["createElement"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K7 ["View"]
+  DUPTABLE R10 K10 [{"tag", "LayoutOrder"}]
+  LOADK R11 K11 ["size-full-0 fill clip"]
+  SETTABLEKS R11 R10 K8 ["tag"]
+  GETTABLEKS R11 R0 K9 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K9 ["LayoutOrder"]
+  DUPTABLE R11 K14 [{"EmptyPage", "PlaceVersionList"}]
+  MOVE R12 R4
+  JUMPIFNOT R12 [+235]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K6 ["createElement"]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K7 ["View"]
+  DUPTABLE R14 K10 [{"tag", "LayoutOrder"}]
+  LOADK R15 K15 ["size-full-full col align-x-center gap-medium padding-small"]
+  SETTABLEKS R15 R14 K8 ["tag"]
+  MOVE R15 R1
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K9 ["LayoutOrder"]
+  DUPTABLE R15 K23 [{"StartSpacer", "LoadingIcon", "NoResultsText", "SuggestionText", "ClearFiltersButton", "RefreshButton", "EndSpacer"}]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K6 ["createElement"]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K7 ["View"]
+  DUPTABLE R18 K24 [{"LayoutOrder", "tag"}]
+  MOVE R19 R1
+  CALL R19 0 1
+  SETTABLEKS R19 R18 K9 ["LayoutOrder"]
+  LOADK R19 K25 ["fill"]
+  SETTABLEKS R19 R18 K8 ["tag"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K16 ["StartSpacer"]
+  NOT R16 R5
+  JUMPIFNOT R16 [+39]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K6 ["createElement"]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K26 ["Button"]
+  DUPTABLE R18 K32 [{"onActivated", "variant", "isLoading", "isDisabled", "size", "LayoutOrder"}]
+  LOADNIL R19
+  SETTABLEKS R19 R18 K27 ["onActivated"]
+  GETUPVAL R22 3
+  GETTABLEKS R21 R22 K33 ["Enums"]
+  GETTABLEKS R20 R21 K34 ["ButtonVariant"]
+  GETTABLEKS R19 R20 K35 ["Text"]
+  SETTABLEKS R19 R18 K28 ["variant"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K29 ["isLoading"]
+  LOADB R19 1
+  SETTABLEKS R19 R18 K30 ["isDisabled"]
+  GETUPVAL R22 3
+  GETTABLEKS R21 R22 K33 ["Enums"]
+  GETTABLEKS R20 R21 K36 ["InputSize"]
+  GETTABLEKS R19 R20 K37 ["Large"]
+  SETTABLEKS R19 R18 K31 ["size"]
+  MOVE R19 R1
+  CALL R19 0 1
+  SETTABLEKS R19 R18 K9 ["LayoutOrder"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K17 ["LoadingIcon"]
+  MOVE R16 R5
+  JUMPIFNOT R16 [+24]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K6 ["createElement"]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K35 ["Text"]
+  DUPTABLE R18 K38 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R19 K39 ["size-0-0 auto-xy text-label-medium text-wrap content-emphasis"]
+  SETTABLEKS R19 R18 K8 ["tag"]
+  JUMPIFNOT R7 [+2]
+  LOADK R19 K40 ["Error loading version history"]
+  JUMP [+4]
+  JUMPIFNOT R6 [+2]
+  LOADK R19 K41 ["Nothing matches your filters"]
   JUMP [+1]
-  LOADK R20 K40 ["Start saving to track your version history"]
-  SETTABLEKS R20 R19 K34 ["Text"]
-  MOVE R20 R1
-  CALL R20 0 1
-  SETTABLEKS R20 R19 K8 ["LayoutOrder"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K17 ["NoResultsText"]
-  MOVE R17 R8
-  JUMPIFNOT R17 [+21]
-  GETUPVAL R18 1
-  GETTABLEKS R17 R18 K5 ["createElement"]
-  GETUPVAL R19 3
-  GETTABLEKS R18 R19 K34 ["Text"]
-  DUPTABLE R19 K37 [{"tag", "Text", "LayoutOrder"}]
-  LOADK R20 K41 ["size-0-0 auto-xy text-body-small text-wrap"]
-  SETTABLEKS R20 R19 K7 ["tag"]
-  JUMPIFNOT R5 [+2]
-  LOADK R20 K42 ["Try adjusting or clearing your filters."]
+  LOADK R19 K42 ["Start saving to track your version history"]
+  SETTABLEKS R19 R18 K35 ["Text"]
+  MOVE R19 R1
+  CALL R19 0 1
+  SETTABLEKS R19 R18 K9 ["LayoutOrder"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K18 ["NoResultsText"]
+  MOVE R16 R5
+  JUMPIFNOT R16 [+24]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K6 ["createElement"]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K35 ["Text"]
+  DUPTABLE R18 K38 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R19 K43 ["size-0-0 auto-xy text-body-small text-wrap"]
+  SETTABLEKS R19 R18 K8 ["tag"]
+  JUMPIFNOT R7 [+2]
+  LOADK R19 K44 ["Something went wrong. Please try again."]
+  JUMP [+4]
+  JUMPIFNOT R6 [+2]
+  LOADK R19 K45 ["Try adjusting or clearing your filters."]
   JUMP [+1]
-  LOADK R20 K43 ["Save to Roblox to see new history. Your old history will appear soon after."]
-  SETTABLEKS R20 R19 K34 ["Text"]
-  MOVE R20 R1
-  CALL R20 0 1
-  SETTABLEKS R20 R19 K8 ["LayoutOrder"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K18 ["SuggestionText"]
-  MOVE R17 R8
-  JUMPIFNOT R17 [+39]
-  MOVE R17 R5
-  JUMPIFNOT R17 [+37]
-  GETUPVAL R18 1
-  GETTABLEKS R17 R18 K5 ["createElement"]
-  GETUPVAL R19 3
-  GETTABLEKS R18 R19 K25 ["Button"]
-  DUPTABLE R19 K45 [{"text", "variant", "onActivated", "size", "LayoutOrder"}]
-  LOADK R20 K46 ["Clear filters"]
-  SETTABLEKS R20 R19 K44 ["text"]
-  GETUPVAL R23 3
-  GETTABLEKS R22 R23 K32 ["Enums"]
-  GETTABLEKS R21 R22 K33 ["ButtonVariant"]
-  GETTABLEKS R20 R21 K47 ["Standard"]
-  SETTABLEKS R20 R19 K27 ["variant"]
-  GETTABLEKS R20 R3 K48 ["clearFilters"]
-  SETTABLEKS R20 R19 K26 ["onActivated"]
-  GETUPVAL R23 3
-  GETTABLEKS R22 R23 K32 ["Enums"]
-  GETTABLEKS R21 R22 K35 ["InputSize"]
-  GETTABLEKS R20 R21 K49 ["Small"]
-  SETTABLEKS R20 R19 K30 ["size"]
-  MOVE R20 R1
-  CALL R20 0 1
-  SETTABLEKS R20 R19 K8 ["LayoutOrder"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K19 ["ClearFiltersButton"]
-  MOVE R17 R8
-  JUMPIFNOT R17 [+39]
-  NOT R17 R5
-  JUMPIFNOT R17 [+37]
-  GETUPVAL R18 1
-  GETTABLEKS R17 R18 K5 ["createElement"]
-  GETUPVAL R19 3
-  GETTABLEKS R18 R19 K25 ["Button"]
-  DUPTABLE R19 K45 [{"text", "variant", "onActivated", "size", "LayoutOrder"}]
-  LOADK R20 K50 ["Refresh"]
-  SETTABLEKS R20 R19 K44 ["text"]
-  GETUPVAL R23 3
-  GETTABLEKS R22 R23 K32 ["Enums"]
-  GETTABLEKS R21 R22 K33 ["ButtonVariant"]
-  GETTABLEKS R20 R21 K47 ["Standard"]
-  SETTABLEKS R20 R19 K27 ["variant"]
-  GETTABLEKS R20 R2 K51 ["refresh"]
-  SETTABLEKS R20 R19 K26 ["onActivated"]
-  GETUPVAL R23 3
-  GETTABLEKS R22 R23 K32 ["Enums"]
-  GETTABLEKS R21 R22 K35 ["InputSize"]
-  GETTABLEKS R20 R21 K49 ["Small"]
-  SETTABLEKS R20 R19 K30 ["size"]
-  MOVE R20 R1
-  CALL R20 0 1
-  SETTABLEKS R20 R19 K8 ["LayoutOrder"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K20 ["RefreshButton"]
-  GETUPVAL R18 1
-  GETTABLEKS R17 R18 K5 ["createElement"]
-  GETUPVAL R19 3
-  GETTABLEKS R18 R19 K6 ["View"]
-  DUPTABLE R19 K23 [{"LayoutOrder", "tag"}]
-  MOVE R20 R1
-  CALL R20 0 1
-  SETTABLEKS R20 R19 K8 ["LayoutOrder"]
-  LOADK R20 K24 ["fill"]
-  SETTABLEKS R20 R19 K7 ["tag"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K21 ["EndSpacer"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K11 ["EmptyPage"]
-  NOT R13 R4
-  JUMPIFNOT R13 [+14]
-  GETUPVAL R14 1
-  GETTABLEKS R13 R14 K5 ["createElement"]
-  GETUPVAL R14 4
-  DUPTABLE R15 K53 [{"page", "LayoutOrder"}]
-  GETTABLEKS R16 R3 K52 ["page"]
-  SETTABLEKS R16 R15 K52 ["page"]
-  MOVE R16 R1
-  CALL R16 0 1
-  SETTABLEKS R16 R15 K8 ["LayoutOrder"]
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K12 ["PlaceVersionList"]
-  CALL R9 3 -1
-  RETURN R9 -1
+  LOADK R19 K46 ["Save to Roblox to see new history. Your old history will appear soon after."]
+  SETTABLEKS R19 R18 K35 ["Text"]
+  MOVE R19 R1
+  CALL R19 0 1
+  SETTABLEKS R19 R18 K9 ["LayoutOrder"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K19 ["SuggestionText"]
+  MOVE R16 R5
+  JUMPIFNOT R16 [+39]
+  MOVE R16 R6
+  JUMPIFNOT R16 [+37]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K6 ["createElement"]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K26 ["Button"]
+  DUPTABLE R18 K48 [{"text", "variant", "onActivated", "size", "LayoutOrder"}]
+  LOADK R19 K49 ["Clear filters"]
+  SETTABLEKS R19 R18 K47 ["text"]
+  GETUPVAL R22 3
+  GETTABLEKS R21 R22 K33 ["Enums"]
+  GETTABLEKS R20 R21 K34 ["ButtonVariant"]
+  GETTABLEKS R19 R20 K50 ["Standard"]
+  SETTABLEKS R19 R18 K28 ["variant"]
+  GETTABLEKS R19 R3 K51 ["clearFilters"]
+  SETTABLEKS R19 R18 K27 ["onActivated"]
+  GETUPVAL R22 3
+  GETTABLEKS R21 R22 K33 ["Enums"]
+  GETTABLEKS R20 R21 K36 ["InputSize"]
+  GETTABLEKS R19 R20 K52 ["Small"]
+  SETTABLEKS R19 R18 K31 ["size"]
+  MOVE R19 R1
+  CALL R19 0 1
+  SETTABLEKS R19 R18 K9 ["LayoutOrder"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K20 ["ClearFiltersButton"]
+  MOVE R16 R5
+  JUMPIFNOT R16 [+39]
+  NOT R16 R6
+  JUMPIFNOT R16 [+37]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K6 ["createElement"]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K26 ["Button"]
+  DUPTABLE R18 K48 [{"text", "variant", "onActivated", "size", "LayoutOrder"}]
+  LOADK R19 K53 ["Refresh"]
+  SETTABLEKS R19 R18 K47 ["text"]
+  GETUPVAL R22 3
+  GETTABLEKS R21 R22 K33 ["Enums"]
+  GETTABLEKS R20 R21 K34 ["ButtonVariant"]
+  GETTABLEKS R19 R20 K50 ["Standard"]
+  SETTABLEKS R19 R18 K28 ["variant"]
+  GETTABLEKS R19 R2 K54 ["refresh"]
+  SETTABLEKS R19 R18 K27 ["onActivated"]
+  GETUPVAL R22 3
+  GETTABLEKS R21 R22 K33 ["Enums"]
+  GETTABLEKS R20 R21 K36 ["InputSize"]
+  GETTABLEKS R19 R20 K52 ["Small"]
+  SETTABLEKS R19 R18 K31 ["size"]
+  MOVE R19 R1
+  CALL R19 0 1
+  SETTABLEKS R19 R18 K9 ["LayoutOrder"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K21 ["RefreshButton"]
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K6 ["createElement"]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K7 ["View"]
+  DUPTABLE R18 K24 [{"LayoutOrder", "tag"}]
+  MOVE R19 R1
+  CALL R19 0 1
+  SETTABLEKS R19 R18 K9 ["LayoutOrder"]
+  LOADK R19 K25 ["fill"]
+  SETTABLEKS R19 R18 K8 ["tag"]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K22 ["EndSpacer"]
+  CALL R12 3 1
+  SETTABLEKS R12 R11 K12 ["EmptyPage"]
+  NOT R12 R4
+  JUMPIFNOT R12 [+14]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K6 ["createElement"]
+  GETUPVAL R13 4
+  DUPTABLE R14 K56 [{"page", "LayoutOrder"}]
+  GETTABLEKS R15 R3 K55 ["page"]
+  SETTABLEKS R15 R14 K55 ["page"]
+  MOVE R15 R1
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K9 ["LayoutOrder"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K13 ["PlaceVersionList"]
+  CALL R8 3 -1
+  RETURN R8 -1
 
 PROTO_6:
   GETUPVAL R1 0

@@ -567,23 +567,21 @@ PROTO_31:
   GETTABLEKS R1 R2 K3 ["is"]
   GETVARARGS R2 1
   CALL R1 1 1
-  JUMPIFNOT R1 [+30]
+  JUMPIFNOT R1 [+28]
   LOADK R2 K4 ["#"]
   FASTCALL1 SELECT_VARARG R2 [+3]
   GETIMPORT R1 K6 [select]
   GETVARARGS R3 -1
   CALL R1 -1 1
   LOADN R2 1
-  JUMPIFNOTLT R2 R1 [+13]
-  LOADK R2 K7 ["When returning a Promise from andThen, extra arguments are "]
-  LOADK R3 K8 ["discarded! See:
+  JUMPIFNOTLT R2 R1 [+11]
+  LOADK R1 K7 ["When returning a Promise from andThen, extra arguments are discarded! See:
 
 %s"]
-  CONCAT R1 R2 R3
-  GETTABLEKS R3 R0 K9 ["_source"]
-  NAMECALL R1 R1 K10 ["format"]
+  GETTABLEKS R3 R0 K8 ["_source"]
+  NAMECALL R1 R1 K9 ["format"]
   CALL R1 2 1
-  GETIMPORT R2 K12 [warn]
+  GETIMPORT R2 K11 [warn]
   MOVE R3 R1
   CALL R2 1 0
   GETVARARGS R1 1
@@ -591,20 +589,20 @@ PROTO_31:
   CAPTURE VAL R0
   NEWCLOSURE R4 P1
   CAPTURE VAL R0
-  NAMECALL R1 R1 K13 ["andThen"]
+  NAMECALL R1 R1 K12 ["andThen"]
   CALL R1 3 0
   RETURN R0 0
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["Status"]
-  GETTABLEKS R1 R2 K14 ["Resolved"]
+  GETTABLEKS R1 R2 K13 ["Resolved"]
   SETTABLEKS R1 R0 K0 ["_status"]
   GETUPVAL R1 1
   GETVARARGS R2 -1
   CALL R1 -1 2
-  SETTABLEKS R1 R0 K15 ["_valuesLength"]
-  SETTABLEKS R2 R0 K16 ["_values"]
-  GETIMPORT R1 K18 [ipairs]
-  GETTABLEKS R2 R0 K19 ["_queuedResolve"]
+  SETTABLEKS R1 R0 K14 ["_valuesLength"]
+  SETTABLEKS R2 R0 K15 ["_values"]
+  GETIMPORT R1 K17 [ipairs]
+  GETTABLEKS R2 R0 K18 ["_queuedResolve"]
   CALL R1 1 3
   FORGPREP_INEXT R1
   MOVE R6 R5

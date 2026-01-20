@@ -75,37 +75,34 @@ PROTO_1:
   SETTABLEKS R2 R0 K20 ["Diagonal"]
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K21 ["ActiveControl"]
-  JUMPIFNOTEQKS R2 K22 ["Threshold"] [+32]
-  LOADK R3 K23 ["Control_"]
-  LOADK R4 K22 ["Threshold"]
-  CONCAT R2 R3 R4
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K15 ["createElement"]
-  GETUPVAL R4 5
-  DUPTABLE R5 K27 [{"Orientation", "Position", "PlotAbsoluteSize", "Thickness", "Tag"}]
-  LOADK R6 K28 ["Horizontal"]
-  SETTABLEKS R6 R5 K24 ["Orientation"]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K29 ["DataHook"]
-  GETTABLEKS R6 R7 K30 ["threshold"]
-  SETTABLEKS R6 R5 K25 ["Position"]
+  JUMPIFNOTEQKS R2 K22 ["Threshold"] [+30]
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K15 ["createElement"]
+  GETUPVAL R3 5
+  DUPTABLE R4 K26 [{"Orientation", "Position", "PlotAbsoluteSize", "Thickness", "Tag"}]
+  LOADK R5 K27 ["Horizontal"]
+  SETTABLEKS R5 R4 K23 ["Orientation"]
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K3 ["PlotAbsoluteSize"]
-  SETTABLEKS R6 R5 K3 ["PlotAbsoluteSize"]
-  LOADN R6 1
-  SETTABLEKS R6 R5 K26 ["Thickness"]
-  LOADK R6 K31 ["ControlLine"]
-  SETTABLEKS R6 R5 K17 ["Tag"]
-  CALL R3 2 1
-  SETTABLE R3 R0 R2
+  GETTABLEKS R6 R7 K28 ["DataHook"]
+  GETTABLEKS R5 R6 K29 ["threshold"]
+  SETTABLEKS R5 R4 K24 ["Position"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["PlotAbsoluteSize"]
+  SETTABLEKS R5 R4 K3 ["PlotAbsoluteSize"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K25 ["Thickness"]
+  LOADK R5 K30 ["ControlLine"]
+  SETTABLEKS R5 R4 K17 ["Tag"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K31 ["Control_Threshold"]
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K21 ["ActiveControl"]
-  JUMPIFNOTEQKS R2 K32 ["Ratio"] [+88]
+  JUMPIFNOTEQKS R2 K32 ["Ratio"] [+86]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K29 ["DataHook"]
-  GETTABLEKS R2 R3 K30 ["threshold"]
+  GETTABLEKS R3 R4 K28 ["DataHook"]
+  GETTABLEKS R2 R3 K29 ["threshold"]
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K29 ["DataHook"]
+  GETTABLEKS R4 R5 K28 ["DataHook"]
   GETTABLEKS R3 R4 K33 ["ratio"]
   NEWTABLE R4 0 0
   GETIMPORT R5 K2 [Vector2.new]
@@ -152,43 +149,37 @@ PROTO_1:
   FASTCALL TABLE_INSERT [+2]
   GETIMPORT R8 K14 [table.insert]
   CALL R8 -1 0
-  LOADK R6 K23 ["Control_"]
-  LOADK R7 K32 ["Ratio"]
-  CONCAT R5 R6 R7
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K15 ["createElement"]
-  GETUPVAL R7 4
-  DUPTABLE R8 K18 [{"ControlPoints", "Tag"}]
-  SETTABLEKS R4 R8 K16 ["ControlPoints"]
-  LOADK R9 K35 ["GuideCurve"]
-  SETTABLEKS R9 R8 K17 ["Tag"]
-  CALL R6 2 1
-  SETTABLE R6 R0 R5
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K15 ["createElement"]
+  GETUPVAL R6 4
+  DUPTABLE R7 K18 [{"ControlPoints", "Tag"}]
+  SETTABLEKS R4 R7 K16 ["ControlPoints"]
+  LOADK R8 K35 ["GuideCurve"]
+  SETTABLEKS R8 R7 K17 ["Tag"]
+  CALL R5 2 1
+  SETTABLEKS R5 R0 K36 ["Control_Ratio"]
   GETUPVAL R3 1
   GETTABLEKS R2 R3 K21 ["ActiveControl"]
-  JUMPIFNOTEQKS R2 K36 ["MakeupGain"] [+32]
-  LOADK R3 K23 ["Control_"]
-  LOADK R4 K36 ["MakeupGain"]
-  CONCAT R2 R3 R4
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K15 ["createElement"]
-  GETUPVAL R4 5
-  DUPTABLE R5 K27 [{"Orientation", "Position", "PlotAbsoluteSize", "Thickness", "Tag"}]
-  LOADK R6 K28 ["Horizontal"]
-  SETTABLEKS R6 R5 K24 ["Orientation"]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K29 ["DataHook"]
-  GETTABLEKS R6 R7 K37 ["makeupGain"]
-  SETTABLEKS R6 R5 K25 ["Position"]
+  JUMPIFNOTEQKS R2 K37 ["MakeupGain"] [+30]
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K15 ["createElement"]
+  GETUPVAL R3 5
+  DUPTABLE R4 K26 [{"Orientation", "Position", "PlotAbsoluteSize", "Thickness", "Tag"}]
+  LOADK R5 K27 ["Horizontal"]
+  SETTABLEKS R5 R4 K23 ["Orientation"]
   GETUPVAL R7 1
-  GETTABLEKS R6 R7 K3 ["PlotAbsoluteSize"]
-  SETTABLEKS R6 R5 K3 ["PlotAbsoluteSize"]
-  LOADN R6 1
-  SETTABLEKS R6 R5 K26 ["Thickness"]
-  LOADK R6 K31 ["ControlLine"]
-  SETTABLEKS R6 R5 K17 ["Tag"]
-  CALL R3 2 1
-  SETTABLE R3 R0 R2
+  GETTABLEKS R6 R7 K28 ["DataHook"]
+  GETTABLEKS R5 R6 K38 ["makeupGain"]
+  SETTABLEKS R5 R4 K24 ["Position"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K3 ["PlotAbsoluteSize"]
+  SETTABLEKS R5 R4 K3 ["PlotAbsoluteSize"]
+  LOADN R5 1
+  SETTABLEKS R5 R4 K25 ["Thickness"]
+  LOADK R5 K30 ["ControlLine"]
+  SETTABLEKS R5 R4 K17 ["Tag"]
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K39 ["Control_MakeupGain"]
   RETURN R0 1
 
 PROTO_2:

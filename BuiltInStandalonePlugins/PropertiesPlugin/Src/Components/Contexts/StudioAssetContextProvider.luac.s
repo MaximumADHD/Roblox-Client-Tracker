@@ -1,0 +1,87 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["GetUserId"]
+  CALL R0 1 1
+  DUPTABLE R1 K3 [{"maxPageSize", "pageToken"}]
+  LOADN R2 250
+  SETTABLEKS R2 R1 K1 ["maxPageSize"]
+  LOADK R2 K4 [""]
+  SETTABLEKS R2 R1 K2 ["pageToken"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["API"]
+  GETTABLEKS R3 R4 K6 ["CreatorInventory"]
+  GETTABLEKS R2 R3 K7 ["userItems"]
+  MOVE R3 R2
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 1
+  NAMECALL R3 R3 K8 ["makeRequest"]
+  CALL R3 1 1
+  NAMECALL R3 R3 K9 ["await"]
+  CALL R3 1 2
+  JUMPIFNOT R3 [+5]
+  GETTABLEKS R6 R4 K10 ["responseBody"]
+  GETTABLEKS R5 R6 K11 ["items"]
+  RETURN R5 1
+  GETIMPORT R5 K13 [warn]
+  LOADK R6 K14 ["getUserAssetsAsync - asset fetch request failed"]
+  CALL R5 1 0
+  NEWTABLE R5 0 0
+  RETURN R5 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useCallback"]
+  DUPCLOSURE R2 K1 [PROTO_0]
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  NEWTABLE R3 0 0
+  CALL R1 2 1
+  GETUPVAL R2 3
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K2 ["Components"]
+  GETTABLEKS R4 R5 K3 ["Contexts"]
+  GETTABLEKS R3 R4 K4 ["AssetContextProvider"]
+  DUPTABLE R4 K6 [{"getUserAssetsAsync"}]
+  SETTABLEKS R1 R4 K5 ["getUserAssetsAsync"]
+  GETTABLEKS R5 R0 K7 ["children"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["PropertiesPlugin"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["Networking"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R1 K10 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Properties"]
+  CALL R3 1 1
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R6 R1 K10 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["React"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K14 ["createElement"]
+  GETTABLEKS R7 R2 K15 ["RobloxAPI"]
+  GETTABLEKS R6 R7 K16 ["new"]
+  GETTABLEKS R9 R2 K17 ["Http"]
+  GETTABLEKS R8 R9 K11 ["Networking"]
+  GETTABLEKS R7 R8 K16 ["new"]
+  CALL R7 0 1
+  CALL R6 1 1
+  DUPCLOSURE R7 K18 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R0
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  RETURN R7 1

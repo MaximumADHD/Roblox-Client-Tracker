@@ -77,19 +77,14 @@ PROTO_5:
   SETTABLEKS R2 R6 K3 ["keyframeSnap"]
   SETTABLEKS R3 R6 K4 ["snapMode"]
   CALL R4 2 0
-  LOADK R5 K6 ["studio"]
-  LOADK R6 K7 ["."]
-  LOADK R7 K8 ["animationEditor"]
-  LOADK R8 K7 ["."]
-  LOADK R9 K9 ["EditorOpened"]
-  CONCAT R4 R5 R9
+  LOADK R4 K6 ["studio.animationEditor.EditorOpened"]
   GETUPVAL R5 1
   MOVE R7 R4
   LOADN R8 1
-  NAMECALL R5 R5 K10 ["ReportCounter"]
+  NAMECALL R5 R5 K7 ["ReportCounter"]
   CALL R5 3 0
   GETUPVAL R4 0
-  LOADK R5 K9 ["EditorOpened"]
+  LOADK R5 K8 ["EditorOpened"]
   CALL R4 1 0
   RETURN R0 0
 
@@ -130,19 +125,14 @@ PROTO_8:
   LOADNIL R5
   SETTABLEKS R5 R4 K1 ["guid"]
   CALL R2 2 0
-  LOADK R3 K6 ["studio"]
-  LOADK R4 K7 ["."]
-  LOADK R5 K8 ["animationEditor"]
-  LOADK R6 K7 ["."]
-  LOADK R7 K9 ["FBXAnimationImported"]
-  CONCAT R2 R3 R7
+  LOADK R2 K6 ["studio.animationEditor.FBXAnimationImported"]
   GETUPVAL R3 1
   MOVE R5 R2
   LOADN R6 1
-  NAMECALL R3 R3 K10 ["ReportCounter"]
+  NAMECALL R3 R3 K7 ["ReportCounter"]
   CALL R3 3 0
   GETUPVAL R2 0
-  LOADK R3 K9 ["FBXAnimationImported"]
+  LOADK R3 K8 ["FBXAnimationImported"]
   CALL R2 1 0
   RETURN R0 0
 
@@ -158,69 +148,54 @@ PROTO_9:
   LOADNIL R5
   SETTABLEKS R5 R4 K1 ["guid"]
   CALL R2 2 0
-  LOADK R3 K6 ["studio"]
-  LOADK R4 K7 ["."]
-  LOADK R5 K8 ["animationEditor"]
-  LOADK R6 K7 ["."]
-  LOADK R7 K9 ["AnimationImportedFromFile"]
-  CONCAT R2 R3 R7
+  LOADK R2 K6 ["studio.animationEditor.AnimationImportedFromFile"]
   GETUPVAL R3 1
   MOVE R5 R2
   LOADN R6 1
-  NAMECALL R3 R3 K10 ["ReportCounter"]
+  NAMECALL R3 R3 K7 ["ReportCounter"]
   CALL R3 3 0
   GETUPVAL R2 0
-  LOADK R3 K9 ["AnimationImportedFromFile"]
+  LOADK R3 K8 ["AnimationImportedFromFile"]
   CALL R2 1 0
   RETURN R0 0
 
 PROTO_10:
-  LOADK R3 K0 ["studio"]
-  LOADK R4 K1 ["."]
-  LOADK R5 K2 ["animationEditor"]
-  LOADK R6 K1 ["."]
-  LOADK R7 K3 ["UserChoseFBXModelForAnimImport"]
-  CONCAT R2 R3 R7
+  LOADK R2 K0 ["studio.animationEditor.UserChoseFBXModelForAnimImport"]
   GETUPVAL R3 0
   MOVE R5 R2
   LOADN R6 1
-  NAMECALL R3 R3 K4 ["ReportCounter"]
+  NAMECALL R3 R3 K1 ["ReportCounter"]
   CALL R3 3 0
   GETUPVAL R2 1
-  LOADK R3 K5 ["userChoseFBXModelForAnimImport"]
-  DUPTABLE R4 K7 [{"guid"}]
+  LOADK R3 K2 ["userChoseFBXModelForAnimImport"]
+  DUPTABLE R4 K4 [{"guid"}]
   JUMPIFNOT R1 [+5]
-  GETIMPORT R5 K10 [string.lower]
+  GETIMPORT R5 K7 [string.lower]
   MOVE R6 R1
   CALL R5 1 1
   JUMP [+1]
   LOADNIL R5
-  SETTABLEKS R5 R4 K6 ["guid"]
+  SETTABLEKS R5 R4 K3 ["guid"]
   CALL R2 2 0
   RETURN R0 0
 
 PROTO_11:
-  LOADK R3 K0 ["studio"]
-  LOADK R4 K1 ["."]
-  LOADK R5 K2 ["animationEditor"]
-  LOADK R6 K1 ["."]
-  LOADK R7 K3 ["UserChoseSelectedModelForAnimImport"]
-  CONCAT R2 R3 R7
+  LOADK R2 K0 ["studio.animationEditor.UserChoseSelectedModelForAnimImport"]
   GETUPVAL R3 0
   MOVE R5 R2
   LOADN R6 1
-  NAMECALL R3 R3 K4 ["ReportCounter"]
+  NAMECALL R3 R3 K1 ["ReportCounter"]
   CALL R3 3 0
   GETUPVAL R2 1
-  LOADK R3 K5 ["userChoseSelectedModelForAnimImport"]
-  DUPTABLE R4 K7 [{"guid"}]
+  LOADK R3 K2 ["userChoseSelectedModelForAnimImport"]
+  DUPTABLE R4 K4 [{"guid"}]
   JUMPIFNOT R1 [+5]
-  GETIMPORT R5 K10 [string.lower]
+  GETIMPORT R5 K7 [string.lower]
   MOVE R6 R1
   CALL R5 1 1
   JUMP [+1]
   LOADNIL R5
-  SETTABLEKS R5 R4 K6 ["guid"]
+  SETTABLEKS R5 R4 K3 ["guid"]
   CALL R2 2 0
   RETURN R0 0
 
@@ -277,38 +252,23 @@ PROTO_14:
   LOADNIL R10
   SETTABLEKS R10 R9 K6 ["guid"]
   CALL R7 2 0
-  LOADK R8 K11 ["studio"]
-  LOADK R9 K12 ["."]
-  LOADK R10 K13 ["animationEditor"]
-  LOADK R11 K12 ["."]
-  LOADK R12 K14 ["ExportedKeyframes"]
-  CONCAT R7 R8 R12
+  LOADK R7 K11 ["studio.animationEditor.ExportedKeyframes"]
   GETUPVAL R8 1
   MOVE R10 R7
-  ORK R11 R2 K15 [1]
-  NAMECALL R8 R8 K16 ["ReportStats"]
+  ORK R11 R2 K12 [1]
+  NAMECALL R8 R8 K13 ["ReportStats"]
   CALL R8 3 0
-  LOADK R8 K11 ["studio"]
-  LOADK R9 K12 ["."]
-  LOADK R10 K13 ["animationEditor"]
-  LOADK R11 K12 ["."]
-  LOADK R12 K17 ["ExportedPoses"]
-  CONCAT R7 R8 R12
+  LOADK R7 K14 ["studio.animationEditor.ExportedPoses"]
   GETUPVAL R8 1
   MOVE R10 R7
-  ORK R11 R3 K15 [1]
-  NAMECALL R8 R8 K16 ["ReportStats"]
+  ORK R11 R3 K12 [1]
+  NAMECALL R8 R8 K13 ["ReportStats"]
   CALL R8 3 0
-  LOADK R8 K11 ["studio"]
-  LOADK R9 K12 ["."]
-  LOADK R10 K13 ["animationEditor"]
-  LOADK R11 K12 ["."]
-  LOADK R12 K18 ["ExportedEvents"]
-  CONCAT R7 R8 R12
+  LOADK R7 K15 ["studio.animationEditor.ExportedEvents"]
   GETUPVAL R8 1
   MOVE R10 R7
-  ORK R11 R4 K15 [1]
-  NAMECALL R8 R8 K16 ["ReportStats"]
+  ORK R11 R4 K12 [1]
+  NAMECALL R8 R8 K13 ["ReportStats"]
   CALL R8 3 0
   RETURN R0 0
 
@@ -371,19 +331,14 @@ PROTO_20:
   LOADNIL R5
   SETTABLEKS R5 R4 K1 ["guid"]
   CALL R2 2 0
-  LOADK R3 K6 ["studio"]
-  LOADK R4 K7 ["."]
-  LOADK R5 K8 ["animationEditor"]
-  LOADK R6 K7 ["."]
-  LOADK R7 K9 ["IKEnabled"]
-  CONCAT R2 R3 R7
+  LOADK R2 K6 ["studio.animationEditor.IKEnabled"]
   GETUPVAL R3 1
   MOVE R5 R2
   LOADN R6 1
-  NAMECALL R3 R3 K10 ["ReportCounter"]
+  NAMECALL R3 R3 K7 ["ReportCounter"]
   CALL R3 3 0
   GETUPVAL R2 0
-  LOADK R3 K9 ["IKEnabled"]
+  LOADK R3 K8 ["IKEnabled"]
   CALL R2 1 0
   RETURN R0 0
 
@@ -490,19 +445,14 @@ PROTO_27:
   LOADNIL R8
   SETTABLEKS R8 R7 K4 ["guid"]
   CALL R5 2 0
-  LOADK R6 K9 ["studio"]
-  LOADK R7 K10 ["."]
-  LOADK R8 K11 ["animationEditor"]
-  LOADK R9 K10 ["."]
-  LOADK R10 K12 ["EventAdded"]
-  CONCAT R5 R6 R10
+  LOADK R5 K9 ["studio.animationEditor.EventAdded"]
   GETUPVAL R6 1
   MOVE R8 R5
   LOADN R9 1
-  NAMECALL R6 R6 K13 ["ReportCounter"]
+  NAMECALL R6 R6 K10 ["ReportCounter"]
   CALL R6 3 0
   GETUPVAL R5 0
-  LOADK R6 K12 ["EventAdded"]
+  LOADK R6 K11 ["EventAdded"]
   CALL R5 1 0
   RETURN R0 0
 
@@ -520,19 +470,14 @@ PROTO_28:
   LOADNIL R7
   SETTABLEKS R7 R6 K3 ["guid"]
   CALL R4 2 0
-  LOADK R5 K8 ["studio"]
-  LOADK R6 K9 ["."]
-  LOADK R7 K10 ["animationEditor"]
-  LOADK R8 K9 ["."]
-  LOADK R9 K11 ["KeyframeAdded"]
-  CONCAT R4 R5 R9
+  LOADK R4 K8 ["studio.animationEditor.KeyframeAdded"]
   GETUPVAL R5 1
   MOVE R7 R4
   LOADN R8 1
-  NAMECALL R5 R5 K12 ["ReportCounter"]
+  NAMECALL R5 R5 K9 ["ReportCounter"]
   CALL R5 3 0
   GETUPVAL R4 0
-  LOADK R5 K11 ["KeyframeAdded"]
+  LOADK R5 K10 ["KeyframeAdded"]
   CALL R4 1 0
   RETURN R0 0
 

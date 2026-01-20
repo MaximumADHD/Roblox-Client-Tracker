@@ -76,7 +76,7 @@ local value = ShiftLockValue()
 local visible = VisibilitySignal.new(true)
 local available = ShiftLockAvailability(value, visible)
 
-local ShiftLockConfig = {
+local ShiftLockConfig: SettingsServiceLib.ToggleRegisterConfig = {
 	id = 'shift-lock',
 	field_type = FieldType.Toggle,
 	label = "CoreScripts.InGameMenu.GameSettings.ShiftLock",
@@ -85,6 +85,6 @@ local ShiftLockConfig = {
 	availability = available,
 	visibility = visible,
 	layoutOrder = SettingsLayoutOrder.ShiftLockFrame,
-} :: SettingsServiceLib.ToggleRegisterConfig
+}
 
 return ShiftLockConfig

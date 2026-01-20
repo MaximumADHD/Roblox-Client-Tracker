@@ -6,9 +6,14 @@ export type Message<T, Fields> = proto.Package<T, Fields>
 export type CustomJson<T, Json> = proto.CustomJson<T, Json>
 export type TypeRegistry = proto.TypeRegistry
 
+local badge_details_page = require(script.badge_details_page)
 local badges_see_all = require(script.badges_see_all)
 
 -- Exported types
+export type BadgeDetailsPageRequest = badge_details_page.BadgeDetailsPageRequest
+export type BadgeDetailsPageResponse = badge_details_page.BadgeDetailsPageResponse
+export type BadgeDetailsPageEntry = badge_details_page.BadgeDetailsPageEntry
+export type BadgeDetailsContent = badge_details_page.BadgeDetailsContent
 export type BadgesSeeAllRequest = badges_see_all.BadgesSeeAllRequest
 export type Pagination = badges_see_all.Pagination
 export type BadgesGridPageEntry = badges_see_all.BadgesGridPageEntry
@@ -17,5 +22,6 @@ export type BadgesSeeAllResponse = badges_see_all.BadgesSeeAllResponse
 export type BadgesGridPageEntry_BadgeInputData = badges_see_all.BadgesGridPageEntry_BadgeInputData
 
 return {
+	badge_details_page = badge_details_page,
 	badges_see_all = badges_see_all,
 }

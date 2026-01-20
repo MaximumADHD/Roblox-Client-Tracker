@@ -18,7 +18,8 @@ local FFlagDefaultChannelEnableDefaultVoice = game:DefineFastFlag("DefaultChanne
 local FFlagAlwaysJoinWhenUsingAudioAPI = game:DefineFastFlag("AlwaysJoinWhenUsingAudioAPI", false)
 local FFlagDefaultChannelDontWaitOnCharacterWithAudioApi =
 	game:DefineFastFlag("DefaultChannelDontWaitOnCharacterWithAudioApi", false)
-local GetFFlagEnableLuaVoiceChatAnalytics = require(VoiceChatCore.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
+local FFlagRemoveScriptRefAsReturnInVoiceChatCore = VoiceChatCore.Flags.FFlagRemoveScriptRefAsReturnInVoiceChatCore
+local GetFFlagEnableLuaVoiceChatAnalytics = if FFlagRemoveScriptRefAsReturnInVoiceChatCore then VoiceChatCore.Flags.GetFFlagEnableLuaVoiceChatAnalytics else require(VoiceChatCore.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
 local GetFFlagSeamlessVoiceFTUX = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSeamlessVoiceFTUX
 
 local GenerateDefaultChannelAvailable = game:GetEngineFeature("VoiceServiceGenerateDefaultChannelAvailable")

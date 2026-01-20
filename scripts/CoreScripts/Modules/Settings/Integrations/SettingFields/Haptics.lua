@@ -43,7 +43,7 @@ local function HapticValue()
 	return valueSignal
 end
 
-local HapticsConfig = {
+local HapticsConfig: SettingsServiceLib.ToggleRegisterConfig = {
 	id = "haptics",
 	field_type = FieldType.Toggle,
 	label = "CoreScripts.InGameMenu.GameSettings.Haptics",
@@ -52,4 +52,4 @@ local HapticsConfig = {
 	alreadyLocalized = false,
 }
 
-return HapticsConfig :: SettingsServiceLib.ToggleRegisterConfig
+return HapticsConfig

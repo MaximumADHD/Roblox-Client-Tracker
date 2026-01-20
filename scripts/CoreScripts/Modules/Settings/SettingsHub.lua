@@ -116,7 +116,6 @@ local Flags = {
 
 	GetFFlagReportAbuseMenuEntrypointAnalytics = require(RobloxGui.Modules.Settings.Flags.GetFFlagReportAbuseMenuEntrypointAnalytics),
 	GetFFlagEnableLeaveGameUpsellEntrypoint = require(RobloxGui.Modules.Settings.Flags.GetFFlagEnableLeaveGameUpsellEntrypoint),
-	FFlagInExperienceMenuReorderFirstVariant = require(RobloxGui.Modules.Settings.Flags.FFlagInExperienceMenuReorderFirstVariant),
 	GetFStringInExperienceMenuIXPLayer = require(RobloxGui.Modules.Settings.Flags.GetFStringInExperienceMenuIXPLayer),
 	GetFStringInExperienceMenuIXPVar = require(RobloxGui.Modules.Settings.Flags.GetFStringInExperienceMenuIXPVar),
 	GetFFlagRemovePermissionsButtons = require(RobloxGui.Modules.Settings.Flags.GetFFlagRemovePermissionsButtons),
@@ -165,7 +164,7 @@ local Flags = {
 	FFlagHelpPageIXPExposure = HelpPage.Flags.FFlagHelpPageIXPExposure,
 	FStringHelpPageIXPLayer = HelpPage.Flags.FStringHelpPageIXPLayer,
 
-	FFlagMenuButtonsCheckVisibilityBeforeMount = game:DefineFastFlag("MenuButtonsCheckVisibilityBeforeMount", false),
+	FFlagMenuButtonsCheckVisibilityBeforeMount = SettingsFlags.FFlagMenuButtonsCheckVisibilityBeforeMount or game:DefineFastFlag("MenuButtonsCheckVisibilityBeforeMount", false),
 }
 
 --[[ SERVICES ]]
@@ -1003,6 +1002,7 @@ local function CreateSettingsHub()
 					return this.GetVisibility() 
 				end,
 				getCanRespawn = experienceControlStore.getCanRespawn,
+				currentPageChangeSignal = if SettingsFlags.FFlagAddTraversalHistoryReactMenuButtons then this.CurrentPageSignal else nil,
 			}))
 		end 
 		else nil :: never
@@ -3110,13 +3110,20 @@ local function CreateSettingsHub()
 
 			if this.GameSettingsPage == pageToSwitchTo then
 				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_GameSettings_tab", Constants.AnalyticsMenuActionName, eventTable)
-				if Flags.FFlagInExperienceMenuReorderFirstVariant and not this.GameSettingsPageReorderIXPFetched then
-					local layer = Flags.GetFStringInExperienceMenuIXPLayer()
-					local ixpVar = Flags.GetFStringInExperienceMenuIXPVar()
-					local layerData = IXPServiceWrapper:GetLayerData(layer)
-					if layerData ~= nil and layerData[ixpVar] ~= nil then
-						IXPServiceWrapper:LogUserLayerExposure(layer)
-						this.GameSettingsPageReorderIXPFetched = true
+				if SettingsFlags.FFlagRemoveSettingsReorderFirstVariantIXPSetup then
+					if SettingsFlags.FFlagIEMSettingsLogExposureIXPFlags and not this.GameSettingsPageReorderIXPFetched then
+						 IXPServiceWrapper:LogFlagLinkedUserLayerExposure(Flags.GetFStringInExperienceMenuIXPLayer())
+						 this.GameSettingsPageReorderIXPFetched = true
+					end
+				else
+					if not this.GameSettingsPageReorderIXPFetched then
+						local layer = Flags.GetFStringInExperienceMenuIXPLayer()
+						local ixpVar = Flags.GetFStringInExperienceMenuIXPVar()
+						local layerData = IXPServiceWrapper:GetLayerData(layer)
+						if layerData ~= nil and layerData[ixpVar] ~= nil then
+							IXPServiceWrapper:LogUserLayerExposure(layer)
+							this.GameSettingsPageReorderIXPFetched = true
+						end
 					end
 				end
 			else

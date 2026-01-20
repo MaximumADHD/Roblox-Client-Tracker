@@ -19,11 +19,11 @@ local character = inputContexts:WaitForChild("Character")
 local moveAction = character:WaitForChild("Move")
 
 --[[ The Module ]]--
-local BaseCharacterController = require(script.Parent:WaitForChild("BaseCharacterController"))
-local TouchThumbstick = setmetatable({}, BaseCharacterController)
+local ActionController = require(script.Parent:WaitForChild("ActionController"))
+local TouchThumbstick = setmetatable({}, ActionController)
 TouchThumbstick.__index = TouchThumbstick
 function TouchThumbstick.new()
-	local self = setmetatable(BaseCharacterController.new() :: any, TouchThumbstick)
+	local self = setmetatable(ActionController.new() :: any, TouchThumbstick)
 
 	self.isFollowStick = false
 
@@ -41,7 +41,8 @@ function TouchThumbstick:Enable(enable: boolean?, uiParentFrame)
 	if enable == nil then return false end			-- If nil, return false (invalid argument)
 	enable = enable and true or false				-- Force anything non-nil to boolean before comparison
 	if self.enabled == enable then return true end	-- If no state change, return true indicating already in requested state
-
+	ActionController.Enable(self, enable)
+	
 	self.isJumping = false
 
 	if enable then

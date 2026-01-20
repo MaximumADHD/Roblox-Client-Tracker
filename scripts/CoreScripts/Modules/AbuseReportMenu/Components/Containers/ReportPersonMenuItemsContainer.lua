@@ -17,8 +17,11 @@ local handlePreselectedPlayer = require(root.Utility.handlePreselectedPlayer)
 
 local VoiceChatServiceManager = require(RobloxGui.Modules.VoiceChat.VoiceChatServiceManager).default
 local VoiceUsersByProximity = require(RobloxGui.Modules.VoiceChat.VoiceUsersByProximity)
+local VoiceChatCoreConstants = require(CorePackages.Workspace.Packages.VoiceChatCore).Constants
 
 local PlayerMenuActions = Constants.PlayerMenuActions
+
+local FFlagPreselectedPlayerReportBugfix = game:DefineFastFlag("PreselectedPlayerReportBugfix", false)
 
 type Props = {
 	utilityProps: Types.MenuUtilityProps,
@@ -40,6 +43,26 @@ local function ReportPersonMenuItemsContainer(props: Props)
 		props.utilityProps.analyticsDispatch({
 			type = Constants.AnalyticsActions.SwitchToPersonInitialSelections,
 		})
+
+		if FFlagPreselectedPlayerReportBugfix then
+			local voiceEnabled = VoiceChatServiceManager:UserVoiceEnabled()
+				and VoiceChatServiceManager:GetVoiceJoinProgress()
+					~= VoiceChatCoreConstants.VOICE_JOIN_PROGRESS.Suspended
+
+			if not voiceEnabled then
+				if props.utilityProps.preselectedPlayer then
+					handlePreselectedPlayer(
+						props.utilityProps.preselectedPlayer,
+						false,
+						dispatchUIStates,
+						props.utilityProps.analyticsDispatch
+					)
+				end
+				dispatchUIStates({ type = PlayerMenuActions.SetVoiceEnabled, enabled = false })
+				return
+			end
+		end
+
 		VoiceChatServiceManager:asyncInit()
 			:andThen(function()
 				-- Voice enabled

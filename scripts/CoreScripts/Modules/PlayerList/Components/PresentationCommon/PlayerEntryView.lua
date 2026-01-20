@@ -39,12 +39,15 @@ local CellExtender = require(Components.Presentation.CellExtender)
 local PlayerIcon = require(PresentationCommon.PlayerIcon)
 local PlayerNameTag = require(Components.Presentation.PlayerNameTag)
 
+local PlayerListConstants = PlayerListPackage.Common.Constants
+
 local GetFFlagGateLeaderboardPlayerDropdownViaGUAC = require(SharedFlags).GetFFlagGateLeaderboardPlayerDropdownViaGUAC
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
 local FFlagRemoveNewPlayerListOverlay = PlayerListPackage.Flags.FFlagRemoveNewPlayerListOverlay
 local FFlagEnableMobilePlayerListOnConsole = PlayerListPackage.Flags.FFlagEnableMobilePlayerListOnConsole
 local FFlagPlayerListFixLeaderstatsStacking = require(SharedFlags).FFlagPlayerListFixLeaderstatsStacking
+local FFlagPlayerListUseFocusNavHook = PlayerListPackage.Flags.FFlagPlayerListUseFocusNavHook
 
 type PlayerIconInfoProps = PlayerIconInfoStorePackage.PlayerIconInfo
 type PlayerRelationshipProps = LeaderboardStore.PlayerRelationshipProps
@@ -53,6 +56,10 @@ type GameStatList = LeaderboardStore.GameStatList
 type GameStat = LeaderboardStore.GameStat
 type StatList = LeaderboardStore.StatList
 type StatEntry = LeaderboardStore.StatEntry
+
+type RegisterPlayerInstance = PlayerListPackage.RegisterPlayerInstance
+type UnregisterPlayerInstance = PlayerListPackage.UnregisterPlayerInstance
+type SetSelectedPlayerId = PlayerListPackage.SetSelectedPlayerId
 
 type ColorStyle = {
 	Color: Color3,
@@ -83,8 +90,11 @@ export type PlayerEntryViewProps = {
 	setDropDownPlayerDimensionY: ((vec2: Vector2) -> ())?,
 
 	-- Focus nav data
-	prevFocusedEntry: React.RefObject<GuiObject?>?,
-	destroyedFocusedPlayerId: React.RefObject<number?>?,
+	prevFocusedEntry: React.RefObject<GuiObject?>?, -- Remove when FFlagPlayerListUseFocusNavHook is enabled
+	destroyedFocusedPlayerId: React.RefObject<number?>?, -- Remove when FFlagPlayerListUseFocusNavHook is enabled
+	registerPlayerInstance: RegisterPlayerInstance?,
+	unregisterPlayerInstance: UnregisterPlayerInstance?,
+	setSelectedPlayerId: SetSelectedPlayerId?,
 
 	-- Device type
 	isSmallTouchDevice: boolean?,
@@ -338,7 +348,7 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 	local isPressed, setIsPressed = React.useState(false)
 
 	local playerEntryRef = React.useRef(nil :: GuiObject?)
-	local entryFrameRef = React.useRef(nil :: GuiObject?)
+	local entryFrameRef = if not FFlagPlayerListUseFocusNavHook then React.useRef(nil :: GuiObject?) else nil :: never
 
 	local focusGuiObject = useFocusGuiObject()
 
@@ -359,6 +369,16 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 		if props.dropdownOpen and props.selectedPlayer == props.player then
 			props.closeDropdown()
 		else
+			if FFlagPlayerListUseFocusNavHook then
+				if props.setSelectedPlayerId then
+					if props.titlePlayerEntry then
+						props.setSelectedPlayerId(PlayerListConstants.SELECTED_TITLE_PLAYER_ID)
+					else
+						props.setSelectedPlayerId(props.player.UserId)
+					end
+				end
+			end
+
 			if GetFFlagGateLeaderboardPlayerDropdownViaGUAC() then
 				if InExperienceCapabilities.canViewPlayerDropdownInLeaderboard then
 					props.openDropdown(props.player)
@@ -379,7 +399,7 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 				end
 			end
 		end
-	end, { props.dropdownOpen, props.selectedPlayer, props.player, props.openDropdown, props.closeDropdown, props.setDropDownPlayerDimensionY, playerEntryRef.current } :: { any })
+	end, { props.dropdownOpen, props.selectedPlayer, props.player, props.openDropdown, props.closeDropdown, props.setDropDownPlayerDimensionY, props.titlePlayerEntry, props.setSelectedPlayerId, playerEntryRef.current } :: { any })
 
 	-- TODO: APPEXP-2323 Turn these state changes into bindings
 	local onStateChanged = React.useCallback(function(newState)
@@ -568,7 +588,7 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 			overlayStyle = if FFlagRemoveNewPlayerListOverlay then nil else overlayStyle,
 			doubleOverlay = if FFlagRemoveNewPlayerListOverlay then nil else isPressed,
 			firstPlayerRef = firstPlayerRef,
-			ref = if FFlagAddNewPlayerListFocusNav then entryFrameRef else nil,
+			ref = if not FFlagPlayerListUseFocusNavHook and FFlagAddNewPlayerListFocusNav then entryFrameRef else nil,
 
 			onActivated = onActivated,
 			onStateChanged = onStateChanged,
@@ -628,39 +648,65 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 		backgroundFrameProps,
 	} :: { any })
 
-	React.useEffect(function()
-		local selectionLostConnection = nil
-		local destroyingConnection = nil
+	if not FFlagPlayerListUseFocusNavHook then
+		React.useEffect(function()
+			local selectionLostConnection = nil
+			local destroyingConnection = nil
 
-		if FFlagAddNewPlayerListFocusNav then
-			if entryFrameRef.current and props.prevFocusedEntry and props.destroyedFocusedPlayerId then
-				local savedEntryFrame = entryFrameRef.current
+			if FFlagAddNewPlayerListFocusNav then
+				if entryFrameRef.current and props.prevFocusedEntry and props.destroyedFocusedPlayerId then
+					local savedEntryFrame = entryFrameRef.current
 
-				selectionLostConnection = entryFrameRef.current.SelectionLost:Connect(function()
-					-- Store the previously focused object to refocus in the case that the currently focused player leaves
-					props.prevFocusedEntry.current = savedEntryFrame
-				end)
+					selectionLostConnection = entryFrameRef.current.SelectionLost:Connect(function()
+						-- Store the previously focused object to refocus in the case that the currently focused player leaves
+						props.prevFocusedEntry.current = savedEntryFrame
+					end)
 
-				destroyingConnection = entryFrameRef.current.Destroying:Connect(function()
+					destroyingConnection = entryFrameRef.current.Destroying:Connect(function()
+						selectionLostConnection:Disconnect()
+
+						if GuiService.SelectedCoreObject == savedEntryFrame then
+							-- Store the player's id to refocus in the case that the player moves teams
+							props.destroyedFocusedPlayerId.current = props.player.UserId
+							focusGuiObject(nil)
+						end
+
+						destroyingConnection:Disconnect()
+					end)
+				end
+			end
+
+			return function()
+				if selectionLostConnection then
 					selectionLostConnection:Disconnect()
-
-					if GuiService.SelectedCoreObject == savedEntryFrame then
-						-- Store the player's id to refocus in the case that the player moves teams
-						props.destroyedFocusedPlayerId.current = props.player.UserId
-						focusGuiObject(nil)
-					end
-
-					destroyingConnection:Disconnect()
-				end)
+				end
 			end
+		end, { focusGuiObject, props.player, props.prevFocusedEntry, props.destroyedFocusedPlayerId, entryFrameRef.current } :: { any })
+	end
+
+	if FFlagPlayerListUseFocusNavHook then
+		React.useEffect(function()
+			return function()
+				if props.unregisterPlayerInstance then
+					props.unregisterPlayerInstance(props.player.UserId)
+				end
+			end
+		end, { props.unregisterPlayerInstance, props.player } :: { any })
+	end
+
+	local setPlayerEntryRef = React.useCallback(function(instance: GuiObject?)
+		if FFlagPlayerListUseFocusNavHook and props.registerPlayerInstance then
+			props.registerPlayerInstance(props.player.UserId, instance, props.playerData.order)
 		end
 
-		return function()
-			if selectionLostConnection then
-				selectionLostConnection:Disconnect()
-			end
+		if not FFlagPlayerListUseFocusNavHook and FFlagAddNewPlayerListMobileFocusNav then 
+			-- Remove entryFrameRef when FFlagPlayerListUseFocusNavHook is enabled
+			entryFrameRef.current = instance
+		else
+			playerEntryRef.current = instance
 		end
-	end, { focusGuiObject, props.player, props.prevFocusedEntry, props.destroyedFocusedPlayerId, entryFrameRef.current } :: { any })
+	end, { props.player, props.playerData, props.registerPlayerInstance } :: { any })
+
 
 	-- Create the main container based on platform
 	if isSmallTouchDevice then
@@ -672,7 +718,7 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 			BorderSizePixel = 0,
 			Image = "",
 			LayoutOrder = layoutOrder,
-			ref = if FFlagAddNewPlayerListMobileFocusNav then entryFrameRef else playerEntryRef,
+			ref = setPlayerEntryRef,
 
 			onActivated = onActivated,
 			onStateChanged = onStateChanged,
@@ -688,14 +734,14 @@ local function PlayerEntryView(props: PlayerEntryViewProps)
 			Size = size,
 			BackgroundTransparency = 1,
 			LayoutOrder = layoutOrder,
-			ref = playerEntryRef,
+			ref = if FFlagPlayerListUseFocusNavHook then setPlayerEntryRef else playerEntryRef,
 		} :: any, React.createElement(PlayerEntryChildren, playerEntryChildrenProps))
 	else
 		return React.createElement("Frame", {
 			Size = size,
 			BackgroundTransparency = 1,
 			LayoutOrder = layoutOrder,
-			ref = playerEntryRef,
+			ref = if FFlagPlayerListUseFocusNavHook then setPlayerEntryRef else playerEntryRef,
 		} :: any, {
 			PlayerEntryContentFrame = React.createElement(
 				EntryFrameView,

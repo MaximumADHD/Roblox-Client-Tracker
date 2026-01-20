@@ -39,6 +39,11 @@ local _roblox_apppageplatform_shared_v1beta1_see_all_tile = require(script.Paren
 local _roblox_apppageplatform_shared_v1beta1_focus_nav_actions = require(script.Parent.focus_nav_actions)
 local _roblox_apppageplatform_shared_v1beta1_fragment = require(script.Parent.fragment)
 local _roblox_apppageplatform_shared_v1beta1_vertical_feed = require(script.Parent.vertical_feed)
+local _roblox_apppageplatform_shared_v1beta1_info_table = require(script.Parent.info_table)
+local _roblox_apppageplatform_shared_v1beta1_info_table_cell = require(script.Parent.info_table_cell)
+local _roblox_apppageplatform_shared_v1beta1_chip = require(script.Parent.chip)
+local _roblox_apppageplatform_shared_v1beta1_dual_action_chip = require(script.Parent.dual_action_chip)
+local _roblox_apppageplatform_shared_v1beta1_expandable_text = require(script.Parent.expandable_text)
 
 type _UiComponentSchemaImpl = {
 	__index: _UiComponentSchemaImpl,
@@ -94,6 +99,14 @@ type _UiComponentSchemaFields = {
 		| { type: "fragment", value: _roblox_apppageplatform_shared_v1beta1_fragment.FragmentSchema }
 		| { type: "badge_tile", value: _roblox_apppageplatform_shared_v1beta1_badge_tile.BadgeTileSchema }
 		| { type: "vertical_feed", value: _roblox_apppageplatform_shared_v1beta1_vertical_feed.VerticalFeedSchema }
+		| { type: "info_table", value: _roblox_apppageplatform_shared_v1beta1_info_table.InfoTableSchema }
+		| { type: "info_table_cell", value: _roblox_apppageplatform_shared_v1beta1_info_table_cell.InfoTableCellSchema }
+		| { type: "chip", value: _roblox_apppageplatform_shared_v1beta1_chip.ChipSchema }
+		| {
+			type: "dual_action_chip",
+			value: _roblox_apppageplatform_shared_v1beta1_dual_action_chip.DualActionChipSchema,
+		}
+		| { type: "expandable_text", value: _roblox_apppageplatform_shared_v1beta1_expandable_text.ExpandableTextSchema }
 	)?,
 }
 
@@ -141,6 +154,14 @@ type _UiComponentSchemaPartialFields = {
 		| { type: "fragment", value: _roblox_apppageplatform_shared_v1beta1_fragment.FragmentSchema }
 		| { type: "badge_tile", value: _roblox_apppageplatform_shared_v1beta1_badge_tile.BadgeTileSchema }
 		| { type: "vertical_feed", value: _roblox_apppageplatform_shared_v1beta1_vertical_feed.VerticalFeedSchema }
+		| { type: "info_table", value: _roblox_apppageplatform_shared_v1beta1_info_table.InfoTableSchema }
+		| { type: "info_table_cell", value: _roblox_apppageplatform_shared_v1beta1_info_table_cell.InfoTableCellSchema }
+		| { type: "chip", value: _roblox_apppageplatform_shared_v1beta1_chip.ChipSchema }
+		| {
+			type: "dual_action_chip",
+			value: _roblox_apppageplatform_shared_v1beta1_dual_action_chip.DualActionChipSchema,
+		}
+		| { type: "expandable_text", value: _roblox_apppageplatform_shared_v1beta1_expandable_text.ExpandableTextSchema }
 	)?,
 }
 
@@ -269,6 +290,26 @@ do
 			elseif self.kind.type == "vertical_feed" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 27, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "info_table" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 28, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "info_table_cell" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 29, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "chip" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 30, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "dual_action_chip" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 31, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "expandable_text" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 32, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -516,6 +557,50 @@ do
 						value = _roblox_apppageplatform_shared_v1beta1_vertical_feed.VerticalFeedSchema.decode(value),
 					}
 					continue
+				elseif field == 28 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "info_table",
+						value = _roblox_apppageplatform_shared_v1beta1_info_table.InfoTableSchema.decode(value),
+					}
+					continue
+				elseif field == 29 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "info_table_cell",
+						value = _roblox_apppageplatform_shared_v1beta1_info_table_cell.InfoTableCellSchema.decode(
+							value
+						),
+					}
+					continue
+				elseif field == 30 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "chip", value = _roblox_apppageplatform_shared_v1beta1_chip.ChipSchema.decode(value) }
+					continue
+				elseif field == 31 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "dual_action_chip",
+						value = _roblox_apppageplatform_shared_v1beta1_dual_action_chip.DualActionChipSchema.decode(
+							value
+						),
+					}
+					continue
+				elseif field == 32 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "expandable_text",
+						value = _roblox_apppageplatform_shared_v1beta1_expandable_text.ExpandableTextSchema.decode(
+							value
+						),
+					}
+					continue
 				end
 
 				local length
@@ -598,6 +683,16 @@ do
 				output.badgeTile = self.kind.value:jsonEncode()
 			elseif self.kind.type == "vertical_feed" then
 				output.verticalFeed = self.kind.value:jsonEncode()
+			elseif self.kind.type == "info_table" then
+				output.infoTable = self.kind.value:jsonEncode()
+			elseif self.kind.type == "info_table_cell" then
+				output.infoTableCell = self.kind.value:jsonEncode()
+			elseif self.kind.type == "chip" then
+				output.chip = self.kind.value:jsonEncode()
+			elseif self.kind.type == "dual_action_chip" then
+				output.dualActionChip = self.kind.value:jsonEncode()
+			elseif self.kind.type == "expandable_text" then
+				output.expandableText = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -979,6 +1074,79 @@ do
 				type = "vertical_feed",
 				value = _roblox_apppageplatform_shared_v1beta1_vertical_feed.VerticalFeedSchema.jsonDecode(
 					input.verticalFeed
+				),
+			}
+		end
+
+		if input.info_table ~= nil then
+			self.kind = {
+				type = "info_table",
+				value = _roblox_apppageplatform_shared_v1beta1_info_table.InfoTableSchema.jsonDecode(input.info_table),
+			}
+		end
+
+		if input.infoTable ~= nil then
+			self.kind = {
+				type = "info_table",
+				value = _roblox_apppageplatform_shared_v1beta1_info_table.InfoTableSchema.jsonDecode(input.infoTable),
+			}
+		end
+
+		if input.info_table_cell ~= nil then
+			self.kind = {
+				type = "info_table_cell",
+				value = _roblox_apppageplatform_shared_v1beta1_info_table_cell.InfoTableCellSchema.jsonDecode(
+					input.info_table_cell
+				),
+			}
+		end
+
+		if input.infoTableCell ~= nil then
+			self.kind = {
+				type = "info_table_cell",
+				value = _roblox_apppageplatform_shared_v1beta1_info_table_cell.InfoTableCellSchema.jsonDecode(
+					input.infoTableCell
+				),
+			}
+		end
+
+		if input.chip ~= nil then
+			self.kind =
+				{ type = "chip", value = _roblox_apppageplatform_shared_v1beta1_chip.ChipSchema.jsonDecode(input.chip) }
+		end
+
+		if input.dual_action_chip ~= nil then
+			self.kind = {
+				type = "dual_action_chip",
+				value = _roblox_apppageplatform_shared_v1beta1_dual_action_chip.DualActionChipSchema.jsonDecode(
+					input.dual_action_chip
+				),
+			}
+		end
+
+		if input.dualActionChip ~= nil then
+			self.kind = {
+				type = "dual_action_chip",
+				value = _roblox_apppageplatform_shared_v1beta1_dual_action_chip.DualActionChipSchema.jsonDecode(
+					input.dualActionChip
+				),
+			}
+		end
+
+		if input.expandable_text ~= nil then
+			self.kind = {
+				type = "expandable_text",
+				value = _roblox_apppageplatform_shared_v1beta1_expandable_text.ExpandableTextSchema.jsonDecode(
+					input.expandable_text
+				),
+			}
+		end
+
+		if input.expandableText ~= nil then
+			self.kind = {
+				type = "expandable_text",
+				value = _roblox_apppageplatform_shared_v1beta1_expandable_text.ExpandableTextSchema.jsonDecode(
+					input.expandableText
 				),
 			}
 		end

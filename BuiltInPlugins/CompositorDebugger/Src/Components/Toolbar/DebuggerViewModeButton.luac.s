@@ -151,20 +151,20 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Contexts"]
+  GETTABLEKS R2 R3 K8 ["DebuggerViewModeContext"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Framework"]
+  GETTABLEKS R4 R0 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Framework"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Contexts"]
-  GETTABLEKS R4 R5 K11 ["DebuggerViewModeContext"]
+  GETTABLEKS R5 R0 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["React"]
   CALL R3 1 1
   DUPCLOSURE R4 K12 [PROTO_2]
-  CAPTURE VAL R1
   CAPTURE VAL R3
+  CAPTURE VAL R1
   CAPTURE VAL R2
   RETURN R4 1

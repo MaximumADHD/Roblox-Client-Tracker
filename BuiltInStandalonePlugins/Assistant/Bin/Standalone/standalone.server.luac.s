@@ -7,20 +7,20 @@ MAIN:
   GETIMPORT R1 K5 [require]
   GETTABLEKS R4 R0 K6 ["Src"]
   GETTABLEKS R3 R4 K7 ["Flags"]
-  GETTABLEKS R2 R3 K8 ["FFlagEnableNewAssistant"]
+  GETTABLEKS R2 R3 K8 ["FFlagIsLuobuBuild"]
   CALL R1 1 1
   MOVE R2 R1
   CALL R2 0 1
-  JUMPIF R2 [+1]
+  JUMPIFNOT R2 [+1]
   RETURN R0 0
   GETIMPORT R2 K5 [require]
   GETTABLEKS R5 R0 K6 ["Src"]
   GETTABLEKS R4 R5 K7 ["Flags"]
-  GETTABLEKS R3 R4 K9 ["FFlagIsLuobuBuild"]
+  GETTABLEKS R3 R4 K9 ["FFlagEnableNewAssistant"]
   CALL R2 1 1
   MOVE R3 R2
   CALL R3 0 1
-  JUMPIFNOT R3 [+1]
+  JUMPIF R3 [+1]
   RETURN R0 0
   GETIMPORT R3 K5 [require]
   GETTABLEKS R5 R0 K10 ["Packages"]
@@ -44,7 +44,7 @@ MAIN:
   JUMPIFEQ R6 R7 [+2]
   LOADB R5 0 +1
   LOADB R5 1
-  JUMPIFNOT R5 [+59]
+  JUMPIFNOT R5 [+57]
   GETIMPORT R6 K5 [require]
   GETTABLEKS R8 R0 K10 ["Packages"]
   GETTABLEKS R7 R8 K21 ["ReactDeveloperTools"]
@@ -57,8 +57,7 @@ MAIN:
   SETTABLEKS R9 R8 K24 ["profileOnStart"]
   CALL R7 1 0
   GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K16 ["Bin"]
-  GETTABLEKS R9 R10 K17 ["Common"]
+  GETTABLEKS R9 R0 K6 ["Src"]
   GETTABLEKS R8 R9 K26 ["toolInit"]
   CALL R7 1 1
   MOVE R8 R7

@@ -48,7 +48,7 @@ end
 
 local FullScreenAvailability = AvailabilitySignal.new(initAvailability())
 
-local FullScreenConfig = {
+local FullScreenConfig: SettingsServiceLib.ToggleRegisterConfig = {
 	id = "fullscreen",
 	field_type = FieldType.Toggle,
 	label = "CoreScripts.InGameMenu.GameSettings.FullScreen",
@@ -59,4 +59,4 @@ local FullScreenConfig = {
 }
 
 
-return FullScreenConfig :: SettingsServiceLib.ToggleRegisterConfig
+return FullScreenConfig

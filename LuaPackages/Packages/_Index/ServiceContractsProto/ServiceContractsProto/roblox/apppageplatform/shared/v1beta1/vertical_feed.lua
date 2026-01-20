@@ -12,6 +12,7 @@ type _Messages = {
 }
 local messages: _Messages = {} :: _Messages
 
+local _roblox_apppageplatform_shared_v1beta1_actions = require(script.Parent.actions)
 local _roblox_apppageplatform_shared_v1beta1_prop_types = require(script.Parent.prop_types)
 local _roblox_apppageplatform_shared_v1beta1_component_shared = require(script.Parent.component_shared)
 
@@ -51,11 +52,15 @@ type _VerticalFeedSchema_PropsImpl = {
 type _VerticalFeedSchema_PropsFields = {
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	feed_items: _roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp?,
+	threshold_from_end: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	on_scroll_to_end: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 }
 
 type _VerticalFeedSchema_PropsPartialFields = {
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	feed_items: _roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp?,
+	threshold_from_end: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	on_scroll_to_end: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 }
 
 export type VerticalFeedSchema_Props = typeof(setmetatable(
@@ -191,6 +196,8 @@ do
 		return setmetatable({
 			layout_order = if data == nil or data.layout_order == nil then nil else data.layout_order,
 			feed_items = if data == nil or data.feed_items == nil then nil else data.feed_items,
+			threshold_from_end = if data == nil or data.threshold_from_end == nil then nil else data.threshold_from_end,
+			on_scroll_to_end = if data == nil or data.on_scroll_to_end == nil then nil else data.on_scroll_to_end,
 		}, _VerticalFeedSchema_PropsImpl :: _VerticalFeedSchema_PropsImpl)
 	end
 
@@ -207,6 +214,18 @@ do
 		if self.feed_items ~= nil then
 			local encoded = self.feed_items:encode()
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.threshold_from_end ~= nil then
+			local encoded = self.threshold_from_end:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.on_scroll_to_end ~= nil then
+			local encoded = self.on_scroll_to_end:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -239,6 +258,16 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.feed_items =
 						_roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.threshold_from_end = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.on_scroll_to_end = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
 					continue
 				end
 
@@ -275,6 +304,14 @@ do
 			output.feedItems = self.feed_items:jsonEncode()
 		end
 
+		if self.threshold_from_end ~= nil then
+			output.thresholdFromEnd = self.threshold_from_end:jsonEncode()
+		end
+
+		if self.on_scroll_to_end ~= nil then
+			output.onScrollToEnd = self.on_scroll_to_end:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -301,6 +338,26 @@ do
 			self.feed_items = _roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp.jsonDecode(
 				input.feedItems
 			)
+		end
+
+		if input.threshold_from_end ~= nil then
+			self.threshold_from_end =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.threshold_from_end)
+		end
+
+		if input.thresholdFromEnd ~= nil then
+			self.threshold_from_end =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.thresholdFromEnd)
+		end
+
+		if input.on_scroll_to_end ~= nil then
+			self.on_scroll_to_end =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.on_scroll_to_end)
+		end
+
+		if input.onScrollToEnd ~= nil then
+			self.on_scroll_to_end =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onScrollToEnd)
 		end
 
 		return self

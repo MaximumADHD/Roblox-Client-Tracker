@@ -216,25 +216,24 @@ PROTO_7:
   RETURN R0 0
   LOADNIL R6
   GETTABLEKS R7 R1 K29 ["isManualRun"]
-  JUMPIFNOT R7 [+7]
-  LOADK R7 K41 ["%* %*"]
-  LOADK R9 K42 ["Assistant Code Runner"]
-  GETUPVAL R10 8
+  JUMPIFNOT R7 [+6]
+  LOADK R7 K41 ["Assistant Code Runner %*"]
+  GETUPVAL R9 8
   NAMECALL R7 R7 K5 ["format"]
-  CALL R7 3 1
+  CALL R7 2 1
   MOVE R6 R7
   GETUPVAL R7 8
   ADDK R7 R7 K12 [1]
   SETUPVAL R7 8
   GETTABLEKS R8 R0 K4 ["requestId"]
-  DUPTABLE R7 K45 [{"requestId", "hasBeenUndone", "hasBeenRedone"}]
+  DUPTABLE R7 K44 [{"requestId", "hasBeenUndone", "hasBeenRedone"}]
   SETTABLEKS R8 R7 K4 ["requestId"]
   LOADB R9 0
-  SETTABLEKS R9 R7 K43 ["hasBeenUndone"]
+  SETTABLEKS R9 R7 K42 ["hasBeenUndone"]
   LOADB R9 0
-  SETTABLEKS R9 R7 K44 ["hasBeenRedone"]
+  SETTABLEKS R9 R7 K43 ["hasBeenRedone"]
   GETUPVAL R9 9
-  GETTABLEKS R8 R9 K46 ["StartRecordingActions"]
+  GETTABLEKS R8 R9 K45 ["StartRecordingActions"]
   GETTABLEKS R9 R0 K4 ["requestId"]
   MOVE R10 R6
   CALL R8 2 1
@@ -245,7 +244,7 @@ PROTO_7:
   CAPTURE VAL R0
   CALL R9 1 2
   GETUPVAL R12 9
-  GETTABLEKS R11 R12 K47 ["EndRecordingActions"]
+  GETTABLEKS R11 R12 K46 ["EndRecordingActions"]
   GETTABLEKS R12 R0 K4 ["requestId"]
   MOVE R13 R6
   CALL R11 2 1
@@ -255,12 +254,12 @@ PROTO_7:
   GETUPVAL R12 10
   SETTABLE R7 R12 R6
   JUMPIFNOT R9 [+20]
-  LOADK R13 K48 ["id='runCodeResult_%*'"]
+  LOADK R13 K47 ["id='runCodeResult_%*'"]
   GETTABLEKS R15 R1 K15 ["runCodeGuid"]
   NAMECALL R13 R13 K5 ["format"]
   CALL R13 2 1
   MOVE R12 R13
-  LOADK R14 K49 ["
+  LOADK R14 K48 ["
 <span class=\"successText\" %*>Code executed successfully!</span>
 "]
   MOVE R16 R12
@@ -273,18 +272,18 @@ PROTO_7:
   MOVE R17 R13
   CALL R14 3 0
   JUMP [+27]
-  GETIMPORT R12 K51 [string.gsub]
+  GETIMPORT R12 K50 [string.gsub]
   MOVE R13 R10
-  LOADK R14 K52 ["([<>&])"]
-  LOADK R15 K53 ["\%1"]
+  LOADK R14 K51 ["([<>&])"]
+  LOADK R15 K52 ["\%1"]
   CALL R12 3 1
   MOVE R10 R12
-  LOADK R13 K48 ["id='runCodeResult_%*'"]
+  LOADK R13 K47 ["id='runCodeResult_%*'"]
   GETTABLEKS R15 R1 K15 ["runCodeGuid"]
   NAMECALL R13 R13 K5 ["format"]
   CALL R13 2 1
   MOVE R12 R13
-  LOADK R14 K54 ["
+  LOADK R14 K53 ["
 <span class=\"errorText\" %*>%*</span>
 "]
   MOVE R16 R12
@@ -303,8 +302,8 @@ PROTO_7:
   GETUPVAL R12 5
   GETTABLEKS R14 R0 K4 ["requestId"]
   MOVE R15 R9
-  ORK R16 R10 K55 [""]
-  NAMECALL R12 R12 K56 ["CodeRunnerCompleted"]
+  ORK R16 R10 K54 [""]
+  NAMECALL R12 R12 K55 ["CodeRunnerCompleted"]
   CALL R12 4 0
   CLOSEUPVALS R2
   RETURN R0 0

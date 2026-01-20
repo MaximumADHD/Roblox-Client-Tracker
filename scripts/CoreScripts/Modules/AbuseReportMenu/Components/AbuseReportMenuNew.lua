@@ -63,11 +63,12 @@ local IXPFieldWHAM1707 = game:DefineFastString("WHAM1707IXPField", "EnableWHAM17
 local FFlagHighlightModePreciseSelectionEnabled = SharedFlags.FFlagHighlightModePreciseSelectionEnabled
 local FFlagHideShortcutsOnReportDropdown = require(root.Flags.FFlagHideShortcutsOnReportDropdown)
 local FFlagFixDuplicateFoundationStylesheets = game:DefineFastFlag("FixDuplicateFoundationStylesheets", false)
-local FFlagUKOSAUpdatedCopy = SharedFlags.FFlagUKOSAUpdatedCopy
 local FFlagAbuseReportTabClearCapturedScreenshotOnCloseFix =
 	game:DefineFastFlag("AbuseReportTabClearCapturedScreenshotOnCloseFix", false)
 local FIntAbuseReportTabClearCapturedScreenshotOnCloseFixDelay =
 	game:DefineFastInt("AbuseReportTabClearCapturedScreenshotOnCloseFixDelay", 500)
+local FFlagMigrateAllOsaMessagingToCentralService =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagMigrateAllOsaMessagingToCentralService
 
 local isShowSelectInSceneReportMenu = require(root.Utility.isShowSelectInSceneReportMenu)
 
@@ -411,54 +412,55 @@ local AbuseReportMenuNew = function(props: Props)
 							}, {
 								MenuItems = menuItems,
 							}),
-							FooterFrame = if FFlagUKOSAUpdatedCopy
-								then React.createElement(View, {
-									tag = "size-full-0 auto-y",
-									LayoutOrder = 2,
+							FooterFrame = React.createElement(View, {
+								tag = "size-full-0 auto-y",
+								LayoutOrder = 2,
+							}, {
+								TextFrame = React.createElement(View, {
+									tag = "size-full col align-x-left gap-small padding-top-medium",
 								}, {
-									TextFrame = React.createElement(View, {
-										tag = "size-full col align-x-left gap-small padding-top-medium",
-									}, {
-										Divider = React.createElement(View, {
-											tag = "size-full-0 stroke-muted padding-top-medium",
-											LayoutOrder = 1,
-										}),
-										InfoText = React.createElement(Text, {
-											Text = if isShowUKOSAIllegalContentReportingLink()
-												then localizedText.FooterInformation2
-												else localizedText.FooterInformation1,
-											fontStyle = tokens.Typography.BodySmall,
-											textStyle = tokens.Color.Content.Muted,
-											TextWrapped = true,
-											TextXAlignment = Enum.TextXAlignment.Left,
-											tag = "auto-xy",
-											LayoutOrder = 2,
-										}),
+									Divider = React.createElement(View, {
+										tag = "size-full-0 stroke-muted padding-top-medium",
+										LayoutOrder = 1,
 									}),
-								})
-								else nil,
-							DSALinkFrame = if isShowEUDSAIllegalContentReportingLink()
+									InfoText = React.createElement(Text, {
+										Text = if isShowUKOSAIllegalContentReportingLink()
+											then localizedText.FooterInformation2
+											else localizedText.FooterInformation1,
+										fontStyle = tokens.Typography.BodySmall,
+										textStyle = tokens.Color.Content.Muted,
+										TextWrapped = true,
+										TextXAlignment = Enum.TextXAlignment.Left,
+										tag = "auto-xy",
+										LayoutOrder = 2,
+									}),
+								}),
+							}),
+							DSALinkFrame = if not FFlagMigrateAllOsaMessagingToCentralService
+									and isShowEUDSAIllegalContentReportingLink()
 								then React.createElement("Frame", {
 									BackgroundTransparency = 1,
-									LayoutOrder = if FFlagUKOSAUpdatedCopy then 3 else 2,
+									LayoutOrder = 3,
 									AutomaticSize = Enum.AutomaticSize.Y,
 									Size = UDim2.new(1, 0, 0, 0),
 								}, {
 									DSALink = React.createElement(DSAReportLink),
 								})
 								else nil,
-							OSALinkFrame = if isShowUKOSAIllegalContentReportingLink()
+							OSALinkFrame = if not FFlagMigrateAllOsaMessagingToCentralService
+									and isShowUKOSAIllegalContentReportingLink()
 								then React.createElement(View, {
 									tag = "size-full-0 auto-y",
-									LayoutOrder = if FFlagUKOSAUpdatedCopy then 3 else 2,
+									LayoutOrder = 3,
 								}, {
 									OSALink = React.createElement(OSAReportLink),
 								})
 								else nil,
-							GenericIllegalContentReportLink = if isShowGenericIllegalContentReportingLink()
+							GenericIllegalContentReportLink = if FFlagMigrateAllOsaMessagingToCentralService
+									and isShowGenericIllegalContentReportingLink()
 								then React.createElement(View, {
 									tag = "size-full-0 auto-y",
-									LayoutOrder = if FFlagUKOSAUpdatedCopy then 3 else 2,
+									LayoutOrder = 3,
 								}, React.createElement(GenericReportLink))
 								else nil,
 						})

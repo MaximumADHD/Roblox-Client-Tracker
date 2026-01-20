@@ -23,7 +23,6 @@ local SocialUtil = require(CoreGuiModules.SocialUtil)
 local BlockingUtility = require(CorePackages.Workspace.Packages.BlockingUtility)
 
 local onBlockButtonActivated = require(CoreGuiModules.Settings.onBlockButtonActivated)
-local FFlagEnableNewBlockingModalDevApiPrompt = require(CoreGuiModules.Common.Flags.FFlagEnableNewBlockingModalDevApiPrompt)
 
 local REGULAR_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size150x150
 local CONSOLE_THUMBNAIL_IMAGE_SIZE = Enum.ThumbnailSize.Size352x352
@@ -48,47 +47,7 @@ function DoPromptBlockPlayer(playerToBlock)
 		return
 	end
 
-	if FFlagEnableNewBlockingModalDevApiPrompt then
-		onBlockButtonActivated(playerToBlock)
-	else
-		local thumbnailUrl = ""
-		local thumbnailUrlConsole = ""
-
-		local function promptCompletedCallback(clickedConfirm)
-			if clickedConfirm then
-				local successfullyBlocked = BlockingUtility:BlockPlayerAsync(playerToBlock)
-				if not successfullyBlocked then
-					while PromptCreator:IsCurrentlyPrompting() do
-						wait()
-					end
-
-					PromptCreator:CreatePrompt({
-						WindowTitle = "Error Blocking User",
-						MainText = string.format("An error occurred while blocking %s. Please try again later.", playerToBlock.Name),
-						ConfirmationText = "Okay",
-						CancelActive = false,
-						Image = thumbnailUrl,
-						ImageConsoleVR = thumbnailUrlConsole,
-						FetchImageFunction = createFetchImageFunction(playerToBlock.UserId, REGULAR_THUMBNAIL_IMAGE_SIZE, REGULAR_THUMBNAIL_IMAGE_TYPE),
-						FetchImageFunctionConsoleVR = createFetchImageFunction(playerToBlock.UserId, CONSOLE_THUMBNAIL_IMAGE_SIZE, CONSOLE_THUMBNAIL_IMAGE_TYPE),
-						StripeColor = Color3.fromRGB(183, 34, 54),
-					})
-				end
-			end
-		end
-		PromptCreator:CreatePrompt({
-			WindowTitle = "Confirm Block",
-			MainText = string.format("Are you sure you want to block %s?", playerToBlock.Name),
-			ConfirmationText = "Block",
-			CancelText = "Cancel",
-			CancelActive = true,
-			Image = thumbnailUrl,
-			ImageConsoleVR = thumbnailUrlConsole,
-			FetchImageFunction = createFetchImageFunction(playerToBlock.UserId, REGULAR_THUMBNAIL_IMAGE_SIZE, REGULAR_THUMBNAIL_IMAGE_TYPE),
-			FetchImageFunctionConsoleVR = createFetchImageFunction(playerToBlock.UserId, CONSOLE_THUMBNAIL_IMAGE_SIZE, CONSOLE_THUMBNAIL_IMAGE_TYPE),
-			PromptCompletedCallback = promptCompletedCallback,
-		})
-	end
+	onBlockButtonActivated(playerToBlock)
 end
 
 function PromptBlockPlayer(player)

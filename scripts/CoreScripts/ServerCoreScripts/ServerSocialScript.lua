@@ -23,6 +23,7 @@ local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 game:DefineFastFlag("EnableSetUserBlocklistInitialized", false)
 local FFlagInExperienceUserProfileSettingsEnabled = require(RobloxGui.Modules.Common.Flags.FFlagInExperienceUserProfileSettingsEnabled)
+local FFlagInExperienceRequestProfileSettings = require(RobloxGui.Modules.Common.Flags.FFlagInExperienceRequestProfileSettings)
 local FStringRccInExperienceNameEnabledAllowList = require(RobloxGui.Modules.Common.Flags.FStringRccInExperienceNameEnabledAllowList)
 local FFlagUseNewDirectChatAPI = game:DefineFastFlag("UseNewDirectChatAPI", false)
 local FFlagEnableCreatePartyNudge = game:DefineFastFlag("EnableCreatePartyNudge", false)
@@ -105,6 +106,13 @@ RemoteEvent_UpdateLocalPlayerBlockList.Parent = RobloxReplicatedStorage
 local RemoteEvent_SendPlayerProfileSettings = Instance.new("RemoteEvent")
 RemoteEvent_SendPlayerProfileSettings.Name = "SendPlayerProfileSettings"
 RemoteEvent_SendPlayerProfileSettings.Parent = RobloxReplicatedStorage
+
+local RemoteEvent_RequestPlayerProfileSettings
+if FFlagInExperienceRequestProfileSettings then
+	RemoteEvent_RequestPlayerProfileSettings = Instance.new("RemoteEvent")
+	RemoteEvent_RequestPlayerProfileSettings.Name = "RequestPlayerProfileSettings"
+	RemoteEvent_RequestPlayerProfileSettings.Parent = RobloxReplicatedStorage
+end
 
 local RemoteEvent_UpdatePlayerProfileSettings
 if FFlagBadgeVisibilitySettingEnabled then
@@ -371,6 +379,20 @@ local sendPlayerProfileSettings = function(player)
 	local userIdStr = tostring(player.UserId)
 	PlayerToInExperienceNameEnabledMap[userIdStr] = isInExperienceNameEnabled
 	RemoteEvent_SendPlayerProfileSettings:FireAllClients(userIdStr, { isInExperienceNameEnabled = isInExperienceNameEnabled })
+end
+
+if FFlagInExperienceRequestProfileSettings then
+	RemoteEvent_RequestPlayerProfileSettings.OnServerEvent:Connect(function(player)
+		local userIdStr = tostring(player.UserId)
+		local isInExperienceNameEnabled = PlayerToInExperienceNameEnabledMap[userIdStr]
+		if isInExperienceNameEnabled ~= nil then
+			-- Settings already fetched, send immediately
+			RemoteEvent_SendPlayerProfileSettings:FireClient(player, userIdStr, { isInExperienceNameEnabled = isInExperienceNameEnabled })
+		else
+			-- Settings not yet fetched, fetch and send
+			coroutine.wrap(sendPlayerProfileSettings)(player)
+		end
+	end)
 end
 
 local createPartyNudge = function(inviterUserId, inviteeUserId, nudgeType)

@@ -31,15 +31,21 @@ local useHistoryItems = Traversal.useHistoryItems
 local useTokens = Foundation.Hooks.useTokens
 
 local FFlagTraversalUseFocusNavLastInput = require(script.Parent.FFlagTraversalUseFocusNavLastInput)
+local FFlagAddTraversalHistoryReactMenuButtons = require(Settings.Flags.FFlagAddTraversalHistoryReactMenuButtons)
 
 export type TraversalHistoryMenuProps = {
-	anchorParent: GuiObject,
+	anchorParent: GuiObject?,
+	anchorRef: React.RefObject<GuiObject?>?,
 	currentPageChangeSignal: any,
 	idleButtonStateIsDown: boolean?,
+	isDarkOnDarkMode: boolean?, -- defaults to false
 }
 
 local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React.Ref<GuiObject>?): React.React_Node
 	local anchorRef = React.useRef(props.anchorParent)
+	if FFlagAddTraversalHistoryReactMenuButtons and props.anchorRef then 
+		anchorRef = props.anchorRef
+	end
 	local historyItems = useHistoryItems()
 	local items = {}
 	for _, historyItem in historyItems do
@@ -69,9 +75,11 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 				setForceMenuClose(true)
 			end
 		end)
-		connections.onPageChanged = props.currentPageChangeSignal:connect(function()
-			setForceMenuClose(true)
-		end)
+		connections.onPageChanged = if not FFlagAddTraversalHistoryReactMenuButtons or props.currentPageChangeSignal then 
+			props.currentPageChangeSignal:connect(function()
+				setForceMenuClose(true)
+			end)
+		else nil
 		connections.onNativeClose = GuiService.NativeClose:Connect(function()
 			setForceMenuClose(true)
 		end)
@@ -111,10 +119,14 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 
 	local dividerLeftStyle = React.useMemo(function()
 		-- matches button border style
-		return {
-			Color3 = tokens.Color.Stroke.Default.Color3,
-			Transparency = 0.33,
-		}
+		if FFlagAddTraversalHistoryReactMenuButtons and props.isDarkOnDarkMode then
+			return tokens.Color.Surface.Surface_0
+		else
+			return {
+				Color3 = tokens.Color.Stroke.Default.Color3,
+				Transparency = 0.33,
+			}
+		end
 	end, {})
 
 	local isSmallTouchScreen = Utility:IsSmallTouchScreen()
@@ -126,6 +138,9 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 			SelectionBehaviorUp = if idleButtonStateIsDown then selectionBehaviorToMenu else Enum.SelectionBehavior.Stop,
 			SelectionBehaviorDown = if not idleButtonStateIsDown then selectionBehaviorToMenu else Enum.SelectionBehavior.Stop,
 		},
+		
+		-- default ref to internal anchor if no external ref provided
+		ref = if FFlagAddTraversalHistoryReactMenuButtons and (not props.anchorRef and not props.anchorParent) then anchorRef else nil,
 	}, {
 		DividerLeft = React.createElement(View, {
 			Size = UDim2.new(0, tokens.Stroke.Thick, 1, 0),

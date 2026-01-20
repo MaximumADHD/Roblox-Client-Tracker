@@ -2979,23 +2979,21 @@ PROTO_114:
   GETTABLEKS R1 R2 K3 ["is"]
   GETVARARGS R2 1
   CALL R1 1 1
-  JUMPIFNOT R1 [+60]
+  JUMPIFNOT R1 [+58]
   LOADK R2 K5 ["#"]
   FASTCALL1 SELECT_VARARG R2 [+3]
   GETIMPORT R1 K7 [select]
   GETVARARGS R3 -1
   CALL R1 -1 1
   LOADN R2 1
-  JUMPIFNOTLT R2 R1 [+13]
+  JUMPIFNOTLT R2 R1 [+11]
   GETIMPORT R1 K10 [string.format]
-  LOADK R3 K11 ["When returning a Promise from andThen, extra arguments are "]
-  LOADK R4 K12 ["discarded! See:
+  LOADK R2 K11 ["When returning a Promise from andThen, extra arguments are discarded! See:
 
 %s"]
-  CONCAT R2 R3 R4
-  GETTABLEKS R3 R0 K13 ["_source"]
+  GETTABLEKS R3 R0 K12 ["_source"]
   CALL R1 2 1
-  GETIMPORT R2 K15 [warn]
+  GETIMPORT R2 K14 [warn]
   MOVE R3 R1
   CALL R2 1 0
   GETVARARGS R1 1
@@ -3005,14 +3003,14 @@ PROTO_114:
   CAPTURE VAL R1
   CAPTURE UPVAL U1
   CAPTURE VAL R0
-  NAMECALL R2 R1 K16 ["andThen"]
+  NAMECALL R2 R1 K15 ["andThen"]
   CALL R2 3 1
   GETTABLEKS R3 R2 K0 ["_status"]
   GETUPVAL R6 0
   GETTABLEKS R5 R6 K1 ["Status"]
-  GETTABLEKS R4 R5 K17 ["Cancelled"]
+  GETTABLEKS R4 R5 K16 ["Cancelled"]
   JUMPIFNOTEQ R3 R4 [+5]
-  NAMECALL R3 R0 K18 ["cancel"]
+  NAMECALL R3 R0 K17 ["cancel"]
   CALL R3 1 0
   RETURN R0 0
   GETTABLEKS R3 R2 K0 ["_status"]
@@ -3020,31 +3018,31 @@ PROTO_114:
   GETTABLEKS R5 R6 K1 ["Status"]
   GETTABLEKS R4 R5 K2 ["Started"]
   JUMPIFNOTEQ R3 R4 [+7]
-  SETTABLEKS R2 R0 K19 ["_parent"]
-  GETTABLEKS R3 R2 K20 ["_consumers"]
+  SETTABLEKS R2 R0 K18 ["_parent"]
+  GETTABLEKS R3 R2 K19 ["_consumers"]
   LOADB R4 1
   SETTABLE R4 R3 R0
   RETURN R0 0
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K1 ["Status"]
-  GETTABLEKS R1 R2 K21 ["Resolved"]
+  GETTABLEKS R1 R2 K20 ["Resolved"]
   SETTABLEKS R1 R0 K0 ["_status"]
   GETUPVAL R1 2
   GETVARARGS R2 -1
   CALL R1 -1 2
-  SETTABLEKS R1 R0 K22 ["_valuesLength"]
-  SETTABLEKS R2 R0 K23 ["_values"]
-  GETIMPORT R1 K25 [ipairs]
-  GETTABLEKS R2 R0 K26 ["_queuedResolve"]
+  SETTABLEKS R1 R0 K21 ["_valuesLength"]
+  SETTABLEKS R2 R0 K22 ["_values"]
+  GETIMPORT R1 K24 [ipairs]
+  GETTABLEKS R2 R0 K25 ["_queuedResolve"]
   CALL R1 1 3
   FORGPREP_INEXT R1
-  GETIMPORT R6 K29 [coroutine.wrap]
+  GETIMPORT R6 K28 [coroutine.wrap]
   MOVE R7 R5
   CALL R6 1 1
   GETVARARGS R7 -1
   CALL R6 -1 0
   FORGLOOP R1 2 [inext] [-7]
-  NAMECALL R1 R0 K30 ["_finalize"]
+  NAMECALL R1 R0 K29 ["_finalize"]
   CALL R1 1 0
   RETURN R0 0
 

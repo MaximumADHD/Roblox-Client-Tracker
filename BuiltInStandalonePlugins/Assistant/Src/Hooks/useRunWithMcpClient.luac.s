@@ -179,22 +179,23 @@ MAIN:
   GETTABLEKS R8 R9 K13 ["Host"]
   GETTABLEKS R7 R8 K14 ["startMcpHost"]
   CALL R6 1 1
-  GETTABLEKS R9 R1 K15 ["Components"]
-  GETTABLEKS R8 R9 K16 ["Contexts"]
-  GETTABLEKS R7 R8 K17 ["McpAuthorizerManagerContext"]
-  GETTABLEKS R10 R1 K15 ["Components"]
-  GETTABLEKS R9 R10 K16 ["Contexts"]
-  GETTABLEKS R8 R9 K18 ["PersistedIntegrationContext"]
-  GETTABLEKS R10 R1 K19 ["Flags"]
-  GETTABLEKS R9 R10 K20 ["getFFlagMCPAssistantManagementMenu"]
-  GETTABLEKS R10 R6 K21 ["promiseMcpHost"]
-  GETTABLEKS R11 R2 K22 ["ContextServices"]
-  GETTABLEKS R12 R11 K23 ["Plugin"]
-  DUPCLOSURE R13 K24 [PROTO_10]
+  GETTABLEKS R9 R1 K15 ["Flags"]
+  GETTABLEKS R8 R9 K16 ["Shared"]
+  GETTABLEKS R7 R8 K17 ["FFlagMCPAssistantManagementMenu"]
+  GETTABLEKS R10 R1 K18 ["Components"]
+  GETTABLEKS R9 R10 K19 ["Contexts"]
+  GETTABLEKS R8 R9 K20 ["McpAuthorizerManagerContext"]
+  GETTABLEKS R11 R1 K18 ["Components"]
+  GETTABLEKS R10 R11 K19 ["Contexts"]
+  GETTABLEKS R9 R10 K21 ["PersistedIntegrationContext"]
+  GETTABLEKS R10 R6 K22 ["promiseMcpHost"]
+  GETTABLEKS R11 R2 K23 ["ContextServices"]
+  GETTABLEKS R12 R11 K24 ["Plugin"]
+  DUPCLOSURE R13 K25 [PROTO_10]
   CAPTURE VAL R12
   CAPTURE VAL R4
+  CAPTURE VAL R7
   CAPTURE VAL R9
   CAPTURE VAL R8
-  CAPTURE VAL R7
   CAPTURE VAL R10
   RETURN R13 1

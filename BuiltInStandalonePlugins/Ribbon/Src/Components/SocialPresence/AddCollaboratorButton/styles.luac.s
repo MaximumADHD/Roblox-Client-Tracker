@@ -10,74 +10,58 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R3 R1 K8 ["Styling"]
   GETTABLEKS R2 R3 K9 ["createStyleRule"]
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K10 ["Src"]
-  GETTABLEKS R5 R6 K11 ["SharedFlags"]
-  GETTABLEKS R4 R5 K12 ["getFeatureUpdateManageCollaboratorsIcons"]
-  CALL R3 1 1
-  MOVE R4 R2
-  LOADK R5 K13 [".Component-AddCollaboratorButton"]
-  NEWTABLE R6 0 0
-  NEWTABLE R7 0 3
-  MOVE R9 R3
-  CALL R9 0 1
-  JUMPIF R9 [+8]
-  MOVE R8 R2
-  LOADK R9 K14 [">> #ButtonIcon"]
-  DUPTABLE R10 K16 [{"Image"}]
-  LOADK R11 K17 ["$AddCollaborator"]
-  SETTABLEKS R11 R10 K15 ["Image"]
-  CALL R8 2 1
-  JUMP [+1]
-  LOADNIL R8
-  MOVE R9 R2
-  LOADK R10 K18 [".TeamCreate"]
-  NEWTABLE R11 0 0
-  NEWTABLE R12 0 1
-  MOVE R13 R2
-  LOADK R14 K19 ["> #StateLayer"]
-  NEWTABLE R15 0 0
-  NEWTABLE R16 0 1
-  MOVE R17 R2
-  LOADK R18 K20 ["::UIPadding"]
-  DUPTABLE R19 K25 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-  LOADK R20 K26 ["$GlobalSpace50"]
-  SETTABLEKS R20 R19 K21 ["PaddingLeft"]
-  LOADK R20 K26 ["$GlobalSpace50"]
-  SETTABLEKS R20 R19 K22 ["PaddingRight"]
-  LOADK R20 K26 ["$GlobalSpace50"]
-  SETTABLEKS R20 R19 K23 ["PaddingTop"]
-  LOADK R20 K26 ["$GlobalSpace50"]
-  SETTABLEKS R20 R19 K24 ["PaddingBottom"]
-  CALL R17 2 -1
-  SETLIST R16 R17 -1 [1]
-  CALL R13 3 -1
-  SETLIST R12 R13 -1 [1]
-  CALL R9 3 1
-  MOVE R10 R2
-  LOADK R11 K19 ["> #StateLayer"]
-  NEWTABLE R12 0 0
-  NEWTABLE R13 0 3
-  MOVE R14 R2
-  LOADK R15 K27 ["::UICorner"]
-  DUPTABLE R16 K29 [{"CornerRadius"}]
-  LOADK R17 K30 ["$GlobalRadiusXSmall"]
-  SETTABLEKS R17 R16 K28 ["CornerRadius"]
-  CALL R14 2 1
+  MOVE R3 R2
+  LOADK R4 K10 [".Component-AddCollaboratorButton"]
+  NEWTABLE R5 0 0
+  NEWTABLE R6 0 2
+  MOVE R7 R2
+  LOADK R8 K11 [".TeamCreate"]
+  NEWTABLE R9 0 0
+  NEWTABLE R10 0 1
+  MOVE R11 R2
+  LOADK R12 K12 ["> #StateLayer"]
+  NEWTABLE R13 0 0
+  NEWTABLE R14 0 1
   MOVE R15 R2
-  LOADK R16 K31 ["> #ButtonIcon"]
-  DUPTABLE R17 K33 [{"LayoutOrder"}]
-  LOADN R18 1
-  SETTABLEKS R18 R17 K32 ["LayoutOrder"]
-  CALL R15 2 1
-  MOVE R16 R2
-  LOADK R17 K34 ["> #ButtonText"]
-  DUPTABLE R18 K33 [{"LayoutOrder"}]
-  LOADN R19 2
-  SETTABLEKS R19 R18 K32 ["LayoutOrder"]
-  CALL R16 2 -1
-  SETLIST R13 R14 -1 [1]
-  CALL R10 3 -1
-  SETLIST R7 R8 -1 [1]
-  CALL R4 3 -1
-  RETURN R4 -1
+  LOADK R16 K13 ["::UIPadding"]
+  DUPTABLE R17 K18 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+  LOADK R18 K19 ["$GlobalSpace50"]
+  SETTABLEKS R18 R17 K14 ["PaddingLeft"]
+  LOADK R18 K19 ["$GlobalSpace50"]
+  SETTABLEKS R18 R17 K15 ["PaddingRight"]
+  LOADK R18 K19 ["$GlobalSpace50"]
+  SETTABLEKS R18 R17 K16 ["PaddingTop"]
+  LOADK R18 K19 ["$GlobalSpace50"]
+  SETTABLEKS R18 R17 K17 ["PaddingBottom"]
+  CALL R15 2 -1
+  SETLIST R14 R15 -1 [1]
+  CALL R11 3 -1
+  SETLIST R10 R11 -1 [1]
+  CALL R7 3 1
+  MOVE R8 R2
+  LOADK R9 K12 ["> #StateLayer"]
+  NEWTABLE R10 0 0
+  NEWTABLE R11 0 3
+  MOVE R12 R2
+  LOADK R13 K20 ["::UICorner"]
+  DUPTABLE R14 K22 [{"CornerRadius"}]
+  LOADK R15 K23 ["$GlobalRadiusXSmall"]
+  SETTABLEKS R15 R14 K21 ["CornerRadius"]
+  CALL R12 2 1
+  MOVE R13 R2
+  LOADK R14 K24 ["> #ButtonIcon"]
+  DUPTABLE R15 K26 [{"LayoutOrder"}]
+  LOADN R16 1
+  SETTABLEKS R16 R15 K25 ["LayoutOrder"]
+  CALL R13 2 1
+  MOVE R14 R2
+  LOADK R15 K27 ["> #ButtonText"]
+  DUPTABLE R16 K26 [{"LayoutOrder"}]
+  LOADN R17 2
+  SETTABLEKS R17 R16 K25 ["LayoutOrder"]
+  CALL R14 2 -1
+  SETLIST R11 R12 -1 [1]
+  CALL R8 3 -1
+  SETLIST R6 R7 -1 [1]
+  CALL R3 3 -1
+  RETURN R3 -1

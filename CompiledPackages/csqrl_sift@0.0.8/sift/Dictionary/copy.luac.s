@@ -1,4 +1,0 @@
-MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K2 [table.clone]
-  RETURN R0 1
