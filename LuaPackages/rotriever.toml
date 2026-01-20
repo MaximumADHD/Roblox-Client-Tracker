@@ -8,7 +8,7 @@ version = "0.1.0"
 registry_index = { url = "https://apis.simulprod.com/rotriever-registry", protocol = "zip" }
 
 [dependencies]
-ServiceContractsProto = "0.0.61-alpha"
+ServiceContractsProto = "1.0.104+20260112"
 Rodux = "1.0"
 RoactRodux = "0.2"
 RoactAppExperiment = "0.4.1"
@@ -19,7 +19,7 @@ LazyRequire = "0.1.4"
 llama = "1.0.0"
 LuaSocialLibrariesDeps = "1.8.1"
 AvatarExperienceDeps = "0.0.1"
-UIBlox = "0.2.223"
+UIBlox = "0.2.224"
 Foundation = "1.67.0"
 FoundationCloudAssets = "0.4.2"
 FoundationImages = "1.32.0"

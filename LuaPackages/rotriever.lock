@@ -162,7 +162,7 @@ dependencies = [
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "RoduxUsers RoduxUsers 1.6.0 registry",
     "Scheduler Scheduler 17.3.6 registry",
-    "ServiceContractsProto ServiceContractsProto 0.0.61-alpha registry",
+    "ServiceContractsProto ServiceContractsProto 1.0.104+20260112 registry",
     "Signal Signal 1.0.0 registry",
     "Signals Signals 0.6.0 registry",
     "SignalsExperimental SignalsExperimental 0.6.0 registry",
@@ -172,7 +172,7 @@ dependencies = [
     "TagUtils TagUtils 0.1.0 registry",
     "Thumbnailing Thumbnailing 0.5.1 registry",
     "UGCValidation UGCValidation 1.17.18 registry",
-    "UIBlox UIBlox 0.2.223 registry",
+    "UIBlox UIBlox 0.2.224 registry",
     "UrlBuilder UrlBuilder 1.2.16 registry",
     "UsageTracker UsageTracker 0.1.1 registry",
     "VirtualizedList VirtualizedList 1.4.3 registry",
@@ -425,7 +425,7 @@ dependencies = [
     "Roact RoactCompat 17.3.6 registry",
     "RoactRodux <patched> RoactRodux 0.5.1 registry",
     "Rodux <patched> Rodux 3.3.0 registry",
-    "UIBlox UIBlox 0.2.223 registry",
+    "UIBlox UIBlox 0.2.224 registry",
     "t t 1.2.6 registry",
 ]
 
@@ -1815,7 +1815,7 @@ dependencies = [
 
 [[package]]
 name = "ServiceContractsProto"
-version = "0.0.61-alpha"
+version = "1.0.104+20260112"
 source = "registry"
 
 [[package]]
@@ -1894,7 +1894,7 @@ dependencies = [
     "RoduxFriends RoduxFriends 4.3.0 registry",
     "RoduxPresence RoduxPresence 3.2.3 registry",
     "Symbol lua-symbol 0.1.0 registry",
-    "UIBlox UIBlox 0.2.223 registry",
+    "UIBlox UIBlox 0.2.224 registry",
     "enumerate enumerate 1.1.0 registry",
     "llama llama 1.0.0 registry",
     "t t 1.2.6 registry",
@@ -1991,7 +1991,7 @@ dependencies = [
 
 [[package]]
 name = "UIBlox"
-version = "0.2.223"
+version = "0.2.224"
 source = "registry"
 dependencies = [
     "BuilderIcons BuilderIcons 0.1.22 registry",

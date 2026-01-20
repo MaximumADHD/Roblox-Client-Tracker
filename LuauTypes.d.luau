@@ -200,6 +200,7 @@ type ReflectionType = {
 type ReflectedProperty = {
   Name: string,
   Serialized: boolean,
+  Owner: string?,
   -- AliasFor: string?,
 
   Type: ReflectionType,
@@ -223,6 +224,7 @@ type ReflectedProperty = {
 
 type ReflectedClass = {
   Name: string,
+  Serialized: boolean?,
   Superclass: string?,
   Subclasses: {string},
   Display: {

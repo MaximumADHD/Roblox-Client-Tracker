@@ -41,7 +41,7 @@
       <addseparator />
 
       <addaction name="gameSettingsAction"/>
-      <addaction fflag="EnableAvatarSettings" name="avatarSettingsActionMenu"/>
+      <addaction name="avatarSettingsActionMenu"/>
       <addaction fflag="EnableCreatorConfigSystemMenu" name="creatorConfigAction"/>
       <addseparator fflag="EnableCreatorConfigSystemMenu" />
       <addaction name="settingsAction"/>
@@ -323,8 +323,8 @@
       <Group name="Preview" text="Studio.Common.Action.Preview" modernIcon="AvatarPreviewer" width="32" height="32">
         <addaction name="avatarPreviewerAction" type="plugin" modernIcon="AvatarPreviewer" style="textundericon" width="32" height="32" />
       </Group>
-      <Group fflag="EnableAvatarSettings" name="AvatarSettings" text="Studio.Common.Action.AvatarSettings" modernIcon="AvatarSettings" width="32" height="32">
-        <addaction fflag="EnableAvatarSettings" name="avatarSettingsAction" modernIcon="AvatarSettings" style="textundericon" width="32" height="32" tooltip="Studio.App.RobloxRibbonMainWindow.AvatarSettingsTooltip" ischeckable="true"/>
+      <Group name="AvatarSettings" text="Studio.Common.Action.AvatarSettings" modernIcon="AvatarSettings" width="32" height="32">
+        <addaction name="avatarSettingsAction" modernIcon="AvatarSettings" style="textundericon" width="32" height="32" tooltip="Studio.App.RobloxRibbonMainWindow.AvatarSettingsTooltip" ischeckable="true"/>
       </Group>
       <Group name="Animation" text="Studio.Common.Action.Animation" icon=":/RibbonBar/images/RibbonIcons/Avatar/animation_editor_blue.png" modernIcon="AnimationEditor" width="32" height="32">
         <addaction name="animationEditorAction" type="plugin" icon=":/RibbonBar/images/RibbonIcons/Avatar/animation_editor_blue.png" modernIcon="AnimationEditor" style="textundericon" width="32" height="32" />
@@ -422,7 +422,7 @@
         <addaction name="toggleTaskSchedulerDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Task-Scheduler.png" modernIcon="TaskScheduler" tooltip="Studio.App.RobloxRibbonMainWindow.ViewTaskExecutionInformation"/>
         <addaction name="toggleScriptPerformanceDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Script-Performance.png" modernIcon="ScriptPerformance"/>
         <addaction name="toggleFindReplaceAllWidgetAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/Find-Results.png" modernIcon="FindAll" tooltip="Studio.App.RBXMainWindow.ViewFindReplaceWindow"/>
-        <addaction fflag="EnableAvatarSettings" name="avatarSettingsAction" modernIcon="AvatarSettings" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.AvatarSettingsTooltip" ischeckable="true"/>
+        <addaction name="avatarSettingsAction" modernIcon="AvatarSettings" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.AvatarSettingsTooltip" ischeckable="true"/>
         <!-- Remove with FFlagCOLLAB5668HideTCWidget -->
         <addaction fflag="!COLLAB5668HideTCWidget" name="toggleTeamCreateDockAction" style="textbesideicon" icon=":/RibbonBar/images/RibbonIcons/View/TeamCreate.png" modernIcon="TeamCreate" tooltip="Studio.App.RBXMainWindow.ViewTeamCreateWindow"/>
         <addaction name="toggleTerrainToolsDockAliasAction"
@@ -438,8 +438,8 @@
         <addaction fflag="DebugStudioAssetProxy" name="remoteDebugDockWidgetAction" style="textbesideicon" text="Studio.App.RemoteDebugger.Title" tooltip="Studio.App.RemoteDebugger.Title"/>
 
         <addaction name="toggleStudioActivityFeedAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioActivityFeedWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioActivityFeedWidgetTooltip" modernIcon="ActivityHistory" ischeckable="true" />
-        <addaction name="toggleStudioConversationalAIDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
-        <addaction fflag="EnableNewAssistant2" name="toggleAssistantDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
+        <addaction fflag="!DeprecateOldAssistant" name="toggleStudioConversationalAIDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
+        <addaction name="toggleAssistantDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
         <addaction fflag="EnableTextureGenerator2" name="textureGeneratorAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.TextureGenerator" modernIcon="MeshTextureTool"/>
         <addaction name="toggleStudioAnnotationsAction" style="textbesideicon" />
         <addaction fflag="EnablePlaceVersionHistory" name="togglePlaceVersionHistoryAction" style="textbesideicon"/>
