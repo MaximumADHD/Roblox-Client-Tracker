@@ -6,6 +6,7 @@
 uniform vec4 unpackInfo[1];
 uniform vec4 CB0[61];
 uniform vec4 CB6[2];
+uniform vec4 CB5[1];
 uniform ivec4 CB4[1];
 in vec4 POSITION;
 in vec2 TEXCOORD0;
@@ -25,7 +26,7 @@ void main()
     vec4 v5 = v4;
     v5.y = v3.y;
     gl_Position = v5;
-    VARYING0 = TEXCOORD0;
+    VARYING0 = TEXCOORD0 * CB5[0].xy;
     VARYING1 = mod(mod(v0 / vec3(float(1 << (CB4[0].w + 4))), vec3(1024.0)) + vec3(1024.0), vec3(1024.0));
 }
 
