@@ -2229,6 +2229,7 @@ Studio.App.PropertyItems.BrickColorPropertyCannotBeEdited,Warning message that d
 Studio.App.PropertyItems.ClickToExpand,Short message that appears in the Terrain.MaterialColors property in the Properties widget to let the user know that they can expand the property to see all the individual color values of each terrain material,[Click to expand],[Click to expand]
 Studio.App.PropertyItems.CollisionGroupName.MismatchIdName,,CollisionGroup and CollisionGroupId don't match. Please reset CollisionGroup to a different value to resolve it.,CollisionGroup and CollisionGroupId don't match. Please reset CollisionGroup to a different value to resolve it.
 Studio.App.PropertyItems.Color,Label for the color of a terrain material,Color,Color
+Studio.App.PropertyItems.Content,"Signals that this item holds ""Content"", which is the generic version of Editable meshes and ContentId based meshes",Content,Content
 Studio.App.PropertyItems.CouldNotFindTexture1,Error message that displays if Studio can't find a texture file at a certain path. The argument of this string is the path to the supposed texture file.,"Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the FBX/OBJ file","Could not find texture %1. Please verify that the texture is located at that location, or in the same folder as the FBX/OBJ file"
 Studio.App.PropertyItems.DefaultTheme,,Default,Default
 Studio.App.PropertyItems.DoubleClickToGoTo1,Tooltip that displays on both the 'Influenced by' and 'Overridden by' texts that lets the user know that double clicking on the text will navigate them to the Instance that is influencing/overriding a property. The parameter is the name of the Instance that is influencing/overriding the property.,Double-click here to go to %1,Double-click here to go to %1
@@ -2355,6 +2356,7 @@ Studio.App.Property.CameraShiftSpeed,,Shift Speed,Shift Speed
 Studio.App.Property.CameraSpeed,,Camera Speed,Camera Speed
 Studio.App.Property.CameraSpeedAdjustBinding,,Change Camera Speed,Change Camera Speed
 Studio.App.Property.CameraTweenFocus,,'Zoom To' - Tween Transition,'Zoom To' - Tween Transition
+Studio.App.Property.CameraZoomSensitivity,Factor applied to zooming the camera with the mouse,Camera Zoom Sensitivity,Camera Zoom Sensitivity
 Studio.App.Property.CameraZoomSpeed,How far the camera moves per zoom increment,Camera Zoom Speed,Camera Zoom Speed
 Studio.App.Property.CameraZoomToMousePosition,,Scroll Towards Cursor Position,Scroll Towards Cursor Position
 Studio.App.Property.ChatHistory,,Chat History,Chat History
@@ -2384,12 +2386,19 @@ Studio.App.Property.DisplayLanguage,,Language,Language
 Studio.App.Property.DocViewCodeBackgroundColor,,Documentation Code Block Background Color,Documentation Code Block Background Color
 Studio.App.Property.DragMultiplePartsAsSinglePart,,Drag Multiple Parts As Single Part,Drag Multiple Parts As Single Part
 Studio.App.Property.DraggerActiveColor,,Active Dragger Color,Active Dragger Color
+Studio.App.Property.DraggerLengthFactor,Draggers Length Factor,Draggers Length Factor,Draggers Length Factor
 Studio.App.Property.DraggerMajorGridIncrement,,Major Grid Line Every...,Major Grid Line Every...
 Studio.App.Property.DraggerMaxSoftSnaps,,Move/Scale Max Soft Snaps,Move/Scale Max Soft Snaps
 Studio.App.Property.DraggerPassiveColor,,Passive Dragger Color,Passive Dragger Color
+Studio.App.Property.DraggerScaleFactor,Draggers Scale Factor,Draggers Scale Factor,Draggers Scale Factor
+Studio.App.Property.DraggerShowAxisTicks,Dragger Show Axis Ticks,Dragger Show Axis Ticks,Dragger Show Axis Ticks
 Studio.App.Property.DraggerShowHoverRuler,,Show Hover Ruler,Show Hover Ruler
 Studio.App.Property.DraggerShowMeasurement,,Show Numeric Measurements,Show Numeric Measurements
+Studio.App.Property.DraggerShowNegativeAxes,Show Move Dragger Negative Axes,Show Move Dragger Negative Axes,Show Move Dragger Negative Axes
+Studio.App.Property.DraggerShowPlanes,Show Move Dragger Planes,Show Move Dragger Planes,Show Move Dragger Planes
 Studio.App.Property.DraggerShowTargetSnap,,Show Snap Targets,Show Snap Targets
+Studio.App.Property.DraggerShowTrackball,Show Rotate Dragger Trackball,Show Rotate Dragger Trackball,Show Rotate Dragger Trackball
+Studio.App.Property.DraggerShowWhileDragging,Draggers Show While Dragging,Draggers Show While Dragging,Draggers Show While Dragging
 Studio.App.Property.DraggerSoftSnapMarginFactor,,Soft Snap Margin Multiplier,Soft Snap Margin Multiplier
 Studio.App.Property.DraggerSummonMarginFactor,,Summon Snap Margin Multiplier,Summon Snap Margin Multiplier
 Studio.App.Property.DraggerTiltRotateDuration,,Tilt/Rotate Animation Duration,Tilt/Rotate Animation Duration
@@ -2636,12 +2645,19 @@ Studio.App.PropertyTooltip.AutoIndentRule,,Off: No automatic indentation. Relati
 Studio.App.PropertyTooltip.BoundingBoxMoveHandles,,Position Move handles at the edges of the bounding box instead of at the pivot.,Position Move handles at the edges of the bounding box instead of at the pivot.
 Studio.App.PropertyTooltip.DEPRECATEDSelectionThickness,,How thick is the box shown around the selected Instances?,How thick is the box shown around the selected Instances?
 Studio.App.PropertyTooltip.DraggerActiveColor,,Color used by the draggers to display snaps while actively dragging.,Color used by the draggers to display snaps while actively dragging.
+Studio.App.PropertyTooltip.DraggerLengthFactor,The length factor of the draggers.,The length factor of the draggers.,The length factor of the draggers.
 Studio.App.PropertyTooltip.DraggerMajorGridIncrement,,How frequently to display a major grid line in grids and rulers.,How frequently to display a major grid line in grids and rulers.
 Studio.App.PropertyTooltip.DraggerMaxSoftSnaps,,How many potential soft snaps to show in each direction when scaling or moving along an axis. Enter 0 for no soft snaps.,How many potential soft snaps to show in each direction when scaling or moving along an axis. Enter 0 for no soft snaps.
 Studio.App.PropertyTooltip.DraggerPassiveColor,,Color used by the draggers to display passive elements such as grids and guides.,Color used by the draggers to display passive elements such as grids and guides.
+Studio.App.PropertyTooltip.DraggerScaleFactor,The scale factor of the draggers.,The scale factor of the draggers.,The scale factor of the draggers.
+Studio.App.PropertyTooltip.DraggerShowAxisTicks,Show the axis ticks while dragging if snapping is enabled.,Show the axis ticks while dragging if snapping is enabled.,Show the axis ticks while dragging if snapping is enabled.
 Studio.App.PropertyTooltip.DraggerShowHoverRuler,,Show a ruler measuring how large the hovered object is.,Show a ruler measuring how large the hovered object is.
 Studio.App.PropertyTooltip.DraggerShowMeasurement,,Show a numeric display of the distance dragged when using draggers.,Show a numeric display of the distance dragged when using draggers.
+Studio.App.PropertyTooltip.DraggerShowNegativeAxes,Show the negative axes of the move draggers as well as the positive.,Show the negative axes of the move draggers as well as the positive.,Show the negative axes of the move draggers as well as the positive.
+Studio.App.PropertyTooltip.DraggerShowPlanes,Show the planar handles for the move dragger.,Show the planar handles for the move dragger.,Show the planar handles for the move dragger.
 Studio.App.PropertyTooltip.DraggerShowTargetSnap,,Show how the dragged object is being snapped to the target via visual guides.,Show how the dragged object is being snapped to the target via visual guides.
+Studio.App.PropertyTooltip.DraggerShowTrackball,Show the trackball for the rotate dragger.,Show the trackball for the rotate dragger.,Show the trackball for the rotate dragger.
+Studio.App.PropertyTooltip.DraggerShowWhileDragging,Show the dragger handles and axis or grid while dragging.,Show the dragger handles and axis or grid while dragging.,Show the dragger handles and axis or grid while dragging.
 Studio.App.PropertyTooltip.DraggerSoftSnapMarginFactor,,Fine tune how agressively drags soft snap to geometry. Enter 0 for no soft snaps.,Fine tune how agressively drags soft snap to geometry. Enter 0 for no soft snaps.
 Studio.App.PropertyTooltip.DraggerSummonMarginFactor,,Fine tune how agressively the pivot snaps to hotspots on the edges of the target part when summoning. Enter 0 for no snapping of the summoned pivot.,Fine tune how agressively the pivot snaps to hotspots on the edges of the target part when summoning. Enter 0 for no snapping of the summoned pivot.
 Studio.App.PropertyTooltip.DraggerTiltRotateDuration,,How long the animation when pressing T/R while dragging should last. Enter 0 for no animation.,How long the animation when pressing T/R while dragging should last. Enter 0 for no animation.
@@ -4304,7 +4320,9 @@ Studio.App.AddImageDialog.ImageFileRequired,,Image file is required,Image file i
 Studio.App.AddImageDialog.Name,,Name:,Name:
 Studio.App.AnimationFromVideoCreatorStudioService.FileTooLarge,,File is too large; must be less than %1MB,File is too large; must be less than %1MB
 Studio.App.AnimationFromVideoCreatorStudioService.NoFileSelected,,No file selected,No file selected
+Studio.App.AnimationFromVideoCreatorStudioService.NoFolderSelected,No folder selected,No folder selected,No folder selected
 Studio.App.AnimationFromVideoCreatorStudioService.SelectMP4VideoFile,,Select a video,Select a video
+Studio.App.AnimationFromVideoCreatorStudioService.SelectOutputFolder,Select output folder,Select output folder,Select output folder
 Studio.App.AnimationFromVideoCreatorStudioService.UploadFailed,,Upload failed,Upload failed
 Studio.App.AssetAccess.ShareOutputMessage1,,The experience doesn't have access permission to use asset id %1. Click to share access,The experience doesn't have access permission to use asset id %1. Click to share access
 Studio.App.AssetAccess.ShareOutputMessageToolTip,,Share access to asset(s),Share access to asset(s)
@@ -5747,6 +5765,7 @@ Studio.CommandBar.Description.SaveToggleCommandName,Name of the command that let
 Studio.CommandBar.Description.ShowHistoryCommandDescription,Description of the show history toggle command for use in the shortcut customization menu,Show menu with recently executed and saved commands,Show menu with recently executed and saved commands
 Studio.CommandBar.ExecutionOption.Local,Commands will execute locally (as opposed to on the TeamCreate Server),Local Execution,Local Execution
 Studio.CommandBar.ExecutionOption.Remote,Commands will execute remotely on the TeamCreate Server.,Cloud Execution,Cloud Execution
+Studio.CommandBar.FontProperty,Font property for the Command Bar as it appears in the settings menu,Font,Font
 Studio.CommandBar.Label.CommandBarRun,Proper noun for a singular run of a command within the command bar,Command Bar Run,Command Bar Run
 Studio.CommandBar.Label.CommandHistoryTooltip,"Tooltip for button that, when clicked, pulls up the command history drawer within command bar, which includes recent and saved commands ran within the bar previously.",Command history,Command history
 Studio.CommandBar.Label.ExecuteCommandTooltip,"Tooltip label for executing (same as running) a command, where the ""%1"" is a placeholder for a keyboard shortcut explainer",Execute command %1,Execute command %1
@@ -5760,6 +5779,7 @@ Studio.CommandBar.Label.Standalone,"Used as shorthand label referring to ""Stand
 Studio.CommandBar.Label.SwitchToMultilineTooltip,Tooltip label for button that switches the command bar from single-line mode to multi-line mode,Switch to multi-line mode,Switch to multi-line mode
 Studio.CommandBar.Label.SwitchToSinglelineTooltip,Tooltip label for button that switches the command bar from multi-line mode to single-line mode,Switch to single-line mode,Switch to single-line mode
 Studio.CommandBar.Label.UnsaveCommandTooltip,"Tooltip for button to unsave (""unpinning"" / undoing the save of) the current command entered within the command bar.",Unsave command,Unsave command
+Studio.CommandBar.SettingsCategory,Settings category for the Command Bar,Command Bar,Command Bar
 Studio.Common.Action.Accessory,,Accessory,Accessory
 Studio.Common.Action.Animation,,Animation,Animation
 Studio.Common.Action.Apply,,Apply,Apply
@@ -5869,7 +5889,7 @@ Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheld,Generic handheld emulat
 Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheldHD1080,Name for the generic handheld emulator device with resolution 720p,Generic Handheld HD 1080,Generic Handheld HD 1080
 Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheldHD720,Name for the generic handheld emulator device with resolution 720p,Generic Handheld HD 720,Generic Handheld HD 720
 Studio.DeviceEmulator.EmulatorMainWidget.HandheldSectionName,Section name for handheld emulated devices,Handheld,Handheld
-Studio.DeviceEmulator.EmulatorMainWidget.MultiTouchShortcutButton,Lists two shortcuts to enable multi touch gestures on touch devices,<b>Pinch + rotate: </b>Alt/Opt + Drag<br><b>Two-finger pan: </b>Alt/Opt + Shift + Drag,<b>Pinch + rotate: </b>Alt/Opt + Drag<br><b>Two-finger pan: </b>Alt/Opt + Shift + Drag
+Studio.DeviceEmulator.EmulatorMainWidget.MultiTouchShortcutButton,"Lists two shortcuts to enable pinching, rotating, and panning multi touch gestures on touch devices",While playtesting:<br><b>Pinch + rotate: </b>%1 + Drag<br><b>Two-finger pan: </b>%2 + Shift + Drag,While playtesting:<br><b>Pinch + rotate: </b>%1 + Drag<br><b>Two-finger pan: </b>%2 + Shift + Drag
 Studio.DeviceEmulator.EmulatorMainWidget.ROGXboxAlly,Name of the ROG Xbox Ally device,ROG Xbox Ally,ROG Xbox Ally
 Studio.DeviceEmulator.GraphicsQuality.AutoGraphicsQualityLabel,,Automatic Graphics Quality,Automatic Graphics Quality
 Studio.DeviceEmulator.GraphicsQuality.GraphicsQualityLabel,,Graphics Quality,Graphics Quality
@@ -6255,6 +6275,7 @@ Studio.LiveSync.ErrorNestedSyncRoot,User is trying to sync a hierarchy that alre
 Studio.LiveSync.ErrorPathOverlaps,Log output error displayed when a folder is chosen for start sync that overlaps with an existing syncing hierarchy,"Can't sync ""%1"" because it overlaps with an existing syncing hierarchy.","Can't sync ""%1"" because it overlaps with an existing syncing hierarchy."
 Studio.LiveSync.ErrorPathOverlapsWithAncestor,Cannot use the provided path to sync because its ancestor is already syncing,Can't sync with %1 because its ancestor %2 is already being synced,Can't sync with %1 because its ancestor %2 is already being synced
 Studio.LiveSync.ErrorPathOverlapsWithDescendant,Can't sync the provided path because it overlaps with a descendant path that is already being sync,Can't sync with %1 because its descendant %2 is already being synced,Can't sync with %1 because its descendant %2 is already being synced
+Studio.LiveSync.ErrorServiceCannotUseInitFile,"When a user tries to sync a Service with a directory containing an init.luau file, this error is shown that explains why that is invalid.",Can't sync %1: Services cannot be converted to Scripts using init files,Can't sync %1: Services cannot be converted to Scripts using init files
 Studio.LiveSync.ErrorTotalSyncInstanceLimitExceeded,Error message shown when the total number of syncing instances is exceeded during sync,Can't sync %1 to disk: Total number of syncing instances exceeded (%2),Can't sync %1 to disk: Total number of syncing instances exceeded (%2)
 Studio.LiveSync.ExpectedFileExtension,Log output error displayed when a file of wrong extension type is chosen for start sync,Can't sync %3 to disk: Expected file of type *%1 or *%2,Can't sync %3 to disk: Expected file of type *%1 or *%2
 Studio.LiveSync.FailedToAccessPlaceMetadata,Unable to save the file sync config,Unable to save the file sync configuration. Could not access place metadata.,Unable to save the file sync configuration. Could not access place metadata.
@@ -6585,6 +6606,22 @@ Studio.PublishPlace.Button.Manage,"Button to open a ""manage"" page",Manage,Mana
 Studio.PublishPlace.Error.PublishEligibilityDescription,Shown when the user cannot publish their place due to eligibility checks.,"You can fix this quickly. Manage your public publish eligibility, then try again.","You can fix this quickly. Manage your public publish eligibility, then try again."
 Studio.PublishPlace.Error.PublishEligibilityTitle,Shown when the user cannot publish their place to a universe,Can’t publish this experience,Can’t publish this experience
 Studio.QtUI.Action.DoNotAskMeAgain,,Do not ask me again,Do not ask me again
+Studio.ReactDevTools.Plugin.Button,The text displayed on the default button entry point for the React DevTools plugin.,DevTools,DevTools
+Studio.ReactDevTools.Plugin.Description,The description (tooltip) displayed on the default button entry point for the React DevTools plugin.,Use React DevTools to debug and profile your React Luau applications.,Use React DevTools to debug and profile your React Luau applications.
+Studio.ReactDevTools.Plugin.Name,"The name of the React DevTools plugin. ""React"" is a product name, so shouldn't be localized.",React DevTools,React DevTools
+Studio.ReactDevTools.StartPage.AllProjects,Filtering label used to toggle if all projects are shown on the start page or not. Represents a boolean true/false value in the UI.,All Projects,All Projects
+Studio.ReactDevTools.StartPage.Category.CreatorPlugin,"Categorization label used to identify creator-owned React DevTools projects that were not created by Roblox. In this context, Plugin is referring to a Roblox Studio Plugin.",Creator Plugins,Creator Plugins
+Studio.ReactDevTools.StartPage.Category.InExperiencePrivileged,Categorization label used to identify internal React DevTools projects by Roblox and not creators.,Roblox Projects,Roblox Projects
+Studio.ReactDevTools.StartPage.Category.InExperienceUnprivileged,Categorization label used to identify creator-owned React DevTools projects that were not created by Roblox.,Creator Projects,Creator Projects
+Studio.ReactDevTools.StartPage.Category.RobloxPlugin,"Categorization label used to identify internal React DevTools projects by Roblox and not creators.	In this context, Plugin is referring to a Roblox Studio Plugin.",Roblox Plugins,Roblox Plugins
+Studio.ReactDevTools.StartPage.Filter,Label used for the filter button on the start page. Opens a small window the user can use to configure search filters.,Filter,Filter
+Studio.ReactDevTools.StartPage.GiveFeedback,Call to action for the user to give feedback for the plugin. Appears as a button at the bottom of the start page widget.,Give Feedback,Give Feedback
+Studio.ReactDevTools.StartPage.OpenInNewWindow,Checkbox the user toggles for opening a project in a new window.,Open in New Window,Open in New Window
+Studio.ReactDevTools.StartPage.OpenProject,Button the user presses to open a project from the start page.,Open Project,Open Project
+Studio.ReactDevTools.StartPage.RunContextLocal,"Label for the context in which a project is running under. Local means that the project is running inside Roblox Studio, in the same process as the plugin.",Local,Local
+Studio.ReactDevTools.StartPage.RunContextRemote,"Label for the context in which a project is running under. Remote means the project is running on a separate device, like a mobile phone.",Remote,Remote
+Studio.ReactDevTools.StartPage.Search,Placeholder text for a search box on the start page.,Search...,Search...
+Studio.ReactDevTools.StartPage.Title,Title of the DevTools start page. Appears at the top of the window to inform what the page is for.,Select a Project,Select a Project
 Studio.Reimport.Actions.Configure,open configure dialog for reimport,Configure...,Configure...
 Studio.Reimport.Actions.Reimport,reimport action,Reimport,Reimport
 Studio.Reimport.Actions.ReimportRelativeToThis,reimport relative option for mesh parts,Reimport relative to this,Reimport relative to this
@@ -6610,36 +6647,36 @@ Studio.Ribbon.Actions.AdGui,A GUI object that displays ads,AdGui,AdGui
 Studio.Ribbon.Actions.LaunchTestMode,Launches a testing session for the currently selected test mode,Launch Test Mode,Launch Test Mode
 Studio.Ribbon.Actions.UIFlexItem,Defines flex behavior for its parent GuiObject under the control of a UIListLayout.,UIFlexItem,UIFlexItem
 Studio.Ribbon.Add,Add clients to the current server & clients testing session,Add,Add
-Studio.Ribbon.AddTools.Title,The title of the Add Tools dialog,Add Tools,Add Tools
+Studio.Ribbon.AddTools_Title,The title of the Add Tools dialog,Add Tools,Add Tools
 Studio.Ribbon.Dialog.ClosingStudio,Dialog text shown while closing Studio for an update.,Closing all open places,Closing all open places
-Studio.Ribbon.Plugin.Action.UpdateAvailable,,Update,Update
+Studio.Ribbon.Plugin.Action_UpdateAvailable,,Update,Update
 Studio.Ribbon.Plugin.Add,Add clients to the current ongoing server & clients testing session,Add,Add
 Studio.Ribbon.Plugin.AddClients,,Add Clients,Add Clients
 Studio.Ribbon.Plugin.AddClientsTooltip,Add clients to the current server & clients testing session,Add clients to the current session,Add clients to the current session
 Studio.Ribbon.Plugin.AddSeparator,The title of the context menu item that adds a new divider to the current custom tab of the Ribbon,Add divider,Add divider
 Studio.Ribbon.Plugin.AddTools,The title of the context menu item that opens the Add Tools dialog in Ribbon,Add tools,Add tools
-Studio.Ribbon.Plugin.AddTools.Edit,A label for a tool in the Add Tools window indicating it is available in the Edit data model,Edit,Edit
-Studio.Ribbon.Plugin.AddTools.PlayClientOnly,Text to indicate that a tool is only available in the Play Client DM,Client,Client
-Studio.Ribbon.Plugin.AddTools.PlayServerOnly,Text to indicate that a tool is only available in the Play Server DM,Server,Server
-Studio.Ribbon.Plugin.AddTools.Title,The title of the Add Tools dialog,Add Tools,Add Tools
+Studio.Ribbon.Plugin.AddTools_Edit,A label for a tool in the Add Tools window indicating it is available in the Edit data model,Edit,Edit
+Studio.Ribbon.Plugin.AddTools_PlayClientOnly,Text to indicate that a tool is only available in the Play Client DM,Client,Client
+Studio.Ribbon.Plugin.AddTools_PlayServerOnly,Text to indicate that a tool is only available in the Play Server DM,Server,Server
+Studio.Ribbon.Plugin.AddTools_Title,The title of the Add Tools dialog,Add Tools,Add Tools
 Studio.Ribbon.Plugin.AnchorToolRibbonAction,"Tool operates as a key for both states: clicking on an unanchored object in the viewport anchors it, while clicking on an anchored object unanchors it.",Click object to anchor,Click object to anchor
 Studio.Ribbon.Plugin.Command,Opens the command bar plugin,Command,Command
-Studio.Ribbon.Plugin.DataModels.All,A dropdown option in the Add Tools window to filter tools for all data model contexts,All Contexts,All Contexts
+Studio.Ribbon.Plugin.DataModels_All,A dropdown option in the Add Tools window to filter tools for all data model contexts,All Contexts,All Contexts
 Studio.Ribbon.Plugin.DegreesFormat,Format for displaying the degree increment for rotating parts,{amount}°,{amount}°
 Studio.Ribbon.Plugin.DeleteSeparator,The name of the action to remove the currently selected divider in a Ribbon custom tab,Remove divider,Remove divider
 Studio.Ribbon.Plugin.DeleteTab,The tooltip of the delete tab button in Ribbon Manage Tabs dialog,Remove tab,Remove tab
-Studio.Ribbon.Plugin.DeleteTab.Text,"The text of the dialog which displays when you try to delete one tab in the Manage Tabs dialog, opened from Studio Ribbon",This will permanently delete the custom tab and cannot be undone.,This will permanently delete the custom tab and cannot be undone.
-Studio.Ribbon.Plugin.DeleteTab.Title,"The title of the dialog which displays when you try to delete one tab in the Manage Tabs dialog, opened from Studio Ribbon",Delete Tab,Delete Tab
+Studio.Ribbon.Plugin.DeleteTab_Text,"The text of the dialog which displays when you try to delete one tab in the Manage Tabs dialog, opened from Studio Ribbon",This will permanently delete the custom tab and cannot be undone.,This will permanently delete the custom tab and cannot be undone.
+Studio.Ribbon.Plugin.DeleteTab_Title,"The title of the dialog which displays when you try to delete one tab in the Manage Tabs dialog, opened from Studio Ribbon",Delete Tab,Delete Tab
 Studio.Ribbon.Plugin.DeleteTool,The name of the action to remove the currently selected tool in a Ribbon custom tab,Remove tool,Remove tool
 Studio.Ribbon.Plugin.DockUndockRibbon,The option to detach the Studio Ribbon into a floating menu,Autohide ribbon,Autohide ribbon
 Studio.Ribbon.Plugin.DraggerSettingsModesHeader,"In the Studio ribbon dropdown for dragger modes, the header above settings like Collisions and Join Surfaces",Dragger modes,Dragger modes
 Studio.Ribbon.Plugin.DraggerSettingsSnapHeader,"In the Studio ribbon dropdown for dragger settings, the header of the section above settings like ""Snap to Parts""",Snap,Snap
 Studio.Ribbon.Plugin.Exit,Exit client window in either a team test session or a server and clients session,Exit,Exit
-Studio.Ribbon.Plugin.Filter.AllCreators,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,All Creators,All Creators
-Studio.Ribbon.Plugin.Filter.AllPlugins,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,All Plugins,All Plugins
-Studio.Ribbon.Plugin.Filter.CloudPlugins,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,Cloud Plugins,Cloud Plugins
-Studio.Ribbon.Plugin.Filter.LocalPlugins,Filter_LocalPlugins,Local Plugins,Local Plugins
-Studio.Ribbon.Plugin.Filter.RobloxStudio,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,Roblox Studio,Roblox Studio
+Studio.Ribbon.Plugin.Filter_AllCreators,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,All Creators,All Creators
+Studio.Ribbon.Plugin.Filter_AllPlugins,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,All Plugins,All Plugins
+Studio.Ribbon.Plugin.Filter_CloudPlugins,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,Cloud Plugins,Cloud Plugins
+Studio.Ribbon.Plugin.Filter_LocalPlugins,Filter_LocalPlugins,Local Plugins,Local Plugins
+Studio.Ribbon.Plugin.Filter_RobloxStudio,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,Roblox Studio,Roblox Studio
 Studio.Ribbon.Plugin.Geometric,,Geometric,Geometric
 Studio.Ribbon.Plugin.ImportQueueButton,Title of the Import Queue Modal,Import Queue,Import Queue
 Studio.Ribbon.Plugin.ImportQueueTooltip,"Tooltip that appears when hovering over the ""Import Queue"" button.",Open the Import Queue,Open the Import Queue
@@ -6650,7 +6687,7 @@ Studio.Ribbon.Plugin.LockToolRibbonAction,"Tool operates as a key for both state
 Studio.Ribbon.Plugin.ManageCollaborators,See and manage your collaborators,Manage Collaborators,Manage Collaborators
 Studio.Ribbon.Plugin.ManageCollaboratorsTooltip,Tooltip for manage collaborators button when in a team create place,See and manage your collaborators,See and manage your collaborators
 Studio.Ribbon.Plugin.ManageTabs,The title of the context menu action to manage Studio Ribbon tabs,Manage tabs,Manage tabs
-Studio.Ribbon.Plugin.ManageTabs.Title,The title of the Manage Tabs dialog in the Studio Ribbon,Manage Tabs,Manage Tabs
+Studio.Ribbon.Plugin.ManageTabs_Title,The title of the Manage Tabs dialog in the Studio Ribbon,Manage Tabs,Manage Tabs
 Studio.Ribbon.Plugin.MoveDown,The name of the button that moves a tab down in the Ribbon Manage Tabs Window,Move down,Move down
 Studio.Ribbon.Plugin.MoveLeft,The name of the button that moves a tab or control to the left in the Ribbon UI,Move left,Move left
 Studio.Ribbon.Plugin.MoveRight,The name of the button that moves a tab or control to the right in the Ribbon UI,Move right,Move right
@@ -6663,81 +6700,81 @@ Studio.Ribbon.Plugin.PrintActionsTooltip,,Prints all actions to stdout as JSON,P
 Studio.Ribbon.Plugin.ReloadTabs,Reload all the custom tabs in the Studio Ribbon from disk,Reload custom tabs,Reload custom tabs
 Studio.Ribbon.Plugin.ReloadTabsTooltip,,"Reloads the Ribbon, using current configuration on disk","Reloads the Ribbon, using current configuration on disk"
 Studio.Ribbon.Plugin.ResetTabs,The title of the context menu item in Ribbon Manage Tabs dialog that will reset all tabs to original Studio tabs,Reset all tabs,Reset all tabs
-Studio.Ribbon.Plugin.ResetTabs.Text,The content of the reset tabs dialog which resets all the Studio Ribbon tabs to factory default,This will permanently delete all of your custom tabs and restore the original Studio tabs to their default visibility.,This will permanently delete all of your custom tabs and restore the original Studio tabs to their default visibility.
-Studio.Ribbon.Plugin.ResetTabs.Title,The title of the reset tabs dialog which resets all the Studio Ribbon tabs to factory default,Reset all tabs?,Reset all tabs?
+Studio.Ribbon.Plugin.ResetTabs_Text,The content of the reset tabs dialog which resets all the Studio Ribbon tabs to factory default,This will permanently delete all of your custom tabs and restore the original Studio tabs to their default visibility.,This will permanently delete all of your custom tabs and restore the original Studio tabs to their default visibility.
+Studio.Ribbon.Plugin.ResetTabs_Title,The title of the reset tabs dialog which resets all the Studio Ribbon tabs to factory default,Reset all tabs?,Reset all tabs?
 Studio.Ribbon.Plugin.Search,The search bar placeholder in the Ribbon Add Tools dialog,Search,Search
-Studio.Ribbon.Plugin.Setting.AddClients,,Add Clients,Add Clients
-Studio.Ribbon.Plugin.Setting.Anchor,,Anchor,Anchor
-Studio.Ribbon.Plugin.Setting.Appearance,,Appearance,Appearance
-Studio.Ribbon.Plugin.Setting.Attachment,Create an attachment point on a BasePart for physics or effects,Attachment,Attachment
-Studio.Ribbon.Plugin.Setting.Constraint,,Constraint,Constraint
-Studio.Ribbon.Plugin.Setting.Effect,,Effect,Effect
-Studio.Ribbon.Plugin.Setting.Find,,Find,Find
-Studio.Ribbon.Plugin.Setting.Format,,Format,Format
-Studio.Ribbon.Plugin.Setting.Frame,,Frame,Frame
-Studio.Ribbon.Plugin.Setting.GUI,,GUI,GUI
-Studio.Ribbon.Plugin.Setting.Group,,Group,Group
-Studio.Ribbon.Plugin.Setting.Input,,Input,Input
-Studio.Ribbon.Plugin.Setting.InsertEffect,Label for the InsertEffect button on the Audio tab,Effects,Effects
-Studio.Ribbon.Plugin.Setting.InsertInOut,Label for the InsertInOut button on the Audio tab,In/Out,In/Out
-Studio.Ribbon.Plugin.Setting.InsertSpatial,Label for the InsertSpatial button on the Audio tab,Spatial,Spatial
-Studio.Ribbon.Plugin.Setting.Label,,Label,Label
-Studio.Ribbon.Plugin.Setting.Layout,,Layout,Layout
-Studio.Ribbon.Plugin.Setting.Lock,,Lock,Lock
-Studio.Ribbon.Plugin.Setting.Part,,Part,Part
-Studio.Ribbon.Plugin.Setting.PauseMode,,Pause,Pause
-Studio.Ribbon.Plugin.Setting.ResumeMode,,Resume,Resume
-Studio.Ribbon.Plugin.Setting.RunMode,,Play,Play
-Studio.Ribbon.Plugin.Setting.Script,,Script,Script
-Studio.Ribbon.Plugin.Setting.StepForwardMode,,Step Forward,Step Forward
-Studio.Ribbon.Plugin.Setting.Style,,Style,Style
-Studio.Ribbon.Plugin.Setting.Test,,Test,Test
-Studio.Ribbon.Plugin.Setting.TestMode,,Test Mode,Test Mode
-Studio.Ribbon.Plugin.Setting.TestingMode.DebugPlugin,Debug when a breakpoint is hit in a user's plugin,Debug Plugin,Debug Plugin
-Studio.Ribbon.Plugin.Setting.TestingMode.Run,Start the simulation at the camera's current position without a player,Run,Run
-Studio.Ribbon.Plugin.Setting.TestingMode.ServerAndClients,Start a server and multiple client sessions,Server and Clients,Server and Clients
-Studio.Ribbon.Plugin.Setting.TestingMode.TeamTest,Collaborators can join the simulation,Team Test,Team Test
-Studio.Ribbon.Plugin.Setting.TestingMode.Test,"Start simulation with a player at a SpawnLocation or coordinates of around (0,100)",Test,Test
-Studio.Ribbon.Plugin.Setting.TestingMode.TestHere,Start the simulation at the camera's current position,Test Here,Test Here
-Studio.Ribbon.Plugin.Setting.UIConstraint,,Constraint,Constraint
-Studio.Ribbon.Plugin.Setting.Weld,Connect BaseParts into rigid assemblies,Weld,Weld
+Studio.Ribbon.Plugin.Setting_AddClients,,Add Clients,Add Clients
+Studio.Ribbon.Plugin.Setting_Anchor,,Anchor,Anchor
+Studio.Ribbon.Plugin.Setting_Appearance,,Appearance,Appearance
+Studio.Ribbon.Plugin.Setting_Attachment,Create an attachment point on a BasePart for physics or effects,Attachment,Attachment
+Studio.Ribbon.Plugin.Setting_Constraint,,Constraint,Constraint
+Studio.Ribbon.Plugin.Setting_Effect,,Effect,Effect
+Studio.Ribbon.Plugin.Setting_Find,,Find,Find
+Studio.Ribbon.Plugin.Setting_Format,,Format,Format
+Studio.Ribbon.Plugin.Setting_Frame,,Frame,Frame
+Studio.Ribbon.Plugin.Setting_GUI,,GUI,GUI
+Studio.Ribbon.Plugin.Setting_Group,,Group,Group
+Studio.Ribbon.Plugin.Setting_Input,,Input,Input
+Studio.Ribbon.Plugin.Setting_InsertEffect,Label for the InsertEffect button on the Audio tab,Effects,Effects
+Studio.Ribbon.Plugin.Setting_InsertInOut,Label for the InsertInOut button on the Audio tab,In/Out,In/Out
+Studio.Ribbon.Plugin.Setting_InsertSpatial,Label for the InsertSpatial button on the Audio tab,Spatial,Spatial
+Studio.Ribbon.Plugin.Setting_Label,,Label,Label
+Studio.Ribbon.Plugin.Setting_Layout,,Layout,Layout
+Studio.Ribbon.Plugin.Setting_Lock,,Lock,Lock
+Studio.Ribbon.Plugin.Setting_Part,,Part,Part
+Studio.Ribbon.Plugin.Setting_PauseMode,,Pause,Pause
+Studio.Ribbon.Plugin.Setting_ResumeMode,,Resume,Resume
+Studio.Ribbon.Plugin.Setting_RunMode,,Play,Play
+Studio.Ribbon.Plugin.Setting_Script,,Script,Script
+Studio.Ribbon.Plugin.Setting_StepForwardMode,,Step Forward,Step Forward
+Studio.Ribbon.Plugin.Setting_Style,,Style,Style
+Studio.Ribbon.Plugin.Setting_Test,,Test,Test
+Studio.Ribbon.Plugin.Setting_TestMode,,Test Mode,Test Mode
+Studio.Ribbon.Plugin.Setting_TestingMode_DebugPlugin,Debug when a breakpoint is hit in a user's plugin,Debug Plugin,Debug Plugin
+Studio.Ribbon.Plugin.Setting_TestingMode_Run,Start the simulation at the camera's current position without a player,Run,Run
+Studio.Ribbon.Plugin.Setting_TestingMode_ServerAndClients,Start a server and multiple client sessions,Server and Clients,Server and Clients
+Studio.Ribbon.Plugin.Setting_TestingMode_TeamTest,Collaborators can join the simulation,Team Test,Team Test
+Studio.Ribbon.Plugin.Setting_TestingMode_Test,"Start simulation with a player at a SpawnLocation or coordinates of around (0,100)",Test,Test
+Studio.Ribbon.Plugin.Setting_TestingMode_TestHere,Start the simulation at the camera's current position,Test Here,Test Here
+Studio.Ribbon.Plugin.Setting_UIConstraint,,Constraint,Constraint
+Studio.Ribbon.Plugin.Setting_Weld,Connect BaseParts into rigid assemblies,Weld,Weld
 Studio.Ribbon.Plugin.ShowHideLabels,,Show/Hide labels,Show/Hide labels
 Studio.Ribbon.Plugin.ShowHideRibbon,,Show/Hide ribbon,Show/Hide ribbon
-Studio.Ribbon.Plugin.SocialPresence.Collaborate,,Collaborate,Collaborate
-Studio.Ribbon.Plugin.SortBy.AZ,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,Sort by A-Z,Sort by A-Z
-Studio.Ribbon.Plugin.SortBy.ZA,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,Sort by Z-A,Sort by Z-A
+Studio.Ribbon.Plugin.SocialPresence_Collaborate,,Collaborate,Collaborate
+Studio.Ribbon.Plugin.SortBy_AZ,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,Sort by A-Z,Sort by A-Z
+Studio.Ribbon.Plugin.SortBy_ZA,Dropdown option for filtering tools in the Ribbon Add Tools Dialog,Sort by Z-A,Sort by Z-A
 Studio.Ribbon.Plugin.StudsFormat,Format for displaying the stud increment for moving parts,{amount} studs,{amount} studs
 Studio.Ribbon.Plugin.StudsSuffix,,studs,studs
 Studio.Ribbon.Plugin.TabLocation,The label for the dropdown menu to change the alignment of the Ribbon tabs. It is situated in the Manage Tabs dialog in Studio Ribbon,Align tabs to,Align tabs to
-Studio.Ribbon.Plugin.TabLocation.Center,"The ""Left"" setting of the tab location dropdown menu in Manage Tabs dialog opened from Studio Ribbon context menu",Center,Center
-Studio.Ribbon.Plugin.TabLocation.Left,"The ""Left"" setting of the tab location dropdown menu in Manage Tabs dialog opened from Studio Ribbon context menu",Left,Left
-Studio.Ribbon.Plugin.Tab.Avatar,,Avatar,Avatar
-Studio.Ribbon.Plugin.Tab.Custom,,Custom tabs coming soon!,Custom tabs coming soon!
-Studio.Ribbon.Plugin.Tab.Custom.Tooltip,,Create and manage your own tabs and toolbars,Create and manage your own tabs and toolbars
-Studio.Ribbon.Plugin.Tab.Delete,The option to delete a tab in Studio Ribbon,Delete tab,Delete tab
-Studio.Ribbon.Plugin.Tab.Duplicate,The option to duplicate a tab in Studio Ribbon,Duplicate tab,Duplicate tab
-Studio.Ribbon.Plugin.Tab.Hide,The option to hide a tab in Studio Ribbon,Hide tab,Hide tab
-Studio.Ribbon.Plugin.Tab.Home,,Home,Home
-Studio.Ribbon.Plugin.Tab.Model,,Model,Model
-Studio.Ribbon.Plugin.Tab.Plugins,,Plugins,Plugins
-Studio.Ribbon.Plugin.Tab.Rename,The option to rename a tab in Studio Ribbon,Rename tab,Rename tab
-Studio.Ribbon.Plugin.Tab.Script,,Script,Script
-Studio.Ribbon.Plugin.Tab.UI,,UI,UI
-Studio.Ribbon.Plugin.Tab.Untitled,Placeholder name for a newly added tab,Untitled,Untitled
+Studio.Ribbon.Plugin.TabLocation_Center,"The ""Left"" setting of the tab location dropdown menu in Manage Tabs dialog opened from Studio Ribbon context menu",Center,Center
+Studio.Ribbon.Plugin.TabLocation_Left,"The ""Left"" setting of the tab location dropdown menu in Manage Tabs dialog opened from Studio Ribbon context menu",Left,Left
+Studio.Ribbon.Plugin.Tab_Avatar,,Avatar,Avatar
+Studio.Ribbon.Plugin.Tab_Custom,,Custom tabs coming soon!,Custom tabs coming soon!
+Studio.Ribbon.Plugin.Tab_Custom_Tooltip,,Create and manage your own tabs and toolbars,Create and manage your own tabs and toolbars
+Studio.Ribbon.Plugin.Tab_Delete,The option to delete a tab in Studio Ribbon,Delete tab,Delete tab
+Studio.Ribbon.Plugin.Tab_Duplicate,The option to duplicate a tab in Studio Ribbon,Duplicate tab,Duplicate tab
+Studio.Ribbon.Plugin.Tab_Hide,The option to hide a tab in Studio Ribbon,Hide tab,Hide tab
+Studio.Ribbon.Plugin.Tab_Home,,Home,Home
+Studio.Ribbon.Plugin.Tab_Model,,Model,Model
+Studio.Ribbon.Plugin.Tab_Plugins,,Plugins,Plugins
+Studio.Ribbon.Plugin.Tab_Rename,The option to rename a tab in Studio Ribbon,Rename tab,Rename tab
+Studio.Ribbon.Plugin.Tab_Script,,Script,Script
+Studio.Ribbon.Plugin.Tab_UI,,UI,UI
+Studio.Ribbon.Plugin.Tab_Untitled,Placeholder name for a newly added tab,Untitled,Untitled
 Studio.Ribbon.Plugin.Text,,Example Text!,Example Text!
 Studio.Ribbon.Plugin.ToolPluginName,"The format of a plugin name in the Add Tools UI. For example, this might read ""Cloud Plugin: Rojo"" or ""Local Plugin: Test.rbxm""",{pluginType} Plugin: {pluginName},{pluginType} Plugin: {pluginName}
-Studio.Ribbon.Plugin.Tooltip.Attachment,Tooltip for the attachment split button on ribbon,Create an attachment point on a BasePart for physics or effects,Create an attachment point on a BasePart for physics or effects
-Studio.Ribbon.Plugin.Tooltip.Constraint,Tooltip for Constraint split button on Ribbon,Move or connect BaseParts with physics,Move or connect BaseParts with physics
-Studio.Ribbon.Plugin.Tooltip.Format,,Format selected range of the script with correct layout and indentation,Format selected range of the script with correct layout and indentation
-Studio.Ribbon.Plugin.Tooltip.GUI,,Create a new GUI container,Create a new GUI container
-Studio.Ribbon.Plugin.Tooltip.Group,,Group selected parts into a new container,Group selected parts into a new container
-Studio.Ribbon.Plugin.Tooltip.InsertEffect,Tooltip for the InsertEffect button on the Audio tab,Insert Audio instances that apply an effect on audio streams.,Insert Audio instances that apply an effect on audio streams.
-Studio.Ribbon.Plugin.Tooltip.InsertInOut,Tooltip for the InsertInOut button on the Audio tab,Insert Audio instances which act as inputs or outputs.,Insert Audio instances which act as inputs or outputs.
-Studio.Ribbon.Plugin.Tooltip.InsertSpatial,Tooltip for the InsertSpatial button on the Audio tab,Insert Audio instance which interact spatially with the 3D environment.,Insert Audio instance which interact spatially with the 3D environment.
-Studio.Ribbon.Plugin.Tooltip.Mode,,Toggle between transforming objects geometrically or with physics simulation,Toggle between transforming objects geometrically or with physics simulation
-Studio.Ribbon.Plugin.Tooltip.Part,,Create a new Part,Create a new Part
-Studio.Ribbon.Plugin.Tooltip.Script,,Create a Script in the selected object,Create a Script in the selected object
-Studio.Ribbon.Plugin.Tooltip.Weld,Tooltip for Weld split button on Ribbon,Connect BaseParts into rigid assemblies,Connect BaseParts into rigid assemblies
+Studio.Ribbon.Plugin.Tooltip_Attachment,Tooltip for the attachment split button on ribbon,Create an attachment point on a BasePart for physics or effects,Create an attachment point on a BasePart for physics or effects
+Studio.Ribbon.Plugin.Tooltip_Constraint,Tooltip for Constraint split button on Ribbon,Move or connect BaseParts with physics,Move or connect BaseParts with physics
+Studio.Ribbon.Plugin.Tooltip_Format,,Format selected range of the script with correct layout and indentation,Format selected range of the script with correct layout and indentation
+Studio.Ribbon.Plugin.Tooltip_GUI,,Create a new GUI container,Create a new GUI container
+Studio.Ribbon.Plugin.Tooltip_Group,,Group selected parts into a new container,Group selected parts into a new container
+Studio.Ribbon.Plugin.Tooltip_InsertEffect,Tooltip for the InsertEffect button on the Audio tab,Insert Audio instances that apply an effect on audio streams.,Insert Audio instances that apply an effect on audio streams.
+Studio.Ribbon.Plugin.Tooltip_InsertInOut,Tooltip for the InsertInOut button on the Audio tab,Insert Audio instances which act as inputs or outputs.,Insert Audio instances which act as inputs or outputs.
+Studio.Ribbon.Plugin.Tooltip_InsertSpatial,Tooltip for the InsertSpatial button on the Audio tab,Insert Audio instance which interact spatially with the 3D environment.,Insert Audio instance which interact spatially with the 3D environment.
+Studio.Ribbon.Plugin.Tooltip_Mode,,Toggle between transforming objects geometrically or with physics simulation,Toggle between transforming objects geometrically or with physics simulation
+Studio.Ribbon.Plugin.Tooltip_Part,,Create a new Part,Create a new Part
+Studio.Ribbon.Plugin.Tooltip_Script,,Create a Script in the selected object,Create a Script in the selected object
+Studio.Ribbon.Plugin.Tooltip_Weld,Tooltip for Weld split button on Ribbon,Connect BaseParts into rigid assemblies,Connect BaseParts into rigid assemblies
 Studio.Ribbon.Plugin.UpdateAvailable,The text displayed on the button used to open the update panel when an update is available.,Update Available,Update Available
 Studio.Ribbon.Plugin.UpdateFailed,The text displayed on the button used to open the update panel when an update is failed.,Update Failed,Update Failed
 Studio.Ribbon.Plugin.UpdateInProgress,The text displayed on the button used to open the update panel when an update is in progress.,Updating...,Updating...
@@ -6745,7 +6782,7 @@ Studio.Ribbon.Plugin.UpdateReady,The text displayed on the button used to open t
 Studio.Ribbon.SystemMenu.Help,File menu option for user to get help on what to do in studio,Help,Help
 Studio.Ribbon.SystemMenu.OpenFromFile,Open a roblox game from a file,Open from File,Open from File
 Studio.Ribbon.SystemMenu.Plugins,Plugins that the user owns,Plugins,Plugins
-Studio.Ribbon.Tab.Duplicate,The option to duplicate a tab in Studio Ribbon,Duplicate tab,Duplicate tab
+Studio.Ribbon.Tab_Duplicate,The option to duplicate a tab in Studio Ribbon,Duplicate tab,Duplicate tab
 Studio.Ribbon.Title.AddNewTab,"Create a new, empty tab for a custom toolbar",Add New Tab,Add New Tab
 Studio.Ribbon.Title.UpdateAvailable,The text displayed on the update panel when an update is available.,Download the new version of Studio,Download the new version of Studio
 Studio.Ribbon.Title.UpdateFailed,The text displayed on the update panel when an update is failed.,The background download failed. Want to try again?,The background download failed. Want to try again?

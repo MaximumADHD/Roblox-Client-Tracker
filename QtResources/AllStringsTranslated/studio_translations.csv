@@ -4280,7 +4280,7 @@ Studio.App.RobloxRibbonMainWindow.BulkCreateAccessoriesTooltip,,,Bulk Create Acc
 Studio.App.RobloxRibbonMainWindow.AvatarImporter,,,Avatar Importer,Avatar Importer
 Studio.App.RobloxRibbonMainWindow.AvatarImporterTooltip,,,Import an Avatar with a .fbx file,Import an Avatar with a .fbx file
 Studio.App.RobloxRibbonMainWindow.MeshImporter,,,Mesh Importer,Mesh Importer
-Studio.App.RobloxRibbonMainWindow.MeshImporterTooltip,,,Import a mesh rig or avatar from a file using the import UI.,Import a mesh rig or avatar from a file using the import UI.
+Studio.App.RobloxRibbonMainWindow.MeshImporterTooltip,,,Import content from a file,Import content from a file
 Studio.App.RobloxRibbonMainWindow.RigBuilder,,,Rig Builder,Rig Builder
 Studio.App.RobloxRibbonMainWindow.RigBuilderTooltip,,,Insert rigs to animate,Insert rigs to animate
 Studio.App.RobloxRibbonMainWindow.AnimationEditor,,,Animation Editor,Animation Editor
@@ -4364,7 +4364,7 @@ Studio.App.PackageUtilities.OldMetaData1,,,Published package %1 has an older met
 Studio.App.PropertyItems.FlipbookLayout.IncompatibleTexture,,,"Flipbook only supports particle Textures of sizes 8x8, 16x16, 32x32, 64x64, 128x128, 256x256, 512x512 or 1024x1024.","Flipbook only supports particle Textures of sizes 8x8, 16x16, 32x32, 64x64, 128x128, 256x256, 512x512 or 1024x1024."
 Studio.App.RobloxRibbonMainWindow.BoundingBoxes,,,Bounding Boxes,Bounding Boxes
 Studio.App.RobloxRibbonMainWindow.BoundingBoxesTooltip,,,Sets selection rendering mode to bounding boxes,Sets selection rendering mode to bounding boxes
-Studio.App.RobloxRibbonMainWindow.Import3D,,,Import 3D,Import 3D
+Studio.App.RobloxRibbonMainWindow.Import3D,,,Import,Import
 Studio.App.FBXAnimatedHeadImporter.FailureException1,,,Failed importing head with facial animation: %1,Failed importing head with facial animation: %1
 Studio.App.FBXAnimatedHeadImporter.Success2,,,Successfully loaded FACS control data: found %1 of %2 controls,Successfully loaded FACS control data: found %1 of %2 controls
 Studio.App.FBXAnimatedHeadImporter.UniqueJointNames1,,,Found more than one joint named %1.  All joints must have unique names.,Found more than one joint named %1.  All joints must have unique names.
@@ -5690,6 +5690,20 @@ Studio.App.PropertyEnum.Luau,,,.luau,.luau
 Studio.App.PropertyEnum.Lua,,,.lua,.lua
 Studio.App.Property.FileExtension,,,File extension,File extension
 Studio.App.PropertyItems.Content,,,Content,Content
+Studio.App.Property.DraggerScaleFactor,,,Draggers Scale Factor,Draggers Scale Factor
+Studio.App.PropertyTooltip.DraggerScaleFactor,,,The scale factor of the draggers.,The scale factor of the draggers.
+Studio.App.Property.DraggerShowNegativeAxes,,,Show Move Dragger Negative Axes,Show Move Dragger Negative Axes
+Studio.App.Property.DraggerShowPlanes,,,Show Move Dragger Planes,Show Move Dragger Planes
+Studio.App.Property.DraggerShowTrackball,,,Show Rotate Dragger Trackball,Show Rotate Dragger Trackball
+Studio.App.PropertyTooltip.DraggerShowNegativeAxes,,,Show the negative axes of the move draggers as well as the positive.,Show the negative axes of the move draggers as well as the positive.
+Studio.App.PropertyTooltip.DraggerShowPlanes,,,Show the planar handles for the move dragger.,Show the planar handles for the move dragger.
+Studio.App.PropertyTooltip.DraggerShowTrackball,,,Show the trackball for the rotate dragger.,Show the trackball for the rotate dragger.
+Studio.App.Property.DraggerLengthFactor,,,Draggers Length Factor,Draggers Length Factor
+Studio.App.PropertyTooltip.DraggerLengthFactor,,,The length factor of the draggers.,The length factor of the draggers.
+Studio.App.Property.DraggerShowWhileDragging,,,Draggers Show While Dragging,Draggers Show While Dragging
+Studio.App.PropertyTooltip.DraggerShowWhileDragging,,,Show the dragger handles and axis or grid while dragging.,Show the dragger handles and axis or grid while dragging.
+Studio.App.Property.DraggerShowAxisTicks,,,Dragger Show Axis Ticks,Dragger Show Axis Ticks
+Studio.App.PropertyTooltip.DraggerShowAxisTicks,,,Show the axis ticks while dragging if snapping is enabled.,Show the axis ticks while dragging if snapping is enabled.
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -6302,6 +6316,24 @@ Studio.GameSettings.General.ManageServersOnCreatorHubDeepLink,,,Manage Servers o
 Studio.GameSettings.General.TitleRestartServers,,,Restart Servers,Restart Servers
 Studio.GameSettings.General.PermissionsBannerManageButton,,,Manage,Manage
 Studio.GameSettings.General.PermissionsBannerText,,,Manage permissions and privacy settings on Creator Hub,Manage permissions and privacy settings on Creator Hub
+Studio.GameSettings.General.PlayabilityHeaderExp,,,Who can play this experience?,Who can play this experience?
+Studio.GameSettings.General.PlayabilityPrivateDescExp,,,Only developers of this experience,Only developers of this experience
+Studio.GameSettings.General.GameIconPromptExp,,,Add Experience Icon,Add Experience Icon
+Studio.GameSettings.General.TitleExperienceIcon,,,Experience Icon,Experience Icon
+Studio.GameSettings.General.StudioShutdownAllServicesDescExp,,,This button will shutdown all currently running instances of your experience,This button will shutdown all currently running instances of your experience
+Studio.GameSettings.General.SaveTextExp,,,Save to access Experience Settings,Save to access Experience Settings
+Studio.GameSettings.Security.EnableThirdPartyTeleportsDescriptionExp,,,"By enabling, players can be teleported to other experiences. However, teleports between places in this experience and between experiences owned by the same creator will be permitted.","By enabling, players can be teleported to other experiences. However, teleports between places in this experience and between experiences owned by the same creator will be permitted."
+Studio.GameSettings.General.HttpDescExp,,,Allow experience server to issue requests to remote servers.,Allow experience server to issue requests to remote servers.
+Studio.GameSettings.General.PluginNameExp,,,Experience Settings,Experience Settings
+Studio.GameSettings.General.PluginDescriptionExp,,,Update settings related to current experience,Update settings related to current experience
+Studio.GameSettings.General.SourceLanguageDescExp,,,The source language represents the language that the experience has been written in.,The source language represents the language that the experience has been written in.
+Studio.GameSettings.General.NewAtcAdditionDescriptionExp,,,Capture strings from experience UI while users play. It may take up to a few days for strings to be added to your localization table.,Capture strings from experience UI while users play. It may take up to a few days for strings to be added to your localization table.
+Studio.GameSettings.General.UseTranslatedContentDescExp,,,Enable translated content in experience.,Enable translated content in experience.
+Studio.GameSettings.General.LocalizationSettingsNonLinkTextExp,,,to further manage the cloud localization table for this experience.,to further manage the cloud localization table for this experience.
+Studio.GameSettings.General.ThumbnailsLimitExp,,,You can set up to {maxThumbnails:int} screenshots and YouTube videos for an experience.,You can set up to {maxThumbnails:int} screenshots and YouTube videos for an experience.
+Studio.GameSettings.General.ErrorsOnSaveBodyExp,,,Could not save experience settings.,Could not save experience settings.
+Studio.GameSettings.ThumbnailsLimitLuobuExp,,,You can set up to {maxThumbnails:int} screenshots for an experience.,You can set up to {maxThumbnails:int} screenshots for an experience.
+Studio.GameSettings.Security.LocalSecretsDescExp,,,"Secrets are stored locally on this device and are available in local Playtest mode. To use secrets in Team Test or in a live experience, please set them on Creator Hub.","Secrets are stored locally on this device and are available in local Playtest mode. To use secrets in Team Test or in a live experience, please set them on Creator Hub."
 Studio.Toolbox.General.ToolboxToolbarName,,,Toolbox,Toolbox
 Studio.Toolbox.General.CategoryModels,,,Models,Models
 Studio.Toolbox.General.CategoryDecals,,,Images,Images
@@ -9040,6 +9072,7 @@ Studio.PublishPlaceAs.FooterButton.CreateNewExperience,,,Create new experience�
 Studio.PublishPlaceAs.FooterButton.UpdateExistingExperience,,,Update existing experience…,Update existing experience…
 Studio.PublishPlaceAs.General.SaveExperience,,,Save Experience,Save Experience
 Studio.PublishPlaceAs.General.PublishExperience,,,Publish Experience,Publish Experience
+Studio.PublishPlaceAs.General.UntitledExperience,,,UntitledExperience,UntitledExperience
 Studio.PluginInstallation.Meta.PluginWindowName,,,Plugin Installation,Plugin Installation
 Studio.PluginInstallation.Main.InstallingPlugin,,,Installing plugin : {1},Installing plugin : {1}
 Studio.PluginInstallation.Main.ErrorNoId,,,Error : No plugin to install,Error : No plugin to install
@@ -10137,6 +10170,7 @@ Studio.AssetImporter.UploadError.Title,,,Errors occurred during import,Errors oc
 Studio.AssetImporter.UploadError.ReconfigureButton,,,Reconfigure,Reconfigure
 Studio.AssetImporter.UploadError.OkButton,,,Ok,Ok
 Studio.AssetImporter.Statuses.EmissiveNeedsTransformWarning,,,Roblox transforms emissive map textures into a grayscale mask texture and modifies the imported color map to include the color information from the emissive map texture.,Roblox transforms emissive map textures into a grayscale mask texture and modifies the imported color map to include the color information from the emissive map texture.
+Studio.AssetImporter.ImportQueue.NoPreset,,,N/A,N/A
 Studio.MaterialManager.Plugin.Name,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Toolbar,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Button,,,Material Manager,Material Manager
@@ -10672,6 +10706,9 @@ Studio.ManageCollaborators.Description.CopyingLinkWillEnableTeamCreate,,,Copying
 Studio.ManageCollaborators.Subtitle.SearchCollaborators,,,Search Collaborators,Search Collaborators
 Studio.ManageCollaborators.UpsellBanner.CTA,,,Get Started,Get Started
 Studio.ManageCollaborators.UpsellBanner.description,,,"To keep collaborating with others, we need you to age check before early 2026.","To keep collaborating with others, we need you to age check before early 2026."
+Studio.ManageCollaborators.UpsellDialog.title,,,One more step to collaborate with others outside your age group,One more step to collaborate with others outside your age group
+Studio.ManageCollaborators.UpsellDialog.description,,,"To use Studio collaboration with others outside of your age group, establish Trusted Connections or get parental consent.","To use Studio collaboration with others outside of your age group, establish Trusted Connections or get parental consent."
+Studio.ManageCollaborators.UpsellBanner.nextStepDescription,,,There’s one more step if you want to work with people older than your age group,There’s one more step if you want to work with people older than your age group
 Studio.DeviceEmulator.Plugin.Name,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Toolbar,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10689,7 +10726,7 @@ Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheld,,,Generic Handheld,Gene
 Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheldHD720,,,Generic Handheld HD 720,Generic Handheld HD 720
 Studio.DeviceEmulator.EmulatorMainWidget.GenericHandheldHD1080,,,Generic Handheld HD 1080,Generic Handheld HD 1080
 Studio.DeviceEmulator.Tooltip.OnlyEnabledIn3D,,,Device Emulator (Only enabled in 3D viewport),Device Emulator (Only enabled in 3D viewport)
-Studio.DeviceEmulator.EmulatorMainWidget.MultiTouchShortcutButton,,,<b>Pinch + rotate: </b>Alt/Opt + Drag<br><b>Two-finger pan: </b>Alt/Opt + Shift + Drag,<b>Pinch + rotate: </b>Alt/Opt + Drag<br><b>Two-finger pan: </b>Alt/Opt + Shift + Drag
+Studio.DeviceEmulator.EmulatorMainWidget.MultiTouchShortcutButton,,,While playtesting:<br><b>Pinch + rotate: </b>%1 + Drag<br><b>Two-finger pan: </b>%2 + Shift + Drag,While playtesting:<br><b>Pinch + rotate: </b>%1 + Drag<br><b>Two-finger pan: </b>%2 + Shift + Drag
 Studio.R15Migrator.Plugin.Name,,,R6 to R15 Conversion Tool,R6 to R15 Conversion Tool
 Studio.R15Migrator.Plugin.Toolbar,,,R15Migrator,R15Migrator
 Studio.R15Migrator.Plugin.Button,,,Migrate Avatars,Migrate Avatars
@@ -12010,6 +12047,18 @@ Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.EnableAdditionalHeadProcess
 Studio.AvatarCompatibilityPreviewer.SortClothingTable.Avatar,,,Avatar,Avatar
 Studio.AvatarCompatibilityPreviewer.SortClothingTable.AvatarExplanationTitle,,,Already set up asset,Already set up asset
 Studio.AvatarCompatibilityPreviewer.ProgressBar.HeadCagePostProcessing,,,Improving facial caging,Improving facial caging
+Studio.AvatarCompatibilityPreviewer.LookSaveMenu.Save,,,Save,Save
+Studio.AvatarCompatibilityPreviewer.LookSaveMenu.SaveToRoblox,,,Save to Roblox,Save to Roblox
+Studio.AvatarCompatibilityPreviewer.LookSaveMenu.CreateMakeupLook,,,Create Makeup Look,Create Makeup Look
+Studio.AvatarCompatibilityPreviewer.LookSaveMenu.TooltipSaveToRobloxDescription,,,"Upload new assets to Creator Hub for moderation, management and sharing on Roblox.","Upload new assets to Creator Hub for moderation, management and sharing on Roblox."
+Studio.AvatarCompatibilityPreviewer.LookSaveMenu.TooltipCreateMakeupLookDescription,,,"Style at least 3 Makeup Items to be sold together on Marketplace. Includes a set layer order and up to 6 layers. Optionally include Eyebrows, Eyelashes and a thumbnail skin color.","Style at least 3 Makeup Items to be sold together on Marketplace. Includes a set layer order and up to 6 layers. Optionally include Eyebrows, Eyelashes and a thumbnail skin color."
+Studio.AvatarCompatibilityPreviewer.LookSaveMenu.CreateAvatarLook,,,Create Avatar Look,Create Avatar Look
+Studio.AvatarCompatibilityPreviewer.LookSaveMenu.TooltipCreateAvatarLookDescription,,,"Style Avatar Items to be sold together on Marketplace. Requires a Body. Includes a set layer order, a set Avatar Build and optionally a skin tone.","Style Avatar Items to be sold together on Marketplace. Requires a Body. Includes a set layer order, a set Avatar Build and optionally a skin tone."
+Studio.AvatarCompatibilityPreviewer.MarketplaceImport.AddAvatarItemsLabel,,,Add Avatar Items from AssetID,Add Avatar Items from AssetID
+Studio.AvatarCompatibilityPreviewer.MarketplaceImport.ImportDialogTitle,,,Import Items,Import Items
+Studio.AvatarCompatibilityPreviewer.MarketplaceImport.AddButtonLabel,,,Add,Add
+Studio.AvatarCompatibilityPreviewer.MarketplaceImport.CancelButtonLabel,,,Cancel,Cancel
+Studio.AvatarCompatibilityPreviewer.MarketplaceImport.ItemIdInputPlaceholder,,,Enter AssetID or BundleID,Enter AssetID or BundleID
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -12081,6 +12130,9 @@ Studio.CompositorDebugger.CompositorMenu.CreateScriptForSelection,,,Create Anima
 Studio.CompositorDebugger.CompositorMenu.CreateScriptForStarterPlayer,,,Create Animate script for StarterPlayer,Create Animate script for StarterPlayer
 Studio.CompositorDebugger.CompositorMenu.CreateScriptFor,,,Create Animate script for '{selectionName}',Create Animate script for '{selectionName}'
 Studio.CompositorDebugger.CompositorMenu.Graph,,,Graph,Graph
+Studio.CompositorDebugger.CompositorMenu.SaveToRoblox,,,Save to Roblox,Save to Roblox
+Studio.CompositorDebugger.CompositorMenu.SaveToRobloxAs,,,Save to Roblox As...,Save to Roblox As...
+Studio.CompositorDebugger.CompositorMenu.OpenPopup,,,Open...,Open...
 Studio.Tutorials.Plugin.Name,,,Tutorials,Tutorials
 Studio.Tutorials.Plugin.Button,,,Toggle,Toggle
 Studio.Tutorials.Plugin.Description,,,Toggles the Template plugin window.,Toggles the Template plugin window.
@@ -13502,9 +13554,9 @@ Studio.Assistant.SettingsDialog.EditApiKeys,,,Edit API Keys,Edit API Keys
 Studio.Assistant.SettingsDialog.Title,,,Assistant Settings,Assistant Settings
 Studio.Assistant.SettingsDialog.APIKeysTab,,,API Keys,API Keys
 Studio.Assistant.SettingsDialog.ManageIntegrationsTab,,,Integrations,Integrations
-Studio.Assistant.SettingsDialog.ClaudeAPIKey,,,Anthropic API Key,Anthropic API Key
-Studio.Assistant.SettingsDialog.OpenAIAPIKey,,,OpenAI API Key,OpenAI API Key
-Studio.Assistant.SettingsDialog.GoogleAPIKey,,,Google API Key,Google API Key
+Studio.Assistant.SettingsDialog.ClaudeAPIKey,,,Anthropic,Anthropic
+Studio.Assistant.SettingsDialog.OpenAIAPIKey,,,OpenAI,OpenAI
+Studio.Assistant.SettingsDialog.GoogleAPIKey,,,Google API,Google API
 Studio.Assistant.SettingsDialog.Edit,,,Edit,Edit
 Studio.Assistant.SettingsDialog.Model,,,Model,Model
 Studio.Assistant.SettingsDialog.EnterProviderKey,,,Enter {provider} API key,Enter {provider} API key
@@ -13518,6 +13570,7 @@ Studio.Assistant.SettingsDialog.NoApiKey,,,(No API key set),(No API key set)
 Studio.Assistant.ModelChip.Tooltip,,,The daily usage available for Assistant. Resets tomorrow,The daily usage available for Assistant. Resets tomorrow
 Studio.Assistant.ModelChip.Title,,,Daily Usage,Daily Usage
 Studio.Assistant.InputArea.LearnMore,,,Learn More,Learn More
+Studio.Assistant.SettingsDialog.APIKeyLegalSummary,,,"Connecting a third-party LLM to Roblox Studio shares your data with that provider. Review their privacy practices, terms, and age limits before proceeding. Roblox is not responsible for third-party model output.","Connecting a third-party LLM to Roblox Studio shares your data with that provider. Review their privacy practices, terms, and age limits before proceeding. Roblox is not responsible for third-party model output."
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -14225,6 +14278,49 @@ Studio.PlaceVersionHistory.Label.PlaceVersionHistory,,,Place Version History,Pla
 Studio.PlaceVersionHistory.VersionHistory,,,Version History,Version History
 Studio.PlaceVersionHistory.Label.VersionHistory,,,Version History,Version History
 Studio.PlaceVersionHistory.Error.VersionNotesFailedToSave,,,Failed to save your place version notes. Please try again.,Failed to save your place version notes. Please try again.
+Studio.PlaceVersionHistory.Label.Collaborators,,,Collaborators,Collaborators
+Studio.PlaceVersionHistory.Label.Today,,,Today,Today
+Studio.PlaceVersionHistory.Label.ThisWeek,,,This week,This week
+Studio.PlaceVersionHistory.Label.ThisMonth,,,This month,This month
+Studio.PlaceVersionHistory.Label.AllTime,,,All time,All time
+Studio.PlaceVersionHistory.Action.Reset,,,Reset,Reset
+Studio.PlaceVersionHistory.Action.Apply,,,Apply,Apply
+Studio.PlaceVersionHistory.Option.AutoSaves,,,Auto saves,Auto saves
+Studio.PlaceVersionHistory.Option.ManualSaves,,,Manual saves,Manual saves
+Studio.PlaceVersionHistory.Option.AllSaves,,,All saves,All saves
+Studio.PlaceVersionHistory.Option.Published,,,Published,Published
+Studio.PlaceVersionHistory.Option.HasNotes,,,Has notes,Has notes
+Studio.PlaceVersionHistory.Label.FindAPlace,,,Find a place,Find a place
+Studio.PlaceVersionHistory.Label.AllUsers,,,All users,All users
+Studio.PlaceVersionHistory.Label.FindAUser,,,Find a user,Find a user
+Studio.PlaceVersionHistory.Action.Cancel,,,Cancel,Cancel
+Studio.PlaceVersionHistory.Label.ResetUser,,,Show history for all users,Show history for all users
+Studio.PlaceVersionHistory.Label.Search,,,Search,Search
+Studio.PlaceVersionHistory.Action.Refresh,,,Refresh,Refresh
+Studio.PlaceVersionHistory.Action.ClearFilters,,,Clear filters,Clear filters
+Studio.PlaceVersionHistory.Title.ErrorLoadingHistory,,,Error loading version history,Error loading version history
+Studio.PlaceVersionHistory.Description.ErrorLoadingHistory,,,Something went wrong. Please try again.,Something went wrong. Please try again.
+Studio.PlaceVersionHistory.Title.NothingMatchesFilters,,,Nothing matches your filters,Nothing matches your filters
+Studio.PlaceVersionHistory.Title.StartSaving,,,Start saving to track your version history,Start saving to track your version history
+Studio.PlaceVersionHistory.Description.NothingMatchesFilters,,,Try adjusting or clearing your filters.,Try adjusting or clearing your filters.
+Studio.PlaceVersionHistory.Description.StartSaving,,,Save to Roblox to see new history. Your old history will appear soon after.,Save to Roblox to see new history. Your old history will appear soon after.
+Studio.PlaceVersionHistory.Title.EditVersionNotes,,,Edit version notes,Edit version notes
+Studio.PlaceVersionHistory.Title.SaveWithVersionNotes,,,Save with version notes,Save with version notes
+Studio.PlaceVersionHistory.Title.PublishWithVersionNotes,,,Publish with version notes,Publish with version notes
+Studio.PlaceVersionHistory.Action.Save,,,Save,Save
+Studio.PlaceVersionHistory.Action.Publish,,,Publish,Publish
+Studio.PlaceVersionHistory.Title.ErrorCharLimit,,,You have exceeded the character limit,You have exceeded the character limit
+Studio.PlaceVersionHistory.Title.ErrorLineLimit,,,You have exceeded the line limit,You have exceeded the line limit
+Studio.PlaceVersionHistory.Title.ErrorTextModeration,,,This text does not meet community standards. Please edit and retry.,This text does not meet community standards. Please edit and retry.
+Studio.PlaceVersionHistory.Label.VersionName,,,Version Name,Version Name
+Studio.PlaceVersionHistory.Label.VersionNotes,,,Version Notes,Version Notes
+Studio.PlaceVersionHistory.Menu.EditVersionNotes,,,Edit version notes,Edit version notes
+Studio.PlaceVersionHistory.Menu.OpenLocalCopy,,,Open local copy,Open local copy
+Studio.PlaceVersionHistory.Label.VersionsPerPage,,,Versions per page,Versions per page
+Studio.PlaceVersionHistory.Label.Published,,,Published,Published
+Studio.PlaceVersionHistory.Label.AutoSave,,,Auto save,Auto save
+Studio.PlaceVersionHistory.Action.AddNotes,,,Add notes,Add notes
+Studio.PlaceVersionHistory.Label.UnknownUser,,,Unknown user,Unknown user
 Studio.PerformanceTools.SceneBudgetThermometer.Plugin.Toolbar,,,Performance Tools,Performance Tools
 Studio.PerformanceTools.SceneBudgetThermometer.Name,,,Scene Budget Thermometer,Scene Budget Thermometer
 Studio.PerformanceTools.SceneBudgetThermometer.Button,,,Scene Budget Thermometer,Scene Budget Thermometer
