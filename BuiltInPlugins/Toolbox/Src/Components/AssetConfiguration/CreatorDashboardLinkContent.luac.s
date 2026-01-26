@@ -1,0 +1,237 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["constructCreatorDashboardAssetConfigUrl"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["props"]
+  GETTABLEKS R1 R2 K2 ["assetId"]
+  CALL R0 1 1
+  JUMPIFNOT R0 [+7]
+  JUMPIFEQKS R0 K3 [""] [+6]
+  GETUPVAL R1 2
+  MOVE R3 R0
+  NAMECALL R1 R1 K4 ["OpenBrowserWindow"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createRef"]
+  CALL R1 0 1
+  SETTABLEKS R1 R0 K1 ["frameRef"]
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  SETTABLEKS R1 R0 K2 ["openCreatorDashboardConfigureLink"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["layoutOrder"]
+  GETTABLEKS R3 R1 K2 ["size"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["createElement"]
+  GETUPVAL R5 1
+  NEWTABLE R6 4 0
+  SETTABLEKS R3 R6 K4 ["Size"]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K5 ["BackgroundTransparency"]
+  SETTABLEKS R2 R6 K6 ["LayoutOrder"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K7 ["Ref"]
+  GETTABLEKS R8 R0 K8 ["frameRef"]
+  SETTABLE R8 R6 R7
+  DUPTABLE R7 K11 [{"Padding", "Body"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  LOADK R9 K12 ["UIPadding"]
+  DUPTABLE R10 K17 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  GETIMPORT R11 K20 [UDim.new]
+  LOADN R12 0
+  LOADN R13 30
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K13 ["PaddingTop"]
+  GETIMPORT R11 K20 [UDim.new]
+  LOADN R12 0
+  LOADN R13 30
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K14 ["PaddingBottom"]
+  GETIMPORT R11 K20 [UDim.new]
+  LOADN R12 0
+  LOADN R13 30
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K15 ["PaddingLeft"]
+  GETIMPORT R11 K20 [UDim.new]
+  LOADN R12 0
+  LOADN R13 30
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K16 ["PaddingRight"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K9 ["Padding"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K30 [{"OnLinkClicked", "Text", "LinkText", "LinkPlaceholder", "AutomaticSize", "TextXAlignment", "HorizontalAlignment", "MaxWidth", "TextProps"}]
+  GETTABLEKS R11 R0 K31 ["openCreatorDashboardConfigureLink"]
+  SETTABLEKS R11 R10 K21 ["OnLinkClicked"]
+  GETTABLEKS R12 R0 K0 ["props"]
+  GETTABLEKS R11 R12 K32 ["Localization"]
+  LOADK R13 K33 ["General"]
+  LOADK R14 K34 ["CreatorDashboardLinkMessage"]
+  DUPTABLE R15 K36 [{"creatorDashboardLink"}]
+  LOADK R16 K37 ["{creatorDashboardLink}"]
+  SETTABLEKS R16 R15 K35 ["creatorDashboardLink"]
+  NAMECALL R11 R11 K38 ["getText"]
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K22 ["Text"]
+  GETTABLEKS R12 R0 K0 ["props"]
+  GETTABLEKS R11 R12 K32 ["Localization"]
+  LOADK R13 K33 ["General"]
+  LOADK R14 K39 ["CreatorDashboard"]
+  DUPTABLE R15 K36 [{"creatorDashboardLink"}]
+  LOADK R16 K37 ["{creatorDashboardLink}"]
+  SETTABLEKS R16 R15 K35 ["creatorDashboardLink"]
+  NAMECALL R11 R11 K38 ["getText"]
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K23 ["LinkText"]
+  LOADK R11 K37 ["{creatorDashboardLink}"]
+  SETTABLEKS R11 R10 K24 ["LinkPlaceholder"]
+  GETIMPORT R11 K42 [Enum.AutomaticSize.Y]
+  SETTABLEKS R11 R10 K25 ["AutomaticSize"]
+  GETIMPORT R11 K44 [Enum.TextXAlignment.Center]
+  SETTABLEKS R11 R10 K26 ["TextXAlignment"]
+  GETIMPORT R11 K45 [Enum.HorizontalAlignment.Center]
+  SETTABLEKS R11 R10 K27 ["HorizontalAlignment"]
+  LOADN R11 244
+  SETTABLEKS R11 R10 K28 ["MaxWidth"]
+  DUPTABLE R11 K48 [{"BackgroundTransparency", "Font", "TextSize", "TextXAlignment"}]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K5 ["BackgroundTransparency"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K49 ["FONT"]
+  SETTABLEKS R12 R11 K46 ["Font"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K50 ["FONT_SIZE_TITLE"]
+  SETTABLEKS R12 R11 K47 ["TextSize"]
+  GETIMPORT R12 K44 [Enum.TextXAlignment.Center]
+  SETTABLEKS R12 R11 K26 ["TextXAlignment"]
+  SETTABLEKS R11 R10 K29 ["TextProps"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K10 ["Body"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+PROTO_3:
+  MOVE R2 R0
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  MOVE R0 R2
+  DUPTABLE R2 K2 [{"assetId", "assetTypeEnum"}]
+  GETTABLEKS R3 R0 K0 ["assetId"]
+  SETTABLEKS R3 R2 K0 ["assetId"]
+  GETTABLEKS R3 R0 K1 ["assetTypeEnum"]
+  SETTABLEKS R3 R2 K1 ["assetTypeEnum"]
+  RETURN R2 1
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K0 ["SIDE_TABS"]
+  GETTABLEKS R4 R5 K1 ["Sales"]
+  MOVE R5 R0
+  MOVE R6 R1
+  CALL R3 3 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_5:
+  DUPTABLE R1 K1 [{"setFieldError"}]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K0 ["setFieldError"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [game]
+  LOADK R3 K5 ["GuiService"]
+  NAMECALL R1 R1 K6 ["GetService"]
+  CALL R1 2 1
+  GETTABLEKS R2 R0 K7 ["Packages"]
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R4 R2 K10 ["Roact"]
+  CALL R3 1 1
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R5 R2 K11 ["RoactRodux"]
+  CALL R4 1 1
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R6 R2 K12 ["Framework"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K13 ["ContextServices"]
+  GETTABLEKS R7 R6 K14 ["withContext"]
+  GETIMPORT R8 K9 [require]
+  GETTABLEKS R11 R0 K15 ["Src"]
+  GETTABLEKS R10 R11 K16 ["Actions"]
+  GETTABLEKS R9 R10 K17 ["SetFieldError"]
+  CALL R8 1 1
+  GETIMPORT R9 K9 [require]
+  GETTABLEKS R12 R0 K15 ["Src"]
+  GETTABLEKS R11 R12 K18 ["Util"]
+  GETTABLEKS R10 R11 K19 ["Urls"]
+  CALL R9 1 1
+  GETTABLEKS R11 R5 K20 ["UI"]
+  GETTABLEKS R10 R11 K21 ["ScrollingFrame"]
+  GETTABLEKS R12 R5 K20 ["UI"]
+  GETTABLEKS R11 R12 K22 ["TextWithInlineLink"]
+  GETTABLEKS R13 R0 K15 ["Src"]
+  GETTABLEKS R12 R13 K18 ["Util"]
+  GETIMPORT R13 K9 [require]
+  GETTABLEKS R14 R12 K23 ["Constants"]
+  CALL R13 1 1
+  GETIMPORT R14 K9 [require]
+  GETTABLEKS R15 R12 K24 ["AssetConfigConstants"]
+  CALL R14 1 1
+  GETTABLEKS R15 R3 K25 ["PureComponent"]
+  LOADK R17 K26 ["CreatorDashboardLinkContent"]
+  NAMECALL R15 R15 K27 ["extend"]
+  CALL R15 2 1
+  DUPCLOSURE R16 K28 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R9
+  CAPTURE VAL R1
+  SETTABLEKS R16 R15 K29 ["init"]
+  DUPCLOSURE R16 K30 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R13
+  SETTABLEKS R16 R15 K31 ["render"]
+  DUPCLOSURE R16 K32 [PROTO_3]
+  DUPCLOSURE R17 K33 [PROTO_5]
+  CAPTURE VAL R8
+  CAPTURE VAL R14
+  MOVE R18 R7
+  DUPTABLE R19 K36 [{"Stylizer", "Localization"}]
+  GETTABLEKS R20 R6 K34 ["Stylizer"]
+  SETTABLEKS R20 R19 K34 ["Stylizer"]
+  GETTABLEKS R20 R6 K35 ["Localization"]
+  SETTABLEKS R20 R19 K35 ["Localization"]
+  CALL R18 1 1
+  MOVE R19 R15
+  CALL R18 1 1
+  MOVE R15 R18
+  GETTABLEKS R18 R4 K37 ["connect"]
+  MOVE R19 R16
+  MOVE R20 R17
+  CALL R18 2 1
+  MOVE R19 R15
+  CALL R18 1 -1
+  RETURN R18 -1

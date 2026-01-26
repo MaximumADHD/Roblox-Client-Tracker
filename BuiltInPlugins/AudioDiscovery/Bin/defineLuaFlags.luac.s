@@ -3,14 +3,9 @@ PROTO_0:
   LOADK R2 K2 ["AudioDiscoveryMigrateToActions"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
-  JUMPIFNOT R0 [+13]
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K4 ["EnableRibbonPluginFeature"]
-  NAMECALL R0 R0 K5 ["GetEngineFeature"]
-  CALL R0 2 1
   JUMPIFNOT R0 [+6]
   GETIMPORT R0 K1 [game]
-  LOADK R2 K6 ["RegisterActionsPluginLoader"]
+  LOADK R2 K4 ["RegisterActionsPluginLoader"]
   NAMECALL R0 R0 K3 ["GetFastFlag"]
   CALL R0 2 1
   RETURN R0 1

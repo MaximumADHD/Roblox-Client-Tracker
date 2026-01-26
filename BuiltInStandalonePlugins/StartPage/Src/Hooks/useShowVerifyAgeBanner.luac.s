@@ -6,9 +6,21 @@ PROTO_0:
   GETUPVAL R1 1
   GETTABLEKS R0 R1 K2 ["useContext"]
   CALL R0 0 1
-  GETTABLEKS R1 R0 K3 ["showVerifyAgeBanner"]
-  GETTABLEKS R2 R0 K4 ["onClose"]
-  RETURN R1 2
+  GETUPVAL R1 2
+  JUMPIFNOT R1 [+9]
+  NEWTABLE R1 0 2
+  GETTABLEKS R2 R0 K3 ["showVerifyAgeBanner"]
+  GETTABLEKS R3 R0 K4 ["onClose"]
+  SETLIST R1 R2 2 [1]
+  RETURN R1 1
+  NEWTABLE R1 0 5
+  GETTABLEKS R2 R0 K3 ["showVerifyAgeBanner"]
+  GETTABLEKS R3 R0 K5 ["showEstablishTrustBanner"]
+  GETTABLEKS R4 R0 K6 ["shouldShowEstablishTrustDialog"]
+  GETTABLEKS R5 R0 K4 ["onClose"]
+  GETTABLEKS R6 R0 K7 ["onTrustBannerClose"]
+  SETLIST R1 R2 5 [1]
+  RETURN R1 1
 
 MAIN:
   PREPVARARGS 0
@@ -26,7 +38,14 @@ MAIN:
   GETTABLEKS R4 R5 K9 ["SharedFlags"]
   GETTABLEKS R3 R4 K10 ["getFFlagLuaStartPageVerifyAgeBanner"]
   CALL R2 1 1
-  DUPCLOSURE R3 K11 [PROTO_0]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K9 ["SharedFlags"]
+  GETTABLEKS R4 R5 K11 ["getFFlagStartPageEstablishTrustBanner"]
+  CALL R3 1 1
+  CALL R3 0 1
+  DUPCLOSURE R4 K12 [PROTO_0]
   CAPTURE VAL R2
   CAPTURE VAL R1
-  RETURN R3 1
+  CAPTURE VAL R3
+  RETURN R4 1

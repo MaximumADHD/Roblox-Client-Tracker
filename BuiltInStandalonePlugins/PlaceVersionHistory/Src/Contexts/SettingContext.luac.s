@@ -8,7 +8,11 @@ MAIN:
   GETTABLEKS R3 R0 K6 ["Packages"]
   GETTABLEKS R2 R3 K7 ["React"]
   CALL R1 1 1
-  GETTABLEKS R2 R1 K8 ["createContext"]
-  NEWTABLE R3 0 0
-  CALL R2 1 -1
-  RETURN R2 -1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Src"]
+  GETTABLEKS R3 R4 K9 ["Types"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K10 ["createContext"]
+  NEWTABLE R4 0 0
+  CALL R3 1 -1
+  RETURN R3 -1

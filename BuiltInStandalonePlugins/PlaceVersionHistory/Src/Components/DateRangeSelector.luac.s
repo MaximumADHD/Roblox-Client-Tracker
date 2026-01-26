@@ -164,481 +164,520 @@ PROTO_10:
 PROTO_11:
   GETUPVAL R1 0
   CALL R1 0 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["useState"]
-  GETTABLEKS R3 R0 K1 ["startDate"]
-  CALL R2 1 2
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K0 ["useState"]
-  GETTABLEKS R5 R0 K2 ["endDate"]
-  CALL R4 1 2
-  GETIMPORT R6 K5 [DateTime.now]
-  CALL R6 0 1
-  GETTABLEKS R8 R0 K1 ["startDate"]
-  JUMPIFNOT R8 [+6]
-  GETTABLEKS R7 R0 K1 ["startDate"]
-  NAMECALL R7 R7 K6 ["ToLocalTime"]
-  CALL R7 1 1
+  GETUPVAL R2 1
+  NAMECALL R2 R2 K0 ["use"]
+  CALL R2 1 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["useState"]
+  GETTABLEKS R4 R0 K2 ["startDate"]
+  CALL R3 1 2
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K1 ["useState"]
+  GETTABLEKS R6 R0 K3 ["endDate"]
+  CALL R5 1 2
+  GETIMPORT R7 K6 [DateTime.now]
+  CALL R7 0 1
+  GETTABLEKS R9 R0 K2 ["startDate"]
+  JUMPIFNOT R9 [+6]
+  GETTABLEKS R8 R0 K2 ["startDate"]
+  NAMECALL R8 R8 K7 ["ToLocalTime"]
+  CALL R8 1 1
   JUMP [+3]
-  NAMECALL R7 R6 K6 ["ToLocalTime"]
-  CALL R7 1 1
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K0 ["useState"]
-  GETTABLEKS R9 R7 K7 ["Year"]
-  CALL R8 1 2
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K0 ["useState"]
-  GETTABLEKS R11 R7 K8 ["Month"]
-  CALL R10 1 2
+  NAMECALL R8 R7 K7 ["ToLocalTime"]
+  CALL R8 1 1
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K1 ["useState"]
+  GETTABLEKS R10 R8 K8 ["Year"]
+  CALL R9 1 2
   GETUPVAL R12 2
-  LOADB R13 0
-  CALL R12 1 1
-  LOADB R13 1
-  GETTABLEKS R14 R0 K1 ["startDate"]
-  JUMPIFNOTEQKNIL R14 [+7]
-  GETTABLEKS R14 R0 K2 ["endDate"]
-  JUMPIFNOTEQKNIL R14 [+2]
-  LOADB R13 0 +1
-  LOADB R13 1
+  GETTABLEKS R11 R12 K1 ["useState"]
+  GETTABLEKS R12 R8 K9 ["Month"]
+  CALL R11 1 2
+  GETUPVAL R13 3
   LOADB R14 0
-  GETTABLEKS R15 R0 K1 ["startDate"]
-  JUMPIFNOTEQ R15 R2 [+7]
-  GETTABLEKS R15 R0 K2 ["endDate"]
-  JUMPIFEQ R15 R4 [+2]
+  CALL R13 1 1
+  LOADB R14 1
+  GETTABLEKS R15 R0 K2 ["startDate"]
+  JUMPIFNOTEQKNIL R15 [+7]
+  GETTABLEKS R15 R0 K3 ["endDate"]
+  JUMPIFNOTEQKNIL R15 [+2]
   LOADB R14 0 +1
   LOADB R14 1
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K9 ["useCallback"]
-  NEWCLOSURE R16 P0
+  LOADB R15 0
+  GETTABLEKS R16 R0 K2 ["startDate"]
+  JUMPIFNOTEQ R16 R3 [+7]
+  GETTABLEKS R16 R0 K3 ["endDate"]
+  JUMPIFEQ R16 R5 [+2]
+  LOADB R15 0 +1
+  LOADB R15 1
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K10 ["useCallback"]
+  NEWCLOSURE R17 P0
   CAPTURE VAL R0
-  CAPTURE VAL R2
-  CAPTURE VAL R4
-  NEWTABLE R17 0 2
-  MOVE R18 R2
-  MOVE R19 R4
-  SETLIST R17 R18 2 [1]
-  CALL R15 2 1
-  GETUPVAL R17 1
-  GETTABLEKS R16 R17 K9 ["useCallback"]
-  NEWCLOSURE R17 P1
-  CAPTURE VAL R0
-  NEWTABLE R18 0 0
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  NEWTABLE R18 0 2
+  MOVE R19 R3
+  MOVE R20 R5
+  SETLIST R18 R19 2 [1]
   CALL R16 2 1
-  GETUPVAL R18 1
-  GETTABLEKS R17 R18 K9 ["useCallback"]
-  NEWCLOSURE R18 P2
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K10 ["useCallback"]
+  NEWCLOSURE R18 P1
   CAPTURE VAL R0
-  CAPTURE VAL R6
   NEWTABLE R19 0 0
   CALL R17 2 1
-  GETUPVAL R19 1
-  GETTABLEKS R18 R19 K9 ["useCallback"]
-  NEWCLOSURE R19 P3
+  GETUPVAL R19 2
+  GETTABLEKS R18 R19 K10 ["useCallback"]
+  NEWCLOSURE R19 P2
   CAPTURE VAL R0
-  CAPTURE VAL R6
+  CAPTURE VAL R7
   NEWTABLE R20 0 0
   CALL R18 2 1
-  GETUPVAL R20 1
-  GETTABLEKS R19 R20 K9 ["useCallback"]
-  NEWCLOSURE R20 P4
+  GETUPVAL R20 2
+  GETTABLEKS R19 R20 K10 ["useCallback"]
+  NEWCLOSURE R20 P3
   CAPTURE VAL R0
-  CAPTURE VAL R6
+  CAPTURE VAL R7
   NEWTABLE R21 0 0
   CALL R19 2 1
-  GETUPVAL R21 1
-  GETTABLEKS R20 R21 K9 ["useCallback"]
-  NEWCLOSURE R21 P5
-  CAPTURE VAL R10
-  CAPTURE VAL R9
-  CAPTURE VAL R8
-  CAPTURE VAL R11
-  NEWTABLE R22 0 2
-  MOVE R23 R10
-  MOVE R24 R8
-  SETLIST R22 R23 2 [1]
+  GETUPVAL R21 2
+  GETTABLEKS R20 R21 K10 ["useCallback"]
+  NEWCLOSURE R21 P4
+  CAPTURE VAL R0
+  CAPTURE VAL R7
+  NEWTABLE R22 0 0
   CALL R20 2 1
-  GETUPVAL R22 1
-  GETTABLEKS R21 R22 K9 ["useCallback"]
-  NEWCLOSURE R22 P6
+  GETUPVAL R22 2
+  GETTABLEKS R21 R22 K10 ["useCallback"]
+  NEWCLOSURE R22 P5
+  CAPTURE VAL R11
   CAPTURE VAL R10
   CAPTURE VAL R9
-  CAPTURE VAL R8
-  CAPTURE VAL R11
+  CAPTURE VAL R12
   NEWTABLE R23 0 2
-  MOVE R24 R10
-  MOVE R25 R8
+  MOVE R24 R11
+  MOVE R25 R9
   SETLIST R23 R24 2 [1]
   CALL R21 2 1
-  GETUPVAL R23 1
-  GETTABLEKS R22 R23 K10 ["createElement"]
-  GETUPVAL R24 3
-  GETTABLEKS R23 R24 K11 ["View"]
-  DUPTABLE R24 K14 [{"tag", "Size"}]
-  LOADK R25 K15 ["size-0-0 auto-y col align-x-center items-stretch"]
-  SETTABLEKS R25 R24 K12 ["tag"]
+  GETUPVAL R23 2
+  GETTABLEKS R22 R23 K10 ["useCallback"]
+  NEWCLOSURE R23 P6
+  CAPTURE VAL R11
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE VAL R12
+  NEWTABLE R24 0 2
+  MOVE R25 R11
+  MOVE R26 R9
+  SETLIST R24 R25 2 [1]
+  CALL R22 2 1
+  GETUPVAL R24 2
+  GETTABLEKS R23 R24 K11 ["createElement"]
   GETUPVAL R25 4
-  SETTABLEKS R25 R24 K13 ["Size"]
-  DUPTABLE R25 K23 [{"Header", "DividerTop", "Body", "DividerMiddle", "QuickSelect", "DividerBottom", "Footer"}]
-  GETUPVAL R27 1
-  GETTABLEKS R26 R27 K10 ["createElement"]
-  GETUPVAL R28 3
-  GETTABLEKS R27 R28 K11 ["View"]
-  DUPTABLE R28 K24 [{"tag"}]
-  LOADK R29 K25 ["size-0-0 auto-xy row align-y-center padding-small gap-xsmall"]
-  SETTABLEKS R29 R28 K12 ["tag"]
-  DUPTABLE R29 K31 [{"PrevMonthButton", "LeftSpacer", "YearMonthText", "RightSpacer", "NextMonthButton"}]
-  GETUPVAL R31 1
-  GETTABLEKS R30 R31 K10 ["createElement"]
-  GETUPVAL R32 3
-  GETTABLEKS R31 R32 K32 ["Button"]
-  DUPTABLE R32 K39 [{"icon", "variant", "size", "onActivated", "testId", "LayoutOrder"}]
-  GETUPVAL R36 3
-  GETTABLEKS R35 R36 K40 ["Enums"]
-  GETTABLEKS R34 R35 K41 ["IconName"]
-  GETTABLEKS R33 R34 K42 ["ChevronLargeLeft"]
-  SETTABLEKS R33 R32 K33 ["icon"]
-  GETUPVAL R36 3
-  GETTABLEKS R35 R36 K40 ["Enums"]
-  GETTABLEKS R34 R35 K43 ["ButtonVariant"]
-  GETTABLEKS R33 R34 K44 ["Text"]
-  SETTABLEKS R33 R32 K34 ["variant"]
-  GETUPVAL R36 3
-  GETTABLEKS R35 R36 K40 ["Enums"]
-  GETTABLEKS R34 R35 K45 ["InputSize"]
-  GETTABLEKS R33 R34 K46 ["XSmall"]
-  SETTABLEKS R33 R32 K35 ["size"]
-  SETTABLEKS R20 R32 K36 ["onActivated"]
-  LOADK R33 K47 ["--date-range-selector-prev-month"]
-  SETTABLEKS R33 R32 K37 ["testId"]
-  MOVE R33 R1
-  CALL R33 0 1
-  SETTABLEKS R33 R32 K38 ["LayoutOrder"]
-  CALL R30 2 1
-  SETTABLEKS R30 R29 K26 ["PrevMonthButton"]
-  GETUPVAL R31 1
-  GETTABLEKS R30 R31 K10 ["createElement"]
-  GETUPVAL R32 3
-  GETTABLEKS R31 R32 K11 ["View"]
-  DUPTABLE R32 K48 [{"tag", "LayoutOrder"}]
-  LOADK R33 K49 ["fill"]
-  SETTABLEKS R33 R32 K12 ["tag"]
-  MOVE R33 R1
-  CALL R33 0 1
-  SETTABLEKS R33 R32 K38 ["LayoutOrder"]
-  CALL R30 2 1
-  SETTABLEKS R30 R29 K27 ["LeftSpacer"]
-  GETUPVAL R31 1
-  GETTABLEKS R30 R31 K10 ["createElement"]
-  GETUPVAL R32 3
-  GETTABLEKS R31 R32 K44 ["Text"]
-  DUPTABLE R32 K50 [{"tag", "Text", "LayoutOrder"}]
-  LOADK R33 K51 ["size-0-0 auto-xy text-label-small text-no-wrap"]
-  SETTABLEKS R33 R32 K12 ["tag"]
-  GETIMPORT R33 K53 [DateTime.fromLocalTime]
-  MOVE R34 R8
-  MOVE R35 R10
-  CALL R33 2 1
-  LOADK R35 K54 ["MMMM YYYY"]
-  LOADK R36 K55 ["en-us"]
-  NAMECALL R33 R33 K56 ["FormatLocalTime"]
-  CALL R33 3 1
-  SETTABLEKS R33 R32 K44 ["Text"]
-  MOVE R33 R1
-  CALL R33 0 1
-  SETTABLEKS R33 R32 K38 ["LayoutOrder"]
-  CALL R30 2 1
-  SETTABLEKS R30 R29 K28 ["YearMonthText"]
-  GETUPVAL R31 1
-  GETTABLEKS R30 R31 K10 ["createElement"]
-  GETUPVAL R32 3
-  GETTABLEKS R31 R32 K11 ["View"]
-  DUPTABLE R32 K48 [{"tag", "LayoutOrder"}]
-  LOADK R33 K49 ["fill"]
-  SETTABLEKS R33 R32 K12 ["tag"]
-  MOVE R33 R1
-  CALL R33 0 1
-  SETTABLEKS R33 R32 K38 ["LayoutOrder"]
-  CALL R30 2 1
-  SETTABLEKS R30 R29 K29 ["RightSpacer"]
-  GETUPVAL R31 1
-  GETTABLEKS R30 R31 K10 ["createElement"]
-  GETUPVAL R32 3
-  GETTABLEKS R31 R32 K32 ["Button"]
-  DUPTABLE R32 K39 [{"icon", "variant", "size", "onActivated", "testId", "LayoutOrder"}]
-  GETUPVAL R36 3
-  GETTABLEKS R35 R36 K40 ["Enums"]
-  GETTABLEKS R34 R35 K41 ["IconName"]
-  GETTABLEKS R33 R34 K57 ["ChevronLargeRight"]
-  SETTABLEKS R33 R32 K33 ["icon"]
-  GETUPVAL R36 3
-  GETTABLEKS R35 R36 K40 ["Enums"]
-  GETTABLEKS R34 R35 K43 ["ButtonVariant"]
-  GETTABLEKS R33 R34 K44 ["Text"]
-  SETTABLEKS R33 R32 K34 ["variant"]
-  GETUPVAL R36 3
-  GETTABLEKS R35 R36 K40 ["Enums"]
-  GETTABLEKS R34 R35 K45 ["InputSize"]
-  GETTABLEKS R33 R34 K46 ["XSmall"]
-  SETTABLEKS R33 R32 K35 ["size"]
-  SETTABLEKS R21 R32 K36 ["onActivated"]
-  LOADK R33 K58 ["--date-range-selector-next-month"]
-  SETTABLEKS R33 R32 K37 ["testId"]
-  MOVE R33 R1
-  CALL R33 0 1
-  SETTABLEKS R33 R32 K38 ["LayoutOrder"]
-  CALL R30 2 1
-  SETTABLEKS R30 R29 K30 ["NextMonthButton"]
-  CALL R26 3 1
-  SETTABLEKS R26 R25 K16 ["Header"]
-  GETUPVAL R27 1
-  GETTABLEKS R26 R27 K10 ["createElement"]
-  GETUPVAL R28 3
-  GETTABLEKS R27 R28 K59 ["Divider"]
-  DUPTABLE R28 K60 [{"LayoutOrder"}]
-  MOVE R29 R1
-  CALL R29 0 1
-  SETTABLEKS R29 R28 K38 ["LayoutOrder"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K17 ["DividerTop"]
-  GETUPVAL R27 1
-  GETTABLEKS R26 R27 K10 ["createElement"]
-  GETUPVAL R27 5
-  DUPTABLE R28 K67 [{"year", "month", "startDate", "onStartDateChanged", "endDate", "onEndDateChanged", "isSelecting", "onSelected", "LayoutOrder"}]
-  SETTABLEKS R8 R28 K61 ["year"]
-  SETTABLEKS R10 R28 K62 ["month"]
-  SETTABLEKS R2 R28 K1 ["startDate"]
-  SETTABLEKS R3 R28 K63 ["onStartDateChanged"]
-  SETTABLEKS R4 R28 K2 ["endDate"]
-  SETTABLEKS R5 R28 K64 ["onEndDateChanged"]
-  GETTABLEKS R29 R12 K68 ["enabled"]
-  SETTABLEKS R29 R28 K65 ["isSelecting"]
-  GETTABLEKS R29 R12 K69 ["toggle"]
-  SETTABLEKS R29 R28 K66 ["onSelected"]
-  MOVE R29 R1
-  CALL R29 0 1
-  SETTABLEKS R29 R28 K38 ["LayoutOrder"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K18 ["Body"]
-  GETUPVAL R27 1
-  GETTABLEKS R26 R27 K10 ["createElement"]
-  GETUPVAL R28 3
-  GETTABLEKS R27 R28 K59 ["Divider"]
-  DUPTABLE R28 K60 [{"LayoutOrder"}]
-  MOVE R29 R1
-  CALL R29 0 1
-  SETTABLEKS R29 R28 K38 ["LayoutOrder"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K19 ["DividerMiddle"]
-  GETUPVAL R27 1
-  GETTABLEKS R26 R27 K10 ["createElement"]
-  GETUPVAL R28 3
-  GETTABLEKS R27 R28 K11 ["View"]
-  DUPTABLE R28 K48 [{"tag", "LayoutOrder"}]
-  LOADK R29 K70 ["size-0-0 auto-xy row align-y-center padding-small gap-xsmall wrap"]
-  SETTABLEKS R29 R28 K12 ["tag"]
-  MOVE R29 R1
-  CALL R29 0 1
-  SETTABLEKS R29 R28 K38 ["LayoutOrder"]
-  DUPTABLE R29 K74 [{"Today", "ThisWeek", "ThisMonth"}]
-  GETUPVAL R31 1
-  GETTABLEKS R30 R31 K10 ["createElement"]
-  GETUPVAL R32 3
-  GETTABLEKS R31 R32 K75 ["Chip"]
-  DUPTABLE R32 K77 [{"text", "size", "onActivated", "testId", "LayoutOrder"}]
-  LOADK R33 K71 ["Today"]
-  SETTABLEKS R33 R32 K76 ["text"]
-  GETUPVAL R36 3
-  GETTABLEKS R35 R36 K40 ["Enums"]
-  GETTABLEKS R34 R35 K78 ["ChipSize"]
-  GETTABLEKS R33 R34 K79 ["Small"]
-  SETTABLEKS R33 R32 K35 ["size"]
-  SETTABLEKS R17 R32 K36 ["onActivated"]
-  LOADK R33 K80 ["--date-range-selector-today"]
-  SETTABLEKS R33 R32 K37 ["testId"]
-  MOVE R33 R1
-  CALL R33 0 1
-  SETTABLEKS R33 R32 K38 ["LayoutOrder"]
-  CALL R30 2 1
-  SETTABLEKS R30 R29 K71 ["Today"]
-  GETUPVAL R31 1
-  GETTABLEKS R30 R31 K10 ["createElement"]
-  GETUPVAL R32 3
-  GETTABLEKS R31 R32 K75 ["Chip"]
-  DUPTABLE R32 K77 [{"text", "size", "onActivated", "testId", "LayoutOrder"}]
-  LOADK R33 K81 ["This week"]
-  SETTABLEKS R33 R32 K76 ["text"]
-  GETUPVAL R36 3
-  GETTABLEKS R35 R36 K40 ["Enums"]
-  GETTABLEKS R34 R35 K78 ["ChipSize"]
-  GETTABLEKS R33 R34 K79 ["Small"]
-  SETTABLEKS R33 R32 K35 ["size"]
-  SETTABLEKS R18 R32 K36 ["onActivated"]
-  LOADK R33 K82 ["--date-range-selector-thisweek"]
-  SETTABLEKS R33 R32 K37 ["testId"]
-  MOVE R33 R1
-  CALL R33 0 1
-  SETTABLEKS R33 R32 K38 ["LayoutOrder"]
-  CALL R30 2 1
-  SETTABLEKS R30 R29 K72 ["ThisWeek"]
-  GETUPVAL R31 1
-  GETTABLEKS R30 R31 K10 ["createElement"]
-  GETUPVAL R32 3
-  GETTABLEKS R31 R32 K75 ["Chip"]
-  DUPTABLE R32 K77 [{"text", "size", "onActivated", "testId", "LayoutOrder"}]
-  LOADK R33 K83 ["This month"]
-  SETTABLEKS R33 R32 K76 ["text"]
-  GETUPVAL R36 3
-  GETTABLEKS R35 R36 K40 ["Enums"]
-  GETTABLEKS R34 R35 K78 ["ChipSize"]
-  GETTABLEKS R33 R34 K79 ["Small"]
-  SETTABLEKS R33 R32 K35 ["size"]
-  SETTABLEKS R19 R32 K36 ["onActivated"]
-  LOADK R33 K84 ["--date-range-selector-thismonth"]
-  SETTABLEKS R33 R32 K37 ["testId"]
-  MOVE R33 R1
-  CALL R33 0 1
-  SETTABLEKS R33 R32 K38 ["LayoutOrder"]
-  CALL R30 2 1
-  SETTABLEKS R30 R29 K73 ["ThisMonth"]
-  CALL R26 3 1
-  SETTABLEKS R26 R25 K20 ["QuickSelect"]
-  GETUPVAL R27 1
-  GETTABLEKS R26 R27 K10 ["createElement"]
-  GETUPVAL R28 3
-  GETTABLEKS R27 R28 K59 ["Divider"]
-  DUPTABLE R28 K60 [{"LayoutOrder"}]
-  MOVE R29 R1
-  CALL R29 0 1
-  SETTABLEKS R29 R28 K38 ["LayoutOrder"]
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K21 ["DividerBottom"]
-  GETUPVAL R27 1
-  GETTABLEKS R26 R27 K10 ["createElement"]
-  GETUPVAL R28 3
-  GETTABLEKS R27 R28 K11 ["View"]
-  DUPTABLE R28 K48 [{"tag", "LayoutOrder"}]
-  LOADK R29 K25 ["size-0-0 auto-xy row align-y-center padding-small gap-xsmall"]
-  SETTABLEKS R29 R28 K12 ["tag"]
-  MOVE R29 R1
-  CALL R29 0 1
-  SETTABLEKS R29 R28 K38 ["LayoutOrder"]
-  DUPTABLE R29 K87 [{"ResetButton", "ApplyButton"}]
-  MOVE R30 R13
-  JUMPIFNOT R30 [+51]
-  GETUPVAL R31 1
-  GETTABLEKS R30 R31 K10 ["createElement"]
-  GETUPVAL R32 3
-  GETTABLEKS R31 R32 K32 ["Button"]
-  DUPTABLE R32 K90 [{"text", "variant", "size", "fillBehavior", "isDisabled", "onActivated", "testId", "LayoutOrder"}]
-  LOADK R33 K91 ["Reset"]
-  SETTABLEKS R33 R32 K76 ["text"]
-  GETUPVAL R36 3
-  GETTABLEKS R35 R36 K40 ["Enums"]
-  GETTABLEKS R34 R35 K43 ["ButtonVariant"]
-  GETTABLEKS R33 R34 K44 ["Text"]
-  SETTABLEKS R33 R32 K34 ["variant"]
-  GETUPVAL R36 3
-  GETTABLEKS R35 R36 K40 ["Enums"]
-  GETTABLEKS R34 R35 K45 ["InputSize"]
-  GETTABLEKS R33 R34 K46 ["XSmall"]
-  SETTABLEKS R33 R32 K35 ["size"]
-  GETUPVAL R36 3
-  GETTABLEKS R35 R36 K40 ["Enums"]
-  GETTABLEKS R34 R35 K92 ["FillBehavior"]
-  GETTABLEKS R33 R34 K93 ["Fill"]
-  SETTABLEKS R33 R32 K88 ["fillBehavior"]
-  GETTABLEKS R33 R12 K68 ["enabled"]
-  SETTABLEKS R33 R32 K89 ["isDisabled"]
-  SETTABLEKS R16 R32 K36 ["onActivated"]
-  LOADK R33 K94 ["--date-range-selector-reset"]
-  SETTABLEKS R33 R32 K37 ["testId"]
-  MOVE R33 R1
-  CALL R33 0 1
-  SETTABLEKS R33 R32 K38 ["LayoutOrder"]
-  CALL R30 2 1
-  SETTABLEKS R30 R29 K85 ["ResetButton"]
-  GETUPVAL R31 1
-  GETTABLEKS R30 R31 K10 ["createElement"]
-  GETUPVAL R32 3
-  GETTABLEKS R31 R32 K32 ["Button"]
-  DUPTABLE R32 K90 [{"text", "variant", "size", "fillBehavior", "isDisabled", "onActivated", "testId", "LayoutOrder"}]
-  LOADK R33 K95 ["Apply"]
-  SETTABLEKS R33 R32 K76 ["text"]
-  GETUPVAL R36 3
-  GETTABLEKS R35 R36 K40 ["Enums"]
-  GETTABLEKS R34 R35 K43 ["ButtonVariant"]
-  GETTABLEKS R33 R34 K96 ["Emphasis"]
-  SETTABLEKS R33 R32 K34 ["variant"]
-  GETUPVAL R36 3
-  GETTABLEKS R35 R36 K40 ["Enums"]
-  GETTABLEKS R34 R35 K45 ["InputSize"]
-  GETTABLEKS R33 R34 K46 ["XSmall"]
-  SETTABLEKS R33 R32 K35 ["size"]
-  GETUPVAL R36 3
-  GETTABLEKS R35 R36 K40 ["Enums"]
-  GETTABLEKS R34 R35 K92 ["FillBehavior"]
-  GETTABLEKS R33 R34 K93 ["Fill"]
-  SETTABLEKS R33 R32 K88 ["fillBehavior"]
-  GETTABLEKS R34 R12 K68 ["enabled"]
-  OR R33 R34 R14
-  SETTABLEKS R33 R32 K89 ["isDisabled"]
-  SETTABLEKS R15 R32 K36 ["onActivated"]
-  LOADK R33 K97 ["--date-range-selector-apply"]
-  SETTABLEKS R33 R32 K37 ["testId"]
-  MOVE R33 R1
-  CALL R33 0 1
-  SETTABLEKS R33 R32 K38 ["LayoutOrder"]
-  CALL R30 2 1
-  SETTABLEKS R30 R29 K86 ["ApplyButton"]
-  CALL R26 3 1
-  SETTABLEKS R26 R25 K22 ["Footer"]
-  CALL R22 3 -1
-  RETURN R22 -1
+  GETTABLEKS R24 R25 K12 ["View"]
+  DUPTABLE R25 K15 [{"tag", "Size"}]
+  LOADK R26 K16 ["size-0-0 auto-y col align-x-center items-stretch"]
+  SETTABLEKS R26 R25 K13 ["tag"]
+  GETUPVAL R26 5
+  SETTABLEKS R26 R25 K14 ["Size"]
+  DUPTABLE R26 K24 [{"Header", "DividerTop", "Body", "DividerMiddle", "QuickSelect", "DividerBottom", "Footer"}]
+  GETUPVAL R28 2
+  GETTABLEKS R27 R28 K11 ["createElement"]
+  GETUPVAL R29 4
+  GETTABLEKS R28 R29 K12 ["View"]
+  DUPTABLE R29 K25 [{"tag"}]
+  LOADK R30 K26 ["size-0-0 auto-xy row align-y-center padding-small gap-xsmall"]
+  SETTABLEKS R30 R29 K13 ["tag"]
+  DUPTABLE R30 K32 [{"PrevMonthButton", "LeftSpacer", "YearMonthText", "RightSpacer", "NextMonthButton"}]
+  GETUPVAL R32 2
+  GETTABLEKS R31 R32 K11 ["createElement"]
+  GETUPVAL R33 4
+  GETTABLEKS R32 R33 K33 ["Button"]
+  DUPTABLE R33 K40 [{"icon", "variant", "size", "onActivated", "testId", "LayoutOrder"}]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K41 ["Enums"]
+  GETTABLEKS R35 R36 K42 ["IconName"]
+  GETTABLEKS R34 R35 K43 ["ChevronLargeLeft"]
+  SETTABLEKS R34 R33 K34 ["icon"]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K41 ["Enums"]
+  GETTABLEKS R35 R36 K44 ["ButtonVariant"]
+  GETTABLEKS R34 R35 K45 ["Text"]
+  SETTABLEKS R34 R33 K35 ["variant"]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K41 ["Enums"]
+  GETTABLEKS R35 R36 K46 ["InputSize"]
+  GETTABLEKS R34 R35 K47 ["XSmall"]
+  SETTABLEKS R34 R33 K36 ["size"]
+  SETTABLEKS R21 R33 K37 ["onActivated"]
+  LOADK R34 K48 ["--date-range-selector-prev-month"]
+  SETTABLEKS R34 R33 K38 ["testId"]
+  MOVE R34 R1
+  CALL R34 0 1
+  SETTABLEKS R34 R33 K39 ["LayoutOrder"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K27 ["PrevMonthButton"]
+  GETUPVAL R32 2
+  GETTABLEKS R31 R32 K11 ["createElement"]
+  GETUPVAL R33 4
+  GETTABLEKS R32 R33 K12 ["View"]
+  DUPTABLE R33 K49 [{"tag", "LayoutOrder"}]
+  LOADK R34 K50 ["fill"]
+  SETTABLEKS R34 R33 K13 ["tag"]
+  MOVE R34 R1
+  CALL R34 0 1
+  SETTABLEKS R34 R33 K39 ["LayoutOrder"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K28 ["LeftSpacer"]
+  GETUPVAL R32 2
+  GETTABLEKS R31 R32 K11 ["createElement"]
+  GETUPVAL R33 4
+  GETTABLEKS R32 R33 K45 ["Text"]
+  DUPTABLE R33 K51 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R34 K52 ["size-0-0 auto-xy text-label-small text-no-wrap"]
+  SETTABLEKS R34 R33 K13 ["tag"]
+  GETIMPORT R34 K54 [DateTime.fromLocalTime]
+  MOVE R35 R9
+  MOVE R36 R11
+  CALL R34 2 1
+  LOADK R36 K55 ["MMMM YYYY"]
+  NAMECALL R37 R2 K56 ["getLocale"]
+  CALL R37 1 -1
+  NAMECALL R34 R34 K57 ["FormatLocalTime"]
+  CALL R34 -1 1
+  SETTABLEKS R34 R33 K45 ["Text"]
+  MOVE R34 R1
+  CALL R34 0 1
+  SETTABLEKS R34 R33 K39 ["LayoutOrder"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K29 ["YearMonthText"]
+  GETUPVAL R32 2
+  GETTABLEKS R31 R32 K11 ["createElement"]
+  GETUPVAL R33 4
+  GETTABLEKS R32 R33 K12 ["View"]
+  DUPTABLE R33 K49 [{"tag", "LayoutOrder"}]
+  LOADK R34 K50 ["fill"]
+  SETTABLEKS R34 R33 K13 ["tag"]
+  MOVE R34 R1
+  CALL R34 0 1
+  SETTABLEKS R34 R33 K39 ["LayoutOrder"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K30 ["RightSpacer"]
+  GETUPVAL R32 2
+  GETTABLEKS R31 R32 K11 ["createElement"]
+  GETUPVAL R33 4
+  GETTABLEKS R32 R33 K33 ["Button"]
+  DUPTABLE R33 K40 [{"icon", "variant", "size", "onActivated", "testId", "LayoutOrder"}]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K41 ["Enums"]
+  GETTABLEKS R35 R36 K42 ["IconName"]
+  GETTABLEKS R34 R35 K58 ["ChevronLargeRight"]
+  SETTABLEKS R34 R33 K34 ["icon"]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K41 ["Enums"]
+  GETTABLEKS R35 R36 K44 ["ButtonVariant"]
+  GETTABLEKS R34 R35 K45 ["Text"]
+  SETTABLEKS R34 R33 K35 ["variant"]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K41 ["Enums"]
+  GETTABLEKS R35 R36 K46 ["InputSize"]
+  GETTABLEKS R34 R35 K47 ["XSmall"]
+  SETTABLEKS R34 R33 K36 ["size"]
+  SETTABLEKS R22 R33 K37 ["onActivated"]
+  LOADK R34 K59 ["--date-range-selector-next-month"]
+  SETTABLEKS R34 R33 K38 ["testId"]
+  MOVE R34 R1
+  CALL R34 0 1
+  SETTABLEKS R34 R33 K39 ["LayoutOrder"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K31 ["NextMonthButton"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K17 ["Header"]
+  GETUPVAL R28 2
+  GETTABLEKS R27 R28 K11 ["createElement"]
+  GETUPVAL R29 4
+  GETTABLEKS R28 R29 K60 ["Divider"]
+  DUPTABLE R29 K61 [{"LayoutOrder"}]
+  MOVE R30 R1
+  CALL R30 0 1
+  SETTABLEKS R30 R29 K39 ["LayoutOrder"]
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K18 ["DividerTop"]
+  GETUPVAL R28 2
+  GETTABLEKS R27 R28 K11 ["createElement"]
+  GETUPVAL R28 6
+  DUPTABLE R29 K68 [{"year", "month", "startDate", "onStartDateChanged", "endDate", "onEndDateChanged", "isSelecting", "onSelected", "LayoutOrder"}]
+  SETTABLEKS R9 R29 K62 ["year"]
+  SETTABLEKS R11 R29 K63 ["month"]
+  SETTABLEKS R3 R29 K2 ["startDate"]
+  SETTABLEKS R4 R29 K64 ["onStartDateChanged"]
+  SETTABLEKS R5 R29 K3 ["endDate"]
+  SETTABLEKS R6 R29 K65 ["onEndDateChanged"]
+  GETTABLEKS R30 R13 K69 ["enabled"]
+  SETTABLEKS R30 R29 K66 ["isSelecting"]
+  GETTABLEKS R30 R13 K70 ["toggle"]
+  SETTABLEKS R30 R29 K67 ["onSelected"]
+  MOVE R30 R1
+  CALL R30 0 1
+  SETTABLEKS R30 R29 K39 ["LayoutOrder"]
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K19 ["Body"]
+  GETUPVAL R28 2
+  GETTABLEKS R27 R28 K11 ["createElement"]
+  GETUPVAL R29 4
+  GETTABLEKS R28 R29 K60 ["Divider"]
+  DUPTABLE R29 K61 [{"LayoutOrder"}]
+  MOVE R30 R1
+  CALL R30 0 1
+  SETTABLEKS R30 R29 K39 ["LayoutOrder"]
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K20 ["DividerMiddle"]
+  GETUPVAL R28 2
+  GETTABLEKS R27 R28 K11 ["createElement"]
+  GETUPVAL R29 4
+  GETTABLEKS R28 R29 K12 ["View"]
+  DUPTABLE R29 K49 [{"tag", "LayoutOrder"}]
+  LOADK R30 K71 ["size-0-0 auto-xy row align-y-center padding-small gap-xsmall wrap"]
+  SETTABLEKS R30 R29 K13 ["tag"]
+  MOVE R30 R1
+  CALL R30 0 1
+  SETTABLEKS R30 R29 K39 ["LayoutOrder"]
+  DUPTABLE R30 K75 [{"Today", "ThisWeek", "ThisMonth"}]
+  GETUPVAL R32 2
+  GETTABLEKS R31 R32 K11 ["createElement"]
+  GETUPVAL R33 4
+  GETTABLEKS R32 R33 K76 ["Chip"]
+  DUPTABLE R33 K78 [{"text", "size", "onActivated", "testId", "LayoutOrder"}]
+  LOADK R36 K79 ["Label"]
+  LOADK R37 K72 ["Today"]
+  NAMECALL R34 R2 K80 ["getText"]
+  CALL R34 3 1
+  SETTABLEKS R34 R33 K77 ["text"]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K41 ["Enums"]
+  GETTABLEKS R35 R36 K81 ["ChipSize"]
+  GETTABLEKS R34 R35 K82 ["Small"]
+  SETTABLEKS R34 R33 K36 ["size"]
+  SETTABLEKS R18 R33 K37 ["onActivated"]
+  LOADK R34 K83 ["--date-range-selector-today"]
+  SETTABLEKS R34 R33 K38 ["testId"]
+  MOVE R34 R1
+  CALL R34 0 1
+  SETTABLEKS R34 R33 K39 ["LayoutOrder"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K72 ["Today"]
+  GETUPVAL R32 2
+  GETTABLEKS R31 R32 K11 ["createElement"]
+  GETUPVAL R33 4
+  GETTABLEKS R32 R33 K76 ["Chip"]
+  DUPTABLE R33 K78 [{"text", "size", "onActivated", "testId", "LayoutOrder"}]
+  LOADK R36 K79 ["Label"]
+  LOADK R37 K73 ["ThisWeek"]
+  NAMECALL R34 R2 K80 ["getText"]
+  CALL R34 3 1
+  SETTABLEKS R34 R33 K77 ["text"]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K41 ["Enums"]
+  GETTABLEKS R35 R36 K81 ["ChipSize"]
+  GETTABLEKS R34 R35 K82 ["Small"]
+  SETTABLEKS R34 R33 K36 ["size"]
+  SETTABLEKS R19 R33 K37 ["onActivated"]
+  LOADK R34 K84 ["--date-range-selector-thisweek"]
+  SETTABLEKS R34 R33 K38 ["testId"]
+  MOVE R34 R1
+  CALL R34 0 1
+  SETTABLEKS R34 R33 K39 ["LayoutOrder"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K73 ["ThisWeek"]
+  GETUPVAL R32 2
+  GETTABLEKS R31 R32 K11 ["createElement"]
+  GETUPVAL R33 4
+  GETTABLEKS R32 R33 K76 ["Chip"]
+  DUPTABLE R33 K78 [{"text", "size", "onActivated", "testId", "LayoutOrder"}]
+  LOADK R36 K79 ["Label"]
+  LOADK R37 K74 ["ThisMonth"]
+  NAMECALL R34 R2 K80 ["getText"]
+  CALL R34 3 1
+  SETTABLEKS R34 R33 K77 ["text"]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K41 ["Enums"]
+  GETTABLEKS R35 R36 K81 ["ChipSize"]
+  GETTABLEKS R34 R35 K82 ["Small"]
+  SETTABLEKS R34 R33 K36 ["size"]
+  SETTABLEKS R20 R33 K37 ["onActivated"]
+  LOADK R34 K85 ["--date-range-selector-thismonth"]
+  SETTABLEKS R34 R33 K38 ["testId"]
+  MOVE R34 R1
+  CALL R34 0 1
+  SETTABLEKS R34 R33 K39 ["LayoutOrder"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K74 ["ThisMonth"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K21 ["QuickSelect"]
+  GETUPVAL R28 2
+  GETTABLEKS R27 R28 K11 ["createElement"]
+  GETUPVAL R29 4
+  GETTABLEKS R28 R29 K60 ["Divider"]
+  DUPTABLE R29 K61 [{"LayoutOrder"}]
+  MOVE R30 R1
+  CALL R30 0 1
+  SETTABLEKS R30 R29 K39 ["LayoutOrder"]
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K22 ["DividerBottom"]
+  GETUPVAL R28 2
+  GETTABLEKS R27 R28 K11 ["createElement"]
+  GETUPVAL R29 4
+  GETTABLEKS R28 R29 K12 ["View"]
+  DUPTABLE R29 K49 [{"tag", "LayoutOrder"}]
+  LOADK R30 K26 ["size-0-0 auto-xy row align-y-center padding-small gap-xsmall"]
+  SETTABLEKS R30 R29 K13 ["tag"]
+  MOVE R30 R1
+  CALL R30 0 1
+  SETTABLEKS R30 R29 K39 ["LayoutOrder"]
+  DUPTABLE R30 K88 [{"ResetButton", "ApplyButton"}]
+  MOVE R31 R14
+  JUMPIFNOT R31 [+55]
+  GETUPVAL R32 2
+  GETTABLEKS R31 R32 K11 ["createElement"]
+  GETUPVAL R33 4
+  GETTABLEKS R32 R33 K33 ["Button"]
+  DUPTABLE R33 K91 [{"text", "variant", "size", "fillBehavior", "isDisabled", "onActivated", "testId", "LayoutOrder"}]
+  LOADK R36 K92 ["Action"]
+  LOADK R37 K93 ["Reset"]
+  NAMECALL R34 R2 K80 ["getText"]
+  CALL R34 3 1
+  SETTABLEKS R34 R33 K77 ["text"]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K41 ["Enums"]
+  GETTABLEKS R35 R36 K44 ["ButtonVariant"]
+  GETTABLEKS R34 R35 K45 ["Text"]
+  SETTABLEKS R34 R33 K35 ["variant"]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K41 ["Enums"]
+  GETTABLEKS R35 R36 K46 ["InputSize"]
+  GETTABLEKS R34 R35 K47 ["XSmall"]
+  SETTABLEKS R34 R33 K36 ["size"]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K41 ["Enums"]
+  GETTABLEKS R35 R36 K94 ["FillBehavior"]
+  GETTABLEKS R34 R35 K95 ["Fill"]
+  SETTABLEKS R34 R33 K89 ["fillBehavior"]
+  GETTABLEKS R34 R13 K69 ["enabled"]
+  SETTABLEKS R34 R33 K90 ["isDisabled"]
+  SETTABLEKS R17 R33 K37 ["onActivated"]
+  LOADK R34 K96 ["--date-range-selector-reset"]
+  SETTABLEKS R34 R33 K38 ["testId"]
+  MOVE R34 R1
+  CALL R34 0 1
+  SETTABLEKS R34 R33 K39 ["LayoutOrder"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K86 ["ResetButton"]
+  GETUPVAL R32 2
+  GETTABLEKS R31 R32 K11 ["createElement"]
+  GETUPVAL R33 4
+  GETTABLEKS R32 R33 K33 ["Button"]
+  DUPTABLE R33 K91 [{"text", "variant", "size", "fillBehavior", "isDisabled", "onActivated", "testId", "LayoutOrder"}]
+  LOADK R36 K92 ["Action"]
+  LOADK R37 K97 ["Apply"]
+  NAMECALL R34 R2 K80 ["getText"]
+  CALL R34 3 1
+  SETTABLEKS R34 R33 K77 ["text"]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K41 ["Enums"]
+  GETTABLEKS R35 R36 K44 ["ButtonVariant"]
+  GETTABLEKS R34 R35 K98 ["Emphasis"]
+  SETTABLEKS R34 R33 K35 ["variant"]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K41 ["Enums"]
+  GETTABLEKS R35 R36 K46 ["InputSize"]
+  GETTABLEKS R34 R35 K47 ["XSmall"]
+  SETTABLEKS R34 R33 K36 ["size"]
+  GETUPVAL R37 4
+  GETTABLEKS R36 R37 K41 ["Enums"]
+  GETTABLEKS R35 R36 K94 ["FillBehavior"]
+  GETTABLEKS R34 R35 K95 ["Fill"]
+  SETTABLEKS R34 R33 K89 ["fillBehavior"]
+  GETTABLEKS R35 R13 K69 ["enabled"]
+  OR R34 R35 R15
+  SETTABLEKS R34 R33 K90 ["isDisabled"]
+  SETTABLEKS R16 R33 K37 ["onActivated"]
+  LOADK R34 K99 ["--date-range-selector-apply"]
+  SETTABLEKS R34 R33 K38 ["testId"]
+  MOVE R34 R1
+  CALL R34 0 1
+  SETTABLEKS R34 R33 K39 ["LayoutOrder"]
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K87 ["ApplyButton"]
+  CALL R27 3 1
+  SETTABLEKS R27 R26 K23 ["Footer"]
+  CALL R23 3 -1
+  RETURN R23 -1
 
 PROTO_12:
   GETUPVAL R0 0
   LOADNIL R1
   CALL R0 1 0
   GETUPVAL R0 1
-  JUMPIFNOTEQKS R0 K0 ["Today"] [+3]
-  LOADK R0 K0 ["Today"]
-  RETURN R0 1
+  JUMPIFNOTEQKS R0 K0 ["Today"] [+8]
+  GETUPVAL R0 2
+  LOADK R2 K1 ["Label"]
+  LOADK R3 K0 ["Today"]
+  NAMECALL R0 R0 K2 ["getText"]
+  CALL R0 3 -1
+  RETURN R0 -1
   GETUPVAL R0 1
-  JUMPIFNOTEQKS R0 K1 ["ThisWeek"] [+3]
-  LOADK R0 K2 ["This week"]
-  RETURN R0 1
+  JUMPIFNOTEQKS R0 K3 ["ThisWeek"] [+8]
+  GETUPVAL R0 2
+  LOADK R2 K1 ["Label"]
+  LOADK R3 K3 ["ThisWeek"]
+  NAMECALL R0 R0 K2 ["getText"]
+  CALL R0 3 -1
+  RETURN R0 -1
   GETUPVAL R0 1
-  JUMPIFNOTEQKS R0 K3 ["ThisMonth"] [+3]
-  LOADK R0 K4 ["This month"]
-  RETURN R0 1
-  GETUPVAL R1 2
+  JUMPIFNOTEQKS R0 K4 ["ThisMonth"] [+8]
+  GETUPVAL R0 2
+  LOADK R2 K1 ["Label"]
+  LOADK R3 K4 ["ThisMonth"]
+  NAMECALL R0 R0 K2 ["getText"]
+  CALL R0 3 -1
+  RETURN R0 -1
+  GETUPVAL R1 3
   GETTABLEKS R0 R1 K5 ["startDate"]
-  JUMPIFNOTEQKNIL R0 [+8]
-  GETUPVAL R1 2
+  JUMPIFNOTEQKNIL R0 [+13]
+  GETUPVAL R1 3
   GETTABLEKS R0 R1 K6 ["endDate"]
-  JUMPIFNOTEQKNIL R0 [+3]
-  LOADK R0 K7 ["All time"]
-  RETURN R0 1
-  GETUPVAL R2 2
+  JUMPIFNOTEQKNIL R0 [+8]
+  GETUPVAL R0 2
+  LOADK R2 K1 ["Label"]
+  LOADK R3 K7 ["AllTime"]
+  NAMECALL R0 R0 K2 ["getText"]
+  CALL R0 3 -1
+  RETURN R0 -1
+  GETUPVAL R2 3
   GETTABLEKS R1 R2 K5 ["startDate"]
-  JUMPIFNOT R1 [+9]
-  GETUPVAL R1 2
+  JUMPIFNOT R1 [+12]
+  GETUPVAL R1 3
   GETTABLEKS R0 R1 K5 ["startDate"]
   LOADK R2 K8 ["ll"]
-  LOADK R3 K9 ["en-us"]
+  GETUPVAL R3 2
+  NAMECALL R3 R3 K9 ["getLocale"]
+  CALL R3 1 -1
   NAMECALL R0 R0 K10 ["FormatLocalTime"]
-  CALL R0 3 1
+  CALL R0 -1 1
   JUMP [+1]
   LOADK R0 K11 [""]
-  GETUPVAL R3 2
+  GETUPVAL R3 3
   GETTABLEKS R2 R3 K6 ["endDate"]
-  JUMPIFNOT R2 [+9]
-  GETUPVAL R2 2
+  JUMPIFNOT R2 [+12]
+  GETUPVAL R2 3
   GETTABLEKS R1 R2 K6 ["endDate"]
   LOADK R3 K8 ["ll"]
-  LOADK R4 K9 ["en-us"]
+  GETUPVAL R4 2
+  NAMECALL R4 R4 K9 ["getLocale"]
+  CALL R4 1 -1
   NAMECALL R1 R1 K10 ["FormatLocalTime"]
-  CALL R1 3 1
+  CALL R1 -1 1
   JUMP [+1]
   LOADK R1 K11 [""]
   LOADK R3 K12 ["%* - %*"]
@@ -698,55 +737,59 @@ PROTO_14:
   GETUPVAL R1 0
   CALL R1 0 1
   GETUPVAL R2 1
-  CALL R2 0 1
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K0 ["useState"]
-  LOADNIL R4
-  CALL R3 1 2
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K1 ["useMemo"]
-  NEWCLOSURE R6 P0
-  CAPTURE VAL R4
-  CAPTURE VAL R3
-  CAPTURE VAL R0
-  NEWTABLE R7 0 2
-  GETTABLEKS R8 R0 K2 ["startDate"]
-  GETTABLEKS R9 R0 K3 ["endDate"]
-  SETLIST R7 R8 2 [1]
-  CALL R5 2 1
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K4 ["useCallback"]
-  NEWCLOSURE R7 P1
-  CAPTURE VAL R0
+  NAMECALL R2 R2 K0 ["use"]
+  CALL R2 1 1
+  GETUPVAL R3 2
+  CALL R3 0 1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K1 ["useState"]
+  LOADNIL R5
+  CALL R4 1 2
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K2 ["useMemo"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R5
   CAPTURE VAL R4
   CAPTURE VAL R2
-  NEWTABLE R8 0 0
+  CAPTURE VAL R0
+  NEWTABLE R8 0 2
+  GETTABLEKS R9 R0 K3 ["startDate"]
+  GETTABLEKS R10 R0 K4 ["endDate"]
+  SETLIST R8 R9 2 [1]
   CALL R6 2 1
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K5 ["createElement"]
   GETUPVAL R8 3
-  DUPTABLE R9 K9 [{"toggle", "text", "LayoutOrder"}]
-  SETTABLEKS R2 R9 K6 ["toggle"]
-  SETTABLEKS R5 R9 K7 ["text"]
-  GETTABLEKS R10 R0 K8 ["LayoutOrder"]
-  SETTABLEKS R10 R9 K8 ["LayoutOrder"]
-  DUPTABLE R10 K11 [{"Content"}]
-  GETUPVAL R12 2
-  GETTABLEKS R11 R12 K5 ["createElement"]
-  GETUPVAL R12 4
-  DUPTABLE R13 K13 [{"startDate", "endDate", "onSelected", "LayoutOrder"}]
-  GETTABLEKS R14 R0 K2 ["startDate"]
-  SETTABLEKS R14 R13 K2 ["startDate"]
-  GETTABLEKS R14 R0 K3 ["endDate"]
-  SETTABLEKS R14 R13 K3 ["endDate"]
-  SETTABLEKS R6 R13 K12 ["onSelected"]
-  MOVE R14 R1
-  CALL R14 0 1
-  SETTABLEKS R14 R13 K8 ["LayoutOrder"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K10 ["Content"]
-  CALL R7 3 -1
-  RETURN R7 -1
+  GETTABLEKS R7 R8 K5 ["useCallback"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  NEWTABLE R9 0 0
+  CALL R7 2 1
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K6 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K10 [{"toggle", "text", "LayoutOrder"}]
+  SETTABLEKS R3 R10 K7 ["toggle"]
+  SETTABLEKS R6 R10 K8 ["text"]
+  GETTABLEKS R11 R0 K9 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K9 ["LayoutOrder"]
+  DUPTABLE R11 K12 [{"Content"}]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K6 ["createElement"]
+  GETUPVAL R13 5
+  DUPTABLE R14 K14 [{"startDate", "endDate", "onSelected", "LayoutOrder"}]
+  GETTABLEKS R15 R0 K3 ["startDate"]
+  SETTABLEKS R15 R14 K3 ["startDate"]
+  GETTABLEKS R15 R0 K4 ["endDate"]
+  SETTABLEKS R15 R14 K4 ["endDate"]
+  SETTABLEKS R7 R14 K13 ["onSelected"]
+  MOVE R15 R1
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K9 ["LayoutOrder"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K11 ["Content"]
+  CALL R8 3 -1
+  RETURN R8 -1
 
 MAIN:
   PREPVARARGS 0
@@ -766,35 +809,43 @@ MAIN:
   GETTABLEKS R5 R0 K6 ["Packages"]
   GETTABLEKS R4 R5 K9 ["Foundation"]
   CALL R3 1 1
-  GETTABLEKS R4 R2 K10 ["createNextOrder"]
-  GETTABLEKS R5 R2 K11 ["useToggleState"]
-  GETTABLEKS R7 R0 K12 ["Src"]
-  GETTABLEKS R6 R7 K13 ["Components"]
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R8 R6 K14 ["Dropdown"]
-  CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R9 R6 K15 ["Calendar"]
-  CALL R8 1 1
-  GETIMPORT R9 K18 [UDim2.fromOffset]
-  LOADN R10 240
-  LOADN R11 0
-  CALL R9 2 1
-  DUPCLOSURE R10 K19 [PROTO_0]
-  DUPCLOSURE R11 K20 [PROTO_1]
-  DUPCLOSURE R12 K21 [PROTO_2]
-  DUPCLOSURE R13 K22 [PROTO_3]
-  DUPCLOSURE R14 K23 [PROTO_11]
-  CAPTURE VAL R4
-  CAPTURE VAL R1
-  CAPTURE VAL R5
-  CAPTURE VAL R3
-  CAPTURE VAL R9
-  CAPTURE VAL R8
-  DUPCLOSURE R15 K24 [PROTO_14]
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K11 ["ContextServices"]
+  GETTABLEKS R6 R5 K12 ["Localization"]
+  GETTABLEKS R7 R2 K13 ["createNextOrder"]
+  GETTABLEKS R8 R2 K14 ["useToggleState"]
+  GETTABLEKS R10 R0 K15 ["Src"]
+  GETTABLEKS R9 R10 K16 ["Components"]
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R11 R9 K17 ["Dropdown"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R12 R9 K18 ["Calendar"]
+  CALL R11 1 1
+  GETIMPORT R12 K21 [UDim2.fromOffset]
+  LOADN R13 240
+  LOADN R14 0
+  CALL R12 2 1
+  DUPCLOSURE R13 K22 [PROTO_0]
+  DUPCLOSURE R14 K23 [PROTO_1]
+  DUPCLOSURE R15 K24 [PROTO_2]
+  DUPCLOSURE R16 K25 [PROTO_3]
+  DUPCLOSURE R17 K26 [PROTO_11]
   CAPTURE VAL R7
-  CAPTURE VAL R14
-  RETURN R15 1
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R12
+  CAPTURE VAL R11
+  DUPCLOSURE R18 K27 [PROTO_14]
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE VAL R10
+  CAPTURE VAL R17
+  RETURN R18 1

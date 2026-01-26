@@ -160,7 +160,7 @@ MAIN:
   CALL R1 1 1
   GETTABLEKS R2 R1 K8 ["launch"]
   LOADK R3 K9 ["Toolbox"]
-  GETTABLEKS R4 R0 K10 ["Core"]
+  GETTABLEKS R4 R0 K10 ["Src"]
   CALL R2 2 0
   GETTABLEKS R2 R1 K11 ["isCli"]
   CALL R2 0 1
@@ -172,12 +172,12 @@ MAIN:
   CALL R2 1 1
   GETTABLEKS R3 R2 K13 ["PluginLoaderBuilder"]
   GETIMPORT R4 K1 [require]
-  GETTABLEKS R7 R0 K10 ["Core"]
+  GETTABLEKS R7 R0 K10 ["Src"]
   GETTABLEKS R6 R7 K14 ["Util"]
   GETTABLEKS R5 R6 K15 ["Constants"]
   CALL R4 1 1
   GETIMPORT R5 K1 [require]
-  GETTABLEKS R8 R0 K10 ["Core"]
+  GETTABLEKS R8 R0 K10 ["Src"]
   GETTABLEKS R7 R8 K14 ["Util"]
   GETTABLEKS R6 R7 K16 ["Images"]
   CALL R5 1 1
@@ -248,66 +248,68 @@ MAIN:
   SETTABLEKS R13 R12 K45 ["plugin"]
   LOADK R13 K9 ["Toolbox"]
   SETTABLEKS R13 R12 K46 ["pluginName"]
-  GETTABLEKS R14 R0 K58 ["LocalizationSource"]
-  GETTABLEKS R13 R14 K59 ["LocalizedStrings"]
+  GETTABLEKS R15 R0 K58 ["Resources"]
+  GETTABLEKS R14 R15 K59 ["Localization"]
+  GETTABLEKS R13 R14 K60 ["LocalizedStrings"]
   SETTABLEKS R13 R12 K47 ["translationResourceTable"]
-  GETTABLEKS R14 R0 K58 ["LocalizationSource"]
-  GETTABLEKS R13 R14 K60 ["SourceStrings"]
+  GETTABLEKS R15 R0 K58 ["Resources"]
+  GETTABLEKS R14 R15 K59 ["Localization"]
+  GETTABLEKS R13 R14 K61 ["SourceStrings"]
   SETTABLEKS R13 R12 K48 ["fallbackResourceTable"]
   LOADNIL R13
   SETTABLEKS R13 R12 K49 ["overrideLocaleId"]
   LOADNIL R13
   SETTABLEKS R13 R12 K50 ["localizationNamespace"]
-  DUPCLOSURE R13 K61 [PROTO_13]
+  DUPCLOSURE R13 K62 [PROTO_13]
   SETTABLEKS R13 R12 K51 ["getToolbarName"]
-  DUPTABLE R13 K67 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden"}]
-  DUPCLOSURE R14 K68 [PROTO_14]
-  SETTABLEKS R14 R13 K62 ["getName"]
-  DUPCLOSURE R14 K69 [PROTO_15]
-  SETTABLEKS R14 R13 K63 ["getDescription"]
-  GETTABLEKS R14 R5 K70 ["TOOLBOX_ICON"]
-  SETTABLEKS R14 R13 K64 ["icon"]
+  DUPTABLE R13 K68 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden"}]
+  DUPCLOSURE R14 K69 [PROTO_14]
+  SETTABLEKS R14 R13 K63 ["getName"]
+  DUPCLOSURE R14 K70 [PROTO_15]
+  SETTABLEKS R14 R13 K64 ["getDescription"]
+  GETTABLEKS R14 R5 K71 ["TOOLBOX_ICON"]
+  SETTABLEKS R14 R13 K65 ["icon"]
   LOADNIL R14
-  SETTABLEKS R14 R13 K65 ["text"]
+  SETTABLEKS R14 R13 K66 ["text"]
   LOADB R14 1
-  SETTABLEKS R14 R13 K66 ["clickableWhenViewportHidden"]
+  SETTABLEKS R14 R13 K67 ["clickableWhenViewportHidden"]
   SETTABLEKS R13 R12 K52 ["buttonInfo"]
-  DUPTABLE R13 K76 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "name", "zIndexBehavior"}]
+  DUPTABLE R13 K77 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "name", "zIndexBehavior"}]
   LOADK R14 K9 ["Toolbox"]
-  SETTABLEKS R14 R13 K71 ["id"]
-  GETIMPORT R14 K79 [DockWidgetPluginGuiInfo.new]
-  GETIMPORT R15 K83 [Enum.InitialDockState.Left]
+  SETTABLEKS R14 R13 K72 ["id"]
+  GETIMPORT R14 K80 [DockWidgetPluginGuiInfo.new]
+  GETIMPORT R15 K84 [Enum.InitialDockState.Left]
   LOADB R16 1
   LOADB R17 0
   LOADN R18 0
   LOADN R19 0
-  GETTABLEKS R20 R4 K84 ["TOOLBOX_MIN_WIDTH"]
-  GETTABLEKS R21 R4 K85 ["TOOLBOX_MIN_HEIGHT"]
+  GETTABLEKS R20 R4 K85 ["TOOLBOX_MIN_WIDTH"]
+  GETTABLEKS R21 R4 K86 ["TOOLBOX_MIN_HEIGHT"]
   CALL R14 7 1
-  SETTABLEKS R14 R13 K72 ["dockWidgetPluginGuiInfo"]
-  DUPCLOSURE R14 K86 [PROTO_16]
-  SETTABLEKS R14 R13 K73 ["getDockTitle"]
+  SETTABLEKS R14 R13 K73 ["dockWidgetPluginGuiInfo"]
+  DUPCLOSURE R14 K87 [PROTO_16]
+  SETTABLEKS R14 R13 K74 ["getDockTitle"]
   LOADK R14 K9 ["Toolbox"]
-  SETTABLEKS R14 R13 K74 ["name"]
-  GETIMPORT R14 K89 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R14 R13 K75 ["zIndexBehavior"]
+  SETTABLEKS R14 R13 K75 ["name"]
+  GETIMPORT R14 K90 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R14 R13 K76 ["zIndexBehavior"]
   SETTABLEKS R13 R12 K53 ["dockWidgetInfo"]
   SETTABLEKS R11 R12 K54 ["extraTriggers"]
-  DUPCLOSURE R13 K90 [PROTO_17]
+  DUPCLOSURE R13 K91 [PROTO_17]
   CAPTURE VAL R7
   SETTABLEKS R13 R12 K55 ["shouldImmediatelyOpen"]
-  GETTABLEKS R13 R3 K91 ["build"]
+  GETTABLEKS R13 R3 K92 ["build"]
   MOVE R14 R12
   CALL R13 1 1
-  GETTABLEKS R14 R13 K92 ["pluginLoader"]
-  NAMECALL R14 R14 K93 ["waitForUserInteraction"]
+  GETTABLEKS R14 R13 K93 ["pluginLoader"]
+  NAMECALL R14 R14 K94 ["waitForUserInteraction"]
   CALL R14 1 1
   JUMPIF R14 [+1]
   RETURN R0 0
   GETIMPORT R15 K1 [require]
   GETIMPORT R18 K3 [script]
   GETTABLEKS R17 R18 K4 ["Parent"]
-  GETTABLEKS R16 R17 K94 ["main"]
+  GETTABLEKS R16 R17 K95 ["main"]
   CALL R15 1 1
   MOVE R16 R15
   GETIMPORT R17 K57 [plugin]

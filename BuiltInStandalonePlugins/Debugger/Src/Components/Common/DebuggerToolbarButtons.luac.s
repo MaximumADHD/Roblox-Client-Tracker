@@ -239,34 +239,28 @@ PROTO_12:
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K16 ["createElement"]
   GETUPVAL R8 2
-  DUPTABLE R9 K26 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "icon", "OnClick", "ClickableWhenViewportHidden"}]
-  LOADK R10 K27 ["simulationResumeActionV2"]
+  DUPTABLE R9 K25 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
+  LOADK R10 K26 ["simulationResumeActionV2"]
   SETTABLEKS R10 R9 K17 ["Name"]
   SETTABLEKS R1 R9 K18 ["Toolbar"]
   LOADB R10 0
   SETTABLEKS R10 R9 K19 ["Active"]
   SETTABLEKS R4 R9 K20 ["Enabled"]
-  LOADK R10 K28 ["Resume"]
+  LOADK R10 K27 ["Resume"]
   SETTABLEKS R10 R9 K21 ["Title"]
-  LOADK R10 K29 [""]
+  LOADK R10 K28 [""]
   SETTABLEKS R10 R9 K22 ["Tooltip"]
-  GETUPVAL R11 3
-  JUMPIFNOT R11 [+2]
-  LOADNIL R10
-  JUMP [+1]
-  LOADK R10 K30 ["rbxlocaltheme://Resume"]
-  SETTABLEKS R10 R9 K23 ["icon"]
-  GETTABLEKS R10 R0 K31 ["onResume"]
-  SETTABLEKS R10 R9 K24 ["OnClick"]
+  GETTABLEKS R10 R0 K29 ["onResume"]
+  SETTABLEKS R10 R9 K23 ["OnClick"]
   LOADB R10 1
-  SETTABLEKS R10 R9 K25 ["ClickableWhenViewportHidden"]
+  SETTABLEKS R10 R9 K24 ["ClickableWhenViewportHidden"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K10 ["ResumeButton"]
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K16 ["createElement"]
   GETUPVAL R8 2
-  DUPTABLE R9 K26 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "icon", "OnClick", "ClickableWhenViewportHidden"}]
-  LOADK R10 K32 ["simulationPauseActionV2"]
+  DUPTABLE R9 K25 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
+  LOADK R10 K30 ["simulationPauseActionV2"]
   SETTABLEKS R10 R9 K17 ["Name"]
   SETTABLEKS R1 R9 K18 ["Toolbar"]
   LOADB R10 0
@@ -274,113 +268,89 @@ PROTO_12:
   NOT R11 R4
   AND R10 R11 R3
   SETTABLEKS R10 R9 K20 ["Enabled"]
-  LOADK R10 K33 ["Pause"]
+  LOADK R10 K31 ["Pause"]
   SETTABLEKS R10 R9 K21 ["Title"]
-  LOADK R10 K29 [""]
+  LOADK R10 K28 [""]
   SETTABLEKS R10 R9 K22 ["Tooltip"]
-  GETUPVAL R11 3
-  JUMPIFNOT R11 [+2]
-  LOADNIL R10
-  JUMP [+1]
-  LOADK R10 K34 ["rbxlocaltheme://Pause"]
-  SETTABLEKS R10 R9 K23 ["icon"]
-  GETTABLEKS R10 R0 K35 ["onPause"]
-  SETTABLEKS R10 R9 K24 ["OnClick"]
+  GETTABLEKS R10 R0 K32 ["onPause"]
+  SETTABLEKS R10 R9 K23 ["OnClick"]
   LOADB R10 1
-  SETTABLEKS R10 R9 K25 ["ClickableWhenViewportHidden"]
+  SETTABLEKS R10 R9 K24 ["ClickableWhenViewportHidden"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K11 ["PauseButton"]
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K16 ["createElement"]
   GETUPVAL R8 2
-  DUPTABLE R9 K26 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "icon", "OnClick", "ClickableWhenViewportHidden"}]
-  LOADK R10 K36 ["stepOverActionV2"]
+  DUPTABLE R9 K25 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
+  LOADK R10 K33 ["stepOverActionV2"]
   SETTABLEKS R10 R9 K17 ["Name"]
   SETTABLEKS R1 R9 K18 ["Toolbar"]
   LOADB R10 0
   SETTABLEKS R10 R9 K19 ["Active"]
   LOADB R10 0
   GETTABLEKS R12 R0 K4 ["props"]
-  GETTABLEKS R11 R12 K37 ["CurrentThreadId"]
+  GETTABLEKS R11 R12 K34 ["CurrentThreadId"]
   JUMPIFEQKNIL R11 [+2]
   NOT R10 R5
   SETTABLEKS R10 R9 K20 ["Enabled"]
-  LOADK R10 K38 ["StepOver"]
+  LOADK R10 K35 ["StepOver"]
   SETTABLEKS R10 R9 K21 ["Title"]
-  LOADK R10 K29 [""]
+  LOADK R10 K28 [""]
   SETTABLEKS R10 R9 K22 ["Tooltip"]
-  GETUPVAL R11 3
-  JUMPIFNOT R11 [+2]
-  LOADNIL R10
-  JUMP [+1]
-  LOADK R10 K39 ["rbxlocaltheme://StepOver"]
-  SETTABLEKS R10 R9 K23 ["icon"]
-  GETTABLEKS R10 R0 K40 ["onStepOver"]
-  SETTABLEKS R10 R9 K24 ["OnClick"]
+  GETTABLEKS R10 R0 K36 ["onStepOver"]
+  SETTABLEKS R10 R9 K23 ["OnClick"]
   LOADB R10 1
-  SETTABLEKS R10 R9 K25 ["ClickableWhenViewportHidden"]
+  SETTABLEKS R10 R9 K24 ["ClickableWhenViewportHidden"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K12 ["StepOverButton"]
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K16 ["createElement"]
   GETUPVAL R8 2
-  DUPTABLE R9 K26 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "icon", "OnClick", "ClickableWhenViewportHidden"}]
-  LOADK R10 K41 ["stepIntoActionV2"]
+  DUPTABLE R9 K25 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
+  LOADK R10 K37 ["stepIntoActionV2"]
   SETTABLEKS R10 R9 K17 ["Name"]
   SETTABLEKS R1 R9 K18 ["Toolbar"]
   LOADB R10 0
   SETTABLEKS R10 R9 K19 ["Active"]
   LOADB R10 0
   GETTABLEKS R12 R0 K4 ["props"]
-  GETTABLEKS R11 R12 K37 ["CurrentThreadId"]
+  GETTABLEKS R11 R12 K34 ["CurrentThreadId"]
   JUMPIFEQKNIL R11 [+2]
   NOT R10 R5
   SETTABLEKS R10 R9 K20 ["Enabled"]
-  LOADK R10 K42 ["StepInto"]
+  LOADK R10 K38 ["StepInto"]
   SETTABLEKS R10 R9 K21 ["Title"]
-  LOADK R10 K29 [""]
+  LOADK R10 K28 [""]
   SETTABLEKS R10 R9 K22 ["Tooltip"]
-  GETUPVAL R11 3
-  JUMPIFNOT R11 [+2]
-  LOADNIL R10
-  JUMP [+1]
-  LOADK R10 K43 ["rbxlocaltheme://StepInto"]
-  SETTABLEKS R10 R9 K23 ["icon"]
-  GETTABLEKS R10 R0 K44 ["onStepInto"]
-  SETTABLEKS R10 R9 K24 ["OnClick"]
+  GETTABLEKS R10 R0 K39 ["onStepInto"]
+  SETTABLEKS R10 R9 K23 ["OnClick"]
   LOADB R10 1
-  SETTABLEKS R10 R9 K25 ["ClickableWhenViewportHidden"]
+  SETTABLEKS R10 R9 K24 ["ClickableWhenViewportHidden"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K13 ["StepIntoButton"]
   GETUPVAL R8 1
   GETTABLEKS R7 R8 K16 ["createElement"]
   GETUPVAL R8 2
-  DUPTABLE R9 K26 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "icon", "OnClick", "ClickableWhenViewportHidden"}]
-  LOADK R10 K45 ["stepOutActionV2"]
+  DUPTABLE R9 K25 [{"Name", "Toolbar", "Active", "Enabled", "Title", "Tooltip", "OnClick", "ClickableWhenViewportHidden"}]
+  LOADK R10 K40 ["stepOutActionV2"]
   SETTABLEKS R10 R9 K17 ["Name"]
   SETTABLEKS R1 R9 K18 ["Toolbar"]
   LOADB R10 0
   SETTABLEKS R10 R9 K19 ["Active"]
   LOADB R10 0
   GETTABLEKS R12 R0 K4 ["props"]
-  GETTABLEKS R11 R12 K37 ["CurrentThreadId"]
+  GETTABLEKS R11 R12 K34 ["CurrentThreadId"]
   JUMPIFEQKNIL R11 [+2]
   NOT R10 R5
   SETTABLEKS R10 R9 K20 ["Enabled"]
-  LOADK R10 K46 ["StepOut"]
+  LOADK R10 K41 ["StepOut"]
   SETTABLEKS R10 R9 K21 ["Title"]
-  LOADK R10 K29 [""]
+  LOADK R10 K28 [""]
   SETTABLEKS R10 R9 K22 ["Tooltip"]
-  GETUPVAL R11 3
-  JUMPIFNOT R11 [+2]
-  LOADNIL R10
-  JUMP [+1]
-  LOADK R10 K47 ["rbxlocaltheme://StepOut"]
-  SETTABLEKS R10 R9 K23 ["icon"]
-  GETTABLEKS R10 R0 K48 ["onStepOut"]
-  SETTABLEKS R10 R9 K24 ["OnClick"]
+  GETTABLEKS R10 R0 K42 ["onStepOut"]
+  SETTABLEKS R10 R9 K23 ["OnClick"]
   LOADB R10 1
-  SETTABLEKS R10 R9 K25 ["ClickableWhenViewportHidden"]
+  SETTABLEKS R10 R9 K24 ["ClickableWhenViewportHidden"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K14 ["StepOutButton"]
   RETURN R6 1
@@ -507,47 +477,42 @@ MAIN:
   GETTABLEKS R14 R15 K22 ["Common"]
   GETTABLEKS R13 R14 K23 ["SetPausedState"]
   CALL R12 1 1
-  GETIMPORT R13 K25 [game]
-  LOADK R15 K26 ["EnableRibbonPluginFeature"]
-  NAMECALL R13 R13 K27 ["GetEngineFeature"]
+  GETTABLEKS R13 R1 K24 ["PureComponent"]
+  LOADK R15 K25 ["DebuggerToolbarButtons"]
+  NAMECALL R13 R13 K26 ["extend"]
   CALL R13 2 1
-  GETTABLEKS R14 R1 K28 ["PureComponent"]
-  LOADK R16 K29 ["DebuggerToolbarButtons"]
-  NAMECALL R14 R14 K30 ["extend"]
-  CALL R14 2 1
-  DUPCLOSURE R15 K31 [PROTO_5]
+  DUPCLOSURE R14 K27 [PROTO_5]
   CAPTURE VAL R10
-  SETTABLEKS R15 R14 K32 ["init"]
-  DUPCLOSURE R15 K33 [PROTO_6]
-  SETTABLEKS R15 R14 K34 ["addAction"]
-  DUPCLOSURE R15 K35 [PROTO_11]
+  SETTABLEKS R14 R13 K28 ["init"]
+  DUPCLOSURE R14 K29 [PROTO_6]
+  SETTABLEKS R14 R13 K30 ["addAction"]
+  DUPCLOSURE R14 K31 [PROTO_11]
   CAPTURE VAL R10
-  SETTABLEKS R15 R14 K36 ["didMount"]
-  DUPCLOSURE R15 K37 [PROTO_12]
+  SETTABLEKS R14 R13 K32 ["didMount"]
+  DUPCLOSURE R14 K33 [PROTO_12]
   CAPTURE VAL R10
   CAPTURE VAL R1
   CAPTURE VAL R8
-  CAPTURE VAL R13
-  SETTABLEKS R15 R14 K38 ["renderButtons"]
-  DUPCLOSURE R15 K39 [PROTO_14]
+  SETTABLEKS R14 R13 K34 ["renderButtons"]
+  DUPCLOSURE R14 K35 [PROTO_14]
   CAPTURE VAL R1
   CAPTURE VAL R9
-  SETTABLEKS R15 R14 K40 ["render"]
-  GETTABLEKS R15 R4 K41 ["withContext"]
-  DUPTABLE R16 K42 [{"Analytics", "PluginActions"}]
-  SETTABLEKS R5 R16 K10 ["Analytics"]
-  SETTABLEKS R6 R16 K11 ["PluginActions"]
-  CALL R15 1 1
-  MOVE R16 R14
-  CALL R15 1 1
-  MOVE R14 R15
-  GETTABLEKS R15 R2 K43 ["connect"]
-  DUPCLOSURE R16 K44 [PROTO_15]
-  DUPCLOSURE R17 K45 [PROTO_18]
+  SETTABLEKS R14 R13 K36 ["render"]
+  GETTABLEKS R14 R4 K37 ["withContext"]
+  DUPTABLE R15 K38 [{"Analytics", "PluginActions"}]
+  SETTABLEKS R5 R15 K10 ["Analytics"]
+  SETTABLEKS R6 R15 K11 ["PluginActions"]
+  CALL R14 1 1
+  MOVE R15 R13
+  CALL R14 1 1
+  MOVE R13 R14
+  GETTABLEKS R14 R2 K39 ["connect"]
+  DUPCLOSURE R15 K40 [PROTO_15]
+  DUPCLOSURE R16 K41 [PROTO_18]
   CAPTURE VAL R12
   CAPTURE VAL R11
-  CALL R15 2 1
-  MOVE R16 R14
-  CALL R15 1 1
-  MOVE R14 R15
-  RETURN R14 1
+  CALL R14 2 1
+  MOVE R15 R13
+  CALL R14 1 1
+  MOVE R13 R14
+  RETURN R13 1

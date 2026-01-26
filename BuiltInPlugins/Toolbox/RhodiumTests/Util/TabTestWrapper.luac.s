@@ -76,7 +76,7 @@ MAIN:
   GETTABLEKS R3 R1 K6 ["Roact"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K7 ["Core"]
+  GETTABLEKS R6 R0 K7 ["Src"]
   GETTABLEKS R5 R6 K8 ["Components"]
   GETTABLEKS R4 R5 K9 ["TabSet"]
   CALL R3 1 1

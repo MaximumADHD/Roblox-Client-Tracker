@@ -69,7 +69,7 @@ MAIN:
   GETTABLEKS R1 R2 K2 ["Parent"]
   GETTABLEKS R0 R1 K2 ["Parent"]
   GETIMPORT R1 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Core"]
+  GETTABLEKS R5 R0 K5 ["Src"]
   GETTABLEKS R4 R5 K6 ["Components"]
   GETTABLEKS R3 R4 K7 ["Font"]
   GETTABLEKS R2 R3 K8 ["FontTile"]

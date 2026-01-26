@@ -29,61 +29,52 @@ MAIN:
   JUMPIFNOT R3 [+1]
   RETURN R0 0
   GETIMPORT R3 K7 [require]
-  GETTABLEKS R6 R0 K11 ["Src"]
-  GETTABLEKS R5 R6 K13 ["Flags"]
-  GETTABLEKS R4 R5 K15 ["FFlagEnableNewAssistant"]
+  GETTABLEKS R6 R0 K15 ["Bin"]
+  GETTABLEKS R5 R6 K16 ["Common"]
+  GETTABLEKS R4 R5 K17 ["pluginType"]
   CALL R3 1 1
-  MOVE R4 R3
-  CALL R4 0 1
-  JUMPIF R4 [+1]
-  RETURN R0 0
-  GETIMPORT R4 K7 [require]
-  GETTABLEKS R7 R0 K16 ["Bin"]
-  GETTABLEKS R6 R7 K17 ["Common"]
-  GETTABLEKS R5 R6 K18 ["pluginType"]
-  CALL R4 1 1
-  GETTABLEKS R6 R4 K19 ["get"]
-  CALL R6 0 1
-  GETTABLEKS R7 R4 K20 ["Asset"]
-  JUMPIFEQ R6 R7 [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  JUMPIFNOT R5 [+17]
+  GETTABLEKS R5 R3 K18 ["get"]
+  CALL R5 0 1
+  GETTABLEKS R6 R3 K19 ["Asset"]
+  JUMPIFEQ R5 R6 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  JUMPIFNOT R4 [+17]
+  GETIMPORT R5 K7 [require]
+  GETTABLEKS R7 R0 K8 ["Packages"]
+  GETTABLEKS R6 R7 K20 ["ReactDeveloperTools"]
+  CALL R5 1 1
+  GETTABLEKS R6 R5 K21 ["tryEnableDevtools"]
+  DUPTABLE R7 K24 [{"pluginName", "profileOnStart"}]
+  LOADK R8 K4 ["Assistant"]
+  SETTABLEKS R8 R7 K22 ["pluginName"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K23 ["profileOnStart"]
+  CALL R6 1 0
+  GETIMPORT R5 K7 [require]
+  GETTABLEKS R7 R0 K11 ["Src"]
+  GETTABLEKS R6 R7 K25 ["toolInit"]
+  CALL R5 1 1
+  MOVE R6 R5
+  GETIMPORT R7 K1 [plugin]
+  DUPTABLE R8 K28 [{"isGuest", "isHost"}]
+  SETTABLEKS R4 R8 K26 ["isGuest"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K27 ["isHost"]
+  CALL R6 2 0
+  JUMPIFNOT R4 [+23]
   GETIMPORT R6 K7 [require]
-  GETTABLEKS R8 R0 K8 ["Packages"]
-  GETTABLEKS R7 R8 K21 ["ReactDeveloperTools"]
+  GETTABLEKS R9 R0 K15 ["Bin"]
+  GETTABLEKS R8 R9 K16 ["Common"]
+  GETTABLEKS R7 R8 K29 ["setup"]
   CALL R6 1 1
-  GETTABLEKS R7 R6 K22 ["tryEnableDevtools"]
-  DUPTABLE R8 K25 [{"pluginName", "profileOnStart"}]
-  LOADK R9 K4 ["Assistant"]
-  SETTABLEKS R9 R8 K23 ["pluginName"]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K24 ["profileOnStart"]
-  CALL R7 1 0
-  GETIMPORT R6 K7 [require]
-  GETTABLEKS R8 R0 K11 ["Src"]
-  GETTABLEKS R7 R8 K26 ["toolInit"]
-  CALL R6 1 1
-  MOVE R7 R6
-  GETIMPORT R8 K1 [plugin]
-  DUPTABLE R9 K29 [{"isGuest", "isHost"}]
-  SETTABLEKS R5 R9 K27 ["isGuest"]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K28 ["isHost"]
-  CALL R7 2 0
-  JUMPIFNOT R5 [+23]
   GETIMPORT R7 K7 [require]
-  GETTABLEKS R10 R0 K16 ["Bin"]
-  GETTABLEKS R9 R10 K17 ["Common"]
-  GETTABLEKS R8 R9 K30 ["setup"]
+  GETTABLEKS R10 R0 K15 ["Bin"]
+  GETTABLEKS R9 R10 K16 ["Common"]
+  GETTABLEKS R8 R9 K30 ["setupMain"]
   CALL R7 1 1
-  GETIMPORT R8 K7 [require]
-  GETTABLEKS R11 R0 K16 ["Bin"]
-  GETTABLEKS R10 R11 K17 ["Common"]
-  GETTABLEKS R9 R10 K31 ["setupMain"]
-  CALL R8 1 1
-  MOVE R9 R7
-  GETIMPORT R10 K1 [plugin]
-  MOVE R11 R8
-  CALL R9 2 0
+  MOVE R8 R6
+  GETIMPORT R9 K1 [plugin]
+  MOVE R10 R7
+  CALL R8 2 0
   RETURN R0 0

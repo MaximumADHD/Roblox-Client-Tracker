@@ -170,13 +170,13 @@ MAIN:
   GETTABLEKS R4 R5 K8 ["ToolboxStoryWrapper"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R8 R0 K9 ["Core"]
+  GETTABLEKS R8 R0 K9 ["Src"]
   GETTABLEKS R7 R8 K10 ["Components"]
   GETTABLEKS R6 R7 K11 ["Categorization"]
   GETTABLEKS R5 R6 K12 ["ExpandableTeaser"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R9 R0 K9 ["Core"]
+  GETTABLEKS R9 R0 K9 ["Src"]
   GETTABLEKS R8 R9 K10 ["Components"]
   GETTABLEKS R7 R8 K11 ["Categorization"]
   GETTABLEKS R6 R7 K13 ["SearchList"]

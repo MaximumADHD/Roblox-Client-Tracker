@@ -1,12 +1,13 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["SignalsInstanceUtils"]
-  GETTABLEKS R0 R1 K1 ["observeProperty"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["TypedInstanceSignals"]
+  GETTABLEKS R1 R2 K1 ["properties"]
+  GETTABLEKS R0 R1 K2 ["observeInstance"]
   GETUPVAL R2 1
-  GETTABLEKS R1 R2 K2 ["rigDescriptor"]
+  GETTABLEKS R1 R2 K3 ["rigDescriptor"]
   GETUPVAL R4 1
-  GETTABLEKS R3 R4 K3 ["jointLabel"]
-  GETTABLEKS R2 R3 K4 ["Name"]
+  GETTABLEKS R3 R4 K4 ["jointLabel"]
+  GETTABLEKS R2 R3 K5 ["Name"]
   CALL R0 2 -1
   RETURN R0 -1
 

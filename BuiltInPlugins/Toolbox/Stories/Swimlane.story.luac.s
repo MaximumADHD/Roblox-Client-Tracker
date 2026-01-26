@@ -114,7 +114,7 @@ MAIN:
   GETTABLEKS R2 R3 K6 ["Roact"]
   CALL R1 1 1
   GETIMPORT R2 K4 [require]
-  GETTABLEKS R6 R0 K7 ["Core"]
+  GETTABLEKS R6 R0 K7 ["Src"]
   GETTABLEKS R5 R6 K8 ["Components"]
   GETTABLEKS R4 R5 K9 ["Categorization"]
   GETTABLEKS R3 R4 K10 ["Swimlane"]
@@ -124,7 +124,7 @@ MAIN:
   GETTABLEKS R4 R5 K12 ["ToolboxStoryWrapper"]
   CALL R3 1 1
   GETIMPORT R4 K4 [require]
-  GETTABLEKS R8 R0 K7 ["Core"]
+  GETTABLEKS R8 R0 K7 ["Src"]
   GETTABLEKS R7 R8 K8 ["Components"]
   GETTABLEKS R6 R7 K9 ["Categorization"]
   GETTABLEKS R5 R6 K13 ["IconTile"]

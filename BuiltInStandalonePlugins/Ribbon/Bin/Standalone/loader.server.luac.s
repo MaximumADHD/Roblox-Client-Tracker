@@ -30,60 +30,54 @@ MAIN:
   CALL R2 0 1
   JUMPIFNOT R2 [+1]
   RETURN R0 0
-  GETIMPORT R2 K15 [game]
-  LOADK R4 K16 ["EnableRibbonPluginFeature"]
-  NAMECALL R2 R2 K17 ["GetEngineFeature"]
-  CALL R2 2 1
-  JUMPIF R2 [+1]
-  RETURN R0 0
-  GETIMPORT R3 K19 [plugin]
-  GETTABLEKS R4 R0 K20 ["Name"]
-  SETTABLEKS R4 R3 K20 ["Name"]
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Packages"]
-  GETTABLEKS R4 R5 K21 ["PluginLoader"]
-  CALL R3 1 1
-  GETTABLEKS R4 R3 K22 ["PluginLoaderBuilder"]
+  GETIMPORT R2 K15 [plugin]
+  GETTABLEKS R3 R0 K16 ["Name"]
+  SETTABLEKS R3 R2 K16 ["Name"]
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K9 ["Packages"]
+  GETTABLEKS R3 R4 K17 ["PluginLoader"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K18 ["PluginLoaderBuilder"]
+  GETTABLEKS R7 R0 K12 ["Src"]
+  GETTABLEKS R6 R7 K19 ["Resources"]
+  GETTABLEKS R5 R6 K20 ["Localization"]
+  GETTABLEKS R4 R5 K21 ["SourceStrings"]
   GETTABLEKS R8 R0 K12 ["Src"]
-  GETTABLEKS R7 R8 K23 ["Resources"]
-  GETTABLEKS R6 R7 K24 ["Localization"]
-  GETTABLEKS R5 R6 K25 ["SourceStrings"]
-  GETTABLEKS R9 R0 K12 ["Src"]
-  GETTABLEKS R8 R9 K23 ["Resources"]
-  GETTABLEKS R7 R8 K24 ["Localization"]
-  GETTABLEKS R6 R7 K26 ["LocalizedStrings"]
-  GETIMPORT R8 K19 [plugin]
-  GETTABLEKS R7 R8 K27 ["MultipleDocumentInterfaceInstance"]
-  DUPTABLE R8 K34 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar", "extraTriggers", "shouldImmediatelyOpen"}]
-  GETIMPORT R9 K19 [plugin]
-  SETTABLEKS R9 R8 K18 ["plugin"]
-  LOADK R9 K2 ["Ribbon"]
-  SETTABLEKS R9 R8 K28 ["pluginName"]
-  SETTABLEKS R6 R8 K29 ["translationResourceTable"]
-  SETTABLEKS R5 R8 K30 ["fallbackResourceTable"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K31 ["noToolbar"]
-  DUPTABLE R9 K36 [{"SessionStarted"}]
-  DUPCLOSURE R10 K37 [PROTO_0]
-  CAPTURE VAL R7
-  SETTABLEKS R10 R9 K35 ["SessionStarted"]
-  SETTABLEKS R9 R8 K32 ["extraTriggers"]
-  DUPCLOSURE R9 K38 [PROTO_1]
-  SETTABLEKS R9 R8 K33 ["shouldImmediatelyOpen"]
-  GETTABLEKS R9 R4 K39 ["build"]
-  MOVE R10 R8
+  GETTABLEKS R7 R8 K19 ["Resources"]
+  GETTABLEKS R6 R7 K20 ["Localization"]
+  GETTABLEKS R5 R6 K22 ["LocalizedStrings"]
+  GETIMPORT R7 K15 [plugin]
+  GETTABLEKS R6 R7 K23 ["MultipleDocumentInterfaceInstance"]
+  DUPTABLE R7 K30 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar", "extraTriggers", "shouldImmediatelyOpen"}]
+  GETIMPORT R8 K15 [plugin]
+  SETTABLEKS R8 R7 K14 ["plugin"]
+  LOADK R8 K2 ["Ribbon"]
+  SETTABLEKS R8 R7 K24 ["pluginName"]
+  SETTABLEKS R5 R7 K25 ["translationResourceTable"]
+  SETTABLEKS R4 R7 K26 ["fallbackResourceTable"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K27 ["noToolbar"]
+  DUPTABLE R8 K32 [{"SessionStarted"}]
+  DUPCLOSURE R9 K33 [PROTO_0]
+  CAPTURE VAL R6
+  SETTABLEKS R9 R8 K31 ["SessionStarted"]
+  SETTABLEKS R8 R7 K28 ["extraTriggers"]
+  DUPCLOSURE R8 K34 [PROTO_1]
+  SETTABLEKS R8 R7 K29 ["shouldImmediatelyOpen"]
+  GETTABLEKS R8 R3 K35 ["build"]
+  MOVE R9 R7
+  CALL R8 1 1
+  GETTABLEKS R9 R8 K36 ["pluginLoader"]
+  NAMECALL R9 R9 K37 ["waitForUserInteraction"]
   CALL R9 1 1
-  GETTABLEKS R10 R9 K40 ["pluginLoader"]
-  NAMECALL R10 R10 K41 ["waitForUserInteraction"]
-  CALL R10 1 1
-  JUMPIF R10 [+1]
+  JUMPIF R9 [+1]
   RETURN R0 0
-  GETIMPORT R11 K5 [require]
-  GETIMPORT R14 K1 [script]
-  GETTABLEKS R13 R14 K42 ["Parent"]
-  GETTABLEKS R12 R13 K43 ["main"]
-  CALL R11 1 1
-  MOVE R12 R11
-  GETIMPORT R13 K19 [plugin]
-  CALL R12 1 0
+  GETIMPORT R10 K5 [require]
+  GETIMPORT R13 K1 [script]
+  GETTABLEKS R12 R13 K38 ["Parent"]
+  GETTABLEKS R11 R12 K39 ["main"]
+  CALL R10 1 1
+  MOVE R11 R10
+  GETIMPORT R12 K15 [plugin]
+  CALL R11 1 0
   RETURN R0 0

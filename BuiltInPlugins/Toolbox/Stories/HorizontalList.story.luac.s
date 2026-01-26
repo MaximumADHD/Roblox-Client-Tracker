@@ -72,7 +72,7 @@ MAIN:
   GETTABLEKS R3 R4 K8 ["ToolboxStoryWrapper"]
   CALL R2 1 1
   GETIMPORT R3 K4 [require]
-  GETTABLEKS R7 R0 K9 ["Core"]
+  GETTABLEKS R7 R0 K9 ["Src"]
   GETTABLEKS R6 R7 K10 ["Components"]
   GETTABLEKS R5 R6 K11 ["Categorization"]
   GETTABLEKS R4 R5 K12 ["HorizontalList"]

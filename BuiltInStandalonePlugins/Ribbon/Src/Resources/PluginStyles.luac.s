@@ -12,2459 +12,2452 @@ MAIN:
   GETTABLEKS R2 R3 K8 ["createStyleRule"]
   GETTABLEKS R4 R1 K7 ["Styling"]
   GETTABLEKS R3 R4 K9 ["createStyleSheet"]
-  GETTABLEKS R5 R1 K10 ["SharedFlags"]
-  GETTABLEKS R4 R5 K11 ["getFFlagDevFrameworkEnableFoundationColors"]
-  NEWTABLE R5 0 38
+  NEWTABLE R4 0 38
+  MOVE R5 R2
+  LOADK R6 K10 ["TextLabel, TextButton, TextBox"]
+  DUPTABLE R7 K12 [{"Font"}]
+  LOADK R8 K13 ["$FontWeight400"]
+  SETTABLEKS R8 R7 K11 ["Font"]
+  CALL R5 2 1
   MOVE R6 R2
-  LOADK R7 K12 ["TextLabel, TextButton, TextBox"]
-  DUPTABLE R8 K14 [{"Font"}]
-  LOADK R9 K15 ["$FontWeight400"]
-  SETTABLEKS R9 R8 K13 ["Font"]
+  LOADK R7 K14 [".Role-Surface"]
+  DUPTABLE R8 K17 [{"BackgroundTransparency", "BorderSizePixel"}]
+  LOADK R9 K18 ["$Transparency100"]
+  SETTABLEKS R9 R8 K15 ["BackgroundTransparency"]
+  LOADK R9 K19 ["$BorderNone"]
+  SETTABLEKS R9 R8 K16 ["BorderSizePixel"]
   CALL R6 2 1
   MOVE R7 R2
-  LOADK R8 K16 [".Role-Surface"]
-  DUPTABLE R9 K19 [{"BackgroundTransparency", "BorderSizePixel"}]
-  LOADK R10 K20 ["$Transparency100"]
-  SETTABLEKS R10 R9 K17 ["BackgroundTransparency"]
-  LOADK R10 K21 ["$BorderNone"]
-  SETTABLEKS R10 R9 K18 ["BorderSizePixel"]
+  LOADK R8 K20 [".Role-Surface100"]
+  DUPTABLE R9 K22 [{"BackgroundColor3", "BorderSizePixel"}]
+  LOADK R10 K23 ["$SemanticColorSurface100"]
+  SETTABLEKS R10 R9 K21 ["BackgroundColor3"]
+  LOADK R10 K19 ["$BorderNone"]
+  SETTABLEKS R10 R9 K16 ["BorderSizePixel"]
   CALL R7 2 1
   MOVE R8 R2
-  LOADK R9 K22 [".Role-Surface100"]
-  DUPTABLE R10 K24 [{"BackgroundColor3", "BorderSizePixel"}]
-  LOADK R11 K25 ["$SemanticColorSurface100"]
-  SETTABLEKS R11 R10 K23 ["BackgroundColor3"]
-  LOADK R11 K21 ["$BorderNone"]
-  SETTABLEKS R11 R10 K18 ["BorderSizePixel"]
+  LOADK R9 K24 [".Role-Surface200"]
+  DUPTABLE R10 K22 [{"BackgroundColor3", "BorderSizePixel"}]
+  LOADK R11 K25 ["$SemanticColorSurface200"]
+  SETTABLEKS R11 R10 K21 ["BackgroundColor3"]
+  LOADK R11 K19 ["$BorderNone"]
+  SETTABLEKS R11 R10 K16 ["BorderSizePixel"]
   CALL R8 2 1
   MOVE R9 R2
-  LOADK R10 K26 [".Role-Surface200"]
-  DUPTABLE R11 K24 [{"BackgroundColor3", "BorderSizePixel"}]
-  LOADK R12 K27 ["$SemanticColorSurface200"]
-  SETTABLEKS R12 R11 K23 ["BackgroundColor3"]
-  LOADK R12 K21 ["$BorderNone"]
-  SETTABLEKS R12 R11 K18 ["BorderSizePixel"]
+  LOADK R10 K26 [".Role-Text"]
+  DUPTABLE R11 K28 [{"BorderSizePixel", "BackgroundTransparency", "TextColor3"}]
+  LOADK R12 K19 ["$BorderNone"]
+  SETTABLEKS R12 R11 K16 ["BorderSizePixel"]
+  LOADK R12 K18 ["$Transparency100"]
+  SETTABLEKS R12 R11 K15 ["BackgroundTransparency"]
+  LOADK R12 K29 ["$SemanticColorContentStandard"]
+  SETTABLEKS R12 R11 K27 ["TextColor3"]
   CALL R9 2 1
   MOVE R10 R2
-  LOADK R11 K28 [".Role-Text"]
-  DUPTABLE R12 K30 [{"BorderSizePixel", "BackgroundTransparency", "TextColor3"}]
-  LOADK R13 K21 ["$BorderNone"]
-  SETTABLEKS R13 R12 K18 ["BorderSizePixel"]
-  LOADK R13 K20 ["$Transparency100"]
-  SETTABLEKS R13 R12 K17 ["BackgroundTransparency"]
-  LOADK R13 K31 ["$SemanticColorContentStandard"]
-  SETTABLEKS R13 R12 K29 ["TextColor3"]
+  LOADK R11 K30 [".Text-Label"]
+  DUPTABLE R12 K32 [{"Font", "TextSize"}]
+  LOADK R13 K33 ["$ContentTextFontWeight"]
+  SETTABLEKS R13 R12 K11 ["Font"]
+  LOADK R13 K34 ["$ContentTextFontSize"]
+  SETTABLEKS R13 R12 K31 ["TextSize"]
   CALL R10 2 1
   MOVE R11 R2
-  LOADK R12 K32 [".Text-Label"]
-  DUPTABLE R13 K34 [{"Font", "TextSize"}]
-  LOADK R14 K35 ["$ContentTextFontWeight"]
-  SETTABLEKS R14 R13 K13 ["Font"]
-  LOADK R14 K36 ["$ContentTextFontSize"]
-  SETTABLEKS R14 R13 K33 ["TextSize"]
+  LOADK R12 K35 [".Text-Title"]
+  DUPTABLE R13 K32 [{"Font", "TextSize"}]
+  LOADK R14 K36 ["$TitleTextFontWeight"]
+  SETTABLEKS R14 R13 K11 ["Font"]
+  LOADK R14 K37 ["$TitleTextFontSize"]
+  SETTABLEKS R14 R13 K31 ["TextSize"]
   CALL R11 2 1
   MOVE R12 R2
-  LOADK R13 K37 [".Text-Title"]
-  DUPTABLE R14 K34 [{"Font", "TextSize"}]
-  LOADK R15 K38 ["$TitleTextFontWeight"]
-  SETTABLEKS R15 R14 K13 ["Font"]
-  LOADK R15 K39 ["$TitleTextFontSize"]
-  SETTABLEKS R15 R14 K33 ["TextSize"]
-  CALL R12 2 1
+  LOADK R13 K38 [".Role-Row"]
+  NEWTABLE R14 0 0
+  NEWTABLE R15 0 2
+  MOVE R16 R2
+  LOADK R17 K39 ["::UIListLayout"]
+  DUPTABLE R18 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R19 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R19 R18 K40 ["FillDirection"]
+  LOADK R19 K47 ["$RowSpacingDefault"]
+  SETTABLEKS R19 R18 K41 ["Padding"]
+  GETIMPORT R19 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R19 R18 K42 ["SortOrder"]
+  CALL R16 2 1
+  MOVE R17 R2
+  LOADK R18 K50 [".ConvertibleToColumn"]
+  NEWTABLE R19 0 0
+  NEWTABLE R20 0 2
+  MOVE R21 R2
+  LOADK R22 K39 ["::UIListLayout"]
+  DUPTABLE R23 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  LOADK R24 K51 ["$ConvertibleRowToColumnFillDirection"]
+  SETTABLEKS R24 R23 K40 ["FillDirection"]
+  LOADK R24 K52 ["$ConvertibleRowToColumnPadding"]
+  SETTABLEKS R24 R23 K41 ["Padding"]
+  GETIMPORT R24 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R24 R23 K42 ["SortOrder"]
+  CALL R21 2 1
+  MOVE R22 R2
+  LOADK R23 K53 ["::UIPadding"]
+  DUPTABLE R24 K55 [{"PaddingLeft"}]
+  LOADK R25 K56 ["$PaddingLeftMedium"]
+  SETTABLEKS R25 R24 K54 ["PaddingLeft"]
+  CALL R22 2 -1
+  SETLIST R20 R21 -1 [1]
+  CALL R17 3 -1
+  SETLIST R15 R16 -1 [1]
+  CALL R12 3 1
   MOVE R13 R2
-  LOADK R14 K40 [".Role-Row"]
+  LOADK R14 K57 [".Role-Column"]
   NEWTABLE R15 0 0
   NEWTABLE R16 0 2
   MOVE R17 R2
-  LOADK R18 K41 ["::UIListLayout"]
-  DUPTABLE R19 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R20 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R20 R19 K42 ["FillDirection"]
-  LOADK R20 K49 ["$RowSpacingDefault"]
-  SETTABLEKS R20 R19 K43 ["Padding"]
-  GETIMPORT R20 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R20 R19 K44 ["SortOrder"]
+  LOADK R18 K39 ["::UIListLayout"]
+  DUPTABLE R19 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R20 K59 [Enum.FillDirection.Vertical]
+  SETTABLEKS R20 R19 K40 ["FillDirection"]
+  LOADK R20 K60 ["$ColumnSpacingDefault"]
+  SETTABLEKS R20 R19 K41 ["Padding"]
+  GETIMPORT R20 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R20 R19 K42 ["SortOrder"]
   CALL R17 2 1
   MOVE R18 R2
-  LOADK R19 K52 [".ConvertibleToColumn"]
+  LOADK R19 K61 [".SpacingMedium"]
   NEWTABLE R20 0 0
-  NEWTABLE R21 0 2
+  NEWTABLE R21 0 1
   MOVE R22 R2
-  LOADK R23 K41 ["::UIListLayout"]
-  DUPTABLE R24 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  LOADK R25 K53 ["$ConvertibleRowToColumnFillDirection"]
-  SETTABLEKS R25 R24 K42 ["FillDirection"]
-  LOADK R25 K54 ["$ConvertibleRowToColumnPadding"]
-  SETTABLEKS R25 R24 K43 ["Padding"]
-  GETIMPORT R25 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R25 R24 K44 ["SortOrder"]
-  CALL R22 2 1
-  MOVE R23 R2
-  LOADK R24 K55 ["::UIPadding"]
-  DUPTABLE R25 K57 [{"PaddingLeft"}]
-  LOADK R26 K58 ["$PaddingLeftMedium"]
-  SETTABLEKS R26 R25 K56 ["PaddingLeft"]
-  CALL R23 2 -1
+  LOADK R23 K39 ["::UIListLayout"]
+  DUPTABLE R24 K62 [{"Padding"}]
+  LOADK R25 K63 ["$ColumnSpacingMedium"]
+  SETTABLEKS R25 R24 K41 ["Padding"]
+  CALL R22 2 -1
   SETLIST R21 R22 -1 [1]
   CALL R18 3 -1
   SETLIST R16 R17 -1 [1]
   CALL R13 3 1
   MOVE R14 R2
-  LOADK R15 K59 [".Role-Column"]
+  LOADK R15 K64 [".X-RowSpace50"]
   NEWTABLE R16 0 0
-  NEWTABLE R17 0 2
+  NEWTABLE R17 0 1
   MOVE R18 R2
-  LOADK R19 K41 ["::UIListLayout"]
-  DUPTABLE R20 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R21 K61 [Enum.FillDirection.Vertical]
-  SETTABLEKS R21 R20 K42 ["FillDirection"]
-  LOADK R21 K62 ["$ColumnSpacingDefault"]
-  SETTABLEKS R21 R20 K43 ["Padding"]
-  GETIMPORT R21 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R21 R20 K44 ["SortOrder"]
-  CALL R18 2 1
-  MOVE R19 R2
-  LOADK R20 K63 [".SpacingMedium"]
-  NEWTABLE R21 0 0
-  NEWTABLE R22 0 1
-  MOVE R23 R2
-  LOADK R24 K41 ["::UIListLayout"]
-  DUPTABLE R25 K64 [{"Padding"}]
-  LOADK R26 K65 ["$ColumnSpacingMedium"]
-  SETTABLEKS R26 R25 K43 ["Padding"]
-  CALL R23 2 -1
-  SETLIST R22 R23 -1 [1]
-  CALL R19 3 -1
+  LOADK R19 K39 ["::UIListLayout"]
+  DUPTABLE R20 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R21 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R21 R20 K40 ["FillDirection"]
+  LOADK R21 K65 ["$GlobalSpace50"]
+  SETTABLEKS R21 R20 K41 ["Padding"]
+  GETIMPORT R21 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R21 R20 K42 ["SortOrder"]
+  CALL R18 2 -1
   SETLIST R17 R18 -1 [1]
   CALL R14 3 1
   MOVE R15 R2
-  LOADK R16 K66 [".X-RowSpace50"]
+  LOADK R16 K66 [".X-RowSpace100"]
   NEWTABLE R17 0 0
   NEWTABLE R18 0 1
   MOVE R19 R2
-  LOADK R20 K41 ["::UIListLayout"]
-  DUPTABLE R21 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R22 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R22 R21 K42 ["FillDirection"]
-  LOADK R22 K67 ["$GlobalSpace50"]
-  SETTABLEKS R22 R21 K43 ["Padding"]
-  GETIMPORT R22 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R22 R21 K44 ["SortOrder"]
+  LOADK R20 K39 ["::UIListLayout"]
+  DUPTABLE R21 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R22 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R22 R21 K40 ["FillDirection"]
+  LOADK R22 K67 ["$GlobalSpace100"]
+  SETTABLEKS R22 R21 K41 ["Padding"]
+  GETIMPORT R22 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R22 R21 K42 ["SortOrder"]
   CALL R19 2 -1
   SETLIST R18 R19 -1 [1]
   CALL R15 3 1
   MOVE R16 R2
-  LOADK R17 K68 [".X-RowSpace100"]
+  LOADK R17 K68 [".X-RowSpace200"]
   NEWTABLE R18 0 0
   NEWTABLE R19 0 1
   MOVE R20 R2
-  LOADK R21 K41 ["::UIListLayout"]
-  DUPTABLE R22 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R23 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R23 R22 K42 ["FillDirection"]
-  LOADK R23 K69 ["$GlobalSpace100"]
-  SETTABLEKS R23 R22 K43 ["Padding"]
-  GETIMPORT R23 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R23 R22 K44 ["SortOrder"]
+  LOADK R21 K39 ["::UIListLayout"]
+  DUPTABLE R22 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R23 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R23 R22 K40 ["FillDirection"]
+  LOADK R23 K69 ["$GlobalSpace200"]
+  SETTABLEKS R23 R22 K41 ["Padding"]
+  GETIMPORT R23 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R23 R22 K42 ["SortOrder"]
   CALL R20 2 -1
   SETLIST R19 R20 -1 [1]
   CALL R16 3 1
   MOVE R17 R2
-  LOADK R18 K70 [".X-RowSpace200"]
-  NEWTABLE R19 0 0
-  NEWTABLE R20 0 1
-  MOVE R21 R2
-  LOADK R22 K41 ["::UIListLayout"]
-  DUPTABLE R23 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R24 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R24 R23 K42 ["FillDirection"]
-  LOADK R24 K71 ["$GlobalSpace200"]
-  SETTABLEKS R24 R23 K43 ["Padding"]
-  GETIMPORT R24 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R24 R23 K44 ["SortOrder"]
-  CALL R21 2 -1
-  SETLIST R20 R21 -1 [1]
-  CALL R17 3 1
-  MOVE R18 R2
-  LOADK R19 K72 [".X-Pad150 ::UIPadding"]
-  DUPTABLE R20 K76 [{"PaddingBottom", "PaddingLeft", "PaddingRight", "PaddingTop"}]
-  LOADK R21 K77 ["$GlobalSpace150"]
-  SETTABLEKS R21 R20 K73 ["PaddingBottom"]
-  LOADK R21 K77 ["$GlobalSpace150"]
-  SETTABLEKS R21 R20 K56 ["PaddingLeft"]
-  LOADK R21 K77 ["$GlobalSpace150"]
-  SETTABLEKS R21 R20 K74 ["PaddingRight"]
-  LOADK R21 K77 ["$GlobalSpace150"]
-  SETTABLEKS R21 R20 K75 ["PaddingTop"]
-  CALL R18 2 1
-  MOVE R19 R2
-  LOADK R20 K78 [".Role-Menu"]
-  DUPTABLE R21 K81 [{"BackgroundColor3", "BorderColor3", "BorderMode", "BorderSizePixel"}]
-  MOVE R23 R4
-  CALL R23 0 1
-  JUMPIFNOT R23 [+2]
-  LOADK R22 K25 ["$SemanticColorSurface100"]
-  JUMP [+1]
-  LOADK R22 K82 ["$DEPRECATED_MainBackground"]
-  SETTABLEKS R22 R21 K23 ["BackgroundColor3"]
-  LOADK R22 K83 ["$SemanticColorDividerTransparency88"]
-  SETTABLEKS R22 R21 K79 ["BorderColor3"]
-  GETIMPORT R22 K85 [Enum.BorderMode.Inset]
-  SETTABLEKS R22 R21 K80 ["BorderMode"]
-  LOADK R22 K86 ["$BorderMedium"]
-  SETTABLEKS R22 R21 K18 ["BorderSizePixel"]
-  NEWTABLE R22 0 2
-  MOVE R23 R2
-  LOADK R24 K55 ["::UIPadding"]
-  DUPTABLE R25 K87 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-  LOADK R26 K88 ["$MenuPadding"]
-  SETTABLEKS R26 R25 K56 ["PaddingLeft"]
-  LOADK R26 K88 ["$MenuPadding"]
-  SETTABLEKS R26 R25 K74 ["PaddingRight"]
-  LOADK R26 K88 ["$MenuPadding"]
-  SETTABLEKS R26 R25 K75 ["PaddingTop"]
-  LOADK R26 K88 ["$MenuPadding"]
-  SETTABLEKS R26 R25 K73 ["PaddingBottom"]
-  CALL R23 2 1
-  MOVE R24 R2
-  LOADK R25 K89 ["> #Menu ::UIListLayout"]
-  DUPTABLE R26 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R27 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R27 R26 K42 ["FillDirection"]
-  LOADK R27 K90 ["$MenuColumnSpacing"]
-  SETTABLEKS R27 R26 K43 ["Padding"]
-  GETIMPORT R27 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R27 R26 K44 ["SortOrder"]
-  CALL R24 2 -1
-  SETLIST R22 R23 -1 [1]
-  CALL R19 3 1
-  MOVE R20 R2
-  LOADK R21 K91 [".Role-Tooltip"]
-  DUPTABLE R22 K81 [{"BackgroundColor3", "BorderColor3", "BorderMode", "BorderSizePixel"}]
-  LOADK R23 K92 ["$SemanticColorSurface300Inverse"]
-  SETTABLEKS R23 R22 K23 ["BackgroundColor3"]
-  LOADK R23 K93 ["$SemanticColorDivider"]
-  SETTABLEKS R23 R22 K79 ["BorderColor3"]
-  GETIMPORT R23 K85 [Enum.BorderMode.Inset]
-  SETTABLEKS R23 R22 K80 ["BorderMode"]
-  LOADK R23 K86 ["$BorderMedium"]
-  SETTABLEKS R23 R22 K18 ["BorderSizePixel"]
-  NEWTABLE R23 0 1
-  MOVE R24 R2
-  LOADK R25 K94 ["> #Wrapper"]
-  DUPTABLE R26 K96 [{"Size"}]
-  GETIMPORT R27 K99 [UDim2.new]
-  LOADN R28 0
-  LOADN R29 232
-  LOADN R30 0
-  LOADN R31 0
-  CALL R27 4 1
-  SETTABLEKS R27 R26 K95 ["Size"]
-  NEWTABLE R27 0 3
-  MOVE R28 R2
-  LOADK R29 K100 ["::UISizeConstraint"]
-  DUPTABLE R30 K102 [{"MaxSize"}]
-  LOADK R31 K103 ["$TooltipMaxSize"]
-  SETTABLEKS R31 R30 K101 ["MaxSize"]
-  CALL R28 2 1
-  MOVE R29 R2
-  LOADK R30 K41 ["::UIListLayout"]
-  DUPTABLE R31 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R32 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R32 R31 K42 ["FillDirection"]
-  LOADK R32 K104 ["$TooltipContentSpacing"]
-  SETTABLEKS R32 R31 K43 ["Padding"]
-  GETIMPORT R32 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R32 R31 K44 ["SortOrder"]
-  CALL R29 2 1
-  MOVE R30 R2
-  LOADK R31 K105 ["> #Content"]
-  NEWTABLE R32 0 0
-  NEWTABLE R33 0 5
-  MOVE R34 R2
-  LOADK R35 K41 ["::UIListLayout"]
-  DUPTABLE R36 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R37 K61 [Enum.FillDirection.Vertical]
-  SETTABLEKS R37 R36 K42 ["FillDirection"]
-  LOADK R37 K106 ["$TooltipTextSpacing"]
-  SETTABLEKS R37 R36 K43 ["Padding"]
-  GETIMPORT R37 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R37 R36 K44 ["SortOrder"]
-  CALL R34 2 1
-  MOVE R35 R2
-  LOADK R36 K107 ["> #TitleFrame"]
-  NEWTABLE R37 0 0
-  NEWTABLE R38 0 2
-  MOVE R39 R2
-  LOADK R40 K41 ["::UIListLayout"]
-  DUPTABLE R41 K108 [{"FillDirection", "SortOrder"}]
-  GETIMPORT R42 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R42 R41 K42 ["FillDirection"]
-  GETIMPORT R42 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R42 R41 K44 ["SortOrder"]
-  CALL R39 2 1
-  MOVE R40 R2
-  LOADK R41 K109 ["> #Spacer"]
-  NEWTABLE R42 0 0
-  NEWTABLE R43 0 1
-  MOVE R44 R2
-  LOADK R45 K110 ["::UIFlexItem"]
-  DUPTABLE R46 K112 [{"FlexMode"}]
-  GETIMPORT R47 K115 [Enum.UIFlexMode.Fill]
-  SETTABLEKS R47 R46 K111 ["FlexMode"]
-  CALL R44 2 -1
-  SETLIST R43 R44 -1 [1]
-  CALL R40 3 -1
-  SETLIST R38 R39 -1 [1]
-  CALL R35 3 1
-  MOVE R36 R2
-  LOADK R37 K116 ["> #Text"]
-  DUPTABLE R38 K119 [{"TextWrapped", "TextXAlignment"}]
-  LOADB R39 1
-  SETTABLEKS R39 R38 K117 ["TextWrapped"]
-  GETIMPORT R39 K121 [Enum.TextXAlignment.Left]
-  SETTABLEKS R39 R38 K118 ["TextXAlignment"]
-  CALL R36 2 1
-  MOVE R37 R2
-  LOADK R38 K122 [">> TextLabel"]
-  DUPTABLE R39 K123 [{"Font", "TextColor3", "BorderSizePixel", "BackgroundTransparency"}]
-  LOADK R40 K15 ["$FontWeight400"]
-  SETTABLEKS R40 R39 K13 ["Font"]
-  LOADK R40 K124 ["$SemanticColorContentStandardInverse"]
-  SETTABLEKS R40 R39 K29 ["TextColor3"]
-  LOADK R40 K21 ["$BorderNone"]
-  SETTABLEKS R40 R39 K18 ["BorderSizePixel"]
-  LOADK R40 K20 ["$Transparency100"]
-  SETTABLEKS R40 R39 K17 ["BackgroundTransparency"]
-  CALL R37 2 1
-  MOVE R38 R2
-  LOADK R39 K125 [">> #Title"]
-  DUPTABLE R40 K14 [{"Font"}]
-  LOADK R41 K126 ["$FontWeight700"]
-  SETTABLEKS R41 R40 K13 ["Font"]
-  CALL R38 2 -1
-  SETLIST R33 R34 -1 [1]
-  CALL R30 3 -1
-  SETLIST R27 R28 -1 [1]
-  CALL R24 3 -1
-  SETLIST R23 R24 -1 [1]
-  CALL R20 3 1
-  MOVE R21 R2
-  LOADK R22 K127 [".Role-Scroller"]
-  NEWTABLE R23 0 0
-  NEWTABLE R24 0 3
-  MOVE R25 R2
-  LOADK R26 K128 ["> #Scroller"]
-  DUPTABLE R27 K133 [{"AutomaticCanvasSize", "ScrollingDirection", "ScrollBarThickness", "HorizontalScrollBarInset"}]
-  GETIMPORT R28 K136 [Enum.AutomaticSize.XY]
-  SETTABLEKS R28 R27 K129 ["AutomaticCanvasSize"]
-  GETIMPORT R28 K138 [Enum.ScrollingDirection.X]
-  SETTABLEKS R28 R27 K130 ["ScrollingDirection"]
-  LOADN R28 0
-  SETTABLEKS R28 R27 K131 ["ScrollBarThickness"]
-  GETIMPORT R28 K141 [Enum.ScrollBarInset.None]
-  SETTABLEKS R28 R27 K132 ["HorizontalScrollBarInset"]
-  CALL R25 2 1
-  MOVE R26 R2
-  LOADK R27 K142 ["> #LeftGradient"]
-  DUPTABLE R28 K144 [{"Size", "ZIndex"}]
-  LOADK R29 K145 ["$TabGradientSize"]
-  SETTABLEKS R29 R28 K95 ["Size"]
-  LOADN R29 10
-  SETTABLEKS R29 R28 K143 ["ZIndex"]
-  CALL R26 2 1
-  MOVE R27 R2
-  LOADK R28 K146 ["> #RightGradient"]
-  DUPTABLE R29 K149 [{"AnchorPoint", "Size", "Position", "ZIndex"}]
-  GETIMPORT R30 K151 [Vector2.new]
-  LOADN R31 1
-  LOADN R32 0
-  CALL R30 2 1
-  SETTABLEKS R30 R29 K147 ["AnchorPoint"]
-  LOADK R30 K145 ["$TabGradientSize"]
-  SETTABLEKS R30 R29 K95 ["Size"]
-  GETIMPORT R30 K99 [UDim2.new]
-  LOADN R31 1
-  LOADN R32 0
-  LOADN R33 0
-  LOADN R34 0
-  CALL R30 4 1
-  SETTABLEKS R30 R29 K148 ["Position"]
-  LOADN R30 10
-  SETTABLEKS R30 R29 K143 ["ZIndex"]
-  CALL R27 2 -1
-  SETLIST R24 R25 -1 [1]
-  CALL R21 3 1
-  SETLIST R5 R6 16 [1]
-  MOVE R6 R2
-  LOADK R7 K152 [".Role-DividerH"]
-  DUPTABLE R8 K96 [{"Size"}]
-  GETIMPORT R9 K99 [UDim2.new]
-  LOADN R10 1
-  LOADN R11 0
-  LOADN R12 0
-  LOADN R13 1
-  CALL R9 4 1
-  SETTABLEKS R9 R8 K95 ["Size"]
-  NEWTABLE R9 0 1
-  MOVE R10 R2
-  LOADK R11 K153 ["> Frame"]
-  DUPTABLE R12 K154 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Size"}]
-  LOADK R13 K93 ["$SemanticColorDivider"]
-  SETTABLEKS R13 R12 K23 ["BackgroundColor3"]
-  LOADK R13 K155 ["$SemanticColorDividerTransparency"]
-  SETTABLEKS R13 R12 K17 ["BackgroundTransparency"]
-  LOADK R13 K21 ["$BorderNone"]
-  SETTABLEKS R13 R12 K18 ["BorderSizePixel"]
-  GETIMPORT R13 K99 [UDim2.new]
-  LOADN R14 1
-  LOADN R15 0
-  LOADN R16 0
-  LOADN R17 1
-  CALL R13 4 1
-  SETTABLEKS R13 R12 K95 ["Size"]
-  CALL R10 2 -1
-  SETLIST R9 R10 -1 [1]
-  CALL R6 3 1
-  MOVE R7 R2
-  LOADK R8 K156 [".Role-DividerV"]
-  NEWTABLE R9 0 0
-  NEWTABLE R10 0 2
-  MOVE R11 R2
-  LOADK R12 K153 ["> Frame"]
-  DUPTABLE R13 K157 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel"}]
-  LOADK R14 K93 ["$SemanticColorDivider"]
-  SETTABLEKS R14 R13 K23 ["BackgroundColor3"]
-  LOADK R14 K155 ["$SemanticColorDividerTransparency"]
-  SETTABLEKS R14 R13 K17 ["BackgroundTransparency"]
-  LOADK R14 K21 ["$BorderNone"]
-  SETTABLEKS R14 R13 K18 ["BorderSizePixel"]
-  CALL R11 2 1
-  MOVE R12 R2
-  LOADK R13 K158 [".Small"]
-  NEWTABLE R14 0 0
-  NEWTABLE R15 0 1
-  MOVE R16 R2
-  LOADK R17 K153 ["> Frame"]
-  DUPTABLE R18 K96 [{"Size"}]
-  LOADK R19 K159 ["$SmallSeparator"]
-  SETTABLEKS R19 R18 K95 ["Size"]
-  CALL R16 2 -1
-  SETLIST R15 R16 -1 [1]
-  CALL R12 3 -1
-  SETLIST R10 R11 -1 [1]
-  CALL R7 3 1
-  MOVE R8 R2
-  LOADK R9 K160 [".Role-Mezzanine"]
-  DUPTABLE R10 K96 [{"Size"}]
-  GETIMPORT R11 K99 [UDim2.new]
-  LOADN R12 1
-  LOADN R13 0
-  LOADN R14 0
-  LOADN R15 36
-  CALL R11 4 1
-  SETTABLEKS R11 R10 K95 ["Size"]
-  NEWTABLE R11 0 3
-  MOVE R12 R2
-  LOADK R13 K41 ["::UIListLayout"]
-  DUPTABLE R14 K163 [{"FillDirection", "HorizontalFlex", "Padding", "SortOrder", "VerticalAlignment"}]
-  GETIMPORT R15 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R15 R14 K42 ["FillDirection"]
-  GETIMPORT R15 K166 [Enum.UIFlexAlignment.SpaceBetween]
-  SETTABLEKS R15 R14 K161 ["HorizontalFlex"]
-  LOADK R15 K67 ["$GlobalSpace50"]
-  SETTABLEKS R15 R14 K43 ["Padding"]
-  GETIMPORT R15 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R15 R14 K44 ["SortOrder"]
-  GETIMPORT R15 K168 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R15 R14 K162 ["VerticalAlignment"]
-  CALL R12 2 1
-  MOVE R13 R2
-  LOADK R14 K169 [">> .LeftMezzControls"]
-  NEWTABLE R15 0 0
-  NEWTABLE R16 0 2
-  MOVE R17 R2
-  LOADK R18 K41 ["::UIListLayout"]
-  DUPTABLE R19 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R20 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R20 R19 K42 ["FillDirection"]
-  LOADK R20 K69 ["$GlobalSpace100"]
-  SETTABLEKS R20 R19 K43 ["Padding"]
-  GETIMPORT R20 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R20 R19 K44 ["SortOrder"]
+  LOADK R18 K70 [".X-Pad150 ::UIPadding"]
+  DUPTABLE R19 K74 [{"PaddingBottom", "PaddingLeft", "PaddingRight", "PaddingTop"}]
+  LOADK R20 K75 ["$GlobalSpace150"]
+  SETTABLEKS R20 R19 K71 ["PaddingBottom"]
+  LOADK R20 K75 ["$GlobalSpace150"]
+  SETTABLEKS R20 R19 K54 ["PaddingLeft"]
+  LOADK R20 K75 ["$GlobalSpace150"]
+  SETTABLEKS R20 R19 K72 ["PaddingRight"]
+  LOADK R20 K75 ["$GlobalSpace150"]
+  SETTABLEKS R20 R19 K73 ["PaddingTop"]
   CALL R17 2 1
   MOVE R18 R2
-  LOADK R19 K55 ["::UIPadding"]
-  DUPTABLE R20 K57 [{"PaddingLeft"}]
-  LOADK R21 K170 ["$MezzaninePadding"]
-  SETTABLEKS R21 R20 K56 ["PaddingLeft"]
-  CALL R18 2 -1
-  SETLIST R16 R17 -1 [1]
-  CALL R13 3 1
-  MOVE R14 R2
-  LOADK R15 K171 [">> .RightMezzControls"]
-  NEWTABLE R16 0 0
-  NEWTABLE R17 0 2
-  MOVE R18 R2
-  LOADK R19 K41 ["::UIListLayout"]
-  DUPTABLE R20 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R21 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R21 R20 K42 ["FillDirection"]
-  LOADK R21 K69 ["$GlobalSpace100"]
-  SETTABLEKS R21 R20 K43 ["Padding"]
-  GETIMPORT R21 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R21 R20 K44 ["SortOrder"]
-  CALL R18 2 1
-  MOVE R19 R2
-  LOADK R20 K55 ["::UIPadding"]
-  DUPTABLE R21 K172 [{"PaddingRight"}]
-  LOADK R22 K170 ["$MezzaninePadding"]
-  SETTABLEKS R22 R21 K74 ["PaddingRight"]
-  CALL R19 2 -1
-  SETLIST R17 R18 -1 [1]
-  CALL R14 3 -1
-  SETLIST R11 R12 -1 [1]
-  CALL R8 3 1
-  MOVE R9 R2
-  LOADK R10 K173 [".X-Shrink ::UIFlexItem"]
-  DUPTABLE R11 K112 [{"FlexMode"}]
-  GETIMPORT R12 K175 [Enum.UIFlexMode.Shrink]
-  SETTABLEKS R12 R11 K111 ["FlexMode"]
-  CALL R9 2 1
-  MOVE R10 R2
-  LOADK R11 K176 [".X-FadeLeft ::UIGradient"]
-  DUPTABLE R12 K178 [{"Transparency"}]
-  GETIMPORT R13 K180 [NumberSequence.new]
-  NEWTABLE R14 0 2
-  GETIMPORT R15 K182 [NumberSequenceKeypoint.new]
-  LOADN R16 0
-  LOADN R17 1
-  CALL R15 2 1
-  GETIMPORT R16 K182 [NumberSequenceKeypoint.new]
-  LOADN R17 1
-  LOADN R18 0
-  CALL R16 2 -1
-  SETLIST R14 R15 -1 [1]
-  CALL R13 1 1
-  SETTABLEKS R13 R12 K177 ["Transparency"]
-  CALL R10 2 1
-  MOVE R11 R2
-  LOADK R12 K183 [".X-FadeRight ::UIGradient"]
-  DUPTABLE R13 K178 [{"Transparency"}]
-  GETIMPORT R14 K180 [NumberSequence.new]
-  NEWTABLE R15 0 2
-  GETIMPORT R16 K182 [NumberSequenceKeypoint.new]
-  LOADN R17 0
-  LOADN R18 0
-  CALL R16 2 1
-  GETIMPORT R17 K182 [NumberSequenceKeypoint.new]
-  LOADN R18 1
-  LOADN R19 1
-  CALL R17 2 -1
-  SETLIST R15 R16 -1 [1]
-  CALL R14 1 1
-  SETTABLEKS R14 R13 K177 ["Transparency"]
-  CALL R11 2 1
-  MOVE R12 R2
-  LOADK R13 K184 [".Component-RibbonTab"]
-  DUPTABLE R14 K186 [{"BackgroundTransparency", "Font", "TextColor3", "TextSize", "TextTruncate"}]
-  LOADK R15 K20 ["$Transparency100"]
-  SETTABLEKS R15 R14 K17 ["BackgroundTransparency"]
-  LOADK R15 K187 ["$FontWeight600"]
-  SETTABLEKS R15 R14 K13 ["Font"]
-  LOADK R15 K188 ["$SemanticColorContentMuted"]
-  SETTABLEKS R15 R14 K29 ["TextColor3"]
-  LOADK R15 K189 ["$FontSize50"]
-  SETTABLEKS R15 R14 K33 ["TextSize"]
-  GETIMPORT R15 K191 [Enum.TextTruncate.SplitWord]
-  SETTABLEKS R15 R14 K185 ["TextTruncate"]
-  NEWTABLE R15 0 7
-  MOVE R16 R2
-  LOADK R17 K192 [".State-Selected"]
-  DUPTABLE R18 K193 [{"BackgroundColor3", "BackgroundTransparency", "TextColor3"}]
-  LOADK R19 K194 ["$SemanticColorStatesSelected"]
-  SETTABLEKS R19 R18 K23 ["BackgroundColor3"]
-  LOADK R19 K195 ["$SemanticColorStatesSelectedTransparency"]
-  SETTABLEKS R19 R18 K17 ["BackgroundTransparency"]
-  LOADK R19 K31 ["$SemanticColorContentStandard"]
-  SETTABLEKS R19 R18 K29 ["TextColor3"]
-  CALL R16 2 1
-  MOVE R17 R2
-  LOADK R18 K196 [".State-Disabled"]
-  DUPTABLE R19 K197 [{"TextColor3"}]
-  LOADK R20 K198 ["$SemanticColorContentDisabled"]
-  SETTABLEKS R20 R19 K29 ["TextColor3"]
-  CALL R17 2 1
-  MOVE R18 R2
-  LOADK R19 K199 [".State-Default"]
-  NEWTABLE R20 0 0
+  LOADK R19 K76 [".Role-Menu"]
+  DUPTABLE R20 K79 [{"BackgroundColor3", "BorderColor3", "BorderMode", "BorderSizePixel"}]
+  LOADK R21 K23 ["$SemanticColorSurface100"]
+  SETTABLEKS R21 R20 K21 ["BackgroundColor3"]
+  LOADK R21 K80 ["$SemanticColorDividerTransparency88"]
+  SETTABLEKS R21 R20 K77 ["BorderColor3"]
+  GETIMPORT R21 K82 [Enum.BorderMode.Inset]
+  SETTABLEKS R21 R20 K78 ["BorderMode"]
+  LOADK R21 K83 ["$BorderMedium"]
+  SETTABLEKS R21 R20 K16 ["BorderSizePixel"]
   NEWTABLE R21 0 2
   MOVE R22 R2
-  LOADK R23 K200 [":hover"]
-  DUPTABLE R24 K201 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R25 K202 ["$SemanticColorStateLayerHover"]
-  SETTABLEKS R25 R24 K23 ["BackgroundColor3"]
-  LOADK R25 K203 ["$SemanticColorStateLayerHoverTransparency"]
-  SETTABLEKS R25 R24 K17 ["BackgroundTransparency"]
+  LOADK R23 K53 ["::UIPadding"]
+  DUPTABLE R24 K84 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+  LOADK R25 K85 ["$MenuPadding"]
+  SETTABLEKS R25 R24 K54 ["PaddingLeft"]
+  LOADK R25 K85 ["$MenuPadding"]
+  SETTABLEKS R25 R24 K72 ["PaddingRight"]
+  LOADK R25 K85 ["$MenuPadding"]
+  SETTABLEKS R25 R24 K73 ["PaddingTop"]
+  LOADK R25 K85 ["$MenuPadding"]
+  SETTABLEKS R25 R24 K71 ["PaddingBottom"]
   CALL R22 2 1
   MOVE R23 R2
-  LOADK R24 K204 [":press"]
-  DUPTABLE R25 K201 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R26 K205 ["$SemanticColorStateLayerPress"]
-  SETTABLEKS R26 R25 K23 ["BackgroundColor3"]
-  LOADK R26 K206 ["$SemanticColorStateLayerPressTransparency"]
-  SETTABLEKS R26 R25 K17 ["BackgroundTransparency"]
+  LOADK R24 K86 ["> #Menu ::UIListLayout"]
+  DUPTABLE R25 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R26 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R26 R25 K40 ["FillDirection"]
+  LOADK R26 K87 ["$MenuColumnSpacing"]
+  SETTABLEKS R26 R25 K41 ["Padding"]
+  GETIMPORT R26 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R26 R25 K42 ["SortOrder"]
   CALL R23 2 -1
   SETLIST R21 R22 -1 [1]
   CALL R18 3 1
   MOVE R19 R2
-  LOADK R20 K207 [".State-Editing"]
-  DUPTABLE R21 K209 [{"BackgroundColor3", "BackgroundTransparency", "ClipsDescendants", "Font", "TextColor3", "TextTruncate"}]
-  LOADK R22 K194 ["$SemanticColorStatesSelected"]
-  SETTABLEKS R22 R21 K23 ["BackgroundColor3"]
-  LOADK R22 K195 ["$SemanticColorStatesSelectedTransparency"]
-  SETTABLEKS R22 R21 K17 ["BackgroundTransparency"]
-  LOADB R22 1
-  SETTABLEKS R22 R21 K208 ["ClipsDescendants"]
-  LOADK R22 K126 ["$FontWeight700"]
-  SETTABLEKS R22 R21 K13 ["Font"]
-  LOADK R22 K31 ["$SemanticColorContentStandard"]
-  SETTABLEKS R22 R21 K29 ["TextColor3"]
-  GETIMPORT R22 K210 [Enum.TextTruncate.None]
-  SETTABLEKS R22 R21 K185 ["TextTruncate"]
-  CALL R19 2 1
-  MOVE R20 R2
-  LOADK R21 K100 ["::UISizeConstraint"]
-  DUPTABLE R22 K212 [{"MinSize", "MaxSize"}]
-  GETIMPORT R23 K151 [Vector2.new]
-  LOADN R24 80
-  LOADN R25 24
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K211 ["MinSize"]
-  GETIMPORT R23 K151 [Vector2.new]
-  LOADN R24 80
-  LOADN R25 24
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K101 ["MaxSize"]
-  CALL R20 2 1
-  MOVE R21 R2
-  LOADK R22 K55 ["::UIPadding"]
-  DUPTABLE R23 K213 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-  LOADK R24 K214 ["$GlobalSpace75"]
-  SETTABLEKS R24 R23 K75 ["PaddingTop"]
-  LOADK R24 K214 ["$GlobalSpace75"]
-  SETTABLEKS R24 R23 K73 ["PaddingBottom"]
-  LOADK R24 K69 ["$GlobalSpace100"]
-  SETTABLEKS R24 R23 K56 ["PaddingLeft"]
-  LOADK R24 K69 ["$GlobalSpace100"]
-  SETTABLEKS R24 R23 K74 ["PaddingRight"]
-  CALL R21 2 1
-  MOVE R22 R2
-  LOADK R23 K215 ["::UICorner"]
-  DUPTABLE R24 K217 [{"CornerRadius"}]
-  LOADK R25 K218 ["$TabCornerRadius"]
-  SETTABLEKS R25 R24 K216 ["CornerRadius"]
-  CALL R22 2 -1
-  SETLIST R15 R16 -1 [1]
-  CALL R12 3 1
-  MOVE R13 R2
-  LOADK R14 K219 [".Component-RibbonTabs"]
-  NEWTABLE R15 0 0
-  NEWTABLE R16 0 5
-  MOVE R17 R2
-  LOADK R18 K110 ["::UIFlexItem"]
-  DUPTABLE R19 K222 [{"FlexMode", "GrowRatio", "ShrinkRatio"}]
-  GETIMPORT R20 K224 [Enum.UIFlexMode.Custom]
-  SETTABLEKS R20 R19 K111 ["FlexMode"]
-  LOADK R20 K225 [10000000000]
-  SETTABLEKS R20 R19 K220 ["GrowRatio"]
-  LOADK R20 K226 [1E-10]
-  SETTABLEKS R20 R19 K221 ["ShrinkRatio"]
-  CALL R17 2 1
-  MOVE R18 R2
-  LOADK R19 K41 ["::UIListLayout"]
-  DUPTABLE R20 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R21 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R21 R20 K42 ["FillDirection"]
-  LOADK R21 K227 ["$RibbonTabsContainerSpacing"]
-  SETTABLEKS R21 R20 K43 ["Padding"]
-  GETIMPORT R21 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R21 R20 K44 ["SortOrder"]
-  CALL R18 2 1
-  MOVE R19 R2
-  LOADK R20 K228 ["> #CollapsibleScroller"]
-  NEWTABLE R21 0 0
-  NEWTABLE R22 0 3
+  LOADK R20 K88 [".Role-Tooltip"]
+  DUPTABLE R21 K79 [{"BackgroundColor3", "BorderColor3", "BorderMode", "BorderSizePixel"}]
+  LOADK R22 K89 ["$SemanticColorSurface300Inverse"]
+  SETTABLEKS R22 R21 K21 ["BackgroundColor3"]
+  LOADK R22 K90 ["$SemanticColorDivider"]
+  SETTABLEKS R22 R21 K77 ["BorderColor3"]
+  GETIMPORT R22 K82 [Enum.BorderMode.Inset]
+  SETTABLEKS R22 R21 K78 ["BorderMode"]
+  LOADK R22 K83 ["$BorderMedium"]
+  SETTABLEKS R22 R21 K16 ["BorderSizePixel"]
+  NEWTABLE R22 0 1
   MOVE R23 R2
-  LOADK R24 K128 ["> #Scroller"]
-  DUPTABLE R25 K229 [{"AutomaticCanvasSize", "ScrollingDirection", "ScrollBarThickness", "HorizontalScrollBarInset", "Size"}]
-  GETIMPORT R26 K136 [Enum.AutomaticSize.XY]
-  SETTABLEKS R26 R25 K129 ["AutomaticCanvasSize"]
-  GETIMPORT R26 K138 [Enum.ScrollingDirection.X]
-  SETTABLEKS R26 R25 K130 ["ScrollingDirection"]
-  LOADN R26 0
-  SETTABLEKS R26 R25 K131 ["ScrollBarThickness"]
-  GETIMPORT R26 K141 [Enum.ScrollBarInset.None]
-  SETTABLEKS R26 R25 K132 ["HorizontalScrollBarInset"]
-  GETIMPORT R26 K231 [UDim2.fromScale]
-  LOADN R27 1
-  LOADN R28 1
-  CALL R26 2 1
-  SETTABLEKS R26 R25 K95 ["Size"]
-  NEWTABLE R26 0 1
-  MOVE R27 R2
-  LOADK R28 K94 ["> #Wrapper"]
-  NEWTABLE R29 0 0
-  NEWTABLE R30 0 1
-  MOVE R31 R2
-  LOADK R32 K41 ["::UIListLayout"]
-  DUPTABLE R33 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R34 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R34 R33 K42 ["FillDirection"]
-  LOADK R34 K232 ["$RibbonTabsSpacing"]
-  SETTABLEKS R34 R33 K43 ["Padding"]
-  GETIMPORT R34 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R34 R33 K44 ["SortOrder"]
-  CALL R31 2 -1
-  SETLIST R30 R31 -1 [1]
-  CALL R27 3 -1
-  SETLIST R26 R27 -1 [1]
-  CALL R23 3 1
-  MOVE R24 R2
-  LOADK R25 K142 ["> #LeftGradient"]
-  DUPTABLE R26 K144 [{"Size", "ZIndex"}]
-  LOADK R27 K145 ["$TabGradientSize"]
-  SETTABLEKS R27 R26 K95 ["Size"]
-  LOADN R27 10
-  SETTABLEKS R27 R26 K143 ["ZIndex"]
-  CALL R24 2 1
-  MOVE R25 R2
-  LOADK R26 K146 ["> #RightGradient"]
-  DUPTABLE R27 K149 [{"AnchorPoint", "Size", "Position", "ZIndex"}]
-  GETIMPORT R28 K151 [Vector2.new]
-  LOADN R29 1
+  LOADK R24 K91 ["> #Wrapper"]
+  DUPTABLE R25 K93 [{"Size"}]
+  GETIMPORT R26 K96 [UDim2.new]
+  LOADN R27 0
+  LOADN R28 232
+  LOADN R29 0
   LOADN R30 0
-  CALL R28 2 1
-  SETTABLEKS R28 R27 K147 ["AnchorPoint"]
-  LOADK R28 K145 ["$TabGradientSize"]
-  SETTABLEKS R28 R27 K95 ["Size"]
-  GETIMPORT R28 K99 [UDim2.new]
-  LOADN R29 1
-  LOADN R30 0
-  LOADN R31 0
-  LOADN R32 0
-  CALL R28 4 1
-  SETTABLEKS R28 R27 K148 ["Position"]
-  LOADN R28 10
-  SETTABLEKS R28 R27 K143 ["ZIndex"]
-  CALL R25 2 -1
-  SETLIST R22 R23 -1 [1]
-  CALL R19 3 1
-  MOVE R20 R2
-  LOADK R21 K233 ["> #More"]
-  DUPTABLE R22 K235 [{"Visible"}]
-  LOADB R23 0
-  SETTABLEKS R23 R22 K234 ["Visible"]
-  CALL R20 2 1
-  MOVE R21 R2
-  LOADK R22 K236 [".Compact > #More"]
-  DUPTABLE R23 K235 [{"Visible"}]
-  LOADB R24 1
-  SETTABLEKS R24 R23 K234 ["Visible"]
-  CALL R21 2 -1
-  SETLIST R16 R17 -1 [1]
-  CALL R13 3 1
-  MOVE R14 R2
-  LOADK R15 K237 [".Component-RibbonButton"]
-  DUPTABLE R16 K240 [{"AutoButtonColor", "BackgroundTransparency", "BorderSizePixel", "Text"}]
-  LOADB R17 0
-  SETTABLEKS R17 R16 K238 ["AutoButtonColor"]
-  LOADK R17 K20 ["$Transparency100"]
-  SETTABLEKS R17 R16 K17 ["BackgroundTransparency"]
-  LOADK R17 K21 ["$BorderNone"]
-  SETTABLEKS R17 R16 K18 ["BorderSizePixel"]
-  LOADK R17 K241 [""]
-  SETTABLEKS R17 R16 K239 ["Text"]
-  NEWTABLE R17 0 8
-  MOVE R18 R2
-  LOADK R19 K158 [".Small"]
-  NEWTABLE R20 0 0
-  NEWTABLE R21 0 1
-  MOVE R22 R2
-  LOADK R23 K100 ["::UISizeConstraint"]
-  DUPTABLE R24 K102 [{"MaxSize"}]
-  LOADK R25 K242 ["$RibbonButtonSmallMaxSize"]
-  SETTABLEKS R25 R24 K101 ["MaxSize"]
-  CALL R22 2 -1
-  SETLIST R21 R22 -1 [1]
-  CALL R18 3 1
-  MOVE R19 R2
-  LOADK R20 K243 ["> TextLabel"]
-  DUPTABLE R21 K244 [{"BackgroundTransparency", "Font", "LayoutOrder", "TextColor3", "TextSize", "TextTruncate"}]
-  LOADK R22 K20 ["$Transparency100"]
-  SETTABLEKS R22 R21 K17 ["BackgroundTransparency"]
-  LOADK R22 K15 ["$FontWeight400"]
-  SETTABLEKS R22 R21 K13 ["Font"]
-  LOADN R22 2
-  SETTABLEKS R22 R21 K50 ["LayoutOrder"]
-  LOADK R22 K188 ["$SemanticColorContentMuted"]
-  SETTABLEKS R22 R21 K29 ["TextColor3"]
-  LOADK R22 K245 ["$RibbonButtonLabelTextSize"]
-  SETTABLEKS R22 R21 K33 ["TextSize"]
-  GETIMPORT R22 K247 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R22 R21 K185 ["TextTruncate"]
-  CALL R19 2 1
-  MOVE R20 R2
-  LOADK R21 K248 [">> #RibbonToolButtonIcon, >> #ButtonIcon"]
-  DUPTABLE R22 K249 [{"BackgroundTransparency", "BorderSizePixel", "LayoutOrder"}]
-  LOADK R23 K20 ["$Transparency100"]
-  SETTABLEKS R23 R22 K17 ["BackgroundTransparency"]
-  LOADK R23 K21 ["$BorderNone"]
-  SETTABLEKS R23 R22 K18 ["BorderSizePixel"]
-  LOADN R23 0
-  SETTABLEKS R23 R22 K50 ["LayoutOrder"]
-  NEWTABLE R23 0 2
-  MOVE R24 R2
-  LOADK R25 K250 [".Icon-Large"]
-  DUPTABLE R26 K96 [{"Size"}]
-  LOADK R27 K251 ["$IconLarge"]
-  SETTABLEKS R27 R26 K95 ["Size"]
-  CALL R24 2 1
-  MOVE R25 R2
-  LOADK R26 K252 [".Icon-Small"]
-  DUPTABLE R27 K96 [{"Size"}]
-  LOADK R28 K253 ["$IconSmall"]
-  SETTABLEKS R28 R27 K95 ["Size"]
-  CALL R25 2 -1
-  SETLIST R23 R24 -1 [1]
-  CALL R20 3 1
-  MOVE R21 R2
-  LOADK R22 K254 ["> #RibbonTool"]
-  NEWTABLE R23 0 0
-  NEWTABLE R24 0 1
-  MOVE R25 R2
-  LOADK R26 K215 ["::UICorner"]
-  DUPTABLE R27 K217 [{"CornerRadius"}]
-  LOADK R28 K255 ["$GlobalRadiusXSmall"]
-  SETTABLEKS R28 R27 K216 ["CornerRadius"]
-  CALL R25 2 -1
-  SETLIST R24 R25 -1 [1]
-  CALL R21 3 1
-  MOVE R22 R2
-  LOADK R23 K196 [".State-Disabled"]
-  NEWTABLE R24 0 0
-  NEWTABLE R25 0 1
-  MOVE R26 R2
-  LOADK R27 K0 ["script"]
-  NEWTABLE R28 0 0
-  NEWTABLE R29 0 1
-  MOVE R30 R2
-  LOADK R31 K1 [script]
-  DUPTABLE R32 K259 [{"ImageTransparency"}]
-  LOADK R33 K4 [require]
-  SETTABLEKS R33 R32 K258 ["ImageTransparency"]
-  CALL R30 2 -1
-  SETLIST R29 R30 -1 [1]
-  CALL R26 3 -1
-  SETLIST R25 R26 -1 [1]
-  CALL R22 3 1
-  MOVE R23 R2
-  LOADK R24 K199 [".State-Default"]
-  NEWTABLE R25 0 0
-  NEWTABLE R26 0 1
+  CALL R26 4 1
+  SETTABLEKS R26 R25 K92 ["Size"]
+  NEWTABLE R26 0 3
   MOVE R27 R2
-  LOADK R28 K5 ["Packages"]
-  NEWTABLE R29 0 0
-  NEWTABLE R30 0 2
-  MOVE R31 R2
-  LOADK R32 K200 [":hover"]
-  DUPTABLE R33 K262 [{"BackgroundTransparency", "BackgroundColor3"}]
-  LOADK R34 K203 ["$SemanticColorStateLayerHoverTransparency"]
-  SETTABLEKS R34 R33 K17 ["BackgroundTransparency"]
-  LOADK R34 K202 ["$SemanticColorStateLayerHover"]
-  SETTABLEKS R34 R33 K23 ["BackgroundColor3"]
-  CALL R31 2 1
-  MOVE R32 R2
-  LOADK R33 K204 [":press"]
-  DUPTABLE R34 K262 [{"BackgroundTransparency", "BackgroundColor3"}]
-  LOADK R35 K206 ["$SemanticColorStateLayerPressTransparency"]
-  SETTABLEKS R35 R34 K17 ["BackgroundTransparency"]
-  LOADK R35 K205 ["$SemanticColorStateLayerPress"]
-  SETTABLEKS R35 R34 K23 ["BackgroundColor3"]
-  CALL R32 2 -1
-  SETLIST R30 R31 -1 [1]
-  CALL R27 3 -1
-  SETLIST R26 R27 -1 [1]
-  CALL R23 3 1
-  MOVE R24 R2
-  LOADK R25 K192 [".State-Selected"]
-  NEWTABLE R26 0 0
-  NEWTABLE R27 0 1
-  MOVE R28 R2
-  LOADK R29 K0 ["script"]
-  DUPTABLE R30 K262 [{"BackgroundTransparency", "BackgroundColor3"}]
-  LOADK R31 K195 ["$SemanticColorStatesSelectedTransparency"]
-  SETTABLEKS R31 R30 K17 ["BackgroundTransparency"]
-  LOADK R31 K194 ["$SemanticColorStatesSelected"]
-  SETTABLEKS R31 R30 K23 ["BackgroundColor3"]
-  CALL R28 2 -1
-  SETLIST R27 R28 -1 [1]
-  CALL R24 3 1
-  MOVE R25 R2
-  LOADK R26 K7 ["Styling"]
-  NEWTABLE R27 0 0
-  NEWTABLE R28 0 2
-  MOVE R29 R2
-  LOADK R30 K8 ["createStyleRule"]
-  DUPTABLE R31 K265 [{"BackgroundTransparency"}]
-  LOADK R32 K10 ["SharedFlags"]
-  SETTABLEKS R32 R31 K17 ["BackgroundTransparency"]
-  NEWTABLE R32 0 1
-  MOVE R33 R2
-  LOADK R34 K11 ["getFFlagDevFrameworkEnableFoundationColors"]
-  DUPTABLE R35 K270 [{"Color", "Rotation", "Transparency"}]
-  LOADK R36 K15 ["$FontWeight400"]
-  SETTABLEKS R36 R35 K268 ["Color"]
-  LOADK R36 K16 [".Role-Surface"]
-  SETTABLEKS R36 R35 K269 ["Rotation"]
-  LOADK R36 K17 ["BackgroundTransparency"]
-  SETTABLEKS R36 R35 K177 ["Transparency"]
-  CALL R33 2 -1
-  SETLIST R32 R33 -1 [1]
-  CALL R29 3 1
-  MOVE R30 R2
-  LOADK R31 K18 ["BorderSizePixel"]
-  DUPTABLE R32 K265 [{"BackgroundTransparency"}]
-  LOADK R33 K10 ["SharedFlags"]
-  SETTABLEKS R33 R32 K17 ["BackgroundTransparency"]
-  NEWTABLE R33 0 1
-  MOVE R34 R2
-  LOADK R35 K11 ["getFFlagDevFrameworkEnableFoundationColors"]
-  DUPTABLE R36 K270 [{"Color", "Rotation", "Transparency"}]
-  LOADK R37 K19 [{"BackgroundTransparency", "BorderSizePixel"}]
-  SETTABLEKS R37 R36 K268 ["Color"]
-  LOADK R37 K20 ["$Transparency100"]
-  SETTABLEKS R37 R36 K269 ["Rotation"]
-  LOADK R37 K21 ["$BorderNone"]
-  SETTABLEKS R37 R36 K177 ["Transparency"]
-  CALL R34 2 -1
-  SETLIST R33 R34 -1 [1]
-  CALL R30 3 -1
-  SETLIST R28 R29 -1 [1]
-  CALL R25 3 -1
-  SETLIST R17 R18 -1 [1]
-  CALL R14 3 1
-  MOVE R15 R2
-  LOADK R16 K22 [".Role-Surface100"]
-  NEWTABLE R17 0 0
-  NEWTABLE R18 0 2
-  MOVE R19 R2
-  LOADK R20 K41 ["::UIListLayout"]
-  DUPTABLE R21 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R22 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R22 R21 K42 ["FillDirection"]
-  LOADK R22 K69 ["$GlobalSpace100"]
-  SETTABLEKS R22 R21 K43 ["Padding"]
-  GETIMPORT R22 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R22 R21 K44 ["SortOrder"]
-  CALL R19 2 1
-  MOVE R20 R2
-  LOADK R21 K23 ["BackgroundColor3"]
-  NEWTABLE R22 0 0
-  NEWTABLE R23 0 1
-  MOVE R24 R2
-  LOADK R25 K24 [{"BackgroundColor3", "BorderSizePixel"}]
-  DUPTABLE R26 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R27 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R27 R26 K42 ["FillDirection"]
-  LOADK R27 K67 ["$GlobalSpace50"]
-  SETTABLEKS R27 R26 K43 ["Padding"]
-  GETIMPORT R27 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R27 R26 K44 ["SortOrder"]
-  CALL R24 2 -1
-  SETLIST R23 R24 -1 [1]
-  CALL R20 3 -1
-  SETLIST R18 R19 -1 [1]
-  CALL R15 3 1
-  MOVE R16 R2
-  LOADK R17 K25 ["$SemanticColorSurface100"]
-  DUPTABLE R18 K282 [{"AutoButtonColor", "Text", "Size"}]
-  LOADB R19 0
-  SETTABLEKS R19 R18 K238 ["AutoButtonColor"]
-  LOADK R19 K241 [""]
-  SETTABLEKS R19 R18 K239 ["Text"]
-  GETIMPORT R19 K284 [UDim2.fromOffset]
-  LOADN R20 0
-  LOADN R21 24
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K95 ["Size"]
-  NEWTABLE R19 0 6
-  MOVE R20 R2
-  LOADK R21 K215 ["::UICorner"]
-  DUPTABLE R22 K217 [{"CornerRadius"}]
-  LOADK R23 K255 ["$GlobalRadiusXSmall"]
-  SETTABLEKS R23 R22 K216 ["CornerRadius"]
-  CALL R20 2 1
-  MOVE R21 R2
-  LOADK R22 K29 ["TextColor3"]
-  NEWTABLE R23 0 0
-  NEWTABLE R24 0 2
-  MOVE R25 R2
-  LOADK R26 K30 [{"BorderSizePixel", "BackgroundTransparency", "TextColor3"}]
-  DUPTABLE R27 K287 [{"LayoutOrder"}]
-  LOADN R28 0
-  SETTABLEKS R28 R27 K50 ["LayoutOrder"]
-  NEWTABLE R28 0 3
-  MOVE R29 R2
-  LOADK R30 K250 [".Icon-Large"]
-  DUPTABLE R31 K96 [{"Size"}]
-  LOADK R32 K251 ["$IconLarge"]
-  SETTABLEKS R32 R31 K95 ["Size"]
-  CALL R29 2 1
-  MOVE R30 R2
-  LOADK R31 K252 [".Icon-Small"]
-  DUPTABLE R32 K96 [{"Size"}]
-  LOADK R33 K253 ["$IconSmall"]
-  SETTABLEKS R33 R32 K95 ["Size"]
-  CALL R30 2 1
-  MOVE R31 R2
-  LOADK R32 K32 [".Text-Label"]
-  DUPTABLE R33 K287 [{"LayoutOrder"}]
-  LOADN R34 3
-  SETTABLEKS R34 R33 K50 ["LayoutOrder"]
-  CALL R31 2 -1
-  SETLIST R28 R29 -1 [1]
-  CALL R25 3 1
-  MOVE R26 R2
-  LOADK R27 K33 ["TextSize"]
-  DUPTABLE R28 K290 [{"Font", "TextSize", "LayoutOrder", "TextColor3"}]
-  LOADK R29 K126 ["$FontWeight700"]
-  SETTABLEKS R29 R28 K13 ["Font"]
-  LOADK R29 K35 ["$ContentTextFontWeight"]
-  SETTABLEKS R29 R28 K33 ["TextSize"]
-  LOADN R29 2
-  SETTABLEKS R29 R28 K50 ["LayoutOrder"]
-  LOADK R29 K31 ["$SemanticColorContentStandard"]
-  SETTABLEKS R29 R28 K29 ["TextColor3"]
-  NEWTABLE R29 0 2
-  MOVE R30 R2
-  LOADK R31 K158 [".Small"]
-  DUPTABLE R32 K292 [{"TextSize"}]
-  LOADK R33 K189 ["$FontSize50"]
-  SETTABLEKS R33 R32 K33 ["TextSize"]
-  CALL R30 2 1
-  MOVE R31 R2
-  LOADK R32 K37 [".Text-Title"]
-  DUPTABLE R33 K292 [{"TextSize"}]
-  LOADK R34 K38 ["$TitleTextFontWeight"]
-  SETTABLEKS R34 R33 K33 ["TextSize"]
-  CALL R31 2 -1
-  SETLIST R29 R30 -1 [1]
-  CALL R26 3 -1
-  SETLIST R24 R25 -1 [1]
-  CALL R21 3 1
-  MOVE R22 R2
-  LOADK R23 K196 [".State-Disabled"]
-  NEWTABLE R24 0 0
-  NEWTABLE R25 0 2
-  MOVE R26 R2
-  LOADK R27 K39 ["$TitleTextFontSize"]
-  DUPTABLE R28 K259 [{"ImageTransparency"}]
-  LOADK R29 K4 [require]
-  SETTABLEKS R29 R28 K258 ["ImageTransparency"]
-  CALL R26 2 1
-  MOVE R27 R2
-  LOADK R28 K40 [".Role-Row"]
-  DUPTABLE R29 K197 [{"TextColor3"}]
-  LOADK R30 K198 ["$SemanticColorContentDisabled"]
-  SETTABLEKS R30 R29 K29 ["TextColor3"]
-  CALL R27 2 -1
-  SETLIST R25 R26 -1 [1]
-  CALL R22 3 1
-  MOVE R23 R2
-  LOADK R24 K199 [".State-Default"]
-  NEWTABLE R25 0 0
-  NEWTABLE R26 0 2
-  MOVE R27 R2
-  LOADK R28 K41 ["::UIListLayout"]
-  DUPTABLE R29 K262 [{"BackgroundTransparency", "BackgroundColor3"}]
-  LOADK R30 K203 ["$SemanticColorStateLayerHoverTransparency"]
-  SETTABLEKS R30 R29 K17 ["BackgroundTransparency"]
-  LOADK R30 K202 ["$SemanticColorStateLayerHover"]
-  SETTABLEKS R30 R29 K23 ["BackgroundColor3"]
+  LOADK R28 K97 ["::UISizeConstraint"]
+  DUPTABLE R29 K99 [{"MaxSize"}]
+  LOADK R30 K100 ["$TooltipMaxSize"]
+  SETTABLEKS R30 R29 K98 ["MaxSize"]
   CALL R27 2 1
   MOVE R28 R2
-  LOADK R29 K42 ["FillDirection"]
-  DUPTABLE R30 K262 [{"BackgroundTransparency", "BackgroundColor3"}]
-  LOADK R31 K206 ["$SemanticColorStateLayerPressTransparency"]
-  SETTABLEKS R31 R30 K17 ["BackgroundTransparency"]
-  LOADK R31 K205 ["$SemanticColorStateLayerPress"]
-  SETTABLEKS R31 R30 K23 ["BackgroundColor3"]
-  CALL R28 2 -1
-  SETLIST R26 R27 -1 [1]
-  CALL R23 3 1
-  MOVE R24 R2
-  LOADK R25 K43 ["Padding"]
-  NEWTABLE R26 0 0
-  NEWTABLE R27 0 1
-  MOVE R28 R2
-  LOADK R29 K44 ["SortOrder"]
-  DUPTABLE R30 K303 [{"ApplyStrokeMode", "Color", "Thickness", "Transparency"}]
-  GETIMPORT R31 K305 [Enum.ApplyStrokeMode.Border]
-  SETTABLEKS R31 R30 K301 ["ApplyStrokeMode"]
-  LOADK R31 K93 ["$SemanticColorDivider"]
-  SETTABLEKS R31 R30 K268 ["Color"]
-  LOADK R31 K86 ["$BorderMedium"]
-  SETTABLEKS R31 R30 K302 ["Thickness"]
-  LOADK R31 K155 ["$SemanticColorDividerTransparency"]
-  SETTABLEKS R31 R30 K177 ["Transparency"]
-  CALL R28 2 -1
-  SETLIST R27 R28 -1 [1]
-  CALL R24 3 1
-  MOVE R25 R2
-  LOADK R26 K50 ["LayoutOrder"]
-  DUPTABLE R27 K201 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R28 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R28 R27 K23 ["BackgroundColor3"]
-  LOADK R28 K52 [".ConvertibleToColumn"]
-  SETTABLEKS R28 R27 K17 ["BackgroundTransparency"]
-  NEWTABLE R28 0 2
+  LOADK R29 K39 ["::UIListLayout"]
+  DUPTABLE R30 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R31 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R31 R30 K40 ["FillDirection"]
+  LOADK R31 K101 ["$TooltipContentSpacing"]
+  SETTABLEKS R31 R30 K41 ["Padding"]
+  GETIMPORT R31 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R31 R30 K42 ["SortOrder"]
+  CALL R28 2 1
   MOVE R29 R2
-  LOADK R30 K199 [".State-Default"]
+  LOADK R30 K102 ["> #Content"]
   NEWTABLE R31 0 0
-  NEWTABLE R32 0 2
+  NEWTABLE R32 0 5
   MOVE R33 R2
-  LOADK R34 K41 ["::UIListLayout"]
-  DUPTABLE R35 K201 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R36 K202 ["$SemanticColorStateLayerHover"]
-  SETTABLEKS R36 R35 K23 ["BackgroundColor3"]
-  LOADK R36 K203 ["$SemanticColorStateLayerHoverTransparency"]
-  SETTABLEKS R36 R35 K17 ["BackgroundTransparency"]
+  LOADK R34 K39 ["::UIListLayout"]
+  DUPTABLE R35 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R36 K59 [Enum.FillDirection.Vertical]
+  SETTABLEKS R36 R35 K40 ["FillDirection"]
+  LOADK R36 K103 ["$TooltipTextSpacing"]
+  SETTABLEKS R36 R35 K41 ["Padding"]
+  GETIMPORT R36 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R36 R35 K42 ["SortOrder"]
   CALL R33 2 1
   MOVE R34 R2
-  LOADK R35 K42 ["FillDirection"]
-  DUPTABLE R36 K201 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R37 K205 ["$SemanticColorStateLayerPress"]
-  SETTABLEKS R37 R36 K23 ["BackgroundColor3"]
-  LOADK R37 K206 ["$SemanticColorStateLayerPressTransparency"]
-  SETTABLEKS R37 R36 K17 ["BackgroundTransparency"]
-  CALL R34 2 -1
-  SETLIST R32 R33 -1 [1]
-  CALL R29 3 1
-  MOVE R30 R2
-  LOADK R31 K40 [".Role-Row"]
-  DUPTABLE R32 K310 [{"TextColor3", "TextTransparency"}]
-  LOADK R33 K55 ["::UIPadding"]
-  SETTABLEKS R33 R32 K29 ["TextColor3"]
-  LOADK R33 K56 ["PaddingLeft"]
-  SETTABLEKS R33 R32 K309 ["TextTransparency"]
-  CALL R30 2 -1
-  SETLIST R28 R29 -1 [1]
-  CALL R25 3 -1
-  SETLIST R19 R20 -1 [1]
-  CALL R16 3 1
-  MOVE R17 R2
-  LOADK R18 K57 [{"PaddingLeft"}]
-  DUPTABLE R19 K19 [{"BackgroundTransparency", "BorderSizePixel"}]
-  LOADK R20 K20 ["$Transparency100"]
-  SETTABLEKS R20 R19 K17 ["BackgroundTransparency"]
-  LOADK R20 K21 ["$BorderNone"]
-  SETTABLEKS R20 R19 K18 ["BorderSizePixel"]
-  NEWTABLE R20 0 7
-  MOVE R21 R2
-  LOADK R22 K58 ["$PaddingLeftMedium"]
-  DUPTABLE R23 K315 [{"AutoButtonColor", "BackgroundTransparency", "BorderSizePixel", "LayoutOrder", "Text"}]
-  LOADB R24 0
-  SETTABLEKS R24 R23 K238 ["AutoButtonColor"]
-  LOADK R24 K20 ["$Transparency100"]
-  SETTABLEKS R24 R23 K17 ["BackgroundTransparency"]
-  LOADK R24 K21 ["$BorderNone"]
-  SETTABLEKS R24 R23 K18 ["BorderSizePixel"]
-  LOADN R24 1
-  SETTABLEKS R24 R23 K50 ["LayoutOrder"]
-  LOADK R24 K241 [""]
-  SETTABLEKS R24 R23 K239 ["Text"]
-  NEWTABLE R24 0 2
-  MOVE R25 R2
-  LOADK R26 K60 ["Vertical"]
-  DUPTABLE R27 K317 [{"BackgroundTransparency", "BorderSizePixel", "Font", "LayoutOrder"}]
-  LOADK R28 K20 ["$Transparency100"]
-  SETTABLEKS R28 R27 K17 ["BackgroundTransparency"]
-  LOADK R28 K21 ["$BorderNone"]
-  SETTABLEKS R28 R27 K18 ["BorderSizePixel"]
-  LOADK R28 K15 ["$FontWeight400"]
-  SETTABLEKS R28 R27 K13 ["Font"]
-  LOADN R28 2
-  SETTABLEKS R28 R27 K50 ["LayoutOrder"]
-  CALL R25 2 1
-  MOVE R26 R2
-  LOADK R27 K62 ["$ColumnSpacingDefault"]
-  DUPTABLE R28 K19 [{"BackgroundTransparency", "BorderSizePixel"}]
-  LOADK R29 K20 ["$Transparency100"]
-  SETTABLEKS R29 R28 K17 ["BackgroundTransparency"]
-  LOADK R29 K21 ["$BorderNone"]
-  SETTABLEKS R29 R28 K18 ["BorderSizePixel"]
-  CALL R26 2 -1
-  SETLIST R24 R25 -1 [1]
-  CALL R21 3 1
-  MOVE R22 R2
-  LOADK R23 K63 [".SpacingMedium"]
-  NEWTABLE R24 0 0
-  NEWTABLE R25 0 1
-  MOVE R26 R2
-  LOADK R27 K58 ["$PaddingLeftMedium"]
-  NEWTABLE R28 0 0
-  NEWTABLE R29 0 2
-  MOVE R30 R2
-  LOADK R31 K41 ["::UIListLayout"]
-  DUPTABLE R32 K320 [{"FillDirection", "Padding", "SortOrder", "VerticalAlignment"}]
-  GETIMPORT R33 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R33 R32 K42 ["FillDirection"]
-  LOADK R33 K69 ["$GlobalSpace100"]
-  SETTABLEKS R33 R32 K43 ["Padding"]
-  GETIMPORT R33 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R33 R32 K44 ["SortOrder"]
-  GETIMPORT R33 K168 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R33 R32 K162 ["VerticalAlignment"]
-  CALL R30 2 1
-  MOVE R31 R2
-  LOADK R32 K62 ["$ColumnSpacingDefault"]
-  DUPTABLE R33 K96 [{"Size"}]
-  LOADK R34 K253 ["$IconSmall"]
-  SETTABLEKS R34 R33 K95 ["Size"]
-  CALL R31 2 -1
-  SETLIST R29 R30 -1 [1]
-  CALL R26 3 -1
-  SETLIST R25 R26 -1 [1]
-  CALL R22 3 1
-  MOVE R23 R2
-  LOADK R24 K158 [".Small"]
-  NEWTABLE R25 0 0
-  NEWTABLE R26 0 1
-  MOVE R27 R2
-  LOADK R28 K58 ["$PaddingLeftMedium"]
-  NEWTABLE R29 0 0
-  NEWTABLE R30 0 1
-  MOVE R31 R2
-  LOADK R32 K60 ["Vertical"]
-  DUPTABLE R33 K292 [{"TextSize"}]
-  LOADK R34 K189 ["$FontSize50"]
-  SETTABLEKS R34 R33 K33 ["TextSize"]
-  CALL R31 2 -1
-  SETLIST R30 R31 -1 [1]
-  CALL R27 3 -1
-  SETLIST R26 R27 -1 [1]
-  CALL R23 3 1
-  MOVE R24 R2
-  LOADK R25 K65 ["$ColumnSpacingMedium"]
-  NEWTABLE R26 0 0
-  NEWTABLE R27 0 1
-  MOVE R28 R2
-  LOADK R29 K58 ["$PaddingLeftMedium"]
-  NEWTABLE R30 0 0
-  NEWTABLE R31 0 1
-  MOVE R32 R2
-  LOADK R33 K60 ["Vertical"]
-  DUPTABLE R34 K292 [{"TextSize"}]
-  LOADK R35 K35 ["$ContentTextFontWeight"]
-  SETTABLEKS R35 R34 K33 ["TextSize"]
-  CALL R32 2 -1
-  SETLIST R31 R32 -1 [1]
-  CALL R28 3 -1
-  SETLIST R27 R28 -1 [1]
-  CALL R24 3 1
-  MOVE R25 R2
-  LOADK R26 K37 [".Text-Title"]
-  NEWTABLE R27 0 0
-  NEWTABLE R28 0 1
-  MOVE R29 R2
-  LOADK R30 K58 ["$PaddingLeftMedium"]
-  NEWTABLE R31 0 0
-  NEWTABLE R32 0 3
-  MOVE R33 R2
-  LOADK R34 K41 ["::UIListLayout"]
-  DUPTABLE R35 K320 [{"FillDirection", "Padding", "SortOrder", "VerticalAlignment"}]
-  GETIMPORT R36 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R36 R35 K42 ["FillDirection"]
-  LOADK R36 K77 ["$GlobalSpace150"]
-  SETTABLEKS R36 R35 K43 ["Padding"]
-  GETIMPORT R36 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R36 R35 K44 ["SortOrder"]
-  GETIMPORT R36 K168 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R36 R35 K162 ["VerticalAlignment"]
-  CALL R33 2 1
-  MOVE R34 R2
-  LOADK R35 K62 ["$ColumnSpacingDefault"]
-  DUPTABLE R36 K96 [{"Size"}]
-  LOADK R37 K251 ["$IconLarge"]
-  SETTABLEKS R37 R36 K95 ["Size"]
-  CALL R34 2 1
-  MOVE R35 R2
-  LOADK R36 K60 ["Vertical"]
-  DUPTABLE R37 K292 [{"TextSize"}]
-  LOADK R38 K38 ["$TitleTextFontWeight"]
-  SETTABLEKS R38 R37 K33 ["TextSize"]
-  CALL R35 2 -1
-  SETLIST R32 R33 -1 [1]
-  CALL R29 3 -1
-  SETLIST R28 R29 -1 [1]
-  CALL R25 3 1
-  MOVE R26 R2
-  LOADK R27 K199 [".State-Default"]
-  NEWTABLE R28 0 0
-  NEWTABLE R29 0 4
-  MOVE R30 R2
-  LOADK R31 K58 ["$PaddingLeftMedium"]
-  NEWTABLE R32 0 0
-  NEWTABLE R33 0 2
-  MOVE R34 R2
-  LOADK R35 K66 [".X-RowSpace50"]
-  DUPTABLE R36 K324 [{"Image"}]
-  LOADK R37 K69 ["$GlobalSpace100"]
-  SETTABLEKS R37 R36 K323 ["Image"]
-  CALL R34 2 1
-  MOVE R35 R2
-  LOADK R36 K70 [".X-RowSpace200"]
-  DUPTABLE R37 K197 [{"TextColor3"}]
-  LOADK R38 K31 ["$SemanticColorContentStandard"]
-  SETTABLEKS R38 R37 K29 ["TextColor3"]
-  CALL R35 2 -1
-  SETLIST R33 R34 -1 [1]
-  CALL R30 3 1
-  MOVE R31 R2
-  LOADK R32 K71 ["$GlobalSpace200"]
-  DUPTABLE R33 K324 [{"Image"}]
-  LOADK R34 K72 [".X-Pad150 ::UIPadding"]
-  SETTABLEKS R34 R33 K323 ["Image"]
-  CALL R31 2 1
-  MOVE R32 R2
-  LOADK R33 K73 ["PaddingBottom"]
-  NEWTABLE R34 0 0
-  NEWTABLE R35 0 1
-  MOVE R36 R2
-  LOADK R37 K58 ["$PaddingLeftMedium"]
-  NEWTABLE R38 0 0
-  NEWTABLE R39 0 1
-  MOVE R40 R2
-  LOADK R41 K62 ["$ColumnSpacingDefault"]
-  DUPTABLE R42 K324 [{"Image"}]
-  LOADK R43 K74 ["PaddingRight"]
-  SETTABLEKS R43 R42 K323 ["Image"]
-  CALL R40 2 -1
-  SETLIST R39 R40 -1 [1]
-  CALL R36 3 -1
-  SETLIST R35 R36 -1 [1]
-  CALL R32 3 1
-  MOVE R33 R2
-  LOADK R34 K75 ["PaddingTop"]
-  NEWTABLE R35 0 0
-  NEWTABLE R36 0 1
-  MOVE R37 R2
-  LOADK R38 K58 ["$PaddingLeftMedium"]
-  NEWTABLE R39 0 0
-  NEWTABLE R40 0 1
-  MOVE R41 R2
-  LOADK R42 K62 ["$ColumnSpacingDefault"]
-  DUPTABLE R43 K324 [{"Image"}]
-  LOADK R44 K76 [{"PaddingBottom", "PaddingLeft", "PaddingRight", "PaddingTop"}]
-  SETTABLEKS R44 R43 K323 ["Image"]
-  CALL R41 2 -1
-  SETLIST R40 R41 -1 [1]
-  CALL R37 3 -1
-  SETLIST R36 R37 -1 [1]
-  CALL R33 3 -1
-  SETLIST R29 R30 -1 [1]
-  CALL R26 3 1
-  MOVE R27 R2
-  LOADK R28 K196 [".State-Disabled"]
-  NEWTABLE R29 0 0
-  NEWTABLE R30 0 3
-  MOVE R31 R2
-  LOADK R32 K58 ["$PaddingLeftMedium"]
-  NEWTABLE R33 0 0
-  NEWTABLE R34 0 2
-  MOVE R35 R2
-  LOADK R36 K62 ["$ColumnSpacingDefault"]
-  DUPTABLE R37 K324 [{"Image"}]
-  LOADK R38 K77 ["$GlobalSpace150"]
-  SETTABLEKS R38 R37 K323 ["Image"]
-  CALL R35 2 1
-  MOVE R36 R2
-  LOADK R37 K60 ["Vertical"]
-  DUPTABLE R38 K197 [{"TextColor3"}]
-  LOADK R39 K198 ["$SemanticColorContentDisabled"]
-  SETTABLEKS R39 R38 K29 ["TextColor3"]
-  CALL R36 2 -1
-  SETLIST R34 R35 -1 [1]
-  CALL R31 3 1
-  MOVE R32 R2
-  LOADK R33 K73 ["PaddingBottom"]
-  NEWTABLE R34 0 0
-  NEWTABLE R35 0 1
-  MOVE R36 R2
-  LOADK R37 K58 ["$PaddingLeftMedium"]
-  NEWTABLE R38 0 0
-  NEWTABLE R39 0 1
-  MOVE R40 R2
-  LOADK R41 K62 ["$ColumnSpacingDefault"]
-  DUPTABLE R42 K324 [{"Image"}]
-  LOADK R43 K78 [".Role-Menu"]
-  SETTABLEKS R43 R42 K323 ["Image"]
-  CALL R40 2 -1
-  SETLIST R39 R40 -1 [1]
-  CALL R36 3 -1
-  SETLIST R35 R36 -1 [1]
-  CALL R32 3 1
-  MOVE R33 R2
-  LOADK R34 K75 ["PaddingTop"]
-  NEWTABLE R35 0 0
-  NEWTABLE R36 0 1
-  MOVE R37 R2
-  LOADK R38 K58 ["$PaddingLeftMedium"]
-  NEWTABLE R39 0 0
-  NEWTABLE R40 0 1
-  MOVE R41 R2
-  LOADK R42 K62 ["$ColumnSpacingDefault"]
-  DUPTABLE R43 K324 [{"Image"}]
-  LOADK R44 K79 ["BorderColor3"]
-  SETTABLEKS R44 R43 K323 ["Image"]
-  CALL R41 2 -1
-  SETLIST R40 R41 -1 [1]
-  CALL R37 3 -1
-  SETLIST R36 R37 -1 [1]
-  CALL R33 3 -1
-  SETLIST R30 R31 -1 [1]
-  CALL R27 3 -1
-  SETLIST R20 R21 -1 [1]
-  CALL R17 3 1
-  MOVE R18 R2
-  LOADK R19 K80 ["BorderMode"]
-  DUPTABLE R20 K337 [{"AutoButtonColor", "BorderSizePixel", "BackgroundTransparency", "Text"}]
-  LOADB R21 0
-  SETTABLEKS R21 R20 K238 ["AutoButtonColor"]
-  LOADK R21 K21 ["$BorderNone"]
-  SETTABLEKS R21 R20 K18 ["BorderSizePixel"]
-  LOADK R21 K20 ["$Transparency100"]
-  SETTABLEKS R21 R20 K17 ["BackgroundTransparency"]
-  LOADK R21 K241 [""]
-  SETTABLEKS R21 R20 K239 ["Text"]
-  NEWTABLE R21 0 9
-  MOVE R22 R2
-  LOADK R23 K55 ["::UIPadding"]
-  DUPTABLE R24 K87 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-  LOADK R25 K82 ["$DEPRECATED_MainBackground"]
-  SETTABLEKS R25 R24 K56 ["PaddingLeft"]
-  LOADK R25 K82 ["$DEPRECATED_MainBackground"]
-  SETTABLEKS R25 R24 K74 ["PaddingRight"]
-  LOADK R25 K83 ["$SemanticColorDividerTransparency88"]
-  SETTABLEKS R25 R24 K75 ["PaddingTop"]
-  LOADK R25 K83 ["$SemanticColorDividerTransparency88"]
-  SETTABLEKS R25 R24 K73 ["PaddingBottom"]
-  CALL R22 2 1
-  MOVE R23 R2
-  LOADK R24 K215 ["::UICorner"]
-  DUPTABLE R25 K217 [{"CornerRadius"}]
-  LOADK R26 K255 ["$GlobalRadiusXSmall"]
-  SETTABLEKS R26 R25 K216 ["CornerRadius"]
-  CALL R23 2 1
-  MOVE R24 R2
-  LOADK R25 K84 ["Inset"]
-  NEWTABLE R26 0 0
-  NEWTABLE R27 0 6
-  MOVE R28 R2
-  LOADK R29 K41 ["::UIListLayout"]
-  DUPTABLE R30 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R31 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R31 R30 K42 ["FillDirection"]
-  LOADK R31 K85 [Enum.BorderMode.Inset]
-  SETTABLEKS R31 R30 K43 ["Padding"]
-  GETIMPORT R31 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R31 R30 K44 ["SortOrder"]
-  CALL R28 2 1
-  MOVE R29 R2
-  LOADK R30 K86 ["$BorderMedium"]
-  DUPTABLE R31 K343 [{"LayoutOrder", "Size"}]
-  LOADN R32 0
-  SETTABLEKS R32 R31 K50 ["LayoutOrder"]
-  LOADK R32 K253 ["$IconSmall"]
-  SETTABLEKS R32 R31 K95 ["Size"]
-  CALL R29 2 1
-  MOVE R30 R2
-  LOADK R31 K88 ["$MenuPadding"]
-  DUPTABLE R32 K345 [{"BorderSizePixel", "BackgroundTransparency", "LayoutOrder", "Size"}]
-  LOADK R33 K21 ["$BorderNone"]
-  SETTABLEKS R33 R32 K18 ["BorderSizePixel"]
-  LOADK R33 K20 ["$Transparency100"]
-  SETTABLEKS R33 R32 K17 ["BackgroundTransparency"]
-  LOADN R33 0
-  SETTABLEKS R33 R32 K50 ["LayoutOrder"]
-  LOADK R33 K253 ["$IconSmall"]
-  SETTABLEKS R33 R32 K95 ["Size"]
-  CALL R30 2 1
-  MOVE R31 R2
-  LOADK R32 K90 ["$MenuColumnSpacing"]
-  DUPTABLE R33 K345 [{"BorderSizePixel", "BackgroundTransparency", "LayoutOrder", "Size"}]
-  LOADK R34 K21 ["$BorderNone"]
-  SETTABLEKS R34 R33 K18 ["BorderSizePixel"]
-  LOADK R34 K20 ["$Transparency100"]
-  SETTABLEKS R34 R33 K17 ["BackgroundTransparency"]
-  LOADN R34 1
-  SETTABLEKS R34 R33 K50 ["LayoutOrder"]
-  LOADK R34 K251 ["$IconLarge"]
-  SETTABLEKS R34 R33 K95 ["Size"]
-  CALL R31 2 1
-  MOVE R32 R2
-  LOADK R33 K116 ["> #Text"]
-  DUPTABLE R34 K347 [{"BackgroundTransparency", "Font", "TextSize", "LayoutOrder", "TextColor3"}]
-  LOADK R35 K20 ["$Transparency100"]
-  SETTABLEKS R35 R34 K17 ["BackgroundTransparency"]
-  LOADK R35 K15 ["$FontWeight400"]
-  SETTABLEKS R35 R34 K13 ["Font"]
-  LOADK R35 K189 ["$FontSize50"]
-  SETTABLEKS R35 R34 K33 ["TextSize"]
-  LOADN R35 2
-  SETTABLEKS R35 R34 K50 ["LayoutOrder"]
-  LOADK R35 K31 ["$SemanticColorContentStandard"]
-  SETTABLEKS R35 R34 K29 ["TextColor3"]
-  CALL R32 2 1
-  MOVE R33 R2
-  LOADK R34 K92 ["$SemanticColorSurface300Inverse"]
-  DUPTABLE R35 K343 [{"LayoutOrder", "Size"}]
-  LOADN R36 3
-  SETTABLEKS R36 R35 K50 ["LayoutOrder"]
-  LOADK R36 K253 ["$IconSmall"]
-  SETTABLEKS R36 R35 K95 ["Size"]
-  CALL R33 2 -1
-  SETLIST R27 R28 -1 [1]
-  CALL R24 3 1
-  MOVE R25 R2
-  LOADK R26 K93 ["$SemanticColorDivider"]
-  DUPTABLE R27 K350 [{"AnchorPoint", "Position", "BorderSizePixel", "BackgroundTransparency", "Image", "LayoutOrder", "Size"}]
-  GETIMPORT R28 K151 [Vector2.new]
-  LOADN R29 1
-  LOADK R30 K95 ["Size"]
-  CALL R28 2 1
-  SETTABLEKS R28 R27 K147 ["AnchorPoint"]
-  GETIMPORT R28 K231 [UDim2.fromScale]
-  LOADN R29 1
-  LOADK R30 K95 ["Size"]
-  CALL R28 2 1
-  SETTABLEKS R28 R27 K148 ["Position"]
-  LOADK R28 K21 ["$BorderNone"]
-  SETTABLEKS R28 R27 K18 ["BorderSizePixel"]
-  LOADK R28 K20 ["$Transparency100"]
-  SETTABLEKS R28 R27 K17 ["BackgroundTransparency"]
-  LOADK R28 K96 [{"Size"}]
-  SETTABLEKS R28 R27 K323 ["Image"]
-  LOADN R28 3
-  SETTABLEKS R28 R27 K50 ["LayoutOrder"]
-  LOADK R28 K253 ["$IconSmall"]
-  SETTABLEKS R28 R27 K95 ["Size"]
-  CALL R25 2 1
-  MOVE R26 R2
-  LOADK R27 K97 ["UDim2"]
-  DUPTABLE R28 K96 [{"Size"}]
-  LOADK R29 K253 ["$IconSmall"]
-  SETTABLEKS R29 R28 K95 ["Size"]
-  CALL R26 2 1
-  MOVE R27 R2
-  LOADK R28 K192 [".State-Selected"]
-  DUPTABLE R29 K201 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R30 K194 ["$SemanticColorStatesSelected"]
-  SETTABLEKS R30 R29 K23 ["BackgroundColor3"]
-  LOADK R30 K195 ["$SemanticColorStatesSelectedTransparency"]
-  SETTABLEKS R30 R29 K17 ["BackgroundTransparency"]
-  CALL R27 2 1
-  MOVE R28 R2
-  LOADK R29 K98 ["new"]
-  NEWTABLE R30 0 0
-  NEWTABLE R31 0 1
-  MOVE R32 R2
-  LOADK R33 K84 ["Inset"]
-  NEWTABLE R34 0 0
-  NEWTABLE R35 0 1
-  MOVE R36 R2
-  LOADK R37 K88 ["$MenuPadding"]
-  DUPTABLE R38 K324 [{"Image"}]
-  LOADK R39 K99 [UDim2.new]
-  SETTABLEKS R39 R38 K323 ["Image"]
-  CALL R36 2 -1
-  SETLIST R35 R36 -1 [1]
-  CALL R32 3 -1
-  SETLIST R31 R32 -1 [1]
-  CALL R28 3 1
-  MOVE R29 R2
-  LOADK R30 K100 ["::UISizeConstraint"]
-  NEWTABLE R31 0 0
-  NEWTABLE R32 0 1
-  MOVE R33 R2
-  LOADK R34 K200 [":hover"]
-  DUPTABLE R35 K201 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R36 K101 ["MaxSize"]
-  SETTABLEKS R36 R35 K23 ["BackgroundColor3"]
-  LOADK R36 K102 [{"MaxSize"}]
-  SETTABLEKS R36 R35 K17 ["BackgroundTransparency"]
-  CALL R33 2 -1
-  SETLIST R32 R33 -1 [1]
-  CALL R29 3 1
-  MOVE R30 R2
-  LOADK R31 K196 [".State-Disabled"]
-  NEWTABLE R32 0 0
-  NEWTABLE R33 0 1
-  MOVE R34 R2
-  LOADK R35 K84 ["Inset"]
+  LOADK R35 K104 ["> #TitleFrame"]
   NEWTABLE R36 0 0
   NEWTABLE R37 0 2
   MOVE R38 R2
-  LOADK R39 K103 ["$TooltipMaxSize"]
-  DUPTABLE R40 K259 [{"ImageTransparency"}]
-  LOADK R41 K4 [require]
-  SETTABLEKS R41 R40 K258 ["ImageTransparency"]
+  LOADK R39 K39 ["::UIListLayout"]
+  DUPTABLE R40 K105 [{"FillDirection", "SortOrder"}]
+  GETIMPORT R41 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R41 R40 K40 ["FillDirection"]
+  GETIMPORT R41 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R41 R40 K42 ["SortOrder"]
   CALL R38 2 1
   MOVE R39 R2
-  LOADK R40 K116 ["> #Text"]
-  DUPTABLE R41 K197 [{"TextColor3"}]
-  LOADK R42 K198 ["$SemanticColorContentDisabled"]
-  SETTABLEKS R42 R41 K29 ["TextColor3"]
-  CALL R39 2 -1
+  LOADK R40 K106 ["> #Spacer"]
+  NEWTABLE R41 0 0
+  NEWTABLE R42 0 1
+  MOVE R43 R2
+  LOADK R44 K107 ["::UIFlexItem"]
+  DUPTABLE R45 K109 [{"FlexMode"}]
+  GETIMPORT R46 K112 [Enum.UIFlexMode.Fill]
+  SETTABLEKS R46 R45 K108 ["FlexMode"]
+  CALL R43 2 -1
+  SETLIST R42 R43 -1 [1]
+  CALL R39 3 -1
   SETLIST R37 R38 -1 [1]
-  CALL R34 3 -1
-  SETLIST R33 R34 -1 [1]
-  CALL R30 3 -1
-  SETLIST R21 R22 -1 [1]
-  CALL R18 3 1
-  MOVE R19 R2
-  LOADK R20 K104 ["$TooltipContentSpacing"]
-  NEWTABLE R21 0 0
-  NEWTABLE R22 0 1
-  MOVE R23 R2
-  LOADK R24 K196 [".State-Disabled"]
-  DUPTABLE R25 K259 [{"ImageTransparency"}]
-  LOADK R26 K4 [require]
-  SETTABLEKS R26 R25 K258 ["ImageTransparency"]
-  CALL R23 2 -1
+  CALL R34 3 1
+  MOVE R35 R2
+  LOADK R36 K113 ["> #Text"]
+  DUPTABLE R37 K116 [{"TextWrapped", "TextXAlignment"}]
+  LOADB R38 1
+  SETTABLEKS R38 R37 K114 ["TextWrapped"]
+  GETIMPORT R38 K118 [Enum.TextXAlignment.Left]
+  SETTABLEKS R38 R37 K115 ["TextXAlignment"]
+  CALL R35 2 1
+  MOVE R36 R2
+  LOADK R37 K119 [">> TextLabel"]
+  DUPTABLE R38 K120 [{"Font", "TextColor3", "BorderSizePixel", "BackgroundTransparency"}]
+  LOADK R39 K13 ["$FontWeight400"]
+  SETTABLEKS R39 R38 K11 ["Font"]
+  LOADK R39 K121 ["$SemanticColorContentStandardInverse"]
+  SETTABLEKS R39 R38 K27 ["TextColor3"]
+  LOADK R39 K19 ["$BorderNone"]
+  SETTABLEKS R39 R38 K16 ["BorderSizePixel"]
+  LOADK R39 K18 ["$Transparency100"]
+  SETTABLEKS R39 R38 K15 ["BackgroundTransparency"]
+  CALL R36 2 1
+  MOVE R37 R2
+  LOADK R38 K122 [">> #Title"]
+  DUPTABLE R39 K12 [{"Font"}]
+  LOADK R40 K123 ["$FontWeight700"]
+  SETTABLEKS R40 R39 K11 ["Font"]
+  CALL R37 2 -1
+  SETLIST R32 R33 -1 [1]
+  CALL R29 3 -1
+  SETLIST R26 R27 -1 [1]
+  CALL R23 3 -1
   SETLIST R22 R23 -1 [1]
   CALL R19 3 1
   MOVE R20 R2
-  LOADK R21 K105 ["> #Content"]
+  LOADK R21 K124 [".Role-Scroller"]
   NEWTABLE R22 0 0
-  NEWTABLE R23 0 1
+  NEWTABLE R23 0 3
   MOVE R24 R2
-  LOADK R25 K55 ["::UIPadding"]
-  DUPTABLE R26 K362 [{"PaddingLeft", "PaddingTop", "PaddingBottom"}]
-  LOADK R27 K107 ["> #TitleFrame"]
-  SETTABLEKS R27 R26 K56 ["PaddingLeft"]
-  LOADK R27 K107 ["> #TitleFrame"]
-  SETTABLEKS R27 R26 K75 ["PaddingTop"]
-  LOADK R27 K107 ["> #TitleFrame"]
-  SETTABLEKS R27 R26 K73 ["PaddingBottom"]
-  CALL R24 2 -1
-  SETLIST R23 R24 -1 [1]
-  CALL R20 3 1
-  MOVE R21 R2
-  LOADK R22 K108 [{"FillDirection", "SortOrder"}]
-  NEWTABLE R23 0 0
-  NEWTABLE R24 0 7
+  LOADK R25 K125 ["> #Scroller"]
+  DUPTABLE R26 K130 [{"AutomaticCanvasSize", "ScrollingDirection", "ScrollBarThickness", "HorizontalScrollBarInset"}]
+  GETIMPORT R27 K133 [Enum.AutomaticSize.XY]
+  SETTABLEKS R27 R26 K126 ["AutomaticCanvasSize"]
+  GETIMPORT R27 K135 [Enum.ScrollingDirection.X]
+  SETTABLEKS R27 R26 K127 ["ScrollingDirection"]
+  LOADN R27 0
+  SETTABLEKS R27 R26 K128 ["ScrollBarThickness"]
+  GETIMPORT R27 K138 [Enum.ScrollBarInset.None]
+  SETTABLEKS R27 R26 K129 ["HorizontalScrollBarInset"]
+  CALL R24 2 1
   MOVE R25 R2
-  LOADK R26 K44 ["SortOrder"]
-  DUPTABLE R27 K365 [{"Thickness"}]
-  LOADK R28 K21 ["$BorderNone"]
-  SETTABLEKS R28 R27 K302 ["Thickness"]
+  LOADK R26 K139 ["> #LeftGradient"]
+  DUPTABLE R27 K141 [{"Size", "ZIndex"}]
+  LOADK R28 K142 ["$TabGradientSize"]
+  SETTABLEKS R28 R27 K92 ["Size"]
+  LOADN R28 10
+  SETTABLEKS R28 R27 K140 ["ZIndex"]
   CALL R25 2 1
   MOVE R26 R2
-  LOADK R27 K215 ["::UICorner"]
-  DUPTABLE R28 K217 [{"CornerRadius"}]
-  LOADK R29 K110 ["::UIFlexItem"]
-  SETTABLEKS R29 R28 K216 ["CornerRadius"]
-  CALL R26 2 1
-  MOVE R27 R2
-  LOADK R28 K111 ["FlexMode"]
-  DUPTABLE R29 K368 [{"TextSize", "TextXAlignment", "TextTruncate"}]
-  LOADK R30 K189 ["$FontSize50"]
-  SETTABLEKS R30 R29 K33 ["TextSize"]
-  GETIMPORT R30 K121 [Enum.TextXAlignment.Left]
-  SETTABLEKS R30 R29 K118 ["TextXAlignment"]
-  GETIMPORT R30 K191 [Enum.TextTruncate.SplitWord]
-  SETTABLEKS R30 R29 K185 ["TextTruncate"]
-  NEWTABLE R30 0 1
-  MOVE R31 R2
-  LOADK R32 K55 ["::UIPadding"]
-  DUPTABLE R33 K369 [{"PaddingLeft", "PaddingRight"}]
-  LOADK R34 K67 ["$GlobalSpace50"]
-  SETTABLEKS R34 R33 K56 ["PaddingLeft"]
-  LOADK R34 K67 ["$GlobalSpace50"]
-  SETTABLEKS R34 R33 K74 ["PaddingRight"]
-  CALL R31 2 -1
-  SETLIST R30 R31 -1 [1]
-  CALL R27 3 1
-  MOVE R28 R2
-  LOADK R29 K199 [".State-Default"]
-  DUPTABLE R30 K201 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R31 K114 ["Fill"]
-  SETTABLEKS R31 R30 K23 ["BackgroundColor3"]
-  LOADK R31 K115 [Enum.UIFlexMode.Fill]
-  SETTABLEKS R31 R30 K17 ["BackgroundTransparency"]
-  NEWTABLE R31 0 1
-  MOVE R32 R2
-  LOADK R33 K111 ["FlexMode"]
-  DUPTABLE R34 K197 [{"TextColor3"}]
-  LOADK R35 K188 ["$SemanticColorContentMuted"]
-  SETTABLEKS R35 R34 K29 ["TextColor3"]
-  CALL R32 2 -1
-  SETLIST R31 R32 -1 [1]
-  CALL R28 3 1
-  MOVE R29 R2
-  LOADK R30 K116 ["> #Text"]
-  NEWTABLE R31 0 0
-  NEWTABLE R32 0 2
-  MOVE R33 R2
-  LOADK R34 K44 ["SortOrder"]
-  DUPTABLE R35 K373 [{"ApplyStrokeMode", "Color", "Thickness"}]
-  GETIMPORT R36 K305 [Enum.ApplyStrokeMode.Border]
-  SETTABLEKS R36 R35 K301 ["ApplyStrokeMode"]
-  LOADK R36 K118 ["TextXAlignment"]
-  SETTABLEKS R36 R35 K268 ["Color"]
-  LOADK R36 K86 ["$BorderMedium"]
-  SETTABLEKS R36 R35 K302 ["Thickness"]
-  CALL R33 2 1
-  MOVE R34 R2
-  LOADK R35 K111 ["FlexMode"]
-  DUPTABLE R36 K197 [{"TextColor3"}]
-  LOADK R37 K31 ["$SemanticColorContentStandard"]
-  SETTABLEKS R37 R36 K29 ["TextColor3"]
-  CALL R34 2 -1
-  SETLIST R32 R33 -1 [1]
-  CALL R29 3 1
-  MOVE R30 R2
-  LOADK R31 K119 [{"TextWrapped", "TextXAlignment"}]
-  DUPTABLE R32 K201 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R33 K120 ["Left"]
-  SETTABLEKS R33 R32 K23 ["BackgroundColor3"]
-  LOADK R33 K121 [Enum.TextXAlignment.Left]
-  SETTABLEKS R33 R32 K17 ["BackgroundTransparency"]
-  NEWTABLE R33 0 1
-  MOVE R34 R2
-  LOADK R35 K111 ["FlexMode"]
-  DUPTABLE R36 K197 [{"TextColor3"}]
-  LOADK R37 K31 ["$SemanticColorContentStandard"]
-  SETTABLEKS R37 R36 K29 ["TextColor3"]
-  CALL R34 2 -1
-  SETLIST R33 R34 -1 [1]
-  CALL R30 3 1
-  MOVE R31 R2
-  LOADK R32 K196 [".State-Disabled"]
-  DUPTABLE R33 K201 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R34 K114 ["Fill"]
-  SETTABLEKS R34 R33 K23 ["BackgroundColor3"]
-  LOADK R34 K115 [Enum.UIFlexMode.Fill]
-  SETTABLEKS R34 R33 K17 ["BackgroundTransparency"]
-  NEWTABLE R34 0 1
-  MOVE R35 R2
-  LOADK R36 K111 ["FlexMode"]
-  DUPTABLE R37 K197 [{"TextColor3"}]
-  LOADK R38 K198 ["$SemanticColorContentDisabled"]
-  SETTABLEKS R38 R37 K29 ["TextColor3"]
-  CALL R35 2 -1
-  SETLIST R34 R35 -1 [1]
-  CALL R31 3 -1
-  SETLIST R24 R25 -1 [1]
-  CALL R21 3 1
-  SETLIST R5 R6 16 [17]
+  LOADK R27 K143 ["> #RightGradient"]
+  DUPTABLE R28 K146 [{"AnchorPoint", "Size", "Position", "ZIndex"}]
+  GETIMPORT R29 K148 [Vector2.new]
+  LOADN R30 1
+  LOADN R31 0
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K144 ["AnchorPoint"]
+  LOADK R29 K142 ["$TabGradientSize"]
+  SETTABLEKS R29 R28 K92 ["Size"]
+  GETIMPORT R29 K96 [UDim2.new]
+  LOADN R30 1
+  LOADN R31 0
+  LOADN R32 0
+  LOADN R33 0
+  CALL R29 4 1
+  SETTABLEKS R29 R28 K145 ["Position"]
+  LOADN R29 10
+  SETTABLEKS R29 R28 K140 ["ZIndex"]
+  CALL R26 2 -1
+  SETLIST R23 R24 -1 [1]
+  CALL R20 3 1
+  SETLIST R4 R5 16 [1]
+  MOVE R5 R2
+  LOADK R6 K149 [".Role-DividerH"]
+  DUPTABLE R7 K93 [{"Size"}]
+  GETIMPORT R8 K96 [UDim2.new]
+  LOADN R9 1
+  LOADN R10 0
+  LOADN R11 0
+  LOADN R12 1
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K92 ["Size"]
+  NEWTABLE R8 0 1
+  MOVE R9 R2
+  LOADK R10 K150 ["> Frame"]
+  DUPTABLE R11 K151 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Size"}]
+  LOADK R12 K90 ["$SemanticColorDivider"]
+  SETTABLEKS R12 R11 K21 ["BackgroundColor3"]
+  LOADK R12 K152 ["$SemanticColorDividerTransparency"]
+  SETTABLEKS R12 R11 K15 ["BackgroundTransparency"]
+  LOADK R12 K19 ["$BorderNone"]
+  SETTABLEKS R12 R11 K16 ["BorderSizePixel"]
+  GETIMPORT R12 K96 [UDim2.new]
+  LOADN R13 1
+  LOADN R14 0
+  LOADN R15 0
+  LOADN R16 1
+  CALL R12 4 1
+  SETTABLEKS R12 R11 K92 ["Size"]
+  CALL R9 2 -1
+  SETLIST R8 R9 -1 [1]
+  CALL R5 3 1
   MOVE R6 R2
-  LOADK R7 K122 [">> TextLabel"]
+  LOADK R7 K153 [".Role-DividerV"]
   NEWTABLE R8 0 0
-  NEWTABLE R9 0 3
+  NEWTABLE R9 0 2
   MOVE R10 R2
-  LOADK R11 K123 [{"Font", "TextColor3", "BorderSizePixel", "BackgroundTransparency"}]
-  DUPTABLE R12 K96 [{"Size"}]
-  GETIMPORT R13 K284 [UDim2.fromOffset]
-  LOADN R14 16
-  LOADN R15 8
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K95 ["Size"]
-  NEWTABLE R13 0 1
-  MOVE R14 R2
-  LOADK R15 K124 ["$SemanticColorContentStandardInverse"]
-  DUPTABLE R16 K96 [{"Size"}]
-  GETIMPORT R17 K284 [UDim2.fromOffset]
-  LOADN R18 16
-  LOADN R19 8
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K95 ["Size"]
-  CALL R14 2 -1
-  SETLIST R13 R14 -1 [1]
-  CALL R10 3 1
+  LOADK R11 K150 ["> Frame"]
+  DUPTABLE R12 K154 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel"}]
+  LOADK R13 K90 ["$SemanticColorDivider"]
+  SETTABLEKS R13 R12 K21 ["BackgroundColor3"]
+  LOADK R13 K152 ["$SemanticColorDividerTransparency"]
+  SETTABLEKS R13 R12 K15 ["BackgroundTransparency"]
+  LOADK R13 K19 ["$BorderNone"]
+  SETTABLEKS R13 R12 K16 ["BorderSizePixel"]
+  CALL R10 2 1
   MOVE R11 R2
-  LOADK R12 K199 [".State-Default"]
+  LOADK R12 K155 [".Small"]
   NEWTABLE R13 0 0
-  NEWTABLE R14 0 2
+  NEWTABLE R14 0 1
   MOVE R15 R2
-  LOADK R16 K125 [">> #Title"]
-  NEWTABLE R17 0 0
-  NEWTABLE R18 0 3
-  MOVE R19 R2
-  LOADK R20 K126 ["$FontWeight700"]
-  DUPTABLE R21 K324 [{"Image"}]
-  LOADK R22 K127 [".Role-Scroller"]
-  SETTABLEKS R22 R21 K323 ["Image"]
-  CALL R19 2 1
-  MOVE R20 R2
-  LOADK R21 K128 ["> #Scroller"]
-  DUPTABLE R22 K324 [{"Image"}]
-  LOADK R23 K129 ["AutomaticCanvasSize"]
-  SETTABLEKS R23 R22 K323 ["Image"]
-  CALL R20 2 1
-  MOVE R21 R2
-  LOADK R22 K130 ["ScrollingDirection"]
-  DUPTABLE R23 K324 [{"Image"}]
-  LOADK R24 K131 ["ScrollBarThickness"]
-  SETTABLEKS R24 R23 K323 ["Image"]
-  CALL R21 2 -1
-  SETLIST R18 R19 -1 [1]
-  CALL R15 3 1
-  MOVE R16 R2
-  LOADK R17 K132 ["HorizontalScrollBarInset"]
-  NEWTABLE R18 0 0
-  NEWTABLE R19 0 3
-  MOVE R20 R2
-  LOADK R21 K126 ["$FontWeight700"]
-  DUPTABLE R22 K324 [{"Image"}]
-  LOADK R23 K133 [{"AutomaticCanvasSize", "ScrollingDirection", "ScrollBarThickness", "HorizontalScrollBarInset"}]
-  SETTABLEKS R23 R22 K323 ["Image"]
-  CALL R20 2 1
-  MOVE R21 R2
-  LOADK R22 K128 ["> #Scroller"]
-  DUPTABLE R23 K324 [{"Image"}]
-  LOADK R24 K134 ["AutomaticSize"]
-  SETTABLEKS R24 R23 K323 ["Image"]
-  CALL R21 2 1
-  MOVE R22 R2
-  LOADK R23 K130 ["ScrollingDirection"]
-  DUPTABLE R24 K324 [{"Image"}]
-  LOADK R25 K135 ["XY"]
-  SETTABLEKS R25 R24 K323 ["Image"]
-  CALL R22 2 -1
-  SETLIST R19 R20 -1 [1]
-  CALL R16 3 -1
+  LOADK R16 K150 ["> Frame"]
+  DUPTABLE R17 K93 [{"Size"}]
+  LOADK R18 K156 ["$SmallSeparator"]
+  SETTABLEKS R18 R17 K92 ["Size"]
+  CALL R15 2 -1
   SETLIST R14 R15 -1 [1]
-  CALL R11 3 1
-  MOVE R12 R2
-  LOADK R13 K196 [".State-Disabled"]
-  NEWTABLE R14 0 0
-  NEWTABLE R15 0 2
-  MOVE R16 R2
-  LOADK R17 K125 [">> #Title"]
-  NEWTABLE R18 0 0
-  NEWTABLE R19 0 1
-  MOVE R20 R2
-  LOADK R21 K136 [Enum.AutomaticSize.XY]
-  DUPTABLE R22 K324 [{"Image"}]
-  LOADK R23 K131 ["ScrollBarThickness"]
-  SETTABLEKS R23 R22 K323 ["Image"]
-  CALL R20 2 -1
-  SETLIST R19 R20 -1 [1]
-  CALL R16 3 1
-  MOVE R17 R2
-  LOADK R18 K132 ["HorizontalScrollBarInset"]
-  NEWTABLE R19 0 0
-  NEWTABLE R20 0 1
-  MOVE R21 R2
-  LOADK R22 K136 [Enum.AutomaticSize.XY]
-  DUPTABLE R23 K324 [{"Image"}]
-  LOADK R24 K135 ["XY"]
-  SETTABLEKS R24 R23 K323 ["Image"]
-  CALL R21 2 -1
-  SETLIST R20 R21 -1 [1]
-  CALL R17 3 -1
-  SETLIST R15 R16 -1 [1]
-  CALL R12 3 -1
+  CALL R11 3 -1
   SETLIST R9 R10 -1 [1]
   CALL R6 3 1
   MOVE R7 R2
-  LOADK R8 K137 ["X"]
-  DUPTABLE R9 K265 [{"BackgroundTransparency"}]
-  LOADK R10 K20 ["$Transparency100"]
-  SETTABLEKS R10 R9 K17 ["BackgroundTransparency"]
+  LOADK R8 K157 [".Role-Mezzanine"]
+  DUPTABLE R9 K93 [{"Size"}]
+  GETIMPORT R10 K96 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 0
+  LOADN R14 36
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K92 ["Size"]
   NEWTABLE R10 0 3
   MOVE R11 R2
-  LOADK R12 K138 [Enum.ScrollingDirection.X]
-  DUPTABLE R13 K217 [{"CornerRadius"}]
-  LOADK R14 K255 ["$GlobalRadiusXSmall"]
-  SETTABLEKS R14 R13 K216 ["CornerRadius"]
+  LOADK R12 K39 ["::UIListLayout"]
+  DUPTABLE R13 K160 [{"FillDirection", "HorizontalFlex", "Padding", "SortOrder", "VerticalAlignment"}]
+  GETIMPORT R14 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R14 R13 K40 ["FillDirection"]
+  GETIMPORT R14 K163 [Enum.UIFlexAlignment.SpaceBetween]
+  SETTABLEKS R14 R13 K158 ["HorizontalFlex"]
+  LOADK R14 K65 ["$GlobalSpace50"]
+  SETTABLEKS R14 R13 K41 ["Padding"]
+  GETIMPORT R14 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R14 R13 K42 ["SortOrder"]
+  GETIMPORT R14 K165 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R14 R13 K159 ["VerticalAlignment"]
   CALL R11 2 1
   MOVE R12 R2
-  LOADK R13 K139 ["ScrollBarInset"]
-  DUPTABLE R14 K303 [{"ApplyStrokeMode", "Color", "Thickness", "Transparency"}]
-  GETIMPORT R15 K305 [Enum.ApplyStrokeMode.Border]
-  SETTABLEKS R15 R14 K301 ["ApplyStrokeMode"]
-  LOADK R15 K93 ["$SemanticColorDivider"]
-  SETTABLEKS R15 R14 K268 ["Color"]
-  LOADK R15 K86 ["$BorderMedium"]
-  SETTABLEKS R15 R14 K302 ["Thickness"]
-  LOADK R15 K155 ["$SemanticColorDividerTransparency"]
-  SETTABLEKS R15 R14 K177 ["Transparency"]
-  CALL R12 2 1
-  MOVE R13 R2
-  LOADK R14 K140 ["None"]
-  DUPTABLE R15 K265 [{"BackgroundTransparency"}]
-  LOADK R16 K20 ["$Transparency100"]
-  SETTABLEKS R16 R15 K17 ["BackgroundTransparency"]
-  NEWTABLE R16 0 4
+  LOADK R13 K166 [">> .LeftMezzControls"]
+  NEWTABLE R14 0 0
+  NEWTABLE R15 0 2
+  MOVE R16 R2
+  LOADK R17 K39 ["::UIListLayout"]
+  DUPTABLE R18 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R19 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R19 R18 K40 ["FillDirection"]
+  LOADK R19 K67 ["$GlobalSpace100"]
+  SETTABLEKS R19 R18 K41 ["Padding"]
+  GETIMPORT R19 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R19 R18 K42 ["SortOrder"]
+  CALL R16 2 1
   MOVE R17 R2
-  LOADK R18 K138 [Enum.ScrollingDirection.X]
-  DUPTABLE R19 K217 [{"CornerRadius"}]
-  LOADK R20 K255 ["$GlobalRadiusXSmall"]
-  SETTABLEKS R20 R19 K216 ["CornerRadius"]
+  LOADK R18 K53 ["::UIPadding"]
+  DUPTABLE R19 K55 [{"PaddingLeft"}]
+  LOADK R20 K167 ["$MezzaninePadding"]
+  SETTABLEKS R20 R19 K54 ["PaddingLeft"]
+  CALL R17 2 -1
+  SETLIST R15 R16 -1 [1]
+  CALL R12 3 1
+  MOVE R13 R2
+  LOADK R14 K168 [">> .RightMezzControls"]
+  NEWTABLE R15 0 0
+  NEWTABLE R16 0 2
+  MOVE R17 R2
+  LOADK R18 K39 ["::UIListLayout"]
+  DUPTABLE R19 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R20 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R20 R19 K40 ["FillDirection"]
+  LOADK R20 K67 ["$GlobalSpace100"]
+  SETTABLEKS R20 R19 K41 ["Padding"]
+  GETIMPORT R20 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R20 R19 K42 ["SortOrder"]
   CALL R17 2 1
   MOVE R18 R2
-  LOADK R19 K141 [Enum.ScrollBarInset.None]
-  DUPTABLE R20 K19 [{"BackgroundTransparency", "BorderSizePixel"}]
-  LOADK R21 K20 ["$Transparency100"]
-  SETTABLEKS R21 R20 K17 ["BackgroundTransparency"]
-  LOADK R21 K21 ["$BorderNone"]
-  SETTABLEKS R21 R20 K18 ["BorderSizePixel"]
-  NEWTABLE R21 0 2
-  MOVE R22 R2
-  LOADK R23 K200 [":hover"]
-  DUPTABLE R24 K201 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R25 K202 ["$SemanticColorStateLayerHover"]
-  SETTABLEKS R25 R24 K23 ["BackgroundColor3"]
-  LOADK R25 K203 ["$SemanticColorStateLayerHoverTransparency"]
-  SETTABLEKS R25 R24 K17 ["BackgroundTransparency"]
-  CALL R22 2 1
-  MOVE R23 R2
-  LOADK R24 K142 ["> #LeftGradient"]
-  DUPTABLE R25 K201 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R26 K205 ["$SemanticColorStateLayerPress"]
-  SETTABLEKS R26 R25 K23 ["BackgroundColor3"]
-  LOADK R26 K206 ["$SemanticColorStateLayerPressTransparency"]
-  SETTABLEKS R26 R25 K17 ["BackgroundTransparency"]
-  CALL R23 2 -1
-  SETLIST R21 R22 -1 [1]
-  CALL R18 3 1
-  MOVE R19 R2
-  LOADK R20 K143 ["ZIndex"]
-  DUPTABLE R21 K400 [{"Size", "TextSize", "Font", "AutoButtonColor", "BorderSizePixel"}]
-  GETIMPORT R22 K284 [UDim2.fromOffset]
-  LOADN R23 82
-  LOADN R24 24
-  CALL R22 2 1
-  SETTABLEKS R22 R21 K95 ["Size"]
-  LOADK R22 K189 ["$FontSize50"]
-  SETTABLEKS R22 R21 K33 ["TextSize"]
-  LOADK R22 K187 ["$FontWeight600"]
-  SETTABLEKS R22 R21 K13 ["Font"]
-  LOADB R22 0
-  SETTABLEKS R22 R21 K238 ["AutoButtonColor"]
-  LOADK R22 K21 ["$BorderNone"]
-  SETTABLEKS R22 R21 K18 ["BorderSizePixel"]
-  NEWTABLE R22 0 3
-  MOVE R23 R2
-  LOADK R24 K55 ["::UIPadding"]
-  DUPTABLE R25 K369 [{"PaddingLeft", "PaddingRight"}]
-  LOADK R26 K77 ["$GlobalSpace150"]
-  SETTABLEKS R26 R25 K56 ["PaddingLeft"]
-  LOADK R26 K77 ["$GlobalSpace150"]
-  SETTABLEKS R26 R25 K74 ["PaddingRight"]
-  CALL R23 2 1
-  MOVE R24 R2
-  LOADK R25 K199 [".State-Default"]
-  DUPTABLE R26 K401 [{"BackgroundTransparency", "TextColor3"}]
-  LOADK R27 K20 ["$Transparency100"]
-  SETTABLEKS R27 R26 K17 ["BackgroundTransparency"]
-  LOADK R27 K188 ["$SemanticColorContentMuted"]
-  SETTABLEKS R27 R26 K29 ["TextColor3"]
-  CALL R24 2 1
-  MOVE R25 R2
-  LOADK R26 K192 [".State-Selected"]
-  DUPTABLE R27 K193 [{"BackgroundColor3", "BackgroundTransparency", "TextColor3"}]
-  LOADK R28 K194 ["$SemanticColorStatesSelected"]
-  SETTABLEKS R28 R27 K23 ["BackgroundColor3"]
-  LOADK R28 K195 ["$SemanticColorStatesSelectedTransparency"]
-  SETTABLEKS R28 R27 K17 ["BackgroundTransparency"]
-  LOADK R28 K31 ["$SemanticColorContentStandard"]
-  SETTABLEKS R28 R27 K29 ["TextColor3"]
-  CALL R25 2 -1
-  SETLIST R22 R23 -1 [1]
-  CALL R19 3 1
-  MOVE R20 R2
-  LOADK R21 K146 ["> #RightGradient"]
-  DUPTABLE R22 K154 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Size"}]
-  LOADK R23 K93 ["$SemanticColorDivider"]
-  SETTABLEKS R23 R22 K23 ["BackgroundColor3"]
-  LOADK R23 K155 ["$SemanticColorDividerTransparency"]
-  SETTABLEKS R23 R22 K17 ["BackgroundTransparency"]
-  LOADK R23 K21 ["$BorderNone"]
-  SETTABLEKS R23 R22 K18 ["BorderSizePixel"]
-  LOADK R23 K159 ["$SmallSeparator"]
-  SETTABLEKS R23 R22 K95 ["Size"]
-  CALL R20 2 -1
+  LOADK R19 K53 ["::UIPadding"]
+  DUPTABLE R20 K169 [{"PaddingRight"}]
+  LOADK R21 K167 ["$MezzaninePadding"]
+  SETTABLEKS R21 R20 K72 ["PaddingRight"]
+  CALL R18 2 -1
   SETLIST R16 R17 -1 [1]
   CALL R13 3 -1
   SETLIST R10 R11 -1 [1]
   CALL R7 3 1
   MOVE R8 R2
-  LOADK R9 K147 ["AnchorPoint"]
-  NEWTABLE R10 0 0
-  NEWTABLE R11 0 4
+  LOADK R9 K170 [".X-Shrink ::UIFlexItem"]
+  DUPTABLE R10 K109 [{"FlexMode"}]
+  GETIMPORT R11 K172 [Enum.UIFlexMode.Shrink]
+  SETTABLEKS R11 R10 K108 ["FlexMode"]
+  CALL R8 2 1
+  MOVE R9 R2
+  LOADK R10 K173 [".X-FadeLeft ::UIGradient"]
+  DUPTABLE R11 K175 [{"Transparency"}]
+  GETIMPORT R12 K177 [NumberSequence.new]
+  NEWTABLE R13 0 2
+  GETIMPORT R14 K179 [NumberSequenceKeypoint.new]
+  LOADN R15 0
+  LOADN R16 1
+  CALL R14 2 1
+  GETIMPORT R15 K179 [NumberSequenceKeypoint.new]
+  LOADN R16 1
+  LOADN R17 0
+  CALL R15 2 -1
+  SETLIST R13 R14 -1 [1]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K174 ["Transparency"]
+  CALL R9 2 1
+  MOVE R10 R2
+  LOADK R11 K180 [".X-FadeRight ::UIGradient"]
+  DUPTABLE R12 K175 [{"Transparency"}]
+  GETIMPORT R13 K177 [NumberSequence.new]
+  NEWTABLE R14 0 2
+  GETIMPORT R15 K179 [NumberSequenceKeypoint.new]
+  LOADN R16 0
+  LOADN R17 0
+  CALL R15 2 1
+  GETIMPORT R16 K179 [NumberSequenceKeypoint.new]
+  LOADN R17 1
+  LOADN R18 1
+  CALL R16 2 -1
+  SETLIST R14 R15 -1 [1]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K174 ["Transparency"]
+  CALL R10 2 1
+  MOVE R11 R2
+  LOADK R12 K181 [".Component-RibbonTab"]
+  DUPTABLE R13 K183 [{"BackgroundTransparency", "Font", "TextColor3", "TextSize", "TextTruncate"}]
+  LOADK R14 K18 ["$Transparency100"]
+  SETTABLEKS R14 R13 K15 ["BackgroundTransparency"]
+  LOADK R14 K184 ["$FontWeight600"]
+  SETTABLEKS R14 R13 K11 ["Font"]
+  LOADK R14 K185 ["$SemanticColorContentMuted"]
+  SETTABLEKS R14 R13 K27 ["TextColor3"]
+  LOADK R14 K186 ["$FontSize50"]
+  SETTABLEKS R14 R13 K31 ["TextSize"]
+  GETIMPORT R14 K188 [Enum.TextTruncate.SplitWord]
+  SETTABLEKS R14 R13 K182 ["TextTruncate"]
+  NEWTABLE R14 0 7
+  MOVE R15 R2
+  LOADK R16 K189 [".State-Selected"]
+  DUPTABLE R17 K190 [{"BackgroundColor3", "BackgroundTransparency", "TextColor3"}]
+  LOADK R18 K191 ["$SemanticColorStatesSelected"]
+  SETTABLEKS R18 R17 K21 ["BackgroundColor3"]
+  LOADK R18 K192 ["$SemanticColorStatesSelectedTransparency"]
+  SETTABLEKS R18 R17 K15 ["BackgroundTransparency"]
+  LOADK R18 K29 ["$SemanticColorContentStandard"]
+  SETTABLEKS R18 R17 K27 ["TextColor3"]
+  CALL R15 2 1
+  MOVE R16 R2
+  LOADK R17 K193 [".State-Disabled"]
+  DUPTABLE R18 K194 [{"TextColor3"}]
+  LOADK R19 K195 ["$SemanticColorContentDisabled"]
+  SETTABLEKS R19 R18 K27 ["TextColor3"]
+  CALL R16 2 1
+  MOVE R17 R2
+  LOADK R18 K196 [".State-Default"]
+  NEWTABLE R19 0 0
+  NEWTABLE R20 0 2
+  MOVE R21 R2
+  LOADK R22 K197 [":hover"]
+  DUPTABLE R23 K198 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R24 K199 ["$SemanticColorStateLayerHover"]
+  SETTABLEKS R24 R23 K21 ["BackgroundColor3"]
+  LOADK R24 K200 ["$SemanticColorStateLayerHoverTransparency"]
+  SETTABLEKS R24 R23 K15 ["BackgroundTransparency"]
+  CALL R21 2 1
+  MOVE R22 R2
+  LOADK R23 K201 [":press"]
+  DUPTABLE R24 K198 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R25 K202 ["$SemanticColorStateLayerPress"]
+  SETTABLEKS R25 R24 K21 ["BackgroundColor3"]
+  LOADK R25 K203 ["$SemanticColorStateLayerPressTransparency"]
+  SETTABLEKS R25 R24 K15 ["BackgroundTransparency"]
+  CALL R22 2 -1
+  SETLIST R20 R21 -1 [1]
+  CALL R17 3 1
+  MOVE R18 R2
+  LOADK R19 K204 [".State-Editing"]
+  DUPTABLE R20 K206 [{"BackgroundColor3", "BackgroundTransparency", "ClipsDescendants", "Font", "TextColor3", "TextTruncate"}]
+  LOADK R21 K191 ["$SemanticColorStatesSelected"]
+  SETTABLEKS R21 R20 K21 ["BackgroundColor3"]
+  LOADK R21 K192 ["$SemanticColorStatesSelectedTransparency"]
+  SETTABLEKS R21 R20 K15 ["BackgroundTransparency"]
+  LOADB R21 1
+  SETTABLEKS R21 R20 K205 ["ClipsDescendants"]
+  LOADK R21 K123 ["$FontWeight700"]
+  SETTABLEKS R21 R20 K11 ["Font"]
+  LOADK R21 K29 ["$SemanticColorContentStandard"]
+  SETTABLEKS R21 R20 K27 ["TextColor3"]
+  GETIMPORT R21 K207 [Enum.TextTruncate.None]
+  SETTABLEKS R21 R20 K182 ["TextTruncate"]
+  CALL R18 2 1
+  MOVE R19 R2
+  LOADK R20 K97 ["::UISizeConstraint"]
+  DUPTABLE R21 K209 [{"MinSize", "MaxSize"}]
+  GETIMPORT R22 K148 [Vector2.new]
+  LOADN R23 80
+  LOADN R24 24
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K208 ["MinSize"]
+  GETIMPORT R22 K148 [Vector2.new]
+  LOADN R23 80
+  LOADN R24 24
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K98 ["MaxSize"]
+  CALL R19 2 1
+  MOVE R20 R2
+  LOADK R21 K53 ["::UIPadding"]
+  DUPTABLE R22 K210 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+  LOADK R23 K211 ["$GlobalSpace75"]
+  SETTABLEKS R23 R22 K73 ["PaddingTop"]
+  LOADK R23 K211 ["$GlobalSpace75"]
+  SETTABLEKS R23 R22 K71 ["PaddingBottom"]
+  LOADK R23 K67 ["$GlobalSpace100"]
+  SETTABLEKS R23 R22 K54 ["PaddingLeft"]
+  LOADK R23 K67 ["$GlobalSpace100"]
+  SETTABLEKS R23 R22 K72 ["PaddingRight"]
+  CALL R20 2 1
+  MOVE R21 R2
+  LOADK R22 K212 ["::UICorner"]
+  DUPTABLE R23 K214 [{"CornerRadius"}]
+  LOADK R24 K215 ["$TabCornerRadius"]
+  SETTABLEKS R24 R23 K213 ["CornerRadius"]
+  CALL R21 2 -1
+  SETLIST R14 R15 -1 [1]
+  CALL R11 3 1
   MOVE R12 R2
-  LOADK R13 K41 ["::UIListLayout"]
-  DUPTABLE R14 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R15 K61 [Enum.FillDirection.Vertical]
-  SETTABLEKS R15 R14 K42 ["FillDirection"]
-  LOADK R15 K69 ["$GlobalSpace100"]
-  SETTABLEKS R15 R14 K43 ["Padding"]
-  GETIMPORT R15 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R15 R14 K44 ["SortOrder"]
-  CALL R12 2 1
+  LOADK R13 K216 [".Component-RibbonTabs"]
+  NEWTABLE R14 0 0
+  NEWTABLE R15 0 5
+  MOVE R16 R2
+  LOADK R17 K107 ["::UIFlexItem"]
+  DUPTABLE R18 K219 [{"FlexMode", "GrowRatio", "ShrinkRatio"}]
+  GETIMPORT R19 K221 [Enum.UIFlexMode.Custom]
+  SETTABLEKS R19 R18 K108 ["FlexMode"]
+  LOADK R19 K222 [10000000000]
+  SETTABLEKS R19 R18 K217 ["GrowRatio"]
+  LOADK R19 K223 [1E-10]
+  SETTABLEKS R19 R18 K218 ["ShrinkRatio"]
+  CALL R16 2 1
+  MOVE R17 R2
+  LOADK R18 K39 ["::UIListLayout"]
+  DUPTABLE R19 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R20 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R20 R19 K40 ["FillDirection"]
+  LOADK R20 K224 ["$RibbonTabsContainerSpacing"]
+  SETTABLEKS R20 R19 K41 ["Padding"]
+  GETIMPORT R20 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R20 R19 K42 ["SortOrder"]
+  CALL R17 2 1
+  MOVE R18 R2
+  LOADK R19 K225 ["> #CollapsibleScroller"]
+  NEWTABLE R20 0 0
+  NEWTABLE R21 0 3
+  MOVE R22 R2
+  LOADK R23 K125 ["> #Scroller"]
+  DUPTABLE R24 K226 [{"AutomaticCanvasSize", "ScrollingDirection", "ScrollBarThickness", "HorizontalScrollBarInset", "Size"}]
+  GETIMPORT R25 K133 [Enum.AutomaticSize.XY]
+  SETTABLEKS R25 R24 K126 ["AutomaticCanvasSize"]
+  GETIMPORT R25 K135 [Enum.ScrollingDirection.X]
+  SETTABLEKS R25 R24 K127 ["ScrollingDirection"]
+  LOADN R25 0
+  SETTABLEKS R25 R24 K128 ["ScrollBarThickness"]
+  GETIMPORT R25 K138 [Enum.ScrollBarInset.None]
+  SETTABLEKS R25 R24 K129 ["HorizontalScrollBarInset"]
+  GETIMPORT R25 K228 [UDim2.fromScale]
+  LOADN R26 1
+  LOADN R27 1
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K92 ["Size"]
+  NEWTABLE R25 0 1
+  MOVE R26 R2
+  LOADK R27 K91 ["> #Wrapper"]
+  NEWTABLE R28 0 0
+  NEWTABLE R29 0 1
+  MOVE R30 R2
+  LOADK R31 K39 ["::UIListLayout"]
+  DUPTABLE R32 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R33 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R33 R32 K40 ["FillDirection"]
+  LOADK R33 K229 ["$RibbonTabsSpacing"]
+  SETTABLEKS R33 R32 K41 ["Padding"]
+  GETIMPORT R33 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R33 R32 K42 ["SortOrder"]
+  CALL R30 2 -1
+  SETLIST R29 R30 -1 [1]
+  CALL R26 3 -1
+  SETLIST R25 R26 -1 [1]
+  CALL R22 3 1
+  MOVE R23 R2
+  LOADK R24 K139 ["> #LeftGradient"]
+  DUPTABLE R25 K141 [{"Size", "ZIndex"}]
+  LOADK R26 K142 ["$TabGradientSize"]
+  SETTABLEKS R26 R25 K92 ["Size"]
+  LOADN R26 10
+  SETTABLEKS R26 R25 K140 ["ZIndex"]
+  CALL R23 2 1
+  MOVE R24 R2
+  LOADK R25 K143 ["> #RightGradient"]
+  DUPTABLE R26 K146 [{"AnchorPoint", "Size", "Position", "ZIndex"}]
+  GETIMPORT R27 K148 [Vector2.new]
+  LOADN R28 1
+  LOADN R29 0
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K144 ["AnchorPoint"]
+  LOADK R27 K142 ["$TabGradientSize"]
+  SETTABLEKS R27 R26 K92 ["Size"]
+  GETIMPORT R27 K96 [UDim2.new]
+  LOADN R28 1
+  LOADN R29 0
+  LOADN R30 0
+  LOADN R31 0
+  CALL R27 4 1
+  SETTABLEKS R27 R26 K145 ["Position"]
+  LOADN R27 10
+  SETTABLEKS R27 R26 K140 ["ZIndex"]
+  CALL R24 2 -1
+  SETLIST R21 R22 -1 [1]
+  CALL R18 3 1
+  MOVE R19 R2
+  LOADK R20 K230 ["> #More"]
+  DUPTABLE R21 K232 [{"Visible"}]
+  LOADB R22 0
+  SETTABLEKS R22 R21 K231 ["Visible"]
+  CALL R19 2 1
+  MOVE R20 R2
+  LOADK R21 K233 [".Compact > #More"]
+  DUPTABLE R22 K232 [{"Visible"}]
+  LOADB R23 1
+  SETTABLEKS R23 R22 K231 ["Visible"]
+  CALL R20 2 -1
+  SETLIST R15 R16 -1 [1]
+  CALL R12 3 1
   MOVE R13 R2
-  LOADK R14 K55 ["::UIPadding"]
-  DUPTABLE R15 K87 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-  LOADK R16 K77 ["$GlobalSpace150"]
-  SETTABLEKS R16 R15 K56 ["PaddingLeft"]
-  LOADK R16 K77 ["$GlobalSpace150"]
-  SETTABLEKS R16 R15 K74 ["PaddingRight"]
-  LOADK R16 K69 ["$GlobalSpace100"]
-  SETTABLEKS R16 R15 K75 ["PaddingTop"]
-  LOADK R16 K69 ["$GlobalSpace100"]
-  SETTABLEKS R16 R15 K73 ["PaddingBottom"]
-  CALL R13 2 1
+  LOADK R14 K234 [".Component-RibbonButton"]
+  DUPTABLE R15 K237 [{"AutoButtonColor", "BackgroundTransparency", "BorderSizePixel", "Text"}]
+  LOADB R16 0
+  SETTABLEKS R16 R15 K235 ["AutoButtonColor"]
+  LOADK R16 K18 ["$Transparency100"]
+  SETTABLEKS R16 R15 K15 ["BackgroundTransparency"]
+  LOADK R16 K19 ["$BorderNone"]
+  SETTABLEKS R16 R15 K16 ["BorderSizePixel"]
+  LOADK R16 K238 [""]
+  SETTABLEKS R16 R15 K236 ["Text"]
+  NEWTABLE R16 0 8
+  MOVE R17 R2
+  LOADK R18 K155 [".Small"]
+  NEWTABLE R19 0 0
+  NEWTABLE R20 0 1
+  MOVE R21 R2
+  LOADK R22 K97 ["::UISizeConstraint"]
+  DUPTABLE R23 K99 [{"MaxSize"}]
+  LOADK R24 K239 ["$RibbonButtonSmallMaxSize"]
+  SETTABLEKS R24 R23 K98 ["MaxSize"]
+  CALL R21 2 -1
+  SETLIST R20 R21 -1 [1]
+  CALL R17 3 1
+  MOVE R18 R2
+  LOADK R19 K240 ["> TextLabel"]
+  DUPTABLE R20 K241 [{"BackgroundTransparency", "Font", "LayoutOrder", "TextColor3", "TextSize", "TextTruncate"}]
+  LOADK R21 K18 ["$Transparency100"]
+  SETTABLEKS R21 R20 K15 ["BackgroundTransparency"]
+  LOADK R21 K13 ["$FontWeight400"]
+  SETTABLEKS R21 R20 K11 ["Font"]
+  LOADN R21 2
+  SETTABLEKS R21 R20 K48 ["LayoutOrder"]
+  LOADK R21 K185 ["$SemanticColorContentMuted"]
+  SETTABLEKS R21 R20 K27 ["TextColor3"]
+  LOADK R21 K242 ["$RibbonButtonLabelTextSize"]
+  SETTABLEKS R21 R20 K31 ["TextSize"]
+  GETIMPORT R21 K244 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R21 R20 K182 ["TextTruncate"]
+  CALL R18 2 1
+  MOVE R19 R2
+  LOADK R20 K245 [">> #RibbonToolButtonIcon, >> #ButtonIcon"]
+  DUPTABLE R21 K246 [{"BackgroundTransparency", "BorderSizePixel", "LayoutOrder"}]
+  LOADK R22 K18 ["$Transparency100"]
+  SETTABLEKS R22 R21 K15 ["BackgroundTransparency"]
+  LOADK R22 K19 ["$BorderNone"]
+  SETTABLEKS R22 R21 K16 ["BorderSizePixel"]
+  LOADN R22 0
+  SETTABLEKS R22 R21 K48 ["LayoutOrder"]
+  NEWTABLE R22 0 2
+  MOVE R23 R2
+  LOADK R24 K247 [".Icon-Large"]
+  DUPTABLE R25 K93 [{"Size"}]
+  LOADK R26 K248 ["$IconLarge"]
+  SETTABLEKS R26 R25 K92 ["Size"]
+  CALL R23 2 1
+  MOVE R24 R2
+  LOADK R25 K249 [".Icon-Small"]
+  DUPTABLE R26 K93 [{"Size"}]
+  LOADK R27 K250 ["$IconSmall"]
+  SETTABLEKS R27 R26 K92 ["Size"]
+  CALL R24 2 -1
+  SETLIST R22 R23 -1 [1]
+  CALL R19 3 1
+  MOVE R20 R2
+  LOADK R21 K251 ["> #RibbonTool"]
+  NEWTABLE R22 0 0
+  NEWTABLE R23 0 1
+  MOVE R24 R2
+  LOADK R25 K212 ["::UICorner"]
+  DUPTABLE R26 K214 [{"CornerRadius"}]
+  LOADK R27 K252 ["$GlobalRadiusXSmall"]
+  SETTABLEKS R27 R26 K213 ["CornerRadius"]
+  CALL R24 2 -1
+  SETLIST R23 R24 -1 [1]
+  CALL R20 3 1
+  MOVE R21 R2
+  LOADK R22 K193 [".State-Disabled"]
+  NEWTABLE R23 0 0
+  NEWTABLE R24 0 1
+  MOVE R25 R2
+  LOADK R26 K253 [">> #RibbonTool"]
+  NEWTABLE R27 0 0
+  NEWTABLE R28 0 1
+  MOVE R29 R2
+  LOADK R30 K254 ["> #RibbonToolButtonIcon"]
+  DUPTABLE R31 K256 [{"ImageTransparency"}]
+  LOADK R32 K1 [script]
+  SETTABLEKS R32 R31 K255 ["ImageTransparency"]
+  CALL R29 2 -1
+  SETLIST R28 R29 -1 [1]
+  CALL R25 3 -1
+  SETLIST R24 R25 -1 [1]
+  CALL R21 3 1
+  MOVE R22 R2
+  LOADK R23 K196 [".State-Default"]
+  NEWTABLE R24 0 0
+  NEWTABLE R25 0 1
+  MOVE R26 R2
+  LOADK R27 K2 ["Parent"]
+  NEWTABLE R28 0 0
+  NEWTABLE R29 0 2
+  MOVE R30 R2
+  LOADK R31 K197 [":hover"]
+  DUPTABLE R32 K259 [{"BackgroundTransparency", "BackgroundColor3"}]
+  LOADK R33 K200 ["$SemanticColorStateLayerHoverTransparency"]
+  SETTABLEKS R33 R32 K15 ["BackgroundTransparency"]
+  LOADK R33 K199 ["$SemanticColorStateLayerHover"]
+  SETTABLEKS R33 R32 K21 ["BackgroundColor3"]
+  CALL R30 2 1
+  MOVE R31 R2
+  LOADK R32 K201 [":press"]
+  DUPTABLE R33 K259 [{"BackgroundTransparency", "BackgroundColor3"}]
+  LOADK R34 K203 ["$SemanticColorStateLayerPressTransparency"]
+  SETTABLEKS R34 R33 K15 ["BackgroundTransparency"]
+  LOADK R34 K202 ["$SemanticColorStateLayerPress"]
+  SETTABLEKS R34 R33 K21 ["BackgroundColor3"]
+  CALL R31 2 -1
+  SETLIST R29 R30 -1 [1]
+  CALL R26 3 -1
+  SETLIST R25 R26 -1 [1]
+  CALL R22 3 1
+  MOVE R23 R2
+  LOADK R24 K189 [".State-Selected"]
+  NEWTABLE R25 0 0
+  NEWTABLE R26 0 1
+  MOVE R27 R2
+  LOADK R28 K253 [">> #RibbonTool"]
+  DUPTABLE R29 K259 [{"BackgroundTransparency", "BackgroundColor3"}]
+  LOADK R30 K192 ["$SemanticColorStatesSelectedTransparency"]
+  SETTABLEKS R30 R29 K15 ["BackgroundTransparency"]
+  LOADK R30 K191 ["$SemanticColorStatesSelected"]
+  SETTABLEKS R30 R29 K21 ["BackgroundColor3"]
+  CALL R27 2 -1
+  SETLIST R26 R27 -1 [1]
+  CALL R23 3 1
+  MOVE R24 R2
+  LOADK R25 K4 [require]
+  NEWTABLE R26 0 0
+  NEWTABLE R27 0 2
+  MOVE R28 R2
+  LOADK R29 K5 ["Packages"]
+  DUPTABLE R30 K262 [{"BackgroundTransparency"}]
+  LOADK R31 K7 ["Styling"]
+  SETTABLEKS R31 R30 K15 ["BackgroundTransparency"]
+  NEWTABLE R31 0 1
+  MOVE R32 R2
+  LOADK R33 K8 ["createStyleRule"]
+  DUPTABLE R34 K267 [{"Color", "Rotation", "Transparency"}]
+  LOADK R35 K12 [{"Font"}]
+  SETTABLEKS R35 R34 K265 ["Color"]
+  LOADK R35 K13 ["$FontWeight400"]
+  SETTABLEKS R35 R34 K266 ["Rotation"]
+  LOADK R35 K14 [".Role-Surface"]
+  SETTABLEKS R35 R34 K174 ["Transparency"]
+  CALL R32 2 -1
+  SETLIST R31 R32 -1 [1]
+  CALL R28 3 1
+  MOVE R29 R2
+  LOADK R30 K15 ["BackgroundTransparency"]
+  DUPTABLE R31 K262 [{"BackgroundTransparency"}]
+  LOADK R32 K7 ["Styling"]
+  SETTABLEKS R32 R31 K15 ["BackgroundTransparency"]
+  NEWTABLE R32 0 1
+  MOVE R33 R2
+  LOADK R34 K8 ["createStyleRule"]
+  DUPTABLE R35 K267 [{"Color", "Rotation", "Transparency"}]
+  LOADK R36 K16 ["BorderSizePixel"]
+  SETTABLEKS R36 R35 K265 ["Color"]
+  LOADK R36 K17 [{"BackgroundTransparency", "BorderSizePixel"}]
+  SETTABLEKS R36 R35 K266 ["Rotation"]
+  LOADK R36 K18 ["$Transparency100"]
+  SETTABLEKS R36 R35 K174 ["Transparency"]
+  CALL R33 2 -1
+  SETLIST R32 R33 -1 [1]
+  CALL R29 3 -1
+  SETLIST R27 R28 -1 [1]
+  CALL R24 3 -1
+  SETLIST R16 R17 -1 [1]
+  CALL R13 3 1
   MOVE R14 R2
-  LOADK R15 K148 ["Position"]
+  LOADK R15 K19 ["$BorderNone"]
   NEWTABLE R16 0 0
   NEWTABLE R17 0 2
   MOVE R18 R2
-  LOADK R19 K41 ["::UIListLayout"]
-  DUPTABLE R20 K45 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R21 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R21 R20 K42 ["FillDirection"]
-  LOADK R21 K69 ["$GlobalSpace100"]
-  SETTABLEKS R21 R20 K43 ["Padding"]
-  GETIMPORT R21 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R21 R20 K44 ["SortOrder"]
+  LOADK R19 K39 ["::UIListLayout"]
+  DUPTABLE R20 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R21 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R21 R20 K40 ["FillDirection"]
+  LOADK R21 K67 ["$GlobalSpace100"]
+  SETTABLEKS R21 R20 K41 ["Padding"]
+  GETIMPORT R21 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R21 R20 K42 ["SortOrder"]
   CALL R18 2 1
   MOVE R19 R2
-  LOADK R20 K153 ["> Frame"]
+  LOADK R20 K20 [".Role-Surface100"]
   NEWTABLE R21 0 0
   NEWTABLE R22 0 1
   MOVE R23 R2
-  LOADK R24 K149 [{"AnchorPoint", "Size", "Position", "ZIndex"}]
-  DUPTABLE R25 K154 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Size"}]
-  LOADK R26 K93 ["$SemanticColorDivider"]
-  SETTABLEKS R26 R25 K23 ["BackgroundColor3"]
-  LOADK R26 K155 ["$SemanticColorDividerTransparency"]
-  SETTABLEKS R26 R25 K17 ["BackgroundTransparency"]
-  LOADK R26 K21 ["$BorderNone"]
-  SETTABLEKS R26 R25 K18 ["BorderSizePixel"]
-  LOADK R26 K159 ["$SmallSeparator"]
-  SETTABLEKS R26 R25 K95 ["Size"]
+  LOADK R24 K21 ["BackgroundColor3"]
+  DUPTABLE R25 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R26 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R26 R25 K40 ["FillDirection"]
+  LOADK R26 K65 ["$GlobalSpace50"]
+  SETTABLEKS R26 R25 K41 ["Padding"]
+  GETIMPORT R26 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R26 R25 K42 ["SortOrder"]
   CALL R23 2 -1
   SETLIST R22 R23 -1 [1]
   CALL R19 3 -1
   SETLIST R17 R18 -1 [1]
   CALL R14 3 1
   MOVE R15 R2
-  LOADK R16 K150 ["Vector2"]
-  NEWTABLE R17 0 0
-  NEWTABLE R18 0 1
+  LOADK R16 K22 [{"BackgroundColor3", "BorderSizePixel"}]
+  DUPTABLE R17 K279 [{"AutoButtonColor", "Text", "Size"}]
+  LOADB R18 0
+  SETTABLEKS R18 R17 K235 ["AutoButtonColor"]
+  LOADK R18 K238 [""]
+  SETTABLEKS R18 R17 K236 ["Text"]
+  GETIMPORT R18 K281 [UDim2.fromOffset]
+  LOADN R19 0
+  LOADN R20 24
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K92 ["Size"]
+  NEWTABLE R18 0 6
   MOVE R19 R2
-  LOADK R20 K109 ["> #Spacer"]
-  NEWTABLE R21 0 0
-  NEWTABLE R22 0 1
-  MOVE R23 R2
-  LOADK R24 K110 ["::UIFlexItem"]
-  DUPTABLE R25 K112 [{"FlexMode"}]
-  GETIMPORT R26 K115 [Enum.UIFlexMode.Fill]
-  SETTABLEKS R26 R25 K111 ["FlexMode"]
-  CALL R23 2 -1
-  SETLIST R22 R23 -1 [1]
-  CALL R19 3 -1
-  SETLIST R18 R19 -1 [1]
-  CALL R15 3 -1
-  SETLIST R11 R12 -1 [1]
-  CALL R8 3 1
-  MOVE R9 R2
-  LOADK R10 K151 [Vector2.new]
-  NEWTABLE R11 0 0
-  NEWTABLE R12 0 2
-  MOVE R13 R2
-  LOADK R14 K41 ["::UIListLayout"]
-  DUPTABLE R15 K409 [{"FillDirection", "HorizontalAlignment", "SortOrder", "VerticalAlignment", "Padding"}]
-  GETIMPORT R16 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R16 R15 K42 ["FillDirection"]
-  GETIMPORT R16 K410 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R16 R15 K408 ["HorizontalAlignment"]
-  GETIMPORT R16 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R16 R15 K44 ["SortOrder"]
-  GETIMPORT R16 K168 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R16 R15 K162 ["VerticalAlignment"]
-  LOADK R16 K155 ["$SemanticColorDividerTransparency"]
-  SETTABLEKS R16 R15 K43 ["Padding"]
-  CALL R13 2 1
-  MOVE R14 R2
-  LOADK R15 K243 ["> TextLabel"]
-  DUPTABLE R16 K347 [{"BackgroundTransparency", "Font", "TextSize", "LayoutOrder", "TextColor3"}]
-  LOADK R17 K20 ["$Transparency100"]
-  SETTABLEKS R17 R16 K17 ["BackgroundTransparency"]
-  LOADK R17 K15 ["$FontWeight400"]
-  SETTABLEKS R17 R16 K13 ["Font"]
-  LOADK R17 K156 [".Role-DividerV"]
-  SETTABLEKS R17 R16 K33 ["TextSize"]
-  LOADN R17 0
-  SETTABLEKS R17 R16 K50 ["LayoutOrder"]
-  LOADK R17 K31 ["$SemanticColorContentStandard"]
-  SETTABLEKS R17 R16 K29 ["TextColor3"]
-  CALL R14 2 -1
-  SETLIST R12 R13 -1 [1]
-  CALL R9 3 1
-  MOVE R10 R2
-  LOADK R11 K157 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel"}]
-  DUPTABLE R12 K414 [{"BackgroundColor3", "BackgroundTransparency", "Size"}]
-  GETIMPORT R13 K417 [Color3.fromHex]
-  LOADK R14 K162 ["VerticalAlignment"]
-  CALL R13 1 1
-  SETTABLEKS R13 R12 K23 ["BackgroundColor3"]
-  LOADK R13 K10 ["SharedFlags"]
-  SETTABLEKS R13 R12 K17 ["BackgroundTransparency"]
-  GETIMPORT R13 K284 [UDim2.fromOffset]
-  LOADN R14 40
-  LOADN R15 24
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K95 ["Size"]
-  NEWTABLE R13 0 6
-  MOVE R14 R2
-  LOADK R15 K215 ["::UICorner"]
-  DUPTABLE R16 K217 [{"CornerRadius"}]
-  LOADK R17 K163 [{"FillDirection", "HorizontalFlex", "Padding", "SortOrder", "VerticalAlignment"}]
-  SETTABLEKS R17 R16 K216 ["CornerRadius"]
-  CALL R14 2 1
-  MOVE R15 R2
-  LOADK R16 K55 ["::UIPadding"]
-  DUPTABLE R17 K76 [{"PaddingBottom", "PaddingLeft", "PaddingRight", "PaddingTop"}]
-  LOADK R18 K107 ["> #TitleFrame"]
-  SETTABLEKS R18 R17 K73 ["PaddingBottom"]
-  LOADK R18 K107 ["> #TitleFrame"]
-  SETTABLEKS R18 R17 K56 ["PaddingLeft"]
-  LOADK R18 K107 ["> #TitleFrame"]
-  SETTABLEKS R18 R17 K74 ["PaddingRight"]
-  LOADK R18 K107 ["> #TitleFrame"]
-  SETTABLEKS R18 R17 K75 ["PaddingTop"]
-  CALL R15 2 1
-  MOVE R16 R2
-  LOADK R17 K41 ["::UIListLayout"]
-  DUPTABLE R18 K420 [{"FillDirection", "HorizontalAlignment", "SortOrder", "VerticalAlignment"}]
-  GETIMPORT R19 K61 [Enum.FillDirection.Vertical]
-  SETTABLEKS R19 R18 K42 ["FillDirection"]
-  GETIMPORT R19 K410 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R19 R18 K408 ["HorizontalAlignment"]
-  GETIMPORT R19 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R19 R18 K44 ["SortOrder"]
-  GETIMPORT R19 K168 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R19 R18 K162 ["VerticalAlignment"]
-  CALL R16 2 1
-  MOVE R17 R2
-  LOADK R18 K153 ["> Frame"]
-  DUPTABLE R19 K421 [{"BackgroundColor3", "Size"}]
-  LOADK R20 K166 [Enum.UIFlexAlignment.SpaceBetween]
-  SETTABLEKS R20 R19 K23 ["BackgroundColor3"]
-  GETIMPORT R20 K284 [UDim2.fromOffset]
-  LOADN R21 20
-  LOADN R22 20
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K95 ["Size"]
-  NEWTABLE R20 0 1
+  LOADK R20 K212 ["::UICorner"]
+  DUPTABLE R21 K214 [{"CornerRadius"}]
+  LOADK R22 K252 ["$GlobalRadiusXSmall"]
+  SETTABLEKS R22 R21 K213 ["CornerRadius"]
+  CALL R19 2 1
+  MOVE R20 R2
+  LOADK R21 K26 [".Role-Text"]
+  NEWTABLE R22 0 0
+  NEWTABLE R23 0 2
+  MOVE R24 R2
+  LOADK R25 K27 ["TextColor3"]
+  DUPTABLE R26 K284 [{"LayoutOrder"}]
+  LOADN R27 0
+  SETTABLEKS R27 R26 K48 ["LayoutOrder"]
+  NEWTABLE R27 0 3
+  MOVE R28 R2
+  LOADK R29 K247 [".Icon-Large"]
+  DUPTABLE R30 K93 [{"Size"}]
+  LOADK R31 K248 ["$IconLarge"]
+  SETTABLEKS R31 R30 K92 ["Size"]
+  CALL R28 2 1
+  MOVE R29 R2
+  LOADK R30 K249 [".Icon-Small"]
+  DUPTABLE R31 K93 [{"Size"}]
+  LOADK R32 K250 ["$IconSmall"]
+  SETTABLEKS R32 R31 K92 ["Size"]
+  CALL R29 2 1
+  MOVE R30 R2
+  LOADK R31 K29 ["$SemanticColorContentStandard"]
+  DUPTABLE R32 K284 [{"LayoutOrder"}]
+  LOADN R33 3
+  SETTABLEKS R33 R32 K48 ["LayoutOrder"]
+  CALL R30 2 -1
+  SETLIST R27 R28 -1 [1]
+  CALL R24 3 1
+  MOVE R25 R2
+  LOADK R26 K30 [".Text-Label"]
+  DUPTABLE R27 K287 [{"Font", "TextSize", "LayoutOrder", "TextColor3"}]
+  LOADK R28 K123 ["$FontWeight700"]
+  SETTABLEKS R28 R27 K11 ["Font"]
+  LOADK R28 K32 [{"Font", "TextSize"}]
+  SETTABLEKS R28 R27 K31 ["TextSize"]
+  LOADN R28 2
+  SETTABLEKS R28 R27 K48 ["LayoutOrder"]
+  LOADK R28 K29 ["$SemanticColorContentStandard"]
+  SETTABLEKS R28 R27 K27 ["TextColor3"]
+  NEWTABLE R28 0 2
+  MOVE R29 R2
+  LOADK R30 K155 [".Small"]
+  DUPTABLE R31 K289 [{"TextSize"}]
+  LOADK R32 K186 ["$FontSize50"]
+  SETTABLEKS R32 R31 K31 ["TextSize"]
+  CALL R29 2 1
+  MOVE R30 R2
+  LOADK R31 K34 ["$ContentTextFontSize"]
+  DUPTABLE R32 K289 [{"TextSize"}]
+  LOADK R33 K35 [".Text-Title"]
+  SETTABLEKS R33 R32 K31 ["TextSize"]
+  CALL R30 2 -1
+  SETLIST R28 R29 -1 [1]
+  CALL R25 3 -1
+  SETLIST R23 R24 -1 [1]
+  CALL R20 3 1
   MOVE R21 R2
-  LOADK R22 K215 ["::UICorner"]
-  DUPTABLE R23 K217 [{"CornerRadius"}]
-  LOADK R24 K163 [{"FillDirection", "HorizontalFlex", "Padding", "SortOrder", "VerticalAlignment"}]
-  SETTABLEKS R24 R23 K216 ["CornerRadius"]
-  CALL R21 2 -1
+  LOADK R22 K193 [".State-Disabled"]
+  NEWTABLE R23 0 0
+  NEWTABLE R24 0 2
+  MOVE R25 R2
+  LOADK R26 K36 ["$TitleTextFontWeight"]
+  DUPTABLE R27 K256 [{"ImageTransparency"}]
+  LOADK R28 K1 [script]
+  SETTABLEKS R28 R27 K255 ["ImageTransparency"]
+  CALL R25 2 1
+  MOVE R26 R2
+  LOADK R27 K37 ["$TitleTextFontSize"]
+  DUPTABLE R28 K194 [{"TextColor3"}]
+  LOADK R29 K195 ["$SemanticColorContentDisabled"]
+  SETTABLEKS R29 R28 K27 ["TextColor3"]
+  CALL R26 2 -1
+  SETLIST R24 R25 -1 [1]
+  CALL R21 3 1
+  MOVE R22 R2
+  LOADK R23 K196 [".State-Default"]
+  NEWTABLE R24 0 0
+  NEWTABLE R25 0 2
+  MOVE R26 R2
+  LOADK R27 K38 [".Role-Row"]
+  DUPTABLE R28 K259 [{"BackgroundTransparency", "BackgroundColor3"}]
+  LOADK R29 K200 ["$SemanticColorStateLayerHoverTransparency"]
+  SETTABLEKS R29 R28 K15 ["BackgroundTransparency"]
+  LOADK R29 K199 ["$SemanticColorStateLayerHover"]
+  SETTABLEKS R29 R28 K21 ["BackgroundColor3"]
+  CALL R26 2 1
+  MOVE R27 R2
+  LOADK R28 K39 ["::UIListLayout"]
+  DUPTABLE R29 K259 [{"BackgroundTransparency", "BackgroundColor3"}]
+  LOADK R30 K203 ["$SemanticColorStateLayerPressTransparency"]
+  SETTABLEKS R30 R29 K15 ["BackgroundTransparency"]
+  LOADK R30 K202 ["$SemanticColorStateLayerPress"]
+  SETTABLEKS R30 R29 K21 ["BackgroundColor3"]
+  CALL R27 2 -1
+  SETLIST R25 R26 -1 [1]
+  CALL R22 3 1
+  MOVE R23 R2
+  LOADK R24 K40 ["FillDirection"]
+  NEWTABLE R25 0 0
+  NEWTABLE R26 0 1
+  MOVE R27 R2
+  LOADK R28 K41 ["Padding"]
+  DUPTABLE R29 K300 [{"ApplyStrokeMode", "Color", "Thickness", "Transparency"}]
+  GETIMPORT R30 K302 [Enum.ApplyStrokeMode.Border]
+  SETTABLEKS R30 R29 K298 ["ApplyStrokeMode"]
+  LOADK R30 K90 ["$SemanticColorDivider"]
+  SETTABLEKS R30 R29 K265 ["Color"]
+  LOADK R30 K83 ["$BorderMedium"]
+  SETTABLEKS R30 R29 K299 ["Thickness"]
+  LOADK R30 K152 ["$SemanticColorDividerTransparency"]
+  SETTABLEKS R30 R29 K174 ["Transparency"]
+  CALL R27 2 -1
+  SETLIST R26 R27 -1 [1]
+  CALL R23 3 1
+  MOVE R24 R2
+  LOADK R25 K47 ["$RowSpacingDefault"]
+  DUPTABLE R26 K198 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R27 K48 ["LayoutOrder"]
+  SETTABLEKS R27 R26 K21 ["BackgroundColor3"]
+  LOADK R27 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R27 R26 K15 ["BackgroundTransparency"]
+  NEWTABLE R27 0 2
+  MOVE R28 R2
+  LOADK R29 K196 [".State-Default"]
+  NEWTABLE R30 0 0
+  NEWTABLE R31 0 2
+  MOVE R32 R2
+  LOADK R33 K38 [".Role-Row"]
+  DUPTABLE R34 K198 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R35 K199 ["$SemanticColorStateLayerHover"]
+  SETTABLEKS R35 R34 K21 ["BackgroundColor3"]
+  LOADK R35 K200 ["$SemanticColorStateLayerHoverTransparency"]
+  SETTABLEKS R35 R34 K15 ["BackgroundTransparency"]
+  CALL R32 2 1
+  MOVE R33 R2
+  LOADK R34 K39 ["::UIListLayout"]
+  DUPTABLE R35 K198 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R36 K202 ["$SemanticColorStateLayerPress"]
+  SETTABLEKS R36 R35 K21 ["BackgroundColor3"]
+  LOADK R36 K203 ["$SemanticColorStateLayerPressTransparency"]
+  SETTABLEKS R36 R35 K15 ["BackgroundTransparency"]
+  CALL R33 2 -1
+  SETLIST R31 R32 -1 [1]
+  CALL R28 3 1
+  MOVE R29 R2
+  LOADK R30 K37 ["$TitleTextFontSize"]
+  DUPTABLE R31 K307 [{"TextColor3", "TextTransparency"}]
+  LOADK R32 K52 ["$ConvertibleRowToColumnPadding"]
+  SETTABLEKS R32 R31 K27 ["TextColor3"]
+  LOADK R32 K53 ["::UIPadding"]
+  SETTABLEKS R32 R31 K306 ["TextTransparency"]
+  CALL R29 2 -1
+  SETLIST R27 R28 -1 [1]
+  CALL R24 3 -1
+  SETLIST R18 R19 -1 [1]
+  CALL R15 3 1
+  MOVE R16 R2
+  LOADK R17 K54 ["PaddingLeft"]
+  DUPTABLE R18 K17 [{"BackgroundTransparency", "BorderSizePixel"}]
+  LOADK R19 K18 ["$Transparency100"]
+  SETTABLEKS R19 R18 K15 ["BackgroundTransparency"]
+  LOADK R19 K19 ["$BorderNone"]
+  SETTABLEKS R19 R18 K16 ["BorderSizePixel"]
+  NEWTABLE R19 0 7
+  MOVE R20 R2
+  LOADK R21 K55 [{"PaddingLeft"}]
+  DUPTABLE R22 K312 [{"AutoButtonColor", "BackgroundTransparency", "BorderSizePixel", "LayoutOrder", "Text"}]
+  LOADB R23 0
+  SETTABLEKS R23 R22 K235 ["AutoButtonColor"]
+  LOADK R23 K18 ["$Transparency100"]
+  SETTABLEKS R23 R22 K15 ["BackgroundTransparency"]
+  LOADK R23 K19 ["$BorderNone"]
+  SETTABLEKS R23 R22 K16 ["BorderSizePixel"]
+  LOADN R23 1
+  SETTABLEKS R23 R22 K48 ["LayoutOrder"]
+  LOADK R23 K238 [""]
+  SETTABLEKS R23 R22 K236 ["Text"]
+  NEWTABLE R23 0 2
+  MOVE R24 R2
+  LOADK R25 K57 [".Role-Column"]
+  DUPTABLE R26 K314 [{"BackgroundTransparency", "BorderSizePixel", "Font", "LayoutOrder"}]
+  LOADK R27 K18 ["$Transparency100"]
+  SETTABLEKS R27 R26 K15 ["BackgroundTransparency"]
+  LOADK R27 K19 ["$BorderNone"]
+  SETTABLEKS R27 R26 K16 ["BorderSizePixel"]
+  LOADK R27 K13 ["$FontWeight400"]
+  SETTABLEKS R27 R26 K11 ["Font"]
+  LOADN R27 2
+  SETTABLEKS R27 R26 K48 ["LayoutOrder"]
+  CALL R24 2 1
+  MOVE R25 R2
+  LOADK R26 K59 [Enum.FillDirection.Vertical]
+  DUPTABLE R27 K17 [{"BackgroundTransparency", "BorderSizePixel"}]
+  LOADK R28 K18 ["$Transparency100"]
+  SETTABLEKS R28 R27 K15 ["BackgroundTransparency"]
+  LOADK R28 K19 ["$BorderNone"]
+  SETTABLEKS R28 R27 K16 ["BorderSizePixel"]
+  CALL R25 2 -1
+  SETLIST R23 R24 -1 [1]
+  CALL R20 3 1
+  MOVE R21 R2
+  LOADK R22 K60 ["$ColumnSpacingDefault"]
+  NEWTABLE R23 0 0
+  NEWTABLE R24 0 1
+  MOVE R25 R2
+  LOADK R26 K55 [{"PaddingLeft"}]
+  NEWTABLE R27 0 0
+  NEWTABLE R28 0 2
+  MOVE R29 R2
+  LOADK R30 K39 ["::UIListLayout"]
+  DUPTABLE R31 K317 [{"FillDirection", "Padding", "SortOrder", "VerticalAlignment"}]
+  GETIMPORT R32 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R32 R31 K40 ["FillDirection"]
+  LOADK R32 K67 ["$GlobalSpace100"]
+  SETTABLEKS R32 R31 K41 ["Padding"]
+  GETIMPORT R32 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R32 R31 K42 ["SortOrder"]
+  GETIMPORT R32 K165 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R32 R31 K159 ["VerticalAlignment"]
+  CALL R29 2 1
+  MOVE R30 R2
+  LOADK R31 K59 [Enum.FillDirection.Vertical]
+  DUPTABLE R32 K93 [{"Size"}]
+  LOADK R33 K250 ["$IconSmall"]
+  SETTABLEKS R33 R32 K92 ["Size"]
+  CALL R30 2 -1
+  SETLIST R28 R29 -1 [1]
+  CALL R25 3 -1
+  SETLIST R24 R25 -1 [1]
+  CALL R21 3 1
+  MOVE R22 R2
+  LOADK R23 K155 [".Small"]
+  NEWTABLE R24 0 0
+  NEWTABLE R25 0 1
+  MOVE R26 R2
+  LOADK R27 K55 [{"PaddingLeft"}]
+  NEWTABLE R28 0 0
+  NEWTABLE R29 0 1
+  MOVE R30 R2
+  LOADK R31 K57 [".Role-Column"]
+  DUPTABLE R32 K289 [{"TextSize"}]
+  LOADK R33 K186 ["$FontSize50"]
+  SETTABLEKS R33 R32 K31 ["TextSize"]
+  CALL R30 2 -1
+  SETLIST R29 R30 -1 [1]
+  CALL R26 3 -1
+  SETLIST R25 R26 -1 [1]
+  CALL R22 3 1
+  MOVE R23 R2
+  LOADK R24 K62 [{"Padding"}]
+  NEWTABLE R25 0 0
+  NEWTABLE R26 0 1
+  MOVE R27 R2
+  LOADK R28 K55 [{"PaddingLeft"}]
+  NEWTABLE R29 0 0
+  NEWTABLE R30 0 1
+  MOVE R31 R2
+  LOADK R32 K57 [".Role-Column"]
+  DUPTABLE R33 K289 [{"TextSize"}]
+  LOADK R34 K32 [{"Font", "TextSize"}]
+  SETTABLEKS R34 R33 K31 ["TextSize"]
+  CALL R31 2 -1
+  SETLIST R30 R31 -1 [1]
+  CALL R27 3 -1
+  SETLIST R26 R27 -1 [1]
+  CALL R23 3 1
+  MOVE R24 R2
+  LOADK R25 K34 ["$ContentTextFontSize"]
+  NEWTABLE R26 0 0
+  NEWTABLE R27 0 1
+  MOVE R28 R2
+  LOADK R29 K55 [{"PaddingLeft"}]
+  NEWTABLE R30 0 0
+  NEWTABLE R31 0 3
+  MOVE R32 R2
+  LOADK R33 K39 ["::UIListLayout"]
+  DUPTABLE R34 K317 [{"FillDirection", "Padding", "SortOrder", "VerticalAlignment"}]
+  GETIMPORT R35 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R35 R34 K40 ["FillDirection"]
+  LOADK R35 K75 ["$GlobalSpace150"]
+  SETTABLEKS R35 R34 K41 ["Padding"]
+  GETIMPORT R35 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R35 R34 K42 ["SortOrder"]
+  GETIMPORT R35 K165 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R35 R34 K159 ["VerticalAlignment"]
+  CALL R32 2 1
+  MOVE R33 R2
+  LOADK R34 K59 [Enum.FillDirection.Vertical]
+  DUPTABLE R35 K93 [{"Size"}]
+  LOADK R36 K248 ["$IconLarge"]
+  SETTABLEKS R36 R35 K92 ["Size"]
+  CALL R33 2 1
+  MOVE R34 R2
+  LOADK R35 K57 [".Role-Column"]
+  DUPTABLE R36 K289 [{"TextSize"}]
+  LOADK R37 K35 [".Text-Title"]
+  SETTABLEKS R37 R36 K31 ["TextSize"]
+  CALL R34 2 -1
+  SETLIST R31 R32 -1 [1]
+  CALL R28 3 -1
+  SETLIST R27 R28 -1 [1]
+  CALL R24 3 1
+  MOVE R25 R2
+  LOADK R26 K196 [".State-Default"]
+  NEWTABLE R27 0 0
+  NEWTABLE R28 0 4
+  MOVE R29 R2
+  LOADK R30 K55 [{"PaddingLeft"}]
+  NEWTABLE R31 0 0
+  NEWTABLE R32 0 2
+  MOVE R33 R2
+  LOADK R34 K63 ["$ColumnSpacingMedium"]
+  DUPTABLE R35 K321 [{"Image"}]
+  LOADK R36 K66 [".X-RowSpace100"]
+  SETTABLEKS R36 R35 K320 ["Image"]
+  CALL R33 2 1
+  MOVE R34 R2
+  LOADK R35 K67 ["$GlobalSpace100"]
+  DUPTABLE R36 K194 [{"TextColor3"}]
+  LOADK R37 K29 ["$SemanticColorContentStandard"]
+  SETTABLEKS R37 R36 K27 ["TextColor3"]
+  CALL R34 2 -1
+  SETLIST R32 R33 -1 [1]
+  CALL R29 3 1
+  MOVE R30 R2
+  LOADK R31 K68 [".X-RowSpace200"]
+  DUPTABLE R32 K321 [{"Image"}]
+  LOADK R33 K69 ["$GlobalSpace200"]
+  SETTABLEKS R33 R32 K320 ["Image"]
+  CALL R30 2 1
+  MOVE R31 R2
+  LOADK R32 K70 [".X-Pad150 ::UIPadding"]
+  NEWTABLE R33 0 0
+  NEWTABLE R34 0 1
+  MOVE R35 R2
+  LOADK R36 K55 [{"PaddingLeft"}]
+  NEWTABLE R37 0 0
+  NEWTABLE R38 0 1
+  MOVE R39 R2
+  LOADK R40 K59 [Enum.FillDirection.Vertical]
+  DUPTABLE R41 K321 [{"Image"}]
+  LOADK R42 K71 ["PaddingBottom"]
+  SETTABLEKS R42 R41 K320 ["Image"]
+  CALL R39 2 -1
+  SETLIST R38 R39 -1 [1]
+  CALL R35 3 -1
+  SETLIST R34 R35 -1 [1]
+  CALL R31 3 1
+  MOVE R32 R2
+  LOADK R33 K72 ["PaddingRight"]
+  NEWTABLE R34 0 0
+  NEWTABLE R35 0 1
+  MOVE R36 R2
+  LOADK R37 K55 [{"PaddingLeft"}]
+  NEWTABLE R38 0 0
+  NEWTABLE R39 0 1
+  MOVE R40 R2
+  LOADK R41 K59 [Enum.FillDirection.Vertical]
+  DUPTABLE R42 K321 [{"Image"}]
+  LOADK R43 K73 ["PaddingTop"]
+  SETTABLEKS R43 R42 K320 ["Image"]
+  CALL R40 2 -1
+  SETLIST R39 R40 -1 [1]
+  CALL R36 3 -1
+  SETLIST R35 R36 -1 [1]
+  CALL R32 3 -1
+  SETLIST R28 R29 -1 [1]
+  CALL R25 3 1
+  MOVE R26 R2
+  LOADK R27 K193 [".State-Disabled"]
+  NEWTABLE R28 0 0
+  NEWTABLE R29 0 3
+  MOVE R30 R2
+  LOADK R31 K55 [{"PaddingLeft"}]
+  NEWTABLE R32 0 0
+  NEWTABLE R33 0 2
+  MOVE R34 R2
+  LOADK R35 K59 [Enum.FillDirection.Vertical]
+  DUPTABLE R36 K321 [{"Image"}]
+  LOADK R37 K74 [{"PaddingBottom", "PaddingLeft", "PaddingRight", "PaddingTop"}]
+  SETTABLEKS R37 R36 K320 ["Image"]
+  CALL R34 2 1
+  MOVE R35 R2
+  LOADK R36 K57 [".Role-Column"]
+  DUPTABLE R37 K194 [{"TextColor3"}]
+  LOADK R38 K195 ["$SemanticColorContentDisabled"]
+  SETTABLEKS R38 R37 K27 ["TextColor3"]
+  CALL R35 2 -1
+  SETLIST R33 R34 -1 [1]
+  CALL R30 3 1
+  MOVE R31 R2
+  LOADK R32 K70 [".X-Pad150 ::UIPadding"]
+  NEWTABLE R33 0 0
+  NEWTABLE R34 0 1
+  MOVE R35 R2
+  LOADK R36 K55 [{"PaddingLeft"}]
+  NEWTABLE R37 0 0
+  NEWTABLE R38 0 1
+  MOVE R39 R2
+  LOADK R40 K59 [Enum.FillDirection.Vertical]
+  DUPTABLE R41 K321 [{"Image"}]
+  LOADK R42 K75 ["$GlobalSpace150"]
+  SETTABLEKS R42 R41 K320 ["Image"]
+  CALL R39 2 -1
+  SETLIST R38 R39 -1 [1]
+  CALL R35 3 -1
+  SETLIST R34 R35 -1 [1]
+  CALL R31 3 1
+  MOVE R32 R2
+  LOADK R33 K72 ["PaddingRight"]
+  NEWTABLE R34 0 0
+  NEWTABLE R35 0 1
+  MOVE R36 R2
+  LOADK R37 K55 [{"PaddingLeft"}]
+  NEWTABLE R38 0 0
+  NEWTABLE R39 0 1
+  MOVE R40 R2
+  LOADK R41 K59 [Enum.FillDirection.Vertical]
+  DUPTABLE R42 K321 [{"Image"}]
+  LOADK R43 K76 [".Role-Menu"]
+  SETTABLEKS R43 R42 K320 ["Image"]
+  CALL R40 2 -1
+  SETLIST R39 R40 -1 [1]
+  CALL R36 3 -1
+  SETLIST R35 R36 -1 [1]
+  CALL R32 3 -1
+  SETLIST R29 R30 -1 [1]
+  CALL R26 3 -1
+  SETLIST R19 R20 -1 [1]
+  CALL R16 3 1
+  MOVE R17 R2
+  LOADK R18 K77 ["BorderColor3"]
+  DUPTABLE R19 K334 [{"AutoButtonColor", "BorderSizePixel", "BackgroundTransparency", "Text"}]
+  LOADB R20 0
+  SETTABLEKS R20 R19 K235 ["AutoButtonColor"]
+  LOADK R20 K19 ["$BorderNone"]
+  SETTABLEKS R20 R19 K16 ["BorderSizePixel"]
+  LOADK R20 K18 ["$Transparency100"]
+  SETTABLEKS R20 R19 K15 ["BackgroundTransparency"]
+  LOADK R20 K238 [""]
+  SETTABLEKS R20 R19 K236 ["Text"]
+  NEWTABLE R20 0 9
+  MOVE R21 R2
+  LOADK R22 K53 ["::UIPadding"]
+  DUPTABLE R23 K84 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+  LOADK R24 K79 [{"BackgroundColor3", "BorderColor3", "BorderMode", "BorderSizePixel"}]
+  SETTABLEKS R24 R23 K54 ["PaddingLeft"]
+  LOADK R24 K79 [{"BackgroundColor3", "BorderColor3", "BorderMode", "BorderSizePixel"}]
+  SETTABLEKS R24 R23 K72 ["PaddingRight"]
+  LOADK R24 K80 ["$SemanticColorDividerTransparency88"]
+  SETTABLEKS R24 R23 K73 ["PaddingTop"]
+  LOADK R24 K80 ["$SemanticColorDividerTransparency88"]
+  SETTABLEKS R24 R23 K71 ["PaddingBottom"]
+  CALL R21 2 1
+  MOVE R22 R2
+  LOADK R23 K212 ["::UICorner"]
+  DUPTABLE R24 K214 [{"CornerRadius"}]
+  LOADK R25 K252 ["$GlobalRadiusXSmall"]
+  SETTABLEKS R25 R24 K213 ["CornerRadius"]
+  CALL R22 2 1
+  MOVE R23 R2
+  LOADK R24 K81 ["Inset"]
+  NEWTABLE R25 0 0
+  NEWTABLE R26 0 6
+  MOVE R27 R2
+  LOADK R28 K39 ["::UIListLayout"]
+  DUPTABLE R29 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R30 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R30 R29 K40 ["FillDirection"]
+  LOADK R30 K82 [Enum.BorderMode.Inset]
+  SETTABLEKS R30 R29 K41 ["Padding"]
+  GETIMPORT R30 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R30 R29 K42 ["SortOrder"]
+  CALL R27 2 1
+  MOVE R28 R2
+  LOADK R29 K83 ["$BorderMedium"]
+  DUPTABLE R30 K340 [{"LayoutOrder", "Size"}]
+  LOADN R31 0
+  SETTABLEKS R31 R30 K48 ["LayoutOrder"]
+  LOADK R31 K250 ["$IconSmall"]
+  SETTABLEKS R31 R30 K92 ["Size"]
+  CALL R28 2 1
+  MOVE R29 R2
+  LOADK R30 K85 ["$MenuPadding"]
+  DUPTABLE R31 K342 [{"BorderSizePixel", "BackgroundTransparency", "LayoutOrder", "Size"}]
+  LOADK R32 K19 ["$BorderNone"]
+  SETTABLEKS R32 R31 K16 ["BorderSizePixel"]
+  LOADK R32 K18 ["$Transparency100"]
+  SETTABLEKS R32 R31 K15 ["BackgroundTransparency"]
+  LOADN R32 0
+  SETTABLEKS R32 R31 K48 ["LayoutOrder"]
+  LOADK R32 K250 ["$IconSmall"]
+  SETTABLEKS R32 R31 K92 ["Size"]
+  CALL R29 2 1
+  MOVE R30 R2
+  LOADK R31 K87 ["$MenuColumnSpacing"]
+  DUPTABLE R32 K342 [{"BorderSizePixel", "BackgroundTransparency", "LayoutOrder", "Size"}]
+  LOADK R33 K19 ["$BorderNone"]
+  SETTABLEKS R33 R32 K16 ["BorderSizePixel"]
+  LOADK R33 K18 ["$Transparency100"]
+  SETTABLEKS R33 R32 K15 ["BackgroundTransparency"]
+  LOADN R33 1
+  SETTABLEKS R33 R32 K48 ["LayoutOrder"]
+  LOADK R33 K248 ["$IconLarge"]
+  SETTABLEKS R33 R32 K92 ["Size"]
+  CALL R30 2 1
+  MOVE R31 R2
+  LOADK R32 K113 ["> #Text"]
+  DUPTABLE R33 K344 [{"BackgroundTransparency", "Font", "TextSize", "LayoutOrder", "TextColor3"}]
+  LOADK R34 K18 ["$Transparency100"]
+  SETTABLEKS R34 R33 K15 ["BackgroundTransparency"]
+  LOADK R34 K13 ["$FontWeight400"]
+  SETTABLEKS R34 R33 K11 ["Font"]
+  LOADK R34 K186 ["$FontSize50"]
+  SETTABLEKS R34 R33 K31 ["TextSize"]
+  LOADN R34 2
+  SETTABLEKS R34 R33 K48 ["LayoutOrder"]
+  LOADK R34 K29 ["$SemanticColorContentStandard"]
+  SETTABLEKS R34 R33 K27 ["TextColor3"]
+  CALL R31 2 1
+  MOVE R32 R2
+  LOADK R33 K89 ["$SemanticColorSurface300Inverse"]
+  DUPTABLE R34 K340 [{"LayoutOrder", "Size"}]
+  LOADN R35 3
+  SETTABLEKS R35 R34 K48 ["LayoutOrder"]
+  LOADK R35 K250 ["$IconSmall"]
+  SETTABLEKS R35 R34 K92 ["Size"]
+  CALL R32 2 -1
+  SETLIST R26 R27 -1 [1]
+  CALL R23 3 1
+  MOVE R24 R2
+  LOADK R25 K90 ["$SemanticColorDivider"]
+  DUPTABLE R26 K347 [{"AnchorPoint", "Position", "BorderSizePixel", "BackgroundTransparency", "Image", "LayoutOrder", "Size"}]
+  GETIMPORT R27 K148 [Vector2.new]
+  LOADN R28 1
+  LOADK R29 K92 ["Size"]
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K144 ["AnchorPoint"]
+  GETIMPORT R27 K228 [UDim2.fromScale]
+  LOADN R28 1
+  LOADK R29 K92 ["Size"]
+  CALL R27 2 1
+  SETTABLEKS R27 R26 K145 ["Position"]
+  LOADK R27 K19 ["$BorderNone"]
+  SETTABLEKS R27 R26 K16 ["BorderSizePixel"]
+  LOADK R27 K18 ["$Transparency100"]
+  SETTABLEKS R27 R26 K15 ["BackgroundTransparency"]
+  LOADK R27 K93 [{"Size"}]
+  SETTABLEKS R27 R26 K320 ["Image"]
+  LOADN R27 3
+  SETTABLEKS R27 R26 K48 ["LayoutOrder"]
+  LOADK R27 K250 ["$IconSmall"]
+  SETTABLEKS R27 R26 K92 ["Size"]
+  CALL R24 2 1
+  MOVE R25 R2
+  LOADK R26 K94 ["UDim2"]
+  DUPTABLE R27 K93 [{"Size"}]
+  LOADK R28 K250 ["$IconSmall"]
+  SETTABLEKS R28 R27 K92 ["Size"]
+  CALL R25 2 1
+  MOVE R26 R2
+  LOADK R27 K189 [".State-Selected"]
+  DUPTABLE R28 K198 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R29 K191 ["$SemanticColorStatesSelected"]
+  SETTABLEKS R29 R28 K21 ["BackgroundColor3"]
+  LOADK R29 K192 ["$SemanticColorStatesSelectedTransparency"]
+  SETTABLEKS R29 R28 K15 ["BackgroundTransparency"]
+  CALL R26 2 1
+  MOVE R27 R2
+  LOADK R28 K95 ["new"]
+  NEWTABLE R29 0 0
+  NEWTABLE R30 0 1
+  MOVE R31 R2
+  LOADK R32 K81 ["Inset"]
+  NEWTABLE R33 0 0
+  NEWTABLE R34 0 1
+  MOVE R35 R2
+  LOADK R36 K85 ["$MenuPadding"]
+  DUPTABLE R37 K321 [{"Image"}]
+  LOADK R38 K96 [UDim2.new]
+  SETTABLEKS R38 R37 K320 ["Image"]
+  CALL R35 2 -1
+  SETLIST R34 R35 -1 [1]
+  CALL R31 3 -1
+  SETLIST R30 R31 -1 [1]
+  CALL R27 3 1
+  MOVE R28 R2
+  LOADK R29 K97 ["::UISizeConstraint"]
+  NEWTABLE R30 0 0
+  NEWTABLE R31 0 1
+  MOVE R32 R2
+  LOADK R33 K197 [":hover"]
+  DUPTABLE R34 K198 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R35 K98 ["MaxSize"]
+  SETTABLEKS R35 R34 K21 ["BackgroundColor3"]
+  LOADK R35 K99 [{"MaxSize"}]
+  SETTABLEKS R35 R34 K15 ["BackgroundTransparency"]
+  CALL R32 2 -1
+  SETLIST R31 R32 -1 [1]
+  CALL R28 3 1
+  MOVE R29 R2
+  LOADK R30 K193 [".State-Disabled"]
+  NEWTABLE R31 0 0
+  NEWTABLE R32 0 1
+  MOVE R33 R2
+  LOADK R34 K81 ["Inset"]
+  NEWTABLE R35 0 0
+  NEWTABLE R36 0 2
+  MOVE R37 R2
+  LOADK R38 K100 ["$TooltipMaxSize"]
+  DUPTABLE R39 K256 [{"ImageTransparency"}]
+  LOADK R40 K1 [script]
+  SETTABLEKS R40 R39 K255 ["ImageTransparency"]
+  CALL R37 2 1
+  MOVE R38 R2
+  LOADK R39 K113 ["> #Text"]
+  DUPTABLE R40 K194 [{"TextColor3"}]
+  LOADK R41 K195 ["$SemanticColorContentDisabled"]
+  SETTABLEKS R41 R40 K27 ["TextColor3"]
+  CALL R38 2 -1
+  SETLIST R36 R37 -1 [1]
+  CALL R33 3 -1
+  SETLIST R32 R33 -1 [1]
+  CALL R29 3 -1
   SETLIST R20 R21 -1 [1]
   CALL R17 3 1
   MOVE R18 R2
-  LOADK R19 K192 [".State-Selected"]
-  DUPTABLE R20 K423 [{"BackgroundColor3"}]
-  GETIMPORT R21 K417 [Color3.fromHex]
-  LOADK R22 K168 [Enum.VerticalAlignment.Center]
-  CALL R21 1 1
-  SETTABLEKS R21 R20 K23 ["BackgroundColor3"]
+  LOADK R19 K101 ["$TooltipContentSpacing"]
+  NEWTABLE R20 0 0
   NEWTABLE R21 0 1
   MOVE R22 R2
-  LOADK R23 K41 ["::UIListLayout"]
-  DUPTABLE R24 K425 [{"HorizontalAlignment"}]
-  GETIMPORT R25 K427 [Enum.HorizontalAlignment.Right]
-  SETTABLEKS R25 R24 K408 ["HorizontalAlignment"]
+  LOADK R23 K193 [".State-Disabled"]
+  DUPTABLE R24 K256 [{"ImageTransparency"}]
+  LOADK R25 K1 [script]
+  SETTABLEKS R25 R24 K255 ["ImageTransparency"]
   CALL R22 2 -1
   SETLIST R21 R22 -1 [1]
   CALL R18 3 1
   MOVE R19 R2
-  LOADK R20 K196 [".State-Disabled"]
-  DUPTABLE R21 K265 [{"BackgroundTransparency"}]
-  LOADK R22 K172 [{"PaddingRight"}]
-  SETTABLEKS R22 R21 K17 ["BackgroundTransparency"]
-  NEWTABLE R22 0 1
-  MOVE R23 R2
-  LOADK R24 K153 ["> Frame"]
-  DUPTABLE R25 K265 [{"BackgroundTransparency"}]
-  LOADK R26 K172 [{"PaddingRight"}]
-  SETTABLEKS R26 R25 K17 ["BackgroundTransparency"]
-  CALL R23 2 -1
-  SETLIST R22 R23 -1 [1]
-  CALL R19 3 -1
-  SETLIST R13 R14 -1 [1]
-  CALL R10 3 1
-  MOVE R11 R2
-  LOADK R12 K173 [".X-Shrink ::UIFlexItem"]
-  DUPTABLE R13 K282 [{"AutoButtonColor", "Text", "Size"}]
-  LOADB R14 0
-  SETTABLEKS R14 R13 K238 ["AutoButtonColor"]
-  LOADK R14 K241 [""]
-  SETTABLEKS R14 R13 K239 ["Text"]
-  GETIMPORT R14 K284 [UDim2.fromOffset]
-  LOADN R15 85
-  LOADN R16 24
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K95 ["Size"]
-  NEWTABLE R14 0 13
-  MOVE R15 R2
-  LOADK R16 K215 ["::UICorner"]
-  DUPTABLE R17 K217 [{"CornerRadius"}]
-  LOADK R18 K174 ["Shrink"]
-  SETTABLEKS R18 R17 K216 ["CornerRadius"]
-  CALL R15 2 1
-  MOVE R16 R2
-  LOADK R17 K175 [Enum.UIFlexMode.Shrink]
-  DUPTABLE R18 K96 [{"Size"}]
-  GETIMPORT R19 K284 [UDim2.fromOffset]
-  LOADN R20 120
-  LOADN R21 24
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K95 ["Size"]
-  CALL R16 2 1
-  MOVE R17 R2
-  LOADK R18 K41 ["::UIListLayout"]
-  DUPTABLE R19 K432 [{"HorizontalFlex"}]
-  GETIMPORT R20 K433 [Enum.UIFlexAlignment.Fill]
-  SETTABLEKS R20 R19 K161 ["HorizontalFlex"]
-  CALL R17 2 1
-  MOVE R18 R2
-  LOADK R19 K55 ["::UIPadding"]
-  DUPTABLE R20 K87 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-  LOADK R21 K178 [{"Transparency"}]
-  SETTABLEKS R21 R20 K56 ["PaddingLeft"]
-  LOADK R21 K179 ["NumberSequence"]
-  SETTABLEKS R21 R20 K74 ["PaddingRight"]
-  LOADK R21 K180 [NumberSequence.new]
-  SETTABLEKS R21 R20 K75 ["PaddingTop"]
-  LOADK R21 K181 ["NumberSequenceKeypoint"]
-  SETTABLEKS R21 R20 K73 ["PaddingBottom"]
-  CALL R18 2 1
-  MOVE R19 R2
-  LOADK R20 K182 [NumberSequenceKeypoint.new]
+  LOADK R20 K102 ["> #Content"]
   NEWTABLE R21 0 0
   NEWTABLE R22 0 1
   MOVE R23 R2
-  LOADK R24 K41 ["::UIListLayout"]
-  DUPTABLE R25 K439 [{"HorizontalFlex", "FillDirection", "SortOrder"}]
-  GETIMPORT R26 K433 [Enum.UIFlexAlignment.Fill]
-  SETTABLEKS R26 R25 K161 ["HorizontalFlex"]
-  GETIMPORT R26 K48 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R26 R25 K42 ["FillDirection"]
-  GETIMPORT R26 K51 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R26 R25 K44 ["SortOrder"]
+  LOADK R24 K53 ["::UIPadding"]
+  DUPTABLE R25 K359 [{"PaddingLeft", "PaddingTop", "PaddingBottom"}]
+  LOADK R26 K104 ["> #TitleFrame"]
+  SETTABLEKS R26 R25 K54 ["PaddingLeft"]
+  LOADK R26 K104 ["> #TitleFrame"]
+  SETTABLEKS R26 R25 K73 ["PaddingTop"]
+  LOADK R26 K104 ["> #TitleFrame"]
+  SETTABLEKS R26 R25 K71 ["PaddingBottom"]
   CALL R23 2 -1
   SETLIST R22 R23 -1 [1]
   CALL R19 3 1
   MOVE R20 R2
-  LOADK R21 K136 [Enum.AutomaticSize.XY]
-  DUPTABLE R22 K96 [{"Size"}]
-  LOADK R23 K253 ["$IconSmall"]
-  SETTABLEKS R23 R22 K95 ["Size"]
+  LOADK R21 K105 [{"FillDirection", "SortOrder"}]
+  NEWTABLE R22 0 0
+  NEWTABLE R23 0 7
+  MOVE R24 R2
+  LOADK R25 K41 ["Padding"]
+  DUPTABLE R26 K362 [{"Thickness"}]
+  LOADK R27 K19 ["$BorderNone"]
+  SETTABLEKS R27 R26 K299 ["Thickness"]
+  CALL R24 2 1
+  MOVE R25 R2
+  LOADK R26 K212 ["::UICorner"]
+  DUPTABLE R27 K214 [{"CornerRadius"}]
+  LOADK R28 K107 ["::UIFlexItem"]
+  SETTABLEKS R28 R27 K213 ["CornerRadius"]
+  CALL R25 2 1
+  MOVE R26 R2
+  LOADK R27 K108 ["FlexMode"]
+  DUPTABLE R28 K365 [{"TextSize", "TextXAlignment", "TextTruncate"}]
+  LOADK R29 K186 ["$FontSize50"]
+  SETTABLEKS R29 R28 K31 ["TextSize"]
+  GETIMPORT R29 K118 [Enum.TextXAlignment.Left]
+  SETTABLEKS R29 R28 K115 ["TextXAlignment"]
+  GETIMPORT R29 K188 [Enum.TextTruncate.SplitWord]
+  SETTABLEKS R29 R28 K182 ["TextTruncate"]
+  NEWTABLE R29 0 1
+  MOVE R30 R2
+  LOADK R31 K53 ["::UIPadding"]
+  DUPTABLE R32 K366 [{"PaddingLeft", "PaddingRight"}]
+  LOADK R33 K65 ["$GlobalSpace50"]
+  SETTABLEKS R33 R32 K54 ["PaddingLeft"]
+  LOADK R33 K65 ["$GlobalSpace50"]
+  SETTABLEKS R33 R32 K72 ["PaddingRight"]
+  CALL R30 2 -1
+  SETLIST R29 R30 -1 [1]
+  CALL R26 3 1
+  MOVE R27 R2
+  LOADK R28 K196 [".State-Default"]
+  DUPTABLE R29 K198 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R30 K111 ["Fill"]
+  SETTABLEKS R30 R29 K21 ["BackgroundColor3"]
+  LOADK R30 K112 [Enum.UIFlexMode.Fill]
+  SETTABLEKS R30 R29 K15 ["BackgroundTransparency"]
+  NEWTABLE R30 0 1
+  MOVE R31 R2
+  LOADK R32 K108 ["FlexMode"]
+  DUPTABLE R33 K194 [{"TextColor3"}]
+  LOADK R34 K185 ["$SemanticColorContentMuted"]
+  SETTABLEKS R34 R33 K27 ["TextColor3"]
+  CALL R31 2 -1
+  SETLIST R30 R31 -1 [1]
+  CALL R27 3 1
+  MOVE R28 R2
+  LOADK R29 K113 ["> #Text"]
+  NEWTABLE R30 0 0
+  NEWTABLE R31 0 2
+  MOVE R32 R2
+  LOADK R33 K41 ["Padding"]
+  DUPTABLE R34 K370 [{"ApplyStrokeMode", "Color", "Thickness"}]
+  GETIMPORT R35 K302 [Enum.ApplyStrokeMode.Border]
+  SETTABLEKS R35 R34 K298 ["ApplyStrokeMode"]
+  LOADK R35 K115 ["TextXAlignment"]
+  SETTABLEKS R35 R34 K265 ["Color"]
+  LOADK R35 K83 ["$BorderMedium"]
+  SETTABLEKS R35 R34 K299 ["Thickness"]
+  CALL R32 2 1
+  MOVE R33 R2
+  LOADK R34 K108 ["FlexMode"]
+  DUPTABLE R35 K194 [{"TextColor3"}]
+  LOADK R36 K29 ["$SemanticColorContentStandard"]
+  SETTABLEKS R36 R35 K27 ["TextColor3"]
+  CALL R33 2 -1
+  SETLIST R31 R32 -1 [1]
+  CALL R28 3 1
+  MOVE R29 R2
+  LOADK R30 K116 [{"TextWrapped", "TextXAlignment"}]
+  DUPTABLE R31 K198 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R32 K117 ["Left"]
+  SETTABLEKS R32 R31 K21 ["BackgroundColor3"]
+  LOADK R32 K118 [Enum.TextXAlignment.Left]
+  SETTABLEKS R32 R31 K15 ["BackgroundTransparency"]
+  NEWTABLE R32 0 1
+  MOVE R33 R2
+  LOADK R34 K108 ["FlexMode"]
+  DUPTABLE R35 K194 [{"TextColor3"}]
+  LOADK R36 K29 ["$SemanticColorContentStandard"]
+  SETTABLEKS R36 R35 K27 ["TextColor3"]
+  CALL R33 2 -1
+  SETLIST R32 R33 -1 [1]
+  CALL R29 3 1
+  MOVE R30 R2
+  LOADK R31 K193 [".State-Disabled"]
+  DUPTABLE R32 K198 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R33 K111 ["Fill"]
+  SETTABLEKS R33 R32 K21 ["BackgroundColor3"]
+  LOADK R33 K112 [Enum.UIFlexMode.Fill]
+  SETTABLEKS R33 R32 K15 ["BackgroundTransparency"]
+  NEWTABLE R33 0 1
+  MOVE R34 R2
+  LOADK R35 K108 ["FlexMode"]
+  DUPTABLE R36 K194 [{"TextColor3"}]
+  LOADK R37 K195 ["$SemanticColorContentDisabled"]
+  SETTABLEKS R37 R36 K27 ["TextColor3"]
+  CALL R34 2 -1
+  SETLIST R33 R34 -1 [1]
+  CALL R30 3 -1
+  SETLIST R23 R24 -1 [1]
+  CALL R20 3 1
+  SETLIST R4 R5 16 [17]
+  MOVE R5 R2
+  LOADK R6 K119 [">> TextLabel"]
+  NEWTABLE R7 0 0
+  NEWTABLE R8 0 3
+  MOVE R9 R2
+  LOADK R10 K120 [{"Font", "TextColor3", "BorderSizePixel", "BackgroundTransparency"}]
+  DUPTABLE R11 K93 [{"Size"}]
+  GETIMPORT R12 K281 [UDim2.fromOffset]
+  LOADN R13 16
+  LOADN R14 8
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K92 ["Size"]
+  NEWTABLE R12 0 1
+  MOVE R13 R2
+  LOADK R14 K121 ["$SemanticColorContentStandardInverse"]
+  DUPTABLE R15 K93 [{"Size"}]
+  GETIMPORT R16 K281 [UDim2.fromOffset]
+  LOADN R17 16
+  LOADN R18 8
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K92 ["Size"]
+  CALL R13 2 -1
+  SETLIST R12 R13 -1 [1]
+  CALL R9 3 1
+  MOVE R10 R2
+  LOADK R11 K196 [".State-Default"]
+  NEWTABLE R12 0 0
+  NEWTABLE R13 0 2
+  MOVE R14 R2
+  LOADK R15 K122 [">> #Title"]
+  NEWTABLE R16 0 0
+  NEWTABLE R17 0 3
+  MOVE R18 R2
+  LOADK R19 K123 ["$FontWeight700"]
+  DUPTABLE R20 K321 [{"Image"}]
+  LOADK R21 K124 [".Role-Scroller"]
+  SETTABLEKS R21 R20 K320 ["Image"]
+  CALL R18 2 1
+  MOVE R19 R2
+  LOADK R20 K125 ["> #Scroller"]
+  DUPTABLE R21 K321 [{"Image"}]
+  LOADK R22 K126 ["AutomaticCanvasSize"]
+  SETTABLEKS R22 R21 K320 ["Image"]
+  CALL R19 2 1
+  MOVE R20 R2
+  LOADK R21 K127 ["ScrollingDirection"]
+  DUPTABLE R22 K321 [{"Image"}]
+  LOADK R23 K128 ["ScrollBarThickness"]
+  SETTABLEKS R23 R22 K320 ["Image"]
+  CALL R20 2 -1
+  SETLIST R17 R18 -1 [1]
+  CALL R14 3 1
+  MOVE R15 R2
+  LOADK R16 K129 ["HorizontalScrollBarInset"]
+  NEWTABLE R17 0 0
+  NEWTABLE R18 0 3
+  MOVE R19 R2
+  LOADK R20 K123 ["$FontWeight700"]
+  DUPTABLE R21 K321 [{"Image"}]
+  LOADK R22 K130 [{"AutomaticCanvasSize", "ScrollingDirection", "ScrollBarThickness", "HorizontalScrollBarInset"}]
+  SETTABLEKS R22 R21 K320 ["Image"]
+  CALL R19 2 1
+  MOVE R20 R2
+  LOADK R21 K125 ["> #Scroller"]
+  DUPTABLE R22 K321 [{"Image"}]
+  LOADK R23 K131 ["AutomaticSize"]
+  SETTABLEKS R23 R22 K320 ["Image"]
+  CALL R20 2 1
+  MOVE R21 R2
+  LOADK R22 K127 ["ScrollingDirection"]
+  DUPTABLE R23 K321 [{"Image"}]
+  LOADK R24 K132 ["XY"]
+  SETTABLEKS R24 R23 K320 ["Image"]
+  CALL R21 2 -1
+  SETLIST R18 R19 -1 [1]
+  CALL R15 3 -1
+  SETLIST R13 R14 -1 [1]
+  CALL R10 3 1
+  MOVE R11 R2
+  LOADK R12 K193 [".State-Disabled"]
+  NEWTABLE R13 0 0
+  NEWTABLE R14 0 2
+  MOVE R15 R2
+  LOADK R16 K122 [">> #Title"]
+  NEWTABLE R17 0 0
+  NEWTABLE R18 0 1
+  MOVE R19 R2
+  LOADK R20 K133 [Enum.AutomaticSize.XY]
+  DUPTABLE R21 K321 [{"Image"}]
+  LOADK R22 K128 ["ScrollBarThickness"]
+  SETTABLEKS R22 R21 K320 ["Image"]
+  CALL R19 2 -1
+  SETLIST R18 R19 -1 [1]
+  CALL R15 3 1
+  MOVE R16 R2
+  LOADK R17 K129 ["HorizontalScrollBarInset"]
+  NEWTABLE R18 0 0
+  NEWTABLE R19 0 1
+  MOVE R20 R2
+  LOADK R21 K133 [Enum.AutomaticSize.XY]
+  DUPTABLE R22 K321 [{"Image"}]
+  LOADK R23 K132 ["XY"]
+  SETTABLEKS R23 R22 K320 ["Image"]
+  CALL R20 2 -1
+  SETLIST R19 R20 -1 [1]
+  CALL R16 3 -1
+  SETLIST R14 R15 -1 [1]
+  CALL R11 3 -1
+  SETLIST R8 R9 -1 [1]
+  CALL R5 3 1
+  MOVE R6 R2
+  LOADK R7 K134 ["X"]
+  DUPTABLE R8 K262 [{"BackgroundTransparency"}]
+  LOADK R9 K18 ["$Transparency100"]
+  SETTABLEKS R9 R8 K15 ["BackgroundTransparency"]
+  NEWTABLE R9 0 3
+  MOVE R10 R2
+  LOADK R11 K135 [Enum.ScrollingDirection.X]
+  DUPTABLE R12 K214 [{"CornerRadius"}]
+  LOADK R13 K252 ["$GlobalRadiusXSmall"]
+  SETTABLEKS R13 R12 K213 ["CornerRadius"]
+  CALL R10 2 1
+  MOVE R11 R2
+  LOADK R12 K136 ["ScrollBarInset"]
+  DUPTABLE R13 K300 [{"ApplyStrokeMode", "Color", "Thickness", "Transparency"}]
+  GETIMPORT R14 K302 [Enum.ApplyStrokeMode.Border]
+  SETTABLEKS R14 R13 K298 ["ApplyStrokeMode"]
+  LOADK R14 K90 ["$SemanticColorDivider"]
+  SETTABLEKS R14 R13 K265 ["Color"]
+  LOADK R14 K83 ["$BorderMedium"]
+  SETTABLEKS R14 R13 K299 ["Thickness"]
+  LOADK R14 K152 ["$SemanticColorDividerTransparency"]
+  SETTABLEKS R14 R13 K174 ["Transparency"]
+  CALL R11 2 1
+  MOVE R12 R2
+  LOADK R13 K137 ["None"]
+  DUPTABLE R14 K262 [{"BackgroundTransparency"}]
+  LOADK R15 K18 ["$Transparency100"]
+  SETTABLEKS R15 R14 K15 ["BackgroundTransparency"]
+  NEWTABLE R15 0 4
+  MOVE R16 R2
+  LOADK R17 K135 [Enum.ScrollingDirection.X]
+  DUPTABLE R18 K214 [{"CornerRadius"}]
+  LOADK R19 K252 ["$GlobalRadiusXSmall"]
+  SETTABLEKS R19 R18 K213 ["CornerRadius"]
+  CALL R16 2 1
+  MOVE R17 R2
+  LOADK R18 K138 [Enum.ScrollBarInset.None]
+  DUPTABLE R19 K17 [{"BackgroundTransparency", "BorderSizePixel"}]
+  LOADK R20 K18 ["$Transparency100"]
+  SETTABLEKS R20 R19 K15 ["BackgroundTransparency"]
+  LOADK R20 K19 ["$BorderNone"]
+  SETTABLEKS R20 R19 K16 ["BorderSizePixel"]
+  NEWTABLE R20 0 2
+  MOVE R21 R2
+  LOADK R22 K197 [":hover"]
+  DUPTABLE R23 K198 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R24 K199 ["$SemanticColorStateLayerHover"]
+  SETTABLEKS R24 R23 K21 ["BackgroundColor3"]
+  LOADK R24 K200 ["$SemanticColorStateLayerHoverTransparency"]
+  SETTABLEKS R24 R23 K15 ["BackgroundTransparency"]
+  CALL R21 2 1
+  MOVE R22 R2
+  LOADK R23 K139 ["> #LeftGradient"]
+  DUPTABLE R24 K198 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R25 K202 ["$SemanticColorStateLayerPress"]
+  SETTABLEKS R25 R24 K21 ["BackgroundColor3"]
+  LOADK R25 K203 ["$SemanticColorStateLayerPressTransparency"]
+  SETTABLEKS R25 R24 K15 ["BackgroundTransparency"]
+  CALL R22 2 -1
+  SETLIST R20 R21 -1 [1]
+  CALL R17 3 1
+  MOVE R18 R2
+  LOADK R19 K140 ["ZIndex"]
+  DUPTABLE R20 K397 [{"Size", "TextSize", "Font", "AutoButtonColor", "BorderSizePixel"}]
+  GETIMPORT R21 K281 [UDim2.fromOffset]
+  LOADN R22 82
+  LOADN R23 24
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K92 ["Size"]
+  LOADK R21 K186 ["$FontSize50"]
+  SETTABLEKS R21 R20 K31 ["TextSize"]
+  LOADK R21 K184 ["$FontWeight600"]
+  SETTABLEKS R21 R20 K11 ["Font"]
+  LOADB R21 0
+  SETTABLEKS R21 R20 K235 ["AutoButtonColor"]
+  LOADK R21 K19 ["$BorderNone"]
+  SETTABLEKS R21 R20 K16 ["BorderSizePixel"]
+  NEWTABLE R21 0 3
+  MOVE R22 R2
+  LOADK R23 K53 ["::UIPadding"]
+  DUPTABLE R24 K366 [{"PaddingLeft", "PaddingRight"}]
+  LOADK R25 K75 ["$GlobalSpace150"]
+  SETTABLEKS R25 R24 K54 ["PaddingLeft"]
+  LOADK R25 K75 ["$GlobalSpace150"]
+  SETTABLEKS R25 R24 K72 ["PaddingRight"]
+  CALL R22 2 1
+  MOVE R23 R2
+  LOADK R24 K196 [".State-Default"]
+  DUPTABLE R25 K398 [{"BackgroundTransparency", "TextColor3"}]
+  LOADK R26 K18 ["$Transparency100"]
+  SETTABLEKS R26 R25 K15 ["BackgroundTransparency"]
+  LOADK R26 K185 ["$SemanticColorContentMuted"]
+  SETTABLEKS R26 R25 K27 ["TextColor3"]
+  CALL R23 2 1
+  MOVE R24 R2
+  LOADK R25 K189 [".State-Selected"]
+  DUPTABLE R26 K190 [{"BackgroundColor3", "BackgroundTransparency", "TextColor3"}]
+  LOADK R27 K191 ["$SemanticColorStatesSelected"]
+  SETTABLEKS R27 R26 K21 ["BackgroundColor3"]
+  LOADK R27 K192 ["$SemanticColorStatesSelectedTransparency"]
+  SETTABLEKS R27 R26 K15 ["BackgroundTransparency"]
+  LOADK R27 K29 ["$SemanticColorContentStandard"]
+  SETTABLEKS R27 R26 K27 ["TextColor3"]
+  CALL R24 2 -1
+  SETLIST R21 R22 -1 [1]
+  CALL R18 3 1
+  MOVE R19 R2
+  LOADK R20 K143 ["> #RightGradient"]
+  DUPTABLE R21 K151 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Size"}]
+  LOADK R22 K90 ["$SemanticColorDivider"]
+  SETTABLEKS R22 R21 K21 ["BackgroundColor3"]
+  LOADK R22 K152 ["$SemanticColorDividerTransparency"]
+  SETTABLEKS R22 R21 K15 ["BackgroundTransparency"]
+  LOADK R22 K19 ["$BorderNone"]
+  SETTABLEKS R22 R21 K16 ["BorderSizePixel"]
+  LOADK R22 K156 ["$SmallSeparator"]
+  SETTABLEKS R22 R21 K92 ["Size"]
+  CALL R19 2 -1
+  SETLIST R15 R16 -1 [1]
+  CALL R12 3 -1
+  SETLIST R9 R10 -1 [1]
+  CALL R6 3 1
+  MOVE R7 R2
+  LOADK R8 K144 ["AnchorPoint"]
+  NEWTABLE R9 0 0
+  NEWTABLE R10 0 4
+  MOVE R11 R2
+  LOADK R12 K39 ["::UIListLayout"]
+  DUPTABLE R13 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R14 K59 [Enum.FillDirection.Vertical]
+  SETTABLEKS R14 R13 K40 ["FillDirection"]
+  LOADK R14 K67 ["$GlobalSpace100"]
+  SETTABLEKS R14 R13 K41 ["Padding"]
+  GETIMPORT R14 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R14 R13 K42 ["SortOrder"]
+  CALL R11 2 1
+  MOVE R12 R2
+  LOADK R13 K53 ["::UIPadding"]
+  DUPTABLE R14 K84 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+  LOADK R15 K75 ["$GlobalSpace150"]
+  SETTABLEKS R15 R14 K54 ["PaddingLeft"]
+  LOADK R15 K75 ["$GlobalSpace150"]
+  SETTABLEKS R15 R14 K72 ["PaddingRight"]
+  LOADK R15 K67 ["$GlobalSpace100"]
+  SETTABLEKS R15 R14 K73 ["PaddingTop"]
+  LOADK R15 K67 ["$GlobalSpace100"]
+  SETTABLEKS R15 R14 K71 ["PaddingBottom"]
+  CALL R12 2 1
+  MOVE R13 R2
+  LOADK R14 K145 ["Position"]
+  NEWTABLE R15 0 0
+  NEWTABLE R16 0 2
+  MOVE R17 R2
+  LOADK R18 K39 ["::UIListLayout"]
+  DUPTABLE R19 K43 [{"FillDirection", "Padding", "SortOrder"}]
+  GETIMPORT R20 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R20 R19 K40 ["FillDirection"]
+  LOADK R20 K67 ["$GlobalSpace100"]
+  SETTABLEKS R20 R19 K41 ["Padding"]
+  GETIMPORT R20 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R20 R19 K42 ["SortOrder"]
+  CALL R17 2 1
+  MOVE R18 R2
+  LOADK R19 K150 ["> Frame"]
+  NEWTABLE R20 0 0
+  NEWTABLE R21 0 1
+  MOVE R22 R2
+  LOADK R23 K146 [{"AnchorPoint", "Size", "Position", "ZIndex"}]
+  DUPTABLE R24 K151 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel", "Size"}]
+  LOADK R25 K90 ["$SemanticColorDivider"]
+  SETTABLEKS R25 R24 K21 ["BackgroundColor3"]
+  LOADK R25 K152 ["$SemanticColorDividerTransparency"]
+  SETTABLEKS R25 R24 K15 ["BackgroundTransparency"]
+  LOADK R25 K19 ["$BorderNone"]
+  SETTABLEKS R25 R24 K16 ["BorderSizePixel"]
+  LOADK R25 K156 ["$SmallSeparator"]
+  SETTABLEKS R25 R24 K92 ["Size"]
+  CALL R22 2 -1
+  SETLIST R21 R22 -1 [1]
+  CALL R18 3 -1
+  SETLIST R16 R17 -1 [1]
+  CALL R13 3 1
+  MOVE R14 R2
+  LOADK R15 K147 ["Vector2"]
+  NEWTABLE R16 0 0
+  NEWTABLE R17 0 1
+  MOVE R18 R2
+  LOADK R19 K106 ["> #Spacer"]
+  NEWTABLE R20 0 0
+  NEWTABLE R21 0 1
+  MOVE R22 R2
+  LOADK R23 K107 ["::UIFlexItem"]
+  DUPTABLE R24 K109 [{"FlexMode"}]
+  GETIMPORT R25 K112 [Enum.UIFlexMode.Fill]
+  SETTABLEKS R25 R24 K108 ["FlexMode"]
+  CALL R22 2 -1
+  SETLIST R21 R22 -1 [1]
+  CALL R18 3 -1
+  SETLIST R17 R18 -1 [1]
+  CALL R14 3 -1
+  SETLIST R10 R11 -1 [1]
+  CALL R7 3 1
+  MOVE R8 R2
+  LOADK R9 K148 [Vector2.new]
+  NEWTABLE R10 0 0
+  NEWTABLE R11 0 2
+  MOVE R12 R2
+  LOADK R13 K39 ["::UIListLayout"]
+  DUPTABLE R14 K406 [{"FillDirection", "HorizontalAlignment", "SortOrder", "VerticalAlignment", "Padding"}]
+  GETIMPORT R15 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R15 R14 K40 ["FillDirection"]
+  GETIMPORT R15 K407 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R15 R14 K405 ["HorizontalAlignment"]
+  GETIMPORT R15 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R15 R14 K42 ["SortOrder"]
+  GETIMPORT R15 K165 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R15 R14 K159 ["VerticalAlignment"]
+  LOADK R15 K152 ["$SemanticColorDividerTransparency"]
+  SETTABLEKS R15 R14 K41 ["Padding"]
+  CALL R12 2 1
+  MOVE R13 R2
+  LOADK R14 K240 ["> TextLabel"]
+  DUPTABLE R15 K344 [{"BackgroundTransparency", "Font", "TextSize", "LayoutOrder", "TextColor3"}]
+  LOADK R16 K18 ["$Transparency100"]
+  SETTABLEKS R16 R15 K15 ["BackgroundTransparency"]
+  LOADK R16 K13 ["$FontWeight400"]
+  SETTABLEKS R16 R15 K11 ["Font"]
+  LOADK R16 K153 [".Role-DividerV"]
+  SETTABLEKS R16 R15 K31 ["TextSize"]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K48 ["LayoutOrder"]
+  LOADK R16 K29 ["$SemanticColorContentStandard"]
+  SETTABLEKS R16 R15 K27 ["TextColor3"]
+  CALL R13 2 -1
+  SETLIST R11 R12 -1 [1]
+  CALL R8 3 1
+  MOVE R9 R2
+  LOADK R10 K154 [{"BackgroundColor3", "BackgroundTransparency", "BorderSizePixel"}]
+  DUPTABLE R11 K411 [{"BackgroundColor3", "BackgroundTransparency", "Size"}]
+  GETIMPORT R12 K414 [Color3.fromHex]
+  LOADK R13 K159 ["VerticalAlignment"]
+  CALL R12 1 1
+  SETTABLEKS R12 R11 K21 ["BackgroundColor3"]
+  LOADK R12 K7 ["Styling"]
+  SETTABLEKS R12 R11 K15 ["BackgroundTransparency"]
+  GETIMPORT R12 K281 [UDim2.fromOffset]
+  LOADN R13 40
+  LOADN R14 24
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K92 ["Size"]
+  NEWTABLE R12 0 6
+  MOVE R13 R2
+  LOADK R14 K212 ["::UICorner"]
+  DUPTABLE R15 K214 [{"CornerRadius"}]
+  LOADK R16 K160 [{"FillDirection", "HorizontalFlex", "Padding", "SortOrder", "VerticalAlignment"}]
+  SETTABLEKS R16 R15 K213 ["CornerRadius"]
+  CALL R13 2 1
+  MOVE R14 R2
+  LOADK R15 K53 ["::UIPadding"]
+  DUPTABLE R16 K74 [{"PaddingBottom", "PaddingLeft", "PaddingRight", "PaddingTop"}]
+  LOADK R17 K104 ["> #TitleFrame"]
+  SETTABLEKS R17 R16 K71 ["PaddingBottom"]
+  LOADK R17 K104 ["> #TitleFrame"]
+  SETTABLEKS R17 R16 K54 ["PaddingLeft"]
+  LOADK R17 K104 ["> #TitleFrame"]
+  SETTABLEKS R17 R16 K72 ["PaddingRight"]
+  LOADK R17 K104 ["> #TitleFrame"]
+  SETTABLEKS R17 R16 K73 ["PaddingTop"]
+  CALL R14 2 1
+  MOVE R15 R2
+  LOADK R16 K39 ["::UIListLayout"]
+  DUPTABLE R17 K417 [{"FillDirection", "HorizontalAlignment", "SortOrder", "VerticalAlignment"}]
+  GETIMPORT R18 K59 [Enum.FillDirection.Vertical]
+  SETTABLEKS R18 R17 K40 ["FillDirection"]
+  GETIMPORT R18 K407 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R18 R17 K405 ["HorizontalAlignment"]
+  GETIMPORT R18 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R18 R17 K42 ["SortOrder"]
+  GETIMPORT R18 K165 [Enum.VerticalAlignment.Center]
+  SETTABLEKS R18 R17 K159 ["VerticalAlignment"]
+  CALL R15 2 1
+  MOVE R16 R2
+  LOADK R17 K150 ["> Frame"]
+  DUPTABLE R18 K418 [{"BackgroundColor3", "Size"}]
+  LOADK R19 K163 [Enum.UIFlexAlignment.SpaceBetween]
+  SETTABLEKS R19 R18 K21 ["BackgroundColor3"]
+  GETIMPORT R19 K281 [UDim2.fromOffset]
+  LOADN R20 20
+  LOADN R21 20
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K92 ["Size"]
+  NEWTABLE R19 0 1
+  MOVE R20 R2
+  LOADK R21 K212 ["::UICorner"]
+  DUPTABLE R22 K214 [{"CornerRadius"}]
+  LOADK R23 K160 [{"FillDirection", "HorizontalFlex", "Padding", "SortOrder", "VerticalAlignment"}]
+  SETTABLEKS R23 R22 K213 ["CornerRadius"]
+  CALL R20 2 -1
+  SETLIST R19 R20 -1 [1]
+  CALL R16 3 1
+  MOVE R17 R2
+  LOADK R18 K189 [".State-Selected"]
+  DUPTABLE R19 K420 [{"BackgroundColor3"}]
+  GETIMPORT R20 K414 [Color3.fromHex]
+  LOADK R21 K165 [Enum.VerticalAlignment.Center]
+  CALL R20 1 1
+  SETTABLEKS R20 R19 K21 ["BackgroundColor3"]
+  NEWTABLE R20 0 1
+  MOVE R21 R2
+  LOADK R22 K39 ["::UIListLayout"]
+  DUPTABLE R23 K422 [{"HorizontalAlignment"}]
+  GETIMPORT R24 K424 [Enum.HorizontalAlignment.Right]
+  SETTABLEKS R24 R23 K405 ["HorizontalAlignment"]
+  CALL R21 2 -1
+  SETLIST R20 R21 -1 [1]
+  CALL R17 3 1
+  MOVE R18 R2
+  LOADK R19 K193 [".State-Disabled"]
+  DUPTABLE R20 K262 [{"BackgroundTransparency"}]
+  LOADK R21 K169 [{"PaddingRight"}]
+  SETTABLEKS R21 R20 K15 ["BackgroundTransparency"]
+  NEWTABLE R21 0 1
+  MOVE R22 R2
+  LOADK R23 K150 ["> Frame"]
+  DUPTABLE R24 K262 [{"BackgroundTransparency"}]
+  LOADK R25 K169 [{"PaddingRight"}]
+  SETTABLEKS R25 R24 K15 ["BackgroundTransparency"]
+  CALL R22 2 -1
+  SETLIST R21 R22 -1 [1]
+  CALL R18 3 -1
+  SETLIST R12 R13 -1 [1]
+  CALL R9 3 1
+  MOVE R10 R2
+  LOADK R11 K170 [".X-Shrink ::UIFlexItem"]
+  DUPTABLE R12 K279 [{"AutoButtonColor", "Text", "Size"}]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K235 ["AutoButtonColor"]
+  LOADK R13 K238 [""]
+  SETTABLEKS R13 R12 K236 ["Text"]
+  GETIMPORT R13 K281 [UDim2.fromOffset]
+  LOADN R14 85
+  LOADN R15 24
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K92 ["Size"]
+  NEWTABLE R13 0 13
+  MOVE R14 R2
+  LOADK R15 K212 ["::UICorner"]
+  DUPTABLE R16 K214 [{"CornerRadius"}]
+  LOADK R17 K171 ["Shrink"]
+  SETTABLEKS R17 R16 K213 ["CornerRadius"]
+  CALL R14 2 1
+  MOVE R15 R2
+  LOADK R16 K172 [Enum.UIFlexMode.Shrink]
+  DUPTABLE R17 K93 [{"Size"}]
+  GETIMPORT R18 K281 [UDim2.fromOffset]
+  LOADN R19 120
+  LOADN R20 24
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K92 ["Size"]
+  CALL R15 2 1
+  MOVE R16 R2
+  LOADK R17 K39 ["::UIListLayout"]
+  DUPTABLE R18 K429 [{"HorizontalFlex"}]
+  GETIMPORT R19 K430 [Enum.UIFlexAlignment.Fill]
+  SETTABLEKS R19 R18 K158 ["HorizontalFlex"]
+  CALL R16 2 1
+  MOVE R17 R2
+  LOADK R18 K53 ["::UIPadding"]
+  DUPTABLE R19 K84 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+  LOADK R20 K175 [{"Transparency"}]
+  SETTABLEKS R20 R19 K54 ["PaddingLeft"]
+  LOADK R20 K176 ["NumberSequence"]
+  SETTABLEKS R20 R19 K72 ["PaddingRight"]
+  LOADK R20 K177 [NumberSequence.new]
+  SETTABLEKS R20 R19 K73 ["PaddingTop"]
+  LOADK R20 K178 ["NumberSequenceKeypoint"]
+  SETTABLEKS R20 R19 K71 ["PaddingBottom"]
+  CALL R17 2 1
+  MOVE R18 R2
+  LOADK R19 K179 [NumberSequenceKeypoint.new]
+  NEWTABLE R20 0 0
+  NEWTABLE R21 0 1
+  MOVE R22 R2
+  LOADK R23 K39 ["::UIListLayout"]
+  DUPTABLE R24 K436 [{"HorizontalFlex", "FillDirection", "SortOrder"}]
+  GETIMPORT R25 K430 [Enum.UIFlexAlignment.Fill]
+  SETTABLEKS R25 R24 K158 ["HorizontalFlex"]
+  GETIMPORT R25 K46 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R25 R24 K40 ["FillDirection"]
+  GETIMPORT R25 K49 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R25 R24 K42 ["SortOrder"]
+  CALL R22 2 -1
+  SETLIST R21 R22 -1 [1]
+  CALL R18 3 1
+  MOVE R19 R2
+  LOADK R20 K133 [Enum.AutomaticSize.XY]
+  DUPTABLE R21 K93 [{"Size"}]
+  LOADK R22 K250 ["$IconSmall"]
+  SETTABLEKS R22 R21 K92 ["Size"]
+  NEWTABLE R22 0 1
+  MOVE R23 R2
+  LOADK R24 K107 ["::UIFlexItem"]
+  DUPTABLE R25 K438 [{"FlexMode", "ShrinkRation"}]
+  GETIMPORT R26 K221 [Enum.UIFlexMode.Custom]
+  SETTABLEKS R26 R25 K108 ["FlexMode"]
+  LOADN R26 0
+  SETTABLEKS R26 R25 K437 ["ShrinkRation"]
+  CALL R23 2 -1
+  SETLIST R22 R23 -1 [1]
+  CALL R19 3 1
+  MOVE R20 R2
+  LOADK R21 K183 [{"BackgroundTransparency", "Font", "TextColor3", "TextSize", "TextTruncate"}]
+  DUPTABLE R22 K284 [{"LayoutOrder"}]
+  LOADN R23 0
+  SETTABLEKS R23 R22 K48 ["LayoutOrder"]
   NEWTABLE R23 0 1
   MOVE R24 R2
-  LOADK R25 K110 ["::UIFlexItem"]
-  DUPTABLE R26 K441 [{"FlexMode", "ShrinkRation"}]
-  GETIMPORT R27 K224 [Enum.UIFlexMode.Custom]
-  SETTABLEKS R27 R26 K111 ["FlexMode"]
-  LOADN R27 0
-  SETTABLEKS R27 R26 K440 ["ShrinkRation"]
+  LOADK R25 K29 ["$SemanticColorContentStandard"]
+  DUPTABLE R26 K284 [{"LayoutOrder"}]
+  LOADN R27 3
+  SETTABLEKS R27 R26 K48 ["LayoutOrder"]
   CALL R24 2 -1
   SETLIST R23 R24 -1 [1]
   CALL R20 3 1
   MOVE R21 R2
-  LOADK R22 K186 [{"BackgroundTransparency", "Font", "TextColor3", "TextSize", "TextTruncate"}]
-  DUPTABLE R23 K287 [{"LayoutOrder"}]
-  LOADN R24 0
-  SETTABLEKS R24 R23 K50 ["LayoutOrder"]
+  LOADK R22 K184 ["$FontWeight600"]
+  DUPTABLE R23 K441 [{"BorderSizePixel", "BackgroundTransparency", "Image", "LayoutOrder"}]
+  LOADK R24 K19 ["$BorderNone"]
+  SETTABLEKS R24 R23 K16 ["BorderSizePixel"]
+  LOADK R24 K18 ["$Transparency100"]
+  SETTABLEKS R24 R23 K15 ["BackgroundTransparency"]
+  LOADK R24 K186 ["$FontSize50"]
+  SETTABLEKS R24 R23 K320 ["Image"]
+  LOADN R24 4
+  SETTABLEKS R24 R23 K48 ["LayoutOrder"]
   NEWTABLE R24 0 1
   MOVE R25 R2
-  LOADK R26 K32 [".Text-Label"]
-  DUPTABLE R27 K287 [{"LayoutOrder"}]
-  LOADN R28 3
-  SETTABLEKS R28 R27 K50 ["LayoutOrder"]
+  LOADK R26 K187 ["SplitWord"]
+  DUPTABLE R27 K321 [{"Image"}]
+  LOADK R28 K188 [Enum.TextTruncate.SplitWord]
+  SETTABLEKS R28 R27 K320 ["Image"]
   CALL R25 2 -1
   SETLIST R24 R25 -1 [1]
   CALL R21 3 1
   MOVE R22 R2
-  LOADK R23 K187 ["$FontWeight600"]
-  DUPTABLE R24 K444 [{"BorderSizePixel", "BackgroundTransparency", "Image", "LayoutOrder"}]
-  LOADK R25 K21 ["$BorderNone"]
-  SETTABLEKS R25 R24 K18 ["BorderSizePixel"]
-  LOADK R25 K20 ["$Transparency100"]
-  SETTABLEKS R25 R24 K17 ["BackgroundTransparency"]
-  LOADK R25 K189 ["$FontSize50"]
-  SETTABLEKS R25 R24 K323 ["Image"]
-  LOADN R25 4
-  SETTABLEKS R25 R24 K50 ["LayoutOrder"]
-  NEWTABLE R25 0 1
-  MOVE R26 R2
-  LOADK R27 K190 ["SplitWord"]
-  DUPTABLE R28 K324 [{"Image"}]
-  LOADK R29 K191 [Enum.TextTruncate.SplitWord]
-  SETTABLEKS R29 R28 K323 ["Image"]
-  CALL R26 2 -1
-  SETLIST R25 R26 -1 [1]
-  CALL R22 3 1
+  LOADK R23 K189 [".State-Selected"]
+  DUPTABLE R24 K446 [{"Font", "TextSize", "TextColor3", "TextTruncate", "TextXAlignment", "LayoutOrder"}]
+  LOADK R25 K13 ["$FontWeight400"]
+  SETTABLEKS R25 R24 K11 ["Font"]
+  LOADK R25 K186 ["$FontSize50"]
+  SETTABLEKS R25 R24 K31 ["TextSize"]
+  LOADK R25 K29 ["$SemanticColorContentStandard"]
+  SETTABLEKS R25 R24 K27 ["TextColor3"]
+  GETIMPORT R25 K244 [Enum.TextTruncate.AtEnd]
+  SETTABLEKS R25 R24 K182 ["TextTruncate"]
+  GETIMPORT R25 K118 [Enum.TextXAlignment.Left]
+  SETTABLEKS R25 R24 K115 ["TextXAlignment"]
+  LOADN R25 2
+  SETTABLEKS R25 R24 K48 ["LayoutOrder"]
+  CALL R22 2 1
   MOVE R23 R2
-  LOADK R24 K192 [".State-Selected"]
-  DUPTABLE R25 K449 [{"Font", "TextSize", "TextColor3", "TextTruncate", "TextXAlignment", "LayoutOrder"}]
-  LOADK R26 K15 ["$FontWeight400"]
-  SETTABLEKS R26 R25 K13 ["Font"]
-  LOADK R26 K189 ["$FontSize50"]
-  SETTABLEKS R26 R25 K33 ["TextSize"]
-  LOADK R26 K31 ["$SemanticColorContentStandard"]
-  SETTABLEKS R26 R25 K29 ["TextColor3"]
-  GETIMPORT R26 K247 [Enum.TextTruncate.AtEnd]
-  SETTABLEKS R26 R25 K185 ["TextTruncate"]
-  GETIMPORT R26 K121 [Enum.TextXAlignment.Left]
-  SETTABLEKS R26 R25 K118 ["TextXAlignment"]
-  LOADN R26 2
-  SETTABLEKS R26 R25 K50 ["LayoutOrder"]
-  CALL R23 2 1
+  LOADK R24 K196 [".State-Default"]
+  DUPTABLE R25 K198 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R26 K111 ["Fill"]
+  SETTABLEKS R26 R25 K21 ["BackgroundColor3"]
+  LOADK R26 K112 [Enum.UIFlexMode.Fill]
+  SETTABLEKS R26 R25 K15 ["BackgroundTransparency"]
+  NEWTABLE R26 0 1
+  MOVE R27 R2
+  LOADK R28 K183 [{"BackgroundTransparency", "Font", "TextColor3", "TextSize", "TextTruncate"}]
+  DUPTABLE R29 K256 [{"ImageTransparency"}]
+  LOADK R30 K191 ["$SemanticColorStatesSelected"]
+  SETTABLEKS R30 R29 K255 ["ImageTransparency"]
+  CALL R27 2 -1
+  SETLIST R26 R27 -1 [1]
+  CALL R23 3 1
   MOVE R24 R2
-  LOADK R25 K199 [".State-Default"]
-  DUPTABLE R26 K201 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R27 K114 ["Fill"]
-  SETTABLEKS R27 R26 K23 ["BackgroundColor3"]
-  LOADK R27 K115 [Enum.UIFlexMode.Fill]
-  SETTABLEKS R27 R26 K17 ["BackgroundTransparency"]
+  LOADK R25 K192 ["$SemanticColorStatesSelectedTransparency"]
+  DUPTABLE R26 K198 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R27 K117 ["Left"]
+  SETTABLEKS R27 R26 K21 ["BackgroundColor3"]
+  LOADK R27 K118 [Enum.TextXAlignment.Left]
+  SETTABLEKS R27 R26 K15 ["BackgroundTransparency"]
   NEWTABLE R27 0 1
   MOVE R28 R2
-  LOADK R29 K186 [{"BackgroundTransparency", "Font", "TextColor3", "TextSize", "TextTruncate"}]
-  DUPTABLE R30 K259 [{"ImageTransparency"}]
-  LOADK R31 K194 ["$SemanticColorStatesSelected"]
-  SETTABLEKS R31 R30 K258 ["ImageTransparency"]
+  LOADK R29 K183 [{"BackgroundTransparency", "Font", "TextColor3", "TextSize", "TextTruncate"}]
+  DUPTABLE R30 K256 [{"ImageTransparency"}]
+  LOADK R31 K7 ["Styling"]
+  SETTABLEKS R31 R30 K255 ["ImageTransparency"]
   CALL R28 2 -1
   SETLIST R27 R28 -1 [1]
   CALL R24 3 1
   MOVE R25 R2
-  LOADK R26 K195 ["$SemanticColorStatesSelectedTransparency"]
-  DUPTABLE R27 K201 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R28 K120 ["Left"]
-  SETTABLEKS R28 R27 K23 ["BackgroundColor3"]
-  LOADK R28 K121 [Enum.TextXAlignment.Left]
-  SETTABLEKS R28 R27 K17 ["BackgroundTransparency"]
-  NEWTABLE R28 0 1
+  LOADK R26 K113 ["> #Text"]
+  NEWTABLE R27 0 0
+  NEWTABLE R28 0 2
   MOVE R29 R2
-  LOADK R30 K186 [{"BackgroundTransparency", "Font", "TextColor3", "TextSize", "TextTruncate"}]
-  DUPTABLE R31 K259 [{"ImageTransparency"}]
-  LOADK R32 K10 ["SharedFlags"]
-  SETTABLEKS R32 R31 K258 ["ImageTransparency"]
-  CALL R29 2 -1
+  LOADK R30 K41 ["Padding"]
+  DUPTABLE R31 K370 [{"ApplyStrokeMode", "Color", "Thickness"}]
+  GETIMPORT R32 K302 [Enum.ApplyStrokeMode.Border]
+  SETTABLEKS R32 R31 K298 ["ApplyStrokeMode"]
+  LOADK R32 K115 ["TextXAlignment"]
+  SETTABLEKS R32 R31 K265 ["Color"]
+  LOADK R32 K83 ["$BorderMedium"]
+  SETTABLEKS R32 R31 K299 ["Thickness"]
+  CALL R29 2 1
+  MOVE R30 R2
+  LOADK R31 K183 [{"BackgroundTransparency", "Font", "TextColor3", "TextSize", "TextTruncate"}]
+  DUPTABLE R32 K256 [{"ImageTransparency"}]
+  LOADK R33 K7 ["Styling"]
+  SETTABLEKS R33 R32 K255 ["ImageTransparency"]
+  CALL R30 2 -1
   SETLIST R28 R29 -1 [1]
   CALL R25 3 1
   MOVE R26 R2
-  LOADK R27 K116 ["> #Text"]
-  NEWTABLE R28 0 0
+  LOADK R27 K193 [".State-Disabled"]
+  DUPTABLE R28 K198 [{"BackgroundColor3", "BackgroundTransparency"}]
+  LOADK R29 K111 ["Fill"]
+  SETTABLEKS R29 R28 K21 ["BackgroundColor3"]
+  LOADK R29 K112 [Enum.UIFlexMode.Fill]
+  SETTABLEKS R29 R28 K15 ["BackgroundTransparency"]
   NEWTABLE R29 0 2
   MOVE R30 R2
-  LOADK R31 K44 ["SortOrder"]
-  DUPTABLE R32 K373 [{"ApplyStrokeMode", "Color", "Thickness"}]
-  GETIMPORT R33 K305 [Enum.ApplyStrokeMode.Border]
-  SETTABLEKS R33 R32 K301 ["ApplyStrokeMode"]
-  LOADK R33 K118 ["TextXAlignment"]
-  SETTABLEKS R33 R32 K268 ["Color"]
-  LOADK R33 K86 ["$BorderMedium"]
-  SETTABLEKS R33 R32 K302 ["Thickness"]
+  LOADK R31 K189 [".State-Selected"]
+  DUPTABLE R32 K194 [{"TextColor3"}]
+  LOADK R33 K195 ["$SemanticColorContentDisabled"]
+  SETTABLEKS R33 R32 K27 ["TextColor3"]
   CALL R30 2 1
   MOVE R31 R2
-  LOADK R32 K186 [{"BackgroundTransparency", "Font", "TextColor3", "TextSize", "TextTruncate"}]
-  DUPTABLE R33 K259 [{"ImageTransparency"}]
-  LOADK R34 K10 ["SharedFlags"]
-  SETTABLEKS R34 R33 K258 ["ImageTransparency"]
+  LOADK R32 K193 [".State-Disabled"]
+  DUPTABLE R33 K256 [{"ImageTransparency"}]
+  LOADK R34 K1 [script]
+  SETTABLEKS R34 R33 K255 ["ImageTransparency"]
   CALL R31 2 -1
   SETLIST R29 R30 -1 [1]
-  CALL R26 3 1
-  MOVE R27 R2
-  LOADK R28 K196 [".State-Disabled"]
-  DUPTABLE R29 K201 [{"BackgroundColor3", "BackgroundTransparency"}]
-  LOADK R30 K114 ["Fill"]
-  SETTABLEKS R30 R29 K23 ["BackgroundColor3"]
-  LOADK R30 K115 [Enum.UIFlexMode.Fill]
-  SETTABLEKS R30 R29 K17 ["BackgroundTransparency"]
-  NEWTABLE R30 0 2
-  MOVE R31 R2
-  LOADK R32 K192 [".State-Selected"]
-  DUPTABLE R33 K197 [{"TextColor3"}]
-  LOADK R34 K198 ["$SemanticColorContentDisabled"]
-  SETTABLEKS R34 R33 K29 ["TextColor3"]
-  CALL R31 2 1
-  MOVE R32 R2
-  LOADK R33 K196 [".State-Disabled"]
-  DUPTABLE R34 K259 [{"ImageTransparency"}]
-  LOADK R35 K4 [require]
-  SETTABLEKS R35 R34 K258 ["ImageTransparency"]
-  CALL R32 2 -1
-  SETLIST R30 R31 -1 [1]
-  CALL R27 3 -1
-  SETLIST R14 R15 -1 [1]
-  CALL R11 3 -1
-  SETLIST R5 R6 -1 [33]
-  MOVE R6 R3
-  LOADK R7 K197 [{"TextColor3"}]
-  MOVE R8 R5
-  DUPTABLE R9 K459 [{"SpinboxDefaultSize", "SpinboxWithIconSize", "SpinboxShortSize", "Size", "SizeDense", "SliderSize"}]
-  GETIMPORT R10 K99 [UDim2.new]
-  LOADN R11 0
-  LOADN R12 75
-  LOADN R13 0
-  LOADN R14 20
-  CALL R10 4 1
-  SETTABLEKS R10 R9 K454 ["SpinboxDefaultSize"]
-  GETIMPORT R10 K99 [UDim2.new]
-  LOADN R11 0
-  LOADN R12 85
-  LOADN R13 0
-  LOADN R14 20
-  CALL R10 4 1
-  SETTABLEKS R10 R9 K455 ["SpinboxWithIconSize"]
-  GETIMPORT R10 K99 [UDim2.new]
-  LOADN R11 0
-  LOADN R12 61
-  LOADN R13 0
-  LOADN R14 20
-  CALL R10 4 1
-  SETTABLEKS R10 R9 K456 ["SpinboxShortSize"]
-  GETIMPORT R10 K99 [UDim2.new]
-  LOADN R11 0
-  LOADN R12 90
-  LOADN R13 0
-  LOADN R14 24
-  CALL R10 4 1
-  SETTABLEKS R10 R9 K95 ["Size"]
-  GETIMPORT R10 K99 [UDim2.new]
-  LOADN R11 0
-  LOADN R12 90
-  LOADN R13 0
-  LOADN R14 20
-  CALL R10 4 1
-  SETTABLEKS R10 R9 K457 ["SizeDense"]
-  GETIMPORT R10 K99 [UDim2.new]
-  LOADN R11 0
-  LOADN R12 180
-  LOADN R13 0
-  LOADN R14 24
-  CALL R10 4 1
-  SETTABLEKS R10 R9 K458 ["SliderSize"]
-  CALL R6 3 -1
-  RETURN R6 -1
+  CALL R26 3 -1
+  SETLIST R13 R14 -1 [1]
+  CALL R10 3 -1
+  SETLIST R4 R5 -1 [33]
+  MOVE R5 R3
+  LOADK R6 K194 [{"TextColor3"}]
+  MOVE R7 R4
+  DUPTABLE R8 K456 [{"SpinboxDefaultSize", "SpinboxWithIconSize", "SpinboxShortSize", "Size", "SizeDense", "SliderSize"}]
+  GETIMPORT R9 K96 [UDim2.new]
+  LOADN R10 0
+  LOADN R11 75
+  LOADN R12 0
+  LOADN R13 20
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K451 ["SpinboxDefaultSize"]
+  GETIMPORT R9 K96 [UDim2.new]
+  LOADN R10 0
+  LOADN R11 85
+  LOADN R12 0
+  LOADN R13 20
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K452 ["SpinboxWithIconSize"]
+  GETIMPORT R9 K96 [UDim2.new]
+  LOADN R10 0
+  LOADN R11 61
+  LOADN R12 0
+  LOADN R13 20
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K453 ["SpinboxShortSize"]
+  GETIMPORT R9 K96 [UDim2.new]
+  LOADN R10 0
+  LOADN R11 90
+  LOADN R12 0
+  LOADN R13 24
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K92 ["Size"]
+  GETIMPORT R9 K96 [UDim2.new]
+  LOADN R10 0
+  LOADN R11 90
+  LOADN R12 0
+  LOADN R13 20
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K454 ["SizeDense"]
+  GETIMPORT R9 K96 [UDim2.new]
+  LOADN R10 0
+  LOADN R11 180
+  LOADN R12 0
+  LOADN R13 24
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K455 ["SliderSize"]
+  CALL R5 3 -1
+  RETURN R5 -1

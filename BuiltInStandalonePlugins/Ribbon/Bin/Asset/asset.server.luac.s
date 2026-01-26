@@ -49,101 +49,95 @@ MAIN:
   CALL R5 0 1
   JUMPIFNOT R5 [+1]
   RETURN R0 0
-  GETIMPORT R5 K7 [game]
-  LOADK R7 K22 ["EnableRibbonPluginFeature"]
-  NAMECALL R5 R5 K23 ["GetEngineFeature"]
-  CALL R5 2 1
-  JUMPIF R5 [+1]
-  RETURN R0 0
+  GETIMPORT R6 K1 [plugin]
+  GETTABLEKS R5 R6 K22 ["MultipleDocumentInterfaceInstance"]
+  GETTABLEKS R6 R5 K23 ["FocusedDataModelSession"]
+  GETTABLEKS R7 R6 K24 ["CurrentDataModelTypeAboutToChange"]
+  DUPCLOSURE R9 K25 [PROTO_0]
+  NAMECALL R7 R7 K26 ["Connect"]
+  CALL R7 2 0
+  GETTABLEKS R7 R6 K27 ["CurrentDataModelType"]
+  GETIMPORT R8 K31 [Enum.StudioDataModelType.Edit]
+  JUMPIFNOTEQ R7 R8 [+17]
+  GETIMPORT R7 K11 [require]
+  GETTABLEKS R11 R0 K12 ["Src"]
+  GETTABLEKS R10 R11 K32 ["Util"]
+  GETTABLEKS R9 R10 K33 ["SocialPresence"]
+  GETTABLEKS R8 R9 K34 ["SocialPresenceDmBridge"]
+  CALL R7 1 1
+  GETTABLEKS R8 R7 K35 ["initAssetDm"]
+  GETIMPORT R9 K1 [plugin]
+  CALL R8 1 0
   GETIMPORT R7 K1 [plugin]
-  GETTABLEKS R6 R7 K24 ["MultipleDocumentInterfaceInstance"]
-  GETTABLEKS R7 R6 K25 ["FocusedDataModelSession"]
-  GETTABLEKS R8 R7 K26 ["CurrentDataModelTypeAboutToChange"]
-  DUPCLOSURE R10 K27 [PROTO_0]
-  NAMECALL R8 R8 K28 ["Connect"]
-  CALL R8 2 0
-  GETTABLEKS R8 R7 K29 ["CurrentDataModelType"]
-  GETIMPORT R9 K33 [Enum.StudioDataModelType.Edit]
-  JUMPIFNOTEQ R8 R9 [+17]
-  GETIMPORT R8 K11 [require]
-  GETTABLEKS R12 R0 K12 ["Src"]
-  GETTABLEKS R11 R12 K34 ["Util"]
-  GETTABLEKS R10 R11 K35 ["SocialPresence"]
-  GETTABLEKS R9 R10 K36 ["SocialPresenceDmBridge"]
-  CALL R8 1 1
-  GETTABLEKS R9 R8 K37 ["initAssetDm"]
-  GETIMPORT R10 K1 [plugin]
-  CALL R9 1 0
-  GETIMPORT R8 K1 [plugin]
-  LOADK R10 K38 ["DmChanged"]
-  GETTABLEKS R11 R7 K29 ["CurrentDataModelType"]
-  NAMECALL R8 R8 K39 ["Invoke"]
-  CALL R8 3 0
-  GETIMPORT R8 K7 [game]
-  LOADK R10 K40 ["StudioService"]
-  NAMECALL R8 R8 K41 ["GetService"]
-  CALL R8 2 1
-  NAMECALL R8 R8 K42 ["HasInternalPermission"]
-  CALL R8 1 1
-  JUMPIF R8 [+1]
+  LOADK R9 K36 ["DmChanged"]
+  GETTABLEKS R10 R6 K27 ["CurrentDataModelType"]
+  NAMECALL R7 R7 K37 ["Invoke"]
+  CALL R7 3 0
+  GETIMPORT R7 K7 [game]
+  LOADK R9 K38 ["StudioService"]
+  NAMECALL R7 R7 K39 ["GetService"]
+  CALL R7 2 1
+  NAMECALL R7 R7 K40 ["HasInternalPermission"]
+  CALL R7 1 1
+  JUMPIF R7 [+1]
   RETURN R0 0
-  MOVE R9 R2
-  CALL R9 0 1
-  JUMPIFNOT R9 [+24]
-  GETIMPORT R9 K7 [game]
-  LOADK R11 K43 ["RobloxPluginGuiService"]
-  NAMECALL R9 R9 K41 ["GetService"]
-  CALL R9 2 1
-  GETIMPORT R10 K11 [require]
-  GETTABLEKS R12 R0 K12 ["Src"]
-  GETTABLEKS R11 R12 K44 ["FoundationInspector"]
-  CALL R10 1 1
-  GETTABLEKS R11 R10 K45 ["watchDockWidgets"]
-  GETIMPORT R12 K1 [plugin]
-  MOVE R13 R9
-  CALL R11 2 0
-  GETTABLEKS R11 R10 K46 ["watchEnabledState"]
-  GETIMPORT R12 K1 [plugin]
-  CALL R11 1 0
+  MOVE R8 R2
+  CALL R8 0 1
+  JUMPIFNOT R8 [+24]
+  GETIMPORT R8 K7 [game]
+  LOADK R10 K41 ["RobloxPluginGuiService"]
+  NAMECALL R8 R8 K39 ["GetService"]
+  CALL R8 2 1
+  GETIMPORT R9 K11 [require]
+  GETTABLEKS R11 R0 K12 ["Src"]
+  GETTABLEKS R10 R11 K42 ["FoundationInspector"]
+  CALL R9 1 1
+  GETTABLEKS R10 R9 K43 ["watchDockWidgets"]
+  GETIMPORT R11 K1 [plugin]
+  MOVE R12 R8
+  CALL R10 2 0
+  GETTABLEKS R10 R9 K44 ["watchEnabledState"]
+  GETIMPORT R11 K1 [plugin]
+  CALL R10 1 0
   JUMPIFNOT R1 [+42]
-  GETIMPORT R9 K7 [game]
-  LOADK R11 K47 ["ReplicatedStorage"]
-  NAMECALL R9 R9 K41 ["GetService"]
+  GETIMPORT R8 K7 [game]
+  LOADK R10 K45 ["ReplicatedStorage"]
+  NAMECALL R8 R8 K39 ["GetService"]
+  CALL R8 2 1
+  LOADK R11 K4 ["Ribbon"]
+  NAMECALL R9 R8 K46 ["FindFirstChild"]
   CALL R9 2 1
-  LOADK R12 K4 ["Ribbon"]
-  NAMECALL R10 R9 K48 ["FindFirstChild"]
-  CALL R10 2 1
-  JUMPIFNOT R10 [+3]
-  NAMECALL R11 R10 K49 ["Destroy"]
-  CALL R11 1 0
-  GETTABLEKS R15 R0 K18 ["Packages"]
-  GETTABLEKS R14 R15 K51 ["_Index"]
-  GETTABLEKS R13 R14 K52 ["DeveloperFramework"]
-  GETTABLEKS R12 R13 K52 ["DeveloperFramework"]
-  GETTABLEKS R11 R12 K50 ["DeveloperFramework.storybook"]
-  NAMECALL R11 R11 K49 ["Destroy"]
-  CALL R11 1 0
-  SETTABLEKS R9 R0 K53 ["Parent"]
-  GETIMPORT R11 K56 [Instance.new]
-  LOADK R12 K57 ["ObjectValue"]
-  CALL R11 1 1
-  LOADK R12 K58 ["Plugin"]
-  SETTABLEKS R12 R11 K59 ["Name"]
-  GETIMPORT R12 K1 [plugin]
-  SETTABLEKS R12 R11 K60 ["Value"]
-  SETTABLEKS R0 R11 K53 ["Parent"]
-  GETTABLEKS R10 R0 K12 ["Src"]
-  GETTABLEKS R9 R10 K13 ["SharedFlags"]
-  NAMECALL R9 R9 K61 ["GetChildren"]
-  CALL R9 1 3
-  FORGPREP R9
-  LOADK R16 K62 ["ModuleScript"]
-  NAMECALL R14 R13 K63 ["IsA"]
-  CALL R14 2 1
-  JUMPIFNOT R14 [+5]
-  GETIMPORT R14 K65 [pcall]
-  NEWCLOSURE R15 P1
-  CAPTURE VAL R13
-  CALL R14 1 0
-  FORGLOOP R9 2 [-11]
+  JUMPIFNOT R9 [+3]
+  NAMECALL R10 R9 K47 ["Destroy"]
+  CALL R10 1 0
+  GETTABLEKS R14 R0 K18 ["Packages"]
+  GETTABLEKS R13 R14 K49 ["_Index"]
+  GETTABLEKS R12 R13 K50 ["DeveloperFramework"]
+  GETTABLEKS R11 R12 K50 ["DeveloperFramework"]
+  GETTABLEKS R10 R11 K48 ["DeveloperFramework.storybook"]
+  NAMECALL R10 R10 K47 ["Destroy"]
+  CALL R10 1 0
+  SETTABLEKS R8 R0 K51 ["Parent"]
+  GETIMPORT R10 K54 [Instance.new]
+  LOADK R11 K55 ["ObjectValue"]
+  CALL R10 1 1
+  LOADK R11 K56 ["Plugin"]
+  SETTABLEKS R11 R10 K57 ["Name"]
+  GETIMPORT R11 K1 [plugin]
+  SETTABLEKS R11 R10 K58 ["Value"]
+  SETTABLEKS R0 R10 K51 ["Parent"]
+  GETTABLEKS R9 R0 K12 ["Src"]
+  GETTABLEKS R8 R9 K13 ["SharedFlags"]
+  NAMECALL R8 R8 K59 ["GetChildren"]
+  CALL R8 1 3
+  FORGPREP R8
+  LOADK R15 K60 ["ModuleScript"]
+  NAMECALL R13 R12 K61 ["IsA"]
+  CALL R13 2 1
+  JUMPIFNOT R13 [+5]
+  GETIMPORT R13 K63 [pcall]
+  NEWCLOSURE R14 P1
+  CAPTURE VAL R12
+  CALL R13 1 0
+  FORGLOOP R8 2 [-11]
   RETURN R0 0

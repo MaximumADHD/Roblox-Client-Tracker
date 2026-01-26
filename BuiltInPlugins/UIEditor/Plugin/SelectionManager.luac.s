@@ -140,68 +140,37 @@ PROTO_10:
   LOADK R3 K2 ["UIDragDetector"]
   NAMECALL R1 R1 K3 ["GetEngineFeature"]
   CALL R1 2 1
-  JUMPIFNOT R1 [+45]
-  GETIMPORT R1 K1 [game]
-  LOADK R3 K4 ["UIEditorAvoidEditingPath2D"]
-  NAMECALL R1 R1 K5 ["GetFastFlag"]
-  CALL R1 2 1
   JUMPIFNOT R1 [+22]
-  LOADK R4 K6 ["GuiObject"]
-  NAMECALL R2 R0 K7 ["IsA"]
+  LOADK R4 K4 ["GuiObject"]
+  NAMECALL R2 R0 K5 ["IsA"]
   CALL R2 2 1
   JUMPIF R2 [+5]
-  LOADK R3 K8 ["UIComponent"]
-  NAMECALL R1 R0 K7 ["IsA"]
+  LOADK R3 K6 ["UIComponent"]
+  NAMECALL R1 R0 K5 ["IsA"]
   CALL R1 2 1
   JUMPIFNOT R1 [+11]
-  LOADK R4 K9 ["Path2D"]
-  NAMECALL R2 R0 K7 ["IsA"]
+  LOADK R4 K7 ["Path2D"]
+  NAMECALL R2 R0 K5 ["IsA"]
   CALL R2 2 1
   NOT R1 R2
   JUMPIFNOT R1 [+5]
   LOADK R4 K2 ["UIDragDetector"]
-  NAMECALL R2 R0 K7 ["IsA"]
+  NAMECALL R2 R0 K5 ["IsA"]
   CALL R2 2 1
   NOT R1 R2
   RETURN R1 1
-  LOADK R4 K6 ["GuiObject"]
-  NAMECALL R2 R0 K7 ["IsA"]
+  LOADK R4 K4 ["GuiObject"]
+  NAMECALL R2 R0 K5 ["IsA"]
   CALL R2 2 1
   JUMPIF R2 [+5]
-  LOADK R3 K8 ["UIComponent"]
-  NAMECALL R1 R0 K7 ["IsA"]
+  LOADK R3 K6 ["UIComponent"]
+  NAMECALL R1 R0 K5 ["IsA"]
   CALL R1 2 1
   JUMPIFNOT R1 [+5]
-  LOADK R4 K2 ["UIDragDetector"]
-  NAMECALL R2 R0 K7 ["IsA"]
+  LOADK R4 K7 ["Path2D"]
+  NAMECALL R2 R0 K5 ["IsA"]
   CALL R2 2 1
   NOT R1 R2
-  RETURN R1 1
-  GETIMPORT R1 K1 [game]
-  LOADK R3 K4 ["UIEditorAvoidEditingPath2D"]
-  NAMECALL R1 R1 K5 ["GetFastFlag"]
-  CALL R1 2 1
-  JUMPIFNOT R1 [+16]
-  LOADK R4 K6 ["GuiObject"]
-  NAMECALL R2 R0 K7 ["IsA"]
-  CALL R2 2 1
-  JUMPIF R2 [+5]
-  LOADK R3 K8 ["UIComponent"]
-  NAMECALL R1 R0 K7 ["IsA"]
-  CALL R1 2 1
-  JUMPIFNOT R1 [+5]
-  LOADK R4 K9 ["Path2D"]
-  NAMECALL R2 R0 K7 ["IsA"]
-  CALL R2 2 1
-  NOT R1 R2
-  RETURN R1 1
-  LOADK R3 K6 ["GuiObject"]
-  NAMECALL R1 R0 K7 ["IsA"]
-  CALL R1 2 1
-  JUMPIF R1 [+4]
-  LOADK R3 K8 ["UIComponent"]
-  NAMECALL R1 R0 K7 ["IsA"]
-  CALL R1 2 1
   RETURN R1 1
 
 PROTO_11:

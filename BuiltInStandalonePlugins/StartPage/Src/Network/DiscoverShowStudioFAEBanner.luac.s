@@ -68,7 +68,14 @@ PROTO_1:
 
 PROTO_2:
   GETIMPORT R1 K1 [warn]
-  LOADK R3 K2 ["DiscoverShowStudioFAEBanner experienced an error: %*"]
+  LOADK R3 K2 ["DiscoverShowStudioFAEBanner experienced an error querying AMP access rule: %*"]
+  GETUPVAL R5 0
+  NAMECALL R3 R3 K3 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 0
+  GETIMPORT R1 K1 [warn]
+  LOADK R3 K4 ["DiscoverShowStudioFAEBanner error: %*"]
   MOVE R5 R0
   NAMECALL R3 R3 K3 ["format"]
   CALL R3 2 1
@@ -76,35 +83,35 @@ PROTO_2:
   CALL R1 1 0
   FASTCALL1 TOSTRING R0 [+3]
   MOVE R2 R0
-  GETIMPORT R1 K5 [tostring]
+  GETIMPORT R1 K6 [tostring]
   CALL R1 1 1
   FASTCALL1 TYPE R0 [+3]
   MOVE R3 R0
-  GETIMPORT R2 K7 [type]
+  GETIMPORT R2 K8 [type]
   CALL R2 1 1
-  JUMPIFNOTEQKS R2 K8 ["table"] [+11]
-  GETTABLEKS R3 R0 K9 ["responseBody"]
+  JUMPIFNOTEQKS R2 K9 ["table"] [+11]
+  GETTABLEKS R3 R0 K10 ["responseBody"]
   FASTCALL1 TYPE R3 [+2]
-  GETIMPORT R2 K7 [type]
+  GETIMPORT R2 K8 [type]
   CALL R2 1 1
-  JUMPIFNOTEQKS R2 K10 ["string"] [+3]
-  GETTABLEKS R1 R0 K9 ["responseBody"]
-  GETUPVAL R2 0
+  JUMPIFNOTEQKS R2 K11 ["string"] [+3]
+  GETTABLEKS R1 R0 K10 ["responseBody"]
+  GETUPVAL R2 1
   MOVE R3 R1
-  GETUPVAL R4 1
+  GETUPVAL R4 2
   JUMPIFNOT R4 [+19]
-  GETUPVAL R4 1
-  GETUPVAL R6 2
-  DUPTABLE R7 K15 [{"url", "errorDetails", "user", "ampresponse"}]
-  SETTABLEKS R2 R7 K11 ["url"]
-  SETTABLEKS R3 R7 K12 ["errorDetails"]
-  GETUPVAL R8 3
-  NAMECALL R8 R8 K16 ["GetUserId"]
+  GETUPVAL R4 2
+  GETUPVAL R6 3
+  DUPTABLE R7 K16 [{"url", "errorDetails", "user", "ampresponse"}]
+  SETTABLEKS R2 R7 K12 ["url"]
+  SETTABLEKS R3 R7 K13 ["errorDetails"]
+  GETUPVAL R8 4
+  NAMECALL R8 R8 K17 ["GetUserId"]
   CALL R8 1 1
-  SETTABLEKS R8 R7 K13 ["user"]
-  LOADK R8 K17 [""]
-  SETTABLEKS R8 R7 K14 ["ampresponse"]
-  NAMECALL R4 R4 K18 ["log"]
+  SETTABLEKS R8 R7 K14 ["user"]
+  LOADK R8 K18 [""]
+  SETTABLEKS R8 R7 K15 ["ampresponse"]
+  NAMECALL R4 R4 K19 ["log"]
   CALL R4 3 0
   LOADB R2 0
   RETURN R2 1
@@ -112,68 +119,69 @@ PROTO_2:
 PROTO_3:
   JUMPIFNOT R0 [+7]
   FASTCALL1 TYPEOF R0 [+3]
-  MOVE R3 R0
-  GETIMPORT R2 K1 [typeof]
-  CALL R2 1 1
-  JUMPIFEQKS R2 K2 ["number"] [+7]
-  GETIMPORT R2 K4 [warn]
-  LOADK R3 K5 ["DiscoverShowStudioFAEBanner: userId must be a number"]
-  CALL R2 1 0
-  LOADB R2 0
-  RETURN R2 1
-  NEWTABLE R2 2 0
-  LOADK R3 K6 ["application/json"]
-  SETTABLEKS R3 R2 K7 ["Content-Type"]
-  GETUPVAL R4 0
-  NAMECALL R4 R4 K8 ["GetUserId"]
-  CALL R4 1 -1
+  MOVE R4 R0
+  GETIMPORT R3 K1 [typeof]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K2 ["number"] [+7]
+  GETIMPORT R3 K4 [warn]
+  LOADK R4 K5 ["DiscoverShowStudioFAEBanner: userId must be a number"]
+  CALL R3 1 0
+  LOADB R3 0
+  RETURN R3 1
+  NEWTABLE R3 2 0
+  LOADK R4 K6 ["application/json"]
+  SETTABLEKS R4 R3 K7 ["Content-Type"]
+  GETUPVAL R5 0
+  NAMECALL R5 R5 K8 ["GetUserId"]
+  CALL R5 1 -1
   FASTCALL TOSTRING [+2]
-  GETIMPORT R3 K10 [tostring]
-  CALL R3 -1 1
-  SETTABLEKS R3 R2 K11 ["robloxctx-authenticated-userid"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K12 ["new"]
-  CALL R3 0 1
-  GETTABLEKS R4 R3 K13 ["composeUrl"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K14 ["AMP_FEATURE_ACCESS_URL"]
-  GETTABLEKS R5 R6 K15 ["Prefix"]
+  GETIMPORT R4 K10 [tostring]
+  CALL R4 -1 1
+  SETTABLEKS R4 R3 K11 ["robloxctx-authenticated-userid"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K12 ["new"]
+  CALL R4 0 1
+  GETTABLEKS R5 R4 K13 ["composeUrl"]
   GETUPVAL R8 2
   GETTABLEKS R7 R8 K14 ["AMP_FEATURE_ACCESS_URL"]
-  GETTABLEKS R6 R7 K16 ["Url"]
-  LOADK R7 K17 ["ShouldShowStudioBanner"]
-  LOADK R8 K18 ["studio/CollaborationSettings"]
-  CALL R6 2 -1
-  CALL R4 -1 1
-  NEWCLOSURE R5 P0
-  CAPTURE VAL R1
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U0
-  GETUPVAL R6 4
-  MOVE R8 R4
-  MOVE R9 R2
-  NAMECALL R6 R6 K19 ["get"]
-  CALL R6 3 1
-  GETUPVAL R7 4
-  MOVE R9 R6
-  NAMECALL R7 R7 K20 ["parseJson"]
-  CALL R7 2 1
-  NEWCLOSURE R9 P1
-  CAPTURE UPVAL U5
-  CAPTURE VAL R4
-  CAPTURE VAL R1
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U0
-  NAMECALL R7 R7 K21 ["andThen"]
-  CALL R7 2 1
-  NEWCLOSURE R9 P2
-  CAPTURE VAL R4
-  CAPTURE VAL R1
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U0
-  NAMECALL R7 R7 K22 ["catch"]
+  GETTABLEKS R6 R7 K15 ["Prefix"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K14 ["AMP_FEATURE_ACCESS_URL"]
+  GETTABLEKS R7 R8 K16 ["Url"]
+  MOVE R8 R1
+  LOADK R9 K17 ["studio/CollaborationSettings"]
   CALL R7 2 -1
-  RETURN R7 -1
+  CALL R5 -1 1
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U0
+  GETUPVAL R7 4
+  MOVE R9 R5
+  MOVE R10 R3
+  NAMECALL R7 R7 K18 ["get"]
+  CALL R7 3 1
+  GETUPVAL R8 4
+  MOVE R10 R7
+  NAMECALL R8 R8 K19 ["parseJson"]
+  CALL R8 2 1
+  NEWCLOSURE R10 P1
+  CAPTURE UPVAL U5
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U0
+  NAMECALL R8 R8 K20 ["andThen"]
+  CALL R8 2 1
+  NEWCLOSURE R10 P2
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U0
+  NAMECALL R8 R8 K21 ["catch"]
+  CALL R8 2 -1
+  RETURN R8 -1
 
 MAIN:
   PREPVARARGS 0

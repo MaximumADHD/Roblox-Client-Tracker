@@ -96,57 +96,32 @@ MAIN:
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K24 ["ToolboxSceneAnalysisPollingSeconds"]
-  LOADN R3 15
-  NAMECALL R0 R0 K17 ["DefineFastInt"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K25 ["ToolboxSceneAnalysisViewportMaxScreenDivisions"]
-  LOADN R3 16
-  NAMECALL R0 R0 K17 ["DefineFastInt"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K26 ["ToolboxSceneAnalysisViewportMaxDistance"]
-  LOADN R3 136
-  NAMECALL R0 R0 K17 ["DefineFastInt"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K27 ["ToolboxSceneAnalysisRangeMaxDistance"]
-  LOADN R3 100
-  NAMECALL R0 R0 K17 ["DefineFastInt"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K28 ["ToolboxSceneAnalysisAssetLimit"]
-  LOADN R3 30
-  NAMECALL R0 R0 K17 ["DefineFastInt"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K29 ["ToolboxYieldWhenInserting"]
+  LOADK R2 K24 ["ToolboxYieldWhenInserting"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K30 ["ToolboxYieldInsertPerInstanceModulus"]
+  LOADK R2 K25 ["ToolboxYieldInsertPerInstanceModulus"]
   LOADN R3 0
   NAMECALL R0 R0 K17 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K31 ["ToolboxEnableOpenPackageVersionHistory"]
+  LOADK R2 K26 ["ToolboxEnableOpenPackageVersionHistory"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K32 ["ToolboxWVInitTimeoutSeconds"]
+  LOADK R2 K27 ["ToolboxWVInitTimeoutSeconds"]
   LOADN R3 10
   NAMECALL R0 R0 K17 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K33 ["ToolboxMaxManualRetryAttempts"]
+  LOADK R2 K28 ["ToolboxMaxManualRetryAttempts"]
   LOADN R3 3
   NAMECALL R0 R0 K17 ["DefineFastInt"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K34 ["ToolboxDisableImageCarouselAnimation"]
+  LOADK R2 K29 ["ToolboxDisableImageCarouselAnimation"]
   LOADB R3 0
   NAMECALL R0 R0 K3 ["DefineFastFlag"]
   CALL R0 3 0

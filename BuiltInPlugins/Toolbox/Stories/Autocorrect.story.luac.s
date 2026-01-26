@@ -78,7 +78,7 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Core"]
+  GETTABLEKS R5 R0 K6 ["Src"]
   GETTABLEKS R4 R5 K7 ["Components"]
   GETTABLEKS R3 R4 K8 ["Autocorrect"]
   GETTABLEKS R2 R3 K8 ["Autocorrect"]
@@ -92,7 +92,7 @@ MAIN:
   GETTABLEKS R4 R5 K12 ["ToolboxStoryWrapper"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Core"]
+  GETTABLEKS R7 R0 K6 ["Src"]
   GETTABLEKS R6 R7 K13 ["Types"]
   GETTABLEKS R5 R6 K14 ["AutocorrectTypes"]
   CALL R4 1 1

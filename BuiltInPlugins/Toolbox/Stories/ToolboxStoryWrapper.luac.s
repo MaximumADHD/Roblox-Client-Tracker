@@ -69,14 +69,16 @@ PROTO_1:
   GETUPVAL R12 13
   GETTABLEKS R11 R12 K17 ["createDummyThemeManager"]
   CALL R11 0 1
-  GETUPVAL R14 14
-  GETTABLEKS R13 R14 K18 ["LocalizationSource"]
-  GETTABLEKS R12 R13 K19 ["SourceStrings"]
   GETUPVAL R15 14
-  GETTABLEKS R14 R15 K18 ["LocalizationSource"]
-  GETTABLEKS R13 R14 K20 ["LocalizedStrings"]
+  GETTABLEKS R14 R15 K18 ["Resources"]
+  GETTABLEKS R13 R14 K19 ["Localization"]
+  GETTABLEKS R12 R13 K20 ["SourceStrings"]
+  GETUPVAL R16 14
+  GETTABLEKS R15 R16 K18 ["Resources"]
+  GETTABLEKS R14 R15 K19 ["Localization"]
+  GETTABLEKS R13 R14 K21 ["LocalizedStrings"]
   GETUPVAL R16 6
-  GETTABLEKS R15 R16 K21 ["Localization"]
+  GETTABLEKS R15 R16 K19 ["Localization"]
   GETTABLEKS R14 R15 K3 ["new"]
   DUPTABLE R15 K29 [{"stringResourceTable", "translationResourceTable", "pluginName", "libraries", "overrideGetLocale", "overrideLocaleId", "overrideLocaleChangedSignal"}]
   SETTABLEKS R12 R15 K22 ["stringResourceTable"]
@@ -85,22 +87,22 @@ PROTO_1:
   SETTABLEKS R16 R15 K24 ["pluginName"]
   NEWTABLE R16 1 0
   GETUPVAL R19 15
-  GETTABLEKS R18 R19 K31 ["Resources"]
-  GETTABLEKS R17 R18 K32 ["LOCALIZATION_PROJECT_NAME"]
-  DUPTABLE R18 K33 [{"stringResourceTable", "translationResourceTable"}]
+  GETTABLEKS R18 R19 K18 ["Resources"]
+  GETTABLEKS R17 R18 K31 ["LOCALIZATION_PROJECT_NAME"]
+  DUPTABLE R18 K32 [{"stringResourceTable", "translationResourceTable"}]
   GETUPVAL R21 15
-  GETTABLEKS R20 R21 K31 ["Resources"]
-  GETTABLEKS R19 R20 K19 ["SourceStrings"]
+  GETTABLEKS R20 R21 K18 ["Resources"]
+  GETTABLEKS R19 R20 K20 ["SourceStrings"]
   SETTABLEKS R19 R18 K22 ["stringResourceTable"]
   GETUPVAL R21 15
-  GETTABLEKS R20 R21 K31 ["Resources"]
-  GETTABLEKS R19 R20 K20 ["LocalizedStrings"]
+  GETTABLEKS R20 R21 K18 ["Resources"]
+  GETTABLEKS R19 R20 K21 ["LocalizedStrings"]
   SETTABLEKS R19 R18 K23 ["translationResourceTable"]
   SETTABLE R18 R16 R17
   SETTABLEKS R16 R15 K25 ["libraries"]
-  DUPCLOSURE R16 K34 [PROTO_0]
+  DUPCLOSURE R16 K33 [PROTO_0]
   SETTABLEKS R16 R15 K26 ["overrideGetLocale"]
-  LOADK R16 K35 ["en-us"]
+  LOADK R16 K34 ["en-us"]
   SETTABLEKS R16 R15 K27 ["overrideLocaleId"]
   GETUPVAL R17 16
   GETTABLEKS R16 R17 K3 ["new"]
@@ -116,22 +118,22 @@ PROTO_1:
   MOVE R21 R14
   SETLIST R15 R16 6 [1]
   GETUPVAL R17 17
-  GETTABLEKS R16 R17 K36 ["createElement"]
+  GETTABLEKS R16 R17 K35 ["createElement"]
   GETUPVAL R17 18
-  DUPTABLE R18 K38 [{"store", "plugin", "pluginGui", "settings", "theme", "networkInterface"}]
+  DUPTABLE R18 K37 [{"store", "plugin", "pluginGui", "settings", "theme", "networkInterface"}]
   SETTABLEKS R2 R18 K1 ["store"]
   GETIMPORT R19 K9 [plugin]
   SETTABLEKS R19 R18 K8 ["plugin"]
   SETTABLEKS R3 R18 K6 ["pluginGui"]
   SETTABLEKS R4 R18 K7 ["settings"]
-  SETTABLEKS R11 R18 K37 ["theme"]
+  SETTABLEKS R11 R18 K36 ["theme"]
   SETTABLEKS R5 R18 K10 ["networkInterface"]
   NEWTABLE R19 0 1
   GETUPVAL R21 6
-  GETTABLEKS R20 R21 K39 ["provide"]
+  GETTABLEKS R20 R21 K38 ["provide"]
   MOVE R21 R15
   GETUPVAL R24 17
-  GETTABLEKS R23 R24 K40 ["Children"]
+  GETTABLEKS R23 R24 K39 ["Children"]
   GETTABLE R22 R0 R23
   CALL R20 2 -1
   SETLIST R19 R20 -1 [1]
@@ -161,54 +163,54 @@ MAIN:
   GETTABLEKS R9 R4 K14 ["Util"]
   GETTABLEKS R8 R9 K15 ["Signal"]
   GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K16 ["Core"]
+  GETTABLEKS R12 R0 K16 ["Src"]
   GETTABLEKS R11 R12 K14 ["Util"]
   GETTABLEKS R10 R11 K17 ["Settings"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R13 R0 K16 ["Core"]
+  GETTABLEKS R13 R0 K16 ["Src"]
   GETTABLEKS R12 R13 K14 ["Util"]
   GETTABLEKS R11 R12 K18 ["ToolboxTheme"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
-  GETTABLEKS R14 R0 K16 ["Core"]
+  GETTABLEKS R14 R0 K16 ["Src"]
   GETTABLEKS R13 R14 K19 ["Reducers"]
   GETTABLEKS R12 R13 K20 ["ToolboxReducer"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
-  GETTABLEKS R15 R0 K16 ["Core"]
+  GETTABLEKS R15 R0 K16 ["Src"]
   GETTABLEKS R14 R15 K10 ["Networking"]
   GETTABLEKS R13 R14 K21 ["NetworkInterfaceMock"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
-  GETTABLEKS R17 R0 K16 ["Core"]
+  GETTABLEKS R17 R0 K16 ["Src"]
   GETTABLEKS R16 R17 K14 ["Util"]
   GETTABLEKS R15 R16 K22 ["Analytics"]
   GETTABLEKS R14 R15 K23 ["AssetAnalyticsContextItem"]
   CALL R13 1 1
   GETIMPORT R14 K5 [require]
-  GETTABLEKS R18 R0 K16 ["Core"]
+  GETTABLEKS R18 R0 K16 ["Src"]
   GETTABLEKS R17 R18 K14 ["Util"]
   GETTABLEKS R16 R17 K22 ["Analytics"]
   GETTABLEKS R15 R16 K24 ["AssetAnalytics"]
   CALL R14 1 1
   GETIMPORT R15 K5 [require]
-  GETTABLEKS R18 R0 K16 ["Core"]
+  GETTABLEKS R18 R0 K16 ["Src"]
   GETTABLEKS R17 R18 K25 ["Components"]
   GETTABLEKS R16 R17 K26 ["ExternalServicesWrapper"]
   CALL R15 1 1
   GETIMPORT R16 K5 [require]
-  GETTABLEKS R19 R0 K16 ["Core"]
+  GETTABLEKS R19 R0 K16 ["Src"]
   GETTABLEKS R18 R19 K11 ["ContextServices"]
   GETTABLEKS R17 R18 K17 ["Settings"]
   CALL R16 1 1
   GETIMPORT R17 K5 [require]
-  GETTABLEKS R20 R0 K16 ["Core"]
+  GETTABLEKS R20 R0 K16 ["Src"]
   GETTABLEKS R19 R20 K14 ["Util"]
   GETTABLEKS R18 R19 K27 ["makeTheme"]
   CALL R17 1 1
   GETIMPORT R18 K5 [require]
-  GETTABLEKS R21 R0 K16 ["Core"]
+  GETTABLEKS R21 R0 K16 ["Src"]
   GETTABLEKS R20 R21 K28 ["Themes"]
   GETTABLEKS R19 R20 K29 ["getAssetConfigTheme"]
   CALL R18 1 1

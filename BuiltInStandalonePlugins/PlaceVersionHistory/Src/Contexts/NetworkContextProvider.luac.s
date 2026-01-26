@@ -7,8 +7,8 @@ PROTO_0:
   RETURN R2 -1
   GETUPVAL R2 1
   JUMPIFNOTEQKN R2 K1 [0] [+5]
-  MOVE R2 R0
-  LOADK R3 K2 ["<DeletedUser>"]
+  MOVE R2 R1
+  LOADK R3 K2 ["Deleted user"]
   CALL R2 1 -1
   RETURN R2 -1
   MOVE R2 R0

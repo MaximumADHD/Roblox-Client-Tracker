@@ -1,0 +1,1300 @@
+PROTO_0:
+  NAMECALL R4 R0 K0 ["GetChildren"]
+  CALL R4 1 1
+  LENGTH R3 R4
+  LOADN R4 0
+  JUMPIFLT R4 R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K1 [+4]
+  LOADK R3 K1 ["Folder from limb validation did not have any instances"]
+  GETIMPORT R1 K3 [assert]
+  CALL R1 2 0
+  GETIMPORT R1 K6 [Instance.new]
+  LOADK R2 K7 ["Model"]
+  CALL R1 1 1
+  NAMECALL R2 R0 K0 ["GetChildren"]
+  CALL R2 1 3
+  FORGPREP R2
+  NAMECALL R7 R6 K8 ["Clone"]
+  CALL R7 1 1
+  JUMPIFNOTEQKN R5 K9 [1] [+14]
+  MOVE R8 R7
+  LOADK R11 K10 ["BasePart"]
+  NAMECALL R9 R8 K11 ["IsA"]
+  CALL R9 2 1
+  JUMPIF R9 [+5]
+  LOADK R11 K10 ["BasePart"]
+  NAMECALL R9 R7 K12 ["FindFirstChildWhichIsA"]
+  CALL R9 2 1
+  MOVE R8 R9
+  SETTABLEKS R8 R1 K13 ["PrimaryPart"]
+  SETTABLEKS R1 R7 K14 ["Parent"]
+  FORGLOOP R2 2 [-21]
+  RETURN R1 1
+
+PROTO_1:
+  GETIMPORT R1 K2 [Instance.new]
+  LOADK R2 K3 ["Model"]
+  CALL R1 1 1
+  NAMECALL R2 R0 K4 ["Clone"]
+  CALL R2 1 1
+  MOVE R3 R2
+  LOADK R6 K5 ["BasePart"]
+  NAMECALL R4 R3 K6 ["IsA"]
+  CALL R4 2 1
+  JUMPIF R4 [+5]
+  LOADK R6 K5 ["BasePart"]
+  NAMECALL R4 R2 K7 ["FindFirstChildWhichIsA"]
+  CALL R4 2 1
+  MOVE R3 R4
+  SETTABLEKS R3 R1 K8 ["PrimaryPart"]
+  SETTABLEKS R1 R2 K9 ["Parent"]
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["state"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["props"]
+  LOADNIL R4
+  GETUPVAL R5 1
+  CALL R5 0 1
+  JUMPIFNOT R5 [+7]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K2 ["getAvatarAssetTypeAsString"]
+  GETTABLEKS R6 R2 K3 ["currentAssetType"]
+  CALL R5 1 1
+  MOVE R4 R5
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K4 ["shouldDebugWarnings"]
+  CALL R5 0 1
+  JUMPIFNOT R5 [+17]
+  GETTABLEKS R7 R3 K5 ["validationState"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K6 ["VALIDATION_STATE"]
+  GETTABLEKS R8 R9 K7 ["VALIDATING"]
+  JUMPIFEQ R7 R8 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  FASTCALL2K ASSERT R6 K8 [+4]
+  LOADK R7 K8 ["Validation state is expected to be `Validating`."]
+  GETIMPORT R5 K10 [assert]
+  CALL R5 2 0
+  JUMPIFNOT R0 [+33]
+  GETTABLEKS R5 R3 K11 ["setValidationState"]
+  JUMPIFNOT R5 [+8]
+  GETTABLEKS R5 R3 K11 ["setValidationState"]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K6 ["VALIDATION_STATE"]
+  GETTABLEKS R6 R7 K12 ["SUCCESS"]
+  CALL R5 1 0
+  GETTABLEKS R5 R3 K13 ["setValidationFailureReasons"]
+  JUMPIFNOT R5 [+5]
+  GETTABLEKS R5 R3 K13 ["setValidationFailureReasons"]
+  NEWTABLE R6 0 0
+  CALL R5 1 0
+  GETUPVAL R5 1
+  CALL R5 0 1
+  JUMPIFNOT R5 [+84]
+  GETUPVAL R6 5
+  GETTABLEKS R5 R6 K14 ["UGCBundleValidationEvent"]
+  GETUPVAL R8 5
+  GETTABLEKS R7 R8 K15 ["Status"]
+  GETTABLEKS R6 R7 K16 ["Success"]
+  MOVE R7 R4
+  CALL R5 2 0
+  JUMP [+73]
+  LENGTH R5 R1
+  LOADN R6 0
+  JUMPIFNOTLT R6 R5 [+17]
+  GETTABLEKS R5 R3 K17 ["Localization"]
+  LOADK R7 K18 ["AssetConfig"]
+  LOADK R8 K19 ["AssetConfigOutputErrorHeading"]
+  DUPTABLE R9 K21 [{"errorCount"}]
+  LENGTH R10 R1
+  SETTABLEKS R10 R9 K20 ["errorCount"]
+  NAMECALL R5 R5 K22 ["getText"]
+  CALL R5 4 1
+  GETIMPORT R6 K24 [warn]
+  MOVE R7 R5
+  MOVE R8 R1
+  CALL R6 2 0
+  LENGTH R6 R1
+  LOADN R7 0
+  JUMPIFNOTLT R7 R6 [+3]
+  MOVE R5 R1
+  JUMP [+11]
+  NEWTABLE R5 0 1
+  GETTABLEKS R6 R3 K17 ["Localization"]
+  LOADK R8 K18 ["AssetConfig"]
+  LOADK R9 K25 ["ValidationErrorUnknown"]
+  NAMECALL R6 R6 K22 ["getText"]
+  CALL R6 3 -1
+  SETLIST R5 R6 -1 [1]
+  GETTABLEKS R6 R3 K11 ["setValidationState"]
+  JUMPIFNOT R6 [+8]
+  GETTABLEKS R6 R3 K11 ["setValidationState"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K6 ["VALIDATION_STATE"]
+  GETTABLEKS R7 R8 K26 ["FAILURE"]
+  CALL R6 1 0
+  GETTABLEKS R6 R3 K13 ["setValidationFailureReasons"]
+  JUMPIFNOT R6 [+4]
+  GETTABLEKS R6 R3 K13 ["setValidationFailureReasons"]
+  MOVE R7 R5
+  CALL R6 1 0
+  GETUPVAL R6 1
+  CALL R6 0 1
+  JUMPIFNOT R6 [+15]
+  GETUPVAL R7 5
+  GETTABLEKS R6 R7 K14 ["UGCBundleValidationEvent"]
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K15 ["Status"]
+  GETTABLEKS R7 R8 K27 ["Failure"]
+  MOVE R8 R4
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K28 ["getValidationFailuresAsString"]
+  MOVE R10 R5
+  CALL R9 1 -1
+  CALL R6 -1 0
+  GETTABLEKS R5 R3 K29 ["onAssetValidationResultChanged"]
+  JUMPIFNOT R5 [+4]
+  GETTABLEKS R5 R3 K29 ["onAssetValidationResultChanged"]
+  MOVE R6 R0
+  CALL R5 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["setValidationState"]
+  JUMPIFNOT R0 [+9]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["setValidationState"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["VALIDATION_STATE"]
+  GETTABLEKS R1 R2 K2 ["BEGIN"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  SETTABLEKS R1 R0 K0 ["props"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  SETTABLEKS R2 R0 K1 ["validationCallback"]
+  GETTABLEKS R2 R1 K2 ["assetTypeEnum"]
+  JUMPIFEQKNIL R2 [+23]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K3 ["shouldValidateAssetType"]
+  GETTABLEKS R3 R1 K2 ["assetTypeEnum"]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+15]
+  GETUPVAL R2 5
+  JUMPIFNOT R2 [+7]
+  GETTABLEKS R2 R1 K4 ["onAssetValidationResultChanged"]
+  JUMPIFNOT R2 [+4]
+  GETTABLEKS R2 R1 K4 ["onAssetValidationResultChanged"]
+  LOADB R3 0
+  CALL R2 1 0
+  GETIMPORT R2 K7 [task.defer]
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R1
+  CAPTURE UPVAL U3
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["validationTask"]
+  JUMPIFEQKNIL R1 [+9]
+  GETIMPORT R1 K3 [task.cancel]
+  GETTABLEKS R2 R0 K0 ["validationTask"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["validationTask"]
+  GETTABLEKS R1 R0 K4 ["validationPromise"]
+  JUMPIFEQKNIL R1 [+9]
+  GETTABLEKS R1 R0 K4 ["validationPromise"]
+  NAMECALL R1 R1 K2 ["cancel"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K4 ["validationPromise"]
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R3 R0 K0 ["error"]
+  GETTABLEKS R2 R3 K1 ["type"]
+  JUMPIFNOTEQKS R2 K2 ["message"] [+6]
+  GETTABLEKS R2 R0 K0 ["error"]
+  GETTABLEKS R1 R2 K2 ["message"]
+  RETURN R1 1
+  GETTABLEKS R3 R0 K0 ["error"]
+  GETTABLEKS R2 R3 K1 ["type"]
+  JUMPIFNOTEQKS R2 K3 ["notFound"] [+21]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["Localization"]
+  LOADK R3 K5 ["AssetConfig"]
+  LOADK R4 K6 ["ValidationErrorItemNotDetected"]
+  DUPTABLE R5 K8 [{"itemName"}]
+  GETUPVAL R7 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K4 ["Localization"]
+  CALL R7 1 1
+  GETTABLEKS R8 R0 K9 ["assetType"]
+  GETTABLE R6 R7 R8
+  SETTABLEKS R6 R5 K7 ["itemName"]
+  NAMECALL R1 R1 K10 ["getText"]
+  CALL R1 4 1
+  RETURN R1 1
+  GETIMPORT R1 K11 [error]
+  LOADK R3 K12 ["Unknown error type: %*"]
+  GETTABLEKS R6 R0 K0 ["error"]
+  GETTABLEKS R5 R6 K1 ["type"]
+  NAMECALL R3 R3 K13 ["format"]
+  CALL R3 2 1
+  MOVE R2 R3
+  CALL R1 1 1
+  RETURN R1 1
+
+PROTO_7:
+  NEWTABLE R1 0 0
+  NEWTABLE R2 0 0
+  NEWTABLE R3 0 0
+  GETTABLEKS R4 R0 K0 ["errors"]
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  GETUPVAL R9 0
+  CALL R9 0 1
+  JUMPIFNOT R9 [+35]
+  GETUPVAL R9 1
+  MOVE R10 R8
+  CALL R9 1 1
+  GETTABLEKS R10 R8 K1 ["assetType"]
+  JUMPIFNOTEQKNIL R10 [+9]
+  FASTCALL2 TABLE_INSERT R3 R9 [+5]
+  MOVE R11 R3
+  MOVE R12 R9
+  GETIMPORT R10 K4 [table.insert]
+  CALL R10 2 0
+  JUMP [+46]
+  GETTABLEKS R11 R8 K1 ["assetType"]
+  GETTABLE R10 R2 R11
+  JUMPIFNOTEQKNIL R10 [+6]
+  GETTABLEKS R10 R8 K1 ["assetType"]
+  NEWTABLE R11 0 0
+  SETTABLE R11 R2 R10
+  GETTABLEKS R12 R8 K1 ["assetType"]
+  GETTABLE R11 R2 R12
+  FASTCALL2 TABLE_INSERT R11 R9 [+4]
+  MOVE R12 R9
+  GETIMPORT R10 K4 [table.insert]
+  CALL R10 2 0
+  JUMP [+26]
+  GETTABLEKS R9 R8 K1 ["assetType"]
+  JUMPIFEQKNIL R9 [+23]
+  GETTABLEKS R10 R8 K1 ["assetType"]
+  GETTABLE R9 R2 R10
+  JUMPIFNOTEQKNIL R9 [+6]
+  GETTABLEKS R9 R8 K1 ["assetType"]
+  NEWTABLE R10 0 0
+  SETTABLE R10 R2 R9
+  GETUPVAL R9 1
+  MOVE R10 R8
+  CALL R9 1 1
+  GETTABLEKS R12 R8 K1 ["assetType"]
+  GETTABLE R11 R2 R12
+  FASTCALL2 TABLE_INSERT R11 R9 [+4]
+  MOVE R12 R9
+  GETIMPORT R10 K4 [table.insert]
+  CALL R10 2 0
+  FORGLOOP R4 2 [-65]
+  GETTABLEKS R4 R0 K5 ["pieces"]
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  GETTABLEKS R10 R8 K1 ["assetType"]
+  GETTABLE R9 R2 R10
+  JUMPIF R9 [+2]
+  NEWTABLE R9 0 0
+  DUPTABLE R12 K9 [{"assetType", "instance", "required", "errors", "type"}]
+  GETTABLEKS R13 R8 K1 ["assetType"]
+  SETTABLEKS R13 R12 K1 ["assetType"]
+  GETTABLEKS R13 R8 K6 ["instance"]
+  SETTABLEKS R13 R12 K6 ["instance"]
+  GETTABLEKS R15 R8 K10 ["settings"]
+  GETTABLEKS R14 R15 K11 ["minimumQuantity"]
+  LOADN R15 0
+  JUMPIFLT R15 R14 [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  SETTABLEKS R13 R12 K7 ["required"]
+  SETTABLEKS R9 R12 K0 ["errors"]
+  LENGTH R14 R9
+  LOADN R15 0
+  JUMPIFNOTLT R15 R14 [+5]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K12 ["error"]
+  JUMP [+11]
+  GETTABLEKS R14 R8 K13 ["status"]
+  JUMPIFNOTEQKS R14 K14 ["finished"] [+5]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K15 ["success"]
+  JUMP [+3]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K16 ["pending"]
+  SETTABLEKS R13 R12 K8 ["type"]
+  FASTCALL2 TABLE_INSERT R1 R12 [+4]
+  MOVE R11 R1
+  GETIMPORT R10 K4 [table.insert]
+  CALL R10 2 0
+  FORGLOOP R4 2 [-56]
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIFNOT R4 [+31]
+  DUPTABLE R6 K9 [{"assetType", "instance", "required", "errors", "type"}]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K1 ["assetType"]
+  GETUPVAL R7 3
+  SETTABLEKS R7 R6 K6 ["instance"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K7 ["required"]
+  SETTABLEKS R3 R6 K0 ["errors"]
+  LENGTH R8 R3
+  LOADN R9 0
+  JUMPIFNOTLT R9 R8 [+5]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K12 ["error"]
+  JUMP [+3]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K16 ["pending"]
+  SETTABLEKS R7 R6 K8 ["type"]
+  FASTCALL2 TABLE_INSERT R1 R6 [+4]
+  MOVE R5 R1
+  GETIMPORT R4 K4 [table.insert]
+  CALL R4 2 0
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K17 ["setUGCBundleValidationResults"]
+  JUMPIFNOT R4 [+5]
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K17 ["setUGCBundleValidationResults"]
+  MOVE R5 R1
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getValidationErrorText"]
+  MOVE R2 R0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["Localization"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_9:
+  GETTABLEKS R2 R1 K0 ["validationResults"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["None"]
+  JUMPIFEQ R2 R3 [+19]
+  GETTABLEKS R2 R1 K0 ["validationResults"]
+  JUMPIFEQKNIL R2 [+15]
+  GETTABLEKS R3 R1 K0 ["validationResults"]
+  LENGTH R2 R3
+  JUMPIFEQKN R2 K2 [0] [+10]
+  GETUPVAL R2 1
+  JUMPIFNOT R2 [+10]
+  GETTABLEKS R2 R1 K0 ["validationResults"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["None"]
+  JUMPIFNOTEQ R2 R3 [+4]
+  NEWTABLE R2 0 0
+  RETURN R2 1
+  GETIMPORT R2 K5 [table.clone]
+  GETTABLEKS R3 R1 K0 ["validationResults"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [table.clone]
+  LENGTH R5 R2
+  GETTABLE R4 R2 R5
+  CALL R3 1 1
+  GETTABLEKS R6 R3 K6 ["assetType"]
+  JUMPIFEQKNIL R6 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K7 [+4]
+  LOADK R6 K7 ["Expected last validation result to not have an asset type (full body)"]
+  GETIMPORT R4 K9 [assert]
+  CALL R4 2 0
+  GETTABLEKS R5 R3 K10 ["errors"]
+  LENGTH R4 R5
+  JUMPIFNOTEQKN R4 K2 [0] [+6]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K11 ["success"]
+  SETTABLEKS R4 R3 K12 ["type"]
+  LENGTH R4 R2
+  SETTABLE R3 R2 R4
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K13 ["setUGCBundleValidationResults"]
+  JUMPIFNOT R4 [+5]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K13 ["setUGCBundleValidationResults"]
+  MOVE R5 R2
+  CALL R4 1 0
+  DUPTABLE R4 K15 [{"ugcBundleValidationResults"}]
+  SETTABLEKS R2 R4 K14 ["ugcBundleValidationResults"]
+  RETURN R4 1
+
+PROTO_10:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+9]
+  GETUPVAL R1 1
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  NAMECALL R1 R1 K0 ["setState"]
+  CALL R1 2 0
+  NEWTABLE R1 0 0
+  GETTABLEKS R2 R0 K1 ["errors"]
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETUPVAL R9 6
+  MOVE R10 R6
+  CALL R9 1 1
+  FASTCALL2 TABLE_INSERT R1 R9 [+4]
+  MOVE R8 R1
+  GETIMPORT R7 K4 [table.insert]
+  CALL R7 2 0
+  FORGLOOP R2 2 [-10]
+  GETUPVAL R2 7
+  CALL R2 0 1
+  JUMPIF R2 [+3]
+  GETUPVAL R2 8
+  CALL R2 0 1
+  JUMPIFNOT R2 [+34]
+  GETUPVAL R3 5
+  GETTABLEKS R2 R3 K5 ["assetTypeEnum"]
+  GETUPVAL R5 9
+  GETTABLEKS R4 R5 K6 ["UGCBundleTypes"]
+  GETTABLEKS R3 R4 K7 ["Body"]
+  JUMPIFNOTEQ R2 R3 [+25]
+  GETUPVAL R3 10
+  GETTABLEKS R2 R3 K8 ["ValidateBody"]
+  GETUPVAL R5 5
+  GETTABLEKS R4 R5 K9 ["instances"]
+  GETTABLEN R3 R4 1
+  GETUPVAL R5 5
+  GETTABLEKS R4 R5 K10 ["Localization"]
+  CALL R2 2 1
+  MOVE R3 R2
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  FASTCALL2 TABLE_INSERT R1 R7 [+5]
+  MOVE R9 R1
+  MOVE R10 R7
+  GETIMPORT R8 K4 [table.insert]
+  CALL R8 2 0
+  FORGLOOP R3 2 [-8]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K11 ["validationCallback"]
+  LENGTH R4 R1
+  JUMPIFEQKN R4 K12 [0] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R1 R0 K0 ["props"]
+  LOADNIL R2
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+17]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["getAvatarAssetTypeAsString"]
+  GETTABLEKS R4 R1 K2 ["assetTypeEnum"]
+  CALL R3 1 1
+  MOVE R2 R3
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K3 ["UGCBundleValidationEvent"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K4 ["Status"]
+  GETTABLEKS R4 R5 K5 ["Start"]
+  MOVE R5 R2
+  CALL R3 2 0
+  GETTABLEKS R3 R1 K6 ["instances"]
+  JUMPIFEQKNIL R3 [+6]
+  GETTABLEKS R4 R1 K6 ["instances"]
+  LENGTH R3 R4
+  JUMPIFEQKN R3 K7 [1] [+44]
+  GETTABLEKS R3 R1 K8 ["setValidationState"]
+  JUMPIFNOT R3 [+8]
+  GETTABLEKS R3 R1 K8 ["setValidationState"]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K9 ["VALIDATION_STATE"]
+  GETTABLEKS R4 R5 K10 ["FAILURE"]
+  CALL R3 1 0
+  GETTABLEKS R3 R1 K11 ["setValidationFailureReasons"]
+  JUMPIFNOT R3 [+14]
+  GETTABLEKS R3 R1 K11 ["setValidationFailureReasons"]
+  NEWTABLE R4 0 1
+  GETTABLEKS R5 R1 K12 ["Localization"]
+  LOADK R7 K13 ["AssetConfig"]
+  LOADK R8 K14 ["ValidationErrorBadSelectionCount"]
+  NAMECALL R5 R5 K15 ["getText"]
+  CALL R5 3 -1
+  SETLIST R4 R5 -1 [1]
+  CALL R3 1 0
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+11]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K3 ["UGCBundleValidationEvent"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K4 ["Status"]
+  GETTABLEKS R4 R5 K16 ["Failure"]
+  MOVE R5 R2
+  LOADK R6 K17 ["Bad Selection Count"]
+  CALL R3 3 0
+  RETURN R0 0
+  LOADNIL R3
+  GETUPVAL R4 4
+  CALL R4 0 1
+  JUMPIFNOT R4 [+14]
+  GETTABLEKS R6 R0 K0 ["props"]
+  GETTABLEKS R5 R6 K6 ["instances"]
+  GETTABLEN R4 R5 1
+  NAMECALL R4 R4 K18 ["Clone"]
+  CALL R4 1 1
+  MOVE R3 R4
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K19 ["sanitizeForValidation"]
+  MOVE R5 R3
+  CALL R4 1 0
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U5
+  NEWCLOSURE R5 P1
+  CAPTURE UPVAL U4
+  CAPTURE VAL R4
+  CAPTURE UPVAL U6
+  CAPTURE REF R3
+  CAPTURE VAL R1
+  GETUPVAL R7 7
+  CALL R7 0 1
+  JUMPIFNOT R7 [+13]
+  GETTABLEKS R7 R1 K2 ["assetTypeEnum"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K20 ["UGCBundleTypes"]
+  GETTABLEKS R8 R9 K21 ["Shoes"]
+  JUMPIFNOTEQ R7 R8 [+5]
+  GETUPVAL R7 8
+  GETTABLEKS R6 R7 K22 ["validateShoesBundleReadyForUpload"]
+  JUMP [+3]
+  GETUPVAL R7 8
+  GETTABLEKS R6 R7 K23 ["validateBundleReadyForUpload"]
+  GETTABLEKS R7 R1 K2 ["assetTypeEnum"]
+  GETTABLEKS R8 R1 K6 ["instances"]
+  JUMPIFEQKNIL R8 [+60]
+  LOADNIL R8
+  GETUPVAL R10 8
+  GETTABLEKS R9 R10 K24 ["isFolderStructureEnabled"]
+  JUMPIFNOT R9 [+24]
+  GETUPVAL R10 8
+  GETTABLEKS R9 R10 K24 ["isFolderStructureEnabled"]
+  CALL R9 0 1
+  JUMPIFNOT R9 [+19]
+  DUPTABLE R9 K26 [{"studioPluginName"}]
+  LOADK R10 K27 ["Toolbox"]
+  SETTABLEKS R10 R9 K25 ["studioPluginName"]
+  MOVE R8 R9
+  GETUPVAL R10 8
+  GETTABLEKS R9 R10 K28 ["isEntrypointMergingEnabled"]
+  JUMPIFNOT R9 [+10]
+  GETUPVAL R10 8
+  GETTABLEKS R9 R10 K28 ["isEntrypointMergingEnabled"]
+  CALL R9 0 1
+  JUMPIFNOT R9 [+5]
+  NEWCLOSURE R9 P2
+  CAPTURE UPVAL U1
+  CAPTURE VAL R1
+  SETTABLEKS R9 R8 K29 ["localizationCallback"]
+  MOVE R9 R6
+  GETTABLEKS R11 R1 K6 ["instances"]
+  GETTABLEN R10 R11 1
+  GETTABLEKS R11 R1 K30 ["allowedBundleTypeSettings"]
+  GETTABLEKS R12 R7 K31 ["rawValue"]
+  CALL R12 0 1
+  MOVE R13 R5
+  LOADNIL R14
+  MOVE R15 R8
+  CALL R9 6 1
+  NEWCLOSURE R11 P3
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
+  CAPTURE UPVAL U9
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U6
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE UPVAL U11
+  CAPTURE UPVAL U12
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U1
+  NAMECALL R9 R9 K32 ["andThen"]
+  CALL R9 2 1
+  SETTABLEKS R9 R0 K33 ["validationPromise"]
+  CLOSEUPVALS R3
+  RETURN R0 0
+
+PROTO_12:
+  GETTABLEKS R3 R0 K0 ["props"]
+  GETTABLEKS R4 R1 K1 ["assetTypeEnum"]
+  GETTABLEKS R5 R3 K1 ["assetTypeEnum"]
+  JUMPIFNOTEQ R4 R5 [+8]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["isUGCBundleType"]
+  GETTABLEKS R5 R3 K1 ["assetTypeEnum"]
+  CALL R4 1 1
+  JUMPIF R4 [+4]
+  NAMECALL R4 R0 K3 ["cancelValidationTasks"]
+  CALL R4 1 0
+  RETURN R0 0
+  GETTABLEKS R4 R3 K4 ["validationState"]
+  GETTABLEKS R5 R1 K4 ["validationState"]
+  JUMPIFEQ R4 R5 [+31]
+  GETTABLEKS R4 R3 K4 ["validationState"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["VALIDATION_STATE"]
+  GETTABLEKS R5 R6 K6 ["BEGIN"]
+  JUMPIFNOTEQ R4 R5 [+10]
+  GETTABLEKS R4 R3 K7 ["setValidationState"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["VALIDATION_STATE"]
+  GETTABLEKS R5 R6 K8 ["VALIDATING"]
+  CALL R4 1 0
+  RETURN R0 0
+  GETTABLEKS R4 R3 K4 ["validationState"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["VALIDATION_STATE"]
+  GETTABLEKS R5 R6 K8 ["VALIDATING"]
+  JUMPIFNOTEQ R4 R5 [+4]
+  NAMECALL R4 R0 K9 ["startUGCBundleValidation"]
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_13:
+  NAMECALL R1 R0 K0 ["cancelValidationTasks"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_14:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Localization"]
+  GETTABLEKS R4 R1 K2 ["Stylizer"]
+  GETTABLEKS R3 R4 K3 ["ugcBundleValidation"]
+  GETTABLEKS R5 R1 K4 ["validationResults"]
+  JUMPIFEQKNIL R5 [+8]
+  GETTABLEKS R5 R1 K4 ["validationResults"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["None"]
+  JUMPIFNOTEQ R5 R6 [+4]
+  NEWTABLE R4 0 0
+  JUMP [+2]
+  GETTABLEKS R4 R1 K4 ["validationResults"]
+  GETTABLEKS R5 R1 K1 ["Localization"]
+  LOADK R7 K6 ["AssetConfig"]
+  LOADK R8 K7 ["UGCPublishWarning"]
+  NAMECALL R5 R5 K8 ["getText"]
+  CALL R5 3 1
+  NEWTABLE R6 0 0
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K9 ["new"]
+  CALL R7 0 1
+  GETUPVAL R8 2
+  CALL R8 0 1
+  JUMPIFNOT R8 [+3]
+  GETTABLEKS R8 R1 K10 ["isUGCBodyBundleType"]
+  JUMPIFNOT R8 [+121]
+  MOVE R9 R6
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K11 ["createElement"]
+  GETUPVAL R11 4
+  DUPTABLE R12 K19 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Size", "Spacing", "VerticalAlignment"}]
+  GETIMPORT R13 K22 [Enum.AutomaticSize.Y]
+  SETTABLEKS R13 R12 K12 ["AutomaticSize"]
+  GETIMPORT R13 K24 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R13 R12 K13 ["HorizontalAlignment"]
+  GETIMPORT R13 K27 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R13 R12 K14 ["Layout"]
+  LOADN R13 255
+  SETTABLEKS R13 R12 K15 ["LayoutOrder"]
+  GETIMPORT R13 K30 [UDim2.fromScale]
+  LOADN R14 1
+  LOADN R15 0
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K16 ["Size"]
+  LOADN R13 8
+  SETTABLEKS R13 R12 K17 ["Spacing"]
+  GETIMPORT R13 K32 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R13 R12 K18 ["VerticalAlignment"]
+  DUPTABLE R13 K35 [{"Icon", "UGCWarningText"}]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K11 ["createElement"]
+  LOADK R15 K36 ["ImageLabel"]
+  DUPTABLE R16 K40 [{"BackgroundTransparency", "Image", "ImageColor3", "LayoutOrder", "Size"}]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K37 ["BackgroundTransparency"]
+  GETUPVAL R18 5
+  GETTABLEKS R17 R18 K41 ["WARNING_ICON"]
+  SETTABLEKS R17 R16 K38 ["Image"]
+  GETTABLEKS R17 R3 K42 ["warningColor"]
+  SETTABLEKS R17 R16 K39 ["ImageColor3"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K15 ["LayoutOrder"]
+  GETIMPORT R17 K44 [UDim2.fromOffset]
+  LOADN R18 22
+  LOADN R19 22
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K16 ["Size"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K33 ["Icon"]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K11 ["createElement"]
+  LOADK R15 K45 ["TextLabel"]
+  DUPTABLE R16 K53 [{"AutomaticSize", "BackgroundTransparency", "Font", "LayoutOrder", "Size", "Text", "TextColor3", "TextSize", "TextWrapped", "TextXAlignment", "TextYAlignment"}]
+  GETIMPORT R17 K22 [Enum.AutomaticSize.Y]
+  SETTABLEKS R17 R16 K12 ["AutomaticSize"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K37 ["BackgroundTransparency"]
+  GETUPVAL R18 6
+  GETTABLEKS R17 R18 K54 ["FONT"]
+  SETTABLEKS R17 R16 K46 ["Font"]
+  LOADN R17 2
+  SETTABLEKS R17 R16 K15 ["LayoutOrder"]
+  GETIMPORT R17 K30 [UDim2.fromScale]
+  LOADN R18 1
+  LOADN R19 0
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K16 ["Size"]
+  SETTABLEKS R5 R16 K47 ["Text"]
+  GETTABLEKS R17 R3 K42 ["warningColor"]
+  SETTABLEKS R17 R16 K48 ["TextColor3"]
+  LOADN R17 22
+  SETTABLEKS R17 R16 K49 ["TextSize"]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K50 ["TextWrapped"]
+  GETIMPORT R17 K55 [Enum.TextXAlignment.Left]
+  SETTABLEKS R17 R16 K51 ["TextXAlignment"]
+  GETIMPORT R17 K57 [Enum.TextYAlignment.Center]
+  SETTABLEKS R17 R16 K52 ["TextYAlignment"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K34 ["UGCWarningText"]
+  CALL R10 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R8 K60 [table.insert]
+  CALL R8 -1 0
+  MOVE R8 R4
+  LOADNIL R9
+  LOADNIL R10
+  FORGPREP R8
+  GETTABLEKS R15 R3 K61 ["validationStyles"]
+  GETTABLEKS R16 R12 K62 ["type"]
+  GETTABLE R14 R15 R16
+  FASTCALL2K ASSERT R14 K63 [+4]
+  LOADK R15 K63 ["No validation style for validation result type"]
+  GETIMPORT R13 K65 [assert]
+  CALL R13 2 1
+  LOADNIL R14
+  GETUPVAL R16 7
+  GETTABLEKS R15 R16 K66 ["AssetTypeRequiresFolderForUpload"]
+  GETTABLEKS R16 R12 K67 ["assetType"]
+  CALL R15 1 1
+  JUMPIFNOT R15 [+9]
+  GETTABLEKS R15 R12 K68 ["instance"]
+  JUMPIFNOT R15 [+4]
+  GETUPVAL R15 8
+  GETTABLEKS R16 R12 K68 ["instance"]
+  CALL R15 1 1
+  MOVE R14 R15
+  JUMP [+29]
+  GETTABLEKS R15 R12 K68 ["instance"]
+  JUMPIFNOT R15 [+25]
+  GETTABLEKS R16 R12 K68 ["instance"]
+  GETIMPORT R17 K70 [Instance.new]
+  LOADK R18 K71 ["Model"]
+  CALL R17 1 1
+  NAMECALL R18 R16 K72 ["Clone"]
+  CALL R18 1 1
+  MOVE R19 R18
+  LOADK R22 K73 ["BasePart"]
+  NAMECALL R20 R19 K74 ["IsA"]
+  CALL R20 2 1
+  JUMPIF R20 [+5]
+  LOADK R22 K73 ["BasePart"]
+  NAMECALL R20 R18 K75 ["FindFirstChildWhichIsA"]
+  CALL R20 2 1
+  MOVE R19 R20
+  SETTABLEKS R19 R17 K76 ["PrimaryPart"]
+  SETTABLEKS R17 R18 K77 ["Parent"]
+  MOVE R15 R17
+  MOVE R14 R15
+  LOADNIL R15
+  GETUPVAL R16 9
+  CALL R16 0 1
+  JUMPIFNOT R16 [+39]
+  GETTABLEKS R16 R12 K67 ["assetType"]
+  JUMPIFNOTEQKNIL R16 [+21]
+  GETUPVAL R16 2
+  CALL R16 0 1
+  JUMPIFNOT R16 [+3]
+  GETTABLEKS R16 R1 K10 ["isUGCBodyBundleType"]
+  JUMPIFNOT R16 [+7]
+  LOADK R18 K6 ["AssetConfig"]
+  LOADK R19 K78 ["ValidationFullBody"]
+  NAMECALL R16 R2 K8 ["getText"]
+  CALL R16 3 1
+  MOVE R15 R16
+  JUMP [+36]
+  LOADK R18 K6 ["AssetConfig"]
+  LOADK R19 K79 ["ValidationShoePair"]
+  NAMECALL R16 R2 K8 ["getText"]
+  CALL R16 3 1
+  MOVE R15 R16
+  JUMP [+29]
+  GETUPVAL R18 10
+  GETTABLEKS R19 R1 K1 ["Localization"]
+  CALL R18 1 1
+  GETTABLEKS R19 R12 K67 ["assetType"]
+  GETTABLE R17 R18 R19
+  FASTCALL2K ASSERT R17 K80 [+4]
+  LOADK R18 K80 ["Couldn't find localized text for asset type"]
+  GETIMPORT R16 K65 [assert]
+  CALL R16 2 1
+  MOVE R15 R16
+  JUMP [+14]
+  GETUPVAL R18 10
+  GETTABLEKS R19 R1 K1 ["Localization"]
+  CALL R18 1 1
+  GETTABLEKS R19 R12 K67 ["assetType"]
+  GETTABLE R17 R18 R19
+  FASTCALL2K ASSERT R17 K80 [+4]
+  LOADK R18 K80 ["Couldn't find localized text for asset type"]
+  GETIMPORT R16 K65 [assert]
+  CALL R16 2 1
+  MOVE R15 R16
+  MOVE R17 R6
+  GETUPVAL R19 3
+  GETTABLEKS R18 R19 K11 ["createElement"]
+  GETUPVAL R19 4
+  DUPTABLE R20 K81 [{"AutomaticSize", "HorizontalAlignment", "Layout", "LayoutOrder", "Size", "Spacing"}]
+  GETIMPORT R21 K22 [Enum.AutomaticSize.Y]
+  SETTABLEKS R21 R20 K12 ["AutomaticSize"]
+  GETIMPORT R21 K24 [Enum.HorizontalAlignment.Left]
+  SETTABLEKS R21 R20 K13 ["HorizontalAlignment"]
+  GETIMPORT R21 K27 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R21 R20 K14 ["Layout"]
+  SETTABLEKS R11 R20 K15 ["LayoutOrder"]
+  GETIMPORT R21 K30 [UDim2.fromScale]
+  LOADN R22 1
+  LOADN R23 0
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K16 ["Size"]
+  LOADN R21 5
+  SETTABLEKS R21 R20 K17 ["Spacing"]
+  DUPTABLE R21 K85 [{"Preview", "AssetName", "ValidationArea"}]
+  GETUPVAL R23 3
+  GETTABLEKS R22 R23 K11 ["createElement"]
+  GETUPVAL R23 4
+  DUPTABLE R24 K87 [{"BackgroundColor", "LayoutOrder", "Size"}]
+  GETTABLEKS R25 R3 K88 ["previewBackgroundColor"]
+  SETTABLEKS R25 R24 K86 ["BackgroundColor"]
+  NAMECALL R25 R7 K89 ["getNextOrder"]
+  CALL R25 1 1
+  SETTABLEKS R25 R24 K15 ["LayoutOrder"]
+  GETIMPORT R25 K44 [UDim2.fromOffset]
+  GETTABLEKS R26 R3 K90 ["previewSize"]
+  GETTABLEKS R27 R3 K90 ["previewSize"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K16 ["Size"]
+  DUPTABLE R25 K93 [{"UICorner", "PreviewModel"}]
+  GETUPVAL R27 3
+  GETTABLEKS R26 R27 K11 ["createElement"]
+  LOADK R27 K91 ["UICorner"]
+  DUPTABLE R28 K95 [{"CornerRadius"}]
+  GETIMPORT R29 K97 [UDim.new]
+  LOADN R30 0
+  LOADN R31 10
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K94 ["CornerRadius"]
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K91 ["UICorner"]
+  GETTABLEKS R27 R12 K68 ["instance"]
+  JUMPIFNOT R27 [+27]
+  GETTABLEKS R27 R14 K76 ["PrimaryPart"]
+  JUMPIFEQKNIL R27 [+24]
+  GETUPVAL R27 3
+  GETTABLEKS R26 R27 K11 ["createElement"]
+  GETUPVAL R27 11
+  DUPTABLE R28 K101 [{"FocusDirection", "Model", "ShouldMuteModelSounds", "Static"}]
+  GETTABLEKS R31 R14 K76 ["PrimaryPart"]
+  GETTABLEKS R30 R31 K102 ["CFrame"]
+  GETTABLEKS R29 R30 K103 ["LookVector"]
+  SETTABLEKS R29 R28 K98 ["FocusDirection"]
+  SETTABLEKS R14 R28 K71 ["Model"]
+  LOADB R29 1
+  SETTABLEKS R29 R28 K99 ["ShouldMuteModelSounds"]
+  LOADB R29 1
+  SETTABLEKS R29 R28 K100 ["Static"]
+  CALL R26 2 1
+  JUMP [+15]
+  GETUPVAL R27 3
+  GETTABLEKS R26 R27 K11 ["createElement"]
+  GETUPVAL R27 12
+  DUPTABLE R28 K104 [{"Image", "ImageColor3"}]
+  GETUPVAL R30 5
+  GETTABLEKS R29 R30 K105 ["PLACEHOLDER_ICON"]
+  SETTABLEKS R29 R28 K38 ["Image"]
+  GETTABLEKS R29 R3 K106 ["placeholderIconColor"]
+  SETTABLEKS R29 R28 K39 ["ImageColor3"]
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K92 ["PreviewModel"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K82 ["Preview"]
+  GETUPVAL R23 3
+  GETTABLEKS R22 R23 K11 ["createElement"]
+  GETUPVAL R23 13
+  DUPTABLE R24 K107 [{"AutomaticSize", "LayoutOrder", "Text", "TextSize", "TextXAlignment"}]
+  GETIMPORT R25 K109 [Enum.AutomaticSize.XY]
+  SETTABLEKS R25 R24 K12 ["AutomaticSize"]
+  NAMECALL R25 R7 K89 ["getNextOrder"]
+  CALL R25 1 1
+  SETTABLEKS R25 R24 K15 ["LayoutOrder"]
+  GETTABLEKS R26 R12 K110 ["required"]
+  JUMPIFNOT R26 [+4]
+  MOVE R26 R15
+  LOADK R27 K111 ["*"]
+  CONCAT R25 R26 R27
+  JUMP [+1]
+  MOVE R25 R15
+  SETTABLEKS R25 R24 K47 ["Text"]
+  GETTABLEKS R25 R3 K112 ["nameTextSize"]
+  SETTABLEKS R25 R24 K49 ["TextSize"]
+  GETIMPORT R25 K55 [Enum.TextXAlignment.Left]
+  SETTABLEKS R25 R24 K51 ["TextXAlignment"]
+  DUPTABLE R25 K114 [{"UISizeConstraint"}]
+  GETUPVAL R27 3
+  GETTABLEKS R26 R27 K11 ["createElement"]
+  LOADK R27 K113 ["UISizeConstraint"]
+  DUPTABLE R28 K116 [{"MinSize"}]
+  GETIMPORT R29 K118 [Vector2.new]
+  GETTABLEKS R30 R3 K119 ["nameMinWidth"]
+  LOADN R31 0
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K115 ["MinSize"]
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K113 ["UISizeConstraint"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K83 ["AssetName"]
+  GETUPVAL R23 3
+  GETTABLEKS R22 R23 K11 ["createElement"]
+  GETUPVAL R23 4
+  DUPTABLE R24 K121 [{"AutomaticSize", "LayoutOrder", "Layout", "OnClick", "Spacing"}]
+  GETIMPORT R25 K109 [Enum.AutomaticSize.XY]
+  SETTABLEKS R25 R24 K12 ["AutomaticSize"]
+  NAMECALL R25 R7 K89 ["getNextOrder"]
+  CALL R25 1 1
+  SETTABLEKS R25 R24 K15 ["LayoutOrder"]
+  GETIMPORT R25 K27 [Enum.FillDirection.Horizontal]
+  SETTABLEKS R25 R24 K14 ["Layout"]
+  GETTABLEKS R26 R12 K62 ["type"]
+  GETUPVAL R28 14
+  GETTABLEKS R27 R28 K122 ["error"]
+  JUMPIFNOTEQ R26 R27 [+4]
+  GETTABLEKS R25 R1 K123 ["onClickError"]
+  JUMP [+1]
+  LOADNIL R25
+  SETTABLEKS R25 R24 K120 ["OnClick"]
+  LOADN R25 5
+  SETTABLEKS R25 R24 K17 ["Spacing"]
+  DUPTABLE R25 K126 [{"ValidationIcon", "ValidationText"}]
+  GETUPVAL R27 3
+  GETTABLEKS R26 R27 K11 ["createElement"]
+  GETUPVAL R27 12
+  DUPTABLE R28 K127 [{"Image", "ImageColor3", "LayoutOrder", "Size"}]
+  GETUPVAL R32 5
+  GETTABLEKS R31 R32 K128 ["UGCValidationStatus"]
+  GETTABLEKS R32 R12 K62 ["type"]
+  GETTABLE R30 R31 R32
+  FASTCALL2K ASSERT R30 K129 [+4]
+  LOADK R31 K129 ["No icon for validation result type"]
+  GETIMPORT R29 K65 [assert]
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K38 ["Image"]
+  GETTABLEKS R29 R13 K130 ["iconColor"]
+  SETTABLEKS R29 R28 K39 ["ImageColor3"]
+  NAMECALL R29 R7 K89 ["getNextOrder"]
+  CALL R29 1 1
+  SETTABLEKS R29 R28 K15 ["LayoutOrder"]
+  GETIMPORT R29 K44 [UDim2.fromOffset]
+  GETTABLEKS R30 R3 K131 ["validationIconSize"]
+  GETTABLEKS R31 R3 K131 ["validationIconSize"]
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K16 ["Size"]
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K124 ["ValidationIcon"]
+  GETUPVAL R27 3
+  GETTABLEKS R26 R27 K11 ["createElement"]
+  GETUPVAL R27 13
+  DUPTABLE R28 K133 [{"AutomaticSize", "LayoutOrder", "Text", "TextColor"}]
+  GETIMPORT R29 K109 [Enum.AutomaticSize.XY]
+  SETTABLEKS R29 R28 K12 ["AutomaticSize"]
+  NAMECALL R29 R7 K89 ["getNextOrder"]
+  CALL R29 1 1
+  SETTABLEKS R29 R28 K15 ["LayoutOrder"]
+  GETTABLEKS R30 R12 K62 ["type"]
+  GETUPVAL R32 14
+  GETTABLEKS R31 R32 K134 ["success"]
+  JUMPIFNOTEQ R30 R31 [+7]
+  LOADK R31 K6 ["AssetConfig"]
+  LOADK R32 K135 ["ValidationSuccess"]
+  NAMECALL R29 R2 K8 ["getText"]
+  CALL R29 3 1
+  JUMP [+49]
+  GETTABLEKS R30 R12 K62 ["type"]
+  GETUPVAL R32 14
+  GETTABLEKS R31 R32 K136 ["pending"]
+  JUMPIFNOTEQ R30 R31 [+7]
+  LOADK R31 K6 ["AssetConfig"]
+  LOADK R32 K137 ["ValidatingInProgress"]
+  NAMECALL R29 R2 K8 ["getText"]
+  CALL R29 3 1
+  JUMP [+36]
+  GETTABLEKS R30 R12 K62 ["type"]
+  GETUPVAL R32 14
+  GETTABLEKS R31 R32 K122 ["error"]
+  JUMPIFNOTEQ R30 R31 [+20]
+  LOADK R31 K6 ["AssetConfig"]
+  GETTABLEKS R34 R12 K138 ["errors"]
+  LENGTH R33 R34
+  JUMPIFNOTEQKN R33 K139 [1] [+3]
+  LOADK R32 K140 ["ValidationErrorSingular"]
+  JUMP [+1]
+  LOADK R32 K141 ["ValidationErrorPlural"]
+  DUPTABLE R33 K143 [{"errorCount"}]
+  GETTABLEKS R35 R12 K138 ["errors"]
+  LENGTH R34 R35
+  SETTABLEKS R34 R33 K142 ["errorCount"]
+  NAMECALL R29 R2 K8 ["getText"]
+  CALL R29 4 1
+  JUMP [+10]
+  GETIMPORT R29 K144 [error]
+  LOADK R31 K145 ["Unknown validation result type \"%*\""]
+  GETTABLEKS R33 R12 K62 ["type"]
+  NAMECALL R31 R31 K146 ["format"]
+  CALL R31 2 1
+  MOVE R30 R31
+  CALL R29 1 1
+  SETTABLEKS R29 R28 K47 ["Text"]
+  GETTABLEKS R29 R13 K147 ["textColor"]
+  SETTABLEKS R29 R28 K132 ["TextColor"]
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K125 ["ValidationText"]
+  CALL R22 3 1
+  SETTABLEKS R22 R21 K84 ["ValidationArea"]
+  CALL R18 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R16 K60 [table.insert]
+  CALL R16 -1 0
+  FORGLOOP R8 2 [-455]
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K11 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K148 [{"AutomaticSize", "Layout", "LayoutOrder", "Size", "Spacing"}]
+  GETIMPORT R11 K22 [Enum.AutomaticSize.Y]
+  SETTABLEKS R11 R10 K12 ["AutomaticSize"]
+  GETIMPORT R11 K150 [Enum.FillDirection.Vertical]
+  SETTABLEKS R11 R10 K14 ["Layout"]
+  GETTABLEKS R11 R1 K15 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K15 ["LayoutOrder"]
+  GETIMPORT R11 K30 [UDim2.fromScale]
+  LOADN R12 1
+  LOADN R13 0
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K16 ["Size"]
+  LOADN R11 18
+  SETTABLEKS R11 R10 K17 ["Spacing"]
+  MOVE R11 R6
+  CALL R8 3 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K10 ["Localization"]
+  GETTABLEKS R4 R5 K11 ["getLocalizedAssetTextMap"]
+  CALL R3 1 1
+  GETTABLEKS R5 R0 K9 ["Src"]
+  GETTABLEKS R4 R5 K12 ["Util"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R4 K13 ["Images"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R4 K14 ["Constants"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R8 R4 K15 ["AssetConfigUtil"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R4 K16 ["Analytics"]
+  GETTABLEKS R9 R10 K16 ["Analytics"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R4 K17 ["AssetConfigConstants"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R11 R4 K18 ["fixUpPreValidation"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R12 R4 K19 ["DebugFlags"]
+  CALL R11 1 1
+  GETTABLEKS R12 R0 K6 ["Packages"]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R14 R12 K20 ["Cryo"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R15 R12 K21 ["UGCValidation"]
+  CALL R14 1 1
+  GETTABLEKS R15 R1 K22 ["UI"]
+  GETTABLEKS R16 R15 K23 ["Image"]
+  GETTABLEKS R17 R15 K24 ["Pane"]
+  GETTABLEKS R18 R15 K25 ["TextLabel"]
+  GETTABLEKS R19 R15 K26 ["AssetRenderModel"]
+  GETIMPORT R20 K5 [require]
+  GETTABLEKS R22 R4 K27 ["SharedFlags"]
+  GETTABLEKS R21 R22 K28 ["getFFlagUGCBundleValidationFullBodyErrors"]
+  CALL R20 1 1
+  GETIMPORT R21 K5 [require]
+  GETTABLEKS R24 R0 K9 ["Src"]
+  GETTABLEKS R23 R24 K29 ["Flags"]
+  GETTABLEKS R22 R23 K30 ["getFFlagEnableUploadingShoes"]
+  CALL R21 1 1
+  GETIMPORT R22 K32 [game]
+  LOADK R24 K33 ["ToolboxFixUGCBundleValidationCryoThingy1"]
+  LOADB R25 0
+  NAMECALL R22 R22 K34 ["DefineFastFlag"]
+  CALL R22 3 1
+  GETIMPORT R23 K32 [game]
+  LOADK R25 K35 ["DisableSubmitButtonForValidationInInit"]
+  LOADB R26 0
+  NAMECALL R23 R23 K34 ["DefineFastFlag"]
+  CALL R23 3 1
+  GETIMPORT R24 K5 [require]
+  GETTABLEKS R26 R4 K27 ["SharedFlags"]
+  GETTABLEKS R25 R26 K36 ["getFFlagEnableUGCBundleUploadBodyScale"]
+  CALL R24 1 1
+  GETIMPORT R25 K5 [require]
+  GETTABLEKS R28 R0 K9 ["Src"]
+  GETTABLEKS R27 R28 K29 ["Flags"]
+  GETTABLEKS R26 R27 K37 ["getFFlagRequireBodyColorsForBodyUpload"]
+  CALL R25 1 1
+  GETTABLEKS R26 R1 K38 ["ContextServices"]
+  GETTABLEKS R27 R26 K39 ["withContext"]
+  GETTABLEKS R29 R1 K12 ["Util"]
+  GETTABLEKS R28 R29 K40 ["LayoutOrderIterator"]
+  GETTABLEKS R31 R0 K9 ["Src"]
+  GETTABLEKS R30 R31 K41 ["Components"]
+  GETTABLEKS R29 R30 K42 ["AssetConfiguration"]
+  GETIMPORT R30 K5 [require]
+  GETTABLEKS R31 R29 K43 ["ValidationStatus"]
+  CALL R30 1 1
+  GETIMPORT R31 K5 [require]
+  GETTABLEKS R33 R4 K27 ["SharedFlags"]
+  GETTABLEKS R32 R33 K44 ["getFFlagEnableUGCUploadFlowAnalytics"]
+  CALL R31 1 1
+  DUPCLOSURE R32 K45 [PROTO_0]
+  DUPCLOSURE R33 K46 [PROTO_1]
+  GETTABLEKS R34 R2 K47 ["PureComponent"]
+  LOADK R36 K48 ["UGCBundleValidation"]
+  NAMECALL R34 R34 K49 ["extend"]
+  CALL R34 2 1
+  DUPCLOSURE R35 K50 [PROTO_4]
+  CAPTURE VAL R31
+  CAPTURE VAL R7
+  CAPTURE VAL R11
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R23
+  SETTABLEKS R35 R34 K51 ["init"]
+  DUPCLOSURE R35 K52 [PROTO_5]
+  SETTABLEKS R35 R34 K53 ["cancelValidationTasks"]
+  DUPCLOSURE R35 K54 [PROTO_11]
+  CAPTURE VAL R31
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R20
+  CAPTURE VAL R3
+  CAPTURE VAL R30
+  CAPTURE VAL R21
+  CAPTURE VAL R14
+  CAPTURE VAL R13
+  CAPTURE VAL R22
+  CAPTURE VAL R24
+  CAPTURE VAL R25
+  SETTABLEKS R35 R34 K55 ["startUGCBundleValidation"]
+  DUPCLOSURE R35 K56 [PROTO_12]
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  SETTABLEKS R35 R34 K57 ["didUpdate"]
+  DUPCLOSURE R35 K58 [PROTO_13]
+  SETTABLEKS R35 R34 K59 ["willUnmount"]
+  DUPCLOSURE R35 K60 [PROTO_14]
+  CAPTURE VAL R13
+  CAPTURE VAL R28
+  CAPTURE VAL R21
+  CAPTURE VAL R2
+  CAPTURE VAL R17
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R32
+  CAPTURE VAL R20
+  CAPTURE VAL R3
+  CAPTURE VAL R19
+  CAPTURE VAL R16
+  CAPTURE VAL R18
+  CAPTURE VAL R30
+  SETTABLEKS R35 R34 K61 ["render"]
+  MOVE R35 R27
+  DUPTABLE R36 K63 [{"Localization", "Stylizer"}]
+  GETTABLEKS R37 R26 K10 ["Localization"]
+  SETTABLEKS R37 R36 K10 ["Localization"]
+  GETTABLEKS R37 R26 K62 ["Stylizer"]
+  SETTABLEKS R37 R36 K62 ["Stylizer"]
+  CALL R35 1 1
+  MOVE R36 R34
+  CALL R35 1 1
+  MOVE R34 R35
+  RETURN R34 1

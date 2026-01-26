@@ -1,0 +1,321 @@
+PROTO_0:
+  DUPTABLE R0 K5 [{"collaborators", "packagePermissions", "assetConfigData", "localUserFriends", "localUserGroups"}]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K0 ["collaborators"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K1 ["packagePermissions"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K6 ["createMockAssetConfig"]
+  GETIMPORT R2 K10 [Enum.CreatorType.User]
+  LOADK R3 K11 [13129171]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K2 ["assetConfigData"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K3 ["localUserFriends"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K4 ["localUserGroups"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K12 ["Store"]
+  GETTABLEKS R1 R2 K13 ["new"]
+  GETUPVAL R2 2
+  MOVE R3 R0
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K14 ["createThunkMiddleware"]
+  CALL R4 0 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  LOADK R3 K2 ["Frame"]
+  DUPTABLE R4 K8 [{"Size", "BackgroundColor3", "BorderMode", "BorderColor3", "BorderSizePixel"}]
+  GETIMPORT R5 K11 [UDim2.new]
+  LOADN R6 1
+  LOADN R7 0
+  LOADN R8 0
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K12 ["controls"]
+  GETTABLEKS R9 R10 K13 ["Height"]
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K3 ["Size"]
+  GETTABLEKS R6 R1 K14 ["assetConfig"]
+  GETTABLEKS R5 R6 K15 ["backgroundColor"]
+  SETTABLEKS R5 R4 K4 ["BackgroundColor3"]
+  GETIMPORT R5 K18 [Enum.BorderMode.Outline]
+  SETTABLEKS R5 R4 K5 ["BorderMode"]
+  GETTABLEKS R5 R1 K19 ["BorderColor"]
+  SETTABLEKS R5 R4 K6 ["BorderColor3"]
+  LOADN R5 5
+  SETTABLEKS R5 R4 K7 ["BorderSizePixel"]
+  NEWTABLE R5 0 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K1 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K21 [{"AssetId", "Size"}]
+  LOADN R9 210
+  SETTABLEKS R9 R8 K20 ["AssetId"]
+  GETIMPORT R9 K23 [UDim2.fromScale]
+  LOADN R10 1
+  LOADN R11 1
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K3 ["Size"]
+  CALL R6 2 -1
+  SETLIST R5 R6 -1 [1]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETIMPORT R1 K2 [Random.new]
+  LOADN R2 0
+  CALL R1 1 1
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  NEWTABLE R5 1 0
+  LOADN R6 210
+  GETTABLEKS R8 R0 K3 ["controls"]
+  GETTABLEKS R7 R8 K4 ["UserPermission"]
+  SETTABLE R7 R5 R6
+  CALL R4 1 -1
+  NAMECALL R2 R2 K5 ["dispatch"]
+  CALL R2 -1 0
+  GETUPVAL R2 0
+  GETUPVAL R4 2
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K6 ["createMockCollaborators"]
+  GETTABLEKS R7 R0 K3 ["controls"]
+  GETTABLEKS R6 R7 K7 ["CollaboratorCount"]
+  MOVE R7 R1
+  CALL R5 2 -1
+  CALL R4 -1 -1
+  NAMECALL R2 R2 K5 ["dispatch"]
+  CALL R2 -1 0
+  GETTABLEKS R3 R0 K3 ["controls"]
+  GETTABLEKS R2 R3 K8 ["Friends"]
+  JUMPIFNOTEQKS R2 K9 ["Loading"] [+10]
+  GETUPVAL R3 0
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K10 ["LoadingLocalUserFriends"]
+  CALL R5 0 -1
+  NAMECALL R3 R3 K5 ["dispatch"]
+  CALL R3 -1 0
+  LOADN R2 0
+  GETUPVAL R3 0
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K11 ["LoadedLocalUserFriends"]
+  LOADB R6 1
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K12 ["createMockCollaboratorsList"]
+  MOVE R8 R2
+  MOVE R9 R1
+  DUPTABLE R10 K14 [{"TypeKey"}]
+  GETUPVAL R12 5
+  GETTABLEKS R11 R12 K15 ["UserSubjectKey"]
+  SETTABLEKS R11 R10 K13 ["TypeKey"]
+  CALL R7 3 -1
+  CALL R5 -1 -1
+  NAMECALL R3 R3 K5 ["dispatch"]
+  CALL R3 -1 0
+  GETUPVAL R3 6
+  CALL R3 0 1
+  JUMPIFNOT R3 [+36]
+  GETTABLEKS R4 R0 K3 ["controls"]
+  GETTABLEKS R3 R4 K16 ["Groups"]
+  JUMPIFNOTEQKS R3 K9 ["Loading"] [+10]
+  GETUPVAL R4 0
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K17 ["LoadingLocalUserGroups"]
+  CALL R6 0 -1
+  NAMECALL R4 R4 K5 ["dispatch"]
+  CALL R4 -1 0
+  LOADN R3 0
+  GETUPVAL R4 0
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K18 ["LoadedLocalUserGroups"]
+  LOADB R7 1
+  GETUPVAL R9 3
+  GETTABLEKS R8 R9 K12 ["createMockCollaboratorsList"]
+  MOVE R9 R3
+  MOVE R10 R1
+  DUPTABLE R11 K14 [{"TypeKey"}]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K19 ["GroupSubjectKey"]
+  SETTABLEKS R12 R11 K13 ["TypeKey"]
+  CALL R8 3 -1
+  CALL R6 -1 -1
+  NAMECALL R4 R4 K5 ["dispatch"]
+  CALL R4 -1 0
+  GETUPVAL R3 0
+  GETUPVAL R5 7
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K20 ["createMockAssetConfig"]
+  GETTABLEKS R8 R0 K3 ["controls"]
+  GETTABLEKS R7 R8 K21 ["OwnerType"]
+  GETTABLEKS R9 R0 K3 ["controls"]
+  GETTABLEKS R8 R9 K22 ["OwnerId"]
+  CALL R6 2 -1
+  CALL R5 -1 -1
+  NAMECALL R3 R3 K5 ["dispatch"]
+  CALL R3 -1 0
+  GETUPVAL R4 8
+  GETTABLEKS R3 R4 K23 ["createElement"]
+  GETUPVAL R4 9
+  DUPTABLE R5 K25 [{"store"}]
+  GETUPVAL R6 0
+  SETTABLEKS R6 R5 K24 ["store"]
+  GETUPVAL R7 8
+  GETTABLEKS R6 R7 K23 ["createElement"]
+  GETUPVAL R7 10
+  NEWTABLE R8 0 0
+  NEWTABLE R9 0 1
+  GETUPVAL R11 8
+  GETTABLEKS R10 R11 K23 ["createElement"]
+  NEWCLOSURE R11 P0
+  CAPTURE UPVAL U11
+  CAPTURE UPVAL U8
+  CAPTURE VAL R0
+  CAPTURE UPVAL U12
+  CALL R10 1 -1
+  SETLIST R9 R10 -1 [1]
+  CALL R6 3 -1
+  CALL R3 -1 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Toolbox"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Packages"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["Rodux"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K9 ["Framework"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K10 ["TestUtils"]
+  GETTABLEKS R6 R7 K11 ["CoreTestUtils"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R9 R0 K12 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Reducers"]
+  GETTABLEKS R7 R8 K14 ["AssetConfigReducer"]
+  CALL R6 1 1
+  GETTABLEKS R7 R4 K15 ["ContextServices"]
+  GETTABLEKS R8 R7 K16 ["Stylizer"]
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K17 ["Stories"]
+  GETTABLEKS R10 R11 K18 ["ToolboxStoryWrapper"]
+  CALL R9 1 1
+  GETIMPORT R11 K1 [script]
+  GETTABLEKS R10 R11 K19 ["Parent"]
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R12 R10 K20 ["PermissionsPage"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R13 R10 K21 ["PermissionsConstants"]
+  CALL R12 1 1
+  GETIMPORT R13 K6 [require]
+  GETTABLEKS R14 R10 K22 ["PermissionsMock"]
+  CALL R13 1 1
+  GETIMPORT R14 K6 [require]
+  GETTABLEKS R15 R10 K23 ["CollaboratorInfoContextMock"]
+  CALL R14 1 1
+  GETTABLEKS R16 R0 K12 ["Src"]
+  GETTABLEKS R15 R16 K24 ["Actions"]
+  GETIMPORT R16 K6 [require]
+  GETTABLEKS R17 R15 K25 ["SetPackagePermission"]
+  CALL R16 1 1
+  GETIMPORT R17 K6 [require]
+  GETTABLEKS R18 R15 K26 ["SetCollaborators"]
+  CALL R17 1 1
+  GETIMPORT R18 K6 [require]
+  GETTABLEKS R19 R15 K27 ["CollaboratorSearchActions"]
+  CALL R18 1 1
+  GETIMPORT R19 K6 [require]
+  GETTABLEKS R20 R15 K28 ["UpdateAssetConfigData"]
+  CALL R19 1 1
+  GETIMPORT R20 K6 [require]
+  GETTABLEKS R23 R0 K12 ["Src"]
+  GETTABLEKS R22 R23 K29 ["Flags"]
+  GETTABLEKS R21 R22 K30 ["getFFlagAACAddGroups"]
+  CALL R20 1 1
+  DUPCLOSURE R21 K31 [PROTO_0]
+  CAPTURE VAL R13
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  MOVE R22 R21
+  CALL R22 0 1
+  DUPTABLE R23 K35 [{"summary", "controls", "story"}]
+  LOADK R24 K36 ["This component displays the owner of an asset and manages the collaborators with access.
+Note that collaborators in this list are randomly generated, but show real user/group thumbnails."]
+  SETTABLEKS R24 R23 K32 ["summary"]
+  DUPTABLE R24 K44 [{"OwnerType", "OwnerId", "UserPermission", "CollaboratorCount", "Friends", "Groups", "Height"}]
+  GETIMPORT R25 K47 [Enum.CreatorType]
+  NAMECALL R25 R25 K48 ["GetEnumItems"]
+  CALL R25 1 1
+  SETTABLEKS R25 R24 K37 ["OwnerType"]
+  LOADK R25 K49 [13129171]
+  SETTABLEKS R25 R24 K38 ["OwnerId"]
+  NEWTABLE R25 0 3
+  GETTABLEKS R26 R12 K50 ["OwnKey"]
+  GETTABLEKS R27 R12 K51 ["EditKey"]
+  GETTABLEKS R28 R12 K52 ["UseViewKey"]
+  SETLIST R25 R26 3 [1]
+  SETTABLEKS R25 R24 K39 ["UserPermission"]
+  NEWTABLE R25 0 6
+  LOADN R26 8
+  LOADN R27 0
+  LOADN R28 5
+  LOADN R29 12
+  LOADN R30 20
+  LOADN R31 100
+  SETLIST R25 R26 6 [1]
+  SETTABLEKS R25 R24 K40 ["CollaboratorCount"]
+  NEWTABLE R25 0 4
+  LOADN R26 5
+  LOADN R27 0
+  LOADN R28 15
+  LOADK R29 K53 ["Loading"]
+  SETLIST R25 R26 4 [1]
+  SETTABLEKS R25 R24 K41 ["Friends"]
+  MOVE R26 R20
+  CALL R26 0 1
+  JUMPIFNOT R26 [+9]
+  NEWTABLE R25 0 4
+  LOADN R26 5
+  LOADN R27 0
+  LOADN R28 15
+  LOADK R29 K53 ["Loading"]
+  SETLIST R25 R26 4 [1]
+  JUMP [+1]
+  LOADNIL R25
+  SETTABLEKS R25 R24 K42 ["Groups"]
+  LOADN R25 244
+  SETTABLEKS R25 R24 K43 ["Height"]
+  SETTABLEKS R24 R23 K33 ["controls"]
+  DUPCLOSURE R24 K54 [PROTO_2]
+  CAPTURE VAL R22
+  CAPTURE VAL R16
+  CAPTURE VAL R17
+  CAPTURE VAL R13
+  CAPTURE VAL R18
+  CAPTURE VAL R12
+  CAPTURE VAL R20
+  CAPTURE VAL R19
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  CAPTURE VAL R14
+  CAPTURE VAL R8
+  CAPTURE VAL R11
+  SETTABLEKS R24 R23 K34 ["story"]
+  RETURN R23 1

@@ -34,7 +34,7 @@ MAIN:
   GETTABLEKS R3 R1 K7 ["Roact"]
   CALL R2 1 1
   GETIMPORT R3 K6 [require]
-  GETTABLEKS R7 R0 K8 ["Core"]
+  GETTABLEKS R7 R0 K8 ["Src"]
   GETTABLEKS R6 R7 K9 ["Components"]
   GETTABLEKS R5 R6 K10 ["CategoryDropDown"]
   GETTABLEKS R4 R5 K10 ["CategoryDropDown"]

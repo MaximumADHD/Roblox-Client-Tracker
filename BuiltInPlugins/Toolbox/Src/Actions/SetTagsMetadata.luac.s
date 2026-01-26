@@ -1,0 +1,34 @@
+PROTO_0:
+  DUPTABLE R3 K3 [{"isItemTagsFeatureEnabled", "enabledAssetTypesForItemTags", "maximumItemTagsPerItem"}]
+  SETTABLEKS R0 R3 K0 ["isItemTagsFeatureEnabled"]
+  SETTABLEKS R1 R3 K1 ["enabledAssetTypesForItemTags"]
+  SETTABLEKS R2 R3 K2 ["maximumItemTagsPerItem"]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K3 ["Packages"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R1 K6 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K7 ["Util"]
+  GETTABLEKS R3 R2 K8 ["Action"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Src"]
+  GETTABLEKS R6 R7 K10 ["Flags"]
+  GETTABLEKS R5 R6 K11 ["getFFlagRemoveItemTags"]
+  CALL R4 1 1
+  MOVE R5 R4
+  CALL R5 0 1
+  JUMPIF R5 [+8]
+  MOVE R5 R3
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K12 ["Name"]
+  DUPCLOSURE R7 K13 [PROTO_0]
+  CALL R5 2 -1
+  RETURN R5 -1
+  RETURN R0 0

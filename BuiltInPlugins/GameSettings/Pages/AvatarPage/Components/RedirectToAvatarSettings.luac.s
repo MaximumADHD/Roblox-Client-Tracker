@@ -1,65 +1,59 @@
 PROTO_0:
-  GETUPVAL R2 0
-  CALL R2 0 1
-  FASTCALL2K ASSERT R2 K0 [+4]
-  LOADK R3 K0 ["Invalid flag state"]
-  GETIMPORT R1 K2 [assert]
-  CALL R1 2 0
-  GETTABLEKS R1 R0 K3 ["props"]
-  GETTABLEKS R2 R1 K4 ["Stylizer"]
-  GETTABLEKS R3 R1 K5 ["Localization"]
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R2 R1 K1 ["Stylizer"]
+  GETTABLEKS R3 R1 K2 ["Localization"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["createElement"]
   GETUPVAL R5 1
-  GETTABLEKS R4 R5 K6 ["createElement"]
-  GETUPVAL R5 2
   NEWTABLE R6 0 0
-  DUPTABLE R7 K8 [{"Label"}]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K6 ["createElement"]
-  LOADK R9 K9 ["TextLabel"]
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K10 ["Dictionary"]
-  GETTABLEKS R10 R11 K11 ["join"]
-  GETTABLEKS R12 R2 K12 ["fontStyle"]
-  GETTABLEKS R11 R12 K13 ["Normal"]
-  DUPTABLE R12 K18 [{"LayoutOrder", "Text", "Size", "BackgroundTransparency"}]
+  DUPTABLE R7 K5 [{"Label"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  LOADK R9 K6 ["TextLabel"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K7 ["Dictionary"]
+  GETTABLEKS R10 R11 K8 ["join"]
+  GETTABLEKS R12 R2 K9 ["fontStyle"]
+  GETTABLEKS R11 R12 K10 ["Normal"]
+  DUPTABLE R12 K15 [{"LayoutOrder", "Text", "Size", "BackgroundTransparency"}]
   LOADN R13 1
-  SETTABLEKS R13 R12 K14 ["LayoutOrder"]
-  LOADK R15 K19 ["General"]
-  LOADK R16 K20 ["MovedToAvatarSettingsPanel"]
-  NAMECALL R13 R3 K21 ["getText"]
+  SETTABLEKS R13 R12 K11 ["LayoutOrder"]
+  LOADK R15 K16 ["General"]
+  LOADK R16 K17 ["MovedToAvatarSettingsPanel"]
+  NAMECALL R13 R3 K18 ["getText"]
   CALL R13 3 1
-  SETTABLEKS R13 R12 K15 ["Text"]
-  GETIMPORT R13 K24 [UDim2.fromScale]
+  SETTABLEKS R13 R12 K12 ["Text"]
+  GETIMPORT R13 K21 [UDim2.fromScale]
   LOADN R14 1
   LOADN R15 1
   CALL R13 2 1
-  SETTABLEKS R13 R12 K16 ["Size"]
+  SETTABLEKS R13 R12 K13 ["Size"]
   LOADN R13 1
-  SETTABLEKS R13 R12 K17 ["BackgroundTransparency"]
+  SETTABLEKS R13 R12 K14 ["BackgroundTransparency"]
   CALL R10 2 1
-  DUPTABLE R11 K26 [{"Padding"}]
-  GETUPVAL R13 1
-  GETTABLEKS R12 R13 K6 ["createElement"]
-  LOADK R13 K27 ["UIPadding"]
-  DUPTABLE R14 K30 [{"PaddingLeft", "PaddingRight"}]
-  GETIMPORT R15 K33 [UDim.new]
+  DUPTABLE R11 K23 [{"Padding"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  LOADK R13 K24 ["UIPadding"]
+  DUPTABLE R14 K27 [{"PaddingLeft", "PaddingRight"}]
+  GETIMPORT R15 K30 [UDim.new]
   LOADN R16 0
-  GETTABLEKS R19 R2 K35 ["settingsPage"]
-  GETTABLEKS R18 R19 K36 ["failLabelPaddingX"]
-  DIVK R17 R18 K34 [2]
+  GETTABLEKS R19 R2 K32 ["settingsPage"]
+  GETTABLEKS R18 R19 K33 ["failLabelPaddingX"]
+  DIVK R17 R18 K31 [2]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K28 ["PaddingLeft"]
-  GETIMPORT R15 K33 [UDim.new]
+  SETTABLEKS R15 R14 K25 ["PaddingLeft"]
+  GETIMPORT R15 K30 [UDim.new]
   LOADN R16 0
-  GETTABLEKS R19 R2 K35 ["settingsPage"]
-  GETTABLEKS R18 R19 K36 ["failLabelPaddingX"]
-  DIVK R17 R18 K34 [2]
+  GETTABLEKS R19 R2 K32 ["settingsPage"]
+  GETTABLEKS R18 R19 K33 ["failLabelPaddingX"]
+  DIVK R17 R18 K31 [2]
   CALL R15 2 1
-  SETTABLEKS R15 R14 K29 ["PaddingRight"]
+  SETTABLEKS R15 R14 K26 ["PaddingRight"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K25 ["Padding"]
+  SETTABLEKS R12 R11 K22 ["Padding"]
   CALL R8 3 1
-  SETTABLEKS R8 R7 K7 ["Label"]
+  SETTABLEKS R8 R7 K4 ["Label"]
   CALL R4 3 -1
   RETURN R4 -1
 
@@ -91,25 +85,19 @@ MAIN:
   GETTABLEKS R10 R11 K14 ["Name"]
   NAMECALL R8 R8 K15 ["extend"]
   CALL R8 2 1
-  GETIMPORT R9 K4 [require]
-  GETTABLEKS R12 R0 K16 ["Src"]
-  GETTABLEKS R11 R12 K17 ["Flags"]
-  GETTABLEKS R10 R11 K18 ["getFFlagEnableAvatarSettings"]
-  CALL R9 1 1
-  DUPCLOSURE R10 K19 [PROTO_0]
-  CAPTURE VAL R9
+  DUPCLOSURE R9 K16 [PROTO_0]
   CAPTURE VAL R1
   CAPTURE VAL R7
   CAPTURE VAL R2
-  SETTABLEKS R10 R8 K20 ["render"]
-  MOVE R10 R5
-  DUPTABLE R11 K23 [{"Stylizer", "Localization"}]
-  GETTABLEKS R12 R4 K21 ["Stylizer"]
-  SETTABLEKS R12 R11 K21 ["Stylizer"]
-  GETTABLEKS R12 R4 K22 ["Localization"]
-  SETTABLEKS R12 R11 K22 ["Localization"]
-  CALL R10 1 1
-  MOVE R11 R8
-  CALL R10 1 1
-  MOVE R8 R10
+  SETTABLEKS R9 R8 K17 ["render"]
+  MOVE R9 R5
+  DUPTABLE R10 K20 [{"Stylizer", "Localization"}]
+  GETTABLEKS R11 R4 K18 ["Stylizer"]
+  SETTABLEKS R11 R10 K18 ["Stylizer"]
+  GETTABLEKS R11 R4 K19 ["Localization"]
+  SETTABLEKS R11 R10 K19 ["Localization"]
+  CALL R9 1 1
+  MOVE R10 R8
+  CALL R9 1 1
+  MOVE R8 R9
   RETURN R8 1

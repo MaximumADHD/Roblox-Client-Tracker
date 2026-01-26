@@ -56,7 +56,7 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Core"]
+  GETTABLEKS R5 R0 K6 ["Src"]
   GETTABLEKS R4 R5 K7 ["Components"]
   GETTABLEKS R3 R4 K8 ["AssetRow"]
   GETTABLEKS R2 R3 K9 ["AssetRowExpandedContent"]

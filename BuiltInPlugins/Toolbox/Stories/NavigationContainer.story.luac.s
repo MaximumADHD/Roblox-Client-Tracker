@@ -22,7 +22,7 @@ MAIN:
   GETTABLEKS R3 R1 K6 ["Roact"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R7 R0 K7 ["Core"]
+  GETTABLEKS R7 R0 K7 ["Src"]
   GETTABLEKS R6 R7 K8 ["Components"]
   GETTABLEKS R5 R6 K9 ["Home"]
   GETTABLEKS R4 R5 K10 ["NavigationContainer"]
