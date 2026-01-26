@@ -35593,10 +35593,7 @@
             ],
             "MemoryCategory": "BaseParts",
             "Name": "AnimationConstraint",
-            "Superclass": "Constraint",
-            "Tags": [
-                "NotBrowsable"
-            ]
+            "Superclass": "Constraint"
         },
         {
             "Members": [
