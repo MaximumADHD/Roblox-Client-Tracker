@@ -44331,7 +44331,6 @@ OnServerEvent
 OnServerInvoke
 OnServerReceivingMessage
 OnSharePromptFinished
-OnShutdown
 OnSignalingChange
 OnSignatureHelpResponse
 OnSRVQueryDoneLocked
@@ -53100,6 +53099,7 @@ ReportJoinStructureMismatchOnly
 ReportJoinStructureMismatchThrottle
 ReportJSONEncodeFailure
 ReportKeyringVersionBeingUsed
+ReportLagThrottleHundredThousandths
 ReportLargePacketQueueSizeHundredthsPercentage
 ReportLargeReplicatorDetailedHundredths
 ReportLargeReplicatorStatsToReplicatorStats
@@ -53187,6 +53187,7 @@ ReportRecordingDeviceInfoRateHundredthsPercentage
 ReportRecordingUnderrunHundredthsPercentage
 ReportReplicateDestroySetting
 ReportReplicateDestroySettingInfluxHundredthsPercentage
+ReportReplicatorEarl
 ReportReplicatorEarlyStatsToInfluxHundredthsPercent
 ReportReplicatorSessionSummaryStatsToInfluxHundredthsPercent
 ReportReplicatorStatsToInfluxHundredthsPercent
@@ -72006,6 +72007,7 @@ VAudioSearchParams
 VAudioSourceInterface
 VAudioSpeechToText
 VAudioState
+VAudioTextT
 VAudioTextToSpeech
 VAudioTrack
 VAudioTrackInterface

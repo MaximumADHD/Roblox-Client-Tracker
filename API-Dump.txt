@@ -1830,7 +1830,7 @@ Class AngularVelocity : Constraint
 	Property AngularVelocity.MaxTorque: number {🛠️Physics}
 	Property AngularVelocity.ReactionTorqueEnabled: boolean {🛠️Physics}
 	Property AngularVelocity.RelativeTo: Enum.ActuatorRelativeTo {🛠️Physics}
-Class AnimationConstraint : Constraint [NotBrowsable]
+Class AnimationConstraint : Constraint
 	Property AnimationConstraint.MaxForce: number {🛠️Animation | Physics}
 	Property AnimationConstraint.MaxTorque: number {🛠️Animation | Physics}
 	Property AnimationConstraint.IsKinematic: boolean {🛠️Animation | Physics}
@@ -6717,11 +6717,11 @@ Class StarterPlayer : Instance [NotCreatable] [Service]
 	Property StarterPlayer.DevCameraOcclusionMode: Enum.DevCameraOcclusionMode {🛠️Players}
 	Property StarterPlayer.DevComputerCameraMovementMode: Enum.DevComputerCameraMovementMode {🛠️Players}
 	Property StarterPlayer.DevTouchCameraMovementMode: Enum.DevTouchCameraMovementMode {🛠️Players}
-	Property StarterPlayer.AvatarJointUpgrade: Enum.RolloutState {🛠️Players} [NotReplicated] [NotScriptable] [NotBrowsable]
+	Property StarterPlayer.AvatarJointUpgrade: Enum.RolloutState {🛠️Players} [NotReplicated] [NotScriptable]
 	Property StarterPlayer.CharacterBreakJointsOnDeath: boolean {🛠️Players}
 	Property StarterPlayer.CharacterMaxSlopeAngle: number {🛠️Players}
 	Property StarterPlayer.CharacterWalkSpeed: number {🛠️Players}
-	Property StarterPlayer.ClassicDeath: boolean {🛠️Players} [NotBrowsable]
+	Property StarterPlayer.ClassicDeath: boolean {🛠️Players}
 	Property StarterPlayer.EnableDynamicHeads: Enum.LoadDynamicHeads {🛠️Players} [NotScriptable]
 	Property StarterPlayer.LoadCharacterAppearance: boolean {🛠️Players}
 	Property StarterPlayer.LoadCharacterLayeredClothing : Enum.LoadCharacterLayeredClothing {🛠️Players} [NotReplicated] [NotScriptable]
