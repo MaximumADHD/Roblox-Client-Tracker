@@ -14,6 +14,7 @@ export type BadgeDetailsPageRequest = badge_details_page.BadgeDetailsPageRequest
 export type BadgeDetailsPageResponse = badge_details_page.BadgeDetailsPageResponse
 export type BadgeDetailsPageEntry = badge_details_page.BadgeDetailsPageEntry
 export type BadgeDetailsContent = badge_details_page.BadgeDetailsContent
+export type BadgeDetailsContent_ShareLinkData = badge_details_page.BadgeDetailsContent_ShareLinkData
 export type BadgesSeeAllRequest = badges_see_all.BadgesSeeAllRequest
 export type Pagination = badges_see_all.Pagination
 export type BadgesGridPageEntry = badges_see_all.BadgesGridPageEntry

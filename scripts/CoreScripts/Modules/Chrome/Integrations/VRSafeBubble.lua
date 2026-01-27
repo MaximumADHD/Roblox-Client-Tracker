@@ -1,11 +1,9 @@
 local Chrome = script:FindFirstAncestor("Chrome")
 local CorePackages = game:GetService("CorePackages")
 local AnalyticsService = game:GetService("RbxAnalyticsService")
-local CoreGui = game:GetService("CoreGui")
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local VRHub = require(RobloxGui.Modules.VR.VRHub)
+local VRHub = require(CorePackages.Workspace.Packages.VrCommon).VRHub
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal
 local ChromeService = require(Chrome.Service)

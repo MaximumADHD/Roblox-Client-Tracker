@@ -286,7 +286,7 @@ function ValidationHints.calculateScaleToValidateBoundsAsync(
 
 	-- first we get the bounds data for each part
 	local partsMetricsSuccess, partsMetricsErrors, allPartsMetricsOpt =
-		BoundsCalculator.calculateIndividualFullBodyPartsData(allBodyData, validationContext, dataCache)
+		BoundsCalculator.calculateIndividualFullBodyPartsData(allBodyData, validationContext, dataCache, true)
 	if not partsMetricsSuccess then
 		return {
 			ok = false,

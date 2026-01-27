@@ -31,6 +31,12 @@ type _Messages = {
 	OpenBadgeDetailsAction_Params: _OpenBadgeDetailsAction_ParamsMessage,
 	LoadMoreFromApiAction: _LoadMoreFromApiActionMessage,
 	LoadMoreFromApiAction_Params: _LoadMoreFromApiAction_ParamsMessage,
+	ShareAction: _ShareActionMessage,
+	ShareAction_Params: _ShareAction_ParamsMessage,
+	OpenAbuseReportAction: _OpenAbuseReportActionMessage,
+	OpenAbuseReportAction_Params: _OpenAbuseReportAction_ParamsMessage,
+	RemoveBadgeFromInventoryAction: _RemoveBadgeFromInventoryActionMessage,
+	RemoveBadgeFromInventoryAction_Params: _RemoveBadgeFromInventoryAction_ParamsMessage,
 	Action: _ActionMessage,
 	ActionProp: _ActionPropMessage,
 	ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -679,6 +685,171 @@ type _LoadMoreFromApiAction_ParamsMessage = proto.Message<
 	_LoadMoreFromApiAction_ParamsPartialFields
 >
 
+type _ShareActionImpl = {
+	__index: _ShareActionImpl,
+	new: (fields: _ShareActionPartialFields?) -> ShareAction,
+	encode: (self: ShareAction) -> buffer,
+	decode: (input: buffer) -> ShareAction,
+	jsonEncode: (self: ShareAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ShareAction,
+	descriptor: proto.Descriptor,
+}
+
+type _ShareActionFields = {
+	action_type: ActionType,
+	action_params: ShareAction_Params?,
+}
+
+type _ShareActionPartialFields = {
+	action_type: ActionType?,
+	action_params: ShareAction_Params?,
+}
+
+export type ShareAction = typeof(setmetatable({} :: _ShareActionFields, {} :: _ShareActionImpl))
+type _ShareActionMessage = proto.Message<ShareAction, _ShareActionPartialFields>
+
+type _ShareAction_ParamsImpl = {
+	__index: _ShareAction_ParamsImpl,
+	new: (fields: _ShareAction_ParamsPartialFields?) -> ShareAction_Params,
+	encode: (self: ShareAction_Params) -> buffer,
+	decode: (input: buffer) -> ShareAction_Params,
+	jsonEncode: (self: ShareAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ShareAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _ShareAction_ParamsFields = {
+	share_link_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	share_link_data: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+	sdk_share_context: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	analytics_context: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _ShareAction_ParamsPartialFields = {
+	share_link_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	share_link_data: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
+	sdk_share_context: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	analytics_context: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type ShareAction_Params = typeof(setmetatable({} :: _ShareAction_ParamsFields, {} :: _ShareAction_ParamsImpl))
+type _ShareAction_ParamsMessage = proto.Message<ShareAction_Params, _ShareAction_ParamsPartialFields>
+
+type _OpenAbuseReportActionImpl = {
+	__index: _OpenAbuseReportActionImpl,
+	new: (fields: _OpenAbuseReportActionPartialFields?) -> OpenAbuseReportAction,
+	encode: (self: OpenAbuseReportAction) -> buffer,
+	decode: (input: buffer) -> OpenAbuseReportAction,
+	jsonEncode: (self: OpenAbuseReportAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenAbuseReportAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenAbuseReportActionFields = {
+	action_type: ActionType,
+	action_params: OpenAbuseReportAction_Params?,
+}
+
+type _OpenAbuseReportActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenAbuseReportAction_Params?,
+}
+
+export type OpenAbuseReportAction = typeof(setmetatable(
+	{} :: _OpenAbuseReportActionFields,
+	{} :: _OpenAbuseReportActionImpl
+))
+type _OpenAbuseReportActionMessage = proto.Message<OpenAbuseReportAction, _OpenAbuseReportActionPartialFields>
+
+type _OpenAbuseReportAction_ParamsImpl = {
+	__index: _OpenAbuseReportAction_ParamsImpl,
+	new: (fields: _OpenAbuseReportAction_ParamsPartialFields?) -> OpenAbuseReportAction_Params,
+	encode: (self: OpenAbuseReportAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenAbuseReportAction_Params,
+	jsonEncode: (self: OpenAbuseReportAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenAbuseReportAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenAbuseReportAction_ParamsFields = {
+	target_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	abuse_vector: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	asset_type_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenAbuseReportAction_ParamsPartialFields = {
+	target_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	abuse_vector: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	asset_type_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	universe_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenAbuseReportAction_Params = typeof(setmetatable(
+	{} :: _OpenAbuseReportAction_ParamsFields,
+	{} :: _OpenAbuseReportAction_ParamsImpl
+))
+type _OpenAbuseReportAction_ParamsMessage = proto.Message<
+	OpenAbuseReportAction_Params,
+	_OpenAbuseReportAction_ParamsPartialFields
+>
+
+type _RemoveBadgeFromInventoryActionImpl = {
+	__index: _RemoveBadgeFromInventoryActionImpl,
+	new: (fields: _RemoveBadgeFromInventoryActionPartialFields?) -> RemoveBadgeFromInventoryAction,
+	encode: (self: RemoveBadgeFromInventoryAction) -> buffer,
+	decode: (input: buffer) -> RemoveBadgeFromInventoryAction,
+	jsonEncode: (self: RemoveBadgeFromInventoryAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RemoveBadgeFromInventoryAction,
+	descriptor: proto.Descriptor,
+}
+
+type _RemoveBadgeFromInventoryActionFields = {
+	action_type: ActionType,
+	action_params: RemoveBadgeFromInventoryAction_Params?,
+}
+
+type _RemoveBadgeFromInventoryActionPartialFields = {
+	action_type: ActionType?,
+	action_params: RemoveBadgeFromInventoryAction_Params?,
+}
+
+export type RemoveBadgeFromInventoryAction = typeof(setmetatable(
+	{} :: _RemoveBadgeFromInventoryActionFields,
+	{} :: _RemoveBadgeFromInventoryActionImpl
+))
+type _RemoveBadgeFromInventoryActionMessage = proto.Message<
+	RemoveBadgeFromInventoryAction,
+	_RemoveBadgeFromInventoryActionPartialFields
+>
+
+type _RemoveBadgeFromInventoryAction_ParamsImpl = {
+	__index: _RemoveBadgeFromInventoryAction_ParamsImpl,
+	new: (fields: _RemoveBadgeFromInventoryAction_ParamsPartialFields?) -> RemoveBadgeFromInventoryAction_Params,
+	encode: (self: RemoveBadgeFromInventoryAction_Params) -> buffer,
+	decode: (input: buffer) -> RemoveBadgeFromInventoryAction_Params,
+	jsonEncode: (self: RemoveBadgeFromInventoryAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> RemoveBadgeFromInventoryAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _RemoveBadgeFromInventoryAction_ParamsFields = {
+	asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _RemoveBadgeFromInventoryAction_ParamsPartialFields = {
+	asset_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type RemoveBadgeFromInventoryAction_Params = typeof(setmetatable(
+	{} :: _RemoveBadgeFromInventoryAction_ParamsFields,
+	{} :: _RemoveBadgeFromInventoryAction_ParamsImpl
+))
+type _RemoveBadgeFromInventoryAction_ParamsMessage = proto.Message<
+	RemoveBadgeFromInventoryAction_Params,
+	_RemoveBadgeFromInventoryAction_ParamsPartialFields
+>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -703,6 +874,9 @@ type _ActionFields = {
 		| { type: "open_tooltip_action", value: OpenTooltipAction }
 		| { type: "open_badge_details_action", value: OpenBadgeDetailsAction }
 		| { type: "load_more_from_api_action", value: LoadMoreFromApiAction }
+		| { type: "share_action", value: ShareAction }
+		| { type: "open_abuse_report_action", value: OpenAbuseReportAction }
+		| { type: "remove_badge_from_inventory_action", value: RemoveBadgeFromInventoryAction }
 	)?,
 }
 
@@ -720,6 +894,9 @@ type _ActionPartialFields = {
 		| { type: "open_tooltip_action", value: OpenTooltipAction }
 		| { type: "open_badge_details_action", value: OpenBadgeDetailsAction }
 		| { type: "load_more_from_api_action", value: LoadMoreFromApiAction }
+		| { type: "share_action", value: ShareAction }
+		| { type: "open_abuse_report_action", value: OpenAbuseReportAction }
+		| { type: "remove_badge_from_inventory_action", value: RemoveBadgeFromInventoryAction }
 	)?,
 }
 
@@ -992,6 +1169,9 @@ export type ActionType =
 	| "ACTION_TYPE_OPEN_TOOLTIP"
 	| "ACTION_TYPE_OPEN_BADGE_DETAILS"
 	| "ACTION_TYPE_LOAD_MORE_FROM_API"
+	| "ACTION_TYPE_SHARE"
+	| "ACTION_TYPE_OPEN_ABUSE_REPORT"
+	| "ACTION_TYPE_REMOVE_BADGE_FROM_INVENTORY"
 	| number -- Unknown
 
 do
@@ -4186,6 +4366,912 @@ do
 end
 
 do
+	local _ShareActionImpl = {}
+	_ShareActionImpl.__index = _ShareActionImpl
+
+	function _ShareActionImpl.new(data: _ShareActionPartialFields?): ShareAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _ShareActionImpl :: _ShareActionImpl)
+	end
+
+	function _ShareActionImpl.encode(self: ShareAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ShareActionImpl.decode(input: buffer): ShareAction
+		local self = _ShareActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.ShareAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ShareActionImpl.jsonEncode(self: ShareAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ShareActionImpl.jsonDecode(input: { [string]: any }): ShareAction
+		local self = _ShareActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.ShareAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.ShareAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_ShareActionImpl.descriptor = {
+		name = "ShareAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ShareAction",
+	}
+
+	messages.ShareAction = _ShareActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ShareAction)
+end
+
+do
+	local _ShareAction_ParamsImpl = {}
+	_ShareAction_ParamsImpl.__index = _ShareAction_ParamsImpl
+
+	function _ShareAction_ParamsImpl.new(data: _ShareAction_ParamsPartialFields?): ShareAction_Params
+		return setmetatable({
+			share_link_type = if data == nil or data.share_link_type == nil then nil else data.share_link_type,
+			share_link_data = if data == nil or data.share_link_data == nil then nil else data.share_link_data,
+			sdk_share_context = if data == nil or data.sdk_share_context == nil then nil else data.sdk_share_context,
+			analytics_context = if data == nil or data.analytics_context == nil then nil else data.analytics_context,
+		}, _ShareAction_ParamsImpl :: _ShareAction_ParamsImpl)
+	end
+
+	function _ShareAction_ParamsImpl.encode(self: ShareAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.share_link_type ~= nil then
+			local encoded = self.share_link_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.share_link_data ~= nil then
+			local encoded = self.share_link_data:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.sdk_share_context ~= nil then
+			local encoded = self.sdk_share_context:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.analytics_context ~= nil then
+			local encoded = self.analytics_context:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ShareAction_ParamsImpl.decode(input: buffer): ShareAction_Params
+		local self = _ShareAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.share_link_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.share_link_data = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.sdk_share_context = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.analytics_context = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ShareAction_ParamsImpl.jsonEncode(self: ShareAction_Params): any
+		local output = {}
+
+		if self.share_link_type ~= nil then
+			output.shareLinkType = self.share_link_type:jsonEncode()
+		end
+
+		if self.share_link_data ~= nil then
+			output.shareLinkData = self.share_link_data:jsonEncode()
+		end
+
+		if self.sdk_share_context ~= nil then
+			output.sdkShareContext = self.sdk_share_context:jsonEncode()
+		end
+
+		if self.analytics_context ~= nil then
+			output.analyticsContext = self.analytics_context:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _ShareAction_ParamsImpl.jsonDecode(input: { [string]: any }): ShareAction_Params
+		local self = _ShareAction_ParamsImpl.new()
+
+		if input.share_link_type ~= nil then
+			self.share_link_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.share_link_type)
+		end
+
+		if input.shareLinkType ~= nil then
+			self.share_link_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.shareLinkType)
+		end
+
+		if input.share_link_data ~= nil then
+			self.share_link_data =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.share_link_data)
+		end
+
+		if input.shareLinkData ~= nil then
+			self.share_link_data =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.shareLinkData)
+		end
+
+		if input.sdk_share_context ~= nil then
+			self.sdk_share_context =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sdk_share_context)
+		end
+
+		if input.sdkShareContext ~= nil then
+			self.sdk_share_context =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.sdkShareContext)
+		end
+
+		if input.analytics_context ~= nil then
+			self.analytics_context =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.analytics_context)
+		end
+
+		if input.analyticsContext ~= nil then
+			self.analytics_context =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.analyticsContext)
+		end
+
+		return self
+	end
+
+	_ShareAction_ParamsImpl.descriptor = {
+		name = "ShareAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.ShareAction_Params = _ShareAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ShareAction_Params)
+end
+
+do
+	local _OpenAbuseReportActionImpl = {}
+	_OpenAbuseReportActionImpl.__index = _OpenAbuseReportActionImpl
+
+	function _OpenAbuseReportActionImpl.new(data: _OpenAbuseReportActionPartialFields?): OpenAbuseReportAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenAbuseReportActionImpl :: _OpenAbuseReportActionImpl)
+	end
+
+	function _OpenAbuseReportActionImpl.encode(self: OpenAbuseReportAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenAbuseReportActionImpl.decode(input: buffer): OpenAbuseReportAction
+		local self = _OpenAbuseReportActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenAbuseReportAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenAbuseReportActionImpl.jsonEncode(self: OpenAbuseReportAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenAbuseReportActionImpl.jsonDecode(input: { [string]: any }): OpenAbuseReportAction
+		local self = _OpenAbuseReportActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenAbuseReportAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenAbuseReportAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenAbuseReportActionImpl.descriptor = {
+		name = "OpenAbuseReportAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenAbuseReportAction",
+	}
+
+	messages.OpenAbuseReportAction = _OpenAbuseReportActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenAbuseReportAction)
+end
+
+do
+	local _OpenAbuseReportAction_ParamsImpl = {}
+	_OpenAbuseReportAction_ParamsImpl.__index = _OpenAbuseReportAction_ParamsImpl
+
+	function _OpenAbuseReportAction_ParamsImpl.new(
+		data: _OpenAbuseReportAction_ParamsPartialFields?
+	): OpenAbuseReportAction_Params
+		return setmetatable({
+			target_id = if data == nil or data.target_id == nil then nil else data.target_id,
+			abuse_vector = if data == nil or data.abuse_vector == nil then nil else data.abuse_vector,
+			asset_type_name = if data == nil or data.asset_type_name == nil then nil else data.asset_type_name,
+			universe_id = if data == nil or data.universe_id == nil then nil else data.universe_id,
+		}, _OpenAbuseReportAction_ParamsImpl :: _OpenAbuseReportAction_ParamsImpl)
+	end
+
+	function _OpenAbuseReportAction_ParamsImpl.encode(self: OpenAbuseReportAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.target_id ~= nil then
+			local encoded = self.target_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.abuse_vector ~= nil then
+			local encoded = self.abuse_vector:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.asset_type_name ~= nil then
+			local encoded = self.asset_type_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.universe_id ~= nil then
+			local encoded = self.universe_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenAbuseReportAction_ParamsImpl.decode(input: buffer): OpenAbuseReportAction_Params
+		local self = _OpenAbuseReportAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.target_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.abuse_vector = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.asset_type_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenAbuseReportAction_ParamsImpl.jsonEncode(self: OpenAbuseReportAction_Params): any
+		local output = {}
+
+		if self.target_id ~= nil then
+			output.targetId = self.target_id:jsonEncode()
+		end
+
+		if self.abuse_vector ~= nil then
+			output.abuseVector = self.abuse_vector:jsonEncode()
+		end
+
+		if self.asset_type_name ~= nil then
+			output.assetTypeName = self.asset_type_name:jsonEncode()
+		end
+
+		if self.universe_id ~= nil then
+			output.universeId = self.universe_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenAbuseReportAction_ParamsImpl.jsonDecode(input: { [string]: any }): OpenAbuseReportAction_Params
+		local self = _OpenAbuseReportAction_ParamsImpl.new()
+
+		if input.target_id ~= nil then
+			self.target_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.target_id)
+		end
+
+		if input.targetId ~= nil then
+			self.target_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.targetId)
+		end
+
+		if input.abuse_vector ~= nil then
+			self.abuse_vector =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.abuse_vector)
+		end
+
+		if input.abuseVector ~= nil then
+			self.abuse_vector =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.abuseVector)
+		end
+
+		if input.asset_type_name ~= nil then
+			self.asset_type_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.asset_type_name)
+		end
+
+		if input.assetTypeName ~= nil then
+			self.asset_type_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.assetTypeName)
+		end
+
+		if input.universe_id ~= nil then
+			self.universe_id =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universe_id)
+		end
+
+		if input.universeId ~= nil then
+			self.universe_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.universeId)
+		end
+
+		return self
+	end
+
+	_OpenAbuseReportAction_ParamsImpl.descriptor = {
+		name = "OpenAbuseReportAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenAbuseReportAction_Params = _OpenAbuseReportAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenAbuseReportAction_Params)
+end
+
+do
+	local _RemoveBadgeFromInventoryActionImpl = {}
+	_RemoveBadgeFromInventoryActionImpl.__index = _RemoveBadgeFromInventoryActionImpl
+
+	function _RemoveBadgeFromInventoryActionImpl.new(
+		data: _RemoveBadgeFromInventoryActionPartialFields?
+	): RemoveBadgeFromInventoryAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _RemoveBadgeFromInventoryActionImpl :: _RemoveBadgeFromInventoryActionImpl)
+	end
+
+	function _RemoveBadgeFromInventoryActionImpl.encode(self: RemoveBadgeFromInventoryAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RemoveBadgeFromInventoryActionImpl.decode(input: buffer): RemoveBadgeFromInventoryAction
+		local self = _RemoveBadgeFromInventoryActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.RemoveBadgeFromInventoryAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RemoveBadgeFromInventoryActionImpl.jsonEncode(self: RemoveBadgeFromInventoryAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RemoveBadgeFromInventoryActionImpl.jsonDecode(input: { [string]: any }): RemoveBadgeFromInventoryAction
+		local self = _RemoveBadgeFromInventoryActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.RemoveBadgeFromInventoryAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.RemoveBadgeFromInventoryAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_RemoveBadgeFromInventoryActionImpl.descriptor = {
+		name = "RemoveBadgeFromInventoryAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.RemoveBadgeFromInventoryAction",
+	}
+
+	messages.RemoveBadgeFromInventoryAction = _RemoveBadgeFromInventoryActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RemoveBadgeFromInventoryAction)
+end
+
+do
+	local _RemoveBadgeFromInventoryAction_ParamsImpl = {}
+	_RemoveBadgeFromInventoryAction_ParamsImpl.__index = _RemoveBadgeFromInventoryAction_ParamsImpl
+
+	function _RemoveBadgeFromInventoryAction_ParamsImpl.new(
+		data: _RemoveBadgeFromInventoryAction_ParamsPartialFields?
+	): RemoveBadgeFromInventoryAction_Params
+		return setmetatable({
+			asset_id = if data == nil or data.asset_id == nil then nil else data.asset_id,
+		}, _RemoveBadgeFromInventoryAction_ParamsImpl :: _RemoveBadgeFromInventoryAction_ParamsImpl)
+	end
+
+	function _RemoveBadgeFromInventoryAction_ParamsImpl.encode(self: RemoveBadgeFromInventoryAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.asset_id ~= nil then
+			local encoded = self.asset_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _RemoveBadgeFromInventoryAction_ParamsImpl.decode(input: buffer): RemoveBadgeFromInventoryAction_Params
+		local self = _RemoveBadgeFromInventoryAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.asset_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _RemoveBadgeFromInventoryAction_ParamsImpl.jsonEncode(self: RemoveBadgeFromInventoryAction_Params): any
+		local output = {}
+
+		if self.asset_id ~= nil then
+			output.assetId = self.asset_id:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _RemoveBadgeFromInventoryAction_ParamsImpl.jsonDecode(
+		input: { [string]: any }
+	): RemoveBadgeFromInventoryAction_Params
+		local self = _RemoveBadgeFromInventoryAction_ParamsImpl.new()
+
+		if input.asset_id ~= nil then
+			self.asset_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.asset_id)
+		end
+
+		if input.assetId ~= nil then
+			self.asset_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.assetId)
+		end
+
+		return self
+	end
+
+	_RemoveBadgeFromInventoryAction_ParamsImpl.descriptor = {
+		name = "RemoveBadgeFromInventoryAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.RemoveBadgeFromInventoryAction_Params = _RemoveBadgeFromInventoryAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.RemoveBadgeFromInventoryAction_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -4247,6 +5333,18 @@ do
 			elseif self.kind.type == "load_more_from_api_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "share_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_abuse_report_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "remove_badge_from_inventory_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -4344,6 +5442,25 @@ do
 					self.kind =
 						{ type = "load_more_from_api_action", value = messages.LoadMoreFromApiAction.decode(value) }
 					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "share_action", value = messages.ShareAction.decode(value) }
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "open_abuse_report_action", value = messages.OpenAbuseReportAction.decode(value) }
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "remove_badge_from_inventory_action",
+						value = messages.RemoveBadgeFromInventoryAction.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -4396,6 +5513,12 @@ do
 				output.openBadgeDetailsAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "load_more_from_api_action" then
 				output.loadMoreFromApiAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "share_action" then
+				output.shareAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_abuse_report_action" then
+				output.openAbuseReportAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "remove_badge_from_inventory_action" then
+				output.removeBadgeFromInventoryAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -4560,6 +5683,42 @@ do
 			self.kind = {
 				type = "load_more_from_api_action",
 				value = messages.LoadMoreFromApiAction.jsonDecode(input.loadMoreFromApiAction),
+			}
+		end
+
+		if input.share_action ~= nil then
+			self.kind = { type = "share_action", value = messages.ShareAction.jsonDecode(input.share_action) }
+		end
+
+		if input.shareAction ~= nil then
+			self.kind = { type = "share_action", value = messages.ShareAction.jsonDecode(input.shareAction) }
+		end
+
+		if input.open_abuse_report_action ~= nil then
+			self.kind = {
+				type = "open_abuse_report_action",
+				value = messages.OpenAbuseReportAction.jsonDecode(input.open_abuse_report_action),
+			}
+		end
+
+		if input.openAbuseReportAction ~= nil then
+			self.kind = {
+				type = "open_abuse_report_action",
+				value = messages.OpenAbuseReportAction.jsonDecode(input.openAbuseReportAction),
+			}
+		end
+
+		if input.remove_badge_from_inventory_action ~= nil then
+			self.kind = {
+				type = "remove_badge_from_inventory_action",
+				value = messages.RemoveBadgeFromInventoryAction.jsonDecode(input.remove_badge_from_inventory_action),
+			}
+		end
+
+		if input.removeBadgeFromInventoryAction ~= nil then
+			self.kind = {
+				type = "remove_badge_from_inventory_action",
+				value = messages.RemoveBadgeFromInventoryAction.jsonDecode(input.removeBadgeFromInventoryAction),
 			}
 		end
 
@@ -5733,6 +6892,12 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_BADGE_DETAILS"
 		elseif value == 12 then
 			return "ACTION_TYPE_LOAD_MORE_FROM_API"
+		elseif value == 13 then
+			return "ACTION_TYPE_SHARE"
+		elseif value == 14 then
+			return "ACTION_TYPE_OPEN_ABUSE_REPORT"
+		elseif value == 15 then
+			return "ACTION_TYPE_REMOVE_BADGE_FROM_INVENTORY"
 		else
 			return nil
 		end
@@ -5765,6 +6930,12 @@ messages.ActionType = {
 			return 11
 		elseif self == "ACTION_TYPE_LOAD_MORE_FROM_API" then
 			return 12
+		elseif self == "ACTION_TYPE_SHARE" then
+			return 13
+		elseif self == "ACTION_TYPE_OPEN_ABUSE_REPORT" then
+			return 14
+		elseif self == "ACTION_TYPE_REMOVE_BADGE_FROM_INVENTORY" then
+			return 15
 		else
 			return self
 		end
@@ -5797,6 +6968,12 @@ messages.ActionType = {
 			return "ACTION_TYPE_OPEN_BADGE_DETAILS"
 		elseif name == "ACTION_TYPE_LOAD_MORE_FROM_API" then
 			return "ACTION_TYPE_LOAD_MORE_FROM_API"
+		elseif name == "ACTION_TYPE_SHARE" then
+			return "ACTION_TYPE_SHARE"
+		elseif name == "ACTION_TYPE_OPEN_ABUSE_REPORT" then
+			return "ACTION_TYPE_OPEN_ABUSE_REPORT"
+		elseif name == "ACTION_TYPE_REMOVE_BADGE_FROM_INVENTORY" then
+			return "ACTION_TYPE_REMOVE_BADGE_FROM_INVENTORY"
 		else
 			return nil
 		end
@@ -5828,6 +7005,12 @@ return {
 	OpenBadgeDetailsAction_Params = messages.OpenBadgeDetailsAction_Params,
 	LoadMoreFromApiAction = messages.LoadMoreFromApiAction,
 	LoadMoreFromApiAction_Params = messages.LoadMoreFromApiAction_Params,
+	ShareAction = messages.ShareAction,
+	ShareAction_Params = messages.ShareAction_Params,
+	OpenAbuseReportAction = messages.OpenAbuseReportAction,
+	OpenAbuseReportAction_Params = messages.OpenAbuseReportAction_Params,
+	RemoveBadgeFromInventoryAction = messages.RemoveBadgeFromInventoryAction,
+	RemoveBadgeFromInventoryAction_Params = messages.RemoveBadgeFromInventoryAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

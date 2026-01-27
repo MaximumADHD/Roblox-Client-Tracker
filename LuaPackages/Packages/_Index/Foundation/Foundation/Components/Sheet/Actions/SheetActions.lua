@@ -9,6 +9,9 @@ local SheetType = require(Sheet.SheetType)
 
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
+local Flags = require(Foundation.Utility.Flags)
+
+local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local View = require(Foundation.Components.View)
 
 export type SheetActionsProps = {
@@ -84,6 +87,13 @@ local function SheetActions(props: SheetActionsProps, ref: React.Ref<GuiObject>?
 			else nil,
 		LayoutOrder = 3,
 		ref = ref,
+		-- Prevent inputs going through the actions area
+		onActivated = if Flags.FoundationSheetActionsSinkInput then function() end else nil,
+		stateLayer = if Flags.FoundationSheetActionsSinkInput
+			then {
+				affordance = StateLayerAffordance.None,
+			}
+			else nil,
 	}, props.children)
 
 	if isBottomSheet then

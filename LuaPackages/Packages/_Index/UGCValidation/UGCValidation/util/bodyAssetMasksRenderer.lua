@@ -15,6 +15,7 @@ local getAssetMeshesValidationSpaceTransforms =
 local AssetService = game:GetService("AssetService")
 
 local getFIntUGCValidationBodyAssetMaskHeightPixels = require(root.flags.getFIntUGCValidationBodyAssetMaskHeightPixels)
+local getFFlagUGCValidateTinyTrianglesIntersectFix = require(root.flags.getFFlagUGCValidateTinyTrianglesIntersectFix)
 
 type ValidationContext = Types.ValidationContext
 
@@ -46,6 +47,17 @@ BodyAssetMasksRenderer.viewIds = {
 	Top = "Top",
 	Bottom = "Bottom",
 }
+
+if getFFlagUGCValidateTinyTrianglesIntersectFix() then
+	BodyAssetMasksRenderer.opposingViewIds = {
+		Front = BodyAssetMasksRenderer.viewIds.Back,
+		Back = BodyAssetMasksRenderer.viewIds.Front,
+		Left = BodyAssetMasksRenderer.viewIds.Right,
+		Right = BodyAssetMasksRenderer.viewIds.Left,
+		Top = BodyAssetMasksRenderer.viewIds.Bottom,
+		Bottom = BodyAssetMasksRenderer.viewIds.Top,
+	}
+end
 
 BodyAssetMasksRenderer.viewDirections = {
 	[BodyAssetMasksRenderer.viewIds.Front] = Vector3.new(0.0, 0.0, 1.0),

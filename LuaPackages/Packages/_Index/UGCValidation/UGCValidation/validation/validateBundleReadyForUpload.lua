@@ -181,7 +181,7 @@ local function validateBundleReadyForUpload(
 			isAsync = false,
 			allowEditableInstances = allowEditableInstances,
 			bypassFlags = bypassFlags,
-			validateMeshPartAccessories = false,
+			validateMeshPartAccessories = true,
 			requireAllFolders = false,
 		} :: Types.ValidationContext
 

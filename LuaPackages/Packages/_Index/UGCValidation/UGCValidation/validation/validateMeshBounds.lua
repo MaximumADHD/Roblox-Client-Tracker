@@ -22,8 +22,6 @@ local FIntUGCValidationScaleMinimumThousandths = game:DefineFastInt("UGCValidati
 
 local FFlagRenderBoundsCheckAttachmentOrientation = game:DefineFastFlag("RenderBoundsCheckAttachmentOrientation", false)
 
-local FFlagDontValidateCenteringInExperience = game:DefineFastFlag("DontValidateCenteringInExperience", false)
-
 local function pointInBounds(worldPos, boundsCF, boundsSize)
 	local objectPos = boundsCF:PointToObjectSpace(worldPos)
 	return objectPos.X >= -boundsSize.X / 2
@@ -183,10 +181,7 @@ local function validateMeshBounds(
 			end
 		end
 
-		if
-			getFFlagUGCValidateMeshBBoxIsCentered()
-			and (not FFlagDontValidateCenteringInExperience or not validationContext.allowEditableInstances)
-		then
+		if getFFlagUGCValidateMeshBBoxIsCentered() and not validationContext.allowEditableInstances then
 			local bboxCenter = (meshMinOpt :: Vector3 + meshMaxOpt :: Vector3) / 2
 			local acceptableCenterMagnitude = getFIntUGCValidateMeshCenteringHundredsThreshold() / 100
 			if bboxCenter.Magnitude > acceptableCenterMagnitude then

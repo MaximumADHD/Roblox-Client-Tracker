@@ -25,14 +25,8 @@ local SafeFlags = require(Packages.SafeFlags)
 ]]
 
 return {
-	-- Foundation@1.29.0
-	FoundationUpdateBadgeDesign = SafeFlags.createGetFFlag("FoundationUpdateBadgeDesign")(),
-
 	-- Foundation@1.33.0
 	FoundationDisableStylingPolyfill = SafeFlags.createGetFFlag("FoundationDisableStylingPolyfill")(),
-
-	-- Foundation@1.41.2
-	FoundationWarnOnMultipleStyleLinks = SafeFlags.createGetFFlag("DebugFoundationWarnOnMultipleStyleLinks")(),
 
 	-- Foundation@1.47.0
 	FoundationPopoverOnScreenKeyboard = SafeFlags.createGetFFlag("FoundationPopoverOnScreenKeyboard")(),
@@ -48,23 +42,13 @@ return {
 	FoundationPopoverNegateAlignOffsetOnFlip = SafeFlags.createGetFFlag("FoundationPopoverNegateAlignOffsetOnFlip")(),
 	FoundationPopoverOverflow = SafeFlags.createGetFFlag("FoundationPopoverOverflow")(),
 
-	-- Foundation@1.59.0
-	FoundationFixBadgeAndIndicatorTextAlignment = SafeFlags.createGetFFlag(
-		"FoundationFixBadgeAndIndicatorTextAlignment"
-	)(),
-
 	-- Foundation@1.60.0
 	FoundationToggleVisualUpdate = SafeFlags.createGetFFlag("FoundationToggleVisualUpdate")(),
 
 	-- Foundation@1.61.0
-	FoundationBaseMenuBorderFix = SafeFlags.createGetFFlag("FoundationBaseMenuBorderFix2")(),
-	FoundationDateTimePickerTimeVariantEnabled = SafeFlags.createGetFFlag("FoundationDateTimePickerTimeVariantEnabled")(),
 	FoundationSheetCenterSheetNoShrink = SafeFlags.createGetFFlag("FoundationSheetCenterSheetNoShrink")(),
 
 	-- Foundation@1.62.0
-	FoundationDateTimePickerAnchorBugFixEnabled = SafeFlags.createGetFFlag(
-		"FoundationDateTimePickerAnchorBugFixEnabled"
-	)(),
 	FoundationDialogOversizedBackdrop = SafeFlags.createGetFFlag("FoundationDialogOversizedBackdrop")(),
 	FoundationIconButtonNoListLayout = SafeFlags.createGetFFlag("FoundationIconButtonNoListLayout")(),
 	FoundationOverlayLuaAppInsetsFix = SafeFlags.createGetFFlag("FoundationOverlayLuaAppInsetsFix2")(),
@@ -84,7 +68,6 @@ return {
 	FoundationSheetSideSheetTopBarFix = SafeFlags.createGetFFlag("FoundationSheetSideSheetTopBarFix")(),
 
 	-- Foundation@1.65.0
-	FoundationCheckboxIndeterminate = SafeFlags.createGetFFlag("FoundationCheckboxIndeterminate")(),
 	FoundationNumberInputDraggingDeltaFix = SafeFlags.createGetFFlag("FoundationNumberInputDraggingDeltaFix")(),
 	FoundationOverlayDisplayOrder = SafeFlags.createGetFFlag("FoundationOverlayDisplayOrder")(),
 
@@ -100,4 +83,24 @@ return {
 	FoundationDateTimePickerDefaultInputText = SafeFlags.createGetFFlag("FoundationDateTimePickerDefaultInputText")(),
 	FoundationDateTimePickerDualBugFix = SafeFlags.createGetFFlag("FoundationDateTimePickerDualBugFix")(),
 	FoundationRemoveDividerSegmentedControl = SafeFlags.createGetFFlag("FoundationRemoveDividerSegmentedControl")(),
+
+	-- Foundation@1.67.1
+	FoundationCheckboxIndeterminate = SafeFlags.createGetFFlag("FoundationCheckboxIndeterminate2")(),
+	FoundationSliderClampValue = SafeFlags.createGetFFlag("FoundationSliderClampValue")(),
+	FoundationSliderFixValueOnDrag = SafeFlags.createGetFFlag("FoundationSliderFixValueOnDrag")(),
+
+	-- Foundation@1.67.2
+	FoundationDialogContentSelectable = SafeFlags.createGetFFlag("FoundationDialogContentSelectable")(),
+	FoundationDontCreateUIDDForNumberInput = SafeFlags.createGetFFlag("FoundationDontCreateUIDDForNumberInput")(),
+	FoundationFixOptionSelectorThickness = SafeFlags.createGetFFlag("FoundationFixOptionSelectorThickness")(),
+	FoundationFixPopoverShadowSizing = SafeFlags.createGetFFlag("FoundationFixPopoverShadowSizing")(),
+	FoundationImageFixAspectRatioMemo = SafeFlags.createGetFFlag("FoundationImageFixAspectRatioMemo")(),
+	FoundationUIStrokeInner = SafeFlags.createGetFFlag("FoundationUIStrokeInner2")(),
+
+	-- Foundation@1.67.3
+	FoundationAddHeightPropToCenterSheet = SafeFlags.createGetFFlag("FoundationAddHeightPropToCenterSheet2")(),
+	FoundationNumberInputTokenBasedWidth = SafeFlags.createGetFFlag("FoundationNumberInputTokenBasedWidth")(),
+	FoundationSheetActionsSinkInput = SafeFlags.createGetFFlag("FoundationSheetActionsSinkInput")(),
+	FoundationSheetFixClosingSwipe = SafeFlags.createGetFFlag("FoundationSheetFixClosingSwipe")(),
+	FoundationSheetHeaderSmallerPadding = SafeFlags.createGetFFlag("FoundationSheetHeaderSmallerPadding")(),
 }

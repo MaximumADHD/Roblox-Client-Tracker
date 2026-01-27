@@ -1,5 +1,5 @@
-game:DefineFastFlag("UGCValidationEnableFolderStructure4", false)
+game:DefineFastFlag("UGCValidationEnableFolderStructure5", false)
 
 return function()
-	return game:GetFastFlag("UGCValidationEnableFolderStructure4")
+	return game:GetFastFlag("UGCValidationEnableFolderStructure5")
 end

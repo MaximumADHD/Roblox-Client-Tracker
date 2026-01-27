@@ -1,6 +1,7 @@
 --!strict
 local CollectionService = game:GetService("CollectionService")
 local FFlagSelfViewAvatarJointUpgrade = game:DefineFastFlag("SelfViewAvatarJointUpgrade", false)
+local FFlagSelfViewNeckCheck = game:DefineFastFlag("SelfViewNeckCheck", false)
 
 --we want to trigger UpdateClone which recreates the clone fresh as rarely as possible (performance optimization),
 --so for triggering dirty on DescendantAdded or DescendantRemoving we only trigger it for things which make a visual difference
@@ -28,7 +29,7 @@ local function getFaceControls(rig: Model): FaceControls?
 	return rig:FindFirstChildWhichIsA("FaceControls", true) :: FaceControls?
 end
 
-local function getNeck(character: Model, head: MeshPart): Motor6D?
+local function getNeck(character: Model, head: MeshPart): Motor6D | AnimationConstraint | nil
 	if character == nil or head == nil then
 		return nil
 	end
@@ -42,11 +43,27 @@ local function getNeck(character: Model, head: MeshPart): Motor6D?
 		end
 	end
 
-	--in case no neck found it could be using AnimationConstraint, do fallback neck loockup for that
-	for _, child in descendants do
-		if child:IsA("AnimationConstraint") then
-			if child.Parent == head and (child.Attachment0.Name == "NeckRigAttachment" or child.Name == "Neck") then
-				return child
+	-- in case no neck found it could be using AnimationConstraint, do fallback neck lookup for that
+	if FFlagSelfViewNeckCheck == true then
+		for _, child in descendants do
+			if child:IsA("AnimationConstraint") then
+				if
+					child.Parent == head
+					and (
+						(child.Attachment0 ~= nil and child.Attachment0.Name == "NeckRigAttachment")
+						or child.Name == "Neck"
+					)
+				then
+					return child
+				end
+			end
+		end
+	else
+		for _, child in descendants :: { any } do
+			if child:IsA("AnimationConstraint") then
+				if child.Parent == head and (child.Attachment0.Name == "NeckRigAttachment" or child.Name == "Neck") then
+					return child
+				end
 			end
 		end
 	end

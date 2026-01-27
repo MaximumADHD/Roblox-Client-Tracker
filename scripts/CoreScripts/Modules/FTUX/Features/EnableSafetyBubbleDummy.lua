@@ -1,17 +1,16 @@
 local RunService = game:GetService("RunService")
 local VRService = game:GetService("VRService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
+local CorePackages = game:GetService("CorePackages")
 
-local CoreGui = game:GetService("CoreGui")
 local Workspace = game:GetService("Workspace")
-local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
 local GenerateDummy = require(script.Parent.Parent.Utility.GenerateDummy)
 local currentCamera = workspace.CurrentCamera :: Camera
 
 -- Define the minimum and maximum transparency values
-local MAX_SAFETY_DIST = require(RobloxGui.Modules.Flags.FIntSafetyBubbleRadius)
-local MAX_TRANSPARENCY = require(RobloxGui.Modules.Flags.FIntSafetyBubbleTransparencyPercent) * 0.01
+local MAX_SAFETY_DIST = require(CorePackages.Workspace.Packages.VrCommon).FIntSafetyBubbleRadius
+local MAX_TRANSPARENCY = require(CorePackages.Workspace.Packages.VrCommon).FIntSafetyBubbleTransparencyPercent * 0.01
 
 --Check whether safety bubble is on or off in settings
 local safetyBubbleEnabled = true

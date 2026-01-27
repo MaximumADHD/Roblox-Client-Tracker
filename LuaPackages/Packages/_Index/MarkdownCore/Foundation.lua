@@ -26,7 +26,6 @@ export type BadgeSize = Package.BadgeSize
 export type BadgeVariant = Package.BadgeVariant
 export type Breakpoint = Package.Breakpoint
 export type ButtonVariant = Package.ButtonVariant
-export type CheckedState = Package.CheckedState
 export type ChipSize = Package.ChipSize
 export type ControlState = Package.ControlState
 export type CursorType = Package.CursorType

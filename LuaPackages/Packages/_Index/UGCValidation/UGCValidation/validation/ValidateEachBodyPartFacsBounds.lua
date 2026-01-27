@@ -18,9 +18,6 @@ local getExpectedPartSize = require(root.util.getExpectedPartSize)
 local flags = root.flags
 local getEngineFeatureUGCValidationFullBodyFacs = require(flags.getEngineFeatureUGCValidationFullBodyFacs)
 local getFIntUGCValidationAcceptableBodyFacsExpansion = require(flags.getFIntUGCValidationAcceptableBodyFacsExpansion)
-local getEngineFeatureEngineEditableMeshAvatarPublish =
-	require(root.flags.getEngineFeatureEngineEditableMeshAvatarPublish)
-local getMeshIdForSkinningValidation = require(root.util.getMeshIdForSkinningValidation)
 
 local ValidateEachBodyPartFacsBounds = function(
 	allBodyParts: { [string]: Instance },
@@ -35,17 +32,12 @@ local ValidateEachBodyPartFacsBounds = function(
 		/ getExpectedPartSize(headMesh, validationContext, true)
 
 	local canFetchHeadData, headData = pcallDeferred(function()
-		if getEngineFeatureEngineEditableMeshAvatarPublish() then
-			local getEditableMeshSuccess, editableMesh =
-				getEditableMeshFromContext(headMesh, "MeshId", validationContext)
-			if not getEditableMeshSuccess then
-				error("Failed to retrieve MeshContent")
-			end
-
-			return editableMesh
-		else
-			return getMeshIdForSkinningValidation(headMesh, validationContext.allowEditableInstances)
+		local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(headMesh, "MeshId", validationContext)
+		if not getEditableMeshSuccess then
+			error("Failed to retrieve MeshContent")
 		end
+
+		return editableMesh
 	end, validationContext)
 
 	if not canFetchHeadData then
@@ -65,42 +57,28 @@ local ValidateEachBodyPartFacsBounds = function(
 		local partScale = getExpectedPartSize(partMesh, validationContext)
 			/ getExpectedPartSize(partMesh, validationContext, true)
 
-		local success, result
-		if getEngineFeatureEngineEditableMeshAvatarPublish() then
-			local getOtherEditableMeshSuccess, partEditableMesh =
-				getEditableMeshFromContext(partMesh, "MeshId", validationContext)
+		local getOtherEditableMeshSuccess, partEditableMesh =
+			getEditableMeshFromContext(partMesh, "MeshId", validationContext)
 
-			if not getOtherEditableMeshSuccess then
-				Analytics.reportFailure(
-					Analytics.ErrorType.validateEachBodyPartFacsBounds_FailedToExecute,
-					nil,
-					validationContext
-				)
-				return false, { `Could not load {bodyPartName} editable mesh for body FACS test.` }
-			end
-			assert(partEditableMesh)
-
-			success, result = pcallDeferred(function()
-				return UGCValidationService:ValidatePartBBoxAfterFullFacs(
-					headData,
-					partEditableMesh,
-					headScale,
-					partScale,
-					boundsMaxMultiplier
-				)
-			end, validationContext)
-		else
-			local partMeshId = getMeshIdForSkinningValidation(partMesh, validationContext.allowEditableInstances)
-			success, result = pcallDeferred(function()
-				return (UGCValidationService :: any):ValidatePartBBoxAfterFullFacsFromMeshIds(
-					headData,
-					partMeshId,
-					headScale,
-					partScale,
-					boundsMaxMultiplier
-				)
-			end, validationContext)
+		if not getOtherEditableMeshSuccess then
+			Analytics.reportFailure(
+				Analytics.ErrorType.validateEachBodyPartFacsBounds_FailedToExecute,
+				nil,
+				validationContext
+			)
+			return false, { `Could not load {bodyPartName} editable mesh for body FACS test.` }
 		end
+		assert(partEditableMesh)
+
+		local success, result = pcallDeferred(function()
+			return UGCValidationService:ValidatePartBBoxAfterFullFacs(
+				headData,
+				partEditableMesh,
+				headScale,
+				partScale,
+				boundsMaxMultiplier
+			)
+		end, validationContext)
 
 		if not success then
 			Analytics.reportFailure(

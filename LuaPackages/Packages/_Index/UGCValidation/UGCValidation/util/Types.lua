@@ -105,7 +105,7 @@ export type SharedData = {
 	uploadEnum: UploadEnum,
 	consumerConfig: PreloadedConsumerConfigs,
 	aqsFetchMetrics: AssetQualityMetrics,
-	aqsSummaryData: { [string]: { [string]: number } },
+	aqsSummaryData: { [string]: { [string]: { [string]: number } } },
 	renderMeshesData: { [string]: EditableMeshData },
 	innerCagesData: { [string]: EditableCageData },
 	outerCagesData: { [string]: EditableCageData },
@@ -182,9 +182,11 @@ export type ValidationModule = {
 	shadowFlag: (() -> boolean)?,
 	categories: { string }?,
 	requiredData: { string }?,
+	conditionalData: { string }?,
 	prereqTests: { string }?,
 	expectedFailures: { string }?,
-	requiredAqsReturnSchema: { [string]: {} }?,
+	expectedAqsData: { [string]: any }?,
+	knownAqsUserErrors: { [string]: string }?,
 	run: (ValidationReporter, SharedData) -> nil,
 }
 
@@ -193,9 +195,11 @@ export type PreloadedValidationModule = {
 	shadowFlag: () -> boolean,
 	categories: { string },
 	requiredData: { string },
+	conditionalData: { string },
 	prereqTests: { string },
 	expectedFailures: { string },
-	requiredAqsReturnSchema: { [string]: {} },
+	expectedAqsData: { [string]: any },
+	knownAqsUserErrors: { [string]: string },
 	run: (ValidationReporter, SharedData) -> nil,
 }
 

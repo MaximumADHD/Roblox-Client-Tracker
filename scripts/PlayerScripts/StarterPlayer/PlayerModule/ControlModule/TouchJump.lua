@@ -14,15 +14,28 @@ local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local ConnectionUtil = require(CommonUtils:WaitForChild("ConnectionUtil"))
 local CharacterUtil = require(CommonUtils:WaitForChild("CharacterUtil"))
 
+local inputContexts = script.Parent.Parent:WaitForChild("InputContexts")
+local character = inputContexts:WaitForChild("Character")
+local jumpAction = character:WaitForChild("Jump")
+local touchJumpBinding = jumpAction:WaitForChild("TouchJumpBinding")
+
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/Input/TouchControlsSheetV2.png"
 local CONNECTIONS = {
 	HUMANOID_STATE_ENABLED_CHANGED = "HUMANOID_STATE_ENABLED_CHANGED",
 	HUMANOID_JUMP_POWER = "HUMANOID_JUMP_POWER",
 	HUMANOID_JUMP_HEIGHT = "HUMANOID_JUMP_HEIGHT",
 	HUMANOID = "HUMANOID",
-	JUMP_INPUT_ENDED = "JUMP_INPUT_ENDED",
+	JUMP_INPUT_ENDED = "JUMP_INPUT_ENDED", -- Remove with FFlagUserPlayerScriptsJumpUsesIAS
 	MENU_OPENED = "MENU_OPENED",
 }
+
+local FFlagUserPlayerScriptsJumpUsesIAS
+do
+	local success, result = pcall(function()
+		return UserSettings():IsUserFeatureEnabled("UserPlayerScriptsJumpUsesIAS")
+	end)
+	FFlagUserPlayerScriptsJumpUsesIAS = success and result
+end
 
 type TouchJumpClass = {
 	new: () -> TouchJump,
@@ -55,7 +68,7 @@ function TouchJump.new()
 	self.jumpButton = nil
 
 	self.externallyEnabled = false
-	self.isJumping = false
+	self.isJumping = false -- Remove with FFlagUserPlayerScriptsJumpUsesIAS
 	self._active = false
 	self._connectionUtil = ConnectionUtil.new()
 
@@ -63,8 +76,13 @@ function TouchJump.new()
 end
 
 function TouchJump:_reset()
-	self.isJumping = false
-	self.touchObject = nil
+	if FFlagUserPlayerScriptsJumpUsesIAS then
+		jumpAction:Fire(false)
+	else
+		self.isJumping = false
+		self.touchObject = nil
+	end
+
 	if self.jumpButton then
 		self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
 	end
@@ -85,22 +103,28 @@ function TouchJump:EnableButton(enable)
 		self.jumpButton.Visible = true
 
 		-- input connections
-		-- stop jumping connection
-		self._connectionUtil:trackConnection(
-			CONNECTIONS.JUMP_INPUT_ENDED,
-			self.jumpButton.InputEnded:Connect(function(inputObject)
-				if inputObject == self.touchObject then
-					self:_reset()
-				end
-			end)
-		)
+		if not FFlagUserPlayerScriptsJumpUsesIAS then
+			-- stop jumping connection
+			self._connectionUtil:trackConnection(
+				CONNECTIONS.JUMP_INPUT_ENDED,
+				self.jumpButton.InputEnded:Connect(function(inputObject)
+					if inputObject == self.touchObject then
+						self:_reset()
+					end
+				end)
+			)
+		end
 
 		-- stop jumping on menu open
 		self._connectionUtil:trackConnection(
 			CONNECTIONS.MENU_OPENED,
 			GuiService.MenuOpened:Connect(function()
-				if self.touchObject then
+				if FFlagUserPlayerScriptsJumpUsesIAS then
 					self:_reset()
+				else
+					if self.touchObject then
+						self:_reset()
+					end
 				end
 			end)
 		)
@@ -108,8 +132,11 @@ function TouchJump:EnableButton(enable)
 		if self.jumpButton then
 			self.jumpButton.Visible = false
 		end
-		self._connectionUtil:disconnect(CONNECTIONS.JUMP_INPUT_ENDED)
 		self._connectionUtil:disconnect(CONNECTIONS.MENU_OPENED)
+		
+		if not FFlagUserPlayerScriptsJumpUsesIAS then
+			self._connectionUtil:disconnect(CONNECTIONS.JUMP_INPUT_ENDED)
+		end
 	end
 	self:_reset()
 	self._active = enable
@@ -209,21 +236,43 @@ function TouchJump:Create()
 	ResizeJumpButton()
 	self.absoluteSizeChangedConn = self.parentUIFrame:GetPropertyChangedSignal("AbsoluteSize"):Connect(ResizeJumpButton)
 
-	self.touchObject = nil
-	self.jumpButton.InputBegan:connect(function(inputObject)
-		--A touch that starts elsewhere on the screen will be sent to a frame's InputBegan event
-		--if it moves over the frame. So we check that this is actually a new touch (inputObject.UserInputState ~= Enum.UserInputState.Begin)
-		if self.touchObject or inputObject.UserInputType ~= Enum.UserInputType.Touch
-			or inputObject.UserInputState ~= Enum.UserInputState.Begin then
-			return
-		end
+	if FFlagUserPlayerScriptsJumpUsesIAS then
+		self.jumpButton.Parent = self.parentUIFrame
+	
+		touchJumpBinding.UIButton = self.jumpButton
+	
+		jumpAction.Pressed:Connect(function()
+			if not self.jumpButton then
+				return
+			end
+	
+			self.jumpButton.ImageRectOffset = Vector2.new(146, 146)
+		end)
+	
+		jumpAction.Released:Connect(function()
+			if not self.jumpButton then
+				return
+			end
+	
+			self.jumpButton.ImageRectOffset = Vector2.new(1, 146)
+		end)
+	else
+		self.touchObject = nil
+		self.jumpButton.InputBegan:connect(function(inputObject)
+			--A touch that starts elsewhere on the screen will be sent to a frame's InputBegan event
+			--if it moves over the frame. So we check that this is actually a new touch (inputObject.UserInputState ~= Enum.UserInputState.Begin)
+			if self.touchObject or inputObject.UserInputType ~= Enum.UserInputType.Touch
+				or inputObject.UserInputState ~= Enum.UserInputState.Begin then
+				return
+			end
 
-		self.touchObject = inputObject
-		self.jumpButton.ImageRectOffset = Vector2.new(146, 146)
-		self.isJumping = true
-	end)
+			self.touchObject = inputObject
+			self.jumpButton.ImageRectOffset = Vector2.new(146, 146)
+			self.isJumping = true
+		end)
 
-	self.jumpButton.Parent = self.parentUIFrame
+		self.jumpButton.Parent = self.parentUIFrame
+	end
 end
 
 return TouchJump

@@ -15,7 +15,6 @@ local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 type BadgeVariant = BadgeVariant.BadgeVariant
 
-local Flags = require(Foundation.Utility.Flags)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local itemTileSize = UDim2.fromOffset(150, 240)
@@ -32,7 +31,6 @@ return {
 		{
 			name = "Base",
 			story = function(props): React.Node
-				Flags.FoundationUpdateBadgeDesign = props.controls.updateBadgeDesign
 				local tokens = useTokens()
 				local Badge = if props.controls.updateBadgeDesign then Badge_NEW else Badge_DEPRECATED
 
@@ -178,6 +176,5 @@ return {
 		},
 		variant = nonDeprecatedVariants,
 		onTile = false,
-		updateBadgeDesign = Flags.FoundationUpdateBadgeDesign,
 	},
 }

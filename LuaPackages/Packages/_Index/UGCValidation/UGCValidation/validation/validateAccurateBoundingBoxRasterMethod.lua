@@ -24,6 +24,7 @@ local tryYield = require(root.util.tryYield)
 local validateAccurateBoundingBoxFlags = require(root.flags.validateAccurateBoundingBoxFlags)
 local getFFlagUGCValidateAccurateBoundingBoxRasterMethodTopViewFix =
 	require(root.flags.getFFlagUGCValidateAccurateBoundingBoxRasterMethodTopViewFix)
+local getFFlagUGCValidateTinyTrianglesIntersectFix = require(root.flags.getFFlagUGCValidateTinyTrianglesIntersectFix)
 
 type BodyAssetMasksRenderer = BodyAssetMasksRenderer.BodyAssetMasksRenderer
 type BodyAssetMaskEntry = BodyAssetMasksRenderer.BodyAssetMaskEntry
@@ -233,7 +234,9 @@ local function calculateValidBounds(
 	validationContext: Types.ValidationContext
 ): (boolean, { string } | Extents)
 	local validBounds = Extents.new() :: Extents
-	for _viewId, maskEntry in bodyAssetMasks do
+
+	local cardinalViews = (if getFFlagUGCValidateTinyTrianglesIntersectFix() then {} else nil) :: { string: any }
+	for viewId, maskEntry in bodyAssetMasks do
 		local validScreenBounds = nil
 
 		local success, result = calculateMinimumBoundsForView(maskEntry, validationContext)
@@ -256,8 +259,28 @@ local function calculateValidBounds(
 		local topRightAlignedExtents: Extents = alignedExtentsFromReprojectedPoint(topRightWorldSpace, maskEntry.view)
 		local bottomLeftAlignedExtents: Extents =
 			alignedExtentsFromReprojectedPoint(bottomLeftWorldSpace, maskEntry.view)
-		validBounds = validBounds:unionExtents(topRightAlignedExtents)
-		validBounds = validBounds:unionExtents(bottomLeftAlignedExtents)
+
+		if getFFlagUGCValidateTinyTrianglesIntersectFix() then
+			local validBoundsOnAxis = Extents.new():unionExtents(topRightAlignedExtents)
+			validBoundsOnAxis = validBoundsOnAxis:unionExtents(bottomLeftAlignedExtents)
+
+			local opposingViewId = BodyAssetMasksRenderer.opposingViewIds[viewId]
+			if cardinalViews[opposingViewId] then
+				cardinalViews[opposingViewId] = validBoundsOnAxis:intersectExtents(cardinalViews[opposingViewId])
+			else
+				cardinalViews[viewId] = validBoundsOnAxis
+			end
+		else
+			validBounds = validBounds:unionExtents(topRightAlignedExtents)
+			validBounds = validBounds:unionExtents(bottomLeftAlignedExtents)
+		end
+	end
+
+	if getFFlagUGCValidateTinyTrianglesIntersectFix() then
+		for _, extents in cardinalViews do
+			validBounds = validBounds:unionExtents(extents :: Extents)
+		end
+		assert(validBounds:isValid())
 	end
 
 	return true, validBounds :: Extents

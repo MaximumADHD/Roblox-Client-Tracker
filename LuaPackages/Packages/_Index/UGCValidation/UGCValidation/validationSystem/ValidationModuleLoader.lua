@@ -11,6 +11,13 @@ local Types = require(root.util.Types)
 local ValidationEnums = require(root.validationSystem.ValidationEnums)
 local testFolders = root.validationFolders
 local ValidationModuleLoader = {}
+local requiredDatasForAllAQSCalls = {
+	ValidationEnums.SharedDataMember.aqsSummaryData,
+	ValidationEnums.SharedDataMember.renderMeshesData,
+	ValidationEnums.SharedDataMember.innerCagesData,
+	ValidationEnums.SharedDataMember.outerCagesData,
+	ValidationEnums.SharedDataMember.meshTextures,
+}
 
 local existingEnums = {}
 for tableName, enumTable in ValidationEnums do
@@ -72,9 +79,20 @@ for _, testEnum in ValidationEnums.ValidationModule do
 	valModule.shadowFlag = valModule.shadowFlag or defaultShadowCheck
 	valModule.categories = valModule.categories or {}
 	valModule.requiredData = valModule.requiredData or {}
+	valModule.conditionalData = valModule.conditionalData or {}
 	valModule.prereqTests = valModule.prereqTests or {}
 	valModule.expectedFailures = valModule.expectedFailures or {}
-	valModule.requiredAqsReturnSchema = valModule.requiredAqsReturnSchema or {}
+	valModule.expectedAqsData = valModule.expectedAqsData or {}
+	valModule.knownAqsUserErrors = valModule.knownAqsUserErrors or {}
+	local is_quality = next(valModule.expectedAqsData) ~= nil
+	if is_quality then
+		for _, dataEnum in requiredDatasForAllAQSCalls do
+			if not table.find(valModule.requiredData, dataEnum) then
+				table.insert(valModule.requiredData, dataEnum)
+			end
+		end
+	end
+
 	if valModule.run == nil or typeof(valModule.run) ~= "function" then
 		error(`Missing module run function in {testEnum}`)
 	end
@@ -93,8 +111,10 @@ for _, testEnum in ValidationEnums.ValidationModule do
 	if typeof(valModule.shadowFlag) ~= "function" or typeof(valModule.shadowFlag()) ~= "boolean" then
 		error(`Invalid shadowFlag config in {testEnum}`)
 	end
+
 	tableOnlyHasExistingEnums(testEnum, valModule.categories, "UploadCategory")
 	tableOnlyHasExistingEnums(testEnum, valModule.requiredData, "SharedDataMember")
+	tableOnlyHasExistingEnums(testEnum, valModule.conditionalData, "SharedDataMember")
 	tableOnlyHasExistingEnums(testEnum, valModule.prereqTests, "ValidationModule")
 
 	preloads[testEnum] = valModule

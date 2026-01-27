@@ -41,7 +41,9 @@ type OptionSelectorGroupItemVariantProps = {
 local function variantsFactory(tokens: Tokens)
 	local common = {
 		container = {
-			tag = "col align-y-center align-x-left radius-medium gap-xsmall wrap stroke-standard",
+			tag = if Flags.FoundationFixOptionSelectorThickness
+				then "col align-y-center align-x-left radius-medium gap-xsmall wrap"
+				else "col align-y-center align-x-left radius-medium gap-xsmall wrap stroke-standard",
 			radius = tokens.Radius.Medium,
 		},
 		content = tokens.Color.Content.Default,

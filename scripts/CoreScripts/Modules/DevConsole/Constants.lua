@@ -120,8 +120,8 @@ local Constants = {
 		SmallUtilPadding = 6, -- horizontal padding
 		ClientServerButtonWidth = 100,
 		ClientServerDropDownWidth = 84,
-		CheckBoxHeight = 16,
-		CheckBoxInnerPadding = 6
+		CheckboxHeight = 16,
+		CheckboxInnerPadding = 6
 	},
 	LogFormatting = {
 		MaxStringSize = 16384,

@@ -45,7 +45,7 @@ local Signals = require(CorePackages.Packages.Signals)
 local SettingsShowSignal = require(CorePackages.Workspace.Packages.CoreScriptsCommon).SettingsShowSignal
 local createEffect = Signals.createEffect
 
-local VRHub = require(RobloxGui.Modules.VR.VRHub)
+local VRHub = require(CorePackages.Workspace.Packages.VrCommon).VRHub
 
 local isSubjectToDesktopPolicies = SharedFlags.isSubjectToDesktopPolicies
 

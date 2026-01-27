@@ -1,9 +1,8 @@
 -- DEPRECATED: Use the packgified UIManager in vr-spatial-ui module instead.
 local VRService = game:GetService("VRService")
 local RunService = game:GetService("RunService")
-local CoreGui = game:GetService("CoreGui")
-local RobloxGui = CoreGui.RobloxGui
-local VRHub = require(RobloxGui.Modules.VR.VRHub)
+local CorePackages = game:GetService("CorePackages")
+local VRHub = require(CorePackages.Workspace.Packages.VrCommon).VRHub
 local UIManagerRoot = script.Parent
 local Constants = require(UIManagerRoot.Constants)
 local Utils = require(UIManagerRoot.Utils)

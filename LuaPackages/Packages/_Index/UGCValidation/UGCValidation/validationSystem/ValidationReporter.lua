@@ -10,14 +10,18 @@ ValidationReporter.__index = ValidationReporter
 
 function ValidationReporter.new(testEnum: string)
 	local self = {}
-	self._startTime = tick()
 	self._testEnum = testEnum
-	self._status = ValidationEnums.Status.PASS
+	self._status = ValidationEnums.Status.CANNOT_START
 	self._telemetryContext = ""
 	self._failureMessages = {}
 	self._internalData = {}
 
 	return setmetatable(self, ValidationReporter)
+end
+
+function ValidationReporter:begin()
+	self._startTime = os.clock()
+	self._status = ValidationEnums.Status.PASS
 end
 
 function ValidationReporter:fail(
@@ -49,7 +53,11 @@ function ValidationReporter:err(logMessage: string)
 end
 
 function ValidationReporter:complete(): Types.SingleValidationResult
-	local duration = tick() - self._startTime
+	local duration = 0
+	if self._startTime then
+		duration = 1000 * (os.clock() - self._startTime)
+	end
+
 	if getFFlagDebugUGCValidationPrintNewStructureResults() then
 		print("Reporting:", self._testEnum, "has status", self._status, "in", duration)
 	end

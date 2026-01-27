@@ -56,6 +56,8 @@ local GetFFlagEnableSeamlessVoiceDataConsentToast =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableSeamlessVoiceDataConsentToast)
 local GetFFlagUpdateVoiceConnectionToasts =
 	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagUpdateVoiceConnectionToasts)
+local GetFFlagEnableVoiceTrustedConnectionsToasts =
+	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagEnableVoiceTrustedConnectionsToasts)
 local GetFFlagShowToastWhenAgeGatingVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowToastWhenAgeGatingVoice
 local FFlagUpdateJoinVoiceToastSubtitle = game:DefineFastFlag("UpdateJoinVoiceToastSubtitle_AEGIS2", false)
@@ -136,6 +138,9 @@ local PromptTitle = {
 	[PromptType.AgeCheckForVoiceToast] = if GetFFlagShowToastWhenAgeGatingVoice()
 		then locales:Format("Feature.SettingsHub.Prompt.Title.AgeCheckForVoiceToast")
 		else nil,
+	[PromptType.UpdateOnAutoJoinToast] = if GetFFlagEnableVoiceTrustedConnectionsToasts()
+		then locales:Format("Feature.SettingsHub.Prompt.UpdateToVoiceChat")
+		else nil,
 }
 local PromptSubTitle = {
 	[PromptType.None] = "",
@@ -199,13 +204,18 @@ local PromptSubTitle = {
 	[PromptType.VoiceDataConsentOptOutToast] = if GetFFlagEnableSeamlessVoiceDataConsentToast()
 		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.ThanksForVoiceData")
 		else nil,
-	[PromptType.UnifiedJoinVoiceToast] = if GetFFlagUpdateVoiceConnectionToasts()
-		then if FFlagUpdateJoinVoiceToastSubtitle
-			then locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupV2")
-			else locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroup")
+	[PromptType.UnifiedJoinVoiceToast] = if GetFFlagEnableVoiceTrustedConnectionsToasts() 
+		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupTrustedConnections")
+		elseif GetFFlagUpdateVoiceConnectionToasts()
+			then if FFlagUpdateJoinVoiceToastSubtitle
+				then locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupV2")
+				else locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroup")
 		else nil,
 	[PromptType.AgeCheckForVoiceToast] = if GetFFlagShowToastWhenAgeGatingVoice()
 		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.GoToAccountInfo")
+		else nil,
+	[PromptType.UpdateOnAutoJoinToast] = if GetFFlagEnableVoiceTrustedConnectionsToasts()
+		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkAgeGroupTrustedConnectionsUpdate")
 		else nil,
 }
 
@@ -386,7 +396,9 @@ function VoiceChatPromptFrame:init()
 			end
 
 			local iconImage
-			if
+			if GetFFlagEnableVoiceTrustedConnectionsToasts() and promptType == PromptType.UpdateOnAutoJoinToast then
+				iconImage = Images["icons/controls/microphone"]
+			elseif
 				PromptTypeIsVoiceConsent(promptType)
 				or (promptType == PromptType.JoinedVoiceToast)
 				or (GetFFlagUpdateVoiceConnectionToasts() and promptType == PromptType.UnifiedJoinVoiceToast)

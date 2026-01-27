@@ -4,7 +4,6 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 
 local BaseMenu = require(Foundation.Components.BaseMenu)
-local Flags = require(Foundation.Utility.Flags)
 local Popover = require(Foundation.Components.Popover)
 local Types = require(Foundation.Components.Types)
 local useTokens = require(Foundation.Providers.Style.useTokens)
@@ -87,7 +86,7 @@ local function Menu(menuProps: MenuProps, ref: React.Ref<GuiObject>?)
 				hasArrow = false,
 				onPressedOutside = props.onPressedOutside,
 				backgroundStyle = tokens.Color.Surface.Surface_100,
-				radius = if Flags.FoundationBaseMenuBorderFix then Radius.Medium else nil,
+				radius = Radius.Medium,
 				ref = ref,
 				selection = props.selection,
 				selectionGroup = props.selectionGroup,
@@ -98,15 +97,8 @@ local function Menu(menuProps: MenuProps, ref: React.Ref<GuiObject>?)
 					size = props.size,
 					width = props.width,
 					onActivated = props.onActivated,
-					radius = if Flags.FoundationBaseMenuBorderFix then Radius.Medium else nil,
+					radius = Radius.Medium,
 				}),
-				Border = if Flags.FoundationBaseMenuBorderFix
-					then nil
-					else React.createElement("UIStroke", {
-						Color = tokens.Color.Stroke.Default.Color3,
-						Transparency = tokens.Color.Stroke.Default.Transparency,
-						Thickness = strokeThickness,
-					}),
 			})
 		),
 	})

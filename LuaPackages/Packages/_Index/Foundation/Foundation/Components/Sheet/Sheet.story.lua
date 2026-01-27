@@ -259,6 +259,7 @@ local function StoryManual(props)
 		}),
 		Sheet = if open
 			then React.createElement(Sheet.Root, {
+				centerSheetHeight = props.controls.centerSheetHeight,
 				snapPoints = snapPoints,
 				defaultSnapPointIndex = 2,
 				preferCenterSheet = props.controls.preferCenterSheet,
@@ -386,7 +387,7 @@ return {
 			story = Story :: unknown,
 		},
 		{
-			name = "Sheet (manual)",
+			name = "Sheet (manual sizing based on height prop)",
 			story = StoryManual,
 		},
 		{
@@ -395,6 +396,7 @@ return {
 		},
 	},
 	controls = {
+		centerSheetHeight = 1,
 		preferCenterSheet = false,
 		size = { DialogSize.Medium, DialogSize.Large } :: { DialogSize },
 	},

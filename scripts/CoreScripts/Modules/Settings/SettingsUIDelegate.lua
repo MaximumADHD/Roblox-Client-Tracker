@@ -116,7 +116,7 @@ function SettingsUIDelegate.enableVR(self)
 	self._vrEnabled = true
 	if self._topBarConnection == nil then
 		-- TopBar will be always present, so we only init the connection once
-		local VRHub = require(RobloxGui.Modules.VR.VRHub)
+		local VRHub = require(CorePackages.Workspace.Packages.VrCommon).VRHub
 		local topBarVisibilityObservable = Observable.ObservableValue.new(VRHub.ShowTopBar)
 		self._topBarConnection = VRHub.ShowTopBarChanged.Event:connect(function()
 			topBarVisibilityObservable:set(VRHub.ShowTopBar)

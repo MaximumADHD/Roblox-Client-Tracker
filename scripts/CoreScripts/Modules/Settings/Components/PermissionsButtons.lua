@@ -18,6 +18,7 @@ local AppStorageService = game:GetService("AppStorageService")
 
 local Roact = require(CorePackages.Packages.Roact)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local ReactUtils = require(CorePackages.Packages.ReactUtils)
 local t = require(CorePackages.Packages.t)
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 
@@ -29,7 +30,7 @@ local displayCameraDeniedToast = require(RobloxGui.Modules.VoiceChat.Helpers.dis
 local SelfViewAPI = require(RobloxGui.Modules.SelfView.publicApi)
 local VoiceChatPromptType = require(RobloxGui.Modules.VoiceChatPrompt.PromptType)
 
-local ExternalEventConnection = UIBlox.Utility.ExternalEventConnection
+local EventConnection = ReactUtils.EventConnection
 local Images = UIBlox.App.ImageSet.Images
 
 local Modules = CoreGui.RobloxGui.Modules
@@ -664,35 +665,35 @@ function PermissionsButtons:render()
 				}),
 			}),
 			Events = Roact.createFragment({
-				MuteChangedEvent = Roact.createElement(ExternalEventConnection, {
+				MuteChangedEvent = Roact.createElement(EventConnection, {
 					event = VoiceChatServiceManager.muteChanged.Event,
 					callback = self.muteChangedEvent,
 				}),
-				SelfViewChangedEvent = Roact.createElement(ExternalEventConnection, {
-					event = StarterGui.CoreGuiChangedSignal,
+				SelfViewChangedEvent = Roact.createElement(EventConnection, {
+					event = StarterGui.CoreGuiChangedSignal :: RBXScriptSignal,
 					callback = self.onCoreGuiChanged,
 				}),
-				MuteAllChangedEvent = Roact.createElement(ExternalEventConnection, {
+				MuteAllChangedEvent = Roact.createElement(EventConnection, {
 					event = VoiceChatServiceManager.muteAllChanged.Event,
 					callback = self.toggleMuteAllIcon,
 				}),
-				VideoCaptureEnabledEvent = Roact.createElement(ExternalEventConnection, {
+				VideoCaptureEnabledEvent = Roact.createElement(EventConnection, {
 					event = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"),
 					callback = self.updateVideoCaptureEnabled,
 				}),
 				VoiceStateChangeEvent = if self.state.voiceServiceInitialized
-					then Roact.createElement(ExternalEventConnection, {
+					then Roact.createElement(EventConnection, {
 						event = VoiceChatServiceManager:getService().StateChanged,
 						callback = self.onVoiceStateChange,
 					})
 					else nil,
-				MuteNonFriendsEvent = Roact.createElement(ExternalEventConnection, {
+				MuteNonFriendsEvent = Roact.createElement(EventConnection, {
 					event = VoiceChatServiceManager.mutedNonFriends.Event,
 					callback = function()
 						self.toggleMuteAllIcon(false)
 					end,
 				}),
-				VoiceJoinProgressChanged = Roact.createElement(ExternalEventConnection, {
+				VoiceJoinProgressChanged = Roact.createElement(EventConnection, {
 					event = VoiceChatServiceManager.VoiceJoinProgressChanged.Event,
 					callback = self.voiceJoinProgressCallback,
 				}),
@@ -783,35 +784,35 @@ function PermissionsButtons:render()
 					hasMicPermissions = self.state.hasMicPermissions,
 					isSmallTouchScreen = self.props.isSmallTouchScreen,
 				}),
-				MuteChangedEvent = Roact.createElement(ExternalEventConnection, {
+				MuteChangedEvent = Roact.createElement(EventConnection, {
 					event = VoiceChatServiceManager.muteChanged.Event,
 					callback = self.muteChangedEvent,
 				}),
-				SelfViewChangedEvent = Roact.createElement(ExternalEventConnection, {
-					event = StarterGui.CoreGuiChangedSignal,
+				SelfViewChangedEvent = Roact.createElement(EventConnection, {
+					event = StarterGui.CoreGuiChangedSignal :: RBXScriptSignal,
 					callback = self.onCoreGuiChanged,
 				}),
-				MuteAllChangedEvent = Roact.createElement(ExternalEventConnection, {
+				MuteAllChangedEvent = Roact.createElement(EventConnection, {
 					event = VoiceChatServiceManager.muteAllChanged.Event,
 					callback = self.toggleMuteAllIcon,
 				}),
-				VideoCaptureEnabledEvent = Roact.createElement(ExternalEventConnection, {
+				VideoCaptureEnabledEvent = Roact.createElement(EventConnection, {
 					event = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"),
 					callback = self.updateVideoCaptureEnabled,
 				}),
 				VoiceStateChangeEvent = if self.state.voiceServiceInitialized
-					then Roact.createElement(ExternalEventConnection, {
+					then Roact.createElement(EventConnection, {
 						event = VoiceChatServiceManager:getService().StateChanged,
 						callback = self.onVoiceStateChange,
 					})
 					else nil,
-				MuteNonFriendsEvent = Roact.createElement(ExternalEventConnection, {
+				MuteNonFriendsEvent = Roact.createElement(EventConnection, {
 					event = VoiceChatServiceManager.mutedNonFriends.Event,
 					callback = function()
 						self.toggleMuteAllIcon(false)
 					end,
 				}),
-				VoiceJoinProgressChanged = Roact.createElement(ExternalEventConnection, {
+				VoiceJoinProgressChanged = Roact.createElement(EventConnection, {
 					event = VoiceChatServiceManager.VoiceJoinProgressChanged.Event,
 					callback = self.voiceJoinProgressCallback,
 				}),

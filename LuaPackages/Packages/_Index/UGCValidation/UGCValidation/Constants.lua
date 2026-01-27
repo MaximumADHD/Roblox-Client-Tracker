@@ -16,6 +16,8 @@ local getFFlagUGCValidationFixBannedNamesTypo = require(root.flags.getFFlagUGCVa
 local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
 local getFFlagUGCValidateCheckHSROwner = require(root.flags.getFFlagUGCValidateCheckHSROwner)
 
+local getFFlagUGCValidationMakeupSupport = require(root.flags.getFFlagUGCValidationMakeupSupport)
+
 -- switch this to Cryo.List.toSet when available
 local function convertArrayToTable(array)
 	local result = {}
@@ -239,6 +241,10 @@ Constants.ASSET_STATUS = {
 	MODERATED = "Moderated",
 }
 
+if getFFlagUGCValidationMakeupSupport() then
+	Constants.MAKEUP_INFO = ValidationRulesUtil:getMakeupRules()
+end
+
 -- https://confluence.rbx.com/display/AVATAR/UGC+Accessory+Max+Sizes
 -- Measurements are doubled to account full size
 -- boundsOffset is used when measurements are non-symmetrical
@@ -330,6 +336,12 @@ Constants.PROPERTIES = {
 	Attachment = {
 		Visible = false,
 	},
+	Decal = if getFFlagUGCValidationMakeupSupport()
+		then {
+			Color3 = Color3.new(1, 1, 1),
+			Transparency = 0,
+		}
+		else nil,
 	SpecialMesh = {
 		MeshType = Enum.MeshType.FileMesh,
 		Offset = Vector3.new(0, 0, 0),
@@ -482,6 +494,9 @@ Constants.CONTENT_ID_FIELDS = {
 	SpecialMesh = { "MeshId", "TextureId" },
 	MeshPart = { "MeshId", "TextureID" },
 	SurfaceAppearance = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" },
+	Decal = if getFFlagUGCValidationMakeupSupport()
+		then { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" }
+		else nil,
 	WrapLayer = { "CageMeshId", "ReferenceMeshId" },
 	WrapTarget = { "CageMeshId" },
 	Animation = { "AnimationId" },
@@ -509,6 +524,9 @@ Constants.TEXTURE_CONTENT_ID_FIELDS = {
 	SpecialMesh = { "TextureId" },
 	MeshPart = { "TextureID" },
 	SurfaceAppearance = { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" },
+	Decal = if getFFlagUGCValidationMakeupSupport()
+		then { "ColorMap", "MetalnessMap", "NormalMap", "RoughnessMap" }
+		else nil,
 }
 
 Constants.ASSET_RENDER_MESH_MAX_TRIANGLES = {

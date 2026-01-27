@@ -104,9 +104,6 @@ local function StyleProvider(styleProviderProps: StyleProviderProps)
 								scale = props.scale,
 							},
 						}, styleProviderProps.children),
-						StyleLink = if Flags.FoundationWarnOnMultipleStyleLinks
-							then React.createElement("StyleLink")
-							else nil,
 					}
 					else {
 						TagsContext = React.createElement(

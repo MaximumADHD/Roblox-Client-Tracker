@@ -19,6 +19,10 @@ return React.createContext({
 	setHasActionsDivider = function(_: boolean)
 		error("No SheetContext available")
 	end,
+	sheetContentHeight = nil :: React.Binding<number>?,
+	setSheetContentHeight = function(_: number)
+		error("No SheetContext available")
+	end,
 	safeAreaPadding = nil :: number?,
 	bottomPadding = nil :: number?,
 	innerScrollingEnabled = nil :: React.Binding<boolean>?,
@@ -41,6 +45,8 @@ return React.createContext({
 	setActionsHeight: ((number) -> nil)?,
 	hasActionsDivider: React.Binding<boolean>?,
 	setHasActionsDivider: ((boolean) -> nil)?,
+	sheetContentHeight: React.Binding<number>?,
+	setSheetContentHeight: ((number) -> nil)?,
 	safeAreaPadding: number?,
 	bottomPadding: number?,
 	innerScrollingEnabled: React.Binding<boolean>?,

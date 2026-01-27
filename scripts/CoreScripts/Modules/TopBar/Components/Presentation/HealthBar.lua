@@ -25,6 +25,7 @@ local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
+local FFlagClampHealthPercentage = CoreGuiCommon.Flags.FFlagClampHealthPercentage
 
 local Chrome = TopBar.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
@@ -103,9 +104,9 @@ function HealthBar:init()
 	self.rootRef = Roact.createRef()
 	if FFlagTopBarSignalizeHealthBar then
 		self.health, self.setHealth = Roact.createBinding(Constants.InitialHealth)
-		self.maxHealth, self.setMaxHealth = Roact.createBinding(Constants.InitialHealth)	
+		self.maxHealth, self.setMaxHealth = Roact.createBinding(Constants.InitialHealth)
 		self.isDead, self.setIsDead = Roact.createBinding(false)
-		self.healthPercent = Roact.joinBindings({ self.health, self.maxHealth, self.isDead }):map(function(values) 
+		self.healthPercent = Roact.joinBindings({ self.health, self.maxHealth, self.isDead }):map(function(values)
 			local health = values[1]
 			local maxHealth = values[2]
 			local isDead = values[3]
@@ -114,18 +115,22 @@ function HealthBar:init()
 			if isDead then
 				healthPercent = 0
 			elseif maxHealth > 0 then
-				healthPercent = health / maxHealth
+				if FFlagClampHealthPercentage then
+					healthPercent = math.clamp(health / maxHealth, 0, 1)
+				else
+					healthPercent = health / maxHealth
+				end
 			end
 
 			return healthPercent
 		end)
-		self.healthVisible = Roact.joinBindings({ self.health, self.maxHealth }):map(function(values) 
+		self.healthVisible = Roact.joinBindings({ self.health, self.maxHealth }):map(function(values)
 			return values[1] < values[2]
 		end)
 
-		if CoreGuiCommon.Stores.GetLocalHumanoidStore then 
+		if CoreGuiCommon.Stores.GetLocalHumanoidStore then
 			self.localHumanoidStore = CoreGuiCommon.Stores.GetLocalHumanoidStore(false)
-			self.disposeHealthConnection = Signals.createEffect(function(scope) 
+			self.disposeHealthConnection = Signals.createEffect(function(scope)
 				local healthValue = self.localHumanoidStore.getHealthValue(scope)
 
 				self.setHealth(healthValue.health or Constants.InitialHealth)
@@ -151,19 +156,19 @@ function HealthBar:init()
 			mountHealthBar = getHealthEnabled(),
 		})
 	end
-	if FFlagTopBarSignalizeKeepOutAreas then 
+	if FFlagTopBarSignalizeKeepOutAreas then
 		self.keepOutAreasStore = CoreGuiCommon.Stores.GetKeepOutAreasStore(false)
 	end
 
-	if FFlagTopBarSignalizeScreenSize then 
+	if FFlagTopBarSignalizeScreenSize then
 		local getViewportSize = Display.GetDisplayStore(false).getViewportSize
 		self.screenSizeBinding, self.setScreenSizeBinding = Roact.createBinding(getViewportSize(false))
 
-		self.disposeScreenSize = Signals.createEffect(function(scope) 
+		self.disposeScreenSize = Signals.createEffect(function(scope)
 			self.setScreenSizeBinding(getViewportSize(scope))
 		end)
 
-		self.healthbarSizeBinding = self.screenSizeBinding:map(function(screenSize) 
+		self.healthbarSizeBinding = self.screenSizeBinding:map(function(screenSize)
 			if TenFootInterface:IsEnabled() then
 				return HEALTHBAR_SIZE_TENFOOT
 			elseif UseUpdatedHealthBar and screenSize.X <= HEALTHBAR_SIZE_BREAKPOINT_XSMALL then
@@ -178,26 +183,30 @@ function HealthBar:init()
 end
 
 function HealthBar:onUnmount()
-	if FFlagTopBarSignalizeHealthBar then 
+	if FFlagTopBarSignalizeHealthBar then
 		self.coreGuiChangedSignalConn:Disconnect()
 		self.disposeHealthConnection()
 	end
-	if FFlagTopBarSignalizeScreenSize then 
+	if FFlagTopBarSignalizeScreenSize then
 		self.disposeScreenSize()
 	end
 end
 function HealthBar:renderHealth()
 	local healthVisible = nil
-	if not FFlagTopBarSignalizeHealthBar then 
+	if not FFlagTopBarSignalizeHealthBar then
 		healthVisible = self.props.healthEnabled and self.props.health < self.props.maxHealth
 	end
 
 	local healthPercent = 1
-	if not FFlagTopBarSignalizeHealthBar then 
+	if not FFlagTopBarSignalizeHealthBar then
 		if self.props.isDead then
 			healthPercent = 0
 		elseif self.props.maxHealth > 0 then
-			healthPercent = self.props.health / self.props.maxHealth
+			if FFlagClampHealthPercentage then
+				healthPercent = math.clamp(self.props.health / self.props.maxHealth, 0, 1)
+			else
+				healthPercent = self.props.health / self.props.maxHealth
+			end
 		end
 	end
 
@@ -255,7 +264,7 @@ function HealthBar:renderHealth()
 					self.props.setKeepOutArea(Constants.HealthBarKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
 				end
 			else
-				if FFlagTopBarSignalizeKeepOutAreas then 
+				if FFlagTopBarSignalizeKeepOutAreas then
 					self.keepOutAreasStore.removeKeepOutArea(Constants.HealthBarKeepOutAreaId)
 				else
 					self.props.removeKeepOutArea(Constants.HealthBarKeepOutAreaId)
@@ -273,10 +282,10 @@ function HealthBar:renderHealth()
 		Position = if UseUpdatedHealthBar then UDim2.new(1, 0, 0, 0) else nil,
 		Visible = if FFlagTopBarSignalizeHealthBar then self.healthVisible else healthVisible,
 		BackgroundTransparency = 1,
-		Size = if FFlagTopBarSignalizeScreenSize 
+		Size = if FFlagTopBarSignalizeScreenSize
 			then self.healthbarSizeBinding:map(function(healthBarSize)
 				return UDim2.new(healthBarSize.X, UDim.new(1, 0))
-			end) 
+			end)
 			else UDim2.new(healthBarSize.X, UDim.new(1, 0)),
 		LayoutOrder = self.props.layoutOrder,
 		[Roact.Change.AbsoluteSize] = onAreaChanged,
@@ -302,7 +311,7 @@ function HealthBar:renderHealth()
 				ImageColor3 = healthBarColor,
 				ScaleType = Enum.ScaleType.Slice,
 				SliceCenter = sliceCenter,
-				Size = if FFlagTopBarSignalizeHealthBar then self.healthPercent:map(function(healthPercent) 
+				Size = if FFlagTopBarSignalizeHealthBar then self.healthPercent:map(function(healthPercent)
 					return UDim2.fromScale(healthPercent, 1)
 				end) else UDim2.fromScale(healthPercent, 1),
 			}),
@@ -328,8 +337,8 @@ local function mapStateToProps(state)
 end
 
 local function mapDispatchToProps(dispatch)
-	if FFlagTopBarSignalizeKeepOutAreas then 
-		return {} 
+	if FFlagTopBarSignalizeKeepOutAreas then
+		return {}
 	end
 	return {
 		setKeepOutArea = function(id, position, size)

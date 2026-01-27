@@ -90,7 +90,11 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 	local controlState, setControlState = React.useState(ControlState.Initialize :: ControlState)
 	local isDragging, setIsDragging = React.useState(false)
 	local isKnobVisible, setIsKnobVisible = React.useState(false)
-	local value: React.Binding<number> = useBindable(props.value)
+	local value: React.Binding<number> = if Flags.FoundationSliderClampValue
+		then useBindable(props.value):map(function(currValue)
+			return math.clamp(currValue, props.range.Min, props.range.Max)
+		end)
+		else useBindable(props.value)
 
 	local lastDragPosition = React.useRef(nil :: Vector2?)
 	local lastInputMode = useLastInputMode()
@@ -219,8 +223,10 @@ local function Slider(sliderProps: SliderProps, forwardRef: React.Ref<GuiObject>
 					return
 				end
 
-				-- Calculate the new value from the delta
-				local unsteppedValue = calculateSliderValueFromDelta(value:getValue(), delta, props.range)
+				-- Calculate the new value from the position
+				local unsteppedValue = if Flags.FoundationSliderFixValueOnDrag
+					then calculateValueFromAbsPosition(position)
+					else calculateSliderValueFromDelta(value:getValue(), delta, props.range)
 
 				updateValue(unsteppedValue)
 			end

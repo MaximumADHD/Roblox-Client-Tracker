@@ -11,7 +11,6 @@ local Flags = require(Foundation.Utility.Flags)
 local Image = require(Foundation.Components.Image)
 local InputSize = require(Foundation.Enums.InputSize)
 local Orientation = require(Foundation.Enums.Orientation)
-local OverlayProvider = require(Foundation.Providers.Overlay.OverlayProvider)
 local RadioGroup = require(Foundation.Components.RadioGroup)
 local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
@@ -39,8 +38,8 @@ type StoryProps = {
 		heroMediaHeightScale: number?,
 		heroMediaHeightOffset: number?,
 		heroMediaAspectRatio: number?,
-		mockScreenYOffset: number?,
 		size: DialogSize?,
+		selectableContent: boolean?,
 	},
 	children: {
 		DialogMedia: React.ReactNode?,
@@ -55,67 +54,54 @@ local Pictogram = "pictograms/avatar_setup"
 local function Story(props: StoryProps)
 	local children = props.children or { DialogMedia = nil, DialogContent = nil, DialogTitle = nil }
 	local controls = props.controls
-	local ref, setRef = React.useState(nil :: GuiBase2d?)
-	local tokens = useTokens()
-	local isOpen, setIsOpen = React.useState(true)
+	local isOpen, setIsOpen = React.useState(false)
 	local toggleDialog = function()
 		setIsOpen(not isOpen)
 	end
 
-	return React.createElement(View, {
-		ref = setRef,
-		backgroundStyle = {
-			Color3 = tokens.Color.Shift.Shift_200.Color3,
-			Transparency = tokens.Color.Shift.Shift_200.Transparency,
-		},
-		tag = "clip",
-		Size = UDim2.new(1, 0, 0, controls.mockScreenYOffset or 0),
-	}, {
-		OverlayProvider = React.createElement(OverlayProvider, { gui = ref }, {
-			ToggleButton = React.createElement(Button, {
-				text = if isOpen then "Close Dialog" else "Open Dialog",
-				onActivated = toggleDialog,
-				variant = ButtonVariant.Emphasis,
-				Position = UDim2.fromOffset(20, 20),
-			}),
-			DialogRoot = if isOpen
-				then React.createElement(Dialog.Root, {
-					size = controls.size,
-					onClose = toggleDialog,
-					hasBackdrop = controls.hasBackdrop,
-					disablePortal = controls.disablePortal,
-				}, {
-					DialogMedia = children.DialogMedia,
-					DialogTitle = children.DialogTitle,
-					DialogContent = children.DialogContent,
-					DialogActions = if controls.hasActions
-						then React.createElement(Dialog.Actions, {
-							LayoutOrder = 3,
-							orientation = controls.actionsOrientation,
-							actions = {
-								{
-									text = "Join",
-									variant = ButtonVariant.Emphasis,
-									icon = "icons/common/robux",
-									onActivated = function()
-										print("Join clicked!")
-									end,
-									inputDelay = 3,
-								} :: any,
-								{
-									text = "Share",
-									variant = ButtonVariant.Standard,
-									onActivated = function()
-										print("Share clicked!")
-									end,
-								} :: any,
-							},
-							label = controls.actionsLabel,
-						})
-						else nil,
-				})
-				else nil,
+	return React.createElement(React.Fragment, nil, {
+		ToggleButton = React.createElement(Button, {
+			text = if isOpen then "Close Dialog" else "Open Dialog",
+			onActivated = toggleDialog,
+			variant = ButtonVariant.Emphasis,
 		}),
+		DialogRoot = if isOpen
+			then React.createElement(Dialog.Root, {
+				size = controls.size,
+				onClose = toggleDialog,
+				hasBackdrop = controls.hasBackdrop,
+				disablePortal = controls.disablePortal,
+			}, {
+				DialogMedia = children.DialogMedia,
+				DialogTitle = children.DialogTitle,
+				DialogContent = children.DialogContent,
+				DialogActions = if controls.hasActions
+					then React.createElement(Dialog.Actions, {
+						LayoutOrder = 3,
+						orientation = controls.actionsOrientation,
+						actions = {
+							{
+								text = "Join",
+								variant = ButtonVariant.Emphasis,
+								icon = "icons/common/robux",
+								onActivated = function()
+									print("Join clicked!")
+								end,
+								inputDelay = 3,
+							} :: any,
+							{
+								text = "Share",
+								variant = ButtonVariant.Standard,
+								onActivated = function()
+									print("Share clicked!")
+								end,
+							} :: any,
+						},
+						label = controls.actionsLabel,
+					})
+					else nil,
+			})
+			else nil,
 	})
 end
 
@@ -167,6 +153,7 @@ return {
 					}),
 					DialogContent = React.createElement(Dialog.Content, {
 						LayoutOrder = 2,
+						Selectable = props.controls.selectableContent,
 					}, {
 						DialogText = React.createElement(Dialog.Text, {
 							Text = props.controls.content :: string,
@@ -184,6 +171,7 @@ return {
 					}),
 					DialogContent = React.createElement(Dialog.Content, {
 						LayoutOrder = 2,
+						Selectable = props.controls.selectableContent,
 					}, {
 						DialogText = React.createElement(Dialog.Text, {
 							Text = props.controls.content :: string,
@@ -213,6 +201,7 @@ return {
 					}),
 					DialogContent = React.createElement(Dialog.Content, {
 						LayoutOrder = 2,
+						Selectable = props.controls.selectableContent,
 					}, {
 						DialogText = React.createElement(Dialog.Text, {
 							Text = props.controls.content :: string,
@@ -292,6 +281,7 @@ return {
 					}),
 					DialogContent = React.createElement(Dialog.Content, {
 						LayoutOrder = 2,
+						Selectable = props.controls.selectableContent,
 					}, {
 						CustomContent = CustomContent,
 					}),
@@ -331,6 +321,7 @@ return {
 					}),
 					DialogContent = React.createElement(Dialog.Content, {
 						LayoutOrder = 2,
+						Selectable = props.controls.selectableContent,
 					}, {
 						CustomContent = CustomContent,
 					}),
@@ -356,7 +347,7 @@ return {
 		heroMediaAspectRatio = 2.5,
 		heroMediaHeightScale = 1,
 		heroMediaHeightOffset = 0,
+		selectableContent = true,
 		size = Dash.values(DialogSize),
-		mockScreenYOffset = 800,
 	},
 }

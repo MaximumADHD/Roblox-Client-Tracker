@@ -61,6 +61,8 @@ local GetFFlagExpChatUseVoiceParticipantsStore =
 local GetFFlagEnableVoiceUxUpdates = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableVoiceUxUpdates
 local GetFFlagShowToastWhenAgeGatingVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowToastWhenAgeGatingVoice
+local GetFFlagEnableVoiceTrustedConnectionsToasts =
+	require(script.Parent.Flags.GetFFlagEnableVoiceTrustedConnectionsToasts)
 
 local FFlagFixNudgeDeniedEvents = game:DefineFastFlag("FixNudgeDeniedEvents", false)
 local DebugShowAudioDeviceInputDebugger = game:DefineFastFlag("DebugShowAudioDeviceInputDebugger", false)
@@ -550,6 +552,21 @@ function VoiceChatServiceManager.new(
 			log:debug("Simulating join voice")
 			self:simulateVoiceConnectDisconnect()
 		end
+
+		if GetFFlagEnableVoiceTrustedConnectionsToasts() and not self.coreVoiceManager.initializedPostSuspension then
+			local success, value = pcall(function()
+				return AppStorageService:GetItem(VoiceConstants.VOICE_WITH_TC_TOAST_KEY) == "true"
+			end)
+			local hasSeenJoinVoiceTcToast = if success then value else true
+
+			if not hasSeenJoinVoiceTcToast then
+				self:showPrompt(VoiceChatPromptType.UpdateOnAutoJoinToast)
+				pcall(function()
+					AppStorageService:SetItem(VoiceConstants.VOICE_WITH_TC_TOAST_KEY, "true")
+					AppStorageService:Flush()
+				end)
+			end
+		end
 	end)
 
 	self.coreVoiceManager:subscribe("OnAudioDeviceInputRemoved", function()
@@ -605,7 +622,9 @@ function VoiceChatServiceManager.new(
 	self.coreVoiceManager:subscribe("OnVoiceJoin", function()
 		if GetFFlagNonVoiceFTUX() and self.hasLeftFTUX then
 			self.hasLeftFTUX = false
-			if GetFFlagUpdateVoiceConnectionToasts() then
+			if GetFFlagEnableVoiceTrustedConnectionsToasts() then
+				self:showJoinVoicePrompt()
+			elseif GetFFlagUpdateVoiceConnectionToasts() then
 				self:showPrompt(VoiceChatPromptType.UnifiedJoinVoiceToast)
 			else
 				self:showPrompt(VoiceChatPromptType.JoinedVoiceToast)
@@ -620,7 +639,9 @@ function VoiceChatServiceManager.new(
 			and self:IsSeamlessVoice()
 		then
 			ExperienceChat.Events.ShowLikelySpeakingBubblesChanged(false)
-			if GetFFlagUpdateVoiceConnectionToasts() then
+			if GetFFlagEnableVoiceTrustedConnectionsToasts() then
+				self:showJoinVoicePrompt()
+			elseif GetFFlagUpdateVoiceConnectionToasts() then
 				self:showPrompt(VoiceChatPromptType.UnifiedJoinVoiceToast)
 			elseif FFlagSeamlessVoiceV2JoinVoiceToast and self.isInitialJoin then
 				self:showPrompt(VoiceChatPromptType.JoinedVoiceToast)
@@ -1408,6 +1429,14 @@ function VoiceChatServiceManager:showPrompt(promptType, errorText)
 	end, promptType)
 end
 
+function VoiceChatServiceManager:showJoinVoicePrompt()
+	self:showPrompt(VoiceChatPromptType.UnifiedJoinVoiceToast)
+	pcall(function()
+		AppStorageService:SetItem(VoiceConstants.VOICE_WITH_TC_TOAST_KEY, "true")
+		AppStorageService:Flush()
+	end)
+end
+
 function VoiceChatServiceManager:CheckAndShowPermissionPrompt()
 	local function showPrompt()
 		local userEligible = self.userEligible
@@ -1692,7 +1721,9 @@ function VoiceChatServiceManager:JoinVoice(hubRef: any?)
 	if GetFFlagEnableConnectDisconnectInSettingsAndChrome() and self.previousGroupId then
 		-- previously joined voice and left in the same session
 		self:RejoinPreviousChannel()
-		if GetFFlagUpdateVoiceConnectionToasts() then
+		if GetFFlagEnableVoiceTrustedConnectionsToasts() then
+			self:showJoinVoicePrompt()
+		elseif GetFFlagUpdateVoiceConnectionToasts() then
 			self:showPrompt(VoiceChatPromptType.UnifiedJoinVoiceToast)
 		else
 			self:showPrompt(VoiceChatPromptType.JoinVoice)

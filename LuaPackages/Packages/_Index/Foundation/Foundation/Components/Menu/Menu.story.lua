@@ -251,6 +251,62 @@ return {
 			end,
 		},
 		{
+			name = "Match anchorRef width",
+			story = function(props: Props)
+				local ref = React.useRef(nil)
+				local isOpen, setIsOpen = React.useState(false)
+				local menuWidth, setMenuWidth = React.useState(nil :: UDim?)
+
+				React.useLayoutEffect(function()
+					local anchorInstance = ref.current :: GuiObject?
+					if not anchorInstance then
+						return
+					end
+
+					local function updateWidth()
+						setMenuWidth(UDim.new(0, anchorInstance.AbsoluteSize.X))
+					end
+
+					updateWidth()
+					local connection = anchorInstance:GetPropertyChangedSignal("AbsoluteSize"):Connect(updateWidth)
+
+					return function()
+						connection:Disconnect()
+					end
+				end, {})
+
+				return React.createElement(View, {
+					Size = UDim2.new(1, 0, 0, 300),
+				}, {
+					Anchor = React.createElement(Button, {
+						text = `External anchor`,
+						size = InputSize.Medium,
+						width = UDim.new(0, 220),
+						ref = ref,
+						onActivated = function()
+							setIsOpen(not isOpen)
+						end,
+					}),
+					Menu = React.createElement(Menu, {
+						isOpen = isOpen,
+						items = SAMPLE_MENU_ITEMS,
+						size = props.controls.size,
+						side = props.controls.side,
+						align = props.controls.align,
+						width = menuWidth,
+						onPressedOutside = function()
+							setIsOpen(false)
+						end,
+						onActivated = function(id)
+							print("Menu item activated:", id)
+							setIsOpen(false)
+						end,
+						anchorRef = ref,
+					}),
+				})
+			end,
+		},
+		{
 			name = "Grouped",
 			story = function(props)
 				local isOpen, setIsOpen = React.useState(false)

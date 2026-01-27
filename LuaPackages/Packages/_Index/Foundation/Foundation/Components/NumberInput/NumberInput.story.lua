@@ -5,6 +5,7 @@ local React = require(Packages.React)
 
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
+local Flags = require(Foundation.Utility.Flags)
 local NumberInputControlsVariant = require(Foundation.Enums.NumberInputControlsVariant)
 local View = require(Foundation.Components.View)
 
@@ -46,7 +47,9 @@ local function DefaultStory(props)
 					end,
 					label = controls.label,
 					size = size,
-					width = UDim.new(0, controls.baseWidth :: number + widthOffset[size]),
+					width = if Flags.FoundationNumberInputTokenBasedWidth
+						then if controls.width == 0 then nil else UDim.new(0, controls.width)
+						else UDim.new(0, controls.baseWidth :: number + widthOffset[size]),
 					maximum = controls.maximum,
 					minimum = controls.minimum,
 					step = controls.step,
@@ -80,7 +83,8 @@ return {
 		minimum = -5,
 		step = 0.2,
 		precision = 2,
-		baseWidth = 200,
+		width = if Flags.FoundationNumberInputTokenBasedWidth then 0 else nil,
+		baseWidth = if Flags.FoundationNumberInputTokenBasedWidth then nil else 200,
 		controlsVariant = Dash.values(NumberInputControlsVariant),
 		isScrubbable = false,
 		leadingIcon = {

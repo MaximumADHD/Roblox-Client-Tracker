@@ -56,6 +56,11 @@ return function()
 	table.insert(allowList, "SendLikelySpeakingUsers")
 	table.insert(allowList, "ReceiveLikelySpeakingUsers")
 
+	if game:DefineFastFlag("RemoteAllowListAddVR", false) then
+		-- content/scripts/CoreScripts/Modules/Server/VR/VRAvatarGesturesServer.lua
+		table.insert(allowList, "AvatarGesturesVRPlayer")
+	end
+
 	networkPeer:InitializeRemoteAllowList(allowList)
 end
 

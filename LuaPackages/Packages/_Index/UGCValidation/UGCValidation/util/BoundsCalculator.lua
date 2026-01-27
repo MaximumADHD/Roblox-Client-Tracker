@@ -23,6 +23,7 @@ local BoundsDataUtils = require(root.util.BoundsDataUtils)
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
 
 local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
+local getFFlagUGCValidateLegFullBodySeparation = require(root.flags.getFFlagUGCValidateLegFullBodySeparation)
 
 local BoundsCalculator = {}
 
@@ -276,14 +277,21 @@ end
 function BoundsCalculator.calculateIndividualFullBodyPartsData(
 	fullBodyAssets: Types.AllBodyParts,
 	validationContext: Types.ValidationContext,
-	dataCache: Types.DataCache?
+	dataCache: Types.DataCache?,
+	doOrientArmsLegsToWorldAxes: boolean
 ): (boolean, { string }?, { string: any }?)
 	local function findMeshHandle(name: string): MeshPart
 		return fullBodyAssets[name] :: MeshPart
 	end
 
 	local partsCFrames = AssetCalculator.calculateAllTransformsForFullBody(fullBodyAssets)
-	orientFullBodyArmsLegsToWorldAxes(partsCFrames, findMeshHandle)
+	if getFFlagUGCValidateLegFullBodySeparation() then
+		if doOrientArmsLegsToWorldAxes then
+			orientFullBodyArmsLegsToWorldAxes(partsCFrames, findMeshHandle)
+		end
+	else
+		orientFullBodyArmsLegsToWorldAxes(partsCFrames, findMeshHandle)
+	end
 
 	local success, failureReasons, allPartsBoundsDataOpt =
 		calculateAllPartsBoundsData(partsCFrames, findMeshHandle, validationContext, dataCache)

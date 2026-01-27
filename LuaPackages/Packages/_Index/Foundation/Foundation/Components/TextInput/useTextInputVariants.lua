@@ -18,6 +18,8 @@ type Tokens = Tokens.Tokens
 
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 
+local Flags = require(Foundation.Utility.Flags)
+
 type TextInputVariantProps = {
 	canvas: {
 		tag: string,
@@ -31,6 +33,9 @@ type TextInputVariantProps = {
 		gap: number,
 		horizontalPadding: UDim,
 		radius: number,
+	},
+	outerView: {
+		tag: string,
 	},
 	textBox: {
 		tag: string,
@@ -48,6 +53,7 @@ local function computeProps(props: {
 	canvasTag: string,
 	outerContainerTag: string,
 	innerContainerTag: string,
+	outerViewTag: string,
 	horizontalPadding: number,
 	gap: number,
 	radius: number,
@@ -70,6 +76,9 @@ local function computeProps(props: {
 			gap = props.gap,
 			radius = props.radius,
 		},
+		outerView = {
+			tag = props.outerViewTag,
+		},
 		textBox = {
 			tag = props.textBoxTag,
 			-- BEGIN: Remove when Flags.FoundationDisableStylingPolyfill is removed
@@ -90,6 +99,9 @@ local function variantsFactory(tokens: Tokens)
 		innerContainer = {
 			tag = "row align-y-center",
 		},
+		outerView = {
+			tag = "row align-y-center bg-shift-100",
+		},
 		textBox = {
 			tag = "gui-object-defaults clip text-align-x-left text-align-y-center content-emphasis",
 		},
@@ -99,10 +111,10 @@ local function variantsFactory(tokens: Tokens)
 	}
 	local multiline = {
 		canvas = {
-			tag = "auto-y size-full-0",
+			tag = if Flags.FoundationUIStrokeInner then "size-full-0" else "auto-y size-full-0",
 		},
 		outerContainer = {
-			tag = "auto-y size-full-0",
+			tag = if Flags.FoundationUIStrokeInner then "size-full-0" else "auto-y size-full-0",
 		},
 	}
 	local sizes: { [InputSize]: VariantProps } = {
@@ -111,6 +123,7 @@ local function variantsFactory(tokens: Tokens)
 			outerContainerTag = "radius-small",
 			radius = tokens.Radius.Small,
 			innerContainerTag = "gap-small",
+			outerViewTag = if Flags.FoundationUIStrokeInner then "size-full-600 radius-small gap-small" else "",
 			horizontalPadding = tokens.Padding.XSmall,
 			gap = tokens.Gap.Small,
 			textBoxTag = "text-body-small",
@@ -125,6 +138,7 @@ local function variantsFactory(tokens: Tokens)
 			outerContainerTag = "radius-medium",
 			radius = tokens.Radius.Medium,
 			innerContainerTag = "gap-medium",
+			outerViewTag = if Flags.FoundationUIStrokeInner then "size-full-800 radius-medium gap-medium" else "",
 			horizontalPadding = tokens.Padding.Small,
 			gap = tokens.Gap.Medium,
 			textBoxTag = "text-body-medium",
@@ -139,6 +153,7 @@ local function variantsFactory(tokens: Tokens)
 			outerContainerTag = "radius-medium",
 			radius = tokens.Radius.Medium,
 			innerContainerTag = "gap-large",
+			outerViewTag = if Flags.FoundationUIStrokeInner then "size-full-1000 radius-medium gap-large" else "",
 			horizontalPadding = tokens.Padding.Small,
 			gap = tokens.Gap.Large,
 			textBoxTag = "text-body-medium",
@@ -153,6 +168,7 @@ local function variantsFactory(tokens: Tokens)
 			outerContainerTag = "radius-medium",
 			radius = tokens.Radius.Medium,
 			innerContainerTag = "gap-large",
+			outerViewTag = if Flags.FoundationUIStrokeInner then "size-full-1200 radius-medium gap-large" else "",
 			horizontalPadding = tokens.Padding.Medium,
 			gap = tokens.Gap.Large,
 			textBoxTag = "text-body-large",

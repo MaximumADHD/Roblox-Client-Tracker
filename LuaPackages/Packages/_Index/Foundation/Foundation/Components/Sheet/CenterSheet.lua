@@ -55,6 +55,25 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 	local maxHeight = useScaledValue(HEIGHT)
 	local animationOffset = tokens.Size.Size_800
 
+	-- Track the maximum available height based on viewport size
+	local maxAvailableHeight, setMaxAvailableHeight
+	if Flags.FoundationAddHeightPropToCenterSheet then
+		maxAvailableHeight, setMaxAvailableHeight = React.useBinding(maxHeight)
+	end
+
+	local sheetContentHeight = if Flags.FoundationAddHeightPropToCenterSheet and maxAvailableHeight
+		then maxAvailableHeight:map(function(value: number): number?
+			if props.centerSheetHeight then
+				if props.centerSheetHeight > 0 and props.centerSheetHeight <= 1 then
+					return value * props.centerSheetHeight
+				elseif props.centerSheetHeight > 1 then
+					return math.min(props.centerSheetHeight, value)
+				end
+			end
+			return nil
+		end)
+		else nil
+
 	local animating, setAnimating = React.useState(true)
 
 	local closing = React.useRef(false)
@@ -111,6 +130,8 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 			setActionsHeight = Dash.noop,
 			hasActionsDivider = hasActionsDivider,
 			setHasActionsDivider = setHasActionsDivider,
+			sheetContentHeight = sheetContentHeight,
+			setSheetContentHeight = Dash.noop,
 			sheetHeightAvailable = 0,
 			setSheetHeightAvailable = Dash.noop,
 			safeAreaPadding = 0,
@@ -147,9 +168,33 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 							return value / animationOffset
 						end)
 						else nil,
+					onAbsoluteSizeChanged = if Flags.FoundationAddHeightPropToCenterSheet
+							and props.centerSheetHeight
+							and setMaxAvailableHeight
+						then function(rbx: GuiObject)
+							local padding = tokens.Margin.Medium * 2
+							setMaxAvailableHeight(math.min(rbx.AbsoluteSize.Y - padding, maxHeight))
+						end
+						else nil,
 				}, {
 					Sheet = React.createElement(View, {
 						ClipsDescendants = true,
+						Size = if Flags.FoundationAddHeightPropToCenterSheet
+								and props.centerSheetHeight
+								and sheetContentHeight
+							then sheetContentHeight:map(function(value: number?)
+								return if value then UDim2.new(1, 0, 0, value) else nil
+							end)
+							else nil,
+						sizeConstraint = if Flags.FoundationAddHeightPropToCenterSheet
+								and props.centerSheetHeight
+								and maxAvailableHeight
+							then {
+								MaxSize = maxAvailableHeight:map(function(value: number)
+									return Vector2.new(math.huge, value)
+								end),
+							}
+							else nil,
 						stateLayer = {
 							affordance = StateLayerAffordance.None,
 						},
@@ -162,14 +207,31 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 						ref = ref,
 						selection = SheetTypes.nonSelectable,
 						selectionGroup = SheetTypes.isolatedSelectionGroup,
-						tag = if Flags.FoundationSheetCenterSheetNoShrink
-							then "bg-surface-100 stroke-default stroke-standard radius-large size-full-0 auto-y"
-							else "bg-surface-100 stroke-default stroke-standard radius-large size-full-0 shrink auto-y",
+						tag = if Flags.FoundationAddHeightPropToCenterSheet
+							then if Flags.FoundationSheetCenterSheetNoShrink
+								then {
+									["bg-surface-100 stroke-default stroke-standard radius-large"] = true,
+									["size-full-0 auto-y"] = props.centerSheetHeight == nil,
+								}
+								else {
+									["bg-surface-100 stroke-default stroke-standard radius-large"] = true,
+									["size-full-0 shrink auto-y"] = props.centerSheetHeight == nil,
+								}
+							else if Flags.FoundationSheetCenterSheetNoShrink
+								then "bg-surface-100 stroke-default stroke-standard radius-large size-full-0 auto-y"
+								else "bg-surface-100 stroke-default stroke-standard radius-large size-full-0 shrink auto-y",
 						testId = props.testId,
 					}, {
 						Content = React.createElement(
 							View,
 							{
+								Size = if Flags.FoundationAddHeightPropToCenterSheet
+										and props.centerSheetHeight
+										and sheetContentHeight
+									then sheetContentHeight:map(function(value: number?)
+										return if value then UDim2.new(1, 0, 0, value) else nil
+									end)
+									else nil,
 								tag = if Flags.FoundationSheetCenterSheetNoShrink
 									then "size-full-0 auto-y col items-center clip"
 									else "size-full-0 auto-y shrink col items-center clip",

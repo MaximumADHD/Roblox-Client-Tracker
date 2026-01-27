@@ -27,6 +27,8 @@ local FetchAllDesiredData = require(root.validationSystem.dataFetchModules.Fetch
 local getUploadCategory = require(root.util.getUploadCategory)
 local RecreateSceneFromEditables = require(root.util.RecreateSceneFromEditables)
 local ErrorSourceStrings = require(root.validationSystem.ErrorSourceStrings)
+local getEngineFeatureEngineAQSJsonParsingInLua = require(root.flags.getEngineFeatureEngineAQSJsonParsingInLua)
+
 local HttpService = game:GetService("HttpService")
 local TelemetryService = game:GetService("TelemetryService")
 local RunService = game:GetService("RunService")
@@ -81,20 +83,20 @@ local function initRunVariables(
 		assert(key == testEnum)
 		local validationModule: Types.PreloadedValidationModule = ValidationModuleLoader.getValidationModule(testEnum)
 		local categories = validationModule.categories
-		local runAsShadow = validationModule.shadowFlag() and not validationModule.fflag()
 
-		if (runAsShadow or validationModule.fflag()) and table.find(categories, uploadCategory) then
-			local is_quality = false
+		if table.find(categories, uploadCategory) and (validationModule.fflag() or validationModule.shadowFlag()) then
+			local runAsShadow = validationModule.shadowFlag() and not validationModule.fflag()
 			for _, dataEnum in validationModule.requiredData do
 				desiredData[dataEnum] = true
-				if not is_quality and dataEnum == ValidationEnums.SharedDataMember.aqsSummaryData then
-					desiredData[ValidationEnums.SharedDataMember.renderMeshesData] = true
-					desiredData[ValidationEnums.SharedDataMember.innerCagesData] = true
-					desiredData[ValidationEnums.SharedDataMember.outerCagesData] = true
-					desiredData[ValidationEnums.SharedDataMember.meshTextures] = true
-					table.insert(qualityTests, testEnum)
-					is_quality = true
-				end
+			end
+
+			for _, dataEnum in validationModule.conditionalData do
+				desiredData[dataEnum] = true
+			end
+
+			local is_quality = next(validationModule.expectedAqsData) ~= nil
+			if is_quality then
+				table.insert(qualityTests, testEnum)
 			end
 
 			local prevTests = {}
@@ -152,9 +154,13 @@ local function fetchQualityResults(sharedData: Types.SharedData, qualityTests: {
 				local results = AssetQualityService:FetchAssetQualitySummaryFromGltfAsync(gltfString, qualityTests)
 				local deltaTime = 1000 * (os.clock() - startTime)
 				sharedData.aqsFetchMetrics.visualizationUrl = results.visualizationUrl
-				sharedData.aqsFetchMetrics.returnVersion = results.version
 				sharedData.aqsFetchMetrics.fetchTimeMs = deltaTime
-				sharedData.aqsSummaryData = results
+				if getEngineFeatureEngineAQSJsonParsingInLua() then
+					sharedData.aqsSummaryData = HttpService:JSONDecode(results["rawJson"])
+				else
+					sharedData.aqsFetchMetrics.returnVersion = results.version
+					sharedData.aqsSummaryData = results
+				end
 			end)
 
 			if success then
@@ -166,8 +172,9 @@ local function fetchQualityResults(sharedData: Types.SharedData, qualityTests: {
 	if success then
 		sharedData.aqsFetchMetrics.fetchStatus = kAssetQualityFetchSuccess
 	else
-		sharedData.aqsFetchMetrics.fetchStatus = kAssetQualityFetchFailure
 		sharedData.aqsFetchMetrics.fetchFailureReason = errors
+		sharedData.aqsSummaryData = FetchAllDesiredData.DATA_FETCH_FAILURE
+		sharedData.aqsFetchMetrics.fetchStatus = kAssetQualityFetchFailure
 		if getFFlagDebugUGCValidationPrintNewStructureResults() then
 			print("Logged AQS fetch failure:", errors)
 		end
@@ -279,7 +286,7 @@ local function createConsumerConfigWithDefaults(
 	newConfigs.telemetryBundleId = newConfigs.telemetryBundleId or ""
 	newConfigs.telemetryRootId = newConfigs.telemetryRootId or ""
 	newConfigs.preloadedEditableMeshes = newConfigs.preloadedEditableMeshes or {}
-	newConfigs.preloadedEditableImages = newConfigs.telemetryRootId or {}
+	newConfigs.preloadedEditableImages = newConfigs.preloadedEditableImages or {}
 
 	return newConfigs :: Types.PreloadedConsumerConfigs
 end

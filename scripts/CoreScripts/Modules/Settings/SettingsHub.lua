@@ -40,7 +40,7 @@ local InExperienceMenuReactPage = require(script.Parent.Pages.InExperienceMenuRe
 local ReactPageSignal = require(script.Parent.ReactPageSignal)
 local SettingsUtils = require(script.Parent.Integrations.Utils)
 local utility = require(RobloxGui.Modules.Settings.Utility)
-local VRHub = require(RobloxGui.Modules.VR.VRHub)
+local VRHub = require(CorePackages.Workspace.Packages.VrCommon).VRHub
 local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicyService)
 local PerfUtils = require(RobloxGui.Modules.Common.PerfUtils)
 local MouseIconOverrideService = require(CorePackages.Workspace.Packages.CoreScriptsCommon).MouseIconOverrideService
@@ -158,7 +158,6 @@ local Flags = {
 	FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory,
 	
 	FFlagCreateInExperienceMenuReact = SettingsFlags.FFlagCreateInExperienceMenuReact,
-	FFlagIEMButtonsResponsiveLayout = SettingsFlags.FFlagIEMButtonsResponsiveLayout,
 	FFlagEnableSystemScrimInSettingsHub = game:DefineFastFlag("EnableSystemScrimInSettingsHub", false),
 
 	FFlagHelpPageIXPExposure = HelpPage.Flags.FFlagHelpPageIXPExposure,
@@ -593,28 +592,25 @@ local function CreateSettingsHub()
 			end
 
 			this[buttonName], this[textName] = utility:MakeStyledButton(name .. "Button", text, size, clickFunc, nil, this)
+			Create "UIListLayout" {
+				FillDirection = Enum.FillDirection.Horizontal,
+				SortOrder = Enum.SortOrder.LayoutOrder,
+				VerticalAlignment = Enum.VerticalAlignment.Center,
 
-			if Flags.FFlagIEMButtonsResponsiveLayout then
-				Create "UIListLayout" {
-					FillDirection = Enum.FillDirection.Horizontal,
-					SortOrder = Enum.SortOrder.LayoutOrder,
-					VerticalAlignment = Enum.VerticalAlignment.Center,
+				Parent = this[buttonName],
+			}
+			Create "UIPadding" {
+				PaddingLeft = UDim.new(0.025, 0),
 
-					Parent = this[buttonName],
-				}
-				Create "UIPadding" {
-					PaddingLeft = UDim.new(0.025, 0),
+				Parent = this[buttonName],
+			}
+			-- replacing full width with flex grow width
+			this[textName].Size = UDim2.new(0, 0, 1, 0)
 
-					Parent = this[buttonName],
-				}
-				-- replacing full width with flex grow width
-				this[textName].Size = UDim2.new(0, 0, 1, 0)
-
-				Create "UIFlexItem" {
-					FlexMode = Enum.UIFlexMode.Grow,
-					Parent = this[textName],
-				}
-			end
+			Create "UIFlexItem" {
+				FlexMode = Enum.UIFlexMode.Grow,
+				Parent = this[textName],
+			}
 
 			this[buttonName].Position = position
 			this[buttonName].Parent = this.BottomButtonFrame
@@ -626,13 +622,6 @@ local function CreateSettingsHub()
 			local hintLabel = nil
 
 			if not isTouchDevice then
-				if not Flags.FFlagIEMButtonsResponsiveLayout then
-					local hintOffset = 9 + 33
-					local rightPad = 9
-					this[textName].Size = UDim2.new(1,-(hintOffset+rightPad),1.0,0)
-					this[textName].Position = UDim2.new(1,-rightPad,0,0)
-					this[textName].AnchorPoint = Vector2.new(1,0)
-				end
 
 				local hintName = name .. "Hint"
 				local image = ""
@@ -648,7 +637,7 @@ local function CreateSettingsHub()
 					ZIndex = this.Shield.ZIndex + 2,
 					BackgroundTransparency = 1,
 					Image = image,
-					LayoutOrder = if Flags.FFlagIEMButtonsResponsiveLayout then -1 else 0,
+					LayoutOrder = -1 ,
 					Parent = this[buttonName]
 				};
 
@@ -3885,7 +3874,7 @@ local function CreateSettingsHub()
 	this.GameSettingsPageReorderIXPFetched = false
 	local vrMenuOpened, vrMenuClosed = nil, nil
 	local function enableVR()
-		local VRHub = require(RobloxGui.Modules.VR.VRHub)
+		local VRHub = require(CorePackages.Workspace.Packages.VrCommon).VRHub
 		local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
 		local panel = Panel3D.Get(thisModuleName)
 		panel:ResizeStuds(4, 4, 250)
@@ -4242,13 +4231,9 @@ local function CreateSettingsHub()
 			Parent = this.ClippingShield
 		}
 
-		local playersButtonsContainer
-		local leaveButtonMobile
-		if Flags.FFlagIEMButtonsResponsiveLayout then
-			playersButtonsContainer = this.PlayersPage.ButtonsContainer
-			leaveButtonMobile = if playersButtonsContainer then playersButtonsContainer:FindFirstChild("LeaveButtonButton", true) else nil
-		end
-
+		local playersButtonsContainer = this.PlayersPage.ButtonsContainer
+		local leaveButtonMobile = if playersButtonsContainer then playersButtonsContainer:FindFirstChild("LeaveButtonButton", true) else nil
+		
 		local leaveGameButton
 		if Flags.FFlagAddTraversalHistory then
 			leaveGameButton = this["LeaveGameButton"]

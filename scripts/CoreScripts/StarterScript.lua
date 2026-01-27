@@ -90,7 +90,7 @@ local FFlagEnableCorescriptsProfiler = game:DefineFastFlag("EnableCorescriptsPro
 local FFlagCoreScriptsProfilerTelemetryContext = game:DefineFastFlag("CoreScriptsProfilerTelemetryContext", false)
 local FFlagFixExperimentCacheManagerCoreScriptInit =
 	game:DefineFastFlag("FixExperimentCacheManagerCoreScriptInit2", false)
-local FFlagLuaAppEnableEnhancedVideoScripts = game:DefineFastFlag("LuaAppEnableEnhancedVideoScripts2", false)
+local FFlagLuaAppEnableEnhancedVideoScripts = game:DefineFastFlag("LuaAppEnableEnhancedVideoScripts3", false)
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig

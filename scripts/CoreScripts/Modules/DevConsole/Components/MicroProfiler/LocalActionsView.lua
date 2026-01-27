@@ -7,7 +7,7 @@ local GameSettings = Settings.GameSettings
 
 local BoxButton = require(script.Parent.Parent.BoxButton)
 local Constants = require(script.Parent.Parent.Parent.Constants)
-local StandaloneCheckbox = require(script.Parent.Parent.StandaloneCheckbox)
+local Checkbox = require(script.Parent.Parent.Checkbox)
 local MicroProfilerPanel = require(script.Parent.MicroProfilerPanel)
 local Roact = require(CorePackages.Packages.Roact)
 
@@ -104,7 +104,7 @@ function LocalActionsView:render()
 							BackgroundTransparency = 1,
 							LayoutOrder = 2,
 						}, {
-							OnScreenMicroProfilerVisibleCheckbox = Roact.createElement(StandaloneCheckbox, {
+							OnScreenMicroProfilerVisibleCheckbox = Roact.createElement(Checkbox, {
 								Name = "OnScreenMicroProfilerVisibleCheckbox",
 								IsSelected = self.state.OnScreenMicroProfilerVisible,
 								Size = UDim2.fromOffset(

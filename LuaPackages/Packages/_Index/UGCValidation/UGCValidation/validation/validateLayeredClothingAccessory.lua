@@ -62,6 +62,8 @@ local getFFlagUGCValidateCheckHSRFileDataFix = require(root.flags.getFFlagUGCVal
 local getFFlagUGCValidateAccessoryAssetTextureLimit = require(root.flags.getFFlagUGCValidateAccessoryAssetTextureLimit)
 local getFFlagUGCValidateLayeredClothingAssetSurfaceAppearanceTextureLimits =
 	require(root.flags.getFFlagUGCValidateLayeredClothingAssetSurfaceAppearanceTextureLimits)
+local getFFlagValidateLCsOnlySkinnedToR15 = require(root.flags.getFFlagValidateLCsOnlySkinnedToR15)
+local ValidateMeshPartOnlySkinnedToR15 = require(root.validation.ValidateMeshPartOnlySkinnedToR15)
 
 local function validateLayeredClothingAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
 	local instances = validationContext.instances
@@ -421,6 +423,14 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 
 	if getEngineUGCValidateRelativeSkinningTransfer() then
 		success, failedReason = validateSkinningTransfer(handle, validationContext)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
+	end
+
+	if getFFlagValidateLCsOnlySkinnedToR15() and not Constants.SkinningTransferRequiredTypes[assetTypeEnum] then
+		success, failedReason = ValidateMeshPartOnlySkinnedToR15.validateMeshPart(handle, validationContext)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false

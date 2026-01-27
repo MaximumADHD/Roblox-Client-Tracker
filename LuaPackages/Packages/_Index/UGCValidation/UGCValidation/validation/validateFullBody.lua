@@ -9,6 +9,7 @@ local Constants = require(root.Constants)
 local ConstantsInterface = require(root.ConstantsInterface)
 
 local getEngineFeatureUGCValidationFullBodyFacs = require(root.flags.getEngineFeatureUGCValidationFullBodyFacs)
+local getFFlagUGCValidateLegFullBodySeparation = require(root.flags.getFFlagUGCValidateLegFullBodySeparation)
 
 local Types = require(root.util.Types)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
@@ -19,6 +20,7 @@ local validateSingleInstance = require(root.validation.validateSingleInstance)
 local ValidateBodyBlockingTests = require(root.util.ValidateBodyBlockingTests)
 local ValidateAssetBodyPartCages = require(root.validation.ValidateAssetBodyPartCages)
 local ValidateEachBodyPartFacsBounds = require(root.validation.ValidateEachBodyPartFacsBounds)
+local ValidateLegsSeparation = require(root.validation.ValidateLegsSeparation)
 
 local createDynamicHeadMeshPartSchema = require(root.util.createDynamicHeadMeshPartSchema)
 local createLimbsAndTorsoSchema = require(root.util.createLimbsAndTorsoSchema)
@@ -233,6 +235,10 @@ local function validateFullBody(validationContext: Types.ValidationContext): (bo
 
 		reasonsAccumulator:updateReasons(ValidateAssetBodyPartCages.validateFullBody(allBodyParts, validationContext))
 		reasonsAccumulator:updateReasons(validateAssetBounds(allBodyParts, nil, validationContext))
+
+		if getFFlagUGCValidateLegFullBodySeparation() then
+			reasonsAccumulator:updateReasons(ValidateLegsSeparation.validateFullBody(allBodyParts, validationContext))
+		end
 
 		if getEngineFeatureUGCValidationFullBodyFacs() then
 			reasonsAccumulator:updateReasons(ValidateEachBodyPartFacsBounds(allBodyParts, validationContext))

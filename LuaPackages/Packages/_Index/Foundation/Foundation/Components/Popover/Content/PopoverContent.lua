@@ -86,17 +86,18 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 	local backgroundStyle = props.backgroundStyle or tokens.Color.Surface.Surface_100
 
 	local ref = React.useRef(nil)
+	local contentInstance, setContentInstance = React.useState(nil :: GuiObject?)
 	local backdropInstance, setBackdropInstance = React.useState(nil :: GuiObject?)
 	local pointerPosition = usePointerPosition(backdropInstance)
 
 	React.useImperativeHandle(forwardedRef, function()
-		return ref.current
-	end, {})
+		return if Flags.FoundationFixPopoverShadowSizing then contentInstance else ref.current
+	end, { if Flags.FoundationFixPopoverShadowSizing then contentInstance else nil })
 
 	local position, isVisible, contentSize, arrowPosition, screenSize, anchorPoint = useFloating(
 		popoverContext.isOpen,
 		popoverContext.anchor,
-		ref.current,
+		if Flags.FoundationFixPopoverShadowSizing then contentInstance else ref.current,
 		overlay,
 		props.side,
 		props.align,
@@ -224,7 +225,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 			onActivated = if props.onPressedOutside then function() end else nil,
 			backgroundStyle = backgroundStyle,
 			tag = `auto-xy {radiusToTag[props.radius]}`,
-			ref = ref,
+			ref = if Flags.FoundationFixPopoverShadowSizing then setContentInstance else ref,
 			testId = `{popoverContext.testId}--content`,
 		}, props.children),
 	})

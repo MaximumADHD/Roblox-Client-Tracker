@@ -7,8 +7,8 @@ local TEXT_SIZE = Constants.DefaultFontSize.MainWindow
 local TEXT_COLOR = Constants.Color.Text
 local MAIN_FONT = Constants.Font.MainWindow
 local MAIN_FONT_BOLD = Constants.Font.MainWindowBold
-local CHECK_BOX_HEIGHT = Constants.UtilityBarFormatting.CheckBoxHeight
-local PADDING = Constants.UtilityBarFormatting.CheckBoxInnerPadding
+local CHECK_BOX_HEIGHT = Constants.UtilityBarFormatting.CheckboxHeight
+local PADDING = Constants.UtilityBarFormatting.CheckboxInnerPadding
 local FRAME_HEIGHT = 2
 
 export type Props = {
@@ -17,7 +17,7 @@ export type Props = {
 	size: UDim2?,
 	pos: UDim2?,
 	LayoutOrder: number?,
-	OnCheckBoxClicked: (name: string?, selected: boolean) -> (),
+	OnCheckboxClicked: (name: string?, selected: boolean) -> (),
 }
 
 local function CellCheckbox(props: Props)
@@ -41,8 +41,8 @@ local function CellCheckbox(props: Props)
 	end
 
 	local onActivated = React.useCallback(function()
-		props.OnCheckBoxClicked(props.name, not isSelected)
-	end, { props.OnCheckBoxClicked, props.name, isSelected } :: { any })
+		props.OnCheckboxClicked(props.name, not isSelected)
+	end, { props.OnCheckboxClicked, props.name, isSelected } :: { any })
 
 	return Roact.createElement("ImageButton", {
 		Size = size,

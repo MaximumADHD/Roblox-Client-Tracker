@@ -1,7 +1,5 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 
-local Flags = require(Foundation.Utility.Flags)
-
 local BadgeVariant = require(Foundation.Enums.BadgeVariant)
 type BadgeVariant = BadgeVariant.BadgeVariant
 local BadgeSize = require(Foundation.Enums.BadgeSize)
@@ -30,10 +28,7 @@ function variantsFactory(tokens: Tokens)
 			tag = "radius-circle row align-y-center align-x-center gap-xsmall",
 		},
 		text = {
-			tag = {
-				["auto-xy text-label-small"] = true,
-				["text-align-x-left"] = Flags.FoundationFixBadgeAndIndicatorTextAlignment,
-			},
+			tag = "auto-xy text-label-small text-align-x-left",
 		},
 	}
 

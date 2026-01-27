@@ -74,63 +74,71 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 
 	local isInteractable = props.onStateChanged ~= nil or props.onActivated ~= nil or props.onSecondaryActivated ~= nil
 
-	local image, imageRectOffset, imageRectSize, aspectRatio = React.useMemo(function(): ...any
-		-- selene: allow(shadowing)
-		local image = props.Image
-		-- selene: allow(shadowing)
-		local imageRectOffset = if props.imageRect then props.imageRect.offset else nil
-		-- selene: allow(shadowing)
-		local imageRectSize = if props.imageRect then props.imageRect.size else nil
-		-- selene: allow(shadowing)
-		local aspectRatio = props.aspectRatio
+	local image, imageRectOffset, imageRectSize, aspectRatio = React.useMemo(
+		function(): ...any
+			-- selene: allow(shadowing)
+			local image = props.Image
+			-- selene: allow(shadowing)
+			local imageRectOffset = if props.imageRect then props.imageRect.offset else nil
+			-- selene: allow(shadowing)
+			local imageRectSize = if props.imageRect then props.imageRect.size else nil
+			-- selene: allow(shadowing)
+			local aspectRatio = props.aspectRatio
 
-		if ReactIs.isBinding(props.Image) then
-			local function getImageBindingValue(prop)
-				return (props.Image :: React.Binding<string>):map(function(value: string)
-					if isFoundationImage(value) then
-						local asset
-						if isCloudAsset(value) then
-							asset = Assets[value]
-							aspectRatio = getAspectRatio(asset.size)
-							if prop == "Image" then
-								return asset.assetId
+			if ReactIs.isBinding(props.Image) then
+				local function getImageBindingValue(prop)
+					return (props.Image :: React.Binding<string>):map(function(value: string)
+						if isFoundationImage(value) then
+							local asset
+							if isCloudAsset(value) then
+								asset = Assets[value]
+								aspectRatio = getAspectRatio(asset.size)
+								if prop == "Image" then
+									return asset.assetId
+								end
+								return nil
 							end
+							asset = Images[value]
+							return if asset then asset[prop] else nil
+						elseif prop == "Image" then
+							return value
+						elseif prop == "ImageRectOffset" and props.imageRect then
+							return props.imageRect.offset
+						elseif prop == "ImageRectSize" and props.imageRect then
+							return props.imageRect.size
+						else
 							return nil
 						end
-						asset = Images[value]
-						return if asset then asset[prop] else nil
-					elseif prop == "Image" then
-						return value
-					elseif prop == "ImageRectOffset" and props.imageRect then
-						return props.imageRect.offset
-					elseif prop == "ImageRectSize" and props.imageRect then
-						return props.imageRect.size
-					else
-						return nil
-					end
-				end)
-			end
+					end)
+				end
 
-			image = getImageBindingValue("Image")
-			imageRectOffset = getImageBindingValue("ImageRectOffset")
-			imageRectSize = getImageBindingValue("ImageRectSize")
-		elseif typeof(props.Image) == "string" and isFoundationImage(props.Image) then
-			if isCloudAsset(props.Image) then
-				local asset = Assets[props.Image]
-				image = asset.assetId
-				aspectRatio = getAspectRatio(asset.size)
-			else
-				local asset = Images[props.Image]
-				if asset then
-					image = asset.Image
-					imageRectOffset = asset.ImageRectOffset
-					imageRectSize = asset.ImageRectSize
+				image = getImageBindingValue("Image")
+				imageRectOffset = getImageBindingValue("ImageRectOffset")
+				imageRectSize = getImageBindingValue("ImageRectSize")
+			elseif typeof(props.Image) == "string" and isFoundationImage(props.Image) then
+				if isCloudAsset(props.Image) then
+					local asset = Assets[props.Image]
+					image = asset.assetId
+					aspectRatio = getAspectRatio(asset.size)
+				else
+					local asset = Images[props.Image]
+					if asset then
+						image = asset.Image
+						imageRectOffset = asset.ImageRectOffset
+						imageRectSize = asset.ImageRectSize
+					end
 				end
 			end
-		end
 
-		return image, imageRectOffset, imageRectSize, aspectRatio
-	end, { props.Image, props.imageRect, Images } :: { unknown })
+			return image, imageRectOffset, imageRectSize, aspectRatio
+		end,
+		{
+			props.Image,
+			props.imageRect,
+			if Flags.FoundationImageFixAspectRatioMemo then props.aspectRatio else nil,
+			Images,
+		} :: { unknown }
+	)
 
 	local sliceCenter, sliceScale, scaleType = nil :: Bindable<Rect?>, nil :: Bindable<number?>, props.ScaleType
 	if props.slice then

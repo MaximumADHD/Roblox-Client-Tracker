@@ -492,7 +492,7 @@ function MainViewScriptProfiler:init()
 		self.props.dispatchSetDataView(isClientView, isFunctionsView)
 	end
 
-	self.onCheckBoxChanged = function(boxName, newValue)
+	self.onCheckboxChanged = function(boxName, newValue)
 		local isClientView = self.props.isClientView
 
 		if boxName == LIVE_UPDATE_TEXT then
@@ -780,7 +780,7 @@ function MainViewScriptProfiler:renderMobileSettingsUI()
 	})
 end
 
-function MainViewScriptProfiler:renderProfilerView(isClientView, state, utilButtons, checkBoxStates)
+function MainViewScriptProfiler:renderProfilerView(isClientView, state, utilButtons, checkboxStates)
 	local isProfiling = state.isProfiling
 	local profilingData = state.data
 	local usePercentages = self.props.usePercentages
@@ -814,8 +814,8 @@ function MainViewScriptProfiler:renderProfilerView(isClientView, state, utilButt
 			onClientButton = self.onClientButton,
 			onServerButton = self.onServerButton,
 
-			orderedCheckBoxState = checkBoxStates,
-			onCheckBoxChanged = self.onCheckBoxChanged,
+			orderedCheckboxState = checkboxStates,
+			onCheckboxChanged = self.onCheckboxChanged,
 
 			onSearchTermChanged = self.onSearchTermChanged,
 			searchTerm = state.searchTerm,
@@ -857,26 +857,26 @@ function MainViewScriptProfiler:render()
 
 	local isClientView, state = self:getActiveState()
 
-	local checkBoxStates = {}
+	local checkboxStates = {}
 	local tmpCheckboxIndex = 1 -- Temporary, remove with each flag that uses checkboxes; ensures that each flagged entry does not depend on the others being enabled
 
 	local mobileUIformFactor = formFactor == Constants.FormFactor.Small
 
 	if not mobileUIformFactor then
-		checkBoxStates[1] = { name = LIVE_UPDATE_TEXT, state = state.liveUpdate }
+		checkboxStates[1] = { name = LIVE_UPDATE_TEXT, state = state.liveUpdate }
 
 		if FFlagScriptProfilerShowPlugins then
 			tmpCheckboxIndex += 1
-			checkBoxStates[tmpCheckboxIndex] = { name = SHOW_PLUGINS_TEXT, state = state.showPlugins }
+			checkboxStates[tmpCheckboxIndex] = { name = SHOW_PLUGINS_TEXT, state = state.showPlugins }
 		end
 
 		tmpCheckboxIndex += 1
-		checkBoxStates[tmpCheckboxIndex] = { name = SHOW_GC_TEXT, state = state.showGC }
+		checkboxStates[tmpCheckboxIndex] = { name = SHOW_GC_TEXT, state = state.showGC }
 	end
 
 	local utilButtons = self:renderUtilButtons(state, mobileUIformFactor, mobileUIformFactor)
 
-	return self:renderProfilerView(isClientView, state, utilButtons, checkBoxStates)
+	return self:renderProfilerView(isClientView, state, utilButtons, checkboxStates)
 end
 
 local function mapStateToProps(state, props)

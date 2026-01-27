@@ -40,7 +40,6 @@ local getEngineFeatureEngineUGCIsValidR15AnimationRigCheck =
 local GetFStringUGCValidateFrameDeltaKeyTimeTol = require(flags.GetFStringUGCValidateFrameDeltaKeyTimeTol)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
-local getFFlagUGCValidateRestrictEmoteHeight = require(flags.getFFlagUGCValidateRestrictEmoteHeight)
 local GetFStringUGCValidateAnimationHeightTol = require(flags.GetFStringUGCValidateAnimationHeightTol)
 local getFFlagUGCValidateFixCurveAnimFrameTimeErrorMessage =
 	require(flags.getFFlagUGCValidateFixCurveAnimFrameTimeErrorMessage)
@@ -50,6 +49,14 @@ local getFIntUGCValidationMaxAnimationRotationSpeedPerSecond =
 local getFFlagUGCValidateCurveAnimFinalFrameBug = require(flags.getFFlagUGCValidateCurveAnimFinalFrameBug)
 local getFFlagUGCValidateCurveAnimMinTimeFix = require(flags.getFFlagUGCValidateCurveAnimMinTimeFix)
 local GetFStringUGCValidateCurveAnimationMinLength = require(flags.GetFStringUGCValidateCurveAnimationMinLength)
+local getFFlagUGCValidateCurveAnimTimeErrorMessageFix = require(flags.getFFlagUGCValidateCurveAnimTimeErrorMessageFix)
+local getFFlagUGCValidateRestrictNumMarkerCurves = require(flags.getFFlagUGCValidateRestrictNumMarkerCurves)
+local getFIntUGCValidateMaxTotalMarkerCurves = require(flags.getFIntUGCValidateMaxTotalMarkerCurves)
+local getFFlagUGCValidateRestrictNumFaceControls = require(flags.getFFlagUGCValidateRestrictNumFaceControls)
+local getFIntUGCValidateMaxTotalFaceControls = require(flags.getFIntUGCValidateMaxTotalFaceControls)
+local getFFlagUGCValidateRestrictNumMarkersInsideMarkerCurves =
+	require(flags.getFFlagUGCValidateRestrictNumMarkersInsideMarkerCurves)
+local getFIntUGCValidateMaxTotalInternalMarkers = require(flags.getFIntUGCValidateMaxTotalInternalMarkers)
 
 local ValidateCurveAnimation = {}
 
@@ -194,7 +201,15 @@ local function validateBodyPartFolderChildren(parentFolder: Instance): boolean
 
 		local faceControls = parentFolder:FindFirstChild(FaceControlsName)
 		if faceControls then
-			for _, child in faceControls:GetChildren() do
+			local allFaceControls = faceControls:GetChildren()
+
+			if getFFlagUGCValidateRestrictNumFaceControls() then
+				if #allFaceControls > getFIntUGCValidateMaxTotalFaceControls() then
+					return false
+				end
+			end
+
+			for _, child in allFaceControls do
 				if not child:IsA("FloatCurve") then
 					return false
 				end
@@ -299,6 +314,28 @@ local function validateSingleBodyRoot(
 				Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
 				validationContext
 			)
+		end
+	end
+	return true
+end
+
+function ValidateCurveAnimation.validateMarkerCurves(
+	curveAnim: CurveAnimation,
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	local maxTotalMarkerCurves = getFIntUGCValidateMaxTotalMarkerCurves()
+
+	local numMarkerCurves = 0
+	for _, desc in curveAnim:GetDescendants() do
+		if desc:IsA("MarkerCurve") then
+			numMarkerCurves += 1
+			if numMarkerCurves > maxTotalMarkerCurves then
+				return reportFailure(
+					`CurveAnimation contains more than {maxTotalMarkerCurves} MarkerCurve(s). Please ensure there is no more than {maxTotalMarkerCurves} MarkerCurve descendant(s).`,
+					Analytics.ErrorType.validateCurveAnimation_AnimationHierarchyIsIncorrect,
+					validationContext
+				)
+			end
 		end
 	end
 	return true
@@ -476,6 +513,13 @@ local function validateAnimationHierarchy(
 
 	if getFFlagUGCValidateSingleAnimationRigData() or getEngineFeatureEngineUGCIsValidR15AnimationRigCheck() then
 		success, errorMessages = validateAnimationRigData(curveAnim, validationContext)
+		if not success then
+			return false, errorMessages
+		end
+	end
+
+	if getFFlagUGCValidateRestrictNumMarkerCurves() then
+		success, errorMessages = ValidateCurveAnimation.validateMarkerCurves(curveAnim, validationContext)
 		if not success then
 			return false, errorMessages
 		end
@@ -752,11 +796,19 @@ function ValidateCurveAnimation.validateAnimationLength(
 		else 0
 
 	if length <= minLength or length > GetFStringUGCValidationMaxAnimationLength.asNumber() then
-		return reportFailure(
-			`CurveAnimation must be between 0 and {GetFStringUGCValidationMaxAnimationLength.asString()} seconds long. Please fix the animation.`,
-			Analytics.ErrorType.validateCurveAnimation_UnacceptableLength,
-			validationContext
-		)
+		if getFFlagUGCValidateCurveAnimTimeErrorMessageFix() then
+			return reportFailure(
+				`CurveAnimation must be between {minLength} and {GetFStringUGCValidationMaxAnimationLength.asString()} seconds long. Please fix the animation.`,
+				Analytics.ErrorType.validateCurveAnimation_UnacceptableLength,
+				validationContext
+			)
+		else
+			return reportFailure(
+				`CurveAnimation must be between 0 and {GetFStringUGCValidationMaxAnimationLength.asString()} seconds long. Please fix the animation.`,
+				Analytics.ErrorType.validateCurveAnimation_UnacceptableLength,
+				validationContext
+			)
+		end
 	end
 	return true
 end
@@ -764,21 +816,59 @@ end
 -- the body parts cannot move beyond a set boundary during the course of the animation
 function ValidateCurveAnimation.validateBounds(
 	animFrames: { { string: CFrame } },
-	validationContext: Types.ValidationContext
+	validationContext: Types.ValidationContext,
+	animLength: number
 ): (boolean, { string }?)
-	local minHeight = if getFFlagUGCValidateRestrictEmoteHeight() then math.huge else 0
-	local maxBounds = 0
-	for _, frame in animFrames do
-		for _, cframe in frame do
-			maxBounds = math.max(maxBounds, (cframe :: CFrame).Position.Magnitude)
+	local minHeight = math.huge -- remove when FFlagUGCValidateCurveAnimTimeErrorMessageFix is removed true
+	local maxBounds = 0 -- remove when FFlagUGCValidateCurveAnimTimeErrorMessageFix is removed true
 
-			if getFFlagUGCValidateRestrictEmoteHeight() then
+	local heightTol = nil
+	local boundsTol = nil
+	if getFFlagUGCValidateCurveAnimTimeErrorMessageFix() then
+		heightTol = GetFStringUGCValidateAnimationHeightTol.asNumber()
+		boundsTol = GetFStringUGCValidationMaxAnimationBounds.asNumber()
+	end
+	for frameNumberIdx, frame in animFrames do
+		for bodyPartName, cframe in frame do
+			if getFFlagUGCValidateCurveAnimTimeErrorMessageFix() then
+				if (cframe :: CFrame).Position.Y < heightTol then
+					local errorMessage = string.format(
+						"In CurveAnimation at time %.2f seconds, body part %s is at height %.2f studs from the HumanoidRootPart. Body parts cannot be lower than %s studs from the HumanoidRootPart. Please fix the animation.",
+						math.min(animLength, (frameNumberIdx - 1) * frameDelta),
+						bodyPartName :: string,
+						(cframe :: CFrame).Position.Y,
+						GetFStringUGCValidateAnimationHeightTol.asString()
+					)
+
+					return reportFailure(
+						errorMessage,
+						Analytics.ErrorType.validateCurveAnimation_UnacceptableSizeBounds,
+						validationContext
+					)
+				end
+				if (cframe :: CFrame).Position.Magnitude > boundsTol then
+					local errorMessage = string.format(
+						"In CurveAnimation at time %.2f seconds, body part %s is %.2f studs from the HumanoidRootPart. Body parts cannot be more than %s studs from the HumanoidRootPart. Please fix the animation.",
+						math.min(animLength, (frameNumberIdx - 1) * frameDelta),
+						bodyPartName :: string,
+						(cframe :: CFrame).Position.Magnitude,
+						GetFStringUGCValidationMaxAnimationBounds.asString()
+					)
+
+					return reportFailure(
+						errorMessage,
+						Analytics.ErrorType.validateCurveAnimation_UnacceptableSizeBounds,
+						validationContext
+					)
+				end
+			else
+				maxBounds = math.max(maxBounds, (cframe :: CFrame).Position.Magnitude)
 				minHeight = math.min(minHeight, (cframe :: CFrame).Position.Y)
 			end
 		end
 	end
 
-	if getFFlagUGCValidateRestrictEmoteHeight() then
+	if not getFFlagUGCValidateCurveAnimTimeErrorMessageFix() then
 		local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 		reasonsAccumulator:updateReasons(minHeight >= GetFStringUGCValidateAnimationHeightTol.asNumber(), {
@@ -797,14 +887,6 @@ function ValidateCurveAnimation.validateBounds(
 		end
 
 		return reasonsAccumulator:getFinalResults()
-	else
-		if maxBounds > GetFStringUGCValidationMaxAnimationBounds.asNumber() then
-			return reportFailure(
-				`Body parts in a CurveAnimation cannot get more than {GetFStringUGCValidationMaxAnimationBounds.asString()} studs from the HumanoidRootPart. Please fix the animation.`,
-				Analytics.ErrorType.validateCurveAnimation_UnacceptableSizeBounds,
-				validationContext
-			)
-		end
 	end
 	return true
 end
@@ -1048,12 +1130,23 @@ function ValidateCurveAnimation.validateData(
 	for _, desc: any in inst:GetDescendants() do
 		if desc:IsA("MarkerCurve") then
 			local allMarkers = desc:GetMarkers()
-			if #allMarkers > maxTotalKeys then
-				return reportFailure(
-					`CurveAnimation contains MarkerCurve with too many markers. {maxTotalKeys} is the maximum per MarkerCurve. Please fix the animation.`,
-					Analytics.ErrorType.validateCurveAnimation_IncorrectNumericalData,
-					validationContext
-				)
+			if getFFlagUGCValidateRestrictNumMarkersInsideMarkerCurves() then
+				local maxInternalMarkers = math.min(getFIntUGCValidateMaxTotalInternalMarkers(), maxTotalKeys)
+				if #allMarkers > maxInternalMarkers then
+					return reportFailure(
+						`CurveAnimation contains a MarkerCurve with {#allMarkers} Markers. {maxInternalMarkers} is the maximum per MarkerCurve. Please fix the animation.`,
+						Analytics.ErrorType.validateCurveAnimation_IncorrectNumericalData,
+						validationContext
+					)
+				end
+			else
+				if #allMarkers > maxTotalKeys then
+					return reportFailure(
+						`CurveAnimation contains MarkerCurve with too many markers. {maxTotalKeys} is the maximum per MarkerCurve. Please fix the animation.`,
+						Analytics.ErrorType.validateCurveAnimation_IncorrectNumericalData,
+						validationContext
+					)
+				end
 			end
 
 			for __, marker in allMarkers do
@@ -1222,7 +1315,7 @@ function ValidateCurveAnimation.validateFrames(
 	)
 
 	reasonsAccumulator:updateReasons(ValidateCurveAnimation.validateAnimationLength(animLength, validationContext))
-	reasonsAccumulator:updateReasons(ValidateCurveAnimation.validateBounds(animFrames, validationContext))
+	reasonsAccumulator:updateReasons(ValidateCurveAnimation.validateBounds(animFrames, validationContext, animLength))
 	reasonsAccumulator:updateReasons(ValidateCurveAnimation.validateFrameDeltas(animFrames, validationContext))
 	if getFFlagUGCValidateCurveAnimRotationSpeed() then
 		reasonsAccumulator:updateReasons(

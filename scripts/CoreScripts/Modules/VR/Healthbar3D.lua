@@ -195,7 +195,7 @@ local CoreGuiChangedConn, VRModuleOpenedConn, VRModuleClosedConn;
 local function OnVREnabled(prop)
 	if prop == "VREnabled" then
 		if UserInputService.VREnabled then
-			local VRHub = require(RobloxGui.Modules.VR.VRHub)
+			local VRHub = require(CorePackages.Workspace.Packages.VrCommon).VRHub
 			local Panel3D = require(CorePackages.Workspace.Packages.VrCommon).Panel3D
 
 			local HealthbarPanel = Panel3D.Get("Healthbar")

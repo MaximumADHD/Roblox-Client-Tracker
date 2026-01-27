@@ -24,7 +24,6 @@ local getFFlagDebugUGCValidationPrintNewStructureResults =
 	require(root.flags.getFFlagDebugUGCValidationPrintNewStructureResults)
 local TelemetryService = game:GetService("TelemetryService")
 game:DefineFastInt("SingleValidationTelemetryThrottleHundrethsPercent", 10000)
-local verifySummaryFormat = require(root.util.verifySummaryFormat)
 
 local telemetryConfig = {
 	eventName = "UgcSingleValidationFinished",
@@ -56,30 +55,37 @@ local function reportSingleResult(
 	TelemetryService:LogEvent(telemetryConfig, { customFields = telemetryResult })
 end
 
-local function requiredDataInSharedData(
-	validationModule: Types.PreloadedValidationModule,
-	sharedData: Types.SharedData
-): (boolean, string?)
-	for _, reqData in validationModule.requiredData do
+local function getMissingData(sharedData: Types.SharedData, desiredData: { string }): { string }
+	local missing = {}
+	for _, reqData in desiredData do
 		if sharedData[reqData] == nil or sharedData[reqData] == FetchAllDesiredData.DATA_FETCH_FAILURE then
-			return false, "Missing required data " .. reqData
+			table.insert(missing, reqData)
 		end
 	end
 
-	if next(validationModule.requiredAqsReturnSchema) ~= nil then
-		local summary = sharedData.aqsSummaryData
-		if summary then
-			for reqDataName, reqDataFormat in validationModule.requiredAqsReturnSchema do
-				if not verifySummaryFormat(summary[reqDataName], reqDataFormat) then
-					return false, "AQS schema does not match expectations"
-				end
-			end
-		else
-			return false, "AQS fetch failed"
+	return missing
+end
+
+local function checkAqsReturnSchema(summary: any, expectation: any)
+	if typeof(summary) ~= "table" then
+		return false
+	end
+
+	for k, v in expectation do
+		if type(v) == "table" and not checkAqsReturnSchema(summary[k], v) then
+			return false
+		elseif type(v) == "string" and not tonumber(summary[v]) then
+			return false
 		end
 	end
 
 	return true
+end
+
+local function complete(testEnum: string, sharedData: Types.SharedData, reporter: any)
+	local data = reporter:complete()
+	reportSingleResult(testEnum, sharedData, data.status, data.telemetryContext, data.duration)
+	return data
 end
 
 local function ValidationTestWrapper(
@@ -87,50 +93,74 @@ local function ValidationTestWrapper(
 	sharedData: Types.SharedData,
 	testStates: { string: string }
 ): Types.SingleValidationResult
-	-- First ensure we can start the test
 	local validationModule: Types.PreloadedValidationModule = ValidationModuleLoader.getValidationModule(testEnum)
+	local reporter = ValidationReporter.new(testEnum) :: any
 
+	-- Check 1: if a prereq already failed, just dont start this one
 	for _, reqTest in validationModule.prereqTests do
 		if testStates[reqTest] ~= ValidationEnums.Status.PASS then
-			local data = {
-				validationEnum = testEnum,
-				status = ValidationEnums.Status.CANNOT_START,
-				errorTranslationContexts = {},
-				internalData = {},
-				duration = 0,
-				telemetryContext = "Failed prereq",
-			}
-			reportSingleResult(testEnum, sharedData, data.status, data.telemetryContext, data.duration)
-			return data
+			return complete(testEnum, sharedData, reporter)
 		end
 	end
 
-	local dataFound, dataIssues = requiredDataInSharedData(validationModule, sharedData)
-	local reporter = ValidationReporter.new(testEnum) :: any
-	if dataFound then
-		local success, issues = pcall(function()
-			validationModule.run(reporter, sharedData)
-		end)
+	-- Check 2: if data we expect is missing, throw an error for the user to report
+	local missingRequiredData = getMissingData(sharedData, validationModule.requiredData)
+	if #missingRequiredData > 0 then
+		local dataString = table.concat(missingRequiredData, ", ")
+		reporter:err(`Missing required data: {dataString}`)
+		return complete(testEnum, sharedData, reporter)
+	end
 
-		if not success then
-			if getFFlagDebugUGCValidationPrintNewStructureResults() then
-				print("Validation error:", issues)
-				print("As this is in debug mode, we will re-call the function for a full error trace: ")
-				validationModule.run(reporter, sharedData)
+	-- Check 3: if this is AQS data, check the format for any version mismatches
+	if next(validationModule.expectedAqsData) ~= nil then
+		local recievedKnownErrors = false
+		for aqCheckName, _ in validationModule.expectedAqsData do
+			local summary = sharedData.aqsSummaryData[aqCheckName]
+
+			if summary and summary["Error"] then
+				for _, errorEnum: string in summary["Error"] :: any do
+					if validationModule.knownAqsUserErrors[errorEnum] ~= nil then
+						reporter:fail(validationModule.knownAqsUserErrors[errorEnum])
+						recievedKnownErrors = true
+					else
+						reporter:err(`Unexpected error enum {errorEnum}`)
+						return complete(testEnum, sharedData, reporter)
+					end
+				end
+
+				return complete(testEnum, sharedData, reporter)
 			end
-			reporter:err(issues)
-		end
-	else
-		if getFFlagDebugUGCValidationPrintNewStructureResults() then
-			print("Validation data fetch error:", dataIssues)
 		end
 
-		reporter:err(dataIssues)
+		if recievedKnownErrors then
+			return complete(testEnum, sharedData, reporter)
+		elseif not checkAqsReturnSchema(sharedData.aqsSummaryData, validationModule.expectedAqsData) then
+			reporter:err(`Missing expected AQS schema`)
+			return complete(testEnum, sharedData, reporter)
+		end
 	end
 
-	local data = reporter:complete()
-	reportSingleResult(testEnum, sharedData, data.status, data.telemetryContext, data.duration)
-	return data
+	-- Run validation once we have all conditional data
+	reporter:begin()
+	if #getMissingData(sharedData, validationModule.conditionalData) > 0 then
+		-- auto pass when missing conditional data
+		return complete(testEnum, sharedData, reporter)
+	end
+
+	local success, issues = pcall(function()
+		validationModule.run(reporter, sharedData)
+	end)
+
+	if not success then
+		if getFFlagDebugUGCValidationPrintNewStructureResults() then
+			print("Validation error:", issues)
+			print("As this is in debug mode, we will re-call the function for a full error trace: ")
+			validationModule.run(reporter, sharedData)
+		end
+		reporter:err(issues)
+	end
+
+	return complete(testEnum, sharedData, reporter)
 end
 
 return ValidationTestWrapper

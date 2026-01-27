@@ -7,6 +7,8 @@ local Sheet = script:FindFirstAncestor("Sheet")
 local SheetContext = require(Sheet.SheetContext)
 local SheetType = require(Sheet.SheetType)
 
+local Flags = require(Foundation.Utility.Flags)
+
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
 local CloseAffordanceVariant = require(Foundation.Enums.CloseAffordanceVariant)
 local View = require(Foundation.Components.View)
@@ -47,9 +49,11 @@ local function SheetHeader(props: SheetHeaderProps, ref: React.Ref<GuiObject>?)
 		Content = React.createElement(View, {
 			LayoutOrder = 1,
 			tag = {
-				["size-full-0 auto-y row gap-small items-center margin-x-small margin-bottom-small"] = true,
-				["padding-top-small"] = isBottomSheet,
-				["margin-top-small"] = not isBottomSheet,
+				["auto-y row gap-small items-center"] = true,
+				["size-full-1400 margin-left-small padding-y-small padding-right-medium align-y-center"] = Flags.FoundationSheetHeaderSmallerPadding,
+				["size-full-0 margin-x-small margin-bottom-small"] = not Flags.FoundationSheetHeaderSmallerPadding,
+				["padding-top-small"] = not Flags.FoundationSheetHeaderSmallerPadding and isBottomSheet,
+				["margin-top-small"] = not Flags.FoundationSheetHeaderSmallerPadding and not isBottomSheet,
 			},
 		}, {
 			SubContent = React.createElement(View, {

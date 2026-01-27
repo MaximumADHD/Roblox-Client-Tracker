@@ -44,7 +44,7 @@ local IconButton = require(script.Parent.IconButton)
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Modules = RobloxGui.Modules
 local TenFootInterface = require(Modules.TenFootInterface)
-local VRHub = require(Modules.VR.VRHub)
+local VRHub = require(CorePackages.Workspace.Packages.VrCommon).VRHub
 
 local EmotesMenuMaster = require(Modules.EmotesMenu.EmotesMenuMaster)
 local BackpackModule = require(Modules.BackpackScript)

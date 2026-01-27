@@ -30,7 +30,7 @@ function MainViewDebugVisualizations:init()
 		})
 	end
 
-	self.onCheckBoxChanged = function(field, newState)
+	self.onCheckboxChanged = function(field, newState)
 		local update = {}
 		update[field] = newState
 		self.props.dispatchDebugVisualizationsUpdateSearchFilter(nil, update)
@@ -99,13 +99,13 @@ function MainViewDebugVisualizations:render()
 			windowWidth = size.X.Offset,
 			formFactor = formFactor,
 			tabList = tabList,
-			orderedCheckBoxState = initBoxState,
+			orderedCheckboxState = initBoxState,
 			searchTerm = searchTerm,
 			layoutOrder = 1,
 			refForParent = self.utilRef,
 
 			onHeightChanged = self.onUtilTabHeightChanged,
-			onCheckBoxChanged = self.onCheckBoxChanged,
+			onCheckboxChanged = self.onCheckboxChanged,
 			onSearchTermChanged = self.onSearchTermChanged,
 		}),
 

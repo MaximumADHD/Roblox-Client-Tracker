@@ -8,9 +8,6 @@ local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
-local CheckedState = require(Foundation.Enums.CheckedState)
-type CheckedState = CheckedState.CheckedState
-
 local InputPlacement = require(Foundation.Enums.InputPlacement)
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
@@ -93,19 +90,63 @@ end
 local function IndeterminateStory(props)
 	local controls = props.controls
 
-	local isChecked, setIsChecked = React.useState(CheckedState.Indeterminate :: CheckedState)
+	local isChecked1, setIsChecked1 = React.useState(false)
+	local isChecked2, setIsChecked2 = React.useState(false)
+	local isChecked3, setIsChecked3 = React.useState(true)
+
+	local isAggregationChecked = isChecked1 or isChecked2 or isChecked3
+	local isAggregationIndeterminate = isChecked1 ~= isChecked2 or isChecked2 ~= isChecked3
+
+	local label: string = controls.label
 
 	return React.createElement(View, {
-		tag = "col auto-xy size-3000-0",
+		tag = "col auto-xy size-3000-0 gap-medium",
 	}, {
-		React.createElement(Checkbox, {
-			isChecked = isChecked,
+		Aggregation = React.createElement(Checkbox, {
+			LayoutOrder = 1,
+			isChecked = isAggregationChecked,
+			isIndeterminate = isAggregationIndeterminate,
 			isDisabled = controls.isDisabled,
 			onActivated = function(value)
-				setIsChecked(value)
+				setIsChecked1(value)
+				setIsChecked2(value)
+				setIsChecked3(value)
 			end,
 			size = controls.size,
-			label = controls.label or "",
+			label = "",
+			placement = controls.placement,
+		}),
+		Check1 = React.createElement(Checkbox, {
+			LayoutOrder = 2,
+			isChecked = isChecked1,
+			isDisabled = controls.isDisabled,
+			onActivated = function(value)
+				setIsChecked1(value)
+			end,
+			size = controls.size,
+			label = label .. " 1" or "Item 1",
+			placement = controls.placement,
+		}),
+		Check2 = React.createElement(Checkbox, {
+			LayoutOrder = 3,
+			isChecked = isChecked2,
+			isDisabled = controls.isDisabled,
+			onActivated = function(value)
+				setIsChecked2(value)
+			end,
+			size = controls.size,
+			label = label .. " 2" or "Item 2",
+			placement = controls.placement,
+		}),
+		Check3 = React.createElement(Checkbox, {
+			LayoutOrder = 4,
+			isChecked = isChecked3,
+			isDisabled = controls.isDisabled,
+			onActivated = function(value)
+				setIsChecked3(value)
+			end,
+			size = controls.size,
+			label = label .. " 3" or "Item 3",
 			placement = controls.placement,
 		}),
 	})
@@ -144,7 +185,7 @@ return {
 		},
 		{
 			name = "Indeterminate",
-			summary = "A checkbox initialized with an indeterminate state",
+			summary = "A checkbox with an indeterminate state. Useful for aggregating other checkboxes",
 			story = IndeterminateStory,
 		},
 		{

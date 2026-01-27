@@ -26,13 +26,10 @@ local getMeshMinMax = require(root.util.getMeshMinMax)
 local getEditableMeshFromContext = require(root.util.getEditableMeshFromContext)
 local floatEquals = require(root.util.floatEquals)
 local getExpectedPartSize = require(root.util.getExpectedPartSize)
-local getMeshIdForSkinningValidation = require(root.util.getMeshIdForSkinningValidation)
 
 local getFFlagUGCValidateCoplanarTriTestBody = require(root.flags.getFFlagUGCValidateCoplanarTriTestBody)
 local getEngineFeatureEngineUGCValidateBodyParts = require(root.flags.getEngineFeatureEngineUGCValidateBodyParts)
 local getFIntUGCValidateTriangleLimitTolerance = require(root.flags.getFIntUGCValidateTriangleLimitTolerance)
-local getEngineFeatureEngineEditableMeshAvatarPublish =
-	require(root.flags.getEngineFeatureEngineEditableMeshAvatarPublish)
 local getEngineUGCValidateRelativeSkinningTransfer = require(root.flags.getEngineUGCValidateRelativeSkinningTransfer)
 
 local function validateIsSkinned(
@@ -58,15 +55,11 @@ local function validateIsSkinned(
 	end
 
 	local retrievedMeshData, testsPassed = pcall(function()
-		if getEngineFeatureEngineEditableMeshAvatarPublish() then
-			local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(obj, "MeshId", validationContext)
-			if not getEditableMeshSuccess then
-				error("Failed to retrieve MeshContent")
-			end
-			return UGCValidationService:ValidateSkinnedEditableMesh(editableMesh :: EditableMesh)
-		else
-			return UGCValidationService:ValidateSkinnedMesh(getMeshIdForSkinningValidation(obj, allowEditableInstances))
+		local getEditableMeshSuccess, editableMesh = getEditableMeshFromContext(obj, "MeshId", validationContext)
+		if not getEditableMeshSuccess then
+			error("Failed to retrieve MeshContent")
 		end
+		return UGCValidationService:ValidateSkinnedEditableMesh(editableMesh :: EditableMesh)
 	end)
 
 	if not retrievedMeshData then

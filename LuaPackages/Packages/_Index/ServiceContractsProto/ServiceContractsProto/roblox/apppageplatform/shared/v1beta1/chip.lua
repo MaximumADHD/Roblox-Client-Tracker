@@ -51,10 +51,10 @@ type _ChipSchema_PropsImpl = {
 
 type _ChipSchema_PropsFields = {
 	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	leading_icon_name: _roblox_apppageplatform_shared_v1beta1_prop_types.IconProp?,
+	leading_icon_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	leading_icon_variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	leading_is_circular: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
-	trailing_icon_name: _roblox_apppageplatform_shared_v1beta1_prop_types.IconProp?,
+	trailing_icon_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	trailing_icon_variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	trailing_is_circular: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
@@ -67,10 +67,10 @@ type _ChipSchema_PropsFields = {
 
 type _ChipSchema_PropsPartialFields = {
 	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	leading_icon_name: _roblox_apppageplatform_shared_v1beta1_prop_types.IconProp?,
+	leading_icon_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	leading_icon_variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	leading_is_circular: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
-	trailing_icon_name: _roblox_apppageplatform_shared_v1beta1_prop_types.IconProp?,
+	trailing_icon_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	trailing_icon_variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	trailing_is_circular: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
@@ -342,7 +342,7 @@ do
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.leading_icon_name = _roblox_apppageplatform_shared_v1beta1_prop_types.IconProp.decode(value)
+					self.leading_icon_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				elseif field == 3 then
 					local value
@@ -358,7 +358,7 @@ do
 				elseif field == 5 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.trailing_icon_name = _roblox_apppageplatform_shared_v1beta1_prop_types.IconProp.decode(value)
+					self.trailing_icon_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				elseif field == 6 then
 					local value
@@ -492,12 +492,12 @@ do
 
 		if input.leading_icon_name ~= nil then
 			self.leading_icon_name =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.IconProp.jsonDecode(input.leading_icon_name)
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.leading_icon_name)
 		end
 
 		if input.leadingIconName ~= nil then
 			self.leading_icon_name =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.IconProp.jsonDecode(input.leadingIconName)
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.leadingIconName)
 		end
 
 		if input.leading_icon_variant ~= nil then
@@ -522,12 +522,12 @@ do
 
 		if input.trailing_icon_name ~= nil then
 			self.trailing_icon_name =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.IconProp.jsonDecode(input.trailing_icon_name)
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.trailing_icon_name)
 		end
 
 		if input.trailingIconName ~= nil then
 			self.trailing_icon_name =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.IconProp.jsonDecode(input.trailingIconName)
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.trailingIconName)
 		end
 
 		if input.trailing_icon_variant ~= nil then

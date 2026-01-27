@@ -14,6 +14,7 @@ local FoundationConstants = require(Foundation.Constants)
 local getMultiLineTextHeight = require(Foundation.Utility.getMultiLineTextHeight)
 local isPluginSecurity = require(Foundation.Utility.isPluginSecurity)
 local truncateTextToCursor = require(script.Parent.truncateTextToCursor)
+local useBindable = require(Foundation.Utility.useBindable)
 local usePreferredInput = require(Foundation.Utility.usePreferredInput)
 local useStyleTags = require(Foundation.Providers.Style.useStyleTags)
 local useTextInputVariants = require(Components.TextInput.useTextInputVariants)
@@ -367,12 +368,23 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 			-- If we round it off, then the container won't visibily line up pixel-perfectly with any size tokens
 			-- (see NumberInput)
 			local containerPaddingY = math.round(
-				(variantProps.outerContainer.minHeight - outerBorderOffset - innerBorderOffset - math.ceil(fontSize))
-					* 2
+				(
+					if Flags.FoundationUIStrokeInner
+						then variantProps.outerContainer.minHeight - outerBorderOffset - getMultiLineTextHeight(
+							fontSize,
+							1,
+							lineHeight
+						)
+						else variantProps.outerContainer.minHeight - outerBorderOffset - innerBorderOffset - math.ceil(
+							fontSize
+						)
+				) * 2
 			) / 2
 			local paddingFloored = UDim.new(0, math.floor(containerPaddingY / 2))
 			local paddingCeiled = UDim.new(0, math.ceil(containerPaddingY / 2))
-			local borderFrameSizeY = textBoxViewportHeight + math.round(containerPaddingY)
+			local borderFrameSizeY = if Flags.FoundationUIStrokeInner
+				then textBoxViewportHeight + math.round(containerPaddingY) + outerBorderOffset
+				else textBoxViewportHeight + math.round(containerPaddingY)
 
 			return {
 				top = paddingFloored,
@@ -388,6 +400,8 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 			innerBorderOffset,
 			fontSize,
 			textBoxViewportHeight,
+			Flags.FoundationUIStrokeInner,
+			lineHeight,
 		} :: { unknown }
 	)
 
@@ -495,149 +509,206 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		})
 	end, { onDragStarted, onDrag, onDragEnded, focus, props.isDisabled } :: { any })
 
-	return React.createElement(
-		View,
-		withCommonProps(props, {
-			GroupTransparency = if props.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else nil,
-			padding = outerBorderOffset / 2,
-			tag = variantProps.canvas.tag,
-		}),
-		{
-			Input = React.createElement(View, {
-				selection = {
-					Selectable = not props.isDisabled,
-				},
-				cursor = cursor,
-				stroke = {
-					Color = if props.hasError
-						then tokens.Color.System.Alert.Color3
-						else tokens.Color.Stroke.Emphasis.Color3,
-					Transparency = if props.hasError
-						then tokens.Color.System.Alert.Transparency
-						else if focus then 0 else tokens.Color.Stroke.Emphasis.Transparency,
-					Thickness = outerBorderThickness,
-				},
-				padding = innerBorderOffset / 2,
-				onActivated = focusTextBox,
-				onStateChanged = onInputStateChanged,
-				-- TODO: Update to border affordance
-				stateLayer = { affordance = StateLayerAffordance.None },
-				tag = variantProps.outerContainer.tag,
-				testId = `{props.testId}--outer-container`,
-			}, {
-				DragDetector = dragDetector,
-				Background = props.backgroundElement,
+	local horizontalPaddingLeftBinding
+	local horizontalPaddingRightBinding
+	if Flags.FoundationUIStrokeInner then
+		horizontalPaddingLeftBinding = useBindable(
+			if props.horizontalPadding then props.horizontalPadding.left or UDim.new(0, 0) else UDim.new(0, 0)
+		)
+		horizontalPaddingRightBinding = useBindable(
+			if props.horizontalPadding then props.horizontalPadding.right or UDim.new(0, 0) else UDim.new(0, 0)
+		)
+	end
+	local inputProps = {
+		GroupTransparency = if Flags.FoundationUIStrokeInner and props.isDisabled
+			then FoundationConstants.DISABLED_TRANSPARENCY
+			else nil,
+		Size = if Flags.FoundationUIStrokeInner then UDim2.new(1, 0, 0, borderFrameHeight) else nil,
+		selection = {
+			Selectable = not props.isDisabled,
+		},
+		cursor = cursor,
+		stroke = {
+			Color = if props.hasError then tokens.Color.System.Alert.Color3 else tokens.Color.Stroke.Emphasis.Color3,
+			Transparency = if props.hasError
+				then tokens.Color.System.Alert.Transparency
+				else if focus then 0 else tokens.Color.Stroke.Emphasis.Transparency,
+			Thickness = outerBorderThickness,
+			BorderStrokePosition = if Flags.FoundationUIStrokeInner then Enum.BorderStrokePosition.Inner else nil,
+		},
+		padding = if Flags.FoundationUIStrokeInner
+			then {
+				left = horizontalPaddingLeftBinding:map(function(leftPadding)
+					return UDim.new(0, outerBorderThickness) + leftPadding
+				end),
+				right = horizontalPaddingRightBinding:map(function(rightPadding)
+					return UDim.new(0, outerBorderThickness) + rightPadding
+				end),
+				top = UDim.new(0, outerBorderThickness),
+				bottom = UDim.new(0, outerBorderThickness),
+			}
+			else innerBorderOffset / 2,
+		onActivated = if not props.isDisabled or not Flags.FoundationUIStrokeInner then focusTextBox else nil,
+		onStateChanged = onInputStateChanged,
+		isDisabled = if Flags.FoundationUIStrokeInner then props.isDisabled else nil,
+		-- TODO: Update to border affordance
+		stateLayer = { affordance = StateLayerAffordance.None },
+		tag = if Flags.FoundationUIStrokeInner then variantProps.outerView.tag else variantProps.outerContainer.tag,
+		testId = `{props.testId}--outer-container`,
+	}
 
-				BorderFrame = React.createElement(View, {
-					Size = UDim2.new(1, 0, 0, borderFrameHeight),
-					cornerRadius = UDim.new(0, variantProps.innerContainer.radius - innerBorderOffset / 2),
-					stroke = if not props.isDisabled and (hover or focus)
-						then {
+	return React.createElement(
+		if Flags.FoundationUIStrokeInner then React.Fragment else View,
+		if Flags.FoundationUIStrokeInner
+			then {}
+			else withCommonProps(props, {
+				GroupTransparency = if props.isDisabled then FoundationConstants.DISABLED_TRANSPARENCY else nil,
+				padding = outerBorderOffset / 2,
+				tag = variantProps.canvas.tag,
+			}),
+		{
+			Input = React.createElement(
+				View,
+				if Flags.FoundationUIStrokeInner then withCommonProps(props, inputProps) else inputProps,
+				{
+					DragDetector = dragDetector,
+					Background = props.backgroundElement,
+					HoverStroke = if Flags.FoundationUIStrokeInner
+							and not props.isDisabled
+							and (hover or focus)
+						then React.createElement("UIStroke", {
 							Color = tokens.Color.Stroke.Emphasis.Color3,
-							Transparency = 0.88, -- TODO(tokens): replace opacity with token
+							Transparency = tokens.Color.Stroke.Emphasis.Transparency,
 							Thickness = innerBorderThickness,
-						}
+							BorderStrokePosition = Enum.BorderStrokePosition.Inner,
+							BorderOffset = UDim.new(0, -innerBorderOffset / 2),
+						})
 						else nil,
-					padding = if props.horizontalPadding
-						then {
-							left = props.horizontalPadding.left,
-							right = props.horizontalPadding.right,
-						}
-						else nil,
-					tag = variantProps.innerContainer.tag,
-				}, {
-					Leading = if props.leadingElement
-						then React.createElement(View, {
-							LayoutOrder = 1,
-							tag = "size-0-full auto-x",
-							testId = `{props.testId}--leading`,
-						}, props.leadingElement)
-						else nil,
-					TextBoxWrapper = React.createElement(if isScrollable then ScrollView else View, {
-						LayoutOrder = 2,
-						padding = if not Flags.FoundationInternalTextInputScrolling then textBoxWrapperPadding else nil,
-						scroll = scrollViewScroll,
-						layout = scrollViewLayout,
-						onCanvasPositionChanged = if isScrollable then onScrollCanvasPositionChanged else nil,
-						scrollingFrameRef = if isScrollable then onScrollingFrameMount else nil,
-						tag = {
-							["size-full fill"] = true,
-							["clip"] = Flags.FoundationInternalTextInputScrolling,
-						},
-					}, {
-						TextBox = if not Flags.FoundationInternalTextInputScrolling or not isTouchFocused
-							then React.createElement(TextBox, {
-								text = props.text,
-								placeholder = props.placeholder,
-								textInputType = props.textInputType,
-								-- BEGIN: Remove when Flags.FoundationDisableStylingPolyfill is removed
-								fontStyle = fontStyle,
-								textStyle = textStyle,
-								-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
-								isMultiLine = isMultiLine,
-								isDisabled = props.isDisabled,
-								ref = textBoxRef,
-								tag = `{textBoxTag or ""} data-testid={props.testId}--textbox`,
-								Size = if isScrollable then textBoxSizeFullHeight else nil,
-								automaticSize = if isScrollable
-										and not isTouchFocused
-										and props.text ~= ""
-									then Enum.AutomaticSize.Y
+
+					BorderFrame = React.createElement(
+						if Flags.FoundationUIStrokeInner then React.Fragment else View,
+						if Flags.FoundationUIStrokeInner
+							then {}
+							else {
+								Size = UDim2.new(1, 0, 0, borderFrameHeight),
+								cornerRadius = UDim.new(0, variantProps.innerContainer.radius - innerBorderOffset / 2),
+								stroke = if not props.isDisabled and (hover or focus)
+									then {
+										Color = tokens.Color.Stroke.Emphasis.Color3,
+										Transparency = if Flags.FoundationUIStrokeInner
+											then tokens.Color.Stroke.Emphasis.Transparency
+											else 0.88,
+										Thickness = innerBorderThickness,
+										BorderStrokePosition = if Flags.FoundationUIStrokeInner
+											then Enum.BorderStrokePosition.Inner
+											else nil,
+									}
 									else nil,
-								padding = if Flags.FoundationInternalTextInputScrolling
+								padding = if props.horizontalPadding
+									then {
+										left = props.horizontalPadding.left,
+										right = props.horizontalPadding.right,
+									}
+									else nil,
+								tag = variantProps.innerContainer.tag,
+							},
+						{
+							Leading = if props.leadingElement
+								then React.createElement(View, {
+									LayoutOrder = 1,
+									tag = "size-0-full auto-x",
+									testId = `{props.testId}--leading`,
+								}, props.leadingElement)
+								else nil,
+							TextBoxWrapper = React.createElement(if isScrollable then ScrollView else View, {
+								LayoutOrder = 2,
+								padding = if not Flags.FoundationInternalTextInputScrolling
 									then textBoxWrapperPadding
 									else nil,
-								onFocusGained = onFocusGained,
-								onFocusLost = if isScrollable and isMobileDevice then nil else onFocusLost,
-								onTextChanged = onTextChange,
-								onCursorPositionChanged = if isScrollable then onCursorPositionChanged else nil,
+								scroll = scrollViewScroll,
+								layout = scrollViewLayout,
+								onCanvasPositionChanged = if isScrollable then onScrollCanvasPositionChanged else nil,
+								scrollingFrameRef = if isScrollable then onScrollingFrameMount else nil,
+								tag = {
+									["size-full fill"] = true,
+									["clip"] = Flags.FoundationInternalTextInputScrolling,
+								},
 							}, {
-								DragDetector = dragDetector,
-
-								-- Used to check the text bounds for cursor refocusing --
-								BoundsChecker = if isScrollable
+								TextBox = if not Flags.FoundationInternalTextInputScrolling or not isTouchFocused
 									then React.createElement(TextBox, {
-										isBoundsChecker = true,
+										text = props.text,
+										placeholder = props.placeholder,
+										textInputType = props.textInputType,
+										-- BEGIN: Remove when Flags.FoundationDisableStylingPolyfill is removed
 										fontStyle = fontStyle,
 										textStyle = textStyle,
-										Size = UDim2.new(1, 0, 1, textBoxVerticalPadding), -- It's required to keep the padding applied in Size instead of as UIPadding due to undesired results with TextBounds calculations
-										ref = textBoundsCheckerRef,
+										-- END: Remove when Flags.FoundationDisableStylingPolyfill is removed
+										isMultiLine = isMultiLine,
+										isDisabled = props.isDisabled,
+										ref = textBoxRef,
+										tag = `{textBoxTag or ""} data-testid={props.testId}--textbox`,
+										Size = if isScrollable then textBoxSizeFullHeight else nil,
+										automaticSize = if isScrollable
+												and not isTouchFocused
+												and props.text ~= ""
+											then Enum.AutomaticSize.Y
+											else nil,
+										padding = if Flags.FoundationInternalTextInputScrolling
+											then textBoxWrapperPadding
+											else nil,
+										onFocusGained = onFocusGained,
+										onFocusLost = if isScrollable and isMobileDevice then nil else onFocusLost,
+										onTextChanged = onTextChange,
+										onCursorPositionChanged = if isScrollable then onCursorPositionChanged else nil,
+									}, {
+										DragDetector = dragDetector,
+
+										-- Used to check the text bounds for cursor refocusing --
+										BoundsChecker = if isScrollable
+											then React.createElement(TextBox, {
+												isBoundsChecker = true,
+												fontStyle = fontStyle,
+												textStyle = textStyle,
+												Size = UDim2.new(1, 0, 1, textBoxVerticalPadding), -- It's required to keep the padding applied in Size instead of as UIPadding due to undesired results with TextBounds calculations
+												ref = textBoundsCheckerRef,
+											})
+											else nil,
 									})
 									else nil,
-							})
-							else nil,
 
-						-- Used specifically in mobile scrollable mode. AutomaticSize doesn't play nice with native mobile textboxes.
-						MobileTextBox = if isScrollable and isTouchFocused
-							then React.createElement(TextBox, {
-								text = props.text,
-								placeholder = props.placeholder,
-								textInputType = props.textInputType,
-								fontStyle = fontStyle,
-								textStyle = textStyle,
-								isMultiLine = isMultiLine,
-								isDisabled = props.isDisabled,
-								padding = if Flags.FoundationInternalTextInputScrolling
-									then textBoxWrapperPadding
+								-- Used specifically in mobile scrollable mode. AutomaticSize doesn't play nice with native mobile textboxes.
+								MobileTextBox = if isScrollable and isTouchFocused
+									then React.createElement(TextBox, {
+										text = props.text,
+										placeholder = props.placeholder,
+										textInputType = props.textInputType,
+										fontStyle = fontStyle,
+										textStyle = textStyle,
+										isMultiLine = isMultiLine,
+										isDisabled = props.isDisabled,
+										padding = if Flags.FoundationInternalTextInputScrolling
+											then textBoxWrapperPadding
+											else nil,
+										ref = onMobileTextBoxMount,
+										tag = `{textBoxTag or ""} data-testid={props.testId}--mobile-textbox`,
+										Size = textBoxSizeFullHeight,
+										onFocusLost = if isScrollable and isMobileDevice then onFocusLost else nil,
+										onTextChanged = onTextChange,
+										onCursorPositionChanged = if isScrollable then onCursorPositionChanged else nil,
+									})
 									else nil,
-								ref = onMobileTextBoxMount,
-								tag = `{textBoxTag or ""} data-testid={props.testId}--mobile-textbox`,
-								Size = textBoxSizeFullHeight,
-								onFocusLost = if isScrollable and isMobileDevice then onFocusLost else nil,
-								onTextChanged = onTextChange,
-								onCursorPositionChanged = if isScrollable then onCursorPositionChanged else nil,
-							})
-							else nil,
-					}),
-					Trailing = if props.trailingElement
-						then React.createElement(View, {
-							LayoutOrder = 3,
-							tag = "size-0-full auto-x",
-							testId = `{props.testId}--trailing`,
-						}, props.trailingElement)
-						else nil,
-				}),
-			}),
+							}),
+							Trailing = if props.trailingElement
+								then React.createElement(View, {
+									LayoutOrder = 3,
+									tag = "size-0-full auto-x",
+									testId = `{props.testId}--trailing`,
+								}, props.trailingElement)
+								else nil,
+						}
+					),
+				}
+			),
 		}
 	)
 end

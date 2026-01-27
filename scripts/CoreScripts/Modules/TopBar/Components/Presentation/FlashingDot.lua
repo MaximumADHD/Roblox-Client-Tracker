@@ -9,10 +9,11 @@ local VideoCaptureService = game:GetService("VideoCaptureService")
 local FaceAnimatorService = game:GetService("FaceAnimatorService")
 
 local Roact = require(CorePackages.Packages.Roact)
+local ReactUtils = require(CorePackages.Packages.ReactUtils)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local t = require(CorePackages.Packages.t)
 
-local ExternalEventConnection = UIBlox.Utility.ExternalEventConnection
+local EventConnection = ReactUtils.EventConnection
 
 local Modules = CoreGui.RobloxGui.Modules
 local VoiceChatServiceManager = require(Modules.VoiceChat.VoiceChatServiceManager).default
@@ -136,17 +137,17 @@ function FlashingDot:render()
 			ImageTransparency = self.transparencyBinding,
 			LayoutOrder = 2,
 		}),
-		MuteChangedEvent = Roact.createElement(ExternalEventConnection, {
+		MuteChangedEvent = Roact.createElement(EventConnection, {
 			event = VoiceChatServiceManager.muteChanged.Event,
 			callback = self.checkNewVisibility,
 		}),
-		CameraChangedEvent = Roact.createElement(ExternalEventConnection, {
+		CameraChangedEvent = Roact.createElement(EventConnection, {
 			event = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"),
 			callback = self.checkNewVisibility,
 		}),
 		AnimationConnection = if self.state.Visible
-			then Roact.createElement(ExternalEventConnection, {
-				event = RunService.RenderStepped,
+			then Roact.createElement(EventConnection, {
+				event = RunService.RenderStepped :: RBXScriptSignal,
 				callback = self.animationConnection,
 			})
 			else nil,

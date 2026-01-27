@@ -46,6 +46,29 @@ function Extents:unionExtents(rhs: Extents): Extents
 	return unionExtents
 end
 
+function Extents:intersectExtents(rhs: Extents): Extents
+	local minTable = { X = math.huge, Y = math.huge, Z = math.huge }
+	local maxTable = { X = -math.huge, Y = -math.huge, Z = -math.huge }
+	for _, dimension in { "X", "Y", "Z" } do
+		if
+			(self.max :: any)[dimension] < (self.min :: any)[dimension]
+			or (rhs.max :: any)[dimension] < (rhs.min :: any)[dimension]
+		then
+			continue
+		end
+		local overlapMin = math.max((self.min :: any)[dimension], (rhs.min :: any)[dimension])
+		local overlapMax = math.min((self.max :: any)[dimension], (rhs.max :: any)[dimension])
+		if overlapMax >= overlapMin then
+			minTable[dimension] = overlapMin
+			maxTable[dimension] = overlapMax
+		end
+	end
+	local result = Extents.new()
+	result.min = Vector3.new(minTable.X, minTable.Y, minTable.Z)
+	result.max = Vector3.new(maxTable.X, maxTable.Y, maxTable.Z)
+	return result
+end
+
 function Extents:expandToInclude(point: Vector3): Extents
 	local expanded = Extents.new()
 	expanded.min = self.min:Min(point)
@@ -65,6 +88,13 @@ end
 function Extents:size(): Vector3?
 	if self:isValid() then
 		return self.max :: Vector3 - self.min :: Vector3
+	end
+	return nil
+end
+
+function Extents:center(): Vector3?
+	if self:isValid() then
+		return (self.max :: Vector3 + self.min :: Vector3) / 2
 	end
 	return nil
 end

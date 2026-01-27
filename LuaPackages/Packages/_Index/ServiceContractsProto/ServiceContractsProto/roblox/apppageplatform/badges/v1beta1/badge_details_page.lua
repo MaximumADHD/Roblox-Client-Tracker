@@ -12,6 +12,7 @@ type _Messages = {
 	BadgeDetailsPageResponse_TemplatesEntry: _BadgeDetailsPageResponse_TemplatesEntryMessage,
 	BadgeDetailsPageEntry: _BadgeDetailsPageEntryMessage,
 	BadgeDetailsContent: _BadgeDetailsContentMessage,
+	BadgeDetailsContent_ShareLinkData: _BadgeDetailsContent_ShareLinkDataMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -143,15 +144,44 @@ type _BadgeDetailsContentImpl = {
 type _BadgeDetailsContentFields = {
 	badge_id: string,
 	universe_id: string,
+	share_link_data: BadgeDetailsContent_ShareLinkData?,
 }
 
 type _BadgeDetailsContentPartialFields = {
 	badge_id: string?,
 	universe_id: string?,
+	share_link_data: BadgeDetailsContent_ShareLinkData?,
 }
 
 export type BadgeDetailsContent = typeof(setmetatable({} :: _BadgeDetailsContentFields, {} :: _BadgeDetailsContentImpl))
 type _BadgeDetailsContentMessage = proto.Message<BadgeDetailsContent, _BadgeDetailsContentPartialFields>
+
+type _BadgeDetailsContent_ShareLinkDataImpl = {
+	__index: _BadgeDetailsContent_ShareLinkDataImpl,
+	new: (fields: _BadgeDetailsContent_ShareLinkDataPartialFields?) -> BadgeDetailsContent_ShareLinkData,
+	encode: (self: BadgeDetailsContent_ShareLinkData) -> buffer,
+	decode: (input: buffer) -> BadgeDetailsContent_ShareLinkData,
+	jsonEncode: (self: BadgeDetailsContent_ShareLinkData) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BadgeDetailsContent_ShareLinkData,
+	descriptor: proto.Descriptor,
+}
+
+type _BadgeDetailsContent_ShareLinkDataFields = {
+	badge_id: string,
+}
+
+type _BadgeDetailsContent_ShareLinkDataPartialFields = {
+	badge_id: string?,
+}
+
+export type BadgeDetailsContent_ShareLinkData = typeof(setmetatable(
+	{} :: _BadgeDetailsContent_ShareLinkDataFields,
+	{} :: _BadgeDetailsContent_ShareLinkDataImpl
+))
+type _BadgeDetailsContent_ShareLinkDataMessage = proto.Message<
+	BadgeDetailsContent_ShareLinkData,
+	_BadgeDetailsContent_ShareLinkDataPartialFields
+>
 
 do
 	local _BadgeDetailsPageRequestImpl = {}
@@ -727,6 +757,7 @@ do
 		return setmetatable({
 			badge_id = if data == nil or data.badge_id == nil then "" else data.badge_id,
 			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
+			share_link_data = if data == nil or data.share_link_data == nil then nil else data.share_link_data,
 		}, _BadgeDetailsContentImpl :: _BadgeDetailsContentImpl)
 	end
 
@@ -742,6 +773,12 @@ do
 		if self.universe_id ~= nil and self.universe_id ~= "" then
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeString(output, cursor, self.universe_id)
+		end
+
+		if self.share_link_data ~= nil then
+			local encoded = self.share_link_data:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -772,6 +809,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.universe_id = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.share_link_data = messages.BadgeDetailsContent_ShareLinkData.decode(value)
 					continue
 				end
 
@@ -808,6 +850,10 @@ do
 			output.universeId = self.universe_id
 		end
 
+		if self.share_link_data ~= nil then
+			output.shareLinkData = self.share_link_data:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -830,6 +876,14 @@ do
 			self.universe_id = input.universeId
 		end
 
+		if input.share_link_data ~= nil then
+			self.share_link_data = messages.BadgeDetailsContent_ShareLinkData.jsonDecode(input.share_link_data)
+		end
+
+		if input.shareLinkData ~= nil then
+			self.share_link_data = messages.BadgeDetailsContent_ShareLinkData.jsonDecode(input.shareLinkData)
+		end
+
 		return self
 	end
 
@@ -843,9 +897,115 @@ do
 	typeRegistry.default:register(messages.BadgeDetailsContent)
 end
 
+do
+	local _BadgeDetailsContent_ShareLinkDataImpl = {}
+	_BadgeDetailsContent_ShareLinkDataImpl.__index = _BadgeDetailsContent_ShareLinkDataImpl
+
+	function _BadgeDetailsContent_ShareLinkDataImpl.new(
+		data: _BadgeDetailsContent_ShareLinkDataPartialFields?
+	): BadgeDetailsContent_ShareLinkData
+		return setmetatable({
+			badge_id = if data == nil or data.badge_id == nil then "" else data.badge_id,
+		}, _BadgeDetailsContent_ShareLinkDataImpl :: _BadgeDetailsContent_ShareLinkDataImpl)
+	end
+
+	function _BadgeDetailsContent_ShareLinkDataImpl.encode(self: BadgeDetailsContent_ShareLinkData): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.badge_id ~= nil and self.badge_id ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.badge_id)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BadgeDetailsContent_ShareLinkDataImpl.decode(input: buffer): BadgeDetailsContent_ShareLinkData
+		local self = _BadgeDetailsContent_ShareLinkDataImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.badge_id = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BadgeDetailsContent_ShareLinkDataImpl.jsonEncode(self: BadgeDetailsContent_ShareLinkData): any
+		local output = {}
+
+		if self.badge_id ~= nil and self.badge_id ~= "" then
+			output.badgeId = self.badge_id
+		end
+
+		return output
+	end
+
+	function _BadgeDetailsContent_ShareLinkDataImpl.jsonDecode(
+		input: { [string]: any }
+	): BadgeDetailsContent_ShareLinkData
+		local self = _BadgeDetailsContent_ShareLinkDataImpl.new()
+
+		if input.badge_id ~= nil then
+			self.badge_id = input.badge_id
+		end
+
+		if input.badgeId ~= nil then
+			self.badge_id = input.badgeId
+		end
+
+		return self
+	end
+
+	_BadgeDetailsContent_ShareLinkDataImpl.descriptor = {
+		name = "BadgeDetailsContent_ShareLinkData",
+		fullName = "roblox.apppageplatform.badges.v1beta1.ShareLinkData",
+	}
+
+	messages.BadgeDetailsContent_ShareLinkData = _BadgeDetailsContent_ShareLinkDataImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BadgeDetailsContent_ShareLinkData)
+end
+
 return {
 	BadgeDetailsPageRequest = messages.BadgeDetailsPageRequest,
 	BadgeDetailsPageResponse = messages.BadgeDetailsPageResponse,
 	BadgeDetailsPageEntry = messages.BadgeDetailsPageEntry,
 	BadgeDetailsContent = messages.BadgeDetailsContent,
+	BadgeDetailsContent_ShareLinkData = messages.BadgeDetailsContent_ShareLinkData,
 }

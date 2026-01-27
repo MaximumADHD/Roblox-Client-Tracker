@@ -5,7 +5,7 @@ local CoreGui = game:GetService("CoreGui")
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
-local VRHub = require(RobloxGui.Modules.VR.VRHub)
+local VRHub = require(CorePackages.Workspace.Packages.VrCommon).VRHub
 local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 local SignalLib = require(CorePackages.Workspace.Packages.AppCommonLib)
 local Signal = SignalLib.Signal

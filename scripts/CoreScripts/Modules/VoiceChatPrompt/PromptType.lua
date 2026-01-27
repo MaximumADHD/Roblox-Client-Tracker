@@ -27,4 +27,5 @@ return {
 	VoiceDataConsentOptOutToast = "VoiceDataConsentOptOutToast",
 	UnifiedJoinVoiceToast = "UnifiedJoinVoiceToast",
 	AgeCheckForVoiceToast = "AgeCheckForVoiceToast",
+	UpdateOnAutoJoinToast = "UpdateOnAutoJoinToast",
 }

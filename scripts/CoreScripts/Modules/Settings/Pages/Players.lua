@@ -65,9 +65,6 @@ local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.
 local FFlagMenuButtonsMountWithIEM = require(RobloxGui.Modules.Settings.Flags.FFlagMenuButtonsMountWithIEM)
 local EngineFeatureRbxAnalyticsServiceExposePlaySessionId = game:GetEngineFeature("RbxAnalyticsServiceExposePlaySessionId")
 
-local SettingsFlags = require(script.Parent.Parent.Flags)
-local FFlagIEMButtonsResponsiveLayout = SettingsFlags.FFlagIEMButtonsResponsiveLayout
-
 local UserProfileStore = UserProfiles.Stores.UserProfileStore
 
 local _, PlatformFriendsService = pcall(function()
@@ -718,10 +715,7 @@ local function Initialize()
 
 		Visible = false,
 	})
-
-	if FFlagIEMButtonsResponsiveLayout then
-		this.ButtonsContainer = buttonsContainer
-	end
+	this.ButtonsContainer = buttonsContainer
 
 	if FFlagRelocateMobileMenuButtons and (FIntRelocateMobileMenuButtonsVariant == 1 or FIntRelocateMobileMenuButtonsVariant == 3) then
 		buttonsContainer.Parent = nil
@@ -755,27 +749,25 @@ local function Initialize()
 	leaveButton.Position = UDim2.new(0, 0, 0, 0)
 	leaveLabel.Size = UDim2.new(1, -4, 1, 0)
 	leaveLabel.Position = UDim2.new(0, 2, 0, 0)
-	if FFlagIEMButtonsResponsiveLayout then
-		Create "UIListLayout" {
-			FillDirection = Enum.FillDirection.Horizontal,
-			SortOrder = Enum.SortOrder.LayoutOrder,
-			VerticalAlignment = Enum.VerticalAlignment.Center,
+	Create "UIListLayout" {
+		FillDirection = Enum.FillDirection.Horizontal,
+		SortOrder = Enum.SortOrder.LayoutOrder,
+		VerticalAlignment = Enum.VerticalAlignment.Center,
 
-			Parent = leaveButton,
-		}
-		Create "UIPadding" {
-			PaddingLeft = UDim.new(0.025, 0),
+		Parent = leaveButton,
+	}
+	Create "UIPadding" {
+		PaddingLeft = UDim.new(0.025, 0),
 
-			Parent = leaveButton,
-		}
-		-- replacing full width with flex grow width
-		leaveLabel.Size = UDim2.new(0, 0, 1, 0)
+		Parent = leaveButton,
+	}
+	-- replacing full width with flex grow width
+	leaveLabel.Size = UDim2.new(0, 0, 1, 0)
 
-		Create "UIFlexItem" {
-			FlexMode = Enum.UIFlexMode.Grow,
-			Parent = leaveLabel,
-		}
-	end
+	Create "UIFlexItem" {
+		FlexMode = Enum.UIFlexMode.Grow,
+		Parent = leaveLabel,
+	}
 
 	if not FFlagRelocateMobileMenuButtons or FIntRelocateMobileMenuButtonsVariant == 0 then
 		leaveButton.Parent = buttonsContainer

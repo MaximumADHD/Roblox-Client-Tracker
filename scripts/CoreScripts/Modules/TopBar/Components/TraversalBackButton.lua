@@ -24,13 +24,11 @@ local useLocalization = Localization.Hooks.useLocalization
 local FFlagUseTeleportTraversalHistory = Traversal.Flags.FFlagUseTeleportTraversalHistory
 local FFlagUseLocalTraversalHistory = Traversal.Flags.FFlagUseLocalTraversalHistory
 local FFlagAddTraversalBackButtonAnimation = Traversal.Flags.FFlagAddTraversalBackButtonAnimation
-local FFlagFixUnibarRefactoringInTopBarApp = require(script.Parent.Parent.Flags.FFlagFixUnibarRefactoringInTopBarApp)
-local FFlagTraversalBackUseSettingsSignal = require(script.Parent.Parent.Flags.FFlagTraversalBackUseSettingsSignal)
 
 local ANIMATION_START_VALUE = 0
 local ANIMATION_FINAL_VALUE = 1
 
-local function TraversalBackButton(props: {isVisible: boolean?}): React.React_Node
+local function TraversalBackButton(props: {}): React.React_Node
 	local tokens = useTokens()
 	local buttonRef = React.useRef(nil :: GuiObject?)
 	local prevUniverseId, prevPlaceId = TeleportService:GetThirdPartyTeleportInfo(false)
@@ -39,23 +37,18 @@ local function TraversalBackButton(props: {isVisible: boolean?}): React.React_No
 		return nil
 	end
 
-	local isVisible, setIsVisible
-	if FFlagTraversalBackUseSettingsSignal then
-		isVisible, setIsVisible = React.useState(false)
-		React.useEffect(function()
-			local settingShowConn = SettingsShowSignal:connect(function(isOpen)
-				setIsVisible(isOpen)
-			end)
-			return function()
-				settingShowConn:Disconnect()
-			end
-		end, {})
-	else
-		isVisible = props.isVisible :: never
-	end
+	local isVisible, setIsVisible = React.useState(false)
+	React.useEffect(function()
+		local settingShowConn = SettingsShowSignal:connect(function(isOpen)
+			setIsVisible(isOpen)
+		end)
+		return function()
+			settingShowConn:Disconnect()
+		end
+	end, {})
 
 	React.useEffect(function()
-		if not FFlagFixUnibarRefactoringInTopBarApp or isVisible then
+		if isVisible then
 			TraversalTelemetry.sendBackButtonActionEvent({
 				integration_id = "back_button",
 				destination_universe_id = prevUniverseId,
@@ -143,7 +136,7 @@ local function TraversalBackButton(props: {isVisible: boolean?}): React.React_No
 			}),
 		})
 	else
-		return (not FFlagFixUnibarRefactoringInTopBarApp or isVisible) and React.createElement(View, {
+		return isVisible and React.createElement(View, {
 			tag = "auto-xy shrink",
 		}, {
 			TraversalBackButton = React.createElement(TeleportBackButton, {

@@ -3,12 +3,15 @@ local Packages = Foundation.Parent
 local React = require(Packages.React)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
+local Flags = require(Foundation.Utility.Flags)
+
 local Sheet = script:FindFirstAncestor("Sheet")
 local SheetContext = require(Sheet.SheetContext)
 local SheetType = require(Sheet.SheetType)
 
 local ScrollView = require(Foundation.Components.ScrollView)
 local View = require(Foundation.Components.View)
+local isScrollingFrameOverflowingY = require(Foundation.Utility.isScrollingFrameOverflowingY)
 
 export type SheetContentProps = {
 	children: React.ReactNode,
@@ -21,6 +24,7 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 	local innerScrollingEnabled = sheet.innerScrollingEnabled
 	local setInnerScrollY = sheet.setInnerScrollY
 	local actionsHeight = sheet.actionsHeight
+	local sheetContentHeight = sheet.sheetContentHeight
 	local setHasActionsDivider = sheet.setHasActionsDivider
 	local bottomPadding = sheet.bottomPadding
 	local hasHeader = sheet.hasHeader
@@ -39,10 +43,18 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 
 	local updateHasActionsDivider = React.useCallback(function(rbx: ScrollingFrame)
 		setInnerScrollY(rbx.CanvasPosition.Y)
-		local canvasSizeY = rbx.AbsoluteCanvasSize.Y
-		local windowSizeY = rbx.AbsoluteWindowSize.Y
-		setHasActionsDivider(canvasSizeY > windowSizeY + 1)
-	end, { setHasActionsDivider })
+		setHasActionsDivider(isScrollingFrameOverflowingY(rbx, 1))
+	end, { setHasActionsDivider, setInnerScrollY } :: { unknown })
+
+	local viewSizeY, setViewSizeY
+	if Flags.FoundationAddHeightPropToCenterSheet then
+		viewSizeY, setViewSizeY = React.useBinding(0)
+	end
+	local updateScrollViewCanvasSize = if Flags.FoundationAddHeightPropToCenterSheet
+		then React.useCallback(function(rbx: GuiObject)
+			setViewSizeY(rbx.AbsoluteSize.Y)
+		end, {})
+		else nil
 
 	local isBottomSheet = sheetType == SheetType.Bottom
 
@@ -53,9 +65,16 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 			scroll = {
 				ScrollingEnabled = innerScrollingEnabled,
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
-				CanvasSize = UDim2.fromScale(1, 0),
+				CanvasSize = if Flags.FoundationAddHeightPropToCenterSheet and sheetContentHeight
+					then viewSizeY:map(function(sizeY: number)
+						return UDim2.new(1, 0, 0, sizeY)
+					end)
+					else UDim2.fromScale(1, 0),
 				ScrollingDirection = Enum.ScrollingDirection.Y,
 			},
+			Size = if Flags.FoundationAddHeightPropToCenterSheet and sheetContentHeight
+				then UDim2.fromScale(1, 1)
+				else nil,
 			padding = {
 				top = hasHeader:map(function(value: boolean)
 					return if value
@@ -81,6 +100,7 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 			ref = ref,
 		},
 		React.createElement(View, {
+			onAbsoluteSizeChanged = updateScrollViewCanvasSize,
 			tag = "col size-full-0 auto-y padding-x-medium gap-medium align-x-center",
 		}, props.children)
 	)

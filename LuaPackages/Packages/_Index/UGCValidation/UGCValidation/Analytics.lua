@@ -28,6 +28,9 @@ local getEngineFeatureEngineUGCValidateRigidNonSkinned =
 local getFFlagUGCValidatePartSizeWithinRenderSizeLimits =
 	require(root.flags.getFFlagUGCValidatePartSizeWithinRenderSizeLimits)
 
+local getEngineFeatureEngineUGCValidateFACSJointTransformsWithinBounds =
+	require(root.flags.getEngineFeatureEngineUGCValidateFACSJointTransformsWithinBounds)
+
 local getFFlagUGCValidateMeshBBoxIsCentered = require(root.flags.getFFlagUGCValidateMeshBBoxIsCentered)
 local getFFlagUGCValidateLCHandleScale = require(root.flags.getFFlagUGCValidateLCHandleScale)
 local getFFlagUGCValidatePartMass = require(root.flags.getFFlagUGCValidatePartMass)
@@ -39,8 +42,7 @@ local getFFlagValidateDeformedLayeredClothingIsInBounds =
 local getFFlagReportVisibilityAndIslandTelemetry = require(root.flags.getFFlagReportVisibilityAndIslandTelemetry)
 
 local getEngineFeatureUGCValidationFullBodyFacs = require(root.flags.getEngineFeatureUGCValidationFullBodyFacs)
-local getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15 =
-	require(root.flags.getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15)
+
 local getEngineUGCValidateRelativeSkinningTransfer = require(root.flags.getEngineUGCValidateRelativeSkinningTransfer)
 local getEngineFeatureEngineUGCIsValidR15AnimationRigCheck =
 	require(root.flags.getEngineFeatureEngineUGCIsValidR15AnimationRigCheck)
@@ -49,7 +51,10 @@ local getEngineFeatureEngineUGCValidatePropertiesSensible =
 local getFFlagUGCValidateCheckHSRFileDataFix = require(root.flags.getFFlagUGCValidateCheckHSRFileDataFix)
 
 local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
+local getFFlagUGCValidationMakeupSupport = require(root.flags.getFFlagUGCValidationMakeupSupport)
 local getFFlagUGCValidateCurveAnimRotationSpeed = require(root.flags.getFFlagUGCValidateCurveAnimRotationSpeed)
+
+local getFFlagUGCValidateLegAssetSeparation = require(root.flags.getFFlagUGCValidateLegAssetSeparation)
 
 local function joinTables(...)
 	local result = {}
@@ -185,6 +190,12 @@ Analytics.ErrorType = {
 	validateCurveAnimation_PositionalMovement = "validateCurveAnimation_PositionalMovement",
 }
 
+if getFFlagUGCValidateLegAssetSeparation() then
+	Analytics.ErrorType.validateLegsSeparation_InvalidAttachmentPosition =
+		"validateLegsSeparation_InvalidAttachmentPosition"
+	Analytics.ErrorType.validateLegsSeparation_LegsOverlap = "validateLegsSeparation_LegsOverlap"
+end
+
 if getFFlagUGCValidateMeshBBoxIsCentered() then
 	Analytics.ErrorType.validateMeshBounds_Shifted = "validateMeshBounds_Shifted"
 end
@@ -285,12 +296,10 @@ end
 Analytics.ErrorType.validateMeshSizeProperty_FailedToLoadMesh = "validateMeshSizeProperty_FailedToLoadMesh"
 Analytics.ErrorType.validateMeshSizeProperty_Mismatch = "validateMeshSizeProperty_Mismatch"
 
-if getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15() then
-	Analytics.ErrorType.validateBodyPartVertsSkinnedToR15_FailedToFetchSkinning =
-		"validateBodyPartVertsSkinnedToR15_FailedToFetchSkinning"
-	Analytics.ErrorType.validateBodyPartVertsSkinnedToR15_BodyIsSkinnedToFakeJoints =
-		"validateBodyPartVertsSkinnedToR15_BodyIsSkinnedToFakeJoints"
-end
+Analytics.ErrorType.validateBodyPartVertsSkinnedToR15_FailedToFetchSkinning =
+	"validateBodyPartVertsSkinnedToR15_FailedToFetchSkinning"
+Analytics.ErrorType.validateBodyPartVertsSkinnedToR15_BodyIsSkinnedToFakeJoints =
+	"validateBodyPartVertsSkinnedToR15_BodyIsSkinnedToFakeJoints"
 
 if getEngineUGCValidateRelativeSkinningTransfer() then
 	Analytics.ErrorType.validateSkinningTransfer_FailedToExecute = "validateSkinningTransfer_FailedToExecute"
@@ -312,6 +321,24 @@ end
 
 if getFFlagUGCValidateCheckHSRFileDataFix() then
 	Analytics.ErrorType.validateHSR_FileDataInvalid = "validateHSR_FileDataInvalid"
+end
+
+if getFFlagUGCValidationMakeupSupport() then
+	Analytics.ErrorType.validateMakeupDecal_FailedToLoadTexture = "validateMakeupDecal_FailedToLoadTexture"
+	Analytics.ErrorType.validateMakeupDecal_NoColorMap = "validateMakeupDecal_NoColorMap"
+	Analytics.ErrorType.validateMakeupDecal_OutsideUVZone = "validateMakeupDecal_OutsideUVZone"
+
+	Analytics.ErrorType.validateWrapTextureTransfer_FailedToLoadCage = "validateWrapTextureTransfer_FailedToLoadCage"
+	Analytics.ErrorType.validateWrapTextureTransfer_NoCage = "validateWrapTextureTransfer_NoCage"
+	Analytics.ErrorType.validateWrapTextureTransfer_FailedToLoadUV = "validateWrapTextureTransfer_FailedToLoadUV"
+	Analytics.ErrorType.validateWrapTextureTransfer_InvalidUV = "validateWrapTextureTransfer_InvalidUV"
+	Analytics.ErrorType.validateWrapTextureTransfer_InvalidMinBound = "validateWrapTextureTransfer_InvalidMinBound"
+	Analytics.ErrorType.validateWrapTextureTransfer_InvalidMaxBound = "validateWrapTextureTransfer_InvalidMaxBound"
+end
+
+if getEngineFeatureEngineUGCValidateFACSJointTransformsWithinBounds() then
+	Analytics.ErrorType.validateFACSJointTransformsWithinBounds_Error = "validateFACSJointTransformsWithinBounds_Error"
+	Analytics.ErrorType.validateFACSJointTransformsWithinBounds_OOB = "validateFACSJointTransformsWithinBounds_OOB"
 end
 
 setmetatable(Analytics.ErrorType, {

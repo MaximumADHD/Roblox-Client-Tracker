@@ -13,7 +13,6 @@ local Button = require(Foundation.Components.Button)
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local Flags = require(Foundation.Utility.Flags)
 local InputSize = require(Foundation.Enums.InputSize)
-local LocalizationService = require(Foundation.Utility.Wrappers).Services.LocalizationService
 local Popover = require(Foundation.Components.Popover)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
 local TextInput = require(Foundation.Components.TextInput)
@@ -132,60 +131,35 @@ local function DateTimePicker(dateTimePickerProps: DateTimePickerProps)
 	local onApplyActivated = React.useCallback(
 		function()
 			if props.variant == DateTimePickerVariant.Dual then
-				local formattedDate = if Flags.FoundationDateTimePickerTimeVariantEnabled
-					then DateTimeUtilities.formatLocalTime(calendarDates[1] :: DateTime)
-					else (calendarDates[1] :: DateTime):FormatLocalTime(
-						DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-						LocalizationService.RobloxLocaleId
-					)
+				local formattedDate = DateTimeUtilities.formatLocalTime(calendarDates[1] :: DateTime)
 				local formattedDate2 = if calendarDates[2]
-					then if Flags.FoundationDateTimePickerTimeVariantEnabled
-						then DateTimeUtilities.formatLocalTime(calendarDates[2] :: DateTime)
-						else (calendarDates[2] :: DateTime):FormatLocalTime(
-							DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-							LocalizationService.RobloxLocaleId
-						)
+					then DateTimeUtilities.formatLocalTime(calendarDates[2] :: DateTime)
 					else ""
 				setInputText(formattedDate .. " - " .. formattedDate2)
 			else
 				setInputText(
-					if Flags.FoundationDateTimePickerTimeVariantEnabled
-						then DateTimeUtilities.formatLocalTime(
-							calendarDates[1] :: DateTime,
-							props.variant == DateTimePickerVariant.SingleWithTime
-						)
-						else calendarDates[1]:FormatLocalTime(
-							DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-							LocalizationService.RobloxLocaleId
-						)
+					DateTimeUtilities.formatLocalTime(
+						calendarDates[1] :: DateTime,
+						props.variant == DateTimePickerVariant.SingleWithTime
+					)
 				)
 			end
 
-			if not Flags.FoundationDateTimePickerTimeVariantEnabled then
-				props.onChanged(calendarDates[1], calendarDates[2])
-			end
 			closeDateTimePicker()
 		end,
 		{
 			calendarDates,
 			closeDateTimePicker,
-			if not Flags.FoundationDateTimePickerTimeVariantEnabled then props.onChanged else nil,
 		} :: { unknown }
 	)
 
 	local isApplyButtonDisabled = function()
-		if
-			props.variant == DateTimePickerVariant.Single
-			or (
-				Flags.FoundationDateTimePickerTimeVariantEnabled
-				and props.variant == DateTimePickerVariant.SingleWithTime
-			)
-		then
+		if props.variant == DateTimePickerVariant.Single or props.variant == DateTimePickerVariant.SingleWithTime then
 			return calendarDates[1] == nil
 		elseif props.variant == DateTimePickerVariant.Dual then
 			return calendarDates[1] == nil
 				or calendarDates[2] == nil
-				or calendarDates[1].UnixTimestamp > calendarDates[2].UnixTimestamp
+				or (calendarDates[1] :: DateTime).UnixTimestamp > (calendarDates[2] :: DateTime).UnixTimestamp
 		end
 
 		return false
@@ -195,58 +169,33 @@ local function DateTimePicker(dateTimePickerProps: DateTimePickerProps)
 		isOpen = isOpen,
 		testId = props.testId,
 	}, {
-		DateInput = if Flags.FoundationDateTimePickerAnchorBugFixEnabled
-			then React.createElement(
-				TextInput,
-				withCommonProps(props, {
-					hasError = props.hasError,
-					hint = props.hint,
-					iconTrailing = {
-						name = IconName.Calendar,
-						onActivated = showDateTimePicker,
-					},
-					isDisabled = props.isDisabled,
-					isRequired = props.isRequired,
-					key = "date-input",
-					label = props.label,
-					onChanged = updateInputText,
-					onFocusGained = showDateTimePicker,
-					placeholder = Translator:FormatByKey("CommonUI.Controls.Label.SelectDate"),
-					ref = textInputRef,
-					selectableDateRange = props.selectableDateRange,
-					size = InputSize.Medium,
-					text = inputText,
-					testId = `{props.testId}--text-input`,
-					width = props.width,
-				})
-			)
-			else React.createElement(Popover.Anchor, nil, {
-				React.createElement(TextInput, {
-					hasError = props.hasError,
-					hint = props.hint,
-					iconTrailing = {
-						name = IconName.Calendar,
-						onActivated = showDateTimePicker,
-					},
-					isDisabled = props.isDisabled,
-					isRequired = props.isRequired,
-					key = "date-input",
-					label = props.label,
-					onChanged = updateInputText,
-					onFocusGained = showDateTimePicker,
-					placeholder = Translator:FormatByKey("CommonUI.Controls.Label.SelectDate"),
-					selectableDateRange = props.selectableDateRange,
-					size = InputSize.Medium,
-					text = inputText,
-					width = props.width,
-					testId = `{props.testId}--text-input`,
-				}),
-			}),
-		Anchor = if Flags.FoundationDateTimePickerAnchorBugFixEnabled
-			then React.createElement(Popover.Anchor, {
-				anchorRef = textInputRef,
+		DateInput = React.createElement(
+			TextInput,
+			withCommonProps(props, {
+				hasError = props.hasError,
+				hint = props.hint,
+				iconTrailing = {
+					name = IconName.Calendar,
+					onActivated = showDateTimePicker,
+				},
+				isDisabled = props.isDisabled,
+				isRequired = props.isRequired,
+				key = "date-input",
+				label = props.label,
+				onChanged = updateInputText,
+				onFocusGained = showDateTimePicker,
+				placeholder = Translator:FormatByKey("CommonUI.Controls.Label.SelectDate"),
+				ref = textInputRef,
+				selectableDateRange = props.selectableDateRange,
+				size = InputSize.Medium,
+				text = inputText,
+				testId = `{props.testId}--text-input`,
+				width = props.width,
 			})
-			else nil,
+		),
+		Anchor = React.createElement(Popover.Anchor, {
+			anchorRef = textInputRef,
+		}),
 		Calendar = React.createElement(Popover.Content, {
 			hasArrow = false,
 			onPressedOutside = closeDateTimePicker,
@@ -260,16 +209,13 @@ local function DateTimePicker(dateTimePickerProps: DateTimePickerProps)
 			tag = "padding-large col stroke-default radius-medium auto-xy",
 		}, {
 			Calendar = React.createElement(Calendar, {
-				defaultDates = calendarDates,
+				defaultDates = calendarDates :: { DateTime },
 				LayoutOrder = 1,
 				onSelectedDateChanged = setCalendarDates,
 				selectableDateRange = props.selectableDateRange,
-				showStartDateTimeCalendarInput = if Flags.FoundationDateTimePickerTimeVariantEnabled
-					then props.variant ~= DateTimePickerVariant.SingleWithTime
-					else props.variant == DateTimePickerVariant.Single or props.variant == DateTimePickerVariant.Dual,
+				showStartDateTimeCalendarInput = props.variant ~= DateTimePickerVariant.SingleWithTime,
 				showEndDateTimeCalendarInput = props.variant == DateTimePickerVariant.Dual,
-				showTimeDropdown = Flags.FoundationDateTimePickerTimeVariantEnabled
-					and props.variant == DateTimePickerVariant.SingleWithTime,
+				showTimeDropdown = props.variant == DateTimePickerVariant.SingleWithTime,
 				testId = `--foundation-calendar`,
 			}),
 			BottomBar = React.createElement(View, {

@@ -3,7 +3,6 @@
 	The point is that indexing these tables with a typo will give you an error instead of nil, so they can be treated as enums.
 	We use ValidationEnums as a source of truth to run validations, log telemetry, etc.
 ]]
-
 local ValidationEnums = {}
 
 local function createEnumMetatable(name: string)
@@ -85,13 +84,22 @@ ValidationEnums.SharedDataMember = {
 finalizeEnumTable("SharedDataMember")
 
 ValidationEnums.ValidationConfig = {
+	-- Configs for enabling or disabling the test
 	categories = "categories", -- List of UploadCategory to run the test against. If missing, the test does NOT run.
 	fflag = "fflag", -- Function that returns true/false. If provided and the function returns false, the test does not run.
-	shadowFlag = "shadowFlag", -- Like an fflag, but runs the test with telemetry without including the result unless the consumer opts-in.
-	requiredData = "requiredData", -- List of SharedData enums that we need to fetch before we can run the test.
-	prereqTests = "prereqTests", -- List of Tests that must pass before running this test. If they fail, we get status CANNOT_START
+	shadowFlag = "shadowFlag", -- If provided and the function returns true, then even if the test is not enabled, we will include it as a warning.
+
+	-- Configs for setting test requirements, where an enabled test may be skipped
+	prereqTests = "prereqTests", -- List of Tests that must pass before running this test. If they do not pass, we get status CANNOT_START.
+	requiredData = "requiredData", -- List of SharedData enums fetched before running the test. If the data doesn't exist, this is an ERROR.
+	conditionalData = "conditionalData", -- List of SharedData enums fetched before running the test. If the data doesn't exist, the test will PASS.
+
+	-- AQS-only configs (aqsSummaryData should be listed in requiredData)
+	expectedAqsData = "expectedAqsData", -- Schema layout for the AQS summary. If something listed is not found in the summary, the test CANNOT_START.
+	knownAqsUserErrors = "knownAqsUserErrors", -- Mapping of AQS error enum to Validation failure key that has no params. If provided, the error results in FAIL. Otherwise ERROR.
+
+	-- Extra configs you should include
 	expectedFailures = "expectedFailures", -- List of System tests that we expect to fail this specific check. For bundles, you must specify Name.AssetType or Name.FullBody
-	requiredAqsReturnSchema = "requiredAqsReturnSchema", -- Similar to required data, validations that request asset quality can demand specific return datas
 	run = "run", -- The main validation function
 } :: { [string]: string }
 finalizeEnumTable("ValidationConfig")

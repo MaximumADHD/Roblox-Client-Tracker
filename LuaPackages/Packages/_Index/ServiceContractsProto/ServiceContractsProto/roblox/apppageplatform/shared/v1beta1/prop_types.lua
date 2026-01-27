@@ -1888,16 +1888,16 @@ type _IconPropImpl = {
 
 type _IconPropFields = {
 	kind: (
-		{ type: "icon_name", value: string }
-		| { type: "legacy_icon_name", value: string }
+		{ type: "literal", value: string }
+		| { type: "binding_path", value: string }
 		| { type: "conditional", value: IconProp_ConditionalOptions }
 	)?,
 }
 
 type _IconPropPartialFields = {
 	kind: (
-		{ type: "icon_name", value: string }
-		| { type: "legacy_icon_name", value: string }
+		{ type: "literal", value: string }
+		| { type: "binding_path", value: string }
 		| { type: "conditional", value: IconProp_ConditionalOptions }
 	)?,
 }
@@ -1917,12 +1917,12 @@ type _IconProp_ConditionalOptionImpl = {
 
 type _IconProp_ConditionalOptionFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	kind: ({ type: "icon_name", value: string } | { type: "legacy_icon_name", value: string })?,
+	kind: ({ type: "literal", value: string } | { type: "binding_path", value: string })?,
 }
 
 type _IconProp_ConditionalOptionPartialFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	kind: ({ type: "icon_name", value: string } | { type: "legacy_icon_name", value: string })?,
+	kind: ({ type: "literal", value: string } | { type: "binding_path", value: string })?,
 }
 
 export type IconProp_ConditionalOption = typeof(setmetatable(
@@ -10514,10 +10514,10 @@ do
 		local cursor = 0
 
 		if self.kind ~= nil then
-			if self.kind.type == "icon_name" then
+			if self.kind.type == "literal" then
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeString(output, cursor, self.kind.value)
-			elseif self.kind.type == "legacy_icon_name" then
+			elseif self.kind.type == "binding_path" then
 				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeString(output, cursor, self.kind.value)
 			elseif self.kind.type == "conditional" then
@@ -10549,12 +10549,12 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "icon_name", value = buffer.tostring(value) }
+					self.kind = { type = "literal", value = buffer.tostring(value) }
 					continue
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "legacy_icon_name", value = buffer.tostring(value) }
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
 					continue
 				elseif field == 3 then
 					local value
@@ -10589,10 +10589,10 @@ do
 		local output = {}
 
 		if self.kind ~= nil then
-			if self.kind.type == "icon_name" then
-				output.iconName = self.kind.value
-			elseif self.kind.type == "legacy_icon_name" then
-				output.legacyIconName = self.kind.value
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
 			elseif self.kind.type == "conditional" then
 				output.conditional = self.kind.value:jsonEncode()
 			end
@@ -10604,20 +10604,16 @@ do
 	function _IconPropImpl.jsonDecode(input: { [string]: any }): IconProp
 		local self = _IconPropImpl.new()
 
-		if input.icon_name ~= nil then
-			self.kind = { type = "icon_name", value = input.icon_name }
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = input.literal }
 		end
 
-		if input.iconName ~= nil then
-			self.kind = { type = "icon_name", value = input.iconName }
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
 		end
 
-		if input.legacy_icon_name ~= nil then
-			self.kind = { type = "legacy_icon_name", value = input.legacy_icon_name }
-		end
-
-		if input.legacyIconName ~= nil then
-			self.kind = { type = "legacy_icon_name", value = input.legacyIconName }
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
 		end
 
 		if input.conditional ~= nil then
@@ -10662,10 +10658,10 @@ do
 		end
 
 		if self.kind ~= nil then
-			if self.kind.type == "icon_name" then
+			if self.kind.type == "literal" then
 				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeString(output, cursor, self.kind.value)
-			elseif self.kind.type == "legacy_icon_name" then
+			elseif self.kind.type == "binding_path" then
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeString(output, cursor, self.kind.value)
 			end
@@ -10698,12 +10694,12 @@ do
 				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "icon_name", value = buffer.tostring(value) }
+					self.kind = { type = "literal", value = buffer.tostring(value) }
 					continue
 				elseif field == 3 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.kind = { type = "legacy_icon_name", value = buffer.tostring(value) }
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
 					continue
 				end
 
@@ -10737,10 +10733,10 @@ do
 		end
 
 		if self.kind ~= nil then
-			if self.kind.type == "icon_name" then
-				output.iconName = self.kind.value
-			elseif self.kind.type == "legacy_icon_name" then
-				output.legacyIconName = self.kind.value
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
 			end
 		end
 
@@ -10755,20 +10751,16 @@ do
 				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
 		end
 
-		if input.icon_name ~= nil then
-			self.kind = { type = "icon_name", value = input.icon_name }
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = input.literal }
 		end
 
-		if input.iconName ~= nil then
-			self.kind = { type = "icon_name", value = input.iconName }
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
 		end
 
-		if input.legacy_icon_name ~= nil then
-			self.kind = { type = "legacy_icon_name", value = input.legacy_icon_name }
-		end
-
-		if input.legacyIconName ~= nil then
-			self.kind = { type = "legacy_icon_name", value = input.legacyIconName }
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
 		end
 
 		return self

@@ -154,7 +154,7 @@ local function constructEntry(entry, width, frameHeight, layoutOrder, isExpanded
 		isSelected = settingInfo["Value"],
 		size = entryCellSize[2],
 		pos = cellOffset[2],
-		OnCheckBoxClicked = entry.valueChangeCallback,
+		OnCheckboxClicked = entry.valueChangeCallback,
 	})
 
 	row.visualType = Roact.createElement(CellLabel, {

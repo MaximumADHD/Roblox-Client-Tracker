@@ -9,6 +9,7 @@ type ValidationRulesUtil = {
 	getAccessoryRules: (self: ValidationRulesUtil, dest: { [Enum.AssetType]: any }) -> (),
 	getBodyPartRules: (self: ValidationRulesUtil, dest: { [Enum.AssetType]: any }) -> (),
 	getFullBodyRulesBounds: (self: ValidationRulesUtil) -> { [string]: { minSize: number, maxSize: number } },
+	getMakeupRules: (self: ValidationRulesUtil) -> any,
 }
 
 local ValidationRulesUtilImpl = {}
@@ -41,6 +42,10 @@ end
 
 function ValidationRulesUtilImpl:getBodyPartMaxTrianglesRule(assetTypeEnum)
 	return self:getRules().MeshRules.BodyPartMaxTriangles[assetTypeEnum]
+end
+
+function ValidationRulesUtilImpl:getMakeupRules()
+	return self:getRules().MakeupRules
 end
 
 function ValidationRulesUtilImpl:getAccessoryRules(dest)

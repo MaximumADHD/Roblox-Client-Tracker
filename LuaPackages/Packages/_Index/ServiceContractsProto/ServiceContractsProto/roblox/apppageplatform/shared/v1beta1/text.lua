@@ -56,6 +56,17 @@ type _TextSchema_PropsFields = {
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	rich_text: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
+	text_color: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
+	text_wrap: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	text_truncate: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	text_direction: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	text_y_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	text_scaled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	automatic_size: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _TextSchema_PropsPartialFields = {
@@ -65,6 +76,17 @@ type _TextSchema_PropsPartialFields = {
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	text: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	rich_text: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
+	text_color: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
+	text_wrap: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	text_truncate: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	text_direction: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	text_x_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	text_y_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	text_scaled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	automatic_size: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type TextSchema_Props = typeof(setmetatable({} :: _TextSchema_PropsFields, {} :: _TextSchema_PropsImpl))
@@ -201,6 +223,17 @@ do
 			position = if data == nil or data.position == nil then nil else data.position,
 			size = if data == nil or data.size == nil then nil else data.size,
 			on_activated = if data == nil or data.on_activated == nil then nil else data.on_activated,
+			text = if data == nil or data.text == nil then nil else data.text,
+			rich_text = if data == nil or data.rich_text == nil then nil else data.rich_text,
+			font_style = if data == nil or data.font_style == nil then nil else data.font_style,
+			text_color = if data == nil or data.text_color == nil then nil else data.text_color,
+			text_wrap = if data == nil or data.text_wrap == nil then nil else data.text_wrap,
+			text_truncate = if data == nil or data.text_truncate == nil then nil else data.text_truncate,
+			text_direction = if data == nil or data.text_direction == nil then nil else data.text_direction,
+			text_x_alignment = if data == nil or data.text_x_alignment == nil then nil else data.text_x_alignment,
+			text_y_alignment = if data == nil or data.text_y_alignment == nil then nil else data.text_y_alignment,
+			text_scaled = if data == nil or data.text_scaled == nil then nil else data.text_scaled,
+			automatic_size = if data == nil or data.automatic_size == nil then nil else data.automatic_size,
 		}, _TextSchema_PropsImpl :: _TextSchema_PropsImpl)
 	end
 
@@ -241,6 +274,72 @@ do
 		if self.on_activated ~= nil then
 			local encoded = self.on_activated:encode()
 			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text ~= nil then
+			local encoded = self.text:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.rich_text ~= nil then
+			local encoded = self.rich_text:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.font_style ~= nil then
+			local encoded = self.font_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_color ~= nil then
+			local encoded = self.text_color:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_wrap ~= nil then
+			local encoded = self.text_wrap:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_truncate ~= nil then
+			local encoded = self.text_truncate:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_direction ~= nil then
+			local encoded = self.text_direction:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_x_alignment ~= nil then
+			local encoded = self.text_x_alignment:encode()
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_y_alignment ~= nil then
+			local encoded = self.text_y_alignment:encode()
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_scaled ~= nil then
+			local encoded = self.text_scaled:encode()
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.automatic_size ~= nil then
+			local encoded = self.automatic_size:encode()
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -293,6 +392,61 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.on_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
 					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.rich_text = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.font_style = _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_color = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_wrap = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_truncate = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_direction = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_x_alignment = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_y_alignment = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_scaled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.automatic_size = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -342,6 +496,50 @@ do
 
 		if self.on_activated ~= nil then
 			output.onActivated = self.on_activated:jsonEncode()
+		end
+
+		if self.text ~= nil then
+			output.text = self.text:jsonEncode()
+		end
+
+		if self.rich_text ~= nil then
+			output.richText = self.rich_text:jsonEncode()
+		end
+
+		if self.font_style ~= nil then
+			output.fontStyle = self.font_style:jsonEncode()
+		end
+
+		if self.text_color ~= nil then
+			output.textColor = self.text_color:jsonEncode()
+		end
+
+		if self.text_wrap ~= nil then
+			output.textWrap = self.text_wrap:jsonEncode()
+		end
+
+		if self.text_truncate ~= nil then
+			output.textTruncate = self.text_truncate:jsonEncode()
+		end
+
+		if self.text_direction ~= nil then
+			output.textDirection = self.text_direction:jsonEncode()
+		end
+
+		if self.text_x_alignment ~= nil then
+			output.textXAlignment = self.text_x_alignment:jsonEncode()
+		end
+
+		if self.text_y_alignment ~= nil then
+			output.textYAlignment = self.text_y_alignment:jsonEncode()
+		end
+
+		if self.text_scaled ~= nil then
+			output.textScaled = self.text_scaled:jsonEncode()
+		end
+
+		if self.automatic_size ~= nil then
+			output.automaticSize = self.automatic_size:jsonEncode()
 		end
 
 		return output
@@ -394,6 +592,102 @@ do
 
 		if input.onActivated ~= nil then
 			self.on_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onActivated)
+		end
+
+		if input.text ~= nil then
+			self.text = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.text)
+		end
+
+		if input.rich_text ~= nil then
+			self.rich_text = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.rich_text)
+		end
+
+		if input.richText ~= nil then
+			self.rich_text = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.richText)
+		end
+
+		if input.font_style ~= nil then
+			self.font_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.jsonDecode(input.font_style)
+		end
+
+		if input.fontStyle ~= nil then
+			self.font_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.jsonDecode(input.fontStyle)
+		end
+
+		if input.text_color ~= nil then
+			self.text_color = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.text_color)
+		end
+
+		if input.textColor ~= nil then
+			self.text_color = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.textColor)
+		end
+
+		if input.text_wrap ~= nil then
+			self.text_wrap = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.text_wrap)
+		end
+
+		if input.textWrap ~= nil then
+			self.text_wrap = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.textWrap)
+		end
+
+		if input.text_truncate ~= nil then
+			self.text_truncate =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.text_truncate)
+		end
+
+		if input.textTruncate ~= nil then
+			self.text_truncate =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.textTruncate)
+		end
+
+		if input.text_direction ~= nil then
+			self.text_direction =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.text_direction)
+		end
+
+		if input.textDirection ~= nil then
+			self.text_direction =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.textDirection)
+		end
+
+		if input.text_x_alignment ~= nil then
+			self.text_x_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.text_x_alignment)
+		end
+
+		if input.textXAlignment ~= nil then
+			self.text_x_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.textXAlignment)
+		end
+
+		if input.text_y_alignment ~= nil then
+			self.text_y_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.text_y_alignment)
+		end
+
+		if input.textYAlignment ~= nil then
+			self.text_y_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.textYAlignment)
+		end
+
+		if input.text_scaled ~= nil then
+			self.text_scaled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.text_scaled)
+		end
+
+		if input.textScaled ~= nil then
+			self.text_scaled = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.textScaled)
+		end
+
+		if input.automatic_size ~= nil then
+			self.automatic_size =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.automatic_size)
+		end
+
+		if input.automaticSize ~= nil then
+			self.automatic_size =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.automaticSize)
 		end
 
 		return self

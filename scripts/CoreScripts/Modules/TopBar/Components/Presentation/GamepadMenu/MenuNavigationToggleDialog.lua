@@ -5,12 +5,13 @@ local LocalizationService = game:GetService("LocalizationService")
 local UserInputService = game:GetService("UserInputService")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
+local ReactUtils = require(CorePackages.Packages.ReactUtils)
 local React = require(CorePackages.Packages.React)
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 
-local useExternalEvent = UIBlox.Core.Hooks.useExternalEvent
+local useExternalEvent = ReactUtils.useEventConnection
 local GetTextSize = require(CorePackages.Workspace.Packages.Style).GetTextSize
 local useDesignTokens = require(CorePackages.Workspace.Packages.Style).useDesignTokens
 local Topbar = script.Parent.Parent.Parent.Parent

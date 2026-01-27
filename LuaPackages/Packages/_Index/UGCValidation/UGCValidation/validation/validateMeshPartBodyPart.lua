@@ -15,6 +15,7 @@ local getFFlagRefactorBodyAttachmentOrientationsCheck =
 local getFFlagUGCValidateBoundsManipulation = require(root.flags.getFFlagUGCValidateBoundsManipulation)
 local getFFlagUGCValidateAccurateBoundingBoxRasterMethod =
 	require(root.flags.getFFlagUGCValidateAccurateBoundingBoxRasterMethod)
+local getFFlagUGCValidateLegAssetSeparation = require(root.flags.getFFlagUGCValidateLegAssetSeparation)
 
 local validateBodyPartMeshBounds = require(root.validation.validateBodyPartMeshBounds)
 local validateAssetBounds = require(root.validation.validateAssetBounds)
@@ -43,13 +44,12 @@ local ValidateBodyBlockingTests = require(root.util.ValidateBodyBlockingTests)
 local ValidateAssetBodyPartCages = require(root.validation.ValidateAssetBodyPartCages)
 local ValidateMeshSizeProperty = require(root.validation.ValidateMeshSizeProperty)
 local ValidatePropertiesSensible = require(root.validation.ValidatePropertiesSensible)
+local ValidateLegsSeparation = require(root.validation.ValidateLegsSeparation)
 
 local validateWithSchema = require(root.util.validateWithSchema)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
-local validateBodyPartVertsSkinnedToR15 = require(root.validation.validateBodyPartVertsSkinnedToR15)
+local ValidateMeshPartOnlySkinnedToR15 = require(root.validation.ValidateMeshPartOnlySkinnedToR15)
 local BodyAssetMasksRenderer = require(root.util.bodyAssetMasksRenderer)
-local getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15 =
-	require(root.flags.getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 
@@ -146,6 +146,10 @@ local function validateMeshPartBodyPart(
 
 	reasonsAccumulator:updateReasons(validateAssetBounds(nil, inst, validationContext))
 
+	if getFFlagUGCValidateLegAssetSeparation() then
+		reasonsAccumulator:updateReasons(ValidateLegsSeparation.validateAsset(inst, validationContext))
+	end
+
 	if getFFlagUGCValidateAccurateBoundingBoxRasterMethod() then
 		local viewsForAsset = validateAccurateBoundingBoxRasterMethod.getBoundsViewsForAssetType(assetTypeEnum)
 		local result = nil
@@ -185,8 +189,8 @@ local function validateMeshPartBodyPart(
 
 	reasonsAccumulator:updateReasons(validateAttributes(inst, validationContext))
 
-	if getEngineFeatureEngineUGCValidateBodyPartsSkinnedToR15() and assetTypeEnum ~= Enum.AssetType.DynamicHead then
-		reasonsAccumulator:updateReasons(validateBodyPartVertsSkinnedToR15(inst, validationContext))
+	if assetTypeEnum ~= Enum.AssetType.DynamicHead then
+		reasonsAccumulator:updateReasons(ValidateMeshPartOnlySkinnedToR15.validateBodyParts(inst, validationContext))
 	end
 
 	local checkModeration = not isServer

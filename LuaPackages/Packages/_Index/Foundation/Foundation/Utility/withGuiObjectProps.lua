@@ -5,6 +5,7 @@ local React = require(Packages.React)
 local ReactIs = require(Packages.ReactIs)
 
 local Types = require(Foundation.Components.Types)
+local getTestIdTag = require(Foundation.Utility.getTestIdTag)
 local indexBindable = require(Foundation.Utility.indexBindable)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 
@@ -89,7 +90,7 @@ local function withGuiObjectProps<T>(props: GuiObjectProps & CommonProps, basePr
 	fullProps[React.Change.AbsolutePosition] = props.onAbsolutePositionChanged
 	fullProps.onAbsolutePositionChanged = nil
 
-	local fullTestId = if fullProps.testId then "data-testid=" .. fullProps.testId else nil
+	local fullTestId = getTestIdTag(fullProps.testId)
 
 	if fullProps[React.Tag] and fullTestId then
 		fullProps[React.Tag] ..= " " .. fullTestId

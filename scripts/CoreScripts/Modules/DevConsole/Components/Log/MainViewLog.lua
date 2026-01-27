@@ -33,7 +33,7 @@ function MainViewLog:init()
 		self.props.dispatchSetActiveTab("Log", false)
 	end
 
-	self.onCheckBoxChanged = function(boxName, newState)
+	self.onCheckboxChanged = function(boxName, newState)
 		if self.props.isClientView then
 			self.props.ClientLogData:setFilter(boxName, newState)
 		else
@@ -120,18 +120,18 @@ function MainViewLog:render()
 		Padding = UDim.new(0, PADDING),
 	})
 
-	local currCheckBoxState
+	local currCheckboxState
 	if isClientView then
-		currCheckBoxState = self.props.ClientLogData:getFilters()
+		currCheckboxState = self.props.ClientLogData:getFilters()
 	else
-		currCheckBoxState = self.props.ServerLogData:getFilters()
+		currCheckboxState = self.props.ServerLogData:getFilters()
 	end
 
-	local initCheckBoxes = {}
+	local initCheckboxes = {}
 	for i, v in ipairs(MsgTypeNamesOrdered) do
-		initCheckBoxes[i] = {
+		initCheckboxes[i] = {
 			name = v,
-			state = currCheckBoxState[v],
+			state = currCheckboxState[v],
 		}
 	end
 
@@ -139,7 +139,7 @@ function MainViewLog:render()
 		windowWidth = size.X.Offset,
 		formFactor = formFactor,
 		tabList = tabList,
-		orderedCheckBoxState = initCheckBoxes,
+		orderedCheckboxState = initCheckboxes,
 		isClientView = isClientView,
 		searchTerm = searchTerm,
 		layoutOrder = 1,
@@ -148,7 +148,7 @@ function MainViewLog:render()
 
 		onClientButton = isDeveloperView and self.onClientButton,
 		onServerButton = isDeveloperView and self.onServerButton,
-		onCheckBoxChanged = self.onCheckBoxChanged,
+		onCheckboxChanged = self.onCheckboxChanged,
 		onSearchTermChanged = self.onSearchTermChanged,
 	})
 

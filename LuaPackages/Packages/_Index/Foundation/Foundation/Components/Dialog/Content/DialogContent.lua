@@ -3,6 +3,8 @@ local Packages = Foundation.Parent
 
 local React = require(Packages.React)
 
+local Flags = require(Foundation.Utility.Flags)
+
 local ScrollView = require(Foundation.Components.ScrollView)
 local Types = require(Foundation.Components.Types)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -13,14 +15,17 @@ local useDialog = require(script.Parent.Parent.useDialog)
 
 export type DialogContentProps = {
 	children: React.ReactNode,
-} & Types.CommonProps
+} & Types.CommonProps & Types.SelectionProps
 
 local function DialogContent(props: DialogContentProps)
-	local scrollBarPadding, updateScrollBarPadding = useScrollBarPadding()
+	local hasOverflowY, scrollBarPadding, updateScrollBarPadding = useScrollBarPadding()
 	local variants = useDialogVariants()
 	local dialogContext = useDialog()
 
 	props.testId = `{dialogContext.testId}--content`
+
+	local isSelectableEnabled = if props.Selectable == nil then true else props.Selectable
+	local selectable = isSelectableEnabled and hasOverflowY
 
 	return React.createElement(
 		ScrollView,
@@ -29,6 +34,15 @@ local function DialogContent(props: DialogContentProps)
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
 				CanvasSize = UDim2.new(0, 0, 0, 0),
 			},
+			selection = if Flags.FoundationDialogContentSelectable
+				then {
+					Selectable = selectable,
+					NextSelectionUp = props.NextSelectionUp,
+					NextSelectionDown = props.NextSelectionDown,
+					NextSelectionLeft = props.NextSelectionLeft,
+					NextSelectionRight = props.NextSelectionRight,
+				}
+				else nil,
 			onAbsoluteCanvasSizeChanged = updateScrollBarPadding,
 			onAbsoluteWindowSizeChanged = updateScrollBarPadding,
 			tag = variants.content.tag,

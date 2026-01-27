@@ -27,6 +27,8 @@ type Tokens = Tokens.Tokens
 
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 
+local Flags = require(Foundation.Utility.Flags)
+
 type DropdownVariantProps = {
 	container: { tag: string },
 	text: { tag: string },
@@ -37,7 +39,11 @@ type State = ControlState | "Error"
 
 local function variantsFactory(tokens: Tokens)
 	local common = {
-		container = { tag = "row align-y-center flex-x-between stroke-standard" },
+		container = {
+			tag = if Flags.FoundationUIStrokeInner
+				then "row align-y-center flex-x-between stroke-standard stroke-position-inner"
+				else "row align-y-center flex-x-between stroke-standard",
+		},
 		text = { tag = "auto-xy text-truncate-split shrink" },
 	}
 

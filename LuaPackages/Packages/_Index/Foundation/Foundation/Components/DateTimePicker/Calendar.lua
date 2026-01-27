@@ -13,7 +13,6 @@ local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 local Flags = require(Foundation.Utility.Flags)
 local IconButton = require(Foundation.Components.IconButton)
 local InputSize = require(Foundation.Enums.InputSize)
-local LocalizationService = require(Foundation.Utility.Wrappers).Services.LocalizationService
 local Text = require(Foundation.Components.Text)
 local TextInput = require(Foundation.Components.TextInput)
 local TimeDropdown = require(script.Parent.TimeDropdown)
@@ -77,23 +76,10 @@ local function Calendar(props: Props)
 		end
 	end, { inputFocusState })
 
-	local startDateTimeInputText, setStartDateTimeInputText = React.useState(
-		if Flags.FoundationDateTimePickerTimeVariantEnabled
-			then DateTimeUtilities.formatLocalTime(props.defaultDates[1] :: DateTime)
-			else props.defaultDates[1]:FormatLocalTime(
-				DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-				LocalizationService.RobloxLocaleId
-			)
-	)
+	local startDateTimeInputText, setStartDateTimeInputText =
+		React.useState(DateTimeUtilities.formatLocalTime(props.defaultDates[1] :: DateTime))
 	local endDateTimeInputText, setEndDateTimeInputText = React.useState(
-		if props.defaultDates[2]
-			then if Flags.FoundationDateTimePickerTimeVariantEnabled
-				then DateTimeUtilities.formatLocalTime(props.defaultDates[2] :: DateTime)
-				else props.defaultDates[2]:FormatLocalTime(
-					DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-					LocalizationService.RobloxLocaleId
-				)
-			else ""
+		if props.defaultDates[2] then DateTimeUtilities.formatLocalTime(props.defaultDates[2] :: DateTime) else ""
 	)
 
 	React.useEffect(function()
@@ -125,14 +111,7 @@ local function Calendar(props: Props)
 					selectedDateTimes[2]
 				)
 		then
-			setStartDateTimeInputText(
-				if Flags.FoundationDateTimePickerTimeVariantEnabled
-					then DateTimeUtilities.formatLocalTime(props.defaultDates[1] :: DateTime)
-					else props.defaultDates[1]:FormatLocalTime(
-						DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-						LocalizationService.RobloxLocaleId
-					)
-			)
+			setStartDateTimeInputText(DateTimeUtilities.formatLocalTime(props.defaultDates[1] :: DateTime))
 		end
 	end
 
@@ -151,14 +130,7 @@ local function Calendar(props: Props)
 					selectedDateTimes[1]
 				)
 		then
-			setEndDateTimeInputText(
-				if Flags.FoundationDateTimePickerTimeVariantEnabled
-					then DateTimeUtilities.formatLocalTime(props.defaultDates[2] :: DateTime)
-					else selectedDateTimes[2]:FormatLocalTime(
-						DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-						LocalizationService.RobloxLocaleId
-					)
-			)
+			setEndDateTimeInputText(DateTimeUtilities.formatLocalTime(props.defaultDates[2] :: DateTime))
 		end
 	end
 
@@ -178,57 +150,27 @@ local function Calendar(props: Props)
 				year,
 				month,
 				day,
-				if Flags.FoundationDateTimePickerTimeVariantEnabled then selectedDateTimes[1]:ToLocalTime().Hour else 0,
-				if Flags.FoundationDateTimePickerTimeVariantEnabled
-					then selectedDateTimes[1]:ToLocalTime().Minute
-					else 0
+				selectedDateTimes[1]:ToLocalTime().Hour,
+				selectedDateTimes[1]:ToLocalTime().Minute
 			)
 
 			-- If calendar input is shown then we let the input's onChanged callback handle updating the state
 			if props.showStartDateTimeCalendarInput then
 				if props.showEndDateTimeCalendarInput then
 					if inputFocusState.startDateTimeInput then
-						setStartDateTimeInputText(
-							if Flags.FoundationDateTimePickerTimeVariantEnabled
-								then DateTimeUtilities.formatLocalTime(dateTime)
-								else dateTime:FormatLocalTime(
-									DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-									LocalizationService.RobloxLocaleId
-								)
-						)
+						setStartDateTimeInputText(DateTimeUtilities.formatLocalTime(dateTime))
 
 						setInputFocusState({ startDateTimeInput = false, endDateTimeInput = true })
 					elseif inputFocusState.endDateTimeInput then
-						setEndDateTimeInputText(
-							if Flags.FoundationDateTimePickerTimeVariantEnabled
-								then DateTimeUtilities.formatLocalTime(dateTime)
-								else dateTime:FormatLocalTime(
-									DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-									LocalizationService.RobloxLocaleId
-								)
-						)
+						setEndDateTimeInputText(DateTimeUtilities.formatLocalTime(dateTime))
 						setInputFocusState({ startDateTimeInput = false, endDateTimeInput = false })
 					else
-						setStartDateTimeInputText(
-							if Flags.FoundationDateTimePickerTimeVariantEnabled
-								then DateTimeUtilities.formatLocalTime(dateTime)
-								else dateTime:FormatLocalTime(
-									DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-									LocalizationService.RobloxLocaleId
-								)
-						)
+						setStartDateTimeInputText(DateTimeUtilities.formatLocalTime(dateTime))
 						setEndDateTimeInputText("")
 						setInputFocusState({ startDateTimeInput = false, endDateTimeInput = true })
 					end
 				else
-					setStartDateTimeInputText(
-						if Flags.FoundationDateTimePickerTimeVariantEnabled
-							then DateTimeUtilities.formatLocalTime(dateTime)
-							else dateTime:FormatLocalTime(
-								DateTimeUtilities.DATE_COMPOSITE_TOKEN,
-								LocalizationService.RobloxLocaleId
-							)
-					)
+					setStartDateTimeInputText(DateTimeUtilities.formatLocalTime(dateTime))
 				end
 
 				setCurrViewDate({ month = month, year = year })
@@ -615,7 +557,7 @@ local function Calendar(props: Props)
 				testId = `{props.testId}--next-month-button`,
 			}),
 		}),
-		TimeDropdown = Flags.FoundationDateTimePickerTimeVariantEnabled and if props.showTimeDropdown
+		TimeDropdown = if props.showTimeDropdown
 			then React.createElement(TimeDropdown, {
 				dateTime = selectedDateTimes[1],
 				layoutOrder = 2,
@@ -626,7 +568,7 @@ local function Calendar(props: Props)
 			else nil,
 		CalendarInputContainer = if props.showStartDateTimeCalendarInput
 			then React.createElement(View, {
-				LayoutOrder = if Flags.FoundationDateTimePickerTimeVariantEnabled then 3 else 2,
+				LayoutOrder = 3,
 				tag = "flex-x-fill size-full-0 auto-y row gap-small align-y-center",
 				testId = `{props.testId}--input`,
 			}, {
@@ -674,7 +616,7 @@ local function Calendar(props: Props)
 			})
 			else nil,
 		WeekAndDates = React.createElement(View, {
-			LayoutOrder = if Flags.FoundationDateTimePickerTimeVariantEnabled then 4 else 3,
+			LayoutOrder = 4,
 			tag = "size-full-0 auto-y",
 			testId = `{props.testId}--weekAndDates`,
 		}, datesGrid),

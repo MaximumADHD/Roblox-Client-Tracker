@@ -7,7 +7,6 @@ local ScrollView = require(Foundation.Components.ScrollView)
 local View = require(Foundation.Components.View)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
 
-local Flags = require(Foundation.Utility.Flags)
 local useBindable = require(Foundation.Utility.useBindable)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
@@ -138,9 +137,7 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 		})
 	end
 
-	local radiusTag = if Flags.FoundationBaseMenuBorderFix and props.radius ~= nil
-		then radiusToTag[props.radius]
-		else ""
+	local radiusTag = if props.radius ~= nil then radiusToTag[props.radius] else ""
 
 	if props.maxHeight then
 		local automaticSize = React.joinBindings({ autoSize = autoSize, isOverMaxHeight = isOverMaxHeight })
@@ -164,9 +161,7 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 					maxHeight = maxHeight,
 				}):map(computeSize),
 				sizeConstraint = sizeConstraint,
-				tag = {
-					[`stroke-standard stroke-default {radiusTag}`] = Flags.FoundationBaseMenuBorderFix,
-				},
+				tag = `stroke-standard stroke-default {radiusTag}`,
 			}),
 			React.createElement(
 				View,
@@ -188,10 +183,7 @@ local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?
 		return React.createElement(
 			View,
 			withCommonProps(props, {
-				tag = {
-					[`col`] = true,
-					[`stroke-standard stroke-default {radiusTag}`] = Flags.FoundationBaseMenuBorderFix,
-				},
+				tag = `col stroke-standard stroke-default {radiusTag}`,
 				AutomaticSize = autoSize:map(function(autoSizeValue): Enum.AutomaticSize
 					return if autoSizeValue then Enum.AutomaticSize.XY else Enum.AutomaticSize.Y
 				end),

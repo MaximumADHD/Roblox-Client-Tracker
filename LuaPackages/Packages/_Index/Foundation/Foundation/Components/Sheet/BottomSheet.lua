@@ -267,14 +267,35 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 
 			inputActive.current = false
 
-			-- Don't handle snapping if inner scrolling is active or sheet is closing
-			local shouldSkipSnapping = (
-				innerScrollingEnabled:getValue()
-				and outerScrollY.current >= math.round(maxSheetHeight + safeAreaPadding)
-			) or isClosing.current
+			if Flags.FoundationSheetFixClosingSwipe then
+				local outerScrollingNotMoving
+				if outerScrollingRef.current then
+					local success, value = pcall(function()
+						return outerScrollingRef.current:GetScrollVelocity().Y == 0
+					end)
 
-			if shouldSkipSnapping then
-				return
+					if success then
+						outerScrollingNotMoving = value
+					end
+				end
+
+				-- Don't handle snapping if outer scrolling is not moving or sheet is closing
+				local shouldSkipSnapping = outerScrollingNotMoving or isClosing.current
+
+				if shouldSkipSnapping then
+					setInnerScrollingEnabled(true)
+					return
+				end
+			else
+				-- Don't handle snapping if inner scrolling is active or sheet is closing
+				local shouldSkipSnapping = (
+					innerScrollingEnabled:getValue()
+					and outerScrollY.current >= math.round(maxSheetHeight + safeAreaPadding)
+				) or isClosing.current
+
+				if shouldSkipSnapping then
+					return
+				end
 			end
 
 			snapToClosestSwipeSnapPoint()
@@ -403,6 +424,13 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 											if not Flags.FoundationSheetBottomSheetAutoSize or #snapPoints > 1 then
 												local nextIndex = currentSnapIndex.current % #snapPoints + 1
 												springToSnapIndex(nextIndex)
+												if Flags.FoundationSheetFixClosingSwipe then
+													local isAtMaxSnapPoint = snapValueToPixels(snapPoints[nextIndex])
+														== maxSheetHeight
+													if isAtMaxSnapPoint then
+														setInnerScrollingEnabled(true)
+													end
+												end
 											else
 												closeSheet()
 											end

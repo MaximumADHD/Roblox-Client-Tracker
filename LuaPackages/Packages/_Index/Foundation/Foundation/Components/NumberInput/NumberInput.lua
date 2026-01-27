@@ -88,7 +88,7 @@ local defaultProps = {
 	precision = 3,
 	value = 0,
 	formatAsString = defaultFormatAsString,
-	width = UDim.new(0, 400),
+	width = if Flags.FoundationNumberInputTokenBasedWidth then nil else UDim.new(0, 400),
 	isScrubbable = false,
 	testId = "--foundation-number-input",
 }
@@ -109,7 +109,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		isRequired: boolean?,
 		label: string,
 		hint: string?,
-		width: UDim,
+		width: UDim?,
 		leadingIcon: string?,
 		isScrubbable: boolean?,
 		testId: string,
@@ -173,6 +173,10 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 
 	local currentTextRef = React.useRef(currentText)
 	currentTextRef.current = tostring(props.value)
+
+	local width = if not Flags.FoundationNumberInputTokenBasedWidth or props.width
+		then props.width :: UDim
+		else UDim.new(0, NumberInputControlsVariantProps.container.width)
 
 	-- Get percentage of where the value is between min and max
 	local percentage = React.useMemo(function()
@@ -259,8 +263,10 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	end, { tokens, controlsVariant } :: { any })
 
 	local onDragStarted = React.useCallback(function(_rbx, position: Vector2)
-		if not props.isScrubbable then
-			return
+		if not Flags.FoundationDontCreateUIDDForNumberInput then
+			if not props.isScrubbable then
+				return
+			end
 		end
 		if Flags.FoundationNumberInputDraggingDeltaFix then
 			local value = tonumber(currentTextRef.current)
@@ -273,8 +279,10 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	end, { props.isScrubbable } :: { unknown })
 
 	local onDrag = React.useCallback(function(_rbx, position: Vector2)
-		if not props.isScrubbable then
-			return
+		if not Flags.FoundationDontCreateUIDDForNumberInput then
+			if not props.isScrubbable then
+				return
+			end
 		end
 		if Flags.FoundationNumberInputDraggingDeltaFix then
 			if dragStartTable and dragStartTable.current then
@@ -310,8 +318,10 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	end, { props.isScrubbable, props.onChanged } :: { unknown })
 
 	local onDragEnded = React.useCallback(function()
-		if not props.isScrubbable then
-			return
+		if not Flags.FoundationDontCreateUIDDForNumberInput then
+			if not props.isScrubbable then
+				return
+			end
 		end
 		if Flags.FoundationNumberInputDraggingDeltaFix then
 			if dragStartTable and dragStartTable.current then
@@ -345,7 +355,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	return React.createElement(
 		InputField,
 		withCommonProps(props, {
-			width = props.width,
+			width = width,
 			ref = ref,
 			hasError = hasError,
 			label = props.label,
@@ -366,9 +376,15 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 					onChanged = onChanged,
 					onFocusLost = onFocusLost,
 					onFocus = onFocus,
-					onDragStarted = onDragStarted,
-					onDrag = onDrag,
-					onDragEnded = onDragEnded,
+					onDragStarted = if Flags.FoundationDontCreateUIDDForNumberInput
+						then if props.isScrubbable then onDragStarted else nil
+						else onDragStarted,
+					onDrag = if Flags.FoundationDontCreateUIDDForNumberInput
+						then if props.isScrubbable then onDrag else nil
+						else onDrag,
+					onDragEnded = if Flags.FoundationDontCreateUIDDForNumberInput
+						then if props.isScrubbable then onDragEnded else nil
+						else onDragEnded,
 					onReturnPressed = props.onReturnPressed,
 					ref = inputRef,
 					backgroundElement = if props.isScrubbable and numberSequence
@@ -405,7 +421,7 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 
 				return if isSplitVariant
 					then React.createElement(View, {
-						Size = UDim2.fromOffset(props.width.Offset - widthOffset.Offset, 0),
+						Size = UDim2.fromOffset(width.Offset - widthOffset.Offset, 0),
 						tag = "row gap-xsmall auto-y align-y-center",
 					}, {
 						InputField = input,

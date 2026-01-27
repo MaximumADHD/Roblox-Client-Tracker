@@ -10,8 +10,6 @@ local Types = require(Foundation.Components.Types)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
 
-local Flags = require(Foundation.Utility.Flags)
-
 local InputSize = require(Foundation.Enums.InputSize)
 local PopoverAlign = require(Foundation.Enums.PopoverAlign)
 local PopoverSide = require(Foundation.Enums.PopoverSide)
@@ -132,7 +130,7 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 				align = PopoverAlign.End,
 				side = sideConfig,
 				onPressedOutside = closeMenu,
-				radius = if Flags.FoundationBaseMenuBorderFix then Radius.Medium else nil,
+				radius = Radius.Medium,
 				selection = props.selection,
 				selectionGroup = props.selectionGroup,
 			},
@@ -143,7 +141,7 @@ local function Dropdown(dropdownProps: DropdownProps, ref: React.Ref<GuiObject>?
 				items = items,
 				maxHeight = props.maxHeight,
 				onActivated = onActivated,
-				radius = if Flags.FoundationBaseMenuBorderFix then Radius.Medium else nil,
+				radius = Radius.Medium,
 				testId = `{props.testId}--menu`,
 			})
 		),
