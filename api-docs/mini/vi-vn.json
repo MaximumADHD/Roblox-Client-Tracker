@@ -5650,7 +5650,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/CFrame.ToAxisAngle": {
-    "documentation": "Trả về một tuple của <code>Vector3</code> và một số đại diện cho cách xoay của <code>CFrame</code> trong biểu diễn trục-góc.",
+    "documentation": "Trả về một tuple chứa một trục <code>Vector3</code> đơn vị và góc quay tính bằng radian.",
     "params": [
       {
         "name": "self",
@@ -7403,7 +7403,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SphereHandleAdornment": {
-    "documentation": "SphereHandleAdornment là một hình cầu có thể được trang trí trên một BasePart.",
+    "documentation": "Một tay cầm hình cầu có thể được trang trí cho một <code>BasePart</code>.",
     "keys": {
       "Radius": "@roblox/globaltype/SphereHandleAdornment.Radius",
       "Shading": "@roblox/globaltype/SphereHandleAdornment.Shading"
@@ -7412,7 +7412,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SphereHandleAdornment.Radius": {
-    "documentation": "Bán kính của hình cầu trang trí.",
+    "documentation": "Bán kính của trang trí hình cầu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SphereHandleAdornment#Radius",
     "code_sample": ""
   },
@@ -10998,7 +10998,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CylinderHandleAdornment": {
-    "documentation": "Một hình trụ có thể được trang trí cho một <code>BasePart</code>.",
+    "documentation": "Một tay cầm hình trụ có thể được trang trí cho một <code>BasePart</code>.",
     "keys": {
       "Angle": "@roblox/globaltype/CylinderHandleAdornment.Angle",
       "Height": "@roblox/globaltype/CylinderHandleAdornment.Height",
@@ -11010,7 +11010,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CylinderHandleAdornment.Angle": {
-    "documentation": "Góc của tiết diện hình trụ (mảnh bánh).",
+    "documentation": "Góc của tay cầm hình trụ trong một khu vực \"miếng bánh\".",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CylinderHandleAdornment#Angle",
     "code_sample": ""
   },
@@ -11020,7 +11020,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CylinderHandleAdornment.InnerRadius": {
-    "documentation": "Bán kính trong của một hình trụ rỗng.",
+    "documentation": "Bán kính bên trong để hiển thị một hình trụ rỗng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CylinderHandleAdornment#InnerRadius",
     "code_sample": ""
   },
@@ -18927,7 +18927,7 @@
     "documentation": "Chế độ xác thực loại tài sản."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription": {
-    "documentation": "<strong>Deprecated:</strong> <br>Khiến hình dáng của nhân vật phù hợp với <code>HumanoidDescription</code> đã truyền vào.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>ApplyDescriptionAsync()</code>.<br>Khiến hình dáng của nhân vật phù hợp với <code>HumanoidDescription</code> đã truyền vào.",
     "params": [
       {
         "name": "self",
@@ -18985,7 +18985,7 @@
     "documentation": "Chế độ xác minh loại tài sản."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset": {
-    "documentation": "<strong>Deprecated:</strong> <br>Khiến hình dáng của nhân vật phù hợp với <code>HumanoidDescription</code> đã truyền vào, ngay cả sau khi có sự thay đổi bên ngoài.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>ApplyDescriptionResetAsync()</code>.<br>Khiến hình dáng của nhân vật phù hợp với <code>HumanoidDescription</code> đã truyền vào, ngay cả sau khi có sự thay đổi bên ngoài.",
     "params": [
       {
         "name": "self",
@@ -19467,7 +19467,7 @@
     "documentation": "Đã phát thành công."
   },
   "@roblox/globaltype/Humanoid.PlayEmote": {
-    "documentation": "<strong>Deprecated:</strong> <br>Chơi các động tác và trả về nếu nó đã được thực hiện thành công.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>PlayEmoteAsync()</code>.<br>Chơi các động tác và trả về nếu nó đã được thực hiện thành công.",
     "params": [
       {
         "name": "self",
@@ -25665,6 +25665,7 @@
       "UseFixedSimulation": "@roblox/globaltype/Workspace.UseFixedSimulation",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
+      "ExperimentalSolverIsEnabled": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
       "GetPhysicsThrottling": "@roblox/globaltype/Workspace.GetPhysicsThrottling",
       "GetRealPhysicsFPS": "@roblox/globaltype/Workspace.GetRealPhysicsFPS",
@@ -25684,7 +25685,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirTurbulenceIntensity": {
-    "documentation": "Điều khiển cường độ của sự hỗn loạn có mặt trong trường vận tốc gió, affecting the aerodynamic force model.",
+    "documentation": "Điều khiển cường độ của sự nhiễu loạn có mặt trong trường vận tốc gió, ảnh hưởng đến mô hình lực khí động học.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirTurbulenceIntensity",
     "code_sample": ""
   },
@@ -25784,7 +25785,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.NextGenerationReplication": {
-    "documentation": "Khi <code>true</code>, kích hoạt hệ thống sao chép thay thế mà thay đổi và cải thiện cách mà các thuộc tính được sao chép bên trong.",
+    "documentation": "Khi <code>true</code>, kích hoạt một hệ thống sao chép thay thế mà thay đổi và cải thiện cách các thuộc tính được sao chép trong ngầm.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#NextGenerationReplication",
     "code_sample": ""
   },
@@ -25889,7 +25890,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UseFixedSimulation": {
-    "documentation": "Khi <code>true</code>, kích hoạt <code>RunService:BindToSimulation()</code> gọi một hàm tại một tần số cố định, cập nhật logic bước vật lý, và làm cho hàm <code>time()</code> trả về thời gian khung hình cố định đã bước.",
+    "documentation": "Khi <code>true</code>, kích hoạt <code>RunService:BindToSimulation()</code> gọi một hàm với tần số cố định, cập nhật logic bước vật lý, và làm cho hàm <code>time()</code> trả về thời gian bước khung cố định.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseFixedSimulation",
     "code_sample": ""
   },
@@ -25920,14 +25921,34 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#BreakJoints",
     "code_sample": ""
   },
+  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0": {
+    "documentation": "<strong>Workspace</strong> chứa các đối tượng 3D được hiển thị trong thế giới 3D. Các đối tượng không xuất phát từ nó sẽ không được hiển thị hoặc tương tác vật lý với thế giới."
+  },
+  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ExperimentalSolverIsEnabled",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
     "documentation": "<strong>Workspace</strong> chứa các đối tượng 3D được hiển thị trong thế giới 3D. Các đối tượng không xuất phát từ nó sẽ không được hiển thị hoặc tương tác vật lý với thế giới."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/return/0": {
-    "documentation": "Số lượng các phần tỉnh."
+    "documentation": "Số lượng các phần đang thức."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts": {
-    "documentation": "Trả về số lượng <code>BaseParts</code> được coi là hoạt động vật lý, do đã gần đây dưới ảnh hưởng của vật lý.",
+    "documentation": "Trả về số lượng <code>BaseParts</code> được coi là chuyển động vật lý, do vừa bị ảnh hưởng bởi vật lý.",
     "params": [
       {
         "name": "self",
@@ -25944,10 +25965,10 @@
     "documentation": "<strong>Workspace</strong> chứa các đối tượng 3D được hiển thị trong thế giới 3D. Các đối tượng không xuất phát từ nó sẽ không được hiển thị hoặc tương tác vật lý với thế giới."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/return/0": {
-    "documentation": "Tỷ lệ phần trăm thời gian thực mà mô phỏng vật lý hiện đang bị giới hạn."
+    "documentation": "Phần trăm thời gian thực mà mô phỏng vật lý hiện đang bị kiềm chế."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling": {
-    "documentation": "Trả về một số nguyên, từ 0 đến 100, đại diện cho tỷ lệ phần trăm thời gian thực mà mô phỏng vật lý hiện đang bị giới hạn.",
+    "documentation": "Trả về một số nguyên, từ 0 đến 100, đại diện cho phần trăm thời gian thực mà mô phỏng vật lý hiện đang bị kiềm chế.",
     "params": [
       {
         "name": "self",
@@ -25987,7 +26008,7 @@
     "documentation": "Dấu thời gian Unix ước tính trên máy chủ."
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow": {
-    "documentation": "Trả về thời gian Unix của máy chủ tính bằng giây.",
+    "documentation": "Trả về thời gian Unix của máy chủ theo giây.",
     "params": [
       {
         "name": "self",
@@ -26004,13 +26025,13 @@
     "documentation": "<strong>Workspace</strong> chứa các đối tượng 3D được hiển thị trong thế giới 3D. Các đối tượng không xuất phát từ nó sẽ không được hiển thị hoặc tương tác vật lý với thế giới."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/1": {
-    "documentation": "Một mảng các <code>BaseParts</code> để khớp nối sẽ được tạo."
+    "documentation": "Một mảng của <code>BaseParts</code> mà trên đó các khớp sẽ được tạo."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/2": {
-    "documentation": "Chế độ <code>JointCreationMode</code> sẽ được sử dụng. Việc truyền vào <code>Enum.JointCreationMode.All</code> hoặc <code>Enum.JointCreationMode.Surface</code> có hành vi giống nhau, điều này tương đương với Join Always."
+    "documentation": "Chế độ <code>JointCreationMode</code> sẽ được sử dụng. Truyền vào <code>Enum.JointCreationMode.All</code> hoặc <code>Enum.JointCreationMode.Surface</code> có hành vi giống nhau tương đương với Join Always."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders": {
-    "documentation": "Tạo các khớp nối giữa các <code>Parts</code> cụ thể và bất kỳ các phần chạm vào tùy thuộc vào bề mặt của các phần và chế độ tạo khớp nối được chỉ định.",
+    "documentation": "Tạo các khớp giữa các <code>Parts</code> được chỉ định và bất kỳ phần nào chạm vào tùy thuộc vào bề mặt của các phần và chế độ tạo khớp được chỉ định.",
     "params": [
       {
         "name": "self",
@@ -26033,10 +26054,10 @@
     "documentation": "<strong>Workspace</strong> chứa các đối tượng 3D được hiển thị trong thế giới 3D. Các đối tượng không xuất phát từ nó sẽ không được hiển thị hoặc tương tác vật lý với thế giới."
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/1": {
-    "documentation": "Một mảng các <code>parts</code> để khớp nối sẽ được tạo."
+    "documentation": "Một mảng của <code>parts</code> mà trên đó các khớp sẽ được tạo."
   },
   "@roblox/globaltype/Workspace.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>Quá trình qua tất cả các <code>BaseParts</code> đã cho. Nếu bất kỳ bên nào của phần có <code>SurfaceType</code> có thể tạo ra một khớp nối, nó sẽ tạo ra một khớp nối với bất kỳ phần cạnh kề.",
+    "documentation": "<strong>Deprecated:</strong> <br>Đi qua tất cả các <code>BaseParts</code> đã cho. Nếu bên của bất kỳ phần nào có a <code>SurfaceType</code> có thể tạo một khớp sẽ tạo ra một khớp với bất kỳ các phần liền kề.",
     "params": [
       {
         "name": "self",
@@ -26055,10 +26076,10 @@
     "documentation": "<strong>Workspace</strong> chứa các đối tượng 3D được hiển thị trong thế giới 3D. Các đối tượng không xuất phát từ nó sẽ không được hiển thị hoặc tương tác vật lý với thế giới."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/return/0": {
-    "documentation": "True nếu bộ giải PGS được bật."
+    "documentation": "Đúng nếu bộ giải PGS đang được bật."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled": {
-    "documentation": "Trả về <code>true</code> nếu trò chơi đã kích hoạt bộ giải vật lý PGS.",
+    "documentation": "Trả về <code>true</code> nếu trò chơi đã bật bộ giải PGS Vật lý.",
     "params": [
       {
         "name": "self",
@@ -26075,10 +26096,10 @@
     "documentation": "<strong>Workspace</strong> chứa các đối tượng 3D được hiển thị trong thế giới 3D. Các đối tượng không xuất phát từ nó sẽ không được hiển thị hoặc tương tác vật lý với thế giới."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/1": {
-    "documentation": "Một mảng các <code>BaseParts</code> cho khớp nối sẽ bị phá bỏ."
+    "documentation": "Một mảng của <code>BaseParts</code> mà trên đó các khớp sẽ bị phá vỡ."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders": {
-    "documentation": "Phá bỏ tất cả các khớp nối giữa các <code>BaseParts</code> được chỉ định và các <code>BaseParts</code> khác.",
+    "documentation": "Phá vỡ tất cả các khớp giữa các <code>BaseParts</code> đã chỉ định và các <code>BaseParts</code> khác.",
     "params": [
       {
         "name": "self",
@@ -26097,7 +26118,7 @@
     "documentation": "<strong>Workspace</strong> chứa các đối tượng 3D được hiển thị trong thế giới 3D. Các đối tượng không xuất phát từ nó sẽ không được hiển thị hoặc tương tác vật lý với thế giới."
   },
   "@roblox/globaltype/Workspace.ZoomToExtents": {
-    "documentation": "Vị trí và phóng to <code>Workspace.CurrentCamera</code> để hiển thị phạm vi của các <code>BaseParts</code> hiện tại trong <code>Workspace</code>.",
+    "documentation": "Định vị và phóng to <code>Workspace.CurrentCamera</code> để hiển thị phạm vi của các <code>BaseParts</code> hiện đang có trong <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -30882,7 +30903,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.FreeMemoryMBytes": {
-    "documentation": "Mô tả lượng bộ nhớ miễn phí có sẵn, tính bằng MB.",
+    "documentation": "Mô tả lượng bộ nhớ trống có sẵn, tính bằng MiB.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#FreeMemoryMBytes",
     "code_sample": ""
   },
@@ -30897,7 +30918,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.IncomingReplicationLag": {
-    "documentation": "Mô phỏng độ trễ mạng bổ sung trong đường truyền nhận.",
+    "documentation": "Mô phỏng độ trễ mạng bổ sung trong đường dẫn nhận mạng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#IncomingReplicationLag",
     "code_sample": ""
   },
@@ -30907,12 +30928,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.PrintPhysicsErrors": {
-    "documentation": "Khi đặt thành true, thông điệp gỡ lỗi sẽ được in ra đầu ra liên quan đến lỗi sao chép vật lý.",
+    "documentation": "Liệu các thông điệp gỡ lỗi sẽ được in ra đầu ra liên quan đến lỗi sao chép vật lý hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#PrintPhysicsErrors",
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.PrintStreamInstanceQuota": {
-    "documentation": "Khi đặt thành true, thông tin gỡ lỗi được in ra đầu ra liên quan đến sao chép các instance khi <code>Workspace.StreamingEnabled</code> được đặt thành true.",
+    "documentation": "Liệu thông tin gỡ lỗi có được in ra đầu ra liên quan đến sao chép của các thể hiện khi <code>Workspace.StreamingEnabled</code> được đặt thành <code>true</code> hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#PrintStreamInstanceQuota",
     "code_sample": ""
   },
@@ -30922,12 +30943,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.RenderStreamedRegions": {
-    "documentation": "Khi đặt thành true, các khu vực không gian đang được stream đến khách hàng sẽ được đánh dấu bằng màu đỏ.",
+    "documentation": "Liệu các khu vực không gian đang được phát trực tuyến đến khách hàng có được đánh dấu bằng màu đỏ hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#RenderStreamedRegions",
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.ShowActiveAnimationAsset": {
-    "documentation": "Khi đặt thành true, một nhãn sẽ được hiển thị trên đầu mỗi người chơi, cho biết animation hiện tại đang được phát bởi <code>Humanoid</code> của người chơi, nếu có.",
+    "documentation": "Liệu có một nhãn sẽ được hiển thị ở trên đầu mỗi nhân vật người chơi, hiển thị animation hiện tại đang được phát.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#ShowActiveAnimationAsset",
     "code_sample": ""
   },
@@ -33896,7 +33917,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimationAsync": {
-    "documentation": "Yêu cầu người dùng mở một tệp hoạt hình <code>.fbx</code> có thể được tải lên <code>rigModel</code>, sau đó tiến hành chèn hoạt hình như một <code>KeyframeSequence</code> vào trong <code>Workspace</code>.",
+    "documentation": "Yêu cầu người dùng mở một tệp hoạt hình <code>.fbx</code> có thể được nạp vào <code>rigModel</code>, sau đó tiến hành chèn hoạt hình đó như một <code>KeyframeSequence</code> vào <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -33930,7 +33951,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimation": {
-    "documentation": "<strong>Deprecated:</strong> <br>Yêu cầu người dùng mở một tệp hoạt hình <code>.fbx</code> có thể được tải lên <code>rigModel</code>, sau đó tiến hành chèn hoạt hình như một <code>KeyframeSequence</code> vào trong <code>Workspace</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Yêu cầu người dùng mở một tệp hoạt hình <code>.fbx</code> có thể được nạp vào <code>rigModel</code>, sau đó tiến hành chèn hoạt hình đó như một <code>KeyframeSequence</code> vào <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -33961,7 +33982,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRigAsync": {
-    "documentation": "Yêu cầu người dùng mở một tệp <code>.fbx</code>, tải lên các thành phần riêng lẻ của mô hình như các mesh, và tạo một rig cho nhân vật để sử dụng trong hoạt hình, được tải vào <code>Workspace</code>.",
+    "documentation": "Yêu cầu người dùng mở một tệp <code>.fbx</code>, tải lên các thành phần riêng biệt của mô hình dưới dạng lưới, và tạo ra một khung nhân vật để sử dụng trong hoạt hình, được nạp vào <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -33988,7 +34009,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRig": {
-    "documentation": "<strong>Deprecated:</strong> <br>Yêu cầu người dùng mở một tệp <code>.fbx</code>, tải lên các thành phần riêng lẻ của mô hình như các mesh, và tạo một rig cho nhân vật để sử dụng trong hoạt hình, được tải vào <code>Workspace</code>.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã bị thay thế bởi <code>ImportFbxRigAsync()</code>.<br>Yêu cầu người dùng mở một tệp <code>.fbx</code>, tải lên các thành phần riêng biệt của mô hình dưới dạng lưới, và tạo ra một khung nhân vật để sử dụng trong hoạt hình, được nạp vào <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -34015,7 +34036,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Intersect": {
-    "documentation": "Cắt giao các thành phần được cho và trả về <code>IntersectOperation</code> kết quả.",
+    "documentation": "Giao nhau giữa các phần đã cho và trả về <code>IntersectOperation</code> kết quả.",
     "params": [
       {
         "name": "self",
@@ -34082,7 +34103,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Negate": {
-    "documentation": "Lật ngược các thành phần được cho và trả về <code>NegateOperations</code> kết quả.",
+    "documentation": "Phủ định các phần đã cho và trả về <code>NegateOperations</code> kết quả.",
     "params": [
       {
         "name": "self",
@@ -34241,7 +34262,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelection": {
-    "documentation": "<strong>Deprecated:</strong> <br>Yêu cầu người dùng lưu lựa chọn hiện tại của họ với tên tệp đã chỉ định.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã bị thay thế bởi <code>PromptSaveSelectionAsync()</code>.<br>Yêu cầu người dùng lưu lựa chọn hiện tại của họ với tên tệp đã chỉ định.",
     "params": [
       {
         "name": "self",
@@ -34312,7 +34333,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Separate": {
-    "documentation": "Tách các <code>UnionOperations</code> được cho và trả về các thành phần kết quả.",
+    "documentation": "Tách các <code>UnionOperations</code> đã cho và trả về các phần kết quả.",
     "params": [
       {
         "name": "self",
@@ -36468,7 +36489,7 @@
     "documentation": "Từ điển cấu hình chiếu bao gồm các cặp khóa-giá trị sau: <ul> <li><code>Direction</code> (<code>Vector3</code>) nơi máy chiếu đang hướng tới.</li> <li><code>Position</code> (<code>Vector3</code>) là vị trí trong không gian cục bộ liên quan đến lưới.</li> <li><code>Size</code> (<code>Vector3</code>) là kích thước của máy chiếu.</li> <li><code>Up</code> (<code>Vector3</code>) là vector lên của máy chiếu trong không gian cục bộ liên quan đến lưới.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/3": {
-    "documentation": "Từ điển cấu hình cọ bao gồm các cặp khóa-giá trị sau: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) xác định cách mà   phép chiếu này sẽ pha trộn các giá trị alpha.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) xác định cách mà   phép chiếu này sẽ pha trộn các giá trị màu sắc.</li> <li><code>Decal</code> (<code>EditableImage</code>) là hình ảnh được sử dụng cho phép chiếu.</li> <li><code>FadeAngle</code> (số) là góc tính bằng độ để các cạnh phép chiếu   bắt đầu bị mờ. Phép chiếu sẽ hoàn toàn mờ ở 90 độ. Một góc 0 có nghĩa là   việc phai màu bắt đầu ngay lập tức ở 0 độ và một góc 90 có nghĩa là không   phai màu mà thay vào đó là một cạnh sắc nét ở 90 độ. Một góc 70 độ có nghĩa là   phép chiếu bắt đầu bị mờ ở 70 độ và hoàn toàn mờ ở 90 độ.</li> <li><code>BlendIntensity</code> (số) là giá trị giữa <code>0</code> và <code>1</code> điều khiển   mức độ mà phép chiếu được pha trộn vào hình ảnh kết quả.</li> </ul>"
+    "documentation": "Từ điển cấu hình bút vẽ bao gồm các cặp khóa-giá trị sau: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) xác định cách mà thông tin alpha sẽ được   trộn lẫn.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) xác định cách mà thông tin màu sắc sẽ được   trộn lẫn.</li> <li><code>Decal</code> (<code>EditableImage</code>) là hình ảnh được sử dụng cho việc chiếu.</li> <li><code>FadeAngle</code> (số) là góc tính bằng độ nơi mà các cạnh chiếu bắt đầu mờ đi. Chiếu sẽ hoàn toàn gắt màu ở 90 độ. Một góc 0 có nghĩa là việc mờ đi bắt đầu ngay lập tức tại 0 độ và một góc 90 nghĩa là không có sự mờ mà là một cạnh cứng ở 90 độ. Một góc 70 độ có nghĩa là chiếu bắt đầu mờ đi ở 70 độ và hoàn toàn mờ đi ở 90 độ.</li> <li><code>BlendIntensity</code> (số) là giá trị giữa <code>0</code> và <code>1</code> xác định tiêu chí mà chiều sâu độ trộn sẽ được áp dụng vào hình ảnh kết quả.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected": {
     "documentation": "Chiếu một <code>EditableImage</code> khác vào một <code>EditableMesh</code> và lưu kết quả vào <code>EditableImage</code> này.",
@@ -39579,7 +39600,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ImageHandleAdornment": {
-    "documentation": "Một hình ảnh có thể được trang trí cho <code>BasePart</code>.",
+    "documentation": "Một hình ảnh có thể được gán cho một <code>BasePart</code>.",
     "keys": {
       "Image": "@roblox/globaltype/ImageHandleAdornment.Image",
       "Size": "@roblox/globaltype/ImageHandleAdornment.Size"
@@ -39588,12 +39609,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ImageHandleAdornment.Image": {
-    "documentation": "Hình ảnh để vẽ cho đồ trang trí.",
+    "documentation": "Hình ảnh để vẽ cho trang trí.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ImageHandleAdornment#Image",
     "code_sample": ""
   },
   "@roblox/globaltype/ImageHandleAdornment.Size": {
-    "documentation": "Kích thước tính bằng studs của hình ảnh.",
+    "documentation": "Kích thước của hình ảnh theo stud.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ImageHandleAdornment#Size",
     "code_sample": ""
   },
@@ -41949,7 +41970,7 @@
     "documentation": "Loại kết nối streaming để khởi tạo client."
   },
   "@roblox/globaltype/HttpService.CreateWebStreamClient/param/2": {
-    "documentation": "Một từ điển chứa thông tin được yêu cầu từ máy chủ. Nó giống như <code>requestOptions</code> trong <code>HttpService:RequestAsync()</code>."
+    "documentation": "Một từ điển chứa thông tin được yêu cầu từ máy chủ. Nó giống hệt như <code>requestOptions</code> trong <code>HttpService:RequestAsync()</code>."
   },
   "@roblox/globaltype/HttpService.CreateWebStreamClient/return/0": {
     "documentation": "Một client có trạng thái phát sự kiện trong vòng đời stream."
@@ -44190,7 +44211,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointsService": {
-    "documentation": "<strong>Deprecated:</strong> Dịch vụ này đã bị lãng quên để ủng hộ cho <a href=\"../../../physics/mechanical-constraints.md\">các ràng buộc</a> mà nên được sử dụng cho các kết nối bề mặt thay thế<br>Một dịch vụ lưu trữ các khớp được tạo ra từ các kết nối bề mặt.",
+    "documentation": "<strong>Deprecated:</strong> Dịch vụ này đã bị ngừng sử dụng nhằm ưu tiên cho <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> mà nên được sử dụng cho các kết nối bề mặt thay thế.<br>Một dịch vụ lưu trữ các khớp được tạo ra bởi các kết nối bề mặt.",
     "keys": {
       "ClearJoinAfterMoveJoints": "@roblox/globaltype/JointsService.ClearJoinAfterMoveJoints",
       "CreateJoinAfterMoveJoints": "@roblox/globaltype/JointsService.CreateJoinAfterMoveJoints",
@@ -44202,10 +44223,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointsService.ClearJoinAfterMoveJoints/param/0": {
-    "documentation": "<strong>Deprecated:</strong> Dịch vụ này đã bị lãng quên để ủng hộ cho <a href=\"../../../physics/mechanical-constraints.md\">các ràng buộc</a> mà nên được sử dụng cho các kết nối bề mặt thay thế<br>Một dịch vụ lưu trữ các khớp được tạo ra từ các kết nối bề mặt."
+    "documentation": "<strong>Deprecated:</strong> Dịch vụ này đã bị ngừng sử dụng nhằm ưu tiên cho <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> mà nên được sử dụng cho các kết nối bề mặt thay thế.<br>Một dịch vụ lưu trữ các khớp được tạo ra bởi các kết nối bề mặt."
   },
   "@roblox/globaltype/JointsService.ClearJoinAfterMoveJoints": {
-    "documentation": "Sẽ xóa bất kỳ 'tạo khớp' nào đã được hiển thị thông qua <code>JointsService:ShowPermissibleJoints()</code>.",
+    "documentation": "Sẽ xóa bất kỳ 'tạo khớp' nào đã được hiện thị qua phương thức <code>JointsService:ShowPermissibleJoints()</code>.",
     "params": [
       {
         "name": "self",
@@ -44217,10 +44238,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointsService.CreateJoinAfterMoveJoints/param/0": {
-    "documentation": "<strong>Deprecated:</strong> Dịch vụ này đã bị lãng quên để ủng hộ cho <a href=\"../../../physics/mechanical-constraints.md\">các ràng buộc</a> mà nên được sử dụng cho các kết nối bề mặt thay thế<br>Một dịch vụ lưu trữ các khớp được tạo ra từ các kết nối bề mặt."
+    "documentation": "<strong>Deprecated:</strong> Dịch vụ này đã bị ngừng sử dụng nhằm ưu tiên cho <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> mà nên được sử dụng cho các kết nối bề mặt thay thế.<br>Một dịch vụ lưu trữ các khớp được tạo ra bởi các kết nối bề mặt."
   },
   "@roblox/globaltype/JointsService.CreateJoinAfterMoveJoints": {
-    "documentation": "Cập nhật tất cả các khớp hiển thị cho các phần đã được chỉ định bởi <code>JointsService:SetJoinAfterMoveTarget()</code> và <code>JointsService:SetJoinAfterMoveInstance()</code>.",
+    "documentation": "Cập nhật tất cả các khớp đang hiện thị cho các phần được chỉ định bởi <code>JointsService:SetJoinAfterMoveTarget()</code> và <code>JointsService:SetJoinAfterMoveInstance()</code>.",
     "params": [
       {
         "name": "self",
@@ -44232,7 +44253,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointsService.SetJoinAfterMoveInstance/param/0": {
-    "documentation": "<strong>Deprecated:</strong> Dịch vụ này đã bị lãng quên để ủng hộ cho <a href=\"../../../physics/mechanical-constraints.md\">các ràng buộc</a> mà nên được sử dụng cho các kết nối bề mặt thay thế<br>Một dịch vụ lưu trữ các khớp được tạo ra từ các kết nối bề mặt."
+    "documentation": "<strong>Deprecated:</strong> Dịch vụ này đã bị ngừng sử dụng nhằm ưu tiên cho <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> mà nên được sử dụng cho các kết nối bề mặt thay thế.<br>Một dịch vụ lưu trữ các khớp được tạo ra bởi các kết nối bề mặt."
   },
   "@roblox/globaltype/JointsService.SetJoinAfterMoveInstance/param/1": {
     "documentation": ""
@@ -44254,13 +44275,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointsService.SetJoinAfterMoveTarget/param/0": {
-    "documentation": "<strong>Deprecated:</strong> Dịch vụ này đã bị lãng quên để ủng hộ cho <a href=\"../../../physics/mechanical-constraints.md\">các ràng buộc</a> mà nên được sử dụng cho các kết nối bề mặt thay thế<br>Một dịch vụ lưu trữ các khớp được tạo ra từ các kết nối bề mặt."
+    "documentation": "<strong>Deprecated:</strong> Dịch vụ này đã bị ngừng sử dụng nhằm ưu tiên cho <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> mà nên được sử dụng cho các kết nối bề mặt thay thế.<br>Một dịch vụ lưu trữ các khớp được tạo ra bởi các kết nối bề mặt."
   },
   "@roblox/globaltype/JointsService.SetJoinAfterMoveTarget/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/JointsService.SetJoinAfterMoveTarget": {
-    "documentation": "Đặt PVInstance sẽ được kết nối với PVInstance đã được chỉ định bởi <code>JointsService:SetJoinAfterMoveInstance()</code>.",
+    "documentation": "Đặt PVInstance sẽ được kết nối với PVInstance được chỉ định bởi <code>JointsService:SetJoinAfterMoveInstance()</code>.",
     "params": [
       {
         "name": "self",
@@ -44276,10 +44297,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointsService.ShowPermissibleJoints/param/0": {
-    "documentation": "<strong>Deprecated:</strong> Dịch vụ này đã bị lãng quên để ủng hộ cho <a href=\"../../../physics/mechanical-constraints.md\">các ràng buộc</a> mà nên được sử dụng cho các kết nối bề mặt thay thế<br>Một dịch vụ lưu trữ các khớp được tạo ra từ các kết nối bề mặt."
+    "documentation": "<strong>Deprecated:</strong> Dịch vụ này đã bị ngừng sử dụng nhằm ưu tiên cho <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> mà nên được sử dụng cho các kết nối bề mặt thay thế.<br>Một dịch vụ lưu trữ các khớp được tạo ra bởi các kết nối bề mặt."
   },
   "@roblox/globaltype/JointsService.ShowPermissibleJoints": {
-    "documentation": "Khi được sử dụng, nó sẽ hiển thị rõ ràng một kết nối bề mặt tiềm năng giữa hai <code>BasePart</code>, đã được thiết lập với <code>JointsService:SetJoinAfterMoveTarget()</code> và <code>JointsService:SetJoinAfterMoveInstance()</code>.",
+    "documentation": "Khi được sử dụng, nó sẽ hiển thị rõ ràng một kết nối bề mặt tiềm năng giữa hai <code>BasePart</code>, được đặt bằng <code>JointsService:SetJoinAfterMoveTarget()</code> và <code>JointsService:SetJoinAfterMoveInstance()</code>.",
     "params": [
       {
         "name": "self",
@@ -45475,7 +45496,7 @@
     "documentation": "Một từ điển các kết nối trực tuyến (xem bảng ở trên)."
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "<strong>Deprecated:</strong> <br>Trả về một từ điển các kết nối trực tuyến.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>GetFriendsOnline()</code>.<br>Trả về một từ điển các kết nối trực tuyến. Trả về thông tin sản phẩm của một tài sản bằng cách sử dụng ID tài sản của nó.",
     "params": [
       {
         "name": "self",
@@ -45643,7 +45664,7 @@
     "documentation": "Vai trò của người chơi trong nhóm được chỉ định, hoặc <code>Guest</code> nếu người chơi không phải là thành viên."
   },
   "@roblox/globaltype/Player.GetRoleInGroup": {
-    "documentation": "<strong>Deprecated:</strong> <br>Trả về vai trò của người chơi trong nhóm dưới dạng chuỗi, hoặc <code>Guest</code> nếu người chơi không phải là thành viên của nhóm.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>GetRoleInGroup()</code>.<br>Trả về vai trò của người chơi trong nhóm dưới dạng chuỗi, hoặc <code>Guest</code> nếu người chơi không phải là thành viên của nhóm.",
     "params": [
       {
         "name": "self",
@@ -45825,7 +45846,7 @@
     "documentation": "Một boolean cho biết liệu người chơi có trong nhóm được chỉ định hay không."
   },
   "@roblox/globaltype/Player.IsInGroup": {
-    "documentation": "<strong>Deprecated:</strong> <br>Kiểm tra xem người chơi có phải là thành viên của một nhóm với ID cho trước hay không.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>IsInGroupAsync()</code>.<br>Kiểm tra xem người chơi có phải là thành viên của một nhóm với ID cho trước hay không.",
     "params": [
       {
         "name": "self",
@@ -45957,7 +45978,7 @@
     "documentation": "Một đối tượng đại diện cho một khách hàng hiện đang kết nối đến trải nghiệm."
   },
   "@roblox/globaltype/Player.LoadCharacter": {
-    "documentation": "<strong>Deprecated:</strong> <br>Tạo một nhân vật mới cho người chơi, xóa bỏ nhân vật cũ. Cũng xóa sạch <code>Backpack</code> và <code>PlayerGui</code> của người chơi.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>LoadCharacterAsync()</code>.<br>Tạo một nhân vật mới cho người chơi, xóa bỏ nhân vật cũ. Cũng xóa sạch <code>Backpack</code> và <code>PlayerGui</code> của người chơi.",
     "params": [
       {
         "name": "self",
@@ -46019,7 +46040,7 @@
     "documentation": "Một <code>HumanoidDescription</code> chứa các đặc điểm như màu sắc/các bộ phận cơ thể, tỷ lệ cơ thể, phụ kiện, trang phục và hoạt ảnh sẽ được trang bị cho nhân vật đã tải."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription": {
-    "documentation": "<strong>Deprecated:</strong> <br>Tạo nhân vật người chơi với tất cả mọi thứ được trang bị theo mô tả <code>HumanoidDescription</code> đã đưa vào.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>LoadCharacterWithHumanoidDescriptionAsync()</code>.<br>Tạo nhân vật người chơi với tất cả mọi thứ được trang bị theo mô tả <code>HumanoidDescription</code> đã đưa vào.",
     "params": [
       {
         "name": "self",
@@ -48059,6 +48080,37 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CatalogPages",
     "code_sample": ""
   },
+  "@roblox/globaltype/PyramidHandleAdornment": {
+    "documentation": "Một tay cầm hình kim tự tháp có thể được trang trí cho một <code>BasePart</code>.",
+    "keys": {
+      "Height": "@roblox/globaltype/PyramidHandleAdornment.Height",
+      "Shading": "@roblox/globaltype/PyramidHandleAdornment.Shading",
+      "Sides": "@roblox/globaltype/PyramidHandleAdornment.Sides",
+      "Size": "@roblox/globaltype/PyramidHandleAdornment.Size"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PyramidHandleAdornment.Height": {
+    "documentation": "Chiều cao của trang trí kim tự tháp.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment#Height",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PyramidHandleAdornment.Shading": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment#Shading",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PyramidHandleAdornment.Sides": {
+    "documentation": "Số cạnh của trang trí kim tự tháp.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment#Sides",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PyramidHandleAdornment.Size": {
+    "documentation": "Kích thước của đáy trang trí kim tự tháp.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment#Size",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Hint": {
     "documentation": "<strong>Deprecated:</strong> Với sự ra mắt của các tính năng GUI của Roblox, hints đã bị ngừng hỗ trợ và <code>TextLabels</code> nên được sử dụng thay thế cho công việc mới. Đối tượng <code>TextLabel</code> cung cấp một loạt các tính năng để hiển thị và tùy chỉnh văn bản mà hints không có.<br>Một Hint là một đối tượng tạo ra một thanh đen nhỏ ở phía trên cùng của màn hình với văn bản.",
     "keys": {},
@@ -48571,17 +48623,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.AutoFRMLevel": {
-    "documentation": "Đặt mức chất lượng khởi điểm cho bộ quản lý tốc độ khung hình, khi <code>RenderSettings.EnableFRM</code> được đặt thành true.",
+    "documentation": "Thiết lập mức chất lượng khởi đầu của trình quản lý tần suất hình ảnh.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#AutoFRMLevel",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.EagerBulkExecution": {
-    "documentation": "Khi được đặt thành true, tất cả các cập nhật cảnh sẽ được cấp ngân sách không giới hạn, bất kể mức độ tính toán của nó có tốn kém như thế nào.",
+    "documentation": "Liệu tất cả các cập nhật cảnh sẽ được cấp ngân sách không giới hạn, bất kể mức độ tốn kém tính toán như thế nào.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#EagerBulkExecution",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.EditQualityLevel": {
-    "documentation": "Đặt mức chất lượng đồ họa trong Roblox Studio, khi <code>RenderSettings.EnableFRM</code> được đặt thành false.",
+    "documentation": "Thiết lập mức chất lượng đồ họa trong Roblox Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#EditQualityLevel",
     "code_sample": ""
   },
@@ -48596,7 +48648,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.ExportMergeByMaterial": {
-    "documentation": "Đặt liệu các vật liệu nên được tạo ra theo từng phần, hoặc theo từng hình thức độc đáo trong trình xuất obj của Roblox.",
+    "documentation": "Thiết lập liệu các vật liệu nên được tạo ra theo từng phần, hay theo từng ngoại hình độc đáo trong trình xuất của Roblox.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#ExportMergeByMaterial",
     "code_sample": ""
   },
@@ -48611,7 +48663,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.MeshCacheSize": {
-    "documentation": "Kích thước tính bằng byte của bộ nhớ đệm lưới. Mặc định là 32 MB.",
+    "documentation": "Kích thước tính bằng bytes của bộ đệm lưới.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#MeshCacheSize",
     "code_sample": ""
   },
@@ -48621,22 +48673,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.QualityLevel": {
-    "documentation": "Nếu <code>RenderSettings.EnableFRM</code> được đặt thành true, thuộc tính này điều khiển mức chất lượng trong Roblox Studio.",
+    "documentation": "Điều khiển mức chất lượng trong Roblox Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#QualityLevel",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.ReloadAssets": {
-    "documentation": "Khi được đặt thành true, Roblox Studio sẽ tự động tải lại các thay đổi đã được thực hiện trên các tệp trong thư mục <code>content</code> của Roblox.",
+    "documentation": "Liệu Roblox Studio có tự động tải lại các thay đổi được thực hiện trên các tệp trong thư mục <code>content</code> của Roblox hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#ReloadAssets",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.RenderCSGTrianglesDebug": {
-    "documentation": "Khi được đặt thành true, một lưới khung của các đa giác sẽ được hiển thị trên tất cả các đối tượng <code>PartOperation</code>.",
+    "documentation": "Liệu một khung dây của các đa giác có được hiển thị trên tất cả các đối tượng <code>PartOperation</code> hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#RenderCSGTrianglesDebug",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.ShowBoundingBoxes": {
-    "documentation": "Nếu được đặt thành true, sẽ render các hộp bao quanh từng thực thể đã render trong cảnh.",
+    "documentation": "Liệu các hộp bao quanh có được hiển thị quanh mỗi thực thể đã được hiển thị riêng lẻ trong cảnh hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#ShowBoundingBoxes",
     "code_sample": ""
   },
@@ -49667,7 +49719,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkPeer": {
-    "documentation": "Đối tượng NetworkPeer là lớp cơ bản nhất của các đối tượng mạng.",
+    "documentation": "Đối tượng <code>NetworkPeer</code> là lớp cơ bản nhất của các đối tượng mạng.",
     "keys": {
       "SetOutgoingKBPSLimit": "@roblox/globaltype/NetworkPeer.SetOutgoingKBPSLimit"
     },
@@ -49675,7 +49727,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkPeer.SetOutgoingKBPSLimit/param/0": {
-    "documentation": "Đối tượng NetworkPeer là lớp cơ bản nhất của các đối tượng mạng."
+    "documentation": "Đối tượng <code>NetworkPeer</code> là lớp cơ bản nhất của các đối tượng mạng."
   },
   "@roblox/globaltype/NetworkPeer.SetOutgoingKBPSLimit/param/1": {
     "documentation": ""
@@ -58225,7 +58277,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BoxHandleAdornment": {
-    "documentation": "Một hộp có thể được trang trí cho một <code>BasePart</code>.",
+    "documentation": "Một tay cầm hình hộp có thể được trang trí cho một <code>BasePart</code>.",
     "keys": {
       "Shading": "@roblox/globaltype/BoxHandleAdornment.Shading",
       "Size": "@roblox/globaltype/BoxHandleAdornment.Size"
@@ -58659,7 +58711,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.EnableDynamicHeads": {
-    "documentation": "",
+    "documentation": "Thiết lập việc sử dụng đầu động. Khi true, sẽ cho phép sử dụng đầu avatar với dữ liệu hoạt hình khuôn mặt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#EnableDynamicHeads",
     "code_sample": ""
   },
@@ -59077,7 +59129,7 @@
     "documentation": "Một <code>Decal</code> mới chứa bộ kết cấu đã được cấu thành."
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync": {
-    "documentation": "Tạo một thể hiện Decal sử dụng các kết cấu PBR composite được tạo bằng cách xếp chồng các kết cấu đã cung cấp theo thứ tự mà chúng được cung cấp trong mảng <code>layers</code>. Các kết cấu chồng lên nhau dựa trên giá trị alpha của ColorMap.",
+    "documentation": "Tạo một thể hiện Decal sử dụng các kết cấu PBR composite được tạo ra bằng cách lớp chồng các kết cấu được cung cấp theo thứ tự chúng được cung cấp trong mảng <code>layers</code>. Các kết cấu lớp dựa trên giá trị alpha của ColorMap.",
     "params": [
       {
         "name": "self",
@@ -59432,13 +59484,13 @@
     "documentation": "Một dịch vụ không sao chép, xử lý các truy vấn liên quan đến tài sản tới API web của Roblox."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "Bảng từ điển chứa các cặp khóa-giá trị sau: <ul> <li><code>ColorMap</code> — Một đối tượng <code>Content</code> chứa bản đồ màu. Mặc định là <code>nil</code>.</li> <li><code>MetalnessMap</code> — Một đối tượng <code>Content</code> chứa bản đồ độ kim loại. Nếu hơn một kênh có mặt, chỉ kênh đỏ được sử dụng. Mặc định là <code>nil</code>.</li> <li><code>NormalMap</code> — Một đối tượng <code>Content</code> chứa bản đồ bình thường. Mặc định là <code>nil</code>.</li> <li><code>RoughnessMap</code> — Một đối tượng <code>Content</code> chứa bản đồ độ nhám. Nếu hơn một kênh có mặt, chỉ kênh đỏ được sử dụng. Mặc định là <code>nil</code>.</li> <li><code>EmissiveMask</code> — Một đối tượng <code>Content</code> chứa mặt nạ phát sáng. Nếu hơn một kênh có mặt, chỉ kênh đỏ được sử dụng. Mặc định là <code>nil</code>.</li> </ul>"
+    "documentation": "Từ điển chứa các cặp khóa-giá trị sau: <ul> <li><code>ColorMap</code> — Một đối tượng <code>Content</code> chứa bản đồ màu   . Mặc định là <code>nil</code>.</li> <li><code>MetalnessMap</code> — Một đối tượng <code>Content</code> chứa bản đồ   kim loại. Nếu nhiều hơn một kênh có mặt, chỉ sử dụng kênh đỏ.   Mặc định là <code>nil</code>.</li> <li><code>NormalMap</code> — Một đối tượng <code>Content</code> chứa bản đồ   bình thường. Mặc định là <code>nil</code>.</li> <li><code>RoughnessMap</code> — Một đối tượng <code>Content</code> chứa bản đồ   độ nhám. Nếu nhiều hơn một kênh có mặt, chỉ sử dụng kênh đỏ.   Mặc định là <code>nil</code>.</li> <li><code>EmissiveMask</code> — Một đối tượng <code>Content</code> chứa bản đồ   phát sáng. Nếu nhiều hơn một kênh có mặt, chỉ sử dụng kênh đỏ.   Mặc định là <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "Một thể hiện mới của <code>SurfaceAppearance</code> với các bản đồ đã cho từ tham số <code>content</code>."
+    "documentation": "Một thể hiện <code>SurfaceAppearance</code> mới với các bản đồ được cung cấp từ tham số <code>content</code>."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
-    "documentation": "Tạo một đối tượng <code>SurfaceAppearance</code> mới bằng cách sử dụng các bản đồ nội dung đã cung cấp.",
+    "documentation": "Tạo một đối tượng <code>SurfaceAppearance</code> mới sử dụng các bản đồ nội dung được cung cấp.",
     "params": [
       {
         "name": "self",
@@ -59716,7 +59768,7 @@
     "documentation": "Một dịch vụ không sao chép, xử lý các truy vấn liên quan đến tài sản tới API web của Roblox."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "Từ điển tùy chọn bao gồm <code>SaveWithoutPublish</code>, một giá trị boolean cho biết liệu có lưu với xuất bản hay không, và <code>PlaceId</code>, ID địa điểm đích để lưu lên. Một ví dụ về cách sử dụng sẽ là: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Nếu PlaceId không được cung cấp, hành vi mặc định sẽ lưu lên địa điểm gốc hiện tại đang gọi SavePlaceAsync. Nếu SaveWithoutPublish không được cung cấp, hành vi mặc định là SaveWithoutPublish=false."
+    "documentation": "Từ điển tùy chọn bao gồm <code>SaveWithoutPublish</code>, một giá trị boolean chỉ ra liệu có nên lưu với xuất bản hay không, và <code>PlaceId</code>, ID địa điểm đến để lưu đè lên. Ví dụ sử dụng sẽ là: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Nếu PlaceId không được cung cấp, hành vi mặc định sẽ lưu đè lên địa điểm gốc hiện tại gọi SavePlaceAsync. Nếu SaveWithoutPublish không được cung cấp, hành vi mặc định là SaveWithoutPublish=false."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "Lưu trạng thái của địa điểm hiện tại.",
@@ -72381,6 +72433,7 @@
       "ReadCapturesFromGalleryAsync": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync",
       "StartVideoCaptureAsync": "@roblox/globaltype/CaptureService.StartVideoCaptureAsync",
       "StopVideoCapture": "@roblox/globaltype/CaptureService.StopVideoCapture",
+      "TakeScreenshotCaptureAsync": "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync",
       "UploadCaptureAsync": "@roblox/globaltype/CaptureService.UploadCaptureAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService",
@@ -72583,14 +72636,43 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#StopVideoCapture",
     "code_sample": ""
   },
+  "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/0": {
+    "documentation": "Một dịch vụ cung cấp kiểm soát đối với các tính năng chụp màn hình và quay video."
+  },
+  "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/1": {
+    "documentation": "Một hàm callback sẽ được gọi khi quá trình chụp màn hình hoàn tất với một <code>ScreenshotCaptureResult</code> và, nếu thành công, một <code>ScreenshotCapture</code>."
+  },
+  "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/2": {
+    "documentation": "Một từ điển mà sửa đổi hành vi chụp."
+  },
+  "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync": {
+    "documentation": "Khởi động một quá trình chụp màn hình.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/0"
+      },
+      {
+        "name": "onCaptureReady",
+        "documentation": "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/1"
+      },
+      {
+        "name": "captureParams",
+        "documentation": "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#TakeScreenshotCaptureAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
     "documentation": "Một dịch vụ cung cấp kiểm soát đối với các tính năng chụp màn hình và quay video."
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1": {
-    "documentation": "một đối tượng bản chụp loại <code>Capture</code>"
+    "documentation": "một đối tượng chụp có kiểu <code>Capture</code>"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
-    "documentation": "Bộ giá trị của (kết quả: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
+    "documentation": "Tuple của (kết quả: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync": {
     "documentation": "",
@@ -74972,7 +75054,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.C1": {
-    "documentation": "Được trừ đi từ thuộc tính <code>JointInstance.C0</code> để tạo ra một điểm offset cho <code>JointInstance.Part1</code>.",
+    "documentation": "Bị trừ khỏi thuộc tính <code>C0</code> để tạo ra một điểm bù cho <code>Part1</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#C1",
     "code_sample": ""
   },
@@ -74992,7 +75074,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.part1": {
-    "documentation": "<strong>Deprecated:</strong> Thuộc tính đã lỗi thời này là một biến thể của <code>JointInstance.Part1</code> mà nên được sử dụng thay thế.",
+    "documentation": "<strong>Deprecated:</strong> Thuộc tính đã lỗi thời này là một biến thể của <code>Part1</code> mà nên được sử dụng thay cho.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#part1",
     "code_sample": ""
   },
@@ -75941,7 +76023,7 @@
     "documentation": "'Danh mục của sự kiện để báo cáo. Không thể chứa các ký tự sau: dấu phẩy <code>,</code>, dấu ngoặc kép <code>\"</code> hoặc các ký tự xuống dòng <code>\\r\\n</code>'."
   },
   "@roblox/globaltype/AnalyticsService.FireEvent/param/2": {
-    "documentation": "Giá trị cần được tuần tự hóa và báo cáo. Độ dài tuần tự hóa không được vượt quá 1 KB, hoặc 1024 byte."
+    "documentation": "Một giá trị để được tuần tự hóa và báo cáo. Độ dài tuần tự hóa không được vượt quá 1 KiB, hoặc 1024 bytes."
   },
   "@roblox/globaltype/AnalyticsService.FireEvent": {
     "documentation": "<strong>Deprecated:</strong> Hàm này đã bị ngừng sử dụng để ưu tiên cho các phương thức mô tả hơn, bao gồm: <ul> <li><code>AnalyticsService:FireCustomEvent()</code></li> <li><code>AnalyticsService:FireInGameEconomyEvent()</code></li> <li><code>AnalyticsService:FireLogEvent()</code></li> <li><code>AnalyticsService:FirePlayerProgressionEvent()</code><br>Báo cáo một sự kiện tùy chỉnh tới PlayFab.</li> </ul>",
@@ -76200,7 +76282,7 @@
     "documentation": "Số lượng tiền tệ đang được thêm vào hoặc xóa. Giá trị này nên luôn dương."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/5": {
-    "documentation": "Số dư của người dùng sau khi tiền tệ đã được thêm vào hoặc xóa. Giá trị này nên luôn lớn hơn hoặc bằng 0."
+    "documentation": "Số dư của người dùng sau khi tiền tệ đã được thêm vào hoặc bị xóa. Giá trị này luôn phải lớn hơn hoặc bằng <code>0</code>."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/6": {
     "documentation": "Loại giao dịch đã xảy ra. Trong khi bạn có quyền tự do sử dụng bất kỳ loại giao dịch nào, nên sử dụng các loại được cung cấp từ <code>AnalyticsEconomyTransactionType</code> như <code>\"IAP\"</code> hoặc <code>\"Mua hàng theo ngữ cảnh\"</code> để cho phép những hiểu biết trong tương lai từ các công cụ và biểu đồ của Roblox. Vì trường này là một chuỗi, bạn cần phải truyền giá trị <code>Name</code> của enum. Ví dụ <code>Enum.AnalyticsEconomyTransactionType.IAP.Name</code>. Giới hạn 20 loại độc đáo mỗi trải nghiệm."
@@ -77249,7 +77331,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D": {
-    "documentation": "",
+    "documentation": "Thể hiện cho việc tạo, chỉnh sửa và hình dung các spline 2D tại thời gian chạy.",
     "keys": {
       "Closed": "@roblox/globaltype/Path2D.Closed",
       "Color3": "@roblox/globaltype/Path2D.Color3",
@@ -77281,17 +77363,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.Color3": {
-    "documentation": "Xác định Màu của <code>Path2D</code>.",
+    "documentation": "Xác định màu sắc của <code>Path2D</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Path2D#Color3",
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.SelectedControlPoint": {
-    "documentation": "",
+    "documentation": "Chỉ số của <code>Path2DControlPoint</code> hiện đang được chọn.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Path2D#SelectedControlPoint",
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.SelectedControlPointData": {
-    "documentation": "",
+    "documentation": "Loại dữ liệu <code>Path2DControlPoint</code> đại diện cho điểm điều khiển hiện đang được chọn.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Path2D#SelectedControlPointData",
     "code_sample": ""
   },
@@ -77311,7 +77393,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetBoundingRect/param/0": {
-    "documentation": ""
+    "documentation": "Thể hiện cho việc tạo, chỉnh sửa và hình dung các spline 2D tại thời gian chạy."
   },
   "@roblox/globaltype/Path2D.GetBoundingRect/return/0": {
     "documentation": ""
@@ -77331,7 +77413,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetControlPoint/param/0": {
-    "documentation": ""
+    "documentation": "Thể hiện cho việc tạo, chỉnh sửa và hình dung các spline 2D tại thời gian chạy."
   },
   "@roblox/globaltype/Path2D.GetControlPoint/param/1": {
     "documentation": ""
@@ -77358,7 +77440,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetControlPoints/param/0": {
-    "documentation": ""
+    "documentation": "Thể hiện cho việc tạo, chỉnh sửa và hình dung các spline 2D tại thời gian chạy."
   },
   "@roblox/globaltype/Path2D.GetControlPoints/return/0": {
     "documentation": "Bảng chứa tất cả các <code>Path2DControlPoints</code>."
@@ -77378,7 +77460,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetLength/param/0": {
-    "documentation": ""
+    "documentation": "Thể hiện cho việc tạo, chỉnh sửa và hình dung các spline 2D tại thời gian chạy."
   },
   "@roblox/globaltype/Path2D.GetLength/return/0": {
     "documentation": ""
@@ -77398,7 +77480,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetMaxControlPoints/param/0": {
-    "documentation": ""
+    "documentation": "Thể hiện cho việc tạo, chỉnh sửa và hình dung các spline 2D tại thời gian chạy."
   },
   "@roblox/globaltype/Path2D.GetMaxControlPoints/return/0": {
     "documentation": ""
@@ -77418,7 +77500,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetPositionOnCurve/param/0": {
-    "documentation": ""
+    "documentation": "Thể hiện cho việc tạo, chỉnh sửa và hình dung các spline 2D tại thời gian chạy."
   },
   "@roblox/globaltype/Path2D.GetPositionOnCurve/param/1": {
     "documentation": "Giá trị để truy vấn <code>Path2D</code> tại đó."
@@ -77445,7 +77527,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetPositionOnCurveArcLength/param/0": {
-    "documentation": ""
+    "documentation": "Thể hiện cho việc tạo, chỉnh sửa và hình dung các spline 2D tại thời gian chạy."
   },
   "@roblox/globaltype/Path2D.GetPositionOnCurveArcLength/param/1": {
     "documentation": "Giá trị để truy vấn Path2D tại đó."
@@ -77472,7 +77554,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetTangentOnCurve/param/0": {
-    "documentation": ""
+    "documentation": "Thể hiện cho việc tạo, chỉnh sửa và hình dung các spline 2D tại thời gian chạy."
   },
   "@roblox/globaltype/Path2D.GetTangentOnCurve/param/1": {
     "documentation": "Giá trị để truy vấn <code>Path2D</code> tại đó."
@@ -77499,7 +77581,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetTangentOnCurveArcLength/param/0": {
-    "documentation": ""
+    "documentation": "Thể hiện cho việc tạo, chỉnh sửa và hình dung các spline 2D tại thời gian chạy."
   },
   "@roblox/globaltype/Path2D.GetTangentOnCurveArcLength/param/1": {
     "documentation": "Giá trị để truy vấn <code>Path2D</code> tại đó."
@@ -77526,7 +77608,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.InsertControlPoint/param/0": {
-    "documentation": ""
+    "documentation": "Thể hiện cho việc tạo, chỉnh sửa và hình dung các spline 2D tại thời gian chạy."
   },
   "@roblox/globaltype/Path2D.InsertControlPoint/param/1": {
     "documentation": "Chỉ số để chèn tại đó."
@@ -77555,7 +77637,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.RemoveControlPoint/param/0": {
-    "documentation": ""
+    "documentation": "Thể hiện cho việc tạo, chỉnh sửa và hình dung các spline 2D tại thời gian chạy."
   },
   "@roblox/globaltype/Path2D.RemoveControlPoint/param/1": {
     "documentation": "Chỉ số để xóa tại đó."
@@ -77577,7 +77659,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.SetControlPoints/param/0": {
-    "documentation": ""
+    "documentation": "Thể hiện cho việc tạo, chỉnh sửa và hình dung các spline 2D tại thời gian chạy."
   },
   "@roblox/globaltype/Path2D.SetControlPoints/param/1": {
     "documentation": "Danh sách điểm điều khiển mới để đặt."
@@ -77599,7 +77681,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.UpdateControlPoint/param/0": {
-    "documentation": ""
+    "documentation": "Thể hiện cho việc tạo, chỉnh sửa và hình dung các spline 2D tại thời gian chạy."
   },
   "@roblox/globaltype/Path2D.UpdateControlPoint/param/1": {
     "documentation": "Chỉ số điểm điều khiển để cập nhật."
@@ -78086,7 +78168,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConeHandleAdornment": {
-    "documentation": "Một hình nón có thể được trang trí cho một <code>BasePart</code>.",
+    "documentation": "Một tay cầm hình nón có thể được trang trí vào một <code>BasePart</code>.",
     "keys": {
       "Height": "@roblox/globaltype/ConeHandleAdornment.Height",
       "Hollow": "@roblox/globaltype/ConeHandleAdornment.Hollow",
@@ -78097,7 +78179,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConeHandleAdornment.Height": {
-    "documentation": "Chiều cao của trang trí hình nón.",
+    "documentation": "Chiều cao của đồ trang trí hình nón.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ConeHandleAdornment#Height",
     "code_sample": ""
   },
@@ -79520,7 +79602,7 @@
     "documentation": "Một từ điển chứa thông tin về mục được truy vấn, được mô tả trong các bảng trước đó."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo": {
-    "documentation": "<strong>Deprecated:</strong> <br>Trả về thông tin sản phẩm của một tài sản dựa trên ID tài sản của nó.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>GetProductInfoAsync()</code>.<br>Trả về thông tin sản phẩm của một tài sản dựa trên ID tài sản của nó.",
     "params": [
       {
         "name": "self",
@@ -79575,10 +79657,10 @@
     "documentation": "Một mảng các ID người dùng."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
-    "documentation": "Trả về một mảng các đối tượng <code>PriceLevelInfo</code> với một từ điển mà trong đó các khóa là ID người dùng (chuỗi) và các giá trị của chúng là mức giá tương ứng (số nguyên giữa 1 và 1000)."
+    "documentation": "Trả về một mảng các đối tượng <code>PriceLevelInfo</code> với một từ điển mà các khóa là ID người dùng (chuỗi) và các giá trị của chúng là các mức giá tương ứng (số nguyên từ 1 đến 1000)."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "Trả về mức giá theo vùng của một người dùng, đại diện cho mức giá đề xuất cho một mục trong thị trường khu vực của họ.",
+    "documentation": "Trả về mức giá khu vực của một người dùng, đại diện cho giá đề xuất cho một vật phẩm trong thị trường khu vực của họ.",
     "params": [
       {
         "name": "self",
@@ -79744,7 +79826,7 @@
     "documentation": "Chỉ thị xem kho của người chơi đã cho có chứa tài sản đã cho hay không."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset": {
-    "documentation": "<strong>Deprecated:</strong> <br>Trả về xem người dùng đã cho có tài sản hay không.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>PlayerOwnsAssetAsync()</code>.<br>Trả về xem người dùng đã cho có tài sản hay không.",
     "params": [
       {
         "name": "self",
@@ -79812,7 +79894,7 @@
     "documentation": "Chỉ thị xem kho của người chơi đã cho có chứa gói đã cho hay không."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle": {
-    "documentation": "<strong>Deprecated:</strong> <br>Trả về xem người chơi đã cho sở hữu gói đã cho hay không.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>PlayerOwnsBundleAsync()</code>.<br>Trả về xem người chơi đã cho sở hữu gói đã cho hay không.",
     "params": [
       {
         "name": "self",
@@ -79831,7 +79913,7 @@
       "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundle",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- Bộ mà chúng ta đang kiểm tra: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundleAsync(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"Gọi PlayerOwnsBundleAsync thất bại: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" sở hữu \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" không sở hữu \" .. BUNDLE_NAME)\n\tend\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/0": {
     "documentation": "Dịch vụ chịu trách nhiệm cho các giao dịch trong trải nghiệm."
@@ -80097,13 +80179,13 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho các giao dịch trong trải nghiệm."
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/param/1": {
-    "documentation": "Một mảng các đối tượng xác định các sản phẩm bạn muốn xếp hạng. Mảng này có thể bao gồm tối đa 50 mục. Mỗi <code>ProductIdentifier</code> có: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>Phải là <code>InfoType.GamePass</code> hoặc     <code>InfoType.Product</code>.</li> <li><code>Id</code>: số</li> <li>ID của thẻ game hoặc sản phẩm nhà phát triển.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
+    "documentation": "Một mảng các đối tượng định danh sản phẩm mà bạn muốn xếp hạng. Mảng này có thể bao gồm tối đa 50 mục. Mỗi <code>ProductIdentifier</code> có: - <code>InfoType</code>: Enum.InfoType     - Phải là <code>InfoType.GamePass</code> hoặc <code>InfoType.Product</code>. - <code>Id</code>: số     - ID của gói game hoặc sản phẩm phát triển. <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "Mảng các mục được xếp hạng theo thứ tự cá nhân hóa cho người dùng hiện tại. Mỗi mảng có: <ul> <li><code>ProductIdentifier</code>: ID tương ứng từ mảng đầu vào.</li> <li><code>ProductInfo</code>: Từ điển thông tin sản phẩm tiêu chuẩn được trả về bởi   <code>GetProductInfoAsync</code>.</li> </ul>"
+    "documentation": "Mảng các mục đã được xếp hạng theo thứ tự cá nhân hóa cho người dùng hiện tại. Mỗi mảng có: - <code>ProductIdentifier</code>: ID tương ứng từ mảng đầu vào. - <code>ProductInfo</code>: Từ điển thông tin sản phẩm tiêu chuẩn trả về bởi <code>GetProductInfoAsync</code>."
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
-    "documentation": "Lấy một danh sách các ID sản phẩm và trả về một danh sách được sắp xếp cá nhân hóa của các sản phẩm đó.",
+    "documentation": "Nhận một danh sách các ID sản phẩm và trả về một danh sách đã sắp xếp cá nhân hóa của những sản phẩm đó.",
     "params": [
       {
         "name": "self",
@@ -80124,13 +80206,13 @@
     "documentation": "Dịch vụ chịu trách nhiệm cho các giao dịch trong trải nghiệm."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/1": {
-    "documentation": "Một mảng các giá trị <code>InfoType</code> chỉ định các loại sản phẩm mà bạn muốn lấy khuyến nghị. <code>InfoTypes</code> được hỗ trợ: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
+    "documentation": "Một mảng các giá trị <code>InfoType</code> chỉ định các loại sản phẩm để lấy khuyến nghị. <code>InfoTypes</code> được hỗ trợ:  <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/return/0": {
-    "documentation": "Danh sách xếp hạng tối đa 50 mục mà người dùng có khả năng tương tác với, dựa trên các <code>InfoTypes</code> đã cung cấp. Nếu không thể xác định được khuyến nghị nào, phương thức này sẽ trả về một danh sách rỗng."
+    "documentation": "Danh sách đã được xếp hạng tối đa 50 mục mà người dùng có khả năng tương tác nhiều nhất, dựa trên các <code>InfoTypes</code> đã cung cấp. Nếu không thể xác định được khuyến nghị nào, phương thức sẽ trả về một danh sách trống."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync": {
-    "documentation": "<ul> <li>Lấy một mảng <code>InfoType</code> và trả về tối đa 50 mục   đại diện cho các sản phẩm mà người dùng có khả năng tương tác và   mua.</li> </ul>",
+    "documentation": "<ul> <li>Nhận một mảng các <code>InfoType</code> và trả về tối đa 50 mục đại diện cho các sản phẩm mà người dùng có khả năng tương tác và mua nhất.</li> </ul>",
     "params": [
       {
         "name": "self",
@@ -83572,7 +83654,7 @@
     "documentation": "Một container mà nội dung của nó được sao chép đến tất cả các client (nhưng không quay trở lại máy chủ) trước tiên trước bất kỳ điều gì khác."
   },
   "@roblox/globaltype/ReplicatedFirst.RemoveDefaultLoadingScreen": {
-    "documentation": "Ngay lập tức loại bỏ màn hình tải mặc định của Roblox. Lưu ý nếu bất kỳ đối tượng đã được đặt trong <code>ReplicatedFirst</code>, màn hình tải mặc định sẽ bị xóa sau 5 giây bất kể xem hàm này đã được gọi hay chưa.",
+    "documentation": "Ngay lập tức loại bỏ màn hình tải mặc định của Roblox.",
     "params": [
       {
         "name": "self",
@@ -88154,7 +88236,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineHandleAdornment": {
-    "documentation": "Một đường có thể được trang trí cho một <code>BasePart</code>.",
+    "documentation": "Một tay cầm có hình dạng đường thẳng có thể được trang trí cho một <code>BasePart</code>.",
     "keys": {
       "Length": "@roblox/globaltype/LineHandleAdornment.Length",
       "Thickness": "@roblox/globaltype/LineHandleAdornment.Thickness"
@@ -88163,12 +88245,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineHandleAdornment.Length": {
-    "documentation": "Độ dài của đường.",
+    "documentation": "Chiều dài của đường thẳng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineHandleAdornment#Length",
     "code_sample": ""
   },
   "@roblox/globaltype/LineHandleAdornment.Thickness": {
-    "documentation": "Độ dày của đường tính bằng pixel.",
+    "documentation": "Độ dày của đường thẳng tính bằng pixels.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineHandleAdornment#Thickness",
     "code_sample": ""
   },
@@ -92884,7 +92966,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/HapticEffect.SetWaveformKeys": {
-    "documentation": "Phương thức được sử dụng để xác định một dạng sóng tùy chỉnh dưới dạng một bảng và áp dụng nó cho haptic.",
+    "documentation": "Định nghĩa một dạng sóng tùy chỉnh dưới dạng bảng và áp dụng nó vào haptic. <pre><code>Phương thức này nhận vào một mảng các đối tượng `FloatCurveKey`. </code></pre>",
     "params": [
       {
         "name": "self",
@@ -96621,7 +96703,7 @@
     "documentation": "Một nhân vật <code>Humanoid</code> thuộc loại <code>Model</code>."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync": {
-    "documentation": "Trả về một nhân vật <code>Model</code> được trang bị với mọi thứ được chỉ định trong <code>HumanoidDescription</code> đã được truyền vào.",
+    "documentation": "Trả về một nhân vật <code>Model</code> được trang bị mọi thứ được chỉ định trong <code>HumanoidDescription</code> đã truyền vào.",
     "params": [
       {
         "name": "self",
@@ -96662,7 +96744,7 @@
     "documentation": "Một nhân vật <code>Model</code> <code>Humanoid</code>."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription": {
-    "documentation": "<strong>Deprecated:</strong> <br>Trả về một nhân vật <code>Model</code> được trang bị tất cả mọi thứ được chỉ định trong <code>HumanoidDescription</code> đã được truyền vào.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>CreateHumanoidModelFromDescription()</code>.<br>Trả về một nhân vật <code>Model</code> được trang bị mọi thứ được chỉ định trong <code>HumanoidDescription</code> đã truyền vào.",
     "params": [
       {
         "name": "self",
@@ -96724,7 +96806,7 @@
     "documentation": "Một nhân vật Model Humanoid."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId": {
-    "documentation": "<strong>Deprecated:</strong> <br>Trả về một nhân vật Model được thiết lập với tất cả mọi thứ được trang bị để phù hợp với nhân vật của người dùng được chỉ định bởi userId đã được truyền vào.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>CreateHumanoidModelFromUserIdAsync()</code>.<br>Trả về một nhân vật Model được thiết lập với tất cả mọi thứ được trang bị để phù hợp với nhân vật của người dùng được chỉ định bởi userId đã được truyền vào.",
     "params": [
       {
         "name": "self",
@@ -96886,7 +96968,7 @@
     "documentation": "HumanoidDescription được khởi tạo với đặc tả cho outfitId đã được truyền vào."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitId": {
-    "documentation": "<strong>Deprecated:</strong> <br>Trả về HumanoidDescription cho một bộ trang phục đã chỉ định, sẽ được đặt của các phần/màu sắc/Animations của trang phục.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>GetHumanoidDescriptionFromOutfitIdAsync()</code>.<br>Trả về HumanoidDescription cho một bộ trang phục đã chỉ định, sẽ được đặt của các phần/màu sắc/Animations của trang phục.",
     "params": [
       {
         "name": "self",
@@ -96940,7 +97022,7 @@
     "documentation": "HumanoidDescription được khởi tạo với đặc tả của nhân vật người dùng đã được truyền vào."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId": {
-    "documentation": "<strong>Deprecated:</strong> <br>Trả về một HumanoidDescription chỉ định tất cả mọi thứ được trang bị cho nhân vật của người dùng được chỉ định bởi userId đã được truyền vào.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã được thay thế bởi <code>GetHumanoidDescriptionFromUserIdAsync()</code>.<br>Trả về một HumanoidDescription chỉ định tất cả mọi thứ được trang bị cho nhân vật của người dùng được chỉ định bởi userId đã được truyền vào.",
     "params": [
       {
         "name": "self",
@@ -96994,7 +97076,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Players.GetPlayerByUserId": {
-    "documentation": "Trả về <code>Player</code> với <code>UserId</code> cho trước nếu họ đang trong trò chơi.",
+    "documentation": "Trả về <code>Player</code> với <code>UserId</code> đã cho nếu họ đang ở trong trải nghiệm.",
     "params": [
       {
         "name": "self",
@@ -97180,7 +97262,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Players.players": {
-    "documentation": "<strong>Deprecated:</strong> Mục này đã được thay thế bởi <code>Players:GetPlayers()</code> mà nên được sử dụng trong tất cả công việc mới.<br>Trả về danh sách người chơi trong trò chơi.",
+    "documentation": "<strong>Deprecated:</strong> Mục này đã được thay thế bởi <code>Players:GetPlayers()</code> mà nên được sử dụng trong tất cả công việc mới.<br>Trả về danh sách người chơi trong một trải nghiệm.",
     "params": [
       {
         "name": "self",
@@ -97337,7 +97419,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerAdded": {
-    "documentation": "Kích hoạt khi một người chơi vào trò chơi.",
+    "documentation": "Kích hoạt khi một người chơi vào trải nghiệm.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerAdded.ConnectParallel",
@@ -97425,7 +97507,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerMembershipChanged": {
-    "documentation": "Kích hoạt khi máy chủ trò chơi nhận ra rằng tư cách thành viên của người chơi đã thay đổi.",
+    "documentation": "Kích hoạt khi máy chủ trải nghiệm nhận ra rằng tình trạng thành viên của một người chơi đã thay đổi.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerMembershipChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerMembershipChanged.ConnectParallel",
@@ -97513,7 +97595,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerRemoving": {
-    "documentation": "Kích hoạt khi một người chơi sắp rời khỏi trò chơi.",
+    "documentation": "Kích hoạt khi một người chơi sắp rời khỏi trải nghiệm.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerRemoving.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerRemoving.ConnectParallel",
@@ -97601,7 +97683,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.UserSubscriptionStatusChanged": {
-    "documentation": "Kích hoạt khi máy chủ trò chơi nhận ra rằng trạng thái của người dùng cho một thành viên cụ thể đã thay đổi.",
+    "documentation": "Kích hoạt khi máy chủ trải nghiệm nhận ra rằng trạng thái của người dùng cho một đăng ký nào đó đã thay đổi.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.UserSubscriptionStatusChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.UserSubscriptionStatusChanged.ConnectParallel",
@@ -108759,7 +108841,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdornCullingMode": {
-    "documentation": "Phương pháp loại bỏ được sử dụng cho Adorns.",
+    "documentation": "Phương pháp culling được sử dụng cho các adornments.",
     "keys": {
       "Automatic": "@roblox/enum/AdornCullingMode.Automatic",
       "Never": "@roblox/enum/AdornCullingMode.Never"

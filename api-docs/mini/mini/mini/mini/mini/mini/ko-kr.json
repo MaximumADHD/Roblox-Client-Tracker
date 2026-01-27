@@ -5650,7 +5650,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/CFrame.ToAxisAngle": {
-    "documentation": "<code>CFrame</code>의 축-각 표현에서 회전을 나타내는 <code>Vector3</code>와 숫자의 튜플을 반환합니다.",
+    "documentation": "단위 <code>Vector3</code> 축과 라디안 단위의 회전 각도를 포함하는 튜플을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -7403,7 +7403,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SphereHandleAdornment": {
-    "documentation": "SphereHandleAdornment는 BasePart에 장식할 수 있는 구체입니다.",
+    "documentation": "<code>BasePart</code>에 장식할 수 있는 구형 핸들입니다.",
     "keys": {
       "Radius": "@roblox/globaltype/SphereHandleAdornment.Radius",
       "Shading": "@roblox/globaltype/SphereHandleAdornment.Shading"
@@ -7412,7 +7412,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SphereHandleAdornment.Radius": {
-    "documentation": "구체 장식의 반지름입니다.",
+    "documentation": "구 장식의 반지름입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SphereHandleAdornment#Radius",
     "code_sample": ""
   },
@@ -10998,7 +10998,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CylinderHandleAdornment": {
-    "documentation": "<code>BasePart</code>에 장식할 수 있는 실린더입니다.",
+    "documentation": "<code>BasePart</code>에 장식할 수 있는 원기둥 모양의 핸들입니다.",
     "keys": {
       "Angle": "@roblox/globaltype/CylinderHandleAdornment.Angle",
       "Height": "@roblox/globaltype/CylinderHandleAdornment.Height",
@@ -11010,22 +11010,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CylinderHandleAdornment.Angle": {
-    "documentation": "원형 부채의 각도(파이 슬라이스).",
+    "documentation": "\"파이 쐬기\" 분야에서의 원기둥 핸들의 각도입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CylinderHandleAdornment#Angle",
     "code_sample": ""
   },
   "@roblox/globaltype/CylinderHandleAdornment.Height": {
-    "documentation": "실린더 장식의 높이.",
+    "documentation": "원기둥 장식의 높이입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CylinderHandleAdornment#Height",
     "code_sample": ""
   },
   "@roblox/globaltype/CylinderHandleAdornment.InnerRadius": {
-    "documentation": "빈 실린더의 내부 반지름.",
+    "documentation": "중공 원기둥을 렌더링할 때 사용할 내부 반지름입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CylinderHandleAdornment#InnerRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/CylinderHandleAdornment.Radius": {
-    "documentation": "실린더 장식의 반지름.",
+    "documentation": "원기둥 장식의 반지름입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CylinderHandleAdornment#Radius",
     "code_sample": ""
   },
@@ -18927,7 +18927,7 @@
     "documentation": "자산 타입 검증 모드입니다."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription": {
-    "documentation": "<strong>Deprecated:</strong> <br>캐릭터의 외모를 전달된 <code>HumanoidDescription</code>과 일치시킵니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>ApplyDescriptionAsync()</code>에 의해 대체되었습니다.<br>캐릭터의 외모를 전달된 <code>HumanoidDescription</code>과 일치시킵니다.",
     "params": [
       {
         "name": "self",
@@ -18985,7 +18985,7 @@
     "documentation": "자산 유형 확인 모드입니다."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset": {
-    "documentation": "<strong>Deprecated:</strong> <br>외부 변경 후에도 캐릭터의 외모를 전달된 <code>HumanoidDescription</code>에 일치시킵니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>ApplyDescriptionResetAsync()</code>에 의해 대체되었습니다.<br>외부 변경 후에도 캐릭터의 외모를 전달된 <code>HumanoidDescription</code>에 일치시킵니다.",
     "params": [
       {
         "name": "self",
@@ -19467,7 +19467,7 @@
     "documentation": "성공적으로 재생되었습니다."
   },
   "@roblox/globaltype/Humanoid.PlayEmote": {
-    "documentation": "<strong>Deprecated:</strong> <br>감정을 재생하고 성공적으로 실행되었는지를 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>PlayEmoteAsync()</code>에 의해 대체되었습니다.<br>감정을 재생하고 성공적으로 실행되었는지를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -25665,6 +25665,7 @@
       "UseFixedSimulation": "@roblox/globaltype/Workspace.UseFixedSimulation",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
+      "ExperimentalSolverIsEnabled": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
       "GetPhysicsThrottling": "@roblox/globaltype/Workspace.GetPhysicsThrottling",
       "GetRealPhysicsFPS": "@roblox/globaltype/Workspace.GetRealPhysicsFPS",
@@ -25684,7 +25685,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirTurbulenceIntensity": {
-    "documentation": "풍속 필드에 존재하는 난기류의 강도를 조절하여 공기 역학적 힘 모델에 영향을 줍니다.",
+    "documentation": "바람 속도 필드에 존재하는 난기류의 강도를 제어하여 공기역학적 힘 모델에 영향을 미친다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirTurbulenceIntensity",
     "code_sample": ""
   },
@@ -25784,7 +25785,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.NextGenerationReplication": {
-    "documentation": "<code>true</code>일 때, 내부적으로 속성이 복제되는 방식을 변경하고 개선하는 대체 복제 시스템을 활성화합니다.",
+    "documentation": "<code>true</code>일 때, 내부적으로 속성이 복제되는 방식을 변경하고 개선하는 대체 복제 시스템을 활성화한다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#NextGenerationReplication",
     "code_sample": ""
   },
@@ -25889,7 +25890,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UseFixedSimulation": {
-    "documentation": "<code>true</code>일 때, 고정 빈도로 함수를 호출하고 물리 스텝 로직을 업데이트하며, <code>time()</code> 함수가 고정 스텝 프레임 시간을 반환하게 하는 <code>RunService:BindToSimulation()</code>을 활성화합니다.",
+    "documentation": "<code>true</code>일 때, 고정 주기로 함수를 호출하고 물리적 단계 논리를 업데이트하며 <code>time()</code> 함수가 고정된 단계 프레임 시간을 반환하도록 하는 <code>RunService:BindToSimulation()</code>을 활성화한다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseFixedSimulation",
     "code_sample": ""
   },
@@ -25920,14 +25921,34 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#BreakJoints",
     "code_sample": ""
   },
+  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0": {
+    "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
+  },
+  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ExperimentalSolverIsEnabled",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
     "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/return/0": {
-    "documentation": "깨어 있는 부품의 수입니다."
+    "documentation": "깨어 있는 부품의 수."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts": {
-    "documentation": "물리적으로 활성으로 간주되는 <code>BaseParts</code>의 수를 반환합니다. 이는 최근에 물리적 힘의 영향을 받은 것으로 간주됩니다.",
+    "documentation": "<code>BaseParts</code> 중 최근 물리적 영향을 받는 것으로 간주되는 부품의 수를 반환한다.",
     "params": [
       {
         "name": "self",
@@ -25944,10 +25965,10 @@
     "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/return/0": {
-    "documentation": "물리 시뮬레이션이 현재 제한되고 있는 실제 시간의 백분율입니다."
+    "documentation": "현재 물리 시뮬레이션이 제한되고 있는 실제 시간의 비율."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling": {
-    "documentation": "0에서 100 사이의 정수를 반환하여 물리 시뮬레이션이 현재 일정한 비율로 제한되고 있는 실제 시간의 백분율을 나타냅니다.",
+    "documentation": "현재 물리적 시뮬레이션이 제한되고 있는 실제 시간의 비율을 나타내는 0과 100 사이의 정수를 반환한다.",
     "params": [
       {
         "name": "self",
@@ -25964,10 +25985,10 @@
     "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/return/0": {
-    "documentation": "현재 물리 시뮬레이션이 시뮬레이션되고 있는 FPS를 반환합니다."
+    "documentation": "현재 물리 시뮬레이션의 프레임 수를 반환한다."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS": {
-    "documentation": "현재 물리 시뮬레이션이 시뮬레이션되고 있는 FPS를 반환합니다.",
+    "documentation": "현재 물리 시뮬레이션의 프레임 수를 반환한다.",
     "params": [
       {
         "name": "self",
@@ -25984,10 +26005,10 @@
     "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow/return/0": {
-    "documentation": "서버의 유닉스 타임스탬프."
+    "documentation": "서버의 추정 Unix 타임스탬프."
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow": {
-    "documentation": "서버의 유닉스 시간을 초 단위로 반환합니다.",
+    "documentation": "서버의 Unix 시간을 초 단위로 반환한다.",
     "params": [
       {
         "name": "self",
@@ -26004,13 +26025,13 @@
     "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/1": {
-    "documentation": "조인트를 만들 <code>BaseParts</code>의 배열입니다."
+    "documentation": "관절을 만들 부품인 <code>BaseParts</code>의 배열."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/2": {
-    "documentation": "사용할 <code>JointCreationMode</code>입니다. <code>Enum.JointCreationMode.All</code> 또는 <code>Enum.JointCreationMode.Surface</code>의 값을 전달하는 것은 동일한 동작을 하여 항상 합쳐지게 됩니다."
+    "documentation": "<code>JointCreationMode</code>를 사용할 것이다. <code>Enum.JointCreationMode.All</code> 또는 <code>Enum.JointCreationMode.Surface</code>를 전달하면 항상 조인이 생성된다."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders": {
-    "documentation": "지정된 <code>Parts</code>와 접촉하는 부품 간에 조인트를 생성합니다. 이 조인트는 부품의 표면 및 지정된 조인트 생성 모드에 따라 달라집니다.",
+    "documentation": "지정된 <code>Parts</code>와 그 접촉하는 부분 간에 관절을 생성한다.",
     "params": [
       {
         "name": "self",
@@ -26033,10 +26054,10 @@
     "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/1": {
-    "documentation": "조인트를 만들 <code>부품</code>의 배열입니다."
+    "documentation": "관절을 만들 부품인 <code>parts</code>의 배열."
   },
   "@roblox/globaltype/Workspace.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>지정된 모든 <code>BaseParts</code>를 통해 이동합니다. 어떤 부품의 면에 조인트를 생성할 수 있는 <code>SurfaceType</code>이 있을 경우, 인접한 부품과 조인트가 생성됩니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>주어진 모든 <code>BaseParts</code>를 탐색한다. 특정 부품의 면이 관절을 만들 수 있는 <code>SurfaceType</code>을 가진 경우, 인접한 부품과 관절이 생성된다.",
     "params": [
       {
         "name": "self",
@@ -26055,10 +26076,10 @@
     "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/return/0": {
-    "documentation": "PGS 솔버가 활성화되어 있을 경우 True입니다."
+    "documentation": "PGS 해결기가 활성화되어 있으면 true."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled": {
-    "documentation": "<code>Workspace</code>에 PGS 물리 솔버가 활성화되어 있으면 true를 반환합니다.",
+    "documentation": "게임에 PGS 물리 해결기가 활성화되어 있으면 <code>true</code>를 반환한다.",
     "params": [
       {
         "name": "self",
@@ -26075,10 +26096,10 @@
     "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/1": {
-    "documentation": "조인트를 단절할 <code>BaseParts</code>의 배열입니다."
+    "documentation": "관절을 끊을 부품인 <code>BaseParts</code>의 배열."
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders": {
-    "documentation": "지정된 <code>BaseParts</code>와 다른 <code>BaseParts</code> 간의 모든 조인트를 단절합니다.",
+    "documentation": "지정된 <code>BaseParts</code>와 다른 <code>BaseParts</code> 간의 모든 관절을 끊는다.",
     "params": [
       {
         "name": "self",
@@ -26097,7 +26118,7 @@
     "documentation": "<strong>Workspace</strong>는 3D 객체를 보유하고 있으며, 이러한 객체는 3D 세계에 렌더링됩니다. 그로부터 내려받지 않은 객체는 렌더링되지 않거나 세계와 물리적으로 상호작용하지 않습니다."
   },
   "@roblox/globaltype/Workspace.ZoomToExtents": {
-    "documentation": "<code>Workspace.CurrentCamera</code>를 위치시키고 확대하여 현재 <code>Workspace</code>에 있는 <code>BaseParts</code>의 범위를 보여줍니다.",
+    "documentation": "<code>Workspace.CurrentCamera</code>를 배치하고 확대하여 현재 <code>Workspace</code>에 있는 <code>BaseParts</code>의 범위를 보여준다.",
     "params": [
       {
         "name": "self",
@@ -30882,7 +30903,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.FreeMemoryMBytes": {
-    "documentation": "사용 가능한 자유 메모리 양을 MB 단위로 설명합니다.",
+    "documentation": "사용 가능한 무료 메모리의 양을 MiB로 설명합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#FreeMemoryMBytes",
     "code_sample": ""
   },
@@ -30907,12 +30928,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.PrintPhysicsErrors": {
-    "documentation": "true로 설정하면 물리 복제 오류와 관련된 디버그 메시지가 출력에 기록됩니다.",
+    "documentation": "물리 복제 오류와 관련된 디버그 메시지가 출력될지 여부.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#PrintPhysicsErrors",
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.PrintStreamInstanceQuota": {
-    "documentation": "true로 설정하면 <code>Workspace.StreamingEnabled</code>가 true로 설정된 경우 인스턴스 복제와 관련된 디버그 정보가 출력에 기록됩니다.",
+    "documentation": "<code>Workspace.StreamingEnabled</code>가 <code>true</code>로 설정될 때 인스턴스 복제와 관련된 디버그 정보가 출력될지 여부.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#PrintStreamInstanceQuota",
     "code_sample": ""
   },
@@ -30922,12 +30943,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.RenderStreamedRegions": {
-    "documentation": "true로 설정하면 클라이언트로 스트리밍되는 공간의 영역이 빨간색으로 강조 표시됩니다.",
+    "documentation": "클라이언트에 스트리밍되는 공간의 지역이 빨간색으로 표시될지 여부.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#RenderStreamedRegions",
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.ShowActiveAnimationAsset": {
-    "documentation": "true로 설정하면 각 플레이어의 머리 위에 플레이어의 <code>Humanoid</code>가 현재 재생 중인 애니메이션을 표시하는 레이블이 나타납니다.",
+    "documentation": "각 플레이어 캐릭터 머리 위에 현재 재생 중인 애니메이션을 나타내는 레이블이 표시될지 여부.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#ShowActiveAnimationAsset",
     "code_sample": ""
   },
@@ -33660,7 +33681,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction": {
-    "documentation": "Studio에서 직접 관련된 <code>PluginToolbarButton</code> 없이 일반적인 수행 가능한 행동을 나타내는 <code>PluginAction</code>을 생성합니다.",
+    "documentation": "직접 관련된 <code>PluginToolbarButton</code>이 없는 스튜디오의 일반 수행 가능 작업을 나타내는 <code>PluginAction</code>을 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -33896,7 +33917,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimationAsync": {
-    "documentation": "사용자에게 <code>rigModel</code>에 로드될 수 있는 <code>.fbx</code> 애니메이션 파일을 열도록 요청한 다음, 애니메이션을 <code>KeyframeSequence</code>로 <code>Workspace</code>에 삽입합니다.",
+    "documentation": "사용자에게 <code>rigModel</code>에 로드할 수 있는 <code>.fbx</code> 애니메이션 파일을 열도록 요청한 후, 애니메이션을 <code>KeyframeSequence</code>로 <code>Workspace</code>에 삽입합니다.",
     "params": [
       {
         "name": "self",
@@ -33930,7 +33951,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimation": {
-    "documentation": "<strong>Deprecated:</strong> <br>사용자에게 <code>rigModel</code>에 로드될 수 있는 <code>.fbx</code> 애니메이션 파일을 열도록 요청한 다음, 애니메이션을 <code>KeyframeSequence</code>로 <code>Workspace</code>에 삽입합니다.",
+    "documentation": "<strong>Deprecated:</strong> <br>사용자에게 <code>rigModel</code>에 로드할 수 있는 <code>.fbx</code> 애니메이션 파일을 열도록 요청한 후, 애니메이션을 <code>KeyframeSequence</code>로 <code>Workspace</code>에 삽입합니다.",
     "params": [
       {
         "name": "self",
@@ -33961,7 +33982,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRigAsync": {
-    "documentation": "사용자에게 <code>.fbx</code> 파일을 열도록 요청하고, 모델의 개별 구성 요소를 메쉬로 업로드한 후 애니메이션에 사용할 캐릭터 리그를 생성하여 <code>Workspace</code>에 로드합니다.",
+    "documentation": "사용자에게 <code>.fbx</code> 파일을 열도록 요청하고, 모델의 개별 구성 요소를 메시로 업로드하며, 애니메이션에 사용할 캐릭터 리그를 생성하고 이를 <code>Workspace</code>에 로드합니다.",
     "params": [
       {
         "name": "self",
@@ -33988,7 +34009,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRig": {
-    "documentation": "<strong>Deprecated:</strong> <br>사용자에게 <code>.fbx</code> 파일을 열도록 요청하고, 모델의 개별 구성 요소를 메쉬로 업로드한 후 애니메이션에 사용할 캐릭터 리그를 생성하여 <code>Workspace</code>에 로드합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>ImportFbxRigAsync()</code>로 대체되었습니다.<br>사용자에게 <code>.fbx</code> 파일을 열도록 요청하고, 모델의 개별 구성 요소를 메시로 업로드하며, 애니메이션에 사용할 캐릭터 리그를 생성하고 이를 <code>Workspace</code>에 로드합니다.",
     "params": [
       {
         "name": "self",
@@ -34015,7 +34036,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Intersect": {
-    "documentation": "주어진 부품들을 교차하여 결과의 <code>IntersectOperation</code>을 반환합니다.",
+    "documentation": "주어진 부품을 교차하여 결과적인 <code>IntersectOperation</code>을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -34082,7 +34103,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Negate": {
-    "documentation": "주어진 부품들을 부정하여 결과의 <code>NegateOperations</code>을 반환합니다.",
+    "documentation": "주어진 부품을 부정하고 결과적인 <code>NegateOperations</code>을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -34241,7 +34262,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelection": {
-    "documentation": "<strong>Deprecated:</strong> <br>현재 선택을 지정된 파일 이름으로 저장하도록 사용자에게 요청합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>PromptSaveSelectionAsync()</code>로 대체되었습니다.<br>현재 선택을 지정된 파일 이름으로 저장하도록 사용자에게 요청합니다.",
     "params": [
       {
         "name": "self",
@@ -34312,7 +34333,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Separate": {
-    "documentation": "주어진 <code>UnionOperations</code>를 분리하고 결과 부품을 반환합니다.",
+    "documentation": "주어진 <code>UnionOperations</code>을 분리하고 결과적인 부품을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -36468,7 +36489,7 @@
     "documentation": "다음 키-값 쌍을 포함하는 투사 구성 사전: <ul> <li><code>Direction</code> (<code>Vector3</code>)은 프로젝터가 향하는 방향입니다.</li> <li><code>Position</code> (<code>Vector3</code>)은 메시와 관련된 로컬 공간의 위치입니다.</li> <li><code>Size</code> (<code>Vector3</code>)은 프로젝터의 크기입니다.</li> <li><code>Up</code> (<code>Vector3</code>)은 메시와 관련된 로컬 공간에서 프로젝터의 위쪽 벡터입니다.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/3": {
-    "documentation": "브러시 구성 사전으로 다음의 키-값 쌍을 포함합니다: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>), 이 투영이 알파 값을 혼합하는 방식을 결정합니다.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>), 이 투영이 색상 값을 혼합하는 방식을 결정합니다.</li> <li><code>Decal</code> (<code>EditableImage</code>), 투영에 사용되는 이미지입니다.</li> <li><code>FadeAngle</code> (숫자), 투영 가장자리가 떨어지기 시작하는 각도(도)입니다. 투영은 90도에서 완전히 사라집니다. 0도의 각도는 0도에서 바로 사라지기 시작함을 의미하며, 90도의 각도는 사라짐이 없고 90도에서 날카로운 가장자리를 의미합니다. 70도의 각도는 투영이 70도에서 사라지기 시작하고 90도에서 완전히 사라짐을 의미합니다.</li> <li><code>BlendIntensity</code> (숫자), 결과 이미지에 혼합되는 투영의 양을 제어하는 <code>0</code>과 <code>1</code> 사이의 값입니다.</li> </ul>"
+    "documentation": "브러시 구성 사전에는 다음의 키-값 쌍이 포함됩니다: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>)는 이 프로젝션의 알파 값이 어떻게 혼합되는지를 결정합니다.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>)는 이 프로젝션의 색상 값이 어떻게 혼합되는지를 결정합니다.</li> <li><code>Decal</code> (<code>EditableImage</code>)는 프로젝션에 사용되는 이미지입니다.</li> <li><code>FadeAngle</code> (숫자)은 프로젝션 가장자리가 떨어지기 시작하는 각도를 도 단위로 나타냅니다. 프로젝션은 90도에서 완전히 사라집니다.   0도는 사라짐이 즉시 시작됨을 의미하고 90도는 사라지지 않으며 90도에서 경계가 뚜렷합니다. 70도는 프로젝션이 70도에서 사라지기 시작하고 90도에서 완전히 사라진다는 의미입니다.</li> <li><code>BlendIntensity</code> (숫자)는 <code>0</code>과 <code>1</code> 사이의 값으로,   프로젝션이 결과 이미지에 얼마나 많이 혼합되는지를 제어합니다.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected": {
     "documentation": "다른 <code>EditableImage</code>를 <code>EditableMesh</code>에 투사하고 결과를 이 <code>EditableImage</code>에 저장합니다.",
@@ -39579,7 +39600,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ImageHandleAdornment": {
-    "documentation": "<code>BasePart</code>에 장식할 수 있는 이미지입니다.",
+    "documentation": "<code>BasePart</code>에 장식할 수 있는 이미지 핸들입니다.",
     "keys": {
       "Image": "@roblox/globaltype/ImageHandleAdornment.Image",
       "Size": "@roblox/globaltype/ImageHandleAdornment.Size"
@@ -39588,12 +39609,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ImageHandleAdornment.Image": {
-    "documentation": "장식할 이미지를 그립니다.",
+    "documentation": "장식에 사용할 이미지.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ImageHandleAdornment#Image",
     "code_sample": ""
   },
   "@roblox/globaltype/ImageHandleAdornment.Size": {
-    "documentation": "이미지의 크기(스탠드 기준)입니다.",
+    "documentation": "스튜드 단위로 이미지의 크기입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ImageHandleAdornment#Size",
     "code_sample": ""
   },
@@ -45475,7 +45496,7 @@
     "documentation": "온라인 연결의 사전 입니다 (위의 표를 참조하십시오)."
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "<strong>Deprecated:</strong> <br>온라인 연결의 사전을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 방법은 <code>GetFriendsOnline()</code>에 의해 대체되었습니다.<br>온라인 연결의 사전(dict)을 반환합니다. 자산 ID를 사용하여 자산의 제품 정보를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -45643,7 +45664,7 @@
     "documentation": "지정된 그룹에서 플레이어의 역할, 플레이어가 회원이 아닐 경우 <code>Guest</code>입니다."
   },
   "@roblox/globaltype/Player.GetRoleInGroup": {
-    "documentation": "<strong>Deprecated:</strong> <br>플레이어의 그룹 내 역할을 문자열로 반환하며, 플레이어가 그룹의 일원이 아닐 경우 <code>Guest</code>를 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 방법은 <code>GetRoleInGroup()</code>에 의해 대체되었습니다.<br>플레이어의 그룹 내 역할을 문자열로 반환하며, 플레이어가 그룹의 일원이 아닐 경우 <code>Guest</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -45825,7 +45846,7 @@
     "documentation": "지정된 그룹에 플레이어가 있는지 여부를 나타내는 부울입니다."
   },
   "@roblox/globaltype/Player.IsInGroup": {
-    "documentation": "<strong>Deprecated:</strong> <br>지정된 ID의 그룹의 일원인지 여부를 확인합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 방법은 <code>IsInGroupAsync()</code>에 의해 대체되었습니다.<br>지정된 ID의 그룹의 일원인지 여부를 확인합니다.",
     "params": [
       {
         "name": "self",
@@ -45957,7 +45978,7 @@
     "documentation": "현재 경험에 연결된 클라이언트를 나타내는 객체입니다."
   },
   "@roblox/globaltype/Player.LoadCharacter": {
-    "documentation": "<strong>Deprecated:</strong> <br>플레이어의 새로운 캐릭터를 생성하며, 이전 캐릭터를 제거합니다. 플레이어의 <code>Backpack</code>과 <code>PlayerGui</code>를 모두 지웁니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 방법은 <code>LoadCharacterAsync()</code>에 의해 대체되었습니다.<br>플레이어의 새로운 캐릭터를 생성하며, 이전 캐릭터를 제거합니다. 플레이어의 <code>Backpack</code>과 <code>PlayerGui</code>를 모두 지웁니다.",
     "params": [
       {
         "name": "self",
@@ -46019,7 +46040,7 @@
     "documentation": "신체 부위/색상, 신체 크기 조절, 액세서리, 의상 및 애니메이션과 같은 특성을 포함하는 <code>HumanoidDescription</code>입니다."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription": {
-    "documentation": "<strong>Deprecated:</strong> <br>전달된 <code>HumanoidDescription</code>에 있는 모든 것을 장착한 플레이어 캐릭터를 생성합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 방법은 <code>LoadCharacterWithHumanoidDescriptionAsync()</code>에 의해 대체되었습니다.<br>전달된 <code>HumanoidDescription</code>에 있는 모든 것을 장착한 플레이어 캐릭터를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -48059,6 +48080,37 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CatalogPages",
     "code_sample": ""
   },
+  "@roblox/globaltype/PyramidHandleAdornment": {
+    "documentation": "<code>BasePart</code>에 장식할 수 있는 피라미드 모양의 핸들입니다.",
+    "keys": {
+      "Height": "@roblox/globaltype/PyramidHandleAdornment.Height",
+      "Shading": "@roblox/globaltype/PyramidHandleAdornment.Shading",
+      "Sides": "@roblox/globaltype/PyramidHandleAdornment.Sides",
+      "Size": "@roblox/globaltype/PyramidHandleAdornment.Size"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PyramidHandleAdornment.Height": {
+    "documentation": "피라미드 장식의 높이입니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment#Height",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PyramidHandleAdornment.Shading": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment#Shading",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PyramidHandleAdornment.Sides": {
+    "documentation": "피라미드 장식의 면의 수입니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment#Sides",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PyramidHandleAdornment.Size": {
+    "documentation": "피라미드 장식의 바닥 크기입니다.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment#Size",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Hint": {
     "documentation": "<strong>Deprecated:</strong> Roblox의 GUI 기능이 도입됨에 따라 힌트는 더 이상 사용되지 않으며, 새로운 작업을 위해서는 <code>TextLabels</code>를 대신 사용해야 합니다. <code>TextLabel</code> 객체는 힌트가 제공하지 않는 텍스트 표시 및 사용자 정의를 위한 다양한 기능을 제공합니다.<br>힌트는 화면의 맨 위에 작은 검은 바를 생성하는 객체로, 텍스트를 보여줍니다.",
     "keys": {},
@@ -48571,17 +48623,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.AutoFRMLevel": {
-    "documentation": "<code>RenderSettings.EnableFRM</code>이 true로 설정될 때, 프레임 속도 관리자의 시작 품질 수준을 설정합니다.",
+    "documentation": "프레임레이트 매니저의 시작 품질 수준을 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#AutoFRMLevel",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.EagerBulkExecution": {
-    "documentation": "true로 설정되면 모든 장면 업데이트에 무제한 예산이 주어집니다, 계산적으로 비쌀지라도 상관없이.",
+    "documentation": "모든 장면 업데이트에 제한 없는 예산이 주어질지 여부입니다. 계산적으로 비쌀 수 있는지와 관계없이.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#EagerBulkExecution",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.EditQualityLevel": {
-    "documentation": "<code>RenderSettings.EnableFRM</code>이 false로 설정될 때, Roblox Studio의 그래픽 품질 수준을 설정합니다.",
+    "documentation": "Roblox Studio의 그래픽 품질 수준을 설정합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#EditQualityLevel",
     "code_sample": ""
   },
@@ -48596,7 +48648,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.ExportMergeByMaterial": {
-    "documentation": "재료가 부품별로 생성될 것인지, 또는 Roblox의 obj 내보내기기능에서 고유한 외관별로 생성될 것인지 설정합니다.",
+    "documentation": "재료가 파트별로 생성될지, 고유한 외관별로 생성될지를 설정합니다. Roblox의 수출 창에서.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#ExportMergeByMaterial",
     "code_sample": ""
   },
@@ -48611,7 +48663,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.MeshCacheSize": {
-    "documentation": "메시 캐시의 크기(바이트 단위). 기본값은 32 MB입니다.",
+    "documentation": "메시 캐시의 크기(바이트 단위)입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#MeshCacheSize",
     "code_sample": ""
   },
@@ -48621,22 +48673,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.QualityLevel": {
-    "documentation": "<code>RenderSettings.EnableFRM</code>이 true로 설정되었을 때, 이 속성은 Roblox Studio에서의 품질 수준을 제어합니다.",
+    "documentation": "Roblox Studio의 품질 수준을 제어합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#QualityLevel",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.ReloadAssets": {
-    "documentation": "true로 설정되면 Roblox Studio가 Roblox의 <code>content</code> 폴더에서 파일에 대한 변경 사항을 자동으로 다시 로드합니다.",
+    "documentation": "Roblox Studio가 Roblox의 <code>content</code> 폴더에 있는 파일에 대해 변경사항을 자동으로 Reload할지 여부입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#ReloadAssets",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.RenderCSGTrianglesDebug": {
-    "documentation": "true로 설정되면 모든 <code>PartOperation</code> 객체에서 다각형의 와이어프레임을 표시합니다.",
+    "documentation": "모든 <code>PartOperation</code> 객체에 대한 폴리곤의 와이어프레임이 표시될지 여부입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#RenderCSGTrianglesDebug",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.ShowBoundingBoxes": {
-    "documentation": "true로 설정되면 장면의 각 개별 렌더링된 엔티티 주위에 경계 상자를 렌더링합니다.",
+    "documentation": "장면의 개별 렌더링된 엔티티 주위에 경계 상자가 렌더링될지 여부입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#ShowBoundingBoxes",
     "code_sample": ""
   },
@@ -49667,7 +49719,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkPeer": {
-    "documentation": "NetworkPeer 객체는 네트워크 객체의 가장 기본적인 클래스입니다.",
+    "documentation": "<code>NetworkPeer</code> 객체는 네트워크 객체의 가장 기본적인 클래스입니다.",
     "keys": {
       "SetOutgoingKBPSLimit": "@roblox/globaltype/NetworkPeer.SetOutgoingKBPSLimit"
     },
@@ -49675,7 +49727,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkPeer.SetOutgoingKBPSLimit/param/0": {
-    "documentation": "NetworkPeer 객체는 네트워크 객체의 가장 기본적인 클래스입니다."
+    "documentation": "<code>NetworkPeer</code> 객체는 네트워크 객체의 가장 기본적인 클래스입니다."
   },
   "@roblox/globaltype/NetworkPeer.SetOutgoingKBPSLimit/param/1": {
     "documentation": ""
@@ -58225,7 +58277,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BoxHandleAdornment": {
-    "documentation": "<code>BasePart</code>에 장식할 수 있는 상자입니다.",
+    "documentation": "Class.BasePart에 장식할 수 있는 박스 모양의 손잡이입니다.",
     "keys": {
       "Shading": "@roblox/globaltype/BoxHandleAdornment.Shading",
       "Size": "@roblox/globaltype/BoxHandleAdornment.Size"
@@ -58239,7 +58291,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BoxHandleAdornment.Size": {
-    "documentation": "장식의 크기.",
+    "documentation": "장식의 크기입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BoxHandleAdornment#Size",
     "code_sample": ""
   },
@@ -58659,7 +58711,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.EnableDynamicHeads": {
-    "documentation": "",
+    "documentation": "동적 머리 사용을 설정합니다. true로 설정하면 얼굴 애니메이션 데이터가 있는 아바타 머리의 사용이 활성화됩니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#EnableDynamicHeads",
     "code_sample": ""
   },
@@ -59077,7 +59129,7 @@
     "documentation": "구성된 텍스처 세트를 포함하는 새로운 <code>Decal</code>입니다."
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync": {
-    "documentation": "제공된 텍스처를 <code>layers</code> 배열에 제공된 순서로 겹쳐서 생성된 복합 PBR 텍스처를 사용하는 Decal 인스턴스를 생성합니다.",
+    "documentation": "제공된 텍스처를 <code>layers</code> 배열에 제공된 순서대로 레이어링하여 복합 PBR 텍스처를 사용하는 Decal 인스턴스를 생성합니다.",
     "params": [
       {
         "name": "self",
@@ -59432,10 +59484,10 @@
     "documentation": "Roblox 웹 API와 관련된 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "다음의 키-값 쌍을 포함하는 딕셔너리: <ul> <li><code>ColorMap</code> — 색상 맵을 포함하는 <code>Content</code> 객체입니다. 기본값은 <code>nil</code></li> <li><code>MetalnessMap</code> — 금속성 맵을 포함하는 <code>Content</code> 객체입니다. 여러 채널이 있는 경우, 오직 빨간 채널만 사용됩니다. 기본값은 <code>nil</code></li> <li><code>NormalMap</code> — 노말 맵을 포함하는 <code>Content</code> 객체입니다. 기본값은 <code>nil</code></li> <li><code>RoughnessMap</code> — 거칠기 맵을 포함하는 <code>Content</code> 객체입니다. 여러 채널이 있는 경우, 오직 빨간 채널만 사용됩니다. 기본값은 <code>nil</code></li> <li><code>EmissiveMask</code> — 방출 마스크를 포함하는 <code>Content</code> 객체입니다. 여러 채널이 있는 경우, 오직 빨간 채널만 사용됩니다. 기본값은 <code>nil</code>입니다.</li> </ul>"
+    "documentation": "다음 키-값 쌍을 포함하는 딕셔너리: <ul> <li><code>ColorMap</code> — 색상 맵을 포함하는 <code>Content</code> 객체입니다. 기본값은 <code>nil</code></li> <li><code>MetalnessMap</code> — 금속성 맵을 포함하는 <code>Content</code> 객체입니다. 채널이 둘 이상 존재하는 경우, 빨간 채널만 사용됩니다. 기본값은 <code>nil</code></li> <li><code>NormalMap</code> — 노멀 맵을 포함하는 <code>Content</code> 객체입니다. 기본값은 <code>nil</code></li> <li><code>RoughnessMap</code> — 거칠기 맵을 포함하는 <code>Content</code> 객체입니다. 채널이 둘 이상 존재하는 경우, 빨간 채널만 사용됩니다. 기본값은 <code>nil</code></li> <li><code>EmissiveMask</code> — 방출 마스크를 포함하는 <code>Content</code> 객체입니다. 채널이 둘 이상 존재하는 경우, 빨간 채널만 사용됩니다. 기본값은 <code>nil</code>입니다.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "주어진 맵을 가지는 새로운 <code>SurfaceAppearance</code> 인스턴스입니다."
+    "documentation": "지정된 맵으로 <code>content</code> 매개변수에서 새로운 <code>SurfaceAppearance</code> 인스턴스를 생성합니다."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
     "documentation": "제공된 콘텐츠 맵을 사용하여 새로운 <code>SurfaceAppearance</code> 객체를 생성합니다.",
@@ -59716,7 +59768,7 @@
     "documentation": "Roblox 웹 API와 관련된 자산 관련 쿼리를 처리하는 비복제 서비스입니다."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "선택적 사전으로 <code>SaveWithoutPublish</code>과 같은 부울 값을 포함하여 게시 여부와 관계없이 저장할지 여부, 및 저장할 대상 장소의 ID인 <code>PlaceId</code>를 포함합니다. 사용 예시는 다음과 같습니다: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). PlaceId가 제공되지 않으면 기본 동작은 현재 <code>SavePlaceAsync</code>를 호출하는 원본 장소에 저장됩니다. SaveWithoutPublish의 제공 여부에 관계없이 기본 동작은 SaveWithoutPublish=false입니다."
+    "documentation": "선택적 딕셔너리로 <code>SaveWithoutPublish</code>(퍼블리시 없이 저장할지 여부를 나타내는 불리언)과 <code>PlaceId</code>(저장할 대상 장소 ID)를 포함합니다. 예제 사용법은 다음과 같습니다: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). PlaceId가 제공되지 않으면 기본 동작은 SavePlaceAsync를 호출하는 현재 원본 장소를 저장합니다. SaveWithoutPublish가 제공되지 않으면 기본 동작은 SaveWithoutPublish=false입니다."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "현재 장소의 상태를 저장합니다.",
@@ -72381,6 +72433,7 @@
       "ReadCapturesFromGalleryAsync": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync",
       "StartVideoCaptureAsync": "@roblox/globaltype/CaptureService.StartVideoCaptureAsync",
       "StopVideoCapture": "@roblox/globaltype/CaptureService.StopVideoCapture",
+      "TakeScreenshotCaptureAsync": "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync",
       "UploadCaptureAsync": "@roblox/globaltype/CaptureService.UploadCaptureAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService",
@@ -72583,14 +72636,43 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#StopVideoCapture",
     "code_sample": ""
   },
+  "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/0": {
+    "documentation": "스크린샷 및 비디오 캡처 기능에 대한 제어를 제공하는 서비스입니다."
+  },
+  "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/1": {
+    "documentation": "스크린샷 캡처 완료 시 호출되는 콜백 함수이며, <code>ScreenshotCaptureResult</code> 및 성공 시 <code>ScreenshotCapture</code>를 반환합니다."
+  },
+  "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/2": {
+    "documentation": "캡처 동작을 수정하는 사전입니다."
+  },
+  "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync": {
+    "documentation": "스크린샷 캡처를 시작합니다.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/0"
+      },
+      {
+        "name": "onCaptureReady",
+        "documentation": "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/1"
+      },
+      {
+        "name": "captureParams",
+        "documentation": "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#TakeScreenshotCaptureAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
     "documentation": "스크린샷 및 비디오 캡처 기능에 대한 제어를 제공하는 서비스입니다."
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1": {
-    "documentation": "<code>Capture</code> 타입의 캡처 객체"
+    "documentation": "<code>Capture</code> 유형의 캡처 객체입니다."
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
-    "documentation": "튜플 (result: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
+    "documentation": "(result: <code>UploadCaptureResult</code>, assetId: <code>number</code>)의 튜플입니다."
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync": {
     "documentation": "",
@@ -74972,7 +75054,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.C1": {
-    "documentation": "<code>JointInstance.C0</code> 속성에서 빼서 <code>JointInstance.Part1</code>에 대한 오프셋 포인트를 생성합니다.",
+    "documentation": "<code>C0</code> 속성에서 빼서 <code>Part1</code>의 오프셋 포인트를 생성합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#C1",
     "code_sample": ""
   },
@@ -74992,7 +75074,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.part1": {
-    "documentation": "<strong>Deprecated:</strong> 이 deprecated 속성은 대신 사용해야 하는 <code>JointInstance.Part1</code>의 변형입니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 deprecated 속성은 <code>Part1</code>의 변형으로, 대신 사용해야 합니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#part1",
     "code_sample": ""
   },
@@ -75941,7 +76023,7 @@
     "documentation": "보고할 이벤트의 카테고리입니다. 다음 문자를 포함할 수 없습니다: 쉼표 <code>,</code>, 큰따옴표 <code>\"</code> 또는 개행 문자 <code>\\r\\n</code>."
   },
   "@roblox/globaltype/AnalyticsService.FireEvent/param/2": {
-    "documentation": "직렬화되고 보고될 값입니다. 직렬화된 길이는 1KB 또는 1024바이트를 초과할 수 없습니다."
+    "documentation": "직렬화되어 보고될 값입니다. 직렬화된 길이는 1 KiB 또는 1024 바이트를 초과해서는 안 됩니다."
   },
   "@roblox/globaltype/AnalyticsService.FireEvent": {
     "documentation": "<strong>Deprecated:</strong> 이 함수는 더 설명적인 메서드를 선호하는 데에 따라Deprecated되었습니다, 포함하여: <ul> <li><code>AnalyticsService:FireCustomEvent()</code></li> <li><code>AnalyticsService:FireInGameEconomyEvent()</code></li> <li><code>AnalyticsService:FireLogEvent()</code></li> <li><code>AnalyticsService:FirePlayerProgressionEvent()</code><br>PlayFab에 사용자 정의 이벤트를 보고합니다.</li> </ul>",
@@ -76200,7 +76282,7 @@
     "documentation": "추가되거나 제거되는 통화의 양입니다. 이 값은 항상 양수여야 합니다."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/5": {
-    "documentation": "통화가 추가되거나 제거된 후의 사용자의 잔액입니다. 이 값은 항상 0 이상이어야 합니다."
+    "documentation": "통화가 추가되거나 제거된 후 사용자의 잔액입니다. 이 값은 항상 <code>0</code> 이상이어야 합니다."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/6": {
     "documentation": "발생한 거래 유형입니다. 모든 거래 유형을 사용할 수 있지만, <code>AnalyticsEconomyTransactionType</code>와 같은 제공된 유형을 사용하는 것이 좋습니다. 이 필드 유형이 문자열이므로, 열거형의 <code>Name</code> 값을 전달해야 합니다. 예: <code>Enum.AnalyticsEconomyTransactionType.IAP.Name</code>. 경험당 20개의 고유 유형으로 제한됩니다."
@@ -77249,7 +77331,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D": {
-    "documentation": "",
+    "documentation": "2D 스플라인의 런타임 생성, 편집 및 시각화를 허용하는 인스턴스입니다.",
     "keys": {
       "Closed": "@roblox/globaltype/Path2D.Closed",
       "Color3": "@roblox/globaltype/Path2D.Color3",
@@ -77286,12 +77368,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.SelectedControlPoint": {
-    "documentation": "",
+    "documentation": "현재 선택된 <code>Path2DControlPoint</code>의 인덱스.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Path2D#SelectedControlPoint",
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.SelectedControlPointData": {
-    "documentation": "",
+    "documentation": "현재 선택된 제어점을 나타내는 <code>Path2DControlPoint</code> 데이터 유형.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Path2D#SelectedControlPointData",
     "code_sample": ""
   },
@@ -77311,7 +77393,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetBoundingRect/param/0": {
-    "documentation": ""
+    "documentation": "2D 스플라인의 런타임 생성, 편집 및 시각화를 허용하는 인스턴스입니다."
   },
   "@roblox/globaltype/Path2D.GetBoundingRect/return/0": {
     "documentation": ""
@@ -77331,7 +77413,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetControlPoint/param/0": {
-    "documentation": ""
+    "documentation": "2D 스플라인의 런타임 생성, 편집 및 시각화를 허용하는 인스턴스입니다."
   },
   "@roblox/globaltype/Path2D.GetControlPoint/param/1": {
     "documentation": ""
@@ -77358,7 +77440,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetControlPoints/param/0": {
-    "documentation": ""
+    "documentation": "2D 스플라인의 런타임 생성, 편집 및 시각화를 허용하는 인스턴스입니다."
   },
   "@roblox/globaltype/Path2D.GetControlPoints/return/0": {
     "documentation": "모든 <code>Path2DControlPoints</code>의 테이블입니다."
@@ -77378,7 +77460,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetLength/param/0": {
-    "documentation": ""
+    "documentation": "2D 스플라인의 런타임 생성, 편집 및 시각화를 허용하는 인스턴스입니다."
   },
   "@roblox/globaltype/Path2D.GetLength/return/0": {
     "documentation": ""
@@ -77398,7 +77480,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetMaxControlPoints/param/0": {
-    "documentation": ""
+    "documentation": "2D 스플라인의 런타임 생성, 편집 및 시각화를 허용하는 인스턴스입니다."
   },
   "@roblox/globaltype/Path2D.GetMaxControlPoints/return/0": {
     "documentation": ""
@@ -77418,7 +77500,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetPositionOnCurve/param/0": {
-    "documentation": ""
+    "documentation": "2D 스플라인의 런타임 생성, 편집 및 시각화를 허용하는 인스턴스입니다."
   },
   "@roblox/globaltype/Path2D.GetPositionOnCurve/param/1": {
     "documentation": "<code>Path2D</code>를 쿼리할 값입니다."
@@ -77445,7 +77527,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetPositionOnCurveArcLength/param/0": {
-    "documentation": ""
+    "documentation": "2D 스플라인의 런타임 생성, 편집 및 시각화를 허용하는 인스턴스입니다."
   },
   "@roblox/globaltype/Path2D.GetPositionOnCurveArcLength/param/1": {
     "documentation": "Path2D를 쿼리할 값입니다."
@@ -77472,7 +77554,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetTangentOnCurve/param/0": {
-    "documentation": ""
+    "documentation": "2D 스플라인의 런타임 생성, 편집 및 시각화를 허용하는 인스턴스입니다."
   },
   "@roblox/globaltype/Path2D.GetTangentOnCurve/param/1": {
     "documentation": "<code>Path2D</code>를 쿼리할 값입니다."
@@ -77499,7 +77581,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetTangentOnCurveArcLength/param/0": {
-    "documentation": ""
+    "documentation": "2D 스플라인의 런타임 생성, 편집 및 시각화를 허용하는 인스턴스입니다."
   },
   "@roblox/globaltype/Path2D.GetTangentOnCurveArcLength/param/1": {
     "documentation": "<code>Path2D</code>를 쿼리할 값입니다."
@@ -77526,7 +77608,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.InsertControlPoint/param/0": {
-    "documentation": ""
+    "documentation": "2D 스플라인의 런타임 생성, 편집 및 시각화를 허용하는 인스턴스입니다."
   },
   "@roblox/globaltype/Path2D.InsertControlPoint/param/1": {
     "documentation": "삽입할 인덱스입니다."
@@ -77555,7 +77637,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.RemoveControlPoint/param/0": {
-    "documentation": ""
+    "documentation": "2D 스플라인의 런타임 생성, 편집 및 시각화를 허용하는 인스턴스입니다."
   },
   "@roblox/globaltype/Path2D.RemoveControlPoint/param/1": {
     "documentation": "제거할 인덱스입니다."
@@ -77577,7 +77659,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.SetControlPoints/param/0": {
-    "documentation": ""
+    "documentation": "2D 스플라인의 런타임 생성, 편집 및 시각화를 허용하는 인스턴스입니다."
   },
   "@roblox/globaltype/Path2D.SetControlPoints/param/1": {
     "documentation": "설정할 새 제어점 목록입니다."
@@ -77599,7 +77681,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.UpdateControlPoint/param/0": {
-    "documentation": ""
+    "documentation": "2D 스플라인의 런타임 생성, 편집 및 시각화를 허용하는 인스턴스입니다."
   },
   "@roblox/globaltype/Path2D.UpdateControlPoint/param/1": {
     "documentation": "업데이트할 제어점 인덱스입니다."
@@ -78086,7 +78168,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConeHandleAdornment": {
-    "documentation": "<code>BasePart</code>에 장식할 수 있는 원추.",
+    "documentation": "<code>BasePart</code>에 장식할 수 있는 원뿔 모양의 핸들입니다.",
     "keys": {
       "Height": "@roblox/globaltype/ConeHandleAdornment.Height",
       "Hollow": "@roblox/globaltype/ConeHandleAdornment.Hollow",
@@ -78097,7 +78179,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConeHandleAdornment.Height": {
-    "documentation": "원추 장식의 높이.",
+    "documentation": "원뿔 장식의 높이입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ConeHandleAdornment#Height",
     "code_sample": ""
   },
@@ -78107,7 +78189,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConeHandleAdornment.Radius": {
-    "documentation": "콘 장식의 반지름입니다.",
+    "documentation": "원뿔 장식의 반지름입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ConeHandleAdornment#Radius",
     "code_sample": ""
   },
@@ -79520,7 +79602,7 @@
     "documentation": "쿼리된 항목에 대한 정보를 포함하는 딕셔너리입니다. 이전 표에서 설명되었습니다."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo": {
-    "documentation": "<strong>Deprecated:</strong> <br>자산 ID를 사용하여 자산의 제품 정보를 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>GetProductInfoAsync()</code>로 대체되었습니다.<br>자산 ID를 사용하여 자산의 제품 정보를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -79575,10 +79657,10 @@
     "documentation": "사용자 ID의 배열입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
-    "documentation": "사용자 ID(문자열)를 키로 하고 해당 가격 수준(1에서 1000 사이의 정수)을 값으로 하는 딕셔너리의 <code>PriceLevelInfo</code> 객체 배열을 반환합니다."
+    "documentation": "<code>PriceLevelInfo</code> 객체의 배열을 반환하며, 딕셔너리에서는 키가 사용자 ID(문자열)이고 값이 해당 가격 수준(1에서 1000 사이의 정수)입니다."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "사용자의 지역화된 가격 수준을 반환하며, 이는 해당 지역 시장에서 항목의 권장 가격을 나타냅니다.",
+    "documentation": "사용자의 지역화된 가격 수준을 반환하며, 해당 사용자의 지역 시장에서 항목에 대해 권장되는 가격을 나타냅니다.",
     "params": [
       {
         "name": "self",
@@ -79744,7 +79826,7 @@
     "documentation": "주어진 플레이어의 인벤토리가 주어진 자산을 포함하는지 여부를 나타냅니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset": {
-    "documentation": "<strong>Deprecated:</strong> <br>주어진 사용자가 주어진 자산을 보유하고 있는지 여부를 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>PlayerOwnsAssetAsync()</code>로 대체되었습니다.<br>주어진 사용자가 주어진 자산을 보유하고 있는지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -79812,7 +79894,7 @@
     "documentation": "주어진 플레이어의 인벤토리가 주어진 번들을 포함하는지 여부를 나타냅니다."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle": {
-    "documentation": "<strong>Deprecated:</strong> <br>주어진 플레이어가 주어진 번들을 소유하고 있는지 여부를 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>PlayerOwnsBundleAsync()</code>로 대체되었습니다.<br>주어진 플레이어가 주어진 번들을 소유하고 있는지 여부를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -79831,7 +79913,7 @@
       "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundle",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- 우리가 확인하고 있는 번들: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundleAsync(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundleAsync 호출 실패: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \"은 \" .. BUNDLE_NAME .. \" 소유자입니다.\")\n\telse\n\t\tprint(player.Name .. \"은 \" .. BUNDLE_NAME .. \" 소유자가 아닙니다.\")\n\tend\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/0": {
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
@@ -80097,13 +80179,13 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/param/1": {
-    "documentation": "정렬하고자 하는 제품을 식별하는 객체의 배열입니다. 이 배열은 최대 50개의 항목을 포함할 수 있습니다. 각 <code>ProductIdentifier</code>는 다음을 포함합니다: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li><code>InfoType.GamePass</code> 또는     <code>InfoType.Product</code> 중 하나여야 합니다.</li> <li><code>Id</code>: number</li> <li>게임 패스 또는 개발자 제품의 ID입니다.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
+    "documentation": "랭크를 매기고자 하는 제품을 식별하는 객체의 배열입니다. 이 배열에는 최대 50개 항목이 포함될 수 있습니다. 각 <code>ProductIdentifier</code>는 다음을 포함합니다: - <code>InfoType</code>: Enum.InfoType     - 반드시 <code>InfoType.GamePass</code> 또는 <code>InfoType.Product</code>여야 합니다. - <code>Id</code>: number     - 게임 패스 또는 개발자 제품의 ID입니다. <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "현재 사용자에 대한 개인화된 순서로 정렬된 항목의 배열입니다. 각 배열에는 다음이 포함됩니다: <ul> <li><code>ProductIdentifier</code>: 입력 배열의 해당 ID입니다.</li> <li><code>ProductInfo</code>: <code>GetProductInfoAsync</code>에 의해 반환되는 표준 제품 정보 사전입니다.</li> </ul>"
+    "documentation": "현재 사용자를 위한 개인화된 순서로 정렬된 항목 배열입니다. 각 배열은 다음을 포함합니다: - <code>ProductIdentifier</code>: 입력 배열의 해당 ID입니다. - <code>ProductInfo</code>: <code>GetProductInfoAsync</code>에 의해 반환된 표준 제품 정보 딕셔너리입니다."
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
-    "documentation": "제품 ID 목록을 가져와 개인화된 정렬된 목록을 반환합니다.",
+    "documentation": "제품 ID 목록을 받아 그 제품들의 개인화된 정렬된 목록을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -80124,13 +80206,13 @@
     "documentation": "경험 내 거래를 담당하는 서비스입니다."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/1": {
-    "documentation": "추천을 받을 제품 유형을 지정하는 <code>InfoType</code> 값 배열입니다. 지원되는 <code>InfoTypes</code>: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
+    "documentation": "추천을 받기 위해 검색할 제품 유형을 지정하는 <code>InfoType</code> 값 배열입니다. 지원되는 <code>InfoTypes</code>: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/return/0": {
-    "documentation": "제공된 <code>InfoTypes</code>를 기반으로 사용자가 가장 참여할 가능성이 높은 최대 50개 항목의 정렬된 목록입니다. 추천을 결정할 수 없는 경우 메서드는 빈 목록을 반환합니다."
+    "documentation": "제공된 <code>InfoTypes</code>를 기반으로 사용자가 가장 많이 참여할 가능성이 있는 최대 50개 항목의 랭크 리스트입니다. 추천할 수 없는 경우 이 메서드는 빈 목록을 반환합니다."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync": {
-    "documentation": "<ul> <li><code>InfoType</code> 배열을 가져와 사용자가 가장 참여할 가능성이 높은 제품을 나타내는 최대 50개 항목을 반환합니다.</li> </ul>",
+    "documentation": "<ul> <li><code>InfoType</code> 배열을 받아 사용자가 가장 많이 참여하고 구매할 가능성이 있는 최대 50개 항목을 반환합니다.</li> </ul>",
     "params": [
       {
         "name": "self",
@@ -83566,13 +83648,13 @@
       "RemoveDefaultLoadingScreen": "@roblox/globaltype/ReplicatedFirst.RemoveDefaultLoadingScreen"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ReplicatedFirst",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedFirst = game:GetService(\"ReplicatedFirst\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player:WaitForChild(\"PlayerGui\")\n\n-- 기본 로딩 화면 생성\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Size = UDim2.new(1, 0, 1, 0)\ntextLabel.BackgroundColor3 = Color3.fromRGB(0, 20, 40)\ntextLabel.Font = Enum.Font.GothamMedium\ntextLabel.TextColor3 = Color3.new(0.8, 0.8, 0.8)\ntextLabel.Text = \"로딩 중\"\ntextLabel.TextSize = 28\ntextLabel.Parent = screenGui\n\n-- 전체 화면 GUI를 플레이어 GUI에 부모로 설정\nscreenGui.Parent = playerGui\n\n-- 기본 로딩 화면 제거\nReplicatedFirst:RemoveDefaultLoadingScreen()\n\n--task.wait(3)  -- 옵션으로 화면이 최소 몇 초 동안 표시되도록 강제 설정\nif not game:IsLoaded() then\n\tgame.Loaded:Wait()\nend\nscreenGui:Destroy()"
+    "code_sample": ""
   },
   "@roblox/globaltype/ReplicatedFirst.RemoveDefaultLoadingScreen/param/0": {
     "documentation": "모든 클라이언트에 내용이 복제되는 컨테이너(하지만 서버로는 복제되지 않음)로, 다른 어떤 것보다 먼저 복제됩니다."
   },
   "@roblox/globaltype/ReplicatedFirst.RemoveDefaultLoadingScreen": {
-    "documentation": "기본 Roblox 로딩 화면을 즉시 제거합니다. 만약 어떤 객체가 <code>ReplicatedFirst</code>에 배치되었다면, 이 함수가 호출되었든 아니든 기본 로딩 화면은 5초 후에 제거됩니다.",
+    "documentation": "기본 Roblox 로딩 화면을 즉시 제거합니다.",
     "params": [
       {
         "name": "self",
@@ -83581,7 +83663,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ReplicatedFirst#RemoveDefaultLoadingScreen",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedFirst = game:GetService(\"ReplicatedFirst\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player:WaitForChild(\"PlayerGui\")\n\n-- 기본 로딩 화면 생성\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Size = UDim2.new(1, 0, 1, 0)\ntextLabel.BackgroundColor3 = Color3.fromRGB(0, 20, 40)\ntextLabel.Font = Enum.Font.GothamMedium\ntextLabel.TextColor3 = Color3.new(0.8, 0.8, 0.8)\ntextLabel.Text = \"로딩 중\"\ntextLabel.TextSize = 28\ntextLabel.Parent = screenGui\n\n-- 전체 화면 GUI를 플레이어 GUI에 부모로 설정\nscreenGui.Parent = playerGui\n\n-- 기본 로딩 화면 제거\nReplicatedFirst:RemoveDefaultLoadingScreen()\n\n--task.wait(3)  -- 옵션으로 화면이 최소 몇 초 동안 표시되도록 강제 설정\nif not game:IsLoaded() then\n\tgame.Loaded:Wait()\nend\nscreenGui:Destroy()"
+    "code_sample": ""
   },
   "@roblox/globaltype/AssetPatchSettings": {
     "documentation": "",
@@ -88154,7 +88236,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineHandleAdornment": {
-    "documentation": "<code>BasePart</code>에 장식할 수 있는 선.",
+    "documentation": "<code>BasePart</code>에 장식할 수 있는 선형 핸들입니다.",
     "keys": {
       "Length": "@roblox/globaltype/LineHandleAdornment.Length",
       "Thickness": "@roblox/globaltype/LineHandleAdornment.Thickness"
@@ -88163,12 +88245,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineHandleAdornment.Length": {
-    "documentation": "선의 길이.",
+    "documentation": "선의 길이입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineHandleAdornment#Length",
     "code_sample": ""
   },
   "@roblox/globaltype/LineHandleAdornment.Thickness": {
-    "documentation": "픽셀 단위의 선의 두께.",
+    "documentation": "픽셀 단위의 선의 두께입니다.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineHandleAdornment#Thickness",
     "code_sample": ""
   },
@@ -92884,7 +92966,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/HapticEffect.SetWaveformKeys": {
-    "documentation": "사용자 지정 파형을 테이블로 정의하고 이를 촉각에 적용하는 데 사용되는 메서드입니다.",
+    "documentation": "사용자 정의 파형을 테이블로 정의하고 햅틱에 적용합니다. <pre><code>이 메서드는 `FloatCurveKey` 객체의 배열을 입력으로 받습니다. </code></pre>",
     "params": [
       {
         "name": "self",
@@ -96662,7 +96744,7 @@
     "documentation": "A <code>Humanoid</code> 캐릭터 <code>Model</code>입니다."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription": {
-    "documentation": "<strong>Deprecated:</strong> <br>주어진 <code>HumanoidDescription</code>에 지정된 모든 요소가 장착된 캐릭터 <code>Model</code>을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>CreateHumanoidModelFromDescription()</code>로 대체되었습니다.<br>전달된 <code>HumanoidDescription</code>에 지정된 모든 것을 장착한 캐릭터 <code>Model</code>을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -96724,7 +96806,7 @@
     "documentation": "Humanoid 캐릭터 모델입니다."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId": {
-    "documentation": "<strong>Deprecated:</strong> <br>주어진 userId로 지정된 사용자의 아바타에 맞춰 모든 것이 장착된 캐릭터 모델을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>CreateHumanoidModelFromUserIdAsync()</code>로 대체되었습니다.<br>주어진 userId로 지정된 사용자의 아바타에 맞춰 모든 것이 장착된 캐릭터 모델을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -96886,7 +96968,7 @@
     "documentation": "전달된 outfitId에 대한 사양으로 초기화된 HumanoidDescription입니다."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitId": {
-    "documentation": "<strong>Deprecated:</strong> <br>지정된 의상에 대한 HumanoidDescription을 반환하며, 이는 의상의 부품/색상/애니메이션 등을 설정합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>GetHumanoidDescriptionFromOutfitIdAsync()</code>로 대체되었습니다.<br>지정된 의상에 대한 HumanoidDescription을 반환하며, 이는 의상의 부품/색상/애니메이션 등을 설정합니다.",
     "params": [
       {
         "name": "self",
@@ -96940,7 +97022,7 @@
     "documentation": "전달된 사용자의 아바타 사양으로 초기화된 HumanoidDescription입니다."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId": {
-    "documentation": "<strong>Deprecated:</strong> <br>지정된 userId의 사용자의 아바타에 대해 장착된 모든 것을 지정하는 HumanoidDescription을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> 이 메서드는 <code>GetHumanoidDescriptionFromUserIdAsync()</code>로 대체되었습니다.<br>지정된 userId의 사용자의 아바타에 대해 장착된 모든 것을 지정하는 HumanoidDescription을 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -96994,7 +97076,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Players.GetPlayerByUserId": {
-    "documentation": "게임 중인 경우 주어진 <code>UserId</code>를 가진 <code>Player</code>를 반환합니다.",
+    "documentation": "경험 중에 있는 경우 주어진 <code>UserId</code>를 가진 <code>Player</code>를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -97180,7 +97262,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Players.players": {
-    "documentation": "<strong>Deprecated:</strong> <code>Players:GetPlayers()</code>로 대체되었으며, 모든 새로운 작업에서 사용해야 합니다.<br>게임 내 플레이어 목록을 반환합니다.",
+    "documentation": "<strong>Deprecated:</strong> <code>Players:GetPlayers()</code>로 대체되었으며, 모든 새로운 작업에서 사용해야 합니다.<br>경험 중의 플레이어 리스트를 반환합니다.",
     "params": [
       {
         "name": "self",
@@ -97337,7 +97419,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerAdded": {
-    "documentation": "플레이어가 게임에 입장할 때 발생합니다.",
+    "documentation": "플레이어가 경험에 들어왔을 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerAdded.ConnectParallel",
@@ -97425,7 +97507,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerMembershipChanged": {
-    "documentation": "게임 서버가 플레이어의 멤버십이 변경되었음을 인식할 때 발생합니다.",
+    "documentation": "경험 서버가 플레이어의 멤버십이 변경되었음을 인식할 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerMembershipChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerMembershipChanged.ConnectParallel",
@@ -97513,7 +97595,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerRemoving": {
-    "documentation": "플레이어가 게임을 떠나기 직전에 발생합니다.",
+    "documentation": "플레이어가 경험을 떠나기 직전에 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerRemoving.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerRemoving.ConnectParallel",
@@ -97601,7 +97683,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.UserSubscriptionStatusChanged": {
-    "documentation": "게임 서버가 특정 구독의 사용자 상태가 변경되었음을 인식할 때 발생합니다.",
+    "documentation": "경험 서버가 특정 구독에 대한 사용자의 상태가 변경되었음을 인식할 때 발생합니다.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.UserSubscriptionStatusChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.UserSubscriptionStatusChanged.ConnectParallel",
@@ -108759,7 +108841,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdornCullingMode": {
-    "documentation": "장식에 사용되는 제거 방법.",
+    "documentation": "장식에 사용되는 절단 방법입니다.",
     "keys": {
       "Automatic": "@roblox/enum/AdornCullingMode.Automatic",
       "Never": "@roblox/enum/AdornCullingMode.Never"

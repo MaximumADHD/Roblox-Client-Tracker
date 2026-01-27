@@ -5650,7 +5650,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/CFrame.ToAxisAngle": {
-    "documentation": "<code>Vector3</code> と数値のタプルを返し、<code>CFrame</code>の軸-角度表現での回転を示します。",
+    "documentation": "単位 <code>Vector3</code> 軸とラジアン単位の回転角を含むタプルを返します。",
     "params": [
       {
         "name": "self",
@@ -7403,7 +7403,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SphereHandleAdornment": {
-    "documentation": "SphereHandleAdornmentはBasePartに飾ることができる球体です。",
+    "documentation": "<code>BasePart</code>に装飾できる球形のハンドル。",
     "keys": {
       "Radius": "@roblox/globaltype/SphereHandleAdornment.Radius",
       "Shading": "@roblox/globaltype/SphereHandleAdornment.Shading"
@@ -7412,7 +7412,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SphereHandleAdornment.Radius": {
-    "documentation": "球体装飾の半径です。",
+    "documentation": "球形装飾の半径。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SphereHandleAdornment#Radius",
     "code_sample": ""
   },
@@ -10998,7 +10998,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CylinderHandleAdornment": {
-    "documentation": "クラス <code>BasePart</code> に装飾できる円柱です。",
+    "documentation": "<code>BasePart</code>に装飾できる円柱形のハンドル。",
     "keys": {
       "Angle": "@roblox/globaltype/CylinderHandleAdornment.Angle",
       "Height": "@roblox/globaltype/CylinderHandleAdornment.Height",
@@ -11010,7 +11010,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CylinderHandleAdornment.Angle": {
-    "documentation": "円筒セクター（パイスライス）の角度。",
+    "documentation": "\"パイ スライス\" セクターにおける円柱ハンドルの角度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CylinderHandleAdornment#Angle",
     "code_sample": ""
   },
@@ -11020,7 +11020,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CylinderHandleAdornment.InnerRadius": {
-    "documentation": "空洞円柱の内半径。",
+    "documentation": "空洞円柱を描画するための内半径。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CylinderHandleAdornment#InnerRadius",
     "code_sample": ""
   },
@@ -18927,7 +18927,7 @@
     "documentation": "アセットタイプ検証モード。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescription": {
-    "documentation": "<strong>Deprecated:</strong> <br>キャラクターの見た目を引数として渡された <code>HumanoidDescription</code> に一致させます。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは次のもので置き換えられました <code>ApplyDescriptionAsync()</code>。<br>キャラクターの見た目を引数として渡された <code>HumanoidDescription</code> に一致させます。",
     "params": [
       {
         "name": "self",
@@ -18985,7 +18985,7 @@
     "documentation": "アセットタイプの検証モード。"
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset": {
-    "documentation": "<strong>Deprecated:</strong> <br>外部の変更があった後でもキャラクターの見た目を引数として渡された <code>HumanoidDescription</code> に一致させます。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは次のもので置き換えられました <code>ApplyDescriptionResetAsync()</code>。<br>外部の変更があった後でもキャラクターの見た目を引数として渡された <code>HumanoidDescription</code> に一致させます。",
     "params": [
       {
         "name": "self",
@@ -19467,7 +19467,7 @@
     "documentation": "正常に再生されたか。"
   },
   "@roblox/globaltype/Humanoid.PlayEmote": {
-    "documentation": "<strong>Deprecated:</strong> <br>エモートを再生し、成功したかを返します。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは次のもので置き換えられました <code>PlayEmoteAsync()</code>。<br>エモートを再生し、成功したかを返します。",
     "params": [
       {
         "name": "self",
@@ -25665,6 +25665,7 @@
       "UseFixedSimulation": "@roblox/globaltype/Workspace.UseFixedSimulation",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
+      "ExperimentalSolverIsEnabled": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
       "GetPhysicsThrottling": "@roblox/globaltype/Workspace.GetPhysicsThrottling",
       "GetRealPhysicsFPS": "@roblox/globaltype/Workspace.GetRealPhysicsFPS",
@@ -25684,7 +25685,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirTurbulenceIntensity": {
-    "documentation": "風速場に存在する乱流の強度を制御し、空力力モデルに影響を与えます。",
+    "documentation": "風速場に存在する乱流の強さを制御し、空気力学的力モデルに影響を与えます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirTurbulenceIntensity",
     "code_sample": ""
   },
@@ -25784,7 +25785,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.NextGenerationReplication": {
-    "documentation": "<code>true</code> の場合、内部のプロパティのレプリケーション方法を変更し、改善する代替レプリケーションシステムを有効にします。",
+    "documentation": "<code>true</code>のとき、プロパティが裏側でどのようにレプリケートされるかを変更し改善する代替レプリケーションシステムを有効にします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#NextGenerationReplication",
     "code_sample": ""
   },
@@ -25889,7 +25890,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UseFixedSimulation": {
-    "documentation": "<code>true</code> の場合、<code>RunService:BindToSimulation()</code> を有効にします。このメソッドは固定頻度で関数を呼び出し、物理ステッピングロジックを更新し、<code>time()</code> 関数が固定されたステップフレーム時間を返すようにします。",
+    "documentation": "<code>true</code>のとき、<code>RunService:BindToSimulation()</code>を有効にし、固定周波数で関数を呼び出し、物理ステッピングロジックを更新し、<code>time()</code>関数が固定ステップフレーム時間を返すようにします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseFixedSimulation",
     "code_sample": ""
   },
@@ -25920,6 +25921,26 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#BreakJoints",
     "code_sample": ""
   },
+  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0": {
+    "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
+  },
+  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled": {
+    "documentation": "",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ExperimentalSolverIsEnabled",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
     "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
@@ -25927,7 +25948,7 @@
     "documentation": "覚醒した部品の数。"
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts": {
-    "documentation": "物理的にアクティブと見なされる <code>BaseParts</code> の数を返します。",
+    "documentation": "最近物理の影響を受けたため、物理的にアクティブと見なされる<code>BaseParts</code>の数を返します。",
     "params": [
       {
         "name": "self",
@@ -25944,10 +25965,10 @@
     "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/return/0": {
-    "documentation": "物理シミュレーションが現在制限されている実時間の割合。"
+    "documentation": "物理シミュレーションが現在スロットリングされている実時間のパーセンテージ。"
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling": {
-    "documentation": "物理シミュレーションが現在制限されている実時間の割合を表す0から100の整数を返します。",
+    "documentation": "物理シミュレーションが現在スロットリングされている実時間のパーセンテージを表す0から100の整数を返します。",
     "params": [
       {
         "name": "self",
@@ -25964,10 +25985,10 @@
     "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/return/0": {
-    "documentation": "物理が現在シミュレーションされているフレーム数。"
+    "documentation": "物理が現在シミュレーションされているフレーム数を返します。"
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS": {
-    "documentation": "物理が現在シミュレーションされているフレーム数を返します。",
+    "documentation": "物理が現在シミュレーションされているフレームごとの数を返します。",
     "params": [
       {
         "name": "self",
@@ -25987,7 +26008,7 @@
     "documentation": "サーバー上の推定Unixタイムスタンプ。"
   },
   "@roblox/globaltype/Workspace.GetServerTimeNow": {
-    "documentation": "サーバーのUnix時間を秒単位で返します。",
+    "documentation": "サーバーのUnix時刻を秒単位で返します。",
     "params": [
       {
         "name": "self",
@@ -26004,13 +26025,13 @@
     "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/1": {
-    "documentation": "ジョイントを作成する対象の <code>BaseParts</code> の配列。"
+    "documentation": "ジョイントを作成するための<code>BaseParts</code>の配列。"
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/2": {
-    "documentation": "使用する <code>JointCreationMode</code>。 <code>Enum.JointCreationMode.All</code> または <code>Enum.JointCreationMode.Surface</code> を渡すことは、常に参加することに等しいです。"
+    "documentation": "使用する<code>JointCreationMode</code>。<code>Enum.JointCreationMode.All</code>または<code>Enum.JointCreationMode.Surface</code>を渡すと、常にジョインされるという同じ動作になります。"
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders": {
-    "documentation": "指定された <code>Parts</code> と、その表面および指定されたジョイント作成モードに基づいて 接触している部品の間にジョイントを作成します。",
+    "documentation": "指定された<code>Parts</code>と接触する部品に基づいて、ジョイントを作成します。",
     "params": [
       {
         "name": "self",
@@ -26033,10 +26054,10 @@
     "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.MakeJoints/param/1": {
-    "documentation": "ジョイントを作成する対象の <code>parts</code> の配列。"
+    "documentation": "ジョイントを作成するための<code>parts</code>の配列。"
   },
   "@roblox/globaltype/Workspace.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>与えられたすべての <code>BaseParts</code> に対して調べます。もしパーツの任意の側にジョイントを作成できる <code>SurfaceType</code> があれば、 それは隣接する部品との間にジョイントを作成します。",
+    "documentation": "<strong>Deprecated:</strong> <br>指定されたすべての<code>BaseParts</code>をおおう。任意の部品の側面がジョイントを作ることができる<code>SurfaceType</code>を持っている場合、隣接する部品との間にジョイントが作成されます。",
     "params": [
       {
         "name": "self",
@@ -26055,10 +26076,10 @@
     "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/return/0": {
-    "documentation": "PGS ソルバーが有効な場合は真。"
+    "documentation": "PGSソルバーが有効な場合は<code>true</code>。"
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled": {
-    "documentation": "ゲームに PGS物理ソルバーが有効になっている場合は <code>true</code> を返します。",
+    "documentation": "ゲームにPGS物理ソルバーが有効な場合、<code>true</code>を返します。",
     "params": [
       {
         "name": "self",
@@ -26075,10 +26096,10 @@
     "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders/param/1": {
-    "documentation": "ジョイントを壊す対象の <code>BaseParts</code> の配列。"
+    "documentation": "ジョイントを破壊するための<code>BaseParts</code>の配列。"
   },
   "@roblox/globaltype/Workspace.UnjoinFromOutsiders": {
-    "documentation": "指定された <code>BaseParts</code> と他の <code>BaseParts</code> の間のすべてのジョイントを破壊します。",
+    "documentation": "指定された<code>BaseParts</code>と他の<code>BaseParts</code>との間のすべてのジョイントを破壊します。",
     "params": [
       {
         "name": "self",
@@ -26097,7 +26118,7 @@
     "documentation": "<strong>Workspace</strong> は、3Dオブジェクトを収容し、3D世界にレンダリングされます。 それから派生しないオブジェクトは、レンダリングされず、物理的に 世界と相互作用することはありません。"
   },
   "@roblox/globaltype/Workspace.ZoomToExtents": {
-    "documentation": "<code>Workspace.CurrentCamera</code> の位置を設定し、ズームして、 <code>Workspace</code> に現在存在する <code>BaseParts</code> の範囲を表示します。",
+    "documentation": "現在の<code>Workspace</code>にある<code>BaseParts</code>の範囲を表示するために、<code>Workspace.CurrentCamera</code>を配置およびズームします。",
     "params": [
       {
         "name": "self",
@@ -30882,7 +30903,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.FreeMemoryMBytes": {
-    "documentation": "使用可能なメモリの量をMB単位で説明します。",
+    "documentation": "利用可能な空きメモリの量を、MiB 単位で示します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#FreeMemoryMBytes",
     "code_sample": ""
   },
@@ -30902,17 +30923,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.PrintJoinSizeBreakdown": {
-    "documentation": "接続時に送信されるデータに関する診断情報を印刷します。",
+    "documentation": "接続時に送信されたデータに関する診断情報を出力します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#PrintJoinSizeBreakdown",
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.PrintPhysicsErrors": {
-    "documentation": "trueに設定されている場合、物理レプリケーションエラーに関するデバッグメッセージが出力に印刷されます。",
+    "documentation": "物理複製エラーに関連するデバッグメッセージが出力に印刷されるかどうか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#PrintPhysicsErrors",
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.PrintStreamInstanceQuota": {
-    "documentation": "trueに設定されている場合、<code>Workspace.StreamingEnabled</code>がtrueに設定されるときのインスタンスのレプリケーションに関するデバッグ情報が出力に印刷されます。",
+    "documentation": "<code>Workspace.StreamingEnabled</code> が <code>true</code> に設定されている場合、インスタンスの複製に関連するデバッグ情報が出力に印刷されるかどうか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#PrintStreamInstanceQuota",
     "code_sample": ""
   },
@@ -30922,12 +30943,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.RenderStreamedRegions": {
-    "documentation": "trueに設定されている場合、クライアントにストリーミングされる空間の領域が赤でアウトライン表示されます。",
+    "documentation": "クライアントにストリーミングされている空間の領域が赤く描画されるかどうか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#RenderStreamedRegions",
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.ShowActiveAnimationAsset": {
-    "documentation": "trueに設定されている場合、各プレイヤーの頭上にラベルが表示され、プレイヤーの<code>Humanoid</code>で再生中の現在のアニメーションを示します。",
+    "documentation": "各プレイヤーキャラクターの頭上に、現在再生中のアニメーションを示すラベルが表示されるかどうか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#ShowActiveAnimationAsset",
     "code_sample": ""
   },
@@ -33617,7 +33638,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui": {
-    "documentation": "<strong>Deprecated:</strong> このメソッドは、<code>CreateDockWidgetPluginGuiAsync()</code> に取って代わられました。<br><code>DockWidgetPluginGuiInfo</code> を元に新しい <code>DockWidgetPluginGui</code> を作成します。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは、<code>CreateDockWidgetPluginGuiAsync()</code>に置き換えられました。<br><code>DockWidgetPluginGuiInfo</code> を元に新しい <code>DockWidgetPluginGui</code> を作成します。",
     "params": [
       {
         "name": "self",
@@ -33660,7 +33681,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction": {
-    "documentation": "直接関連付けられた <code>PluginToolbarButton</code> のない、Studio 内で実行可能な一般的なアクションを表す <code>PluginAction</code> を作成します。",
+    "documentation": "スタジオ内で直接関連付けられた<code>PluginToolbarButton</code>のない一般的に実行可能なアクションを表す<code>PluginAction</code>を作成します。",
     "params": [
       {
         "name": "self",
@@ -33896,7 +33917,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimationAsync": {
-    "documentation": "ユーザーに <code>.fbx</code> アニメーションファイルを開くように促し、それを <code>rigModel</code> にロードした後、アニメーションを <code>KeyframeSequence</code> として <code>Workspace</code> に挿入します。",
+    "documentation": "ユーザーに<code>.fbx</code>アニメーションファイルを開くように促し、<code>rigModel</code>に読み込むことができ、その後、アニメーションを<code>KeyframeSequence</code>として<code>Workspace</code>に挿入します。",
     "params": [
       {
         "name": "self",
@@ -33930,7 +33951,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimation": {
-    "documentation": "<strong>Deprecated:</strong> <br>ユーザーに <code>.fbx</code> アニメーションファイルを開くように促し、それを <code>rigModel</code> にロードした後、アニメーションを <code>KeyframeSequence</code> として <code>Workspace</code> に挿入します。",
+    "documentation": "<strong>Deprecated:</strong> <br>ユーザーに<code>.fbx</code>アニメーションファイルを開くように促し、<code>rigModel</code>に読み込むことができ、その後、アニメーションを<code>KeyframeSequence</code>として<code>Workspace</code>に挿入します。",
     "params": [
       {
         "name": "self",
@@ -33961,7 +33982,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRigAsync": {
-    "documentation": "ユーザーに <code>.fbx</code> ファイルを開くように促し、モデルの個々のコンポーネントをメッシュとしてアップロードし、アニメーション用のキャラクターリグを生成して <code>Workspace</code> にロードします。",
+    "documentation": "ユーザーに<code>.fbx</code>ファイルを開くように促し、モデルの個々のコンポーネントをメッシュとしてアップロードし、アニメーション用のキャラクターリグを生成し、それを<code>Workspace</code>にロードします。",
     "params": [
       {
         "name": "self",
@@ -33988,7 +34009,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRig": {
-    "documentation": "<strong>Deprecated:</strong> <br>ユーザーに <code>.fbx</code> ファイルを開くように促し、モデルの個々のコンポーネントをメッシュとしてアップロードし、アニメーション用のキャラクターリグを生成して <code>Workspace</code> にロードします。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは、<code>ImportFbxRigAsync()</code>に置き換えられました。<br>ユーザーに<code>.fbx</code>ファイルを開くように促し、モデルの個々のコンポーネントをメッシュとしてアップロードし、アニメーション用のキャラクターリグを生成し、それを<code>Workspace</code>にロードします。",
     "params": [
       {
         "name": "self",
@@ -34015,7 +34036,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Intersect": {
-    "documentation": "指定された部品を交差させ、結果として得られる <code>IntersectOperation</code> を返します。",
+    "documentation": "指定されたパーツを交差させ、結果の<code>IntersectOperation</code>を返します。",
     "params": [
       {
         "name": "self",
@@ -34082,7 +34103,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Negate": {
-    "documentation": "指定された部品をネガティブにし、結果として得られる <code>NegateOperations</code> を返します。",
+    "documentation": "指定されたパーツを否定し、結果の<code>NegateOperations</code>を返します。",
     "params": [
       {
         "name": "self",
@@ -34241,7 +34262,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelection": {
-    "documentation": "<strong>Deprecated:</strong> <br>ユーザーに指定されたファイル名で現在の選択を保存するように促します。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは、<code>PromptSaveSelectionAsync()</code>に置き換えられました。<br>ユーザーに指定されたファイル名で現在の選択を保存するように促します。",
     "params": [
       {
         "name": "self",
@@ -34312,7 +34333,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Separate": {
-    "documentation": "指定された <code>UnionOperations</code> を分離し、結果となる部品を返します。",
+    "documentation": "指定された<code>UnionOperations</code>を分離し、結果のパーツを返します。",
     "params": [
       {
         "name": "self",
@@ -36468,7 +36489,7 @@
     "documentation": "次のキーと値のペアを含むプロジェクション設定の辞書: <ul> <li><code>Direction</code> (<code>Vector3</code>) プロジェクターが向いている方向。</li> <li><code>Position</code> (<code>Vector3</code>) メッシュに対するローカル空間での位置。</li> <li><code>Size</code> (<code>Vector3</code>) プロジェクターのサイズ。</li> <li><code>Up</code> (<code>Vector3</code>) メッシュに対するローカル空間でのプロジェクターの上ベクトル。</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/3": {
-    "documentation": "ブラシ設定辞書には、以下のキーワードと値のペアが含まれます： <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>) は、このプロジェクションのアルファ値のブレンド方法を決定します。</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>) は、このプロジェクションのカラーバリューのブレンド方法を決定します。</li> <li><code>Decal</code> (<code>EditableImage</code>) は、プロジェクションで使用される画像です。</li> <li><code>FadeAngle</code> (number) は、プロジェクションのエッジがどの角度でフェードし始めるかを度単位で表します。プロジェクションは90度で完全にフェードアウトします。0度の角度は、0度からフェードがすぐに始まることを意味し、90度の角度はフェードがなく、90度でのハードエッジを意味します。70度の角度は、プロジェクションが70度でフェードを開始し、90度で完全にフェードアウトすることを意味します。</li> <li><code>BlendIntensity</code> (number) は、結果の画像にどれだけプロジェクションがブレンドされるかを制御する <code>0</code> と <code>1</code> の間の値です。</li> </ul>"
+    "documentation": "ブラシ設定辞書には、次のキーと値のペアが含まれています： <ul> <li><code>AlphaBlendType</code>（<code>ImageAlphaType</code>）、このプロジェクションがアルファ値をどのようにブレンドするかを決定します。</li> <li><code>ColorBlendType</code>（<code>ImageCombineType</code>）、このプロジェクションが色値をどのようにブレンドするかを決定します。</li> <li><code>Decal</code>（<code>EditableImage</code>）、プロジェクションに使用される画像です。</li> <li><code>FadeAngle</code>（数値）、プロジェクションのエッジがどの角度でフェードし始めるか（度単位）。プロジェクションは90度で完全にフェードアウトします。   角度0は、0度で即座にフェードが始まり、角度90はフェードせず、むしろ90度で鋭いエッジを持つことを意味します。70度の角度は、プロジェクションが70度でフェードし始め、90度で完全にフェードアウトすることを意味します。</li> <li><code>BlendIntensity</code>（数値）、結果の画像にどれだけプロジェクションがブレンドされるかを制御する<code>0</code>から<code>1</code>の間の値です。</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected": {
     "documentation": "別の <code>EditableImage</code> を <code>EditableMesh</code> にプロジェクトし、結果をこの <code>EditableImage</code> に保存します。",
@@ -39579,7 +39600,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ImageHandleAdornment": {
-    "documentation": "<code>BasePart</code>に装飾できる画像。",
+    "documentation": "<code>BasePart</code> に飾り付けることができる画像ハンドル。",
     "keys": {
       "Image": "@roblox/globaltype/ImageHandleAdornment.Image",
       "Size": "@roblox/globaltype/ImageHandleAdornment.Size"
@@ -39588,12 +39609,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ImageHandleAdornment.Image": {
-    "documentation": "装飾するための画像。",
+    "documentation": "飾り付けるために描画する画像。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ImageHandleAdornment#Image",
     "code_sample": ""
   },
   "@roblox/globaltype/ImageHandleAdornment.Size": {
-    "documentation": "画像のサイズ（スタッズ単位）。",
+    "documentation": "画像のサイズ（スタッド単位）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ImageHandleAdornment#Size",
     "code_sample": ""
   },
@@ -41949,7 +41970,7 @@
     "documentation": "クライアントを初期化するストリーミング接続のタイプ。"
   },
   "@roblox/globaltype/HttpService.CreateWebStreamClient/param/2": {
-    "documentation": "サーバーから要求される情報を含む辞書。 <code>HttpService:RequestAsync()</code>の<code>requestOptions</code>と同じです。"
+    "documentation": "サーバーからリクエストする情報を含む辞書。<code>HttpService:RequestAsync()</code> の <code>requestOptions</code> と同じです。"
   },
   "@roblox/globaltype/HttpService.CreateWebStreamClient/return/0": {
     "documentation": "ストリームライフサイクル内のイベントを発信する状態を持ったクライアント。"
@@ -45475,7 +45496,7 @@
     "documentation": "オンライン接続の辞書（上記の表を参照）。"
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "<strong>Deprecated:</strong> <br>オンライン接続の辞書を返します。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは<code>GetFriendsOnline()</code>に置き換えられました。<br>オンライン接続の辞書を返します。資産のアセットIDを使用して、その資産の製品情報を返します。",
     "params": [
       {
         "name": "self",
@@ -45643,7 +45664,7 @@
     "documentation": "指定されたグループ内のプレイヤーの役割、またはプレイヤーがメンバーでない場合は <code>Guest</code>。"
   },
   "@roblox/globaltype/Player.GetRoleInGroup": {
-    "documentation": "<strong>Deprecated:</strong> <br>プレイヤーのグループ内の役割を文字列として返します。また、プレイヤーがグループに所属していない場合は <code>Guest</code> を返します。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは<code>GetRoleInGroup()</code>に置き換えられました。<br>プレイヤーのグループ内の役割を文字列として返します。また、プレイヤーがグループに所属していない場合は <code>Guest</code> を返します。",
     "params": [
       {
         "name": "self",
@@ -45825,7 +45846,7 @@
     "documentation": "指定されたグループ内にプレイヤーがいるかどうかを示すブール値。"
   },
   "@roblox/globaltype/Player.IsInGroup": {
-    "documentation": "<strong>Deprecated:</strong> <br>与えられたIDのグループのメンバーかどうかを確認します。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは<code>IsInGroupAsync()</code>に置き換えられました。<br>与えられたIDのグループのメンバーかどうかを確認します。",
     "params": [
       {
         "name": "self",
@@ -45957,7 +45978,7 @@
     "documentation": "現在接続されているクライアントを表すオブジェクト。"
   },
   "@roblox/globaltype/Player.LoadCharacter": {
-    "documentation": "<strong>Deprecated:</strong> <br>プレイヤーの新しいキャラクターを作成し、古いキャラクターを削除します。また、プレイヤーの <code>Backpack</code> と <code>PlayerGui</code> をクリアします。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは<code>LoadCharacterAsync()</code>に置き換えられました。<br>プレイヤーの新しいキャラクターを作成し、古いキャラクターを削除します。また、プレイヤーの <code>Backpack</code> と <code>PlayerGui</code> をクリアします。",
     "params": [
       {
         "name": "self",
@@ -46019,7 +46040,7 @@
     "documentation": "体の部品/色、体のスケーリング、アクセサリー、衣類、アニメーションなどの特性を含む <code>HumanoidDescription</code> であり、読み込まれるキャラクターに装備されます。"
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription": {
-    "documentation": "<strong>Deprecated:</strong> <br>渡された <code>HumanoidDescription</code> ですべて装備されたプレイヤーキャラクターをスポーンします。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは<code>LoadCharacterWithHumanoidDescriptionAsync()</code>に置き換えられました。<br>渡された <code>HumanoidDescription</code> ですべて装備されたプレイヤーキャラクターをスポーンします。",
     "params": [
       {
         "name": "self",
@@ -48059,6 +48080,37 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CatalogPages",
     "code_sample": ""
   },
+  "@roblox/globaltype/PyramidHandleAdornment": {
+    "documentation": "<code>BasePart</code> に装飾できるピラミッド型のハンドルです。",
+    "keys": {
+      "Height": "@roblox/globaltype/PyramidHandleAdornment.Height",
+      "Shading": "@roblox/globaltype/PyramidHandleAdornment.Shading",
+      "Sides": "@roblox/globaltype/PyramidHandleAdornment.Sides",
+      "Size": "@roblox/globaltype/PyramidHandleAdornment.Size"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PyramidHandleAdornment.Height": {
+    "documentation": "ピラミッド装飾の高さ。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment#Height",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PyramidHandleAdornment.Shading": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment#Shading",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PyramidHandleAdornment.Sides": {
+    "documentation": "ピラミッド装飾の側面の数。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment#Sides",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PyramidHandleAdornment.Size": {
+    "documentation": "ピラミッド装飾の基底のサイズ。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment#Size",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Hint": {
     "documentation": "<strong>Deprecated:</strong> RobloxのGUI機能の導入に伴い、ヒントは非推奨となり、新しい作業には<code>TextLabels</code>を使用すべきです。<code>TextLabel</code>オブジェクトは、ヒントでは提供されていないテキストの表示とカスタマイズのための幅広い機能を提供します。<br>ヒントは、画面の一番上にテキストを表示する小さな黒いバーを作成するオブジェクトです。",
     "keys": {},
@@ -48571,17 +48623,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.AutoFRMLevel": {
-    "documentation": "<code>RenderSettings.EnableFRM</code>がtrueに設定されているとき、フレームレートマネージャーの開始品質レベルを設定します。",
+    "documentation": "フレームレートマネージャーの開始品質レベルを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#AutoFRMLevel",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.EagerBulkExecution": {
-    "documentation": "trueに設定されているとき、すべてのシーンアップデートに無制限の予算が与えられます。 計算コストがどれほど高くても関係ありません。",
+    "documentation": "すべてのシーン更新が計算量に関係なく無制限の予算を与えられるかどうか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#EagerBulkExecution",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.EditQualityLevel": {
-    "documentation": "<code>RenderSettings.EnableFRM</code>がfalseに設定されているとき、Roblox Studioのグラフィックス品質レベルを設定します。",
+    "documentation": "Roblox Studio のグラフィックス品質レベルを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#EditQualityLevel",
     "code_sample": ""
   },
@@ -48596,7 +48648,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.ExportMergeByMaterial": {
-    "documentation": "マテリアルをパートごとに生成するか、Robloxのobjエクスポータのユニークな外観ごとに生成するかを設定します。",
+    "documentation": "マテリアルをパートごとまたはロブロックスのエクスポーターでのユニークな外観ごとに生成するかどうかを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#ExportMergeByMaterial",
     "code_sample": ""
   },
@@ -48611,7 +48663,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.MeshCacheSize": {
-    "documentation": "メッシュキャッシュのサイズ（バイト単位）。デフォルトは32 MBです。",
+    "documentation": "メッシュキャッシュのサイズ（バイト単位）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#MeshCacheSize",
     "code_sample": ""
   },
@@ -48621,22 +48673,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.QualityLevel": {
-    "documentation": "<code>RenderSettings.EnableFRM</code>がtrueに設定されている場合、このプロパティはRoblox Studioでの品質レベルを制御します。",
+    "documentation": "Roblox Studio での品質レベルを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#QualityLevel",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.ReloadAssets": {
-    "documentation": "trueに設定されていると、Roblox StudioはRobloxの<code>content</code>フォルダー内のファイルに加えられた変更を自動的に再読み込みします。",
+    "documentation": "Roblox Studio が Roblox の <code>content</code> フォルダー内のファイルに対する変更を自動的に再読み込みするかどうか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#ReloadAssets",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.RenderCSGTrianglesDebug": {
-    "documentation": "trueに設定されていると、すべての<code>PartOperation</code>オブジェクトにポリゴンのワイヤーフレームが表示されます。",
+    "documentation": "すべての <code>PartOperation</code> オブジェクトにポリゴンのワイヤーフレームを表示するかどうか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#RenderCSGTrianglesDebug",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.ShowBoundingBoxes": {
-    "documentation": "trueに設定されていると、シーン内の各レンダリングされたエンティティの周囲にバウンディングボックスをレンダリングします。",
+    "documentation": "シーン内の各個別描画エンティティの周りにバウンディングボックスが表示されるかどうか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#ShowBoundingBoxes",
     "code_sample": ""
   },
@@ -49667,7 +49719,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkPeer": {
-    "documentation": "NetworkPeer オブジェクトは、ネットワークオブジェクトの最も基本的なクラスです。",
+    "documentation": "<code>NetworkPeer</code>オブジェクトは、ネットワークオブジェクトの最も基本的なクラスです。",
     "keys": {
       "SetOutgoingKBPSLimit": "@roblox/globaltype/NetworkPeer.SetOutgoingKBPSLimit"
     },
@@ -49675,7 +49727,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkPeer.SetOutgoingKBPSLimit/param/0": {
-    "documentation": "NetworkPeer オブジェクトは、ネットワークオブジェクトの最も基本的なクラスです。"
+    "documentation": "<code>NetworkPeer</code>オブジェクトは、ネットワークオブジェクトの最も基本的なクラスです。"
   },
   "@roblox/globaltype/NetworkPeer.SetOutgoingKBPSLimit/param/1": {
     "documentation": ""
@@ -58225,7 +58277,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BoxHandleAdornment": {
-    "documentation": "<code>BasePart</code>に装飾できるボックス。",
+    "documentation": "<code>BasePart</code> に装飾できる箱型のハンドル。",
     "keys": {
       "Shading": "@roblox/globaltype/BoxHandleAdornment.Shading",
       "Size": "@roblox/globaltype/BoxHandleAdornment.Size"
@@ -58659,7 +58711,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.EnableDynamicHeads": {
-    "documentation": "",
+    "documentation": "動的ヘッドの使用を設定します。trueの場合、顔のアニメーションデータを 持つアバターヘッドの使用が可能になります。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#EnableDynamicHeads",
     "code_sample": ""
   },
@@ -59077,7 +59129,7 @@
     "documentation": "合成テクスチャセットを含む新しい<code>Decal</code>。"
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync": {
-    "documentation": "提供されたテクスチャを、<code>layers</code> 配列に提供された順に重ねることで作成した複合PBRテクスチャを使用するデカールインスタンスを作成します。",
+    "documentation": "提供されたテクスチャを<code>layers</code>配列に提供された順序でレイヤー化して、合成PBRテクスチャを使用するデカールインスタンスを作成します。テクスチャはColorMapのアルファ値に基づいてレイヤー化されます。",
     "params": [
       {
         "name": "self",
@@ -59432,10 +59484,10 @@
     "documentation": "RobloxウェブAPIへのアセット関連クエリを処理する非複製サービスです。"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "以下のキーと値のペアを含む辞書： <ul> <li><code>ColorMap</code> — カラーマップを含む<code>Content</code>オブジェクト。デフォルトは<code>nil</code>。</li> <li><code>MetalnessMap</code> — 金属感マップを含む<code>Content</code>オブジェクト。複数のチャネルが存在する場合、赤チャネルのみが使用されます。デフォルトは<code>nil</code>。</li> <li><code>NormalMap</code> — 法線マップを含む<code>Content</code>オブジェクト。デフォルトは<code>nil</code>。</li> <li><code>RoughnessMap</code> — 粗さマップを含む<code>Content</code>オブジェクト。複数のチャネルが存在する場合、赤チャネルのみが使用されます。デフォルトは<code>nil</code>。</li> <li><code>EmissiveMask</code> — エミッシブマスクを含む<code>Content</code>オブジェクト。複数のチャネルが存在する場合、赤チャネルのみが使用されます。デフォルトは<code>nil</code>。</li> </ul>"
+    "documentation": "次のキーと値のペアを含む辞書: <ul> <li><code>ColorMap</code> — 色マップを含む<code>Content</code>オブジェクト。デフォルトは<code>nil</code>です。</li> <li><code>MetalnessMap</code> — 金属感マップを含む<code>Content</code>オブジェクト。複数のチャネルが存在する場合、赤チャネルのみが使用されます。デフォルトは<code>nil</code>です。</li> <li><code>NormalMap</code> — 法線マップを含む<code>Content</code>オブジェクト。デフォルトは<code>nil</code>です。</li> <li><code>RoughnessMap</code> — 荒さマップを含む<code>Content</code>オブジェクト。複数のチャネルが存在する場合、赤チャネルのみが使用されます。デフォルトは<code>nil</code>です。</li> <li><code>EmissiveMask</code> — 発光マスクを含む<code>Content</code>オブジェクト。複数のチャネルが存在する場合、赤チャネルのみが使用されます。デフォルトは<code>nil</code>です。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "<code>content</code>パラメータから与えられたマップを持つ新しい<code>SurfaceAppearance</code>インスタンス。"
+    "documentation": "指定された<code>content</code>パラメータのマップから新しい<code>SurfaceAppearance</code>インスタンスを作成します。"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
     "documentation": "提供されたコンテンツマップを使用して新しい<code>SurfaceAppearance</code>オブジェクトを作成します。",
@@ -59716,7 +59768,7 @@
     "documentation": "RobloxウェブAPIへのアセット関連クエリを処理する非複製サービスです。"
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "<code>SaveWithoutPublish</code>というブール型のオプション辞書を含むことができ、公開するかどうかを保存しているか、 <code>PlaceId</code>が上書きする宛先場所IDです。例として、AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true})の使用法があります。PlaceIdが提供されない場合、 現在の元の場所（SavePlaceAsyncを呼び出している）を上書き保存するデフォルトの動作になります。SaveWithoutPublishが提供されない場合、 デフォルトの動作はSaveWithoutPublish=falseです。"
+    "documentation": "オプションの辞書には、公開するかどうかを示すブール値<code>SaveWithoutPublish</code>と、上書きして保存する宛先プレイスID<code>PlaceId</code>が含まれています。使用例は、AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true})です。PlaceIdが提供されない場合、デフォルトの動作はSavePlaceAsyncを呼び出している現在の元の場所に上書きして保存します。SaveWithoutPublishが提供されない場合、デフォルトの動作はSaveWithoutPublish=falseです。"
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "現在の場所の状態を保存します。",
@@ -72381,6 +72433,7 @@
       "ReadCapturesFromGalleryAsync": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync",
       "StartVideoCaptureAsync": "@roblox/globaltype/CaptureService.StartVideoCaptureAsync",
       "StopVideoCapture": "@roblox/globaltype/CaptureService.StopVideoCapture",
+      "TakeScreenshotCaptureAsync": "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync",
       "UploadCaptureAsync": "@roblox/globaltype/CaptureService.UploadCaptureAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService",
@@ -72583,6 +72636,35 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#StopVideoCapture",
     "code_sample": ""
   },
+  "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/0": {
+    "documentation": "スクリーンショットとビデオキャプチャ機能の制御を提供するサービス。"
+  },
+  "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/1": {
+    "documentation": "スクリーンショットキャプチャの完了時に呼び出されるコールバック関数で、 <code>ScreenshotCaptureResult</code> および成功した場合は <code>ScreenshotCapture</code> を伴います。"
+  },
+  "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/2": {
+    "documentation": "キャプチャ動作を変更する辞書です。"
+  },
+  "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync": {
+    "documentation": "スクリーンショットキャプチャを開始します。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/0"
+      },
+      {
+        "name": "onCaptureReady",
+        "documentation": "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/1"
+      },
+      {
+        "name": "captureParams",
+        "documentation": "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#TakeScreenshotCaptureAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
     "documentation": "スクリーンショットとビデオキャプチャ機能の制御を提供するサービス。"
   },
@@ -72590,7 +72672,7 @@
     "documentation": "<code>Capture</code> 型のキャプチャオブジェクト"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
-    "documentation": "(result: <code>UploadCaptureResult</code>, assetId: <code>number</code>) のタプル"
+    "documentation": "タプル (result: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync": {
     "documentation": "",
@@ -74972,7 +75054,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.C1": {
-    "documentation": "<code>JointInstance.C0</code> プロパティから減算され、 <code>JointInstance.Part1</code> のオフセットポイントを作成します。",
+    "documentation": "<code>C0</code> プロパティから引かれ、<code>Part1</code> のオフセットポイントを作成します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#C1",
     "code_sample": ""
   },
@@ -74992,7 +75074,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.part1": {
-    "documentation": "<strong>Deprecated:</strong> この非推奨のプロパティは、代わりに使用すべき <code>JointInstance.Part1</code> のバリアントです。",
+    "documentation": "<strong>Deprecated:</strong> この非推奨プロパティは、代わりに使用されるべき <code>Part1</code> のバリアントです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#part1",
     "code_sample": ""
   },
@@ -75941,7 +76023,7 @@
     "documentation": "'報告するイベントのカテゴリ。カンマ <code>,</code>、二重引用符 <code>\"</code> または改行文字 <code>\\r\\n</code>を含めることはできません。'"
   },
   "@roblox/globaltype/AnalyticsService.FireEvent/param/2": {
-    "documentation": "シリアライズされて報告される値。シリアライズされた長さは1KB、または1024バイトを超えてはいけません。"
+    "documentation": "シリアル化されて報告される値。シリアル化の長さは 1 KiB または 1024 バイトを超えてはなりません。"
   },
   "@roblox/globaltype/AnalyticsService.FireEvent": {
     "documentation": "<strong>Deprecated:</strong> この関数は、より記述的なメソッドに代わって非推奨となりました。 <ul> <li><code>AnalyticsService:FireCustomEvent()</code></li> <li><code>AnalyticsService:FireInGameEconomyEvent()</code></li> <li><code>AnalyticsService:FireLogEvent()</code></li> <li><code>AnalyticsService:FirePlayerProgressionEvent()</code><br>カスタムイベントをPlayFabに報告します。</li> </ul>",
@@ -76200,7 +76282,7 @@
     "documentation": "追加または削除される通貨の量。この値は 常に正であるべきです。"
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/5": {
-    "documentation": "通貨が追加または削除された後のユーザーの残高。この 値は常に0以上であるべきです。"
+    "documentation": "通貨が追加または削除された後のユーザーの残高。この値は常に <code>0</code> 以上である必要があります。"
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/6": {
     "documentation": "発生したトランザクションのタイプ。任意の トランザクションタイプを使用することができますが、推奨されるのは <code>AnalyticsEconomyTransactionType</code>から提供されるタイプを使用することです、例えば<code>\"IAP\"</code>や <code>\"ContextualPurchase\"</code>などです。これにより、Robloxのツールや チャートからの将来の洞察が得られます。 このフィールドタイプは文字列であるため、<code>Name</code> 値をenumから渡す必要があります。たとえば、 <code>Enum.AnalyticsEconomyTransactionType.IAP.Name</code>。 エクスペリエンスごとに20のユニークなタイプに制限されています。"
@@ -77249,7 +77331,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D": {
-    "documentation": "",
+    "documentation": "2Dスプラインの実行時生成、編集、および視覚化を可能にするインスタンス。",
     "keys": {
       "Closed": "@roblox/globaltype/Path2D.Closed",
       "Color3": "@roblox/globaltype/Path2D.Color3",
@@ -77281,17 +77363,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.Color3": {
-    "documentation": "<code>Path2D</code>の色を決定します。",
+    "documentation": "<code>Path2D</code> の色を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Path2D#Color3",
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.SelectedControlPoint": {
-    "documentation": "",
+    "documentation": "現在選択されている <code>Path2DControlPoint</code> のインデックス。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Path2D#SelectedControlPoint",
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.SelectedControlPointData": {
-    "documentation": "",
+    "documentation": "現在選択されている制御点を表す <code>Path2DControlPoint</code> データ型。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Path2D#SelectedControlPointData",
     "code_sample": ""
   },
@@ -77311,7 +77393,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetBoundingRect/param/0": {
-    "documentation": ""
+    "documentation": "2Dスプラインの実行時生成、編集、および視覚化を可能にするインスタンス。"
   },
   "@roblox/globaltype/Path2D.GetBoundingRect/return/0": {
     "documentation": ""
@@ -77331,7 +77413,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetControlPoint/param/0": {
-    "documentation": ""
+    "documentation": "2Dスプラインの実行時生成、編集、および視覚化を可能にするインスタンス。"
   },
   "@roblox/globaltype/Path2D.GetControlPoint/param/1": {
     "documentation": ""
@@ -77358,7 +77440,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetControlPoints/param/0": {
-    "documentation": ""
+    "documentation": "2Dスプラインの実行時生成、編集、および視覚化を可能にするインスタンス。"
   },
   "@roblox/globaltype/Path2D.GetControlPoints/return/0": {
     "documentation": "すべての<code>Path2DControlPoints</code>のテーブル。"
@@ -77378,7 +77460,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetLength/param/0": {
-    "documentation": ""
+    "documentation": "2Dスプラインの実行時生成、編集、および視覚化を可能にするインスタンス。"
   },
   "@roblox/globaltype/Path2D.GetLength/return/0": {
     "documentation": ""
@@ -77398,7 +77480,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetMaxControlPoints/param/0": {
-    "documentation": ""
+    "documentation": "2Dスプラインの実行時生成、編集、および視覚化を可能にするインスタンス。"
   },
   "@roblox/globaltype/Path2D.GetMaxControlPoints/return/0": {
     "documentation": ""
@@ -77418,7 +77500,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetPositionOnCurve/param/0": {
-    "documentation": ""
+    "documentation": "2Dスプラインの実行時生成、編集、および視覚化を可能にするインスタンス。"
   },
   "@roblox/globaltype/Path2D.GetPositionOnCurve/param/1": {
     "documentation": "<code>Path2D</code>を照会するための値。"
@@ -77445,7 +77527,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetPositionOnCurveArcLength/param/0": {
-    "documentation": ""
+    "documentation": "2Dスプラインの実行時生成、編集、および視覚化を可能にするインスタンス。"
   },
   "@roblox/globaltype/Path2D.GetPositionOnCurveArcLength/param/1": {
     "documentation": "Path2Dを照会するための値。"
@@ -77472,7 +77554,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetTangentOnCurve/param/0": {
-    "documentation": ""
+    "documentation": "2Dスプラインの実行時生成、編集、および視覚化を可能にするインスタンス。"
   },
   "@roblox/globaltype/Path2D.GetTangentOnCurve/param/1": {
     "documentation": "<code>Path2D</code>を照会するための値。"
@@ -77499,7 +77581,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetTangentOnCurveArcLength/param/0": {
-    "documentation": ""
+    "documentation": "2Dスプラインの実行時生成、編集、および視覚化を可能にするインスタンス。"
   },
   "@roblox/globaltype/Path2D.GetTangentOnCurveArcLength/param/1": {
     "documentation": "<code>Path2D</code>を照会するための値。"
@@ -77526,7 +77608,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.InsertControlPoint/param/0": {
-    "documentation": ""
+    "documentation": "2Dスプラインの実行時生成、編集、および視覚化を可能にするインスタンス。"
   },
   "@roblox/globaltype/Path2D.InsertControlPoint/param/1": {
     "documentation": "挿入するインデックス。"
@@ -77555,7 +77637,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.RemoveControlPoint/param/0": {
-    "documentation": ""
+    "documentation": "2Dスプラインの実行時生成、編集、および視覚化を可能にするインスタンス。"
   },
   "@roblox/globaltype/Path2D.RemoveControlPoint/param/1": {
     "documentation": "削除するインデックス。"
@@ -77577,7 +77659,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.SetControlPoints/param/0": {
-    "documentation": ""
+    "documentation": "2Dスプラインの実行時生成、編集、および視覚化を可能にするインスタンス。"
   },
   "@roblox/globaltype/Path2D.SetControlPoints/param/1": {
     "documentation": "設定する新しい制御点のリスト。"
@@ -77599,7 +77681,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.UpdateControlPoint/param/0": {
-    "documentation": ""
+    "documentation": "2Dスプラインの実行時生成、編集、および視覚化を可能にするインスタンス。"
   },
   "@roblox/globaltype/Path2D.UpdateControlPoint/param/1": {
     "documentation": "更新する制御点のインデックス。"
@@ -78086,7 +78168,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConeHandleAdornment": {
-    "documentation": "<code>BasePart</code>に装飾できる円錐。",
+    "documentation": "<code>BasePart</code> に装飾できる円錐形のハンドルです。",
     "keys": {
       "Height": "@roblox/globaltype/ConeHandleAdornment.Height",
       "Hollow": "@roblox/globaltype/ConeHandleAdornment.Hollow",
@@ -78097,7 +78179,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConeHandleAdornment.Height": {
-    "documentation": "円錐装飾の高さ。",
+    "documentation": "円錐の装飾の高さ。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ConeHandleAdornment#Height",
     "code_sample": ""
   },
@@ -78107,7 +78189,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConeHandleAdornment.Radius": {
-    "documentation": "コーン装飾の半径。",
+    "documentation": "円錐の装飾の半径。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ConeHandleAdornment#Radius",
     "code_sample": ""
   },
@@ -79520,7 +79602,7 @@
     "documentation": "前のテーブルで説明された問い合わせたアイテムに関する情報を含む辞書。"
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo": {
-    "documentation": "<strong>Deprecated:</strong> <br>アセットのアセットIDを使用して、製品情報を返します。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは <code>GetProductInfoAsync()</code> に置き換えられました。<br>アセットのアセットIDを使用して、製品情報を返します。",
     "params": [
       {
         "name": "self",
@@ -79575,10 +79657,10 @@
     "documentation": "ユーザーIDの配列。"
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
-    "documentation": "<code>PriceLevelInfo</code>オブジェクトの配列を返し、キーがユーザーID（文字列）で、値が対応する価格レベル（1から1000の整数）である辞書です。"
+    "documentation": "<code>PriceLevelInfo</code> オブジェクトの配列を返し、キーがユーザー ID（文字列）で値が対応する価格レベル（1 から 1000 の整数）である辞書を返します。"
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "ユーザーの地域別価格レベルを返し、その地域の市場におけるアイテムの推奨価格を示します。",
+    "documentation": "ユーザーの地域化された価格レベルを返し、その地域市場におけるアイテムの推奨価格を代表します。",
     "params": [
       {
         "name": "self",
@@ -79744,7 +79826,7 @@
     "documentation": "指定されたプレイヤーのインベントリが指定されたアセットを含むかどうかを示します。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset": {
-    "documentation": "<strong>Deprecated:</strong> <br>指定されたユーザーが指定されたアセットを持っているかどうかを返します。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは <code>PlayerOwnsAssetAsync()</code> に置き換えられました。<br>指定されたユーザーが指定されたアセットを持っているかどうかを返します。",
     "params": [
       {
         "name": "self",
@@ -79812,7 +79894,7 @@
     "documentation": "指定されたプレイヤーのインベントリが指定されたバンドルを含むかどうかを示します。"
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle": {
-    "documentation": "<strong>Deprecated:</strong> <br>指定されたプレイヤーが指定されたバンドルを所有しているかどうかを返します。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは <code>PlayerOwnsBundleAsync()</code> に置き換えられました。<br>指定されたプレイヤーが指定されたバンドルを所有しているかどうかを返します。",
     "params": [
       {
         "name": "self",
@@ -79831,7 +79913,7 @@
       "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundle",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- 確認しているバンドル: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundleAsync(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundleAsync の呼び出しに失敗しました: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" は \" .. BUNDLE_NAME .. \" を所有しています\")\n\telse\n\t\tprint(player.Name .. \" は \" .. BUNDLE_NAME .. \" を所有していません\")\n\tend\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/0": {
     "documentation": "体験内取引を担当するサービスです。"
@@ -80097,13 +80179,13 @@
     "documentation": "体験内取引を担当するサービスです。"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/param/1": {
-    "documentation": "ランク付けしたい製品を特定するオブジェクトの配列。この配列には最大50項目を含めることができます。 各<code>ProductIdentifier</code>は： <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li><code>InfoType.GamePass</code>または     <code>InfoType.Product</code>でなければなりません。</li> <li><code>Id</code>: number</li> <li>ゲームパスまたはデベロッパー製品のID。</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
+    "documentation": "ランク付けしたい製品を識別するオブジェクトの配列。この配列には最大 50 件のアイテムを含むことができます。 各 <code>ProductIdentifier</code> は： - <code>InfoType</code>: Enum.InfoType     - 必ず <code>InfoType.GamePass</code> または <code>InfoType.Product</code> のいずれかである必要があります。 - <code>Id</code>: number     - ゲームパスまたは開発者製品の ID。 <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "現在のユーザーのためにパーソナライズされた順序でランク付けされたアイテムの配列です。 各配列には: <ul> <li><code>ProductIdentifier</code>: 入力配列から対応する ID。</li> <li><code>ProductInfo</code>: <code>GetProductInfoAsync</code> から返される標準の製品情報辞書。</li> </ul>"
+    "documentation": "現在のユーザーに対する個別の順序でランク付けされたアイテムの配列を返します。 各配列には： - <code>ProductIdentifier</code>: 入力配列からの対応する ID。 - <code>ProductInfo</code>: <code>GetProductInfoAsync</code> によって返される標準製品情報辞書。"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
-    "documentation": "製品IDのリストを取得し、それらの製品の個別に順位付けされたリストを返します。",
+    "documentation": "製品 ID のリストを受け取り、それらの製品の個別の順序付きリストを返します。",
     "params": [
       {
         "name": "self",
@@ -80124,13 +80206,13 @@
     "documentation": "体験内取引を担当するサービスです。"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/1": {
-    "documentation": "推奨情報を取得するための製品のタイプを指定する<code>InfoType</code>値の配列。 サポートされている<code>InfoTypes</code>: <code>InfoType.GamePass</code>、 <code>InfoType.Product</code>。 <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
+    "documentation": "推奨アイテムを取得するために、製品のタイプを指定する <code>InfoType</code> の配列。 サポートされている <code>InfoTypes</code>:  <code>InfoType.GamePass</code>, <code>InfoType.Product</code>。 <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/return/0": {
-    "documentation": "提供された<code>InfoTypes</code>に基づいて、ユーザーが最も関与する可能性のある最大50アイテムの順位付けされたリスト。推奨情報が決定できない場合、このメソッドは空のリストを返します。"
+    "documentation": "提供された <code>InfoTypes</code> に基づいてユーザーが最も関与する可能性が高い最大 50 件のアイテムのランク付けされたリスト。推奨事項を特定できない場合、メソッドは空のリストを返します。"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync": {
-    "documentation": "<ul> <li><code>InfoType</code>の配列を受け取り、ユーザーが最も関与し購入する可能性が高い製品を表す最大50アイテムを返します。</li> </ul>",
+    "documentation": "<ul> <li><code>InfoType</code> の配列を受け取り、ユーザーが最も関与する可能性が高い製品を表す最大 50 件のアイテムを返します。</li> </ul>",
     "params": [
       {
         "name": "self",
@@ -83566,13 +83648,13 @@
       "RemoveDefaultLoadingScreen": "@roblox/globaltype/ReplicatedFirst.RemoveDefaultLoadingScreen"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ReplicatedFirst",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedFirst = game:GetService(\"ReplicatedFirst\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player:WaitForChild(\"PlayerGui\")\n\n-- 基本的なローディングスクリーンを作成\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Size = UDim2.new(1, 0, 1, 0)\ntextLabel.BackgroundColor3 = Color3.fromRGB(0, 20, 40)\ntextLabel.Font = Enum.Font.GothamMedium\ntextLabel.TextColor3 = Color3.new(0.8, 0.8, 0.8)\ntextLabel.Text = \"読み込み中\"\ntextLabel.TextSize = 28\ntextLabel.Parent = screenGui\n\n-- 完全な画面GUIをプレイヤーGUIに親に設定\nscreenGui.Parent = playerGui\n\n-- デフォルトのローディングスクリーンを削除\nReplicatedFirst:RemoveDefaultLoadingScreen()\n\n--task.wait(3)  -- 任意で画面を最低限の秒数表示させる\nif not game:IsLoaded() then\n\tgame.Loaded:Wait()\nend\nscreenGui:Destroy()"
+    "code_sample": ""
   },
   "@roblox/globaltype/ReplicatedFirst.RemoveDefaultLoadingScreen/param/0": {
     "documentation": "クライアントに複製される内容を持つコンテナ（サーバーには逆方向に複製されない）であり、他の何よりも先に行われます。"
   },
   "@roblox/globaltype/ReplicatedFirst.RemoveDefaultLoadingScreen": {
-    "documentation": "デフォルトのRoblox読み込み画面を即座に削除します。<code>ReplicatedFirst</code>にオブジェクトが配置されている場合、デフォルトの読み込み画面はこの関数が呼び出されたかどうかに関わらず5秒後に削除されます。",
+    "documentation": "デフォルトのRobloxローディングスクリーンを即座に削除します。",
     "params": [
       {
         "name": "self",
@@ -83581,7 +83663,7 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ReplicatedFirst#RemoveDefaultLoadingScreen",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal ReplicatedFirst = game:GetService(\"ReplicatedFirst\")\n\nlocal player = Players.LocalPlayer\nlocal playerGui = player:WaitForChild(\"PlayerGui\")\n\n-- 基本的なローディングスクリーンを作成\nlocal screenGui = Instance.new(\"ScreenGui\")\nscreenGui.IgnoreGuiInset = true\n\nlocal textLabel = Instance.new(\"TextLabel\")\ntextLabel.Size = UDim2.new(1, 0, 1, 0)\ntextLabel.BackgroundColor3 = Color3.fromRGB(0, 20, 40)\ntextLabel.Font = Enum.Font.GothamMedium\ntextLabel.TextColor3 = Color3.new(0.8, 0.8, 0.8)\ntextLabel.Text = \"読み込み中\"\ntextLabel.TextSize = 28\ntextLabel.Parent = screenGui\n\n-- 完全な画面GUIをプレイヤーGUIに親に設定\nscreenGui.Parent = playerGui\n\n-- デフォルトのローディングスクリーンを削除\nReplicatedFirst:RemoveDefaultLoadingScreen()\n\n--task.wait(3)  -- 任意で画面を最低限の秒数表示させる\nif not game:IsLoaded() then\n\tgame.Loaded:Wait()\nend\nscreenGui:Destroy()"
+    "code_sample": ""
   },
   "@roblox/globaltype/AssetPatchSettings": {
     "documentation": "",
@@ -88154,7 +88236,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineHandleAdornment": {
-    "documentation": "<code>BasePart</code>に装飾できる線。",
+    "documentation": "<code>BasePart</code>に装飾できる線形ハンドルです。",
     "keys": {
       "Length": "@roblox/globaltype/LineHandleAdornment.Length",
       "Thickness": "@roblox/globaltype/LineHandleAdornment.Thickness"
@@ -92884,7 +92966,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/HapticEffect.SetWaveformKeys": {
-    "documentation": "カスタム波形をテーブルとして定義し、ハプティックに適用するために使用されるメソッドです。",
+    "documentation": "カスタム波形をテーブルとして定義し、それをハプティックに適用します。 <pre><code>このメソッドは、`FloatCurveKey`オブジェクトの配列を受け取ります。 </code></pre>",
     "params": [
       {
         "name": "self",
@@ -96621,7 +96703,7 @@
     "documentation": "<code>Humanoid</code> キャラクター <code>Model</code>。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync": {
-    "documentation": "渡された <code>HumanoidDescription</code> で指定されたすべてのアイテムが装備されたキャラクター <code>Model</code> を返します。",
+    "documentation": "<code>Model</code>を返し、渡された<code>HumanoidDescription</code>で指定されたすべてのアイテムを装備します。",
     "params": [
       {
         "name": "self",
@@ -96662,7 +96744,7 @@
     "documentation": "<code>Humanoid</code> キャラクターの <code>Model</code> です。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription": {
-    "documentation": "<strong>Deprecated:</strong> <br>指定された <code>HumanoidDescription</code> に従って装備されたキャラクター <code>Model</code> を返します。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは、<code>CreateHumanoidModelFromDescription()</code>に置き換えられました。<br><code>Model</code>を返し、渡された<code>HumanoidDescription</code>で指定されたすべてのアイテムを装備します。",
     "params": [
       {
         "name": "self",
@@ -96724,7 +96806,7 @@
     "documentation": "Humanoid キャラクターモデル。"
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId": {
-    "documentation": "<strong>Deprecated:</strong> <br>渡された userId に指定されたユーザーのアバターに一致するように設定されたキャラクターモデルを返します。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは、<code>CreateHumanoidModelFromUserIdAsync()</code>に置き換えられました。<br>渡された userId に指定されたユーザーのアバターに一致するように設定されたキャラクターモデルを返します。",
     "params": [
       {
         "name": "self",
@@ -96886,7 +96968,7 @@
     "documentation": "渡された outfitId に対する仕様で初期化された HumanoidDescription。"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitId": {
-    "documentation": "<strong>Deprecated:</strong> <br>指定されたアウトフィットの HumanoidDescription を返し、パーツ/色/アニメーション等の設定が適用されます。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは、<code>GetHumanoidDescriptionFromOutfitIdAsync()</code>に置き換えられました。<br>指定されたアウトフィットの HumanoidDescription を返し、パーツ/色/アニメーション等の設定が適用されます。",
     "params": [
       {
         "name": "self",
@@ -96940,7 +97022,7 @@
     "documentation": "渡されたユーザーのアバターの仕様で初期化された HumanoidDescription。"
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId": {
-    "documentation": "<strong>Deprecated:</strong> <br>渡された userId に指定されたユーザーのアバターに対して装備されているすべてのものを指定する HumanoidDescription を返します。",
+    "documentation": "<strong>Deprecated:</strong> このメソッドは、<code>GetHumanoidDescriptionFromUserIdAsync()</code>に置き換えられました。<br>渡された userId に指定されたユーザーのアバターに対して装備されているすべてのものを指定する HumanoidDescription を返します。",
     "params": [
       {
         "name": "self",
@@ -96994,7 +97076,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Players.GetPlayerByUserId": {
-    "documentation": "指定された <code>UserId</code> のプレイヤーがゲーム内の場合、<code>Player</code> を返します。",
+    "documentation": "指定された<code>UserId</code>を持つ<code>Player</code>をエクスペリエンスにいる場合に返します。",
     "params": [
       {
         "name": "self",
@@ -97180,7 +97262,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Players.players": {
-    "documentation": "<strong>Deprecated:</strong> <code>Players:GetPlayers()</code> によって置き換えられたため、すべての新しい作業ではこのメソッドを使用するべきです。<br>ゲーム内のプレイヤーのリストを返します。",
+    "documentation": "<strong>Deprecated:</strong> <code>Players:GetPlayers()</code> によって置き換えられたため、すべての新しい作業ではこのメソッドを使用するべきです。<br>エクスペリエンス内のプレイヤーのリストを返します。",
     "params": [
       {
         "name": "self",
@@ -97337,7 +97419,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerAdded": {
-    "documentation": "プレイヤーがゲームに参加したときに発火します。",
+    "documentation": "プレイヤーがエクスペリエンスに入ったときに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerAdded.ConnectParallel",
@@ -97425,7 +97507,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerMembershipChanged": {
-    "documentation": "ゲームサーバーがプレイヤーのメンバーシップが変更されたことを認識したときに発火します。",
+    "documentation": "プレイヤーのメンバーシップが変更されたことをエクスペリエンスサーバーが認識したときに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerMembershipChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerMembershipChanged.ConnectParallel",
@@ -97513,7 +97595,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerRemoving": {
-    "documentation": "プレイヤーがゲームを離れようとしているときに発火します。",
+    "documentation": "プレイヤーがエクスペリエンスを離れようとしているときに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerRemoving.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerRemoving.ConnectParallel",
@@ -97601,7 +97683,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.UserSubscriptionStatusChanged": {
-    "documentation": "ゲームサーバーがユーザーの特定のサブスクリプションの状態が変更されたことを認識したときに発火します。",
+    "documentation": "経験サーバーが特定のサブスクリプションに対するユーザーのステータスの変更を認識したときに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/Players.UserSubscriptionStatusChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.UserSubscriptionStatusChanged.ConnectParallel",
@@ -108759,7 +108841,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdornCullingMode": {
-    "documentation": "アドーンのために使用されるカリング方法。",
+    "documentation": "装飾のために使用されるカリングメソッドです。",
     "keys": {
       "Automatic": "@roblox/enum/AdornCullingMode.Automatic",
       "Never": "@roblox/enum/AdornCullingMode.Never"

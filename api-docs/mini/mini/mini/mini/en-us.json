@@ -5221,17 +5221,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CFrame.X": {
-    "documentation": "The X coordinate of the position.",
+    "documentation": "The <strong>X</strong> coordinate of the position.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/CFrame#X",
     "code_sample": ""
   },
   "@roblox/globaltype/CFrame.Y": {
-    "documentation": "The Y coordinate of the position.",
+    "documentation": "The <strong>Y</strong> coordinate of the position.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/CFrame#Y",
     "code_sample": ""
   },
   "@roblox/globaltype/CFrame.Z": {
-    "documentation": "The Z coordinate of the position.",
+    "documentation": "The <strong>Z</strong> coordinate of the position.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/CFrame#Z",
     "code_sample": ""
   },
@@ -5650,7 +5650,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/CFrame.ToAxisAngle": {
-    "documentation": "Returns a tuple of a <code>Vector3</code> and a number which represent the rotation of the <code>CFrame</code> in the axis-angle representation.",
+    "documentation": "Returns a tuple containing a unit <code>Vector3</code> axis and a rotation angle in radians.",
     "params": [
       {
         "name": "self",
@@ -7403,7 +7403,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SphereHandleAdornment": {
-    "documentation": "The SphereHandleAdornment is a sphere that can be adorned to a BasePart.",
+    "documentation": "A sphere-shaped handle that can be adorned to a <code>BasePart</code>.",
     "keys": {
       "Radius": "@roblox/globaltype/SphereHandleAdornment.Radius",
       "Shading": "@roblox/globaltype/SphereHandleAdornment.Shading"
@@ -7412,7 +7412,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SphereHandleAdornment.Radius": {
-    "documentation": "The radius of the sphere adornment.",
+    "documentation": "Radius of the sphere adornment.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SphereHandleAdornment#Radius",
     "code_sample": ""
   },
@@ -10998,7 +10998,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CylinderHandleAdornment": {
-    "documentation": "A cylinder that can be adorned to a <code>BasePart</code>.",
+    "documentation": "A cylinder-shaped handle that can be adorned to a <code>BasePart</code>.",
     "keys": {
       "Angle": "@roblox/globaltype/CylinderHandleAdornment.Angle",
       "Height": "@roblox/globaltype/CylinderHandleAdornment.Height",
@@ -11010,22 +11010,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CylinderHandleAdornment.Angle": {
-    "documentation": "Angle of cylindrical sector (pie-slice).",
+    "documentation": "Angle of the cylinder handle as in a \"pie slice\" sector.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CylinderHandleAdornment#Angle",
     "code_sample": ""
   },
   "@roblox/globaltype/CylinderHandleAdornment.Height": {
-    "documentation": "The height of the cylinder adornment.",
+    "documentation": "Height of the cylinder adornment.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CylinderHandleAdornment#Height",
     "code_sample": ""
   },
   "@roblox/globaltype/CylinderHandleAdornment.InnerRadius": {
-    "documentation": "Inner radius of a hollow cylinder.",
+    "documentation": "Inner radius with which to render a hollow cylinder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CylinderHandleAdornment#InnerRadius",
     "code_sample": ""
   },
   "@roblox/globaltype/CylinderHandleAdornment.Radius": {
-    "documentation": "The radius of the cylinder adornment.",
+    "documentation": "Radius of the cylinder adornment.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CylinderHandleAdornment#Radius",
     "code_sample": ""
   },
@@ -18927,7 +18927,7 @@
     "documentation": "The asset type verification mode."
   },
   "@roblox/globaltype/Humanoid.ApplyDescription": {
-    "documentation": "<strong>Deprecated:</strong> <br>Makes the character's look match that of the passed in <code>HumanoidDescription</code>.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>ApplyDescriptionAsync()</code>.<br>Makes the character's look match that of the passed in <code>HumanoidDescription</code>.",
     "params": [
       {
         "name": "self",
@@ -18985,7 +18985,7 @@
     "documentation": "The asset type verification mode."
   },
   "@roblox/globaltype/Humanoid.ApplyDescriptionReset": {
-    "documentation": "<strong>Deprecated:</strong> <br>Makes the character's look match that of the passed in <code>HumanoidDescription</code>, even after external changes.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>ApplyDescriptionResetAsync()</code>.<br>Makes the character's look match that of the passed in <code>HumanoidDescription</code>, even after external changes.",
     "params": [
       {
         "name": "self",
@@ -19467,7 +19467,7 @@
     "documentation": "successfully played."
   },
   "@roblox/globaltype/Humanoid.PlayEmote": {
-    "documentation": "<strong>Deprecated:</strong> <br>Plays emotes and returns if was successfully ran.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>PlayEmoteAsync()</code>.<br>Plays emotes and returns if was successfully ran.",
     "params": [
       {
         "name": "self",
@@ -30882,7 +30882,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.FreeMemoryMBytes": {
-    "documentation": "Describes how much free memory is available, in MBs.",
+    "documentation": "Describes how much free memory is available, in MiBs.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#FreeMemoryMBytes",
     "code_sample": ""
   },
@@ -30897,22 +30897,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.IncomingReplicationLag": {
-    "documentation": "Simulate additional network latency in the network receiving path.",
+    "documentation": "Simulates additional network latency in the network receiving path.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#IncomingReplicationLag",
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.PrintJoinSizeBreakdown": {
-    "documentation": "Print diagnostic information about data sent on connect.",
+    "documentation": "Prints diagnostic information about data sent on connect.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#PrintJoinSizeBreakdown",
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.PrintPhysicsErrors": {
-    "documentation": "When set to true, debug messages will be printed into the output pertaining to physics replication errors.",
+    "documentation": "Whether debug messages will be printed to the output pertaining to physics replication errors.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#PrintPhysicsErrors",
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.PrintStreamInstanceQuota": {
-    "documentation": "When set to true, debug information is printed to the output regarding the replication of instances when <code>Workspace.StreamingEnabled</code> is set to true.",
+    "documentation": "Whether debug information is printed to the output regarding the replication of instances when <code>Workspace.StreamingEnabled</code> is set to <code>true</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#PrintStreamInstanceQuota",
     "code_sample": ""
   },
@@ -30922,12 +30922,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.RenderStreamedRegions": {
-    "documentation": "When set to true, regions of space that are being streamed to the client will be outlined in red.",
+    "documentation": "Whether regions of space that are being streamed to the client will be outlined in red.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#RenderStreamedRegions",
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.ShowActiveAnimationAsset": {
-    "documentation": "When set to true, a label will be shown above each player's head, showing the current animation being played by the Player's <code>Humanoid</code>, if any.",
+    "documentation": "Whether a label will be shown above each player character's head, showing the current animation being played.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#ShowActiveAnimationAsset",
     "code_sample": ""
   },
@@ -33988,7 +33988,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRig": {
-    "documentation": "<strong>Deprecated:</strong> <br>Prompts the user to open a <code>.fbx</code> file, uploads the individual components of the model as meshes, and generates a character rig for use in animation, which is loaded into the <code>Workspace</code>.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>ImportFbxRigAsync()</code>.<br>Prompts the user to open a <code>.fbx</code> file, uploads the individual components of the model as meshes, and generates a character rig for use in animation, which is loaded into the <code>Workspace</code>.",
     "params": [
       {
         "name": "self",
@@ -34241,7 +34241,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelection": {
-    "documentation": "<strong>Deprecated:</strong> <br>Prompts the user to save their current selection with the specified file name.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>PromptSaveSelectionAsync()</code>.<br>Prompts the user to save their current selection with the specified file name.",
     "params": [
       {
         "name": "self",
@@ -39579,7 +39579,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ImageHandleAdornment": {
-    "documentation": "An image that can be adorned to a <code>BasePart</code>.",
+    "documentation": "An image handle that can be adorned to a <code>BasePart</code>.",
     "keys": {
       "Image": "@roblox/globaltype/ImageHandleAdornment.Image",
       "Size": "@roblox/globaltype/ImageHandleAdornment.Size"
@@ -39588,12 +39588,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ImageHandleAdornment.Image": {
-    "documentation": "The image to draw for the adornment.",
+    "documentation": "Image to draw for the adornment.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ImageHandleAdornment#Image",
     "code_sample": ""
   },
   "@roblox/globaltype/ImageHandleAdornment.Size": {
-    "documentation": "The size in studs of the image.",
+    "documentation": "Size of the image in studs.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ImageHandleAdornment#Size",
     "code_sample": ""
   },
@@ -45475,7 +45475,7 @@
     "documentation": "A dictionary of online connections (see the table above)."
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns a dictionary of online connections.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>GetFriendsOnline()</code>.<br>Returns a dictionary of online connections. Returns the product information of an asset using its asset ID.",
     "params": [
       {
         "name": "self",
@@ -45643,7 +45643,7 @@
     "documentation": "The player's role in the specified group, or <code>Guest</code> if the player is not a member."
   },
   "@roblox/globaltype/Player.GetRoleInGroup": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns the player's role in the group as a string, or <code>Guest</code> if the player isn't part of the group.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>GetRoleInGroup()</code>.<br>Returns the player's role in the group as a string, or <code>Guest</code> if the player isn't part of the group.",
     "params": [
       {
         "name": "self",
@@ -45825,7 +45825,7 @@
     "documentation": "A boolean indicating whether the player is in the specified group."
   },
   "@roblox/globaltype/Player.IsInGroup": {
-    "documentation": "<strong>Deprecated:</strong> <br>Checks whether a player is a member of a group with the given ID.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>IsInGroupAsync()</code>.<br>Checks whether a player is a member of a group with the given ID.",
     "params": [
       {
         "name": "self",
@@ -45957,7 +45957,7 @@
     "documentation": "An object that represents a presently connected client to the experience."
   },
   "@roblox/globaltype/Player.LoadCharacter": {
-    "documentation": "<strong>Deprecated:</strong> <br>Creates a new character for the player, removing the old one. Also clears the player's <code>Backpack</code> and <code>PlayerGui</code>.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>LoadCharacterAsync()</code>.<br>Creates a new character for the player, removing the old one. Also clears the player's <code>Backpack</code> and <code>PlayerGui</code>.",
     "params": [
       {
         "name": "self",
@@ -46019,7 +46019,7 @@
     "documentation": "A <code>HumanoidDescription</code> containing traits like body parts/colors, body scaling, accessories, clothing, and animations that will be equipped to the loaded character."
   },
   "@roblox/globaltype/Player.LoadCharacterWithHumanoidDescription": {
-    "documentation": "<strong>Deprecated:</strong> <br>Spawns a player character with everything equipped in the passed in <code>HumanoidDescription</code>.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>LoadCharacterWithHumanoidDescriptionAsync()</code>.<br>Spawns a player character with everything equipped in the passed in <code>HumanoidDescription</code>.",
     "params": [
       {
         "name": "self",
@@ -48059,6 +48059,37 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CatalogPages",
     "code_sample": ""
   },
+  "@roblox/globaltype/PyramidHandleAdornment": {
+    "documentation": "A pyramid-shaped handle that can be adorned to a <code>BasePart</code>.",
+    "keys": {
+      "Height": "@roblox/globaltype/PyramidHandleAdornment.Height",
+      "Shading": "@roblox/globaltype/PyramidHandleAdornment.Shading",
+      "Sides": "@roblox/globaltype/PyramidHandleAdornment.Sides",
+      "Size": "@roblox/globaltype/PyramidHandleAdornment.Size"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PyramidHandleAdornment.Height": {
+    "documentation": "Height of the pyramid adornment.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment#Height",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PyramidHandleAdornment.Shading": {
+    "documentation": "",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment#Shading",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PyramidHandleAdornment.Sides": {
+    "documentation": "Number of sides for the pyramid adornment.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment#Sides",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/PyramidHandleAdornment.Size": {
+    "documentation": "Size of the pyramid adornment's base.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/PyramidHandleAdornment#Size",
+    "code_sample": ""
+  },
   "@roblox/globaltype/Hint": {
     "documentation": "<strong>Deprecated:</strong> With the introduction of Roblox's GUI features hints have been deprecated and <code>TextLabels</code> should be used instead for new work. The <code>TextLabel</code> object offers a wide range of features for displaying and customizing text that hints do not.<br>A Hint is an object that creates a small black bar at the very top of the screen with text.",
     "keys": {},
@@ -48571,17 +48602,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.AutoFRMLevel": {
-    "documentation": "Sets the starting quality level of the framerate manager, when <code>RenderSettings.EnableFRM</code> is set to true.",
+    "documentation": "Sets the starting quality level of the framerate manager.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#AutoFRMLevel",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.EagerBulkExecution": {
-    "documentation": "When set to true, all scene updates will be given an unlimited budget, regardless of how computationally expensive it may be.",
+    "documentation": "Whether all scene updates will be given an unlimited budget, regardless of how computationally expensive it may be.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#EagerBulkExecution",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.EditQualityLevel": {
-    "documentation": "Sets the graphics quality level in Roblox Studio, when <code>RenderSettings.EnableFRM</code> is set to false.",
+    "documentation": "Sets the graphics quality level in Roblox Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#EditQualityLevel",
     "code_sample": ""
   },
@@ -48596,7 +48627,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.ExportMergeByMaterial": {
-    "documentation": "Sets whether materials should be generated per part, or per unique appearance in Roblox's obj exporter.",
+    "documentation": "Sets whether materials should be generated per part, or per unique appearance in Roblox's exporter.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#ExportMergeByMaterial",
     "code_sample": ""
   },
@@ -48611,7 +48642,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.MeshCacheSize": {
-    "documentation": "The size in bytes of the mesh cache. Defaults to 32 MB.",
+    "documentation": "The size in bytes of the mesh cache.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#MeshCacheSize",
     "code_sample": ""
   },
@@ -48621,22 +48652,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.QualityLevel": {
-    "documentation": "If <code>RenderSettings.EnableFRM</code> is set to true, this property controls the quality level in Roblox Studio.",
+    "documentation": "Controls the quality level in Roblox Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#QualityLevel",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.ReloadAssets": {
-    "documentation": "When set to true, Roblox Studio will automatically reload changes that are made to files in Roblox's <code>content</code> folder.",
+    "documentation": "Whether Roblox Studio will automatically reload changes that are made to files in Roblox's <code>content</code> folder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#ReloadAssets",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.RenderCSGTrianglesDebug": {
-    "documentation": "When set to true, a wireframe of polygons will be shown on all <code>PartOperation</code> objects.",
+    "documentation": "Whether a wireframe of polygons will be shown on all <code>PartOperation</code> objects.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#RenderCSGTrianglesDebug",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.ShowBoundingBoxes": {
-    "documentation": "If set to true, renders bounding boxes around each individual rendered entity in the scene.",
+    "documentation": "Whether bounding boxes are rendered around each individual rendered entity in the scene.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#ShowBoundingBoxes",
     "code_sample": ""
   },
@@ -49667,7 +49698,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkPeer": {
-    "documentation": "The NetworkPeer object is the most basic class of the network objects.",
+    "documentation": "The <code>NetworkPeer</code> object is the most basic class of the network objects.",
     "keys": {
       "SetOutgoingKBPSLimit": "@roblox/globaltype/NetworkPeer.SetOutgoingKBPSLimit"
     },
@@ -49675,7 +49706,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkPeer.SetOutgoingKBPSLimit/param/0": {
-    "documentation": "The NetworkPeer object is the most basic class of the network objects."
+    "documentation": "The <code>NetworkPeer</code> object is the most basic class of the network objects."
   },
   "@roblox/globaltype/NetworkPeer.SetOutgoingKBPSLimit/param/1": {
     "documentation": ""
@@ -52763,6 +52794,9 @@
   "@roblox/globaltype/Instance.GetStyled/param/1": {
     "documentation": "Name of the property to query."
   },
+  "@roblox/globaltype/Instance.GetStyled/param/2": {
+    "documentation": "Optional selector for the pseudo instance you are targeting on the instance."
+  },
   "@roblox/globaltype/Instance.GetStyled/return/0": {
     "documentation": "The styled or explicitly modified value of the specified property, or else the default property value if it hasn't been styled/modified."
   },
@@ -52776,6 +52810,10 @@
       {
         "name": "name",
         "documentation": "@roblox/globaltype/Instance.GetStyled/param/1"
+      },
+      {
+        "name": "selector",
+        "documentation": "@roblox/globaltype/Instance.GetStyled/param/2"
       }
     ],
     "returns": [
@@ -58225,7 +58263,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BoxHandleAdornment": {
-    "documentation": "A box that can be adorned to a <code>BasePart</code>.",
+    "documentation": "A box-shaped handle that can be adorned to a <code>BasePart</code>.",
     "keys": {
       "Shading": "@roblox/globaltype/BoxHandleAdornment.Shading",
       "Size": "@roblox/globaltype/BoxHandleAdornment.Size"
@@ -58239,7 +58277,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BoxHandleAdornment.Size": {
-    "documentation": "The size of the adornment.",
+    "documentation": "Size of the adornment.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BoxHandleAdornment#Size",
     "code_sample": ""
   },
@@ -58659,7 +58697,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.EnableDynamicHeads": {
-    "documentation": "",
+    "documentation": "Sets the use of dynamic heads. When true, enables the use of avatar heads with facial animation data.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#EnableDynamicHeads",
     "code_sample": ""
   },
@@ -72381,6 +72419,7 @@
       "ReadCapturesFromGalleryAsync": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync",
       "StartVideoCaptureAsync": "@roblox/globaltype/CaptureService.StartVideoCaptureAsync",
       "StopVideoCapture": "@roblox/globaltype/CaptureService.StopVideoCapture",
+      "TakeScreenshotCaptureAsync": "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync",
       "UploadCaptureAsync": "@roblox/globaltype/CaptureService.UploadCaptureAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService",
@@ -72581,6 +72620,35 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#StopVideoCapture",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/0": {
+    "documentation": "A service which provides control over screenshot and video capture features."
+  },
+  "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/1": {
+    "documentation": "A callback function that is called on screenshot capture completion with a <code>ScreenshotCaptureResult</code> and, if successful, a <code>ScreenshotCapture</code>."
+  },
+  "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/2": {
+    "documentation": "A dictionary that modifies capture behavior."
+  },
+  "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync": {
+    "documentation": "Initiates a screenshot capture.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/0"
+      },
+      {
+        "name": "onCaptureReady",
+        "documentation": "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/1"
+      },
+      {
+        "name": "captureParams",
+        "documentation": "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/2"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/CaptureService#TakeScreenshotCaptureAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
@@ -74972,7 +75040,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.C1": {
-    "documentation": "Is subtracted from the <code>JointInstance.C0</code> property to create an offset point for <code>JointInstance.Part1</code>.",
+    "documentation": "Subtracted from the <code>C0</code> property to create an offset point for <code>Part1</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#C1",
     "code_sample": ""
   },
@@ -74992,7 +75060,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.part1": {
-    "documentation": "<strong>Deprecated:</strong> This deprecated property is a variant of <code>JointInstance.Part1</code> which should be used instead.",
+    "documentation": "<strong>Deprecated:</strong> This deprecated property is a variant of <code>Part1</code> which should be used instead.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#part1",
     "code_sample": ""
   },
@@ -75941,7 +76009,7 @@
     "documentation": "'The category of event to report. Cannot contain the following characters: comma <code>,</code>, double quote <code>\"</code> or newline characters <code>\\r\\n</code>'."
   },
   "@roblox/globaltype/AnalyticsService.FireEvent/param/2": {
-    "documentation": "A value to be serialized and reported. Serialized length must not exceed 1 KB, or 1024 bytes."
+    "documentation": "A value to be serialized and reported. Serialized length must not exceed 1 KiB, or 1024 bytes."
   },
   "@roblox/globaltype/AnalyticsService.FireEvent": {
     "documentation": "<strong>Deprecated:</strong> This function has been deprecated in favor of more descriptive methods, including: <ul> <li><code>AnalyticsService:FireCustomEvent()</code></li> <li><code>AnalyticsService:FireInGameEconomyEvent()</code></li> <li><code>AnalyticsService:FireLogEvent()</code></li> <li><code>AnalyticsService:FirePlayerProgressionEvent()</code><br>Report a custom event to PlayFab.</li> </ul>",
@@ -76200,7 +76268,7 @@
     "documentation": "The amount of currency being added or removed. This value should always be positive."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/5": {
-    "documentation": "The user's balance after the currency has been added or removed. This value should always be greater than or equal to 0."
+    "documentation": "The user's balance after the currency has been added or removed. This value should always be greater than or equal to <code>0</code>."
   },
   "@roblox/globaltype/AnalyticsService.LogEconomyEvent/param/6": {
     "documentation": "The type of transaction that occurred. While you're free to use any transaction type, it's recommended to use the provided types from <code>AnalyticsEconomyTransactionType</code> such as <code>\"IAP\"</code> or <code>\"ContextualPurchase\"</code> to enable future insights from Roblox tools and charts. Because this field type is a string, you'll need to pass the <code>Name</code> value of the enum. For example <code>Enum.AnalyticsEconomyTransactionType.IAP.Name</code>. Limited to 20 unique types per experience."
@@ -76574,9 +76642,7 @@
       "BindReviewableContentEventProcessor": "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor",
       "CreateReviewableContentAsync": "@roblox/globaltype/ModerationService.CreateReviewableContentAsync",
       "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey",
-      "InternalCreateReviewableContentAsync": "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync",
-      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync",
-      "InternalProcessReviewableContentEvent": "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent"
+      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService",
     "code_sample": ""
@@ -76669,33 +76735,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#CreateReviewableContentKey",
     "code_sample": ""
   },
-  "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/param/0"
-      },
-      {
-        "name": "config",
-        "documentation": "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalCreateReviewableContentAsync",
-    "code_sample": ""
-  },
   "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0": {
     "documentation": ""
   },
@@ -76716,26 +76755,6 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalRequestReviewableContentReviewAsync",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "event",
-        "documentation": "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalProcessReviewableContentEvent",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation": {
@@ -77281,17 +77300,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.Color3": {
-    "documentation": "Determines the Color of the <code>Path2D</code>.",
+    "documentation": "Determines the color of the <code>Path2D</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Path2D#Color3",
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.SelectedControlPoint": {
-    "documentation": "",
+    "documentation": "Index of the currently selected <code>Path2DControlPoint</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Path2D#SelectedControlPoint",
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.SelectedControlPointData": {
-    "documentation": "",
+    "documentation": "<code>Path2DControlPoint</code> data type representing the currently selected control point.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Path2D#SelectedControlPointData",
     "code_sample": ""
   },
@@ -78086,7 +78105,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConeHandleAdornment": {
-    "documentation": "A cone that can be adorned to a <code>BasePart</code>.",
+    "documentation": "A cone-shaped handle that can be adorned to a <code>BasePart</code>.",
     "keys": {
       "Height": "@roblox/globaltype/ConeHandleAdornment.Height",
       "Hollow": "@roblox/globaltype/ConeHandleAdornment.Hollow",
@@ -78097,7 +78116,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConeHandleAdornment.Height": {
-    "documentation": "The height of the cone adornment.",
+    "documentation": "Height of the cone adornment.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ConeHandleAdornment#Height",
     "code_sample": ""
   },
@@ -78107,7 +78126,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/ConeHandleAdornment.Radius": {
-    "documentation": "The radius of the cone adornment.",
+    "documentation": "Radius of the cone adornment.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ConeHandleAdornment#Radius",
     "code_sample": ""
   },
@@ -79520,7 +79539,7 @@
     "documentation": "A dictionary containing information about the queried item, described in the previous tables."
   },
   "@roblox/globaltype/MarketplaceService.GetProductInfo": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns the product information of an asset using its asset ID.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>GetProductInfoAsync()</code>.<br>Returns the product information of an asset using its asset ID.",
     "params": [
       {
         "name": "self",
@@ -79744,7 +79763,7 @@
     "documentation": "Indicates whether the given player's inventory contains the given asset."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsAsset": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns whether the given user has the given asset.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>PlayerOwnsAssetAsync()</code>.<br>Returns whether the given user has the given asset.",
     "params": [
       {
         "name": "self",
@@ -79812,7 +79831,7 @@
     "documentation": "Indicates whether the given player's inventory contains the given bundle."
   },
   "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns whether the given player owns the given bundle.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>PlayerOwnsBundleAsync()</code>.<br>Returns whether the given player owns the given bundle.",
     "params": [
       {
         "name": "self",
@@ -79831,7 +79850,7 @@
       "@roblox/globaltype/MarketplaceService.PlayerOwnsBundle/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/MarketplaceService#PlayerOwnsBundle",
-    "code_sample": "local Players = game:GetService(\"Players\")\nlocal MarketplaceService = game:GetService(\"MarketplaceService\")\n\n-- The bundle we're checking for: https://www.roblox.com/bundles/589/Junkbot\nlocal BUNDLE_ID = 589\nlocal BUNDLE_NAME = \"Junkbot\"\n\nPlayers.PlayerAdded:Connect(function(player)\n\tlocal success, doesPlayerOwnBundle = pcall(function()\n\t\treturn MarketplaceService:PlayerOwnsBundleAsync(player, BUNDLE_ID)\n\tend)\n\n\tif success == false then\n\t\tprint(\"PlayerOwnsBundleAsync call failed: \", doesPlayerOwnBundle)\n\t\treturn\n\tend\n\n\tif doesPlayerOwnBundle then\n\t\tprint(player.Name .. \" owns \" .. BUNDLE_NAME)\n\telse\n\t\tprint(player.Name .. \" doesn't own \" .. BUNDLE_NAME)\n\tend\nend)"
+    "code_sample": ""
   },
   "@roblox/globaltype/MarketplaceService.PromptBulkPurchase/param/0": {
     "documentation": "The service responsible for in-experience transactions."
@@ -83572,7 +83591,7 @@
     "documentation": "A container whose contents are replicated to all clients (but not back to the server) first before anything else."
   },
   "@roblox/globaltype/ReplicatedFirst.RemoveDefaultLoadingScreen": {
-    "documentation": "Immediately removes the default Roblox loading screen. Note if any object has been placed in <code>ReplicatedFirst</code>, the default loading screen will remove after 5 seconds regardless if this function has been called or not.",
+    "documentation": "Immediately removes the default Roblox loading screen.",
     "params": [
       {
         "name": "self",
@@ -87780,7 +87799,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.BoolState": {
-    "documentation": "",
+    "documentation": "Non-scriptable read-only property useful for debugging <code>Bool</code> input actions.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#BoolState",
     "code_sample": ""
   },
@@ -88154,7 +88173,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineHandleAdornment": {
-    "documentation": "A line that can be adorned to a <code>BasePart</code>.",
+    "documentation": "A line-shaped handle that can be adorned to a <code>BasePart</code>.",
     "keys": {
       "Length": "@roblox/globaltype/LineHandleAdornment.Length",
       "Thickness": "@roblox/globaltype/LineHandleAdornment.Thickness"
@@ -88163,12 +88182,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineHandleAdornment.Length": {
-    "documentation": "The length of the line.",
+    "documentation": "Length of the line.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineHandleAdornment#Length",
     "code_sample": ""
   },
   "@roblox/globaltype/LineHandleAdornment.Thickness": {
-    "documentation": "The thickness of the line in pixels.",
+    "documentation": "Thickness of the line in pixels.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/LineHandleAdornment#Thickness",
     "code_sample": ""
   },
@@ -96662,7 +96681,7 @@
     "documentation": "A <code>Humanoid</code> character <code>Model</code>."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns a character <code>Model</code> equipped with everything specified in the passed in <code>HumanoidDescription</code>.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>CreateHumanoidModelFromDescription()</code>.<br>Returns a character <code>Model</code> equipped with everything specified in the passed in <code>HumanoidDescription</code>.",
     "params": [
       {
         "name": "self",
@@ -96724,7 +96743,7 @@
     "documentation": "A Humanoid character Model."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns a character Model set-up with everything equipped to match the avatar of the user specified by the passed in userId.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>CreateHumanoidModelFromUserIdAsync()</code>.<br>Returns a character Model set-up with everything equipped to match the avatar of the user specified by the passed in userId.",
     "params": [
       {
         "name": "self",
@@ -96886,7 +96905,7 @@
     "documentation": "HumanoidDescription initialized with the specification for the passed in outfitId."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitId": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns the HumanoidDescription for a specified outfit, which will be set with the parts/colors/Animations etc of the outfit.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>GetHumanoidDescriptionFromOutfitIdAsync()</code>.<br>Returns the HumanoidDescription for a specified outfit, which will be set with the parts/colors/Animations etc of the outfit.",
     "params": [
       {
         "name": "self",
@@ -96940,7 +96959,7 @@
     "documentation": "HumanoidDescription initialized with the passed in user's avatar specification."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId": {
-    "documentation": "<strong>Deprecated:</strong> <br>Returns a HumanoidDescription which specifies everything equipped for the avatar of the user specified by the passed in userId.",
+    "documentation": "<strong>Deprecated:</strong> This method has been superseded by <code>GetHumanoidDescriptionFromUserIdAsync()</code>.<br>Returns a HumanoidDescription which specifies everything equipped for the avatar of the user specified by the passed in userId.",
     "params": [
       {
         "name": "self",
@@ -96994,7 +97013,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Players.GetPlayerByUserId": {
-    "documentation": "Returns the <code>Player</code> with the given <code>UserId</code> if they are in-game.",
+    "documentation": "Returns the <code>Player</code> with the given <code>UserId</code> if they are in-experience.",
     "params": [
       {
         "name": "self",
@@ -97180,7 +97199,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Players.players": {
-    "documentation": "<strong>Deprecated:</strong> This item has been superseded by <code>Players:GetPlayers()</code> which should be used in all new work.<br>Returns a list of players in a game.",
+    "documentation": "<strong>Deprecated:</strong> This item has been superseded by <code>Players:GetPlayers()</code> which should be used in all new work.<br>Returns a list of players in an experience.",
     "params": [
       {
         "name": "self",
@@ -97337,7 +97356,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerAdded": {
-    "documentation": "Fires when a player enters the game.",
+    "documentation": "Fires when a player enters the experience.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerAdded.ConnectParallel",
@@ -97425,7 +97444,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerMembershipChanged": {
-    "documentation": "Fires when the game server recognizes that a player's membership has changed.",
+    "documentation": "Fires when the experience server recognizes that a player's membership has changed.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerMembershipChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerMembershipChanged.ConnectParallel",
@@ -97513,7 +97532,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.PlayerRemoving": {
-    "documentation": "Fires when a player is about to leave the game.",
+    "documentation": "Fires when a player is about to leave the experience.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.PlayerRemoving.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.PlayerRemoving.ConnectParallel",
@@ -97601,7 +97620,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.UserSubscriptionStatusChanged": {
-    "documentation": "Fires when the game server recognizes that the user's status for a certain subscription has changed.",
+    "documentation": "Fires when the experience server recognizes that the user's status for a certain subscription has changed.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.UserSubscriptionStatusChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.UserSubscriptionStatusChanged.ConnectParallel",
@@ -108759,7 +108778,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdornCullingMode": {
-    "documentation": "Culling method used for Adorns.",
+    "documentation": "Culling method used for adornments.",
     "keys": {
       "Automatic": "@roblox/enum/AdornCullingMode.Automatic",
       "Never": "@roblox/enum/AdornCullingMode.Never"
@@ -122585,7 +122604,7 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.LeftSuper": {
-    "documentation": "The left side <code>Super</code> key. Better known as the Windows key or Cmd key.",
+    "documentation": "The left side <code>Super</code> key. Better known as the Windows key or <kbd>Cmd</kbd> key.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122595,7 +122614,7 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.RightSuper": {
-    "documentation": "The right side <code>Super</code> key. Better known as the Windows key or Cmd key.",
+    "documentation": "The right side <code>Super</code> key. Better known as the Windows key or <kbd>Cmd</kbd> key.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123044,6 +123063,16 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#MousePosition",
     "code_sample": ""
   },
+  "@roblox/enum/KeyCode.Touch": {
+    "documentation": "The position of a touch in the viewport. Primarily used in the <a href=\"../../../input/input-action-system.md\">Input Action System</a>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Touch",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.KeyCode": {
     "documentation": "Byte keycodes that represent the key or button involved in user input.",
     "keys": {
@@ -123316,7 +123345,8 @@
       "MouseNoButton": "@roblox/enum/KeyCode.MouseNoButton",
       "MouseX": "@roblox/enum/KeyCode.MouseX",
       "MouseY": "@roblox/enum/KeyCode.MouseY",
-      "MousePosition": "@roblox/enum/KeyCode.MousePosition"
+      "MousePosition": "@roblox/enum/KeyCode.MousePosition",
+      "Touch": "@roblox/enum/KeyCode.Touch"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode",
     "code_sample": ""
