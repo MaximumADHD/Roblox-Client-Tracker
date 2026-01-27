@@ -426,5 +426,20 @@ type GenerateModelSchema = {
     PredefinedSchema: string,
 }
 
+type AccessoriesInfo = {
+    AccessoryType : Enum.AccessoryType,
+    AssetId : number,
+    IsLayered : boolean?,
+
+    Order : number?,
+    Puffiness : number?,
+
+    Position : Vector3?,
+    Rotation : Vector3?,
+    Scale : Vector3?,
+}
+
+type AccessoriesInfoArray = { AccessoriesInfo }
+
 
 -- SECTION END: Reflection Adjacent

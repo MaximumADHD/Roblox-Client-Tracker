@@ -7,127 +7,127 @@ Class Object : <<<ROOT>>> [NotCreatable] [NotReplicated]
 	Event Object.Changed(property: string)
 Class AnimationNode : Object [NotCreatable] [NotReplicated]
 Class Capture : Object [NotCreatable] [NotReplicated]
-	Property Capture.CaptureTime: DateTime [ReadOnly]
-	Property Capture.CaptureType: Enum.CaptureType [ReadOnly]
-	Property Capture.LocalId: string [ReadOnly]
-	Property Capture.SourcePlaceId: number [ReadOnly]
-	Property Capture.SourceUniverseId: number [ReadOnly]
-	Property Capture.FilePathString: string {RobloxScript} [ReadOnly]
+	Property Capture.CaptureTime: DateTime {🛠️Capture} [ReadOnly]
+	Property Capture.CaptureType: Enum.CaptureType {🛠️Capture} [ReadOnly]
+	Property Capture.LocalId: string {🛠️Capture} [ReadOnly]
+	Property Capture.SourcePlaceId: number {🛠️Capture} [ReadOnly]
+	Property Capture.SourceUniverseId: number {🛠️Capture} [ReadOnly]
+	Property Capture.FilePathString: string {🛠️Capture} {RobloxScript} [ReadOnly]
 Class ScreenshotCapture : Capture [NotCreatable] [NotReplicated]
 Class VideoCapture : Capture [NotCreatable] [NotReplicated]
-	Property VideoCapture.TimeLength: number [ReadOnly]
-	Property VideoCapture.FilePath: string {RobloxScript} [ReadOnly]
+	Property VideoCapture.TimeLength: number {🛠️Capture} [ReadOnly]
+	Property VideoCapture.FilePath: string {🛠️Capture} {RobloxScript} [ReadOnly]
 Class ConfigSnapshot : Object [NotCreatable] [NotReplicated]
-	Property ConfigSnapshot.Error: Enum.ConfigSnapshotErrorState [ReadOnly]
-	Property ConfigSnapshot.Outdated: boolean [ReadOnly]
-	Function ConfigSnapshot:GetValue(key: string) -> any
-	Function ConfigSnapshot:GetValueChangedSignal(key: string) -> RBXScriptSignal
-	Function ConfigSnapshot:Refresh() -> ()
-	Event ConfigSnapshot.UpdateAvailable()
+	Property ConfigSnapshot.Error: Enum.ConfigSnapshotErrorState {🛠️Basic} [ReadOnly]
+	Property ConfigSnapshot.Outdated: boolean {🛠️Basic} [ReadOnly]
+	Function ConfigSnapshot:GetValue(key: string) -> any {🛠️Basic}
+	Function ConfigSnapshot:GetValueChangedSignal(key: string) -> RBXScriptSignal {🛠️Basic}
+	Function ConfigSnapshot:Refresh() -> () {🛠️Basic}
+	Event ConfigSnapshot.UpdateAvailable() {🛠️Basic}
 Class EditableImage : Object [NotCreatable]
-	Property EditableImage.Size: Vector2 [ReadOnly]
-	Property EditableImage.ImageData: BinaryString {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
-	Property EditableImage.IsReplicatedCopy: boolean {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
-	Function EditableImage:Destroy() -> ()
-	Function EditableImage:DrawCircle(center: Vector2, radius: number, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
-	Function EditableImage:DrawImage(position: Vector2, image: EditableImage, combineType: Enum.ImageCombineType) -> ()
-	Function EditableImage:DrawImageProjected(mesh: EditableMesh, projection: { [string]: any }, brushConfig: { [string]: any }) -> ()
-	Function EditableImage:DrawImageTransformed(position: Vector2, scale: Vector2, rotation: number, image: EditableImage, options: { [string]: any }?) -> ()
-	Function EditableImage:DrawLine(p1: Vector2, p2: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
-	Function EditableImage:DrawRectangle(position: Vector2, size: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> ()
-	Function EditableImage:ReadPixelsBuffer(position: Vector2, size: Vector2) -> buffer [CustomLuaState] {🧬Safe}
-	Function EditableImage:WritePixelsBuffer(position: Vector2, size: Vector2, buffer: buffer) -> () [CustomLuaState]
-	Function EditableImage:DrawTriangle(p1: Vector2, p2: Vector2, p3: Vector2, color: Color3, transparency: number) -> () {🔒RobloxScript}
+	Property EditableImage.Size: Vector2 {🛠️DynamicGeneration} [ReadOnly]
+	Property EditableImage.ImageData: BinaryString {🛠️DynamicGeneration} {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
+	Property EditableImage.IsReplicatedCopy: boolean {🛠️DynamicGeneration} {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
+	Function EditableImage:Destroy() -> () {🛠️DynamicGeneration}
+	Function EditableImage:DrawCircle(center: Vector2, radius: number, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> () {🛠️DynamicGeneration}
+	Function EditableImage:DrawImage(position: Vector2, image: EditableImage, combineType: Enum.ImageCombineType) -> () {🛠️DynamicGeneration}
+	Function EditableImage:DrawImageProjected(mesh: EditableMesh, projection: { [string]: any }, brushConfig: { [string]: any }) -> () {🛠️DynamicGeneration}
+	Function EditableImage:DrawImageTransformed(position: Vector2, scale: Vector2, rotation: number, image: EditableImage, options: { [string]: any }?) -> () {🛠️DynamicGeneration}
+	Function EditableImage:DrawLine(p1: Vector2, p2: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> () {🛠️DynamicGeneration}
+	Function EditableImage:DrawRectangle(position: Vector2, size: Vector2, color: Color3, transparency: number, combineType: Enum.ImageCombineType) -> () {🛠️DynamicGeneration}
+	Function EditableImage:ReadPixelsBuffer(position: Vector2, size: Vector2) -> buffer {🛠️DynamicGeneration} [CustomLuaState] {🧬Safe}
+	Function EditableImage:WritePixelsBuffer(position: Vector2, size: Vector2, buffer: buffer) -> () {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableImage:DrawTriangle(p1: Vector2, p2: Vector2, p3: Vector2, color: Color3, transparency: number) -> () {🛠️DynamicGeneration} {🔒RobloxScript}
 Class EditableMesh : Object [NotCreatable]
-	Property EditableMesh.FixedSize: boolean {✏️RobloxEngine} [ReadOnly]
-	Property EditableMesh.IsReplicatedCopy: boolean {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
-	Property EditableMesh.MeshData: SharedString {RobloxEngine} [Hidden] [NotScriptable]
-	Property EditableMesh.SkinningEnabled: boolean [Deprecated]
-	Function EditableMesh:AddBone(boneProperties: { [string]: any }) -> number
-	Function EditableMesh:AddColor(color: Color3, alpha: number) -> number
-	Function EditableMesh:AddFace(vertexIds: { any }) -> number
-	Function EditableMesh:AddNormal(normal: Vector3?) -> number
-	Function EditableMesh:AddTriangle(vertexId0: number, vertexId1: number, vertexId2: number) -> number
-	Function EditableMesh:AddUV(uv: Vector2) -> number
-	Function EditableMesh:AddVertex(p: Vector3) -> number
-	Function EditableMesh:Destroy() -> ()
-	Function EditableMesh:FindClosestPointOnSurface(point: Vector3) -> ...any
-	Function EditableMesh:FindClosestVertex(toThisPoint: Vector3) -> number
-	Function EditableMesh:FindVerticesWithinSphere(center: Vector3, radius: number) -> { any }
-	Function EditableMesh:GetAdjacentFaces(faceId: number) -> { any }
-	Function EditableMesh:GetAdjacentVertices(vertexId: number) -> { any }
-	Function EditableMesh:GetBoneByName(boneName: string) -> number
-	Function EditableMesh:GetBoneCFrame(boneId: number) -> CFrame
-	Function EditableMesh:GetBoneIsVirtual(boneId: number) -> boolean
-	Function EditableMesh:GetBoneName(boneId: number) -> string
-	Function EditableMesh:GetBoneParent(boneId: number) -> number
-	Function EditableMesh:GetBones() -> { any }
-	Function EditableMesh:GetCenter() -> Vector3
-	Function EditableMesh:GetColor(colorId: number) -> Color3?
-	Function EditableMesh:GetColorAlpha(colorId: number) -> number?
-	Function EditableMesh:GetColors() -> { any } [CustomLuaState]
-	Function EditableMesh:GetFaceColors(faceId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetFaceNormals(faceId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetFaceUVs(faceId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetFaceVertices(faceId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetFaces() -> { any } [CustomLuaState]
-	Function EditableMesh:GetFacesWithColor(colorId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetFacesWithNormal(normalId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetFacesWithUV(uvId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetFacsCorrectivePose(actions: { any }) -> ...any
-	Function EditableMesh:GetFacsCorrectivePoses() -> { any }
-	Function EditableMesh:GetFacsPose(action: Enum.FacsActionUnit) -> ...any
-	Function EditableMesh:GetFacsPoses() -> { any }
-	Function EditableMesh:GetNormal(normalId: number) -> Vector3?
-	Function EditableMesh:GetNormals() -> { any } [CustomLuaState]
-	Function EditableMesh:GetPosition(vertexId: number) -> Vector3
-	Function EditableMesh:GetSize() -> Vector3
-	Function EditableMesh:GetUV(uvId: number) -> Vector2?
-	Function EditableMesh:GetUVs() -> { any } [CustomLuaState]
-	Function EditableMesh:GetVertexBoneWeights(vertexId: number) -> { any }
-	Function EditableMesh:GetVertexBones(vertexId: number) -> { any }
-	Function EditableMesh:GetVertexColors(vertexId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetVertexFaceColor(vertexId: number, faceId: number) -> number
-	Function EditableMesh:GetVertexFaceNormal(vertexId: number, faceId: number) -> number
-	Function EditableMesh:GetVertexFaceUV(vertexId: number, faceId: number) -> number
-	Function EditableMesh:GetVertexFaces(vertexId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetVertexNormals(vertexId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetVertexUVs(vertexId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetVertices() -> { any }
-	Function EditableMesh:GetVerticesWithColor(colorId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetVerticesWithNormal(normalId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:GetVerticesWithUV(uvId: number) -> { any } [CustomLuaState]
-	Function EditableMesh:IdDebugString(id: number) -> string
-	Function EditableMesh:MergeVertices(mergeTolerance: number) -> { [any]: any }
-	Function EditableMesh:RaycastLocal(origin: Vector3, direction: Vector3) -> ...any
-	Function EditableMesh:RemoveBone(boneId: number) -> ()
-	Function EditableMesh:RemoveFace(faceId: number) -> ()
-	Function EditableMesh:RemoveUnused() -> { any }
-	Function EditableMesh:ResetNormal(normalId: number) -> ()
-	Function EditableMesh:SetBoneCFrame(boneId: number, cframe: CFrame) -> ()
-	Function EditableMesh:SetBoneIsVirtual(boneId: number, virtual: boolean) -> ()
-	Function EditableMesh:SetBoneName(boneId: number, name: string) -> ()
-	Function EditableMesh:SetBoneParent(boneId: number, parentBoneId: number) -> ()
-	Function EditableMesh:SetColor(colorId: number, color: Color3) -> ()
-	Function EditableMesh:SetColorAlpha(colorId: number, alpha: number) -> ()
-	Function EditableMesh:SetFaceColors(faceId: number, ids: { any }) -> () [CustomLuaState]
-	Function EditableMesh:SetFaceNormals(faceId: number, ids: { any }) -> () [CustomLuaState]
-	Function EditableMesh:SetFaceUVs(faceId: number, ids: { any }) -> () [CustomLuaState]
-	Function EditableMesh:SetFaceVertices(faceId: number, ids: { any }) -> () [CustomLuaState]
-	Function EditableMesh:SetFacsBonePose(action: Enum.FacsActionUnit, boneId: number, cframe: CFrame) -> ()
-	Function EditableMesh:SetFacsCorrectivePose(actions: { any }, boneIds: { any }, cframes: { any }) -> ()
-	Function EditableMesh:SetFacsPose(action: Enum.FacsActionUnit, boneIds: { any }, cframes: { any }) -> ()
-	Function EditableMesh:SetNormal(normalId: number, normal: Vector3) -> ()
-	Function EditableMesh:SetPosition(vertexId: number, p: Vector3) -> ()
-	Function EditableMesh:SetUV(uvId: number, uv: Vector2) -> ()
-	Function EditableMesh:SetVertexBoneWeights(vertexId: number, boneWeights: { any }) -> ()
-	Function EditableMesh:SetVertexBones(vertexId: number, boneIDs: { any }) -> ()
-	Function EditableMesh:SetVertexFaceColor(vertexId: number, faceId: number, colorId: number) -> ()
-	Function EditableMesh:SetVertexFaceNormal(vertexId: number, faceId: number, normalId: number) -> ()
-	Function EditableMesh:SetVertexFaceUV(vertexId: number, faceId: number, uvId: number) -> ()
-	Function EditableMesh:Triangulate() -> ()
-	Function EditableMesh:GetFacesWithAttribute(id: number) -> { any } [Deprecated]
-	Function EditableMesh:GetVerticesWithAttribute(id: number) -> { any } [Deprecated]
+	Property EditableMesh.FixedSize: boolean {🛠️DynamicGeneration} {✏️RobloxEngine} [ReadOnly]
+	Property EditableMesh.IsReplicatedCopy: boolean {🛠️DynamicGeneration} {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
+	Property EditableMesh.MeshData: SharedString {🛠️DynamicGeneration} {RobloxEngine} [Hidden] [NotScriptable]
+	Property EditableMesh.SkinningEnabled: boolean {🛠️DynamicGeneration} [Deprecated]
+	Function EditableMesh:AddBone(boneProperties: { [string]: any }) -> number {🛠️DynamicGeneration}
+	Function EditableMesh:AddColor(color: Color3, alpha: number) -> number {🛠️DynamicGeneration}
+	Function EditableMesh:AddFace(vertexIds: { any }) -> number {🛠️DynamicGeneration}
+	Function EditableMesh:AddNormal(normal: Vector3?) -> number {🛠️DynamicGeneration}
+	Function EditableMesh:AddTriangle(vertexId0: number, vertexId1: number, vertexId2: number) -> number {🛠️DynamicGeneration}
+	Function EditableMesh:AddUV(uv: Vector2) -> number {🛠️DynamicGeneration}
+	Function EditableMesh:AddVertex(p: Vector3) -> number {🛠️DynamicGeneration}
+	Function EditableMesh:Destroy() -> () {🛠️DynamicGeneration}
+	Function EditableMesh:FindClosestPointOnSurface(point: Vector3) -> ...any {🛠️DynamicGeneration}
+	Function EditableMesh:FindClosestVertex(toThisPoint: Vector3) -> number {🛠️DynamicGeneration}
+	Function EditableMesh:FindVerticesWithinSphere(center: Vector3, radius: number) -> { any } {🛠️DynamicGeneration}
+	Function EditableMesh:GetAdjacentFaces(faceId: number) -> { any } {🛠️DynamicGeneration}
+	Function EditableMesh:GetAdjacentVertices(vertexId: number) -> { any } {🛠️DynamicGeneration}
+	Function EditableMesh:GetBoneByName(boneName: string) -> number {🛠️DynamicGeneration}
+	Function EditableMesh:GetBoneCFrame(boneId: number) -> CFrame {🛠️DynamicGeneration}
+	Function EditableMesh:GetBoneIsVirtual(boneId: number) -> boolean {🛠️DynamicGeneration}
+	Function EditableMesh:GetBoneName(boneId: number) -> string {🛠️DynamicGeneration}
+	Function EditableMesh:GetBoneParent(boneId: number) -> number {🛠️DynamicGeneration}
+	Function EditableMesh:GetBones() -> { any } {🛠️DynamicGeneration}
+	Function EditableMesh:GetCenter() -> Vector3 {🛠️DynamicGeneration}
+	Function EditableMesh:GetColor(colorId: number) -> Color3? {🛠️DynamicGeneration}
+	Function EditableMesh:GetColorAlpha(colorId: number) -> number? {🛠️DynamicGeneration}
+	Function EditableMesh:GetColors() -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetFaceColors(faceId: number) -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetFaceNormals(faceId: number) -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetFaceUVs(faceId: number) -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetFaceVertices(faceId: number) -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetFaces() -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetFacesWithColor(colorId: number) -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetFacesWithNormal(normalId: number) -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetFacesWithUV(uvId: number) -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetFacsCorrectivePose(actions: { any }) -> ...any {🛠️DynamicGeneration}
+	Function EditableMesh:GetFacsCorrectivePoses() -> { any } {🛠️DynamicGeneration}
+	Function EditableMesh:GetFacsPose(action: Enum.FacsActionUnit) -> ...any {🛠️DynamicGeneration}
+	Function EditableMesh:GetFacsPoses() -> { any } {🛠️DynamicGeneration}
+	Function EditableMesh:GetNormal(normalId: number) -> Vector3? {🛠️DynamicGeneration}
+	Function EditableMesh:GetNormals() -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetPosition(vertexId: number) -> Vector3 {🛠️DynamicGeneration}
+	Function EditableMesh:GetSize() -> Vector3 {🛠️DynamicGeneration}
+	Function EditableMesh:GetUV(uvId: number) -> Vector2? {🛠️DynamicGeneration}
+	Function EditableMesh:GetUVs() -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetVertexBoneWeights(vertexId: number) -> { any } {🛠️DynamicGeneration}
+	Function EditableMesh:GetVertexBones(vertexId: number) -> { any } {🛠️DynamicGeneration}
+	Function EditableMesh:GetVertexColors(vertexId: number) -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetVertexFaceColor(vertexId: number, faceId: number) -> number {🛠️DynamicGeneration}
+	Function EditableMesh:GetVertexFaceNormal(vertexId: number, faceId: number) -> number {🛠️DynamicGeneration}
+	Function EditableMesh:GetVertexFaceUV(vertexId: number, faceId: number) -> number {🛠️DynamicGeneration}
+	Function EditableMesh:GetVertexFaces(vertexId: number) -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetVertexNormals(vertexId: number) -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetVertexUVs(vertexId: number) -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetVertices() -> { any } {🛠️DynamicGeneration}
+	Function EditableMesh:GetVerticesWithColor(colorId: number) -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetVerticesWithNormal(normalId: number) -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:GetVerticesWithUV(uvId: number) -> { any } {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:IdDebugString(id: number) -> string {🛠️DynamicGeneration}
+	Function EditableMesh:MergeVertices(mergeTolerance: number) -> { [any]: any } {🛠️DynamicGeneration}
+	Function EditableMesh:RaycastLocal(origin: Vector3, direction: Vector3) -> ...any {🛠️DynamicGeneration}
+	Function EditableMesh:RemoveBone(boneId: number) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:RemoveFace(faceId: number) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:RemoveUnused() -> { any } {🛠️DynamicGeneration}
+	Function EditableMesh:ResetNormal(normalId: number) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetBoneCFrame(boneId: number, cframe: CFrame) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetBoneIsVirtual(boneId: number, virtual: boolean) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetBoneName(boneId: number, name: string) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetBoneParent(boneId: number, parentBoneId: number) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetColor(colorId: number, color: Color3) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetColorAlpha(colorId: number, alpha: number) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetFaceColors(faceId: number, ids: { any }) -> () {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:SetFaceNormals(faceId: number, ids: { any }) -> () {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:SetFaceUVs(faceId: number, ids: { any }) -> () {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:SetFaceVertices(faceId: number, ids: { any }) -> () {🛠️DynamicGeneration} [CustomLuaState]
+	Function EditableMesh:SetFacsBonePose(action: Enum.FacsActionUnit, boneId: number, cframe: CFrame) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetFacsCorrectivePose(actions: { any }, boneIds: { any }, cframes: { any }) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetFacsPose(action: Enum.FacsActionUnit, boneIds: { any }, cframes: { any }) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetNormal(normalId: number, normal: Vector3) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetPosition(vertexId: number, p: Vector3) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetUV(uvId: number, uv: Vector2) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetVertexBoneWeights(vertexId: number, boneWeights: { any }) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetVertexBones(vertexId: number, boneIDs: { any }) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetVertexFaceColor(vertexId: number, faceId: number, colorId: number) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetVertexFaceNormal(vertexId: number, faceId: number, normalId: number) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:SetVertexFaceUV(vertexId: number, faceId: number, uvId: number) -> () {🛠️DynamicGeneration}
+	Function EditableMesh:Triangulate() -> () {🛠️DynamicGeneration}
+	Function EditableMesh:GetFacesWithAttribute(id: number) -> { any } {🛠️DynamicGeneration} [Deprecated]
+	Function EditableMesh:GetVerticesWithAttribute(id: number) -> { any } {🛠️DynamicGeneration} [Deprecated]
 Class ExecutedRemoteCommand : Object {🔒RobloxScript} [NotCreatable] [NotReplicated]
 	Function ExecutedRemoteCommand:RunMoreCode(code: string, args: ...any) -> ()
 	Function ExecutedRemoteCommand:SendUpdate(args: ...any) -> ()
@@ -172,7 +172,7 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Function Instance:GetDebugId(scopeLength: number? = 4) -> string {🔒Plugin} [NotBrowsable]
 	Function Instance:GetDescendants() -> { any } [CustomLuaState] {🧬Safe}
 	Function Instance:GetFullName() -> string {🧬Safe}
-	Function Instance:GetStyled(name: string) -> any
+	Function Instance:GetStyled(name: string, selector: string?) -> any
 	Function Instance:GetStyledPropertyChangedSignal(property: string) -> RBXScriptSignal
 	Function Instance:GetTags() -> { any } {🧬Safe}
 	Function Instance:HasTag(tag: string) -> boolean {🧬Safe}
@@ -240,9 +240,9 @@ Class AchievementService : Instance {🔒RobloxScript} [NotCreatable] [Service] 
 Class ActivityHistoryEventService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 	Event ActivityHistoryEventService.WriteActivityHistoryEventFromStudio(eventType: number, resourceId: number, metadata: string) {🔒RobloxScript}
 Class AdPortal : Instance
-	Property AdPortal.Status: Enum.AdUnitStatus [ReadOnly]
-	Property AdPortal.PortalInvalidReason: string [ReadOnly] [NotScriptable]
-	Property AdPortal.PortalVersion: number {RobloxScript} [Hidden] [ReadOnly]
+	Property AdPortal.Status: Enum.AdUnitStatus {🛠️Monetization} [ReadOnly]
+	Property AdPortal.PortalInvalidReason: string {🛠️Monetization} [ReadOnly] [NotScriptable]
+	Property AdPortal.PortalVersion: number {🛠️Monetization} {RobloxScript} [Hidden] [ReadOnly]
 Class AdService : Instance [NotCreatable] [Service]
 	Function AdService:CreateAdRewardFromDevProductId(devProductId: number) -> AdReward
 	Function AdService:GetAdAvailabilityNowAsync(adFormat: Enum.AdFormat) -> any [Yields]
@@ -278,20 +278,20 @@ Class AdService : Instance [NotCreatable] [Service]
 	Callback AdService.onDemandVideoPlayInUI(data: { [string]: any }) -> VideoFrame {🔒RobloxScript}
 Class AdvancedDragger : Instance
 Class AnalyticsService : Instance [NotCreatable] [Service] [NotReplicated]
-	Property AnalyticsService.ApiKey: string {LocalUser} [Deprecated]
-	Function AnalyticsService:LogCustomEvent(player: Player, eventName: string, value: number? = 1, customFields: { [string]: any }? = nil) -> ()
-	Function AnalyticsService:LogEconomyEvent(player: Player, flowType: Enum.AnalyticsEconomyFlowType, currencyType: string, amount: number, endingBalance: number, transactionType: string, itemSku: string? = "", customFields: { [string]: any }? = nil) -> ()
-	Function AnalyticsService:LogFunnelStepEvent(player: Player, funnelName: string, funnelSessionId: string? = "", step: number? = 1, stepName: string? = "", customFields: { [string]: any }? = nil) -> ()
-	Function AnalyticsService:LogOnboardingFunnelStepEvent(player: Player, step: number, stepName: string? = "", customFields: { [string]: any }? = nil) -> ()
-	Function AnalyticsService:LogProgressionCompleteEvent(player: Player, progressionPathName: string, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> ()
-	Function AnalyticsService:LogProgressionEvent(player: Player, progressionPathName: string, status: Enum.AnalyticsProgressionType, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> ()
-	Function AnalyticsService:LogProgressionFailEvent(player: Player, progressionPathName: string, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> ()
-	Function AnalyticsService:LogProgressionStartEvent(player: Player, progressionPathName: string, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> ()
-	Function AnalyticsService:FireCustomEvent(player: Instance, eventCategory: string, customData: any) -> () [Deprecated]
-	Function AnalyticsService:FireEvent(category: string, value: any) -> () [Deprecated]
-	Function AnalyticsService:FireInGameEconomyEvent(player: Instance, itemName: string, economyAction: Enum.AnalyticsEconomyAction, itemCategory: string, amount: number, currency: string, location: any, customData: any) -> () [Deprecated]
-	Function AnalyticsService:FireLogEvent(player: Instance, logLevel: Enum.AnalyticsLogLevel, message: string, debugInfo: any, customData: any) -> () [Deprecated]
-	Function AnalyticsService:FirePlayerProgressionEvent(player: Instance, category: string, progressionStatus: Enum.AnalyticsProgressionStatus, location: any, statistics: any, customData: any) -> () [Deprecated]
+	Property AnalyticsService.ApiKey: string {🛠️Basic} {LocalUser} [Deprecated]
+	Function AnalyticsService:LogCustomEvent(player: Player, eventName: string, value: number? = 1, customFields: { [string]: any }? = nil) -> () {🛠️Basic}
+	Function AnalyticsService:LogEconomyEvent(player: Player, flowType: Enum.AnalyticsEconomyFlowType, currencyType: string, amount: number, endingBalance: number, transactionType: string, itemSku: string? = "", customFields: { [string]: any }? = nil) -> () {🛠️Basic}
+	Function AnalyticsService:LogFunnelStepEvent(player: Player, funnelName: string, funnelSessionId: string? = "", step: number? = 1, stepName: string? = "", customFields: { [string]: any }? = nil) -> () {🛠️Basic}
+	Function AnalyticsService:LogOnboardingFunnelStepEvent(player: Player, step: number, stepName: string? = "", customFields: { [string]: any }? = nil) -> () {🛠️Basic}
+	Function AnalyticsService:LogProgressionCompleteEvent(player: Player, progressionPathName: string, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> () {🛠️Basic}
+	Function AnalyticsService:LogProgressionEvent(player: Player, progressionPathName: string, status: Enum.AnalyticsProgressionType, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> () {🛠️Basic}
+	Function AnalyticsService:LogProgressionFailEvent(player: Player, progressionPathName: string, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> () {🛠️Basic}
+	Function AnalyticsService:LogProgressionStartEvent(player: Player, progressionPathName: string, level: number, levelName: string? = "", customFields: { [string]: any }? = nil) -> () {🛠️Basic}
+	Function AnalyticsService:FireCustomEvent(player: Instance, eventCategory: string, customData: any) -> () {🛠️Basic} [Deprecated]
+	Function AnalyticsService:FireEvent(category: string, value: any) -> () {🛠️Basic} [Deprecated]
+	Function AnalyticsService:FireInGameEconomyEvent(player: Instance, itemName: string, economyAction: Enum.AnalyticsEconomyAction, itemCategory: string, amount: number, currency: string, location: any, customData: any) -> () {🛠️Basic} [Deprecated]
+	Function AnalyticsService:FireLogEvent(player: Instance, logLevel: Enum.AnalyticsLogLevel, message: string, debugInfo: any, customData: any) -> () {🛠️Basic} [Deprecated]
+	Function AnalyticsService:FirePlayerProgressionEvent(player: Instance, category: string, progressionStatus: Enum.AnalyticsProgressionStatus, location: any, statistics: any, customData: any) -> () {🛠️Basic} [Deprecated]
 Class Animation : Instance
 	Property Animation.AnimationId: string {🛠️Animation}
 Class AnimationClip : Instance [NotCreatable]
@@ -335,13 +335,10 @@ Class AnimationNodeDefinition : Instance
 	Property AnimationNodeDefinition.NodeType: Enum.AnimationNodeType {🛠️Animation}
 	Property AnimationNodeDefinition.InputPinData: BinaryString {🛠️Animation} [Hidden] [NotScriptable]
 	Property AnimationNodeDefinition.NodeId: string {🛠️Animation} {RobloxScript}
-	Function AnimationNodeDefinition:GetConnectedWires(pin: string) -> { Instance } {🛠️Animation}
-	Function AnimationNodeDefinition:GetInputPins() -> { any } {🛠️Animation}
-	Function AnimationNodeDefinition:GetOutputPins() -> { any } {🛠️Animation}
 	Function AnimationNodeDefinition:AddInputPin(pin: string) -> () {🛠️Animation} {🔒RobloxScript}
-	Function AnimationNodeDefinition:GetInputPinNames() -> { any } {🛠️Animation} {🔒RobloxScript}
+	Function AnimationNodeDefinition:GetOrderedInputPinNames() -> { any } {🛠️Animation} {🔒RobloxScript}
 	Function AnimationNodeDefinition:RemoveInputPin(pin: string) -> () {🛠️Animation} {🔒RobloxScript}
-	Function AnimationNodeDefinition:SetInputPinNames(pins: { any }) -> () {🛠️Animation} {🔒RobloxScript}
+	Function AnimationNodeDefinition:SetOrderedInputPinNames(pins: { any }) -> () {🛠️Animation} {🔒RobloxScript}
 	Event AnimationNodeDefinition.InputPinsChanged() {🛠️Animation} {🔒RobloxScript}
 Class AnimationRigData : Instance
 	Property AnimationRigData.label: BinaryString {🛠️Animation} [Hidden] [NotScriptable]
@@ -551,33 +548,33 @@ Class AssetQualityService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 Class AssetService : Instance [NotCreatable] [Service]
 	Property AssetService.AllowInsertFreeAssets: boolean {RobloxScript}
 	Function AssetService:ComposeDecalAsync(layers: { any }) -> Decal [Yields]
-	Function AssetService:CreateAssetAsync(object: Object, assetType: Enum.AssetType, requestParameters: { [string]: any }? = nil) -> ...any [Yields]
-	Function AssetService:CreateAssetVersionAsync(object: Object, assetType: Enum.AssetType, assetId: number, requestParameters: { [string]: any }? = nil) -> ...any [Yields]
-	Function AssetService:CreateEditableImage(editableImageOptions: { [string]: any }?) -> EditableImage
-	Function AssetService:CreateEditableImageAsync(content: Content, editableImageOptions: { [string]: any }?) -> EditableImage [Yields]
-	Function AssetService:CreateEditableMesh(editableMeshOptions: { [string]: any }?) -> EditableMesh
-	Function AssetService:CreateEditableMeshAsync(content: Content, editableMeshOptions: { [string]: any }?) -> EditableMesh [Yields]
-	Function AssetService:CreateMeshPartAsync(meshContent: Content, options: { [string]: any }? = nil) -> MeshPart [Yields]
-	Function AssetService:CreatePlaceAsync(placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
-	Function AssetService:CreatePlaceInPlayerInventoryAsync(player: Instance, placeName: string, templatePlaceID: number, description: string? = "") -> number [Yields]
-	Function AssetService:CreateSurfaceAppearanceAsync(content: { [string]: any }) -> SurfaceAppearance [Yields]
-	Function AssetService:GetAssetIdsForPackageAsync(packageAssetId: number) -> { any } [Yields]
-	Function AssetService:GetAudioMetadataAsync(idList: { any }) -> { any } [Yields]
-	Function AssetService:GetBundleDetailsAsync(bundleId: number) -> { [string]: any } [Yields]
-	Function AssetService:GetGamePlacesAsync() -> Instance? [Yields]
-	Function AssetService:LoadAssetAsync(assetId: number) -> Instance? [Yields]
-	Function AssetService:PromptCreateAssetAsync(player: Player, instance: Instance, assetType: Enum.AssetType) -> ...any [Yields]
-	Function AssetService:PromptImportAnimationClipFromVideoAsync(player: Player, progressCallback: (...any) -> ...any) -> ...any [Yields]
-	Function AssetService:SavePlaceAsync(requestParameters: { [string]: any }?) -> () [Yields]
-	Function AssetService:SearchAudioAsync(searchParameters: AudioSearchParams) -> AudioPages [Yields]
+	Function AssetService:CreateAssetAsync(object: Object, assetType: Enum.AssetType, requestParameters: { [string]: any }? = nil) -> ...any {🛠️AssetCreateUpdate} [Yields]
+	Function AssetService:CreateAssetVersionAsync(object: Object, assetType: Enum.AssetType, assetId: number, requestParameters: { [string]: any }? = nil) -> ...any {🛠️AssetCreateUpdate} [Yields]
+	Function AssetService:CreateEditableImage(editableImageOptions: { [string]: any }?) -> EditableImage {🛠️DynamicGeneration}
+	Function AssetService:CreateEditableImageAsync(content: Content, editableImageOptions: { [string]: any }?) -> EditableImage {🛠️AssetRead} [Yields]
+	Function AssetService:CreateEditableMesh(editableMeshOptions: { [string]: any }?) -> EditableMesh {🛠️DynamicGeneration}
+	Function AssetService:CreateEditableMeshAsync(content: Content, editableMeshOptions: { [string]: any }?) -> EditableMesh {🛠️AssetRead} [Yields]
+	Function AssetService:CreateMeshPartAsync(meshContent: Content, options: { [string]: any }? = nil) -> MeshPart {🛠️Basic} [Yields]
+	Function AssetService:CreatePlaceAsync(placeName: string, templatePlaceID: number, description: string? = "") -> number {🛠️AssetCreateUpdate} [Yields]
+	Function AssetService:CreatePlaceInPlayerInventoryAsync(player: Instance, placeName: string, templatePlaceID: number, description: string? = "") -> number {🛠️AssetCreateUpdate} [Yields]
+	Function AssetService:CreateSurfaceAppearanceAsync(content: { [string]: any }) -> SurfaceAppearance {🛠️Basic} [Yields]
+	Function AssetService:GetAssetIdsForPackageAsync(packageAssetId: number) -> { any } {🛠️AssetRead} [Yields]
+	Function AssetService:GetAudioMetadataAsync(idList: { any }) -> { any } {🛠️AssetRead} [Yields]
+	Function AssetService:GetBundleDetailsAsync(bundleId: number) -> { [string]: any } {🛠️AssetRead} [Yields]
+	Function AssetService:GetGamePlacesAsync() -> Instance? {🛠️AssetRead} [Yields]
+	Function AssetService:LoadAssetAsync(assetId: number) -> Instance? {🛠️AssetRequire} [Yields]
+	Function AssetService:PromptCreateAssetAsync(player: Player, instance: Instance, assetType: Enum.AssetType) -> ...any {🛠️AssetCreateUpdate} [Yields]
+	Function AssetService:PromptImportAnimationClipFromVideoAsync(player: Player, progressCallback: (...any) -> ...any) -> ...any {🛠️AssetManagement} [Yields]
+	Function AssetService:SavePlaceAsync(requestParameters: { [string]: any }?) -> () {🛠️AssetCreateUpdate} [Yields]
+	Function AssetService:SearchAudioAsync(searchParameters: AudioSearchParams) -> AudioPages {🛠️AssetRead} [Yields]
 	Function AssetService:CachePartOperationsAsync(partOperations: { any }) -> () {🔒RobloxScript} [Yields]
 	Function AssetService:CanEditAssetAsync(content: Content) -> boolean {🔒RobloxScript} [Yields]
 	Function AssetService:CreateEditableMeshStripSkinningAsync(meshId: string) -> EditableMesh {🔒RobloxScript} [Yields]
 	Function AssetService:DeserializeInstance(serializedInstance: string) -> Instance? {🔒RobloxScript}
-	Function AssetService:GetAssetIdsForPackage(packageAssetId: number) -> { any } [Yields] [Deprecated]
+	Function AssetService:GetAssetIdsForPackage(packageAssetId: number) -> { any } {🛠️AssetRead} [Yields] [Deprecated]
 	Function AssetService:GetCreatorAssetID(creationID: number) -> number [Yields] [Deprecated]
 	Function AssetService:GetOpaqueContentMetadataMap(opaqueContent: Content) -> { [string]: any } {🔒RobloxScript}
-	Function AssetService:SearchAudio(searchParameters: AudioSearchParams) -> AudioPages [Yields] [Deprecated]
+	Function AssetService:SearchAudio(searchParameters: AudioSearchParams) -> AudioPages {🛠️AssetRead} [Yields] [Deprecated]
 	Event AssetService.AudioMetadataFailedResponse(requestid: number) {🔒RobloxScript}
 	Event AssetService.AudioMetadataRequest(requestid: number, request: { any }) {🔒RobloxScript}
 	Event AssetService.AudioMetadataResponse(requestid: number, response: { any }) {🔒RobloxScript}
@@ -865,15 +862,15 @@ Class AudioReverb : Instance
 	Function AudioReverb:Reset() -> () {🛠️Audio} {🔒RobloxScript}
 	Event AudioReverb.WiringChanged(connected: boolean, pin: string, wire: Wire, instance: Instance) {🛠️Audio}
 Class AudioSearchParams : Instance [NotReplicated]
-	Property AudioSearchParams.Album: string
-	Property AudioSearchParams.Artist: string
-	Property AudioSearchParams.AudioSubType: Enum.AudioSubType
-	Property AudioSearchParams.MaxDuration: number
-	Property AudioSearchParams.MinDuration: number
-	Property AudioSearchParams.SearchKeyword: string
-	Property AudioSearchParams.Tag: string
-	Property AudioSearchParams.Title: string
-	Property AudioSearchParams.AudioSubtype: Enum.AudioSubType {📁LoadOnly} [NotReplicated] [Deprecated]
+	Property AudioSearchParams.Album: string {🛠️AssetRead}
+	Property AudioSearchParams.Artist: string {🛠️AssetRead}
+	Property AudioSearchParams.AudioSubType: Enum.AudioSubType {🛠️AssetRead}
+	Property AudioSearchParams.MaxDuration: number {🛠️AssetRead}
+	Property AudioSearchParams.MinDuration: number {🛠️AssetRead}
+	Property AudioSearchParams.SearchKeyword: string {🛠️AssetRead}
+	Property AudioSearchParams.Tag: string {🛠️AssetRead}
+	Property AudioSearchParams.Title: string {🛠️AssetRead}
+	Property AudioSearchParams.AudioSubtype: Enum.AudioSubType {🛠️AssetRead} {📁LoadOnly} [NotReplicated] [Deprecated]
 Class AudioSpeechToText : Instance
 	Property AudioSpeechToText.Enabled: boolean {🛠️Audio}
 	Property AudioSpeechToText.Text: string {🛠️Audio}
@@ -1209,16 +1206,16 @@ Class AvatarSettings : Instance {🔒RobloxScript} [NotCreatable] [Service]
 	Event AvatarSettings.RefreshPluginState() {🔒RobloxScript}
 Class Backpack : Instance
 Class BadgeService : Instance [NotCreatable] [Service]
-	Function BadgeService:AwardBadgeAsync(userId: number, badgeId: number) -> boolean [Yields]
-	Function BadgeService:CheckUserBadgesAsync(userId: number, badgeIds: { any }) -> { any } [Yields]
-	Function BadgeService:GetBadgeInfoAsync(badgeId: number) -> { [string]: any } [Yields]
-	Function BadgeService:UserHasBadgeAsync(userId: number, badgeId: number) -> boolean [Yields]
-	Function BadgeService:AwardBadge(userId: number, badgeId: number) -> boolean [Yields] [Deprecated]
-	Function BadgeService:IsDisabled(badgeId: number) -> boolean [Yields] [Deprecated]
-	Function BadgeService:IsLegal(badgeId: number) -> boolean [Yields] [Deprecated]
-	Function BadgeService:UserHasBadge(userId: number, badgeId: number) -> boolean [Yields] [Deprecated]
-	Event BadgeService.BadgeAwarded(message: string, userId: number, badgeId: number) {🔒RobloxScript}
-	Event BadgeService.OnBadgeAwarded(userId: number, creatorId: number, badgeId: number) {🔒RobloxScript}
+	Function BadgeService:AwardBadgeAsync(userId: number, badgeId: number) -> boolean {🛠️AssetManagement} [Yields]
+	Function BadgeService:CheckUserBadgesAsync(userId: number, badgeIds: { any }) -> { any } {🛠️AssetManagement} [Yields]
+	Function BadgeService:GetBadgeInfoAsync(badgeId: number) -> { [string]: any } {🛠️AssetManagement} [Yields]
+	Function BadgeService:UserHasBadgeAsync(userId: number, badgeId: number) -> boolean {🛠️AssetManagement} [Yields]
+	Function BadgeService:AwardBadge(userId: number, badgeId: number) -> boolean {🛠️AssetManagement} [Yields] [Deprecated]
+	Function BadgeService:IsDisabled(badgeId: number) -> boolean {🛠️AssetManagement} [Yields] [Deprecated]
+	Function BadgeService:IsLegal(badgeId: number) -> boolean {🛠️AssetManagement} [Yields] [Deprecated]
+	Function BadgeService:UserHasBadge(userId: number, badgeId: number) -> boolean {🛠️AssetManagement} [Yields] [Deprecated]
+	Event BadgeService.BadgeAwarded(message: string, userId: number, badgeId: number) {🛠️AssetManagement} {🔒RobloxScript}
+	Event BadgeService.OnBadgeAwarded(userId: number, creatorId: number, badgeId: number) {🛠️AssetManagement} {🔒RobloxScript}
 Class BaseCoreGuiConfiguration : Instance [NotCreatable] [NotReplicated]
 	Property BaseCoreGuiConfiguration.Enabled: boolean
 Class CapturesViewConfiguration : BaseCoreGuiConfiguration [NotCreatable] [NotReplicated]
@@ -1526,61 +1523,61 @@ Class CalloutService : Instance {🔒RobloxScript} [NotCreatable] [Service] [Not
 	Function CalloutService:DefineCallout(definitionId: string, title: string, description: string, learnMoreURL: string) -> () {🔒RobloxScript}
 	Function CalloutService:DetachCalloutsByDefinitionId(definitionId: string) -> () {🔒RobloxScript}
 Class CaptureService : Instance [NotCreatable] [Service]
-	Function CaptureService:CaptureScreenshot(onCaptureReady: (...any) -> ...any) -> ()
-	Function CaptureService:GetDeviceInfo() -> { [string]: any } {🛠️InternalTest}
-	Function CaptureService:InternalCheckPlayabilityAsync(universeId: number) -> boolean {🛠️InternalTest} [Yields]
-	Function CaptureService:InternalGetStartPlaceIdAsync(universeId: number) -> number {🛠️InternalTest} [Yields]
-	Function CaptureService:PromptCaptureGalleryPermissionAsync(captureGalleryPermission: Enum.CaptureGalleryPermission) -> boolean [Yields]
-	Function CaptureService:PromptSaveCapturesToGallery(captures: { any }, resultCallback: (...any) -> ...any) -> ()
-	Function CaptureService:PromptShareCapture(captureContent: Content, launchData: string, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> ()
-	Function CaptureService:ReadCapturesFromGalleryAsync(captureTypeFilters: { any }? = {}) -> ...any [Yields]
-	Function CaptureService:StartVideoCaptureAsync(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> Enum.VideoCaptureStartedResult [Yields]
-	Function CaptureService:StopVideoCapture() -> ()
-	Function CaptureService:TakeScreenshotCaptureAsync(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> ()
-	Function CaptureService:UploadCaptureAsync(capture: Capture) -> ...any [Yields]
-	Function CaptureService:CanCaptureVideo() -> boolean {🔒RobloxScript}
-	Function CaptureService:CreatePostAsync(pathArr: { any }, caption: string) -> { [string]: any } {🔒RobloxScript} [Yields]
-	Function CaptureService:DeleteCapture(capturePath: string) -> () {🔒RobloxScript}
-	Function CaptureService:DeleteCapturesAsync(pathArr: { any }) -> number {🔒RobloxScript} [Yields]
-	Function CaptureService:DeleteVideoCapture(videoCapture: VideoCapture) -> () {🔒RobloxScript}
-	Function CaptureService:DeleteVideoCaptureAsync(videoCapture: VideoCapture) -> boolean {🔒RobloxScript} [Yields]
-	Function CaptureService:GetCaptureFilePathAsync(captureContent: Content) -> string {🔒RobloxScript} [Yields]
-	Function CaptureService:GetCaptureSizeAsync(captureContent: Content) -> Vector2 {🔒RobloxScript} [Yields]
-	Function CaptureService:GetCaptureStorageSizeAsync(pathArr: { any }) -> number {🔒RobloxScript} [Yields]
-	Function CaptureService:GetCaptureUploadDataAsync(capturePath: string) -> { [string]: any } {🔒RobloxScript} [Yields]
-	Function CaptureService:IsCapturingVideo() -> boolean {🔒RobloxScript}
-	Function CaptureService:OnCaptureBegan() -> () {🔒RobloxScript}
-	Function CaptureService:OnCaptureEnded() -> () {🔒RobloxScript}
-	Function CaptureService:OnCaptureObjectShared(capture: Capture) -> () {🔒RobloxScript}
-	Function CaptureService:OnCapturePermissionsPromptFinished(promptId: number, wasAccepted: boolean) -> () {🔒RobloxScript}
-	Function CaptureService:OnCaptureShared(capturePath: string) -> () {🔒RobloxScript}
-	Function CaptureService:OnSavePromptFinished(promptId: number, results: { [string]: any }) -> () {🔒RobloxScript} [CustomLuaState]
-	Function CaptureService:OnSharePromptFinished(promptId: number, accepted: boolean) -> () {🔒RobloxScript}
-	Function CaptureService:OnVideoCaptureShared(videoCapture: VideoCapture) -> () {🔒RobloxScript}
-	Function CaptureService:PreCaptureShared(capture: Capture) -> string {🔒RobloxScript}
-	Function CaptureService:PreVideoCaptureShared(videoCapture: VideoCapture) -> string {🔒RobloxScript}
-	Function CaptureService:RetrieveCaptures() -> { any } {🔒RobloxScript}
-	Function CaptureService:SaveCaptureObjectToExternalStorage(capture: Capture) -> () {🔒RobloxScript}
-	Function CaptureService:SaveCaptureToExternalStorage(capturePath: string) -> () {🔒RobloxScript}
-	Function CaptureService:SaveCapturesToExternalStorageAsync(pathArr: { any }) -> number {🔒RobloxScript} [Yields]
-	Function CaptureService:SaveScreenshotCapture(additionalInfo: string? = "") -> () {🔒RobloxScript}
-	Function CaptureService:SaveVideoCaptureToExternalStorage(videoCapture: VideoCapture) -> () {🔒RobloxScript}
-	Function CaptureService:StartVideoCaptureInternalAsync() -> Enum.VideoCaptureStartedResult {🔒RobloxScript} [Yields]
-	Function CaptureService:StopVideoCaptureInternal() -> () {🔒RobloxScript}
-	Event CaptureService.CaptureBegan(captureType: Enum.CaptureType)
-	Event CaptureService.CaptureEnded(captureType: Enum.CaptureType)
-	Event CaptureService.UserCaptureSaved(captureContentId: string)
-	Event CaptureService.CaptureObjectSavedInternal(capture: Capture, triggerSource: string) {🔒RobloxScript}
-	Event CaptureService.CaptureSaved(captureInfo: { [string]: any }) [Deprecated]
-	Event CaptureService.CaptureSavedInternal(captureInfo: { [string]: any }, triggerSource: string) {🔒RobloxScript}
-	Event CaptureService.OnCaptureAndMetadataSignatureResult(content: string, captureSignature: string, captureSignatureVersion: number, metadataSignature: string, metadataSignatureVersion: number) {🔒RobloxEngine} [Hidden]
-	Event CaptureService.OpenCapturePermissionsPrompt(promptId: number, captureGalleryPermission: Enum.CaptureGalleryPermission) {🔒RobloxScript}
-	Event CaptureService.OpenSaveCapturesPrompt(promptId: number, captures: { any }) {🔒RobloxScript}
-	Event CaptureService.OpenShareCapturePrompt(promptId: number, captureContent: any, launchData: string) {🔒RobloxScript}
-	Event CaptureService.RequestCaptureAndMetadataSignature(content: string, audioAssetIds: string) {🔒RobloxEngine} [Hidden]
-	Event CaptureService.UserVideoCaptureFailed(result: Enum.VideoCaptureResult) {🔒RobloxScript}
-	Event CaptureService.UserVideoCaptureStartFailed(result: Enum.VideoCaptureStartedResult) {🔒RobloxScript}
-	Event CaptureService.VideoCaptureInProgress(isInProgress: boolean, captureTrigger: string) {🔒RobloxScript}
+	Function CaptureService:CaptureScreenshot(onCaptureReady: (...any) -> ...any) -> () {🛠️Capture}
+	Function CaptureService:GetDeviceInfo() -> { [string]: any } {🛠️Capture | InternalTest}
+	Function CaptureService:InternalCheckPlayabilityAsync(universeId: number) -> boolean {🛠️Capture | InternalTest} [Yields]
+	Function CaptureService:InternalGetStartPlaceIdAsync(universeId: number) -> number {🛠️Capture | InternalTest} [Yields]
+	Function CaptureService:PromptCaptureGalleryPermissionAsync(captureGalleryPermission: Enum.CaptureGalleryPermission) -> boolean {🛠️Capture} [Yields]
+	Function CaptureService:PromptSaveCapturesToGallery(captures: { any }, resultCallback: (...any) -> ...any) -> () {🛠️Capture}
+	Function CaptureService:PromptShareCapture(captureContent: Content, launchData: string, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> () {🛠️Capture}
+	Function CaptureService:ReadCapturesFromGalleryAsync(captureTypeFilters: { any }? = {}) -> ...any {🛠️Capture} [Yields]
+	Function CaptureService:StartVideoCaptureAsync(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> Enum.VideoCaptureStartedResult {🛠️Capture} [Yields]
+	Function CaptureService:StopVideoCapture() -> () {🛠️Capture}
+	Function CaptureService:TakeScreenshotCaptureAsync(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> () {🛠️Capture}
+	Function CaptureService:UploadCaptureAsync(capture: Capture) -> ...any {🛠️Capture} [Yields]
+	Function CaptureService:CanCaptureVideo() -> boolean {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:CreatePostAsync(pathArr: { any }, caption: string) -> { [string]: any } {🛠️Capture} {🔒RobloxScript} [Yields]
+	Function CaptureService:DeleteCapture(capturePath: string) -> () {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:DeleteCapturesAsync(pathArr: { any }) -> number {🛠️Capture} {🔒RobloxScript} [Yields]
+	Function CaptureService:DeleteVideoCapture(videoCapture: VideoCapture) -> () {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:DeleteVideoCaptureAsync(videoCapture: VideoCapture) -> boolean {🛠️Capture} {🔒RobloxScript} [Yields]
+	Function CaptureService:GetCaptureFilePathAsync(captureContent: Content) -> string {🛠️Capture} {🔒RobloxScript} [Yields]
+	Function CaptureService:GetCaptureSizeAsync(captureContent: Content) -> Vector2 {🛠️Capture} {🔒RobloxScript} [Yields]
+	Function CaptureService:GetCaptureStorageSizeAsync(pathArr: { any }) -> number {🛠️Capture} {🔒RobloxScript} [Yields]
+	Function CaptureService:GetCaptureUploadDataAsync(capturePath: string) -> { [string]: any } {🛠️Capture} {🔒RobloxScript} [Yields]
+	Function CaptureService:IsCapturingVideo() -> boolean {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:OnCaptureBegan() -> () {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:OnCaptureEnded() -> () {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:OnCaptureObjectShared(capture: Capture) -> () {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:OnCapturePermissionsPromptFinished(promptId: number, wasAccepted: boolean) -> () {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:OnCaptureShared(capturePath: string) -> () {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:OnSavePromptFinished(promptId: number, results: { [string]: any }) -> () {🛠️Capture} {🔒RobloxScript} [CustomLuaState]
+	Function CaptureService:OnSharePromptFinished(promptId: number, accepted: boolean) -> () {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:OnVideoCaptureShared(videoCapture: VideoCapture) -> () {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:PreCaptureShared(capture: Capture) -> string {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:PreVideoCaptureShared(videoCapture: VideoCapture) -> string {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:RetrieveCaptures() -> { any } {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:SaveCaptureObjectToExternalStorage(capture: Capture) -> () {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:SaveCaptureToExternalStorage(capturePath: string) -> () {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:SaveCapturesToExternalStorageAsync(pathArr: { any }) -> number {🛠️Capture} {🔒RobloxScript} [Yields]
+	Function CaptureService:SaveScreenshotCapture(additionalInfo: string? = "") -> () {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:SaveVideoCaptureToExternalStorage(videoCapture: VideoCapture) -> () {🛠️Capture} {🔒RobloxScript}
+	Function CaptureService:StartVideoCaptureInternalAsync() -> Enum.VideoCaptureStartedResult {🛠️Capture} {🔒RobloxScript} [Yields]
+	Function CaptureService:StopVideoCaptureInternal() -> () {🛠️Capture} {🔒RobloxScript}
+	Event CaptureService.CaptureBegan(captureType: Enum.CaptureType) {🛠️Capture}
+	Event CaptureService.CaptureEnded(captureType: Enum.CaptureType) {🛠️Capture}
+	Event CaptureService.UserCaptureSaved(captureContentId: string) {🛠️Capture}
+	Event CaptureService.CaptureObjectSavedInternal(capture: Capture, triggerSource: string) {🛠️Capture} {🔒RobloxScript}
+	Event CaptureService.CaptureSaved(captureInfo: { [string]: any }) {🛠️Capture} [Deprecated]
+	Event CaptureService.CaptureSavedInternal(captureInfo: { [string]: any }, triggerSource: string) {🛠️Capture} {🔒RobloxScript}
+	Event CaptureService.OnCaptureAndMetadataSignatureResult(content: string, captureSignature: string, captureSignatureVersion: number, metadataSignature: string, metadataSignatureVersion: number) {🛠️Capture} {🔒RobloxEngine} [Hidden]
+	Event CaptureService.OpenCapturePermissionsPrompt(promptId: number, captureGalleryPermission: Enum.CaptureGalleryPermission) {🛠️Capture} {🔒RobloxScript}
+	Event CaptureService.OpenSaveCapturesPrompt(promptId: number, captures: { any }) {🛠️Capture} {🔒RobloxScript}
+	Event CaptureService.OpenShareCapturePrompt(promptId: number, captureContent: any, launchData: string) {🛠️Capture} {🔒RobloxScript}
+	Event CaptureService.RequestCaptureAndMetadataSignature(content: string, audioAssetIds: string) {🛠️Capture} {🔒RobloxEngine} [Hidden]
+	Event CaptureService.UserVideoCaptureFailed(result: Enum.VideoCaptureResult) {🛠️Capture} {🔒RobloxScript}
+	Event CaptureService.UserVideoCaptureStartFailed(result: Enum.VideoCaptureStartedResult) {🛠️Capture} {🔒RobloxScript}
+	Event CaptureService.VideoCaptureInProgress(isInProgress: boolean, captureTrigger: string) {🛠️Capture} {🔒RobloxScript}
 Class ChangeHistoryService : Instance [NotCreatable] [Service]
 	Function ChangeHistoryService:FinishRecording(identifier: string, operation: Enum.FinishRecordingOperation, finalOptions: { [string]: any }?) -> () {🔒Plugin}
 	Function ChangeHistoryService:GetCanRedo() -> ...any {🔒Plugin}
@@ -1634,30 +1631,30 @@ Class ShirtGraphic : CharacterAppearance
 Class Skin : CharacterAppearance [Deprecated]
 	Property Skin.SkinColor: BrickColor {🛠️Avatar} [Deprecated]
 Class Chat : Instance [NotCreatable] [Service] [NotReplicated]
-	Property Chat.BubbleChatEnabled: boolean
-	Property Chat.LoadDefaultChat: boolean {✏️NotAccessible}
-	Property Chat.IsAutoMigrated: boolean {RobloxScript} [Hidden]
-	Function Chat:CanUserChatAsync(userId: number) -> boolean [Yields]
-	Function Chat:CanUsersChatAsync(userIdFrom: number, userIdTo: number) -> boolean [Yields]
-	Function Chat:Chat(partOrCharacter: Instance, message: string, color: Enum.ChatColor? = "Blue") -> ()
-	Function Chat:FilterStringAsync(stringToFilter: string, playerFrom: Player, playerTo: Player) -> string [Yields]
-	Function Chat:FilterStringForBroadcast(stringToFilter: string, playerFrom: Player) -> string [Yields]
-	Function Chat:InvokeChatCallback(callbackType: Enum.ChatCallbackType, callbackArguments: ...any) -> ...any
-	Function Chat:RegisterChatCallback(callbackType: Enum.ChatCallbackType, callbackFunction: (...any) -> ...any) -> ()
-	Function Chat:SetBubbleChatSettings(settings: any) -> ()
-	Function Chat:ChatLocal(partOrCharacter: Instance, message: string, color: Enum.ChatColor? = "Blue") -> () {🔒RobloxScript}
-	Function Chat:FilterStringForPlayerAsync(stringToFilter: string, playerToFilterFor: Player) -> string [Yields] [Deprecated]
-	Function Chat:GetShouldUseLuaChat() -> boolean {🔒RobloxScript}
-	Function Chat:ReconcileCommunicationAccess() -> () {🔒RobloxScript}
-	Event Chat.Chatted(part: Instance, message: string, color: Enum.ChatColor)
-	Event Chat.BubbleChatSettingsChanged(settings: any) {🔒RobloxScript}
-	Event Chat.ClientToServerFilterMessageSignalV2(sender: Instance, receiver: Instance, unfilteredMessage: string) {🔒RobloxEngine} [Hidden]
-	Event Chat.ClientToServerReportUnfilteredSignal(unfilteredText: string, match: string, instancePath: string, instanceType: string) {🔒RobloxEngine} [Hidden]
-	Event Chat.PlayerChatAvailabilityStatusChanged(player: Player) {🔒RobloxEngine}
-	Event Chat.ReconcileCommunicationAccessCompleted(chatAvailabilityStatus: string) {🔒RobloxScript}
-	Event Chat.ReconcileCommunicationAccessSignal() {🔒RobloxEngine} [Hidden]
-	Event Chat.ServerToClientUnderOver13FilteredResponseSignal(sender: Instance, unfilteredMessage: string, isError: boolean, errorStr: string, under13: string, over13: string) {🔒RobloxEngine} [Hidden]
-	Event Chat.TimeoutChatAttempt(isPermanentTimeout: boolean, endTime: number) {🔒RobloxScript}
+	Property Chat.BubbleChatEnabled: boolean {🛠️Chat}
+	Property Chat.LoadDefaultChat: boolean {🛠️Chat} {✏️NotAccessible}
+	Property Chat.IsAutoMigrated: boolean {🛠️Chat} {RobloxScript} [Hidden]
+	Function Chat:CanUserChatAsync(userId: number) -> boolean {🛠️Chat} [Yields]
+	Function Chat:CanUsersChatAsync(userIdFrom: number, userIdTo: number) -> boolean {🛠️Chat} [Yields]
+	Function Chat:Chat(partOrCharacter: Instance, message: string, color: Enum.ChatColor? = "Blue") -> () {🛠️Chat}
+	Function Chat:FilterStringAsync(stringToFilter: string, playerFrom: Player, playerTo: Player) -> string {🛠️Chat} [Yields]
+	Function Chat:FilterStringForBroadcast(stringToFilter: string, playerFrom: Player) -> string {🛠️Chat} [Yields]
+	Function Chat:InvokeChatCallback(callbackType: Enum.ChatCallbackType, callbackArguments: ...any) -> ...any {🛠️Chat}
+	Function Chat:RegisterChatCallback(callbackType: Enum.ChatCallbackType, callbackFunction: (...any) -> ...any) -> () {🛠️Chat}
+	Function Chat:SetBubbleChatSettings(settings: any) -> () {🛠️Chat}
+	Function Chat:ChatLocal(partOrCharacter: Instance, message: string, color: Enum.ChatColor? = "Blue") -> () {🛠️Chat} {🔒RobloxScript}
+	Function Chat:FilterStringForPlayerAsync(stringToFilter: string, playerToFilterFor: Player) -> string {🛠️Chat} [Yields] [Deprecated]
+	Function Chat:GetShouldUseLuaChat() -> boolean {🛠️Chat} {🔒RobloxScript}
+	Function Chat:ReconcileCommunicationAccess() -> () {🛠️Chat} {🔒RobloxScript}
+	Event Chat.Chatted(part: Instance, message: string, color: Enum.ChatColor) {🛠️Chat}
+	Event Chat.BubbleChatSettingsChanged(settings: any) {🛠️Chat} {🔒RobloxScript}
+	Event Chat.ClientToServerFilterMessageSignalV2(sender: Instance, receiver: Instance, unfilteredMessage: string) {🛠️Chat} {🔒RobloxEngine} [Hidden]
+	Event Chat.ClientToServerReportUnfilteredSignal(unfilteredText: string, match: string, instancePath: string, instanceType: string) {🛠️Chat} {🔒RobloxEngine} [Hidden]
+	Event Chat.PlayerChatAvailabilityStatusChanged(player: Player) {🛠️Chat} {🔒RobloxEngine}
+	Event Chat.ReconcileCommunicationAccessCompleted(chatAvailabilityStatus: string) {🛠️Chat} {🔒RobloxScript}
+	Event Chat.ReconcileCommunicationAccessSignal() {🛠️Chat} {🔒RobloxEngine} [Hidden]
+	Event Chat.ServerToClientUnderOver13FilteredResponseSignal(sender: Instance, unfilteredMessage: string, isError: boolean, errorStr: string, under13: string, over13: string) {🛠️Chat} {🔒RobloxEngine} [Hidden]
+	Event Chat.TimeoutChatAttempt(isPermanentTimeout: boolean, endTime: number) {🛠️Chat} {🔒RobloxScript}
 Class ChatbotUIService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function ChatbotUIService:DisplayContent(contentType: string, data: { [string]: any }) -> () {🔒RobloxScript}
 	Function ChatbotUIService:GetSettings() -> { [string]: any } {🔒RobloxScript} [Yields]
@@ -1765,18 +1762,18 @@ Class CollectionService : Instance [NotCreatable] [Service]
 	Event CollectionService.ItemAdded(instance: Instance) {🛠️Basic} [Deprecated]
 	Event CollectionService.ItemRemoved(instance: Instance) {🛠️Basic} [Deprecated]
 Class CommerceService : Instance [NotCreatable] [Service]
-	Function CommerceService:GetCommerceProductInfoAsync(commerceProductId: string) -> { [string]: any } [Yields]
-	Function CommerceService:PromptCommerceProductPurchase(user: Player, commerceProductId: string) -> ()
-	Function CommerceService:PromptRealWorldCommerceBrowser(player: Player, url: string) -> ()
-	Function CommerceService:UserEligibleForRealWorldCommerceAsync() -> boolean [Yields]
-	Function CommerceService:PrepareCommerceProductPurchase(commerceProductId: string) -> { [string]: any } {🔒RobloxScript} [Yields]
-	Function CommerceService:SignalPromptCommerceProductPurchaseFinished(productId: string, didTryPurchase: boolean, checkoutSessionId: string? = "") -> () {🔒RobloxScript}
-	Event CommerceService.PromptCommerceProductPurchaseFinished(user: Player, productId: string)
-	Event CommerceService.BenefitStatusReceived(isGranted: boolean) {🔒RobloxScript}
-	Event CommerceService.FetchReceipt() {🔒RobloxEngine}
-	Event CommerceService.InExperienceBrowserRequested(url: string) {🔒RobloxEngine}
-	Event CommerceService.PromptCommerceProductPurchaseRequested(commerceProductId: string) {🔒RobloxScript}
-	Event CommerceService.PurchaseBrowserClosed() {🔒RobloxScript}
+	Function CommerceService:GetCommerceProductInfoAsync(commerceProductId: string) -> { [string]: any } {🛠️Monetization} [Yields]
+	Function CommerceService:PromptCommerceProductPurchase(user: Player, commerceProductId: string) -> () {🛠️Monetization}
+	Function CommerceService:PromptRealWorldCommerceBrowser(player: Player, url: string) -> () {🛠️Monetization}
+	Function CommerceService:UserEligibleForRealWorldCommerceAsync() -> boolean {🛠️Monetization} [Yields]
+	Function CommerceService:PrepareCommerceProductPurchase(commerceProductId: string) -> { [string]: any } {🛠️Monetization} {🔒RobloxScript} [Yields]
+	Function CommerceService:SignalPromptCommerceProductPurchaseFinished(productId: string, didTryPurchase: boolean, checkoutSessionId: string? = "") -> () {🛠️Monetization} {🔒RobloxScript}
+	Event CommerceService.PromptCommerceProductPurchaseFinished(user: Player, productId: string) {🛠️Monetization}
+	Event CommerceService.BenefitStatusReceived(isGranted: boolean) {🛠️Monetization} {🔒RobloxScript}
+	Event CommerceService.FetchReceipt() {🛠️Monetization} {🔒RobloxEngine}
+	Event CommerceService.InExperienceBrowserRequested(url: string) {🛠️Monetization} {🔒RobloxEngine}
+	Event CommerceService.PromptCommerceProductPurchaseRequested(commerceProductId: string) {🛠️Monetization} {🔒RobloxScript}
+	Event CommerceService.PurchaseBrowserClosed() {🛠️Monetization} {🔒RobloxScript}
 Class CompositeValueCurve : Instance
 	Property CompositeValueCurve.CurveType: Enum.CompositeValueCurveType {🛠️Basic}
 	Function CompositeValueCurve:GetComponentCurves() -> { Instance } {🛠️Basic}
@@ -1977,24 +1974,24 @@ Class VectorForce : Constraint
 	Property VectorForce.Force: Vector3 {🛠️Physics}
 	Property VectorForce.RelativeTo: Enum.ActuatorRelativeTo {🛠️Physics}
 Class ContentProvider : Instance [NotCreatable] [Service] [NotReplicated]
-	Property ContentProvider.BaseUrl: string [ReadOnly]
-	Property ContentProvider.RequestQueueSize: number [ReadOnly]
-	Function ContentProvider:GetAssetFetchStatus(contentId: string) -> Enum.AssetFetchStatus
-	Function ContentProvider:GetAssetFetchStatusChangedSignal(contentId: string) -> RBXScriptSignal
-	Function ContentProvider:ListEncryptedAssets() -> { any }
-	Function ContentProvider:PreloadAsync(contentIdList: { any }, callbackFunction: ((...any) -> ...any)?) -> () [Yields]
-	Function ContentProvider:RegisterDefaultEncryptionKey(encryptionKey: string) -> ()
-	Function ContentProvider:RegisterDefaultSessionKey(sessionKey: string) -> ()
-	Function ContentProvider:RegisterEncryptedAsset(assetId: string, encryptionKey: string) -> ()
-	Function ContentProvider:RegisterSessionEncryptedAsset(contentId: string, sessionKey: string) -> ()
-	Function ContentProvider:SetBaseUrl(url: string) -> () {🔒LocalUser}
-	Function ContentProvider:UnregisterDefaultEncryptionKey() -> ()
-	Function ContentProvider:UnregisterEncryptedAsset(assetId: string) -> ()
-	Function ContentProvider:GetDependencyContentIds(root: Instance) -> { any } {🔒RobloxScript}
-	Function ContentProvider:GetDetailedFailedRequests() -> { any } {🔒RobloxScript}
-	Function ContentProvider:GetFailedRequests() -> { any } {🔒RobloxScript}
-	Function ContentProvider:Preload(contentId: string) -> () [Deprecated]
-	Event ContentProvider.AssetFetchFailed(assetId: string)
+	Property ContentProvider.BaseUrl: string {🛠️AssetManagement} [ReadOnly]
+	Property ContentProvider.RequestQueueSize: number {🛠️AssetManagement} [ReadOnly]
+	Function ContentProvider:GetAssetFetchStatus(contentId: string) -> Enum.AssetFetchStatus {🛠️AssetManagement}
+	Function ContentProvider:GetAssetFetchStatusChangedSignal(contentId: string) -> RBXScriptSignal {🛠️AssetManagement}
+	Function ContentProvider:ListEncryptedAssets() -> { any } {🛠️AssetManagement}
+	Function ContentProvider:PreloadAsync(contentIdList: { any }, callbackFunction: ((...any) -> ...any)?) -> () {🛠️AssetManagement} [Yields]
+	Function ContentProvider:RegisterDefaultEncryptionKey(encryptionKey: string) -> () {🛠️AssetManagement}
+	Function ContentProvider:RegisterDefaultSessionKey(sessionKey: string) -> () {🛠️AssetManagement}
+	Function ContentProvider:RegisterEncryptedAsset(assetId: string, encryptionKey: string) -> () {🛠️AssetManagement}
+	Function ContentProvider:RegisterSessionEncryptedAsset(contentId: string, sessionKey: string) -> () {🛠️AssetManagement}
+	Function ContentProvider:SetBaseUrl(url: string) -> () {🛠️AssetManagement} {🔒LocalUser}
+	Function ContentProvider:UnregisterDefaultEncryptionKey() -> () {🛠️AssetManagement}
+	Function ContentProvider:UnregisterEncryptedAsset(assetId: string) -> () {🛠️AssetManagement}
+	Function ContentProvider:GetDependencyContentIds(root: Instance) -> { any } {🛠️AssetManagement} {🔒RobloxScript}
+	Function ContentProvider:GetDetailedFailedRequests() -> { any } {🛠️AssetManagement} {🔒RobloxScript}
+	Function ContentProvider:GetFailedRequests() -> { any } {🛠️AssetManagement} {🔒RobloxScript}
+	Function ContentProvider:Preload(contentId: string) -> () {🛠️AssetManagement} [Deprecated]
+	Event ContentProvider.AssetFetchFailed(assetId: string) {🛠️AssetManagement}
 Class ContextActionService : Instance [NotCreatable] [Service]
 	Function ContextActionService:BindAction(actionName: string, functionToBind: (...any) -> ...any, createTouchButton: boolean, inputTypes: ...any) -> () {🛠️Input}
 	Function ContextActionService:BindActionAtPriority(actionName: string, functionToBind: (...any) -> ...any, createTouchButton: boolean, priorityLevel: number, inputTypes: ...any) -> () {🛠️Input}
@@ -2203,15 +2200,15 @@ Class Debris : Instance [NotCreatable] [Service]
 	Function Debris:AddItem(item: Instance, lifetime: number? = 10) -> () {🛠️Basic}
 	Function Debris:SetLegacyMaxItems(enabled: boolean) -> () {🛠️Basic} {🔒LocalUser}
 	Function Debris:addItem(item: Instance, lifetime: number? = 10) -> () {🛠️Basic} [Deprecated]
-Class DebugSettings : Instance [NotCreatable] [Service] [NotReplicated] [NotBrowsable]
-	Property DebugSettings.TickCountPreciseOverride: Enum.TickCountSampleMethod
-	Property DebugSettings.IsScriptStackTracingEnabled: boolean
-	Property DebugSettings.ReportSoundWarnings: boolean
-	Property DebugSettings.DataModel: number [ReadOnly]
-	Property DebugSettings.InstanceCount: number [ReadOnly]
-	Property DebugSettings.JobCount: number [ReadOnly]
-	Property DebugSettings.PlayerCount: number [ReadOnly]
-	Property DebugSettings.RobloxVersion: string [ReadOnly]
+Class DebugSettings : Instance {🔒Plugin} [NotCreatable] [Service] [NotReplicated] [NotBrowsable]
+	Property DebugSettings.TickCountPreciseOverride: Enum.TickCountSampleMethod {Plugin}
+	Property DebugSettings.IsScriptStackTracingEnabled: boolean {Plugin}
+	Property DebugSettings.ReportSoundWarnings: boolean {Plugin}
+	Property DebugSettings.DataModel: number {Plugin} [ReadOnly]
+	Property DebugSettings.InstanceCount: number {Plugin} [ReadOnly]
+	Property DebugSettings.JobCount: number {Plugin} [ReadOnly]
+	Property DebugSettings.PlayerCount: number {Plugin} [ReadOnly]
+	Property DebugSettings.RobloxVersion: string {Plugin} [ReadOnly]
 Class DebuggablePluginWatcher : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 Class DebuggerBreakpoint : Instance {🔒LocalUser} [NotCreatable]
 	Property DebuggerBreakpoint.Condition: string
@@ -2343,10 +2340,10 @@ Class DraftsService : Instance {🔒Plugin} [NotCreatable] [Service] [NotReplica
 	Event DraftsService.EditorsListChanged(script: Instance) {🔒RobloxScript}
 	Event DraftsService.UpdateStatusChanged(script: Instance, status: Enum.DraftStatusCode) {🔒RobloxScript}
 Class Dragger : Instance
-	Function Dragger:AxisRotate(axis: Enum.Axis? = "X") -> ()
-	Function Dragger:MouseDown(mousePart: Instance, pointOnMousePart: Vector3, parts: { Instance }) -> ()
-	Function Dragger:MouseMove(mouseRay: Ray) -> ()
-	Function Dragger:MouseUp() -> ()
+	Function Dragger:AxisRotate(axis: Enum.Axis? = "X") -> () {🛠️Physics}
+	Function Dragger:MouseDown(mousePart: Instance, pointOnMousePart: Vector3, parts: { Instance }) -> () {🛠️Physics}
+	Function Dragger:MouseMove(mouseRay: Ray) -> () {🛠️Physics}
+	Function Dragger:MouseUp() -> () {🛠️Physics}
 Class DraggerService : Instance {🔒Plugin} [NotCreatable] [Service] [NotReplicated]
 	Property DraggerService.AlignDraggedObjects: boolean [NotReplicated]
 	Property DraggerService.AngleSnapEnabled: boolean [NotReplicated]
@@ -2396,10 +2393,10 @@ Class ExperienceAuthService : Instance {🔒RobloxScript} [NotCreatable] [Servic
 	Event ExperienceAuthService.OpenAuthPrompt(guid: string, scopes: { any }, metadata: { [string]: any }) {🔒RobloxScript}
 	Event ExperienceAuthService.ScopeCheckResult(guid: string, result: Enum.ScopeCheckResult, token: string, scopes: { any }, metadata: { [string]: any }) {🔒RobloxEngine} [Hidden]
 Class ExperienceInviteOptions : Instance [NotReplicated]
-	Property ExperienceInviteOptions.InviteMessageId: string
-	Property ExperienceInviteOptions.InviteUser: number
-	Property ExperienceInviteOptions.LaunchData: string
-	Property ExperienceInviteOptions.PromptMessage: string
+	Property ExperienceInviteOptions.InviteMessageId: string {🛠️Social}
+	Property ExperienceInviteOptions.InviteUser: number {🛠️Social}
+	Property ExperienceInviteOptions.LaunchData: string {🛠️Social}
+	Property ExperienceInviteOptions.PromptMessage: string {🛠️Social}
 Class ExperienceNotificationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ExperienceNotificationService:CanPromptOptInAsync() -> boolean [Yields]
 	Function ExperienceNotificationService:PromptOptIn() -> ()
@@ -2575,10 +2572,10 @@ Class FacialAnimationStreamingServiceV2 : Instance {🔒RobloxScript} [NotCreata
 	Function FacialAnimationStreamingServiceV2:ResolveStateForUser(userId: number) -> number {🔒RobloxScript} [Yields]
 Class FacialAnimationStreamingSubsessionStats : Instance {🔒RobloxScript} [NotCreatable] [NotReplicated]
 Class Feature : Instance [NotCreatable]
-	Property Feature.FaceId: Enum.NormalId
-	Property Feature.InOut: Enum.InOut
-	Property Feature.LeftRight: Enum.LeftRight
-	Property Feature.TopBottom: Enum.TopBottom
+	Property Feature.FaceId: Enum.NormalId {🛠️Physics}
+	Property Feature.InOut: Enum.InOut {🛠️Physics}
+	Property Feature.LeftRight: Enum.LeftRight {🛠️Physics}
+	Property Feature.TopBottom: Enum.TopBottom {🛠️Physics}
 Class Hole : Feature [Deprecated]
 Class MotorFeature : Feature [Deprecated]
 Class FeatureRestrictionManager : Instance [NotCreatable] [Service]
@@ -2592,21 +2589,26 @@ Class FeatureRestrictionManager : Instance [NotCreatable] [Service]
 	Event FeatureRestrictionManager.UpdateExperienceChatTimeout(startTime: number, duration: number) {🔒RobloxEngine} [Hidden]
 	Event FeatureRestrictionManager.UpdateFeatureTimeout(userId: number, acknowledgeable: boolean, permanent: boolean, startTime: number, duration: number, featureRestrictionAbuseVector: Enum.FeatureRestrictionAbuseVector) {🔒RobloxEngine} [Hidden]
 Class File : Instance [NotCreatable] [NotReplicated]
-	Property File.Size: number {Plugin} [Hidden] [ReadOnly]
-	Function File:GetBinaryContents() -> string {🔒Plugin}
-	Function File:GetTemporaryId() -> string {🔒Plugin}
+	Property File.Size: number {🛠️AssetRead} {Plugin} [Hidden] [ReadOnly]
+	Function File:GetBinaryContents() -> string {🛠️AssetRead} {🔒Plugin}
+	Function File:GetTemporaryId() -> string {🛠️AssetRead} {🔒Plugin}
+Class FileManagerService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
+	Function FileManagerService:ListFilesInFolderAsync(folder: Enum.EngineFolder) -> { any } {🔒RobloxScript} [Yields]
+	Function FileManagerService:OpenFileInWebBrowser(folder: Enum.EngineFolder, fileName: string) -> () {🔒RobloxScript}
+	Function FileManagerService:OpenFolder(folder: Enum.EngineFolder) -> () {🔒RobloxScript}
+	Function FileManagerService:RevealFileInFolder(folder: Enum.EngineFolder, fileName: string) -> () {🔒RobloxScript}
 Class Fire : Instance
-	Property Fire.Color: Color3
-	Property Fire.Enabled: boolean
-	Property Fire.Heat: number {📁LoadOnly} [NotReplicated]
-	Property Fire.SecondaryColor: Color3
-	Property Fire.Size: number {📁LoadOnly} [NotReplicated]
-	Property Fire.TimeScale: number
-	Property Fire.LocalTransparencyModifier: number [Hidden] [NotReplicated]
-	Property Fire.heat_xml: number [Hidden] [NotScriptable]
-	Property Fire.size: number {📁LoadOnly} [NotReplicated] [Deprecated]
-	Property Fire.size_xml: number [Hidden] [NotScriptable]
-	Function Fire:FastForward(numFrames: number) -> () {🔒RobloxScript}
+	Property Fire.Color: Color3 {🛠️Basic}
+	Property Fire.Enabled: boolean {🛠️Basic}
+	Property Fire.Heat: number {🛠️Basic} {📁LoadOnly} [NotReplicated]
+	Property Fire.SecondaryColor: Color3 {🛠️Basic}
+	Property Fire.Size: number {🛠️Basic} {📁LoadOnly} [NotReplicated]
+	Property Fire.TimeScale: number {🛠️Basic}
+	Property Fire.LocalTransparencyModifier: number {🛠️Basic} [Hidden] [NotReplicated]
+	Property Fire.heat_xml: number {🛠️Basic} [Hidden] [NotScriptable]
+	Property Fire.size: number {🛠️Basic} {📁LoadOnly} [NotReplicated] [Deprecated]
+	Property Fire.size_xml: number {🛠️Basic} [Hidden] [NotScriptable]
+	Function Fire:FastForward(numFrames: number) -> () {🛠️Basic} {🔒RobloxScript}
 Class FlagStandService : Instance [NotCreatable] [Service]
 Class FloatCurve : Instance
 	Property FloatCurve.Length: number {🛠️Basic} [ReadOnly]
@@ -2643,9 +2645,9 @@ Class FunctionalTest : Instance [Deprecated]
 	Function FunctionalTest:Passed(message: string? = "") -> () [Deprecated]
 	Function FunctionalTest:Warn(message: string? = "") -> () [Deprecated]
 Class GamePassService : Instance [NotCreatable] [Service] [Deprecated]
-	Function GamePassService:PlayerHasPass(player: Player, gamePassId: number) -> boolean [Yields] [Deprecated]
-Class GameSettings : Instance [NotCreatable] [Service] [NotReplicated] [NotBrowsable]
-	Property GameSettings.VideoCaptureEnabled: boolean [Deprecated]
+	Function GamePassService:PlayerHasPass(player: Player, gamePassId: number) -> boolean {🛠️Monetization} [Yields] [Deprecated]
+Class GameSettings : Instance {🔒Plugin} [NotCreatable] [Service] [NotReplicated] [NotBrowsable]
+	Property GameSettings.VideoCaptureEnabled: boolean {Plugin} [Deprecated]
 	Event GameSettings.VideoRecordingChangeRequest(recording: boolean) {🔒RobloxScript}
 Class GamepadService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property GamepadService.GamepadCursorEnabled: boolean {🛠️Input} {✏️RobloxScript}
@@ -2655,13 +2657,13 @@ Class GamepadService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function GamepadService:SetGamepadCursorPosition(position: Vector2) -> () {🛠️Input} {🔒RobloxScript}
 	Event GamepadService.GamepadThumbstick1Changed(event: Vector2) {🛠️Input} {🔒RobloxScript}
 Class GenerationService : Instance [NotCreatable] [Service]
-	Function GenerationService:GenerateMeshAsync(inputs: { [string]: any }, player: Player, options: { [string]: any }, intermediateResultCallback: ((...any) -> ...any)?) -> ...any [Yields]
-	Function GenerationService:GenerateModelAsync(inputs: { [string]: any }, schema: { [string]: any }, options: { [string]: any }?) -> ...any [Yields]
-	Function GenerationService:LoadGeneratedMeshAsync(generationId: string) -> MeshPart [Yields]
-	Function GenerationService:InternalGenerateMeshAsync(inputs: { [string]: any }, userId: number, options: { [string]: any }, intermediateResultCallback: ((...any) -> ...any)?) -> ...any {🔒RobloxScript} [Yields]
-	Function GenerationService:LoadModelFromGlbAsync(glbPath: string) -> Model {🔒RobloxScript} [Yields]
-	Event GenerationService.ReplicateGeneration(id: string, success: boolean, serializedModel: string) {🔒RobloxEngine} [Hidden]
-	Event GenerationService.RequestGenerationReplication(id: string) {🔒RobloxEngine} [Hidden]
+	Function GenerationService:GenerateMeshAsync(inputs: { [string]: any }, player: Player, options: { [string]: any }, intermediateResultCallback: ((...any) -> ...any)?) -> ...any {🛠️DynamicGeneration} [Yields]
+	Function GenerationService:GenerateModelAsync(inputs: { [string]: any }, schema: { [string]: any }, options: { [string]: any }?) -> ...any {🛠️DynamicGeneration} [Yields]
+	Function GenerationService:LoadGeneratedMeshAsync(generationId: string) -> MeshPart {🛠️DynamicGeneration} [Yields]
+	Function GenerationService:InternalGenerateMeshAsync(inputs: { [string]: any }, userId: number, options: { [string]: any }, intermediateResultCallback: ((...any) -> ...any)?) -> ...any {🛠️DynamicGeneration} {🔒RobloxScript} [Yields]
+	Function GenerationService:LoadModelFromGlbAsync(glbPath: string) -> Model {🛠️DynamicGeneration} {🔒RobloxScript} [Yields]
+	Event GenerationService.ReplicateGeneration(id: string, success: boolean, serializedModel: string) {🛠️DynamicGeneration} {🔒RobloxEngine} [Hidden]
+	Event GenerationService.RequestGenerationReplication(id: string) {🛠️DynamicGeneration} {🔒RobloxEngine} [Hidden]
 Class GenericChallengeService : Instance [NotCreatable] [Service]
 	Function GenericChallengeService:SignalChallengeAbandoned(challengeID: string) -> () {🔒RobloxScript}
 	Function GenericChallengeService:SignalChallengeCompleted(challengeID: string, challengeType: string, challengeMetadata: string) -> () {🔒RobloxScript}
@@ -2706,13 +2708,13 @@ Class DataStore : GlobalDataStore [NotCreatable] [NotReplicated]
 Class OrderedDataStore : GlobalDataStore [NotCreatable] [NotReplicated]
 	Function OrderedDataStore:GetSortedAsync(ascending: boolean, pagesize: number, minValue: any, maxValue: any) -> DataStorePages {🛠️DataStore} [Yields]
 Class GroupService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function GroupService:GetAlliesAsync(groupId: number) -> StandardPages [Yields]
-	Function GroupService:GetEnemiesAsync(groupId: number) -> StandardPages [Yields]
-	Function GroupService:GetGroupInfoAsync(groupId: number) -> any [Yields]
-	Function GroupService:GetGroupsAsync(userId: number) -> { any } [Yields]
-	Function GroupService:PromptJoinAsync(groupId: number) -> Enum.GroupMembershipStatus [Yields]
-	Function GroupService:PromptJoinCompleted(groupId: number, success: boolean, groupMembershipStatus: Enum.GroupMembershipStatus, errorMessage: string) -> () {🔒RobloxScript}
-	Event GroupService.ShowJoinPrompt(groupId: number) {🔒RobloxScript}
+	Function GroupService:GetAlliesAsync(groupId: number) -> StandardPages {🛠️Groups} [Yields]
+	Function GroupService:GetEnemiesAsync(groupId: number) -> StandardPages {🛠️Groups} [Yields]
+	Function GroupService:GetGroupInfoAsync(groupId: number) -> any {🛠️Groups} [Yields]
+	Function GroupService:GetGroupsAsync(userId: number) -> { any } {🛠️Groups} [Yields]
+	Function GroupService:PromptJoinAsync(groupId: number) -> Enum.GroupMembershipStatus {🛠️Groups} [Yields]
+	Function GroupService:PromptJoinCompleted(groupId: number, success: boolean, groupMembershipStatus: Enum.GroupMembershipStatus, errorMessage: string) -> () {🛠️Groups} {🔒RobloxScript}
+	Event GroupService.ShowJoinPrompt(groupId: number) {🛠️Groups} {🔒RobloxScript}
 Class GuiBase : Instance [NotCreatable]
 Class GuiBase2d : GuiBase [NotCreatable] [NotBrowsable]
 	Property GuiBase2d.AbsolutePosition: Vector2 {🛠️UI} [ReadOnly] {🧬Unsafe}
@@ -3423,21 +3425,21 @@ Class HandRigDescription : Instance [NotBrowsable]
 	Function HandRigDescription:SetFingerControl(fingerIndex: number, control: Vector3) -> () {🛠️Animation}
 	Function HandRigDescription:SetFingerTip(fingerIndex: number, point: Vector3) -> () {🛠️Animation}
 Class HapticEffect : Instance
-	Property HapticEffect.Looped: boolean
-	Property HapticEffect.Position: Vector3
-	Property HapticEffect.Radius: number
-	Property HapticEffect.Type: Enum.HapticEffectType
-	Property HapticEffect.Waveform: FloatCurve? {RobloxScript} [Deprecated]
-	Property HapticEffect.WaveformData: BinaryString {RobloxEngine} [Hidden] [NotScriptable]
-	Function HapticEffect:Play() -> ()
-	Function HapticEffect:SetWaveformKeys(keys: { any }) -> ()
-	Function HapticEffect:Stop() -> ()
-	Event HapticEffect.Ended()
+	Property HapticEffect.Looped: boolean {🛠️Input}
+	Property HapticEffect.Position: Vector3 {🛠️Input}
+	Property HapticEffect.Radius: number {🛠️Input}
+	Property HapticEffect.Type: Enum.HapticEffectType {🛠️Input}
+	Property HapticEffect.Waveform: FloatCurve? {🛠️Input} {RobloxScript} [Deprecated]
+	Property HapticEffect.WaveformData: BinaryString {🛠️Input} {RobloxEngine} [Hidden] [NotScriptable]
+	Function HapticEffect:Play() -> () {🛠️Input}
+	Function HapticEffect:SetWaveformKeys(keys: { any }) -> () {🛠️Input}
+	Function HapticEffect:Stop() -> () {🛠️Input}
+	Event HapticEffect.Ended() {🛠️Input}
 Class HapticService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function HapticService:GetMotor(inputType: Enum.UserInputType, vibrationMotor: Enum.VibrationMotor) -> ...any
-	Function HapticService:IsMotorSupported(inputType: Enum.UserInputType, vibrationMotor: Enum.VibrationMotor) -> boolean
-	Function HapticService:IsVibrationSupported(inputType: Enum.UserInputType) -> boolean
-	Function HapticService:SetMotor(inputType: Enum.UserInputType, vibrationMotor: Enum.VibrationMotor, vibrationValues: ...any) -> ()
+	Function HapticService:GetMotor(inputType: Enum.UserInputType, vibrationMotor: Enum.VibrationMotor) -> ...any {🛠️Input}
+	Function HapticService:IsMotorSupported(inputType: Enum.UserInputType, vibrationMotor: Enum.VibrationMotor) -> boolean {🛠️Input}
+	Function HapticService:IsVibrationSupported(inputType: Enum.UserInputType) -> boolean {🛠️Input}
+	Function HapticService:SetMotor(inputType: Enum.UserInputType, vibrationMotor: Enum.VibrationMotor, vibrationValues: ...any) -> () {🛠️Input}
 Class HarmonyService : Instance {🔒RobloxEngine} [NotCreatable] [Service] [NotReplicated]
 Class HeapProfilerService : Instance [NotCreatable] [Service]
 	Function HeapProfilerService:ClientRequestDataAsync(player: Player) -> string {🔒Plugin} [Yields]
@@ -3458,15 +3460,15 @@ Class HiddenSurfaceRemovalAsset : Instance
 	Property HiddenSurfaceRemovalAsset.HSRData: BinaryString {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
 	Property HiddenSurfaceRemovalAsset.HSRMeshIdData: BinaryString {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
 Class Highlight : Instance
-	Property Highlight.Adornee: Instance?
-	Property Highlight.DepthMode: Enum.HighlightDepthMode
-	Property Highlight.Enabled: boolean
-	Property Highlight.FillColor: Color3
-	Property Highlight.FillTransparency: number
-	Property Highlight.OutlineColor: Color3
-	Property Highlight.OutlineTransparency: number
-	Property Highlight.LineThickness: number {RobloxScript} [Hidden]
-	Property Highlight.ReservedId: Enum.ReservedHighlightId {RobloxScript} [Hidden]
+	Property Highlight.Adornee: Instance? {🛠️Basic}
+	Property Highlight.DepthMode: Enum.HighlightDepthMode {🛠️Basic}
+	Property Highlight.Enabled: boolean {🛠️Basic}
+	Property Highlight.FillColor: Color3 {🛠️Basic}
+	Property Highlight.FillTransparency: number {🛠️Basic}
+	Property Highlight.OutlineColor: Color3 {🛠️Basic}
+	Property Highlight.OutlineTransparency: number {🛠️Basic}
+	Property Highlight.LineThickness: number {🛠️Basic} {RobloxScript} [Hidden]
+	Property Highlight.ReservedId: Enum.ReservedHighlightId {🛠️Basic} {RobloxScript} [Hidden]
 Class Hopper : Instance [NotCreatable] [Service] [Deprecated]
 Class HttpRbxApiService : Instance [NotCreatable] [Service]
 	Function HttpRbxApiService:RequestLimitedAsync(requestOptions: { [string]: any }, priority: Enum.ThrottlingPriority? = "Default", content_type: Enum.HttpContentType? = "ApplicationJson", httpRequestType: Enum.HttpRequestType? = "Default") -> string [Yields]
@@ -3889,6 +3891,7 @@ Class InputAction : Instance
 	Property InputAction.Direction1DState: number {🛠️Input} {RobloxScript} [ReadOnly] [NotScriptable]
 	Property InputAction.Direction2DState: Vector2 {🛠️Input} {RobloxScript} [ReadOnly] [NotScriptable]
 	Property InputAction.Direction3DState: Vector3 {🛠️Input} {RobloxScript} [ReadOnly] [NotScriptable]
+	Property InputAction.ViewportPositionState: Vector2 {🛠️Input} {RobloxScript} [ReadOnly] [NotScriptable]
 	Function InputAction:Fire(state: any) -> () {🛠️Input}
 	Function InputAction:GetState() -> any {🛠️Input} {🧬Safe}
 	Event InputAction.Pressed() {🛠️Input}
@@ -3926,19 +3929,19 @@ Class InputObject : Instance [NotCreatable]
 Class InsertService : Instance [NotCreatable] [Service]
 	Property InsertService.AllowClientInsertModels: boolean [NotScriptable]
 	Property InsertService.AllowInsertFreeModels: boolean [NotReplicated] [NotBrowsable] [Deprecated]
-	Function InsertService:CreateMeshPartAsync(meshId: string, collisionFidelity: Enum.CollisionFidelity, renderFidelity: Enum.RenderFidelity) -> MeshPart [Yields]
-	Function InsertService:GetFreeDecalsAsync(searchText: string, pageNum: number) -> { any } [Yields]
-	Function InsertService:GetFreeModelsAsync(searchText: string, pageNum: number) -> { any } [Yields]
-	Function InsertService:GetLatestAssetVersionAsync(assetId: number) -> number [Yields]
-	Function InsertService:LoadAsset(assetId: number) -> Instance? [Yields]
-	Function InsertService:LoadAssetVersion(assetVersionId: number) -> Instance? [Yields]
+	Function InsertService:CreateMeshPartAsync(meshId: string, collisionFidelity: Enum.CollisionFidelity, renderFidelity: Enum.RenderFidelity) -> MeshPart {🛠️Basic} [Yields]
+	Function InsertService:GetFreeDecalsAsync(searchText: string, pageNum: number) -> { any } {🛠️AssetRead} [Yields]
+	Function InsertService:GetFreeModelsAsync(searchText: string, pageNum: number) -> { any } {🛠️AssetRead} [Yields]
+	Function InsertService:GetLatestAssetVersionAsync(assetId: number) -> number {🛠️AssetRead} [Yields]
+	Function InsertService:LoadAsset(assetId: number) -> Instance? {🛠️LoadOwnedAsset} [Yields]
+	Function InsertService:LoadAssetVersion(assetVersionId: number) -> Instance? {🛠️LoadOwnedAsset} [Yields]
 	Function InsertService:ApproveAssetId(assetId: number) -> () [Deprecated]
 	Function InsertService:ApproveAssetVersionId(assetVersionId: number) -> () [Deprecated]
 	Function InsertService:GetBaseCategories() -> { any } [Yields] [Deprecated]
 	Function InsertService:GetBaseSets() -> { any } [Yields] [Deprecated]
 	Function InsertService:GetCollection(categoryId: number) -> { any } [Yields] [Deprecated]
-	Function InsertService:GetFreeDecals(searchText: string, pageNum: number) -> { any } [Yields] [Deprecated]
-	Function InsertService:GetFreeModels(searchText: string, pageNum: number) -> { any } [Yields] [Deprecated]
+	Function InsertService:GetFreeDecals(searchText: string, pageNum: number) -> { any } {🛠️AssetRead} [Yields] [Deprecated]
+	Function InsertService:GetFreeModels(searchText: string, pageNum: number) -> { any } {🛠️AssetRead} [Yields] [Deprecated]
 	Function InsertService:GetLocalFileContents(contentId: string) -> string {🔒RobloxScript}
 	Function InsertService:GetUserCategories(userId: number) -> { any } [Yields] [Deprecated]
 	Function InsertService:GetUserSets(userId: number) -> { any } [Yields] [Deprecated]
@@ -4003,11 +4006,11 @@ Class VelocityMotor : JointInstance
 	Property VelocityMotor.MaxVelocity: number {🛠️Physics}
 Class Weld : JointInstance
 Class JointsService : Instance [NotCreatable] [Service] [Deprecated]
-	Function JointsService:ClearJoinAfterMoveJoints() -> () [Deprecated]
-	Function JointsService:CreateJoinAfterMoveJoints() -> () [Deprecated]
-	Function JointsService:SetJoinAfterMoveInstance(joinInstance: Instance) -> () [Deprecated]
-	Function JointsService:SetJoinAfterMoveTarget(joinTarget: Instance) -> () [Deprecated]
-	Function JointsService:ShowPermissibleJoints() -> () [Deprecated]
+	Function JointsService:ClearJoinAfterMoveJoints() -> () {🛠️Physics} [Deprecated]
+	Function JointsService:CreateJoinAfterMoveJoints() -> () {🛠️Physics} [Deprecated]
+	Function JointsService:SetJoinAfterMoveInstance(joinInstance: Instance) -> () {🛠️Physics} [Deprecated]
+	Function JointsService:SetJoinAfterMoveTarget(joinTarget: Instance) -> () {🛠️Physics} [Deprecated]
+	Function JointsService:ShowPermissibleJoints() -> () {🛠️Physics} [Deprecated]
 Class KeyboardService : Instance [NotCreatable] [Service]
 Class Keyframe : Instance
 	Property Keyframe.Time: number {🛠️Animation}
@@ -4020,14 +4023,14 @@ Class Keyframe : Instance
 Class KeyframeMarker : Instance
 	Property KeyframeMarker.Value: string {🛠️Animation}
 Class KeyframeSequenceProvider : Instance [NotCreatable] [Service] [NotReplicated]
-	Function KeyframeSequenceProvider:GetAnimationsAsync(userId: number) -> Instance? [Yields]
-	Function KeyframeSequenceProvider:GetKeyframeSequenceAsync(assetId: string) -> Instance? [Yields]
-	Function KeyframeSequenceProvider:RegisterActiveKeyframeSequence(keyframeSequence: Instance) -> string
-	Function KeyframeSequenceProvider:RegisterKeyframeSequence(keyframeSequence: Instance) -> string
-	Function KeyframeSequenceProvider:GetAnimations(userId: number) -> Instance? [Yields] [Deprecated]
-	Function KeyframeSequenceProvider:GetKeyframeSequence(assetId: string) -> Instance? {🔒Plugin} [Deprecated]
-	Function KeyframeSequenceProvider:GetKeyframeSequenceById(assetId: number, useCache: boolean) -> Instance? {🔒Plugin} [Deprecated]
-	Function KeyframeSequenceProvider:GetMemStats() -> { [string]: any } {🔒RobloxScript}
+	Function KeyframeSequenceProvider:GetAnimationsAsync(userId: number) -> Instance? {🛠️Animation} [Yields]
+	Function KeyframeSequenceProvider:GetKeyframeSequenceAsync(assetId: string) -> Instance? {🛠️Animation} [Yields]
+	Function KeyframeSequenceProvider:RegisterActiveKeyframeSequence(keyframeSequence: Instance) -> string {🛠️Animation}
+	Function KeyframeSequenceProvider:RegisterKeyframeSequence(keyframeSequence: Instance) -> string {🛠️Animation}
+	Function KeyframeSequenceProvider:GetAnimations(userId: number) -> Instance? {🛠️Animation} [Yields] [Deprecated]
+	Function KeyframeSequenceProvider:GetKeyframeSequence(assetId: string) -> Instance? {🛠️Animation} {🔒Plugin} [Deprecated]
+	Function KeyframeSequenceProvider:GetKeyframeSequenceById(assetId: number, useCache: boolean) -> Instance? {🛠️Animation} {🔒Plugin} [Deprecated]
+	Function KeyframeSequenceProvider:GetMemStats() -> { [string]: any } {🛠️Animation} {🔒RobloxScript}
 Class LSPFileSyncService : Instance {🔒RobloxEngine} [NotCreatable] [Service] [NotReplicated]
 Class LanguageService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function LanguageService:GetCapabilitiesUsedInPackageAsync(instances: { Instance }) -> { [string]: any } [Yields]
@@ -4115,57 +4118,57 @@ Class LocalStorageService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 Class AppStorageService : LocalStorageService {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 Class UserStorageService : LocalStorageService {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 Class LocalizationService : Instance [NotCreatable] [Service] [NotReplicated]
-	Property LocalizationService.RobloxLocaleId: string [ReadOnly]
-	Property LocalizationService.SystemLocaleId: string [ReadOnly]
-	Property LocalizationService.ForcePlayModeGameLocaleId: string {LocalUser} [Hidden] [NotReplicated]
-	Property LocalizationService.ForcePlayModeRobloxLocaleId: string {LocalUser} [Hidden] [NotReplicated]
-	Property LocalizationService.RobloxForcePlayModeGameLocaleId: string {RobloxScript} [Hidden] [NotReplicated]
-	Property LocalizationService.RobloxForcePlayModeRobloxLocaleId: string {RobloxScript} [Hidden] [NotReplicated]
-	Property LocalizationService.GameSourceLanguageId: string [Hidden] [NotScriptable]
-	Property LocalizationService.IsTextScraperRunning: boolean {RobloxScript} [Hidden]
-	Property LocalizationService.LocaleManifest: string [Hidden] [NotScriptable]
-	Property LocalizationService.ShouldUseCloudTable: boolean {RobloxScript} [Hidden] [NotScriptable]
-	Function LocalizationService:GetCorescriptLocalizations() -> { Instance }
-	Function LocalizationService:GetCountryRegionForPlayerAsync(player: Instance) -> string [Yields]
-	Function LocalizationService:GetTableEntries(instance: Instance? = nil) -> { any }
-	Function LocalizationService:GetTranslatorForLocaleAsync(locale: string) -> Instance? [Yields]
-	Function LocalizationService:GetTranslatorForPlayer(player: Instance) -> Instance?
-	Function LocalizationService:GetTranslatorForPlayerAsync(player: Instance) -> Instance? [Yields]
-	Function LocalizationService:GetIsLoadingInternalTranslations() -> boolean {🔒RobloxScript}
-	Function LocalizationService:IsLoadingInternalTranslationsSettingChanged(newIsLoadingInternalTranslations: boolean) -> () {🔒RobloxScript}
-	Function LocalizationService:PromptDownloadGameTableToCSV(table: Instance) -> () {🔒RobloxScript} [Yields]
-	Function LocalizationService:PromptExportToCSVs() -> () {🔒RobloxScript} [Yields]
-	Function LocalizationService:PromptImportFromCSVs() -> () {🔒RobloxScript} [Yields]
-	Function LocalizationService:PromptUploadCSVToGameTable() -> Instance? {🔒RobloxScript} [Yields]
-	Function LocalizationService:SetRobloxLocaleId(locale: string) -> () {🔒RobloxScript}
-	Function LocalizationService:StartTextScraper() -> () {🔒RobloxScript}
-	Function LocalizationService:StopTextScraper() -> () {🔒RobloxScript}
-	Event LocalizationService.AutoTranslateWillRun() {🔒RobloxScript}
-	Event LocalizationService.DynamicTranslationServerToClientResponse(entries: ...any) {🔒RobloxEngine} [Hidden]
-	Event LocalizationService.TextScraperClientMessageWithPlayerSignal(version: number, player: Instance, message: ...any) {🔒RobloxEngine} [Hidden]
+	Property LocalizationService.RobloxLocaleId: string {🛠️Basic} [ReadOnly]
+	Property LocalizationService.SystemLocaleId: string {🛠️Basic} [ReadOnly]
+	Property LocalizationService.ForcePlayModeGameLocaleId: string {🛠️Basic} {LocalUser} [Hidden] [NotReplicated]
+	Property LocalizationService.ForcePlayModeRobloxLocaleId: string {🛠️Basic} {LocalUser} [Hidden] [NotReplicated]
+	Property LocalizationService.RobloxForcePlayModeGameLocaleId: string {🛠️Basic} {RobloxScript} [Hidden] [NotReplicated]
+	Property LocalizationService.RobloxForcePlayModeRobloxLocaleId: string {🛠️Basic} {RobloxScript} [Hidden] [NotReplicated]
+	Property LocalizationService.GameSourceLanguageId: string {🛠️Basic} [Hidden] [NotScriptable]
+	Property LocalizationService.IsTextScraperRunning: boolean {🛠️Basic} {RobloxScript} [Hidden]
+	Property LocalizationService.LocaleManifest: string {🛠️Basic} [Hidden] [NotScriptable]
+	Property LocalizationService.ShouldUseCloudTable: boolean {🛠️Basic} {RobloxScript} [Hidden] [NotScriptable]
+	Function LocalizationService:GetCorescriptLocalizations() -> { Instance } {🛠️Basic}
+	Function LocalizationService:GetCountryRegionForPlayerAsync(player: Instance) -> string {🛠️Basic} [Yields]
+	Function LocalizationService:GetTableEntries(instance: Instance? = nil) -> { any } {🛠️Basic}
+	Function LocalizationService:GetTranslatorForLocaleAsync(locale: string) -> Instance? {🛠️Basic} [Yields]
+	Function LocalizationService:GetTranslatorForPlayer(player: Instance) -> Instance? {🛠️Basic}
+	Function LocalizationService:GetTranslatorForPlayerAsync(player: Instance) -> Instance? {🛠️Basic} [Yields]
+	Function LocalizationService:GetIsLoadingInternalTranslations() -> boolean {🛠️Basic} {🔒RobloxScript}
+	Function LocalizationService:IsLoadingInternalTranslationsSettingChanged(newIsLoadingInternalTranslations: boolean) -> () {🛠️Basic} {🔒RobloxScript}
+	Function LocalizationService:PromptDownloadGameTableToCSV(table: Instance) -> () {🛠️Basic} {🔒RobloxScript} [Yields]
+	Function LocalizationService:PromptExportToCSVs() -> () {🛠️Basic} {🔒RobloxScript} [Yields]
+	Function LocalizationService:PromptImportFromCSVs() -> () {🛠️Basic} {🔒RobloxScript} [Yields]
+	Function LocalizationService:PromptUploadCSVToGameTable() -> Instance? {🛠️Basic} {🔒RobloxScript} [Yields]
+	Function LocalizationService:SetRobloxLocaleId(locale: string) -> () {🛠️Basic} {🔒RobloxScript}
+	Function LocalizationService:StartTextScraper() -> () {🛠️Basic} {🔒RobloxScript}
+	Function LocalizationService:StopTextScraper() -> () {🛠️Basic} {🔒RobloxScript}
+	Event LocalizationService.AutoTranslateWillRun() {🛠️Basic} {🔒RobloxScript}
+	Event LocalizationService.DynamicTranslationServerToClientResponse(entries: ...any) {🛠️Basic} {🔒RobloxEngine} [Hidden]
+	Event LocalizationService.TextScraperClientMessageWithPlayerSignal(version: number, player: Instance, message: ...any) {🛠️Basic} {🔒RobloxEngine} [Hidden]
 Class LocalizationTable : Instance
-	Property LocalizationTable.SourceLocaleId: string
-	Property LocalizationTable.Contents: string [Hidden] [NotScriptable]
-	Property LocalizationTable.Root: Instance? [Hidden] [NotReplicated] [Deprecated]
-	Property LocalizationTable.DevelopmentLanguage: string {📁LoadOnly} [Hidden] [NotReplicated] [Deprecated]
-	Property LocalizationTable.IsExemptFromUGCAnalytics: boolean [Hidden] [NotScriptable]
-	Function LocalizationTable:GetEntries() -> { any }
-	Function LocalizationTable:GetTranslator(localeId: string) -> Instance?
-	Function LocalizationTable:RemoveEntry(key: string, source: string, context: string) -> ()
-	Function LocalizationTable:RemoveEntryValue(key: string, source: string, context: string, localeId: string) -> ()
-	Function LocalizationTable:RemoveTargetLocale(localeId: string) -> ()
-	Function LocalizationTable:SetEntries(entries: any) -> ()
-	Function LocalizationTable:SetEntryContext(key: string, source: string, context: string, newContext: string) -> ()
-	Function LocalizationTable:SetEntryExample(key: string, source: string, context: string, example: string) -> ()
-	Function LocalizationTable:SetEntryKey(key: string, source: string, context: string, newKey: string) -> ()
-	Function LocalizationTable:SetEntrySource(key: string, source: string, context: string, newSource: string) -> ()
-	Function LocalizationTable:SetEntryValue(key: string, source: string, context: string, localeId: string, text: string) -> ()
-	Function LocalizationTable:GetContents() -> string [Deprecated]
-	Function LocalizationTable:GetString(targetLocaleId: string, key: string) -> string [Deprecated]
-	Function LocalizationTable:RemoveKey(key: string) -> () [Deprecated]
-	Function LocalizationTable:SetContents(contents: string) -> () [Deprecated]
-	Function LocalizationTable:SetEntry(key: string, targetLocaleId: string, text: string) -> () [Deprecated]
-	Function LocalizationTable:SetIsExemptFromUGCAnalytics(value: boolean) -> () {🔒RobloxScript}
+	Property LocalizationTable.SourceLocaleId: string {🛠️Basic}
+	Property LocalizationTable.Contents: string {🛠️Basic} [Hidden] [NotScriptable]
+	Property LocalizationTable.Root: Instance? {🛠️Basic} [Hidden] [NotReplicated] [Deprecated]
+	Property LocalizationTable.DevelopmentLanguage: string {🛠️Basic} {📁LoadOnly} [Hidden] [NotReplicated] [Deprecated]
+	Property LocalizationTable.IsExemptFromUGCAnalytics: boolean {🛠️Basic} [Hidden] [NotScriptable]
+	Function LocalizationTable:GetEntries() -> { any } {🛠️Basic}
+	Function LocalizationTable:GetTranslator(localeId: string) -> Instance? {🛠️Basic}
+	Function LocalizationTable:RemoveEntry(key: string, source: string, context: string) -> () {🛠️Basic}
+	Function LocalizationTable:RemoveEntryValue(key: string, source: string, context: string, localeId: string) -> () {🛠️Basic}
+	Function LocalizationTable:RemoveTargetLocale(localeId: string) -> () {🛠️Basic}
+	Function LocalizationTable:SetEntries(entries: any) -> () {🛠️Basic}
+	Function LocalizationTable:SetEntryContext(key: string, source: string, context: string, newContext: string) -> () {🛠️Basic}
+	Function LocalizationTable:SetEntryExample(key: string, source: string, context: string, example: string) -> () {🛠️Basic}
+	Function LocalizationTable:SetEntryKey(key: string, source: string, context: string, newKey: string) -> () {🛠️Basic}
+	Function LocalizationTable:SetEntrySource(key: string, source: string, context: string, newSource: string) -> () {🛠️Basic}
+	Function LocalizationTable:SetEntryValue(key: string, source: string, context: string, localeId: string, text: string) -> () {🛠️Basic}
+	Function LocalizationTable:GetContents() -> string {🛠️Basic} [Deprecated]
+	Function LocalizationTable:GetString(targetLocaleId: string, key: string) -> string {🛠️Basic} [Deprecated]
+	Function LocalizationTable:RemoveKey(key: string) -> () {🛠️Basic} [Deprecated]
+	Function LocalizationTable:SetContents(contents: string) -> () {🛠️Basic} [Deprecated]
+	Function LocalizationTable:SetEntry(key: string, targetLocaleId: string, text: string) -> () {🛠️Basic} [Deprecated]
+	Function LocalizationTable:SetIsExemptFromUGCAnalytics(value: boolean) -> () {🛠️Basic} {🔒RobloxScript}
 Class CloudLocalizationTable : LocalizationTable {🔒RobloxEngine} [NotCreatable] [NotReplicated]
 Class LodDataEntity : Instance {🔒RobloxEngine} [NotCreatable]
 	Property LodDataEntity.EntityData: SharedString [Hidden] [NotScriptable]
@@ -4181,24 +4184,24 @@ Class LogReporterService : Instance {🔒RobloxScript} [NotCreatable] [Service] 
 	Function LogReporterService:ReportLog(fingerprint: string, uuid: string, desc: string, attributes: { [string]: any }, annotations: { [string]: any }) -> boolean {🔒RobloxScript}
 	Function LogReporterService:ReportMultipleLogs(fingerprint: string, uuid: string, desc: string, attributes: { [string]: any }, annotations: { [string]: any }, numLogs: number) -> boolean {🔒RobloxScript}
 Class LogService : Instance [NotCreatable] [Service]
-	Function LogService:ClearOutput() -> ()
-	Function LogService:GetLogHistory() -> { any }
-	Function LogService:ExecuteScript(source: string) -> () {🔒RobloxScript}
-	Function LogService:GetHttpResultHistory() -> { any } {🔒RobloxScript}
-	Function LogService:RequestHttpResultApproved() -> () {🔒RobloxScript}
-	Function LogService:RequestServerHttpResult() -> () {🔒RobloxScript}
-	Function LogService:RequestServerOutput() -> () {🔒RobloxScript}
-	Event LogService.MessageOut(message: string, messageType: Enum.MessageType)
-	Event LogService.HttpResultOut(httpResult: { [string]: any }) {🔒RobloxScript}
-	Event LogService.OnHttpResultApproved(isApproved: boolean) {🔒RobloxScript}
-	Event LogService.RequestHttpResultApprovedSignal(requestingPlayer: Instance) {🔒RobloxEngine} [Hidden]
-	Event LogService.RequestScriptExecutionSignal(requestingPlayer: Instance, source: string) {🔒RobloxEngine} [Hidden]
-	Event LogService.RequestServerHttpResultSignal(requestingPlayer: Instance) {🔒RobloxEngine} [Hidden]
-	Event LogService.RequestServerOutputSignal(requestingPlayer: Instance) {🔒RobloxEngine} [Hidden]
-	Event LogService.RequestSettingsChange(requestingPlayer: Instance, expressivePrinting: boolean) {🔒RobloxEngine} [Hidden]
-	Event LogService.ServerHttpResultOut(httpResult: { [string]: any }) {🔒RobloxScript}
-	Event LogService.ServerMessageOut(message: string, messageType: Enum.MessageType, timestamp: number) {🔒RobloxScript}
-	Event LogService.ServerVariantMessageOut(data: { [string]: any }) {🔒RobloxEngine} [Hidden]
+	Function LogService:ClearOutput() -> () {🛠️Logging}
+	Function LogService:GetLogHistory() -> { any } {🛠️Logging}
+	Function LogService:ExecuteScript(source: string) -> () {🛠️Logging} {🔒RobloxScript}
+	Function LogService:GetHttpResultHistory() -> { any } {🛠️Logging} {🔒RobloxScript}
+	Function LogService:RequestHttpResultApproved() -> () {🛠️Logging} {🔒RobloxScript}
+	Function LogService:RequestServerHttpResult() -> () {🛠️Logging} {🔒RobloxScript}
+	Function LogService:RequestServerOutput() -> () {🛠️Logging} {🔒RobloxScript}
+	Event LogService.MessageOut(message: string, messageType: Enum.MessageType) {🛠️Logging}
+	Event LogService.HttpResultOut(httpResult: { [string]: any }) {🛠️Logging} {🔒RobloxScript}
+	Event LogService.OnHttpResultApproved(isApproved: boolean) {🛠️Logging} {🔒RobloxScript}
+	Event LogService.RequestHttpResultApprovedSignal(requestingPlayer: Instance) {🛠️Logging} {🔒RobloxEngine} [Hidden]
+	Event LogService.RequestScriptExecutionSignal(requestingPlayer: Instance, source: string) {🛠️Logging} {🔒RobloxEngine} [Hidden]
+	Event LogService.RequestServerHttpResultSignal(requestingPlayer: Instance) {🛠️Logging} {🔒RobloxEngine} [Hidden]
+	Event LogService.RequestServerOutputSignal(requestingPlayer: Instance) {🛠️Logging} {🔒RobloxEngine} [Hidden]
+	Event LogService.RequestSettingsChange(requestingPlayer: Instance, expressivePrinting: boolean) {🛠️Logging} {🔒RobloxEngine} [Hidden]
+	Event LogService.ServerHttpResultOut(httpResult: { [string]: any }) {🛠️Logging} {🔒RobloxScript}
+	Event LogService.ServerMessageOut(message: string, messageType: Enum.MessageType, timestamp: number) {🛠️Logging} {🔒RobloxScript}
+	Event LogService.ServerVariantMessageOut(data: { [string]: any }) {🛠️Logging} {🔒RobloxEngine} [Hidden]
 Class LoginService : Instance [NotCreatable] [Service]
 	Function LoginService:Logout() -> () {🔒RobloxEngine}
 	Function LoginService:PromptLogin() -> () {🔒RobloxEngine}
@@ -4260,28 +4263,28 @@ Class MarkerCurve : Instance
 	Function MarkerCurve:InsertMarkerAtTime(time: number, marker: string) -> { any } {🛠️Animation}
 	Function MarkerCurve:RemoveMarkerAtIndex(startingIndex: number, count: number? = 1) -> number {🛠️Animation}
 Class MarketplaceService : Instance [NotCreatable] [Service]
-	Function MarketplaceService:GetDeveloperProductsAsync() -> Instance? [Yields]
-	Function MarketplaceService:GetProductInfoAsync(assetId: number, infoType: Enum.InfoType? = "Asset") -> { [string]: any } [Yields]
-	Function MarketplaceService:GetSubscriptionProductInfoAsync(subscriptionId: string) -> { [string]: any } [Yields]
+	Function MarketplaceService:GetDeveloperProductsAsync() -> Instance? {🛠️AssetRead} [Yields]
+	Function MarketplaceService:GetProductInfoAsync(assetId: number, infoType: Enum.InfoType? = "Asset") -> { [string]: any } {🛠️AssetRead} [Yields]
+	Function MarketplaceService:GetSubscriptionProductInfoAsync(subscriptionId: string) -> { [string]: any } {🛠️AssetRead} [Yields]
 	Function MarketplaceService:GetUserSubscriptionDetailsAsync(user: Player, subscriptionId: string) -> { [string]: any } [Yields]
 	Function MarketplaceService:GetUserSubscriptionPaymentHistoryAsync(user: Player, subscriptionId: string) -> { any } [Yields]
 	Function MarketplaceService:GetUserSubscriptionStatusAsync(user: Player, subscriptionId: string) -> { [string]: any } [Yields]
 	Function MarketplaceService:GetUsersPriceLevelsAsync(userIds: { any }) -> { any } [Yields]
-	Function MarketplaceService:PlayerOwnsAssetAsync(player: Instance, assetId: number) -> boolean [Yields]
-	Function MarketplaceService:PlayerOwnsBundleAsync(player: Player, bundleId: number) -> boolean [Yields]
-	Function MarketplaceService:PromptBulkPurchase(player: Player, lineItems: { any }, options: { [string]: any }) -> ()
-	Function MarketplaceService:PromptBundlePurchase(player: Instance, bundleId: number) -> ()
-	Function MarketplaceService:PromptCancelSubscription(user: Player, subscriptionId: string) -> ()
-	Function MarketplaceService:PromptGamePassPurchase(player: Instance, gamePassId: number) -> ()
-	Function MarketplaceService:PromptPremiumPurchase(player: Instance) -> ()
-	Function MarketplaceService:PromptProductPurchase(player: Instance, productId: number, equipIfPurchased: boolean? = true, currencyType: Enum.CurrencyType? = "Default") -> ()
-	Function MarketplaceService:PromptPurchase(player: Instance, assetId: number, equipIfPurchased: boolean? = true, currencyType: Enum.CurrencyType? = "Default") -> ()
+	Function MarketplaceService:PlayerOwnsAssetAsync(player: Instance, assetId: number) -> boolean {🛠️AssetRead} [Yields]
+	Function MarketplaceService:PlayerOwnsBundleAsync(player: Player, bundleId: number) -> boolean {🛠️AssetRead} [Yields]
+	Function MarketplaceService:PromptBulkPurchase(player: Player, lineItems: { any }, options: { [string]: any }) -> () {🛠️PromptExternalPurchase}
+	Function MarketplaceService:PromptBundlePurchase(player: Instance, bundleId: number) -> () {🛠️PromptExternalPurchase}
+	Function MarketplaceService:PromptCancelSubscription(user: Player, subscriptionId: string) -> () {🛠️PromptExternalPurchase}
+	Function MarketplaceService:PromptGamePassPurchase(player: Instance, gamePassId: number) -> () {🛠️PromptExternalPurchase}
+	Function MarketplaceService:PromptPremiumPurchase(player: Instance) -> () {🛠️PromptExternalPurchase}
+	Function MarketplaceService:PromptProductPurchase(player: Instance, productId: number, equipIfPurchased: boolean? = true, currencyType: Enum.CurrencyType? = "Default") -> () {🛠️PromptExternalPurchase}
+	Function MarketplaceService:PromptPurchase(player: Instance, assetId: number, equipIfPurchased: boolean? = true, currencyType: Enum.CurrencyType? = "Default") -> () {🛠️PromptExternalPurchase}
 	Function MarketplaceService:PromptSubscriptionPurchase(user: Player, subscriptionId: string) -> ()
 	Function MarketplaceService:PromptThirdPartyPurchase(player: Instance, productId: string) -> () {🔒LocalUser}
 	Function MarketplaceService:RankProductsAsync(productIdentifiers: { any }) -> { any } [Yields]
 	Function MarketplaceService:RecommendTopProductsAsync(infoTypes: { any }) -> { any } [Yields]
-	Function MarketplaceService:UserOwnsGamePassAsync(userId: number, gamePassId: number) -> boolean [Yields]
-	Function MarketplaceService:GetProductInfo(assetId: number, infoType: Enum.InfoType? = "Asset") -> { [string]: any } [Yields] [Deprecated]
+	Function MarketplaceService:UserOwnsGamePassAsync(userId: number, gamePassId: number) -> boolean {🛠️AssetRead} [Yields]
+	Function MarketplaceService:GetProductInfo(assetId: number, infoType: Enum.InfoType? = "Asset") -> { [string]: any } {🛠️AssetRead} [Yields] [Deprecated]
 	Function MarketplaceService:GetRobuxBalance() -> number {🔒RobloxScript} [Yields]
 	Function MarketplaceService:GetSubscriptionPurchaseInfoAsync(subscriptionId: string) -> { [string]: any } {🔒RobloxScript} [Yields]
 	Function MarketplaceService:GetUserSubscriptionDetailsInternalAsync(subscriptionId: string) -> { [string]: any } {🔒RobloxScript} [Yields]
@@ -4292,8 +4295,8 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Function MarketplaceService:PerformSubscriptionPurchase(subscriptionId: string) -> string {🔒RobloxScript} [Yields]
 	Function MarketplaceService:PerformSubscriptionPurchaseV2(subscriptionId: string, paymentProvider: string) -> () {🔒RobloxScript} [Yields]
 	Function MarketplaceService:PlayerCanMakePurchases(player: Instance) -> boolean {🔒RobloxScript}
-	Function MarketplaceService:PlayerOwnsAsset(player: Instance, assetId: number) -> boolean [Yields] [Deprecated]
-	Function MarketplaceService:PlayerOwnsBundle(player: Player, bundleId: number) -> boolean [Yields] [Deprecated]
+	Function MarketplaceService:PlayerOwnsAsset(player: Instance, assetId: number) -> boolean {🛠️AssetRead} [Yields] [Deprecated]
+	Function MarketplaceService:PlayerOwnsBundle(player: Player, bundleId: number) -> boolean {🛠️AssetRead} [Yields] [Deprecated]
 	Function MarketplaceService:PrepareCollectiblesPurchase(player: Instance, assetId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number) -> () {🔒RobloxScript}
 	Function MarketplaceService:PromptCollectiblesPurchase(player: Instance, assetId: number, collectibleItemId: string, collectibleItemInstanceId: string, collectibleProductId: string, expectedPrice: number) -> () {🔒RobloxScript}
 	Function MarketplaceService:PromptNativePurchase(player: Instance, productId: string) -> () {🔒RobloxScript}
@@ -4351,9 +4354,9 @@ Class MarketplaceService : Instance [NotCreatable] [Service]
 	Event MarketplaceService.UserSubscriptionStatusChanged(subscriptionId: string) {🔒RobloxScript}
 	Callback MarketplaceService.ProcessReceipt(receiptInfo: { [string]: any }) -> Enum.ProductPurchaseDecision
 Class MatchmakingService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function MatchmakingService:GetServerAttribute(name: string) -> ...any
-	Function MatchmakingService:InitializeServerAttributesForStudio(serverAttributes: { [string]: any }) -> ...any
-	Function MatchmakingService:SetServerAttribute(name: string, value: any) -> ...any
+	Function MatchmakingService:GetServerAttribute(name: string) -> ...any {🛠️Basic}
+	Function MatchmakingService:InitializeServerAttributesForStudio(serverAttributes: { [string]: any }) -> ...any {🛠️Basic}
+	Function MatchmakingService:SetServerAttribute(name: string, value: any) -> ...any {🛠️Basic}
 Class MaterialGenerationService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function MaterialGenerationService:GenerateMaterialVariantsAsync(prompt: string, samples: number) -> { [string]: any } {🔒RobloxScript} [Yields]
 Class MaterialService : Instance [NotCreatable] [Service]
@@ -4463,7 +4466,7 @@ Class MemoryStoreSortedMap : Instance [NotCreatable] [NotReplicated]
 	Function MemoryStoreSortedMap:SetAsync(key: string, value: any, expiration: number, sortKey: any) -> boolean {🛠️DataStore} [Yields]
 	Function MemoryStoreSortedMap:UpdateAsync(key: string, transformFunction: (...any) -> ...any, expiration: number) -> ...any {🛠️DataStore} [Yields]
 Class Message : Instance [Deprecated]
-	Property Message.Text: string [Deprecated]
+	Property Message.Text: string {🛠️UI} [Deprecated]
 Class Hint : Message [Deprecated]
 Class MessageBusConnection : Instance {🔒RobloxScript} [NotCreatable] [NotReplicated]
 	Function MessageBusConnection:Disconnect() -> () {🔒RobloxScript}
@@ -4482,8 +4485,8 @@ Class MessageBusService : Instance {🔒RobloxScript} [NotCreatable] [Service] [
 	Function MessageBusService:SubscribeToProtocolMethodRequest(protocolName: string, methodName: string, callback: (...any) -> ...any, once: boolean, sticky: boolean) -> Instance? {🔒RobloxScript}
 	Function MessageBusService:SubscribeToProtocolMethodResponse(protocolName: string, methodName: string, callback: (...any) -> ...any, once: boolean, sticky: boolean) -> Instance? {🔒RobloxScript}
 Class MessagingService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function MessagingService:PublishAsync(topic: string, message: any) -> () [Yields]
-	Function MessagingService:SubscribeAsync(topic: string, callback: (...any) -> ...any) -> RBXScriptConnection [Yields]
+	Function MessagingService:PublishAsync(topic: string, message: any) -> () {🛠️ServerCommunication} [Yields]
+	Function MessagingService:SubscribeAsync(topic: string, callback: (...any) -> ...any) -> RBXScriptConnection {🛠️ServerCommunication} [Yields]
 Class MetaBreakpoint : Instance {🔒RobloxScript} [NotCreatable] [NotReplicated]
 	Property MetaBreakpoint.Condition: string {RobloxScript} [Hidden] [NotReplicated]
 	Property MetaBreakpoint.Id: number {RobloxScript} [Hidden] [ReadOnly]
@@ -4520,10 +4523,8 @@ Class ModerationService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ModerationService:BindReviewableContentEventProcessor(priority: number, callback: (...any) -> ...any) -> RBXScriptConnection
 	Function ModerationService:CreateReviewableContentAsync(config: { [string]: any }) -> string [Yields]
 	Function ModerationService:CreateReviewableContentKey(content: Content) -> string
-	Function ModerationService:InternalCreateReviewableContentAsync(config: { [string]: any }) -> string {🛠️InternalTest} [Yields]
 	Function ModerationService:InternalRequestReviewableContentReviewAsync(config: { [string]: any }) -> () {🛠️InternalTest} [Yields]
 	Event ModerationService.TriggeredCaptureUpload(config: { [string]: any }) {🔒RobloxEngine} [Hidden]
-	Callback ModerationService.InternalProcessReviewableContentEvent(event: { [string]: any }) -> boolean {🛠️InternalTest}
 Class Mouse : Instance [NotCreatable]
 	Property Mouse.Hit: CFrame {🛠️Input} [ReadOnly]
 	Property Mouse.Icon: string {🛠️Input}
@@ -4569,7 +4570,7 @@ Class NetworkClient : NetworkPeer [NotCreatable] [Service] [NotReplicated]
 	Event NetworkClient.ConnectionAccepted(peer: string, replicator: Instance)
 	Event NetworkClient.ConnectionFailed(peer: string, code: number)
 Class NetworkServer : NetworkPeer [NotCreatable] [Service] [NotReplicated]
-	Function NetworkServer:EncryptStringForPlayerId(toEncrypt: string, playerId: number) -> string
+	Function NetworkServer:EncryptStringForPlayerId(toEncrypt: string, playerId: number) -> string {🛠️Network}
 Class NetworkReplicator : Instance [NotCreatable] [NotReplicated]
 	Function NetworkReplicator:GetPlayer() -> Instance?
 Class ClientReplicator : NetworkReplicator [NotCreatable] [NotReplicated]
@@ -4800,65 +4801,65 @@ Class SpawnLocation : Part
 	Property SpawnLocation.TeamColor: BrickColor {🛠️Basic | Players}
 Class WedgePart : FormFactorPart
 Class Terrain : BasePart [NotCreatable]
-	Property Terrain.Decoration: boolean [NotScriptable]
-	Property Terrain.GrassLength: number [NotScriptable]
-	Property Terrain.MaterialColors: BinaryString [NotScriptable]
-	Property Terrain.WaterColor: Color3
-	Property Terrain.WaterReflectance: number
-	Property Terrain.WaterTransparency: number
-	Property Terrain.WaterWaveSize: number
-	Property Terrain.WaterWaveSpeed: number
-	Property Terrain.MaxExtents: Region3int16 [ReadOnly]
-	Property Terrain.SmoothVoxelsUpgraded: boolean {RobloxScript} [Hidden]
-	Property Terrain.AcquisitionMethod: Enum.TerrainAcquisitionMethod {RobloxScript} [Hidden] [NotScriptable]
-	Property Terrain.ClusterGrid: string {📁LoadOnly} [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
-	Property Terrain.ClusterGridV2: string {📁LoadOnly} [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
-	Property Terrain.ClusterGridV3: BinaryString {📁LoadOnly} [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
-	Property Terrain.IsSmooth: boolean [ReadOnly] [Deprecated]
-	Property Terrain.LastUsedModificationMethod: Enum.TerrainAcquisitionMethod {RobloxScript} [Hidden] [NotReplicated]
-	Property Terrain.PhysicsGrid: BinaryString [Hidden] [NotReplicated] [NotScriptable]
-	Property Terrain.SmoothGrid: BinaryString [Hidden] [NotReplicated] [NotScriptable]
-	Function Terrain:CellCenterToWorld(x: number, y: number, z: number) -> Vector3
-	Function Terrain:CellCornerToWorld(x: number, y: number, z: number) -> Vector3
-	Function Terrain:Clear() -> ()
-	Function Terrain:ClearVoxelsAsync_beta(region: Region3, channelIds: { any }) -> () [CustomLuaState]
-	Function Terrain:CopyRegion(region: Region3int16) -> TerrainRegion
-	Function Terrain:CountCells() -> number
-	Function Terrain:FillBall(center: Vector3, radius: number, material: Enum.Material) -> ()
-	Function Terrain:FillBlock(cframe: CFrame, size: Vector3, material: Enum.Material) -> ()
-	Function Terrain:FillCylinder(cframe: CFrame, height: number, radius: number, material: Enum.Material) -> ()
-	Function Terrain:FillRegion(region: Region3, resolution: number, material: Enum.Material) -> ()
-	Function Terrain:FillWedge(cframe: CFrame, size: Vector3, material: Enum.Material) -> ()
-	Function Terrain:GetMaterialColor(material: Enum.Material) -> Color3 {🧬Safe}
-	Function Terrain:IterateVoxelsAsync_beta(region: Region3, resolution: number, channelIds: { any }) -> TerrainIterateOperation [CustomLuaState]
-	Function Terrain:ModifyVoxelsAsync_beta(region: Region3, resolution: number, channelIds: { any }) -> TerrainModifyOperation [CustomLuaState]
-	Function Terrain:PasteRegion(region: TerrainRegion, corner: Vector3int16, pasteEmptyCells: boolean) -> ()
-	Function Terrain:ReadVoxelChannels(region: Region3, resolution: number, channelIds: { any }) -> { [string]: any } [CustomLuaState] {🧬Safe}
-	Function Terrain:ReadVoxels(region: Region3, resolution: number) -> ...any [CustomLuaState] {🧬Safe}
-	Function Terrain:ReadVoxelsAsync_beta(region: Region3, resolution: number, channelIds: { any }) -> TerrainReadOperation [CustomLuaState]
-	Function Terrain:ReplaceMaterial(region: Region3, resolution: number, sourceMaterial: Enum.Material, targetMaterial: Enum.Material) -> ()
-	Function Terrain:SetMaterialColor(material: Enum.Material, value: Color3) -> ()
-	Function Terrain:WorldToCell(position: Vector3) -> Vector3
-	Function Terrain:WorldToCellPreferEmpty(position: Vector3) -> Vector3
-	Function Terrain:WorldToCellPreferSolid(position: Vector3) -> Vector3
-	Function Terrain:WriteVoxelChannels(region: Region3, resolution: number, channels: { [string]: any }) -> () [CustomLuaState]
-	Function Terrain:WriteVoxels(region: Region3, resolution: number, materials: { any }, occupancy: { any }) -> () [CustomLuaState]
-	Function Terrain:WriteVoxelsAsync_beta(region: Region3, resolution: number, channelIds: { any }) -> TerrainWriteOperation [CustomLuaState]
-	Function Terrain:AutowedgeCell(x: number, y: number, z: number) -> boolean [Deprecated]
-	Function Terrain:AutowedgeCells(region: Region3int16) -> () [Deprecated]
-	Function Terrain:CanSmoothVoxelsBeUpgraded() -> boolean {🔒RobloxScript}
-	Function Terrain:ConvertToSmooth() -> () {🔒Plugin} [Deprecated]
-	Function Terrain:GetCell(x: number, y: number, z: number) -> ...any [Deprecated]
-	Function Terrain:GetTerrainWireframe(cframe: CFrame, size: Vector3) -> { any } {🔒RobloxScript}
-	Function Terrain:GetWaterCell(x: number, y: number, z: number) -> ...any [Deprecated]
-	Function Terrain:ReplaceMaterialInTransform(cframe: CFrame, size: Vector3, sourceMaterial: Enum.Material, targetMaterial: Enum.Material) -> () {🔒RobloxScript}
-	Function Terrain:ReplaceMaterialInTransformSubregion(cframe: CFrame, size: Vector3, sourceMaterial: Enum.Material, targetMaterial: Enum.Material, targetRegion: Region3int16) -> () {🔒RobloxScript}
-	Function Terrain:SetCell(x: number, y: number, z: number, material: Enum.CellMaterial, block: Enum.CellBlock, orientation: Enum.CellOrientation) -> () [Deprecated]
-	Function Terrain:SetCells(region: Region3int16, material: Enum.CellMaterial, block: Enum.CellBlock, orientation: Enum.CellOrientation) -> () [Deprecated]
-	Function Terrain:SetMaterialInTransform(cframe: CFrame, size: Vector3, targetMaterial: Enum.Material) -> () {🔒RobloxScript}
-	Function Terrain:SetMaterialInTransformSubregion(cframe: CFrame, size: Vector3, targetMaterial: Enum.Material, targetRegion: Region3int16) -> () {🔒RobloxScript}
-	Function Terrain:SetWaterCell(x: number, y: number, z: number, force: Enum.WaterForce, direction: Enum.WaterDirection) -> () [Deprecated]
-	Function Terrain:SmoothRegion(region: Region3, resolution: number, strength: number) -> ...any {🔒RobloxScript} [CustomLuaState] {🧬Safe}
+	Property Terrain.Decoration: boolean {🛠️Environment} [NotScriptable]
+	Property Terrain.GrassLength: number {🛠️Environment} [NotScriptable]
+	Property Terrain.MaterialColors: BinaryString {🛠️Environment} [NotScriptable]
+	Property Terrain.WaterColor: Color3 {🛠️Environment}
+	Property Terrain.WaterReflectance: number {🛠️Environment}
+	Property Terrain.WaterTransparency: number {🛠️Environment}
+	Property Terrain.WaterWaveSize: number {🛠️Environment}
+	Property Terrain.WaterWaveSpeed: number {🛠️Environment}
+	Property Terrain.MaxExtents: Region3int16 {🛠️Environment} [ReadOnly]
+	Property Terrain.SmoothVoxelsUpgraded: boolean {🛠️Environment} {RobloxScript} [Hidden]
+	Property Terrain.AcquisitionMethod: Enum.TerrainAcquisitionMethod {🛠️Environment} {RobloxScript} [Hidden] [NotScriptable]
+	Property Terrain.ClusterGrid: string {🛠️Environment} {📁LoadOnly} [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
+	Property Terrain.ClusterGridV2: string {🛠️Environment} {📁LoadOnly} [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
+	Property Terrain.ClusterGridV3: BinaryString {🛠️Environment} {📁LoadOnly} [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
+	Property Terrain.IsSmooth: boolean {🛠️Environment} [ReadOnly] [Deprecated]
+	Property Terrain.LastUsedModificationMethod: Enum.TerrainAcquisitionMethod {🛠️Environment} {RobloxScript} [Hidden] [NotReplicated]
+	Property Terrain.PhysicsGrid: BinaryString {🛠️Environment} [Hidden] [NotReplicated] [NotScriptable]
+	Property Terrain.SmoothGrid: BinaryString {🛠️Environment} [Hidden] [NotReplicated] [NotScriptable]
+	Function Terrain:CellCenterToWorld(x: number, y: number, z: number) -> Vector3 {🛠️Environment}
+	Function Terrain:CellCornerToWorld(x: number, y: number, z: number) -> Vector3 {🛠️Environment}
+	Function Terrain:Clear() -> () {🛠️Environment}
+	Function Terrain:ClearVoxelsAsync_beta(region: Region3, channelIds: { any }) -> () {🛠️Environment} [CustomLuaState]
+	Function Terrain:CopyRegion(region: Region3int16) -> TerrainRegion {🛠️Environment}
+	Function Terrain:CountCells() -> number {🛠️Environment}
+	Function Terrain:FillBall(center: Vector3, radius: number, material: Enum.Material) -> () {🛠️Environment}
+	Function Terrain:FillBlock(cframe: CFrame, size: Vector3, material: Enum.Material) -> () {🛠️Environment}
+	Function Terrain:FillCylinder(cframe: CFrame, height: number, radius: number, material: Enum.Material) -> () {🛠️Environment}
+	Function Terrain:FillRegion(region: Region3, resolution: number, material: Enum.Material) -> () {🛠️Environment}
+	Function Terrain:FillWedge(cframe: CFrame, size: Vector3, material: Enum.Material) -> () {🛠️Environment}
+	Function Terrain:GetMaterialColor(material: Enum.Material) -> Color3 {🛠️Environment} {🧬Safe}
+	Function Terrain:IterateVoxelsAsync_beta(region: Region3, resolution: number, channelIds: { any }) -> TerrainIterateOperation {🛠️Environment} [CustomLuaState]
+	Function Terrain:ModifyVoxelsAsync_beta(region: Region3, resolution: number, channelIds: { any }) -> TerrainModifyOperation {🛠️Environment} [CustomLuaState]
+	Function Terrain:PasteRegion(region: TerrainRegion, corner: Vector3int16, pasteEmptyCells: boolean) -> () {🛠️Environment}
+	Function Terrain:ReadVoxelChannels(region: Region3, resolution: number, channelIds: { any }) -> { [string]: any } {🛠️Environment} [CustomLuaState] {🧬Safe}
+	Function Terrain:ReadVoxels(region: Region3, resolution: number) -> ...any {🛠️Environment} [CustomLuaState] {🧬Safe}
+	Function Terrain:ReadVoxelsAsync_beta(region: Region3, resolution: number, channelIds: { any }) -> TerrainReadOperation {🛠️Environment} [CustomLuaState]
+	Function Terrain:ReplaceMaterial(region: Region3, resolution: number, sourceMaterial: Enum.Material, targetMaterial: Enum.Material) -> () {🛠️Environment}
+	Function Terrain:SetMaterialColor(material: Enum.Material, value: Color3) -> () {🛠️Environment}
+	Function Terrain:WorldToCell(position: Vector3) -> Vector3 {🛠️Environment}
+	Function Terrain:WorldToCellPreferEmpty(position: Vector3) -> Vector3 {🛠️Environment}
+	Function Terrain:WorldToCellPreferSolid(position: Vector3) -> Vector3 {🛠️Environment}
+	Function Terrain:WriteVoxelChannels(region: Region3, resolution: number, channels: { [string]: any }) -> () {🛠️Environment} [CustomLuaState]
+	Function Terrain:WriteVoxels(region: Region3, resolution: number, materials: { any }, occupancy: { any }) -> () {🛠️Environment} [CustomLuaState]
+	Function Terrain:WriteVoxelsAsync_beta(region: Region3, resolution: number, channelIds: { any }) -> TerrainWriteOperation {🛠️Environment} [CustomLuaState]
+	Function Terrain:AutowedgeCell(x: number, y: number, z: number) -> boolean {🛠️Environment} [Deprecated]
+	Function Terrain:AutowedgeCells(region: Region3int16) -> () {🛠️Environment} [Deprecated]
+	Function Terrain:CanSmoothVoxelsBeUpgraded() -> boolean {🛠️Environment} {🔒RobloxScript}
+	Function Terrain:ConvertToSmooth() -> () {🛠️Environment} {🔒Plugin} [Deprecated]
+	Function Terrain:GetCell(x: number, y: number, z: number) -> ...any {🛠️Environment} [Deprecated]
+	Function Terrain:GetTerrainWireframe(cframe: CFrame, size: Vector3) -> { any } {🛠️Environment} {🔒RobloxScript}
+	Function Terrain:GetWaterCell(x: number, y: number, z: number) -> ...any {🛠️Environment} [Deprecated]
+	Function Terrain:ReplaceMaterialInTransform(cframe: CFrame, size: Vector3, sourceMaterial: Enum.Material, targetMaterial: Enum.Material) -> () {🛠️Environment} {🔒RobloxScript}
+	Function Terrain:ReplaceMaterialInTransformSubregion(cframe: CFrame, size: Vector3, sourceMaterial: Enum.Material, targetMaterial: Enum.Material, targetRegion: Region3int16) -> () {🛠️Environment} {🔒RobloxScript}
+	Function Terrain:SetCell(x: number, y: number, z: number, material: Enum.CellMaterial, block: Enum.CellBlock, orientation: Enum.CellOrientation) -> () {🛠️Environment} [Deprecated]
+	Function Terrain:SetCells(region: Region3int16, material: Enum.CellMaterial, block: Enum.CellBlock, orientation: Enum.CellOrientation) -> () {🛠️Environment} [Deprecated]
+	Function Terrain:SetMaterialInTransform(cframe: CFrame, size: Vector3, targetMaterial: Enum.Material) -> () {🛠️Environment} {🔒RobloxScript}
+	Function Terrain:SetMaterialInTransformSubregion(cframe: CFrame, size: Vector3, targetMaterial: Enum.Material, targetRegion: Region3int16) -> () {🛠️Environment} {🔒RobloxScript}
+	Function Terrain:SetWaterCell(x: number, y: number, z: number, force: Enum.WaterForce, direction: Enum.WaterDirection) -> () {🛠️Environment} [Deprecated]
+	Function Terrain:SmoothRegion(region: Region3, resolution: number, strength: number) -> ...any {🛠️Environment} {🔒RobloxScript} [CustomLuaState] {🧬Safe}
 Class TriangleMeshPart : BasePart [NotCreatable]
 	Property TriangleMeshPart.FluidFidelity: Enum.FluidFidelity {🛠️Basic} {✏️Plugin} {📁LoadOnly} [NotReplicated]
 	Property TriangleMeshPart.CollisionFidelity: Enum.CollisionFidelity {🛠️Basic} {✏️Plugin} {📁LoadOnly} [NotReplicated]
@@ -4933,41 +4934,41 @@ Class VehicleSeat : BasePart
 	Event VehicleSeat.RemoteCreateSeatWeld(humanoid: Instance) {🛠️Avatar | Basic} [Hidden]
 	Event VehicleSeat.RemoteDestroySeatWeld() {🛠️Avatar | Basic} [Hidden]
 Class Camera : PVInstance [NotReplicated]
-	Property Camera.CameraSubject: Instance?
-	Property Camera.CameraType: Enum.CameraType
-	Property Camera.DiagonalFieldOfView: number [NotReplicated]
-	Property Camera.FieldOfView: number
-	Property Camera.FieldOfViewMode: Enum.FieldOfViewMode
-	Property Camera.MaxAxisFieldOfView: number [NotReplicated]
-	Property Camera.CFrame: CFrame
-	Property Camera.Focus: CFrame
-	Property Camera.HeadLocked: boolean
-	Property Camera.HeadScale: number
-	Property Camera.NearPlaneZ: number [ReadOnly]
-	Property Camera.VRTiltAndRollEnabled: boolean
-	Property Camera.ViewportSize: Vector2 [ReadOnly]
-	Property Camera.CoordinateFrame: CFrame {📁LoadOnly} [Hidden] [NotReplicated] [Deprecated]
-	Property Camera.focus: CFrame {📁LoadOnly} [NotReplicated] [Deprecated]
-	Function Camera:GetPartsObscuringTarget(castPoints: { any }, ignoreList: { Instance }) -> { Instance }
-	Function Camera:GetRenderCFrame() -> CFrame
-	Function Camera:GetRoll() -> number
-	Function Camera:ScreenPointToRay(x: number, y: number, depth: number? = 0) -> Ray {🧬Safe}
-	Function Camera:SetRoll(rollAngle: number) -> ()
-	Function Camera:ViewportPointToRay(x: number, y: number, depth: number? = 0) -> Ray {🧬Safe}
-	Function Camera:WorldToScreenPoint(worldPoint: Vector3) -> ...any {🧬Safe}
-	Function Camera:WorldToViewportPoint(worldPoint: Vector3) -> ...any {🧬Safe}
-	Function Camera:ZoomToExtents(boundingBoxCFrame: CFrame, boundingBoxSize: Vector3) -> ()
-	Function Camera:GetLargestCutoffDistance(ignoreList: { Instance }) -> number [Deprecated]
-	Function Camera:GetPanSpeed() -> number [Deprecated]
-	Function Camera:GetTiltSpeed() -> number [Deprecated]
-	Function Camera:Interpolate(endPos: CFrame, endFocus: CFrame, duration: number) -> () [Deprecated]
-	Function Camera:PanUnits(units: number) -> () [Deprecated]
-	Function Camera:SetCameraPanMode(mode: Enum.CameraPanMode? = "Classic") -> () [Deprecated]
-	Function Camera:SetImageServerView(modelCoord: CFrame) -> () {🔒RobloxScript}
-	Function Camera:TiltUnits(units: number) -> boolean [Deprecated]
-	Function Camera:Zoom(distance: number) -> boolean {🔒RobloxScript}
-	Event Camera.FirstPersonTransition(entering: boolean) {🔒LocalUser}
-	Event Camera.InterpolationFinished()
+	Property Camera.CameraSubject: Instance? {🛠️Basic}
+	Property Camera.CameraType: Enum.CameraType {🛠️Basic}
+	Property Camera.DiagonalFieldOfView: number {🛠️Basic} [NotReplicated]
+	Property Camera.FieldOfView: number {🛠️Basic}
+	Property Camera.FieldOfViewMode: Enum.FieldOfViewMode {🛠️Basic}
+	Property Camera.MaxAxisFieldOfView: number {🛠️Basic} [NotReplicated]
+	Property Camera.CFrame: CFrame {🛠️Basic}
+	Property Camera.Focus: CFrame {🛠️Basic}
+	Property Camera.HeadLocked: boolean {🛠️Basic}
+	Property Camera.HeadScale: number {🛠️Basic}
+	Property Camera.NearPlaneZ: number {🛠️Basic} [ReadOnly]
+	Property Camera.VRTiltAndRollEnabled: boolean {🛠️Basic}
+	Property Camera.ViewportSize: Vector2 {🛠️Basic} [ReadOnly]
+	Property Camera.CoordinateFrame: CFrame {🛠️Basic} {📁LoadOnly} [Hidden] [NotReplicated] [Deprecated]
+	Property Camera.focus: CFrame {🛠️Basic} {📁LoadOnly} [NotReplicated] [Deprecated]
+	Function Camera:GetPartsObscuringTarget(castPoints: { any }, ignoreList: { Instance }) -> { Instance } {🛠️Basic}
+	Function Camera:GetRenderCFrame() -> CFrame {🛠️Basic}
+	Function Camera:GetRoll() -> number {🛠️Basic}
+	Function Camera:ScreenPointToRay(x: number, y: number, depth: number? = 0) -> Ray {🛠️Basic} {🧬Safe}
+	Function Camera:SetRoll(rollAngle: number) -> () {🛠️Basic}
+	Function Camera:ViewportPointToRay(x: number, y: number, depth: number? = 0) -> Ray {🛠️Basic} {🧬Safe}
+	Function Camera:WorldToScreenPoint(worldPoint: Vector3) -> ...any {🛠️Basic} {🧬Safe}
+	Function Camera:WorldToViewportPoint(worldPoint: Vector3) -> ...any {🛠️Basic} {🧬Safe}
+	Function Camera:ZoomToExtents(boundingBoxCFrame: CFrame, boundingBoxSize: Vector3) -> () {🛠️Basic}
+	Function Camera:GetLargestCutoffDistance(ignoreList: { Instance }) -> number {🛠️Basic} [Deprecated]
+	Function Camera:GetPanSpeed() -> number {🛠️Basic} [Deprecated]
+	Function Camera:GetTiltSpeed() -> number {🛠️Basic} [Deprecated]
+	Function Camera:Interpolate(endPos: CFrame, endFocus: CFrame, duration: number) -> () {🛠️Basic} [Deprecated]
+	Function Camera:PanUnits(units: number) -> () {🛠️Basic} [Deprecated]
+	Function Camera:SetCameraPanMode(mode: Enum.CameraPanMode? = "Classic") -> () {🛠️Basic} [Deprecated]
+	Function Camera:SetImageServerView(modelCoord: CFrame) -> () {🛠️Basic} {🔒RobloxScript}
+	Function Camera:TiltUnits(units: number) -> boolean {🛠️Basic} [Deprecated]
+	Function Camera:Zoom(distance: number) -> boolean {🛠️Basic} {🔒RobloxScript}
+	Event Camera.FirstPersonTransition(entering: boolean) {🛠️Basic} {🔒LocalUser}
+	Event Camera.InterpolationFinished() {🛠️Basic}
 Class Model : PVInstance
 	Property Model.LevelOfDetail: Enum.ModelLevelOfDetail {Plugin}
 	Property Model.ModelStreamingMode: Enum.ModelStreamingMode
@@ -5147,11 +5148,11 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Event Workspace.SendServerTime(serverTimeMs: number) {🔒RobloxEngine} [Hidden]
 Class WorldModel : WorldRoot
 Class PackageLink : Instance [NotCreatable] [NotBrowsable]
-	Property PackageLink.Creator: string [ReadOnly] [NotScriptable]
-	Property PackageLink.PackageAssetName: string [ReadOnly] [NotScriptable]
-	Property PackageLink.PermissionLevel: Enum.PackagePermission [ReadOnly] [NotScriptable]
+	Property PackageLink.Creator: string {🛠️AssetRead} [ReadOnly] [NotScriptable]
+	Property PackageLink.PackageAssetName: string {🛠️AssetRead} [ReadOnly] [NotScriptable]
+	Property PackageLink.PermissionLevel: Enum.PackagePermission {🛠️AssetRead} [ReadOnly] [NotScriptable]
 	Property PackageLink.DefaultName: string {✏️NotAccessible}
-	Property PackageLink.PackageId: string [ReadOnly]
+	Property PackageLink.PackageId: string {🛠️AssetRead} [ReadOnly]
 	Property PackageLink.SerializedDefaultAttributes: BinaryString {✏️NotAccessible}
 	Property PackageLink.VersionNumber: number {✏️NotAccessible} {📁LoadOnly} [NotReplicated]
 	Property PackageLink.HasNewVersion: boolean {RobloxScript} [Hidden] [NotReplicated]
@@ -5295,50 +5296,50 @@ Class PermissionsService : Instance [NotCreatable] [Service]
 	Function PermissionsService:GetPermissions(assetId: string) -> { any } {🔒RobloxScript}
 	Function PermissionsService:SetPermissions(assetId: string, permissions: { any }) -> () {🔒RobloxScript}
 Class PhysicsService : Instance [NotCreatable] [Service]
-	Function PhysicsService:CollisionGroupSetCollidable(name1: string, name2: string, collidable: boolean) -> ()
-	Function PhysicsService:CollisionGroupsAreCollidable(name1: string, name2: string) -> boolean
-	Function PhysicsService:GetMaxCollisionGroups() -> number
-	Function PhysicsService:GetRegisteredCollisionGroups() -> { any }
-	Function PhysicsService:IsCollisionGroupRegistered(name: string) -> boolean
-	Function PhysicsService:LocalIkSolve(part: BasePart, target: CFrame, translateStiffness: number, rotateStiffness: number) -> () {🔒LocalUser}
-	Function PhysicsService:RegisterCollisionGroup(name: string) -> ()
-	Function PhysicsService:RenameCollisionGroup(from: string, to: string) -> ()
-	Function PhysicsService:UnregisterCollisionGroup(name: string) -> ()
-	Function PhysicsService:CollisionGroupContainsPart(name: string, part: BasePart) -> boolean [Deprecated]
-	Function PhysicsService:CreateCollisionGroup(name: string) -> number [Deprecated]
-	Function PhysicsService:GetCollisionGroupId(name: string) -> number [Deprecated]
-	Function PhysicsService:GetCollisionGroupName(name: number) -> string [Deprecated]
-	Function PhysicsService:GetCollisionGroups() -> { any } [Deprecated]
-	Function PhysicsService:IkSolve(part: BasePart, target: CFrame, translateStiffness: number, rotateStiffness: number) -> () {🔒RobloxScript}
-	Function PhysicsService:RemoveCollisionGroup(name: string) -> () [Deprecated]
-	Function PhysicsService:SetPartCollisionGroup(part: BasePart, name: string) -> () [Deprecated]
-Class PhysicsSettings : Instance [NotCreatable] [Service] [NotReplicated]
-	Property PhysicsSettings.AreAnchorsShown: boolean
-	Property PhysicsSettings.AreAssembliesShown: boolean
-	Property PhysicsSettings.AreAwakePartsHighlighted: boolean
-	Property PhysicsSettings.AreBodyTypesShown: boolean
-	Property PhysicsSettings.AreContactIslandsShown: boolean
-	Property PhysicsSettings.AreContactPointsShown: boolean
-	Property PhysicsSettings.AreJointCoordinatesShown: boolean
-	Property PhysicsSettings.AreMechanismsShown: boolean
-	Property PhysicsSettings.AreModelCoordsShown: boolean
-	Property PhysicsSettings.AreNonAnchorsShown: boolean
-	Property PhysicsSettings.AreOwnersShown: boolean
-	Property PhysicsSettings.ArePartCoordsShown: boolean
-	Property PhysicsSettings.AreRegionsShown: boolean
-	Property PhysicsSettings.AreTerrainReplicationRegionsShown: boolean
-	Property PhysicsSettings.AreUnalignedPartsShown: boolean
-	Property PhysicsSettings.AreWorldCoordsShown: boolean
-	Property PhysicsSettings.DisableCSGv2: boolean
-	Property PhysicsSettings.DisableCSGv3ForPlugins: boolean
-	Property PhysicsSettings.IsInterpolationThrottleShown: boolean
-	Property PhysicsSettings.IsReceiveAgeShown: boolean
-	Property PhysicsSettings.IsTreeShown: boolean
-	Property PhysicsSettings.ShowDecompositionGeometry: boolean
-	Property PhysicsSettings.UseCSGv2: boolean
-	Property PhysicsSettings.AllowSleep: boolean
-	Property PhysicsSettings.PhysicsEnvironmentalThrottle: Enum.EnviromentalPhysicsThrottle
-	Property PhysicsSettings.ThrottleAdjustTime: number
+	Function PhysicsService:CollisionGroupSetCollidable(name1: string, name2: string, collidable: boolean) -> () {🛠️Physics}
+	Function PhysicsService:CollisionGroupsAreCollidable(name1: string, name2: string) -> boolean {🛠️Physics}
+	Function PhysicsService:GetMaxCollisionGroups() -> number {🛠️Physics}
+	Function PhysicsService:GetRegisteredCollisionGroups() -> { any } {🛠️Physics}
+	Function PhysicsService:IsCollisionGroupRegistered(name: string) -> boolean {🛠️Physics}
+	Function PhysicsService:LocalIkSolve(part: BasePart, target: CFrame, translateStiffness: number, rotateStiffness: number) -> () {🛠️Physics} {🔒LocalUser}
+	Function PhysicsService:RegisterCollisionGroup(name: string) -> () {🛠️Physics}
+	Function PhysicsService:RenameCollisionGroup(from: string, to: string) -> () {🛠️Physics}
+	Function PhysicsService:UnregisterCollisionGroup(name: string) -> () {🛠️Physics}
+	Function PhysicsService:CollisionGroupContainsPart(name: string, part: BasePart) -> boolean {🛠️Physics} [Deprecated]
+	Function PhysicsService:CreateCollisionGroup(name: string) -> number {🛠️Physics} [Deprecated]
+	Function PhysicsService:GetCollisionGroupId(name: string) -> number {🛠️Physics} [Deprecated]
+	Function PhysicsService:GetCollisionGroupName(name: number) -> string {🛠️Physics} [Deprecated]
+	Function PhysicsService:GetCollisionGroups() -> { any } {🛠️Physics} [Deprecated]
+	Function PhysicsService:IkSolve(part: BasePart, target: CFrame, translateStiffness: number, rotateStiffness: number) -> () {🛠️Physics} {🔒RobloxScript}
+	Function PhysicsService:RemoveCollisionGroup(name: string) -> () {🛠️Physics} [Deprecated]
+	Function PhysicsService:SetPartCollisionGroup(part: BasePart, name: string) -> () {🛠️Physics} [Deprecated]
+Class PhysicsSettings : Instance {🔒Plugin} [NotCreatable] [Service] [NotReplicated]
+	Property PhysicsSettings.AreAnchorsShown: boolean {Plugin}
+	Property PhysicsSettings.AreAssembliesShown: boolean {Plugin}
+	Property PhysicsSettings.AreAwakePartsHighlighted: boolean {Plugin}
+	Property PhysicsSettings.AreBodyTypesShown: boolean {Plugin}
+	Property PhysicsSettings.AreContactIslandsShown: boolean {Plugin}
+	Property PhysicsSettings.AreContactPointsShown: boolean {Plugin}
+	Property PhysicsSettings.AreJointCoordinatesShown: boolean {Plugin}
+	Property PhysicsSettings.AreMechanismsShown: boolean {Plugin}
+	Property PhysicsSettings.AreModelCoordsShown: boolean {Plugin}
+	Property PhysicsSettings.AreNonAnchorsShown: boolean {Plugin}
+	Property PhysicsSettings.AreOwnersShown: boolean {Plugin}
+	Property PhysicsSettings.ArePartCoordsShown: boolean {Plugin}
+	Property PhysicsSettings.AreRegionsShown: boolean {Plugin}
+	Property PhysicsSettings.AreTerrainReplicationRegionsShown: boolean {Plugin}
+	Property PhysicsSettings.AreUnalignedPartsShown: boolean {Plugin}
+	Property PhysicsSettings.AreWorldCoordsShown: boolean {Plugin}
+	Property PhysicsSettings.DisableCSGv2: boolean {Plugin}
+	Property PhysicsSettings.DisableCSGv3ForPlugins: boolean {Plugin}
+	Property PhysicsSettings.IsInterpolationThrottleShown: boolean {Plugin}
+	Property PhysicsSettings.IsReceiveAgeShown: boolean {Plugin}
+	Property PhysicsSettings.IsTreeShown: boolean {Plugin}
+	Property PhysicsSettings.ShowDecompositionGeometry: boolean {Plugin}
+	Property PhysicsSettings.UseCSGv2: boolean {Plugin}
+	Property PhysicsSettings.AllowSleep: boolean {Plugin}
+	Property PhysicsSettings.PhysicsEnvironmentalThrottle: Enum.EnviromentalPhysicsThrottle {Plugin}
+	Property PhysicsSettings.ThrottleAdjustTime: number {Plugin}
 	Property PhysicsSettings.AreAssemblyCentersOfMassShown: boolean {RobloxScript}
 	Property PhysicsSettings.AreCollisionCostsShown: boolean {RobloxScript}
 	Property PhysicsSettings.AreConstraintForcesShownForSelectedOrHoveredInstances: boolean {RobloxScript}
@@ -5353,7 +5354,7 @@ Class PhysicsSettings : Instance [NotCreatable] [Service] [NotReplicated]
 	Property PhysicsSettings.DrawTotalNetForce: boolean {RobloxScript}
 	Property PhysicsSettings.EnableForceVisualizationSmoothing: boolean {RobloxScript}
 	Property PhysicsSettings.FluidForceDrawScale: number {RobloxScript}
-	Property PhysicsSettings.ForceCSGv2: boolean [Hidden] [NotReplicated]
+	Property PhysicsSettings.ForceCSGv2: boolean {Plugin} [Hidden] [NotReplicated]
 	Property PhysicsSettings.ForceDrawScale: number {RobloxScript}
 	Property PhysicsSettings.ForceVisualizationSmoothingSteps: number {RobloxScript}
 	Property PhysicsSettings.ShowFluidForcesForSelectedOrHoveredMechanisms: boolean {RobloxScript}
@@ -5444,17 +5445,17 @@ Class Player : Instance
 	Function Player:ClearCharacterAppearance() -> () {🛠️Players}
 	Function Player:DistanceFromCharacter(point: Vector3) -> number {🛠️Players}
 	Function Player:GetData() -> PlayerData {🛠️Players}
-	Function Player:GetFriendsOnlineAsync(maxFriends: number? = 200) -> { any } {🛠️Players} [Yields]
+	Function Player:GetFriendsOnlineAsync(maxFriends: number? = 200) -> { any } {🛠️Players | Social} [Yields]
 	Function Player:GetJoinData() -> { [string]: any } {🛠️Players} [CustomLuaState]
 	Function Player:GetMouse() -> Mouse {🛠️Input | Players}
 	Function Player:GetNetworkPing() -> number {🛠️Players} {🧬Safe}
-	Function Player:GetRankInGroupAsync(groupId: number) -> number {🛠️Players} [Yields]
-	Function Player:GetRoleInGroupAsync(groupId: number) -> string {🛠️Players} [Yields]
+	Function Player:GetRankInGroupAsync(groupId: number) -> number {🛠️Groups | Players} [Yields]
+	Function Player:GetRoleInGroupAsync(groupId: number) -> string {🛠️Groups | Players} [Yields]
 	Function Player:HasAppearanceLoaded() -> boolean {🛠️Players}
-	Function Player:IsFriendsWithAsync(userId: number) -> boolean {🛠️Players} [Yields]
-	Function Player:IsInGroupAsync(groupId: number) -> boolean {🛠️Players} [Yields]
+	Function Player:IsFriendsWithAsync(userId: number) -> boolean {🛠️Players | Social} [Yields]
+	Function Player:IsInGroupAsync(groupId: number) -> boolean {🛠️Groups | Players} [Yields]
 	Function Player:IsVerified() -> boolean {🛠️Players}
-	Function Player:Kick(message: string? = "") -> () {🛠️Players}
+	Function Player:Kick(message: string? = "") -> () {🛠️Consequences | Players}
 	Function Player:LoadCharacterAsync() -> () {🛠️Players} [Yields]
 	Function Player:LoadCharacterBlocking() -> () {🛠️Players} {🔒LocalUser} [Yields]
 	Function Player:LoadCharacterWithHumanoidDescriptionAsync(humanoidDescription: HumanoidDescription) -> () {🛠️Players} [Yields]
@@ -5468,14 +5469,14 @@ Class Player : Instance
 	Function Player:AddToBlockList(userIds: { any }) -> () {🛠️Players} {🔒RobloxScript}
 	Function Player:GetCanManageAsync() -> boolean {🛠️Players} {🔒RobloxScript} [Yields]
 	Function Player:GetFriendStatus(player: Player) -> Enum.FriendStatus {🛠️Players} {🔒RobloxScript}
-	Function Player:GetFriendsOnline(maxFriends: number? = 200) -> { any } {🛠️Players} [Yields] [Deprecated]
+	Function Player:GetFriendsOnline(maxFriends: number? = 200) -> { any } {🛠️Players | Social} [Yields] [Deprecated]
 	Function Player:GetGameSessionID() -> string {🛠️Players} {🔒RobloxEngine}
-	Function Player:GetRankInGroup(groupId: number) -> number {🛠️Players} [Yields] [Deprecated]
-	Function Player:GetRoleInGroup(groupId: number) -> string {🛠️Players} [Yields] [Deprecated]
+	Function Player:GetRankInGroup(groupId: number) -> number {🛠️Groups | Players} [Yields] [Deprecated]
+	Function Player:GetRoleInGroup(groupId: number) -> string {🛠️Groups | Players} [Yields] [Deprecated]
 	Function Player:GetUnder13() -> boolean {🛠️Players} {🔒RobloxScript}
 	Function Player:IsBestFriendsWith(userId: number) -> boolean {🛠️Players} [Yields] [Deprecated]
-	Function Player:IsFriendsWith(userId: number) -> boolean {🛠️Players} [Yields] [Deprecated]
-	Function Player:IsInGroup(groupId: number) -> boolean {🛠️Players} [Yields] [Deprecated]
+	Function Player:IsFriendsWith(userId: number) -> boolean {🛠️Players | Social} [Yields] [Deprecated]
+	Function Player:IsInGroup(groupId: number) -> boolean {🛠️Groups | Players} [Yields] [Deprecated]
 	Function Player:LoadBoolean(key: string) -> boolean {🛠️Players} [Deprecated]
 	Function Player:LoadCharacter() -> () {🛠️Players} [Yields] [Deprecated]
 	Function Player:LoadCharacterAppearance(assetInstance: Instance) -> () {🛠️Avatar | Players} [Deprecated]
@@ -5522,7 +5523,7 @@ Class Player : Instance
 	Event Player.CharacterRemoving(character: Model) {🛠️Players}
 	Event Player.Chatted(message: string, recipient: Player) {🛠️Chat | Players}
 	Event Player.Idled(time: number) {🛠️Players}
-	Event Player.OnTeleport(teleportState: Enum.TeleportState, placeId: number, spawnName: string) {🛠️Players}
+	Event Player.OnTeleport(teleportState: Enum.TeleportState, placeId: number, spawnName: string) {🛠️Players | Teleport}
 	Event Player.SimulationRadiusChanged(radius: number) {🛠️Players} {🔒LocalUser}
 	Event Player.CloudEditSelectionChanged(newSelection: { any }) {🛠️Players} {🔒RobloxScript}
 	Event Player.ConnectDiedSignalBackend() {🛠️Players} {🔒RobloxEngine} [Hidden]
@@ -5543,6 +5544,7 @@ Class Player : Instance
 	Event Player.ScopeCheckInitiated(guid: string, serializedScopes: { any }, metadata: { [string]: any }) {🛠️Players} {🔒RobloxEngine} [Hidden]
 	Event Player.ScriptSecurityError(hash: string, error: string, stack: string) {🛠️Players} {🔒LocalUser} [Hidden]
 	Event Player.SendCameraFrustum(pv: ReplicationPV) {🛠️Players} {🔒RobloxEngine} [Hidden]
+	Event Player.SendMaxClientBandwidthBps(bandwidthBps: number) {🛠️Players} {🔒RobloxEngine} [Hidden]
 	Event Player.ServerToClientUnfilteredChatReplicate(value: boolean) {🛠️Players} {🔒RobloxEngine} [Hidden]
 	Event Player.ServerUpdatedHead(assetType: Enum.AssetType, assetId: number) {🛠️Players} {🔒RobloxEngine} [Hidden]
 	Event Player.SetShutdownMessage(message: string) {🛠️Players} {🔒RobloxEngine} [Hidden]
@@ -5612,10 +5614,10 @@ Class PlayerScripts : Instance [NotCreatable] [NotReplicated]
 	Event PlayerScripts.TouchCameraMovementModeRegistered() {🔒RobloxScript}
 	Event PlayerScripts.TouchMovementModeRegistered() {🔒RobloxScript}
 Class PlayerViewService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function PlayerViewService:GetDeviceCameraCFrame(player: Player? = nil) -> CFrame
-	Function PlayerViewService:GetDeviceCameraCFrameForSelfView() -> CFrame {🔒RobloxScript}
-	Function PlayerViewService:OnCameraCFrameReplicationRequest() -> () {🔒RobloxScript}
-	Function PlayerViewService:UpdateDeviceCFrame(player: Player? = nil, cframe: CFrame?, timestamp: number? = 0) -> () {🔒RobloxScript}
+	Function PlayerViewService:GetDeviceCameraCFrame(player: Player? = nil) -> CFrame {🛠️SensitiveInput}
+	Function PlayerViewService:GetDeviceCameraCFrameForSelfView() -> CFrame {🛠️SensitiveInput} {🔒RobloxScript}
+	Function PlayerViewService:OnCameraCFrameReplicationRequest() -> () {🛠️SensitiveInput} {🔒RobloxScript}
+	Function PlayerViewService:UpdateDeviceCFrame(player: Player? = nil, cframe: CFrame?, timestamp: number? = 0) -> () {🛠️SensitiveInput} {🔒RobloxScript}
 Class Players : Instance [NotCreatable] [Service]
 	Property Players.BanningEnabled: boolean {🛠️Players} [NotScriptable]
 	Property Players.CharacterAutoLoads: boolean {🛠️Players} [NotReplicated]
@@ -5633,14 +5635,14 @@ Class Players : Instance [NotCreatable] [Service]
 	Property Players.ServerLogPrefix: string {🛠️Players} {RobloxEngine} [Hidden] [NotScriptable]
 	Property Players.localPlayer: Player? {🛠️Players} [Hidden] [ReadOnly] [Deprecated]
 	Property Players.numPlayers: number {🛠️Players} [Hidden] [ReadOnly] [Deprecated]
-	Function Players:BanAsync(config: { [string]: any }) -> () {🛠️Players} [Yields]
+	Function Players:BanAsync(config: { [string]: any }) -> () {🛠️Consequences | Players} [Yields]
 	Function Players:Chat(message: string) -> () {🛠️Players} {🔒Plugin}
 	Function Players:CreateHumanoidModelFromDescriptionAsync(description: HumanoidDescription, rigType: Enum.HumanoidRigType, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> Model {🛠️Avatar | Players} [Yields]
 	Function Players:CreateHumanoidModelFromUserIdAsync(userId: number) -> Model {🛠️Players} [Yields]
 	Function Players:CreateLocalPlayer() -> Player {🛠️Players} {🔒LocalUser}
-	Function Players:GetBanHistoryAsync(userId: number) -> BanHistoryPages {🛠️Players} [Yields]
+	Function Players:GetBanHistoryAsync(userId: number) -> BanHistoryPages {🛠️Consequences | Players} [Yields]
 	Function Players:GetCharacterAppearanceInfoAsync(userId: number) -> { [string]: any } {🛠️Players} [Yields]
-	Function Players:GetFriendsAsync(userId: number) -> FriendPages {🛠️Players} [Yields]
+	Function Players:GetFriendsAsync(userId: number) -> FriendPages {🛠️Players | Social} [Yields]
 	Function Players:GetHumanoidDescriptionFromOutfitIdAsync(outfitId: number) -> HumanoidDescription {🛠️Avatar | Players} [Yields]
 	Function Players:GetHumanoidDescriptionFromUserIdAsync(userId: number) -> HumanoidDescription {🛠️Avatar | Players} [Yields]
 	Function Players:GetNameFromUserIdAsync(userId: number) -> string {🛠️Players} [Yields]
@@ -5653,7 +5655,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Function Players:ResetLocalPlayer() -> () {🛠️Players} {🔒LocalUser}
 	Function Players:SetChatStyle(style: Enum.ChatStyle? = "Classic") -> () {🛠️Players} {🔒Plugin}
 	Function Players:TeamChat(message: string) -> () {🛠️Players} {🔒Plugin}
-	Function Players:UnbanAsync(config: { [string]: any }) -> () {🛠️Players} [Yields]
+	Function Players:UnbanAsync(config: { [string]: any }) -> () {🛠️Consequences | Players} [Yields]
 	Function Players:WhisperChat(message: string, player: Instance) -> () {🛠️Players} {🔒LocalUser}
 	Function Players:CreateHumanoidModelFromDescription(description: HumanoidDescription, rigType: Enum.HumanoidRigType, assetTypeVerification: Enum.AssetTypeVerification? = "Default") -> Model {🛠️Avatar | Players} [Yields] [Deprecated]
 	Function Players:CreateHumanoidModelFromUserId(userId: number) -> Model {🛠️Players} [Yields] [Deprecated]
@@ -5674,7 +5676,7 @@ Class Players : Instance [NotCreatable] [Service]
 	Event Players.PlayerMembershipChanged(player: Player) {🛠️Players}
 	Event Players.PlayerRejoining(player: Player) {🛠️Players} {🔒LocalUser}
 	Event Players.PlayerRemoving(player: Player, reason: Enum.PlayerExitReason) {🛠️Players}
-	Event Players.UserSubscriptionStatusChanged(user: Player, subscriptionId: string) {🛠️Players}
+	Event Players.UserSubscriptionStatusChanged(user: Player, subscriptionId: string) {🛠️Monetization | Players}
 	Event Players.CloudEditApplyEditsMessage(playerName: string, scriptName: string) {🛠️Players} {🔒RobloxEngine} [Hidden]
 	Event Players.FriendRequestEvent(player: Player, player: Player, friendRequestEvent: Enum.FriendRequestEvent) {🛠️Players} {🔒RobloxScript}
 	Event Players.GameAnnounce(message: string) {🛠️Players} {🔒RobloxScript}
@@ -5803,17 +5805,17 @@ Class PluginToolbarButton : Instance {🔒Plugin} [NotCreatable]
 	Event PluginToolbarButton.Click() {🔒Plugin}
 	Event PluginToolbarButton.DropdownClick() {🔒RobloxScript}
 Class PointsService : Instance [NotCreatable] [Service] [Deprecated]
-	Function PointsService:AwardPoints(userId: number, amount: number) -> ...any [Yields] [Deprecated] [Deprecated]
-	Function PointsService:GetAwardablePoints() -> number [Deprecated] [Deprecated]
-	Function PointsService:GetGamePointBalance(userId: number) -> number [Yields] [Deprecated] [Deprecated]
-	Function PointsService:GetPointBalance(userId: number) -> number [Yields] [Deprecated] [Deprecated]
-	Event PointsService.PointsAwarded(userId: number, pointsAwarded: number, userBalanceInGame: number, userTotalBalance: number) [Deprecated]
+	Function PointsService:AwardPoints(userId: number, amount: number) -> ...any {🛠️Basic} [Yields] [Deprecated] [Deprecated]
+	Function PointsService:GetAwardablePoints() -> number {🛠️Basic} [Deprecated] [Deprecated]
+	Function PointsService:GetGamePointBalance(userId: number) -> number {🛠️Basic} [Yields] [Deprecated] [Deprecated]
+	Function PointsService:GetPointBalance(userId: number) -> number {🛠️Basic} [Yields] [Deprecated] [Deprecated]
+	Event PointsService.PointsAwarded(userId: number, pointsAwarded: number, userBalanceInGame: number, userTotalBalance: number) {🛠️Basic} [Deprecated]
 Class PolicyService : Instance [NotCreatable] [Service] [NotReplicated]
-	Property PolicyService.IsLuobuServer: Enum.TriStateBoolean {RobloxScript} [Hidden]
-	Property PolicyService.LuobuWhitelisted: Enum.TriStateBoolean {RobloxScript} [Hidden]
-	Function PolicyService:CanViewBrandProjectAsync(player: Player, brandProjectId: string) -> boolean [Yields]
-	Function PolicyService:GetPolicyInfoForPlayerAsync(player: Instance) -> { [string]: any } [Yields]
-	Function PolicyService:GetPolicyInfoForServerRobloxOnlyAsync() -> { [string]: any } {🔒RobloxScript} [Yields]
+	Property PolicyService.IsLuobuServer: Enum.TriStateBoolean {🛠️Basic} {RobloxScript} [Hidden]
+	Property PolicyService.LuobuWhitelisted: Enum.TriStateBoolean {🛠️Basic} {RobloxScript} [Hidden]
+	Function PolicyService:CanViewBrandProjectAsync(player: Player, brandProjectId: string) -> boolean {🛠️Basic} [Yields]
+	Function PolicyService:GetPolicyInfoForPlayerAsync(player: Instance) -> { [string]: any } {🛠️Basic} [Yields]
+	Function PolicyService:GetPolicyInfoForServerRobloxOnlyAsync() -> { [string]: any } {🛠️Basic} {🔒RobloxScript} [Yields]
 Class PoseBase : Instance [NotCreatable]
 	Property PoseBase.EasingDirection: Enum.PoseEasingDirection {🛠️Animation}
 	Property PoseBase.EasingStyle: Enum.PoseEasingStyle {🛠️Animation}
@@ -5881,17 +5883,17 @@ Class ProximityPrompt : Instance
 	Event ProximityPrompt.TriggerEndedActionReplicated(player: Player) {🛠️UI} {🔒RobloxEngine} [Hidden]
 	Event ProximityPrompt.TriggeredActionReplicated(player: Instance) {🛠️UI} {🔒RobloxEngine} [Hidden]
 Class ProximityPromptService : Instance [Service] [NotBrowsable]
-	Property ProximityPromptService.Enabled: boolean
-	Property ProximityPromptService.MaxIndicatorsVisible: number
-	Property ProximityPromptService.MaxPromptsVisible: number
-	Event ProximityPromptService.IndicatorHidden(prompt: ProximityPrompt)
-	Event ProximityPromptService.IndicatorShown(prompt: ProximityPrompt)
-	Event ProximityPromptService.PromptButtonHoldBegan(prompt: ProximityPrompt, playerWhoTriggered: Player)
-	Event ProximityPromptService.PromptButtonHoldEnded(prompt: ProximityPrompt, playerWhoTriggered: Player)
-	Event ProximityPromptService.PromptHidden(prompt: ProximityPrompt)
-	Event ProximityPromptService.PromptShown(prompt: ProximityPrompt, inputType: Enum.ProximityPromptInputType)
-	Event ProximityPromptService.PromptTriggerEnded(prompt: ProximityPrompt, playerWhoTriggered: Player)
-	Event ProximityPromptService.PromptTriggered(prompt: ProximityPrompt, playerWhoTriggered: Player)
+	Property ProximityPromptService.Enabled: boolean {🛠️Input}
+	Property ProximityPromptService.MaxIndicatorsVisible: number {🛠️Input}
+	Property ProximityPromptService.MaxPromptsVisible: number {🛠️Input}
+	Event ProximityPromptService.IndicatorHidden(prompt: ProximityPrompt) {🛠️Input}
+	Event ProximityPromptService.IndicatorShown(prompt: ProximityPrompt) {🛠️Input}
+	Event ProximityPromptService.PromptButtonHoldBegan(prompt: ProximityPrompt, playerWhoTriggered: Player) {🛠️Input}
+	Event ProximityPromptService.PromptButtonHoldEnded(prompt: ProximityPrompt, playerWhoTriggered: Player) {🛠️Input}
+	Event ProximityPromptService.PromptHidden(prompt: ProximityPrompt) {🛠️Input}
+	Event ProximityPromptService.PromptShown(prompt: ProximityPrompt, inputType: Enum.ProximityPromptInputType) {🛠️Input}
+	Event ProximityPromptService.PromptTriggerEnded(prompt: ProximityPrompt, playerWhoTriggered: Player) {🛠️Input}
+	Event ProximityPromptService.PromptTriggered(prompt: ProximityPrompt, playerWhoTriggered: Player) {🛠️Input}
 Class PublishService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function PublishService:CreateAssetAndWaitForAssetId(instances: { Instance }, operationId: string, creatorType: Enum.AssetCreatorType, creatorId: number, assetType: string, name: string, description: string, expectedPrice: number? = 0) -> number {🔒RobloxScript} [Yields]
 	Function PublishService:CreateAssetOrAssetVersionAndPollAssetWithTelemetryAsync(serializedInstance: string, creatorType: Enum.AssetCreatorType, creatorId: number, assetType: string, assetId: number, name: string, description: string, token: string, contentType: string, expectedPrice: number? = 0) -> { [string]: any } {🔒RobloxScript} [Yields]
@@ -6131,16 +6133,16 @@ Class SafetyService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 	Event SafetyService.ScreenshotContentReady(screenshotJobId: number, contentId: string) {🔒RobloxScript}
 	Event SafetyService.ScreenshotUploaded(screenshotJobId: number, screenshotId: string) {🔒RobloxScript}
 Class ScreenshotHud : Instance [NotCreatable] [NotReplicated]
-	Property ScreenshotHud.CameraButtonIcon: string
-	Property ScreenshotHud.CameraButtonPosition: UDim2
-	Property ScreenshotHud.CloseButtonPosition: UDim2
-	Property ScreenshotHud.CloseWhenScreenshotTaken: boolean
-	Property ScreenshotHud.HideCoreGuiForCaptures: boolean
-	Property ScreenshotHud.HidePlayerGuiForCaptures: boolean
-	Property ScreenshotHud.Visible: boolean
-	Property ScreenshotHud.ExperienceNameOverlayEnabled: boolean [Hidden] [Deprecated]
-	Property ScreenshotHud.OverlayFont: Enum.Font [Hidden] [Deprecated]
-	Property ScreenshotHud.UsernameOverlayEnabled: boolean [Hidden] [Deprecated]
+	Property ScreenshotHud.CameraButtonIcon: string {🛠️UI}
+	Property ScreenshotHud.CameraButtonPosition: UDim2 {🛠️UI}
+	Property ScreenshotHud.CloseButtonPosition: UDim2 {🛠️UI}
+	Property ScreenshotHud.CloseWhenScreenshotTaken: boolean {🛠️UI}
+	Property ScreenshotHud.HideCoreGuiForCaptures: boolean {🛠️UI}
+	Property ScreenshotHud.HidePlayerGuiForCaptures: boolean {🛠️UI}
+	Property ScreenshotHud.Visible: boolean {🛠️UI}
+	Property ScreenshotHud.ExperienceNameOverlayEnabled: boolean {🛠️UI} [Hidden] [Deprecated]
+	Property ScreenshotHud.OverlayFont: Enum.Font {🛠️UI} [Hidden] [Deprecated]
+	Property ScreenshotHud.UsernameOverlayEnabled: boolean {🛠️UI} [Hidden] [Deprecated]
 Class ScriptBuilder : Instance [NotCreatable] [NotReplicated]
 Class SyncScriptBuilder : ScriptBuilder [NotCreatable] [NotReplicated]
 	Property SyncScriptBuilder.CompileTarget: Enum.CompileTarget
@@ -6378,9 +6380,9 @@ Class GlobalSettings : GenericSettings [NotCreatable] [NotBrowsable]
 	Function GlobalSettings:GetFFlags() -> string {🔒RobloxScript}
 	Function GlobalSettings:SetFFlagOverrides(overrides: string) -> boolean {🔒RobloxScript}
 Class UserSettings : GenericSettings [NotCreatable]
-	Function UserSettings:IsUserFeatureEnabled(name: string) -> boolean
-	Function UserSettings:Reset() -> ()
-	Function UserSettings:SaveState() -> () {🔒RobloxScript}
+	Function UserSettings:IsUserFeatureEnabled(name: string) -> boolean {🛠️Players}
+	Function UserSettings:Reset() -> () {🛠️Players}
+	Function UserSettings:SaveState() -> () {🛠️Players} {🔒RobloxScript}
 Class ServiceVisibilityService : Instance [NotCreatable] [Service]
 	Property ServiceVisibilityService.HiddenServices: BinaryString {RobloxEngine}
 	Property ServiceVisibilityService.VisibleServices: BinaryString {RobloxEngine}
@@ -6405,8 +6407,8 @@ Class SessionService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 	Function SessionService:SetMetadata(sid: string, key: string, value: any, context: string? = "") -> () {🔒RobloxScript}
 	Function SessionService:SetSession(parentSid: string, childSid: string, tag: string, context: string? = "") -> () {🔒RobloxScript}
 Class SharedTableRegistry : Instance [NotCreatable] [Service] [NotReplicated]
-	Function SharedTableRegistry:GetSharedTable(name: string) -> SharedTable {🧬Safe}
-	Function SharedTableRegistry:SetSharedTable(name: string, st: SharedTable?) -> () {🧬Safe}
+	Function SharedTableRegistry:GetSharedTable(name: string) -> SharedTable {🛠️ScriptGlobals} {🧬Safe}
+	Function SharedTableRegistry:SetSharedTable(name: string, st: SharedTable?) -> () {🛠️ScriptGlobals} {🧬Safe}
 Class Sky : Instance
 	Property Sky.CelestialBodiesShown: boolean {🛠️Environment}
 	Property Sky.MoonAngularSize: number {🛠️Environment}
@@ -6488,44 +6490,44 @@ Class SmoothVoxelsUpgraderService : Instance [NotCreatable] [Service] [NotReplic
 	Event SmoothVoxelsUpgraderService.Status(progressRatio: number) {🔒RobloxScript}
 Class SnippetService : Instance {🔒RobloxEngine} [NotCreatable] [Service] [NotReplicated]
 Class SocialService : Instance [NotCreatable] [Service] [NotReplicated]
-	Function SocialService:CanSendCallInviteAsync(player: Instance) -> boolean [Yields]
-	Function SocialService:CanSendGameInviteAsync(player: Instance, recipientId: number? = 0) -> boolean [Yields]
-	Function SocialService:GetEventRsvpStatusAsync(eventId: string) -> Enum.RsvpStatus [Yields]
-	Function SocialService:GetExperienceEventAsync(eventId: string) -> { [string]: any }? [Yields]
-	Function SocialService:GetPartyAsync(partyId: string) -> { any } [Yields]
-	Function SocialService:GetPlayersByPartyId(partyId: string) -> { Instance }
-	Function SocialService:GetUpcomingExperienceEventsAsync() -> { any } [Yields]
-	Function SocialService:HideSelfView() -> ()
-	Function SocialService:PromptFeedbackSubmissionAsync() -> () [Yields]
-	Function SocialService:PromptGameInvite(player: Instance, experienceInviteOptions: Instance? = nil) -> ()
-	Function SocialService:PromptLinkSharingAsync(player: Player, options: { [string]: any }? = nil) -> ...any [Yields]
-	Function SocialService:PromptPhoneBook(player: Instance, tag: string) -> ()
-	Function SocialService:PromptRsvpToEventAsync(eventId: string) -> Enum.RsvpStatus [Yields]
-	Function SocialService:ShowSelfView(selfViewPosition: Enum.SelfViewPosition? = "LastPosition") -> ()
-	Function SocialService:InvokeGameInvitePromptClosed(player: Instance, recipientIds: { any }) -> () {🔒RobloxScript}
-	Function SocialService:InvokeIrisInvite(player: Instance, tag: string, irisParticipants: { any }) -> () {🔒RobloxScript}
-	Function SocialService:InvokeIrisInvitePromptClosed(player: Instance) -> () {🔒RobloxScript}
-	Function SocialService:InvokeShareSheetClosed() -> () {🔒RobloxScript}
-	Function SocialService:PromptLinkSharing(player: Player, options: { [string]: any }? = nil) -> ...any [Yields] [Deprecated]
-	Function SocialService:PromptRsvpToEventCompleted(eventId: string, success: boolean, rsvpStatus: Enum.RsvpStatus, previousRsvpStatus: Enum.RsvpStatus? = "None") -> () {🔒RobloxScript}
-	Function SocialService:SignalFeedbackSubmissionCompleted(feedback: string) -> () {🔒RobloxScript}
-	Function SocialService:SignalFeedbackSubmissionPermissionDenied() -> () {🔒RobloxScript}
-	Function SocialService:UpdatePlayerPartyData(partyId: string) -> () {🔒RobloxScript}
-	Event SocialService.CallInviteStateChanged(player: Instance, inviteState: Enum.InviteState)
-	Event SocialService.GameInvitePromptClosed(player: Instance, recipientIds: { any })
-	Event SocialService.PhoneBookPromptClosed(player: Instance)
-	Event SocialService.ShareSheetClosed(player: Player)
-	Event SocialService.IrisInviteInitiated(message: string) {🔒RobloxEngine} [Hidden]
-	Event SocialService.OpenShareSheetWithLink(link: string) {🔒RobloxScript}
-	Event SocialService.PlayerPartyDataChanged(partyId: string) {🔒RobloxScript}
-	Event SocialService.PromptInviteRequested(player: Instance, experienceInviteOptions: Instance) {🔒RobloxScript}
-	Event SocialService.PromptIrisInviteRequested(player: Instance, tag: string) {🔒RobloxScript}
-	Event SocialService.SelfViewHidden() {🔒RobloxScript}
-	Event SocialService.SelfViewVisible(selfViewPosition: Enum.SelfViewPosition) {🔒RobloxScript}
-	Event SocialService.ShowPromptFeedbackSubmission() {🔒RobloxScript}
-	Event SocialService.ShowPromptFeedbackUnavailable(reason: string) {🔒RobloxScript}
-	Event SocialService.ShowPromptRsvpToEvent(eventId: string) {🔒RobloxScript}
-	Callback SocialService.OnCallInviteInvoked(tag: string, callParticipantIds: { any }) -> Instance
+	Function SocialService:CanSendCallInviteAsync(player: Instance) -> boolean {🛠️Social} [Yields]
+	Function SocialService:CanSendGameInviteAsync(player: Instance, recipientId: number? = 0) -> boolean {🛠️Social} [Yields]
+	Function SocialService:GetEventRsvpStatusAsync(eventId: string) -> Enum.RsvpStatus {🛠️Social} [Yields]
+	Function SocialService:GetExperienceEventAsync(eventId: string) -> { [string]: any }? {🛠️Social} [Yields]
+	Function SocialService:GetPartyAsync(partyId: string) -> { any } {🛠️Social} [Yields]
+	Function SocialService:GetPlayersByPartyId(partyId: string) -> { Instance } {🛠️Social}
+	Function SocialService:GetUpcomingExperienceEventsAsync() -> { any } {🛠️Social} [Yields]
+	Function SocialService:HideSelfView() -> () {🛠️Social}
+	Function SocialService:PromptFeedbackSubmissionAsync() -> () {🛠️Social} [Yields]
+	Function SocialService:PromptGameInvite(player: Instance, experienceInviteOptions: Instance? = nil) -> () {🛠️Social}
+	Function SocialService:PromptLinkSharingAsync(player: Player, options: { [string]: any }? = nil) -> ...any {🛠️Social} [Yields]
+	Function SocialService:PromptPhoneBook(player: Instance, tag: string) -> () {🛠️Social}
+	Function SocialService:PromptRsvpToEventAsync(eventId: string) -> Enum.RsvpStatus {🛠️Social} [Yields]
+	Function SocialService:ShowSelfView(selfViewPosition: Enum.SelfViewPosition? = "LastPosition") -> () {🛠️Social}
+	Function SocialService:InvokeGameInvitePromptClosed(player: Instance, recipientIds: { any }) -> () {🛠️Social} {🔒RobloxScript}
+	Function SocialService:InvokeIrisInvite(player: Instance, tag: string, irisParticipants: { any }) -> () {🛠️Social} {🔒RobloxScript}
+	Function SocialService:InvokeIrisInvitePromptClosed(player: Instance) -> () {🛠️Social} {🔒RobloxScript}
+	Function SocialService:InvokeShareSheetClosed() -> () {🛠️Social} {🔒RobloxScript}
+	Function SocialService:PromptLinkSharing(player: Player, options: { [string]: any }? = nil) -> ...any {🛠️Social} [Yields] [Deprecated]
+	Function SocialService:PromptRsvpToEventCompleted(eventId: string, success: boolean, rsvpStatus: Enum.RsvpStatus, previousRsvpStatus: Enum.RsvpStatus? = "None") -> () {🛠️Social} {🔒RobloxScript}
+	Function SocialService:SignalFeedbackSubmissionCompleted(feedback: string) -> () {🛠️Social} {🔒RobloxScript}
+	Function SocialService:SignalFeedbackSubmissionPermissionDenied() -> () {🛠️Social} {🔒RobloxScript}
+	Function SocialService:UpdatePlayerPartyData(partyId: string) -> () {🛠️Social} {🔒RobloxScript}
+	Event SocialService.CallInviteStateChanged(player: Instance, inviteState: Enum.InviteState) {🛠️Social}
+	Event SocialService.GameInvitePromptClosed(player: Instance, recipientIds: { any }) {🛠️Social}
+	Event SocialService.PhoneBookPromptClosed(player: Instance) {🛠️Social}
+	Event SocialService.ShareSheetClosed(player: Player) {🛠️Social}
+	Event SocialService.IrisInviteInitiated(message: string) {🛠️Social} {🔒RobloxEngine} [Hidden]
+	Event SocialService.OpenShareSheetWithLink(link: string) {🛠️Social} {🔒RobloxScript}
+	Event SocialService.PlayerPartyDataChanged(partyId: string) {🛠️Social} {🔒RobloxScript}
+	Event SocialService.PromptInviteRequested(player: Instance, experienceInviteOptions: Instance) {🛠️Social} {🔒RobloxScript}
+	Event SocialService.PromptIrisInviteRequested(player: Instance, tag: string) {🛠️Social} {🔒RobloxScript}
+	Event SocialService.SelfViewHidden() {🛠️Social} {🔒RobloxScript}
+	Event SocialService.SelfViewVisible(selfViewPosition: Enum.SelfViewPosition) {🛠️Social} {🔒RobloxScript}
+	Event SocialService.ShowPromptFeedbackSubmission() {🛠️Social} {🔒RobloxScript}
+	Event SocialService.ShowPromptFeedbackUnavailable(reason: string) {🛠️Social} {🔒RobloxScript}
+	Event SocialService.ShowPromptRsvpToEvent(eventId: string) {🛠️Social} {🔒RobloxScript}
+	Callback SocialService.OnCallInviteInvoked(tag: string, callParticipantIds: { any }) -> Instance {🛠️Social}
 Class Sound : Instance
 	Property Sound.AudioContent: Content {🛠️LegacySound}
 	Property Sound.IsLoaded: boolean {🛠️LegacySound} [ReadOnly]
@@ -6628,45 +6630,45 @@ Class TremoloSoundEffect : SoundEffect
 Class SoundGroup : Instance
 	Property SoundGroup.Volume: number {🛠️LegacySound}
 Class SoundService : Instance [NotCreatable] [Service]
-	Property SoundService.AcousticSimulationEnabled: boolean
-	Property SoundService.AmbientReverb: Enum.ReverbType
-	Property SoundService.CharacterSoundsUseNewApi: Enum.RolloutState {✏️Plugin}
-	Property SoundService.DefaultListenerLocation: Enum.ListenerLocation {Plugin}
-	Property SoundService.DistanceFactor: number
-	Property SoundService.DopplerScale: number
-	Property SoundService.RespectFilteringEnabled: boolean
-	Property SoundService.RolloffScale: number
-	Property SoundService.VolumetricAudio: Enum.VolumetricAudio [NotScriptable]
-	Property SoundService.AudioApiByDefault: Enum.RolloutState {RobloxScript} [Hidden]
-	Property SoundService.IsNewExpForAudioApiByDefault: boolean {RobloxScript} [Hidden]
-	Function SoundService:GetListener() -> ...any
-	Function SoundService:OpenAttenuationCurveEditor(selectedCurveObjects: { Instance }) -> () {🔒Plugin}
-	Function SoundService:OpenDirectionalCurveEditor(selectedCurveObjects: { Instance }) -> () {🔒Plugin}
-	Function SoundService:PlayLocalSound(sound: Instance) -> ()
-	Function SoundService:SetListener(listenerType: Enum.ListenerType, listener: ...any) -> ()
-	Function SoundService:BeginRecording() -> boolean {🔒RobloxScript}
-	Function SoundService:EndRecording() -> { [string]: any } {🔒RobloxScript} [Yields]
-	Function SoundService:GetAudioApiByDefault() -> boolean {🔒RobloxScript}
-	Function SoundService:GetAudioInstances() -> { any } {🔒RobloxScript}
-	Function SoundService:GetInputDevice() -> ...any {🔒RobloxScript}
-	Function SoundService:GetInputDevices() -> ...any {🔒RobloxScript}
-	Function SoundService:GetOutputDevice() -> ...any {🔒RobloxScript}
-	Function SoundService:GetOutputDevices() -> ...any {🔒RobloxScript}
-	Function SoundService:GetRecordingDevices() -> { [string]: any } {🔒RobloxScript} [Yields]
-	Function SoundService:GetSoundMemoryData() -> { [string]: any } {🔒RobloxScript}
-	Function SoundService:InsertAsset(assetId: string, assetName: string, useSelection: boolean? = true) -> { Instance } {🔒RobloxScript}
-	Function SoundService:SetAudioApiByDefault(enabled: boolean) -> () {🔒RobloxScript}
-	Function SoundService:SetInputDevice(name: string, guid: string) -> () {🔒RobloxScript}
-	Function SoundService:SetOutputDevice(name: string, guid: string) -> () {🔒RobloxScript}
-	Function SoundService:SetRecordingDevice(deviceIndex: number) -> boolean {🔒RobloxScript}
-	Function SoundService:SetSoundEnabled(enabled: boolean) -> () {🔒RobloxScript}
-	Event SoundService.AudioInstanceAdded(instance: Instance) {🔒RobloxScript}
-	Event SoundService.ClientLoggedEvent(sessionIdRaw: string) {🔒RobloxEngine} [Hidden]
-	Event SoundService.DeviceListChanged(newDevices: ...any) {🔒RobloxScript}
-	Event SoundService.OpenAttenuationCurveEditorSignal(selectedCurveObjects: { Instance }) {🔒RobloxScript}
-	Event SoundService.OpenAudioCompressorEditorSignal(selectedCompressorObjects: { Instance }) {🔒RobloxScript}
-	Event SoundService.OpenAudioEqualizerEditorSignal(selectedEqualizerObjects: { Instance }) {🔒RobloxScript}
-	Event SoundService.OpenDirectionalCurveEditorSignal(selectedCurveObjects: { Instance }) {🔒RobloxScript}
+	Property SoundService.AcousticSimulationEnabled: boolean {🛠️Audio}
+	Property SoundService.AmbientReverb: Enum.ReverbType {🛠️Audio}
+	Property SoundService.CharacterSoundsUseNewApi: Enum.RolloutState {🛠️Audio} {✏️Plugin}
+	Property SoundService.DefaultListenerLocation: Enum.ListenerLocation {🛠️Audio} {Plugin}
+	Property SoundService.DistanceFactor: number {🛠️Audio}
+	Property SoundService.DopplerScale: number {🛠️Audio}
+	Property SoundService.RespectFilteringEnabled: boolean {🛠️Audio}
+	Property SoundService.RolloffScale: number {🛠️Audio}
+	Property SoundService.VolumetricAudio: Enum.VolumetricAudio {🛠️Audio} [NotScriptable]
+	Property SoundService.AudioApiByDefault: Enum.RolloutState {🛠️Audio} {RobloxScript} [Hidden]
+	Property SoundService.IsNewExpForAudioApiByDefault: boolean {🛠️Audio} {RobloxScript} [Hidden]
+	Function SoundService:GetListener() -> ...any {🛠️Audio}
+	Function SoundService:OpenAttenuationCurveEditor(selectedCurveObjects: { Instance }) -> () {🛠️Audio} {🔒Plugin}
+	Function SoundService:OpenDirectionalCurveEditor(selectedCurveObjects: { Instance }) -> () {🛠️Audio} {🔒Plugin}
+	Function SoundService:PlayLocalSound(sound: Instance) -> () {🛠️Audio}
+	Function SoundService:SetListener(listenerType: Enum.ListenerType, listener: ...any) -> () {🛠️Audio}
+	Function SoundService:BeginRecording() -> boolean {🛠️Audio} {🔒RobloxScript}
+	Function SoundService:EndRecording() -> { [string]: any } {🛠️Audio} {🔒RobloxScript} [Yields]
+	Function SoundService:GetAudioApiByDefault() -> boolean {🛠️Audio} {🔒RobloxScript}
+	Function SoundService:GetAudioInstances() -> { any } {🛠️Audio} {🔒RobloxScript}
+	Function SoundService:GetInputDevice() -> ...any {🛠️Audio} {🔒RobloxScript}
+	Function SoundService:GetInputDevices() -> ...any {🛠️Audio} {🔒RobloxScript}
+	Function SoundService:GetOutputDevice() -> ...any {🛠️Audio} {🔒RobloxScript}
+	Function SoundService:GetOutputDevices() -> ...any {🛠️Audio} {🔒RobloxScript}
+	Function SoundService:GetRecordingDevices() -> { [string]: any } {🛠️Audio} {🔒RobloxScript} [Yields]
+	Function SoundService:GetSoundMemoryData() -> { [string]: any } {🛠️Audio} {🔒RobloxScript}
+	Function SoundService:InsertAsset(assetId: string, assetName: string, useSelection: boolean? = true) -> { Instance } {🛠️Audio} {🔒RobloxScript}
+	Function SoundService:SetAudioApiByDefault(enabled: boolean) -> () {🛠️Audio} {🔒RobloxScript}
+	Function SoundService:SetInputDevice(name: string, guid: string) -> () {🛠️Audio} {🔒RobloxScript}
+	Function SoundService:SetOutputDevice(name: string, guid: string) -> () {🛠️Audio} {🔒RobloxScript}
+	Function SoundService:SetRecordingDevice(deviceIndex: number) -> boolean {🛠️Audio} {🔒RobloxScript}
+	Function SoundService:SetSoundEnabled(enabled: boolean) -> () {🛠️Audio} {🔒RobloxScript}
+	Event SoundService.AudioInstanceAdded(instance: Instance) {🛠️Audio} {🔒RobloxScript}
+	Event SoundService.ClientLoggedEvent(sessionIdRaw: string) {🛠️Audio} {🔒RobloxEngine} [Hidden]
+	Event SoundService.DeviceListChanged(newDevices: ...any) {🛠️Audio} {🔒RobloxScript}
+	Event SoundService.OpenAttenuationCurveEditorSignal(selectedCurveObjects: { Instance }) {🛠️Audio} {🔒RobloxScript}
+	Event SoundService.OpenAudioCompressorEditorSignal(selectedCompressorObjects: { Instance }) {🛠️Audio} {🔒RobloxScript}
+	Event SoundService.OpenAudioEqualizerEditorSignal(selectedEqualizerObjects: { Instance }) {🛠️Audio} {🔒RobloxScript}
+	Event SoundService.OpenDirectionalCurveEditorSignal(selectedCurveObjects: { Instance }) {🛠️Audio} {🔒RobloxScript}
 Class SoundShimService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 Class Sparkles : Instance
 	Property Sparkles.Enabled: boolean {🛠️Basic}
@@ -7162,32 +7164,32 @@ Class StudioWidgetsService : Instance {🔒RobloxScript} [NotCreatable] [Service
 	Function StudioWidgetsService:GetWidgetFromPluginGui(gui: PluginGui) -> StudioWidget {🔒RobloxScript}
 	Function StudioWidgetsService:HideSpotlight() -> () {🔒RobloxScript}
 Class StyleBase : Instance [NotCreatable]
-	Function StyleBase:GetStyleRules() -> { Instance }
-	Function StyleBase:InsertStyleRule(rule: StyleRule, priority: number?) -> ()
-	Function StyleBase:SetStyleRules(rules: { Instance }) -> ()
-	Event StyleBase.StyleRulesChanged()
+	Function StyleBase:GetStyleRules() -> { Instance } {🛠️UI}
+	Function StyleBase:InsertStyleRule(rule: StyleRule, priority: number?) -> () {🛠️UI}
+	Function StyleBase:SetStyleRules(rules: { Instance }) -> () {🛠️UI}
+	Event StyleBase.StyleRulesChanged() {🛠️UI}
 Class StyleRule : StyleBase
-	Property StyleRule.Priority: number
-	Property StyleRule.Selector: string
-	Property StyleRule.SelectorError: string [ReadOnly]
-	Property StyleRule.Index: number {📁LoadOnly} [Hidden] [NotScriptable]
-	Property StyleRule.PropertiesSerialize: BinaryString [Hidden] [NotScriptable]
-	Function StyleRule:GetProperties() -> { [string]: any }
-	Function StyleRule:GetProperty(name: string) -> any
-	Function StyleRule:SetProperties(styleProperties: { [string]: any }) -> ()
-	Function StyleRule:SetProperty(name: string, value: any) -> ()
-	Function StyleRule:GetPropertiesResolved() -> { [string]: any } {🔒RobloxScript}
-	Function StyleRule:GetPropertyResolved(name: string) -> any {🔒RobloxScript}
-	Event StyleRule.StyleRulePropertyChanged(styleProperty: string) {🔒RobloxScript}
+	Property StyleRule.Priority: number {🛠️UI}
+	Property StyleRule.Selector: string {🛠️UI}
+	Property StyleRule.SelectorError: string {🛠️UI} [ReadOnly]
+	Property StyleRule.Index: number {🛠️UI} {📁LoadOnly} [Hidden] [NotScriptable]
+	Property StyleRule.PropertiesSerialize: BinaryString {🛠️UI} [Hidden] [NotScriptable]
+	Function StyleRule:GetProperties() -> { [string]: any } {🛠️UI}
+	Function StyleRule:GetProperty(name: string) -> any {🛠️UI}
+	Function StyleRule:SetProperties(styleProperties: { [string]: any }) -> () {🛠️UI}
+	Function StyleRule:SetProperty(name: string, value: any) -> () {🛠️UI}
+	Function StyleRule:GetPropertiesResolved() -> { [string]: any } {🛠️UI} {🔒RobloxScript}
+	Function StyleRule:GetPropertyResolved(name: string) -> any {🛠️UI} {🔒RobloxScript}
+	Event StyleRule.StyleRulePropertyChanged(styleProperty: string) {🛠️UI} {🔒RobloxScript}
 Class StyleSheet : StyleBase
-	Function StyleSheet:GetDerives() -> { Instance }
-	Function StyleSheet:SetDerives(derives: { Instance }) -> ()
+	Function StyleSheet:GetDerives() -> { Instance } {🛠️UI}
+	Function StyleSheet:SetDerives(derives: { Instance }) -> () {🛠️UI}
 Class StyleDerive : Instance
-	Property StyleDerive.Priority: number
-	Property StyleDerive.StyleSheet: StyleSheet?
-	Property StyleDerive.Index: number {📁LoadOnly} [Hidden] [NotScriptable]
+	Property StyleDerive.Priority: number {🛠️UI}
+	Property StyleDerive.StyleSheet: StyleSheet? {🛠️UI}
+	Property StyleDerive.Index: number {🛠️UI} {📁LoadOnly} [Hidden] [NotScriptable]
 Class StyleLink : Instance
-	Property StyleLink.StyleSheet: StyleSheet?
+	Property StyleLink.StyleSheet: StyleSheet? {🛠️UI}
 Class StyleQuery : Instance {🔒RobloxScript} [NotReplicated] [NotBrowsable]
 	Property StyleQuery.AspectRatioRange: NumberRange [NotReplicated] [NotScriptable]
 	Property StyleQuery.IsActive: boolean [ReadOnly]
@@ -7259,14 +7261,14 @@ Class TelemetryService : Instance {🔒RobloxScript} [NotCreatable] [Service] [N
 	Function TelemetryService:LogEvent(config: { [string]: any }, data: { [string]: any }? = nil) -> any {🔒RobloxScript}
 	Function TelemetryService:LogStat(config: { [string]: any }, data: { [string]: any }?, value: number) -> any {🔒RobloxScript}
 Class TeleportAsyncResult : Instance [NotCreatable]
-	Property TeleportAsyncResult.PrivateServerId: string [ReadOnly]
-	Property TeleportAsyncResult.ReservedServerAccessCode: string [ReadOnly]
+	Property TeleportAsyncResult.PrivateServerId: string {🛠️Teleport} [ReadOnly]
+	Property TeleportAsyncResult.ReservedServerAccessCode: string {🛠️Teleport} [ReadOnly]
 Class TeleportOptions : Instance
-	Property TeleportOptions.ReservedServerAccessCode: string
-	Property TeleportOptions.ServerInstanceId: string
-	Property TeleportOptions.ShouldReserveServer: boolean
-	Function TeleportOptions:GetTeleportData() -> any
-	Function TeleportOptions:SetTeleportData(teleportData: any) -> ()
+	Property TeleportOptions.ReservedServerAccessCode: string {🛠️Teleport}
+	Property TeleportOptions.ServerInstanceId: string {🛠️Teleport}
+	Property TeleportOptions.ShouldReserveServer: boolean {🛠️Teleport}
+	Function TeleportOptions:GetTeleportData() -> any {🛠️Teleport}
+	Function TeleportOptions:SetTeleportData(teleportData: any) -> () {🛠️Teleport}
 Class TeleportService : Instance [NotCreatable] [Service]
 	Property TeleportService.CustomizedTeleportUI: boolean {📁LoadOnly} [NotReplicated] [Deprecated]
 	Function TeleportService:GetArrivingTeleportGui() -> Instance?
@@ -7305,32 +7307,32 @@ Class TeleportService : Instance [NotCreatable] [Service]
 Class TemporaryCageMeshProvider : Instance {🔒RobloxEngine} [NotCreatable] [Service] [NotReplicated]
 Class TemporaryScriptService : Instance {🔒RobloxEngine} [NotCreatable] [Service] [NotReplicated]
 Class TerrainDetail : Instance
-	Property TerrainDetail.ColorMap: string {Plugin}
-	Property TerrainDetail.ColorMapContent: Content {Plugin}
-	Property TerrainDetail.EmissiveMaskContent: Content {Plugin}
-	Property TerrainDetail.EmissiveStrength: number
-	Property TerrainDetail.EmissiveTint: Color3
-	Property TerrainDetail.Face: Enum.TerrainFace
-	Property TerrainDetail.MaterialPattern: Enum.MaterialPattern
-	Property TerrainDetail.MetalnessMap: string {Plugin}
-	Property TerrainDetail.MetalnessMapContent: Content {Plugin}
-	Property TerrainDetail.NormalMap: string {Plugin}
-	Property TerrainDetail.NormalMapContent: Content {Plugin}
-	Property TerrainDetail.RoughnessMap: string {Plugin}
-	Property TerrainDetail.RoughnessMapContent: Content {Plugin}
-	Property TerrainDetail.StudsPerTile: number
-	Property TerrainDetail.TexturePack: string [Hidden] [NotScriptable]
+	Property TerrainDetail.ColorMap: string {🛠️Environment} {Plugin}
+	Property TerrainDetail.ColorMapContent: Content {🛠️Environment} {Plugin}
+	Property TerrainDetail.EmissiveMaskContent: Content {🛠️Environment} {Plugin}
+	Property TerrainDetail.EmissiveStrength: number {🛠️Environment}
+	Property TerrainDetail.EmissiveTint: Color3 {🛠️Environment}
+	Property TerrainDetail.Face: Enum.TerrainFace {🛠️Environment}
+	Property TerrainDetail.MaterialPattern: Enum.MaterialPattern {🛠️Environment}
+	Property TerrainDetail.MetalnessMap: string {🛠️Environment} {Plugin}
+	Property TerrainDetail.MetalnessMapContent: Content {🛠️Environment} {Plugin}
+	Property TerrainDetail.NormalMap: string {🛠️Environment} {Plugin}
+	Property TerrainDetail.NormalMapContent: Content {🛠️Environment} {Plugin}
+	Property TerrainDetail.RoughnessMap: string {🛠️Environment} {Plugin}
+	Property TerrainDetail.RoughnessMapContent: Content {🛠️Environment} {Plugin}
+	Property TerrainDetail.StudsPerTile: number {🛠️Environment}
+	Property TerrainDetail.TexturePack: string {🛠️Environment} [Hidden] [NotScriptable]
 Class TerrainRegion : Instance
-	Property TerrainRegion.SizeInCells: Vector3 [ReadOnly]
-	Property TerrainRegion.ExtentsMax: Vector3int16 [Hidden] [NotScriptable]
-	Property TerrainRegion.ExtentsMin: Vector3int16 [Hidden] [NotScriptable]
-	Property TerrainRegion.GridV3: BinaryString {📁LoadOnly} [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
-	Property TerrainRegion.IsSmooth: boolean [ReadOnly] [Deprecated]
-	Property TerrainRegion.SmoothGrid: BinaryString [Hidden] [NotReplicated] [NotScriptable]
-	Function TerrainRegion:ApplyTransform(rotation: CFrame, size: Vector3) -> () {🔒RobloxScript}
-	Function TerrainRegion:ApplyTransformSubregion(rotation: CFrame, size: Vector3, region: Region3int16) -> TerrainRegion {🔒RobloxScript}
-	Function TerrainRegion:ConvertToSmooth() -> () {🔒Plugin} [Deprecated]
-	Function TerrainRegion:GetRegionWireframe() -> { any } {🔒RobloxScript}
+	Property TerrainRegion.SizeInCells: Vector3 {🛠️Environment} [ReadOnly]
+	Property TerrainRegion.ExtentsMax: Vector3int16 {🛠️Environment} [Hidden] [NotScriptable]
+	Property TerrainRegion.ExtentsMin: Vector3int16 {🛠️Environment} [Hidden] [NotScriptable]
+	Property TerrainRegion.GridV3: BinaryString {🛠️Environment} {📁LoadOnly} [Hidden] [WriteOnly] [NotReplicated] [NotScriptable]
+	Property TerrainRegion.IsSmooth: boolean {🛠️Environment} [ReadOnly] [Deprecated]
+	Property TerrainRegion.SmoothGrid: BinaryString {🛠️Environment} [Hidden] [NotReplicated] [NotScriptable]
+	Function TerrainRegion:ApplyTransform(rotation: CFrame, size: Vector3) -> () {🛠️Environment} {🔒RobloxScript}
+	Function TerrainRegion:ApplyTransformSubregion(rotation: CFrame, size: Vector3, region: Region3int16) -> TerrainRegion {🛠️Environment} {🔒RobloxScript}
+	Function TerrainRegion:ConvertToSmooth() -> () {🛠️Environment} {🔒Plugin} [Deprecated]
+	Function TerrainRegion:GetRegionWireframe() -> { any } {🛠️Environment} {🔒RobloxScript}
 Class TestService : Instance [Service]
 	Property TestService.Description: string
 	Property TestService.AutoRuns: boolean
@@ -7512,6 +7514,8 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Event TextChatService.ServerToClientMessageReplicateSignal(text: string, prefixText: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, timestamp: number, status: Enum.TextChatMessageStatus) {🛠️Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.ServerToClientMessageReplicateSignalV2(data: { [string]: any }) {🛠️Chat} {🔒RobloxEngine} [Hidden]
 	Event TextChatService.UpdateChatTimeout(userId: number, startTime: number, duration: number) {🛠️Chat} {🔒RobloxEngine} [Hidden]
+	Event TextChatService.UserMessageIntentSent(userIntentMessage: TextChatMessage) {🛠️Chat} {🔒RobloxScript}
+	Event TextChatService.UserMessageIntentSentRemote(text: string, prefixText: string, metadata: string, messageId: string, textSource: TextSource, textChannel: TextChannel, timestamp: number) {🛠️Chat} {🔒RobloxEngine} [Hidden]
 	Callback TextChatService.OnBubbleAdded(message: TextChatMessage, adornee: Instance) -> ...any {🛠️Chat}
 	Callback TextChatService.OnChatWindowAdded(message: TextChatMessage) -> ...any {🛠️Chat}
 	Callback TextChatService.OnIncomingMessage(message: TextChatMessage) -> ...any {🛠️Chat}
@@ -7617,10 +7621,10 @@ Class Trail : Instance
 	Function Trail:Clear() -> () {🛠️Basic}
 	Event Trail.OnClearRequested() {🛠️Basic} [Hidden]
 Class Translator : Instance [NotCreatable] [NotReplicated]
-	Property Translator.LocaleId: string [ReadOnly]
-	Function Translator:FormatByKey(key: string, args: any) -> string
-	Function Translator:Translate(context: Instance, text: string) -> string
-	Function Translator:RobloxOnlyTranslate(context: Instance, text: string) -> string {🔒RobloxScript}
+	Property Translator.LocaleId: string {🛠️Basic} [ReadOnly]
+	Function Translator:FormatByKey(key: string, args: any) -> string {🛠️Basic}
+	Function Translator:Translate(context: Instance, text: string) -> string {🛠️Basic}
+	Function Translator:RobloxOnlyTranslate(context: Instance, text: string) -> string {🛠️Basic} {🔒RobloxScript}
 Class TutorialService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function TutorialService:GetMainViewSessionId() -> string {🔒RobloxScript}
 	Function TutorialService:HasUserCompletedTutorial() -> boolean {🔒RobloxScript}
@@ -7868,15 +7872,15 @@ Class UnvalidatedAssetService : Instance {🔒RobloxScript} [NotCreatable] [Serv
 	Function UnvalidatedAssetService:AppendVantagePoint(userId: number, id: number, lookAt: Vector3, camPos: Vector3) -> boolean {🔒RobloxScript}
 	Function UnvalidatedAssetService:UpgradeTempAssetId(userId: number, tempId: number, assetId: number) -> boolean {🔒RobloxScript}
 Class UserGameSettings : Instance [NotCreatable] [Service] [NotReplicated]
-	Property UserGameSettings.SavedQualityLevel: Enum.SavedQualitySetting
-	Property UserGameSettings.ComputerCameraMovementMode: Enum.ComputerCameraMovementMode
-	Property UserGameSettings.ComputerMovementMode: Enum.ComputerMovementMode
-	Property UserGameSettings.ControlMode: Enum.ControlMode
-	Property UserGameSettings.RotationType: Enum.RotationType
-	Property UserGameSettings.TouchCameraMovementMode: Enum.TouchCameraMovementMode
-	Property UserGameSettings.TouchMovementMode: Enum.TouchMovementMode
-	Property UserGameSettings.GamepadCameraSensitivity: number
-	Property UserGameSettings.MouseSensitivity: number
+	Property UserGameSettings.SavedQualityLevel: Enum.SavedQualitySetting {🛠️Players}
+	Property UserGameSettings.ComputerCameraMovementMode: Enum.ComputerCameraMovementMode {🛠️Input}
+	Property UserGameSettings.ComputerMovementMode: Enum.ComputerMovementMode {🛠️Input}
+	Property UserGameSettings.ControlMode: Enum.ControlMode {🛠️Input}
+	Property UserGameSettings.RotationType: Enum.RotationType {🛠️Input}
+	Property UserGameSettings.TouchCameraMovementMode: Enum.TouchCameraMovementMode {🛠️Input}
+	Property UserGameSettings.TouchMovementMode: Enum.TouchMovementMode {🛠️Input}
+	Property UserGameSettings.GamepadCameraSensitivity: number {🛠️Input}
+	Property UserGameSettings.MouseSensitivity: number {🛠️Input}
 	Property UserGameSettings.RCCProfilerRecordFrameRate: number
 	Property UserGameSettings.RCCProfilerRecordTimeFrame: number
 	Property UserGameSettings.VRSmoothRotationEnabled: boolean {✏️RobloxScript}
@@ -7941,13 +7945,13 @@ Class UserGameSettings : Instance [NotCreatable] [Service] [NotReplicated]
 	Property UserGameSettings.VRThirdPersonFollowCamEnabledCustomOption: boolean {RobloxScript} [Hidden] [NotReplicated]
 	Property UserGameSettings.VignetteEnabledCustomOption: boolean {RobloxScript} [Hidden] [NotReplicated]
 	Property UserGameSettings.gaID: string {RobloxScript} [Hidden] [NotReplicated] [NotScriptable]
-	Function UserGameSettings:GetCameraYInvertValue() -> number
-	Function UserGameSettings:GetOnboardingCompleted(onboardingId: string) -> boolean
-	Function UserGameSettings:InFullScreen() -> boolean
-	Function UserGameSettings:InStudioMode() -> boolean
-	Function UserGameSettings:SetCameraYInvertVisible() -> ()
-	Function UserGameSettings:SetGamepadCameraSensitivityVisible() -> ()
-	Function UserGameSettings:SetOnboardingCompleted(onboardingId: string) -> ()
+	Function UserGameSettings:GetCameraYInvertValue() -> number {🛠️Input}
+	Function UserGameSettings:GetOnboardingCompleted(onboardingId: string) -> boolean {🛠️Players}
+	Function UserGameSettings:InFullScreen() -> boolean {🛠️Players}
+	Function UserGameSettings:InStudioMode() -> boolean {🛠️Players}
+	Function UserGameSettings:SetCameraYInvertVisible() -> () {🛠️Input}
+	Function UserGameSettings:SetGamepadCameraSensitivityVisible() -> () {🛠️Input}
+	Function UserGameSettings:SetOnboardingCompleted(onboardingId: string) -> () {🛠️Players}
 	Function UserGameSettings:GetDefaultFramerateCap() -> number {🔒RobloxScript}
 	Function UserGameSettings:GetTutorialState(tutorialId: string) -> boolean {🔒RobloxScript}
 	Function UserGameSettings:ResetOnboardingCompleted(onboardingId: string) -> () {🔒RobloxScript}
@@ -8040,37 +8044,37 @@ Class UserInputService : Instance [NotCreatable] [Service] [NotReplicated]
 	Event UserInputService.StatusBarTapped(position: Vector2) {🛠️Input} {🔒RobloxScript}
 	Event UserInputService.UserCFrameChanged(type: Enum.UserCFrame, value: CFrame) {🛠️Input} [Deprecated]
 Class UserService : Instance [NotCreatable] [Service]
-	Function UserService:GetUserInfosByUserIdsAsync(userIds: { any }) -> { any } [Yields]
+	Function UserService:GetUserInfosByUserIdsAsync(userIds: { any }) -> { any } {🛠️Basic} [Yields]
 Class VRService : Instance [NotCreatable] [Service]
-	Property VRService.AutomaticScaling: Enum.VRScaling
-	Property VRService.AvatarGestures: boolean
-	Property VRService.ControllerModels: Enum.VRControllerModelMode
-	Property VRService.FadeOutViewOnCollision: boolean
-	Property VRService.GuiInputUserCFrame: Enum.UserCFrame [NotReplicated]
-	Property VRService.LaserPointer: Enum.VRLaserPointerMode
-	Property VRService.ThirdPersonFollowCamEnabled: boolean [ReadOnly]
-	Property VRService.VREnabled: boolean [ReadOnly]
-	Property VRService.DidPointerHit: boolean {RobloxScript} [Hidden] [ReadOnly]
-	Property VRService.LaserDistance: number {RobloxScript} [Hidden] [ReadOnly]
-	Property VRService.PointerHitCFrame: CFrame {RobloxScript} [Hidden] [ReadOnly]
-	Property VRService.QuestASWState: boolean {RobloxScript} [Hidden] [NotReplicated]
-	Property VRService.QuestDisplayRefreshRate: number {RobloxScript} [Hidden] [NotReplicated]
-	Property VRService.VRDeviceAvailable: boolean {RobloxScript} [Hidden] [ReadOnly]
-	Property VRService.VRDeviceName: string {RobloxScript} [Hidden] [ReadOnly]
-	Property VRService.VRSessionState: Enum.VRSessionState {RobloxScript} [Hidden] [ReadOnly]
-	Function VRService:GetTouchpadMode(pad: Enum.VRTouchpad) -> Enum.VRTouchpadMode
-	Function VRService:GetUserCFrame(type: Enum.UserCFrame) -> CFrame
-	Function VRService:GetUserCFrameEnabled(type: Enum.UserCFrame) -> boolean
-	Function VRService:RecenterUserHeadCFrame() -> ()
-	Function VRService:RequestNavigation(cframe: CFrame, inputUserCFrame: Enum.UserCFrame) -> ()
-	Function VRService:SetTouchpadMode(pad: Enum.VRTouchpad, mode: Enum.VRTouchpadMode) -> ()
-	Function VRService:IsMaquettes() -> boolean {🔒RobloxScript}
-	Function VRService:IsVRAppBuild() -> boolean {🔒RobloxScript}
-	Event VRService.NavigationRequested(cframe: CFrame, inputUserCFrame: Enum.UserCFrame)
-	Event VRService.TouchpadModeChanged(pad: Enum.VRTouchpad, mode: Enum.VRTouchpadMode)
-	Event VRService.UserCFrameChanged(type: Enum.UserCFrame, value: CFrame)
-	Event VRService.UserCFrameEnabled(type: Enum.UserCFrame, enabled: boolean)
-	Event VRService.LaserPointerTriggered(input: InputObject) {🔒RobloxScript}
+	Property VRService.AutomaticScaling: Enum.VRScaling {🛠️Input}
+	Property VRService.AvatarGestures: boolean {🛠️Input}
+	Property VRService.ControllerModels: Enum.VRControllerModelMode {🛠️Input}
+	Property VRService.FadeOutViewOnCollision: boolean {🛠️Input}
+	Property VRService.GuiInputUserCFrame: Enum.UserCFrame {🛠️Input} [NotReplicated]
+	Property VRService.LaserPointer: Enum.VRLaserPointerMode {🛠️Input}
+	Property VRService.ThirdPersonFollowCamEnabled: boolean {🛠️Input} [ReadOnly]
+	Property VRService.VREnabled: boolean {🛠️Input} [ReadOnly]
+	Property VRService.DidPointerHit: boolean {🛠️Input} {RobloxScript} [Hidden] [ReadOnly]
+	Property VRService.LaserDistance: number {🛠️Input} {RobloxScript} [Hidden] [ReadOnly]
+	Property VRService.PointerHitCFrame: CFrame {🛠️Input} {RobloxScript} [Hidden] [ReadOnly]
+	Property VRService.QuestASWState: boolean {🛠️Input} {RobloxScript} [Hidden] [NotReplicated]
+	Property VRService.QuestDisplayRefreshRate: number {🛠️Input} {RobloxScript} [Hidden] [NotReplicated]
+	Property VRService.VRDeviceAvailable: boolean {🛠️Input} {RobloxScript} [Hidden] [ReadOnly]
+	Property VRService.VRDeviceName: string {🛠️Input} {RobloxScript} [Hidden] [ReadOnly]
+	Property VRService.VRSessionState: Enum.VRSessionState {🛠️Input} {RobloxScript} [Hidden] [ReadOnly]
+	Function VRService:GetTouchpadMode(pad: Enum.VRTouchpad) -> Enum.VRTouchpadMode {🛠️Input}
+	Function VRService:GetUserCFrame(type: Enum.UserCFrame) -> CFrame {🛠️Input}
+	Function VRService:GetUserCFrameEnabled(type: Enum.UserCFrame) -> boolean {🛠️Input}
+	Function VRService:RecenterUserHeadCFrame() -> () {🛠️Input}
+	Function VRService:RequestNavigation(cframe: CFrame, inputUserCFrame: Enum.UserCFrame) -> () {🛠️Input}
+	Function VRService:SetTouchpadMode(pad: Enum.VRTouchpad, mode: Enum.VRTouchpadMode) -> () {🛠️Input}
+	Function VRService:IsMaquettes() -> boolean {🛠️Input} {🔒RobloxScript}
+	Function VRService:IsVRAppBuild() -> boolean {🛠️Input} {🔒RobloxScript}
+	Event VRService.NavigationRequested(cframe: CFrame, inputUserCFrame: Enum.UserCFrame) {🛠️Input}
+	Event VRService.TouchpadModeChanged(pad: Enum.VRTouchpad, mode: Enum.VRTouchpadMode) {🛠️Input}
+	Event VRService.UserCFrameChanged(type: Enum.UserCFrame, value: CFrame) {🛠️Input}
+	Event VRService.UserCFrameEnabled(type: Enum.UserCFrame, enabled: boolean) {🛠️Input}
+	Event VRService.LaserPointerTriggered(input: InputObject) {🛠️Input} {🔒RobloxScript}
 Class VRStatusService : Instance [NotCreatable] [Service]
 Class ValueBase : Instance [NotCreatable]
 Class BinaryStringValue : ValueBase
@@ -9372,6 +9376,10 @@ Enum CustomCameraMode
 	EnumItem CustomCameraMode.Default : 0
 	EnumItem CustomCameraMode.Classic : 1
 	EnumItem CustomCameraMode.Follow : 2
+Enum DataModelExtractorFileType
+	EnumItem DataModelExtractorFileType.PlaceFile : 0
+	EnumItem DataModelExtractorFileType.FirstSlice : 1
+	EnumItem DataModelExtractorFileType.NonFirstSliceSlice : 2
 Enum DataStoreRequestType
 	EnumItem DataStoreRequestType.GetAsync : 0
 	EnumItem DataStoreRequestType.SetIncrementAsync : 1
@@ -9571,6 +9579,10 @@ Enum ElasticBehavior
 	EnumItem ElasticBehavior.WhenScrollable : 0
 	EnumItem ElasticBehavior.Always : 1
 	EnumItem ElasticBehavior.Never : 2
+Enum EngineFolder
+	EnumItem EngineFolder.Screenshots : 0
+	EnumItem EngineFolder.Videos : 1
+	EnumItem EngineFolder.Logs : 2
 Enum EnviromentalPhysicsThrottle
 	EnumItem EnviromentalPhysicsThrottle.DefaultAuto : 0
 	EnumItem EnviromentalPhysicsThrottle.Disabled : 1
@@ -11270,6 +11282,24 @@ Enum SecurityCapability
 	EnumItem SecurityCapability.PluginOrOpenCloud : 30
 	EnumItem SecurityCapability.Assistant : 31
 	EnumItem SecurityCapability.RemoteCommand : 32
+	EnumItem SecurityCapability.AssetRead : 33
+	EnumItem SecurityCapability.AssetManagement : 34
+	EnumItem SecurityCapability.DynamicGeneration : 35
+	EnumItem SecurityCapability.PlatformAvatarEditing : 36
+	EnumItem SecurityCapability.AssetCreateUpdate : 37
+	EnumItem SecurityCapability.Capture : 38
+	EnumItem SecurityCapability.SensitiveInput : 39
+	EnumItem SecurityCapability.Monetization : 40
+	EnumItem SecurityCapability.LoadOwnedAsset : 41
+	EnumItem SecurityCapability.Social : 42
+	EnumItem SecurityCapability.ServerCommunication : 43
+	EnumItem SecurityCapability.Logging : 44
+	EnumItem SecurityCapability.PromptExternalPurchase : 45
+	EnumItem SecurityCapability.Groups : 46
+	EnumItem SecurityCapability.Teleport : 47
+	EnumItem SecurityCapability.Consequences : 48
+	EnumItem SecurityCapability.Material : 49
+	EnumItem SecurityCapability.AvatarBehavior : 50
 Enum SelectionBehavior
 	EnumItem SelectionBehavior.Escape : 0
 	EnumItem SelectionBehavior.Stop : 1
