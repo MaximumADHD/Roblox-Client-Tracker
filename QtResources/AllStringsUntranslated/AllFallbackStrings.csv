@@ -3261,16 +3261,6 @@ Studio.App.Ribbon.Beta.Snippets,Create and use reusable blocks of code,Snippets,
 Studio.App.Ribbon.Beta.Snippets.Tooltip,,Create and use reusable blocks of code,Create and use reusable blocks of code
 Studio.App.Ribbon.Beta.Terrain,Create and edit terrain,Terrain,Terrain
 Studio.App.Ribbon.Beta.Terrain.Tooltip,,Create and edit terrain,Create and edit terrain
-Studio.App.RobloxChatWidget.ChatOptions,,Chat Options,Chat Options
-Studio.App.RobloxChatWidget.ChattingWith,,Chatting with %1,Chatting with %1
-Studio.App.RobloxChatWidget.ConnectingToChatElps,,Connecting to chat...,Connecting to chat...
-Studio.App.RobloxChatWidget.ContentModerated,,Content was moderated. Message not sent.,Content was moderated. Message not sent.
-Studio.App.RobloxChatWidget.DeprecatingSoon,,Team Chat is deprecated and will be removed in January 2025.,Team Chat is deprecated and will be removed in January 2025.
-Studio.App.RobloxChatWidget.DeprecatingSoon2,"Informs user about deprecation of TC chat widget. The tags around ""Learn more"" are for formatting purposes and do not need translation.","Team Chat is deprecated and will be removed on January 30th, 2025. <a href=""%1""><i>Learn more.</i></a>","Team Chat is deprecated and will be removed on January 30th, 2025. <a href=""%1""><i>Learn more.</i></a>"
-Studio.App.RobloxChatWidget.DisabledChatMessage,,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4
-Studio.App.RobloxChatWidget.FailedSendAMessage,,Failed to send message: ,Failed to send message: 
-Studio.App.RobloxChatWidget.NotFriendErrorMessage,,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.
-Studio.App.RobloxChatWidget.SendAMessage,,Send a message,Send a message
 Studio.App.RobloxCustomWidgets.BrickColor1,https://developer.roblox.com/en-us/articles/BrickColor-Codes,White,White
 Studio.App.RobloxCustomWidgets.BrickColor1001,https://developer.roblox.com/en-us/articles/BrickColor-Codes,Institutional white,Institutional white
 Studio.App.RobloxCustomWidgets.BrickColor1002,https://developer.roblox.com/en-us/articles/BrickColor-Codes,Mid gray,Mid gray
@@ -5684,6 +5674,8 @@ Studio.BetaFeatures.SkyboxOrientationTitle,"Refers to a new feature that adds an
 Studio.BetaFeatures.SmoothVoxelsDescription,1:1 Copy from Studio.App.BetaFeature.SmoothVoxelsDescription,Enable the terrain upgrade changing the way voxels are rendered to make them much smoother in cases where there were terracing issues and LOD artefacts before. (NOTE: Requires Upgrade Shorelines!),Enable the terrain upgrade changing the way voxels are rendered to make them much smoother in cases where there were terracing issues and LOD artefacts before. (NOTE: Requires Upgrade Shorelines!)
 Studio.BetaFeatures.SmoothVoxelsTitle,1:1 copy from Studio.App.BetaFeature.SmoothVoxelsTitle,Smooth Voxels,Smooth Voxels
 Studio.BetaFeatures.SomethingChangedPrompt,,Would you like to restart Studio now?,Would you like to restart Studio now?
+Studio.BetaFeatures.SoundAsAShimDescription,Description for the Sound as a Shim Beta Feature,"Replaces the implementation of Sounds with the advanced Audio API, enabling Acoustic Simulation and new audio features when using the legacy Sound framework.","Replaces the implementation of Sounds with the advanced Audio API, enabling Acoustic Simulation and new audio features when using the legacy Sound framework."
+Studio.BetaFeatures.SoundAsAShimTitle,Title for the Sound as a Shim Beta Feature,Sound as a Shim,Sound as a Shim
 Studio.BetaFeatures.StudioIncrementalAutocompleteDescription,,Studio will perform incremental typechecks on cached scripts to speed up the responsiveness of autocomplete requests,Studio will perform incremental typechecks on cached scripts to speed up the responsiveness of autocomplete requests
 Studio.BetaFeatures.StudioIncrementalAutocompleteTitle,,Incremental typechecking and autocompletion in studio,Incremental typechecking and autocompletion in studio
 Studio.BetaFeatures.StudioNotifications,,Notification Overhaul,Notification Overhaul
@@ -5722,6 +5714,8 @@ Studio.BetaFeatures.UnifiedLightingDescription,,"Enables Unified lighting model 
 Studio.BetaFeatures.UnifiedLightingTitle,,Unified Lighting,Unified Lighting
 Studio.BetaFeatures.UnifiedMeshMassDescription,,Enable calculating masses for Mesh Parts and CSG Operations based on their Mesh instead of their Collision Fidelity. Old Mesh Parts and CSG Operations will not be affected until you change their Collision Fidelity.,Enable calculating masses for Mesh Parts and CSG Operations based on their Mesh instead of their Collision Fidelity. Old Mesh Parts and CSG Operations will not be affected until you change their Collision Fidelity.
 Studio.BetaFeatures.UnifiedMeshMassTitle,,Improved Mass Properties,Improved Mass Properties
+Studio.BetaFeatures.UniversalImporterDescription,Description for the Universal Importer beta feature allowing more asset type uploads.,"Add support for images, audio and video and replace bulk importer in the revamped Asset Manager.","Add support for images, audio and video and replace bulk importer in the revamped Asset Manager."
+Studio.BetaFeatures.UniversalImporterTitle,Title for the Universal Importer feature allowing more import types in the Import Queue,Universal Importer,Universal Importer
 Studio.BetaFeatures.VREmulatorDescription,,"Enable this feature to simulate a VR runtime environment, including headset and inputs, without needing a physical VR setup.","Enable this feature to simulate a VR runtime environment, including headset and inputs, without needing a physical VR setup."
 Studio.BetaFeatures.VREmulatorTitle,,VR Emulator,VR Emulator
 Studio.BetaFeatures.VideoApiDescription,,Enables the VideoPlayer instance for playing videos on multiple surfaces and compatibility with the new Audio API.,Enables the VideoPlayer instance for playing videos on multiple surfaces and compatibility with the new Audio API.
@@ -6602,9 +6596,13 @@ Studio.PublishPlace.AfterPublish.ViewCreatorHubText,Message to display after pub
 Studio.PublishPlace.AfterPublish.ViewQuestionnaire,Message to display after publish in toast notification,View questionnaire,View questionnaire
 Studio.PublishPlace.AfterPublish.ViewQuestionnaireText,Message to display after publish in toast notification,Changes published. Take the questionnaire to make your experience playable.,Changes published. Take the questionnaire to make your experience playable.
 Studio.PublishPlace.Button.Close,Button to close,Close,Close
+Studio.PublishPlace.Button.LearnMore,Button to open the policy page,Learn more,Learn more
 Studio.PublishPlace.Button.Manage,"Button to open a ""manage"" page",Manage,Manage
+Studio.PublishPlace.Button.Ok,Button to acknowledge and close,Ok,Ok
 Studio.PublishPlace.Error.PublishEligibilityDescription,Shown when the user cannot publish their place due to eligibility checks.,"You can fix this quickly. Manage your public publish eligibility, then try again.","You can fix this quickly. Manage your public publish eligibility, then try again."
 Studio.PublishPlace.Error.PublishEligibilityTitle,Shown when the user cannot publish their place to a universe,Can’t publish this experience,Can’t publish this experience
+Studio.PublishPlace.Error.PublishLimitReachedTitle,Shown when the user cannot publish their place to a universe due to daily distinct experiences publish limit.,Daily publish limit reached,Daily publish limit reached
+Studio.PublishPlace.Error.PublishlimitReachedDescription,Shown when the user cannot publish their place due to daily limit checks.,You've reached today's limit for publishing public and community places. You can publish again tomorrow.,You've reached today's limit for publishing public and community places. You can publish again tomorrow.
 Studio.QtUI.Action.DoNotAskMeAgain,,Do not ask me again,Do not ask me again
 Studio.ReactDevTools.Plugin.Button,The text displayed on the default button entry point for the React DevTools plugin.,DevTools,DevTools
 Studio.ReactDevTools.Plugin.Description,The description (tooltip) displayed on the default button entry point for the React DevTools plugin.,Use React DevTools to debug and profile your React Luau applications.,Use React DevTools to debug and profile your React Luau applications.

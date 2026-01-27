@@ -6334,6 +6334,8 @@ Studio.GameSettings.General.ThumbnailsLimitExp,,,You can set up to {maxThumbnail
 Studio.GameSettings.General.ErrorsOnSaveBodyExp,,,Could not save experience settings.,Could not save experience settings.
 Studio.GameSettings.ThumbnailsLimitLuobuExp,,,You can set up to {maxThumbnails:int} screenshots for an experience.,You can set up to {maxThumbnails:int} screenshots for an experience.
 Studio.GameSettings.Security.LocalSecretsDescExp,,,"Secrets are stored locally on this device and are available in local Playtest mode. To use secrets in Team Test or in a live experience, please set them on Creator Hub.","Secrets are stored locally on this device and are available in local Playtest mode. To use secrets in Team Test or in a live experience, please set them on Creator Hub."
+Studio.GameSettings.General.TermsOfUseLink,,,Terms of Use,Terms of Use
+Studio.GameSettings.General.CommunityStandardsLink,,,Community Standards,Community Standards
 Studio.Toolbox.General.ToolboxToolbarName,,,Toolbox,Toolbox
 Studio.Toolbox.General.CategoryModels,,,Models,Models
 Studio.Toolbox.General.CategoryDecals,,,Images,Images
@@ -10709,6 +10711,8 @@ Studio.ManageCollaborators.UpsellBanner.description,,,"To keep collaborating wit
 Studio.ManageCollaborators.UpsellDialog.title,,,One more step to collaborate with others outside your age group,One more step to collaborate with others outside your age group
 Studio.ManageCollaborators.UpsellDialog.description,,,"To use Studio collaboration with others outside of your age group, establish Trusted Connections or get parental consent.","To use Studio collaboration with others outside of your age group, establish Trusted Connections or get parental consent."
 Studio.ManageCollaborators.UpsellBanner.nextStepDescription,,,There’s one more step if you want to work with people older than your age group,There’s one more step if you want to work with people older than your age group
+Studio.ManageCollaborators.UpsellDialog.ParentalConsentButton,,,Get consent,Get consent
+Studio.ManageCollaborators.UpsellDialog.TrustedConnectionsButton,,,Establish Trusted Connections,Establish Trusted Connections
 Studio.DeviceEmulator.Plugin.Name,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Toolbar,,,Device Emulator,Device Emulator
 Studio.DeviceEmulator.Plugin.Button,,,Toggle,Toggle
@@ -11377,6 +11381,8 @@ Studio.RobloxPropertiesWidget.Category.Size,,,Size,Size
 Studio.RobloxPropertiesWidget.Category.Tpose,,,T-pose,T-pose
 Studio.RobloxPropertiesWidget.Category.ServerAuthority,,,Server Authority,Server Authority
 Studio.RobloxPropertiesWidget.Category.Conditions,,,Conditions,Conditions
+Studio.RobloxPropertiesWidget.AddConditionPopup.NoConditionsCreated,,,No Conditions have been created yet,No Conditions have been created yet
+Studio.RobloxPropertiesWidget.AddConditionPopup.LineEditText,,,Search for a condition,Search for a condition
 Studio.DynamicHeadExportTool.Plugin.Name,,,DynamicHeadExportTool,DynamicHeadExportTool
 Studio.DynamicHeadExportTool.Plugin.Toolbar,,,DynamicHeadExportTool,DynamicHeadExportTool
 Studio.DynamicHeadExportTool.Plugin.Button,,,Toggle,Toggle
@@ -12059,6 +12065,17 @@ Studio.AvatarCompatibilityPreviewer.MarketplaceImport.ImportDialogTitle,,,Import
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.AddButtonLabel,,,Add,Add
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.CancelButtonLabel,,,Cancel,Cancel
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.ItemIdInputPlaceholder,,,Enter AssetID or BundleID,Enter AssetID or BundleID
+Studio.AvatarCompatibilityPreviewer.MarketplaceImport.IndividualShoesError,,,"AssetIDs for individual shoes are not supported, use bundleID to add shoes","AssetIDs for individual shoes are not supported, use bundleID to add shoes"
+Studio.AvatarCompatibilityPreviewer.MarketplaceImport.AssetTypeError,,,{invalidAssetTypes} Avatar Items are not supported in Avatar Setup,{invalidAssetTypes} Avatar Items are not supported in Avatar Setup
+Studio.AvatarCompatibilityPreviewer.MarketplaceImport.NothingFoundError,,,No assets or bundles found for ID(s): {lostIds},No assets or bundles found for ID(s): {lostIds}
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.CreateAnAvatarLook,,,Create an Avatar Look,Create an Avatar Look
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.CreateAMakeupLook,,,Create a Makeup Look,Create a Makeup Look
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.CreateAnAvatarLookDescription,,,Style published items together as a Look and share it on Roblox.,Style published items together as a Look and share it on Roblox.
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.CreateAMakeupLookDescription,,,Style published items together as a Look and share it on Roblox.,Style published items together as a Look and share it on Roblox.
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ConfirmItems,,,Confirm Items,Confirm Items
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.EditInfo,,,Edit Info,Edit Info
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.TotalPrice,,,Total price,Total price
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.Creator,,,Creator,Creator
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -13461,6 +13478,12 @@ Studio.StartPage.Plugin.UnratedExperiencesBanner.Title,,,You have unrated experi
 Studio.StartPage.Plugin.UnratedExperiencesBanner.Description,,,Every public experience must have a content maturity label to be playable.,Every public experience must have a content maturity label to be playable.
 Studio.StartPage.Plugin.UnratedExperiencesBanner.PolicyDetailsAction,,,See policy details,See policy details
 Studio.StartPage.Plugin.UnratedExperiencesBanner.ViewExperiencesAction,,,View unrated experiences,View unrated experiences
+Studio.StartPage.EstablishTrustBanner.Title,,,There's one more step if you want to work with people older than your age group,There's one more step if you want to work with people older than your age group
+Studio.StartPage.EstablishTrustBanner.Body,,,You'll need to add them as Trusted Connections or get permissions from your parent.,You'll need to add them as Trusted Connections or get permissions from your parent.
+Studio.StartPage.EstablishTrustDialog.Title,,,Choose how to continue,Choose how to continue
+Studio.StartPage.EstablishTrustDialog.Body,,,"To use Studio collaboration with people older than your age group, add them as Trusted Connections or get permission from your parent.","To use Studio collaboration with people older than your age group, add them as Trusted Connections or get permission from your parent."
+Studio.StartPage.EstablishTrustDialog.PrimaryButton,,,Add Trusted Connections,Add Trusted Connections
+Studio.StartPage.EstablishTrustDialog.SecondaryButton,,,Ask parent,Ask parent
 Studio.ConstraintTool.Plugin.Name,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Toolbar,,,Attachment Tool,Attachment Tool
 Studio.ConstraintTool.Plugin.Button,,,Create,Create
@@ -13550,17 +13573,17 @@ Studio.Assistant.Settings.Cancel,,,Cancel,Cancel
 Studio.Assistant.ErrorMessage.ExternalAPIError,,,Invalid Request to Provider. Please check your API Key.,Invalid Request to Provider. Please check your API Key.
 Studio.Assistant.Tools.UploadImage,,,Upload Image,Upload Image
 Studio.Assistant.ErrorMessage.QuotaErrorAPIKey,,,You've used your free quota for the day. You may add your own API Key to continue creating with Assistant.,You've used your free quota for the day. You may add your own API Key to continue creating with Assistant.
-Studio.Assistant.SettingsDialog.EditApiKeys,,,Edit API Keys,Edit API Keys
+Studio.Assistant.SettingsDialog.EditApiKeys,,,Manage API Keys,Manage API Keys
 Studio.Assistant.SettingsDialog.Title,,,Assistant Settings,Assistant Settings
 Studio.Assistant.SettingsDialog.APIKeysTab,,,API Keys,API Keys
-Studio.Assistant.SettingsDialog.ManageIntegrationsTab,,,Integrations,Integrations
+Studio.Assistant.SettingsDialog.ManageIntegrationsTab,,,MCP Servers,MCP Servers
 Studio.Assistant.SettingsDialog.ClaudeAPIKey,,,Anthropic,Anthropic
 Studio.Assistant.SettingsDialog.OpenAIAPIKey,,,OpenAI,OpenAI
 Studio.Assistant.SettingsDialog.GoogleAPIKey,,,Google API,Google API
 Studio.Assistant.SettingsDialog.Edit,,,Edit,Edit
 Studio.Assistant.SettingsDialog.Model,,,Model,Model
 Studio.Assistant.SettingsDialog.EnterProviderKey,,,Enter {provider} API key,Enter {provider} API key
-Studio.Assistant.SettingsDialog.Default,,,Free Quota,Free Quota
+Studio.Assistant.SettingsDialog.Default,,,Daily Usage Limit,Daily Usage Limit
 Studio.Assistant.SettingsDialog.AnthropicDescription,,,You can put in your Anthropic API key to use Claude at your own cost,You can put in your Anthropic API key to use Claude at your own cost
 Studio.Assistant.SettingsDialog.OpenAIDescription,,,You can put your own OpenAI key to use OpenAI models at your own cost,You can put your own OpenAI key to use OpenAI models at your own cost
 Studio.Assistant.SettingsDialog.GoogleDescription,,,You can put in your own Google AI Studio key to use Google models at your own cost.,You can put in your own Google AI Studio key to use Google models at your own cost.
@@ -13571,6 +13594,7 @@ Studio.Assistant.ModelChip.Tooltip,,,The daily usage available for Assistant. Re
 Studio.Assistant.ModelChip.Title,,,Daily Usage,Daily Usage
 Studio.Assistant.InputArea.LearnMore,,,Learn More,Learn More
 Studio.Assistant.SettingsDialog.APIKeyLegalSummary,,,"Connecting a third-party LLM to Roblox Studio shares your data with that provider. Review their privacy practices, terms, and age limits before proceeding. Roblox is not responsible for third-party model output.","Connecting a third-party LLM to Roblox Studio shares your data with that provider. Review their privacy practices, terms, and age limits before proceeding. Roblox is not responsible for third-party model output."
+Studio.Assistant.Tools.TestGame,,,Test Game,Test Game
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -14715,3 +14739,5 @@ Studio.AdaptiveAnimationSupport.Toolbar.EnforceTposeTooltip,,,Automatically posi
 Studio.AdaptiveAnimationSupport.Plugin.Description,,,Adaptive Animation Support,Adaptive Animation Support
 Studio.TeamCreate.DisconnectReasonUnknown,,,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.
 Studio.TeamCreate.Disconnected,,,Disconnected,Disconnected
+Studio.AnimationGraphEditor.Plugin.Button,,,Animation Graph Editor,Animation Graph Editor
+Studio.AnimationGraphEditor.Plugin.Name,,,Animation Graph Editor,Animation Graph Editor
