@@ -2112,7 +2112,6 @@
 [C++] DFFlagUpdateScreenshotRequestParse2
 [C++] DFFlagUseAssetProvider6
 [C++] DFFlagUseBackendProcessedCommerceUrl
-[C++] DFFlagUseBestFitParticleAllocation
 [C++] DFFlagUseCommaSeparatedFStringForWhiteListedAssets
 [C++] DFFlagUseCommerceServiceApiRoutes
 [C++] DFFlagUseCompletedRadiusFunc
@@ -3229,7 +3228,6 @@
 [C++] DFIntElevatedPhysicsFPSReportThresholdTenths
 [C++] DFIntEmaHalfLife
 [C++] DFIntEmaSampleRate
-[C++] DFIntEmitterDistanceBucketCount
 [C++] DFIntEnableChatButtonClickedThrottlePermyriad
 [C++] DFIntEnableChatButtonShownThrottlePermyriad
 [C++] DFIntEnableInternalMemoryUpdateFunctionsPercentage
@@ -4273,9 +4271,6 @@
 [C++] DFIntNonLocalChildWithMRDRemovedUEIntervalSeconds
 [C++] DFIntNonLocalChildWithMRDRemovedUEThrottleHP
 [C++] DFIntNonSolidFloorPercentForceApplication
-[C++] DFIntNonVisibleUpdateThrottleEndDistanceStuds
-[C++] DFIntNonVisibleUpdateThrottleMaxFactor
-[C++] DFIntNonVisibleUpdateThrottleStartDistanceStuds
 [C++] DFIntNumAssetsMaxToPreload
 [C++] DFIntNumberFramesSubmergedBeforeVSquareBlendFrames
 [C++] DFIntNumberFramesSubmergedBeforeVSquaredViscocity
@@ -4351,8 +4346,6 @@
 [C++] DFIntParallelLuaStatsInfluxHundrethsPercentage
 [C++] DFIntParallelNarrowPhaseBatchSize
 [C++] DFIntParallelNarrowPhaseSerialCutoff
-[C++] DFIntParticleCapacityGrowthMultiplierHundredths
-[C++] DFIntParticleCapacityMaxSimStepMultiplierHundredths
 [C++] DFIntParticlesFramesBetweenNonVisibleUpdates
 [C++] DFIntParticlesFramesBetweenNonVisibleUpdatesSlow
 [C++] DFIntPartyAsyncThrottleCountPerMinute
@@ -9626,7 +9619,7 @@
 [C++] FFlagRenderModelClusterEntityCulling2
 [C++] FFlagRenderOrchestratorMesh2
 [C++] FFlagRenderOrchestratorMeshUseContentStore
-[C++] FFlagRenderParticlesSimulateNonVisible9
+[C++] FFlagRenderParticlesSimulateNonVisible8
 [C++] FFlagRenderPBRDecal3
 [C++] FFlagRenderPerformanceOverlay
 [C++] FFlagRenderRemoveDefaultCompatibilityLighting

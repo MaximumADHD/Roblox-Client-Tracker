@@ -15527,6 +15527,7 @@ BrowserTrackerLayerVariablesRequest
 BrowserTrackerLayerVariablesResponse
 BrowserTrackingId
 BrowserUri
+BrowserWebView2]
 BrowserWidget
 BrowserWindow
 BrowserWindowClosed
@@ -24444,7 +24445,7 @@ DilleniaUPC
 DimensioH9
 Dimensions
 DimmedText
-DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsos
+DIpaDIncDImcDItaDIlpDIegDIfsDIkaTRAannvthsvtnevtnsvtsevtkitspagptscpdruplrupdigemnoslaosraosaaosocosnsos`M
 DiqLimitMax
 DiqLimitMilliseconds
 DiqLimitPermyriad
@@ -26215,7 +26216,6 @@ EmissiveStrength
 EmissiveTint
 EmitHybridEvent
 EmitInProcessTeamTestSuccessTelemetry
-EmitterDistanceBucketCount
 EmittersAtMaxParticles
 EmitterShape
 EmitterSharedCurvePool
@@ -43438,9 +43438,6 @@ NonTeamCreateScriptTracker_1
 NonUtfCount
 NonValidPlayer
 NonVariant
-NonVisibleUpdateThrottleEndDistanceStuds
-NonVisibleUpdateThrottleMaxFactor
-NonVisibleUpdateThrottleStartDistanceStuds
 NoOcclusion
 NoOpChatAPI
 NoOpTeamChatAPI
@@ -45565,8 +45562,6 @@ ParticipantsStateChanged
 ParticipantsStateChangedCallback
 ParticipantType
 ParticleBoundings
-ParticleCapacityGrowthMultiplierHundredths
-ParticleCapacityMaxSimStepMultiplierHundredths
 ParticleCurveAddFS
 ParticleCurveAddFS_Soft
 ParticleCurveCrazyFS
@@ -45600,9 +45595,7 @@ ParticleOrientation
 Particles.......
 ParticlesFramesBetweenNonVisibleUpdates
 ParticlesFramesBetweenNonVisibleUpdatesSlow
-ParticlesNonVisible
 ParticlesReportSimTimeTelemetry
-ParticlesVisible
 PartInstance_ConvertToNewPhysicalProp
 PartInstance_GetNetworkOwnerScript
 PartInstanceLifetime
@@ -71130,7 +71123,6 @@ UseAvatarSettings
 UseAvatarUnificationV2
 UseBackendProcessedCommerceUrl
 UseBaseHeavyVP8TL3RateAllocation
-UseBestFitParticleAllocation
 UseBigStackSizeTaskForRbxmToCacheJobs
 UseBlockingCallForRbxmToCacheJobs
 UseBothCagesForRBFDeformer
