@@ -1,0 +1,36 @@
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K8 [{"aForeground2", "aBackground2", "bForeground2", "bBackground2", "aForeground3", "aBackground3", "bForeground3", "bBackground3"}]
+  LOADN R1 90
+  SETTABLEKS R1 R0 K0 ["aForeground2"]
+  LOADN R1 225
+  SETTABLEKS R1 R0 K1 ["aBackground2"]
+  LOADN R1 23
+  SETTABLEKS R1 R0 K2 ["bForeground2"]
+  LOADN R1 195
+  SETTABLEKS R1 R0 K3 ["bBackground2"]
+  NEWTABLE R1 0 3
+  LOADN R2 128
+  LOADN R3 0
+  LOADN R4 128
+  SETLIST R1 R2 3 [1]
+  SETTABLEKS R1 R0 K4 ["aForeground3"]
+  NEWTABLE R1 0 3
+  LOADN R2 255
+  LOADN R3 215
+  LOADN R4 255
+  SETLIST R1 R2 3 [1]
+  SETTABLEKS R1 R0 K5 ["aBackground3"]
+  NEWTABLE R1 0 3
+  LOADN R2 0
+  LOADN R3 95
+  LOADN R4 95
+  SETLIST R1 R2 3 [1]
+  SETTABLEKS R1 R0 K6 ["bForeground3"]
+  NEWTABLE R1 0 3
+  LOADN R2 215
+  LOADN R3 255
+  LOADN R4 255
+  SETLIST R1 R2 3 [1]
+  SETTABLEKS R1 R0 K7 ["bBackground3"]
+  RETURN R0 1

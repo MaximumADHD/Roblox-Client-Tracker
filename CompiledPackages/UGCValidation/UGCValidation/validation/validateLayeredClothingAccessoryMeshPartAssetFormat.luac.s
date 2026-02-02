@@ -1,0 +1,57 @@
+PROTO_0:
+  GETTABLEKS R4 R1 K0 ["instances"]
+  JUMPIFNOTEQKNIL R4 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K1 [+4]
+  LOADK R4 K1 ["instances required in validationContext for validateLayeredClothingAccessoryMeshPartAssetFormat"]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 2 0
+  GETTABLEKS R2 R1 K0 ["instances"]
+  LOADNIL R3
+  LOADNIL R4
+  GETUPVAL R5 0
+  MOVE R6 R1
+  CALL R5 1 2
+  MOVE R3 R5
+  MOVE R4 R6
+  JUMPIF R3 [+3]
+  LOADB R5 0
+  MOVE R6 R4
+  RETURN R5 2
+  GETTABLEN R5 R2 1
+  GETUPVAL R6 1
+  MOVE R7 R5
+  MOVE R8 R0
+  MOVE R9 R1
+  CALL R6 3 2
+  MOVE R3 R6
+  MOVE R4 R7
+  JUMPIF R3 [+3]
+  LOADB R6 0
+  MOVE R7 R4
+  RETURN R6 2
+  LOADB R6 1
+  RETURN R6 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["util"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["validation"]
+  GETTABLEKS R3 R4 K8 ["validateLayeredClothingAccessory"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["validation"]
+  GETTABLEKS R4 R5 K9 ["validateLayeredClothingAccessoryMeshPartAssetFormatMatch"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K10 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R4 1

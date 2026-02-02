@@ -1,0 +1,570 @@
+PROTO_0:
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["Drag started. Previous value:"]
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K3 ["getValue"]
+  CALL R2 1 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["Drag ended. Final value:"]
+  GETUPVAL R2 0
+  NAMECALL R2 R2 K3 ["getValue"]
+  CALL R2 1 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useBinding"]
+  LOADK R2 K1 [0.5]
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K15 [{"value", "range", "size", "knobVisibility", "variant", "isDisabled", "isContained", "step", "onValueChanged", "knob", "onDragStarted", "onDragEnded"}]
+  SETTABLEKS R1 R5 K3 ["value"]
+  GETIMPORT R6 K18 [NumberRange.new]
+  GETTABLEKS R8 R0 K19 ["controls"]
+  GETTABLEKS R7 R8 K20 ["rangeMin"]
+  GETTABLEKS R9 R0 K19 ["controls"]
+  GETTABLEKS R8 R9 K21 ["rangeMax"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K4 ["range"]
+  GETTABLEKS R7 R0 K19 ["controls"]
+  GETTABLEKS R6 R7 K5 ["size"]
+  SETTABLEKS R6 R5 K5 ["size"]
+  GETTABLEKS R7 R0 K19 ["controls"]
+  GETTABLEKS R6 R7 K6 ["knobVisibility"]
+  SETTABLEKS R6 R5 K6 ["knobVisibility"]
+  GETTABLEKS R7 R0 K19 ["controls"]
+  GETTABLEKS R6 R7 K7 ["variant"]
+  SETTABLEKS R6 R5 K7 ["variant"]
+  GETTABLEKS R7 R0 K19 ["controls"]
+  GETTABLEKS R6 R7 K8 ["isDisabled"]
+  SETTABLEKS R6 R5 K8 ["isDisabled"]
+  GETTABLEKS R7 R0 K19 ["controls"]
+  GETTABLEKS R6 R7 K9 ["isContained"]
+  SETTABLEKS R6 R5 K9 ["isContained"]
+  GETTABLEKS R7 R0 K19 ["controls"]
+  GETTABLEKS R6 R7 K10 ["step"]
+  SETTABLEKS R6 R5 K10 ["step"]
+  SETTABLEKS R2 R5 K11 ["onValueChanged"]
+  GETTABLEKS R8 R0 K19 ["controls"]
+  GETTABLEKS R7 R8 K22 ["hasCustomKnob"]
+  JUMPIFNOT R7 [+15]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K2 ["createElement"]
+  GETUPVAL R7 2
+  DUPTABLE R8 K24 [{"name", "size"}]
+  LOADK R9 K25 ["icons/graphic/logomark-gradient_xlarge"]
+  SETTABLEKS R9 R8 K23 ["name"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K26 ["Medium"]
+  SETTABLEKS R9 R8 K5 ["size"]
+  CALL R6 2 1
+  JUMP [+1]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K12 ["knob"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K13 ["onDragStarted"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K14 ["onDragEnded"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_3:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R0 1
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["current"]
+  GETUPVAL R0 2
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["current"]
+  JUMPIFNOT R0 [+3]
+  GETUPVAL R0 1
+  LOADB R1 1
+  CALL R0 1 0
+  GETUPVAL R0 0
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["current"]
+  RETURN R0 0
+
+PROTO_5:
+  NOT R1 R0
+  RETURN R1 1
+
+PROTO_6:
+  GETUPVAL R0 0
+  DUPCLOSURE R1 K0 [PROTO_5]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+12]
+  GETUPVAL R0 1
+  GETUPVAL R2 2
+  NAMECALL R2 R2 K1 ["getValue"]
+  CALL R2 1 1
+  ADDK R1 R2 K0 [0.00166666666666667]
+  CALL R0 1 0
+  GETIMPORT R0 K4 [task.wait]
+  LOADK R1 K5 [0.0625]
+  CALL R0 1 0
+  JUMPBACK [-14]
+  RETURN R0 0
+
+PROTO_8:
+  LOADB R0 0
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+13]
+  LOADB R0 1
+  GETIMPORT R1 K2 [task.spawn]
+  NEWCLOSURE R2 P0
+  CAPTURE REF R0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CALL R1 1 0
+  NEWCLOSURE R1 P1
+  CAPTURE REF R0
+  CLOSEUPVALS R0
+  RETURN R1 1
+  CLOSEUPVALS R0
+  LOADNIL R0
+  RETURN R0 1
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useBinding"]
+  LOADK R1 K1 [0.25]
+  CALL R0 1 2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["useState"]
+  LOADB R3 0
+  CALL R2 1 2
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["useRef"]
+  LOADB R5 0
+  CALL R4 1 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K4 ["useCallback"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  NEWTABLE R7 0 1
+  MOVE R8 R2
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["useCallback"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  NEWTABLE R8 0 0
+  CALL R6 2 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K4 ["useCallback"]
+  NEWCLOSURE R8 P2
+  CAPTURE VAL R3
+  NEWTABLE R9 0 0
+  CALL R7 2 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["useEffect"]
+  NEWCLOSURE R9 P3
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  NEWTABLE R10 0 1
+  MOVE R11 R2
+  SETLIST R10 R11 1 [1]
+  CALL R8 2 0
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K6 ["createElement"]
+  GETUPVAL R9 1
+  DUPTABLE R10 K8 [{"tag"}]
+  LOADK R11 K9 ["size-full-0 auto-y col gap-small"]
+  SETTABLEKS R11 R10 K7 ["tag"]
+  DUPTABLE R11 K12 [{"Slider", "Playback"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K6 ["createElement"]
+  GETUPVAL R13 2
+  DUPTABLE R14 K21 [{"value", "size", "knobVisibility", "variant", "onValueChanged", "onDragStarted", "onDragEnded", "LayoutOrder"}]
+  SETTABLEKS R0 R14 K13 ["value"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K22 ["XSmall"]
+  SETTABLEKS R15 R14 K14 ["size"]
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K23 ["Auto"]
+  SETTABLEKS R15 R14 K15 ["knobVisibility"]
+  GETUPVAL R16 5
+  GETTABLEKS R15 R16 K24 ["Standard"]
+  SETTABLEKS R15 R14 K16 ["variant"]
+  SETTABLEKS R1 R14 K17 ["onValueChanged"]
+  SETTABLEKS R5 R14 K18 ["onDragStarted"]
+  SETTABLEKS R6 R14 K19 ["onDragEnded"]
+  LOADN R15 1
+  SETTABLEKS R15 R14 K20 ["LayoutOrder"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K10 ["Slider"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K6 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K27 [{"text", "onActivated", "LayoutOrder"}]
+  JUMPIFNOT R2 [+2]
+  LOADK R15 K28 ["Pause"]
+  JUMP [+1]
+  LOADK R15 K29 ["Play"]
+  SETTABLEKS R15 R14 K25 ["text"]
+  SETTABLEKS R7 R14 K26 ["onActivated"]
+  LOADN R15 2
+  SETTABLEKS R15 R14 K20 ["LayoutOrder"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K11 ["Playback"]
+  CALL R8 3 -1
+  RETURN R8 -1
+
+PROTO_11:
+  DUPTABLE R1 K2 [{"Color3", "Transparency"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Color3"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["Color3"]
+  MOVE R5 R0
+  NAMECALL R2 R2 K3 ["Lerp"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K0 ["Color3"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["Transparency"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["Transparency"]
+  FASTCALL3 89 R3 R4 R0
+  MOVE R5 R0
+  GETIMPORT R2 K6 [math.lerp]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K1 ["Transparency"]
+  RETURN R1 1
+
+PROTO_12:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["useBinding"]
+  LOADK R2 K1 [0.5]
+  CALL R1 1 2
+  GETTABLEKS R6 R0 K2 ["Color"]
+  GETTABLEKS R5 R6 K3 ["Extended"]
+  GETTABLEKS R4 R5 K4 ["Blue"]
+  GETTABLEKS R3 R4 K5 ["Blue_1400"]
+  GETTABLEKS R7 R0 K2 ["Color"]
+  GETTABLEKS R6 R7 K3 ["Extended"]
+  GETTABLEKS R5 R6 K4 ["Blue"]
+  GETTABLEKS R4 R5 K6 ["Blue_100"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  NAMECALL R5 R1 K7 ["map"]
+  CALL R5 2 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K8 ["createElement"]
+  GETUPVAL R7 2
+  DUPTABLE R8 K11 [{"tag", "backgroundStyle"}]
+  LOADK R9 K12 ["auto-y size-full-0 radius-circle stroke-standard stroke-emphasis"]
+  SETTABLEKS R9 R8 K9 ["tag"]
+  GETTABLEKS R12 R0 K2 ["Color"]
+  GETTABLEKS R11 R12 K3 ["Extended"]
+  GETTABLEKS R10 R11 K13 ["White"]
+  GETTABLEKS R9 R10 K14 ["White_100"]
+  SETTABLEKS R9 R8 K10 ["backgroundStyle"]
+  DUPTABLE R9 K17 [{"Gradient", "ColorSlider"}]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K8 ["createElement"]
+  LOADK R11 K18 ["UIGradient"]
+  DUPTABLE R12 K19 [{"Color"}]
+  GETIMPORT R13 K22 [ColorSequence.new]
+  NEWTABLE R14 0 2
+  GETIMPORT R15 K24 [ColorSequenceKeypoint.new]
+  LOADN R16 0
+  GETTABLEKS R17 R3 K25 ["Color3"]
+  CALL R15 2 1
+  GETIMPORT R16 K24 [ColorSequenceKeypoint.new]
+  LOADN R17 1
+  GETTABLEKS R18 R4 K25 ["Color3"]
+  CALL R16 2 -1
+  SETLIST R14 R15 -1 [1]
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K2 ["Color"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K15 ["Gradient"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K8 ["createElement"]
+  GETUPVAL R11 3
+  DUPTABLE R12 K34 [{"value", "size", "variant", "isContained", "knob", "knobVisibility", "onValueChanged", "width"}]
+  SETTABLEKS R1 R12 K26 ["value"]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K35 ["Medium"]
+  SETTABLEKS R13 R12 K27 ["size"]
+  GETUPVAL R14 5
+  GETTABLEKS R13 R14 K36 ["Utility"]
+  SETTABLEKS R13 R12 K28 ["variant"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K29 ["isContained"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K8 ["createElement"]
+  GETUPVAL R14 6
+  DUPTABLE R15 K40 [{"size", "style", "stroke", "hasShadow"}]
+  GETUPVAL R17 4
+  GETTABLEKS R16 R17 K41 ["Large"]
+  SETTABLEKS R16 R15 K27 ["size"]
+  SETTABLEKS R5 R15 K37 ["style"]
+  DUPTABLE R16 K44 [{"Color", "Transparency", "Thickness"}]
+  GETTABLEKS R20 R0 K2 ["Color"]
+  GETTABLEKS R19 R20 K45 ["System"]
+  GETTABLEKS R18 R19 K46 ["Neutral"]
+  GETTABLEKS R17 R18 K25 ["Color3"]
+  SETTABLEKS R17 R16 K2 ["Color"]
+  GETTABLEKS R20 R0 K2 ["Color"]
+  GETTABLEKS R19 R20 K45 ["System"]
+  GETTABLEKS R18 R19 K46 ["Neutral"]
+  GETTABLEKS R17 R18 K42 ["Transparency"]
+  SETTABLEKS R17 R16 K42 ["Transparency"]
+  GETTABLEKS R19 R0 K47 ["Stroke"]
+  GETTABLEKS R18 R19 K48 ["Thick"]
+  FASTCALL1 MATH_ROUND R18 [+2]
+  GETIMPORT R17 K51 [math.round]
+  CALL R17 1 1
+  SETTABLEKS R17 R16 K43 ["Thickness"]
+  SETTABLEKS R16 R15 K38 ["stroke"]
+  LOADB R16 1
+  SETTABLEKS R16 R15 K39 ["hasShadow"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K30 ["knob"]
+  GETUPVAL R14 7
+  GETTABLEKS R13 R14 K52 ["Always"]
+  SETTABLEKS R13 R12 K31 ["knobVisibility"]
+  SETTABLEKS R2 R12 K32 ["onValueChanged"]
+  GETIMPORT R13 K54 [UDim.new]
+  LOADN R14 1
+  LOADN R15 0
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K33 ["width"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K16 ["ColorSlider"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_13:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useBinding"]
+  LOADK R1 K1 [0.5]
+  CALL R0 1 2
+  NEWTABLE R2 0 0
+  LOADN R5 0
+  LOADN R3 104
+  LOADK R4 K2 [51.4285714285714]
+  FORNPREP R3
+  LOADK R7 K3 ["Slider_%*"]
+  MOVE R9 R5
+  NAMECALL R7 R7 K4 ["format"]
+  CALL R7 2 1
+  MOVE R6 R7
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["createElement"]
+  GETUPVAL R8 1
+  DUPTABLE R9 K7 [{"Size"}]
+  GETIMPORT R10 K10 [UDim2.fromScale]
+  LOADK R11 K11 [0.142857142857143]
+  LOADN R12 0
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K6 ["Size"]
+  DUPTABLE R10 K13 [{"Folder"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K5 ["createElement"]
+  LOADK R12 K12 ["Folder"]
+  NEWTABLE R13 0 0
+  NEWTABLE R14 0 1
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K5 ["createElement"]
+  GETUPVAL R16 1
+  DUPTABLE R17 K16 [{"tag", "Rotation"}]
+  LOADK R18 K17 ["size-full"]
+  SETTABLEKS R18 R17 K14 ["tag"]
+  SETTABLEKS R5 R17 K15 ["Rotation"]
+  DUPTABLE R18 K19 [{"Slider"}]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K5 ["createElement"]
+  GETUPVAL R20 2
+  DUPTABLE R21 K22 [{"value", "onValueChanged"}]
+  SETTABLEKS R0 R21 K20 ["value"]
+  SETTABLEKS R1 R21 K21 ["onValueChanged"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K18 ["Slider"]
+  CALL R15 3 -1
+  SETLIST R14 R15 -1 [1]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K12 ["Folder"]
+  CALL R7 3 1
+  SETTABLE R7 R2 R6
+  FORNLOOP R3
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K23 [{"tag"}]
+  LOADK R6 K24 ["size-full-3000 row align-y-center"]
+  SETTABLEKS R6 R5 K14 ["tag"]
+  MOVE R6 R2
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Dash"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K9 ["Components"]
+  GETTABLEKS R5 R6 K10 ["Icon"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K9 ["Components"]
+  GETTABLEKS R6 R7 K11 ["View"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K9 ["Components"]
+  GETTABLEKS R7 R8 K12 ["Button"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K9 ["Components"]
+  GETTABLEKS R8 R9 K13 ["Knob"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R11 R0 K14 ["Providers"]
+  GETTABLEKS R10 R11 K15 ["Style"]
+  GETTABLEKS R9 R10 K16 ["useTokens"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K17 ["Enums"]
+  GETTABLEKS R10 R11 K18 ["InputSize"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R12 R0 K17 ["Enums"]
+  GETTABLEKS R11 R12 K19 ["IconSize"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R13 R0 K17 ["Enums"]
+  GETTABLEKS R12 R13 K20 ["Visibility"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R0 K17 ["Enums"]
+  GETTABLEKS R13 R14 K21 ["SliderVariant"]
+  CALL R12 1 1
+  GETIMPORT R13 K6 [require]
+  GETTABLEKS R15 R0 K9 ["Components"]
+  GETTABLEKS R14 R15 K22 ["Slider"]
+  CALL R13 1 1
+  DUPTABLE R14 K26 [{"summary", "stories", "controls"}]
+  LOADK R15 K27 ["If dragging does not work make sure to deselect any tools in Studio! By default the \"Select\" tool is selected and will interfere with dragging behavior"]
+  SETTABLEKS R15 R14 K23 ["summary"]
+  NEWTABLE R15 0 4
+  DUPTABLE R16 K30 [{"name", "summary", "story"}]
+  LOADK R17 K31 ["Configurable"]
+  SETTABLEKS R17 R16 K28 ["name"]
+  LOADK R17 K32 ["Basic configurable slider"]
+  SETTABLEKS R17 R16 K23 ["summary"]
+  DUPCLOSURE R17 K33 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R13
+  CAPTURE VAL R4
+  CAPTURE VAL R10
+  SETTABLEKS R17 R16 K29 ["story"]
+  DUPTABLE R17 K30 [{"name", "summary", "story"}]
+  LOADK R18 K34 ["Media timeline"]
+  SETTABLEKS R18 R17 K28 ["name"]
+  LOADK R18 K35 ["Press the Play button to simulate media playback, then click and drag to seek around the timeline"]
+  SETTABLEKS R18 R17 K23 ["summary"]
+  DUPCLOSURE R18 K36 [PROTO_10]
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R13
+  CAPTURE VAL R9
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R6
+  SETTABLEKS R18 R17 K29 ["story"]
+  DUPTABLE R18 K30 [{"name", "summary", "story"}]
+  LOADK R19 K37 ["Custom"]
+  SETTABLEKS R19 R18 K28 ["name"]
+  LOADK R19 K38 ["Color slider with gradient background"]
+  SETTABLEKS R19 R18 K23 ["summary"]
+  DUPCLOSURE R19 K39 [PROTO_12]
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R13
+  CAPTURE VAL R9
+  CAPTURE VAL R12
+  CAPTURE VAL R7
+  CAPTURE VAL R11
+  SETTABLEKS R19 R18 K29 ["story"]
+  DUPTABLE R19 K30 [{"name", "summary", "story"}]
+  LOADK R20 K40 ["Rotated"]
+  SETTABLEKS R20 R19 K28 ["name"]
+  LOADK R20 K41 ["Sliders in containers rotated"]
+  SETTABLEKS R20 R19 K23 ["summary"]
+  DUPCLOSURE R20 K42 [PROTO_13]
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R13
+  SETTABLEKS R20 R19 K29 ["story"]
+  SETLIST R15 R16 4 [1]
+  SETTABLEKS R15 R14 K24 ["stories"]
+  DUPTABLE R15 K52 [{"size", "knobVisibility", "isDisabled", "isContained", "variant", "hasCustomKnob", "rangeMin", "rangeMax", "step"}]
+  GETTABLEKS R16 R2 K53 ["values"]
+  MOVE R17 R9
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K43 ["size"]
+  GETTABLEKS R16 R2 K53 ["values"]
+  MOVE R17 R11
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K44 ["knobVisibility"]
+  LOADB R16 0
+  SETTABLEKS R16 R15 K45 ["isDisabled"]
+  LOADB R16 0
+  SETTABLEKS R16 R15 K46 ["isContained"]
+  GETTABLEKS R16 R2 K53 ["values"]
+  MOVE R17 R12
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K47 ["variant"]
+  LOADB R16 0
+  SETTABLEKS R16 R15 K48 ["hasCustomKnob"]
+  LOADN R16 206
+  SETTABLEKS R16 R15 K49 ["rangeMin"]
+  LOADN R16 100
+  SETTABLEKS R16 R15 K50 ["rangeMax"]
+  LOADN R16 0
+  SETTABLEKS R16 R15 K51 ["step"]
+  SETTABLEKS R15 R14 K25 ["controls"]
+  RETURN R14 1

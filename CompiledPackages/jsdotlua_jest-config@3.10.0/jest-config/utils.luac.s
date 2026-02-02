@@ -1,0 +1,67 @@
+PROTO_0:
+  LOADB R1 0
+  JUMPIFEQKNIL R0 [+22]
+  LOADB R1 0
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R3 R0
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K2 ["string"] [+14]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["startsWith"]
+  MOVE R2 R0
+  LOADK R3 K4 ["{"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+6]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K5 ["endsWith"]
+  MOVE R2 R0
+  LOADK R3 K6 ["}"]
+  CALL R1 2 1
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K4 ["Parent"]
+  LOADK R3 K5 ["luau-polyfill"]
+  NAMECALL R1 R1 K6 ["WaitForChild"]
+  CALL R1 2 -1
+  CALL R0 -1 1
+  GETTABLEKS R1 R0 K7 ["String"]
+  NEWTABLE R2 4 0
+  GETIMPORT R3 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  LOADK R6 K8 ["chalk"]
+  NAMECALL R4 R4 K6 ["WaitForChild"]
+  CALL R4 2 -1
+  CALL R3 -1 1
+  GETIMPORT R4 K1 [require]
+  GETIMPORT R7 K3 [script]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  LOADK R7 K9 ["jest-types"]
+  NAMECALL R5 R5 K6 ["WaitForChild"]
+  CALL R5 2 -1
+  CALL R4 -1 1
+  GETTABLEKS R5 R3 K10 ["bold"]
+  LOADK R6 K11 ["● "]
+  CALL R5 1 1
+  SETTABLEKS R5 R2 K12 ["BULLET"]
+  LOADK R6 K13 ["  %s
+  https://jestjs.io/docs/configuration
+"]
+  GETTABLEKS R8 R3 K10 ["bold"]
+  LOADK R9 K14 ["Configuration Documentation:"]
+  CALL R8 1 -1
+  NAMECALL R6 R6 K15 ["format"]
+  CALL R6 -1 1
+  SETTABLEKS R6 R2 K16 ["DOCUMENTATION_NOTE"]
+  DUPCLOSURE R7 K17 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R7 R2 K18 ["isJSONString"]
+  RETURN R2 1

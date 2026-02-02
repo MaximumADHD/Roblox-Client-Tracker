@@ -68,100 +68,102 @@ PROTO_3:
   RETURN R0 0
 
 PROTO_4:
-  DUPTABLE R4 K18 [{"_isMock", "_networking", "_pluginController", "_explorerController", "_searchTerm", "_searchOptions", "_sourceList", "_showSearchOptions", "_isDefaultSearchState", "_searchSessionId", "_connections", "OnSearchRequested", "OnSearchTermChanged", "OnSearchOptionsChanged", "OnSourceListChanged", "OnShowSearchOptionsChanged", "OnIsDefaultSearchStateChanged", "OnSearchClosed"}]
-  SETTABLEKS R3 R4 K0 ["_isMock"]
-  SETTABLEKS R2 R4 K1 ["_networking"]
-  SETTABLEKS R0 R4 K2 ["_pluginController"]
-  SETTABLEKS R1 R4 K3 ["_explorerController"]
-  LOADK R5 K19 [""]
-  SETTABLEKS R5 R4 K4 ["_searchTerm"]
-  DUPTABLE R5 K22 [{"AssetType", "ScopeInfo"}]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K20 ["AssetType"]
-  GETTABLEKS R6 R7 K23 ["Model"]
-  SETTABLEKS R6 R5 K20 ["AssetType"]
-  NAMECALL R6 R0 K24 ["getCurrentScope"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K21 ["ScopeInfo"]
-  SETTABLEKS R5 R4 K5 ["_searchOptions"]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K6 ["_sourceList"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K7 ["_showSearchOptions"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K8 ["_isDefaultSearchState"]
-  LOADK R5 K19 [""]
-  SETTABLEKS R5 R4 K9 ["_searchSessionId"]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K10 ["_connections"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K25 ["new"]
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K11 ["OnSearchRequested"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K25 ["new"]
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K12 ["OnSearchTermChanged"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K25 ["new"]
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K13 ["OnSearchOptionsChanged"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K25 ["new"]
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K14 ["OnSourceListChanged"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K25 ["new"]
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K15 ["OnShowSearchOptionsChanged"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K25 ["new"]
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K16 ["OnIsDefaultSearchStateChanged"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K25 ["new"]
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K17 ["OnSearchClosed"]
-  GETUPVAL R7 2
-  FASTCALL2 SETMETATABLE R4 R7 [+4]
-  MOVE R6 R4
-  GETIMPORT R5 K27 [setmetatable]
-  CALL R5 2 0
-  NEWCLOSURE R5 P0
-  CAPTURE VAL R4
+  DUPTABLE R2 K18 [{"_isMock", "_networking", "_pluginController", "_explorerController", "_searchTerm", "_searchOptions", "_sourceList", "_showSearchOptions", "_isDefaultSearchState", "_searchSessionId", "_connections", "OnSearchRequested", "OnSearchTermChanged", "OnSearchOptionsChanged", "OnSourceListChanged", "OnShowSearchOptionsChanged", "OnIsDefaultSearchStateChanged", "OnSearchClosed"}]
+  SETTABLEKS R1 R2 K0 ["_isMock"]
+  GETTABLEKS R3 R0 K19 ["Networking"]
+  SETTABLEKS R3 R2 K1 ["_networking"]
+  GETTABLEKS R3 R0 K20 ["PluginController"]
+  SETTABLEKS R3 R2 K2 ["_pluginController"]
+  GETTABLEKS R3 R0 K21 ["ExplorerController"]
+  SETTABLEKS R3 R2 K3 ["_explorerController"]
+  LOADK R3 K22 [""]
+  SETTABLEKS R3 R2 K4 ["_searchTerm"]
+  DUPTABLE R3 K25 [{"AssetType", "ScopeInfo"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K23 ["AssetType"]
+  GETTABLEKS R4 R5 K26 ["Model"]
+  SETTABLEKS R4 R3 K23 ["AssetType"]
+  GETTABLEKS R4 R0 K20 ["PluginController"]
+  NAMECALL R4 R4 K27 ["getCurrentScope"]
+  CALL R4 1 1
+  SETTABLEKS R4 R3 K24 ["ScopeInfo"]
+  SETTABLEKS R3 R2 K5 ["_searchOptions"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K6 ["_sourceList"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K7 ["_showSearchOptions"]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K8 ["_isDefaultSearchState"]
+  LOADK R3 K22 [""]
+  SETTABLEKS R3 R2 K9 ["_searchSessionId"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K10 ["_connections"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K28 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K11 ["OnSearchRequested"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K28 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K12 ["OnSearchTermChanged"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K28 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K13 ["OnSearchOptionsChanged"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K28 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K14 ["OnSourceListChanged"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K28 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K15 ["OnShowSearchOptionsChanged"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K28 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K16 ["OnIsDefaultSearchStateChanged"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K28 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K17 ["OnSearchClosed"]
+  GETUPVAL R5 2
+  FASTCALL2 SETMETATABLE R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K30 [setmetatable]
+  CALL R3 2 0
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R2
   CAPTURE UPVAL U3
-  SETTABLEKS R5 R4 K28 ["_updateSourceList"]
-  GETTABLEKS R6 R4 K10 ["_connections"]
-  GETTABLEKS R8 R4 K3 ["_explorerController"]
-  GETTABLEKS R7 R8 K29 ["OnExplorerItemsChanged"]
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R4
-  NAMECALL R7 R7 K30 ["Connect"]
-  CALL R7 2 -1
+  SETTABLEKS R3 R2 K31 ["_updateSourceList"]
+  GETTABLEKS R4 R2 K10 ["_connections"]
+  GETTABLEKS R6 R2 K3 ["_explorerController"]
+  GETTABLEKS R5 R6 K32 ["OnExplorerItemsChanged"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R2
+  NAMECALL R5 R5 K33 ["Connect"]
+  CALL R5 2 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R5 K33 [table.insert]
-  CALL R5 -1 0
-  GETTABLEKS R6 R4 K10 ["_connections"]
-  GETTABLEKS R8 R4 K2 ["_pluginController"]
-  GETTABLEKS R7 R8 K34 ["OnCurrentScopeChanged"]
-  NEWCLOSURE R9 P2
-  CAPTURE VAL R4
-  NAMECALL R7 R7 K30 ["Connect"]
-  CALL R7 2 -1
+  GETIMPORT R3 K36 [table.insert]
+  CALL R3 -1 0
+  GETTABLEKS R4 R2 K10 ["_connections"]
+  GETTABLEKS R6 R2 K2 ["_pluginController"]
+  GETTABLEKS R5 R6 K37 ["OnCurrentScopeChanged"]
+  NEWCLOSURE R7 P2
+  CAPTURE VAL R2
+  NAMECALL R5 R5 K33 ["Connect"]
+  CALL R5 2 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R5 K33 [table.insert]
-  CALL R5 -1 0
-  RETURN R4 1
+  GETIMPORT R3 K36 [table.insert]
+  CALL R3 -1 0
+  RETURN R2 1
 
 PROTO_5:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["new"]
-  MOVE R4 R0
-  MOVE R5 R1
-  MOVE R6 R2
-  LOADB R7 1
-  CALL R3 4 -1
-  RETURN R3 -1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  MOVE R2 R0
+  LOADB R3 1
+  CALL R1 2 -1
+  RETURN R1 -1
 
 PROTO_6:
   LOADNIL R1

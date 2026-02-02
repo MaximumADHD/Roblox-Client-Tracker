@@ -7,6 +7,12 @@ local ERROR_NON_LIST = "Please pass a list of promises to %s"
 local ERROR_NON_FUNCTION = "Please pass a handler function to %s!"
 local MODE_KEY_METATABLE = { __mode = "k" }
 
+local success, FFlagReducePromiseTaskDefer = pcall(game.DefineFastFlag, game, "ReducePromiseTaskDefer", false)
+
+if not success then
+	FFlagReducePromiseTaskDefer = false
+end
+
 local function isCallable(value)
 	if type(value) == "function" then
 		return true
@@ -1893,30 +1899,51 @@ function Promise.prototype:_reject(...)
 	self:_finalize()
 end
 
---[[
-	Calls any :finally handlers. We need this to be a separate method and
-	queue because we must call all of the finally callbacks upon a success,
-	failure, *and* cancellation.
-]]
-function Promise.prototype:_finalize()
-	for _, callback in ipairs(self._queuedFinally) do
-		-- Purposefully not passing values to callbacks here, as it could be the
-		-- resolved values, or rejected errors. If the developer needs the values,
-		-- they should use :andThen or :catch explicitly.
-		coroutine.wrap(callback)(self._status)
+do
+	local threadsToClose = {}
+	local closingTask = nil
+
+	local function closeThreads()
+		closingTask = nil
+		local threads = threadsToClose
+		threadsToClose = {}
+		for _, thread in threads do
+			coroutine.close(thread)
+		end
 	end
 
-	self._queuedFinally = nil
-	self._queuedReject = nil
-	self._queuedResolve = nil
+	--[[
+		Calls any :finally handlers. We need this to be a separate method and
+		queue because we must call all of the finally callbacks upon a success,
+		failure, *and* cancellation.
+	]]
+	function Promise.prototype:_finalize()
+		for _, callback in ipairs(self._queuedFinally) do
+			-- Purposefully not passing values to callbacks here, as it could be the
+			-- resolved values, or rejected errors. If the developer needs the values,
+			-- they should use :andThen or :catch explicitly.
+			coroutine.wrap(callback)(self._status)
+		end
 
-	-- Clear references to other Promises to allow gc
-	if not Promise.TEST then
-		self._parent = nil
-		self._consumers = nil
+		self._queuedFinally = nil
+		self._queuedReject = nil
+		self._queuedResolve = nil
+
+		-- Clear references to other Promises to allow gc
+		if not Promise.TEST then
+			self._parent = nil
+			self._consumers = nil
+		end
+
+		if FFlagReducePromiseTaskDefer then
+			table.insert(threadsToClose, self._thread)
+			if not closingTask then
+				closingTask = task.defer(closeThreads)
+			end
+		else
+			task.defer(coroutine.close, self._thread)
+		end
 	end
-
-	task.defer(coroutine.close, self._thread)
 end
 
 --[=[

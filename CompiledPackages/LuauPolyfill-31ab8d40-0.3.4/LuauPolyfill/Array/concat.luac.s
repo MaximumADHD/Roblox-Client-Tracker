@@ -1,0 +1,74 @@
+PROTO_0:
+  PREPVARARGS 1
+  NEWTABLE R1 0 0
+  LOADN R2 0
+  GETUPVAL R3 0
+  MOVE R4 R0
+  CALL R3 1 1
+  JUMPIFNOT R3 [+10]
+  GETIMPORT R3 K1 [ipairs]
+  MOVE R4 R0
+  CALL R3 1 3
+  FORGPREP_INEXT R3
+  ADDK R2 R2 K2 [1]
+  SETTABLE R7 R1 R2
+  FORGLOOP R3 2 [inext] [-3]
+  JUMP [+2]
+  ADDK R2 R2 K2 [1]
+  SETTABLE R0 R1 R2
+  LOADN R5 1
+  LOADK R7 K3 ["#"]
+  FASTCALL1 SELECT_VARARG R7 [+3]
+  GETIMPORT R6 K5 [select]
+  GETVARARGS R8 -1
+  CALL R6 -1 1
+  MOVE R3 R6
+  LOADN R4 1
+  FORNPREP R3
+  FASTCALL1 SELECT_VARARG R5 [+4]
+  GETIMPORT R6 K5 [select]
+  MOVE R7 R5
+  GETVARARGS R8 -1
+  CALL R6 -1 1
+  FASTCALL1 TYPEOF R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K7 [typeof]
+  CALL R7 1 1
+  JUMPIFNOTEQKNIL R6 [+2]
+  JUMP [+26]
+  JUMPIFNOTEQKS R7 K8 ["table"] [+23]
+  GETIMPORT R9 K10 [_G]
+  GETTABLEKS R8 R9 K11 ["__DEV__"]
+  JUMPIFNOT R8 [+8]
+  GETUPVAL R8 0
+  MOVE R9 R6
+  CALL R8 1 1
+  JUMPIF R8 [+4]
+  GETIMPORT R8 K13 [error]
+  LOADK R9 K14 ["Array.concat(...) only works with array-like tables but it received an object-like table.
+You can avoid this error by wrapping the object-like table into an array. Example: `concat({1, 2}, {a = true})` should be `concat({1, 2}, { {a = true} }`"]
+  CALL R8 1 0
+  LOADN R10 1
+  LENGTH R8 R6
+  LOADN R9 1
+  FORNPREP R8
+  ADDK R2 R2 K2 [1]
+  GETTABLE R11 R6 R10
+  SETTABLE R11 R1 R2
+  FORNLOOP R8
+  JUMP [+2]
+  ADDK R2 R2 K2 [1]
+  SETTABLE R6 R1 R2
+  FORNLOOP R3
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["isArray"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K6 [PROTO_0]
+  CAPTURE VAL R1
+  RETURN R2 1

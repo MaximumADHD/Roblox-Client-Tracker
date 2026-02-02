@@ -1,0 +1,378 @@
+PROTO_0:
+  GETIMPORT R1 K2 [Vector2.new]
+  GETTABLEKS R3 R0 K3 ["Value"]
+  GETTABLEKS R2 R3 K4 ["X"]
+  GETTABLEKS R4 R0 K3 ["Value"]
+  GETTABLEKS R3 R4 K5 ["Y"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["map"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["inputs"]
+  DUPCLOSURE R2 K2 [PROTO_0]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_2:
+  MOVE R1 R0
+  GETUPVAL R4 0
+  GETTABLEKS R2 R4 K0 ["inputs"]
+  CALL R1 1 3
+  FORGPREP R1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K1 ["onInputChanged"]
+  MOVE R7 R4
+  GETTABLEKS R8 R5 K2 ["Value"]
+  CALL R6 2 0
+  FORGLOOP R1 2 [-8]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["join"]
+  MOVE R2 R0
+  DUPTABLE R3 K2 [{"Value"}]
+  DUPTABLE R4 K5 [{"X", "Y"}]
+  GETTABLEKS R7 R0 K1 ["Value"]
+  GETTABLEKS R6 R7 K3 ["X"]
+  FASTCALL1 MATH_RAD R6 [+2]
+  GETIMPORT R5 K8 [math.rad]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K3 ["X"]
+  GETTABLEKS R6 R0 K1 ["Value"]
+  GETTABLEKS R5 R6 K4 ["Y"]
+  SETTABLEKS R5 R4 K4 ["Y"]
+  SETTABLEKS R4 R3 K1 ["Value"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["map"]
+  MOVE R2 R0
+  DUPCLOSURE R3 K1 [PROTO_3]
+  CAPTURE UPVAL U0
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["join"]
+  MOVE R2 R0
+  DUPTABLE R3 K2 [{"Value"}]
+  DUPTABLE R4 K5 [{"X", "Y"}]
+  GETTABLEKS R7 R0 K1 ["Value"]
+  GETTABLEKS R6 R7 K3 ["X"]
+  FASTCALL1 MATH_DEG R6 [+2]
+  GETIMPORT R5 K8 [math.deg]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K3 ["X"]
+  GETTABLEKS R6 R0 K1 ["Value"]
+  GETTABLEKS R5 R6 K4 ["Y"]
+  SETTABLEKS R5 R4 K4 ["Y"]
+  SETTABLEKS R4 R3 K1 ["Value"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["map"]
+  MOVE R2 R0
+  DUPCLOSURE R3 K1 [PROTO_5]
+  CAPTURE UPVAL U0
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_7:
+  GETUPVAL R2 0
+  JUMPIFEQ R1 R2 [+54]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["OnPropertyChanged"]
+  JUMPIFEQKNIL R2 [+49]
+  LOADNIL R2
+  GETIMPORT R3 K4 [Enum.AnimationNodeBlend2DInputMode.Polar]
+  JUMPIFNOTEQ R1 R3 [+17]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K7 ["PropertyLookup"]
+  GETTABLEKS R5 R6 K6 ["X"]
+  ORK R4 R5 K5 [0]
+  FASTCALL1 MATH_RAD R4 [+2]
+  GETIMPORT R3 K10 [math.rad]
+  CALL R3 1 1
+  MOVE R2 R3
+  GETUPVAL R3 2
+  DUPCLOSURE R4 K11 [PROTO_4]
+  CAPTURE UPVAL U3
+  CALL R3 1 0
+  JUMP [+15]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K7 ["PropertyLookup"]
+  GETTABLEKS R5 R6 K6 ["X"]
+  ORK R4 R5 K5 [0]
+  FASTCALL1 MATH_DEG R4 [+2]
+  GETIMPORT R3 K13 [math.deg]
+  CALL R3 1 1
+  MOVE R2 R3
+  GETUPVAL R3 2
+  DUPCLOSURE R4 K14 [PROTO_6]
+  CAPTURE UPVAL U3
+  CALL R3 1 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["OnPropertyChanged"]
+  LOADK R4 K6 ["X"]
+  MOVE R5 R2
+  CALL R3 2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["OnPropertyChanged"]
+  LOADK R4 K15 ["InputMode"]
+  MOVE R5 R1
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  DUPTABLE R2 K2 [{"GraphPayload", "Default"}]
+  GETTABLEKS R3 R0 K0 ["GraphPayload"]
+  SETTABLEKS R3 R2 K0 ["GraphPayload"]
+  DUPTABLE R3 K5 [{"X", "Y"}]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K3 ["X"]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K4 ["Y"]
+  SETTABLEKS R3 R2 K1 ["Default"]
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K6 ["useMemo"]
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R1
+  NEWTABLE R4 0 1
+  GETTABLEKS R5 R1 K7 ["inputs"]
+  SETLIST R4 R5 1 [1]
+  CALL R2 2 1
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K8 ["createPropertyHelpers"]
+  MOVE R4 R0
+  CALL R3 1 1
+  GETTABLEKS R5 R0 K10 ["PropertyLookup"]
+  GETTABLEKS R4 R5 K9 ["InputMode"]
+  JUMPIF R4 [+2]
+  GETIMPORT R4 K14 [Enum.AnimationNodeBlend2DInputMode.Cartesian]
+  GETIMPORT R6 K16 [Enum.AnimationNodeBlend2DInputMode.Polar]
+  JUMPIFEQ R4 R6 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K17 ["useCallback"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R1
+  NEWTABLE R8 0 2
+  GETTABLEKS R9 R1 K7 ["inputs"]
+  GETTABLEKS R10 R1 K18 ["onInputChanged"]
+  SETLIST R8 R9 2 [1]
+  CALL R6 2 1
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K17 ["useCallback"]
+  NEWCLOSURE R8 P2
+  CAPTURE VAL R4
+  CAPTURE VAL R0
+  CAPTURE VAL R6
+  CAPTURE UPVAL U2
+  NEWTABLE R9 0 6
+  MOVE R10 R4
+  GETTABLEKS R11 R1 K7 ["inputs"]
+  GETTABLEKS R12 R0 K19 ["OnPropertyChanged"]
+  GETTABLEKS R13 R0 K10 ["PropertyLookup"]
+  MOVE R14 R6
+  GETTABLEKS R16 R0 K10 ["PropertyLookup"]
+  GETTABLEKS R15 R16 K3 ["X"]
+  SETLIST R9 R10 6 [1]
+  CALL R7 2 1
+  DUPTABLE R8 K25 [{"Property_InputMode", "Property_X_Angle", "Property_Y_Magnitude", "Blend2DMap", "Input"}]
+  GETTABLEKS R9 R3 K26 ["nextProperty"]
+  DUPTABLE R10 K32 [{"Name", "Label", "Type", "Value", "OnChanged"}]
+  LOADK R11 K9 ["InputMode"]
+  SETTABLEKS R11 R10 K27 ["Name"]
+  LOADK R11 K33 ["Input Mode"]
+  SETTABLEKS R11 R10 K28 ["Label"]
+  LOADK R11 K34 ["Enum.AnimationNodeBlend2DInputMode"]
+  SETTABLEKS R11 R10 K29 ["Type"]
+  SETTABLEKS R4 R10 K30 ["Value"]
+  SETTABLEKS R7 R10 K31 ["OnChanged"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K20 ["Property_InputMode"]
+  GETTABLEKS R9 R3 K26 ["nextProperty"]
+  DUPTABLE R10 K35 [{"Name", "Label", "Type", "Value", "Default"}]
+  LOADK R11 K3 ["X"]
+  SETTABLEKS R11 R10 K27 ["Name"]
+  JUMPIFNOT R5 [+2]
+  LOADK R11 K36 ["Angle"]
+  JUMP [+1]
+  LOADK R11 K3 ["X"]
+  SETTABLEKS R11 R10 K28 ["Label"]
+  JUMPIFNOT R5 [+2]
+  LOADK R11 K36 ["Angle"]
+  JUMP [+1]
+  LOADK R11 K37 ["Number"]
+  SETTABLEKS R11 R10 K29 ["Type"]
+  GETTABLEKS R12 R0 K10 ["PropertyLookup"]
+  GETTABLEKS R11 R12 K3 ["X"]
+  SETTABLEKS R11 R10 K30 ["Value"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K1 ["Default"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K21 ["Property_X_Angle"]
+  GETTABLEKS R9 R3 K26 ["nextProperty"]
+  DUPTABLE R10 K35 [{"Name", "Label", "Type", "Value", "Default"}]
+  LOADK R11 K4 ["Y"]
+  SETTABLEKS R11 R10 K27 ["Name"]
+  JUMPIFNOT R5 [+2]
+  LOADK R11 K38 ["Magnitude"]
+  JUMP [+1]
+  LOADK R11 K4 ["Y"]
+  SETTABLEKS R11 R10 K28 ["Label"]
+  LOADK R11 K37 ["Number"]
+  SETTABLEKS R11 R10 K29 ["Type"]
+  GETTABLEKS R12 R0 K10 ["PropertyLookup"]
+  GETTABLEKS R11 R12 K4 ["Y"]
+  SETTABLEKS R11 R10 K30 ["Value"]
+  LOADN R11 0
+  SETTABLEKS R11 R10 K1 ["Default"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K22 ["Property_Y_Magnitude"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K39 ["createElement"]
+  GETUPVAL R10 4
+  DUPTABLE R11 K43 [{"LayoutOrder", "InputMode", "Position", "Pins"}]
+  GETTABLEKS R12 R3 K44 ["nextOrder"]
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K40 ["LayoutOrder"]
+  SETTABLEKS R4 R11 K9 ["InputMode"]
+  GETIMPORT R12 K47 [Vector2.new]
+  GETTABLEKS R15 R0 K10 ["PropertyLookup"]
+  GETTABLEKS R14 R15 K3 ["X"]
+  ORK R13 R14 K48 [0]
+  GETTABLEKS R16 R0 K10 ["PropertyLookup"]
+  GETTABLEKS R15 R16 K4 ["Y"]
+  ORK R14 R15 K48 [0]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K41 ["Position"]
+  SETTABLEKS R2 R11 K42 ["Pins"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K23 ["Blend2DMap"]
+  GETTABLEKS R10 R0 K49 ["Collapsed"]
+  JUMPIF R10 [+51]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K39 ["createElement"]
+  GETUPVAL R10 5
+  DUPTABLE R11 K57 [{"LayoutOrder", "InputBuilder", "InputBuilderProps", "NodeId", "Inputs", "NewInputDefaultValue", "OnInputChanged", "OnInputReordered"}]
+  GETTABLEKS R12 R3 K44 ["nextOrder"]
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K40 ["LayoutOrder"]
+  GETUPVAL R12 6
+  SETTABLEKS R12 R11 K50 ["InputBuilder"]
+  DUPTABLE R12 K58 [{"InputMode"}]
+  GETTABLEKS R14 R0 K10 ["PropertyLookup"]
+  GETTABLEKS R13 R14 K9 ["InputMode"]
+  SETTABLEKS R13 R12 K9 ["InputMode"]
+  SETTABLEKS R12 R11 K51 ["InputBuilderProps"]
+  GETTABLEKS R13 R0 K0 ["GraphPayload"]
+  JUMPIFNOT R13 [+5]
+  GETTABLEKS R13 R0 K0 ["GraphPayload"]
+  GETTABLEKS R12 R13 K59 ["id"]
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K52 ["NodeId"]
+  GETTABLEKS R12 R1 K7 ["inputs"]
+  SETTABLEKS R12 R11 K53 ["Inputs"]
+  GETTABLEKS R12 R1 K60 ["newInputDefaultValue"]
+  SETTABLEKS R12 R11 K54 ["NewInputDefaultValue"]
+  GETTABLEKS R12 R1 K18 ["onInputChanged"]
+  SETTABLEKS R12 R11 K55 ["OnInputChanged"]
+  GETTABLEKS R12 R1 K61 ["onInputReordered"]
+  SETTABLEKS R12 R11 K56 ["OnInputReordered"]
+  CALL R9 2 1
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K24 ["Input"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K39 ["createElement"]
+  GETUPVAL R10 7
+  GETTABLEKS R11 R3 K62 ["nodeProps"]
+  DUPTABLE R12 K64 [{"OutputPin"}]
+  GETTABLEKS R13 R3 K65 ["outputPin"]
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K63 ["OutputPin"]
+  CALL R11 1 1
+  MOVE R12 R8
+  CALL R9 3 -1
+  RETURN R9 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Components"]
+  GETTABLEKS R5 R6 K9 ["NodeView"]
+  GETTABLEKS R4 R5 K10 ["CompositorNodeInput"]
+  GETTABLEKS R3 R4 K11 ["Blend2DInput"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Components"]
+  GETTABLEKS R6 R7 K9 ["NodeView"]
+  GETTABLEKS R5 R6 K12 ["CompositorNodeProperty"]
+  GETTABLEKS R4 R5 K13 ["Blend2DMap"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K8 ["Components"]
+  GETTABLEKS R7 R8 K9 ["NodeView"]
+  GETTABLEKS R6 R7 K14 ["CompositorNodes"]
+  GETTABLEKS R5 R6 K15 ["CompositorNode"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K16 ["Util"]
+  GETTABLEKS R7 R8 K17 ["Nodes"]
+  GETTABLEKS R6 R7 K18 ["CompositorNodeUtils"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Parent"]
+  GETTABLEKS R7 R8 K19 ["Dash"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R11 R0 K8 ["Components"]
+  GETTABLEKS R10 R11 K9 ["NodeView"]
+  GETTABLEKS R9 R10 K10 ["CompositorNodeInput"]
+  GETTABLEKS R8 R9 K20 ["InputPanel"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R12 R0 K8 ["Components"]
+  GETTABLEKS R11 R12 K9 ["NodeView"]
+  GETTABLEKS R10 R11 K10 ["CompositorNodeInput"]
+  GETTABLEKS R9 R10 K21 ["InputPanelTypes"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R13 R0 K8 ["Components"]
+  GETTABLEKS R12 R13 K9 ["NodeView"]
+  GETTABLEKS R11 R12 K14 ["CompositorNodes"]
+  GETTABLEKS R10 R11 K22 ["useInputPanelHelper"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K23 [PROTO_8]
+  CAPTURE VAL R9
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  RETURN R10 1

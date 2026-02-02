@@ -7,19 +7,19 @@ PROTO_0:
   GETTABLEKS R0 R1 K2 ["useContext"]
   CALL R0 0 1
   GETUPVAL R1 2
-  JUMPIFNOT R1 [+9]
-  NEWTABLE R1 0 2
-  GETTABLEKS R2 R0 K3 ["showVerifyAgeBanner"]
-  GETTABLEKS R3 R0 K4 ["onClose"]
-  SETLIST R1 R2 2 [1]
-  RETURN R1 1
+  JUMPIFNOT R1 [+15]
   NEWTABLE R1 0 5
   GETTABLEKS R2 R0 K3 ["showVerifyAgeBanner"]
-  GETTABLEKS R3 R0 K5 ["showEstablishTrustBanner"]
-  GETTABLEKS R4 R0 K6 ["shouldShowEstablishTrustDialog"]
-  GETTABLEKS R5 R0 K4 ["onClose"]
+  GETTABLEKS R3 R0 K4 ["showEstablishTrustBanner"]
+  GETTABLEKS R4 R0 K5 ["shouldShowEstablishTrustDialog"]
+  GETTABLEKS R5 R0 K6 ["onClose"]
   GETTABLEKS R6 R0 K7 ["onTrustBannerClose"]
   SETLIST R1 R2 5 [1]
+  RETURN R1 1
+  NEWTABLE R1 0 2
+  GETTABLEKS R2 R0 K3 ["showVerifyAgeBanner"]
+  GETTABLEKS R3 R0 K6 ["onClose"]
+  SETLIST R1 R2 2 [1]
   RETURN R1 1
 
 MAIN:

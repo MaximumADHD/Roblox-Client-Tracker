@@ -12,7 +12,12 @@ type _Messages = {
 local messages: _Messages = {} :: _Messages
 
 type _HydrationContentTypeMessage = proto.Enum<HydrationContentType>
-export type HydrationContentType = "HYDRATION_CONTENT_TYPE_INVALID" | "HYDRATION_CONTENT_TYPE_BADGE" | number -- Unknown
+export type HydrationContentType =
+	"HYDRATION_CONTENT_TYPE_INVALID"
+	| "HYDRATION_CONTENT_TYPE_BADGE"
+	| "HYDRATION_CONTENT_TYPE_UNIVERSE"
+	| "HYDRATION_CONTENT_TYPE_CREATOR"
+	| number -- Unknown
 
 messages.HydrationContentType = {
 	fromNumber = function(value: number): HydrationContentType?
@@ -20,6 +25,10 @@ messages.HydrationContentType = {
 			return "HYDRATION_CONTENT_TYPE_INVALID"
 		elseif value == 1 then
 			return "HYDRATION_CONTENT_TYPE_BADGE"
+		elseif value == 2 then
+			return "HYDRATION_CONTENT_TYPE_UNIVERSE"
+		elseif value == 3 then
+			return "HYDRATION_CONTENT_TYPE_CREATOR"
 		else
 			return nil
 		end
@@ -30,6 +39,10 @@ messages.HydrationContentType = {
 			return 0
 		elseif self == "HYDRATION_CONTENT_TYPE_BADGE" then
 			return 1
+		elseif self == "HYDRATION_CONTENT_TYPE_UNIVERSE" then
+			return 2
+		elseif self == "HYDRATION_CONTENT_TYPE_CREATOR" then
+			return 3
 		else
 			return self
 		end
@@ -40,6 +53,10 @@ messages.HydrationContentType = {
 			return "HYDRATION_CONTENT_TYPE_INVALID"
 		elseif name == "HYDRATION_CONTENT_TYPE_BADGE" then
 			return "HYDRATION_CONTENT_TYPE_BADGE"
+		elseif name == "HYDRATION_CONTENT_TYPE_UNIVERSE" then
+			return "HYDRATION_CONTENT_TYPE_UNIVERSE"
+		elseif name == "HYDRATION_CONTENT_TYPE_CREATOR" then
+			return "HYDRATION_CONTENT_TYPE_CREATOR"
 		else
 			return nil
 		end

@@ -26,7 +26,7 @@ local React = require(Packages.React)
 type CleanupFunc = () -> ()
 type UpdateFunc<T> = (T) -> CleanupFunc?
 
-local function useForwardRef<T>(forwardRef: React.Ref<T>, update: UpdateFunc<T>): React.Ref<T>
+local function useForwardRef<T>(forwardRef: React.Ref<T>?, update: UpdateFunc<T>): React.Ref<T>
 	local value = React.useRef(nil :: T?)
 	local cleanup = React.useRef(nil :: CleanupFunc?)
 

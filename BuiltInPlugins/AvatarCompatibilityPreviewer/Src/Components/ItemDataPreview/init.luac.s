@@ -21,30 +21,55 @@ PROTO_0:
   SETTABLEKS R4 R3 K9 ["Transparency"]
   CALL R1 2 -1
   RETURN R1 -1
+  GETUPVAL R1 2
+  CALL R1 0 1
+  JUMPIFNOT R1 [+39]
   GETTABLEKS R3 R0 K0 ["ItemData"]
   GETTABLEKS R2 R3 K1 ["item"]
   GETTABLEKS R1 R2 K2 ["source"]
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K12 ["SOURCE_INSTANCE"]
-  JUMPIFNOTEQ R1 R2 [+20]
+  GETTABLEKS R2 R3 K12 ["SOURCE_MARKETPLACE"]
+  JUMPIFNOTEQ R1 R2 [+29]
   GETUPVAL R2 1
   GETTABLEKS R1 R2 K4 ["createElement"]
-  GETUPVAL R2 2
-  DUPTABLE R3 K14 [{"Instance", "Transparency"}]
+  GETTABLEKS R4 R0 K0 ["ItemData"]
+  GETTABLEKS R3 R4 K5 ["palette"]
+  GETTABLEKS R2 R3 K6 ["PreviewComponent"]
+  DUPTABLE R3 K10 [{"Item", "Selected", "Transparency"}]
   GETTABLEKS R6 R0 K0 ["ItemData"]
   GETTABLEKS R5 R6 K1 ["item"]
-  GETTABLEKS R4 R5 K15 ["instance"]
-  SETTABLEKS R4 R3 K13 ["Instance"]
+  GETTABLEKS R4 R5 K13 ["marketplaceItem"]
+  SETTABLEKS R4 R3 K7 ["Item"]
+  GETTABLEKS R4 R0 K8 ["Selected"]
+  SETTABLEKS R4 R3 K8 ["Selected"]
   GETTABLEKS R4 R0 K9 ["Transparency"]
   SETTABLEKS R4 R3 K9 ["Transparency"]
   CALL R1 2 -1
   RETURN R1 -1
-  GETIMPORT R1 K17 [error]
-  LOADK R3 K18 ["Unknown item source: %*"]
+  GETTABLEKS R3 R0 K0 ["ItemData"]
+  GETTABLEKS R2 R3 K1 ["item"]
+  GETTABLEKS R1 R2 K2 ["source"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K14 ["SOURCE_INSTANCE"]
+  JUMPIFNOTEQ R1 R2 [+20]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K4 ["createElement"]
+  GETUPVAL R2 3
+  DUPTABLE R3 K16 [{"Instance", "Transparency"}]
+  GETTABLEKS R6 R0 K0 ["ItemData"]
+  GETTABLEKS R5 R6 K1 ["item"]
+  GETTABLEKS R4 R5 K17 ["instance"]
+  SETTABLEKS R4 R3 K15 ["Instance"]
+  GETTABLEKS R4 R0 K9 ["Transparency"]
+  SETTABLEKS R4 R3 K9 ["Transparency"]
+  CALL R1 2 -1
+  RETURN R1 -1
+  GETIMPORT R1 K19 [error]
+  LOADK R3 K20 ["Unknown item source: %*"]
   GETTABLEKS R7 R0 K0 ["ItemData"]
   GETTABLEKS R6 R7 K1 ["item"]
   GETTABLEKS R5 R6 K2 ["source"]
-  NAMECALL R3 R3 K19 ["format"]
+  NAMECALL R3 R3 K21 ["format"]
   CALL R3 2 1
   MOVE R2 R3
   CALL R1 1 0
@@ -70,11 +95,17 @@ MAIN:
   GETTABLEKS R4 R5 K11 ["ItemDataPreviewModel"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K12 ["Types"]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Flags"]
+  GETTABLEKS R5 R6 K13 ["getFFlagAvatarPreviewerLookComposer"]
   CALL R4 1 1
-  DUPCLOSURE R5 K13 [PROTO_0]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Src"]
+  GETTABLEKS R6 R7 K14 ["Types"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K15 [PROTO_0]
   CAPTURE VAL R1
   CAPTURE VAL R2
+  CAPTURE VAL R4
   CAPTURE VAL R3
-  RETURN R5 1
+  RETURN R6 1

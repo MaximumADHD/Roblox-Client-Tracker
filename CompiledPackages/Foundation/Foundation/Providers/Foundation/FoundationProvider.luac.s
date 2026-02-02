@@ -1,0 +1,113 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["preferences"]
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R1 R0 K0 ["preferences"]
+  JUMP [+2]
+  NEWTABLE R1 0 0
+  GETTABLEKS R3 R0 K1 ["responsiveConfig"]
+  JUMPIFNOT R3 [+3]
+  GETTABLEKS R2 R0 K1 ["responsiveConfig"]
+  JUMP [+2]
+  NEWTABLE R2 0 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K4 [{"providers"}]
+  NEWTABLE R6 0 6
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K2 ["createElement"]
+  GETUPVAL R8 2
+  LOADNIL R9
+  CALL R7 2 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K2 ["createElement"]
+  GETUPVAL R9 3
+  MOVE R10 R1
+  CALL R8 2 1
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K2 ["createElement"]
+  GETUPVAL R10 4
+  DUPTABLE R11 K9 [{"theme", "device", "derives", "scale"}]
+  GETTABLEKS R12 R0 K5 ["theme"]
+  SETTABLEKS R12 R11 K5 ["theme"]
+  GETTABLEKS R12 R0 K6 ["device"]
+  SETTABLEKS R12 R11 K6 ["device"]
+  GETTABLEKS R12 R0 K7 ["derives"]
+  SETTABLEKS R12 R11 K7 ["derives"]
+  GETTABLEKS R12 R1 K8 ["scale"]
+  SETTABLEKS R12 R11 K8 ["scale"]
+  CALL R9 2 1
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K2 ["createElement"]
+  GETUPVAL R11 5
+  DUPTABLE R12 K11 [{"config"}]
+  SETTABLEKS R2 R12 K10 ["config"]
+  CALL R10 2 1
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K2 ["createElement"]
+  GETUPVAL R12 6
+  DUPTABLE R13 K13 [{"gui"}]
+  GETTABLEKS R14 R0 K14 ["overlayGui"]
+  SETTABLEKS R14 R13 K12 ["gui"]
+  CALL R11 2 1
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K2 ["createElement"]
+  GETUPVAL R13 7
+  CALL R12 1 -1
+  SETLIST R6 R7 -1 [1]
+  SETTABLEKS R6 R5 K3 ["providers"]
+  GETTABLEKS R6 R0 K15 ["children"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  GETTABLEKS R2 R1 K2 ["Parent"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R2 K5 ["React"]
+  CALL R3 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R6 R2 K6 ["ReactUtils"]
+  CALL R5 1 1
+  GETTABLEKS R4 R5 K7 ["ContextStack"]
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K8 ["Preferences"]
+  GETTABLEKS R6 R7 K9 ["PreferencesProvider"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K10 ["Style"]
+  GETTABLEKS R7 R8 K11 ["StyleProvider"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R0 K12 ["Cursor"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R9 R0 K13 ["Overlay"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R11 R0 K14 ["Responsive"]
+  GETTABLEKS R10 R11 K15 ["ResponsiveContext"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R12 R0 K14 ["Responsive"]
+  GETTABLEKS R11 R12 K16 ["ResponsiveProvider"]
+  CALL R10 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R14 R0 K17 ["Elevation"]
+  GETTABLEKS R13 R14 K18 ["ElevationProvider"]
+  CALL R12 1 1
+  GETTABLEKS R11 R12 K18 ["ElevationProvider"]
+  DUPCLOSURE R12 K19 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R11
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  RETURN R12 1

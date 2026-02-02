@@ -1,0 +1,56 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLE R2 R3 R0
+  LOADK R4 K0 ["preloadAssets should only be used with valid FoundationCloudAssets; %* is an invalid name"]
+  MOVE R6 R0
+  NAMECALL R4 R4 K1 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  FASTCALL2 ASSERT R2 R3 [+3]
+  GETIMPORT R1 K3 [assert]
+  CALL R1 2 0
+  GETUPVAL R1 1
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFNOTEQKS R1 K2 ["string"] [+8]
+  NEWTABLE R1 0 1
+  MOVE R2 R0
+  SETLIST R1 R2 1 [1]
+  MOVE R0 R1
+  JUMP [0]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["forEach"]
+  MOVE R2 R0
+  DUPCLOSURE R3 K4 [PROTO_0]
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CALL R1 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Dash"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["FoundationCloudAssets"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K9 ["Assets"]
+  GETTABLEKS R5 R3 K10 ["preloadAsset"]
+  DUPCLOSURE R6 K11 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  RETURN R6 1

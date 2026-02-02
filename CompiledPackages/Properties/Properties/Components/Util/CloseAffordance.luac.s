@@ -1,0 +1,119 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["Icon"]
+  DUPTABLE R2 K7 [{"name", "size", "variant", "style", "Position", "AnchorPoint"}]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K8 ["X"]
+  SETTABLEKS R3 R2 K1 ["name"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K9 ["XSmall"]
+  SETTABLEKS R3 R2 K2 ["size"]
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K10 ["emphasis"]
+  JUMPIFNOT R4 [+4]
+  GETUPVAL R4 5
+  GETTABLEKS R3 R4 K11 ["Filled"]
+  JUMP [+1]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K3 ["variant"]
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K10 ["emphasis"]
+  JUMPIFNOT R4 [+8]
+  GETUPVAL R6 6
+  GETTABLEKS R5 R6 K12 ["DarkMode"]
+  GETTABLEKS R4 R5 K13 ["Content"]
+  GETTABLEKS R3 R4 K14 ["Emphasis"]
+  JUMP [+1]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K4 ["style"]
+  GETIMPORT R3 K17 [UDim2.fromScale]
+  LOADK R4 K18 [0.5]
+  LOADK R5 K18 [0.5]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K5 ["Position"]
+  GETIMPORT R3 K21 [Vector2.new]
+  LOADK R4 K18 [0.5]
+  LOADK R5 K18 [0.5]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K6 ["AnchorPoint"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  DUPTABLE R4 K5 [{"clickableViewProps", "affordanceViewProps", "onActivated", "LayoutOrder", "Visible"}]
+  DUPTABLE R5 K7 [{"tag"}]
+  LOADK R6 K8 ["size-600-600"]
+  SETTABLEKS R6 R5 K6 ["tag"]
+  SETTABLEKS R5 R4 K0 ["clickableViewProps"]
+  DUPTABLE R5 K7 [{"tag"}]
+  LOADK R6 K9 ["size-400-400 position-center-center anchor-center-center radius-circle"]
+  SETTABLEKS R6 R5 K6 ["tag"]
+  SETTABLEKS R5 R4 K1 ["affordanceViewProps"]
+  GETTABLEKS R5 R0 K10 ["onClose"]
+  SETTABLEKS R5 R4 K2 ["onActivated"]
+  GETTABLEKS R5 R0 K3 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K3 ["LayoutOrder"]
+  GETTABLEKS R5 R0 K4 ["Visible"]
+  SETTABLEKS R5 R4 K4 ["Visible"]
+  DUPTABLE R5 K12 [{"CloseIcon"}]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K13 ["useMemo"]
+  NEWCLOSURE R7 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE VAL R0
+  CAPTURE UPVAL U7
+  CAPTURE VAL R1
+  NEWTABLE R8 0 2
+  GETTABLEKS R9 R0 K14 ["emphasis"]
+  MOVE R10 R1
+  SETLIST R8 R9 2 [1]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K11 ["CloseIcon"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R7 R0 K9 ["Components"]
+  GETTABLEKS R6 R7 K10 ["Util"]
+  GETTABLEKS R5 R6 K11 ["SeparatedView"]
+  CALL R4 1 1
+  GETTABLEKS R5 R3 K12 ["createElement"]
+  GETTABLEKS R7 R2 K13 ["Enums"]
+  GETTABLEKS R6 R7 K14 ["IconName"]
+  GETTABLEKS R8 R2 K13 ["Enums"]
+  GETTABLEKS R7 R8 K15 ["IconSize"]
+  GETTABLEKS R9 R2 K13 ["Enums"]
+  GETTABLEKS R8 R9 K16 ["IconVariant"]
+  GETTABLEKS R10 R2 K17 ["Hooks"]
+  GETTABLEKS R9 R10 K18 ["useTokens"]
+  DUPCLOSURE R10 K19 [PROTO_1]
+  CAPTURE VAL R9
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  RETURN R10 1

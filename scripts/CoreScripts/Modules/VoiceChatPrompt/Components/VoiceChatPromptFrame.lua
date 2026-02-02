@@ -60,7 +60,6 @@ local GetFFlagEnableVoiceTrustedConnectionsToasts =
 	require(script.Parent.Parent.Parent.VoiceChat.Flags.GetFFlagEnableVoiceTrustedConnectionsToasts)
 local GetFFlagShowToastWhenAgeGatingVoice =
 	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagShowToastWhenAgeGatingVoice
-local FFlagUpdateJoinVoiceToastSubtitle = game:DefineFastFlag("UpdateJoinVoiceToastSubtitle_AEGIS2", false)
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -207,9 +206,7 @@ local PromptSubTitle = {
 	[PromptType.UnifiedJoinVoiceToast] = if GetFFlagEnableVoiceTrustedConnectionsToasts() 
 		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupTrustedConnections")
 		elseif GetFFlagUpdateVoiceConnectionToasts()
-			then if FFlagUpdateJoinVoiceToastSubtitle
-				then locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupV2")
-				else locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroup")
+			then locales:Format("Feature.SettingsHub.Prompt.Subtitle.TalkInAgeGroupV2")
 		else nil,
 	[PromptType.AgeCheckForVoiceToast] = if GetFFlagShowToastWhenAgeGatingVoice()
 		then locales:Format("Feature.SettingsHub.Prompt.Subtitle.GoToAccountInfo")

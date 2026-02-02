@@ -46,6 +46,9 @@ type _Messages = {
 	TypographyFontProp: _TypographyFontPropMessage,
 	TypographyFontProp_ConditionalOption: _TypographyFontProp_ConditionalOptionMessage,
 	TypographyFontProp_ConditionalOptions: _TypographyFontProp_ConditionalOptionsMessage,
+	ColorStyleProp: _ColorStylePropMessage,
+	ColorStyleProp_ConditionalOption: _ColorStyleProp_ConditionalOptionMessage,
+	ColorStyleProp_ConditionalOptions: _ColorStyleProp_ConditionalOptionsMessage,
 	UDimProp: _UDimPropMessage,
 	UDimProp_ConditionalOption: _UDimProp_ConditionalOptionMessage,
 	UDimProp_ConditionalOptions: _UDimProp_ConditionalOptionsMessage,
@@ -84,7 +87,6 @@ local messages: _Messages = {} :: _Messages
 
 local _google_protobuf_struct = require(script.Parent.Parent.Parent.Parent.Parent.google.protobuf.struct)
 local _roblox_apppageplatform_shared_v1beta1_prop_condition = require(script.Parent.prop_condition)
-local _roblox_apppageplatform_shared_v1beta1_roblox_component_type = require(script.Parent.roblox_component_type)
 
 type _StringFormatImpl = {
 	__index: _StringFormatImpl,
@@ -242,11 +244,11 @@ type _StringProp_ConditionalOptionsImpl = {
 }
 
 type _StringProp_ConditionalOptionsFields = {
-	option: { StringProp_ConditionalOption },
+	options: { StringProp_ConditionalOption },
 }
 
 type _StringProp_ConditionalOptionsPartialFields = {
-	option: { StringProp_ConditionalOption }?,
+	options: { StringProp_ConditionalOption }?,
 }
 
 export type StringProp_ConditionalOptions = typeof(setmetatable(
@@ -333,11 +335,11 @@ type _FloatProp_ConditionalOptionsImpl = {
 }
 
 type _FloatProp_ConditionalOptionsFields = {
-	option: { FloatProp_ConditionalOption },
+	options: { FloatProp_ConditionalOption },
 }
 
 type _FloatProp_ConditionalOptionsPartialFields = {
-	option: { FloatProp_ConditionalOption }?,
+	options: { FloatProp_ConditionalOption }?,
 }
 
 export type FloatProp_ConditionalOptions = typeof(setmetatable(
@@ -424,11 +426,11 @@ type _DoubleProp_ConditionalOptionsImpl = {
 }
 
 type _DoubleProp_ConditionalOptionsFields = {
-	option: { DoubleProp_ConditionalOption },
+	options: { DoubleProp_ConditionalOption },
 }
 
 type _DoubleProp_ConditionalOptionsPartialFields = {
-	option: { DoubleProp_ConditionalOption }?,
+	options: { DoubleProp_ConditionalOption }?,
 }
 
 export type DoubleProp_ConditionalOptions = typeof(setmetatable(
@@ -515,11 +517,11 @@ type _Int32Prop_ConditionalOptionsImpl = {
 }
 
 type _Int32Prop_ConditionalOptionsFields = {
-	option: { Int32Prop_ConditionalOption },
+	options: { Int32Prop_ConditionalOption },
 }
 
 type _Int32Prop_ConditionalOptionsPartialFields = {
-	option: { Int32Prop_ConditionalOption }?,
+	options: { Int32Prop_ConditionalOption }?,
 }
 
 export type Int32Prop_ConditionalOptions = typeof(setmetatable(
@@ -606,11 +608,11 @@ type _Int64Prop_ConditionalOptionsImpl = {
 }
 
 type _Int64Prop_ConditionalOptionsFields = {
-	option: { Int64Prop_ConditionalOption },
+	options: { Int64Prop_ConditionalOption },
 }
 
 type _Int64Prop_ConditionalOptionsPartialFields = {
-	option: { Int64Prop_ConditionalOption }?,
+	options: { Int64Prop_ConditionalOption }?,
 }
 
 export type Int64Prop_ConditionalOptions = typeof(setmetatable(
@@ -691,11 +693,11 @@ type _BoolProp_ConditionalOptionsImpl = {
 }
 
 type _BoolProp_ConditionalOptionsFields = {
-	option: { BoolProp_ConditionalOption },
+	options: { BoolProp_ConditionalOption },
 }
 
 type _BoolProp_ConditionalOptionsPartialFields = {
-	option: { BoolProp_ConditionalOption }?,
+	options: { BoolProp_ConditionalOption }?,
 }
 
 export type BoolProp_ConditionalOptions = typeof(setmetatable(
@@ -776,11 +778,11 @@ type _StructProp_ConditionalOptionsImpl = {
 }
 
 type _StructProp_ConditionalOptionsFields = {
-	option: { StructProp_ConditionalOption },
+	options: { StructProp_ConditionalOption },
 }
 
 type _StructProp_ConditionalOptionsPartialFields = {
-	option: { StructProp_ConditionalOption }?,
+	options: { StructProp_ConditionalOption }?,
 }
 
 export type StructProp_ConditionalOptions = typeof(setmetatable(
@@ -871,11 +873,11 @@ type _ImageStringProp_ConditionalOptionsImpl = {
 }
 
 type _ImageStringProp_ConditionalOptionsFields = {
-	option: { ImageStringProp_ConditionalOption },
+	options: { ImageStringProp_ConditionalOption },
 }
 
 type _ImageStringProp_ConditionalOptionsPartialFields = {
-	option: { ImageStringProp_ConditionalOption }?,
+	options: { ImageStringProp_ConditionalOption }?,
 }
 
 export type ImageStringProp_ConditionalOptions = typeof(setmetatable(
@@ -966,11 +968,11 @@ type _ImageSetProp_ConditionalOptionsImpl = {
 }
 
 type _ImageSetProp_ConditionalOptionsFields = {
-	option: { ImageSetProp_ConditionalOption },
+	options: { ImageSetProp_ConditionalOption },
 }
 
 type _ImageSetProp_ConditionalOptionsPartialFields = {
-	option: { ImageSetProp_ConditionalOption }?,
+	options: { ImageSetProp_ConditionalOption }?,
 }
 
 export type ImageSetProp_ConditionalOptions = typeof(setmetatable(
@@ -1057,11 +1059,11 @@ type _ColorProp_ConditionalOptionsImpl = {
 }
 
 type _ColorProp_ConditionalOptionsFields = {
-	option: { ColorProp_ConditionalOption },
+	options: { ColorProp_ConditionalOption },
 }
 
 type _ColorProp_ConditionalOptionsPartialFields = {
-	option: { ColorProp_ConditionalOption }?,
+	options: { ColorProp_ConditionalOption }?,
 }
 
 export type ColorProp_ConditionalOptions = typeof(setmetatable(
@@ -1134,11 +1136,11 @@ type _TypographyProp_ConditionalOptionsImpl = {
 }
 
 type _TypographyProp_ConditionalOptionsFields = {
-	option: { TypographyProp_ConditionalOption },
+	options: { TypographyProp_ConditionalOption },
 }
 
 type _TypographyProp_ConditionalOptionsPartialFields = {
-	option: { TypographyProp_ConditionalOption }?,
+	options: { TypographyProp_ConditionalOption }?,
 }
 
 export type TypographyProp_ConditionalOptions = typeof(setmetatable(
@@ -1211,11 +1213,11 @@ type _TypographyFontProp_ConditionalOptionsImpl = {
 }
 
 type _TypographyFontProp_ConditionalOptionsFields = {
-	option: { TypographyFontProp_ConditionalOption },
+	options: { TypographyFontProp_ConditionalOption },
 }
 
 type _TypographyFontProp_ConditionalOptionsPartialFields = {
-	option: { TypographyFontProp_ConditionalOption }?,
+	options: { TypographyFontProp_ConditionalOption }?,
 }
 
 export type TypographyFontProp_ConditionalOptions = typeof(setmetatable(
@@ -1225,6 +1227,83 @@ export type TypographyFontProp_ConditionalOptions = typeof(setmetatable(
 type _TypographyFontProp_ConditionalOptionsMessage = proto.Message<
 	TypographyFontProp_ConditionalOptions,
 	_TypographyFontProp_ConditionalOptionsPartialFields
+>
+
+type _ColorStylePropImpl = {
+	__index: _ColorStylePropImpl,
+	new: (fields: _ColorStylePropPartialFields?) -> ColorStyleProp,
+	encode: (self: ColorStyleProp) -> buffer,
+	decode: (input: buffer) -> ColorStyleProp,
+	jsonEncode: (self: ColorStyleProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ColorStyleProp,
+	descriptor: proto.Descriptor,
+}
+
+type _ColorStylePropFields = {
+	kind: ({ type: "token", value: string } | { type: "conditional", value: ColorStyleProp_ConditionalOptions })?,
+}
+
+type _ColorStylePropPartialFields = {
+	kind: ({ type: "token", value: string } | { type: "conditional", value: ColorStyleProp_ConditionalOptions })?,
+}
+
+export type ColorStyleProp = typeof(setmetatable({} :: _ColorStylePropFields, {} :: _ColorStylePropImpl))
+type _ColorStylePropMessage = proto.Message<ColorStyleProp, _ColorStylePropPartialFields>
+
+type _ColorStyleProp_ConditionalOptionImpl = {
+	__index: _ColorStyleProp_ConditionalOptionImpl,
+	new: (fields: _ColorStyleProp_ConditionalOptionPartialFields?) -> ColorStyleProp_ConditionalOption,
+	encode: (self: ColorStyleProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> ColorStyleProp_ConditionalOption,
+	jsonEncode: (self: ColorStyleProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ColorStyleProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _ColorStyleProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: { type: "token", value: string }?,
+}
+
+type _ColorStyleProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: { type: "token", value: string }?,
+}
+
+export type ColorStyleProp_ConditionalOption = typeof(setmetatable(
+	{} :: _ColorStyleProp_ConditionalOptionFields,
+	{} :: _ColorStyleProp_ConditionalOptionImpl
+))
+type _ColorStyleProp_ConditionalOptionMessage = proto.Message<
+	ColorStyleProp_ConditionalOption,
+	_ColorStyleProp_ConditionalOptionPartialFields
+>
+
+type _ColorStyleProp_ConditionalOptionsImpl = {
+	__index: _ColorStyleProp_ConditionalOptionsImpl,
+	new: (fields: _ColorStyleProp_ConditionalOptionsPartialFields?) -> ColorStyleProp_ConditionalOptions,
+	encode: (self: ColorStyleProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> ColorStyleProp_ConditionalOptions,
+	jsonEncode: (self: ColorStyleProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> ColorStyleProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _ColorStyleProp_ConditionalOptionsFields = {
+	options: { ColorStyleProp_ConditionalOption },
+}
+
+type _ColorStyleProp_ConditionalOptionsPartialFields = {
+	options: { ColorStyleProp_ConditionalOption }?,
+}
+
+export type ColorStyleProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _ColorStyleProp_ConditionalOptionsFields,
+	{} :: _ColorStyleProp_ConditionalOptionsImpl
+))
+type _ColorStyleProp_ConditionalOptionsMessage = proto.Message<
+	ColorStyleProp_ConditionalOptions,
+	_ColorStyleProp_ConditionalOptionsPartialFields
 >
 
 type _UDimPropImpl = {
@@ -1296,11 +1375,11 @@ type _UDimProp_ConditionalOptionsImpl = {
 }
 
 type _UDimProp_ConditionalOptionsFields = {
-	option: { UDimProp_ConditionalOption },
+	options: { UDimProp_ConditionalOption },
 }
 
 type _UDimProp_ConditionalOptionsPartialFields = {
-	option: { UDimProp_ConditionalOption }?,
+	options: { UDimProp_ConditionalOption }?,
 }
 
 export type UDimProp_ConditionalOptions = typeof(setmetatable(
@@ -1381,11 +1460,11 @@ type _UDim2Prop_ConditionalOptionsImpl = {
 }
 
 type _UDim2Prop_ConditionalOptionsFields = {
-	option: { UDim2Prop_ConditionalOption },
+	options: { UDim2Prop_ConditionalOption },
 }
 
 type _UDim2Prop_ConditionalOptionsPartialFields = {
-	option: { UDim2Prop_ConditionalOption }?,
+	options: { UDim2Prop_ConditionalOption }?,
 }
 
 export type UDim2Prop_ConditionalOptions = typeof(setmetatable(
@@ -1466,11 +1545,11 @@ type _Vector2Prop_ConditionalOptionsImpl = {
 }
 
 type _Vector2Prop_ConditionalOptionsFields = {
-	option: { Vector2Prop_ConditionalOption },
+	options: { Vector2Prop_ConditionalOption },
 }
 
 type _Vector2Prop_ConditionalOptionsPartialFields = {
-	option: { Vector2Prop_ConditionalOption }?,
+	options: { Vector2Prop_ConditionalOption }?,
 }
 
 export type Vector2Prop_ConditionalOptions = typeof(setmetatable(
@@ -1606,11 +1685,11 @@ type _NestedComponentProp_ConditionalOptionsImpl = {
 }
 
 type _NestedComponentProp_ConditionalOptionsFields = {
-	option: { NestedComponentProp_ConditionalOption },
+	options: { NestedComponentProp_ConditionalOption },
 }
 
 type _NestedComponentProp_ConditionalOptionsPartialFields = {
-	option: { NestedComponentProp_ConditionalOption }?,
+	options: { NestedComponentProp_ConditionalOption }?,
 }
 
 export type NestedComponentProp_ConditionalOptions = typeof(setmetatable(
@@ -1634,14 +1713,12 @@ type _NestedComponentProp_TemplateDataImpl = {
 
 type _NestedComponentProp_TemplateDataFields = {
 	inputs: { [string]: TemplateArg },
-	roblox_component: _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType,
-	template_id: string,
+	roblox_component: string,
 }
 
 type _NestedComponentProp_TemplateDataPartialFields = {
 	inputs: { [string]: TemplateArg }?,
-	roblox_component: _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType?,
-	template_id: string?,
+	roblox_component: string?,
 }
 
 export type NestedComponentProp_TemplateData = typeof(setmetatable(
@@ -1769,11 +1846,11 @@ type _LazyNestedComponentListProp_ConditionalOptionsImpl = {
 }
 
 type _LazyNestedComponentListProp_ConditionalOptionsFields = {
-	option: { LazyNestedComponentListProp_ConditionalOption },
+	options: { LazyNestedComponentListProp_ConditionalOption },
 }
 
 type _LazyNestedComponentListProp_ConditionalOptionsPartialFields = {
-	option: { LazyNestedComponentListProp_ConditionalOption }?,
+	options: { LazyNestedComponentListProp_ConditionalOption }?,
 }
 
 export type LazyNestedComponentListProp_ConditionalOptions = typeof(setmetatable(
@@ -1797,13 +1874,13 @@ type _LazyNestedComponentListProp_TemplateDataImpl = {
 
 type _LazyNestedComponentListProp_TemplateDataFields = {
 	binding_path: string,
-	roblox_component: _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType,
+	roblox_component: string,
 	inputs: { [string]: TemplateArg },
 }
 
 type _LazyNestedComponentListProp_TemplateDataPartialFields = {
 	binding_path: string?,
-	roblox_component: _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType?,
+	roblox_component: string?,
 	inputs: { [string]: TemplateArg }?,
 }
 
@@ -1945,11 +2022,11 @@ type _IconProp_ConditionalOptionsImpl = {
 }
 
 type _IconProp_ConditionalOptionsFields = {
-	option: { IconProp_ConditionalOption },
+	options: { IconProp_ConditionalOption },
 }
 
 type _IconProp_ConditionalOptionsPartialFields = {
-	option: { IconProp_ConditionalOption }?,
+	options: { IconProp_ConditionalOption }?,
 }
 
 export type IconProp_ConditionalOptions = typeof(setmetatable(
@@ -2028,11 +2105,11 @@ type _GradientProp_ConditionalOptionsImpl = {
 }
 
 type _GradientProp_ConditionalOptionsFields = {
-	option: { GradientProp_ConditionalOption },
+	options: { GradientProp_ConditionalOption },
 }
 
 type _GradientProp_ConditionalOptionsPartialFields = {
-	option: { GradientProp_ConditionalOption }?,
+	options: { GradientProp_ConditionalOption }?,
 }
 
 export type GradientProp_ConditionalOptions = typeof(setmetatable(
@@ -2148,11 +2225,11 @@ type _ArrayOfStructProp_ConditionalOptionsImpl = {
 }
 
 type _ArrayOfStructProp_ConditionalOptionsFields = {
-	option: { ArrayOfStructProp_ConditionalOption },
+	options: { ArrayOfStructProp_ConditionalOption },
 }
 
 type _ArrayOfStructProp_ConditionalOptionsPartialFields = {
-	option: { ArrayOfStructProp_ConditionalOption }?,
+	options: { ArrayOfStructProp_ConditionalOption }?,
 }
 
 export type ArrayOfStructProp_ConditionalOptions = typeof(setmetatable(
@@ -2911,7 +2988,7 @@ do
 		data: _StringProp_ConditionalOptionsPartialFields?
 	): StringProp_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _StringProp_ConditionalOptionsImpl :: _StringProp_ConditionalOptionsImpl)
 	end
 
@@ -2919,8 +2996,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -2949,7 +3026,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.StringProp_ConditionalOption.decode(value))
+					table.insert(self.options, messages.StringProp_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -2978,12 +3055,12 @@ do
 	function _StringProp_ConditionalOptionsImpl.jsonEncode(self: StringProp_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -2992,13 +3069,13 @@ do
 	function _StringProp_ConditionalOptionsImpl.jsonDecode(input: { [string]: any }): StringProp_ConditionalOptions
 		local self = _StringProp_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { StringProp_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.StringProp_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -3327,7 +3404,7 @@ do
 		data: _FloatProp_ConditionalOptionsPartialFields?
 	): FloatProp_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _FloatProp_ConditionalOptionsImpl :: _FloatProp_ConditionalOptionsImpl)
 	end
 
@@ -3335,8 +3412,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -3365,7 +3442,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.FloatProp_ConditionalOption.decode(value))
+					table.insert(self.options, messages.FloatProp_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -3394,12 +3471,12 @@ do
 	function _FloatProp_ConditionalOptionsImpl.jsonEncode(self: FloatProp_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -3408,13 +3485,13 @@ do
 	function _FloatProp_ConditionalOptionsImpl.jsonDecode(input: { [string]: any }): FloatProp_ConditionalOptions
 		local self = _FloatProp_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { FloatProp_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.FloatProp_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -3743,7 +3820,7 @@ do
 		data: _DoubleProp_ConditionalOptionsPartialFields?
 	): DoubleProp_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _DoubleProp_ConditionalOptionsImpl :: _DoubleProp_ConditionalOptionsImpl)
 	end
 
@@ -3751,8 +3828,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -3781,7 +3858,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.DoubleProp_ConditionalOption.decode(value))
+					table.insert(self.options, messages.DoubleProp_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -3810,12 +3887,12 @@ do
 	function _DoubleProp_ConditionalOptionsImpl.jsonEncode(self: DoubleProp_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -3824,13 +3901,13 @@ do
 	function _DoubleProp_ConditionalOptionsImpl.jsonDecode(input: { [string]: any }): DoubleProp_ConditionalOptions
 		local self = _DoubleProp_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { DoubleProp_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.DoubleProp_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -4159,7 +4236,7 @@ do
 		data: _Int32Prop_ConditionalOptionsPartialFields?
 	): Int32Prop_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _Int32Prop_ConditionalOptionsImpl :: _Int32Prop_ConditionalOptionsImpl)
 	end
 
@@ -4167,8 +4244,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -4197,7 +4274,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.Int32Prop_ConditionalOption.decode(value))
+					table.insert(self.options, messages.Int32Prop_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -4226,12 +4303,12 @@ do
 	function _Int32Prop_ConditionalOptionsImpl.jsonEncode(self: Int32Prop_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -4240,13 +4317,13 @@ do
 	function _Int32Prop_ConditionalOptionsImpl.jsonDecode(input: { [string]: any }): Int32Prop_ConditionalOptions
 		local self = _Int32Prop_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { Int32Prop_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.Int32Prop_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -4575,7 +4652,7 @@ do
 		data: _Int64Prop_ConditionalOptionsPartialFields?
 	): Int64Prop_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _Int64Prop_ConditionalOptionsImpl :: _Int64Prop_ConditionalOptionsImpl)
 	end
 
@@ -4583,8 +4660,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -4613,7 +4690,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.Int64Prop_ConditionalOption.decode(value))
+					table.insert(self.options, messages.Int64Prop_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -4642,12 +4719,12 @@ do
 	function _Int64Prop_ConditionalOptionsImpl.jsonEncode(self: Int64Prop_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -4656,13 +4733,13 @@ do
 	function _Int64Prop_ConditionalOptionsImpl.jsonDecode(input: { [string]: any }): Int64Prop_ConditionalOptions
 		local self = _Int64Prop_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { Int64Prop_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.Int64Prop_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -4963,7 +5040,7 @@ do
 		data: _BoolProp_ConditionalOptionsPartialFields?
 	): BoolProp_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _BoolProp_ConditionalOptionsImpl :: _BoolProp_ConditionalOptionsImpl)
 	end
 
@@ -4971,8 +5048,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -5001,7 +5078,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.BoolProp_ConditionalOption.decode(value))
+					table.insert(self.options, messages.BoolProp_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -5030,12 +5107,12 @@ do
 	function _BoolProp_ConditionalOptionsImpl.jsonEncode(self: BoolProp_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -5044,13 +5121,13 @@ do
 	function _BoolProp_ConditionalOptionsImpl.jsonDecode(input: { [string]: any }): BoolProp_ConditionalOptions
 		local self = _BoolProp_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { BoolProp_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.BoolProp_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -5353,7 +5430,7 @@ do
 		data: _StructProp_ConditionalOptionsPartialFields?
 	): StructProp_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _StructProp_ConditionalOptionsImpl :: _StructProp_ConditionalOptionsImpl)
 	end
 
@@ -5361,8 +5438,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -5391,7 +5468,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.StructProp_ConditionalOption.decode(value))
+					table.insert(self.options, messages.StructProp_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -5420,12 +5497,12 @@ do
 	function _StructProp_ConditionalOptionsImpl.jsonEncode(self: StructProp_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -5434,13 +5511,13 @@ do
 	function _StructProp_ConditionalOptionsImpl.jsonDecode(input: { [string]: any }): StructProp_ConditionalOptions
 		local self = _StructProp_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { StructProp_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.StructProp_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -5776,7 +5853,7 @@ do
 		data: _ImageStringProp_ConditionalOptionsPartialFields?
 	): ImageStringProp_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _ImageStringProp_ConditionalOptionsImpl :: _ImageStringProp_ConditionalOptionsImpl)
 	end
 
@@ -5784,8 +5861,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -5814,7 +5891,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.ImageStringProp_ConditionalOption.decode(value))
+					table.insert(self.options, messages.ImageStringProp_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -5843,12 +5920,12 @@ do
 	function _ImageStringProp_ConditionalOptionsImpl.jsonEncode(self: ImageStringProp_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -5859,13 +5936,13 @@ do
 	): ImageStringProp_ConditionalOptions
 		local self = _ImageStringProp_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { ImageStringProp_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.ImageStringProp_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -6196,7 +6273,7 @@ do
 		data: _ImageSetProp_ConditionalOptionsPartialFields?
 	): ImageSetProp_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _ImageSetProp_ConditionalOptionsImpl :: _ImageSetProp_ConditionalOptionsImpl)
 	end
 
@@ -6204,8 +6281,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -6234,7 +6311,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.ImageSetProp_ConditionalOption.decode(value))
+					table.insert(self.options, messages.ImageSetProp_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -6263,12 +6340,12 @@ do
 	function _ImageSetProp_ConditionalOptionsImpl.jsonEncode(self: ImageSetProp_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -6277,13 +6354,13 @@ do
 	function _ImageSetProp_ConditionalOptionsImpl.jsonDecode(input: { [string]: any }): ImageSetProp_ConditionalOptions
 		local self = _ImageSetProp_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { ImageSetProp_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.ImageSetProp_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -6612,7 +6689,7 @@ do
 		data: _ColorProp_ConditionalOptionsPartialFields?
 	): ColorProp_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _ColorProp_ConditionalOptionsImpl :: _ColorProp_ConditionalOptionsImpl)
 	end
 
@@ -6620,8 +6697,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -6650,7 +6727,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.ColorProp_ConditionalOption.decode(value))
+					table.insert(self.options, messages.ColorProp_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -6679,12 +6756,12 @@ do
 	function _ColorProp_ConditionalOptionsImpl.jsonEncode(self: ColorProp_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -6693,13 +6770,13 @@ do
 	function _ColorProp_ConditionalOptionsImpl.jsonDecode(input: { [string]: any }): ColorProp_ConditionalOptions
 		local self = _ColorProp_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { ColorProp_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.ColorProp_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -6969,7 +7046,7 @@ do
 		data: _TypographyProp_ConditionalOptionsPartialFields?
 	): TypographyProp_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _TypographyProp_ConditionalOptionsImpl :: _TypographyProp_ConditionalOptionsImpl)
 	end
 
@@ -6977,8 +7054,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -7007,7 +7084,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.TypographyProp_ConditionalOption.decode(value))
+					table.insert(self.options, messages.TypographyProp_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -7036,12 +7113,12 @@ do
 	function _TypographyProp_ConditionalOptionsImpl.jsonEncode(self: TypographyProp_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -7052,13 +7129,13 @@ do
 	): TypographyProp_ConditionalOptions
 		local self = _TypographyProp_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { TypographyProp_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.TypographyProp_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -7328,7 +7405,7 @@ do
 		data: _TypographyFontProp_ConditionalOptionsPartialFields?
 	): TypographyFontProp_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _TypographyFontProp_ConditionalOptionsImpl :: _TypographyFontProp_ConditionalOptionsImpl)
 	end
 
@@ -7336,8 +7413,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -7366,7 +7443,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.TypographyFontProp_ConditionalOption.decode(value))
+					table.insert(self.options, messages.TypographyFontProp_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -7395,12 +7472,12 @@ do
 	function _TypographyFontProp_ConditionalOptionsImpl.jsonEncode(self: TypographyFontProp_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -7411,13 +7488,13 @@ do
 	): TypographyFontProp_ConditionalOptions
 		local self = _TypographyFontProp_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { TypographyFontProp_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.TypographyFontProp_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -7431,6 +7508,365 @@ do
 	messages.TypographyFontProp_ConditionalOptions = _TypographyFontProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
 
 	typeRegistry.default:register(messages.TypographyFontProp_ConditionalOptions)
+end
+
+do
+	local _ColorStylePropImpl = {}
+	_ColorStylePropImpl.__index = _ColorStylePropImpl
+
+	function _ColorStylePropImpl.new(data: _ColorStylePropPartialFields?): ColorStyleProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _ColorStylePropImpl :: _ColorStylePropImpl)
+	end
+
+	function _ColorStylePropImpl.encode(self: ColorStyleProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "token" then
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ColorStylePropImpl.decode(input: buffer): ColorStyleProp
+		local self = _ColorStylePropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "token", value = buffer.tostring(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "conditional", value = messages.ColorStyleProp_ConditionalOptions.decode(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ColorStylePropImpl.jsonEncode(self: ColorStyleProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "token" then
+				output.token = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _ColorStylePropImpl.jsonDecode(input: { [string]: any }): ColorStyleProp
+		local self = _ColorStylePropImpl.new()
+
+		if input.token ~= nil then
+			self.kind = { type = "token", value = input.token }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.ColorStyleProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		return self
+	end
+
+	_ColorStylePropImpl.descriptor = {
+		name = "ColorStyleProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ColorStyleProp",
+	}
+
+	messages.ColorStyleProp = _ColorStylePropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ColorStyleProp)
+end
+
+do
+	local _ColorStyleProp_ConditionalOptionImpl = {}
+	_ColorStyleProp_ConditionalOptionImpl.__index = _ColorStyleProp_ConditionalOptionImpl
+
+	function _ColorStyleProp_ConditionalOptionImpl.new(
+		data: _ColorStyleProp_ConditionalOptionPartialFields?
+	): ColorStyleProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _ColorStyleProp_ConditionalOptionImpl :: _ColorStyleProp_ConditionalOptionImpl)
+	end
+
+	function _ColorStyleProp_ConditionalOptionImpl.encode(self: ColorStyleProp_ConditionalOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "token" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ColorStyleProp_ConditionalOptionImpl.decode(input: buffer): ColorStyleProp_ConditionalOption
+		local self = _ColorStyleProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "token", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ColorStyleProp_ConditionalOptionImpl.jsonEncode(self: ColorStyleProp_ConditionalOption): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "token" then
+				output.token = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _ColorStyleProp_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): ColorStyleProp_ConditionalOption
+		local self = _ColorStyleProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.token ~= nil then
+			self.kind = { type = "token", value = input.token }
+		end
+
+		return self
+	end
+
+	_ColorStyleProp_ConditionalOptionImpl.descriptor = {
+		name = "ColorStyleProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.ColorStyleProp_ConditionalOption = _ColorStyleProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ColorStyleProp_ConditionalOption)
+end
+
+do
+	local _ColorStyleProp_ConditionalOptionsImpl = {}
+	_ColorStyleProp_ConditionalOptionsImpl.__index = _ColorStyleProp_ConditionalOptionsImpl
+
+	function _ColorStyleProp_ConditionalOptionsImpl.new(
+		data: _ColorStyleProp_ConditionalOptionsPartialFields?
+	): ColorStyleProp_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _ColorStyleProp_ConditionalOptionsImpl :: _ColorStyleProp_ConditionalOptionsImpl)
+	end
+
+	function _ColorStyleProp_ConditionalOptionsImpl.encode(self: ColorStyleProp_ConditionalOptions): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _ColorStyleProp_ConditionalOptionsImpl.decode(input: buffer): ColorStyleProp_ConditionalOptions
+		local self = _ColorStyleProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.ColorStyleProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _ColorStyleProp_ConditionalOptionsImpl.jsonEncode(self: ColorStyleProp_ConditionalOptions): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _ColorStyleProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): ColorStyleProp_ConditionalOptions
+		local self = _ColorStyleProp_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { ColorStyleProp_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.ColorStyleProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_ColorStyleProp_ConditionalOptionsImpl.descriptor = {
+		name = "ColorStyleProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.ColorStyleProp_ConditionalOptions = _ColorStyleProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.ColorStyleProp_ConditionalOptions)
 end
 
 do
@@ -7710,7 +8146,7 @@ do
 		data: _UDimProp_ConditionalOptionsPartialFields?
 	): UDimProp_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _UDimProp_ConditionalOptionsImpl :: _UDimProp_ConditionalOptionsImpl)
 	end
 
@@ -7718,8 +8154,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -7748,7 +8184,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.UDimProp_ConditionalOption.decode(value))
+					table.insert(self.options, messages.UDimProp_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -7777,12 +8213,12 @@ do
 	function _UDimProp_ConditionalOptionsImpl.jsonEncode(self: UDimProp_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -7791,13 +8227,13 @@ do
 	function _UDimProp_ConditionalOptionsImpl.jsonDecode(input: { [string]: any }): UDimProp_ConditionalOptions
 		local self = _UDimProp_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { UDimProp_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.UDimProp_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -8090,7 +8526,7 @@ do
 		data: _UDim2Prop_ConditionalOptionsPartialFields?
 	): UDim2Prop_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _UDim2Prop_ConditionalOptionsImpl :: _UDim2Prop_ConditionalOptionsImpl)
 	end
 
@@ -8098,8 +8534,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -8128,7 +8564,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.UDim2Prop_ConditionalOption.decode(value))
+					table.insert(self.options, messages.UDim2Prop_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -8157,12 +8593,12 @@ do
 	function _UDim2Prop_ConditionalOptionsImpl.jsonEncode(self: UDim2Prop_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -8171,13 +8607,13 @@ do
 	function _UDim2Prop_ConditionalOptionsImpl.jsonDecode(input: { [string]: any }): UDim2Prop_ConditionalOptions
 		local self = _UDim2Prop_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { UDim2Prop_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.UDim2Prop_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -8470,7 +8906,7 @@ do
 		data: _Vector2Prop_ConditionalOptionsPartialFields?
 	): Vector2Prop_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _Vector2Prop_ConditionalOptionsImpl :: _Vector2Prop_ConditionalOptionsImpl)
 	end
 
@@ -8478,8 +8914,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -8508,7 +8944,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.Vector2Prop_ConditionalOption.decode(value))
+					table.insert(self.options, messages.Vector2Prop_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -8537,12 +8973,12 @@ do
 	function _Vector2Prop_ConditionalOptionsImpl.jsonEncode(self: Vector2Prop_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -8551,13 +8987,13 @@ do
 	function _Vector2Prop_ConditionalOptionsImpl.jsonDecode(input: { [string]: any }): Vector2Prop_ConditionalOptions
 		local self = _Vector2Prop_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { Vector2Prop_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.Vector2Prop_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -9128,7 +9564,7 @@ do
 		data: _NestedComponentProp_ConditionalOptionsPartialFields?
 	): NestedComponentProp_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _NestedComponentProp_ConditionalOptionsImpl :: _NestedComponentProp_ConditionalOptionsImpl)
 	end
 
@@ -9136,8 +9572,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -9166,7 +9602,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.NestedComponentProp_ConditionalOption.decode(value))
+					table.insert(self.options, messages.NestedComponentProp_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -9195,12 +9631,12 @@ do
 	function _NestedComponentProp_ConditionalOptionsImpl.jsonEncode(self: NestedComponentProp_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -9211,13 +9647,13 @@ do
 	): NestedComponentProp_ConditionalOptions
 		local self = _NestedComponentProp_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { NestedComponentProp_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.NestedComponentProp_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -9242,13 +9678,7 @@ do
 	): NestedComponentProp_TemplateData
 		return setmetatable({
 			inputs = if data == nil or data.inputs == nil then {} else data.inputs,
-			roblox_component = if data == nil or data.roblox_component == nil
-				then assert(
-					_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(0),
-					"Enum has no 0 default"
-				)
-				else data.roblox_component,
-			template_id = if data == nil or data.template_id == nil then "" else data.template_id,
+			roblox_component = if data == nil or data.roblox_component == nil then "" else data.roblox_component,
 		}, _NestedComponentProp_TemplateDataImpl :: _NestedComponentProp_TemplateDataImpl)
 	end
 
@@ -9270,27 +9700,9 @@ do
 			end
 		end
 
-		if
-			self.roblox_component ~= nil
-			and (
-				self.roblox_component ~= nil and self.roblox_component ~= 0
-				or self.roblox_component
-					~= _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(0)
-			)
-		then
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
-			output, cursor = proto.writeVarInt(
-				output,
-				cursor,
-				_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.toNumber(
-					self.roblox_component :: any
-				)
-			)
-		end
-
-		if self.template_id ~= nil and self.template_id ~= "" then
-			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.template_id)
+		if self.roblox_component ~= nil and self.roblox_component ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.roblox_component)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -9307,16 +9719,7 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				if field == 2 then
-					local value
-					value, cursor = proto.readVarIntI32(input, cursor)
-					self.roblox_component = (
-						_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(
-							value
-						) or value
-					) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
-					continue
-				end
+				-- No fields
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -9333,10 +9736,10 @@ do
 					self.inputs[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
 					continue
-				elseif field == 3 then
+				elseif field == 2 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.template_id = buffer.tostring(value)
+					self.roblox_component = buffer.tostring(value)
 					continue
 				end
 
@@ -9373,23 +9776,8 @@ do
 			output.inputs = newOutput
 		end
 
-		if
-			self.roblox_component ~= nil
-			and (
-				self.roblox_component ~= nil and self.roblox_component ~= 0
-				or self.roblox_component
-					~= _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(0)
-			)
-		then
-			output.robloxComponent = if typeof(self.roblox_component) == "number"
-				then self.roblox_component
-				else _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.toNumber(
-					self.roblox_component :: any
-				)
-		end
-
-		if self.template_id ~= nil and self.template_id ~= "" then
-			output.templateId = self.template_id
+		if self.roblox_component ~= nil and self.roblox_component ~= "" then
+			output.robloxComponent = self.roblox_component
 		end
 
 		return output
@@ -9410,31 +9798,11 @@ do
 		end
 
 		if input.roblox_component ~= nil then
-			self.roblox_component = if typeof(input.roblox_component) == "number"
-				then (_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(
-					input.roblox_component
-				) or input.roblox_component)
-				else (_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromName(
-					input.roblox_component
-				) or input.roblox_component)
+			self.roblox_component = input.roblox_component
 		end
 
 		if input.robloxComponent ~= nil then
-			self.roblox_component = if typeof(input.robloxComponent) == "number"
-				then (_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(
-					input.robloxComponent
-				) or input.robloxComponent)
-				else (_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromName(
-					input.robloxComponent
-				) or input.robloxComponent)
-		end
-
-		if input.template_id ~= nil then
-			self.template_id = input.template_id
-		end
-
-		if input.templateId ~= nil then
-			self.template_id = input.templateId
+			self.roblox_component = input.robloxComponent
 		end
 
 		return self
@@ -9914,7 +10282,7 @@ do
 		data: _LazyNestedComponentListProp_ConditionalOptionsPartialFields?
 	): LazyNestedComponentListProp_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _LazyNestedComponentListProp_ConditionalOptionsImpl :: _LazyNestedComponentListProp_ConditionalOptionsImpl)
 	end
 
@@ -9924,8 +10292,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -9956,7 +10324,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.LazyNestedComponentListProp_ConditionalOption.decode(value))
+					table.insert(self.options, messages.LazyNestedComponentListProp_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -9987,12 +10355,12 @@ do
 	): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -10003,13 +10371,13 @@ do
 	): LazyNestedComponentListProp_ConditionalOptions
 		local self = _LazyNestedComponentListProp_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { LazyNestedComponentListProp_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.LazyNestedComponentListProp_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -10034,12 +10402,7 @@ do
 	): LazyNestedComponentListProp_TemplateData
 		return setmetatable({
 			binding_path = if data == nil or data.binding_path == nil then "" else data.binding_path,
-			roblox_component = if data == nil or data.roblox_component == nil
-				then assert(
-					_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(0),
-					"Enum has no 0 default"
-				)
-				else data.roblox_component,
+			roblox_component = if data == nil or data.roblox_component == nil then "" else data.roblox_component,
 			inputs = if data == nil or data.inputs == nil then {} else data.inputs,
 		}, _LazyNestedComponentListProp_TemplateDataImpl :: _LazyNestedComponentListProp_TemplateDataImpl)
 	end
@@ -10055,22 +10418,9 @@ do
 			output, cursor = proto.writeString(output, cursor, self.binding_path)
 		end
 
-		if
-			self.roblox_component ~= nil
-			and (
-				self.roblox_component ~= nil and self.roblox_component ~= 0
-				or self.roblox_component
-					~= _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(0)
-			)
-		then
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
-			output, cursor = proto.writeVarInt(
-				output,
-				cursor,
-				_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.toNumber(
-					self.roblox_component :: any
-				)
-			)
+		if self.roblox_component ~= nil and self.roblox_component ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.roblox_component)
 		end
 
 		if self.inputs ~= nil and next(self.inputs) ~= nil then
@@ -10103,16 +10453,7 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				if field == 2 then
-					local value
-					value, cursor = proto.readVarIntI32(input, cursor)
-					self.roblox_component = (
-						_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(
-							value
-						) or value
-					) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
-					continue
-				end
+				-- No fields
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -10121,6 +10462,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.binding_path = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.roblox_component = buffer.tostring(value)
 					continue
 				elseif field == 3 then
 					local value
@@ -10167,19 +10513,8 @@ do
 			output.bindingPath = self.binding_path
 		end
 
-		if
-			self.roblox_component ~= nil
-			and (
-				self.roblox_component ~= nil and self.roblox_component ~= 0
-				or self.roblox_component
-					~= _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(0)
-			)
-		then
-			output.robloxComponent = if typeof(self.roblox_component) == "number"
-				then self.roblox_component
-				else _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.toNumber(
-					self.roblox_component :: any
-				)
+		if self.roblox_component ~= nil and self.roblox_component ~= "" then
+			output.robloxComponent = self.roblox_component
 		end
 
 		if self.inputs ~= nil and next(self.inputs) ~= nil then
@@ -10207,23 +10542,11 @@ do
 		end
 
 		if input.roblox_component ~= nil then
-			self.roblox_component = if typeof(input.roblox_component) == "number"
-				then (_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(
-					input.roblox_component
-				) or input.roblox_component)
-				else (_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromName(
-					input.roblox_component
-				) or input.roblox_component)
+			self.roblox_component = input.roblox_component
 		end
 
 		if input.robloxComponent ~= nil then
-			self.roblox_component = if typeof(input.robloxComponent) == "number"
-				then (_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(
-					input.robloxComponent
-				) or input.robloxComponent)
-				else (_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromName(
-					input.robloxComponent
-				) or input.robloxComponent)
+			self.roblox_component = input.robloxComponent
 		end
 
 		if input.inputs ~= nil then
@@ -10784,7 +11107,7 @@ do
 		data: _IconProp_ConditionalOptionsPartialFields?
 	): IconProp_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _IconProp_ConditionalOptionsImpl :: _IconProp_ConditionalOptionsImpl)
 	end
 
@@ -10792,8 +11115,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -10822,7 +11145,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.IconProp_ConditionalOption.decode(value))
+					table.insert(self.options, messages.IconProp_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -10851,12 +11174,12 @@ do
 	function _IconProp_ConditionalOptionsImpl.jsonEncode(self: IconProp_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -10865,13 +11188,13 @@ do
 	function _IconProp_ConditionalOptionsImpl.jsonDecode(input: { [string]: any }): IconProp_ConditionalOptions
 		local self = _IconProp_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { IconProp_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.IconProp_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -11138,7 +11461,7 @@ do
 		data: _GradientProp_ConditionalOptionsPartialFields?
 	): GradientProp_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _GradientProp_ConditionalOptionsImpl :: _GradientProp_ConditionalOptionsImpl)
 	end
 
@@ -11146,8 +11469,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -11176,7 +11499,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.GradientProp_ConditionalOption.decode(value))
+					table.insert(self.options, messages.GradientProp_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -11205,12 +11528,12 @@ do
 	function _GradientProp_ConditionalOptionsImpl.jsonEncode(self: GradientProp_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -11219,13 +11542,13 @@ do
 	function _GradientProp_ConditionalOptionsImpl.jsonDecode(input: { [string]: any }): GradientProp_ConditionalOptions
 		local self = _GradientProp_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { GradientProp_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.GradientProp_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -11726,7 +12049,7 @@ do
 		data: _ArrayOfStructProp_ConditionalOptionsPartialFields?
 	): ArrayOfStructProp_ConditionalOptions
 		return setmetatable({
-			option = if data == nil or data.option == nil then {} else data.option,
+			options = if data == nil or data.options == nil then {} else data.options,
 		}, _ArrayOfStructProp_ConditionalOptionsImpl :: _ArrayOfStructProp_ConditionalOptionsImpl)
 	end
 
@@ -11734,8 +12057,8 @@ do
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.option ~= nil and #self.option > 0 then
-			for _, value in self.option do
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
 				local encoded = value:encode()
 				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
@@ -11764,7 +12087,7 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					table.insert(self.option, messages.ArrayOfStructProp_ConditionalOption.decode(value))
+					table.insert(self.options, messages.ArrayOfStructProp_ConditionalOption.decode(value))
 					continue
 				end
 
@@ -11793,12 +12116,12 @@ do
 	function _ArrayOfStructProp_ConditionalOptionsImpl.jsonEncode(self: ArrayOfStructProp_ConditionalOptions): any
 		local output = {}
 
-		if self.option ~= nil and #self.option > 0 then
+		if self.options ~= nil and #self.options > 0 then
 			local newOutput = {}
-			for _, value in self.option do
+			for _, value in self.options do
 				table.insert(newOutput, value:jsonEncode())
 			end
-			output.option = newOutput
+			output.options = newOutput
 		end
 
 		return output
@@ -11809,13 +12132,13 @@ do
 	): ArrayOfStructProp_ConditionalOptions
 		local self = _ArrayOfStructProp_ConditionalOptionsImpl.new()
 
-		if input.option ~= nil then
+		if input.options ~= nil then
 			local newOutput: { ArrayOfStructProp_ConditionalOption } = {}
-			for _, value in input.option do
+			for _, value in input.options do
 				table.insert(newOutput, messages.ArrayOfStructProp_ConditionalOption.jsonDecode(value))
 			end
 
-			self.option = newOutput
+			self.options = newOutput
 		end
 
 		return self
@@ -11983,6 +12306,9 @@ return {
 	TypographyFontProp = messages.TypographyFontProp,
 	TypographyFontProp_ConditionalOption = messages.TypographyFontProp_ConditionalOption,
 	TypographyFontProp_ConditionalOptions = messages.TypographyFontProp_ConditionalOptions,
+	ColorStyleProp = messages.ColorStyleProp,
+	ColorStyleProp_ConditionalOption = messages.ColorStyleProp_ConditionalOption,
+	ColorStyleProp_ConditionalOptions = messages.ColorStyleProp_ConditionalOptions,
 	UDimProp = messages.UDimProp,
 	UDimProp_ConditionalOption = messages.UDimProp_ConditionalOption,
 	UDimProp_ConditionalOptions = messages.UDimProp_ConditionalOptions,

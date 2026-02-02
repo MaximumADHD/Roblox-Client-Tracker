@@ -368,6 +368,13 @@ PROTO_17:
   RETURN R2 2
 
 PROTO_18:
+  MOVE R6 R5
+  LOADB R7 1
+  NEWTABLE R8 0 0
+  CALL R6 2 0
+  RETURN R0 0
+
+PROTO_19:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["get"]
   GETUPVAL R3 0
@@ -376,7 +383,7 @@ PROTO_18:
   CALL R0 1 -1
   RETURN R0 -1
 
-PROTO_19:
+PROTO_20:
   MOVE R2 R1
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["get"]
@@ -387,7 +394,7 @@ PROTO_19:
   CALL R2 -1 0
   RETURN R0 0
 
-PROTO_20:
+PROTO_21:
   GETUPVAL R1 0
   GETTABLEKS R0 R1 K0 ["get"]
   GETUPVAL R3 0
@@ -396,7 +403,7 @@ PROTO_20:
   CALL R0 1 -1
   RETURN R0 -1
 
-PROTO_21:
+PROTO_22:
   JUMPIFNOT R0 [+6]
   GETUPVAL R1 0
   LOADK R2 K0 [""]
@@ -409,7 +416,7 @@ PROTO_21:
   CALL R1 2 0
   RETURN R0 0
 
-PROTO_22:
+PROTO_23:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["ResumeAsync"]
   NEWCLOSURE R4 P0
@@ -417,7 +424,7 @@ PROTO_22:
   SETTABLEKS R4 R3 K1 ["GetThumbnailForItem"]
   RETURN R0 0
 
-PROTO_23:
+PROTO_24:
   JUMPIFNOT R0 [+9]
   GETUPVAL R1 0
   LOADK R3 K0 ["Mock fetchAssetInfoAsync error for asset %*"]
@@ -427,65 +434,82 @@ PROTO_23:
   MOVE R2 R3
   CALL R1 1 0
   RETURN R0 0
-  DUPTABLE R1 K13 [{"AssetId", "AssetType", "DisplayName", "Description", "VersionNumber", "Created", "Modified", "ModerationStatus", "Creator", "Source", "Archived"}]
+  DUPTABLE R1 K14 [{"Path", "AssetId", "AssetType", "DisplayName", "Description", "VersionNumber", "Created", "Modified", "ModerationStatus", "Creator", "Source", "Archived"}]
+  LOADK R3 K15 ["users/%*/creator-inventory-items/asset-%*"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K16 ["Id"]
+  GETUPVAL R6 1
+  NAMECALL R3 R3 K1 ["format"]
+  CALL R3 3 1
+  MOVE R2 R3
+  SETTABLEKS R2 R1 K2 ["Path"]
   GETUPVAL R2 1
-  SETTABLEKS R2 R1 K2 ["AssetId"]
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K3 ["AssetType"]
-  GETTABLEKS R2 R3 K14 ["Model"]
-  SETTABLEKS R2 R1 K3 ["AssetType"]
-  LOADK R2 K15 ["Mock Individual Asset"]
-  SETTABLEKS R2 R1 K4 ["DisplayName"]
-  LOADK R2 K16 ["A mock asset fetched via fetching asset info directly"]
-  SETTABLEKS R2 R1 K5 ["Description"]
+  SETTABLEKS R2 R1 K3 ["AssetId"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K4 ["AssetType"]
+  GETTABLEKS R2 R3 K17 ["Model"]
+  SETTABLEKS R2 R1 K4 ["AssetType"]
+  LOADK R2 K18 ["Mock Individual Asset"]
+  SETTABLEKS R2 R1 K5 ["DisplayName"]
+  LOADK R2 K19 ["A mock asset fetched via fetching asset info directly"]
+  SETTABLEKS R2 R1 K6 ["Description"]
   LOADN R2 1
-  SETTABLEKS R2 R1 K6 ["VersionNumber"]
-  LOADK R2 K17 ["2021-01-01T00:00:00Z"]
-  SETTABLEKS R2 R1 K7 ["Created"]
-  LOADK R2 K17 ["2021-01-01T00:00:00Z"]
-  SETTABLEKS R2 R1 K8 ["Modified"]
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K9 ["ModerationStatus"]
-  GETTABLEKS R2 R3 K18 ["Approved"]
-  SETTABLEKS R2 R1 K9 ["ModerationStatus"]
-  GETUPVAL R2 3
-  SETTABLEKS R2 R1 K10 ["Creator"]
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K19 ["AssetSource"]
-  GETTABLEKS R2 R3 K20 ["Uploaded"]
-  SETTABLEKS R2 R1 K11 ["Source"]
+  SETTABLEKS R2 R1 K7 ["VersionNumber"]
+  LOADK R2 K20 ["2021-01-01T00:00:00Z"]
+  SETTABLEKS R2 R1 K8 ["Created"]
+  LOADK R2 K20 ["2021-01-01T00:00:00Z"]
+  SETTABLEKS R2 R1 K9 ["Modified"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K10 ["ModerationStatus"]
+  GETTABLEKS R2 R3 K21 ["Approved"]
+  SETTABLEKS R2 R1 K10 ["ModerationStatus"]
+  GETUPVAL R2 2
+  SETTABLEKS R2 R1 K11 ["Creator"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K22 ["AssetSource"]
+  GETTABLEKS R2 R3 K23 ["Uploaded"]
+  SETTABLEKS R2 R1 K12 ["Source"]
   LOADB R2 0
-  SETTABLEKS R2 R1 K12 ["Archived"]
-  DUPTABLE R2 K13 [{"AssetId", "AssetType", "DisplayName", "Description", "VersionNumber", "Created", "Modified", "ModerationStatus", "Creator", "Source", "Archived"}]
+  SETTABLEKS R2 R1 K13 ["Archived"]
+  DUPTABLE R2 K14 [{"Path", "AssetId", "AssetType", "DisplayName", "Description", "VersionNumber", "Created", "Modified", "ModerationStatus", "Creator", "Source", "Archived"}]
+  LOADK R4 K15 ["users/%*/creator-inventory-items/asset-%*"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K16 ["Id"]
+  GETUPVAL R8 1
+  ADDK R7 R8 K24 [1]
+  NAMECALL R4 R4 K1 ["format"]
+  CALL R4 3 1
+  MOVE R3 R4
+  SETTABLEKS R3 R2 K2 ["Path"]
   GETUPVAL R4 1
-  ADDK R3 R4 K21 [1]
-  SETTABLEKS R3 R2 K2 ["AssetId"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K3 ["AssetType"]
-  GETTABLEKS R3 R4 K22 ["Mesh"]
-  SETTABLEKS R3 R2 K3 ["AssetType"]
-  LOADK R3 K23 ["Mock Dependency Asset"]
-  SETTABLEKS R3 R2 K4 ["DisplayName"]
-  LOADK R3 K24 ["A mock asset that another asset depends on"]
-  SETTABLEKS R3 R2 K5 ["Description"]
+  ADDK R3 R4 K24 [1]
+  SETTABLEKS R3 R2 K3 ["AssetId"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K4 ["AssetType"]
+  GETTABLEKS R3 R4 K25 ["Mesh"]
+  SETTABLEKS R3 R2 K4 ["AssetType"]
+  LOADK R3 K26 ["Mock Dependency Asset"]
+  SETTABLEKS R3 R2 K5 ["DisplayName"]
+  LOADK R3 K27 ["A mock asset that another asset depends on"]
+  SETTABLEKS R3 R2 K6 ["Description"]
   LOADN R3 1
-  SETTABLEKS R3 R2 K6 ["VersionNumber"]
-  LOADK R3 K17 ["2021-01-01T00:00:00Z"]
-  SETTABLEKS R3 R2 K7 ["Created"]
-  LOADK R3 K17 ["2021-01-01T00:00:00Z"]
-  SETTABLEKS R3 R2 K8 ["Modified"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K9 ["ModerationStatus"]
-  GETTABLEKS R3 R4 K18 ["Approved"]
-  SETTABLEKS R3 R2 K9 ["ModerationStatus"]
-  GETUPVAL R3 3
-  SETTABLEKS R3 R2 K10 ["Creator"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K19 ["AssetSource"]
-  GETTABLEKS R3 R4 K20 ["Uploaded"]
-  SETTABLEKS R3 R2 K11 ["Source"]
+  SETTABLEKS R3 R2 K7 ["VersionNumber"]
+  LOADK R3 K20 ["2021-01-01T00:00:00Z"]
+  SETTABLEKS R3 R2 K8 ["Created"]
+  LOADK R3 K20 ["2021-01-01T00:00:00Z"]
+  SETTABLEKS R3 R2 K9 ["Modified"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K10 ["ModerationStatus"]
+  GETTABLEKS R3 R4 K21 ["Approved"]
+  SETTABLEKS R3 R2 K10 ["ModerationStatus"]
+  GETUPVAL R3 2
+  SETTABLEKS R3 R2 K11 ["Creator"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K22 ["AssetSource"]
+  GETTABLEKS R3 R4 K23 ["Uploaded"]
+  SETTABLEKS R3 R2 K12 ["Source"]
   LOADB R3 0
-  SETTABLEKS R3 R2 K12 ["Archived"]
+  SETTABLEKS R3 R2 K13 ["Archived"]
   GETUPVAL R3 4
   MOVE R4 R1
   CALL R3 1 0
@@ -494,19 +518,19 @@ PROTO_23:
   CALL R3 1 0
   RETURN R0 0
 
-PROTO_24:
+PROTO_25:
   GETUPVAL R5 0
   GETTABLEKS R4 R5 K0 ["ResumeAsync"]
   NEWCLOSURE R5 P0
   CAPTURE VAL R3
   CAPTURE VAL R0
-  CAPTURE UPVAL U1
   CAPTURE VAL R1
+  CAPTURE UPVAL U1
   CAPTURE VAL R2
   SETTABLEKS R5 R4 K1 ["FetchAssetInfo"]
   RETURN R0 0
 
-PROTO_25:
+PROTO_26:
   JUMPIFNOT R0 [+9]
   GETUPVAL R1 0
   LOADK R3 K0 ["Mock fetchPluginInfoAsync error for plugin %*"]
@@ -523,7 +547,7 @@ PROTO_25:
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_26:
+PROTO_27:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["ResumeAsync"]
   NEWCLOSURE R4 P0
@@ -533,7 +557,7 @@ PROTO_26:
   SETTABLEKS R4 R3 K1 ["FetchPluginInfo"]
   RETURN R0 0
 
-PROTO_27:
+PROTO_28:
   JUMPIFNOT R0 [+4]
   GETUPVAL R1 0
   LOADK R2 K0 ["Test fetchFoldersAsync error"]
@@ -559,7 +583,7 @@ PROTO_27:
   CALL R2 1 0
   RETURN R0 0
 
-PROTO_28:
+PROTO_29:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["ResumeAsync"]
   NEWCLOSURE R4 P0
@@ -570,14 +594,14 @@ PROTO_28:
   SETTABLEKS R4 R3 K1 ["FetchFolders"]
   RETURN R0 0
 
-PROTO_29:
+PROTO_30:
   GETUPVAL R0 0
   LOADN R1 0
   SETTABLEKS R1 R0 K0 ["_requestTracker"]
   LOADN R0 0
   RETURN R0 1
 
-PROTO_30:
+PROTO_31:
   PREPVARARGS 1
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K0 ["ResumeAsync"]
@@ -662,32 +686,34 @@ MAIN:
   DUPCLOSURE R6 K33 [PROTO_17]
   SETTABLEKS R6 R5 K34 ["grantUniverseUseAssetsPermissions"]
   DUPCLOSURE R6 K35 [PROTO_18]
-  CAPTURE VAL R1
-  SETTABLEKS R6 R5 K36 ["getThumbnailUriForScope"]
+  SETTABLEKS R6 R5 K36 ["grantAssetsPermissions"]
   DUPCLOSURE R6 K37 [PROTO_19]
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K38 ["getThumbnailForScopeAsync"]
+  SETTABLEKS R6 R5 K38 ["getThumbnailUriForScope"]
   DUPCLOSURE R6 K39 [PROTO_20]
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K40 ["getThumbnailForItem"]
-  DUPCLOSURE R6 K41 [PROTO_22]
+  SETTABLEKS R6 R5 K40 ["getThumbnailForScopeAsync"]
+  DUPCLOSURE R6 K41 [PROTO_21]
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K42 ["getThumbnailForItem"]
+  DUPCLOSURE R6 K43 [PROTO_23]
   CAPTURE VAL R5
-  SETTABLEKS R6 R5 K42 ["getThumbnailForItemAsync"]
-  DUPCLOSURE R6 K43 [PROTO_24]
+  SETTABLEKS R6 R5 K44 ["getThumbnailForItemAsync"]
+  DUPCLOSURE R6 K45 [PROTO_25]
   CAPTURE VAL R5
   CAPTURE VAL R2
-  SETTABLEKS R6 R5 K44 ["fetchAssetInfoAsync"]
-  DUPCLOSURE R6 K45 [PROTO_26]
+  SETTABLEKS R6 R5 K46 ["fetchAssetInfoAsync"]
+  DUPCLOSURE R6 K47 [PROTO_27]
   CAPTURE VAL R5
-  SETTABLEKS R6 R5 K46 ["fetchPluginInfoAsync"]
-  DUPCLOSURE R6 K47 [PROTO_28]
-  CAPTURE VAL R5
-  CAPTURE VAL R3
-  SETTABLEKS R6 R5 K48 ["fetchFoldersAsync"]
+  SETTABLEKS R6 R5 K48 ["fetchPluginInfoAsync"]
   DUPCLOSURE R6 K49 [PROTO_29]
   CAPTURE VAL R5
-  SETTABLEKS R6 R5 K50 ["setupNewFetchSession"]
+  CAPTURE VAL R3
+  SETTABLEKS R6 R5 K50 ["fetchFoldersAsync"]
   DUPCLOSURE R6 K51 [PROTO_30]
   CAPTURE VAL R5
-  SETTABLEKS R6 R5 K52 ["resume"]
+  SETTABLEKS R6 R5 K52 ["setupNewFetchSession"]
+  DUPCLOSURE R6 K53 [PROTO_31]
+  CAPTURE VAL R5
+  SETTABLEKS R6 R5 K54 ["resume"]
   RETURN R5 1

@@ -34,6 +34,9 @@ return function()
 	table.insert(allowList, "ShowPlayerJoinedFriendsToast")
 	table.insert(allowList, "ShowFriendJoinedPlayerToast")
 	table.insert(allowList, "CreateOrJoinParty")
+	if game:DefineFastFlag("RemoteAllowListAddSocial", false) then
+		table.insert(allowList, "RequestPlayerProfileSettings")
+	end
 
 	-- content/scripts/CoreScripts/ServerCoreScripts/ServerDialog.lua
 	table.insert(allowList, "SetDialogInUse")
@@ -56,8 +59,8 @@ return function()
 	table.insert(allowList, "SendLikelySpeakingUsers")
 	table.insert(allowList, "ReceiveLikelySpeakingUsers")
 
+	-- content/scripts/CoreScripts/Modules/Server/VR/VRAvatarGesturesServer.lua
 	if game:DefineFastFlag("RemoteAllowListAddVR", false) then
-		-- content/scripts/CoreScripts/Modules/Server/VR/VRAvatarGesturesServer.lua
 		table.insert(allowList, "AvatarGesturesVRPlayer")
 	end
 

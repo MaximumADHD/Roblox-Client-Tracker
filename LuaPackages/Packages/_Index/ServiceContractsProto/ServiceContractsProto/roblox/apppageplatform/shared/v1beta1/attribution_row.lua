@@ -58,6 +58,23 @@ type _AttributionRowSchema_PropsFields = {
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
+	image_size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	title_text_color: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
+	title_font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
+	subtitle: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subtitle_text_color: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
+	subtitle_font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
+	subtitle_icon_size: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subtitle_icon_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subtitle_icon_style: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subtitle_icon_variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subtitle_on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	caption: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	caption_text_color: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
+	caption_font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
+	text_container_size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 }
 
 type _AttributionRowSchema_PropsPartialFields = {
@@ -66,6 +83,23 @@ type _AttributionRowSchema_PropsPartialFields = {
 	layout_order: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
+	image_size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	title: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	title_text_color: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
+	title_font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
+	subtitle: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subtitle_text_color: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
+	subtitle_font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
+	subtitle_icon_size: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subtitle_icon_name: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subtitle_icon_style: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subtitle_icon_variant: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	subtitle_on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	caption: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	caption_text_color: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
+	caption_font_style: _roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp?,
+	text_container_size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
+	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 }
 
 export type AttributionRowSchema_Props = typeof(setmetatable(
@@ -211,6 +245,35 @@ do
 			layout_order = if data == nil or data.layout_order == nil then nil else data.layout_order,
 			position = if data == nil or data.position == nil then nil else data.position,
 			image = if data == nil or data.image == nil then nil else data.image,
+			image_size = if data == nil or data.image_size == nil then nil else data.image_size,
+			title = if data == nil or data.title == nil then nil else data.title,
+			title_text_color = if data == nil or data.title_text_color == nil then nil else data.title_text_color,
+			title_font_style = if data == nil or data.title_font_style == nil then nil else data.title_font_style,
+			subtitle = if data == nil or data.subtitle == nil then nil else data.subtitle,
+			subtitle_text_color = if data == nil or data.subtitle_text_color == nil
+				then nil
+				else data.subtitle_text_color,
+			subtitle_font_style = if data == nil or data.subtitle_font_style == nil
+				then nil
+				else data.subtitle_font_style,
+			subtitle_icon_size = if data == nil or data.subtitle_icon_size == nil then nil else data.subtitle_icon_size,
+			subtitle_icon_name = if data == nil or data.subtitle_icon_name == nil then nil else data.subtitle_icon_name,
+			subtitle_icon_style = if data == nil or data.subtitle_icon_style == nil
+				then nil
+				else data.subtitle_icon_style,
+			subtitle_icon_variant = if data == nil or data.subtitle_icon_variant == nil
+				then nil
+				else data.subtitle_icon_variant,
+			subtitle_on_activated = if data == nil or data.subtitle_on_activated == nil
+				then nil
+				else data.subtitle_on_activated,
+			caption = if data == nil or data.caption == nil then nil else data.caption,
+			caption_text_color = if data == nil or data.caption_text_color == nil then nil else data.caption_text_color,
+			caption_font_style = if data == nil or data.caption_font_style == nil then nil else data.caption_font_style,
+			text_container_size = if data == nil or data.text_container_size == nil
+				then nil
+				else data.text_container_size,
+			size = if data == nil or data.size == nil then nil else data.size,
 		}, _AttributionRowSchema_PropsImpl :: _AttributionRowSchema_PropsImpl)
 	end
 
@@ -245,6 +308,108 @@ do
 		if self.image ~= nil then
 			local encoded = self.image:encode()
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.image_size ~= nil then
+			local encoded = self.image_size:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.title ~= nil then
+			local encoded = self.title:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.title_text_color ~= nil then
+			local encoded = self.title_text_color:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.title_font_style ~= nil then
+			local encoded = self.title_font_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 9, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.subtitle ~= nil then
+			local encoded = self.subtitle:encode()
+			output, cursor = proto.writeTag(output, cursor, 10, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.subtitle_text_color ~= nil then
+			local encoded = self.subtitle_text_color:encode()
+			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.subtitle_font_style ~= nil then
+			local encoded = self.subtitle_font_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.subtitle_icon_size ~= nil then
+			local encoded = self.subtitle_icon_size:encode()
+			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.subtitle_icon_name ~= nil then
+			local encoded = self.subtitle_icon_name:encode()
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.subtitle_icon_style ~= nil then
+			local encoded = self.subtitle_icon_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.subtitle_icon_variant ~= nil then
+			local encoded = self.subtitle_icon_variant:encode()
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.subtitle_on_activated ~= nil then
+			local encoded = self.subtitle_on_activated:encode()
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.caption ~= nil then
+			local encoded = self.caption:encode()
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.caption_text_color ~= nil then
+			local encoded = self.caption_text_color:encode()
+			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.caption_font_style ~= nil then
+			local encoded = self.caption_font_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 20, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.text_container_size ~= nil then
+			local encoded = self.text_container_size:encode()
+			output, cursor = proto.writeTag(output, cursor, 21, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.size ~= nil then
+			local encoded = self.size:encode()
+			output, cursor = proto.writeTag(output, cursor, 22, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -293,6 +458,96 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.image = _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp.decode(value)
 					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.image_size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title_text_color = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.decode(value)
+					continue
+				elseif field == 9 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.title_font_style =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.decode(value)
+					continue
+				elseif field == 10 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 11 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle_text_color = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.decode(value)
+					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle_font_style =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.decode(value)
+					continue
+				elseif field == 13 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle_icon_size = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle_icon_name = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle_icon_style =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle_icon_variant =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.subtitle_on_activated = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
+					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.caption = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 19 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.caption_text_color = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.decode(value)
+					continue
+				elseif field == 20 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.caption_font_style =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.decode(value)
+					continue
+				elseif field == 21 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.text_container_size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.decode(value)
+					continue
+				elseif field == 22 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.decode(value)
+					continue
 				end
 
 				local length
@@ -340,6 +595,74 @@ do
 			output.image = self.image:jsonEncode()
 		end
 
+		if self.image_size ~= nil then
+			output.imageSize = self.image_size:jsonEncode()
+		end
+
+		if self.title ~= nil then
+			output.title = self.title:jsonEncode()
+		end
+
+		if self.title_text_color ~= nil then
+			output.titleTextColor = self.title_text_color:jsonEncode()
+		end
+
+		if self.title_font_style ~= nil then
+			output.titleFontStyle = self.title_font_style:jsonEncode()
+		end
+
+		if self.subtitle ~= nil then
+			output.subtitle = self.subtitle:jsonEncode()
+		end
+
+		if self.subtitle_text_color ~= nil then
+			output.subtitleTextColor = self.subtitle_text_color:jsonEncode()
+		end
+
+		if self.subtitle_font_style ~= nil then
+			output.subtitleFontStyle = self.subtitle_font_style:jsonEncode()
+		end
+
+		if self.subtitle_icon_size ~= nil then
+			output.subtitleIconSize = self.subtitle_icon_size:jsonEncode()
+		end
+
+		if self.subtitle_icon_name ~= nil then
+			output.subtitleIconName = self.subtitle_icon_name:jsonEncode()
+		end
+
+		if self.subtitle_icon_style ~= nil then
+			output.subtitleIconStyle = self.subtitle_icon_style:jsonEncode()
+		end
+
+		if self.subtitle_icon_variant ~= nil then
+			output.subtitleIconVariant = self.subtitle_icon_variant:jsonEncode()
+		end
+
+		if self.subtitle_on_activated ~= nil then
+			output.subtitleOnActivated = self.subtitle_on_activated:jsonEncode()
+		end
+
+		if self.caption ~= nil then
+			output.caption = self.caption:jsonEncode()
+		end
+
+		if self.caption_text_color ~= nil then
+			output.captionTextColor = self.caption_text_color:jsonEncode()
+		end
+
+		if self.caption_font_style ~= nil then
+			output.captionFontStyle = self.caption_font_style:jsonEncode()
+		end
+
+		if self.text_container_size ~= nil then
+			output.textContainerSize = self.text_container_size:jsonEncode()
+		end
+
+		if self.size ~= nil then
+			output.size = self.size:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -384,6 +707,150 @@ do
 
 		if input.image ~= nil then
 			self.image = _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp.jsonDecode(input.image)
+		end
+
+		if input.image_size ~= nil then
+			self.image_size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.jsonDecode(input.image_size)
+		end
+
+		if input.imageSize ~= nil then
+			self.image_size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.jsonDecode(input.imageSize)
+		end
+
+		if input.title ~= nil then
+			self.title = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.title)
+		end
+
+		if input.title_text_color ~= nil then
+			self.title_text_color =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.title_text_color)
+		end
+
+		if input.titleTextColor ~= nil then
+			self.title_text_color =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.titleTextColor)
+		end
+
+		if input.title_font_style ~= nil then
+			self.title_font_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.jsonDecode(input.title_font_style)
+		end
+
+		if input.titleFontStyle ~= nil then
+			self.title_font_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.jsonDecode(input.titleFontStyle)
+		end
+
+		if input.subtitle ~= nil then
+			self.subtitle = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitle)
+		end
+
+		if input.subtitle_text_color ~= nil then
+			self.subtitle_text_color =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.subtitle_text_color)
+		end
+
+		if input.subtitleTextColor ~= nil then
+			self.subtitle_text_color =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.subtitleTextColor)
+		end
+
+		if input.subtitle_font_style ~= nil then
+			self.subtitle_font_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.jsonDecode(input.subtitle_font_style)
+		end
+
+		if input.subtitleFontStyle ~= nil then
+			self.subtitle_font_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.jsonDecode(input.subtitleFontStyle)
+		end
+
+		if input.subtitle_icon_size ~= nil then
+			self.subtitle_icon_size =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitle_icon_size)
+		end
+
+		if input.subtitleIconSize ~= nil then
+			self.subtitle_icon_size =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitleIconSize)
+		end
+
+		if input.subtitle_icon_name ~= nil then
+			self.subtitle_icon_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitle_icon_name)
+		end
+
+		if input.subtitleIconName ~= nil then
+			self.subtitle_icon_name =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitleIconName)
+		end
+
+		if input.subtitle_icon_style ~= nil then
+			self.subtitle_icon_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitle_icon_style)
+		end
+
+		if input.subtitleIconStyle ~= nil then
+			self.subtitle_icon_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitleIconStyle)
+		end
+
+		if input.subtitle_icon_variant ~= nil then
+			self.subtitle_icon_variant =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitle_icon_variant)
+		end
+
+		if input.subtitleIconVariant ~= nil then
+			self.subtitle_icon_variant =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.subtitleIconVariant)
+		end
+
+		if input.subtitle_on_activated ~= nil then
+			self.subtitle_on_activated =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.subtitle_on_activated)
+		end
+
+		if input.subtitleOnActivated ~= nil then
+			self.subtitle_on_activated =
+				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.subtitleOnActivated)
+		end
+
+		if input.caption ~= nil then
+			self.caption = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.caption)
+		end
+
+		if input.caption_text_color ~= nil then
+			self.caption_text_color =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.caption_text_color)
+		end
+
+		if input.captionTextColor ~= nil then
+			self.caption_text_color =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.captionTextColor)
+		end
+
+		if input.caption_font_style ~= nil then
+			self.caption_font_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.jsonDecode(input.caption_font_style)
+		end
+
+		if input.captionFontStyle ~= nil then
+			self.caption_font_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.TypographyProp.jsonDecode(input.captionFontStyle)
+		end
+
+		if input.text_container_size ~= nil then
+			self.text_container_size =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.jsonDecode(input.text_container_size)
+		end
+
+		if input.textContainerSize ~= nil then
+			self.text_container_size =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.jsonDecode(input.textContainerSize)
+		end
+
+		if input.size ~= nil then
+			self.size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.jsonDecode(input.size)
 		end
 
 		return self

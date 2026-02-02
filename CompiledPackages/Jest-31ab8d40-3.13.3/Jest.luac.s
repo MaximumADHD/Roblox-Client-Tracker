@@ -1,0 +1,17 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  NEWTABLE R1 4 0
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R0 K5 ["JestCore"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K6 ["SearchSource"]
+  SETTABLEKS R3 R1 K6 ["SearchSource"]
+  GETTABLEKS R3 R2 K7 ["TestWatcher"]
+  SETTABLEKS R3 R1 K7 ["TestWatcher"]
+  GETTABLEKS R3 R2 K8 ["createTestScheduler"]
+  SETTABLEKS R3 R1 K8 ["createTestScheduler"]
+  GETTABLEKS R3 R2 K9 ["runCLI"]
+  SETTABLEKS R3 R1 K9 ["runCLI"]
+  RETURN R1 1

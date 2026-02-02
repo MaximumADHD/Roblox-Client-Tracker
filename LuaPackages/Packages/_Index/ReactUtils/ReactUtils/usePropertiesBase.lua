@@ -13,7 +13,7 @@ export type ChangeFunc = (...any) -> ()
 export type PropNames = string | { string }
 
 local function usePropertiesBase<T>(
-	forwardRef: React.Ref<T>,
+	forwardRef: React.Ref<T>?,
 	update: ChangeFunc,
 	defer: boolean,
 	...: PropNames

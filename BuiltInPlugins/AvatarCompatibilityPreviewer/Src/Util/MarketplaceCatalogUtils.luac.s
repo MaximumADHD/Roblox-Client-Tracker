@@ -1,0 +1,25 @@
+PROTO_0:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFNOTEQKS R1 K2 ["number"] [+2]
+  RETURN R0 1
+  GETTABLEKS R1 R0 K3 ["uniqueId"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Components"]
+  GETTABLEKS R2 R3 K8 ["MarketplaceCatalogContext"]
+  CALL R1 1 1
+  NEWTABLE R2 1 0
+  DUPCLOSURE R3 K9 [PROTO_0]
+  SETTABLEKS R3 R2 K10 ["extractUniqueId"]
+  RETURN R2 1

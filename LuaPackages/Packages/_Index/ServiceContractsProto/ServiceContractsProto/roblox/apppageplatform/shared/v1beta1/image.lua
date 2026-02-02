@@ -13,6 +13,7 @@ type _Messages = {
 local messages: _Messages = {} :: _Messages
 
 local _roblox_apppageplatform_shared_v1beta1_prop_types = require(script.Parent.prop_types)
+local _roblox_apppageplatform_shared_v1beta1_prop_types_engine = require(script.Parent.prop_types_engine)
 local _roblox_apppageplatform_shared_v1beta1_actions = require(script.Parent.actions)
 local _roblox_apppageplatform_shared_v1beta1_component_shared = require(script.Parent.component_shared)
 
@@ -57,12 +58,18 @@ type _ImageSchema_PropsFields = {
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
-	scale_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	resample_mode: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	scale_type: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp?,
+	resample_mode: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.ResamplerModeProp?,
 	tile_size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
-	slice: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
-	image_rect: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
-	image_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
+	image_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	test_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	cursor_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	visible: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	children: _roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp?,
+	size_constraint: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.SizeConstraintProp?,
+	automatic_size: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp?,
 }
 
 type _ImageSchema_PropsPartialFields = {
@@ -73,12 +80,18 @@ type _ImageSchema_PropsPartialFields = {
 	size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	on_activated: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	image: _roblox_apppageplatform_shared_v1beta1_prop_types.ImageStringProp?,
-	scale_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
-	resample_mode: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	scale_type: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp?,
+	resample_mode: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.ResamplerModeProp?,
 	tile_size: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
-	slice: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
-	image_rect: _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp?,
-	image_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
+	image_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp?,
+	test_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	cursor_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	visible: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
+	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	children: _roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp?,
+	size_constraint: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.SizeConstraintProp?,
+	automatic_size: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp?,
 }
 
 export type ImageSchema_Props = typeof(setmetatable({} :: _ImageSchema_PropsFields, {} :: _ImageSchema_PropsImpl))
@@ -219,9 +232,15 @@ do
 			scale_type = if data == nil or data.scale_type == nil then nil else data.scale_type,
 			resample_mode = if data == nil or data.resample_mode == nil then nil else data.resample_mode,
 			tile_size = if data == nil or data.tile_size == nil then nil else data.tile_size,
-			slice = if data == nil or data.slice == nil then nil else data.slice,
-			image_rect = if data == nil or data.image_rect == nil then nil else data.image_rect,
 			image_style = if data == nil or data.image_style == nil then nil else data.image_style,
+			test_id = if data == nil or data.test_id == nil then nil else data.test_id,
+			tag = if data == nil or data.tag == nil then nil else data.tag,
+			cursor_type = if data == nil or data.cursor_type == nil then nil else data.cursor_type,
+			visible = if data == nil or data.visible == nil then nil else data.visible,
+			z_index = if data == nil or data.z_index == nil then nil else data.z_index,
+			children = if data == nil or data.children == nil then nil else data.children,
+			size_constraint = if data == nil or data.size_constraint == nil then nil else data.size_constraint,
+			automatic_size = if data == nil or data.automatic_size == nil then nil else data.automatic_size,
 		}, _ImageSchema_PropsImpl :: _ImageSchema_PropsImpl)
 	end
 
@@ -289,21 +308,57 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.slice ~= nil then
-			local encoded = self.slice:encode()
+		if self.image_style ~= nil then
+			local encoded = self.image_style:encode()
 			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.image_rect ~= nil then
-			local encoded = self.image_rect:encode()
+		if self.test_id ~= nil then
+			local encoded = self.test_id:encode()
 			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if self.image_style ~= nil then
-			local encoded = self.image_style:encode()
+		if self.tag ~= nil then
+			local encoded = self.tag:encode()
 			output, cursor = proto.writeTag(output, cursor, 13, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.cursor_type ~= nil then
+			local encoded = self.cursor_type:encode()
+			output, cursor = proto.writeTag(output, cursor, 14, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.visible ~= nil then
+			local encoded = self.visible:encode()
+			output, cursor = proto.writeTag(output, cursor, 15, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.z_index ~= nil then
+			local encoded = self.z_index:encode()
+			output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.children ~= nil then
+			local encoded = self.children:encode()
+			output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.size_constraint ~= nil then
+			local encoded = self.size_constraint:encode()
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.automatic_size ~= nil then
+			local encoded = self.automatic_size:encode()
+			output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -364,12 +419,14 @@ do
 				elseif field == 8 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.scale_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					self.scale_type =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp.decode(value)
 					continue
 				elseif field == 9 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.resample_mode = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					self.resample_mode =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.ResamplerModeProp.decode(value)
 					continue
 				elseif field == 10 then
 					local value
@@ -379,17 +436,50 @@ do
 				elseif field == 11 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.slice = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.decode(value)
+					self.image_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.decode(value)
 					continue
 				elseif field == 12 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.image_rect = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.decode(value)
+					self.test_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				elseif field == 13 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.image_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.decode(value)
+					self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 14 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.cursor_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 15 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.visible = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
+					continue
+				elseif field == 16 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.children =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp.decode(value)
+					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.size_constraint =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.SizeConstraintProp.decode(value)
+					continue
+				elseif field == 19 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.automatic_size =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp.decode(value)
 					continue
 				end
 
@@ -458,16 +548,40 @@ do
 			output.tileSize = self.tile_size:jsonEncode()
 		end
 
-		if self.slice ~= nil then
-			output.slice = self.slice:jsonEncode()
-		end
-
-		if self.image_rect ~= nil then
-			output.imageRect = self.image_rect:jsonEncode()
-		end
-
 		if self.image_style ~= nil then
 			output.imageStyle = self.image_style:jsonEncode()
+		end
+
+		if self.test_id ~= nil then
+			output.testId = self.test_id:jsonEncode()
+		end
+
+		if self.tag ~= nil then
+			output.tag = self.tag:jsonEncode()
+		end
+
+		if self.cursor_type ~= nil then
+			output.cursorType = self.cursor_type:jsonEncode()
+		end
+
+		if self.visible ~= nil then
+			output.visible = self.visible:jsonEncode()
+		end
+
+		if self.z_index ~= nil then
+			output.zIndex = self.z_index:jsonEncode()
+		end
+
+		if self.children ~= nil then
+			output.children = self.children:jsonEncode()
+		end
+
+		if self.size_constraint ~= nil then
+			output.sizeConstraint = self.size_constraint:jsonEncode()
+		end
+
+		if self.automatic_size ~= nil then
+			output.automaticSize = self.automatic_size:jsonEncode()
 		end
 
 		return output
@@ -527,21 +641,25 @@ do
 		end
 
 		if input.scale_type ~= nil then
-			self.scale_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.scale_type)
+			self.scale_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp.jsonDecode(input.scale_type)
 		end
 
 		if input.scaleType ~= nil then
-			self.scale_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.scaleType)
+			self.scale_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.ScaleTypeProp.jsonDecode(input.scaleType)
 		end
 
 		if input.resample_mode ~= nil then
-			self.resample_mode =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.resample_mode)
+			self.resample_mode = _roblox_apppageplatform_shared_v1beta1_prop_types_engine.ResamplerModeProp.jsonDecode(
+				input.resample_mode
+			)
 		end
 
 		if input.resampleMode ~= nil then
-			self.resample_mode =
-				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.resampleMode)
+			self.resample_mode = _roblox_apppageplatform_shared_v1beta1_prop_types_engine.ResamplerModeProp.jsonDecode(
+				input.resampleMode
+			)
 		end
 
 		if input.tile_size ~= nil then
@@ -552,24 +670,78 @@ do
 			self.tile_size = _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop.jsonDecode(input.tileSize)
 		end
 
-		if input.slice ~= nil then
-			self.slice = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.slice)
-		end
-
-		if input.image_rect ~= nil then
-			self.image_rect = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.image_rect)
-		end
-
-		if input.imageRect ~= nil then
-			self.image_rect = _roblox_apppageplatform_shared_v1beta1_prop_types.StructProp.jsonDecode(input.imageRect)
-		end
-
 		if input.image_style ~= nil then
-			self.image_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.image_style)
+			self.image_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.image_style)
 		end
 
 		if input.imageStyle ~= nil then
-			self.image_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.imageStyle)
+			self.image_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorStyleProp.jsonDecode(input.imageStyle)
+		end
+
+		if input.test_id ~= nil then
+			self.test_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.test_id)
+		end
+
+		if input.testId ~= nil then
+			self.test_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.testId)
+		end
+
+		if input.tag ~= nil then
+			self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tag)
+		end
+
+		if input.cursor_type ~= nil then
+			self.cursor_type =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.cursor_type)
+		end
+
+		if input.cursorType ~= nil then
+			self.cursor_type = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.cursorType)
+		end
+
+		if input.visible ~= nil then
+			self.visible = _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.visible)
+		end
+
+		if input.z_index ~= nil then
+			self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.z_index)
+		end
+
+		if input.zIndex ~= nil then
+			self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.zIndex)
+		end
+
+		if input.children ~= nil then
+			self.children =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp.jsonDecode(input.children)
+		end
+
+		if input.size_constraint ~= nil then
+			self.size_constraint =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.SizeConstraintProp.jsonDecode(
+					input.size_constraint
+				)
+		end
+
+		if input.sizeConstraint ~= nil then
+			self.size_constraint =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.SizeConstraintProp.jsonDecode(
+					input.sizeConstraint
+				)
+		end
+
+		if input.automatic_size ~= nil then
+			self.automatic_size = _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp.jsonDecode(
+				input.automatic_size
+			)
+		end
+
+		if input.automaticSize ~= nil then
+			self.automatic_size = _roblox_apppageplatform_shared_v1beta1_prop_types_engine.AutomaticSizeProp.jsonDecode(
+				input.automaticSize
+			)
 		end
 
 		return self

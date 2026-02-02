@@ -359,279 +359,298 @@ PROTO_7:
   GETTABLEKS R12 R0 K73 ["Avatar"]
   GETTABLEKS R11 R12 K74 ["WorldModel"]
   CALL R10 1 1
-  LOADB R11 1
-  GETTABLEKS R12 R6 K49 ["canUploadBundles"]
-  JUMPIFEQKNIL R12 [+9]
-  GETTABLEKS R13 R6 K49 ["canUploadBundles"]
-  GETTABLEKS R12 R13 K5 ["type"]
-  JUMPIFNOTEQKS R12 K50 ["notAllowed"] [+2]
-  LOADB R11 0 +1
-  LOADB R11 1
-  GETUPVAL R13 4
-  GETTABLEKS R12 R13 K7 ["createElement"]
-  GETUPVAL R13 10
-  DUPTABLE R14 K75 [{"BackgroundColor", "Size", "ZIndex"}]
-  GETTABLEKS R15 R1 K8 ["BackgroundColor"]
-  SETTABLEKS R15 R14 K8 ["BackgroundColor"]
-  GETIMPORT R15 K16 [UDim2.new]
-  LOADN R16 0
-  GETTABLEKS R17 R1 K17 ["Width"]
-  LOADN R18 1
-  LOADN R19 0
-  CALL R15 4 1
-  SETTABLEKS R15 R14 K11 ["Size"]
-  LOADN R15 2
-  SETTABLEKS R15 R14 K12 ["ZIndex"]
-  DUPTABLE R15 K77 [{"Contents", "SettingsButton", "SettingsMenu", "SubmitDialog"}]
-  GETUPVAL R17 4
-  GETTABLEKS R16 R17 K7 ["createElement"]
-  GETUPVAL R17 10
-  DUPTABLE R18 K24 [{"Layout", "VerticalAlignment"}]
-  GETIMPORT R19 K28 [Enum.FillDirection.Vertical]
-  SETTABLEKS R19 R18 K22 ["Layout"]
-  GETIMPORT R19 K30 [Enum.VerticalAlignment.Top]
-  SETTABLEKS R19 R18 K23 ["VerticalAlignment"]
-  DUPTABLE R19 K79 [{"CheckBody", "CheckFace", "Test", "LookSaveMenu", "Publish"}]
-  GETUPVAL R21 4
-  GETTABLEKS R20 R21 K7 ["createElement"]
-  GETUPVAL R21 11
-  DUPTABLE R22 K80 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "OnClick"}]
-  NAMECALL R23 R3 K42 ["getNextOrder"]
-  CALL R23 1 1
-  SETTABLEKS R23 R22 K36 ["LayoutOrder"]
-  LOADK R23 K43 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/check_body.png"]
-  SETTABLEKS R23 R22 K37 ["Icon"]
-  GETTABLEKS R24 R0 K81 ["SelectedStage"]
-  JUMPIFEQKS R24 K31 ["CheckBody"] [+2]
-  LOADB R23 0 +1
-  LOADB R23 1
-  SETTABLEKS R23 R22 K38 ["IsSelected"]
-  LOADK R23 K31 ["CheckBody"]
-  SETTABLEKS R23 R22 K39 ["StageText"]
-  NEWCLOSURE R23 P0
+  GETUPVAL R12 8
+  CALL R12 0 1
+  JUMPIFNOT R12 [+8]
+  GETUPVAL R12 4
+  GETTABLEKS R11 R12 K3 ["useContext"]
+  GETUPVAL R13 14
+  GETTABLEKS R12 R13 K4 ["Context"]
+  CALL R11 1 1
+  JUMP [+1]
+  LOADNIL R11
+  GETUPVAL R13 8
+  CALL R13 0 1
+  JUMPIFNOT R13 [+4]
+  JUMPIFNOT R11 [+3]
+  GETTABLEKS R12 R11 K75 ["canCreateLook"]
+  JUMP [+1]
+  LOADB R12 0
+  LOADB R13 1
+  GETTABLEKS R14 R6 K49 ["canUploadBundles"]
+  JUMPIFEQKNIL R14 [+9]
+  GETTABLEKS R15 R6 K49 ["canUploadBundles"]
+  GETTABLEKS R14 R15 K5 ["type"]
+  JUMPIFNOTEQKS R14 K50 ["notAllowed"] [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  GETUPVAL R15 4
+  GETTABLEKS R14 R15 K7 ["createElement"]
+  GETUPVAL R15 10
+  DUPTABLE R16 K76 [{"BackgroundColor", "Size", "ZIndex"}]
+  GETTABLEKS R17 R1 K8 ["BackgroundColor"]
+  SETTABLEKS R17 R16 K8 ["BackgroundColor"]
+  GETIMPORT R17 K16 [UDim2.new]
+  LOADN R18 0
+  GETTABLEKS R19 R1 K17 ["Width"]
+  LOADN R20 1
+  LOADN R21 0
+  CALL R17 4 1
+  SETTABLEKS R17 R16 K11 ["Size"]
+  LOADN R17 2
+  SETTABLEKS R17 R16 K12 ["ZIndex"]
+  DUPTABLE R17 K78 [{"Contents", "SettingsButton", "SettingsMenu", "SubmitDialog"}]
+  GETUPVAL R19 4
+  GETTABLEKS R18 R19 K7 ["createElement"]
+  GETUPVAL R19 10
+  DUPTABLE R20 K24 [{"Layout", "VerticalAlignment"}]
+  GETIMPORT R21 K28 [Enum.FillDirection.Vertical]
+  SETTABLEKS R21 R20 K22 ["Layout"]
+  GETIMPORT R21 K30 [Enum.VerticalAlignment.Top]
+  SETTABLEKS R21 R20 K23 ["VerticalAlignment"]
+  DUPTABLE R21 K80 [{"CheckBody", "CheckFace", "Test", "LookSaveMenu", "Publish"}]
+  GETUPVAL R23 4
+  GETTABLEKS R22 R23 K7 ["createElement"]
+  GETUPVAL R23 11
+  DUPTABLE R24 K81 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "OnClick"}]
+  NAMECALL R25 R3 K42 ["getNextOrder"]
+  CALL R25 1 1
+  SETTABLEKS R25 R24 K36 ["LayoutOrder"]
+  LOADK R25 K43 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/check_body.png"]
+  SETTABLEKS R25 R24 K37 ["Icon"]
+  GETTABLEKS R26 R0 K82 ["SelectedStage"]
+  JUMPIFEQKS R26 K31 ["CheckBody"] [+2]
+  LOADB R25 0 +1
+  LOADB R25 1
+  SETTABLEKS R25 R24 K38 ["IsSelected"]
+  LOADK R25 K31 ["CheckBody"]
+  SETTABLEKS R25 R24 K39 ["StageText"]
+  NEWCLOSURE R25 P0
   CAPTURE VAL R4
   CAPTURE VAL R0
-  SETTABLEKS R23 R22 K59 ["OnClick"]
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K31 ["CheckBody"]
-  GETUPVAL R21 4
-  GETTABLEKS R20 R21 K7 ["createElement"]
-  GETUPVAL R21 11
-  DUPTABLE R22 K80 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "OnClick"}]
-  NAMECALL R23 R3 K42 ["getNextOrder"]
-  CALL R23 1 1
-  SETTABLEKS R23 R22 K36 ["LayoutOrder"]
-  LOADK R23 K44 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/check_face.png"]
-  SETTABLEKS R23 R22 K37 ["Icon"]
-  GETTABLEKS R24 R0 K81 ["SelectedStage"]
-  JUMPIFEQKS R24 K32 ["CheckFace"] [+2]
-  LOADB R23 0 +1
-  LOADB R23 1
-  SETTABLEKS R23 R22 K38 ["IsSelected"]
-  LOADK R23 K32 ["CheckFace"]
-  SETTABLEKS R23 R22 K39 ["StageText"]
-  NEWCLOSURE R23 P1
+  SETTABLEKS R25 R24 K59 ["OnClick"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K31 ["CheckBody"]
+  GETUPVAL R23 4
+  GETTABLEKS R22 R23 K7 ["createElement"]
+  GETUPVAL R23 11
+  DUPTABLE R24 K81 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "OnClick"}]
+  NAMECALL R25 R3 K42 ["getNextOrder"]
+  CALL R25 1 1
+  SETTABLEKS R25 R24 K36 ["LayoutOrder"]
+  LOADK R25 K44 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/check_face.png"]
+  SETTABLEKS R25 R24 K37 ["Icon"]
+  GETTABLEKS R26 R0 K82 ["SelectedStage"]
+  JUMPIFEQKS R26 K32 ["CheckFace"] [+2]
+  LOADB R25 0 +1
+  LOADB R25 1
+  SETTABLEKS R25 R24 K38 ["IsSelected"]
+  LOADK R25 K32 ["CheckFace"]
+  SETTABLEKS R25 R24 K39 ["StageText"]
+  NEWCLOSURE R25 P1
   CAPTURE VAL R4
   CAPTURE VAL R0
-  SETTABLEKS R23 R22 K59 ["OnClick"]
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K32 ["CheckFace"]
-  GETUPVAL R21 4
-  GETTABLEKS R20 R21 K7 ["createElement"]
-  GETUPVAL R21 11
-  DUPTABLE R22 K80 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "OnClick"}]
-  NAMECALL R23 R3 K42 ["getNextOrder"]
-  CALL R23 1 1
-  SETTABLEKS R23 R22 K36 ["LayoutOrder"]
-  LOADK R23 K45 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/test.png"]
-  SETTABLEKS R23 R22 K37 ["Icon"]
-  LOADB R23 0
-  SETTABLEKS R23 R22 K38 ["IsSelected"]
-  LOADK R23 K33 ["Test"]
-  SETTABLEKS R23 R22 K39 ["StageText"]
-  NEWCLOSURE R23 P2
+  SETTABLEKS R25 R24 K59 ["OnClick"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K32 ["CheckFace"]
+  GETUPVAL R23 4
+  GETTABLEKS R22 R23 K7 ["createElement"]
+  GETUPVAL R23 11
+  DUPTABLE R24 K81 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "OnClick"}]
+  NAMECALL R25 R3 K42 ["getNextOrder"]
+  CALL R25 1 1
+  SETTABLEKS R25 R24 K36 ["LayoutOrder"]
+  LOADK R25 K45 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/test.png"]
+  SETTABLEKS R25 R24 K37 ["Icon"]
+  LOADB R25 0
+  SETTABLEKS R25 R24 K38 ["IsSelected"]
+  LOADK R25 K33 ["Test"]
+  SETTABLEKS R25 R24 K39 ["StageText"]
+  NEWCLOSURE R25 P2
   CAPTURE VAL R4
-  CAPTURE UPVAL U14
+  CAPTURE UPVAL U15
   CAPTURE VAL R5
   CAPTURE VAL R0
-  SETTABLEKS R23 R22 K59 ["OnClick"]
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K33 ["Test"]
-  GETUPVAL R21 8
-  CALL R21 0 1
-  JUMPIFNOT R21 [+98]
+  SETTABLEKS R25 R24 K59 ["OnClick"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K33 ["Test"]
+  GETUPVAL R23 8
+  CALL R23 0 1
+  JUMPIFNOT R23 [+99]
+  JUMPIFNOT R12 [+98]
   JUMPIFEQKNIL R8 [+97]
-  GETUPVAL R21 4
-  GETTABLEKS R20 R21 K7 ["createElement"]
-  GETUPVAL R21 15
-  DUPTABLE R22 K87 [{"LayoutOrder", "isOpen", "onClose", "onToggle", "onSaveToRoblox", "anchor"}]
-  NAMECALL R23 R3 K42 ["getNextOrder"]
-  CALL R23 1 1
-  SETTABLEKS R23 R22 K36 ["LayoutOrder"]
-  GETTABLEKS R23 R8 K68 ["enabled"]
-  SETTABLEKS R23 R22 K82 ["isOpen"]
-  GETTABLEKS R23 R8 K72 ["disable"]
-  SETTABLEKS R23 R22 K83 ["onClose"]
-  GETTABLEKS R23 R8 K88 ["toggle"]
-  SETTABLEKS R23 R22 K84 ["onToggle"]
-  NEWCLOSURE R23 P3
+  GETUPVAL R23 4
+  GETTABLEKS R22 R23 K7 ["createElement"]
+  GETUPVAL R23 16
+  DUPTABLE R24 K88 [{"LayoutOrder", "isOpen", "onClose", "onToggle", "onSaveToRoblox", "anchor"}]
+  NAMECALL R25 R3 K42 ["getNextOrder"]
+  CALL R25 1 1
+  SETTABLEKS R25 R24 K36 ["LayoutOrder"]
+  GETTABLEKS R25 R8 K68 ["enabled"]
+  SETTABLEKS R25 R24 K83 ["isOpen"]
+  GETTABLEKS R25 R8 K72 ["disable"]
+  SETTABLEKS R25 R24 K84 ["onClose"]
+  GETTABLEKS R25 R8 K89 ["toggle"]
+  SETTABLEKS R25 R24 K85 ["onToggle"]
+  NEWCLOSURE R25 P3
   CAPTURE VAL R9
-  SETTABLEKS R23 R22 K85 ["onSaveToRoblox"]
-  GETUPVAL R24 4
-  GETTABLEKS R23 R24 K7 ["createElement"]
-  GETUPVAL R24 11
-  DUPTABLE R25 K89 [{"Icon", "IsSelected", "StageText", "Tooltip", "Enabled", "OnClick"}]
-  LOADK R26 K48 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/publish.png"]
-  SETTABLEKS R26 R25 K37 ["Icon"]
-  GETTABLEKS R26 R8 K68 ["enabled"]
-  SETTABLEKS R26 R25 K38 ["IsSelected"]
-  LOADK R26 K34 ["Publish"]
-  SETTABLEKS R26 R25 K39 ["StageText"]
-  GETTABLEKS R27 R6 K49 ["canUploadBundles"]
-  JUMPIFEQKNIL R27 [+33]
-  GETTABLEKS R28 R6 K49 ["canUploadBundles"]
-  GETTABLEKS R27 R28 K5 ["type"]
-  JUMPIFNOTEQKS R27 K50 ["notAllowed"] [+27]
-  GETTABLEKS R28 R6 K49 ["canUploadBundles"]
-  GETTABLEKS R27 R28 K51 ["denyReason"]
-  JUMPIFEQKS R27 K52 ["MissingPremiumSubscriptionTier"] [+7]
-  GETTABLEKS R28 R6 K49 ["canUploadBundles"]
-  GETTABLEKS R27 R28 K51 ["denyReason"]
-  JUMPIFNOTEQKS R27 K53 ["MissingIdVerification"] [+15]
-  LOADK R28 K0 ["StageSelector"]
-  LOADK R30 K54 ["Publish_Deny_%*"]
-  GETTABLEKS R33 R6 K49 ["canUploadBundles"]
-  GETTABLEKS R32 R33 K51 ["denyReason"]
-  NAMECALL R30 R30 K55 ["format"]
-  CALL R30 2 1
-  MOVE R29 R30
-  NAMECALL R26 R2 K56 ["getText"]
-  CALL R26 3 1
-  JUMP [+1]
-  LOADNIL R26
-  SETTABLEKS R26 R25 K46 ["Tooltip"]
-  JUMPIF R11 [+2]
-  LOADB R26 0
-  JUMP [+1]
-  LOADNIL R26
-  SETTABLEKS R26 R25 K40 ["Enabled"]
-  NEWCLOSURE R26 P4
-  CAPTURE VAL R11
-  CAPTURE VAL R8
-  SETTABLEKS R26 R25 K59 ["OnClick"]
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K86 ["anchor"]
-  CALL R20 2 1
-  JUMP [+1]
-  LOADNIL R20
-  SETTABLEKS R20 R19 K78 ["LookSaveMenu"]
-  GETUPVAL R21 8
-  CALL R21 0 1
-  JUMPIF R21 [+72]
-  GETUPVAL R21 4
-  GETTABLEKS R20 R21 K7 ["createElement"]
-  GETUPVAL R21 11
-  DUPTABLE R22 K90 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "Tooltip", "Enabled", "OnClick"}]
-  NAMECALL R23 R3 K42 ["getNextOrder"]
-  CALL R23 1 1
-  SETTABLEKS R23 R22 K36 ["LayoutOrder"]
-  LOADK R23 K48 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/publish.png"]
-  SETTABLEKS R23 R22 K37 ["Icon"]
-  LOADB R23 0
-  SETTABLEKS R23 R22 K38 ["IsSelected"]
-  LOADK R23 K34 ["Publish"]
-  SETTABLEKS R23 R22 K39 ["StageText"]
-  GETTABLEKS R24 R6 K49 ["canUploadBundles"]
-  JUMPIFEQKNIL R24 [+33]
-  GETTABLEKS R25 R6 K49 ["canUploadBundles"]
-  GETTABLEKS R24 R25 K5 ["type"]
-  JUMPIFNOTEQKS R24 K50 ["notAllowed"] [+27]
-  GETTABLEKS R25 R6 K49 ["canUploadBundles"]
-  GETTABLEKS R24 R25 K51 ["denyReason"]
-  JUMPIFEQKS R24 K52 ["MissingPremiumSubscriptionTier"] [+7]
-  GETTABLEKS R25 R6 K49 ["canUploadBundles"]
-  GETTABLEKS R24 R25 K51 ["denyReason"]
-  JUMPIFNOTEQKS R24 K53 ["MissingIdVerification"] [+15]
-  LOADK R25 K0 ["StageSelector"]
-  LOADK R27 K54 ["Publish_Deny_%*"]
+  SETTABLEKS R25 R24 K86 ["onSaveToRoblox"]
+  GETUPVAL R26 4
+  GETTABLEKS R25 R26 K7 ["createElement"]
+  GETUPVAL R26 11
+  DUPTABLE R27 K90 [{"Icon", "IsSelected", "StageText", "Tooltip", "Enabled", "OnClick"}]
+  LOADK R28 K48 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/publish.png"]
+  SETTABLEKS R28 R27 K37 ["Icon"]
+  GETTABLEKS R28 R8 K68 ["enabled"]
+  SETTABLEKS R28 R27 K38 ["IsSelected"]
+  LOADK R28 K34 ["Publish"]
+  SETTABLEKS R28 R27 K39 ["StageText"]
+  GETTABLEKS R29 R6 K49 ["canUploadBundles"]
+  JUMPIFEQKNIL R29 [+33]
+  GETTABLEKS R30 R6 K49 ["canUploadBundles"]
+  GETTABLEKS R29 R30 K5 ["type"]
+  JUMPIFNOTEQKS R29 K50 ["notAllowed"] [+27]
   GETTABLEKS R30 R6 K49 ["canUploadBundles"]
   GETTABLEKS R29 R30 K51 ["denyReason"]
-  NAMECALL R27 R27 K55 ["format"]
-  CALL R27 2 1
-  MOVE R26 R27
-  NAMECALL R23 R2 K56 ["getText"]
-  CALL R23 3 1
+  JUMPIFEQKS R29 K52 ["MissingPremiumSubscriptionTier"] [+7]
+  GETTABLEKS R30 R6 K49 ["canUploadBundles"]
+  GETTABLEKS R29 R30 K51 ["denyReason"]
+  JUMPIFNOTEQKS R29 K53 ["MissingIdVerification"] [+15]
+  LOADK R30 K0 ["StageSelector"]
+  LOADK R32 K54 ["Publish_Deny_%*"]
+  GETTABLEKS R35 R6 K49 ["canUploadBundles"]
+  GETTABLEKS R34 R35 K51 ["denyReason"]
+  NAMECALL R32 R32 K55 ["format"]
+  CALL R32 2 1
+  MOVE R31 R32
+  NAMECALL R28 R2 K56 ["getText"]
+  CALL R28 3 1
   JUMP [+1]
-  LOADNIL R23
-  SETTABLEKS R23 R22 K46 ["Tooltip"]
-  JUMPIF R11 [+2]
-  LOADB R23 0
+  LOADNIL R28
+  SETTABLEKS R28 R27 K46 ["Tooltip"]
+  JUMPIF R13 [+2]
+  LOADB R28 0
   JUMP [+1]
-  LOADNIL R23
-  SETTABLEKS R23 R22 K40 ["Enabled"]
-  NEWCLOSURE R23 P5
+  LOADNIL R28
+  SETTABLEKS R28 R27 K40 ["Enabled"]
+  NEWCLOSURE R28 P4
+  CAPTURE VAL R13
+  CAPTURE VAL R8
+  SETTABLEKS R28 R27 K59 ["OnClick"]
+  CALL R25 2 1
+  SETTABLEKS R25 R24 K87 ["anchor"]
+  CALL R22 2 1
+  JUMP [+1]
+  LOADNIL R22
+  SETTABLEKS R22 R21 K79 ["LookSaveMenu"]
+  GETUPVAL R23 8
+  CALL R23 0 1
+  JUMPIFNOT R23 [+1]
+  JUMPIF R12 [+72]
+  GETUPVAL R23 4
+  GETTABLEKS R22 R23 K7 ["createElement"]
+  GETUPVAL R23 11
+  DUPTABLE R24 K91 [{"LayoutOrder", "Icon", "IsSelected", "StageText", "Tooltip", "Enabled", "OnClick"}]
+  NAMECALL R25 R3 K42 ["getNextOrder"]
+  CALL R25 1 1
+  SETTABLEKS R25 R24 K36 ["LayoutOrder"]
+  LOADK R25 K48 ["rbxasset://studio_svg_textures/Lua/AvatarCompatibilityPreviewer/Dark/Large/publish.png"]
+  SETTABLEKS R25 R24 K37 ["Icon"]
+  LOADB R25 0
+  SETTABLEKS R25 R24 K38 ["IsSelected"]
+  LOADK R25 K34 ["Publish"]
+  SETTABLEKS R25 R24 K39 ["StageText"]
+  GETTABLEKS R26 R6 K49 ["canUploadBundles"]
+  JUMPIFEQKNIL R26 [+33]
+  GETTABLEKS R27 R6 K49 ["canUploadBundles"]
+  GETTABLEKS R26 R27 K5 ["type"]
+  JUMPIFNOTEQKS R26 K50 ["notAllowed"] [+27]
+  GETTABLEKS R27 R6 K49 ["canUploadBundles"]
+  GETTABLEKS R26 R27 K51 ["denyReason"]
+  JUMPIFEQKS R26 K52 ["MissingPremiumSubscriptionTier"] [+7]
+  GETTABLEKS R27 R6 K49 ["canUploadBundles"]
+  GETTABLEKS R26 R27 K51 ["denyReason"]
+  JUMPIFNOTEQKS R26 K53 ["MissingIdVerification"] [+15]
+  LOADK R27 K0 ["StageSelector"]
+  LOADK R29 K54 ["Publish_Deny_%*"]
+  GETTABLEKS R32 R6 K49 ["canUploadBundles"]
+  GETTABLEKS R31 R32 K51 ["denyReason"]
+  NAMECALL R29 R29 K55 ["format"]
+  CALL R29 2 1
+  MOVE R28 R29
+  NAMECALL R25 R2 K56 ["getText"]
+  CALL R25 3 1
+  JUMP [+1]
+  LOADNIL R25
+  SETTABLEKS R25 R24 K46 ["Tooltip"]
+  JUMPIF R13 [+2]
+  LOADB R25 0
+  JUMP [+1]
+  LOADNIL R25
+  SETTABLEKS R25 R24 K40 ["Enabled"]
+  NEWCLOSURE R25 P5
   CAPTURE VAL R4
   CAPTURE VAL R10
   CAPTURE VAL R9
-  SETTABLEKS R23 R22 K59 ["OnClick"]
-  CALL R20 2 1
+  SETTABLEKS R25 R24 K59 ["OnClick"]
+  CALL R22 2 1
   JUMP [+1]
-  LOADNIL R20
-  SETTABLEKS R20 R19 K34 ["Publish"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K18 ["Contents"]
-  GETUPVAL R17 4
-  GETTABLEKS R16 R17 K7 ["createElement"]
-  GETUPVAL R17 11
-  DUPTABLE R18 K60 [{"Icon", "IsSelected", "StageText", "AnchorPoint", "Position", "OnClick"}]
-  LOADK R19 K61 ["rbxassetid://6663675885"]
-  SETTABLEKS R19 R18 K37 ["Icon"]
-  LOADB R19 0
-  SETTABLEKS R19 R18 K38 ["IsSelected"]
-  LOADK R19 K62 ["Settings"]
-  SETTABLEKS R19 R18 K39 ["StageText"]
-  GETIMPORT R19 K64 [Vector2.new]
-  LOADN R20 0
-  LOADN R21 1
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K57 ["AnchorPoint"]
-  GETIMPORT R19 K66 [UDim2.fromScale]
-  LOADN R20 0
-  LOADN R21 1
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K58 ["Position"]
-  GETTABLEKS R19 R7 K67 ["enable"]
-  SETTABLEKS R19 R18 K59 ["OnClick"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K19 ["SettingsButton"]
-  GETTABLEKS R16 R7 K68 ["enabled"]
-  JUMPIFNOT R16 [+17]
-  GETUPVAL R17 4
-  GETTABLEKS R16 R17 K7 ["createElement"]
-  GETUPVAL R17 12
-  DUPTABLE R18 K92 [{"type", "avatar", "close"}]
-  LOADK R19 K91 ["avatar"]
-  SETTABLEKS R19 R18 K5 ["type"]
-  GETTABLEKS R19 R0 K73 ["Avatar"]
-  SETTABLEKS R19 R18 K91 ["avatar"]
-  GETTABLEKS R19 R7 K72 ["disable"]
-  SETTABLEKS R19 R18 K69 ["close"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K20 ["SettingsMenu"]
-  GETTABLEKS R16 R9 K68 ["enabled"]
-  JUMPIFNOT R16 [+14]
-  GETUPVAL R17 4
-  GETTABLEKS R16 R17 K7 ["createElement"]
-  GETUPVAL R17 16
-  DUPTABLE R18 K93 [{"close", "avatar"}]
-  GETTABLEKS R19 R9 K72 ["disable"]
-  SETTABLEKS R19 R18 K69 ["close"]
-  GETTABLEKS R19 R0 K73 ["Avatar"]
-  SETTABLEKS R19 R18 K91 ["avatar"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K76 ["SubmitDialog"]
-  CALL R12 3 -1
-  RETURN R12 -1
+  LOADNIL R22
+  SETTABLEKS R22 R21 K34 ["Publish"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K18 ["Contents"]
+  GETUPVAL R19 4
+  GETTABLEKS R18 R19 K7 ["createElement"]
+  GETUPVAL R19 11
+  DUPTABLE R20 K60 [{"Icon", "IsSelected", "StageText", "AnchorPoint", "Position", "OnClick"}]
+  LOADK R21 K61 ["rbxassetid://6663675885"]
+  SETTABLEKS R21 R20 K37 ["Icon"]
+  LOADB R21 0
+  SETTABLEKS R21 R20 K38 ["IsSelected"]
+  LOADK R21 K62 ["Settings"]
+  SETTABLEKS R21 R20 K39 ["StageText"]
+  GETIMPORT R21 K64 [Vector2.new]
+  LOADN R22 0
+  LOADN R23 1
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K57 ["AnchorPoint"]
+  GETIMPORT R21 K66 [UDim2.fromScale]
+  LOADN R22 0
+  LOADN R23 1
+  CALL R21 2 1
+  SETTABLEKS R21 R20 K58 ["Position"]
+  GETTABLEKS R21 R7 K67 ["enable"]
+  SETTABLEKS R21 R20 K59 ["OnClick"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K19 ["SettingsButton"]
+  GETTABLEKS R18 R7 K68 ["enabled"]
+  JUMPIFNOT R18 [+17]
+  GETUPVAL R19 4
+  GETTABLEKS R18 R19 K7 ["createElement"]
+  GETUPVAL R19 12
+  DUPTABLE R20 K93 [{"type", "avatar", "close"}]
+  LOADK R21 K92 ["avatar"]
+  SETTABLEKS R21 R20 K5 ["type"]
+  GETTABLEKS R21 R0 K73 ["Avatar"]
+  SETTABLEKS R21 R20 K92 ["avatar"]
+  GETTABLEKS R21 R7 K72 ["disable"]
+  SETTABLEKS R21 R20 K69 ["close"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K20 ["SettingsMenu"]
+  GETTABLEKS R18 R9 K68 ["enabled"]
+  JUMPIFNOT R18 [+14]
+  GETUPVAL R19 4
+  GETTABLEKS R18 R19 K7 ["createElement"]
+  GETUPVAL R19 17
+  DUPTABLE R20 K94 [{"close", "avatar"}]
+  GETTABLEKS R21 R9 K72 ["disable"]
+  SETTABLEKS R21 R20 K69 ["close"]
+  GETTABLEKS R21 R0 K73 ["Avatar"]
+  SETTABLEKS R21 R20 K92 ["avatar"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K77 ["SubmitDialog"]
+  CALL R14 3 -1
+  RETURN R14 -1
 
 MAIN:
   PREPVARARGS 0
@@ -679,65 +698,71 @@ MAIN:
   GETIMPORT R9 K5 [require]
   GETTABLEKS R12 R0 K9 ["Src"]
   GETTABLEKS R11 R12 K18 ["Components"]
-  GETTABLEKS R10 R11 K20 ["PlacesServiceContext"]
+  GETTABLEKS R10 R11 K20 ["LookContext"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
   GETTABLEKS R13 R0 K9 ["Src"]
   GETTABLEKS R12 R13 K18 ["Components"]
-  GETTABLEKS R11 R12 K21 ["LookSaveMenu"]
+  GETTABLEKS R11 R12 K21 ["PlacesServiceContext"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
   GETTABLEKS R14 R0 K9 ["Src"]
   GETTABLEKS R13 R14 K18 ["Components"]
-  GETTABLEKS R12 R13 K22 ["SubmitDialog"]
+  GETTABLEKS R12 R13 K22 ["LookSaveMenu"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
   GETTABLEKS R15 R0 K9 ["Src"]
   GETTABLEKS R14 R15 K18 ["Components"]
-  GETTABLEKS R13 R14 K23 ["UGCValidationContext"]
+  GETTABLEKS R13 R14 K23 ["SubmitDialog"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
   GETTABLEKS R16 R0 K9 ["Src"]
-  GETTABLEKS R15 R16 K24 ["Flags"]
-  GETTABLEKS R14 R15 K25 ["getFFlagAvatarAutosetupOptionsInput"]
+  GETTABLEKS R15 R16 K18 ["Components"]
+  GETTABLEKS R14 R15 K24 ["UGCValidationContext"]
   CALL R13 1 1
   GETIMPORT R14 K5 [require]
   GETTABLEKS R17 R0 K9 ["Src"]
-  GETTABLEKS R16 R17 K24 ["Flags"]
-  GETTABLEKS R15 R16 K26 ["getFFlagAvatarPreviewerLookComposer"]
+  GETTABLEKS R16 R17 K25 ["Flags"]
+  GETTABLEKS R15 R16 K26 ["getFFlagAvatarAutosetupOptionsInput"]
   CALL R14 1 1
-  GETTABLEKS R15 R1 K27 ["UI"]
-  GETTABLEKS R16 R15 K28 ["IconButton"]
-  GETTABLEKS R17 R15 K29 ["Pane"]
-  GETTABLEKS R19 R1 K13 ["Util"]
-  GETTABLEKS R18 R19 K30 ["LayoutOrderIterator"]
-  GETTABLEKS R20 R1 K31 ["ContextServices"]
-  GETTABLEKS R19 R20 K32 ["Analytics"]
-  GETTABLEKS R21 R1 K31 ["ContextServices"]
-  GETTABLEKS R20 R21 K33 ["Localization"]
-  GETTABLEKS R22 R1 K31 ["ContextServices"]
-  GETTABLEKS R21 R22 K34 ["Stylizer"]
-  DUPCLOSURE R22 K35 [PROTO_0]
-  CAPTURE VAL R21
-  CAPTURE VAL R20
-  CAPTURE VAL R2
-  CAPTURE VAL R16
-  DUPCLOSURE R23 K36 [PROTO_7]
-  CAPTURE VAL R21
-  CAPTURE VAL R20
-  CAPTURE VAL R18
-  CAPTURE VAL R19
-  CAPTURE VAL R2
-  CAPTURE VAL R9
-  CAPTURE VAL R12
-  CAPTURE VAL R7
-  CAPTURE VAL R14
-  CAPTURE VAL R13
-  CAPTURE VAL R17
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R18 R0 K9 ["Src"]
+  GETTABLEKS R17 R18 K25 ["Flags"]
+  GETTABLEKS R16 R17 K27 ["getFFlagAvatarPreviewerLookComposer"]
+  CALL R15 1 1
+  GETTABLEKS R16 R1 K28 ["UI"]
+  GETTABLEKS R17 R16 K29 ["IconButton"]
+  GETTABLEKS R18 R16 K30 ["Pane"]
+  GETTABLEKS R20 R1 K13 ["Util"]
+  GETTABLEKS R19 R20 K31 ["LayoutOrderIterator"]
+  GETTABLEKS R21 R1 K32 ["ContextServices"]
+  GETTABLEKS R20 R21 K33 ["Analytics"]
+  GETTABLEKS R22 R1 K32 ["ContextServices"]
+  GETTABLEKS R21 R22 K34 ["Localization"]
+  GETTABLEKS R23 R1 K32 ["ContextServices"]
+  GETTABLEKS R22 R23 K35 ["Stylizer"]
+  DUPCLOSURE R23 K36 [PROTO_0]
   CAPTURE VAL R22
+  CAPTURE VAL R21
+  CAPTURE VAL R2
+  CAPTURE VAL R17
+  DUPCLOSURE R24 K37 [PROTO_7]
+  CAPTURE VAL R22
+  CAPTURE VAL R21
+  CAPTURE VAL R19
+  CAPTURE VAL R20
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R13
+  CAPTURE VAL R7
+  CAPTURE VAL R15
+  CAPTURE VAL R14
+  CAPTURE VAL R18
+  CAPTURE VAL R23
   CAPTURE VAL R8
   CAPTURE VAL R6
+  CAPTURE VAL R9
   CAPTURE VAL R5
-  CAPTURE VAL R10
   CAPTURE VAL R11
-  RETURN R23 1
+  CAPTURE VAL R12
+  RETURN R24 1

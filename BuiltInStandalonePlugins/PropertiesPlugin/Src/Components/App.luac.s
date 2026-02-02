@@ -17,13 +17,13 @@ PROTO_0:
   CALL R6 1 1
   GETUPVAL R7 0
   GETUPVAL R8 4
-  CALL R7 1 1
+  DUPTABLE R9 K6 [{"plugin"}]
+  GETTABLEKS R10 R0 K3 ["plugin"]
+  SETTABLEKS R10 R9 K3 ["plugin"]
+  CALL R7 2 1
   GETUPVAL R8 0
   GETUPVAL R9 5
-  DUPTABLE R10 K6 [{"plugin"}]
-  GETTABLEKS R11 R0 K3 ["plugin"]
-  SETTABLEKS R11 R10 K3 ["plugin"]
-  CALL R8 2 1
+  CALL R8 1 1
   GETUPVAL R9 0
   GETUPVAL R10 6
   CALL R9 1 1
@@ -82,31 +82,31 @@ MAIN:
   GETTABLEKS R10 R0 K10 ["Src"]
   GETTABLEKS R9 R10 K11 ["Components"]
   GETTABLEKS R8 R9 K12 ["Contexts"]
-  GETTABLEKS R7 R8 K15 ["StudioAssetContextProvider"]
+  GETTABLEKS R7 R8 K15 ["StudioClassIconContextProvider"]
   CALL R6 1 1
   GETIMPORT R7 K5 [require]
   GETTABLEKS R11 R0 K10 ["Src"]
   GETTABLEKS R10 R11 K11 ["Components"]
   GETTABLEKS R9 R10 K12 ["Contexts"]
-  GETTABLEKS R8 R9 K16 ["StudioClassIconContextProvider"]
+  GETTABLEKS R8 R9 K16 ["StudioNetworkContextProvider"]
   CALL R7 1 1
   GETIMPORT R8 K5 [require]
   GETTABLEKS R12 R0 K10 ["Src"]
   GETTABLEKS R11 R12 K11 ["Components"]
   GETTABLEKS R10 R11 K12 ["Contexts"]
-  GETTABLEKS R9 R10 K17 ["StudioNetworkContextProvider"]
+  GETTABLEKS R9 R10 K17 ["StudioSettingsContextProvider"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
   GETTABLEKS R13 R0 K10 ["Src"]
   GETTABLEKS R12 R13 K11 ["Components"]
   GETTABLEKS R11 R12 K12 ["Contexts"]
-  GETTABLEKS R10 R11 K18 ["StudioSettingsContextProvider"]
+  GETTABLEKS R10 R11 K18 ["StudioThemeContextProvider"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
   GETTABLEKS R14 R0 K10 ["Src"]
   GETTABLEKS R13 R14 K11 ["Components"]
   GETTABLEKS R12 R13 K12 ["Contexts"]
-  GETTABLEKS R11 R12 K19 ["StudioThemeContextProvider"]
+  GETTABLEKS R11 R12 K19 ["StudioUserContextProvider"]
   CALL R10 1 1
   GETTABLEKS R11 R2 K20 ["createElement"]
   DUPCLOSURE R12 K21 [PROTO_0]
@@ -114,10 +114,10 @@ MAIN:
   CAPTURE VAL R3
   CAPTURE VAL R4
   CAPTURE VAL R5
-  CAPTURE VAL R6
+  CAPTURE VAL R7
   CAPTURE VAL R8
   CAPTURE VAL R9
   CAPTURE VAL R10
-  CAPTURE VAL R7
+  CAPTURE VAL R6
   CAPTURE VAL R1
   RETURN R12 1

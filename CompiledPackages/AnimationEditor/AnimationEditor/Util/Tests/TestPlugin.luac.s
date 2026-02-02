@@ -1,0 +1,26 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["TestHelpers"]
+  GETTABLEKS R2 R3 K1 ["Instances"]
+  GETTABLEKS R1 R2 K2 ["MockPlugin"]
+  GETTABLEKS R0 R1 K3 ["new"]
+  LOADK R1 K4 ["AnimationEditorPlugin"]
+  NEWTABLE R2 0 0
+  CALL R0 2 1
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  NEWTABLE R2 1 0
+  DUPCLOSURE R3 K8 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R3 R2 K9 ["new"]
+  RETURN R2 1

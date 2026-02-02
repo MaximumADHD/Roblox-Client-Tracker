@@ -1,0 +1,126 @@
+PROTO_0:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+2]
+  LOADK R0 K0 ["Dark"]
+  RETURN R0 1
+  GETIMPORT R3 K2 [settings]
+  CALL R3 0 1
+  GETTABLEKS R2 R3 K3 ["Studio"]
+  GETTABLEKS R1 R2 K4 ["Theme"]
+  GETTABLEKS R0 R1 K5 ["Name"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+16]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["mockThemeChangedSignal"]
+  JUMPIFNOTEQKNIL R0 [+8]
+  GETUPVAL R0 1
+  GETUPVAL R1 2
+  NAMECALL R1 R1 K1 ["new"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K0 ["mockThemeChangedSignal"]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["mockThemeChangedSignal"]
+  RETURN R0 1
+  GETIMPORT R2 K3 [settings]
+  CALL R2 0 1
+  GETTABLEKS R1 R2 K4 ["Studio"]
+  GETTABLEKS R0 R1 K5 ["ThemeChanged"]
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIF R0 [+2]
+  LOADNIL R0
+  RETURN R0 1
+  GETUPVAL R0 1
+  CALL R0 0 1
+  JUMPIFNOT R0 [+2]
+  LOADK R0 K0 [0.5]
+  RETURN R0 1
+  GETIMPORT R1 K2 [UserSettings]
+  CALL R1 0 1
+  LOADK R3 K3 ["UserGameSettings"]
+  NAMECALL R1 R1 K4 ["GetService"]
+  CALL R1 2 1
+  GETTABLEKS R0 R1 K5 ["MasterVolumeStudio"]
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIF R0 [+2]
+  LOADNIL R0
+  RETURN R0 1
+  GETUPVAL R0 1
+  CALL R0 0 1
+  JUMPIFNOT R0 [+16]
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K0 ["mockVolumeChangedSignal"]
+  JUMPIFNOTEQKNIL R0 [+8]
+  GETUPVAL R0 2
+  GETUPVAL R1 3
+  NAMECALL R1 R1 K1 ["new"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K0 ["mockVolumeChangedSignal"]
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K0 ["mockVolumeChangedSignal"]
+  RETURN R0 1
+  GETIMPORT R0 K3 [UserSettings]
+  CALL R0 0 1
+  LOADK R2 K4 ["UserGameSettings"]
+  NAMECALL R0 R0 K5 ["GetService"]
+  CALL R0 2 1
+  LOADK R2 K6 ["MasterVolumeStudio"]
+  NAMECALL R0 R0 K7 ["GetPropertyChangedSignal"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["WebView"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["isCli"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Util"]
+  GETTABLEKS R3 R4 K8 ["MockSignal"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Util"]
+  GETTABLEKS R5 R6 K9 ["SharedFlags"]
+  GETTABLEKS R4 R5 K10 ["getFFlagSTM6928SyncWebBrowserVolume"]
+  CALL R3 1 1
+  DUPTABLE R4 K13 [{"mockThemeChangedSignal", "mockVolumeChangedSignal"}]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K11 ["mockThemeChangedSignal"]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K12 ["mockVolumeChangedSignal"]
+  DUPCLOSURE R5 K14 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R5 R4 K15 ["getStudioThemeName"]
+  DUPCLOSURE R5 K16 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  SETTABLEKS R5 R4 K17 ["getStudioThemeChangedSignal"]
+  DUPCLOSURE R5 K18 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  SETTABLEKS R5 R4 K19 ["getStudioVolumeLevel"]
+  DUPCLOSURE R5 K20 [PROTO_3]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  SETTABLEKS R5 R4 K21 ["getStudioVolumeChangedSignal"]
+  RETURN R4 1

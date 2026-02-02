@@ -1,0 +1,31 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useContext"]
+  GETTABLEKS R2 R0 K1 ["context"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K2 ["default"]
+  JUMPIF R2 [+3]
+  GETTABLEKS R2 R0 K3 ["children"]
+  RETURN R2 1
+  GETUPVAL R2 1
+  GETTABLEKS R3 R0 K4 ["defaultProvider"]
+  NEWTABLE R4 0 0
+  GETTABLEKS R5 R0 K3 ["children"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Explorer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K8 ["createElement"]
+  DUPCLOSURE R3 K9 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R3 1

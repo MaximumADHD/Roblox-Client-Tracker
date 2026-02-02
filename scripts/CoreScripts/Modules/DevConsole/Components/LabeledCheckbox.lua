@@ -3,6 +3,7 @@ local TextService = game:GetService("TextService")
 local Roact = require(CorePackages.Packages.Roact)
 
 local Constants = require(script.Parent.Parent.Constants)
+local Checkbox = require(script.Parent.Checkbox)
 local PADDING = Constants.UtilityBarFormatting.CheckboxInnerPadding
 
 local LabeledCheckbox = Roact.Component:extend("LabeledCheckbox")
@@ -21,37 +22,22 @@ function LabeledCheckbox:render()
 	local unselectedColor = self.props.unselectedColor
 	local onCheckboxClicked = self.props.onCheckboxClicked
 
-	-- this can be replaced with default values once that releases
-	local image = ""
-	local borderSize = 1
-	local backgroundColor = unselectedColor
-
-	if isSelected then
-		image = Constants.Image.Check
-		borderSize = 0
-		backgroundColor = selectedColor
-	end
-
 	local textVector = TextService:GetTextSize(name, fontSize, font, Vector2.new(0, frameHeight))
 	local textWidth = textVector.X
 
-	return Roact.createElement("ImageButton", {
+	return Roact.createElement("Frame", {
 		Size = UDim2.new(0, checkboxHeight + textWidth + (PADDING * 2), 0, frameHeight),
 		BackgroundTransparency = 1,
 		LayoutOrder = layoutOrder,
-
-		[Roact.Event.Activated] = function(rbx)
-			onCheckboxClicked(name, not isSelected)
-		end,
 	}, {
-		Icon = Roact.createElement("ImageLabel", {
-			Image = image,
+		Checkbox = Roact.createElement(Checkbox, {
+			Name = name,
+			IsSelected = isSelected,
+			SelectedColor = selectedColor,
+			UnselectedColor = unselectedColor,
 			Size = UDim2.new(0, checkboxHeight, 0, checkboxHeight),
 			Position = UDim2.new(0, 0, 0.5, -checkboxHeight / 2),
-			BackgroundColor3 = backgroundColor,
-			BackgroundTransparency = 0,
-			BorderColor3 = Constants.Color.Text,
-			BorderSizePixel = borderSize,
+			OnSelectedStateChanged = onCheckboxClicked,
 		}),
 		Text = Roact.createElement("TextLabel", {
 			Text = name,

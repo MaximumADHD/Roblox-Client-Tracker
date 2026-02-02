@@ -304,13 +304,38 @@ PROTO_23:
 
 PROTO_24:
   GETUPVAL R2 0
+  LOADK R3 K0 ["SelectionChanged"]
+  DUPTABLE R4 K4 [{"isSelected", "avatar", "autoSetupTarget"}]
+  MOVE R5 R1
+  JUMPIFNOT R5 [+2]
+  GETTABLEKS R5 R1 K1 ["isSelected"]
+  SETTABLEKS R5 R4 K1 ["isSelected"]
+  MOVE R5 R1
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R1 K2 ["avatar"]
+  JUMPIFNOTEQKNIL R6 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  SETTABLEKS R5 R4 K2 ["avatar"]
+  MOVE R5 R1
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R6 R1 K3 ["autoSetupTarget"]
+  JUMPIFNOTEQKNIL R6 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  SETTABLEKS R5 R4 K3 ["autoSetupTarget"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_25:
+  GETUPVAL R2 0
   LOADK R3 K0 ["SelectScreenChoice"]
   DUPTABLE R4 K2 [{"choice"}]
   SETTABLEKS R1 R4 K1 ["choice"]
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_25:
+PROTO_26:
   GETUPVAL R4 0
   LOADK R5 K0 ["AutoSetupSurvey"]
   DUPTABLE R6 K7 [{"userId", "rating", "message", "problems", "inputAssetId", "outputAssetIds"}]
@@ -339,7 +364,7 @@ PROTO_25:
   CALL R4 2 0
   RETURN R0 0
 
-PROTO_26:
+PROTO_27:
   GETUPVAL R2 0
   LOADK R3 K0 ["SetStage"]
   DUPTABLE R4 K2 [{"stageKey"}]
@@ -347,13 +372,13 @@ PROTO_26:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_27:
+PROTO_28:
   GETUPVAL R0 0
   LOADK R1 K0 ["TestInExperience"]
   CALL R0 1 0
   RETURN R0 0
 
-PROTO_28:
+PROTO_29:
   GETUPVAL R2 0
   LOADK R3 K0 ["UnequipItem"]
   GETUPVAL R4 1
@@ -362,7 +387,7 @@ PROTO_28:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_29:
+PROTO_30:
   GETUPVAL R0 0
   LOADK R2 K0 ["AutoSetupPassedValidation"]
   LOADNIL R3
@@ -370,7 +395,7 @@ PROTO_29:
   CALL R0 3 0
   RETURN R0 0
 
-PROTO_30:
+PROTO_31:
   GETUPVAL R0 0
   LOADK R2 K0 ["AutoSetupFailedValidation"]
   LOADNIL R3
@@ -378,7 +403,7 @@ PROTO_30:
   CALL R0 3 0
   RETURN R0 0
 
-PROTO_31:
+PROTO_32:
   GETUPVAL R2 0
   LOADK R4 K0 ["AutoSetupValidationDuration"]
   MOVE R5 R1
@@ -386,7 +411,7 @@ PROTO_31:
   CALL R2 3 0
   RETURN R0 0
 
-PROTO_32:
+PROTO_33:
   GETUPVAL R2 0
   LOADK R4 K0 ["AutoSetupValidationErrorCount"]
   MOVE R5 R1
@@ -394,7 +419,7 @@ PROTO_32:
   CALL R2 3 0
   RETURN R0 0
 
-PROTO_33:
+PROTO_34:
   DUPTABLE R3 K2 [{"inputAssetId", "errorText"}]
   SETTABLEKS R1 R3 K0 ["inputAssetId"]
   SETTABLEKS R2 R3 K1 ["errorText"]
@@ -406,7 +431,7 @@ PROTO_33:
   CALL R4 4 0
   RETURN R0 0
 
-PROTO_34:
+PROTO_35:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE VAL R0
@@ -417,7 +442,7 @@ PROTO_34:
   NEWCLOSURE R4 P3
   CAPTURE VAL R0
   CAPTURE UPVAL U1
-  DUPTABLE R5 K29 [{"addUserItems", "autoSetupFailure", "autoSetupJobInitialized", "autoSetupRequested", "autoSetupOptions", "autoSetupCancelled", "autoSetupClothingOnlyFinish", "autoSetupFinish", "autoSetupAssetsGenerated", "bundlesMetadataError", "changedLayers", "equipItem", "openAutoSetupScreen", "openAutoSetupOptions", "openEditingTool", "openPalette", "openPlugin", "openTab", "publish", "selectScreenChoice", "sendAutoSetupSurvey", "setStage", "testInExperience", "unequipItem", "autoSetupPassedValidation", "autoSetupFailedValidation", "autoSetupValidationDuration", "autoSetupValidationErrorCount", "autoSetupValidationError"}]
+  DUPTABLE R5 K30 [{"addUserItems", "autoSetupFailure", "autoSetupJobInitialized", "autoSetupRequested", "autoSetupOptions", "autoSetupCancelled", "autoSetupClothingOnlyFinish", "autoSetupFinish", "autoSetupAssetsGenerated", "bundlesMetadataError", "changedLayers", "equipItem", "openAutoSetupScreen", "openAutoSetupOptions", "openEditingTool", "openPalette", "openPlugin", "openTab", "publish", "selectionChanged", "selectScreenChoice", "sendAutoSetupSurvey", "setStage", "testInExperience", "unequipItem", "autoSetupPassedValidation", "autoSetupFailedValidation", "autoSetupValidationDuration", "autoSetupValidationErrorCount", "autoSetupValidationError"}]
   NEWCLOSURE R6 P4
   CAPTURE VAL R1
   SETTABLEKS R6 R5 K0 ["addUserItems"]
@@ -489,38 +514,41 @@ PROTO_34:
   SETTABLEKS R6 R5 K18 ["publish"]
   NEWCLOSURE R6 P23
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K19 ["selectScreenChoice"]
+  SETTABLEKS R6 R5 K19 ["selectionChanged"]
   NEWCLOSURE R6 P24
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K20 ["selectScreenChoice"]
+  NEWCLOSURE R6 P25
   CAPTURE VAL R1
   CAPTURE UPVAL U10
   CAPTURE UPVAL U0
-  SETTABLEKS R6 R5 K20 ["sendAutoSetupSurvey"]
-  NEWCLOSURE R6 P25
-  CAPTURE VAL R1
-  SETTABLEKS R6 R5 K21 ["setStage"]
+  SETTABLEKS R6 R5 K21 ["sendAutoSetupSurvey"]
   NEWCLOSURE R6 P26
   CAPTURE VAL R1
-  SETTABLEKS R6 R5 K22 ["testInExperience"]
+  SETTABLEKS R6 R5 K22 ["setStage"]
   NEWCLOSURE R6 P27
   CAPTURE VAL R1
-  CAPTURE UPVAL U7
-  SETTABLEKS R6 R5 K23 ["unequipItem"]
+  SETTABLEKS R6 R5 K23 ["testInExperience"]
   NEWCLOSURE R6 P28
-  CAPTURE VAL R0
-  SETTABLEKS R6 R5 K24 ["autoSetupPassedValidation"]
+  CAPTURE VAL R1
+  CAPTURE UPVAL U7
+  SETTABLEKS R6 R5 K24 ["unequipItem"]
   NEWCLOSURE R6 P29
   CAPTURE VAL R0
-  SETTABLEKS R6 R5 K25 ["autoSetupFailedValidation"]
+  SETTABLEKS R6 R5 K25 ["autoSetupPassedValidation"]
   NEWCLOSURE R6 P30
   CAPTURE VAL R0
-  SETTABLEKS R6 R5 K26 ["autoSetupValidationDuration"]
+  SETTABLEKS R6 R5 K26 ["autoSetupFailedValidation"]
   NEWCLOSURE R6 P31
   CAPTURE VAL R0
-  SETTABLEKS R6 R5 K27 ["autoSetupValidationErrorCount"]
+  SETTABLEKS R6 R5 K27 ["autoSetupValidationDuration"]
   NEWCLOSURE R6 P32
   CAPTURE VAL R0
+  SETTABLEKS R6 R5 K28 ["autoSetupValidationErrorCount"]
+  NEWCLOSURE R6 P33
+  CAPTURE VAL R0
   CAPTURE UPVAL U1
-  SETTABLEKS R6 R5 K28 ["autoSetupValidationError"]
+  SETTABLEKS R6 R5 K29 ["autoSetupValidationError"]
   RETURN R5 1
 
 MAIN:
@@ -641,7 +669,7 @@ MAIN:
   SETLIST R12 R13 1 [1]
   SETTABLEKS R12 R11 K22 ["backends"]
   DUPCLOSURE R12 K36 [PROTO_0]
-  DUPCLOSURE R13 K37 [PROTO_34]
+  DUPCLOSURE R13 K37 [PROTO_35]
   CAPTURE VAL R3
   CAPTURE VAL R5
   CAPTURE VAL R2

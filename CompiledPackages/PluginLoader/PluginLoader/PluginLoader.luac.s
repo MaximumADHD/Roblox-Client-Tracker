@@ -1,0 +1,483 @@
+PROTO_0:
+  DUPTABLE R0 K4 [{"_signal", "_handlers", "_eventsToFlush", "_connections"}]
+  GETIMPORT R1 K7 [Instance.new]
+  LOADK R2 K8 ["BindableEvent"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K0 ["_signal"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K1 ["_handlers"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K2 ["_eventsToFlush"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K3 ["_connections"]
+  GETUPVAL R3 0
+  FASTCALL2 SETMETATABLE R0 R3 [+4]
+  MOVE R2 R0
+  GETIMPORT R1 K10 [setmetatable]
+  CALL R1 2 0
+  RETURN R0 1
+
+PROTO_1:
+  PREPVARARGS 1
+  GETTABLEKS R2 R0 K0 ["_handlers"]
+  LENGTH R1 R2
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+8]
+  GETTABLEKS R1 R0 K1 ["_signal"]
+  GETVARARGS R3 -1
+  NAMECALL R1 R1 K2 ["Fire"]
+  CALL R1 -1 0
+  RETURN R0 0
+  GETTABLEKS R2 R0 K3 ["_eventsToFlush"]
+  NEWTABLE R3 0 0
+  GETVARARGS R4 -1
+  SETLIST R3 R4 -1 [1]
+  FASTCALL2 TABLE_INSERT R2 R3 [+3]
+  GETIMPORT R1 K6 [table.insert]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  FASTCALL1 TABLE_UNPACK R2 [+2]
+  GETIMPORT R1 K1 [unpack]
+  CALL R1 1 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R3 R0 K0 ["_handlers"]
+  LENGTH R2 R3
+  JUMPIFNOTEQKN R2 K1 [0] [+19]
+  GETIMPORT R2 K3 [ipairs]
+  GETTABLEKS R3 R0 K4 ["_eventsToFlush"]
+  CALL R2 1 3
+  FORGPREP_INEXT R2
+  GETIMPORT R7 K7 [task.spawn]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CALL R7 1 0
+  FORGLOOP R2 2 [inext] [-7]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K4 ["_eventsToFlush"]
+  GETTABLEKS R3 R0 K8 ["_signal"]
+  GETTABLEKS R2 R3 K9 ["Event"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K10 ["Connect"]
+  CALL R2 2 1
+  GETTABLEKS R4 R0 K0 ["_handlers"]
+  FASTCALL2 TABLE_INSERT R4 R1 [+4]
+  MOVE R5 R1
+  GETIMPORT R3 K13 [table.insert]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K14 ["_connections"]
+  FASTCALL2 TABLE_INSERT R4 R2 [+4]
+  MOVE R5 R2
+  GETIMPORT R3 K13 [table.insert]
+  CALL R3 2 0
+  RETURN R2 1
+
+PROTO_4:
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K0 ["_handlers"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K1 ["_eventsToFlush"]
+  GETIMPORT R1 K3 [ipairs]
+  GETTABLEKS R2 R0 K4 ["_connections"]
+  CALL R1 1 3
+  FORGPREP_INEXT R1
+  NAMECALL R6 R5 K5 ["Disconnect"]
+  CALL R6 1 0
+  FORGLOOP R1 2 [inext] [-4]
+  GETTABLEKS R1 R0 K6 ["_signal"]
+  NAMECALL R1 R1 K7 ["Destroy"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_5:
+  JUMPIFEQKNIL R0 [+2]
+  RETURN R0 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["StudioLocaleId"]
+  RETURN R1 1
+
+PROTO_6:
+  DUPTABLE R1 K10 [{"_connectedSignals", "_buttonConnections", "_widgetConnections", "_userHasInteracted", "_destroyed", "_userInteractionSignal", "_locale", "_mainTranslator", "_fallbackTranslator", "_initArgs"}]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K0 ["_connectedSignals"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K1 ["_buttonConnections"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K2 ["_widgetConnections"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K3 ["_userHasInteracted"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K4 ["_destroyed"]
+  GETIMPORT R2 K13 [Instance.new]
+  LOADK R3 K14 ["BindableEvent"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K5 ["_userInteractionSignal"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K6 ["_locale"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K7 ["_mainTranslator"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K8 ["_fallbackTranslator"]
+  SETTABLEKS R0 R1 K9 ["_initArgs"]
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K16 [setmetatable]
+  CALL R2 2 0
+  GETTABLEKS R3 R1 K9 ["_initArgs"]
+  GETTABLEKS R2 R3 K17 ["localizationNamespace"]
+  JUMPIFNOTEQKNIL R2 [+6]
+  GETTABLEKS R2 R1 K9 ["_initArgs"]
+  LOADK R3 K18 ["Studio"]
+  SETTABLEKS R3 R2 K17 ["localizationNamespace"]
+  GETTABLEKS R3 R0 K19 ["overrideLocaleId"]
+  JUMPIFEQKNIL R3 [+3]
+  MOVE R2 R3
+  JUMP [+4]
+  GETUPVAL R4 1
+  GETTABLEKS R2 R4 K20 ["StudioLocaleId"]
+  JUMP [0]
+  SETTABLEKS R2 R1 K6 ["_locale"]
+  GETTABLEKS R2 R0 K21 ["translationResourceTable"]
+  GETTABLEKS R4 R1 K6 ["_locale"]
+  NAMECALL R2 R2 K22 ["GetTranslator"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K7 ["_mainTranslator"]
+  GETTABLEKS R2 R0 K23 ["fallbackResourceTable"]
+  LOADK R4 K24 ["en-us"]
+  NAMECALL R2 R2 K22 ["GetTranslator"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K8 ["_fallbackTranslator"]
+  GETTABLEKS R2 R0 K25 ["shouldImmediatelyOpen"]
+  JUMPIFNOT R2 [+7]
+  GETTABLEKS R2 R0 K25 ["shouldImmediatelyOpen"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+3]
+  NAMECALL R2 R1 K26 ["_onUserInteracted"]
+  CALL R2 1 0
+  RETURN R1 1
+
+PROTO_7:
+  GETIMPORT R1 K1 [pairs]
+  GETTABLEKS R2 R0 K2 ["_connectedSignals"]
+  CALL R1 1 3
+  FORGPREP_NEXT R1
+  GETTABLEN R6 R5 1
+  NAMECALL R6 R6 K3 ["Disconnect"]
+  CALL R6 1 0
+  FORGLOOP R1 2 [-5]
+  GETIMPORT R1 K1 [pairs]
+  GETTABLEKS R2 R0 K4 ["_buttonConnections"]
+  CALL R1 1 3
+  FORGPREP_NEXT R1
+  GETTABLEN R6 R5 1
+  NAMECALL R6 R6 K3 ["Disconnect"]
+  CALL R6 1 0
+  FORGLOOP R1 2 [-5]
+  GETIMPORT R1 K1 [pairs]
+  GETTABLEKS R2 R0 K5 ["_widgetConnections"]
+  CALL R1 1 3
+  FORGPREP_NEXT R1
+  GETTABLEN R6 R5 1
+  NAMECALL R6 R6 K3 ["Disconnect"]
+  CALL R6 1 0
+  FORGLOOP R1 2 [-5]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K6 ["_destroyed"]
+  NAMECALL R1 R0 K7 ["_onUserInteracted"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K8 ["_userInteractionSignal"]
+  NAMECALL R1 R1 K9 ["Destroy"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K8 ["_userInteractionSignal"]
+  RETURN R0 0
+
+PROTO_8:
+  GETTABLEKS R2 R0 K0 ["_initArgs"]
+  GETTABLEKS R1 R2 K1 ["localizationNamespace"]
+  RETURN R1 1
+
+PROTO_9:
+  GETTABLEKS R2 R0 K0 ["_initArgs"]
+  GETTABLEKS R1 R2 K1 ["pluginName"]
+  RETURN R1 1
+
+PROTO_10:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["FormatByKey"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_11:
+  JUMPIF R0 [+3]
+  LOADB R1 0
+  LOADNIL R2
+  RETURN R1 2
+  GETIMPORT R1 K1 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CALL R1 1 2
+  RETURN R1 2
+
+PROTO_12:
+  GETIMPORT R5 K2 [string.format]
+  LOADK R6 K3 ["%s.%s.%s.%s"]
+  MOVE R7 R1
+  MOVE R8 R2
+  MOVE R9 R3
+  MOVE R10 R4
+  CALL R5 5 1
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R5
+  LOADNIL R7
+  LOADNIL R8
+  GETTABLEKS R9 R0 K4 ["locale"]
+  JUMPIFNOTEQKS R9 K5 ["en-us"] [+20]
+  GETTABLEKS R11 R0 K6 ["_fallbackTranslator"]
+  JUMPIF R11 [+3]
+  LOADB R9 0
+  LOADNIL R10
+  JUMP [+8]
+  GETIMPORT R12 K8 [pcall]
+  NEWCLOSURE R13 P1
+  CAPTURE VAL R11
+  CAPTURE VAL R5
+  CALL R12 1 2
+  MOVE R9 R12
+  MOVE R10 R13
+  MOVE R7 R9
+  MOVE R8 R10
+  JUMPIFNOT R7 [+38]
+  RETURN R8 1
+  JUMP [+36]
+  GETTABLEKS R11 R0 K9 ["_mainTranslator"]
+  JUMPIF R11 [+3]
+  LOADB R9 0
+  LOADNIL R10
+  JUMP [+8]
+  GETIMPORT R12 K8 [pcall]
+  NEWCLOSURE R13 P1
+  CAPTURE VAL R11
+  CAPTURE VAL R5
+  CALL R12 1 2
+  MOVE R9 R12
+  MOVE R10 R13
+  MOVE R7 R9
+  MOVE R8 R10
+  JUMPIFNOT R7 [+1]
+  RETURN R8 1
+  GETTABLEKS R11 R0 K6 ["_fallbackTranslator"]
+  JUMPIF R11 [+3]
+  LOADB R9 0
+  LOADNIL R10
+  JUMP [+8]
+  GETIMPORT R12 K8 [pcall]
+  NEWCLOSURE R13 P1
+  CAPTURE VAL R11
+  CAPTURE VAL R5
+  CALL R12 1 2
+  MOVE R9 R12
+  MOVE R10 R13
+  MOVE R7 R9
+  MOVE R8 R10
+  JUMPIFNOT R7 [+1]
+  RETURN R8 1
+  GETIMPORT R9 K11 [game]
+  LOADK R11 K12 ["RefactorTranslatorInstance"]
+  NAMECALL R9 R9 K13 ["GetEngineFeature"]
+  CALL R9 2 1
+  JUMPIFNOT R9 [+15]
+  JUMPIFNOT R7 [+28]
+  GETIMPORT R9 K15 [string.find]
+  MOVE R10 R8
+  LOADK R11 K16 ["Key .* not found for locale"]
+  CALL R9 2 1
+  JUMPIF R9 [+22]
+  GETIMPORT R9 K18 [warn]
+  MOVE R10 R8
+  GETIMPORT R11 K21 [debug.traceback]
+  CALL R11 0 -1
+  CALL R9 -1 0
+  RETURN R5 1
+  JUMPIFNOT R7 [+13]
+  GETIMPORT R9 K15 [string.find]
+  MOVE R10 R8
+  LOADK R11 K22 ["LocalizationTable or parent tables do not contain a translation"]
+  CALL R9 2 1
+  JUMPIF R9 [+7]
+  GETIMPORT R9 K18 [warn]
+  MOVE R10 R8
+  GETIMPORT R11 K21 [debug.traceback]
+  CALL R11 0 -1
+  CALL R9 -1 0
+  RETURN R5 1
+
+PROTO_13:
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["_userHasInteracted"]
+  GETTABLEKS R1 R0 K1 ["_userInteractionSignal"]
+  NAMECALL R1 R1 K2 ["Fire"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["_onUserInteracted"]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K1 ["Fire"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  CALL R2 0 1
+  GETTABLEKS R3 R1 K1 ["Click"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  NAMECALL R3 R3 K2 ["Connect"]
+  CALL R3 2 1
+  GETTABLEKS R4 R0 K3 ["_buttonConnections"]
+  NEWTABLE R5 0 2
+  MOVE R6 R3
+  MOVE R7 R2
+  SETLIST R5 R6 2 [1]
+  SETTABLE R5 R4 R1
+  RETURN R2 1
+
+PROTO_16:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["Enabled"]
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K1 ["_onUserInteracted"]
+  CALL R0 1 0
+  GETUPVAL R0 2
+  NAMECALL R0 R0 K2 ["Fire"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_17:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  CALL R2 0 1
+  LOADK R5 K1 ["Enabled"]
+  NAMECALL R3 R1 K2 ["GetPropertyChangedSignal"]
+  CALL R3 2 1
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  NAMECALL R3 R3 K3 ["Connect"]
+  CALL R3 2 1
+  GETTABLEKS R4 R0 K4 ["_widgetConnections"]
+  NEWTABLE R5 0 2
+  MOVE R6 R3
+  MOVE R7 R2
+  SETLIST R5 R6 2 [1]
+  SETTABLE R5 R4 R1
+  GETTABLEKS R4 R1 K1 ["Enabled"]
+  JUMPIFNOT R4 [+3]
+  NAMECALL R4 R0 K5 ["_onUserInteracted"]
+  CALL R4 1 0
+  RETURN R2 1
+
+PROTO_18:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["_onUserInteracted"]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K1 ["Fire"]
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_19:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  CALL R2 0 1
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  NAMECALL R3 R1 K1 ["Connect"]
+  CALL R3 2 1
+  GETTABLEKS R4 R0 K2 ["_connectedSignals"]
+  NEWTABLE R5 0 2
+  MOVE R6 R3
+  MOVE R7 R2
+  SETLIST R5 R6 2 [1]
+  SETTABLE R5 R4 R1
+  RETURN R2 1
+
+PROTO_20:
+  GETTABLEKS R1 R0 K0 ["_userHasInteracted"]
+  JUMPIF R1 [+9]
+  GETTABLEKS R2 R0 K1 ["_userInteractionSignal"]
+  GETTABLEKS R1 R2 K2 ["Event"]
+  NAMECALL R1 R1 K3 ["Wait"]
+  CALL R1 1 1
+  SETTABLEKS R1 R0 K4 ["_userInteractionConnection"]
+  GETTABLEKS R2 R0 K5 ["_destroyed"]
+  NOT R1 R2
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  NEWTABLE R1 8 0
+  SETTABLEKS R1 R1 K4 ["__index"]
+  DUPCLOSURE R2 K5 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R2 R1 K6 ["new"]
+  DUPCLOSURE R2 K7 [PROTO_1]
+  SETTABLEKS R2 R1 K8 ["Fire"]
+  DUPCLOSURE R2 K9 [PROTO_3]
+  SETTABLEKS R2 R1 K10 ["Connect"]
+  DUPCLOSURE R2 K11 [PROTO_4]
+  SETTABLEKS R2 R1 K12 ["Destroy"]
+  NEWTABLE R2 16 0
+  SETTABLEKS R2 R2 K4 ["__index"]
+  DUPCLOSURE R3 K13 [PROTO_5]
+  CAPTURE VAL R0
+  DUPCLOSURE R4 K14 [PROTO_6]
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  SETTABLEKS R4 R2 K6 ["new"]
+  DUPCLOSURE R4 K15 [PROTO_7]
+  SETTABLEKS R4 R2 K12 ["Destroy"]
+  DUPCLOSURE R4 K16 [PROTO_8]
+  SETTABLEKS R4 R2 K17 ["getKeyNamespace"]
+  DUPCLOSURE R4 K18 [PROTO_9]
+  SETTABLEKS R4 R2 K19 ["getPluginName"]
+  DUPCLOSURE R4 K20 [PROTO_12]
+  SETTABLEKS R4 R2 K21 ["getLocalizedText"]
+  DUPCLOSURE R4 K22 [PROTO_13]
+  SETTABLEKS R4 R2 K23 ["_onUserInteracted"]
+  DUPCLOSURE R4 K24 [PROTO_15]
+  CAPTURE VAL R1
+  SETTABLEKS R4 R2 K25 ["registerButton"]
+  DUPCLOSURE R4 K26 [PROTO_17]
+  CAPTURE VAL R1
+  SETTABLEKS R4 R2 K27 ["registerWidget"]
+  DUPCLOSURE R4 K28 [PROTO_19]
+  CAPTURE VAL R1
+  SETTABLEKS R4 R2 K29 ["registerSignal"]
+  DUPCLOSURE R4 K30 [PROTO_20]
+  SETTABLEKS R4 R2 K31 ["waitForUserInteraction"]
+  RETURN R2 1

@@ -1,0 +1,97 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["named"]
+  LOADK R4 K1 ["Roact"]
+  MOVE R5 R0
+  CONCAT R3 R4 R5
+  CALL R2 1 1
+  SETTABLE R2 R1 R0
+  RETURN R0 0
+
+PROTO_1:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFEQKS R1 K2 ["table"] [+3]
+  LOADNIL R1
+  RETURN R1 1
+  GETUPVAL R2 0
+  GETTABLE R1 R0 R2
+  RETURN R1 1
+
+PROTO_2:
+  LOADK R0 K0 ["RoactType"]
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["Symbol"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["strict"]
+  CALL R1 1 1
+  GETIMPORT R2 K8 [newproxy]
+  LOADB R3 1
+  CALL R2 1 1
+  NEWTABLE R3 1 0
+  DUPCLOSURE R4 K9 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  GETTABLEKS R5 R0 K10 ["named"]
+  LOADK R6 K11 ["RoactBinding"]
+  CALL R5 1 1
+  SETTABLEKS R5 R3 K12 ["Binding"]
+  GETTABLEKS R5 R0 K10 ["named"]
+  LOADK R6 K13 ["RoactElement"]
+  CALL R5 1 1
+  SETTABLEKS R5 R3 K14 ["Element"]
+  GETTABLEKS R5 R0 K10 ["named"]
+  LOADK R6 K15 ["RoactHostChangeEvent"]
+  CALL R5 1 1
+  SETTABLEKS R5 R3 K16 ["HostChangeEvent"]
+  GETTABLEKS R5 R0 K10 ["named"]
+  LOADK R6 K17 ["RoactHostEvent"]
+  CALL R5 1 1
+  SETTABLEKS R5 R3 K18 ["HostEvent"]
+  GETTABLEKS R5 R0 K10 ["named"]
+  LOADK R6 K19 ["RoactStatefulComponentClass"]
+  CALL R5 1 1
+  SETTABLEKS R5 R3 K20 ["StatefulComponentClass"]
+  GETTABLEKS R5 R0 K10 ["named"]
+  LOADK R6 K21 ["RoactStatefulComponentInstance"]
+  CALL R5 1 1
+  SETTABLEKS R5 R3 K22 ["StatefulComponentInstance"]
+  GETTABLEKS R5 R0 K10 ["named"]
+  LOADK R6 K23 ["RoactVirtualNode"]
+  CALL R5 1 1
+  SETTABLEKS R5 R3 K24 ["VirtualNode"]
+  GETTABLEKS R5 R0 K10 ["named"]
+  LOADK R6 K25 ["RoactVirtualTree"]
+  CALL R5 1 1
+  SETTABLEKS R5 R3 K26 ["VirtualTree"]
+  DUPCLOSURE R5 K27 [PROTO_1]
+  CAPTURE VAL R2
+  SETTABLEKS R5 R3 K28 ["of"]
+  FASTCALL1 GETMETATABLE R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K30 [getmetatable]
+  CALL R5 1 1
+  SETTABLEKS R3 R5 K31 ["__index"]
+  FASTCALL1 GETMETATABLE R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K30 [getmetatable]
+  CALL R5 1 1
+  DUPCLOSURE R6 K32 [PROTO_2]
+  SETTABLEKS R6 R5 K33 ["__tostring"]
+  MOVE R5 R1
+  MOVE R6 R3
+  LOADK R7 K34 ["Type"]
+  CALL R5 2 0
+  RETURN R2 1

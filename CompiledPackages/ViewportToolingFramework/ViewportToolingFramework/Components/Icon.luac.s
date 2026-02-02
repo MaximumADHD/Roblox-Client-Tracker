@@ -1,0 +1,62 @@
+PROTO_0:
+  GETTABLEKS R3 R0 K0 ["Icon"]
+  FASTCALL1 TYPEOF R3 [+2]
+  GETIMPORT R2 K2 [typeof]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K3 ["string"] [+22]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["createElement"]
+  LOADK R2 K5 ["ImageLabel"]
+  NEWTABLE R3 4 0
+  GETTABLEKS R4 R0 K0 ["Icon"]
+  SETTABLEKS R4 R3 K6 ["Image"]
+  GETTABLEKS R4 R0 K7 ["LayoutOrder"]
+  SETTABLEKS R4 R3 K7 ["LayoutOrder"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K8 ["Tag"]
+  LOADK R5 K9 ["VPF-Icon"]
+  SETTABLE R5 R3 R4
+  CALL R1 2 1
+  RETURN R1 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["createElement"]
+  LOADK R2 K10 ["Frame"]
+  NEWTABLE R3 2 0
+  GETTABLEKS R4 R0 K7 ["LayoutOrder"]
+  SETTABLEKS R4 R3 K7 ["LayoutOrder"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K8 ["Tag"]
+  GETUPVAL R6 1
+  CALL R6 0 1
+  JUMPIFNOT R6 [+2]
+  LOADK R5 K11 ["X-Fill VPF-X-Square"]
+  JUMP [+1]
+  LOADK R5 K12 ["X-Fill"]
+  SETTABLE R5 R3 R4
+  DUPTABLE R4 K13 [{"Icon"}]
+  GETTABLEKS R5 R0 K0 ["Icon"]
+  SETTABLEKS R5 R4 K0 ["Icon"]
+  CALL R1 3 1
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ViewportToolingFramework"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R0 K8 ["Types"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K9 ["Flags"]
+  GETTABLEKS R4 R5 K10 ["getFFlagViewportToolingFrameworkSplitButtons"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K11 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  RETURN R4 1

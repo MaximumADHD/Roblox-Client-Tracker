@@ -1,0 +1,113 @@
+PROTO_0:
+  DUPTABLE R3 K4 [{"targetId", "toBridgeId", "debugInterface", "listeners"}]
+  SETTABLEKS R1 R3 K0 ["targetId"]
+  SETTABLEKS R2 R3 K1 ["toBridgeId"]
+  SETTABLEKS R0 R3 K2 ["debugInterface"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K3 ["listeners"]
+  RETURN R3 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["debugInterface"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["targetId"]
+  NAMECALL R1 R1 K2 ["removeWorker"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R3 K2 [{"eventName", "onEvent"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["CloseTarget"]
+  SETTABLEKS R4 R3 K0 ["eventName"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  SETTABLEKS R4 R3 K1 ["onEvent"]
+  NAMECALL R1 R0 K4 ["connect"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  MOVE R3 R1
+  DUPTABLE R4 K1 [{"targetId"}]
+  GETTABLEKS R5 R0 K0 ["targetId"]
+  SETTABLEKS R5 R4 K0 ["targetId"]
+  CALL R2 2 1
+  GETTABLEKS R3 R0 K2 ["debugInterface"]
+  MOVE R5 R2
+  NAMECALL R3 R3 K3 ["_connect"]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K4 ["listeners"]
+  FASTCALL2 TABLE_INSERT R4 R2 [+3]
+  MOVE R5 R2
+  GETUPVAL R3 1
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  MOVE R3 R1
+  DUPTABLE R4 K2 [{"fromTargetId", "toBridgeId"}]
+  GETTABLEKS R5 R0 K3 ["targetId"]
+  SETTABLEKS R5 R4 K0 ["fromTargetId"]
+  GETTABLEKS R5 R0 K1 ["toBridgeId"]
+  SETTABLEKS R5 R4 K1 ["toBridgeId"]
+  CALL R2 2 1
+  GETTABLEKS R3 R0 K4 ["debugInterface"]
+  MOVE R5 R2
+  NAMECALL R3 R3 K5 ["_send"]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["debugInterface"]
+  MOVE R3 R0
+  NAMECALL R1 R1 K1 ["_disconnect"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R1 0
+  GETTABLEKS R2 R0 K0 ["listeners"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CALL R1 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R0 K5 ["EventName"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R1 K6 ["Dash"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K7 ["class"]
+  GETTABLEKS R5 R3 K8 ["forEach"]
+  GETTABLEKS R6 R3 K9 ["join"]
+  GETIMPORT R7 K12 [table.insert]
+  MOVE R8 R4
+  LOADK R9 K13 ["TargetWorker"]
+  DUPCLOSURE R10 K14 [PROTO_0]
+  CALL R8 2 1
+  DUPCLOSURE R9 K15 [PROTO_2]
+  CAPTURE VAL R2
+  SETTABLEKS R9 R8 K16 ["connectEvents"]
+  DUPCLOSURE R9 K17 [PROTO_3]
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  SETTABLEKS R9 R8 K18 ["connect"]
+  DUPCLOSURE R9 K19 [PROTO_4]
+  CAPTURE VAL R6
+  SETTABLEKS R9 R8 K20 ["send"]
+  DUPCLOSURE R9 K21 [PROTO_6]
+  CAPTURE VAL R5
+  SETTABLEKS R9 R8 K22 ["destroy"]
+  RETURN R8 1

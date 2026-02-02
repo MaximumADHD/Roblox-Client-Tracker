@@ -1,0 +1,729 @@
+PROTO_0:
+  GETUPVAL R0 0
+  JUMPIFEQKNIL R0 [+2]
+  RETURN R0 0
+  GETIMPORT R0 K2 [task.defer]
+  GETUPVAL R1 1
+  CALL R0 1 1
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["searchRootState"]
+  JUMPIF R0 [+3]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K1 ["rootState"]
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R0 0
+  JUMPIFEQKNIL R0 [+7]
+  LOADNIL R0
+  SETUPVAL R0 0
+  GETUPVAL R0 1
+  DUPCLOSURE R1 K0 [PROTO_2]
+  CAPTURE UPVAL U2
+  CALL R0 1 0
+  GETUPVAL R1 3
+  GETTABLEKS R0 R1 K1 ["flushRootChanges"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["destroy"]
+  CALL R0 0 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["destroy"]
+  CALL R0 0 0
+  GETUPVAL R0 2
+  JUMPIFEQKNIL R0 [+5]
+  GETIMPORT R0 K3 [task.cancel]
+  GETUPVAL R1 2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["expandAsync"]
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R1 2 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["getFocusedRootState"]
+  CALL R2 0 1
+  GETTABLEKS R1 R2 K2 ["queueRootChanged"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["unexpand"]
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R1 2 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["getFocusedRootState"]
+  CALL R2 0 1
+  GETTABLEKS R1 R2 K2 ["queueRootChanged"]
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["expandAll"]
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["collapseAll"]
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getExpandState"]
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["rootId"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["expandAsync"]
+  GETUPVAL R2 2
+  MOVE R3 R0
+  CALL R1 2 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K2 ["getFocusedRootState"]
+  CALL R2 0 1
+  GETTABLEKS R1 R2 K3 ["queueRootChanged"]
+  CALL R1 0 0
+  GETUPVAL R1 3
+  GETTABLEKS R0 R1 K4 ["requestCurrentSelection"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["getPlaceIdAsync"]
+  CALL R1 0 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["get"]
+  CALL R0 0 -1
+  RETURN R0 -1
+
+PROTO_14:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["getFocusedRootState"]
+  CALL R3 0 1
+  GETTABLEKS R2 R3 K1 ["instanceIdsToNodes"]
+  GETTABLE R1 R2 R0
+  RETURN R1 1
+
+PROTO_15:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  GETVARARGS R2 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_16:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  GETVARARGS R3 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_17:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  GETVARARGS R3 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_18:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  GETVARARGS R3 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_19:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["create"]
+  GETIMPORT R3 K3 [table.clone]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K4 ["emptyDataModelNode"]
+  CALL R3 1 -1
+  CALL R2 -1 2
+  NEWTABLE R4 0 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["rootId"]
+  GETTABLEKS R6 R2 K6 ["get"]
+  CALL R6 0 1
+  SETTABLE R6 R4 R5
+  LOADNIL R5
+  LOADNIL R6
+  LOADNIL R7
+  DUPTABLE R8 K13 [{"rootState", "searchRootState", "getFocusedRootState", "guestRpcInterface", "searchClearedSignal", "analyticsInterface"}]
+  DUPTABLE R9 K18 [{"queueRootChanged", "instanceIdsToNodes", "instanceIdsToHiddenChildren", "unaddedParentIdsToChildren"}]
+  NEWCLOSURE R10 P0
+  CAPTURE REF R5
+  CAPTURE REF R6
+  SETTABLEKS R10 R9 K14 ["queueRootChanged"]
+  SETTABLEKS R4 R9 K15 ["instanceIdsToNodes"]
+  NEWTABLE R10 0 0
+  SETTABLEKS R10 R9 K16 ["instanceIdsToHiddenChildren"]
+  NEWTABLE R10 0 0
+  SETTABLEKS R10 R9 K17 ["unaddedParentIdsToChildren"]
+  SETTABLEKS R9 R8 K7 ["rootState"]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K8 ["searchRootState"]
+  NEWCLOSURE R9 P1
+  CAPTURE REF R7
+  SETTABLEKS R9 R8 K9 ["getFocusedRootState"]
+  SETTABLEKS R0 R8 K10 ["guestRpcInterface"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K19 ["new"]
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K11 ["searchClearedSignal"]
+  GETTABLEKS R9 R1 K12 ["analyticsInterface"]
+  SETTABLEKS R9 R8 K12 ["analyticsInterface"]
+  MOVE R7 R8
+  GETUPVAL R8 3
+  MOVE R9 R7
+  CALL R8 1 1
+  GETUPVAL R9 4
+  MOVE R10 R7
+  CALL R9 1 1
+  GETUPVAL R10 5
+  MOVE R11 R7
+  CALL R10 1 1
+  GETUPVAL R11 6
+  MOVE R12 R7
+  GETTABLEKS R13 R1 K20 ["getExpandHierarchySetting"]
+  CALL R11 2 1
+  GETUPVAL R12 7
+  MOVE R13 R7
+  GETTABLEKS R14 R11 K21 ["selectedIdsArrayObservable"]
+  CALL R12 2 1
+  GETUPVAL R13 8
+  MOVE R14 R7
+  GETTABLEKS R15 R11 K22 ["selectIds"]
+  GETTABLEKS R16 R1 K23 ["waitForNextSearchAsync"]
+  GETTABLEKS R17 R1 K20 ["getExpandHierarchySetting"]
+  GETTABLEKS R18 R11 K24 ["selectedIdsObservable"]
+  CALL R13 5 1
+  NEWCLOSURE R6 P2
+  CAPTURE REF R5
+  CAPTURE VAL R3
+  CAPTURE UPVAL U9
+  CAPTURE VAL R13
+  GETUPVAL R14 10
+  MOVE R15 R7
+  MOVE R16 R11
+  MOVE R17 R13
+  CALL R14 3 1
+  GETUPVAL R15 11
+  MOVE R16 R2
+  GETTABLEKS R17 R13 K25 ["searchRootObservable"]
+  CALL R15 2 1
+  GETUPVAL R16 12
+  MOVE R17 R7
+  MOVE R18 R15
+  CALL R16 2 1
+  GETUPVAL R17 13
+  MOVE R18 R7
+  GETTABLEKS R19 R13 K26 ["processInstanceReplaced"]
+  CALL R17 2 1
+  GETUPVAL R19 14
+  CALL R19 0 1
+  JUMPIFNOT R19 [+6]
+  GETUPVAL R18 15
+  MOVE R19 R7
+  GETTABLEKS R20 R17 K27 ["instanceReplaced"]
+  CALL R18 2 1
+  JUMP [+1]
+  LOADNIL R18
+  GETUPVAL R19 16
+  MOVE R20 R7
+  CALL R19 1 1
+  GETUPVAL R20 17
+  MOVE R21 R7
+  CALL R20 1 1
+  DUPTABLE R21 K41 [{"instanceAdded", "instanceReplaced", "instanceStreamedOut", "streamedOutInstanceRemoved", "instancePinned", "instanceUnpinned", "selectionChanged", "guestHovered", "guestUnhovered", "updateFieldValue", "receiveSearchResults", "receiveSearchSuggestions", "instancePickerActivated", "instancePickerDeactivated"}]
+  GETTABLEKS R22 R17 K28 ["instanceAdded"]
+  SETTABLEKS R22 R21 K28 ["instanceAdded"]
+  GETTABLEKS R22 R17 K27 ["instanceReplaced"]
+  SETTABLEKS R22 R21 K27 ["instanceReplaced"]
+  GETUPVAL R23 14
+  CALL R23 0 1
+  JUMPIFNOT R23 [+3]
+  GETTABLEKS R22 R18 K29 ["instanceStreamedOut"]
+  JUMP [+3]
+  GETUPVAL R22 18
+  LOADK R23 K29 ["instanceStreamedOut"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K29 ["instanceStreamedOut"]
+  GETUPVAL R23 14
+  CALL R23 0 1
+  JUMPIFNOT R23 [+3]
+  GETTABLEKS R22 R18 K30 ["streamedOutInstanceRemoved"]
+  JUMP [+3]
+  GETUPVAL R22 18
+  LOADK R23 K30 ["streamedOutInstanceRemoved"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K30 ["streamedOutInstanceRemoved"]
+  GETUPVAL R23 14
+  CALL R23 0 1
+  JUMPIFNOT R23 [+3]
+  GETTABLEKS R22 R18 K31 ["instancePinned"]
+  JUMP [+3]
+  GETUPVAL R22 18
+  LOADK R23 K31 ["instancePinned"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K31 ["instancePinned"]
+  GETUPVAL R23 14
+  CALL R23 0 1
+  JUMPIFNOT R23 [+3]
+  GETTABLEKS R22 R18 K32 ["instanceUnpinned"]
+  JUMP [+3]
+  GETUPVAL R22 18
+  LOADK R23 K32 ["instanceUnpinned"]
+  CALL R22 1 1
+  SETTABLEKS R22 R21 K32 ["instanceUnpinned"]
+  GETTABLEKS R22 R11 K33 ["selectionChanged"]
+  SETTABLEKS R22 R21 K33 ["selectionChanged"]
+  GETTABLEKS R22 R16 K34 ["guestHovered"]
+  SETTABLEKS R22 R21 K34 ["guestHovered"]
+  GETTABLEKS R22 R16 K35 ["guestUnhovered"]
+  SETTABLEKS R22 R21 K35 ["guestUnhovered"]
+  GETTABLEKS R22 R9 K36 ["updateFieldValue"]
+  SETTABLEKS R22 R21 K36 ["updateFieldValue"]
+  GETTABLEKS R22 R13 K37 ["receiveSearchResults"]
+  SETTABLEKS R22 R21 K37 ["receiveSearchResults"]
+  GETTABLEKS R22 R13 K38 ["receiveSearchSuggestions"]
+  SETTABLEKS R22 R21 K38 ["receiveSearchSuggestions"]
+  GETTABLEKS R22 R19 K39 ["instancePickerActivated"]
+  SETTABLEKS R22 R21 K39 ["instancePickerActivated"]
+  GETTABLEKS R22 R19 K40 ["instancePickerDeactivated"]
+  SETTABLEKS R22 R21 K40 ["instancePickerDeactivated"]
+  NEWCLOSURE R22 P3
+  CAPTURE VAL R10
+  CAPTURE VAL R13
+  CAPTURE REF R5
+  NEWCLOSURE R23 P4
+  CAPTURE UPVAL U19
+  CAPTURE REF R7
+  NEWCLOSURE R24 P5
+  CAPTURE UPVAL U19
+  CAPTURE REF R7
+  NEWCLOSURE R25 P6
+  CAPTURE UPVAL U19
+  CAPTURE REF R7
+  NEWCLOSURE R26 P7
+  CAPTURE UPVAL U19
+  CAPTURE REF R7
+  NEWCLOSURE R27 P8
+  CAPTURE UPVAL U19
+  CAPTURE REF R7
+  GETIMPORT R28 K44 [task.spawn]
+  NEWCLOSURE R29 P9
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U19
+  CAPTURE REF R7
+  CAPTURE VAL R0
+  CALL R28 1 0
+  GETUPVAL R29 0
+  GETTABLEKS R28 R29 K0 ["create"]
+  LOADNIL R29
+  CALL R28 1 2
+  GETIMPORT R30 K44 [task.spawn]
+  NEWCLOSURE R31 P10
+  CAPTURE VAL R29
+  CAPTURE VAL R0
+  CALL R30 1 0
+  GETUPVAL R31 0
+  GETTABLEKS R30 R31 K0 ["create"]
+  LOADB R31 1
+  CALL R30 1 2
+  NEWCLOSURE R32 P11
+  CAPTURE VAL R31
+  NEWCLOSURE R33 P12
+  CAPTURE VAL R30
+  LOADNIL R34
+  NEWTABLE R35 64 0
+  SETTABLEKS R15 R35 K45 ["focusedRootObservable"]
+  NEWCLOSURE R36 P13
+  CAPTURE REF R7
+  SETTABLEKS R36 R35 K46 ["getExplorerNodeById"]
+  SETTABLEKS R6 R35 K47 ["flushRootChanges"]
+  SETTABLEKS R23 R35 K48 ["expandAsync"]
+  SETTABLEKS R24 R35 K49 ["unexpand"]
+  SETTABLEKS R27 R35 K50 ["getExpandState"]
+  SETTABLEKS R25 R35 K51 ["expandAll"]
+  SETTABLEKS R26 R35 K52 ["collapseAll"]
+  GETTABLEKS R36 R11 K22 ["selectIds"]
+  SETTABLEKS R36 R35 K22 ["selectIds"]
+  GETTABLEKS R36 R11 K24 ["selectedIdsObservable"]
+  SETTABLEKS R36 R35 K24 ["selectedIdsObservable"]
+  GETTABLEKS R36 R11 K21 ["selectedIdsArrayObservable"]
+  SETTABLEKS R36 R35 K21 ["selectedIdsArrayObservable"]
+  GETTABLEKS R36 R11 K53 ["selectedWithinIdsObservable"]
+  SETTABLEKS R36 R35 K53 ["selectedWithinIdsObservable"]
+  NEWCLOSURE R36 P14
+  CAPTURE UPVAL U20
+  CAPTURE REF R7
+  SETTABLEKS R36 R35 K54 ["renameInstance"]
+  GETTABLEKS R36 R12 K55 ["openContextMenuAsync"]
+  SETTABLEKS R36 R35 K55 ["openContextMenuAsync"]
+  GETTABLEKS R36 R12 K56 ["performContextMenuAction"]
+  SETTABLEKS R36 R35 K56 ["performContextMenuAction"]
+  GETTABLEKS R36 R16 K57 ["hoverId"]
+  SETTABLEKS R36 R35 K57 ["hoverId"]
+  GETTABLEKS R36 R16 K58 ["hoveredObservable"]
+  SETTABLEKS R36 R35 K58 ["hoveredObservable"]
+  NEWCLOSURE R36 P15
+  CAPTURE UPVAL U21
+  CAPTURE REF R34
+  CAPTURE REF R7
+  SETTABLEKS R36 R35 K59 ["unselectedInstanceClicked"]
+  NEWCLOSURE R36 P16
+  CAPTURE UPVAL U22
+  CAPTURE REF R34
+  CAPTURE REF R7
+  SETTABLEKS R36 R35 K60 ["doubleClick"]
+  SETTABLEKS R14 R35 K61 ["shiftClick"]
+  NEWCLOSURE R36 P17
+  CAPTURE UPVAL U23
+  CAPTURE REF R34
+  CAPTURE REF R7
+  SETTABLEKS R36 R35 K62 ["selectRange"]
+  GETTABLEKS R36 R9 K63 ["setViewingInstances"]
+  SETTABLEKS R36 R35 K63 ["setViewingInstances"]
+  GETTABLEKS R36 R9 K64 ["addField"]
+  SETTABLEKS R36 R35 K64 ["addField"]
+  GETTABLEKS R36 R9 K65 ["requestedFieldsObservable"]
+  SETTABLEKS R36 R35 K65 ["requestedFieldsObservable"]
+  GETTABLEKS R36 R0 K66 ["performFieldAction"]
+  SETTABLEKS R36 R35 K66 ["performFieldAction"]
+  GETTABLEKS R36 R9 K67 ["seenFieldsObservable"]
+  SETTABLEKS R36 R35 K67 ["seenFieldsObservable"]
+  GETTABLEKS R36 R0 K68 ["dropSelectionOntoAsync"]
+  SETTABLEKS R36 R35 K68 ["dropSelectionOntoAsync"]
+  SETTABLEKS R20 R35 K69 ["getIndexOfInstanceId"]
+  GETTABLEKS R36 R13 K70 ["setSearch"]
+  SETTABLEKS R36 R35 K70 ["setSearch"]
+  GETTABLEKS R36 R13 K71 ["getSearch"]
+  SETTABLEKS R36 R35 K71 ["getSearch"]
+  GETTABLEKS R36 R7 K11 ["searchClearedSignal"]
+  SETTABLEKS R36 R35 K11 ["searchClearedSignal"]
+  GETTABLEKS R36 R13 K72 ["searchSuggestionsObservable"]
+  SETTABLEKS R36 R35 K72 ["searchSuggestionsObservable"]
+  GETTABLEKS R36 R13 K73 ["searchResultCountObservable"]
+  SETTABLEKS R36 R35 K73 ["searchResultCountObservable"]
+  GETTABLEKS R36 R13 K74 ["isInstanceIdSearched"]
+  SETTABLEKS R36 R35 K74 ["isInstanceIdSearched"]
+  GETTABLEKS R36 R13 K75 ["selectAllSearchedIds"]
+  SETTABLEKS R36 R35 K75 ["selectAllSearchedIds"]
+  GETTABLEKS R36 R19 K76 ["instancePickerActiveObservable"]
+  SETTABLEKS R36 R35 K76 ["instancePickerActiveObservable"]
+  GETTABLEKS R36 R19 K77 ["instancePickerSubmitInstance"]
+  SETTABLEKS R36 R35 K77 ["instancePickerSubmitInstance"]
+  GETUPVAL R37 14
+  CALL R37 0 1
+  JUMPIFNOT R37 [+3]
+  GETTABLEKS R36 R18 K78 ["requestStreamIn"]
+  JUMP [+3]
+  GETUPVAL R36 18
+  LOADK R37 K78 ["requestStreamIn"]
+  CALL R36 1 1
+  SETTABLEKS R36 R35 K78 ["requestStreamIn"]
+  GETUPVAL R37 14
+  CALL R37 0 1
+  JUMPIFNOT R37 [+3]
+  GETTABLEKS R36 R18 K79 ["isInstancePinned"]
+  JUMP [+3]
+  GETUPVAL R36 18
+  LOADK R37 K79 ["isInstancePinned"]
+  CALL R36 1 1
+  SETTABLEKS R36 R35 K79 ["isInstancePinned"]
+  GETUPVAL R37 14
+  CALL R37 0 1
+  JUMPIFNOT R37 [+3]
+  GETTABLEKS R36 R18 K80 ["pinsUpdatedSignal"]
+  JUMP [+1]
+  LOADNIL R36
+  SETTABLEKS R36 R35 K80 ["pinsUpdatedSignal"]
+  SETTABLEKS R8 R35 K81 ["capabilities"]
+  SETTABLEKS R28 R35 K82 ["placeIdObservable"]
+  SETTABLEKS R32 R35 K83 ["setArrowKeysEnabled"]
+  SETTABLEKS R33 R35 K84 ["getArrowKeysEnabled"]
+  SETTABLEKS R22 R35 K85 ["destroy"]
+  MOVE R34 R35
+  MOVE R35 R34
+  MOVE R36 R21
+  CLOSEUPVALS R5
+  RETURN R35 2
+
+PROTO_20:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  GETUPVAL R3 1
+  CALL R1 2 2
+  SETUPVAL R1 2
+  MOVE R3 R2
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K0 ["destroy"]
+  RETURN R3 2
+
+PROTO_21:
+  GETUPVAL R0 0
+  CALL R0 0 0
+  GETUPVAL R0 1
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_22:
+  GETUPVAL R0 0
+  CALL R0 0 0
+  GETUPVAL R0 1
+  CALL R0 0 0
+  GETUPVAL R0 2
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_23:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+20]
+  LOADNIL R2
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["addCommunicationLayer"]
+  MOVE R4 R0
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R1
+  CAPTURE REF R2
+  CALL R3 2 1
+  GETTABLEKS R4 R2 K1 ["destroy"]
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  SETTABLEKS R5 R2 K1 ["destroy"]
+  CLOSEUPVALS R2
+  RETURN R2 1
+  CLOSEUPVALS R2
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K2 ["createNetworkedHostToGuestRPCInterface"]
+  MOVE R3 R0
+  CALL R2 1 2
+  GETUPVAL R4 2
+  MOVE R5 R2
+  MOVE R6 R1
+  CALL R4 2 2
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K3 ["addNetworkLayerToHostRPCInterface"]
+  MOVE R7 R0
+  MOVE R8 R5
+  CALL R6 2 1
+  GETTABLEKS R7 R4 K1 ["destroy"]
+  NEWCLOSURE R8 P2
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  SETTABLEKS R8 R4 K1 ["destroy"]
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Explorer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R2 R0 K6 ["Analytics"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K7 ["Util"]
+  GETTABLEKS R3 R4 K8 ["Constants"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K9 ["Networking"]
+  GETTABLEKS R4 R5 K10 ["DEPRECATED_NetworkedRPCInterfaces"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K11 ["Expanding"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Networking"]
+  GETTABLEKS R6 R7 K12 ["NetworkedRPCInterfaces"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Networking"]
+  GETTABLEKS R7 R8 K13 ["NetworkingTypes"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K7 ["Util"]
+  GETTABLEKS R8 R9 K14 ["Observable"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R9 R0 K15 ["RpcTypes"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R11 R0 K16 ["Parent"]
+  GETTABLEKS R10 R11 K17 ["Signal"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETIMPORT R12 K1 [script]
+  GETTABLEKS R11 R12 K18 ["createFocusedRootObservable"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETIMPORT R13 K1 [script]
+  GETTABLEKS R12 R13 K19 ["createGetIndexOfInstanceId"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K20 ["createSessionCapabilities"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETIMPORT R15 K1 [script]
+  GETTABLEKS R14 R15 K21 ["createSessionContextMenu"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETIMPORT R16 K1 [script]
+  GETTABLEKS R15 R16 K22 ["createSessionDataModelUpdating"]
+  CALL R14 1 1
+  GETIMPORT R15 K5 [require]
+  GETIMPORT R17 K1 [script]
+  GETTABLEKS R16 R17 K23 ["createSessionFields"]
+  CALL R15 1 1
+  GETIMPORT R16 K5 [require]
+  GETIMPORT R18 K1 [script]
+  GETTABLEKS R17 R18 K24 ["createSessionHeartbeat"]
+  CALL R16 1 1
+  GETIMPORT R17 K5 [require]
+  GETIMPORT R19 K1 [script]
+  GETTABLEKS R18 R19 K25 ["createSessionHoverTracker"]
+  CALL R17 1 1
+  GETIMPORT R18 K5 [require]
+  GETIMPORT R20 K1 [script]
+  GETTABLEKS R19 R20 K26 ["createSessionInstancePicker"]
+  CALL R18 1 1
+  GETIMPORT R19 K5 [require]
+  GETIMPORT R21 K1 [script]
+  GETTABLEKS R20 R21 K27 ["createSessionSearching"]
+  CALL R19 1 1
+  GETIMPORT R20 K5 [require]
+  GETIMPORT R22 K1 [script]
+  GETTABLEKS R21 R22 K28 ["createSessionSelection"]
+  CALL R20 1 1
+  GETIMPORT R21 K5 [require]
+  GETIMPORT R23 K1 [script]
+  GETTABLEKS R22 R23 K29 ["createSessionStreaming"]
+  CALL R21 1 1
+  GETIMPORT R22 K5 [require]
+  GETIMPORT R24 K1 [script]
+  GETTABLEKS R23 R24 K30 ["createSessionTypes"]
+  CALL R22 1 1
+  GETIMPORT R23 K5 [require]
+  GETIMPORT R25 K1 [script]
+  GETTABLEKS R24 R25 K31 ["createShiftClick"]
+  CALL R23 1 1
+  GETIMPORT R24 K5 [require]
+  GETTABLEKS R26 R0 K7 ["Util"]
+  GETTABLEKS R25 R26 K32 ["createUnimplemented"]
+  CALL R24 1 1
+  GETIMPORT R25 K5 [require]
+  GETIMPORT R27 K1 [script]
+  GETTABLEKS R26 R27 K33 ["doubleClick"]
+  CALL R25 1 1
+  GETIMPORT R26 K5 [require]
+  GETTABLEKS R28 R0 K34 ["Flags"]
+  GETTABLEKS R27 R28 K35 ["getFFlagExplorerStreaming"]
+  CALL R26 1 1
+  GETIMPORT R27 K5 [require]
+  GETTABLEKS R29 R0 K34 ["Flags"]
+  GETTABLEKS R28 R29 K36 ["getFFlagExplorerSynchronizeAllMessages"]
+  CALL R27 1 1
+  GETIMPORT R28 K5 [require]
+  GETIMPORT R30 K1 [script]
+  GETTABLEKS R29 R30 K37 ["renameInstance"]
+  CALL R28 1 1
+  GETIMPORT R29 K5 [require]
+  GETIMPORT R31 K1 [script]
+  GETTABLEKS R30 R31 K38 ["selectRange"]
+  CALL R29 1 1
+  GETIMPORT R30 K5 [require]
+  GETIMPORT R32 K1 [script]
+  GETTABLEKS R31 R32 K39 ["unselectedInstanceClicked"]
+  CALL R30 1 1
+  GETIMPORT R31 K5 [require]
+  GETTABLEKS R33 R0 K7 ["Util"]
+  GETTABLEKS R32 R33 K40 ["validateExplorerNodeSanity"]
+  CALL R31 1 1
+  DUPCLOSURE R32 K41 [PROTO_19]
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  CAPTURE VAL R12
+  CAPTURE VAL R15
+  CAPTURE VAL R16
+  CAPTURE VAL R20
+  CAPTURE VAL R13
+  CAPTURE VAL R19
+  CAPTURE VAL R31
+  CAPTURE VAL R23
+  CAPTURE VAL R10
+  CAPTURE VAL R17
+  CAPTURE VAL R14
+  CAPTURE VAL R26
+  CAPTURE VAL R21
+  CAPTURE VAL R18
+  CAPTURE VAL R11
+  CAPTURE VAL R24
+  CAPTURE VAL R4
+  CAPTURE VAL R28
+  CAPTURE VAL R30
+  CAPTURE VAL R25
+  CAPTURE VAL R29
+  DUPCLOSURE R33 K42 [PROTO_23]
+  CAPTURE VAL R27
+  CAPTURE VAL R5
+  CAPTURE VAL R32
+  CAPTURE VAL R3
+  RETURN R33 1

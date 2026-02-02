@@ -134,31 +134,32 @@ PROTO_6:
   RETURN R0 0
 
 PROTO_7:
-  GETUPVAL R1 0
-  GETTABLEKS R2 R0 K0 ["banner"]
-  CALL R1 1 0
-  GETUPVAL R1 1
-  GETTABLEKS R2 R0 K1 ["dialog"]
-  CALL R1 1 0
-  GETTABLEKS R1 R0 K0 ["banner"]
+  GETTABLEN R1 R0 1
+  GETTABLEN R2 R0 2
+  GETUPVAL R3 0
+  MOVE R4 R1
+  CALL R3 1 0
+  GETUPVAL R3 1
+  MOVE R4 R2
+  CALL R3 1 0
   JUMPIFNOT R1 [+24]
-  GETUPVAL R1 2
-  GETUPVAL R3 3
-  DUPTABLE R4 K6 [{"telemetryType", "upsellEntrySurface", "userId", "studioSid"}]
-  LOADK R5 K7 ["load"]
-  SETTABLEKS R5 R4 K2 ["telemetryType"]
-  LOADK R5 K8 ["start_page_establish_trust"]
-  SETTABLEKS R5 R4 K3 ["upsellEntrySurface"]
-  GETUPVAL R5 4
-  NAMECALL R5 R5 K9 ["GetUserId"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K4 ["userId"]
-  GETUPVAL R5 5
-  NAMECALL R5 R5 K10 ["GetSessionId"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K5 ["studioSid"]
-  NAMECALL R1 R1 K11 ["log"]
-  CALL R1 3 0
+  GETUPVAL R3 2
+  GETUPVAL R5 3
+  DUPTABLE R6 K4 [{"telemetryType", "upsellEntrySurface", "userId", "studioSid"}]
+  LOADK R7 K5 ["load"]
+  SETTABLEKS R7 R6 K0 ["telemetryType"]
+  LOADK R7 K6 ["start_page_establish_trust"]
+  SETTABLEKS R7 R6 K1 ["upsellEntrySurface"]
+  GETUPVAL R7 4
+  NAMECALL R7 R7 K7 ["GetUserId"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K2 ["userId"]
+  GETUPVAL R7 5
+  NAMECALL R7 R7 K8 ["GetSessionId"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K3 ["studioSid"]
+  NAMECALL R3 R3 K9 ["log"]
+  CALL R3 3 0
   RETURN R0 0
 
 PROTO_8:
@@ -210,9 +211,9 @@ PROTO_9:
   CALL R2 2 0
   RETURN R0 0
   GETUPVAL R1 1
-  JUMPIFNOTEQKB R1 FALSE [+51]
+  JUMPIFNOTEQKB R1 FALSE [+52]
   GETUPVAL R1 9
-  JUMPIFNOT R1 [+48]
+  JUMPIFNOT R1 [+49]
   GETUPVAL R1 2
   MOVE R2 R0
   LOADK R3 K7 ["ShowEstablishTrustBanner"]
@@ -237,9 +238,10 @@ PROTO_9:
   RETURN R0 0
   GETUPVAL R4 12
   GETTABLEKS R3 R4 K12 ["all"]
-  DUPTABLE R4 K15 [{"banner", "dialog"}]
-  SETTABLEKS R1 R4 K13 ["banner"]
-  SETTABLEKS R2 R4 K14 ["dialog"]
+  NEWTABLE R4 0 2
+  MOVE R5 R1
+  MOVE R6 R2
+  SETLIST R4 R5 2 [1]
   CALL R3 1 1
   NEWCLOSURE R5 P2
   CAPTURE UPVAL U10

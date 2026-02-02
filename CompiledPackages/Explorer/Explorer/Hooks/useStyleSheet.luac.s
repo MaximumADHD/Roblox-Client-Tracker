@@ -1,0 +1,431 @@
+PROTO_0:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["StudioDesign"]
+  NAMECALL R0 R0 K1 ["FindFirstChild"]
+  CALL R0 2 1
+  JUMPIFNOTEQKNIL R0 [+7]
+  GETUPVAL R1 1
+  CALL R1 0 1
+  GETUPVAL R2 0
+  SETTABLEKS R2 R1 K2 ["Parent"]
+  RETURN R1 1
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["Base"]
+  NAMECALL R0 R0 K1 ["Clone"]
+  CALL R0 1 1
+  LOADNIL R1
+  GETUPVAL R2 1
+  CALL R2 0 1
+  JUMPIF R2 [+22]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K2 ["theme"]
+  JUMPIFNOTEQKS R2 K3 ["Dark"] [+9]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["Dark"]
+  NAMECALL R2 R2 K1 ["Clone"]
+  CALL R2 1 1
+  MOVE R1 R2
+  JUMP [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["Light"]
+  NAMECALL R2 R2 K1 ["Clone"]
+  CALL R2 1 1
+  MOVE R1 R2
+  SETTABLEKS R0 R1 K5 ["Parent"]
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K6 ["Components"]
+  NAMECALL R2 R2 K7 ["GetDescendants"]
+  CALL R2 1 3
+  FORGPREP R2
+  LOADK R9 K8 ["ModuleScript"]
+  NAMECALL R7 R6 K9 ["IsA"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+17]
+  GETTABLEKS R7 R6 K10 ["Name"]
+  LOADK R9 K11 ["%.style$"]
+  NAMECALL R7 R7 K12 ["match"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+10]
+  GETIMPORT R9 K14 [require]
+  MOVE R10 R6
+  CALL R9 1 1
+  NAMECALL R9 R9 K1 ["Clone"]
+  CALL R9 1 -1
+  NAMECALL R7 R0 K15 ["InsertStyleRule"]
+  CALL R7 -1 0
+  FORGLOOP R2 2 [-23]
+  GETUPVAL R2 1
+  CALL R2 0 1
+  JUMPIFNOT R2 [+363]
+  LOADK R4 K16 ["ExplorerContentDefault"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K17 ["Color"]
+  GETTABLEKS R7 R8 K18 ["Content"]
+  GETTABLEKS R6 R7 K19 ["Default"]
+  GETTABLEKS R5 R6 K20 ["Color3"]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K22 ["RDLSemanticColorActionPrimaryBrandFill"]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K23 ["Semantic"]
+  GETTABLEKS R9 R10 K17 ["Color"]
+  GETTABLEKS R8 R9 K24 ["Action"]
+  GETTABLEKS R7 R8 K25 ["PrimaryBrand"]
+  GETTABLEKS R6 R7 K18 ["Content"]
+  GETTABLEKS R5 R6 K20 ["Color3"]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K26 ["RDLSemanticColorContentDefault"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K17 ["Color"]
+  GETTABLEKS R7 R8 K18 ["Content"]
+  GETTABLEKS R6 R7 K19 ["Default"]
+  GETTABLEKS R5 R6 K20 ["Color3"]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K27 ["RDLSemanticColorContentDisabled"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K17 ["Color"]
+  GETTABLEKS R8 R9 K28 ["Extended"]
+  GETTABLEKS R7 R8 K29 ["Gray"]
+  GETTABLEKS R6 R7 K30 ["Gray_600"]
+  GETTABLEKS R5 R6 K20 ["Color3"]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K31 ["RDLSemanticColorContentEmphasis"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K17 ["Color"]
+  GETTABLEKS R7 R8 K18 ["Content"]
+  GETTABLEKS R6 R7 K32 ["Emphasis"]
+  GETTABLEKS R5 R6 K20 ["Color3"]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K33 ["RDLSemanticColorContentMuted"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K17 ["Color"]
+  GETTABLEKS R7 R8 K18 ["Content"]
+  GETTABLEKS R6 R7 K34 ["Muted"]
+  GETTABLEKS R5 R6 K20 ["Color3"]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K35 ["RDLSemanticColorContentStandard"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K17 ["Color"]
+  GETTABLEKS R7 R8 K18 ["Content"]
+  GETTABLEKS R6 R7 K19 ["Default"]
+  GETTABLEKS R5 R6 K20 ["Color3"]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K36 ["RDLSemanticColorShift300"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K17 ["Color"]
+  GETTABLEKS R7 R8 K37 ["Shift"]
+  GETTABLEKS R6 R7 K38 ["Shift_300"]
+  GETTABLEKS R5 R6 K20 ["Color3"]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K39 ["RDLSemanticColorShift300Transparency"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K17 ["Color"]
+  GETTABLEKS R7 R8 K37 ["Shift"]
+  GETTABLEKS R6 R7 K38 ["Shift_300"]
+  GETTABLEKS R5 R6 K40 ["Transparency"]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K41 ["RDLSemanticColorStatesHover"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K17 ["Color"]
+  GETTABLEKS R7 R8 K42 ["State"]
+  GETTABLEKS R6 R7 K43 ["Hover"]
+  GETTABLEKS R5 R6 K20 ["Color3"]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K44 ["RDLSemanticColorStatesHoverTransparency"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K17 ["Color"]
+  GETTABLEKS R7 R8 K42 ["State"]
+  GETTABLEKS R6 R7 K43 ["Hover"]
+  GETTABLEKS R5 R6 K40 ["Transparency"]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K45 ["RDLSemanticColorStrokeEmphasis"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K17 ["Color"]
+  GETTABLEKS R7 R8 K46 ["Stroke"]
+  GETTABLEKS R6 R7 K32 ["Emphasis"]
+  GETTABLEKS R5 R6 K20 ["Color3"]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K47 ["RDLSemanticColorStrokeEmphasisTransparency"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K17 ["Color"]
+  GETTABLEKS R7 R8 K46 ["Stroke"]
+  GETTABLEKS R6 R7 K32 ["Emphasis"]
+  GETTABLEKS R5 R6 K40 ["Transparency"]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K48 ["RDLSemanticColorSurface0"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K17 ["Color"]
+  GETTABLEKS R7 R8 K49 ["Surface"]
+  GETTABLEKS R6 R7 K50 ["Surface_0"]
+  GETTABLEKS R5 R6 K20 ["Color3"]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K51 ["RDLSemanticColorSurface100"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K17 ["Color"]
+  GETTABLEKS R7 R8 K49 ["Surface"]
+  GETTABLEKS R6 R7 K52 ["Surface_100"]
+  GETTABLEKS R5 R6 K20 ["Color3"]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K53 ["RDLSemanticColorSystemEmphasis"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K17 ["Color"]
+  GETTABLEKS R7 R8 K54 ["System"]
+  GETTABLEKS R6 R7 K32 ["Emphasis"]
+  GETTABLEKS R5 R6 K20 ["Color3"]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K2 ["theme"]
+  JUMPIFNOTEQKS R2 K3 ["Dark"] [+63]
+  LOADK R4 K55 ["ExplorerScrollBar"]
+  GETIMPORT R5 K57 [Color3.fromHex]
+  LOADK R6 K58 ["#747476"]
+  CALL R5 1 -1
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 -1 0
+  LOADK R4 K59 ["RDLSemanticColorComponentInputFill"]
+  GETIMPORT R5 K57 [Color3.fromHex]
+  LOADK R6 K60 ["#BBC2D1"]
+  CALL R5 1 -1
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 -1 0
+  LOADK R4 K61 ["RDLSemanticColorComponentInputFillTransparency"]
+  LOADK R5 K62 [0.88]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K63 ["RDLSemanticColorSurfaceOutline"]
+  GETIMPORT R5 K57 [Color3.fromHex]
+  LOADK R6 K64 ["#FFFFFF"]
+  CALL R5 1 -1
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 -1 0
+  LOADK R4 K65 ["RDLSemanticColorSurfaceOutlineTransparency"]
+  LOADK R5 K62 [0.88]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K66 ["ExplorerSelected"]
+  GETIMPORT R5 K57 [Color3.fromHex]
+  LOADK R6 K67 ["#005CB5"]
+  CALL R5 1 -1
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 -1 0
+  LOADK R4 K68 ["ExplorerContentEmphasis"]
+  GETIMPORT R5 K57 [Color3.fromHex]
+  LOADK R6 K69 ["#EEEFF1"]
+  CALL R5 1 -1
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 -1 0
+  GETUPVAL R2 5
+  CALL R2 0 1
+  JUMPIF R2 [+80]
+  LOADK R4 K70 ["LegacyMainBackground"]
+  GETIMPORT R5 K57 [Color3.fromHex]
+  LOADK R6 K71 ["#131418"]
+  CALL R5 1 -1
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 -1 0
+  JUMP [+71]
+  LOADK R4 K55 ["ExplorerScrollBar"]
+  GETIMPORT R5 K57 [Color3.fromHex]
+  LOADK R6 K72 ["#949496"]
+  CALL R5 1 -1
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 -1 0
+  LOADK R4 K59 ["RDLSemanticColorComponentInputFill"]
+  GETIMPORT R5 K57 [Color3.fromHex]
+  LOADK R6 K73 ["#333B4C"]
+  CALL R5 1 -1
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 -1 0
+  LOADK R4 K61 ["RDLSemanticColorComponentInputFillTransparency"]
+  LOADK R5 K74 [0.92]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K63 ["RDLSemanticColorSurfaceOutline"]
+  GETIMPORT R5 K57 [Color3.fromHex]
+  LOADK R6 K75 ["#000000"]
+  CALL R5 1 -1
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 -1 0
+  LOADK R4 K65 ["RDLSemanticColorSurfaceOutlineTransparency"]
+  LOADK R5 K62 [0.88]
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 3 0
+  LOADK R4 K16 ["ExplorerContentDefault"]
+  GETIMPORT R5 K57 [Color3.fromHex]
+  LOADK R6 K75 ["#000000"]
+  CALL R5 1 -1
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 -1 0
+  LOADK R4 K66 ["ExplorerSelected"]
+  GETIMPORT R5 K57 [Color3.fromHex]
+  LOADK R6 K76 ["#5A95DF"]
+  CALL R5 1 -1
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 -1 0
+  LOADK R4 K68 ["ExplorerContentEmphasis"]
+  GETIMPORT R5 K78 [Color3.new]
+  LOADN R6 1
+  LOADN R7 1
+  LOADN R8 1
+  CALL R5 3 -1
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 -1 0
+  GETUPVAL R2 5
+  CALL R2 0 1
+  JUMPIF R2 [+8]
+  LOADK R4 K70 ["LegacyMainBackground"]
+  GETIMPORT R5 K57 [Color3.fromHex]
+  LOADK R6 K64 ["#FFFFFF"]
+  CALL R5 1 -1
+  NAMECALL R2 R0 K21 ["SetAttribute"]
+  CALL R2 -1 0
+  NEWTABLE R4 0 1
+  GETUPVAL R6 6
+  GETTABLEKS R5 R6 K79 ["Design"]
+  SETLIST R4 R5 1 [1]
+  NAMECALL R2 R0 K80 ["SetDerives"]
+  CALL R2 2 0
+  JUMP [+11]
+  NEWTABLE R4 0 2
+  GETUPVAL R6 6
+  GETTABLEKS R5 R6 K79 ["Design"]
+  MOVE R6 R1
+  SETLIST R4 R5 2 [1]
+  NAMECALL R2 R0 K80 ["SetDerives"]
+  CALL R2 2 0
+  GETUPVAL R2 7
+  SETTABLEKS R2 R0 K5 ["Parent"]
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Destroy"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  NEWCLOSURE R0 P0
+  CAPTURE UPVAL U0
+  RETURN R0 1
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useContext"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["Context"]
+  CALL R0 1 1
+  GETUPVAL R2 2
+  CALL R2 0 1
+  JUMPIFNOT R2 [+7]
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K2 ["Hooks"]
+  GETTABLEKS R1 R2 K3 ["useTokens"]
+  CALL R1 0 1
+  JUMP [+1]
+  LOADNIL R1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["useMemo"]
+  DUPCLOSURE R3 K5 [PROTO_0]
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  NEWTABLE R4 0 1
+  GETTABLEKS R5 R0 K6 ["theme"]
+  SETLIST R4 R5 1 [1]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["useMemo"]
+  NEWCLOSURE R4 P1
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U7
+  CAPTURE VAL R1
+  CAPTURE UPVAL U8
+  CAPTURE VAL R2
+  CAPTURE UPVAL U4
+  NEWTABLE R5 0 3
+  MOVE R6 R2
+  GETTABLEKS R7 R0 K6 ["theme"]
+  MOVE R8 R1
+  SETLIST R5 R6 3 [1]
+  CALL R3 2 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K7 ["useEffect"]
+  NEWCLOSURE R5 P2
+  CAPTURE VAL R3
+  NEWTABLE R6 0 1
+  MOVE R7 R3
+  SETLIST R6 R7 1 [1]
+  CALL R4 2 0
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StylingService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["Explorer"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Parent"]
+  GETTABLEKS R3 R4 K11 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R1 K10 ["Parent"]
+  GETTABLEKS R4 R5 K12 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R6 R1 K10 ["Parent"]
+  GETTABLEKS R5 R6 K13 ["React"]
+  CALL R4 1 1
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R7 R1 K14 ["Resources"]
+  GETTABLEKS R6 R7 K15 ["Style"]
+  CALL R5 1 1
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R9 R1 K16 ["Components"]
+  GETTABLEKS R8 R9 K17 ["Contexts"]
+  GETTABLEKS R7 R8 K18 ["ThemeContext"]
+  CALL R6 1 1
+  GETIMPORT R7 K9 [require]
+  GETTABLEKS R9 R1 K19 ["Flags"]
+  GETTABLEKS R8 R9 K20 ["getFFlagExplorerFoundation"]
+  CALL R7 1 1
+  GETIMPORT R8 K9 [require]
+  GETTABLEKS R10 R1 K19 ["Flags"]
+  GETTABLEKS R9 R10 K21 ["getFFlagLuaExplorerUseRDLColors"]
+  CALL R8 1 1
+  GETTABLEKS R10 R3 K22 ["Styling"]
+  GETTABLEKS R9 R10 K23 ["createStudioDesign"]
+  DUPCLOSURE R10 K24 [PROTO_4]
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE VAL R9
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  RETURN R10 1

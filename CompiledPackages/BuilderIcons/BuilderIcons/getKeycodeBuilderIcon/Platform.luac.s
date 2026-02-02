@@ -1,0 +1,12 @@
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K4 [{"PS4", "PS5", "Xbox", "Default"}]
+  LOADK R1 K0 ["PS4"]
+  SETTABLEKS R1 R0 K0 ["PS4"]
+  LOADK R1 K1 ["PS5"]
+  SETTABLEKS R1 R0 K1 ["PS5"]
+  LOADK R1 K2 ["Xbox"]
+  SETTABLEKS R1 R0 K2 ["Xbox"]
+  LOADK R1 K3 ["Default"]
+  SETTABLEKS R1 R0 K3 ["Default"]
+  RETURN R0 1

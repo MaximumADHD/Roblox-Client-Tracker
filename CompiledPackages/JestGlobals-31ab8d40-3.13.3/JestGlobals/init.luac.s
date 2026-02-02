@@ -1,0 +1,12 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["Expect"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K6 ["index"]
+  CALL R2 1 -1
+  RETURN R2 -1

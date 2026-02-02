@@ -1,0 +1,71 @@
+PROTO_0:
+  NEWTABLE R1 0 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  GETTABLEKS R3 R0 K0 ["propertiesInOrder"]
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETUPVAL R8 1
+  GETTABLEKS R9 R7 K1 ["id"]
+  CALL R8 1 1
+  GETUPVAL R9 2
+  GETUPVAL R10 3
+  DUPTABLE R11 K6 [{"LayoutOrder", "session", "property", "labelWidthBinding"}]
+  MOVE R12 R2
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K2 ["LayoutOrder"]
+  GETTABLEKS R12 R0 K3 ["session"]
+  SETTABLEKS R12 R11 K3 ["session"]
+  SETTABLEKS R7 R11 K4 ["property"]
+  GETTABLEKS R12 R0 K5 ["labelWidthBinding"]
+  SETTABLEKS R12 R11 K5 ["labelWidthBinding"]
+  CALL R9 2 1
+  SETTABLE R9 R1 R8
+  FORGLOOP R3 2 [-24]
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K7 ["createElement"]
+  GETUPVAL R5 4
+  GETTABLEKS R4 R5 K8 ["Fragment"]
+  NEWTABLE R5 0 0
+  MOVE R6 R1
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R5 R0 K7 ["Components"]
+  GETTABLEKS R4 R5 K8 ["PropertyEntries"]
+  GETTABLEKS R3 R4 K9 ["PropertyRow"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R0 K10 ["PropertyTypes"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K11 ["React"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R0 K12 ["RpcTypes"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K13 ["Util"]
+  GETTABLEKS R7 R8 K14 ["createNextOrder"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K13 ["Util"]
+  GETTABLEKS R8 R9 K15 ["propertyIdToString"]
+  CALL R7 1 1
+  GETTABLEKS R8 R4 K16 ["createElement"]
+  DUPCLOSURE R9 K17 [PROTO_0]
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  RETURN R9 1

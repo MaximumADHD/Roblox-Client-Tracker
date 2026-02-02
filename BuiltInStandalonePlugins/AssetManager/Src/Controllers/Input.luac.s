@@ -6,75 +6,76 @@ PROTO_0:
   RETURN R0 0
 
 PROTO_1:
-  DUPTABLE R6 K20 [{"_isMock", "_pluginController", "_layoutController", "_itemsController", "_searchController", "_explorerController", "_pressedKeys", "_lastPressed", "_lastClickMousePosition", "_lastZone", "_isDragging", "_doubleClickDetector", "_doubleClickQueued", "_resolvingDoubleClick", "isDoubleClick", "clickDelay", "_keyHoldDetector", "OnDrag", "OnDrop", "OnEnterViewport"}]
-  SETTABLEKS R5 R6 K0 ["_isMock"]
-  SETTABLEKS R0 R6 K1 ["_pluginController"]
-  SETTABLEKS R1 R6 K2 ["_layoutController"]
-  SETTABLEKS R2 R6 K3 ["_itemsController"]
-  SETTABLEKS R3 R6 K4 ["_searchController"]
-  SETTABLEKS R4 R6 K5 ["_explorerController"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K6 ["_pressedKeys"]
-  GETIMPORT R7 K24 [Enum.KeyCode.Unknown]
-  SETTABLEKS R7 R6 K7 ["_lastPressed"]
-  GETIMPORT R7 K27 [Vector2.new]
-  CALL R7 0 1
-  SETTABLEKS R7 R6 K8 ["_lastClickMousePosition"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K9 ["_lastZone"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K10 ["_isDragging"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K26 ["new"]
-  CALL R7 0 1
-  SETTABLEKS R7 R6 K11 ["_doubleClickDetector"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K12 ["_doubleClickQueued"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K13 ["_resolvingDoubleClick"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K14 ["isDoubleClick"]
-  LOADK R7 K28 [0.2]
-  SETTABLEKS R7 R6 K15 ["clickDelay"]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K26 ["new"]
-  CALL R7 0 1
-  SETTABLEKS R7 R6 K16 ["_keyHoldDetector"]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K26 ["new"]
-  CALL R7 0 1
-  SETTABLEKS R7 R6 K17 ["OnDrag"]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K26 ["new"]
-  CALL R7 0 1
-  SETTABLEKS R7 R6 K18 ["OnDrop"]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K26 ["new"]
-  CALL R7 0 1
-  SETTABLEKS R7 R6 K19 ["OnEnterViewport"]
-  GETUPVAL R9 3
-  FASTCALL2 SETMETATABLE R6 R9 [+4]
-  MOVE R8 R6
-  GETIMPORT R7 K30 [setmetatable]
-  CALL R7 2 0
-  GETTABLEKS R7 R6 K16 ["_keyHoldDetector"]
-  NEWCLOSURE R9 P0
-  CAPTURE VAL R6
-  NAMECALL R7 R7 K31 ["setCallback"]
-  CALL R7 2 0
-  RETURN R6 1
+  DUPTABLE R2 K20 [{"_isMock", "_pluginController", "_layoutController", "_itemsController", "_searchController", "_explorerController", "_pressedKeys", "_lastPressed", "_lastClickMousePosition", "_lastZone", "_isDragging", "_doubleClickDetector", "_doubleClickQueued", "_resolvingDoubleClick", "isDoubleClick", "clickDelay", "_keyHoldDetector", "OnDrag", "OnDrop", "OnEnterViewport"}]
+  SETTABLEKS R1 R2 K0 ["_isMock"]
+  GETTABLEKS R3 R0 K21 ["PluginController"]
+  SETTABLEKS R3 R2 K1 ["_pluginController"]
+  GETTABLEKS R3 R0 K22 ["LayoutController"]
+  SETTABLEKS R3 R2 K2 ["_layoutController"]
+  GETTABLEKS R3 R0 K23 ["ItemsController"]
+  SETTABLEKS R3 R2 K3 ["_itemsController"]
+  GETTABLEKS R3 R0 K24 ["SearchController"]
+  SETTABLEKS R3 R2 K4 ["_searchController"]
+  GETTABLEKS R3 R0 K25 ["ExplorerController"]
+  SETTABLEKS R3 R2 K5 ["_explorerController"]
+  NEWTABLE R3 0 0
+  SETTABLEKS R3 R2 K6 ["_pressedKeys"]
+  GETIMPORT R3 K29 [Enum.KeyCode.Unknown]
+  SETTABLEKS R3 R2 K7 ["_lastPressed"]
+  GETIMPORT R3 K32 [Vector2.new]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K8 ["_lastClickMousePosition"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K9 ["_lastZone"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K10 ["_isDragging"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K31 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K11 ["_doubleClickDetector"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K12 ["_doubleClickQueued"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K13 ["_resolvingDoubleClick"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K14 ["isDoubleClick"]
+  LOADK R3 K33 [0.2]
+  SETTABLEKS R3 R2 K15 ["clickDelay"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K31 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K16 ["_keyHoldDetector"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K31 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K17 ["OnDrag"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K31 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K18 ["OnDrop"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K31 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K19 ["OnEnterViewport"]
+  GETUPVAL R5 3
+  FASTCALL2 SETMETATABLE R2 R5 [+4]
+  MOVE R4 R2
+  GETIMPORT R3 K35 [setmetatable]
+  CALL R3 2 0
+  GETTABLEKS R3 R2 K16 ["_keyHoldDetector"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R2
+  NAMECALL R3 R3 K36 ["setCallback"]
+  CALL R3 2 0
+  RETURN R2 1
 
 PROTO_2:
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["new"]
-  MOVE R6 R0
-  MOVE R7 R1
-  MOVE R8 R2
-  MOVE R9 R3
-  MOVE R10 R4
-  LOADB R11 1
-  CALL R5 6 -1
-  RETURN R5 -1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  MOVE R2 R0
+  LOADB R3 1
+  CALL R1 2 -1
+  RETURN R1 -1
 
 PROTO_3:
   LOADNIL R1
@@ -259,13 +260,13 @@ PROTO_11:
   MOVE R4 R1
   NAMECALL R2 R2 K2 ["handleDoubleClick"]
   CALL R2 2 0
-  GETIMPORT R2 K4 [wait]
-  GETTABLEKS R3 R0 K5 ["clickDelay"]
+  GETIMPORT R2 K5 [task.wait]
+  GETTABLEKS R3 R0 K6 ["clickDelay"]
   CALL R2 1 0
   LOADB R2 0
   SETTABLEKS R2 R0 K0 ["_resolvingDoubleClick"]
   LOADB R2 0
-  SETTABLEKS R2 R0 K6 ["_doubleClickQueued"]
+  SETTABLEKS R2 R0 K7 ["_doubleClickQueued"]
   RETURN R0 0
 
 PROTO_12:
@@ -279,8 +280,8 @@ PROTO_12:
   CALL R4 1 1
   GETTABLE R3 R4 R2
   JUMPIFNOT R3 [+5]
-  GETIMPORT R3 K5 [wait]
-  GETTABLEKS R4 R0 K6 ["clickDelay"]
+  GETIMPORT R3 K6 [task.wait]
+  GETTABLEKS R4 R0 K7 ["clickDelay"]
   CALL R3 1 0
   RETURN R0 0
 

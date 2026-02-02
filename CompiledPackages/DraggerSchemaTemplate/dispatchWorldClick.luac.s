@@ -1,0 +1,22 @@
+PROTO_0:
+  NEWTABLE R3 0 0
+  RETURN R3 1
+
+PROTO_1:
+  GETTABLEKS R3 R2 K0 ["ClickedSelectable"]
+  JUMPIF R3 [+2]
+  LOADK R3 K1 ["DragSelecting"]
+  RETURN R3 1
+  GETTABLEKS R3 R2 K2 ["SelectionNowContainsSelectable"]
+  JUMPIFNOT R3 [+4]
+  LOADK R3 K3 ["FreeformSelectionDrag"]
+  NEWTABLE R4 0 0
+  RETURN R3 2
+  LOADK R3 K1 ["DragSelecting"]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  DUPCLOSURE R1 K1 [PROTO_1]
+  RETURN R1 1

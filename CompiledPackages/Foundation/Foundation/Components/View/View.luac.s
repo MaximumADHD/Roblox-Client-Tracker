@@ -1,0 +1,262 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["GroupTransparency"]
+  JUMPIFEQKNIL R0 [+21]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["GroupTransparency"]
+  FASTCALL1 TYPE R1 [+2]
+  GETIMPORT R0 K2 [type]
+  CALL R0 1 1
+  JUMPIFNOTEQKS R0 K3 ["table"] [+3]
+  LOADB R0 1
+  RETURN R0 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["GroupTransparency"]
+  LOADN R2 0
+  JUMPIFLT R2 R1 [+2]
+  LOADB R0 0 +1
+  LOADB R0 1
+  RETURN R0 1
+  LOADB R0 0
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+13]
+  GETUPVAL R0 1
+  JUMPIFNOT R0 [+9]
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K0 ["isDisabled"]
+  JUMPIF R0 [+5]
+  GETUPVAL R0 3
+  LOADK R2 K1 ["Some state changes are not supported with GroupTransparency"]
+  NAMECALL R0 R0 K2 ["warning"]
+  CALL R0 2 0
+  LOADK R0 K3 ["CanvasGroup"]
+  RETURN R0 1
+  GETUPVAL R0 1
+  JUMPIFNOT R0 [+2]
+  LOADK R0 K4 ["ImageButton"]
+  RETURN R0 1
+  LOADK R0 K5 ["Frame"]
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["FoundationDisableStylingPolyfill"]
+  JUMPIF R3 [+8]
+  GETUPVAL R2 1
+  LOADK R3 K1 ["View"]
+  GETTABLEKS R4 R0 K2 ["tag"]
+  LOADK R5 K3 ["gui-object-defaults"]
+  GETUPVAL R6 2
+  CALL R2 4 1
+  JUMP [+1]
+  LOADNIL R2
+  GETUPVAL R3 3
+  MOVE R4 R0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["FoundationDisableStylingPolyfill"]
+  JUMPIF R6 [+2]
+  MOVE R5 R2
+  JUMP [+1]
+  GETUPVAL R5 2
+  CALL R3 2 1
+  GETTABLEKS R5 R3 K4 ["backgroundStyle"]
+  JUMPIFEQKNIL R5 [+3]
+  LOADK R4 K5 ["gui-object-defaults x-default-transparency"]
+  JUMP [+1]
+  LOADK R4 K3 ["gui-object-defaults"]
+  GETUPVAL R5 4
+  GETTABLEKS R6 R3 K2 ["tag"]
+  MOVE R7 R4
+  CALL R5 2 1
+  GETUPVAL R6 5
+  MOVE R7 R5
+  CALL R6 1 1
+  LOADB R7 1
+  GETTABLEKS R8 R3 K6 ["onStateChanged"]
+  JUMPIFNOTEQKNIL R8 [+12]
+  LOADB R7 1
+  GETTABLEKS R8 R3 K7 ["onActivated"]
+  JUMPIFNOTEQKNIL R8 [+7]
+  GETTABLEKS R8 R3 K8 ["onSecondaryActivated"]
+  JUMPIFNOTEQKNIL R8 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  GETUPVAL R9 6
+  GETTABLEKS R8 R9 K9 ["useMemo"]
+  NEWCLOSURE R9 P0
+  CAPTURE VAL R3
+  NEWTABLE R10 0 1
+  GETTABLEKS R11 R3 K10 ["GroupTransparency"]
+  SETLIST R10 R11 1 [1]
+  CALL R8 2 1
+  GETUPVAL R10 6
+  GETTABLEKS R9 R10 K9 ["useMemo"]
+  NEWCLOSURE R10 P1
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  CAPTURE UPVAL U7
+  NEWTABLE R11 0 2
+  MOVE R12 R8
+  MOVE R13 R7
+  SETLIST R11 R12 2 [1]
+  CALL R9 2 1
+  GETUPVAL R10 8
+  MOVE R11 R3
+  NEWTABLE R12 4 0
+  JUMPIFNOTEQKS R9 K11 ["ImageButton"] [+3]
+  LOADB R13 0
+  JUMP [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K12 ["AutoButtonColor"]
+  JUMPIFNOT R8 [+3]
+  GETTABLEKS R13 R3 K10 ["GroupTransparency"]
+  JUMP [+1]
+  LOADNIL R13
+  SETTABLEKS R13 R12 K10 ["GroupTransparency"]
+  SETTABLEKS R1 R12 K13 ["ref"]
+  GETUPVAL R14 6
+  GETTABLEKS R13 R14 K14 ["Tag"]
+  SETTABLE R6 R12 R13
+  CALL R10 2 1
+  JUMPIFNOT R7 [+2]
+  GETUPVAL R11 9
+  JUMP [+1]
+  MOVE R11 R9
+  DUPTABLE R12 K19 [{"component", "onActivated", "onSecondaryActivated", "onStateChanged", "stateLayer", "isDisabled", "cursor"}]
+  SETTABLEKS R9 R12 K15 ["component"]
+  GETTABLEKS R13 R3 K7 ["onActivated"]
+  SETTABLEKS R13 R12 K7 ["onActivated"]
+  GETTABLEKS R13 R3 K8 ["onSecondaryActivated"]
+  SETTABLEKS R13 R12 K8 ["onSecondaryActivated"]
+  GETTABLEKS R13 R3 K6 ["onStateChanged"]
+  SETTABLEKS R13 R12 K6 ["onStateChanged"]
+  GETTABLEKS R13 R3 K16 ["stateLayer"]
+  SETTABLEKS R13 R12 K16 ["stateLayer"]
+  GETTABLEKS R13 R3 K17 ["isDisabled"]
+  SETTABLEKS R13 R12 K17 ["isDisabled"]
+  GETTABLEKS R13 R3 K18 ["cursor"]
+  SETTABLEKS R13 R12 K18 ["cursor"]
+  JUMPIFNOT R7 [+20]
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K20 ["FoundationMigrateCryoToDash"]
+  JUMPIFNOT R14 [+7]
+  GETUPVAL R14 10
+  GETTABLEKS R13 R14 K21 ["union"]
+  MOVE R14 R10
+  MOVE R15 R12
+  CALL R13 2 1
+  JUMP [+10]
+  GETUPVAL R15 11
+  GETTABLEKS R14 R15 K22 ["Dictionary"]
+  GETTABLEKS R13 R14 K21 ["union"]
+  MOVE R14 R10
+  MOVE R15 R12
+  CALL R13 2 1
+  JUMP [+1]
+  MOVE R13 R10
+  GETUPVAL R15 6
+  GETTABLEKS R14 R15 K23 ["createElement"]
+  MOVE R15 R11
+  MOVE R16 R13
+  GETUPVAL R17 12
+  MOVE R18 R3
+  CALL R17 1 -1
+  CALL R14 -1 -1
+  RETURN R14 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R4 R0 K7 ["Utility"]
+  GETTABLEKS R3 R4 K8 ["Flags"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K9 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K10 ["Cryo"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R1 K11 ["Dash"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K7 ["Utility"]
+  GETTABLEKS R7 R8 K12 ["Logger"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K13 ["Components"]
+  GETTABLEKS R8 R9 K14 ["Interactable"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R0 K13 ["Components"]
+  GETTABLEKS R9 R10 K15 ["Types"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K7 ["Utility"]
+  GETTABLEKS R10 R11 K16 ["withDefaults"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R12 R0 K7 ["Utility"]
+  GETTABLEKS R11 R12 K17 ["useDefaultTags"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R13 R0 K7 ["Utility"]
+  GETTABLEKS R12 R13 K18 ["withGuiObjectProps"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R0 K7 ["Utility"]
+  GETTABLEKS R13 R14 K19 ["useStyledDefaults"]
+  CALL R12 1 1
+  GETIMPORT R13 K6 [require]
+  GETTABLEKS R15 R0 K7 ["Utility"]
+  GETTABLEKS R14 R15 K20 ["GuiObjectChildren"]
+  CALL R13 1 1
+  GETIMPORT R14 K6 [require]
+  GETTABLEKS R17 R0 K21 ["Providers"]
+  GETTABLEKS R16 R17 K22 ["Style"]
+  GETTABLEKS R15 R16 K23 ["useStyleTags"]
+  CALL R14 1 1
+  GETIMPORT R15 K6 [require]
+  GETTABLEKS R17 R0 K24 ["Enums"]
+  GETTABLEKS R16 R17 K25 ["ControlState"]
+  CALL R15 1 1
+  DUPTABLE R16 K30 [{"layout", "AutoLocalize", "BorderSizePixel", "isDisabled"}]
+  DUPTABLE R17 K32 [{"SortOrder"}]
+  GETIMPORT R18 K35 [Enum.SortOrder.LayoutOrder]
+  SETTABLEKS R18 R17 K31 ["SortOrder"]
+  SETTABLEKS R17 R16 K26 ["layout"]
+  LOADB R17 0
+  SETTABLEKS R17 R16 K27 ["AutoLocalize"]
+  LOADN R17 0
+  SETTABLEKS R17 R16 K28 ["BorderSizePixel"]
+  LOADB R17 0
+  SETTABLEKS R17 R16 K29 ["isDisabled"]
+  DUPCLOSURE R17 K36 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R12
+  CAPTURE VAL R16
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R14
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R11
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R13
+  GETTABLEKS R18 R3 K37 ["memo"]
+  GETTABLEKS R19 R3 K38 ["forwardRef"]
+  MOVE R20 R17
+  CALL R19 1 -1
+  CALL R18 -1 -1
+  RETURN R18 -1

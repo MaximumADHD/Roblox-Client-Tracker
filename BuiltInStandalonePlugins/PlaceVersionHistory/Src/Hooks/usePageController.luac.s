@@ -137,32 +137,35 @@ PROTO_4:
   GETTABLEKS R6 R7 K9 ["current"]
   JUMPIFNOT R6 [+1]
   RETURN R0 0
-  DUPTABLE R6 K19 [{"startDate", "endDate", "saveType", "published", "hasNotes", "contributor", "search", "pageSize", "cursor"}]
-  GETUPVAL R7 8
-  SETTABLEKS R7 R6 K10 ["startDate"]
+  DUPTABLE R6 K20 [{"placeId", "startDate", "endDate", "saveType", "published", "hasNotes", "contributor", "search", "pageSize", "cursor"}]
+  GETUPVAL R8 8
+  GETTABLEKS R7 R8 K10 ["placeId"]
+  SETTABLEKS R7 R6 K10 ["placeId"]
   GETUPVAL R7 9
-  SETTABLEKS R7 R6 K11 ["endDate"]
-  GETUPVAL R8 10
-  GETTABLEKS R7 R8 K12 ["saveType"]
-  SETTABLEKS R7 R6 K12 ["saveType"]
-  GETUPVAL R8 10
-  GETTABLEKS R7 R8 K13 ["published"]
-  SETTABLEKS R7 R6 K13 ["published"]
-  GETUPVAL R8 10
-  GETTABLEKS R7 R8 K14 ["hasNotes"]
-  SETTABLEKS R7 R6 K14 ["hasNotes"]
+  SETTABLEKS R7 R6 K11 ["startDate"]
+  GETUPVAL R7 10
+  SETTABLEKS R7 R6 K12 ["endDate"]
+  GETUPVAL R8 8
+  GETTABLEKS R7 R8 K13 ["saveType"]
+  SETTABLEKS R7 R6 K13 ["saveType"]
+  GETUPVAL R8 8
+  GETTABLEKS R7 R8 K14 ["published"]
+  SETTABLEKS R7 R6 K14 ["published"]
+  GETUPVAL R8 8
+  GETTABLEKS R7 R8 K15 ["hasNotes"]
+  SETTABLEKS R7 R6 K15 ["hasNotes"]
   GETUPVAL R7 11
-  SETTABLEKS R7 R6 K15 ["contributor"]
+  SETTABLEKS R7 R6 K16 ["contributor"]
   GETUPVAL R7 12
-  SETTABLEKS R7 R6 K16 ["search"]
+  SETTABLEKS R7 R6 K17 ["search"]
   GETUPVAL R7 0
-  SETTABLEKS R7 R6 K17 ["pageSize"]
+  SETTABLEKS R7 R6 K18 ["pageSize"]
   GETUPVAL R8 13
   GETTABLEKS R7 R8 K9 ["current"]
-  SETTABLEKS R7 R6 K18 ["cursor"]
+  SETTABLEKS R7 R6 K19 ["cursor"]
   GETUPVAL R7 7
   GETUPVAL R9 14
-  GETTABLEKS R8 R9 K20 ["getVersionHistory"]
+  GETTABLEKS R8 R9 K21 ["getVersionHistory"]
   MOVE R9 R6
   CALL R8 1 1
   NEWCLOSURE R10 P1
@@ -173,14 +176,14 @@ PROTO_4:
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
   CAPTURE UPVAL U17
-  NAMECALL R8 R8 K21 ["andThen"]
+  NAMECALL R8 R8 K22 ["andThen"]
   CALL R8 2 1
   NEWCLOSURE R10 P2
   CAPTURE UPVAL U7
   CAPTURE UPVAL U13
   CAPTURE UPVAL U15
   CAPTURE UPVAL U17
-  NAMECALL R8 R8 K22 ["catch"]
+  NAMECALL R8 R8 K23 ["catch"]
   CALL R8 2 1
   SETTABLEKS R8 R7 K9 ["current"]
   RETURN R0 0
@@ -306,9 +309,9 @@ PROTO_6:
   CAPTURE VAL R19
   CAPTURE VAL R20
   CAPTURE VAL R26
+  CAPTURE VAL R1
   CAPTURE VAL R6
   CAPTURE VAL R8
-  CAPTURE VAL R1
   CAPTURE VAL R10
   CAPTURE VAL R4
   CAPTURE VAL R25

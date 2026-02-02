@@ -1,0 +1,92 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["progress"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useBinding"]
+  GETTABLEKS R2 R0 K1 ["progress"]
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["useEffect"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  NEWTABLE R5 0 1
+  GETTABLEKS R6 R0 K1 ["progress"]
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K5 [{"tag"}]
+  LOADK R6 K6 ["size-1000-1000"]
+  SETTABLEKS R6 R5 K4 ["tag"]
+  DUPTABLE R6 K8 [{"ProgressBar"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K3 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K9 [{"progress"}]
+  SETTABLEKS R1 R9 K1 ["progress"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K7 ["ProgressBar"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_2:
+  GETUPVAL R1 0
+  DUPTABLE R2 K1 [{"progress"}]
+  GETTABLEKS R6 R0 K3 ["controls"]
+  GETTABLEKS R5 R6 K0 ["progress"]
+  DIVK R4 R5 K2 [100]
+  LOADN R5 0
+  LOADN R6 1
+  FASTCALL MATH_CLAMP [+2]
+  GETIMPORT R3 K6 [math.clamp]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K0 ["progress"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["CircularProgressBar"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K8 ["Components"]
+  GETTABLEKS R5 R6 K10 ["View"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K11 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  DUPTABLE R6 K15 [{"summary", "stories", "controls"}]
+  LOADK R7 K9 ["CircularProgressBar"]
+  SETTABLEKS R7 R6 K12 ["summary"]
+  NEWTABLE R7 0 1
+  DUPTABLE R8 K18 [{"name", "story"}]
+  LOADK R9 K9 ["CircularProgressBar"]
+  SETTABLEKS R9 R8 K16 ["name"]
+  DUPCLOSURE R9 K19 [PROTO_2]
+  CAPTURE VAL R5
+  SETTABLEKS R9 R8 K17 ["story"]
+  SETLIST R7 R8 1 [1]
+  SETTABLEKS R7 R6 K13 ["stories"]
+  DUPTABLE R7 K21 [{"progress"}]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K20 ["progress"]
+  SETTABLEKS R7 R6 K14 ["controls"]
+  RETURN R6 1

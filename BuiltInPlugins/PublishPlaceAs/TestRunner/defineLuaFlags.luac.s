@@ -31,19 +31,14 @@ MAIN:
   NAMECALL R0 R0 K6 ["DefineFastFlag"]
   CALL R0 3 0
   GETIMPORT R0 K1 [game]
-  LOADK R2 K12 ["IconSizingInMac"]
-  LOADB R3 0
-  NAMECALL R0 R0 K6 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K13 ["ShowDestinationDetails"]
-  LOADB R3 0
-  NAMECALL R0 R0 K6 ["DefineFastFlag"]
-  CALL R0 3 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K14 ["StudioPublishEligibilityBannerLink"]
-  LOADK R3 K15 ["https://create.roblox.com/settings/eligibility/public-publish"]
+  LOADK R2 K12 ["StudioPublishEligibilityBannerLink"]
+  LOADK R3 K13 ["https://create.roblox.com/settings/eligibility/public-publish"]
   NAMECALL R0 R0 K4 ["DefineFastString"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K14 ["StudioUserLimitCheck"]
+  LOADB R3 0
+  NAMECALL R0 R0 K6 ["DefineFastFlag"]
   CALL R0 3 0
   LOADNIL R0
   RETURN R0 1

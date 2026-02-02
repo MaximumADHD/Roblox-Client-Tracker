@@ -44,6 +44,8 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_CHIP"
 	| "UI_COMPONENT_TYPE_DUAL_ACTION_CHIP"
 	| "UI_COMPONENT_TYPE_EXPANDABLE_TEXT"
+	| "UI_COMPONENT_TYPE_ASSOCIATED_ITEMS_ROW"
+	| "UI_COMPONENT_TYPE_OVERFLOW_MENU"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -114,6 +116,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_DUAL_ACTION_CHIP"
 		elseif value == 221 then
 			return "UI_COMPONENT_TYPE_EXPANDABLE_TEXT"
+		elseif value == 222 then
+			return "UI_COMPONENT_TYPE_ASSOCIATED_ITEMS_ROW"
+		elseif value == 223 then
+			return "UI_COMPONENT_TYPE_OVERFLOW_MENU"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -190,6 +196,10 @@ messages.UiComponentType = {
 			return 220
 		elseif self == "UI_COMPONENT_TYPE_EXPANDABLE_TEXT" then
 			return 221
+		elseif self == "UI_COMPONENT_TYPE_ASSOCIATED_ITEMS_ROW" then
+			return 222
+		elseif self == "UI_COMPONENT_TYPE_OVERFLOW_MENU" then
+			return 223
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -266,6 +276,10 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_DUAL_ACTION_CHIP"
 		elseif name == "UI_COMPONENT_TYPE_EXPANDABLE_TEXT" then
 			return "UI_COMPONENT_TYPE_EXPANDABLE_TEXT"
+		elseif name == "UI_COMPONENT_TYPE_ASSOCIATED_ITEMS_ROW" then
+			return "UI_COMPONENT_TYPE_ASSOCIATED_ITEMS_ROW"
+		elseif name == "UI_COMPONENT_TYPE_OVERFLOW_MENU" then
+			return "UI_COMPONENT_TYPE_OVERFLOW_MENU"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then

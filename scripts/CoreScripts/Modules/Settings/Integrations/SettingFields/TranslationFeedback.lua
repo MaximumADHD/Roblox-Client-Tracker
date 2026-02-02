@@ -12,7 +12,7 @@ local Constants = require(Settings.Integrations.Constants)
 local SettingsServiceLib = require(CorePackages.Workspace.Packages.SettingsService)
 local ValueChangedSignal = SettingsServiceLib.ValueChangedSignal
 local AvailabilitySignal = SettingsServiceLib.AvailabilitySignal
-local FieldType = SettingsServiceLib.FieldType
+local SettingEnum = SettingsServiceLib.SettingEnum
 
 -- Variables
 local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
@@ -66,8 +66,8 @@ end
 local value = TranslationFeedbackValue()
 local available = TranslationFeedbackAvailability()
 
-local TranslationFeedbackConfig: SettingsServiceLib.TextButtonRegisterConfig = {
-    field_type = FieldType.TextButton,
+local TranslationFeedbackConfig = {
+    field_type = SettingEnum.TextButton,
     id = "translation-feedback",
     onActivated = value,
     label = "CoreScripts.InGameMenu.GameSettings.GiveTranslationFeedback",

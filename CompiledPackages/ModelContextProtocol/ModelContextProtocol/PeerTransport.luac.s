@@ -1,0 +1,257 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["start"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R2 0
+  MOVE R4 R0
+  MOVE R5 R1
+  NAMECALL R2 R2 K0 ["send"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETUPVAL R2 0
+  MOVE R4 R0
+  MOVE R5 R1
+  NAMECALL R2 R2 K0 ["send"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+PROTO_3:
+  GETUPVAL R2 0
+  MOVE R4 R0
+  MOVE R5 R1
+  NAMECALL R2 R2 K0 ["send"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+PROTO_4:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["close"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_5:
+  NEWTABLE R2 8 0
+  GETUPVAL R3 0
+  FASTCALL2 SETMETATABLE R2 R3 [+3]
+  GETIMPORT R1 K1 [setmetatable]
+  CALL R1 2 1
+  ORK R2 R0 K2 ["PeerTransport"]
+  SETTABLEKS R2 R1 K3 ["name"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K4 ["_isConnected"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K5 ["_peerTransport"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K6 ["_isClosing"]
+  LOADK R3 K7 ["mock-"]
+  GETUPVAL R4 1
+  LOADB R6 0
+  NAMECALL R4 R4 K8 ["GenerateGUID"]
+  CALL R4 2 1
+  CONCAT R2 R3 R4
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K9 ["makeTransport"]
+  MOVE R4 R2
+  DUPTABLE R5 K15 [{"start", "sendResponse", "sendNotification", "sendRequest", "close"}]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K10 ["start"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K11 ["sendResponse"]
+  NEWCLOSURE R6 P2
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K12 ["sendNotification"]
+  NEWCLOSURE R6 P3
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K13 ["sendRequest"]
+  NEWCLOSURE R6 P4
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K14 ["close"]
+  CALL R3 2 1
+  SETTABLEKS R3 R1 K16 ["transport"]
+  RETURN R1 1
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["_isClosing"]
+  JUMPIFNOT R1 [+9]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["reject"]
+  GETTABLEKS R3 R0 K2 ["name"]
+  LOADK R4 K3 [": Cannot start, transport is closing."]
+  CONCAT R2 R3 R4
+  CALL R1 1 -1
+  RETURN R1 -1
+  GETTABLEKS R1 R0 K4 ["_isConnected"]
+  JUMPIFNOT R1 [+12]
+  GETIMPORT R1 K6 [warn]
+  GETTABLEKS R3 R0 K2 ["name"]
+  LOADK R4 K7 [": Already started."]
+  CONCAT R2 R3 R4
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K8 ["resolve"]
+  CALL R1 0 -1
+  RETURN R1 -1
+  LOADB R1 1
+  SETTABLEKS R1 R0 K4 ["_isConnected"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K8 ["resolve"]
+  CALL R1 0 -1
+  RETURN R1 -1
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_peerTransport"]
+  JUMPIFNOT R1 [+17]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["_peerTransport"]
+  GETTABLEKS R1 R2 K1 ["_isConnected"]
+  JUMPIFNOT R1 [+11]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["_peerTransport"]
+  GETTABLEKS R1 R2 K2 ["transport"]
+  GETTABLEKS R2 R1 K3 ["onTransportMessage"]
+  GETUPVAL R4 1
+  NAMECALL R2 R2 K4 ["Fire"]
+  CALL R2 2 0
+  MOVE R1 R0
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_8:
+  GETTABLEKS R3 R0 K0 ["_isClosing"]
+  JUMPIFNOT R3 [+9]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["reject"]
+  GETTABLEKS R5 R0 K2 ["name"]
+  LOADK R6 K3 [": Cannot send, transport is closing."]
+  CONCAT R4 R5 R6
+  CALL R3 1 -1
+  RETURN R3 -1
+  GETTABLEKS R3 R0 K4 ["_isConnected"]
+  JUMPIF R3 [+9]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["reject"]
+  GETTABLEKS R5 R0 K2 ["name"]
+  LOADK R6 K5 [": Not connected."]
+  CONCAT R4 R5 R6
+  CALL R3 1 -1
+  RETURN R3 -1
+  GETTABLEKS R3 R0 K6 ["_peerTransport"]
+  JUMPIFNOT R3 [+13]
+  GETTABLEKS R4 R0 K6 ["_peerTransport"]
+  GETTABLEKS R3 R4 K4 ["_isConnected"]
+  JUMPIFNOT R3 [+8]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K7 ["new"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CALL R3 1 -1
+  RETURN R3 -1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K8 ["resolve"]
+  CALL R3 0 -1
+  RETURN R3 -1
+
+PROTO_9:
+  LOADB R3 0
+  NAMECALL R1 R0 K0 ["_triggerClose"]
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["resolve"]
+  CALL R1 0 -1
+  RETURN R1 -1
+
+PROTO_10:
+  JUMPIFNOTEQ R1 R0 [+9]
+  GETIMPORT R3 K1 [warn]
+  GETTABLEKS R5 R0 K2 ["name"]
+  LOADK R6 K3 [": Cannot link transport to itself."]
+  CONCAT R4 R5 R6
+  CALL R3 1 0
+  RETURN R0 0
+  SETTABLEKS R1 R0 K4 ["_peerTransport"]
+  JUMPIF R2 [+5]
+  MOVE R5 R0
+  LOADB R6 1
+  NAMECALL R3 R1 K5 ["bindPeer"]
+  CALL R3 3 0
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R2 R0 K0 ["_isClosing"]
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  GETTABLEKS R2 R0 K1 ["_isConnected"]
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  LOADB R2 1
+  SETTABLEKS R2 R0 K0 ["_isClosing"]
+  LOADB R2 0
+  SETTABLEKS R2 R0 K1 ["_isConnected"]
+  GETTABLEKS R3 R0 K2 ["transport"]
+  GETTABLEKS R2 R3 K3 ["onTransportClose"]
+  NAMECALL R2 R2 K4 ["Fire"]
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K5 ["_peerTransport"]
+  JUMPIF R1 [+8]
+  JUMPIFNOT R2 [+7]
+  GETTABLEKS R3 R2 K0 ["_isClosing"]
+  JUMPIF R3 [+4]
+  LOADB R5 1
+  NAMECALL R3 R2 K6 ["_triggerClose"]
+  CALL R3 2 0
+  LOADNIL R3
+  SETTABLEKS R3 R0 K5 ["_peerTransport"]
+  LOADB R3 0
+  SETTABLEKS R3 R0 K0 ["_isClosing"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ModelContextProtocol"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Promise"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R0 K8 ["Transport"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R0 K9 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K11 [game]
+  LOADK R6 K12 ["HttpService"]
+  NAMECALL R4 R4 K13 ["GetService"]
+  CALL R4 2 1
+  NEWTABLE R5 8 0
+  SETTABLEKS R5 R5 K14 ["__index"]
+  DUPCLOSURE R6 K15 [PROTO_5]
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  SETTABLEKS R6 R5 K16 ["new"]
+  DUPCLOSURE R6 K17 [PROTO_6]
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K18 ["start"]
+  DUPCLOSURE R6 K19 [PROTO_8]
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K20 ["send"]
+  DUPCLOSURE R6 K21 [PROTO_9]
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K22 ["close"]
+  DUPCLOSURE R6 K23 [PROTO_10]
+  SETTABLEKS R6 R5 K24 ["bindPeer"]
+  DUPCLOSURE R6 K25 [PROTO_11]
+  SETTABLEKS R6 R5 K26 ["_triggerClose"]
+  RETURN R5 1

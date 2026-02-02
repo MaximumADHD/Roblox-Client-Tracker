@@ -1,0 +1,136 @@
+PROTO_0:
+  NEWTABLE R1 4 0
+  GETUPVAL R2 0
+  FASTCALL2 SETMETATABLE R1 R2 [+3]
+  GETIMPORT R0 K1 [setmetatable]
+  CALL R0 2 1
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K2 ["content"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K3 ["isError"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K4 ["structuredContent"]
+  RETURN R0 1
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["content"]
+  DUPTABLE R4 K3 [{"type", "text"}]
+  LOADK R5 K2 ["text"]
+  SETTABLEKS R5 R4 K1 ["type"]
+  SETTABLEKS R1 R4 K2 ["text"]
+  FASTCALL2 TABLE_INSERT R3 R4 [+3]
+  GETIMPORT R2 K6 [table.insert]
+  CALL R2 2 0
+  RETURN R0 1
+
+PROTO_2:
+  GETTABLEKS R4 R0 K0 ["content"]
+  DUPTABLE R5 K4 [{"type", "data", "mimeType"}]
+  LOADK R6 K5 ["image"]
+  SETTABLEKS R6 R5 K1 ["type"]
+  SETTABLEKS R1 R5 K2 ["data"]
+  SETTABLEKS R2 R5 K3 ["mimeType"]
+  FASTCALL2 TABLE_INSERT R4 R5 [+3]
+  GETIMPORT R3 K8 [table.insert]
+  CALL R3 2 0
+  RETURN R0 1
+
+PROTO_3:
+  GETTABLEKS R4 R0 K0 ["content"]
+  DUPTABLE R5 K4 [{"type", "data", "mimeType"}]
+  LOADK R6 K5 ["audio"]
+  SETTABLEKS R6 R5 K1 ["type"]
+  SETTABLEKS R1 R5 K2 ["data"]
+  SETTABLEKS R2 R5 K3 ["mimeType"]
+  FASTCALL2 TABLE_INSERT R4 R5 [+3]
+  GETIMPORT R3 K8 [table.insert]
+  CALL R3 2 0
+  RETURN R0 1
+
+PROTO_4:
+  GETTABLEKS R4 R0 K0 ["content"]
+  DUPTABLE R5 K4 [{"type", "resource", "annotations"}]
+  LOADK R6 K2 ["resource"]
+  SETTABLEKS R6 R5 K1 ["type"]
+  SETTABLEKS R1 R5 K2 ["resource"]
+  SETTABLEKS R2 R5 K3 ["annotations"]
+  FASTCALL2 TABLE_INSERT R4 R5 [+3]
+  GETIMPORT R3 K7 [table.insert]
+  CALL R3 2 0
+  RETURN R0 1
+
+PROTO_5:
+  DUPTABLE R4 K3 [{"type", "uri", "name"}]
+  LOADK R5 K4 ["resource_link"]
+  SETTABLEKS R5 R4 K0 ["type"]
+  SETTABLEKS R1 R4 K1 ["uri"]
+  SETTABLEKS R2 R4 K2 ["name"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["assign"]
+  MOVE R6 R4
+  MOVE R7 R3
+  JUMPIF R7 [+2]
+  NEWTABLE R7 0 0
+  CALL R5 2 0
+  GETTABLEKS R6 R0 K6 ["content"]
+  FASTCALL2 TABLE_INSERT R6 R4 [+4]
+  MOVE R7 R4
+  GETIMPORT R5 K9 [table.insert]
+  CALL R5 2 0
+  RETURN R0 1
+
+PROTO_6:
+  SETTABLEKS R1 R0 K0 ["isError"]
+  RETURN R0 1
+
+PROTO_7:
+  SETTABLEKS R1 R0 K0 ["structuredContent"]
+  RETURN R0 1
+
+PROTO_8:
+  DUPTABLE R1 K3 [{"content", "isError", "structuredContent"}]
+  GETTABLEKS R2 R0 K0 ["content"]
+  SETTABLEKS R2 R1 K0 ["content"]
+  GETTABLEKS R2 R0 K1 ["isError"]
+  SETTABLEKS R2 R1 K1 ["isError"]
+  GETTABLEKS R2 R0 K2 ["structuredContent"]
+  SETTABLEKS R2 R1 K2 ["structuredContent"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ModelContextProtocol"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Dash"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R0 K8 ["Types"]
+  CALL R2 1 1
+  NEWTABLE R3 16 0
+  SETTABLEKS R3 R3 K9 ["__index"]
+  DUPCLOSURE R4 K10 [PROTO_0]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R3 K11 ["define"]
+  DUPCLOSURE R4 K12 [PROTO_1]
+  SETTABLEKS R4 R3 K13 ["addText"]
+  DUPCLOSURE R4 K14 [PROTO_2]
+  SETTABLEKS R4 R3 K15 ["addImage"]
+  DUPCLOSURE R4 K16 [PROTO_3]
+  SETTABLEKS R4 R3 K17 ["addAudio"]
+  DUPCLOSURE R4 K18 [PROTO_4]
+  SETTABLEKS R4 R3 K19 ["addEmbeddedResource"]
+  DUPCLOSURE R4 K20 [PROTO_5]
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K21 ["addResourceLink"]
+  DUPCLOSURE R4 K22 [PROTO_6]
+  SETTABLEKS R4 R3 K23 ["setError"]
+  DUPCLOSURE R4 K24 [PROTO_7]
+  SETTABLEKS R4 R3 K25 ["setStructuredContent"]
+  DUPCLOSURE R4 K26 [PROTO_8]
+  SETTABLEKS R4 R3 K27 ["build"]
+  GETTABLEKS R4 R3 K11 ["define"]
+  RETURN R4 1

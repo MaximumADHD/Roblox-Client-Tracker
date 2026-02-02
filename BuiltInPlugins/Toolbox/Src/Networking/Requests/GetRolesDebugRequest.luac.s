@@ -831,8 +831,13 @@ PROTO_1:
   CALL R4 -1 0
   GETUPVAL R4 3
   CALL R4 0 1
-  JUMPIFNOT R4 [+60]
+  JUMPIFNOT R4 [+70]
   DUPTABLE R4 K56 [{"isItemTagsFeatureEnabled", "enabledAssetTypes", "maximumItemTagsPerItem"}]
+  GETUPVAL R6 4
+  CALL R6 0 1
+  JUMPIFNOT R6 [+2]
+  LOADNIL R5
+  JUMP [+1]
   LOADB R5 1
   SETTABLEKS R5 R4 K53 ["isItemTagsFeatureEnabled"]
   NEWTABLE R5 0 20
@@ -859,6 +864,11 @@ PROTO_1:
   LOADK R9 K38 ["Pants"]
   SETLIST R5 R6 4 [17]
   SETTABLEKS R5 R4 K54 ["enabledAssetTypes"]
+  GETUPVAL R6 4
+  CALL R6 0 1
+  JUMPIFNOT R6 [+2]
+  LOADNIL R5
+  JUMP [+1]
   LOADN R5 5
   SETTABLEKS R5 R4 K55 ["maximumItemTagsPerItem"]
   GETUPVAL R5 0

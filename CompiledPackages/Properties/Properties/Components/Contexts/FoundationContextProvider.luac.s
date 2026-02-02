@@ -1,0 +1,45 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useContext"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["Context"]
+  CALL R1 1 1
+  GETUPVAL R2 2
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K2 ["FoundationProvider"]
+  DUPTABLE R4 K6 [{"device", "theme", "overlayGui"}]
+  LOADK R5 K7 ["Desktop"]
+  SETTABLEKS R5 R4 K3 ["device"]
+  GETTABLEKS R5 R1 K4 ["theme"]
+  SETTABLEKS R5 R4 K4 ["theme"]
+  GETTABLEKS R5 R0 K5 ["overlayGui"]
+  SETTABLEKS R5 R4 K5 ["overlayGui"]
+  GETTABLEKS R5 R0 K8 ["children"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R7 R0 K9 ["Components"]
+  GETTABLEKS R6 R7 K10 ["Contexts"]
+  GETTABLEKS R5 R6 K11 ["ThemeContext"]
+  CALL R4 1 1
+  GETTABLEKS R5 R3 K12 ["createElement"]
+  DUPCLOSURE R6 K13 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  RETURN R6 1

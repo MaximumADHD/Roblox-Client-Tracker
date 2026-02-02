@@ -54,6 +54,7 @@ type _VerticalFeedSchema_PropsFields = {
 	feed_items: _roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp?,
 	threshold_from_end: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	on_scroll_to_end: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
 }
 
 type _VerticalFeedSchema_PropsPartialFields = {
@@ -61,6 +62,7 @@ type _VerticalFeedSchema_PropsPartialFields = {
 	feed_items: _roblox_apppageplatform_shared_v1beta1_prop_types.LazyNestedComponentListProp?,
 	threshold_from_end: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	on_scroll_to_end: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
+	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
 }
 
 export type VerticalFeedSchema_Props = typeof(setmetatable(
@@ -198,6 +200,7 @@ do
 			feed_items = if data == nil or data.feed_items == nil then nil else data.feed_items,
 			threshold_from_end = if data == nil or data.threshold_from_end == nil then nil else data.threshold_from_end,
 			on_scroll_to_end = if data == nil or data.on_scroll_to_end == nil then nil else data.on_scroll_to_end,
+			background_style = if data == nil or data.background_style == nil then nil else data.background_style,
 		}, _VerticalFeedSchema_PropsImpl :: _VerticalFeedSchema_PropsImpl)
 	end
 
@@ -226,6 +229,12 @@ do
 		if self.on_scroll_to_end ~= nil then
 			local encoded = self.on_scroll_to_end:encode()
 			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.background_style ~= nil then
+			local encoded = self.background_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -269,6 +278,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.on_scroll_to_end = _roblox_apppageplatform_shared_v1beta1_actions.ActionProp.decode(value)
 					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.background_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.decode(value)
+					continue
 				end
 
 				local length
@@ -310,6 +324,10 @@ do
 
 		if self.on_scroll_to_end ~= nil then
 			output.onScrollToEnd = self.on_scroll_to_end:jsonEncode()
+		end
+
+		if self.background_style ~= nil then
+			output.backgroundStyle = self.background_style:jsonEncode()
 		end
 
 		return output
@@ -358,6 +376,16 @@ do
 		if input.onScrollToEnd ~= nil then
 			self.on_scroll_to_end =
 				_roblox_apppageplatform_shared_v1beta1_actions.ActionProp.jsonDecode(input.onScrollToEnd)
+		end
+
+		if input.background_style ~= nil then
+			self.background_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.background_style)
+		end
+
+		if input.backgroundStyle ~= nil then
+			self.background_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.backgroundStyle)
 		end
 
 		return self

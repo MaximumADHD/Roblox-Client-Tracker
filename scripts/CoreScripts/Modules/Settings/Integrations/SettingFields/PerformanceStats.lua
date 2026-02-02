@@ -12,7 +12,7 @@ local CachedPolicyService = require(CorePackages.Workspace.Packages.CachedPolicy
 local SettingsServiceLib = require(CorePackages.Workspace.Packages.SettingsService)
 local ValueChangedSignal = SettingsServiceLib.ValueChangedSignal
 local AvailabilitySignal = SettingsServiceLib.AvailabilitySignal
-local FieldType = SettingsServiceLib.FieldType
+local SettingEnum = SettingsServiceLib.SettingEnum
 local Constants = require(Settings.Integrations.Constants)
 
 -- Constants
@@ -43,9 +43,9 @@ end
 
 local PerfStatsAvailable = AvailabilitySignal.new(not CachedPolicyService:IsSubjectToChinaPolicies())
 
-local PerfStatsConfig: SettingsServiceLib.ToggleRegisterConfig = {
+local PerfStatsConfig = {
 	id = 'perf-stats',
-	field_type = FieldType.Toggle,
+	field_type = SettingEnum.Toggle,
 	alreadyLocalized = false,
 	label = "CoreScripts.InGameMenu.GameSettings.ShowPerfStats",
 	onChanged = PerfStatsValue(),

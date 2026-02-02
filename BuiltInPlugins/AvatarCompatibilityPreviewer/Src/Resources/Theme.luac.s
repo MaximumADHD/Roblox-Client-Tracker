@@ -1602,4 +1602,20 @@ MAIN:
   SETTABLEKS R28 R27 K486 ["&NoDelay"]
   CALL R25 2 1
   SETTABLE R25 R22 R24
+  LOADK R26 K231 ["ItemWornTransparency"]
+  NAMECALL R24 R6 K36 ["add"]
+  CALL R24 2 0
+  GETTABLEKS R24 R6 K487 ["StageInfoBar"]
+  DUPTABLE R25 K493 [{"CircleBackground", "CircleStrokeSelected", "CircleStrokeUnselected", "DividerSelected", "DividerUnselected"}]
+  GETTABLEKS R26 R4 K134 ["SubBackground"]
+  SETTABLEKS R26 R25 K488 ["CircleBackground"]
+  GETTABLEKS R26 R4 K210 ["TextPrimary"]
+  SETTABLEKS R26 R25 K489 ["CircleStrokeSelected"]
+  GETTABLEKS R26 R4 K166 ["Border"]
+  SETTABLEKS R26 R25 K490 ["CircleStrokeUnselected"]
+  GETTABLEKS R26 R4 K210 ["TextPrimary"]
+  SETTABLEKS R26 R25 K491 ["DividerSelected"]
+  GETTABLEKS R26 R4 K166 ["Border"]
+  SETTABLEKS R26 R25 K492 ["DividerUnselected"]
+  SETTABLE R25 R22 R24
   RETURN R22 1

@@ -1,0 +1,31 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K0 ["Type"]
+  CALL R2 1 1
+  LOADK R4 K1 ["%*/%*/creator-inventory-items/asset-%*"]
+  MOVE R6 R2
+  GETTABLEKS R7 R0 K2 ["Id"]
+  MOVE R8 R1
+  NAMECALL R4 R4 K3 ["format"]
+  CALL R4 4 1
+  MOVE R3 R4
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssetManager"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Src"]
+  GETTABLEKS R2 R3 K7 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Util"]
+  GETTABLEKS R3 R4 K9 ["convertScopeTypeToAccountType"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K10 [PROTO_0]
+  CAPTURE VAL R2
+  RETURN R3 1

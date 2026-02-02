@@ -1,0 +1,82 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Hooks"]
+  GETTABLEKS R1 R2 K1 ["useTokens"]
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["createElement"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["View"]
+  DUPTABLE R4 K6 [{"Size", "LayoutOrder"}]
+  GETIMPORT R5 K9 [UDim2.new]
+  LOADN R6 1
+  LOADN R7 0
+  LOADN R8 0
+  LOADN R9 8
+  CALL R5 4 1
+  SETTABLEKS R5 R4 K4 ["Size"]
+  GETTABLEKS R5 R0 K5 ["LayoutOrder"]
+  SETTABLEKS R5 R4 K5 ["LayoutOrder"]
+  DUPTABLE R5 K11 [{"DividerRender"}]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K2 ["createElement"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K3 ["View"]
+  DUPTABLE R8 K16 [{"tag", "Size", "Position", "AnchorPoint", "backgroundStyle"}]
+  NEWTABLE R9 1 0
+  GETTABLEKS R10 R0 K17 ["Highlighted"]
+  SETTABLEKS R10 R9 K18 ["bg-system-emphasis"]
+  SETTABLEKS R9 R8 K12 ["tag"]
+  GETIMPORT R9 K9 [UDim2.new]
+  LOADN R10 1
+  LOADN R11 16
+  LOADN R12 0
+  LOADN R13 1
+  CALL R9 4 1
+  SETTABLEKS R9 R8 K4 ["Size"]
+  GETIMPORT R9 K20 [UDim2.fromScale]
+  LOADK R10 K21 [0.5]
+  LOADK R11 K21 [0.5]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K13 ["Position"]
+  GETIMPORT R9 K23 [Vector2.new]
+  LOADK R10 K21 [0.5]
+  LOADK R11 K21 [0.5]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K14 ["AnchorPoint"]
+  GETTABLEKS R10 R0 K17 ["Highlighted"]
+  JUMPIF R10 [+7]
+  GETTABLEKS R11 R1 K24 ["Color"]
+  GETTABLEKS R10 R11 K25 ["Stroke"]
+  GETTABLEKS R9 R10 K26 ["Default"]
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K15 ["backgroundStyle"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K10 ["DividerRender"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K9 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  GETTABLEKS R4 R2 K10 ["memo"]
+  GETTABLEKS R5 R2 K11 ["forwardRef"]
+  MOVE R6 R3
+  CALL R5 1 -1
+  CALL R4 -1 -1
+  RETURN R4 -1

@@ -23,7 +23,7 @@ PROTO_0:
   GETTABLEKS R3 R4 K3 ["builtinItem"]
   SETTABLEKS R3 R2 K3 ["builtinItem"]
   MOVE R1 R2
-  JUMP [+37]
+  JUMP [+63]
   GETTABLEKS R3 R0 K0 ["item"]
   GETTABLEKS R2 R3 K1 ["source"]
   GETUPVAL R4 0
@@ -38,22 +38,39 @@ PROTO_0:
   GETTABLEKS R3 R4 K12 ["Name"]
   SETTABLEKS R3 R2 K9 ["key"]
   MOVE R1 R2
+  JUMP [+38]
+  GETUPVAL R2 1
+  CALL R2 0 1
+  JUMPIFNOT R2 [+23]
+  GETTABLEKS R3 R0 K0 ["item"]
+  GETTABLEKS R2 R3 K1 ["source"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K13 ["SOURCE_MARKETPLACE"]
+  JUMPIFNOTEQ R2 R3 [+15]
+  DUPTABLE R2 K15 [{"source", "marketplaceItem"}]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K13 ["SOURCE_MARKETPLACE"]
+  SETTABLEKS R3 R2 K1 ["source"]
+  GETTABLEKS R4 R0 K0 ["item"]
+  GETTABLEKS R3 R4 K14 ["marketplaceItem"]
+  SETTABLEKS R3 R2 K14 ["marketplaceItem"]
+  MOVE R1 R2
   JUMP [+12]
-  GETIMPORT R2 K14 [error]
-  LOADK R4 K15 ["Unknown item source in serialization: %*"]
+  GETIMPORT R2 K17 [error]
+  LOADK R4 K18 ["Unknown item source in serialization: %*"]
   GETTABLEKS R7 R0 K0 ["item"]
   GETTABLEKS R6 R7 K1 ["source"]
-  NAMECALL R4 R4 K16 ["format"]
+  NAMECALL R4 R4 K19 ["format"]
   CALL R4 2 1
   MOVE R3 R4
   CALL R2 1 0
-  DUPTABLE R2 K18 [{"palette", "item", "isHidden"}]
+  DUPTABLE R2 K21 [{"palette", "item", "isHidden"}]
   GETTABLEKS R4 R0 K5 ["palette"]
-  GETTABLEKS R3 R4 K19 ["Key"]
+  GETTABLEKS R3 R4 K22 ["Key"]
   SETTABLEKS R3 R2 K5 ["palette"]
   SETTABLEKS R1 R2 K0 ["item"]
-  GETTABLEKS R3 R0 K17 ["isHidden"]
-  SETTABLEKS R3 R2 K17 ["isHidden"]
+  GETTABLEKS R3 R0 K20 ["isHidden"]
+  SETTABLEKS R3 R2 K20 ["isHidden"]
   RETURN R2 1
 
 PROTO_1:
@@ -63,6 +80,7 @@ PROTO_1:
   MOVE R4 R0
   DUPCLOSURE R5 K1 [PROTO_0]
   CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
   CALL R3 2 -1
   NAMECALL R1 R1 K2 ["JSONEncode"]
   CALL R1 -1 -1
@@ -105,7 +123,7 @@ PROTO_2:
   GETTABLEKS R5 R6 K7 ["builtinItem"]
   SETTABLEKS R5 R4 K7 ["builtinItem"]
   MOVE R3 R4
-  JUMP [+43]
+  JUMP [+83]
   GETTABLEKS R5 R1 K4 ["item"]
   GETTABLEKS R4 R5 K5 ["source"]
   GETUPVAL R6 1
@@ -125,20 +143,49 @@ PROTO_2:
   SETTABLEKS R6 R5 K5 ["source"]
   SETTABLEKS R4 R5 K14 ["instance"]
   MOVE R3 R5
+  JUMP [+52]
+  GETUPVAL R4 3
+  CALL R4 0 1
+  JUMPIFNOT R4 [+37]
+  GETTABLEKS R5 R1 K4 ["item"]
+  GETTABLEKS R4 R5 K5 ["source"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K16 ["SOURCE_MARKETPLACE"]
+  JUMPIFNOTEQ R4 R5 [+29]
+  GETUPVAL R4 4
+  JUMPIF R4 [+2]
+  LOADNIL R4
+  RETURN R4 1
+  GETUPVAL R5 5
+  GETTABLEKS R4 R5 K17 ["extractUniqueId"]
+  GETTABLEKS R6 R1 K4 ["item"]
+  GETTABLEKS R5 R6 K18 ["marketplaceItem"]
+  CALL R4 1 1
+  GETUPVAL R5 4
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R8 R4
+  GETIMPORT R7 K20 [tostring]
+  CALL R7 1 1
+  NAMECALL R5 R5 K13 ["FindFirstChild"]
+  CALL R5 2 1
+  JUMPIFNOTEQKNIL R5 [+3]
+  LOADNIL R6
+  RETURN R6 1
+  GETTABLEKS R3 R1 K4 ["item"]
   JUMP [+12]
-  GETIMPORT R4 K17 [error]
-  LOADK R6 K18 ["Unknown item source in deserialization: %*"]
+  GETIMPORT R4 K22 [error]
+  LOADK R6 K23 ["Unknown item source in deserialization: %*"]
   GETTABLEKS R9 R1 K4 ["item"]
   GETTABLEKS R8 R9 K5 ["source"]
-  NAMECALL R6 R6 K19 ["format"]
+  NAMECALL R6 R6 K24 ["format"]
   CALL R6 2 1
   MOVE R5 R6
   CALL R4 1 0
-  DUPTABLE R4 K21 [{"palette", "item", "isHidden"}]
+  DUPTABLE R4 K26 [{"palette", "item", "isHidden"}]
   SETTABLEKS R2 R4 K0 ["palette"]
   SETTABLEKS R3 R4 K4 ["item"]
-  GETTABLEKS R5 R1 K20 ["isHidden"]
-  SETTABLEKS R5 R4 K20 ["isHidden"]
+  GETTABLEKS R5 R1 K25 ["isHidden"]
+  SETTABLEKS R5 R4 K25 ["isHidden"]
   RETURN R4 1
 
 PROTO_3:
@@ -153,24 +200,31 @@ PROTO_3:
   CAPTURE UPVAL U2
   CAPTURE UPVAL U3
   CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
   CALL R2 2 -1
   RETURN R2 -1
 
 PROTO_4:
-  DUPTABLE R1 K2 [{"serialize", "deserialize"}]
-  DUPCLOSURE R2 K3 [PROTO_1]
+  DUPTABLE R2 K2 [{"serialize", "deserialize"}]
+  DUPCLOSURE R3 K3 [PROTO_1]
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
-  SETTABLEKS R2 R1 K0 ["serialize"]
-  NEWCLOSURE R2 P1
+  CAPTURE UPVAL U3
+  SETTABLEKS R3 R2 K0 ["serialize"]
+  NEWCLOSURE R3 P1
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
   CAPTURE UPVAL U2
   CAPTURE VAL R0
-  SETTABLEKS R2 R1 K1 ["deserialize"]
-  RETURN R1 1
+  CAPTURE UPVAL U3
+  CAPTURE VAL R1
+  CAPTURE UPVAL U5
+  SETTABLEKS R3 R2 K1 ["deserialize"]
+  RETURN R2 1
 
 MAIN:
   PREPVARARGS 0
@@ -200,11 +254,23 @@ MAIN:
   GETTABLEKS R7 R8 K13 ["Util"]
   GETTABLEKS R6 R7 K16 ["getPaletteFromKey"]
   CALL R5 1 1
-  NEWTABLE R6 0 0
-  DUPCLOSURE R7 K17 [PROTO_4]
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R9 R1 K12 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Util"]
+  GETTABLEKS R7 R8 K17 ["MarketplaceCatalogUtils"]
+  CALL R6 1 1
+  GETIMPORT R7 K9 [require]
+  GETTABLEKS R10 R1 K12 ["Src"]
+  GETTABLEKS R9 R10 K18 ["Flags"]
+  GETTABLEKS R8 R9 K19 ["getFFlagAvatarPreviewerLookComposer"]
+  CALL R7 1 1
+  NEWTABLE R8 0 0
+  DUPCLOSURE R9 K20 [PROTO_4]
   CAPTURE VAL R0
   CAPTURE VAL R2
   CAPTURE VAL R3
+  CAPTURE VAL R7
   CAPTURE VAL R5
-  SETTABLEKS R7 R6 K18 ["createEquippedItemsSerializer"]
-  RETURN R6 1
+  CAPTURE VAL R6
+  SETTABLEKS R9 R8 K21 ["createEquippedItemsSerializer"]
+  RETURN R8 1

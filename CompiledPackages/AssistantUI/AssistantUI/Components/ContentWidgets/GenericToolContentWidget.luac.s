@@ -1,0 +1,242 @@
+PROTO_0:
+  DUPTABLE R0 K3 [{"Generating", "Calling", "Called"}]
+  GETUPVAL R1 0
+  LOADK R3 K4 ["ToolContent"]
+  LOADK R4 K0 ["Generating"]
+  DUPTABLE R5 K6 [{"tool"}]
+  GETUPVAL R6 1
+  SETTABLEKS R6 R5 K5 ["tool"]
+  NAMECALL R1 R1 K7 ["getText"]
+  CALL R1 4 1
+  SETTABLEKS R1 R0 K0 ["Generating"]
+  GETUPVAL R1 0
+  LOADK R3 K4 ["ToolContent"]
+  LOADK R4 K1 ["Calling"]
+  DUPTABLE R5 K6 [{"tool"}]
+  GETUPVAL R6 1
+  SETTABLEKS R6 R5 K5 ["tool"]
+  NAMECALL R1 R1 K7 ["getText"]
+  CALL R1 4 1
+  SETTABLEKS R1 R0 K1 ["Calling"]
+  GETUPVAL R1 0
+  LOADK R3 K4 ["ToolContent"]
+  LOADK R4 K2 ["Called"]
+  DUPTABLE R5 K6 [{"tool"}]
+  GETUPVAL R6 1
+  SETTABLEKS R6 R5 K5 ["tool"]
+  NAMECALL R1 R1 K7 ["getText"]
+  CALL R1 4 1
+  SETTABLEKS R1 R0 K2 ["Called"]
+  RETURN R0 1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["toolIdentifier"]
+  GETUPVAL R2 0
+  MOVE R3 R1
+  CALL R2 1 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["useMemo"]
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R2
+  NEWTABLE R5 0 1
+  MOVE R6 R2
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 1
+  GETUPVAL R4 3
+  CALL R4 0 1
+  GETUPVAL R5 4
+  GETUPVAL R7 5
+  GETTABLEKS R6 R7 K2 ["Root"]
+  DUPTABLE R7 K7 [{"LayoutOrder", "expanded", "contentId", "editThisContent"}]
+  GETTABLEKS R8 R0 K3 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K3 ["LayoutOrder"]
+  GETTABLEKS R8 R0 K4 ["expanded"]
+  SETTABLEKS R8 R7 K4 ["expanded"]
+  GETTABLEKS R8 R0 K5 ["contentId"]
+  SETTABLEKS R8 R7 K5 ["contentId"]
+  GETTABLEKS R8 R0 K6 ["editThisContent"]
+  SETTABLEKS R8 R7 K6 ["editThisContent"]
+  DUPTABLE R8 K10 [{"Header", "Content"}]
+  GETUPVAL R9 4
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K8 ["Header"]
+  DUPTABLE R11 K11 [{"LayoutOrder"}]
+  MOVE R12 R4
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K3 ["LayoutOrder"]
+  DUPTABLE R12 K13 [{"Text"}]
+  GETUPVAL R13 4
+  GETUPVAL R14 6
+  DUPTABLE R15 K15 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R16 K16 ["size-0-full auto-x text-label-small content-default text-truncate-end"]
+  SETTABLEKS R16 R15 K14 ["tag"]
+  GETTABLEKS R17 R0 K17 ["toolResult"]
+  JUMPIFNOT R17 [+3]
+  GETTABLEKS R16 R3 K18 ["Called"]
+  JUMP [+8]
+  GETTABLEKS R17 R0 K19 ["toolUse"]
+  JUMPIFNOT R17 [+3]
+  GETTABLEKS R16 R3 K20 ["Calling"]
+  JUMP [+2]
+  GETTABLEKS R16 R3 K21 ["Generating"]
+  SETTABLEKS R16 R15 K12 ["Text"]
+  MOVE R16 R4
+  CALL R16 0 1
+  SETTABLEKS R16 R15 K3 ["LayoutOrder"]
+  DUPTABLE R16 K23 [{"Shimmer"}]
+  GETTABLEKS R18 R0 K24 ["generating"]
+  JUMPIF R18 [+6]
+  GETTABLEKS R18 R0 K19 ["toolUse"]
+  JUMPIFNOT R18 [+7]
+  GETTABLEKS R18 R0 K17 ["toolResult"]
+  JUMPIF R18 [+4]
+  GETUPVAL R17 4
+  GETUPVAL R18 7
+  CALL R17 1 1
+  JUMP [+1]
+  LOADNIL R17
+  SETTABLEKS R17 R16 K22 ["Shimmer"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K12 ["Text"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K8 ["Header"]
+  GETUPVAL R9 4
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K9 ["Content"]
+  DUPTABLE R11 K26 [{"tag", "LayoutOrder", "UseVisible"}]
+  LOADK R12 K27 ["col size-0-0 fill auto-y gap-small"]
+  SETTABLEKS R12 R11 K14 ["tag"]
+  MOVE R12 R4
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K3 ["LayoutOrder"]
+  LOADB R12 1
+  SETTABLEKS R12 R11 K25 ["UseVisible"]
+  DUPTABLE R12 K30 [{"InputContainer", "ResultContainer"}]
+  GETTABLEKS R13 R0 K19 ["toolUse"]
+  JUMPIFNOT R13 [+26]
+  GETUPVAL R13 4
+  GETUPVAL R14 8
+  DUPTABLE R15 K31 [{"tag", "LayoutOrder"}]
+  LOADK R16 K32 ["size-full-0 auto-y"]
+  SETTABLEKS R16 R15 K14 ["tag"]
+  MOVE R16 R4
+  CALL R16 0 1
+  SETTABLEKS R16 R15 K3 ["LayoutOrder"]
+  DUPTABLE R16 K34 [{"Input"}]
+  GETUPVAL R17 4
+  GETUPVAL R18 9
+  DUPTABLE R19 K35 [{"toolUse", "LayoutOrder"}]
+  GETTABLEKS R20 R0 K19 ["toolUse"]
+  SETTABLEKS R20 R19 K19 ["toolUse"]
+  MOVE R20 R4
+  CALL R20 0 1
+  SETTABLEKS R20 R19 K3 ["LayoutOrder"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K33 ["Input"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K28 ["InputContainer"]
+  GETTABLEKS R13 R0 K17 ["toolResult"]
+  JUMPIFNOT R13 [+26]
+  GETUPVAL R13 4
+  GETUPVAL R14 8
+  DUPTABLE R15 K31 [{"tag", "LayoutOrder"}]
+  LOADK R16 K32 ["size-full-0 auto-y"]
+  SETTABLEKS R16 R15 K14 ["tag"]
+  MOVE R16 R4
+  CALL R16 0 1
+  SETTABLEKS R16 R15 K3 ["LayoutOrder"]
+  DUPTABLE R16 K37 [{"Result"}]
+  GETUPVAL R17 4
+  GETUPVAL R18 10
+  DUPTABLE R19 K38 [{"toolResult", "LayoutOrder"}]
+  GETTABLEKS R20 R0 K17 ["toolResult"]
+  SETTABLEKS R20 R19 K17 ["toolResult"]
+  MOVE R20 R4
+  CALL R20 0 1
+  SETTABLEKS R20 R19 K3 ["LayoutOrder"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K36 ["Result"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K29 ["ResultContainer"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K9 ["Content"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Components"]
+  GETTABLEKS R2 R3 K7 ["Accordion"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Components"]
+  GETTABLEKS R3 R4 K8 ["ContentWidgetRegistry"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K9 ["Parent"]
+  GETTABLEKS R4 R5 K10 ["Foundation"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Components"]
+  GETTABLEKS R5 R6 K11 ["GenericToolContent"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Parent"]
+  GETTABLEKS R6 R7 K12 ["React"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Parent"]
+  GETTABLEKS R7 R8 K13 ["ReactUtils"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Components"]
+  GETTABLEKS R8 R9 K14 ["ShimmerGradient"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K15 ["Resources"]
+  GETTABLEKS R10 R11 K16 ["Localization"]
+  GETTABLEKS R9 R10 K17 ["Translator"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R0 K18 ["Types"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R12 R0 K19 ["Hooks"]
+  GETTABLEKS R11 R12 K20 ["useToolDisplayName"]
+  CALL R10 1 1
+  GETTABLEKS R11 R4 K21 ["ToolInputContent"]
+  GETTABLEKS R12 R4 K22 ["ToolResultContent"]
+  GETTABLEKS R13 R3 K23 ["View"]
+  GETTABLEKS R14 R3 K24 ["Text"]
+  GETTABLEKS R15 R5 K25 ["createElement"]
+  GETTABLEKS R16 R6 K26 ["createNextOrder"]
+  DUPCLOSURE R17 K27 [PROTO_1]
+  CAPTURE VAL R10
+  CAPTURE VAL R5
+  CAPTURE VAL R8
+  CAPTURE VAL R16
+  CAPTURE VAL R15
+  CAPTURE VAL R1
+  CAPTURE VAL R14
+  CAPTURE VAL R7
+  CAPTURE VAL R13
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  DUPTABLE R18 K30 [{"Type", "ContentWidget"}]
+  LOADK R19 K31 ["GenericTool"]
+  SETTABLEKS R19 R18 K28 ["Type"]
+  GETTABLEKS R19 R5 K32 ["memo"]
+  MOVE R20 R17
+  CALL R19 1 1
+  SETTABLEKS R19 R18 K29 ["ContentWidget"]
+  GETTABLEKS R19 R2 K33 ["registerWidget"]
+  GETTABLEKS R20 R18 K28 ["Type"]
+  GETTABLEKS R21 R18 K29 ["ContentWidget"]
+  CALL R19 2 0
+  RETURN R18 1

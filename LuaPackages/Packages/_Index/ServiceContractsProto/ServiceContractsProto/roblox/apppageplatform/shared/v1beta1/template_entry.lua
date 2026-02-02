@@ -11,7 +11,6 @@ type _Messages = {
 }
 local messages: _Messages = {} :: _Messages
 
-local _roblox_apppageplatform_shared_v1beta1_roblox_component_type = require(script.Parent.roblox_component_type)
 local _roblox_apppageplatform_shared_v1beta1_ui_component_schema = require(script.Parent.ui_component_schema)
 
 type _TemplateEntryImpl = {
@@ -26,12 +25,12 @@ type _TemplateEntryImpl = {
 
 type _TemplateEntryFields = {
 	template: _roblox_apppageplatform_shared_v1beta1_ui_component_schema.UiComponentSchema?,
-	roblox_component: _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType,
+	roblox_component: string,
 }
 
 type _TemplateEntryPartialFields = {
 	template: _roblox_apppageplatform_shared_v1beta1_ui_component_schema.UiComponentSchema?,
-	roblox_component: _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType?,
+	roblox_component: string?,
 }
 
 export type TemplateEntry = typeof(setmetatable({} :: _TemplateEntryFields, {} :: _TemplateEntryImpl))
@@ -44,12 +43,7 @@ do
 	function _TemplateEntryImpl.new(data: _TemplateEntryPartialFields?): TemplateEntry
 		return setmetatable({
 			template = if data == nil or data.template == nil then nil else data.template,
-			roblox_component = if data == nil or data.roblox_component == nil
-				then assert(
-					_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(0),
-					"Enum has no 0 default"
-				)
-				else data.roblox_component,
+			roblox_component = if data == nil or data.roblox_component == nil then "" else data.roblox_component,
 		}, _TemplateEntryImpl :: _TemplateEntryImpl)
 	end
 
@@ -63,22 +57,9 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
-		if
-			self.roblox_component ~= nil
-			and (
-				self.roblox_component ~= nil and self.roblox_component ~= 0
-				or self.roblox_component
-					~= _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(0)
-			)
-		then
-			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
-			output, cursor = proto.writeVarInt(
-				output,
-				cursor,
-				_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.toNumber(
-					self.roblox_component :: any
-				)
-			)
+		if self.roblox_component ~= nil and self.roblox_component ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.roblox_component)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -95,16 +76,7 @@ do
 			field, wireType, cursor = proto.readTag(input, cursor)
 
 			if wireType == proto.wireTypes.varint then
-				if field == 2 then
-					local value
-					value, cursor = proto.readVarIntI32(input, cursor)
-					self.roblox_component = (
-						_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(
-							value
-						) or value
-					) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
-					continue
-				end
+				-- No fields
 
 				local _
 				_, cursor = proto.readVarInt(input, cursor)
@@ -114,6 +86,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.template =
 						_roblox_apppageplatform_shared_v1beta1_ui_component_schema.UiComponentSchema.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.roblox_component = buffer.tostring(value)
 					continue
 				end
 
@@ -146,19 +123,8 @@ do
 			output.template = self.template:jsonEncode()
 		end
 
-		if
-			self.roblox_component ~= nil
-			and (
-				self.roblox_component ~= nil and self.roblox_component ~= 0
-				or self.roblox_component
-					~= _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(0)
-			)
-		then
-			output.robloxComponent = if typeof(self.roblox_component) == "number"
-				then self.roblox_component
-				else _roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.toNumber(
-					self.roblox_component :: any
-				)
+		if self.roblox_component ~= nil and self.roblox_component ~= "" then
+			output.robloxComponent = self.roblox_component
 		end
 
 		return output
@@ -173,23 +139,11 @@ do
 		end
 
 		if input.roblox_component ~= nil then
-			self.roblox_component = if typeof(input.roblox_component) == "number"
-				then (_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(
-					input.roblox_component
-				) or input.roblox_component)
-				else (_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromName(
-					input.roblox_component
-				) or input.roblox_component)
+			self.roblox_component = input.roblox_component
 		end
 
 		if input.robloxComponent ~= nil then
-			self.roblox_component = if typeof(input.robloxComponent) == "number"
-				then (_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromNumber(
-					input.robloxComponent
-				) or input.robloxComponent)
-				else (_roblox_apppageplatform_shared_v1beta1_roblox_component_type.RobloxComponentType.fromName(
-					input.robloxComponent
-				) or input.robloxComponent)
+			self.roblox_component = input.robloxComponent
 		end
 
 		return self

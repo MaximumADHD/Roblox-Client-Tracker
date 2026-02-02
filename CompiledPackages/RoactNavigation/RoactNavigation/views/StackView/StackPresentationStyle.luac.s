@@ -1,0 +1,23 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["NavigationSymbol"]
+  CALL R0 1 1
+  MOVE R1 R0
+  LOADK R2 K6 ["DEFAULT"]
+  CALL R1 1 1
+  MOVE R2 R0
+  LOADK R3 K7 ["MODAL"]
+  CALL R2 1 1
+  MOVE R3 R0
+  LOADK R4 K8 ["OVERLAY"]
+  CALL R3 1 1
+  DUPTABLE R4 K12 [{"Default", "Modal", "Overlay"}]
+  SETTABLEKS R1 R4 K9 ["Default"]
+  SETTABLEKS R2 R4 K10 ["Modal"]
+  SETTABLEKS R3 R4 K11 ["Overlay"]
+  RETURN R4 1

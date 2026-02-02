@@ -1,0 +1,494 @@
+PROTO_0:
+  JUMPIFNOT R2 [+6]
+  GETUPVAL R3 0
+  MOVE R4 R1
+  CALL R3 1 1
+  JUMPIFNOT R3 [+2]
+  GETUPVAL R3 1
+  RETURN R3 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K0 ["current"]
+  RETURN R3 1
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["stateNode"]
+  SETTABLEKS R1 R3 K1 ["__reactInternalMemoizedUnmaskedChildContext"]
+  SETTABLEKS R2 R3 K2 ["__reactInternalMemoizedMaskedChildContext"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["type"]
+  FASTCALL1 TYPE R2 [+3]
+  MOVE R4 R2
+  GETIMPORT R3 K1 [type]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K2 ["function"] [+2]
+  RETURN R1 1
+  GETTABLEKS R3 R2 K3 ["contextTypes"]
+  JUMPIF R3 [+2]
+  GETUPVAL R4 0
+  RETURN R4 1
+  GETTABLEKS R4 R0 K4 ["stateNode"]
+  JUMPIFNOT R4 [+7]
+  GETTABLEKS R5 R4 K5 ["__reactInternalMemoizedUnmaskedChildContext"]
+  JUMPIFNOTEQ R5 R1 [+4]
+  GETTABLEKS R5 R4 K6 ["__reactInternalMemoizedMaskedChildContext"]
+  RETURN R5 1
+  NEWTABLE R5 0 0
+  MOVE R6 R3
+  LOADNIL R7
+  LOADNIL R8
+  FORGPREP R6
+  GETTABLE R11 R1 R9
+  SETTABLE R11 R5 R9
+  FORGLOOP R6 2 [-3]
+  GETUPVAL R6 1
+  JUMPIF R6 [+2]
+  GETUPVAL R6 2
+  JUMPIFNOT R6 [+11]
+  GETUPVAL R7 3
+  MOVE R8 R2
+  CALL R7 1 1
+  ORK R6 R7 K7 ["Unknown"]
+  GETUPVAL R7 4
+  MOVE R8 R3
+  LOADNIL R9
+  MOVE R10 R5
+  LOADK R11 K8 ["context"]
+  MOVE R12 R6
+  CALL R7 5 0
+  JUMPIFNOT R4 [+6]
+  GETTABLEKS R6 R0 K4 ["stateNode"]
+  SETTABLEKS R1 R6 K5 ["__reactInternalMemoizedUnmaskedChildContext"]
+  SETTABLEKS R5 R6 K6 ["__reactInternalMemoizedMaskedChildContext"]
+  RETURN R5 1
+
+PROTO_3:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+2]
+  LOADB R0 0
+  RETURN R0 1
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["current"]
+  RETURN R0 1
+
+PROTO_4:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [type]
+  CALL R1 1 1
+  JUMPIFNOTEQKS R1 K2 ["function"] [+3]
+  LOADB R1 0
+  RETURN R1 1
+  GETTABLEKS R1 R0 K3 ["childContextTypes"]
+  JUMPIFNOTEQKNIL R1 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R1 2 0
+  GETUPVAL R1 0
+  GETUPVAL R2 2
+  MOVE R3 R0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  MOVE R3 R0
+  CALL R1 2 0
+  GETUPVAL R1 0
+  GETUPVAL R2 2
+  MOVE R3 R0
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["current"]
+  GETUPVAL R4 1
+  JUMPIFEQ R3 R4 [+9]
+  GETIMPORT R3 K2 [error]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K3 ["new"]
+  LOADK R5 K4 ["Unexpected context found on stack. This error is likely caused by a bug in React. Please file an issue."]
+  CALL R4 1 -1
+  CALL R3 -1 0
+  GETUPVAL R3 3
+  GETUPVAL R4 0
+  MOVE R5 R1
+  MOVE R6 R0
+  CALL R3 3 0
+  GETUPVAL R3 3
+  GETUPVAL R4 4
+  MOVE R5 R2
+  MOVE R6 R0
+  CALL R3 3 0
+  RETURN R0 0
+
+PROTO_8:
+  GETTABLEKS R3 R0 K0 ["stateNode"]
+  GETTABLEKS R4 R1 K1 ["childContextTypes"]
+  GETTABLEKS R5 R3 K2 ["getChildContext"]
+  JUMPIFEQKNIL R5 [+9]
+  GETTABLEKS R6 R3 K2 ["getChildContext"]
+  FASTCALL1 TYPE R6 [+2]
+  GETIMPORT R5 K4 [type]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K5 ["function"] [+21]
+  GETUPVAL R5 0
+  JUMPIFNOT R5 [+17]
+  GETUPVAL R6 1
+  MOVE R7 R1
+  CALL R6 1 1
+  ORK R5 R6 K6 ["Unknown"]
+  GETUPVAL R7 2
+  GETTABLE R6 R7 R5
+  JUMPIF R6 [+10]
+  GETUPVAL R6 2
+  LOADB R7 1
+  SETTABLE R7 R6 R5
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K7 ["error"]
+  LOADK R7 K8 ["%s.childContextTypes is specified but there is no getChildContext() method on the instance. You can either define getChildContext() on %s or remove childContextTypes from it."]
+  MOVE R8 R5
+  MOVE R9 R5
+  CALL R6 3 0
+  RETURN R2 1
+  NAMECALL R5 R3 K2 ["getChildContext"]
+  CALL R5 1 1
+  MOVE R6 R5
+  LOADNIL R7
+  LOADNIL R8
+  FORGPREP R6
+  GETTABLE R11 R4 R9
+  JUMPIFNOTEQKNIL R11 [+18]
+  GETUPVAL R12 1
+  MOVE R13 R1
+  CALL R12 1 1
+  ORK R11 R12 K6 ["Unknown"]
+  GETIMPORT R12 K9 [error]
+  GETUPVAL R14 4
+  GETTABLEKS R13 R14 K10 ["new"]
+  GETIMPORT R14 K13 [string.format]
+  LOADK R15 K14 ["%s.getChildContext(): key \"%s\" is not defined in childContextTypes."]
+  MOVE R16 R11
+  MOVE R17 R9
+  CALL R14 3 -1
+  CALL R13 -1 -1
+  CALL R12 -1 0
+  FORGLOOP R6 2 [-21]
+  GETUPVAL R6 0
+  JUMPIF R6 [+2]
+  GETUPVAL R6 5
+  JUMPIFNOT R6 [+11]
+  GETUPVAL R7 1
+  MOVE R8 R1
+  CALL R7 1 1
+  ORK R6 R7 K6 ["Unknown"]
+  GETUPVAL R7 6
+  MOVE R8 R4
+  LOADNIL R9
+  MOVE R10 R5
+  LOADK R11 K15 ["child context"]
+  MOVE R12 R6
+  CALL R7 5 0
+  GETUPVAL R7 7
+  GETTABLEKS R6 R7 K16 ["assign"]
+  NEWTABLE R7 0 0
+  MOVE R8 R2
+  MOVE R9 R5
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["stateNode"]
+  JUMPIFNOT R1 [+3]
+  GETTABLEKS R2 R1 K1 ["__reactInternalMemoizedMergedChildContext"]
+  JUMPIF R2 [+1]
+  GETUPVAL R2 0
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["current"]
+  SETUPVAL R3 1
+  GETUPVAL R3 3
+  GETUPVAL R4 2
+  MOVE R5 R2
+  MOVE R6 R0
+  CALL R3 3 0
+  GETUPVAL R3 3
+  GETUPVAL R4 4
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K2 ["current"]
+  MOVE R6 R0
+  CALL R3 3 0
+  LOADB R3 1
+  RETURN R3 1
+
+PROTO_10:
+  GETTABLEKS R3 R0 K0 ["stateNode"]
+  JUMPIF R3 [+8]
+  GETIMPORT R4 K2 [error]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["new"]
+  LOADK R6 K4 ["Expected to have an instance by this point. This error is likely caused by a bug in React. Please file an issue."]
+  CALL R5 1 -1
+  CALL R4 -1 0
+  JUMPIFNOT R2 [+26]
+  GETUPVAL R4 1
+  MOVE R5 R0
+  MOVE R6 R1
+  GETUPVAL R7 2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K5 ["__reactInternalMemoizedMergedChildContext"]
+  GETUPVAL R5 3
+  GETUPVAL R6 4
+  MOVE R7 R0
+  CALL R5 2 0
+  GETUPVAL R5 3
+  GETUPVAL R6 5
+  MOVE R7 R0
+  CALL R5 2 0
+  GETUPVAL R5 6
+  GETUPVAL R6 5
+  MOVE R7 R4
+  MOVE R8 R0
+  CALL R5 3 0
+  GETUPVAL R5 6
+  GETUPVAL R6 4
+  MOVE R7 R2
+  MOVE R8 R0
+  CALL R5 3 0
+  RETURN R0 0
+  GETUPVAL R4 3
+  GETUPVAL R5 4
+  MOVE R6 R0
+  CALL R4 2 0
+  GETUPVAL R4 6
+  GETUPVAL R5 4
+  MOVE R6 R2
+  MOVE R7 R0
+  CALL R4 3 0
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R1 R0 K0 ["tag"]
+  GETUPVAL R2 0
+  JUMPIFNOTEQ R1 R2 [+5]
+  GETUPVAL R1 1
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIF R1 [+8]
+  GETIMPORT R1 K2 [error]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K3 ["new"]
+  LOADK R3 K4 ["Expected subtree parent to be a mounted class component. This error is likely caused by a bug in React. Please file an issue."]
+  CALL R2 1 -1
+  CALL R1 -1 0
+  MOVE R1 R0
+  GETTABLEKS R2 R1 K0 ["tag"]
+  GETUPVAL R3 3
+  JUMPIFNOTEQ R2 R3 [+6]
+  GETTABLEKS R3 R1 K5 ["stateNode"]
+  GETTABLEKS R2 R3 K6 ["context"]
+  RETURN R2 1
+  GETTABLEKS R2 R1 K0 ["tag"]
+  GETUPVAL R3 0
+  JUMPIFNOTEQ R2 R3 [+12]
+  GETTABLEKS R2 R1 K7 ["type"]
+  GETTABLEKS R3 R2 K8 ["childContextTypes"]
+  JUMPIFEQKNIL R3 [+6]
+  GETTABLEKS R4 R1 K5 ["stateNode"]
+  GETTABLEKS R3 R4 K9 ["__reactInternalMemoizedMergedChildContext"]
+  RETURN R3 1
+  GETTABLEKS R1 R1 K10 ["return_"]
+  JUMPIFEQKNIL R1 [+2]
+  JUMPBACK [-31]
+  GETIMPORT R2 K2 [error]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K3 ["new"]
+  LOADK R4 K11 ["Found unexpected detached subtree parent. This error is likely caused by a bug in React. Please file an issue."]
+  CALL R3 1 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [_G]
+  GETTABLEKS R0 R1 K2 ["__DEV__"]
+  GETIMPORT R2 K1 [_G]
+  GETTABLEKS R1 R2 K3 ["__DISABLE_ALL_WARNINGS_EXCEPT_PROP_VALIDATION__"]
+  GETIMPORT R2 K5 [require]
+  GETIMPORT R5 K7 [script]
+  GETTABLEKS R4 R5 K8 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["Parent"]
+  LOADK R5 K9 ["luau-polyfill"]
+  NAMECALL R3 R3 K10 ["WaitForChild"]
+  CALL R3 2 -1
+  CALL R2 -1 1
+  GETTABLEKS R3 R2 K11 ["Object"]
+  GETTABLEKS R4 R2 K12 ["Error"]
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R9 K7 [script]
+  GETTABLEKS R8 R9 K8 ["Parent"]
+  GETTABLEKS R7 R8 K8 ["Parent"]
+  LOADK R9 K13 ["shared"]
+  NAMECALL R7 R7 K10 ["WaitForChild"]
+  CALL R7 2 -1
+  CALL R6 -1 1
+  GETTABLEKS R5 R6 K14 ["console"]
+  GETIMPORT R6 K5 [require]
+  GETIMPORT R8 K7 [script]
+  GETTABLEKS R7 R8 K8 ["Parent"]
+  LOADK R9 K15 ["ReactInternalTypes"]
+  NAMECALL R7 R7 K10 ["WaitForChild"]
+  CALL R7 2 -1
+  CALL R6 -1 1
+  GETIMPORT R7 K5 [require]
+  GETIMPORT R9 K7 [script]
+  GETTABLEKS R8 R9 K8 ["Parent"]
+  LOADK R10 K16 ["ReactFiberStack.new"]
+  NAMECALL R8 R8 K10 ["WaitForChild"]
+  CALL R8 2 -1
+  CALL R7 -1 1
+  GETIMPORT R9 K5 [require]
+  GETIMPORT R11 K7 [script]
+  GETTABLEKS R10 R11 K8 ["Parent"]
+  LOADK R12 K17 ["ReactFiberTreeReflection"]
+  NAMECALL R10 R10 K10 ["WaitForChild"]
+  CALL R10 2 -1
+  CALL R9 -1 1
+  GETTABLEKS R8 R9 K18 ["isFiberMounted"]
+  GETIMPORT R11 K5 [require]
+  GETIMPORT R14 K7 [script]
+  GETTABLEKS R13 R14 K8 ["Parent"]
+  GETTABLEKS R12 R13 K8 ["Parent"]
+  LOADK R14 K13 ["shared"]
+  NAMECALL R12 R12 K10 ["WaitForChild"]
+  CALL R12 2 -1
+  CALL R11 -1 1
+  GETTABLEKS R10 R11 K19 ["ReactFeatureFlags"]
+  GETTABLEKS R9 R10 K20 ["disableLegacyContext"]
+  GETIMPORT R10 K5 [require]
+  GETIMPORT R12 K7 [script]
+  GETTABLEKS R11 R12 K8 ["Parent"]
+  LOADK R13 K21 ["ReactWorkTags"]
+  NAMECALL R11 R11 K10 ["WaitForChild"]
+  CALL R11 2 -1
+  CALL R10 -1 1
+  GETTABLEKS R11 R10 K22 ["ClassComponent"]
+  GETTABLEKS R12 R10 K23 ["HostRoot"]
+  GETIMPORT R14 K5 [require]
+  GETIMPORT R17 K7 [script]
+  GETTABLEKS R16 R17 K8 ["Parent"]
+  GETTABLEKS R15 R16 K8 ["Parent"]
+  LOADK R17 K13 ["shared"]
+  NAMECALL R15 R15 K10 ["WaitForChild"]
+  CALL R15 2 -1
+  CALL R14 -1 1
+  GETTABLEKS R13 R14 K24 ["getComponentName"]
+  GETIMPORT R15 K5 [require]
+  GETIMPORT R18 K7 [script]
+  GETTABLEKS R17 R18 K8 ["Parent"]
+  GETTABLEKS R16 R17 K8 ["Parent"]
+  LOADK R18 K13 ["shared"]
+  NAMECALL R16 R16 K10 ["WaitForChild"]
+  CALL R16 2 -1
+  CALL R15 -1 1
+  GETTABLEKS R14 R15 K25 ["checkPropTypes"]
+  GETTABLEKS R15 R7 K26 ["createCursor"]
+  GETTABLEKS R16 R7 K27 ["push"]
+  GETTABLEKS R17 R7 K28 ["pop"]
+  LOADNIL R18
+  JUMPIFNOT R0 [+2]
+  NEWTABLE R18 0 0
+  NEWTABLE R19 0 0
+  JUMPIFNOT R0 [+4]
+  GETTABLEKS R20 R3 K29 ["freeze"]
+  MOVE R21 R19
+  CALL R20 1 0
+  MOVE R20 R15
+  MOVE R21 R19
+  CALL R20 1 1
+  MOVE R21 R15
+  LOADB R22 0
+  CALL R21 1 1
+  MOVE R22 R19
+  LOADNIL R23
+  NEWCLOSURE R24 P0
+  CAPTURE REF R23
+  CAPTURE REF R22
+  CAPTURE VAL R20
+  DUPCLOSURE R25 K30 [PROTO_1]
+  DUPCLOSURE R26 K31 [PROTO_2]
+  CAPTURE VAL R19
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE VAL R13
+  CAPTURE VAL R14
+  DUPCLOSURE R27 K32 [PROTO_3]
+  CAPTURE VAL R9
+  CAPTURE VAL R21
+  DUPCLOSURE R23 K33 [PROTO_4]
+  DUPCLOSURE R28 K34 [PROTO_5]
+  CAPTURE VAL R17
+  CAPTURE VAL R21
+  CAPTURE VAL R20
+  DUPCLOSURE R29 K35 [PROTO_6]
+  CAPTURE VAL R17
+  CAPTURE VAL R21
+  CAPTURE VAL R20
+  DUPCLOSURE R30 K36 [PROTO_7]
+  CAPTURE VAL R20
+  CAPTURE VAL R19
+  CAPTURE VAL R4
+  CAPTURE VAL R16
+  CAPTURE VAL R21
+  NEWCLOSURE R31 P8
+  CAPTURE VAL R0
+  CAPTURE VAL R13
+  CAPTURE REF R18
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R14
+  CAPTURE VAL R3
+  NEWCLOSURE R32 P9
+  CAPTURE VAL R19
+  CAPTURE REF R22
+  CAPTURE VAL R20
+  CAPTURE VAL R16
+  CAPTURE VAL R21
+  NEWCLOSURE R33 P10
+  CAPTURE VAL R4
+  CAPTURE VAL R31
+  CAPTURE REF R22
+  CAPTURE VAL R17
+  CAPTURE VAL R21
+  CAPTURE VAL R20
+  CAPTURE VAL R16
+  DUPCLOSURE R34 K37 [PROTO_11]
+  CAPTURE VAL R11
+  CAPTURE VAL R8
+  CAPTURE VAL R4
+  CAPTURE VAL R12
+  DUPTABLE R35 K51 [{"emptyContextObject", "getUnmaskedContext", "cacheContext", "getMaskedContext", "hasContextChanged", "popContext", "popTopLevelContextObject", "pushTopLevelContextObject", "processChildContext", "isContextProvider", "pushContextProvider", "invalidateContextProvider", "findCurrentUnmaskedContext"}]
+  SETTABLEKS R19 R35 K38 ["emptyContextObject"]
+  SETTABLEKS R24 R35 K39 ["getUnmaskedContext"]
+  SETTABLEKS R25 R35 K40 ["cacheContext"]
+  SETTABLEKS R26 R35 K41 ["getMaskedContext"]
+  SETTABLEKS R27 R35 K42 ["hasContextChanged"]
+  SETTABLEKS R28 R35 K43 ["popContext"]
+  SETTABLEKS R29 R35 K44 ["popTopLevelContextObject"]
+  SETTABLEKS R30 R35 K45 ["pushTopLevelContextObject"]
+  SETTABLEKS R31 R35 K46 ["processChildContext"]
+  SETTABLEKS R23 R35 K47 ["isContextProvider"]
+  SETTABLEKS R32 R35 K48 ["pushContextProvider"]
+  SETTABLEKS R33 R35 K49 ["invalidateContextProvider"]
+  SETTABLEKS R34 R35 K50 ["findCurrentUnmaskedContext"]
+  CLOSEUPVALS R18
+  RETURN R35 1

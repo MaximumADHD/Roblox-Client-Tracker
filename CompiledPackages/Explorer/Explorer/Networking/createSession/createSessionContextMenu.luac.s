@@ -1,0 +1,87 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["guestRpcInterface"]
+  GETTABLEKS R0 R1 K1 ["openContextMenuAsync"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["get"]
+  CALL R1 0 -1
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["coreItems"]
+  GETTABLEKS R1 R2 K1 ["collapseAll"]
+  JUMPIFNOTEQ R0 R1 [+11]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["collapseAll"]
+  GETUPVAL R2 2
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K2 ["get"]
+  CALL R3 0 -1
+  CALL R1 -1 0
+  RETURN R0 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["coreItems"]
+  GETTABLEKS R1 R2 K3 ["expandAll"]
+  JUMPIFNOTEQ R0 R1 [+11]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["expandAll"]
+  GETUPVAL R2 2
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K2 ["get"]
+  CALL R3 0 -1
+  CALL R1 -1 0
+  RETURN R0 0
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K4 ["guestRpcInterface"]
+  GETTABLEKS R1 R2 K5 ["performContextMenuAction"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  NEWCLOSURE R3 P1
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  DUPTABLE R4 K2 [{"openContextMenuAsync", "performContextMenuAction"}]
+  SETTABLEKS R2 R4 K0 ["openContextMenuAsync"]
+  SETTABLEKS R3 R4 K1 ["performContextMenuAction"]
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Explorer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Data"]
+  GETTABLEKS R2 R3 K7 ["ContextMenu"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Networking"]
+  GETTABLEKS R4 R5 K9 ["createSession"]
+  GETTABLEKS R3 R4 K10 ["Expanding"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K11 ["Util"]
+  GETTABLEKS R4 R5 K12 ["Observable"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R5 R0 K13 ["RpcTypes"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K8 ["Networking"]
+  GETTABLEKS R7 R8 K9 ["createSession"]
+  GETTABLEKS R6 R7 K14 ["createSessionTypes"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K15 [PROTO_2]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R6 1

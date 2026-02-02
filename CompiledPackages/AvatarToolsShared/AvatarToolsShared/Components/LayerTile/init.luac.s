@@ -1,0 +1,93 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["props"]
+  GETTABLEKS R3 R1 K2 ["LayoutOrder"]
+  ORK R2 R3 K1 [1]
+  GETTABLEKS R4 R1 K3 ["ZIndex"]
+  ORK R3 R4 K1 [1]
+  GETTABLEKS R5 R1 K5 ["IsOn"]
+  ORK R4 R5 K4 [False]
+  GETTABLEKS R5 R1 K6 ["Stylizer"]
+  GETTABLEKS R6 R1 K7 ["TileSize"]
+  JUMPIF R6 [+2]
+  GETTABLEKS R6 R5 K7 ["TileSize"]
+  GETTABLEKS R7 R1 K8 ["Model"]
+  MOVE R8 R7
+  JUMPIFNOT R8 [+8]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K9 ["createElement"]
+  GETUPVAL R9 1
+  DUPTABLE R10 K10 [{"Model"}]
+  SETTABLEKS R7 R10 K8 ["Model"]
+  CALL R8 2 1
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K9 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K15 [{"Style", "StyleModifier", "Size", "Position", "LayoutOrder", "ZIndex"}]
+  GETTABLEKS R12 R5 K16 ["paneStyle"]
+  SETTABLEKS R12 R11 K11 ["Style"]
+  JUMPIFNOT R4 [+4]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K17 ["Selected"]
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K12 ["StyleModifier"]
+  SETTABLEKS R6 R11 K13 ["Size"]
+  GETTABLEKS R12 R1 K14 ["Position"]
+  SETTABLEKS R12 R11 K14 ["Position"]
+  SETTABLEKS R2 R11 K2 ["LayoutOrder"]
+  SETTABLEKS R3 R11 K3 ["ZIndex"]
+  DUPTABLE R12 K19 [{"PreviewThumbnail"}]
+  SETTABLEKS R8 R12 K18 ["PreviewThumbnail"]
+  CALL R9 3 -1
+  RETURN R9 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R1 K5 ["Roact"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R1 K6 ["Framework"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K7 ["ContextServices"]
+  GETTABLEKS R5 R4 K8 ["withContext"]
+  GETTABLEKS R6 R3 K9 ["UI"]
+  GETTABLEKS R7 R6 K10 ["Pane"]
+  GETTABLEKS R8 R3 K11 ["Util"]
+  GETTABLEKS R9 R8 K12 ["Typecheck"]
+  GETTABLEKS R10 R8 K13 ["StyleModifier"]
+  GETTABLEKS R11 R6 K14 ["AssetRenderModel"]
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R14 R0 K15 ["Components"]
+  GETTABLEKS R13 R14 K16 ["StaticLCAssetRenderModel"]
+  CALL R12 1 1
+  GETTABLEKS R13 R2 K17 ["PureComponent"]
+  LOADK R15 K18 ["LayerTile"]
+  NAMECALL R13 R13 K19 ["extend"]
+  CALL R13 2 1
+  GETTABLEKS R14 R9 K20 ["wrap"]
+  MOVE R15 R13
+  GETIMPORT R16 K1 [script]
+  CALL R14 2 0
+  DUPCLOSURE R14 K21 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R12
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  SETTABLEKS R14 R13 K22 ["render"]
+  MOVE R14 R5
+  DUPTABLE R15 K24 [{"Stylizer"}]
+  GETTABLEKS R16 R4 K23 ["Stylizer"]
+  SETTABLEKS R16 R15 K23 ["Stylizer"]
+  CALL R14 1 1
+  MOVE R15 R13
+  CALL R14 1 1
+  MOVE R13 R14
+  RETURN R13 1

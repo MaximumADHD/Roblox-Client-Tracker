@@ -145,12 +145,14 @@ type _BadgeDetailsContentFields = {
 	badge_id: string,
 	universe_id: string,
 	share_link_data: BadgeDetailsContent_ShareLinkData?,
+	creator_key: string,
 }
 
 type _BadgeDetailsContentPartialFields = {
 	badge_id: string?,
 	universe_id: string?,
 	share_link_data: BadgeDetailsContent_ShareLinkData?,
+	creator_key: string?,
 }
 
 export type BadgeDetailsContent = typeof(setmetatable({} :: _BadgeDetailsContentFields, {} :: _BadgeDetailsContentImpl))
@@ -758,6 +760,7 @@ do
 			badge_id = if data == nil or data.badge_id == nil then "" else data.badge_id,
 			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
 			share_link_data = if data == nil or data.share_link_data == nil then nil else data.share_link_data,
+			creator_key = if data == nil or data.creator_key == nil then "" else data.creator_key,
 		}, _BadgeDetailsContentImpl :: _BadgeDetailsContentImpl)
 	end
 
@@ -779,6 +782,11 @@ do
 			local encoded = self.share_link_data:encode()
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.creator_key ~= nil and self.creator_key ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creator_key)
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -814,6 +822,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.share_link_data = messages.BadgeDetailsContent_ShareLinkData.decode(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creator_key = buffer.tostring(value)
 					continue
 				end
 
@@ -854,6 +867,10 @@ do
 			output.shareLinkData = self.share_link_data:jsonEncode()
 		end
 
+		if self.creator_key ~= nil and self.creator_key ~= "" then
+			output.creatorKey = self.creator_key
+		end
+
 		return output
 	end
 
@@ -882,6 +899,14 @@ do
 
 		if input.shareLinkData ~= nil then
 			self.share_link_data = messages.BadgeDetailsContent_ShareLinkData.jsonDecode(input.shareLinkData)
+		end
+
+		if input.creator_key ~= nil then
+			self.creator_key = input.creator_key
+		end
+
+		if input.creatorKey ~= nil then
+			self.creator_key = input.creatorKey
 		end
 
 		return self

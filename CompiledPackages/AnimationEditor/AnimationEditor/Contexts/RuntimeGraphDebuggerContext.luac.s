@@ -1,0 +1,141 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createSignal"]
+  NEWTABLE R1 0 0
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["join"]
+  MOVE R2 R0
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  DUPTABLE R3 K2 [{"debugTrackAnimationId"}]
+  GETUPVAL R4 1
+  SETTABLEKS R4 R3 K1 ["debugTrackAnimationId"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_2:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["GetAnimationClipAsync"]
+  CALL R1 2 1
+  JUMPIF R1 [+7]
+  GETUPVAL R2 1
+  LOADK R4 K1 ["Failed to fetch animation graph for trackId:"]
+  MOVE R5 R0
+  NAMECALL R2 R2 K2 ["warning"]
+  CALL R2 3 0
+  RETURN R0 0
+  GETUPVAL R2 2
+  NEWTABLE R3 0 1
+  MOVE R4 R1
+  SETLIST R3 R4 1 [1]
+  CALL R2 1 0
+  GETUPVAL R2 3
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useState"]
+  LOADNIL R2
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["useMemo"]
+  DUPCLOSURE R4 K2 [PROTO_0]
+  CAPTURE UPVAL U1
+  NEWTABLE R5 0 0
+  CALL R3 2 2
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["useCallback"]
+  NEWCLOSURE R6 P1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE UPVAL U4
+  NEWTABLE R7 0 3
+  MOVE R8 R1
+  MOVE R9 R2
+  MOVE R10 R4
+  SETLIST R7 R8 3 [1]
+  CALL R5 2 1
+  DUPTABLE R6 K7 [{"runtimeDebugInfo", "selectDebugTrackById", "observeAnimGraphSelection"}]
+  SETTABLEKS R1 R6 K4 ["runtimeDebugInfo"]
+  SETTABLEKS R5 R6 K5 ["selectDebugTrackById"]
+  SETTABLEKS R3 R6 K6 ["observeAnimGraphSelection"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K8 ["createElement"]
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K9 ["Provider"]
+  DUPTABLE R9 K11 [{"value"}]
+  SETTABLEKS R6 R9 K10 ["value"]
+  GETTABLEKS R10 R0 K12 ["children"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["AnimationClipProvider"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R0 K10 ["Parent"]
+  GETTABLEKS R3 R4 K11 ["Dash"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R4 R0 K12 ["NodeViewTypes"]
+  CALL R3 1 1
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R6 R0 K10 ["Parent"]
+  GETTABLEKS R5 R6 K13 ["React"]
+  CALL R4 1 1
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R7 R0 K10 ["Parent"]
+  GETTABLEKS R6 R7 K14 ["ReactUtils"]
+  CALL R5 1 1
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R8 R0 K10 ["Parent"]
+  GETTABLEKS R7 R8 K15 ["Signals"]
+  CALL R6 1 1
+  GETIMPORT R7 K9 [require]
+  GETTABLEKS R9 R0 K16 ["Util"]
+  GETTABLEKS R8 R9 K17 ["Logger"]
+  CALL R7 1 1
+  LOADK R9 K18 ["RuntimeGraphDebuggerContext"]
+  NAMECALL R7 R7 K19 ["new"]
+  CALL R7 2 1
+  DUPTABLE R8 K22 [{"selectDebugTrackById", "observeAnimGraphSelection"}]
+  GETTABLEKS R9 R5 K23 ["createUnimplemented"]
+  LOADK R10 K20 ["selectDebugTrackById"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K20 ["selectDebugTrackById"]
+  GETTABLEKS R9 R5 K23 ["createUnimplemented"]
+  LOADK R10 K21 ["observeAnimGraphSelection"]
+  CALL R9 1 1
+  SETTABLEKS R9 R8 K21 ["observeAnimGraphSelection"]
+  GETTABLEKS R9 R4 K24 ["createContext"]
+  MOVE R10 R8
+  CALL R9 1 1
+  DUPCLOSURE R10 K25 [PROTO_3]
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  DUPTABLE R11 K28 [{"Context", "Provider"}]
+  SETTABLEKS R9 R11 K26 ["Context"]
+  SETTABLEKS R10 R11 K27 ["Provider"]
+  RETURN R11 1

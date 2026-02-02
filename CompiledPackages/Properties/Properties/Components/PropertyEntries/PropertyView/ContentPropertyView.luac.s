@@ -1,0 +1,183 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["set"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K1 ["Enums"]
+  GETTABLEKS R4 R5 K2 ["ControlState"]
+  GETTABLEKS R3 R4 K3 ["Hover"]
+  JUMPIFEQ R0 R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["opening a cool asset picker"]
+  CALL R0 1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K3 ["enable"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R2 0
+  CALL R2 0 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["useCallback"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U2
+  NEWTABLE R5 0 0
+  CALL R3 2 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["useCallback"]
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R2
+  NEWTABLE R6 0 0
+  CALL R4 2 1
+  GETUPVAL R5 3
+  CALL R5 0 1
+  GETUPVAL R6 4
+  GETUPVAL R7 5
+  DUPTABLE R8 K4 [{"tag", "stateLayer", "onStateChanged"}]
+  NEWTABLE R9 2 0
+  LOADB R10 1
+  SETTABLEKS R10 R9 K5 ["size-full-600 bg-shift-200 row radius-small"]
+  GETTABLEKS R10 R1 K6 ["enabled"]
+  SETTABLEKS R10 R9 K7 ["stroke-emphasis"]
+  SETTABLEKS R9 R8 K1 ["tag"]
+  DUPTABLE R9 K9 [{"affordance"}]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K10 ["Enums"]
+  GETTABLEKS R11 R12 K11 ["StateLayerAffordance"]
+  GETTABLEKS R10 R11 K12 ["None"]
+  SETTABLEKS R10 R9 K8 ["affordance"]
+  SETTABLEKS R9 R8 K2 ["stateLayer"]
+  SETTABLEKS R3 R8 K3 ["onStateChanged"]
+  DUPTABLE R9 K14 [{"PopoverRoot"}]
+  GETUPVAL R10 4
+  GETUPVAL R12 6
+  GETTABLEKS R11 R12 K15 ["Root"]
+  DUPTABLE R12 K19 [{"isOpen", "LayoutOrder", "testId"}]
+  GETTABLEKS R13 R2 K6 ["enabled"]
+  SETTABLEKS R13 R12 K16 ["isOpen"]
+  MOVE R13 R5
+  CALL R13 0 1
+  SETTABLEKS R13 R12 K17 ["LayoutOrder"]
+  LOADK R13 K20 ["AssetPicker"]
+  SETTABLEKS R13 R12 K18 ["testId"]
+  DUPTABLE R13 K23 [{"Anchor", "Content"}]
+  GETUPVAL R14 4
+  GETUPVAL R16 6
+  GETTABLEKS R15 R16 K21 ["Anchor"]
+  NEWTABLE R16 0 0
+  DUPTABLE R17 K25 [{"AssetPickerButton"}]
+  GETUPVAL R18 4
+  GETUPVAL R19 7
+  DUPTABLE R20 K27 [{"onActivated"}]
+  SETTABLEKS R4 R20 K26 ["onActivated"]
+  NEWTABLE R21 0 0
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K24 ["AssetPickerButton"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K21 ["Anchor"]
+  GETUPVAL R14 4
+  GETUPVAL R16 6
+  GETTABLEKS R15 R16 K22 ["Content"]
+  DUPTABLE R16 K32 [{"hasArrow", "onPressedOutside", "align", "side"}]
+  LOADB R17 0
+  SETTABLEKS R17 R16 K28 ["hasArrow"]
+  GETTABLEKS R17 R2 K33 ["disable"]
+  SETTABLEKS R17 R16 K29 ["onPressedOutside"]
+  DUPTABLE R17 K36 [{"position", "offset"}]
+  GETUPVAL R21 2
+  GETTABLEKS R20 R21 K10 ["Enums"]
+  GETTABLEKS R19 R20 K37 ["PopoverAlign"]
+  GETTABLEKS R18 R19 K38 ["Start"]
+  SETTABLEKS R18 R17 K34 ["position"]
+  LOADN R18 0
+  SETTABLEKS R18 R17 K35 ["offset"]
+  SETTABLEKS R17 R16 K30 ["align"]
+  DUPTABLE R17 K36 [{"position", "offset"}]
+  GETUPVAL R21 2
+  GETTABLEKS R20 R21 K10 ["Enums"]
+  GETTABLEKS R19 R20 K39 ["PopoverSide"]
+  GETTABLEKS R18 R19 K40 ["Bottom"]
+  SETTABLEKS R18 R17 K34 ["position"]
+  LOADN R18 8
+  SETTABLEKS R18 R17 K35 ["offset"]
+  SETTABLEKS R17 R16 K31 ["side"]
+  DUPTABLE R17 K41 [{"AssetPicker"}]
+  GETTABLEKS R19 R2 K6 ["enabled"]
+  JUMPIFNOT R19 [+13]
+  GETUPVAL R18 4
+  GETUPVAL R19 8
+  DUPTABLE R20 K43 [{"assetType"}]
+  GETTABLEKS R23 R0 K44 ["info"]
+  GETTABLEKS R22 R23 K45 ["extra"]
+  GETTABLEKS R21 R22 K42 ["assetType"]
+  SETTABLEKS R21 R20 K42 ["assetType"]
+  CALL R18 2 1
+  JUMP [+1]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K20 ["AssetPicker"]
+  CALL R14 3 1
+  SETTABLEKS R14 R13 K22 ["Content"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K13 ["PopoverRoot"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Components"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["AssetPicker"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K9 ["Parent"]
+  GETTABLEKS R3 R4 K10 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Components"]
+  GETTABLEKS R5 R6 K7 ["Util"]
+  GETTABLEKS R4 R5 K11 ["PopoverButton"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R5 R0 K12 ["PropertyEditorTypes"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R0 K13 ["PropertyTypes"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Parent"]
+  GETTABLEKS R7 R8 K14 ["React"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Parent"]
+  GETTABLEKS R8 R9 K15 ["ReactUtils"]
+  CALL R7 1 1
+  GETTABLEKS R8 R2 K16 ["Popover"]
+  GETTABLEKS R9 R2 K17 ["View"]
+  GETTABLEKS R10 R6 K18 ["createElement"]
+  GETTABLEKS R11 R7 K19 ["useToggleState"]
+  GETTABLEKS R12 R7 K20 ["createNextOrder"]
+  DUPCLOSURE R13 K21 [PROTO_2]
+  CAPTURE VAL R11
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  RETURN R13 1

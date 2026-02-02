@@ -1,0 +1,123 @@
+PROTO_0:
+  DUPTABLE R4 K4 [{"_draggerToolModel", "_dragInfo", "_initialMouseLocation", "_wasDoubleClick"}]
+  SETTABLEKS R0 R4 K0 ["_draggerToolModel"]
+  SETTABLEKS R2 R4 K1 ["_dragInfo"]
+  GETTABLEKS R5 R0 K5 ["_draggerContext"]
+  NAMECALL R5 R5 K6 ["getMouseLocation"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K2 ["_initialMouseLocation"]
+  SETTABLEKS R1 R4 K3 ["_wasDoubleClick"]
+  GETUPVAL R5 0
+  FASTCALL2 SETMETATABLE R4 R5 [+3]
+  GETIMPORT R3 K8 [setmetatable]
+  CALL R3 2 1
+  RETURN R3 1
+
+PROTO_1:
+  RETURN R0 0
+
+PROTO_2:
+  RETURN R0 0
+
+PROTO_3:
+  GETTABLEKS R1 R0 K0 ["_draggerToolModel"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["getOpenHand"]
+  CALL R3 0 -1
+  NAMECALL R1 R1 K2 ["setMouseCursor"]
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_4:
+  NAMECALL R1 R0 K0 ["_transitionBack"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_5:
+  RETURN R0 0
+
+PROTO_6:
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["_initialMouseLocation"]
+  GETTABLEKS R3 R0 K1 ["_draggerToolModel"]
+  GETTABLEKS R2 R3 K2 ["_draggerContext"]
+  NAMECALL R2 R2 K3 ["getMouseLocation"]
+  CALL R2 1 1
+  JUMPIFNOTEQ R1 R2 [+10]
+  GETTABLEKS R1 R0 K1 ["_draggerToolModel"]
+  GETTABLEKS R3 R0 K4 ["_dragInfo"]
+  GETTABLEKS R4 R0 K5 ["_wasDoubleClick"]
+  NAMECALL R1 R1 K6 ["selectNextSelectables"]
+  CALL R1 3 0
+  NAMECALL R1 R0 K7 ["_transitionBack"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_8:
+  RETURN R0 0
+
+PROTO_9:
+  RETURN R0 0
+
+PROTO_10:
+  RETURN R0 0
+
+PROTO_11:
+  RETURN R0 0
+
+PROTO_12:
+  GETTABLEKS R1 R0 K0 ["_draggerToolModel"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["Ready"]
+  NAMECALL R1 R1 K2 ["transitionToState"]
+  CALL R1 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Implementation"]
+  GETTABLEKS R2 R3 K6 ["DraggerStateType"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["Utility"]
+  GETTABLEKS R3 R4 K8 ["StandardCursor"]
+  CALL R2 1 1
+  NEWTABLE R3 16 0
+  SETTABLEKS R3 R3 K9 ["__index"]
+  DUPCLOSURE R4 K10 [PROTO_0]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R3 K11 ["new"]
+  DUPCLOSURE R4 K12 [PROTO_1]
+  SETTABLEKS R4 R3 K13 ["enter"]
+  DUPCLOSURE R4 K14 [PROTO_2]
+  SETTABLEKS R4 R3 K15 ["leave"]
+  DUPCLOSURE R4 K16 [PROTO_3]
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K17 ["render"]
+  DUPCLOSURE R4 K18 [PROTO_4]
+  SETTABLEKS R4 R3 K19 ["processSelectionChanged"]
+  DUPCLOSURE R4 K20 [PROTO_5]
+  SETTABLEKS R4 R3 K21 ["processMouseDown"]
+  DUPCLOSURE R4 K22 [PROTO_6]
+  SETTABLEKS R4 R3 K23 ["processViewChanged"]
+  DUPCLOSURE R4 K24 [PROTO_7]
+  SETTABLEKS R4 R3 K25 ["processMouseUp"]
+  DUPCLOSURE R4 K26 [PROTO_8]
+  SETTABLEKS R4 R3 K27 ["processMouseEnter"]
+  DUPCLOSURE R4 K28 [PROTO_9]
+  SETTABLEKS R4 R3 K29 ["processMouseLeave"]
+  DUPCLOSURE R4 K30 [PROTO_10]
+  SETTABLEKS R4 R3 K31 ["processKeyDown"]
+  DUPCLOSURE R4 K32 [PROTO_11]
+  SETTABLEKS R4 R3 K33 ["processKeyUp"]
+  DUPCLOSURE R4 K34 [PROTO_12]
+  CAPTURE VAL R1
+  SETTABLEKS R4 R3 K35 ["_transitionBack"]
+  RETURN R3 1

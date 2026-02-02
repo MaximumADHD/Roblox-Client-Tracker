@@ -12,7 +12,7 @@ local GuiService = game:GetService("GuiService")
 local SettingsServiceLib = require(CorePackages.Workspace.Packages.SettingsService)
 local ValueChangedSignal = SettingsServiceLib.ValueChangedSignal
 local AvailabilitySignal = SettingsServiceLib.AvailabilitySignal
-local FieldType = SettingsServiceLib.FieldType
+local SettingEnum = SettingsServiceLib.SettingEnum
 local Constants = require(Settings.Integrations.Constants)
 local Utils = require(Settings.Integrations.Utils)
 
@@ -48,9 +48,9 @@ end
 
 local FullScreenAvailability = AvailabilitySignal.new(initAvailability())
 
-local FullScreenConfig: SettingsServiceLib.ToggleRegisterConfig = {
+local FullScreenConfig = {
 	id = "fullscreen",
-	field_type = FieldType.Toggle,
+	field_type = SettingEnum.Toggle,
 	label = "CoreScripts.InGameMenu.GameSettings.FullScreen",
 	layoutOrder = SettingsLayoutOrder.FullScreenFrame :: number,
 	onChanged = fullscreenValue,

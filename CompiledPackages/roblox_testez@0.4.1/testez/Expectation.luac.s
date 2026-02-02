@@ -1,0 +1,550 @@
+PROTO_0:
+  ORK R1 R1 K0 ["Assertion failed!"]
+  ORK R2 R2 K1 [1]
+  JUMPIF R0 [+5]
+  GETIMPORT R3 K3 [error]
+  MOVE R4 R1
+  ADDK R5 R2 K1 [1]
+  CALL R3 2 0
+  RETURN R0 0
+
+PROTO_1:
+  PREPVARARGS 1
+  GETUPVAL R1 0
+  JUMPIFNOTEQ R0 R1 [+6]
+  GETUPVAL R1 1
+  GETUPVAL R2 0
+  GETVARARGS R3 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+  GETUPVAL R1 1
+  GETUPVAL R2 0
+  MOVE R3 R0
+  GETVARARGS R4 -1
+  CALL R1 -1 -1
+  RETURN R1 -1
+
+PROTO_2:
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  RETURN R2 1
+
+PROTO_3:
+  JUMPIFNOT R0 [+1]
+  RETURN R1 1
+  RETURN R2 1
+
+PROTO_4:
+  DUPTABLE R1 K5 [{"value", "successCondition", "condition", "matchers", "_boundMatchers"}]
+  SETTABLEKS R0 R1 K0 ["value"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K1 ["successCondition"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K2 ["condition"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K3 ["matchers"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K4 ["_boundMatchers"]
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R1 R4 [+4]
+  MOVE R3 R1
+  GETIMPORT R2 K7 [setmetatable]
+  CALL R2 2 0
+  GETTABLEKS R3 R1 K8 ["a"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  SETTABLEKS R2 R1 K8 ["a"]
+  GETTABLEKS R2 R1 K8 ["a"]
+  SETTABLEKS R2 R1 K9 ["an"]
+  GETTABLEKS R3 R1 K10 ["ok"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  SETTABLEKS R2 R1 K10 ["ok"]
+  GETTABLEKS R3 R1 K11 ["equal"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  SETTABLEKS R2 R1 K11 ["equal"]
+  GETTABLEKS R3 R1 K12 ["throw"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  SETTABLEKS R2 R1 K12 ["throw"]
+  GETTABLEKS R3 R1 K13 ["near"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  SETTABLEKS R2 R1 K13 ["near"]
+  RETURN R1 1
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLE R1 R2 R0
+  JUMPIF R1 [+6]
+  GETUPVAL R2 1
+  GETTABLE R1 R2 R0
+  JUMPIF R1 [+3]
+  GETUPVAL R2 2
+  GETTABLE R1 R2 R0
+  JUMPIFNOT R1 [+2]
+  LOADB R1 0
+  RETURN R1 1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_6:
+  PREPVARARGS 1
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["value"]
+  GETVARARGS R3 -1
+  CALL R1 -1 1
+  GETTABLEKS R3 R1 K1 ["pass"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["successCondition"]
+  JUMPIFEQ R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  GETTABLEKS R3 R1 K3 ["message"]
+  LOADN R4 3
+  ORK R3 R3 K4 ["Assertion failed!"]
+  ORK R4 R4 K5 [1]
+  JUMPIF R2 [+5]
+  GETIMPORT R5 K7 [error]
+  MOVE R6 R3
+  ADDK R7 R4 K5 [1]
+  CALL R5 2 0
+  GETUPVAL R3 1
+  NAMECALL R3 R3 K8 ["_resetModifiers"]
+  CALL R3 1 0
+  GETUPVAL R3 1
+  RETURN R3 1
+
+PROTO_7:
+  MOVE R2 R1
+  JUMPIF R2 [+2]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R0 K0 ["matchers"]
+  GETIMPORT R2 K2 [pairs]
+  GETTABLEKS R3 R0 K0 ["matchers"]
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  GETTABLEKS R7 R0 K3 ["_boundMatchers"]
+  NEWCLOSURE R9 P0
+  CAPTURE VAL R6
+  CAPTURE VAL R0
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R9
+  SETTABLE R8 R7 R5
+  FORGLOOP R2 2 [-10]
+  RETURN R0 1
+
+PROTO_8:
+  GETUPVAL R3 0
+  GETTABLE R2 R3 R1
+  JUMPIFNOT R2 [+1]
+  RETURN R0 1
+  GETUPVAL R3 1
+  GETTABLE R2 R3 R1
+  JUMPIFNOT R2 [+17]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K0 ["new"]
+  GETTABLEKS R3 R0 K1 ["value"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K2 ["matchers"]
+  NAMECALL R2 R2 K3 ["extend"]
+  CALL R2 2 1
+  GETTABLEKS R4 R0 K4 ["successCondition"]
+  NOT R3 R4
+  SETTABLEKS R3 R2 K4 ["successCondition"]
+  RETURN R2 1
+  GETTABLEKS R3 R0 K5 ["_boundMatchers"]
+  GETTABLE R2 R3 R1
+  JUMPIFNOT R2 [+4]
+  GETTABLEKS R3 R0 K5 ["_boundMatchers"]
+  GETTABLE R2 R3 R1
+  RETURN R2 1
+  GETUPVAL R3 2
+  GETTABLE R2 R3 R1
+  RETURN R2 1
+
+PROTO_9:
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["successCondition"]
+  RETURN R0 0
+
+PROTO_10:
+  GETTABLEKS R5 R0 K0 ["value"]
+  FASTCALL1 TYPE R5 [+2]
+  GETIMPORT R4 K2 [type]
+  CALL R4 1 1
+  JUMPIFEQ R4 R1 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  GETTABLEKS R4 R0 K3 ["successCondition"]
+  JUMPIFEQ R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  GETTABLEKS R4 R0 K3 ["successCondition"]
+  LOADK R5 K4 ["Expected value of type %q, got value %q of type %s"]
+  MOVE R7 R1
+  GETTABLEKS R9 R0 K0 ["value"]
+  FASTCALL1 TOSTRING R9 [+2]
+  GETIMPORT R8 K6 [tostring]
+  CALL R8 1 1
+  GETTABLEKS R10 R0 K0 ["value"]
+  FASTCALL1 TYPE R10 [+2]
+  GETIMPORT R9 K2 [type]
+  CALL R9 1 1
+  NAMECALL R5 R5 K7 ["format"]
+  CALL R5 4 1
+  LOADK R6 K8 ["Expected value not of type %q, got value %q of type %s"]
+  MOVE R8 R1
+  GETTABLEKS R10 R0 K0 ["value"]
+  FASTCALL1 TOSTRING R10 [+2]
+  GETIMPORT R9 K6 [tostring]
+  CALL R9 1 1
+  GETTABLEKS R11 R0 K0 ["value"]
+  FASTCALL1 TYPE R11 [+2]
+  GETIMPORT R10 K2 [type]
+  CALL R10 1 1
+  NAMECALL R6 R6 K7 ["format"]
+  CALL R6 4 1
+  JUMPIFNOT R4 [+2]
+  MOVE R3 R5
+  JUMP [+2]
+  MOVE R3 R6
+  JUMP [0]
+  MOVE R4 R3
+  LOADN R5 3
+  ORK R4 R4 K9 ["Assertion failed!"]
+  ORK R5 R5 K10 [1]
+  JUMPIF R2 [+5]
+  GETIMPORT R6 K12 [error]
+  MOVE R7 R4
+  ADDK R8 R5 K10 [1]
+  CALL R6 2 0
+  NAMECALL R4 R0 K13 ["_resetModifiers"]
+  CALL R4 1 0
+  RETURN R0 1
+
+PROTO_11:
+  GETTABLEKS R3 R0 K0 ["value"]
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  GETTABLEKS R3 R0 K1 ["successCondition"]
+  JUMPIFEQ R2 R3 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  GETTABLEKS R3 R0 K1 ["successCondition"]
+  LOADK R4 K2 ["Expected value %q to be non-nil"]
+  GETTABLEKS R7 R0 K0 ["value"]
+  FASTCALL1 TOSTRING R7 [+2]
+  GETIMPORT R6 K4 [tostring]
+  CALL R6 1 1
+  NAMECALL R4 R4 K5 ["format"]
+  CALL R4 2 1
+  LOADK R5 K6 ["Expected value %q to be nil"]
+  GETTABLEKS R8 R0 K0 ["value"]
+  FASTCALL1 TOSTRING R8 [+2]
+  GETIMPORT R7 K4 [tostring]
+  CALL R7 1 1
+  NAMECALL R5 R5 K5 ["format"]
+  CALL R5 2 1
+  JUMPIFNOT R3 [+2]
+  MOVE R2 R4
+  JUMP [+2]
+  MOVE R2 R5
+  JUMP [0]
+  MOVE R3 R2
+  LOADN R4 3
+  ORK R3 R3 K7 ["Assertion failed!"]
+  ORK R4 R4 K8 [1]
+  JUMPIF R1 [+5]
+  GETIMPORT R5 K10 [error]
+  MOVE R6 R3
+  ADDK R7 R4 K8 [1]
+  CALL R5 2 0
+  NAMECALL R3 R0 K11 ["_resetModifiers"]
+  CALL R3 1 0
+  RETURN R0 1
+
+PROTO_12:
+  GETTABLEKS R4 R0 K0 ["value"]
+  JUMPIFEQ R4 R1 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  GETTABLEKS R4 R0 K1 ["successCondition"]
+  JUMPIFEQ R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  GETTABLEKS R4 R0 K1 ["successCondition"]
+  LOADK R5 K2 ["Expected value %q (%s), got %q (%s) instead"]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R8 R1
+  GETIMPORT R7 K4 [tostring]
+  CALL R7 1 1
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R9 R1
+  GETIMPORT R8 K6 [type]
+  CALL R8 1 1
+  GETTABLEKS R10 R0 K0 ["value"]
+  FASTCALL1 TOSTRING R10 [+2]
+  GETIMPORT R9 K4 [tostring]
+  CALL R9 1 1
+  GETTABLEKS R11 R0 K0 ["value"]
+  FASTCALL1 TYPE R11 [+2]
+  GETIMPORT R10 K6 [type]
+  CALL R10 1 1
+  NAMECALL R5 R5 K7 ["format"]
+  CALL R5 5 1
+  LOADK R6 K8 ["Expected anything but value %q (%s)"]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R9 R1
+  GETIMPORT R8 K4 [tostring]
+  CALL R8 1 1
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R10 R1
+  GETIMPORT R9 K6 [type]
+  CALL R9 1 1
+  NAMECALL R6 R6 K7 ["format"]
+  CALL R6 3 1
+  JUMPIFNOT R4 [+2]
+  MOVE R3 R5
+  JUMP [+2]
+  MOVE R3 R6
+  JUMP [0]
+  MOVE R4 R3
+  LOADN R5 3
+  ORK R4 R4 K9 ["Assertion failed!"]
+  ORK R5 R5 K10 [1]
+  JUMPIF R2 [+5]
+  GETIMPORT R6 K12 [error]
+  MOVE R7 R4
+  ADDK R8 R5 K10 [1]
+  CALL R6 2 0
+  NAMECALL R4 R0 K13 ["_resetModifiers"]
+  CALL R4 1 0
+  RETURN R0 1
+
+PROTO_13:
+  GETTABLEKS R6 R0 K0 ["value"]
+  FASTCALL1 TYPE R6 [+2]
+  GETIMPORT R5 K2 [type]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K3 ["number"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K4 [+4]
+  LOADK R5 K4 ["Expectation value must be a number to use 'near'"]
+  GETIMPORT R3 K6 [assert]
+  CALL R3 2 0
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R6 R1
+  GETIMPORT R5 K2 [type]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K3 ["number"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K7 [+4]
+  LOADK R5 K7 ["otherValue must be a number"]
+  GETIMPORT R3 K6 [assert]
+  CALL R3 2 0
+  LOADB R4 1
+  FASTCALL1 TYPE R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K2 [type]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K3 ["number"] [+5]
+  JUMPIFEQKNIL R2 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K8 [+4]
+  LOADK R5 K8 ["limit must be a number or nil"]
+  GETIMPORT R3 K6 [assert]
+  CALL R3 2 0
+  ORK R2 R2 K9 [1E-07]
+  GETTABLEKS R7 R0 K0 ["value"]
+  SUB R6 R7 R1
+  FASTCALL1 MATH_ABS R6 [+2]
+  GETIMPORT R5 K12 [math.abs]
+  CALL R5 1 1
+  JUMPIFLE R5 R2 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  GETTABLEKS R5 R0 K13 ["successCondition"]
+  JUMPIFEQ R4 R5 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  GETTABLEKS R5 R0 K13 ["successCondition"]
+  LOADK R6 K14 ["Expected value to be near %f (within %f) but got %f instead"]
+  MOVE R8 R1
+  MOVE R9 R2
+  GETTABLEKS R10 R0 K0 ["value"]
+  NAMECALL R6 R6 K15 ["format"]
+  CALL R6 4 1
+  LOADK R7 K16 ["Expected value to not be near %f (within %f) but got %f instead"]
+  MOVE R9 R1
+  MOVE R10 R2
+  GETTABLEKS R11 R0 K0 ["value"]
+  NAMECALL R7 R7 K15 ["format"]
+  CALL R7 4 1
+  JUMPIFNOT R5 [+2]
+  MOVE R4 R6
+  JUMP [+2]
+  MOVE R4 R7
+  JUMP [0]
+  MOVE R5 R4
+  LOADN R6 3
+  ORK R5 R5 K17 ["Assertion failed!"]
+  ORK R6 R6 K18 [1]
+  JUMPIF R3 [+5]
+  GETIMPORT R7 K20 [error]
+  MOVE R8 R5
+  ADDK R9 R6 K18 [1]
+  CALL R7 2 0
+  NAMECALL R5 R0 K21 ["_resetModifiers"]
+  CALL R5 1 0
+  RETURN R0 1
+
+PROTO_14:
+  GETIMPORT R2 K1 [pcall]
+  GETTABLEKS R3 R0 K2 ["value"]
+  CALL R2 1 2
+  GETTABLEKS R5 R0 K3 ["successCondition"]
+  JUMPIFNOTEQ R2 R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  JUMPIFNOT R1 [+25]
+  JUMPIF R2 [+24]
+  GETTABLEKS R5 R0 K3 ["successCondition"]
+  JUMPIFNOT R5 [+11]
+  MOVE R7 R1
+  LOADN R8 1
+  LOADB R9 1
+  NAMECALL R5 R3 K4 ["find"]
+  CALL R5 4 1
+  JUMPIFNOTEQKNIL R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  JUMP [+10]
+  MOVE R7 R1
+  LOADN R8 1
+  LOADB R9 1
+  NAMECALL R5 R3 K4 ["find"]
+  CALL R5 4 1
+  JUMPIFEQKNIL R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  LOADNIL R5
+  JUMPIFNOT R1 [+31]
+  GETTABLEKS R6 R0 K3 ["successCondition"]
+  LOADK R7 K5 ["Expected function to throw an error containing %q, but it %s"]
+  MOVE R9 R1
+  JUMPIFNOT R3 [+6]
+  LOADK R10 K6 ["threw: %s"]
+  MOVE R12 R3
+  NAMECALL R10 R10 K7 ["format"]
+  CALL R10 2 1
+  JUMPIF R10 [+1]
+  LOADK R10 K8 ["did not throw."]
+  NAMECALL R7 R7 K7 ["format"]
+  CALL R7 3 1
+  LOADK R8 K9 ["Expected function to never throw an error containing %q, but it threw: %s"]
+  MOVE R10 R1
+  FASTCALL1 TOSTRING R3 [+3]
+  MOVE R12 R3
+  GETIMPORT R11 K11 [tostring]
+  CALL R11 1 1
+  NAMECALL R8 R8 K7 ["format"]
+  CALL R8 3 1
+  JUMPIFNOT R6 [+2]
+  MOVE R5 R7
+  JUMP [+19]
+  MOVE R5 R8
+  JUMP [+17]
+  JUMP [+16]
+  GETTABLEKS R6 R0 K3 ["successCondition"]
+  LOADK R7 K12 ["Expected function to succeed, but it threw an error: %s"]
+  FASTCALL1 TOSTRING R3 [+3]
+  MOVE R10 R3
+  GETIMPORT R9 K11 [tostring]
+  CALL R9 1 1
+  NAMECALL R7 R7 K7 ["format"]
+  CALL R7 2 1
+  JUMPIFNOT R6 [+2]
+  LOADK R5 K13 ["Expected function to throw an error, but it did not throw."]
+  JUMP [+2]
+  MOVE R5 R7
+  JUMP [0]
+  MOVE R6 R4
+  MOVE R7 R5
+  LOADN R8 3
+  ORK R7 R7 K14 ["Assertion failed!"]
+  ORK R8 R8 K15 [1]
+  JUMPIF R6 [+5]
+  GETIMPORT R9 K17 [error]
+  MOVE R10 R7
+  ADDK R11 R8 K15 [1]
+  CALL R9 2 0
+  NAMECALL R6 R0 K18 ["_resetModifiers"]
+  CALL R6 1 0
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 16 0
+  DUPTABLE R1 K6 [{"to", "be", "been", "have", "was", "at"}]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K0 ["to"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K1 ["be"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K2 ["been"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K3 ["have"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K4 ["was"]
+  LOADB R2 1
+  SETTABLEKS R2 R1 K5 ["at"]
+  DUPTABLE R2 K8 [{"never"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K7 ["never"]
+  DUPCLOSURE R3 K9 [PROTO_0]
+  DUPCLOSURE R4 K10 [PROTO_2]
+  DUPCLOSURE R5 K11 [PROTO_3]
+  DUPCLOSURE R6 K12 [PROTO_4]
+  CAPTURE VAL R0
+  SETTABLEKS R6 R0 K13 ["new"]
+  DUPCLOSURE R6 K14 [PROTO_5]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  SETTABLEKS R6 R0 K15 ["checkMatcherNameCollisions"]
+  DUPCLOSURE R6 K16 [PROTO_7]
+  SETTABLEKS R6 R0 K17 ["extend"]
+  DUPCLOSURE R6 K18 [PROTO_8]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  SETTABLEKS R6 R0 K19 ["__index"]
+  DUPCLOSURE R6 K20 [PROTO_9]
+  SETTABLEKS R6 R0 K21 ["_resetModifiers"]
+  DUPCLOSURE R6 K22 [PROTO_10]
+  SETTABLEKS R6 R0 K23 ["a"]
+  GETTABLEKS R6 R0 K23 ["a"]
+  SETTABLEKS R6 R0 K24 ["an"]
+  DUPCLOSURE R6 K25 [PROTO_11]
+  SETTABLEKS R6 R0 K26 ["ok"]
+  DUPCLOSURE R6 K27 [PROTO_12]
+  SETTABLEKS R6 R0 K28 ["equal"]
+  DUPCLOSURE R6 K29 [PROTO_13]
+  SETTABLEKS R6 R0 K30 ["near"]
+  DUPCLOSURE R6 K31 [PROTO_14]
+  SETTABLEKS R6 R0 K32 ["throw"]
+  RETURN R0 1

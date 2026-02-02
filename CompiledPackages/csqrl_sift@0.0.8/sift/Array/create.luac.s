@@ -1,0 +1,4 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K2 [table.create]
+  RETURN R0 1

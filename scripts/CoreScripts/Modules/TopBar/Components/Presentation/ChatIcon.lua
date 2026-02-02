@@ -33,7 +33,6 @@ local Constants = require(TopBar.Constants)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local GetFFlagEnableAppChatInExperience = SharedFlags.GetFFlagEnableAppChatInExperience
 local ChatIconFtuxTooltip = require(script.Parent.ChatIconFtuxTooltip)
-local FFlagExpChatGetLabelAndIconFromUtilUnibarHoldout = game:DefineFastFlag("ExpChatGetLabelAndIconFromUtilUnibarHoldout", false)
 local getExperienceChatVisualConfig = require(CorePackages.Workspace.Packages.ExpChat).getExperienceChatVisualConfig
 local FIntInExperienceChatTooltipShowDelayMs = game:DefineFastInt("InExperienceChatTooltipShowDelayMs", 1000)
 local FIntInExperienceChatTooltipDismissDelayMs = game:DefineFastInt("InExperienceChatTooltipDismissDelayMs", 7000)
@@ -93,19 +92,11 @@ function ChatIcon:render()
 		local iconSize = nil :: never
 		local chatIcon = nil :: never
 
-		if FFlagExpChatGetLabelAndIconFromUtilUnibarHoldout then
-			local visualConfig = getExperienceChatVisualConfig()
-			iconSize = visualConfig.iconSize
-			chatIcon = Images[visualConfig.icon.on]
-			if not self.props.chatVisible then
-				chatIcon = Images[visualConfig.icon.off]
-			end
-		else
-			iconSize = ICON_SIZE
-			chatIcon = "rbxasset://textures/ui/TopBar/chatOn.png"
-			if not self.props.chatVisible then
-				chatIcon = "rbxasset://textures/ui/TopBar/chatOff.png"
-			end
+		local visualConfig = getExperienceChatVisualConfig()
+		iconSize = visualConfig.iconSize
+		chatIcon = Images[visualConfig.icon.on]
+		if not self.props.chatVisible then
+			chatIcon = Images[visualConfig.icon.off]
 		end
 
 		local onAreaChanged = function(rbx)

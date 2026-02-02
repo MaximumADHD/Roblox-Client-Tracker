@@ -1,0 +1,58 @@
+PROTO_0:
+  GETIMPORT R1 K3 [Enum.AssetType.LeftArm]
+  JUMPIFNOTEQ R1 R0 [+9]
+  NEWTABLE R1 0 3
+  LOADK R2 K4 ["LeftUpperArm"]
+  LOADK R3 K5 ["LeftLowerArm"]
+  LOADK R4 K6 ["LeftHand"]
+  SETLIST R1 R2 3 [1]
+  RETURN R1 1
+  GETIMPORT R1 K8 [Enum.AssetType.RightArm]
+  JUMPIFNOTEQ R1 R0 [+9]
+  NEWTABLE R1 0 3
+  LOADK R2 K9 ["RightUpperArm"]
+  LOADK R3 K10 ["RightLowerArm"]
+  LOADK R4 K11 ["RightHand"]
+  SETLIST R1 R2 3 [1]
+  RETURN R1 1
+  GETIMPORT R1 K13 [Enum.AssetType.LeftLeg]
+  JUMPIFNOTEQ R1 R0 [+9]
+  NEWTABLE R1 0 3
+  LOADK R2 K14 ["LeftUpperLeg"]
+  LOADK R3 K15 ["LeftLowerLeg"]
+  LOADK R4 K16 ["LeftFoot"]
+  SETLIST R1 R2 3 [1]
+  RETURN R1 1
+  GETIMPORT R1 K18 [Enum.AssetType.RightLeg]
+  JUMPIFNOTEQ R1 R0 [+9]
+  NEWTABLE R1 0 3
+  LOADK R2 K19 ["RightUpperLeg"]
+  LOADK R3 K20 ["RightLowerLeg"]
+  LOADK R4 K21 ["RightFoot"]
+  SETLIST R1 R2 3 [1]
+  RETURN R1 1
+  GETIMPORT R1 K23 [Enum.AssetType.DynamicHead]
+  JUMPIFNOTEQ R1 R0 [+7]
+  NEWTABLE R1 0 1
+  LOADK R2 K24 ["Head"]
+  SETLIST R1 R2 1 [1]
+  RETURN R1 1
+  GETIMPORT R1 K26 [Enum.AssetType.Torso]
+  JUMPIFNOTEQ R1 R0 [+8]
+  NEWTABLE R1 0 2
+  LOADK R2 K27 ["LowerTorso"]
+  LOADK R3 K28 ["UpperTorso"]
+  SETLIST R1 R2 2 [1]
+  RETURN R1 1
+  LOADB R2 0
+  FASTCALL2K ASSERT R2 K29 [+4]
+  LOADK R3 K29 ["Invalid asset type"]
+  GETIMPORT R1 K31 [assert]
+  CALL R1 2 0
+  NEWTABLE R1 0 0
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

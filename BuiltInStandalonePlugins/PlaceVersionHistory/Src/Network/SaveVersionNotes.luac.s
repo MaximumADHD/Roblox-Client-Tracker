@@ -1,0 +1,89 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["resolve"]
+  CALL R1 0 -1
+  RETURN R1 -1
+
+PROTO_1:
+  DUPTABLE R1 K4 [{"Method", "Url", "Body", "Headers"}]
+  LOADK R2 K5 ["POST"]
+  SETTABLEKS R2 R1 K0 ["Method"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["composeUrl"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K7 ["APIS_URL"]
+  LOADK R5 K8 ["place-version-history-api/v1/%*/version/%*/notes"]
+  GETTABLEKS R7 R0 K9 ["placeId"]
+  GETTABLEKS R8 R0 K10 ["version"]
+  NAMECALL R5 R5 K11 ["format"]
+  CALL R5 3 1
+  MOVE R4 R5
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K1 ["Url"]
+  GETUPVAL R2 1
+  DUPTABLE R4 K14 [{"title", "description"}]
+  GETTABLEKS R6 R0 K15 ["notes"]
+  GETTABLEKS R5 R6 K12 ["title"]
+  SETTABLEKS R5 R4 K12 ["title"]
+  GETTABLEKS R6 R0 K15 ["notes"]
+  GETTABLEKS R5 R6 K13 ["description"]
+  SETTABLEKS R5 R4 K13 ["description"]
+  NAMECALL R2 R2 K16 ["JSONEncode"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K2 ["Body"]
+  NEWTABLE R2 1 0
+  LOADK R3 K17 ["application/json"]
+  SETTABLEKS R3 R2 K18 ["Content-Type"]
+  SETTABLEKS R2 R1 K3 ["Headers"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K19 ["Request"]
+  MOVE R3 R1
+  CALL R2 1 1
+  DUPCLOSURE R4 K20 [PROTO_0]
+  CAPTURE UPVAL U3
+  NAMECALL R2 R2 K21 ["andThen"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["PlaceVersionHistory"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["Framework"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Promise"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K9 ["Src"]
+  GETTABLEKS R3 R4 K10 ["Contexts"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R5 R3 K11 ["NetworkContext"]
+  CALL R4 1 1
+  GETTABLEKS R6 R0 K9 ["Src"]
+  GETTABLEKS R5 R6 K12 ["Network"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R5 K13 ["Http"]
+  CALL R6 1 1
+  GETIMPORT R7 K15 [game]
+  LOADK R9 K16 ["HttpService"]
+  NAMECALL R7 R7 K17 ["GetService"]
+  CALL R7 2 1
+  GETTABLEKS R9 R1 K18 ["RobloxAPI"]
+  GETTABLEKS R8 R9 K19 ["Url"]
+  GETTABLEKS R9 R8 K20 ["new"]
+  CALL R9 0 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R12 R0 K9 ["Src"]
+  GETTABLEKS R11 R12 K21 ["Types"]
+  CALL R10 1 1
+  DUPCLOSURE R11 K22 [PROTO_1]
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  RETURN R11 1

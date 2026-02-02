@@ -1,0 +1,209 @@
+PROTO_0:
+  GETTABLEKS R3 R1 K0 ["parentId"]
+  JUMPIFNOTEQKNIL R3 [+13]
+  GETIMPORT R3 K2 [error]
+  LOADK R5 K3 ["%* (%*) is being parented to nil"]
+  GETTABLEKS R7 R1 K4 ["name"]
+  GETTABLEKS R8 R1 K5 ["id"]
+  NAMECALL R5 R5 K6 ["format"]
+  CALL R5 3 1
+  MOVE R4 R5
+  CALL R3 1 0
+  GETTABLEKS R6 R0 K7 ["instanceIdsToNodes"]
+  GETTABLEKS R7 R1 K5 ["id"]
+  GETTABLE R5 R6 R7
+  JUMPIFEQKNIL R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K8 [+4]
+  LOADK R5 K8 ["Receiving instance added about instance we already know about"]
+  GETIMPORT R3 K10 [assert]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K7 ["instanceIdsToNodes"]
+  GETTABLEKS R5 R1 K0 ["parentId"]
+  GETTABLE R3 R4 R5
+  JUMPIFNOTEQKNIL R3 [+16]
+  GETIMPORT R4 K2 [error]
+  LOADK R6 K11 ["Instance added to parent we don't know about: %* (datum.id = %*) (datum.name = %*) (search = %*)"]
+  GETTABLEKS R8 R1 K0 ["parentId"]
+  GETTABLEKS R9 R1 K5 ["id"]
+  GETTABLEKS R10 R1 K4 ["name"]
+  MOVE R11 R2
+  NAMECALL R6 R6 K6 ["format"]
+  CALL R6 5 1
+  MOVE R5 R6
+  CALL R4 1 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K12 ["createFromDatum"]
+  MOVE R5 R1
+  CALL R4 1 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K13 ["insertInto"]
+  MOVE R6 R0
+  MOVE R7 R3
+  MOVE R8 R4
+  CALL R5 3 0
+  RETURN R4 1
+
+PROTO_1:
+  GETTABLEKS R3 R0 K0 ["instanceIdsToNodes"]
+  GETTABLEKS R4 R1 K1 ["id"]
+  GETTABLE R2 R3 R4
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K2 [+4]
+  LOADK R5 K2 ["Replacing instance we don't know about"]
+  GETIMPORT R3 K4 [assert]
+  CALL R3 2 0
+  GETTABLEKS R4 R2 K5 ["datum"]
+  GETTABLEKS R3 R4 K6 ["name"]
+  GETTABLEKS R4 R1 K6 ["name"]
+  JUMPIFEQ R3 R4 [+19]
+  GETTABLEKS R3 R2 K7 ["uiState"]
+  JUMPIFEQKNIL R3 [+15]
+  GETIMPORT R3 K10 [table.clone]
+  GETTABLEKS R4 R2 K7 ["uiState"]
+  CALL R3 1 1
+  LOADNIL R4
+  SETTABLEKS R4 R3 K11 ["textWidth"]
+  GETIMPORT R4 K13 [table.freeze]
+  MOVE R5 R3
+  CALL R4 1 1
+  SETTABLEKS R4 R2 K7 ["uiState"]
+  GETTABLEKS R3 R2 K14 ["parent"]
+  JUMPIFNOT R3 [+6]
+  GETTABLEKS R5 R2 K14 ["parent"]
+  GETTABLEKS R4 R5 K5 ["datum"]
+  GETTABLEKS R3 R4 K1 ["id"]
+  GETTABLEKS R5 R1 K15 ["parentId"]
+  JUMPIFNOTEQ R5 R3 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  JUMPIFNOT R4 [+6]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K16 ["remove"]
+  MOVE R6 R0
+  MOVE R7 R2
+  CALL R5 2 0
+  GETTABLEKS R6 R2 K5 ["datum"]
+  GETTABLEKS R5 R6 K17 ["fieldValues"]
+  JUMPIFEQKNIL R5 [+17]
+  GETIMPORT R5 K10 [table.clone]
+  MOVE R6 R1
+  CALL R5 1 1
+  MOVE R1 R5
+  GETTABLEKS R6 R2 K5 ["datum"]
+  GETTABLEKS R5 R6 K17 ["fieldValues"]
+  SETTABLEKS R5 R1 K17 ["fieldValues"]
+  GETIMPORT R5 K13 [table.freeze]
+  MOVE R6 R1
+  CALL R5 1 1
+  MOVE R1 R5
+  GETUPVAL R5 1
+  CALL R5 0 1
+  JUMPIFNOT R5 [+37]
+  GETTABLEKS R5 R2 K18 ["isReceivingChildrenUpdates"]
+  JUMPIFNOT R5 [+34]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K19 ["isEmpty"]
+  GETTABLEKS R7 R2 K20 ["children"]
+  CALL R6 1 1
+  NOT R5 R6
+  JUMPIF R5 [+10]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K19 ["isEmpty"]
+  GETTABLEKS R8 R0 K21 ["instanceIdsToHiddenChildren"]
+  GETTABLEKS R9 R1 K1 ["id"]
+  GETTABLE R7 R8 R9
+  CALL R6 1 1
+  NOT R5 R6
+  GETTABLEKS R6 R1 K22 ["hasChildren"]
+  JUMPIFEQ R6 R5 [+13]
+  GETIMPORT R6 K10 [table.clone]
+  MOVE R7 R1
+  CALL R6 1 1
+  MOVE R1 R6
+  SETTABLEKS R5 R1 K22 ["hasChildren"]
+  GETIMPORT R6 K13 [table.freeze]
+  MOVE R7 R1
+  CALL R6 1 1
+  MOVE R1 R6
+  SETTABLEKS R1 R2 K5 ["datum"]
+  JUMPIFNOT R4 [+49]
+  GETTABLEKS R5 R1 K15 ["parentId"]
+  JUMPIFNOT R5 [+5]
+  GETTABLEKS R6 R0 K0 ["instanceIdsToNodes"]
+  GETTABLEKS R7 R1 K15 ["parentId"]
+  GETTABLE R5 R6 R7
+  JUMPIFNOTEQKNIL R5 [+33]
+  LOADNIL R6
+  SETTABLEKS R6 R2 K14 ["parent"]
+  GETTABLEKS R6 R1 K15 ["parentId"]
+  JUMPIFEQKNIL R6 [+33]
+  GETTABLEKS R7 R0 K23 ["unaddedParentIdsToChildren"]
+  GETTABLEKS R8 R1 K15 ["parentId"]
+  GETTABLE R6 R7 R8
+  JUMPIFNOTEQKNIL R6 [+8]
+  GETTABLEKS R6 R0 K23 ["unaddedParentIdsToChildren"]
+  GETTABLEKS R7 R1 K15 ["parentId"]
+  NEWTABLE R8 0 0
+  SETTABLE R8 R6 R7
+  GETTABLEKS R7 R0 K23 ["unaddedParentIdsToChildren"]
+  GETTABLEKS R8 R1 K15 ["parentId"]
+  GETTABLE R6 R7 R8
+  GETTABLEKS R8 R2 K5 ["datum"]
+  GETTABLEKS R7 R8 K1 ["id"]
+  SETTABLE R2 R6 R7
+  RETURN R0 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K24 ["insertInto"]
+  MOVE R7 R0
+  MOVE R8 R5
+  MOVE R9 R2
+  CALL R6 3 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Explorer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Networking"]
+  GETTABLEKS R3 R4 K7 ["createSession"]
+  GETTABLEKS R2 R3 K8 ["ExplorerNode"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["ExplorerNodeChildrenMutable"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R4 R0 K11 ["RpcTypes"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Networking"]
+  GETTABLEKS R6 R7 K7 ["createSession"]
+  GETTABLEKS R5 R6 K12 ["SessionChildren"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Networking"]
+  GETTABLEKS R7 R8 K7 ["createSession"]
+  GETTABLEKS R6 R7 K13 ["createSessionTypes"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K14 ["Flags"]
+  GETTABLEKS R7 R8 K15 ["getFFlagExplorerStreaming"]
+  CALL R6 1 1
+  NEWTABLE R7 2 0
+  DUPCLOSURE R8 K16 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  SETTABLEKS R8 R7 K17 ["instanceAdded"]
+  DUPCLOSURE R8 K18 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  CAPTURE VAL R2
+  SETTABLEKS R8 R7 K19 ["instanceReplaced"]
+  RETURN R7 1

@@ -1,31 +1,36 @@
 PROTO_0:
-  JUMPIFNOT R0 [+7]
-  LOADK R4 K0 ["://"]
-  NAMECALL R2 R0 K1 ["find"]
+  JUMPIFEQKNIL R0 [+10]
+  JUMPIFEQKS R0 K0 [""] [+8]
+  LOADK R4 K1 ["^%w+://.*$"]
+  NAMECALL R2 R0 K2 ["match"]
   CALL R2 2 1
   JUMPIFEQKNIL R2 [+2]
   RETURN R0 1
-  JUMPIFNOTEQKS R1 K2 ["Small"] [+3]
-  LOADK R2 K3 ["Standard"]
+  JUMPIFNOT R0 [+7]
+  JUMPIFEQKS R0 K0 [""] [+6]
+  LOADK R4 K3 ["^%w+$"]
+  NAMECALL R2 R0 K2 ["match"]
+  CALL R2 2 1
+  JUMPIF R2 [+2]
+  LOADNIL R2
+  RETURN R2 1
+  JUMPIFNOTEQKS R1 K4 ["Small"] [+3]
+  MOVE R2 R1
   JUMP [+1]
-  LOADK R2 K4 ["Medium"]
-  JUMPIFNOT R0 [+2]
-  JUMPIFNOTEQKS R0 K5 [""] [+3]
-  LOADNIL R3
-  RETURN R3 1
-  JUMPIFNOTEQKS R1 K2 ["Small"] [+3]
-  MOVE R3 R1
+  LOADK R2 K0 [""]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["getThemeName"]
+  CALL R3 0 1
+  JUMPIFNOTEQKS R1 K4 ["Small"] [+3]
+  LOADK R4 K6 ["Standard"]
   JUMP [+1]
-  LOADK R3 K5 [""]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K6 ["getThemeName"]
-  CALL R4 0 1
-  LOADK R6 K7 ["rbxasset://studio_svg_textures/Shared/Ribbon/%*/%*/Ribbon%*%*.png"]
-  MOVE R8 R4
-  MOVE R9 R2
+  LOADK R4 K7 ["Medium"]
+  LOADK R6 K8 ["rbxasset://studio_svg_textures/Shared/Ribbon/%*/%*/Ribbon%*%*.png"]
+  MOVE R8 R3
+  MOVE R9 R4
   MOVE R10 R0
-  MOVE R11 R3
-  NAMECALL R6 R6 K8 ["format"]
+  MOVE R11 R2
+  NAMECALL R6 R6 K9 ["format"]
   CALL R6 5 1
   MOVE R5 R6
   RETURN R5 1

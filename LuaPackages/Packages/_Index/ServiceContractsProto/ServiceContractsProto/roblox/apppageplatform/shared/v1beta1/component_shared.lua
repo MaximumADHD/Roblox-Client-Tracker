@@ -15,6 +15,7 @@ local messages: _Messages = {} :: _Messages
 local _roblox_apppageplatform_shared_v1beta1_hydration_data_spec = require(script.Parent.hydration_data_spec)
 local _roblox_apppageplatform_shared_v1beta1_ui_component_type = require(script.Parent.ui_component_type)
 local _roblox_apppageplatform_shared_v1beta1_analytics_data = require(script.Parent.analytics_data)
+local _roblox_apppageplatform_shared_v1beta1_prop_types = require(script.Parent.prop_types)
 
 type _ComponentSharedImpl = {
 	__index: _ComponentSharedImpl,
@@ -30,12 +31,14 @@ type _ComponentSharedFields = {
 	component_type: _roblox_apppageplatform_shared_v1beta1_ui_component_type.UiComponentType,
 	data: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec },
 	analytics_data: { [string]: _roblox_apppageplatform_shared_v1beta1_analytics_data.AnalyticsDataField },
+	is_component_filtered: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 type _ComponentSharedPartialFields = {
 	component_type: _roblox_apppageplatform_shared_v1beta1_ui_component_type.UiComponentType?,
 	data: { _roblox_apppageplatform_shared_v1beta1_hydration_data_spec.HydrationDataSpec }?,
 	analytics_data: { [string]: _roblox_apppageplatform_shared_v1beta1_analytics_data.AnalyticsDataField }?,
+	is_component_filtered: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 }
 
 export type ComponentShared = typeof(setmetatable({} :: _ComponentSharedFields, {} :: _ComponentSharedImpl))
@@ -84,6 +87,9 @@ do
 				else data.component_type,
 			data = if data == nil or data.data == nil then {} else data.data,
 			analytics_data = if data == nil or data.analytics_data == nil then {} else data.analytics_data,
+			is_component_filtered = if data == nil or data.is_component_filtered == nil
+				then nil
+				else data.is_component_filtered,
 		}, _ComponentSharedImpl :: _ComponentSharedImpl)
 	end
 
@@ -129,6 +135,12 @@ do
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, mapBuffer, mapCursor)
 			end
+		end
+
+		if self.is_component_filtered ~= nil then
+			local encoded = self.is_component_filtered:encode()
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -177,6 +189,12 @@ do
 
 					self.analytics_data[mapEntry.key or keyDefault] = mapEntry.value or valueDefault
 
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.is_component_filtered =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.decode(value)
 					continue
 				end
 
@@ -236,6 +254,10 @@ do
 			output.analyticsData = newOutput
 		end
 
+		if self.is_component_filtered ~= nil then
+			output.isComponentFiltered = self.is_component_filtered:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -292,6 +314,16 @@ do
 			end
 
 			self.analytics_data = newOutput
+		end
+
+		if input.is_component_filtered ~= nil then
+			self.is_component_filtered =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.is_component_filtered)
+		end
+
+		if input.isComponentFiltered ~= nil then
+			self.is_component_filtered =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp.jsonDecode(input.isComponentFiltered)
 		end
 
 		return self

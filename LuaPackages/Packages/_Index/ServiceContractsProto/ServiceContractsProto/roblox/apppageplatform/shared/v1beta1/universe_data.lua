@@ -26,6 +26,8 @@ type _UniverseDataFields = {
 	name: string,
 	description: string,
 	root_place_id: number,
+	creator_type: string,
+	creator_id: number,
 }
 
 type _UniverseDataPartialFields = {
@@ -33,6 +35,8 @@ type _UniverseDataPartialFields = {
 	name: string?,
 	description: string?,
 	root_place_id: number?,
+	creator_type: string?,
+	creator_id: number?,
 }
 
 export type UniverseData = typeof(setmetatable({} :: _UniverseDataFields, {} :: _UniverseDataImpl))
@@ -48,6 +52,8 @@ do
 			name = if data == nil or data.name == nil then "" else data.name,
 			description = if data == nil or data.description == nil then "" else data.description,
 			root_place_id = if data == nil or data.root_place_id == nil then 0 else data.root_place_id,
+			creator_type = if data == nil or data.creator_type == nil then "" else data.creator_type,
+			creator_id = if data == nil or data.creator_id == nil then 0 else data.creator_id,
 		}, _UniverseDataImpl :: _UniverseDataImpl)
 	end
 
@@ -75,6 +81,16 @@ do
 			output, cursor = proto.writeVarInt(output, cursor, self.root_place_id)
 		end
 
+		if self.creator_type ~= nil and self.creator_type ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.creator_type)
+		end
+
+		if self.creator_id ~= nil and self.creator_id ~= 0 then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, self.creator_id)
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -99,6 +115,11 @@ do
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.root_place_id = value
 					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readVarIntI64(input, cursor)
+					self.creator_id = value
+					continue
 				end
 
 				local _
@@ -113,6 +134,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.description = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.creator_type = buffer.tostring(value)
 					continue
 				end
 
@@ -157,6 +183,14 @@ do
 			output.rootPlaceId = self.root_place_id
 		end
 
+		if self.creator_type ~= nil and self.creator_type ~= "" then
+			output.creatorType = self.creator_type
+		end
+
+		if self.creator_id ~= nil and self.creator_id ~= 0 then
+			output.creatorId = self.creator_id
+		end
+
 		return output
 	end
 
@@ -181,6 +215,22 @@ do
 
 		if input.rootPlaceId ~= nil then
 			self.root_place_id = input.rootPlaceId
+		end
+
+		if input.creator_type ~= nil then
+			self.creator_type = input.creator_type
+		end
+
+		if input.creatorType ~= nil then
+			self.creator_type = input.creatorType
+		end
+
+		if input.creator_id ~= nil then
+			self.creator_id = input.creator_id
+		end
+
+		if input.creatorId ~= nil then
+			self.creator_id = input.creatorId
 		end
 
 		return self

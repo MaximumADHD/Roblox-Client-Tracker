@@ -15,8 +15,9 @@ local Roact = require(CorePackages.Packages.Roact)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local t = require(CorePackages.Packages.t)
 local UIBlox = require(CorePackages.Packages.UIBlox)
+local ReactUtils = require(CorePackages.Packages.ReactUtils)
 
-local ExternalEventConnection = UIBlox.Utility.ExternalEventConnection
+local EventConnection = ReactUtils.EventConnection
 local Images = UIBlox.App.ImageSet.Images
 
 local Modules = CoreGui.RobloxGui.Modules
@@ -281,11 +282,11 @@ function ControlsBubble:render()
 			Image = "rbxasset://textures/ui/InGameChat/Caret.png",
 			BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 		}),
-		MuteChangedEvent = Roact.createElement(ExternalEventConnection, {
+		MuteChangedEvent = Roact.createElement(EventConnection, {
 			event = VoiceChatServiceManager.muteChanged.Event,
 			callback = self.muteChangedEvent,
 		}),
-		VideoEnabledChanged = FaceAnimatorService and Roact.createElement(ExternalEventConnection, {
+		VideoEnabledChanged = FaceAnimatorService and Roact.createElement(EventConnection, {
 			event = FaceAnimatorService:GetPropertyChangedSignal("VideoAnimationEnabled"),
 			callback = self.updateVideo,
 		}) or nil,

@@ -1,0 +1,45 @@
+PROTO_0:
+  PREPVARARGS 2
+  JUMPIF R1 [+10]
+  GETVARARGS R2 1
+  GETIMPORT R3 K1 [error]
+  GETIMPORT R4 K4 [debug.traceback]
+  MOVE R5 R0
+  MOVE R6 R2
+  CALL R4 2 1
+  LOADN R5 2
+  CALL R3 2 0
+  GETIMPORT R2 K7 [coroutine.status]
+  MOVE R3 R0
+  CALL R2 1 1
+  JUMPIFEQKS R2 K8 ["dead"] [+10]
+  GETIMPORT R2 K1 [error]
+  GETIMPORT R3 K4 [debug.traceback]
+  MOVE R4 R0
+  LOADK R5 K9 ["Attempted to yield inside nonyieldable function!"]
+  CALL R3 2 1
+  LOADN R4 2
+  CALL R2 2 0
+  GETVARARGS R2 -1
+  RETURN R2 -1
+
+PROTO_1:
+  PREPVARARGS 1
+  GETIMPORT R1 K2 [coroutine.create]
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R2 0
+  MOVE R3 R1
+  GETIMPORT R4 K4 [coroutine.resume]
+  MOVE R5 R1
+  GETVARARGS R6 -1
+  CALL R4 -1 -1
+  CALL R2 -1 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  DUPCLOSURE R1 K1 [PROTO_1]
+  CAPTURE VAL R0
+  RETURN R1 1

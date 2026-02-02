@@ -53,45 +53,29 @@ PROTO_3:
   SETTABLEKS R8 R7 K5 ["BorderSizePixel"]
   LOADN R8 1
   SETTABLEKS R8 R7 K6 ["BackgroundTransparency"]
-  DUPTABLE R8 K13 [{"MorpherTemplateContainer", "RigUpdater"}]
+  DUPTABLE R8 K12 [{"MorpherTemplateContainer"}]
   GETUPVAL R10 0
   GETTABLEKS R9 R10 K0 ["createElement"]
   GETUPVAL R10 2
-  DUPTABLE R11 K20 [{"ThemeData", "StateTemplates", "IsEnabled", "Mouse", "clobberTemplate", "ContentHeightChanged"}]
-  GETTABLEKS R13 R0 K21 ["props"]
-  GETTABLEKS R12 R13 K22 ["StateTheme"]
-  SETTABLEKS R12 R11 K14 ["ThemeData"]
-  GETTABLEKS R13 R0 K21 ["props"]
-  GETTABLEKS R12 R13 K15 ["StateTemplates"]
-  SETTABLEKS R12 R11 K15 ["StateTemplates"]
+  DUPTABLE R11 K19 [{"ThemeData", "StateTemplates", "IsEnabled", "Mouse", "clobberTemplate", "ContentHeightChanged"}]
+  GETTABLEKS R13 R0 K20 ["props"]
+  GETTABLEKS R12 R13 K21 ["StateTheme"]
+  SETTABLEKS R12 R11 K13 ["ThemeData"]
+  GETTABLEKS R13 R0 K20 ["props"]
+  GETTABLEKS R12 R13 K14 ["StateTemplates"]
+  SETTABLEKS R12 R11 K14 ["StateTemplates"]
   LOADB R12 1
-  SETTABLEKS R12 R11 K16 ["IsEnabled"]
-  GETTABLEKS R13 R0 K21 ["props"]
-  GETTABLEKS R12 R13 K17 ["Mouse"]
-  SETTABLEKS R12 R11 K17 ["Mouse"]
-  GETTABLEKS R13 R0 K21 ["props"]
-  GETTABLEKS R12 R13 K18 ["clobberTemplate"]
-  SETTABLEKS R12 R11 K18 ["clobberTemplate"]
-  GETTABLEKS R12 R0 K23 ["contentHeightChanged"]
-  SETTABLEKS R12 R11 K19 ["ContentHeightChanged"]
+  SETTABLEKS R12 R11 K15 ["IsEnabled"]
+  GETTABLEKS R13 R0 K20 ["props"]
+  GETTABLEKS R12 R13 K16 ["Mouse"]
+  SETTABLEKS R12 R11 K16 ["Mouse"]
+  GETTABLEKS R13 R0 K20 ["props"]
+  GETTABLEKS R12 R13 K17 ["clobberTemplate"]
+  SETTABLEKS R12 R11 K17 ["clobberTemplate"]
+  GETTABLEKS R12 R0 K22 ["contentHeightChanged"]
+  SETTABLEKS R12 R11 K18 ["ContentHeightChanged"]
   CALL R9 2 1
   SETTABLEKS R9 R8 K11 ["MorpherTemplateContainer"]
-  GETIMPORT R10 K25 [game]
-  LOADK R12 K26 ["DisableGameSettingsAvatarPreview"]
-  NAMECALL R10 R10 K27 ["GetFastFlag"]
-  CALL R10 2 1
-  JUMPIFNOT R10 [+2]
-  LOADNIL R9
-  JUMP [+12]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K0 ["createElement"]
-  GETUPVAL R10 3
-  DUPTABLE R11 K28 [{"StateTemplates"}]
-  GETTABLEKS R13 R0 K21 ["props"]
-  GETTABLEKS R12 R13 K15 ["StateTemplates"]
-  SETTABLEKS R12 R11 K15 ["StateTemplates"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K12 ["RigUpdater"]
   CALL R5 3 -1
   SETLIST R4 R5 -1 [1]
   CALL R1 3 -1
@@ -166,37 +150,32 @@ MAIN:
   CALL R6 1 1
   GETIMPORT R7 K4 [require]
   GETTABLEKS R9 R0 K12 ["Components"]
-  GETTABLEKS R8 R9 K13 ["AvatarUpdater"]
+  GETTABLEKS R8 R9 K13 ["MorpherTemplateContainer"]
   CALL R7 1 1
   GETIMPORT R8 K4 [require]
-  GETTABLEKS R10 R0 K12 ["Components"]
-  GETTABLEKS R9 R10 K14 ["MorpherTemplateContainer"]
+  GETTABLEKS R9 R4 K14 ["StyledScrollingFrame"]
   CALL R8 1 1
-  GETIMPORT R9 K4 [require]
-  GETTABLEKS R10 R4 K15 ["StyledScrollingFrame"]
-  CALL R9 1 1
-  GETTABLEKS R10 R2 K16 ["Component"]
-  LOADK R12 K17 ["ComponentRootPanel"]
-  NAMECALL R10 R10 K18 ["extend"]
-  CALL R10 2 1
-  DUPCLOSURE R11 K19 [PROTO_1]
+  GETTABLEKS R9 R2 K15 ["Component"]
+  LOADK R11 K16 ["ComponentRootPanel"]
+  NAMECALL R9 R9 K17 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K18 [PROTO_1]
   CAPTURE VAL R2
-  SETTABLEKS R11 R10 K20 ["init"]
-  DUPCLOSURE R11 K21 [PROTO_2]
-  SETTABLEKS R11 R10 K22 ["didMount"]
-  DUPCLOSURE R11 K23 [PROTO_3]
+  SETTABLEKS R10 R9 K19 ["init"]
+  DUPCLOSURE R10 K20 [PROTO_2]
+  SETTABLEKS R10 R9 K21 ["didMount"]
+  DUPCLOSURE R10 K22 [PROTO_3]
   CAPTURE VAL R2
-  CAPTURE VAL R9
   CAPTURE VAL R8
   CAPTURE VAL R7
-  SETTABLEKS R11 R10 K24 ["render"]
-  GETTABLEKS R11 R3 K25 ["UNSTABLE_connect2"]
-  DUPCLOSURE R12 K26 [PROTO_4]
-  DUPCLOSURE R13 K27 [PROTO_7]
+  SETTABLEKS R10 R9 K23 ["render"]
+  GETTABLEKS R10 R3 K24 ["UNSTABLE_connect2"]
+  DUPCLOSURE R11 K25 [PROTO_4]
+  DUPCLOSURE R12 K26 [PROTO_7]
   CAPTURE VAL R5
   CAPTURE VAL R6
-  CALL R11 2 1
-  MOVE R12 R10
-  CALL R11 1 1
-  MOVE R10 R11
-  RETURN R10 1
+  CALL R10 2 1
+  MOVE R11 R9
+  CALL R10 1 1
+  MOVE R9 R10
+  RETURN R9 1

@@ -1,0 +1,154 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["Value"]
+  FASTCALL1 TYPE R1 [+2]
+  GETIMPORT R0 K2 [type]
+  CALL R0 1 1
+  JUMPIFNOTEQKS R0 K3 ["number"] [+5]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["Value"]
+  RETURN R0 1
+  LOADN R0 0
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["OnChanged"]
+  FASTCALL1 MATH_RAD R0 [+3]
+  MOVE R3 R0
+  GETIMPORT R2 K3 [math.rad]
+  CALL R2 1 1
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useCallback"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["formatDegrees"]
+  NEWTABLE R3 0 0
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["useMemo"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NEWTABLE R4 0 1
+  GETTABLEKS R5 R0 K3 ["Value"]
+  SETLIST R4 R5 1 [1]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["useCallback"]
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R0
+  NEWTABLE R5 0 1
+  GETTABLEKS R6 R0 K4 ["OnChanged"]
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["createElement"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K6 ["View"]
+  DUPTABLE R6 K9 [{"tag", "LayoutOrder"}]
+  LOADK R7 K10 ["row auto-y gap-small size-full-700 align-y-center flex-x-between"]
+  SETTABLEKS R7 R6 K7 ["tag"]
+  GETTABLEKS R7 R0 K8 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K8 ["LayoutOrder"]
+  DUPTABLE R7 K14 [{"CompositorNodeInputLabel", "Input", "PinChildren"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["createElement"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K15 ["Text"]
+  DUPTABLE R10 K16 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R11 K17 ["text-body-small text-align-x-left auto-xy"]
+  SETTABLEKS R11 R10 K7 ["tag"]
+  GETTABLEKS R11 R0 K18 ["Label"]
+  SETTABLEKS R11 R10 K15 ["Text"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K8 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K11 ["CompositorNodeInputLabel"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["createElement"]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K19 ["NumberInput"]
+  DUPTABLE R10 K33 [{"size", "width", "label", "value", "isDisabled", "minimum", "maximum", "step", "formatAsString", "LayoutOrder", "precision", "controlsVariant", "onChanged", "isScrubbable"}]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K34 ["Enums"]
+  GETTABLEKS R12 R13 K35 ["InputSize"]
+  GETTABLEKS R11 R12 K36 ["XSmall"]
+  SETTABLEKS R11 R10 K20 ["size"]
+  GETIMPORT R11 K39 [UDim.new]
+  LOADN R12 0
+  LOADN R13 90
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K21 ["width"]
+  LOADK R11 K40 [""]
+  SETTABLEKS R11 R10 K22 ["label"]
+  FASTCALL1 MATH_DEG R2 [+3]
+  MOVE R15 R2
+  GETIMPORT R14 K44 [math.deg]
+  CALL R14 1 1
+  MULK R13 R14 K41 [100]
+  FASTCALL1 MATH_ROUND R13 [+2]
+  GETIMPORT R12 K46 [math.round]
+  CALL R12 1 1
+  DIVK R11 R12 K41 [100]
+  SETTABLEKS R11 R10 K23 ["value"]
+  GETTABLEKS R11 R0 K47 ["IsParameterized"]
+  SETTABLEKS R11 R10 K24 ["isDisabled"]
+  LOADN R11 76
+  SETTABLEKS R11 R10 K25 ["minimum"]
+  LOADN R11 180
+  SETTABLEKS R11 R10 K26 ["maximum"]
+  LOADN R11 5
+  SETTABLEKS R11 R10 K27 ["step"]
+  SETTABLEKS R1 R10 K28 ["formatAsString"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K8 ["LayoutOrder"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K29 ["precision"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K34 ["Enums"]
+  GETTABLEKS R12 R13 K48 ["NumberInputControlsVariant"]
+  GETTABLEKS R11 R12 K49 ["None"]
+  SETTABLEKS R11 R10 K30 ["controlsVariant"]
+  SETTABLEKS R3 R10 K31 ["onChanged"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K32 ["isScrubbable"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K12 ["Input"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K5 ["createElement"]
+  LOADK R9 K50 ["Folder"]
+  NEWTABLE R10 0 0
+  GETTABLEKS R11 R0 K51 ["children"]
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K13 ["PinChildren"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Components"]
+  GETTABLEKS R5 R6 K9 ["NodeView"]
+  GETTABLEKS R4 R5 K10 ["CompositorNodeProperty"]
+  GETTABLEKS R3 R4 K11 ["PropertyUtils"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K12 ["React"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K13 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  RETURN R4 1

@@ -1,0 +1,119 @@
+PROTO_0:
+  GETTABLEKS R3 R0 K1 ["Text"]
+  LENGTH R2 R3
+  ADDK R1 R2 K0 [1]
+  SETTABLEKS R1 R0 K2 ["CursorPosition"]
+  LOADN R1 1
+  SETTABLEKS R1 R0 K3 ["SelectionStart"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["onFocused"]
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["onFocused"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useCallback"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  NEWTABLE R3 0 1
+  GETTABLEKS R4 R0 K1 ["onFocused"]
+  SETLIST R3 R4 1 [1]
+  CALL R1 2 1
+  GETUPVAL R2 1
+  CALL R2 0 1
+  GETUPVAL R3 2
+  GETUPVAL R4 3
+  DUPTABLE R5 K5 [{"Visible", "LayoutOrder", "Size"}]
+  GETTABLEKS R7 R0 K6 ["visible"]
+  JUMPIFNOTEQKNIL R7 [+3]
+  LOADB R6 1
+  JUMP [+2]
+  GETTABLEKS R6 R0 K6 ["visible"]
+  SETTABLEKS R6 R5 K2 ["Visible"]
+  GETTABLEKS R6 R0 K7 ["layoutOrder"]
+  SETTABLEKS R6 R5 K3 ["LayoutOrder"]
+  GETTABLEKS R6 R0 K8 ["size"]
+  SETTABLEKS R6 R5 K4 ["Size"]
+  DUPTABLE R6 K11 [{"Divider", "TextContainer"}]
+  GETUPVAL R7 2
+  GETUPVAL R8 4
+  DUPTABLE R9 K13 [{"LayoutOrder", "orientation"}]
+  MOVE R10 R2
+  CALL R10 0 1
+  SETTABLEKS R10 R9 K3 ["LayoutOrder"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K14 ["Enums"]
+  GETTABLEKS R11 R12 K15 ["Orientation"]
+  GETTABLEKS R10 R11 K16 ["Vertical"]
+  SETTABLEKS R10 R9 K12 ["orientation"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K9 ["Divider"]
+  GETUPVAL R7 2
+  GETUPVAL R8 3
+  DUPTABLE R9 K18 [{"tag", "LayoutOrder"}]
+  LOADK R10 K19 ["size-full-full padding-left-xsmall"]
+  SETTABLEKS R10 R9 K17 ["tag"]
+  MOVE R10 R2
+  CALL R10 0 1
+  SETTABLEKS R10 R9 K3 ["LayoutOrder"]
+  DUPTABLE R10 K21 [{"Text"}]
+  GETUPVAL R11 2
+  GETUPVAL R12 6
+  DUPTABLE R13 K24 [{"size", "text", "onFocused", "onFocusLost"}]
+  GETIMPORT R14 K27 [UDim2.fromScale]
+  LOADN R15 1
+  LOADN R16 1
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K8 ["size"]
+  GETTABLEKS R14 R0 K22 ["text"]
+  SETTABLEKS R14 R13 K22 ["text"]
+  SETTABLEKS R1 R13 K1 ["onFocused"]
+  GETTABLEKS R14 R0 K23 ["onFocusLost"]
+  SETTABLEKS R14 R13 K23 ["onFocusLost"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K20 ["Text"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K10 ["TextContainer"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["PlaceholderTextBox"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K11 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["ReactUtils"]
+  CALL R4 1 1
+  GETTABLEKS R5 R1 K13 ["View"]
+  GETTABLEKS R6 R3 K14 ["createElement"]
+  GETTABLEKS R7 R1 K15 ["Divider"]
+  GETTABLEKS R8 R4 K16 ["createNextOrder"]
+  DUPCLOSURE R9 K17 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R9 1

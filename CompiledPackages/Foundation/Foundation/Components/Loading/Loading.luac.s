@@ -1,0 +1,87 @@
+PROTO_0:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  GETUPVAL R4 1
+  CALL R2 2 1
+  GETUPVAL R3 2
+  CALL R3 0 1
+  GETUPVAL R4 3
+  CALL R4 0 1
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 5
+  GETUPVAL R7 6
+  MOVE R8 R2
+  DUPTABLE R9 K6 [{"name", "size", "style", "Rotation", "ref"}]
+  LOADK R10 K7 ["icons/graphic/loadingspinner"]
+  SETTABLEKS R10 R9 K1 ["name"]
+  GETTABLEKS R10 R2 K2 ["size"]
+  SETTABLEKS R10 R9 K2 ["size"]
+  GETTABLEKS R12 R4 K8 ["DarkMode"]
+  GETTABLEKS R11 R12 K9 ["Content"]
+  GETTABLEKS R10 R11 K10 ["Emphasis"]
+  SETTABLEKS R10 R9 K3 ["style"]
+  SETTABLEKS R3 R9 K4 ["Rotation"]
+  SETTABLEKS R1 R9 K5 ["ref"]
+  CALL R7 2 -1
+  CALL R5 -1 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["Icon"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K10 ["Enums"]
+  GETTABLEKS R5 R6 K11 ["IconSize"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R8 R0 K12 ["Providers"]
+  GETTABLEKS R7 R8 K13 ["Style"]
+  GETTABLEKS R6 R7 K14 ["useTokens"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K15 ["Utility"]
+  GETTABLEKS R7 R8 K16 ["withDefaults"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K15 ["Utility"]
+  GETTABLEKS R8 R9 K17 ["useRotation"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R0 K8 ["Components"]
+  GETTABLEKS R9 R10 K18 ["Types"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K15 ["Utility"]
+  GETTABLEKS R10 R11 K19 ["withCommonProps"]
+  CALL R9 1 1
+  DUPTABLE R10 K22 [{"size", "testId"}]
+  GETTABLEKS R11 R4 K23 ["Large"]
+  SETTABLEKS R11 R10 K20 ["size"]
+  LOADK R11 K24 ["--foundation-loading"]
+  SETTABLEKS R11 R10 K21 ["testId"]
+  DUPCLOSURE R11 K25 [PROTO_0]
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R9
+  GETTABLEKS R12 R2 K26 ["memo"]
+  GETTABLEKS R13 R2 K27 ["forwardRef"]
+  MOVE R14 R11
+  CALL R13 1 -1
+  CALL R12 -1 -1
+  RETURN R12 -1

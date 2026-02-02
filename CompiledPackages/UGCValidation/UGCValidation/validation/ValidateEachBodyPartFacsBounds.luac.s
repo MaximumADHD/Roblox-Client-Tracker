@@ -1,0 +1,211 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  LOADK R2 K0 ["MeshId"]
+  GETUPVAL R3 2
+  CALL R0 3 2
+  JUMPIF R0 [+4]
+  GETIMPORT R2 K2 [error]
+  LOADK R3 K3 ["Failed to retrieve MeshContent"]
+  CALL R2 1 0
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  GETUPVAL R4 3
+  GETUPVAL R5 4
+  GETUPVAL R6 5
+  NAMECALL R0 R0 K0 ["ValidatePartBBoxAfterFullFacs"]
+  CALL R0 6 -1
+  RETURN R0 -1
+
+PROTO_2:
+  GETUPVAL R3 0
+  CALL R3 0 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R2 K1 [assert]
+  CALL R2 -1 0
+  GETUPVAL R3 1
+  CALL R3 0 1
+  DIVK R2 R3 K2 [100]
+  GETTABLEKS R3 R0 K3 ["Head"]
+  GETUPVAL R5 2
+  MOVE R6 R3
+  MOVE R7 R1
+  CALL R5 2 1
+  GETUPVAL R6 2
+  MOVE R7 R3
+  MOVE R8 R1
+  LOADB R9 1
+  CALL R6 3 1
+  DIV R4 R5 R6
+  GETUPVAL R5 3
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U4
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  MOVE R7 R1
+  CALL R5 2 2
+  JUMPIF R5 [+18]
+  GETUPVAL R8 5
+  GETTABLEKS R7 R8 K4 ["reportFailure"]
+  GETUPVAL R10 5
+  GETTABLEKS R9 R10 K5 ["ErrorType"]
+  GETTABLEKS R8 R9 K6 ["validateEachBodyPartFacsBounds_FailedToExecute"]
+  LOADNIL R9
+  MOVE R10 R1
+  CALL R7 3 0
+  LOADB R7 0
+  NEWTABLE R8 0 1
+  LOADK R9 K7 ["Could not load head data for FACS bounds test. Please try again later or make a bug report."]
+  SETLIST R8 R9 1 [1]
+  RETURN R7 2
+  GETUPVAL R8 6
+  GETTABLEKS R7 R8 K8 ["new"]
+  CALL R7 0 1
+  MOVE R8 R0
+  LOADNIL R9
+  LOADNIL R10
+  FORGPREP R8
+  JUMPIFEQKS R11 K3 ["Head"] [+94]
+  GETUPVAL R14 2
+  MOVE R15 R12
+  MOVE R16 R1
+  CALL R14 2 1
+  GETUPVAL R15 2
+  MOVE R16 R12
+  MOVE R17 R1
+  LOADB R18 1
+  CALL R15 3 1
+  DIV R13 R14 R15
+  GETUPVAL R14 4
+  MOVE R15 R12
+  LOADK R16 K9 ["MeshId"]
+  MOVE R17 R1
+  CALL R14 3 2
+  JUMPIF R14 [+23]
+  GETUPVAL R17 5
+  GETTABLEKS R16 R17 K4 ["reportFailure"]
+  GETUPVAL R19 5
+  GETTABLEKS R18 R19 K5 ["ErrorType"]
+  GETTABLEKS R17 R18 K6 ["validateEachBodyPartFacsBounds_FailedToExecute"]
+  LOADNIL R18
+  MOVE R19 R1
+  CALL R16 3 0
+  LOADB R16 0
+  NEWTABLE R17 0 1
+  LOADK R19 K10 ["Could not load %* editable mesh for body FACS test."]
+  MOVE R21 R11
+  NAMECALL R19 R19 K11 ["format"]
+  CALL R19 2 1
+  MOVE R18 R19
+  SETLIST R17 R18 1 [1]
+  RETURN R16 2
+  FASTCALL1 ASSERT R15 [+3]
+  MOVE R17 R15
+  GETIMPORT R16 K1 [assert]
+  CALL R16 1 0
+  GETUPVAL R16 3
+  NEWCLOSURE R17 P1
+  CAPTURE UPVAL U7
+  CAPTURE VAL R6
+  CAPTURE VAL R15
+  CAPTURE VAL R4
+  CAPTURE VAL R13
+  CAPTURE VAL R2
+  MOVE R18 R1
+  CALL R16 2 2
+  JUMPIF R16 [+23]
+  GETUPVAL R19 5
+  GETTABLEKS R18 R19 K4 ["reportFailure"]
+  GETUPVAL R21 5
+  GETTABLEKS R20 R21 K5 ["ErrorType"]
+  GETTABLEKS R19 R20 K6 ["validateEachBodyPartFacsBounds_FailedToExecute"]
+  LOADNIL R20
+  MOVE R21 R1
+  CALL R18 3 0
+  LOADB R18 0
+  NEWTABLE R19 0 1
+  LOADK R21 K12 ["Could not get post-facs size of %*."]
+  MOVE R23 R11
+  NAMECALL R21 R21 K11 ["format"]
+  CALL R21 2 1
+  MOVE R20 R21
+  SETLIST R19 R20 1 [1]
+  RETURN R18 2
+  JUMPIF R17 [+14]
+  LOADB R20 0
+  NEWTABLE R21 0 1
+  LOADK R23 K13 ["%* is skinned to face joints in a way that can result in expanded size for some facial expressions. Please adjust your skinning or facial animation data."]
+  MOVE R25 R11
+  NAMECALL R23 R23 K11 ["format"]
+  CALL R23 2 1
+  MOVE R22 R23
+  SETLIST R21 R22 1 [1]
+  NAMECALL R18 R7 K14 ["updateReasons"]
+  CALL R18 3 0
+  FORGLOOP R8 2 [-96]
+  NAMECALL R8 R7 K15 ["getFinalResults"]
+  CALL R8 1 2
+  JUMPIF R8 [+11]
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K4 ["reportFailure"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K5 ["ErrorType"]
+  GETTABLEKS R11 R12 K16 ["validateEachBodyPartFacsBounds_ExtendedBounds"]
+  LOADNIL R12
+  MOVE R13 R1
+  CALL R10 3 0
+  NAMECALL R10 R7 K15 ["getFinalResults"]
+  CALL R10 1 -1
+  RETURN R10 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [game]
+  LOADK R3 K5 ["UGCValidationService"]
+  NAMECALL R1 R1 K6 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R3 R0 K9 ["Analytics"]
+  CALL R2 1 1
+  GETTABLEKS R3 R0 K10 ["util"]
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R5 R3 K11 ["Types"]
+  CALL R4 1 1
+  GETIMPORT R5 K8 [require]
+  GETTABLEKS R6 R3 K12 ["FailureReasonsAccumulator"]
+  CALL R5 1 1
+  GETIMPORT R6 K8 [require]
+  GETTABLEKS R7 R3 K13 ["pcallDeferred"]
+  CALL R6 1 1
+  GETIMPORT R7 K8 [require]
+  GETTABLEKS R9 R0 K10 ["util"]
+  GETTABLEKS R8 R9 K14 ["getEditableMeshFromContext"]
+  CALL R7 1 1
+  GETIMPORT R8 K8 [require]
+  GETTABLEKS R10 R0 K10 ["util"]
+  GETTABLEKS R9 R10 K15 ["getExpectedPartSize"]
+  CALL R8 1 1
+  GETTABLEKS R9 R0 K16 ["flags"]
+  GETIMPORT R10 K8 [require]
+  GETTABLEKS R11 R9 K17 ["getEngineFeatureUGCValidationFullBodyFacs"]
+  CALL R10 1 1
+  GETIMPORT R11 K8 [require]
+  GETTABLEKS R12 R9 K18 ["getFIntUGCValidationAcceptableBodyFacsExpansion"]
+  CALL R11 1 1
+  DUPCLOSURE R12 K19 [PROTO_2]
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  RETURN R12 1

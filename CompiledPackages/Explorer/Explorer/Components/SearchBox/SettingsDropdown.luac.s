@@ -1,0 +1,322 @@
+PROTO_0:
+  NEWTABLE R0 0 2
+  DUPTABLE R1 K2 [{"displayText", "text"}]
+  GETUPVAL R2 0
+  LOADK R4 K3 ["SettingsDropdown"]
+  LOADK R5 K4 ["IncrementNames_v2"]
+  NAMECALL R2 R2 K5 ["getText"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K0 ["displayText"]
+  LOADK R2 K6 ["IncrementNames"]
+  SETTABLEKS R2 R1 K1 ["text"]
+  DUPTABLE R2 K2 [{"displayText", "text"}]
+  GETUPVAL R3 0
+  LOADK R5 K3 ["SettingsDropdown"]
+  LOADK R6 K7 ["ExpandHierarchy_v2"]
+  NAMECALL R3 R3 K5 ["getText"]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K0 ["displayText"]
+  LOADK R3 K8 ["ExpandHierarchy"]
+  SETTABLEKS R3 R2 K1 ["text"]
+  SETLIST R0 R1 2 [1]
+  GETUPVAL R1 1
+  JUMPIFEQKNIL R1 [+59]
+  MOVE R1 R0
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  GETUPVAL R7 1
+  GETTABLEKS R8 R5 K1 ["text"]
+  GETTABLE R6 R7 R8
+  JUMPIFNOT R6 [+23]
+  GETUPVAL R8 2
+  CALL R8 0 1
+  JUMPIFNOT R8 [+9]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K9 ["themed"]
+  LOADK R8 K10 ["checkBox_checked"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K11 ["theme"]
+  CALL R7 2 1
+  JUMP [+5]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K12 ["standard"]
+  LOADK R8 K13 ["checkBox"]
+  CALL R7 1 1
+  SETTABLEKS R7 R5 K14 ["icon"]
+  LOADB R7 1
+  SETTABLEKS R7 R5 K15 ["keepIconColor"]
+  JUMP [+24]
+  GETUPVAL R7 2
+  CALL R7 0 1
+  JUMPIFNOT R7 [+14]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K9 ["themed"]
+  LOADK R8 K16 ["checkBox_unchecked"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K11 ["theme"]
+  CALL R7 2 1
+  SETTABLEKS R7 R5 K14 ["icon"]
+  LOADB R7 1
+  SETTABLEKS R7 R5 K15 ["keepIconColor"]
+  JUMP [+7]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K12 ["standard"]
+  LOADK R8 K17 ["uncheckedBox"]
+  CALL R7 1 1
+  SETTABLEKS R7 R5 K14 ["icon"]
+  FORGLOOP R1 2 [-53]
+  RETURN R0 1
+
+PROTO_1:
+  NEWTABLE R0 2 0
+  DUPTABLE R1 K2 [{"getSettingAsync", "setSetting"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["getIncrementNamesAsync"]
+  SETTABLEKS R2 R1 K0 ["getSettingAsync"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["setIncrementNames"]
+  SETTABLEKS R2 R1 K1 ["setSetting"]
+  SETTABLEKS R1 R0 K5 ["IncrementNames"]
+  DUPTABLE R1 K2 [{"getSettingAsync", "setSetting"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["getExpandHierarchy"]
+  SETTABLEKS R2 R1 K0 ["getSettingAsync"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K7 ["setExpandHierarchy"]
+  SETTABLEKS R2 R1 K1 ["setSetting"]
+  SETTABLEKS R1 R0 K8 ["ExpandHierarchy"]
+  RETURN R0 1
+
+PROTO_2:
+  GETIMPORT R0 K2 [table.clone]
+  GETUPVAL R1 0
+  CALL R0 1 1
+  GETUPVAL R3 0
+  GETUPVAL R4 1
+  GETTABLE R2 R3 R4
+  NOT R1 R2
+  GETUPVAL R2 1
+  SETTABLE R1 R0 R2
+  GETUPVAL R4 2
+  GETUPVAL R5 1
+  GETTABLE R3 R4 R5
+  GETTABLEKS R2 R3 K3 ["setSetting"]
+  MOVE R3 R1
+  CALL R2 1 0
+  GETUPVAL R2 3
+  MOVE R3 R0
+  CALL R2 1 0
+  GETUPVAL R3 4
+  GETTABLEKS R2 R3 K4 ["logCounter"]
+  DUPTABLE R3 K10 [{"eventName", "backends", "throttlingPercentage", "description", "lastUpdated"}]
+  LOADK R4 K11 ["LuaExplorerSettingsChanged"]
+  SETTABLEKS R4 R3 K5 ["eventName"]
+  NEWTABLE R4 0 1
+  LOADK R5 K12 ["RobloxTelemetryCounter"]
+  SETLIST R4 R5 1 [1]
+  SETTABLEKS R4 R3 K6 ["backends"]
+  GETIMPORT R4 K14 [game]
+  LOADK R6 K15 ["LuaExplorerSettingsChangedTelemetryThrottlingHundredthsPercent"]
+  LOADN R7 16
+  NAMECALL R4 R4 K16 ["DefineFastInt"]
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K7 ["throttlingPercentage"]
+  LOADK R4 K17 ["Fired when a settings item is changed"]
+  SETTABLEKS R4 R3 K8 ["description"]
+  LOADK R4 K18 ["2024-12-03"]
+  SETTABLEKS R4 R3 K9 ["lastUpdated"]
+  DUPTABLE R4 K21 [{"enabled", "setting"}]
+  SETTABLEKS R1 R4 K19 ["enabled"]
+  GETUPVAL R5 1
+  SETTABLEKS R5 R4 K20 ["setting"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_3:
+  GETIMPORT R1 K2 [task.spawn]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
+  NEWTABLE R0 0 0
+  GETUPVAL R1 0
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  GETTABLEKS R6 R5 K0 ["text"]
+  GETUPVAL R9 1
+  GETTABLEKS R10 R5 K0 ["text"]
+  GETTABLE R8 R9 R10
+  GETTABLEKS R7 R8 K1 ["getSettingAsync"]
+  CALL R7 0 1
+  SETTABLE R7 R0 R6
+  FORGLOOP R1 2 [-11]
+  GETUPVAL R1 2
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETIMPORT R0 K2 [task.spawn]
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useContext"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["AnalyticsContext"]
+  CALL R1 1 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["ContextServices"]
+  GETTABLEKS R2 R3 K3 ["Localization"]
+  NAMECALL R2 R2 K4 ["use"]
+  CALL R2 1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["useContext"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K5 ["Context"]
+  CALL R3 1 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["useContext"]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K5 ["Context"]
+  CALL R4 1 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K6 ["useState"]
+  LOADNIL R6
+  CALL R5 1 2
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K7 ["useMemo"]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE VAL R4
+  NEWTABLE R9 0 2
+  MOVE R10 R5
+  MOVE R11 R2
+  SETLIST R9 R10 2 [1]
+  CALL R7 2 1
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K7 ["useMemo"]
+  NEWCLOSURE R9 P1
+  CAPTURE VAL R3
+  NEWTABLE R10 0 1
+  MOVE R11 R3
+  SETLIST R10 R11 1 [1]
+  CALL R8 2 1
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K8 ["useCallback"]
+  NEWCLOSURE R10 P2
+  CAPTURE VAL R5
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  NEWTABLE R11 0 3
+  MOVE R12 R8
+  MOVE R13 R5
+  GETTABLEKS R14 R1 K9 ["logCounter"]
+  SETLIST R11 R12 3 [1]
+  CALL R9 2 1
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K10 ["useEffect"]
+  NEWCLOSURE R11 P3
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  NEWTABLE R12 0 0
+  CALL R10 2 0
+  LOADB R10 0
+  JUMPIFEQKNIL R5 [+32]
+  GETUPVAL R10 7
+  GETUPVAL R11 8
+  DUPTABLE R12 K19 [{"dropdownRef", "enterPressedSignalRef", "itemData", "onItemClicked", "shouldIgnoreMaxHeight", "selectedItemIndex", "setSelectedItemIndex", "session"}]
+  GETTABLEKS R13 R0 K11 ["dropdownRef"]
+  SETTABLEKS R13 R12 K11 ["dropdownRef"]
+  GETTABLEKS R13 R0 K12 ["enterPressedSignalRef"]
+  SETTABLEKS R13 R12 K12 ["enterPressedSignalRef"]
+  SETTABLEKS R7 R12 K13 ["itemData"]
+  SETTABLEKS R9 R12 K14 ["onItemClicked"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K15 ["shouldIgnoreMaxHeight"]
+  GETTABLEKS R13 R0 K16 ["selectedItemIndex"]
+  SETTABLEKS R13 R12 K16 ["selectedItemIndex"]
+  GETTABLEKS R13 R0 K17 ["setSelectedItemIndex"]
+  SETTABLEKS R13 R12 K17 ["setSelectedItemIndex"]
+  GETTABLEKS R13 R0 K18 ["session"]
+  SETTABLEKS R13 R12 K18 ["session"]
+  CALL R10 2 1
+  RETURN R10 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Explorer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R2 R0 K6 ["Analytics"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K7 ["Components"]
+  GETTABLEKS R4 R5 K8 ["SearchBox"]
+  GETTABLEKS R3 R4 K9 ["Dropdown"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Parent"]
+  GETTABLEKS R4 R5 K11 ["Framework"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K12 ["Util"]
+  GETTABLEKS R5 R6 K13 ["ImageUrl"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Parent"]
+  GETTABLEKS R6 R7 K14 ["React"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R0 K15 ["RpcTypes"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K7 ["Components"]
+  GETTABLEKS R9 R10 K16 ["Contexts"]
+  GETTABLEKS R8 R9 K17 ["SettingsContext"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K10 ["Parent"]
+  GETTABLEKS R9 R10 K18 ["Signal"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R12 R0 K7 ["Components"]
+  GETTABLEKS R11 R12 K16 ["Contexts"]
+  GETTABLEKS R10 R11 K19 ["ThemeContext"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R12 R0 K20 ["Flags"]
+  GETTABLEKS R11 R12 K21 ["getFFlagExplorerNewCheckBoxIcons"]
+  CALL R10 1 1
+  GETTABLEKS R11 R5 K22 ["createElement"]
+  DUPCLOSURE R12 K23 [PROTO_6]
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R4
+  CAPTURE VAL R11
+  CAPTURE VAL R2
+  RETURN R12 1

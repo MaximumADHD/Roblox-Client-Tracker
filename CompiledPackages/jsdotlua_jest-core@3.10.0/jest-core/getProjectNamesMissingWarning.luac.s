@@ -1,0 +1,118 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["toJSBoolean"]
+  GETUPVAL R3 1
+  MOVE R4 R0
+  CALL R3 1 -1
+  CALL R2 -1 1
+  NOT R1 R2
+  RETURN R1 1
+
+PROTO_1:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["filter"]
+  MOVE R4 R0
+  DUPCLOSURE R5 K1 [PROTO_0]
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CALL R3 2 1
+  LENGTH R2 R3
+  JUMPIFNOTEQKN R2 K2 [0] [+3]
+  LOADNIL R3
+  RETURN R3 1
+  NEWTABLE R3 0 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["toJSBoolean"]
+  GETTABLEKS R5 R1 K4 ["selectProjects"]
+  CALL R4 1 1
+  JUMPIFNOT R4 [+7]
+  FASTCALL2K TABLE_INSERT R3 K5 [+5]
+  MOVE R5 R3
+  LOADK R6 K5 ["--selectProjects"]
+  GETIMPORT R4 K8 [table.insert]
+  CALL R4 2 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K3 ["toJSBoolean"]
+  GETTABLEKS R5 R1 K9 ["ignoreProjects"]
+  CALL R4 1 1
+  JUMPIFNOT R4 [+7]
+  FASTCALL2K TABLE_INSERT R3 K10 [+5]
+  MOVE R5 R3
+  LOADK R6 K10 ["--ignoreProjects"]
+  GETIMPORT R4 K8 [table.insert]
+  CALL R4 2 0
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K11 ["yellow"]
+  LOADK R8 K12 ["You provided values for %s but %s.
+"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K13 ["join"]
+  MOVE R12 R3
+  LOADK R13 K14 [" and "]
+  CALL R11 2 -1
+  FASTCALL TOSTRING [+2]
+  GETIMPORT R10 K16 [tostring]
+  CALL R10 -1 1
+  JUMPIFNOTEQKN R2 K17 [1] [+3]
+  LOADK R11 K18 ["a project does not have a name"]
+  JUMP [+9]
+  LOADK R11 K19 ["%s projects do not have a name"]
+  FASTCALL1 TOSTRING R2 [+3]
+  MOVE R14 R2
+  GETIMPORT R13 K16 [tostring]
+  CALL R13 1 1
+  NAMECALL R11 R11 K20 ["format"]
+  CALL R11 2 1
+  NAMECALL R8 R8 K20 ["format"]
+  CALL R8 3 1
+  MOVE R6 R8
+  LOADK R7 K21 ["Set displayName in the config of all projects in order to disable this warning.
+"]
+  CONCAT R5 R6 R7
+  CALL R4 1 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K4 ["Parent"]
+  LOADK R3 K5 ["luau-polyfill"]
+  NAMECALL R1 R1 K6 ["WaitForChild"]
+  CALL R1 2 -1
+  CALL R0 -1 1
+  GETTABLEKS R1 R0 K7 ["Array"]
+  GETTABLEKS R2 R0 K8 ["Boolean"]
+  NEWTABLE R3 1 0
+  GETIMPORT R4 K1 [require]
+  GETIMPORT R7 K3 [script]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  LOADK R7 K9 ["chalk"]
+  NAMECALL R5 R5 K6 ["WaitForChild"]
+  CALL R5 2 -1
+  CALL R4 -1 1
+  GETIMPORT R5 K1 [require]
+  GETIMPORT R8 K3 [script]
+  GETTABLEKS R7 R8 K4 ["Parent"]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  LOADK R8 K10 ["jest-types"]
+  NAMECALL R6 R6 K6 ["WaitForChild"]
+  CALL R6 2 -1
+  CALL R5 -1 1
+  GETIMPORT R7 K1 [require]
+  GETIMPORT R9 K3 [script]
+  GETTABLEKS R8 R9 K4 ["Parent"]
+  LOADK R10 K11 ["getProjectDisplayName"]
+  NAMECALL R8 R8 K6 ["WaitForChild"]
+  CALL R8 2 -1
+  CALL R7 -1 1
+  GETTABLEKS R6 R7 K12 ["default"]
+  DUPCLOSURE R7 K13 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  SETTABLEKS R7 R3 K12 ["default"]
+  RETURN R3 1

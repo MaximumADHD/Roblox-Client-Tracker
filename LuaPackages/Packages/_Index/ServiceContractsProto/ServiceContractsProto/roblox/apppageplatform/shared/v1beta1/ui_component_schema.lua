@@ -44,6 +44,8 @@ local _roblox_apppageplatform_shared_v1beta1_info_table_cell = require(script.Pa
 local _roblox_apppageplatform_shared_v1beta1_chip = require(script.Parent.chip)
 local _roblox_apppageplatform_shared_v1beta1_dual_action_chip = require(script.Parent.dual_action_chip)
 local _roblox_apppageplatform_shared_v1beta1_expandable_text = require(script.Parent.expandable_text)
+local _roblox_apppageplatform_shared_v1beta1_associated_items_row = require(script.Parent.associated_items_row)
+local _roblox_apppageplatform_shared_v1beta1_overflow_menu = require(script.Parent.overflow_menu)
 
 type _UiComponentSchemaImpl = {
 	__index: _UiComponentSchemaImpl,
@@ -107,6 +109,11 @@ type _UiComponentSchemaFields = {
 			value: _roblox_apppageplatform_shared_v1beta1_dual_action_chip.DualActionChipSchema,
 		}
 		| { type: "expandable_text", value: _roblox_apppageplatform_shared_v1beta1_expandable_text.ExpandableTextSchema }
+		| {
+			type: "associated_items_row",
+			value: _roblox_apppageplatform_shared_v1beta1_associated_items_row.AssociatedItemsRowSchema,
+		}
+		| { type: "overflow_menu", value: _roblox_apppageplatform_shared_v1beta1_overflow_menu.OverflowMenuSchema }
 	)?,
 }
 
@@ -162,6 +169,11 @@ type _UiComponentSchemaPartialFields = {
 			value: _roblox_apppageplatform_shared_v1beta1_dual_action_chip.DualActionChipSchema,
 		}
 		| { type: "expandable_text", value: _roblox_apppageplatform_shared_v1beta1_expandable_text.ExpandableTextSchema }
+		| {
+			type: "associated_items_row",
+			value: _roblox_apppageplatform_shared_v1beta1_associated_items_row.AssociatedItemsRowSchema,
+		}
+		| { type: "overflow_menu", value: _roblox_apppageplatform_shared_v1beta1_overflow_menu.OverflowMenuSchema }
 	)?,
 }
 
@@ -310,6 +322,14 @@ do
 			elseif self.kind.type == "expandable_text" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 32, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "associated_items_row" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 33, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "overflow_menu" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 34, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -601,6 +621,24 @@ do
 						),
 					}
 					continue
+				elseif field == 33 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "associated_items_row",
+						value = _roblox_apppageplatform_shared_v1beta1_associated_items_row.AssociatedItemsRowSchema.decode(
+							value
+						),
+					}
+					continue
+				elseif field == 34 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "overflow_menu",
+						value = _roblox_apppageplatform_shared_v1beta1_overflow_menu.OverflowMenuSchema.decode(value),
+					}
+					continue
 				end
 
 				local length
@@ -693,6 +731,10 @@ do
 				output.dualActionChip = self.kind.value:jsonEncode()
 			elseif self.kind.type == "expandable_text" then
 				output.expandableText = self.kind.value:jsonEncode()
+			elseif self.kind.type == "associated_items_row" then
+				output.associatedItemsRow = self.kind.value:jsonEncode()
+			elseif self.kind.type == "overflow_menu" then
+				output.overflowMenu = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -1147,6 +1189,42 @@ do
 				type = "expandable_text",
 				value = _roblox_apppageplatform_shared_v1beta1_expandable_text.ExpandableTextSchema.jsonDecode(
 					input.expandableText
+				),
+			}
+		end
+
+		if input.associated_items_row ~= nil then
+			self.kind = {
+				type = "associated_items_row",
+				value = _roblox_apppageplatform_shared_v1beta1_associated_items_row.AssociatedItemsRowSchema.jsonDecode(
+					input.associated_items_row
+				),
+			}
+		end
+
+		if input.associatedItemsRow ~= nil then
+			self.kind = {
+				type = "associated_items_row",
+				value = _roblox_apppageplatform_shared_v1beta1_associated_items_row.AssociatedItemsRowSchema.jsonDecode(
+					input.associatedItemsRow
+				),
+			}
+		end
+
+		if input.overflow_menu ~= nil then
+			self.kind = {
+				type = "overflow_menu",
+				value = _roblox_apppageplatform_shared_v1beta1_overflow_menu.OverflowMenuSchema.jsonDecode(
+					input.overflow_menu
+				),
+			}
+		end
+
+		if input.overflowMenu ~= nil then
+			self.kind = {
+				type = "overflow_menu",
+				value = _roblox_apppageplatform_shared_v1beta1_overflow_menu.OverflowMenuSchema.jsonDecode(
+					input.overflowMenu
 				),
 			}
 		end

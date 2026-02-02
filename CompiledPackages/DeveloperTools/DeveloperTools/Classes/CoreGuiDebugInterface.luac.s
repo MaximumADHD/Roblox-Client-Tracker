@@ -1,0 +1,91 @@
+PROTO_0:
+  GETUPVAL R0 0
+  DUPTABLE R2 K3 [{"rootInstance", "pickerParent", "rootPath"}]
+  GETUPVAL R3 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K0 ["rootInstance"]
+  LOADN R6 10
+  NAMECALL R3 R3 K4 ["WaitForChild"]
+  CALL R3 3 1
+  SETTABLEKS R3 R2 K0 ["rootInstance"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K1 ["pickerParent"]
+  JUMPIFNOT R4 [+9]
+  GETUPVAL R3 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K1 ["pickerParent"]
+  LOADN R6 10
+  NAMECALL R3 R3 K4 ["WaitForChild"]
+  CALL R3 3 1
+  JUMPIF R3 [+1]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K1 ["pickerParent"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["rootPath"]
+  JUMPIF R3 [+7]
+  NEWTABLE R3 0 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K0 ["rootInstance"]
+  SETLIST R3 R4 1 [1]
+  SETTABLEKS R3 R2 K2 ["rootPath"]
+  NAMECALL R0 R0 K5 ["setGuiOptions"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  GETUPVAL R3 1
+  CALL R2 1 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K0 ["new"]
+  LOADK R4 K1 ["CoreGui"]
+  MOVE R5 R0
+  NEWTABLE R6 0 1
+  MOVE R7 R2
+  SETLIST R6 R7 1 [1]
+  CALL R3 3 1
+  JUMPIFNOT R1 [+8]
+  GETIMPORT R4 K3 [spawn]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R3
+  CAPTURE UPVAL U1
+  CAPTURE VAL R1
+  CALL R4 1 0
+  RETURN R3 1
+  DUPTABLE R6 K7 [{"rootInstance", "pickerParent", "rootPath"}]
+  GETUPVAL R7 1
+  SETTABLEKS R7 R6 K4 ["rootInstance"]
+  GETUPVAL R7 1
+  SETTABLEKS R7 R6 K5 ["pickerParent"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K6 ["rootPath"]
+  NAMECALL R4 R3 K8 ["setGuiOptions"]
+  CALL R4 2 0
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["Classes"]
+  GETTABLEKS R2 R3 K6 ["BindableEventBridge"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["Classes"]
+  GETTABLEKS R3 R4 K7 ["DebugInterface"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [game]
+  LOADK R5 K10 ["CoreGui"]
+  NAMECALL R3 R3 K11 ["GetService"]
+  CALL R3 2 1
+  LOADK R6 K12 ["CoreGuiDebugInterface"]
+  DUPCLOSURE R7 K13 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  NAMECALL R4 R2 K14 ["extend"]
+  CALL R4 3 1
+  RETURN R4 1

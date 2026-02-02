@@ -35,8 +35,6 @@ function LocalActionsView:init()
 			OnScreenMicroProfilerVisible = GameSettings.OnScreenProfilerEnabled,
 		})
 	end)
-
-	self.onScreenMpCheckboxRef = Roact.createRef()
 end
 
 function LocalActionsView:willUnmount()
@@ -56,13 +54,6 @@ function LocalActionsView:toggleOnScreenMicroProfiler(visible: boolean)
 		{ customFields = { visible = `{visible}` } },
 		1
 	)
-end
-
-function LocalActionsView:didUpdate()
-	-- Ensure that the checkbox reflects the current state
-	self.onScreenMpCheckboxRef.current:setState({
-		IsSelected = self.state.OnScreenMicroProfilerVisible,
-	})
 end
 
 function LocalActionsView:render()
@@ -124,8 +115,6 @@ function LocalActionsView:render()
 								OnSelectedStateChanged = function(_, isSelected: boolean)
 									self:toggleOnScreenMicroProfiler(isSelected)
 								end,
-
-								[Roact.Ref] = self.onScreenMpCheckboxRef,
 							}),
 						}),
 					},

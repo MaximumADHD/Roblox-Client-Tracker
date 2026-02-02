@@ -1,0 +1,83 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["toJSBoolean"]
+  GETTABLEKS R3 R1 K1 ["passWithNoTests"]
+  CALL R2 1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["toJSBoolean"]
+  GETTABLEKS R4 R1 K1 ["passWithNoTests"]
+  CALL R3 1 1
+  JUMPIFNOT R3 [+8]
+  DUPTABLE R3 K4 [{"exitWith0", "message"}]
+  SETTABLEKS R2 R3 K2 ["exitWith0"]
+  GETUPVAL R4 1
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K3 ["message"]
+  RETURN R3 1
+  DUPTABLE R3 K4 [{"exitWith0", "message"}]
+  SETTABLEKS R2 R3 K2 ["exitWith0"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["toJSBoolean"]
+  LOADB R6 1
+  LENGTH R7 R0
+  JUMPIFEQKN R7 K5 [1] [+3]
+  GETTABLEKS R6 R1 K6 ["verbose"]
+  CALL R5 1 1
+  JUMPIFNOT R5 [+6]
+  GETUPVAL R4 2
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  JUMP [+5]
+  GETUPVAL R4 3
+  MOVE R5 R0
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  SETTABLEKS R4 R3 K3 ["message"]
+  RETURN R3 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["LuauPolyfill"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K6 ["Boolean"]
+  NEWTABLE R3 1 0
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R5 R0 K7 ["JestTypes"]
+  CALL R4 1 1
+  GETIMPORT R6 K4 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K2 ["Parent"]
+  GETTABLEKS R7 R8 K8 ["getNoTestFound"]
+  CALL R6 1 1
+  GETTABLEKS R5 R6 K9 ["default"]
+  GETIMPORT R7 K4 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K2 ["Parent"]
+  GETTABLEKS R8 R9 K10 ["getNoTestFoundPassWithNoTests"]
+  CALL R7 1 1
+  GETTABLEKS R6 R7 K9 ["default"]
+  GETIMPORT R8 K4 [require]
+  GETIMPORT R11 K1 [script]
+  GETTABLEKS R10 R11 K2 ["Parent"]
+  GETTABLEKS R9 R10 K11 ["getNoTestFoundVerbose"]
+  CALL R8 1 1
+  GETTABLEKS R7 R8 K9 ["default"]
+  GETIMPORT R8 K4 [require]
+  GETIMPORT R11 K1 [script]
+  GETTABLEKS R10 R11 K2 ["Parent"]
+  GETTABLEKS R9 R10 K12 ["types"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K13 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  SETTABLEKS R9 R3 K9 ["default"]
+  RETURN R3 1

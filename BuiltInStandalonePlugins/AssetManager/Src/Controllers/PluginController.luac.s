@@ -180,7 +180,7 @@ PROTO_5:
   MOVE R10 R6
   CALL R8 2 1
   SETTABLEKS R8 R7 K4 ["Uid"]
-  DUPTABLE R8 K32 [{"_isMock", "_networking", "_localization", "_plugin", "_user", "_gameInfo", "_rootPlace", "_stagedPlace", "_currentScope", "_connections", "OnUsernameFetched", "OnGameInfoFetched", "OnCurrentScopeChanged", "OnConfirmRemovePlaceChanged", "OnRenamePlaceIdChanged", "OnNewAssetFetched"}]
+  DUPTABLE R8 K34 [{"_isMock", "_networking", "_localization", "_plugin", "_user", "_gameInfo", "_rootPlace", "_stagedPlace", "_currentScope", "_quickShareAssetIds", "_connections", "OnUsernameFetched", "OnGameInfoFetched", "OnCurrentScopeChanged", "OnConfirmRemovePlaceChanged", "OnRenamePlaceIdChanged", "OnNewAssetFetched", "OnQuickShareChanged"}]
   SETTABLEKS R3 R8 K16 ["_isMock"]
   SETTABLEKS R1 R8 K17 ["_networking"]
   SETTABLEKS R2 R8 K18 ["_localization"]
@@ -193,40 +193,46 @@ PROTO_5:
   SETTABLEKS R9 R8 K23 ["_stagedPlace"]
   SETTABLEKS R5 R8 K24 ["_currentScope"]
   NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K25 ["_connections"]
+  SETTABLEKS R9 R8 K25 ["_quickShareAssetIds"]
+  NEWTABLE R9 0 0
+  SETTABLEKS R9 R8 K26 ["_connections"]
   GETUPVAL R10 3
-  GETTABLEKS R9 R10 K33 ["new"]
+  GETTABLEKS R9 R10 K35 ["new"]
   CALL R9 0 1
-  SETTABLEKS R9 R8 K26 ["OnUsernameFetched"]
+  SETTABLEKS R9 R8 K27 ["OnUsernameFetched"]
   GETUPVAL R10 3
-  GETTABLEKS R9 R10 K33 ["new"]
+  GETTABLEKS R9 R10 K35 ["new"]
   CALL R9 0 1
-  SETTABLEKS R9 R8 K27 ["OnGameInfoFetched"]
+  SETTABLEKS R9 R8 K28 ["OnGameInfoFetched"]
   GETUPVAL R10 3
-  GETTABLEKS R9 R10 K33 ["new"]
+  GETTABLEKS R9 R10 K35 ["new"]
   CALL R9 0 1
-  SETTABLEKS R9 R8 K28 ["OnCurrentScopeChanged"]
+  SETTABLEKS R9 R8 K29 ["OnCurrentScopeChanged"]
   GETUPVAL R10 3
-  GETTABLEKS R9 R10 K33 ["new"]
+  GETTABLEKS R9 R10 K35 ["new"]
   CALL R9 0 1
-  SETTABLEKS R9 R8 K29 ["OnConfirmRemovePlaceChanged"]
+  SETTABLEKS R9 R8 K30 ["OnConfirmRemovePlaceChanged"]
   GETUPVAL R10 3
-  GETTABLEKS R9 R10 K33 ["new"]
+  GETTABLEKS R9 R10 K35 ["new"]
   CALL R9 0 1
-  SETTABLEKS R9 R8 K30 ["OnRenamePlaceIdChanged"]
+  SETTABLEKS R9 R8 K31 ["OnRenamePlaceIdChanged"]
   GETUPVAL R10 3
-  GETTABLEKS R9 R10 K33 ["new"]
+  GETTABLEKS R9 R10 K35 ["new"]
   CALL R9 0 1
-  SETTABLEKS R9 R8 K31 ["OnNewAssetFetched"]
+  SETTABLEKS R9 R8 K32 ["OnNewAssetFetched"]
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K35 ["new"]
+  CALL R9 0 1
+  SETTABLEKS R9 R8 K33 ["OnQuickShareChanged"]
   GETUPVAL R11 4
   FASTCALL2 SETMETATABLE R8 R11 [+4]
   MOVE R10 R8
-  GETIMPORT R9 K35 [setmetatable]
+  GETIMPORT R9 K37 [setmetatable]
   CALL R9 2 0
   JUMPIFEQKN R6 K11 [0] [+4]
-  NAMECALL R9 R8 K36 ["refreshUniverseInfo"]
+  NAMECALL R9 R8 K38 ["refreshUniverseInfo"]
   CALL R9 1 0
-  GETTABLEKS R10 R8 K25 ["_connections"]
+  GETTABLEKS R10 R8 K26 ["_connections"]
   GETTABLEKS R11 R8 K19 ["_plugin"]
   LOADK R13 K12 ["GameId"]
   NEWCLOSURE R14 P0
@@ -234,53 +240,53 @@ PROTO_5:
   CAPTURE VAL R2
   CAPTURE UPVAL U1
   CAPTURE UPVAL U2
-  NAMECALL R11 R11 K37 ["OnSetItem"]
+  NAMECALL R11 R11 K39 ["OnSetItem"]
   CALL R11 3 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R9 K40 [table.insert]
+  GETIMPORT R9 K42 [table.insert]
   CALL R9 -1 0
   NEWCLOSURE R11 P1
   CAPTURE UPVAL U5
   CAPTURE VAL R2
   CAPTURE VAL R8
-  NAMECALL R9 R1 K41 ["fetchUsername"]
+  NAMECALL R9 R1 K43 ["fetchUsername"]
   CALL R9 2 0
   GETUPVAL R9 6
   CALL R9 0 1
   JUMPIF R9 [+14]
-  GETTABLEKS R10 R8 K25 ["_connections"]
+  GETTABLEKS R10 R8 K26 ["_connections"]
   GETTABLEKS R11 R8 K19 ["_plugin"]
-  LOADK R13 K42 ["BulkImportAssetImported"]
+  LOADK R13 K44 ["BulkImportAssetImported"]
   NEWCLOSURE R14 P2
   CAPTURE VAL R8
-  NAMECALL R11 R11 K43 ["OnInvoke"]
+  NAMECALL R11 R11 K45 ["OnInvoke"]
   CALL R11 3 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R9 K40 [table.insert]
+  GETIMPORT R9 K42 [table.insert]
   CALL R9 -1 0
-  GETTABLEKS R10 R8 K25 ["_connections"]
+  GETTABLEKS R10 R8 K26 ["_connections"]
   GETUPVAL R11 7
-  LOADK R13 K44 ["AssetsUploaded"]
+  LOADK R13 K46 ["AssetsUploaded"]
   NEWCLOSURE R14 P3
   CAPTURE UPVAL U8
   CAPTURE UPVAL U5
   CAPTURE UPVAL U9
   CAPTURE VAL R8
-  NAMECALL R11 R11 K45 ["Bind"]
+  NAMECALL R11 R11 K47 ["Bind"]
   CALL R11 3 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R9 K40 [table.insert]
+  GETIMPORT R9 K42 [table.insert]
   CALL R9 -1 0
-  GETTABLEKS R10 R8 K25 ["_connections"]
+  GETTABLEKS R10 R8 K26 ["_connections"]
   GETTABLEKS R11 R8 K19 ["_plugin"]
   LOADK R13 K12 ["GameId"]
   NEWCLOSURE R14 P4
   CAPTURE VAL R8
   CAPTURE UPVAL U1
-  NAMECALL R11 R11 K37 ["OnSetItem"]
+  NAMECALL R11 R11 K39 ["OnSetItem"]
   CALL R11 3 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R9 K40 [table.insert]
+  GETIMPORT R9 K42 [table.insert]
   CALL R9 -1 0
   RETURN R8 1
 
@@ -311,11 +317,13 @@ PROTO_7:
   SETTABLEKS R1 R0 K6 ["OnConfirmRemovePlaceChanged"]
   LOADNIL R1
   SETTABLEKS R1 R0 K7 ["OnRenamePlaceIdChanged"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K8 ["OnQuickShareChanged"]
   GETUPVAL R1 0
-  GETTABLEKS R2 R0 K8 ["_connections"]
+  GETTABLEKS R2 R0 K9 ["_connections"]
   CALL R1 1 0
   LOADNIL R1
-  SETTABLEKS R1 R0 K8 ["_connections"]
+  SETTABLEKS R1 R0 K9 ["_connections"]
   RETURN R0 0
 
 PROTO_8:
@@ -566,6 +574,18 @@ PROTO_28:
   CALL R2 2 0
   RETURN R0 0
 
+PROTO_29:
+  SETTABLEKS R1 R0 K0 ["_quickShareAssetIds"]
+  GETTABLEKS R2 R0 K1 ["OnQuickShareChanged"]
+  MOVE R4 R1
+  NAMECALL R2 R2 K2 ["Fire"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_30:
+  GETTABLEKS R1 R0 K0 ["_quickShareAssetIds"]
+  RETURN R1 1
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [game]
@@ -686,4 +706,8 @@ MAIN:
   SETTABLEKS R17 R16 K65 ["stagePlaceForRename"]
   DUPCLOSURE R17 K66 [PROTO_28]
   SETTABLEKS R17 R16 K67 ["renamePlace"]
+  DUPCLOSURE R17 K68 [PROTO_29]
+  SETTABLEKS R17 R16 K69 ["setQuickShareAssetIds"]
+  DUPCLOSURE R17 K70 [PROTO_30]
+  SETTABLEKS R17 R16 K71 ["getQuickShareAssetIds"]
   RETURN R16 1

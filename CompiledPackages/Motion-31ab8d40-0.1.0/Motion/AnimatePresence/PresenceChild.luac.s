@@ -1,0 +1,123 @@
+PROTO_0:
+  NEWTABLE R0 0 0
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  LOADB R2 1
+  SETTABLE R2 R1 R0
+  LOADB R1 1
+  GETIMPORT R2 K1 [pairs]
+  GETUPVAL R3 0
+  CALL R2 1 3
+  FORGPREP_NEXT R2
+  JUMPIF R6 [+2]
+  LOADB R1 0
+  JUMP [+2]
+  FORGLOOP R2 2 [-4]
+  JUMPIFNOT R1 [+4]
+  GETUPVAL R2 1
+  JUMPIFNOT R2 [+2]
+  GETUPVAL R2 1
+  CALL R2 0 0
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["children"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R2 R0 K0 ["children"]
+  FASTCALL1 TYPEOF R2 [+2]
+  GETIMPORT R1 K2 [typeof]
+  CALL R1 1 1
+  JUMPIFNOTEQKS R1 K3 ["string"] [+5]
+  GETIMPORT R1 K5 [error]
+  LOADK R2 K6 ["PresenceChild: children must be a React.Element"]
+  CALL R1 1 0
+  GETTABLEKS R2 R0 K0 ["children"]
+  GETTABLEKS R1 R2 K7 ["type"]
+  JUMPIF R1 [+4]
+  GETIMPORT R1 K5 [error]
+  LOADK R2 K6 ["PresenceChild: children must be a React.Element"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K8 ["onExitComplete"]
+  JUMPIFNOT R1 [+17]
+  GETTABLEKS R2 R0 K8 ["onExitComplete"]
+  FASTCALL1 TYPEOF R2 [+2]
+  GETIMPORT R1 K2 [typeof]
+  CALL R1 1 1
+  JUMPIFEQKS R1 K9 ["function"] [+10]
+  GETTABLEKS R2 R0 K8 ["onExitComplete"]
+  GETTABLEKS R1 R2 K10 ["_isMockFunction"]
+  JUMPIF R1 [+4]
+  GETIMPORT R1 K5 [error]
+  LOADK R2 K11 ["PresenceChild: onExitComplete must be a function"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K0 ["children"]
+  GETTABLEKS R2 R0 K12 ["isPresent"]
+  GETTABLEKS R3 R0 K8 ["onExitComplete"]
+  GETTABLEKS R4 R0 K13 ["passThroughData"]
+  GETTABLEKS R5 R0 K14 ["presenceId"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K15 ["useRef"]
+  NEWTABLE R7 0 0
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K16 ["current"]
+  MOVE R8 R5
+  JUMPIF R8 [+2]
+  GETUPVAL R8 1
+  CALL R8 0 1
+  NEWCLOSURE R9 P0
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  JUMPIFNOTEQKB R2 FALSE [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  DUPTABLE R11 K18 [{"id", "isPresent", "passThroughData", "onExitComplete"}]
+  SETTABLEKS R8 R11 K17 ["id"]
+  SETTABLEKS R10 R11 K12 ["isPresent"]
+  SETTABLEKS R4 R11 K13 ["passThroughData"]
+  SETTABLEKS R9 R11 K8 ["onExitComplete"]
+  JUMPIFEQKNIL R2 [+10]
+  GETIMPORT R12 K20 [pairs]
+  MOVE R13 R7
+  CALL R12 1 3
+  FORGPREP_NEXT R12
+  LOADB R17 0
+  SETTABLE R17 R7 R15
+  FORGLOOP R12 2 [-3]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K21 ["createElement"]
+  GETUPVAL R14 2
+  GETTABLEKS R13 R14 K22 ["Provider"]
+  DUPTABLE R14 K24 [{"value"}]
+  SETTABLEKS R11 R14 K23 ["value"]
+  MOVE R15 R1
+  CALL R12 3 -1
+  RETURN R12 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R1 K5 ["React"]
+  CALL R2 1 1
+  GETIMPORT R4 K4 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K2 ["Parent"]
+  GETTABLEKS R5 R6 K6 ["utils"]
+  CALL R4 1 1
+  GETTABLEKS R3 R4 K7 ["useIdFallback"]
+  GETIMPORT R4 K4 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K2 ["Parent"]
+  GETTABLEKS R5 R6 K8 ["PresenceContext"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K9 [PROTO_0]
+  DUPCLOSURE R6 K10 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  RETURN R6 1

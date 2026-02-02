@@ -14,7 +14,7 @@ local SettingsServiceLib = require(CorePackages.Workspace.Packages.SettingsServi
 local ValueChangedSignal = SettingsServiceLib.ValueChangedSignal
 local AvailabilitySignal = SettingsServiceLib.AvailabilitySignal
 local VisibilitySignal = SettingsServiceLib.VisibilitySignal
-local FieldType = SettingsServiceLib.FieldType
+local SettingEnum = SettingsServiceLib.SettingEnum
 local Constants = require(Settings.Integrations.Constants)
 local LocalPlayer = Players.LocalPlayer
 
@@ -76,9 +76,9 @@ local value = ShiftLockValue()
 local visible = VisibilitySignal.new(true)
 local available = ShiftLockAvailability(value, visible)
 
-local ShiftLockConfig: SettingsServiceLib.ToggleRegisterConfig = {
+local ShiftLockConfig = {
 	id = 'shift-lock',
-	field_type = FieldType.Toggle,
+	field_type = SettingEnum.Toggle,
 	label = "CoreScripts.InGameMenu.GameSettings.ShiftLock",
 	alreadyLocalized = false,
 	onChanged = value,

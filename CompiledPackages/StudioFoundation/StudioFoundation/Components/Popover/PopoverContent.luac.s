@@ -1,0 +1,61 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["use"]
+  CALL R1 0 1
+  NAMECALL R1 R1 K1 ["get"]
+  CALL R1 1 1
+  GETTABLEKS R2 R0 K2 ["isOpen"]
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R2 R0 K3 ["panel"]
+  JUMPIF R2 [+2]
+  LOADNIL R2
+  RETURN R2 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["createPortal"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K5 ["createElement"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K6 ["Fragment"]
+  LOADNIL R5
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K5 ["createElement"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K6 ["Fragment"]
+  LOADNIL R8
+  GETTABLEKS R9 R0 K7 ["children"]
+  CALL R6 3 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K5 ["createElement"]
+  LOADK R8 K8 ["StyleLink"]
+  DUPTABLE R9 K10 [{"StyleSheet"}]
+  SETTABLEKS R1 R9 K9 ["StyleSheet"]
+  CALL R7 2 -1
+  CALL R3 -1 1
+  GETTABLEKS R5 R0 K3 ["panel"]
+  GETTABLEKS R4 R5 K11 ["container"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["StudioFoundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["ReactRoblox"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K9 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K10 ["ContextServices"]
+  GETTABLEKS R6 R5 K11 ["Design"]
+  DUPCLOSURE R7 K12 [PROTO_0]
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  RETURN R7 1

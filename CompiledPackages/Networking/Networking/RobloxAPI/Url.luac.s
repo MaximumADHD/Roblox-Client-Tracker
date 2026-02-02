@@ -1,0 +1,501 @@
+PROTO_0:
+  LENGTH R3 R0
+  NAMECALL R1 R0 K0 ["sub"]
+  CALL R1 2 1
+  JUMPIFEQKS R1 K1 ["/"] [+4]
+  MOVE R1 R0
+  LOADK R2 K1 ["/"]
+  CONCAT R0 R1 R2
+  LOADK R3 K2 ["://"]
+  NAMECALL R1 R0 K3 ["find"]
+  CALL R1 2 2
+  LOADK R5 K4 ["%."]
+  ADDK R6 R2 K5 [1]
+  NAMECALL R3 R0 K3 ["find"]
+  CALL R3 3 2
+  ADDK R7 R2 K5 [1]
+  SUBK R8 R3 K5 [1]
+  NAMECALL R5 R0 K0 ["sub"]
+  CALL R5 3 1
+  ADDK R8 R4 K5 [1]
+  NAMECALL R6 R0 K0 ["sub"]
+  CALL R6 2 1
+  MOVE R7 R0
+  MOVE R8 R5
+  MOVE R9 R6
+  RETURN R7 3
+
+PROTO_1:
+  JUMPIFNOT R0 [+16]
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K1 [type]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K2 ["string"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K3 [+4]
+  LOADK R3 K3 ["Expected baseUrl to be a string"]
+  GETIMPORT R1 K5 [assert]
+  CALL R1 2 0
+  JUMP [+3]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K6 ["BaseUrl"]
+  GETUPVAL R1 1
+  MOVE R2 R0
+  CALL R1 1 3
+  DUPTABLE R4 K31 [{"BASE_URL", "API_URL", "APIS_URL", "ASSET_GAME_URL", "AUTH_URL", "CATALOG_URL", "CHAT_URL", "CREATOR_HUB_URL", "DATA_URL", "DEVELOP_URL", "GAMES_INTERNATIONALIZATION_URL", "GAME_JOIN_URL", "GAMES_URL", "GROUPS_URL", "INVENTORY_URL", "ITEM_CONFIGURATION_URL", "LOCALE_URL", "LOCALIZATION_TABLES_URL", "NOTIFICATIONS_URL", "PUBLISH_URL", "REALTIME_URL", "THUMBNAILS_URL", "TRANSLATION_ROLES_URL", "WEB_URL"}]
+  SETTABLEKS R1 R4 K7 ["BASE_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K34 ["https://api.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K8 ["API_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K35 ["https://apis.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K9 ["APIS_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K36 ["https://assetgame.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K10 ["ASSET_GAME_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K37 ["https://auth.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K11 ["AUTH_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K38 ["https://catalog.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K12 ["CATALOG_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K39 ["https://chat.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K13 ["CHAT_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K40 ["https://create.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K14 ["CREATOR_HUB_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K41 ["https://data.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K15 ["DATA_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K42 ["https://develop.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K16 ["DEVELOP_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K43 ["https://gameinternationalization.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K17 ["GAMES_INTERNATIONALIZATION_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K44 ["https://gamejoin.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K18 ["GAME_JOIN_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K45 ["https://games.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K19 ["GAMES_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K46 ["https://groups.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K20 ["GROUPS_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K47 ["https://inventory.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K21 ["INVENTORY_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K48 ["https://itemconfiguration.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K22 ["ITEM_CONFIGURATION_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K49 ["https://locale.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K23 ["LOCALE_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K50 ["https://localizationtables.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K24 ["LOCALIZATION_TABLES_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K51 ["https://notifications.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K25 ["NOTIFICATIONS_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K52 ["https://publish.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K26 ["PUBLISH_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K53 ["https://realtime.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K27 ["REALTIME_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K54 ["https://thumbnails.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K28 ["THUMBNAILS_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K55 ["https://translationroles.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K29 ["TRANSLATION_ROLES_URL"]
+  GETIMPORT R5 K33 [string.format]
+  LOADK R6 K56 ["https://web.%s"]
+  MOVE R7 R3
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K30 ["WEB_URL"]
+  GETUPVAL R7 2
+  FASTCALL2 SETMETATABLE R4 R7 [+4]
+  MOVE R6 R4
+  GETIMPORT R5 K58 [setmetatable]
+  CALL R5 2 0
+  RETURN R4 1
+
+PROTO_2:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R6 R0
+  GETIMPORT R5 K1 [type]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K2 ["string"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K3 [+4]
+  LOADK R5 K3 ["Expected 'base' to be a string."]
+  GETIMPORT R3 K5 [assert]
+  CALL R3 2 0
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R6 R1
+  GETIMPORT R5 K1 [type]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K2 ["string"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K6 [+4]
+  LOADK R5 K6 ["Expected 'path' to be a string."]
+  GETIMPORT R3 K5 [assert]
+  CALL R3 2 0
+  JUMPIFNOT R2 [+33]
+  FASTCALL1 TYPE R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K1 [type]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K7 ["table"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K8 [+4]
+  LOADK R5 K8 ["Expected 'args' to be a map."]
+  GETIMPORT R3 K5 [assert]
+  CALL R3 2 0
+  GETIMPORT R6 K10 [next]
+  MOVE R7 R2
+  CALL R6 1 1
+  FASTCALL1 TYPE R6 [+2]
+  GETIMPORT R5 K1 [type]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K2 ["string"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K11 [+4]
+  LOADK R5 K11 ["Expected 'args' to be map, not an array."]
+  GETIMPORT R3 K5 [assert]
+  CALL R3 2 0
+  LENGTH R5 R0
+  NAMECALL R3 R0 K12 ["sub"]
+  CALL R3 2 1
+  JUMPIFEQKS R3 K13 ["/"] [+4]
+  MOVE R3 R0
+  LOADK R4 K13 ["/"]
+  CONCAT R0 R3 R4
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K14 ["makeQueryString"]
+  MOVE R4 R2
+  CALL R3 1 1
+  GETIMPORT R4 K16 [string.format]
+  LOADK R5 K17 ["%s%s%s"]
+  MOVE R6 R0
+  MOVE R7 R1
+  MOVE R8 R3
+  CALL R4 4 -1
+  RETURN R4 -1
+
+PROTO_3:
+  LOADK R2 K0 [""]
+  JUMPIF R0 [+1]
+  RETURN R2 1
+  NEWTABLE R3 0 0
+  GETIMPORT R4 K2 [pairs]
+  MOVE R5 R0
+  CALL R4 1 3
+  FORGPREP_NEXT R4
+  FASTCALL1 TYPE R8 [+3]
+  MOVE R10 R8
+  GETIMPORT R9 K4 [type]
+  CALL R9 1 1
+  JUMPIFNOTEQKS R9 K5 ["userdata"] [+10]
+  GETIMPORT R9 K7 [error]
+  GETIMPORT R10 K10 [string.format]
+  LOADK R11 K11 ["Userdata values are not supported as arguments. Please update argument : %s"]
+  MOVE R12 R7
+  CALL R10 2 -1
+  CALL R9 -1 0
+  JUMP [+162]
+  FASTCALL1 TYPE R8 [+3]
+  MOVE R10 R8
+  GETIMPORT R9 K4 [type]
+  CALL R9 1 1
+  JUMPIFNOTEQKS R9 K12 ["table"] [+83]
+  LENGTH R9 R8
+  JUMPIFNOTEQKN R9 K13 [0] [+16]
+  GETIMPORT R9 K15 [next]
+  MOVE R10 R8
+  CALL R9 1 1
+  JUMPIFEQKNIL R9 [+10]
+  GETIMPORT R9 K7 [error]
+  GETIMPORT R10 K10 [string.format]
+  LOADK R11 K16 ["Nested maps as arguments are not supported. Please update argument : %s"]
+  MOVE R12 R7
+  CALL R10 2 -1
+  CALL R9 -1 0
+  JUMP [+137]
+  LENGTH R9 R8
+  JUMPIFNOTEQKN R9 K13 [0] [+10]
+  GETIMPORT R9 K7 [error]
+  GETIMPORT R10 K10 [string.format]
+  LOADK R11 K17 ["Empty arrays are not supported. Please update argument : %s"]
+  MOVE R12 R7
+  CALL R10 2 -1
+  CALL R9 -1 0
+  JUMP [+125]
+  NEWTABLE R9 0 0
+  GETIMPORT R10 K19 [ipairs]
+  MOVE R11 R8
+  CALL R10 1 3
+  FORGPREP_INEXT R10
+  GETUPVAL R15 0
+  JUMPIFNOT R15 [+15]
+  MOVE R16 R9
+  GETUPVAL R17 1
+  FASTCALL1 TOSTRING R14 [+3]
+  MOVE R20 R14
+  GETIMPORT R19 K21 [tostring]
+  CALL R19 1 1
+  NAMECALL R17 R17 K22 ["UrlEncode"]
+  CALL R17 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R15 K24 [table.insert]
+  CALL R15 -1 0
+  JUMP [+10]
+  MOVE R16 R9
+  GETUPVAL R17 1
+  MOVE R19 R14
+  NAMECALL R17 R17 K22 ["UrlEncode"]
+  CALL R17 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R15 K24 [table.insert]
+  CALL R15 -1 0
+  FORGLOOP R10 2 [inext] [-28]
+  MOVE R11 R3
+  GETIMPORT R12 K10 [string.format]
+  LOADK R13 K25 ["%s=%s"]
+  MOVE R14 R7
+  GETIMPORT R15 K27 [table.concat]
+  MOVE R16 R9
+  LOADK R17 K28 [","]
+  CALL R15 2 -1
+  CALL R12 -1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R10 K24 [table.insert]
+  CALL R10 -1 0
+  JUMP [+73]
+  FASTCALL1 TYPE R8 [+3]
+  MOVE R10 R8
+  GETIMPORT R9 K4 [type]
+  CALL R9 1 1
+  JUMPIFNOTEQKS R9 K29 ["boolean"] [+18]
+  FASTCALL1 TOSTRING R8 [+3]
+  MOVE R10 R8
+  GETIMPORT R9 K21 [tostring]
+  CALL R9 1 1
+  MOVE R11 R3
+  GETIMPORT R12 K10 [string.format]
+  LOADK R13 K25 ["%s=%s"]
+  MOVE R14 R7
+  MOVE R15 R9
+  CALL R12 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R10 K24 [table.insert]
+  CALL R10 -1 0
+  JUMP [+49]
+  FASTCALL1 TYPE R8 [+3]
+  MOVE R10 R8
+  GETIMPORT R9 K4 [type]
+  CALL R9 1 1
+  JUMPIFNOTEQKS R9 K30 ["number"] [+22]
+  GETUPVAL R9 1
+  FASTCALL1 TOSTRING R8 [+3]
+  MOVE R12 R8
+  GETIMPORT R11 K21 [tostring]
+  CALL R11 1 1
+  NAMECALL R9 R9 K22 ["UrlEncode"]
+  CALL R9 2 1
+  MOVE R11 R3
+  GETIMPORT R12 K10 [string.format]
+  LOADK R13 K25 ["%s=%s"]
+  MOVE R14 R7
+  MOVE R15 R9
+  CALL R12 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R10 K24 [table.insert]
+  CALL R10 -1 0
+  JUMP [+21]
+  GETUPVAL R9 1
+  MOVE R11 R8
+  NAMECALL R9 R9 K22 ["UrlEncode"]
+  CALL R9 2 1
+  MOVE R8 R9
+  MOVE R10 R3
+  GETIMPORT R11 K10 [string.format]
+  LOADK R12 K25 ["%s=%s"]
+  MOVE R13 R7
+  FASTCALL1 TOSTRING R8 [+3]
+  MOVE R15 R8
+  GETIMPORT R14 K21 [tostring]
+  CALL R14 1 1
+  CALL R11 3 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R9 K24 [table.insert]
+  CALL R9 -1 0
+  FORGLOOP R4 2 [-179]
+  LENGTH R4 R3
+  LOADN R5 0
+  JUMPIFNOTLT R5 R4 [+8]
+  ORK R4 R1 K31 ["?"]
+  GETIMPORT R5 K27 [table.concat]
+  MOVE R6 R3
+  LOADK R7 K32 ["&"]
+  CALL R5 2 1
+  CONCAT R2 R4 R5
+  RETURN R2 1
+
+PROTO_4:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R5 R0
+  GETIMPORT R4 K1 [type]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K2 ["number"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K3 [+4]
+  LOADK R4 K3 ["Expected 'userId' to be a number."]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["new"]
+  CALL R3 0 1
+  GETTABLEKS R2 R3 K7 ["BASE_URL"]
+  JUMPIFNOTEQKN R1 K8 [2] [+9]
+  LOADK R4 K9 ["groups/"]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R6 R0
+  GETIMPORT R5 K11 [tostring]
+  CALL R5 1 1
+  CONCAT R3 R4 R5
+  JUMP [+9]
+  LOADK R4 K12 ["users/"]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R8 R0
+  GETIMPORT R7 K11 [tostring]
+  CALL R7 1 1
+  MOVE R5 R7
+  LOADK R6 K13 ["/profile"]
+  CONCAT R3 R4 R6
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K14 ["composeUrl"]
+  MOVE R5 R2
+  MOVE R6 R3
+  CALL R4 2 -1
+  RETURN R4 -1
+
+PROTO_5:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K1 [type]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K2 ["number"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K3 [+4]
+  LOADK R3 K3 ["Expected 'universeId' to be a number."]
+  GETIMPORT R1 K5 [assert]
+  CALL R1 2 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["new"]
+  CALL R2 0 1
+  GETTABLEKS R1 R2 K7 ["BASE_URL"]
+  LOADK R3 K8 ["games/"]
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R5 R0
+  GETIMPORT R4 K10 [tostring]
+  CALL R4 1 1
+  CONCAT R2 R3 R4
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K11 ["composeUrl"]
+  MOVE R4 R1
+  MOVE R5 R2
+  CALL R3 2 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ContentProvider"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["HttpService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K1 [game]
+  LOADK R4 K5 ["DevFrameworkTostringQueryParams"]
+  LOADB R5 0
+  NAMECALL R2 R2 K6 ["DefineFastFlag"]
+  CALL R2 3 1
+  DUPCLOSURE R3 K7 [PROTO_0]
+  NEWTABLE R4 8 0
+  SETTABLEKS R4 R4 K8 ["__index"]
+  DUPCLOSURE R5 K9 [PROTO_1]
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K10 ["new"]
+  DUPCLOSURE R5 K11 [PROTO_2]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K12 ["composeUrl"]
+  DUPCLOSURE R5 K13 [PROTO_3]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  SETTABLEKS R5 R4 K14 ["makeQueryString"]
+  DUPCLOSURE R5 K15 [PROTO_4]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K16 ["composeUrlToUserProfile"]
+  DUPCLOSURE R5 K17 [PROTO_5]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K18 ["composeUrlToUniverse"]
+  RETURN R4 1

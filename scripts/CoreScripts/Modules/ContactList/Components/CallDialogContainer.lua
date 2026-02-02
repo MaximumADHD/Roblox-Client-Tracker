@@ -1,6 +1,7 @@
 --!strict
 local CoreGui = game:GetService("CoreGui")
 local CorePackages = game:GetService("CorePackages")
+local RunService = game:GetService("RunService")
 
 local React = require(CorePackages.Packages.React)
 local Roact = require(CorePackages.Packages.Roact)
@@ -27,6 +28,8 @@ local ErrorType = require(ContactList.Enums.ErrorType)
 local CloseDialog = require(ContactList.Actions.CloseDialog)
 local useAnalytics = require(ContactList.Analytics.useAnalytics)
 local EventNamesEnum = require(ContactList.Analytics.EventNamesEnum)
+
+local FFlagEnablePlatformNotSupportedError = game:DefineFastFlag("EnablePlatformNotSupportedError", false)
 
 local CALL_DIALOG_DISPLAY_ORDER = 8
 
@@ -139,6 +142,12 @@ local function CallDialogContainer(passedProps: Props)
 					warn("Experience must be at least one week old to place a call")
 				elseif params.errorType == ErrorType.ReservedServerAccessCodeIsNotProvided then
 					warn("Reserved server access code was not provided via OnCallInviteInvoked callback")
+				elseif
+					FFlagEnablePlatformNotSupportedError and params.errorType == ErrorType.PlatformIsNotSupported
+				then
+					if RunService:IsStudio() then
+						warn("Roblox Studio requires Team Test to place a call.")
+					end
 				end
 			end
 		end)

@@ -1,0 +1,923 @@
+PROTO_0:
+  GETUPVAL R3 0
+  CALL R3 0 1
+  NOT R2 R3
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["This function should not be called when long running tool calls are enabled"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETUPVAL R1 1
+  CALL R1 0 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K3 ["toString"]
+  GETTABLEKS R4 R0 K4 ["result"]
+  CALL R3 1 -1
+  NAMECALL R1 R1 K5 ["addText"]
+  CALL R1 -1 1
+  NAMECALL R1 R1 K6 ["build"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R4 0
+  CALL R4 0 1
+  NOT R3 R4
+  FASTCALL2K ASSERT R3 K0 [+4]
+  LOADK R4 K0 ["This function should not be called when long running tool calls are enabled"]
+  GETIMPORT R2 K2 [assert]
+  CALL R2 2 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K3 ["generateToolId"]
+  CALL R2 0 1
+  DUPTABLE R3 K8 [{"type", "id", "name", "input"}]
+  LOADK R4 K9 ["tool_use"]
+  SETTABLEKS R4 R3 K4 ["type"]
+  SETTABLEKS R2 R3 K5 ["id"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K10 ["InsertFromMarketplace"]
+  SETTABLEKS R4 R3 K6 ["name"]
+  DUPTABLE R4 K12 [{"query"}]
+  GETTABLEKS R5 R0 K6 ["name"]
+  SETTABLEKS R5 R4 K11 ["query"]
+  SETTABLEKS R4 R3 K7 ["input"]
+  DUPTABLE R4 K16 [{"type", "id", "name", "content", "startTime", "startTimeAfterConfirmation"}]
+  LOADK R5 K17 ["tool_result"]
+  SETTABLEKS R5 R4 K4 ["type"]
+  SETTABLEKS R2 R4 K5 ["id"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K10 ["InsertFromMarketplace"]
+  SETTABLEKS R5 R4 K6 ["name"]
+  GETUPVAL R9 0
+  CALL R9 0 1
+  NOT R8 R9
+  FASTCALL2K ASSERT R8 K0 [+4]
+  LOADK R9 K0 ["This function should not be called when long running tool calls are enabled"]
+  GETIMPORT R7 K2 [assert]
+  CALL R7 2 0
+  GETUPVAL R6 3
+  CALL R6 0 1
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K18 ["toString"]
+  GETTABLEKS R9 R1 K19 ["result"]
+  CALL R8 1 -1
+  NAMECALL R6 R6 K20 ["addText"]
+  CALL R6 -1 1
+  NAMECALL R6 R6 K21 ["build"]
+  CALL R6 1 1
+  GETTABLEKS R5 R6 K13 ["content"]
+  SETTABLEKS R5 R4 K13 ["content"]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K14 ["startTime"]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K15 ["startTimeAfterConfirmation"]
+  RETURN R3 2
+
+PROTO_2:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["tools"]
+  GETTABLEKS R2 R3 K1 ["marketplaceInsertion"]
+  GETTABLEKS R1 R2 K2 ["getFreeModelsAsync"]
+  MOVE R2 R0
+  LOADN R3 0
+  CALL R1 2 1
+  NEWTABLE R2 0 0
+  GETTABLEN R6 R1 1
+  GETTABLEKS R3 R6 K3 ["Results"]
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  LOADN R8 6
+  JUMPIFLT R8 R6 [+15]
+  GETTABLEKS R11 R7 K4 ["AssetId"]
+  FASTCALL1 TOSTRING R11 [+2]
+  GETIMPORT R10 K6 [tostring]
+  CALL R10 1 1
+  FASTCALL2 TABLE_INSERT R2 R10 [+4]
+  MOVE R9 R2
+  GETIMPORT R8 K9 [table.insert]
+  CALL R8 2 0
+  FORGLOOP R3 2 [-16]
+  LENGTH R5 R2
+  LOADN R6 0
+  JUMPIFLT R6 R5 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  LOADK R6 K10 ["Failed to find \"%*\" in the marketplace!"]
+  MOVE R8 R0
+  NAMECALL R6 R6 K11 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  FASTCALL2 ASSERT R4 R5 [+3]
+  GETIMPORT R3 K13 [assert]
+  CALL R3 2 0
+  RETURN R2 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+16]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["assign"]
+  MOVE R2 R0
+  DUPTABLE R3 K4 [{"name", "className", "shouldShowChip"}]
+  GETUPVAL R4 2
+  SETTABLEKS R4 R3 K1 ["name"]
+  GETUPVAL R4 3
+  SETTABLEKS R4 R3 K2 ["className"]
+  GETUPVAL R4 4
+  SETTABLEKS R4 R3 K3 ["shouldShowChip"]
+  CALL R1 2 0
+  RETURN R0 0
+  GETUPVAL R1 2
+  SETTABLEKS R1 R0 K1 ["name"]
+  GETUPVAL R1 3
+  SETTABLEKS R1 R0 K2 ["className"]
+  GETUPVAL R1 4
+  SETTABLEKS R1 R0 K3 ["shouldShowChip"]
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R2 R1 K0 ["messageId"]
+  GETTABLEKS R3 R1 K1 ["contentId"]
+  GETTABLEKS R4 R1 K2 ["newName"]
+  GETTABLEKS R5 R1 K3 ["newClassName"]
+  GETTABLEKS R6 R1 K4 ["showChip"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K5 ["editContent"]
+  DUPTABLE R8 K7 [{"messageId", "contentId", "transformFn"}]
+  SETTABLEKS R2 R8 K0 ["messageId"]
+  SETTABLEKS R3 R8 K1 ["contentId"]
+  NEWCLOSURE R9 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  SETTABLEKS R9 R8 K6 ["transformFn"]
+  CALL R7 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETTABLEKS R2 R1 K0 ["tag"]
+  GETUPVAL R3 0
+  MOVE R5 R2
+  NAMECALL R3 R3 K1 ["GetTagged"]
+  CALL R3 2 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K2 ["selection"]
+  GETTABLEKS R4 R5 K3 ["set"]
+  MOVE R5 R3
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["GetTagged"]
+  CALL R0 2 1
+  LENGTH R1 R0
+  GETUPVAL R2 2
+  LOADN R3 1
+  JUMPIFNOTLT R3 R1 [+15]
+  GETUPVAL R3 3
+  LOADK R5 K1 ["InstanceChip"]
+  LOADK R6 K2 ["Multiple"]
+  DUPTABLE R7 K5 [{"name", "count"}]
+  GETUPVAL R8 2
+  SETTABLEKS R8 R7 K3 ["name"]
+  SETTABLEKS R1 R7 K4 ["count"]
+  NAMECALL R3 R3 K6 ["getText"]
+  CALL R3 4 1
+  MOVE R2 R3
+  JUMP [+13]
+  JUMPIFNOTEQKN R1 K7 [0] [+12]
+  GETUPVAL R3 3
+  LOADK R5 K1 ["InstanceChip"]
+  LOADK R6 K8 ["Deleted"]
+  DUPTABLE R7 K9 [{"name"}]
+  GETUPVAL R8 2
+  SETTABLEKS R8 R7 K3 ["name"]
+  NAMECALL R3 R3 K6 ["getText"]
+  CALL R3 4 1
+  MOVE R2 R3
+  LOADNIL R3
+  LOADN R4 0
+  JUMPIFNOTLT R4 R1 [+4]
+  GETTABLEN R4 R0 1
+  GETTABLEKS R3 R4 K10 ["ClassName"]
+  GETUPVAL R4 4
+  GETUPVAL R5 5
+  DUPTABLE R6 K16 [{"messageId", "contentId", "newName", "newClassName", "showChip"}]
+  GETUPVAL R7 6
+  SETTABLEKS R7 R6 K11 ["messageId"]
+  GETUPVAL R7 7
+  SETTABLEKS R7 R6 K12 ["contentId"]
+  SETTABLEKS R2 R6 K13 ["newName"]
+  SETTABLEKS R3 R6 K14 ["newClassName"]
+  LOADN R8 0
+  JUMPIFLT R8 R1 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  SETTABLEKS R7 R6 K15 ["showChip"]
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R2 R1 K0 ["messageId"]
+  GETTABLEKS R3 R1 K1 ["contentId"]
+  GETTABLEKS R4 R1 K2 ["name"]
+  GETTABLEKS R5 R1 K3 ["tag"]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["observeLinkChanges"]
+  GETUPVAL R7 1
+  MOVE R8 R5
+  NEWCLOSURE R9 P0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CALL R6 3 0
+  RETURN R0 0
+
+PROTO_8:
+  GETTABLEKS R2 R1 K0 ["assetId"]
+  GETTABLEKS R3 R1 K1 ["insertGuid"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["loadCachedAssetAsync"]
+  MOVE R5 R2
+  CALL R4 1 1
+  JUMPIF R4 [+2]
+  LOADK R5 K3 ["load_failure"]
+  RETURN R5 1
+  LOADK R6 K4 ["Assistant:"]
+  MOVE R7 R3
+  CONCAT R5 R6 R7
+  GETUPVAL R6 1
+  MOVE R8 R5
+  NAMECALL R6 R6 K5 ["GetTagged"]
+  CALL R6 2 1
+  LENGTH R7 R6
+  JUMPIFNOTEQKN R7 K6 [0] [+3]
+  LOADK R7 K7 ["tag_not_found"]
+  RETURN R7 1
+  MOVE R7 R6
+  LOADNIL R8
+  LOADNIL R9
+  FORGPREP R7
+  NAMECALL R12 R4 K8 ["Clone"]
+  CALL R12 1 1
+  GETTABLEKS R13 R11 K9 ["Name"]
+  SETTABLEKS R13 R12 K9 ["Name"]
+  LOADK R15 K10 ["PVInstance"]
+  NAMECALL R13 R11 K11 ["IsA"]
+  CALL R13 2 1
+  JUMPIFNOT R13 [+18]
+  LOADK R15 K10 ["PVInstance"]
+  NAMECALL R13 R4 K11 ["IsA"]
+  CALL R13 2 1
+  JUMPIFNOT R13 [+13]
+  NAMECALL R13 R11 K12 ["GetPivot"]
+  CALL R13 1 1
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K13 ["setPositionOnGround"]
+  MOVE R15 R12
+  LOADB R16 0
+  GETTABLEKS R17 R13 K14 ["Position"]
+  GETTABLEKS R18 R13 K15 ["LookVector"]
+  CALL R14 4 0
+  MOVE R15 R5
+  NAMECALL R13 R12 K16 ["AddTag"]
+  CALL R13 2 0
+  GETIMPORT R13 K18 [workspace]
+  SETTABLEKS R13 R12 K19 ["Parent"]
+  LOADNIL R13
+  SETTABLEKS R13 R11 K19 ["Parent"]
+  FORGLOOP R7 2 [-42]
+  LOADK R7 K20 ["success"]
+  RETURN R7 1
+
+PROTO_9:
+  GETUPVAL R0 0
+  LOADNIL R1
+  DUPTABLE R2 K2 [{"assetId", "insertGuid"}]
+  GETUPVAL R3 1
+  SETTABLEKS R3 R2 K0 ["assetId"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["insertGuid"]
+  SETTABLEKS R3 R2 K1 ["insertGuid"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_10:
+  GETIMPORT R1 K2 [task.spawn]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R0 0
+  LOADNIL R1
+  DUPTABLE R2 K1 [{"tag"}]
+  GETUPVAL R3 1
+  SETTABLEKS R3 R2 K0 ["tag"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["assign"]
+  MOVE R2 R0
+  GETUPVAL R3 1
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["query"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["tag"]
+  DUPTABLE R3 K11 [{"type", "mode", "name", "tag", "className", "assetIds", "expanded", "onSelectionChange", "shouldShowChip", "onChipClicked"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K12 ["Type"]
+  SETTABLEKS R4 R3 K2 ["type"]
+  GETUPVAL R5 2
+  CALL R5 0 1
+  JUMPIFNOT R5 [+6]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K13 ["Modes"]
+  GETTABLEKS R4 R5 K14 ["Generated"]
+  JUMP [+1]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K3 ["mode"]
+  SETTABLEKS R1 R3 K4 ["name"]
+  SETTABLEKS R2 R3 K1 ["tag"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["className"]
+  SETTABLEKS R4 R3 K5 ["className"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K15 ["assets"]
+  SETTABLEKS R4 R3 K6 ["assetIds"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K7 ["expanded"]
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U0
+  SETTABLEKS R4 R3 K8 ["onSelectionChange"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K9 ["shouldShowChip"]
+  NEWCLOSURE R4 P1
+  CAPTURE UPVAL U4
+  CAPTURE VAL R2
+  SETTABLEKS R4 R3 K10 ["onChipClicked"]
+  GETUPVAL R4 2
+  CALL R4 0 1
+  JUMPIFNOT R4 [+16]
+  GETUPVAL R5 5
+  GETTABLEKS R4 R5 K16 ["editContent"]
+  DUPTABLE R5 K20 [{"messageId", "contentId", "transformFn"}]
+  SETTABLEKS R0 R5 K17 ["messageId"]
+  GETUPVAL R6 6
+  SETTABLEKS R6 R5 K18 ["contentId"]
+  NEWCLOSURE R6 P2
+  CAPTURE UPVAL U7
+  CAPTURE VAL R3
+  SETTABLEKS R6 R5 K19 ["transformFn"]
+  CALL R4 1 0
+  JUMP [+17]
+  GETUPVAL R4 8
+  MOVE R5 R3
+  GETUPVAL R6 9
+  CALL R4 2 2
+  GETUPVAL R7 5
+  GETTABLEKS R6 R7 K21 ["addToolContent"]
+  MOVE R7 R0
+  DUPTABLE R8 K25 [{"toolUse", "toolResult", "content"}]
+  SETTABLEKS R4 R8 K22 ["toolUse"]
+  SETTABLEKS R5 R8 K23 ["toolResult"]
+  SETTABLEKS R3 R8 K24 ["content"]
+  CALL R6 2 1
+  SETUPVAL R6 6
+  GETUPVAL R4 10
+  LOADNIL R5
+  DUPTABLE R6 K26 [{"messageId", "contentId", "name", "tag"}]
+  SETTABLEKS R0 R6 K17 ["messageId"]
+  GETUPVAL R7 6
+  SETTABLEKS R7 R6 K18 ["contentId"]
+  SETTABLEKS R1 R6 K4 ["name"]
+  SETTABLEKS R2 R6 K1 ["tag"]
+  CALL R4 2 0
+  RETURN R0 0
+
+PROTO_14:
+  GETTABLEKS R3 R0 K0 ["responseInfo"]
+  FASTCALL2K ASSERT R3 K1 [+5]
+  MOVE R5 R3
+  LOADK R6 K1 ["Missing response info"]
+  GETIMPORT R4 K3 [assert]
+  CALL R4 2 0
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R3
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE REF R2
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE VAL R0
+  CAPTURE UPVAL U7
+  GETUPVAL R5 1
+  CALL R5 0 1
+  JUMPIFNOT R5 [+4]
+  MOVE R5 R4
+  MOVE R6 R1
+  CALL R5 1 0
+  JUMP [+6]
+  GETUPVAL R6 4
+  GETTABLEKS R5 R6 K4 ["getOrAddMessage"]
+  LOADK R6 K5 ["assistant"]
+  MOVE R7 R4
+  CALL R5 2 0
+  CLOSEUPVALS R2
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["loadCachedAssetAsync"]
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIF R1 [+4]
+  GETIMPORT R2 K2 [error]
+  LOADK R3 K3 ["Failed to load asset"]
+  CALL R2 1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["startRecording"]
+  GETUPVAL R3 2
+  CALL R2 1 0
+  GETUPVAL R2 3
+  LOADB R4 0
+  NAMECALL R2 R2 K5 ["GenerateGUID"]
+  CALL R2 2 1
+  GETUPVAL R3 4
+  SETTABLEKS R3 R1 K6 ["Name"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K7 ["setPositionOnGround"]
+  MOVE R4 R1
+  LOADB R5 1
+  CALL R3 2 0
+  LOADK R4 K8 ["Assistant:"]
+  MOVE R5 R2
+  CONCAT R3 R4 R5
+  MOVE R6 R3
+  NAMECALL R4 R1 K9 ["AddTag"]
+  CALL R4 2 0
+  GETIMPORT R4 K11 [workspace]
+  SETTABLEKS R4 R1 K12 ["Parent"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K13 ["endRecording"]
+  GETUPVAL R5 2
+  CALL R4 1 0
+  MOVE R4 R3
+  MOVE R5 R2
+  GETTABLEKS R6 R1 K14 ["ClassName"]
+  RETURN R4 3
+
+PROTO_16:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["loadCachedAssetAsync"]
+  GETUPVAL R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_17:
+  GETTABLEKS R2 R1 K0 ["query"]
+  GETTABLEKS R3 R1 K1 ["oldTag"]
+  GETUPVAL R4 0
+  LOADB R6 0
+  NAMECALL R4 R4 K2 ["GenerateGUID"]
+  CALL R4 2 1
+  JUMPIFNOT R3 [+43]
+  GETUPVAL R5 1
+  MOVE R7 R3
+  NAMECALL R5 R5 K3 ["GetTagged"]
+  CALL R5 2 1
+  LENGTH R6 R5
+  JUMPIFNOTEQKN R6 K4 [0] [+7]
+  GETIMPORT R6 K6 [error]
+  LOADK R8 K7 ["Failed to find asset with GUID: "]
+  MOVE R9 R3
+  CONCAT R7 R8 R9
+  CALL R6 1 0
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K8 ["startRecording"]
+  MOVE R7 R4
+  CALL R6 1 0
+  GETTABLEN R6 R5 1
+  NAMECALL R6 R6 K9 ["Clone"]
+  CALL R6 1 1
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K10 ["setPositionOnGround"]
+  MOVE R8 R6
+  LOADB R9 1
+  CALL R7 2 0
+  GETIMPORT R7 K12 [workspace]
+  SETTABLEKS R7 R6 K13 ["Parent"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K14 ["endRecording"]
+  MOVE R8 R4
+  CALL R7 1 0
+  DUPTABLE R7 K16 [{"result"}]
+  LOADK R8 K17 ["Success!"]
+  SETTABLEKS R8 R7 K15 ["result"]
+  RETURN R7 1
+  GETUPVAL R5 4
+  MOVE R6 R2
+  CALL R5 1 1
+  GETIMPORT R6 K20 [table.clone]
+  MOVE R7 R5
+  CALL R6 1 1
+  GETIMPORT R7 K22 [table.remove]
+  MOVE R8 R6
+  LOADN R9 1
+  CALL R7 2 1
+  JUMPIF R7 [+4]
+  GETIMPORT R8 K6 [error]
+  LOADK R9 K23 ["Failed to find asset"]
+  CALL R8 1 0
+  NEWCLOSURE R8 P0
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U2
+  CAPTURE VAL R4
+  CAPTURE UPVAL U0
+  CAPTURE VAL R2
+  MOVE R9 R8
+  MOVE R10 R7
+  CALL R9 1 3
+  MOVE R12 R6
+  LOADNIL R13
+  LOADNIL R14
+  FORGPREP R12
+  GETIMPORT R17 K26 [task.spawn]
+  NEWCLOSURE R18 P1
+  CAPTURE UPVAL U3
+  CAPTURE VAL R16
+  CALL R17 1 0
+  FORGLOOP R12 2 [-7]
+  DUPTABLE R12 K28 [{"result", "responseInfo"}]
+  DUPTABLE R13 K31 [{"primaryResult", "secondaryResults"}]
+  DUPTABLE R14 K34 [{"assetId", "insertGuid"}]
+  SETTABLEKS R7 R14 K32 ["assetId"]
+  SETTABLEKS R10 R14 K33 ["insertGuid"]
+  SETTABLEKS R14 R13 K29 ["primaryResult"]
+  SETTABLEKS R6 R13 K30 ["secondaryResults"]
+  SETTABLEKS R13 R12 K15 ["result"]
+  DUPTABLE R13 K38 [{"assets", "tag", "query", "insertGuid", "className"}]
+  SETTABLEKS R5 R13 K35 ["assets"]
+  SETTABLEKS R9 R13 K36 ["tag"]
+  SETTABLEKS R2 R13 K0 ["query"]
+  SETTABLEKS R10 R13 K33 ["insertGuid"]
+  SETTABLEKS R11 R13 K37 ["className"]
+  SETTABLEKS R13 R12 K27 ["responseInfo"]
+  RETURN R12 1
+
+PROTO_18:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["assign"]
+  MOVE R2 R0
+  GETUPVAL R3 1
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_19:
+  LOADNIL R2
+  LOADNIL R3
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIFNOT R4 [+43]
+  JUMPIFNOT R1 [+3]
+  GETTABLEKS R4 R1 K0 ["messageId"]
+  JUMPIF R4 [+1]
+  LOADK R4 K1 [""]
+  MOVE R2 R4
+  JUMPIFNOT R1 [+3]
+  GETTABLEKS R4 R1 K2 ["contentId"]
+  JUMPIF R4 [+1]
+  LOADK R4 K1 [""]
+  MOVE R3 R4
+  DUPTABLE R4 K6 [{"type", "mode", "name"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K7 ["Type"]
+  SETTABLEKS R5 R4 K3 ["type"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K8 ["Modes"]
+  GETTABLEKS R5 R6 K9 ["Generating"]
+  SETTABLEKS R5 R4 K4 ["mode"]
+  GETTABLEKS R5 R0 K10 ["query"]
+  SETTABLEKS R5 R4 K5 ["name"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K11 ["editContent"]
+  DUPTABLE R6 K13 [{"messageId", "contentId", "transformFn"}]
+  SETTABLEKS R2 R6 K0 ["messageId"]
+  SETTABLEKS R3 R6 K2 ["contentId"]
+  NEWCLOSURE R7 P0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K12 ["transformFn"]
+  CALL R5 1 0
+  GETUPVAL R4 4
+  LOADNIL R5
+  DUPTABLE R6 K15 [{"query", "oldTag"}]
+  GETTABLEKS R7 R0 K10 ["query"]
+  SETTABLEKS R7 R6 K10 ["query"]
+  GETTABLEKS R7 R0 K16 ["tag"]
+  SETTABLEKS R7 R6 K14 ["oldTag"]
+  CALL R4 2 1
+  GETTABLEKS R5 R4 K17 ["responseInfo"]
+  JUMPIFNOT R5 [+5]
+  GETUPVAL R5 5
+  MOVE R6 R4
+  MOVE R7 R2
+  MOVE R8 R3
+  CALL R5 3 0
+  GETUPVAL R5 0
+  CALL R5 0 1
+  JUMPIFNOT R5 [+15]
+  GETUPVAL R5 6
+  CALL R5 0 1
+  GETUPVAL R8 7
+  GETTABLEKS R7 R8 K18 ["toString"]
+  GETTABLEKS R8 R4 K19 ["result"]
+  CALL R7 1 -1
+  NAMECALL R5 R5 K20 ["addText"]
+  CALL R5 -1 1
+  NAMECALL R5 R5 K21 ["build"]
+  CALL R5 1 -1
+  RETURN R5 -1
+  GETUPVAL R5 8
+  MOVE R6 R4
+  CALL R5 1 -1
+  RETURN R5 -1
+
+PROTO_20:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  FASTCALL2K ASSERT R1 K0 [+4]
+  LOADK R2 K0 ["FFlagMCPAssistantSlashCommandMenu must be enabled"]
+  GETIMPORT R0 K2 [assert]
+  CALL R0 2 0
+  GETUPVAL R0 1
+  LOADK R2 K3 ["SlashCommandDescriptions"]
+  LOADK R3 K4 ["MarketplaceInsertion"]
+  NAMECALL R0 R0 K5 ["getText"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+PROTO_21:
+  DUPTABLE R1 K2 [{"name", "arguments"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["InsertFromMarketplace"]
+  SETTABLEKS R2 R1 K0 ["name"]
+  DUPTABLE R2 K5 [{"query"}]
+  SETTABLEKS R0 R2 K4 ["query"]
+  SETTABLEKS R2 R1 K1 ["arguments"]
+  RETURN R1 1
+
+PROTO_22:
+  DUPTABLE R0 K2 [{"type", "mode"}]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["Type"]
+  SETTABLEKS R1 R0 K0 ["type"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["Modes"]
+  GETTABLEKS R1 R2 K5 ["Preparing"]
+  SETTABLEKS R1 R0 K1 ["mode"]
+  RETURN R0 1
+
+PROTO_23:
+  GETTABLEKS R1 R0 K0 ["networking"]
+  GETTABLEKS R2 R0 K1 ["environment"]
+  GETTABLEKS R3 R0 K2 ["externalHooks"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R2
+  LOADK R7 K3 ["MarketplaceInsertionTool_updateContentHeader"]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R3
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  NAMECALL R5 R1 K4 ["OnGuestEvent"]
+  CALL R5 3 1
+  LOADK R8 K5 ["MarketplaceInsertionTool_selectInsertedAssets"]
+  NEWCLOSURE R9 P2
+  CAPTURE UPVAL U2
+  CAPTURE VAL R2
+  NAMECALL R6 R1 K6 ["OnHostEvent"]
+  CALL R6 3 1
+  LOADK R9 K7 ["MarketplaceInsertionTool_listenToLinkChanges"]
+  NEWCLOSURE R10 P3
+  CAPTURE UPVAL U3
+  CAPTURE VAL R1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U4
+  CAPTURE VAL R5
+  NAMECALL R7 R1 K6 ["OnHostEvent"]
+  CALL R7 3 1
+  LOADK R10 K8 ["MarketplaceInsertionTool_swapAsset"]
+  DUPCLOSURE R11 K9 [PROTO_8]
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U2
+  NAMECALL R8 R1 K10 ["OnHostInvokeAsync"]
+  CALL R8 3 1
+  NEWCLOSURE R9 P5
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U0
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U6
+  CAPTURE VAL R7
+  LOADK R12 K11 ["MarketplaceInsertionTool_insertFromMarketplace"]
+  NEWCLOSURE R13 P6
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U2
+  CAPTURE VAL R2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R4
+  NAMECALL R10 R1 K10 ["OnHostInvokeAsync"]
+  CALL R10 3 1
+  NEWCLOSURE R11 P7
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U5
+  CAPTURE VAL R3
+  CAPTURE UPVAL U1
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U9
+  GETUPVAL R13 10
+  GETTABLEKS R12 R13 K12 ["define"]
+  CALL R12 0 1
+  GETUPVAL R15 11
+  GETTABLEKS R14 R15 K13 ["InsertFromMarketplace"]
+  NAMECALL R12 R12 K14 ["setName"]
+  CALL R12 2 1
+  LOADK R14 K15 ["Inserts a model from the Roblox marketplace into the game. 
+Returns the inserted asset ID, a unique GUID to use for the asset in subsequent commands, and a list of other asset IDs that were found in the search. 
+
+The inserted model will be tagged with the GUID, prefixed with 'Assistant:'. 
+To reference the model in subsequent commands, CollectionService:GetTagged(\"Assistant:<GUID>\") can be used. You are guaranteed to get only one model back, as the GUID is unique.
+Don't tell the user about the GUID or the alternative asset IDs, these are for your own use only.
+If you are asked to add more of a previously-inserted model, you should use the tag input property instead by searching for the generated tag in your conversation history.
+
+For example: 
+	local instances = CollectionService:GetTagged(\"Assistant:1234-5678-9101\") 
+	instances[1].Pivot = CFrame.new(0, 0, 0)
+will move the model to the origin.
+"]
+  NAMECALL R12 R12 K16 ["setDescription"]
+  CALL R12 2 1
+  LOADK R14 K17 ["query"]
+  DUPTABLE R15 K20 [{"type", "description"}]
+  LOADK R16 K21 ["string"]
+  SETTABLEKS R16 R15 K18 ["type"]
+  LOADK R16 K22 ["The name of the asset to insert."]
+  SETTABLEKS R16 R15 K19 ["description"]
+  NAMECALL R12 R12 K23 ["addArgument"]
+  CALL R12 3 1
+  LOADK R14 K24 ["tag"]
+  DUPTABLE R15 K20 [{"type", "description"}]
+  LOADK R16 K21 ["string"]
+  SETTABLEKS R16 R15 K18 ["type"]
+  LOADK R16 K25 ["Tag of a reference asset to clone, rather than downloading from the marketplace. Tag was likely generated in a previous marketplace insertion request."]
+  SETTABLEKS R16 R15 K19 ["description"]
+  NAMECALL R12 R12 K26 ["addOptionalArgument"]
+  CALL R12 3 1
+  MOVE R14 R11
+  NAMECALL R12 R12 K27 ["setHandler"]
+  CALL R12 2 1
+  NAMECALL R12 R12 K28 ["build"]
+  CALL R12 1 1
+  DUPTABLE R13 K32 [{"command", "getDescription", "mapToToolCall"}]
+  LOADK R14 K33 ["insert"]
+  SETTABLEKS R14 R13 K29 ["command"]
+  DUPCLOSURE R14 K34 [PROTO_20]
+  CAPTURE UPVAL U12
+  CAPTURE UPVAL U4
+  SETTABLEKS R14 R13 K30 ["getDescription"]
+  DUPCLOSURE R14 K35 [PROTO_21]
+  CAPTURE UPVAL U11
+  SETTABLEKS R14 R13 K31 ["mapToToolCall"]
+  DUPTABLE R14 K37 [{"transformInitialContent"}]
+  DUPCLOSURE R15 K38 [PROTO_22]
+  CAPTURE UPVAL U5
+  SETTABLEKS R15 R14 K36 ["transformInitialContent"]
+  DUPTABLE R15 K42 [{"definition", "slashCommands", "streamTransform"}]
+  SETTABLEKS R12 R15 K39 ["definition"]
+  NEWTABLE R16 0 1
+  MOVE R17 R13
+  SETLIST R16 R17 1 [1]
+  SETTABLEKS R16 R15 K40 ["slashCommands"]
+  GETUPVAL R17 0
+  CALL R17 0 1
+  JUMPIFNOT R17 [+2]
+  MOVE R16 R14
+  JUMP [+3]
+  GETUPVAL R17 13
+  GETTABLEKS R16 R17 K43 ["None"]
+  SETTABLEKS R16 R15 K41 ["streamTransform"]
+  RETURN R15 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["CollectionService"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K5 [game]
+  LOADK R4 K8 ["HttpService"]
+  NAMECALL R2 R2 K7 ["GetService"]
+  CALL R2 2 1
+  GETIMPORT R3 K10 [require]
+  GETTABLEKS R6 R0 K11 ["Components"]
+  GETTABLEKS R5 R6 K12 ["ContentWidgets"]
+  GETTABLEKS R4 R5 K13 ["AssetVariationContentWidget"]
+  CALL R3 1 1
+  GETIMPORT R4 K10 [require]
+  GETTABLEKS R6 R0 K14 ["Parent"]
+  GETTABLEKS R5 R6 K15 ["Dash"]
+  CALL R4 1 1
+  GETIMPORT R5 K10 [require]
+  GETTABLEKS R7 R0 K14 ["Parent"]
+  GETTABLEKS R6 R7 K16 ["ModelContextProtocol"]
+  CALL R5 1 1
+  GETIMPORT R6 K10 [require]
+  GETTABLEKS R8 R0 K17 ["Tools"]
+  GETTABLEKS R7 R8 K18 ["ToolTypes"]
+  CALL R6 1 1
+  GETIMPORT R7 K10 [require]
+  GETTABLEKS R9 R0 K19 ["Util"]
+  GETTABLEKS R8 R9 K20 ["ToolUtils"]
+  CALL R7 1 1
+  GETIMPORT R8 K10 [require]
+  GETTABLEKS R11 R0 K21 ["Resources"]
+  GETTABLEKS R10 R11 K22 ["Localization"]
+  GETTABLEKS R9 R10 K23 ["Translator"]
+  CALL R8 1 1
+  GETIMPORT R9 K10 [require]
+  GETTABLEKS R10 R0 K24 ["Types"]
+  CALL R9 1 1
+  GETIMPORT R10 K10 [require]
+  GETTABLEKS R12 R0 K11 ["Components"]
+  GETTABLEKS R11 R12 K25 ["UIToolRegistry"]
+  CALL R10 1 1
+  GETIMPORT R11 K10 [require]
+  GETTABLEKS R13 R0 K26 ["Flags"]
+  GETTABLEKS R12 R13 K27 ["FFlagMCPAssistantLongRunningToolCalls"]
+  CALL R11 1 1
+  GETIMPORT R12 K10 [require]
+  GETTABLEKS R14 R0 K26 ["Flags"]
+  GETTABLEKS R13 R14 K28 ["FFlagMCPAssistantSlashCommandMenu"]
+  CALL R12 1 1
+  GETTABLEKS R14 R5 K19 ["Util"]
+  GETTABLEKS R13 R14 K29 ["ToolBuilder"]
+  GETTABLEKS R15 R5 K19 ["Util"]
+  GETTABLEKS R14 R15 K30 ["ToolResult"]
+  GETTABLEKS R15 R6 K31 ["ToolNames"]
+  DUPCLOSURE R16 K32 [PROTO_0]
+  CAPTURE VAL R11
+  CAPTURE VAL R14
+  CAPTURE VAL R7
+  DUPCLOSURE R17 K33 [PROTO_1]
+  CAPTURE VAL R11
+  CAPTURE VAL R7
+  CAPTURE VAL R15
+  CAPTURE VAL R14
+  DUPCLOSURE R18 K34 [PROTO_23]
+  CAPTURE VAL R11
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R17
+  CAPTURE VAL R2
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  CAPTURE VAL R13
+  CAPTURE VAL R15
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  RETURN R18 1

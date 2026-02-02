@@ -15,6 +15,55 @@ PROTO_1:
   SETLIST R4 R5 1 [1]
   RETURN R4 1
 
+PROTO_2:
+  GETIMPORT R2 K2 [string.find]
+  MOVE R3 R1
+  LOADK R4 K3 ["MakeupCameras"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+36]
+  GETIMPORT R2 K6 [Instance.new]
+  LOADK R3 K7 ["Folder"]
+  CALL R2 1 1
+  NEWTABLE R3 0 5
+  LOADK R4 K8 ["Eyebrow"]
+  LOADK R5 K9 ["Eyelash"]
+  LOADK R6 K10 ["Eyes"]
+  LOADK R7 K11 ["Face"]
+  LOADK R8 K12 ["Lips"]
+  SETLIST R3 R4 5 [1]
+  GETIMPORT R4 K14 [ipairs]
+  MOVE R5 R3
+  CALL R4 1 3
+  FORGPREP_INEXT R4
+  GETIMPORT R9 K6 [Instance.new]
+  LOADK R10 K15 ["Camera"]
+  CALL R9 1 1
+  SETTABLEKS R8 R9 K16 ["Name"]
+  GETIMPORT R10 K20 [Enum.CameraType.Scriptable]
+  SETTABLEKS R10 R9 K18 ["CameraType"]
+  LOADN R10 70
+  SETTABLEKS R10 R9 K21 ["FieldOfView"]
+  SETTABLEKS R2 R9 K22 ["Parent"]
+  FORGLOOP R4 2 [inext] [-16]
+  RETURN R2 1
+  GETIMPORT R2 K2 [string.find]
+  MOVE R3 R1
+  LOADK R4 K23 ["MakeupLighting"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+11]
+  GETIMPORT R2 K6 [Instance.new]
+  LOADK R3 K7 ["Folder"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [Instance.new]
+  LOADK R4 K24 ["PointLight"]
+  CALL R3 1 1
+  SETTABLEKS R2 R3 K22 ["Parent"]
+  RETURN R2 1
+  GETIMPORT R2 K6 [Instance.new]
+  LOADK R3 K25 ["Model"]
+  CALL R2 1 -1
+  RETURN R2 -1
+
 MAIN:
   PREPVARARGS 0
   NEWTABLE R0 4 0
@@ -24,4 +73,6 @@ MAIN:
   SETTABLEKS R1 R0 K2 ["new"]
   DUPCLOSURE R1 K3 [PROTO_1]
   SETTABLEKS R1 R0 K4 ["LoadAssetWithFormat"]
+  DUPCLOSURE R1 K5 [PROTO_2]
+  SETTABLEKS R1 R0 K6 ["LoadLocalAsset"]
   RETURN R0 1

@@ -112,12 +112,13 @@ PROTO_7:
   DUPTABLE R4 K3 [{"userCatalogFolder"}]
   GETTABLEKS R5 R3 K4 ["current"]
   SETTABLEKS R5 R4 K2 ["userCatalogFolder"]
-  GETUPVAL R5 3
-  GETUPVAL R7 4
-  GETTABLEKS R6 R7 K5 ["Provider"]
-  DUPTABLE R7 K7 [{"value"}]
-  SETTABLEKS R4 R7 K6 ["value"]
-  GETTABLEKS R8 R0 K8 ["children"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["createElement"]
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K6 ["Provider"]
+  DUPTABLE R7 K8 [{"value"}]
+  SETTABLEKS R4 R7 K7 ["value"]
+  GETTABLEKS R8 R0 K9 ["children"]
   CALL R5 3 -1
   RETURN R5 -1
 
@@ -141,20 +142,18 @@ MAIN:
   GETTABLEKS R5 R6 K11 ["Hooks"]
   GETTABLEKS R4 R5 K12 ["useRefWithInitial"]
   CALL R3 1 1
-  GETTABLEKS R4 R1 K13 ["createElement"]
-  DUPTABLE R5 K15 [{"userCatalogFolder"}]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K14 ["userCatalogFolder"]
-  GETTABLEKS R6 R1 K16 ["createContext"]
-  MOVE R7 R5
-  CALL R6 1 1
-  DUPCLOSURE R7 K17 [PROTO_7]
+  DUPTABLE R4 K14 [{"userCatalogFolder"}]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K13 ["userCatalogFolder"]
+  GETTABLEKS R5 R1 K15 ["createContext"]
+  MOVE R6 R4
+  CALL R5 1 1
+  DUPCLOSURE R6 K16 [PROTO_7]
   CAPTURE VAL R1
   CAPTURE VAL R2
   CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R6
-  DUPTABLE R8 K20 [{"Context", "Provider"}]
-  SETTABLEKS R6 R8 K18 ["Context"]
-  SETTABLEKS R7 R8 K19 ["Provider"]
-  RETURN R8 1
+  CAPTURE VAL R5
+  DUPTABLE R7 K19 [{"Context", "Provider"}]
+  SETTABLEKS R5 R7 K17 ["Context"]
+  SETTABLEKS R6 R7 K18 ["Provider"]
+  RETURN R7 1

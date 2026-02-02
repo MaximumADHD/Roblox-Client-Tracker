@@ -1,0 +1,25 @@
+PROTO_0:
+  JUMPIF R0 [+2]
+  LOADNIL R1
+  RETURN R1 1
+  GETIMPORT R1 K1 [next]
+  MOVE R2 R0
+  CALL R1 1 2
+  JUMPIF R2 [+2]
+  LOADNIL R3
+  RETURN R3 1
+  GETIMPORT R3 K1 [next]
+  MOVE R4 R0
+  MOVE R5 R1
+  CALL R3 2 1
+  JUMPIFNOT R3 [+5]
+  GETIMPORT R4 K3 [error]
+  LOADK R5 K4 ["Expected at most child, had more than one child."]
+  LOADN R6 2
+  CALL R4 2 0
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

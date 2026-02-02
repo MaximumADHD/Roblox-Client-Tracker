@@ -1,0 +1,12 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R4 K4 [script]
+  GETTABLEKS R3 R4 K5 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Symbol.roblox"]
+  CALL R0 1 1
+  GETTABLEKS R1 R0 K6 ["named"]
+  LOADK R2 K7 ["RobloxTag"]
+  CALL R1 1 1
+  RETURN R1 1

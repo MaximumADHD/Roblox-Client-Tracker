@@ -6,6 +6,8 @@ local ErrorType = {
 	CallerIsNotVoiceEnabled = "CallerIsNotVoiceEnabled" :: "CallerIsNotVoiceEnabled",
 	UniverseAgeIsNotValid = "UniverseAgeIsNotValid" :: "UniverseAgeIsNotValid",
 	ReservedServerAccessCodeIsNotProvided = "ReservedServerAccessCodeIsNotProvided" :: "ReservedServerAccessCodeIsNotProvided",
+	CallInitializationTimeout = "CallInitializationTimeout" :: "CallInitializationTimeout",
+	PlatformIsNotSupported = "PlatformIsNotSupported" :: "PlatformIsNotSupported",
 }
 
 return ErrorType

@@ -12,7 +12,7 @@ local UserGameSettings = UserSettings.GameSettings
 local SettingsServiceLib = require(CorePackages.Workspace.Packages.SettingsService)
 local ValueChangedSignal = SettingsServiceLib.ValueChangedSignal
 local AvailabilitySignal = SettingsServiceLib.AvailabilitySignal
-local FieldType = SettingsServiceLib.FieldType
+local SettingEnum = SettingsServiceLib.SettingEnum
 local Constants = require(Settings.Integrations.Constants)
 
 -- Constants
@@ -47,9 +47,9 @@ local function UINavAvailability()
 end
 
 
-local UINavToggleConfig: SettingsServiceLib.ToggleRegisterConfig = {
+local UINavToggleConfig = {
 	id = 'ui-nav-toggle',
-	field_type = FieldType.Toggle,
+	field_type = SettingEnum.Toggle,
 	label = "CoreScripts.InGameMenu.GameSettings.UINavToggle",
 	description = "CoreScripts.InGameMenu.GameSettings.UINavToggleDescription",
 	alreadyLocalized = false,

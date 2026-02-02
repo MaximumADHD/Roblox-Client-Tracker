@@ -1,0 +1,45 @@
+PROTO_0:
+  LOADB R2 1
+  GETTABLEKS R5 R1 K0 ["name"]
+  NAMECALL R3 R0 K1 ["GetAttribute"]
+  CALL R3 2 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETTABLEKS R5 R1 K0 ["name"]
+  NAMECALL R3 R0 K1 ["SetAttribute"]
+  CALL R3 2 0
+  LOADB R3 1
+  RETURN R3 1
+
+PROTO_2:
+  GETTABLEKS R5 R1 K0 ["name"]
+  NAMECALL R3 R0 K1 ["GetAttribute"]
+  CALL R3 2 1
+  JUMPIFNOTEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["InteractorTypes"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R0 K8 ["PropertyTypes"]
+  CALL R2 1 1
+  DUPCLOSURE R3 K9 [PROTO_0]
+  DUPCLOSURE R4 K10 [PROTO_1]
+  DUPCLOSURE R5 K11 [PROTO_2]
+  DUPTABLE R6 K15 [{"read", "write", "has"}]
+  SETTABLEKS R3 R6 K12 ["read"]
+  SETTABLEKS R4 R6 K13 ["write"]
+  SETTABLEKS R5 R6 K14 ["has"]
+  RETURN R6 1

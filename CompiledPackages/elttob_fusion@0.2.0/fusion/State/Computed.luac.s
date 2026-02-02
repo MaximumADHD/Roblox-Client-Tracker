@@ -1,0 +1,170 @@
+PROTO_0:
+  JUMPIFEQKB R1 FALSE [+4]
+  GETUPVAL R2 0
+  MOVE R3 R0
+  CALL R2 1 0
+  GETTABLEKS R2 R0 K0 ["_value"]
+  RETURN R2 1
+
+PROTO_1:
+  GETIMPORT R1 K1 [pairs]
+  GETTABLEKS R2 R0 K2 ["dependencySet"]
+  CALL R1 1 3
+  FORGPREP_NEXT R1
+  GETTABLEKS R6 R4 K3 ["dependentSet"]
+  LOADNIL R7
+  SETTABLE R7 R6 R0
+  FORGLOOP R1 1 [-5]
+  GETTABLEKS R1 R0 K2 ["dependencySet"]
+  GETTABLEKS R2 R0 K4 ["_oldDependencySet"]
+  SETTABLEKS R1 R0 K4 ["_oldDependencySet"]
+  SETTABLEKS R2 R0 K2 ["dependencySet"]
+  GETIMPORT R1 K7 [table.clear]
+  GETTABLEKS R2 R0 K2 ["dependencySet"]
+  CALL R1 1 0
+  GETUPVAL R1 0
+  GETTABLEKS R2 R0 K2 ["dependencySet"]
+  GETTABLEKS R3 R0 K8 ["_processor"]
+  CALL R1 2 3
+  JUMPIFNOT R1 [+46]
+  GETTABLEKS R4 R0 K9 ["_destructor"]
+  JUMPIFNOTEQKNIL R4 [+8]
+  GETUPVAL R4 1
+  MOVE R5 R2
+  CALL R4 1 1
+  JUMPIFNOT R4 [+3]
+  GETUPVAL R4 2
+  LOADK R5 K10 ["destructorNeededComputed"]
+  CALL R4 1 0
+  JUMPIFEQKNIL R3 [+4]
+  GETUPVAL R4 2
+  LOADK R5 K11 ["multiReturnComputed"]
+  CALL R4 1 0
+  GETTABLEKS R4 R0 K12 ["_value"]
+  GETUPVAL R5 3
+  MOVE R6 R4
+  MOVE R7 R2
+  CALL R5 2 1
+  GETTABLEKS R6 R0 K9 ["_destructor"]
+  JUMPIFEQKNIL R6 [+5]
+  GETTABLEKS R6 R0 K9 ["_destructor"]
+  MOVE R7 R4
+  CALL R6 1 0
+  SETTABLEKS R2 R0 K12 ["_value"]
+  GETIMPORT R6 K1 [pairs]
+  GETTABLEKS R7 R0 K2 ["dependencySet"]
+  CALL R6 1 3
+  FORGPREP_NEXT R6
+  GETTABLEKS R11 R9 K3 ["dependentSet"]
+  LOADB R12 1
+  SETTABLE R12 R11 R0
+  FORGLOOP R6 1 [-5]
+  NOT R6 R5
+  RETURN R6 1
+  GETUPVAL R4 4
+  LOADK R5 K13 ["computedCallbackError"]
+  MOVE R6 R2
+  CALL R4 2 0
+  GETTABLEKS R4 R0 K2 ["dependencySet"]
+  GETTABLEKS R5 R0 K4 ["_oldDependencySet"]
+  SETTABLEKS R4 R0 K4 ["_oldDependencySet"]
+  SETTABLEKS R5 R0 K2 ["dependencySet"]
+  GETIMPORT R4 K1 [pairs]
+  GETTABLEKS R5 R0 K2 ["dependencySet"]
+  CALL R4 1 3
+  FORGPREP_NEXT R4
+  GETTABLEKS R9 R7 K3 ["dependentSet"]
+  LOADB R10 1
+  SETTABLE R10 R9 R0
+  FORGLOOP R4 1 [-5]
+  LOADB R4 0
+  RETURN R4 1
+
+PROTO_2:
+  DUPTABLE R3 K8 [{"type", "kind", "dependencySet", "dependentSet", "_oldDependencySet", "_processor", "_destructor", "_value"}]
+  LOADK R4 K9 ["State"]
+  SETTABLEKS R4 R3 K0 ["type"]
+  LOADK R4 K10 ["Computed"]
+  SETTABLEKS R4 R3 K1 ["kind"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K2 ["dependencySet"]
+  NEWTABLE R5 0 0
+  GETUPVAL R6 0
+  FASTCALL2 SETMETATABLE R5 R6 [+3]
+  GETIMPORT R4 K12 [setmetatable]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K3 ["dependentSet"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K4 ["_oldDependencySet"]
+  SETTABLEKS R0 R3 K5 ["_processor"]
+  SETTABLEKS R1 R3 K6 ["_destructor"]
+  LOADNIL R4
+  SETTABLEKS R4 R3 K7 ["_value"]
+  GETUPVAL R4 1
+  FASTCALL2 SETMETATABLE R3 R4 [+3]
+  GETIMPORT R2 K12 [setmetatable]
+  CALL R2 2 1
+  GETUPVAL R3 2
+  MOVE R4 R2
+  CALL R3 1 0
+  NAMECALL R3 R2 K13 ["update"]
+  CALL R3 1 0
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K6 ["Dependencies"]
+  GETTABLEKS R3 R4 K7 ["captureDependencies"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K6 ["Dependencies"]
+  GETTABLEKS R4 R5 K8 ["initDependency"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K6 ["Dependencies"]
+  GETTABLEKS R5 R6 K9 ["useDependency"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K10 ["Logging"]
+  GETTABLEKS R6 R7 K11 ["logErrorNonFatal"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K10 ["Logging"]
+  GETTABLEKS R7 R8 K12 ["logWarn"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K13 ["Utility"]
+  GETTABLEKS R8 R9 K14 ["isSimilar"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R0 K13 ["Utility"]
+  GETTABLEKS R9 R10 K15 ["needsDestruction"]
+  CALL R8 1 1
+  NEWTABLE R9 2 0
+  DUPTABLE R10 K17 [{"__index"}]
+  SETTABLEKS R9 R10 K16 ["__index"]
+  DUPTABLE R11 K19 [{"__mode"}]
+  LOADK R12 K20 ["k"]
+  SETTABLEKS R12 R11 K18 ["__mode"]
+  DUPCLOSURE R12 K21 [PROTO_0]
+  CAPTURE VAL R4
+  SETTABLEKS R12 R9 K22 ["get"]
+  DUPCLOSURE R12 K23 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R5
+  SETTABLEKS R12 R9 K24 ["update"]
+  DUPCLOSURE R12 K25 [PROTO_2]
+  CAPTURE VAL R11
+  CAPTURE VAL R10
+  CAPTURE VAL R3
+  RETURN R12 1
