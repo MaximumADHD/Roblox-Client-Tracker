@@ -2,4 +2,4 @@
 name = "RobloxRequests"
 version = "0.1.0"
 source = "registry"
-dependencies = ["Promise <patched> Promise 3.5.0 registry"]
+dependencies = ["Promise <patched> Promise 3.5.1 registry"]

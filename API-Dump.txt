@@ -170,7 +170,7 @@ Class Instance : Object [NotCreatable] [NotBrowsable]
 	Function Instance:GetAttributes() -> { [string]: any } [CustomLuaState] {🧬Safe}
 	Function Instance:GetChildren() -> { Instance } {🧬Safe}
 	Function Instance:GetDebugId(scopeLength: number? = 4) -> string {🔒Plugin} [NotBrowsable]
-	Function Instance:GetDescendants() -> { any } [CustomLuaState] {🧬Safe}
+	Function Instance:GetDescendants() -> { Instance } [CustomLuaState] {🧬Safe}
 	Function Instance:GetFullName() -> string {🧬Safe}
 	Function Instance:GetStyled(name: string, selector: string?) -> any
 	Function Instance:GetStyledPropertyChangedSignal(property: string) -> RBXScriptSignal
@@ -569,7 +569,6 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:SearchAudioAsync(searchParameters: AudioSearchParams) -> AudioPages {🛠️AssetRead} [Yields]
 	Function AssetService:CachePartOperationsAsync(partOperations: { any }) -> () {🔒RobloxScript} [Yields]
 	Function AssetService:CanEditAssetAsync(content: Content) -> boolean {🔒RobloxScript} [Yields]
-	Function AssetService:CreateEditableMeshStripSkinningAsync(meshId: string) -> EditableMesh {🔒RobloxScript} [Yields]
 	Function AssetService:DeserializeInstance(serializedInstance: string) -> Instance? {🔒RobloxScript}
 	Function AssetService:GetAssetIdsForPackage(packageAssetId: number) -> { any } {🛠️AssetRead} [Yields] [Deprecated]
 	Function AssetService:GetCreatorAssetID(creationID: number) -> number [Yields] [Deprecated]
@@ -661,7 +660,7 @@ Class AudioDeviceInput : Instance
 	Property AudioDeviceInput.Volume: number
 	Property AudioDeviceInput.AccessList: BinaryString {RobloxEngine} [Hidden] [NotScriptable]
 	Property AudioDeviceInput.IsReady: boolean {RobloxScript} [ReadOnly]
-	Property AudioDeviceInput.MutedByLocalUser: boolean {RobloxScript} [NotReplicated]
+	Property AudioDeviceInput.MutedByLocalUser: boolean {RobloxScript} [Hidden] [NotReplicated]
 	Function AudioDeviceInput:GetConnectedWires(pin: string) -> { Instance }
 	Function AudioDeviceInput:GetInputPins() -> { any }
 	Function AudioDeviceInput:GetOutputPins() -> { any }
@@ -696,7 +695,7 @@ Class AudioEcho : Instance
 Class AudioEmitter : Instance
 	Property AudioEmitter.AudioInteractionGroup: string {🛠️Audio}
 	Property AudioEmitter.AcousticSimulationEnabled: boolean {🛠️Audio}
-	Property AudioEmitter.PositionOverride: Instance? {🛠️Audio} {RobloxEngine}
+	Property AudioEmitter.PositionOverride: Instance? {🛠️Audio} {RobloxEngine} [Hidden]
 	Property AudioEmitter.AngleAttenuation: BinaryString {🛠️Audio} {RobloxEngine}
 	Property AudioEmitter.DistanceAttenuation: BinaryString {🛠️Audio} {RobloxEngine}
 	Property AudioEmitter.SimulationFidelity: Enum.AudioSimulationFidelity {🛠️Audio} [Deprecated]
@@ -781,7 +780,7 @@ Class AudioLimiter : Instance
 Class AudioListener : Instance
 	Property AudioListener.AudioInteractionGroup: string {🛠️Audio}
 	Property AudioListener.AcousticSimulationEnabled: boolean {🛠️Audio}
-	Property AudioListener.PositionOverride: Instance? {🛠️Audio} {RobloxEngine}
+	Property AudioListener.PositionOverride: Instance? {🛠️Audio} {RobloxEngine} [Hidden]
 	Property AudioListener.AngleAttenuation: BinaryString {🛠️Audio} {RobloxEngine}
 	Property AudioListener.DistanceAttenuation: BinaryString {🛠️Audio} {RobloxEngine}
 	Property AudioListener.SimulationFidelity: Enum.AudioSimulationFidelity {🛠️Audio} [Deprecated]
@@ -819,7 +818,7 @@ Class AudioPlayer : Instance
 	Property AudioPlayer.PlaybackRegion: NumberRange {🛠️Audio}
 	Property AudioPlayer.Volume: number {🛠️Audio}
 	Property AudioPlayer.AssetId: string {🛠️Audio} {📁LoadOnly} [Hidden] [NotReplicated] [Deprecated]
-	Property AudioPlayer.IsMutedForCapture: boolean {🛠️Audio} {RobloxScript}
+	Property AudioPlayer.IsMutedForCapture: boolean {🛠️Audio} {RobloxScript} [Hidden]
 	Function AudioPlayer:GetConnectedWires(pin: string) -> { Instance } {🛠️Audio}
 	Function AudioPlayer:GetInputPins() -> { any } {🛠️Audio}
 	Function AudioPlayer:GetOutputPins() -> { any } {🛠️Audio}
@@ -1530,7 +1529,7 @@ Class CaptureService : Instance [NotCreatable] [Service]
 	Function CaptureService:PromptCaptureGalleryPermissionAsync(captureGalleryPermission: Enum.CaptureGalleryPermission) -> boolean {🛠️Capture} [Yields]
 	Function CaptureService:PromptSaveCapturesToGallery(captures: { any }, resultCallback: (...any) -> ...any) -> () {🛠️Capture}
 	Function CaptureService:PromptShareCapture(captureContent: Content, launchData: string, onAcceptedCallback: (...any) -> ...any, onDeniedCallback: (...any) -> ...any) -> () {🛠️Capture}
-	Function CaptureService:ReadCapturesFromGalleryAsync(captureTypeFilters: { any }? = {}) -> ...any {🛠️Capture} [Yields]
+	Function CaptureService:ReadCapturesFromGalleryAsync(captureTypeFilters: { any }? = {}, readFromAllEligibleExperiences: boolean? = false) -> ...any {🛠️Capture} [Yields]
 	Function CaptureService:StartVideoCaptureAsync(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> Enum.VideoCaptureStartedResult {🛠️Capture} [Yields]
 	Function CaptureService:StopVideoCapture() -> () {🛠️Capture}
 	Function CaptureService:TakeScreenshotCaptureAsync(onCaptureReady: (...any) -> ...any, captureParams: { [string]: any }? = nil) -> () {🛠️Capture}
@@ -3288,6 +3287,7 @@ Class GuiService : Instance [NotCreatable] [Service] [NotReplicated]
 	Property GuiService.CoreEffectFolder: Folder? {RobloxScript} [Hidden] [NotReplicated]
 	Property GuiService.CoreGuiFolder: Folder? {RobloxScript} [Hidden] [NotReplicated]
 	Property GuiService.CoreGuiNavigationEnabled: boolean [Hidden] [NotReplicated]
+	Property GuiService.DisplayScalingMode: Enum.DisplayScalingMode {RobloxScript} [Hidden]
 	Property GuiService.IsModalDialog: boolean [ReadOnly] [Deprecated]
 	Property GuiService.IsWindows: boolean [ReadOnly] [Deprecated]
 	Property GuiService.PreferredTransparency: number [Hidden] [ReadOnly]
@@ -5313,6 +5313,7 @@ Class PhysicsService : Instance [NotCreatable] [Service]
 	Function PhysicsService:IkSolve(part: BasePart, target: CFrame, translateStiffness: number, rotateStiffness: number) -> () {🛠️Physics} {🔒RobloxScript}
 	Function PhysicsService:RemoveCollisionGroup(name: string) -> () {🛠️Physics} [Deprecated]
 	Function PhysicsService:SetPartCollisionGroup(part: BasePart, name: string) -> () {🛠️Physics} [Deprecated]
+	Event PhysicsService.CollisionGroupCollidableChanged(collisionGroupIndex1: number, collisionGroupIndex2: number) {🛠️Physics} {🔒RobloxEngine} [Hidden]
 Class PhysicsSettings : Instance {🔒Plugin} [NotCreatable] [Service] [NotReplicated]
 	Property PhysicsSettings.AreAnchorsShown: boolean {Plugin}
 	Property PhysicsSettings.AreAssembliesShown: boolean {Plugin}
@@ -5978,6 +5979,8 @@ Class ReflectionMetadataYieldFunctions : Instance
 Class ReflectionService : Instance [NotCreatable] [Service] [NotReplicated]
 	Function ReflectionService:GetClass(className: string, filter: { [string]: any }? = nil) -> { [string]: any }? [CustomLuaState]
 	Function ReflectionService:GetClasses(filter: { [string]: any }? = nil) -> { any } [CustomLuaState]
+	Function ReflectionService:GetEventsOfClass(className: string, filter: { [string]: any }? = nil) -> { any } [CustomLuaState]
+	Function ReflectionService:GetMethodsOfClass(className: string, filter: { [string]: any }? = nil) -> { any } [CustomLuaState]
 	Function ReflectionService:GetPropertiesOfClass(className: string, filter: { [string]: any }? = nil) -> { any } [CustomLuaState]
 	Function ReflectionService:GetPropertyNames(name: string) -> { any } {🔒RobloxScript} [CustomLuaState]
 	Function ReflectionService:GetStyledPropertyNames(name: string) -> { any } {🔒RobloxScript} [CustomLuaState]
@@ -6547,11 +6550,11 @@ Class Sound : Instance
 	Property Sound.LoopRegion: NumberRange {🛠️LegacySound}
 	Property Sound.PlaybackRegion: NumberRange {🛠️LegacySound}
 	Property Sound.SoundGroup: SoundGroup? {🛠️LegacySound}
-	Property Sound.ChannelCount: number {🛠️LegacySound} {RobloxScript} [ReadOnly] [NotBrowsable]
+	Property Sound.ChannelCount: number {🛠️LegacySound} {RobloxScript} [Hidden] [ReadOnly] [NotBrowsable]
 	Property Sound.IsSpatial: boolean {🛠️LegacySound} {RobloxScript} [Hidden] [ReadOnly]
 	Property Sound.UsageContextPermission: Enum.UsageContext {🛠️LegacySound} {RobloxScript} [Hidden] [NotReplicated]
 	Property Sound.EmitterSize: number {🛠️LegacySound} {📁LoadOnly} [Deprecated]
-	Property Sound.IsMutedForCapture: boolean {🛠️LegacySound} {RobloxScript}
+	Property Sound.IsMutedForCapture: boolean {🛠️LegacySound} {RobloxScript} [Hidden]
 	Property Sound.MaxDistance: number {🛠️LegacySound} [Deprecated]
 	Property Sound.MinDistance: number {🛠️LegacySound} {📁LoadOnly} [Deprecated]
 	Property Sound.Pitch: number {🛠️LegacySound} {📁LoadOnly} [Deprecated]
@@ -6984,6 +6987,7 @@ Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.LuaDebuggerEnabledAtStartup: boolean [Hidden] [ReadOnly]
 	Property Studio.AutocompleteAcceptanceBehavior: Enum.CompletionAcceptanceBehavior {RobloxScript}
 	Property Studio.Automatically trigger AI Code Completion: boolean {RobloxScript}
+	Property Studio.CommandBarEnterExec: boolean {RobloxScript}
 	Property Studio.CommandBarFont: QFont {RobloxScript}
 	Property Studio.Enable Autocomplete Doc View: boolean {RobloxScript}
 	Property Studio.Enable Script Analysis: boolean {RobloxScript}
@@ -7498,6 +7502,7 @@ Class TextChatService : Instance [NotCreatable] [Service]
 	Function TextChatService:CanUsersChatAsync(userIdFrom: number, userIdTo: number) -> boolean {🛠️Chat} [Yields]
 	Function TextChatService:CanUsersDirectChatAsync(requesterUserId: number, userIds: { any }) -> { any } {🛠️Chat} [Yields]
 	Function TextChatService:DisplayBubble(partOrCharacter: Instance, message: string) -> () {🛠️Chat}
+	Function TextChatService:GetChatGroupsAsync(players: { Instance }) -> { any } {🛠️Chat} [Yields]
 	Function TextChatService:CanUsersWhisperAsync(fromUserId: number, toUserId: number) -> boolean {🛠️Chat} {🔒RobloxScript} [Yields]
 	Function TextChatService:SendEnableChatButtonClicked() -> () {🛠️Chat} {🔒RobloxScript}
 	Function TextChatService:SendEnableChatButtonShown() -> () {🛠️Chat} {🔒RobloxScript}
@@ -7586,6 +7591,7 @@ Class ToastNotificationService : Instance {🔒RobloxScript} [NotCreatable] [Ser
 	Function ToastNotificationService:ShowNotification(message: string, notificationId: string) -> () {🔒RobloxScript}
 Class TouchInputService : Instance [NotCreatable] [Service]
 Class TouchTransmitter : Instance [NotCreatable] [NotBrowsable]
+Class TraceRouteService : Instance [NotCreatable] [Service]
 Class TracerService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
 	Function TracerService:FinishSpan(spanId: string) -> () {🔒RobloxScript}
 	Function TracerService:StartSpan(name: string, parentId: string) -> string {🔒RobloxScript}
@@ -8305,6 +8311,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Property VoiceChatService.UseStreamSwitching: boolean {RobloxEngine} [Hidden]
 	Property VoiceChatService.VoiceChatEnabledForPlaceOnRcc: boolean {RobloxScript} [Hidden]
 	Property VoiceChatService.VoiceChatEnabledForUniverseOnRcc: boolean {RobloxScript} [Hidden]
+	Function VoiceChatService:GetChatGroupsAsync(players: { Instance }) -> { any } {🛠️Chat} [Yields]
 	Function VoiceChatService:IsVoiceEnabledForUserIdAsync(userId: number) -> boolean [Yields]
 	Function VoiceChatService:getInternalChannelId() -> string {🔒RobloxScript}
 	Function VoiceChatService:getInternalGroupId() -> string {🔒RobloxScript}
@@ -8391,6 +8398,7 @@ Class Wire : Instance
 	Property Wire.TargetInstance: Instance? {🛠️Basic}
 	Property Wire.TargetName: string {🛠️Basic}
 	Function Wire:RenameToDefault() -> () {🛠️Basic} {🔒RobloxScript}
+Class WrapDeformMeshProvider : Instance {🔒RobloxEngine} [NotCreatable] [Service] [NotReplicated]
 Class WrapTextureTransfer : Instance
 	Property WrapTextureTransfer.ReferenceCageMeshContent: Content {🛠️Avatar}
 	Property WrapTextureTransfer.UVMaxBound: Vector2 {🛠️Avatar}
@@ -9299,6 +9307,11 @@ Enum ConnectionError
 	EnumItem ConnectionError.ScreentimeLockoutKick : 307
 	EnumItem ConnectionError.DisconnectionNotification : 308
 	EnumItem ConnectionError.DisconnectVerboselyModeratedGame : 309
+	EnumItem ConnectionError.DisconnectCollaboratorNotAgeVerified : 310
+	EnumItem ConnectionError.DisconnectCollaboratorTrustedConnectionsRequired : 311
+	EnumItem ConnectionError.DisconnectCollaboratorOwnerActionRequired : 312
+	EnumItem ConnectionError.DisconnectCollaboratorTooManyCollaborators : 313
+	EnumItem ConnectionError.DisconnectCollaboratorUnknownError : 314
 	EnumItem ConnectionError.PlacelaunchErrors : 512
 	EnumItem ConnectionError.PlacelaunchDisabled : 515
 	EnumItem ConnectionError.PlacelaunchError : 516
@@ -9379,7 +9392,7 @@ Enum CustomCameraMode
 Enum DataModelExtractorFileType
 	EnumItem DataModelExtractorFileType.PlaceFile : 0
 	EnumItem DataModelExtractorFileType.FirstSlice : 1
-	EnumItem DataModelExtractorFileType.NonFirstSliceSlice : 2
+	EnumItem DataModelExtractorFileType.NonFirstSlice : 2
 Enum DataStoreRequestType
 	EnumItem DataStoreRequestType.GetAsync : 0
 	EnumItem DataStoreRequestType.SetIncrementAsync : 1
@@ -9515,6 +9528,10 @@ Enum DialogTone
 	EnumItem DialogTone.Neutral : 0
 	EnumItem DialogTone.Friendly : 1
 	EnumItem DialogTone.Enemy : 2
+Enum DisplayScalingMode
+	EnumItem DisplayScalingMode.Default : 0
+	EnumItem DisplayScalingMode.Legacy : 1
+	EnumItem DisplayScalingMode.Responsive : 2
 Enum DisplaySize
 	EnumItem DisplaySize.Small : 0
 	EnumItem DisplaySize.Medium : 1
@@ -10376,6 +10393,9 @@ Enum KeyCode
 	EnumItem KeyCode.MouseY : 1032 [Deprecated]
 	EnumItem KeyCode.MousePosition : 1033
 	EnumItem KeyCode.Touch : 1034
+	EnumItem KeyCode.MouseWheel : 1035
+	EnumItem KeyCode.TrackpadPan : 1040
+	EnumItem KeyCode.TrackpadPinch : 1045
 Enum KeyInterpolationMode
 	EnumItem KeyInterpolationMode.Constant : 0
 	EnumItem KeyInterpolationMode.Linear : 1
@@ -11047,6 +11067,7 @@ Enum ReservedHighlightId
 	EnumItem ReservedHighlightId.Active : 131072
 	EnumItem ReservedHighlightId.Hover : 262144
 	EnumItem ReservedHighlightId.Selection : 524288
+	EnumItem ReservedHighlightId.NegatedPart : 1048576
 Enum RestPose
 	EnumItem RestPose.Default : 0
 	EnumItem RestPose.RotationsReset : 1

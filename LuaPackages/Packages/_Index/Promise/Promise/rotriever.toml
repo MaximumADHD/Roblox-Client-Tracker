@@ -1,0 +1,12 @@
+[package]
+name = "Promise"
+version = "3.5.1"
+readme = "README.md"
+content_root = "lib"
+files = [
+    "*.lua",
+    "!*.spec.lua",
+]
+publish = true
+authors = ["evaera"]
+license = "MIT"

@@ -1072,6 +1072,10 @@ function InitFrameInfo() {
     AggregateInfo.TotalFrames = function () {
         return (Frames.length - AggregateInfo.EmptyFrameCount);
     }
+
+    if (globalThis.g_cliMode) {
+        return;
+    }
     var div = document.getElementById('infowindow');
     if (window.EnabledFastFlags.includes("MicroProfilerPlatformInfoJson"))
     {

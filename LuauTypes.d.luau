@@ -197,6 +197,12 @@ type ReflectionType = {
   -- ContentType: Enum.AssetType?,
 }
 
+type ReflectionParameter = {
+  Name: string,
+  Type: ReflectionType,
+  DefaultValue: any?
+}
+
 type ReflectedProperty = {
   Name: string,
   Serialized: boolean,
@@ -222,6 +228,39 @@ type ReflectedProperty = {
   },
 }
 
+type ReflectedMethod = {
+  Name: string,
+  Owner: string,
+  Parameters: { ReflectionParameter },
+  ReturnType: ReflectionType,
+  CanYield: boolean,
+
+  Display: {
+    Category: string,
+    DeprecationMessage: string?,
+    LayoutOrder: number,
+  }?,
+  Permits: {
+    Call: SecurityCapabilities?,
+    CallParallel: SecurityCapabilities?,
+  },
+}
+
+type ReflectedEvent = {
+  Name: string,
+  Owner: string,
+  Parameters: { ReflectionParameter },
+
+  Display: {
+    Category: string,
+    DeprecationMessage: string?,
+    LayoutOrder: number,
+  }?,
+  Permits: {
+    Listen: SecurityCapabilities?,
+  },
+}
+
 type ReflectedClass = {
   Name: string,
   Serialized: boolean?,
@@ -239,6 +278,10 @@ type ReflectedClass = {
 }
 
 type ReflectedProperties = { ReflectedProperty }
+
+type ReflectedMethods = { ReflectedMethod }
+
+type ReflectedEvents = { ReflectedEvent }
 
 type ReflectedClasses = { ReflectedClass }
 

@@ -438,7 +438,7 @@
         <addaction fflag="DebugStudioAssetProxy" name="remoteDebugDockWidgetAction" style="textbesideicon" text="Studio.App.RemoteDebugger.Title" tooltip="Studio.App.RemoteDebugger.Title"/>
 
         <addaction name="toggleStudioActivityFeedAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioActivityFeedWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioActivityFeedWidgetTooltip" modernIcon="ActivityHistory" ischeckable="true" />
-        <addaction fflag="!DeprecateOldAssistant" name="toggleStudioConversationalAIDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
+        <addaction fflag="!DeprecateOldAssistant2" name="toggleStudioConversationalAIDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
         <addaction name="toggleAssistantDockAction" style="textbesideicon" text="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidget" tooltip="Studio.App.RBXMainWindow.ViewStudioConversationalAIWidgetTooltip" modernIcon="Assistant" ischeckable="true" />
         <addaction fflag="EnableTextureGenerator2" name="textureGeneratorAction" style="textbesideicon" text="Studio.App.RobloxRibbonMainWindow.TextureGenerator" modernIcon="MeshTextureTool"/>
         <addaction name="toggleStudioAnnotationsAction" style="textbesideicon" />
@@ -510,7 +510,7 @@
     <!--
       RIBBON BAR SCRIPT MENU TAB
       -->
-    <TabPage name="scriptMenu" text="Studio.App.RobloxRibbonMainWindow.Script" contextcolor="4" contexttitle="Script" visible="false">
+    <TabPage fflag="!RemoveQtitanScriptDoc" name="scriptMenu" text="Studio.App.RobloxRibbonMainWindow.Script" contextcolor="4" contexttitle="Script" visible="false">
       <Group name="Clipboard" text="Studio.App.RobloxRibbonMainWindow.Clipboard" modernIcon="Paste" icon=":/RibbonBar/images/RibbonIcons/Home/Paste.png" width="32" height="32">
         <addaction name="pasteAction" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.PasteItemInClipboard" icon=":/RibbonBar/images/RibbonIcons/Home/Paste.png" modernIcon="Paste" width="32" height="32" />
         <addaction name="cutAction" style="textbesideicon" tooltip="Studio.App.RobloxRibbonMainWindow.CutSelectedText" icon=":/RibbonBar/images/RibbonIcons/Home/Cut-16x16.png" modernIcon="Cut" />
@@ -593,7 +593,7 @@
     <!--
       RIBBON BAR DIFF MENU TAB
       -->
-    <TabPage name="diffMenu" text="Studio.App.RobloxRibbonMainWindow.DiffMenu" contextcolor="4" contexttitle="Script tools" visible="false">
+    <TabPage fflag="!RemoveQtitanScriptDoc" name="diffMenu" text="Studio.App.RobloxRibbonMainWindow.DiffMenu" contextcolor="4" contexttitle="Script tools" visible="false">
       <Group name="Navigate" text="Studio.App.RobloxRibbonMainWindow.Navigate" modernIcon="Back" icon=":/RibbonBar/images/RibbonIcons/Home/NavigateBack.png" width="32" height="32">
         <addaction name="goToPreviousHunkAction" text="Studio.Common.Action.Previous" style="textundericon" tooltip="Studio.App.RobloxRibbonMainWindow.GoToPreviousChange"
           icon=":/RibbonBar/images/RibbonIcons/Home/NavigateBack.png" modernIcon="Back" width="32" height="32" />
