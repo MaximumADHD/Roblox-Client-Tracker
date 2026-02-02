@@ -3807,8 +3807,8 @@
                     "Parameters": [
                     ],
                     "ReturnType": {
-                        "Category": "Group",
-                        "Name": "Array"
+                        "Category": "DataType",
+                        "Name": "Instances"
                     },
                     "Security": "None",
                     "Tags": [
@@ -11466,28 +11466,6 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
-                    "MemberType": "Function",
-                    "Name": "CreateEditableMeshStripSkinningAsync",
-                    "Parameters": [
-                        {
-                            "Name": "meshId",
-                            "Type": {
-                                "Category": "DataType",
-                                "Name": "ContentId"
-                            }
-                        }
-                    ],
-                    "ReturnType": {
-                        "Category": "Class",
-                        "Name": "EditableMesh"
-                    },
-                    "Security": "RobloxScriptSecurity",
-                    "Tags": [
-                        "Yields"
-                    ],
-                    "ThreadSafety": "Unsafe"
-                },
-                {
                     "Capabilities": [
                         "Basic"
                     ],
@@ -13730,6 +13708,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "NotReplicated"
                     ],
                     "ThreadSafety": "ReadSafe",
@@ -14516,6 +14495,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -16270,6 +16252,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Class",
@@ -16842,6 +16827,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -30878,6 +30866,14 @@
                             "Type": {
                                 "Category": "Group",
                                 "Name": "Array"
+                            }
+                        },
+                        {
+                            "Default": "false",
+                            "Name": "readFromAllEligibleExperiences",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
                             }
                         }
                     ],
@@ -66161,6 +66157,27 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "DisplayScalingMode",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "DisplayScalingMode"
                     }
                 },
                 {
@@ -118899,6 +118916,66 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "GetEventsOfClass",
+                    "Parameters": [
+                        {
+                            "Name": "className",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "filter",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "GetMethodsOfClass",
+                    "Parameters": [
+                        {
+                            "Name": "className",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Default": "nil",
+                            "Name": "filter",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "CustomLuaState"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "GetPropertiesOfClass",
                     "Parameters": [
                         {
@@ -128407,6 +128484,7 @@
                         "CanSave": false
                     },
                     "Tags": [
+                        "Hidden",
                         "ReadOnly",
                         "NotReplicated",
                         "NotBrowsable"
@@ -128487,6 +128565,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "Primitive",
@@ -135076,6 +135157,24 @@
                     "Security": {
                         "Read": "None",
                         "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Category": "Script Editor",
+                    "MemberType": "Property",
+                    "Name": "CommandBarEnterExec",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -147824,6 +147923,31 @@
                     "Capabilities": [
                         "Chat"
                     ],
+                    "MemberType": "Function",
+                    "Name": "GetChatGroupsAsync",
+                    "Parameters": [
+                        {
+                            "Name": "players",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Instances"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Chat"
+                    ],
                     "MemberType": "Event",
                     "Name": "BubbleDisplayed",
                     "Parameters": [
@@ -149236,6 +149360,17 @@
             "Tags": [
                 "NotCreatable",
                 "NotBrowsable"
+            ]
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "TraceRouteService",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service"
             ]
         },
         {
@@ -164008,6 +164143,31 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Chat"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetChatGroupsAsync",
+                    "Parameters": [
+                        {
+                            "Name": "players",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Instances"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Array"
+                    },
+                    "Security": "None",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
                     "MemberType": "Function",
                     "Name": "IsVoiceEnabledForUserIdAsync",
                     "Parameters": [
@@ -164608,6 +164768,18 @@
             "MemoryCategory": "Instances",
             "Name": "Wire",
             "Superclass": "Instance"
+        },
+        {
+            "Members": [
+            ],
+            "MemoryCategory": "Instances",
+            "Name": "WrapDeformMeshProvider",
+            "Superclass": "Instance",
+            "Tags": [
+                "NotCreatable",
+                "Service",
+                "NotReplicated"
+            ]
         },
         {
             "Members": [
@@ -168789,6 +168961,26 @@
                     "Value": 309
                 },
                 {
+                    "Name": "DisconnectCollaboratorNotAgeVerified",
+                    "Value": 310
+                },
+                {
+                    "Name": "DisconnectCollaboratorTrustedConnectionsRequired",
+                    "Value": 311
+                },
+                {
+                    "Name": "DisconnectCollaboratorOwnerActionRequired",
+                    "Value": 312
+                },
+                {
+                    "Name": "DisconnectCollaboratorTooManyCollaborators",
+                    "Value": 313
+                },
+                {
+                    "Name": "DisconnectCollaboratorUnknownError",
+                    "Value": 314
+                },
+                {
                     "Name": "PlacelaunchErrors",
                     "Value": 512
                 },
@@ -169128,7 +169320,7 @@
                     "Value": 1
                 },
                 {
-                    "Name": "NonFirstSliceSlice",
+                    "Name": "NonFirstSlice",
                     "Value": 2
                 }
             ],
@@ -169696,6 +169888,23 @@
                 }
             ],
             "Name": "DialogTone"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Default",
+                    "Value": 0
+                },
+                {
+                    "Name": "Legacy",
+                    "Value": 1
+                },
+                {
+                    "Name": "Responsive",
+                    "Value": 2
+                }
+            ],
+            "Name": "DisplayScalingMode"
         },
         {
             "Items": [
@@ -172903,6 +173112,18 @@
                 {
                     "Name": "Touch",
                     "Value": 1034
+                },
+                {
+                    "Name": "MouseWheel",
+                    "Value": 1035
+                },
+                {
+                    "Name": "TrackpadPan",
+                    "Value": 1040
+                },
+                {
+                    "Name": "TrackpadPinch",
+                    "Value": 1045
                 },
                 {
                     "Name": "World0",
@@ -176522,6 +176743,10 @@
                 {
                     "Name": "Active",
                     "Value": 131072
+                },
+                {
+                    "Name": "NegatedPart",
+                    "Value": 1048576
                 }
             ],
             "Name": "ReservedHighlightId"

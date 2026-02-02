@@ -1572,15 +1572,7 @@
     "ToastNotification": {
         "background": "#121215",
         "messageText": "#F7F7F8",
-        "actionText": "#528BFF",
-        "shadow": {
-            "background": "#B0C1C1C1",
-            "radius": 12,
-            "samples": 25,
-            "opacity": 0.5,
-            "verticalOffset": 2,
-            "zValue": -1
-        }
+        "actionText": "#528BFF"
     },
     "StartPage": [
         {

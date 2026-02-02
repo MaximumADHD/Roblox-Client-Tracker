@@ -28486,7 +28486,6 @@
     "documentation": "Limits how loud audio streams are allowed to be.",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioLimiter.Bypass",
-      "Editor": "@roblox/globaltype/AudioLimiter.Editor",
       "MaxLevel": "@roblox/globaltype/AudioLimiter.MaxLevel",
       "Release": "@roblox/globaltype/AudioLimiter.Release",
       "GetConnectedWires": "@roblox/globaltype/AudioLimiter.GetConnectedWires",
@@ -28499,11 +28498,6 @@
   "@roblox/globaltype/AudioLimiter.Bypass": {
     "documentation": "Whether audio streams are passed-through unaffected by this effect.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Bypass",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AudioLimiter.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Editor",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioLimiter.MaxLevel": {
@@ -31443,7 +31437,6 @@
     "keys": {
       "Attack": "@roblox/globaltype/AudioCompressor.Attack",
       "Bypass": "@roblox/globaltype/AudioCompressor.Bypass",
-      "Editor": "@roblox/globaltype/AudioCompressor.Editor",
       "MakeupGain": "@roblox/globaltype/AudioCompressor.MakeupGain",
       "Ratio": "@roblox/globaltype/AudioCompressor.Ratio",
       "Release": "@roblox/globaltype/AudioCompressor.Release",
@@ -31463,11 +31456,6 @@
   "@roblox/globaltype/AudioCompressor.Bypass": {
     "documentation": "Whether audio streams are passed-through unaffected by this effect.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Bypass",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AudioCompressor.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Editor",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.MakeupGain": {
@@ -58612,7 +58600,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- Update button text\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"Auto-Jump is ON\"\n\telse\n\t\tbutton.Text = \"Auto-Jump is OFF\"\n\tend\n\t-- Reflect the property in the player's character, if they have one\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- Toggle auto-jump\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- Update everything else\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/StarterPlayer.AvatarJointUpgrade": {
-    "documentation": "Controls whether avatars spawn with AnimationConstraint joints for physical simulation.",
+    "documentation": "Controls whether avatars spawn with <code>AnimationConstraint</code> joints for physical simulation.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AvatarJointUpgrade",
     "code_sample": ""
   },
@@ -60268,10 +60256,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/LocalizationTable.GetTranslator/return/0": {
-    "documentation": ""
+    "documentation": "The <code>Translator</code> instance for the specified locale."
   },
   "@roblox/globaltype/LocalizationTable.GetTranslator": {
-    "documentation": "Returns a <code>Translator</code> for entries in this LocalizationTable, in the specified language.",
+    "documentation": "Returns a <code>Translator</code> for entries in this LocalizationTable, in the specified locale.",
     "params": [
       {
         "name": "self",
@@ -68991,7 +68979,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/UserInputService.GetFocusedTextBox": {
-    "documentation": "Returns the currently <code>TextBox</code> the client is currently focused on.",
+    "documentation": "Returns the <code>TextBox</code> the client is currently focused on.",
     "params": [
       {
         "name": "self",
@@ -73371,7 +73359,6 @@
     "documentation": "Adjusts the frequency content of audio streams.",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioFilter.Bypass",
-      "Editor": "@roblox/globaltype/AudioFilter.Editor",
       "FilterType": "@roblox/globaltype/AudioFilter.FilterType",
       "Frequency": "@roblox/globaltype/AudioFilter.Frequency",
       "Gain": "@roblox/globaltype/AudioFilter.Gain",
@@ -73387,11 +73374,6 @@
   "@roblox/globaltype/AudioFilter.Bypass": {
     "documentation": "Whether audio streams are passed-through unaffected by this effect.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Bypass",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AudioFilter.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Editor",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioFilter.FilterType": {
@@ -76903,7 +76885,6 @@
     "documentation": "Adjusts the frequency content of audio streams.",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioEqualizer.Bypass",
-      "Editor": "@roblox/globaltype/AudioEqualizer.Editor",
       "HighGain": "@roblox/globaltype/AudioEqualizer.HighGain",
       "LowGain": "@roblox/globaltype/AudioEqualizer.LowGain",
       "MidGain": "@roblox/globaltype/AudioEqualizer.MidGain",
@@ -76918,11 +76899,6 @@
   "@roblox/globaltype/AudioEqualizer.Bypass": {
     "documentation": "Whether audio streams are passed-through unaffected by this effect.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#Bypass",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AudioEqualizer.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#Editor",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.HighGain": {
@@ -93590,7 +93566,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.IsKinematic": {
-    "documentation": "Toggles whether the <code>AnimationConstraint</code> is kinematic or physically simulated.",
+    "documentation": "Toggles whether the constraint is kinematic or physically simulated.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#IsKinematic",
     "code_sample": ""
   },
@@ -93615,7 +93591,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.Transform": {
-    "documentation": "Describes the current animation offset of the <code>AnimationConstraint</code> joint.",
+    "documentation": "Describes the current animation offset of the constraint joint.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#Transform",
     "code_sample": ""
   },
@@ -124335,6 +124311,16 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CoreGuiType#Captures",
     "code_sample": ""
   },
+  "@roblox/enum/CoreGuiType.AvatarSwitcher": {
+    "documentation": "The <strong>Avatar Switcher</strong> allows users to change their platform avatar.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CoreGuiType#AvatarSwitcher",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.CoreGuiType": {
     "documentation": "Represents all available <code>CoreGui</code> \"types\" such as the <code>Backpack</code> and text chat window.",
     "keys": {
@@ -124345,7 +124331,8 @@
       "All": "@roblox/enum/CoreGuiType.All",
       "EmotesMenu": "@roblox/enum/CoreGuiType.EmotesMenu",
       "SelfView": "@roblox/enum/CoreGuiType.SelfView",
-      "Captures": "@roblox/enum/CoreGuiType.Captures"
+      "Captures": "@roblox/enum/CoreGuiType.Captures",
+      "AvatarSwitcher": "@roblox/enum/CoreGuiType.AvatarSwitcher"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CoreGuiType",
     "code_sample": ""

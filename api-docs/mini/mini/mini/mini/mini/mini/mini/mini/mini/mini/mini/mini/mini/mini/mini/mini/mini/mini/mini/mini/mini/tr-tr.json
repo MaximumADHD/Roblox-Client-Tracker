@@ -5221,17 +5221,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CFrame.X": {
-    "documentation": "Konumun X koordinatı.",
+    "documentation": "Pozisyonun <strong>X</strong> koordinatı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/CFrame#X",
     "code_sample": ""
   },
   "@roblox/globaltype/CFrame.Y": {
-    "documentation": "Konumun Y koordinatı.",
+    "documentation": "Pozisyonun <strong>Y</strong> koordinatı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/CFrame#Y",
     "code_sample": ""
   },
   "@roblox/globaltype/CFrame.Z": {
-    "documentation": "Konumun Z koordinatı.",
+    "documentation": "Pozisyonun <strong>Z</strong> koordinatı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/CFrame#Z",
     "code_sample": ""
   },
@@ -5650,7 +5650,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/CFrame.ToAxisAngle": {
-    "documentation": "Bir birim <code>Vector3</code> ekseni ve bir dönüş açısını radian cinsinden içeren bir tuple döndürür.",
+    "documentation": "Bir birim <code>Vector3</code> ekseni ve bir dönüş açısını radian cinsinden içeren bir demet döndürür.",
     "params": [
       {
         "name": "self",
@@ -25665,7 +25665,6 @@
       "UseFixedSimulation": "@roblox/globaltype/Workspace.UseFixedSimulation",
       "UseNewLuauTypeSolver": "@roblox/globaltype/Workspace.UseNewLuauTypeSolver",
       "BreakJoints": "@roblox/globaltype/Workspace.BreakJoints",
-      "ExperimentalSolverIsEnabled": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled",
       "GetNumAwakeParts": "@roblox/globaltype/Workspace.GetNumAwakeParts",
       "GetPhysicsThrottling": "@roblox/globaltype/Workspace.GetPhysicsThrottling",
       "GetRealPhysicsFPS": "@roblox/globaltype/Workspace.GetRealPhysicsFPS",
@@ -25685,7 +25684,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.AirTurbulenceIntensity": {
-    "documentation": "Rüzgar hız alanında mevcut olan türbülansın gücünü kontrol eder, aerodinamik kuvvet modelini etkiler.",
+    "documentation": "Rüzgar hızı alanındaki türbülansın gücünü kontrol eder, aerodinamik kuvvet modelini etkiler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#AirTurbulenceIntensity",
     "code_sample": ""
   },
@@ -25785,7 +25784,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.NextGenerationReplication": {
-    "documentation": "<code>true</code> olduğunda, alt düzeyde özelliklerin nasıl çoğaltıldığını değiştiren ve geliştiren alternatif bir çoğaltma sistemini etkinleştirir.",
+    "documentation": "<code>true</code> olduğunda, özelliklerin arka planda nasıl çoğaltıldığını değiştiren ve iyileştiren alternatif bir çoğaltma sistemini etkinleştirir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#NextGenerationReplication",
     "code_sample": ""
   },
@@ -25890,7 +25889,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Workspace.UseFixedSimulation": {
-    "documentation": "<code>true</code> olduğunda, belirli bir sıklıkta bir işlev çağıran <code>RunService:BindToSimulation()</code>'ı etkinleştirir, fizik adım mantığını günceller ve <code>time()</code> işlevinin sabit adım çerçeve zamanını döndürmesini sağlar.",
+    "documentation": "<code>true</code> olduğunda, <code>RunService:BindToSimulation()</code>'ı etkinleştirir; bu işlev, sabit bir sıklıkta bir fonksiyonu çağırır, fizik adım mantığını günceller ve <code>time()</code> fonksiyonunun sabit adımlı çerçeve süresini döndürmesini sağlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#UseFixedSimulation",
     "code_sample": ""
   },
@@ -25921,26 +25920,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#BreakJoints",
     "code_sample": ""
   },
-  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0": {
-    "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez."
-  },
-  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/Workspace.ExperimentalSolverIsEnabled/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Workspace#ExperimentalSolverIsEnabled",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Workspace.GetNumAwakeParts/param/0": {
     "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez."
   },
@@ -25948,7 +25927,7 @@
     "documentation": "Uyanık parçaların sayısı."
   },
   "@roblox/globaltype/Workspace.GetNumAwakeParts": {
-    "documentation": "Fiziksel olarak aktif olarak kabul edilen <code>BaseParts</code> sayısını döndürür, çünkü yakın zamanda fizik etkisi altında kalmıştır.",
+    "documentation": "Son zamanlarda fizik etkisi altında olduğu kabul edilen <code>BaseParts</code> sayısını döndürür.",
     "params": [
       {
         "name": "self",
@@ -25965,10 +25944,10 @@
     "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling/return/0": {
-    "documentation": "Fizik simülasyonunun şu anda kısıtlandığı gerçek zaman yüzdesi."
+    "documentation": "Fizik simülasyonunun şu anda kısıtlandığı gerçek zaman yüzde değeri."
   },
   "@roblox/globaltype/Workspace.GetPhysicsThrottling": {
-    "documentation": "Fizik simülasyonunun şu anda kısıtlandığı gerçek zamanın yüzdesini temsil eden 0 ile 100 arasında bir tamsayı döndürür.",
+    "documentation": "Fizik simülasyonunun şu anda kısıtlandığı gerçek zaman yüzdesini temsil eden 0 ile 100 arasında bir tam sayı döndürür.",
     "params": [
       {
         "name": "self",
@@ -25985,10 +25964,10 @@
     "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS/return/0": {
-    "documentation": "Fizik simülasyonunun şu anda simüle edildiği saniyedeki kare sayısını döndürür."
+    "documentation": "Fizik simülasyonunun şu anda hangi kare sayısında simüle edildiğini döndürür."
   },
   "@roblox/globaltype/Workspace.GetRealPhysicsFPS": {
-    "documentation": "Fizik simülasyonunun şu anda simüle edildiği saniyedeki kare sayısını döndürür.",
+    "documentation": "Fizik simülasyonunun şu anda hangi kare sayısında simüle edildiğini döndürür.",
     "params": [
       {
         "name": "self",
@@ -26028,10 +26007,10 @@
     "documentation": "Eklemlerin yapılacağı <code>BaseParts</code> dizisi."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders/param/2": {
-    "documentation": "Kullanılacak <code>JointCreationMode</code>. <code>Enum.JointCreationMode.All</code> veya <code>Enum.JointCreationMode.Surface</code> geçirmenin aynı davranışı doğurur; bu Her Zaman Ekle ile eşleşir."
+    "documentation": "Kullanılacak <code>JointCreationMode</code>. <code>Enum.JointCreationMode.All</code> veya <code>Enum.JointCreationMode.Surface</code> geçirmenin aynı davranışı göstermektedir; bu, Her Zaman Katılmak anlamına gelir."
   },
   "@roblox/globaltype/Workspace.JoinToOutsiders": {
-    "documentation": "Verilen <code>Parts</code> ile herhangi bir temas eden parçalar arasında eklemler oluşturur; parçaların yüzeylerine ve belirtilen eklem oluşturma moduna bağlı olarak.",
+    "documentation": "Belirtilen <code>Parts</code> ile dokunan parçalar arasında eklemler oluşturur, parçaların yüzeylerine ve belirli eklem oluşturma moduna bağlıdır.",
     "params": [
       {
         "name": "self",
@@ -26057,7 +26036,7 @@
     "documentation": "Eklemlerin yapılacağı <code>parts</code> dizisi."
   },
   "@roblox/globaltype/Workspace.MakeJoints": {
-    "documentation": "<strong>Deprecated:</strong> <br>Verilen tüm <code>BaseParts</code>'ı gözden geçirir. Herhangi bir parçanın kenarında bir eklem oluşturabilecek bir <code>SurfaceType</code> varsa, temas eden parçalarla bir eklem oluşturur.",
+    "documentation": "<strong>Deprecated:</strong> <br>Verilen tüm <code>BaseParts</code>'i tarar. Herhangi bir parçanın yan yüzeyinde eklem yapabilen bir <code>SurfaceType</code> varsa, yanındaki parçalarla bir eklem oluşturur.",
     "params": [
       {
         "name": "self",
@@ -26076,10 +26055,10 @@
     "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled/return/0": {
-    "documentation": "PGS çözücüsü etkinse doğru."
+    "documentation": "PGS çözümleyici etkinse doğrudur."
   },
   "@roblox/globaltype/Workspace.PGSIsEnabled": {
-    "documentation": "Oyunun PGS Fizik çözücüsü etkinse <code>true</code> döndürür.",
+    "documentation": "Oyun PGS Fizik çözücüsü etkin ise <code>true</code> döndürür.",
     "params": [
       {
         "name": "self",
@@ -26118,7 +26097,7 @@
     "documentation": "<strong>Workspace</strong> 3D nesnelerin 3D dünyada görüntülendiği yerdir. Ondan türemeyen nesneler render edilmez veya dünya ile fiziksel etkileşime girmez."
   },
   "@roblox/globaltype/Workspace.ZoomToExtents": {
-    "documentation": "<code>Workspace.CurrentCamera</code>'yı, şu anda <code>Workspace</code> içinde bulunan <code>BaseParts</code>'ın kapsamını gösterecek şekilde konumlandırır ve yakınlaştırır.",
+    "documentation": "<code>Workspace.CurrentCamera</code>'yı konumlandırır ve yakınlaştırır, şu anda <code>Workspace</code>'te bulunan <code>BaseParts</code>'in kapsamını gösterir.",
     "params": [
       {
         "name": "self",
@@ -29056,7 +29035,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HandleAdornment": {
-    "documentation": "3D tutamak süslemeleri tarafından miras alınan soyut bir sınıf.",
+    "documentation": "3D tutacak süslemeleri tarafından türetilen soyut bir sınıf.",
     "keys": {
       "AdornCullingMode": "@roblox/globaltype/HandleAdornment.AdornCullingMode",
       "AlwaysOnTop": "@roblox/globaltype/HandleAdornment.AlwaysOnTop",
@@ -29073,22 +29052,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/HandleAdornment.AlwaysOnTop": {
-    "documentation": "Bu süslemenin, çalışma alanındaki tüm 3D nesnelerin üstünde render edilmesini zorlar.",
+    "documentation": "Bu süslemenin, çalışma alanındaki tüm 3D nesnelerin üzerine render edilmesini zorunlu kılar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HandleAdornment#AlwaysOnTop",
     "code_sample": ""
   },
   "@roblox/globaltype/HandleAdornment.CFrame": {
-    "documentation": "Nesnenin konumu ve rotasyonu, <code>PVAdornment.Adornee</code> ile ilgili olarak.",
+    "documentation": "Nesnenin konumu ve rotası, kendi <code>PVAdornment.Adornee</code>'sine göre.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HandleAdornment#CFrame",
     "code_sample": ""
   },
   "@roblox/globaltype/HandleAdornment.SizeRelativeOffset": {
-    "documentation": "Süslemenin konumunu, adornee'nin <code>BasePart.Size</code> değerine göre belirler.",
+    "documentation": "Süslemenin pozisyonel ofseti, adornee'nin <code>BasePart.Size</code>'ına bağlıdır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HandleAdornment#SizeRelativeOffset",
     "code_sample": ""
   },
   "@roblox/globaltype/HandleAdornment.ZIndex": {
-    "documentation": "<code>AlwaysOnTop</code> <code>true</code> olduğunda bu <code>HandleAdornment</code> çizim sırasını belirler.",
+    "documentation": "Bu <code>HandleAdornment</code>'ın çizim sırasını belirler <code>AlwaysOnTop</code> <code>true</code> olduğunda.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HandleAdornment#ZIndex",
     "code_sample": ""
   },
@@ -29170,7 +29149,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Down": {
-    "documentation": "Bir oyuncu süslemenin üzerinde gezinirken sol fare tuşuna basarsa tetiklenir.",
+    "documentation": "Bir oyuncu süslemenin üzerine gelirken sol fare tuşuna basarsa tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Down.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Down.ConnectParallel",
@@ -29258,7 +29237,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseButton1Up": {
-    "documentation": "Bir oyuncu süslemenin üzerinde gezinirken sol fare tuşunu bırakırsa tetiklenir.",
+    "documentation": "Bir oyuncu süslemenin üzerine gelirken sol fare tuşunu bırakırsa tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseButton1Up.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseButton1Up.ConnectParallel",
@@ -29346,7 +29325,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseEnter": {
-    "documentation": "Bir oyuncu süslemenin üzerinde gezindiğinde tetiklenir.",
+    "documentation": "Bir oyuncu süslemenin üzerine gelirken farenin mouse'unu hareket ettirirse tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseEnter.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseEnter.ConnectParallel",
@@ -29434,7 +29413,7 @@
     "returns": []
   },
   "@roblox/globaltype/HandleAdornment.MouseLeave": {
-    "documentation": "Bir oyuncu süslemenin dışına fare hareket ettirdiğinde tetiklenir.",
+    "documentation": "Bir oyuncu süslemeden mouse'unu çıkardığında tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/HandleAdornment.MouseLeave.Connect",
       "ConnectParallel": "@roblox/globaltype/HandleAdornment.MouseLeave.ConnectParallel",
@@ -30928,12 +30907,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.PrintPhysicsErrors": {
-    "documentation": "Fizik çoğaltma hatalarıyla ilgili çıktıların verilip verilmeyeceği.",
+    "documentation": "Fizik replikasyon hatalarıyla ilgili olarak çıkışa hata ayıklama mesajlarının basılıp basılmayacağı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#PrintPhysicsErrors",
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.PrintStreamInstanceQuota": {
-    "documentation": "<code>Workspace.StreamingEnabled</code> <code>true</code> olarak ayarlandığında, örneklerin çoğaltılması ile ilgili tanılama bilgilerinin çıktıya yazılıp yazılmayacağı.",
+    "documentation": "Fizik replikasyonu işlemi sırasında <code>Workspace.StreamingEnabled</code> <code>true</code> olarak ayarlandığında çıkışa hata ayıklama bilgilerinin basılıp basılmayacağı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#PrintStreamInstanceQuota",
     "code_sample": ""
   },
@@ -30943,7 +30922,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/NetworkSettings.RenderStreamedRegions": {
-    "documentation": "İstemciye akıtılan alanların kırmızı renkle belirtileceği.",
+    "documentation": "İstemciye akış olarak gönderilen alanların kırmızıya boyanıp boyanmayacağı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/NetworkSettings#RenderStreamedRegions",
     "code_sample": ""
   },
@@ -33638,7 +33617,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreateDockWidgetPluginGui": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem <code>CreateDockWidgetPluginGuiAsync()</code> ile değiştirilmiştir.<br>Bir <code>DockWidgetPluginGuiInfo</code> verilen <code>DockWidgetPluginGui</code> oluşturur.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>CreateDockWidgetPluginGuiAsync()</code> ile değiştirilmiştir.<br>Bir <code>DockWidgetPluginGuiInfo</code> verilen <code>DockWidgetPluginGui</code> oluşturur.",
     "params": [
       {
         "name": "self",
@@ -33681,7 +33660,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.CreatePluginAction": {
-    "documentation": "Studio'daki doğrudan ilişkili bir <code>PluginToolbarButton</code> olmayan genel bir eylemi temsil eden bir <code>PluginAction</code> oluşturur.",
+    "documentation": "Studio'da doğrudan ilişkili bir <code>PluginToolbarButton</code> olmadan temel bir uygulanabilir eylemi temsil eden bir <code>PluginAction</code> oluşturur.",
     "params": [
       {
         "name": "self",
@@ -33917,7 +33896,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimationAsync": {
-    "documentation": ".fbx uzantılı bir animasyon dosyasını açması için kullanıcıyı istek yapar, ardından animasyonu <code>KeyframeSequence</code> olarak <code>Workspace</code>'e ekler.",
+    "documentation": "Kullanıcıdan <code>rigModel</code> üzerine yüklenebilen bir <code>.fbx</code> animasyon dosyası açması istenir, ardından animasyon <code>KeyframeSequence</code> olarak <code>Workspace</code>'a eklenir.",
     "params": [
       {
         "name": "self",
@@ -33951,7 +33930,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxAnimation": {
-    "documentation": "<strong>Deprecated:</strong> <br>.fbx uzantılı bir animasyon dosyasını açması için kullanıcıyı istek yapar, ardından animasyonu <code>KeyframeSequence</code> olarak <code>Workspace</code>'e ekler.",
+    "documentation": "<strong>Deprecated:</strong> <br>Kullanıcıdan <code>rigModel</code> üzerine yüklenebilen bir <code>.fbx</code> animasyon dosyası açması istenir, ardından animasyon <code>KeyframeSequence</code> olarak <code>Workspace</code>'a eklenir.",
     "params": [
       {
         "name": "self",
@@ -33982,7 +33961,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRigAsync": {
-    "documentation": ".fbx uzantılı bir dosya açması için kullanıcıyı istekte bulunur, modelin bireysel bileşenlerini mesh olarak yükler ve animasyon kullanımına uygun bir karakter rig oluşturur, bu da <code>Workspace</code>'e yüklenir.",
+    "documentation": "Kullanıcıdan bir <code>.fbx</code> dosyası açması istenir, modelin bireysel bileşenlerini mesh olarak yükler ve animasyon için kullanılacak bir karakter rig'i oluşturur, bu <code>Workspace</code>'a yüklenir.",
     "params": [
       {
         "name": "self",
@@ -34009,7 +33988,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.ImportFbxRig": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem <code>ImportFbxRigAsync()</code> ile değiştirilmiştir.<br>.fbx uzantılı bir dosya açması için kullanıcıyı istekte bulunur, modelin bireysel bileşenlerini mesh olarak yükler ve animasyon kullanımına uygun bir karakter rig oluşturur, bu da <code>Workspace</code>'e yüklenir.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>ImportFbxRigAsync()</code> ile değiştirilmiştir.<br>Kullanıcıdan bir <code>.fbx</code> dosyası açması istenir, modelin bireysel bileşenlerini mesh olarak yükler ve animasyon için kullanılacak bir karakter rig'i oluşturur, bu <code>Workspace</code>'a yüklenir.",
     "params": [
       {
         "name": "self",
@@ -34036,7 +34015,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Intersect": {
-    "documentation": "Verilen parçaları kesiştirir ve sonucu <code>IntersectOperation</code> olarak döner.",
+    "documentation": "Verilen parçaları kesiştirir ve sonuç olarak elde edilen <code>IntersectOperation</code>'ı döner.",
     "params": [
       {
         "name": "self",
@@ -34103,7 +34082,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Negate": {
-    "documentation": "Verilen parçaları olumsuzlar ve sonucu <code>NegateOperations</code> olarak döner.",
+    "documentation": "Verilen parçaları olumsuzlayarak sonuç olarak elde edilen <code>NegateOperations</code>'ı döner.",
     "params": [
       {
         "name": "self",
@@ -34262,7 +34241,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.PromptSaveSelection": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem <code>PromptSaveSelectionAsync()</code> ile değiştirilmiştir.<br>Kullanıcıdan, belirtilen dosya adıyla mevcut seçimini kaydetmesi için bir istemde bulunur.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>PromptSaveSelectionAsync()</code> ile değiştirilmiştir.<br>Kullanıcıdan, belirtilen dosya adıyla mevcut seçimini kaydetmesi için bir istemde bulunur.",
     "params": [
       {
         "name": "self",
@@ -34333,7 +34312,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Plugin.Separate": {
-    "documentation": "Verilen <code>UnionOperations</code>'ı ayırır ve sonucu parçaları döner.",
+    "documentation": "Verilen <code>UnionOperations</code>'ı ayırır ve sonuç olarak elde edilen parçaları döner.",
     "params": [
       {
         "name": "self",
@@ -36489,7 +36468,7 @@
     "documentation": "Aşağıdaki anahtar-değer çiftlerini içeren projeksiyon yapılandırma sözlüğü: <ul> <li><code>Direction</code> (<code>Vector3</code>), projektörün yönü.</li> <li><code>Position</code> (<code>Vector3</code>), ağın yerel alanında pozisyon.</li> <li><code>Size</code> (<code>Vector3</code>), projektörün boyutu.</li> <li><code>Up</code> (<code>Vector3</code>), ağın yerel alanında projektörün yukarı vektörü.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected/param/3": {
-    "documentation": "Fırça yapılandırma sözlüğü aşağıdaki anahtar-değer çiftlerini içermektedir: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>), bu   projeksiyonun alfa değerlerini nasıl harmanlayacağını belirler.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>), bu   projeksiyonun renk değerlerini nasıl harmanlayacağını belirler.</li> <li><code>Decal</code> (<code>EditableImage</code>), projeksiyon için kullanılan resimdir.</li> <li><code>FadeAngle</code> (numara), projeksiyonun kenarlarının ne zaman solmaya başlayacağını gösteren açıdır. Projeksiyon 90 derece tamamen solmuş olur.    0 açısı, solmanın hemen 0 dereceden başladığı anlamına gelir, 90 açısı   ise solma değildir, 90 derecede keskin bir kenar vardır. 70 derecelik bir açı, projeksiyonun   70 derecede solmaya başladığı ve 90 derecede tamamen solmuş olduğu anlamına gelir.</li> <li><code>BlendIntensity</code> (numara), projeksiyonun sonuçta ne kadar görüntüye harmanlandığını kontrol eden <code>0</code> ile <code>1</code> arasında bir değerdir.</li> </ul>"
+    "documentation": "Fırça yapılandırma sözlüğü, aşağıdaki anahtar-değer çiftlerini içermektedir: <ul> <li><code>AlphaBlendType</code> (<code>ImageAlphaType</code>), bu projeksiyonun alpha değerlerini nasıl harmanlayacağını belirler.</li> <li><code>ColorBlendType</code> (<code>ImageCombineType</code>), bu projeksiyonun renk değerlerini nasıl harmanlayacağını belirler.</li> <li><code>Decal</code> (<code>EditableImage</code>), projeksiyon için kullanılan görüntüdür.</li> <li><code>FadeAngle</code> (sayı), projeksiyon kenarlarının sönmeye başlaması için derece cinsinden açıdır.   Projeksiyon 90 derecede tamamen sönmüş olacaktır. 0 derecelik bir açı, sönmenin   hemen 0 derecede başlaması anlamına gelir, 90 derecelik bir açı ise sönmenin olmaması,   fakat 90 derecede sert bir kenar olması anlamına gelir. 70 derecelik bir açı,   projeksiyonun 70 derecede sönmeye başlayacağı ve 90 derecede tamamen sönmüş olacağı anlamına gelir.</li> <li><code>BlendIntensity</code> (sayı), projeksiyonun elde edilen görüntüye ne kadar harmanlanacağını kontrol eden   <code>0</code> ile <code>1</code> arasındaki değerdir.</li> </ul>"
   },
   "@roblox/globaltype/EditableImage.DrawImageProjected": {
     "documentation": "Başka bir <code>EditableImage</code>'i bir <code>EditableMesh</code> içine projekte eder ve sonucu bu <code>EditableImage</code>'de depolar.",
@@ -41970,7 +41949,7 @@
     "documentation": "İstemcinin başlatılacağı akış bağlantısının türü."
   },
   "@roblox/globaltype/HttpService.CreateWebStreamClient/param/2": {
-    "documentation": "Sunucudan istenen bilgileri içeren bir sözlük. <code>HttpService:RequestAsync()</code> içindeki <code>requestOptions</code> ile aynı."
+    "documentation": "Sunucudan talep edilecek bilgileri içeren bir sözlük. <code>HttpService:RequestAsync()</code> içindeki <code>requestOptions</code> ile eştir."
   },
   "@roblox/globaltype/HttpService.CreateWebStreamClient/return/0": {
     "documentation": "Akış yaşam döngüsünde olay yayan durum bilgisi taşıyan bir istemci."
@@ -44211,7 +44190,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointsService": {
-    "documentation": "<strong>Deprecated:</strong> Bu hizmet, yüzey bağlantıları için kullanılacak olan <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> lehine geçersiz kılındı.<br>Yüzey bağlantıları ile oluşturulan eklemleri depolayan bir hizmet.",
+    "documentation": "<strong>Deprecated:</strong> Bu hizmet, yüzey bağlantıları için kullanılacak <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> lehine kullanım dışı bırakılmıştır.<br>Yüzey bağlantıları tarafından oluşturulan eklemleri depolayan bir hizmet.",
     "keys": {
       "ClearJoinAfterMoveJoints": "@roblox/globaltype/JointsService.ClearJoinAfterMoveJoints",
       "CreateJoinAfterMoveJoints": "@roblox/globaltype/JointsService.CreateJoinAfterMoveJoints",
@@ -44223,10 +44202,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointsService.ClearJoinAfterMoveJoints/param/0": {
-    "documentation": "<strong>Deprecated:</strong> Bu hizmet, yüzey bağlantıları için kullanılacak olan <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> lehine geçersiz kılındı.<br>Yüzey bağlantıları ile oluşturulan eklemleri depolayan bir hizmet."
+    "documentation": "<strong>Deprecated:</strong> Bu hizmet, yüzey bağlantıları için kullanılacak <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> lehine kullanım dışı bırakılmıştır.<br>Yüzey bağlantıları tarafından oluşturulan eklemleri depolayan bir hizmet."
   },
   "@roblox/globaltype/JointsService.ClearJoinAfterMoveJoints": {
-    "documentation": "'Class.JointsService:ShowPermissibleJoints()' yöntemi aracılığıyla görünür hale getirilen herhangi bir 'create joints' kaldırılacaktır.",
+    "documentation": "'Class.JointsService:ShowPermissibleJoints()' metodu ile görünür kılınan herhangi bir 'create joints' nesnesini kaldırır.",
     "params": [
       {
         "name": "self",
@@ -44238,10 +44217,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointsService.CreateJoinAfterMoveJoints/param/0": {
-    "documentation": "<strong>Deprecated:</strong> Bu hizmet, yüzey bağlantıları için kullanılacak olan <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> lehine geçersiz kılındı.<br>Yüzey bağlantıları ile oluşturulan eklemleri depolayan bir hizmet."
+    "documentation": "<strong>Deprecated:</strong> Bu hizmet, yüzey bağlantıları için kullanılacak <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> lehine kullanım dışı bırakılmıştır.<br>Yüzey bağlantıları tarafından oluşturulan eklemleri depolayan bir hizmet."
   },
   "@roblox/globaltype/JointsService.CreateJoinAfterMoveJoints": {
-    "documentation": "'Class.JointsService:SetJoinAfterMoveTarget()' ve 'Class.JointsService:SetJoinAfterMoveInstance()' yöntemleri ile atanan parçalar için tüm görünür eklemleri günceller.",
+    "documentation": "'Class.JointsService:SetJoinAfterMoveTarget()' ve 'Class.JointsService:SetJoinAfterMoveInstance()' metotlarıyla atanan parçalar için tüm görünür eklemleri günceller.",
     "params": [
       {
         "name": "self",
@@ -44253,7 +44232,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointsService.SetJoinAfterMoveInstance/param/0": {
-    "documentation": "<strong>Deprecated:</strong> Bu hizmet, yüzey bağlantıları için kullanılacak olan <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> lehine geçersiz kılındı.<br>Yüzey bağlantıları ile oluşturulan eklemleri depolayan bir hizmet."
+    "documentation": "<strong>Deprecated:</strong> Bu hizmet, yüzey bağlantıları için kullanılacak <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> lehine kullanım dışı bırakılmıştır.<br>Yüzey bağlantıları tarafından oluşturulan eklemleri depolayan bir hizmet."
   },
   "@roblox/globaltype/JointsService.SetJoinAfterMoveInstance/param/1": {
     "documentation": ""
@@ -44275,7 +44254,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointsService.SetJoinAfterMoveTarget/param/0": {
-    "documentation": "<strong>Deprecated:</strong> Bu hizmet, yüzey bağlantıları için kullanılacak olan <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> lehine geçersiz kılındı.<br>Yüzey bağlantıları ile oluşturulan eklemleri depolayan bir hizmet."
+    "documentation": "<strong>Deprecated:</strong> Bu hizmet, yüzey bağlantıları için kullanılacak <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> lehine kullanım dışı bırakılmıştır.<br>Yüzey bağlantıları tarafından oluşturulan eklemleri depolayan bir hizmet."
   },
   "@roblox/globaltype/JointsService.SetJoinAfterMoveTarget/param/1": {
     "documentation": ""
@@ -44297,10 +44276,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointsService.ShowPermissibleJoints/param/0": {
-    "documentation": "<strong>Deprecated:</strong> Bu hizmet, yüzey bağlantıları için kullanılacak olan <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> lehine geçersiz kılındı.<br>Yüzey bağlantıları ile oluşturulan eklemleri depolayan bir hizmet."
+    "documentation": "<strong>Deprecated:</strong> Bu hizmet, yüzey bağlantıları için kullanılacak <a href=\"../../../physics/mechanical-constraints.md\">constraints</a> lehine kullanım dışı bırakılmıştır.<br>Yüzey bağlantıları tarafından oluşturulan eklemleri depolayan bir hizmet."
   },
   "@roblox/globaltype/JointsService.ShowPermissibleJoints": {
-    "documentation": "Kullanıldığında, <code>BasePart</code>'lar arasında olası bir yüzey bağlantısını görünür hale getirir; bu yüzeyler <code>JointsService:SetJoinAfterMoveTarget()</code> ve <code>JointsService:SetJoinAfterMoveInstance()</code> ile ayarlanmıştır.",
+    "documentation": "Kullanıldığında, 'Class.JointsService:SetJoinAfterMoveTarget()' ve 'Class.JointsService:SetJoinAfterMoveInstance()' ile ayarlanan iki <code>BasePart</code> arasında potansiyel bir yüzey bağlantısını görünür şekilde gösterir.",
     "params": [
       {
         "name": "self",
@@ -48628,7 +48607,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.EagerBulkExecution": {
-    "documentation": "Tüm sahne güncellemelerinin, ne kadar hesaplama maliyetli olursa olsun,  sınırsız bir bütçe alıp almayacağı.",
+    "documentation": "Tüm sahne güncellemelerinin, hesaplama açısından ne kadar maliyetli olursa olsun, bir sınırsız bütçe ile verilip verilmeyeceği.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#EagerBulkExecution",
     "code_sample": ""
   },
@@ -48678,17 +48657,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.ReloadAssets": {
-    "documentation": "Roblox Studio'nun, Roblox'un <code>content</code> klasöründeki dosyalarda yapılan değişiklikleri otomatik olarak yeniden yükleyip yüklemeyeceği.",
+    "documentation": "Roblox Studio'nun, Roblox'un <code>content</code> klasöründeki dosyalara yapılan değişiklikleri otomatik olarak yeniden yükleyip yüklemeyeceği.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#ReloadAssets",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.RenderCSGTrianglesDebug": {
-    "documentation": "Tüm <code>PartOperation</code> nesneleri üzerinde bir poligon tel çerçevesinin gösterilip gösterilmeyeceği.",
+    "documentation": "Tüm <code>PartOperation</code> nesnelerinde çokgenlerin bir wireframe'inin gösterilip monomayacağı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#RenderCSGTrianglesDebug",
     "code_sample": ""
   },
   "@roblox/globaltype/RenderSettings.ShowBoundingBoxes": {
-    "documentation": "Sahnedeki her bireysel render edilen varlığın etrafında sınırlayıcı kutuların render edilip edilmeyeceği.",
+    "documentation": "Sahnede her bir bireysel render edilen varlığın etrafında sınır kutularının render edilip edilmeyeceği.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/RenderSettings#ShowBoundingBoxes",
     "code_sample": ""
   },
@@ -52815,6 +52794,9 @@
   "@roblox/globaltype/Instance.GetStyled/param/1": {
     "documentation": "Sorgulamak için niteliğin adı."
   },
+  "@roblox/globaltype/Instance.GetStyled/param/2": {
+    "documentation": "Hedef aldığınız sahte örnek için isteğe bağlı seçici örneği."
+  },
   "@roblox/globaltype/Instance.GetStyled/return/0": {
     "documentation": "Belirtilen niteliğin stil verilmiş veya açıkça değiştirilmiş değeri; veya stil verilmemişse varsayılan niteliğin değeridir."
   },
@@ -52828,6 +52810,10 @@
       {
         "name": "name",
         "documentation": "@roblox/globaltype/Instance.GetStyled/param/1"
+      },
+      {
+        "name": "selector",
+        "documentation": "@roblox/globaltype/Instance.GetStyled/param/2"
       }
     ],
     "returns": [
@@ -58626,7 +58612,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- Buton metnini güncelle\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"Otomatik Zıplama AÇIK\"\n\telse\n\t\tbutton.Text = \"Otomatik Zıplama KAPALI\"\n\tend\n\t-- Özelliği oyuncunun karakterinde yansıt, eğer bir karakteri varsa\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- otomatik zıplamayı aç/kapa\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- her şeyi güncelle\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/StarterPlayer.AvatarJointUpgrade": {
-    "documentation": "Avatarlara fiziksel simülasyon için AnimationConstraint eklemenin kontrol edilmesini sağlar.",
+    "documentation": "<code>AnimationConstraint</code> eklemesi ile avatarların fiziksel simülasyon için kontrol edilmesini sağlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AvatarJointUpgrade",
     "code_sample": ""
   },
@@ -59129,7 +59115,7 @@
     "documentation": "Bileşik doku setini içeren yeni bir <code>Decal</code>."
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync": {
-    "documentation": "Verilen dokuları sağlanan sıralamaya göre katmanlayarak birleşik PBR dokularını kullanan bir Dekal örneği oluşturur.",
+    "documentation": "Sağlanan dokuların <code>layers</code> dizisinde verildiği sıraya göre katmanlanarak oluşturduğu birleşik PBR dokularını kullanan bir Dekal örneği oluşturur.",
     "params": [
       {
         "name": "self",
@@ -59484,13 +59470,13 @@
     "documentation": "Roblox web API ile ilgili varlık sorgularını yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "Aşağıdaki anahtar-değer çiftlerini içeren sözlük: <ul> <li><code>ColorMap</code> — rengi içeren bir <code>Content</code> nesnesi.   Varsayılanı <code>nil</code>'dir.</li> <li><code>MetalnessMap</code> — metalik haritayı içeren bir <code>Content</code> nesnesi. Eğer birden fazla kanal varsa, yalnızca kırmızı   kanal kullanılır. Varsayılanı <code>nil</code>'dir.</li> <li><code>NormalMap</code> — normal haritayı içeren bir <code>Content</code> nesnesi. Varsayılanı <code>nil</code>'dir.</li> <li><code>RoughnessMap</code> — pürüzlülük haritasını içeren bir <code>Content</code> nesnesi. Eğer birden fazla kanal varsa, yalnızca kırmızı   kanal kullanılır. Varsayılanı <code>nil</code>'dir.</li> <li><code>EmissiveMask</code> — emisyona maskesini içeren bir <code>Content</code> nesnesi. Eğer birden fazla kanal varsa, yalnızca kırmızı   kanal kullanılır. Varsayılanı <code>nil</code>'dir.</li> </ul>"
+    "documentation": "Aşağıdaki anahtar-değer çiftlerini içeren sözlük: <ul> <li><code>ColorMap</code> — Renk haritasını içeren bir <code>Content</code> nesnesi. Varsayılan <code>nil</code>.</li> <li><code>MetalnessMap</code> — Metalik haritayı içeren bir <code>Content</code> nesnesi. Birden fazla kanal varsa, yalnızca kırmızı kanal kullanılır. Varsayılan <code>nil</code>.</li> <li><code>NormalMap</code> — Normal haritayı içeren bir <code>Content</code> nesnesi. Varsayılan <code>nil</code>.</li> <li><code>RoughnessMap</code> — Pürüzlülük haritasını içeren bir <code>Content</code> nesnesi. Birden fazla kanal varsa, yalnızca kırmızı kanal kullanılır. Varsayılan <code>nil</code>.</li> <li><code>EmissiveMask</code> — Emisif maskeyi içeren bir <code>Content</code> nesnesi. Birden fazla kanal varsa, yalnızca kırmızı kanal kullanılır. Varsayılan <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "Belirtilen <code>content</code> parametresinden gelen haritalar ile yeni bir <code>SurfaceAppearance</code> örneği."
+    "documentation": "Verilen <code>content</code> parametresinden alınan haritalarla yeni bir <code>SurfaceAppearance</code> örneği."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
-    "documentation": "Sağlanan içerik haritalarını kullanarak yeni bir <code>SurfaceAppearance</code> nesnesi oluşturur.",
+    "documentation": "Verilen içerik haritalarını kullanarak yeni bir <code>SurfaceAppearance</code> nesnesi oluşturur.",
     "params": [
       {
         "name": "self",
@@ -59768,7 +59754,7 @@
     "documentation": "Roblox web API ile ilgili varlık sorgularını yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "Yayın yapmadan kaydedip kaydetmeyeceğini belirten bir boolean olan <code>SaveWithoutPublish</code>'i içeren isteğe bağlı bir sözlük ve üzerine kaydedilecek hedef yer ID'si olan <code>PlaceId</code>. Örnek bir kullanım: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Eğer PlaceId verilmezse, varsayılan davranış, SavePlaceAsync'ı çağıran mevcut orijinal yeri üstünü kaydetmek olacaktır. Eğer SaveWithoutPublish verilmezse, varsayılan davranış SaveWithoutPublish=false'dır."
+    "documentation": "Yayın yapmadan kaydetmek isteyip istemediğini belirten bir boole olan <code>SaveWithoutPublish</code> ve üstüne kaydedilecek hedef yer kimliği <code>PlaceId</code> içeren isteğe bağlı bir sözlük. Bir örnek kullanım: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Eğer PlaceId sağlanmazsa, varsayılan davranış, SavePlaceAsync'ı çağıran mevcut orijinal yeri üzerini kaydetmektir. Eğer SaveWithoutPublish sağlanmazsa, varsayılan davranış SaveWithoutPublish=false'dır."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "Güncel yerin durumunu kaydeder.",
@@ -60282,10 +60268,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/LocalizationTable.GetTranslator/return/0": {
-    "documentation": ""
+    "documentation": "Belirtilen yerel dil için <code>Translator</code> örneği."
   },
   "@roblox/globaltype/LocalizationTable.GetTranslator": {
-    "documentation": "Belirtilen dilde bu LocalizationTable'daki girişler için bir <code>Translator</code> döndürür.",
+    "documentation": "Bu LocalizationTable'daki girdiler için belirtilen yerel dilde bir <code>Translator</code> döner.",
     "params": [
       {
         "name": "self",
@@ -61174,7 +61160,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GamePassService": {
-    "documentation": "Eski oyun geçiş sistemiyle ilişkili bir hizmet. Tüm yeni projeler için <code>MarketplaceService</code> kullanın.",
+    "documentation": "Eski oyun geçiş sistemiyle ilişkili bir hizmet. Tüm yeni işler için <code>MarketplaceService</code> kullanılmalıdır.",
     "keys": {
       "PlayerHasPass": "@roblox/globaltype/GamePassService.PlayerHasPass"
     },
@@ -61182,19 +61168,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/GamePassService.PlayerHasPass/param/0": {
-    "documentation": "Eski oyun geçiş sistemiyle ilişkili bir hizmet. Tüm yeni projeler için <code>MarketplaceService</code> kullanın."
+    "documentation": "Eski oyun geçiş sistemiyle ilişkili bir hizmet. Tüm yeni işler için <code>MarketplaceService</code> kullanılmalıdır."
   },
   "@roblox/globaltype/GamePassService.PlayerHasPass/param/1": {
-    "documentation": "<code>Player</code> için sahiplik kontrolü yapılacak."
+    "documentation": "<code>Player</code> sahibi olup olmadığını kontrol etmek için."
   },
   "@roblox/globaltype/GamePassService.PlayerHasPass/param/2": {
-    "documentation": "Oyun geçişinin <em>Varlık ID'si</em>. Bu, <em>Oyun Geçişi ID'si</em> değildir (yukarıya bakın)."
+    "documentation": "Oyun geçişinin <em>Varlık ID</em>'si. Bu <strong>değil</strong> <em>Oyun Geçişi ID</em> (bkz. yukarıdaki)."
   },
   "@roblox/globaltype/GamePassService.PlayerHasPass/return/0": {
     "documentation": "<code>Player</code>'ın oyun geçişine sahip olup olmadığı."
   },
   "@roblox/globaltype/GamePassService.PlayerHasPass": {
-    "documentation": "<strong>Deprecated:</strong> <br><code>Player</code> belirtilen <strong>eski</strong> oyun geçişine sahipse <code>true</code> gerir. Yeni oyun geçişleriyle çalışmaz.",
+    "documentation": "<strong>Deprecated:</strong> <br><code>Player</code>'ın belirtilen <strong>eski</strong> oyun geçişine sahip olması durumunda <code>true</code>  döner. Yeni oyun geçişleriyle çalışmaz.",
     "params": [
       {
         "name": "self",
@@ -75074,7 +75060,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/JointInstance.part1": {
-    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılan özellik, <code>Part1</code>'in kullanılacak bir versiyonudur.",
+    "documentation": "<strong>Deprecated:</strong> Bu eski özellik, kullanılması gereken <code>Part1</code> devamıdır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/JointInstance#part1",
     "code_sample": ""
   },
@@ -76656,9 +76642,7 @@
       "BindReviewableContentEventProcessor": "@roblox/globaltype/ModerationService.BindReviewableContentEventProcessor",
       "CreateReviewableContentAsync": "@roblox/globaltype/ModerationService.CreateReviewableContentAsync",
       "CreateReviewableContentKey": "@roblox/globaltype/ModerationService.CreateReviewableContentKey",
-      "InternalCreateReviewableContentAsync": "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync",
-      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync",
-      "InternalProcessReviewableContentEvent": "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent"
+      "InternalRequestReviewableContentReviewAsync": "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService",
     "code_sample": ""
@@ -76751,33 +76735,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#CreateReviewableContentKey",
     "code_sample": ""
   },
-  "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/param/0"
-      },
-      {
-        "name": "config",
-        "documentation": "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/param/1"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/ModerationService.InternalCreateReviewableContentAsync/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalCreateReviewableContentAsync",
-    "code_sample": ""
-  },
   "@roblox/globaltype/ModerationService.InternalRequestReviewableContentReviewAsync/param/0": {
     "documentation": ""
   },
@@ -76798,26 +76755,6 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalRequestReviewableContentReviewAsync",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent/param/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "event",
-        "documentation": "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent/param/0"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/ModerationService.InternalProcessReviewableContentEvent/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ModerationService#InternalProcessReviewableContentEvent",
     "code_sample": ""
   },
   "@roblox/globaltype/SpawnLocation": {
@@ -77331,7 +77268,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D": {
-    "documentation": "Çalışma zamanı sırasında 2D spline'ların oluşturulmasına, düzenlenmesine ve görselleştirilmesine olanak tanıyan örnek.",
+    "documentation": "",
     "keys": {
       "Closed": "@roblox/globaltype/Path2D.Closed",
       "Color3": "@roblox/globaltype/Path2D.Color3",
@@ -77373,7 +77310,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.SelectedControlPointData": {
-    "documentation": "Şu anda seçilen kontrol noktasını temsil eden <code>Path2DControlPoint</code> veri türü.",
+    "documentation": "<code>Path2DControlPoint</code> veri türü, şu anda seçilen kontrol noktasını temsil eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Path2D#SelectedControlPointData",
     "code_sample": ""
   },
@@ -77393,7 +77330,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetBoundingRect/param/0": {
-    "documentation": "Çalışma zamanı sırasında 2D spline'ların oluşturulmasına, düzenlenmesine ve görselleştirilmesine olanak tanıyan örnek."
+    "documentation": ""
   },
   "@roblox/globaltype/Path2D.GetBoundingRect/return/0": {
     "documentation": ""
@@ -77413,7 +77350,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetControlPoint/param/0": {
-    "documentation": "Çalışma zamanı sırasında 2D spline'ların oluşturulmasına, düzenlenmesine ve görselleştirilmesine olanak tanıyan örnek."
+    "documentation": ""
   },
   "@roblox/globaltype/Path2D.GetControlPoint/param/1": {
     "documentation": ""
@@ -77440,7 +77377,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetControlPoints/param/0": {
-    "documentation": "Çalışma zamanı sırasında 2D spline'ların oluşturulmasına, düzenlenmesine ve görselleştirilmesine olanak tanıyan örnek."
+    "documentation": ""
   },
   "@roblox/globaltype/Path2D.GetControlPoints/return/0": {
     "documentation": "Tüm <code>Path2DControlPoints</code>'in tablosu."
@@ -77460,7 +77397,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetLength/param/0": {
-    "documentation": "Çalışma zamanı sırasında 2D spline'ların oluşturulmasına, düzenlenmesine ve görselleştirilmesine olanak tanıyan örnek."
+    "documentation": ""
   },
   "@roblox/globaltype/Path2D.GetLength/return/0": {
     "documentation": ""
@@ -77480,7 +77417,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetMaxControlPoints/param/0": {
-    "documentation": "Çalışma zamanı sırasında 2D spline'ların oluşturulmasına, düzenlenmesine ve görselleştirilmesine olanak tanıyan örnek."
+    "documentation": ""
   },
   "@roblox/globaltype/Path2D.GetMaxControlPoints/return/0": {
     "documentation": ""
@@ -77500,7 +77437,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetPositionOnCurve/param/0": {
-    "documentation": "Çalışma zamanı sırasında 2D spline'ların oluşturulmasına, düzenlenmesine ve görselleştirilmesine olanak tanıyan örnek."
+    "documentation": ""
   },
   "@roblox/globaltype/Path2D.GetPositionOnCurve/param/1": {
     "documentation": "<code>Path2D</code>'yi sorgulamak için değer."
@@ -77527,7 +77464,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetPositionOnCurveArcLength/param/0": {
-    "documentation": "Çalışma zamanı sırasında 2D spline'ların oluşturulmasına, düzenlenmesine ve görselleştirilmesine olanak tanıyan örnek."
+    "documentation": ""
   },
   "@roblox/globaltype/Path2D.GetPositionOnCurveArcLength/param/1": {
     "documentation": "Path2D'yi sorgulamak için değer."
@@ -77554,7 +77491,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetTangentOnCurve/param/0": {
-    "documentation": "Çalışma zamanı sırasında 2D spline'ların oluşturulmasına, düzenlenmesine ve görselleştirilmesine olanak tanıyan örnek."
+    "documentation": ""
   },
   "@roblox/globaltype/Path2D.GetTangentOnCurve/param/1": {
     "documentation": "<code>Path2D</code>'yi sorgulamak için değer."
@@ -77581,7 +77518,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.GetTangentOnCurveArcLength/param/0": {
-    "documentation": "Çalışma zamanı sırasında 2D spline'ların oluşturulmasına, düzenlenmesine ve görselleştirilmesine olanak tanıyan örnek."
+    "documentation": ""
   },
   "@roblox/globaltype/Path2D.GetTangentOnCurveArcLength/param/1": {
     "documentation": "<code>Path2D</code>'yi sorgulamak için değer."
@@ -77608,7 +77545,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.InsertControlPoint/param/0": {
-    "documentation": "Çalışma zamanı sırasında 2D spline'ların oluşturulmasına, düzenlenmesine ve görselleştirilmesine olanak tanıyan örnek."
+    "documentation": ""
   },
   "@roblox/globaltype/Path2D.InsertControlPoint/param/1": {
     "documentation": "Eklemek için indeks."
@@ -77637,7 +77574,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.RemoveControlPoint/param/0": {
-    "documentation": "Çalışma zamanı sırasında 2D spline'ların oluşturulmasına, düzenlenmesine ve görselleştirilmesine olanak tanıyan örnek."
+    "documentation": ""
   },
   "@roblox/globaltype/Path2D.RemoveControlPoint/param/1": {
     "documentation": "Kaldırmak için indeks."
@@ -77659,7 +77596,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.SetControlPoints/param/0": {
-    "documentation": "Çalışma zamanı sırasında 2D spline'ların oluşturulmasına, düzenlenmesine ve görselleştirilmesine olanak tanıyan örnek."
+    "documentation": ""
   },
   "@roblox/globaltype/Path2D.SetControlPoints/param/1": {
     "documentation": "Ayarılacak yeni kontrol noktaları listesi."
@@ -77681,7 +77618,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Path2D.UpdateControlPoint/param/0": {
-    "documentation": "Çalışma zamanı sırasında 2D spline'ların oluşturulmasına, düzenlenmesine ve görselleştirilmesine olanak tanıyan örnek."
+    "documentation": ""
   },
   "@roblox/globaltype/Path2D.UpdateControlPoint/param/1": {
     "documentation": "Güncellenecek kontrol noktası indeksi."
@@ -79657,10 +79594,10 @@
     "documentation": "Kullanıcı kimliklerinin bir dizisi."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync/return/0": {
-    "documentation": "<code>PriceLevelInfo</code> nesnelerinin bir dizisini bir sözlük ile döner; anahtarlar kullanıcı ID'leri (string) ve değerleri karşılık gelen fiyat seviyeleridir (1 ile 1000 arasındaki tamsayılar)."
+    "documentation": "<code>User ID</code> (dize) anahtarları ve bunlara karşılık gelen fiyat seviyeleri (1 ile 1000 arasında tam sayılar) içeren bir sözlük olan <code>PriceLevelInfo</code> nesnelerinin dizisini döndürür."
   },
   "@roblox/globaltype/MarketplaceService.GetUsersPriceLevelsAsync": {
-    "documentation": "Bir kullanıcının bölgeselleştirilmiş fiyat seviyesini döner, bu da o kullanıcının yerel pazarındaki bir öğe için önerilen fiyatı temsil eder.",
+    "documentation": "Bir kullanıcının bölgeselleştirilmiş fiyat seviyesini döndürür, bu da öğe için önerilen fiyatı temsil eder.",
     "params": [
       {
         "name": "self",
@@ -80179,13 +80116,13 @@
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/param/1": {
-    "documentation": "Sıralamak istediğiniz ürünleri tanımlayan nesnelerin bir dizisi. Bu dizi, en fazla 50 öğe içerebilir. Her <code>ProductIdentifier</code> şu alanlara sahiptir: - <code>InfoType</code>: Enum.InfoType     - Ya <code>InfoType.GamePass</code> ya da <code>InfoType.Product</code> olmalıdır. - <code>Id</code>: number     - Oyun geçidi veya geliştirici ürünün ID'si. <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
+    "documentation": "Sıralamak istediğiniz ürünleri tanımlayan nesnelerin bir dizisi. Bu dizi en fazla 50 öğe içerebilir. Her <code>ProductIdentifier</code> şunları içerir: <ul> <li><code>InfoType</code>: Enum.InfoType</li> <li>Ya <code>InfoType.GamePass</code> ya da <code>InfoType.Product</code> olmalıdır.</li> <li><code>Id</code>: number</li> <li>Oyun geçidi veya geliştirici ürün kimliği.</li> </ul> <pre><code class=\"language-lua\">local ProductIdentifier = {     InfoType = Enum.InfoType.GamePass,     Id = 123456 } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync/return/0": {
-    "documentation": "Mevcut kullanıcı için kişiselleştirilmiş bir sıralama ile dizilime sahip öğelerin dizisi. Her dizi şunları içerir: - <code>ProductIdentifier</code>: Girdiden gelen karşılık gelen ID. - <code>ProductInfo</code>: <code>GetProductInfoAsync</code> tarafından döndürülen standart ürün bilgisi sözlüğü."
+    "documentation": "Mevcut kullanıcı için kişiselleştirilmiş bir sıralamada öğelerin dizisi. Her dizide: <ul> <li><code>ProductIdentifier</code>: Girdi dizisinden karşılık gelen ID.</li> <li><code>ProductInfo</code>: <code>GetProductInfoAsync</code> tarafından döndürülen standart ürün bilgi sözlüğü.</li> </ul>"
   },
   "@roblox/globaltype/MarketplaceService.RankProductsAsync": {
-    "documentation": "Bir liste ürün ID'si alır ve bu ürünlerin kişiselleştirilmiş sıralanmış bir listesini döner.",
+    "documentation": "Bir ürün kimlikleri listesi alır ve bu ürünlerin kişiselleştirilmiş sıralanmış bir listesini döndürür.",
     "params": [
       {
         "name": "self",
@@ -80206,13 +80143,13 @@
     "documentation": "Deneyim içi işlemlerden sorumlu olan hizmet."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/param/1": {
-    "documentation": "Öneriler almak için ürün türlerini belirten <code>InfoType</code> değerlerinin bir dizisi. Desteklenen <code>InfoTypes</code>:  <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
+    "documentation": "Önerileri almak için ürün türlerini belirten bir <code>InfoType</code> dizisi. Desteklenen <code>InfoTypes</code>: <code>InfoType.GamePass</code>, <code>InfoType.Product</code>. <pre><code class=\"language-lua\">local infoTypes = {     Enum.InfoType.GamePass,     Enum.InfoType.Product } </code></pre>"
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync/return/0": {
-    "documentation": "Verilen <code>InfoTypes</code>'e dayalı olarak kullanıcının en olası etkileşimde bulunacağı ve satın alacağı en fazla 50 öğeden oluşan sıralı liste. Eğer hiçbir öneri belirlenemezse, yöntem boş bir liste döner."
+    "documentation": "Verilen <code>InfoTypes</code> temelinde kullanıcının en olası etkileşimde bulunacağı en fazla 50 öğeden oluşan sıralı bir liste. Eğer öneriler belirlenemezse, yöntem boş bir liste döndürür."
   },
   "@roblox/globaltype/MarketplaceService.RecommendTopProductsAsync": {
-    "documentation": "<ul> <li><code>InfoType</code> dizisi alır ve bir kullanıcının en olası etkileşimde bulunacağı ve satın alacağı ürünleri temsil eden en fazla 50 öğe döner.</li> </ul>",
+    "documentation": "<ul> <li>Bir <code>InfoType</code> dizisi alır ve bir kullanıcının en olası   etkileşimde bulunacağı ve satın alacağı 50 öğeye kadar döndürür.</li> </ul>",
     "params": [
       {
         "name": "self",
@@ -87862,7 +87799,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.BoolState": {
-    "documentation": "",
+    "documentation": "Hata ayıklama için kullanışlı, script ile değiştirilmesi mümkün olmayan yalnızca okunabilen özellik <code>Bool</code> giriş eylemleri.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#BoolState",
     "code_sample": ""
   },
@@ -88236,7 +88173,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/LineHandleAdornment": {
-    "documentation": "<code>BasePart</code>'a süslenebilen bir çizgi biçiminde tutamak.",
+    "documentation": "<code>BasePart</code>'a süslenebilen, bir çizgi biçiminde sap.",
     "keys": {
       "Length": "@roblox/globaltype/LineHandleAdornment.Length",
       "Thickness": "@roblox/globaltype/LineHandleAdornment.Thickness"
@@ -93653,7 +93590,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.IsKinematic": {
-    "documentation": "<code>AnimationConstraint</code>'ın kinematik mi yoksa fiziksel mi simüle edileceğini açıp kapatır.",
+    "documentation": "Kısıtlamanın kinetik olup olmadığını açıp kapatır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#IsKinematic",
     "code_sample": ""
   },
@@ -93678,7 +93615,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.Transform": {
-    "documentation": "<code>AnimationConstraint</code> ekleminin mevcut animasyon kaymasını belirler.",
+    "documentation": "Kısıtlama ekleminin mevcut animasyon ofsetini tanımlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#Transform",
     "code_sample": ""
   },
@@ -96703,7 +96640,7 @@
     "documentation": "Bir <code>Humanoid</code> karakter <code>Model</code>."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescriptionAsync": {
-    "documentation": "Verilen <code>HumanoidDescription</code> içinde belirtilen her şeyle donatılmış bir karakter <code>Model</code> döndürür.",
+    "documentation": "Verilen <code>HumanoidDescription</code>'da belirtilen her şeyle donatılmış bir karakter <code>Model</code> döndürür.",
     "params": [
       {
         "name": "self",
@@ -96744,7 +96681,7 @@
     "documentation": "Bir <code>Humanoid</code> karakter <code>Model</code>."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromDescription": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>CreateHumanoidModelFromDescription()</code> ile değiştirilmiştir.<br>Verilen <code>HumanoidDescription</code> içinde belirtilen her şeyle donatılmış bir karakter <code>Model</code> döndürür.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>CreateHumanoidModelFromDescription()</code> ile geçersiz kılınmıştır.<br>Verilen <code>HumanoidDescription</code>'da belirtilen her şeyle donatılmış bir karakter <code>Model</code> döndürür.",
     "params": [
       {
         "name": "self",
@@ -96806,7 +96743,7 @@
     "documentation": "Bir Humanoid karakter Model."
   },
   "@roblox/globaltype/Players.CreateHumanoidModelFromUserId": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>CreateHumanoidModelFromUserIdAsync()</code> ile değiştirilmiştir.<br>Belirtilen userId'ye ait kullanıcının avatarına uyması için donatılmış bir karakter Model döner.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>CreateHumanoidModelFromUserIdAsync()</code> ile geçersiz kılınmıştır.<br>Belirtilen userId'ye ait kullanıcının avatarına uyması için donatılmış bir karakter Model döner.",
     "params": [
       {
         "name": "self",
@@ -96968,7 +96905,7 @@
     "documentation": "Geçilen outfitId için yapılandırmayla başlatılmış HumanoidDescription."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromOutfitId": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>GetHumanoidDescriptionFromOutfitIdAsync()</code> ile değiştirilmiştir.<br>Belirtilen bir kıyafet için HumanoidDescription'ı döner; bu, parçaların/renklerin/Animasyonların vs. ayarlarını içerir.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>GetHumanoidDescriptionFromOutfitIdAsync()</code> ile geçersiz kılınmıştır.<br>Belirtilen bir kıyafet için HumanoidDescription'ı döner; bu, parçaların/renklerin/Animasyonların vs. ayarlarını içerir.",
     "params": [
       {
         "name": "self",
@@ -97022,7 +96959,7 @@
     "documentation": "Geçilen kullanıcının avatar spesifikasyonu ile başlatılmış HumanoidDescription."
   },
   "@roblox/globaltype/Players.GetHumanoidDescriptionFromUserId": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>GetHumanoidDescriptionFromUserIdAsync()</code> ile değiştirilmiştir.<br>Geçilen userId'ye ait kullanıcının avatarı için donatılmış her şeyi belirten bir HumanoidDescription döner.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>GetHumanoidDescriptionFromUserIdAsync()</code> ile geçersiz kılınmıştır.<br>Geçilen userId'ye ait kullanıcının avatarı için donatılmış her şeyi belirten bir HumanoidDescription döner.",
     "params": [
       {
         "name": "self",
@@ -97683,7 +97620,7 @@
     "returns": []
   },
   "@roblox/globaltype/Players.UserSubscriptionStatusChanged": {
-    "documentation": "Deneyim sunucusu bir kullanıcının belirli bir abonelik için durumunun değiştiğini algıladığında tetiklenir.",
+    "documentation": "Deneyim sunucusu, kullanıcının belirli bir abonelik için durumunun değiştiğini tanıdığında tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/Players.UserSubscriptionStatusChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Players.UserSubscriptionStatusChanged.ConnectParallel",
@@ -107498,7 +107435,7 @@
     "code_sample": ""
   },
   "@roblox/enum/Platform.Windows": {
-    "documentation": "İstemci bir Windows İşletim Sistemi üzerinde çalışıyor.",
+    "documentation": "İstemci Windows İşletim Sistemi üzerinde çalışıyor.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107718,7 +107655,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.Platform": {
-    "documentation": "İstemciyle ilgili işletim sistemi.",
+    "documentation": "İstemcinin işletim sistemi.",
     "keys": {
       "Windows": "@roblox/enum/Platform.Windows",
       "OSX": "@roblox/enum/Platform.OSX",
@@ -108821,7 +108758,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdornCullingMode.Automatic": {
-    "documentation": "Mesafeye dayalı olarak süslemeyi otomatik olarak keser.",
+    "documentation": "Mesafeye göre süslemenin otomatik olarak kesilmesini sağlar.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -108831,7 +108768,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AdornCullingMode.Never": {
-    "documentation": "Hiçbir zaman süslemeyi kesmez. Süsleme her zaman görünür.",
+    "documentation": "Süslemeyi asla kesmez. Süsleme her zaman görünür.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -108841,7 +108778,7 @@
     "code_sample": ""
   },
   "@roblox/global/Enum.AdornCullingMode": {
-    "documentation": "Süslemeler için kullanılan kırpma yöntemi.",
+    "documentation": "Süslemeler için kullanılan culling yöntemi.",
     "keys": {
       "Automatic": "@roblox/enum/AdornCullingMode.Automatic",
       "Never": "@roblox/enum/AdornCullingMode.Never"
@@ -122667,7 +122604,7 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.LeftSuper": {
-    "documentation": "Sol taraftaki <code>Super</code> tuşu. Daha çok Windows tuşu veya Cmd tuşu olarak bilinir.",
+    "documentation": "Sol taraftaki <code>Super</code> tuşu. Daha iyi bilinen adıyla Windows tuşu veya <kbd>Cmd</kbd> tuşu.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122677,7 +122614,7 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.RightSuper": {
-    "documentation": "Sağ taraftaki <code>Super</code> tuşu. Daha çok Windows tuşu veya Cmd tuşu olarak bilinir.",
+    "documentation": "Sağ taraftaki <code>Super</code> tuşu. Daha iyi bilinen adıyla Windows tuşu veya <kbd>Cmd</kbd> tuşu.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122967,7 +122904,7 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.Thumbstick1Up": {
-    "documentation": "Oyun kumandası birincil thumbstick üzerindeki yukarı vektör. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a>'de kullanılır.",
+    "documentation": "Oyun kumandası ana parmak joyistiğindeki yukarı yönlü vektör. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a> içinde kullanılır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122977,7 +122914,7 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.Thumbstick1Down": {
-    "documentation": "Oyun kumandası birincil thumbstick üzerindeki aşağı vektör. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a>'de kullanılır.",
+    "documentation": "Oyun kumandası ana parmak joyistiğindeki aşağı yönlü vektör. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a> içinde kullanılır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122987,7 +122924,7 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.Thumbstick1Left": {
-    "documentation": "Oyun kumandası birincil thumbstick üzerindeki sol vektör. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a>'de kullanılır.",
+    "documentation": "Oyun kumandası ana parmak joyistiğindeki sola yönlü vektör. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a> içinde kullanılır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -122997,7 +122934,7 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.Thumbstick1Right": {
-    "documentation": "Oyun kumandası birincil thumbstick üzerindeki sağ vektör. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a>'de kullanılır.",
+    "documentation": "Oyun kumandası ana parmak joyistiğindeki sağa yönlü vektör. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a> içinde kullanılır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123007,7 +122944,7 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.Thumbstick2Up": {
-    "documentation": "Oyun kumandası ikincil thumbstick üzerindeki yukarı vektör. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a>'de kullanılır.",
+    "documentation": "Oyun kumandası ikincil parmak joyistiğindeki yukarı yönlü vektör. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a> içinde kullanılır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123017,7 +122954,7 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.Thumbstick2Down": {
-    "documentation": "Oyun kumandası ikincil thumbstick üzerindeki aşağı vektör. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a>'de kullanılır.",
+    "documentation": "Oyun kumandası ikincil parmak joyistiğindeki aşağı yönlü vektör. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a> içinde kullanılır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123027,7 +122964,7 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.Thumbstick2Left": {
-    "documentation": "Oyun kumandası ikincil thumbstick üzerindeki sol vektör. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a>'de kullanılır.",
+    "documentation": "Oyun kumandası ikincil parmak joyistiğindeki sola yönlü vektör. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a> içinde kullanılır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123037,7 +122974,7 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.Thumbstick2Right": {
-    "documentation": "Oyun kumandası ikincil thumbstick üzerindeki sağ vektör. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a>'de kullanılır.",
+    "documentation": "Oyun kumandası ikincil parmak joyistiğindeki sağa yönlü vektör. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a> içinde kullanılır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -123117,13 +123054,23 @@
     "code_sample": ""
   },
   "@roblox/enum/KeyCode.MousePosition": {
-    "documentation": "Viewport'taki bir farenin pozisyonu. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a>'de kullanılır.",
+    "documentation": "Gösterim alanındaki bir mouse'un konumu. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a> içinde kullanılır.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
       "EnumType": "@roblox/globaltype/EnumItem.EnumType"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#MousePosition",
+    "code_sample": ""
+  },
+  "@roblox/enum/KeyCode.Touch": {
+    "documentation": "Gösterim alanındaki bir dokunuşun konumu. Öncelikle <a href=\"../../../input/input-action-system.md\">Input Action System</a> içinde kullanılır.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode#Touch",
     "code_sample": ""
   },
   "@roblox/global/Enum.KeyCode": {
@@ -123398,7 +123345,8 @@
       "MouseNoButton": "@roblox/enum/KeyCode.MouseNoButton",
       "MouseX": "@roblox/enum/KeyCode.MouseX",
       "MouseY": "@roblox/enum/KeyCode.MouseY",
-      "MousePosition": "@roblox/enum/KeyCode.MousePosition"
+      "MousePosition": "@roblox/enum/KeyCode.MousePosition",
+      "Touch": "@roblox/enum/KeyCode.Touch"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/KeyCode",
     "code_sample": ""
@@ -124387,6 +124335,16 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CoreGuiType#Captures",
     "code_sample": ""
   },
+  "@roblox/enum/CoreGuiType.AvatarSwitcher": {
+    "documentation": "<strong>Avatar Değiştirici</strong>, kullanıcıların platform avatarlarını değiştirmesine olanak tanır.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CoreGuiType#AvatarSwitcher",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.CoreGuiType": {
     "documentation": "Mevcut olan tüm <code>CoreGui</code> \"tiplerini\" temsil eder, örneğin <code>Backpack</code> yazılı sohbet penceresi.",
     "keys": {
@@ -124397,7 +124355,8 @@
       "All": "@roblox/enum/CoreGuiType.All",
       "EmotesMenu": "@roblox/enum/CoreGuiType.EmotesMenu",
       "SelfView": "@roblox/enum/CoreGuiType.SelfView",
-      "Captures": "@roblox/enum/CoreGuiType.Captures"
+      "Captures": "@roblox/enum/CoreGuiType.Captures",
+      "AvatarSwitcher": "@roblox/enum/CoreGuiType.AvatarSwitcher"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/CoreGuiType",
     "code_sample": ""
