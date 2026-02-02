@@ -6334,8 +6334,12 @@ Studio.GameSettings.General.ThumbnailsLimitExp,,,You can set up to {maxThumbnail
 Studio.GameSettings.General.ErrorsOnSaveBodyExp,,,Could not save experience settings.,Could not save experience settings.
 Studio.GameSettings.ThumbnailsLimitLuobuExp,,,You can set up to {maxThumbnails:int} screenshots for an experience.,You can set up to {maxThumbnails:int} screenshots for an experience.
 Studio.GameSettings.Security.LocalSecretsDescExp,,,"Secrets are stored locally on this device and are available in local Playtest mode. To use secrets in Team Test or in a live experience, please set them on Creator Hub.","Secrets are stored locally on this device and are available in local Playtest mode. To use secrets in Team Test or in a live experience, please set them on Creator Hub."
+Studio.GameSettings.ChatGroup.ApiTitle,,,Enable Text & Voice Chat group APIs,Enable Text & Voice Chat group APIs
+Studio.GameSettings.ChatGroup.ApiBody1,,,Enabling chat group APIs allows groups of eligible users to chat synchronously with TextChatService and VoiceChatService.,Enabling chat group APIs allows groups of eligible users to chat synchronously with TextChatService and VoiceChatService.
+Studio.GameSettings.ChatGroup.ApiBody2,,,"By toggling these APIs on, you agree to use them responsibly in accordance with the [link1] and [link2]. [link3]","By toggling these APIs on, you agree to use them responsibly in accordance with the [link1] and [link2]. [link3]"
 Studio.GameSettings.General.TermsOfUseLink,,,Terms of Use,Terms of Use
 Studio.GameSettings.General.CommunityStandardsLink,,,Community Standards,Community Standards
+Studio.GameSettings.General.StudioApiServicesDescExp,,,Enables Studio access to experience services such as Data Stores,Enables Studio access to experience services such as Data Stores
 Studio.Toolbox.General.ToolboxToolbarName,,,Toolbox,Toolbox
 Studio.Toolbox.General.CategoryModels,,,Models,Models
 Studio.Toolbox.General.CategoryDecals,,,Images,Images
@@ -8775,7 +8779,7 @@ Studio.AnimationClipEditor.AnimationFromVideo.InputUnstable,,,That video is too 
 Studio.AnimationClipEditor.AnimationFromVideo.TimedOut,,,"Sorry, we're unable to process your video right now due to a high volume of requests. Please try again in a bit.","Sorry, we're unable to process your video right now due to a high volume of requests. Please try again in a bit."
 Studio.AnimationClipEditor.AnimationFromVideo.Cancelled,,,Your animation creation has been canceled.,Your animation creation has been canceled.
 Studio.AnimationClipEditor.AnimationFromVideo.TutorialTitle,,,Create animation from video or text,Create animation from video or text
-Studio.AnimationClipEditor.AnimationFromVideo.TutorialText,,,"Choose a short video (15 seconds or less) containing a single person, fully in frame, with a stable, unmoving camera. Alternatively, type the action description, then press Enter to continue.","Choose a short video (15 seconds or less) containing a single person, fully in frame, with a stable, unmoving camera. Alternatively, type the action description, then press Enter to continue."
+Studio.AnimationClipEditor.AnimationFromVideo.TutorialText,,,"Choose a short video (15 seconds or less) containing a single person, fully in frame. Try to use a video with a stable, unmoving camera.","Choose a short video (15 seconds or less) containing a single person, fully in frame. Try to use a video with a stable, unmoving camera."
 Studio.AnimationClipEditor.AnimationFromVideo.ChooseVideo,,,Choose Video,Choose Video
 Studio.AnimationClipEditor.CurveEditorCallout.Title,,,Curve Editor,Curve Editor
 Studio.AnimationClipEditor.CurveEditorCallout.Description,,,The Curve Editor is a new way to visually create and edit rich animations within the Animation Editor.,The Curve Editor is a new way to visually create and edit rich animations within the Animation Editor.
@@ -9074,7 +9078,7 @@ Studio.PublishPlaceAs.FooterButton.CreateNewExperience,,,Create new experience�
 Studio.PublishPlaceAs.FooterButton.UpdateExistingExperience,,,Update existing experience…,Update existing experience…
 Studio.PublishPlaceAs.General.SaveExperience,,,Save Experience,Save Experience
 Studio.PublishPlaceAs.General.PublishExperience,,,Publish Experience,Publish Experience
-Studio.PublishPlaceAs.General.UntitledExperience,,,UntitledExperience,UntitledExperience
+Studio.PublishPlaceAs.General.UntitledExperience,,,Untitled Experience,Untitled Experience
 Studio.PluginInstallation.Meta.PluginWindowName,,,Plugin Installation,Plugin Installation
 Studio.PluginInstallation.Main.InstallingPlugin,,,Installing plugin : {1},Installing plugin : {1}
 Studio.PluginInstallation.Main.ErrorNoId,,,Error : No plugin to install,Error : No plugin to install
@@ -9288,6 +9292,20 @@ Studio.AssetManager.AssetProperty.Package,,,Package,Package
 Studio.AssetManager.FiltersByType.SearchAllPlaceholder,,,Search all filters...,Search all filters...
 Studio.AssetManager.Navigation.GoBack,,,Go Back,Go Back
 Studio.AssetManager.Navigation.GoForward,,,Go Forward,Go Forward
+Studio.AssetManager.QuickShare.DialogTitle,,,Quick Share,Quick Share
+Studio.AssetManager.QuickShare.SharingMultiple,,,Sharing {count} assets,Sharing {count} assets
+Studio.AssetManager.QuickShare.SharingOne,,,Sharing 1 asset,Sharing 1 asset
+Studio.AssetManager.QuickShare.ExperienceIdPlaceholder,,,Enter experience IDs,Enter experience IDs
+Studio.AssetManager.QuickShare.CollaboratorsTab,,,Collaborators,Collaborators
+Studio.AssetManager.QuickShare.ExperiencesTab,,,Experiences,Experiences
+Studio.AssetManager.QuickShare.CollaboratorPlaceholder,,,Search user or group...,Search user or group...
+Studio.AssetManager.QuickShare.DoneButton,,,Done,Done
+Studio.AssetManager.QuickShare.CancelButton,,,Cancel,Cancel
+Studio.AssetManager.QuickShare.CloseButton,,,Close,Close
+Studio.AssetManager.QuickShare.ErrorsTitle,,,Permission Errors,Permission Errors
+Studio.AssetManager.QuickShare.AddButton,,,Add,Add
+Studio.AssetManager.QuickShare.RemoveButton,,,Remove,Remove
+Studio.AssetManager.ContextMenu.QuickShare,,,Share,Share
 Studio.AssetManager.Sidebar.Project,,,Project,Project
 Studio.AssetManager.Sidebar.Library,,,Library,Library
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
@@ -12068,6 +12086,10 @@ Studio.AvatarCompatibilityPreviewer.MarketplaceImport.ItemIdInputPlaceholder,,,E
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.IndividualShoesError,,,"AssetIDs for individual shoes are not supported, use bundleID to add shoes","AssetIDs for individual shoes are not supported, use bundleID to add shoes"
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.AssetTypeError,,,{invalidAssetTypes} Avatar Items are not supported in Avatar Setup,{invalidAssetTypes} Avatar Items are not supported in Avatar Setup
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.NothingFoundError,,,No assets or bundles found for ID(s): {lostIds},No assets or bundles found for ID(s): {lostIds}
+Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoidTitle,,,Custom Humanoid,Custom Humanoid
+Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoidTooltipDescription,,,Creates an instance of HumanoidRigDescription that helps with advanced articulation,Creates an instance of HumanoidRigDescription that helps with advanced articulation
+Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoidDescription,,,Creates an instance of HumanoidRigDescription that helps with advanced articulation,Creates an instance of HumanoidRigDescription that helps with advanced articulation
+Studio.AvatarCompatibilityPreviewer.AutoSetupOptions.CustomHumanoid,,,Custom Humanoid,Custom Humanoid
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.CreateAnAvatarLook,,,Create an Avatar Look,Create an Avatar Look
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.CreateAMakeupLook,,,Create a Makeup Look,Create a Makeup Look
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.CreateAnAvatarLookDescription,,,Style published items together as a Look and share it on Roblox.,Style published items together as a Look and share it on Roblox.
@@ -12076,6 +12098,27 @@ Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ConfirmItems,,,Confirm It
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.EditInfo,,,Edit Info,Edit Info
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.TotalPrice,,,Total price,Total price
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.Creator,,,Creator,Creator
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ThumbnailSkinColor,,,Thumbnail skin color,Thumbnail skin color
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.Me,,,Me,Me
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.LookDetails,,,Look Details,Look Details
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.Items,,,items,items
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.SkinColor,,,Skin color,Skin color
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.Continue,,,Continue,Continue
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.Cancel,,,Cancel,Cancel
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.Create,,,Create,Create
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.Back,,,Back,Back
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ViewOnCreatorHub,,,View on Creator Hub,View on Creator Hub
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.Close,,,Close,Close
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.Name,,,Name,Name
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.Description,,,Description,Description
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.CreateLookSuccessTitle,,,Your new Look is almost ready,Your new Look is almost ready
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.CreateLookSuccessSubtitle,,,You can manage your Look on Creator Hub,You can manage your Look on Creator Hub
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.CreateLookFailedTitle,,,Saving failed,Saving failed
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.Ok,,,OK,OK
+Studio.AvatarCompatibilityPreviewer.MarketplaceImport.ErrorDialogHeader,,,{numErrors} errors,{numErrors} errors
+Studio.AvatarCompatibilityPreviewer.MarketplaceImport.CloseButtonLabel,,,Close,Close
+Studio.AvatarCompatibilityPreviewer.MarketplaceImport.ErrorBannerText,,,{numErrors} errors found,{numErrors} errors found
+Studio.AvatarCompatibilityPreviewer.MarketplaceImport.SeeDetailsActionLabel,,,See details,See details
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -12834,11 +12877,14 @@ Studio.Ribbon.Title.AddNewTab,,,Add New Tab,Add New Tab
 Studio.Ribbon.Tooltip.AddNewTab,,,"Create a new, empty tab for a custom toolbar","Create a new, empty tab for a custom toolbar"
 Studio.Ribbon.Plugin.Add,,,Add,Add
 Studio.Ribbon.Plugin.Exit,,,Exit,Exit
+Studio.Ribbon.Action.UpdateFailed,,,Update failed,Update failed
 Studio.Ribbon.Plugin.AddTools_PlayClientOnly,,,Client,Client
 Studio.Ribbon.Plugin.AddTools_PlayServerOnly,,,Server,Server
 Studio.Ribbon.Plugin.DataModels_All,,,All Contexts,All Contexts
 Studio.Ribbon.Plugin.AddTools_Edit,,,Edit,Edit
 Studio.Ribbon.StartPage.Category.CreatorPlugin,,,Creator Plugins,Creator Plugins
+Studio.Ribbon.PreparingUpdate,,,Preparing update,Preparing update
+Studio.Ribbon.Action.Update,,,Update,Update
 Studio.VisualizationModes.Plugin.Name,,,Visualization Modes,Visualization Modes
 Studio.VisualizationModes.Plugin.Text,,,Hello World,Hello World
 Studio.VisualizationModes.Plugin.Button,,,Visualization Modes,Visualization Modes
@@ -13090,6 +13136,27 @@ Studio.CapabilitiesPropertyItem.Capability.Avatar,,,Allows access to engine APIs
 Studio.CapabilitiesPropertyItem.Capability.Input,,,Allows access to engine APIs related to handling user input,Allows access to engine APIs related to handling user input
 Studio.CapabilitiesPropertyItem.Capability.Environment,,,Allows access to engine APIs related to control of how experience environment is rendered,Allows access to engine APIs related to control of how experience environment is rendered
 Studio.CapabilitiesPropertyItem.Capability.RemoteEvent,,,Allows access to engine APIs for internal networking operations,Allows access to engine APIs for internal networking operations
+Studio.CapabilitiesPropertyItem.Capability.LegacySound,,,Allows access to engine APIs related to sound that will be deprecated,Allows access to engine APIs related to sound that will be deprecated
+Studio.CapabilitiesPropertyItem.Capability.Players,,,Allows access to engine APIs related to the Player instance,Allows access to engine APIs related to the Player instance
+Studio.CapabilitiesPropertyItem.Capability.CapabilityControl,,,Allows access to modifying the Sandboxed and Capabilities properties of instances,Allows access to modifying the Sandboxed and Capabilities properties of instances
+Studio.CapabilitiesPropertyItem.Capability.AssetRead,,,Allows access to engine APIs related to getting information about assets,Allows access to engine APIs related to getting information about assets
+Studio.CapabilitiesPropertyItem.Capability.AvatarBehavior,,,Allows access to engine APIs changing the behavior of the humanoid,Allows access to engine APIs changing the behavior of the humanoid
+Studio.CapabilitiesPropertyItem.Capability.AssetCreateUpdate,,,Allows access to engine APIs related to creating or updating assets,Allows access to engine APIs related to creating or updating assets
+Studio.CapabilitiesPropertyItem.Capability.AssetManagement,,,"Allows access to engine APIs related to operations on assets that are not read, create, or update","Allows access to engine APIs related to operations on assets that are not read, create, or update"
+Studio.CapabilitiesPropertyItem.Capability.DynamicGeneration,,,Allows access to engine APIs related to dynamically modifying assets,Allows access to engine APIs related to dynamically modifying assets
+Studio.CapabilitiesPropertyItem.Capability.PlatformAvatarEditing,,,"Allows access to engine APIs related to creating or updating Avatars, or APIs to aid with that","Allows access to engine APIs related to creating or updating Avatars, or APIs to aid with that"
+Studio.CapabilitiesPropertyItem.Capability.Capture,,,Allows access to engine APIs related to capturing screenshots or videos on the user's screen,Allows access to engine APIs related to capturing screenshots or videos on the user's screen
+Studio.CapabilitiesPropertyItem.Capability.SensitiveInput,,,Allows access to engine APIs related to capturing sensitive input from the user,Allows access to engine APIs related to capturing sensitive input from the user
+Studio.CapabilitiesPropertyItem.Capability.PromptExternalPurchase,,,Allows access to engine APIs related to prompting purchase of arbitrary assets,Allows access to engine APIs related to prompting purchase of arbitrary assets
+Studio.CapabilitiesPropertyItem.Capability.Monetization,,,"Allows access to engine APIs related to monetizing an experience, excluding most PromptPurchases","Allows access to engine APIs related to monetizing an experience, excluding most PromptPurchases"
+Studio.CapabilitiesPropertyItem.Capability.LoadOwnedAsset,,,"Allows access to the engine APIs for loading assets that are owned by you, shared to you, or owned by Roblox, or are a benign asset type","Allows access to the engine APIs for loading assets that are owned by you, shared to you, or owned by Roblox, or are a benign asset type"
+Studio.CapabilitiesPropertyItem.Capability.Social,,,"Allows access to engine APIs related to social features, such as friends and invites","Allows access to engine APIs related to social features, such as friends and invites"
+Studio.CapabilitiesPropertyItem.Capability.ServerCommunication,,,"Allows access to engine APIs related to cross-server communication, such as MessagingService","Allows access to engine APIs related to cross-server communication, such as MessagingService"
+Studio.CapabilitiesPropertyItem.Capability.Logging,,,Allows access to Logs API,Allows access to Logs API
+Studio.CapabilitiesPropertyItem.Capability.Groups,,,Allows access to engine APIs relating to groups/communities,Allows access to engine APIs relating to groups/communities
+Studio.CapabilitiesPropertyItem.Capability.Teleport,,,Allows access to engine APIs related to teleporting,Allows access to engine APIs related to teleporting
+Studio.CapabilitiesPropertyItem.Capability.Consequences,,,Allows access to engine APIs related to punishing users via kicks or bans,Allows access to engine APIs related to punishing users via kicks or bans
+Studio.CapabilitiesPropertyItem.Capability.Material,,,Allows access to engine APIs related to Materials,Allows access to engine APIs related to Materials
 Studio.SuperTemplate.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
 Studio.SuperTemplate.Plugin.Button,,,Super Template,Super Template
 Studio.SuperTemplate.BasicExample.Text,,,Capybaras are cute!,Capybaras are cute!
@@ -13570,9 +13637,9 @@ Studio.Assistant.Settings.EditAPIKey,,,Edit API Key,Edit API Key
 Studio.Assistant.Settings.APIKeyPlaceholder,,,Enter Claude API key...,Enter Claude API key...
 Studio.Assistant.Settings.Save,,,Save,Save
 Studio.Assistant.Settings.Cancel,,,Cancel,Cancel
-Studio.Assistant.ErrorMessage.ExternalAPIError,,,Invalid Request to Provider. Please check your API Key.,Invalid Request to Provider. Please check your API Key.
+Studio.Assistant.ErrorMessage.ExternalAPIError,,,Invalid Request to Provider. Please check your API Key and try again.,Invalid Request to Provider. Please check your API Key and try again.
 Studio.Assistant.Tools.UploadImage,,,Upload Image,Upload Image
-Studio.Assistant.ErrorMessage.QuotaErrorAPIKey,,,You've used your free quota for the day. You may add your own API Key to continue creating with Assistant.,You've used your free quota for the day. You may add your own API Key to continue creating with Assistant.
+Studio.Assistant.ErrorMessage.QuotaErrorAPIKey,,,You've reached your Daily Usage Limit for the day. You may add your own API Key to continue creating with Assistant.,You've reached your Daily Usage Limit for the day. You may add your own API Key to continue creating with Assistant.
 Studio.Assistant.SettingsDialog.EditApiKeys,,,Manage API Keys,Manage API Keys
 Studio.Assistant.SettingsDialog.Title,,,Assistant Settings,Assistant Settings
 Studio.Assistant.SettingsDialog.APIKeysTab,,,API Keys,API Keys
@@ -13595,6 +13662,7 @@ Studio.Assistant.ModelChip.Title,,,Daily Usage,Daily Usage
 Studio.Assistant.InputArea.LearnMore,,,Learn More,Learn More
 Studio.Assistant.SettingsDialog.APIKeyLegalSummary,,,"Connecting a third-party LLM to Roblox Studio shares your data with that provider. Review their privacy practices, terms, and age limits before proceeding. Roblox is not responsible for third-party model output.","Connecting a third-party LLM to Roblox Studio shares your data with that provider. Review their privacy practices, terms, and age limits before proceeding. Roblox is not responsible for third-party model output."
 Studio.Assistant.Tools.TestGame,,,Test Game,Test Game
+Studio.Assistant.ErrorMessage.ExternalQuotaExceeded,,,Limit reached on API Key. Please check your API keys and try again,Limit reached on API Key. Please check your API keys and try again
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -14230,6 +14298,8 @@ Studio.BetaFeatures.StudioPreferredTextSizeSettingDescription,,,Enables a text s
 Studio.BetaFeatures.StudioPreferredTextSizeSettingTitle,,,Studio Preferred Text Size Setting,Studio Preferred Text Size Setting
 Studio.BetaFeatures.ACE3DImporterTitle,,,3D Importer in ACE,3D Importer in ACE
 Studio.BetaFeatures.ACE3DImporterDescription,,,Upgrade the ACE's  'Import from file' button to use the modern 3D Importer instead of the legacy importer,Upgrade the ACE's  'Import from file' button to use the modern 3D Importer instead of the legacy importer
+Studio.BetaFeatures.UniversalImporterTitle,,,Universal Importer,Universal Importer
+Studio.BetaFeatures.UniversalImporterDescription,,,"Add support for images, audio and video and replace bulk importer in the revamped Asset Manager.","Add support for images, audio and video and replace bulk importer in the revamped Asset Manager."
 Studio.Warnings.TextChatServiceMigration,,,Your experience has been auto-migrated and will now use TextChatService at runtime.,Your experience has been auto-migrated and will now use TextChatService at runtime.
 Studio.LegacyChatDeprecation.General.Body,,,"Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation.","Please migrate to TextChatService by setting TextChatService.ChatVersion to TextChatService to ensure compatibility when Legacy is removed. If you are experiencing issues, please click “Learn More” to access documentation."
 Studio.LegacyChatDeprecation.Label.Title,,,This project uses the Legacy Chat system,This project uses the Legacy Chat system
@@ -14298,6 +14368,8 @@ Studio.LiveSync.StudioStreamingNotSupported,,,Can't sync %1 to disk: Syncing und
 Studio.LiveSync.ErrorFromPreviousSession,,,Error from previous session -,Error from previous session -
 Studio.LiveSync.ErrorServiceCannotUseInitFile,,,Can't sync %1: Services cannot be converted to Scripts using init files,Can't sync %1: Services cannot be converted to Scripts using init files
 Studio.ScriptEditor.TypeColor,,,Type Color,Type Color
+Studio.ScriptEditor.NoDeclarationFoundTooltip,,,No declaration found,No declaration found
+Studio.ScriptEditor.NoDeclarationFoundParameterTooltip,,,No declaration found for '%1',No declaration found for '%1'
 Studio.PlaceVersionHistory.Label.PlaceVersionHistory,,,Place Version History,Place Version History
 Studio.PlaceVersionHistory.VersionHistory,,,Version History,Version History
 Studio.PlaceVersionHistory.Label.VersionHistory,,,Version History,Version History

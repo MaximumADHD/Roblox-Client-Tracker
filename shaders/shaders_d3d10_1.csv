@@ -68,6 +68,7 @@ DefaultUnifiedGridVS_00001810,Vertex
 DefaultUnifiedGridVS_00001812,Vertex
 DefaultUnifiedGridVS_00001816,Vertex
 DefaultUnifiedGridVS_00100801,Vertex
+DefaultUnifiedGridVS_00100807,Vertex
 DefaultUnifiedGridVS_00300800,Vertex
 DefaultUnifiedGridVS_00300806,Vertex
 DefaultUnifiedGridVS_00300826,Vertex
@@ -100,7 +101,9 @@ DefaultUnifiedGridVS_10001410,Vertex
 DefaultUnifiedGridVS_10001412,Vertex
 DefaultUnifiedGridVS_10001416,Vertex
 DefaultUnifiedGridVS_10100001,Vertex
+DefaultUnifiedGridVS_10100007,Vertex
 DefaultUnifiedGridVS_10100401,Vertex
+DefaultUnifiedGridVS_10100407,Vertex
 DefaultUnifiedGridVS_10300000,Vertex
 DefaultUnifiedGridVS_10300006,Vertex
 DefaultUnifiedGridVS_10300026,Vertex
@@ -128,6 +131,7 @@ DefaultUnifiedGridVS_20001010,Vertex
 DefaultUnifiedGridVS_20001012,Vertex
 DefaultUnifiedGridVS_20001016,Vertex
 DefaultUnifiedGridVS_20100001,Vertex
+DefaultUnifiedGridVS_20100007,Vertex
 DefaultUnifiedGridVS_20300000,Vertex
 DefaultUnifiedGridVS_20300006,Vertex
 DefaultUnifiedGridVS_20300026,Vertex
@@ -148,6 +152,7 @@ DefaultUnifiedGridVS_40001010,Vertex
 DefaultUnifiedGridVS_40001012,Vertex
 DefaultUnifiedGridVS_40001016,Vertex
 DefaultUnifiedGridVS_40100001,Vertex
+DefaultUnifiedGridVS_40100007,Vertex
 DefaultUnifiedGridVS_40300000,Vertex
 DefaultUnifiedGridVS_40300006,Vertex
 DefaultUnifiedGridVS_40300026,Vertex
@@ -158,16 +163,11 @@ DefaultUnifiedGridVS_44001016,Vertex
 DefaultUnifiedGridVS_80000000,Vertex
 DefaultUnifiedGridVS_80000002,Vertex
 DefaultUnifiedGridVS_80000006,Vertex
-DefaultUnifiedGridVS_80000010,Vertex
-DefaultUnifiedGridVS_80001000,Vertex
-DefaultUnifiedGridVS_80001002,Vertex
-DefaultUnifiedGridVS_80001006,Vertex
 DefaultUnifiedGridVS_80100001,Vertex
+DefaultUnifiedGridVS_80100007,Vertex
 DefaultUnifiedGridVS_80300000,Vertex
 DefaultUnifiedGridVS_80300006,Vertex
-DefaultUnifiedGridVS_80300026,Vertex
 DefaultUnifiedGridVS_84000006,Vertex
-DefaultUnifiedGridVS_84001006,Vertex
 DefaultUnifiedModelLodFS,Fragment
 DefaultUnifiedModelLodVS,Vertex
 DefaultUnifiedWangFallbackFS,Fragment
@@ -274,6 +274,7 @@ RadialBlur9FS,Fragment
 SelectionOutlineActiveFS,Fragment
 SelectionOutlineFS,Fragment
 SelectionOutlineHoverFS,Fragment
+SelectionOutlineNegatedFS,Fragment
 SelectionOutlineTeamCreateFS,Fragment
 ShadowBlurFS,Fragment
 ShadowBlurMarkFS,Fragment
