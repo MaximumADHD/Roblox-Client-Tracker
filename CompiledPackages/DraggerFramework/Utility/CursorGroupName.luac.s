@@ -1,4 +1,0 @@
-MAIN:
-  PREPVARARGS 0
-  LOADK R0 K0 ["StudioSelectable"]
-  RETURN R0 1

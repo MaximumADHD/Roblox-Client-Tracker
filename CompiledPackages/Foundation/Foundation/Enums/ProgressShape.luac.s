@@ -1,8 +1,0 @@
-MAIN:
-  PREPVARARGS 0
-  DUPTABLE R0 K2 [{"Circle", "Bar"}]
-  LOADK R1 K0 ["Circle"]
-  SETTABLEKS R1 R0 K0 ["Circle"]
-  LOADK R1 K1 ["Bar"]
-  SETTABLEKS R1 R0 K1 ["Bar"]
-  RETURN R0 1
