@@ -5452,6 +5452,8 @@ Studio.BetaFeatures.AutoUpdateDescription,,Adds an option to automatically updat
 Studio.BetaFeatures.AutoUpdateTitle,,Auto Update on Packages,Auto Update on Packages
 Studio.BetaFeatures.AutomaticSizeDescription,,UI object property that automatically sizes objects based on their child content.,UI object property that automatically sizes objects based on their child content.
 Studio.BetaFeatures.AutomaticSizeTitle,,Automatic Size Beta,Automatic Size Beta
+Studio.BetaFeatures.AvatarAbilitiesDescription,Beta feature description,"A Luau-native character controller system — an extensible alternative to the Humanoid state machine, built on ControllerManager physics.","A Luau-native character controller system — an extensible alternative to the Humanoid state machine, built on ControllerManager physics."
+Studio.BetaFeatures.AvatarAbilitiesTitle,Beta feature title,AvatarAbilities Character Controller Library,AvatarAbilities Character Controller Library
 Studio.BetaFeatures.AvatarJointUpgradeDescription,,"Adds ragdoll constraints into avatars. Also replaces Motor6Ds with AnimationConstraints, which play animations either kinematically or with physical simulation.","Adds ragdoll constraints into avatars. Also replaces Motor6Ds with AnimationConstraints, which play animations either kinematically or with physical simulation."
 Studio.BetaFeatures.AvatarJointUpgradeTitle,,Avatar Joint Upgrade,Avatar Joint Upgrade
 Studio.BetaFeatures.AvatarLoadingBetaDescription,,Improves the ordering of events fired when avatars are loaded to be more consistent and easier for developers to use,Improves the ordering of events fired when avatars are loaded to be more consistent and easier for developers to use
@@ -5701,6 +5703,8 @@ https://en.help.roblox.com/hc/articles/20121392440212","Please view the Terms an
 
 https://en.help.roblox.com/hc/articles/20121392440212"
 Studio.BetaFeatures.TextureGeneratorTitle,,Texture Generator,Texture Generator
+Studio.BetaFeatures.ThirdPartyMCPDescription,Description for the Third-Party MCP beta feature that enables external MCP server connections,Enables connections to third-party Model Context Protocol (MCP) servers in Studio Assistant.,Enables connections to third-party Model Context Protocol (MCP) servers in Studio Assistant.
+Studio.BetaFeatures.ThirdPartyMCPTitle,Title for the Third-Party MCP beta feature. Allows users to connect to external MCP servers in Studio Assistant,Third-Party MCP Servers,Third-Party MCP Servers
 Studio.BetaFeatures.TryCoolFeaturesWithWarning,,Try out cool new features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.,Try out cool new features before they are released to everyone! Please be aware that Beta features could be unstable. Your feedback is invaluable to us as we move towards building the imagination platform.
 Studio.BetaFeatures.UGCBodiesAndHeadsDescription,,"Import UGC bodies and heads, preview them with the Avatar Previewer, and upload them to the Marketplace.","Import UGC bodies and heads, preview them with the Avatar Previewer, and upload them to the Marketplace."
 Studio.BetaFeatures.UGCBodiesAndHeadsTitle,,UGC Bodies & Heads,UGC Bodies & Heads
@@ -6309,6 +6313,10 @@ Studio.LiveSync.OpenInExternalEditorTooltip,tooltip that displays when hovering 
 Studio.LiveSync.PackageLinkAdded,Instance cannot be synced now because it is a package,Unable to sync '%1' because it is part of a package.,Unable to sync '%1' because it is part of a package.
 Studio.LiveSync.PathTranslationError,Header text for the dialog that is shown when a file with an invalid extension is chosen for start sync according to the selected script type and/or runcontext,<b>Path Translation Error</b>,<b>Path Translation Error</b>
 Studio.LiveSync.PathTranslationErrorContent,Content text for the dialog that is shown when a file with an invalid extension is chosen for start sync according to the selected script type and/or runcontext,Can't sync %1 to disk: Encountered an error with the chosen file's extension. See output window for details.,Can't sync %1 to disk: Encountered an error with the chosen file's extension. See output window for details.
+Studio.LiveSync.Property.ExternalEditorSelection,"Property name for the application to be used with ""open in external editor""",External script editor,External script editor
+Studio.LiveSync.Property.UseDefaultExternalEditor,Property name for if a default application should be used or not,Use default as external script editor,Use default as external script editor
+Studio.LiveSync.PropertyItems.ApplicationNotFound1,Message Displayed when the configured/selected application cannot be found. The argument %1 is the path to the application.,Application not found (%1),Application not found (%1)
+Studio.LiveSync.PropertyItems.SystemDefault,Text displayed in settings when no custom application path is configured for external editor app.,System Default,System Default
 Studio.LiveSync.ResumeSyncConflictsDetected,Notifying the user that scripts did not auto-resume sync due to content mismatch.,Studio did not resume syncing %1 script(s) because their contents do not match the files on disk. You can resume them manually in the context menu. You can change this behavior in Studio Settings > Script Sync > Resume conflicted sync on place open,Studio did not resume syncing %1 script(s) because their contents do not match the files on disk. You can resume them manually in the context menu. You can change this behavior in Studio Settings > Script Sync > Resume conflicted sync on place open
 Studio.LiveSync.ResumeSyncConflictsDetectedM3,Notifying the user that scripts did not auto-resume sync due to content mismatch.,Studio did not resume syncing %1 instance(s) because their contents do not match the files on disk. You can resume them manually in the context menu. You can change this behavior in Studio Settings > Script Sync > Resume conflicted sync on place open,Studio did not resume syncing %1 instance(s) because their contents do not match the files on disk. You can resume them manually in the context menu. You can change this behavior in Studio Settings > Script Sync > Resume conflicted sync on place open
 Studio.LiveSync.ResumeSyncOverwriteFiles,Notifying the user that files were overwritten when auto resuming Script Sync,Studio is overwriting %1 synced file(s) when restarting to match the current script contents in the DM. You can change this behavior in Studio Settings > Script Sync > Resume conflicted sync on place open,Studio is overwriting %1 synced file(s) when restarting to match the current script contents in the DM. You can change this behavior in Studio Settings > Script Sync > Resume conflicted sync on place open
@@ -6327,14 +6335,17 @@ Studio.LiveSync.StartSyncingContent,The information text in the dialog that prom
 Studio.LiveSync.StartSyncingTitle,Title of start sync dialog on conflict detection,<b>Choose a version to keep</b>,<b>Choose a version to keep</b>
 Studio.LiveSync.StudioStreamingNotSupported,Error message shown when attempting to sync an instance under Workspace while Studio Streaming is enabled,Can't sync %1 to disk: Syncing under Workspace is not supported while Studio Streaming is enabled,Can't sync %1 to disk: Syncing under Workspace is not supported while Studio Streaming is enabled
 Studio.LiveSync.SymlinkNotSupportedError,Error message shown when a symlink is encountered during sync,Can't sync %1 to disk: Symlinks are not supported,Can't sync %1 to disk: Symlinks are not supported
+Studio.LiveSync.SyncFolderBestExperience,"Title for upsell dialog, indicating to the user to sync a folder for the best experience",Sync a folder for the best experience,Sync a folder for the best experience
 Studio.LiveSync.SyncSelectedInstancesTo,The context menu text shown for the action StartSyncSelectedInstancesTo for File Sync,Sync Selected Instances to…,Sync Selected Instances to…
 Studio.LiveSync.SyncSelectedInstancesToTooltip,The informational tooltip shown for the action StartSyncSelectedInstancesTo for File Sync,Start syncing a multi-selection of Folders and/or Scripts with a directory on disk,Start syncing a multi-selection of Folders and/or Scripts with a directory on disk
 Studio.LiveSync.SyncToDirectory,The context menu text shown for the action StartSyncToDirectory for File Sync,Sync with Directory…,Sync with Directory…
 Studio.LiveSync.SyncToDirectoryTooltip,The informational tooltip shown for the action StartSyncToDirectory for File Sync,Start syncing a Folder or a Script with children to a directory on disk,Start syncing a Folder or a Script with children to a directory on disk
 Studio.LiveSync.SyncToExistingFile,The context menu text shown for the action StartSyncToExistingFile for File Sync,Sync with Existing File…,Sync with Existing File…
 Studio.LiveSync.SyncToExistingFileTooltip,The informational tooltip shown for the action StartSyncToExistingFile for File Sync,"Start syncing a Script, LocalScript or ModuleScript with an existing file on disk","Start syncing a Script, LocalScript or ModuleScript with an existing file on disk"
+Studio.LiveSync.SyncToFile,Confirmation button for syncing to a file,Sync to file,Sync to file
 Studio.LiveSync.SyncToNewFile,The context menu text shown for the action StartSyncToNewFile for File Sync,Sync with New File…,Sync with New File…
 Studio.LiveSync.SyncToNewFileTooltip,The informational tooltip shown for the action StartSyncToNewFile for File Sync,"Start syncing a Script, LocalScript or ModuleScript with a new file on disk","Start syncing a Script, LocalScript or ModuleScript with a new file on disk"
+Studio.LiveSync.Upsell,Explanation of opening in external editor for a non-syncing script,"To edit this script externally, it needs to sync to a file. For easier management, sync a parent Folder by selecting <b>Script Sync > Sync with directory</b> in the right-click menu","To edit this script externally, it needs to sync to a file. For easier management, sync a parent Folder by selecting <b>Script Sync > Sync with directory</b> in the right-click menu"
 Studio.LiveSync.WarningAddedImcompatibleInstance,Warning message shown when an added instance is ignored because its type is incompatible.,Instance '%1' is incompatible and will not be synced.,Instance '%1' is incompatible and will not be synced.
 Studio.LiveSync.WarningHierarchyBecomeIgnored,Warning message when an instance and its children are no longer synced because their parent instance has an incompatible type.,Syncing stopped for '%1' and its descendants: Parent instance '%2' has an incompatible type.,Syncing stopped for '%1' and its descendants: Parent instance '%2' has an incompatible type.
 Studio.LiveSync.WarningIgnoredChildren,Warning that an instance has incompatible children that will not be synced,%1 has children that are incompatible instances which will not be synced,%1 has children that are incompatible instances which will not be synced
@@ -6619,10 +6630,10 @@ Studio.PublishPlace.AfterPublish.ViewQuestionnaire,Message to display after publ
 Studio.PublishPlace.AfterPublish.ViewQuestionnaireText,Message to display after publish in toast notification,Changes published. Take the questionnaire to make your experience playable.,Changes published. Take the questionnaire to make your experience playable.
 Studio.PublishPlace.Button.Close,Button to close,Close,Close
 Studio.PublishPlace.Button.LearnMore,Button to open the policy page,Learn more,Learn more
-Studio.PublishPlace.Button.Manage,"Button to open a ""manage"" page",Manage,Manage
+Studio.PublishPlace.Button.Manage,"Button to open a web page that displays user's ""eligibility""",View eligibility,View eligibility
 Studio.PublishPlace.Button.Ok,Button to acknowledge and close,Ok,Ok
-Studio.PublishPlace.Error.PublishEligibilityDescription,Shown when the user cannot publish their place due to eligibility checks.,"You can fix this quickly. Manage your public publish eligibility, then try again.","You can fix this quickly. Manage your public publish eligibility, then try again."
-Studio.PublishPlace.Error.PublishEligibilityTitle,Shown when the user cannot publish their place to a universe,Can’t publish this experience,Can’t publish this experience
+Studio.PublishPlace.Error.PublishEligibilityDescription,Shown when the user cannot publish their place due to eligibility checks.,This experience can’t be published for public access. Complete your eligibility requirements so you can publish this experience for everyone.,This experience can’t be published for public access. Complete your eligibility requirements so you can publish this experience for everyone.
+Studio.PublishPlace.Error.PublishEligibilityTitle,Shown when the user cannot publish their place to a universe,Unable to publish this experience,Unable to publish this experience
 Studio.PublishPlace.Error.PublishLimitReachedTitle,Shown when the user cannot publish their place to a universe due to daily distinct experiences publish limit.,Daily publish limit reached,Daily publish limit reached
 Studio.PublishPlace.Error.PublishlimitReachedDescription,Shown when the user cannot publish their place due to daily limit checks.,You've reached today's limit for publishing public and community places. You can publish again tomorrow.,You've reached today's limit for publishing public and community places. You can publish again tomorrow.
 Studio.QtUI.Action.DoNotAskMeAgain,,Do not ask me again,Do not ask me again
@@ -6823,6 +6834,8 @@ Studio.RigBuilder.RigOption.BlockRig,,Block Rig,Block Rig
 Studio.RigBuilder.RigOption.ManRig,,Man Rig,Man Rig
 Studio.RigBuilder.RigOption.MeshRig,,Mesh Rig,Mesh Rig
 Studio.RigBuilder.RigOption.WomanRig,,Woman Rig,Woman Rig
+Studio.RobloxPropertiesWidget.AddConditionPopup.LineEditText,Text that appears in the AddConditionPopup to prompt the user to search for a condition,Search for a condition,Search for a condition
+Studio.RobloxPropertiesWidget.AddConditionPopup.NoConditionsCreated,Displayed in the AddConditionPopup when no conditions have been created yet.,No Conditions have been created yet,No Conditions have been created yet
 Studio.RobloxPropertiesWidget.AddTagPopup.CreateTagFmt1,Displayed in the AddTagPopup to label a tag that will be newly created.,Create tag: %1,Create tag: %1
 Studio.RobloxPropertiesWidget.AddTagPopup.LineEditText,Text that appears in the text box of the AddTagPopup letting users know how to use it.,Search for or create a tag,Search for or create a tag
 Studio.RobloxPropertiesWidget.AddTagPopup.NoTagsCreated,Displayed in the AddTagPopup when no tags have been created yet.,No tags have been created yet,No tags have been created yet
@@ -6865,6 +6878,7 @@ Studio.RobloxPropertiesWidget.Category.Clothes,,Clothes,Clothes
 Studio.RobloxPropertiesWidget.Category.Collision,,Collision,Collision
 Studio.RobloxPropertiesWidget.Category.Compliance,,Compliance,Compliance
 Studio.RobloxPropertiesWidget.Category.CompositeDirections,A collection of directional keys e.g. Up/Down/Left/Right that come together to make up one input. The most common examples are WASD and the arrow keys on keyboards.,Composite Directions,Composite Directions
+Studio.RobloxPropertiesWidget.Category.Conditions,Conditions defined on the StyleQuery instance that evaluate to true or false.,Conditions,Conditions
 Studio.RobloxPropertiesWidget.Category.Configuration,,Configuration,Configuration
 Studio.RobloxPropertiesWidget.Category.Connections,,Connections,Connections
 Studio.RobloxPropertiesWidget.Category.Control,,Control,Control
@@ -6913,6 +6927,7 @@ Studio.RobloxPropertiesWidget.Category.Link,,Link,Link
 Studio.RobloxPropertiesWidget.Category.Listening,,Listening,Listening
 Studio.RobloxPropertiesWidget.Category.Localization,,Localization,Localization
 Studio.RobloxPropertiesWidget.Category.LuaDebugger,,Lua Debugger,Lua Debugger
+Studio.RobloxPropertiesWidget.Category.Makeup,Avatar Makeup Related,Makeup,Makeup
 Studio.RobloxPropertiesWidget.Category.Mapping,Category Mapping,Mapping,Mapping
 Studio.RobloxPropertiesWidget.Category.Material,,Material,Material
 Studio.RobloxPropertiesWidget.Category.MaterialOverrides,,Material Overrides,Material Overrides
@@ -6964,6 +6979,7 @@ Studio.RobloxPropertiesWidget.Category.Shape,,Shape,Shape
 Studio.RobloxPropertiesWidget.Category.Simulation,,Simulation,Simulation
 Studio.RobloxPropertiesWidget.Category.Size,Category Size,Size,Size
 Studio.RobloxPropertiesWidget.Category.Sizing,,Sizing,Sizing
+Studio.RobloxPropertiesWidget.Category.Skin,Category for Skin Properties,Skin,Skin
 Studio.RobloxPropertiesWidget.Category.Slider,,Slider,Slider
 Studio.RobloxPropertiesWidget.Category.Spring,,Spring,Spring
 Studio.RobloxPropertiesWidget.Category.State,,State,State
@@ -6994,6 +7010,8 @@ Studio.RobloxPropertiesWidget.Category.Video,,Video,Video
 Studio.RobloxPropertiesWidget.Category.Visualization,,Visualization,Visualization
 Studio.RobloxPropertiesWidget.Category.Winch,,Winch,Winch
 Studio.RobloxPropertiesWidget.Color3Picker.HexLabel,,Hex:,Hex:
+Studio.ScriptEditor.NoDeclarationFoundParameterTooltip,No declaration/definition was found for the given parameter,No declaration found for '%1',No declaration found for '%1'
+Studio.ScriptEditor.NoDeclarationFoundTooltip,Tooltip string indicating that no declaration/definition was found,No declaration found,No declaration found
 Studio.ScriptEditor.TypeColor,The color of Luau Types in the Studio Script Editor Syntax highlighter,Type Color,Type Color
 Studio.SettingsDialog.Property.IconOverrideDir,User can specify a folder on their machine containing custom icons to use instead of default Roblox Studio icons,Custom Icon Dir,Custom Icon Dir
 Studio.Settings.BetaFeature.HighDpiAndIconsDescription,Studio will look better on monitors with higher resolution.,Makes Studio scale better on monitors using scalings above 100%.  Also includes new themed icons.,Makes Studio scale better on monitors using scalings above 100%.  Also includes new themed icons.
@@ -7084,6 +7102,8 @@ Studio.SystemMenu.Tooltip.SaveToRobloxWithNotes,tooltip for saving with version 
 Studio.TeamCreateStatusIndicator.PlaceUploadFailingMessage,Urgent messsage to be shown when place upload is failing continuously for Team Create to show that there is a recovery file being generated,Auto recovery backup has started.,Auto recovery backup has started.
 Studio.TeamCreateStatusIndicator.PlaceUploadFailingTip,Description message that gives users action to figure out where their recovery files are generated,Check console for auto-recovery details.,Check console for auto-recovery details.
 Studio.TeamCreateStatusIndicator.PlaceUploadFailingTitle,Urgent alert that shows to creator that place upload for Team Create is not working,Place upload is failing.,Place upload is failing.
+Studio.TeamCreate.DisconnectReasonUnknown,This message is presented to the user when they lose their connection to a server using Team Create.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.
+Studio.TeamCreate.Disconnected,Title for a dialog that indicates a user has been disconnected from their Team Create server.,Disconnected,Disconnected
 Studio.TerrainToolsV2.Action.Apply,,Apply,Apply
 Studio.TerrainToolsV2.Action.Back,,Back,Back
 Studio.TerrainToolsV2.Action.Cancel,,Cancel,Cancel

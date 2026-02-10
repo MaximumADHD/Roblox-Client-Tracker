@@ -5704,6 +5704,8 @@ Studio.App.Property.DraggerShowWhileDragging,,,Draggers Show While Dragging,Drag
 Studio.App.PropertyTooltip.DraggerShowWhileDragging,,,Show the dragger handles and axis or grid while dragging.,Show the dragger handles and axis or grid while dragging.
 Studio.App.Property.DraggerShowAxisTicks,,,Dragger Show Axis Ticks,Dragger Show Axis Ticks
 Studio.App.PropertyTooltip.DraggerShowAxisTicks,,,Show the axis ticks while dragging if snapping is enabled.,Show the axis ticks while dragging if snapping is enabled.
+Studio.App.RobloxRibbonMainWindow.AnimationConstraint,,,Animation Constraint,Animation Constraint
+Studio.App.RobloxRibbonMainWindow.CreateAnimationConstraint,,,Create animation constraint,Create animation constraint
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -8871,6 +8873,7 @@ Studio.AnimationClipEditor.Dialog.RestPoseSource,,,Rest Pose Source,Rest Pose So
 Studio.AnimationClipEditor.Dialog.ImportedRig,,,Imported Rig,Imported Rig
 Studio.AnimationClipEditor.Dialog.AnimationEditorRig,,,Animation Editor Rig,Animation Editor Rig
 Studio.AnimationClipEditor.Dialog.ImportingAnimation,,,Importing Animation...,Importing Animation...
+Studio.AnimationClipEditor.RigErrors.DoubleJoints,,,The following parts are connected by multiple joints (Motor6D or AnimationConstraint):,The following parts are connected by multiple joints (Motor6D or AnimationConstraint):
 Studio.ConvertToPackage.Meta.PluginName,,,Convert To Package,Convert To Package
 Studio.ConvertToPackage.General.Submit,,,Submit,Submit
 Studio.ConvertToPackage.General.Comments,,,Allow Comments,Allow Comments
@@ -9308,6 +9311,9 @@ Studio.AssetManager.QuickShare.RemoveButton,,,Remove,Remove
 Studio.AssetManager.ContextMenu.QuickShare,,,Share,Share
 Studio.AssetManager.Sidebar.Project,,,Project,Project
 Studio.AssetManager.Sidebar.Library,,,Library,Library
+Studio.AssetManager.ContextMenu.FindInExplorer,,,Find in Explorer,Find in Explorer
+Studio.AssetManager.QuickShare.ShareButton,,,Share,Share
+Studio.AssetManager.QuickShare.DialogDescription,,,Configure who has permission to access your assets,Configure who has permission to access your assets
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -12119,6 +12125,13 @@ Studio.AvatarCompatibilityPreviewer.MarketplaceImport.ErrorDialogHeader,,,{numEr
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.CloseButtonLabel,,,Close,Close
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.ErrorBannerText,,,{numErrors} errors found,{numErrors} errors found
 Studio.AvatarCompatibilityPreviewer.MarketplaceImport.SeeDetailsActionLabel,,,See details,See details
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ErrorAtLeastOneItemRequired,,,At least one Body and one Clothing or Accessory item required,At least one Body and one Clothing or Accessory item required
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ErrorMakeupItems,,,At least three Makeup items required,At least three Makeup items required
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ErrorCreationLimitReached,,,Creation limit reached,Creation limit reached
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.WarningsFound,,,{count} warnings found,{count} warnings found
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ErrorMakeupItemsOwnership,,,You can only create a Makeup Look using items that you created,You can only create a Makeup Look using items that you created
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.SeeDetails,,,See details,See details
+Studio.AvatarCompatibilityPreviewer.LookComposerDialog.Warnings,,,{count} warnings,{count} warnings
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -12885,6 +12898,7 @@ Studio.Ribbon.Plugin.AddTools_Edit,,,Edit,Edit
 Studio.Ribbon.StartPage.Category.CreatorPlugin,,,Creator Plugins,Creator Plugins
 Studio.Ribbon.PreparingUpdate,,,Preparing update,Preparing update
 Studio.Ribbon.Action.Update,,,Update,Update
+Studio.Ribbon.Action.PreparingUpdate,,,Preparing update,Preparing update
 Studio.VisualizationModes.Plugin.Name,,,Visualization Modes,Visualization Modes
 Studio.VisualizationModes.Plugin.Text,,,Hello World,Hello World
 Studio.VisualizationModes.Plugin.Button,,,Visualization Modes,Visualization Modes
@@ -14397,7 +14411,7 @@ Studio.PlaceVersionHistory.Action.ClearFilters,,,Clear filters,Clear filters
 Studio.PlaceVersionHistory.Title.ErrorLoadingHistory,,,Error loading version history,Error loading version history
 Studio.PlaceVersionHistory.Description.ErrorLoadingHistory,,,Something went wrong. Please try again.,Something went wrong. Please try again.
 Studio.PlaceVersionHistory.Title.NothingMatchesFilters,,,Nothing matches your filters,Nothing matches your filters
-Studio.PlaceVersionHistory.Title.StartSaving,,,Start saving to track your version history,Start saving to track your version history
+Studio.PlaceVersionHistory.Title.StartSaving,,,Start saving to track version history,Start saving to track version history
 Studio.PlaceVersionHistory.Description.NothingMatchesFilters,,,Try adjusting or clearing your filters.,Try adjusting or clearing your filters.
 Studio.PlaceVersionHistory.Description.StartSaving,,,Save to Roblox to see new history. Your old history will appear soon after.,Save to Roblox to see new history. Your old history will appear soon after.
 Studio.PlaceVersionHistory.Title.EditVersionNotes,,,Edit version notes,Edit version notes
@@ -14750,9 +14764,9 @@ Studio.PropertiesLibrary.Tabs.General,,,General,General
 Studio.PropertiesLibrary.Tabs.AttributesAndTags,,,Attributes & Tags,Attributes & Tags
 Studio.PropertiesLibrary.Tabs.All,,,All,All
 Studio.PropertiesLibrary.SearchBar.PlaceholderText,,,Filter by name or value,Filter by name or value
-Studio.PublishPlace.Error.PublishEligibilityTitle,,,Can’t publish this experience,Can’t publish this experience
-Studio.PublishPlace.Error.PublishEligibilityDescription,,,"You can fix this quickly. Manage your public publish eligibility, then try again.","You can fix this quickly. Manage your public publish eligibility, then try again."
-Studio.PublishPlace.Button.Manage,,,Manage,Manage
+Studio.PublishPlace.Error.PublishEligibilityTitle,,,Unable to publish this experience,Unable to publish this experience
+Studio.PublishPlace.Error.PublishEligibilityDescription,,,This experience can’t be published for public access. Complete your eligibility requirements so you can publish this experience for everyone.,This experience can’t be published for public access. Complete your eligibility requirements so you can publish this experience for everyone.
+Studio.PublishPlace.Button.Manage,,,View eligibility,View eligibility
 Studio.PublishPlace.Button.Close,,,Close,Close
 Studio.ReactDevTools.Plugin.Name,,,React DevTools,React DevTools
 Studio.ReactDevTools.Plugin.Description,,,Use React DevTools to debug and profile your React Luau applications.,Use React DevTools to debug and profile your React Luau applications.
