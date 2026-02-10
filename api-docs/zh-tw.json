@@ -6915,6 +6915,9 @@
   "@roblox/globaltype/TestService.TakeSnapshot/param/1": {
     "documentation": ""
   },
+  "@roblox/globaltype/TestService.TakeSnapshot/param/2": {
+    "documentation": ""
+  },
   "@roblox/globaltype/TestService.TakeSnapshot": {
     "documentation": "",
     "params": [
@@ -6925,6 +6928,10 @@
       {
         "name": "snapshotname",
         "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/1"
+      },
+      {
+        "name": "source",
+        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/2"
       }
     ],
     "returns": [],
@@ -10336,10 +10343,10 @@
     "documentation": "扭曲音頻流，使其聽起來更模糊、更粗糙且音量更大。"
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的數組"
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires": {
     "documentation": "返回一個與指定插口連接的 <code>Wires</code> 陣列。",
@@ -10363,10 +10370,10 @@
     "documentation": "扭曲音頻流，使其聽起來更模糊、更粗糙且音量更大。"
   },
   "@roblox/globaltype/AudioDistortion.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioDistortion.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引腳列表，以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -10383,10 +10390,10 @@
     "documentation": "扭曲音頻流，使其聽起來更模糊、更粗糙且音量更大。"
   },
   "@roblox/globaltype/AudioDistortion.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioDistortion.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引腳列表，以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -10809,10 +10816,10 @@
     "documentation": "調整音頻流的音量。"
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出針腳"
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的陣列"
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires": {
     "documentation": "返回與指定引腳連接的 <code>Wires</code> 的數組。",
@@ -10836,10 +10843,10 @@
     "documentation": "調整音頻流的音量。"
   },
   "@roblox/globaltype/AudioFader.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "代表有效針腳名稱的字串陣列。"
   },
   "@roblox/globaltype/AudioFader.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的針腳列表， 通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -10856,10 +10863,10 @@
     "documentation": "調整音頻流的音量。"
   },
   "@roblox/globaltype/AudioFader.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "代表有效針腳名稱的字串陣列。"
   },
   "@roblox/globaltype/AudioFader.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的針腳列表， 通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -15238,13 +15245,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的陣列"
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "返回一個連接到指定引腳的 <code>Wires</code> 陣列。",
     "params": [
       {
         "name": "self",
@@ -15265,10 +15272,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字串陣列。"
   },
   "@roblox/globaltype/AudioGate.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引腳列表，以便通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -15285,10 +15292,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字串陣列。"
   },
   "@roblox/globaltype/AudioGate.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引腳列表，以便通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -15379,7 +15386,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioGate.WiringChanged": {
-    "documentation": "",
+    "documentation": "當另一個實例通過 <code>Wire</code> 連接或斷開連接 <code>AudioAnalyzer</code> 時觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/AudioGate.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel",
@@ -23879,10 +23886,10 @@
     "documentation": "用於播放視頻資源。"
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出針"
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的數組"
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires": {
     "documentation": "返回連接到指定引腳的 <code>Wires</code> 陣列。",
@@ -23906,10 +23913,10 @@
     "documentation": "用於播放視頻資源。"
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一個表示有效針名稱的字串數組。"
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的針列表，以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -23926,10 +23933,10 @@
     "documentation": "用於播放視頻資源。"
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一個表示有效針名稱的字串數組。"
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的針列表，以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -26389,10 +26396,10 @@
     "documentation": "接受音訊串流並將其渲染到物理硬體設備，例如揚聲器或耳機。"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的數組"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires": {
     "documentation": "返回一個與指定引腳連接的 <code>Wires</code> 陣列。",
@@ -26416,10 +26423,10 @@
     "documentation": "接受音訊串流並將其渲染到物理硬體設備，例如揚聲器或耳機。"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引腳列表，以 通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -26436,10 +26443,10 @@
     "documentation": "接受音訊串流並將其渲染到物理硬體設備，例如揚聲器或耳機。"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引腳列表，以 通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -28486,7 +28493,6 @@
     "documentation": "限制音頻流的音量大小。",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioLimiter.Bypass",
-      "Editor": "@roblox/globaltype/AudioLimiter.Editor",
       "MaxLevel": "@roblox/globaltype/AudioLimiter.MaxLevel",
       "Release": "@roblox/globaltype/AudioLimiter.Release",
       "GetConnectedWires": "@roblox/globaltype/AudioLimiter.GetConnectedWires",
@@ -28501,18 +28507,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioLimiter.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioLimiter.MaxLevel": {
-    "documentation": "允許的最大音量。",
+    "documentation": "可容忍的最大音量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#MaxLevel",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioLimiter.Release": {
-    "documentation": "先前受限的流返回其正常音量所需的時間。",
+    "documentation": "已限制的流返回到正常音量所需的時間。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Release",
     "code_sample": ""
   },
@@ -28520,10 +28521,10 @@
     "documentation": "限制音頻流的音量大小。"
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 陣列"
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires": {
     "documentation": "返回與指定插針連接的 <code>Wires</code> 陣列。",
@@ -28547,10 +28548,10 @@
     "documentation": "限制音頻流的音量大小。"
   },
   "@roblox/globaltype/AudioLimiter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一個字符串陣列，表示有效的引腳名稱。"
   },
   "@roblox/globaltype/AudioLimiter.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引腳列表，以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -28567,10 +28568,10 @@
     "documentation": "限制音頻流的音量大小。"
   },
   "@roblox/globaltype/AudioLimiter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一個字符串陣列，表示有效的引腳名稱。"
   },
   "@roblox/globaltype/AudioLimiter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引腳列表，以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -29481,10 +29482,10 @@
     "documentation": "將多個音頻流合併為一個多通道音頻流。"
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的數組"
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires": {
     "documentation": "返回一個與指定插口連接的 <code>Wires</code> 陣列。",
@@ -29508,10 +29509,10 @@
     "documentation": "將多個音頻流合併為一個多通道音頻流。"
   },
   "@roblox/globaltype/AudioChannelMixer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioChannelMixer.GetInputPins": {
-    "documentation": "返回可以由 <code>Wire.TargetName</code> 選擇的輸入插口。",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引腳列表，以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -29528,10 +29529,10 @@
     "documentation": "將多個音頻流合併為一個多通道音頻流。"
   },
   "@roblox/globaltype/AudioChannelMixer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioChannelMixer.GetOutputPins": {
-    "documentation": "返回可用於 <code>Wire.SourceName</code> 的輸出插口。",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引腳列表，以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -31443,7 +31444,6 @@
     "keys": {
       "Attack": "@roblox/globaltype/AudioCompressor.Attack",
       "Bypass": "@roblox/globaltype/AudioCompressor.Bypass",
-      "Editor": "@roblox/globaltype/AudioCompressor.Editor",
       "MakeupGain": "@roblox/globaltype/AudioCompressor.MakeupGain",
       "Ratio": "@roblox/globaltype/AudioCompressor.Ratio",
       "Release": "@roblox/globaltype/AudioCompressor.Release",
@@ -31465,28 +31465,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioCompressor.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioCompressor.MakeupGain": {
     "documentation": "壓縮後應用的增益值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#MakeupGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.Ratio": {
-    "documentation": "超過 <code>Threshold</code> 時，輸入音量與輸出音量的比率。",
+    "documentation": "輸入音量與輸出音量的比率，當超過 <code>Threshold</code> 時應用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Ratio",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.Release": {
-    "documentation": "控制壓縮器在串流音量下降回到 <code>Threshold</code> 以下後的解除夾緊速度。",
+    "documentation": "控制壓縮器在流音量回落到 <code>Threshold</code> 之後， 多快會解除鎖定。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Release",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.Threshold": {
-    "documentation": "壓縮器開始修改輸入串流的增益值。",
+    "documentation": "壓縮器開始修改輸入流的增益值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Threshold",
     "code_sample": ""
   },
@@ -31494,10 +31489,10 @@
     "documentation": "調整輸入串流的動態範圍。"
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的數組"
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires": {
     "documentation": "返回連接到指定插槽的 <code>Wires</code> 陣列。",
@@ -31521,10 +31516,10 @@
     "documentation": "調整輸入串流的動態範圍。"
   },
   "@roblox/globaltype/AudioCompressor.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioCompressor.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引腳列表，以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -31541,10 +31536,10 @@
     "documentation": "調整輸入串流的動態範圍。"
   },
   "@roblox/globaltype/AudioCompressor.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioCompressor.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引腳列表，以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -35839,7 +35834,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.PrioritizeLightingQuality": {
-    "documentation": "指示您更喜歡首先縮減光照/陰影質量還是視距。",
+    "documentation": "表示您是否更偏好燈光/陰影質量或視距優先縮小。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#PrioritizeLightingQuality",
     "code_sample": ""
   },
@@ -39318,10 +39313,10 @@
     "documentation": "記錄來自其周圍的音頻流，來自於 <code>AudioEmitters</code> 在3D世界中。"
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的數組"
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires": {
     "documentation": "返回一個與指定插針連接的 <code>Wires</code> 的數組。",
@@ -39365,10 +39360,10 @@
     "documentation": "記錄來自其周圍的音頻流，來自於 <code>AudioEmitters</code> 在3D世界中。"
   },
   "@roblox/globaltype/AudioListener.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioListener.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引腳列表 以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -39405,10 +39400,10 @@
     "documentation": "記錄來自其周圍的音頻流，來自於 <code>AudioEmitters</code> 在3D世界中。"
   },
   "@roblox/globaltype/AudioListener.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioListener.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引腳列表 以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -41699,13 +41694,13 @@
     "documentation": "在體驗中錄製音頻流。"
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 數組"
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "返回一個與指定引腳相連的 <code>Wires</code> 數組。",
     "params": [
       {
         "name": "self",
@@ -41726,10 +41721,10 @@
     "documentation": "在體驗中錄製音頻流。"
   },
   "@roblox/globaltype/AudioRecorder.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "代表有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioRecorder.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引腳列表，以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -41746,10 +41741,10 @@
     "documentation": "在體驗中錄製音頻流。"
   },
   "@roblox/globaltype/AudioRecorder.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "代表有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioRecorder.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引腳列表，以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -41910,7 +41905,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioRecorder.WiringChanged": {
-    "documentation": "",
+    "documentation": "當另一個實例通過 <code>Wire</code> 連接到或斷開與 <code>AudioAnalyzer</code> 的連接時觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/AudioRecorder.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioRecorder.WiringChanged.ConnectParallel",
@@ -42205,7 +42200,7 @@
       "@roblox/globaltype/HttpService.RequestAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HttpService#RequestAsync",
-    "code_sample": "-- 記得在遊戲設置中啟用 HTTP 請求！\nlocal HttpService = game:GetService(\"HttpService\")\n\nlocal function request()\n\tlocal response = HttpService:RequestAsync({\n\t\tUrl = \"http://httpbin.org/post\", -- 這個網站幫助調試 HTTP 請求\n\t\tMethod = \"POST\",\n\t\tHeaders = {\n\t\t\t[\"Content-Type\"] = \"application/json\", -- 發送 JSON 時，請設置此標頭！\n\t\t},\n\t\tBody = HttpService:JSONEncode({ hello = \"world\" }),\n\t})\n\n\tif response.Success then\n\t\tprint(\"狀態碼：\", response.StatusCode, response.StatusMessage)\n\t\tprint(\"回應內容：\\n\", response.Body)\n\telse\n\t\tprint(\"請求失敗：\", response.StatusCode, response.StatusMessage)\n\tend\nend\n\n-- 記得將函數包裹在 'pcall' 中，以防請求失敗時腳本崩潰\nlocal success, message = pcall(request)\nif not success then\n\tprint(\"HTTP 請求失敗：\", message)\nend"
+    "code_sample": "-- 記得在體驗設置中啟用 HTTP 請求！\nlocal HttpService = game:GetService(\"HttpService\")\n\nlocal function request()\n\tlocal response = HttpService:RequestAsync({\n\t\tUrl = \"http://httpbin.org/post\", -- 這個網站有助於調試 HTTP 請求\n\t\tMethod = \"POST\",\n\t\tHeaders = {\n\t\t\t[\"Content-Type\"] = \"application/json\", -- 發送 JSON 時，請設置此項！\n\t\t},\n\t\tBody = HttpService:JSONEncode({ hello = \"world\" }),\n\t})\n\n\tif response.Success then\n\t\tprint(\"狀態碼：\", response.StatusCode, response.StatusMessage)\n\t\tprint(\"響應正文:\\n\", response.Body)\n\telse\n\t\tprint(\"請求失敗：\", response.StatusCode, response.StatusMessage)\n\tend\nend\n\n-- 記得將函數包裹在 'pcall' 中，以防請求失敗時腳本崩潰\nlocal success, message = pcall(request)\nif not success then\n\tprint(\"HTTP 請求失敗：\", message)\nend"
   },
   "@roblox/globaltype/HttpService.UrlEncode/param/0": {
     "documentation": "允許發送 HTTP 請求並提供各種與網路相關的 JSON 方法。"
@@ -45475,7 +45470,7 @@
     "documentation": "在線連接的字典（請參見上述表格）。"
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>GetFriendsOnline()</code> 取代。<br>返回在線連接的字典。使用資產 ID 返回資產的產品信息。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>GetFriendsOnlineAsync()</code>所取代。<br>返回在線連接的字典。使用資產 ID 返回資產的產品信息。",
     "params": [
       {
         "name": "self",
@@ -52795,13 +52790,13 @@
     "documentation": "要查詢的屬性名稱。"
   },
   "@roblox/globaltype/Instance.GetStyled/param/2": {
-    "documentation": "針對您在實例上定位的偽實例的可選選擇器。"
+    "documentation": "針對你在實例上目標的虛擬實例的可選選擇器。"
   },
   "@roblox/globaltype/Instance.GetStyled/return/0": {
     "documentation": "指定屬性的樣式或明確修改的值，否則返回默認屬性值（如果未進行樣式/修改）。"
   },
   "@roblox/globaltype/Instance.GetStyled": {
-    "documentation": "返回指定屬性的樣式或明確修改的值，否則返回默認屬性值（如果未進行樣式/修改）。",
+    "documentation": "返回指定屬性的樣式或顯式修改值， 如果尚未樣式/修改則返回默認屬性值。",
     "params": [
       {
         "name": "self",
@@ -52984,10 +52979,10 @@
     "documentation": "要查詢的屬性名稱。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "布林值，表示該屬性是否從其代碼實例化的默認值中修改。"
+    "documentation": "布林值，指示該屬性是否從其代碼實例化的默認值中修改。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "返回一個布林值，如果存儲在指定屬性中的值不等於代碼實例化的默認值。",
+    "documentation": "如果指定屬性中存儲的值不等於代碼實例化默認值，則返回 <code>true</code>。",
     "params": [
       {
         "name": "self",
@@ -54010,10 +54005,10 @@
     "documentation": "疊加延遲的音頻流副本。"
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的陣列"
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires": {
     "documentation": "返回與指定插腳連接的 <code>Wires</code> 陣列。",
@@ -54037,10 +54032,10 @@
     "documentation": "疊加延遲的音頻流副本。"
   },
   "@roblox/globaltype/AudioEcho.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字串陣列。"
   },
   "@roblox/globaltype/AudioEcho.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引腳列表 以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -54057,10 +54052,10 @@
     "documentation": "疊加延遲的音頻流副本。"
   },
   "@roblox/globaltype/AudioEcho.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字串陣列。"
   },
   "@roblox/globaltype/AudioEcho.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引腳列表 以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -54225,22 +54220,22 @@
     "documentation": "允許開發者從文字提示生成 3D 物件的服務。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/1": {
-    "documentation": "包含網格生成提示的字典。目前， 唯一支持的鍵是描述要生成的網格的 <code>Prompt</code>（字串）。"
+    "documentation": "包含網格生成提示的字典。目前，唯一支持的鍵是描述要生成的網格的 <code>Prompt</code>（字串）。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/2": {
     "documentation": "請求生成的 <code>Player</code>。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/3": {
-    "documentation": "影響結果的額外生成選項的字典。支持以下鍵： - <code>SuggestedSize</code> — 可選的 <code>Vector3</code>，代表生成資產的大小指導。 服務將嘗試創建一個大小和比例 與提供的 <code>Vector3</code> 相似的模型。這不保證 最終輸出大小。"
+    "documentation": "影響結果的額外生成選項的字典。可選的 <code>SuggestedSize</code> 鍵（<code>Vector3</code>）表示生成資產的大小指南，這意味著 <code>GenerationService</code> 將嘗試創建一個與提供的 <code>Vector3</code> 相似的大小和比例的模型，但最終輸出大小沒有保證。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/4": {
-    "documentation": "在中間生成結果時觸發的回調函數。 對於在應用紋理之前檢索早期網格版本很有用。"
+    "documentation": "觸發中間生成結果的回調函數。對於在應用紋理之前檢索早期的網格版本非常有用。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/return/0": {
-    "documentation": "生成 ID 的元組（每次調用 <code>GenerateMeshAsync()</code> 返回的唯一 ID） 和上下文 ID（目前未使用）。"
+    "documentation": "生成 ID 的元組（每次調用 <code>GenerateMeshAsync()</code> 時返回的唯一 ID）和上下文 ID（目前未使用）。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync": {
-    "documentation": "從文字提示開始生成新的 3D 網格並返回 唯一的 ID 用於跟蹤和檢索結果。",
+    "documentation": "開始從文本提示生成新的 3D 網格，並返回用於跟踪和檢索結果的唯一 ID。",
     "params": [
       {
         "name": "self",
@@ -54273,19 +54268,19 @@
     "documentation": "允許開發者從文字提示生成 3D 物件的服務。"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/1": {
-    "documentation": ""
+    "documentation": "表示條件輸入的表，包含以下鍵： <ul> <li><code>TextPrompt</code> — 要生成的物件的字串描述。</li> <li><code>Size</code> — 可選的 <code>Vector3</code> 描述要生成的物件大小。   這僅是近似值；如果需要特定大小，請在生成後調整模型的範圍。</li> <li><code>MaxTriangles</code> — 可選的整數，描述返回的模型將包含的最大三角形數。較低的值會導致更多的棱角和低多邊形生成。</li> <li><code>GenerateTextures</code> — <code>true</code>（預設值）將生成結果上色，<code>false</code> 將不生成紋理。</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/2": {
-    "documentation": ""
+    "documentation": "表示生成架構的表。必須包含一個 <code>PredefinedSchema</code> 鍵，並且該鍵的值為字符串；當前有效選項有 <code>Car5</code>，表示由五個 <code>Models</code> 組成的基本車輛底盤，或 <code>Body1</code>，結果為單個網格輸出。"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/3": {
-    "documentation": ""
+    "documentation": "目前未使用；保留用於未來的自定義選項。"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/return/0": {
-    "documentation": ""
+    "documentation": "包含以下元素的元組： <ul> <li>具有指定 <code>schema</code> 的標準 <code>Model</code> 容器實例。</li> <li>包含 UUID 和有關生成的其他元數據的表。</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync": {
-    "documentation": "",
+    "documentation": "根據提供的 <code>inputs</code> 和 <code>schema</code> 啟用多網格幾何體的生成。",
     "params": [
       {
         "name": "self",
@@ -54314,13 +54309,13 @@
     "documentation": "允許開發者從文字提示生成 3D 物件的服務。"
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/param/1": {
-    "documentation": "由 <code>GenerateMeshAsync()</code> 返回的唯一 ID。 識別要加載的網格。"
+    "documentation": "由 <code>GenerateMeshAsync()</code> 返回的唯一 ID，用於識別要加載的網格。"
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/return/0": {
-    "documentation": "生成的資產，作為包含單個 <code>MeshPart</code> 和一個 <code>EditableMesh</code> 的 <code>Model</code> 返回。"
+    "documentation": "生成的資產，作為單個 <code>MeshPart</code> 包含 <code>EditableMesh</code> 的 <code>Model</code> 返回。"
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync": {
-    "documentation": "使用提供的 <code>generationId</code> 檢索並加載由 <code>GenerationService:GenerateMeshAsync()</code> 生成的網格。",
+    "documentation": "檢索並加載由 <code>GenerationService:GenerateMeshAsync()</code> 使用提供的 <code>generationId</code> 生成的網格。",
     "params": [
       {
         "name": "self",
@@ -57314,10 +57309,10 @@
     "documentation": "在音頻流上 impart 一種呼嘯或掃掠的聲音。"
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 陣列"
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires": {
     "documentation": "返回一個連接到指定插針的 <code>Wires</code> 陣列。",
@@ -57341,10 +57336,10 @@
     "documentation": "在音頻流上 impart 一種呼嘯或掃掠的聲音。"
   },
   "@roblox/globaltype/AudioFlanger.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串陣列。"
   },
   "@roblox/globaltype/AudioFlanger.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 使用的引腳列表，以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -57361,10 +57356,10 @@
     "documentation": "在音頻流上 impart 一種呼嘯或掃掠的聲音。"
   },
   "@roblox/globaltype/AudioFlanger.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串陣列。"
   },
   "@roblox/globaltype/AudioFlanger.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 使用的引腳列表，以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -58416,10 +58411,10 @@
     "documentation": "調整音頻流的感知音高。"
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出針腳"
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的陣列"
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires": {
     "documentation": "返回連接到指定插槽的 <code>Wires</code> 陣列。",
@@ -58443,10 +58438,10 @@
     "documentation": "調整音頻流的感知音高。"
   },
   "@roblox/globaltype/AudioPitchShifter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一個表示有效針腳名稱的字符串陣列。"
   },
   "@roblox/globaltype/AudioPitchShifter.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的針腳列表，以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -58463,10 +58458,10 @@
     "documentation": "調整音頻流的感知音高。"
   },
   "@roblox/globaltype/AudioPitchShifter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一個表示有效針腳名稱的字符串陣列。"
   },
   "@roblox/globaltype/AudioPitchShifter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的針腳列表，以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -58912,10 +58907,10 @@
     "documentation": "回響音頻流。"
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的數組"
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires": {
     "documentation": "返回與指定針腳相連的 <code>Wires</code> 數組。",
@@ -58939,10 +58934,10 @@
     "documentation": "回響音頻流。"
   },
   "@roblox/globaltype/AudioReverb.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一個表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioReverb.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引腳列表 以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -58959,10 +58954,10 @@
     "documentation": "回響音頻流。"
   },
   "@roblox/globaltype/AudioReverb.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一個表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioReverb.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引腳列表 以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -59115,7 +59110,7 @@
     "documentation": "一個新的 <code>Decal</code>，包含組合的紋理集。"
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync": {
-    "documentation": "創建一個使用通過按提供的順序分層的給定紋理創建的複合 PBR 紋理的 Decal 實例。",
+    "documentation": "創建一個使用由提供的紋理按順序層疊而成的復合 PBR 紋理的 Decal 實例。",
     "params": [
       {
         "name": "self",
@@ -59470,13 +59465,13 @@
     "documentation": "一個非複製服務，處理有關資產的查詢至 Roblox 網路 API。"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "包含以下鍵值對的字典： <ul> <li><code>ColorMap</code> — 一個 <code>Content</code> 對象，包含顏色圖。默認為 <code>nil</code>。</li> <li><code>MetalnessMap</code> — 一個 <code>Content</code> 對象，包含金屬度圖。如果存在多個通道，則僅使用紅色通道。默認為 <code>nil</code>。</li> <li><code>NormalMap</code> — 一個 <code>Content</code> 對象，包含法線圖。默認為 <code>nil</code>。</li> <li><code>RoughnessMap</code> — 一個 <code>Content</code> 對象，包含粗糙度圖。如果存在多個通道，則僅使用紅色通道。默認為 <code>nil</code>。</li> <li><code>EmissiveMask</code> — 一個 <code>Content</code> 對象，包含發光遮罩。如果存在多個通道，則僅使用紅色通道。默認為 <code>nil</code>。</li> </ul>"
+    "documentation": "字典，包含以下鍵值對： <ul> <li><code>ColorMap</code> — 一個 <code>Content</code> 對象，包含顏色貼圖。默認為 <code>nil</code>。</li> <li><code>MetalnessMap</code> — 一個 <code>Content</code> 對象，包含金屬度貼圖。如果存在多個通道，則僅使用紅色通道。默認為 <code>nil</code>。</li> <li><code>NormalMap</code> — 一個 <code>Content</code> 對象，包含法線貼圖。默認為 <code>nil</code>。</li> <li><code>RoughnessMap</code> — 一個 <code>Content</code> 對象，包含粗糙度貼圖。如果存在多個通道，則僅使用紅色通道。默認為 <code>nil</code>。</li> <li><code>EmissiveMask</code> — 一個 <code>Content</code> 對象，包含發光遮罩。如果存在多個通道，則僅使用紅色通道。默認為 <code>nil</code>。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "包含來自 <code>content</code> 參數的給定圖的新的 <code>SurfaceAppearance</code> 實例。"
+    "documentation": "具有從 <code>content</code> 參數提供的貼圖的新 <code>SurfaceAppearance</code> 實例。"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
-    "documentation": "使用提供的內容圖創建一個新的 <code>SurfaceAppearance</code> 對象。",
+    "documentation": "使用提供的內容貼圖創建一個新的 <code>SurfaceAppearance</code> 對象。",
     "params": [
       {
         "name": "self",
@@ -59754,7 +59749,7 @@
     "documentation": "一個非複製服務，處理有關資產的查詢至 Roblox 網路 API。"
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "可選字典，包括 <code>SaveWithoutPublish</code>，這是布爾值，指示是否要保存或不保存，和 <code>PlaceId</code>，即要覆蓋的目的地地方 ID。用法示例為：AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true})。如果未提供 PlaceId，則默認行為是保存到當前原地，並調用 SavePlaceAsync。如果未提供 SaveWithoutPublish，則默認行為是 SaveWithoutPublish=false。"
+    "documentation": "可選字典，包括 <code>SaveWithoutPublish</code>，布林值指示是否保存時不發布，以及 <code>PlaceId</code>，保存覆蓋的目的地場景 ID。用法示例為：AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true})。如果未提供 PlaceId，默認行為將保存覆蓋當前原始場景，該場景為調用 SavePlaceAsync 的場景。如果未提供 SaveWithoutPublish，默認行為為 SaveWithoutPublish=false。"
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "保存當前地方的狀態。",
@@ -60988,10 +60983,10 @@
     "documentation": "從通過一個或多個連接的音頻流取得測量<code>Wires</code>。"
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的數組"
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires": {
     "documentation": "返回與指定引腳連接的 <code>Wires</code> 陣列。",
@@ -61015,10 +61010,10 @@
     "documentation": "從通過一個或多個連接的音頻流取得測量<code>Wires</code>。"
   },
   "@roblox/globaltype/AudioAnalyzer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioAnalyzer.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引腳列表， 以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -61035,10 +61030,10 @@
     "documentation": "從通過一個或多個連接的音頻流取得測量<code>Wires</code>。"
   },
   "@roblox/globaltype/AudioAnalyzer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioAnalyzer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引腳列表， 以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -61710,10 +61705,10 @@
     "documentation": "將文字作為語音音頻播放。"
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 陣列"
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires": {
     "documentation": "返回一個連接到指定插槽的 <code>Wires</code> 陣列。",
@@ -67826,7 +67821,6 @@
       "UseLocalSpace": "@roblox/globaltype/StudioService.UseLocalSpace",
       "GetClassIcon": "@roblox/globaltype/StudioService.GetClassIcon",
       "GetUserId": "@roblox/globaltype/StudioService.GetUserId",
-      "GizmoRaycast": "@roblox/globaltype/StudioService.GizmoRaycast",
       "PromptImportFileAsync": "@roblox/globaltype/StudioService.PromptImportFileAsync",
       "PromptImportFile": "@roblox/globaltype/StudioService.PromptImportFile",
       "PromptImportFilesAsync": "@roblox/globaltype/StudioService.PromptImportFilesAsync",
@@ -67932,58 +67926,17 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#GetUserId",
     "code_sample": "-- 只能在插件中使用\n\n    local StudioService = game:GetService(\"StudioService\")\n\n    local Players = game:GetService(\"Players\")\n\n    local loggedInUserId = StudioService:GetUserId()\n\n    local loggedInUserName = Players:GetNameFromUserIdAsync(loggedInUserId)\n\n    print(\"你好，\", loggedInUserName)"
   },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/0": {
-    "documentation": "提供對 Roblox Studio 配置的訪問，並允許從用戶的文件系統導入文件"
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/0"
-      },
-      {
-        "name": "origin",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/1"
-      },
-      {
-        "name": "direction",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/2"
-      },
-      {
-        "name": "raycastParams",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/3"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/StudioService.GizmoRaycast/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#GizmoRaycast",
-    "code_sample": ""
-  },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/param/0": {
     "documentation": "提供對 Roblox Studio 配置的訪問，並允許從用戶的文件系統導入文件"
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/param/1": {
-    "documentation": "用戶可以選擇的文件類型列表。文件類型格式化時不帶句點。例如，{\"jpg\", \"png\"} 只允許選擇 JPG 或 PNG 文件。如果未提供過濾器，則過濾器為 <code>nil</code>，允許用戶選擇任何文件類型。"
+    "documentation": "使用者被允許選擇的檔案類型列表。檔案類型不帶句點格式化。例如，{\"jpg\", \"png\"} 只允許選擇 JPG 或 PNG 檔案。如果未提供過濾器，則過濾器為 <code>nil</code>，允許使用者選擇任何檔案類型。"
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/return/0": {
-    "documentation": "導入的 <code>File</code>。如果未選擇任何文件，或者選擇的文件過大（FileSize 大於 100 MB），則返回 <code>nil</code>。"
+    "documentation": "導入的 <code>File</code>。如果未選擇任何檔案，或如果選擇的檔案太大（FileSize 超過 100MB），則返回 <code>nil</code>。"
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync": {
-    "documentation": "提示當前的 Studio 用戶選擇一個文件以添加為 <code>File</code>。",
+    "documentation": "提示當前 Studio 使用者選擇一個檔案作為 <code>File</code>。",
     "params": [
       {
         "name": "self",
@@ -68004,13 +67957,13 @@
     "documentation": "提供對 Roblox Studio 配置的訪問，並允許從用戶的文件系統導入文件"
   },
   "@roblox/globaltype/StudioService.PromptImportFile/param/1": {
-    "documentation": "使用者被允許選擇的檔案類型清單。檔案類型格式不應包含句點。例如，{\"jpg\", \"png\"} 只會允許選擇 JPG 或 PNG 檔案。如果未提供過濾器，則過濾器為 <code>nil</code>，並允許使用者選擇任何檔案類型。"
+    "documentation": "用戶可以選擇的文件類型列表。文件類型格式化時不帶句點。例如，{\"jpg\", \"png\"} 只允許選擇 JPG 或 PNG 文件。如果未提供過濾器，則過濾器為 <code>nil</code>，允許用戶選擇任何文件類型。"
   },
   "@roblox/globaltype/StudioService.PromptImportFile/return/0": {
-    "documentation": "匯入的 <code>File</code>。如果未選擇任何檔案，或所選檔案太大（檔案大小超過 100 兆位元組），則返回 <code>nil</code>。"
+    "documentation": "導入的 <code>File</code>。如果未選擇任何文件，或者選擇的文件過大（FileSize 大於 100 MB），則返回 <code>nil</code>。"
   },
   "@roblox/globaltype/StudioService.PromptImportFile": {
-    "documentation": "<strong>Deprecated:</strong> <br>提示當前 Studio 使用者選擇一個檔案以添加為 <code>File</code>。",
+    "documentation": "<strong>Deprecated:</strong> <br>提示當前的 Studio 用戶選擇一個文件以添加為 <code>File</code>。",
     "params": [
       {
         "name": "self",
@@ -68031,13 +67984,13 @@
     "documentation": "提供對 Roblox Studio 配置的訪問，並允許從用戶的文件系統導入文件"
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync/param/1": {
-    "documentation": "使用者被允許選擇的檔案類型清單。檔案類型格式不應包含句點。例如，{\"jpg\", \"png\"} 只會允許選擇 JPG 和 PNG 檔案。如果未提供過濾器，則過濾器為 <code>nil</code>，並允許使用者選擇任何檔案類型。"
+    "documentation": "使用者被允許選擇的檔案類型列表。檔案類型不帶句點格式化。例如，{\"jpg\", \"png\"} 只允許選擇 JPG 和 PNG 檔案。如果未提供過濾器，則過濾器為 <code>nil</code>，允許使用者選擇任何檔案類型。"
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync/return/0": {
-    "documentation": "匯入的 <code>Files</code>。如果未選擇任何檔案，則返回空清單。如果使用者選擇了一個或多個檔案，它們的大小超過 100 兆位元組，則返回 <code>nil</code>。"
+    "documentation": "導入的 <code>Files</code>。如果未選擇任何檔案，則返回空列表。如果使用者選擇了一個或多個檔案且檔案過大（FileSize 超過 100MB），則返回 <code>nil</code>。"
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync": {
-    "documentation": "提示當前 Studio 使用者選擇檔案以添加為 <code>Files</code>。",
+    "documentation": "提示當前 Studio 使用者選擇檔案作為 <code>Files</code>。",
     "params": [
       {
         "name": "self",
@@ -68164,10 +68117,10 @@
     "documentation": "從物理設備（如麥克風）生成音頻流。"
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出插針"
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的陣列"
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires": {
     "documentation": "返回連接到指定引腳的 <code>Wires</code> 的數組。",
@@ -68191,10 +68144,10 @@
     "documentation": "從物理設備（如麥克風）生成音頻流。"
   },
   "@roblox/globaltype/AudioDeviceInput.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效插針名稱的字串陣列。"
   },
   "@roblox/globaltype/AudioDeviceInput.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的插針列表 以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -68211,10 +68164,10 @@
     "documentation": "從物理設備（如麥克風）生成音頻流。"
   },
   "@roblox/globaltype/AudioDeviceInput.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效插針名稱的字串陣列。"
   },
   "@roblox/globaltype/AudioDeviceInput.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的插針列表 以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -68991,7 +68944,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/UserInputService.GetFocusedTextBox": {
-    "documentation": "返回客戶端當前集中於的 <code>TextBox</code>。",
+    "documentation": "返回當前客戶端所聚焦的 <code>TextBox</code>。",
     "params": [
       {
         "name": "self",
@@ -72552,6 +72505,9 @@
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1": {
     "documentation": "一個 <code>CaptureType</code> 的數組。"
   },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/2": {
+    "documentation": "一個布林值；默認為 <code>false</code>。"
+  },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0": {
     "documentation": "元組 (result: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>)"
   },
@@ -72565,6 +72521,10 @@
       {
         "name": "captureTypeFilters",
         "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1"
+      },
+      {
+        "name": "readFromAllEligibleExperiences",
+        "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/2"
       }
     ],
     "returns": [
@@ -73371,7 +73331,6 @@
     "documentation": "調整音頻流的頻率內容。",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioFilter.Bypass",
-      "Editor": "@roblox/globaltype/AudioFilter.Editor",
       "FilterType": "@roblox/globaltype/AudioFilter.FilterType",
       "Frequency": "@roblox/globaltype/AudioFilter.Frequency",
       "Gain": "@roblox/globaltype/AudioFilter.Gain",
@@ -73389,28 +73348,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioFilter.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioFilter.FilterType": {
-    "documentation": "由過濾器表示的頻帶的曲線類型。",
+    "documentation": "濾波器所表示的頻帶的曲線類型。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#FilterType",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioFilter.Frequency": {
-    "documentation": "過濾器作用的中心頻率。",
+    "documentation": "濾波器作用的中心頻率。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Frequency",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioFilter.Gain": {
-    "documentation": "對於峰值和架設濾波器，控制音量的增強或減少。",
+    "documentation": "對於增益和削減的濾波器，控制音量的增減。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Gain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioFilter.Q": {
-    "documentation": "對於峰值、低通、高通、帶通和陷波濾波器，控制選擇性或共鳴。",
+    "documentation": "對於增強、低通、高通、帶通和陷波濾波器，控制選擇性或共鳴。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Q",
     "code_sample": ""
   },
@@ -73418,10 +73372,10 @@
     "documentation": "調整音頻流的頻率內容。"
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的數組"
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires": {
     "documentation": "返回一個與指定插腳連接的 <code>Wires</code> 陣列。",
@@ -73472,10 +73426,10 @@
     "documentation": "調整音頻流的頻率內容。"
   },
   "@roblox/globaltype/AudioFilter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioFilter.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引腳列表， 以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -73492,10 +73446,10 @@
     "documentation": "調整音頻流的頻率內容。"
   },
   "@roblox/globaltype/AudioFilter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioFilter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引腳列表， 以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -74343,10 +74297,10 @@
     "documentation": "將語音音訊轉換為文字。"
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 陣列"
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires": {
     "documentation": "返回連接到指定接腳的 <code>Wires</code> 陣列。",
@@ -76903,7 +76857,6 @@
     "documentation": "調整音頻串流的頻率內容。",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioEqualizer.Bypass",
-      "Editor": "@roblox/globaltype/AudioEqualizer.Editor",
       "HighGain": "@roblox/globaltype/AudioEqualizer.HighGain",
       "LowGain": "@roblox/globaltype/AudioEqualizer.LowGain",
       "MidGain": "@roblox/globaltype/AudioEqualizer.MidGain",
@@ -76920,28 +76873,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioEqualizer.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioEqualizer.HighGain": {
-    "documentation": "應用於均衡器中最高頻段的頻率內容的增益值。",
+    "documentation": "增益值，應用於均衡器中最高頻段的頻率內容。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#HighGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.LowGain": {
-    "documentation": "應用於均衡器中最低頻段的頻率內容的增益值。",
+    "documentation": "增益值，應用於均衡器中最低頻段的頻率內容。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#LowGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.MidGain": {
-    "documentation": "應用於均衡器中間頻段的頻率內容的增益值。",
+    "documentation": "增益值，應用於均衡器中間頻段的頻率內容。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#MidGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.MidRange": {
-    "documentation": "受到 <code>MidGain</code> 影響的頻段頻率範圍。",
+    "documentation": "受 <code>MidGain</code> 影響的頻段頻率範圍。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#MidRange",
     "code_sample": ""
   },
@@ -76949,10 +76897,10 @@
     "documentation": "調整音頻串流的頻率內容。"
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的陣列"
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires": {
     "documentation": "返回連接到指定插腳的 <code>Wires</code> 陣列。",
@@ -76976,10 +76924,10 @@
     "documentation": "調整音頻串流的頻率內容。"
   },
   "@roblox/globaltype/AudioEqualizer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字串陣列。"
   },
   "@roblox/globaltype/AudioEqualizer.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引腳列表，以 通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -76996,10 +76944,10 @@
     "documentation": "調整音頻串流的頻率內容。"
   },
   "@roblox/globaltype/AudioEqualizer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字串陣列。"
   },
   "@roblox/globaltype/AudioEqualizer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引腳列表，以 通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -79248,10 +79196,10 @@
     "documentation": "將音頻流拆分為組件通道，以便每個通道可以獨立處理。"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 陣列"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires": {
     "documentation": "返回與指定引腳連接的 <code>Wires</code> 陣列。",
@@ -79275,10 +79223,10 @@
     "documentation": "將音頻流拆分為組件通道，以便每個通道可以獨立處理。"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串陣列。"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetInputPins": {
-    "documentation": "返回可用於 <code>Wire.TargetName</code> 的輸入引腳。",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引腳列表，以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -79295,10 +79243,10 @@
     "documentation": "將音頻流拆分為組件通道，以便每個通道可以獨立處理。"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串陣列。"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetOutputPins": {
-    "documentation": "返回可以由 <code>Wire.SourceName</code> 選擇的輸出引腳。",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引腳列表，以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -87589,13 +87537,13 @@
     "documentation": "透過變化音量的大小來創建聲音的顫動效果。"
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個表示 <code>Wires</code> 的陣列"
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "返回一個與指定引腳連接的 <code>Wires</code> 陣列。",
     "params": [
       {
         "name": "self",
@@ -87616,10 +87564,10 @@
     "documentation": "透過變化音量的大小來創建聲音的顫動效果。"
   },
   "@roblox/globaltype/AudioTremolo.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一個表示有效引腳名稱的字串陣列。"
   },
   "@roblox/globaltype/AudioTremolo.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引腳列表，以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -87636,10 +87584,10 @@
     "documentation": "透過變化音量的大小來創建聲音的顫動效果。"
   },
   "@roblox/globaltype/AudioTremolo.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一個表示有效引腳名稱的字串陣列。"
   },
   "@roblox/globaltype/AudioTremolo.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引腳列表，以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -87730,7 +87678,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioTremolo.WiringChanged": {
-    "documentation": "",
+    "documentation": "當另一個實例通過 <code>Wire</code> 連接到或從 <code>AudioAnalyzer</code> 斷開連接時觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/AudioTremolo.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioTremolo.WiringChanged.ConnectParallel",
@@ -87792,6 +87740,7 @@
       "Direction3DState": "@roblox/globaltype/InputAction.Direction3DState",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "Type": "@roblox/globaltype/InputAction.Type",
+      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState",
       "Fire": "@roblox/globaltype/InputAction.Fire",
       "GetState": "@roblox/globaltype/InputAction.GetState"
     },
@@ -87826,6 +87775,11 @@
   "@roblox/globaltype/InputAction.Type": {
     "documentation": "指定動作預期的輸入值類型。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Type",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.ViewportPositionState": {
+    "documentation": "不可腳本控制的唯讀屬性，對於除錯非常有用 <code>ViewportPosition</code> 輸入動作。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#ViewportPositionState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Fire/param/0": {
@@ -89376,10 +89330,10 @@
     "documentation": "用於播放音訊資產。"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的輸入或輸出針"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的陣列"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires": {
     "documentation": "返回連接到指定插槽的 <code>Wires</code> 的數組。",
@@ -89403,10 +89357,10 @@
     "documentation": "用於播放音訊資產。"
   },
   "@roblox/globaltype/AudioPlayer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效針名稱的字串陣列。"
   },
   "@roblox/globaltype/AudioPlayer.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的針的列表，以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -89423,10 +89377,10 @@
     "documentation": "用於播放音訊資產。"
   },
   "@roblox/globaltype/AudioPlayer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效針名稱的字串陣列。"
   },
   "@roblox/globaltype/AudioPlayer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的針的列表，以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -90383,10 +90337,10 @@
     "documentation": "將音頻流發送到世界中。"
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的數組"
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires": {
     "documentation": "返回一個與指定引腳連接的 <code>Wires</code> 陣列。",
@@ -90430,10 +90384,10 @@
     "documentation": "將音頻流發送到世界中。"
   },
   "@roblox/globaltype/AudioEmitter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioEmitter.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引腳列表 以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -90470,10 +90424,10 @@
     "documentation": "將音頻流發送到世界中。"
   },
   "@roblox/globaltype/AudioEmitter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioEmitter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引腳列表 以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -92369,10 +92323,10 @@
     "documentation": "使音訊串流聽起來更加饱满。如果應用於單一聲音， 可能聽起來像多個聲音。"
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 的數組"
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires": {
     "documentation": "返回連接到指定插孔的 <code>Wires</code> 數組。",
@@ -92396,10 +92350,10 @@
     "documentation": "使音訊串流聽起來更加饱满。如果應用於單一聲音， 可能聽起來像多個聲音。"
   },
   "@roblox/globaltype/AudioChorus.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioChorus.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引腳列表 以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -92416,10 +92370,10 @@
     "documentation": "使音訊串流聽起來更加饱满。如果應用於單一聲音， 可能聽起來像多個聲音。"
   },
   "@roblox/globaltype/AudioChorus.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引腳名稱的字符串數組。"
   },
   "@roblox/globaltype/AudioChorus.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引腳列表 以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -92589,10 +92543,10 @@
     "documentation": "一個 GUI 物件，用於顯示來自連接的 <code>VideoPlayer</code> 的視頻內容。"
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此實例上的輸入或輸出引腳"
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一個 <code>Wires</code> 陣列"
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires": {
     "documentation": "返回連接到指定引腳的 <code>Wires</code> 數組。",
@@ -92616,10 +92570,10 @@
     "documentation": "一個 GUI 物件，用於顯示來自連接的 <code>VideoPlayer</code> 的視頻內容。"
   },
   "@roblox/globaltype/VideoDisplay.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一個表示有效引腳名稱的字符串陣列。"
   },
   "@roblox/globaltype/VideoDisplay.GetInputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引腳列表 以通過其 <code>Wire.TargetInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -92636,10 +92590,10 @@
     "documentation": "一個 GUI 物件，用於顯示來自連接的 <code>VideoPlayer</code> 的視頻內容。"
   },
   "@roblox/globaltype/VideoDisplay.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一個表示有效引腳名稱的字符串陣列。"
   },
   "@roblox/globaltype/VideoDisplay.GetOutputPins": {
-    "documentation": "",
+    "documentation": "獲取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引腳列表 以通過其 <code>Wire.SourceInstance</code> 屬性連接到此實例。",
     "params": [
       {
         "name": "self",
@@ -93090,10 +93044,10 @@
     "documentation": "處理內部體驗文本聊天的服務。"
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "使用者必須在當前伺服器中，否則將發生錯誤。"
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/2": {
-    "documentation": ""
+    "documentation": "使用者必須在當前伺服器中，否則將發生錯誤。"
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/return/0": {
     "documentation": ""
@@ -95415,7 +95369,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BodyPartDescription.HeadShape": {
-    "documentation": "",
+    "documentation": "指定應用於動態頭的頭形狀識別碼，當此 <code>BodyPartDescription</code> 被應用時。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BodyPartDescription#HeadShape",
     "code_sample": ""
   },

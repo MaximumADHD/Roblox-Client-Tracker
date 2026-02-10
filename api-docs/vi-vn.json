@@ -6915,6 +6915,9 @@
   "@roblox/globaltype/TestService.TakeSnapshot/param/1": {
     "documentation": ""
   },
+  "@roblox/globaltype/TestService.TakeSnapshot/param/2": {
+    "documentation": ""
+  },
   "@roblox/globaltype/TestService.TakeSnapshot": {
     "documentation": "",
     "params": [
@@ -6925,6 +6928,10 @@
       {
         "name": "snapshotname",
         "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/1"
+      },
+      {
+        "name": "source",
+        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/2"
       }
     ],
     "returns": [],
@@ -10336,10 +10343,10 @@
     "documentation": "Biến dạng các luồng âm thanh, khiến chúng nghe mờ hơn, thô hơn và lớn hơn."
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân đầu vào hoặc đầu ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires": {
     "documentation": "Trả về một mảng của <code>Wires</code> được kết nối với chân chỉ định.",
@@ -10363,10 +10370,10 @@
     "documentation": "Biến dạng các luồng âm thanh, khiến chúng nghe mờ hơn, thô hơn và lớn hơn."
   },
   "@roblox/globaltype/AudioDistortion.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioDistortion.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> hơi kết nối với thể hiện này thông qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -10383,10 +10390,10 @@
     "documentation": "Biến dạng các luồng âm thanh, khiến chúng nghe mờ hơn, thô hơn và lớn hơn."
   },
   "@roblox/globaltype/AudioDistortion.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioDistortion.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> hơi kết nối với thể hiện này thông qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -10809,10 +10816,10 @@
     "documentation": "Điều chỉnh âm lượng của các luồng âm thanh."
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân vào hoặc ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires": {
     "documentation": "Trả về một mảng <code>Wires</code> mà được kết nối với pin đã chỉ định.",
@@ -10836,10 +10843,10 @@
     "documentation": "Điều chỉnh âm lượng của các luồng âm thanh."
   },
   "@roblox/globaltype/AudioFader.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho các tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioFader.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với thể hiện này qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -10856,10 +10863,10 @@
     "documentation": "Điều chỉnh âm lượng của các luồng âm thanh."
   },
   "@roblox/globaltype/AudioFader.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho các tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioFader.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với thể hiện này qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -15238,13 +15245,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân đầu vào hoặc đầu ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng <code>Wires</code>"
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "Trả về một mảng <code>Wires</code> được kết nối với chân đã chỉ định",
     "params": [
       {
         "name": "self",
@@ -15265,10 +15272,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioGate.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với thể hiện này qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -15285,10 +15292,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioGate.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với thể hiện này qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -15379,7 +15386,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioGate.WiringChanged": {
-    "documentation": "",
+    "documentation": "Sự kiện xảy ra khi một thể hiện khác được kết nối hoặc ngắt kết nối khỏi <code>AudioAnalyzer</code> qua một <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioGate.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel",
@@ -23879,10 +23886,10 @@
     "documentation": "Dùng để phát các tài sản video."
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân nhập hoặc xuất trên phiên bản này"
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires": {
     "documentation": "Trả về một mảng <code>Wires</code> được kết nối tới chân được chỉ định.",
@@ -23906,10 +23913,10 @@
     "documentation": "Dùng để phát các tài sản video."
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho các tên chân hợp lệ."
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với phiên bản này thông qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -23926,10 +23933,10 @@
     "documentation": "Dùng để phát các tài sản video."
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho các tên chân hợp lệ."
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với phiên bản này thông qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -26389,10 +26396,10 @@
     "documentation": "Chấp nhận các luồng âm thanh để phát ra các thiết bị phần cứng vật lý như loa hoặc tai nghe."
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân vào hoặc ra trên phiên bản này"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires": {
     "documentation": "Trả về một mảng <code>Wires</code> kết nối với pin đã chỉ định.",
@@ -26416,10 +26423,10 @@
     "documentation": "Chấp nhận các luồng âm thanh để phát ra các thiết bị phần cứng vật lý như loa hoặc tai nghe."
   },
   "@roblox/globaltype/AudioDeviceOutput.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi biểu thị tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioDeviceOutput.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> hằng kết nối với phiên bản này qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -26436,10 +26443,10 @@
     "documentation": "Chấp nhận các luồng âm thanh để phát ra các thiết bị phần cứng vật lý như loa hoặc tai nghe."
   },
   "@roblox/globaltype/AudioDeviceOutput.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi biểu thị tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioDeviceOutput.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> hằng kết nối với phiên bản này qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -28486,7 +28493,6 @@
     "documentation": "Giới hạn mức độ to của các luồng âm thanh được phép.",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioLimiter.Bypass",
-      "Editor": "@roblox/globaltype/AudioLimiter.Editor",
       "MaxLevel": "@roblox/globaltype/AudioLimiter.MaxLevel",
       "Release": "@roblox/globaltype/AudioLimiter.Release",
       "GetConnectedWires": "@roblox/globaltype/AudioLimiter.GetConnectedWires",
@@ -28501,18 +28507,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioLimiter.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioLimiter.MaxLevel": {
-    "documentation": "Mức âm lượng tối đa chịu đựng.",
+    "documentation": "Thể tích tối đa được dung nạp.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#MaxLevel",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioLimiter.Release": {
-    "documentation": "Thời gian cần thiết để các luồng trước đó đã bị giới hạn trở lại âm lượng bình thường của chúng.",
+    "documentation": "Thời gian cần thiết để các dòng đã được giới hạn trước đó trở lại thể tích bình thường của chúng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Release",
     "code_sample": ""
   },
@@ -28520,10 +28521,10 @@
     "documentation": "Giới hạn mức độ to của các luồng âm thanh được phép."
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân vào hoặc ra trên phiên bản này"
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires": {
     "documentation": "Trả về một mảng <code>Wires</code> được kết nối với pin được chỉ định.",
@@ -28547,10 +28548,10 @@
     "documentation": "Giới hạn mức độ to của các luồng âm thanh được phép."
   },
   "@roblox/globaltype/AudioLimiter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho các tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioLimiter.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với phiên bản này thông qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -28567,10 +28568,10 @@
     "documentation": "Giới hạn mức độ to của các luồng âm thanh được phép."
   },
   "@roblox/globaltype/AudioLimiter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho các tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioLimiter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với phiên bản này thông qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -29481,10 +29482,10 @@
     "documentation": "Kết hợp nhiều luồng âm thanh thành một luồng âm thanh đa kênh duy nhất."
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân đầu vào hoặc đầu ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires": {
     "documentation": "Trả về một mảng các <code>Wires</code> được kết nối đến pin đã chỉ định.",
@@ -29508,10 +29509,10 @@
     "documentation": "Kết hợp nhiều luồng âm thanh thành một luồng âm thanh đa kênh duy nhất."
   },
   "@roblox/globaltype/AudioChannelMixer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioChannelMixer.GetInputPins": {
-    "documentation": "Trả về các pin đầu vào có thể được chọn bởi <code>Wire.TargetName</code>.",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với thể hiện này thông qua thuộc tính <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -29528,10 +29529,10 @@
     "documentation": "Kết hợp nhiều luồng âm thanh thành một luồng âm thanh đa kênh duy nhất."
   },
   "@roblox/globaltype/AudioChannelMixer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioChannelMixer.GetOutputPins": {
-    "documentation": "Trả về pin đầu ra có sẵn cho <code>Wire.SourceName</code>.",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với thể hiện này thông qua thuộc tính <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -31443,7 +31444,6 @@
     "keys": {
       "Attack": "@roblox/globaltype/AudioCompressor.Attack",
       "Bypass": "@roblox/globaltype/AudioCompressor.Bypass",
-      "Editor": "@roblox/globaltype/AudioCompressor.Editor",
       "MakeupGain": "@roblox/globaltype/AudioCompressor.MakeupGain",
       "Ratio": "@roblox/globaltype/AudioCompressor.Ratio",
       "Release": "@roblox/globaltype/AudioCompressor.Release",
@@ -31465,13 +31465,8 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioCompressor.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioCompressor.MakeupGain": {
-    "documentation": "Một giá trị gain sẽ được áp dụng sau khi nén.",
+    "documentation": "Giá trị gain sẽ được áp dụng sau khi nén.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#MakeupGain",
     "code_sample": ""
   },
@@ -31481,12 +31476,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.Release": {
-    "documentation": "Kiểm soát tốc độ mà bộ nén sẽ không còn hạn chế âm lượng sau khi âm lượng của luồng trở lại dưới <code>Threshold</code>.",
+    "documentation": "Điều khiển tốc độ mà bộ nén sẽ giải phóng sau khi âm lượng luồng quay trở lại dưới <code>Threshold</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Release",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.Threshold": {
-    "documentation": "Giá trị gain mà tại đó bộ nén sẽ bắt đầu sửa đổi luồng đầu vào.",
+    "documentation": "Giá trị gain mà tại đó bộ nén sẽ bắt đầu thay đổi luồng đầu vào.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Threshold",
     "code_sample": ""
   },
@@ -31494,10 +31489,10 @@
     "documentation": "Điều chỉnh phạm vi động của các luồng đầu vào."
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân đầu vào hoặc đầu ra trên phiên bản này"
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires": {
     "documentation": "Trả về một mảng <code>Wires</code> được kết nối với chân xác định.",
@@ -31521,10 +31516,10 @@
     "documentation": "Điều chỉnh phạm vi động của các luồng đầu vào."
   },
   "@roblox/globaltype/AudioCompressor.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioCompressor.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với phiên bản này thông qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -31541,10 +31536,10 @@
     "documentation": "Điều chỉnh phạm vi động của các luồng đầu vào."
   },
   "@roblox/globaltype/AudioCompressor.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioCompressor.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với phiên bản này thông qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -35839,7 +35834,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.PrioritizeLightingQuality": {
-    "documentation": "Chỉ ra liệu bạn muốn chất lượng ánh sáng/đổ bóng hay khoảng cách xem giảm trước.",
+    "documentation": "Chỉ ra liệu bạn thích chất lượng ánh sáng/đổ bóng hay khoảng cách nhìn để giảm quy mô trước.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#PrioritizeLightingQuality",
     "code_sample": ""
   },
@@ -39318,10 +39313,10 @@
     "documentation": "Ghi lại một luồng âm thanh từ môi trường xung quanh <code>AudioEmitters</code> trong thế giới 3D."
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một pin đầu vào hoặc đầu ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires": {
     "documentation": "Trả về một mảng của <code>Wires</code> được kết nối với chân được chỉ định.",
@@ -39365,10 +39360,10 @@
     "documentation": "Ghi lại một luồng âm thanh từ môi trường xung quanh <code>AudioEmitters</code> trong thế giới 3D."
   },
   "@roblox/globaltype/AudioListener.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho các tên pin hợp lệ."
   },
   "@roblox/globaltype/AudioListener.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các pin mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với thể hiện này qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -39405,10 +39400,10 @@
     "documentation": "Ghi lại một luồng âm thanh từ môi trường xung quanh <code>AudioEmitters</code> trong thế giới 3D."
   },
   "@roblox/globaltype/AudioListener.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho các tên pin hợp lệ."
   },
   "@roblox/globaltype/AudioListener.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các pin mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với thể hiện này qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -41699,13 +41694,13 @@
     "documentation": "Ghi lại các luồng âm thanh trong trải nghiệm."
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân đầu vào hoặc đầu ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "Trả về một mảng của <code>Wires</code> được kết nối với chân được chỉ định.",
     "params": [
       {
         "name": "self",
@@ -41726,10 +41721,10 @@
     "documentation": "Ghi lại các luồng âm thanh trong trải nghiệm."
   },
   "@roblox/globaltype/AudioRecorder.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioRecorder.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với thể hiện này thông qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -41746,10 +41741,10 @@
     "documentation": "Ghi lại các luồng âm thanh trong trải nghiệm."
   },
   "@roblox/globaltype/AudioRecorder.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioRecorder.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với thể hiện này thông qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -41910,7 +41905,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioRecorder.WiringChanged": {
-    "documentation": "",
+    "documentation": "Xảy ra khi một thể hiện khác được kết nối hoặc ngắt kết nối từ <code>AudioAnalyzer</code> thông qua một <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioRecorder.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioRecorder.WiringChanged.ConnectParallel",
@@ -45475,7 +45470,7 @@
     "documentation": "Một từ điển của các kết nối trực tuyến (xem bảng ở trên)."
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "<strong>Deprecated:</strong> Phương pháp này đã bị thay thế bởi <code>GetFriendsOnline()</code>.<br>Trả về một từ điển các kết nối trực tuyến. Trả về thông tin sản phẩm của một tài sản bằng ID của tài sản nó.",
+    "documentation": "<strong>Deprecated:</strong> Phương thức này đã bị thay thế bởi <code>GetFriendsOnlineAsync()</code>.<br>Trả về một từ điển các kết nối trực tuyến. Trả về thông tin sản phẩm của một tài sản bằng ID của tài sản nó.",
     "params": [
       {
         "name": "self",
@@ -52795,13 +52790,13 @@
     "documentation": "Tên của thuộc tính được truy vấn."
   },
   "@roblox/globaltype/Instance.GetStyled/param/2": {
-    "documentation": "Bộ chọn tùy chọn cho phiên bản giả mà bạn đang nhắm tới trên phiên bản."
+    "documentation": "Bộ chọn tùy chọn cho instance giả mà bạn đang nhắm đến trên instance."
   },
   "@roblox/globaltype/Instance.GetStyled/return/0": {
     "documentation": "Giá trị đã chỉnh sửa hoặc rõ ràng cho thuộc tính đã chỉ định,  hoặc giá trị thuộc tính mặc định nếu chưa được chỉnh sửa/chỉnh sửa."
   },
   "@roblox/globaltype/Instance.GetStyled": {
-    "documentation": "Trả về giá trị đã được chỉnh sửa hoặc rõ ràng cho thuộc tính đã chỉ định,  hoặc giá trị thuộc tính mặc định nếu nó chưa được chỉnh sửa/chỉnh sửa.",
+    "documentation": "Trả về giá trị được định dạng hoặc sửa đổi rõ ràng của thuộc tính đã chỉ định, hoặc giá trị thuộc tính mặc định nếu nó chưa được định dạng/sửa đổi.",
     "params": [
       {
         "name": "self",
@@ -52984,10 +52979,10 @@
     "documentation": "Tên thuộc tính cần truy vấn."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Boolean cho biết xem thuộc tính đã bị chỉnh sửa từ giá trị mặc định của nó toàn bộ được tạo ra qua mã ra sao."
+    "documentation": "Boolean cho biết liệu thuộc tính đã được sửa đổi từ mặc định được tạo từ mã hay không."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Trả về <code>true</code> nếu giá trị được lưu trong thuộc tính đã chỉ định không bằng  giá trị mặc định được tạo qua mã.",
+    "documentation": "Trả về <code>true</code> nếu giá trị lưu trữ trong thuộc tính đã chỉ định không bằng mặc định được tạo từ mã.",
     "params": [
       {
         "name": "self",
@@ -54010,10 +54005,10 @@
     "documentation": "Overlay các bản sao âm thanh bị trễ."
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân vào hoặc ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires": {
     "documentation": "Trả về một mảng các <code>Wires</code> được kết nối với pin đã chỉ định.",
@@ -54037,10 +54032,10 @@
     "documentation": "Overlay các bản sao âm thanh bị trễ."
   },
   "@roblox/globaltype/AudioEcho.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioEcho.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với thể hiện này qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -54057,10 +54052,10 @@
     "documentation": "Overlay các bản sao âm thanh bị trễ."
   },
   "@roblox/globaltype/AudioEcho.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioEcho.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với thể hiện này qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -54225,22 +54220,22 @@
     "documentation": "Dịch vụ cho phép các nhà phát triển tạo ra các đối tượng 3D từ các lời nhắc văn bản."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/1": {
-    "documentation": "Một từ điển chứa các lời nhắc tạo mesh. Hiện tại, khóa duy nhất được hỗ trợ là <code>Prompt</code> (chuỗi) mô tả mesh để tạo."
+    "documentation": "Một từ điển chứa các gợi ý tạo mesh. Hiện tại, khóa duy nhất được hỗ trợ là <code>Prompt</code> (chuỗi) mô tả mesh cần tạo."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/2": {
     "documentation": "Đối tượng <code>Player</code> yêu cầu quá trình tạo."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/3": {
-    "documentation": "Một từ điển cho các tùy chọn tạo bổ sung để ảnh hưởng đến kết quả. Khóa sau được hỗ trợ: - <code>SuggestedSize</code> — Một <code>Vector3</code> tùy chọn đại diện cho một hướng dẫn kích thước cho tài sản được tạo ra. Dịch vụ sẽ cố gắng tạo ra một mô hình có kích thước và tỷ lệ tương tự như <code>Vector3</code> đã cung cấp. Điều này không đảm bảo kích thước đầu ra cuối cùng."
+    "documentation": "Một từ điển cho các tùy chọn tạo thêm để ảnh hưởng đến kết quả. Khóa tùy chọn <code>SuggestedSize</code> (<code>Vector3</code>) đại diện cho một hướng dẫn kích thước cho tài sản được tạo, có nghĩa là <code>GenerationService</code> sẽ cố gắng tạo ra một mô hình có kích thước và tỷ lệ tương tự như <code>Vector3</code> đã cung cấp, mặc dù không có đảm bảo về kích thước đầu ra cuối cùng."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/4": {
-    "documentation": "Một hàm callback được kích hoạt với các kết quả tạo trung gian. Hữu ích để lấy các phiên bản mesh sớm trước khi các kết cấu được áp dụng."
+    "documentation": "Một hàm callback được kích hoạt với các kết quả tạo trung gian. Hữu ích để lấy các phiên bản mesh sớm trước khi các texture được áp dụng."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/return/0": {
-    "documentation": "Một tuple của ID tạo (ID duy nhất được trả về cho mỗi lần gọi <code>GenerateMeshAsync()</code>) và ID ngữ cảnh (hiện tại không được sử dụng)."
+    "documentation": "Một tuple gồm ID tạo (một ID duy nhất được trả về cho mỗi lần gọi <code>GenerateMeshAsync()</code>) và ID ngữ cảnh (không được sử dụng hiện tại)."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync": {
-    "documentation": "Bắt đầu quá trình tạo một mesh 3D mới từ một lời nhắc văn bản và trả về các ID duy nhất được sử dụng để theo dõi và truy xuất kết quả.",
+    "documentation": "Bắt đầu quá trình tạo ra một mesh 3D mới từ một gợi ý văn bản và trả về các ID duy nhất được sử dụng để theo dõi và truy xuất kết quả.",
     "params": [
       {
         "name": "self",
@@ -54273,19 +54268,19 @@
     "documentation": "Dịch vụ cho phép các nhà phát triển tạo ra các đối tượng 3D từ các lời nhắc văn bản."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/1": {
-    "documentation": ""
+    "documentation": "Một bảng đại diện cho các inputs điều kiện với các khóa sau: <ul> <li><code>TextPrompt</code> — Mô tả chuỗi của đối tượng cần tạo.</li> <li><code>Size</code> — Kích thước tùy chọn <code>Vector3</code> mô tả kích thước đối tượng cần tạo.   Điều này chỉ là gần đúng; điều chỉnh kích thước mô hình sau khi tạo nếu bạn cần kích thước cụ thể.</li> <li><code>MaxTriangles</code> — Một số nguyên tùy chọn mô tả số lượng tối đa các tam giác   mà mô hình trả về sẽ chứa. Các giá trị thấp hơn dẫn đến các tạo hình nhiều mặt và   thấp poly.</li> <li><code>GenerateTextures</code> — <code>true</code> (mặc định) tạo texture cho các tạo ra, trong khi   <code>false</code> sẽ không tạo textures.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/2": {
-    "documentation": ""
+    "documentation": "Bảng đại diện cho schema tạo. Phải chứa một khóa <code>PredefinedSchema</code> với một giá trị chuỗi; các tùy chọn hợp lệ hiện tại là <code>Car5</code> cho một khung xe cơ bản gồm năm <code>Models</code>, hoặc <code>Body1</code> cho một đầu ra mesh duy nhất."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/3": {
-    "documentation": ""
+    "documentation": "Hiện tại không được sử dụng; dự trữ cho các tùy chọn tùy chỉnh trong tương lai."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/return/0": {
-    "documentation": ""
+    "documentation": "Tuple với các phần tử sau: <ul> <li>Một phiên bản <code>Model</code> container tiêu chuẩn tuân thủ <code>schema</code> đã chỉ định.</li> <li>Một bảng chứa UUID và các siêu dữ liệu khác về quá trình tạo.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync": {
-    "documentation": "",
+    "documentation": "Cho phép tạo ra các hình học đa mesh theo các <code>inputs</code> và <code>schema</code> đã cung cấp.",
     "params": [
       {
         "name": "self",
@@ -54317,10 +54312,10 @@
     "documentation": "ID duy nhất được trả về bởi <code>GenerateMeshAsync()</code>. Xác định mesh để tải."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/return/0": {
-    "documentation": "Tài sản đã được tạo, được trả về như một <code>Model</code> với một <code>MeshPart</code> chứa một <code>EditableMesh</code>."
+    "documentation": "Tài sản đã được tạo, được trả về dưới dạng <code>Model</code> với một <code>MeshPart</code> chứa một <code>EditableMesh</code>."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync": {
-    "documentation": "Truy xuất và tải một mesh được tạo bởi <code>GenerationService:GenerateMeshAsync()</code> bằng cách sử dụng <code>generationId</code> được cung cấp.",
+    "documentation": "Truy xuất và tải một mesh được tạo bởi <code>GenerationService:GenerateMeshAsync()</code> sử dụng <code>generationId</code> đã cung cấp.",
     "params": [
       {
         "name": "self",
@@ -57314,10 +57309,10 @@
     "documentation": "Cung cấp âm thanh vù vù hoặc quét trên các luồng âm thanh."
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân đầu vào hoặc đầu ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires": {
     "documentation": "Trả về một mảng của <code>Wires</code> được kết nối với chân đã chỉ định.",
@@ -57341,10 +57336,10 @@
     "documentation": "Cung cấp âm thanh vù vù hoặc quét trên các luồng âm thanh."
   },
   "@roblox/globaltype/AudioFlanger.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioFlanger.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với thể hiện này qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -57361,10 +57356,10 @@
     "documentation": "Cung cấp âm thanh vù vù hoặc quét trên các luồng âm thanh."
   },
   "@roblox/globaltype/AudioFlanger.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioFlanger.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với thể hiện này qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -58416,10 +58411,10 @@
     "documentation": "Điều chỉnh cao độ cảm nhận của các luồng âm thanh."
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân đầu vào hoặc đầu ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires": {
     "documentation": "Trả về một mảng của <code>Wires</code> mà được kết nối với pin đã chỉ định.",
@@ -58443,10 +58438,10 @@
     "documentation": "Điều chỉnh cao độ cảm nhận của các luồng âm thanh."
   },
   "@roblox/globaltype/AudioPitchShifter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioPitchShifter.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với thể hiện này thông qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -58463,10 +58458,10 @@
     "documentation": "Điều chỉnh cao độ cảm nhận của các luồng âm thanh."
   },
   "@roblox/globaltype/AudioPitchShifter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioPitchShifter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với thể hiện này thông qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -58912,10 +58907,10 @@
     "documentation": "Phản hồi âm thanh."
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân vào hoặc ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires": {
     "documentation": "Trả về một mảng các <code>Wires</code> được kết nối với chân xác định.",
@@ -58939,10 +58934,10 @@
     "documentation": "Phản hồi âm thanh."
   },
   "@roblox/globaltype/AudioReverb.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioReverb.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với thể hiện này thông qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -58959,10 +58954,10 @@
     "documentation": "Phản hồi âm thanh."
   },
   "@roblox/globaltype/AudioReverb.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioReverb.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với thể hiện này thông qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -59115,7 +59110,7 @@
     "documentation": "Một <code>Decal</code> mới chứa tập hợp kết cấu tổng hợp."
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync": {
-    "documentation": "Tạo một biến thể Decal sử dụng các kết cấu PBR tổng hợp được tạo bằng cách xếp lớp các kết cấu đã cung cấp theo thứ tự mà chúng được cung cấp trong mảng <code>layers</code>. Các kết cấu được xếp lớp dựa trên giá trị alpha của ColorMap.",
+    "documentation": "Tạo một thể hiện Decal sử dụng các texture PBR composite được tạo ra bằng cách xếp chồng các texture được cung cấp theo thứ tự mà chúng được cung cấp trong mảng <code>layers</code>. Các texture được xếp chồng dựa trên giá trị alpha của ColorMap.",
     "params": [
       {
         "name": "self",
@@ -59470,10 +59465,10 @@
     "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web của Roblox."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "Từ điển chứa các cặp khóa-giá trị sau: <ul> <li><code>ColorMap</code> — Một đối tượng <code>Content</code> chứa bản đồ màu.   Mặc định là <code>nil</code>.</li> <li><code>MetalnessMap</code> — Một đối tượng <code>Content</code> chứa bản đồ độ kim loại. Nếu có hơn một kênh, chỉ kênh đỏ được sử dụng. Mặc định là <code>nil</code>.</li> <li><code>NormalMap</code> — Một đối tượng <code>Content</code> chứa bản đồ bình thường. Mặc định là <code>nil</code>.</li> <li><code>RoughnessMap</code> — Một đối tượng <code>Content</code> chứa bản đồ độ nhám. Nếu có hơn một kênh, chỉ kênh đỏ được sử dụng. Mặc định là <code>nil</code>.</li> <li><code>EmissiveMask</code> — Một đối tượng <code>Content</code> chứa mặt nạ phát sáng. Nếu có hơn một kênh, chỉ kênh đỏ được sử dụng. Mặc định là <code>nil</code>.</li> </ul>"
+    "documentation": "Từ điển chứa các cặp khóa-giá trị sau: <ul> <li><code>ColorMap</code> — Một đối tượng <code>Content</code> chứa bản đồ   màu. Mặc định là <code>nil</code>.</li> <li><code>MetalnessMap</code> — Một đối tượng <code>Content</code> chứa bản đồ   độ kim loại. Nếu có hơn một kênh hiện diện, chỉ kênh đỏ sẽ được sử dụng. Mặc định là <code>nil</code>.</li> <li><code>NormalMap</code> — Một đối tượng <code>Content</code> chứa bản đồ   bình thường. Mặc định là <code>nil</code>.</li> <li><code>RoughnessMap</code> — Một đối tượng <code>Content</code> chứa bản đồ   độ nhám. Nếu có hơn một kênh hiện diện, chỉ kênh đỏ sẽ được sử dụng. Mặc định là <code>nil</code>.</li> <li><code>EmissiveMask</code> — Một đối tượng <code>Content</code> chứa bản đồ   phát sáng. Nếu có hơn một kênh hiện diện, chỉ kênh đỏ sẽ được sử dụng. Mặc định là <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "Một thể hiện <code>SurfaceAppearance</code> mới với các bản đồ đã cho từ tham số <code>content</code>."
+    "documentation": "Một thể hiện <code>SurfaceAppearance</code> mới với các bản đồ được cung cấp từ tham số <code>content</code>."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
     "documentation": "Tạo một đối tượng <code>SurfaceAppearance</code> mới sử dụng các bản đồ nội dung được cung cấp.",
@@ -59754,7 +59749,7 @@
     "documentation": "Một dịch vụ không sao chép xử lý các truy vấn liên quan đến tài sản đến API web của Roblox."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "Từ điển tùy chọn bao gồm <code>SaveWithoutPublish</code>, một giá trị Boolean cho biết liệu có lưu với xuất bản hay không và <code>PlaceId</code>, ID địa điểm đích để lưu ghi đè. Một ví dụ sử dụng sẽ là: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Nếu PlaceId không được cung cấp, hành vi mặc định sẽ lưu ghi đè lên địa điểm gốc hiện tại đang gọi SavePlaceAsync. Nếu SaveWithoutPublish không được cung cấp, hành vi mặc định là SaveWithoutPublish=false."
+    "documentation": "Từ điển tùy chọn bao gồm <code>SaveWithoutPublish</code>, một boolean chỉ định xem có lưu mà không phát hành hay không, và <code>PlaceId</code>, ID nơi đích để lưu lên. Một ví dụ sử dụng sẽ là: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Nếu PlaceId không được cung cấp, hành vi mặc định sẽ lưu lên nơi gốc hiện tại đang gọi SavePlaceAsync. Nếu SaveWithoutPublish không được cung cấp, hành vi mặc định là SaveWithoutPublish=false."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "Lưu trạng thái của địa điểm hiện tại.",
@@ -60988,10 +60983,10 @@
     "documentation": "Lấy các thông số từ các luồng âm thanh được kết nối với nó thông qua một hoặc nhiều <code>Wires</code>."
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân đầu vào hoặc đầu ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires": {
     "documentation": "Trả về một mảng <code>Wires</code> được kết nối với pin được chỉ định.",
@@ -61015,10 +61010,10 @@
     "documentation": "Lấy các thông số từ các luồng âm thanh được kết nối với nó thông qua một hoặc nhiều <code>Wires</code>."
   },
   "@roblox/globaltype/AudioAnalyzer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho các tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioAnalyzer.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với thể hiện này qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -61035,10 +61030,10 @@
     "documentation": "Lấy các thông số từ các luồng âm thanh được kết nối với nó thông qua một hoặc nhiều <code>Wires</code>."
   },
   "@roblox/globaltype/AudioAnalyzer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho các tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioAnalyzer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với thể hiện này qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -61710,10 +61705,10 @@
     "documentation": "Phát văn bản dưới dạng âm thanh giọng nói."
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân vào hoặc ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires": {
     "documentation": "Trả về một mảng <code>Wires</code> được kết nối với pin chỉ định.",
@@ -67826,7 +67821,6 @@
       "UseLocalSpace": "@roblox/globaltype/StudioService.UseLocalSpace",
       "GetClassIcon": "@roblox/globaltype/StudioService.GetClassIcon",
       "GetUserId": "@roblox/globaltype/StudioService.GetUserId",
-      "GizmoRaycast": "@roblox/globaltype/StudioService.GizmoRaycast",
       "PromptImportFileAsync": "@roblox/globaltype/StudioService.PromptImportFileAsync",
       "PromptImportFile": "@roblox/globaltype/StudioService.PromptImportFile",
       "PromptImportFilesAsync": "@roblox/globaltype/StudioService.PromptImportFilesAsync",
@@ -67932,58 +67926,17 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#GetUserId",
     "code_sample": "-- Chỉ có thể sử dụng trong một plugin\nlocal StudioService = game:GetService(\"StudioService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal loggedInUserId = StudioService:GetUserId()\nlocal loggedInUserName = Players:GetNameFromUserIdAsync(loggedInUserId)\nprint(\"Xin chào,\" , loggedInUserName)"
   },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/0": {
-    "documentation": "Cung cấp quyền truy cập để cấu hình Roblox Studio và cho phép nhập tệp tin từ hệ thống tệp của người dùng."
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/0"
-      },
-      {
-        "name": "origin",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/1"
-      },
-      {
-        "name": "direction",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/2"
-      },
-      {
-        "name": "raycastParams",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/3"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/StudioService.GizmoRaycast/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#GizmoRaycast",
-    "code_sample": ""
-  },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/param/0": {
     "documentation": "Cung cấp quyền truy cập để cấu hình Roblox Studio và cho phép nhập tệp tin từ hệ thống tệp của người dùng."
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/param/1": {
-    "documentation": "Một danh sách các loại tệp mà người dùng được phép chọn. Các loại tệp được định dạng mà không có dấu chấm. Ví dụ, {\"jpg\", \"png\"} chỉ cho phép chọn tệp JPG hoặc PNG. Nếu không có bộ lọc nào được cung cấp, bộ lọc là <code>nil</code> và cho phép người dùng chọn bất kỳ loại tệp nào."
+    "documentation": "Danh sách các loại tệp mà người dùng được phép chọn. Các loại tệp được định dạng không có dấu chấm. Ví dụ, {\"jpg\", \"png\"} sẽ chỉ cho phép chọn tệp JPG hoặc PNG. Nếu không có bộ lọc nào được cung cấp, bộ lọc là <code>nil</code> và cho phép người dùng chọn bất kỳ loại tệp nào."
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/return/0": {
-    "documentation": "Tệp <code>File</code> đã nhập. Trả về <code>nil</code> nếu không có tệp nào được chọn, hoặc nếu tệp đã chọn quá lớn (FileSize lớn hơn 100 megabytes)."
+    "documentation": "Tệp <code>File</code> đã nhập. Trả về <code>nil</code> nếu không có tệp nào được chọn, hoặc nếu tệp được chọn quá lớn (Kích thước tệp lớn hơn 100 megabytes)."
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync": {
-    "documentation": "Yêu cầu người dùng Studio hiện tại chọn một tệp để thêm vào như một <code>File</code>.",
+    "documentation": "Yêu cầu người dùng Studio hiện tại chọn một tệp để thêm vào <code>File</code>.",
     "params": [
       {
         "name": "self",
@@ -68004,10 +67957,10 @@
     "documentation": "Cung cấp quyền truy cập để cấu hình Roblox Studio và cho phép nhập tệp tin từ hệ thống tệp của người dùng."
   },
   "@roblox/globaltype/StudioService.PromptImportFile/param/1": {
-    "documentation": "Danh sách các loại tệp mà người dùng được phép chọn. Các loại tệp được định dạng không có dấu chấm. Ví dụ, {\"jpg\", \"png\"} sẽ chỉ cho phép chọn tệp JPG hoặc PNG. Nếu không cung cấp bộ lọc, bộ lọc là <code>nil</code> và cho phép người dùng chọn bất kỳ loại tệp nào."
+    "documentation": "Một danh sách các loại tệp mà người dùng được phép chọn. Các loại tệp được định dạng mà không có dấu chấm. Ví dụ, {\"jpg\", \"png\"} chỉ cho phép chọn tệp JPG hoặc PNG. Nếu không có bộ lọc nào được cung cấp, bộ lọc là <code>nil</code> và cho phép người dùng chọn bất kỳ loại tệp nào."
   },
   "@roblox/globaltype/StudioService.PromptImportFile/return/0": {
-    "documentation": "Tệp <code>File</code> đã nhập. Trả về <code>nil</code> nếu không có tệp nào được chọn, hoặc nếu tệp được chọn quá lớn (Kích thước Tệp lớn hơn 100 megabyte)."
+    "documentation": "Tệp <code>File</code> đã nhập. Trả về <code>nil</code> nếu không có tệp nào được chọn, hoặc nếu tệp đã chọn quá lớn (FileSize lớn hơn 100 megabytes)."
   },
   "@roblox/globaltype/StudioService.PromptImportFile": {
     "documentation": "<strong>Deprecated:</strong> <br>Yêu cầu người dùng Studio hiện tại chọn một tệp để thêm vào như một <code>File</code>.",
@@ -68031,13 +67984,13 @@
     "documentation": "Cung cấp quyền truy cập để cấu hình Roblox Studio và cho phép nhập tệp tin từ hệ thống tệp của người dùng."
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync/param/1": {
-    "documentation": "Danh sách các loại tệp mà người dùng được phép chọn. Các loại tệp được định dạng không có dấu chấm. Ví dụ, {\"jpg\", \"png\"} sẽ chỉ cho phép chọn tệp JPG và PNG. Nếu không cung cấp bộ lọc, bộ lọc là <code>nil</code> và cho phép người dùng chọn bất kỳ loại tệp nào."
+    "documentation": "Danh sách các loại tệp mà người dùng được phép chọn. Các loại tệp được định dạng không có dấu chấm. Ví dụ, {\"jpg\", \"png\"} sẽ chỉ cho phép chọn tệp JPG và PNG. Nếu không có bộ lọc nào được cung cấp, bộ lọc là <code>nil</code> và cho phép người dùng chọn bất kỳ loại tệp nào."
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync/return/0": {
-    "documentation": "Tệp <code>Files</code> đã nhập. Trả về một danh sách rỗng nếu không có tệp nào được chọn. Trả về <code>nil</code> nếu người dùng đã chọn một hoặc nhiều tệp quá lớn (Kích thước Tệp lớn hơn 100 megabyte)."
+    "documentation": "Tệp <code>Files</code> đã nhập. Trả về một danh sách trống nếu không có tệp nào được chọn. Trả về <code>nil</code> nếu người dùng chọn một hoặc nhiều tệp quá lớn (Kích thước tệp lớn hơn 100 megabytes)."
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync": {
-    "documentation": "Yêu cầu người dùng Studio hiện tại chọn tệp để thêm vào như <code>Files</code>.",
+    "documentation": "Yêu cầu người dùng Studio hiện tại chọn các tệp để thêm vào <code>Files</code>.",
     "params": [
       {
         "name": "self",
@@ -68164,10 +68117,10 @@
     "documentation": "Sản xuất các luồng âm thanh từ thiết bị vật lý, chẳng hạn như micro."
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân vào hoặc ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires": {
     "documentation": "Trả về một mảng các <code>Wires</code> được kết nối với chân đã chỉ định.",
@@ -68191,10 +68144,10 @@
     "documentation": "Sản xuất các luồng âm thanh từ thiết bị vật lý, chẳng hạn như micro."
   },
   "@roblox/globaltype/AudioDeviceInput.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioDeviceInput.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với thể hiện này thông qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -68211,10 +68164,10 @@
     "documentation": "Sản xuất các luồng âm thanh từ thiết bị vật lý, chẳng hạn như micro."
   },
   "@roblox/globaltype/AudioDeviceInput.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioDeviceInput.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với thể hiện này thông qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -68991,7 +68944,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/UserInputService.GetFocusedTextBox": {
-    "documentation": "Trả về <code>TextBox</code> hiện tại mà client đang tập trung vào.",
+    "documentation": "Trả về <code>TextBox</code> mà client hiện đang tập trung vào.",
     "params": [
       {
         "name": "self",
@@ -72552,6 +72505,9 @@
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1": {
     "documentation": "Một mảng của <code>CaptureType</code>."
   },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/2": {
+    "documentation": "Một giá trị boolean; mặc định là <code>false</code>."
+  },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0": {
     "documentation": "Tuple của (result: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>)"
   },
@@ -72565,6 +72521,10 @@
       {
         "name": "captureTypeFilters",
         "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1"
+      },
+      {
+        "name": "readFromAllEligibleExperiences",
+        "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/2"
       }
     ],
     "returns": [
@@ -73371,7 +73331,6 @@
     "documentation": "Điều chỉnh nội dung tần số của các luồng âm thanh.",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioFilter.Bypass",
-      "Editor": "@roblox/globaltype/AudioFilter.Editor",
       "FilterType": "@roblox/globaltype/AudioFilter.FilterType",
       "Frequency": "@roblox/globaltype/AudioFilter.Frequency",
       "Gain": "@roblox/globaltype/AudioFilter.Gain",
@@ -73389,11 +73348,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioFilter.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioFilter.FilterType": {
     "documentation": "Loại đường cong của băng được đại diện bởi bộ lọc.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#FilterType",
@@ -73405,12 +73359,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioFilter.Gain": {
-    "documentation": "Đối với bộ lọc peaking và shelving, điều khiển mức tăng hoặc giảm âm lượng.",
+    "documentation": "Đối với các bộ lọc tăng và kệ, điều khiển sự tăng hoặc giảm thể tích.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Gain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioFilter.Q": {
-    "documentation": "Đối với bộ lọc peaking, lowpass, highpass, bandpass, và notch, điều khiển độ chọn lọc hoặc độ cộng hưởng.",
+    "documentation": "Đối với các bộ lọc tăng, thấp, cao, băng và notch, điều khiển độ chọn lọc hoặc cộng hưởng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Q",
     "code_sample": ""
   },
@@ -73418,10 +73372,10 @@
     "documentation": "Điều chỉnh nội dung tần số của các luồng âm thanh."
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân đầu vào hoặc đầu ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires": {
     "documentation": "Trả về một mảng <code>Wires</code> được kết nối với pin được chỉ định.",
@@ -73472,10 +73426,10 @@
     "documentation": "Điều chỉnh nội dung tần số của các luồng âm thanh."
   },
   "@roblox/globaltype/AudioFilter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioFilter.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với thể hiện này qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -73492,10 +73446,10 @@
     "documentation": "Điều chỉnh nội dung tần số của các luồng âm thanh."
   },
   "@roblox/globaltype/AudioFilter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioFilter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với thể hiện này qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -74343,10 +74297,10 @@
     "documentation": "Chuyển đổi âm thanh nói thành văn bản."
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân đầu vào hoặc đầu ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires": {
     "documentation": "Trả về một mảng các <code>Wires</code> được kết nối với chân được chỉ định.",
@@ -76903,7 +76857,6 @@
     "documentation": "Điều chỉnh nội dung tần số của các dòng âm thanh.",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioEqualizer.Bypass",
-      "Editor": "@roblox/globaltype/AudioEqualizer.Editor",
       "HighGain": "@roblox/globaltype/AudioEqualizer.HighGain",
       "LowGain": "@roblox/globaltype/AudioEqualizer.LowGain",
       "MidGain": "@roblox/globaltype/AudioEqualizer.MidGain",
@@ -76920,28 +76873,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioEqualizer.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioEqualizer.HighGain": {
-    "documentation": "Giá trị tăng cường được áp dụng cho nội dung tần số của dải cao nhất trong the equalizer.",
+    "documentation": "Giá trị Gain sẽ được áp dụng cho nội dung tần số của băng tần cao nhất trong bộ điều chỉnh âm thanh.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#HighGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.LowGain": {
-    "documentation": "Giá trị tăng cường được áp dụng cho nội dung tần số của dải thấp nhất trong the equalizer.",
+    "documentation": "Giá trị Gain sẽ được áp dụng cho nội dung tần số của băng tần thấp nhất trong bộ điều chỉnh âm thanh.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#LowGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.MidGain": {
-    "documentation": "Giá trị tăng cường được áp dụng cho nội dung tần số của dải giữa trong the equalizer.",
+    "documentation": "Giá trị Gain sẽ được áp dụng cho nội dung tần số của băng tần giữa trong bộ điều chỉnh âm thanh.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#MidGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.MidRange": {
-    "documentation": "Phạm vi tần số của dải bị ảnh hưởng bởi <code>MidGain</code>.",
+    "documentation": "Khoảng tần số của băng tần bị ảnh hưởng bởi <code>MidGain</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#MidRange",
     "code_sample": ""
   },
@@ -76949,10 +76897,10 @@
     "documentation": "Điều chỉnh nội dung tần số của các dòng âm thanh."
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân đầu vào hoặc đầu ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires": {
     "documentation": "Trả về một mảng của <code>Wires</code> được kết nối với chân đã chỉ định.",
@@ -76976,10 +76924,10 @@
     "documentation": "Điều chỉnh nội dung tần số của các dòng âm thanh."
   },
   "@roblox/globaltype/AudioEqualizer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioEqualizer.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với thể hiện này thông qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -76996,10 +76944,10 @@
     "documentation": "Điều chỉnh nội dung tần số của các dòng âm thanh."
   },
   "@roblox/globaltype/AudioEqualizer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioEqualizer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với thể hiện này thông qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -79248,10 +79196,10 @@
     "documentation": "Chia một luồng âm thanh thành các kênh thành phần để mỗi kênh có thể được xử lý một cách độc lập."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân đầu vào hoặc đầu ra trên instance này"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng <code>Wires</code>"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires": {
     "documentation": "Trả về một mảng của <code>Wires</code> được kết nối với chân được chỉ định.",
@@ -79275,10 +79223,10 @@
     "documentation": "Chia một luồng âm thanh thành các kênh thành phần để mỗi kênh có thể được xử lý một cách độc lập."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng chuỗi đại diện cho các tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetInputPins": {
-    "documentation": "Trả về chân đầu vào có sẵn cho <code>Wire.TargetName</code>.",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với instance này thông qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -79295,10 +79243,10 @@
     "documentation": "Chia một luồng âm thanh thành các kênh thành phần để mỗi kênh có thể được xử lý một cách độc lập."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng chuỗi đại diện cho các tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetOutputPins": {
-    "documentation": "Trả về các chân đầu ra có thể được lựa chọn bởi <code>Wire.SourceName</code>.",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với instance này thông qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -87589,13 +87537,13 @@
     "documentation": "Tạo hiệu ứng rung cho âm thanh bằng cách thay đổi âm lượng của âm thanh lên và xuống."
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân vào hoặc ra trên đối tượng này"
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "Trả về một mảng của <code>Wires</code> được kết nối với chân chỉ định .",
     "params": [
       {
         "name": "self",
@@ -87616,10 +87564,10 @@
     "documentation": "Tạo hiệu ứng rung cho âm thanh bằng cách thay đổi âm lượng của âm thanh lên và xuống."
   },
   "@roblox/globaltype/AudioTremolo.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho các tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioTremolo.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với đối tượng này thông qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -87636,10 +87584,10 @@
     "documentation": "Tạo hiệu ứng rung cho âm thanh bằng cách thay đổi âm lượng của âm thanh lên và xuống."
   },
   "@roblox/globaltype/AudioTremolo.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho các tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioTremolo.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với đối tượng này thông qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -87730,7 +87678,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioTremolo.WiringChanged": {
-    "documentation": "",
+    "documentation": "Bắn ra khi một đối tượng khác được kết nối hoặc ngắt kết nối từ <code>AudioAnalyzer</code> thông qua một <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioTremolo.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioTremolo.WiringChanged.ConnectParallel",
@@ -87792,6 +87740,7 @@
       "Direction3DState": "@roblox/globaltype/InputAction.Direction3DState",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "Type": "@roblox/globaltype/InputAction.Type",
+      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState",
       "Fire": "@roblox/globaltype/InputAction.Fire",
       "GetState": "@roblox/globaltype/InputAction.GetState"
     },
@@ -87826,6 +87775,11 @@
   "@roblox/globaltype/InputAction.Type": {
     "documentation": "Xác định loại giá trị input mà hành động đang mong đợi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Type",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.ViewportPositionState": {
+    "documentation": "Thuộc tính chỉ đọc không thể lập trình hữu ích cho việc gỡ lỗi các hành động đầu vào <code>ViewportPosition</code>.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#ViewportPositionState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Fire/param/0": {
@@ -89376,10 +89330,10 @@
     "documentation": "Được sử dụng để phát các tài sản âm thanh."
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân đầu vào hoặc đầu ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires": {
     "documentation": "Trả về một mảng các <code>Wires</code> đang kết nối với pin được chỉ định.",
@@ -89403,10 +89357,10 @@
     "documentation": "Được sử dụng để phát các tài sản âm thanh."
   },
   "@roblox/globaltype/AudioPlayer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioPlayer.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với thể hiện này thông qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -89423,10 +89377,10 @@
     "documentation": "Được sử dụng để phát các tài sản âm thanh."
   },
   "@roblox/globaltype/AudioPlayer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioPlayer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với thể hiện này thông qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -90383,10 +90337,10 @@
     "documentation": "Phát ra âm thanh vào thế giới."
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân đầu vào hoặc đầu ra trên phiên bản này"
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires": {
     "documentation": "Trả về một mảng các <code>Wires</code> được kết nối với pin đã chỉ định.",
@@ -90430,10 +90384,10 @@
     "documentation": "Phát ra âm thanh vào thế giới."
   },
   "@roblox/globaltype/AudioEmitter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioEmitter.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với phiên bản này thông qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -90470,10 +90424,10 @@
     "documentation": "Phát ra âm thanh vào thế giới."
   },
   "@roblox/globaltype/AudioEmitter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioEmitter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với phiên bản này thông qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -92369,10 +92323,10 @@
     "documentation": "Làm cho âm thanh của một luồng audio nghe có vẻ đầy đặn hơn. Nếu áp dụng cho một giọng nói duy nhất, nó có thể nghe như nhiều giọng nói."
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân vào hoặc ra trên thể hiện này"
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires": {
     "documentation": "Trả về một mảng <code>Wires</code> được kết nối với pin được chỉ định.",
@@ -92396,10 +92350,10 @@
     "documentation": "Làm cho âm thanh của một luồng audio nghe có vẻ đầy đặn hơn. Nếu áp dụng cho một giọng nói duy nhất, nó có thể nghe như nhiều giọng nói."
   },
   "@roblox/globaltype/AudioChorus.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioChorus.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với thể hiện này thông qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -92416,10 +92370,10 @@
     "documentation": "Làm cho âm thanh của một luồng audio nghe có vẻ đầy đặn hơn. Nếu áp dụng cho một giọng nói duy nhất, nó có thể nghe như nhiều giọng nói."
   },
   "@roblox/globaltype/AudioChorus.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/AudioChorus.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với thể hiện này thông qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -92589,10 +92543,10 @@
     "documentation": "Một đối tượng GUI hiển thị nội dung video từ một <code>VideoPlayer</code> được kết nối."
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Một chân đầu vào hoặc đầu ra trên thể hiện này"
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng của <code>Wires</code>"
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires": {
     "documentation": "Trả về một mảng <code>Wires</code> được kết nối với chân đã xác định.",
@@ -92616,10 +92570,10 @@
     "documentation": "Một đối tượng GUI hiển thị nội dung video từ một <code>VideoPlayer</code> được kết nối."
   },
   "@roblox/globaltype/VideoDisplay.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/VideoDisplay.GetInputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.TargetName</code> để kết nối với thể hiện này qua thuộc tính <code>Wire.TargetInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -92636,10 +92590,10 @@
     "documentation": "Một đối tượng GUI hiển thị nội dung video từ một <code>VideoPlayer</code> được kết nối."
   },
   "@roblox/globaltype/VideoDisplay.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Một mảng các chuỗi đại diện cho tên chân hợp lệ."
   },
   "@roblox/globaltype/VideoDisplay.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Lấy danh sách các chân mà <code>Wire</code> có thể sử dụng trong <code>Wire.SourceName</code> để kết nối với thể hiện này qua thuộc tính <code>Wire.SourceInstance</code> của nó.",
     "params": [
       {
         "name": "self",
@@ -93090,10 +93044,10 @@
     "documentation": "Một dịch vụ xử lý trò chuyện văn bản trong trải nghiệm."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "Người dùng phải ở trong máy chủ hiện tại, nếu không sẽ xảy ra lỗi."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/2": {
-    "documentation": ""
+    "documentation": "Người dùng phải ở trong máy chủ hiện tại, nếu không sẽ xảy ra lỗi."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/return/0": {
     "documentation": ""
@@ -93565,7 +93519,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint": {
-    "documentation": "Căn chỉnh hai <code>BaseParts</code> với một khớp động học hoặc dựa trên lực có thể hoạt động được.",
+    "documentation": "Căn chỉnh hai <code>BaseParts</code> với một khớp động có thể hoạt hình hoặc dựa trên lực.",
     "keys": {
       "C0": "@roblox/globaltype/AnimationConstraint.C0",
       "C1": "@roblox/globaltype/AnimationConstraint.C1",
@@ -93590,7 +93544,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.IsKinematic": {
-    "documentation": "Bật tắt xem ràng buộc có quay hoặc được mô phỏng vật lý hay không.",
+    "documentation": "Chuyển đổi giữa việc ràng buộc là động học hay mô phỏng vật lý.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#IsKinematic",
     "code_sample": ""
   },
@@ -93600,7 +93554,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.MaxTorque": {
-    "documentation": "Mô men xoắn tối đa mà ràng buộc có thể áp dụng để đạt được mục tiêu.",
+    "documentation": "Mô men tối đa mà ràng buộc có thể áp dụng để đạt được mục tiêu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxTorque",
     "code_sample": ""
   },
@@ -95415,7 +95369,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BodyPartDescription.HeadShape": {
-    "documentation": "",
+    "documentation": "Xác định định danh hình dạng đầu để áp dụng cho một Đầu Động khi <code>BodyPartDescription</code> được áp dụng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BodyPartDescription#HeadShape",
     "code_sample": ""
   },
@@ -140549,7 +140503,7 @@
     "code_sample": ""
   },
   "@luau/global/table": {
-    "documentation": "Một thư viện các hàm xử lý bảng.",
+    "documentation": "Một thư viện các hàm bảng.",
     "keys": {
       "clear": "@luau/global/table.clear",
       "clone": "@luau/global/table.clone",
@@ -140588,13 +140542,13 @@
     "code_sample": ""
   },
   "@luau/global/table.clone/param/0": {
-    "documentation": "Bảng sẽ được nhân bản."
+    "documentation": "Bảng sẽ được sao chép."
   },
   "@luau/global/table.clone/return/0": {
     "documentation": "Bản sao của bảng đã cung cấp."
   },
   "@luau/global/table.clone": {
-    "documentation": "Trả về bản sao nông của bảng đã cung cấp.",
+    "documentation": "Trả về một bản sao nông của bảng đã cung cấp.",
     "params": [
       {
         "name": "t",
@@ -140623,7 +140577,7 @@
     "documentation": ""
   },
   "@luau/global/table.concat": {
-    "documentation": "Trả về dải phần tử của bảng đã cho dưới dạng một chuỗi mà mỗi phần tử được phân tách bởi bộ phân tách đã cho.",
+    "documentation": "Trả về dãi các phần tử của bảng đã cho dưới dạng chuỗi nơi mỗi phần tử được phân tách bởi dấu phân cách cho trước.",
     "params": [
       {
         "name": "t",
@@ -140658,7 +140612,7 @@
     "documentation": ""
   },
   "@luau/global/table.create": {
-    "documentation": "Trả về một bảng mới được điền với nhiều thể hiện của giá trị đã chỉ định.",
+    "documentation": "Trả về một bảng mới được điền bằng nhiều thể hiện của giá trị chỉ định.",
     "params": [
       {
         "name": "count",
@@ -140713,10 +140667,10 @@
     "documentation": "Bảng sẽ được lặp qua."
   },
   "@luau/global/table.foreach/param/1": {
-    "documentation": "Hàm sẽ được sử dụng cho việc lặp. Hàm này sẽ nhận 2 đối số cho mỗi lượt lặp, trong đó đối số thứ 1 là key, và đối số thứ 2 là value."
+    "documentation": "Hàm sẽ được sử dụng cho việc lặp. Hàm này sẽ nhận 2 đối số cho mỗi lần lặp, trong đó đối số 1 là khóa, và đối số 2 là giá trị."
   },
   "@luau/global/table.foreach": {
-    "documentation": "<strong>Deprecated:</strong> <br>Lặp qua bảng đã cung cấp, truyền key và value của mỗi lượt lặp cho hàm đã cung cấp.",
+    "documentation": "<strong>Deprecated:</strong> <br>Lặp qua bảng đã cung cấp, truyền khóa và giá trị của mỗi lần lặp cho hàm được cung cấp.",
     "params": [
       {
         "name": "t",
@@ -140735,10 +140689,10 @@
     "documentation": "Bảng sẽ được lặp qua."
   },
   "@luau/global/table.foreachi/param/1": {
-    "documentation": "Hàm sẽ được sử dụng cho việc lặp. Hàm này sẽ nhận 2 đối số cho mỗi lượt lặp, trong đó đối số thứ 1 là chỉ số, và đối số thứ 2 là giá trị."
+    "documentation": "Hàm sẽ được sử dụng cho việc lặp. Hàm này sẽ nhận 2 đối số cho mỗi lần lặp, trong đó đối số 1 là chỉ số, và đối số 2 là giá trị."
   },
   "@luau/global/table.foreachi": {
-    "documentation": "<strong>Deprecated:</strong> <br>Tương tự như <code>table.foreach()</code> ngoại trừ cặp chỉ số-giá trị được truyền thay vì cặp key-value.",
+    "documentation": "<strong>Deprecated:</strong> <br>Tương tự như <code>table.foreach()</code> ngoại trừ các cặp chỉ số-giá trị được truyền thay vì cặp khóa-giá trị.",
     "params": [
       {
         "name": "t",
@@ -140754,13 +140708,13 @@
     "code_sample": ""
   },
   "@luau/global/table.freeze/param/0": {
-    "documentation": "Bảng sẽ được đông cứng."
+    "documentation": "Bảng sẽ được đóng băng."
   },
   "@luau/global/table.freeze/return/0": {
-    "documentation": "Bảng đã bị đông cứng."
+    "documentation": "Bảng đã bị đóng băng."
   },
   "@luau/global/table.freeze": {
-    "documentation": "Biến bảng đã cho thành chỉ đọc.",
+    "documentation": "Làm cho bảng đã cho chỉ có thể đọc.",
     "params": [
       {
         "name": "t",
@@ -140774,13 +140728,13 @@
     "code_sample": ""
   },
   "@luau/global/table.getn/param/0": {
-    "documentation": "Bảng nào mà kích thước đang được đo."
+    "documentation": "Bảng mà kích thước đang được đo."
   },
   "@luau/global/table.getn/return/0": {
     "documentation": ""
   },
   "@luau/global/table.getn": {
-    "documentation": "<strong>Deprecated:</strong> <br>Trả về số lượng phần tử trong bảng đã chuyền.",
+    "documentation": "<strong>Deprecated:</strong> <br>Trả về số lượng phần tử trong bảng được truyền.",
     "params": [
       {
         "name": "t",
@@ -140800,16 +140754,16 @@
     }
   },
   "@luau/global/table.insert/overload/(table, number, Variant) -> ()/param/0": {
-    "documentation": "Bảng đang được thêm vào."
+    "documentation": "Bảng mà có phần tử đang được thêm vào."
   },
   "@luau/global/table.insert/overload/(table, number, Variant) -> ()/param/1": {
-    "documentation": "Vị trí tại nơi giá trị sẽ được chèn."
+    "documentation": "Vị trí mà giá trị sẽ được chèn."
   },
   "@luau/global/table.insert/overload/(table, number, Variant) -> ()/param/2": {
     "documentation": "Giá trị sẽ được thêm vào bảng."
   },
   "@luau/global/table.insert/overload/(table, number, Variant) -> ()": {
-    "documentation": "Chèn giá trị đã cung cấp vào vị trí đích của mảng.",
+    "documentation": "Chèn giá trị được cung cấp vào vị trí mục tiêu của mảng.",
     "params": [
       {
         "name": "t",
@@ -140829,13 +140783,13 @@
     "code_sample": ""
   },
   "@luau/global/table.insert/overload/(table, Variant) -> ()/param/0": {
-    "documentation": "Bảng đang được thêm vào."
+    "documentation": "Bảng mà đang được thêm vào."
   },
   "@luau/global/table.insert/overload/(table, Variant) -> ()/param/1": {
     "documentation": "Giá trị sẽ được thêm vào bảng."
   },
   "@luau/global/table.insert/overload/(table, Variant) -> ()": {
-    "documentation": "Thêm giá trị đã cung cấp vào cuối mảng.",
+    "documentation": "Thêm giá trị được cung cấp vào cuối mảng.",
     "params": [
       {
         "name": "t",
@@ -140854,10 +140808,10 @@
     "documentation": "Bảng để kiểm tra."
   },
   "@luau/global/table.isfrozen/return/0": {
-    "documentation": "Xem bảng có bị đông cứng từ <code>table.freeze()</code> hay không."
+    "documentation": "Liệu bảng có bị đóng băng từ <code>table.freeze()</code> hay không."
   },
   "@luau/global/table.isfrozen": {
-    "documentation": "Trả về <code>true</code> nếu bảng đã cho bị đông cứng và <code>false</code> nếu nó không bị đông cứng.",
+    "documentation": "Trả về <code>true</code> nếu bảng đã cho bị đóng băng và <code>false</code> nếu nó không bị đóng băng.",
     "params": [
       {
         "name": "t",
@@ -140877,7 +140831,7 @@
     "documentation": ""
   },
   "@luau/global/table.maxn": {
-    "documentation": "Trả về khóa số tối đa của bảng đã cung cấp, hoặc bằng không nếu bảng không có khóa số.",
+    "documentation": "Trả về khóa số lớn nhất của bảng đã cho, hoặc bằng không nếu bảng dưới đây không có khóa số nào.",
     "params": [
       {
         "name": "t",
@@ -140897,7 +140851,7 @@
     "documentation": "Bắt đầu sao chép tại <code>src[a]</code>."
   },
   "@luau/global/table.move/param/2": {
-    "documentation": "Sao chép đến và bao gồm cả <code>src[b]</code>."
+    "documentation": "Sao chép đến và bao gồm <code>src[b]</code>."
   },
   "@luau/global/table.move/param/3": {
     "documentation": "Sao chép vào <code>dst[t], ...</code>."
@@ -140906,10 +140860,10 @@
     "documentation": "Bảng đích."
   },
   "@luau/global/table.move/return/0": {
-    "documentation": "<code>dst</code>, cho tiện lợi."
+    "documentation": "<code>dst</code>, cho sự thuận tiện."
   },
   "@luau/global/table.move": {
-    "documentation": "Sao chép dải phần tử đã chỉ định từ một bảng sang bảng khác.",
+    "documentation": "Sao chép dải phần tử đã chỉ định từ một bảng sang một bảng khác.",
     "params": [
       {
         "name": "src",
@@ -140959,16 +140913,16 @@
     "code_sample": ""
   },
   "@luau/global/table.remove/param/0": {
-    "documentation": "Bảng đang có một phần tử bị loại bỏ."
+    "documentation": "Bảng mà có phần tử đang bị xóa."
   },
   "@luau/global/table.remove/param/1": {
-    "documentation": "Chỉ số của phần tử đang bị loại bỏ."
+    "documentation": "Chỉ số của phần tử đang bị xóa."
   },
   "@luau/global/table.remove/return/0": {
     "documentation": ""
   },
   "@luau/global/table.remove": {
-    "documentation": "Loại bỏ phần tử đã chỉ định khỏi mảng, dịch chuyển các phần tử sau xuống để lấp đầy khoảng trống nếu có thể.",
+    "documentation": "Xóa phần tử được chỉ định khỏi mảng, dịch các phần tử sau đó xuống để lấp đầy khoảng trống nếu có thể.",
     "params": [
       {
         "name": "t",
@@ -140989,10 +140943,10 @@
     "documentation": ""
   },
   "@luau/global/table.sort/param/1": {
-    "documentation": "Một hàm so sánh tùy chọn sẽ được sử dụng khi so sánh các phần tử trong table. Hàm này nhận hai phần tử, và nên trả về true nếu phần tử đầu tiên nên được sắp xếp trước phần tử thứ hai trong số lượng cuối cùng."
+    "documentation": "Một hàm so sánh tùy chọn để được sử dụng khi so sánh các phần tử trong bảng. Hàm này nhận hai phần tử và nên trả về true nếu phần tử đầu tiên nên được sắp xếp trước phần tử thứ hai trong thứ tự cuối cùng."
   },
   "@luau/global/table.sort": {
-    "documentation": "Sắp xếp các phần tử bảng sử dụng hàm so sánh đã cung cấp hoặc toán tử <code>&lt;</code> .",
+    "documentation": "Sắp xếp các phần tử bảng bằng cách sử dụng hàm so sánh đã cung cấp hoặc toán tử <code>&lt;</code> .",
     "params": [
       {
         "name": "t",
@@ -141011,16 +140965,16 @@
     "documentation": "Danh sách các phần tử sẽ được giải nén."
   },
   "@luau/global/table.unpack/param/1": {
-    "documentation": "Chỉ số của phần tử đầu tiên cần giải nén."
+    "documentation": "Chỉ số của phần tử đầu tiên sẽ được giải nén."
   },
   "@luau/global/table.unpack/param/2": {
-    "documentation": "Chỉ số của phần tử cuối cùng cần giải nén."
+    "documentation": "Chỉ số của phần tử cuối cùng sẽ được giải nén."
   },
   "@luau/global/table.unpack/return/0": {
     "documentation": ""
   },
   "@luau/global/table.unpack": {
-    "documentation": "Trả về tất cả các phần tử từ danh sách đã cho dưới dạng một bộ.",
+    "documentation": "Trả về tất cả các phần tử từ danh sách đã cho dưới dạng một tuple.",
     "params": [
       {
         "name": "list",

@@ -6490,7 +6490,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService": {
-    "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。",
+    "documentation": "一个由 Roblox 用于运行受控引擎测试的服务。它对开发者可用，程度有限。",
     "keys": {
       "AutoRuns": "@roblox/globaltype/TestService.AutoRuns",
       "Description": "@roblox/globaltype/TestService.Description",
@@ -6523,7 +6523,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.AutoRuns": {
-    "documentation": "如果设置为 <code>true</code>，当服务的 <code>TestService:RunAsync()</code> 方法被调用时，游戏将开始运行。",
+    "documentation": "如果设置为 <code>true</code>，则当服务的 <code>TestService:RunAsync()</code> 方法被调用时，游戏将开始运行。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#AutoRuns",
     "code_sample": ""
   },
@@ -6533,62 +6533,62 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ErrorCount": {
-    "documentation": "测量在测试会话中记录的错误数量。",
+    "documentation": "测量在测试会话中记录了多少错误。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ErrorCount",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ExecuteWithStudioRun": {
-    "documentation": "当设置为 <code>true</code> 时，在 Roblox Studio 中使用 <strong>Run</strong> 动作时，将执行 <code>TestService</code>。",
+    "documentation": "当设置为 <code>true</code> 时，使用 Roblox Studio 中的 <strong>运行</strong> 操作时将执行 <code>TestService</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ExecuteWithStudioRun",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Is30FpsThrottleEnabled": {
-    "documentation": "<strong>Deprecated:</strong> 该功能已被弃用，并直接重命名为 <code>ThrottlePhysicsToRealtime</code>以 更好地反映其实际用途。<br>设置测试运行时物理引擎是否应限制为30 FPS。",
+    "documentation": "<strong>Deprecated:</strong> 该属性已被弃用，并直接重命名为 <code>ThrottlePhysicsToRealtime</code> 以更好地反映其实际用途。<br>设置在测试运行时物理引擎是否应该限制为 30 FPS。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Is30FpsThrottleEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.IsPhysicsEnvironmentalThrottled": {
-    "documentation": "设置在运行此测试时物理环境是否应被限制。",
+    "documentation": "设置在运行此测试时物理环境是否应该被限制。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#IsPhysicsEnvironmentalThrottled",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.IsSleepAllowed": {
-    "documentation": "设置在测试模拟运行时物理对象是否可以休眠。",
+    "documentation": "设置在测试模拟运行时物理对象是否允许进入睡眠状态。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#IsSleepAllowed",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.NumberOfPlayers": {
-    "documentation": "此测试中预计的玩家数量（如果有）。",
+    "documentation": "此测试预计的玩家数量（如果有的话）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#NumberOfPlayers",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.SimulateSecondsLag": {
-    "documentation": "设置测试会话中玩家经历的额外延迟的特定量。",
+    "documentation": "设置玩家在测试会话中经历的额外延迟量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#SimulateSecondsLag",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.TestCount": {
-    "documentation": "测量在测试会话中记录的测试调用数量。",
+    "documentation": "测量在测试会话中记录了多少次测试调用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#TestCount",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ThrottlePhysicsToRealtime": {
-    "documentation": "设置测试是否应限制为按照真实世界时间或者尽可能快地模拟时间。",
+    "documentation": "设置测试是否应被限制以根据现实世界时间或尽可能快地模拟时间。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ThrottlePhysicsToRealtime",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Timeout": {
-    "documentation": "测试允许的最大运行时间。",
+    "documentation": "允许测试运行的最大时间。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Timeout",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.WarnCount": {
-    "documentation": "测量在测试会话中记录的警告调用数量。",
+    "documentation": "测量在测试会话中记录了多少次警告调用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#WarnCount",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Check/param/0": {
-    "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
+    "documentation": "一个由 Roblox 用于运行受控引擎测试的服务。它对开发者可用，程度有限。"
   },
   "@roblox/globaltype/TestService.Check/param/1": {
     "documentation": ""
@@ -6603,7 +6603,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Check": {
-    "documentation": "将条件的结果打印到输出中。",
+    "documentation": "将条件结果打印到输出。",
     "params": [
       {
         "name": "self",
@@ -6631,7 +6631,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Checkpoint/param/0": {
-    "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
+    "documentation": "一个由 Roblox 用于运行受控引擎测试的服务。它对开发者可用，程度有限。"
   },
   "@roblox/globaltype/TestService.Checkpoint/param/1": {
     "documentation": ""
@@ -6643,7 +6643,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Checkpoint": {
-    "documentation": "打印以 <code>Test checkpoint:</code> 开头的字符串到输出，使用蓝色文本。",
+    "documentation": "以蓝色文本将 <code>Test checkpoint:</code> 后跟一个字符串打印到输出。",
     "params": [
       {
         "name": "self",
@@ -6667,10 +6667,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Done/param/0": {
-    "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
+    "documentation": "一个由 Roblox 用于运行受控引擎测试的服务。它对开发者可用，程度有限。"
   },
   "@roblox/globaltype/TestService.Done": {
-    "documentation": "以蓝色文本打印 <code>Testing Done</code> 到输出。",
+    "documentation": "以蓝色文本将 <code>Testing Done</code> 打印到输出。",
     "params": [
       {
         "name": "self",
@@ -6682,7 +6682,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Error/param/0": {
-    "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
+    "documentation": "一个由 Roblox 用于运行受控引擎测试的服务。它对开发者可用，程度有限。"
   },
   "@roblox/globaltype/TestService.Error/param/1": {
     "documentation": ""
@@ -6694,7 +6694,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Error": {
-    "documentation": "以红色错误消息打印到输出，前缀为 <code>TestService:</code>。",
+    "documentation": "打印带有前缀 <code>TestService:</code> 的红色错误消息到输出。",
     "params": [
       {
         "name": "self",
@@ -6718,7 +6718,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Fail/param/0": {
-    "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
+    "documentation": "一个由 Roblox 用于运行受控引擎测试的服务。它对开发者可用，程度有限。"
   },
   "@roblox/globaltype/TestService.Fail/param/1": {
     "documentation": ""
@@ -6754,7 +6754,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.isFeatureEnabled/param/0": {
-    "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
+    "documentation": "一个由 Roblox 用于运行受控引擎测试的服务。它对开发者可用，程度有限。"
   },
   "@roblox/globaltype/TestService.isFeatureEnabled/param/1": {
     "documentation": ""
@@ -6781,7 +6781,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Message/param/0": {
-    "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
+    "documentation": "一个由 Roblox 用于运行受控引擎测试的服务。它对开发者可用，程度有限。"
   },
   "@roblox/globaltype/TestService.Message/param/1": {
     "documentation": ""
@@ -6793,7 +6793,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Message": {
-    "documentation": "以蓝色文本打印 <code>TestService:</code> 后跟字符串到输出。",
+    "documentation": "以蓝色文本将 <code>TestService:</code> 后跟一个字符串打印到输出。",
     "params": [
       {
         "name": "self",
@@ -6817,7 +6817,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Require/param/0": {
-    "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
+    "documentation": "一个由 Roblox 用于运行受控引擎测试的服务。它对开发者可用，程度有限。"
   },
   "@roblox/globaltype/TestService.Require/param/1": {
     "documentation": ""
@@ -6860,7 +6860,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.RunAsync/param/0": {
-    "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
+    "documentation": "一个由 Roblox 用于运行受控引擎测试的服务。它对开发者可用，程度有限。"
   },
   "@roblox/globaltype/TestService.RunAsync": {
     "documentation": "运行与 <code>TestService</code> 关联的脚本。",
@@ -6875,7 +6875,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Run/param/0": {
-    "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
+    "documentation": "一个由 Roblox 用于运行受控引擎测试的服务。它对开发者可用，程度有限。"
   },
   "@roblox/globaltype/TestService.Run": {
     "documentation": "<strong>Deprecated:</strong> <br>运行与 <code>TestService</code> 关联的脚本。",
@@ -6890,7 +6890,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ScopeTime/param/0": {
-    "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
+    "documentation": "一个由 Roblox 用于运行受控引擎测试的服务。它对开发者可用，程度有限。"
   },
   "@roblox/globaltype/TestService.ScopeTime/return/0": {
     "documentation": ""
@@ -6910,9 +6910,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.TakeSnapshot/param/0": {
-    "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
+    "documentation": "一个由 Roblox 用于运行受控引擎测试的服务。它对开发者可用，程度有限。"
   },
   "@roblox/globaltype/TestService.TakeSnapshot/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TestService.TakeSnapshot/param/2": {
     "documentation": ""
   },
   "@roblox/globaltype/TestService.TakeSnapshot": {
@@ -6925,6 +6928,10 @@
       {
         "name": "snapshotname",
         "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/1"
+      },
+      {
+        "name": "source",
+        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/2"
       }
     ],
     "returns": [],
@@ -6932,7 +6939,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Warn/param/0": {
-    "documentation": "Roblox使用的一个服务，用于对引擎进行受控测试。 开发者可以在一定程度上使用该服务。"
+    "documentation": "一个由 Roblox 用于运行受控引擎测试的服务。它对开发者可用，程度有限。"
   },
   "@roblox/globaltype/TestService.Warn/param/1": {
     "documentation": ""
@@ -6947,7 +6954,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Warn": {
-    "documentation": "打印条件是否为 <code>true</code>，否则打印警告。",
+    "documentation": "如果条件为 <code>true</code>，则打印，否则打印警告。",
     "params": [
       {
         "name": "self",
@@ -10336,10 +10343,10 @@
     "documentation": "扭曲音频流，使其听起来更加模糊、粗糙且音量更高。"
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires": {
     "documentation": "返回一个连接到指定引脚的 <code>Wires</code> 数组。",
@@ -10363,10 +10370,10 @@
     "documentation": "扭曲音频流，使其听起来更加模糊、粗糙且音量更高。"
   },
   "@roblox/globaltype/AudioDistortion.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioDistortion.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引脚列表，以通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -10383,10 +10390,10 @@
     "documentation": "扭曲音频流，使其听起来更加模糊、粗糙且音量更高。"
   },
   "@roblox/globaltype/AudioDistortion.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioDistortion.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引脚列表，以通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -10809,10 +10816,10 @@
     "documentation": "调节音频流的音量。"
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires": {
     "documentation": "返回一个与指定插口连接的 <code>Wires</code> 数组。",
@@ -10836,10 +10843,10 @@
     "documentation": "调节音频流的音量。"
   },
   "@roblox/globaltype/AudioFader.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioFader.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引脚列表， 以通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -10856,10 +10863,10 @@
     "documentation": "调节音频流的音量。"
   },
   "@roblox/globaltype/AudioFader.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioFader.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引脚列表， 以通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -15238,13 +15245,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个包含 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "返回一个数组，包含连接到指定引脚的 <code>Wires</code>。",
     "params": [
       {
         "name": "self",
@@ -15265,10 +15272,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioGate.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引脚列表，以通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -15285,10 +15292,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioGate.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引脚列表，以通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -15379,7 +15386,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioGate.WiringChanged": {
-    "documentation": "",
+    "documentation": "当另一个实例通过 <code>Wire</code> 连接到或断开与 <code>AudioAnalyzer</code> 的连接时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/AudioGate.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel",
@@ -23879,10 +23886,10 @@
     "documentation": "用于播放视频资产。"
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires": {
     "documentation": "返回连接到指定引脚的 <code>Wires</code> 数组。",
@@ -23906,10 +23913,10 @@
     "documentation": "用于播放视频资产。"
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引脚列表 以通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -23926,10 +23933,10 @@
     "documentation": "用于播放视频资产。"
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引脚列表 以通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -26389,10 +26396,10 @@
     "documentation": "接受音频流以输出到物理硬件设备，如扬声器或耳机。"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 数组"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires": {
     "documentation": "返回一个数组，包含连接到指定插口的 <code>Wires</code>。",
@@ -26416,10 +26423,10 @@
     "documentation": "接受音频流以输出到物理硬件设备，如扬声器或耳机。"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引脚列表 以通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -26436,10 +26443,10 @@
     "documentation": "接受音频流以输出到物理硬件设备，如扬声器或耳机。"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引脚列表 以通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -28486,7 +28493,6 @@
     "documentation": "|-     限制音频流允许的音量大小。",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioLimiter.Bypass",
-      "Editor": "@roblox/globaltype/AudioLimiter.Editor",
       "MaxLevel": "@roblox/globaltype/AudioLimiter.MaxLevel",
       "Release": "@roblox/globaltype/AudioLimiter.Release",
       "GetConnectedWires": "@roblox/globaltype/AudioLimiter.GetConnectedWires",
@@ -28501,18 +28507,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioLimiter.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioLimiter.MaxLevel": {
-    "documentation": "|-     最大允许音量。",
+    "documentation": "最大容许音量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#MaxLevel",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioLimiter.Release": {
-    "documentation": "|-     之前被限制的流恢复到正常音量所需的时间。",
+    "documentation": "使之前被限制的音频流恢复到正常音量所需的时间。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Release",
     "code_sample": ""
   },
@@ -28520,10 +28521,10 @@
     "documentation": "|-     限制音频流允许的音量大小。"
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires": {
     "documentation": "|-     返回连接到指定引脚的<code>Wires</code>数组。",
@@ -28547,10 +28548,10 @@
     "documentation": "|-     限制音频流允许的音量大小。"
   },
   "@roblox/globaltype/AudioLimiter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioLimiter.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引脚列表 通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -28567,10 +28568,10 @@
     "documentation": "|-     限制音频流允许的音量大小。"
   },
   "@roblox/globaltype/AudioLimiter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioLimiter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引脚列表 通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -29481,10 +29482,10 @@
     "documentation": "将多个音频流合并成单个多声道音频流。"
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 数组"
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires": {
     "documentation": "返回与指定引脚连接的 <code>Wires</code> 数组。",
@@ -29508,10 +29509,10 @@
     "documentation": "将多个音频流合并成单个多声道音频流。"
   },
   "@roblox/globaltype/AudioChannelMixer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个代表有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioChannelMixer.GetInputPins": {
-    "documentation": "返回可由 <code>Wire.TargetName</code> 选择的输入引脚。",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引脚列表，以通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -29528,10 +29529,10 @@
     "documentation": "将多个音频流合并成单个多声道音频流。"
   },
   "@roblox/globaltype/AudioChannelMixer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个代表有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioChannelMixer.GetOutputPins": {
-    "documentation": "返回可用于 <code>Wire.SourceName</code> 的输出引脚。",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引脚列表，以通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -31443,7 +31444,6 @@
     "keys": {
       "Attack": "@roblox/globaltype/AudioCompressor.Attack",
       "Bypass": "@roblox/globaltype/AudioCompressor.Bypass",
-      "Editor": "@roblox/globaltype/AudioCompressor.Editor",
       "MakeupGain": "@roblox/globaltype/AudioCompressor.MakeupGain",
       "Ratio": "@roblox/globaltype/AudioCompressor.Ratio",
       "Release": "@roblox/globaltype/AudioCompressor.Release",
@@ -31465,28 +31465,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioCompressor.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioCompressor.MakeupGain": {
     "documentation": "压缩后应用的增益值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#MakeupGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.Ratio": {
-    "documentation": "超过 <code>Threshold</code> 时输入音量与输出音量的比例。",
+    "documentation": "输入音量与输出音量的比率，在超过 <code>Threshold</code> 时应用。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Ratio",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.Release": {
-    "documentation": "控制流音量回落到 <code>Threshold</code> 之下后压缩机的解压速度。",
+    "documentation": "控制压缩器在流音量回落到 <code>Threshold</code> 以下时解锁的速度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Release",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.Threshold": {
-    "documentation": "压缩机开始修改输入流的增益值。",
+    "documentation": "压缩器开始修改输入流的增益值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Threshold",
     "code_sample": ""
   },
@@ -31494,10 +31489,10 @@
     "documentation": "调整输入流的动态范围。"
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires": {
     "documentation": "返回连接到指定端口的 <code>Wires</code> 数组。",
@@ -31521,10 +31516,10 @@
     "documentation": "调整输入流的动态范围。"
   },
   "@roblox/globaltype/AudioCompressor.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioCompressor.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引脚列表，以通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -31541,10 +31536,10 @@
     "documentation": "调整输入流的动态范围。"
   },
   "@roblox/globaltype/AudioCompressor.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioCompressor.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引脚列表，以通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -35839,7 +35834,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.PrioritizeLightingQuality": {
-    "documentation": "指示您更喜欢光照/阴影质量还是视距优先缩小。",
+    "documentation": "指示您更喜欢灯光/阴影质量还是视距优先缩小。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#PrioritizeLightingQuality",
     "code_sample": ""
   },
@@ -39318,10 +39313,10 @@
     "documentation": "记录来自其周围的音频流 <code>AudioEmitters</code> 在 3D 世界中的音频流。"
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 数组"
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires": {
     "documentation": "返回连接到指定引脚的 <code>Wires</code> 数组。",
@@ -39365,10 +39360,10 @@
     "documentation": "记录来自其周围的音频流 <code>AudioEmitters</code> 在 3D 世界中的音频流。"
   },
   "@roblox/globaltype/AudioListener.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioListener.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引脚列表， 以通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -39405,10 +39400,10 @@
     "documentation": "记录来自其周围的音频流 <code>AudioEmitters</code> 在 3D 世界中的音频流。"
   },
   "@roblox/globaltype/AudioListener.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioListener.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引脚列表， 以通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -41699,13 +41694,13 @@
     "documentation": "记录体验中的音频流。"
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 数组"
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "返回一个与指定引脚连接的 <code>Wires</code> 数组。",
     "params": [
       {
         "name": "self",
@@ -41726,10 +41721,10 @@
     "documentation": "记录体验中的音频流。"
   },
   "@roblox/globaltype/AudioRecorder.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioRecorder.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引脚列表，以通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -41746,10 +41741,10 @@
     "documentation": "记录体验中的音频流。"
   },
   "@roblox/globaltype/AudioRecorder.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioRecorder.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引脚列表，以通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -41910,7 +41905,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioRecorder.WiringChanged": {
-    "documentation": "",
+    "documentation": "当另一个实例通过 <code>Wire</code> 连接或断开与 <code>AudioAnalyzer</code> 的连接时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/AudioRecorder.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioRecorder.WiringChanged.ConnectParallel",
@@ -42205,7 +42200,7 @@
       "@roblox/globaltype/HttpService.RequestAsync/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/HttpService#RequestAsync",
-    "code_sample": "-- 请记得在游戏设置中启用 HTTP 请求！\nlocal HttpService = game:GetService(\"HttpService\")\n\nlocal function request()\n\tlocal response = HttpService:RequestAsync({\n\t\tUrl = \"http://httpbin.org/post\", -- 该网站帮助调试 HTTP 请求\n\t\tMethod = \"POST\",\n\t\tHeaders = {\n\t\t\t[\"Content-Type\"] = \"application/json\", -- 发送 JSON 时，请设置此项！\n\t\t},\n\t\tBody = HttpService:JSONEncode({ hello = \"world\" }),\n\t})\n\n\tif response.Success then\n\t\tprint(\"状态码：\", response.StatusCode, response.StatusMessage)\n\t\tprint(\"响应正文：\\n\", response.Body)\n\telse\n\t\tprint(\"请求失败：\", response.StatusCode, response.StatusMessage)\n\tend\nend\n\n-- 请记得将函数包装在 'pcall' 中，以防请求失败时脚本崩溃\nlocal success, message = pcall(request)\nif not success then\n\tprint(\"HTTP 请求失败：\", message)\nend"
+    "code_sample": "-- 请记得在体验设置中启用 HTTP 请求！\nlocal HttpService = game:GetService(\"HttpService\")\n\nlocal function request()\n\tlocal response = HttpService:RequestAsync({\n\t\tUrl = \"http://httpbin.org/post\", -- 这个网站帮助调试 HTTP 请求\n\t\tMethod = \"POST\",\n\t\tHeaders = {\n\t\t\t[\"Content-Type\"] = \"application/json\", -- 发送 JSON 时，请设置此项！\n\t\t},\n\t\tBody = HttpService:JSONEncode({ hello = \"world\" }),\n\t})\n\n\tif response.Success then\n\t\tprint(\"状态码:\", response.StatusCode, response.StatusMessage)\n\t\tprint(\"响应体:\\n\", response.Body)\n\telse\n\t\tprint(\"请求失败:\", response.StatusCode, response.StatusMessage)\n\tend\nend\n\n-- 请记得将函数包装在 'pcall' 中，以防请求失败时脚本崩溃\nlocal success, message = pcall(request)\nif not success then\n\tprint(\"Http 请求失败:\", message)\nend"
   },
   "@roblox/globaltype/HttpService.UrlEncode/param/0": {
     "documentation": "允许发送 HTTP 请求并提供各种与网络和 JSON 相关的方法。"
@@ -45475,7 +45470,7 @@
     "documentation": "在线连接的字典（请参见上面的表）。"
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>GetFriendsOnline()</code> 替代。<br>返回在线连接的字典。使用资产 ID 返回资产的产品信息。",
+    "documentation": "<strong>Deprecated:</strong> 此方法已被 <code>GetFriendsOnlineAsync()</code> 取代。<br>返回在线连接的字典。使用资产 ID 返回资产的产品信息。",
     "params": [
       {
         "name": "self",
@@ -52124,7 +52119,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。",
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。",
     "keys": {
       "Archivable": "@roblox/globaltype/Instance.Archivable",
       "archivable": "@roblox/globaltype/Instance.archivable",
@@ -52179,27 +52174,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Archivable": {
-    "documentation": "确定一个 <code>Instance</code> 及其后代是否可以使用 <code>Instance:Clone()</code> 被克隆，并且可以被保存/发布。",
+    "documentation": "确定 <code>Instance</code> 及其后代是否可以通过 <code>Instance:Clone()</code> 被克隆，并且可以被保存/发布。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Archivable",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.archivable": {
-    "documentation": "<strong>Deprecated:</strong> 此已弃用属性是 <code>Instance.Archivable</code> 的一个变体， 应代替使用。",
+    "documentation": "<strong>Deprecated:</strong> 这个已弃用的属性是 <code>Instance.Archivable</code> 的一个变体， 应该使用它。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#archivable",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Capabilities": {
-    "documentation": "允许在此容器内部使用的功能集。",
+    "documentation": "允许在此容器内部使用的脚本能力集合。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Capabilities",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Name": {
-    "documentation": "一个 <code>Instance</code> 的非唯一标识符。",
+    "documentation": "<code>Instance</code> 的非唯一标识符。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Name",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Parent": {
-    "documentation": "确定 <code>Instance</code> 的层次父级。",
+    "documentation": "确定 <code>Instance</code> 的层级父对象。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Parent",
     "code_sample": ""
   },
@@ -52214,23 +52209,23 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Sandboxed": {
-    "documentation": "将实例转换为一个沙盒容器。",
+    "documentation": "将该实例转换为沙箱容器。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#Sandboxed",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.UniqueId": {
-    "documentation": "实例的唯一标识符。",
+    "documentation": "该实例的唯一标识符。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Instance#UniqueId",
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.AddTag/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.AddTag/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.AddTag": {
-    "documentation": "给实例应用一个标签。",
+    "documentation": "对实例应用标签。",
     "params": [
       {
         "name": "self",
@@ -52246,13 +52241,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.children/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.children/return/0": {
-    "documentation": "子对象/实例数组。"
+    "documentation": "子对象/实例的数组。"
   },
   "@roblox/globaltype/Instance.children": {
-    "documentation": "<strong>Deprecated:</strong> 此项已被 <code>Instance:GetChildren()</code> 取代，应在所有新工作中使用。<br>返回对象的子项数组。",
+    "documentation": "<strong>Deprecated:</strong> 此项已被 <code>Instance:GetChildren()</code> 取代，应在所有新工作中使用。<br>返回对象的子对象数组。",
     "params": [
       {
         "name": "self",
@@ -52266,10 +52261,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.ClearAllChildren/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.ClearAllChildren": {
-    "documentation": "该方法销毁实例的所有孩子。",
+    "documentation": "此方法销毁实例的所有子对象。",
     "params": [
       {
         "name": "self",
@@ -52281,13 +52276,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Clone/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.Clone/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.Clone": {
-    "documentation": "克隆实例及其所有后代，忽略那些不是 <code>Archivable</code> 的实例。",
+    "documentation": "创建实例及其所有后代的副本，忽略不为 <code>Archivable</code> 的实例。",
     "params": [
       {
         "name": "self",
@@ -52301,13 +52296,13 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\n\n-- 获取对现有对象的引用\nlocal model = script.Parent.Model\n\n-- 创建模型的克隆\nlocal clone = model:Clone()\n\n-- 移动克隆，以便它不会与原始模型重叠\nclone:PivotTo(model.PrimaryPart.CFrame - (Vector3.xAxis * 10))\n\n-- 将克隆添加到工作区\nclone.Parent = Workspace"
   },
   "@roblox/globaltype/Instance.clone/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.clone/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.clone": {
-    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Instance:Clone()</code> 的变体，应代替使用。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Instance:Clone()</code> 的变体， 应使用它。",
     "params": [
       {
         "name": "self",
@@ -52321,7 +52316,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Destroy/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.Destroy": {
     "documentation": "将 <code>Instance.Parent</code> 属性设置为 <code>nil</code>，锁定 <code>Instance.Parent</code> 属性，断开所有连接，并在所有子对象上调用 <code>Destroy()</code>。",
@@ -52336,10 +52331,10 @@
     "code_sample": "local part = script.Parent.Part\n\npart:Destroy()"
   },
   "@roblox/globaltype/Instance.destroy/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.destroy": {
-    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Instance:Destroy()</code> 的变体， 应代替使用。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Instance:Destroy()</code> 的变体， 应使用它。",
     "params": [
       {
         "name": "self",
@@ -52351,7 +52346,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestor/param/1": {
     "documentation": "要查找的 <code>Instance.Name</code>。"
@@ -52378,7 +52373,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass/param/1": {
     "documentation": "要查找的 <code>Object.ClassName</code>。"
@@ -52387,7 +52382,7 @@
     "documentation": "找到的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorOfClass": {
-    "documentation": "返回 <code>Instance</code> 的第一个祖先， 其 <code>Object.ClassName</code> 等于给定的 className。",
+    "documentation": "返回 <code>Instance</code> 的第一个祖先， 其 <code>Object.ClassName</code> 等于给定 className。",
     "params": [
       {
         "name": "self",
@@ -52405,7 +52400,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA/param/1": {
     "documentation": "要查找的 <code>Object.ClassName</code>。"
@@ -52414,7 +52409,7 @@
     "documentation": "找到的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstAncestorWhichIsA": {
-    "documentation": "返回 <code>Instance</code> 的第一个祖先， 其 <code>Object:IsA()</code> 对于给定的 className 返回 true。",
+    "documentation": "返回 <code>Instance</code> 的第一个祖先， <code>Object:IsA()</code> 返回对给定 className 为 true。",
     "params": [
       {
         "name": "self",
@@ -52432,19 +52427,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/1": {
     "documentation": "要搜索的 <code>Instance.Name</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstChild/param/2": {
-    "documentation": "是否应进行递归搜索。"
+    "documentation": "是否应该递归搜索。"
   },
   "@roblox/globaltype/Instance.FindFirstChild/return/0": {
     "documentation": "找到的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstChild": {
-    "documentation": "返回带有给定名称的 <code>Instance</code> 的第一个子项。",
+    "documentation": "返回具有给定名称的 <code>Instance</code> 的第一个子对象。",
     "params": [
       {
         "name": "self",
@@ -52466,7 +52461,7 @@
     "code_sample": "local found = workspace:FindFirstChild(\"Brick\")\n\nif found then\n\tfound.Name = \"Foo\"\nend"
   },
   "@roblox/globaltype/Instance.findFirstChild/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.findFirstChild/param/1": {
     "documentation": ""
@@ -52478,7 +52473,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.findFirstChild": {
-    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Instance:FindFirstChild()</code> 的变体， 应代替使用。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Instance:FindFirstChild()</code> 的变体， 应使用它。",
     "params": [
       {
         "name": "self",
@@ -52500,7 +52495,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass/param/1": {
     "documentation": "要查找的 <code>Object.ClassName</code>。"
@@ -52509,7 +52504,7 @@
     "documentation": "找到的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstChildOfClass": {
-    "documentation": "返回 <code>Instance</code> 的第一个子项，其 <code>ClassName</code> 等于给定类名。",
+    "documentation": "返回 <code>Instance</code> 的第一个子对象， 其 <code>ClassName</code> 等于给定类名。",
     "params": [
       {
         "name": "self",
@@ -52527,19 +52522,19 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal character = player.Character or player.CharacterAdded:Wait()\n\nlocal humanoid\n\nwhile not humanoid do\n\thumanoid = character:FindFirstChildOfClass(\"Humanoid\")\n\tif not humanoid then\n\t\tcharacter.ChildAdded:Wait()\n\tend\nend"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/1": {
     "documentation": "要查找的 <code>Object.ClassName</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/param/2": {
-    "documentation": "是否应进行递归搜索。"
+    "documentation": "是否应该递归搜索。"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA/return/0": {
     "documentation": "找到的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstChildWhichIsA": {
-    "documentation": "返回 <code>Instance</code> 的第一个子项， 其 <code>Object:IsA()</code> 返回真对于给定的 className。",
+    "documentation": "返回 <code>Instance</code> 的第一个子对象， <code>Object:IsA()</code> 对给定 className 返回 true。",
     "params": [
       {
         "name": "self",
@@ -52561,7 +52556,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.FindFirstDescendant/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.FindFirstDescendant/param/1": {
     "documentation": "要搜索的 <code>Instance.Name</code>。"
@@ -52570,7 +52565,7 @@
     "documentation": "找到的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.FindFirstDescendant": {
-    "documentation": "返回找到的第一个后代，具有给定的 <code>Instance.Name</code>。",
+    "documentation": "返回具有给定 <code>Instance.Name</code> 的第一个后代。",
     "params": [
       {
         "name": "self",
@@ -52588,13 +52583,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetActor/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetActor/return/0": {
     "documentation": "找到的 <code>Actor</code>。"
   },
   "@roblox/globaltype/Instance.GetActor": {
-    "documentation": "返回与实例关联的 <code>Actor</code>（如果有的话）。",
+    "documentation": "返回与该实例关联的 <code>Actor</code>（如果有）。",
     "params": [
       {
         "name": "self",
@@ -52608,13 +52603,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttribute/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetAttribute/param/1": {
-    "documentation": "要检索的属性名称。"
+    "documentation": "正在检索的属性名称。"
   },
   "@roblox/globaltype/Instance.GetAttribute/return/0": {
-    "documentation": "分配给给定属性名称的值。如果没有分配属性值，返回 <code>nil</code>。"
+    "documentation": "分配给给定属性名称的值。如果没有分配属性，则返回 <code>nil</code>。"
   },
   "@roblox/globaltype/Instance.GetAttribute": {
     "documentation": "返回分配给给定属性名称的值。",
@@ -52635,10 +52630,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/param/1": {
-    "documentation": "要返回更改信号的指定属性的名称。"
+    "documentation": "要监听更改信号的指定属性名称。"
   },
   "@roblox/globaltype/Instance.GetAttributeChangedSignal/return/0": {
     "documentation": "在给定属性更改时触发的事件。"
@@ -52662,10 +52657,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetAttributes/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetAttributes/return/0": {
-    "documentation": "每个属性的字符串 → 变体对字典，其中字符串是属性名称，变体是非 <code>nil</code> 值。"
+    "documentation": "每个属性的字符串 → 变体 键值对字典，其中字符串是属性名称， 变体是非 nil 值。"
   },
   "@roblox/globaltype/Instance.GetAttributes": {
     "documentation": "返回实例属性的字典。",
@@ -52682,13 +52677,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetChildren/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetChildren/return/0": {
-    "documentation": "包含实例的子项的数组。"
+    "documentation": "包含实例子对象的数组。"
   },
   "@roblox/globaltype/Instance.GetChildren": {
-    "documentation": "返回一个包含该实例所有孩子的数组。",
+    "documentation": "返回包含实例所有子对象的数组。",
     "params": [
       {
         "name": "self",
@@ -52702,13 +52697,13 @@
     "code_sample": "local children = workspace:GetChildren()\n\nfor i = 1, #children do\n\tprint(i, children[i].Name)\nend"
   },
   "@roblox/globaltype/Instance.getChildren/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.getChildren/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.getChildren": {
-    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Instance:GetChildren()</code> 的变体， 应代替使用。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Instance:GetChildren()</code> 的变体， 应使用它。",
     "params": [
       {
         "name": "self",
@@ -52722,10 +52717,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetDebugId/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetDebugId/param/1": {
-    "documentation": "作用域长度。"
+    "documentation": "范围长度。"
   },
   "@roblox/globaltype/Instance.GetDebugId/return/0": {
     "documentation": "调试 ID 字符串。"
@@ -52749,7 +52744,7 @@
     "code_sample": "print(workspace:GetDebugId()) --> 39FA_12\nprint(workspace:GetDebugId(10)) --> 39FA2FEF4D_12\nprint(workspace:GetDebugId(math.huge)) --> 12"
   },
   "@roblox/globaltype/Instance.GetDescendants/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetDescendants/return/0": {
     "documentation": "包含实例后代的数组。"
@@ -52769,10 +52764,10 @@
     "code_sample": "local descendants = workspace:GetDescendants()\n\n-- 遍历工作区的所有后代。如果找到一个\n-- BasePart，代码将该部件的颜色更改为绿色\nfor _, descendant in pairs(descendants) do\n\tif descendant:IsA(\"BasePart\") then\n\t\tdescendant.BrickColor = BrickColor.Green()\n\tend\nend"
   },
   "@roblox/globaltype/Instance.GetFullName/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetFullName/return/0": {
-    "documentation": "该 <code>Instance</code> 的全名。"
+    "documentation": "<code>Instance</code> 的完整名称。"
   },
   "@roblox/globaltype/Instance.GetFullName": {
     "documentation": "返回描述实例祖先的字符串。",
@@ -52789,19 +52784,19 @@
     "code_sample": "-- 创建一个简单的层次结构\nlocal model = Instance.new(\"Model\")\nlocal part = Instance.new(\"Part\")\npart.Parent = model\nlocal fire = Instance.new(\"Fire\")\nfire.Parent = part\n\nprint(fire:GetFullName()) --> Model.Part.Fire\n\nmodel.Parent = workspace\n\nprint(fire:GetFullName()) --> Workspace.Model.Part.Fire\n\npart.Name = \"你好，世界\"\n\nprint(fire:GetFullName()) --> Workspace.Model.你好，世界.Fire"
   },
   "@roblox/globaltype/Instance.GetStyled/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetStyled/param/1": {
     "documentation": "要查询的属性名称。"
   },
   "@roblox/globaltype/Instance.GetStyled/param/2": {
-    "documentation": "可选选择器，用于指定您在实例上定位的伪实例。"
+    "documentation": "针对你在实例上定位的伪实例的可选选择器。"
   },
   "@roblox/globaltype/Instance.GetStyled/return/0": {
-    "documentation": "指定属性的样式或显式修改值， 如果未被样式/修改，则返回默认属性值。"
+    "documentation": "指定属性的样式或显式修改值， 如果其未被样式/修改则返回默认属性值。"
   },
   "@roblox/globaltype/Instance.GetStyled": {
-    "documentation": "返回特定属性的样式或显式修改值， 如果未被样式/修改，则返回默认属性值。",
+    "documentation": "返回指定属性的样式或明确修改后的值，或者返回默认属性值（如果没有样式/修改）。",
     "params": [
       {
         "name": "self",
@@ -52823,13 +52818,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/param/1": {
-    "documentation": "要监听变化的样式属性名称。"
+    "documentation": "要监听其更改的样式属性名称。"
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal/return/0": {
-    "documentation": "在给定样式属性变化时触发的事件。"
+    "documentation": "在给定样式属性更改时触发的事件。"
   },
   "@roblox/globaltype/Instance.GetStyledPropertyChangedSignal": {
     "documentation": "",
@@ -52850,13 +52845,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.GetTags/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.GetTags/return/0": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.GetTags": {
-    "documentation": "获取所有应用于实例的标签的数组。",
+    "documentation": "获取应用于实例的所有标签的数组。",
     "params": [
       {
         "name": "self",
@@ -52870,7 +52865,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.HasTag/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.HasTag/param/1": {
     "documentation": ""
@@ -52897,10 +52892,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.IsAncestorOf/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.IsAncestorOf/param/1": {
-    "documentation": "后代 <code>Instance</code>。"
+    "documentation": "后代的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.IsAncestorOf/return/0": {
     "documentation": "如果 <code>Instance</code> 是给定后代的祖先，则为真。"
@@ -52924,16 +52919,16 @@
     "code_sample": "local Workspace = game:GetService(\"Workspace\")\nlocal spawnLocation = Workspace.SpawnLocation\nlocal decal = spawnLocation.Decal\n\n-- 这些语句为真\nprint(Workspace:IsAncestorOf(spawnLocation))\nprint(Workspace:IsAncestorOf(decal))\nprint(spawnLocation:IsAncestorOf(decal))\n\n-- 这些语句为假\nprint(spawnLocation:IsAncestorOf(Workspace))\nprint(decal:IsAncestorOf(Workspace))\nprint(decal:IsAncestorOf(spawnLocation))"
   },
   "@roblox/globaltype/Instance.IsDescendantOf/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.IsDescendantOf/param/1": {
-    "documentation": "祖先 <code>Instance</code>。"
+    "documentation": "祖先的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.IsDescendantOf/return/0": {
     "documentation": "如果 <code>Instance</code> 是给定祖先的后代，则为真。"
   },
   "@roblox/globaltype/Instance.IsDescendantOf": {
-    "documentation": "如果 <code>Instance</code> 是给定祖先的后代，则返回 <code>true</code>。",
+    "documentation": "如果 <code>Instance</code> 是给定祖先的后代，则返回 true。",
     "params": [
       {
         "name": "self",
@@ -52951,7 +52946,7 @@
     "code_sample": "local part = Instance.new(\"Part\")\nprint(part:IsDescendantOf(game))\n--> false\n\npart.Parent = workspace\nprint(part:IsDescendantOf(game))\n--> true\n\npart.Parent = game\nprint(part:IsDescendantOf(game))\n--> true"
   },
   "@roblox/globaltype/Instance.isDescendantOf/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.isDescendantOf/param/1": {
     "documentation": ""
@@ -52960,7 +52955,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/Instance.isDescendantOf": {
-    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Instance:IsDescendantOf()</code> 的变体， 应代替使用。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Instance:IsDescendantOf()</code> 的变体， 应使用它。",
     "params": [
       {
         "name": "self",
@@ -52978,16 +52973,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.IsPropertyModified/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified/param/1": {
     "documentation": "要查询的属性名称。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "布尔值，指示属性是否从其代码实例化的默认值修改。"
+    "documentation": "布尔值，指示该属性是否已从其代码实例化的默认值中修改。"
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "如果存储在指定属性中的值不等于代码实例化的默认值，则返回 <code>true</code>。",
+    "documentation": "如果指定属性中存储的值不等于代码实例化的默认值，则返回 <code>true</code>。",
     "params": [
       {
         "name": "self",
@@ -53005,13 +53000,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.QueryDescendants/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.QueryDescendants/param/1": {
     "documentation": "用于过滤元素的选择器字符串。"
   },
   "@roblox/globaltype/Instance.QueryDescendants/return/0": {
-    "documentation": "一个实例数组（如果没有匹配的选择器则为空）。"
+    "documentation": "一个实例数组（如果没有匹配选择器则为空）。"
   },
   "@roblox/globaltype/Instance.QueryDescendants": {
     "documentation": "",
@@ -53032,10 +53027,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.Remove/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.Remove": {
-    "documentation": "<strong>Deprecated:</strong> 此项已弃用，建议使用 <code>Instance:Destroy()</code> 和 <code>Instance:ClearAllChildren()</code>。如果您必须从游戏中移除对象，并希望稍后使用它，请将其 <code>Parent</code> 属性设置为 <code>nil</code>， 而不是使用此方法。<br>将对象的 <code>Parent</code> 设置为 <code>nil</code>，并对其所有后代执行相同操作。",
+    "documentation": "<strong>Deprecated:</strong> 此项目已被弃用，取而代之的是 <code>Instance:Destroy()</code> 和 <code>Instance:ClearAllChildren()</code>。如果您必须从游戏中删除对象， 并希望稍后使用该对象，请将其 <code>Parent</code> 属性设置为 <code>nil</code>， 而不是使用此方法。<br>将对象的 <code>Parent</code> 设置为 <code>nil</code>，并对其所有后代执行相同操作。",
     "params": [
       {
         "name": "self",
@@ -53047,10 +53042,10 @@
     "code_sample": "local part = Instance.new(\"Part\")\npart.Parent = workspace\nprint(part.Parent) --> 工作区\n\npart:Remove()\n\nprint(part.Parent) --> nil\n\npart.Parent = workspace\n\nprint(part.Parent) --> 工作区"
   },
   "@roblox/globaltype/Instance.remove/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.remove": {
-    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Instance:Remove()</code> 的变体， 也已被弃用。这两个函数不应在新工作中使用。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用的函数是 <code>Instance:Remove()</code> 的变体， 也已被弃用。两个函数都不应在新工作中使用。",
     "params": [
       {
         "name": "self",
@@ -53062,13 +53057,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.RemoveTag/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.RemoveTag/param/1": {
     "documentation": ""
   },
   "@roblox/globaltype/Instance.RemoveTag": {
-    "documentation": "从实例中移除标签。",
+    "documentation": "从实例中删除标签。",
     "params": [
       {
         "name": "self",
@@ -53084,7 +53079,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.ResetPropertyToDefault/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.ResetPropertyToDefault/param/1": {
     "documentation": "要重置的属性名称。"
@@ -53106,10 +53101,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.SetAttribute/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.SetAttribute/param/1": {
-    "documentation": "要设置的属性名称。"
+    "documentation": "正在设置的属性名称。"
   },
   "@roblox/globaltype/Instance.SetAttribute/param/2": {
     "documentation": "要设置指定属性的值。"
@@ -53135,19 +53130,19 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Instance.WaitForChild/param/0": {
-    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以成为 <code>DataModel</code> 树的一部分。"
+    "documentation": "<code>Instance</code> 是 Roblox 类层次结构中所有类的基类 可以是 <code>DataModel</code> 树的一部分。"
   },
   "@roblox/globaltype/Instance.WaitForChild/param/1": {
-    "documentation": "要查找的<code>Instance.Name</code>。"
+    "documentation": "要查找的 <code>Instance.Name</code>。"
   },
   "@roblox/globaltype/Instance.WaitForChild/param/2": {
     "documentation": "可选的超时参数。"
   },
   "@roblox/globaltype/Instance.WaitForChild/return/0": {
-    "documentation": "找到的<code>Instance</code>。"
+    "documentation": "找到的 <code>Instance</code>。"
   },
   "@roblox/globaltype/Instance.WaitForChild": {
-    "documentation": "返回具有给定名称的<code>Instance</code>的子级。如果子级 不存在，它将暂停当前线程，直到它存在。",
+    "documentation": "返回具有给定名称的 <code>Instance</code> 的子对象。如果该子对象不存在， 将使当前线程保持等待，直到它存在。",
     "params": [
       {
         "name": "self",
@@ -53246,7 +53241,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.AncestryChanged": {
-    "documentation": "当对象或其任一祖先的<code>Instance.Parent</code>属性被更改时触发。",
+    "documentation": "当对象的 <code>Instance.Parent</code> 属性或其祖先之一发生更改时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.AncestryChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.AncestryChanged.ConnectParallel",
@@ -53334,7 +53329,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.AttributeChanged": {
-    "documentation": "每当在<code>Instance</code>上更改属性时触发。",
+    "documentation": "每当 <code>Instance</code> 上的属性被更改时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.AttributeChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.AttributeChanged.ConnectParallel",
@@ -53422,7 +53417,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.ChildAdded": {
-    "documentation": "当对象被父级添加到此<code>Instance</code>后触发。",
+    "documentation": "在对象被添加为此 <code>Instance</code> 的子对象后触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.ChildAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.ChildAdded.ConnectParallel",
@@ -53510,7 +53505,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.childAdded": {
-    "documentation": "<strong>Deprecated:</strong> 此已弃用事件是<code>Instance.ChildAdded</code>的一个变体，应该使用它。",
+    "documentation": "<strong>Deprecated:</strong> 此已弃用的事件是 <code>Instance.ChildAdded</code> 的一种变体，应使用该事件。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.childAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.childAdded.ConnectParallel",
@@ -53598,7 +53593,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.ChildRemoved": {
-    "documentation": "在子级从此<code>Instance</code>中移除后触发。",
+    "documentation": "在子对象从此 <code>Instance</code> 中移除后触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.ChildRemoved.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.ChildRemoved.ConnectParallel",
@@ -53686,7 +53681,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.DescendantAdded": {
-    "documentation": "在后代被添加到<code>Instance</code>后触发。",
+    "documentation": "在后代被添加到 <code>Instance</code> 后触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.DescendantAdded.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.DescendantAdded.ConnectParallel",
@@ -53774,7 +53769,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.DescendantRemoving": {
-    "documentation": "在<code>Instance</code>的后代被移除之前立即触发。",
+    "documentation": "在 <code>Instance</code> 的后代被移除之前立即触发。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.DescendantRemoving.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.DescendantRemoving.ConnectParallel",
@@ -53862,7 +53857,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.Destroying": {
-    "documentation": "在实例通过<code>Instance:Destroy()</code>被销毁之前立即触发（或被推迟到之后）。",
+    "documentation": "在实例通过 <code>Instance:Destroy()</code> 被销毁之前立即触发（或推迟到之后）。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.Destroying.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.Destroying.ConnectParallel",
@@ -53950,7 +53945,7 @@
     "returns": []
   },
   "@roblox/globaltype/Instance.StyledPropertiesChanged": {
-    "documentation": "每当实例上的任何样式属性更改时触发，包括当属性被设置为<code>nil</code>时。",
+    "documentation": "每当实例上的任何样式属性被更改时触发，包括当属性被设置为 <code>nil</code> 时。",
     "keys": {
       "Connect": "@roblox/globaltype/Instance.StyledPropertiesChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/Instance.StyledPropertiesChanged.ConnectParallel",
@@ -54010,10 +54005,10 @@
     "documentation": "覆盖延迟的音频流副本。"
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例的输入或输出引脚"
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires": {
     "documentation": "返回连接到指定针的 <code>Wires</code> 的数组。",
@@ -54037,10 +54032,10 @@
     "documentation": "覆盖延迟的音频流副本。"
   },
   "@roblox/globaltype/AudioEcho.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioEcho.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引脚列表 通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -54057,10 +54052,10 @@
     "documentation": "覆盖延迟的音频流副本。"
   },
   "@roblox/globaltype/AudioEcho.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioEcho.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引脚列表 通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -54231,16 +54226,16 @@
     "documentation": "请求生成的 <code>Player</code> 。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/3": {
-    "documentation": "一个字典，用于其他生成选项以影响结果。支持以下键：- <code>SuggestedSize</code> — 可选的 <code>Vector3</code>，表示生成资产的大小指南。服务将尝试创建一个与提供的 <code>Vector3</code> 类似大小和比例的模型。这不能保证最终输出的大小。"
+    "documentation": "一个用于附加生成选项的字典，以影响结果。可选的 <code>SuggestedSize</code> 键（<code>Vector3</code>）表示生成资产的尺寸指南，这意味着 <code>GenerationService</code> 将尝试创建一个与提供的 <code>Vector3</code> 类似尺寸和比例的模型，尽管对最终输出尺寸没有保证。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/4": {
-    "documentation": "在中间生成结果时触发的回调函数。用于在应用纹理之前检索早期网格版本。"
+    "documentation": "一个在生成过程中触发的回调函数，接收中间生成结果。对于检索纹理应用之前的早期网格版本非常有用。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/return/0": {
-    "documentation": "一个元组，包括生成 ID（每次调用 <code>GenerateMeshAsync()</code> 返回的唯一 ID）和上下文 ID（当前未使用）。"
+    "documentation": "一个元组，包含生成 ID（每次调用 <code>GenerateMeshAsync()</code> 返回的唯一 ID）和上下文 ID（当前未使用）。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync": {
-    "documentation": "从文本提示开始生成一个新的 3D 网格并返回用于跟踪和检索结果的唯一 ID。",
+    "documentation": "从文本提示开始生成新的 3D 网格，并返回用于跟踪和检索结果的唯一 ID。",
     "params": [
       {
         "name": "self",
@@ -54273,19 +54268,19 @@
     "documentation": "允许开发者从文本提示生成3D对象的服务。"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/1": {
-    "documentation": ""
+    "documentation": "一个表示条件输入的表，具有以下键： <ul> <li><code>TextPrompt</code> — 要生成的对象的字符串描述。</li> <li><code>Size</code> — 可选的 <code>Vector3</code>，描述要生成的对象尺寸。这只是一个近似值；如果您需要特定尺寸，请在生成后缩放模型范围。</li> <li><code>MaxTriangles</code> — 可选整数，描述返回模型将包含的三角形最大数量。较低的值会导致生成更多的分面和低多边形模型。</li> <li><code>GenerateTextures</code> — <code>true</code>（默认值）为生成的结果纹理，而 <code>false</code> 则不生成纹理。</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/2": {
-    "documentation": ""
+    "documentation": "表示生成架构的表。必须包含一个 <code>PredefinedSchema</code> 键，其值为字符串；当前有效选项为 <code>Car5</code>，表示由五个 <code>Models</code> 组成的基本车辆底盘，或 <code>Body1</code>，表示生成单个网格输出。"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/3": {
-    "documentation": ""
+    "documentation": "当前未使用；保留用于未来的自定义选项。"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/return/0": {
-    "documentation": ""
+    "documentation": "包含以下元素的元组： <ul> <li>一个符合指定 <code>schema</code> 的标准 <code>Model</code> 容器实例。</li> <li>一个包含 UUID 和其他有关生成的元数据的表。</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync": {
-    "documentation": "",
+    "documentation": "根据提供的 <code>inputs</code> 和 <code>schema</code> 使生成多网格几何体成为可能。",
     "params": [
       {
         "name": "self",
@@ -54314,10 +54309,10 @@
     "documentation": "允许开发者从文本提示生成3D对象的服务。"
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/param/1": {
-    "documentation": "由 <code>GenerateMeshAsync()</code> 返回的唯一 ID。识别要加载的网格。"
+    "documentation": "由 <code>GenerateMeshAsync()</code> 返回的唯一 ID。用于标识要加载的网格。"
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/return/0": {
-    "documentation": "生成的资产，作为包含一个 <code>EditableMesh</code> 的单个 <code>Model</code> 返回。"
+    "documentation": "生成的资产，作为包含一个 <code>EditableMesh</code> 的单个 <code>MeshPart</code> 的 <code>Model</code> 返回。"
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync": {
     "documentation": "使用提供的 <code>generationId</code> 检索并加载由 <code>GenerationService:GenerateMeshAsync()</code> 生成的网格。",
@@ -57314,10 +57309,10 @@
     "documentation": "在音频流上施加哗啦或扫过的声音。"
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires": {
     "documentation": "返回连接到指定插口的 <code>Wires</code> 数组。",
@@ -57341,10 +57336,10 @@
     "documentation": "在音频流上施加哗啦或扫过的声音。"
   },
   "@roblox/globaltype/AudioFlanger.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioFlanger.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引脚列表，以便通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -57361,10 +57356,10 @@
     "documentation": "在音频流上施加哗啦或扫过的声音。"
   },
   "@roblox/globaltype/AudioFlanger.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioFlanger.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引脚列表，以便通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -58416,10 +58411,10 @@
     "documentation": "调整音频流的感知音高。"
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "该实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires": {
     "documentation": "返回连接到指定插口的 <code>Wires</code> 的数组。",
@@ -58443,10 +58438,10 @@
     "documentation": "调整音频流的感知音高。"
   },
   "@roblox/globaltype/AudioPitchShifter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioPitchShifter.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引脚列表，以通过其 <code>Wire.TargetInstance</code> 属性连接到该实例。",
     "params": [
       {
         "name": "self",
@@ -58463,10 +58458,10 @@
     "documentation": "调整音频流的感知音高。"
   },
   "@roblox/globaltype/AudioPitchShifter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioPitchShifter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引脚列表，以通过其 <code>Wire.SourceInstance</code> 属性连接到该实例。",
     "params": [
       {
         "name": "self",
@@ -58912,10 +58907,10 @@
     "documentation": "回响音频流。"
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires": {
     "documentation": "返回连接到指定引脚的 <code>Wires</code> 数组。",
@@ -58939,10 +58934,10 @@
     "documentation": "回响音频流。"
   },
   "@roblox/globaltype/AudioReverb.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioReverb.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引脚列表 以通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -58959,10 +58954,10 @@
     "documentation": "回响音频流。"
   },
   "@roblox/globaltype/AudioReverb.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioReverb.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引脚列表 以通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -59115,7 +59110,7 @@
     "documentation": "一个新的 <code>Decal</code>，包含组合的纹理集。"
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync": {
-    "documentation": "创建一个 Decal 实例，该实例使用通过按提供的 <code>layers</code> 数组中的顺序分层的组合 PBR 纹理。",
+    "documentation": "创建一个 Decal 实例，使用通过按提供的顺序逐层叠加的复合 PBR 纹理。 纹理的层叠基于 ColorMap 的 alpha 值。",
     "params": [
       {
         "name": "self",
@@ -59470,13 +59465,13 @@
     "documentation": "一个非复制的服务，处理与资产相关的查询到 Roblox 网络 API。"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "包含以下键值对的字典： <ul> <li><code>ColorMap</code> — 包含颜色图的 <code>Content</code> 对象。默认值为 <code>nil</code>。</li> <li><code>MetalnessMap</code> — 包含金属图的 <code>Content</code> 对象。如果存在多个通道，则仅使用红色通道。默认值为 <code>nil</code>。</li> <li><code>NormalMap</code> — 包含法线图的 <code>Content</code> 对象。默认值为 <code>nil</code>。</li> <li><code>RoughnessMap</code> — 包含粗糙图的 <code>Content</code> 对象。如果存在多个通道，则仅使用红色通道。默认值为 <code>nil</code>。</li> <li><code>EmissiveMask</code> — 包含发光面具的 <code>Content</code> 对象。如果存在多个通道，则仅使用红色通道。默认值为 <code>nil</code>。</li> </ul>"
+    "documentation": "包含以下键值对的字典： <ul> <li><code>ColorMap</code> — 一个 <code>Content</code> 对象，包含颜色贴图。默认值为 <code>nil</code>。</li> <li><code>MetalnessMap</code> — 一个 <code>Content</code> 对象，包含金属度贴图。如果有多个通道，只有红色通道会被使用。默认值为 <code>nil</code>。</li> <li><code>NormalMap</code> — 一个 <code>Content</code> 对象，包含法线贴图。默认值为 <code>nil</code>。</li> <li><code>RoughnessMap</code> — 一个 <code>Content</code> 对象，包含粗糙度贴图。如果有多个通道，只有红色通道会被使用。默认值为 <code>nil</code>。</li> <li><code>EmissiveMask</code> — 一个 <code>Content</code> 对象，包含发光掩膜。如果有多个通道，只有红色通道会被使用。默认值为 <code>nil</code>。</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "一个新的 <code>SurfaceAppearance</code> 实例，包含来自 <code>content</code> 参数的给定图。"
+    "documentation": "一个新的 <code>SurfaceAppearance</code> 实例，具有来自 <code>content</code> 参数的给定贴图。"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
-    "documentation": "使用提供的内容图创建新的 <code>SurfaceAppearance</code> 对象。",
+    "documentation": "使用提供的内容贴图创建一个新的 <code>SurfaceAppearance</code> 对象。",
     "params": [
       {
         "name": "self",
@@ -59754,7 +59749,7 @@
     "documentation": "一个非复制的服务，处理与资产相关的查询到 Roblox 网络 API。"
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "可选的字典，其中包括 <code>SaveWithoutPublish</code>，一个布尔值，指示是否要保存时发布或不发布，以及 <code>PlaceId</code>，要保存的目标地点 ID。一个示例用法是：AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true})。如果未提供 PlaceId，则默认行为将保存覆盖当前调用 SavePlaceAsync 的原始地点。如果未提供 SaveWithoutPublish，则默认行为是 SaveWithoutPublish=false。"
+    "documentation": "可选字典，包括 <code>SaveWithoutPublish</code>，一个布尔值，指示是否带发布或不带发布进行保存，以及 <code>PlaceId</code>，要保存的目标地点 ID。一个示例用法是：AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true})。如果未提供 PlaceId，默认行为将覆盖调用 SavePlaceAsync 的当前原始地点。如果未提供 SaveWithoutPublish，默认行为是 SaveWithoutPublish=false。"
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "保存当前地点的状态。",
@@ -60988,10 +60983,10 @@
     "documentation": "从通过一个或多个 <code>Wires</code> 连接到它的音频流中获取测量数据。"
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires": {
     "documentation": "返回与指定针脚连接的 <code>Wires</code> 数组。",
@@ -61015,10 +61010,10 @@
     "documentation": "从通过一个或多个 <code>Wires</code> 连接到它的音频流中获取测量数据。"
   },
   "@roblox/globaltype/AudioAnalyzer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioAnalyzer.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引脚列表，以 通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -61035,10 +61030,10 @@
     "documentation": "从通过一个或多个 <code>Wires</code> 连接到它的音频流中获取测量数据。"
   },
   "@roblox/globaltype/AudioAnalyzer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioAnalyzer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引脚列表，以 通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -61710,10 +61705,10 @@
     "documentation": "将文本作为语音音频播放。"
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 数组"
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires": {
     "documentation": "返回连接到指定引脚的 <code>Wires</code> 数组。",
@@ -67826,7 +67821,6 @@
       "UseLocalSpace": "@roblox/globaltype/StudioService.UseLocalSpace",
       "GetClassIcon": "@roblox/globaltype/StudioService.GetClassIcon",
       "GetUserId": "@roblox/globaltype/StudioService.GetUserId",
-      "GizmoRaycast": "@roblox/globaltype/StudioService.GizmoRaycast",
       "PromptImportFileAsync": "@roblox/globaltype/StudioService.PromptImportFileAsync",
       "PromptImportFile": "@roblox/globaltype/StudioService.PromptImportFile",
       "PromptImportFilesAsync": "@roblox/globaltype/StudioService.PromptImportFilesAsync",
@@ -67932,58 +67926,17 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#GetUserId",
     "code_sample": "-- 仅可在插件中使用\nlocal StudioService = game:GetService(\"StudioService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal loggedInUserId = StudioService:GetUserId()\nlocal loggedInUserName = Players:GetNameFromUserIdAsync(loggedInUserId)\nprint(\"你好,\", loggedInUserName)"
   },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/0": {
-    "documentation": "提供对Roblox Studio配置的访问，并允许从用户的文件系统中导入文件"
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/0"
-      },
-      {
-        "name": "origin",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/1"
-      },
-      {
-        "name": "direction",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/2"
-      },
-      {
-        "name": "raycastParams",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/3"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/StudioService.GizmoRaycast/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#GizmoRaycast",
-    "code_sample": ""
-  },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/param/0": {
     "documentation": "提供对Roblox Studio配置的访问，并允许从用户的文件系统中导入文件"
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/param/1": {
-    "documentation": "用户允许选择的文件类型列表。文件类型无前缀格式。例如，{\"jpg\", \"png\"} 只允许选择JPG或PNG文件。如果未提供过滤器，则过滤器为<code>nil</code>，允许用户选择任何文件类型。"
+    "documentation": "用户允许选择的文件类型列表。文件类型格式为不带句点。例如，{\"jpg\", \"png\"} 将只允许选择 JPG 或 PNG 文件。如果未提供过滤器，则过滤器为 <code>nil</code> 并允许用户选择任何文件类型。"
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/return/0": {
-    "documentation": "导入的 <code>File</code>。如果没有选择文件，或者选择的文件太大（文件大小超过100MB），则返回<code>nil</code>。"
+    "documentation": "导入的 <code>File</code>。如果未选择任何文件，或者所选择的文件太大（文件大小超过 100 兆字节），则返回 <code>nil</code>。"
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync": {
-    "documentation": "提示当前Studio用户选择一个文件以添加为 <code>File</code>。",
+    "documentation": "提示当前 Studio 用户选择一个文件作为 <code>File</code>。",
     "params": [
       {
         "name": "self",
@@ -68004,13 +67957,13 @@
     "documentation": "提供对Roblox Studio配置的访问，并允许从用户的文件系统中导入文件"
   },
   "@roblox/globaltype/StudioService.PromptImportFile/param/1": {
-    "documentation": "用户允许选择的文件类型列表。文件类型格式化时不带句点。例如，{\"jpg\", \"png\"} 将只允许选择 JPG 或 PNG 文件。如果未提供过滤器，过滤器为 <code>nil</code>，允许用户选择任何文件类型。"
+    "documentation": "用户允许选择的文件类型列表。文件类型无前缀格式。例如，{\"jpg\", \"png\"} 只允许选择JPG或PNG文件。如果未提供过滤器，则过滤器为<code>nil</code>，允许用户选择任何文件类型。"
   },
   "@roblox/globaltype/StudioService.PromptImportFile/return/0": {
-    "documentation": "导入的 <code>File</code>。如果未选择文件，或所选文件过大（文件大小大于 100 兆字节），则返回 <code>nil</code>。"
+    "documentation": "导入的 <code>File</code>。如果没有选择文件，或者选择的文件太大（文件大小超过100MB），则返回<code>nil</code>。"
   },
   "@roblox/globaltype/StudioService.PromptImportFile": {
-    "documentation": "<strong>Deprecated:</strong> <br>提示当前 Studio 用户选择一个文件以添加为 <code>File</code>。",
+    "documentation": "<strong>Deprecated:</strong> <br>提示当前Studio用户选择一个文件以添加为 <code>File</code>。",
     "params": [
       {
         "name": "self",
@@ -68031,13 +67984,13 @@
     "documentation": "提供对Roblox Studio配置的访问，并允许从用户的文件系统中导入文件"
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync/param/1": {
-    "documentation": "用户允许选择的文件类型列表。文件类型格式化时不带句点。例如，{\"jpg\", \"png\"} 将只允许选择 JPG 和 PNG 文件。如果未提供过滤器，过滤器为 <code>nil</code>，允许用户选择任何文件类型。"
+    "documentation": "用户允许选择的文件类型列表。文件类型格式为不带句点。例如，{\"jpg\", \"png\"} 将只允许选择 JPG 和 PNG 文件。如果未提供过滤器，则过滤器为 <code>nil</code> 并允许用户选择任何文件类型。"
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync/return/0": {
-    "documentation": "导入的 <code>Files</code>。如果未选择文件，则返回空列表。如果用户选择了一个或多个文件，而这些文件过大（文件大小大于 100 兆字节），则返回 <code>nil</code>。"
+    "documentation": "导入的 <code>Files</code>。如果未选择任何文件，则返回空列表。如果用户选择了一个或多个太大的文件（文件大小超过 100 兆字节），则返回 <code>nil</code>。"
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync": {
-    "documentation": "提示当前 Studio 用户选择文件以添加为 <code>Files</code>。",
+    "documentation": "提示当前 Studio 用户选择文件作为 <code>Files</code>。",
     "params": [
       {
         "name": "self",
@@ -68164,10 +68117,10 @@
     "documentation": "从物理设备（如麦克风）生成音频流。"
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires": {
     "documentation": "返回连接到指定引脚的 <code>Wires</code> 数组。",
@@ -68191,10 +68144,10 @@
     "documentation": "从物理设备（如麦克风）生成音频流。"
   },
   "@roblox/globaltype/AudioDeviceInput.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioDeviceInput.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引脚列表 以通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -68211,10 +68164,10 @@
     "documentation": "从物理设备（如麦克风）生成音频流。"
   },
   "@roblox/globaltype/AudioDeviceInput.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioDeviceInput.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引脚列表 以通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -72552,6 +72505,9 @@
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1": {
     "documentation": "一个 <code>CaptureType</code> 的数组。"
   },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/2": {
+    "documentation": "一个布尔值；默认值为 <code>false</code>。"
+  },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0": {
     "documentation": "元组 (结果: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>)"
   },
@@ -72565,6 +72521,10 @@
       {
         "name": "captureTypeFilters",
         "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1"
+      },
+      {
+        "name": "readFromAllEligibleExperiences",
+        "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/2"
       }
     ],
     "returns": [
@@ -73371,7 +73331,6 @@
     "documentation": "调整音频流的频率内容。",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioFilter.Bypass",
-      "Editor": "@roblox/globaltype/AudioFilter.Editor",
       "FilterType": "@roblox/globaltype/AudioFilter.FilterType",
       "Frequency": "@roblox/globaltype/AudioFilter.Frequency",
       "Gain": "@roblox/globaltype/AudioFilter.Gain",
@@ -73389,28 +73348,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioFilter.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioFilter.FilterType": {
-    "documentation": "由滤波器表示的频段的曲线类型。",
+    "documentation": "由过滤器表示的带的曲线类型。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#FilterType",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioFilter.Frequency": {
-    "documentation": "滤波器作用的中心频率。",
+    "documentation": "过滤器作用的中心频率。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Frequency",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioFilter.Gain": {
-    "documentation": "对于增强和架子滤波器，控制音量的增加或减少。",
+    "documentation": "对于峰值和架子过滤器，控制音量增加或减少。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Gain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioFilter.Q": {
-    "documentation": "对于增强、低通、高通、带通和陷波滤波器，控制选择性或共振。",
+    "documentation": "对于峰值、低通、高通、带通和陷波过滤器，控制选择性或共鸣。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Q",
     "code_sample": ""
   },
@@ -73418,10 +73372,10 @@
     "documentation": "调整音频流的频率内容。"
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires": {
     "documentation": "返回与指定插口连接的 <code>Wires</code> 数组。",
@@ -73472,10 +73426,10 @@
     "documentation": "调整音频流的频率内容。"
   },
   "@roblox/globaltype/AudioFilter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioFilter.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引脚列表，以通过其 <code>Wire.TargetInstance</code> 属性 连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -73492,10 +73446,10 @@
     "documentation": "调整音频流的频率内容。"
   },
   "@roblox/globaltype/AudioFilter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioFilter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引脚列表，以通过其 <code>Wire.SourceInstance</code> 属性 连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -74343,10 +74297,10 @@
     "documentation": "将语音音频转换为文本。"
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 数组"
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires": {
     "documentation": "返回连接到指定引脚的<code>Wires</code>数组。",
@@ -76903,7 +76857,6 @@
     "documentation": "调整音频流的频率内容。",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioEqualizer.Bypass",
-      "Editor": "@roblox/globaltype/AudioEqualizer.Editor",
       "HighGain": "@roblox/globaltype/AudioEqualizer.HighGain",
       "LowGain": "@roblox/globaltype/AudioEqualizer.LowGain",
       "MidGain": "@roblox/globaltype/AudioEqualizer.MidGain",
@@ -76920,28 +76873,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioEqualizer.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioEqualizer.HighGain": {
-    "documentation": "应用于均衡器中最高频带的频率内容的增益值。",
+    "documentation": "增益值，将应用于均衡器中最高频段的频率内容。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#HighGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.LowGain": {
-    "documentation": "应用于均衡器中最低频带的频率内容的增益值。",
+    "documentation": "增益值，将应用于均衡器中最低频段的频率内容。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#LowGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.MidGain": {
-    "documentation": "应用于均衡器中间频带的频率内容的增益值。",
+    "documentation": "增益值，将应用于均衡器中间频段的频率内容。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#MidGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.MidRange": {
-    "documentation": "受 <code>MidGain</code> 影响的频带的频率范围。",
+    "documentation": "受<code>MidGain</code>影响的频段的频率范围。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#MidRange",
     "code_sample": ""
   },
@@ -76949,10 +76897,10 @@
     "documentation": "调整音频流的频率内容。"
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires": {
     "documentation": "返回连接到指定引脚的 <code>Wires</code> 数组。",
@@ -76976,10 +76924,10 @@
     "documentation": "调整音频流的频率内容。"
   },
   "@roblox/globaltype/AudioEqualizer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个代表有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioEqualizer.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引脚列表，以通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -76996,10 +76944,10 @@
     "documentation": "调整音频流的频率内容。"
   },
   "@roblox/globaltype/AudioEqualizer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个代表有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioEqualizer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引脚列表，以通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -79248,10 +79196,10 @@
     "documentation": "将音频流分割为组件通道，以便每个通道可以独立处理"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 数组"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires": {
     "documentation": "返回一个与指定引脚连接的 <code>Wires</code> 数组。",
@@ -79275,10 +79223,10 @@
     "documentation": "将音频流分割为组件通道，以便每个通道可以独立处理"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetInputPins": {
-    "documentation": "返回可用的输入引脚 <code>Wire.TargetName</code>。",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引脚列表，以通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -79295,10 +79243,10 @@
     "documentation": "将音频流分割为组件通道，以便每个通道可以独立处理"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetOutputPins": {
-    "documentation": "返回可以通过 <code>Wire.SourceName</code> 选择的输出引脚。",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引脚列表，以通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -87589,13 +87537,13 @@
     "documentation": "通过上下变化声音的音量来创建声音的颤动效果。"
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 数组"
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "返回一个连接到指定引脚的 <code>Wires</code> 数组。",
     "params": [
       {
         "name": "self",
@@ -87616,10 +87564,10 @@
     "documentation": "通过上下变化声音的音量来创建声音的颤动效果。"
   },
   "@roblox/globaltype/AudioTremolo.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioTremolo.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可在 <code>Wire.TargetName</code> 中使用的引脚列表，以通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -87636,10 +87584,10 @@
     "documentation": "通过上下变化声音的音量来创建声音的颤动效果。"
   },
   "@roblox/globaltype/AudioTremolo.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioTremolo.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可在 <code>Wire.SourceName</code> 中使用的引脚列表，以通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -87730,7 +87678,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioTremolo.WiringChanged": {
-    "documentation": "",
+    "documentation": "当另一个实例通过 <code>Wire</code> 连接或断开连接到 <code>AudioAnalyzer</code> 时触发。",
     "keys": {
       "Connect": "@roblox/globaltype/AudioTremolo.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioTremolo.WiringChanged.ConnectParallel",
@@ -87792,6 +87740,7 @@
       "Direction3DState": "@roblox/globaltype/InputAction.Direction3DState",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "Type": "@roblox/globaltype/InputAction.Type",
+      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState",
       "Fire": "@roblox/globaltype/InputAction.Fire",
       "GetState": "@roblox/globaltype/InputAction.GetState"
     },
@@ -87826,6 +87775,11 @@
   "@roblox/globaltype/InputAction.Type": {
     "documentation": "指定动作期望的输入值类型。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Type",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.ViewportPositionState": {
+    "documentation": "非可脚本化的只读属性，有助于调试 <code>ViewportPosition</code> 输入动作。",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#ViewportPositionState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Fire/param/0": {
@@ -89376,10 +89330,10 @@
     "documentation": "用于播放音频资源。"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires": {
     "documentation": "返回与指定插针连接的 <code>Wires</code> 的数组。",
@@ -89403,10 +89357,10 @@
     "documentation": "用于播放音频资源。"
   },
   "@roblox/globaltype/AudioPlayer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioPlayer.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引脚列表，以通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -89423,10 +89377,10 @@
     "documentation": "用于播放音频资源。"
   },
   "@roblox/globaltype/AudioPlayer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "一个表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioPlayer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引脚列表，以通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -90383,10 +90337,10 @@
     "documentation": "将音频流发射到世界中。"
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires": {
     "documentation": "返回连接到指定插孔的 <code>Wires</code> 数组。",
@@ -90430,10 +90384,10 @@
     "documentation": "将音频流发射到世界中。"
   },
   "@roblox/globaltype/AudioEmitter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioEmitter.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引脚列表，以通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -90470,10 +90424,10 @@
     "documentation": "将音频流发射到世界中。"
   },
   "@roblox/globaltype/AudioEmitter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioEmitter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引脚列表，以通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -92369,10 +92323,10 @@
     "documentation": "使音频流听起来更饱满。如果应用于单个声音，它可能听起来像多个声音。"
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "此实例上的输入或输出引脚"
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires": {
     "documentation": "返回连接到指定引脚的 <code>Wires</code> 数组。",
@@ -92396,10 +92350,10 @@
     "documentation": "使音频流听起来更饱满。如果应用于单个声音，它可能听起来像多个声音。"
   },
   "@roblox/globaltype/AudioChorus.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioChorus.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.TargetName</code> 中使用的引脚列表，以 通过其 <code>Wire.TargetInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -92416,10 +92370,10 @@
     "documentation": "使音频流听起来更饱满。如果应用于单个声音，它可能听起来像多个声音。"
   },
   "@roblox/globaltype/AudioChorus.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/AudioChorus.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 可以在 <code>Wire.SourceName</code> 中使用的引脚列表，以 通过其 <code>Wire.SourceInstance</code> 属性连接到此实例。",
     "params": [
       {
         "name": "self",
@@ -92589,10 +92543,10 @@
     "documentation": "一个 GUI 对象，用于显示来自连接的 <code>VideoPlayer</code> 的视频内容。"
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "该实例上的输入或输出引脚"
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "一个 <code>Wires</code> 的数组"
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires": {
     "documentation": "返回连接到指定引脚的 <code>Wires</code> 数组。",
@@ -92616,10 +92570,10 @@
     "documentation": "一个 GUI 对象，用于显示来自连接的 <code>VideoPlayer</code> 的视频内容。"
   },
   "@roblox/globaltype/VideoDisplay.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/VideoDisplay.GetInputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.TargetName</code> 中可以使用的引脚列表 以通过其 <code>Wire.TargetInstance</code> 属性连接到该实例。",
     "params": [
       {
         "name": "self",
@@ -92636,10 +92590,10 @@
     "documentation": "一个 GUI 对象，用于显示来自连接的 <code>VideoPlayer</code> 的视频内容。"
   },
   "@roblox/globaltype/VideoDisplay.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "表示有效引脚名称的字符串数组。"
   },
   "@roblox/globaltype/VideoDisplay.GetOutputPins": {
-    "documentation": "",
+    "documentation": "获取 <code>Wire</code> 在 <code>Wire.SourceName</code> 中可以使用的引脚列表 以通过其 <code>Wire.SourceInstance</code> 属性连接到该实例。",
     "params": [
       {
         "name": "self",
@@ -93090,10 +93044,10 @@
     "documentation": "处理体验内文本聊天的服务。"
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "用户必须在当前服务器中，否则会出现错误。"
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/2": {
-    "documentation": ""
+    "documentation": "用户必须在当前服务器中，否则会出现错误。"
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/return/0": {
     "documentation": ""
@@ -93565,7 +93519,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint": {
-    "documentation": "对齐两个 <code>BaseParts</code>，使其具有可动画的运动学或基于力的关节。",
+    "documentation": "对齐两个 <code>BaseParts</code>，使用可动画的运动学或基于力的关节。",
     "keys": {
       "C0": "@roblox/globaltype/AnimationConstraint.C0",
       "C1": "@roblox/globaltype/AnimationConstraint.C1",
@@ -93615,7 +93569,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.Transform": {
-    "documentation": "描述约束关节当前的动画偏移。",
+    "documentation": "描述约束关节的当前动画偏移。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#Transform",
     "code_sample": ""
   },
@@ -95415,7 +95369,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BodyPartDescription.HeadShape": {
-    "documentation": "",
+    "documentation": "指定在应用这个 <code>BodyPartDescription</code> 时要应用于动态头的头形状标识符。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BodyPartDescription#HeadShape",
     "code_sample": ""
   },
@@ -140549,7 +140503,7 @@
     "code_sample": ""
   },
   "@luau/global/table": {
-    "documentation": "一个表函数库。",
+    "documentation": "一个表函数的库。",
     "keys": {
       "clear": "@luau/global/table.clear",
       "clone": "@luau/global/table.clone",
@@ -140573,7 +140527,7 @@
     "code_sample": ""
   },
   "@luau/global/table.clear/param/0": {
-    "documentation": "将要被清空的表。"
+    "documentation": "要清除其键的表。"
   },
   "@luau/global/table.clear": {
     "documentation": "将给定表中的所有键设置为 <code>nil</code>。",
@@ -140588,7 +140542,7 @@
     "code_sample": ""
   },
   "@luau/global/table.clone/param/0": {
-    "documentation": "要克隆的表。"
+    "documentation": "要被克隆的表。"
   },
   "@luau/global/table.clone/return/0": {
     "documentation": "提供表的克隆。"
@@ -140608,22 +140562,22 @@
     "code_sample": ""
   },
   "@luau/global/table.concat/param/0": {
-    "documentation": "将被转换为字符串的表。"
+    "documentation": "将转换为字符串的表。"
   },
   "@luau/global/table.concat/param/1": {
-    "documentation": "在表中每个条目之间将连接的字符串。"
+    "documentation": "将在表中每个条目之间连接的字符串。"
   },
   "@luau/global/table.concat/param/2": {
-    "documentation": "表的连接起始索引。"
+    "documentation": "表连接的起始索引。"
   },
   "@luau/global/table.concat/param/3": {
-    "documentation": "表的连接结束索引。"
+    "documentation": "表连接的结束索引。"
   },
   "@luau/global/table.concat/return/0": {
     "documentation": ""
   },
   "@luau/global/table.concat": {
-    "documentation": "将给定范围的表元素作为字符串返回，每个元素用给定的分隔符分隔。",
+    "documentation": "将给定范围的表元素作为字符串返回，每个元素 用给定分隔符分隔。",
     "params": [
       {
         "name": "t",
@@ -140658,7 +140612,7 @@
     "documentation": ""
   },
   "@luau/global/table.create": {
-    "documentation": "返回一个新表，其中填充了多个指定值的实例。",
+    "documentation": "返回一个新表，该表用指定值的多个实例填充。",
     "params": [
       {
         "name": "count",
@@ -140688,7 +140642,7 @@
     "documentation": ""
   },
   "@luau/global/table.find": {
-    "documentation": "返回 <code>haystack</code> 中 <code>needle</code> 的第一次出现的索引，从 <code>init</code> 开始。",
+    "documentation": "返回在 <code>haystack</code> 中第一次出现 <code>needle</code> 的索引， 从 <code>init</code> 开始。",
     "params": [
       {
         "name": "haystack",
@@ -140713,10 +140667,10 @@
     "documentation": "要迭代的表。"
   },
   "@luau/global/table.foreach/param/1": {
-    "documentation": "将用于迭代的函数。此函数将在每次迭代中接收两个参数，第一参数是键，第二参数是值。"
+    "documentation": "将在迭代中使用的函数。此函数将在每次迭代中接收 2 个参数，第一个参数是 键，第二个参数是值。"
   },
   "@luau/global/table.foreach": {
-    "documentation": "<strong>Deprecated:</strong> <br>迭代给定的表，将每次迭代的键和值传递给提供的函数。",
+    "documentation": "<strong>Deprecated:</strong> <br>迭代提供的表，将每次迭代的键和值传递给提供的函数。",
     "params": [
       {
         "name": "t",
@@ -140735,10 +140689,10 @@
     "documentation": "要迭代的表。"
   },
   "@luau/global/table.foreachi/param/1": {
-    "documentation": "将用于迭代的函数。此函数将在每次迭代中接收两个参数，第一参数是索引，第二参数是值。"
+    "documentation": "将在迭代中使用的函数。此函数将在每次迭代中接收 2 个参数，第一个参数是 索引，第二个参数是值。"
   },
   "@luau/global/table.foreachi": {
-    "documentation": "<strong>Deprecated:</strong> <br>类似于 <code>table.foreach()</code> ，只是传递的是索引-值对而不是键-值对。",
+    "documentation": "<strong>Deprecated:</strong> <br>类似于 <code>table.foreach()</code>，但传递的是索引-值对，而不是键-值对。",
     "params": [
       {
         "name": "t",
@@ -140757,10 +140711,10 @@
     "documentation": "要冻结的表。"
   },
   "@luau/global/table.freeze/return/0": {
-    "documentation": "冻结后的表。"
+    "documentation": "冻结的表。"
   },
   "@luau/global/table.freeze": {
-    "documentation": "使给定表只读。",
+    "documentation": "将给定表设置为只读。",
     "params": [
       {
         "name": "t",
@@ -140774,13 +140728,13 @@
     "code_sample": ""
   },
   "@luau/global/table.getn/param/0": {
-    "documentation": "正在测量大小的表。"
+    "documentation": "正在测量其大小的表。"
   },
   "@luau/global/table.getn/return/0": {
     "documentation": ""
   },
   "@luau/global/table.getn": {
-    "documentation": "<strong>Deprecated:</strong> <br>返回传递表中的元素数量。",
+    "documentation": "<strong>Deprecated:</strong> <br>返回传递的表中的元素数量。",
     "params": [
       {
         "name": "t",
@@ -140800,13 +140754,13 @@
     }
   },
   "@luau/global/table.insert/overload/(table, number, Variant) -> ()/param/0": {
-    "documentation": "正在追加到的表。"
+    "documentation": "正在追加的表。"
   },
   "@luau/global/table.insert/overload/(table, number, Variant) -> ()/param/1": {
-    "documentation": "插入值的位置。"
+    "documentation": "值将插入的位置。"
   },
   "@luau/global/table.insert/overload/(table, number, Variant) -> ()/param/2": {
-    "documentation": "将被追加到表中的值。"
+    "documentation": "将追加到表的值。"
   },
   "@luau/global/table.insert/overload/(table, number, Variant) -> ()": {
     "documentation": "将提供的值插入到数组的目标位置。",
@@ -140829,13 +140783,13 @@
     "code_sample": ""
   },
   "@luau/global/table.insert/overload/(table, Variant) -> ()/param/0": {
-    "documentation": "正在追加到的表。"
+    "documentation": "正在追加的表。"
   },
   "@luau/global/table.insert/overload/(table, Variant) -> ()/param/1": {
-    "documentation": "将被追加到表中的值。"
+    "documentation": "将追加到表的值。"
   },
   "@luau/global/table.insert/overload/(table, Variant) -> ()": {
-    "documentation": "将提供的值附加到数组的末尾。",
+    "documentation": "将提供的值追加到数组的末尾。",
     "params": [
       {
         "name": "t",
@@ -140857,7 +140811,7 @@
     "documentation": "表是否被 <code>table.freeze()</code> 冻结。"
   },
   "@luau/global/table.isfrozen": {
-    "documentation": "如果给定的表被冻结，则返回 <code>true</code>，否则返回 <code>false</code>。",
+    "documentation": "如果给定的表被冻结，则返回 <code>true</code>，如果没有 冻结，则返回 <code>false</code>。",
     "params": [
       {
         "name": "t",
@@ -140877,7 +140831,7 @@
     "documentation": ""
   },
   "@luau/global/table.maxn": {
-    "documentation": "返回提供表的最大数字键，如果该表没有数字键则返回零。",
+    "documentation": "返回提供表的最大数值键，如果表没有数值键则返回零。",
     "params": [
       {
         "name": "t",
@@ -140906,10 +140860,10 @@
     "documentation": "目标表。"
   },
   "@luau/global/table.move/return/0": {
-    "documentation": "<code>dst</code>，以方便使用。"
+    "documentation": "<code>dst</code>，以方便。"
   },
   "@luau/global/table.move": {
-    "documentation": "将一个表中的指定范围的元素复制到另一个表中。",
+    "documentation": "将一个表的指定范围元素复制到另一个表。",
     "params": [
       {
         "name": "src",
@@ -140959,7 +140913,7 @@
     "code_sample": ""
   },
   "@luau/global/table.remove/param/0": {
-    "documentation": "正在移除元素的表。"
+    "documentation": "要移除元素的表。"
   },
   "@luau/global/table.remove/param/1": {
     "documentation": "被移除元素的索引。"
@@ -140968,7 +140922,7 @@
     "documentation": ""
   },
   "@luau/global/table.remove": {
-    "documentation": "从数组中移除指定元素，若可能则向下移动后面的元素以填充空位。",
+    "documentation": "从数组中移除指定元素，如果可能，将后续元素下移 to 填充空白空间。",
     "params": [
       {
         "name": "t",
@@ -140989,7 +140943,7 @@
     "documentation": ""
   },
   "@luau/global/table.sort/param/1": {
-    "documentation": "一个可选的比较函数，用于比较表中的元素。此函数接收两个元素，当第一个元素应该排在第二个之前时应返回 true。"
+    "documentation": "用于比较表中元素的可选比较函数。此函数接收两个元素，并应 返回 true，如果第一个元素应在最终顺序中排在第二个元素之前。"
   },
   "@luau/global/table.sort": {
     "documentation": "使用提供的比较函数或 <code>&lt;</code> 操作符对表元素进行排序。",
@@ -141008,19 +140962,19 @@
     "code_sample": ""
   },
   "@luau/global/table.unpack/param/0": {
-    "documentation": "要解包的元素列表。"
+    "documentation": "要展开的元素列表。"
   },
   "@luau/global/table.unpack/param/1": {
-    "documentation": "要解包的第一个元素的索引。"
+    "documentation": "要展开的第一个元素的索引。"
   },
   "@luau/global/table.unpack/param/2": {
-    "documentation": "要解包的最后一个元素的索引。"
+    "documentation": "要展开的最后一个元素的索引。"
   },
   "@luau/global/table.unpack/return/0": {
     "documentation": ""
   },
   "@luau/global/table.unpack": {
-    "documentation": "将给定列表中的所有元素作为元组返回。",
+    "documentation": "返回给定列表中的所有元素作为元组。",
     "params": [
       {
         "name": "list",

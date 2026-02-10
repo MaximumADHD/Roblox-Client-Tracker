@@ -6490,7 +6490,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService": {
-    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo utilicen, en una medida limitada.",
+    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo usen, en una medida limitada.",
     "keys": {
       "AutoRuns": "@roblox/globaltype/TestService.AutoRuns",
       "Description": "@roblox/globaltype/TestService.Description",
@@ -6533,27 +6533,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ErrorCount": {
-    "documentation": "Mide cuántos errores han sido registrados en la sesión de prueba.",
+    "documentation": "Mide cuántos errores se han registrado en la sesión de prueba.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ErrorCount",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ExecuteWithStudioRun": {
-    "documentation": "Cuando se establece en <code>true</code>, <code>TestService</code> se ejecutará al usar la acción <strong>Ejecutar</strong> en Roblox Studio.",
+    "documentation": "Cuando se establece en <code>true</code>, se ejecutará <code>TestService</code> al usar la acción <strong>Ejecutar</strong> en Roblox Studio.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ExecuteWithStudioRun",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Is30FpsThrottleEnabled": {
-    "documentation": "<strong>Deprecated:</strong> Esto ha sido descontinuado y renombrado directamente a <code>ThrottlePhysicsToRealtime</code> para reflejar mejor su uso práctico.<br>Establece si el motor de física debe limitarse a 30 FPS mientras se ejecuta la prueba.",
+    "documentation": "<strong>Deprecated:</strong> Esto ha sido desaprobado y renombrado directamente a <code>ThrottlePhysicsToRealtime</code> para reflejar mejor su uso práctico.<br>Establece si el motor de física debe ser limitado a 30 FPS mientras se ejecuta la prueba.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Is30FpsThrottleEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.IsPhysicsEnvironmentalThrottled": {
-    "documentation": "Establece si el entorno de física debe ser limitado mientras se corre esta prueba.",
+    "documentation": "Establece si el entorno de física debe ser limitado mientras se ejecuta esta prueba.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#IsPhysicsEnvironmentalThrottled",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.IsSleepAllowed": {
-    "documentation": "Establece si los objetos de física pueden entrar en estado de reposo mientras se ejecuta la simulación de la prueba.",
+    "documentation": "Establece si se permitirá que los objetos físicos se duerman mientras se está ejecutando la simulación de prueba.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#IsSleepAllowed",
     "code_sample": ""
   },
@@ -6568,27 +6568,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.TestCount": {
-    "documentation": "Mide cuántas llamadas de prueba han sido registradas en la sesión de prueba.",
+    "documentation": "Mide cuántas llamadas de prueba se han registrado en la sesión de prueba.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#TestCount",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ThrottlePhysicsToRealtime": {
-    "documentation": "Establece si la prueba debe ser limitada para simular el tiempo de acuerdo a el tiempo real o lo más rápido posible.",
+    "documentation": "Establece si la prueba debe ser limitada para simular el tiempo según el tiempo real o tan rápido como sea posible.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ThrottlePhysicsToRealtime",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Timeout": {
-    "documentation": "La cantidad máxima de tiempo que se permite que las pruebas se ejecuten.",
+    "documentation": "La cantidad máxima de tiempo que se permite ejecutar las pruebas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Timeout",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.WarnCount": {
-    "documentation": "Mide cuántas llamadas de advertencia han sido registradas en la sesión de prueba.",
+    "documentation": "Mide cuántas llamadas de advertencia se han registrado en la sesión de prueba.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#WarnCount",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Check/param/0": {
-    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo utilicen, en una medida limitada."
+    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo usen, en una medida limitada."
   },
   "@roblox/globaltype/TestService.Check/param/1": {
     "documentation": ""
@@ -6631,7 +6631,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Checkpoint/param/0": {
-    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo utilicen, en una medida limitada."
+    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo usen, en una medida limitada."
   },
   "@roblox/globaltype/TestService.Checkpoint/param/1": {
     "documentation": ""
@@ -6643,7 +6643,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Checkpoint": {
-    "documentation": "Imprime <code>Test checkpoint:</code> seguido de una cadena en la salida con texto azul.",
+    "documentation": "Imprime <code>Test checkpoint:</code> seguido de una cadena en la salida en texto azul.",
     "params": [
       {
         "name": "self",
@@ -6667,10 +6667,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Done/param/0": {
-    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo utilicen, en una medida limitada."
+    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo usen, en una medida limitada."
   },
   "@roblox/globaltype/TestService.Done": {
-    "documentation": "Imprime <code>Testing Done</code> en la salida con texto azul.",
+    "documentation": "Imprime <code>Testing Done</code> en la salida en texto azul.",
     "params": [
       {
         "name": "self",
@@ -6682,7 +6682,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Error/param/0": {
-    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo utilicen, en una medida limitada."
+    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo usen, en una medida limitada."
   },
   "@roblox/globaltype/TestService.Error/param/1": {
     "documentation": ""
@@ -6694,7 +6694,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Error": {
-    "documentation": "Imprime un mensaje de error en rojo en la salida, precedido por <code>TestService:</code>.",
+    "documentation": "Imprime un mensaje de error rojo en la salida, precedido por <code>TestService:</code>.",
     "params": [
       {
         "name": "self",
@@ -6718,7 +6718,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Fail/param/0": {
-    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo utilicen, en una medida limitada."
+    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo usen, en una medida limitada."
   },
   "@roblox/globaltype/TestService.Fail/param/1": {
     "documentation": ""
@@ -6754,7 +6754,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.isFeatureEnabled/param/0": {
-    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo utilicen, en una medida limitada."
+    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo usen, en una medida limitada."
   },
   "@roblox/globaltype/TestService.isFeatureEnabled/param/1": {
     "documentation": ""
@@ -6781,7 +6781,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Message/param/0": {
-    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo utilicen, en una medida limitada."
+    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo usen, en una medida limitada."
   },
   "@roblox/globaltype/TestService.Message/param/1": {
     "documentation": ""
@@ -6793,7 +6793,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Message": {
-    "documentation": "Imprime <code>TestService:</code> seguido de una cadena en la salida con texto azul.",
+    "documentation": "Imprime <code>TestService:</code> seguido de una cadena en la salida en texto azul.",
     "params": [
       {
         "name": "self",
@@ -6817,7 +6817,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Require/param/0": {
-    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo utilicen, en una medida limitada."
+    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo usen, en una medida limitada."
   },
   "@roblox/globaltype/TestService.Require/param/1": {
     "documentation": ""
@@ -6860,10 +6860,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.RunAsync/param/0": {
-    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo utilicen, en una medida limitada."
+    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo usen, en una medida limitada."
   },
   "@roblox/globaltype/TestService.RunAsync": {
-    "documentation": "Ejecuta scripts que están en padre de <code>TestService</code>.",
+    "documentation": "Ejecuta scripts que están vinculados a <code>TestService</code>.",
     "params": [
       {
         "name": "self",
@@ -6875,10 +6875,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Run/param/0": {
-    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo utilicen, en una medida limitada."
+    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo usen, en una medida limitada."
   },
   "@roblox/globaltype/TestService.Run": {
-    "documentation": "<strong>Deprecated:</strong> <br>Ejecuta scripts que están en padre de <code>TestService</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Ejecuta scripts que están vinculados a <code>TestService</code>.",
     "params": [
       {
         "name": "self",
@@ -6890,7 +6890,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ScopeTime/param/0": {
-    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo utilicen, en una medida limitada."
+    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo usen, en una medida limitada."
   },
   "@roblox/globaltype/TestService.ScopeTime/return/0": {
     "documentation": ""
@@ -6910,9 +6910,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.TakeSnapshot/param/0": {
-    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo utilicen, en una medida limitada."
+    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo usen, en una medida limitada."
   },
   "@roblox/globaltype/TestService.TakeSnapshot/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TestService.TakeSnapshot/param/2": {
     "documentation": ""
   },
   "@roblox/globaltype/TestService.TakeSnapshot": {
@@ -6925,6 +6928,10 @@
       {
         "name": "snapshotname",
         "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/1"
+      },
+      {
+        "name": "source",
+        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/2"
       }
     ],
     "returns": [],
@@ -6932,7 +6939,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Warn/param/0": {
-    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo utilicen, en una medida limitada."
+    "documentation": "Un servicio utilizado por Roblox para ejecutar pruebas controladas del motor. Está disponible para que los desarrolladores lo usen, en una medida limitada."
   },
   "@roblox/globaltype/TestService.Warn/param/1": {
     "documentation": ""
@@ -7052,7 +7059,7 @@
     "returns": []
   },
   "@roblox/globaltype/TestService.ServerCollectConditionalResult": {
-    "documentation": "Se activa cuando el servidor debe recoger un resultado de prueba condicional.",
+    "documentation": "Se activa cuando el servidor debe recopilar un resultado de prueba condicional.",
     "keys": {
       "Connect": "@roblox/globaltype/TestService.ServerCollectConditionalResult.Connect",
       "ConnectParallel": "@roblox/globaltype/TestService.ServerCollectConditionalResult.ConnectParallel",
@@ -7140,7 +7147,7 @@
     "returns": []
   },
   "@roblox/globaltype/TestService.ServerCollectResult": {
-    "documentation": "Se activa cuando el servidor debe recoger un resultado de prueba.",
+    "documentation": "Se activa cuando el servidor debe recopilar un resultado de prueba.",
     "keys": {
       "Connect": "@roblox/globaltype/TestService.ServerCollectResult.Connect",
       "ConnectParallel": "@roblox/globaltype/TestService.ServerCollectResult.ConnectParallel",
@@ -10336,10 +10343,10 @@
     "documentation": "Distorsiona las transmisiones de audio, haciéndolas sonar más borrosas, rugosas y más fuertes."
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -10363,10 +10370,10 @@
     "documentation": "Distorsiona las transmisiones de audio, haciéndolas sonar más borrosas, rugosas y más fuertes."
   },
   "@roblox/globaltype/AudioDistortion.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioDistortion.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -10383,10 +10390,10 @@
     "documentation": "Distorsiona las transmisiones de audio, haciéndolas sonar más borrosas, rugosas y más fuertes."
   },
   "@roblox/globaltype/AudioDistortion.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioDistortion.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -10809,10 +10816,10 @@
     "documentation": "Ajusta el volumen de las transmisiones de audio."
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -10836,10 +10843,10 @@
     "documentation": "Ajusta el volumen de las transmisiones de audio."
   },
   "@roblox/globaltype/AudioFader.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioFader.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -10856,10 +10863,10 @@
     "documentation": "Ajusta el volumen de las transmisiones de audio."
   },
   "@roblox/globaltype/AudioFader.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioFader.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -15238,13 +15245,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
     "params": [
       {
         "name": "self",
@@ -15265,10 +15272,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pines válidos."
   },
   "@roblox/globaltype/AudioGate.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -15285,10 +15292,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pines válidos."
   },
   "@roblox/globaltype/AudioGate.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -15379,7 +15386,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioGate.WiringChanged": {
-    "documentation": "",
+    "documentation": "Se activa cuando otra instancia está conectada o desconectada del <code>AudioAnalyzer</code> a través de un <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioGate.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel",
@@ -23879,10 +23886,10 @@
     "documentation": "Utilizado para reproducir activos de video."
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -23906,10 +23913,10 @@
     "documentation": "Utilizado para reproducir activos de video."
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -23926,10 +23933,10 @@
     "documentation": "Utilizado para reproducir activos de video."
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -26389,10 +26396,10 @@
     "documentation": "Acepta flujos de audio que se renderizan en dispositivos de hardware físico como altavoces o auriculares."
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -26416,10 +26423,10 @@
     "documentation": "Acepta flujos de audio que se renderizan en dispositivos de hardware físico como altavoces o auriculares."
   },
   "@roblox/globaltype/AudioDeviceOutput.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pins válidos."
   },
   "@roblox/globaltype/AudioDeviceOutput.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pins que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -26436,10 +26443,10 @@
     "documentation": "Acepta flujos de audio que se renderizan en dispositivos de hardware físico como altavoces o auriculares."
   },
   "@roblox/globaltype/AudioDeviceOutput.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pins válidos."
   },
   "@roblox/globaltype/AudioDeviceOutput.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pins que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -28486,7 +28493,6 @@
     "documentation": "Límites de cuán fuertes pueden ser los flujos de audio.",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioLimiter.Bypass",
-      "Editor": "@roblox/globaltype/AudioLimiter.Editor",
       "MaxLevel": "@roblox/globaltype/AudioLimiter.MaxLevel",
       "Release": "@roblox/globaltype/AudioLimiter.Release",
       "GetConnectedWires": "@roblox/globaltype/AudioLimiter.GetConnectedWires",
@@ -28501,18 +28507,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioLimiter.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioLimiter.MaxLevel": {
     "documentation": "El volumen máximo tolerado.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#MaxLevel",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioLimiter.Release": {
-    "documentation": "La cantidad de tiempo que toma a los flujos previamente limitados volver a su volumen normal.",
+    "documentation": "La cantidad de tiempo que toma para que los flujos limitados anteriormente regresen a su volumen normal.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Release",
     "code_sample": ""
   },
@@ -28520,10 +28521,10 @@
     "documentation": "Límites de cuán fuertes pueden ser los flujos de audio."
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -28547,10 +28548,10 @@
     "documentation": "Límites de cuán fuertes pueden ser los flujos de audio."
   },
   "@roblox/globaltype/AudioLimiter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioLimiter.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -28567,10 +28568,10 @@
     "documentation": "Límites de cuán fuertes pueden ser los flujos de audio."
   },
   "@roblox/globaltype/AudioLimiter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioLimiter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -29481,10 +29482,10 @@
     "documentation": "Combina múltiples flujos de audio en un único flujo de audio multicanal."
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -29508,10 +29509,10 @@
     "documentation": "Combina múltiples flujos de audio en un único flujo de audio multicanal."
   },
   "@roblox/globaltype/AudioChannelMixer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioChannelMixer.GetInputPins": {
-    "documentation": "Devuelve los pines de entrada que pueden ser seleccionados por <code>Wire.TargetName</code>.",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -29528,10 +29529,10 @@
     "documentation": "Combina múltiples flujos de audio en un único flujo de audio multicanal."
   },
   "@roblox/globaltype/AudioChannelMixer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioChannelMixer.GetOutputPins": {
-    "documentation": "Devuelve el pin de salida disponible para <code>Wire.SourceName</code>.",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -31443,7 +31444,6 @@
     "keys": {
       "Attack": "@roblox/globaltype/AudioCompressor.Attack",
       "Bypass": "@roblox/globaltype/AudioCompressor.Bypass",
-      "Editor": "@roblox/globaltype/AudioCompressor.Editor",
       "MakeupGain": "@roblox/globaltype/AudioCompressor.MakeupGain",
       "Ratio": "@roblox/globaltype/AudioCompressor.Ratio",
       "Release": "@roblox/globaltype/AudioCompressor.Release",
@@ -31465,11 +31465,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioCompressor.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioCompressor.MakeupGain": {
     "documentation": "Un valor de ganancia que se aplicará después de la compresión.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#MakeupGain",
@@ -31481,12 +31476,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.Release": {
-    "documentation": "Controla cuán rápido el compresor se desclampará después de que el volumen de la transmisión despiece por debajo de <code>Threshold</code>.",
+    "documentation": "Controla qué tan rápido el compresor se liberará después de que el volumen de la corriente vuelva a caer por debajo de <code>Threshold</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Release",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.Threshold": {
-    "documentation": "Valor de ganancia en el cual el compresor comenzará a modificar la transmisión de entrada.",
+    "documentation": "Valor de ganancia en el que el compresor comenzará a modificar la corriente de entrada.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Threshold",
     "code_sample": ""
   },
@@ -31494,10 +31489,10 @@
     "documentation": "Ajusta el rango dinámico de las transmisiones de entrada."
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Una matriz de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires": {
     "documentation": "Devuelve un arreglo de <code>Wires</code> que están conectados al pin especificado.",
@@ -31521,10 +31516,10 @@
     "documentation": "Ajusta el rango dinámico de las transmisiones de entrada."
   },
   "@roblox/globaltype/AudioCompressor.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Una matriz de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioCompressor.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -31541,10 +31536,10 @@
     "documentation": "Ajusta el rango dinámico de las transmisiones de entrada."
   },
   "@roblox/globaltype/AudioCompressor.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Una matriz de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioCompressor.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -35839,7 +35834,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.PrioritizeLightingQuality": {
-    "documentation": "Indica si prefieres la calidad de iluminación/sombreado o la distancia de visión para reducirse primero.",
+    "documentation": "Indica si prefieres la calidad de iluminación/sombreado o la distancia de vista para reducir primero.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#PrioritizeLightingQuality",
     "code_sample": ""
   },
@@ -39318,10 +39313,10 @@
     "documentation": "Registra un flujo de audio de su entorno <code>AudioEmitters</code> en el mundo 3D."
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires": {
     "documentation": "Devuelve un arreglo de <code>Wires</code> que están conectados al pin especificado.",
@@ -39365,10 +39360,10 @@
     "documentation": "Registra un flujo de audio de su entorno <code>AudioEmitters</code> en el mundo 3D."
   },
   "@roblox/globaltype/AudioListener.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pines válidos."
   },
   "@roblox/globaltype/AudioListener.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -39405,10 +39400,10 @@
     "documentation": "Registra un flujo de audio de su entorno <code>AudioEmitters</code> en el mundo 3D."
   },
   "@roblox/globaltype/AudioListener.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pines válidos."
   },
   "@roblox/globaltype/AudioListener.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -41699,13 +41694,13 @@
     "documentation": "Registra flujos de audio en la experiencia."
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un arreglo de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "Devuelve un arreglo de <code>Wires</code> que están conectados al pin especificado.",
     "params": [
       {
         "name": "self",
@@ -41726,10 +41721,10 @@
     "documentation": "Registra flujos de audio en la experiencia."
   },
   "@roblox/globaltype/AudioRecorder.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un arreglo de cadenas que representan nombres de pines válidos."
   },
   "@roblox/globaltype/AudioRecorder.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -41746,10 +41741,10 @@
     "documentation": "Registra flujos de audio en la experiencia."
   },
   "@roblox/globaltype/AudioRecorder.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un arreglo de cadenas que representan nombres de pines válidos."
   },
   "@roblox/globaltype/AudioRecorder.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -41910,7 +41905,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioRecorder.WiringChanged": {
-    "documentation": "",
+    "documentation": "Se activa cuando otra instancia está conectada o desconectada del <code>AudioAnalyzer</code> a través de un <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioRecorder.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioRecorder.WiringChanged.ConnectParallel",
@@ -45475,7 +45470,7 @@
     "documentation": "Un diccionario de conexiones en línea (ver la tabla anterior)."
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "<strong>Deprecated:</strong> Este método ha sido reemplazado por <code>GetFriendsOnline()</code>.<br>Devuelve un diccionario de conexiones en línea. Devuelve la información del producto de un recurso utilizando su ID de recurso.",
+    "documentation": "<strong>Deprecated:</strong> Este método ha sido sustituido por <code>GetFriendsOnlineAsync()</code>.<br>Devuelve un diccionario de conexiones en línea. Devuelve la información del producto de un recurso utilizando su ID de recurso.",
     "params": [
       {
         "name": "self",
@@ -52795,13 +52790,13 @@
     "documentation": "Nombre de la propiedad a consultar."
   },
   "@roblox/globaltype/Instance.GetStyled/param/2": {
-    "documentation": "Selector opcional para la instancia pseudo que estás apuntando en la instancia."
+    "documentation": "Selector opcional para la instancia pseudo a la que te estás dirigiendo en la instancia."
   },
   "@roblox/globaltype/Instance.GetStyled/return/0": {
     "documentation": "El valor estilizado o explícitamente modificado de la propiedad especificada, o el valor por defecto de la propiedad si no ha sido estilizado/modificado."
   },
   "@roblox/globaltype/Instance.GetStyled": {
-    "documentation": "Devuelve el valor estilizado o explícitamente modificado de la propiedad especificada, o el valor de la propiedad por defecto si no ha sido estilizado/modificado.",
+    "documentation": "Devuelve el valor estilizado o explícitamente modificado de la propiedad especificada, o el valor predeterminado de la propiedad si no ha sido estilizado/modificado.",
     "params": [
       {
         "name": "self",
@@ -52984,10 +52979,10 @@
     "documentation": "Nombre de la propiedad a consultar."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Booleano que indica si la propiedad ha sido modificada respecto a su valor por defecto instanciado por el código."
+    "documentation": "Booleano que indica si la propiedad está modificada respecto a su valor predeterminado instanciado por el código."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Devuelve <code>true</code> si el valor almacenado en la propiedad especificada no es igual a el valor por defecto instanciado por el código.",
+    "documentation": "Devuelve <code>true</code> si el valor almacenado en la propiedad especificada no es igual al valor predeterminado instanciado por el código.",
     "params": [
       {
         "name": "self",
@@ -54010,10 +54005,10 @@
     "documentation": "Superpone copias retrasadas de flujos de audio."
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -54037,10 +54032,10 @@
     "documentation": "Superpone copias retrasadas de flujos de audio."
   },
   "@roblox/globaltype/AudioEcho.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioEcho.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -54057,10 +54052,10 @@
     "documentation": "Superpone copias retrasadas de flujos de audio."
   },
   "@roblox/globaltype/AudioEcho.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioEcho.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -54225,22 +54220,22 @@
     "documentation": "Servicio que permite a los desarrolladores generar objetos 3D a partir de mensajes de texto."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/1": {
-    "documentation": "Un diccionario que contiene los mensajes de generación de malla. Actualmente, la única clave soportada es el <code>Prompt</code> (cadena) que describe la malla a generar."
+    "documentation": "Un diccionario que contiene las indicaciones de generación de mallas. Actualmente, la única clave admitida es <code>Prompt</code> (cadena) que describe la malla a generar."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/2": {
     "documentation": "El <code>Player</code> que solicita la generación."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/3": {
-    "documentation": "Un diccionario para opciones adicionales de generación que influyan en el resultado. La siguiente clave es soportada: - <code>SuggestedSize</code> — <code>Vector3</code> opcional que representa una guía de tamaño para el activo generado. El servicio intentará crear un modelo con un tamaño y proporción similares al <code>Vector3</code> proporcionado. Esto no garantiza el tamaño de salida final."
+    "documentation": "Un diccionario para opciones de generación adicionales que influyen en el resultado. La clave opcional <code>SuggestedSize</code> (<code>Vector3</code>) representa una guía de tamaño para el activo generado, lo que significa que <code>GenerationService</code> intentará crear un modelo con un tamaño y proporción similares al proporcionado <code>Vector3</code>, aunque no hay garantía sobre el tamaño final de salida."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/4": {
-    "documentation": "Una función de callback que se activa con resultados de generación intermedios. Útil para recuperar versiones tempranas de la malla antes de que se aplican texturas."
+    "documentation": "Una función de callback activada con resultados intermedios de generación. Útil para recuperar versiones tempranas de la malla antes de que se apliquen texturas."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/return/0": {
-    "documentation": "Una tupla del ID de generación (un ID único devuelto para cada invocación de <code>GenerateMeshAsync()</code>) y el ID de contexto (no utilizado actualmente)."
+    "documentation": "Una tupla del ID de generación (un ID único devuelto por cada invocación de <code>GenerateMeshAsync()</code>) y el ID de contexto (no utilizado actualmente)."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync": {
-    "documentation": "Inicia la generación de una nueva malla 3D a partir de un mensaje de texto y devuelve IDs únicos utilizados para rastrear y recuperar el resultado.",
+    "documentation": "Inicia la generación de una nueva malla 3D a partir de una indicación de texto y devuelve IDs únicos utilizados para rastrear y recuperar el resultado.",
     "params": [
       {
         "name": "self",
@@ -54273,19 +54268,19 @@
     "documentation": "Servicio que permite a los desarrolladores generar objetos 3D a partir de mensajes de texto."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/1": {
-    "documentation": ""
+    "documentation": "Una tabla que representa las entradas de condicionamiento con las siguientes claves: <ul> <li><code>TextPrompt</code> — Descripción en cadena del objeto a generar.</li> <li><code>Size</code> — Tamaño <code>Vector3</code> opcional que describe el tamaño del objeto a generar.   Esto es solo aproximado; escala las dimensiones del modelo después de la generación si necesitas   un tamaño específico.</li> <li><code>MaxTriangles</code> — Entero opcional que describe el número máximo de triángulos que   contendrá el modelo devuelto. Valores más bajos resultan en generaciones más facetadas y   de baja poli.</li> <li><code>GenerateTextures</code> — <code>true</code> (por defecto) texturiza la generación resultante, mientras que   <code>false</code> no generará texturas.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/2": {
-    "documentation": ""
+    "documentation": "Tabla que representa el esquema de generación. Debe contener una clave <code>PredefinedSchema</code> con un valor de cadena; las opciones válidas actuales son <code>Car5</code> para un chasis de vehículo básico que consiste en cinco <code>Models</code>, o <code>Body1</code> que resulta en una salida de malla única."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/3": {
-    "documentation": ""
+    "documentation": "Actualmente no utilizado; reservado para futuras opciones de personalización."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/return/0": {
-    "documentation": ""
+    "documentation": "Tupla con los siguientes elementos: <ul> <li>Una instancia de contenedor <code>Model</code> estándar que cumple con el <code>schema</code> especificado.</li> <li>Una tabla que contiene un UUID y otros metadatos sobre la generación.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync": {
-    "documentation": "",
+    "documentation": "Permite la generación de geometrías de multi-malla de acuerdo a los <code>inputs</code> proporcionados y un <code>schema</code>.",
     "params": [
       {
         "name": "self",
@@ -54317,7 +54312,7 @@
     "documentation": "El ID único devuelto por <code>GenerateMeshAsync()</code>. Identifica la malla a cargar."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/return/0": {
-    "documentation": "El activo generado, devuelto como un <code>Model</code> con una sola <code>MeshPart</code> que contiene un <code>EditableMesh</code>."
+    "documentation": "El activo generado, devuelto como un <code>Model</code> con una única <code>MeshPart</code> que contiene un <code>EditableMesh</code>."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync": {
     "documentation": "Recupera y carga una malla generada por <code>GenerationService:GenerateMeshAsync()</code> utilizando el <code>generationId</code> proporcionado.",
@@ -57314,10 +57309,10 @@
     "documentation": "Imparte un sonido de susurro o barrido en las transmisiones de audio."
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -57341,10 +57336,10 @@
     "documentation": "Imparte un sonido de susurro o barrido en las transmisiones de audio."
   },
   "@roblox/globaltype/AudioFlanger.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioFlanger.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -57361,10 +57356,10 @@
     "documentation": "Imparte un sonido de susurro o barrido en las transmisiones de audio."
   },
   "@roblox/globaltype/AudioFlanger.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioFlanger.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -58416,10 +58411,10 @@
     "documentation": "Ajusta el tono percibido de los flujos de audio."
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -58443,10 +58438,10 @@
     "documentation": "Ajusta el tono percibido de los flujos de audio."
   },
   "@roblox/globaltype/AudioPitchShifter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioPitchShifter.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -58463,10 +58458,10 @@
     "documentation": "Ajusta el tono percibido de los flujos de audio."
   },
   "@roblox/globaltype/AudioPitchShifter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioPitchShifter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -58912,10 +58907,10 @@
     "documentation": "Reverbera flujos de audio."
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -58939,10 +58934,10 @@
     "documentation": "Reverbera flujos de audio."
   },
   "@roblox/globaltype/AudioReverb.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pines válidos."
   },
   "@roblox/globaltype/AudioReverb.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -58959,10 +58954,10 @@
     "documentation": "Reverbera flujos de audio."
   },
   "@roblox/globaltype/AudioReverb.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pines válidos."
   },
   "@roblox/globaltype/AudioReverb.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -59115,7 +59110,7 @@
     "documentation": "Un nuevo <code>Decal</code> que contiene el conjunto de texturas compuestas."
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync": {
-    "documentation": "Crea una instancia de Decal que utiliza texturas PBR compuestas creadas al superponer las texturas proporcionadas en el orden en que se proporcionan en el array <code>layers</code>. Las texturas se superponen según el valor alfa del ColorMap.",
+    "documentation": "Crea una instancia de Decal que utiliza texturas PBR compuestas creadas por superponer las texturas proporcionadas en el orden en que se proporcionan en el arreglo <code>layers</code>. Las texturas se superponen según el valor alfa del ColorMap.",
     "params": [
       {
         "name": "self",
@@ -59470,13 +59465,13 @@
     "documentation": "Un servicio no replicado que maneja consultas relacionadas con activos a la API web de Roblox."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "Diccionario que contiene los siguientes pares clave-valor: <ul> <li><code>ColorMap</code> — Un objeto <code>Content</code> que contiene el mapa de color. El valor predeterminado es <code>nil</code>.</li> <li><code>MetalnessMap</code> — Un objeto <code>Content</code> que contiene el mapa de metalicidad. Si hay más de un canal presente, solo se utiliza el canal rojo. El valor predeterminado es <code>nil</code>.</li> <li><code>NormalMap</code> — Un objeto <code>Content</code> que contiene el mapa normal. El valor predeterminado es <code>nil</code>.</li> <li><code>RoughnessMap</code> — Un objeto <code>Content</code> que contiene el mapa de rugosidad. Si hay más de un canal presente, solo se utiliza el canal rojo. El valor predeterminado es <code>nil</code>.</li> <li><code>EmissiveMask</code> — Un objeto <code>Content</code> que contiene la máscara emisiva. Si hay más de un canal presente, solo se utiliza el canal rojo. El valor predeterminado es <code>nil</code>.</li> </ul>"
+    "documentation": "Diccionario que contiene los siguientes pares clave-valor: <ul> <li><code>ColorMap</code> — Un objeto <code>Content</code> que contiene el mapa de color.   El valor predeterminado es <code>nil</code>.</li> <li><code>MetalnessMap</code> — Un objeto <code>Content</code> que contiene el mapa de   metalicidad. Si hay más de un canal presente, solo se usa el canal rojo.   El valor predeterminado es <code>nil</code>.</li> <li><code>NormalMap</code> — Un objeto <code>Content</code> que contiene el mapa normal.   El valor predeterminado es <code>nil</code>.</li> <li><code>RoughnessMap</code> — Un objeto <code>Content</code> que contiene el mapa de   rugosidad. Si hay más de un canal presente, solo se usa el canal rojo.   El valor predeterminado es <code>nil</code>.</li> <li><code>EmissiveMask</code> — Un objeto <code>Content</code> que contiene la   máscara emisiva. Si hay más de un canal presente, solo se usa el canal rojo.   El valor predeterminado es <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "Una nueva instancia <code>SurfaceAppearance</code> con los mapas dados del parámetro <code>content</code>."
+    "documentation": "Una nueva instancia de <code>SurfaceAppearance</code> con los mapas dados del parámetro <code>content</code>."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
-    "documentation": "Crea un nuevo objeto <code>SurfaceAppearance</code> utilizando los mapas de contenido proporcionados.",
+    "documentation": "Crea un nuevo objeto <code>SurfaceAppearance</code> usando los mapas de contenidos proporcionados.",
     "params": [
       {
         "name": "self",
@@ -59754,7 +59749,7 @@
     "documentation": "Un servicio no replicado que maneja consultas relacionadas con activos a la API web de Roblox."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "Diccionario opcional que incluye <code>SaveWithoutPublish</code>, un booleano que indica si se debe guardar con publicación o sin publicación, y <code>PlaceId</code>, el ID del lugar de destino que se guardará. Un ejemplo de uso podría ser: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Si no se proporciona PlaceId, el comportamiento predeterminado será guardar en el lugar original actual que llama a SavePlaceAsync. Si no se proporciona SaveWithoutPublish, el comportamiento predeterminado es SaveWithoutPublish=false."
+    "documentation": "Diccionario opcional que incluye <code>SaveWithoutPublish</code>, un booleano que indica si guardar con publicación o sin publicación, y <code>PlaceId</code>, el ID del lugar de destino para guardar sobre él. Un ejemplo de uso sería: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Si no se proporciona PlaceId, el comportamiento predeterminado guardará sobre el lugar original actual que está llamando a SavePlaceAsync. Si no se proporciona SaveWithoutPublish, el comportamiento predeterminado es SaveWithoutPublish=false."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "Guarda el estado del lugar actual.",
@@ -60988,10 +60983,10 @@
     "documentation": "Toma medidas de flujos de audio que están conectados a él a través de uno o más <code>Wires</code>."
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un arreglo de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires": {
     "documentation": "Devuelve un arreglo de <code>Wires</code> que están conectados al pin especificado.",
@@ -61015,10 +61010,10 @@
     "documentation": "Toma medidas de flujos de audio que están conectados a él a través de uno o más <code>Wires</code>."
   },
   "@roblox/globaltype/AudioAnalyzer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un arreglo de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioAnalyzer.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -61035,10 +61030,10 @@
     "documentation": "Toma medidas de flujos de audio que están conectados a él a través de uno o más <code>Wires</code>."
   },
   "@roblox/globaltype/AudioAnalyzer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un arreglo de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioAnalyzer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -61710,10 +61705,10 @@
     "documentation": "Reproduce texto como audio de voz."
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -67826,7 +67821,6 @@
       "UseLocalSpace": "@roblox/globaltype/StudioService.UseLocalSpace",
       "GetClassIcon": "@roblox/globaltype/StudioService.GetClassIcon",
       "GetUserId": "@roblox/globaltype/StudioService.GetUserId",
-      "GizmoRaycast": "@roblox/globaltype/StudioService.GizmoRaycast",
       "PromptImportFileAsync": "@roblox/globaltype/StudioService.PromptImportFileAsync",
       "PromptImportFile": "@roblox/globaltype/StudioService.PromptImportFile",
       "PromptImportFilesAsync": "@roblox/globaltype/StudioService.PromptImportFilesAsync",
@@ -67932,55 +67926,14 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#GetUserId",
     "code_sample": "-- Solo se puede usar en un complemento\nlocal StudioService = game:GetService(\"StudioService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal loggedInUserId = StudioService:GetUserId()\nlocal loggedInUserName = Players:GetNameFromUserIdAsync(loggedInUserId)\nprint(\"Hola,\", loggedInUserName)"
   },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/0": {
-    "documentation": "Proporciona acceso a la configuración de Roblox Studio y permite la importación de archivos desde el sistema de archivos del usuario."
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/0"
-      },
-      {
-        "name": "origin",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/1"
-      },
-      {
-        "name": "direction",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/2"
-      },
-      {
-        "name": "raycastParams",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/3"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/StudioService.GizmoRaycast/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#GizmoRaycast",
-    "code_sample": ""
-  },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/param/0": {
     "documentation": "Proporciona acceso a la configuración de Roblox Studio y permite la importación de archivos desde el sistema de archivos del usuario."
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/param/1": {
-    "documentation": "Una lista de tipos de archivo que el usuario tiene permitido seleccionar. Los tipos de archivo se formatean sin un punto. Por ejemplo, {\"jpg\", \"png\"} permitiría seleccionar solo archivos JPG o PNG. Si no se proporciona un filtro, el filtro es <code>nil</code> y permite al usuario seleccionar cualquier tipo de archivo."
+    "documentation": "Una lista de tipos de archivos que el usuario puede seleccionar. Los tipos de archivos están formateados sin un punto. Por ejemplo, {\"jpg\", \"png\"} permitiría seleccionar solo un archivo JPG o PNG. Si no se proporciona un filtro, el filtro es <code>nil</code> y permite al usuario seleccionar cualquier tipo de archivo."
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/return/0": {
-    "documentation": "El <code>File</code> importado. Devuelve <code>nil</code> si no se seleccionaron archivos, o si el archivo seleccionado era demasiado grande (FileSize mayor a 100 megabytes)."
+    "documentation": "El <code>File</code> importado. Devuelve <code>nil</code> si no se seleccionaron archivos, o si el archivo seleccionado era demasiado grande (FileSize mayor que 100 megabytes)."
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync": {
     "documentation": "Solicita al usuario actual de Studio que seleccione un archivo para agregar como un <code>File</code>.",
@@ -68004,10 +67957,10 @@
     "documentation": "Proporciona acceso a la configuración de Roblox Studio y permite la importación de archivos desde el sistema de archivos del usuario."
   },
   "@roblox/globaltype/StudioService.PromptImportFile/param/1": {
-    "documentation": "Una lista de tipos de archivos que el usuario puede seleccionar. Los tipos de archivo se formatean sin un punto. Por ejemplo, {\"jpg\", \"png\"} permitiría seleccionar solo un archivo JPG o PNG. Si no se proporciona un filtro, el filtro es <code>nil</code> y permite al usuario seleccionar cualquier tipo de archivo."
+    "documentation": "Una lista de tipos de archivo que el usuario tiene permitido seleccionar. Los tipos de archivo se formatean sin un punto. Por ejemplo, {\"jpg\", \"png\"} permitiría seleccionar solo archivos JPG o PNG. Si no se proporciona un filtro, el filtro es <code>nil</code> y permite al usuario seleccionar cualquier tipo de archivo."
   },
   "@roblox/globaltype/StudioService.PromptImportFile/return/0": {
-    "documentation": "El <code>File</code> importado. Retorna <code>nil</code> si no se seleccionaron archivos, o si el archivo seleccionado era demasiado grande (FileSize mayor a 100 megabytes)."
+    "documentation": "El <code>File</code> importado. Devuelve <code>nil</code> si no se seleccionaron archivos, o si el archivo seleccionado era demasiado grande (FileSize mayor a 100 megabytes)."
   },
   "@roblox/globaltype/StudioService.PromptImportFile": {
     "documentation": "<strong>Deprecated:</strong> <br>Solicita al usuario actual de Studio que seleccione un archivo para agregar como un <code>File</code>.",
@@ -68031,10 +67984,10 @@
     "documentation": "Proporciona acceso a la configuración de Roblox Studio y permite la importación de archivos desde el sistema de archivos del usuario."
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync/param/1": {
-    "documentation": "Una lista de tipos de archivos que el usuario puede seleccionar. Los tipos de archivo se formatean sin un punto. Por ejemplo, {\"jpg\", \"png\"} permitiría seleccionar solo archivos JPG y PNG. Si no se proporciona un filtro, el filtro es <code>nil</code> y permite al usuario seleccionar cualquier tipo de archivo."
+    "documentation": "Una lista de tipos de archivos que el usuario puede seleccionar. Los tipos de archivos están formateados sin un punto. Por ejemplo, {\"jpg\", \"png\"} permitiría seleccionar solo archivos JPG y PNG. Si no se proporciona un filtro, el filtro es <code>nil</code> y permite al usuario seleccionar cualquier tipo de archivo."
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync/return/0": {
-    "documentation": "El <code>Files</code> importado. Retorna una lista vacía si no se seleccionaron archivos. Retorna <code>nil</code> si el usuario seleccionó uno o más archivos que eran demasiado grandes (FileSize mayor a 100 megabytes)."
+    "documentation": "El <code>Files</code> importado. Devuelve una lista vacía si no se seleccionaron archivos. Devuelve <code>nil</code> si el usuario seleccionó uno o más archivos que eran demasiado grandes (FileSize mayor que 100 megabytes)."
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync": {
     "documentation": "Solicita al usuario actual de Studio que seleccione archivos para agregar como <code>Files</code>.",
@@ -68164,10 +68117,10 @@
     "documentation": "Produce flujos de audio desde dispositivos físicos, como micrófonos."
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Una matriz de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -68191,10 +68144,10 @@
     "documentation": "Produce flujos de audio desde dispositivos físicos, como micrófonos."
   },
   "@roblox/globaltype/AudioDeviceInput.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Una matriz de cadenas que representan nombres de pines válidos."
   },
   "@roblox/globaltype/AudioDeviceInput.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -68211,10 +68164,10 @@
     "documentation": "Produce flujos de audio desde dispositivos físicos, como micrófonos."
   },
   "@roblox/globaltype/AudioDeviceInput.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Una matriz de cadenas que representan nombres de pines válidos."
   },
   "@roblox/globaltype/AudioDeviceInput.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -72552,6 +72505,9 @@
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1": {
     "documentation": "Un array de <code>CaptureType</code>."
   },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/2": {
+    "documentation": "Un booleano; el valor predeterminado es <code>false</code>."
+  },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0": {
     "documentation": "Tupla de (result: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>)"
   },
@@ -72565,6 +72521,10 @@
       {
         "name": "captureTypeFilters",
         "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1"
+      },
+      {
+        "name": "readFromAllEligibleExperiences",
+        "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/2"
       }
     ],
     "returns": [
@@ -73371,7 +73331,6 @@
     "documentation": "Ajusta el contenido de frecuencia de las transmisiones de audio.",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioFilter.Bypass",
-      "Editor": "@roblox/globaltype/AudioFilter.Editor",
       "FilterType": "@roblox/globaltype/AudioFilter.FilterType",
       "Frequency": "@roblox/globaltype/AudioFilter.Frequency",
       "Gain": "@roblox/globaltype/AudioFilter.Gain",
@@ -73389,11 +73348,6 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioFilter.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioFilter.FilterType": {
     "documentation": "El tipo de curva de la banda representada por el filtro.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#FilterType",
@@ -73405,12 +73359,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioFilter.Gain": {
-    "documentation": "Para filtros de pico y estantería, controla el aumento o reducción de volumen.",
+    "documentation": "Para filtros de aumento y estantería, controla el aumento o reducción de volumen.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Gain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioFilter.Q": {
-    "documentation": "Para filtros de pico, paso bajo, paso alto, paso de banda y notch, controla la selectividad o resonancia.",
+    "documentation": "Para filtros de aumento, paso bajo, paso alto, banda y muesca, controla la selectividad o resonancia.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Q",
     "code_sample": ""
   },
@@ -73418,10 +73372,10 @@
     "documentation": "Ajusta el contenido de frecuencia de las transmisiones de audio."
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -73472,10 +73426,10 @@
     "documentation": "Ajusta el contenido de frecuencia de las transmisiones de audio."
   },
   "@roblox/globaltype/AudioFilter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioFilter.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -73492,10 +73446,10 @@
     "documentation": "Ajusta el contenido de frecuencia de las transmisiones de audio."
   },
   "@roblox/globaltype/AudioFilter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioFilter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -74343,10 +74297,10 @@
     "documentation": "Convierte audio hablado en texto."
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -76903,7 +76857,6 @@
     "documentation": "Ajusta el contenido de frecuencia de los flujos de audio.",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioEqualizer.Bypass",
-      "Editor": "@roblox/globaltype/AudioEqualizer.Editor",
       "HighGain": "@roblox/globaltype/AudioEqualizer.HighGain",
       "LowGain": "@roblox/globaltype/AudioEqualizer.LowGain",
       "MidGain": "@roblox/globaltype/AudioEqualizer.MidGain",
@@ -76918,11 +76871,6 @@
   "@roblox/globaltype/AudioEqualizer.Bypass": {
     "documentation": "Si los flujos de audio son transmitidos sin alteraciones por este efecto.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#Bypass",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AudioEqualizer.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#Editor",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.HighGain": {
@@ -76949,10 +76897,10 @@
     "documentation": "Ajusta el contenido de frecuencia de los flujos de audio."
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -76976,10 +76924,10 @@
     "documentation": "Ajusta el contenido de frecuencia de los flujos de audio."
   },
   "@roblox/globaltype/AudioEqualizer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioEqualizer.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -76996,10 +76944,10 @@
     "documentation": "Ajusta el contenido de frecuencia de los flujos de audio."
   },
   "@roblox/globaltype/AudioEqualizer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioEqualizer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -79248,10 +79196,10 @@
     "documentation": "Divide un flujo de audio en canales componentes para que cada uno pueda ser procesado independientemente."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -79275,10 +79223,10 @@
     "documentation": "Divide un flujo de audio en canales componentes para que cada uno pueda ser procesado independientemente."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pins válidos."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetInputPins": {
-    "documentation": "Devuelve el pin de entrada disponible para <code>Wire.TargetName</code>.",
+    "documentation": "Obtiene la lista de pins que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -79295,10 +79243,10 @@
     "documentation": "Divide un flujo de audio en canales componentes para que cada uno pueda ser procesado independientemente."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pins válidos."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetOutputPins": {
-    "documentation": "Devuelve los pines de salida que pueden ser seleccionados por <code>Wire.SourceName</code>.",
+    "documentation": "Obtiene la lista de pins que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -87589,13 +87537,13 @@
     "documentation": "Crea un efecto de temblor en un sonido al variar el volumen del sonido hacia arriba y hacia abajo."
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado",
     "params": [
       {
         "name": "self",
@@ -87616,10 +87564,10 @@
     "documentation": "Crea un efecto de temblor en un sonido al variar el volumen del sonido hacia arriba y hacia abajo."
   },
   "@roblox/globaltype/AudioTremolo.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioTremolo.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -87636,10 +87584,10 @@
     "documentation": "Crea un efecto de temblor en un sonido al variar el volumen del sonido hacia arriba y hacia abajo."
   },
   "@roblox/globaltype/AudioTremolo.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioTremolo.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -87730,7 +87678,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioTremolo.WiringChanged": {
-    "documentation": "",
+    "documentation": "Se activa cuando otra instancia está conectada o desconectada de la <code>AudioAnalyzer</code> a través de un <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioTremolo.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioTremolo.WiringChanged.ConnectParallel",
@@ -87792,6 +87740,7 @@
       "Direction3DState": "@roblox/globaltype/InputAction.Direction3DState",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "Type": "@roblox/globaltype/InputAction.Type",
+      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState",
       "Fire": "@roblox/globaltype/InputAction.Fire",
       "GetState": "@roblox/globaltype/InputAction.GetState"
     },
@@ -87826,6 +87775,11 @@
   "@roblox/globaltype/InputAction.Type": {
     "documentation": "Especifica qué tipo de valor de entrada espera la acción.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Type",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.ViewportPositionState": {
+    "documentation": "Propiedad de solo lectura no scriptable útil para depuración <code>ViewportPosition</code> acciones de entrada.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#ViewportPositionState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Fire/param/0": {
@@ -89376,10 +89330,10 @@
     "documentation": "Se utiliza para reproducir activos de audio."
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un arreglo de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -89403,10 +89357,10 @@
     "documentation": "Se utiliza para reproducir activos de audio."
   },
   "@roblox/globaltype/AudioPlayer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un arreglo de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioPlayer.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -89423,10 +89377,10 @@
     "documentation": "Se utiliza para reproducir activos de audio."
   },
   "@roblox/globaltype/AudioPlayer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un arreglo de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/AudioPlayer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -90383,10 +90337,10 @@
     "documentation": "Emite flujos de audio en el mundo."
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -90430,10 +90384,10 @@
     "documentation": "Emite flujos de audio en el mundo."
   },
   "@roblox/globaltype/AudioEmitter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pines válidos."
   },
   "@roblox/globaltype/AudioEmitter.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -90470,10 +90424,10 @@
     "documentation": "Emite flujos de audio en el mundo."
   },
   "@roblox/globaltype/AudioEmitter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pines válidos."
   },
   "@roblox/globaltype/AudioEmitter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -92369,10 +92323,10 @@
     "documentation": "Hace que un flujo de audio suene más voluminoso. Si se aplica a una sola voz, podría sonar como múltiples voces."
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -92396,10 +92350,10 @@
     "documentation": "Hace que un flujo de audio suene más voluminoso. Si se aplica a una sola voz, podría sonar como múltiples voces."
   },
   "@roblox/globaltype/AudioChorus.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pines válidos."
   },
   "@roblox/globaltype/AudioChorus.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -92416,10 +92370,10 @@
     "documentation": "Hace que un flujo de audio suene más voluminoso. Si se aplica a una sola voz, podría sonar como múltiples voces."
   },
   "@roblox/globaltype/AudioChorus.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pines válidos."
   },
   "@roblox/globaltype/AudioChorus.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -92589,10 +92543,10 @@
     "documentation": "Un objeto GUI que muestra contenido de video de un <code>VideoPlayer</code> conectado."
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Un pin de entrada o salida en esta instancia"
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Un array de <code>Wires</code>"
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires": {
     "documentation": "Devuelve un array de <code>Wires</code> que están conectados al pin especificado.",
@@ -92616,10 +92570,10 @@
     "documentation": "Un objeto GUI que muestra contenido de video de un <code>VideoPlayer</code> conectado."
   },
   "@roblox/globaltype/VideoDisplay.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/VideoDisplay.GetInputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.TargetName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -92636,10 +92590,10 @@
     "documentation": "Un objeto GUI que muestra contenido de video de un <code>VideoPlayer</code> conectado."
   },
   "@roblox/globaltype/VideoDisplay.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Un array de cadenas que representan nombres de pin válidos."
   },
   "@roblox/globaltype/VideoDisplay.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Obtiene la lista de pines que <code>Wire</code> puede usar en <code>Wire.SourceName</code> para conectarse a esta instancia a través de su propiedad <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -93090,10 +93044,10 @@
     "documentation": "Un servicio que maneja el chat de texto dentro de la experiencia."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "El usuario debe estar en el servidor actual, de lo contrario ocurrirá un error."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/2": {
-    "documentation": ""
+    "documentation": "El usuario debe estar en el servidor actual, de lo contrario ocurrirá un error."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/return/0": {
     "documentation": ""
@@ -93565,7 +93519,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint": {
-    "documentation": "Alinea dos <code>BaseParts</code> con una junta cinemática o basada en fuerza que se puede animar.",
+    "documentation": "Alinea dos <code>BaseParts</code> con una unión cinemática o basada en fuerza animable.",
     "keys": {
       "C0": "@roblox/globaltype/AnimationConstraint.C0",
       "C1": "@roblox/globaltype/AnimationConstraint.C1",
@@ -93590,17 +93544,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.IsKinematic": {
-    "documentation": "Cambia si la restricción es cinemática o simulada físicamente.",
+    "documentation": "Alterna si la restricción es cinemática o simulada físicamente.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#IsKinematic",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.MaxForce": {
-    "documentation": "Magnitud máxima de fuerza que el constraint puede aplicar para alcanzar su objetivo.",
+    "documentation": "Magnitud máxima de fuerza que la restricción puede aplicar para alcanzar su objetivo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.MaxTorque": {
-    "documentation": "Torque máximo que el constraint puede aplicar para alcanzar su objetivo.",
+    "documentation": "Máximo torque que la restricción puede aplicar para alcanzar su objetivo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxTorque",
     "code_sample": ""
   },
@@ -95415,7 +95369,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BodyPartDescription.HeadShape": {
-    "documentation": "",
+    "documentation": "Especifica el identificador de forma de cabeza que se aplicará a una Cabeza Dinámica cuando se aplique esta <code>BodyPartDescription</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BodyPartDescription#HeadShape",
     "code_sample": ""
   },

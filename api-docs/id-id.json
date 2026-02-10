@@ -6915,6 +6915,9 @@
   "@roblox/globaltype/TestService.TakeSnapshot/param/1": {
     "documentation": ""
   },
+  "@roblox/globaltype/TestService.TakeSnapshot/param/2": {
+    "documentation": ""
+  },
   "@roblox/globaltype/TestService.TakeSnapshot": {
     "documentation": "",
     "params": [
@@ -6925,6 +6928,10 @@
       {
         "name": "snapshotname",
         "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/1"
+      },
+      {
+        "name": "source",
+        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/2"
       }
     ],
     "returns": [],
@@ -10336,10 +10343,10 @@
     "documentation": "Mendistors audio stream, membuatnya terdengar lebih kabur, lebih kasar, dan lebih keras."
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires": {
     "documentation": "Mengembalikan array <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -10363,10 +10370,10 @@
     "documentation": "Mendistors audio stream, membuatnya terdengar lebih kabur, lebih kasar, dan lebih keras."
   },
   "@roblox/globaltype/AudioDistortion.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioDistortion.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.TargetName</code> untuk menghubungkan ke instance ini melalui propertinya <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -10383,10 +10390,10 @@
     "documentation": "Mendistors audio stream, membuatnya terdengar lebih kabur, lebih kasar, dan lebih keras."
   },
   "@roblox/globaltype/AudioDistortion.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioDistortion.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.SourceName</code> untuk menghubungkan ke instance ini melalui propertinya <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -10809,10 +10816,10 @@
     "documentation": "Menyesuaikan volume aliran audio."
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires": {
     "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -10836,10 +10843,10 @@
     "documentation": "Menyesuaikan volume aliran audio."
   },
   "@roblox/globaltype/AudioFader.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioFader.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mendapatkan daftar pin yang dapat digunakan <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instance ini melalui properti <code>Wire.TargetInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -10856,10 +10863,10 @@
     "documentation": "Menyesuaikan volume aliran audio."
   },
   "@roblox/globaltype/AudioFader.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioFader.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mendapatkan daftar pin yang dapat digunakan <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instance ini melalui properti <code>Wire.SourceInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -15238,13 +15245,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
     "params": [
       {
         "name": "self",
@@ -15265,10 +15272,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioGate.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instance ini melalui properti <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -15285,10 +15292,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioGate.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instance ini melalui properti <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -15379,7 +15386,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioGate.WiringChanged": {
-    "documentation": "",
+    "documentation": "Ditembakkan saat instance lain terhubung atau terputus dari <code>AudioAnalyzer</code> melalui <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioGate.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel",
@@ -23879,10 +23886,10 @@
     "documentation": "Digunakan untuk memutar aset video."
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instance ini"
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires": {
     "documentation": "Mengembalikan array <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -23906,10 +23913,10 @@
     "documentation": "Digunakan untuk memutar aset video."
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.TargetName</code>  untuk terhubung ke instance ini melalui properti <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -23926,10 +23933,10 @@
     "documentation": "Digunakan untuk memutar aset video."
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.SourceName</code>  untuk terhubung ke instance ini melalui properti <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -26389,10 +26396,10 @@
     "documentation": "Menerima aliran audio untuk diteruskan ke perangkat keras fisik seperti pengeras suara atau headphone."
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires": {
     "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -26416,10 +26423,10 @@
     "documentation": "Menerima aliran audio untuk diteruskan ke perangkat keras fisik seperti pengeras suara atau headphone."
   },
   "@roblox/globaltype/AudioDeviceOutput.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioDeviceOutput.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instance ini melalui properti <code>Wire.TargetInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -26436,10 +26443,10 @@
     "documentation": "Menerima aliran audio untuk diteruskan ke perangkat keras fisik seperti pengeras suara atau headphone."
   },
   "@roblox/globaltype/AudioDeviceOutput.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioDeviceOutput.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instance ini melalui properti <code>Wire.SourceInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -28486,7 +28493,6 @@
     "documentation": "Membatasi seberapa keras aliran audio dapat diizinkan.",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioLimiter.Bypass",
-      "Editor": "@roblox/globaltype/AudioLimiter.Editor",
       "MaxLevel": "@roblox/globaltype/AudioLimiter.MaxLevel",
       "Release": "@roblox/globaltype/AudioLimiter.Release",
       "GetConnectedWires": "@roblox/globaltype/AudioLimiter.GetConnectedWires",
@@ -28501,18 +28507,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioLimiter.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioLimiter.MaxLevel": {
-    "documentation": "Volume maksimum yang ditoleransi.",
+    "documentation": "Volume maksimum yang dapat ditoleransi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#MaxLevel",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioLimiter.Release": {
-    "documentation": "Jumlah waktu yang dibutuhkan untuk aliran yang sebelumnya dibatasi kembali ke volume normal mereka.",
+    "documentation": "Jumlah waktu yang diperlukan agar aliran yang sebelumnya dibatasi kembali ke volume normalnya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Release",
     "code_sample": ""
   },
@@ -28520,10 +28521,10 @@
     "documentation": "Membatasi seberapa keras aliran audio dapat diizinkan."
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires": {
     "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -28547,10 +28548,10 @@
     "documentation": "Membatasi seberapa keras aliran audio dapat diizinkan."
   },
   "@roblox/globaltype/AudioLimiter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuaht array string yang merepresentasikan nama pin yang valid."
   },
   "@roblox/globaltype/AudioLimiter.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instance ini melalui properti <code>Wire.TargetInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -28567,10 +28568,10 @@
     "documentation": "Membatasi seberapa keras aliran audio dapat diizinkan."
   },
   "@roblox/globaltype/AudioLimiter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuaht array string yang merepresentasikan nama pin yang valid."
   },
   "@roblox/globaltype/AudioLimiter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instance ini melalui properti <code>Wire.SourceInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -29481,10 +29482,10 @@
     "documentation": "Menggabungkan beberapa aliran audio menjadi satu aliran audio multichannel."
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires": {
     "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -29508,10 +29509,10 @@
     "documentation": "Menggabungkan beberapa aliran audio menjadi satu aliran audio multichannel."
   },
   "@roblox/globaltype/AudioChannelMixer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioChannelMixer.GetInputPins": {
-    "documentation": "Mengembalikan pin input yang dapat dipilih oleh <code>Wire.TargetName</code>.",
+    "documentation": "Mengambil daftar pin yang dapat digunakan <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instance ini melalui properti <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -29528,10 +29529,10 @@
     "documentation": "Menggabungkan beberapa aliran audio menjadi satu aliran audio multichannel."
   },
   "@roblox/globaltype/AudioChannelMixer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioChannelMixer.GetOutputPins": {
-    "documentation": "Mengembalikan pin output yang tersedia untuk <code>Wire.SourceName</code>.",
+    "documentation": "Mengambil daftar pin yang dapat digunakan <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instance ini melalui properti <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -31443,7 +31444,6 @@
     "keys": {
       "Attack": "@roblox/globaltype/AudioCompressor.Attack",
       "Bypass": "@roblox/globaltype/AudioCompressor.Bypass",
-      "Editor": "@roblox/globaltype/AudioCompressor.Editor",
       "MakeupGain": "@roblox/globaltype/AudioCompressor.MakeupGain",
       "Ratio": "@roblox/globaltype/AudioCompressor.Ratio",
       "Release": "@roblox/globaltype/AudioCompressor.Release",
@@ -31465,28 +31465,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioCompressor.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioCompressor.MakeupGain": {
-    "documentation": "Nilai gain yang diterapkan setelah kompresi.",
+    "documentation": "Nilai gain yang akan diterapkan setelah kompresi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#MakeupGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.Ratio": {
-    "documentation": "Rasio volume input terhadap volume output, yang diterapkan saat melebihi <code>Threshold</code>.",
+    "documentation": "Rasio volume input terhadap volume output, yang akan diterapkan saat melampaui <code>Threshold</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Ratio",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.Release": {
-    "documentation": "Mengontrol seberapa cepat kompresor akan membuka kembali setelah volume aliran turun di bawah <code>Threshold</code>.",
+    "documentation": "Mengontrol seberapa cepat kompressor akan membuka clamp setelah volume aliran kembali di bawah <code>Threshold</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Release",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.Threshold": {
-    "documentation": "Nilai gain di mana kompresor akan mulai memodifikasi aliran input.",
+    "documentation": "Nilai gain di mana kompressor akan mulai memodifikasi aliran input.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Threshold",
     "code_sample": ""
   },
@@ -31494,10 +31489,10 @@
     "documentation": "Menyesuaikan rentang dinamis dari aliran input."
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instansi ini"
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires": {
     "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -31521,10 +31516,10 @@
     "documentation": "Menyesuaikan rentang dinamis dari aliran input."
   },
   "@roblox/globaltype/AudioCompressor.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioCompressor.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instansi ini melalui propertinya <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -31541,10 +31536,10 @@
     "documentation": "Menyesuaikan rentang dinamis dari aliran input."
   },
   "@roblox/globaltype/AudioCompressor.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioCompressor.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instansi ini melalui propertinya <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -35839,7 +35834,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.PrioritizeLightingQuality": {
-    "documentation": "Menunjukkan apakah Anda lebih memilih kualitas pencahayaan/bayangan atau jarak pandang yang dikurangi lebih dulu.",
+    "documentation": "Menunjukkan apakah Anda lebih memilih kualitas pencahayaan/penyinaran atau jarak pandang untuk skala lebih dulu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#PrioritizeLightingQuality",
     "code_sample": ""
   },
@@ -39318,10 +39313,10 @@
     "documentation": "Merekam audio stream dari lingkungan sekitar <code>AudioEmitters</code> di dunia 3D."
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires": {
     "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -39365,10 +39360,10 @@
     "documentation": "Merekam audio stream dari lingkungan sekitar <code>AudioEmitters</code> di dunia 3D."
   },
   "@roblox/globaltype/AudioListener.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioListener.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instance ini melalui propertinya <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -39405,10 +39400,10 @@
     "documentation": "Merekam audio stream dari lingkungan sekitar <code>AudioEmitters</code> di dunia 3D."
   },
   "@roblox/globaltype/AudioListener.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioListener.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instance ini melalui propertinya <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -41699,13 +41694,13 @@
     "documentation": "Merekam aliran audio dalam pengalaman."
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
     "params": [
       {
         "name": "self",
@@ -41726,10 +41721,10 @@
     "documentation": "Merekam aliran audio dalam pengalaman."
   },
   "@roblox/globaltype/AudioRecorder.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioRecorder.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mendapatkan daftar pin yang dapat digunakan <code>Wire</code> dalam <code>Wire.TargetName</code> untuk menghubungkan instance ini melalui properti <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -41746,10 +41741,10 @@
     "documentation": "Merekam aliran audio dalam pengalaman."
   },
   "@roblox/globaltype/AudioRecorder.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioRecorder.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mendapatkan daftar pin yang dapat digunakan <code>Wire</code> dalam <code>Wire.SourceName</code> untuk menghubungkan instance ini melalui properti <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -41910,7 +41905,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioRecorder.WiringChanged": {
-    "documentation": "",
+    "documentation": "Terpicu ketika instance lain terhubung atau terputus dari <code>AudioAnalyzer</code> melalui <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioRecorder.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioRecorder.WiringChanged.ConnectParallel",
@@ -45475,7 +45470,7 @@
     "documentation": "Sebuah kamus dari koneksi online (lihat tabel di atas)."
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "<strong>Deprecated:</strong> Metode ini telah digantikan oleh <code>GetFriendsOnline()</code>.<br>Mengembalikan kamus dari koneksi online. Mengembalikan informasi produk dari aset menggunakan ID asetnya.",
+    "documentation": "<strong>Deprecated:</strong> Metode ini telah digantikan oleh <code>GetFriendsOnlineAsync()</code>.<br>Mengembalikan kamus dari koneksi online. Mengembalikan informasi produk dari aset menggunakan ID asetnya.",
     "params": [
       {
         "name": "self",
@@ -52795,13 +52790,13 @@
     "documentation": "Nama properti yang akan ditanya."
   },
   "@roblox/globaltype/Instance.GetStyled/param/2": {
-    "documentation": "Pemilih opsional untuk instansi pseudo yang Anda targetkan pada instansi."
+    "documentation": "Pemilih opsional untuk instance pseudo yang Anda targetkan pada instance."
   },
   "@roblox/globaltype/Instance.GetStyled/return/0": {
     "documentation": "Nilai yang telah diubah atau dimodifikasi secara eksplisit dari properti yang ditentukan, atau nilai properti default jika belum diubah/dimodifikasi."
   },
   "@roblox/globaltype/Instance.GetStyled": {
-    "documentation": "Mengembalikan nilai yang telah diubah atau secara eksplisit dimodifikasi dari properti yang ditentukan, atau nilai properti default jika belum diubah/dimodifikasi.",
+    "documentation": "Mengembalikan nilai yang dimodifikasi secara gaya atau eksplisit dari properti yang ditentukan, atau nilai properti default jika belum dimodifikasi/digaya.",
     "params": [
       {
         "name": "self",
@@ -52984,10 +52979,10 @@
     "documentation": "Nama properti yang akan ditanya."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Boolean yang menunjukkan apakah properti telah dimodifikasi dari default yang diinstansiasi kode."
+    "documentation": "Boolean yang menunjukkan apakah properti telah dimodifikasi dari default yang diinstansiasi oleh kode."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Mengembalikan <code>true</code> jika nilai yang disimpan dalam properti yang ditentukan tidak sama  dengan default yang diinstansiasi kode.",
+    "documentation": "Mengembalikan <code>true</code> jika nilai yang disimpan dalam properti yang ditentukan tidak sama dengan default yang diinstansiasi oleh kode.",
     "params": [
       {
         "name": "self",
@@ -54010,10 +54005,10 @@
     "documentation": "Mengoverlay salinan tertunda dari aliran audio."
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires": {
     "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -54037,10 +54032,10 @@
     "documentation": "Mengoverlay salinan tertunda dari aliran audio."
   },
   "@roblox/globaltype/AudioEcho.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioEcho.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instance ini melalui properti <code>Wire.TargetInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -54057,10 +54052,10 @@
     "documentation": "Mengoverlay salinan tertunda dari aliran audio."
   },
   "@roblox/globaltype/AudioEcho.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioEcho.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instance ini melalui properti <code>Wire.SourceInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -54225,22 +54220,22 @@
     "documentation": "Layanan yang memungkinkan pengembang untuk menghasilkan objek 3D dari prompt teks."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/1": {
-    "documentation": "Sebuah kamus yang berisi prompt pembuatan mesh. Saat ini, kunci yang hanya didukung adalah <code>Prompt</code> (string) yang menjelaskan mesh untuk dihasilkan."
+    "documentation": "Sebuah kamus yang berisi prompt generasi mesh. Saat ini, satu-satunya kunci yang didukung adalah <code>Prompt</code> (string) yang menggambarkan mesh yang akan dihasilkan."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/2": {
     "documentation": "<code>Player</code> yang meminta pembuatan."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/3": {
-    "documentation": "Sebuah kamus untuk opsi pembuatan tambahan yang mempengaruhi hasil. Kunci berikut didukung: - <code>SuggestedSize</code> — <code>Vector3</code> opsional yang mewakili panduan ukuran untuk aset yang dihasilkan. Layanan akan berusaha untuk membuat model dengan ukuran dan proporsi serupa dengan <code>Vector3</code> yang diberikan. Ini tidak menjamin ukuran output akhir."
+    "documentation": "Sebuah kamus untuk opsi generasi tambahan yang memengaruhi hasil. Kunci opsional <code>SuggestedSize</code> (<code>Vector3</code>) mewakili panduan ukuran untuk aset yang dihasilkan, yang berarti <code>GenerationService</code> akan berupaya membuat model dengan ukuran dan proporsi yang mirip dengan <code>Vector3</code> yang diberikan, meskipun tidak ada jaminan mengenai ukuran output akhir."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/4": {
-    "documentation": "Sebuah fungsi callback yang dipicu dengan hasil pembuatan sementara. Berguna untuk mengambil versi awal mesh sebelum tekstur diterapkan."
+    "documentation": "Sebuah fungsi callback yang dipicu dengan hasil generasi sementara. Berguna untuk mengambil versi mesh awal sebelum tekstur diterapkan."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/return/0": {
-    "documentation": "Sebuah tuple dari ID pembuatan (ID unik yang dikembalikan untuk setiap pemanggilan <code>GenerateMeshAsync()</code>) dan ID konteks (tidak digunakan saat ini)."
+    "documentation": "Sebuah tuple dari ID generasi (ID unik yang dikembalikan untuk setiap pemanggilan <code>GenerateMeshAsync()</code>) dan ID konteks (saat ini tidak digunakan)."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync": {
-    "documentation": "Memulai pembuatan mesh 3D baru dari prompt teks dan mengembalikan ID unik yang digunakan untuk melacak dan mengambil hasilnya.",
+    "documentation": "Memulai generasi mesh 3D baru dari prompt teks dan mengembalikan ID unik yang digunakan untuk melacak dan mengambil hasilnya.",
     "params": [
       {
         "name": "self",
@@ -54273,19 +54268,19 @@
     "documentation": "Layanan yang memungkinkan pengembang untuk menghasilkan objek 3D dari prompt teks."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah tabel yang mewakili input pengkondisian dengan kunci-kunci berikut: <ul> <li><code>TextPrompt</code> — Deskripsi string tentang objek yang akan dihasilkan.</li> <li><code>Size</code> — Opsional <code>Vector3</code> yang menggambarkan ukuran objek yang akan dihasilkan.   Ini hanya perkiraan; skala ekstens model setelah generasi jika Anda membutuhkan ukuran tertentu.</li> <li><code>MaxTriangles</code> — Bilangan bulat opsional yang menggambarkan jumlah maksimum segitiga   yang akan dimuat dalam model yang dikembalikan. Nilai yang lebih rendah menghasilkan generasi yang lebih faceted dan   low-poly.</li> <li><code>GenerateTextures</code> — <code>true</code> (default) akan memberikan tekstur pada generasi yang dihasilkan, sementara   <code>false</code> tidak akan menghasilkan tekstur.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/2": {
-    "documentation": ""
+    "documentation": "Tabel yang mewakili skema generasi. Harus mengandung kunci <code>PredefinedSchema</code> dengan nilai string; opsi valid saat ini adalah <code>Car5</code> untuk chasis kendaraan dasar yang terdiri dari lima <code>Models</code>, atau <code>Body1</code> yang menghasilkan output mesh tunggal."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/3": {
-    "documentation": ""
+    "documentation": "Saat ini tidak digunakan; diperuntukkan untuk opsi kustomisasi di masa depan."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/return/0": {
-    "documentation": ""
+    "documentation": "Tuple dengan elemen-elemen berikut: <ul> <li>Sebuah instance kontainer <code>Model</code> yang sesuai dengan <code>schema</code> yang ditentukan.</li> <li>Sebuah tabel yang berisi UUID dan metadata lainnya tentang generasi.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync": {
-    "documentation": "",
+    "documentation": "Memungkinkan generasi geometri multi-mesh sesuai dengan <code>inputs</code> dan <code>schema</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -54314,13 +54309,13 @@
     "documentation": "Layanan yang memungkinkan pengembang untuk menghasilkan objek 3D dari prompt teks."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/param/1": {
-    "documentation": "ID unik yang dikembalikan oleh <code>GenerateMeshAsync()</code>. Mengidentifikasi mesh untuk dimuat."
+    "documentation": "ID unik yang dikembalikan oleh <code>GenerateMeshAsync()</code>. Mengidentifikasi mesh yang akan dimuat."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/return/0": {
     "documentation": "Aset yang dihasilkan, dikembalikan sebagai <code>Model</code> dengan satu <code>MeshPart</code> yang berisi <code>EditableMesh</code>."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync": {
-    "documentation": "Mengambil dan memuat mesh yang dihasilkan oleh <code>GenerationService:GenerateMeshAsync()</code> dengan menggunakan <code>generationId</code> yang diberikan.",
+    "documentation": "Mengambil dan memuat mesh yang dihasilkan oleh <code>GenerationService:GenerateMeshAsync()</code> menggunakan <code>generationId</code> yang diberikan.",
     "params": [
       {
         "name": "self",
@@ -57314,10 +57309,10 @@
     "documentation": "Memberikan suara yang berdesir atau menyapu pada aliran audio."
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instansi ini"
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires": {
     "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -57341,10 +57336,10 @@
     "documentation": "Memberikan suara yang berdesir atau menyapu pada aliran audio."
   },
   "@roblox/globaltype/AudioFlanger.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioFlanger.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instansi ini melalui properti <code>Wire.TargetInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -57361,10 +57356,10 @@
     "documentation": "Memberikan suara yang berdesir atau menyapu pada aliran audio."
   },
   "@roblox/globaltype/AudioFlanger.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioFlanger.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instansi ini melalui properti <code>Wire.SourceInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -58416,10 +58411,10 @@
     "documentation": "Menyesuaikan nada yang dirasakan dari aliran audio."
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires": {
     "documentation": "Mengembalikan array <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -58443,10 +58438,10 @@
     "documentation": "Menyesuaikan nada yang dirasakan dari aliran audio."
   },
   "@roblox/globaltype/AudioPitchShifter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioPitchShifter.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instance ini melalui properti <code>Wire.TargetInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -58463,10 +58458,10 @@
     "documentation": "Menyesuaikan nada yang dirasakan dari aliran audio."
   },
   "@roblox/globaltype/AudioPitchShifter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioPitchShifter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instance ini melalui properti <code>Wire.SourceInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -58912,10 +58907,10 @@
     "documentation": "Merefleksikan aliran audio."
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires": {
     "documentation": "Mengembalikan array <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -58939,10 +58934,10 @@
     "documentation": "Merefleksikan aliran audio."
   },
   "@roblox/globaltype/AudioReverb.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioReverb.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan <code>Wire</code> di <code>Wire.TargetName</code> untuk terhubung ke instance ini melalui propertinya <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -58959,10 +58954,10 @@
     "documentation": "Merefleksikan aliran audio."
   },
   "@roblox/globaltype/AudioReverb.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioReverb.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan <code>Wire</code> di <code>Wire.SourceName</code> untuk terhubung ke instance ini melalui propertinya <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -59115,7 +59110,7 @@
     "documentation": "Sebuah <code>Decal</code> baru yang berisi set tekstur yang tersusun."
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync": {
-    "documentation": "Membuat instance Decal yang menggunakan tekstur PBR komposit yang dibuat dengan menumpuk tekstur yang diberikan dalam urutan yang diberikan dalam array <code>layers</code>. Tekstur ditumpuk berdasarkan nilai alpha dari ColorMap.",
+    "documentation": "Membuat instance Decal yang menggunakan tekstur PBR komposit yang dibuat dengan menumpuk tekstur yang disediakan sesuai dengan urutan yang diberikan di array <code>layers</code>. Tekstur ditumpuk berdasarkan nilai alfa dari ColorMap.",
     "params": [
       {
         "name": "self",
@@ -59470,10 +59465,10 @@
     "documentation": "Layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "Dictionary yang berisi pasangan kunci-nilai berikut: <ul> <li><code>ColorMap</code> — Sebuah objek <code>Content</code> yang berisi peta warna. Default adalah <code>nil</code>.</li> <li><code>MetalnessMap</code> — Sebuah objek <code>Content</code> yang berisi peta metalness. Jika lebih dari satu saluran ada, hanya saluran merah yang digunakan. Default adalah <code>nil</code>.</li> <li><code>NormalMap</code> — Sebuah objek <code>Content</code> yang berisi peta normal. Default adalah <code>nil</code>.</li> <li><code>RoughnessMap</code> — Sebuah objek <code>Content</code> yang berisi peta roughness. Jika lebih dari satu saluran ada, hanya saluran merah yang digunakan. Default adalah <code>nil</code>.</li> <li><code>EmissiveMask</code> — Sebuah objek <code>Content</code> yang berisi peta emissive. Jika lebih dari satu saluran ada, hanya saluran merah yang digunakan. Default adalah <code>nil</code>.</li> </ul>"
+    "documentation": "Kamus opsional yang berisi pasangan kunci-nilai berikut: <ul> <li><code>ColorMap</code> — Objek <code>Content</code> yang berisi peta warna.   Defaultnya adalah <code>nil</code>.</li> <li><code>MetalnessMap</code> — Objek <code>Content</code> yang berisi peta metalik.   Jika lebih dari satu saluran ada, hanya saluran merah yang digunakan.   Defaultnya adalah <code>nil</code>.</li> <li><code>NormalMap</code> — Objek <code>Content</code> yang berisi peta normal.   Defaultnya adalah <code>nil</code>.</li> <li><code>RoughnessMap</code> — Objek <code>Content</code> yang berisi peta kasar.   Jika lebih dari satu saluran ada, hanya saluran merah yang digunakan.   Defaultnya adalah <code>nil</code>.</li> <li><code>EmissiveMask</code> — Objek <code>Content</code> yang berisi peta emisif.   Jika lebih dari satu saluran ada, hanya saluran merah yang digunakan.   Defaultnya adalah <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "Sebuah instance <code>SurfaceAppearance</code> baru dengan peta yang diberikan dari parameter <code>content</code>."
+    "documentation": "Instance <code>SurfaceAppearance</code> baru dengan peta yang diberikan dari parameter <code>content</code>."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
     "documentation": "Membuat objek <code>SurfaceAppearance</code> baru menggunakan peta konten yang diberikan.",
@@ -59754,7 +59749,7 @@
     "documentation": "Layanan yang tidak direplikasi yang menangani kueri terkait aset ke API web Roblox."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "Dictionary opsional yang mencakup <code>SaveWithoutPublish</code>, boolean yang menunjukkan apakah akan menyimpan dengan publikasi atau tanpa publikasi, dan <code>PlaceId</code>, ID tempat tujuan untuk menyimpan. Contoh penggunaan adalah: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Jika PlaceId tidak diberikan, perilaku default akan menyimpan dalam tempat asli yang saat ini memanggil SavePlaceAsync. Jika SaveWithoutPublish tidak diberikan, perilaku default adalah SaveWithoutPublish=false."
+    "documentation": "Kamus opsional yang menyertakan <code>SaveWithoutPublish</code>, sebuah boolean yang menunjukkan apakah akan menyimpan dengan publikasi atau tanpa publikasi, dan <code>PlaceId</code>, ID tempat tujuan untuk menyimpan. Contoh penggunaan mungkin: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Jika PlaceId tidak disediakan, perilaku default akan menyimpan atas tempat asli saat ini yang memanggil SavePlaceAsync. Jika SaveWithoutPublish tidak disediakan, perilaku default adalah SaveWithoutPublish=false."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "Menyimpan status tempat saat ini.",
@@ -60988,10 +60983,10 @@
     "documentation": "Mengambil pengukuran dari aliran audio yang terhubung melalui satu atau lebih <code>Wires</code>."
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires": {
     "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -61015,10 +61010,10 @@
     "documentation": "Mengambil pengukuran dari aliran audio yang terhubung melalui satu atau lebih <code>Wires</code>."
   },
   "@roblox/globaltype/AudioAnalyzer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang merepresentasikan nama pin yang valid."
   },
   "@roblox/globaltype/AudioAnalyzer.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instance ini melalui properti <code>Wire.TargetInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -61035,10 +61030,10 @@
     "documentation": "Mengambil pengukuran dari aliran audio yang terhubung melalui satu atau lebih <code>Wires</code>."
   },
   "@roblox/globaltype/AudioAnalyzer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang merepresentasikan nama pin yang valid."
   },
   "@roblox/globaltype/AudioAnalyzer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instance ini melalui properti <code>Wire.SourceInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -61710,10 +61705,10 @@
     "documentation": "Memutar teks sebagai audio ucapan."
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires": {
     "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -67826,7 +67821,6 @@
       "UseLocalSpace": "@roblox/globaltype/StudioService.UseLocalSpace",
       "GetClassIcon": "@roblox/globaltype/StudioService.GetClassIcon",
       "GetUserId": "@roblox/globaltype/StudioService.GetUserId",
-      "GizmoRaycast": "@roblox/globaltype/StudioService.GizmoRaycast",
       "PromptImportFileAsync": "@roblox/globaltype/StudioService.PromptImportFileAsync",
       "PromptImportFile": "@roblox/globaltype/StudioService.PromptImportFile",
       "PromptImportFilesAsync": "@roblox/globaltype/StudioService.PromptImportFilesAsync",
@@ -67932,58 +67926,17 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#GetUserId",
     "code_sample": "-- Hanya dapat digunakan dalam plugin\n\n    local StudioService = game:GetService(\"StudioService\")\n\n    local Players = game:GetService(\"Players\")\n\n\n    local loggedInUserId = StudioService:GetUserId()\n\n    local loggedInUserName = Players:GetNameFromUserIdAsync(loggedInUserId)\n\n    print(\"Halo,\", loggedInUserName)"
   },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/0": {
-    "documentation": "Memberikan akses ke konfigurasi Roblox Studio dan memungkinkan impor file  dari sistem file pengguna."
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/0"
-      },
-      {
-        "name": "origin",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/1"
-      },
-      {
-        "name": "direction",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/2"
-      },
-      {
-        "name": "raycastParams",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/3"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/StudioService.GizmoRaycast/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#GizmoRaycast",
-    "code_sample": ""
-  },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/param/0": {
     "documentation": "Memberikan akses ke konfigurasi Roblox Studio dan memungkinkan impor file  dari sistem file pengguna."
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/param/1": {
-    "documentation": "Daftar jenis file yang diizinkan pengguna untuk dipilih. Jenis file  diformat tanpa titik. Misalnya, {\"jpg\", \"png\"} hanya akan  mengizinkan pemilihan file JPG atau PNG. Jika tidak ada filter yang diberikan,  filter adalah <code>nil</code> dan memungkinkan pengguna untuk memilih jenis file apa pun."
+    "documentation": "Daftar tipe file yang diizinkan untuk dipilih oleh pengguna. Tipe file diformat tanpa titik. Misalnya, {\"jpg\", \"png\"} hanya akan diperbolehkan memilih file JPG atau PNG. Jika tidak ada filter yang diberikan, filter adalah <code>nil</code> dan mengizinkan pengguna untuk memilih tipe file apa pun."
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/return/0": {
-    "documentation": "File <code>File</code> yang diimpor. Mengembalikan <code>nil</code> jika tidak ada file yang dipilih,  atau jika file yang dipilih terlalu besar (UkuranFile lebih dari 100  megabyte)."
+    "documentation": "<code>File</code> yang diimpor. Mengembalikan <code>nil</code> jika tidak ada file yang dipilih, atau jika file yang dipilih terlalu besar (FileSize lebih dari 100 megabyte)."
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync": {
-    "documentation": "Meminta pengguna Studio saat ini untuk memilih satu file untuk ditambahkan sebagai  <code>File</code>.",
+    "documentation": "Mengajak pengguna Studio saat ini untuk memilih satu file untuk ditambahkan sebagai <code>File</code>.",
     "params": [
       {
         "name": "self",
@@ -68004,13 +67957,13 @@
     "documentation": "Memberikan akses ke konfigurasi Roblox Studio dan memungkinkan impor file  dari sistem file pengguna."
   },
   "@roblox/globaltype/StudioService.PromptImportFile/param/1": {
-    "documentation": "Daftar jenis berkas yang diizinkan untuk dipilih oleh pengguna. Jenis berkas diformat tanpa tanda titik. Misalnya, {\"jpg\", \"png\"} hanya akan mengizinkan berkas JPG atau PNG untuk dipilih. Jika tidak ada filter yang disediakan, filter tersebut adalah <code>nil</code> dan mengizinkan pengguna untuk memilih sembarang jenis berkas."
+    "documentation": "Daftar jenis file yang diizinkan pengguna untuk dipilih. Jenis file  diformat tanpa titik. Misalnya, {\"jpg\", \"png\"} hanya akan  mengizinkan pemilihan file JPG atau PNG. Jika tidak ada filter yang diberikan,  filter adalah <code>nil</code> dan memungkinkan pengguna untuk memilih jenis file apa pun."
   },
   "@roblox/globaltype/StudioService.PromptImportFile/return/0": {
-    "documentation": "<code>File</code> yang diimpor. Mengembalikan <code>nil</code> jika tidak ada berkas yang dipilih, atau jika berkas yang dipilih terlalu besar (UkuranBerkas lebih dari 100 megabyte)."
+    "documentation": "File <code>File</code> yang diimpor. Mengembalikan <code>nil</code> jika tidak ada file yang dipilih,  atau jika file yang dipilih terlalu besar (UkuranFile lebih dari 100  megabyte)."
   },
   "@roblox/globaltype/StudioService.PromptImportFile": {
-    "documentation": "<strong>Deprecated:</strong> <br>Meminta pengguna Studio saat ini untuk memilih satu berkas untuk ditambahkan sebagai <code>File</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Meminta pengguna Studio saat ini untuk memilih satu file untuk ditambahkan sebagai  <code>File</code>.",
     "params": [
       {
         "name": "self",
@@ -68031,13 +67984,13 @@
     "documentation": "Memberikan akses ke konfigurasi Roblox Studio dan memungkinkan impor file  dari sistem file pengguna."
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync/param/1": {
-    "documentation": "Daftar jenis berkas yang diizinkan untuk dipilih oleh pengguna. Jenis berkas diformat tanpa tanda titik. Misalnya, {\"jpg\", \"png\"} hanya akan mengizinkan berkas JPG dan PNG untuk dipilih. Jika tidak ada filter yang disediakan, filter tersebut adalah <code>nil</code> dan mengizinkan pengguna untuk memilih sembarang jenis berkas."
+    "documentation": "Daftar tipe file yang diizinkan untuk dipilih oleh pengguna. Tipe file diformat tanpa titik. Misalnya, {\"jpg\", \"png\"} hanya akan memungkinkan memilih file JPG dan PNG. Jika tidak ada filter yang diberikan, filter adalah <code>nil</code> dan mengizinkan pengguna untuk memilih tipe file apa pun."
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync/return/0": {
-    "documentation": "<code>Files</code> yang diimpor. Mengembalikan daftar kosong jika tidak ada berkas yang dipilih. Mengembalikan <code>nil</code> jika pengguna memilih satu atau lebih berkas yang terlalu besar (UkuranBerkas lebih dari 100 megabyte)."
+    "documentation": "<code>Files</code> yang diimpor. Mengembalikan daftar kosong jika tidak ada file yang dipilih. Mengembalikan <code>nil</code> jika pengguna memilih satu atau lebih file yang terlalu besar (FileSize lebih dari 100 megabyte)."
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync": {
-    "documentation": "Meminta pengguna Studio saat ini untuk memilih berkas untuk ditambahkan sebagai <code>Files</code>.",
+    "documentation": "Mengajak pengguna Studio saat ini untuk memilih file untuk ditambahkan sebagai <code>Files</code>.",
     "params": [
       {
         "name": "self",
@@ -68164,10 +68117,10 @@
     "documentation": "Menghasilkan aliran audio dari perangkat fisik, seperti mikrofon."
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires": {
     "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -68191,10 +68144,10 @@
     "documentation": "Menghasilkan aliran audio dari perangkat fisik, seperti mikrofon."
   },
   "@roblox/globaltype/AudioDeviceInput.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioDeviceInput.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan <code>Wire</code> dalam <code>Wire.TargetName</code> tu terhubung ke instance ini melalui properti <code>Wire.TargetInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -68211,10 +68164,10 @@
     "documentation": "Menghasilkan aliran audio dari perangkat fisik, seperti mikrofon."
   },
   "@roblox/globaltype/AudioDeviceInput.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioDeviceInput.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan <code>Wire</code> dalam <code>Wire.SourceName</code> tu terhubung ke instance ini melalui properti <code>Wire.SourceInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -72552,6 +72505,9 @@
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1": {
     "documentation": "Sebuah array dari <code>CaptureType</code>."
   },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/2": {
+    "documentation": "Sebuah boolean; default adalah <code>false</code>."
+  },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0": {
     "documentation": "Tuple dari (result: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>)"
   },
@@ -72565,6 +72521,10 @@
       {
         "name": "captureTypeFilters",
         "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1"
+      },
+      {
+        "name": "readFromAllEligibleExperiences",
+        "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/2"
       }
     ],
     "returns": [
@@ -73371,7 +73331,6 @@
     "documentation": "Mengatur konten frekuensi dari aliran audio.",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioFilter.Bypass",
-      "Editor": "@roblox/globaltype/AudioFilter.Editor",
       "FilterType": "@roblox/globaltype/AudioFilter.FilterType",
       "Frequency": "@roblox/globaltype/AudioFilter.Frequency",
       "Gain": "@roblox/globaltype/AudioFilter.Gain",
@@ -73389,18 +73348,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioFilter.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioFilter.FilterType": {
-    "documentation": "Jenis kurva dari pita yang diwakili oleh filter.",
+    "documentation": "Jenis kurva band yang diwakili oleh filter.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#FilterType",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioFilter.Frequency": {
-    "documentation": "Frekuensi pusat yang filter bertindak di sekitarnya.",
+    "documentation": "Frekuensi pusat yang menjadi fokus tindakan filter.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Frequency",
     "code_sample": ""
   },
@@ -73410,7 +73364,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioFilter.Q": {
-    "documentation": "Untuk filter puncak, lowpass, highpass, bandpass, dan notch, mengontrol selectiveness atau resonance.",
+    "documentation": "Untuk filter puncak, lowpass, highpass, bandpass, dan notch, mengontrol selektivitas atau resonansi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Q",
     "code_sample": ""
   },
@@ -73418,10 +73372,10 @@
     "documentation": "Mengatur konten frekuensi dari aliran audio."
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires": {
     "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -73472,10 +73426,10 @@
     "documentation": "Mengatur konten frekuensi dari aliran audio."
   },
   "@roblox/globaltype/AudioFilter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioFilter.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.TargetName</code> untuk menghubungkan ke instance ini melalui properti <code>Wire.TargetInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -73492,10 +73446,10 @@
     "documentation": "Mengatur konten frekuensi dari aliran audio."
   },
   "@roblox/globaltype/AudioFilter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioFilter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.SourceName</code> untuk menghubungkan ke instance ini melalui properti <code>Wire.SourceInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -74343,10 +74297,10 @@
     "documentation": "Mengubah audio yang diucapkan menjadi teks."
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instansi ini"
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires": {
     "documentation": "Mengembalikan array <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -76903,7 +76857,6 @@
     "documentation": "Menyesuaikan konten frekuensi dari aliran audio.",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioEqualizer.Bypass",
-      "Editor": "@roblox/globaltype/AudioEqualizer.Editor",
       "HighGain": "@roblox/globaltype/AudioEqualizer.HighGain",
       "LowGain": "@roblox/globaltype/AudioEqualizer.LowGain",
       "MidGain": "@roblox/globaltype/AudioEqualizer.MidGain",
@@ -76920,28 +76873,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioEqualizer.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioEqualizer.HighGain": {
-    "documentation": "Nilai gain yang diterapkan pada konten frekuensi pita tertinggi di equalizer.",
+    "documentation": "Nilai gain yang diterapkan pada konten frekuensi dari band tertinggi di equalizer.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#HighGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.LowGain": {
-    "documentation": "Nilai gain yang diterapkan pada konten frekuensi pita terendah di equalizer.",
+    "documentation": "Nilai gain yang diterapkan pada konten frekuensi dari band terendah di equalizer.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#LowGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.MidGain": {
-    "documentation": "Nilai gain yang diterapkan pada konten frekuensi pita tengah di equalizer.",
+    "documentation": "Nilai gain yang diterapkan pada konten frekuensi dari band tengah di equalizer.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#MidGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.MidRange": {
-    "documentation": "Rentang frekuensi dari pita yang dipengaruhi oleh <code>MidGain</code>.",
+    "documentation": "Rentang frekuensi dari band yang dipengaruhi oleh <code>MidGain</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#MidRange",
     "code_sample": ""
   },
@@ -76949,10 +76897,10 @@
     "documentation": "Menyesuaikan konten frekuensi dari aliran audio."
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires": {
     "documentation": "Mengembalikan array <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -76976,10 +76924,10 @@
     "documentation": "Menyesuaikan konten frekuensi dari aliran audio."
   },
   "@roblox/globaltype/AudioEqualizer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioEqualizer.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instance ini melalui properti <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -76996,10 +76944,10 @@
     "documentation": "Menyesuaikan konten frekuensi dari aliran audio."
   },
   "@roblox/globaltype/AudioEqualizer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioEqualizer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instance ini melalui properti <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -79248,10 +79196,10 @@
     "documentation": "Membagi aliran audio menjadi saluran-saluran komponen sehingga masing-masing dapat diproses secara independen."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires": {
     "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -79275,10 +79223,10 @@
     "documentation": "Membagi aliran audio menjadi saluran-saluran komponen sehingga masing-masing dapat diproses secara independen."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetInputPins": {
-    "documentation": "Mengembalikan pin input yang tersedia untuk <code>Wire.TargetName</code>.",
+    "documentation": "Mendapatkan daftar pin yang dapat digunakan <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instance ini melalui properti <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -79295,10 +79243,10 @@
     "documentation": "Membagi aliran audio menjadi saluran-saluran komponen sehingga masing-masing dapat diproses secara independen."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetOutputPins": {
-    "documentation": "Mengembalikan pin output yang dapat dipilih oleh <code>Wire.SourceName</code>.",
+    "documentation": "Mendapatkan daftar pin yang dapat digunakan <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instance ini melalui properti <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -87589,13 +87537,13 @@
     "documentation": "Membuat efek bergetar pada suara dengan mengubah volume suara naik dan turun."
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
     "params": [
       {
         "name": "self",
@@ -87616,10 +87564,10 @@
     "documentation": "Membuat efek bergetar pada suara dengan mengubah volume suara naik dan turun."
   },
   "@roblox/globaltype/AudioTremolo.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioTremolo.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mendapatkan daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instance ini melalui properti <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -87636,10 +87584,10 @@
     "documentation": "Membuat efek bergetar pada suara dengan mengubah volume suara naik dan turun."
   },
   "@roblox/globaltype/AudioTremolo.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioTremolo.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mendapatkan daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instance ini melalui properti <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -87730,7 +87678,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioTremolo.WiringChanged": {
-    "documentation": "",
+    "documentation": "Ditembakkan ketika instance lain terhubung atau terputus dari <code>AudioAnalyzer</code> melalui <code>Wire</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioTremolo.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioTremolo.WiringChanged.ConnectParallel",
@@ -87792,6 +87740,7 @@
       "Direction3DState": "@roblox/globaltype/InputAction.Direction3DState",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "Type": "@roblox/globaltype/InputAction.Type",
+      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState",
       "Fire": "@roblox/globaltype/InputAction.Fire",
       "GetState": "@roblox/globaltype/InputAction.GetState"
     },
@@ -87826,6 +87775,11 @@
   "@roblox/globaltype/InputAction.Type": {
     "documentation": "Menentukan tipe nilai input yang diharapkan oleh aksi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Type",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.ViewportPositionState": {
+    "documentation": "Properti hanya-baca yang tidak dapat diprogram dan berguna untuk debugging <code>ViewportPosition</code> aksi input.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#ViewportPositionState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Fire/param/0": {
@@ -89376,10 +89330,10 @@
     "documentation": "Digunakan untuk memutar aset audio."
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instance ini"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires": {
     "documentation": "Mengembalikan array <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -89403,10 +89357,10 @@
     "documentation": "Digunakan untuk memutar aset audio."
   },
   "@roblox/globaltype/AudioPlayer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioPlayer.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mendapatkan daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instance ini melalui properti <code>Wire.TargetInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -89423,10 +89377,10 @@
     "documentation": "Digunakan untuk memutar aset audio."
   },
   "@roblox/globaltype/AudioPlayer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioPlayer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mendapatkan daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instance ini melalui properti <code>Wire.SourceInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -90383,10 +90337,10 @@
     "documentation": "Mengeluarkan aliran audio ke dunia."
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output di instansi ini"
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires": {
     "documentation": "Mengembalikan array <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -90430,10 +90384,10 @@
     "documentation": "Mengeluarkan aliran audio ke dunia."
   },
   "@roblox/globaltype/AudioEmitter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioEmitter.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mendapatkan daftar pin yang dapat digunakan <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instansi ini melalui properti <code>Wire.TargetInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -90470,10 +90424,10 @@
     "documentation": "Mengeluarkan aliran audio ke dunia."
   },
   "@roblox/globaltype/AudioEmitter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioEmitter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mendapatkan daftar pin yang dapat digunakan <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instansi ini melalui properti <code>Wire.SourceInstance</code>-nya.",
     "params": [
       {
         "name": "self",
@@ -92369,10 +92323,10 @@
     "documentation": "Membuat aliran audio terdengar lebih volumen. Jika diterapkan pada satu suara, itu mungkin terdengar seperti beberapa suara."
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output di instansi ini"
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires": {
     "documentation": "Mengembalikan array <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -92396,10 +92350,10 @@
     "documentation": "Membuat aliran audio terdengar lebih volumen. Jika diterapkan pada satu suara, itu mungkin terdengar seperti beberapa suara."
   },
   "@roblox/globaltype/AudioChorus.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioChorus.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mendapatkan daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.TargetName</code> untuk terhubung ke instansi ini melalui propertinya <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -92416,10 +92370,10 @@
     "documentation": "Membuat aliran audio terdengar lebih volumen. Jika diterapkan pada satu suara, itu mungkin terdengar seperti beberapa suara."
   },
   "@roblox/globaltype/AudioChorus.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari string yang mewakili nama pin yang valid."
   },
   "@roblox/globaltype/AudioChorus.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mendapatkan daftar pin yang dapat digunakan oleh <code>Wire</code> dalam <code>Wire.SourceName</code> untuk terhubung ke instansi ini melalui propertinya <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -92589,10 +92543,10 @@
     "documentation": "Objek GUI yang menampilkan konten video dari <code>VideoPlayer</code> yang terhubung."
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Sebuah pin input atau output pada instansi ini"
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array dari <code>Wires</code>"
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires": {
     "documentation": "Mengembalikan array dari <code>Wires</code> yang terhubung ke pin yang ditentukan.",
@@ -92616,10 +92570,10 @@
     "documentation": "Objek GUI yang menampilkan konten video dari <code>VideoPlayer</code> yang terhubung."
   },
   "@roblox/globaltype/VideoDisplay.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang merepresentasikan nama pin yang valid."
   },
   "@roblox/globaltype/VideoDisplay.GetInputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> di <code>Wire.TargetName</code> untuk terhubung ke instansi ini melalui properti <code>Wire.TargetInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -92636,10 +92590,10 @@
     "documentation": "Objek GUI yang menampilkan konten video dari <code>VideoPlayer</code> yang terhubung."
   },
   "@roblox/globaltype/VideoDisplay.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Sebuah array string yang merepresentasikan nama pin yang valid."
   },
   "@roblox/globaltype/VideoDisplay.GetOutputPins": {
-    "documentation": "",
+    "documentation": "Mengambil daftar pin yang dapat digunakan oleh <code>Wire</code> di <code>Wire.SourceName</code> untuk terhubung ke instansi ini melalui properti <code>Wire.SourceInstance</code>.",
     "params": [
       {
         "name": "self",
@@ -93090,10 +93044,10 @@
     "documentation": "Layanan yang menangani obrolan teks dalam pengalaman."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "Pengguna harus berada di server saat ini, jika tidak, kesalahan akan terjadi."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/2": {
-    "documentation": ""
+    "documentation": "Pengguna harus berada di server saat ini, jika tidak, kesalahan akan terjadi."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/return/0": {
     "documentation": ""
@@ -93565,7 +93519,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint": {
-    "documentation": "Menyelaraskan dua <code>BaseParts</code> dengan sambungan kinematik yang dapat dianimasikan atau berbasis gaya.",
+    "documentation": "Menyelaraskan dua <code>BaseParts</code> dengan sambungan kinematik atau berbasis gaya yang dapat dianimasikan.",
     "keys": {
       "C0": "@roblox/globaltype/AnimationConstraint.C0",
       "C1": "@roblox/globaltype/AnimationConstraint.C1",
@@ -93590,17 +93544,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.IsKinematic": {
-    "documentation": "Mengalihkan antara apakah batasan bersifat kinematik atau disimulasikan secara fisik.",
+    "documentation": "Menyalakan apakah batasan tersebut kinematik atau disimulasi secara fisik.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#IsKinematic",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.MaxForce": {
-    "documentation": "Magnitudo gaya maksimum yang dapat diterapkan oleh batasan untuk mencapai tujuannya.",
+    "documentation": "Magnitudo gaya maksimum yang dapat diterapkan batasan untuk mencapai tujuannya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxForce",
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.MaxTorque": {
-    "documentation": "Torsi maksimum yang dapat diterapkan oleh batasan untuk mencapai tujuannya.",
+    "documentation": "Torsi maksimum yang dapat diterapkan batasan untuk mencapai tujuannya.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#MaxTorque",
     "code_sample": ""
   },
@@ -93615,7 +93569,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AnimationConstraint.Transform": {
-    "documentation": "Menggambarkan offset animasi saat ini dari sambungan batasan.",
+    "documentation": "Mendeskripsikan offset animasi saat ini dari sambungan batasan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AnimationConstraint#Transform",
     "code_sample": ""
   },
@@ -95415,7 +95369,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BodyPartDescription.HeadShape": {
-    "documentation": "",
+    "documentation": "Menentukan pengidentifikasi bentuk kepala yang diterapkan pada Kepala Dinamis ketika ini <code>BodyPartDescription</code> diterapkan.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BodyPartDescription#HeadShape",
     "code_sample": ""
   },
@@ -140549,7 +140503,7 @@
     "code_sample": ""
   },
   "@luau/global/table": {
-    "documentation": "Sebuah perpustakaan fungsi tabel.",
+    "documentation": "Sebuah pustaka fungsi tabel.",
     "keys": {
       "clear": "@luau/global/table.clear",
       "clone": "@luau/global/table.clone",
@@ -140588,10 +140542,10 @@
     "code_sample": ""
   },
   "@luau/global/table.clone/param/0": {
-    "documentation": "Tabel yang akan diklon."
+    "documentation": "Tabel yang akan disalin."
   },
   "@luau/global/table.clone/return/0": {
-    "documentation": "Klon dari tabel yang diberikan."
+    "documentation": "Salinan dari tabel yang diberikan."
   },
   "@luau/global/table.clone": {
     "documentation": "Mengembalikan salinan dangkal dari tabel yang diberikan.",
@@ -140611,13 +140565,13 @@
     "documentation": "Tabel yang akan diubah menjadi string."
   },
   "@luau/global/table.concat/param/1": {
-    "documentation": "String yang akan digabungkan di antara setiap entri di tabel."
+    "documentation": "String yang akan disisipkan di antara setiap entri dalam tabel."
   },
   "@luau/global/table.concat/param/2": {
-    "documentation": "Indeks awal penggabungan tabel."
+    "documentation": "Indeks awal dari penggabungan tabel."
   },
   "@luau/global/table.concat/param/3": {
-    "documentation": "Indeks akhir penggabungan tabel."
+    "documentation": "Indeks akhir dari penggabungan tabel."
   },
   "@luau/global/table.concat/return/0": {
     "documentation": ""
@@ -140658,7 +140612,7 @@
     "documentation": ""
   },
   "@luau/global/table.create": {
-    "documentation": "Mengembalikan tabel baru yang diisi dengan banyak instansi nilai yang ditentukan.",
+    "documentation": "Mengembalikan tabel baru yang diisi dengan banyak contoh dari nilai yang ditentukan.",
     "params": [
       {
         "name": "count",
@@ -140688,7 +140642,7 @@
     "documentation": ""
   },
   "@luau/global/table.find": {
-    "documentation": "Mengembalikan indeks dari kemunculan pertama <code>needle</code> di dalam <code>haystack</code> mulai dari <code>init</code>.",
+    "documentation": "Mengembalikan indeks dari kemunculan pertama <code>needle</code> dalam <code>haystack</code> yang dimulai dari <code>init</code>.",
     "params": [
       {
         "name": "haystack",
@@ -140716,7 +140670,7 @@
     "documentation": "Fungsi yang akan digunakan untuk iterasi. Fungsi ini akan menerima 2 argumen untuk setiap iterasi, di mana argumen ke-1 adalah kunci, dan argumen ke-2 adalah nilai."
   },
   "@luau/global/table.foreach": {
-    "documentation": "<strong>Deprecated:</strong> <br>Mengiterasi tabel yang diberikan, mengirimkan kunci dan nilai dari setiap iterasi ke fungsi yang diberikan.",
+    "documentation": "<strong>Deprecated:</strong> <br>Mengiterasi tabel yang diberikan, meneruskan kunci dan nilai dari setiap iterasi ke fungsi yang diberikan.",
     "params": [
       {
         "name": "t",
@@ -140738,7 +140692,7 @@
     "documentation": "Fungsi yang akan digunakan untuk iterasi. Fungsi ini akan menerima 2 argumen untuk setiap iterasi, di mana argumen ke-1 adalah indeks, dan argumen ke-2 adalah nilai."
   },
   "@luau/global/table.foreachi": {
-    "documentation": "<strong>Deprecated:</strong> <br>Mirip dengan <code>table.foreach()</code> kecuali pasangan indeks-nilai yang diteruskan bukan pasangan kunci-nilai.",
+    "documentation": "<strong>Deprecated:</strong> <br>Mirip dengan <code>table.foreach()</code> kecuali pasangan indeks-nilai diteruskan alih-alih pasangan kunci-nilai.",
     "params": [
       {
         "name": "t",
@@ -140760,7 +140714,7 @@
     "documentation": "Tabel yang dibekukan."
   },
   "@luau/global/table.freeze": {
-    "documentation": "Membuat tabel yang diberikan hanya dapat dibaca.",
+    "documentation": "Membuat tabel yang diberikan menjadi baca-saja.",
     "params": [
       {
         "name": "t",
@@ -140774,13 +140728,13 @@
     "code_sample": ""
   },
   "@luau/global/table.getn/param/0": {
-    "documentation": "Tabel yang ukurannya diukur."
+    "documentation": "Tabel yang ukurannya sedang diukur."
   },
   "@luau/global/table.getn/return/0": {
     "documentation": ""
   },
   "@luau/global/table.getn": {
-    "documentation": "<strong>Deprecated:</strong> <br>Mengembalikan jumlah elemen dalam tabel yang diberikan.",
+    "documentation": "<strong>Deprecated:</strong> <br>Mengembalikan jumlah elemen dalam tabel yang diteruskan.",
     "params": [
       {
         "name": "t",
@@ -140854,10 +140808,10 @@
     "documentation": "Tabel yang akan diperiksa."
   },
   "@luau/global/table.isfrozen/return/0": {
-    "documentation": "Apakah tabel dibekukan dari <code>table.freeze()</code>."
+    "documentation": "Apakah tabel tersebut dibekukan dari <code>table.freeze()</code>."
   },
   "@luau/global/table.isfrozen": {
-    "documentation": "Mengembalikan <code>true</code> jika tabel yang diberikan dibekukan dan <code>false</code> jika tidak dibekukan.",
+    "documentation": "Mengembalikan <code>true</code> jika tabel yang diberikan dibekukan dan <code>false</code> jika tidak terdapat pembekuan.",
     "params": [
       {
         "name": "t",
@@ -140959,7 +140913,7 @@
     "code_sample": ""
   },
   "@luau/global/table.remove/param/0": {
-    "documentation": "Tabel yang elemen dihapus."
+    "documentation": "Tabel yang memiliki elemen yang dihapus."
   },
   "@luau/global/table.remove/param/1": {
     "documentation": "Indeks dari elemen yang dihapus."
@@ -140968,7 +140922,7 @@
     "documentation": ""
   },
   "@luau/global/table.remove": {
-    "documentation": "Menghapus elemen yang ditentukan dari array, menggeser elemen setelahnya ke bawah t untuk mengisi ruang kosong jika memungkinkan.",
+    "documentation": "Menghapus elemen yang ditentukan dari array, menggeser elemen-elemen berikutnya ke bawah untuk mengisi ruang kosong jika memungkinkan.",
     "params": [
       {
         "name": "t",
@@ -140989,10 +140943,10 @@
     "documentation": ""
   },
   "@luau/global/table.sort/param/1": {
-    "documentation": "Fungsi perbandingan opsional yang akan digunakan saat membandingkan elemen di tabel. Fungsi ini menerima dua elemen, dan seharusnya mengembalikan true jika elemen pertama harus diurutkan sebelum yang kedua dalam urutan akhir."
+    "documentation": "Fungsi perbandingan opsional yang akan digunakan saat membandingkan elemen dalam tabel. Fungsi ini menerima dua elemen, dan harus mengembalikan true jika elemen pertama harus diurutkan sebelum yang kedua dalam urutan akhir."
   },
   "@luau/global/table.sort": {
-    "documentation": "Mengurutkan elemen tabel menggunakan fungsi perbandingan yang diberikan atau operator <code>&lt;</code> .",
+    "documentation": "Mengurutkan elemen tabel menggunakan fungsi perbandingan yang diberikan atau operator <code>&lt;</code>.",
     "params": [
       {
         "name": "t",

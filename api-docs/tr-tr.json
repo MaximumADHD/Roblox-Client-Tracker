@@ -6490,7 +6490,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService": {
-    "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur.",
+    "documentation": "Roblox tarafından motorun kontrol edilen testlerini çalıştırmak için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur.",
     "keys": {
       "AutoRuns": "@roblox/globaltype/TestService.AutoRuns",
       "Description": "@roblox/globaltype/TestService.Description",
@@ -6523,12 +6523,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.AutoRuns": {
-    "documentation": "<code>true</code> olarak ayarlandığında, oyunun hizmetin <code>TestService:RunAsync()</code> metodunun çağrılmasıyla çalışmaya başlayacaktır.",
+    "documentation": "<code>true</code> olarak ayarlandığında, oyun hizmetin <code>TestService:RunAsync()</code> yöntemi çağrıldığında çalışmaya başlayacaktır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#AutoRuns",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Description": {
-    "documentation": "Gerçekleştirilen testin bir tanımı.",
+    "documentation": "Yürütülen testi tanımlayan bir açıklama.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Description",
     "code_sample": ""
   },
@@ -6538,57 +6538,57 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ExecuteWithStudioRun": {
-    "documentation": "<code>true</code> olarak ayarlandığında, <code>TestService</code>, Roblox Studio'da <strong>Çalıştır</strong> açıkken yürütülecektir.",
+    "documentation": "<code>true</code> olarak ayarlandığında, <code>TestService</code> Roblox Studio'da <strong>Çalıştır</strong> eylemi kullanıldığında çalıştırılacaktır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ExecuteWithStudioRun",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Is30FpsThrottleEnabled": {
-    "documentation": "<strong>Deprecated:</strong> Bu kullanım dışı bırakılmıştır ve doğrudan <code>ThrottlePhysicsToRealtime</code> olarak yeniden adlandırılmıştır. Kullanım amacını daha iyi yansıtmak için.<br>Test devam ederken fizik motorunun 30 FPS'ye sınırlanıp sınırlanmayacağını ayarlar.",
+    "documentation": "<strong>Deprecated:</strong> Bu kullanım dışı bırakıldı ve pratik kullanımını daha iyi yansıtan <code>ThrottlePhysicsToRealtime</code> olarak doğrudan yeniden adlandırıldı.<br>Test yürütülürken fizik motorunun 30 FPS'e kısıtlanıp kısıtlanmayacağını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Is30FpsThrottleEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.IsPhysicsEnvironmentalThrottled": {
-    "documentation": "Bu test yürütülürken fizik ortamının sınırlanıp sınırlanmayacağını ayarlar.",
+    "documentation": "Bu testi çalıştırırken fizik ortamının kısıtlanıp kısıtlanmayacağını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#IsPhysicsEnvironmentalThrottled",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.IsSleepAllowed": {
-    "documentation": "Test simülasyonu çalışırken fizik nesnelerinin uyumasına izin verilip verilmeyeceğini ayarlar.",
+    "documentation": "Test simülasyonu çalışırken fizik nesnelerinin uykuya dalmasına izin verilip verilmeyeceğini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#IsSleepAllowed",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.NumberOfPlayers": {
-    "documentation": "Bu testte beklenen oyuncu sayısı.",
+    "documentation": "Bu testte beklenen oyuncu sayısı, eğer varsa.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#NumberOfPlayers",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.SimulateSecondsLag": {
-    "documentation": "Test oturumu sırasında oyuncuların yaşadığı ek gecikme miktarını ayarlar.",
+    "documentation": "Test oturumu sırasında oyuncular tarafından deneyimlenen ek gecikme miktarını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#SimulateSecondsLag",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.TestCount": {
-    "documentation": "Test oturumunda kaydedilen test çağrılarının sayısını ölçer.",
+    "documentation": "Test oturumunda kaydedilen test çağrısı sayısını ölçer.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#TestCount",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ThrottlePhysicsToRealtime": {
-    "documentation": "Testin gerçek dünya zamanına göre zaman simüle edilip edilmeyeceğini veya mümkün olduğu kadar hızlı bir şekilde simüle edilip edilmeyeceğini ayarlar.",
+    "documentation": "Testin gerçek dünya zamanına göre simülasyon yapmak üzere kısıtlanıp kısıtlanmayacağını ayarlar ya da mümkün olduğunca hızlı çalışıp çalışmayacağını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#ThrottlePhysicsToRealtime",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Timeout": {
-    "documentation": "Testlerin çalışmasına izin verilen maksimum süre.",
+    "documentation": "Testlerin kaç süreyle çalışmasına izin verildiğinin maksimum miktarı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#Timeout",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.WarnCount": {
-    "documentation": "Test oturumunda kaydedilen uyarı çağrılarının sayısını ölçer.",
+    "documentation": "Test oturumunda kaydedilen uyarı çağrısı sayısını ölçer.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TestService#WarnCount",
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Check/param/0": {
-    "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol edilen testlerini çalıştırmak için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Check/param/1": {
     "documentation": ""
@@ -6603,7 +6603,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Check": {
-    "documentation": "Bir koşulun sonucunu çıktıya yazdırır.",
+    "documentation": "Bir durumun sonucunu çıktıya yazdırır.",
     "params": [
       {
         "name": "self",
@@ -6631,7 +6631,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Checkpoint/param/0": {
-    "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol edilen testlerini çalıştırmak için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Checkpoint/param/1": {
     "documentation": ""
@@ -6643,7 +6643,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Checkpoint": {
-    "documentation": "<code>Test checkpoint:</code> ifadesini ardından bir dizeyi çıkışa mavi metin olarak yazdırır.",
+    "documentation": "<code>Test checkpoint:</code> ifadesinden sonra bir dizeyi mavi metinle çıktıya yazdırır.",
     "params": [
       {
         "name": "self",
@@ -6667,10 +6667,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Done/param/0": {
-    "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol edilen testlerini çalıştırmak için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Done": {
-    "documentation": "<code>Testing Done</code> ifadesini çıkışa mavi metin olarak yazdırır.",
+    "documentation": "<code>Testing Done</code> ifadesini mavi metinle çıktıya yazdırır.",
     "params": [
       {
         "name": "self",
@@ -6682,7 +6682,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Error/param/0": {
-    "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol edilen testlerini çalıştırmak için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Error/param/1": {
     "documentation": ""
@@ -6694,7 +6694,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Error": {
-    "documentation": "Çıkışa, <code>TestService:</code> öneki ile kırmızı bir hata mesajı yazdırır.",
+    "documentation": "Kırmızı bir hata mesajını çıktı olarak, <code>TestService:</code> ile ön ekleyerek yazdırır.",
     "params": [
       {
         "name": "self",
@@ -6718,7 +6718,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Fail/param/0": {
-    "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol edilen testlerini çalıştırmak için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Fail/param/1": {
     "documentation": ""
@@ -6730,7 +6730,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Fail": {
-    "documentation": "<code>TestService</code> yürütmesinde ölümcül bir hatayı gösterir.",
+    "documentation": "<code>TestService</code> yürütmesinde kritik bir hatayı belirtir.",
     "params": [
       {
         "name": "self",
@@ -6754,7 +6754,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.isFeatureEnabled/param/0": {
-    "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol edilen testlerini çalıştırmak için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.isFeatureEnabled/param/1": {
     "documentation": ""
@@ -6781,7 +6781,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Message/param/0": {
-    "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol edilen testlerini çalıştırmak için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Message/param/1": {
     "documentation": ""
@@ -6793,7 +6793,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Message": {
-    "documentation": "Çıkışa, <code>TestService:</code> ifadesini ardından bir dizeyi mavi metin olarak yazdırır.",
+    "documentation": "<code>TestService:</code> ifadesinden sonra bir dizeyi mavi metinle çıktıya yazdırır.",
     "params": [
       {
         "name": "self",
@@ -6817,7 +6817,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Require/param/0": {
-    "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol edilen testlerini çalıştırmak için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Require/param/1": {
     "documentation": ""
@@ -6832,7 +6832,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Require": {
-    "documentation": "Bir koşulun doğru olup olmadığını ve bir açıklama dizesini yazdırır.",
+    "documentation": "Bir koşulun doğru olup olmadığını bir tanımlayıcı dize ile yazdırır.",
     "params": [
       {
         "name": "self",
@@ -6860,10 +6860,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.RunAsync/param/0": {
-    "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol edilen testlerini çalıştırmak için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.RunAsync": {
-    "documentation": "<code>TestService</code>'e bağlı olan betikleri çalıştırır.",
+    "documentation": "<code>TestService</code>'ye bağlanmış scriptleri çalıştırır.",
     "params": [
       {
         "name": "self",
@@ -6875,10 +6875,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Run/param/0": {
-    "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol edilen testlerini çalıştırmak için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Run": {
-    "documentation": "<strong>Deprecated:</strong> <br><code>TestService</code>'e bağlı olan betikleri çalıştırır.",
+    "documentation": "<strong>Deprecated:</strong> <br><code>TestService</code>'ye bağlanmış scriptleri çalıştırır.",
     "params": [
       {
         "name": "self",
@@ -6890,7 +6890,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.ScopeTime/param/0": {
-    "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol edilen testlerini çalıştırmak için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.ScopeTime/return/0": {
     "documentation": ""
@@ -6910,9 +6910,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.TakeSnapshot/param/0": {
-    "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol edilen testlerini çalıştırmak için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.TakeSnapshot/param/1": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/TestService.TakeSnapshot/param/2": {
     "documentation": ""
   },
   "@roblox/globaltype/TestService.TakeSnapshot": {
@@ -6925,6 +6928,10 @@
       {
         "name": "snapshotname",
         "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/1"
+      },
+      {
+        "name": "source",
+        "documentation": "@roblox/globaltype/TestService.TakeSnapshot/param/2"
       }
     ],
     "returns": [],
@@ -6932,7 +6939,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TestService.Warn/param/0": {
-    "documentation": "Roblox tarafından motorun kontrollü testlerini yürütmek için kullanılan bir hizmettir. Geliştiricilerin sınırlı olarak kullanması için mevcuttur."
+    "documentation": "Roblox tarafından motorun kontrol edilen testlerini çalıştırmak için kullanılan bir hizmettir. Geliştiricilerin sınırlı bir ölçüde kullanması için mevcuttur."
   },
   "@roblox/globaltype/TestService.Warn/param/1": {
     "documentation": ""
@@ -6947,7 +6954,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/TestService.Warn": {
-    "documentation": "Bir koşulun <code>true</code> olup olmadığını kontrol eder, aksi takdirde bir uyarı gösterir.",
+    "documentation": "Bir koşulun <code>true</code> olup olmadığını çıktı olarak, aksi takdirde bir uyarı yazdırır.",
     "params": [
       {
         "name": "self",
@@ -7052,7 +7059,7 @@
     "returns": []
   },
   "@roblox/globaltype/TestService.ServerCollectConditionalResult": {
-    "documentation": "Sunucunun koşullu bir test sonucunu toplaması gerektiğinde ateş eder.",
+    "documentation": "Sunucu belirli bir test sonucunu toplamalıdır, bu tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/TestService.ServerCollectConditionalResult.Connect",
       "ConnectParallel": "@roblox/globaltype/TestService.ServerCollectConditionalResult.ConnectParallel",
@@ -7140,7 +7147,7 @@
     "returns": []
   },
   "@roblox/globaltype/TestService.ServerCollectResult": {
-    "documentation": "Sunucunun bir test sonucunu toplaması gerektiğinde ateş eder.",
+    "documentation": "Sunucu bir test sonucunu toplamalıdır, bu tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/TestService.ServerCollectResult.Connect",
       "ConnectParallel": "@roblox/globaltype/TestService.ServerCollectResult.ConnectParallel",
@@ -10336,10 +10343,10 @@
     "documentation": "Ses akışlarını çarpıtır, onları daha bulanık, pürüzlü ve yüksek sesli hale getirir."
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekteki bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Bir <code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioDistortion.GetConnectedWires": {
     "documentation": "Belirtilen pin'e bağlı olan <code>Wires</code> dizisini döner.",
@@ -10363,10 +10370,10 @@
     "documentation": "Ses akışlarını çarpıtır, onları daha bulanık, pürüzlü ve yüksek sesli hale getirir."
   },
   "@roblox/globaltype/AudioDistortion.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dizedir."
   },
   "@roblox/globaltype/AudioDistortion.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire.TargetName</code> içinde <code>Wire</code>'in bu örneğe bağlanmak için <code>Wire.TargetInstance</code> özelliğini kullanabileceği pinlerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -10383,10 +10390,10 @@
     "documentation": "Ses akışlarını çarpıtır, onları daha bulanık, pürüzlü ve yüksek sesli hale getirir."
   },
   "@roblox/globaltype/AudioDistortion.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dizedir."
   },
   "@roblox/globaltype/AudioDistortion.GetOutputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire.SourceName</code> içinde <code>Wire</code>'in bu örneğe bağlanmak için <code>Wire.SourceInstance</code> özelliğini kullanabileceği pinlerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -10809,10 +10816,10 @@
     "documentation": "Ses akışlarının ses seviyesini ayarlar."
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekteki bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> nesnelerinin bir dizisi"
   },
   "@roblox/globaltype/AudioFader.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı olan <code>Wires</code> dizisini döner.",
@@ -10836,10 +10843,10 @@
     "documentation": "Ses akışlarının ses seviyesini ayarlar."
   },
   "@roblox/globaltype/AudioFader.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dize dizisi."
   },
   "@roblox/globaltype/AudioFader.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'ın <code>Wire.TargetName</code> içinde bu örneğe bağlanmak için <code>Wire.TargetInstance</code> özelliğini kullanabileceği pinlerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -10856,10 +10863,10 @@
     "documentation": "Ses akışlarının ses seviyesini ayarlar."
   },
   "@roblox/globaltype/AudioFader.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dize dizisi."
   },
   "@roblox/globaltype/AudioFader.GetOutputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'ın <code>Wire.SourceName</code> içinde bu örneğe bağlanmak için <code>Wire.SourceInstance</code> özelliğini kullanabileceği pinlerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -15238,13 +15245,13 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekteki bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Bir <code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioGate.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "Belirtilen pine bağlı olan <code>Wires</code> dizisini döndürür.",
     "params": [
       {
         "name": "self",
@@ -15265,10 +15272,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
   },
   "@roblox/globaltype/AudioGate.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'ın bu örneğe <code>Wire.TargetInstance</code> özelliği aracılığıyla bağlanmak için <code>Wire.TargetName</code>'de kullanabileceği pinlerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -15285,10 +15292,10 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioGate.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
   },
   "@roblox/globaltype/AudioGate.GetOutputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'ın bu örneğe <code>Wire.SourceInstance</code> özelliği aracılığıyla bağlanmak için <code>Wire.SourceName</code>'de kullanabileceği pinlerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -15379,7 +15386,7 @@
     "returns": []
   },
   "@roblox/globaltype/AudioGate.WiringChanged": {
-    "documentation": "",
+    "documentation": "<code>AudioAnalyzer</code>'ya bir <code>Wire</code> aracılığıyla başka bir örnek bağlandığında veya bağlantısı kesildiğinde tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/AudioGate.WiringChanged.Connect",
       "ConnectParallel": "@roblox/globaltype/AudioGate.WiringChanged.ConnectParallel",
@@ -23879,10 +23886,10 @@
     "documentation": "Video varlıklarını oynamak için kullanılır."
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekte bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/VideoPlayer.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı olan <code>Wires</code> dizisini döndürür.",
@@ -23906,10 +23913,10 @@
     "documentation": "Video varlıklarını oynamak için kullanılır."
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dize dizisi."
   },
   "@roblox/globaltype/VideoPlayer.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'in <code>Wire.TargetName</code>'de bu örneğe bağlanmak için <code>Wire.TargetInstance</code> özelliği aracılığıyla kullanabileceği pini listeler.",
     "params": [
       {
         "name": "self",
@@ -23926,10 +23933,10 @@
     "documentation": "Video varlıklarını oynamak için kullanılır."
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dize dizisi."
   },
   "@roblox/globaltype/VideoPlayer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'in <code>Wire.SourceName</code>'de bu örneğe bağlanmak için <code>Wire.SourceInstance</code> özelliği aracılığıyla kullanabileceği pini listeler.",
     "params": [
       {
         "name": "self",
@@ -26389,10 +26396,10 @@
     "documentation": "Fiziksel donanım cihazlarına, örneğin hoparlörler veya kulaklıklar gibi, iletilmek üzere ses akışlarını kabul eder."
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekte bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioDeviceOutput.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı olan <code>Wires</code> dizisini döner.",
@@ -26419,7 +26426,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioDeviceOutput.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'in <code>Wire.TargetName</code> özelliğini kullanarak bu örneğe bağlanmak için kullanılabilecek pinlerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -28486,7 +28493,6 @@
     "documentation": "Ses akışlarının ne kadar yüksek olabileceğini sınırlar.",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioLimiter.Bypass",
-      "Editor": "@roblox/globaltype/AudioLimiter.Editor",
       "MaxLevel": "@roblox/globaltype/AudioLimiter.MaxLevel",
       "Release": "@roblox/globaltype/AudioLimiter.Release",
       "GetConnectedWires": "@roblox/globaltype/AudioLimiter.GetConnectedWires",
@@ -28501,18 +28507,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioLimiter.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioLimiter.MaxLevel": {
-    "documentation": "Tolerans gösterilen maksimum ses.",
+    "documentation": "Tolerans gösterilen maksimum ses seviyesi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#MaxLevel",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioLimiter.Release": {
-    "documentation": "Daha önce sınırlanmış akışların normal ses seviyesine geri dönmesi için geçen süre.",
+    "documentation": "Daha önce sınırlı olan akışların normal ses seviyesine geri dönmesi için geçen süre.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioLimiter#Release",
     "code_sample": ""
   },
@@ -28520,10 +28521,10 @@
     "documentation": "Ses akışlarının ne kadar yüksek olabileceğini sınırlar."
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekte bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioLimiter.GetConnectedWires": {
     "documentation": "Belirtilen pin ile bağlantılı olan <code>Wires</code> dizisini döndürür.",
@@ -28550,7 +28551,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioLimiter.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire.TargetName</code> içinde <code>Wire</code>'in bu örneğe <code>Wire.TargetInstance</code> özelliği aracılığıyla bağlanmak için kullanabileceği pinlerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -29481,10 +29482,10 @@
     "documentation": "Birden fazla ses akışını tek bir çok kanallı ses akışında birleştirir."
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekteki bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> array'i"
   },
   "@roblox/globaltype/AudioChannelMixer.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı olan <code>Wires</code> dizisini döner.",
@@ -29508,10 +29509,10 @@
     "documentation": "Birden fazla ses akışını tek bir çok kanallı ses akışında birleştirir."
   },
   "@roblox/globaltype/AudioChannelMixer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
   },
   "@roblox/globaltype/AudioChannelMixer.GetInputPins": {
-    "documentation": "<code>Wire.TargetName</code> tarafından seçilebilen giriş pinlerini döner.",
+    "documentation": "<code>Wire</code>'ın <code>Wire.TargetName</code>'de bu örneği bağlamak için kullanabileceği pinler listesini alır <code>Wire.TargetInstance</code> özelliği aracılığıyla.",
     "params": [
       {
         "name": "self",
@@ -29528,10 +29529,10 @@
     "documentation": "Birden fazla ses akışını tek bir çok kanallı ses akışında birleştirir."
   },
   "@roblox/globaltype/AudioChannelMixer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
   },
   "@roblox/globaltype/AudioChannelMixer.GetOutputPins": {
-    "documentation": "<code>Wire.SourceName</code> için mevcut olan çıkış pinini döner.",
+    "documentation": "<code>Wire</code>'ın <code>Wire.SourceName</code>'de bu örneği bağlamak için kullanabileceği pinler listesini alır <code>Wire.SourceInstance</code> özelliği aracılığıyla.",
     "params": [
       {
         "name": "self",
@@ -31443,7 +31444,6 @@
     "keys": {
       "Attack": "@roblox/globaltype/AudioCompressor.Attack",
       "Bypass": "@roblox/globaltype/AudioCompressor.Bypass",
-      "Editor": "@roblox/globaltype/AudioCompressor.Editor",
       "MakeupGain": "@roblox/globaltype/AudioCompressor.MakeupGain",
       "Ratio": "@roblox/globaltype/AudioCompressor.Ratio",
       "Release": "@roblox/globaltype/AudioCompressor.Release",
@@ -31465,28 +31465,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioCompressor.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioCompressor.MakeupGain": {
-    "documentation": "Kompresyon sonrası uygulanacak bir kazanç değeri.",
+    "documentation": "Sıkıştırmadan sonra uygulanacak bir kazanç değeri.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#MakeupGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.Ratio": {
-    "documentation": "Giriş sesinin, <code>Threshold</code> değerini aşarken uygulanacak çıkış sesine oranı.",
+    "documentation": "Giriş sesi ile çıkış sesi arasındaki oran, <code>Threshold</code> aşılırken uygulanacaktır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Ratio",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.Release": {
-    "documentation": "Kompresörün, akış sesinin <code>Threshold</code> değerinin altına düştükten sonra açılması için ne kadar hızlı hareket edeceğini kontrol eder.",
+    "documentation": "Akış sesi, <code>Threshold</code> değerinin altına düştüğünde, sıkıştırıcının ne kadar hızlı açılacağını kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Release",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioCompressor.Threshold": {
-    "documentation": "Kompresörün, giriş akışını değiştirmeye başlayacağı kazanç değeri.",
+    "documentation": "Sıkıştırıcının giriş akışını değiştirmeye başlayacağı kazanç değeri.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioCompressor#Threshold",
     "code_sample": ""
   },
@@ -31494,10 +31489,10 @@
     "documentation": "Giriş akışlarının dinamik aralığını ayarlar."
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekteki bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioCompressor.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı <code>Wires</code> dizisini döner.",
@@ -31521,10 +31516,10 @@
     "documentation": "Giriş akışlarının dinamik aralığını ayarlar."
   },
   "@roblox/globaltype/AudioCompressor.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
   },
   "@roblox/globaltype/AudioCompressor.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire.TargetName</code>'de <code>Wire</code>'in bu örneğe bağlanmak için kullanabileceği pinlerin listesini alır <code>Wire.TargetInstance</code> özelliği aracılığıyla.",
     "params": [
       {
         "name": "self",
@@ -31541,10 +31536,10 @@
     "documentation": "Giriş akışlarının dinamik aralığını ayarlar."
   },
   "@roblox/globaltype/AudioCompressor.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
   },
   "@roblox/globaltype/AudioCompressor.GetOutputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire.SourceName</code>'de <code>Wire</code>'in bu örneğe bağlanmak için kullanabileceği pinlerin listesini alır <code>Wire.SourceInstance</code> özelliği aracılığıyla.",
     "params": [
       {
         "name": "self",
@@ -35839,7 +35834,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Lighting.PrioritizeLightingQuality": {
-    "documentation": "Aydınlatma/gölgeleme kalitesini veya görünüm mesafesinin ilk önce ölçeklenmesini sağladığınızı gösterir.",
+    "documentation": "Aydınlatma/gölgeleme kalitesini veya görüş mesafesini ilk olarak ölçeklendirmeyi tercih edip etmediğinizi belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Lighting#PrioritizeLightingQuality",
     "code_sample": ""
   },
@@ -39318,10 +39313,10 @@
     "documentation": "Etrafındaki <code>AudioEmitters</code>'dan bir ses akışını kaydeder 3D dünyada."
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekte bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> döngüsü"
   },
   "@roblox/globaltype/AudioListener.GetConnectedWires": {
     "documentation": "Belirtilen pin'e bağlı olan <code>Wires</code>'ın bir dizisini döndürür.",
@@ -39368,7 +39363,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioListener.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'in bu örneğe bağlı <code>Wire.TargetInstance</code> özelliği aracılığıyla <code>Wire.TargetName</code>'da kullanabileceği pinlerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -41699,13 +41694,13 @@
     "documentation": "Deneyim içinde ses akışlarını kaydeder."
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekteki bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioRecorder.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "Belirtilen pin'e bağlı olan <code>Wires</code> dizisini döner.",
     "params": [
       {
         "name": "self",
@@ -41729,7 +41724,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioRecorder.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'ın bu örneğe <code>Wire.TargetInstance</code> özelliği aracılığıyla bağlanmak için <code>Wire.TargetName</code>'de kullanabileceği pin'lerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -45475,7 +45470,7 @@
     "documentation": "Çevrimiçi bağlantılardan oluşan bir sözlük (yukarıdaki tabloya bakın)."
   },
   "@roblox/globaltype/Player.GetFriendsOnline": {
-    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>GetFriendsOnline()</code> ile geçersiz kılınmıştır.<br>Çevrimiçi bağlantıların bir sözlüğünü döner. Bir varlığın varlık kimliğini kullanarak ürün bilgilerini döner.",
+    "documentation": "<strong>Deprecated:</strong> Bu yöntem, <code>GetFriendsOnlineAsync()</code> ile değiştirilmiştir.<br>Çevrimiçi bağlantıların bir sözlüğünü döner. Bir varlığın varlık kimliğini kullanarak ürün bilgilerini döner.",
     "params": [
       {
         "name": "self",
@@ -52795,13 +52790,13 @@
     "documentation": "Sorgulamak için niteliğin adı."
   },
   "@roblox/globaltype/Instance.GetStyled/param/2": {
-    "documentation": "Hedef aldığınız sahte örnek için isteğe bağlı seçici örneği."
+    "documentation": "Hedeflediğiniz sahte örnek için isteğe bağlı seçici."
   },
   "@roblox/globaltype/Instance.GetStyled/return/0": {
     "documentation": "Belirtilen niteliğin stil verilmiş veya açıkça değiştirilmiş değeri; veya stil verilmemişse varsayılan niteliğin değeridir."
   },
   "@roblox/globaltype/Instance.GetStyled": {
-    "documentation": "Belirtilen niteliğin stil verilmiş veya açıkça değiştirilmiş değerini döndürür; veya stil verilmemiş/modifiye edilmemişse varsayılan niteliğin değerini döndürür.",
+    "documentation": "Belirtilen özelliğin stillendirilmiş veya açıkça değiştirilmiş değerini, yoksa stilleştirilmemiş/değiştirilmemişse varsayılan özellik değerini döndürür.",
     "params": [
       {
         "name": "self",
@@ -52984,10 +52979,10 @@
     "documentation": "Sorgulamak için niteliğin adı."
   },
   "@roblox/globaltype/Instance.IsPropertyModified/return/0": {
-    "documentation": "Niteliğin varsayılan değerinden değiştirilip değiştirilmediğini belirtir."
+    "documentation": "Boolean, özelliğin kod ile oluşturulmuş varsayılan değerinden değiştirilip değiştirilmediğini gösterir."
   },
   "@roblox/globaltype/Instance.IsPropertyModified": {
-    "documentation": "Verilen niteliğin değerinin kodla oluşturulmuş varsayılan değeri ile farklı olup olmadığını belirtir.",
+    "documentation": "Belirtilen özelliğe kaydedilen değerin, kod ile oluşturulmuş varsayılan değer ile aynı olmadığını belirten <code>true</code> döndürür.",
     "params": [
       {
         "name": "self",
@@ -54010,10 +54005,10 @@
     "documentation": "Ses akışlarının gecikmiş kopyalarını üst üste bindirir."
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekte bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Bir <code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioEcho.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı olan <code>Wires</code> dizisini döndürür.",
@@ -54037,10 +54032,10 @@
     "documentation": "Ses akışlarının gecikmiş kopyalarını üst üste bindirir."
   },
   "@roblox/globaltype/AudioEcho.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
   },
   "@roblox/globaltype/AudioEcho.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'in <code>Wire.TargetName</code>'de bu örneğe bağlanmak için kullanabileceği pinlerin listesini alır. Bağlantı, <code>Wire.TargetInstance</code> özelliği aracılığıyla yapılır.",
     "params": [
       {
         "name": "self",
@@ -54057,10 +54052,10 @@
     "documentation": "Ses akışlarının gecikmiş kopyalarını üst üste bindirir."
   },
   "@roblox/globaltype/AudioEcho.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
   },
   "@roblox/globaltype/AudioEcho.GetOutputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'in <code>Wire.SourceName</code>'de bu örneğe bağlanmak için kullanabileceği pinlerin listesini alır. Bağlantı, <code>Wire.SourceInstance</code> özelliği aracılığıyla yapılır.",
     "params": [
       {
         "name": "self",
@@ -54225,22 +54220,22 @@
     "documentation": "Geliştiricilerin metin istemlerinden 3D nesneler oluşturmasını sağlayan hizmet."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/1": {
-    "documentation": "Ağ oluşturma istemlerini içeren bir sözlük. Şu anda, tek desteklenen anahtar <code>Prompt</code> (string) olarak ağın tanımını belirtir."
+    "documentation": "Ağ oluşturma istemlerini içeren bir sözlük. Şu anda desteklenen tek anahtar <code>Prompt</code> (dize) olup, oluşturulacak ağı tanımlar."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/2": {
     "documentation": "Oluşturma talebini yapan <code>Player</code>."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/3": {
-    "documentation": "Sonucu etkilemek için ek oluşturma seçenekleri için bir sözlük. Aşağıdaki anahtar desteklenmektedir: - <code>SuggestedSize</code> — Oluşturulan varlık için boyut kılavuzu olarak işlev görecek isteğe bağlı <code>Vector3</code>. Hizmet, sağlanan <code>Vector3</code> ile benzer boya ve orana sahip bir model oluşturmaya çalışacaktır. Bu, nihai çıktı boyutunu garanti etmez."
+    "documentation": "Sonucu etkilemek için ek oluşturma seçeneklerini içeren bir sözlük. Opsiyonel <code>SuggestedSize</code> anahtarı (<code>Vector3</code>), oluşturulan varlık için boyut kılavuzunu temsil eder, bu da <code>GenerationService</code>'in sağlanan <code>Vector3</code> ile benzer boyut yüzde oluşturmayı deneyeceği anlamına gelir, ancak nihai çıkış boyutu ile ilgili garanti yoktur."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/4": {
-    "documentation": "Ara oluşturma sonuçları ile tetiklenen bir geri çağırma işlevi. Dokular uygulanmadan önce erken ağ sürümlerini almak için yararlıdır."
+    "documentation": "Ara oluşturma sonuçları ile tetiklenen bir geri çağırma fonksiyonu. Dokular uygulanmadan önce erken ağa sürümlerini almak için yararlıdır."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/return/0": {
-    "documentation": "<code>GenerateMeshAsync()</code> çağrısında dönen benzersiz bir ID (üretim ID'si) ve şu anda kullanılmayan bir bağlam ID'sinin bir demetidir."
+    "documentation": "<code>GenerateMeshAsync()</code> çağrısı için döndürülen benzersiz bir kimlik ve bağlam kimliğinden (şu anda kullanılmıyor) oluşan bir demet."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync": {
-    "documentation": "Bir metin isteminden yeni bir 3D ağı oluşturma sürecini başlatır ve sonucu izlemek için kullanılan benzersiz ID'leri döner.",
+    "documentation": "Bir metin isteminden yeni bir 3D ağ oluşturma işlemini başlatır ve sonucu izlemek ve almak için kullanılan benzersiz kimlikleri döndürür.",
     "params": [
       {
         "name": "self",
@@ -54273,19 +54268,19 @@
     "documentation": "Geliştiricilerin metin istemlerinden 3D nesneler oluşturmasını sağlayan hizmet."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/1": {
-    "documentation": ""
+    "documentation": "Aşağıdaki anahtarları ile şartlandırma girişlerini temsil eden bir tablo: <ul> <li><code>TextPrompt</code> — Oluşturulacak nesnenin dize açıklaması.</li> <li><code>Size</code> — Oluşturulacak nesnenin boyutunu tanımlayan opsiyonel <code>Vector3</code>.   Bu yalnızca yaklaşık olarak geçerlidir; belirli bir boyut gerekiyorsa modeli   oluşturma sonrası ölçeklendirin.</li> <li><code>MaxTriangles</code> — Döndürülecek modelin içereceği maksimum üçgen   sayısını tanımlayan opsiyonel bir tamsayı. Daha düşük değerler daha keskin ve   düşük poli oluşturmalara yol açar.</li> <li><code>GenerateTextures</code> — Sonuçlandırmayı dokulandıran <code>true</code> (varsayılan), <code>false</code>   dokular oluşturmayacaktır.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/2": {
-    "documentation": ""
+    "documentation": "Oluşturma şemasını temsil eden tablo. Bir dize değeri ile <code>PredefinedSchema</code> anahtarını içermesi zorunludur; mevcut geçerli seçenekler <code>Car5</code> beş <code>Models</code>'dan oluşan temel bir araç şasisi veya bir ağ çıktısı olan <code>Body1</code>dir."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/3": {
-    "documentation": ""
+    "documentation": "Şu anda kullanılmıyor; gelecekte özelleştirme seçenekleri için ayrılmıştır."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/return/0": {
-    "documentation": ""
+    "documentation": "Aşağıdaki öğeleri içeren bir demet: <ul> <li>Belirtilen <code>schema</code>ya uygun bir standart <code>Model</code> konteyner örneği.</li> <li>Oluşturma hakkında bir UUID ve başka meta verileri içeren bir tablo.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync": {
-    "documentation": "",
+    "documentation": "Verilen <code>inputs</code> ve bir <code>schema</code>ya göre çoklu-ağ geometrilerinin oluşturulmasını sağlar.",
     "params": [
       {
         "name": "self",
@@ -54314,13 +54309,13 @@
     "documentation": "Geliştiricilerin metin istemlerinden 3D nesneler oluşturmasını sağlayan hizmet."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/param/1": {
-    "documentation": "<code>GenerateMeshAsync()</code> tarafından döndürülen benzersiz kimlik. Yüklemek için modeli tanımlar."
+    "documentation": "<code>GenerateMeshAsync()</code>'in döndürdüğü benzersiz kimlik. Yüklemek için ağı tanımlar."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/return/0": {
-    "documentation": "Tek bir <code>MeshPart</code> içeren bir <code>EditableMesh</code> ile döndürülen oluşturulan varlık, bir <code>Model</code> olarak."
+    "documentation": "Tek bir <code>MeshPart</code> içeren bir <code>Model</code> olarak döndürülen oluşturulan varlık."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync": {
-    "documentation": "Verilen <code>generationId</code> kullanarak <code>GenerationService:GenerateMeshAsync()</code> tarafından üretilen bir modeli alır ve yükler.",
+    "documentation": "<code>GenerationService:GenerateMeshAsync()</code> ile oluşturulan bir ağı verilen <code>generationId</code> kullanarak getirir ve yükler.",
     "params": [
       {
         "name": "self",
@@ -57314,10 +57309,10 @@
     "documentation": "Ses akışlarına vızıltılı veya süzülen bir ses katar."
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekte bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioFlanger.GetConnectedWires": {
     "documentation": "Belirtilen pin'e bağlı olan <code>Wires</code> array'ini döner.",
@@ -57341,10 +57336,10 @@
     "documentation": "Ses akışlarına vızıltılı veya süzülen bir ses katar."
   },
   "@roblox/globaltype/AudioFlanger.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
   },
   "@roblox/globaltype/AudioFlanger.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'in <code>Wire.TargetName</code>'de kullanabileceği pini listesini alır bu örnekteki <code>Wire.TargetInstance</code> özelliği aracılığıyla bağlanmak için.",
     "params": [
       {
         "name": "self",
@@ -57361,10 +57356,10 @@
     "documentation": "Ses akışlarına vızıltılı veya süzülen bir ses katar."
   },
   "@roblox/globaltype/AudioFlanger.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
   },
   "@roblox/globaltype/AudioFlanger.GetOutputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'in <code>Wire.SourceName</code>'de kullanabileceği pini listesini alır bu örnekteki <code>Wire.SourceInstance</code> özelliği aracılığıyla bağlanmak için.",
     "params": [
       {
         "name": "self",
@@ -58416,10 +58411,10 @@
     "documentation": "Ses akışlarının algılanan tonunu ayarlar."
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekte bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioPitchShifter.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlanan <code>Wires</code> dizisini döndürür.",
@@ -58443,10 +58438,10 @@
     "documentation": "Ses akışlarının algılanan tonunu ayarlar."
   },
   "@roblox/globaltype/AudioPitchShifter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
   },
   "@roblox/globaltype/AudioPitchShifter.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'ın <code>Wire.TargetName</code> içinde kullanabileceği pinlerin listesini alır bu örneğe <code>Wire.TargetInstance</code> özelliği aracılığıyla bağlanmak için.",
     "params": [
       {
         "name": "self",
@@ -58463,10 +58458,10 @@
     "documentation": "Ses akışlarının algılanan tonunu ayarlar."
   },
   "@roblox/globaltype/AudioPitchShifter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
   },
   "@roblox/globaltype/AudioPitchShifter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'ın <code>Wire.SourceName</code> içinde kullanabileceği pinlerin listesini alır bu örneğe <code>Wire.SourceInstance</code> özelliği aracılığıyla bağlanmak için.",
     "params": [
       {
         "name": "self",
@@ -58912,10 +58907,10 @@
     "documentation": "Ses akışlarını yankılar."
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekte bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioReverb.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı olan <code>Wires</code> dizisini döndürür.",
@@ -58939,10 +58934,10 @@
     "documentation": "Ses akışlarını yankılar."
   },
   "@roblox/globaltype/AudioReverb.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
   },
   "@roblox/globaltype/AudioReverb.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'ın <code>Wire.TargetName</code> içinde bu örneğe bağlanmak için kullanabileceği pimlerin listesini alır <code>Wire.TargetInstance</code> özelliği aracılığıyla.",
     "params": [
       {
         "name": "self",
@@ -58959,10 +58954,10 @@
     "documentation": "Ses akışlarını yankılar."
   },
   "@roblox/globaltype/AudioReverb.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
   },
   "@roblox/globaltype/AudioReverb.GetOutputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'ın <code>Wire.SourceName</code> içinde bu örneğe bağlanmak için kullanabileceği pimlerin listesini alır <code>Wire.SourceInstance</code> özelliği aracılığıyla.",
     "params": [
       {
         "name": "self",
@@ -59115,7 +59110,7 @@
     "documentation": "Bileşik doku setini içeren yeni bir <code>Decal</code>."
   },
   "@roblox/globaltype/AssetService.ComposeDecalAsync": {
-    "documentation": "Sağlanan dokuların <code>layers</code> dizisinde verildiği sıraya göre katmanlanarak oluşturduğu birleşik PBR dokularını kullanan bir Dekal örneği oluşturur.",
+    "documentation": "Verilen katmanlardaki textures'ları sıra ile katmanlayarak bileşik PBR texture'ları kullanan bir Dekor instance'ı oluşturur.",
     "params": [
       {
         "name": "self",
@@ -59470,10 +59465,10 @@
     "documentation": "Roblox web API ile ilgili varlık sorgularını yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/param/1": {
-    "documentation": "Aşağıdaki anahtar-değer çiftlerini içeren sözlük: <ul> <li><code>ColorMap</code> — Renk haritasını içeren bir <code>Content</code> nesnesi. Varsayılan <code>nil</code>.</li> <li><code>MetalnessMap</code> — Metalik haritayı içeren bir <code>Content</code> nesnesi. Birden fazla kanal varsa, yalnızca kırmızı kanal kullanılır. Varsayılan <code>nil</code>.</li> <li><code>NormalMap</code> — Normal haritayı içeren bir <code>Content</code> nesnesi. Varsayılan <code>nil</code>.</li> <li><code>RoughnessMap</code> — Pürüzlülük haritasını içeren bir <code>Content</code> nesnesi. Birden fazla kanal varsa, yalnızca kırmızı kanal kullanılır. Varsayılan <code>nil</code>.</li> <li><code>EmissiveMask</code> — Emisif maskeyi içeren bir <code>Content</code> nesnesi. Birden fazla kanal varsa, yalnızca kırmızı kanal kullanılır. Varsayılan <code>nil</code>.</li> </ul>"
+    "documentation": "Aşağıdaki anahtar-değer çiftlerini içeren sözlük: <ul> <li><code>ColorMap</code> — Renk haritasını içeren bir <code>Content</code> nesnesi. Varsayılan <code>nil</code>.</li> <li><code>MetalnessMap</code> — Metalik haritayı içeren bir <code>Content</code> nesnesi. Birden fazla kanal varsa, yalnızca kırmızı kanal kullanılır. Varsayılan <code>nil</code>.</li> <li><code>NormalMap</code> — Normal haritayı içeren bir <code>Content</code> nesnesi. Varsayılan <code>nil</code>.</li> <li><code>RoughnessMap</code> — Pürüzlülük haritasını içeren bir <code>Content</code> nesnesi. Birden fazla kanal varsa, yalnızca kırmızı kanal kullanılır. Varsayılan <code>nil</code>.</li> <li><code>EmissiveMask</code> — Emissif maske içeren bir <code>Content</code> nesnesi. Birden fazla kanal varsa, yalnızca kırmızı kanal kullanılır. Varsayılan <code>nil</code>.</li> </ul>"
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync/return/0": {
-    "documentation": "Verilen <code>content</code> parametresinden alınan haritalarla yeni bir <code>SurfaceAppearance</code> örneği."
+    "documentation": "Verilen <code>content</code> parametresindeki haritalar ile yeni bir <code>SurfaceAppearance</code> örneği."
   },
   "@roblox/globaltype/AssetService.CreateSurfaceAppearanceAsync": {
     "documentation": "Verilen içerik haritalarını kullanarak yeni bir <code>SurfaceAppearance</code> nesnesi oluşturur.",
@@ -59754,7 +59749,7 @@
     "documentation": "Roblox web API ile ilgili varlık sorgularını yöneten, çoğaltılmamış bir hizmettir."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync/param/1": {
-    "documentation": "Yayın yapmadan kaydetmek isteyip istemediğini belirten bir boole olan <code>SaveWithoutPublish</code> ve üstüne kaydedilecek hedef yer kimliği <code>PlaceId</code> içeren isteğe bağlı bir sözlük. Bir örnek kullanım: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). Eğer PlaceId sağlanmazsa, varsayılan davranış, SavePlaceAsync'ı çağıran mevcut orijinal yeri üzerini kaydetmektir. Eğer SaveWithoutPublish sağlanmazsa, varsayılan davranış SaveWithoutPublish=false'dır."
+    "documentation": "Yayınla birlikte kaydedip kaydetmeyeceğinizi belirten boolean olan <code>SaveWithoutPublish</code>'i içeren isteğe bağlı bir sözlük ve üzerine kayıt yapılacak yer ID'si olan <code>PlaceId</code>'i içerir. Kullanım örneği: AssetService:SavePlaceAsync({PlaceId = 1, SaveWithoutPublish = true}). PlaceId sağlanmazsa, varsayılan davranış, SavePlaceAsync çağıran mevcut orijinal yerin üzerine kayıt yapmaktır. SaveWithoutPublish sağlanmazsa, varsayılan davranış SaveWithoutPublish=false'dır."
   },
   "@roblox/globaltype/AssetService.SavePlaceAsync": {
     "documentation": "Güncel yerin durumunu kaydeder.",
@@ -60988,10 +60983,10 @@
     "documentation": "Bir veya daha fazla <code>Wires</code> aracılığıyla bağlı olan ses akışlarından ölçümler alır."
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekteki bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioAnalyzer.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı olan <code>Wires</code> dizisini döner.",
@@ -61018,7 +61013,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioAnalyzer.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'ın <code>Wire.TargetName</code> içinde bu örneğe bağlanmak için kullanabileceği pin listesini alır <code>Wire.TargetInstance</code> özelliği aracılığıyla.",
     "params": [
       {
         "name": "self",
@@ -61710,10 +61705,10 @@
     "documentation": "Metinleri konuşma sesi olarak oynatır."
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekte bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioTextToSpeech.GetConnectedWires": {
     "documentation": "Returns an array of <code>Wires</code> that are connected to the specified pin.",
@@ -67826,7 +67821,6 @@
       "UseLocalSpace": "@roblox/globaltype/StudioService.UseLocalSpace",
       "GetClassIcon": "@roblox/globaltype/StudioService.GetClassIcon",
       "GetUserId": "@roblox/globaltype/StudioService.GetUserId",
-      "GizmoRaycast": "@roblox/globaltype/StudioService.GizmoRaycast",
       "PromptImportFileAsync": "@roblox/globaltype/StudioService.PromptImportFileAsync",
       "PromptImportFile": "@roblox/globaltype/StudioService.PromptImportFile",
       "PromptImportFilesAsync": "@roblox/globaltype/StudioService.PromptImportFilesAsync",
@@ -67932,58 +67926,17 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#GetUserId",
     "code_sample": "-- Sadece bir eklenti içinde kullanılabilir\nlocal StudioService = game:GetService(\"StudioService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal loggedInUserId = StudioService:GetUserId()\nlocal loggedInUserName = Players:GetNameFromUserIdAsync(loggedInUserId)\nprint(\"Merhaba,\", loggedInUserName)"
   },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/0": {
-    "documentation": "Roblox Studio yapılandırmasına erişim sağlar ve kullanıcının dosya sisteminden dosyaların içe aktarımına olanak tanır."
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/1": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/2": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/param/3": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast/return/0": {
-    "documentation": ""
-  },
-  "@roblox/globaltype/StudioService.GizmoRaycast": {
-    "documentation": "",
-    "params": [
-      {
-        "name": "self",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/0"
-      },
-      {
-        "name": "origin",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/1"
-      },
-      {
-        "name": "direction",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/2"
-      },
-      {
-        "name": "raycastParams",
-        "documentation": "@roblox/globaltype/StudioService.GizmoRaycast/param/3"
-      }
-    ],
-    "returns": [
-      "@roblox/globaltype/StudioService.GizmoRaycast/return/0"
-    ],
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StudioService#GizmoRaycast",
-    "code_sample": ""
-  },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/param/0": {
     "documentation": "Roblox Studio yapılandırmasına erişim sağlar ve kullanıcının dosya sisteminden dosyaların içe aktarımına olanak tanır."
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/param/1": {
-    "documentation": "Kullanıcının seçmesine izin verilen dosya türlerinin bir listesidir. Dosya türleri noktasız biçimde formatlanmıştır. Örneğin, {\"jpg\", \"png\"} yalnızca bir JPG veya PNG dosyasının seçilmesine izin verir. Eğer hiçbir filtre sağlanmazsa, filtre <code>nil</code> olur ve kullanıcının herhangi bir dosya türünü seçmesine izin verir."
+    "documentation": "Kullanıcının seçmesine izin verilen dosya türlerinin listesi. Dosya türleri nokta olmadan formatlanmıştır. Örneğin, {\"jpg\", \"png\"} yalnızca bir JPG veya PNG dosyasının seçilmesine izin verir. Eğer filtre sağlanmazsa, filtre <code>nil</code> olur ve kullanıcıya herhangi bir dosya türünü seçmesine izin verir."
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync/return/0": {
-    "documentation": "İçe aktarılan <code>File</code>. Hiçbir dosya seçilmemişse veya seçilen dosya çok büyükse (Dosya Boyutu 100 megabayttan fazla) <code>nil</code> döner."
+    "documentation": "İçeri aktarılan <code>File</code>. Hiçbir dosya seçilmezse veya seçilen dosya çok büyükse (Dosya Boyutu 100 megabayttan fazla), <code>nil</code> olarak döner."
   },
   "@roblox/globaltype/StudioService.PromptImportFileAsync": {
-    "documentation": "Geçerli Studio kullanıcısının bir <code>File</code> olarak eklemek için bir dosya seçmesini ister.",
+    "documentation": "Mevcut Studio kullanıcısını bir dosya seçmesi için davet eder ve bunu <code>File</code> olarak ekler.",
     "params": [
       {
         "name": "self",
@@ -68004,13 +67957,13 @@
     "documentation": "Roblox Studio yapılandırmasına erişim sağlar ve kullanıcının dosya sisteminden dosyaların içe aktarımına olanak tanır."
   },
   "@roblox/globaltype/StudioService.PromptImportFile/param/1": {
-    "documentation": "Kullanıcının seçebileceği dosya türlerinin bir listesi. Dosya türleri nokta olmadan biçimlendirilmiştir. Örneğin, {\"jpg\", \"png\"} yalnızca bir JPG veya PNG dosyasının seçilmesine izin verir. Hiçbir filtre sağlanmazsa, filtre <code>nil</code> olur ve kullanıcıya herhangi bir dosya türünü seçme izni verir."
+    "documentation": "Kullanıcının seçmesine izin verilen dosya türlerinin bir listesidir. Dosya türleri noktasız biçimde formatlanmıştır. Örneğin, {\"jpg\", \"png\"} yalnızca bir JPG veya PNG dosyasının seçilmesine izin verir. Eğer hiçbir filtre sağlanmazsa, filtre <code>nil</code> olur ve kullanıcının herhangi bir dosya türünü seçmesine izin verir."
   },
   "@roblox/globaltype/StudioService.PromptImportFile/return/0": {
-    "documentation": "İçe aktarılan <code>File</code>. Hiç dosya seçilmemişse veya seçilen dosya çok büyükse (Dosya Boyutu 100'den fazla megabayt) <code>nil</code> döner."
+    "documentation": "İçe aktarılan <code>File</code>. Hiçbir dosya seçilmemişse veya seçilen dosya çok büyükse (Dosya Boyutu 100 megabayttan fazla) <code>nil</code> döner."
   },
   "@roblox/globaltype/StudioService.PromptImportFile": {
-    "documentation": "<strong>Deprecated:</strong> <br>Mevcut Studio kullanıcısını bir dosya seçmesi için davet eder ve bu dosyayı <code>File</code> olarak ekler.",
+    "documentation": "<strong>Deprecated:</strong> <br>Geçerli Studio kullanıcısının bir <code>File</code> olarak eklemek için bir dosya seçmesini ister.",
     "params": [
       {
         "name": "self",
@@ -68031,13 +67984,13 @@
     "documentation": "Roblox Studio yapılandırmasına erişim sağlar ve kullanıcının dosya sisteminden dosyaların içe aktarımına olanak tanır."
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync/param/1": {
-    "documentation": "Kullanıcının seçebileceği dosya türlerinin bir listesi. Dosya türleri nokta olmadan biçimlendirilmiştir. Örneğin, {\"jpg\", \"png\"} yalnızca JPG ve PNG dosyalarının seçilmesine izin verir. Hiçbir filtre sağlanmazsa, filtre <code>nil</code> olur ve kullanıcıya herhangi bir dosya türünü seçme izni verir."
+    "documentation": "Kullanıcının seçmesine izin verilen dosya türlerinin listesi. Dosya türleri nokta olmadan formatlanmıştır. Örneğin, {\"jpg\", \"png\"} yalnızca JPG ve PNG dosyalarının seçilmesine izin verir. Eğer filtre sağlanmazsa, filtre <code>nil</code> olur ve kullanıcıya herhangi bir dosya türünü seçmesine izin verir."
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync/return/0": {
-    "documentation": "İçe aktarılan <code>Files</code>. Hiç dosya seçilmemişse boş bir liste döner. Kullanıcı bir veya daha fazla dosya seçerse bu dosyalar çok büyükse (Dosya Boyutu 100'den fazla megabayt) <code>nil</code> döner."
+    "documentation": "İçeri aktarılan <code>Files</code>. Hiçbir dosya seçilmezse boş bir liste döner. Kullanıcı bir veya birden fazla dosya seçerse ve bu dosyalar çok büyükse (Dosya Boyutu 100 megabayttan fazla), <code>nil</code> döner."
   },
   "@roblox/globaltype/StudioService.PromptImportFilesAsync": {
-    "documentation": "Mevcut Studio kullanıcısını dosyalar seçmesi için davet eder ve bu dosyalar <code>Files</code> olarak eklenir.",
+    "documentation": "Mevcut Studio kullanıcısını dosyalar seçmesi için davet eder ve bunları <code>Files</code> olarak ekler.",
     "params": [
       {
         "name": "self",
@@ -68164,10 +68117,10 @@
     "documentation": "Fiziksel cihazlardan, mikrofonlar gibi, ses akışları üretir."
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekteki bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "Bir <code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioDeviceInput.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı <code>Wires</code>'ın bir dizisini döndürür.",
@@ -68191,10 +68144,10 @@
     "documentation": "Fiziksel cihazlardan, mikrofonlar gibi, ses akışları üretir."
   },
   "@roblox/globaltype/AudioDeviceInput.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizge dizisi."
   },
   "@roblox/globaltype/AudioDeviceInput.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'ın bu örneğe <code>Wire.TargetInstance</code> özelliği ile bağlanmak için <code>Wire.TargetName</code> içerisinde kullanabileceği pinlerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -68211,10 +68164,10 @@
     "documentation": "Fiziksel cihazlardan, mikrofonlar gibi, ses akışları üretir."
   },
   "@roblox/globaltype/AudioDeviceInput.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizge dizisi."
   },
   "@roblox/globaltype/AudioDeviceInput.GetOutputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'ın bu örneğe <code>Wire.SourceInstance</code> özelliği ile bağlanmak için <code>Wire.SourceName</code> içerisinde kullanabileceği pinlerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -68991,7 +68944,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/UserInputService.GetFocusedTextBox": {
-    "documentation": "İstemcinin şu anda odaklandığı <code>TextBox</code>'ı döner.",
+    "documentation": "Şu anda istemcinin odaklandığı <code>TextBox</code>'ı döndürür.",
     "params": [
       {
         "name": "self",
@@ -72552,6 +72505,9 @@
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1": {
     "documentation": "<code>CaptureType</code> dizisi."
   },
+  "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/2": {
+    "documentation": "<code>false</code> olan varsayılan bir boolean değeridir."
+  },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0": {
     "documentation": "Tuple of (result: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>)"
   },
@@ -72565,6 +72521,10 @@
       {
         "name": "captureTypeFilters",
         "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1"
+      },
+      {
+        "name": "readFromAllEligibleExperiences",
+        "documentation": "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/2"
       }
     ],
     "returns": [
@@ -73371,7 +73331,6 @@
     "documentation": "Ses akışlarının frekans içeriğini ayarlar.",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioFilter.Bypass",
-      "Editor": "@roblox/globaltype/AudioFilter.Editor",
       "FilterType": "@roblox/globaltype/AudioFilter.FilterType",
       "Frequency": "@roblox/globaltype/AudioFilter.Frequency",
       "Gain": "@roblox/globaltype/AudioFilter.Gain",
@@ -73389,13 +73348,8 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioFilter.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioFilter.FilterType": {
-    "documentation": "Filtre ile temsil edilen bandın eğri tipi.",
+    "documentation": "Filtre tarafından temsil edilen bandın eğri türü.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#FilterType",
     "code_sample": ""
   },
@@ -73405,7 +73359,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioFilter.Gain": {
-    "documentation": "Peaking ve shelving filtreleri için, ses seviyesinin artışını veya azalışını kontrol eder.",
+    "documentation": "Peaking ve shelving filtreleri için, ses seviyesini artırma veya azaltma kontrolü.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioFilter#Gain",
     "code_sample": ""
   },
@@ -73418,10 +73372,10 @@
     "documentation": "Ses akışlarının frekans içeriğini ayarlar."
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekte bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioFilter.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı olan <code>Wires</code> dizisini döndürür.",
@@ -73472,10 +73426,10 @@
     "documentation": "Ses akışlarının frekans içeriğini ayarlar."
   },
   "@roblox/globaltype/AudioFilter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
   },
   "@roblox/globaltype/AudioFilter.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'in <code>Wire.TargetName</code>'de bu örneğe bağlanmak için <code>Wire.TargetInstance</code> özelliği aracılığıyla kullanabileceği pinlerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -73492,10 +73446,10 @@
     "documentation": "Ses akışlarının frekans içeriğini ayarlar."
   },
   "@roblox/globaltype/AudioFilter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dize."
   },
   "@roblox/globaltype/AudioFilter.GetOutputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'in <code>Wire.SourceName</code>'de bu örneğe bağlanmak için <code>Wire.SourceInstance</code> özelliği aracılığıyla kullanabileceği pinlerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -74343,10 +74297,10 @@
     "documentation": "Konuşulan sesi metne dönüştürür."
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekteki bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioSpeechToText.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı olan <code>Wires</code> dizisini döndürür.",
@@ -76903,7 +76857,6 @@
     "documentation": "Ses akışlarının frekans içeriğini ayarlar.",
     "keys": {
       "Bypass": "@roblox/globaltype/AudioEqualizer.Bypass",
-      "Editor": "@roblox/globaltype/AudioEqualizer.Editor",
       "HighGain": "@roblox/globaltype/AudioEqualizer.HighGain",
       "LowGain": "@roblox/globaltype/AudioEqualizer.LowGain",
       "MidGain": "@roblox/globaltype/AudioEqualizer.MidGain",
@@ -76920,28 +76873,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#Bypass",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioEqualizer.Editor": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#Editor",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioEqualizer.HighGain": {
-    "documentation": "Ekolayzördeki en yüksek bandın frekans içeriğine uygulanacak kazanç değeri.",
+    "documentation": "Ekolayzerdaki en yüksek bantın frekans içeriğine uygulanacak kazanç değeri.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#HighGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.LowGain": {
-    "documentation": "Ekolayzördeki en düşük bandın frekans içeriğine uygulanacak kazanç değeri.",
+    "documentation": "Ekolayzerdaki en düşük bantın frekans içeriğine uygulanacak kazanç değeri.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#LowGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.MidGain": {
-    "documentation": "Ekolayzördeki orta bandın frekans içeriğine uygulanacak kazanç değeri.",
+    "documentation": "Ekolayzerdaki orta bantın frekans içeriğine uygulanacak kazanç değeri.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#MidGain",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEqualizer.MidRange": {
-    "documentation": "<code>MidGain</code> ile etkilenen bandın frekans aralığı.",
+    "documentation": "<code>MidGain</code> tarafından etkilenen bantın frekans aralığı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEqualizer#MidRange",
     "code_sample": ""
   },
@@ -76949,10 +76897,10 @@
     "documentation": "Ses akışlarının frekans içeriğini ayarlar."
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekte bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioEqualizer.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı olan <code>Wires</code>'lerin bir dizisini döner.",
@@ -76976,10 +76924,10 @@
     "documentation": "Ses akışlarının frekans içeriğini ayarlar."
   },
   "@roblox/globaltype/AudioEqualizer.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dizgi."
   },
   "@roblox/globaltype/AudioEqualizer.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire.TargetName</code>'de <code>Wire</code>'in kullanabileceği pinlerin listesini alır bu örneğe <code>Wire.TargetInstance</code> özelliği aracılığıyla bağlanmak için.",
     "params": [
       {
         "name": "self",
@@ -76996,10 +76944,10 @@
     "documentation": "Ses akışlarının frekans içeriğini ayarlar."
   },
   "@roblox/globaltype/AudioEqualizer.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi dizgi."
   },
   "@roblox/globaltype/AudioEqualizer.GetOutputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire.SourceName</code>'de <code>Wire</code>'in kullanabileceği pinlerin listesini alır bu örneğe <code>Wire.SourceInstance</code> özelliği aracılığıyla bağlanmak için.",
     "params": [
       {
         "name": "self",
@@ -79248,10 +79196,10 @@
     "documentation": "Bir ses akışını bileşen kanallara ayırır, böylece her biri ayrı olarak işlenebilir."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekte bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioChannelSplitter.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı olan <code>Wires</code>'in bir dizisini döndürür.",
@@ -79275,10 +79223,10 @@
     "documentation": "Bir ses akışını bileşen kanallara ayırır, böylece her biri ayrı olarak işlenebilir."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizgi dizisi."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetInputPins": {
-    "documentation": "<code>Wire.TargetName</code> için mevcut olan giriş pinini döndürür.",
+    "documentation": "<code>Wire</code>'ın bu örneğe bağlanmak için <code>Wire.TargetName</code> içinde kullanabileceği pinlerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -79295,10 +79243,10 @@
     "documentation": "Bir ses akışını bileşen kanallara ayırır, böylece her biri ayrı olarak işlenebilir."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizgi dizisi."
   },
   "@roblox/globaltype/AudioChannelSplitter.GetOutputPins": {
-    "documentation": "<code>Wire.SourceName</code> ile seçilebilen çıkış pinlerini döndürür.",
+    "documentation": "<code>Wire</code>'ın bu örneğe bağlanmak için <code>Wire.SourceName</code> içinde kullanabileceği pinlerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -87589,13 +87537,13 @@
     "documentation": "Bir ses üzerinde sesi yukarı ve aşağı değiştirerek titretme etkisi yaratır."
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekteki bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioTremolo.GetConnectedWires": {
-    "documentation": "",
+    "documentation": "Belirtilen pine bağlı olan <code>Wires</code> dizisini döndürür.",
     "params": [
       {
         "name": "self",
@@ -87619,7 +87567,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioTremolo.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'ın bu örneğe bağlanmak için <code>Wire.TargetName</code> deki pinlerin listesini alır.",
     "params": [
       {
         "name": "self",
@@ -87792,6 +87740,7 @@
       "Direction3DState": "@roblox/globaltype/InputAction.Direction3DState",
       "Enabled": "@roblox/globaltype/InputAction.Enabled",
       "Type": "@roblox/globaltype/InputAction.Type",
+      "ViewportPositionState": "@roblox/globaltype/InputAction.ViewportPositionState",
       "Fire": "@roblox/globaltype/InputAction.Fire",
       "GetState": "@roblox/globaltype/InputAction.GetState"
     },
@@ -87826,6 +87775,11 @@
   "@roblox/globaltype/InputAction.Type": {
     "documentation": "Eylemin beklediği giriş değerinin türünü belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#Type",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputAction.ViewportPositionState": {
+    "documentation": "Debugging için yararlı olan, script ile değiştirilemeyen yalnızca okunabilen özellik <code>ViewportPosition</code> giriş eylemleri.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputAction#ViewportPositionState",
     "code_sample": ""
   },
   "@roblox/globaltype/InputAction.Fire/param/0": {
@@ -89376,10 +89330,10 @@
     "documentation": "Ses varlıklarını çalmak için kullanılır."
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekteki bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioPlayer.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı olan <code>Wires</code> dizisini döndürür.",
@@ -89406,7 +89360,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioPlayer.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'in <code>Wire.TargetName</code> içinde bu örneğe bağlanmak için kullanabileceği pinlerin listesini alır <code>Wire.TargetInstance</code> özelliği aracılığıyla.",
     "params": [
       {
         "name": "self",
@@ -90383,10 +90337,10 @@
     "documentation": "Dünyaya ses akışları yayımlar."
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekte bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioEmitter.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı olan <code>Wires</code> dizisini döndürür.",
@@ -90433,7 +90387,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/AudioEmitter.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'ın <code>Wire.TargetName</code>'de bu örneğe bağlanmak için kullanabileceği pinlerin listesini alır <code>Wire.TargetInstance</code> özelliği aracılığıyla.",
     "params": [
       {
         "name": "self",
@@ -92369,10 +92323,10 @@
     "documentation": "Bir ses akışını daha hacimli hale getirir. Tek bir sese uygulanırsa, birden fazla ses gibi duyulabilir."
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekteki bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/AudioChorus.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı olan <code>Wires</code> dizisini döndürür.",
@@ -92396,10 +92350,10 @@
     "documentation": "Bir ses akışını daha hacimli hale getirir. Tek bir sese uygulanırsa, birden fazla ses gibi duyulabilir."
   },
   "@roblox/globaltype/AudioChorus.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi string."
   },
   "@roblox/globaltype/AudioChorus.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'in <code>Wire.TargetName</code>'de kullanabileceği pini listesini alır bu örneği <code>Wire.TargetInstance</code> özelliği aracılığıyla bağlamak için.",
     "params": [
       {
         "name": "self",
@@ -92416,10 +92370,10 @@
     "documentation": "Bir ses akışını daha hacimli hale getirir. Tek bir sese uygulanırsa, birden fazla ses gibi duyulabilir."
   },
   "@roblox/globaltype/AudioChorus.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden bir dizi string."
   },
   "@roblox/globaltype/AudioChorus.GetOutputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'in <code>Wire.SourceName</code>'de kullanabileceği pini listesini alır bu örneği <code>Wire.SourceInstance</code> özelliği aracılığıyla bağlamak için.",
     "params": [
       {
         "name": "self",
@@ -92589,10 +92543,10 @@
     "documentation": "Bağlı bir <code>VideoPlayer</code>'dan video içeriği gösteren bir GUI nesnesi."
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires/param/1": {
-    "documentation": ""
+    "documentation": "Bu örnekte bir giriş veya çıkış pini"
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires/return/0": {
-    "documentation": ""
+    "documentation": "<code>Wires</code> dizisi"
   },
   "@roblox/globaltype/VideoDisplay.GetConnectedWires": {
     "documentation": "Belirtilen pine bağlı olan <code>Wires</code> dizisini döndürür.",
@@ -92616,10 +92570,10 @@
     "documentation": "Bağlı bir <code>VideoPlayer</code>'dan video içeriği gösteren bir GUI nesnesi."
   },
   "@roblox/globaltype/VideoDisplay.GetInputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden dizelerden oluşan bir dizi."
   },
   "@roblox/globaltype/VideoDisplay.GetInputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'ın <code>Wire.TargetName</code> içinde bu örneğe bağlanmak için kullanabileceği pinlerin listesini alır ve <code>Wire.TargetInstance</code> özelliği üzerinden bu örneğe bağlanır.",
     "params": [
       {
         "name": "self",
@@ -92636,10 +92590,10 @@
     "documentation": "Bağlı bir <code>VideoPlayer</code>'dan video içeriği gösteren bir GUI nesnesi."
   },
   "@roblox/globaltype/VideoDisplay.GetOutputPins/return/0": {
-    "documentation": ""
+    "documentation": "Geçerli pin adlarını temsil eden dizelerden oluşan bir dizi."
   },
   "@roblox/globaltype/VideoDisplay.GetOutputPins": {
-    "documentation": "",
+    "documentation": "<code>Wire</code>'ın <code>Wire.SourceName</code> içinde bu örneğe bağlanmak için kullanabileceği pinlerin listesini alır ve <code>Wire.SourceInstance</code> özelliği üzerinden bu örneğe bağlanır.",
     "params": [
       {
         "name": "self",
@@ -93090,10 +93044,10 @@
     "documentation": "Bir deneyim içindeki metinli sohbeti yöneten bir hizmet."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/1": {
-    "documentation": ""
+    "documentation": "Kullanıcının mevcut sunucuda olması gerekmektedir, aksi takdirde bir hata oluşacaktır."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/param/2": {
-    "documentation": ""
+    "documentation": "Kullanıcının mevcut sunucuda olması gerekmektedir, aksi takdirde bir hata oluşacaktır."
   },
   "@roblox/globaltype/TextChatService.CanUsersChatAsync/return/0": {
     "documentation": ""
@@ -95415,7 +95369,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/BodyPartDescription.HeadShape": {
-    "documentation": "",
+    "documentation": "Dinamik Bir Baş'a uygulanacak baş şekli kimliğini belirtir bu <code>BodyPartDescription</code> uygulandığında.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/BodyPartDescription#HeadShape",
     "code_sample": ""
   },
