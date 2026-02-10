@@ -13,7 +13,6 @@ local DialogOverlay = require(script.App.Dialog.Overlay.Overlay)
 local ControlStateEnum = require(script.Core.Control.Enum.ControlState)
 
 local React = require(script.Parent.React)
-local ReactUtils = require(script.Parent.ReactUtils)
 
 export type Font = Fonts.Font
 export type FontPalette = Fonts.FontPalette
@@ -51,7 +50,6 @@ local function initializeLibrary(configs)
 			}),
 			LayerCollector = strict({
 				LayerCollectorProvider = require(script.Core.Layout.LayerCollector.LayerCollectorProvider),
-				withLayerCollectorProvider = require(script.Core.Layout.LayerCollector.withLayerCollectorProvider),
 				useLayerCollector = require(script.Core.Layout.LayerCollector.useLayerCollector),
 			}),
 		}),
@@ -71,12 +69,6 @@ local function initializeLibrary(configs)
 		Control = strict({
 			Enum = strict({
 				ControlState = ControlStateEnum,
-				ControlStateEvent = require(script.Core.Control.Enum.ControlStateEvent),
-				SelectionMode = require(script.Core.Control.Enum.SelectionMode),
-			}),
-			Hooks = strict({
-				useGuiControlState = require(script.Core.Control.Hooks.useGuiControlState),
-				useGuiControlStateWithBinding = require(script.Core.Control.Hooks.useGuiControlStateWithBinding),
 			}),
 			Interactable = lazify(function()
 				return require(script.Core.Control.Interactable)
@@ -116,19 +108,6 @@ local function initializeLibrary(configs)
 			end),
 		}),
 
-		Hooks = strict({
-			-- Kept for backwards compatibility. Consumers should reference ReactUtils directly
-			useExternalEvent = ReactUtils.useEventConnection,
-			useLazyRef = ReactUtils.useLazyRef,
-			useInitializedValue = ReactUtils.useInitializedValue,
-			useForwardRef = ReactUtils.useForwardRef,
-			useProperties = ReactUtils.useProperties,
-			usePropertiesDeferred = ReactUtils.usePropertiesDeferred,
-
-			useIsGamepad = require(script.Utility.useIsGamepad),
-			useInputType = require(script.Utility.useInputType),
-		}),
-
 		Enums = strict({
 			InputType = require(script.Enums.InputType),
 		}),
@@ -149,7 +128,6 @@ local function initializeLibrary(configs)
 			Images = require(script.App.ImageSet.Images),
 			getIconSize = require(script.App.ImageSet.getIconSize),
 			getIconSizeUDim2 = require(script.App.ImageSet.getIconSizeUDim2),
-			scaleSliceToResolution = require(script.App.ImageSet.scaleSliceToResolution),
 			Enum = strict({
 				IconSize = require(script.App.ImageSet.Enum.IconSize),
 			}),
@@ -311,7 +289,6 @@ local function initializeLibrary(configs)
 				return require(script.App.Tile.SplitTile.ExperienceTile.ExperienceTileV3)
 			end),
 			AspectRatioModeEnum = require(script.App.Tile.SplitTile.ExperienceTile.Enum.AspectRatioMode),
-			getExperienceTileHeight = require(script.App.Tile.SplitTile.ExperienceTile.getExperienceTileHeight),
 			getExperienceTileRelativeHeight = require(
 				script.App.Tile.SplitTile.ExperienceTile.getExperienceTileRelativeHeight
 			),
@@ -364,7 +341,6 @@ local function initializeLibrary(configs)
 				end),
 			}),
 			Enum = strict({
-				AlertType = require(script.App.Dialog.Alert.Enum.AlertType),
 				CloseButtonIcon = require(script.App.Dialog.Modal.Enum.CloseButtonIcon),
 				TooltipOrientation = require(script.App.Dialog.Tooltip.Enum.TooltipOrientation),
 			}),
@@ -539,8 +515,6 @@ local function initializeLibrary(configs)
 
 	UIBlox.UnitTestHelpers = {
 		MockContentProvider = require(script.UnitTestHelpers.MockContentProvider),
-		mockStyleComponent = require(script.Utility.mockStyleComponent),
-		testWithStyledComponent = require(script.UnitTestHelpers.testWithStyledComponent),
 	}
 
 	UIBlox.Style = {
@@ -548,18 +522,10 @@ local function initializeLibrary(configs)
 		withStyle = UIBlox.Core.Style.withStyle,
 		Validator = {
 			validateStyle = require(script.App.Style.Validator.validateStyle),
-			validateFont = require(script.App.Style.Validator.validateFont),
 			validateFontInfo = require(script.Core.Style.Validator.validateFontInfo),
 			validateTypographyInfo = require(script.Core.Style.Validator.validateTypographyInfo),
-			validateTheme = require(script.App.Style.Validator.validateTheme),
 			validateColorInfo = require(script.Core.Style.Validator.validateColorInfo),
-			validateColorToken = require(script.Core.Style.Validator.validateColorToken),
 		},
-		-- Used for updating the style in consumer who would have previously
-		-- used `_context` to access the style object
-		Consumer = lazify(function()
-			return require(script.Core.Style.StyleConsumer)
-		end),
 		-- Used for useContext hook
 		Context = require(script.Core.Style.StyleContext),
 	}
@@ -579,8 +545,6 @@ local function initializeLibrary(configs)
 	}
 
 	UIBlox.Utility = {
-		-- Keeping for backwards compatibility - consumers should use ReactUtils directly.
-		ExternalEventConnection = ReactUtils.EventConnection,
 		SpringAnimatedItem = require(script.Utility.SpringAnimatedItem),
 		OpenTypeSupport = require(script.Utility.OpenTypeSupport),
 	}

@@ -1,12 +1,8 @@
 local CorePackages = game:GetService("CorePackages")
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local Chrome = script:FindFirstAncestor("Chrome")
 
-local IsExperienceMenuABTestEnabled = require(Chrome.Parent.IsExperienceMenuABTestEnabled)
-local ExperienceMenuABTestManager = require(Chrome.Parent.ExperienceMenuABTestManager)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
-local FFlagRemoveExperienceMenuABTestManager = SharedFlags.FFlagRemoveExperienceMenuABTestManager
 
 game:DefineFastFlag("EnableInGameMenuChrome", false)
 local FFlagDebugEnableChromeOnUnsupportedDevices = game:DefineFastFlag("DebugEnableChromeOnUnsupportedDevices", false)
@@ -28,12 +24,6 @@ return function()
 		else
 			-- hard disable in VR until we support v2 menu and validated
 			return false
-		end
-	end
-
-	if not FFlagRemoveExperienceMenuABTestManager then
-		if IsExperienceMenuABTestEnabled() and ExperienceMenuABTestManager.default:isChromeEnabled() then
-			return true
 		end
 	end
 

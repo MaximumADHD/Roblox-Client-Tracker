@@ -1,8 +1,6 @@
 local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
-local Flags = require(Foundation.Utility.Flags)
-
 local BuilderIcons = require(Packages.BuilderIcons)
 local React = require(Packages.React)
 local migrationLookup = BuilderIcons.Migration["uiblox"]
@@ -10,11 +8,16 @@ local migrationLookup = BuilderIcons.Migration["uiblox"]
 local InputSize = require(Foundation.Enums.InputSize)
 type InputSize = InputSize.InputSize
 
+local FillBehavior = require(Foundation.Enums.FillBehavior)
+type FillBehavior = FillBehavior.FillBehavior
+
 local IconSize = require(Foundation.Enums.IconSize)
 type IconSize = IconSize.IconSize
 
 local ButtonVariant = require(Foundation.Enums.ButtonVariant)
 type ButtonVariant = ButtonVariant.ButtonVariant
+
+local Flags = require(Foundation.Utility.Flags)
 
 -- IconButton and Button variants are not currently aligned, but eventually it should be.
 -- For now we don't want to create a new variant enum for IconButton, so we'll use the Button variant enum
@@ -55,6 +58,8 @@ export type IconButtonProps = {
 	-- Size of IconButton. `IconSize` is deprecated - use `InputSize`.
 	-- `Large` and `XLarge` `IconSize`s map to `InputSize.Large` and are not supported.
 	size: (InputSize | IconSize)?,
+	-- Controls how the IconButton fills space in a layout.
+	fillBehavior: FillBehavior?,
 	variant: SupportedIconButtonVariant?,
 	icon: string | {
 		name: string,
@@ -93,6 +98,8 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 		if presentationContext then presentationContext.colorMode else nil
 	)
 
+	local containerSize = variantProps.container.size
+
 	-- Override radius if circular
 	local componentRadius = if props.isCircular
 		then UDim.new(0, tokens.Radius.Circle)
@@ -112,7 +119,21 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 		View,
 		withCommonProps(props, {
 			onActivated = props.onActivated,
-			Size = variantProps.container.size,
+			Size = if Flags.FoundationIconButtonFillBehavior
+				then UDim2.new(
+					if props.fillBehavior == FillBehavior.Fill then 1 else containerSize.X.Scale,
+					if props.fillBehavior == FillBehavior.Fill then 0 else containerSize.X.Offset,
+					0,
+					containerSize.Y.Offset
+				)
+				else containerSize,
+			flexItem = if props.fillBehavior and Flags.FoundationIconButtonFillBehavior
+				then {
+					FlexMode = if props.fillBehavior == FillBehavior.Fill
+						then Enum.UIFlexMode.Fill
+						else Enum.UIFlexMode.Shrink,
+				}
+				else nil,
 			selection = {
 				Selectable = if props.isDisabled then false else props.Selectable,
 				NextSelectionUp = props.NextSelectionUp,
@@ -127,7 +148,6 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 			backgroundStyle = variantProps.container.style,
 			stroke = variantProps.container.stroke,
 			cursor = cursor,
-			tag = if Flags.FoundationIconButtonNoListLayout then nil else variantProps.container.tag,
 			GroupTransparency = if props.isDisabled then Constants.DISABLED_TRANSPARENCY else nil,
 			ref = ref,
 		}),

@@ -45,7 +45,44 @@ function ValidationRulesUtilImpl:getBodyPartMaxTrianglesRule(assetTypeEnum)
 end
 
 function ValidationRulesUtilImpl:getMakeupRules()
-	return self:getRules().MakeupRules
+	local makeupRules = self:getRules().MakeupRules
+	local makeupRulesNewFormat = {}
+	for key, value in makeupRules do
+		if key ~= "ExcludeUVBounds" and key ~= "IncludeUVBounds" then
+			makeupRulesNewFormat[key] = value
+		end
+	end
+
+	local assetUVBounds = {}
+	for assetType, boundsTable in makeupRules.ExcludeUVBounds do
+		if not assetUVBounds[assetType] then
+			assetUVBounds[assetType] = {}
+		end
+
+		for _, bounds in boundsTable do
+			table.insert(assetUVBounds[assetType], {
+				isIncludeBound = false,
+				MinBound = bounds.MinBound,
+				MaxBound = bounds.MaxBound,
+			})
+		end
+	end
+
+	for assetType, boundsTable in makeupRules.IncludeUVBounds do
+		if not assetUVBounds[assetType] then
+			assetUVBounds[assetType] = {}
+		end
+
+		table.insert(assetUVBounds[assetType], {
+			isIncludeBound = true,
+			MinBound = boundsTable.MinBound,
+			MaxBound = boundsTable.MaxBound,
+		})
+	end
+
+	makeupRulesNewFormat.AssetUVBounds = assetUVBounds
+
+	return makeupRulesNewFormat
 end
 
 function ValidationRulesUtilImpl:getAccessoryRules(dest)

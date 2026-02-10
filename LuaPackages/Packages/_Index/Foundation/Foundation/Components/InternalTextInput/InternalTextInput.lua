@@ -93,7 +93,7 @@ type TextBoxProps = {
 	children: React.Node?,
 }
 local TextBox = React.memo(React.forwardRef(function(props: TextBoxProps, ref: React.Ref<TextBox>?)
-	local isBoundsChecker = Flags.FoundationInternalTextInputScrolling and props.isBoundsChecker
+	local isBoundsChecker = props.isBoundsChecker
 	local isMultiLine = props.isMultiLine or isBoundsChecker
 
 	return React.createElement(
@@ -119,9 +119,7 @@ local TextBox = React.memo(React.forwardRef(function(props: TextBoxProps, ref: R
 			TextEditable = if isBoundsChecker then false else not props.isDisabled,
 			PlaceholderText = props.placeholder,
 			TextInputType = if isPluginSecurity() then props.textInputType else nil,
-			Size = if Flags.FoundationInternalTextInputScrolling and props.Size ~= nil
-				then props.Size
-				else UDim2.fromScale(1, 1),
+			Size = if props.Size ~= nil then props.Size else UDim2.fromScale(1, 1),
 			AutomaticSize = props.automaticSize,
 			Text = if isBoundsChecker then nil else props.text,
 			ref = ref,
@@ -131,7 +129,7 @@ local TextBox = React.memo(React.forwardRef(function(props: TextBoxProps, ref: R
 			[React.Event.Focused] = props.onFocusGained,
 			[React.Event.FocusLost] = props.onFocusLost,
 		},
-		if Flags.FoundationInternalTextInputScrolling and props.padding
+		if props.padding
 			then {
 				Padding = React.createElement(Padding, {
 					value = props.padding,
@@ -148,37 +146,24 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 	local tokens = useTokens()
 	local lineCount = math.max(1, props.numLines :: number)
 	local isMultiLine = lineCount > 1
-	local isScrollable = Flags.FoundationInternalTextInputScrolling and isMultiLine
+	local isScrollable = isMultiLine
 	local variantProps = useTextInputVariants(tokens, props.size)
 	local textBoxTag = if Flags.FoundationDisableStylingPolyfill then useStyleTags(variantProps.textBox.tag) else nil
 
 	local textBoxRef = React.useRef(nil :: TextBox?)
-	local textBoundsCheckerRef
-	local scrollingFrameRef
-	local mobileTextBoxTextRef
-	if Flags.FoundationInternalTextInputScrolling then
-		textBoundsCheckerRef = React.useRef(nil :: TextBox?)
-		scrollingFrameRef = React.useRef(nil :: ScrollingFrame?)
-		mobileTextBoxTextRef = React.useRef("")
-	end
+	local textBoundsCheckerRef = React.useRef(nil :: TextBox?)
+	local scrollingFrameRef = React.useRef(nil :: ScrollingFrame?)
+	local mobileTextBoxTextRef = React.useRef("")
 
 	local dragStartPosition = React.useRef(nil :: Vector2?)
-	local lastScrollingFrameCanvasPosition
-	if Flags.FoundationInternalTextInputScrolling then
-		lastScrollingFrameCanvasPosition = React.useRef(Vector2.zero)
-	end
+	local lastScrollingFrameCanvasPosition = React.useRef(Vector2.zero)
 	local hover, setHover = React.useState(false)
 	local focus, setFocus = React.useState(false)
 
 	-- Whether or not the textbox is currently focused and is in mobile mode --
-	local preferredInput
-	local isTouchFocused, setIsTouchFocused
-	local isMobileDevice
-	if Flags.FoundationInternalTextInputScrolling then
-		preferredInput = usePreferredInput()
-		isTouchFocused, setIsTouchFocused = React.useState(false)
-		isMobileDevice = preferredInput == Enum.PreferredInput.Touch
-	end
+	local preferredInput = usePreferredInput()
+	local isTouchFocused, setIsTouchFocused = React.useState(false)
+	local isMobileDevice = preferredInput == Enum.PreferredInput.Touch
 
 	local outerBorderThickness = tokens.Stroke.Standard
 	local outerBorderOffset = math.ceil(outerBorderThickness) * 2
@@ -261,25 +246,17 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 	)
 
 	local onTextChange = React.useCallback(function(textBox: TextBox?)
-		if Flags.FoundationInternalTextInputScrolling then
-			-- Prevent cases in which text can be cleared accidentally
-			if textBox == nil or textBox.Parent == nil or mobileTextBoxTextRef.current ~= "" then
-				return
-			end
-
-			local newText = textBox.Text
-			if isScrollable and textBoundsCheckerRef.current then
-				textBoundsCheckerRef.current.Text = newText
-			end
-
-			props.onChanged(newText)
-		else
-			if textBox == nil then
-				props.onChanged("")
-			else
-				props.onChanged(textBox.Text)
-			end
+		-- Prevent cases in which text can be cleared accidentally
+		if textBox == nil or textBox.Parent == nil or mobileTextBoxTextRef.current ~= "" then
+			return
 		end
+
+		local newText = textBox.Text
+		if isScrollable and textBoundsCheckerRef.current then
+			textBoundsCheckerRef.current.Text = newText
+		end
+
+		props.onChanged(newText)
 	end, { props.onChanged, isScrollable, isTouchFocused } :: { unknown })
 
 	local onFocusGained = React.useCallback(function()
@@ -405,95 +382,83 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		} :: { unknown }
 	)
 
-	local textBoxVerticalPadding
-	local textBoxSizeFullHeight
-	local scrollViewLayout
-	local scrollViewScroll
-	local onCursorPositionChanged
-	local onScrollingFrameMount
-	local onMobileTextBoxMount
-	local onScrollCanvasPositionChanged
-	if Flags.FoundationInternalTextInputScrolling then
-		textBoxVerticalPadding = textBoxWrapperPadding.bottom.Offset + textBoxWrapperPadding.top.Offset
-		textBoxSizeFullHeight = UDim2.new(1, 0, 0, textBoxViewportHeight + textBoxVerticalPadding)
+	local textBoxVerticalPadding = textBoxWrapperPadding.bottom.Offset + textBoxWrapperPadding.top.Offset
+	local textBoxSizeFullHeight = UDim2.new(1, 0, 0, textBoxViewportHeight + textBoxVerticalPadding)
 
-		scrollViewLayout = React.useMemo(function()
-			return if isScrollable
-				then {
-					FillDirection = Enum.FillDirection.Vertical,
-					ItemLineAlignment = Enum.ItemLineAlignment.Center,
-				}
-				else nil
-		end, { isScrollable })
+	local scrollViewLayout = React.useMemo(function()
+		return if isScrollable
+			then {
+				FillDirection = Enum.FillDirection.Vertical,
+				ItemLineAlignment = Enum.ItemLineAlignment.Center,
+			}
+			else nil
+	end, { isScrollable })
 
-		scrollViewScroll = React.useMemo(function()
-			return if isScrollable
-				then {
-					AutomaticCanvasSize = Enum.AutomaticSize.Y,
-					CanvasSize = UDim2.fromOffset(0, 0),
-					ScrollingDirection = Enum.ScrollingDirection.Y,
-					VerticalScrollBarInset = Enum.ScrollBarInset.Always,
-				}
-				else nil
-		end, { isScrollable })
+	local scrollViewScroll = React.useMemo(function()
+		return if isScrollable
+			then {
+				AutomaticCanvasSize = Enum.AutomaticSize.Y,
+				CanvasSize = UDim2.fromOffset(0, 0),
+				ScrollingDirection = Enum.ScrollingDirection.Y,
+				VerticalScrollBarInset = Enum.ScrollBarInset.Always,
+			}
+			else nil
+	end, { isScrollable })
 
-		onCursorPositionChanged = React.useCallback(function(textBox: TextBox)
-			local scrollingFrame = scrollingFrameRef.current
-			local textBoundsBox = textBoundsCheckerRef.current
-			if scrollingFrame == nil or textBoundsBox == nil then
-				return
-			end
+	local onCursorPositionChanged = React.useCallback(function(textBox: TextBox)
+		local scrollingFrame = scrollingFrameRef.current
+		local textBoundsBox = textBoundsCheckerRef.current
+		if scrollingFrame == nil or textBoundsBox == nil then
+			return
+		end
 
-			local textHeight = textBox.TextSize * textBox.LineHeight
-			local canvasPositionY = scrollingFrame.CanvasPosition.Y
+		local textHeight = textBox.TextSize * textBox.LineHeight
+		local canvasPositionY = scrollingFrame.CanvasPosition.Y
 
-			-- Compute the engine TextBounds up to the cursor position using truncated text
-			textBoundsBox.Text = truncateTextToCursor(textBox)
-			local truncatedTextHeight = textBoundsBox.TextBounds.Y
+		-- Compute the engine TextBounds up to the cursor position using truncated text
+		textBoundsBox.Text = truncateTextToCursor(textBox)
+		local truncatedTextHeight = textBoundsBox.TextBounds.Y
 
-			local viewportTopEdge = canvasPositionY
-				- textBoxWrapperPadding.top.Offset
-				+ textBoxWrapperPadding.bottom.Offset
-			local viewportBottomEdge = canvasPositionY
-				+ scrollingFrame.AbsoluteSize.Y
-				- textBoxWrapperPadding.top.Offset
-				- textBoxWrapperPadding.bottom.Offset
+		local viewportTopEdge = canvasPositionY - textBoxWrapperPadding.top.Offset + textBoxWrapperPadding.bottom.Offset
+		local viewportBottomEdge = canvasPositionY
+			+ scrollingFrame.AbsoluteSize.Y
+			- textBoxWrapperPadding.top.Offset
+			- textBoxWrapperPadding.bottom.Offset
 
-			-- Check if cursor position moved up above the viewport. If so, scroll up.
-			-- The truncated text bounds will end at the bottom edge of the line to show.
-			-- Since we want to scroll to the top edge of the line, factor in text height.
-			if truncatedTextHeight - textHeight < viewportTopEdge then
-				scrollingFrame.CanvasPosition += Vector2.new(0, truncatedTextHeight - textHeight - viewportTopEdge)
-			end
+		-- Check if cursor position moved up above the viewport. If so, scroll up.
+		-- The truncated text bounds will end at the bottom edge of the line to show.
+		-- Since we want to scroll to the top edge of the line, factor in text height.
+		if truncatedTextHeight - textHeight < viewportTopEdge then
+			scrollingFrame.CanvasPosition += Vector2.new(0, truncatedTextHeight - textHeight - viewportTopEdge)
+		end
 
-			-- Check if cursor position moved down below the viewport. If so, scroll down.
-			if truncatedTextHeight > viewportBottomEdge then
-				scrollingFrame.CanvasPosition += Vector2.new(0, truncatedTextHeight - viewportBottomEdge)
-			end
-		end, { textBoxWrapperPadding })
+		-- Check if cursor position moved down below the viewport. If so, scroll down.
+		if truncatedTextHeight > viewportBottomEdge then
+			scrollingFrame.CanvasPosition += Vector2.new(0, truncatedTextHeight - viewportBottomEdge)
+		end
+	end, { textBoxWrapperPadding })
 
-		onScrollingFrameMount = React.useCallback(function(scrollingFrame: ScrollingFrame?)
-			if scrollingFrame == nil then
-				return
-			end
+	local onScrollingFrameMount = React.useCallback(function(scrollingFrame: ScrollingFrame?)
+		if scrollingFrame == nil then
+			return
+		end
 
-			scrollingFrameRef.current = scrollingFrame
-			scrollingFrame.ClipsDescendants = true
-			scrollingFrame.CanvasPosition = lastScrollingFrameCanvasPosition.current
-		end, {})
+		scrollingFrameRef.current = scrollingFrame
+		scrollingFrame.ClipsDescendants = true
+		scrollingFrame.CanvasPosition = lastScrollingFrameCanvasPosition.current
+	end, {})
 
-		onMobileTextBoxMount = React.useCallback(function(mobileTextBox: TextBox?)
-			if mobileTextBox then
-				mobileTextBox.Text = mobileTextBoxTextRef.current
-				mobileTextBoxTextRef.current = ""
-				mobileTextBox:CaptureFocus()
-			end
-		end, {})
+	local onMobileTextBoxMount = React.useCallback(function(mobileTextBox: TextBox?)
+		if mobileTextBox then
+			mobileTextBox.Text = mobileTextBoxTextRef.current
+			mobileTextBoxTextRef.current = ""
+			mobileTextBox:CaptureFocus()
+		end
+	end, {})
 
-		onScrollCanvasPositionChanged = React.useCallback(function(scrollingFrame: ScrollingFrame)
-			lastScrollingFrameCanvasPosition.current = scrollingFrame.CanvasPosition
-		end, {})
-	end
+	local onScrollCanvasPositionChanged = React.useCallback(function(scrollingFrame: ScrollingFrame)
+		lastScrollingFrameCanvasPosition.current = scrollingFrame.CanvasPosition
+	end, {})
 
 	local dragDetector = React.useMemo(function(): React.ReactElement?
 		if not props.onDragStarted and not props.onDrag and not props.onDragEnded then
@@ -622,19 +587,13 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 								else nil,
 							TextBoxWrapper = React.createElement(if isScrollable then ScrollView else View, {
 								LayoutOrder = 2,
-								padding = if not Flags.FoundationInternalTextInputScrolling
-									then textBoxWrapperPadding
-									else nil,
 								scroll = scrollViewScroll,
 								layout = scrollViewLayout,
 								onCanvasPositionChanged = if isScrollable then onScrollCanvasPositionChanged else nil,
 								scrollingFrameRef = if isScrollable then onScrollingFrameMount else nil,
-								tag = {
-									["size-full fill"] = true,
-									["clip"] = Flags.FoundationInternalTextInputScrolling,
-								},
+								tag = "size-full fill clip",
 							}, {
-								TextBox = if not Flags.FoundationInternalTextInputScrolling or not isTouchFocused
+								TextBox = if not isTouchFocused
 									then React.createElement(TextBox, {
 										text = props.text,
 										placeholder = props.placeholder,
@@ -653,9 +612,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 												and props.text ~= ""
 											then Enum.AutomaticSize.Y
 											else nil,
-										padding = if Flags.FoundationInternalTextInputScrolling
-											then textBoxWrapperPadding
-											else nil,
+										padding = textBoxWrapperPadding,
 										onFocusGained = onFocusGained,
 										onFocusLost = if isScrollable and isMobileDevice then nil else onFocusLost,
 										onTextChanged = onTextChange,
@@ -686,9 +643,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 										textStyle = textStyle,
 										isMultiLine = isMultiLine,
 										isDisabled = props.isDisabled,
-										padding = if Flags.FoundationInternalTextInputScrolling
-											then textBoxWrapperPadding
-											else nil,
+										padding = textBoxWrapperPadding,
 										ref = onMobileTextBoxMount,
 										tag = `{textBoxTag or ""} data-testid={props.testId}--mobile-textbox`,
 										Size = textBoxSizeFullHeight,

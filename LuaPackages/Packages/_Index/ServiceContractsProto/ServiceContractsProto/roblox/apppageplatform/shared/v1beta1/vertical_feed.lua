@@ -14,6 +14,7 @@ local messages: _Messages = {} :: _Messages
 
 local _roblox_apppageplatform_shared_v1beta1_actions = require(script.Parent.actions)
 local _roblox_apppageplatform_shared_v1beta1_prop_types = require(script.Parent.prop_types)
+local _roblox_apppageplatform_shared_v1beta1_prop_types_engine = require(script.Parent.prop_types_engine)
 local _roblox_apppageplatform_shared_v1beta1_component_shared = require(script.Parent.component_shared)
 
 type _VerticalFeedSchemaImpl = {
@@ -55,6 +56,9 @@ type _VerticalFeedSchema_PropsFields = {
 	threshold_from_end: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	on_scroll_to_end: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
+	horizontal_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.HorizontalAlignmentProp?,
+	horizontal_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	gap_between_feed_items: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 }
 
 type _VerticalFeedSchema_PropsPartialFields = {
@@ -63,6 +67,9 @@ type _VerticalFeedSchema_PropsPartialFields = {
 	threshold_from_end: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 	on_scroll_to_end: _roblox_apppageplatform_shared_v1beta1_actions.ActionProp?,
 	background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
+	horizontal_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types_engine.HorizontalAlignmentProp?,
+	horizontal_padding: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	gap_between_feed_items: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
 }
 
 export type VerticalFeedSchema_Props = typeof(setmetatable(
@@ -201,6 +208,13 @@ do
 			threshold_from_end = if data == nil or data.threshold_from_end == nil then nil else data.threshold_from_end,
 			on_scroll_to_end = if data == nil or data.on_scroll_to_end == nil then nil else data.on_scroll_to_end,
 			background_style = if data == nil or data.background_style == nil then nil else data.background_style,
+			horizontal_alignment = if data == nil or data.horizontal_alignment == nil
+				then nil
+				else data.horizontal_alignment,
+			horizontal_padding = if data == nil or data.horizontal_padding == nil then nil else data.horizontal_padding,
+			gap_between_feed_items = if data == nil or data.gap_between_feed_items == nil
+				then nil
+				else data.gap_between_feed_items,
 		}, _VerticalFeedSchema_PropsImpl :: _VerticalFeedSchema_PropsImpl)
 	end
 
@@ -235,6 +249,24 @@ do
 		if self.background_style ~= nil then
 			local encoded = self.background_style:encode()
 			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.horizontal_alignment ~= nil then
+			local encoded = self.horizontal_alignment:encode()
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.horizontal_padding ~= nil then
+			local encoded = self.horizontal_padding:encode()
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.gap_between_feed_items ~= nil then
+			local encoded = self.gap_between_feed_items:encode()
+			output, cursor = proto.writeTag(output, cursor, 8, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -283,6 +315,23 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.background_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.decode(value)
 					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.horizontal_alignment =
+						_roblox_apppageplatform_shared_v1beta1_prop_types_engine.HorizontalAlignmentProp.decode(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.horizontal_padding = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
+				elseif field == 8 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.gap_between_feed_items =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
+					continue
 				end
 
 				local length
@@ -328,6 +377,18 @@ do
 
 		if self.background_style ~= nil then
 			output.backgroundStyle = self.background_style:jsonEncode()
+		end
+
+		if self.horizontal_alignment ~= nil then
+			output.horizontalAlignment = self.horizontal_alignment:jsonEncode()
+		end
+
+		if self.horizontal_padding ~= nil then
+			output.horizontalPadding = self.horizontal_padding:jsonEncode()
+		end
+
+		if self.gap_between_feed_items ~= nil then
+			output.gapBetweenFeedItems = self.gap_between_feed_items:jsonEncode()
 		end
 
 		return output
@@ -386,6 +447,40 @@ do
 		if input.backgroundStyle ~= nil then
 			self.background_style =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.backgroundStyle)
+		end
+
+		if input.horizontal_alignment ~= nil then
+			self.horizontal_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.HorizontalAlignmentProp.jsonDecode(
+					input.horizontal_alignment
+				)
+		end
+
+		if input.horizontalAlignment ~= nil then
+			self.horizontal_alignment =
+				_roblox_apppageplatform_shared_v1beta1_prop_types_engine.HorizontalAlignmentProp.jsonDecode(
+					input.horizontalAlignment
+				)
+		end
+
+		if input.horizontal_padding ~= nil then
+			self.horizontal_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.horizontal_padding)
+		end
+
+		if input.horizontalPadding ~= nil then
+			self.horizontal_padding =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.horizontalPadding)
+		end
+
+		if input.gap_between_feed_items ~= nil then
+			self.gap_between_feed_items =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.gap_between_feed_items)
+		end
+
+		if input.gapBetweenFeedItems ~= nil then
+			self.gap_between_feed_items =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.gapBetweenFeedItems)
 		end
 
 		return self

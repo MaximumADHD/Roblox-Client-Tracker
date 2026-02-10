@@ -8,15 +8,19 @@ local React = require(CorePackages.Packages.React)
 local Foundation = require(CorePackages.Packages.Foundation)
 local Responsive = require(CorePackages.Workspace.Packages.Responsive)
 
+local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
+
 local useTokens = Foundation.Hooks.useTokens
 local View = Foundation.View
 local Text = Foundation.Text
 local Image = Foundation.Image
+local Traversal = CoreScriptsRoactCommon.Traversal
 
 local TraversalHistoryMenu = require(RobloxGui.Modules.Settings.Components.Traversal.TraversalHistoryMenu)
 
 local FFlagAddTraversalHistoryReactMenuButtons = require(RobloxGui.Modules.Settings.Flags.FFlagAddTraversalHistoryReactMenuButtons)
 local FIntRelocateMobileMenuButtonsVariant = require(RobloxGui.Modules.Settings.Flags.FIntRelocateMobileMenuButtonsVariant)
+local FFlagTraversalLeaveArrowDown = Traversal.Flags.FFlagTraversalLeaveArrowDown
 
 export type ButtonData = {
 	name: string,
@@ -192,7 +196,7 @@ local function MenuButton(props: Props)
 		TraversalHistoryMenu = if FFlagAddTraversalHistoryReactMenuButtons and props.addTraversalHistoryMenu 
 			then React.createElement(TraversalHistoryMenu, {
 				anchorRef = buttonRef,
-				idleButtonStateIsDown = not props.isSmall,
+				idleButtonStateIsDown = if FFlagTraversalLeaveArrowDown then true else not props.isSmall,
 				currentPageChangeSignal = props.currentPageChangeSignal,
 				isDarkOnDarkMode = true,
 			})

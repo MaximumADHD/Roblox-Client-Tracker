@@ -16,6 +16,8 @@ type Tokens = Tokens.Tokens
 
 local VariantsContext = require(Foundation.Providers.Style.VariantsContext)
 
+local Flags = require(Foundation.Utility.Flags)
+
 type BadgeVariantProps = {
 	container: { tag: string, backgroundStyle: ColorStyleValue, stroke: Types.Stroke },
 	text: { tag: string },
@@ -28,7 +30,10 @@ function variantsFactory(tokens: Tokens)
 			tag = "radius-circle row align-y-center align-x-center gap-xsmall",
 		},
 		text = {
-			tag = "auto-xy text-label-small text-align-x-left",
+			tag = {
+				["auto-xy text-label-small text-align-x-left text-truncate-end"] = Flags.FoundationTruncateBadgeText,
+				["auto-xy text-label-small text-align-x-left"] = not Flags.FoundationTruncateBadgeText,
+			},
 		},
 	}
 

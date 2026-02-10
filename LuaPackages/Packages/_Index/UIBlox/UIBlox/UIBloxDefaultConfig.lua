@@ -20,9 +20,6 @@ return {
 	-- Enable OpenType support
 	enableOpenTypeSupport = false,
 
-	-- Use new Foundation components
-	useFoundationSkeleton = false,
-
 	-- Use Foundation button
 	useFoundationButton = false,
 

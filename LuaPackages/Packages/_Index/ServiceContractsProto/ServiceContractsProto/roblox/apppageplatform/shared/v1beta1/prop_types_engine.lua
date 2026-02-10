@@ -31,6 +31,12 @@ type _Messages = {
 	SizeConstraintProp: _SizeConstraintPropMessage,
 	SizeConstraintProp_ConditionalOption: _SizeConstraintProp_ConditionalOptionMessage,
 	SizeConstraintProp_ConditionalOptions: _SizeConstraintProp_ConditionalOptionsMessage,
+	HorizontalAlignmentProp: _HorizontalAlignmentPropMessage,
+	HorizontalAlignmentProp_ConditionalOption: _HorizontalAlignmentProp_ConditionalOptionMessage,
+	HorizontalAlignmentProp_ConditionalOptions: _HorizontalAlignmentProp_ConditionalOptionsMessage,
+	VerticalAlignmentProp: _VerticalAlignmentPropMessage,
+	VerticalAlignmentProp_ConditionalOption: _VerticalAlignmentProp_ConditionalOptionMessage,
+	VerticalAlignmentProp_ConditionalOptions: _VerticalAlignmentProp_ConditionalOptionsMessage,
 	AutomaticSize: _AutomaticSizeMessage,
 	TextTruncate: _TextTruncateMessage,
 	TextXAlignment: _TextXAlignmentMessage,
@@ -39,6 +45,8 @@ type _Messages = {
 	ScaleType: _ScaleTypeMessage,
 	ResamplerMode: _ResamplerModeMessage,
 	SizeConstraint: _SizeConstraintMessage,
+	HorizontalAlignment: _HorizontalAlignmentMessage,
+	VerticalAlignment: _VerticalAlignmentMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -724,6 +732,186 @@ type _SizeConstraintProp_ConditionalOptionsMessage = proto.Message<
 	_SizeConstraintProp_ConditionalOptionsPartialFields
 >
 
+type _HorizontalAlignmentPropImpl = {
+	__index: _HorizontalAlignmentPropImpl,
+	new: (fields: _HorizontalAlignmentPropPartialFields?) -> HorizontalAlignmentProp,
+	encode: (self: HorizontalAlignmentProp) -> buffer,
+	decode: (input: buffer) -> HorizontalAlignmentProp,
+	jsonEncode: (self: HorizontalAlignmentProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HorizontalAlignmentProp,
+	descriptor: proto.Descriptor,
+}
+
+type _HorizontalAlignmentPropFields = {
+	kind: (
+		{ type: "literal", value: HorizontalAlignment }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: HorizontalAlignmentProp_ConditionalOptions }
+	)?,
+}
+
+type _HorizontalAlignmentPropPartialFields = {
+	kind: (
+		{ type: "literal", value: HorizontalAlignment }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: HorizontalAlignmentProp_ConditionalOptions }
+	)?,
+}
+
+export type HorizontalAlignmentProp = typeof(setmetatable(
+	{} :: _HorizontalAlignmentPropFields,
+	{} :: _HorizontalAlignmentPropImpl
+))
+type _HorizontalAlignmentPropMessage = proto.Message<HorizontalAlignmentProp, _HorizontalAlignmentPropPartialFields>
+
+type _HorizontalAlignmentProp_ConditionalOptionImpl = {
+	__index: _HorizontalAlignmentProp_ConditionalOptionImpl,
+	new: (
+		fields: _HorizontalAlignmentProp_ConditionalOptionPartialFields?
+	) -> HorizontalAlignmentProp_ConditionalOption,
+	encode: (self: HorizontalAlignmentProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> HorizontalAlignmentProp_ConditionalOption,
+	jsonEncode: (self: HorizontalAlignmentProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HorizontalAlignmentProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _HorizontalAlignmentProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: HorizontalAlignment } | { type: "binding_path", value: string })?,
+}
+
+type _HorizontalAlignmentProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: HorizontalAlignment } | { type: "binding_path", value: string })?,
+}
+
+export type HorizontalAlignmentProp_ConditionalOption = typeof(setmetatable(
+	{} :: _HorizontalAlignmentProp_ConditionalOptionFields,
+	{} :: _HorizontalAlignmentProp_ConditionalOptionImpl
+))
+type _HorizontalAlignmentProp_ConditionalOptionMessage = proto.Message<
+	HorizontalAlignmentProp_ConditionalOption,
+	_HorizontalAlignmentProp_ConditionalOptionPartialFields
+>
+
+type _HorizontalAlignmentProp_ConditionalOptionsImpl = {
+	__index: _HorizontalAlignmentProp_ConditionalOptionsImpl,
+	new: (
+		fields: _HorizontalAlignmentProp_ConditionalOptionsPartialFields?
+	) -> HorizontalAlignmentProp_ConditionalOptions,
+	encode: (self: HorizontalAlignmentProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> HorizontalAlignmentProp_ConditionalOptions,
+	jsonEncode: (self: HorizontalAlignmentProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> HorizontalAlignmentProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _HorizontalAlignmentProp_ConditionalOptionsFields = {
+	option: { HorizontalAlignmentProp_ConditionalOption },
+}
+
+type _HorizontalAlignmentProp_ConditionalOptionsPartialFields = {
+	option: { HorizontalAlignmentProp_ConditionalOption }?,
+}
+
+export type HorizontalAlignmentProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _HorizontalAlignmentProp_ConditionalOptionsFields,
+	{} :: _HorizontalAlignmentProp_ConditionalOptionsImpl
+))
+type _HorizontalAlignmentProp_ConditionalOptionsMessage = proto.Message<
+	HorizontalAlignmentProp_ConditionalOptions,
+	_HorizontalAlignmentProp_ConditionalOptionsPartialFields
+>
+
+type _VerticalAlignmentPropImpl = {
+	__index: _VerticalAlignmentPropImpl,
+	new: (fields: _VerticalAlignmentPropPartialFields?) -> VerticalAlignmentProp,
+	encode: (self: VerticalAlignmentProp) -> buffer,
+	decode: (input: buffer) -> VerticalAlignmentProp,
+	jsonEncode: (self: VerticalAlignmentProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> VerticalAlignmentProp,
+	descriptor: proto.Descriptor,
+}
+
+type _VerticalAlignmentPropFields = {
+	kind: (
+		{ type: "literal", value: VerticalAlignment }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: VerticalAlignmentProp_ConditionalOptions }
+	)?,
+}
+
+type _VerticalAlignmentPropPartialFields = {
+	kind: (
+		{ type: "literal", value: VerticalAlignment }
+		| { type: "binding_path", value: string }
+		| { type: "conditional", value: VerticalAlignmentProp_ConditionalOptions }
+	)?,
+}
+
+export type VerticalAlignmentProp = typeof(setmetatable(
+	{} :: _VerticalAlignmentPropFields,
+	{} :: _VerticalAlignmentPropImpl
+))
+type _VerticalAlignmentPropMessage = proto.Message<VerticalAlignmentProp, _VerticalAlignmentPropPartialFields>
+
+type _VerticalAlignmentProp_ConditionalOptionImpl = {
+	__index: _VerticalAlignmentProp_ConditionalOptionImpl,
+	new: (fields: _VerticalAlignmentProp_ConditionalOptionPartialFields?) -> VerticalAlignmentProp_ConditionalOption,
+	encode: (self: VerticalAlignmentProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> VerticalAlignmentProp_ConditionalOption,
+	jsonEncode: (self: VerticalAlignmentProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> VerticalAlignmentProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _VerticalAlignmentProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: VerticalAlignment } | { type: "binding_path", value: string })?,
+}
+
+type _VerticalAlignmentProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: ({ type: "literal", value: VerticalAlignment } | { type: "binding_path", value: string })?,
+}
+
+export type VerticalAlignmentProp_ConditionalOption = typeof(setmetatable(
+	{} :: _VerticalAlignmentProp_ConditionalOptionFields,
+	{} :: _VerticalAlignmentProp_ConditionalOptionImpl
+))
+type _VerticalAlignmentProp_ConditionalOptionMessage = proto.Message<
+	VerticalAlignmentProp_ConditionalOption,
+	_VerticalAlignmentProp_ConditionalOptionPartialFields
+>
+
+type _VerticalAlignmentProp_ConditionalOptionsImpl = {
+	__index: _VerticalAlignmentProp_ConditionalOptionsImpl,
+	new: (fields: _VerticalAlignmentProp_ConditionalOptionsPartialFields?) -> VerticalAlignmentProp_ConditionalOptions,
+	encode: (self: VerticalAlignmentProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> VerticalAlignmentProp_ConditionalOptions,
+	jsonEncode: (self: VerticalAlignmentProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> VerticalAlignmentProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _VerticalAlignmentProp_ConditionalOptionsFields = {
+	option: { VerticalAlignmentProp_ConditionalOption },
+}
+
+type _VerticalAlignmentProp_ConditionalOptionsPartialFields = {
+	option: { VerticalAlignmentProp_ConditionalOption }?,
+}
+
+export type VerticalAlignmentProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _VerticalAlignmentProp_ConditionalOptionsFields,
+	{} :: _VerticalAlignmentProp_ConditionalOptionsImpl
+))
+type _VerticalAlignmentProp_ConditionalOptionsMessage = proto.Message<
+	VerticalAlignmentProp_ConditionalOptions,
+	_VerticalAlignmentProp_ConditionalOptionsPartialFields
+>
+
 type _AutomaticSizeMessage = proto.Enum<AutomaticSize>
 export type AutomaticSize =
 	"AUTOMATIC_SIZE_INVALID"
@@ -786,6 +974,22 @@ export type SizeConstraint =
 	| "SIZE_CONSTRAINT_RELATIVE_XY"
 	| "SIZE_CONSTRAINT_RELATIVE_XX"
 	| "SIZE_CONSTRAINT_RELATIVE_YY"
+	| number -- Unknown
+
+type _HorizontalAlignmentMessage = proto.Enum<HorizontalAlignment>
+export type HorizontalAlignment =
+	"HORIZONTAL_ALIGNMENT_INVALID"
+	| "HORIZONTAL_ALIGNMENT_LEFT"
+	| "HORIZONTAL_ALIGNMENT_CENTER"
+	| "HORIZONTAL_ALIGNMENT_RIGHT"
+	| number -- Unknown
+
+type _VerticalAlignmentMessage = proto.Enum<VerticalAlignment>
+export type VerticalAlignment =
+	"VERTICAL_ALIGNMENT_INVALID"
+	| "VERTICAL_ALIGNMENT_TOP"
+	| "VERTICAL_ALIGNMENT_CENTER"
+	| "VERTICAL_ALIGNMENT_BOTTOM"
 	| number -- Unknown
 
 do
@@ -4118,6 +4322,862 @@ do
 	typeRegistry.default:register(messages.SizeConstraintProp_ConditionalOptions)
 end
 
+do
+	local _HorizontalAlignmentPropImpl = {}
+	_HorizontalAlignmentPropImpl.__index = _HorizontalAlignmentPropImpl
+
+	function _HorizontalAlignmentPropImpl.new(data: _HorizontalAlignmentPropPartialFields?): HorizontalAlignmentProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _HorizontalAlignmentPropImpl :: _HorizontalAlignmentPropImpl)
+	end
+
+	function _HorizontalAlignmentPropImpl.encode(self: HorizontalAlignmentProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+				output, cursor =
+					proto.writeVarInt(output, cursor, messages.HorizontalAlignment.toNumber(self.kind.value :: any))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HorizontalAlignmentPropImpl.decode(input: buffer): HorizontalAlignmentProp
+		local self = _HorizontalAlignmentPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = (messages.HorizontalAlignment.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]],
+					}
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "conditional",
+						value = messages.HorizontalAlignmentProp_ConditionalOptions.decode(value),
+					}
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HorizontalAlignmentPropImpl.jsonEncode(self: HorizontalAlignmentProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = if typeof(self.kind.value) == "number"
+					then self.kind.value
+					else messages.HorizontalAlignment.toNumber(self.kind.value :: any)
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _HorizontalAlignmentPropImpl.jsonDecode(input: { [string]: any }): HorizontalAlignmentProp
+		local self = _HorizontalAlignmentPropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = if typeof(input.literal) == "number"
+					then (messages.HorizontalAlignment.fromNumber(input.literal) or input.literal)
+					else (messages.HorizontalAlignment.fromName(input.literal) or input.literal),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.HorizontalAlignmentProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		return self
+	end
+
+	_HorizontalAlignmentPropImpl.descriptor = {
+		name = "HorizontalAlignmentProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.HorizontalAlignmentProp",
+	}
+
+	messages.HorizontalAlignmentProp = _HorizontalAlignmentPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HorizontalAlignmentProp)
+end
+
+do
+	local _HorizontalAlignmentProp_ConditionalOptionImpl = {}
+	_HorizontalAlignmentProp_ConditionalOptionImpl.__index = _HorizontalAlignmentProp_ConditionalOptionImpl
+
+	function _HorizontalAlignmentProp_ConditionalOptionImpl.new(
+		data: _HorizontalAlignmentProp_ConditionalOptionPartialFields?
+	): HorizontalAlignmentProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _HorizontalAlignmentProp_ConditionalOptionImpl :: _HorizontalAlignmentProp_ConditionalOptionImpl)
+	end
+
+	function _HorizontalAlignmentProp_ConditionalOptionImpl.encode(
+		self: HorizontalAlignmentProp_ConditionalOption
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+				output, cursor =
+					proto.writeVarInt(output, cursor, messages.HorizontalAlignment.toNumber(self.kind.value :: any))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HorizontalAlignmentProp_ConditionalOptionImpl.decode(
+		input: buffer
+	): HorizontalAlignmentProp_ConditionalOption
+		local self = _HorizontalAlignmentProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = (messages.HorizontalAlignment.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]],
+					}
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HorizontalAlignmentProp_ConditionalOptionImpl.jsonEncode(
+		self: HorizontalAlignmentProp_ConditionalOption
+	): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = if typeof(self.kind.value) == "number"
+					then self.kind.value
+					else messages.HorizontalAlignment.toNumber(self.kind.value :: any)
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _HorizontalAlignmentProp_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): HorizontalAlignmentProp_ConditionalOption
+		local self = _HorizontalAlignmentProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = if typeof(input.literal) == "number"
+					then (messages.HorizontalAlignment.fromNumber(input.literal) or input.literal)
+					else (messages.HorizontalAlignment.fromName(input.literal) or input.literal),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_HorizontalAlignmentProp_ConditionalOptionImpl.descriptor = {
+		name = "HorizontalAlignmentProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.HorizontalAlignmentProp_ConditionalOption = _HorizontalAlignmentProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HorizontalAlignmentProp_ConditionalOption)
+end
+
+do
+	local _HorizontalAlignmentProp_ConditionalOptionsImpl = {}
+	_HorizontalAlignmentProp_ConditionalOptionsImpl.__index = _HorizontalAlignmentProp_ConditionalOptionsImpl
+
+	function _HorizontalAlignmentProp_ConditionalOptionsImpl.new(
+		data: _HorizontalAlignmentProp_ConditionalOptionsPartialFields?
+	): HorizontalAlignmentProp_ConditionalOptions
+		return setmetatable({
+			option = if data == nil or data.option == nil then {} else data.option,
+		}, _HorizontalAlignmentProp_ConditionalOptionsImpl :: _HorizontalAlignmentProp_ConditionalOptionsImpl)
+	end
+
+	function _HorizontalAlignmentProp_ConditionalOptionsImpl.encode(
+		self: HorizontalAlignmentProp_ConditionalOptions
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.option ~= nil and #self.option > 0 then
+			for _, value in self.option do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _HorizontalAlignmentProp_ConditionalOptionsImpl.decode(
+		input: buffer
+	): HorizontalAlignmentProp_ConditionalOptions
+		local self = _HorizontalAlignmentProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.option, messages.HorizontalAlignmentProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _HorizontalAlignmentProp_ConditionalOptionsImpl.jsonEncode(
+		self: HorizontalAlignmentProp_ConditionalOptions
+	): any
+		local output = {}
+
+		if self.option ~= nil and #self.option > 0 then
+			local newOutput = {}
+			for _, value in self.option do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.option = newOutput
+		end
+
+		return output
+	end
+
+	function _HorizontalAlignmentProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): HorizontalAlignmentProp_ConditionalOptions
+		local self = _HorizontalAlignmentProp_ConditionalOptionsImpl.new()
+
+		if input.option ~= nil then
+			local newOutput: { HorizontalAlignmentProp_ConditionalOption } = {}
+			for _, value in input.option do
+				table.insert(newOutput, messages.HorizontalAlignmentProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.option = newOutput
+		end
+
+		return self
+	end
+
+	_HorizontalAlignmentProp_ConditionalOptionsImpl.descriptor = {
+		name = "HorizontalAlignmentProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.HorizontalAlignmentProp_ConditionalOptions = _HorizontalAlignmentProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.HorizontalAlignmentProp_ConditionalOptions)
+end
+
+do
+	local _VerticalAlignmentPropImpl = {}
+	_VerticalAlignmentPropImpl.__index = _VerticalAlignmentPropImpl
+
+	function _VerticalAlignmentPropImpl.new(data: _VerticalAlignmentPropPartialFields?): VerticalAlignmentProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _VerticalAlignmentPropImpl :: _VerticalAlignmentPropImpl)
+	end
+
+	function _VerticalAlignmentPropImpl.encode(self: VerticalAlignmentProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+				output, cursor =
+					proto.writeVarInt(output, cursor, messages.VerticalAlignment.toNumber(self.kind.value :: any))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _VerticalAlignmentPropImpl.decode(input: buffer): VerticalAlignmentProp
+		local self = _VerticalAlignmentPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = (messages.VerticalAlignment.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]],
+					}
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "conditional",
+						value = messages.VerticalAlignmentProp_ConditionalOptions.decode(value),
+					}
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _VerticalAlignmentPropImpl.jsonEncode(self: VerticalAlignmentProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = if typeof(self.kind.value) == "number"
+					then self.kind.value
+					else messages.VerticalAlignment.toNumber(self.kind.value :: any)
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			end
+		end
+
+		return output
+	end
+
+	function _VerticalAlignmentPropImpl.jsonDecode(input: { [string]: any }): VerticalAlignmentProp
+		local self = _VerticalAlignmentPropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = if typeof(input.literal) == "number"
+					then (messages.VerticalAlignment.fromNumber(input.literal) or input.literal)
+					else (messages.VerticalAlignment.fromName(input.literal) or input.literal),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.VerticalAlignmentProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		return self
+	end
+
+	_VerticalAlignmentPropImpl.descriptor = {
+		name = "VerticalAlignmentProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.VerticalAlignmentProp",
+	}
+
+	messages.VerticalAlignmentProp = _VerticalAlignmentPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.VerticalAlignmentProp)
+end
+
+do
+	local _VerticalAlignmentProp_ConditionalOptionImpl = {}
+	_VerticalAlignmentProp_ConditionalOptionImpl.__index = _VerticalAlignmentProp_ConditionalOptionImpl
+
+	function _VerticalAlignmentProp_ConditionalOptionImpl.new(
+		data: _VerticalAlignmentProp_ConditionalOptionPartialFields?
+	): VerticalAlignmentProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _VerticalAlignmentProp_ConditionalOptionImpl :: _VerticalAlignmentProp_ConditionalOptionImpl)
+	end
+
+	function _VerticalAlignmentProp_ConditionalOptionImpl.encode(self: VerticalAlignmentProp_ConditionalOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.varint)
+				output, cursor =
+					proto.writeVarInt(output, cursor, messages.VerticalAlignment.toNumber(self.kind.value :: any))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _VerticalAlignmentProp_ConditionalOptionImpl.decode(input: buffer): VerticalAlignmentProp_ConditionalOption
+		local self = _VerticalAlignmentProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 2 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.kind = {
+						type = "literal",
+						value = (messages.VerticalAlignment.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]],
+					}
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _VerticalAlignmentProp_ConditionalOptionImpl.jsonEncode(self: VerticalAlignmentProp_ConditionalOption): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = if typeof(self.kind.value) == "number"
+					then self.kind.value
+					else messages.VerticalAlignment.toNumber(self.kind.value :: any)
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _VerticalAlignmentProp_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): VerticalAlignmentProp_ConditionalOption
+		local self = _VerticalAlignmentProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = {
+				type = "literal",
+				value = if typeof(input.literal) == "number"
+					then (messages.VerticalAlignment.fromNumber(input.literal) or input.literal)
+					else (messages.VerticalAlignment.fromName(input.literal) or input.literal),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_VerticalAlignmentProp_ConditionalOptionImpl.descriptor = {
+		name = "VerticalAlignmentProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.VerticalAlignmentProp_ConditionalOption = _VerticalAlignmentProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.VerticalAlignmentProp_ConditionalOption)
+end
+
+do
+	local _VerticalAlignmentProp_ConditionalOptionsImpl = {}
+	_VerticalAlignmentProp_ConditionalOptionsImpl.__index = _VerticalAlignmentProp_ConditionalOptionsImpl
+
+	function _VerticalAlignmentProp_ConditionalOptionsImpl.new(
+		data: _VerticalAlignmentProp_ConditionalOptionsPartialFields?
+	): VerticalAlignmentProp_ConditionalOptions
+		return setmetatable({
+			option = if data == nil or data.option == nil then {} else data.option,
+		}, _VerticalAlignmentProp_ConditionalOptionsImpl :: _VerticalAlignmentProp_ConditionalOptionsImpl)
+	end
+
+	function _VerticalAlignmentProp_ConditionalOptionsImpl.encode(
+		self: VerticalAlignmentProp_ConditionalOptions
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.option ~= nil and #self.option > 0 then
+			for _, value in self.option do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _VerticalAlignmentProp_ConditionalOptionsImpl.decode(
+		input: buffer
+	): VerticalAlignmentProp_ConditionalOptions
+		local self = _VerticalAlignmentProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.option, messages.VerticalAlignmentProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _VerticalAlignmentProp_ConditionalOptionsImpl.jsonEncode(
+		self: VerticalAlignmentProp_ConditionalOptions
+	): any
+		local output = {}
+
+		if self.option ~= nil and #self.option > 0 then
+			local newOutput = {}
+			for _, value in self.option do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.option = newOutput
+		end
+
+		return output
+	end
+
+	function _VerticalAlignmentProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): VerticalAlignmentProp_ConditionalOptions
+		local self = _VerticalAlignmentProp_ConditionalOptionsImpl.new()
+
+		if input.option ~= nil then
+			local newOutput: { VerticalAlignmentProp_ConditionalOption } = {}
+			for _, value in input.option do
+				table.insert(newOutput, messages.VerticalAlignmentProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.option = newOutput
+		end
+
+		return self
+	end
+
+	_VerticalAlignmentProp_ConditionalOptionsImpl.descriptor = {
+		name = "VerticalAlignmentProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.VerticalAlignmentProp_ConditionalOptions = _VerticalAlignmentProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.VerticalAlignmentProp_ConditionalOptions)
+end
+
 messages.AutomaticSize = {
 	fromNumber = function(value: number): AutomaticSize?
 		if value == 0 then
@@ -4494,6 +5554,94 @@ messages.SizeConstraint = {
 	end,
 }
 
+messages.HorizontalAlignment = {
+	fromNumber = function(value: number): HorizontalAlignment?
+		if value == 0 then
+			return "HORIZONTAL_ALIGNMENT_INVALID"
+		elseif value == 1 then
+			return "HORIZONTAL_ALIGNMENT_LEFT"
+		elseif value == 2 then
+			return "HORIZONTAL_ALIGNMENT_CENTER"
+		elseif value == 3 then
+			return "HORIZONTAL_ALIGNMENT_RIGHT"
+		else
+			return nil
+		end
+	end,
+
+	toNumber = function(self: HorizontalAlignment): number
+		if self == "HORIZONTAL_ALIGNMENT_INVALID" then
+			return 0
+		elseif self == "HORIZONTAL_ALIGNMENT_LEFT" then
+			return 1
+		elseif self == "HORIZONTAL_ALIGNMENT_CENTER" then
+			return 2
+		elseif self == "HORIZONTAL_ALIGNMENT_RIGHT" then
+			return 3
+		else
+			return self
+		end
+	end,
+
+	fromName = function(name: string): HorizontalAlignment?
+		if name == "HORIZONTAL_ALIGNMENT_INVALID" then
+			return "HORIZONTAL_ALIGNMENT_INVALID"
+		elseif name == "HORIZONTAL_ALIGNMENT_LEFT" then
+			return "HORIZONTAL_ALIGNMENT_LEFT"
+		elseif name == "HORIZONTAL_ALIGNMENT_CENTER" then
+			return "HORIZONTAL_ALIGNMENT_CENTER"
+		elseif name == "HORIZONTAL_ALIGNMENT_RIGHT" then
+			return "HORIZONTAL_ALIGNMENT_RIGHT"
+		else
+			return nil
+		end
+	end,
+}
+
+messages.VerticalAlignment = {
+	fromNumber = function(value: number): VerticalAlignment?
+		if value == 0 then
+			return "VERTICAL_ALIGNMENT_INVALID"
+		elseif value == 1 then
+			return "VERTICAL_ALIGNMENT_TOP"
+		elseif value == 2 then
+			return "VERTICAL_ALIGNMENT_CENTER"
+		elseif value == 3 then
+			return "VERTICAL_ALIGNMENT_BOTTOM"
+		else
+			return nil
+		end
+	end,
+
+	toNumber = function(self: VerticalAlignment): number
+		if self == "VERTICAL_ALIGNMENT_INVALID" then
+			return 0
+		elseif self == "VERTICAL_ALIGNMENT_TOP" then
+			return 1
+		elseif self == "VERTICAL_ALIGNMENT_CENTER" then
+			return 2
+		elseif self == "VERTICAL_ALIGNMENT_BOTTOM" then
+			return 3
+		else
+			return self
+		end
+	end,
+
+	fromName = function(name: string): VerticalAlignment?
+		if name == "VERTICAL_ALIGNMENT_INVALID" then
+			return "VERTICAL_ALIGNMENT_INVALID"
+		elseif name == "VERTICAL_ALIGNMENT_TOP" then
+			return "VERTICAL_ALIGNMENT_TOP"
+		elseif name == "VERTICAL_ALIGNMENT_CENTER" then
+			return "VERTICAL_ALIGNMENT_CENTER"
+		elseif name == "VERTICAL_ALIGNMENT_BOTTOM" then
+			return "VERTICAL_ALIGNMENT_BOTTOM"
+		else
+			return nil
+		end
+	end,
+}
+
 return {
 	AutomaticSizeProp = messages.AutomaticSizeProp,
 	AutomaticSizeProp_ConditionalOption = messages.AutomaticSizeProp_ConditionalOption,
@@ -4519,6 +5667,12 @@ return {
 	SizeConstraintProp = messages.SizeConstraintProp,
 	SizeConstraintProp_ConditionalOption = messages.SizeConstraintProp_ConditionalOption,
 	SizeConstraintProp_ConditionalOptions = messages.SizeConstraintProp_ConditionalOptions,
+	HorizontalAlignmentProp = messages.HorizontalAlignmentProp,
+	HorizontalAlignmentProp_ConditionalOption = messages.HorizontalAlignmentProp_ConditionalOption,
+	HorizontalAlignmentProp_ConditionalOptions = messages.HorizontalAlignmentProp_ConditionalOptions,
+	VerticalAlignmentProp = messages.VerticalAlignmentProp,
+	VerticalAlignmentProp_ConditionalOption = messages.VerticalAlignmentProp_ConditionalOption,
+	VerticalAlignmentProp_ConditionalOptions = messages.VerticalAlignmentProp_ConditionalOptions,
 	AutomaticSize = messages.AutomaticSize,
 	TextTruncate = messages.TextTruncate,
 	TextXAlignment = messages.TextXAlignment,
@@ -4527,4 +5681,6 @@ return {
 	ScaleType = messages.ScaleType,
 	ResamplerMode = messages.ResamplerMode,
 	SizeConstraint = messages.SizeConstraint,
+	HorizontalAlignment = messages.HorizontalAlignment,
+	VerticalAlignment = messages.VerticalAlignment,
 }

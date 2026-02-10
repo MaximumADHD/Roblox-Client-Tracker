@@ -7,7 +7,7 @@ PROTO_0:
   CALL R2 1 0
   GETUPVAL R2 2
   GETUPVAL R4 3
-  GETTABLEKS R5 R1 K1 ["data"]
+  GETTABLEKS R5 R1 K1 ["groups"]
   CALL R4 1 -1
   NAMECALL R2 R2 K2 ["dispatch"]
   CALL R2 -1 0

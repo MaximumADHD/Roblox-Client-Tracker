@@ -6,6 +6,7 @@ local function createMakeupSchema()
 			{
 				Name = "ThumbnailConfiguration",
 				ClassName = "Configuration",
+				_optional = true,
 				_children = {
 					{
 						Name = "SkinColorValue",

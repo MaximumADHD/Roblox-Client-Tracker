@@ -17,7 +17,6 @@ local Analytics = require(root.Analytics)
 
 local DEFAULT_OFFSET = Vector3.new(0, 0, 0)
 
-local FFlagUGCValidationScaleMinimum = game:DefineFastFlag("UGCValidationScaleMinimum", false)
 local FIntUGCValidationScaleMinimumThousandths = game:DefineFastInt("UGCValidationScaleMinimumThousandths", 10) -- 1 = 0.001
 
 local FFlagRenderBoundsCheckAttachmentOrientation = game:DefineFastFlag("RenderBoundsCheckAttachmentOrientation", false)
@@ -95,14 +94,12 @@ local function validateMeshBounds(
 		return false, { "Position is outside of bounds" }
 	end
 
-	if FFlagUGCValidationScaleMinimum then
-		if
-			meshScale.X < FIntUGCValidationScaleMinimumThousandths / 1000
-			or meshScale.Y < FIntUGCValidationScaleMinimumThousandths / 1000
-			or meshScale.Z < FIntUGCValidationScaleMinimumThousandths / 1000
-		then
-			return false, { "Mesh scale is too small" }
-		end
+	if
+		meshScale.X < FIntUGCValidationScaleMinimumThousandths / 1000
+		or meshScale.Y < FIntUGCValidationScaleMinimumThousandths / 1000
+		or meshScale.Z < FIntUGCValidationScaleMinimumThousandths / 1000
+	then
+		return false, { "Mesh scale is too small" }
 	end
 
 	local success, verts = pcall(function()

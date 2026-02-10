@@ -55,6 +55,7 @@ local getFFlagUGCValidationMakeupSupport = require(root.flags.getFFlagUGCValidat
 local getFFlagUGCValidateCurveAnimRotationSpeed = require(root.flags.getFFlagUGCValidateCurveAnimRotationSpeed)
 
 local getFFlagUGCValidateLegAssetSeparation = require(root.flags.getFFlagUGCValidateLegAssetSeparation)
+local getFFlagUGCValidateTexturePack = require(root.flags.getFFlagUGCValidateTexturePack)
 
 local function joinTables(...)
 	local result = {}
@@ -189,6 +190,13 @@ Analytics.ErrorType = {
 	validateCurveAnimation_IncorrectNumericalData = "validateCurveAnimation_IncorrectNumericalData",
 	validateCurveAnimation_PositionalMovement = "validateCurveAnimation_PositionalMovement",
 }
+
+if getFFlagUGCValidateTexturePack() then
+	Analytics.ErrorType.validateTexturePack_InvalidTexturePackURL = "validateTexturePack_InvalidTexturePackURL"
+	Analytics.ErrorType.validateTexturePack_FailedToDownloadTexturePack =
+		"validateTexturePack_FailedToDownloadTexturePack"
+	Analytics.ErrorType.validateTexturePack_TexturePackMismatch = "validateTexturePack_TexturePackMismatch"
+end
 
 if getFFlagUGCValidateLegAssetSeparation() then
 	Analytics.ErrorType.validateLegsSeparation_InvalidAttachmentPosition =
@@ -326,7 +334,7 @@ end
 if getFFlagUGCValidationMakeupSupport() then
 	Analytics.ErrorType.validateMakeupDecal_FailedToLoadTexture = "validateMakeupDecal_FailedToLoadTexture"
 	Analytics.ErrorType.validateMakeupDecal_NoColorMap = "validateMakeupDecal_NoColorMap"
-	Analytics.ErrorType.validateMakeupDecal_OutsideUVZone = "validateMakeupDecal_OutsideUVZone"
+	Analytics.ErrorType.validateMakeupDecal_UVZoneError = "validateMakeupDecal_UVZoneError"
 
 	Analytics.ErrorType.validateWrapTextureTransfer_FailedToLoadCage = "validateWrapTextureTransfer_FailedToLoadCage"
 	Analytics.ErrorType.validateWrapTextureTransfer_NoCage = "validateWrapTextureTransfer_NoCage"

@@ -29,28 +29,48 @@ PROTO_0:
   GETUPVAL R8 3
   GETTABLEKS R7 R8 K10 ["ButtonVariant"]
   GETTABLEKS R6 R7 K12 ["Standard"]
-  GETUPVAL R8 4
-  GETTABLEKS R7 R8 K13 ["createElement"]
-  GETUPVAL R8 5
-  DUPTABLE R9 K21 [{"ref", "Visible", "LayoutOrder", "size", "text", "variant", "onActivated"}]
-  SETTABLEKS R2 R9 K14 ["ref"]
-  SETTABLEKS R4 R9 K15 ["Visible"]
-  GETTABLEKS R10 R0 K16 ["LayoutOrder"]
-  SETTABLEKS R10 R9 K16 ["LayoutOrder"]
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K22 ["InputSize"]
-  GETTABLEKS R10 R11 K23 ["XSmall"]
-  SETTABLEKS R10 R9 K17 ["size"]
-  LOADK R12 K24 ["Action"]
-  LOADK R13 K25 ["ToggleUpdateStatusPanel"]
-  NAMECALL R10 R1 K26 ["getText"]
-  CALL R10 3 1
-  SETTABLEKS R10 R9 K18 ["text"]
-  SETTABLEKS R6 R9 K19 ["variant"]
-  GETTABLEKS R10 R0 K20 ["onActivated"]
-  SETTABLEKS R10 R9 K20 ["onActivated"]
-  CALL R7 2 -1
-  RETURN R7 -1
+  LOADNIL R7
+  GETTABLEKS R8 R0 K4 ["UpdateState"]
+  GETIMPORT R9 K14 [Enum.UpdateState.UpdateInProgress]
+  JUMPIFNOTEQ R8 R9 [+8]
+  LOADK R10 K15 ["Action"]
+  LOADK R11 K16 ["PreparingUpdate"]
+  NAMECALL R8 R1 K17 ["getText"]
+  CALL R8 3 1
+  MOVE R7 R8
+  JUMP [+19]
+  GETTABLEKS R8 R0 K4 ["UpdateState"]
+  GETIMPORT R9 K9 [Enum.UpdateState.UpdateFailed]
+  JUMPIFNOTEQ R8 R9 [+8]
+  LOADK R10 K15 ["Action"]
+  LOADK R11 K8 ["UpdateFailed"]
+  NAMECALL R8 R1 K17 ["getText"]
+  CALL R8 3 1
+  MOVE R7 R8
+  JUMP [+6]
+  LOADK R10 K15 ["Action"]
+  LOADK R11 K18 ["Update"]
+  NAMECALL R8 R1 K17 ["getText"]
+  CALL R8 3 1
+  MOVE R7 R8
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K19 ["createElement"]
+  GETUPVAL R9 5
+  DUPTABLE R10 K27 [{"ref", "Visible", "LayoutOrder", "size", "text", "variant", "onActivated"}]
+  SETTABLEKS R2 R10 K20 ["ref"]
+  SETTABLEKS R4 R10 K21 ["Visible"]
+  GETTABLEKS R11 R0 K22 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K22 ["LayoutOrder"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K28 ["InputSize"]
+  GETTABLEKS R11 R12 K29 ["XSmall"]
+  SETTABLEKS R11 R10 K23 ["size"]
+  SETTABLEKS R7 R10 K24 ["text"]
+  SETTABLEKS R6 R10 K25 ["variant"]
+  GETTABLEKS R11 R0 K26 ["onActivated"]
+  SETTABLEKS R11 R10 K26 ["onActivated"]
+  CALL R8 2 -1
+  RETURN R8 -1
 
 MAIN:
   PREPVARARGS 0

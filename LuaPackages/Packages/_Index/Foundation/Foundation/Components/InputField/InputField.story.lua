@@ -7,11 +7,16 @@ local InputLabelSize = require(Foundation.Enums.InputLabelSize)
 local InputSize = require(Foundation.Enums.InputSize)
 local InternalTextInput = require(Foundation.Components.InternalTextInput)
 local View = require(Foundation.Components.View)
+local useTextInputVariants = require(Foundation.Components.TextInput.useTextInputVariants)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 
 local InputField = require(Foundation.Components.InputField)
 
 local function Story(props)
 	local controls = props.controls
+
+	local tokens = useTokens()
+	local variantProps = useTextInputVariants(tokens, controls.size)
 
 	local text, setText = React.useState("")
 
@@ -33,6 +38,10 @@ local function Story(props)
 					hasError = controls.hasError,
 					isDisabled = controls.isDisabled,
 					size = controls.size,
+					horizontalPadding = {
+						left = variantProps.innerContainer.horizontalPadding,
+						right = variantProps.innerContainer.horizontalPadding,
+					},
 					onChanged = handleChange,
 					placeholder = controls.placeholder,
 				})

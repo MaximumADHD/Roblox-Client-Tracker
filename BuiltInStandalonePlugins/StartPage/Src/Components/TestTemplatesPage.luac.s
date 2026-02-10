@@ -71,25 +71,25 @@ PROTO_3:
   GETUPVAL R2 3
   GETTABLEKS R1 R2 K5 ["createElement"]
   GETUPVAL R2 4
-  DUPTABLE R3 K13 [{"PageName", "Tabs", "HideTabs", "CanSwapBetweenViews", "IsDefaultGridView", "HasSearchBar", "IsAlertVisible"}]
-  LOADK R4 K14 ["TestTemplates"]
+  DUPTABLE R3 K12 [{"PageName", "Tabs", "HideTabs", "CanSwapBetweenViews", "IsDefaultGridView", "HasSearchBar"}]
+  LOADK R4 K13 ["TestTemplates"]
   SETTABLEKS R4 R3 K6 ["PageName"]
   NEWTABLE R4 0 1
-  DUPTABLE R5 K19 [{"Title", "FailedTitle", "Key", "PageComponent"}]
-  LOADK R8 K20 ["Plugin"]
-  LOADK R9 K21 ["TestTemplatesPage.Title"]
-  NAMECALL R6 R0 K22 ["getText"]
+  DUPTABLE R5 K18 [{"Title", "FailedTitle", "Key", "PageComponent"}]
+  LOADK R8 K19 ["Plugin"]
+  LOADK R9 K20 ["TestTemplatesPage.Title"]
+  NAMECALL R6 R0 K21 ["getText"]
   CALL R6 3 1
-  SETTABLEKS R6 R5 K15 ["Title"]
-  LOADK R8 K20 ["Plugin"]
-  LOADK R9 K23 ["NoTemplatesToDisplay"]
-  NAMECALL R6 R0 K22 ["getText"]
+  SETTABLEKS R6 R5 K14 ["Title"]
+  LOADK R8 K19 ["Plugin"]
+  LOADK R9 K22 ["NoTemplatesToDisplay"]
+  NAMECALL R6 R0 K21 ["getText"]
   CALL R6 3 1
-  SETTABLEKS R6 R5 K16 ["FailedTitle"]
-  LOADK R6 K14 ["TestTemplates"]
-  SETTABLEKS R6 R5 K17 ["Key"]
+  SETTABLEKS R6 R5 K15 ["FailedTitle"]
+  LOADK R6 K13 ["TestTemplates"]
+  SETTABLEKS R6 R5 K16 ["Key"]
   GETUPVAL R6 5
-  SETTABLEKS R6 R5 K18 ["PageComponent"]
+  SETTABLEKS R6 R5 K17 ["PageComponent"]
   SETLIST R4 R5 1 [1]
   SETTABLEKS R4 R3 K7 ["Tabs"]
   LOADB R4 1
@@ -100,8 +100,6 @@ PROTO_3:
   SETTABLEKS R4 R3 K10 ["IsDefaultGridView"]
   LOADB R4 0
   SETTABLEKS R4 R3 K11 ["HasSearchBar"]
-  LOADB R4 0
-  SETTABLEKS R4 R3 K12 ["IsAlertVisible"]
   CALL R1 2 -1
   RETURN R1 -1
 

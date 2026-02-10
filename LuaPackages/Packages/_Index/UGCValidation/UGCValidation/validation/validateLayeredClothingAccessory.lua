@@ -32,6 +32,7 @@ local validateCoplanarIntersection = require(root.validation.validateCoplanarInt
 local validateMaxCubeDensity = require(root.validation.validateMaxCubeDensity)
 local ValidateHSRData = require(root.validation.ValidateHSRData)
 local validateSurfaceAppearanceTextureSize = require(root.validation.validateSurfaceAppearanceTextureSize)
+local ValidateTexturePack = require(root.validation.ValidateTexturePack)
 
 local RigidOrLayeredAllowed = require(root.util.RigidOrLayeredAllowed)
 local createLayeredClothingSchema = require(root.util.createLayeredClothingSchema)
@@ -63,6 +64,8 @@ local getFFlagUGCValidateAccessoryAssetTextureLimit = require(root.flags.getFFla
 local getFFlagUGCValidateLayeredClothingAssetSurfaceAppearanceTextureLimits =
 	require(root.flags.getFFlagUGCValidateLayeredClothingAssetSurfaceAppearanceTextureLimits)
 local getFFlagValidateLCsOnlySkinnedToR15 = require(root.flags.getFFlagValidateLCsOnlySkinnedToR15)
+local getFFlagUGCValidateTexturePack = require(root.flags.getFFlagUGCValidateTexturePack)
+
 local ValidateMeshPartOnlySkinnedToR15 = require(root.validation.ValidateMeshPartOnlySkinnedToR15)
 
 local function validateLayeredClothingAccessory(validationContext: Types.ValidationContext): (boolean, { string }?)
@@ -415,6 +418,14 @@ local function validateLayeredClothingAccessory(validationContext: Types.Validat
 
 	if getFFlagValidateDeformedLayeredClothingIsInBounds() then
 		success, failedReason = validateLCInRenderBounds(instance, validationContext)
+		if not success then
+			table.insert(reasons, table.concat(failedReason, "\n"))
+			validationResult = false
+		end
+	end
+
+	if getFFlagUGCValidateTexturePack() then
+		success, failedReason = ValidateTexturePack.validate(instance, false, validationContext)
 		if not success then
 			table.insert(reasons, table.concat(failedReason, "\n"))
 			validationResult = false

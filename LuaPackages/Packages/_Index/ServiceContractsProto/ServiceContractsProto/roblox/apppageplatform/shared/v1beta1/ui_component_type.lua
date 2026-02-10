@@ -46,6 +46,7 @@ export type UiComponentType =
 	| "UI_COMPONENT_TYPE_EXPANDABLE_TEXT"
 	| "UI_COMPONENT_TYPE_ASSOCIATED_ITEMS_ROW"
 	| "UI_COMPONENT_TYPE_OVERFLOW_MENU"
+	| "UI_COMPONENT_TYPE_DETAILS_PAGE_IMAGE_HEADER"
 	| "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 	| "UI_COMPONENT_TYPE_FRAGMENT"
 	| "UI_COMPONENT_TYPE_VERTICAL_FEED"
@@ -120,6 +121,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_ASSOCIATED_ITEMS_ROW"
 		elseif value == 223 then
 			return "UI_COMPONENT_TYPE_OVERFLOW_MENU"
+		elseif value == 224 then
+			return "UI_COMPONENT_TYPE_DETAILS_PAGE_IMAGE_HEADER"
 		elseif value == 300 then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif value == 400 then
@@ -200,6 +203,8 @@ messages.UiComponentType = {
 			return 222
 		elseif self == "UI_COMPONENT_TYPE_OVERFLOW_MENU" then
 			return 223
+		elseif self == "UI_COMPONENT_TYPE_DETAILS_PAGE_IMAGE_HEADER" then
+			return 224
 		elseif self == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return 300
 		elseif self == "UI_COMPONENT_TYPE_FRAGMENT" then
@@ -280,6 +285,8 @@ messages.UiComponentType = {
 			return "UI_COMPONENT_TYPE_ASSOCIATED_ITEMS_ROW"
 		elseif name == "UI_COMPONENT_TYPE_OVERFLOW_MENU" then
 			return "UI_COMPONENT_TYPE_OVERFLOW_MENU"
+		elseif name == "UI_COMPONENT_TYPE_DETAILS_PAGE_IMAGE_HEADER" then
+			return "UI_COMPONENT_TYPE_DETAILS_PAGE_IMAGE_HEADER"
 		elseif name == "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS" then
 			return "UI_COMPONENT_TYPE_FOCUS_NAV_ACTIONS"
 		elseif name == "UI_COMPONENT_TYPE_FRAGMENT" then

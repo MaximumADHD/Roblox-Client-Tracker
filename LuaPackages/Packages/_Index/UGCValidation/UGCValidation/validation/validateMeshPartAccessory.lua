@@ -20,6 +20,7 @@ local validateSingleInstance = require(root.validation.validateSingleInstance)
 local validateThumbnailConfiguration = require(root.validation.validateThumbnailConfiguration)
 local validateSurfaceAppearances = require(root.validation.validateSurfaceAppearances)
 local validateSurfaceAppearanceTextureSize = require(root.validation.validateSurfaceAppearanceTextureSize)
+local ValidateTexturePack = require(root.validation.ValidateTexturePack)
 local validateSurfaceAppearanceTransparency = require(root.validation.validateSurfaceAppearanceTransparency)
 local validateScaleType = require(root.validation.validateScaleType)
 local validateTotalSurfaceArea = require(root.validation.validateTotalSurfaceArea)
@@ -47,6 +48,7 @@ local getFFlagUGCValidateAccessoriesRCCOwnership = require(root.flags.getFFlagUG
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 local getFFlagUGCValidateAccessoryAssetTextureLimit = require(root.flags.getFFlagUGCValidateAccessoryAssetTextureLimit)
+local getFFlagUGCValidateTexturePack = require(root.flags.getFFlagUGCValidateTexturePack)
 
 local FFlagMeshpartAccessoryCheckAvatarPartScaleType =
 	game:DefineFastFlag("MeshpartAccessoryCheckAvatarPartScaleType", false)
@@ -258,6 +260,9 @@ local function validateMeshPartAccessory(validationContext: Types.ValidationCont
 	reasonsAccumulator:updateReasons(validateSurfaceAppearances(instance, validationContext))
 	reasonsAccumulator:updateReasons(validateSurfaceAppearanceTextureSize(instance, validationContext))
 	reasonsAccumulator:updateReasons(validateSurfaceAppearanceTransparency(instance, validationContext))
+	if getFFlagUGCValidateTexturePack() then
+		reasonsAccumulator:updateReasons(ValidateTexturePack.validate(instance, false, validationContext))
+	end
 
 	if getEngineFeatureEngineUGCValidateRigidNonSkinned() and not validationContext.allowEditableInstances then
 		reasonsAccumulator:updateReasons(validateRigidMeshNotSkinned(meshInfo.contentId, validationContext))

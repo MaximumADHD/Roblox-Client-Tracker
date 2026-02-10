@@ -1,4 +1,88 @@
 PROTO_0:
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K0 ["GetUserId"]
+  CALL R0 1 1
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_1:
+  LOADN R0 0
+  GETIMPORT R1 K1 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE REF R0
+  CAPTURE UPVAL U0
+  CALL R1 1 0
+  CLOSEUPVALS R0
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["isDialogOpen"]
+  JUMPIFNOT R0 [+3]
+  GETUPVAL R0 1
+  GETUPVAL R1 2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  NEWTABLE R0 0 1
+  DUPTABLE R1 K4 [{"id", "text", "creatorType", "creatorId"}]
+  LOADK R3 K5 ["user_"]
+  GETUPVAL R5 0
+  FASTCALL1 TOSTRING R5 [+2]
+  GETIMPORT R4 K7 [tostring]
+  CALL R4 1 1
+  CONCAT R2 R3 R4
+  SETTABLEKS R2 R1 K0 ["id"]
+  GETUPVAL R2 1
+  LOADK R4 K8 ["LookComposerDialog"]
+  LOADK R5 K9 ["Me"]
+  NAMECALL R2 R2 K10 ["getText"]
+  CALL R2 3 1
+  SETTABLEKS R2 R1 K1 ["text"]
+  LOADK R2 K11 ["User"]
+  SETTABLEKS R2 R1 K2 ["creatorType"]
+  GETUPVAL R2 0
+  SETTABLEKS R2 R1 K3 ["creatorId"]
+  SETLIST R0 R1 1 [1]
+  GETUPVAL R1 2
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  DUPTABLE R8 K4 [{"id", "text", "creatorType", "creatorId"}]
+  LOADK R10 K12 ["group_"]
+  GETTABLEKS R12 R5 K0 ["id"]
+  FASTCALL1 TOSTRING R12 [+2]
+  GETIMPORT R11 K7 [tostring]
+  CALL R11 1 1
+  CONCAT R9 R10 R11
+  SETTABLEKS R9 R8 K0 ["id"]
+  GETTABLEKS R9 R5 K13 ["name"]
+  SETTABLEKS R9 R8 K1 ["text"]
+  LOADK R9 K14 ["Group"]
+  SETTABLEKS R9 R8 K2 ["creatorType"]
+  GETTABLEKS R9 R5 K0 ["id"]
+  SETTABLEKS R9 R8 K3 ["creatorId"]
+  FASTCALL2 TABLE_INSERT R0 R8 [+4]
+  MOVE R7 R0
+  GETIMPORT R6 K17 [table.insert]
+  CALL R6 2 0
+  FORGLOOP R1 2 [-29]
+  RETURN R0 1
+
+PROTO_4:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_6:
   GETUPVAL R0 0
   CALL R0 0 1
   JUMPIF R0 [+1]
@@ -16,214 +100,491 @@ PROTO_0:
   GETUPVAL R4 4
   GETTABLEKS R3 R4 K3 ["Context"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K4 ["isDialogOpen"]
-  JUMPIFNOT R3 [+4]
-  GETTABLEKS R3 R2 K5 ["dialogLookType"]
-  JUMPIFNOTEQKNIL R3 [+3]
-  LOADNIL R3
-  RETURN R3 1
-  GETTABLEKS R3 R2 K5 ["dialogLookType"]
-  GETUPVAL R5 5
-  GETTABLE R4 R5 R3
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K2 ["useContext"]
+  GETUPVAL R4 5
+  CALL R3 1 1
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K4 ["useState"]
   LOADNIL R5
-  GETTABLEKS R6 R2 K6 ["dialogStage"]
-  JUMPIFNOTEQKS R6 K7 ["ConfirmItems"] [+14]
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K8 ["createElement"]
-  GETUPVAL R7 6
-  DUPTABLE R8 K10 [{"tag"}]
-  LOADK R9 K11 ["col gap-medium size-full-0 auto-y padding-large"]
-  SETTABLEKS R9 R8 K9 ["tag"]
-  NEWTABLE R9 0 0
-  CALL R6 3 1
-  MOVE R5 R6
-  JUMP [+12]
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K8 ["createElement"]
-  GETUPVAL R7 6
-  DUPTABLE R8 K10 [{"tag"}]
-  LOADK R9 K11 ["col gap-medium size-full-0 auto-y padding-large"]
-  SETTABLEKS R9 R8 K9 ["tag"]
-  NEWTABLE R9 0 0
-  CALL R6 3 1
-  MOVE R5 R6
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K8 ["createElement"]
-  GETUPVAL R8 7
-  GETTABLEKS R7 R8 K12 ["Dialog"]
-  DUPTABLE R8 K19 [{"Title", "MinContentSize", "Size", "Modal", "OnClose", "Enabled"}]
-  LOADK R9 K20 [""]
-  SETTABLEKS R9 R8 K13 ["Title"]
-  GETIMPORT R9 K23 [Vector2.new]
-  LOADN R10 32
-  LOADN R11 88
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K14 ["MinContentSize"]
-  GETIMPORT R9 K23 [Vector2.new]
-  LOADN R10 32
-  LOADN R11 88
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K15 ["Size"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K16 ["Modal"]
-  GETTABLEKS R9 R2 K24 ["closeDialog"]
-  SETTABLEKS R9 R8 K17 ["OnClose"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K18 ["Enabled"]
-  DUPTABLE R9 K27 [{"StyleLink", "MainContainer"}]
-  GETUPVAL R11 3
-  GETTABLEKS R10 R11 K8 ["createElement"]
-  LOADK R11 K25 ["StyleLink"]
-  DUPTABLE R12 K29 [{"StyleSheet"}]
-  SETTABLEKS R0 R12 K28 ["StyleSheet"]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K25 ["StyleLink"]
-  GETUPVAL R11 3
-  GETTABLEKS R10 R11 K8 ["createElement"]
-  GETUPVAL R11 6
-  DUPTABLE R12 K31 [{"tag", "LayoutOrder"}]
-  LOADK R13 K32 ["col size-full"]
-  SETTABLEKS R13 R12 K9 ["tag"]
-  LOADN R13 1
-  SETTABLEKS R13 R12 K30 ["LayoutOrder"]
-  DUPTABLE R13 K35 [{"Header", "ScrollableContent"}]
+  CALL R4 1 2
+  LOADN R7 0
+  GETIMPORT R8 K6 [pcall]
+  NEWCLOSURE R9 P0
+  CAPTURE REF R7
+  CAPTURE UPVAL U6
+  CALL R8 1 0
+  MOVE R6 R7
+  CLOSEUPVALS R7
+  GETUPVAL R7 7
+  CALL R7 0 1
+  LOADK R9 K7 ["user_"]
+  FASTCALL1 TOSTRING R6 [+3]
+  MOVE R11 R6
+  GETIMPORT R10 K9 [tostring]
+  CALL R10 1 1
+  CONCAT R8 R9 R10
+  GETUPVAL R10 3
+  GETTABLEKS R9 R10 K4 ["useState"]
+  MOVE R10 R8
+  CALL R9 1 2
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K10 ["useEffect"]
+  NEWCLOSURE R12 P1
+  CAPTURE VAL R2
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  NEWTABLE R13 0 3
+  GETTABLEKS R14 R2 K11 ["isDialogOpen"]
+  GETTABLEKS R15 R2 K12 ["dialogLookType"]
+  MOVE R16 R8
+  SETLIST R13 R14 3 [1]
+  CALL R11 2 0
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K13 ["useMemo"]
+  NEWCLOSURE R12 P2
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  NEWTABLE R13 0 3
+  MOVE R14 R6
+  MOVE R15 R1
+  MOVE R16 R7
+  SETLIST R13 R14 3 [1]
+  CALL R11 2 1
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K14 ["useCallback"]
+  NEWCLOSURE R13 P3
+  CAPTURE VAL R10
+  NEWTABLE R14 0 0
+  CALL R12 2 1
+  GETTABLEKS R14 R3 K15 ["avatarAssets"]
+  GETTABLEKS R13 R14 K16 ["skinTone"]
+  JUMPIF R13 [+1]
+  GETUPVAL R13 8
   GETUPVAL R15 3
-  GETTABLEKS R14 R15 K8 ["createElement"]
-  GETUPVAL R15 6
-  DUPTABLE R16 K31 [{"tag", "LayoutOrder"}]
-  LOADK R17 K36 ["col align-x-left align-y-top size-full-0 auto-y gap-medium padding-large"]
-  SETTABLEKS R17 R16 K9 ["tag"]
-  LOADN R17 1
-  SETTABLEKS R17 R16 K30 ["LayoutOrder"]
-  DUPTABLE R17 K39 [{"Title", "Description", "StageInfoBarWrapper"}]
-  GETUPVAL R19 3
-  GETTABLEKS R18 R19 K8 ["createElement"]
-  GETUPVAL R19 8
-  DUPTABLE R20 K41 [{"Text", "tag", "LayoutOrder"}]
-  LOADK R23 K42 ["LookComposerDialog"]
-  GETTABLEKS R24 R4 K43 ["title"]
-  NAMECALL R21 R1 K44 ["getText"]
-  CALL R21 3 1
-  SETTABLEKS R21 R20 K40 ["Text"]
-  LOADK R21 K45 ["text-heading-small auto-xy content-default"]
-  SETTABLEKS R21 R20 K9 ["tag"]
-  LOADN R21 1
-  SETTABLEKS R21 R20 K30 ["LayoutOrder"]
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K13 ["Title"]
-  GETUPVAL R19 3
-  GETTABLEKS R18 R19 K8 ["createElement"]
-  GETUPVAL R19 8
-  DUPTABLE R20 K41 [{"Text", "tag", "LayoutOrder"}]
-  LOADK R23 K42 ["LookComposerDialog"]
-  GETTABLEKS R24 R4 K46 ["description"]
-  NAMECALL R21 R1 K44 ["getText"]
-  CALL R21 3 1
-  SETTABLEKS R21 R20 K40 ["Text"]
-  LOADK R21 K47 ["text-body-medium auto-xy content-default"]
-  SETTABLEKS R21 R20 K9 ["tag"]
-  LOADN R21 2
-  SETTABLEKS R21 R20 K30 ["LayoutOrder"]
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K37 ["Description"]
-  GETUPVAL R19 3
-  GETTABLEKS R18 R19 K8 ["createElement"]
-  GETUPVAL R19 6
-  DUPTABLE R20 K31 [{"tag", "LayoutOrder"}]
-  LOADK R21 K48 ["size-full-0 auto-y padding-top-xlarge"]
-  SETTABLEKS R21 R20 K9 ["tag"]
-  LOADN R21 3
-  SETTABLEKS R21 R20 K30 ["LayoutOrder"]
-  DUPTABLE R21 K50 [{"StageInfoBar"}]
-  GETUPVAL R23 3
-  GETTABLEKS R22 R23 K8 ["createElement"]
-  GETUPVAL R23 9
-  CALL R22 1 1
-  SETTABLEKS R22 R21 K49 ["StageInfoBar"]
-  CALL R18 3 1
-  SETTABLEKS R18 R17 K38 ["StageInfoBarWrapper"]
-  CALL R14 3 1
-  SETTABLEKS R14 R13 K33 ["Header"]
-  GETUPVAL R15 3
-  GETTABLEKS R14 R15 K8 ["createElement"]
-  GETUPVAL R15 10
-  DUPTABLE R16 K31 [{"tag", "LayoutOrder"}]
-  LOADK R17 K51 ["size-full"]
-  SETTABLEKS R17 R16 K9 ["tag"]
-  LOADN R17 2
-  SETTABLEKS R17 R16 K30 ["LayoutOrder"]
-  DUPTABLE R17 K53 [{"StageContent"}]
-  SETTABLEKS R5 R17 K52 ["StageContent"]
-  CALL R14 3 1
-  SETTABLEKS R14 R13 K34 ["ScrollableContent"]
-  CALL R10 3 1
-  SETTABLEKS R10 R9 K26 ["MainContainer"]
-  CALL R6 3 -1
-  RETURN R6 -1
+  GETTABLEKS R14 R15 K4 ["useState"]
+  MOVE R15 R13
+  CALL R14 1 2
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K14 ["useCallback"]
+  NEWCLOSURE R17 P4
+  CAPTURE VAL R15
+  NEWTABLE R18 0 0
+  CALL R16 2 1
+  GETTABLEKS R17 R2 K11 ["isDialogOpen"]
+  JUMPIFNOT R17 [+4]
+  GETTABLEKS R17 R2 K12 ["dialogLookType"]
+  JUMPIFNOTEQKNIL R17 [+3]
+  LOADNIL R17
+  RETURN R17 1
+  GETTABLEKS R17 R2 K12 ["dialogLookType"]
+  GETUPVAL R19 9
+  GETTABLE R18 R19 R17
+  GETTABLEKS R20 R2 K17 ["dialogStage"]
+  JUMPIFEQKS R20 K18 ["Success"] [+2]
+  LOADB R19 0 +1
+  LOADB R19 1
+  GETTABLEKS R21 R2 K17 ["dialogStage"]
+  JUMPIFEQKS R21 K19 ["Failure"] [+2]
+  LOADB R20 0 +1
+  LOADB R20 1
+  OR R21 R19 R20
+  LOADNIL R22
+  GETTABLEKS R23 R2 K17 ["dialogStage"]
+  JUMPIFNOTEQKS R23 K20 ["ConfirmItems"] [+69]
+  GETUPVAL R24 10
+  GETTABLEKS R23 R24 K21 ["new"]
+  CALL R23 0 1
+  GETUPVAL R25 3
+  GETTABLEKS R24 R25 K22 ["createElement"]
+  GETUPVAL R25 11
+  DUPTABLE R26 K24 [{"tag"}]
+  LOADK R27 K25 ["col gap-medium size-full-0 auto-y padding-large"]
+  SETTABLEKS R27 R26 K23 ["tag"]
+  DUPTABLE R27 K28 [{"InfoEntry", "LookDetails"}]
+  GETUPVAL R29 3
+  GETTABLEKS R28 R29 K22 ["createElement"]
+  GETUPVAL R29 12
+  DUPTABLE R30 K37 [{"LayoutOrder", "selectedCreatorId", "creators", "onCreatorChanged", "totalPrice", "isAvatarLook", "skinColor", "onSkinColorChanged"}]
+  NAMECALL R31 R23 K38 ["getNextOrder"]
+  CALL R31 1 1
+  SETTABLEKS R31 R30 K29 ["LayoutOrder"]
+  SETTABLEKS R9 R30 K30 ["selectedCreatorId"]
+  SETTABLEKS R11 R30 K31 ["creators"]
+  SETTABLEKS R12 R30 K32 ["onCreatorChanged"]
+  LOADN R31 194
+  SETTABLEKS R31 R30 K33 ["totalPrice"]
+  JUMPIFEQKS R17 K39 ["AvatarLook"] [+2]
+  LOADB R31 0 +1
+  LOADB R31 1
+  SETTABLEKS R31 R30 K34 ["isAvatarLook"]
+  SETTABLEKS R14 R30 K35 ["skinColor"]
+  SETTABLEKS R16 R30 K36 ["onSkinColorChanged"]
+  CALL R28 2 1
+  SETTABLEKS R28 R27 K26 ["InfoEntry"]
+  GETUPVAL R29 3
+  GETTABLEKS R28 R29 K22 ["createElement"]
+  GETUPVAL R29 13
+  DUPTABLE R30 K40 [{"LayoutOrder", "isAvatarLook", "skinColor"}]
+  NAMECALL R31 R23 K38 ["getNextOrder"]
+  CALL R31 1 1
+  SETTABLEKS R31 R30 K29 ["LayoutOrder"]
+  JUMPIFEQKS R17 K39 ["AvatarLook"] [+2]
+  LOADB R31 0 +1
+  LOADB R31 1
+  SETTABLEKS R31 R30 K34 ["isAvatarLook"]
+  SETTABLEKS R14 R30 K35 ["skinColor"]
+  CALL R28 2 1
+  SETTABLEKS R28 R27 K27 ["LookDetails"]
+  CALL R24 3 1
+  MOVE R22 R24
+  GETTABLEKS R23 R2 K17 ["dialogStage"]
+  JUMPIFNOTEQKS R23 K41 ["EditInfo"] [+9]
+  GETUPVAL R24 3
+  GETTABLEKS R23 R24 K22 ["createElement"]
+  GETUPVAL R24 14
+  NEWTABLE R25 0 0
+  CALL R23 2 1
+  MOVE R22 R23
+  GETUPVAL R24 10
+  GETTABLEKS R23 R24 K21 ["new"]
+  CALL R23 0 1
+  GETUPVAL R25 10
+  GETTABLEKS R24 R25 K21 ["new"]
+  CALL R24 0 1
+  GETUPVAL R26 3
+  GETTABLEKS R25 R26 K22 ["createElement"]
+  GETUPVAL R26 11
+  DUPTABLE R27 K24 [{"tag"}]
+  LOADK R28 K42 ["col size-full"]
+  SETTABLEKS R28 R27 K23 ["tag"]
+  DUPTABLE R28 K48 [{"Header", "ScrollableContentWrapper", "SuccessContentWrapper", "FailureContentWrapper", "BottomBar"}]
+  GETUPVAL R30 3
+  GETTABLEKS R29 R30 K22 ["createElement"]
+  GETUPVAL R30 11
+  DUPTABLE R31 K49 [{"tag", "LayoutOrder"}]
+  LOADK R32 K50 ["col align-x-left align-y-top size-full-0 auto-y gap-medium padding-large"]
+  SETTABLEKS R32 R31 K23 ["tag"]
+  NAMECALL R32 R23 K38 ["getNextOrder"]
+  CALL R32 1 1
+  SETTABLEKS R32 R31 K29 ["LayoutOrder"]
+  DUPTABLE R32 K54 [{"Title", "Description", "StageInfoBarWrapper"}]
+  GETUPVAL R34 3
+  GETTABLEKS R33 R34 K22 ["createElement"]
+  GETUPVAL R34 15
+  DUPTABLE R35 K56 [{"Text", "tag", "LayoutOrder"}]
+  LOADK R38 K57 ["LookComposerDialog"]
+  GETTABLEKS R39 R18 K58 ["title"]
+  NAMECALL R36 R1 K59 ["getText"]
+  CALL R36 3 1
+  SETTABLEKS R36 R35 K55 ["Text"]
+  LOADK R36 K60 ["text-heading-small auto-xy content-default"]
+  SETTABLEKS R36 R35 K23 ["tag"]
+  NAMECALL R36 R24 K38 ["getNextOrder"]
+  CALL R36 1 1
+  SETTABLEKS R36 R35 K29 ["LayoutOrder"]
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K51 ["Title"]
+  JUMPIF R21 [+23]
+  GETUPVAL R34 3
+  GETTABLEKS R33 R34 K22 ["createElement"]
+  GETUPVAL R34 15
+  DUPTABLE R35 K56 [{"Text", "tag", "LayoutOrder"}]
+  LOADK R38 K57 ["LookComposerDialog"]
+  GETTABLEKS R39 R18 K61 ["description"]
+  NAMECALL R36 R1 K59 ["getText"]
+  CALL R36 3 1
+  SETTABLEKS R36 R35 K55 ["Text"]
+  LOADK R36 K62 ["text-body-medium auto-xy content-default"]
+  SETTABLEKS R36 R35 K23 ["tag"]
+  NAMECALL R36 R24 K38 ["getNextOrder"]
+  CALL R36 1 1
+  SETTABLEKS R36 R35 K29 ["LayoutOrder"]
+  CALL R33 2 1
+  JUMP [+1]
+  LOADNIL R33
+  SETTABLEKS R33 R32 K52 ["Description"]
+  JUMPIF R21 [+23]
+  GETUPVAL R34 3
+  GETTABLEKS R33 R34 K22 ["createElement"]
+  GETUPVAL R34 11
+  DUPTABLE R35 K49 [{"tag", "LayoutOrder"}]
+  LOADK R36 K63 ["size-full-0 auto-y padding-top-xlarge"]
+  SETTABLEKS R36 R35 K23 ["tag"]
+  NAMECALL R36 R24 K38 ["getNextOrder"]
+  CALL R36 1 1
+  SETTABLEKS R36 R35 K29 ["LayoutOrder"]
+  DUPTABLE R36 K65 [{"StageInfoBar"}]
+  GETUPVAL R38 3
+  GETTABLEKS R37 R38 K22 ["createElement"]
+  GETUPVAL R38 16
+  CALL R37 1 1
+  SETTABLEKS R37 R36 K64 ["StageInfoBar"]
+  CALL R33 3 1
+  JUMP [+1]
+  LOADNIL R33
+  SETTABLEKS R33 R32 K53 ["StageInfoBarWrapper"]
+  CALL R29 3 1
+  SETTABLEKS R29 R28 K43 ["Header"]
+  JUMPIF R21 [+30]
+  GETUPVAL R30 3
+  GETTABLEKS R29 R30 K22 ["createElement"]
+  GETUPVAL R30 11
+  DUPTABLE R31 K49 [{"tag", "LayoutOrder"}]
+  LOADK R32 K66 ["size-full-0 grow"]
+  SETTABLEKS R32 R31 K23 ["tag"]
+  NAMECALL R32 R23 K38 ["getNextOrder"]
+  CALL R32 1 1
+  SETTABLEKS R32 R31 K29 ["LayoutOrder"]
+  DUPTABLE R32 K68 [{"ScrollableContent"}]
+  GETUPVAL R34 3
+  GETTABLEKS R33 R34 K22 ["createElement"]
+  GETUPVAL R34 17
+  DUPTABLE R35 K24 [{"tag"}]
+  LOADK R36 K69 ["size-full"]
+  SETTABLEKS R36 R35 K23 ["tag"]
+  DUPTABLE R36 K71 [{"StageContent"}]
+  SETTABLEKS R22 R36 K70 ["StageContent"]
+  CALL R33 3 1
+  SETTABLEKS R33 R32 K67 ["ScrollableContent"]
+  CALL R29 3 1
+  JUMP [+1]
+  LOADNIL R29
+  SETTABLEKS R29 R28 K44 ["ScrollableContentWrapper"]
+  JUMPIFNOT R19 [+25]
+  GETUPVAL R30 3
+  GETTABLEKS R29 R30 K22 ["createElement"]
+  GETUPVAL R30 11
+  DUPTABLE R31 K49 [{"tag", "LayoutOrder"}]
+  LOADK R32 K66 ["size-full-0 grow"]
+  SETTABLEKS R32 R31 K23 ["tag"]
+  NAMECALL R32 R23 K38 ["getNextOrder"]
+  CALL R32 1 1
+  SETTABLEKS R32 R31 K29 ["LayoutOrder"]
+  DUPTABLE R32 K73 [{"SuccessContent"}]
+  GETUPVAL R34 3
+  GETTABLEKS R33 R34 K22 ["createElement"]
+  GETUPVAL R34 18
+  NEWTABLE R35 0 0
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K72 ["SuccessContent"]
+  CALL R29 3 1
+  JUMP [+1]
+  LOADNIL R29
+  SETTABLEKS R29 R28 K45 ["SuccessContentWrapper"]
+  JUMPIFNOT R20 [+25]
+  GETUPVAL R30 3
+  GETTABLEKS R29 R30 K22 ["createElement"]
+  GETUPVAL R30 11
+  DUPTABLE R31 K49 [{"tag", "LayoutOrder"}]
+  LOADK R32 K66 ["size-full-0 grow"]
+  SETTABLEKS R32 R31 K23 ["tag"]
+  NAMECALL R32 R23 K38 ["getNextOrder"]
+  CALL R32 1 1
+  SETTABLEKS R32 R31 K29 ["LayoutOrder"]
+  DUPTABLE R32 K75 [{"FailureContent"}]
+  GETUPVAL R34 3
+  GETTABLEKS R33 R34 K22 ["createElement"]
+  GETUPVAL R34 19
+  NEWTABLE R35 0 0
+  CALL R33 2 1
+  SETTABLEKS R33 R32 K74 ["FailureContent"]
+  CALL R29 3 1
+  JUMP [+1]
+  LOADNIL R29
+  SETTABLEKS R29 R28 K46 ["FailureContentWrapper"]
+  GETUPVAL R30 3
+  GETTABLEKS R29 R30 K22 ["createElement"]
+  GETUPVAL R30 20
+  DUPTABLE R31 K76 [{"LayoutOrder"}]
+  NAMECALL R32 R23 K38 ["getNextOrder"]
+  CALL R32 1 1
+  SETTABLEKS R32 R31 K29 ["LayoutOrder"]
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K47 ["BottomBar"]
+  CALL R25 3 1
+  GETUPVAL R27 3
+  GETTABLEKS R26 R27 K22 ["createElement"]
+  GETUPVAL R28 21
+  GETTABLEKS R27 R28 K77 ["Dialog"]
+  DUPTABLE R28 K83 [{"Title", "MinContentSize", "Size", "Modal", "OnClose", "Enabled"}]
+  LOADK R29 K84 [""]
+  SETTABLEKS R29 R28 K51 ["Title"]
+  GETIMPORT R29 K86 [Vector2.new]
+  LOADN R30 32
+  LOADN R31 88
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K78 ["MinContentSize"]
+  GETIMPORT R29 K86 [Vector2.new]
+  LOADN R30 32
+  LOADN R31 88
+  CALL R29 2 1
+  SETTABLEKS R29 R28 K79 ["Size"]
+  LOADB R29 1
+  SETTABLEKS R29 R28 K80 ["Modal"]
+  GETTABLEKS R29 R2 K87 ["closeDialog"]
+  SETTABLEKS R29 R28 K81 ["OnClose"]
+  LOADB R29 1
+  SETTABLEKS R29 R28 K82 ["Enabled"]
+  DUPTABLE R29 K89 [{"OverlayProviderWrapper"}]
+  GETUPVAL R31 3
+  GETTABLEKS R30 R31 K22 ["createElement"]
+  GETUPVAL R31 22
+  DUPTABLE R32 K91 [{"gui"}]
+  SETTABLEKS R4 R32 K90 ["gui"]
+  DUPTABLE R33 K95 [{"StyleLink", "MainContainer", "Overlay"}]
+  GETUPVAL R35 3
+  GETTABLEKS R34 R35 K22 ["createElement"]
+  LOADK R35 K92 ["StyleLink"]
+  DUPTABLE R36 K97 [{"StyleSheet"}]
+  SETTABLEKS R0 R36 K96 ["StyleSheet"]
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K92 ["StyleLink"]
+  SETTABLEKS R25 R33 K93 ["MainContainer"]
+  GETUPVAL R35 3
+  GETTABLEKS R34 R35 K22 ["createElement"]
+  GETUPVAL R35 11
+  DUPTABLE R36 K100 [{"tag", "ref", "ZIndex"}]
+  LOADK R37 K69 ["size-full"]
+  SETTABLEKS R37 R36 K23 ["tag"]
+  SETTABLEKS R5 R36 K98 ["ref"]
+  LOADN R37 100
+  SETTABLEKS R37 R36 K99 ["ZIndex"]
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K94 ["Overlay"]
+  CALL R30 3 1
+  SETTABLEKS R30 R29 K88 ["OverlayProviderWrapper"]
+  CALL R26 3 -1
+  RETURN R26 -1
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioService"]
+  NAMECALL R0 R0 K3 ["GetService"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Foundation"]
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["React"]
   CALL R2 1 1
-  GETTABLEKS R3 R2 K9 ["View"]
-  GETTABLEKS R4 R2 K10 ["Text"]
-  GETTABLEKS R5 R2 K11 ["ScrollView"]
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Packages"]
-  GETTABLEKS R7 R8 K12 ["Framework"]
-  CALL R6 1 1
-  GETTABLEKS R7 R6 K13 ["UI"]
-  GETTABLEKS R9 R6 K14 ["ContextServices"]
-  GETTABLEKS R8 R9 K15 ["Localization"]
-  GETTABLEKS R10 R6 K14 ["ContextServices"]
-  GETTABLEKS R9 R10 K16 ["Design"]
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R13 R0 K17 ["Src"]
-  GETTABLEKS R12 R13 K18 ["Flags"]
-  GETTABLEKS R11 R12 K19 ["getFFlagAvatarPreviewerLookComposer"]
-  CALL R10 1 1
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R14 R0 K17 ["Src"]
-  GETTABLEKS R13 R14 K20 ["Components"]
-  GETTABLEKS R12 R13 K21 ["LookContext"]
-  CALL R11 1 1
-  GETIMPORT R12 K5 [require]
-  GETIMPORT R14 K1 [script]
-  GETTABLEKS R13 R14 K22 ["StageInfoBar"]
-  CALL R12 1 1
-  DUPTABLE R13 K25 [{"AvatarLook", "MakeupLook"}]
-  DUPTABLE R14 K28 [{"title", "description"}]
-  LOADK R15 K29 ["CreateAnAvatarLook"]
-  SETTABLEKS R15 R14 K26 ["title"]
-  LOADK R15 K30 ["CreateAnAvatarLookDescription"]
-  SETTABLEKS R15 R14 K27 ["description"]
-  SETTABLEKS R14 R13 K23 ["AvatarLook"]
-  DUPTABLE R14 K28 [{"title", "description"}]
-  LOADK R15 K31 ["CreateAMakeupLook"]
-  SETTABLEKS R15 R14 K26 ["title"]
-  LOADK R15 K32 ["CreateAMakeupLookDescription"]
-  SETTABLEKS R15 R14 K27 ["description"]
-  SETTABLEKS R14 R13 K24 ["MakeupLook"]
-  DUPCLOSURE R14 K33 [PROTO_0]
-  CAPTURE VAL R10
-  CAPTURE VAL R9
-  CAPTURE VAL R8
-  CAPTURE VAL R1
-  CAPTURE VAL R11
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R1 K10 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["Foundation"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K13 ["View"]
+  GETTABLEKS R5 R3 K14 ["Text"]
+  GETTABLEKS R6 R3 K15 ["ScrollView"]
+  GETTABLEKS R7 R3 K16 ["OverlayProvider"]
+  GETIMPORT R8 K9 [require]
+  GETTABLEKS R10 R1 K10 ["Packages"]
+  GETTABLEKS R9 R10 K17 ["Framework"]
+  CALL R8 1 1
+  GETTABLEKS R9 R8 K18 ["UI"]
+  GETTABLEKS R11 R8 K19 ["ContextServices"]
+  GETTABLEKS R10 R11 K20 ["Localization"]
+  GETTABLEKS R12 R8 K19 ["ContextServices"]
+  GETTABLEKS R11 R12 K21 ["Design"]
+  GETTABLEKS R13 R8 K22 ["Util"]
+  GETTABLEKS R12 R13 K23 ["LayoutOrderIterator"]
+  GETIMPORT R13 K9 [require]
+  GETTABLEKS R16 R1 K24 ["Src"]
+  GETTABLEKS R15 R16 K25 ["Flags"]
+  GETTABLEKS R14 R15 K26 ["getFFlagAvatarPreviewerLookComposer"]
+  CALL R13 1 1
+  GETIMPORT R14 K9 [require]
+  GETTABLEKS R17 R1 K24 ["Src"]
+  GETTABLEKS R16 R17 K22 ["Util"]
+  GETTABLEKS R15 R16 K27 ["EquipmentStateContext"]
+  CALL R14 1 1
+  GETIMPORT R15 K9 [require]
+  GETTABLEKS R18 R1 K24 ["Src"]
+  GETTABLEKS R17 R18 K28 ["Components"]
+  GETTABLEKS R16 R17 K29 ["LookContext"]
+  CALL R15 1 1
+  GETIMPORT R16 K9 [require]
+  GETTABLEKS R19 R1 K24 ["Src"]
+  GETTABLEKS R18 R19 K30 ["Hooks"]
+  GETTABLEKS R17 R18 K31 ["useManageableGroups"]
+  CALL R16 1 1
+  GETIMPORT R17 K9 [require]
+  GETIMPORT R19 K5 [script]
+  GETTABLEKS R18 R19 K32 ["StageInfoBar"]
+  CALL R17 1 1
+  GETIMPORT R18 K9 [require]
+  GETIMPORT R20 K5 [script]
+  GETTABLEKS R19 R20 K33 ["InfoEntryContainer"]
+  CALL R18 1 1
+  GETIMPORT R19 K9 [require]
+  GETIMPORT R21 K5 [script]
+  GETTABLEKS R20 R21 K34 ["LookDetailsList"]
+  CALL R19 1 1
+  GETIMPORT R20 K9 [require]
+  GETIMPORT R22 K5 [script]
+  GETTABLEKS R21 R22 K35 ["CreatorSelectionDropdown"]
+  CALL R20 1 1
+  GETIMPORT R21 K9 [require]
+  GETIMPORT R23 K5 [script]
+  GETTABLEKS R22 R23 K36 ["LookComposerBottomBar"]
+  CALL R21 1 1
+  GETIMPORT R22 K9 [require]
+  GETIMPORT R24 K5 [script]
+  GETTABLEKS R23 R24 K37 ["SuccessPage"]
+  CALL R22 1 1
+  GETIMPORT R23 K9 [require]
+  GETIMPORT R25 K5 [script]
+  GETTABLEKS R24 R25 K38 ["FailurePage"]
+  CALL R23 1 1
+  GETIMPORT R24 K9 [require]
+  GETIMPORT R26 K5 [script]
+  GETTABLEKS R25 R26 K39 ["EditInfoPage"]
+  CALL R24 1 1
+  DUPCLOSURE R25 K40 [PROTO_1]
+  CAPTURE VAL R0
+  GETIMPORT R26 K43 [Color3.fromRGB]
+  LOADN R27 205
+  LOADN R28 205
+  LOADN R29 204
+  CALL R26 3 1
+  DUPTABLE R27 K46 [{"AvatarLook", "MakeupLook"}]
+  DUPTABLE R28 K49 [{"title", "description"}]
+  LOADK R29 K50 ["CreateAnAvatarLook"]
+  SETTABLEKS R29 R28 K47 ["title"]
+  LOADK R29 K51 ["CreateAnAvatarLookDescription"]
+  SETTABLEKS R29 R28 K48 ["description"]
+  SETTABLEKS R28 R27 K44 ["AvatarLook"]
+  DUPTABLE R28 K49 [{"title", "description"}]
+  LOADK R29 K52 ["CreateAMakeupLook"]
+  SETTABLEKS R29 R28 K47 ["title"]
+  LOADK R29 K53 ["CreateAMakeupLookDescription"]
+  SETTABLEKS R29 R28 K48 ["description"]
+  SETTABLEKS R28 R27 K45 ["MakeupLook"]
+  DUPCLOSURE R28 K54 [PROTO_6]
   CAPTURE VAL R13
-  CAPTURE VAL R3
-  CAPTURE VAL R7
-  CAPTURE VAL R4
+  CAPTURE VAL R11
+  CAPTURE VAL R10
+  CAPTURE VAL R2
+  CAPTURE VAL R15
+  CAPTURE VAL R14
+  CAPTURE VAL R0
+  CAPTURE VAL R16
+  CAPTURE VAL R26
+  CAPTURE VAL R27
   CAPTURE VAL R12
+  CAPTURE VAL R4
+  CAPTURE VAL R18
+  CAPTURE VAL R19
+  CAPTURE VAL R24
   CAPTURE VAL R5
-  RETURN R14 1
+  CAPTURE VAL R17
+  CAPTURE VAL R6
+  CAPTURE VAL R22
+  CAPTURE VAL R23
+  CAPTURE VAL R21
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  RETURN R28 1

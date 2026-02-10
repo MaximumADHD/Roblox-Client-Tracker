@@ -45,6 +45,7 @@ local ValidateAssetBodyPartCages = require(root.validation.ValidateAssetBodyPart
 local ValidateMeshSizeProperty = require(root.validation.ValidateMeshSizeProperty)
 local ValidatePropertiesSensible = require(root.validation.ValidatePropertiesSensible)
 local ValidateLegsSeparation = require(root.validation.ValidateLegsSeparation)
+local ValidateTexturePack = require(root.validation.ValidateTexturePack)
 
 local validateWithSchema = require(root.util.validateWithSchema)
 local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
@@ -52,6 +53,7 @@ local ValidateMeshPartOnlySkinnedToR15 = require(root.validation.ValidateMeshPar
 local BodyAssetMasksRenderer = require(root.util.bodyAssetMasksRenderer)
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
+local getFFlagUGCValidateTexturePack = require(root.flags.getFFlagUGCValidateTexturePack)
 
 local resetPhysicsData = require(root.util.resetPhysicsData)
 local Types = require(root.util.Types)
@@ -127,6 +129,10 @@ local function validateMeshPartBodyPart(
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
 
 	reasonsAccumulator:updateReasons(validateBodyPartMeshBounds(inst, validationContext))
+
+	if getFFlagUGCValidateTexturePack() then
+		reasonsAccumulator:updateReasons(ValidateTexturePack.validate(inst, true, validationContext))
+	end
 
 	if getEngineFeatureUGCValidateBodyPartCageMeshDistance() then
 		reasonsAccumulator:updateReasons(ValidateAssetBodyPartCages.validateSingleBodyPart(inst, validationContext))

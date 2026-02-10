@@ -303,6 +303,7 @@ type _OverflowMenuSchema_PropsFields = {
 	anchor_point: _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	button_icon_background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
 }
 
 type _OverflowMenuSchema_PropsPartialFields = {
@@ -317,6 +318,7 @@ type _OverflowMenuSchema_PropsPartialFields = {
 	anchor_point: _roblox_apppageplatform_shared_v1beta1_prop_types.Vector2Prop?,
 	position: _roblox_apppageplatform_shared_v1beta1_prop_types.UDim2Prop?,
 	z_index: _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop?,
+	button_icon_background_style: _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp?,
 }
 
 export type OverflowMenuSchema_Props = typeof(setmetatable(
@@ -1599,6 +1601,9 @@ do
 			anchor_point = if data == nil or data.anchor_point == nil then nil else data.anchor_point,
 			position = if data == nil or data.position == nil then nil else data.position,
 			z_index = if data == nil or data.z_index == nil then nil else data.z_index,
+			button_icon_background_style = if data == nil or data.button_icon_background_style == nil
+				then nil
+				else data.button_icon_background_style,
 		}, _OverflowMenuSchema_PropsImpl :: _OverflowMenuSchema_PropsImpl)
 	end
 
@@ -1669,6 +1674,12 @@ do
 		if self.z_index ~= nil then
 			local encoded = self.z_index:encode()
 			output, cursor = proto.writeTag(output, cursor, 11, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.button_icon_background_style ~= nil then
+			local encoded = self.button_icon_background_style:encode()
+			output, cursor = proto.writeTag(output, cursor, 12, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -1746,6 +1757,12 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.decode(value)
 					continue
+				elseif field == 12 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.button_icon_background_style =
+						_roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.decode(value)
+					continue
 				end
 
 				local length
@@ -1815,6 +1832,10 @@ do
 
 		if self.z_index ~= nil then
 			output.zIndex = self.z_index:jsonEncode()
+		end
+
+		if self.button_icon_background_style ~= nil then
+			output.buttonIconBackgroundStyle = self.button_icon_background_style:jsonEncode()
 		end
 
 		return output
@@ -1913,6 +1934,17 @@ do
 
 		if input.zIndex ~= nil then
 			self.z_index = _roblox_apppageplatform_shared_v1beta1_prop_types.Int32Prop.jsonDecode(input.zIndex)
+		end
+
+		if input.button_icon_background_style ~= nil then
+			self.button_icon_background_style = _roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(
+				input.button_icon_background_style
+			)
+		end
+
+		if input.buttonIconBackgroundStyle ~= nil then
+			self.button_icon_background_style =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.ColorProp.jsonDecode(input.buttonIconBackgroundStyle)
 		end
 
 		return self

@@ -36,10 +36,7 @@ local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMen
 local useSelector = require(CorePackages.Workspace.Packages.RoactUtils).Hooks.RoactRodux.useSelector
 -- APPEXP-2053 TODO: Remove all use of RobloxGui from ChromeShared
 local FIntChromeWindowLayoutOrder = game:DefineFastInt("ChromeWindowLayoutOrder", 2)
-local FFlagWindowDragDetection = game:DefineFastFlag("WindowDragDetection", false)
-local FIntWindowMinDragDistance = game:DefineFastInt("WindowMinDragDistance", 25)
 
-local FFlagFixWindowStyleSheets = game:DefineFastFlag("FixWindowStyleSheets", false)
 local FFlagFixWindowDragError = game:DefineFastFlag("FixWindowDragError", false)
 
 local ChromeSharedFlags = require(Root.Flags)
@@ -293,11 +290,9 @@ local WindowHost = function(props: WindowHostProps)
 
 					local inputPosition = inputChangedObj.Position
 					local delta = inputPosition - dragStartPosition
-					if FFlagWindowDragDetection then
-						dragDistance += delta.Magnitude
-					end
+					dragDistance += delta.Magnitude
 
-					if not FFlagWindowDragDetection or dragDistance > FIntWindowMinDragDistance then
+					if dragDistance > Constants.WINDOW_MIN_DRAG_DISTANCE then
 						setDragging(true)
 
 						local newPosition = {
@@ -416,9 +411,7 @@ local WindowHost = function(props: WindowHostProps)
 	end, { calculateAnchorPoint })
 
 	local touchEnded = React.useCallback(function(_: Frame, inputObj: InputObject)
-		if FFlagWindowDragDetection then
-			dragDistance = 0
-		end
+		dragDistance = 0
 		if
 			inputObj.UserInputType == Enum.UserInputType.MouseButton1
 			or inputObj.UserInputType == Enum.UserInputType.Touch
@@ -500,11 +493,9 @@ local WindowHost = function(props: WindowHostProps)
 					}),
 				}),
 			}),
-			FoundationStyleLink = if FFlagFixWindowStyleSheets
-				then React.createElement("StyleLink", {
-					StyleSheet = styleSheet,
-				})
-				else nil,
+			FoundationStyleLink = React.createElement("StyleLink", {
+				StyleSheet = styleSheet,
+			}),
 		}),
 	}, CoreGui)
 end

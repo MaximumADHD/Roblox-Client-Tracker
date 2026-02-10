@@ -36,6 +36,7 @@ local GetFFlagEnableConnectDisconnectInSettingsAndChrome =
 	require(RobloxGui.Modules.Flags.GetFFlagEnableConnectDisconnectInSettingsAndChrome)
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local FFlagIEMSettingsGroups = require(RobloxGui.Modules.Settings.Flags.FFlagIEMSettingsGroups)
 
 local locales = nil
 if GetFFlagEnableConnectDisconnectInSettingsAndChrome() or isInExperienceUIVREnabled then
@@ -47,7 +48,12 @@ end
 
 local getCamMicPermissions = require(RobloxGui.Modules.Settings.getCamMicPermissions)
 local isCamEnabledForUserAndPlace = require(RobloxGui.Modules.Settings.isCamEnabledForUserAndPlace)
-
+local renderSettingsHeader
+local renderSettingsDivider
+if FFlagIEMSettingsGroups then
+	renderSettingsHeader = require(RobloxGui.Modules.Settings.Components.renderSettingsHeader)
+	renderSettingsDivider = require(RobloxGui.Modules.Settings.Components.renderSettingsDivider)
+end
 local PermissionsProtocol = require(CorePackages.Workspace.Packages.PermissionsProtocol).PermissionsProtocol.default
 local isVoiceFocused = require(CorePackages.Workspace.Packages.CrossExperience).Utils.isVoiceFocused
 local observeIsVoiceFocused = require(CorePackages.Workspace.Packages.CrossExperience).Utils.observeIsVoiceFocused
@@ -4097,6 +4103,46 @@ local function Initialize()
 	allSettingsCreated = true
 	if VRService.VREnabled then
 		onVRSettingsReady()
+	end
+
+	if FFlagIEMSettingsGroups then
+		this.AudioHeader = renderSettingsHeader({
+			headerText = "CoreScripts.InGameMenu.GameSettings.AudioHeader",
+			layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.AudioHeader,
+			parent = this.Page,
+		})
+		this.AudioDivider = renderSettingsDivider({
+			layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.AudioDivider,
+			parent = this.Page,
+		})
+		this.DisplayHeader = renderSettingsHeader({
+			headerText = "CoreScripts.InGameMenu.GameSettings.DisplayHeader",
+			layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.DisplayHeader,
+			parent = this.Page,
+		})
+		this.DisplayDivider = renderSettingsDivider({
+			layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.DisplayDivider,
+			parent = this.Page,
+		})
+		if isInExperienceUIVREnabled then
+			-- VR does not have language settings
+			if not isSpatial() then
+				this.LanguageHeader = renderSettingsHeader({
+					headerText = "CoreScripts.InGameMenu.GameSettings.LanguageHeader",
+					layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.LanguageHeader,
+					parent = this.Page,
+				})
+				this.LanguageDivider = renderSettingsDivider({
+					layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.LanguageDivider,
+					parent = this.Page,
+				})
+			end
+		end
+		this.ViewAndControlsHeader = renderSettingsHeader({
+			headerText = "CoreScripts.InGameMenu.GameSettings.ViewandControlsHeader",
+			layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.ViewAndControlsHeader,
+			parent = this.Page,
+		})
 	end
 
 	------ TAB CUSTOMIZATION -------

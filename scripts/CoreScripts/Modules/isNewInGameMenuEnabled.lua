@@ -6,13 +6,6 @@ local CorePackages = game:GetService("CorePackages")
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 
-local FFlagRemoveExperienceMenuABTestManager = SharedFlags.FFlagRemoveExperienceMenuABTestManager
-local IsExperienceMenuABTestEnabled, ExperienceMenuABTestManager
-if not FFlagRemoveExperienceMenuABTestManager then
-	IsExperienceMenuABTestEnabled = require(script.Parent.IsExperienceMenuABTestEnabled)
-	ExperienceMenuABTestManager = require(script.Parent.ExperienceMenuABTestManager)
-end
-
 game:DefineFastInt("NewInGameMenuPercentRollout3", 0)
 game:DefineFastString("NewInGameMenuForcedUserIds", "")
 game:DefineFastFlag("NewInGameMenuDisabledInVR", false)
@@ -43,12 +36,6 @@ return function()
 	local forcedUserIds = game:GetFastString("NewInGameMenuForcedUserIds")
 	for forcedUserIdString in forcedUserIds:gmatch("%d+") do
 		if tonumber(forcedUserIdString) == localPlayer.UserId then
-			return true
-		end
-	end
-
-	if not FFlagRemoveExperienceMenuABTestManager then
-		if IsExperienceMenuABTestEnabled() and ExperienceMenuABTestManager.default:isV3MenuEnabled() then
 			return true
 		end
 	end

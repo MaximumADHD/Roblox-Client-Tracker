@@ -156,8 +156,6 @@ local GetFFlagVoiceChatClientRewriteMasterLua = SharedFlags.GetFFlagVoiceChatCli
 local FFlagUseNotificationServiceIsConnected = game:DefineFastFlag("UseNotificationServiceIsConnected", false)
 local FFlagDefaultChannelEnableDefaultVoice = game:DefineFastFlag("DefaultChannelEnableDefaultVoice", true)
 local FFlagAlwaysJoinWhenUsingAudioAPI = game:DefineFastFlag("AlwaysJoinWhenUsingAudioAPI", false)
-local FFlagDefaultChannelDontWaitOnCharacterWithAudioApi =
-	game:DefineFastFlag("DefaultChannelDontWaitOnCharacterWithAudioApi", false)
 local FFlagEnableCrossExpVoiceDebug = game:DefineFastFlag("EnableCrossExpVoiceDebug", false)
 local FFlagRemoveScriptRefAsReturnInVoiceChatCore = VoiceChatCore.Flags.FFlagRemoveScriptRefAsReturnInVoiceChatCore
 local GetFFlagEnableLuaVoiceChatAnalytics = if FFlagRemoveScriptRefAsReturnInVoiceChatCore then VoiceChatCore.Flags.GetFFlagEnableLuaVoiceChatAnalytics else require(VoiceChatCore.Flags.GetFFlagEnableLuaVoiceChatAnalytics)
@@ -674,7 +672,7 @@ local function validateSetup()
 		log:debug("NotificationService connected")
 	end
 
-	if not FFlagDefaultChannelDontWaitOnCharacterWithAudioApi or not VoiceChatService.UseNewAudioApi then
+	if not VoiceChatService.UseNewAudioApi then
 		if not Players.LocalPlayer.Character then
 			Players.LocalPlayer.CharacterAdded:Wait()
 			log:debug("Player character loaded")

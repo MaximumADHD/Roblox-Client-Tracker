@@ -1,0 +1,222 @@
+PROTO_0:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["setDialogStage"]
+  LOADK R1 K1 ["EditInfo"]
+  CALL R0 1 0
+  RETURN R0 0
+  GETUPVAL R0 2
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["setDialogStage"]
+  LOADK R1 K2 ["Success"]
+  CALL R0 1 0
+  RETURN R0 0
+  GETUPVAL R0 3
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K3 ["closeDialog"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["setDialogStage"]
+  LOADK R1 K1 ["ConfirmItems"]
+  CALL R0 1 0
+  RETURN R0 0
+  GETUPVAL R0 2
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K2 ["closeDialog"]
+  CALL R0 0 0
+  RETURN R0 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K2 ["closeDialog"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIF R1 [+2]
+  LOADNIL R1
+  RETURN R1 1
+  GETUPVAL R1 1
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["useContext"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K2 ["Context"]
+  CALL R2 1 1
+  GETTABLEKS R4 R2 K3 ["dialogStage"]
+  JUMPIFEQKS R4 K4 ["ConfirmItems"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  GETTABLEKS R5 R2 K3 ["dialogStage"]
+  JUMPIFEQKS R5 K5 ["EditInfo"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  GETTABLEKS R6 R2 K3 ["dialogStage"]
+  JUMPIFEQKS R6 K6 ["Success"] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETTABLEKS R7 R2 K3 ["dialogStage"]
+  JUMPIFEQKS R7 K7 ["Failure"] [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K8 ["useCallback"]
+  NEWCLOSURE R8 P0
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R6
+  NEWTABLE R9 0 3
+  MOVE R10 R3
+  MOVE R11 R4
+  MOVE R12 R6
+  SETLIST R9 R10 3 [1]
+  CALL R7 2 1
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K8 ["useCallback"]
+  NEWCLOSURE R9 P1
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  NEWTABLE R10 0 2
+  MOVE R11 R4
+  MOVE R12 R5
+  SETLIST R10 R11 2 [1]
+  CALL R8 2 1
+  JUMPIFNOT R3 [+6]
+  LOADK R11 K9 ["LookComposerDialog"]
+  LOADK R12 K10 ["Continue"]
+  NAMECALL R9 R1 K11 ["getText"]
+  CALL R9 3 1
+  JUMP [+19]
+  JUMPIFNOT R4 [+6]
+  LOADK R11 K9 ["LookComposerDialog"]
+  LOADK R12 K12 ["Create"]
+  NAMECALL R9 R1 K11 ["getText"]
+  CALL R9 3 1
+  JUMP [+12]
+  JUMPIFNOT R6 [+6]
+  LOADK R11 K9 ["LookComposerDialog"]
+  LOADK R12 K13 ["Ok"]
+  NAMECALL R9 R1 K11 ["getText"]
+  CALL R9 3 1
+  JUMP [+5]
+  LOADK R11 K9 ["LookComposerDialog"]
+  LOADK R12 K14 ["ViewOnCreatorHub"]
+  NAMECALL R9 R1 K11 ["getText"]
+  CALL R9 3 1
+  JUMPIFNOT R4 [+6]
+  LOADK R12 K9 ["LookComposerDialog"]
+  LOADK R13 K15 ["Back"]
+  NAMECALL R10 R1 K11 ["getText"]
+  CALL R10 3 1
+  JUMP [+12]
+  JUMPIFNOT R5 [+6]
+  LOADK R12 K9 ["LookComposerDialog"]
+  LOADK R13 K16 ["Close"]
+  NAMECALL R10 R1 K11 ["getText"]
+  CALL R10 3 1
+  JUMP [+5]
+  LOADK R12 K9 ["LookComposerDialog"]
+  LOADK R13 K17 ["Cancel"]
+  NAMECALL R10 R1 K11 ["getText"]
+  CALL R10 3 1
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K18 ["createElement"]
+  GETUPVAL R12 4
+  DUPTABLE R13 K24 [{"text", "variant", "onActivated", "icon", "LayoutOrder"}]
+  SETTABLEKS R9 R13 K19 ["text"]
+  GETUPVAL R17 5
+  GETTABLEKS R16 R17 K25 ["Enums"]
+  GETTABLEKS R15 R16 K26 ["ButtonVariant"]
+  GETTABLEKS R14 R15 K27 ["Emphasis"]
+  SETTABLEKS R14 R13 K20 ["variant"]
+  SETTABLEKS R7 R13 K21 ["onActivated"]
+  JUMPIFNOT R5 [+8]
+  GETUPVAL R17 5
+  GETTABLEKS R16 R17 K25 ["Enums"]
+  GETTABLEKS R15 R16 K28 ["IconName"]
+  GETTABLEKS R14 R15 K29 ["ArrowUpRightFromSquare"]
+  JUMP [+1]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K22 ["icon"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K23 ["LayoutOrder"]
+  CALL R11 2 1
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K18 ["createElement"]
+  GETUPVAL R13 6
+  DUPTABLE R14 K31 [{"tag", "LayoutOrder"}]
+  LOADK R15 K32 ["row gap-medium align-x-right align-y-center padding-large bg-surface-100 size-full-0 auto-y"]
+  SETTABLEKS R15 R14 K30 ["tag"]
+  GETTABLEKS R15 R0 K23 ["LayoutOrder"]
+  SETTABLEKS R15 R14 K23 ["LayoutOrder"]
+  DUPTABLE R15 K35 [{"PrimaryButton", "SecondaryButton"}]
+  SETTABLEKS R11 R15 K33 ["PrimaryButton"]
+  JUMPIF R6 [+14]
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K18 ["createElement"]
+  GETUPVAL R17 4
+  DUPTABLE R18 K36 [{"text", "onActivated", "LayoutOrder"}]
+  SETTABLEKS R10 R18 K19 ["text"]
+  SETTABLEKS R8 R18 K21 ["onActivated"]
+  LOADN R19 2
+  SETTABLEKS R19 R18 K23 ["LayoutOrder"]
+  CALL R16 2 1
+  JUMP [+1]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K34 ["SecondaryButton"]
+  CALL R12 3 -1
+  RETURN R12 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Foundation"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["View"]
+  GETTABLEKS R4 R2 K10 ["Button"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K11 ["Framework"]
+  CALL R5 1 1
+  GETTABLEKS R7 R5 K12 ["ContextServices"]
+  GETTABLEKS R6 R7 K13 ["Localization"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K14 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Flags"]
+  GETTABLEKS R8 R9 K16 ["getFFlagAvatarPreviewerLookComposer"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K14 ["Src"]
+  GETTABLEKS R10 R11 K17 ["Components"]
+  GETTABLEKS R9 R10 K18 ["LookContext"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K19 [PROTO_2]
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R8
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  RETURN R9 1

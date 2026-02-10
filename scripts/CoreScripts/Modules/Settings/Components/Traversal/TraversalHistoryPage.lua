@@ -28,6 +28,7 @@ local useHistoryItems = Traversal.useHistoryItems
 
 local FFlagTraversalUseFocusNavLastInput = require(script.Parent.FFlagTraversalUseFocusNavLastInput)
 local FIntMaximumTraversalHistoryItemsFetch = Traversal.Flags.FIntMaximumTraversalHistoryItemsFetch
+local FFlagTraversalExpPagePaddingFixes = Traversal.Flags.FFlagTraversalExpPagePaddingFixes
 
 export type TraversalHistoryPageProps = {}
 
@@ -87,7 +88,7 @@ local function TraversalHistoryPage(props: TraversalHistoryPageProps, ref: React
 	end, { numItems, setNumItems, setIsLoading, isLoading} :: { unknown })
 
 	return next(items) ~= nil and React.createElement(View, {
-		tag = "size-full padding-large"
+		tag = "size-full " .. (if FFlagTraversalExpPagePaddingFixes then "padding-top-medium" else "padding-large")
 	}, {
 		HistoryPage = React.createElement(HistoryPage, {
 			historyItems = items,

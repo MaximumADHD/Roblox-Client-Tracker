@@ -7,12 +7,7 @@ PROTO_0:
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["EnableDialog"]
-  LOADB R3 0
-  NAMECALL R0 R0 K3 ["DefineFastFlag"]
-  CALL R0 3 0
-  DUPTABLE R0 K5 [{"getEngineFeatureStudioDialogManager"}]
-  DUPCLOSURE R1 K6 [PROTO_0]
-  SETTABLEKS R1 R0 K4 ["getEngineFeatureStudioDialogManager"]
+  DUPTABLE R0 K1 [{"getEngineFeatureStudioDialogManager"}]
+  DUPCLOSURE R1 K2 [PROTO_0]
+  SETTABLEKS R1 R0 K0 ["getEngineFeatureStudioDialogManager"]
   RETURN R0 1

@@ -15,6 +15,7 @@ local getFFlagUGCValidateBindOffset = require(root.flags.getFFlagUGCValidateBind
 local getFFlagUGCValidationFixBannedNamesTypo = require(root.flags.getFFlagUGCValidationFixBannedNamesTypo)
 local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
 local getFFlagUGCValidateCheckHSROwner = require(root.flags.getFFlagUGCValidateCheckHSROwner)
+local getFFlagUGCValidateCheckTexturePackOwner = require(root.flags.getFFlagUGCValidateCheckTexturePackOwner)
 
 local getFFlagUGCValidationMakeupSupport = require(root.flags.getFFlagUGCValidationMakeupSupport)
 
@@ -501,6 +502,10 @@ Constants.CONTENT_ID_FIELDS = {
 	WrapTarget = { "CageMeshId" },
 	Animation = { "AnimationId" },
 }
+
+if getFFlagUGCValidateCheckTexturePackOwner() then
+	table.insert(Constants.CONTENT_ID_FIELDS.SurfaceAppearance, "TexturePack")
+end
 
 if getFFlagUGCValidateCheckHSROwner() then
 	table.insert(Constants.CONTENT_ID_FIELDS.WrapLayer, "HSRAssetId")

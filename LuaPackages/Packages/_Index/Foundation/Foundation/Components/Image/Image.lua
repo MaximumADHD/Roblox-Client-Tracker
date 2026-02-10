@@ -74,6 +74,7 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 
 	local isInteractable = props.onStateChanged ~= nil or props.onActivated ~= nil or props.onSecondaryActivated ~= nil
 
+	local providedAspectRatio = props.aspectRatio
 	local image, imageRectOffset, imageRectSize, aspectRatio = React.useMemo(
 		function(): ...any
 			-- selene: allow(shadowing)
@@ -83,7 +84,9 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 			-- selene: allow(shadowing)
 			local imageRectSize = if props.imageRect then props.imageRect.size else nil
 			-- selene: allow(shadowing)
-			local aspectRatio = props.aspectRatio
+			local aspectRatio = if Flags.FoundationFixAspectRatioBindingHandling
+				then providedAspectRatio
+				else props.aspectRatio
 
 			if ReactIs.isBinding(props.Image) then
 				local function getImageBindingValue(prop)
@@ -92,14 +95,21 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 							local asset
 							if isCloudAsset(value) then
 								asset = Assets[value]
-								aspectRatio = getAspectRatio(asset.size)
+								if not Flags.FoundationFixAspectRatioBindingHandling then
+									aspectRatio = getAspectRatio(asset.size)
+								end
 								if prop == "Image" then
 									return asset.assetId
+								elseif Flags.FoundationFixAspectRatioBindingHandling and prop == "AspectRatio" then
+									return getAspectRatio(asset.size)
 								end
 								return nil
 							end
 							asset = Images[value]
-							return if asset then asset[prop] else nil
+							return if Flags.FoundationFixAspectRatioBindingHandling and prop == "AspectRatio"
+								then providedAspectRatio
+								elseif asset then asset[prop]
+								else nil
 						elseif prop == "Image" then
 							return value
 						elseif prop == "ImageRectOffset" and props.imageRect then
@@ -112,6 +122,9 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 					end)
 				end
 
+				if Flags.FoundationFixAspectRatioBindingHandling then
+					aspectRatio = getImageBindingValue("AspectRatio")
+				end
 				image = getImageBindingValue("Image")
 				imageRectOffset = getImageBindingValue("ImageRectOffset")
 				imageRectSize = getImageBindingValue("ImageRectSize")
@@ -135,7 +148,8 @@ local function Image(imageProps: ImageProps, ref: React.Ref<GuiObject>?)
 		{
 			props.Image,
 			props.imageRect,
-			if Flags.FoundationImageFixAspectRatioMemo then props.aspectRatio else nil,
+			-- TODO: figure out which to use when cleaning up FoundationFixAspectRatioBindingHandling
+			if Flags.FoundationFixAspectRatioBindingHandling then providedAspectRatio else props.aspectRatio,
 			Images,
 		} :: { unknown }
 	)

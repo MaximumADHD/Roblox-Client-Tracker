@@ -16,7 +16,6 @@ local DialogSize = require(Foundation.Enums.DialogSize)
 local OnCloseCallbackReason = require(Foundation.Enums.OnCloseCallbackReason)
 local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 
-local Flags = require(Foundation.Utility.Flags)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
@@ -70,179 +69,98 @@ local function Dialog(dialogProps: DialogInternalProps)
 
 	useDialogResponsiveSize(props.size)
 
-	local dialogSurface = if not Flags.FoundationDialogOversizedBackdrop
-		then React.createElement(View, {
+	local content = React.createElement(View, {
+		ZIndex = elevation.zIndex,
+		tag = "size-full",
+		testId = `{props.testId}--container`,
+	}, {
+		Backdrop = if props.hasBackdrop
+			then React.createElement(View, {
+				tag = "position-center-center anchor-center-center",
+				Size = UDim2.fromScale(2, 2),
+				stateLayer = {
+					affordance = StateLayerAffordance.None,
+				},
+				onActivated = function()
+					if props.onClose then
+						props.onClose(OnCloseCallbackReason.BackdropClick)
+					end
+				end,
+				backgroundStyle = variants.backdrop.backgroundStyle,
+				ZIndex = 2,
+				testId = `{props.testId}--backdrop`,
+			})
+			else nil,
+		DialogShadowWrapper = React.createElement(View, {
 			tag = variants.container.tag,
-			ZIndex = if props.hasBackdrop then nil else elevation.zIndex,
-			testId = `{props.testId}--surface`,
+			ZIndex = 2,
 		}, {
 			Shadow = React.createElement(Image, {
 				Image = SHADOW_IMAGE,
-				tag = variants.shadow.tag,
+				Size = dialogSizeBinding:map(function(size: Vector2): UDim2
+					return UDim2.fromOffset(size.X + SHADOW_SIZE * 2, size.Y + SHADOW_SIZE * 2)
+				end),
 				slice = {
 					center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE),
 					scale = 2,
 				},
 				imageStyle = variants.shadow.imageStyle,
 				testId = `{props.testId}--shadow`,
-			}, {
-				DialogInner = React.createElement(
-					View,
-					withCommonProps(props, {
-						tag = variants.inner.tag,
-						ref = props.forwardRef,
-						sizeConstraint = {
-							MaxSize = Vector2.new(maxWidth, math.huge),
-						},
-						stateLayer = {
-							affordance = StateLayerAffordance.None,
-						},
-						selection = DialogTypes.nonSelectable,
-						selectionGroup = DialogTypes.isolatedSelectionGroup,
-						-- Needed to sink the onActivated event to the backdrop
-						onActivated = Dash.noop,
-					}),
-					{
-						CloseAffordance = if props.onClose
-							then React.createElement(CloseAffordance, {
-								onActivated = props.onClose,
-								Position = UDim2.new(
-									1,
-									-variants.closeAffordance.offset,
-									0,
-									variants.closeAffordance.offset
-								),
-								AnchorPoint = Vector2.new(1, 0),
-								ZIndex = 2,
-								testId = `{props.testId}--close-affordance`,
-							})
-							else nil,
-						DialogBody = React.createElement(View, {
-							tag = variants.body.tag,
-							ref = dialogBodyRef,
-							testId = `{props.testId}--body`,
-						}, React.createElement(OwnerScope, { owner = elevation }, props.children)),
-					}
-				),
 			}),
-		})
-		else nil
-
-	local content = if not Flags.FoundationDialogOversizedBackdrop
-		then React.createElement(React.Fragment, nil, {
-			Backdrop = if props.hasBackdrop
-				then React.createElement(View, {
-					tag = "size-full-full",
+		}),
+	}, {
+		Dialog = React.createElement(View, {
+			tag = variants.container.tag,
+			ZIndex = 3,
+		}, {
+			DialogFlexStart = React.createElement(View, {
+				tag = "fill",
+				LayoutOrder = 0,
+			}),
+			DialogInner = React.createElement(
+				View,
+				withCommonProps(props, {
+					tag = variants.inner.tag,
+					ref = props.forwardRef,
+					sizeConstraint = {
+						MaxSize = Vector2.new(maxWidth, math.huge),
+					},
 					stateLayer = {
 						affordance = StateLayerAffordance.None,
 					},
-					onActivated = function()
-						if props.onClose then
-							props.onClose(OnCloseCallbackReason.BackdropClick)
-						end
-					end,
-					backgroundStyle = variants.backdrop.backgroundStyle,
-					ZIndex = elevation.zIndex,
-					testId = `{props.testId}--backdrop`,
-				}, {
-					DialogSurface = dialogSurface,
-				})
-				else dialogSurface,
-		})
-		else React.createElement(View, {
-			ZIndex = elevation.zIndex,
-			tag = "size-full",
-			testId = `{props.testId}--container`,
-		}, {
-			Backdrop = if props.hasBackdrop
-				then React.createElement(View, {
-					tag = if Flags.FoundationDialogOversizedBackdrop
-						then "position-center-center anchor-center-center"
-						else "size-full-full",
-					Size = if Flags.FoundationDialogOversizedBackdrop then UDim2.fromScale(2, 2) else nil,
-					stateLayer = {
-						affordance = StateLayerAffordance.None,
-					},
-					onActivated = function()
-						if props.onClose then
-							props.onClose(OnCloseCallbackReason.BackdropClick)
-						end
-					end,
-					backgroundStyle = variants.backdrop.backgroundStyle,
-					ZIndex = 2,
-					testId = `{props.testId}--backdrop`,
-				})
-				else nil,
-			DialogShadowWrapper = React.createElement(View, {
-				tag = variants.container.tag,
-				ZIndex = 2,
-			}, {
-				Shadow = React.createElement(Image, {
-					Image = SHADOW_IMAGE,
-					Size = dialogSizeBinding:map(function(size: Vector2): UDim2
-						return UDim2.fromOffset(size.X + SHADOW_SIZE * 2, size.Y + SHADOW_SIZE * 2)
-					end),
-					slice = {
-						center = Rect.new(SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE, SHADOW_SIZE),
-						scale = 2,
-					},
-					imageStyle = variants.shadow.imageStyle,
-					testId = `{props.testId}--shadow`,
+					selection = DialogTypes.nonSelectable,
+					selectionGroup = DialogTypes.isolatedSelectionGroup,
+					-- Needed to sink the onActivated event to the backdrop
+					onActivated = Dash.noop,
 				}),
+				{
+					CloseAffordance = if props.onClose
+						then React.createElement(CloseAffordance, {
+							onActivated = props.onClose,
+							Position = UDim2.new(
+								1,
+								-variants.closeAffordance.offset,
+								0,
+								variants.closeAffordance.offset
+							),
+							AnchorPoint = Vector2.new(1, 0),
+							ZIndex = 2,
+							testId = `{props.testId}--close-affordance`,
+						})
+						else nil,
+					DialogBody = React.createElement(View, {
+						tag = variants.body.tag,
+						ref = dialogBodyRef,
+						testId = `{props.testId}--body`,
+					}, React.createElement(OwnerScope, { owner = elevation }, props.children)),
+				}
+			),
+			DialogFlexEnd = React.createElement(View, {
+				tag = "fill",
+				LayoutOrder = 2,
 			}),
-		}, {
-			Dialog = React.createElement(View, {
-				tag = variants.container.tag,
-				ZIndex = 3,
-			}, {
-				DialogFlexStart = React.createElement(View, {
-					tag = "fill",
-					LayoutOrder = 0,
-				}),
-				DialogInner = React.createElement(
-					View,
-					withCommonProps(props, {
-						tag = variants.inner.tag,
-						ref = props.forwardRef,
-						sizeConstraint = {
-							MaxSize = Vector2.new(maxWidth, math.huge),
-						},
-						stateLayer = {
-							affordance = StateLayerAffordance.None,
-						},
-						selection = DialogTypes.nonSelectable,
-						selectionGroup = DialogTypes.isolatedSelectionGroup,
-						-- Needed to sink the onActivated event to the backdrop
-						onActivated = Dash.noop,
-					}),
-					{
-						CloseAffordance = if props.onClose
-							then React.createElement(CloseAffordance, {
-								onActivated = props.onClose,
-								Position = UDim2.new(
-									1,
-									-variants.closeAffordance.offset,
-									0,
-									variants.closeAffordance.offset
-								),
-								AnchorPoint = Vector2.new(1, 0),
-								ZIndex = 2,
-								testId = `{props.testId}--close-affordance`,
-							})
-							else nil,
-						DialogBody = React.createElement(View, {
-							tag = variants.body.tag,
-							ref = dialogBodyRef,
-							testId = `{props.testId}--body`,
-						}, React.createElement(OwnerScope, { owner = elevation }, props.children)),
-					}
-				),
-				DialogFlexEnd = React.createElement(View, {
-					tag = "fill",
-					LayoutOrder = 2,
-				}),
-			}),
-		})
+		}),
+	})
 
 	if props.disablePortal or overlay == nil then
 		return content

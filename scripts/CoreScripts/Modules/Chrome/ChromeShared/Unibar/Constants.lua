@@ -99,6 +99,8 @@ return {
 
 	-- the amount of travel to activate a WindowHost from dragging an icon
 	DRAG_MAGNITUDE_THRESHOLD = 10,
+	-- the amount of travel to register a window being dragged and not tapped/clicked
+	WINDOW_MIN_DRAG_DISTANCE = 25,
 
 	DEFAULT_HEIGHT_LARGE = withUIScale(285),
 	DEFAULT_WIDTH_LARGE = withUIScale(176),

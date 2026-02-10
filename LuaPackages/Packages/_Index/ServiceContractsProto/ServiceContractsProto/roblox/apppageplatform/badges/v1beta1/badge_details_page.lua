@@ -12,7 +12,10 @@ type _Messages = {
 	BadgeDetailsPageResponse_TemplatesEntry: _BadgeDetailsPageResponse_TemplatesEntryMessage,
 	BadgeDetailsPageEntry: _BadgeDetailsPageEntryMessage,
 	BadgeDetailsContent: _BadgeDetailsContentMessage,
-	BadgeDetailsContent_ShareLinkData: _BadgeDetailsContent_ShareLinkDataMessage,
+	BadgeDetailsContent_LocalizedLiterals: _BadgeDetailsContent_LocalizedLiteralsMessage,
+	BadgeDetailsContent_LocalizedLiterals_InfoTable: _BadgeDetailsContent_LocalizedLiterals_InfoTableMessage,
+	BadgeDetailsContent_LocalizedLiterals_ActionModule: _BadgeDetailsContent_LocalizedLiterals_ActionModuleMessage,
+	BadgeDetailsContent_LocalizedLiterals_OverflowMenu: _BadgeDetailsContent_LocalizedLiterals_OverflowMenuMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -144,45 +147,152 @@ type _BadgeDetailsContentImpl = {
 type _BadgeDetailsContentFields = {
 	badge_id: string,
 	universe_id: string,
-	share_link_data: BadgeDetailsContent_ShareLinkData?,
+	localized_literals: BadgeDetailsContent_LocalizedLiterals?,
 	creator_key: string,
 }
 
 type _BadgeDetailsContentPartialFields = {
 	badge_id: string?,
 	universe_id: string?,
-	share_link_data: BadgeDetailsContent_ShareLinkData?,
+	localized_literals: BadgeDetailsContent_LocalizedLiterals?,
 	creator_key: string?,
 }
 
 export type BadgeDetailsContent = typeof(setmetatable({} :: _BadgeDetailsContentFields, {} :: _BadgeDetailsContentImpl))
 type _BadgeDetailsContentMessage = proto.Message<BadgeDetailsContent, _BadgeDetailsContentPartialFields>
 
-type _BadgeDetailsContent_ShareLinkDataImpl = {
-	__index: _BadgeDetailsContent_ShareLinkDataImpl,
-	new: (fields: _BadgeDetailsContent_ShareLinkDataPartialFields?) -> BadgeDetailsContent_ShareLinkData,
-	encode: (self: BadgeDetailsContent_ShareLinkData) -> buffer,
-	decode: (input: buffer) -> BadgeDetailsContent_ShareLinkData,
-	jsonEncode: (self: BadgeDetailsContent_ShareLinkData) -> { [string]: any },
-	jsonDecode: (input: { [string]: any }) -> BadgeDetailsContent_ShareLinkData,
+type _BadgeDetailsContent_LocalizedLiteralsImpl = {
+	__index: _BadgeDetailsContent_LocalizedLiteralsImpl,
+	new: (fields: _BadgeDetailsContent_LocalizedLiteralsPartialFields?) -> BadgeDetailsContent_LocalizedLiterals,
+	encode: (self: BadgeDetailsContent_LocalizedLiterals) -> buffer,
+	decode: (input: buffer) -> BadgeDetailsContent_LocalizedLiterals,
+	jsonEncode: (self: BadgeDetailsContent_LocalizedLiterals) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BadgeDetailsContent_LocalizedLiterals,
 	descriptor: proto.Descriptor,
 }
 
-type _BadgeDetailsContent_ShareLinkDataFields = {
-	badge_id: string,
+type _BadgeDetailsContent_LocalizedLiteralsFields = {
+	info_table: BadgeDetailsContent_LocalizedLiterals_InfoTable?,
+	action_module: BadgeDetailsContent_LocalizedLiterals_ActionModule?,
+	overflow_menu: BadgeDetailsContent_LocalizedLiterals_OverflowMenu?,
 }
 
-type _BadgeDetailsContent_ShareLinkDataPartialFields = {
-	badge_id: string?,
+type _BadgeDetailsContent_LocalizedLiteralsPartialFields = {
+	info_table: BadgeDetailsContent_LocalizedLiterals_InfoTable?,
+	action_module: BadgeDetailsContent_LocalizedLiterals_ActionModule?,
+	overflow_menu: BadgeDetailsContent_LocalizedLiterals_OverflowMenu?,
 }
 
-export type BadgeDetailsContent_ShareLinkData = typeof(setmetatable(
-	{} :: _BadgeDetailsContent_ShareLinkDataFields,
-	{} :: _BadgeDetailsContent_ShareLinkDataImpl
+export type BadgeDetailsContent_LocalizedLiterals = typeof(setmetatable(
+	{} :: _BadgeDetailsContent_LocalizedLiteralsFields,
+	{} :: _BadgeDetailsContent_LocalizedLiteralsImpl
 ))
-type _BadgeDetailsContent_ShareLinkDataMessage = proto.Message<
-	BadgeDetailsContent_ShareLinkData,
-	_BadgeDetailsContent_ShareLinkDataPartialFields
+type _BadgeDetailsContent_LocalizedLiteralsMessage = proto.Message<
+	BadgeDetailsContent_LocalizedLiterals,
+	_BadgeDetailsContent_LocalizedLiteralsPartialFields
+>
+
+type _BadgeDetailsContent_LocalizedLiterals_InfoTableImpl = {
+	__index: _BadgeDetailsContent_LocalizedLiterals_InfoTableImpl,
+	new: (
+		fields: _BadgeDetailsContent_LocalizedLiterals_InfoTablePartialFields?
+	) -> BadgeDetailsContent_LocalizedLiterals_InfoTable,
+	encode: (self: BadgeDetailsContent_LocalizedLiterals_InfoTable) -> buffer,
+	decode: (input: buffer) -> BadgeDetailsContent_LocalizedLiterals_InfoTable,
+	jsonEncode: (self: BadgeDetailsContent_LocalizedLiterals_InfoTable) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BadgeDetailsContent_LocalizedLiterals_InfoTable,
+	descriptor: proto.Descriptor,
+}
+
+type _BadgeDetailsContent_LocalizedLiterals_InfoTableFields = {
+	type_label: string,
+	earned_label: string,
+	updated_label: string,
+	experience_label: string,
+	rarity_label: string,
+	won_yesterday_label: string,
+	won_ever_label: string,
+}
+
+type _BadgeDetailsContent_LocalizedLiterals_InfoTablePartialFields = {
+	type_label: string?,
+	earned_label: string?,
+	updated_label: string?,
+	experience_label: string?,
+	rarity_label: string?,
+	won_yesterday_label: string?,
+	won_ever_label: string?,
+}
+
+export type BadgeDetailsContent_LocalizedLiterals_InfoTable = typeof(setmetatable(
+	{} :: _BadgeDetailsContent_LocalizedLiterals_InfoTableFields,
+	{} :: _BadgeDetailsContent_LocalizedLiterals_InfoTableImpl
+))
+type _BadgeDetailsContent_LocalizedLiterals_InfoTableMessage = proto.Message<
+	BadgeDetailsContent_LocalizedLiterals_InfoTable,
+	_BadgeDetailsContent_LocalizedLiterals_InfoTablePartialFields
+>
+
+type _BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl = {
+	__index: _BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl,
+	new: (
+		fields: _BadgeDetailsContent_LocalizedLiterals_ActionModulePartialFields?
+	) -> BadgeDetailsContent_LocalizedLiterals_ActionModule,
+	encode: (self: BadgeDetailsContent_LocalizedLiterals_ActionModule) -> buffer,
+	decode: (input: buffer) -> BadgeDetailsContent_LocalizedLiterals_ActionModule,
+	jsonEncode: (self: BadgeDetailsContent_LocalizedLiterals_ActionModule) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BadgeDetailsContent_LocalizedLiterals_ActionModule,
+	descriptor: proto.Descriptor,
+}
+
+type _BadgeDetailsContent_LocalizedLiterals_ActionModuleFields = {
+	share: string,
+	report: string,
+}
+
+type _BadgeDetailsContent_LocalizedLiterals_ActionModulePartialFields = {
+	share: string?,
+	report: string?,
+}
+
+export type BadgeDetailsContent_LocalizedLiterals_ActionModule = typeof(setmetatable(
+	{} :: _BadgeDetailsContent_LocalizedLiterals_ActionModuleFields,
+	{} :: _BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl
+))
+type _BadgeDetailsContent_LocalizedLiterals_ActionModuleMessage = proto.Message<
+	BadgeDetailsContent_LocalizedLiterals_ActionModule,
+	_BadgeDetailsContent_LocalizedLiterals_ActionModulePartialFields
+>
+
+type _BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl = {
+	__index: _BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl,
+	new: (
+		fields: _BadgeDetailsContent_LocalizedLiterals_OverflowMenuPartialFields?
+	) -> BadgeDetailsContent_LocalizedLiterals_OverflowMenu,
+	encode: (self: BadgeDetailsContent_LocalizedLiterals_OverflowMenu) -> buffer,
+	decode: (input: buffer) -> BadgeDetailsContent_LocalizedLiterals_OverflowMenu,
+	jsonEncode: (self: BadgeDetailsContent_LocalizedLiterals_OverflowMenu) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> BadgeDetailsContent_LocalizedLiterals_OverflowMenu,
+	descriptor: proto.Descriptor,
+}
+
+type _BadgeDetailsContent_LocalizedLiterals_OverflowMenuFields = {
+	report: string,
+	remove: string,
+}
+
+type _BadgeDetailsContent_LocalizedLiterals_OverflowMenuPartialFields = {
+	report: string?,
+	remove: string?,
+}
+
+export type BadgeDetailsContent_LocalizedLiterals_OverflowMenu = typeof(setmetatable(
+	{} :: _BadgeDetailsContent_LocalizedLiterals_OverflowMenuFields,
+	{} :: _BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl
+))
+type _BadgeDetailsContent_LocalizedLiterals_OverflowMenuMessage = proto.Message<
+	BadgeDetailsContent_LocalizedLiterals_OverflowMenu,
+	_BadgeDetailsContent_LocalizedLiterals_OverflowMenuPartialFields
 >
 
 do
@@ -759,7 +869,7 @@ do
 		return setmetatable({
 			badge_id = if data == nil or data.badge_id == nil then "" else data.badge_id,
 			universe_id = if data == nil or data.universe_id == nil then "" else data.universe_id,
-			share_link_data = if data == nil or data.share_link_data == nil then nil else data.share_link_data,
+			localized_literals = if data == nil or data.localized_literals == nil then nil else data.localized_literals,
 			creator_key = if data == nil or data.creator_key == nil then "" else data.creator_key,
 		}, _BadgeDetailsContentImpl :: _BadgeDetailsContentImpl)
 	end
@@ -778,8 +888,8 @@ do
 			output, cursor = proto.writeString(output, cursor, self.universe_id)
 		end
 
-		if self.share_link_data ~= nil then
-			local encoded = self.share_link_data:encode()
+		if self.localized_literals ~= nil then
+			local encoded = self.localized_literals:encode()
 			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
@@ -821,7 +931,7 @@ do
 				elseif field == 3 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.share_link_data = messages.BadgeDetailsContent_ShareLinkData.decode(value)
+					self.localized_literals = messages.BadgeDetailsContent_LocalizedLiterals.decode(value)
 					continue
 				elseif field == 4 then
 					local value
@@ -863,8 +973,8 @@ do
 			output.universeId = self.universe_id
 		end
 
-		if self.share_link_data ~= nil then
-			output.shareLinkData = self.share_link_data:jsonEncode()
+		if self.localized_literals ~= nil then
+			output.localizedLiterals = self.localized_literals:jsonEncode()
 		end
 
 		if self.creator_key ~= nil and self.creator_key ~= "" then
@@ -893,12 +1003,13 @@ do
 			self.universe_id = input.universeId
 		end
 
-		if input.share_link_data ~= nil then
-			self.share_link_data = messages.BadgeDetailsContent_ShareLinkData.jsonDecode(input.share_link_data)
+		if input.localized_literals ~= nil then
+			self.localized_literals =
+				messages.BadgeDetailsContent_LocalizedLiterals.jsonDecode(input.localized_literals)
 		end
 
-		if input.shareLinkData ~= nil then
-			self.share_link_data = messages.BadgeDetailsContent_ShareLinkData.jsonDecode(input.shareLinkData)
+		if input.localizedLiterals ~= nil then
+			self.localized_literals = messages.BadgeDetailsContent_LocalizedLiterals.jsonDecode(input.localizedLiterals)
 		end
 
 		if input.creator_key ~= nil then
@@ -923,24 +1034,39 @@ do
 end
 
 do
-	local _BadgeDetailsContent_ShareLinkDataImpl = {}
-	_BadgeDetailsContent_ShareLinkDataImpl.__index = _BadgeDetailsContent_ShareLinkDataImpl
+	local _BadgeDetailsContent_LocalizedLiteralsImpl = {}
+	_BadgeDetailsContent_LocalizedLiteralsImpl.__index = _BadgeDetailsContent_LocalizedLiteralsImpl
 
-	function _BadgeDetailsContent_ShareLinkDataImpl.new(
-		data: _BadgeDetailsContent_ShareLinkDataPartialFields?
-	): BadgeDetailsContent_ShareLinkData
+	function _BadgeDetailsContent_LocalizedLiteralsImpl.new(
+		data: _BadgeDetailsContent_LocalizedLiteralsPartialFields?
+	): BadgeDetailsContent_LocalizedLiterals
 		return setmetatable({
-			badge_id = if data == nil or data.badge_id == nil then "" else data.badge_id,
-		}, _BadgeDetailsContent_ShareLinkDataImpl :: _BadgeDetailsContent_ShareLinkDataImpl)
+			info_table = if data == nil or data.info_table == nil then nil else data.info_table,
+			action_module = if data == nil or data.action_module == nil then nil else data.action_module,
+			overflow_menu = if data == nil or data.overflow_menu == nil then nil else data.overflow_menu,
+		}, _BadgeDetailsContent_LocalizedLiteralsImpl :: _BadgeDetailsContent_LocalizedLiteralsImpl)
 	end
 
-	function _BadgeDetailsContent_ShareLinkDataImpl.encode(self: BadgeDetailsContent_ShareLinkData): buffer
+	function _BadgeDetailsContent_LocalizedLiteralsImpl.encode(self: BadgeDetailsContent_LocalizedLiterals): buffer
 		local output = buffer.create(0)
 		local cursor = 0
 
-		if self.badge_id ~= nil and self.badge_id ~= "" then
+		if self.info_table ~= nil then
+			local encoded = self.info_table:encode()
 			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
-			output, cursor = proto.writeString(output, cursor, self.badge_id)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.action_module ~= nil then
+			local encoded = self.action_module:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.overflow_menu ~= nil then
+			local encoded = self.overflow_menu:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
 		local shrunkBuffer = buffer.create(cursor)
@@ -948,8 +1074,8 @@ do
 		return shrunkBuffer
 	end
 
-	function _BadgeDetailsContent_ShareLinkDataImpl.decode(input: buffer): BadgeDetailsContent_ShareLinkData
-		local self = _BadgeDetailsContent_ShareLinkDataImpl.new()
+	function _BadgeDetailsContent_LocalizedLiteralsImpl.decode(input: buffer): BadgeDetailsContent_LocalizedLiterals
+		local self = _BadgeDetailsContent_LocalizedLiteralsImpl.new()
 		local cursor = 0
 
 		while cursor < buffer.len(input) do
@@ -965,7 +1091,17 @@ do
 				if field == 1 then
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
-					self.badge_id = buffer.tostring(value)
+					self.info_table = messages.BadgeDetailsContent_LocalizedLiterals_InfoTable.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_module = messages.BadgeDetailsContent_LocalizedLiterals_ActionModule.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.overflow_menu = messages.BadgeDetailsContent_LocalizedLiterals_OverflowMenu.decode(value)
 					continue
 				end
 
@@ -991,40 +1127,582 @@ do
 		return self
 	end
 
-	function _BadgeDetailsContent_ShareLinkDataImpl.jsonEncode(self: BadgeDetailsContent_ShareLinkData): any
+	function _BadgeDetailsContent_LocalizedLiteralsImpl.jsonEncode(self: BadgeDetailsContent_LocalizedLiterals): any
 		local output = {}
 
-		if self.badge_id ~= nil and self.badge_id ~= "" then
-			output.badgeId = self.badge_id
+		if self.info_table ~= nil then
+			output.infoTable = self.info_table:jsonEncode()
+		end
+
+		if self.action_module ~= nil then
+			output.actionModule = self.action_module:jsonEncode()
+		end
+
+		if self.overflow_menu ~= nil then
+			output.overflowMenu = self.overflow_menu:jsonEncode()
 		end
 
 		return output
 	end
 
-	function _BadgeDetailsContent_ShareLinkDataImpl.jsonDecode(
+	function _BadgeDetailsContent_LocalizedLiteralsImpl.jsonDecode(
 		input: { [string]: any }
-	): BadgeDetailsContent_ShareLinkData
-		local self = _BadgeDetailsContent_ShareLinkDataImpl.new()
+	): BadgeDetailsContent_LocalizedLiterals
+		local self = _BadgeDetailsContent_LocalizedLiteralsImpl.new()
 
-		if input.badge_id ~= nil then
-			self.badge_id = input.badge_id
+		if input.info_table ~= nil then
+			self.info_table = messages.BadgeDetailsContent_LocalizedLiterals_InfoTable.jsonDecode(input.info_table)
 		end
 
-		if input.badgeId ~= nil then
-			self.badge_id = input.badgeId
+		if input.infoTable ~= nil then
+			self.info_table = messages.BadgeDetailsContent_LocalizedLiterals_InfoTable.jsonDecode(input.infoTable)
+		end
+
+		if input.action_module ~= nil then
+			self.action_module =
+				messages.BadgeDetailsContent_LocalizedLiterals_ActionModule.jsonDecode(input.action_module)
+		end
+
+		if input.actionModule ~= nil then
+			self.action_module =
+				messages.BadgeDetailsContent_LocalizedLiterals_ActionModule.jsonDecode(input.actionModule)
+		end
+
+		if input.overflow_menu ~= nil then
+			self.overflow_menu =
+				messages.BadgeDetailsContent_LocalizedLiterals_OverflowMenu.jsonDecode(input.overflow_menu)
+		end
+
+		if input.overflowMenu ~= nil then
+			self.overflow_menu =
+				messages.BadgeDetailsContent_LocalizedLiterals_OverflowMenu.jsonDecode(input.overflowMenu)
 		end
 
 		return self
 	end
 
-	_BadgeDetailsContent_ShareLinkDataImpl.descriptor = {
-		name = "BadgeDetailsContent_ShareLinkData",
-		fullName = "roblox.apppageplatform.badges.v1beta1.ShareLinkData",
+	_BadgeDetailsContent_LocalizedLiteralsImpl.descriptor = {
+		name = "BadgeDetailsContent_LocalizedLiterals",
+		fullName = "roblox.apppageplatform.badges.v1beta1.LocalizedLiterals",
 	}
 
-	messages.BadgeDetailsContent_ShareLinkData = _BadgeDetailsContent_ShareLinkDataImpl :: any -- Luau: Not sure why this intersection fails.
+	messages.BadgeDetailsContent_LocalizedLiterals = _BadgeDetailsContent_LocalizedLiteralsImpl :: any -- Luau: Not sure why this intersection fails.
 
-	typeRegistry.default:register(messages.BadgeDetailsContent_ShareLinkData)
+	typeRegistry.default:register(messages.BadgeDetailsContent_LocalizedLiterals)
+end
+
+do
+	local _BadgeDetailsContent_LocalizedLiterals_InfoTableImpl = {}
+	_BadgeDetailsContent_LocalizedLiterals_InfoTableImpl.__index = _BadgeDetailsContent_LocalizedLiterals_InfoTableImpl
+
+	function _BadgeDetailsContent_LocalizedLiterals_InfoTableImpl.new(
+		data: _BadgeDetailsContent_LocalizedLiterals_InfoTablePartialFields?
+	): BadgeDetailsContent_LocalizedLiterals_InfoTable
+		return setmetatable({
+			type_label = if data == nil or data.type_label == nil then "" else data.type_label,
+			earned_label = if data == nil or data.earned_label == nil then "" else data.earned_label,
+			updated_label = if data == nil or data.updated_label == nil then "" else data.updated_label,
+			experience_label = if data == nil or data.experience_label == nil then "" else data.experience_label,
+			rarity_label = if data == nil or data.rarity_label == nil then "" else data.rarity_label,
+			won_yesterday_label = if data == nil or data.won_yesterday_label == nil
+				then ""
+				else data.won_yesterday_label,
+			won_ever_label = if data == nil or data.won_ever_label == nil then "" else data.won_ever_label,
+		}, _BadgeDetailsContent_LocalizedLiterals_InfoTableImpl :: _BadgeDetailsContent_LocalizedLiterals_InfoTableImpl)
+	end
+
+	function _BadgeDetailsContent_LocalizedLiterals_InfoTableImpl.encode(
+		self: BadgeDetailsContent_LocalizedLiterals_InfoTable
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.type_label ~= nil and self.type_label ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.type_label)
+		end
+
+		if self.earned_label ~= nil and self.earned_label ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.earned_label)
+		end
+
+		if self.updated_label ~= nil and self.updated_label ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.updated_label)
+		end
+
+		if self.experience_label ~= nil and self.experience_label ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.experience_label)
+		end
+
+		if self.rarity_label ~= nil and self.rarity_label ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.rarity_label)
+		end
+
+		if self.won_yesterday_label ~= nil and self.won_yesterday_label ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.won_yesterday_label)
+		end
+
+		if self.won_ever_label ~= nil and self.won_ever_label ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 7, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.won_ever_label)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BadgeDetailsContent_LocalizedLiterals_InfoTableImpl.decode(
+		input: buffer
+	): BadgeDetailsContent_LocalizedLiterals_InfoTable
+		local self = _BadgeDetailsContent_LocalizedLiterals_InfoTableImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.type_label = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.earned_label = buffer.tostring(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.updated_label = buffer.tostring(value)
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.experience_label = buffer.tostring(value)
+					continue
+				elseif field == 5 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.rarity_label = buffer.tostring(value)
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.won_yesterday_label = buffer.tostring(value)
+					continue
+				elseif field == 7 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.won_ever_label = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BadgeDetailsContent_LocalizedLiterals_InfoTableImpl.jsonEncode(
+		self: BadgeDetailsContent_LocalizedLiterals_InfoTable
+	): any
+		local output = {}
+
+		if self.type_label ~= nil and self.type_label ~= "" then
+			output.typeLabel = self.type_label
+		end
+
+		if self.earned_label ~= nil and self.earned_label ~= "" then
+			output.earnedLabel = self.earned_label
+		end
+
+		if self.updated_label ~= nil and self.updated_label ~= "" then
+			output.updatedLabel = self.updated_label
+		end
+
+		if self.experience_label ~= nil and self.experience_label ~= "" then
+			output.experienceLabel = self.experience_label
+		end
+
+		if self.rarity_label ~= nil and self.rarity_label ~= "" then
+			output.rarityLabel = self.rarity_label
+		end
+
+		if self.won_yesterday_label ~= nil and self.won_yesterday_label ~= "" then
+			output.wonYesterdayLabel = self.won_yesterday_label
+		end
+
+		if self.won_ever_label ~= nil and self.won_ever_label ~= "" then
+			output.wonEverLabel = self.won_ever_label
+		end
+
+		return output
+	end
+
+	function _BadgeDetailsContent_LocalizedLiterals_InfoTableImpl.jsonDecode(
+		input: { [string]: any }
+	): BadgeDetailsContent_LocalizedLiterals_InfoTable
+		local self = _BadgeDetailsContent_LocalizedLiterals_InfoTableImpl.new()
+
+		if input.type_label ~= nil then
+			self.type_label = input.type_label
+		end
+
+		if input.typeLabel ~= nil then
+			self.type_label = input.typeLabel
+		end
+
+		if input.earned_label ~= nil then
+			self.earned_label = input.earned_label
+		end
+
+		if input.earnedLabel ~= nil then
+			self.earned_label = input.earnedLabel
+		end
+
+		if input.updated_label ~= nil then
+			self.updated_label = input.updated_label
+		end
+
+		if input.updatedLabel ~= nil then
+			self.updated_label = input.updatedLabel
+		end
+
+		if input.experience_label ~= nil then
+			self.experience_label = input.experience_label
+		end
+
+		if input.experienceLabel ~= nil then
+			self.experience_label = input.experienceLabel
+		end
+
+		if input.rarity_label ~= nil then
+			self.rarity_label = input.rarity_label
+		end
+
+		if input.rarityLabel ~= nil then
+			self.rarity_label = input.rarityLabel
+		end
+
+		if input.won_yesterday_label ~= nil then
+			self.won_yesterday_label = input.won_yesterday_label
+		end
+
+		if input.wonYesterdayLabel ~= nil then
+			self.won_yesterday_label = input.wonYesterdayLabel
+		end
+
+		if input.won_ever_label ~= nil then
+			self.won_ever_label = input.won_ever_label
+		end
+
+		if input.wonEverLabel ~= nil then
+			self.won_ever_label = input.wonEverLabel
+		end
+
+		return self
+	end
+
+	_BadgeDetailsContent_LocalizedLiterals_InfoTableImpl.descriptor = {
+		name = "BadgeDetailsContent_LocalizedLiterals_InfoTable",
+		fullName = "roblox.apppageplatform.badges.v1beta1.InfoTable",
+	}
+
+	messages.BadgeDetailsContent_LocalizedLiterals_InfoTable =
+		_BadgeDetailsContent_LocalizedLiterals_InfoTableImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BadgeDetailsContent_LocalizedLiterals_InfoTable)
+end
+
+do
+	local _BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl = {}
+	_BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl.__index =
+		_BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl
+
+	function _BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl.new(
+		data: _BadgeDetailsContent_LocalizedLiterals_ActionModulePartialFields?
+	): BadgeDetailsContent_LocalizedLiterals_ActionModule
+		return setmetatable(
+			{
+				share = if data == nil or data.share == nil then "" else data.share,
+				report = if data == nil or data.report == nil then "" else data.report,
+			},
+			_BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl :: _BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl
+		)
+	end
+
+	function _BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl.encode(
+		self: BadgeDetailsContent_LocalizedLiterals_ActionModule
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.share ~= nil and self.share ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.share)
+		end
+
+		if self.report ~= nil and self.report ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.report)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl.decode(
+		input: buffer
+	): BadgeDetailsContent_LocalizedLiterals_ActionModule
+		local self = _BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.share = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.report = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl.jsonEncode(
+		self: BadgeDetailsContent_LocalizedLiterals_ActionModule
+	): any
+		local output = {}
+
+		if self.share ~= nil and self.share ~= "" then
+			output.share = self.share
+		end
+
+		if self.report ~= nil and self.report ~= "" then
+			output.report = self.report
+		end
+
+		return output
+	end
+
+	function _BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl.jsonDecode(
+		input: { [string]: any }
+	): BadgeDetailsContent_LocalizedLiterals_ActionModule
+		local self = _BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl.new()
+
+		if input.share ~= nil then
+			self.share = input.share
+		end
+
+		if input.report ~= nil then
+			self.report = input.report
+		end
+
+		return self
+	end
+
+	_BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl.descriptor = {
+		name = "BadgeDetailsContent_LocalizedLiterals_ActionModule",
+		fullName = "roblox.apppageplatform.badges.v1beta1.ActionModule",
+	}
+
+	messages.BadgeDetailsContent_LocalizedLiterals_ActionModule =
+		_BadgeDetailsContent_LocalizedLiterals_ActionModuleImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BadgeDetailsContent_LocalizedLiterals_ActionModule)
+end
+
+do
+	local _BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl = {}
+	_BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl.__index =
+		_BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl
+
+	function _BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl.new(
+		data: _BadgeDetailsContent_LocalizedLiterals_OverflowMenuPartialFields?
+	): BadgeDetailsContent_LocalizedLiterals_OverflowMenu
+		return setmetatable(
+			{
+				report = if data == nil or data.report == nil then "" else data.report,
+				remove = if data == nil or data.remove == nil then "" else data.remove,
+			},
+			_BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl :: _BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl
+		)
+	end
+
+	function _BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl.encode(
+		self: BadgeDetailsContent_LocalizedLiterals_OverflowMenu
+	): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.report ~= nil and self.report ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.report)
+		end
+
+		if self.remove ~= nil and self.remove ~= "" then
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeString(output, cursor, self.remove)
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl.decode(
+		input: buffer
+	): BadgeDetailsContent_LocalizedLiterals_OverflowMenu
+		local self = _BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.report = buffer.tostring(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.remove = buffer.tostring(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl.jsonEncode(
+		self: BadgeDetailsContent_LocalizedLiterals_OverflowMenu
+	): any
+		local output = {}
+
+		if self.report ~= nil and self.report ~= "" then
+			output.report = self.report
+		end
+
+		if self.remove ~= nil and self.remove ~= "" then
+			output.remove = self.remove
+		end
+
+		return output
+	end
+
+	function _BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl.jsonDecode(
+		input: { [string]: any }
+	): BadgeDetailsContent_LocalizedLiterals_OverflowMenu
+		local self = _BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl.new()
+
+		if input.report ~= nil then
+			self.report = input.report
+		end
+
+		if input.remove ~= nil then
+			self.remove = input.remove
+		end
+
+		return self
+	end
+
+	_BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl.descriptor = {
+		name = "BadgeDetailsContent_LocalizedLiterals_OverflowMenu",
+		fullName = "roblox.apppageplatform.badges.v1beta1.OverflowMenu",
+	}
+
+	messages.BadgeDetailsContent_LocalizedLiterals_OverflowMenu =
+		_BadgeDetailsContent_LocalizedLiterals_OverflowMenuImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.BadgeDetailsContent_LocalizedLiterals_OverflowMenu)
 end
 
 return {
@@ -1032,5 +1710,8 @@ return {
 	BadgeDetailsPageResponse = messages.BadgeDetailsPageResponse,
 	BadgeDetailsPageEntry = messages.BadgeDetailsPageEntry,
 	BadgeDetailsContent = messages.BadgeDetailsContent,
-	BadgeDetailsContent_ShareLinkData = messages.BadgeDetailsContent_ShareLinkData,
+	BadgeDetailsContent_LocalizedLiterals = messages.BadgeDetailsContent_LocalizedLiterals,
+	BadgeDetailsContent_LocalizedLiterals_InfoTable = messages.BadgeDetailsContent_LocalizedLiterals_InfoTable,
+	BadgeDetailsContent_LocalizedLiterals_ActionModule = messages.BadgeDetailsContent_LocalizedLiterals_ActionModule,
+	BadgeDetailsContent_LocalizedLiterals_OverflowMenu = messages.BadgeDetailsContent_LocalizedLiterals_OverflowMenu,
 }

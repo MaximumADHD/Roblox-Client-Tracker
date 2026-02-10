@@ -711,22 +711,22 @@ PROTO_22:
   CALL R1 2 0
   GETUPVAL R1 1
   CALL R1 0 1
-  JUMPIFNOT R1 [+5]
+  JUMPIFNOT R1 [+12]
   GETUPVAL R1 0
   NAMECALL R1 R1 K8 ["_updateRenderTree"]
-  CALL R1 1 0
-  JUMP [+4]
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K9 ["_createExplorerItems"]
-  CALL R1 1 0
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K10 ["updateScopeOptions"]
   CALL R1 1 0
   GETUPVAL R1 0
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K2 ["_visibleInventories"]
-  NAMECALL R1 R1 K11 ["fetchFolders"]
+  NAMECALL R1 R1 K9 ["fetchFolders"]
   CALL R1 2 0
+  JUMP [+4]
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K10 ["_createExplorerItems"]
+  CALL R1 1 0
+  GETUPVAL R1 0
+  NAMECALL R1 R1 K11 ["updateScopeOptions"]
+  CALL R1 1 0
   RETURN R0 0
 
 PROTO_23:

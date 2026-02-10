@@ -7,6 +7,7 @@ local ScrollView = require(Foundation.Components.ScrollView)
 local View = require(Foundation.Components.View)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
 
+local Flags = require(Foundation.Utility.Flags)
 local useBindable = require(Foundation.Utility.useBindable)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
@@ -79,13 +80,30 @@ local function computeSize(values: {
 end
 
 local function BaseMenu(baseMenuProps: BaseMenuProps, ref: React.Ref<GuiObject>?): React.ReactNode
-	local props = withDefaults(baseMenuProps, defaultProps)
+	local isVisible, setIsVisible
+	local defaultWithVisible
+	if Flags.FoundationBaseMenuDelayVisible then
+		isVisible, setIsVisible = React.useBinding(false)
+		defaultWithVisible = table.clone(defaultProps)
+		defaultWithVisible.Visible = isVisible
+	end
+
+	local props =
+		withDefaults(baseMenuProps, if Flags.FoundationBaseMenuDelayVisible then defaultWithVisible else defaultProps)
 	local width = useBindable(props.width) :: React.Binding<UDim?>
 	local maxHeight = useBindable(props.maxHeight) :: React.Binding<number?>
 	local scaledMinWidth = useScaledValue(MIN_WIDTH)
 	local scaledMaxWidth = useScaledValue(MAX_WIDTH)
 	local hasLeading, internalSetHasLeading = React.useState(false)
 	local canvasSize, setCanvasSize = React.useBinding(UDim2.fromScale(0, 1))
+
+	if Flags.FoundationBaseMenuDelayVisible then
+		React.useEffect(function()
+			task.delay(0, function()
+				setIsVisible(true)
+			end)
+		end, {})
+	end
 
 	local setHasLeading = React.useCallback(function()
 		internalSetHasLeading(true)

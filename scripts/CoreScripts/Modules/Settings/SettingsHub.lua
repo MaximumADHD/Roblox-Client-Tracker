@@ -156,8 +156,10 @@ local Flags = {
 
 	FFlagAddTraversalBackButton = Traversal.Flags.FFlagAddTraversalBackButton,
 	FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory,
+	FFlagTraversalLeaveArrowDown = Traversal.Flags.FFlagTraversalLeaveArrowDown,
 	
 	FFlagCreateInExperienceMenuReact = SettingsFlags.FFlagCreateInExperienceMenuReact,
+	FFlagFixFocusNavToButtonsWithIEMReact = game:DefineFastFlag("FixFocusNavToButtonsWithIEMReact", false),
 	FFlagEnableSystemScrimInSettingsHub = game:DefineFastFlag("EnableSystemScrimInSettingsHub", false),
 
 	FFlagHelpPageIXPExposure = HelpPage.Flags.FFlagHelpPageIXPExposure,
@@ -364,6 +366,7 @@ local function createReactPage(parent: GuiObject?): GuiObject
 		Name = 'InExperienceMenuPage',
 		BackgroundTransparency = 1,
 		Size = UDim2.fromScale(0, 0),
+		Visible = if Flags.FFlagFixFocusNavToButtonsWithIEMReact then false else nil,
 		Parent = parent,
 	}
 end
@@ -3825,11 +3828,16 @@ local function CreateSettingsHub()
 		if this.reactPage then
 			this.reactPageAnalytics:closePage(this.reactPage.name)
 		end
-
+		local reactPageVisible
+		if Flags.FFlagFixFocusNavToButtonsWithIEMReact then
+			reactPageVisible = this.ReactPage.Visible
+		end
 		this.ReactPage.Visible = false
 		this.Page.Visible = true
 		if Flags.FFlagCreateInExperienceMenuReact and Flags.FFlagIEMFocusNavToButtons and this.Pages.CurrentPage then
-			this.Pages.CurrentPage:SelectARow(true)
+			if not Flags.FFlagFixFocusNavToButtonsWithIEMReact or (reactPageVisible and this.Visible) then
+				this.Pages.CurrentPage:SelectARow(true)
+			end
 		end
 	end
 
@@ -4265,7 +4273,7 @@ local function CreateSettingsHub()
 				}, {
 					TraversalHistoryMenu = React.createElement(TraversalHistoryMenu, {
 						anchorParent = leaveButtonMobile,
-						idleButtonStateIsDown = false,
+						idleButtonStateIsDown = if Flags.FFlagTraversalLeaveArrowDown then true else false,
 						currentPageChangeSignal = this.CurrentPageSignal,
 					}),
 				}),

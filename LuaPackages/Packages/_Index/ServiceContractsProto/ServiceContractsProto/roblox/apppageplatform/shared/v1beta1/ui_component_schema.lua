@@ -46,6 +46,8 @@ local _roblox_apppageplatform_shared_v1beta1_dual_action_chip = require(script.P
 local _roblox_apppageplatform_shared_v1beta1_expandable_text = require(script.Parent.expandable_text)
 local _roblox_apppageplatform_shared_v1beta1_associated_items_row = require(script.Parent.associated_items_row)
 local _roblox_apppageplatform_shared_v1beta1_overflow_menu = require(script.Parent.overflow_menu)
+local _roblox_apppageplatform_shared_v1beta1_details_page_image_header =
+	require(script.Parent.details_page_image_header)
 
 type _UiComponentSchemaImpl = {
 	__index: _UiComponentSchemaImpl,
@@ -114,6 +116,10 @@ type _UiComponentSchemaFields = {
 			value: _roblox_apppageplatform_shared_v1beta1_associated_items_row.AssociatedItemsRowSchema,
 		}
 		| { type: "overflow_menu", value: _roblox_apppageplatform_shared_v1beta1_overflow_menu.OverflowMenuSchema }
+		| {
+			type: "details_page_image_header",
+			value: _roblox_apppageplatform_shared_v1beta1_details_page_image_header.DetailsPageImageHeaderSchema,
+		}
 	)?,
 }
 
@@ -174,6 +180,10 @@ type _UiComponentSchemaPartialFields = {
 			value: _roblox_apppageplatform_shared_v1beta1_associated_items_row.AssociatedItemsRowSchema,
 		}
 		| { type: "overflow_menu", value: _roblox_apppageplatform_shared_v1beta1_overflow_menu.OverflowMenuSchema }
+		| {
+			type: "details_page_image_header",
+			value: _roblox_apppageplatform_shared_v1beta1_details_page_image_header.DetailsPageImageHeaderSchema,
+		}
 	)?,
 }
 
@@ -330,6 +340,10 @@ do
 			elseif self.kind.type == "overflow_menu" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 34, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "details_page_image_header" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 35, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -639,6 +653,16 @@ do
 						value = _roblox_apppageplatform_shared_v1beta1_overflow_menu.OverflowMenuSchema.decode(value),
 					}
 					continue
+				elseif field == 35 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "details_page_image_header",
+						value = _roblox_apppageplatform_shared_v1beta1_details_page_image_header.DetailsPageImageHeaderSchema.decode(
+							value
+						),
+					}
+					continue
 				end
 
 				local length
@@ -735,6 +759,8 @@ do
 				output.associatedItemsRow = self.kind.value:jsonEncode()
 			elseif self.kind.type == "overflow_menu" then
 				output.overflowMenu = self.kind.value:jsonEncode()
+			elseif self.kind.type == "details_page_image_header" then
+				output.detailsPageImageHeader = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -1225,6 +1251,24 @@ do
 				type = "overflow_menu",
 				value = _roblox_apppageplatform_shared_v1beta1_overflow_menu.OverflowMenuSchema.jsonDecode(
 					input.overflowMenu
+				),
+			}
+		end
+
+		if input.details_page_image_header ~= nil then
+			self.kind = {
+				type = "details_page_image_header",
+				value = _roblox_apppageplatform_shared_v1beta1_details_page_image_header.DetailsPageImageHeaderSchema.jsonDecode(
+					input.details_page_image_header
+				),
+			}
+		end
+
+		if input.detailsPageImageHeader ~= nil then
+			self.kind = {
+				type = "details_page_image_header",
+				value = _roblox_apppageplatform_shared_v1beta1_details_page_image_header.DetailsPageImageHeaderSchema.jsonDecode(
+					input.detailsPageImageHeader
 				),
 			}
 		end

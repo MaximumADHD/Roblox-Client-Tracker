@@ -28,13 +28,6 @@ local GetFFlagScreenshotHudApi = require(RobloxGui.Modules.Flags.GetFFlagScreens
 
 local GetFFlagEnableVoiceDefaultChannel = require(RobloxGui.Modules.Flags.GetFFlagEnableVoiceDefaultChannel)
 
-local FFlagRemoveExperienceMenuABTestManager = require(CorePackages.Workspace.Packages.SharedFlags).FFlagRemoveExperienceMenuABTestManager
-local IsExperienceMenuABTestEnabled, ExperienceMenuABTestManager
-if not FFlagRemoveExperienceMenuABTestManager then
-	IsExperienceMenuABTestEnabled = require(CoreGuiModules.IsExperienceMenuABTestEnabled)
-	ExperienceMenuABTestManager = require(CoreGuiModules.ExperienceMenuABTestManager)
-end
-
 local GetFFlagEnableNewInviteMenuIXP = require(CoreGuiModules.Flags.GetFFlagEnableNewInviteMenuIXP)
 local NewInviteMenuExperimentManager = require(CoreGuiModules.Settings.Pages.ShareGame.NewInviteMenuExperimentManager)
 local GetFFlagEnableSoundSessionTelemetry = require(CoreGuiModules.Flags.GetFFlagEnableSoundSessionTelemetry)
@@ -60,7 +53,6 @@ local FFlagEnableReactSessionMetrics =
 	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableReactSessionMetrics
 local FStringReactSchedulingContext =
 	require(CorePackages.Workspace.Packages.SharedFlags).FStringReactSchedulingContext
-local FFlagAddGuiInsetToDisplayStore = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAddGuiInsetToDisplayStore
 
 local FFlagLuaAppEnableToastNotificationsCoreScripts =
 	game:DefineFastFlag("LuaAppEnableToastNotificationsCoreScripts4", false)
@@ -400,12 +392,6 @@ coroutine.wrap(function()
 	local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 	IXPServiceWrapper:InitializeAsync(localPlayer.UserId, GetCoreScriptsLayers())
 
-	if not FFlagRemoveExperienceMenuABTestManager then
-		if IsExperienceMenuABTestEnabled() then
-			ExperienceMenuABTestManager.default:initialize()
-		end
-	end
-
 	if GetFFlagEnableNewInviteMenuIXP() then
 		NewInviteMenuExperimentManager.default:initialize()
 	end
@@ -621,15 +607,12 @@ if FFlagEnableAEGIS2CommsFAEUpsell then
 		end
 	end)()
 end
-
-if FFlagAddGuiInsetToDisplayStore then
-	coroutine.wrap(function()
-		local Display = safeRequire(CorePackages.Workspace.Packages.Display)
-		GuiService:GetPropertyChangedSignal("TopbarInset"):Connect(function()
-			Display.GetDisplayStore().setTopBarHeight(GuiService.TopbarInset.Height)
-		end)
-	end)()
-end
+coroutine.wrap(function()
+	local Display = safeRequire(CorePackages.Workspace.Packages.Display)
+	GuiService:GetPropertyChangedSignal("TopbarInset"):Connect(function()
+		Display.GetDisplayStore().setTopBarHeight(GuiService.TopbarInset.Height)
+	end)
+end)()
 
 if FFlagEnableCorescriptsProfiler then
 	local CoreScriptsProfilerTelemetry = require(CorePackages.Workspace.Packages.CoreScriptsProfiler).CoreScriptsProfilerTelemetry

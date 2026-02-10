@@ -6,7 +6,7 @@ local React = require(Packages.React)
 local AvatarGroupType = require(Foundation.Enums.AvatarGroupType)
 local BackgroundStyleContext = require(Foundation.Providers.Style.BackgroundStyleContext)
 local ChipSize = require(Foundation.Enums.ChipSize)
-local IconPosition = require(Foundation.Enums.IconPosition)
+local ChipVariant = require(Foundation.Enums.ChipVariant)
 local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 
@@ -20,6 +20,7 @@ local function Story(props)
 		onActivated = props.onActivated,
 		isChecked = props.isChecked,
 		size = props.size,
+		variant = props.variant,
 		isDisabled = props.isDisabled,
 	})
 end
@@ -40,7 +41,7 @@ return {
 					isChecked = props.controls.isChecked,
 					isDisabled = props.controls.isDisabled,
 					size = props.controls.size,
-					chipDesignUpdate = props.controls.chipDesignUpdate,
+					variant = props.controls.variant,
 				})
 			end,
 		} :: unknown,
@@ -62,7 +63,31 @@ return {
 							isChecked = props.controls.isChecked,
 							isDisabled = props.controls.isDisabled,
 							size = value,
-							chipDesignUpdate = props.controls.chipDesignUpdate,
+							variant = props.controls.variant,
+						})
+					end)
+				)
+			end,
+		},
+		{
+			name = "Variants",
+			story = function(props)
+				return React.createElement(
+					View,
+					{ tag = "auto-xy row gap-xlarge" },
+					Dash.map(ChipVariant, function(value, key)
+						return React.createElement(Story, {
+							key = key,
+							text = props.controls.text,
+							onActivated = function()
+								print(`Chip activated`)
+							end,
+							leading = props.controls.leading,
+							trailing = props.controls.trailing,
+							isChecked = props.controls.isChecked,
+							isDisabled = props.controls.isDisabled,
+							size = props.controls.size,
+							variant = value,
 						})
 					end)
 				)
@@ -92,7 +117,7 @@ return {
 					isChecked = props.controls.isChecked,
 					isDisabled = props.controls.isDisabled,
 					size = props.controls.size,
-					chipDesignUpdate = props.controls.chipDesignUpdate,
+					variant = props.controls.variant,
 				})
 			end,
 		},
@@ -127,39 +152,9 @@ return {
 							isChecked = props.controls.isChecked,
 							isDisabled = props.controls.isDisabled,
 							size = props.controls.size,
-							chipDesignUpdate = props.controls.chipDesignUpdate,
+							variant = props.controls.variant,
 						})
 					)
-				)
-			end,
-		},
-		{
-			name = "Back compatibility for chipDesignUpdate",
-			story = function(props)
-				return React.createElement(
-					View,
-					{ tag = "auto-xy row gap-xlarge" },
-					React.createElement(Chip, {
-						icon = "icons/common/robux",
-						text = props.controls.text,
-						onActivated = function()
-							print(`Chip activated`)
-						end,
-						isChecked = props.controls.isChecked,
-						isDisabled = props.controls.isDisabled,
-					}),
-					React.createElement(Chip, {
-						icon = {
-							name = "icons/common/robux",
-							position = IconPosition.Right,
-						},
-						text = props.controls.text,
-						onActivated = function()
-							print(`Chip activated`)
-						end,
-						isChecked = props.controls.isChecked,
-						isDisabled = props.controls.isDisabled,
-					})
 				)
 			end,
 		},
@@ -196,6 +191,7 @@ return {
 			"",
 		},
 		size = Dash.values(ChipSize),
+		variant = Dash.values(ChipVariant),
 		text = "Filter",
 		isChecked = false,
 		isDisabled = false,

@@ -77,7 +77,7 @@ PROTO_2:
   LOADB R6 0
   CALL R4 2 1
   GETUPVAL R5 2
-  LOADK R6 K7 ["AvatarPreviewer_R15Plus"]
+  LOADK R6 K7 ["AvatarPreviewer_CustomHumanoid"]
   LOADB R7 0
   CALL R5 2 1
   GETUPVAL R6 2
@@ -188,27 +188,27 @@ PROTO_2:
   LOADK R18 K37 ["Unspecified"]
   SETTABLEKS R18 R17 K24 ["SetupType"]
   DUPTABLE R18 K45 [{"value", "set", "toggle", "options", "incrementCount", "decrementCount"}]
-  DUPTABLE R19 K51 [{"setupType", "alignFrontAngle", "enableAdditionalHeadProcessing", "r15Plus", "reduceTriangles"}]
+  DUPTABLE R19 K51 [{"setupType", "alignFrontAngle", "enableAdditionalHeadProcessing", "customHumanoid", "reduceTriangles"}]
   SETTABLEKS R1 R19 K46 ["setupType"]
   GETTABLEKS R20 R3 K30 ["enabled"]
   SETTABLEKS R20 R19 K47 ["alignFrontAngle"]
   GETTABLEKS R20 R4 K30 ["enabled"]
   SETTABLEKS R20 R19 K48 ["enableAdditionalHeadProcessing"]
   GETTABLEKS R20 R5 K30 ["enabled"]
-  SETTABLEKS R20 R19 K49 ["r15Plus"]
+  SETTABLEKS R20 R19 K49 ["customHumanoid"]
   GETTABLEKS R20 R6 K30 ["enabled"]
   SETTABLEKS R20 R19 K50 ["reduceTriangles"]
   SETTABLEKS R19 R18 K39 ["value"]
   DUPTABLE R19 K52 [{"setupType"}]
   SETTABLEKS R2 R19 K46 ["setupType"]
   SETTABLEKS R19 R18 K40 ["set"]
-  DUPTABLE R19 K53 [{"alignFrontAngle", "enableAdditionalHeadProcessing", "r15Plus", "reduceTriangles"}]
+  DUPTABLE R19 K53 [{"alignFrontAngle", "enableAdditionalHeadProcessing", "customHumanoid", "reduceTriangles"}]
   GETTABLEKS R20 R3 K41 ["toggle"]
   SETTABLEKS R20 R19 K47 ["alignFrontAngle"]
   GETTABLEKS R20 R4 K41 ["toggle"]
   SETTABLEKS R20 R19 K48 ["enableAdditionalHeadProcessing"]
   GETTABLEKS R20 R5 K41 ["toggle"]
-  SETTABLEKS R20 R19 K49 ["r15Plus"]
+  SETTABLEKS R20 R19 K49 ["customHumanoid"]
   GETTABLEKS R20 R6 K41 ["toggle"]
   SETTABLEKS R20 R19 K50 ["reduceTriangles"]
   SETTABLEKS R19 R18 K41 ["toggle"]
@@ -288,7 +288,7 @@ MAIN:
   CALL R12 1 1
   SETTABLEKS R12 R11 K30 ["setupType"]
   SETTABLEKS R11 R10 K24 ["set"]
-  DUPTABLE R11 K37 [{"alignFrontAngle", "enableAdditionalHeadProcessing", "r15Plus", "reduceTriangles"}]
+  DUPTABLE R11 K37 [{"alignFrontAngle", "enableAdditionalHeadProcessing", "customHumanoid", "reduceTriangles"}]
   MOVE R12 R4
   LOADK R13 K33 ["alignFrontAngle"]
   CALL R12 1 1
@@ -298,9 +298,9 @@ MAIN:
   CALL R12 1 1
   SETTABLEKS R12 R11 K34 ["enableAdditionalHeadProcessing"]
   MOVE R12 R4
-  LOADK R13 K38 ["toggleR15Plus"]
+  LOADK R13 K38 ["toggleCustomHumanoid"]
   CALL R12 1 1
-  SETTABLEKS R12 R11 K35 ["r15Plus"]
+  SETTABLEKS R12 R11 K35 ["customHumanoid"]
   MOVE R12 R4
   LOADK R13 K39 ["toggleReduceTriangles"]
   CALL R12 1 1

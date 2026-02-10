@@ -20,10 +20,12 @@ local GetFStringInExperienceMenuIXPLayer = require(Modules.Settings.Flags.GetFSt
 local GetFStringInExperienceMenuIXPVar = require(Modules.Settings.Flags.GetFStringInExperienceMenuIXPVar)
 local GetFFlagEnablePlayerNamesEnabledSetting = require(Modules.Settings.Flags.GetFFlagEnablePlayerNamesEnabledSetting)
 local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
+local FFlagIEMSettingsGroups = require(Modules.Settings.Flags.FFlagIEMSettingsGroups)
 
 -------------- Modules ----------------
 local IXPServiceWrapper = require(CorePackages.Workspace.Packages.IxpServiceWrapper).IXPServiceWrapper
 local isInExperienceUIVREnabled = require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
+local ReactUtils = require(CorePackages.Packages.ReactUtils)
 
 -------------- LAYOUT ORDER -----------
 -- Recall that layout order values are relative
@@ -167,6 +169,73 @@ LAYOUT_REORDER_VARIANT_1.UiToggleRowNameplates = 202
 LAYOUT_REORDER_VARIANT_1.FreecamToggleRow = 203
 LAYOUT_REORDER_VARIANT_1.InformationFrame = 999 -- Reserved to be last
 
+local LAYOUT_ORDER_GROUPS
+if FFlagIEMSettingsGroups then
+	local nextOrder = ReactUtils.createNextOrder()
+
+	LAYOUT_ORDER_GROUPS = {
+		AudioHeader = nextOrder(),
+		VolumeFrame = nextOrder(),
+		PartyVoiceVolumeFrame = nextOrder(),
+		DeviceFrameInput = nextOrder(),
+		DeviceFrameOutput = nextOrder(),
+		AudioDivider = nextOrder(),
+		
+		LanguageHeader = nextOrder(),
+		VoiceConnectDisconnectSelector = nextOrder(),
+		VoiceConnectFrame = nextOrder(),
+		VoiceDisconnectFrame = nextOrder(),
+		LanguageSelectorFrame = nextOrder(),
+		FeedbackModeButton = nextOrder(),
+		ChatTranslationFrame = nextOrder(),
+		ChatLanguageSelectorFrame = nextOrder(),
+		ChatTranslationToggleFrame = nextOrder(),
+		LanguageDivider = nextOrder(),
+
+		DisplayHeader = nextOrder(),
+		OverscanAdjustButton = nextOrder(),
+		FullScreenFrame = nextOrder(),
+		PreferredTransparencyFrame = nextOrder(),
+		PreferredTextSizeFrame = nextOrder(),
+		VRComfortSettingFrame = if isInExperienceUIVREnabled then nextOrder() else nil,
+		VRVignetteEnabledFrame = if isInExperienceUIVREnabled then nextOrder() else nil,
+		VRSteppedRotationEnabledFrame = if isInExperienceUIVREnabled then nextOrder() else nil,
+		VRThirdPersonFixedCamEnabledFrame = if isInExperienceUIVREnabled then nextOrder() else nil,
+		VRSafetyBubbleModeFrame = if isInExperienceUIVREnabled then nextOrder() else nil,
+		PerformanceStatsFrame = nextOrder(),
+		MicroProfilerFrame = nextOrder(),
+		GraphicsEnablerFrame = nextOrder(),
+		GraphicsQualityFrame = nextOrder(),
+		HapticsFrame = nextOrder(),
+		ReducedMotionFrame = nextOrder(),
+		FramerateCap = nextOrder(),
+		VREnabledFrame = nextOrder(),
+		DisplayDivider = nextOrder(),
+
+		ViewAndControlsHeader = nextOrder(),
+		CameraModeFrame = nextOrder(),
+		CameraInvertedFrame = nextOrder(),
+		CameraSensitivityFrame = nextOrder(),
+		MouseAdvancedFrame = nextOrder(),
+		GamepadSensitivityFrame = nextOrder(),
+		MovementModeFrame = nextOrder(),
+		ShiftLockFrame = nextOrder(),
+		CameraDeviceFrame = nextOrder(),
+		UiNavigationKeyBindEnabledFrame = nextOrder(),
+		DeveloperConsoleButton = nextOrder(),
+		PlayerNamesEnabledFrame = if GetFFlagEnablePlayerNamesEnabledSetting() then nextOrder() else nil,
+		BadgeVisibilityFrame = if FFlagBadgeVisibilitySettingEnabled then nextOrder() else nil,
+
+		UiToggleRow = nextOrder(),
+		UiToggleRowCustom = nextOrder(),
+		UiToggleRowBillboards = nextOrder(),
+		UiToggleRowNameplates = nextOrder(),
+		FreecamToggleRow = nextOrder(),
+		InformationFrame = nextOrder(),
+	}
+end
+
+
 -- delete with FFlagRemoveSettingsReorderFirstVariantIXPSetup cleaned up as true
 local function LayoutReOrderIXP()
 	local LAYOUT_ORDER_MT = {}
@@ -209,7 +278,9 @@ end
 -- Returns a LayoutOrder of Settings Menu with flagging
 local function getLayoutOrder()
 	local layoutOrder = {} :: any
-	if not FFlagRemoveSettingsReorderFirstVariantIXPSetup then 
+	if FFlagIEMSettingsGroups then
+		layoutOrder = LAYOUT_ORDER_GROUPS
+	elseif not FFlagRemoveSettingsReorderFirstVariantIXPSetup then 
 		layoutOrder = LayoutReOrderIXP() 
 	else
 		layoutOrder = SETTINGS_MENU_LAYOUT_ORDER

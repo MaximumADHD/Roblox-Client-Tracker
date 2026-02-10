@@ -82,6 +82,15 @@ type _Messages = {
 	ArrayOfStructProp_ConditionalOption: _ArrayOfStructProp_ConditionalOptionMessage,
 	ArrayOfStructProp_ConditionalOptions: _ArrayOfStructProp_ConditionalOptionsMessage,
 	ArrayOfStructProp_ArrayOfStructs: _ArrayOfStructProp_ArrayOfStructsMessage,
+	UiScaledFloatProp: _UiScaledFloatPropMessage,
+	UiScaledFloatProp_ConditionalOption: _UiScaledFloatProp_ConditionalOptionMessage,
+	UiScaledFloatProp_ConditionalOptions: _UiScaledFloatProp_ConditionalOptionsMessage,
+	UiScaledUDimProp: _UiScaledUDimPropMessage,
+	UiScaledUDimProp_ConditionalOption: _UiScaledUDimProp_ConditionalOptionMessage,
+	UiScaledUDimProp_ConditionalOptions: _UiScaledUDimProp_ConditionalOptionsMessage,
+	UiScaledUDim2Prop: _UiScaledUDim2PropMessage,
+	UiScaledUDim2Prop_ConditionalOption: _UiScaledUDim2Prop_ConditionalOptionMessage,
+	UiScaledUDim2Prop_ConditionalOptions: _UiScaledUDim2Prop_ConditionalOptionsMessage,
 }
 local messages: _Messages = {} :: _Messages
 
@@ -1321,6 +1330,7 @@ type _UDimPropFields = {
 		{ type: "literal", value: string }
 		| { type: "token", value: string }
 		| { type: "conditional", value: UDimProp_ConditionalOptions }
+		| { type: "binding_path", value: string }
 	)?,
 }
 
@@ -1329,6 +1339,7 @@ type _UDimPropPartialFields = {
 		{ type: "literal", value: string }
 		| { type: "token", value: string }
 		| { type: "conditional", value: UDimProp_ConditionalOptions }
+		| { type: "binding_path", value: string }
 	)?,
 }
 
@@ -1347,12 +1358,16 @@ type _UDimProp_ConditionalOptionImpl = {
 
 type _UDimProp_ConditionalOptionFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	kind: ({ type: "literal", value: string } | { type: "token", value: string })?,
+	kind: (
+		{ type: "literal", value: string } | { type: "token", value: string } | { type: "binding_path", value: string }
+	)?,
 }
 
 type _UDimProp_ConditionalOptionPartialFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	kind: ({ type: "literal", value: string } | { type: "token", value: string })?,
+	kind: (
+		{ type: "literal", value: string } | { type: "token", value: string } | { type: "binding_path", value: string }
+	)?,
 }
 
 export type UDimProp_ConditionalOption = typeof(setmetatable(
@@ -1406,6 +1421,7 @@ type _UDim2PropFields = {
 		{ type: "literal", value: string }
 		| { type: "token", value: string }
 		| { type: "conditional", value: UDim2Prop_ConditionalOptions }
+		| { type: "binding_path", value: string }
 	)?,
 }
 
@@ -1414,6 +1430,7 @@ type _UDim2PropPartialFields = {
 		{ type: "literal", value: string }
 		| { type: "token", value: string }
 		| { type: "conditional", value: UDim2Prop_ConditionalOptions }
+		| { type: "binding_path", value: string }
 	)?,
 }
 
@@ -1432,12 +1449,16 @@ type _UDim2Prop_ConditionalOptionImpl = {
 
 type _UDim2Prop_ConditionalOptionFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	kind: ({ type: "literal", value: string } | { type: "token", value: string })?,
+	kind: (
+		{ type: "literal", value: string } | { type: "token", value: string } | { type: "binding_path", value: string }
+	)?,
 }
 
 type _UDim2Prop_ConditionalOptionPartialFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	kind: ({ type: "literal", value: string } | { type: "token", value: string })?,
+	kind: (
+		{ type: "literal", value: string } | { type: "token", value: string } | { type: "binding_path", value: string }
+	)?,
 }
 
 export type UDim2Prop_ConditionalOption = typeof(setmetatable(
@@ -1491,6 +1512,7 @@ type _Vector2PropFields = {
 		{ type: "literal", value: string }
 		| { type: "token", value: string }
 		| { type: "conditional", value: Vector2Prop_ConditionalOptions }
+		| { type: "binding_path", value: string }
 	)?,
 }
 
@@ -1499,6 +1521,7 @@ type _Vector2PropPartialFields = {
 		{ type: "literal", value: string }
 		| { type: "token", value: string }
 		| { type: "conditional", value: Vector2Prop_ConditionalOptions }
+		| { type: "binding_path", value: string }
 	)?,
 }
 
@@ -1517,12 +1540,16 @@ type _Vector2Prop_ConditionalOptionImpl = {
 
 type _Vector2Prop_ConditionalOptionFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	kind: ({ type: "literal", value: string } | { type: "token", value: string })?,
+	kind: (
+		{ type: "literal", value: string } | { type: "token", value: string } | { type: "binding_path", value: string }
+	)?,
 }
 
 type _Vector2Prop_ConditionalOptionPartialFields = {
 	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
-	kind: ({ type: "literal", value: string } | { type: "token", value: string })?,
+	kind: (
+		{ type: "literal", value: string } | { type: "token", value: string } | { type: "binding_path", value: string }
+	)?,
 }
 
 export type Vector2Prop_ConditionalOption = typeof(setmetatable(
@@ -1599,6 +1626,7 @@ type _TemplateArg_LiteralValueFields = {
 		| { type: "int64_value", value: number }
 		| { type: "float_value", value: number }
 		| { type: "double_value", value: number }
+		| { type: "bool_value", value: boolean }
 	)?,
 }
 
@@ -1609,6 +1637,7 @@ type _TemplateArg_LiteralValuePartialFields = {
 		| { type: "int64_value", value: number }
 		| { type: "float_value", value: number }
 		| { type: "double_value", value: number }
+		| { type: "bool_value", value: boolean }
 	)?,
 }
 
@@ -2266,6 +2295,279 @@ export type ArrayOfStructProp_ArrayOfStructs = typeof(setmetatable(
 type _ArrayOfStructProp_ArrayOfStructsMessage = proto.Message<
 	ArrayOfStructProp_ArrayOfStructs,
 	_ArrayOfStructProp_ArrayOfStructsPartialFields
+>
+
+type _UiScaledFloatPropImpl = {
+	__index: _UiScaledFloatPropImpl,
+	new: (fields: _UiScaledFloatPropPartialFields?) -> UiScaledFloatProp,
+	encode: (self: UiScaledFloatProp) -> buffer,
+	decode: (input: buffer) -> UiScaledFloatProp,
+	jsonEncode: (self: UiScaledFloatProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UiScaledFloatProp,
+	descriptor: proto.Descriptor,
+}
+
+type _UiScaledFloatPropFields = {
+	kind: (
+		{ type: "literal", value: string }
+		| { type: "token", value: string }
+		| { type: "conditional", value: UiScaledFloatProp_ConditionalOptions }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+type _UiScaledFloatPropPartialFields = {
+	kind: (
+		{ type: "literal", value: string }
+		| { type: "token", value: string }
+		| { type: "conditional", value: UiScaledFloatProp_ConditionalOptions }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+export type UiScaledFloatProp = typeof(setmetatable({} :: _UiScaledFloatPropFields, {} :: _UiScaledFloatPropImpl))
+type _UiScaledFloatPropMessage = proto.Message<UiScaledFloatProp, _UiScaledFloatPropPartialFields>
+
+type _UiScaledFloatProp_ConditionalOptionImpl = {
+	__index: _UiScaledFloatProp_ConditionalOptionImpl,
+	new: (fields: _UiScaledFloatProp_ConditionalOptionPartialFields?) -> UiScaledFloatProp_ConditionalOption,
+	encode: (self: UiScaledFloatProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> UiScaledFloatProp_ConditionalOption,
+	jsonEncode: (self: UiScaledFloatProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UiScaledFloatProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _UiScaledFloatProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: (
+		{ type: "literal", value: string } | { type: "token", value: string } | { type: "binding_path", value: string }
+	)?,
+}
+
+type _UiScaledFloatProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: (
+		{ type: "literal", value: string } | { type: "token", value: string } | { type: "binding_path", value: string }
+	)?,
+}
+
+export type UiScaledFloatProp_ConditionalOption = typeof(setmetatable(
+	{} :: _UiScaledFloatProp_ConditionalOptionFields,
+	{} :: _UiScaledFloatProp_ConditionalOptionImpl
+))
+type _UiScaledFloatProp_ConditionalOptionMessage = proto.Message<
+	UiScaledFloatProp_ConditionalOption,
+	_UiScaledFloatProp_ConditionalOptionPartialFields
+>
+
+type _UiScaledFloatProp_ConditionalOptionsImpl = {
+	__index: _UiScaledFloatProp_ConditionalOptionsImpl,
+	new: (fields: _UiScaledFloatProp_ConditionalOptionsPartialFields?) -> UiScaledFloatProp_ConditionalOptions,
+	encode: (self: UiScaledFloatProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> UiScaledFloatProp_ConditionalOptions,
+	jsonEncode: (self: UiScaledFloatProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UiScaledFloatProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _UiScaledFloatProp_ConditionalOptionsFields = {
+	options: { UiScaledFloatProp_ConditionalOption },
+}
+
+type _UiScaledFloatProp_ConditionalOptionsPartialFields = {
+	options: { UiScaledFloatProp_ConditionalOption }?,
+}
+
+export type UiScaledFloatProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _UiScaledFloatProp_ConditionalOptionsFields,
+	{} :: _UiScaledFloatProp_ConditionalOptionsImpl
+))
+type _UiScaledFloatProp_ConditionalOptionsMessage = proto.Message<
+	UiScaledFloatProp_ConditionalOptions,
+	_UiScaledFloatProp_ConditionalOptionsPartialFields
+>
+
+type _UiScaledUDimPropImpl = {
+	__index: _UiScaledUDimPropImpl,
+	new: (fields: _UiScaledUDimPropPartialFields?) -> UiScaledUDimProp,
+	encode: (self: UiScaledUDimProp) -> buffer,
+	decode: (input: buffer) -> UiScaledUDimProp,
+	jsonEncode: (self: UiScaledUDimProp) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UiScaledUDimProp,
+	descriptor: proto.Descriptor,
+}
+
+type _UiScaledUDimPropFields = {
+	kind: (
+		{ type: "literal", value: string }
+		| { type: "token", value: string }
+		| { type: "conditional", value: UiScaledUDimProp_ConditionalOptions }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+type _UiScaledUDimPropPartialFields = {
+	kind: (
+		{ type: "literal", value: string }
+		| { type: "token", value: string }
+		| { type: "conditional", value: UiScaledUDimProp_ConditionalOptions }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+export type UiScaledUDimProp = typeof(setmetatable({} :: _UiScaledUDimPropFields, {} :: _UiScaledUDimPropImpl))
+type _UiScaledUDimPropMessage = proto.Message<UiScaledUDimProp, _UiScaledUDimPropPartialFields>
+
+type _UiScaledUDimProp_ConditionalOptionImpl = {
+	__index: _UiScaledUDimProp_ConditionalOptionImpl,
+	new: (fields: _UiScaledUDimProp_ConditionalOptionPartialFields?) -> UiScaledUDimProp_ConditionalOption,
+	encode: (self: UiScaledUDimProp_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> UiScaledUDimProp_ConditionalOption,
+	jsonEncode: (self: UiScaledUDimProp_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UiScaledUDimProp_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _UiScaledUDimProp_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: (
+		{ type: "literal", value: string } | { type: "token", value: string } | { type: "binding_path", value: string }
+	)?,
+}
+
+type _UiScaledUDimProp_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: (
+		{ type: "literal", value: string } | { type: "token", value: string } | { type: "binding_path", value: string }
+	)?,
+}
+
+export type UiScaledUDimProp_ConditionalOption = typeof(setmetatable(
+	{} :: _UiScaledUDimProp_ConditionalOptionFields,
+	{} :: _UiScaledUDimProp_ConditionalOptionImpl
+))
+type _UiScaledUDimProp_ConditionalOptionMessage = proto.Message<
+	UiScaledUDimProp_ConditionalOption,
+	_UiScaledUDimProp_ConditionalOptionPartialFields
+>
+
+type _UiScaledUDimProp_ConditionalOptionsImpl = {
+	__index: _UiScaledUDimProp_ConditionalOptionsImpl,
+	new: (fields: _UiScaledUDimProp_ConditionalOptionsPartialFields?) -> UiScaledUDimProp_ConditionalOptions,
+	encode: (self: UiScaledUDimProp_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> UiScaledUDimProp_ConditionalOptions,
+	jsonEncode: (self: UiScaledUDimProp_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UiScaledUDimProp_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _UiScaledUDimProp_ConditionalOptionsFields = {
+	options: { UiScaledUDimProp_ConditionalOption },
+}
+
+type _UiScaledUDimProp_ConditionalOptionsPartialFields = {
+	options: { UiScaledUDimProp_ConditionalOption }?,
+}
+
+export type UiScaledUDimProp_ConditionalOptions = typeof(setmetatable(
+	{} :: _UiScaledUDimProp_ConditionalOptionsFields,
+	{} :: _UiScaledUDimProp_ConditionalOptionsImpl
+))
+type _UiScaledUDimProp_ConditionalOptionsMessage = proto.Message<
+	UiScaledUDimProp_ConditionalOptions,
+	_UiScaledUDimProp_ConditionalOptionsPartialFields
+>
+
+type _UiScaledUDim2PropImpl = {
+	__index: _UiScaledUDim2PropImpl,
+	new: (fields: _UiScaledUDim2PropPartialFields?) -> UiScaledUDim2Prop,
+	encode: (self: UiScaledUDim2Prop) -> buffer,
+	decode: (input: buffer) -> UiScaledUDim2Prop,
+	jsonEncode: (self: UiScaledUDim2Prop) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UiScaledUDim2Prop,
+	descriptor: proto.Descriptor,
+}
+
+type _UiScaledUDim2PropFields = {
+	kind: (
+		{ type: "literal", value: string }
+		| { type: "token", value: string }
+		| { type: "conditional", value: UiScaledUDim2Prop_ConditionalOptions }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+type _UiScaledUDim2PropPartialFields = {
+	kind: (
+		{ type: "literal", value: string }
+		| { type: "token", value: string }
+		| { type: "conditional", value: UiScaledUDim2Prop_ConditionalOptions }
+		| { type: "binding_path", value: string }
+	)?,
+}
+
+export type UiScaledUDim2Prop = typeof(setmetatable({} :: _UiScaledUDim2PropFields, {} :: _UiScaledUDim2PropImpl))
+type _UiScaledUDim2PropMessage = proto.Message<UiScaledUDim2Prop, _UiScaledUDim2PropPartialFields>
+
+type _UiScaledUDim2Prop_ConditionalOptionImpl = {
+	__index: _UiScaledUDim2Prop_ConditionalOptionImpl,
+	new: (fields: _UiScaledUDim2Prop_ConditionalOptionPartialFields?) -> UiScaledUDim2Prop_ConditionalOption,
+	encode: (self: UiScaledUDim2Prop_ConditionalOption) -> buffer,
+	decode: (input: buffer) -> UiScaledUDim2Prop_ConditionalOption,
+	jsonEncode: (self: UiScaledUDim2Prop_ConditionalOption) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UiScaledUDim2Prop_ConditionalOption,
+	descriptor: proto.Descriptor,
+}
+
+type _UiScaledUDim2Prop_ConditionalOptionFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: (
+		{ type: "literal", value: string } | { type: "token", value: string } | { type: "binding_path", value: string }
+	)?,
+}
+
+type _UiScaledUDim2Prop_ConditionalOptionPartialFields = {
+	condition: _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition?,
+	kind: (
+		{ type: "literal", value: string } | { type: "token", value: string } | { type: "binding_path", value: string }
+	)?,
+}
+
+export type UiScaledUDim2Prop_ConditionalOption = typeof(setmetatable(
+	{} :: _UiScaledUDim2Prop_ConditionalOptionFields,
+	{} :: _UiScaledUDim2Prop_ConditionalOptionImpl
+))
+type _UiScaledUDim2Prop_ConditionalOptionMessage = proto.Message<
+	UiScaledUDim2Prop_ConditionalOption,
+	_UiScaledUDim2Prop_ConditionalOptionPartialFields
+>
+
+type _UiScaledUDim2Prop_ConditionalOptionsImpl = {
+	__index: _UiScaledUDim2Prop_ConditionalOptionsImpl,
+	new: (fields: _UiScaledUDim2Prop_ConditionalOptionsPartialFields?) -> UiScaledUDim2Prop_ConditionalOptions,
+	encode: (self: UiScaledUDim2Prop_ConditionalOptions) -> buffer,
+	decode: (input: buffer) -> UiScaledUDim2Prop_ConditionalOptions,
+	jsonEncode: (self: UiScaledUDim2Prop_ConditionalOptions) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> UiScaledUDim2Prop_ConditionalOptions,
+	descriptor: proto.Descriptor,
+}
+
+type _UiScaledUDim2Prop_ConditionalOptionsFields = {
+	options: { UiScaledUDim2Prop_ConditionalOption },
+}
+
+type _UiScaledUDim2Prop_ConditionalOptionsPartialFields = {
+	options: { UiScaledUDim2Prop_ConditionalOption }?,
+}
+
+export type UiScaledUDim2Prop_ConditionalOptions = typeof(setmetatable(
+	{} :: _UiScaledUDim2Prop_ConditionalOptionsFields,
+	{} :: _UiScaledUDim2Prop_ConditionalOptionsImpl
+))
+type _UiScaledUDim2Prop_ConditionalOptionsMessage = proto.Message<
+	UiScaledUDim2Prop_ConditionalOptions,
+	_UiScaledUDim2Prop_ConditionalOptionsPartialFields
 >
 
 do
@@ -7894,6 +8196,9 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
 			end
 		end
 
@@ -7931,6 +8236,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "conditional", value = messages.UDimProp_ConditionalOptions.decode(value) }
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
 				end
 
 				local length
@@ -7965,6 +8275,8 @@ do
 				output.token = self.kind.value
 			elseif self.kind.type == "conditional" then
 				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
 			end
 		end
 
@@ -7985,6 +8297,14 @@ do
 		if input.conditional ~= nil then
 			self.kind =
 				{ type = "conditional", value = messages.UDimProp_ConditionalOptions.jsonDecode(input.conditional) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
 		end
 
 		return self
@@ -8030,6 +8350,9 @@ do
 			elseif self.kind.type == "token" then
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
 			end
 		end
 
@@ -8067,6 +8390,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "token", value = buffer.tostring(value) }
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
 				end
 
 				local length
@@ -8103,6 +8431,8 @@ do
 				output.literal = self.kind.value
 			elseif self.kind.type == "token" then
 				output.token = self.kind.value
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
 			end
 		end
 
@@ -8123,6 +8453,14 @@ do
 
 		if input.token ~= nil then
 			self.kind = { type = "token", value = input.token }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
 		end
 
 		return self
@@ -8274,6 +8612,9 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
 			end
 		end
 
@@ -8311,6 +8652,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "conditional", value = messages.UDim2Prop_ConditionalOptions.decode(value) }
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
 				end
 
 				local length
@@ -8345,6 +8691,8 @@ do
 				output.token = self.kind.value
 			elseif self.kind.type == "conditional" then
 				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
 			end
 		end
 
@@ -8365,6 +8713,14 @@ do
 		if input.conditional ~= nil then
 			self.kind =
 				{ type = "conditional", value = messages.UDim2Prop_ConditionalOptions.jsonDecode(input.conditional) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
 		end
 
 		return self
@@ -8410,6 +8766,9 @@ do
 			elseif self.kind.type == "token" then
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
 			end
 		end
 
@@ -8447,6 +8806,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "token", value = buffer.tostring(value) }
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
 				end
 
 				local length
@@ -8483,6 +8847,8 @@ do
 				output.literal = self.kind.value
 			elseif self.kind.type == "token" then
 				output.token = self.kind.value
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
 			end
 		end
 
@@ -8503,6 +8869,14 @@ do
 
 		if input.token ~= nil then
 			self.kind = { type = "token", value = input.token }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
 		end
 
 		return self
@@ -8654,6 +9028,9 @@ do
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
 			end
 		end
 
@@ -8691,6 +9068,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "conditional", value = messages.Vector2Prop_ConditionalOptions.decode(value) }
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
 				end
 
 				local length
@@ -8725,6 +9107,8 @@ do
 				output.token = self.kind.value
 			elseif self.kind.type == "conditional" then
 				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
 			end
 		end
 
@@ -8745,6 +9129,14 @@ do
 		if input.conditional ~= nil then
 			self.kind =
 				{ type = "conditional", value = messages.Vector2Prop_ConditionalOptions.jsonDecode(input.conditional) }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
 		end
 
 		return self
@@ -8790,6 +9182,9 @@ do
 			elseif self.kind.type == "token" then
 				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
 			end
 		end
 
@@ -8827,6 +9222,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "token", value = buffer.tostring(value) }
 					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
 				end
 
 				local length
@@ -8863,6 +9263,8 @@ do
 				output.literal = self.kind.value
 			elseif self.kind.type == "token" then
 				output.token = self.kind.value
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
 			end
 		end
 
@@ -8883,6 +9285,14 @@ do
 
 		if input.token ~= nil then
 			self.kind = { type = "token", value = input.token }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
 		end
 
 		return self
@@ -9159,6 +9569,9 @@ do
 			elseif self.kind.type == "double_value" then
 				output, cursor = proto.writeTag(output, cursor, 5, proto.wireTypes.i64)
 				output, cursor = proto.writeDouble(output, cursor, self.kind.value)
+			elseif self.kind.type == "bool_value" then
+				output, cursor = proto.writeTag(output, cursor, 6, proto.wireTypes.varint)
+				output, cursor = proto.writeVarInt(output, cursor, if self.kind.value then 1 else 0)
 			end
 		end
 
@@ -9185,6 +9598,11 @@ do
 					local value
 					value, cursor = proto.readVarIntI64(input, cursor)
 					self.kind = { type = "int64_value", value = value }
+					continue
+				elseif field == 6 then
+					local value
+					value, cursor = proto.readVarInt(input, cursor)
+					self.kind = { type = "bool_value", value = value ~= 0 }
 					continue
 				end
 
@@ -9244,6 +9662,8 @@ do
 				output.floatValue = proto.json.serializeNumber(self.kind.value)
 			elseif self.kind.type == "double_value" then
 				output.doubleValue = proto.json.serializeNumber(self.kind.value)
+			elseif self.kind.type == "bool_value" then
+				output.boolValue = self.kind.value
 			end
 		end
 
@@ -9291,6 +9711,14 @@ do
 
 		if input.doubleValue ~= nil then
 			self.kind = { type = "double_value", value = proto.json.deserializeNumber(input.doubleValue) }
+		end
+
+		if input.bool_value ~= nil then
+			self.kind = { type = "bool_value", value = input.bool_value }
+		end
+
+		if input.boolValue ~= nil then
+			self.kind = { type = "bool_value", value = input.boolValue }
 		end
 
 		return self
@@ -12267,6 +12695,1275 @@ do
 	typeRegistry.default:register(messages.ArrayOfStructProp_ArrayOfStructs)
 end
 
+do
+	local _UiScaledFloatPropImpl = {}
+	_UiScaledFloatPropImpl.__index = _UiScaledFloatPropImpl
+
+	function _UiScaledFloatPropImpl.new(data: _UiScaledFloatPropPartialFields?): UiScaledFloatProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _UiScaledFloatPropImpl :: _UiScaledFloatPropImpl)
+	end
+
+	function _UiScaledFloatPropImpl.encode(self: UiScaledFloatProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "token" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UiScaledFloatPropImpl.decode(input: buffer): UiScaledFloatProp
+		local self = _UiScaledFloatPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = buffer.tostring(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "token", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "conditional", value = messages.UiScaledFloatProp_ConditionalOptions.decode(value) }
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UiScaledFloatPropImpl.jsonEncode(self: UiScaledFloatProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value
+			elseif self.kind.type == "token" then
+				output.token = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _UiScaledFloatPropImpl.jsonDecode(input: { [string]: any }): UiScaledFloatProp
+		local self = _UiScaledFloatPropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = input.literal }
+		end
+
+		if input.token ~= nil then
+			self.kind = { type = "token", value = input.token }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.UiScaledFloatProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_UiScaledFloatPropImpl.descriptor = {
+		name = "UiScaledFloatProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UiScaledFloatProp",
+	}
+
+	messages.UiScaledFloatProp = _UiScaledFloatPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UiScaledFloatProp)
+end
+
+do
+	local _UiScaledFloatProp_ConditionalOptionImpl = {}
+	_UiScaledFloatProp_ConditionalOptionImpl.__index = _UiScaledFloatProp_ConditionalOptionImpl
+
+	function _UiScaledFloatProp_ConditionalOptionImpl.new(
+		data: _UiScaledFloatProp_ConditionalOptionPartialFields?
+	): UiScaledFloatProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _UiScaledFloatProp_ConditionalOptionImpl :: _UiScaledFloatProp_ConditionalOptionImpl)
+	end
+
+	function _UiScaledFloatProp_ConditionalOptionImpl.encode(self: UiScaledFloatProp_ConditionalOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "token" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UiScaledFloatProp_ConditionalOptionImpl.decode(input: buffer): UiScaledFloatProp_ConditionalOption
+		local self = _UiScaledFloatProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "token", value = buffer.tostring(value) }
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UiScaledFloatProp_ConditionalOptionImpl.jsonEncode(self: UiScaledFloatProp_ConditionalOption): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value
+			elseif self.kind.type == "token" then
+				output.token = self.kind.value
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _UiScaledFloatProp_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): UiScaledFloatProp_ConditionalOption
+		local self = _UiScaledFloatProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = input.literal }
+		end
+
+		if input.token ~= nil then
+			self.kind = { type = "token", value = input.token }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_UiScaledFloatProp_ConditionalOptionImpl.descriptor = {
+		name = "UiScaledFloatProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.UiScaledFloatProp_ConditionalOption = _UiScaledFloatProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UiScaledFloatProp_ConditionalOption)
+end
+
+do
+	local _UiScaledFloatProp_ConditionalOptionsImpl = {}
+	_UiScaledFloatProp_ConditionalOptionsImpl.__index = _UiScaledFloatProp_ConditionalOptionsImpl
+
+	function _UiScaledFloatProp_ConditionalOptionsImpl.new(
+		data: _UiScaledFloatProp_ConditionalOptionsPartialFields?
+	): UiScaledFloatProp_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _UiScaledFloatProp_ConditionalOptionsImpl :: _UiScaledFloatProp_ConditionalOptionsImpl)
+	end
+
+	function _UiScaledFloatProp_ConditionalOptionsImpl.encode(self: UiScaledFloatProp_ConditionalOptions): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UiScaledFloatProp_ConditionalOptionsImpl.decode(input: buffer): UiScaledFloatProp_ConditionalOptions
+		local self = _UiScaledFloatProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.UiScaledFloatProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UiScaledFloatProp_ConditionalOptionsImpl.jsonEncode(self: UiScaledFloatProp_ConditionalOptions): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _UiScaledFloatProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): UiScaledFloatProp_ConditionalOptions
+		local self = _UiScaledFloatProp_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { UiScaledFloatProp_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.UiScaledFloatProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_UiScaledFloatProp_ConditionalOptionsImpl.descriptor = {
+		name = "UiScaledFloatProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.UiScaledFloatProp_ConditionalOptions = _UiScaledFloatProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UiScaledFloatProp_ConditionalOptions)
+end
+
+do
+	local _UiScaledUDimPropImpl = {}
+	_UiScaledUDimPropImpl.__index = _UiScaledUDimPropImpl
+
+	function _UiScaledUDimPropImpl.new(data: _UiScaledUDimPropPartialFields?): UiScaledUDimProp
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _UiScaledUDimPropImpl :: _UiScaledUDimPropImpl)
+	end
+
+	function _UiScaledUDimPropImpl.encode(self: UiScaledUDimProp): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "token" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UiScaledUDimPropImpl.decode(input: buffer): UiScaledUDimProp
+		local self = _UiScaledUDimPropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = buffer.tostring(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "token", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "conditional", value = messages.UiScaledUDimProp_ConditionalOptions.decode(value) }
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UiScaledUDimPropImpl.jsonEncode(self: UiScaledUDimProp): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value
+			elseif self.kind.type == "token" then
+				output.token = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _UiScaledUDimPropImpl.jsonDecode(input: { [string]: any }): UiScaledUDimProp
+		local self = _UiScaledUDimPropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = input.literal }
+		end
+
+		if input.token ~= nil then
+			self.kind = { type = "token", value = input.token }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.UiScaledUDimProp_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_UiScaledUDimPropImpl.descriptor = {
+		name = "UiScaledUDimProp",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UiScaledUDimProp",
+	}
+
+	messages.UiScaledUDimProp = _UiScaledUDimPropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UiScaledUDimProp)
+end
+
+do
+	local _UiScaledUDimProp_ConditionalOptionImpl = {}
+	_UiScaledUDimProp_ConditionalOptionImpl.__index = _UiScaledUDimProp_ConditionalOptionImpl
+
+	function _UiScaledUDimProp_ConditionalOptionImpl.new(
+		data: _UiScaledUDimProp_ConditionalOptionPartialFields?
+	): UiScaledUDimProp_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _UiScaledUDimProp_ConditionalOptionImpl :: _UiScaledUDimProp_ConditionalOptionImpl)
+	end
+
+	function _UiScaledUDimProp_ConditionalOptionImpl.encode(self: UiScaledUDimProp_ConditionalOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "token" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UiScaledUDimProp_ConditionalOptionImpl.decode(input: buffer): UiScaledUDimProp_ConditionalOption
+		local self = _UiScaledUDimProp_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "token", value = buffer.tostring(value) }
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UiScaledUDimProp_ConditionalOptionImpl.jsonEncode(self: UiScaledUDimProp_ConditionalOption): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value
+			elseif self.kind.type == "token" then
+				output.token = self.kind.value
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _UiScaledUDimProp_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): UiScaledUDimProp_ConditionalOption
+		local self = _UiScaledUDimProp_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = input.literal }
+		end
+
+		if input.token ~= nil then
+			self.kind = { type = "token", value = input.token }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_UiScaledUDimProp_ConditionalOptionImpl.descriptor = {
+		name = "UiScaledUDimProp_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.UiScaledUDimProp_ConditionalOption = _UiScaledUDimProp_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UiScaledUDimProp_ConditionalOption)
+end
+
+do
+	local _UiScaledUDimProp_ConditionalOptionsImpl = {}
+	_UiScaledUDimProp_ConditionalOptionsImpl.__index = _UiScaledUDimProp_ConditionalOptionsImpl
+
+	function _UiScaledUDimProp_ConditionalOptionsImpl.new(
+		data: _UiScaledUDimProp_ConditionalOptionsPartialFields?
+	): UiScaledUDimProp_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _UiScaledUDimProp_ConditionalOptionsImpl :: _UiScaledUDimProp_ConditionalOptionsImpl)
+	end
+
+	function _UiScaledUDimProp_ConditionalOptionsImpl.encode(self: UiScaledUDimProp_ConditionalOptions): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UiScaledUDimProp_ConditionalOptionsImpl.decode(input: buffer): UiScaledUDimProp_ConditionalOptions
+		local self = _UiScaledUDimProp_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.UiScaledUDimProp_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UiScaledUDimProp_ConditionalOptionsImpl.jsonEncode(self: UiScaledUDimProp_ConditionalOptions): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _UiScaledUDimProp_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): UiScaledUDimProp_ConditionalOptions
+		local self = _UiScaledUDimProp_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { UiScaledUDimProp_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.UiScaledUDimProp_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_UiScaledUDimProp_ConditionalOptionsImpl.descriptor = {
+		name = "UiScaledUDimProp_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.UiScaledUDimProp_ConditionalOptions = _UiScaledUDimProp_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UiScaledUDimProp_ConditionalOptions)
+end
+
+do
+	local _UiScaledUDim2PropImpl = {}
+	_UiScaledUDim2PropImpl.__index = _UiScaledUDim2PropImpl
+
+	function _UiScaledUDim2PropImpl.new(data: _UiScaledUDim2PropPartialFields?): UiScaledUDim2Prop
+		return setmetatable({
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _UiScaledUDim2PropImpl :: _UiScaledUDim2PropImpl)
+	end
+
+	function _UiScaledUDim2PropImpl.encode(self: UiScaledUDim2Prop): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "token" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "conditional" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UiScaledUDim2PropImpl.decode(input: buffer): UiScaledUDim2Prop
+		local self = _UiScaledUDim2PropImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = buffer.tostring(value) }
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "token", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "conditional", value = messages.UiScaledUDim2Prop_ConditionalOptions.decode(value) }
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UiScaledUDim2PropImpl.jsonEncode(self: UiScaledUDim2Prop): any
+		local output = {}
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value
+			elseif self.kind.type == "token" then
+				output.token = self.kind.value
+			elseif self.kind.type == "conditional" then
+				output.conditional = self.kind.value:jsonEncode()
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _UiScaledUDim2PropImpl.jsonDecode(input: { [string]: any }): UiScaledUDim2Prop
+		local self = _UiScaledUDim2PropImpl.new()
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = input.literal }
+		end
+
+		if input.token ~= nil then
+			self.kind = { type = "token", value = input.token }
+		end
+
+		if input.conditional ~= nil then
+			self.kind = {
+				type = "conditional",
+				value = messages.UiScaledUDim2Prop_ConditionalOptions.jsonDecode(input.conditional),
+			}
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_UiScaledUDim2PropImpl.descriptor = {
+		name = "UiScaledUDim2Prop",
+		fullName = "roblox.apppageplatform.shared.v1beta1.UiScaledUDim2Prop",
+	}
+
+	messages.UiScaledUDim2Prop = _UiScaledUDim2PropImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UiScaledUDim2Prop)
+end
+
+do
+	local _UiScaledUDim2Prop_ConditionalOptionImpl = {}
+	_UiScaledUDim2Prop_ConditionalOptionImpl.__index = _UiScaledUDim2Prop_ConditionalOptionImpl
+
+	function _UiScaledUDim2Prop_ConditionalOptionImpl.new(
+		data: _UiScaledUDim2Prop_ConditionalOptionPartialFields?
+	): UiScaledUDim2Prop_ConditionalOption
+		return setmetatable({
+			condition = if data == nil or data.condition == nil then nil else data.condition,
+			kind = if data == nil or data.kind == nil then nil else data.kind,
+		}, _UiScaledUDim2Prop_ConditionalOptionImpl :: _UiScaledUDim2Prop_ConditionalOptionImpl)
+	end
+
+	function _UiScaledUDim2Prop_ConditionalOptionImpl.encode(self: UiScaledUDim2Prop_ConditionalOption): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.condition ~= nil then
+			local encoded = self.condition:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "token" then
+				output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			elseif self.kind.type == "binding_path" then
+				output, cursor = proto.writeTag(output, cursor, 4, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeString(output, cursor, self.kind.value)
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UiScaledUDim2Prop_ConditionalOptionImpl.decode(input: buffer): UiScaledUDim2Prop_ConditionalOption
+		local self = _UiScaledUDim2Prop_ConditionalOptionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.condition = _roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "literal", value = buffer.tostring(value) }
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "token", value = buffer.tostring(value) }
+					continue
+				elseif field == 4 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "binding_path", value = buffer.tostring(value) }
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UiScaledUDim2Prop_ConditionalOptionImpl.jsonEncode(self: UiScaledUDim2Prop_ConditionalOption): any
+		local output = {}
+
+		if self.condition ~= nil then
+			output.condition = self.condition:jsonEncode()
+		end
+
+		if self.kind ~= nil then
+			if self.kind.type == "literal" then
+				output.literal = self.kind.value
+			elseif self.kind.type == "token" then
+				output.token = self.kind.value
+			elseif self.kind.type == "binding_path" then
+				output.bindingPath = self.kind.value
+			end
+		end
+
+		return output
+	end
+
+	function _UiScaledUDim2Prop_ConditionalOptionImpl.jsonDecode(
+		input: { [string]: any }
+	): UiScaledUDim2Prop_ConditionalOption
+		local self = _UiScaledUDim2Prop_ConditionalOptionImpl.new()
+
+		if input.condition ~= nil then
+			self.condition =
+				_roblox_apppageplatform_shared_v1beta1_prop_condition.PropCondition.jsonDecode(input.condition)
+		end
+
+		if input.literal ~= nil then
+			self.kind = { type = "literal", value = input.literal }
+		end
+
+		if input.token ~= nil then
+			self.kind = { type = "token", value = input.token }
+		end
+
+		if input.binding_path ~= nil then
+			self.kind = { type = "binding_path", value = input.binding_path }
+		end
+
+		if input.bindingPath ~= nil then
+			self.kind = { type = "binding_path", value = input.bindingPath }
+		end
+
+		return self
+	end
+
+	_UiScaledUDim2Prop_ConditionalOptionImpl.descriptor = {
+		name = "UiScaledUDim2Prop_ConditionalOption",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOption",
+	}
+
+	messages.UiScaledUDim2Prop_ConditionalOption = _UiScaledUDim2Prop_ConditionalOptionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UiScaledUDim2Prop_ConditionalOption)
+end
+
+do
+	local _UiScaledUDim2Prop_ConditionalOptionsImpl = {}
+	_UiScaledUDim2Prop_ConditionalOptionsImpl.__index = _UiScaledUDim2Prop_ConditionalOptionsImpl
+
+	function _UiScaledUDim2Prop_ConditionalOptionsImpl.new(
+		data: _UiScaledUDim2Prop_ConditionalOptionsPartialFields?
+	): UiScaledUDim2Prop_ConditionalOptions
+		return setmetatable({
+			options = if data == nil or data.options == nil then {} else data.options,
+		}, _UiScaledUDim2Prop_ConditionalOptionsImpl :: _UiScaledUDim2Prop_ConditionalOptionsImpl)
+	end
+
+	function _UiScaledUDim2Prop_ConditionalOptionsImpl.encode(self: UiScaledUDim2Prop_ConditionalOptions): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.options ~= nil and #self.options > 0 then
+			for _, value in self.options do
+				local encoded = value:encode()
+				output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			end
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _UiScaledUDim2Prop_ConditionalOptionsImpl.decode(input: buffer): UiScaledUDim2Prop_ConditionalOptions
+		local self = _UiScaledUDim2Prop_ConditionalOptionsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					table.insert(self.options, messages.UiScaledUDim2Prop_ConditionalOption.decode(value))
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _UiScaledUDim2Prop_ConditionalOptionsImpl.jsonEncode(self: UiScaledUDim2Prop_ConditionalOptions): any
+		local output = {}
+
+		if self.options ~= nil and #self.options > 0 then
+			local newOutput = {}
+			for _, value in self.options do
+				table.insert(newOutput, value:jsonEncode())
+			end
+			output.options = newOutput
+		end
+
+		return output
+	end
+
+	function _UiScaledUDim2Prop_ConditionalOptionsImpl.jsonDecode(
+		input: { [string]: any }
+	): UiScaledUDim2Prop_ConditionalOptions
+		local self = _UiScaledUDim2Prop_ConditionalOptionsImpl.new()
+
+		if input.options ~= nil then
+			local newOutput: { UiScaledUDim2Prop_ConditionalOption } = {}
+			for _, value in input.options do
+				table.insert(newOutput, messages.UiScaledUDim2Prop_ConditionalOption.jsonDecode(value))
+			end
+
+			self.options = newOutput
+		end
+
+		return self
+	end
+
+	_UiScaledUDim2Prop_ConditionalOptionsImpl.descriptor = {
+		name = "UiScaledUDim2Prop_ConditionalOptions",
+		fullName = "roblox.apppageplatform.shared.v1beta1.ConditionalOptions",
+	}
+
+	messages.UiScaledUDim2Prop_ConditionalOptions = _UiScaledUDim2Prop_ConditionalOptionsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.UiScaledUDim2Prop_ConditionalOptions)
+end
+
 return {
 	StringFormat = messages.StringFormat,
 	StringFormat_FormatArg = messages.StringFormat_FormatArg,
@@ -12340,4 +14037,13 @@ return {
 	ArrayOfStructProp_ConditionalOption = messages.ArrayOfStructProp_ConditionalOption,
 	ArrayOfStructProp_ConditionalOptions = messages.ArrayOfStructProp_ConditionalOptions,
 	ArrayOfStructProp_ArrayOfStructs = messages.ArrayOfStructProp_ArrayOfStructs,
+	UiScaledFloatProp = messages.UiScaledFloatProp,
+	UiScaledFloatProp_ConditionalOption = messages.UiScaledFloatProp_ConditionalOption,
+	UiScaledFloatProp_ConditionalOptions = messages.UiScaledFloatProp_ConditionalOptions,
+	UiScaledUDimProp = messages.UiScaledUDimProp,
+	UiScaledUDimProp_ConditionalOption = messages.UiScaledUDimProp_ConditionalOption,
+	UiScaledUDimProp_ConditionalOptions = messages.UiScaledUDimProp_ConditionalOptions,
+	UiScaledUDim2Prop = messages.UiScaledUDim2Prop,
+	UiScaledUDim2Prop_ConditionalOption = messages.UiScaledUDim2Prop_ConditionalOption,
+	UiScaledUDim2Prop_ConditionalOptions = messages.UiScaledUDim2Prop_ConditionalOptions,
 }

@@ -32,6 +32,7 @@ local useTokens = Foundation.Hooks.useTokens
 
 local FFlagTraversalUseFocusNavLastInput = require(script.Parent.FFlagTraversalUseFocusNavLastInput)
 local FFlagAddTraversalHistoryReactMenuButtons = require(Settings.Flags.FFlagAddTraversalHistoryReactMenuButtons)
+local FFlagTraversalHistoryMenuFocusNavFix = Traversal.Flags.FFlagTraversalHistoryMenuFocusNavFix
 
 export type TraversalHistoryMenuProps = {
 	anchorParent: GuiObject?,
@@ -67,38 +68,64 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 	local tokens = useTokens()
 	local selectedUniverseId, setSelectedUniverseId = React.useState(TraveralConstants.NO_UNIVERSE_ID)
 	local reactPageSignal = SignalsReact.useSignalState(ReactPageSignal)
-	local forceMenuClose, setForceMenuClose = React.useState(false)
-	React.useEffect(function()
-		local connections: { [string]: RBXScriptConnection} = {}
-		connections.onSettingsVisible = SettingsShowSignal:connect(function(isOpen)
-			if not isOpen then
-				setForceMenuClose(true)
-			end
-		end)
-		connections.onPageChanged = if not FFlagAddTraversalHistoryReactMenuButtons or props.currentPageChangeSignal then 
-			props.currentPageChangeSignal:connect(function()
+	local forceMenuClose, setForceMenuClose
+	local closeMenuConn
+	if FFlagTraversalHistoryMenuFocusNavFix then
+		closeMenuConn = React.useCallback(function(closeMenu)
+			local connections: { [string]: RBXScriptConnection} = {}
+			connections.onSettingsVisible = SettingsShowSignal:connect(function(isOpen)
+				if not isOpen then
+					closeMenu()
+				end
+			end)
+			connections.onPageChanged = if not FFlagAddTraversalHistoryReactMenuButtons or props.currentPageChangeSignal then 
+				props.currentPageChangeSignal:connect(function()
+					closeMenu()
+				end)
+			else nil
+			connections.onNativeClose = GuiService.NativeClose:Connect(function()
+				closeMenu()
+			end)
+
+			return connections
+		end, { props.currentPageChangeSignal, SettingsShowSignal, GuiService.NativeClose })
+	else
+		forceMenuClose, setForceMenuClose = React.useState(false)
+		React.useEffect(function()
+			local connections: { [string]: RBXScriptConnection} = {}
+			connections.onSettingsVisible = SettingsShowSignal:connect(function(isOpen)
+				if not isOpen then
+					setForceMenuClose(true)
+				end
+			end)
+			connections.onPageChanged = if not FFlagAddTraversalHistoryReactMenuButtons or props.currentPageChangeSignal then 
+				props.currentPageChangeSignal:connect(function()
+					setForceMenuClose(true)
+				end)
+			else nil
+			connections.onNativeClose = GuiService.NativeClose:Connect(function()
 				setForceMenuClose(true)
 			end)
-		else nil
-		connections.onNativeClose = GuiService.NativeClose:Connect(function()
-			setForceMenuClose(true)
-		end)
-		return function()
-			for _, connection in connections do
-				connection:Disconnect()
+			return function()
+				for _, connection in connections do
+					connection:Disconnect()
+				end
+				connections = {}
 			end
-			connections = {}
-		end
-	end, { props.currentPageChangeSignal, SettingsShowSignal, GuiService.NativeClose })
-	React.useEffect(function()
-		-- reset the force close variable
-		if forceMenuClose then
-			setForceMenuClose(false)
-		end
-	end, { forceMenuClose, setForceMenuClose } :: { unknown })
+		end, { props.currentPageChangeSignal, SettingsShowSignal, GuiService.NativeClose })
+		React.useEffect(function()
+			-- reset the force close variable
+			if forceMenuClose then
+				setForceMenuClose(false)
+			end
+		end, { forceMenuClose, setForceMenuClose } :: { unknown })
+	end
 
 	local openDialog = React.useCallback(function(universeId: number)
 		setSelectedUniverseId(universeId)
+		if FFlagTraversalUseFocusNavLastInput then
+			setSelectionBehaviorToMenu(Enum.SelectionBehavior.Stop)
+		end
 	end, { setSelectedUniverseId })
 
 	local closeDialog = React.useCallback(function()
@@ -154,10 +181,14 @@ local function TraversalHistoryMenu(props: TraversalHistoryMenuProps, ref: React
 			historyItems = items,
 			onHistorySelected = function()
 				reactPageSignal.setCurrentReactPage(EnumReactPage.TraversalHistory)
+				if FFlagTraversalHistoryMenuFocusNavFix then
+					setSelectionBehaviorToMenu(Enum.SelectionBehavior.Stop)
+				end
 			end,
 			onMenuItemSelected = openDialog,
 			onMenuToggled = onMenuToggled,
-			forceMenuClose = forceMenuClose,
+			forceMenuClose = if FFlagTraversalHistoryMenuFocusNavFix then nil else forceMenuClose,
+			closeMenuConn = if FFlagTraversalHistoryMenuFocusNavFix then closeMenuConn else nil,
 			idleButtonStateIsDown = idleButtonStateIsDown,
 
 			ref = anchorRef,

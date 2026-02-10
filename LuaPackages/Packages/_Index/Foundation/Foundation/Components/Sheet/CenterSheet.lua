@@ -208,18 +208,11 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 						selection = SheetTypes.nonSelectable,
 						selectionGroup = SheetTypes.isolatedSelectionGroup,
 						tag = if Flags.FoundationAddHeightPropToCenterSheet
-							then if Flags.FoundationSheetCenterSheetNoShrink
-								then {
-									["bg-surface-100 stroke-default stroke-standard radius-large"] = true,
-									["size-full-0 auto-y"] = props.centerSheetHeight == nil,
-								}
-								else {
-									["bg-surface-100 stroke-default stroke-standard radius-large"] = true,
-									["size-full-0 shrink auto-y"] = props.centerSheetHeight == nil,
-								}
-							else if Flags.FoundationSheetCenterSheetNoShrink
-								then "bg-surface-100 stroke-default stroke-standard radius-large size-full-0 auto-y"
-								else "bg-surface-100 stroke-default stroke-standard radius-large size-full-0 shrink auto-y",
+							then {
+								["bg-surface-100 stroke-default stroke-standard radius-large"] = true,
+								["size-full-0 auto-y"] = props.centerSheetHeight == nil,
+							}
+							else "bg-surface-100 stroke-default stroke-standard radius-large size-full-0 auto-y",
 						testId = props.testId,
 					}, {
 						Content = React.createElement(
@@ -232,9 +225,7 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 										return if value then UDim2.new(1, 0, 0, value) else nil
 									end)
 									else nil,
-								tag = if Flags.FoundationSheetCenterSheetNoShrink
-									then "size-full-0 auto-y col items-center clip"
-									else "size-full-0 auto-y shrink col items-center clip",
+								tag = "size-full-0 auto-y col items-center clip",
 							},
 							React.createElement(SheetContext.Provider, {
 								value = contextValue,

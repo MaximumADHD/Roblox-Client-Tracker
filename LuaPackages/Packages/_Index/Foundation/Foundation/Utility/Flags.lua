@@ -24,6 +24,9 @@ local SafeFlags = require(Packages.SafeFlags)
 	(you will be bugged by us to clean up your flag if you forget 👁️)
 ]]
 
+local FoundationInputFieldTokenBasedWidth = SafeFlags.createGetFFlag("FoundationInputFieldTokenBasedWidth")()
+local FoundationFixPopoverShadowSizing = SafeFlags.createGetFFlag("FoundationFixPopoverShadowSizing")()
+
 return {
 	-- Foundation@1.33.0
 	FoundationDisableStylingPolyfill = SafeFlags.createGetFFlag("FoundationDisableStylingPolyfill")(),
@@ -39,20 +42,13 @@ return {
 	FoundationStatusIndicatorVariantExperiment = SafeFlags.createGetFFlag("FoundationStatusIndicatorVariantExperiment")(),
 
 	-- Foundation@1.58.0
-	FoundationPopoverNegateAlignOffsetOnFlip = SafeFlags.createGetFFlag("FoundationPopoverNegateAlignOffsetOnFlip")(),
 	FoundationPopoverOverflow = SafeFlags.createGetFFlag("FoundationPopoverOverflow")(),
 
 	-- Foundation@1.60.0
 	FoundationToggleVisualUpdate = SafeFlags.createGetFFlag("FoundationToggleVisualUpdate")(),
 
-	-- Foundation@1.61.0
-	FoundationSheetCenterSheetNoShrink = SafeFlags.createGetFFlag("FoundationSheetCenterSheetNoShrink")(),
-
 	-- Foundation@1.62.0
-	FoundationDialogOversizedBackdrop = SafeFlags.createGetFFlag("FoundationDialogOversizedBackdrop")(),
-	FoundationIconButtonNoListLayout = SafeFlags.createGetFFlag("FoundationIconButtonNoListLayout")(),
 	FoundationOverlayLuaAppInsetsFix = SafeFlags.createGetFFlag("FoundationOverlayLuaAppInsetsFix2")(),
-	FoundationPopoverOversizedBackdrop = SafeFlags.createGetFFlag("FoundationPopoverOversizedBackdrop")(),
 	FoundationSheetBottomSheetAutoSize = SafeFlags.createGetFFlag("FoundationSheetBottomSheetAutoSize")(),
 
 	-- Foundation@1.63.2
@@ -60,7 +56,6 @@ return {
 	FoundationFixOptionSelectorGroupItemSize = SafeFlags.createGetFFlag("FoundationFixOptionSelectorGroupItemSize")(),
 
 	-- Foundation@1.64.0
-	FoundationInternalTextInputScrolling = SafeFlags.createGetFFlag("FoundationInternalTextInputScrolling")(),
 	FoundationOverlayMountReorder = SafeFlags.createGetFFlag("FoundationOverlayMountReorder")(),
 	FoundationPopoverFixArrowPositioning = SafeFlags.createGetFFlag("FoundationPopoverFixArrowPositioning")(),
 	FoundationSheetFixLandscapeFlicker = SafeFlags.createGetFFlag("FoundationSheetFixLandscapeFlicker")(),
@@ -78,11 +73,9 @@ return {
 	FoundationTabsDisableScrollSelection = SafeFlags.createGetFFlag("FoundationTabsDisableScrollSelection")(),
 
 	-- Foundation@1.67.0
-	FoundationAnimateSegmentedControl = SafeFlags.createGetFFlag("FoundationAnimateSegmentedControl")(),
 	FoundationButtonLoadingHideTextWithIcon = SafeFlags.createGetFFlag("FoundationButtonLoadingHideTextWithIcon")(),
 	FoundationDateTimePickerDefaultInputText = SafeFlags.createGetFFlag("FoundationDateTimePickerDefaultInputText")(),
 	FoundationDateTimePickerDualBugFix = SafeFlags.createGetFFlag("FoundationDateTimePickerDualBugFix")(),
-	FoundationRemoveDividerSegmentedControl = SafeFlags.createGetFFlag("FoundationRemoveDividerSegmentedControl")(),
 
 	-- Foundation@1.67.1
 	FoundationCheckboxIndeterminate = SafeFlags.createGetFFlag("FoundationCheckboxIndeterminate2")(),
@@ -93,7 +86,6 @@ return {
 	FoundationDialogContentSelectable = SafeFlags.createGetFFlag("FoundationDialogContentSelectable")(),
 	FoundationDontCreateUIDDForNumberInput = SafeFlags.createGetFFlag("FoundationDontCreateUIDDForNumberInput")(),
 	FoundationFixOptionSelectorThickness = SafeFlags.createGetFFlag("FoundationFixOptionSelectorThickness")(),
-	FoundationFixPopoverShadowSizing = SafeFlags.createGetFFlag("FoundationFixPopoverShadowSizing")(),
 	FoundationImageFixAspectRatioMemo = SafeFlags.createGetFFlag("FoundationImageFixAspectRatioMemo")(),
 	FoundationUIStrokeInner = SafeFlags.createGetFFlag("FoundationUIStrokeInner2")(),
 
@@ -103,4 +95,18 @@ return {
 	FoundationSheetActionsSinkInput = SafeFlags.createGetFFlag("FoundationSheetActionsSinkInput")(),
 	FoundationSheetFixClosingSwipe = SafeFlags.createGetFFlag("FoundationSheetFixClosingSwipe")(),
 	FoundationSheetHeaderSmallerPadding = SafeFlags.createGetFFlag("FoundationSheetHeaderSmallerPadding")(),
+
+	-- Foundation@1.67.4
+	FoundationFixAspectRatioBindingHandling = SafeFlags.createGetFFlag("FoundationFixAspectRatioBindingHandling")(),
+	FoundationLoadingWrapInView = SafeFlags.createGetFFlag("FoundationLoadingWrapInView")(),
+
+	-- Foundation@1.68.0
+	FoundationAddUtilityVariantToChip = SafeFlags.createGetFFlag("FoundationAddUtilityVariantToChip")(),
+	FoundationBaseMenuDelayVisible = SafeFlags.createGetFFlag("FoundationBaseMenuDelayVisible")(),
+	FoundationFixPopoverShadowSizing = FoundationFixPopoverShadowSizing,
+	FoundationIconButtonFillBehavior = SafeFlags.createGetFFlag("FoundationIconButtonFillBehavior")(),
+	FoundationInputFieldTokenBasedWidth = FoundationInputFieldTokenBasedWidth,
+	FoundationPopoverConditionalRender = SafeFlags.createGetFFlag("FoundationPopoverConditionalRender")()
+		and FoundationFixPopoverShadowSizing,
+	FoundationTruncateBadgeText = SafeFlags.createGetFFlag("FoundationTruncateBadgeText")(),
 }

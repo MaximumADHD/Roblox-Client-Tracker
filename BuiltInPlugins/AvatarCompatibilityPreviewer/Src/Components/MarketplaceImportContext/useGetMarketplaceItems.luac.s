@@ -1,0 +1,158 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["initializeItemStatus"]
+  MOVE R2 R0
+  CALL R1 1 2
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["getBatchItemDetailsAsync"]
+  MOVE R4 R0
+  GETIMPORT R5 K5 [Enum.AvatarItemType.Bundle]
+  CALL R3 2 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["processBundleData"]
+  MOVE R5 R3
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R4 3 1
+  GETTABLEKS R5 R4 K7 ["assetToBundle"]
+  GETTABLEKS R6 R4 K8 ["bundleRows"]
+  GETTABLEKS R2 R4 K9 ["assetFetchSet"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K10 ["buildAssetFetchList"]
+  MOVE R8 R2
+  CALL R7 1 1
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K1 ["getBatchItemDetailsAsync"]
+  MOVE R9 R7
+  GETIMPORT R10 K12 [Enum.AvatarItemType.Asset]
+  CALL R8 2 1
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K13 ["processAssetData"]
+  MOVE R10 R8
+  MOVE R11 R5
+  MOVE R12 R1
+  CALL R9 3 1
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K14 ["findLostIds"]
+  MOVE R11 R1
+  CALL R10 1 1
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K15 ["buildItemRows"]
+  MOVE R12 R0
+  MOVE R13 R1
+  MOVE R14 R6
+  GETTABLEKS R15 R9 K16 ["assetRows"]
+  CALL R11 4 1
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K17 ["buildErrorData"]
+  GETTABLEKS R13 R9 K18 ["individualShoesFound"]
+  GETTABLEKS R14 R9 K19 ["invalidAssetTypes"]
+  MOVE R15 R10
+  CALL R12 3 1
+  NEWTABLE R13 0 0
+  GETTABLEKS R14 R12 K18 ["individualShoesFound"]
+  JUMPIFNOT R14 [+13]
+  GETUPVAL R14 2
+  LOADK R16 K20 ["MarketplaceImport"]
+  LOADK R17 K21 ["IndividualShoesError"]
+  NAMECALL R14 R14 K22 ["getText"]
+  CALL R14 3 1
+  FASTCALL2 TABLE_INSERT R13 R14 [+5]
+  MOVE R16 R13
+  MOVE R17 R14
+  GETIMPORT R15 K25 [table.insert]
+  CALL R15 2 0
+  GETTABLEKS R14 R12 K26 ["invalidAssetTypesString"]
+  JUMPIFNOT R14 [+18]
+  GETUPVAL R14 2
+  LOADK R16 K20 ["MarketplaceImport"]
+  LOADK R17 K27 ["AssetTypeError"]
+  DUPTABLE R18 K28 [{"invalidAssetTypes"}]
+  GETTABLEKS R19 R12 K26 ["invalidAssetTypesString"]
+  SETTABLEKS R19 R18 K19 ["invalidAssetTypes"]
+  NAMECALL R14 R14 K22 ["getText"]
+  CALL R14 4 1
+  FASTCALL2 TABLE_INSERT R13 R14 [+5]
+  MOVE R16 R13
+  MOVE R17 R14
+  GETIMPORT R15 K25 [table.insert]
+  CALL R15 2 0
+  GETTABLEKS R14 R12 K29 ["lostIdsString"]
+  JUMPIFNOT R14 [+18]
+  GETUPVAL R14 2
+  LOADK R16 K20 ["MarketplaceImport"]
+  LOADK R17 K30 ["NothingFoundError"]
+  DUPTABLE R18 K32 [{"lostIds"}]
+  GETTABLEKS R19 R12 K29 ["lostIdsString"]
+  SETTABLEKS R19 R18 K31 ["lostIds"]
+  NAMECALL R14 R14 K22 ["getText"]
+  CALL R14 4 1
+  FASTCALL2 TABLE_INSERT R13 R14 [+5]
+  MOVE R16 R13
+  MOVE R17 R14
+  GETIMPORT R15 K25 [table.insert]
+  CALL R15 2 0
+  DUPTABLE R14 K36 [{"itemRows", "errors", "marketplaceItems"}]
+  SETTABLEKS R11 R14 K33 ["itemRows"]
+  SETTABLEKS R13 R14 K34 ["errors"]
+  GETTABLEKS R15 R9 K35 ["marketplaceItems"]
+  SETTABLEKS R15 R14 K35 ["marketplaceItems"]
+  RETURN R14 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["use"]
+  CALL R0 1 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["useContext"]
+  GETUPVAL R2 2
+  CALL R1 1 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["useCallback"]
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  NEWTABLE R4 0 2
+  MOVE R5 R0
+  GETTABLEKS R6 R1 K3 ["getBatchItemDetailsAsync"]
+  SETLIST R4 R5 2 [1]
+  CALL R2 2 1
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Src"]
+  GETTABLEKS R4 R5 K9 ["Util"]
+  GETTABLEKS R3 R4 K10 ["MarketplaceCatalogUtils"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Components"]
+  GETTABLEKS R4 R5 K12 ["AvatarEditorServiceContext"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R6 R4 K14 ["ContextServices"]
+  GETTABLEKS R5 R6 K15 ["Localization"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K8 ["Src"]
+  GETTABLEKS R7 R8 K16 ["Types"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K17 [PROTO_1]
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  RETURN R7 1

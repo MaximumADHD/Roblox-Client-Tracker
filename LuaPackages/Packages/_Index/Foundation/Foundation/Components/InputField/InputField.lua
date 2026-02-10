@@ -11,8 +11,12 @@ local View = require(Components.View)
 type InternalTextInputRef = Types.InternalTextInputRef
 type TextInputRef = Types.TextInputRef
 
+local Flags = require(Foundation.Utility.Flags)
+local useScaledValue = require(Foundation.Utility.useScaledValue)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
 local withDefaults = require(Foundation.Utility.withDefaults)
+
+local Constants = require(Foundation.Constants)
 
 local InputLabelSize = require(Foundation.Enums.InputLabelSize)
 type InputLabelSize = InputLabelSize.InputLabelSize
@@ -35,13 +39,27 @@ type InputFieldProps = {
 } & Types.CommonProps
 
 local defaultProps = {
-	width = UDim.new(0, 400),
+	width = if Flags.FoundationInputFieldTokenBasedWidth then nil else UDim.new(0, 400),
 	size = InputLabelSize.Small,
 	testId = "--foundation-input-field",
 }
 
 local function InputField(inputFieldProps: InputFieldProps, ref: React.Ref<GuiObject>?)
+	-- TODO: Delete with FFlagFoundationInputFieldTokenBasedWidth cleanup
+	-- We're required to set this here because defaultProps is only set on module-require, causes issues in Storybook
+	if Flags.FoundationInputFieldTokenBasedWidth then
+		defaultProps.width = nil
+	else
+		defaultProps.width = UDim.new(0, 400)
+	end
+
 	local props = withDefaults(inputFieldProps, defaultProps)
+	local defaultWidth
+	if Flags.FoundationInputFieldTokenBasedWidth then
+		defaultWidth = useScaledValue(Constants.DEFAULT_INPUT_FIELD_WIDTH_PIXELS)
+	else
+		defaultWidth = 400
+	end
 	local textBoxRef = React.useRef(nil :: InternalTextInputRef?)
 
 	local focusTextBox = React.useCallback(function()
@@ -75,7 +93,9 @@ local function InputField(inputFieldProps: InputFieldProps, ref: React.Ref<GuiOb
 	return React.createElement(
 		View,
 		withCommonProps(props, {
-			Size = UDim2.new(props.width, UDim.new(0, 0)),
+			Size = if Flags.FoundationInputFieldTokenBasedWidth and not props.width
+				then UDim2.fromOffset(defaultWidth, 0)
+				else UDim2.new(props.width :: UDim, UDim.new(0, 0)),
 			tag = "col gap-small auto-y",
 			ref = ref,
 		}),

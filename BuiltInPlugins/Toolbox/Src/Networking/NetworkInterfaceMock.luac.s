@@ -564,9 +564,9 @@ PROTO_27:
 
 PROTO_28:
   DUPTABLE R1 K1 [{"responseBody"}]
-  DUPTABLE R2 K3 [{"data"}]
+  DUPTABLE R2 K3 [{"groups"}]
   NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K2 ["data"]
+  SETTABLEKS R3 R2 K2 ["groups"]
   SETTABLEKS R2 R1 K0 ["responseBody"]
   GETUPVAL R3 0
   GETTABLEKS R2 R3 K4 ["resolve"]

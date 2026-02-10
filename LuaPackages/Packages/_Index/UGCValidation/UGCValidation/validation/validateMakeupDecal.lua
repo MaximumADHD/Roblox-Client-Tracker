@@ -14,6 +14,8 @@ local FailureReasonsAccumulator = require(root.util.FailureReasonsAccumulator)
 local getEditableImageFromContext = require(root.util.getEditableImageFromContext)
 local ParseContentIds = require(root.util.ParseContentIds)
 
+local validateMakeupDecalUVZones = require(root.validation.validateMakeupDecalUVZones)
+
 local getFFlagUGCValidateDecalTextureLimits = require(root.flags.getFFlagUGCValidateDecalTextureLimits)
 
 local validateTextureSize = require(root.validation.validateTextureSize)
@@ -21,6 +23,7 @@ local validateTextureSize = require(root.validation.validateTextureSize)
 local function validateMakeupDecal(instance: Decal, validationContext: Types.ValidationContext): (boolean, { string }?)
 	local startTime = tick()
 
+	local assetTypeEnum = validationContext.assetTypeEnum :: Enum.AssetType
 	local wrapTextureTransfer = instance:FindFirstChildOfClass("WrapTextureTransfer")
 	assert(wrapTextureTransfer ~= nil, string.format("WrapTextureTransfer child not found for %s", instance.Name))
 
@@ -55,12 +58,8 @@ local function validateMakeupDecal(instance: Decal, validationContext: Types.Val
 		end
 
 		local textureSizeLimit = nil
-		if getFFlagUGCValidateDecalTextureLimits() and validationContext.assetTypeEnum then
-			textureSizeLimit = ConstantsInterface.getTextureLimit(
-				validationContext.assetTypeEnum :: Enum.AssetType,
-				data.instance,
-				data.fieldName
-			)
+		if getFFlagUGCValidateDecalTextureLimits() and assetTypeEnum then
+			textureSizeLimit = ConstantsInterface.getTextureLimit(assetTypeEnum, data.instance, data.fieldName)
 		end
 
 		reasonsAccumulator:updateReasons(validateTextureSize(textureInfo, nil, validationContext, textureSizeLimit))
@@ -76,6 +75,16 @@ local function validateMakeupDecal(instance: Decal, validationContext: Types.Val
 				),
 			}
 	end
+
+	reasonsAccumulator:updateReasons(
+		validateMakeupDecalUVZones(
+			instance,
+			colorMapEditableImage :: EditableImage,
+			wrapTextureTransfer :: WrapTextureTransfer,
+			Constants.MAKEUP_INFO.AssetUVBounds[assetTypeEnum],
+			validationContext
+		)
+	)
 
 	Analytics.recordScriptTime(script.Name, startTime, validationContext)
 	return reasonsAccumulator:getFinalResults()

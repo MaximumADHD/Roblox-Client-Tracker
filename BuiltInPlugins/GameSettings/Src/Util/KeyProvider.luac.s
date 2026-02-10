@@ -59,66 +59,70 @@ PROTO_14:
   RETURN R0 1
 
 PROTO_15:
-  LOADK R0 K0 ["Approved"]
+  LOADK R0 K0 ["ChatGroupApiEnabled"]
   RETURN R0 1
 
 PROTO_16:
-  LOADK R0 K0 ["InReview"]
+  LOADK R0 K0 ["Approved"]
   RETURN R0 1
 
 PROTO_17:
-  LOADK R0 K0 ["Rejected"]
+  LOADK R0 K0 ["InReview"]
   RETURN R0 1
 
 PROTO_18:
-  LOADK R0 K0 ["PlayerAcceptance"]
+  LOADK R0 K0 ["Rejected"]
   RETURN R0 1
 
 PROTO_19:
-  LOADK R0 K0 ["GameSettings"]
+  LOADK R0 K0 ["PlayerAcceptance"]
   RETURN R0 1
 
 PROTO_20:
-  LOADK R0 K0 ["plugin"]
+  LOADK R0 K0 ["GameSettings"]
   RETURN R0 1
 
 PROTO_21:
-  LOADK R0 K0 ["context"]
+  LOADK R0 K0 ["plugin"]
   RETURN R0 1
 
 PROTO_22:
-  LOADK R0 K0 ["LuobuStudioDevPublish"]
+  LOADK R0 K0 ["context"]
   RETURN R0 1
 
 PROTO_23:
-  LOADK R0 K0 ["TermsOfUseDialog"]
+  LOADK R0 K0 ["LuobuStudioDevPublish"]
   RETURN R0 1
 
 PROTO_24:
-  LOADK R0 K0 ["CheckboxToggle"]
+  LOADK R0 K0 ["TermsOfUseDialog"]
   RETURN R0 1
 
 PROTO_25:
-  LOADK R0 K0 ["buttonClicked"]
+  LOADK R0 K0 ["CheckboxToggle"]
   RETURN R0 1
 
 PROTO_26:
-  LOADK R0 K0 ["Footer"]
+  LOADK R0 K0 ["buttonClicked"]
   RETURN R0 1
 
 PROTO_27:
-  LOADK R0 K0 ["ScriptCollaborationEnabledOnServer"]
+  LOADK R0 K0 ["Footer"]
   RETURN R0 1
 
 PROTO_28:
-  LOADK R0 K0 ["TeamCreateEnabled"]
+  LOADK R0 K0 ["ScriptCollaborationEnabledOnServer"]
   RETURN R0 1
 
 PROTO_29:
-  LOADK R0 K0 ["AudioApiByDefault"]
+  LOADK R0 K0 ["TeamCreateEnabled"]
   RETURN R0 1
 
 PROTO_30:
+  LOADK R0 K0 ["AudioApiByDefault"]
+  RETURN R0 1
+
+PROTO_31:
   LOADK R0 K0 ["Delete"]
   RETURN R0 1
 
@@ -156,35 +160,37 @@ MAIN:
   DUPCLOSURE R1 K28 [PROTO_14]
   SETTABLEKS R1 R0 K29 ["getAvatarChatVideoEnabledKeyName"]
   DUPCLOSURE R1 K30 [PROTO_15]
-  SETTABLEKS R1 R0 K31 ["getApprovedKeyName"]
+  SETTABLEKS R1 R0 K31 ["getChatGroupApiEnabledKeyName"]
   DUPCLOSURE R1 K32 [PROTO_16]
-  SETTABLEKS R1 R0 K33 ["getInReviewKeyName"]
+  SETTABLEKS R1 R0 K33 ["getApprovedKeyName"]
   DUPCLOSURE R1 K34 [PROTO_17]
-  SETTABLEKS R1 R0 K35 ["getRejectedKeyName"]
+  SETTABLEKS R1 R0 K35 ["getInReviewKeyName"]
   DUPCLOSURE R1 K36 [PROTO_18]
-  SETTABLEKS R1 R0 K37 ["getPlayerAcceptanceKeyName"]
+  SETTABLEKS R1 R0 K37 ["getRejectedKeyName"]
   DUPCLOSURE R1 K38 [PROTO_19]
-  SETTABLEKS R1 R0 K39 ["getGameSettingsKeyName"]
+  SETTABLEKS R1 R0 K39 ["getPlayerAcceptanceKeyName"]
   DUPCLOSURE R1 K40 [PROTO_20]
-  SETTABLEKS R1 R0 K41 ["getPluginKeyName"]
+  SETTABLEKS R1 R0 K41 ["getGameSettingsKeyName"]
   DUPCLOSURE R1 K42 [PROTO_21]
-  SETTABLEKS R1 R0 K43 ["getContextKeyName"]
+  SETTABLEKS R1 R0 K43 ["getPluginKeyName"]
   DUPCLOSURE R1 K44 [PROTO_22]
-  SETTABLEKS R1 R0 K45 ["getLuobuStudioDevPublishKeyName"]
+  SETTABLEKS R1 R0 K45 ["getContextKeyName"]
   DUPCLOSURE R1 K46 [PROTO_23]
-  SETTABLEKS R1 R0 K47 ["getTermsOfUseDialogKeyName"]
+  SETTABLEKS R1 R0 K47 ["getLuobuStudioDevPublishKeyName"]
   DUPCLOSURE R1 K48 [PROTO_24]
-  SETTABLEKS R1 R0 K49 ["getCheckboxToggleKeyName"]
+  SETTABLEKS R1 R0 K49 ["getTermsOfUseDialogKeyName"]
   DUPCLOSURE R1 K50 [PROTO_25]
-  SETTABLEKS R1 R0 K51 ["getButtonClickedKeyName"]
+  SETTABLEKS R1 R0 K51 ["getCheckboxToggleKeyName"]
   DUPCLOSURE R1 K52 [PROTO_26]
-  SETTABLEKS R1 R0 K53 ["getFooterKeyName"]
+  SETTABLEKS R1 R0 K53 ["getButtonClickedKeyName"]
   DUPCLOSURE R1 K54 [PROTO_27]
-  SETTABLEKS R1 R0 K55 ["getScriptCollaborationEnabledOnServerKeyName"]
+  SETTABLEKS R1 R0 K55 ["getFooterKeyName"]
   DUPCLOSURE R1 K56 [PROTO_28]
-  SETTABLEKS R1 R0 K57 ["getTeamCreateEnabledKeyName"]
+  SETTABLEKS R1 R0 K57 ["getScriptCollaborationEnabledOnServerKeyName"]
   DUPCLOSURE R1 K58 [PROTO_29]
-  SETTABLEKS R1 R0 K59 ["getAudioApiByDefaultKeyName"]
+  SETTABLEKS R1 R0 K59 ["getTeamCreateEnabledKeyName"]
   DUPCLOSURE R1 K60 [PROTO_30]
-  SETTABLEKS R1 R0 K61 ["getDeleteKeyName"]
+  SETTABLEKS R1 R0 K61 ["getAudioApiByDefaultKeyName"]
+  DUPCLOSURE R1 K62 [PROTO_31]
+  SETTABLEKS R1 R0 K63 ["getDeleteKeyName"]
   RETURN R0 1

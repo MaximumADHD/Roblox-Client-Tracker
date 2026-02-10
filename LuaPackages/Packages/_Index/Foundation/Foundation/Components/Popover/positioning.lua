@@ -170,8 +170,7 @@ if Flags.FoundationPopoverOverflow then
 		elseif align == PopoverAlign.Center then
 			pos[crossAxis] = crossAxisAnchorStart + anchorSize / 2 - crossAxisContentSize / 2 + alignOffset
 		else -- End
-			pos[crossAxis] = crossAxisAnchorEnd
-				+ if Flags.FoundationPopoverNegateAlignOffsetOnFlip then -alignOffset else alignOffset
+			pos[crossAxis] = crossAxisAnchorEnd + -alignOffset
 			anchorPoint[crossAxis] = 1
 		end
 

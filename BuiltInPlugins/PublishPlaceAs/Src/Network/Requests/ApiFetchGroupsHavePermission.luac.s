@@ -3,31 +3,27 @@ PROTO_0:
   MOVE R3 R0
   NAMECALL R1 R1 K0 ["JSONDecode"]
   CALL R1 2 1
-  GETUPVAL R3 1
-  JUMPIFNOT R3 [+3]
   GETTABLEKS R2 R1 K1 ["groups"]
-  JUMP [+2]
-  GETTABLEKS R2 R1 K2 ["data"]
-  DUPTABLE R3 K3 [{"groups"}]
+  DUPTABLE R3 K2 [{"groups"}]
   NEWTABLE R4 0 0
   SETTABLEKS R4 R3 K1 ["groups"]
-  GETIMPORT R4 K5 [pairs]
+  GETIMPORT R4 K4 [pairs]
   MOVE R5 R2
   CALL R4 1 3
   FORGPREP_NEXT R4
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K6 ["fromJsonData"]
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K5 ["fromJsonData"]
   MOVE R10 R8
   CALL R9 1 2
   JUMPIFNOT R9 [+9]
   GETTABLEKS R12 R3 K1 ["groups"]
   FASTCALL2 TABLE_INSERT R12 R10 [+4]
   MOVE R13 R10
-  GETIMPORT R11 K9 [table.insert]
+  GETIMPORT R11 K8 [table.insert]
   CALL R11 2 0
   JUMP [+6]
-  GETIMPORT R11 K11 [error]
-  LOADK R13 K12 ["Parsing error for ApiFetchGroupsCanManage: "]
+  GETIMPORT R11 K10 [error]
+  LOADK R13 K11 ["Parsing error for ApiFetchGroupsCanManage: "]
   MOVE R14 R10
   CONCAT R12 R13 R14
   CALL R11 1 0
@@ -46,42 +42,26 @@ PROTO_1:
   LOADK R2 K2 ["StudioPublishExistingPlace"]
   JUMP [+1]
   LOADK R2 K3 ["StudioSaveExistingPlace"]
-  LOADNIL R3
-  GETUPVAL R4 0
-  JUMPIFNOT R4 [+19]
-  DUPTABLE R4 K7 [{"Url", "Method", "Params"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K8 ["BuildRobloxUrl"]
-  LOADK R6 K9 ["apis"]
-  LOADK R7 K10 ["creator-home-api/v1/groups"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K4 ["Url"]
-  LOADK R5 K11 ["GET"]
-  SETTABLEKS R5 R4 K5 ["Method"]
-  DUPTABLE R5 K13 [{"surface"}]
-  SETTABLEKS R2 R5 K12 ["surface"]
-  SETTABLEKS R5 R4 K6 ["Params"]
-  MOVE R3 R4
-  JUMP [+13]
-  DUPTABLE R4 K14 [{"Url", "Method"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K8 ["BuildRobloxUrl"]
-  LOADK R6 K15 ["develop"]
-  LOADK R7 K16 ["v1/user/groups/canmanage"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K4 ["Url"]
-  LOADK R5 K11 ["GET"]
-  SETTABLEKS R5 R4 K5 ["Method"]
-  MOVE R3 R4
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K17 ["Request"]
+  DUPTABLE R3 K7 [{"Url", "Method", "Params"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K8 ["BuildRobloxUrl"]
+  LOADK R5 K9 ["apis"]
+  LOADK R6 K10 ["creator-home-api/v1/groups"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K4 ["Url"]
+  LOADK R4 K11 ["GET"]
+  SETTABLEKS R4 R3 K5 ["Method"]
+  DUPTABLE R4 K13 [{"surface"}]
+  SETTABLEKS R2 R4 K12 ["surface"]
+  SETTABLEKS R4 R3 K6 ["Params"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K14 ["Request"]
   MOVE R5 R3
   CALL R4 1 1
-  DUPCLOSURE R6 K18 [PROTO_0]
+  DUPCLOSURE R6 K15 [PROTO_0]
+  CAPTURE UPVAL U1
   CAPTURE UPVAL U2
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U3
-  NAMECALL R4 R4 K19 ["andThen"]
+  NAMECALL R4 R4 K16 ["andThen"]
   CALL R4 2 -1
   RETURN R4 -1
 
@@ -107,16 +87,8 @@ MAIN:
   GETTABLEKS R5 R6 K12 ["Models"]
   GETTABLEKS R4 R5 K13 ["Group"]
   CALL R3 1 1
-  GETIMPORT R4 K8 [require]
-  GETTABLEKS R7 R1 K9 ["Src"]
-  GETTABLEKS R6 R7 K14 ["Flags"]
-  GETTABLEKS R5 R6 K15 ["getFFlagEnableReverseDelegation"]
-  CALL R4 1 1
-  MOVE R5 R4
-  CALL R5 0 1
-  DUPCLOSURE R6 K16 [PROTO_1]
-  CAPTURE VAL R5
+  DUPCLOSURE R4 K14 [PROTO_1]
   CAPTURE VAL R2
   CAPTURE VAL R0
   CAPTURE VAL R3
-  RETURN R6 1
+  RETURN R4 1

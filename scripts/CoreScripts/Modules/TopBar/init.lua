@@ -8,8 +8,6 @@ local LocalizationService = game:GetService("LocalizationService")
 
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
-local FFlagAddGuiInsetToDisplayStore = SharedFlags.FFlagAddGuiInsetToDisplayStore
-local FFlagFixChromeConsoleNilRefs = SharedFlags.FFlagFixChromeConsoleNilRefs
 
 local FFlagAddTopBarScrim = require(script.Flags.FFlagAddTopBarScrim)
 
@@ -24,7 +22,6 @@ local Roact = require(CorePackages.Packages.Roact)
 local Rodux = require(CorePackages.Packages.Rodux)
 local RoactRodux = require(CorePackages.Packages.RoactRodux)
 local UIBlox = require(CorePackages.Packages.UIBlox)
-local Signals = require(CorePackages.Packages.Signals)
 
 local StyleConstants = UIBlox.App.Style.Constants
 local Display = require(CorePackages.Workspace.Packages.Display)
@@ -38,7 +35,7 @@ local isNewInGameMenuEnabled = require(RobloxGui.Modules.isNewInGameMenuEnabled)
 local ChromeEnabled = require(RobloxGui.Modules.Chrome.Enabled)()
 local ChromeService
 local TopBarScrim
-if FFlagFixChromeConsoleNilRefs and ChromeEnabled then
+if ChromeEnabled then
 	ChromeService = require(RobloxGui.Modules.Chrome.Service)
 	TopBarScrim = require(script.Components.TopBarScrim)
 end
@@ -67,31 +64,19 @@ if ChromeEnabled then
 			guiInsetBottomRight.X,
 			guiInsetBottomRight.Y
 		)
-		if FFlagAddGuiInsetToDisplayStore then
-			Display.GetDisplayStore().setGuiInset({
-				left = guiInsetTopLeft.X,
-				top = Constants.ApplyDisplayScale(Constants.TopBarHeight),
-				right = guiInsetBottomRight.X,
-				bottom = guiInsetBottomRight.Y
-			})
-		end
+		Display.GetDisplayStore().setGuiInset({
+			left = guiInsetTopLeft.X,
+			top = Constants.ApplyDisplayScale(Constants.TopBarHeight),
+			right = guiInsetBottomRight.X,
+			bottom = guiInsetBottomRight.Y
+		})
 	end
 	SetGlobalGuiInset()
-	
-	if not FFlagAddGuiInsetToDisplayStore then
-		Signals.createEffect(function(scope)
-			SetGlobalGuiInset()
-		end)
-	end
 end
 
 local TopBarApp = if FFlagTopBarRefactor then require(script.ComponentsV2.TopBarApp) else require(script.Components.TopBarApp)
 local Reducer = require(script.Reducer)
 local TopBarAppPolicy = require(script.TopBarAppPolicy)
-
-if not FFlagFixChromeConsoleNilRefs then
-	TopBarScrim = require(script.Components.TopBarScrim)
-end
 
 local SetSmallTouchDevice = require(script.Actions.SetSmallTouchDevice)
 local SetInspectMenuOpen = require(script.Actions.SetInspectMenuOpen)
@@ -212,7 +197,7 @@ function TopBar.new()
 	end
 	
 
-	local TopBarScrimScreenGui = (not FFlagFixChromeConsoleNilRefs or ChromeService) and FFlagAddTopBarScrim and React.createElement("ScreenGui", {
+	local TopBarScrimScreenGui = ChromeService and FFlagAddTopBarScrim and React.createElement("ScreenGui", {
 		IgnoreGuiInset = true,
 		ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 		DisplayOrder = -2,

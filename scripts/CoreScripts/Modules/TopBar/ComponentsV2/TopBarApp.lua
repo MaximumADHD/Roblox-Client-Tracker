@@ -45,10 +45,10 @@ local SelectionCursorProvider = UIBlox.App.SelectionImage.SelectionCursorProvide
 
 local GamepadConnector = require(Components.GamepadConnector)
 local GamepadNavigationDialog = require(Presentation.GamepadNavigationDialog)
-local HealthBar = require(Presentation.HealthBar)
-local HurtOverlay = require(Presentation.HurtOverlay)
+local HealthBar = require(TopBar.ComponentsV2.HealthBar)
+local HurtOverlay = require(TopBar.ComponentsV2.HurtOverlay)
 local HeadsetMenu = require(Presentation.HeadsetMenu)
-local MenuIcon = require(Presentation.MenuIcon)
+local MenuIcon = require(TopBar.ComponentsV2.MenuIcon)
 local MenuIconContext = require(Components.MenuIconContext)
 local MenuNavigationToggleDialog = require(Presentation.GamepadMenu.MenuNavigationToggleDialog)
 local TraversalBackButton = require(Components.TraversalBackButton)
@@ -85,17 +85,27 @@ local function TopBarApp(props: TopBarProps)
 	local unibarMenuRef = React.useRef(nil :: GuiObject?)
 	local menuIconRef = React.useRef(nil :: GuiObject?)
 
+    local showTopBarSignal = GamepadConnector:getShowTopBar()
+	local showTopBar, setShowTopBar = React.useBinding(showTopBarSignal:get())
+
+
 	React.useEffect(function()
+		GamepadConnector:connectToTopbar()
+		local showTopBarConn = showTopBarSignal:connect(function() 
+			setShowTopBar(showTopBarSignal:get())
+		end)
 		return function() 
+			GamepadConnector:disconnectFromTopbar()
 			if keepOutAreasStore then 
 				keepOutAreasStore.cleanup()
 			end
+			showTopBarConn:disconnect()
 		end
 	end, {})
 
-	local onAreaChanged = function(rbx)
+	local onAreaChanged = React.useCallback(function(rbx: GuiObject)
 		keepOutAreasStore.setKeepOutArea(Constants.TopBarKeepOutAreaId, rbx.AbsolutePosition, rbx.AbsoluteSize)
-	end
+	end, {keepOutAreasStore})
 
 	local screenSideOffset = Constants.ScreenSideOffset * uiScale
 	local topBarHeight = Constants.TopBarHeight * uiScale
@@ -146,17 +156,16 @@ local function TopBarApp(props: TopBarProps)
 			TopLeftFrame = React.createElement(View, {
 				tag = "anchor-top-left auto-x row gap-small",
 				Size = UDim2.fromOffset(0, topBarButtonHeight),
-				Position = UDim2.new(0, screenSideOffset, 0, topBarTopMargin),
 				onAbsoluteSizeChanged = onAreaChanged,
 				onAbsolutePositionChanged = onAreaChanged,
+				Position = UDim2.new(0, screenSideOffset, 0, topBarTopMargin),
+				Visible = showTopBar,
 			}, {
 				MenuIcon = React.createElement(SelectionCursorProvider, {}, {
 					Icon = React.createElement(MenuIcon, {
-						layoutOrder = 1,
 						showBadgeOver12 = showBadgeOver12,
 						menuIconRef = menuIconRef,
 						unibarMenuRef = unibarMenuRef,
-						onAreaChanged = function() end,
 					}),
 				}),
 				TraversalBackButton = React.createElement(TraversalBackButton),

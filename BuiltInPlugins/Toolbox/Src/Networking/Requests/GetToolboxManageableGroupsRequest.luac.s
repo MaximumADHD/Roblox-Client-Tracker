@@ -1,6 +1,6 @@
 PROTO_0:
   GETTABLEKS R2 R0 K0 ["responseBody"]
-  GETTABLEKS R1 R2 K1 ["data"]
+  GETTABLEKS R1 R2 K1 ["groups"]
   GETUPVAL R2 0
   GETUPVAL R4 1
   MOVE R5 R1

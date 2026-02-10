@@ -20,7 +20,7 @@ local Constants = require(TopBar.Constants)
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
-local FFlagUseNewHurtOverlayImage = game:DefineFastFlag("UseNewHurtOverlayImage", false)
+local FFlagUseNewHurtOverlayImage = require(TopBar.Flags.FFlagUseNewHurtOverlayImage)
 
 local MOTOR_OPTIONS = {
 	frequency = 0.75,

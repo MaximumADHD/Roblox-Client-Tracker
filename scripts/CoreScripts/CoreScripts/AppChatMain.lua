@@ -2,18 +2,10 @@ local CorePackages = game:GetService("CorePackages")
 local CoreGui = game:GetService("CoreGui")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 
-local React = require(CorePackages.Packages.React)
-local ReactRoblox = require(CorePackages.Packages.ReactRoblox)
-local ReactFocusNavigation = require(CorePackages.Packages.ReactFocusNavigation)
-local Rodux = require(CorePackages.Packages.Rodux)
 local SocialCommon = require(CorePackages.Workspace.Packages.SocialCommon)
 local ChatEntryPointNames = SocialCommon.Enums.ChatEntryPointNames
 
 local ApolloClient = require(CoreGui.RobloxGui.Modules.ApolloClient)
-
-local FocusNavigationUtils = require(CorePackages.Workspace.Packages.FocusNavigationUtils)
-local FocusNavigableSurfaceRegistry = FocusNavigationUtils.FocusNavigableSurfaceRegistry
-local FocusNavigationRegistryProvider = FocusNavigableSurfaceRegistry.Provider
 
 local GetFFlagFixSettingshubImportOrder = require(RobloxGui.Modules.Flags.GetFFlagFixSettingshubImportOrder)
 
@@ -27,21 +19,14 @@ end
 local SettingsHub = require(RobloxGui.Modules.Settings.SettingsHub)
 
 local AppChat = require(CorePackages.Workspace.Packages.AppChat)
-local InExperienceAppChat = AppChat.App.InExperienceAppChat
-local AppChatReducer = AppChat.App.AppChatReducer
-local InExperienceAppChatProviders = AppChat.App.InExperienceAppChatProviders
 local InExperienceAppChatModal = AppChat.App.InExperienceAppChatModal
 local renderCoreScriptInExperienceAppChat = AppChat.App.renderCoreScriptInExperienceAppChat
 local ViewportUtil = require(RobloxGui.Modules.Chrome.ChromeShared.Service.ViewportUtil)
-local FFlagEnableAppChatFocusableFixes =
-	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableAppChatFocusableFixes
 local ChatSelector = require(RobloxGui.Modules.ChatSelector)
 local PlayerListManager = require(RobloxGui.Modules.PlayerList.PlayerListManager)
 
 local TopBarConstants = require(RobloxGui.Modules.TopBar.Constants)
 local GetFFlagIsSquadEnabled = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagIsSquadEnabled
-
-local FFlagAppChatMoveMainComponent = game:DefineFastFlag("FFlagAppChatMoveMainComponent", false)
 
 local TopBarTopMargin = TopBarConstants.ApplyDisplayScale(TopBarConstants.TopBarTopMargin)
 
@@ -75,53 +60,4 @@ local parentContainerContext: AppChat.ParentContainerContextType = {
 	end,
 }
 
-if FFlagAppChatMoveMainComponent then
-	renderCoreScriptInExperienceAppChat(ApolloClient, parentContainerContext, updateAppChatUnreadMessagesCount)
-else
-	local folder = Instance.new("Folder")
-	folder.Name = "AppChat"
-	folder.Parent = CoreGui
-
-	local root = ReactRoblox.createRoot(folder)
-	local store = Rodux.Store.new(AppChatReducer, nil, {
-		Rodux.thunkMiddleware,
-	})
-
-	local focusNavigationService = if FFlagEnableAppChatFocusableFixes
-		then ReactFocusNavigation.FocusNavigationService.new(ReactFocusNavigation.EngineInterface.CoreGui)
-		else nil
-
-	local function AppChatMainWithFocusRoot()
-		return React.createElement(ReactFocusNavigation.FocusNavigationContext.Provider, {
-			value = focusNavigationService,
-		}, {
-			FocusNavigationRegistryProvider = React.createElement(FocusNavigationRegistryProvider, nil, {
-				InExperienceAppChatProviders = React.createElement(InExperienceAppChatProviders, {
-					store = store,
-					-- this anonymous function to be replaced by one used by unibar
-					updateAppChatUnreadMessagesCount = updateAppChatUnreadMessagesCount,
-					parentContainerContext = parentContainerContext,
-					apolloClient = ApolloClient,
-				}, {
-					appChat = React.createElement(InExperienceAppChat),
-				}),
-			}),
-		})
-	end
-
-	local function AppChatMainWithoutFocusRoot()
-		return React.createElement(InExperienceAppChatProviders, {
-			store = store,
-			-- this anonymous function to be replaced by one used by unibar
-			updateAppChatUnreadMessagesCount = updateAppChatUnreadMessagesCount,
-			parentContainerContext = parentContainerContext,
-			apolloClient = ApolloClient,
-		}, {
-			appChat = React.createElement(InExperienceAppChat),
-		})
-	end
-
-	local tree = if FFlagEnableAppChatFocusableFixes then AppChatMainWithFocusRoot() else AppChatMainWithoutFocusRoot()
-
-	root:render(tree)
-end
+renderCoreScriptInExperienceAppChat(ApolloClient, parentContainerContext, updateAppChatUnreadMessagesCount)

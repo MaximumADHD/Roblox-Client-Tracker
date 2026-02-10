@@ -101,6 +101,7 @@ local function TextInput(textInputProps: TextInputProps, ref: React.Ref<GuiObjec
 									isDisabled = props.isDisabled,
 									size = variantProps.icon.size,
 									icon = props.iconTrailing.name,
+									testId = `{props.testId}--trailing-icon-button`,
 								})
 								else React.createElement(Icon, {
 									name = if type(props.iconTrailing) == "table"

@@ -1,0 +1,33 @@
+PROTO_0:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["IsEdit"]
+  CALL R0 1 1
+  JUMPIFNOT R0 [+2]
+  LOADK R0 K1 ["Edit"]
+  RETURN R0 1
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K2 ["IsServer"]
+  CALL R0 1 1
+  JUMPIFNOT R0 [+2]
+  LOADK R0 K3 ["Server"]
+  RETURN R0 1
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K4 ["IsClient"]
+  CALL R0 1 1
+  JUMPIFNOT R0 [+2]
+  LOADK R0 K5 ["Client"]
+  RETURN R0 1
+  LOADK R0 K6 ["Unknown"]
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["RunService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  DUPCLOSURE R1 K4 [PROTO_0]
+  CAPTURE VAL R0
+  DUPTABLE R2 K6 [{"getAssetDataModelType"}]
+  SETTABLEKS R1 R2 K5 ["getAssetDataModelType"]
+  RETURN R2 1

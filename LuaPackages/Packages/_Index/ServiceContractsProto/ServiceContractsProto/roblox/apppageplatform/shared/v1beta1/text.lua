@@ -67,6 +67,7 @@ type _TextSchema_PropsFields = {
 	text_y_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	text_scaled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	automatic_size: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _TextSchema_PropsPartialFields = {
@@ -87,6 +88,7 @@ type _TextSchema_PropsPartialFields = {
 	text_y_alignment: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	text_scaled: _roblox_apppageplatform_shared_v1beta1_prop_types.BoolProp?,
 	automatic_size: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	tag: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type TextSchema_Props = typeof(setmetatable({} :: _TextSchema_PropsFields, {} :: _TextSchema_PropsImpl))
@@ -234,6 +236,7 @@ do
 			text_y_alignment = if data == nil or data.text_y_alignment == nil then nil else data.text_y_alignment,
 			text_scaled = if data == nil or data.text_scaled == nil then nil else data.text_scaled,
 			automatic_size = if data == nil or data.automatic_size == nil then nil else data.automatic_size,
+			tag = if data == nil or data.tag == nil then nil else data.tag,
 		}, _TextSchema_PropsImpl :: _TextSchema_PropsImpl)
 	end
 
@@ -343,6 +346,12 @@ do
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
+		if self.tag ~= nil then
+			local encoded = self.tag:encode()
+			output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
 		local shrunkBuffer = buffer.create(cursor)
 		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
 		return shrunkBuffer
@@ -447,6 +456,11 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.automatic_size = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
 				end
 
 				local length
@@ -540,6 +554,10 @@ do
 
 		if self.automatic_size ~= nil then
 			output.automaticSize = self.automatic_size:jsonEncode()
+		end
+
+		if self.tag ~= nil then
+			output.tag = self.tag:jsonEncode()
 		end
 
 		return output
@@ -688,6 +706,10 @@ do
 		if input.automaticSize ~= nil then
 			self.automatic_size =
 				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.automaticSize)
+		end
+
+		if input.tag ~= nil then
+			self.tag = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.tag)
 		end
 
 		return self

@@ -50,7 +50,6 @@ local useTopbarInsetHeight = require(Root.Hooks.useTopbarInsetHeight)
 local useMappedObservableValue = require(Root.Hooks.useMappedObservableValue)
 
 local FFlagFixChromeIntegrationLayoutBug = game:DefineFastFlag("FixChromeIntegrationLayoutBug", false)
-local FFlagSubmenuFixInvisibleButtons = game:DefineFastFlag("SubmenuFixInvisibleButtons", false)
 
 local isSpatial = require(CorePackages.Workspace.Packages.AppCommonLib).isSpatial
 local isInExperienceUIVREnabled =
@@ -421,9 +420,7 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 		lastSubMenu = currentSubMenu
 
 		if currentSubMenu then
-			if FFlagSubmenuFixInvisibleButtons then
-				setOpenState(AnimationStatus.Closed)
-			end
+			setOpenState(AnimationStatus.Closed)
 			setMenuTransition(ReactOtter.spring(AnimationStatus.Open, Constants.MENU_ANIMATION_SPRING))
 
 			connectionTapStart.current = UserInputService.TouchStarted:Connect(function(touch)
@@ -458,9 +455,7 @@ return function(props: SubMenuHostProps) -- SubMenuHost
 				end
 			end)
 		else
-			if FFlagSubmenuFixInvisibleButtons then
-				setOpenState(AnimationStatus.Open)
-			end
+			setOpenState(AnimationStatus.Open)
 			setMenuTransition(ReactOtter.spring(AnimationStatus.Closed, Constants.MENU_ANIMATION_SPRING))
 		end
 

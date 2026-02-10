@@ -16,6 +16,17 @@ ErrorSourceStrings.Keys = {
 	FailureWithoutReason = "Common.UGCValidation.ErrorLabel.FailureWithoutReason",
 	InternalError = "Common.UGCValidation.ErrorLabel.InternalError",
 	DynamicHeadCageMisaligned = "Common.UGCValidation.ErrorLabel.DynamicHeadCageMisaligned",
+	NoAttributes = "Common.UGCValidation.ErrorLabel.NoAttributes",
+	DynamicHeadNOFACS = "Common.UGCValidation.ErrorLabel.DynamicHeadNOFACS",
+	DynamicHeadMISSINGCAGE = "Common.UGCValidation.ErrorLabel.DynamicHeadMISSINGCAGE",
+	AQSInputDataError = "Common.UGCValidation.AQSInputDataError",
+	TexturePackInvalidURL = "Common.UGCValidation.ErrorLabel.TexturePackInvalidURL",
+	DynamicHeadLeftEyeNotClose = "Common.UGCValidation.ErrorLabel.DynamicHeadLeftEyeNotClose",
+	DynamicHeadRightEyeNotClose = "Common.UGCValidation.ErrorLabel.DynamicHeadRightEyeNotClose",
+	DynamicHeadMouthNotOpen = "Common.UGCValidation.ErrorLabel.DynamicHeadMouthNotOpen",
+	DynamicHeadHappyNotShown = "Common.UGCValidation.ErrorLabel.DynamicHeadHappyNotShown",
+	DynamicHeadSadNotShown = "Common.UGCValidation.ErrorLabel.DynamicHeadSadNotShown",
+	AQSInternalError = "Common.UGCValidation.ErrorLabel.AQSInternalError",
 }
 
 ErrorSourceStrings.Values = {
@@ -30,6 +41,17 @@ ErrorSourceStrings.Values = {
 	FailureWithoutReason = "Validation failed for an unknown reason. Please try again or open a bug report if this issue persists.",
 	InternalError = "Your asset could not be properly validated due to an internal error. If this issue persists, please create a bug report. ValidationJobId: {ValidationJobId}",
 	DynamicHeadCageMisaligned = "Dynamic Heads on the marketplace must be properly caged so that the eyes and mouth vertices on the cage line up with the mesh vertices. Please improve your caging and its alignment with the mesh.",
+	NoAttributes = "'{RootInstanceName}' (or its descendants) contain Attributes. You need to remove Attributes from the following: {InstanceNameList}",
+	DynamicHeadNOFACS = "Dynamic Heads on the marketplace has not FACS data.",
+	DynamicHeadMISSINGCAGE = "Dynamic Heads on the marketplace have no Head Cages. Please create Head Cage for the Dynamic Head.",
+	AQSInputDataError = "Quality score cannot be properly computed due to the input data is incorrect or incomplete. Please check your model or file a bug report",
+	TexturePackInvalidURL = "'{SurfaceAppearanceName}' has a 'TexturePack' property with an invalid URL. Please fix the URL.",
+	DynamicHeadLeftEyeNotClose = "Cannot detect left eye close expression for the Dynamic Head. Please adjust cage landmarks for the left eye to match where the left eye on the head and make sure it can be closed.",
+	DynamicHeadRightEyeNotClose = "Cannot detect right eye close expression for the Dynamic Head. Please adjust cage landmarks for the right eye to match where the right eye on the head and make sure it can be closed.",
+	DynamicHeadMouthNotOpen = "Cannot detect mouth open expression for the Dynamic Head. Please adjust cage landmarks for mouth to match where the mouth on the head and make sure it can open.",
+	DynamicHeadHappyNotShown = "Cannot detect smile expression for the Dynamic Head. Please adjust cage landmarks for the mouth to match where the mouth on the head and make sure it can show smile expression.",
+	DynamicHeadSadNotShown = "Cannot detect frown expression for the Dynamic Head. Please adjust cage landmarks for the mouth to match where the mouth on the head and make sure it can show frown expression.",
+	AQSInternalError = "Score cannot be generated due to Asset Quality Error. Please check input data correctness and try again, or file a bug report.",
 }
 
 return ErrorSourceStrings

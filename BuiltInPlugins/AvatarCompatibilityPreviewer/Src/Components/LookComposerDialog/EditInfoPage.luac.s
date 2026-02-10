@@ -1,0 +1,231 @@
+PROTO_0:
+  JUMPIF R0 [+7]
+  GETUPVAL R1 0
+  LOADK R2 K0 [""]
+  CALL R1 1 0
+  GETUPVAL R1 1
+  LOADN R2 0
+  CALL R1 1 0
+  RETURN R0 0
+  GETIMPORT R1 K3 [utf8.len]
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R2 1
+  MOVE R3 R1
+  CALL R2 1 0
+  GETUPVAL R2 0
+  MOVE R3 R0
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R3 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIF R1 [+2]
+  LOADNIL R1
+  RETURN R1 1
+  GETUPVAL R1 1
+  NAMECALL R1 R1 K0 ["use"]
+  CALL R1 1 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["useState"]
+  LOADK R3 K2 [""]
+  CALL R2 1 2
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K1 ["useState"]
+  LOADN R5 0
+  CALL R4 1 2
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K1 ["useState"]
+  LOADK R7 K2 [""]
+  CALL R6 1 2
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K1 ["useState"]
+  LOADN R9 0
+  CALL R8 1 2
+  DUPCLOSURE R10 K3 [PROTO_1]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K4 ["useCallback"]
+  NEWCLOSURE R12 P1
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  NEWTABLE R13 0 0
+  CALL R11 2 1
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K4 ["useCallback"]
+  NEWCLOSURE R13 P1
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  NEWTABLE R14 0 0
+  CALL R12 2 1
+  LOADN R14 15
+  JUMPIFLT R14 R4 [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  LOADN R15 232
+  JUMPIFLT R15 R8 [+2]
+  LOADB R14 0 +1
+  LOADB R14 1
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K5 ["new"]
+  CALL R15 0 1
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K6 ["createElement"]
+  GETUPVAL R17 4
+  DUPTABLE R18 K8 [{"tag"}]
+  LOADK R19 K9 ["col gap-medium size-full-0 auto-y padding-large"]
+  SETTABLEKS R19 R18 K7 ["tag"]
+  DUPTABLE R19 K11 [{"Content"}]
+  GETUPVAL R21 2
+  GETTABLEKS R20 R21 K6 ["createElement"]
+  GETUPVAL R21 4
+  DUPTABLE R22 K14 [{"tag", "Size", "AutomaticSize"}]
+  LOADK R23 K15 ["row gap-large align-y-top"]
+  SETTABLEKS R23 R22 K7 ["tag"]
+  GETIMPORT R23 K18 [UDim2.fromScale]
+  LOADK R24 K19 [0.5]
+  LOADN R25 0
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K12 ["Size"]
+  GETIMPORT R23 K22 [Enum.AutomaticSize.Y]
+  SETTABLEKS R23 R22 K13 ["AutomaticSize"]
+  DUPTABLE R23 K25 [{"Preview", "InfoColumn"}]
+  GETUPVAL R25 2
+  GETTABLEKS R24 R25 K6 ["createElement"]
+  GETUPVAL R25 5
+  DUPTABLE R26 K27 [{"LayoutOrder"}]
+  NAMECALL R27 R15 K28 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K26 ["LayoutOrder"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K23 ["Preview"]
+  GETUPVAL R25 2
+  GETTABLEKS R24 R25 K6 ["createElement"]
+  GETUPVAL R25 4
+  DUPTABLE R26 K29 [{"tag", "LayoutOrder"}]
+  LOADK R27 K30 ["col gap-large grow auto-y"]
+  SETTABLEKS R27 R26 K7 ["tag"]
+  NAMECALL R27 R15 K28 ["getNextOrder"]
+  CALL R27 1 1
+  SETTABLEKS R27 R26 K26 ["LayoutOrder"]
+  DUPTABLE R27 K33 [{"Name", "Description"}]
+  GETUPVAL R29 2
+  GETTABLEKS R28 R29 K6 ["createElement"]
+  GETUPVAL R29 6
+  DUPTABLE R30 K42 [{"text", "width", "onChanged", "hint", "placeholder", "label", "hasError", "numLines", "LayoutOrder"}]
+  SETTABLEKS R2 R30 K34 ["text"]
+  GETIMPORT R31 K44 [UDim.new]
+  LOADN R32 1
+  LOADN R33 0
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K35 ["width"]
+  SETTABLEKS R11 R30 K36 ["onChanged"]
+  GETIMPORT R31 K47 [string.format]
+  LOADK R32 K48 ["%d/%d"]
+  MOVE R33 R4
+  LOADN R34 15
+  CALL R31 3 1
+  SETTABLEKS R31 R30 K37 ["hint"]
+  LOADK R31 K2 [""]
+  SETTABLEKS R31 R30 K38 ["placeholder"]
+  LOADK R33 K49 ["LookComposerDialog"]
+  LOADK R34 K31 ["Name"]
+  NAMECALL R31 R1 K50 ["getText"]
+  CALL R31 3 1
+  SETTABLEKS R31 R30 K39 ["label"]
+  SETTABLEKS R13 R30 K40 ["hasError"]
+  LOADN R31 1
+  SETTABLEKS R31 R30 K41 ["numLines"]
+  NAMECALL R31 R15 K28 ["getNextOrder"]
+  CALL R31 1 1
+  SETTABLEKS R31 R30 K26 ["LayoutOrder"]
+  CALL R28 2 1
+  SETTABLEKS R28 R27 K31 ["Name"]
+  GETUPVAL R29 2
+  GETTABLEKS R28 R29 K6 ["createElement"]
+  GETUPVAL R29 6
+  DUPTABLE R30 K42 [{"text", "width", "onChanged", "hint", "placeholder", "label", "hasError", "numLines", "LayoutOrder"}]
+  SETTABLEKS R6 R30 K34 ["text"]
+  GETIMPORT R31 K44 [UDim.new]
+  LOADK R32 K51 [1.8]
+  LOADN R33 0
+  CALL R31 2 1
+  SETTABLEKS R31 R30 K35 ["width"]
+  SETTABLEKS R12 R30 K36 ["onChanged"]
+  GETIMPORT R31 K47 [string.format]
+  LOADK R32 K48 ["%d/%d"]
+  MOVE R33 R8
+  LOADN R34 232
+  CALL R31 3 1
+  SETTABLEKS R31 R30 K37 ["hint"]
+  LOADK R31 K2 [""]
+  SETTABLEKS R31 R30 K38 ["placeholder"]
+  LOADK R33 K49 ["LookComposerDialog"]
+  LOADK R34 K32 ["Description"]
+  NAMECALL R31 R1 K50 ["getText"]
+  CALL R31 3 1
+  SETTABLEKS R31 R30 K39 ["label"]
+  SETTABLEKS R14 R30 K40 ["hasError"]
+  LOADN R31 2
+  SETTABLEKS R31 R30 K41 ["numLines"]
+  NAMECALL R31 R15 K28 ["getNextOrder"]
+  CALL R31 1 1
+  SETTABLEKS R31 R30 K26 ["LayoutOrder"]
+  CALL R28 2 1
+  SETTABLEKS R28 R27 K32 ["Description"]
+  CALL R24 3 1
+  SETTABLEKS R24 R23 K24 ["InfoColumn"]
+  CALL R20 3 1
+  SETTABLEKS R20 R19 K10 ["Content"]
+  CALL R16 3 -1
+  RETURN R16 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Foundation"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["View"]
+  GETTABLEKS R4 R2 K10 ["TextArea"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K11 ["Framework"]
+  CALL R5 1 1
+  GETTABLEKS R7 R5 K12 ["ContextServices"]
+  GETTABLEKS R6 R7 K13 ["Localization"]
+  GETTABLEKS R8 R5 K14 ["Util"]
+  GETTABLEKS R7 R8 K15 ["LayoutOrderIterator"]
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K16 ["Src"]
+  GETTABLEKS R10 R11 K17 ["Flags"]
+  GETTABLEKS R9 R10 K18 ["getFFlagAvatarPreviewerLookComposer"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETIMPORT R12 K1 [script]
+  GETTABLEKS R11 R12 K19 ["Parent"]
+  GETTABLEKS R10 R11 K20 ["LookPreview"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K21 [PROTO_2]
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  CAPTURE VAL R9
+  CAPTURE VAL R4
+  RETURN R10 1

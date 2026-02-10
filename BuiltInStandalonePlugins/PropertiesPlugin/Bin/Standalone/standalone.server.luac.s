@@ -24,28 +24,44 @@ MAIN:
   LOADK R4 K14 ["roblox-cli should not be loading standalone plugins"]
   CALL R3 1 0
   RETURN R0 0
+  GETIMPORT R3 K16 [game]
+  LOADK R5 K17 ["DebugReactDevToolsPluginName"]
+  NAMECALL R3 R3 K18 ["GetFastString"]
+  CALL R3 2 1
+  JUMPIFNOTEQKS R3 K2 ["PropertiesPlugin"] [+18]
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K15 ["Bin"]
-  GETTABLEKS R5 R6 K16 ["Common"]
-  GETTABLEKS R4 R5 K17 ["pluginType"]
+  GETTABLEKS R5 R0 K9 ["Packages"]
+  GETTABLEKS R4 R5 K19 ["ReactDeveloperTools"]
   CALL R3 1 1
-  GETTABLEKS R4 R3 K18 ["get"]
+  GETTABLEKS R4 R3 K20 ["tryEnableDevtools"]
+  DUPTABLE R5 K23 [{"pluginName", "profileOnStart"}]
+  LOADK R6 K2 ["PropertiesPlugin"]
+  SETTABLEKS R6 R5 K21 ["pluginName"]
+  LOADB R6 0
+  SETTABLEKS R6 R5 K22 ["profileOnStart"]
+  CALL R4 1 0
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K24 ["Bin"]
+  GETTABLEKS R5 R6 K25 ["Common"]
+  GETTABLEKS R4 R5 K26 ["pluginType"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K27 ["get"]
   CALL R4 0 1
-  GETTABLEKS R5 R3 K19 ["Standalone"]
+  GETTABLEKS R5 R3 K28 ["Standalone"]
   JUMPIFEQ R4 R5 [+2]
   RETURN R0 0
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K15 ["Bin"]
-  GETTABLEKS R6 R7 K16 ["Common"]
-  GETTABLEKS R5 R6 K20 ["setup"]
+  GETTABLEKS R7 R0 K24 ["Bin"]
+  GETTABLEKS R6 R7 K25 ["Common"]
+  GETTABLEKS R5 R6 K29 ["setup"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K15 ["Bin"]
-  GETTABLEKS R7 R8 K16 ["Common"]
-  GETTABLEKS R6 R7 K21 ["setupMain"]
+  GETTABLEKS R8 R0 K24 ["Bin"]
+  GETTABLEKS R7 R8 K25 ["Common"]
+  GETTABLEKS R6 R7 K30 ["setupMain"]
   CALL R5 1 1
   MOVE R6 R4
-  GETIMPORT R7 K23 [plugin]
+  GETIMPORT R7 K32 [plugin]
   MOVE R8 R5
   CALL R6 2 0
   RETURN R0 0

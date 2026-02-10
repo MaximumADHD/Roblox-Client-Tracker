@@ -24,7 +24,6 @@ local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagShowUnibarOnVirtualCursor = SharedFlags.FFlagShowUnibarOnVirtualCursor
 local FFlagConsoleChatUseChromeFocusUtils = SharedFlags.FFlagConsoleChatUseChromeFocusUtils
 local FFlagExperienceMenuGamepadExposureEnabled = SharedFlags.FFlagExperienceMenuGamepadExposureEnabled
-local FFlagFixChromeConsoleNilRefs = SharedFlags.FFlagFixChromeConsoleNilRefs
 
 local FFlagAddNewPlayerListFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListFocusNav
 local FFlagAddNewPlayerListMobileFocusNav = PlayerListPackage.Flags.FFlagAddNewPlayerListMobileFocusNav
@@ -140,7 +139,7 @@ function GamepadConnector.new(): GamepadConnector
 	local self = {}
 	self._loggedExperienceMenuGamepadExposure = false
 	self._devSetCoreGuiNavEnabled = GuiService.CoreGuiNavigationEnabled
-	self._chromeFocused = if not FFlagFixChromeConsoleNilRefs or ChromeService then ChromeService:inFocusNav() else false
+	self._chromeFocused = if ChromeService then ChromeService:inFocusNav() else false
 	self._lastMenuButtonPress = 0
 	self._dismissFocusConnections = {}
 	self._selectedCoreObject = if ChromeEnabled and FFlagEnableConsoleExpControls
