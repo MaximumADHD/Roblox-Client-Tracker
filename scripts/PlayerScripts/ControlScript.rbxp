@@ -1,0 +1,54 @@
+{
+    "instanceHierarchy": {
+        "tree": {
+            "$className": "DataModel",
+            "StarterPlayer": {
+                "StarterPlayerScripts": {
+                    "ControlScript": {
+                        "$className": "LocalScript",
+                        "$path": "StarterPlayerScripts_old/ControlScript.lua",
+                        
+                        "MasterControl": {
+                            "$path": "StarterPlayerScripts_old/ControlScript/MasterControl.lua",
+
+                            "ClickToMoveController": {
+                                "$path": "StarterPlayerScripts_old/ControlScript/MasterControl/ClickToMoveController.lua"
+                            },
+                            "DPad": {
+                                "$path": "StarterPlayerScripts_old/ControlScript/MasterControl/DPad.lua"
+                            },
+                            "DynamicThumbstick": {
+                                "$path": "StarterPlayerScripts_old/ControlScript/MasterControl/DynamicThumbstick.lua"
+                            },
+                            "Gamepad": {
+                                "$path": "StarterPlayerScripts_old/ControlScript/MasterControl/Gamepad.lua"
+                            },
+                            "KeyboardMovement": {
+                                "$path": "StarterPlayerScripts_old/ControlScript/MasterControl/KeyboardMovement.lua"
+                            },
+                            "Thumbpad": {
+                                "$path": "StarterPlayerScripts_old/ControlScript/MasterControl/Thumbpad.lua"
+                            },
+                            "Thumbstick": {
+                                "$path": "StarterPlayerScripts_old/ControlScript/MasterControl/Thumbstick.lua"
+                            },
+                            "TouchJump": {
+                                "$path": "StarterPlayerScripts_old/ControlScript/MasterControl/TouchJump.lua"
+                            },
+                            "VehicleController": {
+                                "$path": "StarterPlayerScripts_old/ControlScript/MasterControl/VehicleController.lua"
+                            },
+                            "VRNavigation": {
+                                "$path": "StarterPlayerScripts_old/ControlScript/MasterControl/VRNavigation.lua"
+                            }
+                        },
+
+                        "PathDisplay": {
+                            "$path": "StarterPlayerScripts_old/ControlScript/PathDisplay.lua"
+                        }
+                    }
+                },
+            }
+        }
+    }
+}

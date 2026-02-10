@@ -3900,6 +3900,15 @@
 
     <Item class="ReflectionMetadataClass">
       <Properties>
+        <string name="Name">PlatformLibraries</string>
+        <string name="ExplorerOrder">30</string>
+        <string name="ExplorerImageIndex">46</string>
+        <token name="ServiceVisibility">2</token>        <!-- WithChildren -->
+      </Properties>
+    </Item>
+
+    <Item class="ReflectionMetadataClass">
+      <Properties>
         <string name="Name">Studio</string>
       </Properties>
       <Item class="ReflectionMetadataProperties">

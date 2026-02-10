@@ -1,0 +1,16 @@
+{
+    "instanceHierarchy": {
+        "tree": {
+            "$className": "DataModel",
+            "StarterPlayer": {
+                "StarterPlayerScripts": {
+                    "PlayerScriptsLoader": {
+                        "$className": "LocalScript",
+                        "$path": "StarterPlayerScripts/PlayerScriptsLoader.lua",
+                    }
+                },
+            }
+        }
+    }
+}
+

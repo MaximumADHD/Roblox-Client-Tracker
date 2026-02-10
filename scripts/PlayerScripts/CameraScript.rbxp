@@ -1,0 +1,79 @@
+{
+    "instanceHierarchy": {
+        "tree": {
+            "$className": "DataModel",
+            "StarterPlayer": {
+                "StarterPlayerScripts": {
+                    "CameraScript": {
+                        "$className": "LocalScript",
+                        "$path": "StarterPlayerScripts_old/CameraScript.lua",
+                        
+                        "ClickToMove": {
+                            "$path": "StarterPlayerScripts_old/CameraScript/ClickToMove.lua",
+
+                            "NewClickToMove": {
+                                "$path": "StarterPlayerScripts_old/CameraScript/ClickToMove/NewClickToMove.lua"
+                            }
+                        },
+
+                        "RootCamera": {
+                            "$path": "StarterPlayerScripts_old/CameraScript/RootCamera.lua",
+
+                            "AttachCamera": {
+                                "$path": "StarterPlayerScripts_old/CameraScript/RootCamera/AttachCamera.lua"
+                            },
+
+                            "ClassicCamera": {
+                                "$path": "StarterPlayerScripts_old/CameraScript/RootCamera/ClassicCamera.lua"
+                            },
+
+                            "FixedCamera": {
+                                "$path": "StarterPlayerScripts_old/CameraScript/RootCamera/FixedCamera.lua"
+                            },
+
+                            "FollowCamera": {
+                                "$path": "StarterPlayerScripts_old/CameraScript/RootCamera/FollowCamera.lua"
+                            },
+
+                            "OrbitalCamera": {
+                                "$path": "StarterPlayerScripts_old/CameraScript/RootCamera/OrbitalCamera.lua"
+                            },
+
+                            "ScriptableCamera": {
+                                "$path": "StarterPlayerScripts_old/CameraScript/RootCamera/ScriptableCamera.lua"
+                            },
+
+                            "TrackCamera": {
+                                "$path": "StarterPlayerScripts_old/CameraScript/RootCamera/TrackCamera.lua"
+                            },
+
+                            "VRCamera": {
+                                "$path": "StarterPlayerScripts_old/CameraScript/RootCamera/VRCamera.lua"
+                            },
+
+                            "WatchCamera": {
+                                "$path": "StarterPlayerScripts_old/CameraScript/RootCamera/WatchCamera.lua"
+                            }
+                        },
+
+                        "Invisicam": {
+                            "$path": "StarterPlayerScripts_old/CameraScript/Invisicam.lua"
+                        },
+                        
+                        "PopperCam": {
+                            "$path": "StarterPlayerScripts_old/CameraScript/PopperCam.lua"
+                        },
+
+                        "ShiftLockController": {
+                            "$path": "StarterPlayerScripts_old/CameraScript/ShiftLockController.lua"
+                        },
+
+                        "TransparencyController": {
+                            "$path": "StarterPlayerScripts_old/CameraScript/TransparencyController.lua"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
