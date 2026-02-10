@@ -1,38 +1,38 @@
 # Usage Guide
 
-This guide shows practical ways to use the data from this repository. The repo updates automatically multiple times per week with Roblox client changes.
+this guide shows practical ways to use the data from this repository. the repo updates automatically multiple times per week with roblox client changes
 
 ## Quick Start
 
 ### Reading API Changes
 
-The `API-Dump.json` contains all Roblox API information. Here's how to parse it:
+the `API-Dump.json` contains all roblox api information. heres how to parse it:
 
 ```python
 import json
 import requests
 
-# Load the latest API dump
+# load the latest api dump
 url = "https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/roblox/API-Dump.json"
 api_data = requests.get(url).json()
 
-# Find all new classes added in recent versions
+# find all new classes added in recent versions
 for class_info in api_data['Classes']:
     print(f"Class: {class_info['Name']}")
     if 'Tags' in class_info and 'NotReplicated' in class_info['Tags']:
-        print("  → Not replicated (client-only)")
+        print("  → not replicated (client-only)")
 ```
 
 ### Monitoring Feature Flags (FVariables)
 
-FVariables control features remotely. Track specific flags:
+fvariables control features remotely. track specific flags:
 
 ```python
-# Load FVariables
+# load fvariables
 fvars_url = "https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/roblox/FVariables.txt"
 fvars = requests.get(fvars_url).text.split('\n')
 
-# Filter for specific features
+# filter for specific features
 for line in fvars:
     if 'DFFlag' in line and 'Enable' in line:
         print(line.strip())
@@ -67,7 +67,7 @@ def find_new_methods(old_dump, new_dump):
 def detect_breaking_changes(old_dump, new_dump):
     breaking = []
     
-    # Check for removed methods
+    # check for removed methods
     old_api = {f"{c['Name']}.{m['Name']}": m 
                for c in old_dump['Classes'] 
                for m in c.get('Members', [])}
@@ -76,7 +76,7 @@ def detect_breaking_changes(old_dump, new_dump):
                for c in new_dump['Classes'] 
                for m in c.get('Members', [])}
     
-    # Find deprecated/removed APIs
+    # find deprecated/removed apis
     for key in old_api:
         if key not in new_api:
             breaking.append(f"REMOVED: {key}")
@@ -88,15 +88,15 @@ def detect_breaking_changes(old_dump, new_dump):
 
 ### 3. Monitoring Shader Changes
 
-```csv
+```python
 # RobloxShaderData.csv shows which shaders are used
-# Parse it to track graphics updates
+# parse it to track graphics updates
 import csv
 
 with open('RobloxShaderData.csv', 'r') as f:
     reader = csv.DictReader(f)
     for row in reader:
-        if row['API'] == 'Vulkan':  # Track Vulkan-specific shaders
+        if row['API'] == 'Vulkan':  # track vulkan-specific shaders
             print(f"{row['Name']} - {row['Type']}")
 ```
 
@@ -104,9 +104,9 @@ with open('RobloxShaderData.csv', 'r') as f:
 
 ```lua
 -- LuauTypes.d.luau contains official type definitions
--- Use them in your Roblox-TS or Luau projects
+-- use them in your roblox-ts or luau projects
 
--- Example: Copy types to your project
+-- example: copy types to your project
 type Vector3 = {
     X: number,
     Y: number,
@@ -124,7 +124,7 @@ name: Monitor Roblox Updates
 
 on:
   schedule:
-    - cron: '0 */6 * * *'  # Every 6 hours
+    - cron: '0 */6 * * *'  # every 6 hours
   workflow_dispatch:
 
 jobs:
@@ -135,7 +135,7 @@ jobs:
         run: |
           CURRENT=$(curl -s https://raw.githubusercontent.com/MaximumADHD/Roblox-Client-Tracker/roblox/version.txt)
           echo "Current version: $CURRENT"
-          # Add your notification logic here
+          # add your notification logic here
 ```
 
 ### Discord Webhook Notifier
@@ -152,7 +152,7 @@ def notify_discord(webhook_url, changes):
         "color": 0x00ff00,
         "fields": [
             {"name": change[:256], "value": "New API", "inline": False}
-            for change in changes[:10]  # Limit to 10
+            for change in changes[:10]  # limit to 10
         ],
         "timestamp": datetime.utcnow().isoformat()
     }
@@ -168,7 +168,7 @@ from telegram import Bot
 
 def send_update_alert(bot_token, chat_id, version):
     bot = Bot(token=bot_token)
-    message = f"🔔 New Roblox version: {version}\n\nCheck changes at: https://github.com/MaximumADHD/Roblox-Client-Tracker"
+    message = f"🔔 new roblox version: {version}\n\ncheck changes at: https://github.com/MaximumADHD/Roblox-Client-Tracker"
     bot.send_message(chat_id=chat_id, text=message)
 ```
 
@@ -197,79 +197,79 @@ def send_update_alert(bot_token, chat_id, version):
 }
 ```
 
-**Key Fields:**
-- `Tags`: Indicates special behaviors (NotCreatable, Deprecated, Service)
-- `Security`: Shows what context can access (None, PluginSecurity, LocalUserSecurity)
-- `ValueType`: Property/parameter types
+**key fields:**
+- `Tags`: indicates special behaviors (NotCreatable, Deprecated, Service)
+- `Security`: shows what context can access (None, PluginSecurity, LocalUserSecurity)
+- `ValueType`: property/parameter types
 
 ### FVariables.txt Prefixes
 
-- `DFFlag`: Boolean feature flags
-- `DFInt`: Integer configuration values
-- `DFString`: String configuration values
-- `FFlag`: Fast flags (client-side)
-- `SFFlag`: Server-side flags
+- `DFFlag`: boolean feature flags
+- `DFInt`: integer configuration values
+- `DFString`: string configuration values
+- `FFlag`: fast flags (client-side)
+- `SFFlag`: server-side flags
 
 ### CppTree.txt Symbols
 
-Unmangled C++ symbols from RobloxStudioBeta.exe:
+unmangled c++ symbols from RobloxStudioBeta.exe:
 ```
 RBX::Network::Replicator::processPacket
 RBX::DataModel::close
 RBX::Instance::setParent
 ```
 
-Useful for:
-- Understanding internal architecture
-- Reverse engineering workflows
-- Finding undocumented features
+useful for:
+- understanding internal architecture
+- reverse engineering workflows
+- finding undocumented features
 
 ## Real-World Projects Using This Data
 
 ### API Documentation Generators
-- Track API changes over time
-- Generate diff reports between versions
-- Create searchable documentation
+- track api changes over time
+- generate diff reports between versions
+- create searchable documentation
 
 ### Plugin Compatibility Checkers
-- Detect when APIs used by plugins are deprecated
-- Auto-update plugin code to use new APIs
-- Warn about breaking changes
+- detect when apis used by plugins are deprecated
+- auto-update plugin code to use new apis
+- warn about breaking changes
 
 ### Feature Flag Dashboards
-- Monitor which features are enabled
-- Track rollout percentages
-- Predict upcoming features
+- monitor which features are enabled
+- track rollout percentages
+- predict upcoming features
 
 ### Performance Monitoring
-- Track shader changes and performance impact
-- Monitor C++ symbol additions (new features)
-- Correlate updates with performance metrics
+- track shader changes and performance impact
+- monitor c++ symbol additions (new features)
+- correlate updates with performance metrics
 
 ## Tips and Best Practices
 
 ### Comparing Versions
 
-1. Clone the repo to get full history
-2. Use git diff between commits:
+1. clone the repo to get full history
+2. use git diff between commits:
 ```bash
 git clone https://github.com/MaximumADHD/Roblox-Client-Tracker
 cd Roblox-Client-Tracker
-git log --oneline | head -20  # See recent versions
+git log --oneline | head -20  # see recent versions
 git diff <old-commit> <new-commit> API-Dump.json
 ```
 
 ### Rate Limiting
 
-- Use GitHub's raw.githubusercontent.com (no API rate limits)
-- Cache data locally to avoid repeated downloads
-- Use git clone for bulk access instead of individual file downloads
+- use github's raw.githubusercontent.com (no api rate limits)
+- cache data locally to avoid repeated downloads
+- use git clone for bulk access instead of individual file downloads
 
 ### Staying Updated
 
-- Watch the repository for notifications
-- Use RSS feeds: `https://github.com/MaximumADHD/Roblox-Client-Tracker/commits/roblox.atom`
-- Set up GitHub Actions in your own repos
+- watch the repository for notifications
+- use rss feeds: `https://github.com/MaximumADHD/Roblox-Client-Tracker/commits/roblox.atom`
+- set up github actions in your own repos
 
 ### Data Validation
 
@@ -277,54 +277,54 @@ git diff <old-commit> <new-commit> API-Dump.json
 import json
 
 def validate_api_dump(dump):
-    """Basic validation of API dump structure"""
+    """basic validation of api dump structure"""
     required_keys = ['Classes', 'Enums', 'Version']
     for key in required_keys:
         if key not in dump:
-            raise ValueError(f"Missing required key: {key}")
+            raise ValueError(f"missing required key: {key}")
     
-    # Validate each class has required fields
+    # validate each class has required fields
     for cls in dump['Classes']:
         if 'Name' not in cls or 'Members' not in cls:
-            raise ValueError(f"Invalid class structure")
+            raise ValueError(f"invalid class structure")
     
     return True
 ```
 
 ## FAQ
 
-**Q: How often does the repo update?**  
-A: Multiple times per week, automatically when Roblox releases new versions.
+**q: how often does the repo update?**  
+a: multiple times per week, automatically when roblox releases new versions
 
-**Q: Can I use this data in my commercial product?**  
-A: The data is extracted from public Roblox sources. Check Roblox's terms of service for your specific use case.
+**q: can i use this data in my commercial product?**  
+a: the data is extracted from public roblox sources. check roblox's terms of service for your specific use case
 
-**Q: Why is Full-API-Dump.json different from API-Dump.json?**  
-A: Full-API-Dump includes internal/hidden classes and default property values that normal dump omits.
+**q: why is full-api-dump.json different from api-dump.json?**  
+a: full-api-dump includes internal/hidden classes and default property values that normal dump omits
 
-**Q: Are the CSV files the same as TXT files?**  
-A: Yes, just reformatted for easier viewing in GitHub and spreadsheet applications.
+**q: are the csv files the same as txt files?**  
+a: yes, just reformatted for easier viewing in github and spreadsheet applications
 
-**Q: Can I request specific data to be tracked?**  
-A: Open an issue on the main repo. The maintainer decides what gets tracked based on community value.
+**q: can i request specific data to be tracked?**  
+a: open an issue on the main repo. the maintainer decides what gets tracked based on community value
 
 ## Contributing
 
-This is primarily an automated repository, but you can contribute:
-- Documentation improvements (like this guide)
-- Example scripts and tools
-- Bug reports if data extraction fails
-- Feature requests for the backend tool
+this is primarily an automated repository, but you can contribute:
+- documentation improvements (like this guide)
+- example scripts and tools
+- bug reports if data extraction fails
+- feature requests for the backend tool
 
-Backend source: https://github.com/MaximumADHD/RCT-Source
+backend source: https://github.com/MaximumADHD/RCT-Source
 
 ## Resources
 
-- [Roblox Developer Hub](https://create.roblox.com/docs)
-- [Roblox API Reference](https://create.roblox.com/docs/reference/engine)
-- [RCT Backend Source](https://github.com/MaximumADHD/RCT-Source)
-- [Roblox Creator Forums](https://devforum.roblox.com/)
+- [roblox developer hub](https://create.roblox.com/docs)
+- [roblox api reference](https://create.roblox.com/docs/reference/engine)
+- [rct backend source](https://github.com/MaximumADHD/RCT-Source)
+- [roblox creator forums](https://devforum.roblox.com/)
 
 ---
 
-*Last updated: February 2026*
+*last updated: february 2026*
