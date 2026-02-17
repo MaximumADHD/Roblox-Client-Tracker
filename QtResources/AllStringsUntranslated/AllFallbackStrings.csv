@@ -45,6 +45,7 @@ Studio.App.Actions.UIListLayout,,UIListLayout,UIListLayout
 Studio.App.Actions.UIPadding,,UIPadding,UIPadding
 Studio.App.Actions.UIPageLayout,,UIPageLayout,UIPageLayout
 Studio.App.Actions.UIScale,,UIScale,UIScale
+Studio.App.Actions.UIShadow,A button that adds a UIShadow component to the selected UI instance.,UIShadow,UIShadow
 Studio.App.Actions.UISizeConstraint,,UISizeConstraint,UISizeConstraint
 Studio.App.Actions.UIStroke,,UIStroke,UIStroke
 Studio.App.Actions.UITableLayout,,UITableLayout,UITableLayout
@@ -1177,6 +1178,8 @@ Studio.App.GenerativeAI.DataCollection.SupplementalTerms.6,Supplemental terms fo
 Studio.App.GenerativeAI.DataCollection.SupplementalTerms.7,Supplemental terms for AI Based tools pulled from https://en.help.roblox.com/hc/en-us/articles/20121392440212-AI-Based-Tools-Supplemental-Terms-and-Disclaimer. This is paragraph 7,"As set forth in the Terms, you shall and hereby agree to defend, hold harmless and indemnify Roblox and its Affiliated Parties from and against every claim, liability, damage, loss, and expense, including reasonable attorneys' fees and costs, arising out of or in any way connected with your access to, use of, or alleged use of the Services, including the Tools, and your violation of these Supplemental Terms.","As set forth in the Terms, you shall and hereby agree to defend, hold harmless and indemnify Roblox and its Affiliated Parties from and against every claim, liability, damage, loss, and expense, including reasonable attorneys' fees and costs, arising out of or in any way connected with your access to, use of, or alleged use of the Services, including the Tools, and your violation of these Supplemental Terms."
 Studio.App.GenerativeAI.DebugAssist.QuestionMessage,"The question message automatically sent to the Assistant when a user clicks ""Ask Assistant"" on an error message in the output log, activating Debug Assist.","Can you help me understand this error, explain what happened, and suggest possible solutions?","Can you help me understand this error, explain what happened, and suggest possible solutions?"
 Studio.App.GenerativeAI.ExplainCodeRequest,,Explain this code.,Explain this code.
+Studio.App.GenerativeAI.FileDialog.AllFiles,File dialog filter label for selecting any file type,All files,All files
+Studio.App.GenerativeAI.FileDialog.AllowedFiles,File dialog filter label for selecting specific allowed file types,Allowed files,Allowed files
 Studio.App.GenerativeAI.FindVariations,,Find Variations,Find Variations
 Studio.App.GenerativeAI.GeneratingCode,,Generating code,Generating code
 Studio.App.GenerativeAI.GetInfo,,Get Info,Get Info
@@ -2346,19 +2349,24 @@ Studio.App.Property.BubbleChatMaxBubbles,,Bubble Chat Max Bubbles,Bubble Chat Ma
 Studio.App.Property.BuiltInFunctionColor,,Built-in Function Color,Built-in Function Color
 Studio.App.Property.CameraAdaptiveSpeed,,'Zoom To' - Adapt Camera Speed,'Zoom To' - Adapt Camera Speed
 Studio.App.Property.CameraLookSensitivity,Factor applied to the mouse delta when rotating the camera,Camera Look Sensitivity,Camera Look Sensitivity
+Studio.App.Property.CameraMouseMultiplier,Multiplier applied to camera navigation with the mouse,Mouse Multiplier,Mouse Multiplier
+Studio.App.Property.CameraMouseWheelMultiplier,Factor applied to camera navigation with the mouse wheel,Mouse Wheel Multiplier,Mouse Wheel Multiplier
 Studio.App.Property.CameraMouseWheelSpeed,,Scroll Speed,Scroll Speed
 Studio.App.Property.CameraNavigationModel,Navigation model for the studio camera,Navigation Model,Navigation Model
 Studio.App.Property.CameraOrbitSensitivity,Factor applied to camera orbit movements in Studio,Camera Orbit Sensitivity,Camera Orbit Sensitivity
 Studio.App.Property.CameraPanSensitivity,Factor applied to camera panning movements in Studio,Camera Pan Sensitivity,Camera Pan Sensitivity
 Studio.App.Property.CameraPanSpeed,,Pan Speed,Pan Speed
 Studio.App.Property.CameraShiftFactor,Factor applied to camera movements when holding the shift key in Studio,Camera Shift Factor,Camera Shift Factor
+Studio.App.Property.CameraShiftKeyMultiplier,Multiplier applied to camera motions while the shift key is held,Shift Key Multiplier,Shift Key Multiplier
 Studio.App.Property.CameraShiftSpeed,,Shift Speed,Shift Speed
 Studio.App.Property.CameraSpeed,,Camera Speed,Camera Speed
 Studio.App.Property.CameraSpeedAdjustBinding,,Change Camera Speed,Change Camera Speed
 Studio.App.Property.CameraTweenFocus,,'Zoom To' - Tween Transition,'Zoom To' - Tween Transition
 Studio.App.Property.CameraZoomSensitivity,Factor applied to zooming the camera with the mouse,Camera Zoom Sensitivity,Camera Zoom Sensitivity
 Studio.App.Property.CameraZoomSpeed,How far the camera moves per zoom increment,Camera Zoom Speed,Camera Zoom Speed
+Studio.App.Property.CameraZoomSpeed2,Zoom speed of the camera,Zoom Speed,Zoom Speed
 Studio.App.Property.CameraZoomToMousePosition,,Scroll Towards Cursor Position,Scroll Towards Cursor Position
+Studio.App.Property.CameraZoomTowardsCursorPosition,Whether the camera zooms towards the cursor,Zoom Towards Cursor Position,Zoom Towards Cursor Position
 Studio.App.Property.ChatHistory,,Chat History,Chat History
 Studio.App.Property.ChatScrollLength,,Chat Scroll Length,Chat Scroll Length
 Studio.App.Property.ClearOutputOnStart,,Clear Output On Start,Clear Output On Start
@@ -2520,6 +2528,7 @@ Studio.App.Property.PluginDebuggingEnabled,,Plugin Debugging Enabled,Plugin Debu
 Studio.App.Property.PluginHangDetectionEnabled,A setting to enable plugin hang detection,Enable Plugin Hang Detection,Enable Plugin Hang Detection
 Studio.App.Property.PluginsDir,,Plugins Dir,Plugins Dir
 Studio.App.Property.PreferredClientPort,,Preferred Client Port,Preferred Client Port
+Studio.App.Property.PreferredTextSize,Setting name for a preferred text size value,Preferred Text Size,Preferred Text Size
 Studio.App.Property.PreprocessorColor,,Preprocessor Color,Preprocessor Color
 Studio.App.Property.PrimaryTextColor,,Menu Primary Text Color,Menu Primary Text Color
 Studio.App.Property.PrintBits,,Print Bits,Print Bits
@@ -3261,6 +3270,16 @@ Studio.App.Ribbon.Beta.Snippets,Create and use reusable blocks of code,Snippets,
 Studio.App.Ribbon.Beta.Snippets.Tooltip,,Create and use reusable blocks of code,Create and use reusable blocks of code
 Studio.App.Ribbon.Beta.Terrain,Create and edit terrain,Terrain,Terrain
 Studio.App.Ribbon.Beta.Terrain.Tooltip,,Create and edit terrain,Create and edit terrain
+Studio.App.RobloxChatWidget.ChatOptions,,Chat Options,Chat Options
+Studio.App.RobloxChatWidget.ChattingWith,,Chatting with %1,Chatting with %1
+Studio.App.RobloxChatWidget.ConnectingToChatElps,,Connecting to chat...,Connecting to chat...
+Studio.App.RobloxChatWidget.ContentModerated,,Content was moderated. Message not sent.,Content was moderated. Message not sent.
+Studio.App.RobloxChatWidget.DeprecatingSoon,,Team Chat is deprecated and will be removed in January 2025.,Team Chat is deprecated and will be removed in January 2025.
+Studio.App.RobloxChatWidget.DeprecatingSoon2,"Informs user about deprecation of TC chat widget. The tags around ""Learn more"" are for formatting purposes and do not need translation.","Team Chat is deprecated and will be removed on January 30th, 2025. <a href=""%1""><i>Learn more.</i></a>","Team Chat is deprecated and will be removed on January 30th, 2025. <a href=""%1""><i>Learn more.</i></a>"
+Studio.App.RobloxChatWidget.DisabledChatMessage,,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4,%1 Turn on chat in your %2 Privacy Settings %3 to chat with friends! %4
+Studio.App.RobloxChatWidget.FailedSendAMessage,,Failed to send message: ,Failed to send message: 
+Studio.App.RobloxChatWidget.NotFriendErrorMessage,,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.,Individual chat is available only for friends. Please friend '%1' or use group chat to talk.
+Studio.App.RobloxChatWidget.SendAMessage,,Send a message,Send a message
 Studio.App.RobloxCustomWidgets.BrickColor1,https://developer.roblox.com/en-us/articles/BrickColor-Codes,White,White
 Studio.App.RobloxCustomWidgets.BrickColor1001,https://developer.roblox.com/en-us/articles/BrickColor-Codes,Institutional white,Institutional white
 Studio.App.RobloxCustomWidgets.BrickColor1002,https://developer.roblox.com/en-us/articles/BrickColor-Codes,Mid gray,Mid gray
@@ -3537,7 +3556,6 @@ Studio.App.RobloxRibbonMainWindow.Advanced,,Advanced,Advanced
 Studio.App.RobloxRibbonMainWindow.AdvancedObjects,,Advanced Objects,Advanced Objects
 Studio.App.RobloxRibbonMainWindow.AlignOrientation,,Align Orientation,Align Orientation
 Studio.App.RobloxRibbonMainWindow.AlignPosition,,Align Position,Align Position
-Studio.App.RobloxRibbonMainWindow.AnimationConstraint,,Animation Constraint,Animation Constraint
 Studio.App.RobloxRibbonMainWindow.AlignTool,,Align Tool,Align Tool
 Studio.App.RobloxRibbonMainWindow.AlignToolGroup,,Alignment,Alignment
 Studio.App.RobloxRibbonMainWindow.AlignToolTooltip,,Align the selected parts and models,Align the selected parts and models
@@ -3548,6 +3566,7 @@ Studio.App.RobloxRibbonMainWindow.AnchorModeTooltip,"Allows the user to anchor o
 Studio.App.RobloxRibbonMainWindow.AnchorTool,,Anchor Tool,Anchor Tool
 Studio.App.RobloxRibbonMainWindow.AngularVelocity,,Angular Velocity,Angular Velocity
 Studio.App.RobloxRibbonMainWindow.AngularVelocityTooltip,,Create angular velocity constraint,Create angular velocity constraint
+Studio.App.RobloxRibbonMainWindow.AnimationConstraint,The title of a button for the Engine feature 'Animation Constraints',Animation Constraint,Animation Constraint
 Studio.App.RobloxRibbonMainWindow.AnimationEditor,,Animation Editor,Animation Editor
 Studio.App.RobloxRibbonMainWindow.AnimationEditorTooltip,,"Create, preview, and publish animation clips","Create, preview, and publish animation clips"
 Studio.App.RobloxRibbonMainWindow.AssetIdOfTexture,,Specifies the asset id of the texture to display,Specifies the asset id of the texture to display
@@ -3592,8 +3611,8 @@ Studio.App.RobloxRibbonMainWindow.Color,,Color,Color
 Studio.App.RobloxRibbonMainWindow.ColorActionAsTool,,Color Action as Tool,Color Action as Tool
 Studio.App.RobloxRibbonMainWindow.ColorActionAsToolTooltip,,Click object to apply color,Click object to apply color
 Studio.App.RobloxRibbonMainWindow.CommentOutTheSelectedText,,Comment out the selected text,Comment out the selected text
-Studio.App.RobloxRibbonMainWindow.CompositorDebugger,,Compositor Debugger,Compositor Debugger
-Studio.App.RobloxRibbonMainWindow.CompositorDebuggerTooltip,,Connect to an animation compositor graph to see its layers and their properties in real time,Connect to an animation compositor graph to see its layers and their properties in real time
+Studio.App.RobloxRibbonMainWindow.CompositorDebugger,"renaming to ""Anim Graph"", short for ""Animation Graph Editor"", due to lack of space in new ribbon",Anim Graph,Anim Graph
+Studio.App.RobloxRibbonMainWindow.CompositorDebuggerTooltip,ribbon tooltip for Animation Graph Editor,"Create, preview and publish animation graphs","Create, preview and publish animation graphs"
 Studio.App.RobloxRibbonMainWindow.ConnectionIsLost,,Server connection lost. Functionality is limited. Attempting to reconnect...,Server connection lost. Functionality is limited. Attempting to reconnect...
 Studio.App.RobloxRibbonMainWindow.ConnectionIsStable,,Connection is stable.,Connection is stable.
 Studio.App.RobloxRibbonMainWindow.ConnectionIsUnstable,,Connection is unstable. Changes may not be saved.,Connection is unstable. Changes may not be saved.
@@ -3611,7 +3630,7 @@ Studio.App.RobloxRibbonMainWindow.CreateAccessory,,Create Accessory,Create Acces
 Studio.App.RobloxRibbonMainWindow.CreateAccessoryTooltip,,Select one or multiple Models to convert into accessories,Select one or multiple Models to convert into accessories
 Studio.App.RobloxRibbonMainWindow.CreateAlignOrientation,,Create align orientation,Create align orientation
 Studio.App.RobloxRibbonMainWindow.CreateAlignPosition,,Create align position,Create align position
-Studio.App.RobloxRibbonMainWindow.CreateAnimationConstraint,,Create animation constraint,Create animation constraint
+Studio.App.RobloxRibbonMainWindow.CreateAnimationConstraint,Description for a button that creates an animation constraint,Create animation constraint,Create animation constraint
 Studio.App.RobloxRibbonMainWindow.CreateBallInSocket,,Create ball in socket,Create ball in socket
 Studio.App.RobloxRibbonMainWindow.CreateBallOnAxis,,Create ball on axis,Create ball on axis
 Studio.App.RobloxRibbonMainWindow.CreateBeamToolTip,,Create beam,Create beam
@@ -3657,6 +3676,8 @@ Studio.App.RobloxRibbonMainWindow.DocHistoryBackwards,,Step backwards through ta
 Studio.App.RobloxRibbonMainWindow.DocHistoryForwards,,Step forwards through tab history,Step forwards through tab history
 Studio.App.RobloxRibbonMainWindow.DrawConstraintsAttWeldsTop,,"Draw constraints, attachments and welds on top","Draw constraints, attachments and welds on top"
 Studio.App.RobloxRibbonMainWindow.DrawOnTop,,Draw On Top,Draw On Top
+Studio.App.RobloxRibbonMainWindow.DynamicHeadQA,Internal tool for QAing Dynamic Head Assets,Dynamic Head QA,Dynamic Head QA
+Studio.App.RobloxRibbonMainWindow.DynamicHeadQATooltip,"Tooltip text for Dynamic Head QA plugin -- internal only, no translation needed",Internal tool for QAing Dynamic Head Assets,Internal tool for QAing Dynamic Head Assets
 Studio.App.RobloxRibbonMainWindow.EditCollisionGroups,,Edit collision groups,Edit collision groups
 Studio.App.RobloxRibbonMainWindow.EditPivot,,Edit Pivot,Edit Pivot
 Studio.App.RobloxRibbonMainWindow.EditPivotTooltip,,Edit the point around which the selected object rotates and translates,Edit the point around which the selected object rotates and translates
@@ -3693,7 +3714,7 @@ Studio.App.RobloxRibbonMainWindow.HideDetails,,Hide Details,Hide Details
 Studio.App.RobloxRibbonMainWindow.Hinge,,Hinge,Hinge
 Studio.App.RobloxRibbonMainWindow.ImageButton,,Image Button,Image Button
 Studio.App.RobloxRibbonMainWindow.ImageLabel,,Image Label,Image Label
-Studio.App.RobloxRibbonMainWindow.Import3D,,Import 3D,Import 3D
+Studio.App.RobloxRibbonMainWindow.Import3D,This text appears in the main Roblox Studio window below a button allowing users to import content.,Import,Import
 Studio.App.RobloxRibbonMainWindow.Inlets,,Inlets,Inlets
 Studio.App.RobloxRibbonMainWindow.Insert,,Insert,Insert
 Studio.App.RobloxRibbonMainWindow.InsertALocalScript,,Insert a local script,Insert a local script
@@ -3749,7 +3770,7 @@ Studio.App.RobloxRibbonMainWindow.MaterialManagerToolTip,,"Manage, select, and a
 Studio.App.RobloxRibbonMainWindow.MaterialPicker,,Material,Material
 Studio.App.RobloxRibbonMainWindow.MaterialPickerTooltip,,Select a material to use,Select a material to use
 Studio.App.RobloxRibbonMainWindow.MeshImporter,,Mesh Importer,Mesh Importer
-Studio.App.RobloxRibbonMainWindow.MeshImporterTooltip,,Import a mesh rig or avatar from a file using the import UI.,Import a mesh rig or avatar from a file using the import UI.
+Studio.App.RobloxRibbonMainWindow.MeshImporterTooltip,"This text appears in a tooltip underneath a button that allows users to Import images, audio, video, and meshes from outside of Roblox to Roblox Studio.",Import content from a file,Import content from a file
 Studio.App.RobloxRibbonMainWindow.Model,,Model,Model
 Studio.App.RobloxRibbonMainWindow.ModuleScript,,Module Script,Module Script
 Studio.App.RobloxRibbonMainWindow.Motor,,Motor,Motor
@@ -4308,11 +4329,11 @@ Studio.App.AddImageDialog.FileDoesNotExist,,File does not exist,File does not ex
 Studio.App.AddImageDialog.Image,,Image:,Image:
 Studio.App.AddImageDialog.ImageFileRequired,,Image file is required,Image file is required
 Studio.App.AddImageDialog.Name,,Name:,Name:
+Studio.App.AnimationFromTextCreatorStudioService.NoFolderSelected,No folder selected,No folder selected,No folder selected
+Studio.App.AnimationFromTextCreatorStudioService.SelectOutputFolder,Select output folder,Select output folder,Select output folder
 Studio.App.AnimationFromVideoCreatorStudioService.FileTooLarge,,File is too large; must be less than %1MB,File is too large; must be less than %1MB
 Studio.App.AnimationFromVideoCreatorStudioService.NoFileSelected,,No file selected,No file selected
-Studio.App.AnimationFromVideoCreatorStudioService.NoFolderSelected,No folder selected,No folder selected,No folder selected
 Studio.App.AnimationFromVideoCreatorStudioService.SelectMP4VideoFile,,Select a video,Select a video
-Studio.App.AnimationFromVideoCreatorStudioService.SelectOutputFolder,Select output folder,Select output folder,Select output folder
 Studio.App.AnimationFromVideoCreatorStudioService.UploadFailed,,Upload failed,Upload failed
 Studio.App.AssetAccess.ShareOutputMessage1,,The experience doesn't have access permission to use asset id %1. Click to share access,The experience doesn't have access permission to use asset id %1. Click to share access
 Studio.App.AssetAccess.ShareOutputMessageToolTip,,Share access to asset(s),Share access to asset(s)
@@ -5523,7 +5544,7 @@ Studio.BetaFeatures.GltfExportDescription,description of gltf export beta featur
 Studio.BetaFeatures.GltfExportTitle,Title of the Gltf Export beta feature which allows users to export their scenes and models in the glTF format,glTF Export,glTF Export
 Studio.BetaFeatures.HapticEffectDescription,Cross-platform haptics with preset effects and customizable waveforms. This addresses many pain points of the previous HapticService.,Cross-platform haptics with preset effects and customizable waveforms. This addresses many pain points of the previous HapticService.,Cross-platform haptics with preset effects and customizable waveforms. This addresses many pain points of the previous HapticService.
 Studio.BetaFeatures.HapticEffectTitle,Haptic Effects,Haptic Effects,Haptic Effects
-Studio.BetaFeatures.IEAvatarAutoSetupTitleDescription,Description for the Studio Beta Feature for In-Experience Avatar Auto Setup,Enables in-experience automated creation of avatars from 3D models of humanoid-like bodies.,Enables in-experience automated creation of avatars from 3D models of humanoid-like bodies.
+Studio.BetaFeatures.IEAvatarAutoSetupTitleDescription,Description for the Studio Beta Feature for In-Experience Avatar Auto Setup,Enables in-experience automated creation of avatars and avatar clothing and accessories from 3D models.,Enables in-experience automated creation of avatars and avatar clothing and accessories from 3D models.
 Studio.BetaFeatures.IEAvatarAutoSetupTitleTitle,Title for the Studio Beta Feature for In-Experience Avatar Auto Setup,In-Experience Avatar Auto Setup,In-Experience Avatar Auto Setup
 Studio.BetaFeatures.ImportQueueDescription,,Enable the bulk import of multiple 3D files through the Import 3D tool.,Enable the bulk import of multiple 3D files through the Import 3D tool.
 Studio.BetaFeatures.ImportQueueTitle,,Import Queue,Import Queue
@@ -6537,6 +6558,14 @@ Studio.NativeDialog.TerminateBuiltInNoName,"The description given to users when 
 Studio.NativeDialog.TerminatePluginNoName,"The description given to users when we want to end a plugin that is taking too long to run. The user needs to know that stopping this plugin will not crash Studio, but will just kill that plugin. They will be able to continue working on their project and none of their work will get lost.","A plugin is taking too long to execute. Do you want to stop it and continue editing your place, or keep waiting?","A plugin is taking too long to execute. Do you want to stop it and continue editing your place, or keep waiting?"
 Studio.NativeDialog.TerminateUserPluginNoName,"The description given to users when we want to end a user plugin that is taking too long to run. The user needs to know that stopping this plugin will not crash Studio, but will just kill that plugin. They will be able to continue working on their project and none of their work will get lost.","A user plugin is taking too long to execute. Do you want to stop it and continue editing your place, or keep waiting a bit longer.","A user plugin is taking too long to execute. Do you want to stop it and continue editing your place, or keep waiting a bit longer."
 Studio.NativeDialog.Yes,Affirmative word,Yes,Yes
+Studio.NetworkSettings.Property.EnableNetworkEmulation,"When devs check this check box, it will enable functionality to mimic poor network conditions like packet loss and network latency",Enable Network Emulation,Enable Network Emulation
+Studio.NetworkSettings.Property.InboundNetworkMaxDelay,"This setting will add a delay to inbound (received) network packets. It is the maximum amount of delay, a separate setting will specify the minimum. It accepts values between 0 and 2000, and the setting is in milliseconds.",Max Inbound Delay (0-2000ms),Max Inbound Delay (0-2000ms)
+Studio.NetworkSettings.Property.InboundNetworkMinDelay,"This setting will add a delay to inbound (received) network packets. It is the minimum amount of delay, a separate setting will specify the maximum. It accepts values between 0 and 2000, and the setting is in milliseconds.",Min Inbound Delay (0-2000ms),Min Inbound Delay (0-2000ms)
+Studio.NetworkSettings.Property.InboundPacketLoss,"This setting sets a percent chance that inbound (received) network packets will be dropped, mimicking packet loss. The accepted range is 0 to 10 percent.",Inbound Packet Loss (0-10%),Inbound Packet Loss (0-10%)
+Studio.NetworkSettings.Property.OutboundNetworkMaxDelay,"This setting will add a delay to outbound (sent) network packets. It is the maximum amount of delay, a separate setting will specify the minimum. It accepts values between 0 and 2000, and the setting is in milliseconds.",Max Outbound Delay (0-2000ms),Max Outbound Delay (0-2000ms)
+Studio.NetworkSettings.Property.OutboundNetworkMinDelay,"This setting will add a delay to outbound (sent) network packets. It is the minimum amount of delay, a separate setting will specify the maximum. It accepts values between 0 and 2000, and the setting is in milliseconds.",Min Outbound Delay (0-2000ms),Min Outbound Delay (0-2000ms)
+Studio.NetworkSettings.Property.OutboundPacketLoss,"This setting sets a percent chance that outbound (sent) network packets will be dropped, mimicking packet loss. The accepted range is 0 to 10 percent.",Outbound Packet Loss (0-10%),Outbound Packet Loss (0-10%)
+Studio.NetworkSettings.SettingsCategory.NetworkEmulation,A collection of settings to mimic poor network conditions like packet loss and network latency,Network Emulation,Network Emulation
 Studio.PackageManagement.MenuEntry.Permissions,,Permissions,Permissions
 Studio.PackageManagement.Meta.PluginName,,Package Configuration,Package Configuration
 Studio.PackageManagement.UpdateModified.MultipleConfirm,Confirm button for dialog when a package update is going to overwrite local changes.,Overwrite & Update All,Overwrite & Update All
@@ -7104,6 +7133,16 @@ Studio.TeamCreateStatusIndicator.PlaceUploadFailingTip,Description message that 
 Studio.TeamCreateStatusIndicator.PlaceUploadFailingTitle,Urgent alert that shows to creator that place upload for Team Create is not working,Place upload is failing.,Place upload is failing.
 Studio.TeamCreate.DisconnectReasonUnknown,This message is presented to the user when they lose their connection to a server using Team Create.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.,You have been unexpectedly disconnected from the Team Create server. Please try connecting again.
 Studio.TeamCreate.Disconnected,Title for a dialog that indicates a user has been disconnected from their Team Create server.,Disconnected,Disconnected
+Studio.TeamCreate.SafetyEvictDialog.AskForParentPermission,title for dialog when users are disconnected from a Team Create session because they need parent permission,Ask your parent for permission to keep collaborating in this experience,Ask your parent for permission to keep collaborating in this experience
+Studio.TeamCreate.SafetyEvictDialog.BecomeTCButton,button on dialog that links to start trusted connections process (dialog appears when users are disconnected from a Team Create session because they need to get trusted connections),Add,Add
+Studio.TeamCreate.SafetyEvictDialog.EstablishTrustedConnections,title for dialog when users are disconnected from a Team Create session because they need to establish trusted connection,Add Trusted Connections,Add Trusted Connections
+Studio.TeamCreate.SafetyEvictDialog.EstablishTrustedConnectionsDescription,description for dialog when users are disconnected from a Team Create session because they need to establish trusted connections,"To continue collaborating in Studio with older users, you need to establish trust.","To continue collaborating in Studio with older users, you need to establish trust."
+Studio.TeamCreate.SafetyEvictDialog.GetParentPermission,button name on dialog that links to get parent permission (when users are disconnected from a Team Create session because they need parent permission),Get parent permission,Get parent permission
+Studio.TeamCreate.SafetyEvictDialog.OwnerFurtherAction,title for dialog when users are disconnected from a Team Create session because owner needs to take action (age gating check),"To collaborate on this experience, the owner needs to take further action","To collaborate on this experience, the owner needs to take further action"
+Studio.TeamCreate.SafetyEvictDialog.OwnerFurtherActionDescription,description for dialog when users are disconnected from a Team Create session because owner needs to take action (age gating check),People in different age groups need additional steps to work together on Studio.,People in different age groups need additional steps to work together on Studio.
+Studio.TeamCreate.SafetyEvictDialog.VerifyButton,button to start age verification process (for dialog that appears when disconnected from a Team Create session because user needs to verify age),Verify,Verify
+Studio.TeamCreate.SafetyEvictDialog.VerifyYourAge,title for dialog that appears when disconnected from a Team Create session because user needs to verify age,Verify your age,Verify your age
+Studio.TeamCreate.SafetyEvictDialog.VerifyYourAgeDescription,description for dialog that appears when user disconnects from Team Create session because they need to verify their age,"To continue collaborating in Studio with other users, you need to verify your age.","To continue collaborating in Studio with other users, you need to verify your age."
 Studio.TerrainToolsV2.Action.Apply,,Apply,Apply
 Studio.TerrainToolsV2.Action.Back,,Back,Back
 Studio.TerrainToolsV2.Action.Cancel,,Cancel,Cancel

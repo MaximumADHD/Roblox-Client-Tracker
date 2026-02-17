@@ -5706,6 +5706,8 @@ Studio.App.Property.DraggerShowAxisTicks,,,Dragger Show Axis Ticks,Dragger Show 
 Studio.App.PropertyTooltip.DraggerShowAxisTicks,,,Show the axis ticks while dragging if snapping is enabled.,Show the axis ticks while dragging if snapping is enabled.
 Studio.App.RobloxRibbonMainWindow.AnimationConstraint,,,Animation Constraint,Animation Constraint
 Studio.App.RobloxRibbonMainWindow.CreateAnimationConstraint,,,Create animation constraint,Create animation constraint
+Studio.App.GenerativeAI.FileDialog.AllFiles,,,All files,All files
+Studio.App.GenerativeAI.FileDialog.AllowedFiles,,,Allowed files,Allowed files
 Studio.GameSettings.General.PluginName,,,Game Settings,Game Settings
 Studio.GameSettings.General.PluginDescription,,,Update settings related to current game,Update settings related to current game
 Studio.GameSettings.General.SettingOn,,,On,On
@@ -9301,7 +9303,7 @@ Studio.AssetManager.QuickShare.SharingOne,,,Sharing 1 asset,Sharing 1 asset
 Studio.AssetManager.QuickShare.ExperienceIdPlaceholder,,,Enter experience IDs,Enter experience IDs
 Studio.AssetManager.QuickShare.CollaboratorsTab,,,Collaborators,Collaborators
 Studio.AssetManager.QuickShare.ExperiencesTab,,,Experiences,Experiences
-Studio.AssetManager.QuickShare.CollaboratorPlaceholder,,,Search user or group...,Search user or group...
+Studio.AssetManager.QuickShare.CollaboratorPlaceholder,,,Search for a connection or group,Search for a connection or group
 Studio.AssetManager.QuickShare.DoneButton,,,Done,Done
 Studio.AssetManager.QuickShare.CancelButton,,,Cancel,Cancel
 Studio.AssetManager.QuickShare.CloseButton,,,Close,Close
@@ -9314,6 +9316,10 @@ Studio.AssetManager.Sidebar.Library,,,Library,Library
 Studio.AssetManager.ContextMenu.FindInExplorer,,,Find in Explorer,Find in Explorer
 Studio.AssetManager.QuickShare.ShareButton,,,Share,Share
 Studio.AssetManager.QuickShare.DialogDescription,,,Configure who has permission to access your assets,Configure who has permission to access your assets
+Studio.AssetManager.QuickShare.CollaboratorsHintTitle,,,Add collaborators,Add collaborators
+Studio.AssetManager.QuickShare.CollaboratorsHintDescription,,,Give your connections and groups access to this asset,Give your connections and groups access to this asset
+Studio.AssetManager.QuickShare.ExperiencesHintTitle,,,Add experiences,Add experiences
+Studio.AssetManager.QuickShare.ExperiencesHintDescription,,,Share with experiences you have access to,Share with experiences you have access to
 Studio.EventEmulator.Plugin.Name,,,EventEmulator,EventEmulator
 Studio.EventEmulator.Plugin.Toolbar,,,Event Emulator,Event Emulator
 Studio.EventEmulator.Plugin.Button,,,Toggle,Toggle
@@ -10197,6 +10203,7 @@ Studio.AssetImporter.UploadError.ReconfigureButton,,,Reconfigure,Reconfigure
 Studio.AssetImporter.UploadError.OkButton,,,Ok,Ok
 Studio.AssetImporter.Statuses.EmissiveNeedsTransformWarning,,,Roblox transforms emissive map textures into a grayscale mask texture and modifies the imported color map to include the color information from the emissive map texture.,Roblox transforms emissive map textures into a grayscale mask texture and modifies the imported color map to include the color information from the emissive map texture.
 Studio.AssetImporter.ImportQueue.NoPreset,,,N/A,N/A
+Studio.AssetImporter.ImportQueue.SearchBar,,,Search Import Queue,Search Import Queue
 Studio.MaterialManager.Plugin.Name,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Toolbar,,,Material Manager,Material Manager
 Studio.MaterialManager.Plugin.Button,,,Material Manager,Material Manager
@@ -11190,10 +11197,11 @@ Studio.StyleEditor.ContextMenu.NewDesignStyleSheet,,,New StyleSheet,New StyleShe
 Studio.StyleEditor.ContextMenu.CreateStudioDefaultStyleSheetV2,,,Create Base StyleSheet,Create Base StyleSheet
 Studio.StyleEditor.ContextMenu.IncreaseStyleRulePriority,,,Increase Priority,Increase Priority
 Studio.StyleEditor.ContextMenu.DecreaseStyleRulePriority,,,Decrease Priority,Decrease Priority
-Studio.StyleEditor.Label.NestedPseudoInstanceError,,,Error: PseudoInstance StyleRule cannot be parented to another PseudoInstance StyleRule,Error: PseudoInstance StyleRule cannot be parented to another PseudoInstance StyleRule
+Studio.StyleEditor.Label.NestedPseudoInstanceError,,,Error: PseudoInstance StyleRule is an invalid child of another PseudoInstance StyleRule,Error: PseudoInstance StyleRule is an invalid child of another PseudoInstance StyleRule
 Studio.StyleEditor.Categories.Queries,,,Queries,Queries
 Studio.StyleEditor.ContextMenu.New.Query,,,Query,Query
 Studio.StyleEditor.SourceSelect.Source,,,Source:,Source:
+Studio.StyleEditor.ContextMenu.Insert,,,Insert,Insert
 Studio.AudioDiscovery.Plugin.Name,,,Audio Discovery,Audio Discovery
 Studio.AudioDiscovery.Plugin.Toolbar,,,Audio Discovery,Audio Discovery
 Studio.AudioDiscovery.Plugin.Button,,,View Sounds,View Sounds
@@ -12132,6 +12140,9 @@ Studio.AvatarCompatibilityPreviewer.LookComposerDialog.WarningsFound,,,{count} w
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.ErrorMakeupItemsOwnership,,,You can only create a Makeup Look using items that you created,You can only create a Makeup Look using items that you created
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.SeeDetails,,,See details,See details
 Studio.AvatarCompatibilityPreviewer.LookComposerDialog.Warnings,,,{count} warnings,{count} warnings
+Studio.AvatarCompatibilityPreviewer.AddItems.AddContentFromLabel,,,Add content from,Add content from
+Studio.AvatarCompatibilityPreviewer.AddItems.SelectedInstancesLabel,,,Selected instance(s),Selected instance(s)
+Studio.AvatarCompatibilityPreviewer.AddItems.AssetIDLabel,,,AssetID,AssetID
 Studio.CompositorDebugger.Plugin.Name,,,Compositor Debugger,Compositor Debugger
 Studio.CompositorDebugger.Plugin.Toolbar,,,Animation,Animation
 Studio.CompositorDebugger.Plugin.Button,,,Anim Graph,Anim Graph
@@ -13664,7 +13675,7 @@ Studio.Assistant.SettingsDialog.GoogleAPIKey,,,Google API,Google API
 Studio.Assistant.SettingsDialog.Edit,,,Edit,Edit
 Studio.Assistant.SettingsDialog.Model,,,Model,Model
 Studio.Assistant.SettingsDialog.EnterProviderKey,,,Enter {provider} API key,Enter {provider} API key
-Studio.Assistant.SettingsDialog.Default,,,Daily Usage Limit,Daily Usage Limit
+Studio.Assistant.SettingsDialog.Default,,,Roblox Default,Roblox Default
 Studio.Assistant.SettingsDialog.AnthropicDescription,,,You can put in your Anthropic API key to use Claude at your own cost,You can put in your Anthropic API key to use Claude at your own cost
 Studio.Assistant.SettingsDialog.OpenAIDescription,,,You can put your own OpenAI key to use OpenAI models at your own cost,You can put your own OpenAI key to use OpenAI models at your own cost
 Studio.Assistant.SettingsDialog.GoogleDescription,,,You can put in your own Google AI Studio key to use Google models at your own cost.,You can put in your own Google AI Studio key to use Google models at your own cost.
@@ -13677,6 +13688,17 @@ Studio.Assistant.InputArea.LearnMore,,,Learn More,Learn More
 Studio.Assistant.SettingsDialog.APIKeyLegalSummary,,,"Connecting a third-party LLM to Roblox Studio shares your data with that provider. Review their privacy practices, terms, and age limits before proceeding. Roblox is not responsible for third-party model output.","Connecting a third-party LLM to Roblox Studio shares your data with that provider. Review their privacy practices, terms, and age limits before proceeding. Roblox is not responsible for third-party model output."
 Studio.Assistant.Tools.TestGame,,,Test Game,Test Game
 Studio.Assistant.ErrorMessage.ExternalQuotaExceeded,,,Limit reached on API Key. Please check your API keys and try again,Limit reached on API Key. Please check your API keys and try again
+Studio.Assistant.CharacterNavigation,,,Character Navigation,Character Navigation
+Studio.Assistant.StartStopPlay,,,Start/Stop Play,Start/Stop Play
+Studio.Assistant.UserKeyboardInput,,,Keyboard Input,Keyboard Input
+Studio.Assistant.UserMouseInput,,,Mouse Input,Mouse Input
+Studio.Assistant.GetConsoleOutput,,,Get Console Output,Get Console Output
+Studio.Assistant.SettingsDialog.DefaultDescription,,,Roblox Default is subject to a daily usage limit,Roblox Default is subject to a daily usage limit
+Studio.Assistant.Tools.CharacterNavigation,,,Character Navigation,Character Navigation
+Studio.Assistant.Tools.UserKeyboardInput,,,Keyboard Input,Keyboard Input
+Studio.Assistant.Tools.UserMouseInput,,,Mouse Input,Mouse Input
+Studio.Assistant.Tools.StartStopPlay,,,Start/Stop Play,Start/Stop Play
+Studio.Assistant.Tools.GetConsoleOutput,,,Get Console Output,Get Console Output
 Studio.PropertiesPlugin.Plugin.Button,,,Properties Plugin,Properties Plugin
 Studio.PropertiesPlugin.Plugin.Name,,,PropertiesPlugin,PropertiesPlugin
 Studio.PropertiesPlugin.Plugin.Description,,,A template for all your studio plugin needs!,A template for all your studio plugin needs!
@@ -14282,7 +14304,7 @@ Studio.BetaFeatures.EngineStylingTitle,,,UI Styling,UI Styling
 Studio.BetaFeatures.EngineStylingDescription,,,"Define your UI's visual appearance separate from the instance itself through new APIs (StyleRule, StyleSheet, StyleLink) and a no-code Style Editor.","Define your UI's visual appearance separate from the instance itself through new APIs (StyleRule, StyleSheet, StyleLink) and a no-code Style Editor."
 Studio.BetaFeatures.NewFindAllReplaceAllTitle,,,Improved Find All/Replace All,Improved Find All/Replace All
 Studio.BetaFeatures.NewFindAllReplaceAllDescription,,,Faster and modernized Find All/Replace All tool,Faster and modernized Find All/Replace All tool
-Studio.BetaFeatures.IEAvatarAutoSetupTitleDescription,,,Enables in-experience automated creation of avatars from 3D models of humanoid-like bodies.,Enables in-experience automated creation of avatars from 3D models of humanoid-like bodies.
+Studio.BetaFeatures.IEAvatarAutoSetupTitleDescription,,,Enables in-experience automated creation of avatars and avatar clothing and accessories from 3D models.,Enables in-experience automated creation of avatars and avatar clothing and accessories from 3D models.
 Studio.BetaFeatures.IEAvatarAutoSetupTitleTitle,,,In-Experience Avatar Auto Setup,In-Experience Avatar Auto Setup
 Studio.BetaFeatures.CreateSurfaceAppearanceTitle,,,EditableImage support for SurfaceAppearance maps,EditableImage support for SurfaceAppearance maps
 Studio.BetaFeatures.CreateSurfaceAppearanceDescription,,,Enables the use of AssetService:CreateSurfaceAppearanceAsync() to create SurfaceAppearance instances with EditableImage content at run time.,Enables the use of AssetService:CreateSurfaceAppearanceAsync() to create SurfaceAppearance instances with EditableImage content at run time.
@@ -14431,6 +14453,9 @@ Studio.PlaceVersionHistory.Label.Published,,,Published,Published
 Studio.PlaceVersionHistory.Label.AutoSave,,,Auto save,Auto save
 Studio.PlaceVersionHistory.Action.AddNotes,,,Add notes,Add notes
 Studio.PlaceVersionHistory.Label.UnknownUser,,,Unknown user,Unknown user
+Studio.PlaceVersionHistory.Title.MigrationInProgress,,,Your version history is being migrated,Your version history is being migrated
+Studio.PlaceVersionHistory.Description.MigrationInProgress,,,We have started moving your version history. It will show up here soon.,We have started moving your version history. It will show up here soon.
+Studio.PlaceVersionHistory.Label.ResetPlace,,,Back to current place,Back to current place
 Studio.PerformanceTools.SceneBudgetThermometer.Plugin.Toolbar,,,Performance Tools,Performance Tools
 Studio.PerformanceTools.SceneBudgetThermometer.Name,,,Scene Budget Thermometer,Scene Budget Thermometer
 Studio.PerformanceTools.SceneBudgetThermometer.Button,,,Scene Budget Thermometer,Scene Budget Thermometer
@@ -14704,6 +14729,7 @@ Studio.CommandBar.Label.SwitchToMultilineTooltip,,,Switch to multi-line mode,Swi
 Studio.CommandBar.Label.PlaceholderText,,,Type a command or use %1+%2/%3 for history,Type a command or use %1+%2/%3 for history
 Studio.CommandBar.Label.RunWithShortcut,,,Run %1%2,Run %1%2
 Studio.CommandBar.Label.PlaceholderTextWithShortcut,,,Execute a command with %1%2 or use %3+%4/%5 for history,Execute a command with %1%2 or use %3+%4/%5 for history
+Studio.CommandBar.ExecuteWithEnterProperty,,,Execute Command with Return,Execute Command with Return
 Studio.NativeDialog.Yes,,,Yes,Yes
 Studio.NativeDialog.No,,,No,No
 Studio.NativeDialog.NativeDialogTitle,,,%1 is not responding,%1 is not responding
