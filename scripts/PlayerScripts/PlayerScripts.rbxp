@@ -56,14 +56,19 @@
                                         "Up": "Up"
                                     }
                                 },
-                                "MoveBinding": {
+                                "KeyboardMoveBinding": {
                                     "$className": "InputBinding",
                                     "$properties": {
-                                        "KeyCode": "Thumbstick1",
                                         "Left": "A",
                                         "Right": "D",
                                         "Down": "S",
                                         "Up": "W"
+                                    }
+                                },
+                                "GamepadMoveBinding": {
+                                    "$className": "InputBinding",
+                                    "$properties": {
+                                        "KeyCode": "Thumbstick1"
                                     }
                                 }
                             },

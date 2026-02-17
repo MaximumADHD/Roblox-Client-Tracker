@@ -19,7 +19,7 @@ local Foundation = require(Packages.Foundation)
 local InternalTextInput = Foundation.InternalTextInput
 
 local function Component()
-	local text, setText = React.useState(0)
+	local text, setText = React.useBinding(0)
 	return React.createElement(InternalTextInput, {
 		text = text,
 		onChanged = function() end,

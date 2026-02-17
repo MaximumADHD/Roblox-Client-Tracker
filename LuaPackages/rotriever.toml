@@ -8,7 +8,7 @@ version = "0.1.0"
 registry_index = { url = "https://apis.simulprod.com/rotriever-registry", protocol = "zip" }
 
 [dependencies]
-ServiceContractsProto = "1.0.240+20260204"
+ServiceContractsProto = "1.0.267+20260209"
 Rodux = "1.0"
 RoactRodux = "0.2"
 RoactAppExperiment = "0.4.1"
@@ -20,7 +20,7 @@ llama = "1.0.0"
 LuaSocialLibrariesDeps = "1.8.1"
 AvatarExperienceDeps = "0.0.1"
 UIBlox = "0.2.228"
-Foundation = "1.68.0"
+Foundation = "1.70.0"
 FoundationCloudAssets = "0.4.2"
 FoundationImages = "1.33.0"
 Thumbnailing = "0.5.1"
@@ -63,7 +63,7 @@ QRCode = "0.1.0"
 Merge = "0.3.1"
 GraphqlToolsUtils = { version = "0.3.1", package = "Utils" }
 DataLoader = "0.2.0"
-UGCValidation = "1.17.28"
+UGCValidation = "1.17.29"
 RoduxPresence = "3.2.3"
 RoduxFriends = "4.3.0"
 RoduxUsers = "1.5.1"
@@ -76,7 +76,7 @@ SignalsReact = "0.6.0"
 SignalsRoblox = "0.6.0"
 SignalsExperimental = "0.6.0"
 Motion = "0.0.7"
-BuilderIcons = "0.1.27"
+BuilderIcons = "0.1.28"
 InlineLayout = { version = "0.0.2" }
 
 # The following packages were ported from AppTempCommon

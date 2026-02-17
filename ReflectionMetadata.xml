@@ -8755,7 +8755,6 @@
         <string name="Name">StyleBase</string>
         <string name="ClassCategory">Styling</string>
         <string name="ExplorerOrder">200</string>
-        <string name="FFlag">FFlagEngineStylingEnabled2</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -8763,7 +8762,6 @@
         <string name="Name">StyleSheet</string>
         <string name="ClassCategory">Styling</string>
         <string name="ExplorerOrder">200</string>
-        <string name="FFlag">FFlagEngineStylingEnabled2</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -8772,7 +8770,6 @@
         <string name="ClassCategory">Styling</string>
         <string name="PreferredParent">StyleSheet</string>
         <string name="ExplorerOrder">200</string>
-        <string name="FFlag">FFlagEngineStylingEnabled2</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -8780,7 +8777,6 @@
         <string name="Name">StyleLink</string>
         <string name="ClassCategory">Styling</string>
         <string name="ExplorerOrder">200</string>
-        <string name="FFlag">FFlagEngineStylingEnabled2</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">
@@ -8789,7 +8785,6 @@
         <string name="ClassCategory">Styling</string>
         <string name="PreferredParent">StyleSheet</string>
         <string name="ExplorerOrder">200</string>
-        <string name="FFlag">FFlagEngineStylingEnabled2</string>
       </Properties>
     </Item>
     <Item class="ReflectionMetadataClass">

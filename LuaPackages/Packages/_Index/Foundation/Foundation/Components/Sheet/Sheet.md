@@ -5,6 +5,10 @@ category: Layout
 ## Overview
 A Sheet is a contextual, highly adaptable interface element sliding in from one edge of the viewport, acting as its own self containing surface to support deeper, focused interactions while maintaining context with underlying content.
 
+!!! warning "Automatic Scrolling Management"
+
+	Sheet's content is wrapped in a [[ScrollView]] that manages scrolling automatically when the content exceeds the available space. This includes handling styling of dividers and properly managing swipe behavior on Bottom Sheets. Do not put your own ScrollingFrame around your Sheet content, otherwise you will break this functionality.
+
 ## Screen-aware Layout
 The Sheet component will switch between bottom, side, and center sheet based on the screen size, orientation, and props.
 
