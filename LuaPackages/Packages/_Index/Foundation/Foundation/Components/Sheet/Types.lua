@@ -16,7 +16,7 @@ export type SheetProps = {
 	sheetRef: React.Ref<SheetRef>?,
 	-- Prefer using center sheet over side sheet
 	preferCenterSheet: boolean?,
-	-- The size of the sheet, only applies to center sheets
+	-- The size of the sheet, doesn't apply to bottom sheets
 	size: DialogSize?,
 	-- Callback fired when the sheet is closed
 	onClose: () -> (),

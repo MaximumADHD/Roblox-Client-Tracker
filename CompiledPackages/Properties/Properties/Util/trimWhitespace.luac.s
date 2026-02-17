@@ -1,0 +1,11 @@
+PROTO_0:
+  LOADK R4 K1 ["^%s*(.-)%s*$"]
+  NAMECALL R2 R0 K2 ["match"]
+  CALL R2 2 1
+  ORK R1 R2 K0 [""]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_0]
+  RETURN R0 1

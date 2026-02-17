@@ -1,0 +1,328 @@
+PROTO_0:
+  GETUPVAL R2 0
+  DUPTABLE R3 K2 [{"messageId", "content"}]
+  SETTABLEKS R0 R3 K0 ["messageId"]
+  DUPTABLE R4 K5 [{"type", "text"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K6 ["Type"]
+  SETTABLEKS R5 R4 K3 ["type"]
+  SETTABLEKS R1 R4 K4 ["text"]
+  SETTABLEKS R4 R3 K1 ["content"]
+  CALL R2 1 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Dictionary"]
+  GETTABLEKS R2 R3 K1 ["join"]
+  GETTABLEKS R3 R1 K2 ["content"]
+  DUPTABLE R4 K5 [{"toolUse", "toolResult"}]
+  GETTABLEKS R5 R1 K3 ["toolUse"]
+  SETTABLEKS R5 R4 K3 ["toolUse"]
+  GETTABLEKS R5 R1 K4 ["toolResult"]
+  SETTABLEKS R5 R4 K4 ["toolResult"]
+  CALL R2 2 1
+  GETUPVAL R3 1
+  DUPTABLE R4 K7 [{"messageId", "content"}]
+  SETTABLEKS R0 R4 K6 ["messageId"]
+  SETTABLEKS R2 R4 K2 ["content"]
+  CALL R3 1 -1
+  RETURN R3 -1
+
+PROTO_2:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K0 ["addMessage"]
+  GETUPVAL R1 1
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  SETTABLEKS R2 R1 K1 ["addTextContent"]
+  GETUPVAL R1 1
+  NEWCLOSURE R2 P1
+  CAPTURE UPVAL U4
+  CAPTURE VAL R0
+  SETTABLEKS R2 R1 K2 ["addToolContent"]
+  GETUPVAL R1 1
+  GETUPVAL R2 5
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K3 ["editContent"]
+  GETUPVAL R1 1
+  GETUPVAL R2 6
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K4 ["getContentObserver"]
+  GETUPVAL R1 1
+  GETUPVAL R2 7
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K5 ["getOrAddMessage"]
+  GETUPVAL R1 1
+  GETUPVAL R2 8
+  CALL R2 0 1
+  SETTABLEKS R2 R1 K6 ["getThread"]
+  GETUPVAL R2 9
+  GETTABLEKS R1 R2 K7 ["useContext"]
+  GETUPVAL R3 10
+  GETTABLEKS R2 R3 K8 ["Context"]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  GETUPVAL R3 11
+  DUPTABLE R4 K10 [{"setInputEnabled"}]
+  GETUPVAL R5 12
+  MOVE R6 R1
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K9 ["setInputEnabled"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K11 ["sendMessage"]
+  RETURN R0 0
+
+PROTO_3:
+  PREPVARARGS 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["addMessage"]
+  FASTCALL2K ASSERT R1 K1 [+4]
+  LOADK R2 K1 ["addMessage hook not initialized"]
+  GETIMPORT R0 K3 [assert]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["addMessage"]
+  GETVARARGS R1 -1
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_4:
+  PREPVARARGS 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["addTextContent"]
+  FASTCALL2K ASSERT R1 K1 [+4]
+  LOADK R2 K1 ["addTextContent hook not initialized"]
+  GETIMPORT R0 K3 [assert]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["addTextContent"]
+  GETVARARGS R1 -1
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_5:
+  PREPVARARGS 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["addToolContent"]
+  FASTCALL2K ASSERT R1 K1 [+4]
+  LOADK R2 K1 ["addToolContent hook not initialized"]
+  GETIMPORT R0 K3 [assert]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["addToolContent"]
+  GETVARARGS R1 -1
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_6:
+  PREPVARARGS 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["editContent"]
+  FASTCALL2K ASSERT R1 K1 [+4]
+  LOADK R2 K1 ["editContent hook not initialized"]
+  GETIMPORT R0 K3 [assert]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["editContent"]
+  GETVARARGS R1 -1
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_7:
+  PREPVARARGS 0
+  GETUPVAL R1 0
+  CALL R1 0 1
+  FASTCALL2K ASSERT R1 K0 [+4]
+  LOADK R2 K0 ["getContentObserver flag not enabled"]
+  GETIMPORT R0 K2 [assert]
+  CALL R0 2 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["getContentObserver"]
+  FASTCALL2K ASSERT R1 K4 [+4]
+  LOADK R2 K4 ["getContentObserver hook not initialized"]
+  GETIMPORT R0 K2 [assert]
+  CALL R0 2 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K3 ["getContentObserver"]
+  GETVARARGS R1 -1
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_8:
+  PREPVARARGS 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getOrAddMessage"]
+  FASTCALL2K ASSERT R1 K1 [+4]
+  LOADK R2 K1 ["getOrAddMessage hook not initialized"]
+  GETIMPORT R0 K3 [assert]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["getOrAddMessage"]
+  GETVARARGS R1 -1
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_9:
+  PREPVARARGS 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["getThread"]
+  FASTCALL2K ASSERT R1 K1 [+4]
+  LOADK R2 K1 ["getThread hook not initialized"]
+  GETIMPORT R0 K3 [assert]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["getThread"]
+  GETVARARGS R1 -1
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_10:
+  PREPVARARGS 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["sendMessage"]
+  FASTCALL2K ASSERT R1 K1 [+4]
+  LOADK R2 K1 ["sendMessage hook not initialized"]
+  GETIMPORT R0 K3 [assert]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["sendMessage"]
+  GETVARARGS R1 -1
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_11:
+  DUPTABLE R0 K8 [{"addMessage", "addTextContent", "addToolContent", "editContent", "getContentObserver", "getOrAddMessage", "getThread", "sendMessage"}]
+  DUPCLOSURE R1 K9 [PROTO_3]
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K0 ["addMessage"]
+  DUPCLOSURE R1 K10 [PROTO_4]
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K1 ["addTextContent"]
+  DUPCLOSURE R1 K11 [PROTO_5]
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K2 ["addToolContent"]
+  DUPCLOSURE R1 K12 [PROTO_6]
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K3 ["editContent"]
+  DUPCLOSURE R1 K13 [PROTO_7]
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K4 ["getContentObserver"]
+  DUPCLOSURE R1 K14 [PROTO_8]
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K5 ["getOrAddMessage"]
+  DUPCLOSURE R1 K15 [PROTO_9]
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K6 ["getThread"]
+  DUPCLOSURE R1 K16 [PROTO_10]
+  CAPTURE UPVAL U0
+  SETTABLEKS R1 R0 K7 ["sendMessage"]
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Cryo"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["Contexts"]
+  GETTABLEKS R3 R4 K10 ["InputStateContext"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K11 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Components"]
+  GETTABLEKS R6 R7 K12 ["ContentWidgets"]
+  GETTABLEKS R5 R6 K13 ["TextContentWidget"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R0 K14 ["Types"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K15 ["Util"]
+  GETTABLEKS R7 R8 K16 ["getToggleGenerationInputFunc"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K17 ["Hooks"]
+  GETTABLEKS R8 R9 K18 ["useAddContent"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K17 ["Hooks"]
+  GETTABLEKS R9 R10 K19 ["useAddMessage"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R11 R0 K17 ["Hooks"]
+  GETTABLEKS R10 R11 K20 ["useEditContent"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R12 R0 K17 ["Hooks"]
+  GETTABLEKS R11 R12 K21 ["useGetContentObserver"]
+  CALL R10 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R13 R0 K17 ["Hooks"]
+  GETTABLEKS R12 R13 K22 ["useGetOrAddMessage"]
+  CALL R11 1 1
+  GETIMPORT R12 K5 [require]
+  GETTABLEKS R14 R0 K17 ["Hooks"]
+  GETTABLEKS R13 R14 K23 ["useGetThread"]
+  CALL R12 1 1
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R15 R0 K17 ["Hooks"]
+  GETTABLEKS R14 R15 K24 ["useSendMessage"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETTABLEKS R16 R0 K25 ["Flags"]
+  GETTABLEKS R15 R16 K26 ["FFlagMCPAssistantLongRunningToolCalls"]
+  CALL R14 1 1
+  DUPTABLE R15 K35 [{"addMessage", "addTextContent", "addToolContent", "editContent", "getContentObserver", "getOrAddMessage", "getThread", "sendMessage"}]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K27 ["addMessage"]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K28 ["addTextContent"]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K29 ["addToolContent"]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K30 ["editContent"]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K31 ["getContentObserver"]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K32 ["getOrAddMessage"]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K33 ["getThread"]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K34 ["sendMessage"]
+  DUPCLOSURE R16 K36 [PROTO_2]
+  CAPTURE VAL R7
+  CAPTURE VAL R15
+  CAPTURE VAL R8
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R13
+  CAPTURE VAL R6
+  DUPCLOSURE R17 K37 [PROTO_11]
+  CAPTURE VAL R15
+  CAPTURE VAL R14
+  DUPTABLE R18 K40 [{"use", "get"}]
+  SETTABLEKS R16 R18 K38 ["use"]
+  SETTABLEKS R17 R18 K39 ["get"]
+  RETURN R18 1

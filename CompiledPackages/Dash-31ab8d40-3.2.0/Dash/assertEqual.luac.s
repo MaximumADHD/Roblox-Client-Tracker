@@ -1,0 +1,31 @@
+PROTO_0:
+  JUMPIFEQ R0 R1 [+28]
+  GETIMPORT R3 K1 [require]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["Error"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K3 ["new"]
+  LOADK R5 K4 ["AssertError"]
+  MOVE R6 R2
+  JUMPIF R6 [+7]
+  LOADK R7 K5 ["Left \"%*\" does not equal right \"%*\""]
+  MOVE R9 R0
+  MOVE R10 R1
+  NAMECALL R7 R7 K6 ["format"]
+  CALL R7 3 1
+  MOVE R6 R7
+  CALL R4 2 1
+  DUPTABLE R7 K9 [{"left", "right"}]
+  SETTABLEKS R0 R7 K7 ["left"]
+  SETTABLEKS R1 R7 K8 ["right"]
+  NAMECALL R5 R4 K10 ["throw"]
+  CALL R5 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  DUPCLOSURE R1 K3 [PROTO_0]
+  CAPTURE VAL R0
+  RETURN R1 1

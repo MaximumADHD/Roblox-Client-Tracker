@@ -8,6 +8,7 @@ local getFFlagUGCValidatePartSizeWithinRenderSizeLimits =
 	require(root.flags.getFFlagUGCValidatePartSizeWithinRenderSizeLimits)
 local getFFlagUGCValidateMeshBBoxIsCentered = require(root.flags.getFFlagUGCValidateMeshBBoxIsCentered)
 local getFFlagUGCValidateMeshBBoxMinSize = require(root.flags.getFFlagUGCValidateMeshBBoxMinSize)
+local getFFlagUGCValidateMeshMaxScale = require(root.flags.getFFlagUGCValidateMeshMaxScale)
 local getFIntUGCValidateMeshCenteringHundredsThreshold =
 	require(root.flags.getFIntUGCValidateMeshCenteringHundredsThreshold)
 local getFIntUGCValidateMeshMinSizeHundredsThreshold =
@@ -18,6 +19,7 @@ local Analytics = require(root.Analytics)
 local DEFAULT_OFFSET = Vector3.new(0, 0, 0)
 
 local FIntUGCValidationScaleMinimumThousandths = game:DefineFastInt("UGCValidationScaleMinimumThousandths", 10) -- 1 = 0.001
+local FIntUGCValidationScaleMaximumThousandths = game:DefineFastInt("FIntUGCValidationScaleMaximumThousandths", 10000) -- 1 = 0.001
 
 local FFlagRenderBoundsCheckAttachmentOrientation = game:DefineFastFlag("RenderBoundsCheckAttachmentOrientation", false)
 
@@ -100,6 +102,16 @@ local function validateMeshBounds(
 		or meshScale.Z < FIntUGCValidationScaleMinimumThousandths / 1000
 	then
 		return false, { "Mesh scale is too small" }
+	end
+
+	if getFFlagUGCValidateMeshMaxScale() then
+		if
+			meshScale.X > FIntUGCValidationScaleMaximumThousandths / 1000
+			or meshScale.Y > FIntUGCValidationScaleMaximumThousandths / 1000
+			or meshScale.Z > FIntUGCValidationScaleMaximumThousandths / 1000
+		then
+			return false, { `{handle.Name} mesh scale is too large` }
+		end
 	end
 
 	local success, verts = pcall(function()

@@ -1,0 +1,233 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETTABLEKS R1 R0 K0 ["users"]
+  SUBK R1 R1 K1 [1]
+  SETTABLEKS R1 R0 K0 ["users"]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["users"]
+  JUMPIFNOTEQKN R0 K2 [0] [+5]
+  GETUPVAL R0 1
+  GETUPVAL R1 2
+  LOADNIL R2
+  SETTABLE R2 R0 R1
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+39]
+  GETUPVAL R3 1
+  GETTABLE R2 R3 R0
+  JUMPIFNOT R2 [+15]
+  GETTABLEKS R5 R2 K0 ["component"]
+  JUMPIFEQ R5 R1 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  LOADK R6 K1 ["Content widget already registered: "]
+  MOVE R7 R0
+  CONCAT R5 R6 R7
+  FASTCALL2 ASSERT R4 R5 [+3]
+  GETIMPORT R3 K3 [assert]
+  CALL R3 2 0
+  JUMP [+9]
+  DUPTABLE R3 K5 [{"component", "users"}]
+  SETTABLEKS R1 R3 K0 ["component"]
+  LOADN R4 0
+  SETTABLEKS R4 R3 K4 ["users"]
+  MOVE R2 R3
+  GETUPVAL R3 1
+  SETTABLE R2 R3 R0
+  GETTABLEKS R3 R2 K4 ["users"]
+  ADDK R3 R3 K6 [1]
+  SETTABLEKS R3 R2 K4 ["users"]
+  NEWCLOSURE R3 P0
+  CAPTURE REF R2
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CLOSEUPVALS R2
+  RETURN R3 1
+  CLOSEUPVALS R2
+  GETUPVAL R5 1
+  GETTABLE R4 R5 R0
+  NOT R3 R4
+  LOADK R5 K1 ["Content widget already registered: "]
+  MOVE R6 R0
+  CONCAT R4 R5 R6
+  FASTCALL2 ASSERT R3 R4 [+3]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 2 0
+  GETUPVAL R2 1
+  SETTABLE R1 R2 R0
+  LOADNIL R2
+  RETURN R2 1
+
+PROTO_2:
+  GETUPVAL R0 0
+  LOADNIL R1
+  LOADNIL R2
+  FORGPREP R0
+  MOVE R5 R4
+  CALL R5 0 0
+  FORGLOOP R0 2 [-3]
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["registerWidgetList should only be called when FFlagAssistantRegisterWidgetsThroughTools is enabled"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETIMPORT R1 K5 [table.create]
+  LENGTH R2 R0
+  CALL R1 1 1
+  MOVE R2 R0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K6 ["registerWidget"]
+  GETTABLEKS R8 R6 K7 ["Type"]
+  GETTABLEKS R9 R6 K8 ["ContentWidget"]
+  CALL R7 2 1
+  FASTCALL2 TABLE_INSERT R1 R7 [+5]
+  MOVE R9 R1
+  MOVE R10 R7
+  GETIMPORT R8 K10 [table.insert]
+  CALL R8 2 0
+  FORGLOOP R2 2 [-16]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  RETURN R2 1
+
+PROTO_4:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  FASTCALL2K ASSERT R1 K0 [+4]
+  LOADK R2 K0 ["registerDefaultWidgets should only be called when FFlagAssistantRegisterWidgetsThroughTools is enabled"]
+  GETIMPORT R0 K2 [assert]
+  CALL R0 2 0
+  GETIMPORT R0 K4 [require]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K5 ["Components"]
+  GETTABLEKS R2 R3 K6 ["ContentWidgets"]
+  GETTABLEKS R1 R2 K7 ["TextContentWidget"]
+  CALL R0 1 1
+  GETIMPORT R1 K4 [require]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["Components"]
+  GETTABLEKS R3 R4 K6 ["ContentWidgets"]
+  GETTABLEKS R2 R3 K8 ["ThinkingContentWidget"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["Components"]
+  GETTABLEKS R4 R5 K6 ["ContentWidgets"]
+  GETTABLEKS R3 R4 K9 ["ToolConfirmationContentWidget"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["Components"]
+  GETTABLEKS R5 R6 K6 ["ContentWidgets"]
+  GETTABLEKS R4 R5 K10 ["ErrorContentWidget"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K5 ["Components"]
+  GETTABLEKS R6 R7 K6 ["ContentWidgets"]
+  GETTABLEKS R5 R6 K11 ["GenericToolContentWidget"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K5 ["Components"]
+  GETTABLEKS R7 R8 K6 ["ContentWidgets"]
+  GETTABLEKS R6 R7 K12 ["ImageContentWidget"]
+  CALL R5 1 1
+  NEWTABLE R6 0 6
+  MOVE R7 R3
+  MOVE R8 R4
+  MOVE R9 R5
+  MOVE R10 R0
+  MOVE R11 R1
+  MOVE R12 R2
+  SETLIST R6 R7 6 [1]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K13 ["registerWidgetList"]
+  MOVE R8 R6
+  CALL R7 1 -1
+  RETURN R7 -1
+
+PROTO_5:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+13]
+  GETUPVAL R2 1
+  GETTABLE R1 R2 R0
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R2 R1 K0 ["component"]
+  JUMPIFNOT R2 [+3]
+  GETTABLEKS R2 R1 K0 ["component"]
+  RETURN R2 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["ContentWidget"]
+  RETURN R2 1
+  GETUPVAL R2 1
+  GETTABLE R1 R2 R0
+  RETURN R1 1
+
+PROTO_6:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  FASTCALL2K ASSERT R1 K0 [+4]
+  LOADK R2 K0 ["clear should only be called when FFlagAssistantRegisterWidgetsThroughTools is enabled"]
+  GETIMPORT R0 K2 [assert]
+  CALL R0 2 0
+  NEWTABLE R0 0 0
+  SETUPVAL R0 1
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 8 0
+  GETIMPORT R1 K1 [script]
+  LOADK R3 K2 ["AssistantUI"]
+  NAMECALL R1 R1 K3 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R1 K6 ["Components"]
+  GETTABLEKS R4 R5 K7 ["ContentWidgets"]
+  GETTABLEKS R3 R4 K8 ["MissingContentWidget"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R1 K9 ["Parent"]
+  GETTABLEKS R4 R5 K10 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R1 K11 ["Flags"]
+  GETTABLEKS R5 R6 K12 ["FFlagAssistantRegisterWidgetsThroughTools"]
+  CALL R4 1 1
+  NEWTABLE R5 0 0
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R4
+  CAPTURE REF R5
+  SETTABLEKS R6 R0 K13 ["registerWidget"]
+  DUPCLOSURE R6 K14 [PROTO_3]
+  CAPTURE VAL R4
+  CAPTURE VAL R0
+  SETTABLEKS R6 R0 K15 ["registerWidgetList"]
+  DUPCLOSURE R6 K16 [PROTO_4]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  SETTABLEKS R6 R0 K17 ["registerDefaultWidgets"]
+  NEWCLOSURE R6 P3
+  CAPTURE VAL R4
+  CAPTURE REF R5
+  CAPTURE VAL R2
+  SETTABLEKS R6 R0 K18 ["get"]
+  NEWCLOSURE R6 P4
+  CAPTURE VAL R4
+  CAPTURE REF R5
+  SETTABLEKS R6 R0 K19 ["clear"]
+  CLOSEUPVALS R5
+  RETURN R0 1

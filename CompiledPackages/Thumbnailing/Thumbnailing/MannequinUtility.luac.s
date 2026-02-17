@@ -1,0 +1,529 @@
+PROTO_0:
+  JUMPIFNOTEQKNIL R1 [+2]
+  LOADB R1 1
+  GETUPVAL R2 0
+  MOVE R4 R0
+  NAMECALL R2 R2 K0 ["LoadLocalAsset"]
+  CALL R2 2 1
+  LOADK R5 K1 ["Humanoid"]
+  NAMECALL R3 R2 K2 ["FindFirstChild"]
+  CALL R3 2 1
+  FASTCALL2K ASSERT R3 K3 [+5]
+  MOVE R5 R3
+  LOADK R6 K3 ["Assert Humanoid is not nil to silence type checker"]
+  GETIMPORT R4 K5 [assert]
+  CALL R4 2 0
+  GETIMPORT R4 K9 [Enum.HumanoidDisplayDistanceType.None]
+  SETTABLEKS R4 R3 K10 ["DisplayDistanceType"]
+  JUMPIFNOT R1 [+4]
+  GETIMPORT R4 K12 [workspace]
+  SETTABLEKS R4 R2 K13 ["Parent"]
+  RETURN R2 1
+
+PROTO_1:
+  MOVE R2 R0
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R2 1
+  GETUPVAL R3 0
+  LOADK R5 K0 ["rbxasset://models/Thumbnails/Mannequins/R15.rbxm"]
+  NAMECALL R3 R3 K1 ["LoadLocalAsset"]
+  CALL R3 2 1
+  LOADK R6 K2 ["Humanoid"]
+  NAMECALL R4 R3 K3 ["FindFirstChild"]
+  CALL R4 2 1
+  FASTCALL2K ASSERT R4 K4 [+5]
+  MOVE R6 R4
+  LOADK R7 K4 ["Assert Humanoid is not nil to silence type checker"]
+  GETIMPORT R5 K6 [assert]
+  CALL R5 2 0
+  GETIMPORT R5 K10 [Enum.HumanoidDisplayDistanceType.None]
+  SETTABLEKS R5 R4 K11 ["DisplayDistanceType"]
+  JUMPIFNOT R2 [+4]
+  GETIMPORT R5 K13 [workspace]
+  SETTABLEKS R5 R3 K14 ["Parent"]
+  MOVE R1 R3
+  RETURN R1 1
+
+PROTO_2:
+  MOVE R2 R0
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R2 1
+  GETUPVAL R3 0
+  LOADK R5 K0 ["rbxasset://models/Thumbnails/Mannequins/R6.rbxm"]
+  NAMECALL R3 R3 K1 ["LoadLocalAsset"]
+  CALL R3 2 1
+  LOADK R6 K2 ["Humanoid"]
+  NAMECALL R4 R3 K3 ["FindFirstChild"]
+  CALL R4 2 1
+  FASTCALL2K ASSERT R4 K4 [+5]
+  MOVE R6 R4
+  LOADK R7 K4 ["Assert Humanoid is not nil to silence type checker"]
+  GETIMPORT R5 K6 [assert]
+  CALL R5 2 0
+  GETIMPORT R5 K10 [Enum.HumanoidDisplayDistanceType.None]
+  SETTABLEKS R5 R4 K11 ["DisplayDistanceType"]
+  JUMPIFNOT R2 [+4]
+  GETIMPORT R5 K13 [workspace]
+  SETTABLEKS R5 R3 K14 ["Parent"]
+  MOVE R1 R3
+  RETURN R1 1
+
+PROTO_3:
+  MOVE R2 R0
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R2 1
+  GETUPVAL R3 0
+  LOADK R5 K0 ["rbxasset://models/Thumbnails/Mannequins/Rthro.rbxm"]
+  NAMECALL R3 R3 K1 ["LoadLocalAsset"]
+  CALL R3 2 1
+  LOADK R6 K2 ["Humanoid"]
+  NAMECALL R4 R3 K3 ["FindFirstChild"]
+  CALL R4 2 1
+  FASTCALL2K ASSERT R4 K4 [+5]
+  MOVE R6 R4
+  LOADK R7 K4 ["Assert Humanoid is not nil to silence type checker"]
+  GETIMPORT R5 K6 [assert]
+  CALL R5 2 0
+  GETIMPORT R5 K10 [Enum.HumanoidDisplayDistanceType.None]
+  SETTABLEKS R5 R4 K11 ["DisplayDistanceType"]
+  JUMPIFNOT R2 [+4]
+  GETIMPORT R5 K13 [workspace]
+  SETTABLEKS R5 R3 K14 ["Parent"]
+  MOVE R1 R3
+  RETURN R1 1
+
+PROTO_4:
+  JUMPIFNOTEQKS R0 K0 ["Classic"] [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["LoadR15Mannequin"]
+  MOVE R3 R1
+  CALL R2 1 -1
+  RETURN R2 -1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["LoadRthroMannequin"]
+  MOVE R3 R1
+  CALL R2 1 -1
+  RETURN R2 -1
+
+PROTO_5:
+  LOADB R1 0
+  MOVE R2 R0
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  LOADK R10 K0 ["Folder"]
+  NAMECALL R8 R6 K1 ["IsA"]
+  CALL R8 2 1
+  FASTCALL2K ASSERT R8 K2 [+4]
+  LOADK R9 K2 ["object should always be a Folder"]
+  GETIMPORT R7 K4 [assert]
+  CALL R7 2 0
+  GETUPVAL R8 0
+  GETTABLEKS R9 R6 K5 ["Name"]
+  GETTABLE R7 R8 R9
+  JUMPIFNOT R7 [+27]
+  LOADB R1 1
+  NAMECALL R7 R6 K6 ["GetChildren"]
+  CALL R7 1 3
+  FORGPREP R7
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K7 ["CharacterPartNames"]
+  GETTABLEKS R14 R15 K8 ["All"]
+  GETTABLEKS R15 R11 K5 ["Name"]
+  GETTABLE R13 R14 R15
+  GETIMPORT R14 K11 [string.format]
+  LOADK R15 K12 ["Name of %s of Folder %s does not exist in CharacterParts"]
+  GETTABLEKS R16 R11 K5 ["Name"]
+  GETTABLEKS R17 R6 K5 ["Name"]
+  CALL R14 3 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R12 K4 [assert]
+  CALL R12 -1 0
+  FORGLOOP R7 2 [-21]
+  FORGLOOP R2 2 [-43]
+  FASTCALL2K ASSERT R1 K13 [+5]
+  MOVE R3 R1
+  LOADK R4 K13 ["objects does not have at least one of R15ArtistIntent, R15, and R6 folders"]
+  GETIMPORT R2 K4 [assert]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_6:
+  LOADB R2 0
+  LOADB R3 0
+  LOADK R4 K0 ["Classic"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K1 ["AssertObjectsFormat"]
+  MOVE R6 R0
+  CALL R5 1 0
+  MOVE R5 R0
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  GETTABLEKS R10 R9 K2 ["Name"]
+  JUMPIFEQKS R10 K3 ["R15"] [+5]
+  GETTABLEKS R10 R9 K2 ["Name"]
+  JUMPIFNOTEQKS R10 K4 ["R15ArtistIntent"] [+11]
+  LOADB R2 1
+  LOADK R12 K5 ["AvatarPartScaleType"]
+  LOADB R13 1
+  NAMECALL R10 R9 K6 ["FindFirstChild"]
+  CALL R10 3 1
+  JUMPIFNOT R10 [+5]
+  GETTABLEKS R4 R10 K7 ["Value"]
+  JUMP [+2]
+  FORGLOOP R5 2 [-19]
+  MOVE R5 R0
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  GETTABLEKS R10 R9 K2 ["Name"]
+  JUMPIFNOTEQKS R10 K4 ["R15ArtistIntent"] [+3]
+  LOADB R3 1
+  JUMP [+2]
+  FORGLOOP R5 2 [-7]
+  LOADNIL R5
+  JUMPIFNOT R2 [+8]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K8 ["LoadMannequinForScaleType"]
+  MOVE R7 R4
+  MOVE R8 R1
+  CALL R6 2 1
+  MOVE R5 R6
+  JUMP [+6]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K9 ["LoadR6Mannequin"]
+  MOVE R7 R1
+  CALL R6 1 1
+  MOVE R5 R6
+  LOADK R8 K10 ["Humanoid"]
+  NAMECALL R6 R5 K11 ["FindFirstChildOfClass"]
+  CALL R6 2 1
+  GETIMPORT R7 K15 [Enum.HumanoidDisplayDistanceType.None]
+  SETTABLEKS R7 R6 K16 ["DisplayDistanceType"]
+  LOADK R9 K17 ["BodyTypeScale"]
+  NAMECALL R7 R6 K6 ["FindFirstChild"]
+  CALL R7 2 1
+  JUMPIFNOTEQKNIL R7 [+14]
+  GETIMPORT R8 K20 [Instance.new]
+  LOADK R9 K21 ["NumberValue"]
+  CALL R8 1 1
+  MOVE R7 R8
+  LOADK R8 K17 ["BodyTypeScale"]
+  SETTABLEKS R8 R7 K2 ["Name"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K7 ["Value"]
+  SETTABLEKS R6 R7 K22 ["Parent"]
+  LOADK R10 K23 ["BodyProportionScale"]
+  NAMECALL R8 R6 K6 ["FindFirstChild"]
+  CALL R8 2 1
+  JUMPIFNOTEQKNIL R8 [+14]
+  GETIMPORT R9 K20 [Instance.new]
+  LOADK R10 K21 ["NumberValue"]
+  CALL R9 1 1
+  MOVE R8 R9
+  LOADK R9 K23 ["BodyProportionScale"]
+  SETTABLEKS R9 R8 K2 ["Name"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K7 ["Value"]
+  SETTABLEKS R6 R8 K22 ["Parent"]
+  JUMPIFNOTEQKS R4 K24 ["ProportionsNormal"] [+8]
+  LOADN R9 1
+  SETTABLEKS R9 R7 K7 ["Value"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K7 ["Value"]
+  JUMP [+8]
+  JUMPIFNOTEQKS R4 K25 ["ProportionsSlender"] [+7]
+  LOADN R9 1
+  SETTABLEKS R9 R7 K7 ["Value"]
+  LOADN R9 1
+  SETTABLEKS R9 R8 K7 ["Value"]
+  MOVE R9 R2
+  MOVE R10 R3
+  MOVE R11 R5
+  RETURN R9 3
+
+PROTO_7:
+  GETIMPORT R3 K1 [pairs]
+  NAMECALL R4 R0 K2 ["GetChildren"]
+  CALL R4 1 -1
+  CALL R3 -1 3
+  FORGPREP_NEXT R3
+  LOADK R11 K3 ["BasePart"]
+  NAMECALL R9 R7 K4 ["IsA"]
+  CALL R9 2 1
+  FASTCALL2K ASSERT R9 K5 [+4]
+  LOADK R10 K5 ["Only BaseParts should be in Folders"]
+  GETIMPORT R8 K7 [assert]
+  CALL R8 2 0
+  GETIMPORT R8 K10 [string.find]
+  GETTABLEKS R9 R7 K11 ["Name"]
+  LOADK R10 K12 ["Right"]
+  CALL R8 2 1
+  JUMPIFNOT R8 [+2]
+  LOADB R8 1
+  SETUPVAL R8 0
+  GETUPVAL R8 1
+  LOADK R10 K13 ["Humanoid"]
+  NAMECALL R8 R8 K14 ["FindFirstChild"]
+  CALL R8 2 1
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K15 ["R15PartNameToEnum"]
+  GETTABLEKS R13 R7 K11 ["Name"]
+  GETTABLE R11 R12 R13
+  MOVE R12 R7
+  NAMECALL R9 R8 K16 ["ReplaceBodyPartR15"]
+  CALL R9 3 0
+  GETTABLEKS R11 R7 K11 ["Name"]
+  FASTCALL2 TABLE_INSERT R1 R11 [+4]
+  MOVE R10 R1
+  GETIMPORT R9 K19 [table.insert]
+  CALL R9 2 0
+  FASTCALL2 TABLE_INSERT R2 R7 [+5]
+  MOVE R10 R2
+  MOVE R11 R7
+  GETIMPORT R9 K19 [table.insert]
+  CALL R9 2 0
+  FORGLOOP R3 2 [-50]
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["AssertObjectsFormat"]
+  MOVE R6 R3
+  CALL R5 1 0
+  LOADB R5 0
+  JUMPIFNOT R4 [+9]
+  GETIMPORT R7 K2 [game]
+  MOVE R9 R4
+  NAMECALL R7 R7 K3 ["GetObjects"]
+  CALL R7 2 1
+  GETTABLEN R6 R7 1
+  SETTABLEKS R2 R6 K4 ["Parent"]
+  NEWCLOSURE R6 P0
+  CAPTURE REF R5
+  CAPTURE VAL R2
+  CAPTURE UPVAL U0
+  LOADK R7 K5 ["R15"]
+  JUMPIFNOT R0 [+2]
+  JUMPIFNOT R1 [+1]
+  LOADK R7 K6 ["R15ArtistIntent"]
+  NEWTABLE R8 0 0
+  NEWTABLE R9 0 0
+  GETIMPORT R10 K8 [pairs]
+  MOVE R11 R3
+  CALL R10 1 3
+  FORGPREP_NEXT R10
+  JUMPIFNOT R0 [+4]
+  GETTABLEKS R15 R14 K9 ["Name"]
+  JUMPIFEQ R15 R7 [+6]
+  JUMPIF R0 [+10]
+  GETTABLEKS R15 R14 K9 ["Name"]
+  JUMPIFNOTEQKS R15 K10 ["R6"] [+7]
+  MOVE R15 R6
+  MOVE R16 R14
+  MOVE R17 R9
+  MOVE R18 R8
+  CALL R15 3 0
+  JUMP [+9]
+  GETIMPORT R15 K13 [string.find]
+  GETTABLEKS R16 R14 K9 ["Name"]
+  LOADK R17 K5 ["R15"]
+  CALL R15 2 1
+  JUMPIF R15 [+2]
+  SETTABLEKS R2 R14 K4 ["Parent"]
+  FORGLOOP R10 2 [-26]
+  JUMPIFNOT R0 [+29]
+  LOADK R12 K14 ["HumanoidRootPart"]
+  NAMECALL R10 R2 K15 ["FindFirstChild"]
+  CALL R10 2 1
+  SETTABLEKS R10 R2 K16 ["PrimaryPart"]
+  GETIMPORT R12 K19 [CFrame.new]
+  LOADK R13 K20 [{0, 5, 0}]
+  CALL R12 1 1
+  GETIMPORT R13 K22 [CFrame.Angles]
+  LOADN R14 0
+  LOADK R15 K23 [3.14159265358979]
+  LOADN R16 0
+  CALL R13 3 1
+  MUL R11 R12 R13
+  SETTABLEKS R11 R10 K17 ["CFrame"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K24 ["Anchored"]
+  LOADK R13 K25 ["Humanoid"]
+  NAMECALL R11 R2 K26 ["FindFirstChildOfClass"]
+  CALL R11 2 1
+  NAMECALL R12 R11 K27 ["BuildRigFromAttachments"]
+  CALL R12 1 0
+  MOVE R10 R5
+  MOVE R11 R9
+  CLOSEUPVALS R5
+  RETURN R10 2
+
+PROTO_9:
+  GETIMPORT R1 K2 [Instance.new]
+  LOADK R2 K3 ["Model"]
+  CALL R1 1 1
+  LOADK R2 K4 ["Head"]
+  SETTABLEKS R2 R0 K5 ["Name"]
+  SETTABLEKS R1 R0 K6 ["Parent"]
+  GETIMPORT R2 K2 [Instance.new]
+  LOADK R3 K7 ["Humanoid"]
+  CALL R2 1 1
+  GETIMPORT R3 K11 [Enum.HumanoidRigType.R15]
+  SETTABLEKS R3 R2 K12 ["RigType"]
+  SETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R3 K15 [Enum.HumanoidDisplayDistanceType.None]
+  SETTABLEKS R3 R2 K16 ["DisplayDistanceType"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 16 0
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K2 ["InsertService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  DUPTABLE R2 K7 [{"R6", "R15", "R15ArtistIntent"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K4 ["R6"]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K5 ["R15"]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K6 ["R15ArtistIntent"]
+  DUPTABLE R3 K8 [{"R6", "R15"}]
+  NEWTABLE R4 8 0
+  LOADB R5 1
+  SETTABLEKS R5 R4 K9 ["HumanoidRootPart"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K10 ["Head"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K11 ["Torso"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K12 ["Left Arm"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K13 ["Left Leg"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K14 ["Right Arm"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K15 ["Right Leg"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K16 ["CharacterMesh"]
+  SETTABLEKS R4 R3 K4 ["R6"]
+  DUPTABLE R4 K31 [{"HumanoidRootPart", "Head", "UpperTorso", "LowerTorso", "LeftUpperLeg", "LeftLowerLeg", "LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot", "LeftUpperArm", "LeftLowerArm", "LeftHand", "RightUpperArm", "RightLowerArm", "RightHand"}]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K9 ["HumanoidRootPart"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K10 ["Head"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K17 ["UpperTorso"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K18 ["LowerTorso"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K19 ["LeftUpperLeg"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K20 ["LeftLowerLeg"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K21 ["LeftFoot"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K22 ["RightUpperLeg"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K23 ["RightLowerLeg"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K24 ["RightFoot"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K25 ["LeftUpperArm"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K26 ["LeftLowerArm"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K27 ["LeftHand"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K28 ["RightUpperArm"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K29 ["RightLowerArm"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K30 ["RightHand"]
+  SETTABLEKS R4 R3 K5 ["R15"]
+  SETTABLEKS R3 R0 K32 ["CharacterPartNames"]
+  DUPTABLE R3 K33 [{"Head", "UpperTorso", "LowerTorso", "LeftUpperLeg", "LeftLowerLeg", "LeftFoot", "RightUpperLeg", "RightLowerLeg", "RightFoot", "LeftUpperArm", "LeftLowerArm", "LeftHand", "RightUpperArm", "RightLowerArm", "RightHand"}]
+  GETIMPORT R4 K36 [Enum.BodyPartR15.Head]
+  SETTABLEKS R4 R3 K10 ["Head"]
+  GETIMPORT R4 K37 [Enum.BodyPartR15.UpperTorso]
+  SETTABLEKS R4 R3 K17 ["UpperTorso"]
+  GETIMPORT R4 K38 [Enum.BodyPartR15.LowerTorso]
+  SETTABLEKS R4 R3 K18 ["LowerTorso"]
+  GETIMPORT R4 K39 [Enum.BodyPartR15.LeftUpperLeg]
+  SETTABLEKS R4 R3 K19 ["LeftUpperLeg"]
+  GETIMPORT R4 K40 [Enum.BodyPartR15.LeftLowerLeg]
+  SETTABLEKS R4 R3 K20 ["LeftLowerLeg"]
+  GETIMPORT R4 K41 [Enum.BodyPartR15.LeftFoot]
+  SETTABLEKS R4 R3 K21 ["LeftFoot"]
+  GETIMPORT R4 K42 [Enum.BodyPartR15.RightUpperLeg]
+  SETTABLEKS R4 R3 K22 ["RightUpperLeg"]
+  GETIMPORT R4 K43 [Enum.BodyPartR15.RightLowerLeg]
+  SETTABLEKS R4 R3 K23 ["RightLowerLeg"]
+  GETIMPORT R4 K44 [Enum.BodyPartR15.RightFoot]
+  SETTABLEKS R4 R3 K24 ["RightFoot"]
+  GETIMPORT R4 K45 [Enum.BodyPartR15.LeftUpperArm]
+  SETTABLEKS R4 R3 K25 ["LeftUpperArm"]
+  GETIMPORT R4 K46 [Enum.BodyPartR15.LeftLowerArm]
+  SETTABLEKS R4 R3 K26 ["LeftLowerArm"]
+  GETIMPORT R4 K47 [Enum.BodyPartR15.LeftHand]
+  SETTABLEKS R4 R3 K27 ["LeftHand"]
+  GETIMPORT R4 K48 [Enum.BodyPartR15.RightUpperArm]
+  SETTABLEKS R4 R3 K28 ["RightUpperArm"]
+  GETIMPORT R4 K49 [Enum.BodyPartR15.RightLowerArm]
+  SETTABLEKS R4 R3 K29 ["RightLowerArm"]
+  GETIMPORT R4 K50 [Enum.BodyPartR15.RightHand]
+  SETTABLEKS R4 R3 K30 ["RightHand"]
+  SETTABLEKS R3 R0 K51 ["R15PartNameToEnum"]
+  GETTABLEKS R3 R0 K32 ["CharacterPartNames"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K52 ["All"]
+  GETIMPORT R3 K54 [pairs]
+  GETTABLEKS R6 R0 K32 ["CharacterPartNames"]
+  GETTABLEKS R4 R6 K4 ["R6"]
+  CALL R3 1 3
+  FORGPREP_NEXT R3
+  GETTABLEKS R9 R0 K32 ["CharacterPartNames"]
+  GETTABLEKS R8 R9 K52 ["All"]
+  LOADB R9 1
+  SETTABLE R9 R8 R6
+  FORGLOOP R3 2 [-7]
+  GETIMPORT R3 K54 [pairs]
+  GETTABLEKS R6 R0 K32 ["CharacterPartNames"]
+  GETTABLEKS R4 R6 K5 ["R15"]
+  CALL R3 1 3
+  FORGPREP_NEXT R3
+  GETTABLEKS R9 R0 K32 ["CharacterPartNames"]
+  GETTABLEKS R8 R9 K52 ["All"]
+  LOADB R9 1
+  SETTABLE R9 R8 R6
+  FORGLOOP R3 2 [-7]
+  DUPCLOSURE R3 K55 [PROTO_0]
+  CAPTURE VAL R1
+  DUPCLOSURE R4 K56 [PROTO_1]
+  CAPTURE VAL R1
+  SETTABLEKS R4 R0 K57 ["LoadR15Mannequin"]
+  DUPCLOSURE R4 K58 [PROTO_2]
+  CAPTURE VAL R1
+  SETTABLEKS R4 R0 K59 ["LoadR6Mannequin"]
+  DUPCLOSURE R4 K60 [PROTO_3]
+  CAPTURE VAL R1
+  SETTABLEKS R4 R0 K61 ["LoadRthroMannequin"]
+  DUPCLOSURE R4 K62 [PROTO_4]
+  CAPTURE VAL R0
+  SETTABLEKS R4 R0 K63 ["LoadMannequinForScaleType"]
+  DUPCLOSURE R4 K64 [PROTO_5]
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  SETTABLEKS R4 R0 K65 ["AssertObjectsFormat"]
+  DUPCLOSURE R4 K66 [PROTO_6]
+  CAPTURE VAL R0
+  SETTABLEKS R4 R0 K67 ["CreateBodyPartMannequin"]
+  DUPCLOSURE R4 K68 [PROTO_8]
+  CAPTURE VAL R0
+  SETTABLEKS R4 R0 K69 ["SetupBodyPartMannequin"]
+  DUPCLOSURE R4 K70 [PROTO_9]
+  SETTABLEKS R4 R0 K71 ["CreateHeadModel"]
+  RETURN R0 1

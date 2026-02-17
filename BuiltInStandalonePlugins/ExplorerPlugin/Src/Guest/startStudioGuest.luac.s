@@ -68,19 +68,21 @@ PROTO_2:
   SETTABLEKS R6 R5 K11 ["clickScript"]
   GETUPVAL R6 14
   SETTABLEKS R6 R5 K12 ["openScript"]
-  DUPTABLE R6 K25 [{"createLiveSyncStatusWatcher", "createCollaboratorSelectionWatcher"}]
+  DUPTABLE R6 K26 [{"createLiveSyncStatusWatcher", "createInstanceFileSyncStatusWatcher", "createCollaboratorSelectionWatcher"}]
   GETUPVAL R7 15
   SETTABLEKS R7 R6 K23 ["createLiveSyncStatusWatcher"]
   GETUPVAL R7 16
-  SETTABLEKS R7 R6 K24 ["createCollaboratorSelectionWatcher"]
+  SETTABLEKS R7 R6 K24 ["createInstanceFileSyncStatusWatcher"]
+  GETUPVAL R7 17
+  SETTABLEKS R7 R6 K25 ["createCollaboratorSelectionWatcher"]
   SETTABLEKS R6 R5 K13 ["fieldsConfig"]
   LOADB R6 1
   SETTABLEKS R6 R5 K14 ["enableOpenContextMenuDelayHack"]
   GETUPVAL R8 2
-  GETTABLEKS R7 R8 K26 ["HostDataModelType"]
-  GETTABLEKS R6 R7 K27 ["Name"]
+  GETTABLEKS R7 R8 K27 ["HostDataModelType"]
+  GETTABLEKS R6 R7 K28 ["Name"]
   SETTABLEKS R6 R5 K15 ["DEBUG_dataModelType"]
-  GETIMPORT R6 K30 [os.clock]
+  GETIMPORT R6 K31 [os.clock]
   CALL R6 0 1
   SETTABLEKS R6 R5 K16 ["DEBUG_startTime"]
   CALL R1 4 -1
@@ -210,6 +212,7 @@ PROTO_6:
   CAPTURE UPVAL U16
   CAPTURE UPVAL U17
   CAPTURE UPVAL U18
+  CAPTURE UPVAL U19
   SETTABLEKS R10 R9 K4 ["createGuestRpcInterface"]
   CALL R8 1 1
   GETTABLEKS R9 R0 K6 ["Unloading"]
@@ -220,7 +223,7 @@ PROTO_6:
   CAPTURE VAL R2
   CAPTURE VAL R3
   CAPTURE VAL R1
-  CAPTURE UPVAL U19
+  CAPTURE UPVAL U20
   CAPTURE VAL R0
   NAMECALL R9 R9 K7 ["Connect"]
   CALL R9 2 0
@@ -273,83 +276,89 @@ MAIN:
   GETIMPORT R9 K10 [require]
   GETTABLEKS R12 R2 K13 ["Src"]
   GETTABLEKS R11 R12 K17 ["Guest"]
-  GETTABLEKS R10 R11 K23 ["createLiveSyncStatusWatcher"]
+  GETTABLEKS R10 R11 K23 ["createInstanceFileSyncStatusWatcher"]
   CALL R9 1 1
   GETIMPORT R10 K10 [require]
   GETTABLEKS R13 R2 K13 ["Src"]
   GETTABLEKS R12 R13 K17 ["Guest"]
-  GETTABLEKS R11 R12 K24 ["createStudioCollaboratorSelectionWatcher"]
+  GETTABLEKS R11 R12 K24 ["createLiveSyncStatusWatcher"]
   CALL R10 1 1
   GETIMPORT R11 K10 [require]
   GETTABLEKS R14 R2 K13 ["Src"]
   GETTABLEKS R13 R14 K17 ["Guest"]
-  GETTABLEKS R12 R13 K25 ["createStudioGuestConnection"]
+  GETTABLEKS R12 R13 K25 ["createStudioCollaboratorSelectionWatcher"]
   CALL R11 1 1
   GETIMPORT R12 K10 [require]
-  GETTABLEKS R16 R2 K13 ["Src"]
-  GETTABLEKS R15 R16 K14 ["SharedFeatures"]
-  GETTABLEKS R14 R15 K19 ["ContextMenu"]
-  GETTABLEKS R13 R14 K26 ["createStudioGuestContextMenuActions"]
+  GETTABLEKS R15 R2 K13 ["Src"]
+  GETTABLEKS R14 R15 K17 ["Guest"]
+  GETTABLEKS R13 R14 K26 ["createStudioGuestConnection"]
   CALL R12 1 1
   GETIMPORT R13 K10 [require]
-  GETTABLEKS R16 R2 K13 ["Src"]
-  GETTABLEKS R15 R16 K17 ["Guest"]
-  GETTABLEKS R14 R15 K27 ["createStudioInstancePicker"]
+  GETTABLEKS R17 R2 K13 ["Src"]
+  GETTABLEKS R16 R17 K14 ["SharedFeatures"]
+  GETTABLEKS R15 R16 K19 ["ContextMenu"]
+  GETTABLEKS R14 R15 K27 ["createStudioGuestContextMenuActions"]
   CALL R13 1 1
   GETIMPORT R14 K10 [require]
-  GETTABLEKS R18 R2 K13 ["Src"]
-  GETTABLEKS R17 R18 K17 ["Guest"]
-  GETTABLEKS R16 R17 K28 ["Streaming"]
-  GETTABLEKS R15 R16 K29 ["createStudioStreamingInterface"]
+  GETTABLEKS R17 R2 K13 ["Src"]
+  GETTABLEKS R16 R17 K17 ["Guest"]
+  GETTABLEKS R15 R16 K28 ["createStudioInstancePicker"]
   CALL R14 1 1
   GETIMPORT R15 K10 [require]
-  GETTABLEKS R18 R2 K13 ["Src"]
-  GETTABLEKS R17 R18 K17 ["Guest"]
-  GETTABLEKS R16 R17 K30 ["isServiceVisible"]
+  GETTABLEKS R19 R2 K13 ["Src"]
+  GETTABLEKS R18 R19 K17 ["Guest"]
+  GETTABLEKS R17 R18 K29 ["Streaming"]
+  GETTABLEKS R16 R17 K30 ["createStudioStreamingInterface"]
   CALL R15 1 1
   GETIMPORT R16 K10 [require]
   GETTABLEKS R19 R2 K13 ["Src"]
   GETTABLEKS R18 R19 K17 ["Guest"]
-  GETTABLEKS R17 R18 K31 ["listenForVisibilityChanges"]
+  GETTABLEKS R17 R18 K31 ["isServiceVisible"]
   CALL R16 1 1
   GETIMPORT R17 K10 [require]
   GETTABLEKS R20 R2 K13 ["Src"]
   GETTABLEKS R19 R20 K17 ["Guest"]
-  GETTABLEKS R18 R19 K32 ["openInsertObjectMenuAsync"]
+  GETTABLEKS R18 R19 K32 ["listenForVisibilityChanges"]
   CALL R17 1 1
   GETIMPORT R18 K10 [require]
   GETTABLEKS R21 R2 K13 ["Src"]
   GETTABLEKS R20 R21 K17 ["Guest"]
-  GETTABLEKS R19 R20 K33 ["openScript"]
+  GETTABLEKS R19 R20 K33 ["openInsertObjectMenuAsync"]
   CALL R18 1 1
-  MOVE R19 R8
-  LOADK R20 K34 ["GetOrCreateUniqueIdMethod"]
+  GETIMPORT R19 K10 [require]
+  GETTABLEKS R22 R2 K13 ["Src"]
+  GETTABLEKS R21 R22 K17 ["Guest"]
+  GETTABLEKS R20 R21 K34 ["openScript"]
   CALL R19 1 1
   MOVE R20 R8
-  LOADK R21 K35 ["OpenScriptDocOptionsLua"]
+  LOADK R21 K35 ["GetOrCreateUniqueIdMethod"]
   CALL R20 1 1
   MOVE R21 R8
-  LOADK R22 K36 ["UniqueIdOverLuau"]
+  LOADK R22 K36 ["OpenScriptDocOptionsLua"]
   CALL R21 1 1
-  DUPCLOSURE R22 K37 [PROTO_6]
+  MOVE R22 R8
+  LOADK R23 K37 ["UniqueIdOverLuau"]
+  CALL R22 1 1
+  DUPCLOSURE R23 K38 [PROTO_6]
   CAPTURE VAL R7
   CAPTURE VAL R4
   CAPTURE VAL R5
-  CAPTURE VAL R11
-  CAPTURE VAL R13
-  CAPTURE VAL R3
   CAPTURE VAL R12
-  CAPTURE VAL R17
-  CAPTURE VAL R19
-  CAPTURE VAL R21
-  CAPTURE VAL R1
-  CAPTURE VAL R16
   CAPTURE VAL R14
-  CAPTURE VAL R15
-  CAPTURE VAL R20
-  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE VAL R13
   CAPTURE VAL R18
-  CAPTURE VAL R9
+  CAPTURE VAL R20
+  CAPTURE VAL R22
+  CAPTURE VAL R1
+  CAPTURE VAL R17
+  CAPTURE VAL R15
+  CAPTURE VAL R16
+  CAPTURE VAL R21
+  CAPTURE VAL R6
+  CAPTURE VAL R19
   CAPTURE VAL R10
+  CAPTURE VAL R9
+  CAPTURE VAL R11
   CAPTURE VAL R0
-  RETURN R22 1
+  RETURN R23 1

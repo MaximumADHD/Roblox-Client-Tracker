@@ -1,0 +1,58 @@
+PROTO_0:
+  GETUPVAL R2 0
+  MOVE R3 R1
+  LOADB R4 0
+  CALL R2 2 0
+  GETIMPORT R2 K2 [table.isfrozen]
+  GETTABLEKS R3 R0 K3 ["dependencySet"]
+  CALL R2 1 1
+  JUMPIF R2 [+6]
+  GETIMPORT R2 K2 [table.isfrozen]
+  GETTABLEKS R3 R1 K4 ["dependentSet"]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+14]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K5 ["logError"]
+  LOADK R3 K6 ["cannotDepend"]
+  LOADNIL R4
+  GETUPVAL R5 2
+  MOVE R6 R0
+  LOADK R7 K7 ["Dependent"]
+  CALL R5 2 1
+  GETUPVAL R6 2
+  MOVE R7 R1
+  LOADK R8 K8 ["dependency"]
+  CALL R6 2 -1
+  CALL R2 -1 0
+  GETTABLEKS R2 R1 K4 ["dependentSet"]
+  LOADB R3 1
+  SETTABLE R3 R2 R0
+  GETTABLEKS R2 R0 K3 ["dependencySet"]
+  LOADB R3 1
+  SETTABLE R3 R2 R1
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R0 K6 ["External"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Graph"]
+  GETTABLEKS R4 R5 K8 ["evaluate"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K9 ["Utility"]
+  GETTABLEKS R5 R6 K10 ["nameOf"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K11 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  RETURN R5 1

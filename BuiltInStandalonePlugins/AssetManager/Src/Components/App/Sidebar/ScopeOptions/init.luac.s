@@ -63,8 +63,7 @@ PROTO_6:
   GETTABLEKS R3 R4 K0 ["use"]
   CALL R3 0 1
   GETUPVAL R4 3
-  MOVE R5 R3
-  CALL R4 1 1
+  CALL R4 0 1
   NEWTABLE R5 0 2
   DUPTABLE R6 K4 [{"Text", "OnClick"}]
   LOADK R9 K5 ["Scopes"]

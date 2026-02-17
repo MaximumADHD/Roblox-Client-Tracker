@@ -1,0 +1,64 @@
+PROTO_0:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+10]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["bold"]
+  GETTABLEKS R3 R4 K1 ["dim"]
+  LOADK R4 K2 ["Determining test suites to run..."]
+  CALL R3 1 -1
+  NAMECALL R1 R0 K3 ["write"]
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+3]
+  GETUPVAL R1 1
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 2 0
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  LOADK R4 K5 ["chalk"]
+  NAMECALL R2 R2 K6 ["WaitForChild"]
+  CALL R2 2 -1
+  CALL R1 -1 1
+  GETIMPORT R3 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  LOADK R6 K7 ["clearLine"]
+  NAMECALL R4 R4 K6 ["WaitForChild"]
+  CALL R4 2 -1
+  CALL R3 -1 1
+  GETTABLEKS R2 R3 K8 ["default"]
+  GETIMPORT R4 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  LOADK R7 K9 ["isInteractive"]
+  NAMECALL R5 R5 K6 ["WaitForChild"]
+  CALL R5 2 -1
+  CALL R4 -1 1
+  GETTABLEKS R3 R4 K8 ["default"]
+  GETIMPORT R4 K1 [require]
+  GETIMPORT R7 K3 [script]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  LOADK R7 K10 ["jest-roblox-shared"]
+  NAMECALL R5 R5 K6 ["WaitForChild"]
+  CALL R5 2 -1
+  CALL R4 -1 1
+  DUPCLOSURE R5 K11 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  SETTABLEKS R5 R0 K12 ["print"]
+  DUPCLOSURE R6 K13 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  SETTABLEKS R6 R0 K14 ["remove"]
+  RETURN R0 1

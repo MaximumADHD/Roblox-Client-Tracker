@@ -184,7 +184,7 @@ function PlayerListMaster.new()
 	end
 
 	self._unmountPlayerIconInfoStore = if FFlagReplacePlayerIconRoduxWithSignal then function()
-		PlayerIconInfoStore.cleanup()
+		PlayerIconInfoStore.cleanUp()
 	end else nil
 
 	if FFlagUseNewPlayerList then

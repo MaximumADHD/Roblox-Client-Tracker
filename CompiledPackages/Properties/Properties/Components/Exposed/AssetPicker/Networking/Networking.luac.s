@@ -1,0 +1,314 @@
+PROTO_0:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["Develop"]
+  GETTABLEKS R3 R4 K1 ["V1"]
+  GETTABLEKS R2 R3 K2 ["Universes"]
+  GETTABLEKS R1 R2 K3 ["get"]
+  MOVE R2 R1
+  MOVE R3 R0
+  CALL R2 1 1
+  NAMECALL R2 R2 K4 ["makeRequest"]
+  CALL R2 1 1
+  NAMECALL R2 R2 K5 ["await"]
+  CALL R2 1 2
+  LOADK R4 K6 [""]
+  JUMPIFNOT R2 [+5]
+  GETTABLEKS R5 R3 K7 ["responseBody"]
+  GETTABLEKS R4 R5 K8 ["name"]
+  JUMP [+4]
+  GETIMPORT R5 K10 [warn]
+  LOADK R6 K11 ["fetchUniverseScopeAsync - request failed"]
+  CALL R5 1 0
+  DUPTABLE R5 K14 [{"id", "name", "type"}]
+  SETTABLEKS R0 R5 K12 ["id"]
+  SETTABLEKS R4 R5 K8 ["name"]
+  LOADK R6 K15 ["Universe"]
+  SETTABLEKS R6 R5 K13 ["type"]
+  RETURN R5 1
+
+PROTO_1:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["APIS"]
+  GETTABLEKS R2 R3 K1 ["CreatorHomeApi"]
+  GETTABLEKS R1 R2 K2 ["V1"]
+  GETTABLEKS R0 R1 K3 ["groups"]
+  MOVE R1 R0
+  LOADK R2 K4 ["AssetPicker"]
+  CALL R1 1 1
+  NAMECALL R1 R1 K5 ["makeRequest"]
+  CALL R1 1 1
+  NAMECALL R1 R1 K6 ["await"]
+  CALL R1 1 2
+  JUMPIF R1 [+7]
+  GETIMPORT R3 K8 [warn]
+  LOADK R4 K9 ["fetchGroupScopeListAsync - request failed"]
+  CALL R3 1 0
+  NEWTABLE R3 0 0
+  RETURN R3 1
+  NEWTABLE R3 0 0
+  GETTABLEKS R7 R2 K10 ["responseBody"]
+  GETTABLEKS R4 R7 K3 ["groups"]
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  GETUPVAL R9 1
+  JUMPIFLT R9 R7 [+21]
+  DUPTABLE R11 K14 [{"id", "name", "type"}]
+  GETTABLEKS R12 R8 K11 ["id"]
+  SETTABLEKS R12 R11 K11 ["id"]
+  GETTABLEKS R12 R8 K12 ["name"]
+  SETTABLEKS R12 R11 K12 ["name"]
+  LOADK R12 K15 ["Group"]
+  SETTABLEKS R12 R11 K13 ["type"]
+  FASTCALL2 TABLE_INSERT R3 R11 [+4]
+  MOVE R10 R3
+  GETIMPORT R9 K18 [table.insert]
+  CALL R9 2 0
+  FORGLOOP R4 2 [-22]
+  RETURN R3 1
+
+PROTO_2:
+  GETUPVAL R0 0
+  NEWTABLE R2 0 1
+  GETUPVAL R3 1
+  SETLIST R2 R3 1 [1]
+  NAMECALL R0 R0 K0 ["GetUserInfosByUserIdsAsync"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_3:
+  GETIMPORT R1 K1 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CALL R1 1 2
+  LOADK R3 K2 [""]
+  JUMPIFNOT R1 [+4]
+  GETTABLEN R4 R2 1
+  GETTABLEKS R3 R4 K3 ["DisplayName"]
+  JUMP [+4]
+  GETIMPORT R4 K5 [warn]
+  LOADK R5 K6 ["fetchUserScopeAsync - could not get user's display name"]
+  CALL R4 1 0
+  DUPTABLE R4 K10 [{"id", "name", "type"}]
+  SETTABLEKS R0 R4 K7 ["id"]
+  SETTABLEKS R3 R4 K8 ["name"]
+  LOADK R5 K11 ["User"]
+  SETTABLEKS R5 R4 K9 ["type"]
+  RETURN R4 1
+
+PROTO_4:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  CALL R2 1 1
+  GETUPVAL R3 1
+  MOVE R4 R1
+  CALL R3 1 1
+  GETUPVAL R4 2
+  CALL R4 0 1
+  NEWTABLE R5 2 0
+  GETTABLEKS R6 R2 K0 ["id"]
+  SETTABLE R2 R5 R6
+  GETTABLEKS R6 R3 K0 ["id"]
+  SETTABLE R3 R5 R6
+  MOVE R6 R4
+  LOADNIL R7
+  LOADNIL R8
+  FORGPREP R6
+  GETTABLEKS R11 R10 K0 ["id"]
+  SETTABLE R10 R5 R11
+  FORGLOOP R6 2 [-4]
+  RETURN R5 1
+
+PROTO_5:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["API"]
+  GETTABLEKS R1 R2 K1 ["CreatorInventory"]
+  LOADNIL R2
+  LOADNIL R3
+  GETTABLEKS R4 R0 K2 ["search"]
+  JUMPIFNOTEQKS R4 K3 [""] [+55]
+  LOADNIL R4
+  GETTABLEKS R5 R0 K4 ["scopeType"]
+  JUMPIFNOTEQKS R5 K5 ["Universe"] [+4]
+  GETTABLEKS R4 R1 K6 ["universeItems"]
+  JUMP [+24]
+  GETTABLEKS R5 R0 K4 ["scopeType"]
+  JUMPIFNOTEQKS R5 K7 ["User"] [+4]
+  GETTABLEKS R4 R1 K8 ["userItems"]
+  JUMP [+17]
+  GETTABLEKS R5 R0 K4 ["scopeType"]
+  JUMPIFNOTEQKS R5 K9 ["Group"] [+4]
+  GETTABLEKS R4 R1 K10 ["groupItems"]
+  JUMP [+10]
+  GETIMPORT R5 K12 [error]
+  LOADK R7 K13 ["Unsupported scope type: %*"]
+  GETTABLEKS R9 R0 K4 ["scopeType"]
+  NAMECALL R7 R7 K14 ["format"]
+  CALL R7 2 1
+  MOVE R6 R7
+  CALL R5 1 0
+  DUPTABLE R5 K17 [{"maxPageSize", "pageToken"}]
+  GETUPVAL R6 1
+  SETTABLEKS R6 R5 K15 ["maxPageSize"]
+  GETTABLEKS R6 R0 K16 ["pageToken"]
+  SETTABLEKS R6 R5 K16 ["pageToken"]
+  MOVE R6 R4
+  GETTABLEKS R7 R0 K18 ["scopeId"]
+  MOVE R8 R5
+  CALL R6 2 1
+  NAMECALL R6 R6 K19 ["makeRequest"]
+  CALL R6 1 1
+  NAMECALL R6 R6 K20 ["await"]
+  CALL R6 1 2
+  MOVE R2 R6
+  MOVE R3 R7
+  JUMP [+27]
+  DUPTABLE R4 K23 [{"Type", "Id"}]
+  GETTABLEKS R5 R0 K4 ["scopeType"]
+  SETTABLEKS R5 R4 K21 ["Type"]
+  GETTABLEKS R5 R0 K18 ["scopeId"]
+  SETTABLEKS R5 R4 K22 ["Id"]
+  GETTABLEKS R5 R1 K2 ["search"]
+  GETTABLEKS R6 R0 K2 ["search"]
+  LOADK R7 K24 ["Image"]
+  MOVE R8 R4
+  GETUPVAL R9 1
+  GETTABLEKS R10 R0 K16 ["pageToken"]
+  CALL R5 5 1
+  NAMECALL R5 R5 K19 ["makeRequest"]
+  CALL R5 1 1
+  NAMECALL R5 R5 K20 ["await"]
+  CALL R5 1 2
+  MOVE R2 R5
+  MOVE R3 R6
+  GETTABLEKS R4 R3 K25 ["responseBody"]
+  JUMPIFNOT R2 [+9]
+  GETUPVAL R5 2
+  GETTABLEKS R6 R4 K26 ["items"]
+  GETTABLEKS R7 R0 K27 ["assetType"]
+  CALL R5 2 1
+  GETTABLEKS R6 R4 K28 ["nextPageToken"]
+  RETURN R5 2
+  GETIMPORT R5 K30 [warn]
+  LOADK R7 K31 ["getAssetsAsync - asset fetch request failed for scope type %*"]
+  GETTABLEKS R9 R0 K4 ["scopeType"]
+  NAMECALL R7 R7 K14 ["format"]
+  CALL R7 2 1
+  MOVE R6 R7
+  CALL R5 1 0
+  NEWTABLE R5 0 0
+  RETURN R5 1
+
+PROTO_6:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  GETIMPORT R4 K3 [Enum.InfoType.Asset]
+  NAMECALL R1 R1 K4 ["GetProductInfoAsync"]
+  CALL R1 3 1
+  GETIMPORT R2 K6 [Enum.AssetType]
+  GETTABLEKS R4 R1 K7 ["AssetTypeId"]
+  NAMECALL R2 R2 K8 ["FromValue"]
+  CALL R2 2 1
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  LOADK R6 K9 ["fetchAssetByIdAsync: couldn't get asset type for assetId %*"]
+  MOVE R8 R0
+  NAMECALL R6 R6 K10 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  FASTCALL2 ASSERT R4 R5 [+3]
+  GETIMPORT R3 K12 [assert]
+  CALL R3 2 0
+  GETTABLEKS R3 R1 K13 ["Creator"]
+  DUPTABLE R4 K21 [{"assetId", "assetType", "createTime", "creationContext", "description", "displayName", "updateTime"}]
+  GETTABLEKS R5 R1 K22 ["AssetId"]
+  SETTABLEKS R5 R4 K14 ["assetId"]
+  SETTABLEKS R2 R4 K15 ["assetType"]
+  GETTABLEKS R5 R1 K23 ["Created"]
+  SETTABLEKS R5 R4 K16 ["createTime"]
+  DUPTABLE R5 K25 [{"creator"}]
+  DUPTABLE R6 K28 [{"name", "userId"}]
+  GETTABLEKS R7 R3 K29 ["Name"]
+  SETTABLEKS R7 R6 K26 ["name"]
+  GETTABLEKS R7 R3 K30 ["Id"]
+  SETTABLEKS R7 R6 K27 ["userId"]
+  SETTABLEKS R6 R5 K24 ["creator"]
+  SETTABLEKS R5 R4 K17 ["creationContext"]
+  GETTABLEKS R5 R1 K31 ["Description"]
+  SETTABLEKS R5 R4 K18 ["description"]
+  GETTABLEKS R5 R1 K29 ["Name"]
+  SETTABLEKS R5 R4 K19 ["displayName"]
+  GETTABLEKS R5 R1 K32 ["Updated"]
+  SETTABLEKS R5 R4 K20 ["updateTime"]
+  RETURN R4 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["MarketplaceService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["UserService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K6 [script]
+  LOADK R4 K7 ["Properties"]
+  NAMECALL R2 R2 K8 ["FindFirstAncestor"]
+  CALL R2 2 1
+  GETIMPORT R3 K6 [script]
+  LOADK R5 K9 ["AssetPicker"]
+  NAMECALL R3 R3 K8 ["FindFirstAncestor"]
+  CALL R3 2 1
+  GETTABLEKS R4 R2 K10 ["Parent"]
+  GETIMPORT R5 K12 [require]
+  GETTABLEKS R6 R4 K13 ["Networking"]
+  CALL R5 1 1
+  GETIMPORT R6 K12 [require]
+  GETTABLEKS R7 R3 K14 ["Types"]
+  CALL R6 1 1
+  GETIMPORT R7 K12 [require]
+  GETTABLEKS R9 R3 K13 ["Networking"]
+  GETTABLEKS R8 R9 K15 ["getFilteredAndSortedAssets"]
+  CALL R7 1 1
+  GETIMPORT R8 K1 [game]
+  LOADK R10 K16 ["AssetPickerMaxPageSize"]
+  LOADN R11 238
+  NAMECALL R8 R8 K17 ["DefineFastInt"]
+  CALL R8 3 1
+  GETIMPORT R9 K1 [game]
+  LOADK R11 K18 ["AssetPickerMaxGroupCount"]
+  LOADN R12 5
+  NAMECALL R9 R9 K17 ["DefineFastInt"]
+  CALL R9 3 1
+  GETTABLEKS R11 R5 K19 ["RobloxAPI"]
+  GETTABLEKS R10 R11 K20 ["new"]
+  GETTABLEKS R13 R5 K21 ["Http"]
+  GETTABLEKS R12 R13 K13 ["Networking"]
+  GETTABLEKS R11 R12 K20 ["new"]
+  CALL R11 0 1
+  CALL R10 1 1
+  NEWTABLE R11 4 0
+  DUPCLOSURE R12 K22 [PROTO_0]
+  CAPTURE VAL R10
+  DUPCLOSURE R13 K23 [PROTO_1]
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  DUPCLOSURE R14 K24 [PROTO_3]
+  CAPTURE VAL R1
+  DUPCLOSURE R15 K25 [PROTO_4]
+  CAPTURE VAL R14
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  SETTABLEKS R15 R11 K26 ["fetchScopesAsync"]
+  DUPCLOSURE R15 K27 [PROTO_5]
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  SETTABLEKS R15 R11 K28 ["fetchAssetsByScopeAsync"]
+  DUPCLOSURE R15 K29 [PROTO_6]
+  CAPTURE VAL R0
+  SETTABLEKS R15 R11 K30 ["fetchAssetByIdAsync"]
+  RETURN R11 1

@@ -1,0 +1,20 @@
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K8 [{"Invalid", "None", "NotAgeVerified", "OutsideAgeBucket", "TooManyCollaborators", "PCBlock", "NotFound", "OutsideOwnerAgeBucket"}]
+  LOADK R1 K0 ["Invalid"]
+  SETTABLEKS R1 R0 K0 ["Invalid"]
+  LOADK R1 K1 ["None"]
+  SETTABLEKS R1 R0 K1 ["None"]
+  LOADK R1 K2 ["NotAgeVerified"]
+  SETTABLEKS R1 R0 K2 ["NotAgeVerified"]
+  LOADK R1 K3 ["OutsideAgeBucket"]
+  SETTABLEKS R1 R0 K3 ["OutsideAgeBucket"]
+  LOADK R1 K4 ["TooManyCollaborators"]
+  SETTABLEKS R1 R0 K4 ["TooManyCollaborators"]
+  LOADK R1 K5 ["PCBlock"]
+  SETTABLEKS R1 R0 K5 ["PCBlock"]
+  LOADK R1 K6 ["NotFound"]
+  SETTABLEKS R1 R0 K6 ["NotFound"]
+  LOADK R1 K7 ["OutsideOwnerAgeBucket"]
+  SETTABLEKS R1 R0 K7 ["OutsideOwnerAgeBucket"]
+  RETURN R0 1

@@ -1,0 +1,10 @@
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 1 0
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K4 ["ReactTestUtilsPublicAct"]
+  CALL R2 1 1
+  GETTABLEKS R1 R2 K5 ["default"]
+  SETTABLEKS R1 R0 K6 ["act"]
+  RETURN R0 1

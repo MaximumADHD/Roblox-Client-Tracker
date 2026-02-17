@@ -1,0 +1,35 @@
+PROTO_0:
+  DUPTABLE R2 K1 [{"value"}]
+  DUPTABLE R3 K3 [{"value", "multiple"}]
+  GETTABLEKS R4 R1 K4 ["Uri"]
+  SETTABLEKS R4 R3 K0 ["value"]
+  LOADB R4 0
+  SETTABLEKS R4 R3 K2 ["multiple"]
+  SETTABLEKS R3 R2 K0 ["value"]
+  RETURN R2 1
+
+PROTO_1:
+  LOADB R3 0
+  RETURN R3 1
+
+PROTO_2:
+  LOADNIL R6
+  RETURN R6 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R2 R0 K6 ["RpcTypes"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K7 [PROTO_0]
+  DUPCLOSURE R3 K8 [PROTO_1]
+  DUPCLOSURE R4 K9 [PROTO_2]
+  DUPTABLE R5 K13 [{"initParts", "addToAggregation", "setPart"}]
+  SETTABLEKS R2 R5 K10 ["initParts"]
+  SETTABLEKS R3 R5 K11 ["addToAggregation"]
+  SETTABLEKS R4 R5 K12 ["setPart"]
+  RETURN R5 1

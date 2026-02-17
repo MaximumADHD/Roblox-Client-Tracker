@@ -1,11 +1,155 @@
 PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["current"]
+  JUMPIFNOT R1 [+35]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["Enums"]
+  GETTABLEKS R2 R3 K2 ["ControlState"]
+  GETTABLEKS R1 R2 K3 ["Hover"]
+  JUMPIFNOTEQ R0 R1 [+27]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["current"]
+  LOADK R4 K4 ["TextLabel"]
+  NAMECALL R2 R2 K5 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["current"]
+  JUMP [+7]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["current"]
+  LOADK R3 K4 ["TextLabel"]
+  NAMECALL R1 R1 K6 ["FindFirstChildWhichIsA"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R2 R1 K7 ["TextFits"]
+  JUMPIF R2 [+3]
+  GETUPVAL R2 2
+  CALL R2 0 0
+  RETURN R0 0
+  GETUPVAL R1 3
+  CALL R1 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["action"]
+  GETTABLEKS R0 R1 K1 ["onActivated"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["action"]
+  GETTABLEKS R1 R2 K2 ["uri"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R3 R0 K0 ["action"]
+  GETTABLEKS R2 R3 K1 ["uri"]
+  CALL R1 1 1
+  GETUPVAL R2 1
+  DUPTABLE R3 K5 [{"Uri", "Text", "Location"}]
+  GETTABLEKS R5 R0 K0 ["action"]
+  GETTABLEKS R4 R5 K1 ["uri"]
+  SETTABLEKS R4 R3 K2 ["Uri"]
+  GETTABLEKS R5 R0 K0 ["action"]
+  GETTABLEKS R4 R5 K6 ["text"]
+  SETTABLEKS R4 R3 K3 ["Text"]
+  LOADK R4 K7 ["Below"]
+  SETTABLEKS R4 R3 K4 ["Location"]
+  CALL R2 1 2
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K8 ["useCallback"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U3
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  NEWTABLE R6 0 3
+  MOVE R7 R1
+  MOVE R8 R2
+  MOVE R9 R3
+  SETLIST R6 R7 3 [1]
+  CALL R4 2 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K8 ["useCallback"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R0
+  NEWTABLE R7 0 2
+  GETTABLEKS R9 R0 K0 ["action"]
+  GETTABLEKS R8 R9 K9 ["onActivated"]
+  GETTABLEKS R10 R0 K0 ["action"]
+  GETTABLEKS R9 R10 K1 ["uri"]
+  SETLIST R7 R8 2 [1]
+  CALL R5 2 1
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K10 ["useEffect"]
+  NEWCLOSURE R7 P2
+  CAPTURE VAL R3
+  NEWTABLE R8 0 1
+  MOVE R9 R3
+  SETLIST R8 R9 1 [1]
+  CALL R6 2 0
+  GETUPVAL R6 4
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K11 ["View"]
+  DUPTABLE R8 K17 [{"ref", "tag", "onStateChanged", "Size", "LayoutOrder"}]
+  GETTABLEKS R9 R0 K18 ["sizeRef"]
+  SETTABLEKS R9 R8 K12 ["ref"]
+  LOADK R9 K19 ["auto-xy"]
+  SETTABLEKS R9 R8 K13 ["tag"]
+  SETTABLEKS R4 R8 K14 ["onStateChanged"]
+  GETTABLEKS R9 R0 K20 ["sizeBinding"]
+  SETTABLEKS R9 R8 K15 ["Size"]
+  GETTABLEKS R9 R0 K16 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K16 ["LayoutOrder"]
+  DUPTABLE R9 K23 [{"Button", "UISizeConstraint"}]
+  GETUPVAL R10 4
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K21 ["Button"]
+  DUPTABLE R12 K28 [{"ref", "text", "variant", "size", "fillBehavior", "onActivated", "testId"}]
+  SETTABLEKS R1 R12 K12 ["ref"]
+  GETTABLEKS R14 R0 K0 ["action"]
+  GETTABLEKS R13 R14 K6 ["text"]
+  SETTABLEKS R13 R12 K6 ["text"]
+  GETTABLEKS R13 R0 K24 ["variant"]
+  SETTABLEKS R13 R12 K24 ["variant"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K29 ["Enums"]
+  GETTABLEKS R14 R15 K30 ["InputSize"]
+  GETTABLEKS R13 R14 K31 ["XSmall"]
+  SETTABLEKS R13 R12 K25 ["size"]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K29 ["Enums"]
+  GETTABLEKS R14 R15 K32 ["FillBehavior"]
+  GETTABLEKS R13 R14 K33 ["Fill"]
+  SETTABLEKS R13 R12 K26 ["fillBehavior"]
+  SETTABLEKS R5 R12 K9 ["onActivated"]
+  GETTABLEKS R13 R0 K27 ["testId"]
+  SETTABLEKS R13 R12 K27 ["testId"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K21 ["Button"]
+  GETUPVAL R10 4
+  LOADK R11 K22 ["UISizeConstraint"]
+  DUPTABLE R12 K35 [{"MaxSize"}]
+  GETTABLEKS R13 R0 K36 ["maxSizeBinding"]
+  SETTABLEKS R13 R12 K34 ["MaxSize"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K22 ["UISizeConstraint"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_4:
   GETUPVAL R1 0
   GETTABLEKS R3 R0 K0 ["AbsoluteSize"]
   GETTABLEKS R2 R3 K1 ["X"]
   CALL R1 1 0
   RETURN R0 0
 
-PROTO_1:
+PROTO_5:
   GETUPVAL R1 0
   JUMPIFNOTEQKN R1 K0 [0] [+7]
   GETIMPORT R1 K3 [Vector2.new]
@@ -32,7 +176,7 @@ PROTO_1:
   CALL R2 2 -1
   RETURN R2 -1
 
-PROTO_2:
+PROTO_6:
   GETUPVAL R0 0
   NEWCLOSURE R2 P0
   CAPTURE UPVAL U1
@@ -41,7 +185,7 @@ PROTO_2:
   CALL R0 2 -1
   RETURN R0 -1
 
-PROTO_3:
+PROTO_7:
   GETUPVAL R1 0
   GETTABLEKS R2 R0 K0 ["LayoutOrder"]
   CALL R1 1 1
@@ -118,174 +262,87 @@ PROTO_3:
   SETTABLEKS R14 R13 K12 ["testId"]
   DUPTABLE R14 K20 [{"Tertiary", "PrimaryAndSecondary"}]
   GETTABLEKS R16 R0 K5 ["tertiaryAction"]
-  JUMPIFNOT R16 [+77]
+  JUMPIFNOT R16 [+31]
   GETUPVAL R15 5
-  GETUPVAL R17 3
-  GETTABLEKS R16 R17 K9 ["View"]
-  DUPTABLE R17 K23 [{"ref", "tag", "Size", "LayoutOrder"}]
-  SETTABLEKS R10 R17 K21 ["ref"]
-  LOADK R18 K24 ["auto-xy"]
-  SETTABLEKS R18 R17 K10 ["tag"]
-  SETTABLEKS R9 R17 K22 ["Size"]
+  GETUPVAL R16 6
+  DUPTABLE R17 K26 [{"action", "variant", "sizeRef", "sizeBinding", "maxSizeBinding", "LayoutOrder", "testId"}]
+  GETTABLEKS R18 R0 K5 ["tertiaryAction"]
+  SETTABLEKS R18 R17 K21 ["action"]
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K27 ["Enums"]
+  GETTABLEKS R19 R20 K28 ["ButtonVariant"]
+  GETTABLEKS R18 R19 K29 ["Standard"]
+  SETTABLEKS R18 R17 K22 ["variant"]
+  SETTABLEKS R10 R17 K23 ["sizeRef"]
+  SETTABLEKS R9 R17 K24 ["sizeBinding"]
+  SETTABLEKS R8 R17 K25 ["maxSizeBinding"]
   MOVE R18 R2
   CALL R18 0 1
   SETTABLEKS R18 R17 K0 ["LayoutOrder"]
-  DUPTABLE R18 K27 [{"Button", "UISizeConstraint"}]
-  GETUPVAL R19 5
-  GETUPVAL R21 3
-  GETTABLEKS R20 R21 K25 ["Button"]
-  DUPTABLE R21 K33 [{"text", "variant", "size", "fillBehavior", "onActivated", "testId"}]
-  GETTABLEKS R23 R0 K5 ["tertiaryAction"]
-  GETTABLEKS R22 R23 K28 ["text"]
-  SETTABLEKS R22 R21 K28 ["text"]
-  GETUPVAL R25 3
-  GETTABLEKS R24 R25 K34 ["Enums"]
-  GETTABLEKS R23 R24 K35 ["ButtonVariant"]
-  GETTABLEKS R22 R23 K36 ["Standard"]
-  SETTABLEKS R22 R21 K29 ["variant"]
-  GETUPVAL R25 3
-  GETTABLEKS R24 R25 K34 ["Enums"]
-  GETTABLEKS R23 R24 K37 ["InputSize"]
-  GETTABLEKS R22 R23 K38 ["XSmall"]
-  SETTABLEKS R22 R21 K30 ["size"]
-  GETUPVAL R25 3
-  GETTABLEKS R24 R25 K34 ["Enums"]
-  GETTABLEKS R23 R24 K39 ["FillBehavior"]
-  GETTABLEKS R22 R23 K40 ["Fill"]
-  SETTABLEKS R22 R21 K31 ["fillBehavior"]
-  GETTABLEKS R23 R0 K5 ["tertiaryAction"]
-  GETTABLEKS R22 R23 K32 ["onActivated"]
-  SETTABLEKS R22 R21 K32 ["onActivated"]
-  LOADK R22 K41 ["--dialog-button-tertiary"]
-  SETTABLEKS R22 R21 K12 ["testId"]
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K25 ["Button"]
-  GETUPVAL R19 5
-  LOADK R20 K26 ["UISizeConstraint"]
-  DUPTABLE R21 K43 [{"MaxSize"}]
-  SETTABLEKS R8 R21 K42 ["MaxSize"]
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K26 ["UISizeConstraint"]
-  CALL R15 3 1
+  LOADK R18 K30 ["--dialog-button-tertiary"]
+  SETTABLEKS R18 R17 K12 ["testId"]
+  CALL R15 2 1
   JUMP [+1]
   LOADNIL R15
   SETTABLEKS R15 R14 K18 ["Tertiary"]
   GETUPVAL R15 5
   GETUPVAL R17 3
   GETTABLEKS R16 R17 K9 ["View"]
-  DUPTABLE R17 K44 [{"tag", "LayoutOrder"}]
-  LOADK R18 K45 ["row auto-xy flex-x-between items-stretch gap-small"]
+  DUPTABLE R17 K31 [{"tag", "LayoutOrder"}]
+  LOADK R18 K32 ["row auto-xy flex-x-between items-stretch gap-small"]
   SETTABLEKS R18 R17 K10 ["tag"]
   MOVE R18 R2
   CALL R18 0 1
   SETTABLEKS R18 R17 K0 ["LayoutOrder"]
-  DUPTABLE R18 K48 [{"Primary", "Secondary"}]
+  DUPTABLE R18 K35 [{"Primary", "Secondary"}]
   GETTABLEKS R20 R0 K3 ["primaryAction"]
-  JUMPIFNOT R20 [+77]
+  JUMPIFNOT R20 [+31]
   GETUPVAL R19 5
-  GETUPVAL R21 3
-  GETTABLEKS R20 R21 K9 ["View"]
-  DUPTABLE R21 K23 [{"ref", "tag", "Size", "LayoutOrder"}]
-  SETTABLEKS R10 R21 K21 ["ref"]
-  LOADK R22 K24 ["auto-xy"]
-  SETTABLEKS R22 R21 K10 ["tag"]
-  SETTABLEKS R9 R21 K22 ["Size"]
+  GETUPVAL R20 6
+  DUPTABLE R21 K26 [{"action", "variant", "sizeRef", "sizeBinding", "maxSizeBinding", "LayoutOrder", "testId"}]
+  GETTABLEKS R22 R0 K3 ["primaryAction"]
+  SETTABLEKS R22 R21 K21 ["action"]
+  GETUPVAL R25 3
+  GETTABLEKS R24 R25 K27 ["Enums"]
+  GETTABLEKS R23 R24 K28 ["ButtonVariant"]
+  GETTABLEKS R22 R23 K36 ["Emphasis"]
+  SETTABLEKS R22 R21 K22 ["variant"]
+  SETTABLEKS R10 R21 K23 ["sizeRef"]
+  SETTABLEKS R9 R21 K24 ["sizeBinding"]
+  SETTABLEKS R8 R21 K25 ["maxSizeBinding"]
   MOVE R22 R2
   CALL R22 0 1
   SETTABLEKS R22 R21 K0 ["LayoutOrder"]
-  DUPTABLE R22 K27 [{"Button", "UISizeConstraint"}]
-  GETUPVAL R23 5
-  GETUPVAL R25 3
-  GETTABLEKS R24 R25 K25 ["Button"]
-  DUPTABLE R25 K33 [{"text", "variant", "size", "fillBehavior", "onActivated", "testId"}]
-  GETTABLEKS R27 R0 K3 ["primaryAction"]
-  GETTABLEKS R26 R27 K28 ["text"]
-  SETTABLEKS R26 R25 K28 ["text"]
-  GETUPVAL R29 3
-  GETTABLEKS R28 R29 K34 ["Enums"]
-  GETTABLEKS R27 R28 K35 ["ButtonVariant"]
-  GETTABLEKS R26 R27 K49 ["Emphasis"]
-  SETTABLEKS R26 R25 K29 ["variant"]
-  GETUPVAL R29 3
-  GETTABLEKS R28 R29 K34 ["Enums"]
-  GETTABLEKS R27 R28 K37 ["InputSize"]
-  GETTABLEKS R26 R27 K38 ["XSmall"]
-  SETTABLEKS R26 R25 K30 ["size"]
-  GETUPVAL R29 3
-  GETTABLEKS R28 R29 K34 ["Enums"]
-  GETTABLEKS R27 R28 K39 ["FillBehavior"]
-  GETTABLEKS R26 R27 K40 ["Fill"]
-  SETTABLEKS R26 R25 K31 ["fillBehavior"]
-  GETTABLEKS R27 R0 K3 ["primaryAction"]
-  GETTABLEKS R26 R27 K32 ["onActivated"]
-  SETTABLEKS R26 R25 K32 ["onActivated"]
-  LOADK R26 K50 ["--dialog-button-primary"]
-  SETTABLEKS R26 R25 K12 ["testId"]
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K25 ["Button"]
-  GETUPVAL R23 5
-  LOADK R24 K26 ["UISizeConstraint"]
-  DUPTABLE R25 K43 [{"MaxSize"}]
-  SETTABLEKS R8 R25 K42 ["MaxSize"]
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K26 ["UISizeConstraint"]
-  CALL R19 3 1
+  LOADK R22 K37 ["--dialog-button-primary"]
+  SETTABLEKS R22 R21 K12 ["testId"]
+  CALL R19 2 1
   JUMP [+1]
   LOADNIL R19
-  SETTABLEKS R19 R18 K46 ["Primary"]
+  SETTABLEKS R19 R18 K33 ["Primary"]
   GETTABLEKS R20 R0 K4 ["secondaryAction"]
-  JUMPIFNOT R20 [+77]
+  JUMPIFNOT R20 [+31]
   GETUPVAL R19 5
-  GETUPVAL R21 3
-  GETTABLEKS R20 R21 K9 ["View"]
-  DUPTABLE R21 K23 [{"ref", "tag", "Size", "LayoutOrder"}]
-  SETTABLEKS R10 R21 K21 ["ref"]
-  LOADK R22 K24 ["auto-xy"]
-  SETTABLEKS R22 R21 K10 ["tag"]
-  SETTABLEKS R9 R21 K22 ["Size"]
+  GETUPVAL R20 6
+  DUPTABLE R21 K26 [{"action", "variant", "sizeRef", "sizeBinding", "maxSizeBinding", "LayoutOrder", "testId"}]
+  GETTABLEKS R22 R0 K4 ["secondaryAction"]
+  SETTABLEKS R22 R21 K21 ["action"]
+  GETUPVAL R25 3
+  GETTABLEKS R24 R25 K27 ["Enums"]
+  GETTABLEKS R23 R24 K28 ["ButtonVariant"]
+  GETTABLEKS R22 R23 K29 ["Standard"]
+  SETTABLEKS R22 R21 K22 ["variant"]
+  SETTABLEKS R10 R21 K23 ["sizeRef"]
+  SETTABLEKS R9 R21 K24 ["sizeBinding"]
+  SETTABLEKS R8 R21 K25 ["maxSizeBinding"]
   MOVE R22 R2
   CALL R22 0 1
   SETTABLEKS R22 R21 K0 ["LayoutOrder"]
-  DUPTABLE R22 K27 [{"Button", "UISizeConstraint"}]
-  GETUPVAL R23 5
-  GETUPVAL R25 3
-  GETTABLEKS R24 R25 K25 ["Button"]
-  DUPTABLE R25 K33 [{"text", "variant", "size", "fillBehavior", "onActivated", "testId"}]
-  GETTABLEKS R27 R0 K4 ["secondaryAction"]
-  GETTABLEKS R26 R27 K28 ["text"]
-  SETTABLEKS R26 R25 K28 ["text"]
-  GETUPVAL R29 3
-  GETTABLEKS R28 R29 K34 ["Enums"]
-  GETTABLEKS R27 R28 K35 ["ButtonVariant"]
-  GETTABLEKS R26 R27 K36 ["Standard"]
-  SETTABLEKS R26 R25 K29 ["variant"]
-  GETUPVAL R29 3
-  GETTABLEKS R28 R29 K34 ["Enums"]
-  GETTABLEKS R27 R28 K37 ["InputSize"]
-  GETTABLEKS R26 R27 K38 ["XSmall"]
-  SETTABLEKS R26 R25 K30 ["size"]
-  GETUPVAL R29 3
-  GETTABLEKS R28 R29 K34 ["Enums"]
-  GETTABLEKS R27 R28 K39 ["FillBehavior"]
-  GETTABLEKS R26 R27 K40 ["Fill"]
-  SETTABLEKS R26 R25 K31 ["fillBehavior"]
-  GETTABLEKS R27 R0 K4 ["secondaryAction"]
-  GETTABLEKS R26 R27 K32 ["onActivated"]
-  SETTABLEKS R26 R25 K32 ["onActivated"]
-  LOADK R26 K51 ["--dialog-button-secondary"]
-  SETTABLEKS R26 R25 K12 ["testId"]
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K25 ["Button"]
-  GETUPVAL R23 5
-  LOADK R24 K26 ["UISizeConstraint"]
-  DUPTABLE R25 K43 [{"MaxSize"}]
-  SETTABLEKS R8 R25 K42 ["MaxSize"]
-  CALL R23 2 1
-  SETTABLEKS R23 R22 K26 ["UISizeConstraint"]
-  CALL R19 3 1
+  LOADK R22 K38 ["--dialog-button-secondary"]
+  SETTABLEKS R22 R21 K12 ["testId"]
+  CALL R19 2 1
   JUMP [+1]
   LOADNIL R19
-  SETTABLEKS R19 R18 K47 ["Secondary"]
+  SETTABLEKS R19 R18 K34 ["Secondary"]
   CALL R15 3 1
   SETTABLEKS R15 R14 K19 ["PrimaryAndSecondary"]
   CALL R11 3 -1
@@ -310,30 +367,48 @@ MAIN:
   GETTABLEKS R4 R5 K9 ["React"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K10 ["Src"]
-  GETTABLEKS R5 R6 K11 ["Types"]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["StudioFoundation"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K12 ["Hooks"]
-  GETTABLEKS R6 R7 K13 ["useBindable"]
+  GETTABLEKS R7 R0 K11 ["Src"]
+  GETTABLEKS R6 R7 K12 ["Types"]
   CALL R5 1 1
   GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K10 ["Src"]
-  GETTABLEKS R8 R9 K12 ["Hooks"]
-  GETTABLEKS R7 R8 K14 ["useButtonGroupSizeAlignment"]
+  GETTABLEKS R9 R0 K11 ["Src"]
+  GETTABLEKS R8 R9 K13 ["Hooks"]
+  GETTABLEKS R7 R8 K14 ["useBindable"]
   CALL R6 1 1
-  GETTABLEKS R8 R2 K15 ["Util"]
-  GETTABLEKS R7 R8 K16 ["counter"]
-  GETTABLEKS R8 R3 K17 ["createElement"]
-  DUPCLOSURE R9 K18 [PROTO_3]
-  CAPTURE VAL R5
-  CAPTURE VAL R7
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R10 R0 K11 ["Src"]
+  GETTABLEKS R9 R10 K13 ["Hooks"]
+  GETTABLEKS R8 R9 K15 ["useButtonGroupSizeAlignment"]
+  CALL R7 1 1
+  GETTABLEKS R9 R2 K16 ["Util"]
+  GETTABLEKS R8 R9 K17 ["counter"]
+  GETTABLEKS R9 R3 K18 ["createElement"]
+  GETTABLEKS R12 R2 K19 ["UI"]
+  GETTABLEKS R11 R12 K13 ["Hooks"]
+  GETTABLEKS R10 R11 K20 ["useTooltip"]
+  GETTABLEKS R12 R4 K13 ["Hooks"]
+  GETTABLEKS R11 R12 K21 ["useWidgetRef"]
+  GETTABLEKS R12 R3 K22 ["memo"]
+  DUPCLOSURE R13 K23 [PROTO_3]
+  CAPTURE VAL R11
+  CAPTURE VAL R10
   CAPTURE VAL R3
   CAPTURE VAL R1
+  CAPTURE VAL R9
+  CALL R12 1 1
+  DUPCLOSURE R13 K24 [PROTO_7]
   CAPTURE VAL R6
   CAPTURE VAL R8
-  GETTABLEKS R10 R3 K19 ["memo"]
-  MOVE R11 R9
-  CALL R10 1 -1
-  RETURN R10 -1
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R12
+  GETTABLEKS R14 R3 K22 ["memo"]
+  MOVE R15 R13
+  CALL R14 1 -1
+  RETURN R14 -1

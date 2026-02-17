@@ -39,6 +39,9 @@ PROTO_0:
   GETTABLEKS R10 R11 K11 ["Anchor"]
   CALL R7 3 1
   SETTABLEKS R7 R6 K11 ["Anchor"]
+  GETTABLEKS R8 R0 K3 ["toggle"]
+  GETTABLEKS R7 R8 K10 ["enabled"]
+  JUMPIFNOT R7 [+57]
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K5 ["createElement"]
   GETUPVAL R10 3
@@ -62,11 +65,18 @@ PROTO_0:
   SETTABLEKS R10 R9 K19 ["align"]
   LOADB R10 0
   SETTABLEKS R10 R9 K20 ["hasArrow"]
-  GETTABLEKS R11 R0 K3 ["toggle"]
-  GETTABLEKS R10 R11 K10 ["enabled"]
-  JUMPIFNOT R10 [+4]
-  GETTABLEKS R11 R0 K16 ["children"]
-  GETTABLEKS R10 R11 K12 ["Content"]
+  DUPTABLE R10 K26 [{"View"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K5 ["createElement"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K25 ["View"]
+  DUPTABLE R13 K28 [{"tag"}]
+  LOADK R14 K29 ["size-0-0 auto-xy stroke-emphasis radius-medium"]
+  SETTABLEKS R14 R13 K27 ["tag"]
+  GETTABLEKS R15 R0 K16 ["children"]
+  GETTABLEKS R14 R15 K12 ["Content"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K25 ["View"]
   CALL R7 3 1
   SETTABLEKS R7 R6 K12 ["Content"]
   CALL R3 3 -1

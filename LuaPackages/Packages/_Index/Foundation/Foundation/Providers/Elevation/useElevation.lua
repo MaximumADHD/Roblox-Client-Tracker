@@ -14,7 +14,7 @@ type Token = elevation.Token
 type ElevationLayer = ElevationLayer.ElevationLayer
 
 type Options = {
-	relativeToOwner: boolean,
+	stackAboveOwner: boolean,
 }
 
 local function useElevation(layer: ElevationLayer, options: Options): Token
@@ -23,9 +23,15 @@ local function useElevation(layer: ElevationLayer, options: Options): Token
 
 	local token = React.useMemo(
 		function()
-			if options.relativeToOwner then
+			local isNestedSameLayer = owner ~= nil and owner.layer == layer
+
+			if options.stackAboveOwner then
 				if not owner then
-					return manager.acquire(layer)
+					return manager.acquire(layer, { reserve = false })
+				end
+
+				if isNestedSameLayer then
+					return manager.acquire(layer, { reserve = true })
 				end
 
 				local desired = owner.zIndex + 1
@@ -37,13 +43,13 @@ local function useElevation(layer: ElevationLayer, options: Options): Token
 				}
 			end
 
-			return manager.acquire(layer)
+			return manager.acquire(layer, { reserve = isNestedSameLayer })
 		end,
 		{
 			layer,
 			owner,
 			manager,
-			options.relativeToOwner,
+			options.stackAboveOwner,
 		} :: { unknown }
 	)
 

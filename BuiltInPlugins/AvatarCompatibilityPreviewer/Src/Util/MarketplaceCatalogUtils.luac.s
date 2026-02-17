@@ -43,7 +43,7 @@ PROTO_2:
   SETTABLEKS R13 R12 K4 ["name"]
   GETTABLEKS R13 R9 K11 ["CreatorName"]
   SETTABLEKS R13 R12 K5 ["creatorName"]
-  GETTABLEKS R13 R9 K12 ["HasVerifiedBadge"]
+  GETTABLEKS R13 R9 K12 ["CreatorHasVerifiedBadge"]
   SETTABLEKS R13 R12 K6 ["hasVerifiedBadge"]
   SETTABLEKS R10 R12 K7 ["underlyingAssetIds"]
   SETTABLE R12 R4 R11
@@ -159,7 +159,7 @@ PROTO_4:
   SETTABLEKS R10 R9 K19 ["creatorType"]
   GETTABLEKS R10 R0 K29 ["CreatorName"]
   SETTABLEKS R10 R9 K20 ["creatorName"]
-  GETTABLEKS R10 R0 K30 ["HasVerifiedBadge"]
+  GETTABLEKS R10 R0 K30 ["CreatorHasVerifiedBadge"]
   SETTABLEKS R10 R9 K21 ["hasVerifiedBadge"]
   LOADB R10 0
   MOVE R11 R9
@@ -214,7 +214,7 @@ PROTO_5:
   SETTABLEKS R7 R6 K10 ["name"]
   GETTABLEKS R7 R0 K16 ["CreatorName"]
   SETTABLEKS R7 R6 K11 ["creatorName"]
-  GETTABLEKS R7 R0 K17 ["HasVerifiedBadge"]
+  GETTABLEKS R7 R0 K17 ["CreatorHasVerifiedBadge"]
   SETTABLEKS R7 R6 K12 ["hasVerifiedBadge"]
   MOVE R5 R6
   DUPTABLE R6 K24 [{"uniqueId", "marketplaceItem", "name", "palette", "assetType", "creatorTargetId", "creatorType", "creatorName", "hasVerifiedBadge"}]
@@ -235,7 +235,7 @@ PROTO_5:
   SETTABLEKS R7 R6 K23 ["creatorType"]
   GETTABLEKS R7 R0 K16 ["CreatorName"]
   SETTABLEKS R7 R6 K11 ["creatorName"]
-  GETTABLEKS R7 R0 K17 ["HasVerifiedBadge"]
+  GETTABLEKS R7 R0 K17 ["CreatorHasVerifiedBadge"]
   SETTABLEKS R7 R6 K12 ["hasVerifiedBadge"]
   RETURN R5 2
 

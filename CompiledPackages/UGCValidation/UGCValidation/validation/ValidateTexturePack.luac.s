@@ -1,0 +1,229 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["new"]
+  CALL R3 0 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["findSurfaceAppearancesMissingTexturePacks"]
+  MOVE R5 R0
+  MOVE R6 R1
+  CALL R4 2 1
+  MOVE R5 R4
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  LOADB R12 0
+  NEWTABLE R13 0 1
+  LOADK R15 K2 ["'%*' has a 'TexturePack' property with an invalid URL. Please fix the URL."]
+  NAMECALL R17 R9 K3 ["GetFullName"]
+  CALL R17 1 1
+  NAMECALL R15 R15 K4 ["format"]
+  CALL R15 2 1
+  MOVE R14 R15
+  SETLIST R13 R14 1 [1]
+  NAMECALL R10 R3 K5 ["updateReasons"]
+  CALL R10 3 0
+  FORGLOOP R5 2 [-17]
+  LENGTH R5 R4
+  LOADN R6 0
+  JUMPIFNOTLT R6 R5 [+12]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K6 ["reportFailure"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K7 ["ErrorType"]
+  GETTABLEKS R6 R7 K8 ["validateTexturePack_InvalidTexturePackURL"]
+  LOADNIL R7
+  MOVE R8 R2
+  CALL R5 3 0
+  NAMECALL R5 R3 K9 ["getFinalResults"]
+  CALL R5 1 -1
+  RETURN R5 -1
+
+PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["DoesSurfaceAppearanceMatchTexturePackAsync"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_2:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  CALL R2 0 1
+  LOADB R3 0
+  LOADB R4 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K1 ["findSurfaceAppearancesWithTexturePacks"]
+  MOVE R6 R0
+  CALL R5 1 3
+  FORGPREP R5
+  GETIMPORT R10 K3 [pcall]
+  NEWCLOSURE R11 P0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R9
+  CALL R10 1 2
+  JUMPIF R10 [+26]
+  LOADK R13 K4 ["Failed to download TexturePack for SurfaceAppearance '%*'."]
+  NAMECALL R15 R9 K5 ["GetFullName"]
+  CALL R15 1 1
+  NAMECALL R13 R13 K6 ["format"]
+  CALL R13 2 1
+  MOVE R12 R13
+  GETTABLEKS R13 R1 K7 ["isServer"]
+  JUMPIFNOT R13 [+4]
+  GETIMPORT R13 K9 [error]
+  MOVE R14 R12
+  CALL R13 1 0
+  LOADB R4 1
+  LOADB R15 0
+  NEWTABLE R16 0 1
+  MOVE R17 R12
+  SETLIST R16 R17 1 [1]
+  NAMECALL R13 R2 K10 ["updateReasons"]
+  CALL R13 3 0
+  JUMP [+19]
+  MOVE R14 R11
+  NEWTABLE R15 0 1
+  LOADK R17 K11 ["The textures in SurfaceAppearance '%*' do not match those in its TexturePack. Please fix the TexturePack"]
+  NAMECALL R19 R9 K5 ["GetFullName"]
+  CALL R19 1 1
+  NAMECALL R17 R17 K6 ["format"]
+  CALL R17 2 1
+  MOVE R16 R17
+  SETLIST R15 R16 1 [1]
+  NAMECALL R12 R2 K10 ["updateReasons"]
+  CALL R12 3 0
+  JUMPIFNOT R3 [+1]
+  JUMP [+1]
+  NOT R3 R11
+  FORGLOOP R5 2 [-53]
+  JUMPIFNOT R4 [+11]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K12 ["reportFailure"]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K13 ["ErrorType"]
+  GETTABLEKS R6 R7 K14 ["validateTexturePack_FailedToDownloadTexturePack"]
+  LOADNIL R7
+  MOVE R8 R1
+  CALL R5 3 0
+  JUMPIFNOT R3 [+11]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K12 ["reportFailure"]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K13 ["ErrorType"]
+  GETTABLEKS R6 R7 K15 ["validateTexturePack_TexturePackMismatch"]
+  LOADNIL R7
+  MOVE R8 R1
+  CALL R5 3 0
+  NAMECALL R5 R2 K16 ["getFinalResults"]
+  CALL R5 1 -1
+  RETURN R5 -1
+
+PROTO_3:
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIF R3 [+2]
+  LOADB R3 1
+  RETURN R3 1
+  LOADNIL R3
+  GETUPVAL R4 1
+  CALL R4 0 1
+  JUMPIFNOT R4 [+6]
+  GETTABLEKS R4 R2 K0 ["isServer"]
+  JUMPIFNOT R4 [+2]
+  LOADB R3 1
+  JUMP [+1]
+  LOADB R3 0
+  GETTABLEKS R4 R2 K1 ["allowEditableInstances"]
+  JUMPIFNOT R4 [+2]
+  LOADB R5 1
+  RETURN R5 1
+  GETIMPORT R5 K3 [tick]
+  CALL R5 0 1
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K4 ["new"]
+  CALL R6 0 1
+  GETUPVAL R7 1
+  CALL R7 0 1
+  JUMPIFNOT R7 [+10]
+  JUMPIFNOT R3 [+17]
+  GETUPVAL R9 3
+  MOVE R10 R0
+  MOVE R11 R1
+  MOVE R12 R2
+  CALL R9 3 -1
+  NAMECALL R7 R6 K5 ["updateReasons"]
+  CALL R7 -1 0
+  JUMP [+8]
+  GETUPVAL R9 3
+  MOVE R10 R0
+  MOVE R11 R1
+  MOVE R12 R2
+  CALL R9 3 -1
+  NAMECALL R7 R6 K5 ["updateReasons"]
+  CALL R7 -1 0
+  GETUPVAL R9 4
+  MOVE R10 R0
+  MOVE R11 R2
+  CALL R9 2 -1
+  NAMECALL R7 R6 K5 ["updateReasons"]
+  CALL R7 -1 0
+  GETUPVAL R8 5
+  GETTABLEKS R7 R8 K6 ["recordScriptTime"]
+  GETIMPORT R9 K8 [script]
+  GETTABLEKS R8 R9 K9 ["Name"]
+  MOVE R9 R5
+  MOVE R10 R2
+  CALL R7 3 0
+  NAMECALL R7 R6 K10 ["getFinalResults"]
+  CALL R7 1 -1
+  RETURN R7 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["UGCValidationService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R3 K5 [script]
+  GETTABLEKS R2 R3 K6 ["Parent"]
+  GETTABLEKS R1 R2 K6 ["Parent"]
+  GETIMPORT R2 K8 [require]
+  GETTABLEKS R3 R1 K9 ["Analytics"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K10 ["util"]
+  GETIMPORT R4 K8 [require]
+  GETTABLEKS R5 R3 K11 ["Types"]
+  CALL R4 1 1
+  GETIMPORT R5 K8 [require]
+  GETTABLEKS R6 R3 K12 ["TexturePackUtils"]
+  CALL R5 1 1
+  GETIMPORT R6 K8 [require]
+  GETTABLEKS R7 R3 K13 ["FailureReasonsAccumulator"]
+  CALL R6 1 1
+  GETIMPORT R7 K8 [require]
+  GETTABLEKS R9 R1 K14 ["flags"]
+  GETTABLEKS R8 R9 K15 ["getFFlagUGCValidateTexturePack"]
+  CALL R7 1 1
+  GETIMPORT R8 K8 [require]
+  GETTABLEKS R10 R1 K14 ["flags"]
+  GETTABLEKS R9 R10 K16 ["getFFlagUGCValidateTexturePackOnRCCOnly"]
+  CALL R8 1 1
+  NEWTABLE R9 1 0
+  DUPCLOSURE R10 K17 [PROTO_0]
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  DUPCLOSURE R11 K18 [PROTO_2]
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  DUPCLOSURE R12 K19 [PROTO_3]
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R2
+  SETTABLEKS R12 R9 K20 ["validate"]
+  RETURN R9 1

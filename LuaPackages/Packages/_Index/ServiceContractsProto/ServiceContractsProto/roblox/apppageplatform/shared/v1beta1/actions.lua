@@ -40,6 +40,12 @@ type _Messages = {
 	RemoveBadgeFromInventoryAction_Params: _RemoveBadgeFromInventoryAction_ParamsMessage,
 	OpenProfileAction: _OpenProfileActionMessage,
 	OpenProfileAction_Params: _OpenProfileAction_ParamsMessage,
+	OpenFaeAction: _OpenFaeActionMessage,
+	OpenFaeAction_Params: _OpenFaeAction_ParamsMessage,
+	OpenAddConnectionsAction: _OpenAddConnectionsActionMessage,
+	OpenAddConnectionsAction_Params: _OpenAddConnectionsAction_ParamsMessage,
+	OpenMarketplaceAction: _OpenMarketplaceActionMessage,
+	OpenMarketplaceAction_Params: _OpenMarketplaceAction_ParamsMessage,
 	Action: _ActionMessage,
 	ActionProp: _ActionPropMessage,
 	ActionProp_ConditionalOption: _ActionProp_ConditionalOptionMessage,
@@ -758,11 +764,13 @@ type _ShareAction_ParamsImpl = {
 type _ShareAction_ParamsFields = {
 	share_link_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	share_link_data: ShareAction_ShareLinkData?,
+	entry_point_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 type _ShareAction_ParamsPartialFields = {
 	share_link_type: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 	share_link_data: ShareAction_ShareLinkData?,
+	entry_point_key: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
 }
 
 export type ShareAction_Params = typeof(setmetatable({} :: _ShareAction_ParamsFields, {} :: _ShareAction_ParamsImpl))
@@ -934,6 +942,165 @@ export type OpenProfileAction_Params = typeof(setmetatable(
 ))
 type _OpenProfileAction_ParamsMessage = proto.Message<OpenProfileAction_Params, _OpenProfileAction_ParamsPartialFields>
 
+type _OpenFaeActionImpl = {
+	__index: _OpenFaeActionImpl,
+	new: (fields: _OpenFaeActionPartialFields?) -> OpenFaeAction,
+	encode: (self: OpenFaeAction) -> buffer,
+	decode: (input: buffer) -> OpenFaeAction,
+	jsonEncode: (self: OpenFaeAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenFaeAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenFaeActionFields = {
+	action_type: ActionType,
+	action_params: OpenFaeAction_Params?,
+}
+
+type _OpenFaeActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenFaeAction_Params?,
+}
+
+export type OpenFaeAction = typeof(setmetatable({} :: _OpenFaeActionFields, {} :: _OpenFaeActionImpl))
+type _OpenFaeActionMessage = proto.Message<OpenFaeAction, _OpenFaeActionPartialFields>
+
+type _OpenFaeAction_ParamsImpl = {
+	__index: _OpenFaeAction_ParamsImpl,
+	new: (fields: _OpenFaeAction_ParamsPartialFields?) -> OpenFaeAction_Params,
+	encode: (self: OpenFaeAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenFaeAction_Params,
+	jsonEncode: (self: OpenFaeAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenFaeAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenFaeAction_ParamsFields = {
+	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenFaeAction_ParamsPartialFields = {
+	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenFaeAction_Params = typeof(setmetatable(
+	{} :: _OpenFaeAction_ParamsFields,
+	{} :: _OpenFaeAction_ParamsImpl
+))
+type _OpenFaeAction_ParamsMessage = proto.Message<OpenFaeAction_Params, _OpenFaeAction_ParamsPartialFields>
+
+type _OpenAddConnectionsActionImpl = {
+	__index: _OpenAddConnectionsActionImpl,
+	new: (fields: _OpenAddConnectionsActionPartialFields?) -> OpenAddConnectionsAction,
+	encode: (self: OpenAddConnectionsAction) -> buffer,
+	decode: (input: buffer) -> OpenAddConnectionsAction,
+	jsonEncode: (self: OpenAddConnectionsAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenAddConnectionsAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenAddConnectionsActionFields = {
+	action_type: ActionType,
+	action_params: OpenAddConnectionsAction_Params?,
+}
+
+type _OpenAddConnectionsActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenAddConnectionsAction_Params?,
+}
+
+export type OpenAddConnectionsAction = typeof(setmetatable(
+	{} :: _OpenAddConnectionsActionFields,
+	{} :: _OpenAddConnectionsActionImpl
+))
+type _OpenAddConnectionsActionMessage = proto.Message<OpenAddConnectionsAction, _OpenAddConnectionsActionPartialFields>
+
+type _OpenAddConnectionsAction_ParamsImpl = {
+	__index: _OpenAddConnectionsAction_ParamsImpl,
+	new: (fields: _OpenAddConnectionsAction_ParamsPartialFields?) -> OpenAddConnectionsAction_Params,
+	encode: (self: OpenAddConnectionsAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenAddConnectionsAction_Params,
+	jsonEncode: (self: OpenAddConnectionsAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenAddConnectionsAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenAddConnectionsAction_ParamsFields = {
+	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenAddConnectionsAction_ParamsPartialFields = {
+	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenAddConnectionsAction_Params = typeof(setmetatable(
+	{} :: _OpenAddConnectionsAction_ParamsFields,
+	{} :: _OpenAddConnectionsAction_ParamsImpl
+))
+type _OpenAddConnectionsAction_ParamsMessage = proto.Message<
+	OpenAddConnectionsAction_Params,
+	_OpenAddConnectionsAction_ParamsPartialFields
+>
+
+type _OpenMarketplaceActionImpl = {
+	__index: _OpenMarketplaceActionImpl,
+	new: (fields: _OpenMarketplaceActionPartialFields?) -> OpenMarketplaceAction,
+	encode: (self: OpenMarketplaceAction) -> buffer,
+	decode: (input: buffer) -> OpenMarketplaceAction,
+	jsonEncode: (self: OpenMarketplaceAction) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenMarketplaceAction,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenMarketplaceActionFields = {
+	action_type: ActionType,
+	action_params: OpenMarketplaceAction_Params?,
+}
+
+type _OpenMarketplaceActionPartialFields = {
+	action_type: ActionType?,
+	action_params: OpenMarketplaceAction_Params?,
+}
+
+export type OpenMarketplaceAction = typeof(setmetatable(
+	{} :: _OpenMarketplaceActionFields,
+	{} :: _OpenMarketplaceActionImpl
+))
+type _OpenMarketplaceActionMessage = proto.Message<OpenMarketplaceAction, _OpenMarketplaceActionPartialFields>
+
+type _OpenMarketplaceAction_ParamsImpl = {
+	__index: _OpenMarketplaceAction_ParamsImpl,
+	new: (fields: _OpenMarketplaceAction_ParamsPartialFields?) -> OpenMarketplaceAction_Params,
+	encode: (self: OpenMarketplaceAction_Params) -> buffer,
+	decode: (input: buffer) -> OpenMarketplaceAction_Params,
+	jsonEncode: (self: OpenMarketplaceAction_Params) -> { [string]: any },
+	jsonDecode: (input: { [string]: any }) -> OpenMarketplaceAction_Params,
+	descriptor: proto.Descriptor,
+}
+
+type _OpenMarketplaceAction_ParamsFields = {
+	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+type _OpenMarketplaceAction_ParamsPartialFields = {
+	user_id: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+	source: _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp?,
+}
+
+export type OpenMarketplaceAction_Params = typeof(setmetatable(
+	{} :: _OpenMarketplaceAction_ParamsFields,
+	{} :: _OpenMarketplaceAction_ParamsImpl
+))
+type _OpenMarketplaceAction_ParamsMessage = proto.Message<
+	OpenMarketplaceAction_Params,
+	_OpenMarketplaceAction_ParamsPartialFields
+>
+
 type _ActionImpl = {
 	__index: _ActionImpl,
 	new: (fields: _ActionPartialFields?) -> Action,
@@ -962,6 +1129,9 @@ type _ActionFields = {
 		| { type: "open_abuse_report_action", value: OpenAbuseReportAction }
 		| { type: "remove_badge_from_inventory_action", value: RemoveBadgeFromInventoryAction }
 		| { type: "open_profile_action", value: OpenProfileAction }
+		| { type: "open_fae_action", value: OpenFaeAction }
+		| { type: "open_add_connections_action", value: OpenAddConnectionsAction }
+		| { type: "open_marketplace_action", value: OpenMarketplaceAction }
 	)?,
 }
 
@@ -983,6 +1153,9 @@ type _ActionPartialFields = {
 		| { type: "open_abuse_report_action", value: OpenAbuseReportAction }
 		| { type: "remove_badge_from_inventory_action", value: RemoveBadgeFromInventoryAction }
 		| { type: "open_profile_action", value: OpenProfileAction }
+		| { type: "open_fae_action", value: OpenFaeAction }
+		| { type: "open_add_connections_action", value: OpenAddConnectionsAction }
+		| { type: "open_marketplace_action", value: OpenMarketplaceAction }
 	)?,
 }
 
@@ -1259,6 +1432,9 @@ export type ActionType =
 	| "ACTION_TYPE_OPEN_ABUSE_REPORT"
 	| "ACTION_TYPE_REMOVE_BADGE_FROM_INVENTORY"
 	| "ACTION_TYPE_OPEN_PROFILE"
+	| "ACTION_TYPE_OPEN_FAE"
+	| "ACTION_TYPE_OPEN_ADD_CONNECTIONS"
+	| "ACTION_TYPE_OPEN_MARKETPLACE"
 	| number -- Unknown
 
 do
@@ -4728,6 +4904,7 @@ do
 		return setmetatable({
 			share_link_type = if data == nil or data.share_link_type == nil then nil else data.share_link_type,
 			share_link_data = if data == nil or data.share_link_data == nil then nil else data.share_link_data,
+			entry_point_key = if data == nil or data.entry_point_key == nil then nil else data.entry_point_key,
 		}, _ShareAction_ParamsImpl :: _ShareAction_ParamsImpl)
 	end
 
@@ -4744,6 +4921,12 @@ do
 		if self.share_link_data ~= nil then
 			local encoded = self.share_link_data:encode()
 			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.entry_point_key ~= nil then
+			local encoded = self.entry_point_key:encode()
+			output, cursor = proto.writeTag(output, cursor, 3, proto.wireTypes.lengthDelimited)
 			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 		end
 
@@ -4775,6 +4958,11 @@ do
 					local value
 					value, cursor = proto.readBuffer(input, cursor)
 					self.share_link_data = messages.ShareAction_ShareLinkData.decode(value)
+					continue
+				elseif field == 3 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.entry_point_key = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
 					continue
 				end
 
@@ -4811,6 +4999,10 @@ do
 			output.shareLinkData = self.share_link_data:jsonEncode()
 		end
 
+		if self.entry_point_key ~= nil then
+			output.entryPointKey = self.entry_point_key:jsonEncode()
+		end
+
 		return output
 	end
 
@@ -4833,6 +5025,16 @@ do
 
 		if input.shareLinkData ~= nil then
 			self.share_link_data = messages.ShareAction_ShareLinkData.jsonDecode(input.shareLinkData)
+		end
+
+		if input.entry_point_key ~= nil then
+			self.entry_point_key =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.entry_point_key)
+		end
+
+		if input.entryPointKey ~= nil then
+			self.entry_point_key =
+				_roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.entryPointKey)
 		end
 
 		return self
@@ -5721,6 +5923,811 @@ do
 end
 
 do
+	local _OpenFaeActionImpl = {}
+	_OpenFaeActionImpl.__index = _OpenFaeActionImpl
+
+	function _OpenFaeActionImpl.new(data: _OpenFaeActionPartialFields?): OpenFaeAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenFaeActionImpl :: _OpenFaeActionImpl)
+	end
+
+	function _OpenFaeActionImpl.encode(self: OpenFaeAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenFaeActionImpl.decode(input: buffer): OpenFaeAction
+		local self = _OpenFaeActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenFaeAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenFaeActionImpl.jsonEncode(self: OpenFaeAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenFaeActionImpl.jsonDecode(input: { [string]: any }): OpenFaeAction
+		local self = _OpenFaeActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenFaeAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenFaeAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenFaeActionImpl.descriptor = {
+		name = "OpenFaeAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenFaeAction",
+	}
+
+	messages.OpenFaeAction = _OpenFaeActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenFaeAction)
+end
+
+do
+	local _OpenFaeAction_ParamsImpl = {}
+	_OpenFaeAction_ParamsImpl.__index = _OpenFaeAction_ParamsImpl
+
+	function _OpenFaeAction_ParamsImpl.new(data: _OpenFaeAction_ParamsPartialFields?): OpenFaeAction_Params
+		return setmetatable({
+			user_id = if data == nil or data.user_id == nil then nil else data.user_id,
+			source = if data == nil or data.source == nil then nil else data.source,
+		}, _OpenFaeAction_ParamsImpl :: _OpenFaeAction_ParamsImpl)
+	end
+
+	function _OpenFaeAction_ParamsImpl.encode(self: OpenFaeAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.user_id ~= nil then
+			local encoded = self.user_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.source ~= nil then
+			local encoded = self.source:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenFaeAction_ParamsImpl.decode(input: buffer): OpenFaeAction_Params
+		local self = _OpenFaeAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenFaeAction_ParamsImpl.jsonEncode(self: OpenFaeAction_Params): any
+		local output = {}
+
+		if self.user_id ~= nil then
+			output.userId = self.user_id:jsonEncode()
+		end
+
+		if self.source ~= nil then
+			output.source = self.source:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenFaeAction_ParamsImpl.jsonDecode(input: { [string]: any }): OpenFaeAction_Params
+		local self = _OpenFaeAction_ParamsImpl.new()
+
+		if input.user_id ~= nil then
+			self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.user_id)
+		end
+
+		if input.userId ~= nil then
+			self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.userId)
+		end
+
+		if input.source ~= nil then
+			self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.source)
+		end
+
+		return self
+	end
+
+	_OpenFaeAction_ParamsImpl.descriptor = {
+		name = "OpenFaeAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenFaeAction_Params = _OpenFaeAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenFaeAction_Params)
+end
+
+do
+	local _OpenAddConnectionsActionImpl = {}
+	_OpenAddConnectionsActionImpl.__index = _OpenAddConnectionsActionImpl
+
+	function _OpenAddConnectionsActionImpl.new(data: _OpenAddConnectionsActionPartialFields?): OpenAddConnectionsAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenAddConnectionsActionImpl :: _OpenAddConnectionsActionImpl)
+	end
+
+	function _OpenAddConnectionsActionImpl.encode(self: OpenAddConnectionsAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenAddConnectionsActionImpl.decode(input: buffer): OpenAddConnectionsAction
+		local self = _OpenAddConnectionsActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenAddConnectionsAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenAddConnectionsActionImpl.jsonEncode(self: OpenAddConnectionsAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenAddConnectionsActionImpl.jsonDecode(input: { [string]: any }): OpenAddConnectionsAction
+		local self = _OpenAddConnectionsActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenAddConnectionsAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenAddConnectionsAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenAddConnectionsActionImpl.descriptor = {
+		name = "OpenAddConnectionsAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenAddConnectionsAction",
+	}
+
+	messages.OpenAddConnectionsAction = _OpenAddConnectionsActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenAddConnectionsAction)
+end
+
+do
+	local _OpenAddConnectionsAction_ParamsImpl = {}
+	_OpenAddConnectionsAction_ParamsImpl.__index = _OpenAddConnectionsAction_ParamsImpl
+
+	function _OpenAddConnectionsAction_ParamsImpl.new(
+		data: _OpenAddConnectionsAction_ParamsPartialFields?
+	): OpenAddConnectionsAction_Params
+		return setmetatable({
+			user_id = if data == nil or data.user_id == nil then nil else data.user_id,
+			source = if data == nil or data.source == nil then nil else data.source,
+		}, _OpenAddConnectionsAction_ParamsImpl :: _OpenAddConnectionsAction_ParamsImpl)
+	end
+
+	function _OpenAddConnectionsAction_ParamsImpl.encode(self: OpenAddConnectionsAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.user_id ~= nil then
+			local encoded = self.user_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.source ~= nil then
+			local encoded = self.source:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenAddConnectionsAction_ParamsImpl.decode(input: buffer): OpenAddConnectionsAction_Params
+		local self = _OpenAddConnectionsAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenAddConnectionsAction_ParamsImpl.jsonEncode(self: OpenAddConnectionsAction_Params): any
+		local output = {}
+
+		if self.user_id ~= nil then
+			output.userId = self.user_id:jsonEncode()
+		end
+
+		if self.source ~= nil then
+			output.source = self.source:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenAddConnectionsAction_ParamsImpl.jsonDecode(input: { [string]: any }): OpenAddConnectionsAction_Params
+		local self = _OpenAddConnectionsAction_ParamsImpl.new()
+
+		if input.user_id ~= nil then
+			self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.user_id)
+		end
+
+		if input.userId ~= nil then
+			self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.userId)
+		end
+
+		if input.source ~= nil then
+			self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.source)
+		end
+
+		return self
+	end
+
+	_OpenAddConnectionsAction_ParamsImpl.descriptor = {
+		name = "OpenAddConnectionsAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenAddConnectionsAction_Params = _OpenAddConnectionsAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenAddConnectionsAction_Params)
+end
+
+do
+	local _OpenMarketplaceActionImpl = {}
+	_OpenMarketplaceActionImpl.__index = _OpenMarketplaceActionImpl
+
+	function _OpenMarketplaceActionImpl.new(data: _OpenMarketplaceActionPartialFields?): OpenMarketplaceAction
+		return setmetatable({
+			action_type = if data == nil or data.action_type == nil
+				then assert(messages.ActionType.fromNumber(0), "Enum has no 0 default")
+				else data.action_type,
+			action_params = if data == nil or data.action_params == nil then nil else data.action_params,
+		}, _OpenMarketplaceActionImpl :: _OpenMarketplaceActionImpl)
+	end
+
+	function _OpenMarketplaceActionImpl.encode(self: OpenMarketplaceAction): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.varint)
+			output, cursor = proto.writeVarInt(output, cursor, messages.ActionType.toNumber(self.action_type :: any))
+		end
+
+		if self.action_params ~= nil then
+			local encoded = self.action_params:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenMarketplaceActionImpl.decode(input: buffer): OpenMarketplaceAction
+		local self = _OpenMarketplaceActionImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				if field == 1 then
+					local value
+					value, cursor = proto.readVarIntI32(input, cursor)
+					self.action_type = (messages.ActionType.fromNumber(value) or value) :: any --[[ Luau: Enums are a string intersection which Luau is quick to dismantle ]]
+					continue
+				end
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.action_params = messages.OpenMarketplaceAction_Params.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenMarketplaceActionImpl.jsonEncode(self: OpenMarketplaceAction): any
+		local output = {}
+
+		if
+			self.action_type ~= nil
+			and (
+				self.action_type ~= nil and self.action_type ~= 0
+				or self.action_type ~= messages.ActionType.fromNumber(0)
+			)
+		then
+			output.actionType = if typeof(self.action_type) == "number"
+				then self.action_type
+				else messages.ActionType.toNumber(self.action_type :: any)
+		end
+
+		if self.action_params ~= nil then
+			output.actionParams = self.action_params:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenMarketplaceActionImpl.jsonDecode(input: { [string]: any }): OpenMarketplaceAction
+		local self = _OpenMarketplaceActionImpl.new()
+
+		if input.action_type ~= nil then
+			self.action_type = if typeof(input.action_type) == "number"
+				then (messages.ActionType.fromNumber(input.action_type) or input.action_type)
+				else (messages.ActionType.fromName(input.action_type) or input.action_type)
+		end
+
+		if input.actionType ~= nil then
+			self.action_type = if typeof(input.actionType) == "number"
+				then (messages.ActionType.fromNumber(input.actionType) or input.actionType)
+				else (messages.ActionType.fromName(input.actionType) or input.actionType)
+		end
+
+		if input.action_params ~= nil then
+			self.action_params = messages.OpenMarketplaceAction_Params.jsonDecode(input.action_params)
+		end
+
+		if input.actionParams ~= nil then
+			self.action_params = messages.OpenMarketplaceAction_Params.jsonDecode(input.actionParams)
+		end
+
+		return self
+	end
+
+	_OpenMarketplaceActionImpl.descriptor = {
+		name = "OpenMarketplaceAction",
+		fullName = "roblox.apppageplatform.shared.v1beta1.OpenMarketplaceAction",
+	}
+
+	messages.OpenMarketplaceAction = _OpenMarketplaceActionImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenMarketplaceAction)
+end
+
+do
+	local _OpenMarketplaceAction_ParamsImpl = {}
+	_OpenMarketplaceAction_ParamsImpl.__index = _OpenMarketplaceAction_ParamsImpl
+
+	function _OpenMarketplaceAction_ParamsImpl.new(
+		data: _OpenMarketplaceAction_ParamsPartialFields?
+	): OpenMarketplaceAction_Params
+		return setmetatable({
+			user_id = if data == nil or data.user_id == nil then nil else data.user_id,
+			source = if data == nil or data.source == nil then nil else data.source,
+		}, _OpenMarketplaceAction_ParamsImpl :: _OpenMarketplaceAction_ParamsImpl)
+	end
+
+	function _OpenMarketplaceAction_ParamsImpl.encode(self: OpenMarketplaceAction_Params): buffer
+		local output = buffer.create(0)
+		local cursor = 0
+
+		if self.user_id ~= nil then
+			local encoded = self.user_id:encode()
+			output, cursor = proto.writeTag(output, cursor, 1, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		if self.source ~= nil then
+			local encoded = self.source:encode()
+			output, cursor = proto.writeTag(output, cursor, 2, proto.wireTypes.lengthDelimited)
+			output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+		end
+
+		local shrunkBuffer = buffer.create(cursor)
+		buffer.copy(shrunkBuffer, 0, output, 0, cursor)
+		return shrunkBuffer
+	end
+
+	function _OpenMarketplaceAction_ParamsImpl.decode(input: buffer): OpenMarketplaceAction_Params
+		local self = _OpenMarketplaceAction_ParamsImpl.new()
+		local cursor = 0
+
+		while cursor < buffer.len(input) do
+			local field, wireType
+			field, wireType, cursor = proto.readTag(input, cursor)
+
+			if wireType == proto.wireTypes.varint then
+				-- No fields
+
+				local _
+				_, cursor = proto.readVarInt(input, cursor)
+			elseif wireType == proto.wireTypes.lengthDelimited then
+				if field == 1 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				elseif field == 2 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.decode(value)
+					continue
+				end
+
+				local length
+				length, cursor = proto.readVarInt(input, cursor)
+
+				cursor += length
+			elseif wireType == proto.wireTypes.i32 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed32(input, cursor)
+			elseif wireType == proto.wireTypes.i64 then
+				-- No fields
+
+				local _
+				_, cursor = proto.readFixed64(input, cursor)
+			else
+				error("Unsupported wire type: " .. wireType)
+			end
+		end
+
+		return self
+	end
+
+	function _OpenMarketplaceAction_ParamsImpl.jsonEncode(self: OpenMarketplaceAction_Params): any
+		local output = {}
+
+		if self.user_id ~= nil then
+			output.userId = self.user_id:jsonEncode()
+		end
+
+		if self.source ~= nil then
+			output.source = self.source:jsonEncode()
+		end
+
+		return output
+	end
+
+	function _OpenMarketplaceAction_ParamsImpl.jsonDecode(input: { [string]: any }): OpenMarketplaceAction_Params
+		local self = _OpenMarketplaceAction_ParamsImpl.new()
+
+		if input.user_id ~= nil then
+			self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.user_id)
+		end
+
+		if input.userId ~= nil then
+			self.user_id = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.userId)
+		end
+
+		if input.source ~= nil then
+			self.source = _roblox_apppageplatform_shared_v1beta1_prop_types.StringProp.jsonDecode(input.source)
+		end
+
+		return self
+	end
+
+	_OpenMarketplaceAction_ParamsImpl.descriptor = {
+		name = "OpenMarketplaceAction_Params",
+		fullName = "roblox.apppageplatform.shared.v1beta1.Params",
+	}
+
+	messages.OpenMarketplaceAction_Params = _OpenMarketplaceAction_ParamsImpl :: any -- Luau: Not sure why this intersection fails.
+
+	typeRegistry.default:register(messages.OpenMarketplaceAction_Params)
+end
+
+do
 	local _ActionImpl = {}
 	_ActionImpl.__index = _ActionImpl
 
@@ -5798,6 +6805,18 @@ do
 			elseif self.kind.type == "open_profile_action" then
 				local encoded = self.kind.value:encode()
 				output, cursor = proto.writeTag(output, cursor, 16, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_fae_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 17, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_add_connections_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 18, proto.wireTypes.lengthDelimited)
+				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
+			elseif self.kind.type == "open_marketplace_action" then
+				local encoded = self.kind.value:encode()
+				output, cursor = proto.writeTag(output, cursor, 19, proto.wireTypes.lengthDelimited)
 				output, cursor = proto.writeBuffer(output, cursor, encoded, buffer.len(encoded))
 			end
 		end
@@ -5919,6 +6938,25 @@ do
 					value, cursor = proto.readBuffer(input, cursor)
 					self.kind = { type = "open_profile_action", value = messages.OpenProfileAction.decode(value) }
 					continue
+				elseif field == 17 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = { type = "open_fae_action", value = messages.OpenFaeAction.decode(value) }
+					continue
+				elseif field == 18 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind = {
+						type = "open_add_connections_action",
+						value = messages.OpenAddConnectionsAction.decode(value),
+					}
+					continue
+				elseif field == 19 then
+					local value
+					value, cursor = proto.readBuffer(input, cursor)
+					self.kind =
+						{ type = "open_marketplace_action", value = messages.OpenMarketplaceAction.decode(value) }
+					continue
 				end
 
 				local length
@@ -5979,6 +7017,12 @@ do
 				output.removeBadgeFromInventoryAction = self.kind.value:jsonEncode()
 			elseif self.kind.type == "open_profile_action" then
 				output.openProfileAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_fae_action" then
+				output.openFaeAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_add_connections_action" then
+				output.openAddConnectionsAction = self.kind.value:jsonEncode()
+			elseif self.kind.type == "open_marketplace_action" then
+				output.openMarketplaceAction = self.kind.value:jsonEncode()
 			end
 		end
 
@@ -6192,6 +7236,42 @@ do
 		if input.openProfileAction ~= nil then
 			self.kind =
 				{ type = "open_profile_action", value = messages.OpenProfileAction.jsonDecode(input.openProfileAction) }
+		end
+
+		if input.open_fae_action ~= nil then
+			self.kind = { type = "open_fae_action", value = messages.OpenFaeAction.jsonDecode(input.open_fae_action) }
+		end
+
+		if input.openFaeAction ~= nil then
+			self.kind = { type = "open_fae_action", value = messages.OpenFaeAction.jsonDecode(input.openFaeAction) }
+		end
+
+		if input.open_add_connections_action ~= nil then
+			self.kind = {
+				type = "open_add_connections_action",
+				value = messages.OpenAddConnectionsAction.jsonDecode(input.open_add_connections_action),
+			}
+		end
+
+		if input.openAddConnectionsAction ~= nil then
+			self.kind = {
+				type = "open_add_connections_action",
+				value = messages.OpenAddConnectionsAction.jsonDecode(input.openAddConnectionsAction),
+			}
+		end
+
+		if input.open_marketplace_action ~= nil then
+			self.kind = {
+				type = "open_marketplace_action",
+				value = messages.OpenMarketplaceAction.jsonDecode(input.open_marketplace_action),
+			}
+		end
+
+		if input.openMarketplaceAction ~= nil then
+			self.kind = {
+				type = "open_marketplace_action",
+				value = messages.OpenMarketplaceAction.jsonDecode(input.openMarketplaceAction),
+			}
 		end
 
 		return self
@@ -7372,6 +8452,12 @@ messages.ActionType = {
 			return "ACTION_TYPE_REMOVE_BADGE_FROM_INVENTORY"
 		elseif value == 16 then
 			return "ACTION_TYPE_OPEN_PROFILE"
+		elseif value == 17 then
+			return "ACTION_TYPE_OPEN_FAE"
+		elseif value == 18 then
+			return "ACTION_TYPE_OPEN_ADD_CONNECTIONS"
+		elseif value == 19 then
+			return "ACTION_TYPE_OPEN_MARKETPLACE"
 		else
 			return nil
 		end
@@ -7412,6 +8498,12 @@ messages.ActionType = {
 			return 15
 		elseif self == "ACTION_TYPE_OPEN_PROFILE" then
 			return 16
+		elseif self == "ACTION_TYPE_OPEN_FAE" then
+			return 17
+		elseif self == "ACTION_TYPE_OPEN_ADD_CONNECTIONS" then
+			return 18
+		elseif self == "ACTION_TYPE_OPEN_MARKETPLACE" then
+			return 19
 		else
 			return self
 		end
@@ -7452,6 +8544,12 @@ messages.ActionType = {
 			return "ACTION_TYPE_REMOVE_BADGE_FROM_INVENTORY"
 		elseif name == "ACTION_TYPE_OPEN_PROFILE" then
 			return "ACTION_TYPE_OPEN_PROFILE"
+		elseif name == "ACTION_TYPE_OPEN_FAE" then
+			return "ACTION_TYPE_OPEN_FAE"
+		elseif name == "ACTION_TYPE_OPEN_ADD_CONNECTIONS" then
+			return "ACTION_TYPE_OPEN_ADD_CONNECTIONS"
+		elseif name == "ACTION_TYPE_OPEN_MARKETPLACE" then
+			return "ACTION_TYPE_OPEN_MARKETPLACE"
 		else
 			return nil
 		end
@@ -7492,6 +8590,12 @@ return {
 	RemoveBadgeFromInventoryAction_Params = messages.RemoveBadgeFromInventoryAction_Params,
 	OpenProfileAction = messages.OpenProfileAction,
 	OpenProfileAction_Params = messages.OpenProfileAction_Params,
+	OpenFaeAction = messages.OpenFaeAction,
+	OpenFaeAction_Params = messages.OpenFaeAction_Params,
+	OpenAddConnectionsAction = messages.OpenAddConnectionsAction,
+	OpenAddConnectionsAction_Params = messages.OpenAddConnectionsAction_Params,
+	OpenMarketplaceAction = messages.OpenMarketplaceAction,
+	OpenMarketplaceAction_Params = messages.OpenMarketplaceAction_Params,
 	Action = messages.Action,
 	ActionProp = messages.ActionProp,
 	ActionProp_ConditionalOption = messages.ActionProp_ConditionalOption,

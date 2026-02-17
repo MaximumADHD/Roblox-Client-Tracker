@@ -15,6 +15,10 @@ local cloneStreamTrack: AnimationStreamTrack? = nil
 local FFlagDebugSelfViewPerfBenchmark = game:DefineFastFlag("DebugSelfViewPerfBenchmark", false)
 local GetFFlagSelfViewVisibilityFix = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagSelfViewVisibilityFix
 
+local EngineFeatureEnableFacsDisableOverride = game:GetEngineFeature("EnableFacsDisableOverride2")
+local FFlagSelfViewRespectFacsDisableOverride = game:DefineFastFlag("SelfViewRespectFacsDisableOverride", false)
+	and EngineFeatureEnableFacsDisableOverride
+
 local RunService = game:GetService("RunService")
 
 local DEFAULT_SELF_VIEW_CAM_OFFSET = Vector3.new(0, 0.105, -0.25)
@@ -78,6 +82,7 @@ local Observer = {
 	CharacterAdded = "CharacterAdded",
 	CharacterRemoving = "CharacterRemoving",
 	HumanoidStateChanged = "HumanoidStateChanged",
+	FaceControlsChanged = "FaceControlsChanged",
 }
 
 local Players = game:GetService("Players")
@@ -436,6 +441,17 @@ local function addHumanoidStateChangedObserver(humanoid: any)
 	end
 end
 
+local function addFaceControlsObserver(faceControls: FaceControls)
+	if not observerInstances[Observer.FaceControlsChanged] then
+		-- TODO: Remove any cast with FFlagSelfViewRespectFacsDisableOverride
+		observerInstances[Observer.FaceControlsChanged] = (faceControls :: any).InternalFacsOverrideChanged:Connect(
+			function()
+				setCloneDirty(true)
+			end
+		)
+	end
+end
+
 local function characterAdded(character)
 	if viewportFrame == nil or wrapperFrame == nil then
 		return
@@ -460,6 +476,13 @@ local function characterAdded(character)
 		addHumanoidStateChangedObserver(humanoid)
 	end
 
+	if FFlagSelfViewRespectFacsDisableOverride then
+		local faceControls = character:FindFirstChildWhichIsA("FaceControls", true)
+		if faceControls then
+			addFaceControlsObserver(faceControls)
+		end
+	end
+
 	-- listen for updates on the original character's structure
 	observerInstances[Observer.DescendantAdded] = character.DescendantAdded:Connect(function(descendant)
 		if viewportFrame == nil or wrapperFrame == nil then
@@ -474,6 +497,12 @@ local function characterAdded(character)
 		if descendant:IsA("Humanoid") then
 			local humanoid = descendant
 			addHumanoidStateChangedObserver(humanoid)
+		end
+
+		if FFlagSelfViewRespectFacsDisableOverride then
+			if descendant:IsA("FaceControls") then
+				addFaceControlsObserver(descendant)
+			end
 		end
 
 		if ModelUtils.shouldMarkCloneDirtyForDescendant(descendant) then
@@ -1005,6 +1034,9 @@ local function Initialize(
 			clearObserver(Observer.HumanoidStateChanged)
 			clearObserver(Observer.CharacterAdded)
 			clearObserver(Observer.CharacterRemoving)
+			if FFlagSelfViewRespectFacsDisableOverride then
+				clearObserver(Observer.FaceControlsChanged)
+			end
 			clearClone()
 		end
 	end)

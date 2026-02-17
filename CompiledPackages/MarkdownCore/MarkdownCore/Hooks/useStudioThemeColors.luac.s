@@ -1,0 +1,150 @@
+PROTO_0:
+  GETIMPORT R2 K1 [settings]
+  CALL R2 0 1
+  GETTABLEKS R1 R2 K2 ["Studio"]
+  GETTABLEKS R0 R1 K3 ["Theme"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K0 ["defaultColors"]
+  RETURN R0 1
+  GETIMPORT R0 K2 [pcall]
+  DUPCLOSURE R1 K3 [PROTO_0]
+  CALL R0 1 2
+  JUMPIF R0 [+3]
+  NEWTABLE R2 0 0
+  RETURN R2 1
+  DUPTABLE R2 K13 [{"background", "iden", "keyword", "builtin", "string", "number", "comment", "operator", "custom"}]
+  GETIMPORT R5 K17 [Enum.StudioStyleGuideColor.ScriptBackground]
+  NAMECALL R3 R1 K18 ["GetColor"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K4 ["background"]
+  GETIMPORT R5 K20 [Enum.StudioStyleGuideColor.ScriptText]
+  NAMECALL R3 R1 K18 ["GetColor"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K5 ["iden"]
+  GETIMPORT R5 K22 [Enum.StudioStyleGuideColor.ScriptKeyword]
+  NAMECALL R3 R1 K18 ["GetColor"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K6 ["keyword"]
+  GETIMPORT R5 K24 [Enum.StudioStyleGuideColor.ScriptBuiltInFunction]
+  NAMECALL R3 R1 K18 ["GetColor"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K7 ["builtin"]
+  GETIMPORT R5 K26 [Enum.StudioStyleGuideColor.ScriptString]
+  NAMECALL R3 R1 K18 ["GetColor"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K8 ["string"]
+  GETIMPORT R5 K28 [Enum.StudioStyleGuideColor.ScriptNumber]
+  NAMECALL R3 R1 K18 ["GetColor"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K9 ["number"]
+  GETIMPORT R5 K30 [Enum.StudioStyleGuideColor.ScriptComment]
+  NAMECALL R3 R1 K18 ["GetColor"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K10 ["comment"]
+  GETIMPORT R5 K32 [Enum.StudioStyleGuideColor.ScriptOperator]
+  NAMECALL R3 R1 K18 ["GetColor"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K11 ["operator"]
+  GETIMPORT R5 K34 [Enum.StudioStyleGuideColor.ScriptBool]
+  NAMECALL R3 R1 K18 ["GetColor"]
+  CALL R3 2 1
+  SETTABLEKS R3 R2 K12 ["custom"]
+  RETURN R2 1
+
+PROTO_2:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  CALL R1 0 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETIMPORT R2 K1 [settings]
+  CALL R2 0 1
+  GETTABLEKS R1 R2 K2 ["Studio"]
+  GETTABLEKS R0 R1 K3 ["ThemeChanged"]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  NAMECALL R0 R0 K4 ["Connect"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_4:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R0 1
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K0 ["Disconnect"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  DUPCLOSURE R0 K0 [PROTO_1]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  GETUPVAL R1 2
+  MOVE R2 R0
+  CALL R2 0 1
+  CALL R1 1 0
+  GETIMPORT R1 K2 [pcall]
+  NEWCLOSURE R2 P1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CALL R1 1 2
+  NEWCLOSURE R3 P2
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  RETURN R3 1
+
+PROTO_6:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useState"]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["defaultColors"]
+  CALL R0 1 2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["useEffect"]
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U1
+  CAPTURE VAL R1
+  NEWTABLE R4 0 0
+  CALL R2 2 0
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  LOADK R3 K2 ["Hooks"]
+  NAMECALL R1 R1 K3 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETTABLEKS R0 R1 K4 ["Parent"]
+  GETIMPORT R1 K6 [require]
+  GETTABLEKS R3 R0 K4 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Utils"]
+  GETTABLEKS R4 R5 K9 ["Highlighter"]
+  GETTABLEKS R3 R4 K10 ["Theme"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R0 K11 ["Types"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K8 ["Utils"]
+  GETTABLEKS R5 R6 K12 ["isCli"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K13 [PROTO_6]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  RETURN R5 1

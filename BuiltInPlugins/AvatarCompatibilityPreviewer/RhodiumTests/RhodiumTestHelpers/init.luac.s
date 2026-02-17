@@ -1200,7 +1200,7 @@ PROTO_68:
   GETTABLEKS R0 R1 K1 ["new"]
   GETUPVAL R1 1
   CALL R0 1 1
-  NAMECALL R0 R0 K2 ["click"]
+  NAMECALL R0 R0 K2 ["clickWithoutValidation"]
   CALL R0 1 0
   RETURN R0 0
 

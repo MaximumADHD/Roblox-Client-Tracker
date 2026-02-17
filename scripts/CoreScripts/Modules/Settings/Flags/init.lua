@@ -1,5 +1,4 @@
 return {
-	FFlagRemoveSettingsReorderFirstVariantIXPSetup = require(script.FFlagRemoveSettingsReorderFirstVariantIXPSetup),
 	FFlagIEMSettingsLogExposureIXPFlags = require(script.FFlagIEMSettingsLogExposureIXPFlags),
 	FFlagCreateInExperienceMenuReact = require(script.FFlagCreateInExperienceMenuReact),
 	FFlagMenuButtonsCheckVisibilityBeforeMount = require(script.FFlagMenuButtonsCheckVisibilityBeforeMount),

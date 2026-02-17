@@ -32,7 +32,9 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local VRService = game:GetService("VRService")
 
 -- Roblox User Input Control Modules - each returns a new() constructor function used to create controllers as needed
-local CommonUtils = script.Parent:WaitForChild("CommonUtils")
+local CommonUtils = require(script.Parent:WaitForChild("CommonUtils"))
+local FlagUtil = CommonUtils.get("FlagUtil")
+local FFlagUserPlayerModuleHiddenAPI = FlagUtil.getUserFlag("UserPlayerModuleHiddenAPI")
 
 local ActionController = require(script:WaitForChild("ActionController"))
 local DynamicThumbstick
@@ -118,10 +120,11 @@ function ControlModule.new()
 	if Players.LocalPlayer.Character then
 		self:OnCharacterAdded(Players.LocalPlayer.Character)
 	end
-
-	RunService:BindToRenderStep("ControlScriptRenderstep", Enum.RenderPriority.Input.Value, function(dt)
-		self:OnRenderStepped(dt)
-	end)
+	if not FFlagUserPlayerModuleHiddenAPI then
+		RunService:BindToRenderStep("ControlScriptRenderstep", Enum.RenderPriority.Input.Value, function(dt)
+			self:Update({}, dt)
+		end)
+	end
 
 	UserGameSettings:GetPropertyChangedSignal("TouchMovementMode"):Connect(function()
 		self:UpdateMovementMode()
@@ -251,7 +254,7 @@ function ControlModule:GetEstimatedVRTorsoFrame(): CFrame
 	headAngle = -headAngle
 	if not VRService:GetUserCFrameEnabled(Enum.UserCFrame.RightHand) or 
 		not VRService:GetUserCFrameEnabled(Enum.UserCFrame.LeftHand) then
-		self.currentTorsoAngle = headAngle;
+		self.currentTorsoAngle = headAngle
 	else	
 		local leftHandPos = VRService:GetUserCFrame(Enum.UserCFrame.LeftHand)
 		local rightHandPos = VRService:GetUserCFrame(Enum.UserCFrame.RightHand)
@@ -505,8 +508,17 @@ function ControlModule:calculateRawMoveVector(humanoid: Humanoid, cameraRelative
 	)
 end
 
-function ControlModule:OnRenderStepped(dt)
+function ControlModule:Update(data, dt)
 	if self.activeController and self.activeController.enabled and self.humanoid then
+
+		if FFlagUserPlayerModuleHiddenAPI then
+			-- TODO remove all controllers but ActionController
+			-- then read data directly without calling GetMoveVector()
+			if self.activeController.Update then
+				self.activeController:Update(data)
+			end
+		end
+
 		-- Now retrieve info from the controller
 		local moveVector = self:GetMoveVector()
 		local cameraRelative = true
@@ -706,7 +718,7 @@ function ControlModule:CreateTouchGuiContainer()
 	self.touchGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 	if FFlagUserDynamicThumbstickSafeAreaUpdate then
-		self.touchGui.ClipToDeviceSafeArea = false;
+		self.touchGui.ClipToDeviceSafeArea = false
 	end
 
 	self.touchControlFrame = Instance.new("Frame")

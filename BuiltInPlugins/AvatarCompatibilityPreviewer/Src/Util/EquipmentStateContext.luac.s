@@ -63,7 +63,7 @@ MAIN:
   SETTABLEKS R5 R4 K21 ["startIgnoringChildren"]
   LOADB R5 0
   SETTABLEKS R5 R4 K22 ["isIgnoringChildren"]
-  DUPTABLE R5 K32 [{"accessories", "animation", "clothing", "emotion", "gear", "patches"}]
+  DUPTABLE R5 K33 [{"accessories", "animation", "clothing", "emotion", "gear", "makeup", "patches"}]
   NEWTABLE R6 0 0
   SETTABLEKS R6 R5 K26 ["accessories"]
   LOADNIL R6
@@ -75,9 +75,11 @@ MAIN:
   NEWTABLE R6 0 0
   SETTABLEKS R6 R5 K30 ["gear"]
   NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K31 ["patches"]
+  SETTABLEKS R6 R5 K31 ["makeup"]
+  NEWTABLE R6 0 0
+  SETTABLEKS R6 R5 K32 ["patches"]
   SETTABLEKS R5 R4 K23 ["avatarAssets"]
-  GETTABLEKS R5 R1 K33 ["createContext"]
+  GETTABLEKS R5 R1 K34 ["createContext"]
   MOVE R6 R4
   CALL R5 1 -1
   RETURN R5 -1

@@ -1,6 +1,8 @@
 local strict = require(script.Utility.strict)
 
 local PreferencesProvider = require(script.Providers.Preferences)
+local Responsive = require(script.Providers.Responsive)
+local ResponsiveProvider = Responsive.ResponsiveProvider
 local Tokens = require(script.Providers.Style.Tokens)
 local Types = require(script.Components.Types)
 
@@ -14,6 +16,7 @@ export type Padding = Types.Padding
 export type PopoverAnchor = Types.PopoverAnchor
 export type Preferences = PreferencesProvider.PreferencesProps
 export type PreferencesProviderProps = PreferencesProvider.PreferencesProviderProps
+export type ResponsiveProviderProps = Responsive.ResponsiveProviderProps
 export type StateChangedCallback = Types.StateChangedCallback
 export type StateLayer = Types.StateLayer
 export type Tags = Types.Tags
@@ -321,6 +324,7 @@ local Foundation = strict({
 	-- Providers
 	FoundationProvider = require(script.Providers.Foundation),
 	OverlayProvider = require(script.Providers.Overlay),
+	ResponsiveProvider = ResponsiveProvider,
 	BackgroundStyleContext = require(script.Providers.Style.BackgroundStyleContext),
 
 	-- Hooks
@@ -402,6 +406,7 @@ local Foundation = strict({
 
 	-- Utility
 	Utility = {
+		blendColors = require(script.Utility.blendColors),
 		composeStyleVariant = require(script.Utility.composeStyleVariant),
 		getBuilderIconForKeycode = require(script.Utility.getBuilderIconForKeycode),
 		getGridMetrics = require(script.Utility.getGridMetrics),

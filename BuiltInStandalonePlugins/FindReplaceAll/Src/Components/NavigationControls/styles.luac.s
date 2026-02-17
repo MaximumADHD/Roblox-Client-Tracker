@@ -13,107 +13,119 @@ MAIN:
   GETTABLEKS R4 R0 K9 ["Packages"]
   GETTABLEKS R3 R4 K10 ["Framework"]
   CALL R2 1 1
-  GETTABLEKS R4 R2 K11 ["Styling"]
-  GETTABLEKS R3 R4 K12 ["createStyleRule"]
-  MOVE R4 R3
-  LOADK R5 K13 [">> .FindReplaceAll-NavigationControls"]
-  DUPTABLE R6 K17 [{"BackgroundTransparency", "AnchorPoint", "ClipsDescendants"}]
-  LOADN R7 1
-  SETTABLEKS R7 R6 K14 ["BackgroundTransparency"]
-  GETIMPORT R7 K20 [Vector2.new]
-  LOADN R8 0
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Util"]
+  GETTABLEKS R4 R5 K12 ["defineFlags"]
+  CALL R3 1 1
+  GETTABLEKS R5 R2 K13 ["Styling"]
+  GETTABLEKS R4 R5 K14 ["createStyleRule"]
+  MOVE R5 R4
+  LOADK R6 K15 [">> .FindReplaceAll-NavigationControls"]
+  DUPTABLE R7 K19 [{"BackgroundTransparency", "AnchorPoint", "ClipsDescendants"}]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K16 ["BackgroundTransparency"]
+  GETIMPORT R8 K22 [Vector2.new]
   LOADN R9 0
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K15 ["AnchorPoint"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K16 ["ClipsDescendants"]
-  NEWTABLE R7 0 3
-  MOVE R8 R3
-  LOADK R9 K21 ["::UIPadding"]
-  DUPTABLE R10 K23 [{"PaddingLeft"}]
-  GETIMPORT R11 K25 [UDim.new]
-  LOADN R12 0
-  GETTABLEKS R13 R1 K26 ["paddingXSmall"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K22 ["PaddingLeft"]
+  LOADN R10 0
   CALL R8 2 1
-  MOVE R9 R3
-  LOADK R10 K27 [">> TextLabel"]
-  DUPTABLE R11 K35 [{"BackgroundTransparency", "ClipsDescendants", "Font", "Size", "TextColor3", "TextSize", "TextXAlignment", "TextTruncate", "TextWrapped"}]
-  LOADN R12 1
-  SETTABLEKS R12 R11 K14 ["BackgroundTransparency"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K16 ["ClipsDescendants"]
-  GETTABLEKS R12 R1 K36 ["defaultFont"]
-  SETTABLEKS R12 R11 K28 ["Font"]
-  GETIMPORT R12 K39 [UDim2.fromScale]
+  SETTABLEKS R8 R7 K17 ["AnchorPoint"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K18 ["ClipsDescendants"]
+  NEWTABLE R8 0 3
+  MOVE R9 R4
+  LOADK R10 K23 ["::UIPadding"]
+  DUPTABLE R11 K25 [{"PaddingLeft"}]
+  GETIMPORT R12 K27 [UDim.new]
   LOADN R13 0
-  LOADN R14 1
+  GETTABLEKS R14 R1 K28 ["paddingXSmall"]
   CALL R12 2 1
-  SETTABLEKS R12 R11 K29 ["Size"]
-  LOADK R12 K40 ["$SemanticColorContentMuted"]
-  SETTABLEKS R12 R11 K30 ["TextColor3"]
-  LOADK R12 K41 [15.084]
-  SETTABLEKS R12 R11 K31 ["TextSize"]
-  GETIMPORT R12 K44 [Enum.TextXAlignment.Left]
-  SETTABLEKS R12 R11 K32 ["TextXAlignment"]
-  GETIMPORT R12 K46 [Enum.TextTruncate.SplitWord]
-  SETTABLEKS R12 R11 K33 ["TextTruncate"]
-  LOADB R12 0
-  SETTABLEKS R12 R11 K34 ["TextWrapped"]
-  NEWTABLE R12 0 2
-  MOVE R13 R3
-  LOADK R14 K21 ["::UIPadding"]
-  DUPTABLE R15 K48 [{"PaddingRight"}]
-  GETIMPORT R16 K25 [UDim.new]
-  LOADN R17 0
-  GETTABLEKS R18 R1 K49 ["paddingSmall"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K47 ["PaddingRight"]
-  CALL R13 2 1
-  MOVE R14 R3
-  LOADK R15 K50 ["::UISizeConstraint"]
-  DUPTABLE R16 K53 [{"MinSize", "MaxSize"}]
-  GETIMPORT R17 K20 [Vector2.new]
-  GETTABLEKS R18 R1 K54 ["findResultsMinTextWidth"]
-  GETTABLEKS R19 R1 K55 ["searchBarHeight"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K51 ["MinSize"]
-  GETIMPORT R17 K20 [Vector2.new]
-  GETTABLEKS R18 R1 K56 ["findResultsMaxTextWidth"]
-  GETTABLEKS R19 R1 K55 ["searchBarHeight"]
-  CALL R17 2 1
-  SETTABLEKS R17 R16 K52 ["MaxSize"]
-  CALL R14 2 -1
-  SETLIST R12 R13 -1 [1]
-  CALL R9 3 1
-  MOVE R10 R3
-  LOADK R11 K57 [">> ImageButton"]
-  DUPTABLE R12 K60 [{"BorderSizePixel", "BackgroundColor3", "BackgroundTransparency"}]
-  LOADN R13 0
-  SETTABLEKS R13 R12 K58 ["BorderSizePixel"]
-  LOADK R13 K61 ["$SemanticColorSurfaceOutline"]
-  SETTABLEKS R13 R12 K59 ["BackgroundColor3"]
+  SETTABLEKS R12 R11 K24 ["PaddingLeft"]
+  CALL R9 2 1
+  MOVE R10 R4
+  LOADK R11 K29 [">> TextLabel"]
+  DUPTABLE R12 K37 [{"BackgroundTransparency", "ClipsDescendants", "Font", "Size", "TextColor3", "TextSize", "TextXAlignment", "TextTruncate", "TextWrapped"}]
   LOADN R13 1
-  SETTABLEKS R13 R12 K14 ["BackgroundTransparency"]
+  SETTABLEKS R13 R12 K16 ["BackgroundTransparency"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K18 ["ClipsDescendants"]
+  GETTABLEKS R13 R1 K38 ["defaultFont"]
+  SETTABLEKS R13 R12 K30 ["Font"]
+  GETIMPORT R13 K41 [UDim2.fromScale]
+  LOADN R14 0
+  LOADN R15 1
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K31 ["Size"]
+  LOADK R13 K42 ["$SemanticColorContentMuted"]
+  SETTABLEKS R13 R12 K32 ["TextColor3"]
+  LOADN R14 12
+  GETTABLEKS R16 R3 K43 ["getFFlagFindReplaceAllUseBuilderFont"]
+  CALL R16 0 1
+  JUMPIFNOT R16 [+3]
+  GETTABLEKS R15 R1 K44 ["defaultFontScale"]
+  JUMP [+1]
+  LOADK R15 K45 [1.257]
+  MUL R13 R14 R15
+  SETTABLEKS R13 R12 K33 ["TextSize"]
+  GETIMPORT R13 K48 [Enum.TextXAlignment.Left]
+  SETTABLEKS R13 R12 K34 ["TextXAlignment"]
+  GETIMPORT R13 K50 [Enum.TextTruncate.SplitWord]
+  SETTABLEKS R13 R12 K35 ["TextTruncate"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K36 ["TextWrapped"]
   NEWTABLE R13 0 2
-  MOVE R14 R3
-  LOADK R15 K62 [".Hover"]
-  DUPTABLE R16 K63 [{"BackgroundTransparency"}]
-  GETTABLEKS R17 R1 K64 ["hoveredTransparency"]
-  SETTABLEKS R17 R16 K14 ["BackgroundTransparency"]
+  MOVE R14 R4
+  LOADK R15 K23 ["::UIPadding"]
+  DUPTABLE R16 K52 [{"PaddingRight"}]
+  GETIMPORT R17 K27 [UDim.new]
+  LOADN R18 0
+  GETTABLEKS R19 R1 K53 ["paddingSmall"]
+  CALL R17 2 1
+  SETTABLEKS R17 R16 K51 ["PaddingRight"]
   CALL R14 2 1
-  MOVE R15 R3
-  LOADK R16 K65 ["::UICorner"]
-  DUPTABLE R17 K67 [{"CornerRadius"}]
-  GETIMPORT R18 K25 [UDim.new]
-  LOADN R19 0
-  GETTABLEKS R20 R1 K68 ["radiusMedium"]
+  MOVE R15 R4
+  LOADK R16 K54 ["::UISizeConstraint"]
+  DUPTABLE R17 K57 [{"MinSize", "MaxSize"}]
+  GETIMPORT R18 K22 [Vector2.new]
+  GETTABLEKS R19 R1 K58 ["findResultsMinTextWidth"]
+  GETTABLEKS R20 R1 K59 ["searchBarHeight"]
   CALL R18 2 1
-  SETTABLEKS R18 R17 K66 ["CornerRadius"]
+  SETTABLEKS R18 R17 K55 ["MinSize"]
+  GETIMPORT R18 K22 [Vector2.new]
+  GETTABLEKS R19 R1 K60 ["findResultsMaxTextWidth"]
+  GETTABLEKS R20 R1 K59 ["searchBarHeight"]
+  CALL R18 2 1
+  SETTABLEKS R18 R17 K56 ["MaxSize"]
   CALL R15 2 -1
   SETLIST R13 R14 -1 [1]
-  CALL R10 3 -1
-  SETLIST R7 R8 -1 [1]
-  CALL R4 3 -1
-  RETURN R4 -1
+  CALL R10 3 1
+  MOVE R11 R4
+  LOADK R12 K61 [">> ImageButton"]
+  DUPTABLE R13 K64 [{"BorderSizePixel", "BackgroundColor3", "BackgroundTransparency"}]
+  LOADN R14 0
+  SETTABLEKS R14 R13 K62 ["BorderSizePixel"]
+  LOADK R14 K65 ["$SemanticColorSurfaceOutline"]
+  SETTABLEKS R14 R13 K63 ["BackgroundColor3"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K16 ["BackgroundTransparency"]
+  NEWTABLE R14 0 2
+  MOVE R15 R4
+  LOADK R16 K66 [".Hover"]
+  DUPTABLE R17 K67 [{"BackgroundTransparency"}]
+  GETTABLEKS R18 R1 K68 ["hoveredTransparency"]
+  SETTABLEKS R18 R17 K16 ["BackgroundTransparency"]
+  CALL R15 2 1
+  MOVE R16 R4
+  LOADK R17 K69 ["::UICorner"]
+  DUPTABLE R18 K71 [{"CornerRadius"}]
+  GETIMPORT R19 K27 [UDim.new]
+  LOADN R20 0
+  GETTABLEKS R21 R1 K72 ["radiusMedium"]
+  CALL R19 2 1
+  SETTABLEKS R19 R18 K70 ["CornerRadius"]
+  CALL R16 2 -1
+  SETLIST R14 R15 -1 [1]
+  CALL R11 3 -1
+  SETLIST R8 R9 -1 [1]
+  CALL R5 3 -1
+  RETURN R5 -1

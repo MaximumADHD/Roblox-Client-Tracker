@@ -12,7 +12,6 @@ local getFFlagUGCValidateWrapLayersEnabled = require(root.flags.getFFlagUGCValid
 local getFFlagUGCValidationConsolidateGetMeshInfos = require(root.flags.getFFlagUGCValidationConsolidateGetMeshInfos)
 local getFFlagUGCValidationFixConstantsTypoLeg = require(root.flags.getFFlagUGCValidationFixConstantsTypoLeg)
 local getFFlagUGCValidateBindOffset = require(root.flags.getFFlagUGCValidateBindOffset)
-local getFFlagUGCValidationFixBannedNamesTypo = require(root.flags.getFFlagUGCValidationFixBannedNamesTypo)
 local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
 local getFFlagUGCValidateCheckHSROwner = require(root.flags.getFFlagUGCValidateCheckHSROwner)
 local getFFlagUGCValidateCheckTexturePackOwner = require(root.flags.getFFlagUGCValidateCheckTexturePackOwner)
@@ -55,51 +54,29 @@ Constants.R6_BODY_PARTS = {
 	"Left Arm",
 	"Right Arm",
 }
-if getFFlagUGCValidationFixBannedNamesTypo() then
-	Constants.R15_BODY_PARTS = {
-		"Head",
 
-		"UpperTorso",
-		"LowerTorso",
+Constants.R15_BODY_PARTS = {
+	"Head",
 
-		"LeftUpperLeg",
-		"LeftLowerLeg",
-		"LeftFoot",
+	"UpperTorso",
+	"LowerTorso",
 
-		"RightUpperLeg",
-		"RightLowerLeg",
-		"RightFoot",
+	"LeftUpperLeg",
+	"LeftLowerLeg",
+	"LeftFoot",
 
-		"LeftUpperArm",
-		"LeftLowerArm",
-		"LeftHand",
+	"RightUpperLeg",
+	"RightLowerLeg",
+	"RightFoot",
 
-		"RightUpperArm",
-		"RightLowerArm",
-		"RightHand",
-	}
-else
-	Constants.R15_BODY_PARTS = {
-		"UpperTorso",
-		"LowerTorso",
+	"LeftUpperArm",
+	"LeftLowerArm",
+	"LeftHand",
 
-		"LeftUpperLeg",
-		"LeftLowerLeg",
-		"LeftFoot",
-
-		"RightUpperLeg",
-		"RightLowerLeg",
-		"RightFoot",
-
-		"LeftUpperArm",
-		"LeftLowerArm",
-		"LeftHand",
-
-		"RightUpperArm",
-		"RightLowerArm",
-		"RightHand",
-	}
-end
+	"RightUpperArm",
+	"RightLowerArm",
+	"RightHand",
+}
 
 Constants.NAMED_R15_BODY_PARTS = {}
 for _, bodyPartName in Constants.R15_BODY_PARTS do
@@ -222,18 +199,12 @@ for _, name in ipairs(extraBannedNames) do
 	table.insert(Constants.EXTRA_BANNED_NAMES, name)
 end
 
-if getFFlagUGCValidationFixBannedNamesTypo() then
-	Constants.BANNED_NAMES = {}
-	local tables_with_banned_names = { Constants.R6_BODY_PARTS, Constants.R15_BODY_PARTS, Constants.EXTRA_BANNED_NAMES }
-	for _, tab in tables_with_banned_names do
-		for _, name in tab do
-			Constants.BANNED_NAMES[name] = true
-		end
+Constants.BANNED_NAMES = {}
+local tables_with_banned_names = { Constants.R6_BODY_PARTS, Constants.R15_BODY_PARTS, Constants.EXTRA_BANNED_NAMES }
+for _, tab in tables_with_banned_names do
+	for _, name in tab do
+		Constants.BANNED_NAMES[name] = true
 	end
-else
-	Constants.BANNED_NAMES = convertArrayToTable(
-		Cryo.Dictionary.join(Constants.R6_BODY_PARTS, Constants.R15_BODY_PARTS, Constants.EXTRA_BANNED_NAMES)
-	)
 end
 
 Constants.ASSET_STATUS = {

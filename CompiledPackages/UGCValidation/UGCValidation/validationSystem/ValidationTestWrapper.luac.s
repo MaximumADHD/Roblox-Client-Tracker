@@ -1,0 +1,435 @@
+PROTO_0:
+  DUPTABLE R5 K6 [{"validationJobId", "validationSource", "validationEnum", "status", "durationMs", "additional_info"}]
+  GETTABLEKS R6 R1 K7 ["jobId"]
+  SETTABLEKS R6 R5 K0 ["validationJobId"]
+  GETTABLEKS R7 R1 K8 ["consumerConfig"]
+  GETTABLEKS R6 R7 K9 ["source"]
+  SETTABLEKS R6 R5 K1 ["validationSource"]
+  SETTABLEKS R0 R5 K2 ["validationEnum"]
+  SETTABLEKS R2 R5 K3 ["status"]
+  SETTABLEKS R4 R5 K4 ["durationMs"]
+  SETTABLEKS R3 R5 K5 ["additional_info"]
+  GETUPVAL R6 0
+  GETUPVAL R8 1
+  DUPTABLE R9 K11 [{"customFields"}]
+  SETTABLEKS R5 R9 K10 ["customFields"]
+  NAMECALL R6 R6 K12 ["LogEvent"]
+  CALL R6 3 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWTABLE R2 0 0
+  MOVE R3 R1
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETTABLE R8 R0 R7
+  JUMPIFEQKNIL R8 [+7]
+  GETTABLE R8 R0 R7
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K0 ["DATA_FETCH_FAILURE"]
+  JUMPIFNOTEQ R8 R9 [+8]
+  FASTCALL2 TABLE_INSERT R2 R7 [+5]
+  MOVE R9 R2
+  MOVE R10 R7
+  GETIMPORT R8 K3 [table.insert]
+  CALL R8 2 0
+  FORGLOOP R3 2 [-17]
+  RETURN R2 1
+
+PROTO_2:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R3 R0
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  JUMPIFEQKS R2 K2 ["table"] [+3]
+  LOADB R2 0
+  RETURN R2 1
+  MOVE R2 R1
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  FASTCALL1 TYPE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K4 [type]
+  CALL R7 1 1
+  JUMPIFNOTEQKS R7 K2 ["table"] [+8]
+  GETUPVAL R7 0
+  GETTABLE R8 R0 R5
+  MOVE R9 R6
+  CALL R7 2 1
+  JUMPIF R7 [+2]
+  LOADB R7 0
+  RETURN R7 1
+  FASTCALL1 TYPE R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K4 [type]
+  CALL R7 1 1
+  JUMPIFNOTEQKS R7 K5 ["string"] [+9]
+  GETTABLE R8 R0 R6
+  FASTCALL1 TONUMBER R8 [+2]
+  GETIMPORT R7 K7 [tonumber]
+  CALL R7 1 1
+  JUMPIF R7 [+2]
+  LOADB R7 0
+  RETURN R7 1
+  FORGLOOP R2 2 [-30]
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_3:
+  NAMECALL R3 R2 K0 ["complete"]
+  CALL R3 1 1
+  GETUPVAL R4 0
+  MOVE R5 R0
+  MOVE R6 R1
+  GETTABLEKS R7 R3 K1 ["status"]
+  GETTABLEKS R8 R3 K2 ["telemetryContext"]
+  GETTABLEKS R9 R3 K3 ["duration"]
+  CALL R4 5 0
+  RETURN R3 1
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["run"]
+  GETUPVAL R1 1
+  GETUPVAL R2 2
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["getValidationModule"]
+  MOVE R4 R0
+  CALL R3 1 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K1 ["new"]
+  MOVE R5 R0
+  CALL R4 1 1
+  GETTABLEKS R5 R3 K2 ["prereqTests"]
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  GETTABLE R10 R2 R9
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K3 ["Status"]
+  GETTABLEKS R11 R12 K4 ["PASS"]
+  JUMPIFEQ R10 R11 [+16]
+  NAMECALL R11 R4 K5 ["complete"]
+  CALL R11 1 1
+  GETUPVAL R12 3
+  MOVE R13 R0
+  MOVE R14 R1
+  GETTABLEKS R15 R11 K6 ["status"]
+  GETTABLEKS R16 R11 K7 ["telemetryContext"]
+  GETTABLEKS R17 R11 K8 ["duration"]
+  CALL R12 5 0
+  MOVE R10 R11
+  RETURN R10 1
+  FORGLOOP R5 2 [-24]
+  GETUPVAL R5 4
+  MOVE R6 R1
+  GETTABLEKS R7 R3 K9 ["requiredData"]
+  CALL R5 2 1
+  LENGTH R6 R5
+  LOADN R7 0
+  JUMPIFNOTLT R7 R6 [+30]
+  GETIMPORT R6 K12 [table.concat]
+  MOVE R7 R5
+  LOADK R8 K13 [", "]
+  CALL R6 2 1
+  LOADK R10 K14 ["Missing required data: %*"]
+  MOVE R12 R6
+  NAMECALL R10 R10 K15 ["format"]
+  CALL R10 2 1
+  MOVE R9 R10
+  NAMECALL R7 R4 K16 ["err"]
+  CALL R7 2 0
+  NAMECALL R8 R4 K5 ["complete"]
+  CALL R8 1 1
+  GETUPVAL R9 3
+  MOVE R10 R0
+  MOVE R11 R1
+  GETTABLEKS R12 R8 K6 ["status"]
+  GETTABLEKS R13 R8 K7 ["telemetryContext"]
+  GETTABLEKS R14 R8 K8 ["duration"]
+  CALL R9 5 0
+  MOVE R7 R8
+  RETURN R7 1
+  GETIMPORT R6 K18 [next]
+  GETTABLEKS R7 R3 K19 ["expectedAqsData"]
+  CALL R6 1 1
+  JUMPIFEQKNIL R6 [+168]
+  LOADB R6 0
+  GETTABLEKS R7 R3 K19 ["expectedAqsData"]
+  LOADNIL R8
+  LOADNIL R9
+  FORGPREP R7
+  GETTABLEKS R13 R1 K20 ["aqsSummaryData"]
+  GETTABLE R12 R13 R10
+  LOADB R13 0
+  JUMPIFNOT R12 [+112]
+  GETTABLEKS R14 R12 K21 ["Error"]
+  JUMPIFNOT R14 [+109]
+  GETTABLEKS R14 R12 K21 ["Error"]
+  LOADNIL R15
+  LOADNIL R16
+  FORGPREP R14
+  GETTABLEKS R20 R3 K22 ["knownAqsUserErrors"]
+  GETTABLE R19 R20 R18
+  JUMPIFEQKNIL R19 [+9]
+  GETTABLEKS R22 R3 K22 ["knownAqsUserErrors"]
+  GETTABLE R21 R22 R18
+  NAMECALL R19 R4 K23 ["fail"]
+  CALL R19 2 0
+  LOADB R6 1
+  JUMP [+74]
+  GETUPVAL R19 5
+  CALL R19 0 1
+  JUMPIFNOT R19 [+47]
+  GETIMPORT R19 K25 [table.find]
+  GETUPVAL R21 6
+  GETTABLEKS R20 R21 K26 ["AQSInternalErrorEnum"]
+  MOVE R21 R18
+  CALL R19 2 1
+  JUMPIFEQKNIL R19 [+14]
+  JUMPIFNOTEQKB R13 FALSE [+12]
+  GETUPVAL R23 7
+  GETTABLEKS R22 R23 K27 ["Keys"]
+  GETTABLEKS R21 R22 K28 ["AQSInternalError"]
+  NAMECALL R19 R4 K23 ["fail"]
+  CALL R19 2 0
+  LOADB R6 1
+  LOADB R13 1
+  JUMP [+49]
+  LOADK R22 K29 ["Unexpected error enum %*"]
+  MOVE R24 R18
+  NAMECALL R22 R22 K15 ["format"]
+  CALL R22 2 1
+  MOVE R21 R22
+  NAMECALL R19 R4 K16 ["err"]
+  CALL R19 2 0
+  NAMECALL R20 R4 K5 ["complete"]
+  CALL R20 1 1
+  GETUPVAL R21 3
+  MOVE R22 R0
+  MOVE R23 R1
+  GETTABLEKS R24 R20 K6 ["status"]
+  GETTABLEKS R25 R20 K7 ["telemetryContext"]
+  GETTABLEKS R26 R20 K8 ["duration"]
+  CALL R21 5 0
+  MOVE R19 R20
+  RETURN R19 1
+  JUMP [+24]
+  LOADK R22 K29 ["Unexpected error enum %*"]
+  MOVE R24 R18
+  NAMECALL R22 R22 K15 ["format"]
+  CALL R22 2 1
+  MOVE R21 R22
+  NAMECALL R19 R4 K16 ["err"]
+  CALL R19 2 0
+  NAMECALL R20 R4 K5 ["complete"]
+  CALL R20 1 1
+  GETUPVAL R21 3
+  MOVE R22 R0
+  MOVE R23 R1
+  GETTABLEKS R24 R20 K6 ["status"]
+  GETTABLEKS R25 R20 K7 ["telemetryContext"]
+  GETTABLEKS R26 R20 K8 ["duration"]
+  CALL R21 5 0
+  MOVE R19 R20
+  RETURN R19 1
+  FORGLOOP R14 2 [-88]
+  NAMECALL R15 R4 K5 ["complete"]
+  CALL R15 1 1
+  GETUPVAL R16 3
+  MOVE R17 R0
+  MOVE R18 R1
+  GETTABLEKS R19 R15 K6 ["status"]
+  GETTABLEKS R20 R15 K7 ["telemetryContext"]
+  GETTABLEKS R21 R15 K8 ["duration"]
+  CALL R16 5 0
+  MOVE R14 R15
+  RETURN R14 1
+  FORGLOOP R7 2 [-118]
+  JUMPIFNOT R6 [+15]
+  NAMECALL R8 R4 K5 ["complete"]
+  CALL R8 1 1
+  GETUPVAL R9 3
+  MOVE R10 R0
+  MOVE R11 R1
+  GETTABLEKS R12 R8 K6 ["status"]
+  GETTABLEKS R13 R8 K7 ["telemetryContext"]
+  GETTABLEKS R14 R8 K8 ["duration"]
+  CALL R9 5 0
+  MOVE R7 R8
+  RETURN R7 1
+  GETUPVAL R7 8
+  GETTABLEKS R8 R1 K20 ["aqsSummaryData"]
+  GETTABLEKS R9 R3 K19 ["expectedAqsData"]
+  CALL R7 2 1
+  JUMPIF R7 [+19]
+  LOADK R9 K30 ["Missing expected AQS schema"]
+  NAMECALL R7 R4 K16 ["err"]
+  CALL R7 2 0
+  NAMECALL R8 R4 K5 ["complete"]
+  CALL R8 1 1
+  GETUPVAL R9 3
+  MOVE R10 R0
+  MOVE R11 R1
+  GETTABLEKS R12 R8 K6 ["status"]
+  GETTABLEKS R13 R8 K7 ["telemetryContext"]
+  GETTABLEKS R14 R8 K8 ["duration"]
+  CALL R9 5 0
+  MOVE R7 R8
+  RETURN R7 1
+  NAMECALL R6 R4 K31 ["begin"]
+  CALL R6 1 0
+  GETUPVAL R7 4
+  MOVE R8 R1
+  GETTABLEKS R9 R3 K32 ["conditionalData"]
+  CALL R7 2 1
+  LENGTH R6 R7
+  LOADN R7 0
+  JUMPIFNOTLT R7 R6 [+16]
+  NAMECALL R7 R4 K5 ["complete"]
+  CALL R7 1 1
+  GETUPVAL R8 3
+  MOVE R9 R0
+  MOVE R10 R1
+  GETTABLEKS R11 R7 K6 ["status"]
+  GETTABLEKS R12 R7 K7 ["telemetryContext"]
+  GETTABLEKS R13 R7 K8 ["duration"]
+  CALL R8 5 0
+  MOVE R6 R7
+  RETURN R6 1
+  GETIMPORT R6 K34 [pcall]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CALL R6 1 2
+  JUMPIF R6 [+21]
+  GETUPVAL R8 9
+  CALL R8 0 1
+  JUMPIFNOT R8 [+14]
+  GETIMPORT R8 K36 [print]
+  LOADK R9 K37 ["Validation error:"]
+  MOVE R10 R7
+  CALL R8 2 0
+  GETIMPORT R8 K36 [print]
+  LOADK R9 K38 ["As this is in debug mode, we will re-call the function for a full error trace: "]
+  CALL R8 1 0
+  GETTABLEKS R8 R3 K39 ["run"]
+  MOVE R9 R4
+  MOVE R10 R1
+  CALL R8 2 0
+  MOVE R10 R7
+  NAMECALL R8 R4 K16 ["err"]
+  CALL R8 2 0
+  NAMECALL R9 R4 K5 ["complete"]
+  CALL R9 1 1
+  GETUPVAL R10 3
+  MOVE R11 R0
+  MOVE R12 R1
+  GETTABLEKS R13 R9 K6 ["status"]
+  GETTABLEKS R14 R9 K7 ["telemetryContext"]
+  GETTABLEKS R15 R9 K8 ["duration"]
+  CALL R10 5 0
+  MOVE R8 R9
+  RETURN R8 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["util"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["validationSystem"]
+  GETTABLEKS R3 R4 K8 ["ValidationEnums"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["validationSystem"]
+  GETTABLEKS R4 R5 K9 ["ValidationModuleLoader"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R7 R0 K7 ["validationSystem"]
+  GETTABLEKS R6 R7 K10 ["dataFetchModules"]
+  GETTABLEKS R5 R6 K11 ["FetchAllDesiredData"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K7 ["validationSystem"]
+  GETTABLEKS R6 R7 K12 ["ValidationReporter"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K13 ["flags"]
+  GETTABLEKS R7 R8 K14 ["getFFlagDebugUGCValidationPrintNewStructureResults"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K13 ["flags"]
+  GETTABLEKS R8 R9 K15 ["getFFlagUGCValidationUpdateHeadIsDynamic"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R0 K7 ["validationSystem"]
+  GETTABLEKS R9 R10 K16 ["ValidationConstants"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R11 R0 K7 ["validationSystem"]
+  GETTABLEKS R10 R11 K17 ["ErrorSourceStrings"]
+  CALL R9 1 1
+  GETIMPORT R10 K19 [game]
+  LOADK R12 K20 ["TelemetryService"]
+  NAMECALL R10 R10 K21 ["GetService"]
+  CALL R10 2 1
+  GETIMPORT R11 K19 [game]
+  LOADK R13 K22 ["SingleValidationTelemetryThrottleHundrethsPercent"]
+  LOADN R14 16
+  NAMECALL R11 R11 K23 ["DefineFastInt"]
+  CALL R11 3 0
+  DUPTABLE R11 K30 [{"eventName", "backends", "throttlingPercentage", "lastUpdated", "description", "links"}]
+  LOADK R12 K31 ["UgcSingleValidationFinished"]
+  SETTABLEKS R12 R11 K24 ["eventName"]
+  NEWTABLE R12 0 1
+  LOADK R13 K32 ["EventIngest"]
+  SETLIST R12 R13 1 [1]
+  SETTABLEKS R12 R11 K25 ["backends"]
+  GETIMPORT R12 K19 [game]
+  LOADK R14 K22 ["SingleValidationTelemetryThrottleHundrethsPercent"]
+  NAMECALL R12 R12 K33 ["GetFastInt"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K26 ["throttlingPercentage"]
+  NEWTABLE R12 0 3
+  LOADN R13 25
+  LOADN R14 9
+  LOADN R15 24
+  SETLIST R12 R13 3 [1]
+  SETTABLEKS R12 R11 K27 ["lastUpdated"]
+  LOADK R12 K34 ["Report single ugc validation result to EventIngest backend."]
+  SETTABLEKS R12 R11 K28 ["description"]
+  LOADK R12 K35 ["https://create.roblox.com/docs/art/validation-errors"]
+  SETTABLEKS R12 R11 K29 ["links"]
+  DUPCLOSURE R12 K36 [PROTO_0]
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  DUPCLOSURE R13 K37 [PROTO_1]
+  CAPTURE VAL R4
+  DUPCLOSURE R14 K38 [PROTO_2]
+  CAPTURE VAL R14
+  DUPCLOSURE R15 K39 [PROTO_3]
+  CAPTURE VAL R12
+  DUPCLOSURE R16 K40 [PROTO_5]
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R12
+  CAPTURE VAL R13
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R14
+  CAPTURE VAL R6
+  RETURN R16 1

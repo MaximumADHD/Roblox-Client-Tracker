@@ -8,6 +8,7 @@ local InputField = require(Components.InputField)
 local InternalTextInput = require(Components.InternalTextInput)
 local Types = require(Foundation.Components.Types)
 
+local Flags = require(Foundation.Utility.Flags)
 local useTextInputVariants = require(Components.TextInput.useTextInputVariants)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 local withCommonProps = require(Foundation.Utility.withCommonProps)
@@ -29,11 +30,19 @@ export type TextAreaProps = {
 local defaultProps = {
 	size = InputSize.Medium,
 	numLines = 3,
-	width = UDim.new(0, 400),
+	width = if Flags.FoundationTextAreaTokenBasedWidth then nil else UDim.new(0, 400),
 	testId = "--foundation-text-area",
 }
 
 local function TextArea(textAreaProps: TextAreaProps, ref: React.Ref<GuiObject>?)
+	-- TODO: Delete this BLOCK with FFlagFoundationTextAreaTokenBasedWidth cleanup
+	-- We're required to set this here because defaultProps is only set on module-require, causes issues in Storybook
+	if Flags.FoundationTextAreaTokenBasedWidth then
+		defaultProps.width = nil
+	else
+		defaultProps.width = UDim.new(0, 400)
+	end
+
 	local props = withDefaults(textAreaProps, defaultProps)
 	local tokens = useTokens()
 	local variantProps = useTextInputVariants(tokens, props.size)
@@ -41,7 +50,7 @@ local function TextArea(textAreaProps: TextAreaProps, ref: React.Ref<GuiObject>?
 	return React.createElement(
 		InputField,
 		withCommonProps(props, {
-			width = props.width,
+			width = if Flags.FoundationTextAreaTokenBasedWidth then nil else props.width :: UDim?,
 			label = props.label,
 			hint = props.hint,
 			hasError = props.hasError,

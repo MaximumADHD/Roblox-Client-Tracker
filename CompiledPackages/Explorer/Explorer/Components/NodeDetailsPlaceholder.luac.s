@@ -1,0 +1,76 @@
+PROTO_0:
+  GETIMPORT R2 K2 [UDim2.new]
+  LOADN R3 0
+  LOADN R5 0
+  GETUPVAL R8 0
+  MOVE R9 R1
+  CALL R8 1 1
+  GETTABLEKS R7 R8 K3 ["total"]
+  SUB R6 R7 R0
+  FASTCALL2 MATH_MAX R5 R6 [+3]
+  GETIMPORT R4 K6 [math.max]
+  CALL R4 2 1
+  LOADN R5 1
+  LOADN R6 0
+  CALL R2 4 -1
+  RETURN R2 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  LOADK R2 K0 ["Frame"]
+  NEWTABLE R3 4 0
+  LOADN R4 255
+  SETTABLEKS R4 R3 K1 ["LayoutOrder"]
+  LOADN R4 1
+  SETTABLEKS R4 R3 K2 ["BackgroundTransparency"]
+  GETUPVAL R4 1
+  DUPCLOSURE R5 K3 [PROTO_0]
+  CAPTURE UPVAL U2
+  GETTABLEKS R7 R0 K4 ["scrollWidthObservable"]
+  GETTABLEKS R6 R7 K5 ["getBinding"]
+  CALL R6 0 1
+  GETTABLEKS R8 R0 K6 ["visibleNodeObservable"]
+  GETTABLEKS R7 R8 K5 ["getBinding"]
+  CALL R7 0 -1
+  CALL R4 -1 1
+  SETTABLEKS R4 R3 K7 ["Size"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K8 ["Tag"]
+  LOADK R5 K9 ["Explorer-ShrinkX"]
+  SETTABLE R5 R3 R4
+  CALL R1 2 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Explorer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["Observable"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Util"]
+  GETTABLEKS R4 R5 K10 ["calculateExplorerNodeWidth"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Util"]
+  GETTABLEKS R5 R6 K11 ["joinAndMapBindings"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K12 ["Hooks"]
+  GETTABLEKS R6 R7 K13 ["useVisibleExplorerNodeRange"]
+  CALL R5 1 1
+  GETTABLEKS R6 R2 K14 ["createElement"]
+  DUPCLOSURE R7 K15 [PROTO_1]
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  RETURN R7 1

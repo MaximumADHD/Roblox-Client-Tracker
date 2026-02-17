@@ -6,6 +6,6 @@ local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local Chrome = script.Parent.Parent.Parent.Chrome
 local ChromeEnabled = require(Chrome.Enabled)
 
-local FFlagTopBarDeprecateRespawnRodux = game:DefineFastFlag("TopBarDeprecateRespawnRodux", false)
+local FFlagTopBarDeprecateRespawnRodux = game:DefineFastFlag("TopBarDeprecateRespawnRodux2", false)
 
-return FFlagTopBarDeprecateRespawnRodux and FFlagEnableConsoleExpControls and ChromeEnabled
+return FFlagTopBarDeprecateRespawnRodux and FFlagEnableConsoleExpControls and ChromeEnabled()

@@ -8,7 +8,7 @@ local ReactIs = require(Packages.ReactIs)
 
 local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
-local getBackgroundStyleWithStateLayer = require(script.Parent.getBackgroundStyleWithStateLayer)
+local blendColors = require(Foundation.Utility.blendColors)
 local getOriginalBackgroundStyle = require(script.Parent.getOriginalBackgroundStyle)
 local getStateLayerStyle = require(script.Parent.getStateLayerStyle)
 local useCursor = require(Foundation.Providers.Cursor.useCursor)
@@ -104,7 +104,7 @@ local function Interactable(interactableProps: InteractableProps, forwardedRef: 
 
 			local stateLayerStyle = getStateLayerStyle(tokens, props.stateLayer, guiState)
 
-			return getBackgroundStyleWithStateLayer(finalBackgroundStyle, stateLayerStyle)
+			return blendColors(finalBackgroundStyle, stateLayerStyle)
 		end,
 		{
 			tokens,

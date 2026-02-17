@@ -1,0 +1,54 @@
+PROTO_0:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+5]
+  GETIMPORT R0 K2 [task.wait]
+  LOADK R1 K3 [0.015625]
+  CALL R0 1 0
+  RETURN R0 0
+  GETIMPORT R0 K2 [task.wait]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_1:
+  DUPTABLE R1 K1 [{"waitForNextSearchAsync"}]
+  GETTABLEKS R2 R0 K0 ["waitForNextSearchAsync"]
+  SETTABLEKS R2 R1 K0 ["waitForNextSearchAsync"]
+  GETUPVAL R2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["Provider"]
+  DUPTABLE R4 K4 [{"value"}]
+  SETTABLEKS R1 R4 K3 ["value"]
+  GETTABLEKS R5 R0 K5 ["children"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Explorer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Flags"]
+  GETTABLEKS R2 R3 K7 ["getFFlagExplorerFastSearch"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Parent"]
+  GETTABLEKS R3 R4 K9 ["React"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K10 ["createElement"]
+  DUPCLOSURE R4 K11 [PROTO_0]
+  CAPTURE VAL R1
+  DUPTABLE R5 K13 [{"waitForNextSearchAsync"}]
+  SETTABLEKS R4 R5 K12 ["waitForNextSearchAsync"]
+  GETTABLEKS R6 R2 K14 ["createContext"]
+  MOVE R7 R5
+  CALL R6 1 1
+  DUPCLOSURE R7 K15 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  DUPTABLE R8 K18 [{"Context", "Provider"}]
+  SETTABLEKS R6 R8 K16 ["Context"]
+  SETTABLEKS R7 R8 K17 ["Provider"]
+  RETURN R8 1

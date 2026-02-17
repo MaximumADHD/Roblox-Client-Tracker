@@ -14,10 +14,12 @@ local InputSize = require(Foundation.Enums.InputSize)
 
 local TextInput = require(Foundation.Components.TextInput)
 
+local Flags = require(Foundation.Utility.Flags)
+
 local function Story(props)
 	local controls = props.controls
 
-	local text, setText = React.useState("")
+	local text, setText = React.useBinding("")
 	local numReturnPressed, setNumReturnPressed = React.useState(0)
 	local tokens = useTokens()
 
@@ -41,8 +43,8 @@ local function Story(props)
 		print("focus gained!")
 	end
 
-	local function onFocusLost()
-		print("focus lost!")
+	local function onFocusLost(inputObject: InputObject?)
+		print("focus lost!", if inputObject then `InputObject: {inputObject.UserInputType.Name}` else "no input object")
 	end
 
 	local function onReturnPressed()
@@ -68,6 +70,9 @@ local function Story(props)
 			onReturnPressed = onReturnPressed,
 			label = controls.label,
 			size = controls.size,
+			width = if not Flags.FoundationTextInputTokenBasedWidth or controls.width == 0
+				then nil
+				else UDim.new(0, controls.width),
 			hint = if controls.hint == "" then nil else controls.hint,
 			placeholder = controls.placeholder,
 			leadingIcon = if controls.leadingIcon == React.None then nil else controls.leadingIcon,
@@ -139,5 +144,6 @@ return {
 			React.None,
 		},
 		trailingButton = false,
+		width = if Flags.FoundationTextInputTokenBasedWidth then 0 else nil,
 	},
 }

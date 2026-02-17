@@ -5,12 +5,8 @@ local installDirectory = game:GetService("Chat")
 local ServerScriptService = game:GetService("ServerScriptService")
 
 local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
-local FFlagEnableForkedChatAnalytics = require(RobloxGui.Modules.Common.Flags.FFlagEnableForkedChatAnalytics)
 local ServerUtil = require(RobloxGui.Modules.Server.ServerUtil)
-local SendChatAnalytics
-if FFlagEnableForkedChatAnalytics then
-	SendChatAnalytics = require(RobloxGui.Modules.Server.SendChatAnalytics)
-end
+local SendChatAnalytics = require(RobloxGui.Modules.Server.SendChatAnalytics)
 
 local function LoadScript(name, parent)
 	local originalModule = script.Parent:WaitForChild(name)
@@ -55,7 +51,7 @@ local function makeDefaultLocalizationTable(parent)
 	defaultChatLocalization.SourceLocaleId = "en-us"
 	defaultChatLocalization:SetEntries(require(script.Parent:WaitForChild("DefaultChatLocalization")))
 	defaultChatLocalization:SetIsExemptFromUGCAnalytics(true)
-	defaultChatLocalization.Parent = parent;
+	defaultChatLocalization.Parent = parent
 end
 
 local function Install()
@@ -63,7 +59,7 @@ local function Install()
 	local existingChatLocalization = installDirectory:FindFirstChild("ChatLocalization")
 
 	if existingChatLocalization then
-		if existingChatLocalization:IsA("LocalizationTable" ) then
+		if existingChatLocalization:IsA("LocalizationTable") then
 			existingChatLocalization:SetIsExemptFromUGCAnalytics(true)
 		end
 	else
@@ -80,7 +76,7 @@ local function Install()
 		LoadModule(script.Parent, "ChatChannel", ChatServiceRunner)
 		LoadModule(script.Parent, "Speaker", ChatServiceRunner)
 		LoadModule(script.Parent, "Util", ChatServiceRunner)
-	elseif FFlagEnableForkedChatAnalytics then
+	else
 		eventTable[runnerScriptName] = "True"
 	end
 
@@ -110,9 +106,11 @@ local function Install()
 
 		local defaultChatModules = script.Parent.DefaultChatModules:GetChildren()
 		for i = 1, #defaultChatModules do
-			if defaultChatModules.className ~= "Folder" and not ChatModules:FindFirstChild(defaultChatModules[i].Name) then
+			if
+				defaultChatModules.className ~= "Folder" and not ChatModules:FindFirstChild(defaultChatModules[i].Name)
+			then
 				LoadModule(script.Parent.DefaultChatModules, defaultChatModules[i].Name, ChatModules)
-			elseif FFlagEnableForkedChatAnalytics and defaultChatModules.className ~= "Folder" then
+			elseif defaultChatModules.className ~= "Folder" then
 				eventTable[defaultChatModules[i].Name] = "True"
 			end
 		end
@@ -120,7 +118,7 @@ local function Install()
 		for _, utilityModule in pairs(script.Parent.DefaultChatModules.Utility:GetChildren()) do
 			if not ChatModules.Utility:FindFirstChild(utilityModule.Name) then
 				LoadModule(script.Parent.DefaultChatModules.Utility, utilityModule.Name, ChatModules.Utility)
-			elseif FFlagEnableForkedChatAnalytics then
+			else
 				eventTable[utilityModule.Name] = "True"
 			end
 		end
@@ -133,10 +131,7 @@ local function Install()
 	end
 
 	ChatServiceRunner.Archivable = chatServiceRunnerArchivable
-
-	if FFlagEnableForkedChatAnalytics then
-		SendChatAnalytics("LoadServerDefaultChatForkedModules", eventTable)
-	end
+	SendChatAnalytics("LoadServerDefaultChatForkedModules", eventTable)
 end
 
 return Install

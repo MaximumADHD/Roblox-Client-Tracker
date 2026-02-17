@@ -32,57 +32,64 @@ PROTO_1:
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K8 ["createElement"]
   LOADK R8 K24 ["UIPadding"]
-  DUPTABLE R9 K27 [{"PaddingLeft", "PaddingRight"}]
+  DUPTABLE R9 K28 [{"PaddingLeft", "PaddingRight", "PaddingTop"}]
   GETTABLEKS R11 R2 K14 ["collaboratorFilter"]
   GETTABLEKS R10 R11 K16 ["paddingHorizontal"]
   SETTABLEKS R10 R9 K25 ["PaddingLeft"]
   GETTABLEKS R11 R2 K14 ["collaboratorFilter"]
   GETTABLEKS R10 R11 K16 ["paddingHorizontal"]
   SETTABLEKS R10 R9 K26 ["PaddingRight"]
+  GETUPVAL R11 1
+  JUMPIFNOT R11 [+5]
+  GETTABLEKS R11 R2 K14 ["collaboratorFilter"]
+  GETTABLEKS R10 R11 K29 ["paddingTop"]
+  JUMP [+1]
+  LOADNIL R10
+  SETTABLEKS R10 R9 K27 ["PaddingTop"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K6 ["Padding"]
-  GETIMPORT R7 K29 [pairs]
-  GETTABLEKS R8 R1 K30 ["FilterPills"]
+  GETIMPORT R7 K31 [pairs]
+  GETTABLEKS R8 R1 K32 ["FilterPills"]
   CALL R7 1 3
   FORGPREP_NEXT R7
   MOVE R13 R6
   GETUPVAL R15 0
   GETTABLEKS R14 R15 K8 ["createElement"]
-  GETUPVAL R15 1
-  DUPTABLE R16 K37 [{"LayoutOrder", "Style", "Size", "Text", "StyleModifier", "ZIndex", "OnClick"}]
+  GETUPVAL R15 2
+  DUPTABLE R16 K39 [{"LayoutOrder", "Style", "Size", "Text", "StyleModifier", "ZIndex", "OnClick"}]
   SETTABLEKS R10 R16 K20 ["LayoutOrder"]
-  LOADK R17 K38 ["Pill"]
-  SETTABLEKS R17 R16 K31 ["Style"]
+  LOADK R17 K40 ["Pill"]
+  SETTABLEKS R17 R16 K33 ["Style"]
   GETTABLEKS R19 R2 K14 ["collaboratorFilter"]
   GETTABLEKS R18 R19 K15 ["pills"]
-  GETTABLEKS R17 R18 K39 ["size"]
-  SETTABLEKS R17 R16 K32 ["Size"]
-  LOADK R19 K40 ["Permissions"]
-  LOADK R21 K41 ["FilterPill.%*.Label"]
-  GETTABLEKS R23 R11 K42 ["key"]
-  NAMECALL R21 R21 K43 ["format"]
+  GETTABLEKS R17 R18 K41 ["size"]
+  SETTABLEKS R17 R16 K34 ["Size"]
+  LOADK R19 K42 ["Permissions"]
+  LOADK R21 K43 ["FilterPill.%*.Label"]
+  GETTABLEKS R23 R11 K44 ["key"]
+  NAMECALL R21 R21 K45 ["format"]
   CALL R21 2 1
   MOVE R20 R21
-  NAMECALL R17 R3 K44 ["getText"]
+  NAMECALL R17 R3 K46 ["getText"]
   CALL R17 3 1
-  SETTABLEKS R17 R16 K33 ["Text"]
-  GETTABLEKS R18 R5 K42 ["key"]
-  GETTABLEKS R19 R11 K42 ["key"]
+  SETTABLEKS R17 R16 K35 ["Text"]
+  GETTABLEKS R18 R5 K44 ["key"]
+  GETTABLEKS R19 R11 K44 ["key"]
   JUMPIFNOTEQ R18 R19 [+5]
-  GETUPVAL R18 2
-  GETTABLEKS R17 R18 K45 ["Hover"]
+  GETUPVAL R18 3
+  GETTABLEKS R17 R18 K47 ["Hover"]
   JUMP [+1]
   LOADNIL R17
-  SETTABLEKS R17 R16 K34 ["StyleModifier"]
+  SETTABLEKS R17 R16 K36 ["StyleModifier"]
   LOADN R17 1
-  SETTABLEKS R17 R16 K35 ["ZIndex"]
+  SETTABLEKS R17 R16 K37 ["ZIndex"]
   NEWCLOSURE R17 P0
   CAPTURE VAL R4
   CAPTURE VAL R11
-  SETTABLEKS R17 R16 K36 ["OnClick"]
+  SETTABLEKS R17 R16 K38 ["OnClick"]
   CALL R14 2 -1
   FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R12 K48 [table.insert]
+  GETIMPORT R12 K50 [table.insert]
   CALL R12 -1 0
   FORGLOOP R7 2 [-59]
   LENGTH R7 R6
@@ -92,16 +99,16 @@ PROTO_1:
   RETURN R7 1
   GETUPVAL R8 0
   GETTABLEKS R7 R8 K8 ["createElement"]
-  LOADK R8 K49 ["Frame"]
-  DUPTABLE R9 K51 [{"LayoutOrder", "Size", "BackgroundTransparency"}]
+  LOADK R8 K51 ["Frame"]
+  DUPTABLE R9 K53 [{"LayoutOrder", "Size", "BackgroundTransparency"}]
   GETTABLEKS R11 R1 K20 ["LayoutOrder"]
-  ORK R10 R11 K52 [1]
+  ORK R10 R11 K54 [1]
   SETTABLEKS R10 R9 K20 ["LayoutOrder"]
   GETTABLEKS R11 R2 K14 ["collaboratorFilter"]
-  GETTABLEKS R10 R11 K39 ["size"]
-  SETTABLEKS R10 R9 K32 ["Size"]
+  GETTABLEKS R10 R11 K41 ["size"]
+  SETTABLEKS R10 R9 K34 ["Size"]
   LOADN R10 1
-  SETTABLEKS R10 R9 K50 ["BackgroundTransparency"]
+  SETTABLEKS R10 R9 K52 ["BackgroundTransparency"]
   MOVE R10 R6
   CALL R7 3 -1
   RETURN R7 -1
@@ -177,31 +184,36 @@ MAIN:
   GETTABLEKS R14 R15 K22 ["Thunks"]
   GETTABLEKS R13 R14 K23 ["SetSelectedFilterPill"]
   CALL R12 1 1
-  GETTABLEKS R13 R1 K24 ["PureComponent"]
-  LOADK R15 K25 ["CollaboratorFilterWidget"]
-  NAMECALL R13 R13 K26 ["extend"]
+  GETIMPORT R13 K25 [game]
+  LOADK R15 K26 ["ManageCollabFilterWidgetSpacingFix"]
+  NAMECALL R13 R13 K27 ["GetFastFlag"]
   CALL R13 2 1
-  DUPCLOSURE R14 K27 [PROTO_1]
+  GETTABLEKS R14 R1 K28 ["PureComponent"]
+  LOADK R16 K29 ["CollaboratorFilterWidget"]
+  NAMECALL R14 R14 K30 ["extend"]
+  CALL R14 2 1
+  DUPCLOSURE R15 K31 [PROTO_1]
   CAPTURE VAL R1
+  CAPTURE VAL R13
   CAPTURE VAL R9
   CAPTURE VAL R8
-  SETTABLEKS R14 R13 K28 ["render"]
-  MOVE R14 R6
-  DUPTABLE R15 K29 [{"Stylizer", "Localization"}]
-  SETTABLEKS R4 R15 K10 ["Stylizer"]
-  SETTABLEKS R7 R15 K13 ["Localization"]
-  CALL R14 1 1
-  MOVE R15 R13
-  CALL R14 1 1
-  MOVE R13 R14
-  GETTABLEKS R14 R2 K30 ["connect"]
-  DUPCLOSURE R15 K31 [PROTO_2]
+  SETTABLEKS R15 R14 K32 ["render"]
+  MOVE R15 R6
+  DUPTABLE R16 K33 [{"Stylizer", "Localization"}]
+  SETTABLEKS R4 R16 K10 ["Stylizer"]
+  SETTABLEKS R7 R16 K13 ["Localization"]
+  CALL R15 1 1
+  MOVE R16 R14
+  CALL R15 1 1
+  MOVE R14 R15
+  GETTABLEKS R15 R2 K34 ["connect"]
+  DUPCLOSURE R16 K35 [PROTO_2]
   CAPTURE VAL R10
   CAPTURE VAL R11
-  DUPCLOSURE R16 K32 [PROTO_4]
+  DUPCLOSURE R17 K36 [PROTO_4]
   CAPTURE VAL R12
-  CALL R14 2 1
-  MOVE R15 R13
-  CALL R14 1 1
-  MOVE R13 R14
-  RETURN R13 1
+  CALL R15 2 1
+  MOVE R16 R14
+  CALL R15 1 1
+  MOVE R14 R15
+  RETURN R14 1

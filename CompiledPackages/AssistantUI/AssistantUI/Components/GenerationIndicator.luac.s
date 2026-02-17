@@ -1,0 +1,159 @@
+PROTO_0:
+  DUPTABLE R0 K1 [{"TimeWarning"}]
+  GETUPVAL R1 0
+  LOADK R3 K2 ["GenerationIndicator"]
+  LOADK R4 K0 ["TimeWarning"]
+  NAMECALL R1 R1 K3 ["getText"]
+  CALL R1 3 1
+  SETTABLEKS R1 R0 K0 ["TimeWarning"]
+  RETURN R0 1
+
+PROTO_1:
+  DIVK R3 R0 K2 [0.25]
+  MODK R2 R3 K1 [3]
+  ADDK R1 R2 K0 [1]
+  GETIMPORT R2 K5 [string.rep]
+  LOADK R3 K6 [". "]
+  MOVE R4 R1
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_2:
+  GETIMPORT R1 K2 [os.clock]
+  CALL R1 0 1
+  GETUPVAL R2 0
+  SUB R0 R1 R2
+  LOADB R1 0
+  GETUPVAL R2 0
+  LOADN R3 0
+  JUMPIFNOTLT R3 R2 [+6]
+  GETUPVAL R2 1
+  JUMPIFLE R2 R0 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useClock"]
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["useContext"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K2 ["Context"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K3 ["lastPacketTime"]
+  GETTABLEKS R4 R2 K4 ["hasPendingUserInput"]
+  GETUPVAL R5 3
+  CALL R5 0 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["useMemo"]
+  DUPCLOSURE R7 K6 [PROTO_0]
+  CAPTURE UPVAL U4
+  NEWTABLE R8 0 0
+  CALL R6 2 1
+  GETUPVAL R7 5
+  CALL R7 0 1
+  GETUPVAL R8 6
+  GETUPVAL R9 7
+  DUPTABLE R10 K11 [{"tag", "LayoutOrder", "Visible", "testId"}]
+  LOADK R11 K12 ["col size-full-0 auto-y gap-xsmall"]
+  SETTABLEKS R11 R10 K7 ["tag"]
+  GETTABLEKS R11 R0 K8 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K8 ["LayoutOrder"]
+  NOT R11 R4
+  SETTABLEKS R11 R10 K9 ["Visible"]
+  GETUPVAL R12 8
+  GETTABLEKS R11 R12 K13 ["GenerationIndicator"]
+  SETTABLEKS R11 R10 K10 ["testId"]
+  DUPTABLE R11 K16 [{"Ellipsis", "Warning"}]
+  GETUPVAL R12 6
+  GETUPVAL R13 9
+  DUPTABLE R14 K18 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R15 K19 ["size-full-600 text-title-small content-emphasis text-align-x-left text-wrap"]
+  SETTABLEKS R15 R14 K7 ["tag"]
+  DUPCLOSURE R17 K20 [PROTO_1]
+  NAMECALL R15 R1 K21 ["map"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K17 ["Text"]
+  MOVE R15 R7
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K8 ["LayoutOrder"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K14 ["Ellipsis"]
+  GETUPVAL R12 6
+  GETUPVAL R13 9
+  DUPTABLE R14 K22 [{"tag", "Text", "LayoutOrder", "Visible"}]
+  LOADK R15 K23 ["auto-xy text-caption-small content-secondary text-wrap"]
+  SETTABLEKS R15 R14 K7 ["tag"]
+  GETTABLEKS R15 R6 K24 ["TimeWarning"]
+  SETTABLEKS R15 R14 K17 ["Text"]
+  MOVE R15 R7
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K8 ["LayoutOrder"]
+  NEWCLOSURE R17 P2
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  NAMECALL R15 R1 K21 ["map"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K9 ["Visible"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K15 ["Warning"]
+  CALL R8 3 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["Contexts"]
+  GETTABLEKS R3 R4 K10 ["PacketReceivedContext"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K11 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["ReactUtils"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K13 ["Util"]
+  GETTABLEKS R6 R7 K14 ["TestIds"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K15 ["Resources"]
+  GETTABLEKS R8 R9 K16 ["Localization"]
+  GETTABLEKS R7 R8 K17 ["Translator"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K18 ["Flags"]
+  GETTABLEKS R8 R9 K19 ["FIntMCPAssistantGenerationIndicatorWarningTime"]
+  CALL R7 1 1
+  GETTABLEKS R8 R1 K20 ["Text"]
+  GETTABLEKS R9 R1 K21 ["View"]
+  GETTABLEKS R10 R4 K22 ["createNextOrder"]
+  GETTABLEKS R11 R3 K23 ["createElement"]
+  DUPCLOSURE R12 K24 [PROTO_3]
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R9
+  CAPTURE VAL R5
+  CAPTURE VAL R8
+  GETTABLEKS R13 R3 K25 ["memo"]
+  MOVE R14 R12
+  CALL R13 1 -1
+  RETURN R13 -1

@@ -10,11 +10,11 @@
 				This should be moved to a module, and http helper functions should be moved
 				to a utility module.
 ]]
-local HttpService = game:GetService('HttpService')
-local HttpRbxApiService = game:GetService('HttpRbxApiService')
-local Players = game:GetService('Players')
-local RobloxReplicatedStorage = game:GetService('RobloxReplicatedStorage')
-local RunService = game:GetService('RunService')
+local HttpService = game:GetService("HttpService")
+local HttpRbxApiService = game:GetService("HttpRbxApiService")
+local Players = game:GetService("Players")
+local RobloxReplicatedStorage = game:GetService("RobloxReplicatedStorage")
+local RunService = game:GetService("RunService")
 local Chat = game:GetService("Chat")
 local TextChatService = game:GetService("TextChatService")
 local CoreGui = game:GetService("CoreGui")
@@ -22,21 +22,28 @@ local CorePackages = game:GetService("CorePackages")
 local RobloxGui = CoreGui:WaitForChild("RobloxGui")
 local Url = require(CorePackages.Workspace.Packages.CoreScriptsCommon).Url
 game:DefineFastFlag("EnableSetUserBlocklistInitialized", false)
-local FFlagInExperienceUserProfileSettingsEnabled = require(RobloxGui.Modules.Common.Flags.FFlagInExperienceUserProfileSettingsEnabled)
-local FFlagInExperienceRequestProfileSettings = require(RobloxGui.Modules.Common.Flags.FFlagInExperienceRequestProfileSettings)
-local FStringRccInExperienceNameEnabledAllowList = require(RobloxGui.Modules.Common.Flags.FStringRccInExperienceNameEnabledAllowList)
+local FFlagInExperienceUserProfileSettingsEnabled =
+	require(RobloxGui.Modules.Common.Flags.FFlagInExperienceUserProfileSettingsEnabled)
+local FFlagInExperienceRequestProfileSettings =
+	require(RobloxGui.Modules.Common.Flags.FFlagInExperienceRequestProfileSettings)
+local FStringRccInExperienceNameEnabledAllowList =
+	require(RobloxGui.Modules.Common.Flags.FStringRccInExperienceNameEnabledAllowList)
 local FFlagUseNewDirectChatAPI = game:DefineFastFlag("UseNewDirectChatAPI", false)
 local FFlagEnableCreatePartyNudge = game:DefineFastFlag("EnableCreatePartyNudge", false)
 local FFlagEnableCreatePartyNudgeWithVersion = game:DefineFastFlag("EnableCreatePartyNudgeWithVersion", false)
-local FFlagEnablePartyNudgeAfterJoin = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyNudgeAfterJoin
-local FFlagBadgeVisibilitySettingEnabled = require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
+local FFlagEnablePartyNudgeAfterJoin =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnablePartyNudgeAfterJoin
+local FFlagBadgeVisibilitySettingEnabled =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagBadgeVisibilitySettingEnabled
+local FFlagEnableModerateChatRemoteEvent =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableModerateChatRemoteEvent
 local FFlagProfileSettingsSlidingWindowRateLimit = game:DefineFastFlag("ProfileSettingsSlidingWindowRateLimit", false)
 local FIntProfileSettingsRateLimitSeconds = game:DefineFastInt("ProfileSettingsRateLimitSeconds", 5)
 local FIntProfileSettingsMaxRequestsPerWindow = game:DefineFastInt("ProfileSettingsMaxRequestsPerWindow", 3)
 local FIntProfileSettingsRateLimitWindowSeconds = game:DefineFastInt("ProfileSettingsRateLimitWindowSeconds", 60)
 local FFlagDisableRCCAntiHarrasmentAllowList = game:DefineFastFlag("DisableRCCAntiHarrasmentAllowList", false)
-local FFlagUseGetCanManageAsync = game:DefineFastFlag("UseGetCanManageAsync", false) and game:GetEngineFeature("LuaGetCanManageAsync")
-
+local FFlagUseGetCanManageAsync = game:DefineFastFlag("UseGetCanManageAsync", false)
+	and game:GetEngineFeature("LuaGetCanManageAsync")
 local FFlagGatePrivateServerNudge = game:DefineFastFlag("GatePrivateServerNudge", false)
 
 local GET_MULTI_FOLLOW = "user/multi-following-exists"
@@ -48,17 +55,17 @@ local PlayerToRelationshipMap = {}
 
 -- Special groups that have leaderboard icons.
 local SPECIAL_GROUPS = {
-	Admin = {GroupId = 1200769},
-	Intern = {GroupId = 2868472, GroupRank = 100},
-	Star = {GroupId = 4199740},
-	SpanishLocalizationExpert = {GroupId = 4265462, GroupRank = 252},
-	BrazilianLocalizationExpert = {GroupId = 4265456, GroupRank = 252},
-	FrenchLocalizationExpert = {GroupId = 4265443, GroupRank = 252},
-	GermanLocalizationExpert = {GroupId = 4265449, GroupRank = 252},
+	Admin = { GroupId = 1200769 },
+	Intern = { GroupId = 2868472, GroupRank = 100 },
+	Star = { GroupId = 4199740 },
+	SpanishLocalizationExpert = { GroupId = 4265462, GroupRank = 252 },
+	BrazilianLocalizationExpert = { GroupId = 4265456, GroupRank = 252 },
+	FrenchLocalizationExpert = { GroupId = 4265443, GroupRank = 252 },
+	GermanLocalizationExpert = { GroupId = 4265449, GroupRank = 252 },
 }
 
 if game.CreatorType == Enum.CreatorType.Group then
-	SPECIAL_GROUPS.PlaceCreator = {GroupId = game.CreatorId, GroupRank = 255}
+	SPECIAL_GROUPS.PlaceCreator = { GroupId = game.CreatorId, GroupRank = 255 }
 end
 
 -- Map of which special groups a player is in.
@@ -74,25 +81,26 @@ local PlayerProfileSettingsRequestHistory = {} -- Rate limiting tracking with re
 
 game:DefineFastInt("MaxBlockListSize", 500)
 
---[[ Remotes ]]--
+--[[ Remotes ]]
+--
 local RemoteEvent_CanChatWith = Instance.new("RemoteEvent")
 RemoteEvent_CanChatWith.Name = "CanChatWith"
 RemoteEvent_CanChatWith.Parent = RobloxReplicatedStorage
 
-local RemoteEvent_SetPlayerBlockList = Instance.new('RemoteEvent')
-RemoteEvent_SetPlayerBlockList.Name = 'SetPlayerBlockList'
+local RemoteEvent_SetPlayerBlockList = Instance.new("RemoteEvent")
+RemoteEvent_SetPlayerBlockList.Name = "SetPlayerBlockList"
 RemoteEvent_SetPlayerBlockList.Parent = RobloxReplicatedStorage
 
-local RemoteEvent_UpdatePlayerBlockList = Instance.new('RemoteEvent')
-RemoteEvent_UpdatePlayerBlockList.Name = 'UpdatePlayerBlockList'
+local RemoteEvent_UpdatePlayerBlockList = Instance.new("RemoteEvent")
+RemoteEvent_UpdatePlayerBlockList.Name = "UpdatePlayerBlockList"
 RemoteEvent_UpdatePlayerBlockList.Parent = RobloxReplicatedStorage
 
-local RemoteEvent_PlayerGroupDetails = Instance.new('RemoteEvent')
-RemoteEvent_PlayerGroupDetails.Name = 'NewPlayerGroupDetails'
+local RemoteEvent_PlayerGroupDetails = Instance.new("RemoteEvent")
+RemoteEvent_PlayerGroupDetails.Name = "NewPlayerGroupDetails"
 RemoteEvent_PlayerGroupDetails.Parent = RobloxReplicatedStorage
 
-local RemoveEvent_NewPlayerCanManageDetails = Instance.new('RemoteEvent')
-RemoveEvent_NewPlayerCanManageDetails.Name = 'NewPlayerCanManageDetails'
+local RemoveEvent_NewPlayerCanManageDetails = Instance.new("RemoteEvent")
+RemoveEvent_NewPlayerCanManageDetails.Name = "NewPlayerCanManageDetails"
 RemoveEvent_NewPlayerCanManageDetails.Parent = RobloxReplicatedStorage
 
 local RemoteEvent_SendPlayerBlockList = Instance.new("RemoteEvent")
@@ -133,10 +141,16 @@ if FFlagEnablePartyNudgeAfterJoin then
 	RemoteEvent_ShowFriendJoinedPlayerToast.Parent = RobloxReplicatedStorage
 end
 
-
 local RemoteEvent_CreateOrJoinParty = Instance.new("RemoteEvent")
 RemoteEvent_CreateOrJoinParty.Name = "CreateOrJoinParty"
 RemoteEvent_CreateOrJoinParty.Parent = RobloxReplicatedStorage
+
+local RemoteEvent_ModerateChatSettingUpdated
+if FFlagEnableModerateChatRemoteEvent then
+	RemoteEvent_ModerateChatSettingUpdated = Instance.new("RemoteEvent")
+	RemoteEvent_ModerateChatSettingUpdated.Name = "ModerateChatSettingUpdated"
+	RemoteEvent_ModerateChatSettingUpdated.Parent = RobloxReplicatedStorage
+end
 
 -- Map: { UserId -> { UserId -> NumberOfNotificationsSent } }
 local FollowNotificationsBetweenMap = {}
@@ -183,7 +197,7 @@ local function getPlayerGroupDetails(player)
 					return (player :: never):IsInGroup(groupInfo.GroupId)
 				end
 			end)
-			
+
 			newGroupDetails[groupKey] = isInGroupSuccess and isInGroupValue
 		end
 	end
@@ -198,7 +212,6 @@ local function getPlayerGroupDetails(player)
 end
 
 local function sendCanChatWith(newPlayer)
-
 	local newPlayerCanChatWithPacket = {}
 
 	for _, player in ipairs(Players:GetPlayers()) do
@@ -233,7 +246,7 @@ local function sendPlayerAllCanManage(player)
 end
 
 local function getPlayerCanManage(player)
-	if FFlagUseGetCanManageAsync then 
+	if FFlagUseGetCanManageAsync then
 		if player.UserId <= 0 or not player.Parent then
 			return
 		end
@@ -253,22 +266,20 @@ local function getPlayerCanManage(player)
 		if player.UserId > 0 then
 			local success, result = pcall(function()
 				local apiPath = "asset-permissions-api/v1/rcc/assets/check-permissions"
-				local url = string.format(Url.APIS_URL..apiPath)
+				local url = string.format(Url.APIS_URL .. apiPath)
 
-				local request = HttpService:JSONEncode(
-					{
-						requests = {
-							{
-								subject = {
-									subjectType = "User",
-									subjectId = player.UserId
-								},
-								action = "Edit", -- check to see if this player has edit permissions on this placeId
-								assetId = game.PlaceId
-							}
-						}
-					}
-				)
+				local request = HttpService:JSONEncode({
+					requests = {
+						{
+							subject = {
+								subjectType = "User",
+								subjectId = player.UserId,
+							},
+							action = "Edit", -- check to see if this player has edit permissions on this placeId
+							assetId = game.PlaceId,
+						},
+					},
+				})
 				local response = HttpRbxApiService:PostAsyncFullUrl(url, request)
 				return HttpService:JSONDecode(response)
 			end)
@@ -292,14 +303,12 @@ end
 local fetchBlockList = function(player, playerIds)
 	return pcall(function()
 		local apiPath = "user-blocking-api/v1/users/rcc/batch-check-reciprocal-block"
-		local url = string.format(Url.APIS_URL..apiPath)
+		local url = string.format(Url.APIS_URL .. apiPath)
 
-		local request = HttpService:JSONEncode(
-			{
-				userIds = playerIds,
-				requesterUserId = player.UserId
-			}
-		)
+		local request = HttpService:JSONEncode({
+			userIds = playerIds,
+			requesterUserId = player.UserId,
+		})
 
 		local response = HttpRbxApiService:PostAsyncFullUrl(url, request)
 		return HttpService:JSONDecode(response)
@@ -349,7 +358,11 @@ end
 
 local function sendPlayerAllInExperienceNameEnabled(player)
 	for userId, isInExperienceNameEnabled in pairs(PlayerToInExperienceNameEnabledMap) do
-		RemoteEvent_SendPlayerProfileSettings:FireClient(player, userId, { isInExperienceNameEnabled = isInExperienceNameEnabled })
+		RemoteEvent_SendPlayerProfileSettings:FireClient(
+			player,
+			userId,
+			{ isInExperienceNameEnabled = isInExperienceNameEnabled }
+		)
 	end
 end
 
@@ -358,7 +371,8 @@ local fetchPlayerProfileSettings = function(player)
 		local apiPath = `user-profile-api/v1/user/profiles/rcc/settings?userId={player.UserId}`
 		local url = Url.APIS_URL .. apiPath
 
-		local response = HttpRbxApiService:GetAsyncFullUrl(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players)
+		local response =
+			HttpRbxApiService:GetAsyncFullUrl(url, Enum.ThrottlingPriority.Default, Enum.HttpRequestType.Players)
 		return HttpService:JSONDecode(response)
 	end)
 end
@@ -369,16 +383,24 @@ local sendPlayerProfileSettings = function(player)
 	end
 
 	local isInExperienceNameEnabled = false
-	if FStringRccInExperienceNameEnabledAllowList.isAllowListedUserId(player.UserId) or FFlagDisableRCCAntiHarrasmentAllowList then
+	if
+		FStringRccInExperienceNameEnabledAllowList.isAllowListedUserId(player.UserId)
+		or FFlagDisableRCCAntiHarrasmentAllowList
+	then
 		local success, result = fetchPlayerProfileSettings(player)
 		if success and result then
-			isInExperienceNameEnabled = result.isSettingsEnabled and result.userProfileSettings and result.userProfileSettings.isInExperienceNameEnabled
+			isInExperienceNameEnabled = result.isSettingsEnabled
+				and result.userProfileSettings
+				and result.userProfileSettings.isInExperienceNameEnabled
 		end
 	end
 
 	local userIdStr = tostring(player.UserId)
 	PlayerToInExperienceNameEnabledMap[userIdStr] = isInExperienceNameEnabled
-	RemoteEvent_SendPlayerProfileSettings:FireAllClients(userIdStr, { isInExperienceNameEnabled = isInExperienceNameEnabled })
+	RemoteEvent_SendPlayerProfileSettings:FireAllClients(
+		userIdStr,
+		{ isInExperienceNameEnabled = isInExperienceNameEnabled }
+	)
 end
 
 if FFlagInExperienceRequestProfileSettings then
@@ -387,7 +409,11 @@ if FFlagInExperienceRequestProfileSettings then
 		local isInExperienceNameEnabled = PlayerToInExperienceNameEnabledMap[userIdStr]
 		if isInExperienceNameEnabled ~= nil then
 			-- Settings already fetched, send immediately
-			RemoteEvent_SendPlayerProfileSettings:FireClient(player, userIdStr, { isInExperienceNameEnabled = isInExperienceNameEnabled })
+			RemoteEvent_SendPlayerProfileSettings:FireClient(
+				player,
+				userIdStr,
+				{ isInExperienceNameEnabled = isInExperienceNameEnabled }
+			)
 		else
 			-- Settings not yet fetched, fetch and send
 			coroutine.wrap(sendPlayerProfileSettings)(player)
@@ -398,21 +424,19 @@ end
 local createPartyNudge = function(inviterUserId, inviteeUserId, nudgeType)
 	return pcall(function()
 		local apiPath = "group-up/v1/create-party-nudge"
-		local url = string.format(Url.APIS_URL..apiPath)
+		local url = string.format(Url.APIS_URL .. apiPath)
 
-		local request = HttpService:JSONEncode(
-			{
-				inviterId = inviterUserId,
-				inviteeId = inviteeUserId,
-				nudgeType = nudgeType,
-				placeId = game.PlaceId,
-				gameInstanceId = game.JobId,
-				universeId = game.GameId,
-				version = if FFlagEnableCreatePartyNudgeWithVersion then 1 else nil,
-				privateServerId = if FFlagGatePrivateServerNudge then game.PrivateServerId else nil,
-				privateServerOwnerId = if FFlagGatePrivateServerNudge then game.PrivateServerOwnerId else nil,
-			}
-		)
+		local request = HttpService:JSONEncode({
+			inviterId = inviterUserId,
+			inviteeId = inviteeUserId,
+			nudgeType = nudgeType,
+			placeId = game.PlaceId,
+			gameInstanceId = game.JobId,
+			universeId = game.GameId,
+			version = if FFlagEnableCreatePartyNudgeWithVersion then 1 else nil,
+			privateServerId = if FFlagGatePrivateServerNudge then game.PrivateServerId else nil,
+			privateServerOwnerId = if FFlagGatePrivateServerNudge then game.PrivateServerOwnerId else nil,
+		})
 
 		local response = HttpRbxApiService:PostAsyncFullUrl(url, request)
 		return HttpService:JSONDecode(response)
@@ -452,18 +476,11 @@ local sendFriendExperienceJoinToast = function(newPlayer)
 	end
 
 	local createPartyNudgeSuccess = false
-	if
-		FFlagEnableCreatePartyNudge
-		and canCreatePartyNudge(followedPlayer)
-		and canCreatePartyNudge(newPlayer)
-	then
+	if FFlagEnableCreatePartyNudge and canCreatePartyNudge(followedPlayer) and canCreatePartyNudge(newPlayer) then
 		local response
-		createPartyNudgeSuccess, response = createPartyNudge(newPlayer.UserId, followedPlayer.UserId, "OneToOneNudgeInExperience")
-		if
-			createPartyNudgeSuccess
-			and response
-			and response.shouldAutoCreateOrJoinGroupUp
-		then
+		createPartyNudgeSuccess, response =
+			createPartyNudge(newPlayer.UserId, followedPlayer.UserId, "OneToOneNudgeInExperience")
+		if createPartyNudgeSuccess and response and response.shouldAutoCreateOrJoinGroupUp then
 			RemoteEvent_CreateOrJoinParty:FireClient(newPlayer, "PartyNudge", response.nudge)
 		end
 	end
@@ -523,22 +540,22 @@ if FFlagBadgeVisibilitySettingEnabled then
 		if type(profileSettings) ~= "table" then
 			return
 		end
-		
+
 		local sanitizedSettings = {}
 		if type(profileSettings.isInExperienceNameEnabled) == "boolean" then
 			sanitizedSettings.isInExperienceNameEnabled = profileSettings.isInExperienceNameEnabled
 		else
-			return 
+			return
 		end
 
 		local userIdStr = tostring(player.UserId)
 		local currentTime = tick()
-		
+
 		if FFlagProfileSettingsSlidingWindowRateLimit then
 			if not PlayerProfileSettingsRequestHistory[userIdStr] then
 				PlayerProfileSettingsRequestHistory[userIdStr] = {}
 			end
-			
+
 			local requestHistory = PlayerProfileSettingsRequestHistory[userIdStr]
 			local windowStart = currentTime - FIntProfileSettingsRateLimitWindowSeconds
 			for i = #requestHistory, 1, -1 do
@@ -546,18 +563,18 @@ if FFlagBadgeVisibilitySettingEnabled then
 					table.remove(requestHistory, i)
 				end
 			end
-			
+
 			if #requestHistory >= FIntProfileSettingsMaxRequestsPerWindow then
 				return
 			end
-			
+
 			table.insert(requestHistory, currentTime)
 		else
 			local lastUpdate = PlayerProfileSettingsLastUpdate[userIdStr]
 			if lastUpdate and (currentTime - lastUpdate) < FIntProfileSettingsRateLimitSeconds then
 				return
 			end
-			
+
 			PlayerProfileSettingsLastUpdate[userIdStr] = currentTime
 		end
 		PlayerToInExperienceNameEnabledMap[userIdStr] = sanitizedSettings.isInExperienceNameEnabled
@@ -566,8 +583,17 @@ if FFlagBadgeVisibilitySettingEnabled then
 	end)
 end
 
+if FFlagEnableModerateChatRemoteEvent then
+	RemoteEvent_ModerateChatSettingUpdated.OnServerEvent:Connect(function(player, enabled)
+		-- Will return true if the user has the permission to set the moderation mode.
+		if typeof(enabled) == "boolean" and TextChatService:setModerationModeEnabled(player.UserId, enabled) then
+			RemoteEvent_ModerateChatSettingUpdated:FireClient(player, enabled)
+		end
+	end)
+end
+
 Players.PlayerAdded:connect(onPlayerAdded)
-for _,player in pairs(Players:GetPlayers()) do
+for _, player in pairs(Players:GetPlayers()) do
 	onPlayerAdded(player)
 end
 

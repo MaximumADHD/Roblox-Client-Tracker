@@ -144,6 +144,27 @@ PROTO_17:
   LOADB R1 0
   RETURN R1 1
 
+PROTO_18:
+  LOADK R4 K0 ["Model"]
+  NAMECALL R2 R0 K1 ["IsA"]
+  CALL R2 2 1
+  JUMPIF R2 [+10]
+  LOADK R4 K2 ["Folder"]
+  NAMECALL R2 R0 K1 ["IsA"]
+  CALL R2 2 1
+  JUMPIF R2 [+5]
+  LOADK R4 K3 ["LuaSourceContainer"]
+  NAMECALL R2 R0 K1 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["SetTelemetryForInstance"]
+  MOVE R3 R0
+  MOVE R4 R1
+  LOADK R5 K5 ["PlaceOpen"]
+  CALL R2 3 0
+  RETURN R0 0
+
 MAIN:
   PREPVARARGS 0
   GETIMPORT R0 K1 [require]
@@ -184,135 +205,161 @@ MAIN:
   GETIMPORT R6 K1 [require]
   GETTABLEKS R7 R0 K17 ["SharedPluginConstants"]
   CALL R6 1 1
-  GETIMPORT R7 K19 [game]
-  LOADK R9 K20 ["StudioService"]
-  NAMECALL R7 R7 K21 ["GetService"]
-  CALL R7 2 1
-  GETIMPORT R8 K19 [game]
-  LOADK R10 K22 ["StudioAssetService"]
-  NAMECALL R8 R8 K21 ["GetService"]
-  CALL R8 2 1
-  GETIMPORT R9 K19 [game]
-  LOADK R11 K23 ["MemStorageService"]
-  NAMECALL R9 R9 K21 ["GetService"]
+  GETIMPORT R7 K1 [require]
+  GETTABLEKS R11 R0 K10 ["Src"]
+  GETTABLEKS R10 R11 K14 ["Util"]
+  GETTABLEKS R9 R10 K18 ["DataModel"]
+  GETTABLEKS R8 R9 K19 ["CrawlDataModelForStoreModels"]
+  CALL R7 1 1
+  GETIMPORT R8 K1 [require]
+  GETTABLEKS R12 R0 K10 ["Src"]
+  GETTABLEKS R11 R12 K14 ["Util"]
+  GETTABLEKS R10 R11 K20 ["Inserts"]
+  GETTABLEKS R9 R10 K21 ["SandboxAsset"]
+  CALL R8 1 1
+  GETIMPORT R9 K23 [game]
+  LOADK R11 K24 ["StudioService"]
+  NAMECALL R9 R9 K25 ["GetService"]
   CALL R9 2 1
-  GETIMPORT R10 K19 [game]
-  LOADK R12 K24 ["ShowSaveToRobloxOnStudioAssetService"]
-  NAMECALL R10 R10 K25 ["GetFastFlag"]
+  GETIMPORT R10 K23 [game]
+  LOADK R12 K26 ["StudioAssetService"]
+  NAMECALL R10 R10 K25 ["GetService"]
   CALL R10 2 1
-  NEWTABLE R11 8 0
-  JUMPIFNOT R10 [+3]
-  DUPCLOSURE R12 K26 [PROTO_0]
-  CAPTURE VAL R8
-  JUMP [+1]
-  LOADNIL R12
-  SETTABLEKS R12 R11 K27 ["StudioAssetService.OnSaveToRoblox"]
-  DUPCLOSURE R12 K28 [PROTO_1]
-  CAPTURE VAL R7
-  SETTABLEKS R12 R11 K29 ["StudioService.OnSaveToRoblox"]
-  DUPCLOSURE R12 K30 [PROTO_2]
-  CAPTURE VAL R7
-  SETTABLEKS R12 R11 K31 ["StudioService.OnImportFromRoblox"]
-  DUPCLOSURE R12 K32 [PROTO_3]
-  CAPTURE VAL R7
-  SETTABLEKS R12 R11 K33 ["StudioService.OnOpenManagePackagePlugin"]
-  DUPCLOSURE R12 K34 [PROTO_4]
-  CAPTURE VAL R7
-  SETTABLEKS R12 R11 K35 ["StudioService.OnPublishAsPlugin"]
-  DUPCLOSURE R12 K36 [PROTO_6]
-  CAPTURE VAL R9
-  SETTABLEKS R12 R11 K37 ["MemStorageService.OpenAssetConfiguration"]
-  LOADK R13 K38 ["MemStorageService."]
-  GETTABLEKS R14 R6 K39 ["SHOW_TOOLBOX_PLUGINS_EVENT"]
-  CONCAT R12 R13 R14
-  DUPCLOSURE R13 K40 [PROTO_8]
-  CAPTURE VAL R9
-  CAPTURE VAL R6
-  SETTABLE R13 R11 R12
-  LOADK R13 K38 ["MemStorageService."]
-  GETTABLEKS R14 R6 K41 ["SHOW_TOOLBOX_OPEN_MODELS_AND_SEARCH_EVENT"]
-  CONCAT R12 R13 R14
-  DUPCLOSURE R13 K42 [PROTO_10]
-  CAPTURE VAL R9
-  CAPTURE VAL R6
-  SETTABLE R13 R11 R12
-  LOADK R13 K38 ["MemStorageService."]
-  GETTABLEKS R14 R4 K43 ["OPEN_MARKETPLACE_VIEW_FOR_ASSET_TYPE"]
-  CONCAT R12 R13 R14
-  DUPCLOSURE R13 K44 [PROTO_12]
-  CAPTURE VAL R9
-  CAPTURE VAL R4
-  SETTABLE R13 R11 R12
-  DUPTABLE R12 K56 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "extraTriggers", "shouldImmediatelyOpen"}]
-  GETIMPORT R13 K57 [plugin]
-  SETTABLEKS R13 R12 K45 ["plugin"]
-  LOADK R13 K9 ["Toolbox"]
-  SETTABLEKS R13 R12 K46 ["pluginName"]
-  GETTABLEKS R15 R0 K58 ["Resources"]
-  GETTABLEKS R14 R15 K59 ["Localization"]
-  GETTABLEKS R13 R14 K60 ["LocalizedStrings"]
-  SETTABLEKS R13 R12 K47 ["translationResourceTable"]
-  GETTABLEKS R15 R0 K58 ["Resources"]
-  GETTABLEKS R14 R15 K59 ["Localization"]
-  GETTABLEKS R13 R14 K61 ["SourceStrings"]
-  SETTABLEKS R13 R12 K48 ["fallbackResourceTable"]
-  LOADNIL R13
-  SETTABLEKS R13 R12 K49 ["overrideLocaleId"]
-  LOADNIL R13
-  SETTABLEKS R13 R12 K50 ["localizationNamespace"]
-  DUPCLOSURE R13 K62 [PROTO_13]
-  SETTABLEKS R13 R12 K51 ["getToolbarName"]
-  DUPTABLE R13 K68 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden"}]
-  DUPCLOSURE R14 K69 [PROTO_14]
-  SETTABLEKS R14 R13 K63 ["getName"]
-  DUPCLOSURE R14 K70 [PROTO_15]
-  SETTABLEKS R14 R13 K64 ["getDescription"]
-  GETTABLEKS R14 R5 K71 ["TOOLBOX_ICON"]
-  SETTABLEKS R14 R13 K65 ["icon"]
-  LOADNIL R14
-  SETTABLEKS R14 R13 K66 ["text"]
-  LOADB R14 1
-  SETTABLEKS R14 R13 K67 ["clickableWhenViewportHidden"]
-  SETTABLEKS R13 R12 K52 ["buttonInfo"]
-  DUPTABLE R13 K77 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "name", "zIndexBehavior"}]
-  LOADK R14 K9 ["Toolbox"]
-  SETTABLEKS R14 R13 K72 ["id"]
-  GETIMPORT R14 K80 [DockWidgetPluginGuiInfo.new]
-  GETIMPORT R15 K84 [Enum.InitialDockState.Left]
-  LOADB R16 1
-  LOADB R17 0
-  LOADN R18 0
-  LOADN R19 0
-  GETTABLEKS R20 R4 K85 ["TOOLBOX_MIN_WIDTH"]
-  GETTABLEKS R21 R4 K86 ["TOOLBOX_MIN_HEIGHT"]
-  CALL R14 7 1
-  SETTABLEKS R14 R13 K73 ["dockWidgetPluginGuiInfo"]
-  DUPCLOSURE R14 K87 [PROTO_16]
-  SETTABLEKS R14 R13 K74 ["getDockTitle"]
-  LOADK R14 K9 ["Toolbox"]
-  SETTABLEKS R14 R13 K75 ["name"]
-  GETIMPORT R14 K90 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R14 R13 K76 ["zIndexBehavior"]
-  SETTABLEKS R13 R12 K53 ["dockWidgetInfo"]
-  SETTABLEKS R11 R12 K54 ["extraTriggers"]
-  DUPCLOSURE R13 K91 [PROTO_17]
-  CAPTURE VAL R7
-  SETTABLEKS R13 R12 K55 ["shouldImmediatelyOpen"]
-  GETTABLEKS R13 R3 K92 ["build"]
-  MOVE R14 R12
+  GETIMPORT R11 K23 [game]
+  LOADK R13 K27 ["MemStorageService"]
+  NAMECALL R11 R11 K25 ["GetService"]
+  CALL R11 2 1
+  GETIMPORT R12 K23 [game]
+  LOADK R14 K28 ["ShowSaveToRobloxOnStudioAssetService"]
+  NAMECALL R12 R12 K29 ["GetFastFlag"]
+  CALL R12 2 1
+  GETIMPORT R13 K1 [require]
+  GETTABLEKS R17 R0 K10 ["Src"]
+  GETTABLEKS R16 R17 K14 ["Util"]
+  GETTABLEKS R15 R16 K30 ["SharedFlags"]
+  GETTABLEKS R14 R15 K31 ["getFFlagToolboxCapabilities"]
   CALL R13 1 1
-  GETTABLEKS R14 R13 K93 ["pluginLoader"]
-  NAMECALL R14 R14 K94 ["waitForUserInteraction"]
-  CALL R14 1 1
-  JUMPIF R14 [+1]
-  RETURN R0 0
-  GETIMPORT R15 K1 [require]
-  GETIMPORT R18 K3 [script]
-  GETTABLEKS R17 R18 K4 ["Parent"]
-  GETTABLEKS R16 R17 K95 ["main"]
-  CALL R15 1 1
-  MOVE R16 R15
-  GETIMPORT R17 K57 [plugin]
-  MOVE R18 R13
+  NEWTABLE R14 8 0
+  JUMPIFNOT R12 [+3]
+  DUPCLOSURE R15 K32 [PROTO_0]
+  CAPTURE VAL R10
+  JUMP [+1]
+  LOADNIL R15
+  SETTABLEKS R15 R14 K33 ["StudioAssetService.OnSaveToRoblox"]
+  DUPCLOSURE R15 K34 [PROTO_1]
+  CAPTURE VAL R9
+  SETTABLEKS R15 R14 K35 ["StudioService.OnSaveToRoblox"]
+  DUPCLOSURE R15 K36 [PROTO_2]
+  CAPTURE VAL R9
+  SETTABLEKS R15 R14 K37 ["StudioService.OnImportFromRoblox"]
+  DUPCLOSURE R15 K38 [PROTO_3]
+  CAPTURE VAL R9
+  SETTABLEKS R15 R14 K39 ["StudioService.OnOpenManagePackagePlugin"]
+  DUPCLOSURE R15 K40 [PROTO_4]
+  CAPTURE VAL R9
+  SETTABLEKS R15 R14 K41 ["StudioService.OnPublishAsPlugin"]
+  DUPCLOSURE R15 K42 [PROTO_6]
+  CAPTURE VAL R11
+  SETTABLEKS R15 R14 K43 ["MemStorageService.OpenAssetConfiguration"]
+  LOADK R16 K44 ["MemStorageService."]
+  GETTABLEKS R17 R6 K45 ["SHOW_TOOLBOX_PLUGINS_EVENT"]
+  CONCAT R15 R16 R17
+  DUPCLOSURE R16 K46 [PROTO_8]
+  CAPTURE VAL R11
+  CAPTURE VAL R6
+  SETTABLE R16 R14 R15
+  LOADK R16 K44 ["MemStorageService."]
+  GETTABLEKS R17 R6 K47 ["SHOW_TOOLBOX_OPEN_MODELS_AND_SEARCH_EVENT"]
+  CONCAT R15 R16 R17
+  DUPCLOSURE R16 K48 [PROTO_10]
+  CAPTURE VAL R11
+  CAPTURE VAL R6
+  SETTABLE R16 R14 R15
+  LOADK R16 K44 ["MemStorageService."]
+  GETTABLEKS R17 R4 K49 ["OPEN_MARKETPLACE_VIEW_FOR_ASSET_TYPE"]
+  CONCAT R15 R16 R17
+  DUPCLOSURE R16 K50 [PROTO_12]
+  CAPTURE VAL R11
+  CAPTURE VAL R4
+  SETTABLE R16 R14 R15
+  DUPTABLE R15 K62 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "overrideLocaleId", "localizationNamespace", "getToolbarName", "buttonInfo", "dockWidgetInfo", "extraTriggers", "shouldImmediatelyOpen"}]
+  GETIMPORT R16 K63 [plugin]
+  SETTABLEKS R16 R15 K51 ["plugin"]
+  LOADK R16 K9 ["Toolbox"]
+  SETTABLEKS R16 R15 K52 ["pluginName"]
+  GETTABLEKS R18 R0 K64 ["Resources"]
+  GETTABLEKS R17 R18 K65 ["Localization"]
+  GETTABLEKS R16 R17 K66 ["LocalizedStrings"]
+  SETTABLEKS R16 R15 K53 ["translationResourceTable"]
+  GETTABLEKS R18 R0 K64 ["Resources"]
+  GETTABLEKS R17 R18 K65 ["Localization"]
+  GETTABLEKS R16 R17 K67 ["SourceStrings"]
+  SETTABLEKS R16 R15 K54 ["fallbackResourceTable"]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K55 ["overrideLocaleId"]
+  LOADNIL R16
+  SETTABLEKS R16 R15 K56 ["localizationNamespace"]
+  DUPCLOSURE R16 K68 [PROTO_13]
+  SETTABLEKS R16 R15 K57 ["getToolbarName"]
+  DUPTABLE R16 K74 [{"getName", "getDescription", "icon", "text", "clickableWhenViewportHidden"}]
+  DUPCLOSURE R17 K75 [PROTO_14]
+  SETTABLEKS R17 R16 K69 ["getName"]
+  DUPCLOSURE R17 K76 [PROTO_15]
+  SETTABLEKS R17 R16 K70 ["getDescription"]
+  GETTABLEKS R17 R5 K77 ["TOOLBOX_ICON"]
+  SETTABLEKS R17 R16 K71 ["icon"]
+  LOADNIL R17
+  SETTABLEKS R17 R16 K72 ["text"]
+  LOADB R17 1
+  SETTABLEKS R17 R16 K73 ["clickableWhenViewportHidden"]
+  SETTABLEKS R16 R15 K58 ["buttonInfo"]
+  DUPTABLE R16 K83 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "name", "zIndexBehavior"}]
+  LOADK R17 K9 ["Toolbox"]
+  SETTABLEKS R17 R16 K78 ["id"]
+  GETIMPORT R17 K86 [DockWidgetPluginGuiInfo.new]
+  GETIMPORT R18 K90 [Enum.InitialDockState.Left]
+  LOADB R19 1
+  LOADB R20 0
+  LOADN R21 0
+  LOADN R22 0
+  GETTABLEKS R23 R4 K91 ["TOOLBOX_MIN_WIDTH"]
+  GETTABLEKS R24 R4 K92 ["TOOLBOX_MIN_HEIGHT"]
+  CALL R17 7 1
+  SETTABLEKS R17 R16 K79 ["dockWidgetPluginGuiInfo"]
+  DUPCLOSURE R17 K93 [PROTO_16]
+  SETTABLEKS R17 R16 K80 ["getDockTitle"]
+  LOADK R17 K9 ["Toolbox"]
+  SETTABLEKS R17 R16 K81 ["name"]
+  GETIMPORT R17 K96 [Enum.ZIndexBehavior.Sibling]
+  SETTABLEKS R17 R16 K82 ["zIndexBehavior"]
+  SETTABLEKS R16 R15 K59 ["dockWidgetInfo"]
+  SETTABLEKS R14 R15 K60 ["extraTriggers"]
+  DUPCLOSURE R16 K97 [PROTO_17]
+  CAPTURE VAL R9
+  SETTABLEKS R16 R15 K61 ["shouldImmediatelyOpen"]
+  MOVE R16 R13
+  CALL R16 0 1
+  JUMPIFNOT R16 [+6]
+  MOVE R16 R7
+  GETIMPORT R17 K23 [game]
+  DUPCLOSURE R18 K98 [PROTO_18]
+  CAPTURE VAL R8
   CALL R16 2 0
+  GETTABLEKS R16 R3 K99 ["build"]
+  MOVE R17 R15
+  CALL R16 1 1
+  GETTABLEKS R17 R16 K100 ["pluginLoader"]
+  NAMECALL R17 R17 K101 ["waitForUserInteraction"]
+  CALL R17 1 1
+  JUMPIF R17 [+1]
+  RETURN R0 0
+  GETIMPORT R18 K1 [require]
+  GETIMPORT R21 K3 [script]
+  GETTABLEKS R20 R21 K4 ["Parent"]
+  GETTABLEKS R19 R20 K102 ["main"]
+  CALL R18 1 1
+  MOVE R19 R18
+  GETIMPORT R20 K63 [plugin]
+  MOVE R21 R16
+  CALL R19 2 0
   RETURN R0 0

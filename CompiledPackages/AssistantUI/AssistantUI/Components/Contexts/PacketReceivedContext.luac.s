@@ -1,0 +1,176 @@
+PROTO_0:
+  RETURN R0 0
+
+PROTO_1:
+  RETURN R0 0
+
+PROTO_2:
+  RETURN R0 0
+
+PROTO_3:
+  ADDK R1 R0 K0 [1]
+  RETURN R1 1
+
+PROTO_4:
+  GETUPVAL R0 0
+  DUPCLOSURE R1 K0 [PROTO_3]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  LOADN R2 0
+  SUBK R3 R0 K0 [1]
+  FASTCALL2 MATH_MAX R2 R3 [+3]
+  GETIMPORT R1 K3 [math.max]
+  CALL R1 2 1
+  JUMPIFNOTEQKN R1 K4 [0] [+6]
+  GETUPVAL R2 0
+  GETIMPORT R3 K7 [os.clock]
+  CALL R3 0 -1
+  CALL R2 -1 0
+  RETURN R1 1
+
+PROTO_6:
+  GETUPVAL R0 0
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R3 R0 K0 ["default"]
+  JUMPIFEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  FASTCALL2K ASSERT R2 K1 [+4]
+  LOADK R3 K1 ["default is not supported in this context"]
+  GETIMPORT R1 K3 [assert]
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["useState"]
+  LOADN R2 0
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["useState"]
+  LOADN R4 0
+  CALL R3 1 2
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["useCallback"]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R4
+  NEWTABLE R7 0 1
+  MOVE R8 R4
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K5 ["useCallback"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  NEWTABLE R8 0 2
+  MOVE R9 R4
+  MOVE R10 R2
+  SETLIST R8 R9 2 [1]
+  CALL R6 2 1
+  DUPTABLE R7 K11 [{"lastPacketTime", "setLastPacketTime", "hasPendingUserInput", "incrementPendingUserInput", "decrementPendingUserInput"}]
+  GETTABLEKS R9 R0 K6 ["lastPacketTime"]
+  OR R8 R9 R1
+  SETTABLEKS R8 R7 K6 ["lastPacketTime"]
+  GETTABLEKS R9 R0 K7 ["setLastPacketTime"]
+  OR R8 R9 R2
+  SETTABLEKS R8 R7 K7 ["setLastPacketTime"]
+  LOADN R9 0
+  JUMPIFLT R9 R3 [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  SETTABLEKS R8 R7 K8 ["hasPendingUserInput"]
+  SETTABLEKS R5 R7 K9 ["incrementPendingUserInput"]
+  SETTABLEKS R6 R7 K10 ["decrementPendingUserInput"]
+  GETUPVAL R8 1
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K12 ["Provider"]
+  DUPTABLE R10 K14 [{"value"}]
+  SETTABLEKS R7 R10 K13 ["value"]
+  GETTABLEKS R11 R0 K15 ["children"]
+  CALL R8 3 -1
+  RETURN R8 -1
+
+PROTO_8:
+  GETUPVAL R0 0
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R0 0
+  JUMPIF R0 [+2]
+  LOADNIL R0
+  RETURN R0 1
+  GETUPVAL R0 1
+  CALL R0 0 0
+  NEWCLOSURE R0 P0
+  CAPTURE UPVAL U2
+  RETURN R0 1
+
+PROTO_10:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useContext"]
+  GETUPVAL R2 1
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K1 ["incrementPendingUserInput"]
+  GETTABLEKS R3 R1 K2 ["decrementPendingUserInput"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["useEffect"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  NEWTABLE R6 0 3
+  MOVE R7 R0
+  MOVE R8 R2
+  MOVE R9 R3
+  SETLIST R6 R7 3 [1]
+  CALL R4 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R0 K8 ["Types"]
+  CALL R2 1 1
+  GETTABLEKS R3 R1 K9 ["createElement"]
+  DUPTABLE R4 K16 [{"default", "lastPacketTime", "setLastPacketTime", "hasPendingUserInput", "incrementPendingUserInput", "decrementPendingUserInput"}]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K10 ["default"]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K11 ["lastPacketTime"]
+  DUPCLOSURE R5 K17 [PROTO_0]
+  SETTABLEKS R5 R4 K12 ["setLastPacketTime"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K13 ["hasPendingUserInput"]
+  DUPCLOSURE R5 K18 [PROTO_1]
+  SETTABLEKS R5 R4 K14 ["incrementPendingUserInput"]
+  DUPCLOSURE R5 K19 [PROTO_2]
+  SETTABLEKS R5 R4 K15 ["decrementPendingUserInput"]
+  GETTABLEKS R5 R1 K20 ["createContext"]
+  MOVE R6 R4
+  CALL R5 1 1
+  DUPCLOSURE R6 K21 [PROTO_7]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  DUPCLOSURE R7 K22 [PROTO_10]
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  DUPTABLE R8 K26 [{"Context", "Provider", "useMarkUserInputRequired"}]
+  SETTABLEKS R5 R8 K23 ["Context"]
+  SETTABLEKS R6 R8 K24 ["Provider"]
+  SETTABLEKS R7 R8 K25 ["useMarkUserInputRequired"]
+  RETURN R8 1

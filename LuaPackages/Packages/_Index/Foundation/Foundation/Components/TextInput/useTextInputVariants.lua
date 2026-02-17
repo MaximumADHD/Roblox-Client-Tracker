@@ -2,6 +2,7 @@ local Foundation = script:FindFirstAncestor("Foundation")
 
 local Types = require(Foundation.Components.Types)
 type ColorStyle = Types.ColorStyle
+type ColorStyleValue = Types.ColorStyleValue
 type FontStyle = Types.FontStyle
 
 local InputSize = require(Foundation.Enums.InputSize)
@@ -35,6 +36,7 @@ type TextInputVariantProps = {
 		radius: number,
 	},
 	outerView: {
+		bgStyle: ColorStyleValue,
 		tag: string,
 	},
 	textBox: {
@@ -100,7 +102,11 @@ local function variantsFactory(tokens: Tokens)
 			tag = "row align-y-center",
 		},
 		outerView = {
-			tag = "row align-y-center bg-shift-100",
+			bgStyle = if Flags.FoundationNumberInputFixScrubbableBG then tokens.Color.Shift.Shift_100 else nil,
+			tag = {
+				["row align-y-center"] = Flags.FoundationNumberInputFixScrubbableBG,
+				["row align-y-center bg-shift-100"] = not Flags.FoundationNumberInputFixScrubbableBG,
+			},
 		},
 		textBox = {
 			tag = "gui-object-defaults clip text-align-x-left text-align-y-center content-emphasis",

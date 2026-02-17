@@ -1,0 +1,22 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["WebView"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["wrapStrictTable"]
+  CALL R1 1 1
+  NEWTABLE R2 1 0
+  DUPTABLE R3 K9 [{"Studio", "WebView"}]
+  LOADK R4 K10 ["studio"]
+  SETTABLEKS R4 R3 K8 ["Studio"]
+  LOADK R4 K11 ["webview"]
+  SETTABLEKS R4 R3 K2 ["WebView"]
+  SETTABLEKS R3 R2 K12 ["ANALYTICS_TARGET"]
+  MOVE R3 R1
+  MOVE R4 R2
+  LOADK R5 K13 ["Constants"]
+  CALL R3 2 -1
+  RETURN R3 -1

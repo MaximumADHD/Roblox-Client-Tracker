@@ -24,8 +24,11 @@ local useElevation = require(Foundation.Providers.Elevation.useElevation)
 local OwnerScope = require(Foundation.Providers.Elevation.ElevationProvider).ElevationOwnerScope
 local ElevationLayer = require(Foundation.Enums.ElevationLayer)
 type ElevationLayer = ElevationLayer.ElevationLayer
+local DialogSize = require(Foundation.Enums.DialogSize)
+type DialogSize = DialogSize.DialogSize
 
 local useHardwareInsets = require(script.Parent.useHardwareInsets)
+local useScreenSize = require(script.Parent.useScreenSize)
 
 local CloseAffordance = require(Foundation.Components.CloseAffordance)
 local Flags = require(Foundation.Utility.Flags)
@@ -33,14 +36,28 @@ local Image = require(Foundation.Components.Image)
 local View = require(Foundation.Components.View)
 
 type SideSheetProps = {
-	displaySize: Enum.DisplaySize,
+	displaySize: Enum.DisplaySize, -- TODO: remove with Flags.FoundationSideSheetNewWidthCalculation
 } & SheetProps
 
 local SMALL_DISPLAY_WIDTH = 400
 local LARGE_DISPLAY_WIDTH = 360
 
+local SIDE_SHEET_WIDTHS: { [DialogSize]: { TARGET_WIDTH: number, MIN: number, MAX: number } } = {
+	[DialogSize.Medium] = {
+		TARGET_WIDTH = 0.40,
+		MIN = 360,
+		MAX = 440,
+	},
+	[DialogSize.Large] = {
+		TARGET_WIDTH = 0.5,
+		MIN = 440,
+		MAX = 640,
+	},
+}
+
 local defaultProps = {
 	testId = "--foundation-sheet",
+	size = if Flags.FoundationSideSheetNewWidthCalculation then DialogSize.Medium else nil :: never,
 }
 
 local SHADOW_IMAGE = Constants.SHADOW_IMAGE
@@ -50,15 +67,28 @@ local function SideSheet(sideSheetProps: SideSheetProps, ref: React.Ref<GuiObjec
 	local props = withDefaults(sideSheetProps, defaultProps)
 	local overlay = useOverlay()
 	local tokens = useTokens()
-	local elevation = useElevation(ElevationLayer.Sheet, { relativeToOwner = false })
+	local elevation = useElevation(ElevationLayer.Sheet, { stackAboveOwner = false })
 	local hardwareInsets = useHardwareInsets(overlay)
+	local screenSize = if Flags.FoundationSideSheetNewWidthCalculation then useScreenSize() else nil :: never
 	local safeAreaPadding = hardwareInsets.right
 	-- Top hardware inset in landscape orientation currently is only possible if it's top bar
 	local topBarHeight = if Flags.FoundationSheetSideSheetTopBarFix then hardwareInsets.top else 0
 
 	local isSmallDisplay = props.displaySize == Enum.DisplaySize.Small
 
-	local width = useScaledValue(if isSmallDisplay then SMALL_DISPLAY_WIDTH else LARGE_DISPLAY_WIDTH)
+	local targetWidth
+	local minWidth
+	local maxWidth
+	if Flags.FoundationSideSheetNewWidthCalculation then
+		local scaleFactor = tokens.Config.UI.Scale
+		targetWidth = SIDE_SHEET_WIDTHS[props.size].TARGET_WIDTH
+		minWidth = SIDE_SHEET_WIDTHS[props.size].MIN * scaleFactor
+		maxWidth = SIDE_SHEET_WIDTHS[props.size].MAX * scaleFactor
+	end
+
+	local width = if Flags.FoundationSideSheetNewWidthCalculation
+		then math.clamp(screenSize.X * targetWidth, minWidth, maxWidth)
+		else useScaledValue(if isSmallDisplay then SMALL_DISPLAY_WIDTH else LARGE_DISPLAY_WIDTH)
 	local sheetPadding = tokens.Padding.Medium
 
 	local closing = React.useRef(false)

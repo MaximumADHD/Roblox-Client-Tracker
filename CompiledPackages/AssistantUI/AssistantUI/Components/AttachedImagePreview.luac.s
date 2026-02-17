@@ -1,0 +1,252 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["get"]
+  CALL R0 0 1
+  GETTABLEKS R1 R0 K1 ["convertImageDataToTempIdAsync"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["imageData"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["get"]
+  CALL R0 0 1
+  GETTABLEKS R1 R0 K1 ["releaseTempIdAsync"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["tempId"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R0 K2 [task.spawn]
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["status"]
+  JUMPIFNOTEQKS R0 K1 ["loading"] [+2]
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["status"]
+  JUMPIFNOTEQKS R0 K2 ["error"] [+16]
+  GETUPVAL R0 1
+  LOADB R1 1
+  CALL R0 1 0
+  GETIMPORT R0 K4 [warn]
+  LOADK R2 K5 ["Failed to convert image data to temp ID: %*"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["problem"]
+  NAMECALL R2 R2 K7 ["format"]
+  CALL R2 2 1
+  MOVE R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K8 ["value"]
+  GETUPVAL R1 2
+  GETTABLEKS R2 R0 K9 ["tempId"]
+  CALL R1 1 0
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  RETURN R1 1
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useState"]
+  LOADK R2 K1 [""]
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["useState"]
+  LOADB R4 0
+  CALL R3 1 2
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K2 ["useAsync"]
+  NEWCLOSURE R6 P0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  NEWTABLE R7 0 1
+  GETTABLEKS R8 R0 K3 ["imageData"]
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["useEffect"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE UPVAL U2
+  NEWTABLE R8 0 1
+  MOVE R9 R5
+  SETLIST R8 R9 1 [1]
+  CALL R6 2 0
+  GETUPVAL R6 3
+  GETUPVAL R7 4
+  DUPTABLE R8 K8 [{"tag", "Size", "LayoutOrder"}]
+  LOADK R9 K9 ["radius-small"]
+  SETTABLEKS R9 R8 K5 ["tag"]
+  GETIMPORT R9 K12 [UDim2.fromOffset]
+  LOADN R10 80
+  LOADN R11 80
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K6 ["Size"]
+  GETTABLEKS R9 R0 K7 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K7 ["LayoutOrder"]
+  DUPTABLE R9 K16 [{"ErrorIndicator", "ImageLabel", "RemoveButtonContainer"}]
+  MOVE R10 R3
+  JUMPIFNOT R10 [+49]
+  GETUPVAL R10 3
+  GETUPVAL R11 4
+  DUPTABLE R12 K17 [{"tag"}]
+  LOADK R13 K18 ["size-full-full radius-small bg-surface-200 align-x-center align-y-center"]
+  SETTABLEKS R13 R12 K5 ["tag"]
+  DUPTABLE R13 K21 [{"ErrorIcon", "UIStroke"}]
+  GETUPVAL R14 3
+  GETUPVAL R15 5
+  DUPTABLE R16 K24 [{"tag", "name", "foregroundColor"}]
+  LOADK R17 K25 ["size-600-600"]
+  SETTABLEKS R17 R16 K5 ["tag"]
+  LOADK R17 K26 ["icons/status/warning"]
+  SETTABLEKS R17 R16 K22 ["name"]
+  GETIMPORT R17 K29 [Color3.fromRGB]
+  LOADN R18 200
+  LOADN R19 80
+  LOADN R20 80
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K23 ["foregroundColor"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K19 ["ErrorIcon"]
+  GETUPVAL R14 3
+  LOADK R15 K20 ["UIStroke"]
+  DUPTABLE R16 K33 [{"Color", "Thickness", "ApplyStrokeMode"}]
+  GETIMPORT R17 K29 [Color3.fromRGB]
+  LOADN R18 180
+  LOADN R19 180
+  LOADN R20 180
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K30 ["Color"]
+  LOADN R17 2
+  SETTABLEKS R17 R16 K31 ["Thickness"]
+  GETIMPORT R17 K36 [Enum.ApplyStrokeMode.Border]
+  SETTABLEKS R17 R16 K32 ["ApplyStrokeMode"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K20 ["UIStroke"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K13 ["ErrorIndicator"]
+  NOT R10 R3
+  JUMPIFNOT R10 [+35]
+  GETUPVAL R10 3
+  GETUPVAL R11 6
+  DUPTABLE R12 K39 [{"tag", "Image", "ScaleType"}]
+  LOADK R13 K40 ["size-full-full radius-small"]
+  SETTABLEKS R13 R12 K5 ["tag"]
+  SETTABLEKS R1 R12 K37 ["Image"]
+  GETIMPORT R13 K42 [Enum.ScaleType.Fit]
+  SETTABLEKS R13 R12 K38 ["ScaleType"]
+  DUPTABLE R13 K43 [{"UIStroke"}]
+  GETUPVAL R14 3
+  LOADK R15 K20 ["UIStroke"]
+  DUPTABLE R16 K33 [{"Color", "Thickness", "ApplyStrokeMode"}]
+  GETIMPORT R17 K29 [Color3.fromRGB]
+  LOADN R18 180
+  LOADN R19 180
+  LOADN R20 180
+  CALL R17 3 1
+  SETTABLEKS R17 R16 K30 ["Color"]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K31 ["Thickness"]
+  GETIMPORT R17 K36 [Enum.ApplyStrokeMode.Border]
+  SETTABLEKS R17 R16 K32 ["ApplyStrokeMode"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K20 ["UIStroke"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K14 ["ImageLabel"]
+  GETUPVAL R10 3
+  LOADK R11 K44 ["Frame"]
+  DUPTABLE R12 K48 [{"Size", "Position", "AnchorPoint", "BackgroundTransparency"}]
+  GETIMPORT R13 K12 [UDim2.fromOffset]
+  LOADN R14 24
+  LOADN R15 24
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K6 ["Size"]
+  GETIMPORT R13 K50 [UDim2.new]
+  LOADN R14 1
+  LOADN R15 8
+  LOADN R16 0
+  LOADN R17 0
+  CALL R13 4 1
+  SETTABLEKS R13 R12 K45 ["Position"]
+  GETIMPORT R13 K52 [Vector2.new]
+  LOADN R14 1
+  LOADN R15 0
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K46 ["AnchorPoint"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K47 ["BackgroundTransparency"]
+  DUPTABLE R13 K54 [{"RemoveButton"}]
+  GETUPVAL R14 3
+  GETUPVAL R15 7
+  DUPTABLE R16 K58 [{"icon", "tag", "iconTag", "onActivated"}]
+  LOADK R17 K59 ["icons/actions/reject"]
+  SETTABLEKS R17 R16 K55 ["icon"]
+  LOADK R17 K60 ["size-400-400 radius-circle bg-surface-100 align-x-center align-y-center"]
+  SETTABLEKS R17 R16 K5 ["tag"]
+  LOADK R17 K61 ["size-300-300 content-default"]
+  SETTABLEKS R17 R16 K56 ["iconTag"]
+  GETTABLEKS R17 R0 K62 ["onRemove"]
+  SETTABLEKS R17 R16 K57 ["onActivated"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K53 ["RemoveButton"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K15 ["RemoveButtonContainer"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Components"]
+  GETTABLEKS R2 R3 K7 ["CustomIconButton"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Guest"]
+  GETTABLEKS R3 R4 K9 ["Environment"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Parent"]
+  GETTABLEKS R4 R5 K11 ["Foundation"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K10 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["React"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Parent"]
+  GETTABLEKS R6 R7 K13 ["ReactUtils"]
+  CALL R5 1 1
+  GETTABLEKS R6 R3 K14 ["Icon"]
+  GETTABLEKS R7 R3 K15 ["Image"]
+  GETTABLEKS R8 R3 K16 ["View"]
+  GETTABLEKS R9 R4 K17 ["createElement"]
+  DUPCLOSURE R10 K18 [PROTO_4]
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R1
+  GETTABLEKS R11 R4 K19 ["memo"]
+  MOVE R12 R10
+  CALL R11 1 -1
+  RETURN R11 -1

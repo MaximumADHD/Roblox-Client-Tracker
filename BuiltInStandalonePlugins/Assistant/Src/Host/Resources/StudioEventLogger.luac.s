@@ -170,62 +170,64 @@ PROTO_9:
   MOVE R5 R7
   SETTABLEKS R5 R4 K1 ["customFields"]
   CALL R1 3 0
-  DUPTABLE R1 K14 [{"requestId", "conversationId", "message", "role"}]
-  GETTABLEKS R2 R0 K15 ["messageGuid"]
+  DUPTABLE R1 K15 [{"requestId", "conversationId", "message", "attachments", "role"}]
+  GETTABLEKS R2 R0 K16 ["messageGuid"]
   SETTABLEKS R2 R1 K10 ["requestId"]
-  GETTABLEKS R2 R0 K11 ["conversationId"]
+  GETTABLEKS R2 R0 K17 ["sessionId"]
   SETTABLEKS R2 R1 K11 ["conversationId"]
   GETTABLEKS R2 R0 K12 ["message"]
   SETTABLEKS R2 R1 K12 ["message"]
-  LOADK R2 K16 ["MCPUser"]
-  SETTABLEKS R2 R1 K13 ["role"]
+  GETTABLEKS R2 R0 K13 ["attachments"]
+  SETTABLEKS R2 R1 K13 ["attachments"]
+  LOADK R2 K18 ["MCPUser"]
+  SETTABLEKS R2 R1 K14 ["role"]
   GETUPVAL R2 5
   CALL R2 0 1
   JUMPIFNOT R2 [+4]
-  GETTABLEKS R2 R0 K17 ["model"]
-  SETTABLEKS R2 R1 K17 ["model"]
+  GETTABLEKS R2 R0 K19 ["model"]
+  SETTABLEKS R2 R1 K19 ["model"]
   GETUPVAL R3 2
-  GETTABLEKS R2 R3 K18 ["assign"]
+  GETTABLEKS R2 R3 K20 ["assign"]
   MOVE R3 R1
-  DUPTABLE R4 K20 [{"timestampMilliseconds"}]
-  GETIMPORT R6 K23 [DateTime.now]
+  DUPTABLE R4 K22 [{"timestampMilliseconds"}]
+  GETIMPORT R6 K25 [DateTime.now]
   CALL R6 0 1
-  GETTABLEKS R5 R6 K24 ["UnixTimestampMillis"]
-  SETTABLEKS R5 R4 K19 ["timestampMilliseconds"]
+  GETTABLEKS R5 R6 K26 ["UnixTimestampMillis"]
+  SETTABLEKS R5 R4 K21 ["timestampMilliseconds"]
   CALL R2 2 1
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K25 ["logEvent"]
+  GETTABLEKS R3 R4 K27 ["logEvent"]
   GETUPVAL R4 6
-  DUPTABLE R5 K27 [{"customFields", "standardizedFields"}]
+  DUPTABLE R5 K29 [{"customFields", "standardizedFields"}]
   SETTABLEKS R2 R5 K1 ["customFields"]
   NEWTABLE R7 0 0
   GETUPVAL R11 7
-  GETTABLEKS R8 R11 K28 ["StandardizedFields"]
+  GETTABLEKS R8 R11 K30 ["StandardizedFields"]
   LOADNIL R9
   LOADNIL R10
   FORGPREP R8
   FASTCALL2 TABLE_INSERT R7 R12 [+5]
   MOVE R14 R7
   MOVE R15 R12
-  GETIMPORT R13 K31 [table.insert]
+  GETIMPORT R13 K33 [table.insert]
   CALL R13 2 0
   FORGLOOP R8 2 [-8]
-  FASTCALL2K TABLE_INSERT R7 K32 [+5]
+  FASTCALL2K TABLE_INSERT R7 K34 [+5]
   MOVE R9 R7
-  LOADK R10 K32 ["addSessionInfo"]
-  GETIMPORT R8 K31 [table.insert]
+  LOADK R10 K34 ["addSessionInfo"]
+  GETIMPORT R8 K33 [table.insert]
   CALL R8 2 0
   MOVE R6 R7
-  SETTABLEKS R6 R5 K26 ["standardizedFields"]
+  SETTABLEKS R6 R5 K28 ["standardizedFields"]
   CALL R3 2 0
   GETUPVAL R3 8
   JUMPIFNOT R3 [+10]
   GETUPVAL R3 8
-  LOADK R5 K33 ["user_message_sent"]
-  DUPTABLE R6 K34 [{"requestId"}]
-  GETTABLEKS R7 R0 K15 ["messageGuid"]
+  LOADK R5 K35 ["user_message_sent"]
+  DUPTABLE R6 K36 [{"requestId"}]
+  GETTABLEKS R7 R0 K16 ["messageGuid"]
   SETTABLEKS R7 R6 K10 ["requestId"]
-  NAMECALL R3 R3 K35 ["LogEventAsync"]
+  NAMECALL R3 R3 K37 ["LogEventAsync"]
   CALL R3 3 0
   RETURN R0 0
 
@@ -233,46 +235,46 @@ PROTO_10:
   DUPTABLE R2 K4 [{"requestId", "conversationId", "message", "role"}]
   GETTABLEKS R3 R0 K5 ["messageGuid"]
   SETTABLEKS R3 R2 K0 ["requestId"]
-  GETTABLEKS R3 R0 K1 ["conversationId"]
+  GETTABLEKS R3 R0 K6 ["sessionId"]
   SETTABLEKS R3 R2 K1 ["conversationId"]
   GETTABLEKS R3 R0 K2 ["message"]
   SETTABLEKS R3 R2 K2 ["message"]
-  LOADK R3 K6 ["MCPAssistant"]
+  LOADK R3 K7 ["MCPAssistant"]
   SETTABLEKS R3 R2 K3 ["role"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K7 ["assign"]
+  GETTABLEKS R3 R4 K8 ["assign"]
   MOVE R4 R2
-  DUPTABLE R5 K9 [{"timestampMilliseconds"}]
-  GETIMPORT R7 K12 [DateTime.now]
+  DUPTABLE R5 K10 [{"timestampMilliseconds"}]
+  GETIMPORT R7 K13 [DateTime.now]
   CALL R7 0 1
-  GETTABLEKS R6 R7 K13 ["UnixTimestampMillis"]
-  SETTABLEKS R6 R5 K8 ["timestampMilliseconds"]
+  GETTABLEKS R6 R7 K14 ["UnixTimestampMillis"]
+  SETTABLEKS R6 R5 K9 ["timestampMilliseconds"]
   CALL R3 2 1
   MOVE R1 R3
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K14 ["logEvent"]
+  GETTABLEKS R2 R3 K15 ["logEvent"]
   GETUPVAL R3 2
-  DUPTABLE R4 K17 [{"customFields", "standardizedFields"}]
-  SETTABLEKS R1 R4 K15 ["customFields"]
+  DUPTABLE R4 K18 [{"customFields", "standardizedFields"}]
+  SETTABLEKS R1 R4 K16 ["customFields"]
   NEWTABLE R6 0 0
   GETUPVAL R10 3
-  GETTABLEKS R7 R10 K18 ["StandardizedFields"]
+  GETTABLEKS R7 R10 K19 ["StandardizedFields"]
   LOADNIL R8
   LOADNIL R9
   FORGPREP R7
   FASTCALL2 TABLE_INSERT R6 R11 [+5]
   MOVE R13 R6
   MOVE R14 R11
-  GETIMPORT R12 K21 [table.insert]
+  GETIMPORT R12 K22 [table.insert]
   CALL R12 2 0
   FORGLOOP R7 2 [-8]
-  FASTCALL2K TABLE_INSERT R6 K22 [+5]
+  FASTCALL2K TABLE_INSERT R6 K23 [+5]
   MOVE R8 R6
-  LOADK R9 K22 ["addSessionInfo"]
-  GETIMPORT R7 K21 [table.insert]
+  LOADK R9 K23 ["addSessionInfo"]
+  GETIMPORT R7 K22 [table.insert]
   CALL R7 2 0
   MOVE R5 R6
-  SETTABLEKS R5 R4 K16 ["standardizedFields"]
+  SETTABLEKS R5 R4 K17 ["standardizedFields"]
   CALL R2 2 0
   RETURN R0 0
 
@@ -390,51 +392,51 @@ PROTO_13:
   DUPTABLE R2 K12 [{"requestId", "conversationId"}]
   GETTABLEKS R3 R0 K13 ["messageGuid"]
   SETTABLEKS R3 R2 K10 ["requestId"]
-  GETTABLEKS R3 R0 K11 ["conversationId"]
+  GETTABLEKS R3 R0 K14 ["sessionId"]
   SETTABLEKS R3 R2 K11 ["conversationId"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K14 ["assign"]
+  GETTABLEKS R3 R4 K15 ["assign"]
   MOVE R4 R2
-  DUPTABLE R5 K16 [{"timestampMilliseconds"}]
-  GETIMPORT R7 K19 [DateTime.now]
+  DUPTABLE R5 K17 [{"timestampMilliseconds"}]
+  GETIMPORT R7 K20 [DateTime.now]
   CALL R7 0 1
-  GETTABLEKS R6 R7 K20 ["UnixTimestampMillis"]
-  SETTABLEKS R6 R5 K15 ["timestampMilliseconds"]
+  GETTABLEKS R6 R7 K21 ["UnixTimestampMillis"]
+  SETTABLEKS R6 R5 K16 ["timestampMilliseconds"]
   CALL R3 2 1
   MOVE R1 R3
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K21 ["logEvent"]
+  GETTABLEKS R2 R3 K22 ["logEvent"]
   GETUPVAL R3 5
-  DUPTABLE R4 K23 [{"customFields", "standardizedFields"}]
+  DUPTABLE R4 K24 [{"customFields", "standardizedFields"}]
   SETTABLEKS R1 R4 K1 ["customFields"]
   NEWTABLE R6 0 0
   GETUPVAL R10 6
-  GETTABLEKS R7 R10 K24 ["StandardizedFields"]
+  GETTABLEKS R7 R10 K25 ["StandardizedFields"]
   LOADNIL R8
   LOADNIL R9
   FORGPREP R7
   FASTCALL2 TABLE_INSERT R6 R11 [+5]
   MOVE R13 R6
   MOVE R14 R11
-  GETIMPORT R12 K27 [table.insert]
+  GETIMPORT R12 K28 [table.insert]
   CALL R12 2 0
   FORGLOOP R7 2 [-8]
-  FASTCALL2K TABLE_INSERT R6 K28 [+5]
+  FASTCALL2K TABLE_INSERT R6 K29 [+5]
   MOVE R8 R6
-  LOADK R9 K28 ["addSessionInfo"]
-  GETIMPORT R7 K27 [table.insert]
+  LOADK R9 K29 ["addSessionInfo"]
+  GETIMPORT R7 K28 [table.insert]
   CALL R7 2 0
   MOVE R5 R6
-  SETTABLEKS R5 R4 K22 ["standardizedFields"]
+  SETTABLEKS R5 R4 K23 ["standardizedFields"]
   CALL R2 2 0
   GETUPVAL R2 7
   JUMPIFNOT R2 [+10]
   GETUPVAL R2 7
-  LOADK R4 K29 ["thumbs_up"]
-  DUPTABLE R5 K30 [{"requestId"}]
+  LOADK R4 K30 ["thumbs_up"]
+  DUPTABLE R5 K31 [{"requestId"}]
   GETTABLEKS R6 R0 K13 ["messageGuid"]
   SETTABLEKS R6 R5 K10 ["requestId"]
-  NAMECALL R2 R2 K31 ["LogEventAsync"]
+  NAMECALL R2 R2 K32 ["LogEventAsync"]
   CALL R2 3 0
   RETURN R0 0
 
@@ -475,51 +477,51 @@ PROTO_14:
   DUPTABLE R2 K12 [{"requestId", "conversationId"}]
   GETTABLEKS R3 R0 K13 ["messageGuid"]
   SETTABLEKS R3 R2 K10 ["requestId"]
-  GETTABLEKS R3 R0 K11 ["conversationId"]
+  GETTABLEKS R3 R0 K14 ["sessionId"]
   SETTABLEKS R3 R2 K11 ["conversationId"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K14 ["assign"]
+  GETTABLEKS R3 R4 K15 ["assign"]
   MOVE R4 R2
-  DUPTABLE R5 K16 [{"timestampMilliseconds"}]
-  GETIMPORT R7 K19 [DateTime.now]
+  DUPTABLE R5 K17 [{"timestampMilliseconds"}]
+  GETIMPORT R7 K20 [DateTime.now]
   CALL R7 0 1
-  GETTABLEKS R6 R7 K20 ["UnixTimestampMillis"]
-  SETTABLEKS R6 R5 K15 ["timestampMilliseconds"]
+  GETTABLEKS R6 R7 K21 ["UnixTimestampMillis"]
+  SETTABLEKS R6 R5 K16 ["timestampMilliseconds"]
   CALL R3 2 1
   MOVE R1 R3
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K21 ["logEvent"]
+  GETTABLEKS R2 R3 K22 ["logEvent"]
   GETUPVAL R3 5
-  DUPTABLE R4 K23 [{"customFields", "standardizedFields"}]
+  DUPTABLE R4 K24 [{"customFields", "standardizedFields"}]
   SETTABLEKS R1 R4 K1 ["customFields"]
   NEWTABLE R6 0 0
   GETUPVAL R10 6
-  GETTABLEKS R7 R10 K24 ["StandardizedFields"]
+  GETTABLEKS R7 R10 K25 ["StandardizedFields"]
   LOADNIL R8
   LOADNIL R9
   FORGPREP R7
   FASTCALL2 TABLE_INSERT R6 R11 [+5]
   MOVE R13 R6
   MOVE R14 R11
-  GETIMPORT R12 K27 [table.insert]
+  GETIMPORT R12 K28 [table.insert]
   CALL R12 2 0
   FORGLOOP R7 2 [-8]
-  FASTCALL2K TABLE_INSERT R6 K28 [+5]
+  FASTCALL2K TABLE_INSERT R6 K29 [+5]
   MOVE R8 R6
-  LOADK R9 K28 ["addSessionInfo"]
-  GETIMPORT R7 K27 [table.insert]
+  LOADK R9 K29 ["addSessionInfo"]
+  GETIMPORT R7 K28 [table.insert]
   CALL R7 2 0
   MOVE R5 R6
-  SETTABLEKS R5 R4 K22 ["standardizedFields"]
+  SETTABLEKS R5 R4 K23 ["standardizedFields"]
   CALL R2 2 0
   GETUPVAL R2 7
   JUMPIFNOT R2 [+10]
   GETUPVAL R2 7
-  LOADK R4 K29 ["thumbs_down"]
-  DUPTABLE R5 K30 [{"requestId"}]
+  LOADK R4 K30 ["thumbs_down"]
+  DUPTABLE R5 K31 [{"requestId"}]
   GETTABLEKS R6 R0 K13 ["messageGuid"]
   SETTABLEKS R6 R5 K10 ["requestId"]
-  NAMECALL R2 R2 K31 ["LogEventAsync"]
+  NAMECALL R2 R2 K32 ["LogEventAsync"]
   CALL R2 3 0
   RETURN R0 0
 
@@ -574,51 +576,51 @@ PROTO_17:
   DUPTABLE R2 K2 [{"requestId", "conversationId"}]
   GETTABLEKS R3 R0 K3 ["messageGuid"]
   SETTABLEKS R3 R2 K0 ["requestId"]
-  GETTABLEKS R3 R0 K1 ["conversationId"]
+  GETTABLEKS R3 R0 K4 ["sessionId"]
   SETTABLEKS R3 R2 K1 ["conversationId"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K4 ["assign"]
+  GETTABLEKS R3 R4 K5 ["assign"]
   MOVE R4 R2
-  DUPTABLE R5 K6 [{"timestampMilliseconds"}]
-  GETIMPORT R7 K9 [DateTime.now]
+  DUPTABLE R5 K7 [{"timestampMilliseconds"}]
+  GETIMPORT R7 K10 [DateTime.now]
   CALL R7 0 1
-  GETTABLEKS R6 R7 K10 ["UnixTimestampMillis"]
-  SETTABLEKS R6 R5 K5 ["timestampMilliseconds"]
+  GETTABLEKS R6 R7 K11 ["UnixTimestampMillis"]
+  SETTABLEKS R6 R5 K6 ["timestampMilliseconds"]
   CALL R3 2 1
   MOVE R1 R3
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K11 ["logEvent"]
+  GETTABLEKS R2 R3 K12 ["logEvent"]
   GETUPVAL R3 2
-  DUPTABLE R4 K14 [{"customFields", "standardizedFields"}]
-  SETTABLEKS R1 R4 K12 ["customFields"]
+  DUPTABLE R4 K15 [{"customFields", "standardizedFields"}]
+  SETTABLEKS R1 R4 K13 ["customFields"]
   NEWTABLE R6 0 0
   GETUPVAL R10 3
-  GETTABLEKS R7 R10 K15 ["StandardizedFields"]
+  GETTABLEKS R7 R10 K16 ["StandardizedFields"]
   LOADNIL R8
   LOADNIL R9
   FORGPREP R7
   FASTCALL2 TABLE_INSERT R6 R11 [+5]
   MOVE R13 R6
   MOVE R14 R11
-  GETIMPORT R12 K18 [table.insert]
+  GETIMPORT R12 K19 [table.insert]
   CALL R12 2 0
   FORGLOOP R7 2 [-8]
-  FASTCALL2K TABLE_INSERT R6 K19 [+5]
+  FASTCALL2K TABLE_INSERT R6 K20 [+5]
   MOVE R8 R6
-  LOADK R9 K19 ["addSessionInfo"]
-  GETIMPORT R7 K18 [table.insert]
+  LOADK R9 K20 ["addSessionInfo"]
+  GETIMPORT R7 K19 [table.insert]
   CALL R7 2 0
   MOVE R5 R6
-  SETTABLEKS R5 R4 K13 ["standardizedFields"]
+  SETTABLEKS R5 R4 K14 ["standardizedFields"]
   CALL R2 2 0
   GETUPVAL R2 4
   JUMPIFNOT R2 [+10]
   GETUPVAL R2 4
-  LOADK R4 K20 ["retry"]
-  DUPTABLE R5 K21 [{"requestId"}]
+  LOADK R4 K21 ["retry"]
+  DUPTABLE R5 K22 [{"requestId"}]
   GETTABLEKS R6 R0 K3 ["messageGuid"]
   SETTABLEKS R6 R5 K0 ["requestId"]
-  NAMECALL R2 R2 K22 ["LogEventAsync"]
+  NAMECALL R2 R2 K23 ["LogEventAsync"]
   CALL R2 3 0
   RETURN R0 0
 
@@ -626,42 +628,42 @@ PROTO_18:
   DUPTABLE R2 K2 [{"requestId", "conversationId"}]
   GETTABLEKS R3 R0 K3 ["messageGuid"]
   SETTABLEKS R3 R2 K0 ["requestId"]
-  GETTABLEKS R3 R0 K1 ["conversationId"]
+  GETTABLEKS R3 R0 K4 ["sessionId"]
   SETTABLEKS R3 R2 K1 ["conversationId"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K4 ["assign"]
+  GETTABLEKS R3 R4 K5 ["assign"]
   MOVE R4 R2
-  DUPTABLE R5 K6 [{"timestampMilliseconds"}]
-  GETIMPORT R7 K9 [DateTime.now]
+  DUPTABLE R5 K7 [{"timestampMilliseconds"}]
+  GETIMPORT R7 K10 [DateTime.now]
   CALL R7 0 1
-  GETTABLEKS R6 R7 K10 ["UnixTimestampMillis"]
-  SETTABLEKS R6 R5 K5 ["timestampMilliseconds"]
+  GETTABLEKS R6 R7 K11 ["UnixTimestampMillis"]
+  SETTABLEKS R6 R5 K6 ["timestampMilliseconds"]
   CALL R3 2 1
   MOVE R1 R3
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K11 ["logEvent"]
+  GETTABLEKS R2 R3 K12 ["logEvent"]
   GETUPVAL R3 2
-  DUPTABLE R4 K14 [{"customFields", "standardizedFields"}]
-  SETTABLEKS R1 R4 K12 ["customFields"]
+  DUPTABLE R4 K15 [{"customFields", "standardizedFields"}]
+  SETTABLEKS R1 R4 K13 ["customFields"]
   NEWTABLE R6 0 0
   GETUPVAL R10 3
-  GETTABLEKS R7 R10 K15 ["StandardizedFields"]
+  GETTABLEKS R7 R10 K16 ["StandardizedFields"]
   LOADNIL R8
   LOADNIL R9
   FORGPREP R7
   FASTCALL2 TABLE_INSERT R6 R11 [+5]
   MOVE R13 R6
   MOVE R14 R11
-  GETIMPORT R12 K18 [table.insert]
+  GETIMPORT R12 K19 [table.insert]
   CALL R12 2 0
   FORGLOOP R7 2 [-8]
-  FASTCALL2K TABLE_INSERT R6 K19 [+5]
+  FASTCALL2K TABLE_INSERT R6 K20 [+5]
   MOVE R8 R6
-  LOADK R9 K19 ["addSessionInfo"]
-  GETIMPORT R7 K18 [table.insert]
+  LOADK R9 K20 ["addSessionInfo"]
+  GETIMPORT R7 K19 [table.insert]
   CALL R7 2 0
   MOVE R5 R6
-  SETTABLEKS R5 R4 K13 ["standardizedFields"]
+  SETTABLEKS R5 R4 K14 ["standardizedFields"]
   CALL R2 2 0
   RETURN R0 0
 
@@ -669,46 +671,46 @@ PROTO_19:
   DUPTABLE R2 K4 [{"requestId", "conversationId", "toolName", "toolType"}]
   GETTABLEKS R3 R0 K5 ["messageGuid"]
   SETTABLEKS R3 R2 K0 ["requestId"]
-  GETTABLEKS R3 R0 K1 ["conversationId"]
+  GETTABLEKS R3 R0 K6 ["sessionId"]
   SETTABLEKS R3 R2 K1 ["conversationId"]
   GETTABLEKS R3 R0 K2 ["toolName"]
   SETTABLEKS R3 R2 K2 ["toolName"]
   GETTABLEKS R3 R0 K2 ["toolName"]
   SETTABLEKS R3 R2 K3 ["toolType"]
   GETUPVAL R4 0
-  GETTABLEKS R3 R4 K6 ["assign"]
+  GETTABLEKS R3 R4 K7 ["assign"]
   MOVE R4 R2
-  DUPTABLE R5 K8 [{"timestampMilliseconds"}]
-  GETIMPORT R7 K11 [DateTime.now]
+  DUPTABLE R5 K9 [{"timestampMilliseconds"}]
+  GETIMPORT R7 K12 [DateTime.now]
   CALL R7 0 1
-  GETTABLEKS R6 R7 K12 ["UnixTimestampMillis"]
-  SETTABLEKS R6 R5 K7 ["timestampMilliseconds"]
+  GETTABLEKS R6 R7 K13 ["UnixTimestampMillis"]
+  SETTABLEKS R6 R5 K8 ["timestampMilliseconds"]
   CALL R3 2 1
   MOVE R1 R3
   GETUPVAL R3 1
-  GETTABLEKS R2 R3 K13 ["logEvent"]
+  GETTABLEKS R2 R3 K14 ["logEvent"]
   GETUPVAL R3 2
-  DUPTABLE R4 K16 [{"customFields", "standardizedFields"}]
-  SETTABLEKS R1 R4 K14 ["customFields"]
+  DUPTABLE R4 K17 [{"customFields", "standardizedFields"}]
+  SETTABLEKS R1 R4 K15 ["customFields"]
   NEWTABLE R6 0 0
   GETUPVAL R10 3
-  GETTABLEKS R7 R10 K17 ["StandardizedFields"]
+  GETTABLEKS R7 R10 K18 ["StandardizedFields"]
   LOADNIL R8
   LOADNIL R9
   FORGPREP R7
   FASTCALL2 TABLE_INSERT R6 R11 [+5]
   MOVE R13 R6
   MOVE R14 R11
-  GETIMPORT R12 K20 [table.insert]
+  GETIMPORT R12 K21 [table.insert]
   CALL R12 2 0
   FORGLOOP R7 2 [-8]
-  FASTCALL2K TABLE_INSERT R6 K21 [+5]
+  FASTCALL2K TABLE_INSERT R6 K22 [+5]
   MOVE R8 R6
-  LOADK R9 K21 ["addSessionInfo"]
-  GETIMPORT R7 K20 [table.insert]
+  LOADK R9 K22 ["addSessionInfo"]
+  GETIMPORT R7 K21 [table.insert]
   CALL R7 2 0
   MOVE R5 R6
-  SETTABLEKS R5 R4 K15 ["standardizedFields"]
+  SETTABLEKS R5 R4 K16 ["standardizedFields"]
   CALL R2 2 0
   RETURN R0 0
 
@@ -894,7 +896,7 @@ PROTO_23:
   DUPTABLE R2 K16 [{"requestId", "conversationId", "requestEndReason", "requestJourneyDuration", "message", "experimentationGroup"}]
   GETTABLEKS R3 R0 K17 ["messageGuid"]
   SETTABLEKS R3 R2 K4 ["requestId"]
-  GETTABLEKS R3 R0 K14 ["conversationId"]
+  GETTABLEKS R3 R0 K18 ["sessionId"]
   SETTABLEKS R3 R2 K14 ["conversationId"]
   GETTABLEKS R3 R0 K6 ["requestEndReason"]
   SETTABLEKS R3 R2 K6 ["requestEndReason"]
@@ -922,39 +924,39 @@ PROTO_23:
   MOVE R3 R6
   SETTABLEKS R3 R2 K8 ["experimentationGroup"]
   GETUPVAL R4 2
-  GETTABLEKS R3 R4 K18 ["assign"]
+  GETTABLEKS R3 R4 K19 ["assign"]
   MOVE R4 R2
-  DUPTABLE R5 K20 [{"timestampMilliseconds"}]
-  GETIMPORT R7 K23 [DateTime.now]
+  DUPTABLE R5 K21 [{"timestampMilliseconds"}]
+  GETIMPORT R7 K24 [DateTime.now]
   CALL R7 0 1
-  GETTABLEKS R6 R7 K24 ["UnixTimestampMillis"]
-  SETTABLEKS R6 R5 K19 ["timestampMilliseconds"]
+  GETTABLEKS R6 R7 K25 ["UnixTimestampMillis"]
+  SETTABLEKS R6 R5 K20 ["timestampMilliseconds"]
   CALL R3 2 1
   MOVE R1 R3
   GETUPVAL R3 0
-  GETTABLEKS R2 R3 K25 ["logEvent"]
+  GETTABLEKS R2 R3 K26 ["logEvent"]
   GETUPVAL R3 5
-  DUPTABLE R4 K27 [{"customFields", "standardizedFields"}]
+  DUPTABLE R4 K28 [{"customFields", "standardizedFields"}]
   SETTABLEKS R1 R4 K2 ["customFields"]
   NEWTABLE R6 0 0
   GETUPVAL R10 6
-  GETTABLEKS R7 R10 K28 ["StandardizedFields"]
+  GETTABLEKS R7 R10 K29 ["StandardizedFields"]
   LOADNIL R8
   LOADNIL R9
   FORGPREP R7
   FASTCALL2 TABLE_INSERT R6 R11 [+5]
   MOVE R13 R6
   MOVE R14 R11
-  GETIMPORT R12 K31 [table.insert]
+  GETIMPORT R12 K32 [table.insert]
   CALL R12 2 0
   FORGLOOP R7 2 [-8]
-  FASTCALL2K TABLE_INSERT R6 K32 [+5]
+  FASTCALL2K TABLE_INSERT R6 K33 [+5]
   MOVE R8 R6
-  LOADK R9 K32 ["addSessionInfo"]
-  GETIMPORT R7 K31 [table.insert]
+  LOADK R9 K33 ["addSessionInfo"]
+  GETIMPORT R7 K32 [table.insert]
   CALL R7 2 0
   MOVE R5 R6
-  SETTABLEKS R5 R4 K26 ["standardizedFields"]
+  SETTABLEKS R5 R4 K27 ["standardizedFields"]
   CALL R2 2 0
   RETURN R0 0
 
@@ -1004,6 +1006,433 @@ PROTO_24:
   RETURN R0 0
 
 PROTO_25:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["logCounter"]
+  GETUPVAL R1 1
+  LOADN R2 1
+  DUPTABLE R3 K2 [{"customFields"}]
+  NEWTABLE R5 0 0
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K3 ["join"]
+  MOVE R7 R5
+  DUPTABLE R8 K5 [{"experimentationGroup"}]
+  GETUPVAL R10 3
+  NAMECALL R10 R10 K6 ["get"]
+  CALL R10 1 1
+  JUMPIFNOTEQKNIL R10 [+3]
+  LOADNIL R9
+  JUMP [+16]
+  GETUPVAL R12 4
+  GETTABLE R11 R10 R12
+  JUMPIFNOTEQKNIL R11 [+3]
+  GETTABLEKS R11 R10 K7 ["generatedExperimentVariantDistributionVariable"]
+  JUMPIFNOTEQKNIL R11 [+3]
+  LOADNIL R9
+  JUMP [+6]
+  FASTCALL1 TOSTRING R11 [+3]
+  MOVE R13 R11
+  GETIMPORT R12 K9 [tostring]
+  CALL R12 1 1
+  MOVE R9 R12
+  SETTABLEKS R9 R8 K4 ["experimentationGroup"]
+  CALL R6 2 1
+  MOVE R4 R6
+  SETTABLEKS R4 R3 K1 ["customFields"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_26:
+  GETTABLEKS R1 R0 K0 ["success"]
+  JUMPIFNOT R1 [+45]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["logCounter"]
+  GETUPVAL R2 1
+  LOADN R3 1
+  DUPTABLE R4 K3 [{"customFields"}]
+  NEWTABLE R6 0 0
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K4 ["join"]
+  MOVE R8 R6
+  DUPTABLE R9 K6 [{"experimentationGroup"}]
+  GETUPVAL R11 3
+  NAMECALL R11 R11 K7 ["get"]
+  CALL R11 1 1
+  JUMPIFNOTEQKNIL R11 [+3]
+  LOADNIL R10
+  JUMP [+16]
+  GETUPVAL R13 4
+  GETTABLE R12 R11 R13
+  JUMPIFNOTEQKNIL R12 [+3]
+  GETTABLEKS R12 R11 K8 ["generatedExperimentVariantDistributionVariable"]
+  JUMPIFNOTEQKNIL R12 [+3]
+  LOADNIL R10
+  JUMP [+6]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R14 R12
+  GETIMPORT R13 K10 [tostring]
+  CALL R13 1 1
+  MOVE R10 R13
+  SETTABLEKS R10 R9 K5 ["experimentationGroup"]
+  CALL R7 2 1
+  MOVE R5 R7
+  SETTABLEKS R5 R4 K2 ["customFields"]
+  CALL R1 3 0
+  JUMP [+44]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["logCounter"]
+  GETUPVAL R2 5
+  LOADN R3 1
+  DUPTABLE R4 K3 [{"customFields"}]
+  NEWTABLE R6 0 0
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K4 ["join"]
+  MOVE R8 R6
+  DUPTABLE R9 K6 [{"experimentationGroup"}]
+  GETUPVAL R11 3
+  NAMECALL R11 R11 K7 ["get"]
+  CALL R11 1 1
+  JUMPIFNOTEQKNIL R11 [+3]
+  LOADNIL R10
+  JUMP [+16]
+  GETUPVAL R13 4
+  GETTABLE R12 R11 R13
+  JUMPIFNOTEQKNIL R12 [+3]
+  GETTABLEKS R12 R11 K8 ["generatedExperimentVariantDistributionVariable"]
+  JUMPIFNOTEQKNIL R12 [+3]
+  LOADNIL R10
+  JUMP [+6]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R14 R12
+  GETIMPORT R13 K10 [tostring]
+  CALL R13 1 1
+  MOVE R10 R13
+  SETTABLEKS R10 R9 K5 ["experimentationGroup"]
+  CALL R7 2 1
+  MOVE R5 R7
+  SETTABLEKS R5 R4 K2 ["customFields"]
+  CALL R1 3 0
+  DUPTABLE R2 K15 [{"requestId", "generationId", "success", "errorMessage", "prompt"}]
+  GETTABLEKS R3 R0 K11 ["requestId"]
+  SETTABLEKS R3 R2 K11 ["requestId"]
+  GETTABLEKS R3 R0 K12 ["generationId"]
+  SETTABLEKS R3 R2 K12 ["generationId"]
+  GETTABLEKS R3 R0 K0 ["success"]
+  SETTABLEKS R3 R2 K0 ["success"]
+  GETTABLEKS R3 R0 K13 ["errorMessage"]
+  SETTABLEKS R3 R2 K13 ["errorMessage"]
+  GETTABLEKS R3 R0 K14 ["prompt"]
+  SETTABLEKS R3 R2 K14 ["prompt"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K16 ["assign"]
+  MOVE R4 R2
+  DUPTABLE R5 K18 [{"timestampMilliseconds"}]
+  GETIMPORT R7 K21 [DateTime.now]
+  CALL R7 0 1
+  GETTABLEKS R6 R7 K22 ["UnixTimestampMillis"]
+  SETTABLEKS R6 R5 K17 ["timestampMilliseconds"]
+  CALL R3 2 1
+  MOVE R1 R3
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K23 ["logEvent"]
+  GETUPVAL R3 6
+  DUPTABLE R4 K25 [{"customFields", "standardizedFields"}]
+  SETTABLEKS R1 R4 K2 ["customFields"]
+  NEWTABLE R6 0 0
+  GETUPVAL R10 7
+  GETTABLEKS R7 R10 K26 ["StandardizedFields"]
+  LOADNIL R8
+  LOADNIL R9
+  FORGPREP R7
+  FASTCALL2 TABLE_INSERT R6 R11 [+5]
+  MOVE R13 R6
+  MOVE R14 R11
+  GETIMPORT R12 K29 [table.insert]
+  CALL R12 2 0
+  FORGLOOP R7 2 [-8]
+  FASTCALL2K TABLE_INSERT R6 K30 [+5]
+  MOVE R8 R6
+  LOADK R9 K30 ["addSessionInfo"]
+  GETIMPORT R7 K29 [table.insert]
+  CALL R7 2 0
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K24 ["standardizedFields"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_27:
+  GETTABLEKS R1 R0 K0 ["success"]
+  JUMPIFNOT R1 [+45]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["logCounter"]
+  GETUPVAL R2 1
+  LOADN R3 1
+  DUPTABLE R4 K3 [{"customFields"}]
+  NEWTABLE R6 0 0
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K4 ["join"]
+  MOVE R8 R6
+  DUPTABLE R9 K6 [{"experimentationGroup"}]
+  GETUPVAL R11 3
+  NAMECALL R11 R11 K7 ["get"]
+  CALL R11 1 1
+  JUMPIFNOTEQKNIL R11 [+3]
+  LOADNIL R10
+  JUMP [+16]
+  GETUPVAL R13 4
+  GETTABLE R12 R11 R13
+  JUMPIFNOTEQKNIL R12 [+3]
+  GETTABLEKS R12 R11 K8 ["generatedExperimentVariantDistributionVariable"]
+  JUMPIFNOTEQKNIL R12 [+3]
+  LOADNIL R10
+  JUMP [+6]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R14 R12
+  GETIMPORT R13 K10 [tostring]
+  CALL R13 1 1
+  MOVE R10 R13
+  SETTABLEKS R10 R9 K5 ["experimentationGroup"]
+  CALL R7 2 1
+  MOVE R5 R7
+  SETTABLEKS R5 R4 K2 ["customFields"]
+  CALL R1 3 0
+  JUMP [+44]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["logCounter"]
+  GETUPVAL R2 5
+  LOADN R3 1
+  DUPTABLE R4 K3 [{"customFields"}]
+  NEWTABLE R6 0 0
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K4 ["join"]
+  MOVE R8 R6
+  DUPTABLE R9 K6 [{"experimentationGroup"}]
+  GETUPVAL R11 3
+  NAMECALL R11 R11 K7 ["get"]
+  CALL R11 1 1
+  JUMPIFNOTEQKNIL R11 [+3]
+  LOADNIL R10
+  JUMP [+16]
+  GETUPVAL R13 4
+  GETTABLE R12 R11 R13
+  JUMPIFNOTEQKNIL R12 [+3]
+  GETTABLEKS R12 R11 K8 ["generatedExperimentVariantDistributionVariable"]
+  JUMPIFNOTEQKNIL R12 [+3]
+  LOADNIL R10
+  JUMP [+6]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R14 R12
+  GETIMPORT R13 K10 [tostring]
+  CALL R13 1 1
+  MOVE R10 R13
+  SETTABLEKS R10 R9 K5 ["experimentationGroup"]
+  CALL R7 2 1
+  MOVE R5 R7
+  SETTABLEKS R5 R4 K2 ["customFields"]
+  CALL R1 3 0
+  DUPTABLE R2 K16 [{"requestId", "generationId", "success", "errorMessage", "meshId", "imageId"}]
+  GETTABLEKS R3 R0 K11 ["requestId"]
+  SETTABLEKS R3 R2 K11 ["requestId"]
+  GETTABLEKS R3 R0 K12 ["generationId"]
+  SETTABLEKS R3 R2 K12 ["generationId"]
+  GETTABLEKS R3 R0 K0 ["success"]
+  SETTABLEKS R3 R2 K0 ["success"]
+  GETTABLEKS R3 R0 K13 ["errorMessage"]
+  SETTABLEKS R3 R2 K13 ["errorMessage"]
+  GETTABLEKS R3 R0 K14 ["meshId"]
+  SETTABLEKS R3 R2 K14 ["meshId"]
+  GETTABLEKS R3 R0 K15 ["imageId"]
+  SETTABLEKS R3 R2 K15 ["imageId"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K17 ["assign"]
+  MOVE R4 R2
+  DUPTABLE R5 K19 [{"timestampMilliseconds"}]
+  GETIMPORT R7 K22 [DateTime.now]
+  CALL R7 0 1
+  GETTABLEKS R6 R7 K23 ["UnixTimestampMillis"]
+  SETTABLEKS R6 R5 K18 ["timestampMilliseconds"]
+  CALL R3 2 1
+  MOVE R1 R3
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K24 ["logEvent"]
+  GETUPVAL R3 6
+  DUPTABLE R4 K26 [{"customFields", "standardizedFields"}]
+  SETTABLEKS R1 R4 K2 ["customFields"]
+  NEWTABLE R6 0 0
+  GETUPVAL R10 7
+  GETTABLEKS R7 R10 K27 ["StandardizedFields"]
+  LOADNIL R8
+  LOADNIL R9
+  FORGPREP R7
+  FASTCALL2 TABLE_INSERT R6 R11 [+5]
+  MOVE R13 R6
+  MOVE R14 R11
+  GETIMPORT R12 K30 [table.insert]
+  CALL R12 2 0
+  FORGLOOP R7 2 [-8]
+  FASTCALL2K TABLE_INSERT R6 K31 [+5]
+  MOVE R8 R6
+  LOADK R9 K31 ["addSessionInfo"]
+  GETIMPORT R7 K30 [table.insert]
+  CALL R7 2 0
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K25 ["standardizedFields"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_28:
+  GETTABLEKS R1 R0 K0 ["success"]
+  JUMPIFNOT R1 [+45]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["logCounter"]
+  GETUPVAL R2 1
+  LOADN R3 1
+  DUPTABLE R4 K3 [{"customFields"}]
+  NEWTABLE R6 0 0
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K4 ["join"]
+  MOVE R8 R6
+  DUPTABLE R9 K6 [{"experimentationGroup"}]
+  GETUPVAL R11 3
+  NAMECALL R11 R11 K7 ["get"]
+  CALL R11 1 1
+  JUMPIFNOTEQKNIL R11 [+3]
+  LOADNIL R10
+  JUMP [+16]
+  GETUPVAL R13 4
+  GETTABLE R12 R11 R13
+  JUMPIFNOTEQKNIL R12 [+3]
+  GETTABLEKS R12 R11 K8 ["generatedExperimentVariantDistributionVariable"]
+  JUMPIFNOTEQKNIL R12 [+3]
+  LOADNIL R10
+  JUMP [+6]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R14 R12
+  GETIMPORT R13 K10 [tostring]
+  CALL R13 1 1
+  MOVE R10 R13
+  SETTABLEKS R10 R9 K5 ["experimentationGroup"]
+  CALL R7 2 1
+  MOVE R5 R7
+  SETTABLEKS R5 R4 K2 ["customFields"]
+  CALL R1 3 0
+  JUMP [+44]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["logCounter"]
+  GETUPVAL R2 5
+  LOADN R3 1
+  DUPTABLE R4 K3 [{"customFields"}]
+  NEWTABLE R6 0 0
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K4 ["join"]
+  MOVE R8 R6
+  DUPTABLE R9 K6 [{"experimentationGroup"}]
+  GETUPVAL R11 3
+  NAMECALL R11 R11 K7 ["get"]
+  CALL R11 1 1
+  JUMPIFNOTEQKNIL R11 [+3]
+  LOADNIL R10
+  JUMP [+16]
+  GETUPVAL R13 4
+  GETTABLE R12 R11 R13
+  JUMPIFNOTEQKNIL R12 [+3]
+  GETTABLEKS R12 R11 K8 ["generatedExperimentVariantDistributionVariable"]
+  JUMPIFNOTEQKNIL R12 [+3]
+  LOADNIL R10
+  JUMP [+6]
+  FASTCALL1 TOSTRING R12 [+3]
+  MOVE R14 R12
+  GETIMPORT R13 K10 [tostring]
+  CALL R13 1 1
+  MOVE R10 R13
+  SETTABLEKS R10 R9 K5 ["experimentationGroup"]
+  CALL R7 2 1
+  MOVE R5 R7
+  SETTABLEKS R5 R4 K2 ["customFields"]
+  CALL R1 3 0
+  DUPTABLE R2 K14 [{"requestId", "generationId", "success", "errorMessage"}]
+  GETTABLEKS R3 R0 K11 ["requestId"]
+  SETTABLEKS R3 R2 K11 ["requestId"]
+  GETTABLEKS R3 R0 K12 ["generationId"]
+  SETTABLEKS R3 R2 K12 ["generationId"]
+  GETTABLEKS R3 R0 K0 ["success"]
+  SETTABLEKS R3 R2 K0 ["success"]
+  GETTABLEKS R3 R0 K13 ["errorMessage"]
+  SETTABLEKS R3 R2 K13 ["errorMessage"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K15 ["assign"]
+  MOVE R4 R2
+  DUPTABLE R5 K17 [{"timestampMilliseconds"}]
+  GETIMPORT R7 K20 [DateTime.now]
+  CALL R7 0 1
+  GETTABLEKS R6 R7 K21 ["UnixTimestampMillis"]
+  SETTABLEKS R6 R5 K16 ["timestampMilliseconds"]
+  CALL R3 2 1
+  MOVE R1 R3
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K22 ["logEvent"]
+  GETUPVAL R3 6
+  DUPTABLE R4 K24 [{"customFields", "standardizedFields"}]
+  SETTABLEKS R1 R4 K2 ["customFields"]
+  NEWTABLE R6 0 0
+  GETUPVAL R10 7
+  GETTABLEKS R7 R10 K25 ["StandardizedFields"]
+  LOADNIL R8
+  LOADNIL R9
+  FORGPREP R7
+  FASTCALL2 TABLE_INSERT R6 R11 [+5]
+  MOVE R13 R6
+  MOVE R14 R11
+  GETIMPORT R12 K28 [table.insert]
+  CALL R12 2 0
+  FORGLOOP R7 2 [-8]
+  FASTCALL2K TABLE_INSERT R6 K29 [+5]
+  MOVE R8 R6
+  LOADK R9 K29 ["addSessionInfo"]
+  GETIMPORT R7 K28 [table.insert]
+  CALL R7 2 0
+  MOVE R5 R6
+  SETTABLEKS R5 R4 K23 ["standardizedFields"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_29:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["logEvent"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K3 [{"customFields", "standardizedFields"}]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K4 ["assign"]
+  MOVE R5 R0
+  DUPTABLE R6 K6 [{"timestampMilliseconds"}]
+  GETIMPORT R8 K9 [DateTime.now]
+  CALL R8 0 1
+  GETTABLEKS R7 R8 K10 ["UnixTimestampMillis"]
+  SETTABLEKS R7 R6 K5 ["timestampMilliseconds"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K1 ["customFields"]
+  NEWTABLE R5 0 0
+  GETUPVAL R9 3
+  GETTABLEKS R6 R9 K11 ["StandardizedFields"]
+  LOADNIL R7
+  LOADNIL R8
+  FORGPREP R6
+  FASTCALL2 TABLE_INSERT R5 R10 [+5]
+  MOVE R12 R5
+  MOVE R13 R10
+  GETIMPORT R11 K14 [table.insert]
+  CALL R11 2 0
+  FORGLOOP R6 2 [-8]
+  FASTCALL2K TABLE_INSERT R5 K15 [+5]
+  MOVE R7 R5
+  LOADK R8 K15 ["addSessionInfo"]
+  GETIMPORT R6 K14 [table.insert]
+  CALL R6 2 0
+  MOVE R4 R5
+  SETTABLEKS R4 R3 K2 ["standardizedFields"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_30:
   NEWCLOSURE R1 P0
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
@@ -1101,28 +1530,71 @@ PROTO_25:
   CAPTURE UPVAL U0
   CAPTURE UPVAL U24
   CAPTURE UPVAL U7
-  DUPTABLE R17 K30 [{"logUserMessageSent", "logAssistantMessageSent", "logApiKeyAdded", "logErrorEvent", "logExternalAPIError", "logThumbsUp", "logThumbsDown", "logInitialResponseLatency", "logMarkdownError", "logRetry", "logStopGeneration", "logToolStarted", "logToolEnded", "logToolConfirmationShown", "logToolConfirmationResult", "logRequestJourney", "getMessageGuid", "createMessageGuid"}]
-  SETTABLEKS R1 R17 K12 ["logUserMessageSent"]
-  SETTABLEKS R2 R17 K13 ["logAssistantMessageSent"]
-  SETTABLEKS R3 R17 K14 ["logApiKeyAdded"]
-  SETTABLEKS R4 R17 K15 ["logErrorEvent"]
-  SETTABLEKS R16 R17 K16 ["logExternalAPIError"]
-  SETTABLEKS R5 R17 K17 ["logThumbsUp"]
-  SETTABLEKS R6 R17 K18 ["logThumbsDown"]
-  SETTABLEKS R7 R17 K19 ["logInitialResponseLatency"]
-  SETTABLEKS R8 R17 K20 ["logMarkdownError"]
-  SETTABLEKS R9 R17 K21 ["logRetry"]
-  SETTABLEKS R10 R17 K22 ["logStopGeneration"]
-  SETTABLEKS R11 R17 K23 ["logToolStarted"]
-  SETTABLEKS R12 R17 K24 ["logToolEnded"]
-  SETTABLEKS R13 R17 K25 ["logToolConfirmationShown"]
-  SETTABLEKS R14 R17 K26 ["logToolConfirmationResult"]
-  SETTABLEKS R15 R17 K27 ["logRequestJourney"]
-  GETUPVAL R18 25
-  SETTABLEKS R18 R17 K28 ["getMessageGuid"]
-  GETUPVAL R18 26
-  SETTABLEKS R18 R17 K29 ["createMessageGuid"]
-  RETURN R17 1
+  DUPCLOSURE R17 K12 [PROTO_25]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U25
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  DUPCLOSURE R18 K13 [PROTO_26]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U26
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U27
+  CAPTURE UPVAL U28
+  CAPTURE UPVAL U7
+  DUPCLOSURE R19 K14 [PROTO_27]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U29
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U30
+  CAPTURE UPVAL U31
+  CAPTURE UPVAL U7
+  DUPCLOSURE R20 K15 [PROTO_28]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U32
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U33
+  CAPTURE UPVAL U34
+  CAPTURE UPVAL U7
+  DUPCLOSURE R21 K16 [PROTO_29]
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U35
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U7
+  DUPTABLE R22 K40 [{"logUserMessageSent", "logAssistantMessageSent", "logApiKeyAdded", "logErrorEvent", "logExternalAPIError", "logThumbsUp", "logThumbsDown", "logInitialResponseLatency", "logMarkdownError", "logRetry", "logStopGeneration", "logToolStarted", "logToolEnded", "logToolConfirmationShown", "logToolConfirmationResult", "logRequestJourney", "logMeshGenActivated", "logMeshGenCompleted", "logMeshGenPublishedAssets", "logMeshGenMeshInserted", "logIntegrationEvent", "getMessageGuid", "createMessageGuid"}]
+  SETTABLEKS R1 R22 K17 ["logUserMessageSent"]
+  SETTABLEKS R2 R22 K18 ["logAssistantMessageSent"]
+  SETTABLEKS R3 R22 K19 ["logApiKeyAdded"]
+  SETTABLEKS R4 R22 K20 ["logErrorEvent"]
+  SETTABLEKS R16 R22 K21 ["logExternalAPIError"]
+  SETTABLEKS R5 R22 K22 ["logThumbsUp"]
+  SETTABLEKS R6 R22 K23 ["logThumbsDown"]
+  SETTABLEKS R7 R22 K24 ["logInitialResponseLatency"]
+  SETTABLEKS R8 R22 K25 ["logMarkdownError"]
+  SETTABLEKS R9 R22 K26 ["logRetry"]
+  SETTABLEKS R10 R22 K27 ["logStopGeneration"]
+  SETTABLEKS R11 R22 K28 ["logToolStarted"]
+  SETTABLEKS R12 R22 K29 ["logToolEnded"]
+  SETTABLEKS R13 R22 K30 ["logToolConfirmationShown"]
+  SETTABLEKS R14 R22 K31 ["logToolConfirmationResult"]
+  SETTABLEKS R15 R22 K32 ["logRequestJourney"]
+  SETTABLEKS R17 R22 K33 ["logMeshGenActivated"]
+  SETTABLEKS R18 R22 K34 ["logMeshGenCompleted"]
+  SETTABLEKS R19 R22 K35 ["logMeshGenPublishedAssets"]
+  SETTABLEKS R20 R22 K36 ["logMeshGenMeshInserted"]
+  SETTABLEKS R21 R22 K37 ["logIntegrationEvent"]
+  GETUPVAL R23 36
+  SETTABLEKS R23 R22 K38 ["getMessageGuid"]
+  GETUPVAL R23 37
+  SETTABLEKS R23 R22 K39 ["createMessageGuid"]
+  RETURN R22 1
 
 MAIN:
   PREPVARARGS 0
@@ -1505,34 +1977,216 @@ MAIN:
   SETLIST R38 R39 3 [1]
   SETTABLEKS R38 R37 K40 ["lastUpdated"]
   CALL R36 1 1
-  DUPCLOSURE R37 K84 [PROTO_3]
+  GETIMPORT R37 K31 [table.freeze]
+  DUPTABLE R38 K41 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R39 K84 ["CAPMeshGenActivated"]
+  SETTABLEKS R39 R38 K37 ["eventName"]
+  NEWTABLE R39 0 1
+  GETTABLEKS R41 R5 K32 ["Backends"]
+  GETTABLEKS R40 R41 K43 ["RobloxTelemetryCounter"]
+  SETLIST R39 R40 1 [1]
+  SETTABLEKS R39 R38 K38 ["backends"]
+  LOADK R39 K85 ["Count of MeshGen tool activations."]
+  SETTABLEKS R39 R38 K39 ["description"]
+  NEWTABLE R39 0 3
+  LOADN R40 26
+  LOADN R41 2
+  LOADN R42 6
+  SETLIST R39 R40 3 [1]
+  SETTABLEKS R39 R38 K40 ["lastUpdated"]
+  CALL R37 1 1
+  GETIMPORT R38 K31 [table.freeze]
+  DUPTABLE R39 K41 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R40 K86 ["CAPMeshGenCompletedSuccess"]
+  SETTABLEKS R40 R39 K37 ["eventName"]
+  NEWTABLE R40 0 1
+  GETTABLEKS R42 R5 K32 ["Backends"]
+  GETTABLEKS R41 R42 K43 ["RobloxTelemetryCounter"]
+  SETLIST R40 R41 1 [1]
+  SETTABLEKS R40 R39 K38 ["backends"]
+  LOADK R40 K87 ["Count of successful MeshGen completions."]
+  SETTABLEKS R40 R39 K39 ["description"]
+  NEWTABLE R40 0 3
+  LOADN R41 26
+  LOADN R42 2
+  LOADN R43 6
+  SETLIST R40 R41 3 [1]
+  SETTABLEKS R40 R39 K40 ["lastUpdated"]
+  CALL R38 1 1
+  GETIMPORT R39 K31 [table.freeze]
+  DUPTABLE R40 K41 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R41 K88 ["CAPMeshGenCompletedFailure"]
+  SETTABLEKS R41 R40 K37 ["eventName"]
+  NEWTABLE R41 0 1
+  GETTABLEKS R43 R5 K32 ["Backends"]
+  GETTABLEKS R42 R43 K43 ["RobloxTelemetryCounter"]
+  SETLIST R41 R42 1 [1]
+  SETTABLEKS R41 R40 K38 ["backends"]
+  LOADK R41 K89 ["Count of failed MeshGen completions."]
+  SETTABLEKS R41 R40 K39 ["description"]
+  NEWTABLE R41 0 3
+  LOADN R42 26
+  LOADN R43 2
+  LOADN R44 6
+  SETLIST R41 R42 3 [1]
+  SETTABLEKS R41 R40 K40 ["lastUpdated"]
+  CALL R39 1 1
+  GETIMPORT R40 K31 [table.freeze]
+  DUPTABLE R41 K41 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R42 K90 ["CAPMeshGenCompleted"]
+  SETTABLEKS R42 R41 K37 ["eventName"]
+  SETTABLEKS R17 R41 K38 ["backends"]
+  LOADK R42 K91 ["MeshGen generation completed event with details."]
+  SETTABLEKS R42 R41 K39 ["description"]
+  NEWTABLE R42 0 3
+  LOADN R43 26
+  LOADN R44 2
+  LOADN R45 6
+  SETLIST R42 R43 3 [1]
+  SETTABLEKS R42 R41 K40 ["lastUpdated"]
+  CALL R40 1 1
+  GETIMPORT R41 K31 [table.freeze]
+  DUPTABLE R42 K41 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R43 K92 ["CAPMeshGenPublishedAssetsSuccess"]
+  SETTABLEKS R43 R42 K37 ["eventName"]
+  NEWTABLE R43 0 1
+  GETTABLEKS R45 R5 K32 ["Backends"]
+  GETTABLEKS R44 R45 K43 ["RobloxTelemetryCounter"]
+  SETLIST R43 R44 1 [1]
+  SETTABLEKS R43 R42 K38 ["backends"]
+  LOADK R43 K93 ["Count of successful MeshGen asset publications."]
+  SETTABLEKS R43 R42 K39 ["description"]
+  NEWTABLE R43 0 3
+  LOADN R44 26
+  LOADN R45 2
+  LOADN R46 6
+  SETLIST R43 R44 3 [1]
+  SETTABLEKS R43 R42 K40 ["lastUpdated"]
+  CALL R41 1 1
+  GETIMPORT R42 K31 [table.freeze]
+  DUPTABLE R43 K41 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R44 K94 ["CAPMeshGenPublishedAssetsFailure"]
+  SETTABLEKS R44 R43 K37 ["eventName"]
+  NEWTABLE R44 0 1
+  GETTABLEKS R46 R5 K32 ["Backends"]
+  GETTABLEKS R45 R46 K43 ["RobloxTelemetryCounter"]
+  SETLIST R44 R45 1 [1]
+  SETTABLEKS R44 R43 K38 ["backends"]
+  LOADK R44 K95 ["Count of failed MeshGen asset publications."]
+  SETTABLEKS R44 R43 K39 ["description"]
+  NEWTABLE R44 0 3
+  LOADN R45 26
+  LOADN R46 2
+  LOADN R47 6
+  SETLIST R44 R45 3 [1]
+  SETTABLEKS R44 R43 K40 ["lastUpdated"]
+  CALL R42 1 1
+  GETIMPORT R43 K31 [table.freeze]
+  DUPTABLE R44 K41 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R45 K96 ["CAPMeshGenPublishedAssets"]
+  SETTABLEKS R45 R44 K37 ["eventName"]
+  SETTABLEKS R17 R44 K38 ["backends"]
+  LOADK R45 K97 ["MeshGen assets published event with details."]
+  SETTABLEKS R45 R44 K39 ["description"]
+  NEWTABLE R45 0 3
+  LOADN R46 26
+  LOADN R47 2
+  LOADN R48 6
+  SETLIST R45 R46 3 [1]
+  SETTABLEKS R45 R44 K40 ["lastUpdated"]
+  CALL R43 1 1
+  GETIMPORT R44 K31 [table.freeze]
+  DUPTABLE R45 K41 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R46 K98 ["CAPMeshGenMeshInsertedSuccess"]
+  SETTABLEKS R46 R45 K37 ["eventName"]
+  NEWTABLE R46 0 1
+  GETTABLEKS R48 R5 K32 ["Backends"]
+  GETTABLEKS R47 R48 K43 ["RobloxTelemetryCounter"]
+  SETLIST R46 R47 1 [1]
+  SETTABLEKS R46 R45 K38 ["backends"]
+  LOADK R46 K99 ["Count of successful MeshGen mesh insertions."]
+  SETTABLEKS R46 R45 K39 ["description"]
+  NEWTABLE R46 0 3
+  LOADN R47 26
+  LOADN R48 2
+  LOADN R49 6
+  SETLIST R46 R47 3 [1]
+  SETTABLEKS R46 R45 K40 ["lastUpdated"]
+  CALL R44 1 1
+  GETIMPORT R45 K31 [table.freeze]
+  DUPTABLE R46 K41 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R47 K100 ["CAPMeshGenMeshInsertedFailure"]
+  SETTABLEKS R47 R46 K37 ["eventName"]
+  NEWTABLE R47 0 1
+  GETTABLEKS R49 R5 K32 ["Backends"]
+  GETTABLEKS R48 R49 K43 ["RobloxTelemetryCounter"]
+  SETLIST R47 R48 1 [1]
+  SETTABLEKS R47 R46 K38 ["backends"]
+  LOADK R47 K101 ["Count of failed MeshGen mesh insertions."]
+  SETTABLEKS R47 R46 K39 ["description"]
+  NEWTABLE R47 0 3
+  LOADN R48 26
+  LOADN R49 2
+  LOADN R50 6
+  SETLIST R47 R48 3 [1]
+  SETTABLEKS R47 R46 K40 ["lastUpdated"]
+  CALL R45 1 1
+  GETIMPORT R46 K31 [table.freeze]
+  DUPTABLE R47 K41 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R48 K102 ["CAPMeshGenMeshInserted"]
+  SETTABLEKS R48 R47 K37 ["eventName"]
+  SETTABLEKS R17 R47 K38 ["backends"]
+  LOADK R48 K103 ["MeshGen mesh inserted event with details."]
+  SETTABLEKS R48 R47 K39 ["description"]
+  NEWTABLE R48 0 3
+  LOADN R49 26
+  LOADN R50 2
+  LOADN R51 6
+  SETLIST R48 R49 3 [1]
+  SETTABLEKS R48 R47 K40 ["lastUpdated"]
+  CALL R46 1 1
+  GETIMPORT R47 K31 [table.freeze]
+  DUPTABLE R48 K41 [{"eventName", "backends", "description", "lastUpdated"}]
+  LOADK R49 K104 ["StudioAssistantIntegrationAction"]
+  SETTABLEKS R49 R48 K37 ["eventName"]
+  SETTABLEKS R17 R48 K38 ["backends"]
+  LOADK R49 K105 ["Integration event with action, label, and URL."]
+  SETTABLEKS R49 R48 K39 ["description"]
+  NEWTABLE R49 0 3
+  LOADN R50 26
+  LOADN R51 2
+  LOADN R52 3
+  SETLIST R49 R50 3 [1]
+  SETTABLEKS R49 R48 K40 ["lastUpdated"]
+  CALL R47 1 1
+  DUPCLOSURE R48 K106 [PROTO_3]
   CAPTURE VAL R13
-  DUPCLOSURE R38 K85 [PROTO_4]
+  DUPCLOSURE R49 K107 [PROTO_4]
   CAPTURE VAL R13
   CAPTURE VAL R1
-  DUPCLOSURE R39 K86 [PROTO_5]
-  DUPCLOSURE R40 K87 [PROTO_6]
+  DUPCLOSURE R50 K108 [PROTO_5]
+  DUPCLOSURE R51 K109 [PROTO_6]
   CAPTURE VAL R4
-  MOVE R41 R9
-  CALL R41 0 1
-  GETTABLEKS R42 R12 K88 ["new"]
-  MOVE R43 R2
-  MOVE R44 R10
-  CALL R44 0 -1
-  CALL R42 -1 1
-  DUPCLOSURE R43 K89 [PROTO_7]
-  CAPTURE VAL R42
-  CAPTURE VAL R41
-  DUPCLOSURE R44 K90 [PROTO_8]
+  MOVE R52 R9
+  CALL R52 0 1
+  GETTABLEKS R53 R12 K110 ["new"]
+  MOVE R54 R2
+  MOVE R55 R10
+  CALL R55 0 -1
+  CALL R53 -1 1
+  DUPCLOSURE R54 K111 [PROTO_7]
+  CAPTURE VAL R53
+  CAPTURE VAL R52
+  DUPCLOSURE R55 K112 [PROTO_8]
   CAPTURE VAL R4
-  CAPTURE VAL R42
-  CAPTURE VAL R41
-  DUPCLOSURE R45 K91 [PROTO_25]
+  CAPTURE VAL R53
+  CAPTURE VAL R52
+  DUPCLOSURE R56 K113 [PROTO_30]
   CAPTURE VAL R5
   CAPTURE VAL R18
   CAPTURE VAL R4
-  CAPTURE VAL R42
-  CAPTURE VAL R41
+  CAPTURE VAL R53
+  CAPTURE VAL R52
   CAPTURE VAL R11
   CAPTURE VAL R19
   CAPTURE VAL R6
@@ -1555,4 +2209,15 @@ MAIN:
   CAPTURE VAL R36
   CAPTURE VAL R37
   CAPTURE VAL R38
-  RETURN R45 1
+  CAPTURE VAL R39
+  CAPTURE VAL R40
+  CAPTURE VAL R41
+  CAPTURE VAL R42
+  CAPTURE VAL R43
+  CAPTURE VAL R44
+  CAPTURE VAL R45
+  CAPTURE VAL R46
+  CAPTURE VAL R47
+  CAPTURE VAL R48
+  CAPTURE VAL R49
+  RETURN R56 1

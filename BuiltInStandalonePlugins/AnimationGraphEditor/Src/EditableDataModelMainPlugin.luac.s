@@ -1,0 +1,280 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["ContextServices"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  GETTABLEKS R0 R1 K2 ["new"]
+  DUPTABLE R1 K6 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K7 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Resources"]
+  GETTABLEKS R3 R4 K1 ["Localization"]
+  GETTABLEKS R2 R3 K9 ["SourceStrings"]
+  SETTABLEKS R2 R1 K3 ["stringResourceTable"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K7 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Resources"]
+  GETTABLEKS R3 R4 K1 ["Localization"]
+  GETTABLEKS R2 R3 K10 ["LocalizedStrings"]
+  SETTABLEKS R2 R1 K4 ["translationResourceTable"]
+  LOADK R2 K11 ["AnimationGraphEditor"]
+  SETTABLEKS R2 R1 K5 ["pluginName"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Contexts"]
+  GETTABLEKS R2 R3 K1 ["Localization"]
+  GETTABLEKS R1 R2 K1 ["Localization"]
+  GETTABLEKS R0 R1 K2 ["new"]
+  DUPTABLE R1 K6 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K7 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Resources"]
+  GETTABLEKS R3 R4 K1 ["Localization"]
+  GETTABLEKS R2 R3 K9 ["SourceStrings"]
+  SETTABLEKS R2 R1 K3 ["stringResourceTable"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K7 ["Src"]
+  GETTABLEKS R4 R5 K8 ["Resources"]
+  GETTABLEKS R3 R4 K1 ["Localization"]
+  GETTABLEKS R2 R3 K10 ["LocalizedStrings"]
+  SETTABLEKS R2 R1 K4 ["translationResourceTable"]
+  LOADK R2 K11 ["AnimationGraphEditor"]
+  SETTABLEKS R2 R1 K5 ["pluginName"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_2:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["destroy"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  NEWCLOSURE R0 P0
+  CAPTURE UPVAL U0
+  RETURN R0 1
+
+PROTO_4:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["destroy"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  NEWCLOSURE R0 P0
+  CAPTURE UPVAL U0
+  RETURN R0 1
+
+PROTO_6:
+  LOADB R0 1
+  RETURN R0 1
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["Plugin"]
+  LOADK R2 K1 ["InstancePicker"]
+  NAMECALL R0 R0 K2 ["GetPluginComponent"]
+  CALL R0 2 1
+  DUPCLOSURE R2 K3 [PROTO_6]
+  NAMECALL R0 R0 K4 ["PickInstanceAsync"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_8:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useMemo"]
+  DUPCLOSURE R2 K1 [PROTO_0]
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  NEWTABLE R3 0 0
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useMemo"]
+  DUPCLOSURE R3 K2 [PROTO_1]
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U2
+  NEWTABLE R4 0 0
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["useEffect"]
+  NEWCLOSURE R4 P2
+  CAPTURE VAL R1
+  NEWTABLE R5 0 1
+  MOVE R6 R1
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["useEffect"]
+  NEWCLOSURE R4 P3
+  CAPTURE VAL R2
+  NEWTABLE R5 0 1
+  MOVE R6 R2
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["useCallback"]
+  NEWCLOSURE R4 P4
+  CAPTURE VAL R0
+  NEWTABLE R5 0 1
+  GETTABLEKS R6 R0 K5 ["Plugin"]
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 1
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K6 ["ContextServices"]
+  GETTABLEKS R4 R5 K7 ["provide"]
+  NEWTABLE R5 0 3
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K6 ["ContextServices"]
+  GETTABLEKS R7 R8 K5 ["Plugin"]
+  GETTABLEKS R6 R7 K8 ["new"]
+  GETTABLEKS R7 R0 K5 ["Plugin"]
+  CALL R6 1 1
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K6 ["ContextServices"]
+  GETTABLEKS R8 R9 K9 ["Mouse"]
+  GETTABLEKS R7 R8 K8 ["new"]
+  GETTABLEKS R8 R0 K5 ["Plugin"]
+  NAMECALL R8 R8 K10 ["GetMouse"]
+  CALL R8 1 -1
+  CALL R7 -1 1
+  MOVE R8 R1
+  SETLIST R5 R6 3 [1]
+  DUPTABLE R6 K12 [{"ContextStack"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K13 ["createElement"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K11 ["ContextStack"]
+  DUPTABLE R9 K15 [{"providers"}]
+  NEWTABLE R10 0 14
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K13 ["createElement"]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K16 ["Contexts"]
+  GETTABLEKS R13 R14 K17 ["Localization"]
+  GETTABLEKS R12 R13 K18 ["Provider"]
+  DUPTABLE R13 K20 [{"localization"}]
+  SETTABLEKS R2 R13 K19 ["localization"]
+  CALL R11 2 1
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K13 ["createElement"]
+  GETUPVAL R15 5
+  GETTABLEKS R14 R15 K21 ["InstanceRegistryContext"]
+  GETTABLEKS R13 R14 K18 ["Provider"]
+  CALL R12 1 1
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K13 ["createElement"]
+  GETUPVAL R16 5
+  GETTABLEKS R15 R16 K22 ["NetworkingContext"]
+  GETTABLEKS R14 R15 K23 ["EditableDataModelProvider"]
+  CALL R13 1 1
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K13 ["createElement"]
+  GETUPVAL R17 5
+  GETTABLEKS R16 R17 K24 ["NativeGraphContext"]
+  GETTABLEKS R15 R16 K23 ["EditableDataModelProvider"]
+  CALL R14 1 1
+  GETUPVAL R16 0
+  GETTABLEKS R15 R16 K13 ["createElement"]
+  GETUPVAL R18 5
+  GETTABLEKS R17 R18 K25 ["GameContext"]
+  GETTABLEKS R16 R17 K23 ["EditableDataModelProvider"]
+  CALL R15 1 1
+  GETUPVAL R17 0
+  GETTABLEKS R16 R17 K13 ["createElement"]
+  GETUPVAL R19 5
+  GETTABLEKS R18 R19 K26 ["GraphDebugDataContext"]
+  GETTABLEKS R17 R18 K23 ["EditableDataModelProvider"]
+  CALL R16 1 1
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K13 ["createElement"]
+  GETUPVAL R20 5
+  GETTABLEKS R19 R20 K27 ["PlayStateContext"]
+  GETTABLEKS R18 R19 K23 ["EditableDataModelProvider"]
+  CALL R17 1 1
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K13 ["createElement"]
+  GETUPVAL R21 5
+  GETTABLEKS R20 R21 K28 ["CreateGraphContext"]
+  GETTABLEKS R19 R20 K23 ["EditableDataModelProvider"]
+  CALL R18 1 1
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K13 ["createElement"]
+  GETUPVAL R22 5
+  GETTABLEKS R21 R22 K29 ["AnimationParameterContext"]
+  GETTABLEKS R20 R21 K23 ["EditableDataModelProvider"]
+  CALL R19 1 1
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K13 ["createElement"]
+  GETUPVAL R23 5
+  GETTABLEKS R22 R23 K30 ["ParameterOverrideContext"]
+  GETTABLEKS R21 R22 K23 ["EditableDataModelProvider"]
+  CALL R20 1 1
+  GETUPVAL R22 0
+  GETTABLEKS R21 R22 K13 ["createElement"]
+  GETUPVAL R24 5
+  GETTABLEKS R23 R24 K31 ["AnimationPreviewContext"]
+  GETTABLEKS R22 R23 K23 ["EditableDataModelProvider"]
+  CALL R21 1 1
+  GETUPVAL R23 0
+  GETTABLEKS R22 R23 K13 ["createElement"]
+  GETUPVAL R25 5
+  GETTABLEKS R24 R25 K32 ["GraphDropdownContext"]
+  GETTABLEKS R23 R24 K23 ["EditableDataModelProvider"]
+  CALL R22 1 1
+  GETUPVAL R24 0
+  GETTABLEKS R23 R24 K13 ["createElement"]
+  GETUPVAL R26 5
+  GETTABLEKS R25 R26 K33 ["GraphDirtyStateContext"]
+  GETTABLEKS R24 R25 K23 ["EditableDataModelProvider"]
+  CALL R23 1 1
+  GETUPVAL R25 0
+  GETTABLEKS R24 R25 K13 ["createElement"]
+  GETUPVAL R27 5
+  GETTABLEKS R26 R27 K34 ["MaskEditorContext"]
+  GETTABLEKS R25 R26 K23 ["EditableDataModelProvider"]
+  DUPTABLE R26 K36 [{"startPickingInstanceAsync"}]
+  SETTABLEKS R3 R26 K35 ["startPickingInstanceAsync"]
+  CALL R24 2 -1
+  SETLIST R10 R11 -1 [1]
+  SETTABLEKS R10 R9 K14 ["providers"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K11 ["ContextStack"]
+  CALL R4 2 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationGraphEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["AnimationEditor"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Framework"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Packages"]
+  GETTABLEKS R4 R5 K9 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["ReactUtils"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Packages"]
+  GETTABLEKS R6 R7 K11 ["StudioFoundation"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K12 [PROTO_8]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  RETURN R6 1

@@ -2,8 +2,10 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local React = require(Packages.React)
+local ReactIs = require(Packages.ReactIs)
 
 local Constants = require(script.Parent.constants)
+local Flags = require(Foundation.Utility.Flags)
 local Image = require(Foundation.Components.Image)
 local Text = require(Foundation.Components.Text)
 local Types = require(Foundation.Components.Types)
@@ -23,28 +25,41 @@ type ProgressShape = ProgressShape.ProgressShape
 local ProgressSize = require(Foundation.Enums.ProgressSize)
 type ProgressSize = ProgressSize.ProgressSize
 
+type Bindable<T> = Types.Bindable<T>
+
 export type ProgressCircleProps = {
 	-- Shape of the progress indicator, either "Bar" or "Circle"
 	shape: typeof(ProgressShape.Circle),
 	-- Size of the progress indicator
 	size: ProgressSize?,
 	-- Progress value shown (can be nil to show indeterminate progress)
-	value: number?,
+	value: Bindable<number>?,
 } & Types.CommonProps
 
 local defaultProps = {
 	size = ProgressSize.Medium,
 }
 
+local function getRotationFromProgress(progress: number?, side: Enum.HorizontalAlignment)
+	local minRotation = if side == Enum.HorizontalAlignment.Left then 180 else 0
+	local maxRotation = if side == Enum.HorizontalAlignment.Left then 360 else 180
+	return if progress == nil then 0 else math.clamp(progress * 360, minRotation, maxRotation)
+end
+
+local function getLabelFromProgress(progress: number?): string
+	return if progress == nil then "0%" else `{math.floor(progress * 100)}%`
+end
+
 local function ProgressGradient(props: {
 	side: Enum.HorizontalAlignment,
 	isIndeterminate: true | false,
 	rotation: React.Binding<number>,
-	progress: React.Binding<number?>,
+	progress: Bindable<number>?,
 	pulse: React.Binding<number>,
 })
 	local side = props.side
 	local isIndeterminate = props.isIndeterminate
+	local progress = props.progress
 
 	local tokens = useTokens()
 	local preferences = usePreferences()
@@ -69,9 +84,6 @@ local function ProgressGradient(props: {
 			ColorSequenceKeypoint.new(1, tokens.Color.Shift.Shift_200.Color3),
 		})
 	end, { tokens })
-
-	local minRotation = if side == Enum.HorizontalAlignment.Left then 180 else 0
-	local maxRotation = if side == Enum.HorizontalAlignment.Left then 360 else 180
 
 	if isIndeterminate and preferences.reducedMotion then
 		local rotation: React.Binding<number> | number
@@ -102,13 +114,11 @@ local function ProgressGradient(props: {
 		return React.createElement("UIGradient", {
 			Transparency = TRANSPARENCY_SEQ,
 			Color = COLOR_SEQ,
-			Rotation = props.progress:map(function(progressValue: number?)
-				if progressValue == nil then
-					return 0
-				end
-
-				return math.clamp(progressValue * 360, minRotation, maxRotation)
-			end),
+			Rotation = if ReactIs.isBinding(progress) or not Flags.FoundationProgressBindableValue
+				then (progress :: React.Binding<number>):map(function(progressValue: number?)
+					return getRotationFromProgress(progressValue, side)
+				end)
+				else getRotationFromProgress(progress :: number?, side),
 		}) :: React.ReactElement
 	end
 end
@@ -120,7 +130,7 @@ local function ProgressCircle(progressProps: ProgressCircleProps & {
 	local tokens = useTokens()
 	local preferences = usePreferences()
 	local variants = useProgressVariants(tokens, props.size)
-	local progress, isIndeterminate = useProgressBinding(props)
+	local progress, isIndeterminate = useProgressBinding(props.value)
 	local indeterminateProgress = React.useBinding(0.8)
 	local rotation = useRotation(1)
 	local pulse = usePulseBinding(1 / Constants.INDETERMINATE_SHIMMER_SPEED)
@@ -232,13 +242,9 @@ local function ProgressCircle(progressProps: ProgressCircleProps & {
 				}),
 				ProgressLabel = if variants.circle.labelFont and not isIndeterminate
 					then React.createElement(Text, {
-						Text = progress:map(function(progressValue: number?)
-							if progressValue == nil then
-								return "0%"
-							end
-
-							return `{math.floor(progressValue * 100)}%`
-						end),
+						Text = if ReactIs.isBinding(progress) or not Flags.FoundationProgressBindableValue
+							then (progress :: React.Binding<number>):map(getLabelFromProgress)
+							else getLabelFromProgress(progress :: number?),
 						fontStyle = variants.circle.labelFont,
 						tag = "anchor-center-center position-center-center",
 						testId = `{props.testId}--label`,

@@ -1,0 +1,98 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["responseBody"]
+  GETTABLEKS R2 R1 K1 ["CanCollaborate"]
+  GETTABLEKS R3 R1 K2 ["Error"]
+  RETURN R2 2
+
+PROTO_1:
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  CALL R1 0 1
+  GETTABLEKS R2 R1 K1 ["composeUrl"]
+  GETTABLEKS R3 R1 K2 ["APIS_URL"]
+  LOADK R4 K3 ["team-create-service/v1/GetCanCollaborate"]
+  CALL R2 2 1
+  GETUPVAL R3 1
+  NAMECALL R3 R3 K4 ["GetUserId"]
+  CALL R3 1 1
+  NEWTABLE R4 2 0
+  LOADK R5 K5 ["application/json"]
+  SETTABLEKS R5 R4 K6 ["Content-Type"]
+  FASTCALL1 TOSTRING R3 [+3]
+  MOVE R6 R3
+  GETIMPORT R5 K8 [tostring]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K9 ["robloxctx-authenticated-userid"]
+  GETUPVAL R5 2
+  MOVE R7 R2
+  GETUPVAL R8 3
+  DUPTABLE R10 K11 [{"universeId"}]
+  SETTABLEKS R0 R10 K10 ["universeId"]
+  NAMECALL R8 R8 K12 ["JSONEncode"]
+  CALL R8 2 1
+  MOVE R9 R4
+  NAMECALL R5 R5 K13 ["post"]
+  CALL R5 4 1
+  GETUPVAL R6 2
+  MOVE R8 R5
+  NAMECALL R6 R6 K14 ["parseJson"]
+  CALL R6 2 1
+  DUPCLOSURE R8 K15 [PROTO_0]
+  NAMECALL R6 R6 K16 ["andThen"]
+  CALL R6 2 1
+  DUPCLOSURE R8 K17 [PROTO_1]
+  NAMECALL R6 R6 K18 ["catch"]
+  CALL R6 2 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["HttpService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K4 ["StudioService"]
+  NAMECALL R1 R1 K3 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K6 [script]
+  LOADK R4 K7 ["ManageCollaborators"]
+  NAMECALL R2 R2 K8 ["FindFirstAncestor"]
+  CALL R2 2 1
+  GETIMPORT R3 K10 [require]
+  GETTABLEKS R6 R2 K11 ["Src"]
+  GETTABLEKS R5 R6 K12 ["Networking"]
+  GETTABLEKS R4 R5 K13 ["Http"]
+  CALL R3 1 1
+  GETIMPORT R4 K10 [require]
+  GETTABLEKS R6 R2 K14 ["Packages"]
+  GETTABLEKS R5 R6 K15 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R6 R4 K16 ["RobloxAPI"]
+  GETTABLEKS R5 R6 K17 ["Url"]
+  GETTABLEKS R7 R4 K13 ["Http"]
+  GETTABLEKS R6 R7 K12 ["Networking"]
+  GETTABLEKS R7 R6 K18 ["new"]
+  DUPTABLE R8 K21 [{"isInternal", "retryAmount"}]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K19 ["isInternal"]
+  LOADN R9 3
+  SETTABLEKS R9 R8 K20 ["retryAmount"]
+  CALL R7 1 1
+  GETIMPORT R8 K1 [game]
+  LOADK R10 K22 ["ContentProvider"]
+  NAMECALL R8 R8 K3 ["GetService"]
+  CALL R8 2 1
+  GETTABLEKS R9 R8 K23 ["BaseUrl"]
+  GETTABLEKS R10 R3 K24 ["parseBaseUrlInformation"]
+  MOVE R11 R9
+  CALL R10 1 3
+  DUPCLOSURE R13 K25 [PROTO_2]
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R7
+  CAPTURE VAL R0
+  RETURN R13 1

@@ -1,0 +1,236 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["OnChanged"]
+  LOADNIL R1
+  CALL R0 1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K1 ["OnClosed"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["OnChanged"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["join"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["Transition"]
+  JUMPIF R4 [+2]
+  NEWTABLE R4 0 0
+  NEWTABLE R5 1 0
+  SETTABLE R1 R5 R0
+  CALL R3 2 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["join"]
+  GETUPVAL R1 1
+  DUPTABLE R2 K3 [{"LayoutOrder", "OnPropertyChanged"}]
+  LOADN R3 2
+  SETTABLEKS R3 R2 K1 ["LayoutOrder"]
+  GETUPVAL R3 2
+  SETTABLEKS R3 R2 K2 ["OnPropertyChanged"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_3:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["createNextOrder"]
+  CALL R2 0 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K1 ["useCallback"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  NEWTABLE R5 0 2
+  GETTABLEKS R6 R0 K2 ["OnChanged"]
+  GETTABLEKS R7 R0 K3 ["OnClosed"]
+  SETLIST R5 R6 2 [1]
+  CALL R3 2 1
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K1 ["useCallback"]
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  NEWTABLE R6 0 2
+  GETTABLEKS R7 R0 K2 ["OnChanged"]
+  GETTABLEKS R8 R0 K4 ["Transition"]
+  SETLIST R6 R7 2 [1]
+  CALL R4 2 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K5 ["useMemo"]
+  NEWCLOSURE R6 P2
+  CAPTURE UPVAL U3
+  CAPTURE VAL R0
+  CAPTURE VAL R4
+  NEWTABLE R7 0 2
+  MOVE R8 R0
+  MOVE R9 R4
+  SETLIST R7 R8 2 [1]
+  CALL R5 2 1
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K6 ["createElement"]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K7 ["View"]
+  DUPTABLE R8 K11 [{"tag", "LayoutOrder", "Size"}]
+  LOADK R9 K12 ["col auto-y radius-small gap-xsmall padding-x-small padding-y-xsmall stroke-standard stroke-default"]
+  SETTABLEKS R9 R8 K8 ["tag"]
+  GETTABLEKS R9 R0 K9 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K9 ["LayoutOrder"]
+  GETIMPORT R9 K15 [UDim2.fromOffset]
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K16 ["TRANSITION_PANEL_WIDTH"]
+  LOADN R11 0
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K10 ["Size"]
+  DUPTABLE R9 K20 [{"UIScale", "CompositorNodeHeader", "TransitionPanel"}]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K6 ["createElement"]
+  LOADK R11 K17 ["UIScale"]
+  DUPTABLE R12 K22 [{"Scale"}]
+  SETTABLEKS R1 R12 K21 ["Scale"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K17 ["UIScale"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K6 ["createElement"]
+  GETUPVAL R12 4
+  GETTABLEKS R11 R12 K7 ["View"]
+  DUPTABLE R12 K23 [{"tag", "LayoutOrder"}]
+  LOADK R13 K24 ["size-full-700 align-y-center padding-x-xxsmall row flex-x-fill radius-small"]
+  SETTABLEKS R13 R12 K8 ["tag"]
+  LOADN R13 1
+  SETTABLEKS R13 R12 K9 ["LayoutOrder"]
+  DUPTABLE R13 K28 [{"Title", "ToggleReset", "ToggleButton"}]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K6 ["createElement"]
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K29 ["Text"]
+  DUPTABLE R16 K30 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R17 K31 ["size-0-700 text-title-small auto-x text-align-x-left text-truncate-split"]
+  SETTABLEKS R17 R16 K8 ["tag"]
+  GETTABLEKS R17 R0 K32 ["Name"]
+  SETTABLEKS R17 R16 K29 ["Text"]
+  MOVE R17 R2
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K9 ["LayoutOrder"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K25 ["Title"]
+  GETTABLEKS R15 R0 K33 ["AllowReset"]
+  JUMPIFNOT R15 [+48]
+  GETTABLEKS R15 R0 K34 ["IsDefaultValue"]
+  JUMPIF R15 [+45]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K6 ["createElement"]
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K35 ["Button"]
+  DUPTABLE R16 K41 [{"icon", "variant", "onActivated", "size", "LayoutOrder", "fillBehavior"}]
+  LOADK R17 K42 ["arrow-curl-to-left"]
+  SETTABLEKS R17 R16 K36 ["icon"]
+  GETUPVAL R20 4
+  GETTABLEKS R19 R20 K43 ["Enums"]
+  GETTABLEKS R18 R19 K44 ["ButtonVariant"]
+  GETTABLEKS R17 R18 K29 ["Text"]
+  SETTABLEKS R17 R16 K37 ["variant"]
+  SETTABLEKS R3 R16 K38 ["onActivated"]
+  GETUPVAL R20 4
+  GETTABLEKS R19 R20 K43 ["Enums"]
+  GETTABLEKS R18 R19 K45 ["InputSize"]
+  GETTABLEKS R17 R18 K46 ["XSmall"]
+  SETTABLEKS R17 R16 K39 ["size"]
+  MOVE R17 R2
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K9 ["LayoutOrder"]
+  GETUPVAL R20 4
+  GETTABLEKS R19 R20 K43 ["Enums"]
+  GETTABLEKS R18 R19 K47 ["FillBehavior"]
+  GETTABLEKS R17 R18 K48 ["Fit"]
+  SETTABLEKS R17 R16 K40 ["fillBehavior"]
+  CALL R14 2 1
+  JUMP [+1]
+  LOADNIL R14
+  SETTABLEKS R14 R13 K26 ["ToggleReset"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K6 ["createElement"]
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K35 ["Button"]
+  DUPTABLE R16 K41 [{"icon", "variant", "onActivated", "size", "LayoutOrder", "fillBehavior"}]
+  LOADK R17 K49 ["x"]
+  SETTABLEKS R17 R16 K36 ["icon"]
+  GETUPVAL R20 4
+  GETTABLEKS R19 R20 K43 ["Enums"]
+  GETTABLEKS R18 R19 K44 ["ButtonVariant"]
+  GETTABLEKS R17 R18 K29 ["Text"]
+  SETTABLEKS R17 R16 K37 ["variant"]
+  GETTABLEKS R17 R0 K3 ["OnClosed"]
+  SETTABLEKS R17 R16 K38 ["onActivated"]
+  GETUPVAL R20 4
+  GETTABLEKS R19 R20 K43 ["Enums"]
+  GETTABLEKS R18 R19 K45 ["InputSize"]
+  GETTABLEKS R17 R18 K46 ["XSmall"]
+  SETTABLEKS R17 R16 K39 ["size"]
+  MOVE R17 R2
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K9 ["LayoutOrder"]
+  GETUPVAL R20 4
+  GETTABLEKS R19 R20 K43 ["Enums"]
+  GETTABLEKS R18 R19 K47 ["FillBehavior"]
+  GETTABLEKS R17 R18 K48 ["Fit"]
+  SETTABLEKS R17 R16 K40 ["fillBehavior"]
+  CALL R14 2 1
+  SETTABLEKS R14 R13 K27 ["ToggleButton"]
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K18 ["CompositorNodeHeader"]
+  GETTABLEKS R10 R0 K50 ["TransitionBuilder"]
+  MOVE R11 R5
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K19 ["TransitionPanel"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Components"]
+  GETTABLEKS R4 R5 K7 ["NodeView"]
+  GETTABLEKS R3 R4 K8 ["CompositorNodes"]
+  GETTABLEKS R2 R3 K9 ["CompositorNode"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K10 ["Util"]
+  GETTABLEKS R3 R4 K11 ["Constants"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K12 ["Parent"]
+  GETTABLEKS R4 R5 K13 ["Dash"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K12 ["Parent"]
+  GETTABLEKS R5 R6 K14 ["Foundation"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K12 ["Parent"]
+  GETTABLEKS R6 R7 K15 ["React"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K12 ["Parent"]
+  GETTABLEKS R7 R8 K16 ["ReactUtils"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K17 ["Hooks"]
+  GETTABLEKS R8 R9 K18 ["useNodeScale"]
+  CALL R7 1 1
+  DUPCLOSURE R8 K19 [PROTO_3]
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  RETURN R8 1

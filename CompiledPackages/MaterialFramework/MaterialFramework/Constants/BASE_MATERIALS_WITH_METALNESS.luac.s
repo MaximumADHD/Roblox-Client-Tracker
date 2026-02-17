@@ -1,0 +1,19 @@
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 4 0
+  GETIMPORT R1 K3 [Enum.Material.CorrodedMetal]
+  LOADB R2 1
+  SETTABLE R2 R0 R1
+  GETIMPORT R1 K5 [Enum.Material.DiamondPlate]
+  LOADB R2 1
+  SETTABLE R2 R0 R1
+  GETIMPORT R1 K7 [Enum.Material.Foil]
+  LOADB R2 1
+  SETTABLE R2 R0 R1
+  GETIMPORT R1 K9 [Enum.Material.Metal]
+  LOADB R2 1
+  SETTABLE R2 R0 R1
+  GETIMPORT R1 K12 [table.freeze]
+  MOVE R2 R0
+  CALL R1 1 -1
+  RETURN R1 -1

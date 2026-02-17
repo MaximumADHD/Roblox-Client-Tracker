@@ -134,7 +134,7 @@ local function getMeshContentMap(instance, contentIdToContentMap)
 	elseif getFFlagUGCValidationMakeupSupport() and instance:IsA("WrapTextureTransfer") then
 		addContent(
 			contentIdToContentMap,
-			"ReferenceCageMesh",
+			"ReferenceCageMeshContent",
 			(instance :: WrapTextureTransfer).ReferenceCageMeshContent,
 			"EditableMesh"
 		)

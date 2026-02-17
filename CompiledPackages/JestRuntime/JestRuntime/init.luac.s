@@ -1,0 +1,1266 @@
+PROTO_0:
+  LOADK R4 K0 ["DataModel"]
+  NAMECALL R2 R0 K1 ["IsA"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+4]
+  JUMPIFNOTEQKS R1 K2 ["GetService"] [+3]
+  LOADB R2 1
+  RETURN R2 1
+  LOADB R2 0
+  RETURN R2 1
+
+PROTO_1:
+  NEWTABLE R3 0 0
+  GETUPVAL R4 0
+  FASTCALL2 SETMETATABLE R3 R4 [+3]
+  GETIMPORT R2 K1 [setmetatable]
+  CALL R2 2 1
+  LOADB R3 0
+  SETTABLEKS R3 R2 K2 ["isTornDown"]
+  SETTABLEKS R0 R2 K3 ["_config"]
+  DUPTABLE R3 K5 [{"fakeTimersModern"}]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K6 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K4 ["fakeTimersModern"]
+  SETTABLEKS R3 R2 K7 ["_environment"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K6 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K8 ["_explicitShouldMock"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K6 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K9 ["_explicitShouldMockModule"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K6 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K10 ["_internalModuleRegistry"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K6 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K11 ["_mockFactories"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K6 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K12 ["_mockRegistry"]
+  SETTABLEKS R1 R2 K13 ["_loadedModuleFns"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K6 ["new"]
+  MOVE R4 R0
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K14 ["_moduleMocker"]
+  GETTABLEKS R3 R2 K14 ["_moduleMocker"]
+  NEWCLOSURE R5 P0
+  NAMECALL R3 R3 K15 ["protectDataModel"]
+  CALL R3 2 0
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K6 ["new"]
+  GETUPVAL R5 5
+  GETTABLEKS R4 R5 K16 ["MOCKABLE_GLOBALS"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K17 ["_globalMocker"]
+  GETTABLEKS R3 R2 K14 ["_moduleMocker"]
+  GETTABLEKS R5 R2 K17 ["_globalMocker"]
+  GETIMPORT R6 K19 [getfenv]
+  LOADN R7 0
+  CALL R6 1 -1
+  NAMECALL R3 R3 K20 ["mockGlobals"]
+  CALL R3 -1 0
+  LOADNIL R3
+  SETTABLEKS R3 R2 K21 ["_isolatedModuleRegistry"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K22 ["_isolatedMockRegistry"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K6 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K23 ["_moduleRegistry"]
+  LOADB R3 0
+  SETTABLEKS R3 R2 K24 ["_shouldAutoMock"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K6 ["new"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K25 ["_shouldMockModuleCache"]
+  GETTABLEKS R4 R2 K7 ["_environment"]
+  GETTABLEKS R3 R4 K4 ["fakeTimersModern"]
+  SETTABLEKS R3 R2 K26 ["_fakeTimersImplementation"]
+  GETIMPORT R3 K28 [script]
+  MOVE R6 R3
+  NAMECALL R4 R2 K29 ["_createJestObjectFor"]
+  CALL R4 2 1
+  SETTABLEKS R4 R2 K30 ["_jestObject"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R2 K31 ["_cleanupFns"]
+  RETURN R2 1
+
+PROTO_2:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  GETUPVAL R4 3
+  GETUPVAL R5 4
+  GETUPVAL R6 5
+  GETUPVAL R7 6
+  GETUPVAL R8 7
+  NAMECALL R0 R0 K0 ["_loadModule"]
+  CALL R0 8 0
+  RETURN R0 0
+
+PROTO_3:
+  JUMPIFNOTEQKNIL R2 [+3]
+  MOVE R6 R1
+  JUMP [+1]
+  MOVE R6 R2
+  GETIMPORT R7 K2 [string.find]
+  GETTABLEKS R8 R6 K3 ["Name"]
+  LOADK R9 K4 [".global$"]
+  CALL R7 2 1
+  JUMPIFNOT R7 [+5]
+  GETIMPORT R7 K6 [require]
+  MOVE R8 R6
+  CALL R7 1 -1
+  RETURN R7 -1
+  FASTCALL1 TYPEOF R3 [+3]
+  MOVE R9 R3
+  GETIMPORT R8 K8 [typeof]
+  CALL R8 1 1
+  JUMPIFNOTEQKS R8 K9 ["table"] [+8]
+  GETTABLEKS R8 R3 K10 ["isInternalModule"]
+  JUMPIFEQKNIL R8 [+4]
+  GETTABLEKS R7 R3 K10 ["isInternalModule"]
+  JUMP [+1]
+  LOADB R7 0
+  LOADNIL R8
+  JUMPIFNOT R7 [+3]
+  GETTABLEKS R8 R0 K11 ["_internalModuleRegistry"]
+  JUMP [+9]
+  GETTABLEKS R9 R0 K12 ["_isolatedModuleRegistry"]
+  JUMPIFEQKNIL R9 [+4]
+  GETTABLEKS R8 R0 K12 ["_isolatedModuleRegistry"]
+  JUMP [+2]
+  GETTABLEKS R8 R0 K13 ["_moduleRegistry"]
+  MOVE R11 R6
+  NAMECALL R9 R8 K14 ["get"]
+  CALL R9 2 1
+  JUMPIFNOT R9 [+4]
+  GETTABLEKS R10 R9 K15 ["exports"]
+  CLOSEUPVALS R8
+  RETURN R10 1
+  DUPTABLE R10 K19 [{"exports", "filename", "id", "loaded"}]
+  NEWTABLE R11 0 0
+  SETTABLEKS R11 R10 K15 ["exports"]
+  SETTABLEKS R6 R10 K16 ["filename"]
+  SETTABLEKS R6 R10 K17 ["id"]
+  LOADB R11 0
+  SETTABLEKS R11 R10 K18 ["loaded"]
+  MOVE R13 R6
+  MOVE R14 R10
+  NAMECALL R11 R8 K20 ["set"]
+  CALL R11 3 0
+  GETIMPORT R11 K22 [pcall]
+  NEWCLOSURE R12 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R10
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE REF R8
+  CAPTURE VAL R5
+  CALL R11 1 2
+  JUMPIF R11 [+8]
+  MOVE R15 R6
+  NAMECALL R13 R8 K23 ["delete"]
+  CALL R13 2 0
+  GETIMPORT R13 K25 [error]
+  MOVE R14 R12
+  CALL R13 1 0
+  GETTABLEKS R13 R10 K15 ["exports"]
+  CLOSEUPVALS R8
+  RETURN R13 1
+
+PROTO_4:
+  MOVE R5 R1
+  MOVE R6 R2
+  DUPTABLE R7 K1 [{"isInternalModule"}]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K0 ["isInternalModule"]
+  NAMECALL R3 R0 K2 ["requireModule"]
+  CALL R3 4 -1
+  RETURN R3 -1
+
+PROTO_5:
+  MOVE R5 R1
+  MOVE R6 R2
+  LOADNIL R7
+  LOADB R8 1
+  NAMECALL R3 R0 K0 ["requireModule"]
+  CALL R3 5 -1
+  RETURN R3 -1
+
+PROTO_6:
+  GETTABLEKS R3 R0 K0 ["_isolatedMockRegistry"]
+  JUMPIFEQKNIL R3 [+15]
+  GETTABLEKS R3 R0 K0 ["_isolatedMockRegistry"]
+  MOVE R5 R2
+  NAMECALL R3 R3 K1 ["has"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+7]
+  GETTABLEKS R3 R0 K0 ["_isolatedMockRegistry"]
+  MOVE R5 R2
+  NAMECALL R3 R3 K2 ["get"]
+  CALL R3 2 1
+  RETURN R3 1
+  GETTABLEKS R3 R0 K3 ["_mockRegistry"]
+  MOVE R5 R2
+  NAMECALL R3 R3 K1 ["has"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+7]
+  GETTABLEKS R3 R0 K3 ["_mockRegistry"]
+  MOVE R5 R2
+  NAMECALL R3 R3 K2 ["get"]
+  CALL R3 2 1
+  RETURN R3 1
+  GETTABLEKS R3 R0 K0 ["_isolatedMockRegistry"]
+  JUMPIF R3 [+2]
+  GETTABLEKS R3 R0 K3 ["_mockRegistry"]
+  GETTABLEKS R4 R0 K4 ["_mockFactories"]
+  MOVE R6 R2
+  NAMECALL R4 R4 K1 ["has"]
+  CALL R4 2 1
+  JUMPIFNOT R4 [+13]
+  GETTABLEKS R4 R0 K4 ["_mockFactories"]
+  MOVE R6 R2
+  NAMECALL R4 R4 K2 ["get"]
+  CALL R4 2 1
+  CALL R4 0 1
+  MOVE R7 R2
+  MOVE R8 R4
+  NAMECALL R5 R3 K5 ["set"]
+  CALL R5 3 0
+  RETURN R4 1
+  GETIMPORT R4 K7 [error]
+  LOADK R5 K8 ["manual mocks not implemented yet"]
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K0 ["toJSBoolean"]
+  MOVE R10 R3
+  CALL R9 1 1
+  JUMPIFNOT R9 [+2]
+  MOVE R8 R2
+  JUMP [+1]
+  LOADNIL R8
+  MOVE R11 R1
+  MOVE R12 R5
+  MOVE R13 R6
+  MOVE R14 R8
+  MOVE R15 R7
+  NAMECALL R9 R0 K1 ["_execModule"]
+  CALL R9 6 0
+  LOADB R8 1
+  SETTABLEKS R8 R1 K2 ["loaded"]
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETUPVAL R3 2
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["_explicitShouldMock"]
+  DUPTABLE R5 K2 [{"conditions"}]
+  LOADNIL R6
+  SETTABLEKS R6 R5 K1 ["conditions"]
+  NAMECALL R0 R0 K3 ["_shouldMock"]
+  CALL R0 5 1
+  JUMPIFNOT R0 [+7]
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETUPVAL R4 2
+  NAMECALL R1 R1 K4 ["requireMock"]
+  CALL R1 3 -1
+  RETURN R1 -1
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETUPVAL R4 2
+  NAMECALL R1 R1 K5 ["requireModule"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_9:
+  GETIMPORT R2 K1 [script]
+  JUMPIFEQ R1 R2 [+17]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K2 ["Parent"]
+  FASTCALL1 TYPEOF R3 [+2]
+  GETIMPORT R2 K4 [typeof]
+  CALL R2 1 1
+  JUMPIFNOTEQKS R2 K5 ["ModuleScript"] [+12]
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  JUMPIFNOTEQ R1 R2 [+6]
+  GETIMPORT R2 K7 [require]
+  MOVE R3 R1
+  CALL R2 1 -1
+  RETURN R2 -1
+  GETIMPORT R2 K10 [string.find]
+  GETTABLEKS R3 R1 K11 ["Name"]
+  LOADK R4 K12 [".global$"]
+  CALL R2 2 1
+  JUMPIFNOT R2 [+5]
+  GETIMPORT R2 K7 [require]
+  MOVE R3 R1
+  CALL R2 1 -1
+  RETURN R2 -1
+  GETTABLEKS R2 R1 K11 ["Name"]
+  JUMPIFNOTEQKS R2 K13 ["JestGlobals"] [+17]
+  NAMECALL R2 R0 K14 ["getGlobalsFromEnvironment"]
+  CALL R2 1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K15 ["assign"]
+  NEWTABLE R4 0 0
+  MOVE R5 R2
+  DUPTABLE R6 K17 [{"jest"}]
+  GETTABLEKS R7 R0 K18 ["_jestObject"]
+  SETTABLEKS R7 R6 K16 ["jest"]
+  CALL R3 3 1
+  RETURN R3 1
+  GETIMPORT R2 K20 [pcall]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE VAL R1
+  CALL R2 1 2
+  JUMPIF R2 [+4]
+  GETIMPORT R4 K22 [error]
+  MOVE R5 R3
+  CALL R4 1 0
+  RETURN R3 1
+
+PROTO_10:
+  GETUPVAL R0 0
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_11:
+  GETTABLEKS R2 R0 K0 ["_isolatedModuleRegistry"]
+  JUMPIFNOTEQKNIL R2 [+5]
+  GETTABLEKS R2 R0 K1 ["_isolatedMockRegistry"]
+  JUMPIFEQKNIL R2 [+9]
+  GETIMPORT R2 K3 [error]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["new"]
+  LOADK R4 K5 ["isolateModules cannot be nested inside another isolateModules."]
+  CALL R3 1 -1
+  CALL R2 -1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["new"]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K0 ["_isolatedModuleRegistry"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["new"]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K1 ["_isolatedMockRegistry"]
+  GETIMPORT R2 K7 [pcall]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R1
+  CALL R2 1 2
+  GETTABLEKS R4 R0 K0 ["_isolatedModuleRegistry"]
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R0 K0 ["_isolatedModuleRegistry"]
+  NAMECALL R4 R4 K8 ["clear"]
+  CALL R4 1 0
+  GETTABLEKS R4 R0 K1 ["_isolatedMockRegistry"]
+  JUMPIFNOT R4 [+5]
+  GETTABLEKS R4 R0 K1 ["_isolatedMockRegistry"]
+  NAMECALL R4 R4 K8 ["clear"]
+  CALL R4 1 0
+  LOADNIL R4
+  SETTABLEKS R4 R0 K0 ["_isolatedModuleRegistry"]
+  LOADNIL R4
+  SETTABLEKS R4 R0 K1 ["_isolatedMockRegistry"]
+  JUMPIF R2 [+4]
+  GETIMPORT R4 K3 [error]
+  MOVE R5 R3
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETTABLEKS R1 R0 K0 ["_isolatedModuleRegistry"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K0 ["_isolatedModuleRegistry"]
+  NAMECALL R1 R1 K1 ["clear"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K2 ["_isolatedMockRegistry"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K2 ["_isolatedMockRegistry"]
+  NAMECALL R1 R1 K1 ["clear"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["_isolatedModuleRegistry"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["_isolatedMockRegistry"]
+  GETTABLEKS R1 R0 K3 ["_mockRegistry"]
+  NAMECALL R1 R1 K1 ["clear"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K4 ["_moduleRegistry"]
+  NAMECALL R1 R1 K1 ["clear"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["toJSBoolean"]
+  FASTCALL1 TYPEOF R4 [+3]
+  MOVE R8 R4
+  GETIMPORT R7 K2 [typeof]
+  CALL R7 1 1
+  JUMPIFNOTEQKS R7 K3 ["table"] [+4]
+  GETTABLEKS R6 R4 K4 ["virtual"]
+  JUMP [+1]
+  LOADNIL R6
+  CALL R5 1 1
+  JUMPIFNOT R5 [+4]
+  GETIMPORT R5 K6 [error]
+  LOADK R6 K7 ["virtual mocks not supported"]
+  CALL R5 1 0
+  GETTABLEKS R5 R0 K8 ["_explicitShouldMock"]
+  MOVE R7 R2
+  LOADB R8 1
+  NAMECALL R5 R5 K9 ["set"]
+  CALL R5 3 0
+  GETTABLEKS R5 R0 K10 ["_mockFactories"]
+  MOVE R7 R2
+  MOVE R8 R3
+  NAMECALL R5 R5 K9 ["set"]
+  CALL R5 3 0
+  RETURN R0 0
+
+PROTO_14:
+  GETTABLEKS R1 R0 K0 ["_moduleMocker"]
+  NAMECALL R1 R1 K1 ["restoreAllMocks"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_15:
+  GETTABLEKS R1 R0 K0 ["_moduleMocker"]
+  GETTABLEKS R3 R0 K1 ["_globalMocker"]
+  NAMECALL R1 R1 K2 ["unmockGlobals"]
+  CALL R1 2 0
+  GETTABLEKS R1 R0 K0 ["_moduleMocker"]
+  NAMECALL R1 R1 K3 ["resetAllMocks"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K0 ["_moduleMocker"]
+  GETTABLEKS R3 R0 K1 ["_globalMocker"]
+  GETIMPORT R4 K5 [getfenv]
+  LOADN R5 0
+  CALL R4 1 -1
+  NAMECALL R1 R1 K6 ["mockGlobals"]
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_16:
+  GETTABLEKS R1 R0 K0 ["_moduleMocker"]
+  NAMECALL R1 R1 K1 ["clearAllMocks"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_17:
+  GETTABLEKS R1 R0 K0 ["_moduleMocker"]
+  GETTABLEKS R3 R0 K1 ["_globalMocker"]
+  NAMECALL R1 R1 K2 ["unmockGlobals"]
+  CALL R1 2 0
+  NAMECALL R1 R0 K3 ["restoreAllMocks"]
+  CALL R1 1 0
+  NAMECALL R1 R0 K4 ["resetAllMocks"]
+  CALL R1 1 0
+  NAMECALL R1 R0 K5 ["resetModules"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K6 ["_internalModuleRegistry"]
+  NAMECALL R1 R1 K7 ["clear"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K8 ["_mockFactories"]
+  NAMECALL R1 R1 K7 ["clear"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K9 ["_shouldMockModuleCache"]
+  NAMECALL R1 R1 K7 ["clear"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K10 ["_explicitShouldMock"]
+  NAMECALL R1 R1 K7 ["clear"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K11 ["_explicitShouldMockModule"]
+  NAMECALL R1 R1 K7 ["clear"]
+  CALL R1 1 0
+  GETIMPORT R1 K13 [ipairs]
+  GETTABLEKS R2 R0 K14 ["_cleanupFns"]
+  CALL R1 1 3
+  FORGPREP_INEXT R1
+  MOVE R6 R5
+  CALL R6 0 0
+  FORGLOOP R1 2 [inext] [-3]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K15 ["isTornDown"]
+  RETURN R0 0
+
+PROTO_18:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFNOTEQKS R1 K2 ["string"] [+5]
+  GETIMPORT R1 K4 [error]
+  LOADK R2 K5 ["Require-by-string is not enabled for use inside Jest at this time."]
+  CALL R1 1 0
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K6 ["requireInternalModule"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_19:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFNOTEQKS R1 K2 ["string"] [+5]
+  GETIMPORT R1 K4 [error]
+  LOADK R2 K5 ["Require-by-string is not enabled for use inside Jest at this time."]
+  CALL R1 1 0
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K6 ["requireModuleOrMock"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_20:
+  PREPVARARGS 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_maybeMock"]
+  JUMPIFNOTEQKNIL R0 [+9]
+  GETIMPORT R0 K2 [error]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K3 ["new"]
+  LOADK R2 K4 ["Code should not be running when globalEnv is uninitialised"]
+  CALL R1 1 -1
+  CALL R0 -1 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_maybeMock"]
+  GETVARARGS R1 -1
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_21:
+  MOVE R3 R0
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETTABLEKS R8 R7 K0 ["_isGlobalAutomockFn"]
+  JUMPIFNOT R8 [+6]
+  GETTABLE R8 R1 R6
+  NEWCLOSURE R9 P0
+  CAPTURE VAL R7
+  CAPTURE UPVAL U0
+  SETTABLE R9 R2 R6
+  JUMP [+17]
+  GETTABLE R8 R1 R6
+  NEWTABLE R10 0 0
+  DUPTABLE R11 K2 [{"__index"}]
+  SETTABLEKS R8 R11 K1 ["__index"]
+  FASTCALL2 SETMETATABLE R10 R11 [+3]
+  GETIMPORT R9 K4 [setmetatable]
+  CALL R9 2 1
+  SETTABLE R9 R2 R6
+  GETUPVAL R10 1
+  MOVE R11 R7
+  MOVE R12 R8
+  MOVE R13 R9
+  CALL R10 3 0
+  FORGLOOP R3 2 [-27]
+  RETURN R0 0
+
+PROTO_22:
+  LOADNIL R6
+  LOADNIL R7
+  LOADNIL R8
+  LOADNIL R9
+  GETTABLEKS R10 R1 K0 ["filename"]
+  GETTABLEKS R11 R0 K1 ["_loadedModuleFns"]
+  JUMPIFNOT R11 [+16]
+  GETTABLEKS R11 R0 K1 ["_loadedModuleFns"]
+  MOVE R13 R10
+  NAMECALL R11 R11 K2 ["has"]
+  CALL R11 2 1
+  JUMPIFNOT R11 [+9]
+  GETTABLEKS R11 R0 K1 ["_loadedModuleFns"]
+  MOVE R13 R10
+  NAMECALL R11 R11 K3 ["get"]
+  CALL R11 2 1
+  GETTABLEN R6 R11 1
+  GETTABLEN R7 R11 2
+  JUMP [+64]
+  GETUPVAL R11 0
+  JUMPIFNOT R11 [+11]
+  GETIMPORT R12 K6 [debug]
+  GETTABLEKS R11 R12 K4 ["loadmodule"]
+  MOVE R12 R11
+  MOVE R13 R10
+  CALL R12 1 3
+  MOVE R6 R12
+  MOVE R8 R13
+  MOVE R9 R14
+  JUMP [+9]
+  GETIMPORT R11 K8 [loadstring]
+  GETTABLEKS R12 R10 K9 ["Source"]
+  NAMECALL R13 R10 K10 ["GetFullName"]
+  CALL R13 1 -1
+  CALL R11 -1 1
+  MOVE R6 R11
+  JUMPIFNOTEQKNIL R6 [+9]
+  GETIMPORT R11 K12 [error]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K13 ["new"]
+  MOVE R13 R8
+  CALL R12 1 -1
+  CALL R11 -1 0
+  GETIMPORT R11 K15 [getfenv]
+  MOVE R12 R6
+  CALL R11 1 1
+  MOVE R7 R11
+  GETTABLEKS R11 R0 K1 ["_loadedModuleFns"]
+  JUMPIFNOT R11 [+14]
+  GETTABLEKS R11 R0 K1 ["_loadedModuleFns"]
+  MOVE R13 R10
+  NEWTABLE R14 0 3
+  MOVE R15 R6
+  MOVE R16 R7
+  MOVE R17 R9
+  SETLIST R14 R15 3 [1]
+  NAMECALL R11 R11 K16 ["set"]
+  CALL R11 3 0
+  JUMP [+10]
+  JUMPIFEQKNIL R9 [+9]
+  GETTABLEKS R12 R0 K17 ["_cleanupFns"]
+  FASTCALL2 TABLE_INSERT R12 R9 [+4]
+  MOVE R13 R9
+  GETIMPORT R11 K20 [table.insert]
+  CALL R11 2 0
+  JUMPIFEQKNIL R2 [+7]
+  GETTABLEKS R12 R2 K21 ["isInternalModule"]
+  JUMPIFNOT R12 [+3]
+  GETTABLEKS R11 R2 K21 ["isInternalModule"]
+  JUMP [+1]
+  LOADB R11 0
+  GETUPVAL R13 0
+  JUMPIFNOT R13 [+3]
+  GETTABLEKS R12 R7 K22 ["script"]
+  JUMP [+1]
+  MOVE R12 R10
+  GETTABLEKS R13 R7 K23 ["game"]
+  GETTABLEKS R14 R7 K24 ["workspace"]
+  GETTABLEKS R15 R7 K25 ["plugin"]
+  GETTABLEKS R17 R0 K26 ["_config"]
+  GETTABLEKS R16 R17 K27 ["mockDataModel"]
+  JUMPIFNOT R16 [+11]
+  GETTABLEKS R17 R0 K28 ["_moduleMocker"]
+  GETTABLEKS R16 R17 K29 ["dataModelMocker"]
+  GETTABLEKS R19 R7 K23 ["game"]
+  NAMECALL R17 R16 K30 ["mockInstance"]
+  CALL R17 2 1
+  GETTABLEKS R13 R17 K31 ["spy"]
+  DUPTABLE R17 K35 [{"script", "game", "workspace", "plugin", "Game", "Workspace", "require"}]
+  SETTABLEKS R12 R17 K22 ["script"]
+  SETTABLEKS R13 R17 K23 ["game"]
+  SETTABLEKS R14 R17 K24 ["workspace"]
+  SETTABLEKS R15 R17 K25 ["plugin"]
+  SETTABLEKS R13 R17 K32 ["Game"]
+  SETTABLEKS R14 R17 K33 ["Workspace"]
+  JUMPIFNOT R11 [+3]
+  NEWCLOSURE R18 P0
+  CAPTURE VAL R0
+  JUMP [+2]
+  NEWCLOSURE R18 P1
+  CAPTURE VAL R0
+  SETTABLEKS R18 R17 K34 ["require"]
+  DUPTABLE R18 K37 [{"__index"}]
+  SETTABLEKS R7 R18 K36 ["__index"]
+  FASTCALL2 SETMETATABLE R17 R18 [+3]
+  GETIMPORT R16 K39 [setmetatable]
+  CALL R16 2 1
+  JUMPIF R11 [+42]
+  GETUPVAL R18 2
+  GETTABLEKS R17 R18 K40 ["assign"]
+  MOVE R18 R16
+  DUPTABLE R19 K47 [{"delay", "tick", "time", "DateTime", "os", "task"}]
+  GETTABLEKS R21 R0 K48 ["_fakeTimersImplementation"]
+  GETTABLEKS R20 R21 K49 ["delayOverride"]
+  SETTABLEKS R20 R19 K41 ["delay"]
+  GETTABLEKS R21 R0 K48 ["_fakeTimersImplementation"]
+  GETTABLEKS R20 R21 K50 ["tickOverride"]
+  SETTABLEKS R20 R19 K42 ["tick"]
+  GETTABLEKS R21 R0 K48 ["_fakeTimersImplementation"]
+  GETTABLEKS R20 R21 K51 ["timeOverride"]
+  SETTABLEKS R20 R19 K43 ["time"]
+  GETTABLEKS R21 R0 K48 ["_fakeTimersImplementation"]
+  GETTABLEKS R20 R21 K52 ["dateTimeOverride"]
+  SETTABLEKS R20 R19 K44 ["DateTime"]
+  GETTABLEKS R21 R0 K48 ["_fakeTimersImplementation"]
+  GETTABLEKS R20 R21 K53 ["osOverride"]
+  SETTABLEKS R20 R19 K45 ["os"]
+  GETTABLEKS R21 R0 K48 ["_fakeTimersImplementation"]
+  GETTABLEKS R20 R21 K54 ["taskOverride"]
+  SETTABLEKS R20 R19 K46 ["task"]
+  CALL R17 2 0
+  NEWTABLE R18 0 0
+  DUPTABLE R19 K37 [{"__index"}]
+  SETTABLEKS R16 R19 K36 ["__index"]
+  FASTCALL2 SETMETATABLE R18 R19 [+3]
+  GETIMPORT R17 K39 [setmetatable]
+  CALL R17 2 1
+  NEWCLOSURE R18 P2
+  CAPTURE UPVAL U1
+  CAPTURE VAL R18
+  MOVE R19 R18
+  GETTABLEKS R21 R0 K55 ["_globalMocker"]
+  GETTABLEKS R20 R21 K56 ["automocks"]
+  MOVE R21 R16
+  MOVE R22 R17
+  CALL R19 3 0
+  GETIMPORT R19 K58 [setfenv]
+  MOVE R20 R6
+  MOVE R21 R17
+  CALL R19 2 0
+  GETIMPORT R19 K60 [table.pack]
+  MOVE R20 R6
+  CALL R20 0 -1
+  CALL R19 -1 1
+  GETTABLEKS R20 R19 K61 ["n"]
+  JUMPIFEQKN R20 K62 [1] [+15]
+  JUMPIFEQKB R5 TRUE [+13]
+  GETIMPORT R20 K12 [error]
+  GETIMPORT R21 K65 [string.format]
+  LOADK R22 K66 ["[Module Error]: %s did not return a valid result
+	ModuleScripts must return exactly one value"]
+  FASTCALL1 TOSTRING R10 [+3]
+  MOVE R24 R10
+  GETIMPORT R23 K68 [tostring]
+  CALL R23 1 1
+  CALL R21 2 -1
+  CALL R20 -1 0
+  GETTABLEN R20 R19 1
+  SETTABLEKS R20 R1 K69 ["exports"]
+  RETURN R0 0
+
+PROTO_23:
+  MOVE R7 R2
+  NAMECALL R5 R3 K0 ["has"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+5]
+  MOVE R7 R2
+  NAMECALL R5 R3 K1 ["get"]
+  CALL R5 2 1
+  RETURN R5 1
+  GETTABLEKS R5 R0 K2 ["_shouldAutoMock"]
+  JUMPIF R5 [+2]
+  LOADB R5 0
+  RETURN R5 1
+  GETTABLEKS R5 R0 K3 ["_shouldMockModuleCache"]
+  MOVE R7 R2
+  NAMECALL R5 R5 K0 ["has"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+7]
+  GETTABLEKS R5 R0 K3 ["_shouldMockModuleCache"]
+  MOVE R7 R2
+  NAMECALL R5 R5 K1 ["get"]
+  CALL R5 2 1
+  RETURN R5 1
+  LOADB R5 1
+  RETURN R5 1
+
+PROTO_24:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_explicitShouldMock"]
+  MOVE R3 R0
+  LOADB R4 0
+  NAMECALL R1 R1 K1 ["set"]
+  CALL R1 3 0
+  GETUPVAL R1 1
+  RETURN R1 1
+
+PROTO_25:
+  JUMPIFEQKNIL R1 [+7]
+  GETUPVAL R3 0
+  MOVE R4 R0
+  MOVE R5 R1
+  MOVE R6 R2
+  CALL R3 3 -1
+  RETURN R3 -1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["_explicitShouldMock"]
+  MOVE R5 R0
+  LOADB R6 1
+  NAMECALL R3 R3 K1 ["set"]
+  CALL R3 3 0
+  GETUPVAL R3 2
+  RETURN R3 1
+
+PROTO_26:
+  GETUPVAL R3 0
+  GETUPVAL R5 1
+  MOVE R6 R0
+  MOVE R7 R1
+  MOVE R8 R2
+  NAMECALL R3 R3 K0 ["setMock"]
+  CALL R3 5 0
+  GETUPVAL R3 2
+  RETURN R3 1
+
+PROTO_27:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["clearAllMocks"]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  RETURN R0 1
+
+PROTO_28:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["resetAllMocks"]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  RETURN R0 1
+
+PROTO_29:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["restoreAllMocks"]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  RETURN R0 1
+
+PROTO_30:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_fakeTimersImplementation"]
+  RETURN R0 1
+
+PROTO_31:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_fakeTimersImplementation"]
+  NAMECALL R0 R0 K1 ["useFakeTimers"]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  RETURN R0 1
+
+PROTO_32:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  NAMECALL R0 R0 K0 ["useRealTimers"]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  RETURN R0 1
+
+PROTO_33:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["resetModules"]
+  CALL R0 1 0
+  GETUPVAL R0 1
+  RETURN R0 1
+
+PROTO_34:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["isolateModules"]
+  CALL R1 2 0
+  GETUPVAL R1 1
+  RETURN R1 1
+
+PROTO_35:
+  PREPVARARGS 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_moduleMocker"]
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K1 ["fn"]
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_36:
+  PREPVARARGS 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["_moduleMocker"]
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K1 ["spyOn"]
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_37:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["advanceTimersByTime"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_38:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["advanceTimersToNextTimer"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_39:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  NAMECALL R0 R0 K0 ["getEngineFrameTime"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_40:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["setEngineFrameTime"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_41:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  NAMECALL R0 R0 K0 ["clearAllTimers"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_42:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["_environment"]
+  GETTABLEKS R1 R2 K1 ["fakeTimersModern"]
+  JUMPIFNOTEQ R0 R1 [+5]
+  NAMECALL R1 R0 K2 ["getRealSystemTime"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  GETIMPORT R1 K4 [error]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K5 ["new"]
+  LOADK R3 K6 ["getRealSystemTime is not available when not using modern timers"]
+  CALL R2 1 -1
+  CALL R1 -1 0
+  RETURN R0 0
+
+PROTO_43:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  NAMECALL R0 R0 K0 ["getTimerCount"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_44:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFNOTEQKS R1 K2 ["string"] [+5]
+  GETIMPORT R1 K4 [error]
+  LOADK R2 K5 ["Require-by-string is not enabled for use inside Jest at this time."]
+  CALL R1 1 0
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  NAMECALL R1 R1 K6 ["requireActual"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_45:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  NAMECALL R0 R0 K0 ["runAllTicks"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_46:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  NAMECALL R0 R0 K0 ["runAllTimers"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_47:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  NAMECALL R0 R0 K0 ["runOnlyPendingTimers"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_48:
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_49:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_50:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["_environment"]
+  GETTABLEKS R2 R3 K1 ["fakeTimersModern"]
+  JUMPIFNOTEQ R1 R2 [+6]
+  MOVE R4 R0
+  NAMECALL R2 R1 K2 ["setSystemTime"]
+  CALL R2 2 0
+  RETURN R0 0
+  GETIMPORT R2 K4 [error]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K5 ["new"]
+  LOADK R4 K6 ["setSystemTime is not available when not using modern timers"]
+  CALL R3 1 -1
+  CALL R2 -1 0
+  RETURN R0 0
+
+PROTO_51:
+  LOADNIL R2
+  LOADNIL R3
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  CAPTURE REF R3
+  NEWCLOSURE R5 P1
+  CAPTURE REF R2
+  CAPTURE VAL R0
+  CAPTURE REF R3
+  NEWCLOSURE R2 P2
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE REF R3
+  NEWCLOSURE R6 P3
+  CAPTURE VAL R0
+  CAPTURE REF R3
+  NEWCLOSURE R7 P4
+  CAPTURE VAL R0
+  CAPTURE REF R3
+  NEWCLOSURE R8 P5
+  CAPTURE VAL R0
+  CAPTURE REF R3
+  NEWCLOSURE R9 P6
+  CAPTURE VAL R0
+  NEWCLOSURE R10 P7
+  CAPTURE VAL R0
+  CAPTURE REF R3
+  NEWCLOSURE R11 P8
+  CAPTURE VAL R9
+  CAPTURE REF R3
+  NEWCLOSURE R12 P9
+  CAPTURE VAL R0
+  CAPTURE REF R3
+  NEWCLOSURE R13 P10
+  CAPTURE VAL R0
+  CAPTURE REF R3
+  NEWCLOSURE R14 P11
+  CAPTURE VAL R0
+  NEWCLOSURE R15 P12
+  CAPTURE VAL R0
+  DUPTABLE R16 K29 [{"advanceTimersByTime", "advanceTimersToNextTimer", "getEngineFrameTime", "setEngineFrameTime", "clearAllMocks", "clearAllTimers", "doMock", "dontMock", "fn", "getRealSystemTime", "getTimerCount", "globalEnv", "isMockFunction", "isolateModules", "mock", "requireActual", "resetAllMocks", "resetModules", "restoreAllMocks", "runAllTicks", "runAllTimers", "runOnlyPendingTimers", "jestTimers", "setMock", "setSystemTime", "spyOn", "unmock", "useFakeTimers", "useRealTimers"}]
+  NEWCLOSURE R17 P13
+  CAPTURE VAL R9
+  SETTABLEKS R17 R16 K0 ["advanceTimersByTime"]
+  NEWCLOSURE R17 P14
+  CAPTURE VAL R9
+  SETTABLEKS R17 R16 K1 ["advanceTimersToNextTimer"]
+  NEWCLOSURE R17 P15
+  CAPTURE VAL R9
+  SETTABLEKS R17 R16 K2 ["getEngineFrameTime"]
+  NEWCLOSURE R17 P16
+  CAPTURE VAL R9
+  SETTABLEKS R17 R16 K3 ["setEngineFrameTime"]
+  SETTABLEKS R6 R16 K4 ["clearAllMocks"]
+  NEWCLOSURE R17 P17
+  CAPTURE VAL R9
+  SETTABLEKS R17 R16 K5 ["clearAllTimers"]
+  SETTABLEKS R5 R16 K6 ["doMock"]
+  SETTABLEKS R4 R16 K7 ["dontMock"]
+  SETTABLEKS R14 R16 K8 ["fn"]
+  NEWCLOSURE R17 P18
+  CAPTURE VAL R9
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R17 R16 K9 ["getRealSystemTime"]
+  NEWCLOSURE R17 P19
+  CAPTURE VAL R9
+  SETTABLEKS R17 R16 K10 ["getTimerCount"]
+  GETTABLEKS R18 R0 K30 ["_globalMocker"]
+  GETTABLEKS R17 R18 K31 ["envObject"]
+  SETTABLEKS R17 R16 K11 ["globalEnv"]
+  GETTABLEKS R18 R0 K32 ["_moduleMocker"]
+  GETTABLEKS R17 R18 K12 ["isMockFunction"]
+  SETTABLEKS R17 R16 K12 ["isMockFunction"]
+  SETTABLEKS R13 R16 K13 ["isolateModules"]
+  SETTABLEKS R5 R16 K14 ["mock"]
+  NEWCLOSURE R17 P20
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  SETTABLEKS R17 R16 K15 ["requireActual"]
+  SETTABLEKS R7 R16 K16 ["resetAllMocks"]
+  SETTABLEKS R12 R16 K17 ["resetModules"]
+  SETTABLEKS R8 R16 K18 ["restoreAllMocks"]
+  NEWCLOSURE R17 P21
+  CAPTURE VAL R9
+  SETTABLEKS R17 R16 K19 ["runAllTicks"]
+  NEWCLOSURE R17 P22
+  CAPTURE VAL R9
+  SETTABLEKS R17 R16 K20 ["runAllTimers"]
+  NEWCLOSURE R17 P23
+  CAPTURE VAL R9
+  SETTABLEKS R17 R16 K21 ["runOnlyPendingTimers"]
+  MOVE R17 R9
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K22 ["jestTimers"]
+  NEWCLOSURE R17 P24
+  CAPTURE REF R2
+  SETTABLEKS R17 R16 K23 ["setMock"]
+  NEWCLOSURE R17 P25
+  CAPTURE VAL R9
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  SETTABLEKS R17 R16 K24 ["setSystemTime"]
+  SETTABLEKS R15 R16 K25 ["spyOn"]
+  SETTABLEKS R4 R16 K26 ["unmock"]
+  SETTABLEKS R10 R16 K27 ["useFakeTimers"]
+  SETTABLEKS R11 R16 K28 ["useRealTimers"]
+  MOVE R3 R16
+  CLOSEUPVALS R2
+  RETURN R3 1
+
+PROTO_52:
+  GETTABLEKS R1 R0 K0 ["jestGlobals"]
+  JUMPIFNOT R1 [+6]
+  GETIMPORT R1 K3 [table.clone]
+  GETTABLEKS R2 R0 K0 ["jestGlobals"]
+  CALL R1 1 -1
+  RETURN R1 -1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["JestSnapshot"]
+  NAMECALL R1 R0 K5 ["requireModuleOrMock"]
+  CALL R1 2 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["Expect"]
+  NAMECALL R2 R0 K5 ["requireModuleOrMock"]
+  CALL R2 2 1
+  DUPTABLE R3 K10 [{"expect", "expectExtended", "jestSnapshot"}]
+  SETTABLEKS R2 R3 K7 ["expect"]
+  SETTABLEKS R2 R3 K8 ["expectExtended"]
+  DUPTABLE R4 K13 [{"toMatchSnapshot", "toThrowErrorMatchingSnapshot"}]
+  GETTABLEKS R5 R1 K11 ["toMatchSnapshot"]
+  SETTABLEKS R5 R4 K11 ["toMatchSnapshot"]
+  GETTABLEKS R5 R1 K12 ["toThrowErrorMatchingSnapshot"]
+  SETTABLEKS R5 R4 K12 ["toThrowErrorMatchingSnapshot"]
+  SETTABLEKS R4 R3 K9 ["jestSnapshot"]
+  RETURN R3 1
+
+PROTO_53:
+  SETTABLEKS R1 R0 K0 ["jestGlobals"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["LuauPolyfill"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K6 ["Boolean"]
+  GETTABLEKS R3 R1 K7 ["Error"]
+  GETTABLEKS R4 R1 K8 ["Map"]
+  GETTABLEKS R5 R1 K9 ["Object"]
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R7 R0 K10 ["JestTypes"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R8 R0 K11 ["JestMock"]
+  CALL R7 1 1
+  GETTABLEKS R8 R7 K12 ["ModuleMocker"]
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R10 R0 K13 ["JestMockGenv"]
+  CALL R9 1 1
+  GETTABLEKS R10 R9 K14 ["GlobalMocker"]
+  GETIMPORT R11 K4 [require]
+  GETIMPORT R13 K1 [script]
+  GETTABLEKS R12 R13 K15 ["types"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETIMPORT R14 K1 [script]
+  GETTABLEKS R13 R14 K16 ["_types"]
+  CALL R12 1 1
+  GETIMPORT R13 K4 [require]
+  GETTABLEKS R14 R0 K17 ["Expect"]
+  CALL R13 1 1
+  GETIMPORT R14 K4 [require]
+  GETTABLEKS R15 R0 K18 ["JestFakeTimers"]
+  CALL R14 1 1
+  GETIMPORT R15 K20 [pcall]
+  GETIMPORT R17 K22 [debug]
+  GETTABLEKS R16 R17 K23 ["loadmodule"]
+  GETIMPORT R17 K26 [Instance.new]
+  LOADK R18 K27 ["ModuleScript"]
+  CALL R17 1 -1
+  CALL R15 -1 1
+  NEWTABLE R16 0 0
+  SETTABLEKS R16 R16 K28 ["__index"]
+  NEWCLOSURE R17 P0
+  CAPTURE VAL R16
+  CAPTURE VAL R14
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  CAPTURE VAL R9
+  SETTABLEKS R17 R16 K25 ["new"]
+  NEWCLOSURE R17 P1
+  SETTABLEKS R17 R16 K29 ["requireModule"]
+  NEWCLOSURE R17 P2
+  SETTABLEKS R17 R16 K30 ["requireInternalModule"]
+  NEWCLOSURE R17 P3
+  SETTABLEKS R17 R16 K31 ["requireActual"]
+  NEWCLOSURE R17 P4
+  SETTABLEKS R17 R16 K32 ["requireMock"]
+  NEWCLOSURE R17 P5
+  CAPTURE VAL R2
+  SETTABLEKS R17 R16 K33 ["_loadModule"]
+  NEWCLOSURE R17 P6
+  CAPTURE VAL R5
+  SETTABLEKS R17 R16 K34 ["requireModuleOrMock"]
+  NEWCLOSURE R17 P7
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  SETTABLEKS R17 R16 K35 ["isolateModules"]
+  NEWCLOSURE R17 P8
+  SETTABLEKS R17 R16 K36 ["resetModules"]
+  NEWCLOSURE R17 P9
+  CAPTURE VAL R2
+  SETTABLEKS R17 R16 K37 ["setMock"]
+  NEWCLOSURE R17 P10
+  SETTABLEKS R17 R16 K38 ["restoreAllMocks"]
+  NEWCLOSURE R17 P11
+  SETTABLEKS R17 R16 K39 ["resetAllMocks"]
+  NEWCLOSURE R17 P12
+  SETTABLEKS R17 R16 K40 ["clearAllMocks"]
+  NEWCLOSURE R17 P13
+  SETTABLEKS R17 R16 K41 ["teardown"]
+  NEWCLOSURE R17 P14
+  CAPTURE VAL R15
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  SETTABLEKS R17 R16 K42 ["_execModule"]
+  NEWCLOSURE R17 P15
+  SETTABLEKS R17 R16 K43 ["_shouldMock"]
+  NEWCLOSURE R17 P16
+  CAPTURE VAL R3
+  SETTABLEKS R17 R16 K44 ["_createJestObjectFor"]
+  NEWCLOSURE R17 P17
+  CAPTURE VAL R0
+  SETTABLEKS R17 R16 K45 ["getGlobalsFromEnvironment"]
+  NEWCLOSURE R17 P18
+  SETTABLEKS R17 R16 K46 ["setGlobalsForRuntime"]
+  RETURN R16 1

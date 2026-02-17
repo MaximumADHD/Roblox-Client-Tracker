@@ -13,7 +13,7 @@ PROTO_1:
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K0 ["Components"]
   GETTABLEKS R3 R4 K1 ["Contexts"]
-  GETTABLEKS R2 R3 K2 ["ClassIconContext"]
+  GETTABLEKS R2 R3 K2 ["ClassIconContextProvider"]
   DUPTABLE R3 K4 [{"getClassIcon"}]
   DUPCLOSURE R4 K5 [PROTO_0]
   CAPTURE UPVAL U2

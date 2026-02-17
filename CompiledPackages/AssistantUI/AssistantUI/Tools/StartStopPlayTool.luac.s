@@ -1,0 +1,205 @@
+PROTO_0:
+  LOADB R0 1
+  SETUPVAL R0 0
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K0 ["Fire"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["outputMessage"]
+  LENGTH R3 R4
+  LENGTH R4 R0
+  ADD R2 R3 R4
+  GETUPVAL R3 1
+  CALL R3 0 1
+  JUMPIFNOTLE R2 R3 [+20]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["outputMessage"]
+  LENGTH R2 R3
+  JUMPIFNOTEQKN R2 K1 [0] [+5]
+  GETUPVAL R2 0
+  SETTABLEKS R0 R2 K0 ["outputMessage"]
+  RETURN R0 0
+  GETUPVAL R2 0
+  GETUPVAL R7 0
+  GETTABLEKS R4 R7 K0 ["outputMessage"]
+  LOADK R5 K2 ["
+"]
+  MOVE R6 R0
+  CONCAT R3 R4 R6
+  SETTABLEKS R3 R2 K0 ["outputMessage"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["is_start"]
+  JUMPIFNOT R1 [+44]
+  LOADB R2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["new"]
+  CALL R3 0 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["subscribeGameLoaded"]
+  GETUPVAL R5 2
+  NEWCLOSURE R6 P0
+  CAPTURE REF R2
+  CAPTURE VAL R3
+  CALL R4 2 1
+  GETUPVAL R5 3
+  LOADK R6 K3 [""]
+  SETTABLEKS R6 R5 K4 ["outputMessage"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K5 ["subscribeOutput"]
+  DUPCLOSURE R6 K6 [PROTO_1]
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U5
+  CALL R5 1 1
+  SETUPVAL R5 4
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K7 ["startStopPlayAsync"]
+  LOADB R6 1
+  CALL R5 1 0
+  JUMPIF R2 [+3]
+  NAMECALL R5 R3 K8 ["Wait"]
+  CALL R5 1 0
+  MOVE R5 R4
+  CALL R5 0 0
+  GETIMPORT R5 K11 [task.wait]
+  LOADN R6 1
+  CALL R5 1 0
+  LOADK R5 K12 ["Game Started"]
+  CLOSEUPVALS R2
+  RETURN R5 1
+  CLOSEUPVALS R2
+  GETUPVAL R2 4
+  JUMPIFNOT R2 [+4]
+  GETUPVAL R2 4
+  NAMECALL R2 R2 K13 ["Disconnect"]
+  CALL R2 1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K7 ["startStopPlayAsync"]
+  LOADB R3 0
+  CALL R2 1 0
+  LOADK R2 K14 ["Game Stopped"]
+  RETURN R2 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 1
+  GETUPVAL R2 1
+  CALL R2 0 1
+  MOVE R4 R1
+  NAMECALL R2 R2 K0 ["addText"]
+  CALL R2 2 1
+  NAMECALL R2 R2 K1 ["build"]
+  CALL R2 1 1
+  RETURN R2 1
+
+PROTO_4:
+  DUPTABLE R0 K1 [{"shouldConfirm"}]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["shouldConfirm"]
+  RETURN R0 1
+
+PROTO_5:
+  GETUPVAL R0 0
+  LOADK R2 K0 ["Tools"]
+  LOADK R3 K1 ["StartStopPlay"]
+  NAMECALL R0 R0 K2 ["getText"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+PROTO_6:
+  GETTABLEKS R1 R0 K0 ["networking"]
+  GETTABLEKS R2 R0 K1 ["environment"]
+  LOADNIL R3
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE REF R3
+  CAPTURE UPVAL U2
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R4
+  CAPTURE UPVAL U3
+  GETUPVAL R7 4
+  GETTABLEKS R6 R7 K2 ["define"]
+  CALL R6 0 1
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K3 ["StartStopPlay"]
+  NAMECALL R6 R6 K4 ["setName"]
+  CALL R6 2 1
+  LOADK R8 K5 ["Start play the game or stop the play."]
+  NAMECALL R6 R6 K6 ["setDescription"]
+  CALL R6 2 1
+  LOADK R8 K7 ["is_start"]
+  DUPTABLE R9 K10 [{"type", "description"}]
+  LOADK R10 K11 ["boolean"]
+  SETTABLEKS R10 R9 K8 ["type"]
+  LOADK R10 K12 ["true to start the game, false to stop the game and return to edit mode."]
+  SETTABLEKS R10 R9 K9 ["description"]
+  NAMECALL R6 R6 K13 ["addArgument"]
+  CALL R6 3 1
+  MOVE R8 R5
+  NAMECALL R6 R6 K14 ["setHandler"]
+  CALL R6 2 1
+  NAMECALL R6 R6 K15 ["build"]
+  CALL R6 1 1
+  DUPTABLE R7 K19 [{"definition", "getPreExecuteWarning", "displayNameFunction"}]
+  SETTABLEKS R6 R7 K16 ["definition"]
+  DUPCLOSURE R8 K20 [PROTO_4]
+  SETTABLEKS R8 R7 K17 ["getPreExecuteWarning"]
+  DUPCLOSURE R8 K21 [PROTO_5]
+  CAPTURE UPVAL U6
+  SETTABLEKS R8 R7 K18 ["displayNameFunction"]
+  CLOSEUPVALS R3
+  RETURN R7 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["ModelContextProtocol"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Tools"]
+  GETTABLEKS R3 R4 K9 ["ToolTypes"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K10 ["Resources"]
+  GETTABLEKS R5 R6 K11 ["Localization"]
+  GETTABLEKS R4 R5 K12 ["Translator"]
+  CALL R3 1 1
+  GETTABLEKS R5 R1 K13 ["Util"]
+  GETTABLEKS R4 R5 K14 ["ToolBuilder"]
+  GETTABLEKS R6 R1 K13 ["Util"]
+  GETTABLEKS R5 R6 K15 ["ToolResult"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K13 ["Util"]
+  GETTABLEKS R7 R8 K16 ["ConsoleOutput"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K6 ["Parent"]
+  GETTABLEKS R8 R9 K17 ["Signal"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K18 ["Flags"]
+  GETTABLEKS R9 R10 K19 ["FIntAssistantDebugToolMaxOutput"]
+  CALL R8 1 1
+  GETTABLEKS R9 R2 K20 ["ToolNames"]
+  DUPCLOSURE R10 K21 [PROTO_6]
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  CAPTURE VAL R3
+  RETURN R10 1

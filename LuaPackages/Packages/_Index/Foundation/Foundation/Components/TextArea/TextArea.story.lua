@@ -14,6 +14,8 @@ local InputSize = require(Foundation.Enums.InputSize)
 
 local TextArea = require(Foundation.Components.TextArea)
 
+local Flags = require(Foundation.Utility.Flags)
+
 local function Story(props)
 	local controls = props.controls
 	local tokens = useTokens()
@@ -43,7 +45,9 @@ local function Story(props)
 			label = controls.label,
 			hint = controls.hint,
 			size = controls.size,
-			width = UDim.new(0, controls.width),
+			width = if Flags.FoundationTextAreaTokenBasedWidth and controls.width == 0
+				then nil
+				else UDim.new(0, controls.width),
 			numLines = controls.numLines,
 			placeholder = controls.placeholder,
 			text = text,
@@ -73,7 +77,7 @@ return {
 		hasError = false,
 		isDisabled = false,
 		numLines = 4,
-		width = 400,
+		width = if Flags.FoundationTextAreaTokenBasedWidth then 0 else 400,
 		size = Dash.values(InputSize),
 		label = "Biography",
 		hint = "1000 characters maximum",

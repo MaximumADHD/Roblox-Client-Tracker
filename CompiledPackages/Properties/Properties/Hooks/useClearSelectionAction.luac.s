@@ -1,0 +1,76 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["isActive"]
+  GETTABLEKS R0 R1 K1 ["get"]
+  CALL R0 0 1
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K2 ["deactivateInstancePickerAsync"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["bindToAction"]
+  DUPTABLE R1 K4 [{"uri", "shouldFocusProperties", "onActionActivated"}]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K5 ["fromAction"]
+  LOADK R3 K6 ["BuilderTools"]
+  LOADK R4 K7 ["ClearSelection"]
+  CALL R2 2 1
+  SETTABLEKS R2 R1 K1 ["uri"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K2 ["shouldFocusProperties"]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K3 ["onActionActivated"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useContext"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["Context"]
+  CALL R1 1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["useEffect"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  NEWTABLE R4 0 1
+  MOVE R5 R0
+  SETLIST R4 R5 1 [1]
+  CALL R2 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Components"]
+  GETTABLEKS R3 R4 K7 ["Contexts"]
+  GETTABLEKS R2 R3 K8 ["ActionContext"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R0 K9 ["PropertyEditorTypes"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Parent"]
+  GETTABLEKS R4 R5 K11 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K10 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["StudioFoundation"]
+  CALL R4 1 1
+  GETTABLEKS R6 R4 K13 ["Util"]
+  GETTABLEKS R5 R6 K14 ["StudioUri"]
+  DUPCLOSURE R6 K15 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  RETURN R6 1

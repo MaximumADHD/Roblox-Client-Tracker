@@ -210,6 +210,130 @@ return {
 			end,
 		},
 		{
+			name = "Sibling Popovers",
+			story = function()
+				local isLeftOpen, setIsLeftOpen = React.useState(false)
+				local isMiddleOpen, setIsMiddleOpen = React.useState(false)
+				local isRightOpen, setIsRightOpen = React.useState(false)
+
+				local function toggleLeft()
+					setIsLeftOpen(not isLeftOpen)
+				end
+
+				local function toggleMiddle()
+					setIsMiddleOpen(not isMiddleOpen)
+				end
+
+				local function toggleRight()
+					setIsRightOpen(not isRightOpen)
+				end
+
+				return React.createElement(View, {
+					tag = "row align-y-center gap-large auto-xy",
+				}, {
+					[1] = React.createElement(Popover.Root, {
+						isOpen = isLeftOpen,
+						key = "left",
+					}, {
+						Anchor = React.createElement(
+							Popover.Anchor,
+							nil,
+							React.createElement(Button, {
+								text = "Left Popover",
+								onActivated = toggleLeft,
+								variant = ButtonVariant.Emphasis,
+							})
+						),
+						Content = React.createElement(
+							Popover.Content,
+							{
+								align = PopoverAlign.Start,
+								side = PopoverSide.Left,
+							},
+							React.createElement(View, {
+								tag = "col gap-small padding-medium auto-xy",
+							}, {
+								Title = React.createElement(Text, {
+									Text = "Left content",
+									tag = "auto-xy text-title-medium content-emphasis",
+								}),
+								Subtitle = React.createElement(Text, {
+									Text = "Sibling popover",
+									tag = "auto-xy text-body-small",
+								}),
+							})
+						),
+					}),
+					[2] = React.createElement(Popover.Root, {
+						isOpen = isMiddleOpen,
+						key = "middle",
+					}, {
+						Anchor = React.createElement(
+							Popover.Anchor,
+							nil,
+							React.createElement(Button, {
+								text = "Middle Popover",
+								onActivated = toggleMiddle,
+								variant = ButtonVariant.Emphasis,
+							})
+						),
+						Content = React.createElement(
+							Popover.Content,
+							{
+								align = PopoverAlign.Start,
+								side = PopoverSide.Right,
+							},
+							React.createElement(View, {
+								tag = "col gap-small padding-medium auto-xy",
+							}, {
+								Title = React.createElement(Text, {
+									Text = "Middle content",
+									tag = "auto-xy text-title-medium content-emphasis",
+								}),
+								Subtitle = React.createElement(Text, {
+									Text = "Sibling popover",
+									tag = "auto-xy text-body-small",
+								}),
+							})
+						),
+					}),
+					[3] = React.createElement(Popover.Root, {
+						isOpen = isRightOpen,
+						key = "right",
+					}, {
+						Anchor = React.createElement(
+							Popover.Anchor,
+							nil,
+							React.createElement(Button, {
+								text = "Right Popover",
+								onActivated = toggleRight,
+								variant = ButtonVariant.Emphasis,
+							})
+						),
+						Content = React.createElement(
+							Popover.Content,
+							{
+								align = PopoverAlign.Start,
+								side = PopoverSide.Left,
+							},
+							React.createElement(View, {
+								tag = "col gap-small padding-medium auto-xy",
+							}, {
+								Title = React.createElement(Text, {
+									Text = "Right content",
+									tag = "auto-xy text-title-medium content-emphasis",
+								}),
+								Subtitle = React.createElement(Text, {
+									Text = "Sibling popover",
+									tag = "auto-xy text-body-small",
+								}),
+							})
+						),
+					}),
+				})
+			end,
+		},
+		{
 			name = "Nested Sheets",
 			story = function()
 				local isSheet1Open, setIsSheet1Open = React.useState(false)

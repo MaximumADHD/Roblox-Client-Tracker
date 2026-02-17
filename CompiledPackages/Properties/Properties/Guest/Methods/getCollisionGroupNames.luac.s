@@ -1,0 +1,33 @@
+PROTO_0:
+  GETTABLEKS R2 R0 K0 ["name"]
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["Dictionary"]
+  GETTABLEKS R0 R1 K1 ["map"]
+  GETUPVAL R1 1
+  NAMECALL R1 R1 K2 ["GetRegisteredCollisionGroups"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K3 [PROTO_0]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["PhysicsService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["Properties"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETTABLEKS R2 R1 K8 ["Parent"]
+  GETIMPORT R3 K10 [require]
+  GETTABLEKS R4 R2 K11 ["Cryo"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K12 [PROTO_1]
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  RETURN R4 1

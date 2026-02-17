@@ -117,7 +117,7 @@ PROTO_3:
   GETUPVAL R5 1
   GETTABLEKS R4 R5 K1 ["Text"]
   DUPTABLE R5 K5 [{"tag", "Text", "key", "LayoutOrder"}]
-  LOADK R6 K6 ["size-0-0 auto-xy text-body-small text-wrap text-align-x-left"]
+  LOADK R6 K6 ["size-0-0 auto-xy text-body-small text-align-x-left"]
   SETTABLEKS R6 R5 K2 ["tag"]
   LOADK R7 K7 ["%*:"]
   GETUPVAL R9 2

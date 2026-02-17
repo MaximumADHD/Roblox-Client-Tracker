@@ -2218,46 +2218,55 @@ PROTO_76:
   RETURN R0 0
 
 PROTO_77:
-  GETUPVAL R4 0
-  CALL R4 0 1
-  JUMPIFNOT R4 [+23]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K0 ["getWebViewTrackingAttributes"]
-  DUPTABLE R5 K5 [{"assetId", "addedCapabilities", "removedCapabilities", "instanceId"}]
-  SETTABLEKS R0 R5 K1 ["assetId"]
-  SETTABLEKS R1 R5 K2 ["addedCapabilities"]
-  SETTABLEKS R2 R5 K3 ["removedCapabilities"]
-  SETTABLEKS R3 R5 K4 ["instanceId"]
-  CALL R4 1 1
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K6 ["sendEventDeferred"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K7 ["eventTarget"]
-  LOADK R7 K8 ["toolbox"]
-  LOADK R8 K9 ["StoreAssetCapabilitiesChanged"]
-  MOVE R9 R4
-  CALL R5 4 0
+  GETUPVAL R8 0
+  CALL R8 0 1
+  JUMPIFNOT R8 [+31]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K0 ["getWebViewTrackingAttributes"]
+  DUPTABLE R9 K9 [{"assetId", "addedCapabilities", "removedCapabilities", "currentCapabilities", "currentSandboxedValue", "instanceId", "instanceFullName", "telemetryOrigin"}]
+  SETTABLEKS R0 R9 K1 ["assetId"]
+  SETTABLEKS R1 R9 K2 ["addedCapabilities"]
+  SETTABLEKS R2 R9 K3 ["removedCapabilities"]
+  SETTABLEKS R3 R9 K4 ["currentCapabilities"]
+  SETTABLEKS R4 R9 K5 ["currentSandboxedValue"]
+  SETTABLEKS R5 R9 K6 ["instanceId"]
+  SETTABLEKS R6 R9 K7 ["instanceFullName"]
+  SETTABLEKS R7 R9 K8 ["telemetryOrigin"]
+  CALL R8 1 1
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K10 ["sendEventDeferred"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K11 ["eventTarget"]
+  LOADK R11 K12 ["toolbox"]
+  LOADK R12 K13 ["StoreAssetCapabilitiesChanged"]
+  MOVE R13 R8
+  CALL R9 4 0
   RETURN R0 0
 
 PROTO_78:
-  GETUPVAL R3 0
-  CALL R3 0 1
-  JUMPIFNOT R3 [+21]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K0 ["getWebViewTrackingAttributes"]
-  DUPTABLE R4 K4 [{"assetId", "sandboxed", "instanceId"}]
-  SETTABLEKS R0 R4 K1 ["assetId"]
-  SETTABLEKS R1 R4 K2 ["sandboxed"]
-  SETTABLEKS R2 R4 K3 ["instanceId"]
-  CALL R3 1 1
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K5 ["sendEventDeferred"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K6 ["eventTarget"]
-  LOADK R6 K7 ["toolbox"]
-  LOADK R7 K8 ["StoreAssetSandboxChanged"]
-  MOVE R8 R3
-  CALL R4 4 0
+  GETUPVAL R8 0
+  CALL R8 0 1
+  JUMPIFNOT R8 [+31]
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K0 ["getWebViewTrackingAttributes"]
+  DUPTABLE R9 K9 [{"assetId", "addedCapabilities", "removedCapabilities", "currentCapabilities", "currentSandboxedValue", "instanceId", "instanceFullName", "telemetryOrigin"}]
+  SETTABLEKS R0 R9 K1 ["assetId"]
+  SETTABLEKS R1 R9 K2 ["addedCapabilities"]
+  SETTABLEKS R2 R9 K3 ["removedCapabilities"]
+  SETTABLEKS R3 R9 K4 ["currentCapabilities"]
+  SETTABLEKS R4 R9 K5 ["currentSandboxedValue"]
+  SETTABLEKS R5 R9 K6 ["instanceId"]
+  SETTABLEKS R6 R9 K7 ["instanceFullName"]
+  SETTABLEKS R7 R9 K8 ["telemetryOrigin"]
+  CALL R8 1 1
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K10 ["sendEventDeferred"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K11 ["eventTarget"]
+  LOADK R11 K12 ["toolbox"]
+  LOADK R12 K13 ["StoreAssetSandboxChanged"]
+  MOVE R13 R8
+  CALL R9 4 0
   RETURN R0 0
 
 MAIN:

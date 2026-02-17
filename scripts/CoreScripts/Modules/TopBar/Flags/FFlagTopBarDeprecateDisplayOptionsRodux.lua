@@ -14,9 +14,9 @@ local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMen
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 
-local FFlagTopBarDeprecateDisplayOptionsRodux = game:DefineFastFlag("TopBarDeprecateDisplayOptionsRodux", false)
+local FFlagTopBarDeprecateDisplayOptionsRodux = game:DefineFastFlag("TopBarDeprecateDisplayOptionsRodux2", false)
 
 return FFlagTopBarDeprecateDisplayOptionsRodux 
-    and ChromeEnabled and FFlagEnableConsoleExpControls
+    and ChromeEnabled() and FFlagEnableConsoleExpControls
     and FFlagRemoveTopBarInputTypeRodux and FFlagTopBarDeprecateGamepadNavigationDialogRodux
     and FFlagTopBarSignalizeMenuOpen and FFlagTopBarSignalizeKeepOutAreas and FFlagTopBarSignalizeScreenSize

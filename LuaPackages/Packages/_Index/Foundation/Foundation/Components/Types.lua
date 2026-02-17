@@ -181,7 +181,7 @@ export type GuiObjectProps = BaseGuiObjectProps & BaseInteractableProps
 
 export type TextInputCommonProps = {
 	-- Input text value
-	text: string,
+	text: Bindable<string>,
 	-- Ran when the input text changes
 	onChanged: (text: string) -> (),
 	-- The label shown alongside the TextArea
@@ -204,8 +204,8 @@ export type TextInputCommonProps = {
 	textBoxRef: React.Ref<TextInputRef>?,
 	-- Ran when textbox focus is gained
 	onFocusGained: (() -> ())?,
-	-- Ran when textbox focus is lost
-	onFocusLost: (() -> ())?,
+	-- Ran when textbox focus is lost. The InputObject that caused focus to be lost is passed if available.
+	onFocusLost: ((inputObject: InputObject?) -> ())?,
 }
 
 export type AspectRatioTable = {

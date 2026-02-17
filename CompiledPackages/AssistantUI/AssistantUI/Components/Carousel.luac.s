@@ -1,0 +1,275 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Hooks"]
+  GETTABLEKS R1 R2 K1 ["useTokens"]
+  CALL R1 0 1
+  GETTABLEKS R2 R0 K2 ["size"]
+  GETTABLEKS R4 R0 K4 ["imagePadding"]
+  ORK R3 R4 K3 [0]
+  GETTABLEKS R5 R1 K5 ["Radius"]
+  GETTABLEKS R4 R5 K6 ["Small"]
+  GETUPVAL R5 1
+  GETUPVAL R6 2
+  DUPTABLE R7 K11 [{"tag", "Size", "onActivated", "LayoutOrder"}]
+  LOADK R8 K12 ["bg-shift-300 radius-small Component-CarouselItem"]
+  SETTABLEKS R8 R7 K7 ["tag"]
+  GETIMPORT R8 K15 [UDim2.fromOffset]
+  MOVE R9 R2
+  MOVE R10 R2
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K8 ["Size"]
+  GETTABLEKS R8 R0 K9 ["onActivated"]
+  SETTABLEKS R8 R7 K9 ["onActivated"]
+  GETTABLEKS R8 R0 K10 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K10 ["LayoutOrder"]
+  DUPTABLE R8 K19 [{"InnerBorder", "Image", "UIPadding"}]
+  GETTABLEKS R9 R0 K20 ["selected"]
+  JUMPIFNOT R9 [+55]
+  GETUPVAL R9 1
+  GETUPVAL R10 2
+  DUPTABLE R11 K23 [{"tag", "Size", "ZIndex", "testId"}]
+  LOADK R12 K24 ["anchor-center-center position-center-center"]
+  SETTABLEKS R12 R11 K7 ["tag"]
+  GETIMPORT R12 K15 [UDim2.fromOffset]
+  SUBK R13 R2 K25 [4]
+  SUBK R14 R2 K25 [4]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K8 ["Size"]
+  LOADN R12 2
+  SETTABLEKS R12 R11 K21 ["ZIndex"]
+  GETUPVAL R14 3
+  GETTABLEKS R13 R14 K26 ["CarouselItem"]
+  GETTABLEKS R12 R13 K27 ["Selected"]
+  SETTABLEKS R12 R11 K22 ["testId"]
+  DUPTABLE R12 K30 [{"UICorner", "UIStroke"}]
+  GETUPVAL R13 1
+  LOADK R14 K28 ["UICorner"]
+  DUPTABLE R15 K32 [{"CornerRadius"}]
+  GETIMPORT R16 K35 [UDim.new]
+  LOADN R17 0
+  SUBK R18 R4 K36 [2]
+  CALL R16 2 1
+  SETTABLEKS R16 R15 K31 ["CornerRadius"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K28 ["UICorner"]
+  GETUPVAL R13 1
+  LOADK R14 K29 ["UIStroke"]
+  DUPTABLE R15 K39 [{"Thickness", "Color"}]
+  LOADN R16 2
+  SETTABLEKS R16 R15 K37 ["Thickness"]
+  GETIMPORT R16 K41 [Color3.new]
+  LOADN R17 1
+  LOADN R18 1
+  LOADN R19 1
+  CALL R16 3 1
+  SETTABLEKS R16 R15 K38 ["Color"]
+  CALL R13 2 1
+  SETTABLEKS R13 R12 K29 ["UIStroke"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K16 ["InnerBorder"]
+  GETUPVAL R9 1
+  GETUPVAL R10 4
+  DUPTABLE R11 K42 [{"tag", "Image"}]
+  LOADK R12 K43 ["size-full-full radius-small anchor-center-center position-center-center"]
+  SETTABLEKS R12 R11 K7 ["tag"]
+  GETTABLEKS R12 R0 K44 ["uri"]
+  SETTABLEKS R12 R11 K17 ["Image"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K17 ["Image"]
+  GETUPVAL R9 1
+  LOADK R10 K18 ["UIPadding"]
+  DUPTABLE R11 K49 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+  GETIMPORT R12 K35 [UDim.new]
+  LOADN R13 0
+  MOVE R14 R3
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K45 ["PaddingLeft"]
+  GETIMPORT R12 K35 [UDim.new]
+  LOADN R13 0
+  MOVE R14 R3
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K46 ["PaddingRight"]
+  GETIMPORT R12 K35 [UDim.new]
+  LOADN R13 0
+  MOVE R14 R3
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K47 ["PaddingTop"]
+  GETIMPORT R12 K35 [UDim.new]
+  LOADN R13 0
+  MOVE R14 R3
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K48 ["PaddingBottom"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K18 ["UIPadding"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["canSelect"]
+  JUMPIFNOT R0 [+8]
+  GETUPVAL R0 1
+  GETUPVAL R1 2
+  JUMPIFNOTEQ R0 R1 [+2]
+  RETURN R0 0
+  GETUPVAL R0 3
+  GETUPVAL R1 2
+  CALL R0 1 0
+  GETUPVAL R1 4
+  GETTABLEKS R0 R1 K1 ["onActivated"]
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R1 4
+  GETTABLEKS R0 R1 K1 ["onActivated"]
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_2:
+  DUPTABLE R0 K8 [{"AutomaticCanvasSize", "AutomaticSize", "CanvasSize", "ScrollingDirection", "ScrollingEnabled", "HorizontalScrollBarInset", "VerticalScrollBarInset", "scrollBarVisibility"}]
+  GETIMPORT R1 K11 [Enum.AutomaticSize.X]
+  SETTABLEKS R1 R0 K0 ["AutomaticCanvasSize"]
+  GETIMPORT R1 K13 [Enum.AutomaticSize.Y]
+  SETTABLEKS R1 R0 K1 ["AutomaticSize"]
+  GETIMPORT R1 K16 [UDim2.fromOffset]
+  LOADN R2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K17 ["height"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K2 ["CanvasSize"]
+  GETIMPORT R1 K18 [Enum.ScrollingDirection.X]
+  SETTABLEKS R1 R0 K3 ["ScrollingDirection"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K4 ["ScrollingEnabled"]
+  GETIMPORT R1 K21 [Enum.ScrollBarInset.ScrollBar]
+  SETTABLEKS R1 R0 K5 ["HorizontalScrollBarInset"]
+  GETIMPORT R1 K23 [Enum.ScrollBarInset.None]
+  SETTABLEKS R1 R0 K6 ["VerticalScrollBarInset"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K24 ["Enums"]
+  GETTABLEKS R2 R3 K25 ["Visibility"]
+  GETTABLEKS R1 R2 K26 ["Auto"]
+  SETTABLEKS R1 R0 K7 ["scrollBarVisibility"]
+  RETURN R0 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["useState"]
+  LOADN R3 1
+  CALL R2 1 2
+  NEWTABLE R4 0 0
+  GETTABLEKS R5 R0 K1 ["items"]
+  LOADNIL R6
+  LOADNIL R7
+  FORGPREP R5
+  MOVE R11 R4
+  GETUPVAL R12 2
+  GETUPVAL R13 3
+  DUPTABLE R14 K9 [{"key", "uri", "size", "imagePadding", "selected", "onActivated", "LayoutOrder"}]
+  GETTABLEKS R15 R9 K3 ["uri"]
+  SETTABLEKS R15 R14 K2 ["key"]
+  GETTABLEKS R15 R9 K3 ["uri"]
+  SETTABLEKS R15 R14 K3 ["uri"]
+  GETTABLEKS R15 R0 K10 ["height"]
+  SETTABLEKS R15 R14 K4 ["size"]
+  GETTABLEKS R15 R0 K5 ["imagePadding"]
+  SETTABLEKS R15 R14 K5 ["imagePadding"]
+  GETTABLEKS R16 R0 K11 ["canSelect"]
+  JUMPIFNOT R16 [+5]
+  JUMPIFEQ R8 R2 [+2]
+  LOADB R15 0 +1
+  LOADB R15 1
+  JUMP [+1]
+  LOADB R15 0
+  SETTABLEKS R15 R14 K6 ["selected"]
+  NEWCLOSURE R15 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R9
+  SETTABLEKS R15 R14 K7 ["onActivated"]
+  MOVE R15 R1
+  CALL R15 0 1
+  SETTABLEKS R15 R14 K8 ["LayoutOrder"]
+  CALL R12 2 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R10 K14 [table.insert]
+  CALL R10 -1 0
+  FORGLOOP R5 2 [-49]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K15 ["useMemo"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U4
+  NEWTABLE R7 0 1
+  GETTABLEKS R8 R0 K10 ["height"]
+  SETLIST R7 R8 1 [1]
+  CALL R5 2 1
+  GETUPVAL R6 2
+  GETUPVAL R7 5
+  DUPTABLE R8 K18 [{"tag", "scroll", "LayoutOrder"}]
+  LOADK R9 K19 ["size-full-0 auto-y Component-Carousel"]
+  SETTABLEKS R9 R8 K16 ["tag"]
+  SETTABLEKS R5 R8 K17 ["scroll"]
+  GETTABLEKS R9 R0 K8 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K8 ["LayoutOrder"]
+  DUPTABLE R9 K21 [{"Container"}]
+  GETUPVAL R10 2
+  GETUPVAL R11 6
+  DUPTABLE R12 K23 [{"tag", "testId"}]
+  LOADK R13 K24 ["row auto-xy gap-small padding-bottom-xsmall"]
+  SETTABLEKS R13 R12 K16 ["tag"]
+  GETUPVAL R15 7
+  GETTABLEKS R14 R15 K25 ["Carousel"]
+  GETTABLEKS R13 R14 K20 ["Container"]
+  SETTABLEKS R13 R12 K22 ["testId"]
+  MOVE R13 R4
+  CALL R10 3 1
+  SETTABLEKS R10 R9 K20 ["Container"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K9 ["ReactUtils"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K10 ["Util"]
+  GETTABLEKS R5 R6 K11 ["TestIds"]
+  CALL R4 1 1
+  GETTABLEKS R5 R1 K12 ["Image"]
+  GETTABLEKS R6 R1 K13 ["ScrollView"]
+  GETTABLEKS R7 R1 K14 ["View"]
+  GETTABLEKS R8 R3 K15 ["createNextOrder"]
+  GETTABLEKS R9 R2 K16 ["createElement"]
+  DUPCLOSURE R10 K17 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  DUPCLOSURE R11 K18 [PROTO_3]
+  CAPTURE VAL R8
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  RETURN R11 1

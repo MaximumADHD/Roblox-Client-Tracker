@@ -1,114 +1,135 @@
 MAIN:
   PREPVARARGS 0
-  NEWTABLE R0 64 0
-  LOADN R1 135
-  SETTABLEKS R1 R0 K0 ["widgetHeaderHeight"]
-  LOADN R1 32
-  SETTABLEKS R1 R0 K1 ["widgetHeaderLineHeight"]
-  LOADN R1 18
-  SETTABLEKS R1 R0 K2 ["inputTextSize"]
-  LOADN R1 16
-  SETTABLEKS R1 R0 K3 ["labelTextSize"]
-  LOADN R1 12
-  SETTABLEKS R1 R0 K4 ["confirmationDialogTextSize"]
-  LOADN R1 17
-  SETTABLEKS R1 R0 K5 ["resultTextSize"]
-  LOADN R1 17
-  SETTABLEKS R1 R0 K6 ["lineNumberLabelTextSize"]
-  LOADN R1 17
-  SETTABLEKS R1 R0 K7 ["matchNumberLabelTextSize"]
-  GETIMPORT R1 K11 [Enum.Font.SourceSans]
-  SETTABLEKS R1 R0 K12 ["defaultFont"]
-  GETIMPORT R1 K14 [Enum.Font.SourceSansBold]
-  SETTABLEKS R1 R0 K15 ["defaultFontBold"]
-  LOADN R1 6
-  SETTABLEKS R1 R0 K16 ["padding"]
-  LOADN R1 8
-  SETTABLEKS R1 R0 K17 ["paddingSmall"]
-  LOADN R1 4
-  SETTABLEKS R1 R0 K18 ["paddingXSmall"]
-  LOADN R1 2
-  SETTABLEKS R1 R0 K19 ["paddingXXSmall"]
-  LOADK R1 K20 [0.5]
-  SETTABLEKS R1 R0 K21 ["disabledTransparency"]
-  LOADK R1 K22 [0.85]
-  SETTABLEKS R1 R0 K23 ["hoveredTransparency"]
-  LOADK R1 K24 [0.8]
-  SETTABLEKS R1 R0 K25 ["pressedTransparency"]
-  LOADN R1 5
-  SETTABLEKS R1 R0 K26 ["cornerRadius"]
-  LOADN R1 6
-  SETTABLEKS R1 R0 K27 ["radiusSmall"]
-  LOADN R1 8
-  SETTABLEKS R1 R0 K28 ["radiusMedium"]
-  LOADN R1 28
-  SETTABLEKS R1 R0 K29 ["searchBarHeight"]
-  GETTABLEKS R1 R0 K18 ["paddingXSmall"]
-  SETTABLEKS R1 R0 K30 ["searchBarPadding"]
-  GETTABLEKS R2 R0 K29 ["searchBarHeight"]
-  GETTABLEKS R3 R0 K18 ["paddingXSmall"]
-  ADD R1 R2 R3
-  SETTABLEKS R1 R0 K31 ["minSearchHeaderHeight"]
-  GETTABLEKS R1 R0 K29 ["searchBarHeight"]
-  SETTABLEKS R1 R0 K32 ["iconButtonSize"]
-  LOADN R1 100
-  SETTABLEKS R1 R0 K33 ["findResultsMinTextWidth"]
-  LOADN R1 150
-  SETTABLEKS R1 R0 K34 ["findResultsMaxTextWidth"]
-  LOADN R1 59
-  SETTABLEKS R1 R0 K35 ["minReplaceButtonWidth"]
-  LOADK R1 K36 [75.5]
-  SETTABLEKS R1 R0 K37 ["minReplaceAllButtonWidth"]
-  LOADN R1 210
-  SETTABLEKS R1 R0 K38 ["replaceAllConfirmationLabelWidth"]
-  LOADN R1 10
-  SETTABLEKS R1 R0 K39 ["scrollBarThickness"]
-  LOADN R1 4
-  SETTABLEKS R1 R0 K40 ["minNameLabelWidth"]
-  LOADN R1 12
-  SETTABLEKS R1 R0 K41 ["indentWidth"]
-  LOADN R1 12
-  SETTABLEKS R1 R0 K42 ["iconSizeSmall"]
-  LOADN R1 16
-  SETTABLEKS R1 R0 K43 ["iconSize"]
-  LOADN R1 16
-  SETTABLEKS R1 R0 K44 ["fieldSize"]
-  LOADN R1 24
-  SETTABLEKS R1 R0 K45 ["resultRowHeight"]
-  LOADK R1 K46 [0.16]
-  SETTABLEKS R1 R0 K47 ["arrowImageTransparency"]
-  LOADN R1 10
-  SETTABLEKS R1 R0 K48 ["resultListScrollBarThickness"]
-  LOADN R1 6
-  SETTABLEKS R1 R0 K49 ["circleOffset"]
-  DUPTABLE R1 K52 [{"Dark", "Light"}]
-  DUPTABLE R2 K56 [{"find", "replaced", "replacement"}]
-  GETIMPORT R3 K59 [Color3.fromHex]
-  LOADK R4 K60 ["#473200"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K53 ["find"]
-  GETIMPORT R3 K59 [Color3.fromHex]
-  LOADK R4 K61 ["#720000"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K54 ["replaced"]
-  GETIMPORT R3 K59 [Color3.fromHex]
-  LOADK R4 K62 ["#0C3D25"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K55 ["replacement"]
-  SETTABLEKS R2 R1 K50 ["Dark"]
-  DUPTABLE R2 K56 [{"find", "replaced", "replacement"}]
-  GETIMPORT R3 K59 [Color3.fromHex]
-  LOADK R4 K63 ["#F9DE6F"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K53 ["find"]
-  GETIMPORT R3 K59 [Color3.fromHex]
-  LOADK R4 K64 ["#FFBEB0"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K54 ["replaced"]
-  GETIMPORT R3 K59 [Color3.fromHex]
-  LOADK R4 K65 ["#68F9A9"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K55 ["replacement"]
-  SETTABLEKS R2 R1 K51 ["Light"]
-  SETTABLEKS R1 R0 K66 ["RichTagColors"]
-  RETURN R0 1
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["FindReplaceAll"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Src"]
+  GETTABLEKS R3 R4 K7 ["Util"]
+  GETTABLEKS R2 R3 K8 ["defineFlags"]
+  CALL R1 1 1
+  NEWTABLE R2 64 0
+  LOADN R3 135
+  SETTABLEKS R3 R2 K9 ["widgetHeaderHeight"]
+  LOADN R3 32
+  SETTABLEKS R3 R2 K10 ["widgetHeaderLineHeight"]
+  LOADN R3 18
+  SETTABLEKS R3 R2 K11 ["inputTextSize"]
+  LOADN R3 16
+  SETTABLEKS R3 R2 K12 ["labelTextSize"]
+  LOADN R3 12
+  SETTABLEKS R3 R2 K13 ["confirmationDialogTextSize"]
+  LOADN R3 17
+  SETTABLEKS R3 R2 K14 ["resultTextSize"]
+  LOADN R3 17
+  SETTABLEKS R3 R2 K15 ["lineNumberLabelTextSize"]
+  LOADN R3 17
+  SETTABLEKS R3 R2 K16 ["matchNumberLabelTextSize"]
+  GETTABLEKS R4 R1 K17 ["getFFlagFindReplaceAllUseBuilderFont"]
+  CALL R4 0 1
+  JUMPIFNOT R4 [+3]
+  GETIMPORT R3 K21 [Enum.Font.BuilderSans]
+  JUMP [+2]
+  GETIMPORT R3 K23 [Enum.Font.SourceSans]
+  SETTABLEKS R3 R2 K24 ["defaultFont"]
+  GETTABLEKS R4 R1 K17 ["getFFlagFindReplaceAllUseBuilderFont"]
+  CALL R4 0 1
+  JUMPIFNOT R4 [+3]
+  GETIMPORT R3 K26 [Enum.Font.BuilderSansBold]
+  JUMP [+2]
+  GETIMPORT R3 K28 [Enum.Font.SourceSansBold]
+  SETTABLEKS R3 R2 K29 ["defaultFontBold"]
+  LOADK R3 K30 [1.26]
+  SETTABLEKS R3 R2 K31 ["defaultFontScale"]
+  LOADN R3 6
+  SETTABLEKS R3 R2 K32 ["padding"]
+  LOADN R3 8
+  SETTABLEKS R3 R2 K33 ["paddingSmall"]
+  LOADN R3 4
+  SETTABLEKS R3 R2 K34 ["paddingXSmall"]
+  LOADN R3 2
+  SETTABLEKS R3 R2 K35 ["paddingXXSmall"]
+  LOADK R3 K36 [0.5]
+  SETTABLEKS R3 R2 K37 ["disabledTransparency"]
+  LOADK R3 K38 [0.85]
+  SETTABLEKS R3 R2 K39 ["hoveredTransparency"]
+  LOADK R3 K40 [0.8]
+  SETTABLEKS R3 R2 K41 ["pressedTransparency"]
+  LOADN R3 5
+  SETTABLEKS R3 R2 K42 ["cornerRadius"]
+  LOADN R3 6
+  SETTABLEKS R3 R2 K43 ["radiusSmall"]
+  LOADN R3 8
+  SETTABLEKS R3 R2 K44 ["radiusMedium"]
+  LOADN R3 28
+  SETTABLEKS R3 R2 K45 ["searchBarHeight"]
+  GETTABLEKS R3 R2 K34 ["paddingXSmall"]
+  SETTABLEKS R3 R2 K46 ["searchBarPadding"]
+  GETTABLEKS R4 R2 K45 ["searchBarHeight"]
+  GETTABLEKS R5 R2 K34 ["paddingXSmall"]
+  ADD R3 R4 R5
+  SETTABLEKS R3 R2 K47 ["minSearchHeaderHeight"]
+  GETTABLEKS R3 R2 K45 ["searchBarHeight"]
+  SETTABLEKS R3 R2 K48 ["iconButtonSize"]
+  LOADN R3 100
+  SETTABLEKS R3 R2 K49 ["findResultsMinTextWidth"]
+  LOADN R3 150
+  SETTABLEKS R3 R2 K50 ["findResultsMaxTextWidth"]
+  LOADN R3 59
+  SETTABLEKS R3 R2 K51 ["minReplaceButtonWidth"]
+  LOADK R3 K52 [75.5]
+  SETTABLEKS R3 R2 K53 ["minReplaceAllButtonWidth"]
+  LOADN R3 210
+  SETTABLEKS R3 R2 K54 ["replaceAllConfirmationLabelWidth"]
+  LOADN R3 10
+  SETTABLEKS R3 R2 K55 ["scrollBarThickness"]
+  LOADN R3 4
+  SETTABLEKS R3 R2 K56 ["minNameLabelWidth"]
+  LOADN R3 12
+  SETTABLEKS R3 R2 K57 ["indentWidth"]
+  LOADN R3 12
+  SETTABLEKS R3 R2 K58 ["iconSizeSmall"]
+  LOADN R3 16
+  SETTABLEKS R3 R2 K59 ["iconSize"]
+  LOADN R3 16
+  SETTABLEKS R3 R2 K60 ["fieldSize"]
+  LOADN R3 24
+  SETTABLEKS R3 R2 K61 ["resultRowHeight"]
+  LOADK R3 K62 [0.16]
+  SETTABLEKS R3 R2 K63 ["arrowImageTransparency"]
+  LOADN R3 10
+  SETTABLEKS R3 R2 K64 ["resultListScrollBarThickness"]
+  LOADN R3 6
+  SETTABLEKS R3 R2 K65 ["circleOffset"]
+  DUPTABLE R3 K68 [{"Dark", "Light"}]
+  DUPTABLE R4 K72 [{"find", "replaced", "replacement"}]
+  GETIMPORT R5 K75 [Color3.fromHex]
+  LOADK R6 K76 ["#473200"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K69 ["find"]
+  GETIMPORT R5 K75 [Color3.fromHex]
+  LOADK R6 K77 ["#720000"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K70 ["replaced"]
+  GETIMPORT R5 K75 [Color3.fromHex]
+  LOADK R6 K78 ["#0C3D25"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K71 ["replacement"]
+  SETTABLEKS R4 R3 K66 ["Dark"]
+  DUPTABLE R4 K72 [{"find", "replaced", "replacement"}]
+  GETIMPORT R5 K75 [Color3.fromHex]
+  LOADK R6 K79 ["#F9DE6F"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K69 ["find"]
+  GETIMPORT R5 K75 [Color3.fromHex]
+  LOADK R6 K80 ["#FFBEB0"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K70 ["replaced"]
+  GETIMPORT R5 K75 [Color3.fromHex]
+  LOADK R6 K81 ["#68F9A9"]
+  CALL R5 1 1
+  SETTABLEKS R5 R4 K71 ["replacement"]
+  SETTABLEKS R4 R3 K67 ["Light"]
+  SETTABLEKS R3 R2 K82 ["RichTagColors"]
+  RETURN R2 1

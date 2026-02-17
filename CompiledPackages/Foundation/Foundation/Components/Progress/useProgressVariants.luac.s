@@ -1,0 +1,95 @@
+PROTO_0:
+  NEWTABLE R1 4 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Small"]
+  DUPTABLE R3 K3 [{"bar", "circle"}]
+  DUPTABLE R4 K5 [{"height"}]
+  GETTABLEKS R6 R0 K6 ["Size"]
+  GETTABLEKS R5 R6 K7 ["Size_50"]
+  SETTABLEKS R5 R4 K4 ["height"]
+  SETTABLEKS R4 R3 K1 ["bar"]
+  DUPTABLE R4 K9 [{"size"}]
+  GETTABLEKS R6 R0 K6 ["Size"]
+  GETTABLEKS R5 R6 K10 ["Size_400"]
+  SETTABLEKS R5 R4 K8 ["size"]
+  SETTABLEKS R4 R3 K2 ["circle"]
+  SETTABLE R3 R1 R2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K11 ["Medium"]
+  DUPTABLE R3 K3 [{"bar", "circle"}]
+  DUPTABLE R4 K5 [{"height"}]
+  GETTABLEKS R6 R0 K6 ["Size"]
+  GETTABLEKS R5 R6 K12 ["Size_100"]
+  SETTABLEKS R5 R4 K4 ["height"]
+  SETTABLEKS R4 R3 K1 ["bar"]
+  DUPTABLE R4 K9 [{"size"}]
+  GETTABLEKS R6 R0 K6 ["Size"]
+  GETTABLEKS R5 R6 K13 ["Size_800"]
+  SETTABLEKS R5 R4 K8 ["size"]
+  SETTABLEKS R4 R3 K2 ["circle"]
+  SETTABLE R3 R1 R2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K14 ["Large"]
+  DUPTABLE R3 K3 [{"bar", "circle"}]
+  DUPTABLE R4 K5 [{"height"}]
+  GETTABLEKS R6 R0 K6 ["Size"]
+  GETTABLEKS R5 R6 K15 ["Size_150"]
+  SETTABLEKS R5 R4 K4 ["height"]
+  SETTABLEKS R4 R3 K1 ["bar"]
+  DUPTABLE R4 K17 [{"size", "labelFont"}]
+  GETTABLEKS R6 R0 K6 ["Size"]
+  GETTABLEKS R5 R6 K18 ["Size_1300"]
+  SETTABLEKS R5 R4 K8 ["size"]
+  GETTABLEKS R6 R0 K19 ["Typography"]
+  GETTABLEKS R5 R6 K20 ["LabelMedium"]
+  SETTABLEKS R5 R4 K16 ["labelFont"]
+  SETTABLEKS R4 R3 K2 ["circle"]
+  SETTABLE R3 R1 R2
+  DUPTABLE R2 K22 [{"sizes"}]
+  SETTABLEKS R1 R2 K21 ["sizes"]
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useVariants"]
+  LOADK R3 K1 ["Progress"]
+  GETUPVAL R4 1
+  MOVE R5 R0
+  CALL R2 3 1
+  GETUPVAL R3 2
+  GETTABLEKS R5 R2 K2 ["sizes"]
+  GETTABLE R4 R5 R1
+  CALL R3 1 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Enums"]
+  GETTABLEKS R2 R3 K7 ["ProgressSize"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Utility"]
+  GETTABLEKS R3 R4 K9 ["composeStyleVariant"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K10 ["Providers"]
+  GETTABLEKS R5 R6 K11 ["Style"]
+  GETTABLEKS R4 R5 K12 ["Tokens"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Providers"]
+  GETTABLEKS R6 R7 K11 ["Style"]
+  GETTABLEKS R5 R6 K13 ["VariantsContext"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K14 [PROTO_0]
+  CAPTURE VAL R1
+  DUPCLOSURE R6 K15 [PROTO_1]
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  RETURN R6 1

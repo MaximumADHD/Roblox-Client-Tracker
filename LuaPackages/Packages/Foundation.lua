@@ -12,6 +12,7 @@ export type Padding = Package.Padding
 export type PopoverAnchor = Package.PopoverAnchor
 export type Preferences = Package.Preferences
 export type PreferencesProviderProps = Package.PreferencesProviderProps
+export type ResponsiveProviderProps = Package.ResponsiveProviderProps
 export type StateChangedCallback = Package.StateChangedCallback
 export type StateLayer = Package.StateLayer
 export type Tags = Package.Tags

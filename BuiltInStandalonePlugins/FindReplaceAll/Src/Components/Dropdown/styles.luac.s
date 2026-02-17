@@ -13,152 +13,164 @@ MAIN:
   GETTABLEKS R4 R5 K9 ["Resources"]
   GETTABLEKS R3 R4 K10 ["StyleConstants"]
   CALL R2 1 1
-  GETTABLEKS R4 R1 K11 ["Styling"]
-  GETTABLEKS R3 R4 K12 ["createStyleRule"]
-  MOVE R4 R3
-  LOADK R5 K13 [".FindReplaceAll-Dropdown"]
-  DUPTABLE R6 K16 [{"AnchorPoint", "Position"}]
-  GETIMPORT R7 K19 [Vector2.new]
-  LOADK R8 K20 [0.5]
-  LOADN R9 0
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K14 ["AnchorPoint"]
-  GETIMPORT R7 K23 [UDim2.fromScale]
-  LOADK R8 K20 [0.5]
-  LOADN R9 0
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K15 ["Position"]
-  NEWTABLE R7 0 7
-  MOVE R8 R3
-  LOADK R9 K24 ["::UIPadding"]
-  DUPTABLE R10 K29 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-  GETIMPORT R11 K31 [UDim.new]
-  LOADN R12 0
-  LOADN R13 4
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K25 ["PaddingLeft"]
-  GETIMPORT R11 K31 [UDim.new]
-  LOADN R12 0
-  LOADN R13 4
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K26 ["PaddingRight"]
-  GETIMPORT R11 K31 [UDim.new]
-  LOADN R12 0
-  LOADN R13 8
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K27 ["PaddingTop"]
-  GETIMPORT R11 K31 [UDim.new]
-  LOADN R12 0
-  LOADN R13 8
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K28 ["PaddingBottom"]
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Src"]
+  GETTABLEKS R5 R6 K11 ["Util"]
+  GETTABLEKS R4 R5 K12 ["defineFlags"]
+  CALL R3 1 1
+  GETTABLEKS R5 R1 K13 ["Styling"]
+  GETTABLEKS R4 R5 K14 ["createStyleRule"]
+  MOVE R5 R4
+  LOADK R6 K15 [".FindReplaceAll-Dropdown"]
+  DUPTABLE R7 K18 [{"AnchorPoint", "Position"}]
+  GETIMPORT R8 K21 [Vector2.new]
+  LOADK R9 K22 [0.5]
+  LOADN R10 0
   CALL R8 2 1
-  MOVE R9 R3
-  LOADK R10 K32 ["::UIStroke"]
-  DUPTABLE R11 K36 [{"Color", "Transparency", "Thickness"}]
-  LOADK R12 K37 ["$SemanticColorComponentInputFill"]
-  SETTABLEKS R12 R11 K33 ["Color"]
-  LOADK R12 K38 ["$SemanticColorComponentInputFillTransparency"]
-  SETTABLEKS R12 R11 K34 ["Transparency"]
-  LOADK R12 K39 [1.5]
-  SETTABLEKS R12 R11 K35 ["Thickness"]
+  SETTABLEKS R8 R7 K16 ["AnchorPoint"]
+  GETIMPORT R8 K25 [UDim2.fromScale]
+  LOADK R9 K22 [0.5]
+  LOADN R10 0
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K17 ["Position"]
+  NEWTABLE R8 0 7
+  MOVE R9 R4
+  LOADK R10 K26 ["::UIPadding"]
+  DUPTABLE R11 K31 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+  GETIMPORT R12 K33 [UDim.new]
+  LOADN R13 0
+  LOADN R14 4
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K27 ["PaddingLeft"]
+  GETIMPORT R12 K33 [UDim.new]
+  LOADN R13 0
+  LOADN R14 4
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K28 ["PaddingRight"]
+  GETIMPORT R12 K33 [UDim.new]
+  LOADN R13 0
+  LOADN R14 8
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K29 ["PaddingTop"]
+  GETIMPORT R12 K33 [UDim.new]
+  LOADN R13 0
+  LOADN R14 8
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K30 ["PaddingBottom"]
   CALL R9 2 1
-  MOVE R10 R3
-  LOADK R11 K40 ["::UICorner"]
-  DUPTABLE R12 K42 [{"CornerRadius"}]
-  GETIMPORT R13 K31 [UDim.new]
-  LOADN R14 0
-  GETTABLEKS R15 R2 K43 ["radiusSmall"]
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K41 ["CornerRadius"]
+  MOVE R10 R4
+  LOADK R11 K34 ["::UIStroke"]
+  DUPTABLE R12 K38 [{"Color", "Transparency", "Thickness"}]
+  LOADK R13 K39 ["$SemanticColorComponentInputFill"]
+  SETTABLEKS R13 R12 K35 ["Color"]
+  LOADK R13 K40 ["$SemanticColorComponentInputFillTransparency"]
+  SETTABLEKS R13 R12 K36 ["Transparency"]
+  LOADK R13 K41 [1.5]
+  SETTABLEKS R13 R12 K37 ["Thickness"]
   CALL R10 2 1
-  MOVE R11 R3
-  LOADK R12 K44 [">> ScrollingFrame"]
-  DUPTABLE R13 K52 [{"AnchorPoint", "AutomaticCanvasSize", "BackgroundTransparency", "BorderSizePixel", "CanvasSize", "Position", "ScrollBarImageColor3", "ScrollBarImageTransparency", "ScrollingDirection"}]
-  GETIMPORT R14 K19 [Vector2.new]
-  LOADK R15 K20 [0.5]
-  LOADK R16 K20 [0.5]
+  MOVE R11 R4
+  LOADK R12 K42 ["::UICorner"]
+  DUPTABLE R13 K44 [{"CornerRadius"}]
+  GETIMPORT R14 K33 [UDim.new]
+  LOADN R15 0
+  GETTABLEKS R16 R2 K45 ["radiusSmall"]
   CALL R14 2 1
-  SETTABLEKS R14 R13 K14 ["AnchorPoint"]
-  GETIMPORT R14 K56 [Enum.AutomaticSize.Y]
-  SETTABLEKS R14 R13 K45 ["AutomaticCanvasSize"]
-  LOADN R14 1
-  SETTABLEKS R14 R13 K46 ["BackgroundTransparency"]
-  LOADN R14 0
-  SETTABLEKS R14 R13 K47 ["BorderSizePixel"]
-  GETIMPORT R14 K23 [UDim2.fromScale]
-  LOADN R15 1
-  LOADN R16 0
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K48 ["CanvasSize"]
-  GETIMPORT R14 K23 [UDim2.fromScale]
-  LOADK R15 K20 [0.5]
-  LOADK R16 K20 [0.5]
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K15 ["Position"]
-  LOADK R14 K57 ["$SemanticColorActionSecondary"]
-  SETTABLEKS R14 R13 K49 ["ScrollBarImageColor3"]
-  LOADK R14 K58 ["$SemanticColorActionSecondaryTransparency"]
-  SETTABLEKS R14 R13 K50 ["ScrollBarImageTransparency"]
-  GETIMPORT R14 K59 [Enum.ScrollingDirection.Y]
-  SETTABLEKS R14 R13 K51 ["ScrollingDirection"]
+  SETTABLEKS R14 R13 K43 ["CornerRadius"]
   CALL R11 2 1
-  MOVE R12 R3
-  LOADK R13 K60 [">> .FindReplaceAll-DropdownHeader"]
-  DUPTABLE R14 K62 [{"BackgroundTransparency", "Size"}]
+  MOVE R12 R4
+  LOADK R13 K46 [">> ScrollingFrame"]
+  DUPTABLE R14 K54 [{"AnchorPoint", "AutomaticCanvasSize", "BackgroundTransparency", "BorderSizePixel", "CanvasSize", "Position", "ScrollBarImageColor3", "ScrollBarImageTransparency", "ScrollingDirection"}]
+  GETIMPORT R15 K21 [Vector2.new]
+  LOADK R16 K22 [0.5]
+  LOADK R17 K22 [0.5]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K16 ["AnchorPoint"]
+  GETIMPORT R15 K58 [Enum.AutomaticSize.Y]
+  SETTABLEKS R15 R14 K47 ["AutomaticCanvasSize"]
   LOADN R15 1
-  SETTABLEKS R15 R14 K46 ["BackgroundTransparency"]
-  GETIMPORT R15 K63 [UDim2.new]
+  SETTABLEKS R15 R14 K48 ["BackgroundTransparency"]
+  LOADN R15 0
+  SETTABLEKS R15 R14 K49 ["BorderSizePixel"]
+  GETIMPORT R15 K25 [UDim2.fromScale]
   LOADN R16 1
   LOADN R17 0
-  LOADN R18 0
-  LOADN R19 25
-  CALL R15 4 1
-  SETTABLEKS R15 R14 K61 ["Size"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K50 ["CanvasSize"]
+  GETIMPORT R15 K25 [UDim2.fromScale]
+  LOADK R16 K22 [0.5]
+  LOADK R17 K22 [0.5]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K17 ["Position"]
+  LOADK R15 K59 ["$SemanticColorActionSecondary"]
+  SETTABLEKS R15 R14 K51 ["ScrollBarImageColor3"]
+  LOADK R15 K60 ["$SemanticColorActionSecondaryTransparency"]
+  SETTABLEKS R15 R14 K52 ["ScrollBarImageTransparency"]
+  GETIMPORT R15 K61 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R15 R14 K53 ["ScrollingDirection"]
   CALL R12 2 1
-  MOVE R13 R3
-  LOADK R14 K64 [">> .FindReplaceAll-DropdownTitle"]
-  DUPTABLE R15 K70 [{"BackgroundTransparency", "Font", "TextColor3", "TextSize", "TextXAlignment", "TextYAlignment"}]
+  MOVE R13 R4
+  LOADK R14 K62 [">> .FindReplaceAll-DropdownHeader"]
+  DUPTABLE R15 K64 [{"BackgroundTransparency", "Size"}]
   LOADN R16 1
-  SETTABLEKS R16 R15 K46 ["BackgroundTransparency"]
-  GETTABLEKS R16 R2 K71 ["defaultFont"]
-  SETTABLEKS R16 R15 K65 ["Font"]
-  LOADK R16 K72 ["$SemanticColorContentMuted"]
-  SETTABLEKS R16 R15 K66 ["TextColor3"]
-  LOADK R16 K73 [17.598]
-  SETTABLEKS R16 R15 K67 ["TextSize"]
-  GETIMPORT R16 K75 [Enum.TextXAlignment.Left]
-  SETTABLEKS R16 R15 K68 ["TextXAlignment"]
-  GETIMPORT R16 K77 [Enum.TextYAlignment.Top]
-  SETTABLEKS R16 R15 K69 ["TextYAlignment"]
+  SETTABLEKS R16 R15 K48 ["BackgroundTransparency"]
+  GETIMPORT R16 K65 [UDim2.new]
+  LOADN R17 1
+  LOADN R18 0
+  LOADN R19 0
+  LOADN R20 25
+  CALL R16 4 1
+  SETTABLEKS R16 R15 K63 ["Size"]
   CALL R13 2 1
-  MOVE R14 R3
-  LOADK R15 K78 [">> .FindReplaceAll-DropdownItem"]
-  DUPTABLE R16 K81 [{"BackgroundColor3", "Text"}]
-  LOADK R17 K82 ["$SemanticColorStatesHover"]
-  SETTABLEKS R17 R16 K79 ["BackgroundColor3"]
-  LOADK R17 K83 [""]
-  SETTABLEKS R17 R16 K80 ["Text"]
-  NEWTABLE R17 0 2
-  MOVE R18 R3
-  LOADK R19 K84 [">> TextLabel"]
-  DUPTABLE R20 K85 [{"BackgroundTransparency", "TextXAlignment"}]
-  LOADN R21 1
-  SETTABLEKS R21 R20 K46 ["BackgroundTransparency"]
-  GETIMPORT R21 K75 [Enum.TextXAlignment.Left]
-  SETTABLEKS R21 R20 K68 ["TextXAlignment"]
-  CALL R18 2 1
-  MOVE R19 R3
-  LOADK R20 K40 ["::UICorner"]
-  DUPTABLE R21 K42 [{"CornerRadius"}]
-  GETIMPORT R22 K31 [UDim.new]
-  LOADN R23 0
-  GETTABLEKS R24 R2 K86 ["radiusMedium"]
-  CALL R22 2 1
-  SETTABLEKS R22 R21 K41 ["CornerRadius"]
-  CALL R19 2 -1
-  SETLIST R17 R18 -1 [1]
-  CALL R14 3 -1
-  SETLIST R7 R8 -1 [1]
-  CALL R4 3 -1
-  RETURN R4 -1
+  MOVE R14 R4
+  LOADK R15 K66 [">> .FindReplaceAll-DropdownTitle"]
+  DUPTABLE R16 K72 [{"BackgroundTransparency", "Font", "TextColor3", "TextSize", "TextXAlignment", "TextYAlignment"}]
+  LOADN R17 1
+  SETTABLEKS R17 R16 K48 ["BackgroundTransparency"]
+  GETTABLEKS R17 R2 K73 ["defaultFont"]
+  SETTABLEKS R17 R16 K67 ["Font"]
+  LOADK R17 K74 ["$SemanticColorContentMuted"]
+  SETTABLEKS R17 R16 K68 ["TextColor3"]
+  GETTABLEKS R18 R3 K75 ["getFFlagFindReplaceAllUseBuilderFont"]
+  CALL R18 0 1
+  JUMPIFNOT R18 [+5]
+  LOADN R18 12
+  GETTABLEKS R19 R2 K76 ["defaultFontScale"]
+  MUL R17 R18 R19
+  JUMP [+1]
+  LOADK R17 K77 [17.598]
+  SETTABLEKS R17 R16 K69 ["TextSize"]
+  GETIMPORT R17 K79 [Enum.TextXAlignment.Left]
+  SETTABLEKS R17 R16 K70 ["TextXAlignment"]
+  GETIMPORT R17 K81 [Enum.TextYAlignment.Top]
+  SETTABLEKS R17 R16 K71 ["TextYAlignment"]
+  CALL R14 2 1
+  MOVE R15 R4
+  LOADK R16 K82 [">> .FindReplaceAll-DropdownItem"]
+  DUPTABLE R17 K85 [{"BackgroundColor3", "Text"}]
+  LOADK R18 K86 ["$SemanticColorStatesHover"]
+  SETTABLEKS R18 R17 K83 ["BackgroundColor3"]
+  LOADK R18 K87 [""]
+  SETTABLEKS R18 R17 K84 ["Text"]
+  NEWTABLE R18 0 2
+  MOVE R19 R4
+  LOADK R20 K88 [">> TextLabel"]
+  DUPTABLE R21 K89 [{"BackgroundTransparency", "TextXAlignment"}]
+  LOADN R22 1
+  SETTABLEKS R22 R21 K48 ["BackgroundTransparency"]
+  GETIMPORT R22 K79 [Enum.TextXAlignment.Left]
+  SETTABLEKS R22 R21 K70 ["TextXAlignment"]
+  CALL R19 2 1
+  MOVE R20 R4
+  LOADK R21 K42 ["::UICorner"]
+  DUPTABLE R22 K44 [{"CornerRadius"}]
+  GETIMPORT R23 K33 [UDim.new]
+  LOADN R24 0
+  GETTABLEKS R25 R2 K90 ["radiusMedium"]
+  CALL R23 2 1
+  SETTABLEKS R23 R22 K43 ["CornerRadius"]
+  CALL R20 2 -1
+  SETLIST R18 R19 -1 [1]
+  CALL R15 3 -1
+  SETLIST R8 R9 -1 [1]
+  CALL R5 3 -1
+  RETURN R5 -1

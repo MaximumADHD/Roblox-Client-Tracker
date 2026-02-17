@@ -20,142 +20,134 @@ PROTO_1:
   GETUPVAL R5 3
   GETTABLEKS R4 R5 K1 ["use"]
   CALL R4 0 1
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K1 ["use"]
+  GETUPVAL R5 4
   CALL R5 0 1
+  GETTABLEKS R6 R5 K2 ["ShowSearchOptions"]
   GETUPVAL R7 5
-  GETTABLEKS R6 R7 K1 ["use"]
-  CALL R6 0 1
-  GETUPVAL R7 6
-  MOVE R8 R5
-  CALL R7 1 1
-  GETTABLEKS R8 R7 K2 ["ShowSearchOptions"]
-  GETUPVAL R9 7
-  MOVE R10 R6
-  CALL R9 1 1
-  GETUPVAL R11 8
-  GETTABLEKS R10 R11 K3 ["createElement"]
-  GETUPVAL R12 9
-  GETTABLEKS R11 R12 K4 ["View"]
-  DUPTABLE R12 K7 [{"LayoutOrder", "tag"}]
-  GETTABLEKS R13 R0 K5 ["LayoutOrder"]
-  SETTABLEKS R13 R12 K5 ["LayoutOrder"]
-  LOADK R13 K8 ["padding-y-xsmall padding-right-xlarge size-0-full auto-x row align-x-right align-y-center gap-small"]
-  SETTABLEKS R13 R12 K6 ["tag"]
-  DUPTABLE R13 K15 [{"RefreshButton", "GridSortButtonContainer", "FilterDropdown", "ViewTypeContainer", "Divider", "BulkImportButton"}]
-  JUMPIF R8 [+74]
-  GETUPVAL R15 8
-  GETTABLEKS R14 R15 K3 ["createElement"]
-  GETUPVAL R16 9
-  GETTABLEKS R15 R16 K16 ["Tooltip"]
-  DUPTABLE R16 K19 [{"LayoutOrder", "title", "side"}]
-  NAMECALL R17 R1 K20 ["getNextOrder"]
-  CALL R17 1 1
-  SETTABLEKS R17 R16 K5 ["LayoutOrder"]
-  LOADK R19 K16 ["Tooltip"]
-  LOADK R20 K21 ["Refresh"]
-  NAMECALL R17 R2 K22 ["getText"]
-  CALL R17 3 1
-  SETTABLEKS R17 R16 K17 ["title"]
-  GETUPVAL R20 9
-  GETTABLEKS R19 R20 K23 ["Enums"]
-  GETTABLEKS R18 R19 K24 ["PopoverSide"]
-  GETTABLEKS R17 R18 K25 ["Bottom"]
-  SETTABLEKS R17 R16 K18 ["side"]
-  NEWTABLE R17 0 1
-  GETUPVAL R19 8
-  GETTABLEKS R18 R19 K3 ["createElement"]
-  GETUPVAL R20 9
-  GETTABLEKS R19 R20 K26 ["IconButton"]
-  DUPTABLE R20 K31 [{"onActivated", "variant", "size", "icon"}]
-  NEWCLOSURE R21 P0
+  CALL R7 0 1
+  GETUPVAL R9 6
+  GETTABLEKS R8 R9 K3 ["createElement"]
+  GETUPVAL R10 7
+  GETTABLEKS R9 R10 K4 ["View"]
+  DUPTABLE R10 K7 [{"LayoutOrder", "tag"}]
+  GETTABLEKS R11 R0 K5 ["LayoutOrder"]
+  SETTABLEKS R11 R10 K5 ["LayoutOrder"]
+  LOADK R11 K8 ["padding-y-xsmall padding-right-xlarge size-0-full auto-x row align-x-right align-y-center gap-small"]
+  SETTABLEKS R11 R10 K6 ["tag"]
+  DUPTABLE R11 K15 [{"RefreshButton", "GridSortButtonContainer", "FilterDropdown", "ViewTypeContainer", "Divider", "BulkImportButton"}]
+  JUMPIF R6 [+74]
+  GETUPVAL R13 6
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R14 7
+  GETTABLEKS R13 R14 K16 ["Tooltip"]
+  DUPTABLE R14 K19 [{"LayoutOrder", "title", "side"}]
+  NAMECALL R15 R1 K20 ["getNextOrder"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K5 ["LayoutOrder"]
+  LOADK R17 K16 ["Tooltip"]
+  LOADK R18 K21 ["Refresh"]
+  NAMECALL R15 R2 K22 ["getText"]
+  CALL R15 3 1
+  SETTABLEKS R15 R14 K17 ["title"]
+  GETUPVAL R18 7
+  GETTABLEKS R17 R18 K23 ["Enums"]
+  GETTABLEKS R16 R17 K24 ["PopoverSide"]
+  GETTABLEKS R15 R16 K25 ["Bottom"]
+  SETTABLEKS R15 R14 K18 ["side"]
+  NEWTABLE R15 0 1
+  GETUPVAL R17 6
+  GETTABLEKS R16 R17 K3 ["createElement"]
+  GETUPVAL R18 7
+  GETTABLEKS R17 R18 K26 ["IconButton"]
+  DUPTABLE R18 K31 [{"onActivated", "variant", "size", "icon"}]
+  NEWCLOSURE R19 P0
   CAPTURE VAL R4
   CAPTURE VAL R3
-  SETTABLEKS R21 R20 K27 ["onActivated"]
-  GETUPVAL R24 9
-  GETTABLEKS R23 R24 K23 ["Enums"]
-  GETTABLEKS R22 R23 K32 ["ButtonVariant"]
-  GETTABLEKS R21 R22 K33 ["Utility"]
-  SETTABLEKS R21 R20 K28 ["variant"]
-  GETUPVAL R24 9
-  GETTABLEKS R23 R24 K23 ["Enums"]
-  GETTABLEKS R22 R23 K34 ["InputSize"]
-  GETTABLEKS R21 R22 K35 ["XSmall"]
-  SETTABLEKS R21 R20 K29 ["size"]
-  GETUPVAL R24 9
-  GETTABLEKS R23 R24 K23 ["Enums"]
-  GETTABLEKS R22 R23 K36 ["IconName"]
-  GETTABLEKS R21 R22 K37 ["TwoArrowsSpinClockwise"]
-  SETTABLEKS R21 R20 K30 ["icon"]
-  CALL R18 2 -1
-  SETLIST R17 R18 -1 [1]
-  CALL R14 3 1
+  SETTABLEKS R19 R18 K27 ["onActivated"]
+  GETUPVAL R22 7
+  GETTABLEKS R21 R22 K23 ["Enums"]
+  GETTABLEKS R20 R21 K32 ["ButtonVariant"]
+  GETTABLEKS R19 R20 K33 ["Utility"]
+  SETTABLEKS R19 R18 K28 ["variant"]
+  GETUPVAL R22 7
+  GETTABLEKS R21 R22 K23 ["Enums"]
+  GETTABLEKS R20 R21 K34 ["InputSize"]
+  GETTABLEKS R19 R20 K35 ["XSmall"]
+  SETTABLEKS R19 R18 K29 ["size"]
+  GETUPVAL R22 7
+  GETTABLEKS R21 R22 K23 ["Enums"]
+  GETTABLEKS R20 R21 K36 ["IconName"]
+  GETTABLEKS R19 R20 K37 ["TwoArrowsSpinClockwise"]
+  SETTABLEKS R19 R18 K30 ["icon"]
+  CALL R16 2 -1
+  SETLIST R15 R16 -1 [1]
+  CALL R12 3 1
   JUMP [+1]
-  LOADNIL R14
-  SETTABLEKS R14 R13 K9 ["RefreshButton"]
-  GETTABLEKS R15 R9 K38 ["ViewType"]
-  GETUPVAL R18 10
-  GETTABLEKS R17 R18 K38 ["ViewType"]
-  GETTABLEKS R16 R17 K39 ["Grid"]
-  JUMPIFNOTEQ R15 R16 [+13]
-  GETUPVAL R15 8
-  GETTABLEKS R14 R15 K3 ["createElement"]
-  GETUPVAL R15 11
-  DUPTABLE R16 K40 [{"LayoutOrder"}]
-  NAMECALL R17 R1 K20 ["getNextOrder"]
-  CALL R17 1 1
-  SETTABLEKS R17 R16 K5 ["LayoutOrder"]
-  CALL R14 2 1
+  LOADNIL R12
+  SETTABLEKS R12 R11 K9 ["RefreshButton"]
+  GETTABLEKS R13 R7 K38 ["ViewType"]
+  GETUPVAL R16 8
+  GETTABLEKS R15 R16 K38 ["ViewType"]
+  GETTABLEKS R14 R15 K39 ["Grid"]
+  JUMPIFNOTEQ R13 R14 [+13]
+  GETUPVAL R13 6
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R13 9
+  DUPTABLE R14 K40 [{"LayoutOrder"}]
+  NAMECALL R15 R1 K20 ["getNextOrder"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K5 ["LayoutOrder"]
+  CALL R12 2 1
   JUMP [+1]
-  LOADNIL R14
-  SETTABLEKS R14 R13 K10 ["GridSortButtonContainer"]
-  JUMPIF R8 [+12]
-  GETUPVAL R15 8
-  GETTABLEKS R14 R15 K3 ["createElement"]
-  GETUPVAL R15 12
-  DUPTABLE R16 K40 [{"LayoutOrder"}]
-  NAMECALL R17 R1 K20 ["getNextOrder"]
-  CALL R17 1 1
-  SETTABLEKS R17 R16 K5 ["LayoutOrder"]
-  CALL R14 2 1
+  LOADNIL R12
+  SETTABLEKS R12 R11 K10 ["GridSortButtonContainer"]
+  JUMPIF R6 [+12]
+  GETUPVAL R13 6
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R13 10
+  DUPTABLE R14 K40 [{"LayoutOrder"}]
+  NAMECALL R15 R1 K20 ["getNextOrder"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K5 ["LayoutOrder"]
+  CALL R12 2 1
   JUMP [+1]
-  LOADNIL R14
-  SETTABLEKS R14 R13 K11 ["FilterDropdown"]
-  GETUPVAL R15 8
-  GETTABLEKS R14 R15 K3 ["createElement"]
-  GETUPVAL R15 13
-  DUPTABLE R16 K40 [{"LayoutOrder"}]
-  NAMECALL R17 R1 K20 ["getNextOrder"]
-  CALL R17 1 1
-  SETTABLEKS R17 R16 K5 ["LayoutOrder"]
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K12 ["ViewTypeContainer"]
-  GETUPVAL R15 8
-  GETTABLEKS R14 R15 K3 ["createElement"]
-  GETUPVAL R16 9
-  GETTABLEKS R15 R16 K13 ["Divider"]
-  DUPTABLE R16 K42 [{"LayoutOrder", "orientation"}]
-  NAMECALL R17 R1 K20 ["getNextOrder"]
-  CALL R17 1 1
-  SETTABLEKS R17 R16 K5 ["LayoutOrder"]
-  GETUPVAL R20 9
-  GETTABLEKS R19 R20 K23 ["Enums"]
-  GETTABLEKS R18 R19 K43 ["DividerOrientation"]
-  GETTABLEKS R17 R18 K44 ["Vertical"]
-  SETTABLEKS R17 R16 K41 ["orientation"]
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K13 ["Divider"]
-  GETUPVAL R15 8
-  GETTABLEKS R14 R15 K3 ["createElement"]
-  GETUPVAL R15 14
-  DUPTABLE R16 K40 [{"LayoutOrder"}]
-  NAMECALL R17 R1 K20 ["getNextOrder"]
-  CALL R17 1 1
-  SETTABLEKS R17 R16 K5 ["LayoutOrder"]
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K14 ["BulkImportButton"]
-  CALL R10 3 -1
-  RETURN R10 -1
+  LOADNIL R12
+  SETTABLEKS R12 R11 K11 ["FilterDropdown"]
+  GETUPVAL R13 6
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R13 11
+  DUPTABLE R14 K40 [{"LayoutOrder"}]
+  NAMECALL R15 R1 K20 ["getNextOrder"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K5 ["LayoutOrder"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K12 ["ViewTypeContainer"]
+  GETUPVAL R13 6
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R14 7
+  GETTABLEKS R13 R14 K13 ["Divider"]
+  DUPTABLE R14 K42 [{"LayoutOrder", "orientation"}]
+  NAMECALL R15 R1 K20 ["getNextOrder"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K5 ["LayoutOrder"]
+  GETUPVAL R18 7
+  GETTABLEKS R17 R18 K23 ["Enums"]
+  GETTABLEKS R16 R17 K43 ["DividerOrientation"]
+  GETTABLEKS R15 R16 K44 ["Vertical"]
+  SETTABLEKS R15 R14 K41 ["orientation"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K13 ["Divider"]
+  GETUPVAL R13 6
+  GETTABLEKS R12 R13 K3 ["createElement"]
+  GETUPVAL R13 12
+  DUPTABLE R14 K40 [{"LayoutOrder"}]
+  NAMECALL R15 R1 K20 ["getNextOrder"]
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K5 ["LayoutOrder"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K14 ["BulkImportButton"]
+  CALL R8 3 -1
+  RETURN R8 -1
 
 MAIN:
   PREPVARARGS 0
@@ -205,44 +197,32 @@ MAIN:
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
   GETTABLEKS R15 R0 K16 ["Src"]
-  GETTABLEKS R14 R15 K17 ["Controllers"]
-  GETTABLEKS R13 R14 K20 ["SearchController"]
+  GETTABLEKS R14 R15 K20 ["Hooks"]
+  GETTABLEKS R13 R14 K21 ["useLayoutInfo"]
   CALL R12 1 1
   GETIMPORT R13 K5 [require]
   GETTABLEKS R16 R0 K16 ["Src"]
-  GETTABLEKS R15 R16 K17 ["Controllers"]
-  GETTABLEKS R14 R15 K21 ["LayoutController"]
+  GETTABLEKS R15 R16 K20 ["Hooks"]
+  GETTABLEKS R14 R15 K22 ["useSearchInfo"]
   CALL R13 1 1
   GETIMPORT R14 K5 [require]
-  GETTABLEKS R17 R0 K16 ["Src"]
-  GETTABLEKS R16 R17 K22 ["Hooks"]
-  GETTABLEKS R15 R16 K23 ["useLayoutInfo"]
+  GETTABLEKS R16 R0 K16 ["Src"]
+  GETTABLEKS R15 R16 K23 ["Types"]
   CALL R14 1 1
-  GETIMPORT R15 K5 [require]
-  GETTABLEKS R18 R0 K16 ["Src"]
-  GETTABLEKS R17 R18 K22 ["Hooks"]
-  GETTABLEKS R16 R17 K24 ["useSearchInfo"]
-  CALL R15 1 1
-  GETIMPORT R16 K5 [require]
-  GETTABLEKS R18 R0 K16 ["Src"]
-  GETTABLEKS R17 R18 K25 ["Types"]
-  CALL R16 1 1
-  GETTABLEKS R18 R3 K26 ["Util"]
-  GETTABLEKS R17 R18 K27 ["LayoutOrderIterator"]
-  DUPCLOSURE R18 K28 [PROTO_1]
-  CAPTURE VAL R17
+  GETTABLEKS R16 R3 K24 ["Util"]
+  GETTABLEKS R15 R16 K25 ["LayoutOrderIterator"]
+  DUPCLOSURE R16 K26 [PROTO_1]
+  CAPTURE VAL R15
   CAPTURE VAL R5
   CAPTURE VAL R11
   CAPTURE VAL R10
-  CAPTURE VAL R12
   CAPTURE VAL R13
-  CAPTURE VAL R15
-  CAPTURE VAL R14
+  CAPTURE VAL R12
   CAPTURE VAL R1
   CAPTURE VAL R2
-  CAPTURE VAL R16
+  CAPTURE VAL R14
   CAPTURE VAL R8
   CAPTURE VAL R7
   CAPTURE VAL R9
   CAPTURE VAL R6
-  RETURN R18 1
+  RETURN R16 1

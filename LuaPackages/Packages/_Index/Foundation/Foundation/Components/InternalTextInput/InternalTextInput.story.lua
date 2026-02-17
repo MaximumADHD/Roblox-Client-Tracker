@@ -18,7 +18,7 @@ local function Story(props)
 	local controls = props.controls
 	local tokens = useTokens()
 
-	local text, setText = React.useState("")
+	local text, setText = React.useBinding("")
 	local numReturnPressed, setNumReturnPressed = React.useState(0)
 
 	local function handleChange(newText: string)

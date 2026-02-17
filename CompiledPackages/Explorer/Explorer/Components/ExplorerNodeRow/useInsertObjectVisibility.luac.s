@@ -1,0 +1,74 @@
+PROTO_0:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useContext"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K1 ["Context"]
+  CALL R2 1 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["useContext"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K1 ["Context"]
+  CALL R3 1 1
+  GETUPVAL R4 3
+  MOVE R5 R0
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K2 ["enabled"]
+  GETTABLEKS R6 R2 K3 ["selectionDragInProgress"]
+  GETTABLEKS R7 R3 K4 ["insertObjectOpenFor"]
+  JUMPIFEQKNIL R7 [+16]
+  GETTABLEKS R8 R3 K4 ["insertObjectOpenFor"]
+  GETTABLEKS R11 R0 K5 ["get"]
+  CALL R11 0 1
+  GETTABLEKS R10 R11 K6 ["datum"]
+  GETTABLEKS R9 R10 K7 ["id"]
+  JUMPIFNOTEQ R8 R9 [+3]
+  LOADK R7 K8 ["keepVisible"]
+  RETURN R7 1
+  LOADK R7 K9 ["notVisible"]
+  RETURN R7 1
+  JUMPIF R1 [+4]
+  JUMPIF R5 [+3]
+  JUMPIF R6 [+2]
+  LOADK R7 K10 ["visibleIfHovered"]
+  RETURN R7 1
+  LOADK R7 K9 ["notVisible"]
+  RETURN R7 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Explorer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Components"]
+  GETTABLEKS R3 R4 K7 ["Contexts"]
+  GETTABLEKS R2 R3 K8 ["DragDropContext"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Components"]
+  GETTABLEKS R4 R5 K7 ["Contexts"]
+  GETTABLEKS R3 R4 K9 ["InsertObjectContext"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["Observable"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K12 ["Parent"]
+  GETTABLEKS R5 R6 K13 ["React"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K14 ["Hooks"]
+  GETTABLEKS R6 R7 K15 ["useRenameBoxActivity"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K14 ["Hooks"]
+  GETTABLEKS R7 R8 K16 ["useVisibleExplorerNodeRange"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K17 [PROTO_0]
+  CAPTURE VAL R4
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  RETURN R7 1

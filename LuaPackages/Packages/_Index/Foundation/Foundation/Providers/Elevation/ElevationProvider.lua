@@ -4,12 +4,14 @@ local React = require(Packages.React)
 
 local elevation = require(script.Parent.elevation)
 
+local Flags = require(Foundation.Utility.Flags)
+
 local ElevationLayer = require(Foundation.Enums.ElevationLayer)
 type ElevationLayer = ElevationLayer.ElevationLayer
 type Token = elevation.Token
 
 export type Manager = {
-	acquire: (layer: ElevationLayer) -> elevation.Token,
+	acquire: (layer: ElevationLayer, options: { reserve: boolean }) -> elevation.Token,
 	peek: (layer: ElevationLayer) -> number,
 	releaseIfTop: (layer: ElevationLayer, index: number) -> nil,
 }
@@ -32,34 +34,67 @@ local function ElevationProvider(props: ElevationProviderProps)
 
 	local manager = React.useMemo(function(): Manager
 		return {
-			acquire = function(layer: ElevationLayer)
-				local count = countersRef.current[layer] or 0
+			acquire = if Flags.FoundationElevationKeepSiblingZIndex
+				then function(layer: ElevationLayer, options: { reserve: boolean })
+					local count = countersRef.current[layer] or 0
+					local spec = elevation.ELEVATION_LAYERS[layer]
 
-				local spec = elevation.ELEVATION_LAYERS[layer]
-				local capacity = math.floor((spec.finish - spec.start) / spec.step) + 1
+					if not options.reserve then
+						return { layer = layer, index = -1, zIndex = spec.start }
+					end
 
-				if count == capacity then
-					warn(
-						string.format(
-							"Layer '%s' capacity exceeded (%d/%d). Capping zIndex at %d.",
-							tostring(layer),
-							count + 1,
-							capacity,
-							spec.finish
+					local desiredZIndex = spec.start + (count + 1) * spec.step
+
+					if desiredZIndex > spec.finish then
+						warn(
+							string.format(
+								"Layer '%s' capacity exceeded (%d/%d). Capping zIndex at %d.",
+								tostring(layer),
+								desiredZIndex,
+								spec.finish,
+								spec.finish
+							)
 						)
-					)
+					end
+
+					countersRef.current[layer] = count + 1
+
+					local zIndex = desiredZIndex
+
+					if zIndex > spec.finish then
+						zIndex = spec.finish
+					end
+
+					return { layer = layer, index = count, zIndex = zIndex }
 				end
+				else function(layer: ElevationLayer)
+					local count = countersRef.current[layer] or 0
 
-				countersRef.current[layer] = count + 1
+					local spec = elevation.ELEVATION_LAYERS[layer]
+					local capacity = math.floor((spec.finish - spec.start) / spec.step) + 1
 
-				local zIndex = spec.start + count * spec.step
+					if count == capacity then
+						warn(
+							string.format(
+								"Layer '%s' capacity exceeded (%d/%d). Capping zIndex at %d.",
+								tostring(layer),
+								count + 1,
+								capacity,
+								spec.finish
+							)
+						)
+					end
 
-				if zIndex > spec.finish then
-					zIndex = spec.finish
-				end
+					countersRef.current[layer] = count + 1
 
-				return { layer = layer, index = count, zIndex = zIndex }
-			end,
+					local zIndex = spec.start + count * spec.step
+
+					if zIndex > spec.finish then
+						zIndex = spec.finish
+					end
+
+					return { layer = layer, index = count, zIndex = zIndex }
+				end,
 			peek = function(layer: ElevationLayer)
 				return countersRef.current[layer] or 0
 			end,

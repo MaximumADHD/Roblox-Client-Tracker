@@ -1,0 +1,291 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R3 R0 K0 ["event"]
+  GETTABLEKS R4 R0 K1 ["payload"]
+  NAMECALL R1 R1 K2 ["emit"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_1:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K0 ["overrideValueAtPath"]
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_2:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  CALL R2 0 1
+  GETUPVAL R3 1
+  FASTCALL2 SETMETATABLE R2 R3 [+3]
+  GETIMPORT R1 K2 [setmetatable]
+  CALL R1 2 1
+  LOADB R2 0
+  SETTABLEKS R2 R1 K3 ["_isShutdown"]
+  NEWTABLE R2 0 0
+  SETTABLEKS R2 R1 K4 ["_messageQueue"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K5 ["_timeoutID"]
+  LOADNIL R2
+  SETTABLEKS R2 R1 K6 ["_wallUnlisten"]
+  SETTABLEKS R0 R1 K7 ["_wall"]
+  GETTABLEKS R3 R0 K9 ["listen"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  CALL R3 1 1
+  ORK R2 R3 K8 []
+  SETTABLEKS R2 R1 K6 ["_wallUnlisten"]
+  LOADK R4 K10 ["overrideValueAtPath"]
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R1
+  NAMECALL R2 R1 K11 ["addListener"]
+  CALL R2 3 0
+  SETTABLEKS R0 R1 K12 ["wall"]
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["_flush"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  PREPVARARGS 2
+  NEWTABLE R2 0 0
+  GETVARARGS R3 -1
+  SETLIST R2 R3 -1 [1]
+  GETTABLEKS R3 R0 K0 ["_isShutdown"]
+  JUMPIFNOT R3 [+10]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["warn"]
+  GETIMPORT R4 K4 [string.format]
+  LOADK R5 K5 ["Cannot send message \"%s\" through a Bridge that has been shutdown."]
+  MOVE R6 R1
+  CALL R4 2 -1
+  CALL R3 -1 0
+  RETURN R0 0
+  GETTABLEKS R4 R0 K6 ["_messageQueue"]
+  FASTCALL2 TABLE_INSERT R4 R1 [+4]
+  MOVE R5 R1
+  GETIMPORT R3 K9 [table.insert]
+  CALL R3 2 0
+  GETTABLEKS R4 R0 K6 ["_messageQueue"]
+  FASTCALL2 TABLE_INSERT R4 R2 [+4]
+  MOVE R5 R2
+  GETIMPORT R3 K9 [table.insert]
+  CALL R3 2 0
+  GETTABLEKS R3 R0 K10 ["_timeoutID"]
+  JUMPIF R3 [+9]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K11 ["setTimeout"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R0
+  LOADN R5 0
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K10 ["_timeoutID"]
+  RETURN R0 0
+
+PROTO_5:
+  RETURN R0 0
+
+PROTO_6:
+  RETURN R0 0
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["_isShutdown"]
+  JUMPIFNOT R1 [+6]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["warn"]
+  LOADK R2 K2 ["Bridge was already shutdown."]
+  CALL R1 1 0
+  RETURN R0 0
+  LOADK R3 K3 ["shutdown"]
+  NAMECALL R1 R0 K4 ["send"]
+  CALL R1 2 0
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["_isShutdown"]
+  DUPCLOSURE R1 K5 [PROTO_5]
+  SETTABLEKS R1 R0 K6 ["addListener"]
+  DUPCLOSURE R1 K7 [PROTO_6]
+  SETTABLEKS R1 R0 K8 ["emit"]
+  NAMECALL R1 R0 K9 ["removeAllListeners"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K10 ["_wallUnlisten"]
+  JUMPIFNOT R1 [+2]
+  MOVE R2 R1
+  CALL R2 0 0
+  NAMECALL R2 R0 K11 ["_flush"]
+  CALL R2 1 0
+  GETTABLEKS R3 R0 K12 ["_messageQueue"]
+  LENGTH R2 R3
+  JUMPIFEQKN R2 K13 [0] [+2]
+  JUMPBACK [-9]
+  GETTABLEKS R2 R0 K14 ["_timeoutID"]
+  JUMPIFEQKNIL R2 [+10]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K15 ["clearTimeout"]
+  GETTABLEKS R3 R0 K14 ["_timeoutID"]
+  CALL R2 1 0
+  LOADNIL R2
+  SETTABLEKS R2 R0 K14 ["_timeoutID"]
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["_flush"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETTABLEKS R1 R0 K0 ["_timeoutID"]
+  JUMPIFEQKNIL R1 [+10]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["clearTimeout"]
+  GETTABLEKS R2 R0 K0 ["_timeoutID"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["_timeoutID"]
+  GETTABLEKS R2 R0 K2 ["_messageQueue"]
+  LENGTH R1 R2
+  LOADN R2 0
+  JUMPIFNOTLT R2 R1 [+39]
+  LOADN R1 1
+  GETTABLEKS R3 R0 K2 ["_messageQueue"]
+  LENGTH R2 R3
+  JUMPIFNOTLT R1 R2 [+19]
+  GETTABLEKS R3 R0 K3 ["_wall"]
+  GETTABLEKS R2 R3 K4 ["send"]
+  GETTABLEKS R4 R0 K2 ["_messageQueue"]
+  GETTABLE R3 R4 R1
+  GETTABLEKS R6 R0 K2 ["_messageQueue"]
+  ADDK R7 R1 K5 [1]
+  GETTABLE R5 R6 R7
+  FASTCALL1 TABLE_UNPACK R5 [+2]
+  GETIMPORT R4 K8 [table.unpack]
+  CALL R4 1 -1
+  CALL R2 -1 0
+  ADDK R1 R1 K9 [2]
+  JUMPBACK [-23]
+  GETIMPORT R2 K11 [table.clear]
+  GETTABLEKS R3 R0 K2 ["_messageQueue"]
+  CALL R2 1 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K12 ["setTimeout"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  LOADN R4 100
+  CALL R2 2 1
+  SETTABLEKS R2 R0 K0 ["_timeoutID"]
+  RETURN R0 0
+
+PROTO_10:
+  GETTABLEKS R2 R1 K0 ["id"]
+  GETTABLEKS R3 R1 K1 ["path"]
+  GETTABLEKS R4 R1 K2 ["rendererID"]
+  GETTABLEKS R5 R1 K3 ["type"]
+  GETTABLEKS R6 R1 K4 ["value"]
+  JUMPIFNOTEQKS R5 K5 ["context"] [+18]
+  LOADK R9 K6 ["overrideContext"]
+  DUPTABLE R10 K8 [{"id", "path", "rendererID", "wasForwarded", "value"}]
+  SETTABLEKS R2 R10 K0 ["id"]
+  SETTABLEKS R3 R10 K1 ["path"]
+  SETTABLEKS R4 R10 K2 ["rendererID"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K7 ["wasForwarded"]
+  SETTABLEKS R6 R10 K4 ["value"]
+  NAMECALL R7 R0 K9 ["send"]
+  CALL R7 3 0
+  RETURN R0 0
+  JUMPIFNOTEQKS R5 K10 ["hooks"] [+18]
+  LOADK R9 K11 ["overrideHookState"]
+  DUPTABLE R10 K8 [{"id", "path", "rendererID", "wasForwarded", "value"}]
+  SETTABLEKS R2 R10 K0 ["id"]
+  SETTABLEKS R3 R10 K1 ["path"]
+  SETTABLEKS R4 R10 K2 ["rendererID"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K7 ["wasForwarded"]
+  SETTABLEKS R6 R10 K4 ["value"]
+  NAMECALL R7 R0 K9 ["send"]
+  CALL R7 3 0
+  RETURN R0 0
+  JUMPIFNOTEQKS R5 K12 ["props"] [+18]
+  LOADK R9 K13 ["overrideProps"]
+  DUPTABLE R10 K8 [{"id", "path", "rendererID", "wasForwarded", "value"}]
+  SETTABLEKS R2 R10 K0 ["id"]
+  SETTABLEKS R3 R10 K1 ["path"]
+  SETTABLEKS R4 R10 K2 ["rendererID"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K7 ["wasForwarded"]
+  SETTABLEKS R6 R10 K4 ["value"]
+  NAMECALL R7 R0 K9 ["send"]
+  CALL R7 3 0
+  RETURN R0 0
+  JUMPIFNOTEQKS R5 K14 ["state"] [+17]
+  LOADK R9 K15 ["overrideState"]
+  DUPTABLE R10 K8 [{"id", "path", "rendererID", "wasForwarded", "value"}]
+  SETTABLEKS R2 R10 K0 ["id"]
+  SETTABLEKS R3 R10 K1 ["path"]
+  SETTABLEKS R4 R10 K2 ["rendererID"]
+  LOADB R11 1
+  SETTABLEKS R11 R10 K7 ["wasForwarded"]
+  SETTABLEKS R6 R10 K4 ["value"]
+  NAMECALL R7 R0 K9 ["send"]
+  CALL R7 3 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["LuauPolyfill"]
+  CALL R1 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R0 K6 ["Shared"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K7 ["console"]
+  GETIMPORT R3 K4 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K2 ["Parent"]
+  GETTABLEKS R4 R5 K8 ["events"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K2 ["Parent"]
+  GETTABLEKS R5 R6 K9 ["types"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K2 ["Parent"]
+  GETTABLEKS R7 R8 K10 ["backend"]
+  GETTABLEKS R6 R7 K9 ["types"]
+  CALL R5 1 1
+  NEWTABLE R7 0 0
+  DUPTABLE R8 K12 [{"__index"}]
+  SETTABLEKS R3 R8 K11 ["__index"]
+  FASTCALL2 SETMETATABLE R7 R8 [+3]
+  GETIMPORT R6 K14 [setmetatable]
+  CALL R6 2 1
+  DUPTABLE R7 K12 [{"__index"}]
+  SETTABLEKS R6 R7 K11 ["__index"]
+  DUPCLOSURE R8 K15 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R7
+  SETTABLEKS R8 R6 K16 ["new"]
+  DUPCLOSURE R8 K17 [PROTO_4]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  SETTABLEKS R8 R6 K18 ["send"]
+  DUPCLOSURE R8 K19 [PROTO_7]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  SETTABLEKS R8 R6 K20 ["shutdown"]
+  DUPCLOSURE R8 K21 [PROTO_9]
+  CAPTURE VAL R1
+  SETTABLEKS R8 R6 K22 ["_flush"]
+  DUPCLOSURE R8 K23 [PROTO_10]
+  SETTABLEKS R8 R6 K24 ["overrideValueAtPath"]
+  RETURN R6 1

@@ -1,0 +1,420 @@
+PROTO_0:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R3 R0
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  LOADB R3 1
+  JUMPIFEQKS R2 K2 ["string"] [+5]
+  JUMPIFEQKS R2 K3 ["userdata"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  MOVE R5 R3
+  GETIMPORT R6 K5 [string.format]
+  LOADK R7 K6 ["%s '%s' must be a string or userdata but is a %s"]
+  MOVE R8 R1
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R10 R0
+  GETIMPORT R9 K8 [tostring]
+  CALL R9 1 1
+  MOVE R10 R2
+  CALL R6 4 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R4 K10 [assert]
+  CALL R4 -1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  MOVE R4 R0
+  NAMECALL R1 R1 K0 ["handleEvent"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_2:
+  GETIMPORT R2 K1 [error]
+  GETIMPORT R3 K4 [string.format]
+  LOADK R4 K5 ["'%s' is not a valid event in StateTable '%s'"]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R6 R1
+  GETIMPORT R5 K7 [tostring]
+  CALL R5 1 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K8 ["name"]
+  CALL R3 3 1
+  LOADN R4 2
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_3:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K1 [typeof]
+  CALL R6 1 1
+  JUMPIFEQKS R6 K2 ["string"] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K3 [+4]
+  LOADK R6 K3 ["name must be a string"]
+  GETIMPORT R4 K5 [assert]
+  CALL R4 2 0
+  LENGTH R6 R0
+  LOADN R7 0
+  JUMPIFLT R7 R6 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K6 [+4]
+  LOADK R6 K6 ["name must not be an empty string"]
+  GETIMPORT R4 K5 [assert]
+  CALL R4 2 0
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R5 R1
+  GETIMPORT R4 K1 [typeof]
+  CALL R4 1 1
+  LOADB R5 1
+  JUMPIFEQKS R4 K2 ["string"] [+5]
+  JUMPIFEQKS R4 K7 ["userdata"] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  MOVE R7 R5
+  GETIMPORT R8 K9 [string.format]
+  LOADK R9 K10 ["%s '%s' must be a string or userdata but is a %s"]
+  LOADK R10 K11 ["initialState"]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R12 R1
+  GETIMPORT R11 K13 [tostring]
+  CALL R11 1 1
+  MOVE R12 R4
+  CALL R8 4 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R6 K5 [assert]
+  CALL R6 -1 0
+  LOADB R5 1
+  JUMPIFEQKNIL R2 [+10]
+  FASTCALL1 TYPEOF R2 [+3]
+  MOVE R7 R2
+  GETIMPORT R6 K1 [typeof]
+  CALL R6 1 1
+  JUMPIFEQKS R6 K14 ["table"] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K15 [+4]
+  LOADK R6 K15 ["initialContext must be a table or nil"]
+  GETIMPORT R4 K5 [assert]
+  CALL R4 2 0
+  FASTCALL1 TYPEOF R3 [+3]
+  MOVE R7 R3
+  GETIMPORT R6 K1 [typeof]
+  CALL R6 1 1
+  JUMPIFEQKS R6 K14 ["table"] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K16 [+4]
+  LOADK R6 K16 ["transitionTable must be a table"]
+  GETIMPORT R4 K5 [assert]
+  CALL R4 2 0
+  GETTABLE R7 R3 R1
+  FASTCALL1 TYPEOF R7 [+2]
+  GETIMPORT R6 K1 [typeof]
+  CALL R6 1 1
+  JUMPIFEQKS R6 K14 ["table"] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K17 [+4]
+  LOADK R6 K17 ["initialState must be present in transitionTable"]
+  GETIMPORT R4 K5 [assert]
+  CALL R4 2 0
+  NEWTABLE R4 8 0
+  GETUPVAL R7 0
+  FASTCALL2 SETMETATABLE R4 R7 [+4]
+  MOVE R6 R4
+  GETIMPORT R5 K19 [setmetatable]
+  CALL R5 2 0
+  SETTABLEKS R0 R4 K20 ["name"]
+  SETTABLEKS R1 R4 K21 ["currentState"]
+  MOVE R5 R2
+  JUMPIF R5 [+2]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K22 ["currentContext"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K23 ["transitionTable"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K24 ["events"]
+  GETIMPORT R5 K26 [pairs]
+  MOVE R6 R3
+  CALL R5 1 3
+  FORGPREP_NEXT R5
+  FASTCALL1 TYPEOF R8 [+3]
+  MOVE R11 R8
+  GETIMPORT R10 K1 [typeof]
+  CALL R10 1 1
+  LOADB R11 1
+  JUMPIFEQKS R10 K2 ["string"] [+5]
+  JUMPIFEQKS R10 K7 ["userdata"] [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  MOVE R13 R11
+  GETIMPORT R14 K9 [string.format]
+  LOADK R15 K10 ["%s '%s' must be a string or userdata but is a %s"]
+  LOADK R16 K27 ["state"]
+  FASTCALL1 TOSTRING R8 [+3]
+  MOVE R18 R8
+  GETIMPORT R17 K13 [tostring]
+  CALL R17 1 1
+  MOVE R18 R10
+  CALL R14 4 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R12 K5 [assert]
+  CALL R12 -1 0
+  FASTCALL1 TYPEOF R9 [+3]
+  MOVE R13 R9
+  GETIMPORT R12 K1 [typeof]
+  CALL R12 1 1
+  JUMPIFEQKS R12 K14 ["table"] [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  GETIMPORT R12 K9 [string.format]
+  LOADK R13 K28 ["state '%s' must map to a table"]
+  FASTCALL1 TOSTRING R8 [+3]
+  MOVE R15 R8
+  GETIMPORT R14 K13 [tostring]
+  CALL R14 1 1
+  CALL R12 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R10 K5 [assert]
+  CALL R10 -1 0
+  NEWTABLE R10 0 0
+  GETIMPORT R11 K26 [pairs]
+  MOVE R12 R9
+  CALL R11 1 3
+  FORGPREP_NEXT R11
+  FASTCALL1 TYPEOF R14 [+3]
+  MOVE R17 R14
+  GETIMPORT R16 K1 [typeof]
+  CALL R16 1 1
+  LOADB R17 1
+  JUMPIFEQKS R16 K2 ["string"] [+5]
+  JUMPIFEQKS R16 K7 ["userdata"] [+2]
+  LOADB R17 0 +1
+  LOADB R17 1
+  MOVE R19 R17
+  GETIMPORT R20 K9 [string.format]
+  LOADK R21 K10 ["%s '%s' must be a string or userdata but is a %s"]
+  LOADK R22 K29 ["event"]
+  FASTCALL1 TOSTRING R14 [+3]
+  MOVE R24 R14
+  GETIMPORT R23 K13 [tostring]
+  CALL R23 1 1
+  MOVE R24 R16
+  CALL R20 4 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R18 K5 [assert]
+  CALL R18 -1 0
+  FASTCALL1 TYPEOF R15 [+3]
+  MOVE R19 R15
+  GETIMPORT R18 K1 [typeof]
+  CALL R18 1 1
+  JUMPIFEQKS R18 K14 ["table"] [+2]
+  LOADB R17 0 +1
+  LOADB R17 1
+  GETIMPORT R18 K9 [string.format]
+  LOADK R19 K30 ["event '%s' must map to a table"]
+  FASTCALL1 TOSTRING R14 [+3]
+  MOVE R21 R14
+  GETIMPORT R20 K13 [tostring]
+  CALL R20 1 1
+  CALL R18 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R16 K5 [assert]
+  CALL R16 -1 0
+  GETTABLEKS R16 R15 K31 ["nextState"]
+  GETTABLEKS R17 R15 K32 ["action"]
+  JUMPIFEQKNIL R16 [+47]
+  FASTCALL1 TYPEOF R16 [+3]
+  MOVE R19 R16
+  GETIMPORT R18 K1 [typeof]
+  CALL R18 1 1
+  LOADB R19 1
+  JUMPIFEQKS R18 K2 ["string"] [+5]
+  JUMPIFEQKS R18 K7 ["userdata"] [+2]
+  LOADB R19 0 +1
+  LOADB R19 1
+  MOVE R21 R19
+  GETIMPORT R22 K9 [string.format]
+  LOADK R23 K10 ["%s '%s' must be a string or userdata but is a %s"]
+  LOADK R24 K31 ["nextState"]
+  FASTCALL1 TOSTRING R16 [+3]
+  MOVE R26 R16
+  GETIMPORT R25 K13 [tostring]
+  CALL R25 1 1
+  MOVE R26 R18
+  CALL R22 4 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R20 K5 [assert]
+  CALL R20 -1 0
+  GETTABLE R20 R3 R16
+  JUMPIFNOTEQKNIL R20 [+2]
+  LOADB R19 0 +1
+  LOADB R19 1
+  GETIMPORT R20 K9 [string.format]
+  LOADK R21 K33 ["nextState '%s' does not exist in transitionTable"]
+  FASTCALL1 TOSTRING R16 [+3]
+  MOVE R23 R16
+  GETIMPORT R22 K13 [tostring]
+  CALL R22 1 1
+  CALL R20 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R18 K5 [assert]
+  CALL R18 -1 0
+  LOADB R19 1
+  JUMPIFEQKNIL R17 [+10]
+  FASTCALL1 TYPEOF R17 [+3]
+  MOVE R21 R17
+  GETIMPORT R20 K1 [typeof]
+  CALL R20 1 1
+  JUMPIFEQKS R20 K34 ["function"] [+2]
+  LOADB R19 0 +1
+  LOADB R19 1
+  FASTCALL2K ASSERT R19 K35 [+4]
+  LOADK R20 K35 ["action must be a function"]
+  GETIMPORT R18 K5 [assert]
+  CALL R18 2 0
+  SETTABLE R15 R10 R14
+  GETTABLEKS R19 R4 K24 ["events"]
+  GETTABLE R18 R19 R14
+  JUMPIFNOTEQKNIL R18 [+7]
+  GETTABLEKS R18 R4 K24 ["events"]
+  NEWCLOSURE R19 P0
+  CAPTURE VAL R4
+  CAPTURE VAL R14
+  SETTABLE R19 R18 R14
+  FORGLOOP R11 2 [-133]
+  GETTABLEKS R11 R4 K23 ["transitionTable"]
+  SETTABLE R10 R11 R8
+  FORGLOOP R5 2 [-195]
+  GETTABLEKS R6 R4 K24 ["events"]
+  DUPTABLE R7 K37 [{"__index"}]
+  NEWCLOSURE R8 P1
+  CAPTURE VAL R4
+  SETTABLEKS R8 R7 K36 ["__index"]
+  FASTCALL2 SETMETATABLE R6 R7 [+3]
+  GETIMPORT R5 K19 [setmetatable]
+  CALL R5 2 0
+  RETURN R4 1
+
+PROTO_4:
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R4 R1
+  GETIMPORT R3 K1 [typeof]
+  CALL R3 1 1
+  LOADB R4 1
+  JUMPIFEQKS R3 K2 ["string"] [+5]
+  JUMPIFEQKS R3 K3 ["userdata"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  MOVE R6 R4
+  GETIMPORT R7 K5 [string.format]
+  LOADK R8 K6 ["%s '%s' must be a string or userdata but is a %s"]
+  LOADK R9 K7 ["event"]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R11 R1
+  GETIMPORT R10 K9 [tostring]
+  CALL R10 1 1
+  MOVE R11 R3
+  CALL R7 4 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R5 K11 [assert]
+  CALL R5 -1 0
+  LOADB R4 1
+  JUMPIFEQKNIL R2 [+10]
+  FASTCALL1 TYPEOF R2 [+3]
+  MOVE R6 R2
+  GETIMPORT R5 K1 [typeof]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K12 ["table"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  FASTCALL2K ASSERT R4 K13 [+4]
+  LOADK R5 K13 ["args must be nil or valid table"]
+  GETIMPORT R3 K11 [assert]
+  CALL R3 2 0
+  GETTABLEKS R3 R0 K14 ["currentState"]
+  GETTABLEKS R5 R0 K15 ["transitionTable"]
+  GETTABLE R4 R5 R3
+  JUMPIFNOTEQKNIL R4 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  FASTCALL2K ASSERT R6 K16 [+4]
+  LOADK R7 K16 ["no transition events for current state"]
+  GETIMPORT R5 K11 [assert]
+  CALL R5 2 0
+  GETTABLE R5 R4 R1
+  JUMPIFEQKNIL R5 [+54]
+  GETTABLE R5 R4 R1
+  GETTABLEKS R7 R5 K17 ["nextState"]
+  OR R6 R7 R3
+  GETTABLEKS R7 R5 K18 ["action"]
+  GETTABLEKS R8 R0 K19 ["currentContext"]
+  JUMPIFEQKNIL R7 [+32]
+  MOVE R9 R7
+  MOVE R10 R3
+  MOVE R11 R6
+  MOVE R12 R2
+  GETTABLEKS R13 R0 K19 ["currentContext"]
+  CALL R9 4 1
+  JUMPIF R9 [+2]
+  NEWTABLE R9 0 0
+  NEWTABLE R8 0 0
+  GETIMPORT R10 K21 [pairs]
+  GETTABLEKS R11 R0 K19 ["currentContext"]
+  CALL R10 1 3
+  FORGPREP_NEXT R10
+  SETTABLE R14 R8 R13
+  FORGLOOP R10 2 [-2]
+  GETIMPORT R10 K21 [pairs]
+  MOVE R11 R9
+  CALL R10 1 3
+  FORGPREP_NEXT R10
+  SETTABLE R14 R8 R13
+  FORGLOOP R10 2 [-2]
+  SETTABLEKS R8 R0 K19 ["currentContext"]
+  SETTABLEKS R6 R0 K14 ["currentState"]
+  GETTABLEKS R9 R0 K22 ["stateChangeHandler"]
+  JUMPIFEQKNIL R9 [+7]
+  GETTABLEKS R9 R0 K22 ["stateChangeHandler"]
+  MOVE R10 R3
+  MOVE R11 R6
+  MOVE R12 R8
+  CALL R9 3 0
+  RETURN R0 0
+
+PROTO_5:
+  LOADB R3 1
+  JUMPIFEQKNIL R1 [+10]
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R5 R1
+  GETIMPORT R4 K1 [typeof]
+  CALL R4 1 1
+  JUMPIFEQKS R4 K2 ["function"] [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K3 [+4]
+  LOADK R4 K3 ["stateChangeHandler must be nil or a function"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  SETTABLEKS R1 R0 K6 ["stateChangeHandler"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 4 0
+  SETTABLEKS R0 R0 K0 ["__index"]
+  DUPCLOSURE R1 K1 [PROTO_0]
+  DUPCLOSURE R2 K2 [PROTO_3]
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K3 ["new"]
+  DUPCLOSURE R2 K4 [PROTO_4]
+  SETTABLEKS R2 R0 K5 ["handleEvent"]
+  DUPCLOSURE R2 K6 [PROTO_5]
+  SETTABLEKS R2 R0 K7 ["onStateChange"]
+  RETURN R0 1

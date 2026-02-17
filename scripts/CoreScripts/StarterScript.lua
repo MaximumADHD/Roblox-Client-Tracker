@@ -83,6 +83,8 @@ local FFlagCoreScriptsProfilerTelemetryContext = game:DefineFastFlag("CoreScript
 local FFlagFixExperimentCacheManagerCoreScriptInit =
 	game:DefineFastFlag("FixExperimentCacheManagerCoreScriptInit2", false)
 local FFlagLuaAppEnableEnhancedVideoScripts = game:DefineFastFlag("LuaAppEnableEnhancedVideoScripts3", false)
+local FFlagLuaAppEnableInExperienceClickoutScripts = game:DefineFastFlag("LuaAppEnableInExperienceClickoutScripts", false)
+local FFlagSelfieFrontendConsoleDesktop = game:DefineFastFlag("SelfieFrontendConsoleDesktop2", false) and game:GetEngineFeature("EnableSelfieQRCode")
 
 local UIBlox = require(CorePackages.Packages.UIBlox)
 local uiBloxConfig = require(CorePackages.Workspace.Packages.CoreScriptsInitializer).UIBloxInGameConfig
@@ -316,6 +318,10 @@ end
 
 coroutine.wrap(safeRequire)(CoreGuiModules.AvatarGeneration.SelfieConsent)
 
+if FFlagSelfieFrontendConsoleDesktop then
+	coroutine.wrap(safeRequire)(CoreGuiModules.AvatarGeneration.SelfieQr)
+end
+
 -- Prompt Block Player Script
 ScriptContext:AddCoreScriptLocal("CoreScripts/BlockPlayerPrompt", RobloxGui)
 ScriptContext:AddCoreScriptLocal("CoreScripts/FriendPlayerPrompt", RobloxGui)
@@ -462,6 +468,16 @@ if FFlagLuaAppEnableEnhancedVideoScripts then
 
 		if EnhancedVideo and EnhancedVideo.starterScript then
 			EnhancedVideo.starterScript()
+		end
+	end)()
+end
+
+if FFlagLuaAppEnableInExperienceClickoutScripts then 
+	coroutine.wrap(function()
+		local InExperienceClickout = safeRequire(CorePackages.Workspace.Packages.InExperienceClickout)
+
+		if InExperienceClickout and InExperienceClickout.starterScript then
+			InExperienceClickout.starterScript()
 		end
 	end)()
 end

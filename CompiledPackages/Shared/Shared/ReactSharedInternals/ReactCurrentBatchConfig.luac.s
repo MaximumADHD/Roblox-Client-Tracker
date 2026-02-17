@@ -1,0 +1,6 @@
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K1 [{"transition"}]
+  LOADN R1 0
+  SETTABLEKS R1 R0 K0 ["transition"]
+  RETURN R0 1

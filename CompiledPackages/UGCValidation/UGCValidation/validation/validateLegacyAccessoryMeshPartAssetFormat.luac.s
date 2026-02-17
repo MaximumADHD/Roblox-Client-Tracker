@@ -1,0 +1,182 @@
+PROTO_0:
+  GETTABLEKS R4 R1 K0 ["instances"]
+  JUMPIFNOTEQKNIL R4 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  FASTCALL2K ASSERT R3 K1 [+4]
+  LOADK R4 K1 ["instances required in validationContext for validateLegacyAccessoryMeshPartAssetFormat"]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 2 0
+  GETTABLEKS R2 R1 K0 ["instances"]
+  LOADNIL R3
+  LOADNIL R4
+  GETUPVAL R5 0
+  MOVE R6 R2
+  MOVE R7 R1
+  CALL R5 2 2
+  MOVE R3 R5
+  MOVE R4 R6
+  JUMPIF R3 [+3]
+  LOADB R5 0
+  MOVE R6 R4
+  RETURN R5 2
+  GETTABLEN R5 R2 1
+  LOADK R8 K4 ["Handle"]
+  NAMECALL R6 R0 K5 ["FindFirstChild"]
+  CALL R6 2 1
+  LOADK R9 K6 ["Attachment"]
+  NAMECALL R7 R6 K7 ["FindFirstChildOfClass"]
+  CALL R7 2 1
+  GETUPVAL R8 1
+  GETTABLEKS R9 R7 K8 ["Name"]
+  CALL R8 1 1
+  GETUPVAL R9 2
+  MOVE R10 R8
+  MOVE R11 R5
+  MOVE R12 R1
+  CALL R9 3 2
+  MOVE R3 R9
+  MOVE R4 R10
+  JUMPIF R3 [+3]
+  LOADB R9 0
+  MOVE R10 R4
+  RETURN R9 2
+  GETUPVAL R9 3
+  CALL R9 0 1
+  JUMPIFNOT R9 [+12]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K9 ["validate"]
+  MOVE R10 R5
+  MOVE R11 R1
+  CALL R9 2 2
+  MOVE R3 R9
+  MOVE R4 R10
+  JUMPIF R3 [+3]
+  LOADB R9 0
+  MOVE R10 R4
+  RETURN R9 2
+  GETUPVAL R9 5
+  MOVE R10 R5
+  MOVE R11 R1
+  CALL R9 2 2
+  MOVE R3 R9
+  MOVE R4 R10
+  JUMPIF R3 [+3]
+  LOADB R9 0
+  MOVE R10 R4
+  RETURN R9 2
+  GETUPVAL R9 6
+  MOVE R10 R5
+  MOVE R11 R1
+  CALL R9 2 2
+  MOVE R3 R9
+  MOVE R4 R10
+  JUMPIF R3 [+3]
+  LOADB R9 0
+  MOVE R10 R4
+  RETURN R9 2
+  GETUPVAL R9 7
+  MOVE R10 R5
+  MOVE R11 R1
+  CALL R9 2 2
+  MOVE R3 R9
+  MOVE R4 R10
+  JUMPIF R3 [+3]
+  LOADB R9 0
+  MOVE R10 R4
+  RETURN R9 2
+  GETUPVAL R9 8
+  CALL R9 0 1
+  JUMPIFNOT R9 [+13]
+  GETUPVAL R10 9
+  GETTABLEKS R9 R10 K9 ["validate"]
+  MOVE R10 R5
+  LOADB R11 0
+  MOVE R12 R1
+  CALL R9 3 2
+  MOVE R3 R9
+  MOVE R4 R10
+  JUMPIF R3 [+3]
+  LOADB R9 0
+  MOVE R10 R4
+  RETURN R9 2
+  GETUPVAL R9 10
+  MOVE R10 R5
+  MOVE R11 R0
+  MOVE R12 R1
+  CALL R9 3 2
+  MOVE R3 R9
+  MOVE R4 R10
+  JUMPIF R3 [+3]
+  LOADB R9 0
+  MOVE R10 R4
+  RETURN R9 2
+  LOADB R9 1
+  RETURN R9 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["util"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K5 ["util"]
+  GETTABLEKS R3 R4 K7 ["createLegacyAccessoryMeshPartAssetFormatSchema"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K8 ["validation"]
+  GETTABLEKS R4 R5 K9 ["validateSingleInstance"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K8 ["validation"]
+  GETTABLEKS R5 R6 K10 ["validateInstanceTree"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K8 ["validation"]
+  GETTABLEKS R6 R7 K11 ["validateLegacyAccessoryMeshPartAssetFormatMatch"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K8 ["validation"]
+  GETTABLEKS R7 R8 K12 ["validateSurfaceAppearances"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K8 ["validation"]
+  GETTABLEKS R8 R9 K13 ["validateSurfaceAppearanceTextureSize"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R0 K8 ["validation"]
+  GETTABLEKS R9 R10 K14 ["ValidateTexturePack"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R11 R0 K8 ["validation"]
+  GETTABLEKS R10 R11 K15 ["validateSurfaceAppearanceTransparency"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R12 R0 K8 ["validation"]
+  GETTABLEKS R11 R12 K16 ["ValidatePropertiesSensible"]
+  CALL R10 1 1
+  GETIMPORT R11 K4 [require]
+  GETTABLEKS R13 R0 K17 ["flags"]
+  GETTABLEKS R12 R13 K18 ["getEngineFeatureEngineUGCValidatePropertiesSensible"]
+  CALL R11 1 1
+  GETIMPORT R12 K4 [require]
+  GETTABLEKS R14 R0 K17 ["flags"]
+  GETTABLEKS R13 R14 K19 ["getFFlagUGCValidateTexturePack"]
+  CALL R12 1 1
+  DUPCLOSURE R13 K20 [PROTO_0]
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R11
+  CAPTURE VAL R10
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R12
+  CAPTURE VAL R8
+  CAPTURE VAL R5
+  RETURN R13 1

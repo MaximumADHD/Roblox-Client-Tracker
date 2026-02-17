@@ -49,7 +49,7 @@ local function CenterSheet(centerSheetProps: CenterSheetProps, ref: React.Ref<Gu
 	local props = withDefaults(centerSheetProps, defaultProps)
 	local overlay = useOverlay()
 	local tokens = useTokens()
-	local elevation = useElevation(ElevationLayer.Sheet, { relativeToOwner = false })
+	local elevation = useElevation(ElevationLayer.Sheet, { stackAboveOwner = false })
 
 	local width = useScaledValue(DIALOG_SIZES[props.size])
 	local maxHeight = useScaledValue(HEIGHT)

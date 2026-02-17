@@ -1,0 +1,800 @@
+PROTO_0:
+  DUPTABLE R3 K4 [{"_draggerContext", "_ikTransformFunction", "_partMover", "_attachmentMover"}]
+  SETTABLEKS R0 R3 K0 ["_draggerContext"]
+  SETTABLEKS R1 R3 K1 ["_ikTransformFunction"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K5 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K2 ["_partMover"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K5 ["new"]
+  CALL R4 0 1
+  SETTABLEKS R4 R3 K3 ["_attachmentMover"]
+  GETUPVAL R4 2
+  FASTCALL2 SETMETATABLE R3 R4 [+3]
+  GETIMPORT R2 K7 [setmetatable]
+  CALL R2 2 1
+  RETURN R2 1
+
+PROTO_1:
+  NAMECALL R3 R2 K0 ["getObjectsToTransform"]
+  CALL R3 1 3
+  SETTABLEKS R2 R0 K1 ["_initialSelectionInfo"]
+  GETIMPORT R6 K4 [CFrame.new]
+  CALL R6 0 1
+  SETTABLEKS R6 R0 K5 ["_lastGoodGeometricTransform"]
+  GETIMPORT R6 K4 [CFrame.new]
+  CALL R6 0 1
+  SETTABLEKS R6 R0 K6 ["_lastAppliedTransform"]
+  LENGTH R7 R3
+  LOADN R8 0
+  JUMPIFLT R8 R7 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  SETTABLEKS R6 R0 K7 ["_hasPartsToMove"]
+  LOADNIL R6
+  LOADNIL R7
+  NAMECALL R8 R2 K8 ["getBoundingBox"]
+  CALL R8 1 3
+  SETTABLEKS R10 R0 K9 ["_boundingBoxSize"]
+  MOVE R6 R8
+  MOVE R7 R9
+  GETIMPORT R9 K4 [CFrame.new]
+  MOVE R10 R7
+  CALL R9 1 1
+  MUL R8 R6 R9
+  SETTABLEKS R8 R0 K10 ["_centerPoint"]
+  NAMECALL R9 R0 K11 ["_shouldSolveConstraints"]
+  CALL R9 1 1
+  NOT R8 R9
+  GETTABLEKS R9 R0 K12 ["_partMover"]
+  MOVE R11 R3
+  NAMECALL R12 R2 K13 ["getOriginalCFrameMap"]
+  CALL R12 1 1
+  MOVE R13 R8
+  GETTABLEKS R15 R0 K10 ["_centerPoint"]
+  GETTABLEKS R14 R15 K14 ["Position"]
+  MOVE R15 R1
+  MOVE R16 R5
+  NAMECALL R17 R2 K15 ["getRootMapping"]
+  CALL R17 1 -1
+  NAMECALL R9 R9 K16 ["setDragged"]
+  CALL R9 -1 0
+  GETTABLEKS R9 R0 K17 ["_attachmentMover"]
+  MOVE R11 R4
+  NAMECALL R9 R9 K16 ["setDragged"]
+  CALL R9 2 0
+  GETTABLEKS R9 R0 K18 ["_draggerContext"]
+  NAMECALL R9 R9 K19 ["areCollisionsEnabled"]
+  CALL R9 1 1
+  JUMPIF R9 [+7]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K3 ["new"]
+  MOVE R10 R3
+  CALL R9 1 1
+  SETTABLEKS R9 R0 K20 ["_temporaryTransparency"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R3 R0 K0 ["_draggerContext"]
+  NAMECALL R3 R3 K1 ["areCollisionsEnabled"]
+  CALL R3 1 1
+  JUMPIFNOT R3 [+3]
+  NEWTABLE R3 0 0
+  RETURN R3 1
+  GETTABLEKS R3 R0 K2 ["_initialSelectionInfo"]
+  NAMECALL R3 R3 K3 ["getBoundingBox"]
+  CALL R3 1 3
+  LOADNIL R6
+  LOADNIL R7
+  JUMPIFNOT R2 [+3]
+  MUL R6 R3 R2
+  LOADK R7 K4 [{0.05, 0.05, 0.05}]
+  JUMP [+13]
+  MOVE R6 R3
+  MOVE R10 R1
+  NAMECALL R8 R3 K5 ["VectorToObjectSpace"]
+  CALL R8 2 1
+  LOADK R10 K6 [{0.2, 0.2, 0.2}]
+  ADD R9 R5 R10
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K7 ["complimentDirection"]
+  MOVE R11 R8
+  CALL R10 1 1
+  MUL R7 R9 R10
+  GETTABLEKS R8 R0 K0 ["_draggerContext"]
+  NAMECALL R8 R8 K8 ["getMaxSoftSnaps"]
+  CALL R8 1 1
+  NEWTABLE R9 0 2
+  LOADN R10 255
+  LOADN R11 1
+  SETLIST R9 R10 2 [1]
+  GETUPVAL R10 1
+  MOVE R11 R6
+  MOVE R12 R7
+  MOVE R13 R1
+  GETTABLEKS R14 R0 K2 ["_initialSelectionInfo"]
+  NAMECALL R14 R14 K9 ["getObjectsToTransform"]
+  CALL R14 1 1
+  MOVE R15 R9
+  MOVE R16 R9
+  MOVE R17 R8
+  CALL R10 7 -1
+  RETURN R10 -1
+
+PROTO_3:
+  NAMECALL R2 R0 K0 ["_shouldSolveConstraints"]
+  CALL R2 1 1
+  JUMPIFNOT R2 [+5]
+  MOVE R4 R1
+  NAMECALL R2 R0 K1 ["_transformInverseKinematics"]
+  CALL R2 2 -1
+  RETURN R2 -1
+  MOVE R4 R1
+  NAMECALL R2 R0 K2 ["_transformGeometric"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_4:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIFNOT R1 [+9]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K0 ["_pivotSnapTarget"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K1 ["_pivotSnapTo"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K2 ["_pivotSnapFrom"]
+  GETTABLEKS R1 R0 K3 ["_draggerContext"]
+  NAMECALL R1 R1 K4 ["shouldJoinSurfaces"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K5 ["_jointPairs"]
+  JUMPIFNOT R1 [+5]
+  GETTABLEKS R1 R0 K5 ["_jointPairs"]
+  NAMECALL R1 R1 K6 ["createJoints"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K5 ["_jointPairs"]
+  GETTABLEKS R1 R0 K7 ["_partMover"]
+  NAMECALL R1 R1 K8 ["commit"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K9 ["_attachmentMover"]
+  NAMECALL R1 R1 K8 ["commit"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K10 ["_temporaryTransparency"]
+  JUMPIFNOT R1 [+8]
+  GETTABLEKS R1 R0 K10 ["_temporaryTransparency"]
+  NAMECALL R1 R1 K11 ["destroy"]
+  CALL R1 1 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K10 ["_temporaryTransparency"]
+  GETTABLEKS R1 R0 K12 ["_initialSelectionInfo"]
+  GETTABLEKS R3 R0 K13 ["_lastAppliedTransform"]
+  NAMECALL R1 R1 K14 ["getTransformedCopy"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_5:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["_pivotSnapFrom"]
+  GETTABLEKS R3 R4 K1 ["Position"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["_pivotSnapTo"]
+  GETTABLEKS R4 R5 K1 ["Position"]
+  NAMECALL R1 R0 K3 ["AddLine"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["_pivotSnapTo"]
+  GETTABLEKS R3 R4 K1 ["Position"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["_pivotSnapTarget"]
+  GETTABLEKS R4 R5 K1 ["Position"]
+  NAMECALL R1 R0 K3 ["AddLine"]
+  CALL R1 3 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+82]
+  NEWTABLE R2 4 0
+  GETTABLEKS R4 R0 K0 ["_centerPoint"]
+  MUL R3 R1 R4
+  GETTABLEKS R4 R0 K1 ["_draggerContext"]
+  NAMECALL R4 R4 K2 ["shouldJoinSurfaces"]
+  CALL R4 1 1
+  JUMPIFNOT R4 [+18]
+  GETTABLEKS R4 R0 K3 ["_jointPairs"]
+  JUMPIFNOT R4 [+15]
+  GETUPVAL R4 1
+  GETTABLEKS R5 R0 K1 ["_draggerContext"]
+  MOVE R6 R3
+  GETTABLEKS R7 R0 K4 ["_boundingBoxSize"]
+  CALL R4 3 1
+  GETTABLEKS R5 R0 K3 ["_jointPairs"]
+  MOVE R7 R4
+  NAMECALL R5 R5 K5 ["renderJoints"]
+  CALL R5 2 1
+  SETTABLEKS R5 R2 K6 ["JoinedSurfaces"]
+  GETTABLEKS R4 R0 K7 ["_pivotSnapTarget"]
+  JUMPIFNOT R4 [+44]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K8 ["createElement"]
+  GETUPVAL R5 3
+  DUPTABLE R6 K12 [{"Color3", "AlwaysOnTop", "Render"}]
+  GETTABLEKS R7 R0 K1 ["_draggerContext"]
+  NAMECALL R7 R7 K13 ["getChosenColor"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K9 ["Color3"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K10 ["AlwaysOnTop"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R0
+  SETTABLEKS R7 R6 K11 ["Render"]
+  CALL R4 2 1
+  SETTABLEKS R4 R2 K14 ["SnapToLine"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K8 ["createElement"]
+  GETUPVAL R5 3
+  DUPTABLE R6 K12 [{"Color3", "AlwaysOnTop", "Render"}]
+  GETTABLEKS R7 R0 K1 ["_draggerContext"]
+  NAMECALL R7 R7 K13 ["getChosenColor"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K9 ["Color3"]
+  LOADB R7 1
+  SETTABLEKS R7 R6 K10 ["AlwaysOnTop"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R0
+  SETTABLEKS R7 R6 K11 ["Render"]
+  CALL R4 2 1
+  SETTABLEKS R4 R2 K15 ["SnapBecauseLine"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K16 ["createFragment"]
+  MOVE R5 R2
+  CALL R4 1 -1
+  RETURN R4 -1
+  GETTABLEKS R3 R0 K0 ["_centerPoint"]
+  MUL R2 R1 R3
+  GETTABLEKS R3 R0 K1 ["_draggerContext"]
+  NAMECALL R3 R3 K2 ["shouldJoinSurfaces"]
+  CALL R3 1 1
+  JUMPIFNOT R3 [+17]
+  GETTABLEKS R3 R0 K3 ["_jointPairs"]
+  JUMPIFNOT R3 [+14]
+  GETUPVAL R3 1
+  GETTABLEKS R4 R0 K1 ["_draggerContext"]
+  MOVE R5 R2
+  GETTABLEKS R6 R0 K4 ["_boundingBoxSize"]
+  CALL R3 3 1
+  GETTABLEKS R4 R0 K3 ["_jointPairs"]
+  MOVE R6 R3
+  NAMECALL R4 R4 K5 ["renderJoints"]
+  CALL R4 2 -1
+  RETURN R4 -1
+  LOADNIL R3
+  RETURN R3 1
+
+PROTO_8:
+  GETTABLEKS R2 R0 K0 ["_lastGoodGeometricTransform"]
+  JUMPIFNOTEQ R1 R2 [+2]
+  RETURN R1 1
+  GETTABLEKS R4 R0 K0 ["_lastGoodGeometricTransform"]
+  MOVE R5 R1
+  NAMECALL R2 R0 K1 ["_safelyTransformParts"]
+  CALL R2 3 1
+  GETTABLEKS R3 R0 K2 ["_draggerContext"]
+  NAMECALL R3 R3 K3 ["shouldJoinSurfaces"]
+  CALL R3 1 1
+  JUMPIFNOT R3 [+8]
+  GETTABLEKS R3 R0 K4 ["_partMover"]
+  MOVE R5 R2
+  NAMECALL R3 R3 K5 ["computeJointPairs"]
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K6 ["_jointPairs"]
+  GETTABLEKS R3 R0 K7 ["_attachmentMover"]
+  MOVE R5 R2
+  NAMECALL R3 R3 K8 ["transformTo"]
+  CALL R3 2 0
+  SETTABLEKS R2 R0 K0 ["_lastGoodGeometricTransform"]
+  SETTABLEKS R2 R0 K9 ["_lastAppliedTransform"]
+  RETURN R2 1
+
+PROTO_9:
+  GETTABLEKS R3 R0 K0 ["_draggerContext"]
+  NAMECALL R3 R3 K1 ["areCollisionsEnabled"]
+  CALL R3 1 1
+  JUMPIFNOT R3 [+3]
+  GETIMPORT R2 K5 [Enum.IKCollisionsMode.IncludeContactedMechanisms]
+  JUMPIF R2 [+2]
+  GETIMPORT R2 K7 [Enum.IKCollisionsMode.NoCollisions]
+  GETTABLEKS R3 R0 K8 ["_ikTransformFunction"]
+  GETTABLEKS R4 R0 K9 ["_partMover"]
+  MOVE R5 R1
+  MOVE R6 R2
+  CALL R3 3 1
+  GETTABLEKS R4 R0 K0 ["_draggerContext"]
+  NAMECALL R4 R4 K10 ["shouldJoinSurfaces"]
+  CALL R4 1 1
+  JUMPIFNOT R4 [+8]
+  GETTABLEKS R4 R0 K9 ["_partMover"]
+  MOVE R6 R3
+  NAMECALL R4 R4 K11 ["computeJointPairs"]
+  CALL R4 2 1
+  SETTABLEKS R4 R0 K12 ["_jointPairs"]
+  GETTABLEKS R4 R0 K13 ["_attachmentMover"]
+  MOVE R6 R3
+  NAMECALL R4 R4 K14 ["transformTo"]
+  CALL R4 2 0
+  SETTABLEKS R3 R0 K15 ["_lastAppliedTransform"]
+  RETURN R3 1
+
+PROTO_10:
+  GETTABLEKS R5 R0 K0 ["Position"]
+  GETTABLEKS R6 R1 K0 ["Position"]
+  SUB R4 R5 R6
+  GETTABLEKS R3 R4 K1 ["Magnitude"]
+  GETTABLEKS R7 R0 K2 ["XVector"]
+  GETTABLEKS R8 R1 K2 ["XVector"]
+  SUB R6 R7 R8
+  GETTABLEKS R5 R6 K1 ["Magnitude"]
+  GETTABLEKS R8 R0 K3 ["YVector"]
+  GETTABLEKS R9 R1 K3 ["YVector"]
+  SUB R7 R8 R9
+  GETTABLEKS R6 R7 K1 ["Magnitude"]
+  GETTABLEKS R9 R0 K4 ["ZVector"]
+  GETTABLEKS R10 R1 K4 ["ZVector"]
+  SUB R8 R9 R10
+  GETTABLEKS R7 R8 K1 ["Magnitude"]
+  FASTCALL MATH_MAX [+2]
+  GETIMPORT R4 K7 [math.max]
+  CALL R4 3 1
+  LOADB R5 0
+  JUMPIFNOTLT R3 R2 [+5]
+  JUMPIFLT R4 R2 [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  MOVE R6 R3
+  MOVE R7 R4
+  RETURN R5 3
+
+PROTO_11:
+  GETTABLEKS R4 R0 K0 ["_centerPoint"]
+  NAMECALL R4 R4 K1 ["Inverse"]
+  CALL R4 1 1
+  MUL R3 R4 R1
+  GETTABLEKS R4 R0 K0 ["_centerPoint"]
+  MUL R2 R3 R4
+  RETURN R2 1
+
+PROTO_12:
+  GETTABLEKS R4 R0 K0 ["_centerPoint"]
+  MUL R3 R4 R1
+  GETTABLEKS R4 R0 K0 ["_centerPoint"]
+  NAMECALL R4 R4 K1 ["Inverse"]
+  CALL R4 1 1
+  MUL R2 R3 R4
+  RETURN R2 1
+
+PROTO_13:
+  GETTABLEKS R3 R0 K0 ["_partMover"]
+  MOVE R5 R2
+  NAMECALL R3 R3 K1 ["transformTo"]
+  CALL R3 2 0
+  GETTABLEKS R3 R0 K2 ["_draggerContext"]
+  NAMECALL R3 R3 K3 ["areCollisionsEnabled"]
+  CALL R3 1 1
+  JUMPIFNOT R3 [+6]
+  GETTABLEKS R3 R0 K0 ["_partMover"]
+  NAMECALL R3 R3 K4 ["isIntersectingOthers"]
+  CALL R3 1 1
+  JUMPIF R3 [+1]
+  RETURN R2 1
+  MOVE R5 R1
+  NAMECALL R3 R0 K5 ["_toLocalTransform"]
+  CALL R3 2 1
+  MOVE R6 R2
+  NAMECALL R4 R0 K5 ["_toLocalTransform"]
+  CALL R4 2 1
+  LOADB R5 1
+  LOADN R6 0
+  MOVE R8 R3
+  MOVE R9 R4
+  GETTABLEKS R12 R8 K6 ["Position"]
+  GETTABLEKS R13 R9 K6 ["Position"]
+  SUB R11 R12 R13
+  GETTABLEKS R10 R11 K7 ["Magnitude"]
+  GETTABLEKS R14 R8 K8 ["XVector"]
+  GETTABLEKS R15 R9 K8 ["XVector"]
+  SUB R13 R14 R15
+  GETTABLEKS R12 R13 K7 ["Magnitude"]
+  GETTABLEKS R15 R8 K9 ["YVector"]
+  GETTABLEKS R16 R9 K9 ["YVector"]
+  SUB R14 R15 R16
+  GETTABLEKS R13 R14 K7 ["Magnitude"]
+  GETTABLEKS R16 R8 K10 ["ZVector"]
+  GETTABLEKS R17 R9 K10 ["ZVector"]
+  SUB R15 R16 R17
+  GETTABLEKS R14 R15 K7 ["Magnitude"]
+  FASTCALL MATH_MAX [+2]
+  GETIMPORT R11 K13 [math.max]
+  CALL R11 3 1
+  LOADB R7 0
+  LOADK R12 K14 [0.0005]
+  JUMPIFNOTLT R10 R12 [+6]
+  LOADK R12 K14 [0.0005]
+  JUMPIFLT R11 R12 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  JUMPIF R7 [+35]
+  MOVE R9 R4
+  LOADK R10 K15 [0.5]
+  NAMECALL R7 R3 K16 ["Lerp"]
+  CALL R7 3 1
+  GETTABLEKS R8 R0 K0 ["_partMover"]
+  MOVE R12 R7
+  NAMECALL R10 R0 K17 ["_toGlobalTransform"]
+  CALL R10 2 -1
+  NAMECALL R8 R8 K1 ["transformTo"]
+  CALL R8 -1 0
+  GETTABLEKS R8 R0 K0 ["_partMover"]
+  NAMECALL R8 R8 K4 ["isIntersectingOthers"]
+  CALL R8 1 1
+  MOVE R5 R8
+  JUMPIFNOT R5 [+2]
+  MOVE R4 R7
+  JUMP [+1]
+  MOVE R3 R7
+  ADDK R6 R6 K18 [1]
+  LOADN R8 32
+  JUMPIFNOTLT R8 R6 [+7]
+  MOVE R10 R1
+  NAMECALL R8 R0 K5 ["_toLocalTransform"]
+  CALL R8 2 1
+  MOVE R3 R8
+  JUMP [+1]
+  JUMPBACK [-79]
+  MOVE R8 R3
+  GETIMPORT R9 K21 [CFrame.new]
+  CALL R9 0 1
+  GETTABLEKS R12 R8 K6 ["Position"]
+  GETTABLEKS R13 R9 K6 ["Position"]
+  SUB R11 R12 R13
+  GETTABLEKS R10 R11 K7 ["Magnitude"]
+  GETTABLEKS R14 R8 K8 ["XVector"]
+  GETTABLEKS R15 R9 K8 ["XVector"]
+  SUB R13 R14 R15
+  GETTABLEKS R12 R13 K7 ["Magnitude"]
+  GETTABLEKS R15 R8 K9 ["YVector"]
+  GETTABLEKS R16 R9 K9 ["YVector"]
+  SUB R14 R15 R16
+  GETTABLEKS R13 R14 K7 ["Magnitude"]
+  GETTABLEKS R16 R8 K10 ["ZVector"]
+  GETTABLEKS R17 R9 K10 ["ZVector"]
+  SUB R15 R16 R17
+  GETTABLEKS R14 R15 K7 ["Magnitude"]
+  FASTCALL MATH_MAX [+2]
+  GETIMPORT R11 K13 [math.max]
+  CALL R11 3 1
+  LOADB R7 0
+  LOADK R12 K22 [0.001]
+  JUMPIFNOTLT R10 R12 [+6]
+  LOADK R12 K22 [0.001]
+  JUMPIFLT R11 R12 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  JUMPIFNOT R7 [+5]
+  GETIMPORT R7 K21 [CFrame.new]
+  CALL R7 0 1
+  MOVE R3 R7
+  LOADB R5 1
+  MOVE R9 R3
+  NAMECALL R7 R0 K17 ["_toGlobalTransform"]
+  CALL R7 2 1
+  MOVE R9 R7
+  GETTABLEKS R12 R9 K6 ["Position"]
+  GETTABLEKS R13 R1 K6 ["Position"]
+  SUB R11 R12 R13
+  GETTABLEKS R10 R11 K7 ["Magnitude"]
+  GETTABLEKS R14 R9 K8 ["XVector"]
+  GETTABLEKS R15 R1 K8 ["XVector"]
+  SUB R13 R14 R15
+  GETTABLEKS R12 R13 K7 ["Magnitude"]
+  GETTABLEKS R15 R9 K9 ["YVector"]
+  GETTABLEKS R16 R1 K9 ["YVector"]
+  SUB R14 R15 R16
+  GETTABLEKS R13 R14 K7 ["Magnitude"]
+  GETTABLEKS R16 R9 K10 ["ZVector"]
+  GETTABLEKS R17 R1 K10 ["ZVector"]
+  SUB R15 R16 R17
+  GETTABLEKS R14 R15 K7 ["Magnitude"]
+  FASTCALL MATH_MAX [+2]
+  GETIMPORT R11 K13 [math.max]
+  CALL R11 3 1
+  LOADB R8 0
+  LOADK R12 K22 [0.001]
+  JUMPIFNOTLT R10 R12 [+6]
+  LOADK R12 K22 [0.001]
+  JUMPIFLT R11 R12 [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  JUMPIFNOT R8 [+2]
+  MOVE R7 R1
+  LOADB R5 1
+  JUMPIFNOT R5 [+6]
+  GETTABLEKS R8 R0 K0 ["_partMover"]
+  MOVE R10 R7
+  NAMECALL R8 R8 K1 ["transformTo"]
+  CALL R8 2 0
+  RETURN R7 1
+
+PROTO_14:
+  GETTABLEKS R1 R0 K0 ["_draggerContext"]
+  NAMECALL R1 R1 K1 ["areConstraintsEnabled"]
+  CALL R1 1 1
+  JUMPIFNOT R1 [+2]
+  GETTABLEKS R1 R0 K2 ["_hasPartsToMove"]
+  RETURN R1 1
+
+PROTO_15:
+  GETIMPORT R1 K2 [Vector2.new]
+  GETTABLEKS R2 R0 K3 ["X"]
+  GETTABLEKS R3 R0 K4 ["Y"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_16:
+  GETUPVAL R5 0
+  CALL R5 0 1
+  NOT R4 R5
+  FASTCALL2K ASSERT R4 K0 [+4]
+  LOADK R5 K0 ["Wrong flag branching"]
+  GETIMPORT R3 K2 [assert]
+  CALL R3 2 0
+  LOADK R5 K3 ["Terrain"]
+  NAMECALL R3 R2 K4 ["IsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+2]
+  LOADNIL R3
+  RETURN R3 1
+  LOADK R5 K5 ["BasePart"]
+  NAMECALL R3 R2 K4 ["IsA"]
+  CALL R3 2 1
+  JUMPIF R3 [+2]
+  LOADNIL R3
+  RETURN R3 1
+  GETUPVAL R3 1
+  MOVE R4 R2
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K6 ["shape"]
+  JUMPIFEQKS R4 K7 ["Mesh"] [+3]
+  LOADNIL R4
+  RETURN R4 1
+  LOADNIL R4
+  LOADK R5 K8 [∞]
+  GETIMPORT R6 K10 [ipairs]
+  GETTABLEKS R7 R3 K11 ["faces"]
+  CALL R6 1 3
+  FORGPREP_INEXT R6
+  GETTABLEKS R15 R10 K12 ["vertices"]
+  GETTABLEN R14 R15 1
+  SUB R13 R1 R14
+  GETTABLEKS R12 R13 K13 ["Unit"]
+  GETTABLEKS R14 R10 K14 ["normal"]
+  NAMECALL R12 R12 K15 ["Dot"]
+  CALL R12 2 1
+  FASTCALL1 MATH_ABS R12 [+2]
+  GETIMPORT R11 K18 [math.abs]
+  CALL R11 1 1
+  JUMPIFNOTLT R11 R5 [+3]
+  MOVE R5 R11
+  MOVE R4 R10
+  FORGLOOP R6 2 [inext] [-20]
+  GETTABLEKS R7 R0 K19 ["_draggerContext"]
+  MOVE R9 R1
+  NAMECALL R7 R7 K20 ["worldToViewportPoint"]
+  CALL R7 2 1
+  GETIMPORT R8 K23 [Vector2.new]
+  GETTABLEKS R9 R7 K24 ["X"]
+  GETTABLEKS R10 R7 K25 ["Y"]
+  CALL R8 2 1
+  MOVE R6 R8
+  LOADNIL R7
+  LOADN R8 16
+  GETIMPORT R9 K10 [ipairs]
+  GETTABLEKS R10 R4 K12 ["vertices"]
+  CALL R9 1 3
+  FORGPREP_INEXT R9
+  GETTABLEKS R15 R0 K19 ["_draggerContext"]
+  MOVE R17 R13
+  NAMECALL R15 R15 K20 ["worldToViewportPoint"]
+  CALL R15 2 1
+  GETIMPORT R16 K23 [Vector2.new]
+  GETTABLEKS R17 R15 K24 ["X"]
+  GETTABLEKS R18 R15 K25 ["Y"]
+  CALL R16 2 1
+  MOVE R14 R16
+  SUB R16 R14 R6
+  GETTABLEKS R15 R16 K26 ["Magnitude"]
+  JUMPIFNOTLT R15 R8 [+3]
+  MOVE R8 R15
+  MOVE R7 R13
+  FORGLOOP R9 2 [inext] [-22]
+  JUMPIFNOT R7 [+10]
+  GETIMPORT R9 K29 [CFrame.fromMatrix]
+  MOVE R10 R7
+  GETTABLEKS R11 R4 K30 ["direction"]
+  GETTABLEKS R12 R4 K14 ["normal"]
+  CALL R9 3 1
+  LOADB R10 1
+  RETURN R9 2
+  LOADNIL R9
+  LOADNIL R10
+  LOADN R11 16
+  GETTABLEKS R13 R4 K12 ["vertices"]
+  LENGTH R12 R13
+  LOADN R15 1
+  MOVE R13 R12
+  LOADN R14 1
+  FORNPREP R13
+  GETTABLEKS R17 R4 K12 ["vertices"]
+  GETTABLE R16 R17 R15
+  GETTABLEKS R18 R4 K12 ["vertices"]
+  MOD R20 R15 R12
+  ADDK R19 R20 K31 [1]
+  GETTABLE R17 R18 R19
+  GETTABLEKS R19 R0 K19 ["_draggerContext"]
+  MOVE R21 R16
+  NAMECALL R19 R19 K20 ["worldToViewportPoint"]
+  CALL R19 2 1
+  GETIMPORT R20 K23 [Vector2.new]
+  GETTABLEKS R21 R19 K24 ["X"]
+  GETTABLEKS R22 R19 K25 ["Y"]
+  CALL R20 2 1
+  MOVE R18 R20
+  GETTABLEKS R20 R0 K19 ["_draggerContext"]
+  MOVE R22 R17
+  NAMECALL R20 R20 K20 ["worldToViewportPoint"]
+  CALL R20 2 1
+  GETIMPORT R21 K23 [Vector2.new]
+  GETTABLEKS R22 R20 K24 ["X"]
+  GETTABLEKS R23 R20 K25 ["Y"]
+  CALL R21 2 1
+  MOVE R19 R21
+  SUB R21 R19 R18
+  GETTABLEKS R20 R21 K13 ["Unit"]
+  SUB R21 R6 R18
+  MOVE R25 R20
+  NAMECALL R23 R21 K15 ["Dot"]
+  CALL R23 2 1
+  MUL R22 R20 R23
+  SUB R24 R21 R22
+  GETTABLEKS R23 R24 K26 ["Magnitude"]
+  JUMPIFNOTLT R23 R11 [+13]
+  MOVE R11 R23
+  SUB R25 R17 R16
+  GETTABLEKS R24 R25 K13 ["Unit"]
+  SUB R25 R1 R16
+  MOVE R29 R24
+  NAMECALL R27 R25 K15 ["Dot"]
+  CALL R27 2 1
+  MUL R26 R24 R27
+  ADD R9 R16 R26
+  MOVE R10 R24
+  FORNLOOP R13
+  JUMPIFNOT R9 [+9]
+  GETIMPORT R13 K29 [CFrame.fromMatrix]
+  MOVE R14 R9
+  MOVE R15 R10
+  GETTABLEKS R16 R4 K14 ["normal"]
+  CALL R13 3 1
+  LOADB R14 1
+  RETURN R13 2
+  GETTABLEKS R13 R0 K19 ["_draggerContext"]
+  NAMECALL R13 R13 K32 ["getMouseLocation"]
+  CALL R13 1 1
+  GETTABLEKS R15 R0 K19 ["_draggerContext"]
+  GETTABLEKS R17 R2 K33 ["Position"]
+  NAMECALL R15 R15 K20 ["worldToViewportPoint"]
+  CALL R15 2 1
+  GETIMPORT R16 K23 [Vector2.new]
+  GETTABLEKS R17 R15 K24 ["X"]
+  GETTABLEKS R18 R15 K25 ["Y"]
+  CALL R16 2 1
+  MOVE R14 R16
+  SUB R16 R13 R14
+  GETTABLEKS R15 R16 K26 ["Magnitude"]
+  LOADN R16 20
+  JUMPIFNOTLT R15 R16 [+5]
+  GETTABLEKS R15 R2 K27 ["CFrame"]
+  LOADB R16 0
+  RETURN R15 2
+  LOADNIL R15
+  RETURN R15 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  GETTABLEKS R2 R1 K3 ["DraggerFramework"]
+  GETTABLEKS R3 R2 K4 ["Utility"]
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K7 ["Roact"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R6 R3 K8 ["TemporaryTransparency"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R7 R3 K9 ["getBoundingBoxScale"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R8 R3 K10 ["PartMover"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R9 R3 K11 ["AttachmentMover"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R10 R3 K12 ["getGeometry"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R11 R3 K13 ["getSoftSnaps"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R12 R3 K14 ["Math"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R2 K15 ["Components"]
+  GETTABLEKS R13 R14 K16 ["WireframeHandleAdornment"]
+  CALL R12 1 1
+  GETIMPORT R13 K6 [require]
+  GETTABLEKS R15 R2 K17 ["Flags"]
+  GETTABLEKS R14 R15 K18 ["getFFlagDraggerImprovements"]
+  CALL R13 1 1
+  NEWTABLE R14 16 0
+  SETTABLEKS R14 R14 K19 ["__index"]
+  DUPCLOSURE R15 K20 [PROTO_0]
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R14
+  SETTABLEKS R15 R14 K21 ["new"]
+  DUPCLOSURE R15 K22 [PROTO_1]
+  CAPTURE VAL R5
+  SETTABLEKS R15 R14 K23 ["beginDrag"]
+  DUPCLOSURE R15 K24 [PROTO_2]
+  CAPTURE VAL R11
+  CAPTURE VAL R10
+  SETTABLEKS R15 R14 K13 ["getSoftSnaps"]
+  DUPCLOSURE R15 K25 [PROTO_3]
+  SETTABLEKS R15 R14 K26 ["updateDrag"]
+  DUPCLOSURE R15 K27 [PROTO_4]
+  CAPTURE VAL R13
+  SETTABLEKS R15 R14 K28 ["endDrag"]
+  DUPCLOSURE R15 K29 [PROTO_7]
+  CAPTURE VAL R13
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  CAPTURE VAL R12
+  SETTABLEKS R15 R14 K30 ["render"]
+  DUPCLOSURE R15 K31 [PROTO_8]
+  SETTABLEKS R15 R14 K32 ["_transformGeometric"]
+  DUPCLOSURE R15 K33 [PROTO_9]
+  SETTABLEKS R15 R14 K34 ["_transformInverseKinematics"]
+  DUPCLOSURE R15 K35 [PROTO_10]
+  DUPCLOSURE R16 K36 [PROTO_11]
+  SETTABLEKS R16 R14 K37 ["_toLocalTransform"]
+  DUPCLOSURE R16 K38 [PROTO_12]
+  SETTABLEKS R16 R14 K39 ["_toGlobalTransform"]
+  DUPCLOSURE R16 K40 [PROTO_13]
+  SETTABLEKS R16 R14 K41 ["_safelyTransformParts"]
+  DUPCLOSURE R16 K42 [PROTO_14]
+  SETTABLEKS R16 R14 K43 ["_shouldSolveConstraints"]
+  DUPCLOSURE R16 K44 [PROTO_15]
+  DUPCLOSURE R17 K45 [PROTO_16]
+  CAPTURE VAL R13
+  CAPTURE VAL R9
+  SETTABLEKS R17 R14 K46 ["findSummonSnap"]
+  RETURN R14 1

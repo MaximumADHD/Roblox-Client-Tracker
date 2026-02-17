@@ -21,7 +21,7 @@ local function validateReferenceCageMeshContent(
 	local referenceCageContent = (wrapTextureTransfer :: WrapTextureTransfer).ReferenceCageMeshContent
 	local hasReferenceCage = referenceCageContent.Uri ~= nil and referenceCageContent.Uri ~= ""
 	local getReferenceCageSuccess, editableMesh =
-		getEditableMeshFromContext(wrapTextureTransfer, "ReferenceCageMesh", validationContext)
+		getEditableMeshFromContext(wrapTextureTransfer, "ReferenceCageMeshContent", validationContext)
 	if not getReferenceCageSuccess then
 		local errorMsg
 		if not hasReferenceCage then

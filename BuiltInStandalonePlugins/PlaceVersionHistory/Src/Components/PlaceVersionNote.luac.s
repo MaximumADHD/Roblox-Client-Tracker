@@ -159,7 +159,7 @@ PROTO_5:
   GETUPVAL R17 6
   GETTABLEKS R16 R17 K18 ["View"]
   DUPTABLE R17 K21 [{"tag", "LayoutOrder"}]
-  LOADK R18 K22 ["size-0-0 auto-xy col align-x-left gap-xsmall clip"]
+  LOADK R18 K22 ["size-0-0 auto-y col align-x-left gap-xsmall"]
   SETTABLEKS R18 R17 K19 ["tag"]
   GETTABLEKS R18 R0 K20 ["LayoutOrder"]
   SETTABLEKS R18 R17 K20 ["LayoutOrder"]
@@ -435,7 +435,7 @@ PROTO_6:
   GETUPVAL R7 2
   GETTABLEKS R6 R7 K6 ["View"]
   DUPTABLE R7 K9 [{"tag", "LayoutOrder"}]
-  LOADK R8 K10 ["size-full-0 auto-y col align-x-left gap-small"]
+  LOADK R8 K10 ["size-0-0 auto-y col align-x-left gap-small"]
   SETTABLEKS R8 R7 K7 ["tag"]
   GETTABLEKS R8 R0 K8 ["LayoutOrder"]
   SETTABLEKS R8 R7 K8 ["LayoutOrder"]
@@ -483,7 +483,7 @@ PROTO_7:
   GETUPVAL R4 2
   GETTABLEKS R3 R4 K1 ["View"]
   DUPTABLE R4 K4 [{"tag", "LayoutOrder"}]
-  LOADK R5 K5 ["size-0-0 auto-y fill col align-x-left gap-small clip"]
+  LOADK R5 K5 ["size-0-0 auto-y fill col align-x-left gap-small flex-x-fill clip"]
   SETTABLEKS R5 R4 K2 ["tag"]
   GETTABLEKS R5 R0 K3 ["LayoutOrder"]
   SETTABLEKS R5 R4 K3 ["LayoutOrder"]

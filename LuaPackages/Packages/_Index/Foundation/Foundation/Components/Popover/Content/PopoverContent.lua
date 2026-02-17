@@ -23,6 +23,7 @@ local StateLayerAffordance = require(Foundation.Enums.StateLayerAffordance)
 local ElevationLayer = require(Foundation.Enums.ElevationLayer)
 local Types = require(Foundation.Components.Types)
 local useElevation = require(Foundation.Providers.Elevation.useElevation)
+local OwnerScope = require(Foundation.Providers.Elevation.ElevationProvider).ElevationOwnerScope
 type ElevationLayer = ElevationLayer.ElevationLayer
 
 type Selection = Types.Selection
@@ -78,7 +79,7 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 	local overlay = useOverlay()
 
 	local tokens = useTokens()
-	local elevation = useElevation(ElevationLayer.Popover, { relativeToOwner = true })
+	local elevation = useElevation(ElevationLayer.Popover, { stackAboveOwner = true })
 
 	local arrowSide = tokens.Size.Size_200
 	local arrowWidth = arrowSide * math.sqrt(2) -- The diagonal of a square is sqrt(2) times the side length
@@ -205,27 +206,33 @@ local function PopoverContent(contentProps: PopoverContentProps, forwardedRef: R
 					testId = `{popoverContext.testId}--arrow`,
 				})
 				else nil,
-			Content = React.createElement(View, {
-				AnchorPoint = if Flags.FoundationPopoverOverflow then anchorPoint else nil,
-				Position = position:map(function(value: Vector2)
-					return UDim2.fromOffset(value.X, value.Y)
-				end),
-				selection = props.selection,
-				selectionGroup = props.selectionGroup,
-				sizeConstraint = {
-					MaxSize = screenSize,
+			Content = React.createElement(
+				View,
+				{
+					AnchorPoint = if Flags.FoundationPopoverOverflow then anchorPoint else nil,
+					Position = position:map(function(value: Vector2)
+						return UDim2.fromOffset(value.X, value.Y)
+					end),
+					selection = props.selection,
+					selectionGroup = props.selectionGroup,
+					sizeConstraint = {
+						MaxSize = screenSize,
+					},
+					stateLayer = {
+						affordance = StateLayerAffordance.None,
+					},
+					ZIndex = 4,
+					-- If onPressedOutside is provided, we need to swallow the press event to prevent it from propagating to the backdrop
+					onActivated = if props.onPressedOutside then function() end else nil,
+					backgroundStyle = backgroundStyle,
+					tag = `auto-xy {radiusToTag[props.radius]}`,
+					ref = if Flags.FoundationFixPopoverShadowSizing then setContentInstance else ref,
+					testId = `{popoverContext.testId}--content`,
 				},
-				stateLayer = {
-					affordance = StateLayerAffordance.None,
-				},
-				ZIndex = 4,
-				-- If onPressedOutside is provided, we need to swallow the press event to prevent it from propagating to the backdrop
-				onActivated = if props.onPressedOutside then function() end else nil,
-				backgroundStyle = backgroundStyle,
-				tag = `auto-xy {radiusToTag[props.radius]}`,
-				ref = if Flags.FoundationFixPopoverShadowSizing then setContentInstance else ref,
-				testId = `{popoverContext.testId}--content`,
-			}, props.children),
+				if Flags.FoundationElevationKeepSiblingZIndex
+					then React.createElement(OwnerScope, { owner = elevation }, props.children)
+					else props.children
+			),
 		})
 		else nil
 

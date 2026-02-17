@@ -1,0 +1,99 @@
+PROTO_0:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K1 [type]
+  CALL R6 1 1
+  MOVE R4 R6
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R6 R0
+  GETIMPORT R5 K3 [tostring]
+  CALL R5 1 1
+  CONCAT R3 R4 R5
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R8 R1
+  GETIMPORT R7 K1 [type]
+  CALL R7 1 1
+  MOVE R5 R7
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R7 R1
+  GETIMPORT R6 K3 [tostring]
+  CALL R6 1 1
+  CONCAT R4 R5 R6
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_1:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 1
+  FASTCALL1 TYPEOF R2 [+3]
+  MOVE R4 R2
+  GETIMPORT R3 K1 [typeof]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K2 ["number"] [+13]
+  GETIMPORT R3 K4 [error]
+  LOADK R4 K5 ["invalid result from compare function, expected number but got %s"]
+  FASTCALL1 TYPEOF R2 [+3]
+  MOVE R7 R2
+  GETIMPORT R6 K1 [typeof]
+  CALL R6 1 1
+  NAMECALL R4 R4 K6 ["format"]
+  CALL R4 2 -1
+  CALL R3 -1 0
+  LOADN R4 0
+  JUMPIFLT R2 R4 [+2]
+  LOADB R3 0 +1
+  LOADB R3 1
+  RETURN R3 1
+
+PROTO_2:
+  GETUPVAL R2 0
+  JUMPIFEQKNIL R1 [+17]
+  GETUPVAL R3 1
+  JUMPIFEQ R1 R3 [+14]
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R4 R1
+  GETIMPORT R3 K1 [typeof]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K2 ["function"] [+5]
+  GETIMPORT R3 K4 [error]
+  LOADK R4 K5 ["invalid argument to Array.sort: compareFunction must be a function"]
+  CALL R3 1 0
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  GETIMPORT R3 K8 [table.sort]
+  MOVE R4 R0
+  MOVE R5 R2
+  CALL R3 2 0
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K4 ["Parent"]
+  LOADK R3 K5 ["Object"]
+  NAMECALL R1 R1 K6 ["WaitForChild"]
+  CALL R1 2 1
+  LOADK R3 K7 ["None"]
+  NAMECALL R1 R1 K6 ["WaitForChild"]
+  CALL R1 2 -1
+  CALL R0 -1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  LOADK R4 K8 ["es7-types"]
+  NAMECALL R2 R2 K6 ["WaitForChild"]
+  CALL R2 2 -1
+  CALL R1 -1 1
+  DUPCLOSURE R2 K9 [PROTO_0]
+  DUPCLOSURE R3 K10 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  RETURN R3 1

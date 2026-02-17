@@ -34,6 +34,19 @@ PROTO_2:
 PROTO_3:
   GETUPVAL R2 0
   GETIMPORT R3 K1 [plugin]
+  LOADK R5 K2 ["Actions"]
+  NAMECALL R3 R3 K3 ["GetPluginComponent"]
+  CALL R3 2 1
+  MOVE R5 R0
+  NAMECALL R3 R3 K4 ["BindToChangedAsync"]
+  CALL R3 2 1
+  MOVE R4 R1
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETIMPORT R3 K1 [plugin]
   LOADK R5 K2 ["Settings"]
   NAMECALL R3 R3 K3 ["GetPluginComponent"]
   CALL R3 2 1
@@ -44,7 +57,7 @@ PROTO_3:
   CALL R2 2 0
   RETURN R0 0
 
-PROTO_4:
+PROTO_5:
   PREPVARARGS 0
   GETIMPORT R0 K1 [plugin]
   LOADK R2 K2 ["Actions"]
@@ -84,10 +97,13 @@ MAIN:
   DUPCLOSURE R3 K8 [PROTO_1]
   DUPCLOSURE R4 K9 [PROTO_2]
   CAPTURE VAL R3
-  SETTABLEKS R4 R2 K10 ["actWithActionContext"]
+  SETTABLEKS R4 R2 K10 ["actWithActionActivationContext"]
   DUPCLOSURE R4 K11 [PROTO_3]
   CAPTURE VAL R3
-  SETTABLEKS R4 R2 K12 ["actWithSettingContext"]
+  SETTABLEKS R4 R2 K12 ["actWithActionChangeContext"]
   DUPCLOSURE R4 K13 [PROTO_4]
-  SETTABLEKS R4 R2 K14 ["waitForActions"]
+  CAPTURE VAL R3
+  SETTABLEKS R4 R2 K14 ["actWithSettingContext"]
+  DUPCLOSURE R4 K15 [PROTO_5]
+  SETTABLEKS R4 R2 K16 ["waitForActions"]
   RETURN R2 1

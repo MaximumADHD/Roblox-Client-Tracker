@@ -65,7 +65,7 @@ local function Dialog(dialogProps: DialogInternalProps)
 	local dialogBodyRef = React.useRef(nil)
 	local dialogSizeBinding = useDialogSize(dialogBodyRef)
 	local overlay = useOverlay()
-	local elevation = useElevation(ElevationLayer.Dialog, { relativeToOwner = false })
+	local elevation = useElevation(ElevationLayer.Dialog, { stackAboveOwner = false })
 
 	useDialogResponsiveSize(props.size)
 

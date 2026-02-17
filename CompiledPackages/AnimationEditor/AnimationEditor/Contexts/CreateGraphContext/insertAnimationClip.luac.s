@@ -1,0 +1,128 @@
+PROTO_0:
+  GETUPVAL R4 0
+  LOADK R6 K0 ["CreateGraphContext.createGraphFromIdAsync"]
+  LOADK R7 K1 ["Import graph from Roblox"]
+  NAMECALL R4 R4 K2 ["TryBeginRecording"]
+  CALL R4 3 1
+  LOADK R7 K3 ["AnimationGraphDefinition"]
+  NAMECALL R5 R1 K4 ["IsA"]
+  CALL R5 2 1
+  JUMPIFNOT R5 [+47]
+  LOADK R8 K5 ["Model"]
+  NAMECALL R6 R2 K4 ["IsA"]
+  CALL R6 2 1
+  JUMPIFNOT R6 [+2]
+  MOVE R5 R2
+  JUMP [+4]
+  LOADK R7 K5 ["Model"]
+  NAMECALL R5 R2 K6 ["FindFirstAncestorWhichIsA"]
+  CALL R5 2 1
+  JUMPIFNOTEQKNIL R5 [+2]
+  RETURN R0 0
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K7 ["getOrCreateAnimSavesFolder"]
+  MOVE R7 R5
+  CALL R6 1 1
+  JUMPIFNOTEQKNIL R6 [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  FASTCALL2K ASSERT R8 K8 [+4]
+  LOADK R9 K8 ["Couldn't create animation saves folder"]
+  GETIMPORT R7 K10 [assert]
+  CALL R7 2 0
+  GETUPVAL R7 2
+  MOVE R8 R6
+  GETTABLEKS R9 R1 K11 ["Name"]
+  CALL R7 2 1
+  SETTABLEKS R7 R1 K11 ["Name"]
+  SETTABLEKS R6 R1 K12 ["Parent"]
+  NEWTABLE R9 0 1
+  MOVE R10 R1
+  SETLIST R9 R10 1 [1]
+  NAMECALL R7 R3 K13 ["Set"]
+  CALL R7 2 0
+  JUMP [+65]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K14 ["createNewAnimationGraph"]
+  MOVE R6 R2
+  GETTABLEKS R7 R1 K11 ["Name"]
+  CALL R5 2 1
+  JUMPIFNOTEQKNIL R5 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  FASTCALL2K ASSERT R7 K15 [+4]
+  LOADK R8 K15 ["Couldn't create graph"]
+  GETIMPORT R6 K10 [assert]
+  CALL R6 2 0
+  LOADK R8 K16 ["GraphOutput"]
+  NAMECALL R6 R5 K17 ["FindFirstChild"]
+  CALL R6 2 1
+  JUMPIFNOTEQKNIL R6 [+2]
+  LOADB R8 0 +1
+  LOADB R8 1
+  FASTCALL2K ASSERT R8 K18 [+4]
+  LOADK R9 K18 ["No GraphOutput"]
+  GETIMPORT R7 K10 [assert]
+  CALL R7 2 0
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K19 ["createNodeOfType"]
+  GETIMPORT R8 K23 [Enum.AnimationNodeType.ClipNode]
+  GETIMPORT R9 K26 [Vector2.new]
+  LOADN R10 6
+  LOADN R11 0
+  CALL R9 2 1
+  MOVE R10 R5
+  CALL R7 3 1
+  LOADK R10 K27 ["AnimationId"]
+  MOVE R11 R0
+  NAMECALL R8 R7 K28 ["SetAttribute"]
+  CALL R8 3 0
+  GETIMPORT R8 K30 [Instance.new]
+  LOADK R9 K31 ["ObjectValue"]
+  CALL R8 1 1
+  LOADK R9 K32 ["Pose"]
+  SETTABLEKS R9 R8 K11 ["Name"]
+  SETTABLEKS R7 R8 K12 ["Parent"]
+  NEWTABLE R11 0 1
+  MOVE R12 R5
+  SETLIST R11 R12 1 [1]
+  NAMECALL R9 R3 K13 ["Set"]
+  CALL R9 2 0
+  JUMPIFNOT R4 [+7]
+  GETUPVAL R5 0
+  MOVE R7 R4
+  GETIMPORT R8 K35 [Enum.FinishRecordingOperation.Commit]
+  NAMECALL R5 R5 K36 ["FinishRecording"]
+  CALL R5 3 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["ChangeHistoryService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["AnimationEditor"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R5 R1 K10 ["Util"]
+  GETTABLEKS R4 R5 K11 ["Rig"]
+  GETTABLEKS R3 R4 K12 ["AnimationRigDataUtils"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R6 R1 K13 ["Contexts"]
+  GETTABLEKS R5 R6 K14 ["NativeGraphContext"]
+  GETTABLEKS R4 R5 K15 ["NativeGraphUtils"]
+  CALL R3 1 1
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R6 R1 K10 ["Util"]
+  GETTABLEKS R5 R6 K16 ["getDeduplicatedName"]
+  CALL R4 1 1
+  DUPCLOSURE R5 K17 [PROTO_0]
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  RETURN R5 1

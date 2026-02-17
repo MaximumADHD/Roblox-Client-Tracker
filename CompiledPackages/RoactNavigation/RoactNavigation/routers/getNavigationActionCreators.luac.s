@@ -1,0 +1,126 @@
+PROTO_0:
+  JUMPIFNOTEQKNIL R0 [+22]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["key"]
+  JUMPIFNOT R1 [+17]
+  GETUPVAL R1 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["key"]
+  FASTCALL1 TYPE R4 [+2]
+  GETIMPORT R3 K2 [type]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K3 ["string"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  LOADK R3 K4 [".goBack(): key should be a string"]
+  CALL R1 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["key"]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K5 ["back"]
+  DUPTABLE R2 K6 [{"key"}]
+  SETTABLEKS R0 R2 K0 ["key"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_1:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R4 R0
+  GETIMPORT R3 K1 [type]
+  CALL R3 1 1
+  JUMPIFNOTEQKS R3 K2 ["string"] [+13]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["navigate"]
+  DUPTABLE R4 K7 [{"routeName", "params", "action"}]
+  SETTABLEKS R0 R4 K4 ["routeName"]
+  SETTABLEKS R1 R4 K5 ["params"]
+  SETTABLEKS R2 R4 K6 ["action"]
+  CALL R3 1 -1
+  RETURN R3 -1
+  GETUPVAL R3 1
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R6 R0
+  GETIMPORT R5 K1 [type]
+  CALL R5 1 1
+  JUMPIFEQKS R5 K8 ["table"] [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  LOADK R5 K9 [".navigate(): navigateTo must be a string or table"]
+  CALL R3 2 0
+  GETUPVAL R3 1
+  JUMPIFEQKNIL R1 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  LOADK R5 K10 [".navigate(): params can only be provided with a string navigateTo value"]
+  CALL R3 2 0
+  GETUPVAL R3 1
+  JUMPIFEQKNIL R2 [+2]
+  LOADB R4 0 +1
+  LOADB R4 1
+  LOADK R5 K11 [".navigate(): child action can only be provided with a string navigateTo value"]
+  CALL R3 2 0
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["navigate"]
+  MOVE R4 R0
+  CALL R3 1 -1
+  RETURN R3 -1
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K0 ["key"]
+  FASTCALL1 TYPE R4 [+2]
+  GETIMPORT R3 K2 [type]
+  CALL R3 1 1
+  JUMPIFEQKS R3 K3 ["string"] [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  LOADK R3 K4 [".setParams(): cannot be called by the root navigator"]
+  CALL R1 2 0
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K5 ["setParams"]
+  DUPTABLE R2 K7 [{"params", "key"}]
+  SETTABLEKS R0 R2 K6 ["params"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["key"]
+  SETTABLEKS R3 R2 K0 ["key"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_3:
+  NEWTABLE R1 4 0
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K0 ["goBack"]
+  DUPCLOSURE R2 K1 [PROTO_1]
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U0
+  SETTABLEKS R2 R1 K2 ["navigate"]
+  NEWCLOSURE R2 P2
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  SETTABLEKS R2 R1 K3 ["setParams"]
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["NavigationActions"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K6 ["utils"]
+  GETTABLEKS R2 R3 K7 ["validate"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K8 [PROTO_3]
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  RETURN R2 1

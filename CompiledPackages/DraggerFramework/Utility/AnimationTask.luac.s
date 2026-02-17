@@ -1,0 +1,99 @@
+PROTO_0:
+  DUPTABLE R2 K4 [{"_tweenFunction", "_startedAt", "_duration", "_task"}]
+  SETTABLEKS R0 R2 K0 ["_tweenFunction"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K1 ["_startedAt"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K2 ["_duration"]
+  LOADNIL R3
+  SETTABLEKS R3 R2 K3 ["_task"]
+  GETUPVAL R3 0
+  FASTCALL2 SETMETATABLE R2 R3 [+3]
+  GETIMPORT R1 K6 [setmetatable]
+  CALL R1 2 1
+  RETURN R1 1
+
+PROTO_1:
+  GETTABLEKS R1 R0 K0 ["_tweenFunction"]
+  LOADN R2 0
+  CALL R1 1 0
+  GETIMPORT R3 K3 [os.clock]
+  CALL R3 0 1
+  GETTABLEKS R4 R0 K4 ["_startedAt"]
+  SUB R2 R3 R4
+  GETTABLEKS R3 R0 K5 ["_duration"]
+  DIV R1 R2 R3
+  LOADN R2 1
+  JUMPIFNOTLE R2 R1 [+7]
+  GETTABLEKS R2 R0 K0 ["_tweenFunction"]
+  LOADN R3 1
+  LOADB R4 1
+  CALL R2 2 0
+  JUMP [+9]
+  GETTABLEKS R2 R0 K0 ["_tweenFunction"]
+  MOVE R3 R1
+  LOADB R4 0
+  CALL R2 2 0
+  GETIMPORT R2 K8 [task.wait]
+  CALL R2 0 0
+  JUMPBACK [-27]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K9 ["_task"]
+  RETURN R0 0
+
+PROTO_2:
+  GETTABLEKS R1 R0 K0 ["_task"]
+  JUMPIF R1 [+8]
+  GETIMPORT R1 K3 [task.defer]
+  GETTABLEKS R2 R0 K4 ["_taskBodyAsync"]
+  MOVE R3 R0
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K0 ["_task"]
+  RETURN R0 0
+
+PROTO_3:
+  GETIMPORT R2 K2 [os.clock]
+  CALL R2 0 1
+  SETTABLEKS R2 R0 K3 ["_startedAt"]
+  SETTABLEKS R1 R0 K4 ["_duration"]
+  NAMECALL R2 R0 K5 ["_startTask"]
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETTABLEKS R2 R0 K0 ["_task"]
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_5:
+  GETTABLEKS R1 R0 K0 ["_task"]
+  JUMPIFNOT R1 [+10]
+  GETIMPORT R1 K3 [task.cancel]
+  GETTABLEKS R2 R0 K0 ["_task"]
+  CALL R1 1 0
+  GETTABLEKS R1 R0 K4 ["_tweenFunction"]
+  LOADN R2 1
+  LOADB R3 1
+  CALL R1 2 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 8 0
+  SETTABLEKS R0 R0 K0 ["__index"]
+  DUPCLOSURE R1 K1 [PROTO_0]
+  CAPTURE VAL R0
+  SETTABLEKS R1 R0 K2 ["new"]
+  DUPCLOSURE R1 K3 [PROTO_1]
+  SETTABLEKS R1 R0 K4 ["_taskBodyAsync"]
+  DUPCLOSURE R1 K5 [PROTO_2]
+  SETTABLEKS R1 R0 K6 ["_startTask"]
+  DUPCLOSURE R1 K7 [PROTO_3]
+  SETTABLEKS R1 R0 K8 ["animate"]
+  DUPCLOSURE R1 K9 [PROTO_4]
+  SETTABLEKS R1 R0 K10 ["inProgress"]
+  DUPCLOSURE R1 K11 [PROTO_5]
+  SETTABLEKS R1 R0 K12 ["commit"]
+  RETURN R0 1

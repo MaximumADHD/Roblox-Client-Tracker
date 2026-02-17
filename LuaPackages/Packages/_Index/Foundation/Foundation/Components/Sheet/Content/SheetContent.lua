@@ -14,6 +14,7 @@ local View = require(Foundation.Components.View)
 local isScrollingFrameOverflowingY = require(Foundation.Utility.isScrollingFrameOverflowingY)
 
 export type SheetContentProps = {
+	scrollingFrameRef: React.Ref<ScrollingFrame>?,
 	children: React.ReactNode,
 }
 
@@ -61,6 +62,7 @@ local function SheetContent(props: SheetContentProps, ref: React.Ref<GuiObject>?
 	return React.createElement(
 		ScrollView,
 		{
+			scrollingFrameRef = props.scrollingFrameRef,
 			ZIndex = 1,
 			scroll = {
 				ScrollingEnabled = innerScrollingEnabled,

@@ -1,0 +1,108 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K0 ["Enums"]
+  GETTABLEKS R4 R5 K1 ["ControlState"]
+  GETTABLEKS R3 R4 K2 ["Hover"]
+  JUMPIFEQ R0 R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useHoverContext"]
+  GETTABLEKS R2 R0 K1 ["id"]
+  CALL R1 1 2
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["useCallback"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R2
+  CAPTURE UPVAL U2
+  NEWTABLE R5 0 1
+  MOVE R6 R2
+  SETLIST R5 R6 1 [1]
+  CALL R3 2 1
+  GETUPVAL R4 3
+  CALL R4 0 1
+  GETTABLEKS R7 R4 K3 ["Color"]
+  GETTABLEKS R6 R7 K4 ["State"]
+  GETTABLEKS R5 R6 K5 ["Hover"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K6 ["createElement"]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K7 ["View"]
+  DUPTABLE R8 K14 [{"tag", "LayoutOrder", "onActivated", "backgroundStyle", "onStateChanged", "stateLayer"}]
+  LOADK R9 K15 ["size-0-0 auto-xy row"]
+  SETTABLEKS R9 R8 K8 ["tag"]
+  GETTABLEKS R9 R0 K9 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K9 ["LayoutOrder"]
+  GETTABLEKS R9 R0 K10 ["onActivated"]
+  SETTABLEKS R9 R8 K10 ["onActivated"]
+  JUMPIFNOT R1 [+2]
+  MOVE R9 R5
+  JUMP [+1]
+  LOADNIL R9
+  SETTABLEKS R9 R8 K11 ["backgroundStyle"]
+  SETTABLEKS R3 R8 K12 ["onStateChanged"]
+  DUPTABLE R9 K17 [{"affordance"}]
+  GETUPVAL R13 2
+  GETTABLEKS R12 R13 K18 ["Enums"]
+  GETTABLEKS R11 R12 K19 ["StateLayerAffordance"]
+  GETTABLEKS R10 R11 K20 ["None"]
+  SETTABLEKS R10 R9 K16 ["affordance"]
+  SETTABLEKS R9 R8 K13 ["stateLayer"]
+  GETTABLEKS R9 R0 K21 ["children"]
+  CALL R6 3 -1
+  RETURN R6 -1
+
+PROTO_2:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["new"]
+  GETGLOBAL R3 K1 ["HoverContextWrapper"]
+  MOVE R4 R1
+  MOVE R5 R0
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  LOADK R3 K2 ["Components"]
+  NAMECALL R1 R1 K3 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETTABLEKS R0 R1 K4 ["Parent"]
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K1 [script]
+  LOADK R4 K5 ["InlineLayoutElements"]
+  NAMECALL R2 R2 K3 ["FindFirstAncestor"]
+  CALL R2 2 1
+  GETIMPORT R3 K7 [require]
+  GETTABLEKS R4 R1 K8 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K7 [require]
+  GETTABLEKS R5 R1 K9 ["Foundation"]
+  CALL R4 1 1
+  GETTABLEKS R6 R4 K10 ["Hooks"]
+  GETTABLEKS R5 R6 K11 ["useTokens"]
+  GETIMPORT R6 K7 [require]
+  GETTABLEKS R7 R2 K12 ["InlineSpanElement"]
+  CALL R6 1 1
+  GETIMPORT R7 K7 [require]
+  GETTABLEKS R8 R2 K13 ["HoverContext"]
+  CALL R7 1 1
+  GETIMPORT R8 K7 [require]
+  GETTABLEKS R9 R2 K14 ["RenderableInlineElement"]
+  CALL R8 1 1
+  NEWTABLE R9 1 0
+  DUPCLOSURE R10 K15 [PROTO_1]
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  SETGLOBAL R10 K16 ["HoverContextWrapper"]
+  DUPCLOSURE R10 K17 [PROTO_2]
+  CAPTURE VAL R6
+  SETTABLEKS R10 R9 K18 ["new"]
+  RETURN R9 1

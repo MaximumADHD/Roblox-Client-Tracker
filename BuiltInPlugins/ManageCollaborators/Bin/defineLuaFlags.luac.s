@@ -135,5 +135,20 @@ MAIN:
   LOADB R3 0
   NAMECALL R0 R0 K5 ["DefineFastFlag"]
   CALL R0 3 0
-  LOADNIL R0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K30 ["ManageCollabFilterWidgetSpacingFix"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["DefineFastFlag"]
+  CALL R0 3 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K31 ["ManageCollaboratorsVerifyAgeDialog"]
+  LOADB R3 0
+  NAMECALL R0 R0 K5 ["DefineFastFlag"]
+  CALL R0 3 0
+  DUPTABLE R0 K33 [{"fflagManageCollaboratorsVerifyAgeDialog"}]
+  GETIMPORT R1 K1 [game]
+  LOADK R3 K31 ["ManageCollaboratorsVerifyAgeDialog"]
+  NAMECALL R1 R1 K34 ["GetFastFlag"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K32 ["fflagManageCollaboratorsVerifyAgeDialog"]
   RETURN R0 1

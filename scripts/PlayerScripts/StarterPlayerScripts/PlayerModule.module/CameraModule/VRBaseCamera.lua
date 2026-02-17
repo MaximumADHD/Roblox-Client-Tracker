@@ -31,7 +31,6 @@ local CameraInput = require(script.Parent:WaitForChild("CameraInput"))
 local ZoomController = require(script.Parent:WaitForChild("ZoomController"))
 local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
-local FFlagUserCameraInputDt = FlagUtil.getUserFlag("UserCameraInputDt")
 
 --[[ The Module ]]--
 local BaseCamera = require(script.Parent:WaitForChild("BaseCamera"))
@@ -393,11 +392,7 @@ function VRBaseCamera:getRotation(dt)
 	local yawDelta = 0
 	
 	if UserGameSettings.VRSmoothRotationEnabled then
-		if FFlagUserCameraInputDt then
-			yawDelta = rotateInput.X
-		else
-			yawDelta = rotateInput.X * 40 * dt
-		end
+		yawDelta = rotateInput.X
 	else
 		-- ignore the magnitude of the input, use just the direction and
 		-- a timer to rotate 30 degrees each step

@@ -26,7 +26,7 @@ PROTO_2:
   GETTABLEKS R2 R3 K0 ["createElement"]
   GETUPVAL R3 2
   DUPTABLE R4 K4 [{"tag", "backgroundStyle", "onAbsoluteSizeChanged"}]
-  LOADK R5 K5 ["auto-xy padding-medium"]
+  LOADK R5 K5 ["auto-xy"]
   SETTABLEKS R5 R4 K1 ["tag"]
   GETTABLEKS R7 R1 K6 ["Inverse"]
   GETTABLEKS R6 R7 K7 ["Surface"]

@@ -1,0 +1,543 @@
+PROTO_0:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K4 [{"navigationOptions", "initialTransitionValue", "transitionChangedSignal"}]
+  SETTABLEKS R0 R5 K1 ["navigationOptions"]
+  SETTABLEKS R1 R5 K2 ["initialTransitionValue"]
+  SETTABLEKS R2 R5 K3 ["transitionChangedSignal"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_1:
+  LOADN R6 1
+  ADD R5 R6 R1
+  SUB R4 R5 R0
+  FASTCALL2K MATH_MIN R4 K0 [+4]
+  LOADK R5 K0 [1]
+  GETIMPORT R3 K3 [math.min]
+  CALL R3 2 1
+  FASTCALL2K MATH_MAX R3 K4 [+4]
+  LOADK R4 K4 [0]
+  GETIMPORT R2 K6 [math.max]
+  CALL R2 2 1
+  RETURN R2 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["_renderInnerScene"]
+  CALL R1 2 -1
+  RETURN R1 -1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  LOADN R8 1
+  ADD R7 R8 R0
+  SUB R6 R7 R3
+  FASTCALL2K MATH_MIN R6 K0 [+4]
+  LOADK R7 K0 [1]
+  GETIMPORT R5 K3 [math.min]
+  CALL R5 2 1
+  FASTCALL2K MATH_MAX R5 K4 [+4]
+  LOADK R6 K4 [0]
+  GETIMPORT R4 K6 [math.max]
+  CALL R4 2 1
+  MOVE R2 R4
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["props"]
+  GETTABLEKS R2 R3 K1 ["transitionProps"]
+  GETTABLEKS R1 R2 K2 ["position"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["props"]
+  GETTABLEKS R4 R5 K1 ["transitionProps"]
+  GETTABLEKS R3 R4 K3 ["scene"]
+  GETTABLEKS R2 R3 K4 ["index"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  NAMECALL R3 R1 K5 ["onStep"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_5:
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K1 ["transitionProps"]
+  GETTABLEKS R3 R4 K2 ["navigation"]
+  GETTABLEKS R2 R3 K3 ["state"]
+  GETTABLEKS R1 R2 K4 ["index"]
+  LOADB R2 0
+  SETTABLEKS R2 R0 K5 ["_isMounted"]
+  SETTABLEKS R1 R0 K6 ["_positionLastValue"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K7 ["_renderScene"]
+  NEWCLOSURE R2 P1
+  CAPTURE VAL R0
+  SETTABLEKS R2 R0 K8 ["_subscribeToOverlayUpdates"]
+  RETURN R0 0
+
+PROTO_6:
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["transitionProps"]
+  GETTABLEKS R5 R0 K0 ["props"]
+  GETTABLEKS R4 R5 K2 ["lastTransitionProps"]
+  GETTABLEKS R6 R0 K3 ["state"]
+  GETTABLEKS R5 R6 K4 ["transitionConfig"]
+  GETTABLEKS R6 R2 K5 ["cardColor3"]
+  GETTABLEKS R7 R2 K6 ["overlayEnabled"]
+  GETTABLEKS R9 R3 K7 ["scene"]
+  GETTABLEKS R8 R9 K8 ["index"]
+  JUMPIFNOT R4 [+4]
+  GETTABLEKS R9 R4 K7 ["scene"]
+  GETTABLEKS R8 R9 K8 ["index"]
+  NEWTABLE R9 0 0
+  GETTABLEKS R10 R5 K9 ["screenInterpolator"]
+  JUMPIFNOT R10 [+15]
+  MOVE R11 R10
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K10 ["Dictionary"]
+  GETTABLEKS R12 R13 K11 ["join"]
+  MOVE R13 R3
+  DUPTABLE R14 K13 [{"initialPositionValue", "scene"}]
+  SETTABLEKS R8 R14 K12 ["initialPositionValue"]
+  SETTABLEKS R1 R14 K7 ["scene"]
+  CALL R12 2 -1
+  CALL R11 -1 1
+  MOVE R9 R11
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K14 ["createElement"]
+  GETUPVAL R12 2
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K10 ["Dictionary"]
+  GETTABLEKS R13 R14 K11 ["join"]
+  MOVE R14 R3
+  MOVE R15 R9
+  DUPTABLE R16 K18 [{"key", "scene", "renderScene", "transparent", "cardColor3"}]
+  LOADK R18 K19 ["card_"]
+  GETTABLEKS R20 R1 K15 ["key"]
+  FASTCALL1 TOSTRING R20 [+2]
+  GETIMPORT R19 K21 [tostring]
+  CALL R19 1 1
+  CONCAT R17 R18 R19
+  SETTABLEKS R17 R16 K15 ["key"]
+  SETTABLEKS R1 R16 K7 ["scene"]
+  GETTABLEKS R17 R0 K22 ["_renderScene"]
+  SETTABLEKS R17 R16 K16 ["renderScene"]
+  SETTABLEKS R7 R16 K17 ["transparent"]
+  SETTABLEKS R6 R16 K5 ["cardColor3"]
+  CALL R13 3 -1
+  CALL R11 -1 -1
+  RETURN R11 -1
+
+PROTO_7:
+  GETTABLEKS R3 R1 K0 ["descriptor"]
+  GETTABLEKS R2 R3 K1 ["navigation"]
+  GETTABLEKS R4 R1 K0 ["descriptor"]
+  GETTABLEKS R3 R4 K2 ["getComponent"]
+  CALL R3 0 1
+  GETTABLEKS R5 R0 K3 ["props"]
+  GETTABLEKS R4 R5 K4 ["screenProps"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K7 [{"screenProps", "navigation", "component"}]
+  SETTABLEKS R4 R7 K4 ["screenProps"]
+  SETTABLEKS R2 R7 K1 ["navigation"]
+  SETTABLEKS R3 R7 K6 ["component"]
+  CALL R5 2 -1
+  RETURN R5 -1
+
+PROTO_8:
+  LOADB R1 0
+  GETTABLEKS R2 R0 K0 ["index"]
+  GETUPVAL R3 0
+  JUMPIFNOTLT R2 R3 [+4]
+  GETTABLEKS R2 R0 K1 ["isActive"]
+  NOT R1 R2
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K2 ["Dictionary"]
+  GETTABLEKS R2 R3 K3 ["join"]
+  GETUPVAL R3 2
+  GETTABLEKS R5 R0 K4 ["descriptor"]
+  GETTABLEKS R4 R5 K5 ["options"]
+  JUMPIF R4 [+2]
+  NEWTABLE R4 0 0
+  CALL R2 2 1
+  GETTABLEKS R3 R2 K6 ["overlayEnabled"]
+  GETTABLEKS R4 R2 K7 ["absorbInput"]
+  GETTABLEKS R5 R2 K8 ["renderOverlay"]
+  LOADNIL R6
+  JUMPIFNOT R3 [+58]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K9 ["createElement"]
+  LOADK R8 K10 ["Frame"]
+  DUPTABLE R9 K16 [{"Size", "BackgroundTransparency", "ClipsDescendants", "BorderSizePixel", "ZIndex"}]
+  GETIMPORT R10 K19 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 1
+  LOADN R14 0
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K11 ["Size"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K12 ["BackgroundTransparency"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K13 ["ClipsDescendants"]
+  LOADN R10 0
+  SETTABLEKS R10 R9 K14 ["BorderSizePixel"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K15 ["ZIndex"]
+  DUPTABLE R10 K21 [{"Overlay"}]
+  MOVE R11 R5
+  MOVE R12 R2
+  GETTABLEKS R14 R0 K0 ["index"]
+  GETUPVAL R16 4
+  GETTABLEKS R15 R16 K22 ["_positionLastValue"]
+  LOADN R20 1
+  ADD R19 R20 R15
+  SUB R18 R19 R14
+  FASTCALL2K MATH_MIN R18 K23 [+4]
+  LOADK R19 K23 [1]
+  GETIMPORT R17 K26 [math.min]
+  CALL R17 2 1
+  FASTCALL2K MATH_MAX R17 K27 [+4]
+  LOADK R18 K27 [0]
+  GETIMPORT R16 K29 [math.max]
+  CALL R16 2 1
+  MOVE R13 R16
+  GETUPVAL R15 4
+  GETTABLEKS R14 R15 K30 ["_subscribeToOverlayUpdates"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K20 ["Overlay"]
+  CALL R7 3 1
+  MOVE R6 R7
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K9 ["createElement"]
+  LOADK R8 K31 ["TextButton"]
+  DUPTABLE R9 K36 [{"Size", "BackgroundTransparency", "AutoButtonColor", "BorderSizePixel", "ClipsDescendants", "Text", "ZIndex", "Visible", "Active"}]
+  GETIMPORT R10 K19 [UDim2.new]
+  LOADN R11 1
+  LOADN R12 0
+  LOADN R13 1
+  LOADN R14 0
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K11 ["Size"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K12 ["BackgroundTransparency"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K32 ["AutoButtonColor"]
+  LOADN R10 0
+  SETTABLEKS R10 R9 K14 ["BorderSizePixel"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K13 ["ClipsDescendants"]
+  LOADK R10 K37 [" "]
+  SETTABLEKS R10 R9 K33 ["Text"]
+  GETTABLEKS R10 R0 K0 ["index"]
+  SETTABLEKS R10 R9 K15 ["ZIndex"]
+  NOT R10 R1
+  SETTABLEKS R10 R9 K34 ["Visible"]
+  NOT R11 R1
+  AND R10 R11 R4
+  SETTABLEKS R10 R9 K35 ["Active"]
+  DUPTABLE R10 K40 [{"StationaryContent", "DynamicContent"}]
+  SETTABLEKS R6 R10 K38 ["StationaryContent"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K9 ["createElement"]
+  LOADK R12 K10 ["Frame"]
+  DUPTABLE R13 K16 [{"Size", "BackgroundTransparency", "ClipsDescendants", "BorderSizePixel", "ZIndex"}]
+  GETIMPORT R14 K19 [UDim2.new]
+  LOADN R15 1
+  LOADN R16 0
+  LOADN R17 1
+  LOADN R18 0
+  CALL R14 4 1
+  SETTABLEKS R14 R13 K11 ["Size"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K12 ["BackgroundTransparency"]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K13 ["ClipsDescendants"]
+  LOADN R14 0
+  SETTABLEKS R14 R13 K14 ["BorderSizePixel"]
+  LOADN R14 2
+  SETTABLEKS R14 R13 K15 ["ZIndex"]
+  NEWTABLE R14 1 0
+  LOADK R16 K41 ["card_"]
+  GETTABLEKS R17 R0 K42 ["key"]
+  CONCAT R15 R16 R17
+  GETUPVAL R16 4
+  MOVE R18 R0
+  MOVE R19 R2
+  NAMECALL R16 R16 K43 ["_renderCard"]
+  CALL R16 3 1
+  SETTABLE R16 R14 R15
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K39 ["DynamicContent"]
+  CALL R7 3 -1
+  RETURN R7 -1
+
+PROTO_9:
+  GETTABLEKS R2 R0 K0 ["props"]
+  GETTABLEKS R1 R2 K1 ["transitionProps"]
+  GETTABLEKS R3 R0 K2 ["state"]
+  GETTABLEKS R2 R3 K3 ["topMostOpaqueSceneIndex"]
+  GETTABLEKS R3 R1 K4 ["scenes"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["List"]
+  GETTABLEKS R4 R5 K6 ["map"]
+  MOVE R5 R3
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R2
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CALL R4 2 1
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K7 ["createElement"]
+  LOADK R6 K8 ["Frame"]
+  DUPTABLE R7 K13 [{"Size", "BackgroundTransparency", "ClipsDescendants", "BorderSizePixel"}]
+  GETIMPORT R8 K16 [UDim2.new]
+  LOADN R9 1
+  LOADN R10 0
+  LOADN R11 1
+  LOADN R12 0
+  CALL R8 4 1
+  SETTABLEKS R8 R7 K9 ["Size"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K10 ["BackgroundTransparency"]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K11 ["ClipsDescendants"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K12 ["BorderSizePixel"]
+  MOVE R8 R4
+  CALL R5 3 -1
+  RETURN R5 -1
+
+PROTO_10:
+  GETTABLEKS R2 R0 K0 ["transitionProps"]
+  GETTABLEKS R3 R2 K1 ["scenes"]
+  GETTABLEKS R5 R2 K2 ["navigation"]
+  GETTABLEKS R4 R5 K3 ["state"]
+  GETTABLEKS R5 R4 K4 ["isTransitioning"]
+  LENGTH R6 R3
+  LOADB R7 1
+  GETTABLEKS R8 R0 K5 ["mode"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K6 ["Modal"]
+  JUMPIFEQ R8 R9 [+10]
+  GETTABLEKS R8 R0 K5 ["mode"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K7 ["Overlay"]
+  JUMPIFEQ R8 R9 [+2]
+  LOADB R7 0 +1
+  LOADB R7 1
+  LOADN R8 0
+  JUMPIFNOT R7 [+29]
+  MOVE R11 R6
+  LOADN R9 1
+  LOADN R10 255
+  FORNPREP R9
+  GETTABLE R12 R3 R11
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K8 ["Dictionary"]
+  GETTABLEKS R13 R14 K9 ["join"]
+  GETUPVAL R14 2
+  GETTABLEKS R16 R12 K10 ["descriptor"]
+  GETTABLEKS R15 R16 K11 ["options"]
+  JUMPIF R15 [+2]
+  NEWTABLE R15 0 0
+  CALL R13 2 1
+  GETTABLEKS R14 R13 K12 ["overlayEnabled"]
+  JUMPIF R14 [+5]
+  JUMPIFNOT R5 [+2]
+  JUMPIFEQ R11 R6 [+3]
+  MOVE R8 R11
+  JUMP [+12]
+  FORNLOOP R9
+  JUMP [+10]
+  MOVE R11 R6
+  LOADN R9 1
+  LOADN R10 255
+  FORNPREP R9
+  JUMPIFNOT R5 [+2]
+  JUMPIFEQ R11 R6 [+3]
+  MOVE R8 R11
+  JUMP [+1]
+  FORNLOOP R9
+  DUPTABLE R9 K15 [{"topMostOpaqueSceneIndex", "transitionConfig"}]
+  SETTABLEKS R8 R9 K13 ["topMostOpaqueSceneIndex"]
+  GETUPVAL R11 3
+  GETTABLEKS R10 R11 K16 ["getTransitionConfig"]
+  GETTABLEKS R11 R0 K14 ["transitionConfig"]
+  GETTABLEKS R12 R0 K0 ["transitionProps"]
+  GETTABLEKS R13 R0 K17 ["lastTransitionProps"]
+  GETTABLEKS R14 R0 K5 ["mode"]
+  CALL R10 4 1
+  SETTABLEKS R10 R9 K14 ["transitionConfig"]
+  RETURN R9 1
+
+PROTO_11:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K0 ["_onPositionStep"]
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_12:
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["_isMounted"]
+  GETTABLEKS R3 R0 K1 ["props"]
+  GETTABLEKS R2 R3 K2 ["transitionProps"]
+  GETTABLEKS R1 R2 K3 ["position"]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  NAMECALL R1 R1 K4 ["onStep"]
+  CALL R1 2 1
+  SETTABLEKS R1 R0 K5 ["_positionDisconnector"]
+  RETURN R0 0
+
+PROTO_13:
+  LOADB R1 0
+  SETTABLEKS R1 R0 K0 ["_isMounted"]
+  GETTABLEKS R1 R0 K1 ["_positionDisconnector"]
+  JUMPIFNOT R1 [+6]
+  GETTABLEKS R1 R0 K1 ["_positionDisconnector"]
+  CALL R1 0 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K1 ["_positionDisconnector"]
+  RETURN R0 0
+
+PROTO_14:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K0 ["_onPositionStep"]
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_15:
+  GETTABLEKS R4 R0 K0 ["props"]
+  GETTABLEKS R3 R4 K1 ["transitionProps"]
+  GETTABLEKS R2 R3 K2 ["position"]
+  GETTABLEKS R4 R1 K1 ["transitionProps"]
+  GETTABLEKS R3 R4 K2 ["position"]
+  JUMPIFEQ R2 R3 [+11]
+  GETTABLEKS R3 R0 K3 ["_positionDisconnector"]
+  CALL R3 0 0
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  NAMECALL R3 R2 K4 ["onStep"]
+  CALL R3 2 1
+  SETTABLEKS R3 R0 K3 ["_positionDisconnector"]
+  RETURN R0 0
+
+PROTO_16:
+  GETTABLEKS R2 R0 K0 ["_isMounted"]
+  JUMPIFNOT R2 [+2]
+  SETTABLEKS R1 R0 K1 ["_positionLastValue"]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K5 ["Cryo"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R7 K3 [script]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K6 ["Roact"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K7 ["StackPresentationStyle"]
+  CALL R2 1 1
+  GETIMPORT R3 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K8 ["StackViewTransitionConfigs"]
+  CALL R3 1 1
+  GETIMPORT R4 K1 [require]
+  GETIMPORT R7 K3 [script]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K9 ["StackViewOverlayFrame"]
+  CALL R4 1 1
+  GETIMPORT R5 K1 [require]
+  GETIMPORT R8 K3 [script]
+  GETTABLEKS R7 R8 K4 ["Parent"]
+  GETTABLEKS R6 R7 K10 ["StackViewCard"]
+  CALL R5 1 1
+  GETIMPORT R6 K1 [require]
+  GETIMPORT R10 K3 [script]
+  GETTABLEKS R9 R10 K4 ["Parent"]
+  GETTABLEKS R8 R9 K4 ["Parent"]
+  GETTABLEKS R7 R8 K11 ["SceneView"]
+  CALL R6 1 1
+  DUPTABLE R7 K17 [{"absorbInput", "overlayEnabled", "overlayColor3", "overlayTransparency", "renderOverlay"}]
+  LOADB R8 1
+  SETTABLEKS R8 R7 K12 ["absorbInput"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K13 ["overlayEnabled"]
+  GETIMPORT R8 K20 [Color3.new]
+  LOADN R9 0
+  LOADN R10 0
+  LOADN R11 0
+  CALL R8 3 1
+  SETTABLEKS R8 R7 K14 ["overlayColor3"]
+  LOADK R8 K21 [0.7]
+  SETTABLEKS R8 R7 K15 ["overlayTransparency"]
+  DUPCLOSURE R8 K22 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  SETTABLEKS R8 R7 K16 ["renderOverlay"]
+  DUPCLOSURE R8 K23 [PROTO_1]
+  GETTABLEKS R9 R1 K24 ["Component"]
+  LOADK R11 K25 ["StackViewLayout"]
+  NAMECALL R9 R9 K26 ["extend"]
+  CALL R9 2 1
+  DUPCLOSURE R10 K27 [PROTO_5]
+  SETTABLEKS R10 R9 K28 ["init"]
+  DUPCLOSURE R10 K29 [PROTO_6]
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  SETTABLEKS R10 R9 K30 ["_renderCard"]
+  DUPCLOSURE R10 K31 [PROTO_7]
+  CAPTURE VAL R1
+  CAPTURE VAL R6
+  SETTABLEKS R10 R9 K32 ["_renderInnerScene"]
+  DUPCLOSURE R10 K33 [PROTO_9]
+  CAPTURE VAL R0
+  CAPTURE VAL R7
+  CAPTURE VAL R1
+  SETTABLEKS R10 R9 K34 ["render"]
+  DUPCLOSURE R10 K35 [PROTO_10]
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  SETTABLEKS R10 R9 K36 ["getDerivedStateFromProps"]
+  DUPCLOSURE R10 K37 [PROTO_12]
+  SETTABLEKS R10 R9 K38 ["didMount"]
+  DUPCLOSURE R10 K39 [PROTO_13]
+  SETTABLEKS R10 R9 K40 ["willUnmount"]
+  DUPCLOSURE R10 K41 [PROTO_15]
+  SETTABLEKS R10 R9 K42 ["didUpdate"]
+  DUPCLOSURE R10 K43 [PROTO_16]
+  SETTABLEKS R10 R9 K44 ["_onPositionStep"]
+  RETURN R9 1

@@ -21,9 +21,11 @@ local ScriptContext = game:GetService("ScriptContext")
 local CoreGui = game:GetService("CoreGui")
 local GetFFlagDisplayServerChannel = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagDisplayServerChannel
 local getFFlagExpChatAlwaysRunTCS = require(CorePackages.Workspace.Packages.SharedFlags).getFFlagExpChatAlwaysRunTCS
-local GetFFlagEnableReferredPlayerJoinRemoteEvent = require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableReferredPlayerJoinRemoteEvent
+local GetFFlagEnableReferredPlayerJoinRemoteEvent =
+	require(CorePackages.Workspace.Packages.SharedFlags).GetFFlagEnableReferredPlayerJoinRemoteEvent
 local FFlagDebugLogExpchatMigration = game:DefineFastFlag("DebugLogExpchatMigration", false)
-local FFlagAXEnableInspectAndBuyBulkPurchase = require(CorePackages.Workspace.Packages.SharedFlags).FFlagAXEnableInspectAndBuyBulkPurchase
+local FFlagAXEnableInspectAndBuyBulkPurchase =
+	require(CorePackages.Workspace.Packages.SharedFlags).FFlagAXEnableInspectAndBuyBulkPurchase
 
 local RobloxGui = CoreGui:WaitForChild("RobloxGui", math.huge)
 assert(RobloxGui ~= nil, "RobloxGui should exist")
@@ -67,11 +69,7 @@ if FFlagAXEnableInspectAndBuyBulkPurchase then
 	ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerBulkPurchaseEvent", script.Parent)
 end
 
-local SendChatAnalytics
-local FFlagEnableForkedChatAnalytics = require(RobloxGui.Modules.Common.Flags.FFlagEnableForkedChatAnalytics)
-if FFlagEnableForkedChatAnalytics then
-	SendChatAnalytics = require(RobloxGui.Modules.Server.SendChatAnalytics)
-end
+local SendChatAnalytics = require(RobloxGui.Modules.Server.SendChatAnalytics)
 
 ScriptContext:AddCoreScriptLocal("ServerCoreScripts/ServerDialog", script.Parent)
 
@@ -132,7 +130,7 @@ end
 if shouldLoadLuaChat() then
 	require(game:GetService("CoreGui").RobloxGui.Modules.Server.ClientChat.ChatWindowInstaller)()
 	require(game:GetService("CoreGui").RobloxGui.Modules.Server.ServerChat.ChatServiceInstaller)()
-elseif FFlagEnableForkedChatAnalytics then
+else
 	SendChatAnalytics("NoLoadDefaultChat")
 end
 

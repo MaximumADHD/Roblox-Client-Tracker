@@ -1,0 +1,114 @@
+PROTO_0:
+  SETUPVAL R0 0
+  DUPTABLE R2 K1 [{"type"}]
+  LOADK R3 K2 ["message_start"]
+  SETTABLEKS R3 R2 K0 ["type"]
+  MOVE R3 R1
+  MOVE R4 R2
+  CALL R3 1 0
+  RETURN R0 0
+
+PROTO_1:
+  RETURN R0 1
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["Context"]
+  GETTABLEKS R2 R3 K1 ["Provider"]
+  DUPTABLE R3 K3 [{"value"}]
+  DUPTABLE R4 K9 [{"requestHandler", "processEvent", "createLLMSession", "formatTools", "systemMessage"}]
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U2
+  SETTABLEKS R5 R4 K4 ["requestHandler"]
+  GETUPVAL R5 3
+  SETTABLEKS R5 R4 K5 ["processEvent"]
+  GETUPVAL R5 4
+  SETTABLEKS R5 R4 K6 ["createLLMSession"]
+  DUPCLOSURE R5 K10 [PROTO_1]
+  SETTABLEKS R5 R4 K7 ["formatTools"]
+  LOADK R5 K11 [""]
+  SETTABLEKS R5 R4 K8 ["systemMessage"]
+  SETTABLEKS R4 R3 K2 ["value"]
+  GETTABLEKS R4 R0 K12 ["children"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_3:
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_4:
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_5:
+  GETUPVAL R1 0
+  JUMPIFNOTEQKNIL R1 [+2]
+  LOADB R0 0 +1
+  LOADB R0 1
+  RETURN R0 1
+
+PROTO_6:
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_7:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createProcessEventHandler"]
+  CALL R0 0 2
+  LOADNIL R2
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE REF R2
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  MOVE R4 R3
+  DUPTABLE R5 K5 [{"getProcessEvent", "getCreateLLMSession", "wasRequestHandlerCalled", "getLastRequestHandlerBody"}]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R0
+  SETTABLEKS R6 R5 K1 ["getProcessEvent"]
+  NEWCLOSURE R6 P2
+  CAPTURE VAL R1
+  SETTABLEKS R6 R5 K2 ["getCreateLLMSession"]
+  NEWCLOSURE R6 P3
+  CAPTURE REF R2
+  SETTABLEKS R6 R5 K3 ["wasRequestHandlerCalled"]
+  NEWCLOSURE R6 P4
+  CAPTURE REF R2
+  SETTABLEKS R6 R5 K4 ["getLastRequestHandlerBody"]
+  CLOSEUPVALS R2
+  RETURN R4 2
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R2 R0 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R6 R0 K7 ["Components"]
+  GETTABLEKS R5 R6 K8 ["Contexts"]
+  GETTABLEKS R4 R5 K9 ["DefaultLLMProvider"]
+  GETTABLEKS R3 R4 K10 ["LLMPackageContextProvider"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K11 ["Parent"]
+  GETTABLEKS R4 R5 K12 ["React"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K13 ["createElement"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K7 ["Components"]
+  GETTABLEKS R8 R9 K8 ["Contexts"]
+  GETTABLEKS R7 R8 K9 ["DefaultLLMProvider"]
+  GETTABLEKS R6 R7 K14 ["LLMProcessEvent"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K15 [PROTO_7]
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  RETURN R6 1

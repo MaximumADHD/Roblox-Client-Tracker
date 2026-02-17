@@ -39,27 +39,33 @@ PROTO_2:
   RETURN R0 0
 
 PROTO_3:
+  PREPVARARGS 0
   GETUPVAL R0 0
   LOADB R1 0
   CALL R0 1 0
   GETUPVAL R0 1
-  CALL R0 0 0
+  GETVARARGS R1 -1
+  CALL R0 -1 0
   RETURN R0 0
 
 PROTO_4:
+  PREPVARARGS 0
   GETUPVAL R0 0
   LOADB R1 0
   CALL R0 1 0
   GETUPVAL R0 1
-  CALL R0 0 0
+  GETVARARGS R1 -1
+  CALL R0 -1 0
   RETURN R0 0
 
 PROTO_5:
+  PREPVARARGS 0
   GETUPVAL R0 0
   LOADB R1 0
   CALL R0 1 0
   GETUPVAL R0 1
-  CALL R0 0 0
+  GETVARARGS R1 -1
+  CALL R0 -1 0
   RETURN R0 0
 
 PROTO_6:
@@ -251,25 +257,43 @@ PROTO_16:
   SETTABLEKS R4 R3 K1 ["title"]
   LOADK R4 K9 ["This is a description for the dialog. It provides more details about the purpose of the dialog."]
   SETTABLEKS R4 R3 K2 ["description"]
-  DUPTABLE R4 K12 [{"text", "onActivated"}]
-  LOADK R5 K13 ["Primary"]
-  SETTABLEKS R5 R4 K10 ["text"]
-  DUPCLOSURE R5 K14 [PROTO_13]
-  SETTABLEKS R5 R4 K11 ["onActivated"]
+  DUPTABLE R4 K13 [{"uri", "text", "onActivated"}]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K14 ["fromWidget"]
+  LOADK R6 K15 ["Dialog"]
+  LOADK R7 K16 ["Primary"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K10 ["uri"]
+  LOADK R5 K16 ["Primary"]
+  SETTABLEKS R5 R4 K11 ["text"]
+  DUPCLOSURE R5 K17 [PROTO_13]
+  SETTABLEKS R5 R4 K12 ["onActivated"]
   SETTABLEKS R4 R3 K3 ["primaryAction"]
-  DUPTABLE R4 K12 [{"text", "onActivated"}]
-  LOADK R5 K15 ["Secondary"]
-  SETTABLEKS R5 R4 K10 ["text"]
-  DUPCLOSURE R5 K16 [PROTO_14]
-  SETTABLEKS R5 R4 K11 ["onActivated"]
+  DUPTABLE R4 K13 [{"uri", "text", "onActivated"}]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K14 ["fromWidget"]
+  LOADK R6 K15 ["Dialog"]
+  LOADK R7 K18 ["Secondary"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K10 ["uri"]
+  LOADK R5 K18 ["Secondary"]
+  SETTABLEKS R5 R4 K11 ["text"]
+  DUPCLOSURE R5 K19 [PROTO_14]
+  SETTABLEKS R5 R4 K12 ["onActivated"]
   SETTABLEKS R4 R3 K4 ["secondaryAction"]
-  DUPTABLE R4 K12 [{"text", "onActivated"}]
-  LOADK R5 K17 ["Tertiary"]
-  SETTABLEKS R5 R4 K10 ["text"]
-  DUPCLOSURE R5 K18 [PROTO_15]
-  SETTABLEKS R5 R4 K11 ["onActivated"]
+  DUPTABLE R4 K13 [{"uri", "text", "onActivated"}]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K14 ["fromWidget"]
+  LOADK R6 K15 ["Dialog"]
+  LOADK R7 K20 ["Tertiary"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K10 ["uri"]
+  LOADK R5 K20 ["Tertiary"]
+  SETTABLEKS R5 R4 K11 ["text"]
+  DUPCLOSURE R5 K21 [PROTO_15]
+  SETTABLEKS R5 R4 K12 ["onActivated"]
   SETTABLEKS R4 R3 K5 ["tertiaryAction"]
-  GETTABLEKS R5 R0 K19 ["controls"]
+  GETTABLEKS R5 R0 K22 ["controls"]
   GETTABLEKS R4 R5 K6 ["autoClose"]
   SETTABLEKS R4 R3 K6 ["autoClose"]
   CALL R1 2 -1
@@ -282,6 +306,7 @@ PROTO_17:
   CAPTURE UPVAL U0
   CAPTURE UPVAL U1
   CAPTURE VAL R0
+  CAPTURE UPVAL U2
   SETTABLEKS R2 R1 K1 ["story"]
   RETURN R1 1
 
@@ -318,37 +343,55 @@ PROTO_21:
   SETTABLEKS R4 R3 K2 ["description"]
   GETTABLEKS R6 R0 K8 ["controls"]
   GETTABLEKS R5 R6 K9 ["primaryActionText"]
-  JUMPIFEQKS R5 K10 [""] [+12]
-  DUPTABLE R4 K13 [{"text", "onActivated"}]
+  JUMPIFEQKS R5 K10 [""] [+20]
+  DUPTABLE R4 K14 [{"uri", "text", "onActivated"}]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K15 ["fromWidget"]
+  LOADK R6 K16 ["Dialog"]
+  LOADK R7 K17 ["Primary"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K11 ["uri"]
   GETTABLEKS R6 R0 K8 ["controls"]
   GETTABLEKS R5 R6 K9 ["primaryActionText"]
-  SETTABLEKS R5 R4 K11 ["text"]
-  DUPCLOSURE R5 K14 [PROTO_18]
-  SETTABLEKS R5 R4 K12 ["onActivated"]
+  SETTABLEKS R5 R4 K12 ["text"]
+  DUPCLOSURE R5 K18 [PROTO_18]
+  SETTABLEKS R5 R4 K13 ["onActivated"]
   JUMP [+1]
   LOADNIL R4
   SETTABLEKS R4 R3 K3 ["primaryAction"]
   GETTABLEKS R6 R0 K8 ["controls"]
-  GETTABLEKS R5 R6 K15 ["secondaryActionText"]
-  JUMPIFEQKS R5 K10 [""] [+12]
-  DUPTABLE R4 K13 [{"text", "onActivated"}]
+  GETTABLEKS R5 R6 K19 ["secondaryActionText"]
+  JUMPIFEQKS R5 K10 [""] [+20]
+  DUPTABLE R4 K14 [{"uri", "text", "onActivated"}]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K15 ["fromWidget"]
+  LOADK R6 K16 ["Dialog"]
+  LOADK R7 K20 ["Secondary"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K11 ["uri"]
   GETTABLEKS R6 R0 K8 ["controls"]
-  GETTABLEKS R5 R6 K15 ["secondaryActionText"]
-  SETTABLEKS R5 R4 K11 ["text"]
-  DUPCLOSURE R5 K16 [PROTO_19]
-  SETTABLEKS R5 R4 K12 ["onActivated"]
+  GETTABLEKS R5 R6 K19 ["secondaryActionText"]
+  SETTABLEKS R5 R4 K12 ["text"]
+  DUPCLOSURE R5 K21 [PROTO_19]
+  SETTABLEKS R5 R4 K13 ["onActivated"]
   JUMP [+1]
   LOADNIL R4
   SETTABLEKS R4 R3 K4 ["secondaryAction"]
   GETTABLEKS R6 R0 K8 ["controls"]
-  GETTABLEKS R5 R6 K17 ["tertiaryActionText"]
-  JUMPIFEQKS R5 K10 [""] [+12]
-  DUPTABLE R4 K13 [{"text", "onActivated"}]
+  GETTABLEKS R5 R6 K22 ["tertiaryActionText"]
+  JUMPIFEQKS R5 K10 [""] [+20]
+  DUPTABLE R4 K14 [{"uri", "text", "onActivated"}]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K15 ["fromWidget"]
+  LOADK R6 K16 ["Dialog"]
+  LOADK R7 K23 ["Tertiary"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K11 ["uri"]
   GETTABLEKS R6 R0 K8 ["controls"]
-  GETTABLEKS R5 R6 K17 ["tertiaryActionText"]
-  SETTABLEKS R5 R4 K11 ["text"]
-  DUPCLOSURE R5 K18 [PROTO_20]
-  SETTABLEKS R5 R4 K12 ["onActivated"]
+  GETTABLEKS R5 R6 K22 ["tertiaryActionText"]
+  SETTABLEKS R5 R4 K12 ["text"]
+  DUPCLOSURE R5 K24 [PROTO_20]
+  SETTABLEKS R5 R4 K13 ["onActivated"]
   JUMP [+1]
   LOADNIL R4
   SETTABLEKS R4 R3 K5 ["tertiaryAction"]
@@ -419,6 +462,7 @@ MAIN:
   DUPCLOSURE R13 K24 [PROTO_17]
   CAPTURE VAL R11
   CAPTURE VAL R12
+  CAPTURE VAL R10
   DUPTABLE R14 K29 [{"name", "summary", "controls", "stories"}]
   LOADK R15 K7 ["DialogPanel"]
   SETTABLEKS R15 R14 K25 ["name"]
@@ -454,6 +498,7 @@ MAIN:
   DUPCLOSURE R17 K50 [PROTO_21]
   CAPTURE VAL R11
   CAPTURE VAL R12
+  CAPTURE VAL R10
   SETTABLEKS R17 R16 K47 ["story"]
   DUPTABLE R17 K48 [{"name", "story"}]
   LOADK R18 K39 ["Default"]
@@ -463,6 +508,7 @@ MAIN:
   CAPTURE VAL R11
   CAPTURE VAL R12
   CAPTURE VAL R19
+  CAPTURE VAL R10
   SETTABLEKS R18 R17 K47 ["story"]
   DUPTABLE R18 K48 [{"name", "story"}]
   LOADK R19 K40 ["Warning"]
@@ -472,6 +518,7 @@ MAIN:
   CAPTURE VAL R11
   CAPTURE VAL R12
   CAPTURE VAL R20
+  CAPTURE VAL R10
   SETTABLEKS R19 R18 K47 ["story"]
   DUPTABLE R19 K48 [{"name", "story"}]
   LOADK R20 K41 ["Critical"]
@@ -481,6 +528,7 @@ MAIN:
   CAPTURE VAL R11
   CAPTURE VAL R12
   CAPTURE VAL R21
+  CAPTURE VAL R10
   SETTABLEKS R20 R19 K47 ["story"]
   SETLIST R15 R16 4 [1]
   SETTABLEKS R15 R14 K28 ["stories"]

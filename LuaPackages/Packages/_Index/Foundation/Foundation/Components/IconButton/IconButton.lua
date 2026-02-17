@@ -58,6 +58,8 @@ export type IconButtonProps = {
 	-- Size of IconButton. `IconSize` is deprecated - use `InputSize`.
 	-- `Large` and `XLarge` `IconSize`s map to `InputSize.Large` and are not supported.
 	size: (InputSize | IconSize)?,
+	-- Width of the IconButton. `fillBehavior` is preferred and works better with flex layouts. Intended for cross-directional scaled sizing. Same behavior as [[Button]].
+	width: UDim?,
 	-- Controls how the IconButton fills space in a layout.
 	fillBehavior: FillBehavior?,
 	variant: SupportedIconButtonVariant?,
@@ -70,6 +72,7 @@ export type IconButtonProps = {
 local defaultProps = {
 	isDisabled = false,
 	size = InputSize.Medium,
+	width = UDim.new(0, 0),
 	isCircular = false,
 	variant = ButtonVariant.Utility,
 	testId = "--foundation-icon-button",
@@ -115,18 +118,23 @@ local function IconButton(iconButtonProps: IconButtonProps, ref: React.Ref<GuiOb
 		}
 	end, { tokens, componentRadius } :: { unknown })
 
+	-- Width/fillBehavior logic: fillBehavior.Fill takes precedence over width.
+	-- Unlike Button, IconButton defaults to a fixed square (containerSize) rather than AutomaticSize
+	local fillOverridesWidth = Flags.FoundationIconButtonFillBehavior and props.fillBehavior == FillBehavior.Fill
+
+	local sizeX
+	if Flags.FoundationIconButtonWidth then
+		local hasExplicitWidth = props.width.Scale ~= 0 or props.width.Offset ~= 0
+		sizeX = if fillOverridesWidth then UDim.new(1, 0) elseif hasExplicitWidth then props.width else containerSize.X
+	else
+		sizeX = if fillOverridesWidth then UDim.new(1, 0) else containerSize.X
+	end
+
 	return React.createElement(
 		View,
 		withCommonProps(props, {
 			onActivated = props.onActivated,
-			Size = if Flags.FoundationIconButtonFillBehavior
-				then UDim2.new(
-					if props.fillBehavior == FillBehavior.Fill then 1 else containerSize.X.Scale,
-					if props.fillBehavior == FillBehavior.Fill then 0 else containerSize.X.Offset,
-					0,
-					containerSize.Y.Offset
-				)
-				else containerSize,
+			Size = UDim2.new(sizeX, UDim.new(0, containerSize.Y.Offset)),
 			flexItem = if props.fillBehavior and Flags.FoundationIconButtonFillBehavior
 				then {
 					FlexMode = if props.fillBehavior == FillBehavior.Fill

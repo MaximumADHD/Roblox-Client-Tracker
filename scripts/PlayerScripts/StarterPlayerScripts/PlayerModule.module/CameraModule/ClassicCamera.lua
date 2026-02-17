@@ -23,7 +23,6 @@ local FIRST_PERSON_DISTANCE_MIN = 0.5
 local CommonUtils = script.Parent.Parent:WaitForChild("CommonUtils")
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
 
-local FFlagUserCameraInputDt = FlagUtil.getUserFlag("UserCameraInputDt")
 local FFlagUserFixCameraFPError = FlagUtil.getUserFlag("UserFixCameraFPError")
 
 --[[ Services ]]--
@@ -75,11 +74,6 @@ end
 
 function ClassicCamera:Update(dt)
 	local now = tick()
-	local timeDelta = now - self.lastUpdate -- replace with dt if FFlagUserCameraInputDt
-	if FFlagUserCameraInputDt then
-		timeDelta = dt
-	end
-
 
 	local camera = workspace.CurrentCamera
 	local newCameraCFrame = camera.CFrame
@@ -103,11 +97,11 @@ function ClassicCamera:Update(dt)
 	local isOnASkateboard = cameraSubject and cameraSubject:IsA("SkateboardPlatform")
 	local isClimbing = humanoid and humanoid:GetState() == Enum.HumanoidStateType.Climbing
 
-	if self.lastUpdate == nil or timeDelta > 1 then
+	if self.lastUpdate == nil or dt > 1 then
 		self.lastCameraTransform = nil
 	end
 
-	local rotateInput = CameraInput.getRotation(timeDelta)
+	local rotateInput = CameraInput.getRotation(dt)
 
 	self:StepZoom()
 
@@ -161,9 +155,9 @@ function ClassicCamera:Update(dt)
 						end
 					elseif not userRecentlyPannedCamera then
 						local forwardVector = humanoid.Torso.CFrame.lookVector
-						tweenSpeed = math.clamp(tweenSpeed + tweenAcceleration * timeDelta, 0, tweenMaxSpeed)
+						tweenSpeed = math.clamp(tweenSpeed + tweenAcceleration * dt, 0, tweenMaxSpeed)
 
-						local percent = math.clamp(tweenSpeed * timeDelta, 0, 1)
+						local percent = math.clamp(tweenSpeed * dt, 0, 1)
 						if self:IsInFirstPerson() and not (self.isFollowCamera and self.isClimbing) then
 							percent = 1
 						end
@@ -187,7 +181,7 @@ function ClassicCamera:Update(dt)
 					local thetaCutoff = 0.4
 
 					-- Check for NaNs
-					if Util.IsFinite(y) and math.abs(y) > 0.0001 and math.abs(y) > thetaCutoff * timeDelta then
+					if Util.IsFinite(y) and math.abs(y) > 0.0001 and math.abs(y) > thetaCutoff * dt then
 						rotateInput = rotateInput + Vector2.new(y, 0)
 					end
 				end
@@ -217,7 +211,7 @@ function ClassicCamera:Update(dt)
 			end
 		end
 
-		local toggleOffset = self:GetCameraToggleOffset(timeDelta)
+		local toggleOffset = self:GetCameraToggleOffset(dt)
 		newCameraFocus = newCameraFocus + toggleOffset
 		newCameraCFrame = newCameraCFrame + toggleOffset
 

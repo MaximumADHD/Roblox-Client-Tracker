@@ -8,14 +8,9 @@ local ChromeEnabled = require(Chrome.Enabled)
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FFlagEnableConsoleExpControls = SharedFlags.FFlagEnableConsoleExpControls
 local FFlagAddUILessMode = SharedFlags.FFlagAddUILessMode
-local FFlagWaitForGameLoadToAddLocalHistory = SharedFlags.FFlagWaitForGameLoadToAddLocalHistory
 
-local CoreScriptsRoactCommon
-local FFlagAddTraversalBackButton
-if FFlagWaitForGameLoadToAddLocalHistory then
-	CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
- 	FFlagAddTraversalBackButton = CoreScriptsRoactCommon.Traversal.Flags.FFlagAddTraversalBackButton
-end
+local CoreScriptsRoactCommon = require(CorePackages.Workspace.Packages.CoreScriptsRoactCommon)
+local FFlagAddTraversalBackButton = CoreScriptsRoactCommon.Traversal.Flags.FFlagAddTraversalBackButton
 
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeKeepOutAreas = CoreGuiCommon.Flags.FFlagTopBarSignalizeKeepOutAreas
@@ -23,10 +18,10 @@ local FFlagTopBarSignalizeMenuOpen = CoreGuiCommon.Flags.FFlagTopBarSignalizeMen
 local FFlagTopBarSignalizeScreenSize = CoreGuiCommon.Flags.FFlagTopBarSignalizeScreenSize
 
 return FFlagTopBarRefactor
-    and ChromeEnabled 
+    and ChromeEnabled()
     -- Rodux Deprecation
     and FFlagTopBarSignalizeKeepOutAreas and FFlagTopBarSignalizeMenuOpen and FFlagTopBarSignalizeScreenSize
     -- Console Controls
     and FFlagEnableConsoleExpControls
     -- TopBar Features
-    and (FFlagWaitForGameLoadToAddLocalHistory and FFlagAddTraversalBackButton) and not FFlagAddUILessMode
+    and FFlagAddTraversalBackButton and not FFlagAddUILessMode

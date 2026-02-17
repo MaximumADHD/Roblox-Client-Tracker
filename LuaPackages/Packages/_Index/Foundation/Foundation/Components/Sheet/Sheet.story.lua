@@ -18,10 +18,12 @@ local FillBehavior = require(Foundation.Enums.FillBehavior)
 local IconSize = require(Foundation.Enums.IconSize)
 local InputSize = require(Foundation.Enums.InputSize)
 local useScaledValue = require(Foundation.Utility.useScaledValue)
+local useTokens = require(Foundation.Providers.Style.useTokens)
 type DialogSize = DialogSize.DialogSize
 
 local function Story(props)
 	local open, setOpen = React.useState(false)
+	local tokens = useTokens()
 	return React.createElement(React.Fragment, nil, {
 		Button = React.createElement(Button, {
 			onActivated = function()
@@ -39,6 +41,11 @@ local function Story(props)
 			end,
 		}, {
 			Header = React.createElement(Sheet.Header, nil, {
+				Padding = React.createElement("UIPadding", {
+					PaddingTop = UDim.new(0, tokens.Padding.Medium),
+					PaddingBottom = UDim.new(0, tokens.Padding.Medium),
+					PaddingRight = UDim.new(0, tokens.Padding.Small),
+				}),
 				GameIcon = React.createElement(Image, {
 					LayoutOrder = 1,
 					tag = "size-1200 radius-small bg-shift-200",
@@ -219,17 +226,21 @@ local function Story(props)
 				}),
 			}),
 			Actions = React.createElement(Sheet.Actions, nil, {
-				More = React.createElement(IconButton, {
-					LayoutOrder = 1,
-					icon = IconName.CircleThreeDotsHorizontal,
-					size = InputSize.Large,
-					onActivated = function() end,
-				}),
-				Invite = React.createElement(IconButton, {
-					LayoutOrder = 2,
-					icon = IconName.PersonArrowFromBottomRight,
-					size = InputSize.Large,
-					onActivated = function() end,
+				SubActions = React.createElement(View, {
+					tag = "row auto-xy padding-right-small",
+				}, {
+					More = React.createElement(IconButton, {
+						LayoutOrder = 1,
+						icon = IconName.CircleThreeDotsHorizontal,
+						size = InputSize.Large,
+						onActivated = function() end,
+					}),
+					Invite = React.createElement(IconButton, {
+						LayoutOrder = 2,
+						icon = IconName.PersonArrowFromBottomRight,
+						size = InputSize.Large,
+						onActivated = function() end,
+					}),
 				}),
 				Join = React.createElement(Button, {
 					LayoutOrder = 3,
@@ -348,7 +359,7 @@ local function StoryAutoSize(props)
 					Title = React.createElement(Text, {
 						LayoutOrder = 1,
 						Text = "Account Switcher",
-						tag = "text-heading-large content-emphasis auto-xy text-truncate-split",
+						tag = "auto-xy text-heading-small text-truncate-split content-emphasis",
 					}),
 				}),
 				Content = React.createElement(Sheet.Content, nil, accountItems),

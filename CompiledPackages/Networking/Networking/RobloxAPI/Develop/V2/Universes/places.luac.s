@@ -1,0 +1,124 @@
+PROTO_0:
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NAMECALL R0 R0 K0 ["get"]
+  CALL R0 2 1
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K1 ["handleRetry"]
+  CALL R1 2 1
+  GETUPVAL R2 0
+  MOVE R4 R1
+  NAMECALL R2 R2 K2 ["parseJson"]
+  CALL R2 2 -1
+  RETURN R2 -1
+
+PROTO_2:
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R7 R0
+  GETIMPORT R6 K1 [type]
+  CALL R6 1 1
+  JUMPIFEQKS R6 K2 ["number"] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETIMPORT R6 K5 [string.format]
+  LOADK R7 K6 ["universeId must be number, received %s"]
+  FASTCALL1 TYPE R0 [+3]
+  MOVE R9 R0
+  GETIMPORT R8 K1 [type]
+  CALL R8 1 1
+  CALL R6 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R4 K8 [assert]
+  CALL R4 -1 0
+  JUMPIFNOT R1 [+22]
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R7 R1
+  GETIMPORT R6 K1 [type]
+  CALL R6 1 1
+  JUMPIFEQKS R6 K3 ["string"] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETIMPORT R6 K5 [string.format]
+  LOADK R7 K9 ["cursor must be number, received %s"]
+  FASTCALL1 TYPE R1 [+3]
+  MOVE R9 R1
+  GETIMPORT R8 K1 [type]
+  CALL R8 1 1
+  CALL R6 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R4 K8 [assert]
+  CALL R4 -1 0
+  ORK R2 R2 K10 [10]
+  FASTCALL1 TYPE R2 [+3]
+  MOVE R7 R2
+  GETIMPORT R6 K1 [type]
+  CALL R6 1 1
+  JUMPIFEQKS R6 K2 ["number"] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETIMPORT R6 K5 [string.format]
+  LOADK R7 K11 ["limit must be number, received %s"]
+  FASTCALL1 TYPE R2 [+3]
+  MOVE R9 R2
+  GETIMPORT R8 K1 [type]
+  CALL R8 1 1
+  CALL R6 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R4 K8 [assert]
+  CALL R4 -1 0
+  ORK R3 R3 K12 ["Asc"]
+  FASTCALL1 TYPE R3 [+3]
+  MOVE R7 R3
+  GETIMPORT R6 K1 [type]
+  CALL R6 1 1
+  JUMPIFEQKS R6 K3 ["string"] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  GETIMPORT R6 K5 [string.format]
+  LOADK R7 K13 ["sortOrder must be string, received %s"]
+  FASTCALL1 TYPE R3 [+3]
+  MOVE R9 R3
+  GETIMPORT R8 K1 [type]
+  CALL R8 1 1
+  CALL R6 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R4 K8 [assert]
+  CALL R4 -1 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K14 ["composeUrl"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K15 ["DEVELOP_URL"]
+  GETIMPORT R6 K5 [string.format]
+  LOADK R7 K16 ["v2/universes/%d/places"]
+  MOVE R8 R0
+  CALL R6 2 1
+  DUPTABLE R7 K20 [{"limit", "sortOrder", "cursor"}]
+  SETTABLEKS R2 R7 K17 ["limit"]
+  SETTABLEKS R3 R7 K18 ["sortOrder"]
+  SETTABLEKS R1 R7 K19 ["cursor"]
+  CALL R4 3 1
+  DUPTABLE R5 K23 [{"getUrl", "makeRequest"}]
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K21 ["getUrl"]
+  NEWCLOSURE R6 P1
+  CAPTURE UPVAL U1
+  CAPTURE VAL R4
+  SETTABLEKS R6 R5 K22 ["makeRequest"]
+  RETURN R5 1
+
+PROTO_3:
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  RETURN R2 1
+
+MAIN:
+  PREPVARARGS 0
+  DUPCLOSURE R0 K0 [PROTO_3]
+  RETURN R0 1

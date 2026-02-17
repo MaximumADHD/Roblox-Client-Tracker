@@ -19,41 +19,46 @@ PROTO_0:
   DUPTABLE R6 K9 [{"Thumbnail", "Title", "Subtitle"}]
   GETUPVAL R8 3
   GETTABLEKS R7 R8 K2 ["createElement"]
-  GETUPVAL R8 5
-  DUPTABLE R9 K11 [{"LayoutOrder"}]
-  NAMECALL R10 R2 K12 ["getNextOrder"]
+  GETUPVAL R8 4
+  DUPTABLE R9 K12 [{"LayoutOrder", "AutomaticSize"}]
+  NAMECALL R10 R2 K13 ["getNextOrder"]
   CALL R10 1 1
   SETTABLEKS R10 R9 K10 ["LayoutOrder"]
-  CALL R7 2 1
+  GETIMPORT R10 K16 [Enum.AutomaticSize.XY]
+  SETTABLEKS R10 R9 K11 ["AutomaticSize"]
+  DUPTABLE R10 K18 [{"ThumbnailContent"}]
+  GETTABLEKS R11 R0 K19 ["lookPreview"]
+  SETTABLEKS R11 R10 K17 ["ThumbnailContent"]
+  CALL R7 3 1
   SETTABLEKS R7 R6 K6 ["Thumbnail"]
   GETUPVAL R8 3
   GETTABLEKS R7 R8 K2 ["createElement"]
-  GETUPVAL R8 6
-  DUPTABLE R9 K14 [{"Text", "tag", "LayoutOrder"}]
-  LOADK R12 K15 ["LookComposerDialog"]
-  LOADK R13 K16 ["CreateLookSuccessTitle"]
-  NAMECALL R10 R1 K17 ["getText"]
+  GETUPVAL R8 5
+  DUPTABLE R9 K21 [{"Text", "tag", "LayoutOrder"}]
+  LOADK R12 K22 ["LookComposerDialog"]
+  LOADK R13 K23 ["CreateLookSuccessTitle"]
+  NAMECALL R10 R1 K24 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K13 ["Text"]
-  LOADK R10 K18 ["text-heading-small auto-xy content-default text-center"]
+  SETTABLEKS R10 R9 K20 ["Text"]
+  LOADK R10 K25 ["text-heading-small auto-xy content-default text-center"]
   SETTABLEKS R10 R9 K3 ["tag"]
-  NAMECALL R10 R2 K12 ["getNextOrder"]
+  NAMECALL R10 R2 K13 ["getNextOrder"]
   CALL R10 1 1
   SETTABLEKS R10 R9 K10 ["LayoutOrder"]
   CALL R7 2 1
   SETTABLEKS R7 R6 K7 ["Title"]
   GETUPVAL R8 3
   GETTABLEKS R7 R8 K2 ["createElement"]
-  GETUPVAL R8 6
-  DUPTABLE R9 K14 [{"Text", "tag", "LayoutOrder"}]
-  LOADK R12 K15 ["LookComposerDialog"]
-  LOADK R13 K19 ["CreateLookSuccessSubtitle"]
-  NAMECALL R10 R1 K17 ["getText"]
+  GETUPVAL R8 5
+  DUPTABLE R9 K21 [{"Text", "tag", "LayoutOrder"}]
+  LOADK R12 K22 ["LookComposerDialog"]
+  LOADK R13 K26 ["CreateLookSuccessSubtitle"]
+  NAMECALL R10 R1 K24 ["getText"]
   CALL R10 3 1
-  SETTABLEKS R10 R9 K13 ["Text"]
-  LOADK R10 K20 ["text-body-medium auto-xy content-muted text-center"]
+  SETTABLEKS R10 R9 K20 ["Text"]
+  LOADK R10 K27 ["text-body-medium auto-xy content-muted text-center"]
   SETTABLEKS R10 R9 K3 ["tag"]
-  NAMECALL R10 R2 K12 ["getNextOrder"]
+  NAMECALL R10 R2 K13 ["getNextOrder"]
   CALL R10 1 1
   SETTABLEKS R10 R9 K10 ["LayoutOrder"]
   CALL R7 2 1
@@ -90,17 +95,11 @@ MAIN:
   GETTABLEKS R10 R11 K17 ["Flags"]
   GETTABLEKS R9 R10 K18 ["getFFlagAvatarPreviewerLookComposer"]
   CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETIMPORT R12 K1 [script]
-  GETTABLEKS R11 R12 K19 ["Parent"]
-  GETTABLEKS R10 R11 K20 ["LookPreview"]
-  CALL R9 1 1
-  DUPCLOSURE R10 K21 [PROTO_0]
+  DUPCLOSURE R9 K19 [PROTO_0]
   CAPTURE VAL R8
   CAPTURE VAL R6
   CAPTURE VAL R7
   CAPTURE VAL R1
   CAPTURE VAL R3
-  CAPTURE VAL R9
   CAPTURE VAL R4
-  RETURN R10 1
+  RETURN R9 1

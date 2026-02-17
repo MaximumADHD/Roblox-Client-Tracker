@@ -38,7 +38,7 @@ type HorizontalPadding = {
 
 type TextInputProps = {
 	-- Input text value
-	text: string,
+	text: Bindable<string>,
 	-- Type of text input. Only available for use in descendants of `CoreGui`.
 	textInputType: Enum.TextInputType?,
 	-- Size of the text input
@@ -54,15 +54,18 @@ type TextInputProps = {
 	-- On input text change
 	onChanged: (text: string) -> (),
 	onFocus: (() -> ())?,
-	onFocusLost: (() -> ())?,
+	-- Called when focus is lost. The InputObject that caused focus to be lost is passed if available.
+	onFocusLost: ((inputObject: InputObject?) -> ())?,
 	onReturnPressed: (() -> ())?,
 	onDragStarted: ((inputObject: InputObject, position: Vector2) -> ())?,
 	onDrag: ((inputObject: InputObject, position: Vector2) -> ())?,
 	onDragEnded: ((inputObject: InputObject, position: Vector2) -> ())?,
 	-- Placeholder text for input
 	placeholder: string?,
-	-- Background element to show behind the input
+	-- Background element to show behind the input (TODO: remove with FoundationNumberInputFixScrubbableBG)
 	backgroundElement: React.ReactElement?,
+	-- Background gradient for the input
+	backgroundGradient: React.ReactElement?,
 	leadingElement: React.ReactElement?,
 	trailingElement: React.ReactElement?,
 } & Types.CommonProps
@@ -75,7 +78,7 @@ local defaultProps = {
 
 type TextBoxProps = {
 	Size: UDim2?,
-	text: string?,
+	text: Bindable<string>?,
 	fontStyle: Types.FontStyle,
 	textStyle: Types.ColorStyleValue,
 	padding: Types.PaddingTable?,
@@ -279,7 +282,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 	end, { props.onFocus, props.isDisabled, isMobileDevice, isScrollable } :: { unknown })
 
 	local onFocusLost = React.useCallback(
-		function(_rbx: TextBox, enterPressed: boolean, _inputThatCausedFocusLoss: InputObject)
+		function(_rbx: TextBox, enterPressed: boolean, inputThatCausedFocusLoss: InputObject)
 			setFocus(false)
 
 			if isScrollable then
@@ -287,7 +290,7 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 			end
 
 			if props.onFocusLost then
-				props.onFocusLost()
+				props.onFocusLost(inputThatCausedFocusLoss)
 			end
 
 			if enterPressed and props.onReturnPressed then
@@ -516,6 +519,12 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 		onActivated = if not props.isDisabled or not Flags.FoundationUIStrokeInner then focusTextBox else nil,
 		onStateChanged = onInputStateChanged,
 		isDisabled = if Flags.FoundationUIStrokeInner then props.isDisabled else nil,
+		backgroundStyle = if Flags.FoundationNumberInputFixScrubbableBG
+			then {
+				Color3 = variantProps.outerView.bgStyle.Color3,
+				Transparency = if props.backgroundGradient then 0 else variantProps.outerView.bgStyle.Transparency,
+			}
+			else nil,
 		-- TODO: Update to border affordance
 		stateLayer = { affordance = StateLayerAffordance.None },
 		tag = if Flags.FoundationUIStrokeInner then variantProps.outerView.tag else variantProps.outerContainer.tag,
@@ -537,7 +546,9 @@ local function InternalTextInput(textInputProps: TextInputProps, ref: React.Ref<
 				if Flags.FoundationUIStrokeInner then withCommonProps(props, inputProps) else inputProps,
 				{
 					DragDetector = dragDetector,
-					Background = props.backgroundElement,
+					Background = if Flags.FoundationNumberInputFixScrubbableBG
+						then props.backgroundGradient
+						else props.backgroundElement,
 					HoverStroke = if Flags.FoundationUIStrokeInner
 							and not props.isDisabled
 							and (hover or focus)

@@ -14,6 +14,7 @@ local TexturePackUtils = require(util.TexturePackUtils)
 local FailureReasonsAccumulator = require(util.FailureReasonsAccumulator)
 
 local getFFlagUGCValidateTexturePack = require(root.flags.getFFlagUGCValidateTexturePack)
+local getFFlagUGCValidateTexturePackOnRCCOnly = require(root.flags.getFFlagUGCValidateTexturePackOnRCCOnly)
 
 local ValidateTexturePack = {}
 
@@ -87,6 +88,11 @@ function ValidateTexturePack.validate(
 		return true
 	end
 
+	local isServer
+	if getFFlagUGCValidateTexturePackOnRCCOnly() then
+		isServer = if validationContext.isServer then true else false
+	end
+
 	local isInExperience = validationContext.allowEditableInstances
 	if isInExperience then
 		return true
@@ -94,7 +100,14 @@ function ValidateTexturePack.validate(
 
 	local startTime = tick()
 	local reasonsAccumulator = FailureReasonsAccumulator.new()
-	reasonsAccumulator:updateReasons(validateTexturePackURL(instance, allowEmpty, validationContext))
+
+	if getFFlagUGCValidateTexturePackOnRCCOnly() then
+		if isServer then
+			reasonsAccumulator:updateReasons(validateTexturePackURL(instance, allowEmpty, validationContext))
+		end
+	else
+		reasonsAccumulator:updateReasons(validateTexturePackURL(instance, allowEmpty, validationContext))
+	end
 	reasonsAccumulator:updateReasons(validateSurfaceAppearanceTexturePackMatch(instance, validationContext))
 
 	Analytics.recordScriptTime(script.Name, startTime, validationContext)

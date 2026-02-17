@@ -5,6 +5,15 @@ PROTO_0:
   GETUPVAL R1 1
   LOADK R2 K0 ["ConfirmItems"]
   CALL R1 1 0
+  GETUPVAL R1 2
+  NEWTABLE R2 0 0
+  CALL R1 1 0
+  GETUPVAL R1 3
+  NEWTABLE R2 0 0
+  CALL R1 1 0
+  GETUPVAL R1 4
+  NEWTABLE R2 0 0
+  CALL R1 1 0
   RETURN R0 0
 
 PROTO_1:
@@ -14,9 +23,21 @@ PROTO_1:
   GETUPVAL R0 1
   LOADK R1 K0 ["ConfirmItems"]
   CALL R0 1 0
+  GETUPVAL R0 2
+  NEWTABLE R1 0 0
+  CALL R0 1 0
+  GETUPVAL R0 3
+  NEWTABLE R1 0 0
+  CALL R0 1 0
   RETURN R0 0
 
 PROTO_2:
+  GETUPVAL R2 0
+  NEWTABLE R3 0 0
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_3:
   GETUPVAL R1 0
   CALL R1 0 1
   JUMPIF R1 [+2]
@@ -44,39 +65,74 @@ PROTO_2:
   LOADK R6 K5 ["ConfirmItems"]
   CALL R5 1 2
   GETUPVAL R8 1
-  GETTABLEKS R7 R8 K6 ["useCallback"]
-  NEWCLOSURE R8 P0
+  GETTABLEKS R7 R8 K4 ["useState"]
+  LOADNIL R8
+  CALL R7 1 2
+  GETUPVAL R10 1
+  GETTABLEKS R9 R10 K4 ["useState"]
+  LOADNIL R10
+  CALL R9 1 2
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K4 ["useState"]
+  NEWTABLE R12 0 0
+  CALL R11 1 2
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K4 ["useState"]
+  NEWTABLE R14 0 0
+  CALL R13 1 2
+  GETUPVAL R16 1
+  GETTABLEKS R15 R16 K6 ["useCallback"]
+  NEWCLOSURE R16 P0
   CAPTURE VAL R4
   CAPTURE VAL R6
-  NEWTABLE R9 0 0
-  CALL R7 2 1
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K6 ["useCallback"]
-  NEWCLOSURE R9 P1
+  CAPTURE VAL R12
+  CAPTURE VAL R14
+  CAPTURE VAL R8
+  NEWTABLE R17 0 0
+  CALL R15 2 1
+  GETUPVAL R17 1
+  GETTABLEKS R16 R17 K6 ["useCallback"]
+  NEWCLOSURE R17 P1
   CAPTURE VAL R4
   CAPTURE VAL R6
-  NEWTABLE R10 0 0
-  CALL R8 2 1
-  DUPTABLE R9 K14 [{"canCreateLook", "isDialogOpen", "dialogLookType", "dialogStage", "openDialog", "closeDialog", "setDialogStage"}]
-  SETTABLEKS R2 R9 K7 ["canCreateLook"]
+  CAPTURE VAL R12
+  CAPTURE VAL R14
+  NEWTABLE R18 0 0
+  CALL R16 2 1
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K6 ["useCallback"]
+  NEWCLOSURE R18 P2
+  CAPTURE VAL R8
+  NEWTABLE R19 0 0
+  CALL R17 2 1
+  DUPTABLE R18 K22 [{"canCreateLook", "isDialogOpen", "dialogLookType", "dialogStage", "skinColor", "itemsList", "dialogItems", "errorsList", "openDialog", "closeDialog", "setDialogStage", "setSkinColor", "setDialogItems", "setItemsList", "toggleItem"}]
+  SETTABLEKS R2 R18 K7 ["canCreateLook"]
   JUMPIFNOTEQKNIL R3 [+2]
-  LOADB R10 0 +1
-  LOADB R10 1
-  SETTABLEKS R10 R9 K8 ["isDialogOpen"]
-  SETTABLEKS R3 R9 K9 ["dialogLookType"]
-  SETTABLEKS R5 R9 K10 ["dialogStage"]
-  SETTABLEKS R7 R9 K11 ["openDialog"]
-  SETTABLEKS R8 R9 K12 ["closeDialog"]
-  SETTABLEKS R6 R9 K13 ["setDialogStage"]
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K15 ["createElement"]
-  GETUPVAL R12 2
-  GETTABLEKS R11 R12 K16 ["Provider"]
-  DUPTABLE R12 K18 [{"value"}]
-  SETTABLEKS R9 R12 K17 ["value"]
-  GETTABLEKS R13 R0 K1 ["children"]
-  CALL R10 3 -1
-  RETURN R10 -1
+  LOADB R19 0 +1
+  LOADB R19 1
+  SETTABLEKS R19 R18 K8 ["isDialogOpen"]
+  SETTABLEKS R3 R18 K9 ["dialogLookType"]
+  SETTABLEKS R5 R18 K10 ["dialogStage"]
+  SETTABLEKS R9 R18 K11 ["skinColor"]
+  SETTABLEKS R13 R18 K12 ["itemsList"]
+  SETTABLEKS R11 R18 K13 ["dialogItems"]
+  SETTABLEKS R7 R18 K14 ["errorsList"]
+  SETTABLEKS R15 R18 K15 ["openDialog"]
+  SETTABLEKS R16 R18 K16 ["closeDialog"]
+  SETTABLEKS R6 R18 K17 ["setDialogStage"]
+  SETTABLEKS R10 R18 K18 ["setSkinColor"]
+  SETTABLEKS R12 R18 K19 ["setDialogItems"]
+  SETTABLEKS R14 R18 K20 ["setItemsList"]
+  SETTABLEKS R17 R18 K21 ["toggleItem"]
+  GETUPVAL R20 1
+  GETTABLEKS R19 R20 K23 ["createElement"]
+  GETUPVAL R21 2
+  GETTABLEKS R20 R21 K24 ["Provider"]
+  DUPTABLE R21 K26 [{"value"}]
+  SETTABLEKS R18 R21 K25 ["value"]
+  GETTABLEKS R22 R0 K1 ["children"]
+  CALL R19 3 -1
+  RETURN R19 -1
 
 MAIN:
   PREPVARARGS 0
@@ -102,37 +158,73 @@ MAIN:
   GETTABLEKS R6 R7 K12 ["Flags"]
   GETTABLEKS R5 R6 K13 ["getFFlagAvatarPreviewerLookComposer"]
   CALL R4 1 1
-  DUPTABLE R5 K21 [{"canCreateLook", "isDialogOpen", "dialogLookType", "dialogStage", "openDialog", "closeDialog", "setDialogStage"}]
-  LOADB R6 0
-  SETTABLEKS R6 R5 K14 ["canCreateLook"]
-  LOADB R6 0
-  SETTABLEKS R6 R5 K15 ["isDialogOpen"]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K16 ["dialogLookType"]
-  LOADK R6 K22 ["ConfirmItems"]
-  SETTABLEKS R6 R5 K17 ["dialogStage"]
-  MOVE R6 R2
-  LOADK R7 K18 ["openDialog"]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K8 ["Src"]
+  GETTABLEKS R6 R7 K14 ["Types"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R10 R0 K8 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Components"]
+  GETTABLEKS R8 R9 K16 ["LookComposerDialog"]
+  GETTABLEKS R7 R8 K14 ["Types"]
   CALL R6 1 1
-  SETTABLEKS R6 R5 K18 ["openDialog"]
-  MOVE R6 R2
-  LOADK R7 K19 ["closeDialog"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K19 ["closeDialog"]
-  MOVE R6 R2
-  LOADK R7 K20 ["setDialogStage"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K20 ["setDialogStage"]
-  GETTABLEKS R6 R1 K23 ["createContext"]
-  MOVE R7 R5
-  CALL R6 1 1
-  DUPCLOSURE R7 K24 [PROTO_2]
+  DUPTABLE R7 K33 [{"canCreateLook", "isDialogOpen", "dialogLookType", "dialogStage", "skinColor", "errorsList", "itemsList", "bodyProportions", "dialogItems", "openDialog", "closeDialog", "setDialogStage", "setSkinColor", "setDialogItems", "setItemsList", "toggleItem"}]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K17 ["canCreateLook"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K18 ["isDialogOpen"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K19 ["dialogLookType"]
+  LOADK R8 K34 ["ConfirmItems"]
+  SETTABLEKS R8 R7 K20 ["dialogStage"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K21 ["skinColor"]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K22 ["errorsList"]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K23 ["itemsList"]
+  LOADNIL R8
+  SETTABLEKS R8 R7 K24 ["bodyProportions"]
+  NEWTABLE R8 0 0
+  SETTABLEKS R8 R7 K25 ["dialogItems"]
+  MOVE R8 R2
+  LOADK R9 K26 ["openDialog"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K26 ["openDialog"]
+  MOVE R8 R2
+  LOADK R9 K27 ["closeDialog"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K27 ["closeDialog"]
+  MOVE R8 R2
+  LOADK R9 K28 ["setDialogStage"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K28 ["setDialogStage"]
+  MOVE R8 R2
+  LOADK R9 K29 ["setSkinColor"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K29 ["setSkinColor"]
+  MOVE R8 R2
+  LOADK R9 K30 ["setDialogItems"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K30 ["setDialogItems"]
+  MOVE R8 R2
+  LOADK R9 K31 ["setItemsList"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K31 ["setItemsList"]
+  MOVE R8 R2
+  LOADK R9 K32 ["toggleItem"]
+  CALL R8 1 1
+  SETTABLEKS R8 R7 K32 ["toggleItem"]
+  GETTABLEKS R8 R1 K35 ["createContext"]
+  MOVE R9 R7
+  CALL R8 1 1
+  DUPCLOSURE R9 K36 [PROTO_3]
   CAPTURE VAL R4
   CAPTURE VAL R1
-  CAPTURE VAL R6
-  CAPTURE VAL R5
+  CAPTURE VAL R8
+  CAPTURE VAL R7
   CAPTURE VAL R3
-  DUPTABLE R8 K27 [{"Context", "Provider"}]
-  SETTABLEKS R6 R8 K25 ["Context"]
-  SETTABLEKS R7 R8 K26 ["Provider"]
-  RETURN R8 1
+  DUPTABLE R10 K39 [{"Context", "Provider"}]
+  SETTABLEKS R8 R10 K37 ["Context"]
+  SETTABLEKS R9 R10 K38 ["Provider"]
+  RETURN R10 1

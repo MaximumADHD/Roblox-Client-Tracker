@@ -157,6 +157,7 @@ local Flags = {
 	FFlagAddTraversalBackButton = Traversal.Flags.FFlagAddTraversalBackButton,
 	FFlagAddTraversalHistory = Traversal.Flags.FFlagAddTraversalHistory,
 	FFlagTraversalLeaveArrowDown = Traversal.Flags.FFlagTraversalLeaveArrowDown,
+	FFlagTraversalPerfFixes = Traversal.Flags.FFlagTraversalPerfFixes,
 	
 	FFlagCreateInExperienceMenuReact = SettingsFlags.FFlagCreateInExperienceMenuReact,
 	FFlagFixFocusNavToButtonsWithIEMReact = game:DefineFastFlag("FixFocusNavToButtonsWithIEMReact", false),
@@ -166,6 +167,8 @@ local Flags = {
 	FStringHelpPageIXPLayer = HelpPage.Flags.FStringHelpPageIXPLayer,
 
 	FFlagMenuButtonsCheckVisibilityBeforeMount = SettingsFlags.FFlagMenuButtonsCheckVisibilityBeforeMount or game:DefineFastFlag("MenuButtonsCheckVisibilityBeforeMount", false),
+
+	FFlagFixSpatialUICaptures = game:DefineFastFlag("FixSpatialUICaptures", false),
 }
 
 --[[ SERVICES ]]
@@ -398,6 +401,12 @@ local function CreateSettingsHub()
 	-- remove utility CreateSignal upon removing this flag
 	this.SettingsShowSignal = if Flags.GetFFlagPackagifySettingsShowSignal() then SettingsShowSignal else utility:CreateSignal()
 	this.CurrentPageSignal = if Flags.GetFFlagPackagifySettingsShowSignal() then SettingsUtility.CreateSignal() else utility:CreateSignal()
+	local showBottomBarSignal, setShowBottomBarSignal
+	if Flags.FFlagTraversalPerfFixes then
+		showBottomBarSignal, setShowBottomBarSignal = createSignal(false)
+		this.showBottomBarSignal = showBottomBarSignal
+		this.setShowBottomBarSignal = setShowBottomBarSignal
+	end
 	this.OpenStateChangedCount = 0
 	this.BottomButtonFrame = nil
 	if Flags.FFlagRelocateMobileMenuButtons then
@@ -1897,6 +1906,12 @@ local function CreateSettingsHub()
 			SelectionBehaviorDown = if Flags.FFlagIEMFocusNavToButtons then Enum.SelectionBehavior.Stop else nil,
 		};
 
+		if Flags.FFlagTraversalPerfFixes then
+			this.BottomButtonFrame:GetPropertyChangedSignal("Visible"):Connect(function()
+				this.setShowBottomBarSignal(this.BottomButtonFrame.Visible)
+			end)
+		end
+
 		local resumeFunc = function(source)
 			if Flags.FFlagAddUILessMode then
 				setVisibilityInternal(false, nil, nil, nil, source)
@@ -3102,21 +3117,9 @@ local function CreateSettingsHub()
 
 			if this.GameSettingsPage == pageToSwitchTo then
 				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_GameSettings_tab", Constants.AnalyticsMenuActionName, eventTable)
-				if SettingsFlags.FFlagRemoveSettingsReorderFirstVariantIXPSetup then
-					if SettingsFlags.FFlagIEMSettingsLogExposureIXPFlags and not this.GameSettingsPageReorderIXPFetched then
-						 IXPServiceWrapper:LogFlagLinkedUserLayerExposure(Flags.GetFStringInExperienceMenuIXPLayer())
-						 this.GameSettingsPageReorderIXPFetched = true
-					end
-				else
-					if not this.GameSettingsPageReorderIXPFetched then
-						local layer = Flags.GetFStringInExperienceMenuIXPLayer()
-						local ixpVar = Flags.GetFStringInExperienceMenuIXPVar()
-						local layerData = IXPServiceWrapper:GetLayerData(layer)
-						if layerData ~= nil and layerData[ixpVar] ~= nil then
-							IXPServiceWrapper:LogUserLayerExposure(layer)
-							this.GameSettingsPageReorderIXPFetched = true
-						end
-					end
+				if SettingsFlags.FFlagIEMSettingsLogExposureIXPFlags and not this.GameSettingsPageReorderIXPFetched then
+					IXPServiceWrapper:LogFlagLinkedUserLayerExposure(Flags.GetFStringInExperienceMenuIXPLayer())
+					this.GameSettingsPageReorderIXPFetched = true
 				end
 			else
 				AnalyticsService:SetRBXEventStream(Constants.AnalyticsTargetName, "open_" .. pageToSwitchTo.Page.Name .. "_tab", Constants.AnalyticsMenuActionName, eventTable)
@@ -4059,7 +4062,9 @@ local function CreateSettingsHub()
 	local policy = CapturesPolicy.PolicyImplementation.read()
 	local eligibleForCapturesFeature = if policy then CapturesPolicy.Mapper(policy).eligibleForCapturesFeature() else false
 
-	if eligibleForCapturesFeature then
+	local enableSpatialUICapturesFix = Flags.isInExperienceUIVREnabled and Flags.FFlagFixSpatialUICaptures
+
+	if eligibleForCapturesFeature and (if enableSpatialUICapturesFix then not isSpatial() else true) then
 		local CapturesPageWrapper = require(RobloxGui.Modules.Settings.Pages.CapturesPageWrapper)
 
 		local function closeSettingsMenu()
@@ -4247,6 +4252,37 @@ local function CreateSettingsHub()
 			leaveGameButton = this["LeaveGameButton"]
 		end
 
+		local TraversalHistoryMenuContainer
+		if Flags.FFlagTraversalPerfFixes then
+			TraversalHistoryMenuContainer = function(props)
+				local mounted, setMounted = React.useState(props.showSignal(false) and this.Visible)
+				React.useEffect(function()
+					local disposeShowSignal = Signals.createEffect(function(scope)
+						setMounted(props.showSignal(scope) and this.Visible)
+					end)
+					local settingsShowConn = this.SettingsShowSignal:connect(function(visible)
+						setMounted(props.showSignal(false) and visible)
+					end)
+
+					return function()
+						disposeShowSignal()
+						settingsShowConn:Disconnect()
+					end
+				end, {})
+
+				return Flags.FFlagAddTraversalHistory and not (Flags.isInExperienceUIVREnabled and isSpatial()) and props.parent 
+					and mounted and React.createElement(PortalWithFoundationStylelink, {
+					parent = props.parent,
+				}, {
+					TraversalHistoryMenu = React.createElement(TraversalHistoryMenu, {
+						anchorParent = props.parent,
+						currentPageChangeSignal = props.currentPageChangeSignal,
+						menuSide = props.menuSide,
+					}),
+				})
+			end
+		end
+
 		local InExperienceMenuReactRoot = ReactRoblox.createRoot(this.InExperienceMenuReact)
 		InExperienceMenuReactRoot:render(React.createElement(InExperienceMenuReact, nil, {
 			InExperienceMenuReactPage = React.createElement(InExperienceMenuReactPage, {
@@ -4257,7 +4293,12 @@ local function CreateSettingsHub()
 				end,
 				mountTo = this.ReactPage :: GuiObject,
 			}),
-			TraversalHistoryMenuBottomBar = Flags.FFlagAddTraversalHistory and not (Flags.isInExperienceUIVREnabled and isSpatial()) and leaveGameButton 
+			TraversalHistoryMenuBottomBar = if Flags.FFlagTraversalPerfFixes then React.createElement(TraversalHistoryMenuContainer, {
+				showSignal = this.showBottomBarSignal,
+				parent = leaveGameButton,
+				menuSide = Foundation.Enums.PopoverSide.Top,
+				currentPageChangeSignal = this.CurrentPageSignal,
+			}) else Flags.FFlagAddTraversalHistory and not (Flags.isInExperienceUIVREnabled and isSpatial()) and leaveGameButton 
 				and React.createElement(PortalWithFoundationStylelink, {
 					parent = leaveGameButton,
 				}, {
@@ -4267,16 +4308,23 @@ local function CreateSettingsHub()
 						currentPageChangeSignal = this.CurrentPageSignal,
 					}),
 				}),
-			TraversalHistoryMenuMobileButton = Flags.FFlagAddTraversalHistory and not (Flags.isInExperienceUIVREnabled and isSpatial()) and leaveButtonMobile 
+			TraversalHistoryMenuMobileButton = if Flags.FFlagTraversalPerfFixes then React.createElement(TraversalHistoryMenuContainer, {
+				showSignal = Signals.createComputed(function(scope)
+					return not this.showBottomBarSignal(scope)
+				end),
+				parent = leaveButtonMobile,
+				menuSide = Foundation.Enums.PopoverSide.Bottom,
+				currentPageChangeSignal = this.CurrentPageSignal,
+			}) else Flags.FFlagAddTraversalHistory and not (Flags.isInExperienceUIVREnabled and isSpatial()) and leaveButtonMobile 
 				and React.createElement(PortalWithFoundationStylelink, {
-					parent = leaveButtonMobile,
-				}, {
-					TraversalHistoryMenu = React.createElement(TraversalHistoryMenu, {
-						anchorParent = leaveButtonMobile,
-						idleButtonStateIsDown = if Flags.FFlagTraversalLeaveArrowDown then true else false,
-						currentPageChangeSignal = this.CurrentPageSignal,
-					}),
+				parent = leaveButtonMobile,
+			}, {
+				TraversalHistoryMenu = React.createElement(TraversalHistoryMenu, {
+					anchorParent = leaveButtonMobile,
+					idleButtonStateIsDown = if Flags.FFlagTraversalLeaveArrowDown then true else false,
+					currentPageChangeSignal = this.CurrentPageSignal,
 				}),
+			}),
 		}))
 	end
 

@@ -1,105 +1,147 @@
 PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["getBatchBundleDetailsAsync"]
+  GETUPVAL R1 1
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["getBatchAssetDetailsAsync"]
+  GETUPVAL R1 1
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_2:
   GETUPVAL R2 0
   GETTABLEKS R1 R2 K0 ["initializeItemStatus"]
   MOVE R2 R0
   CALL R1 1 2
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["getBatchItemDetailsAsync"]
-  MOVE R4 R0
-  GETIMPORT R5 K5 [Enum.AvatarItemType.Bundle]
-  CALL R3 2 1
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K6 ["processBundleData"]
-  MOVE R5 R3
-  MOVE R6 R1
-  MOVE R7 R2
-  CALL R4 3 1
-  GETTABLEKS R5 R4 K7 ["assetToBundle"]
-  GETTABLEKS R6 R4 K8 ["bundleRows"]
-  GETTABLEKS R2 R4 K9 ["assetFetchSet"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K10 ["buildAssetFetchList"]
-  MOVE R8 R2
+  GETIMPORT R3 K2 [pcall]
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CALL R3 1 2
+  JUMPIF R3 [+21]
+  DUPTABLE R5 K6 [{"itemRows", "errors", "marketplaceItems"}]
+  NEWTABLE R6 0 0
+  SETTABLEKS R6 R5 K3 ["itemRows"]
+  NEWTABLE R6 0 1
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R8 R4
+  GETIMPORT R7 K8 [tostring]
   CALL R7 1 1
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K1 ["getBatchItemDetailsAsync"]
-  MOVE R9 R7
-  GETIMPORT R10 K12 [Enum.AvatarItemType.Asset]
-  CALL R8 2 1
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K13 ["processAssetData"]
-  MOVE R10 R8
-  MOVE R11 R5
-  MOVE R12 R1
-  CALL R9 3 1
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K14 ["findLostIds"]
-  MOVE R11 R1
-  CALL R10 1 1
+  SETLIST R6 R7 1 [1]
+  SETTABLEKS R6 R5 K4 ["errors"]
+  NEWTABLE R6 0 0
+  SETTABLEKS R6 R5 K5 ["marketplaceItems"]
+  RETURN R5 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K9 ["processBundleData"]
+  MOVE R6 R4
+  MOVE R7 R1
+  MOVE R8 R2
+  CALL R5 3 1
+  GETTABLEKS R6 R5 K10 ["assetToBundle"]
+  GETTABLEKS R7 R5 K11 ["bundleRows"]
+  GETTABLEKS R2 R5 K12 ["assetFetchSet"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K13 ["buildAssetFetchList"]
+  MOVE R9 R2
+  CALL R8 1 1
+  GETIMPORT R9 K2 [pcall]
+  NEWCLOSURE R10 P1
+  CAPTURE UPVAL U1
+  CAPTURE VAL R8
+  CALL R9 1 2
+  JUMPIF R9 [+21]
+  DUPTABLE R11 K6 [{"itemRows", "errors", "marketplaceItems"}]
+  NEWTABLE R12 0 0
+  SETTABLEKS R12 R11 K3 ["itemRows"]
+  NEWTABLE R12 0 1
+  FASTCALL1 TOSTRING R10 [+3]
+  MOVE R14 R10
+  GETIMPORT R13 K8 [tostring]
+  CALL R13 1 1
+  SETLIST R12 R13 1 [1]
+  SETTABLEKS R12 R11 K4 ["errors"]
+  NEWTABLE R12 0 0
+  SETTABLEKS R12 R11 K5 ["marketplaceItems"]
+  RETURN R11 1
   GETUPVAL R12 0
-  GETTABLEKS R11 R12 K15 ["buildItemRows"]
-  MOVE R12 R0
-  MOVE R13 R1
-  MOVE R14 R6
-  GETTABLEKS R15 R9 K16 ["assetRows"]
-  CALL R11 4 1
+  GETTABLEKS R11 R12 K14 ["processAssetData"]
+  MOVE R12 R10
+  MOVE R13 R6
+  MOVE R14 R1
+  CALL R11 3 1
   GETUPVAL R13 0
-  GETTABLEKS R12 R13 K17 ["buildErrorData"]
-  GETTABLEKS R13 R9 K18 ["individualShoesFound"]
-  GETTABLEKS R14 R9 K19 ["invalidAssetTypes"]
-  MOVE R15 R10
-  CALL R12 3 1
-  NEWTABLE R13 0 0
-  GETTABLEKS R14 R12 K18 ["individualShoesFound"]
-  JUMPIFNOT R14 [+13]
-  GETUPVAL R14 2
-  LOADK R16 K20 ["MarketplaceImport"]
-  LOADK R17 K21 ["IndividualShoesError"]
-  NAMECALL R14 R14 K22 ["getText"]
+  GETTABLEKS R12 R13 K15 ["findLostIds"]
+  MOVE R13 R1
+  CALL R12 1 1
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K16 ["buildItemRows"]
+  MOVE R14 R0
+  MOVE R15 R1
+  MOVE R16 R7
+  GETTABLEKS R17 R11 K17 ["assetRows"]
+  CALL R13 4 1
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K18 ["buildErrorData"]
+  GETTABLEKS R15 R11 K19 ["individualShoesFound"]
+  GETTABLEKS R16 R11 K20 ["invalidAssetTypes"]
+  MOVE R17 R12
   CALL R14 3 1
-  FASTCALL2 TABLE_INSERT R13 R14 [+5]
-  MOVE R16 R13
-  MOVE R17 R14
-  GETIMPORT R15 K25 [table.insert]
-  CALL R15 2 0
-  GETTABLEKS R14 R12 K26 ["invalidAssetTypesString"]
-  JUMPIFNOT R14 [+18]
-  GETUPVAL R14 2
-  LOADK R16 K20 ["MarketplaceImport"]
-  LOADK R17 K27 ["AssetTypeError"]
-  DUPTABLE R18 K28 [{"invalidAssetTypes"}]
-  GETTABLEKS R19 R12 K26 ["invalidAssetTypesString"]
-  SETTABLEKS R19 R18 K19 ["invalidAssetTypes"]
-  NAMECALL R14 R14 K22 ["getText"]
-  CALL R14 4 1
-  FASTCALL2 TABLE_INSERT R13 R14 [+5]
-  MOVE R16 R13
-  MOVE R17 R14
-  GETIMPORT R15 K25 [table.insert]
-  CALL R15 2 0
-  GETTABLEKS R14 R12 K29 ["lostIdsString"]
-  JUMPIFNOT R14 [+18]
-  GETUPVAL R14 2
-  LOADK R16 K20 ["MarketplaceImport"]
-  LOADK R17 K30 ["NothingFoundError"]
-  DUPTABLE R18 K32 [{"lostIds"}]
-  GETTABLEKS R19 R12 K29 ["lostIdsString"]
-  SETTABLEKS R19 R18 K31 ["lostIds"]
-  NAMECALL R14 R14 K22 ["getText"]
-  CALL R14 4 1
-  FASTCALL2 TABLE_INSERT R13 R14 [+5]
-  MOVE R16 R13
-  MOVE R17 R14
-  GETIMPORT R15 K25 [table.insert]
-  CALL R15 2 0
-  DUPTABLE R14 K36 [{"itemRows", "errors", "marketplaceItems"}]
-  SETTABLEKS R11 R14 K33 ["itemRows"]
-  SETTABLEKS R13 R14 K34 ["errors"]
-  GETTABLEKS R15 R9 K35 ["marketplaceItems"]
-  SETTABLEKS R15 R14 K35 ["marketplaceItems"]
-  RETURN R14 1
+  NEWTABLE R15 0 0
+  GETTABLEKS R16 R14 K19 ["individualShoesFound"]
+  JUMPIFNOT R16 [+13]
+  GETUPVAL R16 2
+  LOADK R18 K21 ["MarketplaceImport"]
+  LOADK R19 K22 ["IndividualShoesError"]
+  NAMECALL R16 R16 K23 ["getText"]
+  CALL R16 3 1
+  FASTCALL2 TABLE_INSERT R15 R16 [+5]
+  MOVE R18 R15
+  MOVE R19 R16
+  GETIMPORT R17 K26 [table.insert]
+  CALL R17 2 0
+  GETTABLEKS R16 R14 K27 ["invalidAssetTypesString"]
+  JUMPIFNOT R16 [+18]
+  GETUPVAL R16 2
+  LOADK R18 K21 ["MarketplaceImport"]
+  LOADK R19 K28 ["AssetTypeError"]
+  DUPTABLE R20 K29 [{"invalidAssetTypes"}]
+  GETTABLEKS R21 R14 K27 ["invalidAssetTypesString"]
+  SETTABLEKS R21 R20 K20 ["invalidAssetTypes"]
+  NAMECALL R16 R16 K23 ["getText"]
+  CALL R16 4 1
+  FASTCALL2 TABLE_INSERT R15 R16 [+5]
+  MOVE R18 R15
+  MOVE R19 R16
+  GETIMPORT R17 K26 [table.insert]
+  CALL R17 2 0
+  GETTABLEKS R16 R14 K30 ["lostIdsString"]
+  JUMPIFNOT R16 [+18]
+  GETUPVAL R16 2
+  LOADK R18 K21 ["MarketplaceImport"]
+  LOADK R19 K31 ["NothingFoundError"]
+  DUPTABLE R20 K33 [{"lostIds"}]
+  GETTABLEKS R21 R14 K30 ["lostIdsString"]
+  SETTABLEKS R21 R20 K32 ["lostIds"]
+  NAMECALL R16 R16 K23 ["getText"]
+  CALL R16 4 1
+  FASTCALL2 TABLE_INSERT R15 R16 [+5]
+  MOVE R18 R15
+  MOVE R19 R16
+  GETIMPORT R17 K26 [table.insert]
+  CALL R17 2 0
+  DUPTABLE R16 K6 [{"itemRows", "errors", "marketplaceItems"}]
+  SETTABLEKS R13 R16 K3 ["itemRows"]
+  SETTABLEKS R15 R16 K4 ["errors"]
+  GETTABLEKS R17 R11 K5 ["marketplaceItems"]
+  SETTABLEKS R17 R16 K5 ["marketplaceItems"]
+  RETURN R16 1
 
-PROTO_1:
+PROTO_3:
   GETUPVAL R0 0
   NAMECALL R0 R0 K0 ["use"]
   CALL R0 1 1
@@ -113,10 +155,11 @@ PROTO_1:
   CAPTURE UPVAL U3
   CAPTURE VAL R1
   CAPTURE VAL R0
-  NEWTABLE R4 0 2
+  NEWTABLE R4 0 3
   MOVE R5 R0
-  GETTABLEKS R6 R1 K3 ["getBatchItemDetailsAsync"]
-  SETLIST R4 R5 2 [1]
+  GETTABLEKS R6 R1 K3 ["getBatchAssetDetailsAsync"]
+  GETTABLEKS R7 R1 K4 ["getBatchBundleDetailsAsync"]
+  SETLIST R4 R5 3 [1]
   CALL R2 2 1
   RETURN R2 1
 
@@ -150,7 +193,7 @@ MAIN:
   GETTABLEKS R8 R0 K8 ["Src"]
   GETTABLEKS R7 R8 K16 ["Types"]
   CALL R6 1 1
-  DUPCLOSURE R7 K17 [PROTO_1]
+  DUPCLOSURE R7 K17 [PROTO_3]
   CAPTURE VAL R5
   CAPTURE VAL R1
   CAPTURE VAL R3

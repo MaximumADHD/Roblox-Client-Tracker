@@ -1,0 +1,996 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["new"]
+  LOADK R1 K1 ["Client->Side"]
+  CALL R0 1 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  LOADK R2 K2 ["Server<-Side"]
+  CALL R1 1 1
+  MOVE R4 R1
+  LOADB R5 0
+  NAMECALL R2 R0 K3 ["bindPeer"]
+  CALL R2 3 0
+  RETURN R0 2
+
+PROTO_1:
+  DUPTABLE R2 K1 [{"tools"}]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["getDefinitions"]
+  CALL R3 0 1
+  SETTABLEKS R3 R2 K0 ["tools"]
+  RETURN R2 1
+
+PROTO_2:
+  GETTABLEKS R2 R0 K0 ["params"]
+  FASTCALL2K ASSERT R2 K1 [+5]
+  MOVE R4 R2
+  LOADK R5 K1 ["Expected params to be present in tools/call request"]
+  GETIMPORT R3 K3 [assert]
+  CALL R3 2 0
+  GETTABLEKS R3 R2 K4 ["name"]
+  MOVE R5 R3
+  JUMPIFNOT R5 [+9]
+  FASTCALL1 TYPEOF R3 [+3]
+  MOVE R7 R3
+  GETIMPORT R6 K6 [typeof]
+  CALL R6 1 1
+  JUMPIFEQKS R6 K7 ["string"] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K8 [+4]
+  LOADK R6 K8 ["Expected tool name to be a string"]
+  GETIMPORT R4 K3 [assert]
+  CALL R4 2 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K9 ["getHandler"]
+  MOVE R5 R3
+  CALL R4 1 1
+  GETTABLEKS R5 R2 K10 ["arguments"]
+  LOADNIL R6
+  MOVE R7 R1
+  CALL R4 3 -1
+  RETURN R4 -1
+
+PROTO_3:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["new"]
+  DUPTABLE R1 K3 [{"name", "version"}]
+  LOADK R2 K4 ["Test Server"]
+  SETTABLEKS R2 R1 K1 ["name"]
+  LOADK R2 K5 ["0.1.0"]
+  SETTABLEKS R2 R1 K2 ["version"]
+  DUPTABLE R2 K7 [{"capabilities"}]
+  DUPTABLE R3 K11 [{"prompts", "resources", "tools"}]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K8 ["prompts"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K9 ["resources"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K10 ["tools"]
+  SETTABLEKS R3 R2 K6 ["capabilities"]
+  CALL R0 2 1
+  DUPTABLE R3 K13 [{"method"}]
+  LOADK R4 K14 ["tools/list"]
+  SETTABLEKS R4 R3 K12 ["method"]
+  DUPCLOSURE R4 K15 [PROTO_1]
+  CAPTURE UPVAL U1
+  NAMECALL R1 R0 K16 ["setRequestHandler"]
+  CALL R1 3 0
+  DUPTABLE R3 K13 [{"method"}]
+  LOADK R4 K17 ["tools/call"]
+  SETTABLEKS R4 R3 K12 ["method"]
+  DUPCLOSURE R4 K18 [PROTO_2]
+  CAPTURE UPVAL U1
+  NAMECALL R1 R0 K16 ["setRequestHandler"]
+  CALL R1 3 0
+  RETURN R0 1
+
+PROTO_4:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  LOADK R4 K0 ["%* executed"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K1 ["name"]
+  NAMECALL R4 R4 K2 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  NAMECALL R1 R1 K3 ["addText"]
+  CALL R1 2 1
+  NAMECALL R1 R1 K4 ["build"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_5:
+  DUPTABLE R2 K1 [{"tools"}]
+  GETUPVAL R3 0
+  SETTABLEKS R3 R2 K0 ["tools"]
+  RETURN R2 1
+
+PROTO_6:
+  GETTABLEKS R2 R0 K0 ["params"]
+  FASTCALL2K ASSERT R2 K1 [+5]
+  MOVE R4 R2
+  LOADK R5 K1 ["Expected params to be present in tools/call request"]
+  GETIMPORT R3 K3 [assert]
+  CALL R3 2 0
+  GETTABLEKS R3 R2 K4 ["name"]
+  MOVE R5 R3
+  JUMPIFNOT R5 [+9]
+  FASTCALL1 TYPEOF R3 [+3]
+  MOVE R7 R3
+  GETIMPORT R6 K6 [typeof]
+  CALL R6 1 1
+  JUMPIFEQKS R6 K7 ["string"] [+2]
+  LOADB R5 0 +1
+  LOADB R5 1
+  FASTCALL2K ASSERT R5 K8 [+4]
+  LOADK R6 K8 ["Expected tool name to be a string"]
+  GETIMPORT R4 K3 [assert]
+  CALL R4 2 0
+  GETUPVAL R5 0
+  GETTABLE R4 R5 R3
+  LOADK R8 K9 ["No handler found for tool: %*"]
+  MOVE R10 R3
+  NAMECALL R8 R8 K10 ["format"]
+  CALL R8 2 1
+  MOVE R7 R8
+  FASTCALL2 ASSERT R4 R7 [+4]
+  MOVE R6 R4
+  GETIMPORT R5 K3 [assert]
+  CALL R5 2 0
+  MOVE R5 R4
+  GETTABLEKS R6 R2 K11 ["arguments"]
+  LOADNIL R7
+  MOVE R8 R1
+  CALL R5 3 -1
+  RETURN R5 -1
+
+PROTO_7:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["new"]
+  DUPTABLE R2 K3 [{"name", "version"}]
+  LOADK R3 K4 ["Aliased Server"]
+  SETTABLEKS R3 R2 K1 ["name"]
+  LOADK R3 K5 ["0.1.0"]
+  SETTABLEKS R3 R2 K2 ["version"]
+  DUPTABLE R3 K7 [{"capabilities"}]
+  DUPTABLE R4 K11 [{"prompts", "resources", "tools"}]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K8 ["prompts"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K9 ["resources"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K10 ["tools"]
+  SETTABLEKS R4 R3 K6 ["capabilities"]
+  CALL R1 2 1
+  NEWTABLE R2 0 0
+  NEWTABLE R3 0 0
+  MOVE R4 R0
+  LOADNIL R5
+  LOADNIL R6
+  FORGPREP R4
+  GETTABLEKS R10 R8 K12 ["definition"]
+  GETTABLEKS R9 R10 K12 ["definition"]
+  GETTABLEKS R10 R9 K1 ["name"]
+  NEWCLOSURE R11 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R9
+  SETTABLE R11 R2 R10
+  FASTCALL2 TABLE_INSERT R3 R9 [+5]
+  MOVE R11 R3
+  MOVE R12 R9
+  GETIMPORT R10 K15 [table.insert]
+  CALL R10 2 0
+  FORGLOOP R4 2 [-18]
+  DUPTABLE R6 K17 [{"method"}]
+  LOADK R7 K18 ["tools/list"]
+  SETTABLEKS R7 R6 K16 ["method"]
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R3
+  NAMECALL R4 R1 K19 ["setRequestHandler"]
+  CALL R4 3 0
+  DUPTABLE R6 K17 [{"method"}]
+  LOADK R7 K20 ["tools/call"]
+  SETTABLEKS R7 R6 K16 ["method"]
+  NEWCLOSURE R7 P2
+  CAPTURE VAL R2
+  NAMECALL R4 R1 K19 ["setRequestHandler"]
+  CALL R4 3 0
+  RETURN R1 1
+
+PROTO_8:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  LOADK R3 K0 ["aliased_confirmation_tool executed"]
+  NAMECALL R1 R1 K1 ["addText"]
+  CALL R1 2 1
+  NAMECALL R1 R1 K2 ["build"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_9:
+  DUPTABLE R0 K1 [{"shouldConfirm"}]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["shouldConfirm"]
+  RETURN R0 1
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["define"]
+  CALL R0 0 1
+  LOADK R2 K1 ["aliased_confirmation_tool"]
+  NAMECALL R0 R0 K2 ["setName"]
+  CALL R0 2 1
+  LOADK R2 K3 ["A tool that uses aliases and requires confirmation"]
+  NAMECALL R0 R0 K4 ["setDescription"]
+  CALL R0 2 1
+  LOADK R2 K5 ["param"]
+  DUPTABLE R3 K8 [{"type", "description"}]
+  LOADK R4 K9 ["string"]
+  SETTABLEKS R4 R3 K6 ["type"]
+  LOADK R4 K10 ["A parameter"]
+  SETTABLEKS R4 R3 K7 ["description"]
+  NAMECALL R0 R0 K11 ["addArgument"]
+  CALL R0 3 1
+  DUPCLOSURE R2 K12 [PROTO_8]
+  CAPTURE UPVAL U1
+  NAMECALL R0 R0 K13 ["setHandler"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K14 ["build"]
+  CALL R0 1 1
+  DUPTABLE R1 K17 [{"definition", "getPreExecuteWarning"}]
+  SETTABLEKS R0 R1 K15 ["definition"]
+  DUPCLOSURE R2 K18 [PROTO_9]
+  SETTABLEKS R2 R1 K16 ["getPreExecuteWarning"]
+  RETURN R1 1
+
+PROTO_11:
+  NEWTABLE R0 0 1
+  GETUPVAL R1 0
+  CALL R1 0 1
+  SETLIST R0 R1 1 [1]
+  RETURN R0 1
+
+PROTO_12:
+  GETIMPORT R1 K1 [loadstring]
+  GETTABLEKS R2 R0 K2 ["code"]
+  CALL R1 1 1
+  FASTCALL2K ASSERT R1 K3 [+5]
+  MOVE R3 R1
+  LOADK R4 K3 ["Failed to load code"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  NEWTABLE R2 0 1
+  MOVE R3 R1
+  CALL R3 0 -1
+  SETLIST R2 R3 -1 [1]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K6 ["toString"]
+  MOVE R4 R2
+  CALL R3 1 1
+  GETUPVAL R4 1
+  CALL R4 0 1
+  MOVE R6 R3
+  NAMECALL R4 R4 K7 ["addText"]
+  CALL R4 2 1
+  NAMECALL R4 R4 K8 ["build"]
+  CALL R4 1 -1
+  RETURN R4 -1
+
+PROTO_13:
+  DUPTABLE R1 K2 [{"name", "arguments"}]
+  LOADK R2 K3 ["execute_luau"]
+  SETTABLEKS R2 R1 K0 ["name"]
+  DUPTABLE R2 K5 [{"code"}]
+  SETTABLEKS R0 R2 K4 ["code"]
+  SETTABLEKS R2 R1 K1 ["arguments"]
+  RETURN R1 1
+
+PROTO_14:
+  DUPTABLE R0 K3 [{"type", "code", "expanded"}]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["Type"]
+  SETTABLEKS R1 R0 K0 ["type"]
+  LOADK R1 K5 [""]
+  SETTABLEKS R1 R0 K1 ["code"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K2 ["expanded"]
+  RETURN R0 1
+
+PROTO_15:
+  GETUPVAL R1 0
+  SETTABLEKS R1 R0 K0 ["code"]
+  RETURN R0 0
+
+PROTO_16:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  RETURN R1 1
+
+PROTO_17:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["define"]
+  CALL R0 0 1
+  LOADK R2 K1 ["execute_luau"]
+  NAMECALL R0 R0 K2 ["setName"]
+  CALL R0 2 1
+  DUPCLOSURE R2 K3 [PROTO_12]
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  NAMECALL R0 R0 K4 ["setHandler"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K5 ["build"]
+  CALL R0 1 1
+  DUPTABLE R1 K8 [{"command", "mapToToolCall"}]
+  LOADK R2 K9 ["run"]
+  SETTABLEKS R2 R1 K6 ["command"]
+  DUPCLOSURE R2 K10 [PROTO_13]
+  SETTABLEKS R2 R1 K7 ["mapToToolCall"]
+  DUPTABLE R2 K13 [{"transformInitialContent", "getTransformDeltaFn"}]
+  DUPCLOSURE R3 K14 [PROTO_14]
+  CAPTURE UPVAL U3
+  SETTABLEKS R3 R2 K11 ["transformInitialContent"]
+  DUPCLOSURE R3 K15 [PROTO_16]
+  SETTABLEKS R3 R2 K12 ["getTransformDeltaFn"]
+  DUPTABLE R3 K20 [{"definition", "slashCommands", "contentWidgets", "streamTransform"}]
+  SETTABLEKS R0 R3 K16 ["definition"]
+  NEWTABLE R4 0 1
+  MOVE R5 R1
+  SETLIST R4 R5 1 [1]
+  SETTABLEKS R4 R3 K17 ["slashCommands"]
+  NEWTABLE R4 0 1
+  GETUPVAL R5 3
+  SETLIST R4 R5 1 [1]
+  SETTABLEKS R4 R3 K18 ["contentWidgets"]
+  SETTABLEKS R2 R3 K19 ["streamTransform"]
+  RETURN R3 1
+
+PROTO_18:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  LOADK R3 K0 ["Generic Content"]
+  NAMECALL R1 R1 K1 ["addText"]
+  CALL R1 2 1
+  NAMECALL R1 R1 K2 ["build"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_19:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["define"]
+  CALL R0 0 1
+  LOADK R2 K1 ["generic_tool"]
+  NAMECALL R0 R0 K2 ["setName"]
+  CALL R0 2 1
+  DUPCLOSURE R2 K3 [PROTO_18]
+  CAPTURE UPVAL U1
+  NAMECALL R0 R0 K4 ["setHandler"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K5 ["build"]
+  CALL R0 1 1
+  DUPTABLE R1 K7 [{"definition"}]
+  SETTABLEKS R0 R1 K6 ["definition"]
+  RETURN R1 1
+
+PROTO_20:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  LOADK R3 K0 ["Special Content"]
+  NAMECALL R1 R1 K1 ["addText"]
+  CALL R1 2 1
+  NAMECALL R1 R1 K2 ["build"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_21:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["define"]
+  CALL R0 0 1
+  LOADK R2 K1 ["no_stream_tool"]
+  NAMECALL R0 R0 K2 ["setName"]
+  CALL R0 2 1
+  DUPCLOSURE R2 K3 [PROTO_20]
+  CAPTURE UPVAL U1
+  NAMECALL R0 R0 K4 ["setHandler"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K5 ["build"]
+  CALL R0 1 1
+  DUPTABLE R1 K8 [{"definition", "streamTransform"}]
+  SETTABLEKS R0 R1 K6 ["definition"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K9 ["None"]
+  SETTABLEKS R2 R1 K7 ["streamTransform"]
+  RETURN R1 1
+
+PROTO_22:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  LOADK R3 K0 ["ToolResult"]
+  NAMECALL R1 R1 K1 ["addText"]
+  CALL R1 2 1
+  NAMECALL R1 R1 K2 ["build"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_23:
+  DUPTABLE R0 K3 [{"type", "code", "expanded"}]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["Type"]
+  SETTABLEKS R1 R0 K0 ["type"]
+  LOADK R1 K5 [""]
+  SETTABLEKS R1 R0 K1 ["code"]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K2 ["expanded"]
+  RETURN R0 1
+
+PROTO_24:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["text"]
+  SETTABLEKS R1 R0 K1 ["code"]
+  RETURN R0 0
+
+PROTO_25:
+  GETTABLEKS R2 R0 K0 ["content"]
+  GETTABLEN R1 R2 1
+  JUMPIFNOT R1 [+4]
+  GETTABLEKS R2 R1 K1 ["type"]
+  JUMPIFEQKS R2 K2 ["text"] [+8]
+  LOADB R3 0
+  FASTCALL2K ASSERT R3 K3 [+4]
+  LOADK R4 K3 ["Expected text content"]
+  GETIMPORT R2 K5 [assert]
+  CALL R2 2 0
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  RETURN R2 1
+
+PROTO_26:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["define"]
+  CALL R0 0 1
+  LOADK R2 K1 ["ui_on_result_tool"]
+  NAMECALL R0 R0 K2 ["setName"]
+  CALL R0 2 1
+  DUPCLOSURE R2 K3 [PROTO_22]
+  CAPTURE UPVAL U1
+  NAMECALL R0 R0 K4 ["setHandler"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K5 ["build"]
+  CALL R0 1 1
+  DUPTABLE R1 K8 [{"transformInitialContent", "getTransformResultFn"}]
+  DUPCLOSURE R2 K9 [PROTO_23]
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K6 ["transformInitialContent"]
+  DUPCLOSURE R2 K10 [PROTO_25]
+  SETTABLEKS R2 R1 K7 ["getTransformResultFn"]
+  DUPTABLE R2 K14 [{"definition", "contentWidgets", "streamTransform"}]
+  SETTABLEKS R0 R2 K11 ["definition"]
+  NEWTABLE R3 0 1
+  GETUPVAL R4 2
+  SETLIST R3 R4 1 [1]
+  SETTABLEKS R3 R2 K12 ["contentWidgets"]
+  SETTABLEKS R1 R2 K13 ["streamTransform"]
+  RETURN R2 1
+
+PROTO_27:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  LOADK R3 K0 ["ToolUse"]
+  NAMECALL R1 R1 K1 ["addText"]
+  CALL R1 2 1
+  NAMECALL R1 R1 K2 ["build"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_28:
+  DUPTABLE R1 K2 [{"type", "summary"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["Type"]
+  SETTABLEKS R2 R1 K0 ["type"]
+  GETTABLEKS R2 R0 K4 ["name"]
+  SETTABLEKS R2 R1 K1 ["summary"]
+  RETURN R1 1
+
+PROTO_29:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["input"]
+  GETTABLEKS R1 R2 K1 ["code"]
+  SETTABLEKS R1 R0 K2 ["summary"]
+  RETURN R0 0
+
+PROTO_30:
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  RETURN R1 1
+
+PROTO_31:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["define"]
+  CALL R0 0 1
+  LOADK R2 K1 ["ui_on_tool_use_tool"]
+  NAMECALL R0 R0 K2 ["setName"]
+  CALL R0 2 1
+  LOADK R2 K3 ["code"]
+  DUPTABLE R3 K5 [{"type"}]
+  LOADK R4 K6 ["string"]
+  SETTABLEKS R4 R3 K4 ["type"]
+  NAMECALL R0 R0 K7 ["addArgument"]
+  CALL R0 3 1
+  DUPCLOSURE R2 K8 [PROTO_27]
+  CAPTURE UPVAL U1
+  NAMECALL R0 R0 K9 ["setHandler"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K10 ["build"]
+  CALL R0 1 1
+  DUPTABLE R1 K13 [{"transformInitialContent", "getTransformPreExecuteFn"}]
+  DUPCLOSURE R2 K14 [PROTO_28]
+  CAPTURE UPVAL U2
+  SETTABLEKS R2 R1 K11 ["transformInitialContent"]
+  DUPCLOSURE R2 K15 [PROTO_30]
+  SETTABLEKS R2 R1 K12 ["getTransformPreExecuteFn"]
+  DUPTABLE R2 K19 [{"definition", "contentWidgets", "streamTransform"}]
+  SETTABLEKS R0 R2 K16 ["definition"]
+  NEWTABLE R3 0 1
+  GETUPVAL R4 2
+  SETLIST R3 R4 1 [1]
+  SETTABLEKS R3 R2 K17 ["contentWidgets"]
+  SETTABLEKS R1 R2 K18 ["streamTransform"]
+  RETURN R2 1
+
+PROTO_32:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  LOADK R3 K0 ["Confirmation tool executed"]
+  NAMECALL R1 R1 K1 ["addText"]
+  CALL R1 2 1
+  NAMECALL R1 R1 K2 ["build"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_33:
+  DUPTABLE R0 K1 [{"shouldConfirm"}]
+  LOADB R1 1
+  SETTABLEKS R1 R0 K0 ["shouldConfirm"]
+  RETURN R0 1
+
+PROTO_34:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["define"]
+  CALL R0 0 1
+  LOADK R2 K1 ["confirmation_required_tool"]
+  NAMECALL R0 R0 K2 ["setName"]
+  CALL R0 2 1
+  LOADK R2 K3 ["param"]
+  DUPTABLE R3 K5 [{"type"}]
+  LOADK R4 K6 ["string"]
+  SETTABLEKS R4 R3 K4 ["type"]
+  NAMECALL R0 R0 K7 ["addArgument"]
+  CALL R0 3 1
+  DUPCLOSURE R2 K8 [PROTO_32]
+  CAPTURE UPVAL U1
+  NAMECALL R0 R0 K9 ["setHandler"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K10 ["build"]
+  CALL R0 1 1
+  DUPTABLE R1 K13 [{"definition", "getPreExecuteWarning"}]
+  SETTABLEKS R0 R1 K11 ["definition"]
+  DUPCLOSURE R2 K14 [PROTO_33]
+  SETTABLEKS R2 R1 K12 ["getPreExecuteWarning"]
+  RETURN R1 1
+
+PROTO_35:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  LOADK R3 K0 ["Dangerous tool executed"]
+  NAMECALL R1 R1 K1 ["addText"]
+  CALL R1 2 1
+  NAMECALL R1 R1 K2 ["build"]
+  CALL R1 1 -1
+  RETURN R1 -1
+
+PROTO_36:
+  JUMPIFNOT R1 [+12]
+  GETTABLEKS R2 R1 K0 ["code"]
+  JUMPIFNOTEQKS R2 K1 ["triggerwarning"] [+9]
+  DUPTABLE R2 K4 [{"shouldConfirm", "warningMessage"}]
+  LOADB R3 1
+  SETTABLEKS R3 R2 K2 ["shouldConfirm"]
+  LOADK R3 K5 ["Warning: This is a test warning message."]
+  SETTABLEKS R3 R2 K3 ["warningMessage"]
+  RETURN R2 1
+  LOADNIL R2
+  RETURN R2 1
+
+PROTO_37:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["define"]
+  CALL R0 0 1
+  LOADK R2 K1 ["dangerous_tool"]
+  NAMECALL R0 R0 K2 ["setName"]
+  CALL R0 2 1
+  LOADK R2 K3 ["code"]
+  DUPTABLE R3 K5 [{"type"}]
+  LOADK R4 K6 ["string"]
+  SETTABLEKS R4 R3 K4 ["type"]
+  NAMECALL R0 R0 K7 ["addArgument"]
+  CALL R0 3 1
+  DUPCLOSURE R2 K8 [PROTO_35]
+  CAPTURE UPVAL U1
+  NAMECALL R0 R0 K9 ["setHandler"]
+  CALL R0 2 1
+  NAMECALL R0 R0 K10 ["build"]
+  CALL R0 1 1
+  DUPTABLE R1 K13 [{"definition", "getPreExecuteWarning"}]
+  SETTABLEKS R0 R1 K11 ["definition"]
+  DUPCLOSURE R2 K14 [PROTO_36]
+  SETTABLEKS R2 R1 K12 ["getPreExecuteWarning"]
+  RETURN R1 1
+
+PROTO_38:
+  NEWTABLE R0 0 7
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R2 1
+  CALL R2 0 1
+  GETUPVAL R3 2
+  CALL R3 0 1
+  GETUPVAL R4 3
+  CALL R4 0 1
+  GETUPVAL R5 4
+  CALL R5 0 1
+  GETUPVAL R6 5
+  CALL R6 0 1
+  GETUPVAL R7 6
+  CALL R7 0 1
+  SETLIST R0 R1 7 [1]
+  RETURN R0 1
+
+PROTO_39:
+  NEWTABLE R1 0 1
+  GETIMPORT R2 K1 [pcall]
+  MOVE R3 R0
+  GETUPVAL R4 0
+  CALL R2 2 -1
+  SETLIST R1 R2 -1 [1]
+  GETIMPORT R2 K4 [table.remove]
+  MOVE R3 R1
+  LOADN R4 1
+  CALL R2 2 1
+  JUMPIF R2 [+9]
+  GETIMPORT R3 K6 [warn]
+  LOADK R4 K7 ["Error in mock runWithClient callback:"]
+  FASTCALL1 TABLE_UNPACK R1 [+3]
+  MOVE R6 R1
+  GETIMPORT R5 K9 [table.unpack]
+  CALL R5 1 -1
+  CALL R3 -1 0
+  RETURN R0 0
+
+PROTO_40:
+  GETUPVAL R1 0
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K0 ["Provider"]
+  DUPTABLE R3 K2 [{"runWithClient"}]
+  NEWCLOSURE R4 P0
+  CAPTURE UPVAL U2
+  SETTABLEKS R4 R3 K1 ["runWithClient"]
+  GETTABLEKS R4 R0 K3 ["children"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_41:
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["invokedWith"]
+  MOVE R3 R0
+  MOVE R4 R1
+  CALL R2 2 -1
+  RETURN R2 -1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["wasInvoked"]
+  MOVE R3 R0
+  CALL R2 1 -1
+  RETURN R2 -1
+
+PROTO_42:
+  GETUPVAL R0 0
+  DUPTABLE R2 K1 [{"method"}]
+  GETUPVAL R3 1
+  SETTABLEKS R3 R2 K0 ["method"]
+  GETUPVAL R3 2
+  NAMECALL R0 R0 K2 ["setRequestHandler"]
+  CALL R0 3 0
+  RETURN R0 0
+
+PROTO_43:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["_protocol"]
+  GETTABLEKS R3 R4 K1 ["_requestHandlers"]
+  GETTABLE R2 R3 R0
+  GETUPVAL R3 0
+  DUPTABLE R5 K3 [{"method"}]
+  SETTABLEKS R0 R5 K2 ["method"]
+  MOVE R6 R1
+  NAMECALL R3 R3 K4 ["setRequestHandler"]
+  CALL R3 3 0
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  RETURN R3 1
+
+PROTO_44:
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_45:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["_toolNameAliases"]
+  MOVE R2 R1
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETTABLEKS R7 R6 K1 ["actualToolName"]
+  JUMPIFNOTEQ R7 R0 [+2]
+  RETURN R5 1
+  FORGLOOP R2 2 [-6]
+  LOADNIL R2
+  RETURN R2 1
+
+PROTO_46:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["clear"]
+  CALL R0 0 0
+  GETUPVAL R0 1
+  CALL R0 0 3
+  FORGPREP R0
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K1 ["registerTool"]
+  MOVE R6 R4
+  CALL R5 1 0
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K2 ["spyHandler"]
+  GETTABLEKS R6 R4 K3 ["definition"]
+  CALL R5 1 0
+  FORGLOOP R0 2 [-12]
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K4 ["new"]
+  LOADK R3 K5 ["Client->Side"]
+  CALL R2 1 1
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K4 ["new"]
+  LOADK R4 K6 ["Server<-Side"]
+  CALL R3 1 1
+  MOVE R6 R3
+  LOADB R7 0
+  NAMECALL R4 R2 K7 ["bindPeer"]
+  CALL R4 3 0
+  MOVE R0 R2
+  MOVE R1 R3
+  GETUPVAL R2 4
+  CALL R2 0 1
+  GETTABLEKS R5 R1 K8 ["transport"]
+  NAMECALL R3 R2 K9 ["connect"]
+  CALL R3 2 0
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K4 ["new"]
+  LOADK R6 K5 ["Client->Side"]
+  CALL R5 1 1
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K4 ["new"]
+  LOADK R7 K6 ["Server<-Side"]
+  CALL R6 1 1
+  MOVE R9 R6
+  LOADB R10 0
+  NAMECALL R7 R5 K7 ["bindPeer"]
+  CALL R7 3 0
+  MOVE R3 R5
+  MOVE R4 R6
+  GETUPVAL R5 5
+  NEWTABLE R6 0 1
+  GETUPVAL R7 6
+  CALL R7 0 1
+  SETLIST R6 R7 1 [1]
+  CALL R5 1 1
+  GETTABLEKS R8 R4 K8 ["transport"]
+  NAMECALL R6 R5 K9 ["connect"]
+  CALL R6 2 0
+  GETUPVAL R7 7
+  GETTABLEKS R6 R7 K4 ["new"]
+  DUPTABLE R7 K12 [{"name", "version"}]
+  LOADK R8 K13 ["Test Client"]
+  SETTABLEKS R8 R7 K10 ["name"]
+  LOADK R8 K14 ["0.1.0"]
+  SETTABLEKS R8 R7 K11 ["version"]
+  CALL R6 1 1
+  DUPTABLE R9 K18 [{"identifier", "transport", "clientOptions", "useStaticToolNames"}]
+  LOADK R10 K13 ["Test Client"]
+  SETTABLEKS R10 R9 K15 ["identifier"]
+  GETTABLEKS R10 R0 K8 ["transport"]
+  SETTABLEKS R10 R9 K8 ["transport"]
+  DUPTABLE R10 K20 [{"capabilities"}]
+  DUPTABLE R11 K22 [{"sampling"}]
+  NEWTABLE R12 0 0
+  SETTABLEKS R12 R11 K21 ["sampling"]
+  SETTABLEKS R11 R10 K19 ["capabilities"]
+  SETTABLEKS R10 R9 K16 ["clientOptions"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K17 ["useStaticToolNames"]
+  NAMECALL R7 R6 K23 ["addClient"]
+  CALL R7 2 0
+  DUPTABLE R9 K18 [{"identifier", "transport", "clientOptions", "useStaticToolNames"}]
+  LOADK R10 K24 ["Aliased Client"]
+  SETTABLEKS R10 R9 K15 ["identifier"]
+  GETTABLEKS R10 R3 K8 ["transport"]
+  SETTABLEKS R10 R9 K8 ["transport"]
+  DUPTABLE R10 K20 [{"capabilities"}]
+  DUPTABLE R11 K22 [{"sampling"}]
+  NEWTABLE R12 0 0
+  SETTABLEKS R12 R11 K21 ["sampling"]
+  SETTABLEKS R11 R10 K19 ["capabilities"]
+  SETTABLEKS R10 R9 K16 ["clientOptions"]
+  LOADB R10 0
+  SETTABLEKS R10 R9 K17 ["useStaticToolNames"]
+  NAMECALL R7 R6 K23 ["addClient"]
+  CALL R7 2 0
+  GETUPVAL R8 8
+  GETTABLEKS R7 R8 K25 ["setMcpClientIdentifier"]
+  LOADK R8 K13 ["Test Client"]
+  CALL R7 1 0
+  NAMECALL R7 R6 K26 ["connectAll"]
+  CALL R7 1 1
+  NAMECALL R7 R7 K27 ["await"]
+  CALL R7 1 2
+  JUMPIF R7 [+4]
+  GETIMPORT R9 K29 [error]
+  MOVE R10 R8
+  CALL R9 1 0
+  NAMECALL R9 R6 K30 ["listTools"]
+  CALL R9 1 1
+  NAMECALL R9 R9 K27 ["await"]
+  CALL R9 1 2
+  MOVE R7 R9
+  MOVE R8 R10
+  JUMPIF R7 [+4]
+  GETIMPORT R9 K29 [error]
+  MOVE R10 R8
+  CALL R9 1 0
+  NEWCLOSURE R9 P0
+  CAPTURE UPVAL U9
+  CAPTURE UPVAL U10
+  CAPTURE VAL R6
+  MOVE R10 R9
+  DUPTABLE R11 K35 [{"wasToolInvoked", "overrideMethod", "getClientObject", "getToolAlias"}]
+  DUPCLOSURE R12 K36 [PROTO_41]
+  CAPTURE UPVAL U2
+  SETTABLEKS R12 R11 K31 ["wasToolInvoked"]
+  NEWCLOSURE R12 P2
+  CAPTURE VAL R2
+  SETTABLEKS R12 R11 K32 ["overrideMethod"]
+  NEWCLOSURE R12 P3
+  CAPTURE VAL R6
+  SETTABLEKS R12 R11 K33 ["getClientObject"]
+  NEWCLOSURE R12 P4
+  CAPTURE VAL R6
+  SETTABLEKS R12 R11 K34 ["getToolAlias"]
+  RETURN R10 2
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Components"]
+  GETTABLEKS R3 R4 K7 ["Contexts"]
+  GETTABLEKS R2 R3 K8 ["McpClientContext"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K9 ["Parent"]
+  GETTABLEKS R3 R4 K10 ["ModelContextProtocol"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K9 ["Parent"]
+  GETTABLEKS R4 R5 K11 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K6 ["Components"]
+  GETTABLEKS R6 R7 K12 ["ContentWidgets"]
+  GETTABLEKS R5 R6 K13 ["RunCodeContentWidget"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Components"]
+  GETTABLEKS R7 R8 K12 ["ContentWidgets"]
+  GETTABLEKS R6 R7 K14 ["SummarizedContentWidget"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R9 R0 K15 ["tests"]
+  GETTABLEKS R8 R9 K16 ["TestUtils"]
+  GETTABLEKS R7 R8 K17 ["ToolSpy"]
+  CALL R6 1 1
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K18 ["Tools"]
+  GETTABLEKS R8 R9 K19 ["ToolTypes"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R10 R0 K20 ["Util"]
+  GETTABLEKS R9 R10 K21 ["ToolUtils"]
+  CALL R8 1 1
+  GETIMPORT R9 K5 [require]
+  GETTABLEKS R10 R0 K22 ["Types"]
+  CALL R9 1 1
+  GETIMPORT R10 K5 [require]
+  GETTABLEKS R12 R0 K6 ["Components"]
+  GETTABLEKS R11 R12 K23 ["UIToolRegistry"]
+  CALL R10 1 1
+  GETTABLEKS R11 R2 K24 ["MultiplexedClient"]
+  GETTABLEKS R12 R2 K25 ["PeerTransport"]
+  GETTABLEKS R13 R2 K26 ["Server"]
+  GETTABLEKS R15 R2 K20 ["Util"]
+  GETTABLEKS R14 R15 K27 ["ToolBuilder"]
+  GETTABLEKS R15 R2 K28 ["ToolRegistry"]
+  GETTABLEKS R17 R2 K20 ["Util"]
+  GETTABLEKS R16 R17 K29 ["ToolResult"]
+  GETTABLEKS R17 R3 K30 ["createElement"]
+  DUPCLOSURE R18 K31 [PROTO_0]
+  CAPTURE VAL R12
+  DUPCLOSURE R19 K32 [PROTO_3]
+  CAPTURE VAL R13
+  CAPTURE VAL R15
+  DUPCLOSURE R20 K33 [PROTO_7]
+  CAPTURE VAL R13
+  CAPTURE VAL R16
+  DUPCLOSURE R21 K34 [PROTO_10]
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  DUPCLOSURE R22 K35 [PROTO_11]
+  CAPTURE VAL R21
+  DUPCLOSURE R23 K36 [PROTO_17]
+  CAPTURE VAL R14
+  CAPTURE VAL R8
+  CAPTURE VAL R16
+  CAPTURE VAL R4
+  DUPCLOSURE R24 K37 [PROTO_19]
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  DUPCLOSURE R25 K38 [PROTO_21]
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  CAPTURE VAL R10
+  DUPCLOSURE R26 K39 [PROTO_26]
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  CAPTURE VAL R4
+  DUPCLOSURE R27 K40 [PROTO_31]
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  CAPTURE VAL R5
+  DUPCLOSURE R28 K41 [PROTO_34]
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  DUPCLOSURE R29 K42 [PROTO_37]
+  CAPTURE VAL R14
+  CAPTURE VAL R16
+  DUPCLOSURE R30 K43 [PROTO_38]
+  CAPTURE VAL R23
+  CAPTURE VAL R24
+  CAPTURE VAL R25
+  CAPTURE VAL R26
+  CAPTURE VAL R27
+  CAPTURE VAL R28
+  CAPTURE VAL R29
+  DUPCLOSURE R31 K44 [PROTO_46]
+  CAPTURE VAL R10
+  CAPTURE VAL R30
+  CAPTURE VAL R6
+  CAPTURE VAL R12
+  CAPTURE VAL R19
+  CAPTURE VAL R20
+  CAPTURE VAL R21
+  CAPTURE VAL R11
+  CAPTURE VAL R9
+  CAPTURE VAL R17
+  CAPTURE VAL R1
+  RETURN R31 1

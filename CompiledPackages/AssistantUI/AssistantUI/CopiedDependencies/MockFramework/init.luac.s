@@ -1,0 +1,11 @@
+MAIN:
+  PREPVARARGS 0
+  DUPTABLE R0 K1 [{"UI"}]
+  DUPTABLE R1 K3 [{"MarkdownViewer"}]
+  GETIMPORT R2 K5 [require]
+  GETIMPORT R4 K7 [script]
+  GETTABLEKS R3 R4 K2 ["MarkdownViewer"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K2 ["MarkdownViewer"]
+  SETTABLEKS R1 R0 K0 ["UI"]
+  RETURN R0 1

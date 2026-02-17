@@ -1,184 +1,251 @@
 PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["itemsList"]
+  LENGTH R0 R1
+  JUMPIFNOTEQKN R0 K1 [0] [+109]
   NEWTABLE R0 0 0
-  GETUPVAL R1 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K2 ["lookType"]
+  JUMPIFNOTEQKS R1 K3 ["AvatarLook"] [+19]
+  DUPTABLE R3 K7 [{"type", "color", "rowState"}]
+  LOADK R4 K8 ["BodyColor"]
+  SETTABLEKS R4 R3 K4 ["type"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K9 ["skinColor"]
+  SETTABLEKS R4 R3 K5 ["color"]
+  LOADK R4 K10 ["Selected"]
+  SETTABLEKS R4 R3 K6 ["rowState"]
+  FASTCALL2 TABLE_INSERT R0 R3 [+4]
+  MOVE R2 R0
+  GETIMPORT R1 K13 [table.insert]
+  CALL R1 2 0
+  GETUPVAL R1 2
   LOADNIL R2
   LOADNIL R3
   FORGPREP R1
-  GETTABLEKS R6 R5 K0 ["id"]
-  LOADK R7 K1 ["Selected"]
-  SETTABLE R7 R0 R6
-  FORGLOOP R1 2 [-5]
-  RETURN R0 1
+  DUPTABLE R8 K20 [{"type", "id", "name", "creator", "price", "rowState", "key", "assetType"}]
+  LOADK R9 K21 ["Asset"]
+  SETTABLEKS R9 R8 K4 ["type"]
+  GETTABLEKS R9 R5 K14 ["id"]
+  SETTABLEKS R9 R8 K14 ["id"]
+  GETTABLEKS R9 R5 K15 ["name"]
+  SETTABLEKS R9 R8 K15 ["name"]
+  GETTABLEKS R9 R5 K16 ["creator"]
+  SETTABLEKS R9 R8 K16 ["creator"]
+  GETTABLEKS R9 R5 K17 ["price"]
+  SETTABLEKS R9 R8 K17 ["price"]
+  LOADK R9 K10 ["Selected"]
+  SETTABLEKS R9 R8 K6 ["rowState"]
+  GETTABLEKS R9 R5 K18 ["key"]
+  SETTABLEKS R9 R8 K18 ["key"]
+  GETTABLEKS R9 R5 K19 ["assetType"]
+  SETTABLEKS R9 R8 K19 ["assetType"]
+  FASTCALL2 TABLE_INSERT R0 R8 [+4]
+  MOVE R7 R0
+  GETIMPORT R6 K13 [table.insert]
+  CALL R6 2 0
+  FORGLOOP R1 2 [-38]
+  GETUPVAL R1 3
+  LOADNIL R2
+  LOADNIL R3
+  FORGPREP R1
+  DUPTABLE R8 K22 [{"type", "id", "name", "creator", "price", "rowState"}]
+  LOADK R9 K23 ["Bundle"]
+  SETTABLEKS R9 R8 K4 ["type"]
+  GETTABLEKS R9 R5 K14 ["id"]
+  SETTABLEKS R9 R8 K14 ["id"]
+  GETTABLEKS R9 R5 K15 ["name"]
+  SETTABLEKS R9 R8 K15 ["name"]
+  GETTABLEKS R9 R5 K16 ["creator"]
+  SETTABLEKS R9 R8 K16 ["creator"]
+  GETTABLEKS R9 R5 K17 ["price"]
+  SETTABLEKS R9 R8 K17 ["price"]
+  LOADK R9 K10 ["Selected"]
+  SETTABLEKS R9 R8 K6 ["rowState"]
+  FASTCALL2 TABLE_INSERT R0 R8 [+4]
+  MOVE R7 R0
+  GETIMPORT R6 K13 [table.insert]
+  CALL R6 2 0
+  FORGLOOP R1 2 [-30]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K24 ["setItemsList"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
 
 PROTO_1:
   NEWTABLE R0 0 0
-  GETUPVAL R1 0
+  GETUPVAL R4 0
+  GETTABLEKS R1 R4 K0 ["itemsList"]
   LOADNIL R2
   LOADNIL R3
   FORGPREP R1
-  GETTABLEKS R6 R5 K0 ["id"]
-  LOADK R7 K1 ["Selected"]
-  SETTABLE R7 R0 R6
-  FORGLOOP R1 2 [-5]
+  GETTABLEKS R6 R5 K1 ["type"]
+  JUMPIFNOTEQKS R6 K2 ["Asset"] [+47]
+  GETTABLEKS R6 R5 K3 ["rowState"]
+  JUMPIFNOTEQKS R6 K4 ["Selected"] [+43]
+  LOADNIL R6
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K5 ["lookType"]
+  JUMPIFNOTEQKS R7 K6 ["MakeupLook"] [+10]
+  GETTABLEKS R7 R5 K7 ["key"]
+  JUMPIFNOT R7 [+6]
+  GETUPVAL R7 2
+  GETTABLEKS R8 R5 K7 ["key"]
+  CALL R7 1 1
+  MOVE R6 R7
+  JUMP [+5]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K5 ["lookType"]
+  JUMPIFNOTEQKS R7 K8 ["AvatarLook"] [+1]
+  JUMPIFNOT R6 [+21]
+  DUPTABLE R9 K11 [{"palette", "item"}]
+  SETTABLEKS R6 R9 K9 ["palette"]
+  DUPTABLE R10 K14 [{"source", "marketplaceItem"}]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K15 ["SOURCE_MARKETPLACE"]
+  SETTABLEKS R11 R10 K12 ["source"]
+  GETTABLEKS R11 R5 K16 ["id"]
+  SETTABLEKS R11 R10 K13 ["marketplaceItem"]
+  SETTABLEKS R10 R9 K10 ["item"]
+  FASTCALL2 TABLE_INSERT R0 R9 [+4]
+  MOVE R8 R0
+  GETIMPORT R7 K19 [table.insert]
+  CALL R7 2 0
+  FORGLOOP R1 2 [-51]
   RETURN R0 1
 
 PROTO_2:
-  GETIMPORT R1 K2 [table.clone]
-  MOVE R2 R0
-  CALL R1 1 1
-  GETUPVAL R2 0
-  GETUPVAL R3 1
-  SETTABLE R3 R1 R2
-  RETURN R1 1
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["dialogItems"]
+  JUMPIFEQ R0 R1 [+6]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K1 ["setDialogItems"]
+  GETUPVAL R1 0
+  CALL R0 1 0
+  RETURN R0 0
 
 PROTO_3:
   GETUPVAL R2 0
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R0
-  CAPTURE VAL R1
-  CALL R2 1 0
+  GETTABLEKS R1 R2 K0 ["toggleItem"]
+  LOADN R2 0
+  LOADK R3 K1 ["BodyColor"]
+  CALL R1 2 0
   RETURN R0 0
 
 PROTO_4:
-  GETIMPORT R1 K2 [table.clone]
-  MOVE R2 R0
-  CALL R1 1 1
   GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["toggleItem"]
   GETUPVAL R3 1
-  SETTABLE R3 R1 R2
-  RETURN R1 1
+  GETTABLEKS R2 R3 K1 ["id"]
+  LOADK R3 K2 ["Asset"]
+  CALL R1 2 0
+  RETURN R0 0
 
 PROTO_5:
   GETUPVAL R2 0
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R0
-  CAPTURE VAL R1
-  CALL R2 1 0
+  GETTABLEKS R1 R2 K0 ["toggleItem"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["id"]
+  LOADK R3 K2 ["Bundle"]
+  CALL R1 2 0
   RETURN R0 0
 
 PROTO_6:
-  GETUPVAL R3 0
-  LENGTH R2 R3
-  GETUPVAL R4 1
-  LENGTH R3 R4
-  ADD R1 R2 R3
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K0 ["isAvatarLook"]
-  JUMPIFNOT R3 [+2]
-  LOADN R2 1
-  JUMP [+1]
-  LOADN R2 0
-  ADD R0 R1 R2
+  NEWTABLE R0 0 0
+  LOADN R1 1
+  GETUPVAL R5 0
+  GETTABLEKS R2 R5 K0 ["itemsList"]
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  GETTABLEKS R7 R6 K1 ["type"]
+  JUMPIFNOTEQKS R7 K2 ["BodyColor"] [+30]
+  GETUPVAL R8 1
+  GETTABLEKS R7 R8 K3 ["lookType"]
+  JUMPIFNOTEQKS R7 K4 ["AvatarLook"] [+25]
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K5 ["createElement"]
+  GETUPVAL R8 3
+  DUPTABLE R9 K10 [{"LayoutOrder", "color", "rowState", "onRowStateChanged"}]
+  SETTABLEKS R1 R9 K6 ["LayoutOrder"]
+  GETTABLEKS R10 R6 K7 ["color"]
+  SETTABLEKS R10 R9 K7 ["color"]
+  GETTABLEKS R10 R6 K8 ["rowState"]
+  SETTABLEKS R10 R9 K8 ["rowState"]
+  NEWCLOSURE R10 P0
+  CAPTURE UPVAL U0
+  SETTABLEKS R10 R9 K9 ["onRowStateChanged"]
+  CALL R7 2 1
+  SETTABLEKS R7 R0 K2 ["BodyColor"]
+  ADDK R1 R1 K11 [1]
+  JUMP [+95]
+  GETTABLEKS R7 R6 K1 ["type"]
+  JUMPIFNOTEQKS R7 K12 ["Asset"] [+45]
+  LOADK R8 K13 ["Asset_"]
+  GETTABLEKS R10 R6 K14 ["id"]
+  FASTCALL1 TOSTRING R10 [+2]
+  GETIMPORT R9 K16 [tostring]
+  CALL R9 1 1
+  CONCAT R7 R8 R9
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K5 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K21 [{"LayoutOrder", "assetId", "name", "creator", "price", "rowState", "onRowStateChanged"}]
+  SETTABLEKS R1 R10 K6 ["LayoutOrder"]
+  GETTABLEKS R11 R6 K14 ["id"]
+  SETTABLEKS R11 R10 K17 ["assetId"]
+  GETTABLEKS R11 R6 K18 ["name"]
+  SETTABLEKS R11 R10 K18 ["name"]
+  GETTABLEKS R11 R6 K19 ["creator"]
+  SETTABLEKS R11 R10 K19 ["creator"]
+  GETTABLEKS R11 R6 K20 ["price"]
+  SETTABLEKS R11 R10 K20 ["price"]
+  GETTABLEKS R11 R6 K8 ["rowState"]
+  SETTABLEKS R11 R10 K8 ["rowState"]
+  NEWCLOSURE R11 P1
+  CAPTURE UPVAL U0
+  CAPTURE VAL R6
+  SETTABLEKS R11 R10 K9 ["onRowStateChanged"]
+  CALL R8 2 1
+  SETTABLE R8 R0 R7
+  ADDK R1 R1 K11 [1]
+  JUMP [+47]
+  GETTABLEKS R7 R6 K1 ["type"]
+  JUMPIFNOTEQKS R7 K22 ["Bundle"] [+44]
+  LOADK R8 K23 ["Bundle_"]
+  GETTABLEKS R10 R6 K14 ["id"]
+  FASTCALL1 TOSTRING R10 [+2]
+  GETIMPORT R9 K16 [tostring]
+  CALL R9 1 1
+  CONCAT R7 R8 R9
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K5 ["createElement"]
+  GETUPVAL R9 5
+  DUPTABLE R10 K25 [{"LayoutOrder", "bundleId", "name", "creator", "price", "rowState", "onRowStateChanged"}]
+  SETTABLEKS R1 R10 K6 ["LayoutOrder"]
+  GETTABLEKS R11 R6 K14 ["id"]
+  SETTABLEKS R11 R10 K24 ["bundleId"]
+  GETTABLEKS R11 R6 K18 ["name"]
+  SETTABLEKS R11 R10 K18 ["name"]
+  GETTABLEKS R11 R6 K19 ["creator"]
+  SETTABLEKS R11 R10 K19 ["creator"]
+  GETTABLEKS R11 R6 K20 ["price"]
+  SETTABLEKS R11 R10 K20 ["price"]
+  GETTABLEKS R11 R6 K8 ["rowState"]
+  SETTABLEKS R11 R10 K8 ["rowState"]
+  NEWCLOSURE R11 P2
+  CAPTURE UPVAL U0
+  CAPTURE VAL R6
+  SETTABLEKS R11 R10 K9 ["onRowStateChanged"]
+  CALL R8 2 1
+  SETTABLE R8 R0 R7
+  ADDK R1 R1 K11 [1]
+  FORGLOOP R2 2 [-129]
   RETURN R0 1
 
 PROTO_7:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_8:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_9:
-  NEWTABLE R0 0 0
-  LOADN R1 1
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["isAvatarLook"]
-  JUMPIFNOT R2 [+22]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["createElement"]
-  GETUPVAL R3 2
-  DUPTABLE R4 K6 [{"LayoutOrder", "color", "rowState", "onRowStateChanged"}]
-  SETTABLEKS R1 R4 K2 ["LayoutOrder"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K7 ["skinColor"]
-  SETTABLEKS R5 R4 K3 ["color"]
-  GETUPVAL R5 3
-  SETTABLEKS R5 R4 K4 ["rowState"]
-  GETUPVAL R5 4
-  SETTABLEKS R5 R4 K5 ["onRowStateChanged"]
-  CALL R2 2 1
-  SETTABLEKS R2 R0 K8 ["BodyColor"]
-  ADDK R1 R1 K9 [1]
-  GETUPVAL R2 5
-  LOADNIL R3
-  LOADNIL R4
-  FORGPREP R2
-  GETTABLEKS R7 R6 K10 ["id"]
-  LOADK R9 K11 ["Asset_"]
-  FASTCALL1 TOSTRING R7 [+3]
-  MOVE R11 R7
-  GETIMPORT R10 K13 [tostring]
-  CALL R10 1 1
-  CONCAT R8 R9 R10
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K1 ["createElement"]
-  GETUPVAL R10 6
-  DUPTABLE R11 K18 [{"LayoutOrder", "assetId", "name", "creator", "price", "rowState", "onRowStateChanged"}]
-  SETTABLEKS R1 R11 K2 ["LayoutOrder"]
-  SETTABLEKS R7 R11 K14 ["assetId"]
-  GETTABLEKS R12 R6 K15 ["name"]
-  SETTABLEKS R12 R11 K15 ["name"]
-  GETTABLEKS R12 R6 K16 ["creator"]
-  SETTABLEKS R12 R11 K16 ["creator"]
-  GETTABLEKS R12 R6 K17 ["price"]
-  SETTABLEKS R12 R11 K17 ["price"]
-  GETUPVAL R14 7
-  GETTABLE R13 R14 R7
-  ORK R12 R13 K19 ["Selected"]
-  SETTABLEKS R12 R11 K4 ["rowState"]
-  NEWCLOSURE R12 P0
-  CAPTURE UPVAL U8
-  CAPTURE VAL R7
-  SETTABLEKS R12 R11 K5 ["onRowStateChanged"]
-  CALL R9 2 1
-  SETTABLE R9 R0 R8
-  ADDK R1 R1 K9 [1]
-  FORGLOOP R2 2 [-44]
-  GETUPVAL R2 9
-  LOADNIL R3
-  LOADNIL R4
-  FORGPREP R2
-  GETTABLEKS R7 R6 K10 ["id"]
-  LOADK R9 K20 ["Bundle_"]
-  FASTCALL1 TOSTRING R7 [+3]
-  MOVE R11 R7
-  GETIMPORT R10 K13 [tostring]
-  CALL R10 1 1
-  CONCAT R8 R9 R10
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K1 ["createElement"]
-  GETUPVAL R10 10
-  DUPTABLE R11 K22 [{"LayoutOrder", "bundleId", "name", "creator", "price", "rowState", "onRowStateChanged"}]
-  SETTABLEKS R1 R11 K2 ["LayoutOrder"]
-  SETTABLEKS R7 R11 K21 ["bundleId"]
-  GETTABLEKS R12 R6 K15 ["name"]
-  SETTABLEKS R12 R11 K15 ["name"]
-  GETTABLEKS R12 R6 K16 ["creator"]
-  SETTABLEKS R12 R11 K16 ["creator"]
-  GETTABLEKS R12 R6 K17 ["price"]
-  SETTABLEKS R12 R11 K17 ["price"]
-  GETUPVAL R14 11
-  GETTABLE R13 R14 R7
-  ORK R12 R13 K19 ["Selected"]
-  SETTABLEKS R12 R11 K4 ["rowState"]
-  NEWCLOSURE R12 P1
-  CAPTURE UPVAL U12
-  CAPTURE VAL R7
-  SETTABLEKS R12 R11 K5 ["onRowStateChanged"]
-  CALL R9 2 1
-  SETTABLE R9 R0 R8
-  ADDK R1 R1 K9 [1]
-  FORGLOOP R2 2 [-44]
-  RETURN R0 1
-
-PROTO_10:
   GETUPVAL R1 0
   CALL R1 0 1
   JUMPIF R1 [+2]
@@ -187,200 +254,259 @@ PROTO_10:
   GETUPVAL R1 1
   NAMECALL R1 R1 K0 ["use"]
   CALL R1 1 1
-  NEWTABLE R2 0 2
-  DUPTABLE R3 K5 [{"id", "name", "creator", "price"}]
-  LOADN R4 1
-  SETTABLEKS R4 R3 K1 ["id"]
-  LOADK R4 K6 ["Cool Hat"]
-  SETTABLEKS R4 R3 K2 ["name"]
-  LOADK R4 K7 ["Roblox"]
-  SETTABLEKS R4 R3 K3 ["creator"]
-  LOADN R4 100
-  SETTABLEKS R4 R3 K4 ["price"]
-  DUPTABLE R4 K5 [{"id", "name", "creator", "price"}]
-  LOADN R5 2
-  SETTABLEKS R5 R4 K1 ["id"]
-  LOADK R5 K8 ["Fancy Shirt"]
-  SETTABLEKS R5 R4 K2 ["name"]
-  LOADK R5 K7 ["Roblox"]
-  SETTABLEKS R5 R4 K3 ["creator"]
-  LOADN R5 50
-  SETTABLEKS R5 R4 K4 ["price"]
-  SETLIST R2 R3 2 [1]
-  NEWTABLE R3 0 1
-  DUPTABLE R4 K5 [{"id", "name", "creator", "price"}]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["useContext"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K2 ["Context"]
+  CALL R2 1 1
+  GETTABLEKS R4 R0 K3 ["lookType"]
+  JUMPIFNOTEQKS R4 K4 ["AvatarLook"] [+32]
+  NEWTABLE R3 0 2
+  DUPTABLE R4 K9 [{"id", "name", "creator", "price"}]
   LOADN R5 1
-  SETTABLEKS R5 R4 K1 ["id"]
-  LOADK R5 K9 ["Avatar Bundle"]
-  SETTABLEKS R5 R4 K2 ["name"]
-  LOADK R5 K7 ["Roblox"]
-  SETTABLEKS R5 R4 K3 ["creator"]
-  LOADN R5 200
-  SETTABLEKS R5 R4 K4 ["price"]
-  SETLIST R3 R4 1 [1]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K10 ["useState"]
-  NEWCLOSURE R5 P0
+  SETTABLEKS R5 R4 K5 ["id"]
+  LOADK R5 K10 ["Cool Hat"]
+  SETTABLEKS R5 R4 K6 ["name"]
+  LOADK R5 K11 ["Roblox"]
+  SETTABLEKS R5 R4 K7 ["creator"]
+  LOADN R5 100
+  SETTABLEKS R5 R4 K8 ["price"]
+  DUPTABLE R5 K9 [{"id", "name", "creator", "price"}]
+  LOADN R6 2
+  SETTABLEKS R6 R5 K5 ["id"]
+  LOADK R6 K12 ["Fancy Shirt"]
+  SETTABLEKS R6 R5 K6 ["name"]
+  LOADK R6 K11 ["Roblox"]
+  SETTABLEKS R6 R5 K7 ["creator"]
+  LOADN R6 50
+  SETTABLEKS R6 R5 K8 ["price"]
+  SETLIST R3 R4 2 [1]
+  JUMP [+2]
+  NEWTABLE R3 0 0
+  GETTABLEKS R4 R0 K3 ["lookType"]
+  JUMPIFNOTEQKS R4 K13 ["MakeupLook"] [+86]
+  NEWTABLE R4 0 5
+  DUPTABLE R5 K15 [{"key", "id", "name", "creator", "price"}]
+  LOADK R6 K16 ["Eyebrows"]
+  SETTABLEKS R6 R5 K14 ["key"]
+  LOADK R6 K17 [109930885212036]
+  SETTABLEKS R6 R5 K5 ["id"]
+  LOADK R6 K16 ["Eyebrows"]
+  SETTABLEKS R6 R5 K6 ["name"]
+  LOADK R6 K11 ["Roblox"]
+  SETTABLEKS R6 R5 K7 ["creator"]
+  LOADN R6 0
+  SETTABLEKS R6 R5 K8 ["price"]
+  DUPTABLE R6 K15 [{"key", "id", "name", "creator", "price"}]
+  LOADK R7 K18 ["Eyelashes"]
+  SETTABLEKS R7 R6 K14 ["key"]
+  LOADK R7 K19 [104750665674049]
+  SETTABLEKS R7 R6 K5 ["id"]
+  LOADK R7 K18 ["Eyelashes"]
+  SETTABLEKS R7 R6 K6 ["name"]
+  LOADK R7 K11 ["Roblox"]
+  SETTABLEKS R7 R6 K7 ["creator"]
+  LOADN R7 0
+  SETTABLEKS R7 R6 K8 ["price"]
+  DUPTABLE R7 K15 [{"key", "id", "name", "creator", "price"}]
+  LOADK R8 K20 ["Eyes"]
+  SETTABLEKS R8 R7 K14 ["key"]
+  LOADK R8 K21 [83541791592645]
+  SETTABLEKS R8 R7 K5 ["id"]
+  LOADK R8 K20 ["Eyes"]
+  SETTABLEKS R8 R7 K6 ["name"]
+  LOADK R8 K11 ["Roblox"]
+  SETTABLEKS R8 R7 K7 ["creator"]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K8 ["price"]
+  DUPTABLE R8 K15 [{"key", "id", "name", "creator", "price"}]
+  LOADK R9 K22 ["Lips"]
+  SETTABLEKS R9 R8 K14 ["key"]
+  LOADK R9 K23 [74103051439437]
+  SETTABLEKS R9 R8 K5 ["id"]
+  LOADK R9 K22 ["Lips"]
+  SETTABLEKS R9 R8 K6 ["name"]
+  LOADK R9 K11 ["Roblox"]
+  SETTABLEKS R9 R8 K7 ["creator"]
+  LOADN R9 0
+  SETTABLEKS R9 R8 K8 ["price"]
+  DUPTABLE R9 K15 [{"key", "id", "name", "creator", "price"}]
+  LOADK R10 K24 ["FaceMakeup"]
+  SETTABLEKS R10 R9 K14 ["key"]
+  LOADK R10 K25 [117610411638303]
+  SETTABLEKS R10 R9 K5 ["id"]
+  LOADK R10 K26 ["Face Makeup"]
+  SETTABLEKS R10 R9 K6 ["name"]
+  LOADK R10 K11 ["Roblox"]
+  SETTABLEKS R10 R9 K7 ["creator"]
+  LOADN R10 0
+  SETTABLEKS R10 R9 K8 ["price"]
+  SETLIST R4 R5 5 [1]
+  MOVE R3 R4
+  NEWTABLE R4 0 1
+  DUPTABLE R5 K9 [{"id", "name", "creator", "price"}]
+  LOADN R6 1
+  SETTABLEKS R6 R5 K5 ["id"]
+  LOADK R6 K27 ["Avatar Bundle"]
+  SETTABLEKS R6 R5 K6 ["name"]
+  LOADK R6 K11 ["Roblox"]
+  SETTABLEKS R6 R5 K7 ["creator"]
+  LOADN R6 200
+  SETTABLEKS R6 R5 K8 ["price"]
+  SETLIST R4 R5 1 [1]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K28 ["useEffect"]
+  NEWCLOSURE R6 P0
   CAPTURE VAL R2
-  CALL R4 1 2
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K10 ["useState"]
-  NEWCLOSURE R7 P1
-  CAPTURE VAL R3
-  CALL R6 1 2
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K10 ["useState"]
-  LOADK R9 K11 ["Selected"]
-  CALL R8 1 2
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K12 ["useCallback"]
-  NEWCLOSURE R11 P2
-  CAPTURE VAL R5
-  NEWTABLE R12 0 0
-  CALL R10 2 1
-  GETUPVAL R12 2
-  GETTABLEKS R11 R12 K12 ["useCallback"]
-  NEWCLOSURE R12 P3
-  CAPTURE VAL R7
-  NEWTABLE R13 0 0
-  CALL R11 2 1
-  GETUPVAL R13 2
-  GETTABLEKS R12 R13 K13 ["useMemo"]
-  NEWCLOSURE R13 P4
-  CAPTURE VAL R2
-  CAPTURE VAL R3
   CAPTURE VAL R0
-  NEWTABLE R14 0 3
-  MOVE R15 R2
-  MOVE R16 R3
-  GETTABLEKS R17 R0 K14 ["isAvatarLook"]
-  SETLIST R14 R15 3 [1]
-  CALL R12 2 1
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K13 ["useMemo"]
-  NEWCLOSURE R14 P5
+  CAPTURE REF R3
+  CAPTURE VAL R4
+  NEWTABLE R7 0 6
+  MOVE R8 R3
+  MOVE R9 R4
+  GETTABLEKS R10 R0 K3 ["lookType"]
+  GETTABLEKS R11 R0 K29 ["skinColor"]
+  GETTABLEKS R12 R2 K30 ["itemsList"]
+  GETTABLEKS R13 R2 K31 ["setItemsList"]
+  SETLIST R7 R8 6 [1]
+  CALL R5 2 0
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K32 ["useMemo"]
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  NEWTABLE R7 0 2
+  GETTABLEKS R8 R2 K30 ["itemsList"]
+  GETTABLEKS R9 R0 K3 ["lookType"]
+  SETLIST R7 R8 2 [1]
+  CALL R5 2 1
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K28 ["useEffect"]
+  NEWCLOSURE R7 P2
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  NEWTABLE R8 0 3
+  MOVE R9 R5
+  GETTABLEKS R10 R2 K33 ["dialogItems"]
+  GETTABLEKS R11 R2 K34 ["setDialogItems"]
+  SETLIST R8 R9 3 [1]
+  CALL R6 2 0
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K32 ["useMemo"]
+  NEWCLOSURE R7 P3
+  CAPTURE VAL R2
   CAPTURE VAL R0
   CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  CAPTURE VAL R8
-  CAPTURE VAL R9
-  CAPTURE VAL R2
-  CAPTURE UPVAL U4
-  CAPTURE VAL R4
-  CAPTURE VAL R10
-  CAPTURE VAL R3
-  CAPTURE UPVAL U5
-  CAPTURE VAL R6
-  CAPTURE VAL R11
-  NEWTABLE R15 0 10
-  MOVE R16 R2
-  MOVE R17 R3
-  GETTABLEKS R18 R0 K14 ["isAvatarLook"]
-  GETTABLEKS R19 R0 K15 ["skinColor"]
-  MOVE R20 R8
-  MOVE R21 R4
-  MOVE R22 R6
-  MOVE R23 R10
-  MOVE R24 R11
-  MOVE R25 R9
-  SETLIST R15 R16 10 [1]
-  CALL R13 2 1
-  GETUPVAL R15 2
-  GETTABLEKS R14 R15 K16 ["createElement"]
-  GETUPVAL R15 6
-  DUPTABLE R16 K19 [{"tag", "LayoutOrder"}]
-  LOADK R17 K20 ["col gap-medium size-full-0 auto-y"]
-  SETTABLEKS R17 R16 K17 ["tag"]
-  GETTABLEKS R17 R0 K18 ["LayoutOrder"]
-  SETTABLEKS R17 R16 K18 ["LayoutOrder"]
-  DUPTABLE R17 K24 [{"DividerContainer", "Header", "ItemsList"}]
-  GETUPVAL R19 2
-  GETTABLEKS R18 R19 K16 ["createElement"]
-  GETUPVAL R19 6
-  DUPTABLE R20 K19 [{"tag", "LayoutOrder"}]
-  LOADK R21 K25 ["size-full-0 auto-y padding-bottom-medium"]
-  SETTABLEKS R21 R20 K17 ["tag"]
-  LOADN R21 1
-  SETTABLEKS R21 R20 K18 ["LayoutOrder"]
-  DUPTABLE R21 K27 [{"Divider"}]
-  GETUPVAL R23 2
-  GETTABLEKS R22 R23 K16 ["createElement"]
-  GETUPVAL R23 7
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
+  NEWTABLE R8 0 4
+  GETTABLEKS R9 R2 K30 ["itemsList"]
+  GETTABLEKS R10 R0 K3 ["lookType"]
+  GETTABLEKS R11 R0 K29 ["skinColor"]
+  GETTABLEKS R12 R2 K35 ["toggleItem"]
+  SETLIST R8 R9 4 [1]
+  CALL R6 2 1
+  GETUPVAL R8 2
+  GETTABLEKS R7 R8 K36 ["createElement"]
+  GETUPVAL R8 9
+  DUPTABLE R9 K39 [{"tag", "LayoutOrder"}]
+  LOADK R10 K40 ["col gap-medium size-full-0 auto-y"]
+  SETTABLEKS R10 R9 K37 ["tag"]
+  GETTABLEKS R10 R0 K38 ["LayoutOrder"]
+  SETTABLEKS R10 R9 K38 ["LayoutOrder"]
+  DUPTABLE R10 K44 [{"DividerContainer", "Header", "ItemsList"}]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K36 ["createElement"]
+  GETUPVAL R12 9
+  DUPTABLE R13 K39 [{"tag", "LayoutOrder"}]
+  LOADK R14 K45 ["size-full-0 auto-y padding-bottom-medium"]
+  SETTABLEKS R14 R13 K37 ["tag"]
+  LOADN R14 1
+  SETTABLEKS R14 R13 K38 ["LayoutOrder"]
+  DUPTABLE R14 K47 [{"Divider"}]
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K36 ["createElement"]
+  GETUPVAL R16 10
+  CALL R15 1 1
+  SETTABLEKS R15 R14 K46 ["Divider"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K41 ["DividerContainer"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K36 ["createElement"]
+  GETUPVAL R12 9
+  DUPTABLE R13 K39 [{"tag", "LayoutOrder"}]
+  LOADK R14 K48 ["row size-full-0 auto-y align-y-center"]
+  SETTABLEKS R14 R13 K37 ["tag"]
+  LOADN R14 2
+  SETTABLEKS R14 R13 K38 ["LayoutOrder"]
+  DUPTABLE R14 K52 [{"Title", "Spacer", "ItemCount"}]
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K36 ["createElement"]
+  GETUPVAL R16 11
+  DUPTABLE R17 K54 [{"Text", "tag", "LayoutOrder"}]
+  LOADK R20 K55 ["LookComposerDialog"]
+  LOADK R21 K56 ["LookDetails"]
+  NAMECALL R18 R1 K57 ["getText"]
+  CALL R18 3 1
+  SETTABLEKS R18 R17 K53 ["Text"]
+  LOADK R18 K58 ["text-label-large auto-xy content-default"]
+  SETTABLEKS R18 R17 K37 ["tag"]
+  LOADN R18 1
+  SETTABLEKS R18 R17 K38 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K49 ["Title"]
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K36 ["createElement"]
+  GETUPVAL R16 9
+  DUPTABLE R17 K39 [{"tag", "LayoutOrder"}]
+  LOADK R18 K59 ["grow"]
+  SETTABLEKS R18 R17 K37 ["tag"]
+  LOADN R18 2
+  SETTABLEKS R18 R17 K38 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K50 ["Spacer"]
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K36 ["createElement"]
+  GETUPVAL R16 11
+  DUPTABLE R17 K54 [{"Text", "tag", "LayoutOrder"}]
+  GETTABLEKS R24 R2 K30 ["itemsList"]
+  LENGTH R23 R24
+  FASTCALL1 TOSTRING R23 [+2]
+  GETIMPORT R22 K61 [tostring]
   CALL R22 1 1
-  SETTABLEKS R22 R21 K26 ["Divider"]
-  CALL R18 3 1
-  SETTABLEKS R18 R17 K21 ["DividerContainer"]
-  GETUPVAL R19 2
-  GETTABLEKS R18 R19 K16 ["createElement"]
-  GETUPVAL R19 6
-  DUPTABLE R20 K19 [{"tag", "LayoutOrder"}]
-  LOADK R21 K28 ["row size-full-0 auto-y align-y-center"]
-  SETTABLEKS R21 R20 K17 ["tag"]
-  LOADN R21 2
-  SETTABLEKS R21 R20 K18 ["LayoutOrder"]
-  DUPTABLE R21 K32 [{"Title", "Spacer", "ItemCount"}]
-  GETUPVAL R23 2
-  GETTABLEKS R22 R23 K16 ["createElement"]
-  GETUPVAL R23 8
-  DUPTABLE R24 K34 [{"Text", "tag", "LayoutOrder"}]
-  LOADK R27 K35 ["LookComposerDialog"]
-  LOADK R28 K36 ["LookDetails"]
-  NAMECALL R25 R1 K37 ["getText"]
-  CALL R25 3 1
-  SETTABLEKS R25 R24 K33 ["Text"]
-  LOADK R25 K38 ["text-label-large auto-xy content-default"]
-  SETTABLEKS R25 R24 K17 ["tag"]
-  LOADN R25 1
-  SETTABLEKS R25 R24 K18 ["LayoutOrder"]
-  CALL R22 2 1
-  SETTABLEKS R22 R21 K29 ["Title"]
-  GETUPVAL R23 2
-  GETTABLEKS R22 R23 K16 ["createElement"]
-  GETUPVAL R23 6
-  DUPTABLE R24 K19 [{"tag", "LayoutOrder"}]
-  LOADK R25 K39 ["grow"]
-  SETTABLEKS R25 R24 K17 ["tag"]
-  LOADN R25 2
-  SETTABLEKS R25 R24 K18 ["LayoutOrder"]
-  CALL R22 2 1
-  SETTABLEKS R22 R21 K30 ["Spacer"]
-  GETUPVAL R23 2
-  GETTABLEKS R22 R23 K16 ["createElement"]
-  GETUPVAL R23 8
-  DUPTABLE R24 K34 [{"Text", "tag", "LayoutOrder"}]
-  FASTCALL1 TOSTRING R12 [+3]
-  MOVE R30 R12
-  GETIMPORT R29 K41 [tostring]
-  CALL R29 1 1
-  MOVE R26 R29
-  LOADK R27 K42 [" "]
-  LOADK R30 K35 ["LookComposerDialog"]
-  LOADK R31 K43 ["Items"]
-  NAMECALL R28 R1 K37 ["getText"]
-  CALL R28 3 1
-  CONCAT R25 R26 R28
-  SETTABLEKS R25 R24 K33 ["Text"]
-  LOADK R25 K44 ["text-body-medium auto-xy content-muted"]
-  SETTABLEKS R25 R24 K17 ["tag"]
-  LOADN R25 3
-  SETTABLEKS R25 R24 K18 ["LayoutOrder"]
-  CALL R22 2 1
-  SETTABLEKS R22 R21 K31 ["ItemCount"]
-  CALL R18 3 1
-  SETTABLEKS R18 R17 K22 ["Header"]
-  GETUPVAL R19 2
-  GETTABLEKS R18 R19 K16 ["createElement"]
-  GETUPVAL R19 6
-  DUPTABLE R20 K19 [{"tag", "LayoutOrder"}]
-  LOADK R21 K45 ["col gap-small size-full-0 auto-y padding-top-medium"]
-  SETTABLEKS R21 R20 K17 ["tag"]
-  LOADN R21 3
-  SETTABLEKS R21 R20 K18 ["LayoutOrder"]
-  MOVE R21 R13
-  CALL R18 3 1
-  SETTABLEKS R18 R17 K23 ["ItemsList"]
-  CALL R14 3 -1
-  RETURN R14 -1
+  MOVE R19 R22
+  LOADK R20 K62 [" "]
+  LOADK R23 K55 ["LookComposerDialog"]
+  LOADK R24 K63 ["Items"]
+  NAMECALL R21 R1 K57 ["getText"]
+  CALL R21 3 1
+  CONCAT R18 R19 R21
+  SETTABLEKS R18 R17 K53 ["Text"]
+  LOADK R18 K64 ["text-body-medium auto-xy content-muted"]
+  SETTABLEKS R18 R17 K37 ["tag"]
+  LOADN R18 3
+  SETTABLEKS R18 R17 K38 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K51 ["ItemCount"]
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K42 ["Header"]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K36 ["createElement"]
+  GETUPVAL R12 9
+  DUPTABLE R13 K39 [{"tag", "LayoutOrder"}]
+  LOADK R14 K65 ["col gap-small size-full-0 auto-y padding-top-medium"]
+  SETTABLEKS R14 R13 K37 ["tag"]
+  LOADN R14 3
+  SETTABLEKS R14 R13 K38 ["LayoutOrder"]
+  MOVE R14 R6
+  CALL R11 3 1
+  SETTABLEKS R11 R10 K43 ["ItemsList"]
+  CALL R7 3 -1
+  CLOSEUPVALS R3
+  RETURN R7 -1
 
 MAIN:
   PREPVARARGS 0
@@ -411,33 +537,55 @@ MAIN:
   GETTABLEKS R9 R10 K17 ["getFFlagAvatarPreviewerLookComposer"]
   CALL R8 1 1
   GETIMPORT R9 K5 [require]
-  GETIMPORT R12 K1 [script]
-  GETTABLEKS R11 R12 K18 ["Parent"]
-  GETTABLEKS R10 R11 K19 ["Types"]
+  GETTABLEKS R12 R0 K15 ["Src"]
+  GETTABLEKS R11 R12 K18 ["Util"]
+  GETTABLEKS R10 R11 K19 ["Constants"]
   CALL R9 1 1
   GETIMPORT R10 K5 [require]
-  GETIMPORT R13 K1 [script]
-  GETTABLEKS R12 R13 K18 ["Parent"]
-  GETTABLEKS R11 R12 K20 ["AssetRow"]
+  GETTABLEKS R12 R0 K15 ["Src"]
+  GETTABLEKS R11 R12 K20 ["Types"]
   CALL R10 1 1
   GETIMPORT R11 K5 [require]
   GETIMPORT R14 K1 [script]
-  GETTABLEKS R13 R14 K18 ["Parent"]
-  GETTABLEKS R12 R13 K21 ["BundleRow"]
+  GETTABLEKS R13 R14 K21 ["Parent"]
+  GETTABLEKS R12 R13 K20 ["Types"]
   CALL R11 1 1
   GETIMPORT R12 K5 [require]
-  GETIMPORT R15 K1 [script]
-  GETTABLEKS R14 R15 K18 ["Parent"]
-  GETTABLEKS R13 R14 K22 ["BodyColorRow"]
+  GETTABLEKS R15 R0 K15 ["Src"]
+  GETTABLEKS R14 R15 K18 ["Util"]
+  GETTABLEKS R13 R14 K22 ["getPaletteFromKey"]
   CALL R12 1 1
-  DUPCLOSURE R13 K23 [PROTO_10]
+  GETIMPORT R13 K5 [require]
+  GETTABLEKS R16 R0 K15 ["Src"]
+  GETTABLEKS R15 R16 K23 ["Components"]
+  GETTABLEKS R14 R15 K24 ["LookContext"]
+  CALL R13 1 1
+  GETIMPORT R14 K5 [require]
+  GETIMPORT R17 K1 [script]
+  GETTABLEKS R16 R17 K21 ["Parent"]
+  GETTABLEKS R15 R16 K25 ["AssetRow"]
+  CALL R14 1 1
+  GETIMPORT R15 K5 [require]
+  GETIMPORT R18 K1 [script]
+  GETTABLEKS R17 R18 K21 ["Parent"]
+  GETTABLEKS R16 R17 K26 ["BundleRow"]
+  CALL R15 1 1
+  GETIMPORT R16 K5 [require]
+  GETIMPORT R19 K1 [script]
+  GETTABLEKS R18 R19 K21 ["Parent"]
+  GETTABLEKS R17 R18 K27 ["BodyColorRow"]
+  CALL R16 1 1
+  DUPCLOSURE R17 K28 [PROTO_7]
   CAPTURE VAL R8
   CAPTURE VAL R7
   CAPTURE VAL R1
+  CAPTURE VAL R13
   CAPTURE VAL R12
-  CAPTURE VAL R10
-  CAPTURE VAL R11
+  CAPTURE VAL R9
+  CAPTURE VAL R16
+  CAPTURE VAL R14
+  CAPTURE VAL R15
   CAPTURE VAL R3
   CAPTURE VAL R5
   CAPTURE VAL R4
-  RETURN R13 1
+  RETURN R17 1

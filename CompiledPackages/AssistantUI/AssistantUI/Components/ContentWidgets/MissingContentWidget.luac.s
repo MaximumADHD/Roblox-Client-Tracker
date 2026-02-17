@@ -1,0 +1,123 @@
+PROTO_0:
+  DUPTABLE R0 K1 [{"Title"}]
+  GETUPVAL R1 0
+  LOADK R3 K2 ["Missing"]
+  LOADK R4 K0 ["Title"]
+  DUPTABLE R5 K4 [{"name"}]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["type"]
+  SETTABLEKS R6 R5 K3 ["name"]
+  NAMECALL R1 R1 K6 ["getText"]
+  CALL R1 4 1
+  SETTABLEKS R1 R0 K0 ["Title"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Hooks"]
+  GETTABLEKS R1 R2 K1 ["useTokens"]
+  CALL R1 0 1
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K2 ["useMemo"]
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  NEWTABLE R4 0 2
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K3 ["locale"]
+  GETTABLEKS R6 R0 K4 ["type"]
+  SETLIST R4 R5 2 [1]
+  CALL R2 2 1
+  GETUPVAL R3 3
+  CALL R3 0 1
+  GETUPVAL R4 4
+  GETUPVAL R5 5
+  DUPTABLE R6 K7 [{"tag", "LayoutOrder"}]
+  LOADK R7 K8 ["row size-full-600 gap-small radius-medium align-y-center padding-y-xxsmall"]
+  SETTABLEKS R7 R6 K5 ["tag"]
+  GETTABLEKS R7 R0 K6 ["LayoutOrder"]
+  SETTABLEKS R7 R6 K6 ["LayoutOrder"]
+  DUPTABLE R7 K11 [{"Icon", "Text"}]
+  GETUPVAL R8 4
+  GETUPVAL R9 6
+  DUPTABLE R10 K15 [{"name", "size", "style", "LayoutOrder"}]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K16 ["Enums"]
+  GETTABLEKS R12 R13 K17 ["IconName"]
+  GETTABLEKS R11 R12 K18 ["TriangleExclamation"]
+  SETTABLEKS R11 R10 K12 ["name"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K16 ["Enums"]
+  GETTABLEKS R12 R13 K19 ["IconSize"]
+  GETTABLEKS R11 R12 K20 ["Medium"]
+  SETTABLEKS R11 R10 K13 ["size"]
+  GETTABLEKS R13 R1 K21 ["Color"]
+  GETTABLEKS R12 R13 K22 ["System"]
+  GETTABLEKS R11 R12 K23 ["Warning"]
+  SETTABLEKS R11 R10 K14 ["style"]
+  MOVE R11 R3
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K6 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K9 ["Icon"]
+  GETUPVAL R8 4
+  GETUPVAL R9 7
+  DUPTABLE R10 K24 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R11 K25 ["fill size-0-full text-label-small content-system-warning text-truncate-split text-align-x-left text-align-y-center"]
+  SETTABLEKS R11 R10 K5 ["tag"]
+  GETTABLEKS R11 R2 K26 ["Title"]
+  SETTABLEKS R11 R10 K10 ["Text"]
+  MOVE R11 R3
+  CALL R11 0 1
+  SETTABLEKS R11 R10 K6 ["LayoutOrder"]
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K10 ["Text"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K6 ["Parent"]
+  GETTABLEKS R4 R5 K9 ["ReactUtils"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R7 R0 K10 ["Resources"]
+  GETTABLEKS R6 R7 K11 ["Localization"]
+  GETTABLEKS R5 R6 K12 ["Translator"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R6 R0 K13 ["Types"]
+  CALL R5 1 1
+  GETTABLEKS R6 R1 K14 ["Icon"]
+  GETTABLEKS R7 R1 K15 ["Text"]
+  GETTABLEKS R8 R1 K16 ["View"]
+  GETTABLEKS R9 R3 K17 ["createNextOrder"]
+  GETTABLEKS R10 R2 K18 ["createElement"]
+  DUPCLOSURE R11 K19 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  DUPTABLE R12 K21 [{"ContentWidget"}]
+  GETTABLEKS R13 R2 K22 ["memo"]
+  MOVE R14 R11
+  CALL R13 1 1
+  SETTABLEKS R13 R12 K20 ["ContentWidget"]
+  RETURN R12 1

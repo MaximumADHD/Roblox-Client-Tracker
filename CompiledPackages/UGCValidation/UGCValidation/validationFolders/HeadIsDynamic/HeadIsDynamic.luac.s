@@ -1,0 +1,153 @@
+PROTO_0:
+  GETTABLEKS R4 R1 K0 ["aqsSummaryData"]
+  GETTABLEKS R3 R4 K1 ["Measure_Dynamic_Head"]
+  GETTABLEKS R2 R3 K2 ["Head"]
+  GETUPVAL R3 0
+  CALL R3 0 1
+  JUMPIFNOT R3 [+35]
+  JUMPIFNOTEQKNIL R2 [+10]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K3 ["Keys"]
+  GETTABLEKS R5 R6 K4 ["AQSInputDataError"]
+  NAMECALL R3 R0 K5 ["fail"]
+  CALL R3 2 0
+  RETURN R0 0
+  GETUPVAL R3 2
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETTABLE R8 R2 R6
+  JUMPIFEQKNIL R8 [+15]
+  GETTABLE R9 R2 R6
+  FASTCALL1 TONUMBER R9 [+2]
+  GETIMPORT R8 K7 [tonumber]
+  CALL R8 1 1
+  GETUPVAL R10 3
+  CALL R10 0 1
+  DIVK R9 R10 K8 [100]
+  JUMPIFNOTLE R8 R9 [+5]
+  MOVE R10 R7
+  NAMECALL R8 R0 K5 ["fail"]
+  CALL R8 2 0
+  FORGLOOP R3 2 [-18]
+  RETURN R0 0
+  MOVE R3 R2
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  FASTCALL1 TONUMBER R7 [+3]
+  MOVE R9 R7
+  GETIMPORT R8 K7 [tonumber]
+  CALL R8 1 1
+  GETUPVAL R10 3
+  CALL R10 0 1
+  DIVK R9 R10 K8 [100]
+  JUMPIFNOTLT R8 R9 [+10]
+  GETUPVAL R12 1
+  GETTABLEKS R11 R12 K3 ["Keys"]
+  GETTABLEKS R10 R11 K9 ["HeadNotDynamic"]
+  NAMECALL R8 R0 K5 ["fail"]
+  CALL R8 2 0
+  RETURN R0 0
+  FORGLOOP R3 2 [-20]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R3 K1 [script]
+  GETTABLEKS R2 R3 K2 ["Parent"]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R3 R0 K5 ["util"]
+  GETTABLEKS R2 R3 K6 ["Types"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R4 R0 K7 ["validationSystem"]
+  GETTABLEKS R3 R4 K8 ["ValidationEnums"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["validationSystem"]
+  GETTABLEKS R4 R5 K9 ["ErrorSourceStrings"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K10 ["flags"]
+  GETTABLEKS R5 R6 K11 ["getFIntUGCValidationDynamicHeadMinimumQualityPercent"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K10 ["flags"]
+  GETTABLEKS R6 R7 K12 ["getFFlagUGCValidationUpdateHeadIsDynamic"]
+  CALL R5 1 1
+  NEWTABLE R6 8 0
+  NEWTABLE R7 0 1
+  GETTABLEKS R9 R2 K13 ["UploadCategory"]
+  GETTABLEKS R8 R9 K14 ["DYNAMIC_HEAD"]
+  SETLIST R7 R8 1 [1]
+  SETTABLEKS R7 R6 K15 ["categories"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K10 ["flags"]
+  GETTABLEKS R8 R9 K16 ["getFFlagUGCValidateIsDynamicHead"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K17 ["fflag"]
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K10 ["flags"]
+  GETTABLEKS R8 R9 K18 ["getFFlagUGCValidationShadowIsDynamicHead"]
+  CALL R7 1 1
+  SETTABLEKS R7 R6 K19 ["shadowFlag"]
+  DUPTABLE R7 K21 [{"Measure_Dynamic_Head"}]
+  DUPTABLE R8 K23 [{"Head"}]
+  NEWTABLE R9 0 5
+  LOADK R10 K24 ["left_eye_close"]
+  LOADK R11 K25 ["right_eye_close"]
+  LOADK R12 K26 ["mouth_open"]
+  LOADK R13 K27 ["is_happy"]
+  LOADK R14 K28 ["is_sad"]
+  SETLIST R9 R10 5 [1]
+  SETTABLEKS R9 R8 K22 ["Head"]
+  SETTABLEKS R8 R7 K20 ["Measure_Dynamic_Head"]
+  SETTABLEKS R7 R6 K29 ["expectedAqsData"]
+  NEWTABLE R7 0 0
+  SETTABLEKS R7 R6 K30 ["knownAqsUserErrors"]
+  MOVE R7 R5
+  CALL R7 0 1
+  JUMPIFNOT R7 [+22]
+  DUPTABLE R7 K34 [{"INVALID_LANDMARKS", "NO_FACS", "MISSING_CAGE_INFO"}]
+  GETTABLEKS R9 R3 K35 ["Keys"]
+  GETTABLEKS R8 R9 K36 ["DynamicHeadCageMisaligned"]
+  SETTABLEKS R8 R7 K31 ["INVALID_LANDMARKS"]
+  GETTABLEKS R9 R3 K35 ["Keys"]
+  GETTABLEKS R8 R9 K37 ["DynamicHeadNOFACS"]
+  SETTABLEKS R8 R7 K32 ["NO_FACS"]
+  GETTABLEKS R9 R3 K35 ["Keys"]
+  GETTABLEKS R8 R9 K38 ["DynamicHeadMISSINGCAGE"]
+  SETTABLEKS R8 R7 K33 ["MISSING_CAGE_INFO"]
+  SETTABLEKS R7 R6 K30 ["knownAqsUserErrors"]
+  JUMP [+9]
+  DUPTABLE R7 K39 [{"INVALID_LANDMARKS"}]
+  GETTABLEKS R9 R3 K35 ["Keys"]
+  GETTABLEKS R8 R9 K36 ["DynamicHeadCageMisaligned"]
+  SETTABLEKS R8 R7 K31 ["INVALID_LANDMARKS"]
+  SETTABLEKS R7 R6 K30 ["knownAqsUserErrors"]
+  DUPTABLE R7 K40 [{"left_eye_close", "right_eye_close", "mouth_open", "is_happy", "is_sad"}]
+  GETTABLEKS R9 R3 K35 ["Keys"]
+  GETTABLEKS R8 R9 K41 ["DynamicHeadLeftEyeNotClose"]
+  SETTABLEKS R8 R7 K24 ["left_eye_close"]
+  GETTABLEKS R9 R3 K35 ["Keys"]
+  GETTABLEKS R8 R9 K42 ["DynamicHeadRightEyeNotClose"]
+  SETTABLEKS R8 R7 K25 ["right_eye_close"]
+  GETTABLEKS R9 R3 K35 ["Keys"]
+  GETTABLEKS R8 R9 K43 ["DynamicHeadMouthNotOpen"]
+  SETTABLEKS R8 R7 K26 ["mouth_open"]
+  GETTABLEKS R9 R3 K35 ["Keys"]
+  GETTABLEKS R8 R9 K44 ["DynamicHeadHappyNotShown"]
+  SETTABLEKS R8 R7 K27 ["is_happy"]
+  GETTABLEKS R9 R3 K35 ["Keys"]
+  GETTABLEKS R8 R9 K45 ["DynamicHeadSadNotShown"]
+  SETTABLEKS R8 R7 K28 ["is_sad"]
+  DUPCLOSURE R8 K46 [PROTO_0]
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  SETTABLEKS R8 R6 K47 ["run"]
+  RETURN R6 1

@@ -8,8 +8,9 @@ game:DefineFastFlag("EnableInGameMenuChrome", false)
 local FFlagDebugEnableChromeOnUnsupportedDevices = game:DefineFastFlag("DebugEnableChromeOnUnsupportedDevices", false)
 
 local VRService = game:GetService("VRService")
-local RobloxGui = game:GetService("CoreGui"):WaitForChild("RobloxGui")
-local isTenFootInterface = require(RobloxGui.Modules.TenFootInterface):IsEnabled()
+local GuiService = game:GetService("GuiService")
+-- selene: allow(denylist_filter)
+local isTenFootInterface = GuiService:IsTenFootInterface()
 local isInExperienceUIVREnabled =
 	require(CorePackages.Workspace.Packages.SharedExperimentDefinition).isInExperienceUIVREnabled
 

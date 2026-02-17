@@ -1,0 +1,52 @@
+PROTO_0:
+  GETIMPORT R0 K2 [Instance.new]
+  LOADK R1 K3 ["LocalizationTable"]
+  CALL R0 1 1
+  NEWTABLE R3 0 1
+  DUPTABLE R4 K7 [{"Key", "Source", "Values"}]
+  LOADK R5 K8 ["translatedNumber"]
+  SETTABLEKS R5 R4 K4 ["Key"]
+  LOADK R5 K9 ["{1:num}"]
+  SETTABLEKS R5 R4 K5 ["Source"]
+  NEWTABLE R5 1 0
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K10 ["RobloxLocaleId"]
+  LOADK R7 K9 ["{1:num}"]
+  SETTABLE R7 R5 R6
+  SETTABLEKS R5 R4 K6 ["Values"]
+  SETLIST R3 R4 1 [1]
+  NAMECALL R1 R0 K11 ["SetEntries"]
+  CALL R1 2 0
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["RobloxLocaleId"]
+  NAMECALL R1 R1 K1 ["GetTranslator"]
+  CALL R1 2 1
+  LOADK R3 K2 ["translatedNumber"]
+  NEWTABLE R4 0 1
+  MOVE R5 R0
+  SETLIST R4 R5 1 [1]
+  NAMECALL R1 R1 K3 ["FormatByKey"]
+  CALL R1 3 1
+  LOADN R3 1
+  LOADN R4 252
+  NAMECALL R1 R1 K4 ["sub"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["LocalizationService"]
+  NAMECALL R0 R0 K3 ["GetService"]
+  CALL R0 2 1
+  DUPCLOSURE R1 K4 [PROTO_0]
+  CAPTURE VAL R0
+  DUPCLOSURE R2 K5 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  RETURN R2 1

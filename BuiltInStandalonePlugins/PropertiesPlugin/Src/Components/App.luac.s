@@ -1,123 +1,137 @@
 PROTO_0:
   GETUPVAL R1 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["ContextStack"]
-  DUPTABLE R3 K2 [{"providers"}]
-  NEWTABLE R4 0 7
-  GETUPVAL R5 0
-  GETUPVAL R6 2
-  DUPTABLE R7 K5 [{"plugin", "dockWidget"}]
-  GETTABLEKS R8 R0 K3 ["plugin"]
-  SETTABLEKS R8 R7 K3 ["plugin"]
-  GETTABLEKS R8 R0 K4 ["dockWidget"]
-  SETTABLEKS R8 R7 K4 ["dockWidget"]
-  CALL R5 2 1
-  GETUPVAL R6 0
-  GETUPVAL R7 3
-  CALL R6 1 1
-  GETUPVAL R7 0
-  GETUPVAL R8 4
-  DUPTABLE R9 K6 [{"plugin"}]
-  GETTABLEKS R10 R0 K3 ["plugin"]
-  SETTABLEKS R10 R9 K3 ["plugin"]
+  CALL R1 0 1
+  GETUPVAL R2 1
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K0 ["ContextStack"]
+  DUPTABLE R4 K2 [{"providers"}]
+  NEWTABLE R5 0 7
+  GETUPVAL R6 1
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K3 ["StudioProvider"]
+  DUPTABLE R8 K7 [{"plugin", "theme", "studioService"}]
+  GETTABLEKS R9 R0 K4 ["plugin"]
+  SETTABLEKS R9 R8 K4 ["plugin"]
+  SETTABLEKS R1 R8 K5 ["theme"]
+  GETUPVAL R9 4
+  SETTABLEKS R9 R8 K6 ["studioService"]
+  CALL R6 2 1
+  GETUPVAL R7 1
+  GETUPVAL R8 5
+  DUPTABLE R9 K9 [{"plugin", "dockWidget"}]
+  GETTABLEKS R10 R0 K4 ["plugin"]
+  SETTABLEKS R10 R9 K4 ["plugin"]
+  GETTABLEKS R10 R0 K8 ["dockWidget"]
+  SETTABLEKS R10 R9 K8 ["dockWidget"]
   CALL R7 2 1
-  GETUPVAL R8 0
-  GETUPVAL R9 5
+  GETUPVAL R8 1
+  GETUPVAL R9 6
   CALL R8 1 1
-  GETUPVAL R9 0
-  GETUPVAL R10 6
-  CALL R9 1 1
-  GETUPVAL R10 0
-  GETUPVAL R11 7
+  GETUPVAL R9 1
+  GETUPVAL R10 7
+  DUPTABLE R11 K10 [{"plugin"}]
+  GETTABLEKS R12 R0 K4 ["plugin"]
+  SETTABLEKS R12 R11 K4 ["plugin"]
+  CALL R9 2 1
+  GETUPVAL R10 1
+  GETUPVAL R11 8
   CALL R10 1 1
-  GETUPVAL R11 0
-  GETUPVAL R12 8
-  CALL R11 1 -1
-  SETLIST R4 R5 -1 [1]
-  SETTABLEKS R4 R3 K1 ["providers"]
-  DUPTABLE R4 K8 [{"MainView"}]
-  GETUPVAL R5 0
-  GETUPVAL R8 9
-  GETTABLEKS R7 R8 K9 ["Components"]
-  GETTABLEKS R6 R7 K7 ["MainView"]
-  DUPTABLE R7 K11 [{"overlayGui"}]
-  GETTABLEKS R8 R0 K4 ["dockWidget"]
-  SETTABLEKS R8 R7 K10 ["overlayGui"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K7 ["MainView"]
-  CALL R1 3 -1
-  RETURN R1 -1
+  GETUPVAL R11 1
+  GETUPVAL R12 9
+  DUPTABLE R13 K11 [{"theme"}]
+  SETTABLEKS R1 R13 K5 ["theme"]
+  CALL R11 2 1
+  GETUPVAL R12 1
+  GETUPVAL R13 10
+  CALL R12 1 -1
+  SETLIST R5 R6 -1 [1]
+  SETTABLEKS R5 R4 K1 ["providers"]
+  DUPTABLE R5 K13 [{"MainView"}]
+  GETUPVAL R6 1
+  GETUPVAL R9 11
+  GETTABLEKS R8 R9 K14 ["Components"]
+  GETTABLEKS R7 R8 K12 ["MainView"]
+  DUPTABLE R8 K16 [{"overlayGui"}]
+  GETTABLEKS R9 R0 K8 ["dockWidget"]
+  SETTABLEKS R9 R8 K15 ["overlayGui"]
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K12 ["MainView"]
+  CALL R2 3 -1
+  RETURN R2 -1
 
 MAIN:
   PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["PropertiesPlugin"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  GETIMPORT R0 K1 [game]
+  LOADK R2 K2 ["StudioService"]
+  NAMECALL R0 R0 K3 ["GetService"]
   CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Properties"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["React"]
+  GETIMPORT R1 K5 [script]
+  LOADK R3 K6 ["PropertiesPlugin"]
+  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R1 K10 ["Packages"]
+  GETTABLEKS R3 R4 K11 ["Properties"]
   CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["ReactUtils"]
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R1 K10 ["Packages"]
+  GETTABLEKS R4 R5 K12 ["React"]
   CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Components"]
-  GETTABLEKS R6 R7 K12 ["Contexts"]
-  GETTABLEKS R5 R6 K13 ["StudioActionContextProvider"]
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R6 R1 K10 ["Packages"]
+  GETTABLEKS R5 R6 K13 ["ReactUtils"]
   CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R9 R0 K10 ["Src"]
-  GETTABLEKS R8 R9 K11 ["Components"]
-  GETTABLEKS R7 R8 K12 ["Contexts"]
-  GETTABLEKS R6 R7 K14 ["StudioActiveViewContextProvider"]
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R9 R1 K14 ["Src"]
+  GETTABLEKS R8 R9 K15 ["Components"]
+  GETTABLEKS R7 R8 K16 ["Contexts"]
+  GETTABLEKS R6 R7 K17 ["StudioActionContextProvider"]
   CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R10 R0 K10 ["Src"]
-  GETTABLEKS R9 R10 K11 ["Components"]
-  GETTABLEKS R8 R9 K12 ["Contexts"]
-  GETTABLEKS R7 R8 K15 ["StudioClassIconContextProvider"]
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R10 R1 K14 ["Src"]
+  GETTABLEKS R9 R10 K15 ["Components"]
+  GETTABLEKS R8 R9 K16 ["Contexts"]
+  GETTABLEKS R7 R8 K18 ["StudioActiveViewContextProvider"]
   CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R11 R0 K10 ["Src"]
-  GETTABLEKS R10 R11 K11 ["Components"]
-  GETTABLEKS R9 R10 K12 ["Contexts"]
-  GETTABLEKS R8 R9 K16 ["StudioNetworkContextProvider"]
+  GETIMPORT R7 K9 [require]
+  GETTABLEKS R11 R1 K14 ["Src"]
+  GETTABLEKS R10 R11 K15 ["Components"]
+  GETTABLEKS R9 R10 K16 ["Contexts"]
+  GETTABLEKS R8 R9 K19 ["StudioClassIconContextProvider"]
   CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R12 R0 K10 ["Src"]
-  GETTABLEKS R11 R12 K11 ["Components"]
-  GETTABLEKS R10 R11 K12 ["Contexts"]
-  GETTABLEKS R9 R10 K17 ["StudioSettingsContextProvider"]
+  GETIMPORT R8 K9 [require]
+  GETTABLEKS R12 R1 K14 ["Src"]
+  GETTABLEKS R11 R12 K15 ["Components"]
+  GETTABLEKS R10 R11 K16 ["Contexts"]
+  GETTABLEKS R9 R10 K20 ["StudioNetworkContextProvider"]
   CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R13 R0 K10 ["Src"]
-  GETTABLEKS R12 R13 K11 ["Components"]
-  GETTABLEKS R11 R12 K12 ["Contexts"]
-  GETTABLEKS R10 R11 K18 ["StudioThemeContextProvider"]
+  GETIMPORT R9 K9 [require]
+  GETTABLEKS R13 R1 K14 ["Src"]
+  GETTABLEKS R12 R13 K15 ["Components"]
+  GETTABLEKS R11 R12 K16 ["Contexts"]
+  GETTABLEKS R10 R11 K21 ["StudioSettingsContextProvider"]
   CALL R9 1 1
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R14 R0 K10 ["Src"]
-  GETTABLEKS R13 R14 K11 ["Components"]
-  GETTABLEKS R12 R13 K12 ["Contexts"]
-  GETTABLEKS R11 R12 K19 ["StudioUserContextProvider"]
+  GETIMPORT R10 K9 [require]
+  GETTABLEKS R13 R1 K14 ["Src"]
+  GETTABLEKS R12 R13 K22 ["Hooks"]
+  GETTABLEKS R11 R12 K23 ["useThemeName"]
   CALL R10 1 1
-  GETTABLEKS R11 R2 K20 ["createElement"]
-  DUPCLOSURE R12 K21 [PROTO_0]
-  CAPTURE VAL R11
-  CAPTURE VAL R3
+  GETTABLEKS R13 R2 K15 ["Components"]
+  GETTABLEKS R12 R13 K16 ["Contexts"]
+  GETTABLEKS R11 R12 K24 ["ThemeContextProvider"]
+  GETTABLEKS R12 R2 K25 ["AssetPickerProvider"]
+  GETTABLEKS R13 R3 K26 ["createElement"]
+  DUPCLOSURE R14 K27 [PROTO_0]
+  CAPTURE VAL R10
+  CAPTURE VAL R13
   CAPTURE VAL R4
+  CAPTURE VAL R12
+  CAPTURE VAL R0
   CAPTURE VAL R5
-  CAPTURE VAL R7
+  CAPTURE VAL R6
   CAPTURE VAL R8
   CAPTURE VAL R9
-  CAPTURE VAL R10
-  CAPTURE VAL R6
-  CAPTURE VAL R1
-  RETURN R12 1
+  CAPTURE VAL R11
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  RETURN R14 1

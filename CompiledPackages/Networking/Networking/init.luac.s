@@ -1,0 +1,25 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Util"]
+  GETTABLEKS R1 R2 K5 ["Types"]
+  CALL R0 1 1
+  DUPTABLE R1 K8 [{"Http", "RobloxAPI", "Types"}]
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K6 ["Http"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K6 ["Http"]
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K7 ["RobloxAPI"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K7 ["RobloxAPI"]
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Util"]
+  GETTABLEKS R3 R4 K5 ["Types"]
+  CALL R2 1 1
+  SETTABLEKS R2 R1 K5 ["Types"]
+  RETURN R1 1

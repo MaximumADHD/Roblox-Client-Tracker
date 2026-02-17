@@ -25,7 +25,11 @@ local SafeFlags = require(Packages.SafeFlags)
 ]]
 
 local FoundationInputFieldTokenBasedWidth = SafeFlags.createGetFFlag("FoundationInputFieldTokenBasedWidth")()
+local FoundationTextInputTokenBasedWidth = SafeFlags.createGetFFlag("FoundationTextInputTokenBasedWidth")()
+local FoundationTextAreaTokenBasedWidth = SafeFlags.createGetFFlag("FoundationTextAreaTokenBasedWidth")()
 local FoundationFixPopoverShadowSizing = SafeFlags.createGetFFlag("FoundationFixPopoverShadowSizing")()
+local FoundationUIStrokeInner = SafeFlags.createGetFFlag("FoundationUIStrokeInner2")()
+local FoundationNumberInputFixScrubbableBG = SafeFlags.createGetFFlag("FoundationNumberInputFixScrubbableBG")()
 
 return {
 	-- Foundation@1.33.0
@@ -67,7 +71,6 @@ return {
 	FoundationOverlayDisplayOrder = SafeFlags.createGetFFlag("FoundationOverlayDisplayOrder")(),
 
 	-- Foundation@1.66.0
-	FoundationAnimateTabs = SafeFlags.createGetFFlag("FoundationAnimateTabs2")(),
 	FoundationFixedHeightDateTimePicker = SafeFlags.createGetFFlag("FoundationFixedHeightDateTimePicker")(),
 	FoundationKnobRemoveGroupTransparency = SafeFlags.createGetFFlag("FoundationKnobRemoveGroupTransparency")(),
 	FoundationTabsDisableScrollSelection = SafeFlags.createGetFFlag("FoundationTabsDisableScrollSelection")(),
@@ -87,11 +90,9 @@ return {
 	FoundationDontCreateUIDDForNumberInput = SafeFlags.createGetFFlag("FoundationDontCreateUIDDForNumberInput")(),
 	FoundationFixOptionSelectorThickness = SafeFlags.createGetFFlag("FoundationFixOptionSelectorThickness")(),
 	FoundationImageFixAspectRatioMemo = SafeFlags.createGetFFlag("FoundationImageFixAspectRatioMemo")(),
-	FoundationUIStrokeInner = SafeFlags.createGetFFlag("FoundationUIStrokeInner2")(),
 
 	-- Foundation@1.67.3
 	FoundationAddHeightPropToCenterSheet = SafeFlags.createGetFFlag("FoundationAddHeightPropToCenterSheet2")(),
-	FoundationNumberInputTokenBasedWidth = SafeFlags.createGetFFlag("FoundationNumberInputTokenBasedWidth")(),
 	FoundationSheetActionsSinkInput = SafeFlags.createGetFFlag("FoundationSheetActionsSinkInput")(),
 	FoundationSheetFixClosingSwipe = SafeFlags.createGetFFlag("FoundationSheetFixClosingSwipe")(),
 	FoundationSheetHeaderSmallerPadding = SafeFlags.createGetFFlag("FoundationSheetHeaderSmallerPadding")(),
@@ -103,10 +104,25 @@ return {
 	-- Foundation@1.68.0
 	FoundationAddUtilityVariantToChip = SafeFlags.createGetFFlag("FoundationAddUtilityVariantToChip")(),
 	FoundationBaseMenuDelayVisible = SafeFlags.createGetFFlag("FoundationBaseMenuDelayVisible")(),
-	FoundationFixPopoverShadowSizing = FoundationFixPopoverShadowSizing,
 	FoundationIconButtonFillBehavior = SafeFlags.createGetFFlag("FoundationIconButtonFillBehavior")(),
+	FoundationTruncateBadgeText = SafeFlags.createGetFFlag("FoundationTruncateBadgeText")(),
+
+	-- Foundation@1.69.0
+	FoundationProgressBindableValue = SafeFlags.createGetFFlag("FoundationProgressBindableValue")(),
+	FoundationSideSheetNewWidthCalculation = SafeFlags.createGetFFlag("FoundationSideSheetNewWidthCalculation")(),
+
+	-- Foundation@1.69.1
+	FoundationNumberInputTokenBasedWidth = SafeFlags.createGetFFlag("FoundationNumberInputTokenBasedWidth2")(),
+
+	-- Foundation@1.70.0
+	FoundationElevationKeepSiblingZIndex = SafeFlags.createGetFFlag("FoundationElevationKeepSiblingZIndex")(),
+	FoundationFixPopoverShadowSizing = FoundationFixPopoverShadowSizing,
+	FoundationIconButtonWidth = SafeFlags.createGetFFlag("FoundationIconButtonWidth")(),
 	FoundationInputFieldTokenBasedWidth = FoundationInputFieldTokenBasedWidth,
+	FoundationNumberInputFixScrubbableBG = FoundationUIStrokeInner and FoundationNumberInputFixScrubbableBG,
 	FoundationPopoverConditionalRender = SafeFlags.createGetFFlag("FoundationPopoverConditionalRender")()
 		and FoundationFixPopoverShadowSizing,
-	FoundationTruncateBadgeText = SafeFlags.createGetFFlag("FoundationTruncateBadgeText")(),
+	FoundationTextAreaTokenBasedWidth = FoundationInputFieldTokenBasedWidth and FoundationTextAreaTokenBasedWidth,
+	FoundationTextInputTokenBasedWidth = FoundationInputFieldTokenBasedWidth and FoundationTextInputTokenBasedWidth,
+	FoundationUIStrokeInner = FoundationUIStrokeInner,
 }

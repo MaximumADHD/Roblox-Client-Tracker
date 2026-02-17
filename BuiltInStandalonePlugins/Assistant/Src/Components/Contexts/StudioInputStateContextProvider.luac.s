@@ -13,13 +13,10 @@ PROTO_0:
 
 PROTO_1:
   GETUPVAL R0 0
-  CALL R0 0 1
-  JUMPIFNOT R0 [+17]
-  GETUPVAL R0 1
   JUMPIF R0 [+15]
-  GETUPVAL R0 2
+  GETUPVAL R0 1
   DUPTABLE R1 K2 [{"overrideText", "iconType"}]
-  GETUPVAL R2 3
+  GETUPVAL R2 2
   LOADK R4 K3 ["InputArea"]
   LOADK R5 K4 ["StudioNotificationServiceWarning"]
   NAMECALL R2 R2 K5 ["getText"]
@@ -29,31 +26,36 @@ PROTO_1:
   SETTABLEKS R2 R1 K1 ["iconType"]
   CALL R0 1 0
   RETURN R0 0
+  GETUPVAL R2 3
+  GETTABLEKS R1 R2 K7 ["value"]
+  GETTABLEKS R0 R1 K8 ["isTestAutomationEnabled"]
+  CALL R0 0 1
+  JUMPIF R0 [+31]
   GETUPVAL R1 4
   JUMPIF R1 [+2]
   LOADB R0 0
   JUMP [+11]
   LOADB R0 0
-  GETIMPORT R2 K10 [Enum.StudioDataModelType.Edit]
+  GETIMPORT R2 K12 [Enum.StudioDataModelType.Edit]
   JUMPIFEQ R1 R2 [+7]
-  GETIMPORT R2 K12 [Enum.StudioDataModelType.Standalone]
+  GETIMPORT R2 K14 [Enum.StudioDataModelType.Standalone]
   JUMPIFNOTEQ R1 R2 [+2]
   LOADB R0 0 +1
   LOADB R0 1
   JUMPIFNOT R0 [+15]
-  GETUPVAL R0 2
+  GETUPVAL R0 1
   DUPTABLE R1 K2 [{"overrideText", "iconType"}]
-  GETUPVAL R2 3
+  GETUPVAL R2 2
   LOADK R4 K3 ["InputArea"]
-  LOADK R5 K13 ["StudioPlaySoloWarning"]
+  LOADK R5 K15 ["StudioPlaySoloWarning"]
   NAMECALL R2 R2 K5 ["getText"]
   CALL R2 3 1
   SETTABLEKS R2 R1 K0 ["overrideText"]
-  LOADK R2 K14 ["error"]
+  LOADK R2 K16 ["error"]
   SETTABLEKS R2 R1 K1 ["iconType"]
   CALL R0 1 0
   RETURN R0 0
-  GETUPVAL R0 2
+  GETUPVAL R0 1
   LOADNIL R1
   CALL R0 1 0
   RETURN R0 0
@@ -61,42 +63,39 @@ PROTO_1:
 PROTO_2:
   GETUPVAL R1 0
   CALL R1 0 1
-  LOADNIL R2
-  GETUPVAL R3 1
-  CALL R3 0 1
-  JUMPIFNOT R3 [+5]
+  GETUPVAL R2 1
+  CALL R2 0 1
   GETUPVAL R3 2
   GETTABLEKS R4 R0 K0 ["dataModel"]
   CALL R3 1 1
-  MOVE R2 R3
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K1 ["useState"]
-  LOADNIL R4
-  CALL R3 1 2
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K2 ["useEffect"]
-  NEWCLOSURE R6 P0
-  CAPTURE UPVAL U1
-  CAPTURE REF R2
-  CAPTURE VAL R4
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K1 ["useState"]
+  LOADNIL R5
+  CALL R4 1 2
+  GETUPVAL R7 3
+  GETTABLEKS R6 R7 K2 ["useEffect"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R3
+  CAPTURE VAL R5
   CAPTURE UPVAL U4
   CAPTURE VAL R1
-  NEWTABLE R7 0 2
-  MOVE R8 R1
+  CAPTURE VAL R2
+  NEWTABLE R8 0 3
   MOVE R9 R2
-  SETLIST R7 R8 2 [1]
-  CALL R5 2 0
-  GETUPVAL R5 5
-  GETUPVAL R9 6
-  GETTABLEKS R8 R9 K3 ["Components"]
-  GETTABLEKS R7 R8 K4 ["Contexts"]
-  GETTABLEKS R6 R7 K5 ["InputStateContextProvider"]
-  DUPTABLE R7 K7 [{"override"}]
-  SETTABLEKS R3 R7 K6 ["override"]
-  GETTABLEKS R8 R0 K8 ["children"]
-  CALL R5 3 -1
-  CLOSEUPVALS R2
-  RETURN R5 -1
+  MOVE R10 R3
+  MOVE R11 R1
+  SETLIST R8 R9 3 [1]
+  CALL R6 2 0
+  GETUPVAL R6 5
+  GETUPVAL R10 6
+  GETTABLEKS R9 R10 K3 ["Components"]
+  GETTABLEKS R8 R9 K4 ["Contexts"]
+  GETTABLEKS R7 R8 K5 ["InputStateContextProvider"]
+  DUPTABLE R8 K7 [{"override"}]
+  SETTABLEKS R4 R8 K6 ["override"]
+  GETTABLEKS R9 R0 K8 ["children"]
+  CALL R6 3 -1
+  RETURN R6 -1
 
 MAIN:
   PREPVARARGS 0
@@ -115,27 +114,27 @@ MAIN:
   GETIMPORT R3 K5 [require]
   GETTABLEKS R6 R0 K9 ["Src"]
   GETTABLEKS R5 R6 K10 ["Hooks"]
-  GETTABLEKS R4 R5 K11 ["useFocusedDataModelType"]
+  GETTABLEKS R4 R5 K11 ["useExperimentFeatureGetter"]
   CALL R3 1 1
   GETIMPORT R4 K5 [require]
   GETTABLEKS R7 R0 K9 ["Src"]
   GETTABLEKS R6 R7 K10 ["Hooks"]
-  GETTABLEKS R5 R6 K12 ["useNotificationServiceConnected"]
+  GETTABLEKS R5 R6 K12 ["useFocusedDataModelType"]
   CALL R4 1 1
   GETIMPORT R5 K5 [require]
   GETTABLEKS R8 R0 K9 ["Src"]
-  GETTABLEKS R7 R8 K13 ["Flags"]
-  GETTABLEKS R6 R7 K14 ["FFlagAssistantSignalRDisconnect"]
+  GETTABLEKS R7 R8 K10 ["Hooks"]
+  GETTABLEKS R6 R7 K13 ["useNotificationServiceConnected"]
   CALL R5 1 1
-  GETTABLEKS R8 R1 K15 ["Resources"]
-  GETTABLEKS R7 R8 K16 ["Localization"]
-  GETTABLEKS R6 R7 K17 ["Translator"]
-  GETTABLEKS R7 R2 K18 ["createElement"]
-  DUPCLOSURE R8 K19 [PROTO_0]
-  DUPCLOSURE R9 K20 [PROTO_2]
+  GETTABLEKS R8 R1 K14 ["Resources"]
+  GETTABLEKS R7 R8 K15 ["Localization"]
+  GETTABLEKS R6 R7 K16 ["Translator"]
+  GETTABLEKS R7 R2 K17 ["createElement"]
+  DUPCLOSURE R8 K18 [PROTO_0]
+  DUPCLOSURE R9 K19 [PROTO_2]
   CAPTURE VAL R3
-  CAPTURE VAL R5
   CAPTURE VAL R4
+  CAPTURE VAL R5
   CAPTURE VAL R2
   CAPTURE VAL R6
   CAPTURE VAL R7

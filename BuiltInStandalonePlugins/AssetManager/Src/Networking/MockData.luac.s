@@ -112,7 +112,7 @@ MAIN:
   GETIMPORT R2 K5 [require]
   GETTABLEKS R5 R0 K6 ["Src"]
   GETTABLEKS R4 R5 K8 ["Util"]
-  GETTABLEKS R3 R4 K9 ["makeScopeUid"]
+  GETTABLEKS R3 R4 K9 ["createScopeUid"]
   CALL R2 1 1
   NEWTABLE R3 32 0
   LOADK R4 K10 [100000]
@@ -1771,5 +1771,32 @@ MAIN:
   DUPTABLE R15 K240 [{"data"}]
   SETTABLEKS R14 R15 K239 ["data"]
   SETTABLEKS R15 R3 K241 ["GroupsPayload"]
+  LOADN R15 210
+  SETTABLEKS R15 R3 K242 ["FolderId"]
+  LOADK R15 K243 ["TestFolder"]
+  SETTABLEKS R15 R3 K244 ["FolderName"]
+  LOADK R16 K245 ["users/%*/creator-inventory-items/folder-%*"]
+  GETTABLEKS R18 R3 K11 ["UserId"]
+  GETTABLEKS R19 R3 K242 ["FolderId"]
+  NAMECALL R16 R16 K78 ["format"]
+  CALL R16 3 1
+  MOVE R15 R16
+  SETTABLEKS R15 R3 K246 ["FolderPath"]
+  DUPTABLE R15 K249 [{"path", "folderItem"}]
+  GETTABLEKS R16 R3 K246 ["FolderPath"]
+  SETTABLEKS R16 R15 K247 ["path"]
+  DUPTABLE R16 K251 [{"folder"}]
+  DUPTABLE R17 K253 [{"folderId", "displayName", "createTime", "updateTime"}]
+  GETTABLEKS R18 R3 K242 ["FolderId"]
+  SETTABLEKS R18 R17 K252 ["folderId"]
+  GETTABLEKS R18 R3 K244 ["FolderName"]
+  SETTABLEKS R18 R17 K42 ["displayName"]
+  LOADK R18 K48 ["2021-01-01T00:00:00Z"]
+  SETTABLEKS R18 R17 K39 ["createTime"]
+  LOADK R18 K178 ["2021-01-02T00:00:00Z"]
+  SETTABLEKS R18 R17 K40 ["updateTime"]
+  SETTABLEKS R17 R16 K250 ["folder"]
+  SETTABLEKS R16 R15 K248 ["folderItem"]
+  SETTABLEKS R15 R3 K254 ["FolderMetadata"]
   CLOSEUPVALS R4
   RETURN R3 1

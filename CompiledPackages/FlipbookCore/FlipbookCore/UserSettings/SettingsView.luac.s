@@ -1,0 +1,268 @@
+PROTO_0:
+  GETTABLEKS R3 R0 K0 ["name"]
+  GETTABLEKS R4 R1 K0 ["name"]
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_1:
+  LOADNIL R2
+  GETTABLEKS R4 R1 K0 ["group"]
+  GETTABLE R3 R0 R4
+  JUMPIFNOT R3 [+4]
+  GETTABLEKS R3 R1 K0 ["group"]
+  GETTABLE R2 R0 R3
+  JUMP [+13]
+  DUPTABLE R3 K3 [{"name", "settings"}]
+  GETTABLEKS R4 R1 K0 ["group"]
+  SETTABLEKS R4 R3 K1 ["name"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K2 ["settings"]
+  MOVE R2 R3
+  GETTABLEKS R3 R1 K0 ["group"]
+  SETTABLE R2 R0 R3
+  GETTABLEKS R4 R2 K2 ["settings"]
+  FASTCALL2 TABLE_INSERT R4 R1 [+4]
+  MOVE R5 R1
+  GETIMPORT R3 K6 [table.insert]
+  CALL R3 2 0
+  RETURN R0 1
+
+PROTO_2:
+  GETTABLEKS R3 R0 K0 ["name"]
+  GETTABLEKS R4 R1 K0 ["name"]
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["Dictionary"]
+  GETTABLEKS R0 R1 K1 ["values"]
+  GETUPVAL R1 1
+  CALL R0 1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["Array"]
+  GETTABLEKS R1 R2 K3 ["sort"]
+  MOVE R2 R0
+  DUPCLOSURE R3 K4 [PROTO_0]
+  CALL R1 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K2 ["Array"]
+  GETTABLEKS R2 R3 K5 ["reduce"]
+  MOVE R3 R1
+  DUPCLOSURE R4 K6 [PROTO_1]
+  NEWTABLE R5 0 0
+  CALL R2 3 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["Array"]
+  GETTABLEKS R3 R4 K3 ["sort"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["Dictionary"]
+  GETTABLEKS R4 R5 K1 ["values"]
+  MOVE R5 R2
+  CALL R4 1 1
+  DUPCLOSURE R5 K7 [PROTO_2]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["navigateTo"]
+  LOADK R1 K1 ["Home"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["use"]
+  CALL R0 0 1
+  GETUPVAL R1 1
+  DUPCLOSURE R2 K1 [PROTO_3]
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  NEWTABLE R3 0 1
+  GETUPVAL R4 3
+  SETLIST R3 R4 1 [1]
+  CALL R1 2 1
+  NEWTABLE R2 0 0
+  MOVE R3 R1
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETTABLEKS R8 R7 K2 ["name"]
+  GETUPVAL R10 4
+  GETTABLEKS R9 R10 K3 ["createElement"]
+  GETUPVAL R11 5
+  GETTABLEKS R10 R11 K4 ["Text"]
+  DUPTABLE R11 K7 [{"tag", "Text", "LayoutOrder"}]
+  LOADK R12 K8 ["auto-xy text-heading-medium padding-medium"]
+  SETTABLEKS R12 R11 K5 ["tag"]
+  GETTABLEKS R12 R7 K2 ["name"]
+  SETTABLEKS R12 R11 K4 ["Text"]
+  GETUPVAL R12 6
+  CALL R12 0 1
+  SETTABLEKS R12 R11 K6 ["LayoutOrder"]
+  CALL R9 2 1
+  SETTABLE R9 R2 R8
+  GETTABLEKS R8 R7 K9 ["settings"]
+  LOADNIL R9
+  LOADNIL R10
+  FORGPREP R8
+  GETTABLEKS R13 R12 K2 ["name"]
+  GETUPVAL R15 4
+  GETTABLEKS R14 R15 K3 ["createElement"]
+  GETUPVAL R15 7
+  DUPTABLE R16 K12 [{"setting", "layoutOrder"}]
+  SETTABLEKS R12 R16 K10 ["setting"]
+  GETUPVAL R17 6
+  CALL R17 0 1
+  SETTABLEKS R17 R16 K11 ["layoutOrder"]
+  CALL R14 2 1
+  SETTABLE R14 R2 R13
+  FORGLOOP R8 2 [-16]
+  FORGLOOP R3 2 [-45]
+  GETUPVAL R4 4
+  GETTABLEKS R3 R4 K3 ["createElement"]
+  GETUPVAL R5 5
+  GETTABLEKS R4 R5 K13 ["ScrollView"]
+  DUPTABLE R5 K15 [{"tag", "scroll"}]
+  LOADK R6 K16 ["size-full col bg-surface-200 gap-large padding-y-large"]
+  SETTABLEKS R6 R5 K5 ["tag"]
+  DUPTABLE R6 K20 [{"AutomaticCanvasSize", "CanvasSize", "ScrollingDirection"}]
+  GETIMPORT R7 K24 [Enum.AutomaticSize.Y]
+  SETTABLEKS R7 R6 K17 ["AutomaticCanvasSize"]
+  GETIMPORT R7 K27 [UDim2.fromScale]
+  LOADN R8 1
+  LOADN R9 0
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K18 ["CanvasSize"]
+  GETIMPORT R7 K28 [Enum.ScrollingDirection.Y]
+  SETTABLEKS R7 R6 K19 ["ScrollingDirection"]
+  SETTABLEKS R6 R5 K14 ["scroll"]
+  DUPTABLE R6 K31 [{"Title", "Settings"}]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K3 ["createElement"]
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K32 ["View"]
+  DUPTABLE R9 K33 [{"LayoutOrder", "tag"}]
+  GETUPVAL R10 6
+  CALL R10 0 1
+  SETTABLEKS R10 R9 K6 ["LayoutOrder"]
+  LOADK R10 K34 ["align-y-center auto-y padding-right-medium row size-full-0"]
+  SETTABLEKS R10 R9 K5 ["tag"]
+  DUPTABLE R10 K36 [{"Title", "Close"}]
+  GETUPVAL R12 4
+  GETTABLEKS R11 R12 K3 ["createElement"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K4 ["Text"]
+  DUPTABLE R13 K37 [{"LayoutOrder", "Text", "tag"}]
+  GETUPVAL R14 6
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K6 ["LayoutOrder"]
+  LOADK R14 K30 ["Settings"]
+  SETTABLEKS R14 R13 K4 ["Text"]
+  LOADK R14 K38 ["auto-y size-full-0 shrink text-align-x-left text-heading-large padding-medium"]
+  SETTABLEKS R14 R13 K5 ["tag"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K29 ["Title"]
+  GETUPVAL R12 4
+  GETTABLEKS R11 R12 K3 ["createElement"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K39 ["IconButton"]
+  DUPTABLE R13 K44 [{"LayoutOrder", "icon", "isCircular", "onActivated", "variant"}]
+  GETUPVAL R14 6
+  CALL R14 0 1
+  SETTABLEKS R14 R13 K6 ["LayoutOrder"]
+  LOADK R14 K45 ["x"]
+  SETTABLEKS R14 R13 K40 ["icon"]
+  LOADB R14 1
+  SETTABLEKS R14 R13 K41 ["isCircular"]
+  NEWCLOSURE R14 P1
+  CAPTURE VAL R0
+  SETTABLEKS R14 R13 K42 ["onActivated"]
+  GETUPVAL R17 5
+  GETTABLEKS R16 R17 K46 ["Enums"]
+  GETTABLEKS R15 R16 K47 ["ButtonVariant"]
+  GETTABLEKS R14 R15 K48 ["OverMedia"]
+  SETTABLEKS R14 R13 K43 ["variant"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K35 ["Close"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K29 ["Title"]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K3 ["createElement"]
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K32 ["View"]
+  DUPTABLE R9 K49 [{"tag", "LayoutOrder"}]
+  LOADK R10 K50 ["size-full-0 auto-y col gap-xlarge"]
+  SETTABLEKS R10 R9 K5 ["tag"]
+  GETUPVAL R10 6
+  CALL R10 0 1
+  SETTABLEKS R10 R9 K6 ["LayoutOrder"]
+  MOVE R10 R2
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K30 ["Settings"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["RobloxPackages"]
+  GETTABLEKS R1 R2 K6 ["Foundation"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K7 ["Packages"]
+  GETTABLEKS R2 R3 K8 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R7 K3 [script]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K7 ["Packages"]
+  GETTABLEKS R3 R4 K9 ["Sift"]
+  CALL R2 1 1
+  GETIMPORT R3 K1 [require]
+  GETIMPORT R8 K3 [script]
+  GETTABLEKS R7 R8 K4 ["Parent"]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K10 ["Navigation"]
+  GETTABLEKS R4 R5 K11 ["NavigationContext"]
+  CALL R3 1 1
+  GETIMPORT R4 K1 [require]
+  GETIMPORT R7 K3 [script]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K12 ["SettingRow"]
+  CALL R4 1 1
+  GETIMPORT R5 K1 [require]
+  GETIMPORT R8 K3 [script]
+  GETTABLEKS R7 R8 K4 ["Parent"]
+  GETTABLEKS R6 R7 K13 ["defaultSettings"]
+  CALL R5 1 1
+  GETIMPORT R6 K1 [require]
+  GETIMPORT R11 K3 [script]
+  GETTABLEKS R10 R11 K4 ["Parent"]
+  GETTABLEKS R9 R10 K4 ["Parent"]
+  GETTABLEKS R8 R9 K14 ["Common"]
+  GETTABLEKS R7 R8 K15 ["nextLayoutOrder"]
+  CALL R6 1 1
+  GETTABLEKS R7 R1 K16 ["useMemo"]
+  DUPCLOSURE R8 K17 [PROTO_5]
+  CAPTURE VAL R3
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  RETURN R8 1

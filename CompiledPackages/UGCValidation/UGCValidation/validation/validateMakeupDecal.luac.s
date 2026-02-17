@@ -1,0 +1,189 @@
+PROTO_0:
+  GETIMPORT R2 K1 [tick]
+  CALL R2 0 1
+  GETTABLEKS R3 R1 K2 ["assetTypeEnum"]
+  LOADK R6 K3 ["WrapTextureTransfer"]
+  NAMECALL R4 R0 K4 ["FindFirstChildOfClass"]
+  CALL R4 2 1
+  JUMPIFNOTEQKNIL R4 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  GETIMPORT R7 K7 [string.format]
+  LOADK R8 K8 ["WrapTextureTransfer child not found for %s"]
+  GETTABLEKS R9 R0 K9 ["Name"]
+  CALL R7 2 -1
+  FASTCALL ASSERT [+2]
+  GETIMPORT R5 K11 [assert]
+  CALL R5 -1 0
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K12 ["new"]
+  CALL R5 0 1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K13 ["parse"]
+  MOVE R7 R0
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K14 ["TEXTURE_CONTENT_ID_FIELDS"]
+  MOVE R9 R1
+  CALL R6 3 1
+  LOADNIL R7
+  MOVE R8 R6
+  LOADNIL R9
+  LOADNIL R10
+  FORGPREP R8
+  DUPTABLE R13 K18 [{"fullName", "fieldName", "contentId"}]
+  GETTABLEKS R18 R12 K19 ["instance"]
+  NAMECALL R18 R18 K20 ["GetFullName"]
+  CALL R18 1 1
+  MOVE R15 R18
+  LOADK R16 K21 ["."]
+  GETTABLEKS R17 R12 K16 ["fieldName"]
+  CONCAT R14 R15 R17
+  SETTABLEKS R14 R13 K15 ["fullName"]
+  GETTABLEKS R14 R12 K16 ["fieldName"]
+  SETTABLEKS R14 R13 K16 ["fieldName"]
+  GETTABLEKS R15 R12 K19 ["instance"]
+  GETTABLEKS R16 R12 K16 ["fieldName"]
+  GETTABLE R14 R15 R16
+  SETTABLEKS R14 R13 K17 ["contentId"]
+  GETUPVAL R14 3
+  GETTABLEKS R15 R12 K19 ["instance"]
+  GETTABLEKS R16 R12 K16 ["fieldName"]
+  MOVE R17 R1
+  CALL R14 3 2
+  JUMPIF R14 [+27]
+  GETUPVAL R17 4
+  GETTABLEKS R16 R17 K22 ["reportFailure"]
+  GETUPVAL R19 4
+  GETTABLEKS R18 R19 K23 ["ErrorType"]
+  GETTABLEKS R17 R18 K24 ["validateMakeupDecal_FailedToLoadTexture"]
+  LOADNIL R18
+  MOVE R19 R1
+  CALL R16 3 0
+  LOADB R18 0
+  NEWTABLE R19 0 1
+  GETIMPORT R20 K7 [string.format]
+  LOADK R21 K25 ["Failed to load %s for Decal %s. Make sure TextureContent exists and is valid and try again."]
+  GETTABLEKS R22 R13 K16 ["fieldName"]
+  GETTABLEKS R23 R0 K9 ["Name"]
+  CALL R20 3 -1
+  SETLIST R19 R20 -1 [1]
+  NAMECALL R16 R5 K26 ["updateReasons"]
+  CALL R16 3 0
+  SETTABLEKS R15 R13 K27 ["editableImage"]
+  GETTABLEKS R16 R12 K16 ["fieldName"]
+  JUMPIFNOTEQKS R16 K28 ["ColorMap"] [+2]
+  MOVE R7 R15
+  LOADNIL R16
+  GETUPVAL R17 5
+  CALL R17 0 1
+  JUMPIFNOT R17 [+11]
+  JUMPIFNOT R3 [+10]
+  GETUPVAL R18 6
+  GETTABLEKS R17 R18 K29 ["getTextureLimit"]
+  MOVE R18 R3
+  GETTABLEKS R19 R12 K19 ["instance"]
+  GETTABLEKS R20 R12 K16 ["fieldName"]
+  CALL R17 3 1
+  MOVE R16 R17
+  GETUPVAL R19 7
+  MOVE R20 R13
+  LOADNIL R21
+  MOVE R22 R1
+  MOVE R23 R16
+  CALL R19 4 -1
+  NAMECALL R17 R5 K26 ["updateReasons"]
+  CALL R17 -1 0
+  FORGLOOP R8 2 [-91]
+  JUMPIF R7 [+23]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K22 ["reportFailure"]
+  GETUPVAL R11 4
+  GETTABLEKS R10 R11 K23 ["ErrorType"]
+  GETTABLEKS R9 R10 K30 ["validateMakeupDecal_NoColorMap"]
+  LOADNIL R10
+  MOVE R11 R1
+  CALL R8 3 0
+  LOADB R8 0
+  NEWTABLE R9 0 1
+  GETIMPORT R10 K7 [string.format]
+  LOADK R11 K31 ["No ColorMap found for Decal %s. Makeup Decals are required to have a valid ColorMap."]
+  GETTABLEKS R12 R0 K9 ["Name"]
+  CALL R10 2 -1
+  SETLIST R9 R10 -1 [1]
+  RETURN R8 2
+  GETUPVAL R10 8
+  MOVE R11 R0
+  MOVE R12 R7
+  MOVE R13 R4
+  GETUPVAL R17 2
+  GETTABLEKS R16 R17 K32 ["MAKEUP_INFO"]
+  GETTABLEKS R15 R16 K33 ["AssetUVBounds"]
+  GETTABLE R14 R15 R3
+  MOVE R15 R1
+  CALL R10 5 -1
+  NAMECALL R8 R5 K26 ["updateReasons"]
+  CALL R8 -1 0
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K34 ["recordScriptTime"]
+  GETIMPORT R10 K36 [script]
+  GETTABLEKS R9 R10 K9 ["Name"]
+  MOVE R10 R2
+  MOVE R11 R1
+  CALL R8 3 0
+  NAMECALL R8 R5 K37 ["getFinalResults"]
+  CALL R8 1 -1
+  RETURN R8 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["Analytics"]
+  CALL R1 1 1
+  GETIMPORT R2 K4 [require]
+  GETTABLEKS R3 R0 K6 ["Constants"]
+  CALL R2 1 1
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R0 K7 ["ConstantsInterface"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETTABLEKS R6 R0 K8 ["util"]
+  GETTABLEKS R5 R6 K9 ["Types"]
+  CALL R4 1 1
+  GETIMPORT R5 K4 [require]
+  GETTABLEKS R7 R0 K8 ["util"]
+  GETTABLEKS R6 R7 K10 ["FailureReasonsAccumulator"]
+  CALL R5 1 1
+  GETIMPORT R6 K4 [require]
+  GETTABLEKS R8 R0 K8 ["util"]
+  GETTABLEKS R7 R8 K11 ["getEditableImageFromContext"]
+  CALL R6 1 1
+  GETIMPORT R7 K4 [require]
+  GETTABLEKS R9 R0 K8 ["util"]
+  GETTABLEKS R8 R9 K12 ["ParseContentIds"]
+  CALL R7 1 1
+  GETIMPORT R8 K4 [require]
+  GETTABLEKS R10 R0 K13 ["validation"]
+  GETTABLEKS R9 R10 K14 ["validateMakeupDecalUVZones"]
+  CALL R8 1 1
+  GETIMPORT R9 K4 [require]
+  GETTABLEKS R11 R0 K15 ["flags"]
+  GETTABLEKS R10 R11 K16 ["getFFlagUGCValidateDecalTextureLimits"]
+  CALL R9 1 1
+  GETIMPORT R10 K4 [require]
+  GETTABLEKS R12 R0 K13 ["validation"]
+  GETTABLEKS R11 R12 K17 ["validateTextureSize"]
+  CALL R10 1 1
+  DUPCLOSURE R11 K18 [PROTO_0]
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  CAPTURE VAL R3
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  RETURN R11 1

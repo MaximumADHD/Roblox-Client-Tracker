@@ -1,0 +1,215 @@
+PROTO_0:
+  GETIMPORT R1 K1 [Enum]
+  GETUPVAL R2 1
+  GETTABLE R0 R1 R2
+  SETUPVAL R0 0
+  RETURN R0 0
+
+PROTO_1:
+  LOADB R1 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Choices"]
+  JUMPIFEQKNIL R2 [+9]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Choices"]
+  GETTABLE R2 R3 R0
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["Choices"]
+  JUMPIFNOT R1 [+10]
+  DUPTABLE R1 K3 [{"id", "text"}]
+  SETTABLEKS R0 R1 K1 ["id"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K0 ["Choices"]
+  GETTABLE R2 R3 R0
+  SETTABLEKS R2 R1 K2 ["text"]
+  RETURN R1 1
+  DUPTABLE R1 K3 [{"id", "text"}]
+  SETTABLEKS R0 R1 K1 ["id"]
+  GETTABLEKS R2 R0 K4 ["Name"]
+  SETTABLEKS R2 R1 K2 ["text"]
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["Type"]
+  FASTCALL2K STRING_SUB R1 K1 [+4]
+  LOADK R2 K1 [6]
+  GETIMPORT R0 K4 [string.sub]
+  CALL R0 2 1
+  LOADNIL R1
+  GETIMPORT R2 K6 [pcall]
+  NEWCLOSURE R3 P0
+  CAPTURE REF R1
+  CAPTURE VAL R0
+  CALL R2 1 2
+  JUMPIF R2 [+8]
+  GETIMPORT R4 K8 [warn]
+  MOVE R5 R3
+  CALL R4 1 0
+  NEWTABLE R4 0 0
+  CLOSEUPVALS R1
+  RETURN R4 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K9 ["map"]
+  GETUPVAL R6 1
+  GETTABLEKS R5 R6 K10 ["filter"]
+  NAMECALL R6 R1 K11 ["GetEnumItems"]
+  CALL R6 1 1
+  NEWCLOSURE R7 P1
+  CAPTURE UPVAL U0
+  CALL R5 2 1
+  NEWCLOSURE R6 P2
+  CAPTURE UPVAL U0
+  CALL R4 2 -1
+  CLOSEUPVALS R1
+  RETURN R4 -1
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["IsParameterOverridden"]
+  JUMPIFNOT R1 [+4]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K1 ["PROPERTY_PARAMETER_OVERRIDDEN_WIDTH_UDIM"]
+  RETURN R0 1
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K2 ["PROPERTY_WIDTH_UDIM"]
+  RETURN R0 1
+
+PROTO_5:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useMemo"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE UPVAL U1
+  NEWTABLE R3 0 2
+  GETTABLEKS R4 R0 K1 ["Type"]
+  GETTABLEKS R5 R0 K2 ["Choices"]
+  SETLIST R3 R4 2 [1]
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useMemo"]
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  NEWTABLE R4 0 1
+  GETTABLEKS R5 R0 K3 ["IsParameterOverridden"]
+  SETLIST R4 R5 1 [1]
+  CALL R2 2 1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K4 ["createElement"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K5 ["View"]
+  DUPTABLE R5 K8 [{"tag", "LayoutOrder"}]
+  LOADK R6 K9 ["row auto-y gap-small size-full-700 align-y-center flex-x-between"]
+  SETTABLEKS R6 R5 K6 ["tag"]
+  GETTABLEKS R6 R0 K7 ["LayoutOrder"]
+  SETTABLEKS R6 R5 K7 ["LayoutOrder"]
+  DUPTABLE R6 K13 [{"CompositorNodeInputLabel", "InputField", "PinChildren"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K4 ["createElement"]
+  GETUPVAL R8 4
+  DUPTABLE R9 K16 [{"tag", "Text", "LayoutOrder", "isDisabled"}]
+  LOADK R10 K17 ["text-body-small text-align-x-left auto-xy fill text-truncate-split"]
+  SETTABLEKS R10 R9 K6 ["tag"]
+  GETTABLEKS R10 R0 K18 ["Label"]
+  SETTABLEKS R10 R9 K14 ["Text"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K7 ["LayoutOrder"]
+  GETTABLEKS R10 R0 K19 ["IsReadOnly"]
+  SETTABLEKS R10 R9 K15 ["isDisabled"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K10 ["CompositorNodeInputLabel"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K4 ["createElement"]
+  GETUPVAL R8 5
+  DUPTABLE R9 K21 [{"IsParameterOverridden", "OnParameterOverrideRevert"}]
+  GETTABLEKS R10 R0 K3 ["IsParameterOverridden"]
+  SETTABLEKS R10 R9 K3 ["IsParameterOverridden"]
+  GETTABLEKS R10 R0 K20 ["OnParameterOverrideRevert"]
+  SETTABLEKS R10 R9 K20 ["OnParameterOverrideRevert"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K4 ["createElement"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K22 ["Dropdown"]
+  GETTABLEKS R11 R12 K23 ["Root"]
+  DUPTABLE R12 K30 [{"size", "width", "label", "items", "value", "onItemChanged", "LayoutOrder"}]
+  GETUPVAL R16 3
+  GETTABLEKS R15 R16 K31 ["Enums"]
+  GETTABLEKS R14 R15 K32 ["InputSize"]
+  GETTABLEKS R13 R14 K33 ["XSmall"]
+  SETTABLEKS R13 R12 K24 ["size"]
+  SETTABLEKS R2 R12 K25 ["width"]
+  LOADK R13 K34 [""]
+  SETTABLEKS R13 R12 K26 ["label"]
+  SETTABLEKS R1 R12 K27 ["items"]
+  GETTABLEKS R13 R0 K35 ["Value"]
+  JUMPIF R13 [+2]
+  GETTABLEKS R13 R0 K36 ["DefaultValue"]
+  SETTABLEKS R13 R12 K28 ["value"]
+  GETTABLEKS R13 R0 K37 ["OnChanged"]
+  SETTABLEKS R13 R12 K29 ["onItemChanged"]
+  LOADN R13 2
+  SETTABLEKS R13 R12 K7 ["LayoutOrder"]
+  CALL R10 2 -1
+  CALL R7 -1 1
+  SETTABLEKS R7 R6 K11 ["InputField"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K4 ["createElement"]
+  LOADK R8 K38 ["Folder"]
+  NEWTABLE R9 0 0
+  GETTABLEKS R10 R0 K39 ["children"]
+  CALL R7 3 1
+  SETTABLEKS R7 R6 K12 ["PinChildren"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Dash"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["Foundation"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R7 R0 K9 ["Components"]
+  GETTABLEKS R6 R7 K10 ["NodeView"]
+  GETTABLEKS R5 R6 K11 ["CompositorNodeProperty"]
+  GETTABLEKS R4 R5 K12 ["InputPropertyField"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R8 R0 K9 ["Components"]
+  GETTABLEKS R7 R8 K10 ["NodeView"]
+  GETTABLEKS R6 R7 K11 ["CompositorNodeProperty"]
+  GETTABLEKS R5 R6 K13 ["PropertyConstants"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R9 R0 K9 ["Components"]
+  GETTABLEKS R8 R9 K10 ["NodeView"]
+  GETTABLEKS R7 R8 K11 ["CompositorNodeProperty"]
+  GETTABLEKS R6 R7 K14 ["PropertyLabel"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Parent"]
+  GETTABLEKS R7 R8 K15 ["React"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K16 [PROTO_5]
+  CAPTURE VAL R6
+  CAPTURE VAL R1
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  RETURN R7 1

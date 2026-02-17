@@ -1,0 +1,154 @@
+PROTO_0:
+  GETIMPORT R3 K2 [UDim2.fromOffset]
+  MOVE R4 R2
+  MOVE R5 R2
+  CALL R3 2 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["Ring"]
+  JUMPIFNOTEQ R0 R4 [+18]
+  DUPTABLE R4 K5 [{"indicator"}]
+  DUPTABLE R5 K9 [{"imageStyle", "Image", "Size"}]
+  SETTABLEKS R1 R5 K6 ["imageStyle"]
+  LOADK R6 K10 ["component_assets/circle_15_stroke_3"]
+  SETTABLEKS R6 R5 K7 ["Image"]
+  GETIMPORT R6 K2 [UDim2.fromOffset]
+  MOVE R7 R2
+  MOVE R8 R2
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K8 ["Size"]
+  SETTABLEKS R5 R4 K4 ["indicator"]
+  RETURN R4 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K11 ["Circle"]
+  JUMPIFNOTEQ R0 R4 [+13]
+  DUPTABLE R4 K5 [{"indicator"}]
+  DUPTABLE R5 K9 [{"imageStyle", "Image", "Size"}]
+  SETTABLEKS R1 R5 K6 ["imageStyle"]
+  LOADK R6 K12 ["component_assets/circle_16"]
+  SETTABLEKS R6 R5 K7 ["Image"]
+  SETTABLEKS R3 R5 K8 ["Size"]
+  SETTABLEKS R5 R4 K4 ["indicator"]
+  RETURN R4 1
+  DUPTABLE R4 K5 [{"indicator"}]
+  DUPTABLE R5 K13 [{"imageStyle", "Size"}]
+  SETTABLEKS R1 R5 K6 ["imageStyle"]
+  SETTABLEKS R3 R5 K8 ["Size"]
+  SETTABLEKS R5 R4 K4 ["indicator"]
+  RETURN R4 1
+
+PROTO_1:
+  NEWTABLE R1 8 0
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["Success"]
+  GETTABLEKS R5 R0 K1 ["Color"]
+  GETTABLEKS R4 R5 K2 ["System"]
+  GETTABLEKS R3 R4 K0 ["Success"]
+  SETTABLE R3 R1 R2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["Neutral"]
+  GETTABLEKS R5 R0 K1 ["Color"]
+  GETTABLEKS R4 R5 K2 ["System"]
+  GETTABLEKS R3 R4 K3 ["Neutral"]
+  SETTABLE R3 R1 R2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["Warning"]
+  GETTABLEKS R5 R0 K1 ["Color"]
+  GETTABLEKS R4 R5 K2 ["System"]
+  GETTABLEKS R3 R4 K4 ["Warning"]
+  SETTABLE R3 R1 R2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["Emphasis"]
+  GETTABLEKS R5 R0 K1 ["Color"]
+  GETTABLEKS R4 R5 K2 ["System"]
+  GETTABLEKS R3 R4 K5 ["Emphasis"]
+  SETTABLE R3 R1 R2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K6 ["Alert"]
+  GETTABLEKS R5 R0 K1 ["Color"]
+  GETTABLEKS R4 R5 K2 ["System"]
+  GETTABLEKS R3 R4 K6 ["Alert"]
+  SETTABLE R3 R1 R2
+  NEWTABLE R2 2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K7 ["Circle"]
+  DUPTABLE R4 K9 [{"indicator"}]
+  DUPTABLE R5 K11 [{"tag"}]
+  LOADK R6 K12 ["radius-circle"]
+  SETTABLEKS R6 R5 K10 ["tag"]
+  SETTABLEKS R5 R4 K8 ["indicator"]
+  SETTABLE R4 R2 R3
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K13 ["Ring"]
+  DUPTABLE R4 K9 [{"indicator"}]
+  DUPTABLE R5 K11 [{"tag"}]
+  LOADK R6 K12 ["radius-circle"]
+  SETTABLEKS R6 R5 K10 ["tag"]
+  SETTABLEKS R5 R4 K8 ["indicator"]
+  SETTABLE R4 R2 R3
+  DUPTABLE R3 K16 [{"shapes", "variants"}]
+  SETTABLEKS R2 R3 K14 ["shapes"]
+  SETTABLEKS R1 R3 K15 ["variants"]
+  RETURN R3 1
+
+PROTO_2:
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["useVariants"]
+  LOADK R5 K1 ["Indicator"]
+  GETUPVAL R6 1
+  MOVE R7 R0
+  CALL R4 3 1
+  GETUPVAL R5 2
+  GETTABLEKS R7 R4 K2 ["shapes"]
+  GETTABLE R6 R7 R1
+  GETGLOBAL R7 K3 ["mapToProps"]
+  MOVE R8 R1
+  GETTABLEKS R10 R4 K4 ["variants"]
+  GETTABLE R9 R10 R2
+  MOVE R10 R3
+  CALL R7 3 -1
+  CALL R5 -1 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Utility"]
+  GETTABLEKS R2 R3 K7 ["composeStyleVariant"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R5 R0 K8 ["Providers"]
+  GETTABLEKS R4 R5 K9 ["Style"]
+  GETTABLEKS R3 R4 K10 ["Tokens"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R6 R0 K8 ["Providers"]
+  GETTABLEKS R5 R6 K9 ["Style"]
+  GETTABLEKS R4 R5 K11 ["VariantsContext"]
+  CALL R3 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K12 ["Enums"]
+  GETTABLEKS R5 R6 K13 ["IndicatorShape"]
+  CALL R4 1 1
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R7 R0 K12 ["Enums"]
+  GETTABLEKS R6 R7 K14 ["IndicatorVariant"]
+  CALL R5 1 1
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R8 R0 K15 ["Components"]
+  GETTABLEKS R7 R8 K16 ["Types"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K17 [PROTO_0]
+  CAPTURE VAL R4
+  SETGLOBAL R7 K18 ["mapToProps"]
+  DUPCLOSURE R7 K19 [PROTO_1]
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  DUPCLOSURE R8 K20 [PROTO_2]
+  CAPTURE VAL R3
+  CAPTURE VAL R7
+  CAPTURE VAL R1
+  RETURN R8 1

@@ -176,7 +176,7 @@ PROTO_7:
   GETTABLEKS R17 R18 K10 ["createElement"]
   GETUPVAL R18 6
   DUPTABLE R19 K31 [{"tag", "BackgroundTransparency"}]
-  LOADK R20 K32 ["size-full-0 auto-y col padding-small gap-small"]
+  LOADK R20 K32 ["size-full-0 auto-y col padding-medium gap-small"]
   SETTABLEKS R20 R19 K25 ["tag"]
   LOADN R20 1
   SETTABLEKS R20 R19 K20 ["BackgroundTransparency"]

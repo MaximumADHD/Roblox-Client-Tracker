@@ -64,45 +64,48 @@ PROTO_7:
 
 PROTO_8:
   GETUPVAL R1 0
-  NAMECALL R2 R0 K0 ["getShowSearchOptions"]
+  GETTABLEKS R0 R1 K0 ["use"]
+  CALL R0 0 1
+  GETUPVAL R1 1
+  NAMECALL R2 R0 K1 ["getShowSearchOptions"]
   CALL R2 1 -1
   CALL R1 -1 2
-  GETUPVAL R3 0
-  NAMECALL R4 R0 K1 ["getIsDefaultSearchState"]
+  GETUPVAL R3 1
+  NAMECALL R4 R0 K2 ["getIsDefaultSearchState"]
   CALL R4 1 -1
   CALL R3 -1 2
-  GETUPVAL R5 0
-  NAMECALL R6 R0 K2 ["getSearchTerm"]
+  GETUPVAL R5 1
+  NAMECALL R6 R0 K3 ["getSearchTerm"]
   CALL R6 1 -1
   CALL R5 -1 2
-  GETUPVAL R7 0
-  NAMECALL R8 R0 K3 ["getSearchOptions"]
+  GETUPVAL R7 1
+  NAMECALL R8 R0 K4 ["getSearchOptions"]
   CALL R8 1 -1
   CALL R7 -1 2
-  DUPTABLE R9 K8 [{"ShowSearchOptions", "SearchTerm", "SearchOptions", "IsDefaultSearchState"}]
-  SETTABLEKS R1 R9 K4 ["ShowSearchOptions"]
-  SETTABLEKS R5 R9 K5 ["SearchTerm"]
-  SETTABLEKS R7 R9 K6 ["SearchOptions"]
-  SETTABLEKS R3 R9 K7 ["IsDefaultSearchState"]
-  GETUPVAL R10 1
+  DUPTABLE R9 K9 [{"ShowSearchOptions", "SearchTerm", "SearchOptions", "IsDefaultSearchState"}]
+  SETTABLEKS R1 R9 K5 ["ShowSearchOptions"]
+  SETTABLEKS R5 R9 K6 ["SearchTerm"]
+  SETTABLEKS R7 R9 K7 ["SearchOptions"]
+  SETTABLEKS R3 R9 K8 ["IsDefaultSearchState"]
+  GETUPVAL R10 2
   NEWCLOSURE R11 P0
   CAPTURE VAL R0
   CAPTURE VAL R2
   NEWTABLE R12 0 0
   CALL R10 2 0
-  GETUPVAL R10 1
+  GETUPVAL R10 2
   NEWCLOSURE R11 P1
   CAPTURE VAL R0
   CAPTURE VAL R6
   NEWTABLE R12 0 0
   CALL R10 2 0
-  GETUPVAL R10 1
+  GETUPVAL R10 2
   NEWCLOSURE R11 P2
   CAPTURE VAL R0
   CAPTURE VAL R8
   NEWTABLE R12 0 0
   CALL R10 2 0
-  GETUPVAL R10 1
+  GETUPVAL R10 2
   NEWCLOSURE R11 P3
   CAPTURE VAL R0
   CAPTURE VAL R4
@@ -126,7 +129,13 @@ MAIN:
   CALL R2 1 1
   GETTABLEKS R3 R2 K10 ["useState"]
   GETTABLEKS R4 R2 K11 ["useEffect"]
-  DUPCLOSURE R5 K12 [PROTO_8]
+  GETIMPORT R5 K5 [require]
+  GETTABLEKS R8 R0 K6 ["Src"]
+  GETTABLEKS R7 R8 K12 ["Controllers"]
+  GETTABLEKS R6 R7 K13 ["SearchController"]
+  CALL R5 1 1
+  DUPCLOSURE R6 K14 [PROTO_8]
+  CAPTURE VAL R5
   CAPTURE VAL R3
   CAPTURE VAL R4
-  RETURN R5 1
+  RETURN R6 1

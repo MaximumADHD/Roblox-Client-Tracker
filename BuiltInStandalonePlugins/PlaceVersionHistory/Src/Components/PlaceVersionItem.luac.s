@@ -1,4 +1,26 @@
 PROTO_0:
+  LOADB R1 1
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["Enums"]
+  GETTABLEKS R3 R4 K1 ["ControlState"]
+  GETTABLEKS R2 R3 K2 ["Hover"]
+  JUMPIFEQ R0 R2 [+12]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["Enums"]
+  GETTABLEKS R3 R4 K1 ["ControlState"]
+  GETTABLEKS R2 R3 K3 ["Pressed"]
+  JUMPIFEQ R0 R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  GETUPVAL R2 1
+  MOVE R3 R1
+  CALL R2 1 0
+  GETUPVAL R2 2
+  NOT R3 R1
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_1:
   GETUPVAL R1 0
   CALL R1 0 1
   GETUPVAL R2 1
@@ -17,103 +39,122 @@ PROTO_0:
   LOADB R4 1
   OR R5 R3 R4
   GETUPVAL R7 2
-  GETTABLEKS R6 R7 K5 ["createElement"]
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K6 ["View"]
-  DUPTABLE R8 K10 [{"tag", "onActivated", "LayoutOrder"}]
-  LOADK R9 K11 ["size-full-0 auto-y row align-y-top gap-small padding-small radius-small"]
-  SETTABLEKS R9 R8 K7 ["tag"]
-  GETTABLEKS R9 R2 K12 ["toggle"]
-  SETTABLEKS R9 R8 K8 ["onActivated"]
-  GETTABLEKS R9 R0 K9 ["LayoutOrder"]
-  SETTABLEKS R9 R8 K9 ["LayoutOrder"]
-  DUPTABLE R9 K17 [{"ExpandButton", "VersionChip", "VersionNote", "OverflowMenu"}]
+  GETTABLEKS R6 R7 K5 ["useBinding"]
+  LOADB R7 0
+  CALL R6 1 2
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K6 ["useState"]
+  LOADB R9 0
+  CALL R8 1 2
   GETUPVAL R11 2
-  GETTABLEKS R10 R11 K5 ["createElement"]
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K18 ["IconButton"]
-  DUPTABLE R12 K23 [{"onActivated", "icon", "size", "testId", "isDisabled", "LayoutOrder"}]
-  GETTABLEKS R13 R2 K12 ["toggle"]
-  SETTABLEKS R13 R12 K8 ["onActivated"]
+  GETTABLEKS R10 R11 K7 ["useCallback"]
+  NEWCLOSURE R11 P0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  NEWTABLE R12 0 0
+  CALL R10 2 1
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K8 ["createElement"]
+  GETUPVAL R13 3
+  GETTABLEKS R12 R13 K9 ["View"]
+  DUPTABLE R13 K14 [{"tag", "onActivated", "onStateChanged", "LayoutOrder"}]
+  LOADK R14 K15 ["size-full-0 auto-y row align-y-top gap-small padding-small radius-small"]
+  SETTABLEKS R14 R13 K10 ["tag"]
+  GETTABLEKS R14 R2 K16 ["toggle"]
+  SETTABLEKS R14 R13 K11 ["onActivated"]
+  SETTABLEKS R10 R13 K12 ["onStateChanged"]
+  GETTABLEKS R14 R0 K13 ["LayoutOrder"]
+  SETTABLEKS R14 R13 K13 ["LayoutOrder"]
+  DUPTABLE R14 K21 [{"ExpandButton", "VersionChip", "VersionNote", "OverflowMenu"}]
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K8 ["createElement"]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K22 ["IconButton"]
+  DUPTABLE R17 K27 [{"onActivated", "icon", "size", "testId", "isDisabled", "LayoutOrder"}]
+  GETTABLEKS R18 R2 K16 ["toggle"]
+  SETTABLEKS R18 R17 K11 ["onActivated"]
   JUMPIF R5 [+2]
-  LOADNIL R13
+  LOADNIL R18
   JUMP [+18]
-  GETTABLEKS R14 R2 K24 ["enabled"]
-  JUMPIFNOT R14 [+8]
-  GETUPVAL R16 3
-  GETTABLEKS R15 R16 K25 ["Enums"]
-  GETTABLEKS R14 R15 K26 ["IconName"]
-  GETTABLEKS R13 R14 K27 ["ChevronSmallUp"]
+  GETTABLEKS R19 R2 K28 ["enabled"]
+  JUMPIFNOT R19 [+8]
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K29 ["Enums"]
+  GETTABLEKS R19 R20 K30 ["IconName"]
+  GETTABLEKS R18 R19 K31 ["ChevronSmallUp"]
   JUMP [+7]
-  GETUPVAL R16 3
-  GETTABLEKS R15 R16 K25 ["Enums"]
-  GETTABLEKS R14 R15 K26 ["IconName"]
-  GETTABLEKS R13 R14 K28 ["ChevronSmallDown"]
-  SETTABLEKS R13 R12 K19 ["icon"]
-  GETUPVAL R16 3
-  GETTABLEKS R15 R16 K25 ["Enums"]
-  GETTABLEKS R14 R15 K29 ["InputSize"]
-  GETTABLEKS R13 R14 K30 ["XSmall"]
-  SETTABLEKS R13 R12 K20 ["size"]
-  LOADK R13 K31 ["--place-version-item-expand-button"]
-  SETTABLEKS R13 R12 K21 ["testId"]
-  NOT R13 R5
-  SETTABLEKS R13 R12 K22 ["isDisabled"]
-  MOVE R13 R1
-  CALL R13 0 1
-  SETTABLEKS R13 R12 K9 ["LayoutOrder"]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K13 ["ExpandButton"]
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K5 ["createElement"]
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K32 ["Chip"]
-  DUPTABLE R12 K34 [{"onActivated", "size", "text", "LayoutOrder"}]
-  LOADNIL R13
-  SETTABLEKS R13 R12 K8 ["onActivated"]
-  GETUPVAL R16 3
-  GETTABLEKS R15 R16 K25 ["Enums"]
-  GETTABLEKS R14 R15 K35 ["ChipSize"]
-  GETTABLEKS R13 R14 K36 ["Small"]
-  SETTABLEKS R13 R12 K20 ["size"]
-  LOADK R14 K37 ["v%*"]
-  GETTABLEKS R17 R0 K0 ["metadata"]
-  GETTABLEKS R16 R17 K38 ["version"]
-  NAMECALL R14 R14 K39 ["format"]
-  CALL R14 2 1
-  MOVE R13 R14
-  SETTABLEKS R13 R12 K33 ["text"]
-  MOVE R13 R1
-  CALL R13 0 1
-  SETTABLEKS R13 R12 K9 ["LayoutOrder"]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K14 ["VersionChip"]
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K5 ["createElement"]
-  GETUPVAL R11 4
-  DUPTABLE R12 K41 [{"metadata", "isExpanded", "LayoutOrder"}]
-  GETTABLEKS R13 R0 K0 ["metadata"]
-  SETTABLEKS R13 R12 K0 ["metadata"]
-  GETTABLEKS R13 R2 K24 ["enabled"]
-  SETTABLEKS R13 R12 K40 ["isExpanded"]
-  MOVE R13 R1
-  CALL R13 0 1
-  SETTABLEKS R13 R12 K9 ["LayoutOrder"]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K15 ["VersionNote"]
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K5 ["createElement"]
-  GETUPVAL R11 5
-  DUPTABLE R12 K42 [{"metadata", "LayoutOrder"}]
-  GETTABLEKS R13 R0 K0 ["metadata"]
-  SETTABLEKS R13 R12 K0 ["metadata"]
-  MOVE R13 R1
-  CALL R13 0 1
-  SETTABLEKS R13 R12 K9 ["LayoutOrder"]
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K16 ["OverflowMenu"]
-  CALL R6 3 -1
-  RETURN R6 -1
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K29 ["Enums"]
+  GETTABLEKS R19 R20 K30 ["IconName"]
+  GETTABLEKS R18 R19 K32 ["ChevronSmallDown"]
+  SETTABLEKS R18 R17 K23 ["icon"]
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K29 ["Enums"]
+  GETTABLEKS R19 R20 K33 ["InputSize"]
+  GETTABLEKS R18 R19 K34 ["XSmall"]
+  SETTABLEKS R18 R17 K24 ["size"]
+  LOADK R18 K35 ["--place-version-item-expand-button"]
+  SETTABLEKS R18 R17 K25 ["testId"]
+  NOT R18 R5
+  SETTABLEKS R18 R17 K26 ["isDisabled"]
+  MOVE R18 R1
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K13 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K17 ["ExpandButton"]
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K8 ["createElement"]
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K36 ["Chip"]
+  DUPTABLE R17 K38 [{"onActivated", "size", "text", "LayoutOrder"}]
+  LOADNIL R18
+  SETTABLEKS R18 R17 K11 ["onActivated"]
+  GETUPVAL R21 3
+  GETTABLEKS R20 R21 K29 ["Enums"]
+  GETTABLEKS R19 R20 K39 ["ChipSize"]
+  GETTABLEKS R18 R19 K40 ["Small"]
+  SETTABLEKS R18 R17 K24 ["size"]
+  LOADK R19 K41 ["v%*"]
+  GETTABLEKS R22 R0 K0 ["metadata"]
+  GETTABLEKS R21 R22 K42 ["version"]
+  NAMECALL R19 R19 K43 ["format"]
+  CALL R19 2 1
+  MOVE R18 R19
+  SETTABLEKS R18 R17 K37 ["text"]
+  MOVE R18 R1
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K13 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K18 ["VersionChip"]
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K8 ["createElement"]
+  GETUPVAL R16 4
+  DUPTABLE R17 K45 [{"metadata", "isExpanded", "LayoutOrder"}]
+  GETTABLEKS R18 R0 K0 ["metadata"]
+  SETTABLEKS R18 R17 K0 ["metadata"]
+  GETTABLEKS R18 R2 K28 ["enabled"]
+  SETTABLEKS R18 R17 K44 ["isExpanded"]
+  MOVE R18 R1
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K13 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K19 ["VersionNote"]
+  GETUPVAL R16 2
+  GETTABLEKS R15 R16 K8 ["createElement"]
+  GETUPVAL R16 5
+  DUPTABLE R17 K47 [{"metadata", "isVisible", "isDisabled", "LayoutOrder"}]
+  GETTABLEKS R18 R0 K0 ["metadata"]
+  SETTABLEKS R18 R17 K0 ["metadata"]
+  SETTABLEKS R6 R17 K46 ["isVisible"]
+  SETTABLEKS R8 R17 K26 ["isDisabled"]
+  MOVE R18 R1
+  CALL R18 0 1
+  SETTABLEKS R18 R17 K13 ["LayoutOrder"]
+  CALL R15 2 1
+  SETTABLEKS R15 R14 K20 ["OverflowMenu"]
+  CALL R11 3 -1
+  RETURN R11 -1
 
 MAIN:
   PREPVARARGS 0
@@ -147,7 +188,7 @@ MAIN:
   GETTABLEKS R11 R0 K10 ["Src"]
   GETTABLEKS R10 R11 K16 ["Types"]
   CALL R9 1 1
-  DUPCLOSURE R10 K17 [PROTO_0]
+  DUPCLOSURE R10 K17 [PROTO_1]
   CAPTURE VAL R7
   CAPTURE VAL R8
   CAPTURE VAL R1

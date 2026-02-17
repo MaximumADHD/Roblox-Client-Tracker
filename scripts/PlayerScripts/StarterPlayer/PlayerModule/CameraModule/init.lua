@@ -47,7 +47,7 @@ local USER_GAME_SETTINGS_PROPERTIES =
 
 --[[ Roblox Services ]]--
 local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
+local RunService = game:GetService("RunService") -- remove with FFlagUserPlayerModuleHiddenAPI
 local UserInputService = game:GetService("UserInputService")
 local VRService = game:GetService("VRService")
 local UserGameSettings = UserSettings():GetService("UserGameSettings")
@@ -55,6 +55,7 @@ local UserGameSettings = UserSettings():GetService("UserGameSettings")
 local CommonUtils = script.Parent:WaitForChild("CommonUtils")
 local ConnectionUtil = require(CommonUtils:WaitForChild("ConnectionUtil"))
 local FlagUtil = require(CommonUtils:WaitForChild("FlagUtil"))
+local FFlagUserPlayerModuleHiddenAPI = FlagUtil.getUserFlag("UserPlayerModuleHiddenAPI")
 
 -- Static camera utils
 local CameraUtils = require(script:WaitForChild("CameraUtils"))
@@ -189,7 +190,9 @@ function CameraModule.new()
 	self:ActivateCameraController()
 	self:ActivateOcclusionModule(Players.LocalPlayer.DevCameraOcclusionMode)
 	self:OnCurrentCameraChanged() -- Does initializations and makes first camera controller
-	RunService:BindToRenderStep("cameraRenderUpdate", Enum.RenderPriority.Camera.Value, function(dt) self:Update(dt) end)
+	if not FFlagUserPlayerModuleHiddenAPI then
+		RunService:BindToRenderStep("cameraRenderUpdate", Enum.RenderPriority.Camera.Value, function(dt) self:Update({}, dt) end)
+	end
 
 	-- Connect listeners to camera-related properties
 	for _, propertyName in pairs(PLAYER_CAMERA_PROPERTIES) do
@@ -548,7 +551,7 @@ end
 	The camera and occlusion modules should only return CFrames, not set the CFrame property of
 	CurrentCamera directly.
 --]]
-function CameraModule:Update(dt)
+function CameraModule:Update(data, dt)
 	if self.activeCameraController then
 		self.activeCameraController:UpdateMouseBehavior()
 
@@ -626,6 +629,9 @@ function CameraModule:OnMouseLockToggled()
 	end
 end
 
-CameraModule.new()
-
-return {}
+if FFlagUserPlayerModuleHiddenAPI then
+	return CameraModule.new()
+else
+	CameraModule.new()
+	return {}
+end

@@ -47,7 +47,7 @@ local GamepadConnector = require(Components.GamepadConnector)
 local GamepadNavigationDialog = require(Presentation.GamepadNavigationDialog)
 local HealthBar = require(TopBar.ComponentsV2.HealthBar)
 local HurtOverlay = require(TopBar.ComponentsV2.HurtOverlay)
-local HeadsetMenu = require(Presentation.HeadsetMenu)
+local HeadsetDisconnectDialog = require(TopBar.ComponentsV2.HeadsetDisconnectDialog)
 local MenuIcon = require(TopBar.ComponentsV2.MenuIcon)
 local MenuIconContext = require(Components.MenuIconContext)
 local MenuNavigationToggleDialog = require(Presentation.GamepadMenu.MenuNavigationToggleDialog)
@@ -120,7 +120,7 @@ local function TopBarApp(props: TopBarProps)
 		Popups = React.createElement(View, {
 			tag = "size-full",
 		}, {
-			HeadsetMenu = React.createElement(HeadsetMenu),
+			HeadsetDisconnectDialog = React.createElement(HeadsetDisconnectDialog),
 			SongbirdReportAudioFrame = React.createElement(View, {
 				tag = "anchor-center-center position-center-center",
 				Size = UDim2.new(1, 0, 0, MusicConstants.AUDIO_REPORTING_WINDOW_MIN_HEIGHT),
@@ -175,7 +175,7 @@ local function TopBarApp(props: TopBarProps)
 					},
 				}, {
 					React.createElement(Unibar, {
-						layoutOrder = 1,
+						layoutOrder = 2,
 						onMinWidthChanged = function() end,
 						onAreaChanged = function() end,
 						menuRef = unibarMenuRef

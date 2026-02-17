@@ -2,8 +2,10 @@ local Foundation = script:FindFirstAncestor("Foundation")
 local Packages = Foundation.Parent
 
 local React = require(Packages.React)
+local ReactIs = require(Packages.ReactIs)
 
 local Constants = require(script.Parent.constants)
+local Flags = require(Foundation.Utility.Flags)
 local Types = require(Foundation.Components.Types)
 local View = require(Foundation.Components.View)
 local usePreferences = require(Foundation.Providers.Preferences.usePreferences)
@@ -21,13 +23,35 @@ type ProgressShape = ProgressShape.ProgressShape
 local ProgressSize = require(Foundation.Enums.ProgressSize)
 type ProgressSize = ProgressSize.ProgressSize
 
+type Bindable<T> = Types.Bindable<T>
+
+local function getBarSequenceFromProgress(progressValue: number?)
+	local value = progressValue or 0
+	if value == 0 then
+		return NumberSequence.new(1)
+	elseif value == 1 then
+		return NumberSequence.new(0)
+	end
+
+	local numberSequenceKeypoints = {
+		NumberSequenceKeypoint.new(0, 0),
+		NumberSequenceKeypoint.new(value, 0),
+		NumberSequenceKeypoint.new(math.min(value + 0.001, 1), 1),
+	}
+	if value < 0.999 then
+		table.insert(numberSequenceKeypoints, NumberSequenceKeypoint.new(1, 1))
+	end
+
+	return NumberSequence.new(numberSequenceKeypoints)
+end
+
 export type ProgressBarProps = {
 	-- Shape of the progress indicator, either "Bar" or "Circle"
 	shape: typeof(ProgressShape.Bar),
 	-- Size of the progress indicator
 	size: typeof(ProgressSize.Medium)?,
 	-- Progress value shown (can be nil to show indeterminate progress)
-	value: number?,
+	value: Bindable<number>?,
 	-- Width of the progress bar when shape = "Bar"
 	width: UDim?,
 } & Types.CommonProps
@@ -44,9 +68,13 @@ local function ProgressBar(progressProps: ProgressBarProps & {
 	local tokens = useTokens()
 	local preferences = usePreferences()
 	local variants = useProgressVariants(tokens, props.size)
-	local progress, isIndeterminate = useProgressBinding(props)
+	local progress, isIndeterminate = useProgressBinding(props.value)
 	local rotation = useRotation(1)
 	local pulse = usePulseBinding(1 / Constants.INDETERMINATE_SHIMMER_SPEED)
+
+	local progressSequence = if ReactIs.isBinding(progress) or not Flags.FoundationProgressBindableValue
+		then (progress :: React.Binding<number>):map(getBarSequenceFromProgress)
+		else getBarSequenceFromProgress(progress :: number?)
 
 	return React.createElement(
 		View,
@@ -78,26 +106,7 @@ local function ProgressBar(progressProps: ProgressBarProps & {
 								NumberSequenceKeypoint.new(1, 1),
 							})
 						end)
-						else progress:map(function(progressValue: number?)
-							local value = progressValue or 0
-							if value == 0 then
-								return NumberSequence.new(1)
-							elseif value == 1 then
-								return NumberSequence.new(0)
-							end
-
-							local numberSequenceKeypoints = {
-								NumberSequenceKeypoint.new(0, 0),
-								NumberSequenceKeypoint.new(value, 0),
-								NumberSequenceKeypoint.new(math.min(value + 0.001, 1), 1),
-							}
-							if value < 0.999 then
-								table.insert(numberSequenceKeypoints, NumberSequenceKeypoint.new(1, 1))
-							end
-
-							-- print(numberSequenceKeypoints)
-							return NumberSequence.new(numberSequenceKeypoints)
-						end),
+						else progressSequence,
 					Offset = if isIndeterminate
 						then rotation:map(function(rotationValue: number)
 							if preferences.reducedMotion then

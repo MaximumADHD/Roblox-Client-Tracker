@@ -23,7 +23,13 @@ local function computeProps(props: {
 	splitButtonTag: string,
 	splitButtonSize: string,
 })
-	local horizontalPadding = UDim.new(0, (props.width - props.horizontalPadding) / 2)
+	local horizontalPadding = UDim.new(
+		0,
+		(
+			(if Flags.FoundationNumberInputTokenBasedWidth then props.buttonWidth :: number else props.width)
+			- props.horizontalPadding
+		) / 2
+	)
 	return {
 		container = {
 			width = if Flags.FoundationNumberInputTokenBasedWidth then props.width else nil,

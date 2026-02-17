@@ -1,14 +1,24 @@
 PROTO_0:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  JUMPIFNOT R1 [+9]
-  GETIMPORT R1 K1 [print]
-  LOADK R3 K2 ["AssetManager: %*"]
-  MOVE R5 R0
-  NAMECALL R3 R3 K3 ["format"]
-  CALL R3 2 1
-  MOVE R2 R3
-  CALL R1 1 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIF R2 [+1]
+  RETURN R0 0
+  JUMPIFNOT R1 [+11]
+  JUMPIFNOTEQKS R1 K0 ["WARN"] [+10]
+  GETIMPORT R2 K2 [warn]
+  LOADK R4 K3 ["AssetManager: %*"]
+  MOVE R6 R0
+  NAMECALL R4 R4 K4 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CALL R2 1 0
+  GETIMPORT R2 K6 [print]
+  LOADK R4 K3 ["AssetManager: %*"]
+  MOVE R6 R0
+  NAMECALL R4 R4 K4 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CALL R2 1 0
   RETURN R0 0
 
 MAIN:

@@ -1,0 +1,408 @@
+PROTO_0:
+  GETTABLEKS R1 R0 K0 ["controls"]
+  GETTABLEKS R3 R1 K1 ["isIndeterminate"]
+  JUMPIFNOT R3 [+2]
+  LOADNIL R2
+  JUMP [+2]
+  GETTABLEKS R2 R1 K2 ["value"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K3 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K6 [{"shape", "value", "size"}]
+  GETTABLEKS R6 R1 K4 ["shape"]
+  SETTABLEKS R6 R5 K4 ["shape"]
+  SETTABLEKS R2 R5 K2 ["value"]
+  GETTABLEKS R6 R1 K5 ["size"]
+  SETTABLEKS R6 R5 K5 ["size"]
+  CALL R3 2 -1
+  RETURN R3 -1
+
+PROTO_1:
+  GETIMPORT R1 K1 [tick]
+  CALL R1 0 1
+  GETUPVAL R2 0
+  SUB R0 R1 R2
+  DIVK R3 R0 K3 [3]
+  MULK R2 R3 K2 [100]
+  FASTCALL2K MATH_MIN R2 K2 [+4]
+  LOADK R3 K2 [100]
+  GETIMPORT R1 K6 [math.min]
+  CALL R1 2 1
+  GETUPVAL R2 1
+  MOVE R3 R1
+  CALL R2 1 0
+  LOADN R2 100
+  JUMPIFNOTLE R2 R1 [+8]
+  GETUPVAL R2 2
+  NAMECALL R2 R2 K7 ["Disconnect"]
+  CALL R2 1 0
+  GETUPVAL R2 3
+  LOADB R3 0
+  CALL R2 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Disconnect"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  LOADNIL R0
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+20]
+  GETIMPORT R1 K1 [tick]
+  CALL R1 0 1
+  GETIMPORT R3 K3 [game]
+  LOADK R5 K4 ["RunService"]
+  NAMECALL R3 R3 K5 ["GetService"]
+  CALL R3 2 1
+  GETTABLEKS R2 R3 K6 ["Heartbeat"]
+  NEWCLOSURE R4 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE REF R0
+  CAPTURE UPVAL U2
+  NAMECALL R2 R2 K7 ["Connect"]
+  CALL R2 2 1
+  MOVE R0 R2
+  NEWCLOSURE R1 P1
+  CAPTURE REF R0
+  CLOSEUPVALS R0
+  RETURN R1 1
+
+PROTO_4:
+  GETUPVAL R0 0
+  LOADN R1 0
+  CALL R0 1 0
+  GETUPVAL R0 1
+  LOADB R1 1
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useState"]
+  LOADN R1 0
+  CALL R0 1 2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useState"]
+  LOADB R3 0
+  CALL R2 1 2
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["useEffect"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  NEWTABLE R6 0 1
+  MOVE R7 R2
+  SETLIST R6 R7 1 [1]
+  CALL R4 2 0
+  NEWCLOSURE R4 P1
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["createElement"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K4 [{"tag"}]
+  LOADK R8 K5 ["col gap-medium auto-y size-full-0"]
+  SETTABLEKS R8 R7 K3 ["tag"]
+  DUPTABLE R8 K10 [{"Title", "CircleProgress", "BarProgress", "Button"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K2 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K13 [{"Text", "tag", "LayoutOrder"}]
+  LOADK R13 K14 ["Progress: %*%%"]
+  FASTCALL1 MATH_FLOOR R0 [+3]
+  MOVE R16 R0
+  GETIMPORT R15 K17 [math.floor]
+  CALL R15 1 1
+  NAMECALL R13 R13 K18 ["format"]
+  CALL R13 2 1
+  MOVE R12 R13
+  SETTABLEKS R12 R11 K11 ["Text"]
+  LOADK R12 K19 ["size-0-0 auto-xy text-title-small content-emphasis"]
+  SETTABLEKS R12 R11 K3 ["tag"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K12 ["LayoutOrder"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K6 ["Title"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K2 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K23 [{"shape", "value", "size", "LayoutOrder"}]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K24 ["Circle"]
+  SETTABLEKS R12 R11 K20 ["shape"]
+  SETTABLEKS R0 R11 K21 ["value"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K25 ["Large"]
+  SETTABLEKS R12 R11 K22 ["size"]
+  LOADN R12 2
+  SETTABLEKS R12 R11 K12 ["LayoutOrder"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K7 ["CircleProgress"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K2 ["createElement"]
+  GETUPVAL R10 3
+  DUPTABLE R11 K23 [{"shape", "value", "size", "LayoutOrder"}]
+  GETUPVAL R13 4
+  GETTABLEKS R12 R13 K26 ["Bar"]
+  SETTABLEKS R12 R11 K20 ["shape"]
+  SETTABLEKS R0 R11 K21 ["value"]
+  GETUPVAL R13 5
+  GETTABLEKS R12 R13 K27 ["Medium"]
+  SETTABLEKS R12 R11 K22 ["size"]
+  LOADN R12 3
+  SETTABLEKS R12 R11 K12 ["LayoutOrder"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K8 ["BarProgress"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K2 ["createElement"]
+  GETUPVAL R10 6
+  DUPTABLE R11 K31 [{"text", "onActivated", "isDisabled", "LayoutOrder"}]
+  JUMPIFNOT R2 [+2]
+  LOADK R12 K32 ["Animating..."]
+  JUMP [+1]
+  LOADK R12 K33 ["Start Animation"]
+  SETTABLEKS R12 R11 K28 ["text"]
+  SETTABLEKS R4 R11 K29 ["onActivated"]
+  SETTABLEKS R2 R11 K30 ["isDisabled"]
+  LOADN R12 4
+  SETTABLEKS R12 R11 K12 ["LayoutOrder"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K9 ["Button"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+PROTO_6:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K2 [{"tag"}]
+  LOADK R4 K3 ["row gap-medium align-y-center size-full-0 auto-y"]
+  SETTABLEKS R4 R3 K1 ["tag"]
+  DUPTABLE R4 K7 [{"Label", "CircleProgress", "BarProgress"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 2
+  DUPTABLE R7 K10 [{"Text", "tag", "LayoutOrder"}]
+  LOADK R9 K11 ["%*:"]
+  MOVE R11 R0
+  NAMECALL R9 R9 K12 ["format"]
+  CALL R9 2 1
+  MOVE R8 R9
+  SETTABLEKS R8 R7 K8 ["Text"]
+  LOADK R8 K13 ["size-1500-0 text-align-x-right auto-y text-body-small content-default"]
+  SETTABLEKS R8 R7 K1 ["tag"]
+  LOADN R8 1
+  SETTABLEKS R8 R7 K9 ["LayoutOrder"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K4 ["Label"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 3
+  DUPTABLE R7 K17 [{"shape", "value", "size", "LayoutOrder"}]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K18 ["Circle"]
+  SETTABLEKS R8 R7 K14 ["shape"]
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K15 ["value"]
+  SETTABLEKS R8 R7 K15 ["value"]
+  SETTABLEKS R0 R7 K16 ["size"]
+  LOADN R8 2
+  SETTABLEKS R8 R7 K9 ["LayoutOrder"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K5 ["CircleProgress"]
+  GETUPVAL R7 6
+  GETTABLEKS R6 R7 K19 ["Medium"]
+  JUMPIFNOTEQ R0 R6 [+30]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R6 3
+  DUPTABLE R7 K21 [{"shape", "value", "size", "width", "LayoutOrder"}]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K22 ["Bar"]
+  SETTABLEKS R8 R7 K14 ["shape"]
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K15 ["value"]
+  SETTABLEKS R8 R7 K15 ["value"]
+  SETTABLEKS R0 R7 K16 ["size"]
+  GETIMPORT R8 K25 [UDim.new]
+  LOADN R9 0
+  LOADN R10 44
+  CALL R8 2 1
+  SETTABLEKS R8 R7 K20 ["width"]
+  LOADN R8 3
+  SETTABLEKS R8 R7 K9 ["LayoutOrder"]
+  CALL R5 2 1
+  JUMP [+1]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K6 ["BarProgress"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_7:
+  GETTABLEKS R1 R0 K0 ["controls"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K1 ["createElement"]
+  GETUPVAL R3 1
+  DUPTABLE R4 K3 [{"tag"}]
+  LOADK R5 K4 ["col gap-large auto-y size-full-0"]
+  SETTABLEKS R5 R4 K2 ["tag"]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K5 ["map"]
+  GETUPVAL R6 3
+  NEWCLOSURE R7 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE VAL R1
+  CAPTURE UPVAL U3
+  CALL R5 2 -1
+  CALL R2 -1 -1
+  RETURN R2 -1
+
+PROTO_8:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["createElement"]
+  GETUPVAL R1 1
+  DUPTABLE R2 K2 [{"tag"}]
+  LOADK R3 K3 ["col gap-medium auto-y size-full-0"]
+  SETTABLEKS R3 R2 K1 ["tag"]
+  DUPTABLE R3 K6 [{"CircleIndeterminate", "BarIndeterminate"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K10 [{"shape", "size", "LayoutOrder"}]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K11 ["Circle"]
+  SETTABLEKS R7 R6 K7 ["shape"]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K12 ["Large"]
+  SETTABLEKS R7 R6 K8 ["size"]
+  LOADN R7 1
+  SETTABLEKS R7 R6 K9 ["LayoutOrder"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K4 ["CircleIndeterminate"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K10 [{"shape", "size", "LayoutOrder"}]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K13 ["Bar"]
+  SETTABLEKS R7 R6 K7 ["shape"]
+  GETUPVAL R8 4
+  GETTABLEKS R7 R8 K14 ["Medium"]
+  SETTABLEKS R7 R6 K8 ["size"]
+  LOADN R7 2
+  SETTABLEKS R7 R6 K9 ["LayoutOrder"]
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K5 ["BarIndeterminate"]
+  CALL R0 3 -1
+  RETURN R0 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["Dash"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K9 ["Components"]
+  GETTABLEKS R5 R6 K10 ["Progress"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K9 ["Components"]
+  GETTABLEKS R6 R7 K11 ["View"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K9 ["Components"]
+  GETTABLEKS R7 R8 K12 ["Text"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K9 ["Components"]
+  GETTABLEKS R8 R9 K13 ["Button"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R0 K14 ["Enums"]
+  GETTABLEKS R9 R10 K15 ["ProgressShape"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K14 ["Enums"]
+  GETTABLEKS R10 R11 K16 ["ProgressSize"]
+  CALL R9 1 1
+  DUPCLOSURE R10 K17 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  DUPCLOSURE R11 K18 [PROTO_5]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R7
+  DUPCLOSURE R12 K19 [PROTO_7]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R3
+  CAPTURE VAL R9
+  CAPTURE VAL R6
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  DUPCLOSURE R13 K20 [PROTO_8]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  DUPTABLE R14 K24 [{"summary", "stories", "controls"}]
+  LOADK R15 K25 ["Progress component with Circle and Bar shapes, supporting both determinate and indeterminate states"]
+  SETTABLEKS R15 R14 K21 ["summary"]
+  NEWTABLE R15 0 4
+  DUPTABLE R16 K28 [{"name", "story"}]
+  LOADK R17 K29 ["Configurable"]
+  SETTABLEKS R17 R16 K26 ["name"]
+  SETTABLEKS R10 R16 K27 ["story"]
+  DUPTABLE R17 K28 [{"name", "story"}]
+  LOADK R18 K30 ["Animated Demo"]
+  SETTABLEKS R18 R17 K26 ["name"]
+  SETTABLEKS R11 R17 K27 ["story"]
+  DUPTABLE R18 K28 [{"name", "story"}]
+  LOADK R19 K31 ["Sizes"]
+  SETTABLEKS R19 R18 K26 ["name"]
+  SETTABLEKS R12 R18 K27 ["story"]
+  DUPTABLE R19 K28 [{"name", "story"}]
+  LOADK R20 K32 ["Indeterminate"]
+  SETTABLEKS R20 R19 K26 ["name"]
+  SETTABLEKS R13 R19 K27 ["story"]
+  SETLIST R15 R16 4 [1]
+  SETTABLEKS R15 R14 K22 ["stories"]
+  DUPTABLE R15 K37 [{"shape", "size", "value", "isIndeterminate"}]
+  GETTABLEKS R16 R3 K38 ["values"]
+  MOVE R17 R8
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K33 ["shape"]
+  GETTABLEKS R16 R3 K38 ["values"]
+  MOVE R17 R9
+  CALL R16 1 1
+  SETTABLEKS R16 R15 K34 ["size"]
+  LOADN R16 65
+  SETTABLEKS R16 R15 K35 ["value"]
+  LOADB R16 0
+  SETTABLEKS R16 R15 K36 ["isIndeterminate"]
+  SETTABLEKS R15 R14 K23 ["controls"]
+  RETURN R14 1

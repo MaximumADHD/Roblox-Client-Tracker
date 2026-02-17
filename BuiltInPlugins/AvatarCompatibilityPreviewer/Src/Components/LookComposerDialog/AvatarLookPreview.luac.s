@@ -1,0 +1,192 @@
+PROTO_0:
+  NAMECALL R2 R0 K0 ["Clone"]
+  CALL R2 1 1
+  JUMPIFEQKNIL R1 [+27]
+  LOADK R5 K1 ["BodyColors"]
+  NAMECALL R3 R2 K2 ["FindFirstChildWhichIsA"]
+  CALL R3 2 1
+  JUMPIFNOT R3 [+2]
+  MOVE R4 R3
+  JUMP [+4]
+  GETIMPORT R4 K5 [Instance.new]
+  LOADK R5 K1 ["BodyColors"]
+  CALL R4 1 1
+  JUMPIF R3 [+2]
+  SETTABLEKS R2 R4 K6 ["Parent"]
+  SETTABLEKS R1 R4 K7 ["HeadColor3"]
+  SETTABLEKS R1 R4 K8 ["TorsoColor3"]
+  SETTABLEKS R1 R4 K9 ["LeftArmColor3"]
+  SETTABLEKS R1 R4 K10 ["RightArmColor3"]
+  SETTABLEKS R1 R4 K11 ["LeftLegColor3"]
+  SETTABLEKS R1 R4 K12 ["RightLegColor3"]
+  GETIMPORT R3 K5 [Instance.new]
+  LOADK R4 K13 ["WorldModel"]
+  CALL R3 1 1
+  LOADK R4 K14 ["Dummy"]
+  SETTABLEKS R4 R2 K15 ["Name"]
+  SETTABLEKS R3 R2 K6 ["Parent"]
+  GETTABLEKS R4 R2 K16 ["PrimaryPart"]
+  JUMPIFEQKNIL R4 [+5]
+  GETTABLEKS R4 R2 K16 ["PrimaryPart"]
+  SETTABLEKS R4 R3 K16 ["PrimaryPart"]
+  GETIMPORT R6 K18 [CFrame.new]
+  CALL R6 0 -1
+  NAMECALL R4 R3 K19 ["PivotTo"]
+  CALL R4 -1 0
+  RETURN R3 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["Destroy"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  JUMPIFNOTEQKNIL R0 [+2]
+  RETURN R0 0
+  GETUPVAL R0 1
+  GETUPVAL R1 0
+  GETUPVAL R2 2
+  CALL R0 2 1
+  GETUPVAL R1 3
+  MOVE R2 R0
+  CALL R1 1 0
+  NEWCLOSURE R1 P0
+  CAPTURE VAL R0
+  RETURN R1 1
+
+PROTO_3:
+  GETUPVAL R1 0
+  CALL R1 0 1
+  JUMPIF R1 [+6]
+  GETIMPORT R1 K1 [warn]
+  LOADK R2 K2 ["AvatarLookPreview is not available because the flag AvatarPreviewerLookComposer is not enabled"]
+  CALL R1 1 0
+  LOADNIL R1
+  RETURN R1 1
+  GETTABLEKS R1 R0 K3 ["bodyColor"]
+  GETTABLEKS R2 R0 K4 ["bodyProportions"]
+  GETTABLEKS R3 R0 K5 ["dummy"]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K6 ["useState"]
+  LOADNIL R5
+  CALL R4 1 2
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K7 ["useEffect"]
+  NEWCLOSURE R7 P0
+  CAPTURE VAL R3
+  CAPTURE UPVAL U2
+  CAPTURE VAL R1
+  CAPTURE VAL R5
+  NEWTABLE R8 0 3
+  MOVE R9 R3
+  MOVE R10 R1
+  MOVE R11 R2
+  SETLIST R8 R9 3 [1]
+  CALL R6 2 0
+  JUMPIFEQKNIL R4 [+76]
+  GETTABLEKS R6 R4 K8 ["PrimaryPart"]
+  JUMPIFEQKNIL R6 [+72]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K9 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K13 [{"tag", "Size", "LayoutOrder"}]
+  LOADK R9 K14 ["bg-surface-200 radius-medium stroke-default clip"]
+  SETTABLEKS R9 R8 K10 ["tag"]
+  GETIMPORT R9 K17 [UDim2.fromOffset]
+  LOADN R10 150
+  LOADN R11 150
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K11 ["Size"]
+  GETTABLEKS R9 R0 K12 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K12 ["LayoutOrder"]
+  DUPTABLE R9 K19 [{"AvatarPreview"}]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K9 ["createElement"]
+  GETUPVAL R11 4
+  DUPTABLE R12 K27 [{"FocusDirection", "Model", "Static", "ShouldClone", "Ambient", "LightColor", "LightDirection"}]
+  GETTABLEKS R15 R4 K8 ["PrimaryPart"]
+  GETTABLEKS R14 R15 K28 ["CFrame"]
+  GETTABLEKS R13 R14 K29 ["LookVector"]
+  SETTABLEKS R13 R12 K20 ["FocusDirection"]
+  SETTABLEKS R4 R12 K21 ["Model"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K22 ["Static"]
+  LOADB R13 0
+  SETTABLEKS R13 R12 K23 ["ShouldClone"]
+  GETIMPORT R13 K32 [Color3.new]
+  LOADK R14 K33 [0.5]
+  LOADK R15 K33 [0.5]
+  LOADK R16 K33 [0.5]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K24 ["Ambient"]
+  GETIMPORT R13 K32 [Color3.new]
+  LOADN R14 1
+  LOADN R15 1
+  LOADN R16 1
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K25 ["LightColor"]
+  GETTABLEKS R16 R4 K8 ["PrimaryPart"]
+  GETTABLEKS R15 R16 K28 ["CFrame"]
+  GETTABLEKS R14 R15 K29 ["LookVector"]
+  MINUS R13 R14
+  SETTABLEKS R13 R12 K26 ["LightDirection"]
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K18 ["AvatarPreview"]
+  CALL R6 3 -1
+  RETURN R6 -1
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K9 ["createElement"]
+  GETUPVAL R7 3
+  DUPTABLE R8 K13 [{"tag", "Size", "LayoutOrder"}]
+  LOADK R9 K34 ["bg-surface-200 radius-medium stroke-default"]
+  SETTABLEKS R9 R8 K10 ["tag"]
+  GETIMPORT R9 K17 [UDim2.fromOffset]
+  LOADN R10 150
+  LOADN R11 150
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K11 ["Size"]
+  GETTABLEKS R9 R0 K12 ["LayoutOrder"]
+  SETTABLEKS R9 R8 K12 ["LayoutOrder"]
+  CALL R6 2 -1
+  RETURN R6 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Packages"]
+  GETTABLEKS R2 R3 K7 ["React"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Packages"]
+  GETTABLEKS R3 R4 K8 ["Foundation"]
+  CALL R2 1 1
+  GETTABLEKS R3 R2 K9 ["View"]
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K6 ["Packages"]
+  GETTABLEKS R5 R6 K10 ["Framework"]
+  CALL R4 1 1
+  GETTABLEKS R5 R4 K11 ["UI"]
+  GETTABLEKS R6 R5 K12 ["AssetRenderModel"]
+  GETIMPORT R7 K5 [require]
+  GETTABLEKS R9 R0 K13 ["Src"]
+  GETTABLEKS R8 R9 K14 ["Types"]
+  CALL R7 1 1
+  GETIMPORT R8 K5 [require]
+  GETTABLEKS R11 R0 K13 ["Src"]
+  GETTABLEKS R10 R11 K15 ["Flags"]
+  GETTABLEKS R9 R10 K16 ["getFFlagAvatarPreviewerLookComposer"]
+  CALL R8 1 1
+  DUPCLOSURE R9 K17 [PROTO_0]
+  DUPCLOSURE R10 K18 [PROTO_3]
+  CAPTURE VAL R8
+  CAPTURE VAL R1
+  CAPTURE VAL R9
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  RETURN R10 1

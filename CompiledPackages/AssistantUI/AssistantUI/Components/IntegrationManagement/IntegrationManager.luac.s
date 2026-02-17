@@ -1,0 +1,195 @@
+PROTO_0:
+  FASTCALL1 TYPEOF R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [typeof]
+  CALL R1 1 1
+  JUMPIFEQKS R1 K2 ["table"] [+4]
+  LOADNIL R1
+  LOADK R2 K3 ["Expected top level key to be a table"]
+  RETURN R1 2
+  GETTABLEKS R1 R0 K4 ["integrations"]
+  JUMPIF R1 [+4]
+  NEWTABLE R2 0 0
+  LOADNIL R3
+  RETURN R2 2
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R3 R1
+  GETIMPORT R2 K1 [typeof]
+  CALL R2 1 1
+  JUMPIFEQKS R2 K2 ["table"] [+4]
+  LOADNIL R2
+  LOADK R3 K5 ["Expected integrations to be a table"]
+  RETURN R2 2
+  MOVE R2 R1
+  LOADNIL R3
+  LOADNIL R4
+  FORGPREP R2
+  FASTCALL1 TYPEOF R6 [+3]
+  MOVE R8 R6
+  GETIMPORT R7 K1 [typeof]
+  CALL R7 1 1
+  JUMPIFEQKS R7 K2 ["table"] [+9]
+  LOADNIL R7
+  LOADK R9 K6 ["Stored integration at index %* must be a table"]
+  MOVE R11 R5
+  NAMECALL R9 R9 K7 ["format"]
+  CALL R9 2 1
+  MOVE R8 R9
+  RETURN R7 2
+  GETUPVAL R7 0
+  LOADNIL R8
+  LOADNIL R9
+  FORGPREP R7
+  GETTABLEKS R12 R11 K8 ["key"]
+  GETTABLEKS R13 R11 K9 ["type"]
+  GETTABLE R14 R6 R12
+  GETTABLEKS R15 R11 K10 ["optional"]
+  JUMPIFNOT R15 [+2]
+  JUMPIFEQKNIL R14 [+17]
+  FASTCALL1 TYPEOF R14 [+3]
+  MOVE R16 R14
+  GETIMPORT R15 K1 [typeof]
+  CALL R15 1 1
+  JUMPIFEQ R15 R13 [+10]
+  LOADNIL R15
+  LOADK R17 K11 ["Stored integration at index %* has unexpected type for key: %*"]
+  MOVE R19 R5
+  MOVE R20 R12
+  NAMECALL R17 R17 K7 ["format"]
+  CALL R17 3 1
+  MOVE R16 R17
+  RETURN R15 2
+  FORGLOOP R7 2 [-27]
+  FORGLOOP R2 2 [-48]
+  MOVE R2 R1
+  LOADNIL R3
+  RETURN R2 2
+
+PROTO_1:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+4]
+  GETIMPORT R0 K1 [warn]
+  GETVARARGS R1 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["getUserSettingsAsync"]
+  LOADK R1 K1 ["integrations"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_3:
+  GETIMPORT R1 K1 [pcall]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CALL R1 1 2
+  JUMPIF R1 [+7]
+  GETUPVAL R3 0
+  LOADK R4 K2 ["Failed to read settings from environment:"]
+  MOVE R5 R2
+  CALL R3 2 0
+  NEWTABLE R3 0 0
+  RETURN R3 1
+  GETUPVAL R3 1
+  MOVE R4 R2
+  CALL R3 1 2
+  JUMPIF R3 [+7]
+  GETUPVAL R5 0
+  LOADK R6 K3 ["Read integrations had validation errors:"]
+  MOVE R7 R4
+  CALL R5 2 0
+  NEWTABLE R5 0 0
+  RETURN R5 1
+  RETURN R3 1
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["setUserSettingsAsync"]
+  LOADK R1 K1 ["integrations"]
+  NEWTABLE R2 1 0
+  GETUPVAL R3 1
+  SETTABLEKS R3 R2 K1 ["integrations"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETIMPORT R2 K1 [pcall]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  CALL R2 1 2
+  JUMPIF R2 [+12]
+  GETUPVAL R4 0
+  CALL R4 0 1
+  JUMPIFNOT R4 [+9]
+  GETIMPORT R4 K3 [warn]
+  LOADK R6 K4 ["Failed to set settings: %*"]
+  MOVE R8 R3
+  NAMECALL R6 R6 K5 ["format"]
+  CALL R6 2 1
+  MOVE R5 R6
+  CALL R4 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETIMPORT R4 K1 [script]
+  GETTABLEKS R3 R4 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["IntegrationTypes"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K8 ["Guest"]
+  GETTABLEKS R3 R4 K9 ["Environment"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K10 ["Flags"]
+  GETTABLEKS R4 R5 K11 ["FFlagDebugLogAssistantUI"]
+  CALL R3 1 1
+  NEWTABLE R4 2 0
+  NEWTABLE R5 0 4
+  DUPTABLE R6 K14 [{"key", "type"}]
+  LOADK R7 K15 ["label"]
+  SETTABLEKS R7 R6 K12 ["key"]
+  LOADK R7 K16 ["string"]
+  SETTABLEKS R7 R6 K13 ["type"]
+  DUPTABLE R7 K14 [{"key", "type"}]
+  LOADK R8 K17 ["url"]
+  SETTABLEKS R8 R7 K12 ["key"]
+  LOADK R8 K16 ["string"]
+  SETTABLEKS R8 R7 K13 ["type"]
+  DUPTABLE R8 K19 [{"key", "type", "optional"}]
+  LOADK R9 K20 ["disabled"]
+  SETTABLEKS R9 R8 K12 ["key"]
+  LOADK R9 K21 ["boolean"]
+  SETTABLEKS R9 R8 K13 ["type"]
+  LOADB R9 1
+  SETTABLEKS R9 R8 K18 ["optional"]
+  DUPTABLE R9 K19 [{"key", "type", "optional"}]
+  LOADK R10 K22 ["authorization"]
+  SETTABLEKS R10 R9 K12 ["key"]
+  LOADK R10 K23 ["table"]
+  SETTABLEKS R10 R9 K13 ["type"]
+  LOADB R10 1
+  SETTABLEKS R10 R9 K18 ["optional"]
+  SETLIST R5 R6 4 [1]
+  DUPCLOSURE R6 K24 [PROTO_0]
+  CAPTURE VAL R5
+  DUPCLOSURE R7 K25 [PROTO_1]
+  CAPTURE VAL R3
+  DUPCLOSURE R8 K26 [PROTO_3]
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  SETTABLEKS R8 R4 K27 ["getIntegrationsAsync"]
+  DUPCLOSURE R8 K28 [PROTO_5]
+  CAPTURE VAL R3
+  SETTABLEKS R8 R4 K29 ["setIntegrationsAsync"]
+  RETURN R4 1

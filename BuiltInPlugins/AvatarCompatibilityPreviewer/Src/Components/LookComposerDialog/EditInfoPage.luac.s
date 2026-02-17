@@ -98,87 +98,92 @@ PROTO_2:
   DUPTABLE R23 K25 [{"Preview", "InfoColumn"}]
   GETUPVAL R25 2
   GETTABLEKS R24 R25 K6 ["createElement"]
-  GETUPVAL R25 5
-  DUPTABLE R26 K27 [{"LayoutOrder"}]
+  GETUPVAL R25 4
+  DUPTABLE R26 K27 [{"LayoutOrder", "AutomaticSize"}]
   NAMECALL R27 R15 K28 ["getNextOrder"]
   CALL R27 1 1
   SETTABLEKS R27 R26 K26 ["LayoutOrder"]
-  CALL R24 2 1
+  GETIMPORT R27 K30 [Enum.AutomaticSize.XY]
+  SETTABLEKS R27 R26 K13 ["AutomaticSize"]
+  DUPTABLE R27 K32 [{"Thumbnail"}]
+  GETTABLEKS R28 R0 K33 ["lookPreview"]
+  SETTABLEKS R28 R27 K31 ["Thumbnail"]
+  CALL R24 3 1
   SETTABLEKS R24 R23 K23 ["Preview"]
   GETUPVAL R25 2
   GETTABLEKS R24 R25 K6 ["createElement"]
   GETUPVAL R25 4
-  DUPTABLE R26 K29 [{"tag", "LayoutOrder"}]
-  LOADK R27 K30 ["col gap-large grow auto-y"]
+  DUPTABLE R26 K34 [{"tag", "LayoutOrder"}]
+  LOADK R27 K35 ["col gap-large grow auto-y"]
   SETTABLEKS R27 R26 K7 ["tag"]
   NAMECALL R27 R15 K28 ["getNextOrder"]
   CALL R27 1 1
   SETTABLEKS R27 R26 K26 ["LayoutOrder"]
-  DUPTABLE R27 K33 [{"Name", "Description"}]
+  DUPTABLE R27 K38 [{"Name", "Description"}]
   GETUPVAL R29 2
   GETTABLEKS R28 R29 K6 ["createElement"]
-  GETUPVAL R29 6
-  DUPTABLE R30 K42 [{"text", "width", "onChanged", "hint", "placeholder", "label", "hasError", "numLines", "LayoutOrder"}]
-  SETTABLEKS R2 R30 K34 ["text"]
-  GETIMPORT R31 K44 [UDim.new]
+  GETUPVAL R29 5
+  DUPTABLE R30 K47 [{"text", "width", "onChanged", "hint", "placeholder", "label", "hasError", "numLines", "LayoutOrder"}]
+  SETTABLEKS R2 R30 K39 ["text"]
+  GETIMPORT R31 K49 [UDim.new]
   LOADN R32 1
   LOADN R33 0
   CALL R31 2 1
-  SETTABLEKS R31 R30 K35 ["width"]
-  SETTABLEKS R11 R30 K36 ["onChanged"]
-  GETIMPORT R31 K47 [string.format]
-  LOADK R32 K48 ["%d/%d"]
+  SETTABLEKS R31 R30 K40 ["width"]
+  SETTABLEKS R11 R30 K41 ["onChanged"]
+  GETIMPORT R31 K52 [string.format]
+  LOADK R32 K53 ["%d/%d"]
   MOVE R33 R4
   LOADN R34 15
   CALL R31 3 1
-  SETTABLEKS R31 R30 K37 ["hint"]
+  SETTABLEKS R31 R30 K42 ["hint"]
   LOADK R31 K2 [""]
-  SETTABLEKS R31 R30 K38 ["placeholder"]
-  LOADK R33 K49 ["LookComposerDialog"]
-  LOADK R34 K31 ["Name"]
-  NAMECALL R31 R1 K50 ["getText"]
+  SETTABLEKS R31 R30 K43 ["placeholder"]
+  LOADK R33 K54 ["LookComposerDialog"]
+  LOADK R34 K36 ["Name"]
+  NAMECALL R31 R1 K55 ["getText"]
   CALL R31 3 1
-  SETTABLEKS R31 R30 K39 ["label"]
-  SETTABLEKS R13 R30 K40 ["hasError"]
+  SETTABLEKS R31 R30 K44 ["label"]
+  SETTABLEKS R13 R30 K45 ["hasError"]
   LOADN R31 1
-  SETTABLEKS R31 R30 K41 ["numLines"]
+  SETTABLEKS R31 R30 K46 ["numLines"]
   NAMECALL R31 R15 K28 ["getNextOrder"]
   CALL R31 1 1
   SETTABLEKS R31 R30 K26 ["LayoutOrder"]
   CALL R28 2 1
-  SETTABLEKS R28 R27 K31 ["Name"]
+  SETTABLEKS R28 R27 K36 ["Name"]
   GETUPVAL R29 2
   GETTABLEKS R28 R29 K6 ["createElement"]
-  GETUPVAL R29 6
-  DUPTABLE R30 K42 [{"text", "width", "onChanged", "hint", "placeholder", "label", "hasError", "numLines", "LayoutOrder"}]
-  SETTABLEKS R6 R30 K34 ["text"]
-  GETIMPORT R31 K44 [UDim.new]
-  LOADK R32 K51 [1.8]
+  GETUPVAL R29 5
+  DUPTABLE R30 K47 [{"text", "width", "onChanged", "hint", "placeholder", "label", "hasError", "numLines", "LayoutOrder"}]
+  SETTABLEKS R6 R30 K39 ["text"]
+  GETIMPORT R31 K49 [UDim.new]
+  LOADK R32 K56 [1.8]
   LOADN R33 0
   CALL R31 2 1
-  SETTABLEKS R31 R30 K35 ["width"]
-  SETTABLEKS R12 R30 K36 ["onChanged"]
-  GETIMPORT R31 K47 [string.format]
-  LOADK R32 K48 ["%d/%d"]
+  SETTABLEKS R31 R30 K40 ["width"]
+  SETTABLEKS R12 R30 K41 ["onChanged"]
+  GETIMPORT R31 K52 [string.format]
+  LOADK R32 K53 ["%d/%d"]
   MOVE R33 R8
   LOADN R34 232
   CALL R31 3 1
-  SETTABLEKS R31 R30 K37 ["hint"]
+  SETTABLEKS R31 R30 K42 ["hint"]
   LOADK R31 K2 [""]
-  SETTABLEKS R31 R30 K38 ["placeholder"]
-  LOADK R33 K49 ["LookComposerDialog"]
-  LOADK R34 K32 ["Description"]
-  NAMECALL R31 R1 K50 ["getText"]
+  SETTABLEKS R31 R30 K43 ["placeholder"]
+  LOADK R33 K54 ["LookComposerDialog"]
+  LOADK R34 K37 ["Description"]
+  NAMECALL R31 R1 K55 ["getText"]
   CALL R31 3 1
-  SETTABLEKS R31 R30 K39 ["label"]
-  SETTABLEKS R14 R30 K40 ["hasError"]
+  SETTABLEKS R31 R30 K44 ["label"]
+  SETTABLEKS R14 R30 K45 ["hasError"]
   LOADN R31 2
-  SETTABLEKS R31 R30 K41 ["numLines"]
+  SETTABLEKS R31 R30 K46 ["numLines"]
   NAMECALL R31 R15 K28 ["getNextOrder"]
   CALL R31 1 1
   SETTABLEKS R31 R30 K26 ["LayoutOrder"]
   CALL R28 2 1
-  SETTABLEKS R28 R27 K32 ["Description"]
+  SETTABLEKS R28 R27 K37 ["Description"]
   CALL R24 3 1
   SETTABLEKS R24 R23 K24 ["InfoColumn"]
   CALL R20 3 1
@@ -218,7 +223,7 @@ MAIN:
   GETIMPORT R9 K5 [require]
   GETIMPORT R12 K1 [script]
   GETTABLEKS R11 R12 K19 ["Parent"]
-  GETTABLEKS R10 R11 K20 ["LookPreview"]
+  GETTABLEKS R10 R11 K20 ["Types"]
   CALL R9 1 1
   DUPCLOSURE R10 K21 [PROTO_2]
   CAPTURE VAL R8
@@ -226,6 +231,5 @@ MAIN:
   CAPTURE VAL R1
   CAPTURE VAL R7
   CAPTURE VAL R3
-  CAPTURE VAL R9
   CAPTURE VAL R4
   RETURN R10 1

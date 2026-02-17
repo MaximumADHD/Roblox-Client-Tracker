@@ -1,0 +1,234 @@
+PROTO_0:
+  GETUPVAL R0 0
+  DUPTABLE R1 K3 [{"assertionCalls", "expectedAssertionsNumber", "isExpectingAssertions"}]
+  LOADN R2 0
+  SETTABLEKS R2 R1 K0 ["assertionCalls"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K4 ["None"]
+  SETTABLEKS R2 R1 K1 ["expectedAssertionsNumber"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K2 ["isExpectingAssertions"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  NEWTABLE R0 0 0
+  LOADNIL R1
+  LOADNIL R2
+  LOADNIL R3
+  LOADNIL R4
+  LOADNIL R5
+  GETUPVAL R6 0
+  CALL R6 0 1
+  GETTABLEKS R1 R6 K0 ["assertionCalls"]
+  GETTABLEKS R2 R6 K1 ["expectedAssertionsNumber"]
+  GETTABLEKS R3 R6 K2 ["expectedAssertionsNumberError"]
+  GETTABLEKS R4 R6 K3 ["isExpectingAssertions"]
+  GETTABLEKS R5 R6 K4 ["isExpectingAssertionsError"]
+  GETUPVAL R6 1
+  DUPTABLE R7 K5 [{"assertionCalls", "expectedAssertionsNumber", "isExpectingAssertions"}]
+  LOADN R8 0
+  SETTABLEKS R8 R7 K0 ["assertionCalls"]
+  GETUPVAL R9 2
+  GETTABLEKS R8 R9 K6 ["None"]
+  SETTABLEKS R8 R7 K1 ["expectedAssertionsNumber"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K3 ["isExpectingAssertions"]
+  CALL R6 1 0
+  FASTCALL1 TYPEOF R2 [+3]
+  MOVE R7 R2
+  GETIMPORT R6 K8 [typeof]
+  CALL R6 1 1
+  JUMPIFNOTEQKS R6 K9 ["number"] [+94]
+  JUMPIFEQ R1 R2 [+92]
+  GETUPVAL R6 3
+  GETUPVAL R7 4
+  LOADK R8 K10 ["assertion"]
+  MOVE R9 R2
+  CALL R7 2 -1
+  CALL R6 -1 1
+  GETUPVAL R13 5
+  LOADK R14 K11 [".assertions"]
+  LOADK R15 K12 [""]
+  FASTCALL1 TOSTRING R2 [+3]
+  MOVE R17 R2
+  GETIMPORT R16 K14 [tostring]
+  CALL R16 1 1
+  DUPTABLE R17 K16 [{"isDirectExpectCall"}]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K15 ["isDirectExpectCall"]
+  CALL R13 4 1
+  MOVE R8 R13
+  LOADK R9 K17 ["
+
+"]
+  LOADK R13 K18 ["Expected %s to be called but received "]
+  FASTCALL1 TOSTRING R6 [+3]
+  MOVE R16 R6
+  GETIMPORT R15 K14 [tostring]
+  CALL R15 1 1
+  NAMECALL R13 R13 K19 ["format"]
+  CALL R13 2 1
+  MOVE R10 R13
+  GETUPVAL R14 6
+  GETUPVAL R15 4
+  LOADK R16 K20 ["assertion call"]
+  GETUPVAL R19 7
+  GETTABLEKS R18 R19 K21 ["toJSBoolean"]
+  MOVE R19 R1
+  CALL R18 1 1
+  JUMPIFNOT R18 [+2]
+  MOVE R17 R1
+  JUMPIF R17 [+1]
+  LOADN R17 0
+  CALL R15 2 -1
+  CALL R14 -1 -1
+  FASTCALL TOSTRING [+2]
+  GETIMPORT R13 K14 [tostring]
+  CALL R13 -1 1
+  MOVE R11 R13
+  LOADK R12 K22 ["."]
+  CONCAT R7 R8 R12
+  SETTABLEKS R7 R3 K23 ["message"]
+  GETUPVAL R9 8
+  GETTABLEKS R8 R9 K24 ["__recalculateStacktrace"]
+  FASTCALL1 TYPEOF R8 [+2]
+  GETIMPORT R7 K8 [typeof]
+  CALL R7 1 1
+  JUMPIFNOTEQKS R7 K25 ["function"] [+6]
+  GETUPVAL R8 8
+  GETTABLEKS R7 R8 K24 ["__recalculateStacktrace"]
+  MOVE R8 R3
+  CALL R7 1 0
+  DUPTABLE R9 K29 [{"actual", "error", "expected"}]
+  FASTCALL1 TOSTRING R1 [+3]
+  MOVE R11 R1
+  GETIMPORT R10 K14 [tostring]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K26 ["actual"]
+  SETTABLEKS R3 R9 K27 ["error"]
+  FASTCALL1 TOSTRING R2 [+3]
+  MOVE R11 R2
+  GETIMPORT R10 K14 [tostring]
+  CALL R10 1 1
+  SETTABLEKS R10 R9 K28 ["expected"]
+  FASTCALL2 TABLE_INSERT R0 R9 [+4]
+  MOVE R8 R0
+  GETIMPORT R7 K32 [table.insert]
+  CALL R7 2 0
+  JUMPIFNOT R4 [+69]
+  JUMPIFNOTEQKN R1 K33 [0] [+68]
+  GETUPVAL R6 3
+  LOADK R7 K34 ["at least one assertion"]
+  CALL R6 1 1
+  GETUPVAL R7 6
+  LOADK R8 K35 ["received none"]
+  CALL R7 1 1
+  GETUPVAL R13 5
+  LOADK R14 K36 [".hasAssertions"]
+  LOADK R15 K12 [""]
+  LOADK R16 K12 [""]
+  DUPTABLE R17 K16 [{"isDirectExpectCall"}]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K15 ["isDirectExpectCall"]
+  CALL R13 4 -1
+  FASTCALL TOSTRING [+2]
+  GETIMPORT R12 K14 [tostring]
+  CALL R12 -1 1
+  MOVE R9 R12
+  LOADK R10 K17 ["
+
+"]
+  LOADK R11 K37 ["Expected %s to be called but %s."]
+  FASTCALL1 TOSTRING R6 [+3]
+  MOVE R14 R6
+  GETIMPORT R13 K14 [tostring]
+  CALL R13 1 1
+  FASTCALL1 TOSTRING R7 [+3]
+  MOVE R15 R7
+  GETIMPORT R14 K14 [tostring]
+  CALL R14 1 1
+  NAMECALL R11 R11 K19 ["format"]
+  CALL R11 3 1
+  CONCAT R8 R9 R11
+  SETTABLEKS R8 R5 K23 ["message"]
+  GETUPVAL R10 8
+  GETTABLEKS R9 R10 K24 ["__recalculateStacktrace"]
+  FASTCALL1 TYPEOF R9 [+2]
+  GETIMPORT R8 K8 [typeof]
+  CALL R8 1 1
+  JUMPIFNOTEQKS R8 K25 ["function"] [+6]
+  GETUPVAL R9 8
+  GETTABLEKS R8 R9 K24 ["__recalculateStacktrace"]
+  MOVE R9 R5
+  CALL R8 1 0
+  DUPTABLE R10 K29 [{"actual", "error", "expected"}]
+  LOADK R11 K38 ["none"]
+  SETTABLEKS R11 R10 K26 ["actual"]
+  SETTABLEKS R5 R10 K27 ["error"]
+  LOADK R11 K39 ["at least one"]
+  SETTABLEKS R11 R10 K28 ["expected"]
+  FASTCALL2 TABLE_INSERT R0 R10 [+4]
+  MOVE R9 R0
+  GETIMPORT R8 K32 [table.insert]
+  CALL R8 2 0
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R3 K3 [script]
+  GETTABLEKS R2 R3 K4 ["Parent"]
+  GETTABLEKS R1 R2 K4 ["Parent"]
+  LOADK R3 K5 ["luau-polyfill"]
+  NAMECALL R1 R1 K6 ["WaitForChild"]
+  CALL R1 2 -1
+  CALL R0 -1 1
+  GETTABLEKS R1 R0 K7 ["Boolean"]
+  GETTABLEKS R2 R0 K8 ["Error"]
+  GETTABLEKS R3 R0 K9 ["Object"]
+  NEWTABLE R4 1 0
+  GETIMPORT R5 K1 [require]
+  GETIMPORT R8 K3 [script]
+  GETTABLEKS R7 R8 K4 ["Parent"]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  LOADK R8 K10 ["jest-matcher-utils"]
+  NAMECALL R6 R6 K6 ["WaitForChild"]
+  CALL R6 2 -1
+  CALL R5 -1 1
+  GETTABLEKS R6 R5 K11 ["EXPECTED_COLOR"]
+  GETTABLEKS R7 R5 K12 ["RECEIVED_COLOR"]
+  GETTABLEKS R8 R5 K13 ["matcherHint"]
+  GETTABLEKS R9 R5 K14 ["pluralize"]
+  GETIMPORT R10 K1 [require]
+  GETIMPORT R12 K3 [script]
+  GETTABLEKS R11 R12 K4 ["Parent"]
+  LOADK R13 K15 ["jestMatchersObject"]
+  NAMECALL R11 R11 K6 ["WaitForChild"]
+  CALL R11 2 -1
+  CALL R10 -1 1
+  GETTABLEKS R11 R10 K16 ["getState"]
+  GETTABLEKS R12 R10 K17 ["setState"]
+  GETIMPORT R13 K1 [require]
+  GETIMPORT R15 K3 [script]
+  GETTABLEKS R14 R15 K4 ["Parent"]
+  LOADK R16 K18 ["types"]
+  NAMECALL R14 R14 K6 ["WaitForChild"]
+  CALL R14 2 -1
+  CALL R13 -1 1
+  DUPCLOSURE R14 K19 [PROTO_0]
+  CAPTURE VAL R12
+  CAPTURE VAL R3
+  LOADNIL R15
+  DUPCLOSURE R15 K20 [PROTO_1]
+  CAPTURE VAL R11
+  CAPTURE VAL R12
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  CAPTURE VAL R1
+  CAPTURE VAL R2
+  SETTABLEKS R15 R4 K21 ["default"]
+  RETURN R4 1

@@ -18,7 +18,7 @@ local function Story(props)
 	local tokens = useTokens()
 	local variantProps = useTextInputVariants(tokens, controls.size)
 
-	local text, setText = React.useState("")
+	local text, setText = React.useBinding("")
 
 	local function handleChange(newText: string)
 		setText(newText)

@@ -1,0 +1,132 @@
+PROTO_0:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["activated"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R0 K1 [print]
+  LOADK R1 K2 ["secondary activated"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  FASTCALL1 TOSTRING R0 [+3]
+  MOVE R2 R0
+  GETIMPORT R1 K1 [tostring]
+  CALL R1 1 1
+  RETURN R1 1
+
+PROTO_4:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["useBinding"]
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K1 ["Initialize"]
+  CALL R1 1 2
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R2
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K2 ["createElement"]
+  GETUPVAL R5 3
+  DUPTABLE R6 K9 [{"Size", "BackgroundTransparency", "BackgroundColor3", "onStateChanged", "onActivated", "onSecondaryActivated"}]
+  GETIMPORT R7 K12 [UDim2.new]
+  LOADN R8 0
+  LOADN R9 100
+  LOADN R10 0
+  LOADN R11 100
+  CALL R7 4 1
+  SETTABLEKS R7 R6 K3 ["Size"]
+  GETTABLEKS R11 R0 K13 ["Color"]
+  GETTABLEKS R10 R11 K14 ["Extended"]
+  GETTABLEKS R9 R10 K15 ["Green"]
+  GETTABLEKS R8 R9 K16 ["Green_500"]
+  GETTABLEKS R7 R8 K17 ["Transparency"]
+  SETTABLEKS R7 R6 K4 ["BackgroundTransparency"]
+  GETTABLEKS R11 R0 K13 ["Color"]
+  GETTABLEKS R10 R11 K14 ["Extended"]
+  GETTABLEKS R9 R10 K15 ["Green"]
+  GETTABLEKS R8 R9 K16 ["Green_500"]
+  GETTABLEKS R7 R8 K18 ["Color3"]
+  SETTABLEKS R7 R6 K5 ["BackgroundColor3"]
+  SETTABLEKS R3 R6 K6 ["onStateChanged"]
+  DUPCLOSURE R7 K19 [PROTO_1]
+  SETTABLEKS R7 R6 K7 ["onActivated"]
+  DUPCLOSURE R7 K20 [PROTO_2]
+  SETTABLEKS R7 R6 K8 ["onSecondaryActivated"]
+  NEWTABLE R7 0 1
+  GETUPVAL R9 1
+  GETTABLEKS R8 R9 K2 ["createElement"]
+  GETUPVAL R9 4
+  DUPTABLE R10 K24 [{"Text", "Position", "textStyle"}]
+  DUPCLOSURE R13 K25 [PROTO_3]
+  NAMECALL R11 R1 K26 ["map"]
+  CALL R11 2 1
+  SETTABLEKS R11 R10 K21 ["Text"]
+  GETIMPORT R11 K12 [UDim2.new]
+  LOADK R12 K27 [0.5]
+  LOADN R13 0
+  LOADK R14 K27 [0.5]
+  LOADN R15 0
+  CALL R11 4 1
+  SETTABLEKS R11 R10 K22 ["Position"]
+  GETTABLEKS R13 R0 K13 ["Color"]
+  GETTABLEKS R12 R13 K28 ["Content"]
+  GETTABLEKS R11 R12 K29 ["Emphasis"]
+  SETTABLEKS R11 R10 K23 ["textStyle"]
+  CALL R8 2 -1
+  SETLIST R7 R8 -1 [1]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["Interactable"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K8 ["Components"]
+  GETTABLEKS R5 R6 K10 ["Text"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R8 R0 K11 ["Providers"]
+  GETTABLEKS R7 R8 K12 ["Style"]
+  GETTABLEKS R6 R7 K13 ["useTokens"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K14 ["Enums"]
+  GETTABLEKS R7 R8 K15 ["ControlState"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K16 [PROTO_4]
+  CAPTURE VAL R5
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  DUPTABLE R8 K19 [{"summary", "stories"}]
+  LOADK R9 K20 ["View"]
+  SETTABLEKS R9 R8 K17 ["summary"]
+  DUPTABLE R9 K22 [{"BasicStory"}]
+  DUPTABLE R10 K25 [{"name", "story"}]
+  LOADK R11 K26 ["GUI State Use"]
+  SETTABLEKS R11 R10 K23 ["name"]
+  SETTABLEKS R7 R10 K24 ["story"]
+  SETTABLEKS R10 R9 K21 ["BasicStory"]
+  SETTABLEKS R9 R8 K18 ["stories"]
+  RETURN R8 1

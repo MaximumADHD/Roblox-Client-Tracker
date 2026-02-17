@@ -52,8 +52,6 @@ local FocusRoot = FocusNavigationUtils.FocusRoot
 local FocusNavigableSurfaceIdentifierEnum = FocusNavigationUtils.FocusNavigableSurfaceIdentifierEnum
 local isAbuseReportMenuOpenCloseSignalEnabled = require(root.Flags.isAbuseReportMenuOpenCloseSignalEnabled)
 local GetFFlagWHAM1707ExperimentForceEnabled = require(root.Flags.GetFFlagWHAM1707ExperimentForceEnabled)
-local FFlagAbuseReportTabSelectionHighlightCutoffFixEnabled =
-	require(root.Flags.FFlagAbuseReportTabSelectionHighlightCutoffFixEnabled)
 
 local SharedFlags = require(CorePackages.Workspace.Packages.SharedFlags)
 local FStringReportMenuIXPLayer = SharedFlags.FStringReportMenuIXPLayer
@@ -326,12 +324,10 @@ local AbuseReportMenuNew = function(props: Props)
 						HorizontalAlignment = 0,
 						Padding = UDim.new(0, 12),
 					}),
-					Padding = if FFlagAbuseReportTabSelectionHighlightCutoffFixEnabled
-						then React.createElement("UIPadding", {
-							PaddingTop = UDim.new(0, sizings.ItemPadding),
-							PaddingBottom = UDim.new(0, sizings.ItemPadding),
-						})
-						else nil,
+					Padding = React.createElement("UIPadding", {
+						PaddingTop = UDim.new(0, sizings.ItemPadding),
+						PaddingBottom = UDim.new(0, sizings.ItemPadding),
+					}),
 					SelectInSceneToggleFrame = if shouldSelectorRender
 						then React.createElement("Frame", {
 							BackgroundTransparency = 1,

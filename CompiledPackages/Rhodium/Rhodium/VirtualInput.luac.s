@@ -1,0 +1,50 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [require]
+  GETIMPORT R4 K3 [script]
+  GETTABLEKS R3 R4 K4 ["Parent"]
+  GETTABLEKS R2 R3 K5 ["InputTypes"]
+  GETTABLEKS R1 R2 K6 ["Keyboard"]
+  CALL R0 1 1
+  GETIMPORT R1 K1 [require]
+  GETIMPORT R5 K3 [script]
+  GETTABLEKS R4 R5 K4 ["Parent"]
+  GETTABLEKS R3 R4 K5 ["InputTypes"]
+  GETTABLEKS R2 R3 K7 ["Mouse"]
+  CALL R1 1 1
+  GETIMPORT R2 K1 [require]
+  GETIMPORT R6 K3 [script]
+  GETTABLEKS R5 R6 K4 ["Parent"]
+  GETTABLEKS R4 R5 K5 ["InputTypes"]
+  GETTABLEKS R3 R4 K8 ["Touch"]
+  CALL R2 1 1
+  GETIMPORT R3 K1 [require]
+  GETIMPORT R7 K3 [script]
+  GETTABLEKS R6 R7 K4 ["Parent"]
+  GETTABLEKS R5 R6 K5 ["InputTypes"]
+  GETTABLEKS R4 R5 K9 ["Text"]
+  CALL R3 1 1
+  GETIMPORT R4 K1 [require]
+  GETIMPORT R8 K3 [script]
+  GETTABLEKS R7 R8 K4 ["Parent"]
+  GETTABLEKS R6 R7 K5 ["InputTypes"]
+  GETTABLEKS R5 R6 K10 ["GamePad"]
+  CALL R4 1 1
+  GETIMPORT R5 K1 [require]
+  GETIMPORT R8 K3 [script]
+  GETTABLEKS R7 R8 K4 ["Parent"]
+  GETTABLEKS R6 R7 K11 ["VirtualInputUtils"]
+  CALL R5 1 1
+  DUPTABLE R6 K15 [{"Keyboard", "Mouse", "Touch", "Text", "GamePad", "setCurrentWindow", "getCurrentWindow", "waitForInputEventsProcessed"}]
+  SETTABLEKS R0 R6 K6 ["Keyboard"]
+  SETTABLEKS R1 R6 K7 ["Mouse"]
+  SETTABLEKS R2 R6 K8 ["Touch"]
+  SETTABLEKS R3 R6 K9 ["Text"]
+  SETTABLEKS R4 R6 K10 ["GamePad"]
+  GETTABLEKS R7 R5 K12 ["setCurrentWindow"]
+  SETTABLEKS R7 R6 K12 ["setCurrentWindow"]
+  GETTABLEKS R7 R5 K13 ["getCurrentWindow"]
+  SETTABLEKS R7 R6 K13 ["getCurrentWindow"]
+  GETTABLEKS R7 R5 K14 ["waitForInputEventsProcessed"]
+  SETTABLEKS R7 R6 K14 ["waitForInputEventsProcessed"]
+  RETURN R6 1

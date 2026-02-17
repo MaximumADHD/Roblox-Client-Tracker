@@ -451,7 +451,9 @@ MAIN:
   CAPTURE VAL R9
   CAPTURE VAL R23
   CAPTURE VAL R18
-  DUPTABLE R29 K62 [{"promiseMcpHost", "configureModelContextProtocol"}]
+  DUPTABLE R29 K62 [{"promiseMcpHost", "configureModelContextProtocol", "startLocalServer"}]
   SETTABLEKS R28 R29 K60 ["promiseMcpHost"]
   SETTABLEKS R27 R29 K61 ["configureModelContextProtocol"]
+  GETGLOBAL R30 K56 ["startLocalServer"]
+  SETTABLEKS R30 R29 K56 ["startLocalServer"]
   RETURN R29 1

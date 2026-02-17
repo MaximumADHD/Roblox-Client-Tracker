@@ -1,0 +1,137 @@
+PROTO_0:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["Value"]
+  JUMPIF R0 [+2]
+  LOADK R0 K1 [""]
+  RETURN R0 1
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["Value"]
+  FASTCALL1 TOSTRING R1 [+2]
+  GETIMPORT R0 K3 [tostring]
+  CALL R0 1 1
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["OnChanged"]
+  GETUPVAL R1 1
+  NAMECALL R1 R1 K1 ["getValue"]
+  CALL R1 1 -1
+  CALL R0 -1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useMemo"]
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  NEWTABLE R3 0 1
+  GETTABLEKS R4 R0 K1 ["Value"]
+  SETLIST R3 R4 1 [1]
+  CALL R1 2 1
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["useBinding"]
+  MOVE R3 R1
+  CALL R2 1 2
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K3 ["useCallback"]
+  NEWCLOSURE R5 P1
+  CAPTURE VAL R0
+  CAPTURE VAL R2
+  NEWTABLE R6 0 2
+  GETTABLEKS R7 R0 K4 ["OnChanged"]
+  MOVE R8 R2
+  SETLIST R6 R7 2 [1]
+  CALL R4 2 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K5 ["createElement"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K6 ["View"]
+  DUPTABLE R7 K9 [{"tag", "LayoutOrder"}]
+  LOADK R8 K10 ["row auto-y gap-small size-full-700 align-y-center flex-x-between"]
+  SETTABLEKS R8 R7 K7 ["tag"]
+  GETTABLEKS R8 R0 K8 ["LayoutOrder"]
+  SETTABLEKS R8 R7 K8 ["LayoutOrder"]
+  DUPTABLE R8 K14 [{"CompositorNodeInputLabel", "Input", "PinChildren"}]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K5 ["createElement"]
+  GETUPVAL R10 2
+  DUPTABLE R11 K17 [{"tag", "Text", "LayoutOrder", "isDisabled"}]
+  NEWTABLE R12 1 0
+  LOADB R13 1
+  SETTABLEKS R13 R12 K18 ["text-body-small text-align-x-left auto-xy fill text-truncate-split"]
+  SETTABLEKS R12 R11 K7 ["tag"]
+  GETTABLEKS R12 R0 K19 ["Label"]
+  SETTABLEKS R12 R11 K15 ["Text"]
+  LOADN R12 1
+  SETTABLEKS R12 R11 K8 ["LayoutOrder"]
+  GETTABLEKS R12 R0 K20 ["IsReadOnly"]
+  SETTABLEKS R12 R11 K16 ["isDisabled"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K11 ["CompositorNodeInputLabel"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K5 ["createElement"]
+  GETUPVAL R11 1
+  GETTABLEKS R10 R11 K21 ["TextInput"]
+  DUPTABLE R11 K29 [{"tag", "size", "width", "label", "text", "isDisabled", "LayoutOrder", "precision", "onChanged", "onFocusLost"}]
+  LOADK R12 K30 ["shrink"]
+  SETTABLEKS R12 R11 K7 ["tag"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K31 ["Enums"]
+  GETTABLEKS R13 R14 K32 ["InputSize"]
+  GETTABLEKS R12 R13 K33 ["XSmall"]
+  SETTABLEKS R12 R11 K22 ["size"]
+  GETIMPORT R12 K36 [UDim.new]
+  LOADN R13 0
+  LOADN R14 90
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K23 ["width"]
+  LOADK R12 K37 [""]
+  SETTABLEKS R12 R11 K24 ["label"]
+  SETTABLEKS R2 R11 K25 ["text"]
+  GETTABLEKS R12 R0 K38 ["IsParameterized"]
+  JUMPIF R12 [+2]
+  GETTABLEKS R12 R0 K20 ["IsReadOnly"]
+  SETTABLEKS R12 R11 K16 ["isDisabled"]
+  LOADN R12 2
+  SETTABLEKS R12 R11 K8 ["LayoutOrder"]
+  LOADN R12 2
+  SETTABLEKS R12 R11 K26 ["precision"]
+  SETTABLEKS R3 R11 K27 ["onChanged"]
+  SETTABLEKS R4 R11 K28 ["onFocusLost"]
+  CALL R9 2 1
+  SETTABLEKS R9 R8 K12 ["Input"]
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K5 ["createElement"]
+  LOADK R10 K39 ["Folder"]
+  NEWTABLE R11 0 0
+  GETTABLEKS R12 R0 K40 ["children"]
+  CALL R9 3 1
+  SETTABLEKS R9 R8 K13 ["PinChildren"]
+  CALL R5 3 -1
+  RETURN R5 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Parent"]
+  GETTABLEKS R2 R3 K7 ["Foundation"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Parent"]
+  GETTABLEKS R3 R4 K8 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETIMPORT R6 K1 [script]
+  GETTABLEKS R5 R6 K6 ["Parent"]
+  GETTABLEKS R4 R5 K9 ["PropertyLabel"]
+  CALL R3 1 1
+  DUPCLOSURE R4 K10 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  RETURN R4 1

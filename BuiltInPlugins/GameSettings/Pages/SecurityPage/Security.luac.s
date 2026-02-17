@@ -130,16 +130,8 @@ PROTO_11:
   GETTABLEKS R5 R2 K1 ["Metadata"]
   GETTABLEKS R4 R5 K3 ["gameId"]
   GETTABLEKS R5 R1 K4 ["universePermissionsController"]
-  GETUPVAL R7 0
-  JUMPIFNOT R7 [+3]
   GETTABLEKS R6 R1 K5 ["gameMetadataController"]
-  JUMP [+1]
-  LOADNIL R6
-  GETUPVAL R8 0
-  JUMPIFNOT R8 [+3]
   GETTABLEKS R7 R1 K6 ["groupMetadataController"]
-  JUMP [+1]
-  LOADNIL R7
   NEWTABLE R8 0 11
   NEWCLOSURE R9 P0
   CAPTURE VAL R5
@@ -154,50 +146,30 @@ PROTO_11:
   CAPTURE VAL R5
   CAPTURE VAL R4
   NEWCLOSURE R13 P4
-  CAPTURE UPVAL U1
+  CAPTURE UPVAL U0
   CAPTURE VAL R5
-  GETUPVAL R15 0
-  JUMPIFNOT R15 [+6]
   NEWCLOSURE R14 P5
   CAPTURE VAL R6
   CAPTURE VAL R4
   CAPTURE VAL R0
-  CAPTURE UPVAL U2
-  JUMP [+1]
-  LOADNIL R14
-  GETUPVAL R16 0
-  JUMPIFNOT R16 [+6]
+  CAPTURE UPVAL U1
   NEWCLOSURE R15 P6
   CAPTURE VAL R6
   CAPTURE VAL R4
   CAPTURE VAL R0
-  CAPTURE UPVAL U3
-  JUMP [+1]
-  LOADNIL R15
-  GETUPVAL R17 0
-  JUMPIFNOT R17 [+8]
+  CAPTURE UPVAL U2
   NEWCLOSURE R16 P7
   CAPTURE VAL R6
   CAPTURE VAL R4
   CAPTURE VAL R0
-  CAPTURE UPVAL U4
+  CAPTURE UPVAL U3
   CAPTURE VAL R7
-  CAPTURE UPVAL U5
-  JUMP [+1]
-  LOADNIL R16
-  GETUPVAL R18 0
-  JUMPIFNOT R18 [+3]
+  CAPTURE UPVAL U4
   NEWCLOSURE R17 P8
   CAPTURE VAL R5
-  JUMP [+1]
-  LOADNIL R17
-  GETUPVAL R19 0
-  JUMPIFNOT R19 [+4]
   NEWCLOSURE R18 P9
   CAPTURE VAL R5
   CAPTURE VAL R4
-  JUMP [+1]
-  LOADNIL R18
   NEWCLOSURE R19 P10
   CAPTURE VAL R5
   CAPTURE VAL R3
@@ -390,8 +362,6 @@ PROTO_22:
   CAPTURE VAL R12
   CAPTURE UPVAL U4
   CAPTURE VAL R11
-  GETUPVAL R12 5
-  JUMPIFNOT R12 [+10]
   NEWCLOSURE R12 P7
   CAPTURE VAL R4
   CAPTURE VAL R3
@@ -401,8 +371,6 @@ PROTO_22:
   CAPTURE VAL R13
   CAPTURE UPVAL U4
   CAPTURE VAL R12
-  JUMP [+1]
-  LOADNIL R11
   NEWCLOSURE R13 P8
   CAPTURE VAL R4
   LOADK R14 K21 ["InsertFreeAssetsAllowed"]
@@ -504,7 +472,7 @@ PROTO_23:
 
 PROTO_24:
   GETUPVAL R3 0
-  JUMPIFNOT R3 [+144]
+  JUMPIFNOT R3 [+140]
   DUPTABLE R3 K23 [{"HttpEnabled", "SecretsAsTableRows", "EditSecretId", "EditSecretFormNameField", "EditSecretFormValueField", "EditSecretFormDomainField", "EditSecretFormNameError", "EditSecretFormDomainError", "StudioAccessToApisAllowed", "ThirdPartyPurchaseAllowed", "ThirdPartyTeleportAllowed", "InsertFreeAssetsAllowed", "HttpEnabledValueChanged", "StudioAccessToApisAllowedValueChanged", "ThirdPartyPurchaseAllowedValueChanged", "ThirdPartyTeleportAllowedValueChanged", "InsertFreeAssetsAllowedValueChanged", "MeshTextureApisAllowed", "MeshTextureApisAllowedValueChanged", "MeshTextureApiAmpStatus", "OwnerId", "OwnerType", "GroupOwnerUserId"}]
   MOVE R4 R0
   LOADK R5 K0 ["HttpEnabled"]
@@ -594,12 +562,8 @@ PROTO_24:
   GETTABLEKS R5 R2 K31 ["GameOwnerMetadata"]
   GETTABLEKS R4 R5 K33 ["creatorType"]
   SETTABLEKS R4 R3 K21 ["OwnerType"]
-  GETUPVAL R5 1
-  JUMPIFNOT R5 [+5]
   GETTABLEKS R5 R2 K31 ["GameOwnerMetadata"]
   GETTABLEKS R4 R5 K34 ["groupOwnerId"]
-  JUMP [+1]
-  LOADNIL R4
   SETTABLEKS R4 R3 K22 ["GroupOwnerUserId"]
   RETURN R3 1
   DUPTABLE R3 K36 [{"HttpEnabled", "Secrets", "StudioAccessToApisAllowed", "ThirdPartyPurchaseAllowed", "ThirdPartyTeleportAllowed", "InsertFreeAssetsAllowed", "HttpEnabledValueChanged", "ThirdPartyPurchaseAllowedValueChanged", "ThirdPartyTeleportAllowedValueChanged", "InsertFreeAssetsAllowedValueChanged", "MeshTextureApisAllowed", "MeshTextureApisAllowedValueChanged", "MeshTextureApiAmpStatus", "OwnerId", "OwnerType", "GroupOwnerUserId"}]
@@ -661,12 +625,8 @@ PROTO_24:
   GETTABLEKS R5 R2 K31 ["GameOwnerMetadata"]
   GETTABLEKS R4 R5 K33 ["creatorType"]
   SETTABLEKS R4 R3 K21 ["OwnerType"]
-  GETUPVAL R5 1
-  JUMPIFNOT R5 [+5]
   GETTABLEKS R5 R2 K31 ["GameOwnerMetadata"]
   GETTABLEKS R4 R5 K34 ["groupOwnerId"]
-  JUMP [+1]
-  LOADNIL R4
   SETTABLEKS R4 R3 K22 ["GroupOwnerUserId"]
   RETURN R3 1
 
@@ -731,7 +691,7 @@ PROTO_31:
 
 PROTO_32:
   GETUPVAL R2 0
-  JUMPIFNOT R2 [+76]
+  JUMPIFNOT R2 [+72]
   DUPTABLE R2 K14 [{"HttpEnabledChanged", "SecretsAsTableRowsChanged", "StudioApiServicesChanged", "ThirdPartyPurchaseChanged", "ThirdPartyTeleportAllowedChanged", "MeshTextureApisAllowedChanged", "InsertFreeAssetsAllowedChanged", "EditSecretIdChanged", "EditSecretFormNameChanged", "EditSecretFormValueChanged", "EditSecretFormDomainChanged", "ReportError", "ClearError", "ClearAllErrors"}]
   MOVE R3 R0
   LOADK R4 K15 ["HttpEnabled"]
@@ -753,13 +713,9 @@ PROTO_32:
   LOADK R4 K19 ["ThirdPartyTeleportAllowed"]
   CALL R3 1 1
   SETTABLEKS R3 R2 K4 ["ThirdPartyTeleportAllowedChanged"]
-  GETUPVAL R4 1
-  JUMPIFNOT R4 [+4]
   MOVE R3 R0
   LOADK R4 K20 ["MeshTextureApisAllowed"]
   CALL R3 1 1
-  JUMP [+1]
-  LOADNIL R3
   SETTABLEKS R3 R2 K5 ["MeshTextureApisAllowedChanged"]
   MOVE R3 R0
   LOADK R4 K21 ["InsertFreeAssetsAllowed"]
@@ -767,31 +723,31 @@ PROTO_32:
   SETTABLEKS R3 R2 K6 ["InsertFreeAssetsAllowedChanged"]
   NEWCLOSURE R3 P0
   CAPTURE VAL R1
-  CAPTURE UPVAL U2
+  CAPTURE UPVAL U1
   SETTABLEKS R3 R2 K7 ["EditSecretIdChanged"]
   NEWCLOSURE R3 P1
   CAPTURE VAL R1
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U2
   SETTABLEKS R3 R2 K8 ["EditSecretFormNameChanged"]
   NEWCLOSURE R3 P2
   CAPTURE VAL R1
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U2
   SETTABLEKS R3 R2 K9 ["EditSecretFormValueChanged"]
   NEWCLOSURE R3 P3
   CAPTURE VAL R1
-  CAPTURE UPVAL U3
+  CAPTURE UPVAL U2
   SETTABLEKS R3 R2 K10 ["EditSecretFormDomainChanged"]
   NEWCLOSURE R3 P4
   CAPTURE VAL R1
-  CAPTURE UPVAL U4
+  CAPTURE UPVAL U3
   SETTABLEKS R3 R2 K11 ["ReportError"]
   NEWCLOSURE R3 P5
   CAPTURE VAL R1
-  CAPTURE UPVAL U5
+  CAPTURE UPVAL U4
   SETTABLEKS R3 R2 K12 ["ClearError"]
   NEWCLOSURE R3 P6
   CAPTURE VAL R1
-  CAPTURE UPVAL U6
+  CAPTURE UPVAL U5
   SETTABLEKS R3 R2 K13 ["ClearAllErrors"]
   RETURN R2 1
   DUPTABLE R2 K23 [{"HttpEnabledChanged", "SecretsChanged", "StudioApiServicesChanged", "ThirdPartyPurchaseChanged", "ThirdPartyTeleportAllowedChanged", "MeshTextureApisAllowedChanged", "InsertFreeAssetsAllowedChanged"}]
@@ -815,13 +771,9 @@ PROTO_32:
   LOADK R4 K19 ["ThirdPartyTeleportAllowed"]
   CALL R3 1 1
   SETTABLEKS R3 R2 K4 ["ThirdPartyTeleportAllowedChanged"]
-  GETUPVAL R4 1
-  JUMPIFNOT R4 [+4]
   MOVE R3 R0
   LOADK R4 K20 ["MeshTextureApisAllowed"]
   CALL R3 1 1
-  JUMP [+1]
-  LOADNIL R3
   SETTABLEKS R3 R2 K5 ["MeshTextureApisAllowedChanged"]
   MOVE R3 R0
   LOADK R4 K21 ["InsertFreeAssetsAllowed"]
@@ -1459,8 +1411,6 @@ PROTO_53:
   LOADNIL R4
   LOADNIL R5
   LOADNIL R6
-  GETUPVAL R7 1
-  JUMPIFNOT R7 [+21]
   GETUPVAL R7 0
   NAMECALL R7 R7 K10 ["isLoggedInUserGameOwner"]
   CALL R7 1 1
@@ -1478,14 +1428,14 @@ PROTO_53:
   LOADB R7 0
   MOVE R6 R7
   GETTABLEKS R7 R0 K14 ["Stylizer"]
-  GETUPVAL R9 2
+  GETUPVAL R9 1
   GETTABLEKS R8 R9 K15 ["new"]
   LOADN R9 1
   CALL R8 1 1
   DUPTABLE R9 K23 [{"WarningPopup", "HttpEnabled", "Secrets", "StudioApiServicesEnabled", "ThirdPartyPurchasesEnabled", "ThirdPartyTeleportsEnabled", "MeshTextureApisEnabled", "AllowInsertFreeAssets"}]
   MOVE R10 R3
   JUMPIFNOT R10 [+349]
-  GETUPVAL R11 3
+  GETUPVAL R11 2
   GETTABLEKS R10 R11 K24 ["createElement"]
   LOADK R11 K25 ["Frame"]
   DUPTABLE R12 K30 [{"AutomaticSize", "BackgroundTransparency", "BorderSizePixel", "LayoutOrder"}]
@@ -1499,7 +1449,7 @@ PROTO_53:
   CALL R13 1 1
   SETTABLEKS R13 R12 K29 ["LayoutOrder"]
   DUPTABLE R13 K38 [{"UILayout", "InsecureWarning", "AssetInsertionWarning"}]
-  GETUPVAL R15 3
+  GETUPVAL R15 2
   GETTABLEKS R14 R15 K24 ["createElement"]
   LOADK R15 K39 ["UIListLayout"]
   DUPTABLE R16 K45 [{"FillDirection", "Padding", "SortOrder", "HorizontalAlignment", "VerticalAlignment"}]
@@ -1518,7 +1468,7 @@ PROTO_53:
   SETTABLEKS R17 R16 K44 ["VerticalAlignment"]
   CALL R14 2 1
   SETTABLEKS R14 R13 K35 ["UILayout"]
-  GETUPVAL R15 3
+  GETUPVAL R15 2
   GETTABLEKS R14 R15 K24 ["createElement"]
   LOADK R15 K25 ["Frame"]
   DUPTABLE R16 K30 [{"AutomaticSize", "BackgroundTransparency", "BorderSizePixel", "LayoutOrder"}]
@@ -1532,7 +1482,7 @@ PROTO_53:
   CALL R17 1 1
   SETTABLEKS R17 R16 K29 ["LayoutOrder"]
   DUPTABLE R17 K57 [{"UILayout", "Warning", "Description"}]
-  GETUPVAL R19 3
+  GETUPVAL R19 2
   GETTABLEKS R18 R19 K24 ["createElement"]
   LOADK R19 K39 ["UIListLayout"]
   DUPTABLE R20 K58 [{"FillDirection", "Padding", "SortOrder", "VerticalAlignment"}]
@@ -1550,7 +1500,7 @@ PROTO_53:
   SETTABLEKS R21 R20 K44 ["VerticalAlignment"]
   CALL R18 2 1
   SETTABLEKS R18 R17 K35 ["UILayout"]
-  GETUPVAL R19 3
+  GETUPVAL R19 2
   GETTABLEKS R18 R19 K24 ["createElement"]
   LOADK R19 K63 ["ImageLabel"]
   DUPTABLE R20 K66 [{"Image", "LayoutOrder", "BackgroundTransparency", "Size"}]
@@ -1572,9 +1522,9 @@ PROTO_53:
   SETTABLEKS R21 R20 K65 ["Size"]
   CALL R18 2 1
   SETTABLEKS R18 R17 K55 ["Warning"]
-  GETUPVAL R19 3
+  GETUPVAL R19 2
   GETTABLEKS R18 R19 K24 ["createElement"]
-  GETUPVAL R19 4
+  GETUPVAL R19 3
   DUPTABLE R20 K79 [{"AutomaticSize", "LayoutOrder", "Style", "Text", "TextXAlignment", "TextColor", "TextSize"}]
   GETIMPORT R21 K33 [Enum.AutomaticSize.XY]
   SETTABLEKS R21 R20 K26 ["AutomaticSize"]
@@ -1602,7 +1552,7 @@ PROTO_53:
   SETTABLEKS R14 R13 K36 ["InsecureWarning"]
   MOVE R14 R2
   JUMPIFNOT R14 [+158]
-  GETUPVAL R15 3
+  GETUPVAL R15 2
   GETTABLEKS R14 R15 K24 ["createElement"]
   LOADK R15 K25 ["Frame"]
   DUPTABLE R16 K87 [{"AutomaticSize", "BackgroundTransparency", "BorderSizePixel", "LayoutOrder", "Size"}]
@@ -1621,7 +1571,7 @@ PROTO_53:
   CALL R17 2 1
   SETTABLEKS R17 R16 K65 ["Size"]
   DUPTABLE R17 K93 [{"UILayout", "UIPadding", "Description"}]
-  GETUPVAL R19 3
+  GETUPVAL R19 2
   GETTABLEKS R18 R19 K24 ["createElement"]
   LOADK R19 K39 ["UIListLayout"]
   DUPTABLE R20 K94 [{"FillDirection", "SortOrder", "VerticalAlignment"}]
@@ -1633,7 +1583,7 @@ PROTO_53:
   SETTABLEKS R21 R20 K44 ["VerticalAlignment"]
   CALL R18 2 1
   SETTABLEKS R18 R17 K35 ["UILayout"]
-  GETUPVAL R19 3
+  GETUPVAL R19 2
   GETTABLEKS R18 R19 K24 ["createElement"]
   LOADK R19 K92 ["UIPadding"]
   DUPTABLE R20 K96 [{"PaddingLeft"}]
@@ -1649,9 +1599,9 @@ PROTO_53:
   SETTABLEKS R21 R20 K95 ["PaddingLeft"]
   CALL R18 2 1
   SETTABLEKS R18 R17 K92 ["UIPadding"]
-  GETUPVAL R19 3
+  GETUPVAL R19 2
   GETTABLEKS R18 R19 K24 ["createElement"]
-  GETUPVAL R19 5
+  GETUPVAL R19 4
   DUPTABLE R20 K99 [{"AutomaticSize", "HorizontalAlignment", "LayoutOrder", "LinkMap", "Size", "Text", "TextProps"}]
   GETIMPORT R21 K89 [Enum.AutomaticSize.Y]
   SETTABLEKS R21 R20 K26 ["AutomaticSize"]
@@ -1668,8 +1618,8 @@ PROTO_53:
   CALL R23 3 1
   SETTABLEKS R23 R22 K100 ["LinkText"]
   DUPCLOSURE R23 K104 [PROTO_41]
+  CAPTURE UPVAL U5
   CAPTURE UPVAL U6
-  CAPTURE UPVAL U7
   SETTABLEKS R23 R22 K101 ["LinkCallback"]
   SETTABLEKS R22 R21 K105 ["[linkTOS]"]
   SETTABLEKS R21 R20 K97 ["LinkMap"]
@@ -1705,11 +1655,11 @@ PROTO_53:
   SETTABLEKS R14 R13 K37 ["AssetInsertionWarning"]
   CALL R10 3 1
   SETTABLEKS R10 R9 K16 ["WarningPopup"]
-  GETUPVAL R11 3
+  GETUPVAL R11 2
   GETTABLEKS R10 R11 K24 ["createElement"]
-  GETUPVAL R11 8
+  GETUPVAL R11 7
   DUPTABLE R12 K112 [{"Description", "Disabled", "LayoutOrder", "OnClick", "Selected", "Title"}]
-  GETUPVAL R14 9
+  GETUPVAL R14 8
   JUMPIFNOT R14 [+6]
   LOADK R15 K113 ["General"]
   LOADK R16 K114 ["HttpDescExp"]
@@ -1741,11 +1691,11 @@ PROTO_53:
   SETTABLEKS R13 R12 K111 ["Title"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K5 ["HttpEnabled"]
-  GETUPVAL R11 10
+  GETUPVAL R11 9
   JUMPIFNOT R11 [+41]
-  GETUPVAL R11 3
+  GETUPVAL R11 2
   GETTABLEKS R10 R11 K24 ["createElement"]
-  GETUPVAL R11 11
+  GETUPVAL R11 10
   DUPTABLE R12 K123 [{"LayoutOrder", "SecretsAsTableRows", "OnChanged", "EditSecretIdChanged", "EditSecretFormNameChanged", "EditSecretFormValueChanged", "EditSecretFormDomainChanged", "Disabled"}]
   NAMECALL R13 R8 K34 ["getNextOrder"]
   CALL R13 1 1
@@ -1770,9 +1720,9 @@ PROTO_53:
   JUMP [+24]
   GETTABLEKS R11 R0 K5 ["HttpEnabled"]
   JUMPIFNOT R11 [+20]
-  GETUPVAL R11 3
+  GETUPVAL R11 2
   GETTABLEKS R10 R11 K24 ["createElement"]
-  GETUPVAL R11 11
+  GETUPVAL R11 10
   DUPTABLE R12 K124 [{"LayoutOrder", "Secrets", "OnChanged"}]
   NAMECALL R13 R8 K34 ["getNextOrder"]
   CALL R13 1 1
@@ -1786,11 +1736,11 @@ PROTO_53:
   JUMP [+1]
   LOADNIL R10
   SETTABLEKS R10 R9 K17 ["Secrets"]
-  GETUPVAL R11 3
+  GETUPVAL R11 2
   GETTABLEKS R10 R11 K24 ["createElement"]
-  GETUPVAL R11 8
+  GETUPVAL R11 7
   DUPTABLE R12 K112 [{"Description", "Disabled", "LayoutOrder", "OnClick", "Selected", "Title"}]
-  GETUPVAL R14 12
+  GETUPVAL R14 11
   JUMPIFNOT R14 [+6]
   LOADK R15 K113 ["General"]
   LOADK R16 K125 ["StudioApiServicesDescExp"]
@@ -1822,9 +1772,9 @@ PROTO_53:
   SETTABLEKS R13 R12 K111 ["Title"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K18 ["StudioApiServicesEnabled"]
-  GETUPVAL R11 3
+  GETUPVAL R11 2
   GETTABLEKS R10 R11 K24 ["createElement"]
-  GETUPVAL R11 8
+  GETUPVAL R11 7
   DUPTABLE R12 K112 [{"Description", "Disabled", "LayoutOrder", "OnClick", "Selected", "Title"}]
   LOADK R15 K81 ["Security"]
   LOADK R16 K129 ["EnableThirdPartyPurchasesDescription"]
@@ -1851,11 +1801,11 @@ PROTO_53:
   SETTABLEKS R13 R12 K111 ["Title"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K19 ["ThirdPartyPurchasesEnabled"]
-  GETUPVAL R11 3
+  GETUPVAL R11 2
   GETTABLEKS R10 R11 K24 ["createElement"]
-  GETUPVAL R11 8
+  GETUPVAL R11 7
   DUPTABLE R12 K112 [{"Description", "Disabled", "LayoutOrder", "OnClick", "Selected", "Title"}]
-  GETUPVAL R14 9
+  GETUPVAL R14 8
   JUMPIFNOT R14 [+6]
   LOADK R15 K81 ["Security"]
   LOADK R16 K131 ["EnableThirdPartyTeleportsDescriptionExp"]
@@ -1887,11 +1837,9 @@ PROTO_53:
   SETTABLEKS R13 R12 K111 ["Title"]
   CALL R10 2 1
   SETTABLEKS R10 R9 K20 ["ThirdPartyTeleportsEnabled"]
-  GETUPVAL R11 1
-  JUMPIFNOT R11 [+125]
-  GETUPVAL R11 3
+  GETUPVAL R11 2
   GETTABLEKS R10 R11 K24 ["createElement"]
-  GETUPVAL R11 8
+  GETUPVAL R11 7
   DUPTABLE R12 K135 [{"Description", "Disabled", "LayoutOrder", "OnClick", "Selected", "Title", "LinkProps"}]
   JUMPIF R4 [+6]
   LOADK R15 K81 ["Security"]
@@ -1941,8 +1889,8 @@ PROTO_53:
   CALL R14 3 1
   SETTABLEKS R14 R13 K100 ["LinkText"]
   DUPCLOSURE R14 K146 [PROTO_49]
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U13
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U12
   SETTABLEKS R14 R13 K139 ["OnLinkClicked"]
   JUMPIF R13 [+45]
   JUMPIFNOT R4 [+22]
@@ -1959,8 +1907,8 @@ PROTO_53:
   CALL R14 3 1
   SETTABLEKS R14 R13 K100 ["LinkText"]
   DUPCLOSURE R14 K149 [PROTO_50]
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U14
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U13
   SETTABLEKS R14 R13 K139 ["OnLinkClicked"]
   JUMPIF R13 [+22]
   MOVE R13 R6
@@ -1977,17 +1925,15 @@ PROTO_53:
   CALL R14 3 1
   SETTABLEKS R14 R13 K100 ["LinkText"]
   DUPCLOSURE R14 K152 [PROTO_51]
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U15
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U14
   SETTABLEKS R14 R13 K139 ["OnLinkClicked"]
   SETTABLEKS R13 R12 K134 ["LinkProps"]
   CALL R10 2 1
-  JUMP [+1]
-  LOADNIL R10
   SETTABLEKS R10 R9 K21 ["MeshTextureApisEnabled"]
-  GETUPVAL R11 3
+  GETUPVAL R11 2
   GETTABLEKS R10 R11 K24 ["createElement"]
-  GETUPVAL R11 8
+  GETUPVAL R11 7
   DUPTABLE R12 K112 [{"Description", "Disabled", "LayoutOrder", "OnClick", "Selected", "Title"}]
   LOADK R15 K113 ["General"]
   LOADK R16 K153 ["AllowInsertFreeAssetsDesc"]
@@ -2043,32 +1989,31 @@ PROTO_55:
   CAPTURE UPVAL U11
   CAPTURE UPVAL U12
   CAPTURE UPVAL U13
-  CAPTURE UPVAL U14
-  GETUPVAL R4 9
+  GETUPVAL R4 8
   JUMPIFNOT R4 [+9]
   GETTABLEKS R5 R0 K0 ["props"]
   GETTABLEKS R4 R5 K2 ["EditSecretId"]
   JUMPIFNOT R4 [+4]
   LOADB R2 0
   NEWCLOSURE R3 P1
-  CAPTURE UPVAL U15
+  CAPTURE UPVAL U14
   CAPTURE VAL R0
-  GETUPVAL R5 2
+  GETUPVAL R5 1
   GETTABLEKS R4 R5 K3 ["createElement"]
-  GETUPVAL R5 16
+  GETUPVAL R5 15
   DUPTABLE R6 K10 [{"SettingsLoadJobs", "SettingsSaveJobs", "Title", "PageId", "CreateChildren", "ShowHeader"}]
-  GETUPVAL R7 17
+  GETUPVAL R7 16
   SETTABLEKS R7 R6 K4 ["SettingsLoadJobs"]
-  GETUPVAL R7 18
+  GETUPVAL R7 17
   SETTABLEKS R7 R6 K5 ["SettingsSaveJobs"]
   LOADK R9 K11 ["General"]
   LOADK R11 K12 ["Category"]
-  GETUPVAL R12 19
+  GETUPVAL R12 18
   CONCAT R10 R11 R12
   NAMECALL R7 R1 K13 ["getText"]
   CALL R7 3 1
   SETTABLEKS R7 R6 K6 ["Title"]
-  GETUPVAL R7 19
+  GETUPVAL R7 18
   SETTABLEKS R7 R6 K7 ["PageId"]
   SETTABLEKS R3 R6 K8 ["CreateChildren"]
   SETTABLEKS R2 R6 K9 ["ShowHeader"]
@@ -2102,14 +2047,12 @@ PROTO_58:
   NEWCLOSURE R3 P1
   CAPTURE VAL R0
   GETUPVAL R4 1
-  JUMPIFNOT R4 [+6]
-  GETUPVAL R4 2
   MOVE R5 R2
   MOVE R6 R3
   MOVE R7 R0
   CALL R4 3 1
   RETURN R4 1
-  GETUPVAL R4 3
+  GETUPVAL R4 2
   MOVE R5 R2
   MOVE R6 R3
   CALL R4 2 1
@@ -2181,272 +2124,243 @@ MAIN:
   GETTABLEKS R16 R3 K22 ["Util"]
   GETTABLEKS R17 R16 K23 ["LayoutOrderIterator"]
   GETIMPORT R18 K25 [game]
-  LOADK R20 K26 ["EditableServiceEnabled"]
-  NAMECALL R18 R18 K27 ["GetEngineFeature"]
-  CALL R18 2 1
+  LOADK R20 K26 ["ExperienceSettingsApiServicesGameToExp"]
+  LOADB R21 0
+  NAMECALL R18 R18 K27 ["DefineFastFlag"]
+  CALL R18 3 1
   GETIMPORT R19 K25 [game]
-  LOADK R21 K28 ["ExperienceSettingsApiServicesGameToExp"]
-  LOADB R22 0
-  NAMECALL R19 R19 K29 ["DefineFastFlag"]
-  CALL R19 3 1
-  JUMPIFNOT R18 [+7]
+  LOADK R21 K28 ["StudioService"]
+  NAMECALL R19 R19 K29 ["GetService"]
+  CALL R19 2 1
   GETIMPORT R20 K25 [game]
-  LOADK R22 K30 ["StudioService"]
-  NAMECALL R20 R20 K31 ["GetService"]
+  LOADK R22 K30 ["GuiService"]
+  NAMECALL R20 R20 K29 ["GetService"]
   CALL R20 2 1
-  JUMP [+1]
-  LOADNIL R20
-  JUMPIFNOT R18 [+7]
-  GETIMPORT R21 K25 [game]
-  LOADK R23 K32 ["GuiService"]
-  NAMECALL R21 R21 K31 ["GetService"]
-  CALL R21 2 1
-  JUMP [+1]
-  LOADNIL R21
-  GETIMPORT R23 K1 [script]
-  GETTABLEKS R22 R23 K2 ["Parent"]
-  JUMPIFNOT R18 [+10]
+  GETIMPORT R22 K1 [script]
+  GETTABLEKS R21 R22 K2 ["Parent"]
+  GETIMPORT R22 K4 [require]
+  GETTABLEKS R25 R0 K13 ["Src"]
+  GETTABLEKS R24 R25 K31 ["Actions"]
+  GETTABLEKS R23 R24 K32 ["SetCreatorId"]
+  CALL R22 1 1
   GETIMPORT R23 K4 [require]
   GETTABLEKS R26 R0 K13 ["Src"]
-  GETTABLEKS R25 R26 K33 ["Actions"]
-  GETTABLEKS R24 R25 K34 ["SetCreatorId"]
+  GETTABLEKS R25 R26 K31 ["Actions"]
+  GETTABLEKS R24 R25 K33 ["SetCreatorName"]
   CALL R23 1 1
-  JUMP [+1]
-  LOADNIL R23
-  JUMPIFNOT R18 [+10]
   GETIMPORT R24 K4 [require]
   GETTABLEKS R27 R0 K13 ["Src"]
-  GETTABLEKS R26 R27 K33 ["Actions"]
-  GETTABLEKS R25 R26 K35 ["SetCreatorName"]
+  GETTABLEKS R26 R27 K31 ["Actions"]
+  GETTABLEKS R25 R26 K34 ["SetCreatorType"]
   CALL R24 1 1
-  JUMP [+1]
-  LOADNIL R24
-  JUMPIFNOT R18 [+10]
   GETIMPORT R25 K4 [require]
-  GETTABLEKS R28 R0 K13 ["Src"]
-  GETTABLEKS R27 R28 K33 ["Actions"]
-  GETTABLEKS R26 R27 K36 ["SetCreatorType"]
+  GETTABLEKS R27 R21 K31 ["Actions"]
+  GETTABLEKS R26 R27 K35 ["SetGroupOwnerId"]
   CALL R25 1 1
-  JUMP [+1]
-  LOADNIL R25
-  JUMPIFNOT R18 [+8]
   GETIMPORT R26 K4 [require]
-  GETTABLEKS R28 R22 K33 ["Actions"]
-  GETTABLEKS R27 R28 K37 ["SetGroupOwnerId"]
+  GETTABLEKS R29 R0 K13 ["Src"]
+  GETTABLEKS R28 R29 K36 ["Components"]
+  GETTABLEKS R27 R28 K37 ["Header"]
   CALL R26 1 1
-  JUMP [+1]
-  LOADNIL R26
   GETIMPORT R27 K4 [require]
-  GETTABLEKS R30 R0 K13 ["Src"]
-  GETTABLEKS R29 R30 K38 ["Components"]
-  GETTABLEKS R28 R29 K39 ["Header"]
+  GETTABLEKS R31 R0 K13 ["Src"]
+  GETTABLEKS R30 R31 K36 ["Components"]
+  GETTABLEKS R29 R30 K38 ["SettingsPages"]
+  GETTABLEKS R28 R29 K39 ["SettingsPage"]
   CALL R27 1 1
   GETIMPORT R28 K4 [require]
   GETTABLEKS R32 R0 K13 ["Src"]
-  GETTABLEKS R31 R32 K38 ["Components"]
-  GETTABLEKS R30 R31 K40 ["SettingsPages"]
-  GETTABLEKS R29 R30 K41 ["SettingsPage"]
+  GETTABLEKS R31 R32 K36 ["Components"]
+  GETTABLEKS R30 R31 K14 ["Dialog"]
+  GETTABLEKS R29 R30 K40 ["SimpleDialog"]
   CALL R28 1 1
   GETIMPORT R29 K4 [require]
-  GETTABLEKS R33 R0 K13 ["Src"]
-  GETTABLEKS R32 R33 K38 ["Components"]
-  GETTABLEKS R31 R32 K14 ["Dialog"]
-  GETTABLEKS R30 R31 K42 ["SimpleDialog"]
+  GETTABLEKS R32 R0 K13 ["Src"]
+  GETTABLEKS R31 R32 K36 ["Components"]
+  GETTABLEKS R30 R31 K41 ["ToggleButtonWithTitle"]
   CALL R29 1 1
   GETIMPORT R30 K4 [require]
   GETTABLEKS R33 R0 K13 ["Src"]
-  GETTABLEKS R32 R33 K38 ["Components"]
-  GETTABLEKS R31 R32 K43 ["ToggleButtonWithTitle"]
+  GETTABLEKS R32 R33 K31 ["Actions"]
+  GETTABLEKS R31 R32 K42 ["AddChange"]
   CALL R30 1 1
   GETIMPORT R31 K4 [require]
   GETTABLEKS R34 R0 K13 ["Src"]
-  GETTABLEKS R33 R34 K33 ["Actions"]
-  GETTABLEKS R32 R33 K44 ["AddChange"]
+  GETTABLEKS R33 R34 K31 ["Actions"]
+  GETTABLEKS R32 R33 K43 ["AddErrors"]
   CALL R31 1 1
   GETIMPORT R32 K4 [require]
   GETTABLEKS R35 R0 K13 ["Src"]
-  GETTABLEKS R34 R35 K33 ["Actions"]
-  GETTABLEKS R33 R34 K45 ["AddErrors"]
+  GETTABLEKS R34 R35 K31 ["Actions"]
+  GETTABLEKS R33 R34 K44 ["DiscardError"]
   CALL R32 1 1
   GETIMPORT R33 K4 [require]
   GETTABLEKS R36 R0 K13 ["Src"]
-  GETTABLEKS R35 R36 K33 ["Actions"]
-  GETTABLEKS R34 R35 K46 ["DiscardError"]
+  GETTABLEKS R35 R36 K31 ["Actions"]
+  GETTABLEKS R34 R35 K45 ["DiscardErrors"]
   CALL R33 1 1
   GETIMPORT R34 K4 [require]
   GETTABLEKS R37 R0 K13 ["Src"]
-  GETTABLEKS R36 R37 K33 ["Actions"]
-  GETTABLEKS R35 R36 K47 ["DiscardErrors"]
+  GETTABLEKS R36 R37 K31 ["Actions"]
+  GETTABLEKS R35 R36 K46 ["SetEditSecretFormField"]
   CALL R34 1 1
   GETIMPORT R35 K4 [require]
   GETTABLEKS R38 R0 K13 ["Src"]
-  GETTABLEKS R37 R38 K33 ["Actions"]
-  GETTABLEKS R36 R37 K48 ["SetEditSecretFormField"]
+  GETTABLEKS R37 R38 K31 ["Actions"]
+  GETTABLEKS R36 R37 K47 ["SetEditSecretId"]
   CALL R35 1 1
   GETIMPORT R36 K4 [require]
   GETTABLEKS R39 R0 K13 ["Src"]
-  GETTABLEKS R38 R39 K33 ["Actions"]
-  GETTABLEKS R37 R38 K49 ["SetEditSecretId"]
+  GETTABLEKS R38 R39 K22 ["Util"]
+  GETTABLEKS R37 R38 K48 ["Analytics"]
   CALL R36 1 1
   GETIMPORT R37 K4 [require]
   GETTABLEKS R40 R0 K13 ["Src"]
   GETTABLEKS R39 R40 K22 ["Util"]
-  GETTABLEKS R38 R39 K50 ["Analytics"]
+  GETTABLEKS R38 R39 K49 ["SecretUtils"]
   CALL R37 1 1
   GETIMPORT R38 K4 [require]
-  GETTABLEKS R41 R0 K13 ["Src"]
-  GETTABLEKS R40 R41 K22 ["Util"]
-  GETTABLEKS R39 R40 K51 ["SecretUtils"]
+  GETTABLEKS R40 R21 K36 ["Components"]
+  GETTABLEKS R39 R40 K50 ["Secrets"]
   CALL R38 1 1
-  GETIMPORT R39 K4 [require]
-  GETTABLEKS R41 R22 K38 ["Components"]
-  GETTABLEKS R40 R41 K52 ["Secrets"]
-  CALL R39 1 1
-  GETIMPORT R41 K1 [script]
-  GETTABLEKS R40 R41 K53 ["Name"]
+  GETIMPORT R40 K1 [script]
+  GETTABLEKS R39 R40 K51 ["Name"]
+  GETIMPORT R40 K25 [game]
+  LOADK R42 K52 ["PolicyLink"]
+  LOADK R43 K53 ["https://help.roblox.com/hc/articles/115004647846-Roblox-Terms-of-Use#creators-restrictions-on-use"]
+  NAMECALL R40 R40 K54 ["DefineFastString"]
+  CALL R40 3 1
   GETIMPORT R41 K25 [game]
-  LOADK R43 K54 ["PolicyLink"]
-  LOADK R44 K55 ["https://help.roblox.com/hc/articles/115004647846-Roblox-Terms-of-Use#creators-restrictions-on-use"]
-  NAMECALL R41 R41 K56 ["DefineFastString"]
+  LOADK R43 K55 ["IdVerificationLink"]
+  LOADK R44 K56 ["https://www.roblox.com/my/account#!/info"]
+  NAMECALL R41 R41 K54 ["DefineFastString"]
   CALL R41 3 1
   GETIMPORT R42 K25 [game]
-  LOADK R44 K57 ["IdVerificationLink"]
-  LOADK R45 K58 ["https://www.roblox.com/my/account#!/info"]
-  NAMECALL R42 R42 K56 ["DefineFastString"]
+  LOADK R44 K57 ["CreatorIdVerificationLink"]
+  LOADK R45 K58 ["https://create.roblox.com/docs/production/publishing/account-verification"]
+  NAMECALL R42 R42 K54 ["DefineFastString"]
   CALL R42 3 1
   GETIMPORT R43 K25 [game]
-  LOADK R45 K59 ["CreatorIdVerificationLink"]
-  LOADK R46 K60 ["https://create.roblox.com/docs/production/publishing/account-verification"]
-  NAMECALL R43 R43 K56 ["DefineFastString"]
+  LOADK R45 K59 ["TermsOfUseCreatorTermsLink"]
+  LOADK R46 K60 ["https://help.roblox.com/hc/articles/115004647846-Roblox-Terms-of-Use#creator-terms"]
+  NAMECALL R43 R43 K54 ["DefineFastString"]
   CALL R43 3 1
-  GETIMPORT R44 K25 [game]
-  LOADK R46 K61 ["TermsOfUseCreatorTermsLink"]
-  LOADK R47 K62 ["https://help.roblox.com/hc/articles/115004647846-Roblox-Terms-of-Use#creator-terms"]
-  NAMECALL R44 R44 K56 ["DefineFastString"]
-  CALL R44 3 1
+  GETIMPORT R44 K4 [require]
+  GETTABLEKS R47 R0 K13 ["Src"]
+  GETTABLEKS R46 R47 K61 ["Flags"]
+  GETTABLEKS R45 R46 K62 ["getFFlagSecretsEditorImprovement"]
+  CALL R44 1 1
+  CALL R44 0 1
   GETIMPORT R45 K4 [require]
   GETTABLEKS R48 R0 K13 ["Src"]
-  GETTABLEKS R47 R48 K63 ["Flags"]
-  GETTABLEKS R46 R47 K64 ["getFFlagSecretsEditorImprovement"]
+  GETTABLEKS R47 R48 K61 ["Flags"]
+  GETTABLEKS R46 R47 K63 ["getFFlagSecretsEditorNoDraft"]
   CALL R45 1 1
   CALL R45 0 1
   GETIMPORT R46 K4 [require]
   GETTABLEKS R49 R0 K13 ["Src"]
-  GETTABLEKS R48 R49 K63 ["Flags"]
-  GETTABLEKS R47 R48 K65 ["getFFlagSecretsEditorNoDraft"]
+  GETTABLEKS R48 R49 K61 ["Flags"]
+  GETTABLEKS R47 R48 K64 ["getFFlagGameSettingsGameToExperience"]
   CALL R46 1 1
   CALL R46 0 1
-  GETIMPORT R47 K4 [require]
-  GETTABLEKS R50 R0 K13 ["Src"]
-  GETTABLEKS R49 R50 K63 ["Flags"]
-  GETTABLEKS R48 R49 K66 ["getFFlagGameSettingsGameToExperience"]
-  CALL R47 1 1
-  CALL R47 0 1
-  DUPCLOSURE R48 K67 [PROTO_11]
-  CAPTURE VAL R18
-  CAPTURE VAL R45
-  CAPTURE VAL R24
+  DUPCLOSURE R47 K65 [PROTO_11]
+  CAPTURE VAL R44
   CAPTURE VAL R23
+  CAPTURE VAL R22
+  CAPTURE VAL R24
   CAPTURE VAL R25
-  CAPTURE VAL R26
-  DUPCLOSURE R49 K68 [PROTO_13]
-  CAPTURE VAL R37
-  DUPCLOSURE R50 K69 [PROTO_22]
-  CAPTURE VAL R45
-  CAPTURE VAL R46
-  CAPTURE VAL R38
-  CAPTURE VAL R31
-  CAPTURE VAL R37
-  CAPTURE VAL R18
-  DUPCLOSURE R51 K70 [PROTO_23]
-  CAPTURE VAL R45
-  DUPCLOSURE R52 K71 [PROTO_24]
-  CAPTURE VAL R45
-  CAPTURE VAL R18
-  DUPCLOSURE R53 K72 [PROTO_32]
-  CAPTURE VAL R45
-  CAPTURE VAL R18
+  DUPCLOSURE R48 K66 [PROTO_13]
   CAPTURE VAL R36
+  DUPCLOSURE R49 K67 [PROTO_22]
+  CAPTURE VAL R44
+  CAPTURE VAL R45
+  CAPTURE VAL R37
+  CAPTURE VAL R30
+  CAPTURE VAL R36
+  DUPCLOSURE R50 K68 [PROTO_23]
+  CAPTURE VAL R44
+  DUPCLOSURE R51 K69 [PROTO_24]
+  CAPTURE VAL R44
+  DUPCLOSURE R52 K70 [PROTO_32]
+  CAPTURE VAL R44
   CAPTURE VAL R35
+  CAPTURE VAL R34
+  CAPTURE VAL R31
   CAPTURE VAL R32
   CAPTURE VAL R33
-  CAPTURE VAL R34
-  GETTABLEKS R54 R1 K73 ["PureComponent"]
-  GETIMPORT R57 K1 [script]
-  GETTABLEKS R56 R57 K53 ["Name"]
-  NAMECALL R54 R54 K74 ["extend"]
-  CALL R54 2 1
-  JUMPIFNOT R18 [+7]
-  DUPCLOSURE R55 K75 [PROTO_33]
-  SETTABLEKS R55 R54 K76 ["isGroupGame"]
-  DUPCLOSURE R55 K77 [PROTO_34]
-  CAPTURE VAL R20
-  SETTABLEKS R55 R54 K78 ["isLoggedInUserGameOwner"]
-  DUPCLOSURE R55 K79 [PROTO_35]
-  DUPCLOSURE R56 K80 [PROTO_40]
+  GETTABLEKS R53 R1 K71 ["PureComponent"]
+  GETIMPORT R56 K1 [script]
+  GETTABLEKS R55 R56 K51 ["Name"]
+  NAMECALL R53 R53 K72 ["extend"]
+  CALL R53 2 1
+  DUPCLOSURE R54 K73 [PROTO_33]
+  SETTABLEKS R54 R53 K74 ["isGroupGame"]
+  DUPCLOSURE R54 K75 [PROTO_34]
+  CAPTURE VAL R19
+  SETTABLEKS R54 R53 K76 ["isLoggedInUserGameOwner"]
+  DUPCLOSURE R54 K77 [PROTO_35]
+  DUPCLOSURE R55 K78 [PROTO_40]
   CAPTURE VAL R17
-  CAPTURE VAL R38
-  CAPTURE VAL R29
-  CAPTURE VAL R46
-  CAPTURE VAL R55
+  CAPTURE VAL R37
+  CAPTURE VAL R28
+  CAPTURE VAL R45
+  CAPTURE VAL R54
   CAPTURE VAL R1
   CAPTURE VAL R5
   CAPTURE VAL R10
   CAPTURE VAL R11
-  CAPTURE VAL R27
+  CAPTURE VAL R26
   CAPTURE VAL R13
   CAPTURE VAL R15
   CAPTURE VAL R12
-  DUPCLOSURE R57 K81 [PROTO_55]
-  CAPTURE VAL R18
+  DUPCLOSURE R56 K79 [PROTO_55]
   CAPTURE VAL R17
   CAPTURE VAL R1
   CAPTURE VAL R13
   CAPTURE VAL R14
-  CAPTURE VAL R21
+  CAPTURE VAL R20
+  CAPTURE VAL R43
+  CAPTURE VAL R29
+  CAPTURE VAL R46
   CAPTURE VAL R44
-  CAPTURE VAL R30
-  CAPTURE VAL R47
-  CAPTURE VAL R45
-  CAPTURE VAL R39
-  CAPTURE VAL R19
+  CAPTURE VAL R38
+  CAPTURE VAL R18
+  CAPTURE VAL R40
   CAPTURE VAL R41
   CAPTURE VAL R42
-  CAPTURE VAL R43
+  CAPTURE VAL R55
+  CAPTURE VAL R27
+  CAPTURE VAL R47
+  CAPTURE VAL R49
+  CAPTURE VAL R39
+  SETTABLEKS R56 R53 K80 ["render"]
+  MOVE R56 R7
+  DUPTABLE R57 K83 [{"Localization", "Stylizer", "Dialog"}]
+  GETTABLEKS R58 R6 K81 ["Localization"]
+  SETTABLEKS R58 R57 K81 ["Localization"]
+  GETTABLEKS R58 R6 K82 ["Stylizer"]
+  SETTABLEKS R58 R57 K82 ["Stylizer"]
+  SETTABLEKS R8 R57 K14 ["Dialog"]
+  CALL R56 1 1
+  MOVE R57 R53
+  CALL R56 1 1
+  MOVE R53 R56
+  GETIMPORT R56 K4 [require]
+  GETTABLEKS R59 R0 K13 ["Src"]
+  GETTABLEKS R58 R59 K84 ["Networking"]
+  GETTABLEKS R57 R58 K85 ["settingFromState"]
+  CALL R56 1 1
+  GETTABLEKS R57 R2 K86 ["connect"]
+  DUPCLOSURE R58 K87 [PROTO_58]
   CAPTURE VAL R56
-  CAPTURE VAL R28
-  CAPTURE VAL R48
-  CAPTURE VAL R50
-  CAPTURE VAL R40
-  SETTABLEKS R57 R54 K82 ["render"]
-  MOVE R57 R7
-  DUPTABLE R58 K85 [{"Localization", "Stylizer", "Dialog"}]
-  GETTABLEKS R59 R6 K83 ["Localization"]
-  SETTABLEKS R59 R58 K83 ["Localization"]
-  GETTABLEKS R59 R6 K84 ["Stylizer"]
-  SETTABLEKS R59 R58 K84 ["Stylizer"]
-  SETTABLEKS R8 R58 K14 ["Dialog"]
-  CALL R57 1 1
-  MOVE R58 R54
-  CALL R57 1 1
-  MOVE R54 R57
-  GETIMPORT R57 K4 [require]
-  GETTABLEKS R60 R0 K13 ["Src"]
-  GETTABLEKS R59 R60 K86 ["Networking"]
-  GETTABLEKS R58 R59 K87 ["settingFromState"]
-  CALL R57 1 1
-  GETTABLEKS R58 R2 K88 ["connect"]
-  DUPCLOSURE R59 K89 [PROTO_58]
-  CAPTURE VAL R57
-  CAPTURE VAL R18
-  CAPTURE VAL R52
   CAPTURE VAL R51
-  DUPCLOSURE R60 K90 [PROTO_61]
-  CAPTURE VAL R31
-  CAPTURE VAL R53
-  CALL R58 2 1
-  MOVE R59 R54
-  CALL R58 1 1
-  MOVE R54 R58
-  SETTABLEKS R40 R54 K91 ["LocalizationId"]
-  RETURN R54 1
+  CAPTURE VAL R50
+  DUPCLOSURE R59 K88 [PROTO_61]
+  CAPTURE VAL R30
+  CAPTURE VAL R52
+  CALL R57 2 1
+  MOVE R58 R53
+  CALL R57 1 1
+  MOVE R53 R57
+  SETTABLEKS R39 R53 K89 ["LocalizationId"]
+  RETURN R53 1

@@ -1,0 +1,31 @@
+PROTO_0:
+  LOADK R2 K0 ["%*: %*"]
+  GETTABLEKS R4 R0 K1 ["metaType"]
+  GETTABLEKS R5 R0 K2 ["name"]
+  NAMECALL R2 R2 K3 ["format"]
+  CALL R2 3 1
+  MOVE R1 R2
+  GETTABLEKS R2 R0 K1 ["metaType"]
+  JUMPIFEQKS R2 K4 ["Property"] [+5]
+  GETTABLEKS R2 R0 K1 ["metaType"]
+  JUMPIFNOTEQKS R2 K5 ["Virtual"] [+10]
+  MOVE R2 R1
+  LOADK R4 K6 [" on %*"]
+  GETTABLEKS R6 R0 K7 ["className"]
+  NAMECALL R4 R4 K3 ["format"]
+  CALL R4 2 1
+  MOVE R3 R4
+  CONCAT R1 R2 R3
+  RETURN R1 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Properties"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R2 R0 K6 ["PropertyTypes"]
+  CALL R1 1 1
+  DUPCLOSURE R2 K7 [PROTO_0]
+  RETURN R2 1

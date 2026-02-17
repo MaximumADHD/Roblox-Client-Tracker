@@ -9,6 +9,6 @@ local ChromeEnabled = require(Chrome.Enabled)
 local CoreGuiCommon = require(CorePackages.Workspace.Packages.CoreGuiCommon)
 local FFlagTopBarSignalizeHealthBar = CoreGuiCommon.Flags.FFlagTopBarSignalizeHealthBar
 
-local FFlagTopBarDeprecateCoreGuiRodux = game:DefineFastFlag("TopBarDeprecateCoreGuiRodux", false)
+local FFlagTopBarDeprecateCoreGuiRodux = game:DefineFastFlag("TopBarDeprecateCoreGuiRodux2", false)
 
-return FFlagTopBarDeprecateCoreGuiRodux and FFlagTopBarSignalizeHealthBar and FFlagEnableConsoleExpControls and ChromeEnabled
+return FFlagTopBarDeprecateCoreGuiRodux and FFlagTopBarSignalizeHealthBar and FFlagEnableConsoleExpControls and ChromeEnabled()

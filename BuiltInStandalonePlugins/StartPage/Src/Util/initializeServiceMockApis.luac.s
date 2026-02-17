@@ -40,22 +40,6 @@ PROTO_3:
 
 PROTO_4:
   DUPTABLE R0 K1 [{"data"}]
-  DUPTABLE R1 K3 [{"universe"}]
-  GETUPVAL R2 0
-  SETTABLEKS R2 R1 K2 ["universe"]
-  SETTABLEKS R1 R0 K0 ["data"]
-  RETURN R0 1
-
-PROTO_5:
-  DUPTABLE R0 K1 [{"data"}]
-  DUPTABLE R1 K3 [{"universe"}]
-  GETUPVAL R2 0
-  SETTABLEKS R2 R1 K2 ["universe"]
-  SETTABLEKS R1 R0 K0 ["data"]
-  RETURN R0 1
-
-PROTO_6:
-  DUPTABLE R0 K1 [{"data"}]
   NEWTABLE R1 0 1
   DUPTABLE R2 K4 [{"id", "activeUsers"}]
   LOADN R3 123
@@ -70,7 +54,7 @@ PROTO_6:
   SETTABLEKS R1 R0 K0 ["data"]
   RETURN R0 1
 
-PROTO_7:
+PROTO_5:
   DUPTABLE R0 K1 [{"eligibilityByCreator"}]
   NEWTABLE R1 0 1
   DUPTABLE R2 K4 [{"userIsEligible", "displayText"}]
@@ -82,7 +66,7 @@ PROTO_7:
   SETTABLEKS R1 R0 K0 ["eligibilityByCreator"]
   RETURN R0 1
 
-PROTO_8:
+PROTO_6:
   DUPTABLE R1 K1 [{"ageRecommendationDetailsByUniverse"}]
   NEWTABLE R2 0 2
   DUPTABLE R3 K4 [{"ageRecommendationDetails", "universeId"}]
@@ -111,7 +95,7 @@ PROTO_8:
   SETTABLEKS R2 R1 K0 ["ageRecommendationDetailsByUniverse"]
   RETURN R1 1
 
-PROTO_9:
+PROTO_7:
   DUPTABLE R0 K1 [{"data"}]
   NEWTABLE R1 0 1
   DUPTABLE R2 K4 [{"targetId", "imageUrl"}]
@@ -123,7 +107,7 @@ PROTO_9:
   SETTABLEKS R1 R0 K0 ["data"]
   RETURN R0 1
 
-PROTO_10:
+PROTO_8:
   DUPTABLE R0 K2 [{"feedItems", "meta"}]
   NEWTABLE R1 0 1
   DUPTABLE R2 K9 [{"feedType", "id", "titleKey", "title", "thumbnails", "url"}]
@@ -149,7 +133,7 @@ PROTO_10:
   SETTABLEKS R1 R0 K1 ["meta"]
   RETURN R0 1
 
-PROTO_11:
+PROTO_9:
   GETUPVAL R0 0
   JUMPIFNOT R0 [+2]
   GETUPVAL R0 0
@@ -162,7 +146,7 @@ PROTO_11:
   SETTABLEKS R1 R0 K0 ["universeIds"]
   RETURN R0 1
 
-PROTO_12:
+PROTO_10:
   GETUPVAL R0 0
   JUMPIFNOT R0 [+2]
   GETUPVAL R0 0
@@ -182,7 +166,7 @@ PROTO_12:
   SETTABLEKS R1 R0 K5 ["shouldPrompt"]
   RETURN R0 1
 
-PROTO_13:
+PROTO_11:
   GETUPVAL R4 0
   GETTABLEKS R3 R4 K0 ["new"]
   CALL R3 0 1
@@ -216,265 +200,222 @@ PROTO_13:
   LOADB R4 1
   JUMPIFNOT R1 [+2]
   NEWTABLE R6 0 0
-  LOADK R8 K23 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=54321&searchKey=%*&sortOrder=Desc&search=&creatorType=Team&pageSize=30&sortParam=LastUpdated&PageIndex=0"]
+  LOADK R8 K23 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=54321&searchKey=%*&sortOrder=Desc&search=&creatorType=Team&pageSize=30&sortParam=LastUpdated&surface=StudioStartPage&PageIndex=0"]
   MOVE R10 R4
   MOVE R11 R5
   NAMECALL R8 R8 K24 ["format"]
   CALL R8 3 1
   MOVE R7 R8
-  LOADK R9 K25 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=54321&searchKey=%*&sortOrder=Desc&search=&creatorType=User&pageSize=30&sortParam=LastUpdated&PageIndex=0"]
+  LOADK R9 K25 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=54321&searchKey=%*&sortOrder=Desc&search=&creatorType=User&pageSize=30&sortParam=LastUpdated&surface=StudioStartPage&PageIndex=0"]
   MOVE R11 R4
   MOVE R12 R5
   NAMECALL R9 R9 K24 ["format"]
   CALL R9 3 1
   MOVE R8 R9
-  LOADK R10 K26 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=999&searchKey=%*&sortOrder=Desc&search=&creatorType=Group&pageSize=30&sortParam=LastUpdated&PageIndex=0"]
+  LOADK R10 K26 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=999&searchKey=%*&sortOrder=Desc&search=&creatorType=Group&pageSize=30&sortParam=LastUpdated&surface=StudioStartPage&PageIndex=0"]
   MOVE R12 R4
   MOVE R13 R5
   NAMECALL R10 R10 K24 ["format"]
   CALL R10 3 1
   MOVE R9 R10
-  LOADK R11 K27 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=54321&searchKey=%*&sortOrder=Desc&search=&creatorType=Team&pageSize=30&sortParam=LastUpdated&surface=StudioStartPage&PageIndex=0"]
-  MOVE R13 R4
-  MOVE R14 R5
-  NAMECALL R11 R11 K24 ["format"]
-  CALL R11 3 1
-  MOVE R10 R11
-  LOADK R12 K28 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=54321&searchKey=%*&sortOrder=Desc&search=&creatorType=User&pageSize=30&sortParam=LastUpdated&surface=StudioStartPage&PageIndex=0"]
-  MOVE R14 R4
-  MOVE R15 R5
-  NAMECALL R12 R12 K24 ["format"]
-  CALL R12 3 1
-  MOVE R11 R12
-  LOADK R13 K29 ["https://apis.roblox.com/universes/v1/search?isTemplates=false&isArchived=%*&creatorTargetId=999&searchKey=%*&sortOrder=Desc&search=&creatorType=Group&pageSize=30&sortParam=LastUpdated&surface=StudioStartPage&PageIndex=0"]
-  MOVE R15 R4
-  MOVE R16 R5
-  NAMECALL R13 R13 K24 ["format"]
-  CALL R13 3 1
-  MOVE R12 R13
-  GETTABLEKS R13 R3 K30 ["composeUrl"]
+  GETTABLEKS R10 R3 K27 ["composeUrl"]
+  GETUPVAL R13 1
+  GETTABLEKS R12 R13 K28 ["KNOWLEDGE_FEEDS_URL"]
+  GETTABLEKS R11 R12 K29 ["Prefix"]
+  GETUPVAL R14 1
+  GETTABLEKS R13 R14 K28 ["KNOWLEDGE_FEEDS_URL"]
+  GETTABLEKS R12 R13 K30 ["Url"]
+  CALL R12 0 -1
+  CALL R10 -1 1
+  DUPTABLE R11 K33 [{"limit", "SortOrder"}]
+  LOADN R12 50
+  SETTABLEKS R12 R11 K31 ["limit"]
+  LOADK R12 K34 ["Asc"]
+  SETTABLEKS R12 R11 K32 ["SortOrder"]
+  GETTABLEKS R12 R3 K27 ["composeUrl"]
+  GETUPVAL R15 1
+  GETTABLEKS R14 R15 K35 ["PLACES_SEARCH_URL"]
+  GETTABLEKS R13 R14 K29 ["Prefix"]
   GETUPVAL R16 1
-  GETTABLEKS R15 R16 K31 ["KNOWLEDGE_FEEDS_URL"]
-  GETTABLEKS R14 R15 K32 ["Prefix"]
+  GETTABLEKS R15 R16 K35 ["PLACES_SEARCH_URL"]
+  GETTABLEKS R14 R15 K30 ["Url"]
+  LOADN R15 43
+  CALL R14 1 1
+  MOVE R15 R11
+  CALL R12 3 1
+  DUPCLOSURE R13 K36 [PROTO_0]
+  GETTABLEKS R14 R3 K27 ["composeUrl"]
   GETUPVAL R17 1
-  GETTABLEKS R16 R17 K31 ["KNOWLEDGE_FEEDS_URL"]
-  GETTABLEKS R15 R16 K33 ["Url"]
-  CALL R15 0 -1
-  CALL R13 -1 1
-  DUPTABLE R14 K36 [{"limit", "SortOrder"}]
-  LOADN R15 50
-  SETTABLEKS R15 R14 K34 ["limit"]
-  LOADK R15 K37 ["Asc"]
-  SETTABLEKS R15 R14 K35 ["SortOrder"]
-  GETTABLEKS R15 R3 K30 ["composeUrl"]
+  GETTABLEKS R16 R17 K37 ["MULTI_CREATOR_ELIGIBILITY"]
+  GETTABLEKS R15 R16 K29 ["Prefix"]
   GETUPVAL R18 1
-  GETTABLEKS R17 R18 K38 ["PLACES_SEARCH_URL"]
-  GETTABLEKS R16 R17 K32 ["Prefix"]
+  GETTABLEKS R17 R18 K37 ["MULTI_CREATOR_ELIGIBILITY"]
+  GETTABLEKS R16 R17 K30 ["Url"]
+  CALL R16 0 -1
+  CALL R14 -1 1
+  GETTABLEKS R15 R3 K27 ["composeUrl"]
+  GETUPVAL R18 1
+  GETTABLEKS R17 R18 K38 ["MULTI_AGE_RECOMMENDATION"]
+  GETTABLEKS R16 R17 K29 ["Prefix"]
   GETUPVAL R19 1
-  GETTABLEKS R18 R19 K38 ["PLACES_SEARCH_URL"]
-  GETTABLEKS R17 R18 K33 ["Url"]
-  LOADN R18 43
-  CALL R17 1 1
-  MOVE R18 R14
-  CALL R15 3 1
-  DUPCLOSURE R16 K39 [PROTO_0]
-  GETTABLEKS R17 R3 K30 ["composeUrl"]
-  GETUPVAL R20 1
-  GETTABLEKS R19 R20 K40 ["MULTI_CREATOR_ELIGIBILITY"]
-  GETTABLEKS R18 R19 K32 ["Prefix"]
-  GETUPVAL R21 1
-  GETTABLEKS R20 R21 K40 ["MULTI_CREATOR_ELIGIBILITY"]
-  GETTABLEKS R19 R20 K33 ["Url"]
-  CALL R19 0 -1
-  CALL R17 -1 1
-  GETTABLEKS R18 R3 K30 ["composeUrl"]
-  GETUPVAL R21 1
-  GETTABLEKS R20 R21 K41 ["MULTI_AGE_RECOMMENDATION"]
-  GETTABLEKS R19 R20 K32 ["Prefix"]
+  GETTABLEKS R18 R19 K38 ["MULTI_AGE_RECOMMENDATION"]
+  GETTABLEKS R17 R18 K30 ["Url"]
+  CALL R17 0 -1
+  CALL R15 -1 1
+  GETTABLEKS R19 R3 K27 ["composeUrl"]
   GETUPVAL R22 1
-  GETTABLEKS R21 R22 K41 ["MULTI_AGE_RECOMMENDATION"]
-  GETTABLEKS R20 R21 K33 ["Url"]
-  CALL R20 0 -1
-  CALL R18 -1 1
-  GETTABLEKS R22 R3 K30 ["composeUrl"]
-  GETUPVAL R25 1
-  GETTABLEKS R24 R25 K42 ["TEAM_CREATE_ACTIVE_SESSION_MEMBERS_URL"]
-  GETTABLEKS R23 R24 K32 ["Prefix"]
-  GETUPVAL R26 1
-  GETTABLEKS R25 R26 K42 ["TEAM_CREATE_ACTIVE_SESSION_MEMBERS_URL"]
-  GETTABLEKS R24 R25 K33 ["Url"]
-  CALL R24 0 -1
-  CALL R22 -1 1
-  MOVE R20 R22
-  LOADK R21 K43 ["?maxUsers=10&ids=555"]
-  CONCAT R19 R20 R21
-  DUPTABLE R20 K47 [{"userIds", "size", "format", "isCircular"}]
+  GETTABLEKS R21 R22 K39 ["TEAM_CREATE_ACTIVE_SESSION_MEMBERS_URL"]
+  GETTABLEKS R20 R21 K29 ["Prefix"]
+  GETUPVAL R23 1
+  GETTABLEKS R22 R23 K39 ["TEAM_CREATE_ACTIVE_SESSION_MEMBERS_URL"]
+  GETTABLEKS R21 R22 K30 ["Url"]
+  CALL R21 0 -1
+  CALL R19 -1 1
+  MOVE R17 R19
+  LOADK R18 K40 ["?maxUsers=10&ids=555"]
+  CONCAT R16 R17 R18
+  DUPTABLE R17 K44 [{"userIds", "size", "format", "isCircular"}]
+  NEWTABLE R18 0 1
+  LOADN R19 100
+  SETLIST R18 R19 1 [1]
+  SETTABLEKS R18 R17 K41 ["userIds"]
+  LOADK R18 K45 ["48x48"]
+  SETTABLEKS R18 R17 K42 ["size"]
+  LOADK R18 K46 ["png"]
+  SETTABLEKS R18 R17 K24 ["format"]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K43 ["isCircular"]
+  GETTABLEKS R18 R3 K27 ["composeUrl"]
+  GETUPVAL R21 1
+  GETTABLEKS R20 R21 K47 ["AVATAR_ICON_URL"]
+  GETTABLEKS R19 R20 K29 ["Prefix"]
+  GETUPVAL R22 1
+  GETTABLEKS R21 R22 K47 ["AVATAR_ICON_URL"]
+  GETTABLEKS R20 R21 K30 ["Url"]
+  CALL R20 0 1
+  MOVE R21 R17
+  CALL R18 3 1
+  NEWTABLE R19 16 0
+  DUPCLOSURE R20 K48 [PROTO_1]
+  SETTABLE R20 R19 R12
+  DUPTABLE R20 K50 [{"data"}]
   NEWTABLE R21 0 1
-  LOADN R22 100
+  DUPTABLE R22 K54 [{"gameTemplateType", "hasTutorials", "universe"}]
+  LOADK R23 K55 ["All"]
+  SETTABLEKS R23 R22 K51 ["gameTemplateType"]
+  LOADB R23 0
+  SETTABLEKS R23 R22 K52 ["hasTutorials"]
+  SETTABLEKS R6 R22 K53 ["universe"]
   SETLIST R21 R22 1 [1]
-  SETTABLEKS R21 R20 K44 ["userIds"]
-  LOADK R21 K48 ["48x48"]
-  SETTABLEKS R21 R20 K45 ["size"]
-  LOADK R21 K49 ["png"]
-  SETTABLEKS R21 R20 K24 ["format"]
-  LOADB R21 1
-  SETTABLEKS R21 R20 K46 ["isCircular"]
-  GETTABLEKS R21 R3 K30 ["composeUrl"]
-  GETUPVAL R24 1
-  GETTABLEKS R23 R24 K50 ["AVATAR_ICON_URL"]
-  GETTABLEKS R22 R23 K32 ["Prefix"]
-  GETUPVAL R25 1
-  GETTABLEKS R24 R25 K50 ["AVATAR_ICON_URL"]
-  GETTABLEKS R23 R24 K33 ["Url"]
-  CALL R23 0 1
-  MOVE R24 R20
-  CALL R21 3 1
-  NEWTABLE R22 32 0
-  DUPCLOSURE R23 K51 [PROTO_1]
-  SETTABLE R23 R22 R15
-  DUPTABLE R23 K53 [{"data"}]
-  NEWTABLE R24 0 1
-  DUPTABLE R25 K57 [{"gameTemplateType", "hasTutorials", "universe"}]
-  LOADK R26 K58 ["All"]
-  SETTABLEKS R26 R25 K54 ["gameTemplateType"]
-  LOADB R26 0
-  SETTABLEKS R26 R25 K55 ["hasTutorials"]
-  SETTABLEKS R6 R25 K56 ["universe"]
-  SETLIST R24 R25 1 [1]
-  SETTABLEKS R24 R23 K52 ["data"]
-  SETTABLEKS R23 R22 K59 ["https://develop.roblox.com/v1/gametemplates?searchKey=Templates&pageSize=30&search=All&isTemplates=true"]
-  NEWCLOSURE R23 P2
+  SETTABLEKS R21 R20 K49 ["data"]
+  SETTABLEKS R20 R19 K56 ["https://develop.roblox.com/v1/gametemplates?searchKey=Templates&pageSize=30&search=All&isTemplates=true"]
+  NEWCLOSURE R20 P2
   CAPTURE REF R6
-  SETTABLE R23 R22 R8
-  NEWCLOSURE R23 P3
+  SETTABLE R20 R19 R8
+  NEWCLOSURE R20 P3
   CAPTURE REF R6
-  SETTABLE R23 R22 R11
-  NEWCLOSURE R23 P4
-  CAPTURE REF R6
-  SETTABLE R23 R22 R7
-  NEWCLOSURE R23 P5
-  CAPTURE REF R6
-  SETTABLE R23 R22 R10
-  DUPTABLE R23 K53 [{"data"}]
-  NEWTABLE R24 0 1
-  DUPTABLE R25 K62 [{"id", "name", "universeId", "description"}]
-  LOADN R26 231
-  SETTABLEKS R26 R25 K6 ["id"]
-  LOADK R26 K63 ["Example"]
-  SETTABLEKS R26 R25 K9 ["name"]
-  LOADN R26 77
-  SETTABLEKS R26 R25 K60 ["universeId"]
-  LOADK R26 K64 ["Example description"]
-  SETTABLEKS R26 R25 K61 ["description"]
-  SETLIST R24 R25 1 [1]
-  SETTABLEKS R24 R23 K52 ["data"]
-  SETTABLEKS R23 R22 K65 ["https://develop.roblox.com/v1/user/groups/canmanage"]
-  DUPTABLE R23 K67 [{"groups"}]
-  NEWTABLE R24 0 1
-  DUPTABLE R25 K68 [{"id", "name"}]
-  LOADN R26 231
-  SETTABLEKS R26 R25 K6 ["id"]
-  LOADK R26 K63 ["Example"]
-  SETTABLEKS R26 R25 K9 ["name"]
-  SETLIST R24 R25 1 [1]
-  SETTABLEKS R24 R23 K66 ["groups"]
-  SETTABLEKS R23 R22 K69 ["https://apis.roblox.com/creator-home-api/v1/groups?surface=StudioStartPage"]
-  DUPCLOSURE R23 K70 [PROTO_6]
-  SETTABLE R23 R22 R19
-  LOADK R23 K71 ["https://thumbnails.roblox.com//v1/games/icons?universeIds=555&returnPolicy=Autogenerated&format=png&size=256x256"]
-  DUPTABLE R24 K53 [{"data"}]
-  NEWTABLE R25 0 1
-  DUPTABLE R26 K74 [{"targetId", "imageUrl"}]
-  LOADN R27 123
-  SETTABLEKS R27 R26 K72 ["targetId"]
-  LOADK R27 K75 ["http://example.com/image/123"]
-  SETTABLEKS R27 R26 K73 ["imageUrl"]
-  SETLIST R25 R26 1 [1]
-  SETTABLEKS R25 R24 K52 ["data"]
-  SETTABLE R24 R22 R23
-  LOADK R23 K76 ["https://thumbnails.roblox.com//v1/games/icons?universeIds=555&returnPolicy=Placeholder&format=png&size=256x256"]
-  DUPTABLE R24 K53 [{"data"}]
-  NEWTABLE R25 0 1
-  DUPTABLE R26 K74 [{"targetId", "imageUrl"}]
-  LOADN R27 123
-  SETTABLEKS R27 R26 K72 ["targetId"]
-  LOADK R27 K75 ["http://example.com/image/123"]
-  SETTABLEKS R27 R26 K73 ["imageUrl"]
-  SETLIST R25 R26 1 [1]
-  SETTABLEKS R25 R24 K52 ["data"]
-  SETTABLE R24 R22 R23
-  DUPCLOSURE R23 K77 [PROTO_7]
-  SETTABLE R23 R22 R17
-  DUPTABLE R23 K53 [{"data"}]
-  DUPTABLE R24 K78 [{"universe"}]
-  SETTABLEKS R6 R24 K56 ["universe"]
-  SETTABLEKS R24 R23 K52 ["data"]
-  SETTABLE R23 R22 R9
-  DUPTABLE R23 K53 [{"data"}]
-  DUPTABLE R24 K78 [{"universe"}]
-  SETTABLEKS R6 R24 K56 ["universe"]
-  SETTABLEKS R24 R23 K52 ["data"]
-  SETTABLE R23 R22 R12
-  DUPCLOSURE R23 K79 [PROTO_8]
-  SETTABLE R23 R22 R18
-  DUPCLOSURE R23 K80 [PROTO_9]
-  SETTABLE R23 R22 R21
-  DUPCLOSURE R23 K81 [PROTO_10]
-  SETTABLE R23 R22 R13
-  NEWCLOSURE R23 P11
+  SETTABLE R20 R19 R7
+  DUPTABLE R20 K58 [{"groups"}]
+  NEWTABLE R21 0 1
+  DUPTABLE R22 K59 [{"id", "name"}]
+  LOADN R23 231
+  SETTABLEKS R23 R22 K6 ["id"]
+  LOADK R23 K60 ["Example"]
+  SETTABLEKS R23 R22 K9 ["name"]
+  SETLIST R21 R22 1 [1]
+  SETTABLEKS R21 R20 K57 ["groups"]
+  SETTABLEKS R20 R19 K61 ["https://apis.roblox.com/creator-home-api/v1/groups?surface=StudioStartPage"]
+  DUPCLOSURE R20 K62 [PROTO_4]
+  SETTABLE R20 R19 R16
+  LOADK R20 K63 ["https://thumbnails.roblox.com//v1/games/icons?universeIds=555&returnPolicy=Autogenerated&format=png&size=256x256"]
+  DUPTABLE R21 K50 [{"data"}]
+  NEWTABLE R22 0 1
+  DUPTABLE R23 K66 [{"targetId", "imageUrl"}]
+  LOADN R24 123
+  SETTABLEKS R24 R23 K64 ["targetId"]
+  LOADK R24 K67 ["http://example.com/image/123"]
+  SETTABLEKS R24 R23 K65 ["imageUrl"]
+  SETLIST R22 R23 1 [1]
+  SETTABLEKS R22 R21 K49 ["data"]
+  SETTABLE R21 R19 R20
+  LOADK R20 K68 ["https://thumbnails.roblox.com//v1/games/icons?universeIds=555&returnPolicy=Placeholder&format=png&size=256x256"]
+  DUPTABLE R21 K50 [{"data"}]
+  NEWTABLE R22 0 1
+  DUPTABLE R23 K66 [{"targetId", "imageUrl"}]
+  LOADN R24 123
+  SETTABLEKS R24 R23 K64 ["targetId"]
+  LOADK R24 K67 ["http://example.com/image/123"]
+  SETTABLEKS R24 R23 K65 ["imageUrl"]
+  SETLIST R22 R23 1 [1]
+  SETTABLEKS R22 R21 K49 ["data"]
+  SETTABLE R21 R19 R20
+  DUPCLOSURE R20 K69 [PROTO_5]
+  SETTABLE R20 R19 R14
+  DUPTABLE R20 K50 [{"data"}]
+  DUPTABLE R21 K70 [{"universe"}]
+  SETTABLEKS R6 R21 K53 ["universe"]
+  SETTABLEKS R21 R20 K49 ["data"]
+  SETTABLE R20 R19 R9
+  DUPCLOSURE R20 K71 [PROTO_6]
+  SETTABLE R20 R19 R15
+  DUPCLOSURE R20 K72 [PROTO_7]
+  SETTABLE R20 R19 R18
+  DUPCLOSURE R20 K73 [PROTO_8]
+  SETTABLE R20 R19 R10
+  NEWCLOSURE R20 P9
   CAPTURE VAL R2
-  SETTABLEKS R23 R22 K82 ["https://apis.roblox.com/creator-home-api/v1/users/54321/homepage/banner/experience-unrated"]
-  NEWCLOSURE R23 P12
+  SETTABLEKS R20 R19 K74 ["https://apis.roblox.com/creator-home-api/v1/users/54321/homepage/banner/experience-unrated"]
+  NEWCLOSURE R20 P10
   CAPTURE VAL R2
-  SETTABLEKS R23 R22 K83 ["https://apis.roblox.com/access-management/v1/upsell-feature-access?featureName=ShouldShowStudioBanner&nameSpace=studio/CollaborationSettings"]
+  SETTABLEKS R20 R19 K75 ["https://apis.roblox.com/access-management/v1/upsell-feature-access?featureName=ShouldShowStudioBanner&nameSpace=studio/CollaborationSettings"]
+  GETUPVAL R21 2
+  GETTABLEKS R20 R21 K76 ["mock"]
+  MOVE R21 R19
+  CALL R20 1 0
+  GETUPVAL R22 2
+  GETTABLEKS R21 R22 K77 ["StudioService"]
+  GETTABLEKS R20 R21 K78 ["GetUserId"]
+  GETTABLEKS R21 R20 K79 ["mockReturnValue"]
+  LOADK R22 K80 [54321]
+  CALL R21 1 0
+  GETUPVAL R23 2
+  GETTABLEKS R22 R23 K81 ["StartPageManager"]
+  GETTABLEKS R21 R22 K82 ["getRecentAPIGamesFromRegistry"]
   GETUPVAL R24 2
-  GETTABLEKS R23 R24 K84 ["mock"]
-  MOVE R24 R22
+  GETTABLEKS R23 R24 K81 ["StartPageManager"]
+  GETTABLEKS R22 R23 K83 ["getLocalGamesFromRegistry"]
+  GETTABLEKS R23 R21 K79 ["mockReturnValue"]
+  NEWTABLE R24 0 0
+  CALL R23 1 0
+  GETTABLEKS R23 R22 K79 ["mockReturnValue"]
+  NEWTABLE R24 0 1
+  DUPTABLE R25 K90 [{"FilePath", "Name", "Updated", "PrivacyType", "NoLoadableImage", "LastViewed"}]
+  LOADK R26 K91 ["Documents/TestPlace3.rbxl"]
+  SETTABLEKS R26 R25 K84 ["FilePath"]
+  LOADK R26 K92 ["TestPlace3.rbxl"]
+  SETTABLEKS R26 R25 K85 ["Name"]
+  LOADK R26 K93 ["UpdatedTime3"]
+  SETTABLEKS R26 R25 K86 ["Updated"]
+  LOADK R26 K94 ["Private"]
+  SETTABLEKS R26 R25 K87 ["PrivacyType"]
+  LOADB R26 1
+  SETTABLEKS R26 R25 K88 ["NoLoadableImage"]
+  LOADK R26 K95 ["ViewedTime3"]
+  SETTABLEKS R26 R25 K89 ["LastViewed"]
+  SETLIST R24 R25 1 [1]
   CALL R23 1 0
   GETUPVAL R25 2
-  GETTABLEKS R24 R25 K85 ["StudioService"]
-  GETTABLEKS R23 R24 K86 ["GetUserId"]
-  GETTABLEKS R24 R23 K87 ["mockReturnValue"]
-  LOADK R25 K88 [54321]
-  CALL R24 1 0
+  GETTABLEKS R24 R25 K81 ["StartPageManager"]
+  GETTABLEKS R23 R24 K96 ["getDaysSinceFirstUserLogin"]
   GETUPVAL R26 2
-  GETTABLEKS R25 R26 K89 ["StartPageManager"]
-  GETTABLEKS R24 R25 K90 ["getRecentAPIGamesFromRegistry"]
-  GETUPVAL R27 2
-  GETTABLEKS R26 R27 K89 ["StartPageManager"]
-  GETTABLEKS R25 R26 K91 ["getLocalGamesFromRegistry"]
-  GETTABLEKS R26 R24 K87 ["mockReturnValue"]
-  NEWTABLE R27 0 0
-  CALL R26 1 0
-  GETTABLEKS R26 R25 K87 ["mockReturnValue"]
-  NEWTABLE R27 0 1
-  DUPTABLE R28 K98 [{"FilePath", "Name", "Updated", "PrivacyType", "NoLoadableImage", "LastViewed"}]
-  LOADK R29 K99 ["Documents/TestPlace3.rbxl"]
-  SETTABLEKS R29 R28 K92 ["FilePath"]
-  LOADK R29 K100 ["TestPlace3.rbxl"]
-  SETTABLEKS R29 R28 K93 ["Name"]
-  LOADK R29 K101 ["UpdatedTime3"]
-  SETTABLEKS R29 R28 K94 ["Updated"]
-  LOADK R29 K102 ["Private"]
-  SETTABLEKS R29 R28 K95 ["PrivacyType"]
-  LOADB R29 1
-  SETTABLEKS R29 R28 K96 ["NoLoadableImage"]
-  LOADK R29 K103 ["ViewedTime3"]
-  SETTABLEKS R29 R28 K97 ["LastViewed"]
-  SETLIST R27 R28 1 [1]
-  CALL R26 1 0
-  GETUPVAL R28 2
-  GETTABLEKS R27 R28 K89 ["StartPageManager"]
-  GETTABLEKS R26 R27 K104 ["getDaysSinceFirstUserLogin"]
-  GETUPVAL R29 2
-  GETTABLEKS R28 R29 K89 ["StartPageManager"]
-  GETTABLEKS R27 R28 K105 ["isTutorialBannerClosed"]
-  GETTABLEKS R28 R26 K87 ["mockReturnValue"]
-  LOADN R29 0
-  CALL R28 1 0
-  GETTABLEKS R28 R27 K87 ["mockReturnValue"]
-  LOADB R29 0
-  CALL R28 1 0
+  GETTABLEKS R25 R26 K81 ["StartPageManager"]
+  GETTABLEKS R24 R25 K97 ["isTutorialBannerClosed"]
+  GETTABLEKS R25 R23 K79 ["mockReturnValue"]
+  LOADN R26 0
+  CALL R25 1 0
+  GETTABLEKS R25 R24 K79 ["mockReturnValue"]
+  LOADB R26 0
+  CALL R25 1 0
   CLOSEUPVALS R6
   RETURN R0 0
 
@@ -500,7 +441,7 @@ MAIN:
   CALL R3 1 1
   GETTABLEKS R5 R1 K13 ["RobloxAPI"]
   GETTABLEKS R4 R5 K14 ["Url"]
-  DUPCLOSURE R5 K15 [PROTO_13]
+  DUPCLOSURE R5 K15 [PROTO_11]
   CAPTURE VAL R4
   CAPTURE VAL R2
   CAPTURE VAL R3

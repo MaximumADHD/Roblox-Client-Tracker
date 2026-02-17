@@ -5,7 +5,7 @@ PROTO_0:
   DUPTABLE R3 K3 [{"LayoutOrder", "tag"}]
   GETTABLEKS R4 R0 K1 ["LayoutOrder"]
   SETTABLEKS R4 R3 K1 ["LayoutOrder"]
-  LOADK R4 K4 ["row size-full-900 align-x-left align-y-center padding-left-xsmall gap-small"]
+  LOADK R4 K4 ["row size-full-700 align-x-left align-y-center padding-left-xsmall gap-small"]
   SETTABLEKS R4 R3 K2 ["tag"]
   DUPTABLE R4 K7 [{"Thumbnail", "Name"}]
   GETTABLEKS R6 R0 K8 ["Uri"]
@@ -18,7 +18,7 @@ PROTO_0:
   SETTABLEKS R8 R7 K1 ["LayoutOrder"]
   GETTABLEKS R8 R0 K8 ["Uri"]
   SETTABLEKS R8 R7 K9 ["Image"]
-  LOADK R8 K11 ["size-800 data-testid=entryrow-image"]
+  LOADK R8 K11 ["size-600 radius-small data-testid=entryrow-image"]
   SETTABLEKS R8 R7 K2 ["tag"]
   CALL R5 2 1
   JUMP [+34]
@@ -38,7 +38,7 @@ PROTO_0:
   GETUPVAL R11 4
   GETTABLEKS R10 R11 K18 ["Enums"]
   GETTABLEKS R9 R10 K21 ["InputSize"]
-  GETTABLEKS R8 R9 K22 ["Small"]
+  GETTABLEKS R8 R9 K22 ["XSmall"]
   SETTABLEKS R8 R7 K14 ["size"]
   LOADK R8 K23 ["entryrow-avatar"]
   SETTABLEKS R8 R7 K15 ["testId"]
@@ -50,7 +50,7 @@ PROTO_0:
   DUPTABLE R7 K25 [{"LayoutOrder", "tag", "Text"}]
   LOADN R8 2
   SETTABLEKS R8 R7 K1 ["LayoutOrder"]
-  LOADK R8 K26 ["text-body-large text-wrap auto-xy"]
+  LOADK R8 K26 ["text-body-medium text-wrap auto-xy"]
   SETTABLEKS R8 R7 K2 ["tag"]
   GETTABLEKS R8 R0 K24 ["Text"]
   SETTABLEKS R8 R7 K24 ["Text"]

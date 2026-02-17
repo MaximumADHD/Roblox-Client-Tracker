@@ -1,0 +1,1710 @@
+PROTO_0:
+  GETIMPORT R1 K2 [DateTime.now]
+  CALL R1 0 1
+  GETTABLEKS R0 R1 K3 ["UnixTimestampMillis"]
+  RETURN R0 1
+
+PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R1 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K0 ["resumedToolCallCount"]
+  CALL R0 2 1
+  FASTCALL2K ASSERT R0 K1 [+5]
+  MOVE R2 R0
+  LOADK R3 K1 ["Failed to create new session"]
+  GETIMPORT R1 K3 [assert]
+  CALL R1 2 0
+  SETUPVAL R0 3
+  GETUPVAL R2 4
+  GETTABLEKS R1 R2 K4 ["requestLLM"]
+  GETUPVAL R2 5
+  GETTABLEKS R3 R0 K5 ["processEvent"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_2:
+  GETIMPORT R0 K2 [table.clone]
+  GETUPVAL R1 0
+  CALL R0 1 1
+  GETIMPORT R1 K5 [task.spawn]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U4
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_3:
+  DUPTABLE R1 K9 [{"threadId", "messages", "tools", "system", "messageGuid", "isFirstMessage", "isAgenticMode", "apiKeys", "selectedModel"}]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["threadId"]
+  SETTABLEKS R2 R1 K0 ["threadId"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["messages"]
+  SETTABLEKS R2 R1 K1 ["messages"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K2 ["tools"]
+  SETTABLEKS R2 R1 K2 ["tools"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K10 ["systemMessage"]
+  SETTABLEKS R2 R1 K3 ["system"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K4 ["messageGuid"]
+  SETTABLEKS R2 R1 K4 ["messageGuid"]
+  LOADB R2 0
+  SETTABLEKS R2 R1 K5 ["isFirstMessage"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K6 ["isAgenticMode"]
+  SETTABLEKS R2 R1 K6 ["isAgenticMode"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K7 ["apiKeys"]
+  SETTABLEKS R2 R1 K7 ["apiKeys"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K8 ["selectedModel"]
+  SETTABLEKS R2 R1 K8 ["selectedModel"]
+  NEWCLOSURE R2 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U3
+  CAPTURE VAL R1
+  RETURN R2 1
+
+PROTO_4:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["setInputEnabled"]
+  LOADB R2 1
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["showError"]
+  MOVE R2 R0
+  CALL R1 1 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["logRequestStop"]
+  DUPTABLE R2 K8 [{"requestJourneyDuration", "requestEndReason", "messageGuid", "sessionId", "message"}]
+  GETIMPORT R4 K11 [os.clock]
+  CALL R4 0 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K12 ["requestStartTime"]
+  SUB R3 R4 R5
+  SETTABLEKS R3 R2 K3 ["requestJourneyDuration"]
+  SETTABLEKS R0 R2 K4 ["requestEndReason"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["messageGuid"]
+  SETTABLEKS R3 R2 K5 ["messageGuid"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K13 ["conversationSessionId"]
+  SETTABLEKS R3 R2 K6 ["sessionId"]
+  LOADK R3 K14 [""]
+  SETTABLEKS R3 R2 K7 ["message"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K15 ["messsageId"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_5:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["Json"]
+  GETTABLEKS R0 R1 K1 ["decode"]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K2 ["currentToolInput"]
+  CALL R0 1 -1
+  RETURN R0 -1
+  GETUPVAL R0 3
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K2 ["currentToolInput"]
+  NAMECALL R0 R0 K3 ["JSONDecode"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_6:
+  GETUPVAL R0 0
+  CALL R0 0 1
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K0 ["Json"]
+  GETTABLEKS R0 R1 K1 ["decode"]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K2 ["currentToolInput"]
+  CALL R0 1 -1
+  RETURN R0 -1
+  GETUPVAL R0 3
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K2 ["currentToolInput"]
+  NAMECALL R0 R0 K3 ["JSONDecode"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_7:
+  GETUPVAL R2 0
+  MOVE R3 R0
+  CALL R2 1 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K0 ["name"]
+  JUMPIFEQ R2 R3 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_8:
+  DUPTABLE R0 K5 [{"type", "id", "name", "input", "thoughtSignature"}]
+  LOADK R1 K6 ["tool_use"]
+  SETTABLEKS R1 R0 K0 ["type"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["id"]
+  SETTABLEKS R1 R0 K1 ["id"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["name"]
+  SETTABLEKS R1 R0 K2 ["name"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["input"]
+  SETTABLEKS R1 R0 K3 ["input"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K4 ["thoughtSignature"]
+  SETTABLEKS R1 R0 K4 ["thoughtSignature"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K7 ["get"]
+  CALL R2 0 1
+  GETTABLEKS R1 R2 K8 ["EventLogger"]
+  GETTABLEKS R2 R1 K9 ["logToolStarted"]
+  DUPTABLE R3 K13 [{"messageGuid", "sessionId", "toolName"}]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K10 ["messageGuid"]
+  SETTABLEKS R4 R3 K10 ["messageGuid"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K14 ["conversationSessionId"]
+  SETTABLEKS R4 R3 K11 ["sessionId"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["name"]
+  SETTABLEKS R4 R3 K12 ["toolName"]
+  CALL R2 1 0
+  GETUPVAL R2 3
+  JUMPIFNOT R2 [+8]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K15 ["observer"]
+  GETTABLEKS R2 R3 K16 ["onPreExecuteToolUse"]
+  GETUPVAL R3 3
+  MOVE R4 R0
+  CALL R2 2 0
+  GETIMPORT R3 K19 [DateTime.now]
+  CALL R3 0 1
+  GETTABLEKS R2 R3 K20 ["UnixTimestampMillis"]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K15 ["observer"]
+  GETTABLEKS R3 R4 K21 ["checkToolConfirmationRequestAsync"]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K2 ["name"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["input"]
+  CALL R3 2 1
+  GETUPVAL R5 4
+  CALL R5 0 1
+  JUMPIF R5 [+3]
+  GETUPVAL R5 5
+  CALL R5 0 1
+  JUMPIFNOT R5 [+10]
+  GETUPVAL R6 2
+  GETTABLEKS R5 R6 K15 ["observer"]
+  GETTABLEKS R4 R5 K22 ["getToolCallOptions"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K2 ["name"]
+  CALL R4 1 1
+  JUMP [+1]
+  LOADNIL R4
+  GETIMPORT R6 K19 [DateTime.now]
+  CALL R6 0 1
+  GETTABLEKS R5 R6 K20 ["UnixTimestampMillis"]
+  JUMPIFNOT R3 [+333]
+  GETUPVAL R6 6
+  CALL R6 0 1
+  JUMPIF R6 [+20]
+  DUPTABLE R6 K25 [{"role", "content"}]
+  LOADK R7 K26 ["assistant"]
+  SETTABLEKS R7 R6 K23 ["role"]
+  NEWTABLE R7 0 1
+  MOVE R8 R0
+  SETLIST R7 R8 1 [1]
+  SETTABLEKS R7 R6 K24 ["content"]
+  GETUPVAL R9 7
+  GETTABLEKS R8 R9 K27 ["messages"]
+  FASTCALL2 TABLE_INSERT R8 R6 [+4]
+  MOVE R9 R6
+  GETIMPORT R7 K30 [table.insert]
+  CALL R7 2 0
+  LOADB R6 0
+  LOADNIL R7
+  LOADNIL R8
+  GETUPVAL R9 8
+  CALL R9 0 1
+  JUMPIFNOT R9 [+89]
+  GETUPVAL R10 9
+  GETTABLEKS R9 R10 K31 ["find"]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K32 ["tools"]
+  NEWCLOSURE R11 P0
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U0
+  CALL R9 2 1
+  JUMPIFNOT R9 [+73]
+  GETUPVAL R11 2
+  GETTABLEKS R10 R11 K33 ["onToolCall"]
+  DUPTABLE R11 K37 [{"name", "arguments", "toolCallOptions", "contentId"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K2 ["name"]
+  SETTABLEKS R12 R11 K2 ["name"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K3 ["input"]
+  SETTABLEKS R12 R11 K34 ["arguments"]
+  SETTABLEKS R4 R11 K35 ["toolCallOptions"]
+  GETUPVAL R13 5
+  CALL R13 0 1
+  JUMPIFNOT R13 [+2]
+  GETUPVAL R12 3
+  JUMP [+1]
+  LOADNIL R12
+  SETTABLEKS R12 R11 K36 ["contentId"]
+  CALL R10 1 1
+  GETUPVAL R12 7
+  GETTABLEKS R11 R12 K38 ["pendingToolCallPromises"]
+  LOADB R12 1
+  SETTABLE R12 R11 R10
+  GETUPVAL R12 11
+  GETTABLEKS R11 R12 K39 ["Started"]
+  NAMECALL R12 R10 K40 ["awaitStatus"]
+  CALL R12 1 2
+  MOVE R11 R12
+  MOVE R7 R13
+  GETUPVAL R13 11
+  GETTABLEKS R12 R13 K41 ["Resolved"]
+  JUMPIFEQ R11 R12 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  GETUPVAL R13 7
+  GETTABLEKS R12 R13 K38 ["pendingToolCallPromises"]
+  LOADNIL R13
+  SETTABLE R13 R12 R10
+  JUMPIF R6 [+99]
+  GETUPVAL R12 12
+  CALL R12 0 1
+  JUMPIFNOT R12 [+6]
+  GETIMPORT R12 K43 [warn]
+  LOADK R13 K44 ["ToolCall failed: "]
+  MOVE R14 R11
+  MOVE R15 R7
+  CALL R12 3 0
+  GETUPVAL R13 11
+  GETTABLEKS R12 R13 K45 ["Cancelled"]
+  JUMPIFNOTEQ R11 R12 [+5]
+  GETUPVAL R12 13
+  GETTABLEKS R8 R12 K46 ["ToolCancelled"]
+  JUMP [+81]
+  GETUPVAL R12 13
+  GETTABLEKS R8 R12 K47 ["ToolError"]
+  JUMP [+77]
+  LOADB R6 0
+  GETUPVAL R10 13
+  GETTABLEKS R8 R10 K48 ["ToolNotFound"]
+  JUMP [+72]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K33 ["onToolCall"]
+  DUPTABLE R10 K37 [{"name", "arguments", "toolCallOptions", "contentId"}]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K2 ["name"]
+  SETTABLEKS R11 R10 K2 ["name"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K3 ["input"]
+  SETTABLEKS R11 R10 K34 ["arguments"]
+  SETTABLEKS R4 R10 K35 ["toolCallOptions"]
+  GETUPVAL R12 5
+  CALL R12 0 1
+  JUMPIFNOT R12 [+2]
+  GETUPVAL R11 3
+  JUMP [+1]
+  LOADNIL R11
+  SETTABLEKS R11 R10 K36 ["contentId"]
+  CALL R9 1 1
+  GETUPVAL R11 7
+  GETTABLEKS R10 R11 K38 ["pendingToolCallPromises"]
+  LOADB R11 1
+  SETTABLE R11 R10 R9
+  GETUPVAL R11 11
+  GETTABLEKS R10 R11 K39 ["Started"]
+  NAMECALL R11 R9 K40 ["awaitStatus"]
+  CALL R11 1 2
+  MOVE R10 R11
+  MOVE R7 R12
+  GETUPVAL R12 11
+  GETTABLEKS R11 R12 K41 ["Resolved"]
+  JUMPIFEQ R10 R11 [+2]
+  LOADB R6 0 +1
+  LOADB R6 1
+  GETUPVAL R12 7
+  GETTABLEKS R11 R12 K38 ["pendingToolCallPromises"]
+  LOADNIL R12
+  SETTABLE R12 R11 R9
+  JUMPIF R6 [+21]
+  GETUPVAL R11 12
+  CALL R11 0 1
+  JUMPIFNOT R11 [+6]
+  GETIMPORT R11 K43 [warn]
+  LOADK R12 K44 ["ToolCall failed: "]
+  MOVE R13 R10
+  MOVE R14 R7
+  CALL R11 3 0
+  GETUPVAL R12 11
+  GETTABLEKS R11 R12 K45 ["Cancelled"]
+  JUMPIFNOTEQ R10 R11 [+5]
+  GETUPVAL R11 13
+  GETTABLEKS R8 R11 K46 ["ToolCancelled"]
+  JUMP [+3]
+  GETUPVAL R11 13
+  GETTABLEKS R8 R11 K47 ["ToolError"]
+  LOADNIL R9
+  JUMPIFNOT R6 [+7]
+  JUMPIFNOT R7 [+3]
+  GETTABLEKS R10 R7 K24 ["content"]
+  JUMPIF R10 [+3]
+  GETUPVAL R10 13
+  GETTABLEKS R8 R10 K47 ["ToolError"]
+  JUMPIFNOT R8 [+63]
+  LOADNIL R10
+  GETUPVAL R12 13
+  GETTABLEKS R11 R12 K48 ["ToolNotFound"]
+  JUMPIFNOTEQ R8 R11 [+3]
+  LOADK R10 K49 ["Error: The tool was not found. It may have been removed by the user. You MUST try a different tool or ask the user for a different approach."]
+  JUMP [+19]
+  GETUPVAL R12 13
+  GETTABLEKS R11 R12 K46 ["ToolCancelled"]
+  JUMPIFNOTEQ R8 R11 [+3]
+  LOADK R10 K50 ["The tool call was cancelled by the user."]
+  JUMP [+12]
+  GETUPVAL R12 13
+  GETTABLEKS R11 R12 K47 ["ToolError"]
+  JUMPIFNOTEQ R8 R11 [+3]
+  LOADK R10 K51 ["Error: Tool call failed. Please try a different approach."]
+  JUMP [+5]
+  GETUPVAL R12 14
+  GETTABLEKS R11 R12 K52 ["assertNever"]
+  MOVE R12 R8
+  CALL R11 1 0
+  DUPTABLE R11 K54 [{"type", "text"}]
+  LOADK R12 K53 ["text"]
+  SETTABLEKS R12 R11 K0 ["type"]
+  SETTABLEKS R10 R11 K53 ["text"]
+  DUPTABLE R12 K58 [{"type", "id", "name", "content", "isError", "startTime", "startTimeAfterConfirmation"}]
+  LOADK R13 K59 ["tool_result"]
+  SETTABLEKS R13 R12 K0 ["type"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K1 ["id"]
+  SETTABLEKS R13 R12 K1 ["id"]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K2 ["name"]
+  SETTABLEKS R13 R12 K2 ["name"]
+  NEWTABLE R13 0 1
+  MOVE R14 R11
+  SETLIST R13 R14 1 [1]
+  SETTABLEKS R13 R12 K24 ["content"]
+  LOADB R13 1
+  SETTABLEKS R13 R12 K55 ["isError"]
+  SETTABLEKS R2 R12 K56 ["startTime"]
+  SETTABLEKS R5 R12 K57 ["startTimeAfterConfirmation"]
+  MOVE R9 R12
+  JUMP [+27]
+  DUPTABLE R10 K58 [{"type", "id", "name", "content", "isError", "startTime", "startTimeAfterConfirmation"}]
+  LOADK R11 K59 ["tool_result"]
+  SETTABLEKS R11 R10 K0 ["type"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K1 ["id"]
+  SETTABLEKS R11 R10 K1 ["id"]
+  GETUPVAL R12 0
+  GETTABLEKS R11 R12 K2 ["name"]
+  SETTABLEKS R11 R10 K2 ["name"]
+  GETTABLEKS R11 R7 K24 ["content"]
+  SETTABLEKS R11 R10 K24 ["content"]
+  GETTABLEKS R11 R7 K55 ["isError"]
+  SETTABLEKS R11 R10 K55 ["isError"]
+  SETTABLEKS R2 R10 K56 ["startTime"]
+  SETTABLEKS R5 R10 K57 ["startTimeAfterConfirmation"]
+  MOVE R9 R10
+  GETUPVAL R10 3
+  JUMPIFNOT R10 [+8]
+  GETUPVAL R12 2
+  GETTABLEKS R11 R12 K15 ["observer"]
+  GETTABLEKS R10 R11 K60 ["onToolResult"]
+  GETUPVAL R11 3
+  MOVE R12 R9
+  CALL R10 2 0
+  GETUPVAL R10 6
+  CALL R10 0 1
+  JUMPIFNOT R10 [+9]
+  DUPTABLE R10 K64 [{"toolUse", "toolResult", "invocationIndex"}]
+  SETTABLEKS R0 R10 K61 ["toolUse"]
+  SETTABLEKS R9 R10 K62 ["toolResult"]
+  GETUPVAL R11 15
+  SETTABLEKS R11 R10 K63 ["invocationIndex"]
+  RETURN R10 1
+  DUPTABLE R10 K25 [{"role", "content"}]
+  LOADK R11 K65 ["user"]
+  SETTABLEKS R11 R10 K23 ["role"]
+  NEWTABLE R11 0 1
+  MOVE R12 R9
+  SETLIST R11 R12 1 [1]
+  SETTABLEKS R11 R10 K24 ["content"]
+  GETUPVAL R13 7
+  GETTABLEKS R12 R13 K27 ["messages"]
+  FASTCALL2 TABLE_INSERT R12 R10 [+4]
+  MOVE R13 R10
+  GETIMPORT R11 K30 [table.insert]
+  CALL R11 2 0
+  RETURN R0 0
+  GETUPVAL R6 6
+  CALL R6 0 1
+  JUMPIF R6 [+20]
+  DUPTABLE R6 K25 [{"role", "content"}]
+  LOADK R7 K26 ["assistant"]
+  SETTABLEKS R7 R6 K23 ["role"]
+  NEWTABLE R7 0 1
+  MOVE R8 R0
+  SETLIST R7 R8 1 [1]
+  SETTABLEKS R7 R6 K24 ["content"]
+  GETUPVAL R9 7
+  GETTABLEKS R8 R9 K27 ["messages"]
+  FASTCALL2 TABLE_INSERT R8 R6 [+4]
+  MOVE R9 R6
+  GETIMPORT R7 K30 [table.insert]
+  CALL R7 2 0
+  DUPTABLE R6 K54 [{"type", "text"}]
+  LOADK R7 K53 ["text"]
+  SETTABLEKS R7 R6 K0 ["type"]
+  LOADK R7 K66 ["The user rejected the tool call. Please continue without using this tool and ask the user for a different approach, and terminate the conversation."]
+  SETTABLEKS R7 R6 K53 ["text"]
+  DUPTABLE R7 K58 [{"type", "id", "name", "content", "isError", "startTime", "startTimeAfterConfirmation"}]
+  LOADK R8 K59 ["tool_result"]
+  SETTABLEKS R8 R7 K0 ["type"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K1 ["id"]
+  SETTABLEKS R8 R7 K1 ["id"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K2 ["name"]
+  SETTABLEKS R8 R7 K2 ["name"]
+  NEWTABLE R8 0 1
+  MOVE R9 R6
+  SETLIST R8 R9 1 [1]
+  SETTABLEKS R8 R7 K24 ["content"]
+  LOADB R8 0
+  SETTABLEKS R8 R7 K55 ["isError"]
+  SETTABLEKS R2 R7 K56 ["startTime"]
+  SETTABLEKS R5 R7 K57 ["startTimeAfterConfirmation"]
+  GETUPVAL R8 3
+  JUMPIFNOT R8 [+8]
+  GETUPVAL R10 2
+  GETTABLEKS R9 R10 K15 ["observer"]
+  GETTABLEKS R8 R9 K60 ["onToolResult"]
+  GETUPVAL R9 3
+  MOVE R10 R7
+  CALL R8 2 0
+  GETUPVAL R8 6
+  CALL R8 0 1
+  JUMPIFNOT R8 [+9]
+  DUPTABLE R8 K64 [{"toolUse", "toolResult", "invocationIndex"}]
+  SETTABLEKS R0 R8 K61 ["toolUse"]
+  SETTABLEKS R7 R8 K62 ["toolResult"]
+  GETUPVAL R9 15
+  SETTABLEKS R9 R8 K63 ["invocationIndex"]
+  RETURN R8 1
+  DUPTABLE R8 K25 [{"role", "content"}]
+  LOADK R9 K65 ["user"]
+  SETTABLEKS R9 R8 K23 ["role"]
+  NEWTABLE R9 0 1
+  MOVE R10 R7
+  SETLIST R9 R10 1 [1]
+  SETTABLEKS R9 R8 K24 ["content"]
+  GETUPVAL R11 7
+  GETTABLEKS R10 R11 K27 ["messages"]
+  FASTCALL2 TABLE_INSERT R10 R8 [+4]
+  MOVE R11 R8
+  GETIMPORT R9 K30 [table.insert]
+  CALL R9 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["currentTool"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["currentContentId"]
+  FASTCALL2K ASSERT R0 K2 [+5]
+  MOVE R3 R0
+  LOADK R4 K2 ["Expected currentTool to be set"]
+  GETIMPORT R2 K4 [assert]
+  CALL R2 2 0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K6 ["toolCallThreads"]
+  LENGTH R3 R4
+  ADDK R2 R3 K5 [1]
+  LOADNIL R3
+  GETUPVAL R4 1
+  CALL R4 0 1
+  JUMPIFNOT R4 [+60]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K7 ["currentToolInput"]
+  JUMPIFNOTEQKS R4 K8 [""] [+15]
+  GETUPVAL R4 2
+  CALL R4 0 1
+  JUMPIFNOT R4 [+8]
+  GETUPVAL R6 3
+  GETTABLEKS R5 R6 K9 ["Types"]
+  GETTABLEKS R4 R5 K10 ["emptyObject"]
+  CALL R4 0 1
+  MOVE R3 R4
+  JUMP [+36]
+  NEWTABLE R3 0 0
+  JUMP [+33]
+  GETIMPORT R4 K12 [pcall]
+  NEWCLOSURE R5 P0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U4
+  CALL R4 1 2
+  JUMPIF R4 [+23]
+  GETUPVAL R7 5
+  GETTABLEKS R6 R7 K13 ["processEvent"]
+  DUPTABLE R7 K16 [{"type", "error"}]
+  LOADK R8 K15 ["error"]
+  SETTABLEKS R8 R7 K14 ["type"]
+  LOADK R8 K17 ["client_error"]
+  SETTABLEKS R8 R7 K15 ["error"]
+  CALL R6 1 0
+  LOADK R8 K18 ["Failed to decode tool input with JSON: %*"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K7 ["currentToolInput"]
+  NAMECALL R8 R8 K19 ["format"]
+  CALL R8 2 1
+  MOVE R7 R8
+  FASTCALL1 ASSERT R7 [+2]
+  GETIMPORT R6 K4 [assert]
+  CALL R6 1 0
+  MOVE R3 R5
+  FASTCALL2K ASSERT R3 K20 [+5]
+  MOVE R5 R3
+  LOADK R6 K20 ["Expected parsedInput to be set"]
+  GETIMPORT R4 K4 [assert]
+  CALL R4 2 0
+  JUMP [+22]
+  GETIMPORT R4 K12 [pcall]
+  NEWCLOSURE R5 P1
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U4
+  CALL R4 1 2
+  JUMPIF R4 [+12]
+  GETUPVAL R7 5
+  GETTABLEKS R6 R7 K13 ["processEvent"]
+  DUPTABLE R7 K16 [{"type", "error"}]
+  LOADK R8 K15 ["error"]
+  SETTABLEKS R8 R7 K14 ["type"]
+  LOADK R8 K17 ["client_error"]
+  SETTABLEKS R8 R7 K15 ["error"]
+  CALL R6 1 0
+  RETURN R0 0
+  MOVE R3 R5
+  SETTABLEKS R3 R0 K21 ["input"]
+  NEWCLOSURE R4 P2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  CAPTURE VAL R1
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U9
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U11
+  CAPTURE UPVAL U12
+  CAPTURE UPVAL U13
+  CAPTURE UPVAL U14
+  CAPTURE UPVAL U15
+  CAPTURE UPVAL U16
+  CAPTURE UPVAL U17
+  CAPTURE VAL R2
+  GETUPVAL R6 18
+  GETTABLEKS R5 R6 K22 ["wrapFunction"]
+  MOVE R6 R4
+  CALL R5 1 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K6 ["toolCallThreads"]
+  FASTCALL2 TABLE_INSERT R7 R5 [+4]
+  MOVE R8 R5
+  GETIMPORT R6 K25 [table.insert]
+  CALL R6 2 0
+  GETUPVAL R6 0
+  LOADK R7 K8 [""]
+  SETTABLEKS R7 R6 K26 ["currentText"]
+  GETUPVAL R6 0
+  LOADK R7 K8 [""]
+  SETTABLEKS R7 R6 K27 ["currentSignature"]
+  GETUPVAL R6 0
+  LOADNIL R7
+  SETTABLEKS R7 R6 K0 ["currentTool"]
+  GETUPVAL R6 0
+  LOADK R7 K8 [""]
+  SETTABLEKS R7 R6 K7 ["currentToolInput"]
+  GETUPVAL R6 0
+  LOADNIL R7
+  SETTABLEKS R7 R6 K28 ["currentContentType"]
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["currentText"]
+  JUMPIFEQKS R0 K1 [""] [+30]
+  DUPTABLE R0 K4 [{"type", "text"}]
+  LOADK R1 K3 ["text"]
+  SETTABLEKS R1 R0 K2 ["type"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["currentText"]
+  SETTABLEKS R1 R0 K3 ["text"]
+  DUPTABLE R1 K7 [{"role", "content"}]
+  LOADK R2 K8 ["assistant"]
+  SETTABLEKS R2 R1 K5 ["role"]
+  NEWTABLE R2 0 1
+  MOVE R3 R0
+  SETLIST R2 R3 1 [1]
+  SETTABLEKS R2 R1 K6 ["content"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K9 ["messages"]
+  FASTCALL2 TABLE_INSERT R3 R1 [+4]
+  MOVE R4 R1
+  GETIMPORT R2 K12 [table.insert]
+  CALL R2 2 0
+  GETUPVAL R0 0
+  LOADK R1 K1 [""]
+  SETTABLEKS R1 R0 K0 ["currentText"]
+  GETUPVAL R0 0
+  LOADK R1 K1 [""]
+  SETTABLEKS R1 R0 K13 ["currentSignature"]
+  GETUPVAL R0 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K14 ["currentTool"]
+  GETUPVAL R0 0
+  LOADK R1 K1 [""]
+  SETTABLEKS R1 R0 K15 ["currentToolInput"]
+  GETUPVAL R0 0
+  LOADNIL R1
+  SETTABLEKS R1 R0 K16 ["currentContentType"]
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["currentText"]
+  JUMPIFNOTEQKS R0 K1 [""] [+6]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K2 ["currentSignature"]
+  JUMPIFEQKS R0 K1 [""] [+35]
+  DUPTABLE R0 K6 [{"type", "thinking", "signature"}]
+  LOADK R1 K4 ["thinking"]
+  SETTABLEKS R1 R0 K3 ["type"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["currentText"]
+  SETTABLEKS R1 R0 K4 ["thinking"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K2 ["currentSignature"]
+  SETTABLEKS R1 R0 K5 ["signature"]
+  DUPTABLE R1 K9 [{"role", "content"}]
+  LOADK R2 K10 ["assistant"]
+  SETTABLEKS R2 R1 K7 ["role"]
+  NEWTABLE R2 0 1
+  MOVE R3 R0
+  SETLIST R2 R3 1 [1]
+  SETTABLEKS R2 R1 K8 ["content"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K11 ["messages"]
+  FASTCALL2 TABLE_INSERT R3 R1 [+4]
+  MOVE R4 R1
+  GETIMPORT R2 K14 [table.insert]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_12:
+  GETTABLEKS R1 R0 K0 ["contentBlock"]
+  GETTABLEKS R2 R1 K1 ["type"]
+  JUMPIFNOTEQKS R2 K2 ["text"] [+14]
+  GETUPVAL R2 0
+  LOADK R3 K3 [""]
+  SETTABLEKS R3 R2 K4 ["currentText"]
+  GETUPVAL R2 0
+  LOADK R3 K3 [""]
+  SETTABLEKS R3 R2 K5 ["currentSignature"]
+  GETUPVAL R2 0
+  LOADK R3 K2 ["text"]
+  SETTABLEKS R3 R2 K6 ["currentContentType"]
+  JUMP [+71]
+  GETTABLEKS R2 R1 K1 ["type"]
+  JUMPIFNOTEQKS R2 K7 ["image"] [+6]
+  GETUPVAL R2 0
+  LOADK R3 K7 ["image"]
+  SETTABLEKS R3 R2 K6 ["currentContentType"]
+  JUMP [+62]
+  GETTABLEKS R2 R1 K1 ["type"]
+  JUMPIFNOTEQKS R2 K8 ["tool_use"] [+43]
+  GETUPVAL R2 0
+  DUPTABLE R3 K13 [{"name", "id", "input", "thoughtSignature"}]
+  GETTABLEKS R4 R1 K9 ["name"]
+  SETTABLEKS R4 R3 K9 ["name"]
+  GETTABLEKS R4 R1 K10 ["id"]
+  SETTABLEKS R4 R3 K10 ["id"]
+  NEWTABLE R4 0 0
+  SETTABLEKS R4 R3 K11 ["input"]
+  GETTABLEKS R4 R1 K12 ["thoughtSignature"]
+  SETTABLEKS R4 R3 K12 ["thoughtSignature"]
+  SETTABLEKS R3 R2 K14 ["currentTool"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K14 ["currentTool"]
+  FASTCALL2K ASSERT R3 K15 [+4]
+  LOADK R4 K15 ["Expected currentTool to be set"]
+  GETIMPORT R2 K17 [assert]
+  CALL R2 2 0
+  GETUPVAL R2 0
+  LOADK R3 K3 [""]
+  SETTABLEKS R3 R2 K18 ["currentToolInput"]
+  GETUPVAL R2 0
+  LOADK R3 K19 ["tool"]
+  SETTABLEKS R3 R2 K6 ["currentContentType"]
+  GETUPVAL R2 0
+  LOADNIL R3
+  SETTABLEKS R3 R2 K20 ["currentContentId"]
+  JUMP [+16]
+  GETTABLEKS R2 R1 K1 ["type"]
+  JUMPIFNOTEQKS R2 K21 ["thinking"] [+13]
+  GETUPVAL R2 0
+  LOADK R3 K3 [""]
+  SETTABLEKS R3 R2 K4 ["currentText"]
+  GETUPVAL R2 0
+  LOADK R3 K3 [""]
+  SETTABLEKS R3 R2 K5 ["currentSignature"]
+  GETUPVAL R2 0
+  LOADK R3 K21 ["thinking"]
+  SETTABLEKS R3 R2 K6 ["currentContentType"]
+  GETUPVAL R2 0
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K22 ["observer"]
+  GETTABLEKS R3 R4 K23 ["onContentStart"]
+  GETTABLEKS R4 R0 K0 ["contentBlock"]
+  CALL R3 1 1
+  SETTABLEKS R3 R2 K20 ["currentContentId"]
+  RETURN R0 0
+
+PROTO_13:
+  GETTABLEKS R1 R0 K0 ["delta"]
+  GETTABLEKS R2 R1 K1 ["type"]
+  JUMPIFNOTEQKS R2 K2 ["text_delta"] [+32]
+  GETUPVAL R2 0
+  GETTABLEKS R4 R2 K3 ["currentText"]
+  GETTABLEKS R5 R1 K4 ["text"]
+  CONCAT R3 R4 R5
+  SETTABLEKS R3 R2 K3 ["currentText"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["currentContentId"]
+  JUMPIFNOT R2 [+118]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["observer"]
+  GETTABLEKS R2 R3 K7 ["onContentDelta"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["currentContentId"]
+  DUPTABLE R4 K8 [{"type", "text"}]
+  LOADK R5 K2 ["text_delta"]
+  SETTABLEKS R5 R4 K1 ["type"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["currentText"]
+  SETTABLEKS R5 R4 K4 ["text"]
+  CALL R2 2 0
+  RETURN R0 0
+  GETTABLEKS R2 R1 K1 ["type"]
+  JUMPIFNOTEQKS R2 K9 ["json_delta"] [+49]
+  GETUPVAL R2 0
+  GETTABLEKS R4 R2 K10 ["currentToolInput"]
+  GETTABLEKS R5 R1 K11 ["jsonDelta"]
+  CONCAT R3 R4 R5
+  SETTABLEKS R3 R2 K10 ["currentToolInput"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["currentContentId"]
+  JUMPIFNOT R2 [+83]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K12 ["currentTool"]
+  FASTCALL2K ASSERT R3 K13 [+4]
+  LOADK R4 K13 ["Expected currentTool to be set"]
+  GETIMPORT R2 K15 [assert]
+  CALL R2 2 0
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["observer"]
+  GETTABLEKS R2 R3 K7 ["onContentDelta"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["currentContentId"]
+  DUPTABLE R4 K16 [{"type", "jsonDelta"}]
+  LOADK R5 K9 ["json_delta"]
+  SETTABLEKS R5 R4 K1 ["type"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K10 ["currentToolInput"]
+  SETTABLEKS R5 R4 K11 ["jsonDelta"]
+  DUPTABLE R5 K18 [{"toolName"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K12 ["currentTool"]
+  GETTABLEKS R6 R7 K19 ["name"]
+  SETTABLEKS R6 R5 K17 ["toolName"]
+  CALL R2 3 0
+  RETURN R0 0
+  GETTABLEKS R2 R1 K1 ["type"]
+  JUMPIFNOTEQKS R2 K20 ["thinking_delta"] [+44]
+  GETUPVAL R2 0
+  GETTABLEKS R4 R2 K3 ["currentText"]
+  GETTABLEKS R5 R1 K21 ["thinking"]
+  CONCAT R3 R4 R5
+  SETTABLEKS R3 R2 K3 ["currentText"]
+  GETUPVAL R2 0
+  GETTABLEKS R4 R2 K22 ["currentSignature"]
+  GETTABLEKS R5 R1 K23 ["signature"]
+  CONCAT R3 R4 R5
+  SETTABLEKS R3 R2 K22 ["currentSignature"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K5 ["currentContentId"]
+  JUMPIFNOT R2 [+23]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["observer"]
+  GETTABLEKS R2 R3 K7 ["onContentDelta"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K5 ["currentContentId"]
+  DUPTABLE R4 K24 [{"type", "thinking", "signature"}]
+  LOADK R5 K20 ["thinking_delta"]
+  SETTABLEKS R5 R4 K1 ["type"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K3 ["currentText"]
+  SETTABLEKS R5 R4 K21 ["thinking"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K22 ["currentSignature"]
+  SETTABLEKS R5 R4 K23 ["signature"]
+  CALL R2 2 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["currentContentId"]
+  JUMPIFNOT R0 [+9]
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K1 ["observer"]
+  GETTABLEKS R0 R1 K2 ["onContentFinished"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["currentContentId"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["currentContentType"]
+  JUMPIFNOTEQKS R0 K1 ["tool"] [+8]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K2 ["currentTool"]
+  JUMPIFNOT R0 [+3]
+  GETUPVAL R0 1
+  CALL R0 0 0
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["currentContentType"]
+  JUMPIFNOTEQKS R0 K3 ["text"] [+4]
+  GETUPVAL R0 2
+  CALL R0 0 0
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["currentContentType"]
+  JUMPIFNOTEQKS R0 K4 ["thinking"] [+3]
+  GETUPVAL R0 3
+  CALL R0 0 0
+  RETURN R0 0
+
+PROTO_16:
+  GETTABLEKS R3 R0 K0 ["invocationIndex"]
+  GETTABLEKS R4 R1 K0 ["invocationIndex"]
+  JUMPIFLT R3 R4 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  RETURN R2 1
+
+PROTO_17:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["stopReason"]
+  FASTCALL2K ASSERT R1 K1 [+4]
+  LOADK R2 K1 ["Session stop reason is not set!"]
+  GETIMPORT R0 K3 [assert]
+  CALL R0 2 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["stopReason"]
+  JUMPIFEQKS R0 K4 ["message_end"] [+6]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["stopReason"]
+  JUMPIFNOTEQKS R0 K5 ["stop_sequence"] [+40]
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K6 ["setInputEnabled"]
+  LOADB R1 1
+  CALL R0 1 0
+  GETUPVAL R1 1
+  GETTABLEKS R0 R1 K7 ["logRequestStop"]
+  DUPTABLE R1 K13 [{"requestJourneyDuration", "requestEndReason", "messageGuid", "sessionId", "message"}]
+  GETIMPORT R3 K16 [os.clock]
+  CALL R3 0 1
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K17 ["requestStartTime"]
+  SUB R2 R3 R4
+  SETTABLEKS R2 R1 K8 ["requestJourneyDuration"]
+  LOADK R2 K18 ["message_stop"]
+  SETTABLEKS R2 R1 K9 ["requestEndReason"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K10 ["messageGuid"]
+  SETTABLEKS R2 R1 K10 ["messageGuid"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K19 ["conversationSessionId"]
+  SETTABLEKS R2 R1 K11 ["sessionId"]
+  LOADK R2 K20 [""]
+  SETTABLEKS R2 R1 K12 ["message"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K21 ["messsageId"]
+  CALL R0 2 0
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["stopReason"]
+  JUMPIFEQKS R0 K22 ["safety_filter"] [+6]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["stopReason"]
+  JUMPIFNOTEQKS R0 K23 ["token_limit"] [+7]
+  GETUPVAL R0 2
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["stopReason"]
+  CALL R0 1 0
+  RETURN R0 0
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["stopReason"]
+  JUMPIFNOTEQKS R0 K24 ["tool_use"] [+146]
+  GETUPVAL R0 0
+  GETTABLEKS R1 R0 K25 ["toolCallCount"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K26 ["toolCallThreads"]
+  LENGTH R2 R3
+  ADD R1 R1 R2
+  SETTABLEKS R1 R0 K25 ["toolCallCount"]
+  GETUPVAL R1 3
+  GETTABLEKS R0 R1 K27 ["collectTasks"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K26 ["toolCallThreads"]
+  CALL R0 1 2
+  GETUPVAL R3 4
+  FASTCALL2K ASSERT R3 K28 [+4]
+  LOADK R4 K28 ["Expected session to be set"]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 2 0
+  GETUPVAL R3 4
+  GETTABLEKS R2 R3 K29 ["isCanceled"]
+  CALL R2 0 1
+  JUMPIFNOT R2 [+1]
+  RETURN R0 0
+  JUMPIF R0 [+7]
+  GETUPVAL R2 2
+  LOADK R3 K30 ["client_error"]
+  CALL R2 1 0
+  GETIMPORT R2 K32 [error]
+  LOADK R3 K33 ["Failed to execute all tool calls"]
+  CALL R2 1 0
+  GETUPVAL R2 5
+  CALL R2 0 1
+  JUMPIFNOT R2 [+81]
+  FASTCALL2K ASSERT R1 K34 [+5]
+  MOVE R3 R1
+  LOADK R4 K34 ["Expected toolCallResults to be set"]
+  GETIMPORT R2 K3 [assert]
+  CALL R2 2 0
+  NEWTABLE R2 0 0
+  MOVE R3 R1
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  FASTCALL2 TABLE_INSERT R2 R7 [+5]
+  MOVE R9 R2
+  MOVE R10 R7
+  GETIMPORT R8 K37 [table.insert]
+  CALL R8 2 0
+  FORGLOOP R3 2 [-8]
+  GETIMPORT R3 K39 [table.sort]
+  MOVE R4 R2
+  DUPCLOSURE R5 K40 [PROTO_16]
+  CALL R3 2 0
+  MOVE R3 R2
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  DUPTABLE R8 K43 [{"role", "content"}]
+  LOADK R9 K44 ["assistant"]
+  SETTABLEKS R9 R8 K41 ["role"]
+  NEWTABLE R9 0 1
+  GETTABLEKS R10 R7 K45 ["toolUse"]
+  SETLIST R9 R10 1 [1]
+  SETTABLEKS R9 R8 K42 ["content"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K46 ["messages"]
+  FASTCALL2 TABLE_INSERT R10 R8 [+4]
+  MOVE R11 R8
+  GETIMPORT R9 K37 [table.insert]
+  CALL R9 2 0
+  FORGLOOP R3 2 [-22]
+  MOVE R3 R2
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  DUPTABLE R8 K43 [{"role", "content"}]
+  LOADK R9 K47 ["user"]
+  SETTABLEKS R9 R8 K41 ["role"]
+  NEWTABLE R9 0 1
+  GETTABLEKS R10 R7 K48 ["toolResult"]
+  SETLIST R9 R10 1 [1]
+  SETTABLEKS R9 R8 K42 ["content"]
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K46 ["messages"]
+  FASTCALL2 TABLE_INSERT R10 R8 [+4]
+  MOVE R11 R8
+  GETIMPORT R9 K37 [table.insert]
+  CALL R9 2 0
+  FORGLOOP R3 2 [-22]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K25 ["toolCallCount"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K49 ["maxToolCalls"]
+  JUMPIFNOTLT R3 R2 [+5]
+  GETUPVAL R2 2
+  LOADK R3 K50 ["max_tool_calls"]
+  CALL R2 1 0
+  RETURN R0 0
+  GETUPVAL R2 6
+  DUPTABLE R3 K52 [{"resumedToolCallCount"}]
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K25 ["toolCallCount"]
+  SETTABLEKS R4 R3 K51 ["resumedToolCallCount"]
+  CALL R2 1 1
+  MOVE R3 R2
+  CALL R3 0 0
+  RETURN R0 0
+  GETUPVAL R1 7
+  GETTABLEKS R0 R1 K53 ["assertNever"]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["stopReason"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_18:
+  GETTABLEKS R1 R0 K0 ["metadata"]
+  JUMPIF R1 [+1]
+  RETURN R0 0
+  GETUPVAL R2 0
+  CALL R2 0 1
+  JUMPIFNOT R2 [+6]
+  GETIMPORT R2 K2 [print]
+  LOADK R3 K3 ["Processing with Roblox LLM:"]
+  GETTABLEKS R4 R1 K4 ["modelName"]
+  CALL R2 2 0
+  GETTABLEKS R2 R1 K5 ["agenticMode"]
+  JUMPIFNOTEQKNIL R2 [+2]
+  RETURN R0 0
+  GETUPVAL R3 1
+  SETTABLEKS R2 R3 K6 ["isAgenticMode"]
+  JUMPIFNOT R2 [+6]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K7 ["ModelQuality"]
+  GETTABLEKS R3 R4 K8 ["High"]
+  JUMP [+5]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K7 ["ModelQuality"]
+  GETTABLEKS R3 R4 K9 ["Low"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K10 ["setModelQuality"]
+  MOVE R5 R3
+  CALL R4 1 0
+  RETURN R0 0
+
+PROTO_19:
+  GETUPVAL R2 0
+  FASTCALL2K ASSERT R2 K0 [+4]
+  LOADK R3 K0 ["Expected session to be set"]
+  GETIMPORT R1 K2 [assert]
+  CALL R1 2 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K3 ["isClosed"]
+  CALL R1 0 1
+  JUMPIFNOT R1 [+1]
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K4 ["isTerminalEventType"]
+  MOVE R2 R0
+  CALL R1 1 1
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K5 ["close"]
+  CALL R1 0 0
+  JUMP [+8]
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K6 ["reset"]
+  CALL R1 0 0
+  GETUPVAL R2 3
+  GETTABLEKS R1 R2 K7 ["onPacketReceived"]
+  CALL R1 0 0
+  GETTABLEKS R1 R0 K8 ["type"]
+  JUMPIFNOTEQKS R1 K9 ["message_start"] [+29]
+  GETUPVAL R1 4
+  LOADK R2 K10 [""]
+  SETTABLEKS R2 R1 K11 ["currentText"]
+  GETUPVAL R1 4
+  LOADK R2 K10 [""]
+  SETTABLEKS R2 R1 K12 ["currentSignature"]
+  GETUPVAL R1 4
+  LOADNIL R2
+  SETTABLEKS R2 R1 K13 ["currentTool"]
+  GETUPVAL R1 4
+  LOADK R2 K10 [""]
+  SETTABLEKS R2 R1 K14 ["currentToolInput"]
+  GETUPVAL R1 4
+  LOADNIL R2
+  SETTABLEKS R2 R1 K15 ["currentContentType"]
+  GETUPVAL R1 4
+  LOADNIL R2
+  SETTABLEKS R2 R1 K16 ["currentContentId"]
+  GETUPVAL R1 5
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+  GETTABLEKS R1 R0 K8 ["type"]
+  JUMPIFNOTEQKS R1 K17 ["content_start"] [+5]
+  GETUPVAL R1 6
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+  GETTABLEKS R1 R0 K8 ["type"]
+  JUMPIFNOTEQKS R1 K18 ["content_delta"] [+5]
+  GETUPVAL R1 7
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+  GETTABLEKS R1 R0 K8 ["type"]
+  JUMPIFNOTEQKS R1 K19 ["content_end"] [+42]
+  GETUPVAL R2 4
+  GETTABLEKS R1 R2 K16 ["currentContentId"]
+  JUMPIFNOT R1 [+9]
+  GETUPVAL R3 3
+  GETTABLEKS R2 R3 K20 ["observer"]
+  GETTABLEKS R1 R2 K21 ["onContentFinished"]
+  GETUPVAL R3 4
+  GETTABLEKS R2 R3 K16 ["currentContentId"]
+  CALL R1 1 0
+  GETUPVAL R2 4
+  GETTABLEKS R1 R2 K15 ["currentContentType"]
+  JUMPIFNOTEQKS R1 K22 ["tool"] [+8]
+  GETUPVAL R2 4
+  GETTABLEKS R1 R2 K13 ["currentTool"]
+  JUMPIFNOT R1 [+3]
+  GETUPVAL R1 8
+  CALL R1 0 0
+  RETURN R0 0
+  GETUPVAL R2 4
+  GETTABLEKS R1 R2 K15 ["currentContentType"]
+  JUMPIFNOTEQKS R1 K23 ["text"] [+4]
+  GETUPVAL R1 9
+  CALL R1 0 0
+  RETURN R0 0
+  GETUPVAL R2 4
+  GETTABLEKS R1 R2 K15 ["currentContentType"]
+  JUMPIFNOTEQKS R1 K24 ["thinking"] [+66]
+  GETUPVAL R1 10
+  CALL R1 0 0
+  RETURN R0 0
+  GETTABLEKS R1 R0 K8 ["type"]
+  JUMPIFNOTEQKS R1 K25 ["message_delta"] [+9]
+  GETUPVAL R1 4
+  GETTABLEKS R3 R0 K26 ["delta"]
+  GETTABLEKS R2 R3 K27 ["stopReason"]
+  SETTABLEKS R2 R1 K27 ["stopReason"]
+  RETURN R0 0
+  GETTABLEKS R1 R0 K8 ["type"]
+  JUMPIFNOTEQKS R1 K28 ["message_stop"] [+4]
+  GETUPVAL R1 11
+  CALL R1 0 0
+  RETURN R0 0
+  GETTABLEKS R1 R0 K8 ["type"]
+  JUMPIFNOTEQKS R1 K29 ["error"] [+34]
+  GETTABLEKS R1 R0 K29 ["error"]
+  GETUPVAL R3 4
+  GETTABLEKS R2 R3 K15 ["currentContentType"]
+  JUMPIFNOTEQKS R2 K22 ["tool"] [+8]
+  GETUPVAL R3 4
+  GETTABLEKS R2 R3 K13 ["currentTool"]
+  JUMPIFNOT R2 [+3]
+  GETUPVAL R2 8
+  CALL R2 0 0
+  JUMP [+15]
+  GETUPVAL R3 4
+  GETTABLEKS R2 R3 K15 ["currentContentType"]
+  JUMPIFNOTEQKS R2 K23 ["text"] [+4]
+  GETUPVAL R2 9
+  CALL R2 0 0
+  JUMP [+7]
+  GETUPVAL R3 4
+  GETTABLEKS R2 R3 K15 ["currentContentType"]
+  JUMPIFNOTEQKS R2 K24 ["thinking"] [+3]
+  GETUPVAL R2 10
+  CALL R2 0 0
+  GETUPVAL R2 12
+  MOVE R3 R1
+  CALL R2 1 0
+  RETURN R0 0
+  GETUPVAL R2 13
+  GETTABLEKS R1 R2 K30 ["assertNever"]
+  GETTABLEKS R2 R0 K8 ["type"]
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_20:
+  DUPTABLE R0 K2 [{"type", "error"}]
+  LOADK R1 K1 ["error"]
+  SETTABLEKS R1 R0 K0 ["type"]
+  LOADK R1 K3 ["timeout"]
+  SETTABLEKS R1 R0 K1 ["error"]
+  GETUPVAL R1 0
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_21:
+  GETUPVAL R2 0
+  NOT R1 R2
+  FASTCALL2K ASSERT R1 K0 [+4]
+  LOADK R2 K0 ["Session closed despite already being closed"]
+  GETIMPORT R0 K2 [assert]
+  CALL R0 2 0
+  GETUPVAL R0 1
+  NAMECALL R0 R0 K3 ["Disconnect"]
+  CALL R0 1 0
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K4 ["close"]
+  CALL R0 0 0
+  LOADB R0 1
+  SETUPVAL R0 0
+  GETUPVAL R1 3
+  GETTABLEKS R0 R1 K5 ["currentContentId"]
+  JUMPIFNOT R0 [+9]
+  GETUPVAL R2 4
+  GETTABLEKS R1 R2 K6 ["observer"]
+  GETTABLEKS R0 R1 K7 ["onContentFinished"]
+  GETUPVAL R2 3
+  GETTABLEKS R1 R2 K5 ["currentContentId"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_22:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["isClosed"]
+  CALL R0 0 1
+  JUMPIF R0 [+4]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K1 ["close"]
+  CALL R0 0 0
+  LOADB R0 1
+  SETUPVAL R0 1
+  GETUPVAL R3 2
+  GETTABLEKS R0 R3 K2 ["pendingToolCallPromises"]
+  LOADNIL R1
+  LOADNIL R2
+  FORGPREP R0
+  NAMECALL R5 R3 K3 ["cancel"]
+  CALL R5 1 0
+  FORGLOOP R0 2 [-4]
+  GETUPVAL R3 2
+  GETTABLEKS R0 R3 K4 ["toolCallThreads"]
+  LOADNIL R1
+  LOADNIL R2
+  FORGPREP R0
+  GETIMPORT R5 K6 [task.cancel]
+  MOVE R6 R4
+  CALL R5 1 0
+  FORGLOOP R0 2 [-5]
+  RETURN R0 0
+
+PROTO_23:
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_24:
+  GETUPVAL R0 0
+  RETURN R0 1
+
+PROTO_25:
+  GETTABLEKS R2 R0 K0 ["setInputEnabled"]
+  LOADB R3 0
+  CALL R2 1 0
+  LOADNIL R2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["new"]
+  GETTABLEKS R4 R0 K2 ["timeoutMs"]
+  CALL R3 1 1
+  DUPTABLE R4 K20 [{"sessionId", "currentText", "currentSignature", "currentTool", "currentToolInput", "currentContentType", "currentContentId", "messages", "toolCallCount", "toolCallThreads", "pendingToolCallPromises", "isAgenticMode", "requestStartTime", "messageGuid", "conversationSessionId", "messsageId", "logRequestStop"}]
+  GETUPVAL R5 1
+  LOADB R7 0
+  NAMECALL R5 R5 K21 ["GenerateGUID"]
+  CALL R5 2 1
+  SETTABLEKS R5 R4 K3 ["sessionId"]
+  LOADK R5 K22 [""]
+  SETTABLEKS R5 R4 K4 ["currentText"]
+  LOADK R5 K22 [""]
+  SETTABLEKS R5 R4 K5 ["currentSignature"]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K6 ["currentTool"]
+  LOADK R5 K22 [""]
+  SETTABLEKS R5 R4 K7 ["currentToolInput"]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K8 ["currentContentType"]
+  LOADNIL R5
+  SETTABLEKS R5 R4 K9 ["currentContentId"]
+  GETTABLEKS R5 R0 K23 ["initialMessages"]
+  JUMPIF R5 [+2]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K10 ["messages"]
+  ORK R5 R1 K24 [0]
+  SETTABLEKS R5 R4 K11 ["toolCallCount"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K12 ["toolCallThreads"]
+  NEWTABLE R5 0 0
+  SETTABLEKS R5 R4 K13 ["pendingToolCallPromises"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K14 ["isAgenticMode"]
+  GETTABLEKS R5 R0 K15 ["requestStartTime"]
+  SETTABLEKS R5 R4 K15 ["requestStartTime"]
+  GETTABLEKS R5 R0 K16 ["messageGuid"]
+  SETTABLEKS R5 R4 K16 ["messageGuid"]
+  GETTABLEKS R5 R0 K17 ["conversationSessionId"]
+  SETTABLEKS R5 R4 K17 ["conversationSessionId"]
+  GETTABLEKS R5 R0 K18 ["messsageId"]
+  SETTABLEKS R5 R4 K18 ["messsageId"]
+  GETTABLEKS R5 R0 K19 ["logRequestStop"]
+  SETTABLEKS R5 R4 K19 ["logRequestStop"]
+  NEWCLOSURE R5 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R4
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  NEWCLOSURE R6 P1
+  CAPTURE VAL R0
+  NEWCLOSURE R7 P2
+  CAPTURE VAL R4
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U1
+  CAPTURE REF R2
+  CAPTURE UPVAL U7
+  CAPTURE VAL R0
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U9
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U11
+  CAPTURE UPVAL U12
+  CAPTURE UPVAL U13
+  CAPTURE UPVAL U14
+  CAPTURE UPVAL U15
+  CAPTURE UPVAL U16
+  CAPTURE UPVAL U17
+  CAPTURE UPVAL U18
+  NEWCLOSURE R8 P3
+  CAPTURE VAL R4
+  NEWCLOSURE R9 P4
+  CAPTURE VAL R4
+  NEWCLOSURE R10 P5
+  CAPTURE VAL R4
+  CAPTURE VAL R0
+  NEWCLOSURE R11 P6
+  CAPTURE VAL R4
+  CAPTURE VAL R0
+  NEWCLOSURE R12 P7
+  CAPTURE VAL R4
+  CAPTURE VAL R0
+  NEWCLOSURE R13 P8
+  CAPTURE VAL R4
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  NEWCLOSURE R14 P9
+  CAPTURE VAL R4
+  CAPTURE VAL R0
+  CAPTURE VAL R6
+  CAPTURE UPVAL U18
+  CAPTURE REF R2
+  CAPTURE UPVAL U10
+  CAPTURE VAL R5
+  CAPTURE UPVAL U17
+  NEWCLOSURE R15 P10
+  CAPTURE UPVAL U15
+  CAPTURE VAL R4
+  CAPTURE UPVAL U19
+  CAPTURE VAL R0
+  NEWCLOSURE R16 P11
+  CAPTURE REF R2
+  CAPTURE UPVAL U20
+  CAPTURE VAL R3
+  CAPTURE VAL R0
+  CAPTURE VAL R4
+  CAPTURE VAL R15
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  CAPTURE VAL R14
+  CAPTURE VAL R6
+  CAPTURE UPVAL U17
+  GETTABLEKS R17 R3 K25 ["onTimeout"]
+  NEWCLOSURE R19 P12
+  CAPTURE VAL R16
+  NAMECALL R17 R17 K26 ["Connect"]
+  CALL R17 2 1
+  LOADB R18 0
+  LOADB R19 0
+  DUPTABLE R20 K33 [{"state", "processEvent", "close", "cancel", "isClosed", "isCanceled"}]
+  SETTABLEKS R4 R20 K27 ["state"]
+  SETTABLEKS R16 R20 K28 ["processEvent"]
+  NEWCLOSURE R21 P13
+  CAPTURE REF R18
+  CAPTURE VAL R17
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R0
+  SETTABLEKS R21 R20 K29 ["close"]
+  NEWCLOSURE R21 P14
+  CAPTURE REF R2
+  CAPTURE REF R19
+  CAPTURE VAL R4
+  SETTABLEKS R21 R20 K30 ["cancel"]
+  NEWCLOSURE R21 P15
+  CAPTURE REF R18
+  SETTABLEKS R21 R20 K31 ["isClosed"]
+  NEWCLOSURE R21 P16
+  CAPTURE REF R19
+  SETTABLEKS R21 R20 K32 ["isCanceled"]
+  MOVE R2 R20
+  SETUPVAL R2 3
+  CLOSEUPVALS R2
+  RETURN R2 1
+
+PROTO_26:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+47]
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["cancel"]
+  CALL R0 0 0
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K1 ["state"]
+  GETTABLEKS R0 R1 K2 ["logRequestStop"]
+  DUPTABLE R1 K8 [{"requestJourneyDuration", "requestEndReason", "messageGuid", "sessionId", "message"}]
+  GETIMPORT R3 K11 [os.clock]
+  CALL R3 0 1
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K1 ["state"]
+  GETTABLEKS R4 R5 K12 ["requestStartTime"]
+  SUB R2 R3 R4
+  SETTABLEKS R2 R1 K3 ["requestJourneyDuration"]
+  LOADK R2 K13 ["user_cancelled"]
+  SETTABLEKS R2 R1 K4 ["requestEndReason"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["state"]
+  GETTABLEKS R2 R3 K5 ["messageGuid"]
+  SETTABLEKS R2 R1 K5 ["messageGuid"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["state"]
+  GETTABLEKS R2 R3 K14 ["conversationSessionId"]
+  SETTABLEKS R2 R1 K6 ["sessionId"]
+  LOADK R2 K15 [""]
+  SETTABLEKS R2 R1 K7 ["message"]
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["state"]
+  GETTABLEKS R2 R3 K16 ["messsageId"]
+  CALL R0 2 0
+  RETURN R0 0
+
+PROTO_27:
+  GETUPVAL R1 0
+  JUMPIFNOT R1 [+5]
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["processEvent"]
+  MOVE R2 R0
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_28:
+  LOADNIL R0
+  NEWCLOSURE R1 P0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE VAL R1
+  CAPTURE REF R0
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  CAPTURE UPVAL U5
+  CAPTURE UPVAL U6
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U8
+  CAPTURE UPVAL U9
+  CAPTURE UPVAL U10
+  CAPTURE UPVAL U11
+  CAPTURE UPVAL U12
+  CAPTURE UPVAL U13
+  CAPTURE UPVAL U14
+  CAPTURE UPVAL U15
+  CAPTURE UPVAL U16
+  CAPTURE UPVAL U17
+  CAPTURE UPVAL U18
+  NEWCLOSURE R2 P1
+  CAPTURE REF R0
+  NEWCLOSURE R3 P2
+  CAPTURE REF R0
+  MOVE R4 R3
+  MOVE R5 R1
+  MOVE R6 R2
+  CLOSEUPVALS R0
+  RETURN R4 3
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AssistantUI"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [game]
+  LOADK R3 K6 ["HttpService"]
+  NAMECALL R1 R1 K7 ["GetService"]
+  CALL R1 2 1
+  GETIMPORT R2 K9 [require]
+  GETTABLEKS R4 R0 K10 ["Parent"]
+  GETTABLEKS R3 R4 K11 ["Dash"]
+  CALL R2 1 1
+  GETIMPORT R3 K9 [require]
+  GETTABLEKS R5 R0 K12 ["Guest"]
+  GETTABLEKS R4 R5 K13 ["Environment"]
+  CALL R3 1 1
+  GETIMPORT R4 K9 [require]
+  GETTABLEKS R8 R0 K14 ["Components"]
+  GETTABLEKS R7 R8 K15 ["Contexts"]
+  GETTABLEKS R6 R7 K16 ["DefaultLLMProvider"]
+  GETTABLEKS R5 R6 K17 ["LLMFormattedToolTypes"]
+  CALL R4 1 1
+  GETIMPORT R5 K9 [require]
+  GETTABLEKS R9 R0 K14 ["Components"]
+  GETTABLEKS R8 R9 K15 ["Contexts"]
+  GETTABLEKS R7 R8 K16 ["DefaultLLMProvider"]
+  GETTABLEKS R6 R7 K18 ["LLMRequest"]
+  CALL R5 1 1
+  GETIMPORT R6 K9 [require]
+  GETTABLEKS R10 R0 K14 ["Components"]
+  GETTABLEKS R9 R10 K15 ["Contexts"]
+  GETTABLEKS R8 R9 K16 ["DefaultLLMProvider"]
+  GETTABLEKS R7 R8 K19 ["LLMSystemMessage"]
+  CALL R6 1 1
+  GETIMPORT R7 K9 [require]
+  GETTABLEKS R9 R0 K10 ["Parent"]
+  GETTABLEKS R8 R9 K20 ["ModelContextProtocol"]
+  CALL R7 1 1
+  GETIMPORT R8 K9 [require]
+  GETTABLEKS R11 R0 K14 ["Components"]
+  GETTABLEKS R10 R11 K15 ["Contexts"]
+  GETTABLEKS R9 R10 K21 ["ModelQualityContext"]
+  CALL R8 1 1
+  GETIMPORT R9 K9 [require]
+  GETTABLEKS R11 R0 K22 ["Util"]
+  GETTABLEKS R10 R11 K23 ["StreamEventUtils"]
+  CALL R9 1 1
+  GETIMPORT R10 K9 [require]
+  GETTABLEKS R12 R0 K22 ["Util"]
+  GETTABLEKS R11 R12 K24 ["TaskCollector"]
+  CALL R10 1 1
+  GETIMPORT R11 K9 [require]
+  GETTABLEKS R13 R0 K22 ["Util"]
+  GETTABLEKS R12 R13 K25 ["Timer"]
+  CALL R11 1 1
+  GETIMPORT R12 K9 [require]
+  GETTABLEKS R13 R0 K26 ["Types"]
+  CALL R12 1 1
+  GETIMPORT R13 K9 [require]
+  GETTABLEKS R15 R0 K27 ["Flags"]
+  GETTABLEKS R14 R15 K28 ["FFlagAssistantJsonEncoder"]
+  CALL R13 1 1
+  GETIMPORT R14 K9 [require]
+  GETTABLEKS R16 R0 K27 ["Flags"]
+  GETTABLEKS R15 R16 K29 ["FFlagAssistantMultipleExternalMCPServers"]
+  CALL R14 1 1
+  GETIMPORT R15 K9 [require]
+  GETTABLEKS R17 R0 K27 ["Flags"]
+  GETTABLEKS R16 R17 K30 ["FFlagDebugLogAssistantUI"]
+  CALL R15 1 1
+  GETIMPORT R16 K9 [require]
+  GETTABLEKS R18 R0 K27 ["Flags"]
+  GETTABLEKS R17 R18 K31 ["FFlagEnableAssistantImageUpload"]
+  CALL R16 1 1
+  GETIMPORT R17 K9 [require]
+  GETTABLEKS R19 R0 K27 ["Flags"]
+  GETTABLEKS R18 R19 K32 ["FFlagFixGeminiParallelTools"]
+  CALL R17 1 1
+  GETIMPORT R18 K9 [require]
+  GETTABLEKS R20 R0 K27 ["Flags"]
+  GETTABLEKS R19 R20 K33 ["FFlagMCPAssistantLongRunningToolCalls"]
+  CALL R18 1 1
+  GETIMPORT R19 K9 [require]
+  GETTABLEKS R21 R0 K27 ["Flags"]
+  GETTABLEKS R20 R21 K34 ["FFlagMCPAssistantManagementMenu"]
+  CALL R19 1 1
+  DUPTABLE R20 K39 [{"Started", "Resolved", "Rejected", "Cancelled"}]
+  LOADK R21 K35 ["Started"]
+  SETTABLEKS R21 R20 K35 ["Started"]
+  LOADK R21 K36 ["Resolved"]
+  SETTABLEKS R21 R20 K36 ["Resolved"]
+  LOADK R21 K37 ["Rejected"]
+  SETTABLEKS R21 R20 K37 ["Rejected"]
+  LOADK R21 K38 ["Cancelled"]
+  SETTABLEKS R21 R20 K38 ["Cancelled"]
+  DUPTABLE R21 K43 [{"ToolNotFound", "ToolCancelled", "ToolError"}]
+  LOADK R22 K44 ["tool_not_found"]
+  SETTABLEKS R22 R21 K40 ["ToolNotFound"]
+  LOADK R22 K45 ["tool_cancelled"]
+  SETTABLEKS R22 R21 K41 ["ToolCancelled"]
+  LOADK R22 K46 ["tool_error"]
+  SETTABLEKS R22 R21 K42 ["ToolError"]
+  DUPCLOSURE R22 K47 [PROTO_0]
+  GETTABLEKS R23 R4 K48 ["getToolName"]
+  DUPCLOSURE R24 K49 [PROTO_28]
+  CAPTURE VAL R11
+  CAPTURE VAL R1
+  CAPTURE VAL R14
+  CAPTURE VAL R13
+  CAPTURE VAL R7
+  CAPTURE VAL R3
+  CAPTURE VAL R16
+  CAPTURE VAL R18
+  CAPTURE VAL R17
+  CAPTURE VAL R19
+  CAPTURE VAL R2
+  CAPTURE VAL R23
+  CAPTURE VAL R20
+  CAPTURE VAL R15
+  CAPTURE VAL R21
+  CAPTURE VAL R12
+  CAPTURE VAL R10
+  CAPTURE VAL R8
+  CAPTURE VAL R9
+  DUPTABLE R25 K51 [{"createProcessEventHandler"}]
+  SETTABLEKS R24 R25 K50 ["createProcessEventHandler"]
+  RETURN R25 1

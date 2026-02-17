@@ -1,0 +1,63 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["ContextStack"]
+  DUPTABLE R3 K3 [{"providers"}]
+  NEWTABLE R4 0 3
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R7 2
+  GETTABLEKS R6 R7 K4 ["UIDataModelProvider"]
+  DUPTABLE R7 K6 [{"plugin"}]
+  GETTABLEKS R8 R0 K5 ["plugin"]
+  SETTABLEKS R8 R7 K5 ["plugin"]
+  CALL R5 2 1
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["createElement"]
+  GETUPVAL R8 3
+  GETTABLEKS R7 R8 K4 ["UIDataModelProvider"]
+  CALL R6 1 1
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K0 ["createElement"]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K4 ["UIDataModelProvider"]
+  CALL R7 1 -1
+  SETLIST R4 R5 -1 [1]
+  SETTABLEKS R4 R3 K2 ["providers"]
+  GETTABLEKS R4 R0 K7 ["children"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["FaceControlEditorComponent"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["ReactUtils"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K9 ["Contexts"]
+  GETTABLEKS R5 R6 K10 ["NetworkingContext"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K9 ["Contexts"]
+  GETTABLEKS R6 R7 K11 ["FaceControlEditorContext"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K9 ["Contexts"]
+  GETTABLEKS R7 R8 K12 ["FocusOnFaceContext"]
+  CALL R6 1 1
+  DUPCLOSURE R7 K13 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  CAPTURE VAL R5
+  CAPTURE VAL R6
+  RETURN R7 1

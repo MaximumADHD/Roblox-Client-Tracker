@@ -116,7 +116,8 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		-- Partial TextBox ref exposed via imperative handle
 		textBoxRef: React.Ref<NumberInputRef>?,
 		onFocusGained: (() -> ())?,
-		onFocusLost: (() -> ())?,
+		-- Called when focus is lost. The InputObject that caused focus to be lost is passed if available.
+		onFocusLost: ((inputObject: InputObject?) -> ())?,
 		onReturnPressed: (() -> ())?,
 	} & Types.CommonProps
 
@@ -199,13 +200,13 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 	end, { setFocused, props.onFocusGained } :: { unknown })
 
 	local onFocusLost = React.useCallback(
-		function()
+		function(inputObject: InputObject?)
 			setFocused(false)
 			setHasInvalidInput(false)
 			local v = math.clamp(props.value, props.minimum, props.maximum)
 			props.onChanged(round(v, props.precision))
 			if props.onFocusLost then
-				props.onFocusLost()
+				props.onFocusLost(inputObject)
 			end
 		end,
 		{ setFocused, props.onChanged, props.onFocusLost, props.maximum, props.minimum, props.precision, props.value } :: { unknown }
@@ -332,25 +333,31 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 		end
 	end, { props.isScrubbable } :: { unknown })
 
-	local numberSequence = React.useMemo(function()
+	local filledStyleTransparency = if Flags.FoundationNumberInputFixScrubbableBG
+		then tokens.Color.Shift.Shift_300.Transparency
+		else 0
+	local unfilledStyleTransparency = if Flags.FoundationNumberInputFixScrubbableBG
+		then tokens.Color.Shift.Shift_100.Transparency
+		else 1
+	local scrubbableTransparencySequence = React.useMemo(function()
 		if percentage == 0 then
-			return NumberSequence.new(1)
+			return NumberSequence.new(unfilledStyleTransparency)
 		elseif percentage == 1 then
-			return NumberSequence.new(0)
+			return NumberSequence.new(filledStyleTransparency)
 		elseif percentage > 0 or percentage < 1 then
 			local numberSequenceKeypoints = {
-				NumberSequenceKeypoint.new(0, 0),
-				NumberSequenceKeypoint.new(percentage, 0),
-				NumberSequenceKeypoint.new(math.min(percentage + 0.001, 1), 1),
+				NumberSequenceKeypoint.new(0, filledStyleTransparency),
+				NumberSequenceKeypoint.new(percentage, filledStyleTransparency),
+				NumberSequenceKeypoint.new(math.min(percentage + 0.001, 1), unfilledStyleTransparency),
 			}
 			if percentage < 0.999 then
-				table.insert(numberSequenceKeypoints, NumberSequenceKeypoint.new(1, 1))
+				table.insert(numberSequenceKeypoints, NumberSequenceKeypoint.new(1, unfilledStyleTransparency))
 			end
 
 			return NumberSequence.new(numberSequenceKeypoints)
 		end
-		return NumberSequence.new(1)
-	end, { percentage } :: { any })
+		return NumberSequence.new(unfilledStyleTransparency)
+	end, { percentage, filledStyleTransparency, unfilledStyleTransparency } :: { unknown })
 
 	return React.createElement(
 		InputField,
@@ -387,7 +394,9 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 						else onDragEnded,
 					onReturnPressed = props.onReturnPressed,
 					ref = inputRef,
-					backgroundElement = if props.isScrubbable and numberSequence
+					backgroundElement = if not Flags.FoundationNumberInputFixScrubbableBG
+							and props.isScrubbable
+							and scrubbableTransparencySequence
 						then React.createElement(View, {
 							backgroundStyle = tokens.Color.Shift.Shift_300,
 							tag = {
@@ -398,9 +407,18 @@ local function NumberInput(numberInputProps: NumberInputProps, ref: React.Ref<Gu
 						}, {
 							Gradient = React.createElement("UIGradient", {
 								Color = ColorSequence.new(tokens.Color.Shift.Shift_300.Color3),
-								Transparency = numberSequence,
+								Transparency = scrubbableTransparencySequence,
 								Rotation = 0,
 							}),
+						})
+						else nil,
+					backgroundGradient = if Flags.FoundationNumberInputFixScrubbableBG
+							and props.isScrubbable
+							and scrubbableTransparencySequence
+						then React.createElement("UIGradient", {
+							Color = ColorSequence.new(tokens.Color.Shift.Shift_300.Color3),
+							Transparency = scrubbableTransparencySequence,
+							Rotation = 0,
 						})
 						else nil,
 					trailingElement = if controlsVariant == NumberInputControlsVariant.Stacked then controls else nil,

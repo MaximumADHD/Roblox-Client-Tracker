@@ -1,0 +1,1189 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["Root"]
+  DUPTABLE R3 K3 [{"isOpen"}]
+  GETTABLEKS R4 R0 K2 ["isOpen"]
+  SETTABLEKS R4 R3 K2 ["isOpen"]
+  DUPTABLE R4 K6 [{"Anchor", "Content"}]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K4 ["Anchor"]
+  DUPTABLE R7 K8 [{"LayoutOrder"}]
+  LOADN R8 2
+  SETTABLEKS R8 R7 K7 ["LayoutOrder"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K0 ["createElement"]
+  GETUPVAL R9 2
+  DUPTABLE R10 K12 [{"icon", "onActivated", "size"}]
+  LOADK R11 K13 ["reactions/heart"]
+  SETTABLEKS R11 R10 K9 ["icon"]
+  GETTABLEKS R11 R0 K14 ["toggle"]
+  SETTABLEKS R11 R10 K10 ["onActivated"]
+  GETUPVAL R12 3
+  GETTABLEKS R11 R12 K15 ["Medium"]
+  SETTABLEKS R11 R10 K11 ["size"]
+  CALL R8 2 -1
+  CALL R5 -1 1
+  SETTABLEKS R5 R4 K4 ["Anchor"]
+  GETUPVAL R6 0
+  GETTABLEKS R5 R6 K0 ["createElement"]
+  GETUPVAL R7 1
+  GETTABLEKS R6 R7 K5 ["Content"]
+  DUPTABLE R7 K18 [{"align", "side"}]
+  GETUPVAL R9 4
+  GETTABLEKS R8 R9 K19 ["Start"]
+  SETTABLEKS R8 R7 K16 ["align"]
+  GETUPVAL R9 5
+  GETTABLEKS R8 R9 K20 ["Top"]
+  SETTABLEKS R8 R7 K17 ["side"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K0 ["createElement"]
+  GETUPVAL R9 6
+  DUPTABLE R10 K22 [{"tag"}]
+  LOADK R11 K23 ["col gap-small padding-medium auto-xy"]
+  SETTABLEKS R11 R10 K21 ["tag"]
+  DUPTABLE R11 K26 [{"Title", "Subtitle"}]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K0 ["createElement"]
+  GETUPVAL R13 7
+  DUPTABLE R14 K28 [{"Text", "tag"}]
+  GETTABLEKS R15 R0 K29 ["title"]
+  SETTABLEKS R15 R14 K27 ["Text"]
+  LOADK R15 K30 ["auto-xy text-title-medium content-emphasis"]
+  SETTABLEKS R15 R14 K21 ["tag"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K24 ["Title"]
+  GETUPVAL R13 0
+  GETTABLEKS R12 R13 K0 ["createElement"]
+  GETUPVAL R13 7
+  DUPTABLE R14 K28 [{"Text", "tag"}]
+  GETTABLEKS R15 R0 K31 ["subtitle"]
+  SETTABLEKS R15 R14 K27 ["Text"]
+  LOADK R15 K32 ["auto-xy text-body-small"]
+  SETTABLEKS R15 R14 K21 ["tag"]
+  CALL R12 2 1
+  SETTABLEKS R12 R11 K25 ["Subtitle"]
+  CALL R8 3 -1
+  CALL R5 -1 1
+  SETTABLEKS R5 R4 K5 ["Content"]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_1:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  GETUPVAL R0 1
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R0 2
+  LOADB R1 0
+  CALL R0 1 0
+  GETUPVAL R0 3
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_2:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  GETUPVAL R0 1
+  JUMPIFNOT R0 [+3]
+  GETUPVAL R0 2
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_3:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_4:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useState"]
+  LOADB R1 0
+  CALL R0 1 2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useState"]
+  LOADB R3 0
+  CALL R2 1 2
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["useState"]
+  LOADB R5 0
+  CALL R4 1 2
+  NEWCLOSURE R6 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  NEWCLOSURE R7 P1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  NEWCLOSURE R8 P2
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  GETUPVAL R10 0
+  GETTABLEKS R9 R10 K1 ["createElement"]
+  GETUPVAL R10 1
+  DUPTABLE R11 K3 [{"tag"}]
+  LOADK R12 K4 ["col auto-xy gap-medium"]
+  SETTABLEKS R12 R11 K2 ["tag"]
+  DUPTABLE R12 K6 [{"Popover1"}]
+  GETUPVAL R14 0
+  GETTABLEKS R13 R14 K1 ["createElement"]
+  GETUPVAL R15 2
+  GETTABLEKS R14 R15 K7 ["Root"]
+  DUPTABLE R15 K9 [{"isOpen"}]
+  SETTABLEKS R0 R15 K8 ["isOpen"]
+  DUPTABLE R16 K12 [{"Anchor", "Content"}]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K1 ["createElement"]
+  GETUPVAL R19 2
+  GETTABLEKS R18 R19 K10 ["Anchor"]
+  LOADNIL R19
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K1 ["createElement"]
+  GETUPVAL R21 3
+  DUPTABLE R22 K16 [{"text", "onActivated", "variant"}]
+  LOADK R23 K17 ["Open First Popover"]
+  SETTABLEKS R23 R22 K13 ["text"]
+  SETTABLEKS R6 R22 K14 ["onActivated"]
+  GETUPVAL R24 4
+  GETTABLEKS R23 R24 K18 ["Emphasis"]
+  SETTABLEKS R23 R22 K15 ["variant"]
+  CALL R20 2 -1
+  CALL R17 -1 1
+  SETTABLEKS R17 R16 K10 ["Anchor"]
+  GETUPVAL R18 0
+  GETTABLEKS R17 R18 K1 ["createElement"]
+  GETUPVAL R19 2
+  GETTABLEKS R18 R19 K11 ["Content"]
+  DUPTABLE R19 K21 [{"align", "side"}]
+  GETUPVAL R21 5
+  GETTABLEKS R20 R21 K22 ["Start"]
+  SETTABLEKS R20 R19 K19 ["align"]
+  GETUPVAL R21 6
+  GETTABLEKS R20 R21 K23 ["Right"]
+  SETTABLEKS R20 R19 K20 ["side"]
+  GETUPVAL R21 0
+  GETTABLEKS R20 R21 K1 ["createElement"]
+  GETUPVAL R21 1
+  DUPTABLE R22 K3 [{"tag"}]
+  LOADK R23 K24 ["col gap-small padding-medium auto-xy"]
+  SETTABLEKS R23 R22 K2 ["tag"]
+  DUPTABLE R23 K28 [{"Title", "Description", "Popover2"}]
+  GETUPVAL R25 0
+  GETTABLEKS R24 R25 K1 ["createElement"]
+  GETUPVAL R25 7
+  DUPTABLE R26 K30 [{"Text", "tag"}]
+  LOADK R27 K31 ["First Popover"]
+  SETTABLEKS R27 R26 K29 ["Text"]
+  LOADK R27 K32 ["auto-xy text-title-medium content-emphasis"]
+  SETTABLEKS R27 R26 K2 ["tag"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K25 ["Title"]
+  GETUPVAL R25 0
+  GETTABLEKS R24 R25 K1 ["createElement"]
+  GETUPVAL R25 7
+  DUPTABLE R26 K30 [{"Text", "tag"}]
+  LOADK R27 K33 ["Click below to open the second popover"]
+  SETTABLEKS R27 R26 K29 ["Text"]
+  LOADK R27 K34 ["auto-xy text-body-small"]
+  SETTABLEKS R27 R26 K2 ["tag"]
+  CALL R24 2 1
+  SETTABLEKS R24 R23 K26 ["Description"]
+  GETUPVAL R25 0
+  GETTABLEKS R24 R25 K1 ["createElement"]
+  GETUPVAL R26 2
+  GETTABLEKS R25 R26 K7 ["Root"]
+  DUPTABLE R26 K9 [{"isOpen"}]
+  SETTABLEKS R2 R26 K8 ["isOpen"]
+  DUPTABLE R27 K12 [{"Anchor", "Content"}]
+  GETUPVAL R29 0
+  GETTABLEKS R28 R29 K1 ["createElement"]
+  GETUPVAL R30 2
+  GETTABLEKS R29 R30 K10 ["Anchor"]
+  LOADNIL R30
+  GETUPVAL R32 0
+  GETTABLEKS R31 R32 K1 ["createElement"]
+  GETUPVAL R32 3
+  DUPTABLE R33 K36 [{"text", "onActivated", "size"}]
+  LOADK R34 K37 ["Open Second Popover"]
+  SETTABLEKS R34 R33 K13 ["text"]
+  SETTABLEKS R7 R33 K14 ["onActivated"]
+  GETUPVAL R35 8
+  GETTABLEKS R34 R35 K38 ["Small"]
+  SETTABLEKS R34 R33 K35 ["size"]
+  CALL R31 2 -1
+  CALL R28 -1 1
+  SETTABLEKS R28 R27 K10 ["Anchor"]
+  GETUPVAL R29 0
+  GETTABLEKS R28 R29 K1 ["createElement"]
+  GETUPVAL R30 2
+  GETTABLEKS R29 R30 K11 ["Content"]
+  DUPTABLE R30 K21 [{"align", "side"}]
+  GETUPVAL R32 5
+  GETTABLEKS R31 R32 K22 ["Start"]
+  SETTABLEKS R31 R30 K19 ["align"]
+  GETUPVAL R32 6
+  GETTABLEKS R31 R32 K23 ["Right"]
+  SETTABLEKS R31 R30 K20 ["side"]
+  GETUPVAL R32 0
+  GETTABLEKS R31 R32 K1 ["createElement"]
+  GETUPVAL R32 1
+  DUPTABLE R33 K3 [{"tag"}]
+  LOADK R34 K24 ["col gap-small padding-medium auto-xy"]
+  SETTABLEKS R34 R33 K2 ["tag"]
+  DUPTABLE R34 K40 [{"Title", "Description", "Popover3"}]
+  GETUPVAL R36 0
+  GETTABLEKS R35 R36 K1 ["createElement"]
+  GETUPVAL R36 7
+  DUPTABLE R37 K30 [{"Text", "tag"}]
+  LOADK R38 K41 ["Second Popover"]
+  SETTABLEKS R38 R37 K29 ["Text"]
+  LOADK R38 K32 ["auto-xy text-title-medium content-emphasis"]
+  SETTABLEKS R38 R37 K2 ["tag"]
+  CALL R35 2 1
+  SETTABLEKS R35 R34 K25 ["Title"]
+  GETUPVAL R36 0
+  GETTABLEKS R35 R36 K1 ["createElement"]
+  GETUPVAL R36 7
+  DUPTABLE R37 K30 [{"Text", "tag"}]
+  LOADK R38 K42 ["One more level to go!"]
+  SETTABLEKS R38 R37 K29 ["Text"]
+  LOADK R38 K34 ["auto-xy text-body-small"]
+  SETTABLEKS R38 R37 K2 ["tag"]
+  CALL R35 2 1
+  SETTABLEKS R35 R34 K26 ["Description"]
+  GETUPVAL R36 0
+  GETTABLEKS R35 R36 K1 ["createElement"]
+  GETUPVAL R37 2
+  GETTABLEKS R36 R37 K7 ["Root"]
+  DUPTABLE R37 K9 [{"isOpen"}]
+  SETTABLEKS R4 R37 K8 ["isOpen"]
+  DUPTABLE R38 K12 [{"Anchor", "Content"}]
+  GETUPVAL R40 0
+  GETTABLEKS R39 R40 K1 ["createElement"]
+  GETUPVAL R41 2
+  GETTABLEKS R40 R41 K10 ["Anchor"]
+  LOADNIL R41
+  GETUPVAL R43 0
+  GETTABLEKS R42 R43 K1 ["createElement"]
+  GETUPVAL R43 3
+  DUPTABLE R44 K36 [{"text", "onActivated", "size"}]
+  LOADK R45 K43 ["Open Final Popover"]
+  SETTABLEKS R45 R44 K13 ["text"]
+  SETTABLEKS R8 R44 K14 ["onActivated"]
+  GETUPVAL R46 8
+  GETTABLEKS R45 R46 K38 ["Small"]
+  SETTABLEKS R45 R44 K35 ["size"]
+  CALL R42 2 -1
+  CALL R39 -1 1
+  SETTABLEKS R39 R38 K10 ["Anchor"]
+  GETUPVAL R40 0
+  GETTABLEKS R39 R40 K1 ["createElement"]
+  GETUPVAL R41 2
+  GETTABLEKS R40 R41 K11 ["Content"]
+  DUPTABLE R41 K21 [{"align", "side"}]
+  GETUPVAL R43 5
+  GETTABLEKS R42 R43 K22 ["Start"]
+  SETTABLEKS R42 R41 K19 ["align"]
+  GETUPVAL R43 6
+  GETTABLEKS R42 R43 K23 ["Right"]
+  SETTABLEKS R42 R41 K20 ["side"]
+  GETUPVAL R43 0
+  GETTABLEKS R42 R43 K1 ["createElement"]
+  GETUPVAL R43 1
+  DUPTABLE R44 K3 [{"tag"}]
+  LOADK R45 K24 ["col gap-small padding-medium auto-xy"]
+  SETTABLEKS R45 R44 K2 ["tag"]
+  DUPTABLE R45 K44 [{"Title", "Description"}]
+  GETUPVAL R47 0
+  GETTABLEKS R46 R47 K1 ["createElement"]
+  GETUPVAL R47 7
+  DUPTABLE R48 K30 [{"Text", "tag"}]
+  LOADK R49 K45 ["Final Popover"]
+  SETTABLEKS R49 R48 K29 ["Text"]
+  LOADK R49 K32 ["auto-xy text-title-medium content-emphasis"]
+  SETTABLEKS R49 R48 K2 ["tag"]
+  CALL R46 2 1
+  SETTABLEKS R46 R45 K25 ["Title"]
+  GETUPVAL R47 0
+  GETTABLEKS R46 R47 K1 ["createElement"]
+  GETUPVAL R47 7
+  DUPTABLE R48 K30 [{"Text", "tag"}]
+  LOADK R49 K46 ["🎉 You've reached the deepest level!"]
+  SETTABLEKS R49 R48 K29 ["Text"]
+  LOADK R49 K34 ["auto-xy text-body-small"]
+  SETTABLEKS R49 R48 K2 ["tag"]
+  CALL R46 2 1
+  SETTABLEKS R46 R45 K26 ["Description"]
+  CALL R42 3 -1
+  CALL R39 -1 1
+  SETTABLEKS R39 R38 K11 ["Content"]
+  CALL R35 3 1
+  SETTABLEKS R35 R34 K39 ["Popover3"]
+  CALL R31 3 -1
+  CALL R28 -1 1
+  SETTABLEKS R28 R27 K11 ["Content"]
+  CALL R24 3 1
+  SETTABLEKS R24 R23 K27 ["Popover2"]
+  CALL R20 3 -1
+  CALL R17 -1 1
+  SETTABLEKS R17 R16 K11 ["Content"]
+  CALL R13 3 1
+  SETTABLEKS R13 R12 K5 ["Popover1"]
+  CALL R9 3 -1
+  RETURN R9 -1
+
+PROTO_5:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  GETUPVAL R0 1
+  JUMPIFNOT R0 [+9]
+  GETUPVAL R0 2
+  LOADB R1 0
+  CALL R0 1 0
+  GETUPVAL R0 3
+  LOADB R1 0
+  CALL R0 1 0
+  GETUPVAL R0 4
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_6:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  GETUPVAL R0 1
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R0 2
+  LOADB R1 0
+  CALL R0 1 0
+  GETUPVAL R0 3
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_7:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  GETUPVAL R0 1
+  JUMPIFNOT R0 [+3]
+  GETUPVAL R0 2
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useState"]
+  LOADB R1 0
+  CALL R0 1 2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useState"]
+  LOADB R3 0
+  CALL R2 1 2
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["useState"]
+  LOADB R5 0
+  CALL R4 1 2
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["useState"]
+  LOADB R7 0
+  CALL R6 1 2
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K0 ["useState"]
+  LOADB R9 0
+  CALL R8 1 2
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K0 ["useState"]
+  LOADB R11 0
+  CALL R10 1 2
+  NEWCLOSURE R12 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  NEWCLOSURE R13 P1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  NEWCLOSURE R14 P2
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R11
+  NEWCLOSURE R15 P3
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  NEWCLOSURE R16 P4
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  NEWCLOSURE R17 P5
+  CAPTURE VAL R11
+  CAPTURE VAL R10
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K1 ["createElement"]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K2 ["Fragment"]
+  LOADNIL R20
+  DUPTABLE R21 K5 [{"ToggleButton", "Sheet1"}]
+  GETUPVAL R23 0
+  GETTABLEKS R22 R23 K1 ["createElement"]
+  GETUPVAL R23 1
+  DUPTABLE R24 K9 [{"text", "onActivated", "variant"}]
+  LOADK R25 K10 ["Open First Sheet"]
+  SETTABLEKS R25 R24 K6 ["text"]
+  SETTABLEKS R12 R24 K7 ["onActivated"]
+  GETUPVAL R26 2
+  GETTABLEKS R25 R26 K11 ["Emphasis"]
+  SETTABLEKS R25 R24 K8 ["variant"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K3 ["ToggleButton"]
+  JUMPIFNOT R0 [+345]
+  GETUPVAL R23 0
+  GETTABLEKS R22 R23 K1 ["createElement"]
+  GETUPVAL R24 3
+  GETTABLEKS R23 R24 K12 ["Root"]
+  DUPTABLE R24 K17 [{"onClose", "snapPoints", "defaultSnapPointIndex", "displaySize"}]
+  SETTABLEKS R12 R24 K13 ["onClose"]
+  NEWTABLE R25 0 2
+  LOADK R26 K18 [0.3]
+  LOADK R27 K19 [0.6]
+  SETLIST R25 R26 2 [1]
+  SETTABLEKS R25 R24 K14 ["snapPoints"]
+  LOADN R25 2
+  SETTABLEKS R25 R24 K15 ["defaultSnapPointIndex"]
+  GETIMPORT R25 K23 [Enum.DisplaySize.Small]
+  SETTABLEKS R25 R24 K16 ["displaySize"]
+  DUPTABLE R25 K27 [{"Header", "Content", "Sheet2"}]
+  GETUPVAL R27 0
+  GETTABLEKS R26 R27 K1 ["createElement"]
+  GETUPVAL R28 3
+  GETTABLEKS R27 R28 K24 ["Header"]
+  LOADNIL R28
+  DUPTABLE R29 K29 [{"Title"}]
+  GETUPVAL R31 0
+  GETTABLEKS R30 R31 K1 ["createElement"]
+  GETUPVAL R31 4
+  DUPTABLE R32 K32 [{"Text", "tag"}]
+  LOADK R33 K33 ["Sheet 1"]
+  SETTABLEKS R33 R32 K30 ["Text"]
+  LOADK R33 K34 ["auto-xy text-title-medium content-emphasis"]
+  SETTABLEKS R33 R32 K31 ["tag"]
+  CALL R30 2 1
+  SETTABLEKS R30 R29 K28 ["Title"]
+  CALL R26 3 1
+  SETTABLEKS R26 R25 K24 ["Header"]
+  GETUPVAL R27 0
+  GETTABLEKS R26 R27 K1 ["createElement"]
+  GETUPVAL R28 3
+  GETTABLEKS R27 R28 K25 ["Content"]
+  LOADNIL R28
+  DUPTABLE R29 K36 [{"Layout"}]
+  GETUPVAL R31 0
+  GETTABLEKS R30 R31 K1 ["createElement"]
+  GETUPVAL R31 5
+  DUPTABLE R32 K37 [{"tag"}]
+  LOADK R33 K38 ["row auto-xy gap-medium"]
+  SETTABLEKS R33 R32 K31 ["tag"]
+  DUPTABLE R33 K41 [{"Sheet1Popover", "OpenSheet2Button"}]
+  GETUPVAL R35 0
+  GETTABLEKS R34 R35 K1 ["createElement"]
+  GETUPVAL R35 6
+  DUPTABLE R36 K47 [{"isOpen", "toggle", "anchorText", "title", "subtitle"}]
+  SETTABLEKS R6 R36 K42 ["isOpen"]
+  SETTABLEKS R15 R36 K43 ["toggle"]
+  LOADK R37 K48 ["Open Popover"]
+  SETTABLEKS R37 R36 K44 ["anchorText"]
+  LOADK R37 K49 ["Popover title"]
+  SETTABLEKS R37 R36 K45 ["title"]
+  LOADK R37 K50 ["Popover subtitle"]
+  SETTABLEKS R37 R36 K46 ["subtitle"]
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K39 ["Sheet1Popover"]
+  GETUPVAL R35 0
+  GETTABLEKS R34 R35 K1 ["createElement"]
+  GETUPVAL R35 1
+  DUPTABLE R36 K9 [{"text", "onActivated", "variant"}]
+  LOADK R37 K51 ["Open Second Sheet"]
+  SETTABLEKS R37 R36 K6 ["text"]
+  SETTABLEKS R13 R36 K7 ["onActivated"]
+  GETUPVAL R38 2
+  GETTABLEKS R37 R38 K11 ["Emphasis"]
+  SETTABLEKS R37 R36 K8 ["variant"]
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K40 ["OpenSheet2Button"]
+  CALL R30 3 1
+  SETTABLEKS R30 R29 K35 ["Layout"]
+  CALL R26 3 1
+  SETTABLEKS R26 R25 K25 ["Content"]
+  JUMPIFNOT R2 [+227]
+  GETUPVAL R27 0
+  GETTABLEKS R26 R27 K1 ["createElement"]
+  GETUPVAL R28 3
+  GETTABLEKS R27 R28 K12 ["Root"]
+  DUPTABLE R28 K17 [{"onClose", "snapPoints", "defaultSnapPointIndex", "displaySize"}]
+  SETTABLEKS R13 R28 K13 ["onClose"]
+  NEWTABLE R29 0 2
+  LOADK R30 K52 [0.4]
+  LOADK R31 K53 [0.7]
+  SETLIST R29 R30 2 [1]
+  SETTABLEKS R29 R28 K14 ["snapPoints"]
+  LOADN R29 2
+  SETTABLEKS R29 R28 K15 ["defaultSnapPointIndex"]
+  GETIMPORT R29 K23 [Enum.DisplaySize.Small]
+  SETTABLEKS R29 R28 K16 ["displaySize"]
+  DUPTABLE R29 K55 [{"Header", "Content", "Sheet3"}]
+  GETUPVAL R31 0
+  GETTABLEKS R30 R31 K1 ["createElement"]
+  GETUPVAL R32 3
+  GETTABLEKS R31 R32 K24 ["Header"]
+  LOADNIL R32
+  DUPTABLE R33 K29 [{"Title"}]
+  GETUPVAL R35 0
+  GETTABLEKS R34 R35 K1 ["createElement"]
+  GETUPVAL R35 4
+  DUPTABLE R36 K32 [{"Text", "tag"}]
+  LOADK R37 K56 ["Sheet 2"]
+  SETTABLEKS R37 R36 K30 ["Text"]
+  LOADK R37 K34 ["auto-xy text-title-medium content-emphasis"]
+  SETTABLEKS R37 R36 K31 ["tag"]
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K28 ["Title"]
+  CALL R30 3 1
+  SETTABLEKS R30 R29 K24 ["Header"]
+  GETUPVAL R31 0
+  GETTABLEKS R30 R31 K1 ["createElement"]
+  GETUPVAL R32 3
+  GETTABLEKS R31 R32 K25 ["Content"]
+  LOADNIL R32
+  DUPTABLE R33 K36 [{"Layout"}]
+  GETUPVAL R35 0
+  GETTABLEKS R34 R35 K1 ["createElement"]
+  GETUPVAL R35 5
+  DUPTABLE R36 K37 [{"tag"}]
+  LOADK R37 K38 ["row auto-xy gap-medium"]
+  SETTABLEKS R37 R36 K31 ["tag"]
+  DUPTABLE R37 K59 [{"Sheet2Popover", "OpenSheet3Button"}]
+  GETUPVAL R39 0
+  GETTABLEKS R38 R39 K1 ["createElement"]
+  GETUPVAL R39 6
+  DUPTABLE R40 K47 [{"isOpen", "toggle", "anchorText", "title", "subtitle"}]
+  SETTABLEKS R8 R40 K42 ["isOpen"]
+  SETTABLEKS R16 R40 K43 ["toggle"]
+  LOADK R41 K48 ["Open Popover"]
+  SETTABLEKS R41 R40 K44 ["anchorText"]
+  LOADK R41 K49 ["Popover title"]
+  SETTABLEKS R41 R40 K45 ["title"]
+  LOADK R41 K50 ["Popover subtitle"]
+  SETTABLEKS R41 R40 K46 ["subtitle"]
+  CALL R38 2 1
+  SETTABLEKS R38 R37 K57 ["Sheet2Popover"]
+  GETUPVAL R39 0
+  GETTABLEKS R38 R39 K1 ["createElement"]
+  GETUPVAL R39 1
+  DUPTABLE R40 K9 [{"text", "onActivated", "variant"}]
+  LOADK R41 K60 ["Open Third Sheet"]
+  SETTABLEKS R41 R40 K6 ["text"]
+  SETTABLEKS R14 R40 K7 ["onActivated"]
+  GETUPVAL R42 2
+  GETTABLEKS R41 R42 K11 ["Emphasis"]
+  SETTABLEKS R41 R40 K8 ["variant"]
+  CALL R38 2 1
+  SETTABLEKS R38 R37 K58 ["OpenSheet3Button"]
+  CALL R34 3 1
+  SETTABLEKS R34 R33 K35 ["Layout"]
+  CALL R30 3 1
+  SETTABLEKS R30 R29 K25 ["Content"]
+  JUMPIFNOT R4 [+109]
+  GETUPVAL R31 0
+  GETTABLEKS R30 R31 K1 ["createElement"]
+  GETUPVAL R32 3
+  GETTABLEKS R31 R32 K12 ["Root"]
+  DUPTABLE R32 K62 [{"onClose", "snapPoints", "defaultSnapPointIndex", "preferCenterSheet"}]
+  SETTABLEKS R14 R32 K13 ["onClose"]
+  NEWTABLE R33 0 2
+  LOADK R34 K63 [0.5]
+  LOADK R35 K64 [0.8]
+  SETLIST R33 R34 2 [1]
+  SETTABLEKS R33 R32 K14 ["snapPoints"]
+  LOADN R33 2
+  SETTABLEKS R33 R32 K15 ["defaultSnapPointIndex"]
+  LOADB R33 1
+  SETTABLEKS R33 R32 K61 ["preferCenterSheet"]
+  DUPTABLE R33 K65 [{"Header", "Content"}]
+  GETUPVAL R35 0
+  GETTABLEKS R34 R35 K1 ["createElement"]
+  GETUPVAL R36 3
+  GETTABLEKS R35 R36 K24 ["Header"]
+  LOADNIL R36
+  DUPTABLE R37 K29 [{"Title"}]
+  GETUPVAL R39 0
+  GETTABLEKS R38 R39 K1 ["createElement"]
+  GETUPVAL R39 4
+  DUPTABLE R40 K32 [{"Text", "tag"}]
+  LOADK R41 K66 ["Sheet 3"]
+  SETTABLEKS R41 R40 K30 ["Text"]
+  LOADK R41 K34 ["auto-xy text-title-medium content-emphasis"]
+  SETTABLEKS R41 R40 K31 ["tag"]
+  CALL R38 2 1
+  SETTABLEKS R38 R37 K28 ["Title"]
+  CALL R34 3 1
+  SETTABLEKS R34 R33 K24 ["Header"]
+  GETUPVAL R35 0
+  GETTABLEKS R34 R35 K1 ["createElement"]
+  GETUPVAL R36 3
+  GETTABLEKS R35 R36 K25 ["Content"]
+  LOADNIL R36
+  DUPTABLE R37 K36 [{"Layout"}]
+  GETUPVAL R39 0
+  GETTABLEKS R38 R39 K1 ["createElement"]
+  GETUPVAL R39 5
+  DUPTABLE R40 K37 [{"tag"}]
+  LOADK R41 K67 ["row auto-xy gap-medium align-y-center"]
+  SETTABLEKS R41 R40 K31 ["tag"]
+  DUPTABLE R41 K69 [{"Sheet3Popover", "Text"}]
+  GETUPVAL R43 0
+  GETTABLEKS R42 R43 K1 ["createElement"]
+  GETUPVAL R43 6
+  DUPTABLE R44 K47 [{"isOpen", "toggle", "anchorText", "title", "subtitle"}]
+  SETTABLEKS R10 R44 K42 ["isOpen"]
+  SETTABLEKS R17 R44 K43 ["toggle"]
+  LOADK R45 K48 ["Open Popover"]
+  SETTABLEKS R45 R44 K44 ["anchorText"]
+  LOADK R45 K49 ["Popover title"]
+  SETTABLEKS R45 R44 K45 ["title"]
+  LOADK R45 K50 ["Popover subtitle"]
+  SETTABLEKS R45 R44 K46 ["subtitle"]
+  CALL R42 2 1
+  SETTABLEKS R42 R41 K68 ["Sheet3Popover"]
+  GETUPVAL R43 0
+  GETTABLEKS R42 R43 K1 ["createElement"]
+  GETUPVAL R43 4
+  DUPTABLE R44 K32 [{"Text", "tag"}]
+  LOADK R45 K70 ["🎉 You've reached the innermost sheet!"]
+  SETTABLEKS R45 R44 K30 ["Text"]
+  LOADK R45 K34 ["auto-xy text-title-medium content-emphasis"]
+  SETTABLEKS R45 R44 K31 ["tag"]
+  CALL R42 2 1
+  SETTABLEKS R42 R41 K30 ["Text"]
+  CALL R38 3 1
+  SETTABLEKS R38 R37 K35 ["Layout"]
+  CALL R34 3 1
+  SETTABLEKS R34 R33 K25 ["Content"]
+  CALL R30 3 1
+  JUMP [+1]
+  LOADNIL R30
+  SETTABLEKS R30 R29 K54 ["Sheet3"]
+  CALL R26 3 1
+  JUMP [+1]
+  LOADNIL R26
+  SETTABLEKS R26 R25 K26 ["Sheet2"]
+  CALL R22 3 1
+  JUMP [+1]
+  LOADNIL R22
+  SETTABLEKS R22 R21 K4 ["Sheet1"]
+  CALL R18 3 -1
+  RETURN R18 -1
+
+PROTO_12:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  GETUPVAL R0 1
+  JUMPIFNOT R0 [+9]
+  GETUPVAL R0 2
+  LOADB R1 0
+  CALL R0 1 0
+  GETUPVAL R0 3
+  LOADB R1 0
+  CALL R0 1 0
+  GETUPVAL R0 4
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  GETUPVAL R0 1
+  JUMPIFNOT R0 [+6]
+  GETUPVAL R0 2
+  LOADB R1 0
+  CALL R0 1 0
+  GETUPVAL R0 3
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  GETUPVAL R0 1
+  JUMPIFNOT R0 [+3]
+  GETUPVAL R0 2
+  LOADB R1 0
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_15:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_16:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_17:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_18:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useState"]
+  LOADB R1 0
+  CALL R0 1 2
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K0 ["useState"]
+  LOADB R3 0
+  CALL R2 1 2
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K0 ["useState"]
+  LOADB R5 0
+  CALL R4 1 2
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K0 ["useState"]
+  LOADB R7 0
+  CALL R6 1 2
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K0 ["useState"]
+  LOADB R9 0
+  CALL R8 1 2
+  GETUPVAL R11 0
+  GETTABLEKS R10 R11 K0 ["useState"]
+  LOADB R11 0
+  CALL R10 1 2
+  NEWCLOSURE R12 P0
+  CAPTURE VAL R1
+  CAPTURE VAL R0
+  CAPTURE VAL R3
+  CAPTURE VAL R5
+  CAPTURE VAL R7
+  NEWCLOSURE R13 P1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R9
+  NEWCLOSURE R14 P2
+  CAPTURE VAL R5
+  CAPTURE VAL R4
+  CAPTURE VAL R11
+  NEWCLOSURE R15 P3
+  CAPTURE VAL R7
+  CAPTURE VAL R6
+  NEWCLOSURE R16 P4
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  NEWCLOSURE R17 P5
+  CAPTURE VAL R11
+  CAPTURE VAL R10
+  GETUPVAL R19 0
+  GETTABLEKS R18 R19 K1 ["createElement"]
+  GETUPVAL R20 0
+  GETTABLEKS R19 R20 K2 ["Fragment"]
+  LOADNIL R20
+  DUPTABLE R21 K5 [{"ToggleButton", "Dialog1"}]
+  GETUPVAL R23 0
+  GETTABLEKS R22 R23 K1 ["createElement"]
+  GETUPVAL R23 1
+  DUPTABLE R24 K9 [{"text", "onActivated", "variant"}]
+  LOADK R25 K10 ["Open First Dialog"]
+  SETTABLEKS R25 R24 K6 ["text"]
+  SETTABLEKS R12 R24 K7 ["onActivated"]
+  GETUPVAL R26 2
+  GETTABLEKS R25 R26 K11 ["Emphasis"]
+  SETTABLEKS R25 R24 K8 ["variant"]
+  CALL R22 2 1
+  SETTABLEKS R22 R21 K3 ["ToggleButton"]
+  JUMPIFNOT R0 [+298]
+  GETUPVAL R23 0
+  GETTABLEKS R22 R23 K1 ["createElement"]
+  GETUPVAL R24 3
+  GETTABLEKS R23 R24 K12 ["Root"]
+  DUPTABLE R24 K17 [{"onClose", "hasBackdrop", "disablePortal", "size"}]
+  SETTABLEKS R12 R24 K13 ["onClose"]
+  LOADB R25 1
+  SETTABLEKS R25 R24 K14 ["hasBackdrop"]
+  LOADB R25 0
+  SETTABLEKS R25 R24 K15 ["disablePortal"]
+  GETUPVAL R26 4
+  GETTABLEKS R25 R26 K18 ["Large"]
+  SETTABLEKS R25 R24 K16 ["size"]
+  DUPTABLE R25 K22 [{"DialogTitle", "DialogContent", "Dialog2"}]
+  GETUPVAL R27 0
+  GETTABLEKS R26 R27 K1 ["createElement"]
+  GETUPVAL R28 3
+  GETTABLEKS R27 R28 K23 ["Title"]
+  DUPTABLE R28 K24 [{"text"}]
+  LOADK R29 K25 ["First Dialog"]
+  SETTABLEKS R29 R28 K6 ["text"]
+  CALL R26 2 1
+  SETTABLEKS R26 R25 K19 ["DialogTitle"]
+  GETUPVAL R27 0
+  GETTABLEKS R26 R27 K1 ["createElement"]
+  GETUPVAL R28 3
+  GETTABLEKS R27 R28 K26 ["Content"]
+  LOADNIL R28
+  DUPTABLE R29 K28 [{"Layout"}]
+  GETUPVAL R31 0
+  GETTABLEKS R30 R31 K1 ["createElement"]
+  GETUPVAL R31 5
+  DUPTABLE R32 K30 [{"tag"}]
+  LOADK R33 K31 ["row auto-xy gap-medium"]
+  SETTABLEKS R33 R32 K29 ["tag"]
+  DUPTABLE R33 K34 [{"Dialog1Popover", "OpenDialog2Button"}]
+  GETUPVAL R35 0
+  GETTABLEKS R34 R35 K1 ["createElement"]
+  GETUPVAL R35 6
+  DUPTABLE R36 K40 [{"isOpen", "toggle", "anchorText", "title", "subtitle"}]
+  SETTABLEKS R6 R36 K35 ["isOpen"]
+  SETTABLEKS R15 R36 K36 ["toggle"]
+  LOADK R37 K41 ["Open Popover"]
+  SETTABLEKS R37 R36 K37 ["anchorText"]
+  LOADK R37 K42 ["Popover title"]
+  SETTABLEKS R37 R36 K38 ["title"]
+  LOADK R37 K43 ["Popover subtitle"]
+  SETTABLEKS R37 R36 K39 ["subtitle"]
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K32 ["Dialog1Popover"]
+  GETUPVAL R35 0
+  GETTABLEKS R34 R35 K1 ["createElement"]
+  GETUPVAL R35 1
+  DUPTABLE R36 K9 [{"text", "onActivated", "variant"}]
+  LOADK R37 K44 ["Open Second Dialog"]
+  SETTABLEKS R37 R36 K6 ["text"]
+  SETTABLEKS R13 R36 K7 ["onActivated"]
+  GETUPVAL R38 2
+  GETTABLEKS R37 R38 K11 ["Emphasis"]
+  SETTABLEKS R37 R36 K8 ["variant"]
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K33 ["OpenDialog2Button"]
+  CALL R30 3 1
+  SETTABLEKS R30 R29 K27 ["Layout"]
+  CALL R26 3 1
+  SETTABLEKS R26 R25 K20 ["DialogContent"]
+  JUMPIFNOT R2 [+196]
+  GETUPVAL R27 0
+  GETTABLEKS R26 R27 K1 ["createElement"]
+  GETUPVAL R28 3
+  GETTABLEKS R27 R28 K12 ["Root"]
+  DUPTABLE R28 K17 [{"onClose", "hasBackdrop", "disablePortal", "size"}]
+  SETTABLEKS R13 R28 K13 ["onClose"]
+  LOADB R29 1
+  SETTABLEKS R29 R28 K14 ["hasBackdrop"]
+  LOADB R29 0
+  SETTABLEKS R29 R28 K15 ["disablePortal"]
+  GETUPVAL R30 4
+  GETTABLEKS R29 R30 K45 ["Medium"]
+  SETTABLEKS R29 R28 K16 ["size"]
+  DUPTABLE R29 K47 [{"DialogTitle", "DialogContent", "Dialog3"}]
+  GETUPVAL R31 0
+  GETTABLEKS R30 R31 K1 ["createElement"]
+  GETUPVAL R32 3
+  GETTABLEKS R31 R32 K23 ["Title"]
+  DUPTABLE R32 K24 [{"text"}]
+  LOADK R33 K48 ["Second Dialog"]
+  SETTABLEKS R33 R32 K6 ["text"]
+  CALL R30 2 1
+  SETTABLEKS R30 R29 K19 ["DialogTitle"]
+  GETUPVAL R31 0
+  GETTABLEKS R30 R31 K1 ["createElement"]
+  GETUPVAL R32 3
+  GETTABLEKS R31 R32 K26 ["Content"]
+  LOADNIL R32
+  DUPTABLE R33 K28 [{"Layout"}]
+  GETUPVAL R35 0
+  GETTABLEKS R34 R35 K1 ["createElement"]
+  GETUPVAL R35 5
+  DUPTABLE R36 K30 [{"tag"}]
+  LOADK R37 K31 ["row auto-xy gap-medium"]
+  SETTABLEKS R37 R36 K29 ["tag"]
+  DUPTABLE R37 K51 [{"Dialog2Popover", "OpenDialog3Button"}]
+  GETUPVAL R39 0
+  GETTABLEKS R38 R39 K1 ["createElement"]
+  GETUPVAL R39 6
+  DUPTABLE R40 K40 [{"isOpen", "toggle", "anchorText", "title", "subtitle"}]
+  SETTABLEKS R8 R40 K35 ["isOpen"]
+  SETTABLEKS R16 R40 K36 ["toggle"]
+  LOADK R41 K41 ["Open Popover"]
+  SETTABLEKS R41 R40 K37 ["anchorText"]
+  LOADK R41 K42 ["Popover title"]
+  SETTABLEKS R41 R40 K38 ["title"]
+  LOADK R41 K43 ["Popover subtitle"]
+  SETTABLEKS R41 R40 K39 ["subtitle"]
+  CALL R38 2 1
+  SETTABLEKS R38 R37 K49 ["Dialog2Popover"]
+  GETUPVAL R39 0
+  GETTABLEKS R38 R39 K1 ["createElement"]
+  GETUPVAL R39 1
+  DUPTABLE R40 K9 [{"text", "onActivated", "variant"}]
+  LOADK R41 K52 ["Open Third Dialog"]
+  SETTABLEKS R41 R40 K6 ["text"]
+  SETTABLEKS R14 R40 K7 ["onActivated"]
+  GETUPVAL R42 2
+  GETTABLEKS R41 R42 K11 ["Emphasis"]
+  SETTABLEKS R41 R40 K8 ["variant"]
+  CALL R38 2 1
+  SETTABLEKS R38 R37 K50 ["OpenDialog3Button"]
+  CALL R34 3 1
+  SETTABLEKS R34 R33 K27 ["Layout"]
+  CALL R30 3 1
+  SETTABLEKS R30 R29 K20 ["DialogContent"]
+  JUMPIFNOT R4 [+94]
+  GETUPVAL R31 0
+  GETTABLEKS R30 R31 K1 ["createElement"]
+  GETUPVAL R32 3
+  GETTABLEKS R31 R32 K12 ["Root"]
+  DUPTABLE R32 K17 [{"onClose", "hasBackdrop", "disablePortal", "size"}]
+  SETTABLEKS R14 R32 K13 ["onClose"]
+  LOADB R33 1
+  SETTABLEKS R33 R32 K14 ["hasBackdrop"]
+  LOADB R33 0
+  SETTABLEKS R33 R32 K15 ["disablePortal"]
+  GETUPVAL R34 4
+  GETTABLEKS R33 R34 K53 ["Small"]
+  SETTABLEKS R33 R32 K16 ["size"]
+  DUPTABLE R33 K54 [{"DialogTitle", "DialogContent"}]
+  GETUPVAL R35 0
+  GETTABLEKS R34 R35 K1 ["createElement"]
+  GETUPVAL R36 3
+  GETTABLEKS R35 R36 K23 ["Title"]
+  DUPTABLE R36 K24 [{"text"}]
+  LOADK R37 K55 ["Third Dialog"]
+  SETTABLEKS R37 R36 K6 ["text"]
+  CALL R34 2 1
+  SETTABLEKS R34 R33 K19 ["DialogTitle"]
+  GETUPVAL R35 0
+  GETTABLEKS R34 R35 K1 ["createElement"]
+  GETUPVAL R36 3
+  GETTABLEKS R35 R36 K26 ["Content"]
+  LOADNIL R36
+  DUPTABLE R37 K28 [{"Layout"}]
+  GETUPVAL R39 0
+  GETTABLEKS R38 R39 K1 ["createElement"]
+  GETUPVAL R39 5
+  DUPTABLE R40 K30 [{"tag"}]
+  LOADK R41 K56 ["row auto-xy gap-medium wrap"]
+  SETTABLEKS R41 R40 K29 ["tag"]
+  DUPTABLE R41 K59 [{"Dialog3Popover", "Text"}]
+  GETUPVAL R43 0
+  GETTABLEKS R42 R43 K1 ["createElement"]
+  GETUPVAL R43 6
+  DUPTABLE R44 K40 [{"isOpen", "toggle", "anchorText", "title", "subtitle"}]
+  SETTABLEKS R10 R44 K35 ["isOpen"]
+  SETTABLEKS R17 R44 K36 ["toggle"]
+  LOADK R45 K41 ["Open Popover"]
+  SETTABLEKS R45 R44 K37 ["anchorText"]
+  LOADK R45 K42 ["Popover title"]
+  SETTABLEKS R45 R44 K38 ["title"]
+  LOADK R45 K43 ["Popover subtitle"]
+  SETTABLEKS R45 R44 K39 ["subtitle"]
+  CALL R42 2 1
+  SETTABLEKS R42 R41 K57 ["Dialog3Popover"]
+  GETUPVAL R43 0
+  GETTABLEKS R42 R43 K1 ["createElement"]
+  GETUPVAL R43 7
+  DUPTABLE R44 K60 [{"Text", "tag"}]
+  LOADK R45 K61 ["🎉 You've reached the innermost dialog!"]
+  SETTABLEKS R45 R44 K58 ["Text"]
+  LOADK R45 K62 ["auto-xy text-title-medium content-emphasis"]
+  SETTABLEKS R45 R44 K29 ["tag"]
+  CALL R42 2 1
+  SETTABLEKS R42 R41 K58 ["Text"]
+  CALL R38 3 1
+  SETTABLEKS R38 R37 K27 ["Layout"]
+  CALL R34 3 1
+  SETTABLEKS R34 R33 K20 ["DialogContent"]
+  CALL R30 3 1
+  JUMP [+1]
+  LOADNIL R30
+  SETTABLEKS R30 R29 K46 ["Dialog3"]
+  CALL R26 3 1
+  JUMP [+1]
+  LOADNIL R26
+  SETTABLEKS R26 R25 K21 ["Dialog2"]
+  CALL R22 3 1
+  JUMP [+1]
+  LOADNIL R22
+  SETTABLEKS R22 R21 K4 ["Dialog1"]
+  CALL R18 3 -1
+  RETURN R18 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R5 R0 K8 ["Components"]
+  GETTABLEKS R4 R5 K9 ["Dialog"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R6 R0 K8 ["Components"]
+  GETTABLEKS R5 R6 K10 ["View"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K8 ["Components"]
+  GETTABLEKS R6 R7 K11 ["Button"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R8 R0 K8 ["Components"]
+  GETTABLEKS R7 R8 K12 ["IconButton"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K13 ["Enums"]
+  GETTABLEKS R8 R9 K14 ["PopoverSide"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R0 K13 ["Enums"]
+  GETTABLEKS R9 R10 K15 ["PopoverAlign"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K8 ["Components"]
+  GETTABLEKS R10 R11 K16 ["Popover"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R12 R0 K8 ["Components"]
+  GETTABLEKS R11 R12 K17 ["Text"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R13 R0 K13 ["Enums"]
+  GETTABLEKS R12 R13 K18 ["InputSize"]
+  CALL R11 1 1
+  GETIMPORT R12 K6 [require]
+  GETTABLEKS R14 R0 K13 ["Enums"]
+  GETTABLEKS R13 R14 K19 ["ButtonVariant"]
+  CALL R12 1 1
+  GETIMPORT R13 K6 [require]
+  GETTABLEKS R15 R0 K13 ["Enums"]
+  GETTABLEKS R14 R15 K20 ["DialogSize"]
+  CALL R13 1 1
+  GETIMPORT R14 K6 [require]
+  GETTABLEKS R16 R0 K8 ["Components"]
+  GETTABLEKS R15 R16 K21 ["Sheet"]
+  CALL R14 1 1
+  DUPCLOSURE R15 K22 [PROTO_0]
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  CAPTURE VAL R6
+  CAPTURE VAL R11
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  CAPTURE VAL R4
+  CAPTURE VAL R10
+  DUPTABLE R16 K26 [{"summary", "stories", "controls"}]
+  LOADK R17 K27 ["Elevation"]
+  SETTABLEKS R17 R16 K23 ["summary"]
+  NEWTABLE R17 0 3
+  DUPTABLE R18 K30 [{"name", "story"}]
+  LOADK R19 K31 ["Nested Popovers"]
+  SETTABLEKS R19 R18 K28 ["name"]
+  DUPCLOSURE R19 K32 [PROTO_4]
+  CAPTURE VAL R2
+  CAPTURE VAL R4
+  CAPTURE VAL R9
+  CAPTURE VAL R5
+  CAPTURE VAL R12
+  CAPTURE VAL R8
+  CAPTURE VAL R7
+  CAPTURE VAL R10
+  CAPTURE VAL R11
+  SETTABLEKS R19 R18 K29 ["story"]
+  DUPTABLE R19 K30 [{"name", "story"}]
+  LOADK R20 K33 ["Nested Sheets"]
+  SETTABLEKS R20 R19 K28 ["name"]
+  DUPCLOSURE R20 K34 [PROTO_11]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R12
+  CAPTURE VAL R14
+  CAPTURE VAL R10
+  CAPTURE VAL R4
+  CAPTURE VAL R15
+  SETTABLEKS R20 R19 K29 ["story"]
+  DUPTABLE R20 K30 [{"name", "story"}]
+  LOADK R21 K35 ["Nested Dialogs"]
+  SETTABLEKS R21 R20 K28 ["name"]
+  DUPCLOSURE R21 K36 [PROTO_18]
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  CAPTURE VAL R12
+  CAPTURE VAL R3
+  CAPTURE VAL R13
+  CAPTURE VAL R4
+  CAPTURE VAL R15
+  CAPTURE VAL R10
+  SETTABLEKS R21 R20 K29 ["story"]
+  SETLIST R17 R18 3 [1]
+  SETTABLEKS R17 R16 K24 ["stories"]
+  NEWTABLE R17 0 0
+  SETTABLEKS R17 R16 K25 ["controls"]
+  RETURN R16 1

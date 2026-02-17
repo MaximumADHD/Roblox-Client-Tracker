@@ -49,6 +49,7 @@ local getEngineFeatureEngineUGCIsValidR15AnimationRigCheck =
 local getEngineFeatureEngineUGCValidatePropertiesSensible =
 	require(root.flags.getEngineFeatureEngineUGCValidatePropertiesSensible)
 local getFFlagUGCValidateCheckHSRFileDataFix = require(root.flags.getFFlagUGCValidateCheckHSRFileDataFix)
+local getFFlagUGCValidateHSRMeshIds = require(root.flags.getFFlagUGCValidateHSRMeshIds)
 
 local getFFlagUGCValidationEyebrowEyelashSupport = require(root.flags.getFFlagUGCValidationEyebrowEyelashSupport)
 local getFFlagUGCValidationMakeupSupport = require(root.flags.getFFlagUGCValidationMakeupSupport)
@@ -329,6 +330,10 @@ end
 
 if getFFlagUGCValidateCheckHSRFileDataFix() then
 	Analytics.ErrorType.validateHSR_FileDataInvalid = "validateHSR_FileDataInvalid"
+end
+
+if getFFlagUGCValidateHSRMeshIds() then
+	Analytics.ErrorType.validataHSR_HSRMeshIdsMismatch = "validataHSR_HSRMeshIdsMismatch"
 end
 
 if getFFlagUGCValidationMakeupSupport() then

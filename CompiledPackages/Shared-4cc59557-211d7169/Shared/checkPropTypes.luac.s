@@ -1,0 +1,283 @@
+PROTO_0:
+  GETIMPORT R2 K1 [_G]
+  GETTABLEKS R1 R2 K2 ["__DEV__"]
+  JUMPIFNOT R1 [+26]
+  JUMPIFNOT R0 [+20]
+  GETTABLEKS R1 R0 K3 ["_owner"]
+  GETUPVAL R2 0
+  GETTABLEKS R3 R0 K4 ["type"]
+  GETTABLEKS R4 R0 K5 ["_source"]
+  JUMPIFEQKNIL R1 [+4]
+  GETTABLEKS R5 R1 K4 ["type"]
+  JUMPIF R5 [+1]
+  LOADNIL R5
+  CALL R2 3 1
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K6 ["setExtraStackFrame"]
+  MOVE R4 R2
+  CALL R3 1 0
+  RETURN R0 0
+  GETUPVAL R2 1
+  GETTABLEKS R1 R2 K6 ["setExtraStackFrame"]
+  LOADNIL R2
+  CALL R1 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETUPVAL R3 1
+  GETTABLE R1 R2 R3
+  FASTCALL1 TYPEOF R1 [+2]
+  GETIMPORT R0 K1 [typeof]
+  CALL R0 1 1
+  JUMPIFEQKS R0 K2 ["function"] [+31]
+  GETUPVAL R1 2
+  GETTABLEKS R0 R1 K3 ["new"]
+  GETUPVAL R12 3
+  ORK R2 R12 K4 ["React class"]
+  LOADK R3 K5 [": "]
+  GETUPVAL R4 4
+  LOADK R5 K6 [" type `"]
+  GETUPVAL R6 1
+  LOADK R7 K7 ["` is invalid; "]
+  LOADK R8 K8 ["it must be a function, usually from the `prop-types` package, but received `"]
+  GETUPVAL R14 0
+  GETUPVAL R15 1
+  GETTABLE R13 R14 R15
+  FASTCALL1 TYPEOF R13 [+2]
+  GETIMPORT R12 K1 [typeof]
+  CALL R12 1 1
+  MOVE R9 R12
+  LOADK R10 K9 ["`."]
+  LOADK R11 K10 ["This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`."]
+  CONCAT R1 R2 R11
+  CALL R0 1 1
+  LOADK R1 K11 ["Invariant Violation"]
+  SETTABLEKS R1 R0 K12 ["name"]
+  GETIMPORT R1 K14 [error]
+  MOVE R2 R0
+  CALL R1 1 0
+  GETUPVAL R1 0
+  GETUPVAL R2 1
+  GETTABLE R0 R1 R2
+  GETUPVAL R1 5
+  GETUPVAL R2 1
+  GETUPVAL R3 3
+  GETUPVAL R4 4
+  LOADNIL R5
+  LOADK R6 K15 ["SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED"]
+  CALL R0 6 -1
+  RETURN R0 -1
+
+PROTO_2:
+  GETIMPORT R7 K1 [_G]
+  GETTABLEKS R6 R7 K2 ["__DEV__"]
+  JUMPIF R6 [+5]
+  GETIMPORT R7 K1 [_G]
+  GETTABLEKS R6 R7 K3 ["__DISABLE_ALL_WARNINGS_EXCEPT_PROP_VALIDATION__"]
+  JUMPIFNOT R6 [+211]
+  JUMPIFNOT R0 [+8]
+  JUMPIFNOT R1 [+7]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K4 ["warn"]
+  LOADK R8 K5 ["You've defined both propTypes and validateProps on "]
+  ORK R9 R4 K6 ["a component"]
+  CONCAT R7 R8 R9
+  CALL R6 1 0
+  JUMPIFNOT R1 [+42]
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R7 R1
+  GETIMPORT R6 K8 [typeof]
+  CALL R6 1 1
+  JUMPIFEQKS R6 K9 ["function"] [+16]
+  GETUPVAL R7 0
+  GETTABLEKS R6 R7 K10 ["error"]
+  LOADK R7 K11 ["validateProps must be a function, but it is a %s.
+Check the definition of the component %q."]
+  FASTCALL1 TYPEOF R1 [+3]
+  MOVE R10 R1
+  GETIMPORT R9 K8 [typeof]
+  CALL R9 1 1
+  ORK R10 R4 K12 [""]
+  NAMECALL R7 R7 K13 ["format"]
+  CALL R7 3 -1
+  CALL R6 -1 0
+  JUMP [+20]
+  MOVE R6 R1
+  MOVE R7 R2
+  CALL R6 1 2
+  JUMPIF R6 [+16]
+  ORK R7 R7 K14 ["<Validator function did not supply a message>"]
+  LOADK R8 K15 ["validateProps failed on a %s type in %s: %s"]
+  MOVE R10 R3
+  ORK R11 R4 K16 ["<UNKNOWN Component>"]
+  FASTCALL1 TOSTRING R7 [+3]
+  MOVE R13 R7
+  GETIMPORT R12 K18 [tostring]
+  CALL R12 1 1
+  NAMECALL R8 R8 K13 ["format"]
+  CALL R8 4 1
+  GETIMPORT R9 K19 [error]
+  MOVE R10 R8
+  CALL R9 1 0
+  JUMPIFNOT R0 [+158]
+  GETIMPORT R6 K21 [pairs]
+  MOVE R7 R0
+  CALL R6 1 3
+  FORGPREP_NEXT R6
+  GETIMPORT R11 K23 [pcall]
+  NEWCLOSURE R12 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R9
+  CAPTURE UPVAL U1
+  CAPTURE VAL R4
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CALL R11 1 2
+  FASTCALL1 TYPEOF R12 [+3]
+  MOVE R15 R12
+  GETIMPORT R14 K8 [typeof]
+  CALL R14 1 1
+  JUMPIFEQKS R14 K24 ["table"] [+2]
+  LOADB R13 0 +1
+  LOADB R13 1
+  JUMPIFEQKNIL R12 [+59]
+  JUMPIF R13 [+57]
+  GETIMPORT R15 K1 [_G]
+  GETTABLEKS R14 R15 K2 ["__DEV__"]
+  JUMPIFNOT R14 [+26]
+  JUMPIFNOT R5 [+20]
+  GETTABLEKS R14 R5 K25 ["_owner"]
+  GETUPVAL R15 2
+  GETTABLEKS R16 R5 K26 ["type"]
+  GETTABLEKS R17 R5 K27 ["_source"]
+  JUMPIFEQKNIL R14 [+4]
+  GETTABLEKS R18 R14 K26 ["type"]
+  JUMPIF R18 [+1]
+  LOADNIL R18
+  CALL R15 3 1
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K28 ["setExtraStackFrame"]
+  MOVE R17 R15
+  CALL R16 1 0
+  JUMP [+5]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K28 ["setExtraStackFrame"]
+  LOADNIL R15
+  CALL R14 1 0
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K10 ["error"]
+  GETIMPORT R15 K30 [string.format]
+  LOADK R16 K31 ["%s: type specification of %s `%s` is invalid; the type checker function must return `nil` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument)."]
+  ORK R17 R4 K32 ["React class"]
+  MOVE R18 R3
+  MOVE R19 R9
+  FASTCALL1 TYPEOF R12 [+3]
+  MOVE R21 R12
+  GETIMPORT R20 K8 [typeof]
+  CALL R20 1 1
+  CALL R15 5 -1
+  CALL R14 -1 0
+  GETIMPORT R15 K1 [_G]
+  GETTABLEKS R14 R15 K2 ["__DEV__"]
+  JUMPIFNOT R14 [+5]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K28 ["setExtraStackFrame"]
+  LOADNIL R15
+  CALL R14 1 0
+  JUMPIFNOT R13 [+71]
+  GETUPVAL R15 4
+  GETTABLEKS R16 R12 K33 ["message"]
+  GETTABLE R14 R15 R16
+  JUMPIFNOTEQKNIL R14 [+66]
+  GETUPVAL R14 4
+  GETTABLEKS R16 R12 K33 ["message"]
+  FASTCALL1 TOSTRING R16 [+2]
+  GETIMPORT R15 K18 [tostring]
+  CALL R15 1 1
+  LOADB R16 1
+  SETTABLE R16 R14 R15
+  GETIMPORT R15 K1 [_G]
+  GETTABLEKS R14 R15 K2 ["__DEV__"]
+  JUMPIFNOT R14 [+26]
+  JUMPIFNOT R5 [+20]
+  GETTABLEKS R14 R5 K25 ["_owner"]
+  GETUPVAL R15 2
+  GETTABLEKS R16 R5 K26 ["type"]
+  GETTABLEKS R17 R5 K27 ["_source"]
+  JUMPIFEQKNIL R14 [+4]
+  GETTABLEKS R18 R14 K26 ["type"]
+  JUMPIF R18 [+1]
+  LOADNIL R18
+  CALL R15 3 1
+  GETUPVAL R17 3
+  GETTABLEKS R16 R17 K28 ["setExtraStackFrame"]
+  MOVE R17 R15
+  CALL R16 1 0
+  JUMP [+5]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K28 ["setExtraStackFrame"]
+  LOADNIL R15
+  CALL R14 1 0
+  GETUPVAL R15 0
+  GETTABLEKS R14 R15 K4 ["warn"]
+  GETIMPORT R15 K30 [string.format]
+  LOADK R16 K34 ["Failed %s type: %s"]
+  MOVE R17 R3
+  GETTABLEKS R19 R12 K33 ["message"]
+  FASTCALL1 TOSTRING R19 [+2]
+  GETIMPORT R18 K18 [tostring]
+  CALL R18 1 1
+  CALL R15 3 -1
+  CALL R14 -1 0
+  GETIMPORT R15 K1 [_G]
+  GETTABLEKS R14 R15 K2 ["__DEV__"]
+  JUMPIFNOT R14 [+5]
+  GETUPVAL R15 3
+  GETTABLEKS R14 R15 K28 ["setExtraStackFrame"]
+  LOADNIL R15
+  CALL R14 1 0
+  FORGLOOP R6 2 [-152]
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R2 K1 [script]
+  GETTABLEKS R1 R2 K2 ["Parent"]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K4 [require]
+  GETTABLEKS R2 R0 K5 ["LuauPolyfill"]
+  CALL R1 1 1
+  GETTABLEKS R2 R1 K6 ["Error"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R5 R0 K7 ["Shared"]
+  GETTABLEKS R4 R5 K8 ["ReactElementType"]
+  CALL R3 1 1
+  GETIMPORT R4 K4 [require]
+  GETIMPORT R7 K1 [script]
+  GETTABLEKS R6 R7 K2 ["Parent"]
+  GETTABLEKS R5 R6 K9 ["console"]
+  CALL R4 1 1
+  NEWTABLE R5 0 0
+  GETIMPORT R6 K4 [require]
+  GETIMPORT R9 K1 [script]
+  GETTABLEKS R8 R9 K2 ["Parent"]
+  GETTABLEKS R7 R8 K10 ["ReactComponentStackFrame"]
+  CALL R6 1 1
+  GETTABLEKS R7 R6 K11 ["describeUnknownElementTypeFrameInDEV"]
+  GETIMPORT R8 K4 [require]
+  GETIMPORT R11 K1 [script]
+  GETTABLEKS R10 R11 K2 ["Parent"]
+  GETTABLEKS R9 R10 K12 ["ReactSharedInternals"]
+  CALL R8 1 1
+  GETTABLEKS R9 R8 K13 ["ReactDebugCurrentFrame"]
+  DUPCLOSURE R10 K14 [PROTO_0]
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  DUPCLOSURE R11 K15 [PROTO_2]
+  CAPTURE VAL R4
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R9
+  CAPTURE VAL R5
+  RETURN R11 1

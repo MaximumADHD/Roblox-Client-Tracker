@@ -91,6 +91,19 @@ PROTO_0:
   RETURN R4 -1
 
 PROTO_1:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["Request"]
+  GETUPVAL R1 1
+  CALL R0 1 1
+  DUPCLOSURE R2 K1 [PROTO_0]
+  CAPTURE UPVAL U2
+  CAPTURE UPVAL U3
+  CAPTURE UPVAL U4
+  NAMECALL R0 R0 K2 ["andThen"]
+  CALL R0 2 -1
+  RETURN R0 -1
+
+PROTO_2:
   DUPTABLE R1 K3 [{"Method", "Url", "Headers"}]
   LOADK R2 K4 ["GET"]
   SETTABLEKS R2 R1 K0 ["Method"]
@@ -142,60 +155,71 @@ PROTO_1:
   LOADK R3 K25 ["application/json"]
   SETTABLEKS R3 R2 K26 ["Content-Type"]
   SETTABLEKS R2 R1 K2 ["Headers"]
-  GETTABLEKS R2 R0 K10 ["cursor"]
-  JUMPIFNOTEQKNIL R2 [+67]
-  GETUPVAL R2 2
+  GETTABLEKS R3 R0 K10 ["cursor"]
+  JUMPIFEQKNIL R3 [+2]
+  LOADB R2 0 +1
+  LOADB R2 1
+  JUMPIFNOT R2 [+5]
+  GETUPVAL R5 2
+  GETTABLEKS R4 R5 K28 ["FIntPVHFirstPageDelayMs"]
+  DIVK R3 R4 K27 [1000]
+  JUMP [+1]
+  LOADN R3 0
+  JUMPIFNOT R2 [+66]
   GETUPVAL R4 3
-  DUPTABLE R5 K35 [{"targetPlaceId", "pageSize", "filterSaveType", "filterIsPublished", "filterHasNotes", "filterContributor", "filterStartTime", "filterEndTime", "searchTermLength"}]
-  GETTABLEKS R6 R0 K8 ["placeId"]
-  SETTABLEKS R6 R5 K27 ["targetPlaceId"]
-  GETTABLEKS R6 R0 K18 ["pageSize"]
-  SETTABLEKS R6 R5 K18 ["pageSize"]
-  GETTABLEKS R6 R0 K13 ["saveType"]
-  SETTABLEKS R6 R5 K28 ["filterSaveType"]
-  GETTABLEKS R6 R0 K20 ["published"]
-  SETTABLEKS R6 R5 K29 ["filterIsPublished"]
-  GETTABLEKS R6 R0 K12 ["hasNotes"]
-  SETTABLEKS R6 R5 K30 ["filterHasNotes"]
-  GETTABLEKS R6 R0 K17 ["contributor"]
-  SETTABLEKS R6 R5 K31 ["filterContributor"]
-  GETTABLEKS R7 R0 K22 ["startDate"]
-  JUMPIFNOT R7 [+6]
-  GETTABLEKS R6 R0 K22 ["startDate"]
-  NAMECALL R6 R6 K23 ["ToIsoDate"]
-  CALL R6 1 1
+  GETUPVAL R6 4
+  DUPTABLE R7 K37 [{"targetPlaceId", "pageSize", "filterSaveType", "filterIsPublished", "filterHasNotes", "filterContributor", "filterStartTime", "filterEndTime", "searchTermLength"}]
+  GETTABLEKS R8 R0 K8 ["placeId"]
+  SETTABLEKS R8 R7 K29 ["targetPlaceId"]
+  GETTABLEKS R8 R0 K18 ["pageSize"]
+  SETTABLEKS R8 R7 K18 ["pageSize"]
+  GETTABLEKS R8 R0 K13 ["saveType"]
+  SETTABLEKS R8 R7 K30 ["filterSaveType"]
+  GETTABLEKS R8 R0 K20 ["published"]
+  SETTABLEKS R8 R7 K31 ["filterIsPublished"]
+  GETTABLEKS R8 R0 K12 ["hasNotes"]
+  SETTABLEKS R8 R7 K32 ["filterHasNotes"]
+  GETTABLEKS R8 R0 K17 ["contributor"]
+  SETTABLEKS R8 R7 K33 ["filterContributor"]
+  GETTABLEKS R9 R0 K22 ["startDate"]
+  JUMPIFNOT R9 [+6]
+  GETTABLEKS R8 R0 K22 ["startDate"]
+  NAMECALL R8 R8 K23 ["ToIsoDate"]
+  CALL R8 1 1
   JUMP [+1]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K32 ["filterStartTime"]
-  GETTABLEKS R7 R0 K24 ["endDate"]
-  JUMPIFNOT R7 [+6]
-  GETTABLEKS R6 R0 K24 ["endDate"]
-  NAMECALL R6 R6 K23 ["ToIsoDate"]
-  CALL R6 1 1
+  LOADNIL R8
+  SETTABLEKS R8 R7 K34 ["filterStartTime"]
+  GETTABLEKS R9 R0 K24 ["endDate"]
+  JUMPIFNOT R9 [+6]
+  GETTABLEKS R8 R0 K24 ["endDate"]
+  NAMECALL R8 R8 K23 ["ToIsoDate"]
+  CALL R8 1 1
   JUMP [+1]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K33 ["filterEndTime"]
-  GETTABLEKS R7 R0 K21 ["search"]
-  JUMPIFNOT R7 [+6]
-  GETIMPORT R6 K38 [utf8.len]
-  GETTABLEKS R7 R0 K21 ["search"]
-  CALL R6 1 1
+  LOADNIL R8
+  SETTABLEKS R8 R7 K35 ["filterEndTime"]
+  GETTABLEKS R9 R0 K21 ["search"]
+  JUMPIFNOT R9 [+6]
+  GETIMPORT R8 K40 [utf8.len]
+  GETTABLEKS R9 R0 K21 ["search"]
+  CALL R8 1 1
   JUMP [+1]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K34 ["searchTermLength"]
-  NAMECALL R2 R2 K39 ["logRobloxTelemetryEvent"]
-  CALL R2 3 0
-  GETUPVAL R3 4
-  GETTABLEKS R2 R3 K40 ["Request"]
-  MOVE R3 R1
-  CALL R2 1 1
-  DUPCLOSURE R4 K41 [PROTO_0]
-  CAPTURE UPVAL U5
+  LOADNIL R8
+  SETTABLEKS R8 R7 K36 ["searchTermLength"]
+  NAMECALL R4 R4 K41 ["logRobloxTelemetryEvent"]
+  CALL R4 3 0
+  GETUPVAL R5 5
+  GETTABLEKS R4 R5 K42 ["delay"]
+  MOVE R5 R3
+  CALL R4 1 1
+  NEWCLOSURE R6 P0
   CAPTURE UPVAL U6
+  CAPTURE VAL R1
+  CAPTURE UPVAL U7
+  CAPTURE UPVAL U5
   CAPTURE UPVAL U1
-  NAMECALL R2 R2 K42 ["andThen"]
-  CALL R2 2 -1
-  RETURN R2 -1
+  NAMECALL R4 R4 K43 ["andThen"]
+  CALL R4 2 -1
+  RETURN R4 -1
 
 MAIN:
   PREPVARARGS 0
@@ -204,60 +228,66 @@ MAIN:
   NAMECALL R0 R0 K3 ["FindFirstAncestor"]
   CALL R0 2 1
   GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Framework"]
+  GETTABLEKS R4 R0 K6 ["Bin"]
+  GETTABLEKS R3 R4 K7 ["Common"]
+  GETTABLEKS R2 R3 K8 ["flags"]
   CALL R1 1 1
   GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Promise"]
+  GETTABLEKS R4 R0 K9 ["Packages"]
+  GETTABLEKS R3 R4 K10 ["Framework"]
   CALL R2 1 1
   GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["TelemetryProtocol"]
+  GETTABLEKS R5 R0 K9 ["Packages"]
+  GETTABLEKS R4 R5 K11 ["Promise"]
   CALL R3 1 1
-  GETTABLEKS R5 R0 K10 ["Src"]
-  GETTABLEKS R4 R5 K11 ["Contexts"]
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R6 R4 K12 ["NetworkContext"]
-  CALL R5 1 1
-  GETTABLEKS R7 R1 K13 ["RobloxAPI"]
-  GETTABLEKS R6 R7 K14 ["Url"]
-  GETTABLEKS R7 R6 K15 ["new"]
-  CALL R7 0 1
-  GETTABLEKS R9 R0 K10 ["Src"]
-  GETTABLEKS R8 R9 K16 ["Network"]
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R10 R8 K17 ["Http"]
-  CALL R9 1 1
+  GETIMPORT R4 K5 [require]
+  GETTABLEKS R6 R0 K9 ["Packages"]
+  GETTABLEKS R5 R6 K12 ["TelemetryProtocol"]
+  CALL R4 1 1
+  GETTABLEKS R6 R0 K13 ["Src"]
+  GETTABLEKS R5 R6 K14 ["Contexts"]
+  GETIMPORT R6 K5 [require]
+  GETTABLEKS R7 R5 K15 ["NetworkContext"]
+  CALL R6 1 1
+  GETTABLEKS R8 R2 K16 ["RobloxAPI"]
+  GETTABLEKS R7 R8 K17 ["Url"]
+  GETTABLEKS R8 R7 K18 ["new"]
+  CALL R8 0 1
+  GETTABLEKS R10 R0 K13 ["Src"]
+  GETTABLEKS R9 R10 K19 ["Network"]
   GETIMPORT R10 K5 [require]
-  GETTABLEKS R11 R8 K18 ["GetVersionHistoryModel"]
+  GETTABLEKS R11 R9 K20 ["Http"]
   CALL R10 1 1
-  GETTABLEKS R11 R3 K15 ["new"]
-  CALL R11 0 1
-  GETTABLEKS R13 R0 K10 ["Src"]
-  GETTABLEKS R12 R13 K19 ["Events"]
-  GETIMPORT R13 K5 [require]
-  GETTABLEKS R14 R12 K20 ["GetHistoryEvent"]
-  CALL R13 1 1
+  GETIMPORT R11 K5 [require]
+  GETTABLEKS R12 R9 K21 ["GetVersionHistoryModel"]
+  CALL R11 1 1
+  GETTABLEKS R12 R4 K18 ["new"]
+  CALL R12 0 1
+  GETTABLEKS R14 R0 K13 ["Src"]
+  GETTABLEKS R13 R14 K22 ["Events"]
   GETIMPORT R14 K5 [require]
-  GETTABLEKS R16 R0 K10 ["Src"]
-  GETTABLEKS R15 R16 K21 ["Types"]
+  GETTABLEKS R15 R13 K23 ["GetHistoryEvent"]
   CALL R14 1 1
-  NEWTABLE R15 4 0
-  LOADN R16 1
-  SETTABLEKS R16 R15 K22 ["Auto"]
-  LOADN R16 2
-  SETTABLEKS R16 R15 K23 ["Manual"]
-  LOADK R16 K22 ["Auto"]
-  SETTABLEN R16 R15 1
-  LOADK R16 K23 ["Manual"]
-  SETTABLEN R16 R15 2
-  DUPCLOSURE R16 K24 [PROTO_1]
-  CAPTURE VAL R7
-  CAPTURE VAL R15
-  CAPTURE VAL R11
-  CAPTURE VAL R13
-  CAPTURE VAL R9
+  GETIMPORT R15 K5 [require]
+  GETTABLEKS R17 R0 K13 ["Src"]
+  GETTABLEKS R16 R17 K24 ["Types"]
+  CALL R15 1 1
+  NEWTABLE R16 4 0
+  LOADN R17 1
+  SETTABLEKS R17 R16 K25 ["Auto"]
+  LOADN R17 2
+  SETTABLEKS R17 R16 K26 ["Manual"]
+  LOADK R17 K25 ["Auto"]
+  SETTABLEN R17 R16 1
+  LOADK R17 K26 ["Manual"]
+  SETTABLEN R17 R16 2
+  DUPCLOSURE R17 K27 [PROTO_2]
+  CAPTURE VAL R8
+  CAPTURE VAL R16
+  CAPTURE VAL R1
+  CAPTURE VAL R12
+  CAPTURE VAL R14
+  CAPTURE VAL R3
   CAPTURE VAL R10
-  CAPTURE VAL R2
-  RETURN R16 1
+  CAPTURE VAL R11
+  RETURN R17 1

@@ -1,0 +1,55 @@
+PROTO_0:
+  GETUPVAL R1 0
+  MOVE R2 R0
+  GETUPVAL R3 1
+  CALL R1 2 1
+  GETUPVAL R3 2
+  GETTABLEKS R2 R3 K0 ["createElement"]
+  GETUPVAL R4 3
+  GETTABLEKS R3 R4 K1 ["Provider"]
+  DUPTABLE R4 K3 [{"value"}]
+  SETTABLEKS R1 R4 K2 ["value"]
+  GETTABLEKS R5 R1 K4 ["children"]
+  CALL R2 3 -1
+  RETURN R2 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R1 K1 [script]
+  GETTABLEKS R0 R1 K2 ["Parent"]
+  GETIMPORT R1 K1 [script]
+  LOADK R3 K3 ["Foundation"]
+  NAMECALL R1 R1 K4 ["FindFirstAncestor"]
+  CALL R1 2 1
+  GETTABLEKS R2 R1 K2 ["Parent"]
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R2 K7 ["React"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R0 K8 ["ResponsiveContext"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R8 R1 K9 ["Utility"]
+  GETTABLEKS R7 R8 K10 ["Responsive"]
+  GETTABLEKS R6 R7 K11 ["BreakpointConfig"]
+  CALL R5 1 1
+  GETIMPORT R6 K6 [require]
+  GETTABLEKS R9 R1 K9 ["Utility"]
+  GETTABLEKS R8 R9 K10 ["Responsive"]
+  GETTABLEKS R7 R8 K12 ["GridConfig"]
+  CALL R6 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R1 K9 ["Utility"]
+  GETTABLEKS R8 R9 K13 ["withDefaults"]
+  CALL R7 1 1
+  DUPTABLE R8 K15 [{"config"}]
+  DUPTABLE R9 K18 [{"breakpoint", "grid"}]
+  SETTABLEKS R5 R9 K16 ["breakpoint"]
+  SETTABLEKS R6 R9 K17 ["grid"]
+  SETTABLEKS R9 R8 K14 ["config"]
+  DUPCLOSURE R9 K19 [PROTO_0]
+  CAPTURE VAL R7
+  CAPTURE VAL R8
+  CAPTURE VAL R3
+  CAPTURE VAL R4
+  RETURN R9 1

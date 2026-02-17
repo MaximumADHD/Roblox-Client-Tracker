@@ -1,0 +1,170 @@
+PROTO_0:
+  PREPVARARGS 0
+  GETUPVAL R0 0
+  GETVARARGS R2 -1
+  NAMECALL R0 R0 K0 ["fn"]
+  CALL R0 -1 -1
+  RETURN R0 -1
+
+PROTO_1:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["clearAllMocks"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_2:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["resetAllMocks"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_3:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["useFakeTimers"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_4:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["useRealTimers"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_5:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["runAllTicks"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_6:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["runAllTimers"]
+  CALL R0 1 -1
+  RETURN R0 -1
+
+PROTO_7:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["advanceTimersByTime"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_8:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["advanceTimersByTime"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_9:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["runOnlyPendingTimers"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_10:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["advanceTimerstoNextTimer"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_11:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["clearAllTimers"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["getTimerCount"]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_13:
+  GETUPVAL R1 0
+  MOVE R3 R0
+  NAMECALL R1 R1 K0 ["setSystemTime"]
+  CALL R1 2 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R0 0
+  NAMECALL R0 R0 K0 ["getRealSystemTime"]
+  CALL R0 1 0
+  RETURN R0 0
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  GETTABLEKS R1 R0 K2 ["Parent"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R1 K5 ["JestMock"]
+  CALL R3 1 1
+  GETTABLEKS R2 R3 K6 ["ModuleMocker"]
+  GETIMPORT R3 K4 [require]
+  GETTABLEKS R4 R1 K7 ["JestFakeTimers"]
+  CALL R3 1 1
+  GETTABLEKS R4 R3 K8 ["new"]
+  CALL R4 0 1
+  GETTABLEKS R5 R2 K8 ["new"]
+  CALL R5 0 1
+  DUPTABLE R6 K27 [{"fn", "clearAllMocks", "resetAllMocks", "_mock", "useFakeTimers", "useRealTimers", "runAllTicks", "runAllTimers", "advanceTimersByTime", "runTimersToTime", "runOnlyPendingTimers", "advanceTimerstoNextTimer", "clearAllTimers", "getTimerCount", "setSystemTime", "getRealSystemTime", "testEnv", "_fakeTimers"}]
+  DUPCLOSURE R7 K28 [PROTO_0]
+  CAPTURE VAL R5
+  SETTABLEKS R7 R6 K9 ["fn"]
+  DUPCLOSURE R7 K29 [PROTO_1]
+  CAPTURE VAL R5
+  SETTABLEKS R7 R6 K10 ["clearAllMocks"]
+  DUPCLOSURE R7 K30 [PROTO_2]
+  CAPTURE VAL R5
+  SETTABLEKS R7 R6 K11 ["resetAllMocks"]
+  SETTABLEKS R5 R6 K12 ["_mock"]
+  DUPCLOSURE R7 K31 [PROTO_3]
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K13 ["useFakeTimers"]
+  DUPCLOSURE R7 K32 [PROTO_4]
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K14 ["useRealTimers"]
+  DUPCLOSURE R7 K33 [PROTO_5]
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K15 ["runAllTicks"]
+  DUPCLOSURE R7 K34 [PROTO_6]
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K16 ["runAllTimers"]
+  DUPCLOSURE R7 K35 [PROTO_7]
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K17 ["advanceTimersByTime"]
+  DUPCLOSURE R7 K36 [PROTO_8]
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K18 ["runTimersToTime"]
+  DUPCLOSURE R7 K37 [PROTO_9]
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K19 ["runOnlyPendingTimers"]
+  DUPCLOSURE R7 K38 [PROTO_10]
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K20 ["advanceTimerstoNextTimer"]
+  DUPCLOSURE R7 K39 [PROTO_11]
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K21 ["clearAllTimers"]
+  DUPCLOSURE R7 K40 [PROTO_12]
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K22 ["getTimerCount"]
+  DUPCLOSURE R7 K41 [PROTO_13]
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K23 ["setSystemTime"]
+  DUPCLOSURE R7 K42 [PROTO_14]
+  CAPTURE VAL R4
+  SETTABLEKS R7 R6 K24 ["getRealSystemTime"]
+  DUPTABLE R7 K47 [{"delay", "tick", "DateTime", "os"}]
+  GETTABLEKS R8 R4 K48 ["delayOverride"]
+  SETTABLEKS R8 R7 K43 ["delay"]
+  GETTABLEKS R8 R4 K49 ["tickOverride"]
+  SETTABLEKS R8 R7 K44 ["tick"]
+  GETTABLEKS R8 R4 K50 ["dateTimeOverride"]
+  SETTABLEKS R8 R7 K45 ["DateTime"]
+  GETTABLEKS R8 R4 K51 ["osOverride"]
+  SETTABLEKS R8 R7 K46 ["os"]
+  SETTABLEKS R7 R6 K25 ["testEnv"]
+  SETTABLEKS R4 R6 K26 ["_fakeTimers"]
+  RETURN R6 1

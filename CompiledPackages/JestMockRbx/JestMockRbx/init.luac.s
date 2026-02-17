@@ -1,0 +1,12 @@
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  GETIMPORT R1 K3 [require]
+  GETTABLEKS R2 R0 K4 ["InstanceProxy"]
+  CALL R1 1 1
+  GETIMPORT R2 K3 [require]
+  GETTABLEKS R3 R0 K5 ["DataModelMocker"]
+  CALL R2 1 1
+  NEWTABLE R3 1 0
+  SETTABLEKS R2 R3 K5 ["DataModelMocker"]
+  RETURN R3 1

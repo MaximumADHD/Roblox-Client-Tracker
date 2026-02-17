@@ -1,3 +1,6 @@
+local CorePackages = game:GetService("CorePackages")
+local FFlagEnableModerateChatRemoteEvent = require(CorePackages.Workspace.Packages.SharedFlags).FFlagEnableModerateChatRemoteEvent
+
 return function()
 	assert(game:FindService("NetworkServer") ~= nil)
 	local networkPeer = game:GetService("NetworkServer")
@@ -14,13 +17,13 @@ return function()
 
 	-- modules/social/exp-chat/exp-chat-server/src/createDispatchRemoteFunction.lua
 	table.insert(allowList, "WhisperChat")
-	
+
 	-- content/scripts/CoreScripts/ServerCoreScripts/ServerInGameMenu.lua
 	table.insert(allowList, "GetServerType")
-	
+
 	-- content/scripts/CoreScripts/ServerCoreScripts/ServerBulkPurchaseEvent.lua
 	table.insert(allowList, "ServerSideBulkPurchaseEvent")
-	
+
 	-- content/scripts/CoreScripts/ServerCoreScripts/ServerSocialScript.lua
 	table.insert(allowList, "CanChatWith")
 	table.insert(allowList, "SetPlayerBlockList")
@@ -36,6 +39,9 @@ return function()
 	table.insert(allowList, "CreateOrJoinParty")
 	if game:DefineFastFlag("RemoteAllowListAddSocial", false) then
 		table.insert(allowList, "RequestPlayerProfileSettings")
+	end
+	if FFlagEnableModerateChatRemoteEvent then
+		table.insert(allowList, "ModerateChatSettingUpdated")
 	end
 
 	-- content/scripts/CoreScripts/ServerCoreScripts/ServerDialog.lua
@@ -66,4 +72,3 @@ return function()
 
 	networkPeer:InitializeRemoteAllowList(allowList)
 end
-

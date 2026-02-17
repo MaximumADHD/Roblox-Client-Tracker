@@ -87,6 +87,7 @@ local FFlagHideVoiceChatSelectorForFae = game:DefineFastFlag("HideVoiceChatSelec
 local FFlagCenterShiftLockOverride = game:DefineFastFlag("CenterShiftLockOverride", true)
 local FFlagVoiceChatSelectorReconnectFocus = game:DefineFastFlag("VoiceChatSelectorReconnectFocus2_AEGIS2", false)
 local FFlagMicroProfilerReadOnlyInformationLabel = game:DefineFastFlag("MicroProfilerReadOnlyInformationLabel", false)
+local FFlagEnableModerateChatRemoteEvent = SharedFlags.FFlagEnableModerateChatRemoteEvent
 
 local RobloxTranslator = require(CorePackages.Workspace.Packages.RobloxTranslator)
 
@@ -233,6 +234,7 @@ local GfxReset = require(script.Parent.Parent.GfxReset)
 local Create = require(CorePackages.Workspace.Packages.AppCommonLib).Create
 local throttle = require(CoreGui.RobloxGui.Modules.Settings.Pages.ShareGame.ThrottleFunctionCall)
 local BuilderIcons = require(CorePackages.Packages.BuilderIcons)
+local Signals = require(CorePackages.Packages.Signals)
 local migrationLookup = BuilderIcons.Migration
 
 ------------ Variables -------------------
@@ -3103,6 +3105,46 @@ local function Initialize()
 		end)
 	end
 
+	local function createChatModerationOptions()
+		local localization = {
+			title = "CoreScripts.InGameMenu.GameSettings.ReadOnlyView",
+			description = "CoreScripts.InGameMenu.GameSettings.ReadOnlyViewDescription",
+			on = "InGame.CommonUI.Label.On",
+			off = "InGame.CommonUI.Label.Off",
+		}
+
+		this.ChatModerationFrame, _, this.ChatModerationSelector = utility:AddNewRow(
+			this,
+			locales:Format(localization.title),
+			"Selector",
+			{ locales:Format(localization.off), locales:Format(localization.on) },
+			1,
+			nil,
+			locales:Format(localization.description)
+		)
+		this.ChatModerationFrame.LayoutOrder = SETTINGS_MENU_LAYOUT_ORDER["ChatModerationFrame"]
+		this.ChatModerationFrame.Visible = false
+
+		local getChatModerationStore = require(CorePackages.Workspace.Packages.ExpChat).Stores.GetChatModerationStore
+		local chatModerationStore = getChatModerationStore(false)
+
+		-- We do not dispose of this effect since this menu is not unmounted.
+		this.ChatModerationDisposeEffect = Signals.createEffect(function(scope)
+			this.ChatModerationFrame.Visible = chatModerationStore.getIsSettingVisible(scope)
+
+			local enabled = chatModerationStore.getIsSettingEnabled(scope)
+			local index = if enabled then 2 else 1
+			if this.ChatModerationSelector:GetSelectedIndex() ~= index then
+				this.ChatModerationSelector:SetSelectionIndex(index)
+			end
+		end)
+		this.ChatModerationSelector.IndexChanged:connect(function(newIndex)
+			chatModerationStore.setIsSettingEnabled(newIndex == 2)
+		end)
+		-- Fetches whether the user has the chat moderation permission. This will trigger updates in the store.
+		chatModerationStore.initialize()
+	end
+
 	------------------------------------------------------
 	------------------
 	------------------ Video Camera Device ---------------
@@ -4086,6 +4128,9 @@ local function Initialize()
 	if FFlagShowAntiHarassmentSettings and FFlagBadgeVisibilitySettingEnabled then
 		createBadgeVisibilityOptions()
 	end
+	if FFlagEnableModerateChatRemoteEvent then
+		createChatModerationOptions()
+	end
 
 	-- dev console option only shows for place/group place owners
 	createDeveloperConsoleOption()
@@ -4124,19 +4169,16 @@ local function Initialize()
 			layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.DisplayDivider,
 			parent = this.Page,
 		})
-		if isInExperienceUIVREnabled then
-			-- VR does not have language settings
-			if not isSpatial() then
-				this.LanguageHeader = renderSettingsHeader({
-					headerText = "CoreScripts.InGameMenu.GameSettings.LanguageHeader",
-					layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.LanguageHeader,
-					parent = this.Page,
-				})
-				this.LanguageDivider = renderSettingsDivider({
-					layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.LanguageDivider,
-					parent = this.Page,
-				})
-			end
+		if not isSpatial() then
+			this.LanguageHeader = renderSettingsHeader({
+				headerText = "CoreScripts.InGameMenu.GameSettings.LanguageHeader",
+				layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.LanguageHeader,
+				parent = this.Page,
+			})
+			this.LanguageDivider = renderSettingsDivider({
+				layoutOrder = SETTINGS_MENU_LAYOUT_ORDER.LanguageDivider,
+				parent = this.Page,
+			})
 		end
 		this.ViewAndControlsHeader = renderSettingsHeader({
 			headerText = "CoreScripts.InGameMenu.GameSettings.ViewandControlsHeader",

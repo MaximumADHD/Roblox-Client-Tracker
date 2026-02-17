@@ -1,0 +1,230 @@
+PROTO_0:
+  NEWTABLE R1 16 0
+  GETUPVAL R2 0
+  FASTCALL2 SETMETATABLE R1 R2 [+3]
+  GETIMPORT R0 K1 [setmetatable]
+  CALL R0 2 1
+  LOADK R1 K2 [""]
+  SETTABLEKS R1 R0 K3 ["name"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K4 ["title"]
+  LOADK R1 K2 [""]
+  SETTABLEKS R1 R0 K5 ["description"]
+  NEWTABLE R1 0 0
+  SETTABLEKS R1 R0 K6 ["args"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K7 ["outputSchema"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K8 ["annotations"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K9 ["execution"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K10 ["icons"]
+  LOADNIL R1
+  SETTABLEKS R1 R0 K11 ["handler"]
+  LOADB R1 0
+  SETTABLEKS R1 R0 K12 ["mcpDisabled"]
+  RETURN R0 1
+
+PROTO_1:
+  SETTABLEKS R1 R0 K0 ["name"]
+  RETURN R0 1
+
+PROTO_2:
+  SETTABLEKS R1 R0 K0 ["title"]
+  RETURN R0 1
+
+PROTO_3:
+  SETTABLEKS R1 R0 K0 ["description"]
+  RETURN R0 1
+
+PROTO_4:
+  SETTABLEKS R1 R0 K0 ["outputSchema"]
+  RETURN R0 1
+
+PROTO_5:
+  SETTABLEKS R1 R0 K0 ["annotations"]
+  RETURN R0 1
+
+PROTO_6:
+  SETTABLEKS R1 R0 K0 ["execution"]
+  RETURN R0 1
+
+PROTO_7:
+  SETTABLEKS R1 R0 K0 ["icons"]
+  RETURN R0 1
+
+PROTO_8:
+  GETTABLEKS R3 R0 K0 ["args"]
+  DUPTABLE R4 K3 [{"schema", "required"}]
+  SETTABLEKS R2 R4 K1 ["schema"]
+  LOADB R5 0
+  SETTABLEKS R5 R4 K2 ["required"]
+  SETTABLE R4 R3 R1
+  RETURN R0 1
+
+PROTO_9:
+  GETTABLEKS R3 R0 K0 ["args"]
+  DUPTABLE R4 K3 [{"schema", "required"}]
+  SETTABLEKS R2 R4 K1 ["schema"]
+  LOADB R5 1
+  SETTABLEKS R5 R4 K2 ["required"]
+  SETTABLE R4 R3 R1
+  RETURN R0 1
+
+PROTO_10:
+  SETTABLEKS R1 R0 K0 ["handler"]
+  RETURN R0 1
+
+PROTO_11:
+  SETTABLEKS R1 R0 K0 ["mcpDisabled"]
+  RETURN R0 1
+
+PROTO_12:
+  GETUPVAL R3 0
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETTABLE R8 R0 R7
+  JUMPIFNOTEQKNIL R8 [+10]
+  GETIMPORT R8 K1 [error]
+  LOADK R10 K2 ["Missing required argument: %*"]
+  MOVE R12 R7
+  NAMECALL R10 R10 K3 ["format"]
+  CALL R10 2 1
+  MOVE R9 R10
+  CALL R8 1 0
+  FORGLOOP R3 2 [-13]
+  GETIMPORT R3 K5 [pcall]
+  GETUPVAL R5 1
+  GETTABLEKS R4 R5 K6 ["handler"]
+  MOVE R5 R0
+  MOVE R6 R1
+  GETUPVAL R8 2
+  CALL R8 0 1
+  JUMPIFNOT R8 [+2]
+  MOVE R7 R2
+  JUMP [+1]
+  LOADNIL R7
+  CALL R3 4 2
+  JUMPIF R3 [+18]
+  GETUPVAL R5 3
+  CALL R5 0 1
+  FASTCALL1 TOSTRING R4 [+3]
+  MOVE R8 R4
+  GETIMPORT R7 K8 [tostring]
+  CALL R7 1 1
+  NAMECALL R5 R5 K9 ["addText"]
+  CALL R5 2 1
+  LOADB R7 1
+  NAMECALL R5 R5 K10 ["setError"]
+  CALL R5 2 1
+  NAMECALL R5 R5 K11 ["build"]
+  CALL R5 1 -1
+  RETURN R5 -1
+  RETURN R4 1
+
+PROTO_13:
+  GETTABLEKS R2 R0 K0 ["handler"]
+  FASTCALL2K ASSERT R2 K1 [+4]
+  LOADK R3 K1 ["Handler must be set before building the tool"]
+  GETIMPORT R1 K3 [assert]
+  CALL R1 2 0
+  NEWTABLE R1 0 0
+  NEWTABLE R2 0 0
+  GETTABLEKS R3 R0 K4 ["args"]
+  LOADNIL R4
+  LOADNIL R5
+  FORGPREP R3
+  GETTABLEKS R8 R7 K5 ["required"]
+  JUMPIFNOT R8 [+7]
+  FASTCALL2 TABLE_INSERT R2 R6 [+5]
+  MOVE R9 R2
+  MOVE R10 R6
+  GETIMPORT R8 K8 [table.insert]
+  CALL R8 2 0
+  GETIMPORT R8 K10 [table.clone]
+  GETTABLEKS R9 R7 K11 ["schema"]
+  CALL R8 1 1
+  SETTABLE R8 R1 R6
+  FORGLOOP R3 2 [-17]
+  NEWCLOSURE R3 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R0
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  DUPTABLE R4 K14 [{"type", "properties", "required"}]
+  LOADK R5 K15 ["object"]
+  SETTABLEKS R5 R4 K12 ["type"]
+  SETTABLEKS R1 R4 K13 ["properties"]
+  SETTABLEKS R2 R4 K5 ["required"]
+  DUPTABLE R5 K23 [{"name", "description", "inputSchema", "outputSchema", "annotations", "execution", "icons"}]
+  GETTABLEKS R6 R0 K16 ["name"]
+  SETTABLEKS R6 R5 K16 ["name"]
+  GETTABLEKS R6 R0 K17 ["description"]
+  SETTABLEKS R6 R5 K17 ["description"]
+  SETTABLEKS R4 R5 K18 ["inputSchema"]
+  GETTABLEKS R6 R0 K19 ["outputSchema"]
+  SETTABLEKS R6 R5 K19 ["outputSchema"]
+  GETTABLEKS R6 R0 K20 ["annotations"]
+  SETTABLEKS R6 R5 K20 ["annotations"]
+  GETTABLEKS R6 R0 K21 ["execution"]
+  SETTABLEKS R6 R5 K21 ["execution"]
+  GETTABLEKS R6 R0 K22 ["icons"]
+  SETTABLEKS R6 R5 K22 ["icons"]
+  DUPTABLE R6 K26 [{"definition", "handler", "mcpDisabled"}]
+  SETTABLEKS R5 R6 K24 ["definition"]
+  SETTABLEKS R3 R6 K0 ["handler"]
+  GETTABLEKS R7 R0 K25 ["mcpDisabled"]
+  SETTABLEKS R7 R6 K25 ["mcpDisabled"]
+  RETURN R6 1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["ModelContextProtocol"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R3 R0 K6 ["Util"]
+  GETTABLEKS R2 R3 K7 ["ToolResult"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R3 R0 K8 ["Types"]
+  CALL R2 1 1
+  GETIMPORT R3 K5 [require]
+  GETTABLEKS R5 R0 K9 ["Flags"]
+  GETTABLEKS R4 R5 K10 ["FFlagMCPAssistantLongRunningToolCalls"]
+  CALL R3 1 1
+  NEWTABLE R4 16 0
+  SETTABLEKS R4 R4 K11 ["__index"]
+  DUPCLOSURE R5 K12 [PROTO_0]
+  CAPTURE VAL R4
+  SETTABLEKS R5 R4 K13 ["define"]
+  DUPCLOSURE R5 K14 [PROTO_1]
+  SETTABLEKS R5 R4 K15 ["setName"]
+  DUPCLOSURE R5 K16 [PROTO_2]
+  SETTABLEKS R5 R4 K17 ["setTitle"]
+  DUPCLOSURE R5 K18 [PROTO_3]
+  SETTABLEKS R5 R4 K19 ["setDescription"]
+  DUPCLOSURE R5 K20 [PROTO_4]
+  SETTABLEKS R5 R4 K21 ["setOutputSchema"]
+  DUPCLOSURE R5 K22 [PROTO_5]
+  SETTABLEKS R5 R4 K23 ["setAnnotations"]
+  DUPCLOSURE R5 K24 [PROTO_6]
+  SETTABLEKS R5 R4 K25 ["setExecution"]
+  DUPCLOSURE R5 K26 [PROTO_7]
+  SETTABLEKS R5 R4 K27 ["setIcons"]
+  DUPCLOSURE R5 K28 [PROTO_8]
+  SETTABLEKS R5 R4 K29 ["addOptionalArgument"]
+  DUPCLOSURE R5 K30 [PROTO_9]
+  SETTABLEKS R5 R4 K31 ["addArgument"]
+  DUPCLOSURE R5 K32 [PROTO_10]
+  SETTABLEKS R5 R4 K33 ["setHandler"]
+  DUPCLOSURE R5 K34 [PROTO_11]
+  SETTABLEKS R5 R4 K35 ["setHiddenInRegistry"]
+  DUPCLOSURE R5 K36 [PROTO_13]
+  CAPTURE VAL R3
+  CAPTURE VAL R1
+  SETTABLEKS R5 R4 K37 ["build"]
+  RETURN R4 1

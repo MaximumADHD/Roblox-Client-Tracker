@@ -7,6 +7,7 @@
 		- The HiddenSurfaceRemovalAsset has no tags or attributes
 		- The HiddenSurfaceRemovalAsset has sensible property values (no NaNs, Infs, or long strings)
 ]]
+local UGCValidationService = game:GetService("UGCValidationService")
 
 local root = script.Parent.Parent
 
@@ -21,8 +22,11 @@ local util = root.util
 local Types = require(util.Types)
 local FailureReasonsAccumulator = require(util.FailureReasonsAccumulator)
 local ParseContentIds = require(util.ParseContentIds)
+local pcallDeferred = require(root.util.pcallDeferred)
 
 local ValidateHSRData = {}
+
+local getFFlagUGCValidateHSRMeshIds = require(root.flags.getFFlagUGCValidateHSRMeshIds)
 
 function ValidateHSRData.validateHiddenSurfaceRemovalAsset(
 	HSRAssets: { Instance },
@@ -53,6 +57,42 @@ function ValidateHSRData.validateHiddenSurfaceRemovalAsset(
 		Analytics.reportFailure(Analytics.ErrorType.validateHSR_FileDataInvalid, nil, validationContext)
 	end
 	return reasonsAccumulator:getFinalResults()
+end
+
+function ValidateHSRData.validateHSRMeshIdData(
+	wrapLayer: WrapLayer,
+	HSRAssets: { Instance },
+	validationContext: Types.ValidationContext
+): (boolean, { string }?)
+	if not getFFlagUGCValidateHSRMeshIds() then
+		return true
+	end
+
+	if #HSRAssets ~= 1 then
+		return false, { `WrapLayer HSR asset does not have exactly 1 root` }
+	end
+	local hsrAsset = HSRAssets[1]
+	if not hsrAsset:IsA("HiddenSurfaceRemovalAsset") then
+		return false, {
+			`WrapLayer HSR asset does not have a HiddenSurfaceRemovalAsset as the root Instance`,
+		}
+	end
+
+	local success, result = pcallDeferred(function()
+		return (UGCValidationService :: any):ValidateHSRMeshIds(wrapLayer, hsrAsset)
+	end, validationContext)
+
+	if not success then
+		return false, { "Error occurred while validating HSR Mesh Ids" }
+	elseif not result then
+		Analytics.reportFailure(Analytics.ErrorType.validataHSR_HSRMeshIdsMismatch, nil, validationContext)
+		return false,
+			{
+				"Invalid HSR data detected. Please re-generate the asset using the Accessory Fitting Tool and try again.",
+			}
+	end
+
+	return true
 end
 
 function ValidateHSRData.validateInstance(
@@ -97,7 +137,24 @@ function ValidateHSRData.validateInstance(
 		return false, { msg }
 	end
 
-	return ValidateHSRData.validateHiddenSurfaceRemovalAsset(HSRAssets, validationContext)
+	if not getFFlagUGCValidateHSRMeshIds() then
+		return ValidateHSRData.validateHiddenSurfaceRemovalAsset(HSRAssets, validationContext)
+	else
+		local reasonsAccumulator = FailureReasonsAccumulator.new()
+		reasonsAccumulator:updateReasons(
+			ValidateHSRData.validateHiddenSurfaceRemovalAsset(HSRAssets, validationContext)
+		)
+		if reasonsAccumulator:getFinalResults() then
+			reasonsAccumulator:updateReasons(
+				ValidateHSRData.validateHSRMeshIdData(wrapLayer, HSRAssets, validationContext)
+			)
+		end
+
+		if not (reasonsAccumulator:getFinalResults()) then
+			Analytics.reportFailure(Analytics.ErrorType.validateHSR_FileDataInvalid, nil, validationContext)
+		end
+		return reasonsAccumulator:getFinalResults()
+	end
 end
 
 function ValidateHSRData.validate(inst: Instance, validationContext: Types.ValidationContext): (boolean, { string }?)

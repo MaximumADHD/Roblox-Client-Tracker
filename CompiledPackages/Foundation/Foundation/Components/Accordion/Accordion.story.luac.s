@@ -1,0 +1,639 @@
+PROTO_0:
+  GETUPVAL R0 0
+  GETUPVAL R2 1
+  NOT R1 R2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_1:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useState"]
+  LOADB R2 0
+  CALL R1 1 2
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K3 [{"tag"}]
+  LOADK R6 K4 ["col size-full-0 auto-y"]
+  SETTABLEKS R6 R5 K2 ["tag"]
+  DUPTABLE R6 K8 [{"Text", "Button", "UIPadding"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K9 [{"Text", "tag"}]
+  LOADK R10 K10 ["Our flagship product combines cutting-edge technology with sleek design."]
+  SETTABLEKS R10 R9 K5 ["Text"]
+  LOADK R10 K11 ["padding-y-small text-body-medium text-wrap auto-xy text-align-x-left text-align-y-center"]
+  SETTABLEKS R10 R9 K2 ["tag"]
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K5 ["Text"]
+  JUMPIF R0 [+18]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["createElement"]
+  GETUPVAL R8 3
+  DUPTABLE R9 K15 [{"LayoutOrder", "text", "onActivated"}]
+  LOADN R10 2
+  SETTABLEKS R10 R9 K12 ["LayoutOrder"]
+  LOADK R10 K16 ["Click to expand!"]
+  SETTABLEKS R10 R9 K13 ["text"]
+  NEWCLOSURE R10 P0
+  CAPTURE VAL R2
+  CAPTURE VAL R1
+  SETTABLEKS R10 R9 K14 ["onActivated"]
+  CALL R7 2 1
+  JUMP [+1]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K6 ["Button"]
+  JUMPIF R0 [+17]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["createElement"]
+  LOADK R8 K7 ["UIPadding"]
+  DUPTABLE R9 K18 [{"PaddingBottom"}]
+  GETIMPORT R10 K21 [UDim.new]
+  LOADN R11 0
+  JUMPIFNOT R1 [+2]
+  LOADN R12 50
+  JUMP [+1]
+  LOADN R12 0
+  CALL R10 2 1
+  SETTABLEKS R10 R9 K17 ["PaddingBottom"]
+  CALL R7 2 1
+  JUMP [+1]
+  LOADNIL R7
+  SETTABLEKS R7 R6 K7 ["UIPadding"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_2:
+  NEWTABLE R2 0 0
+  LOADN R5 1
+  GETTABLEKS R3 R0 K0 ["numItems"]
+  LOADN R4 1
+  FORNPREP R3
+  MOVE R7 R2
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K1 ["createElement"]
+  GETUPVAL R9 1
+  DUPTABLE R10 K8 [{"text", "LayoutOrder", "hasDivider", "leadingIcon", "id", "isExpanded"}]
+  LOADK R12 K9 ["Accordion header %*"]
+  MOVE R14 R5
+  NAMECALL R12 R12 K10 ["format"]
+  CALL R12 2 1
+  MOVE R11 R12
+  SETTABLEKS R11 R10 K2 ["text"]
+  SETTABLEKS R5 R10 K3 ["LayoutOrder"]
+  GETTABLEKS R11 R0 K11 ["divider"]
+  SETTABLEKS R11 R10 K4 ["hasDivider"]
+  DUPTABLE R11 K14 [{"name", "variant"}]
+  GETTABLEKS R12 R0 K15 ["icon"]
+  SETTABLEKS R12 R11 K12 ["name"]
+  GETTABLEKS R12 R0 K16 ["iconVariant"]
+  SETTABLEKS R12 R11 K13 ["variant"]
+  SETTABLEKS R11 R10 K5 ["leadingIcon"]
+  SETTABLEKS R5 R10 K6 ["id"]
+  JUMPIFEQKN R5 K17 [1] [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  SETTABLEKS R11 R10 K7 ["isExpanded"]
+  GETUPVAL R11 2
+  MOVE R12 R1
+  CALL R11 1 -1
+  CALL R8 -1 -1
+  FASTCALL TABLE_INSERT [+2]
+  GETIMPORT R6 K20 [table.insert]
+  CALL R6 -1 0
+  FORNLOOP R3
+  RETURN R2 1
+
+PROTO_3:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["createElement"]
+  GETUPVAL R2 1
+  DUPTABLE R3 K3 [{"width", "size"}]
+  GETIMPORT R4 K6 [UDim.new]
+  LOADN R5 0
+  LOADN R6 144
+  CALL R4 2 1
+  SETTABLEKS R4 R3 K1 ["width"]
+  GETTABLEKS R5 R0 K7 ["controls"]
+  GETTABLEKS R4 R5 K2 ["size"]
+  SETTABLEKS R4 R3 K2 ["size"]
+  NEWTABLE R4 0 1
+  GETUPVAL R5 2
+  GETTABLEKS R6 R0 K7 ["controls"]
+  LOADB R7 1
+  CALL R5 2 1
+  SETLIST R4 R5 1 [1]
+  CALL R1 3 -1
+  RETURN R1 -1
+
+PROTO_4:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R0 1
+  LOADN R1 255
+  CALL R0 1 0
+  RETURN R0 0
+  GETUPVAL R0 1
+  GETUPVAL R1 2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_5:
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U0
+  CAPTURE VAL R0
+  RETURN R2 1
+
+PROTO_6:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useState"]
+  LOADN R1 1
+  CALL R0 1 2
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K4 [{"width", "onActivated"}]
+  GETIMPORT R6 K7 [UDim.new]
+  LOADN R7 0
+  LOADN R8 144
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K2 ["width"]
+  SETTABLEKS R2 R5 K3 ["onActivated"]
+  DUPTABLE R6 K11 [{"AccordionItem1", "AccordionItem2", "AccordionItem3"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K16 [{"text", "LayoutOrder", "id", "isExpanded"}]
+  LOADK R10 K17 ["Controlled Item 1"]
+  SETTABLEKS R10 R9 K12 ["text"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K13 ["LayoutOrder"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K14 ["id"]
+  JUMPIFEQKN R0 K18 [1] [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  SETTABLEKS R10 R9 K15 ["isExpanded"]
+  GETUPVAL R10 3
+  CALL R10 0 -1
+  CALL R7 -1 1
+  SETTABLEKS R7 R6 K8 ["AccordionItem1"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K16 [{"text", "LayoutOrder", "id", "isExpanded"}]
+  LOADK R10 K19 ["Controlled Item 2"]
+  SETTABLEKS R10 R9 K12 ["text"]
+  LOADN R10 2
+  SETTABLEKS R10 R9 K13 ["LayoutOrder"]
+  LOADN R10 2
+  SETTABLEKS R10 R9 K14 ["id"]
+  JUMPIFEQKN R0 K20 [2] [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  SETTABLEKS R10 R9 K15 ["isExpanded"]
+  GETUPVAL R10 3
+  CALL R10 0 -1
+  CALL R7 -1 1
+  SETTABLEKS R7 R6 K9 ["AccordionItem2"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K16 [{"text", "LayoutOrder", "id", "isExpanded"}]
+  LOADK R10 K21 ["Controlled Item 3"]
+  SETTABLEKS R10 R9 K12 ["text"]
+  LOADN R10 3
+  SETTABLEKS R10 R9 K13 ["LayoutOrder"]
+  LOADN R10 3
+  SETTABLEKS R10 R9 K14 ["id"]
+  JUMPIFEQKN R0 K22 [3] [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  SETTABLEKS R10 R9 K15 ["isExpanded"]
+  GETUPVAL R10 3
+  CALL R10 0 -1
+  CALL R7 -1 1
+  SETTABLEKS R7 R6 K10 ["AccordionItem3"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_7:
+  GETUPVAL R2 0
+  JUMPIFNOTEQ R0 R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_8:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+10]
+  GETUPVAL R0 1
+  GETUPVAL R2 2
+  GETTABLEKS R1 R2 K0 ["filter"]
+  GETUPVAL R2 3
+  NEWCLOSURE R3 P0
+  CAPTURE UPVAL U4
+  CALL R1 2 -1
+  CALL R0 -1 0
+  RETURN R0 0
+  GETUPVAL R0 1
+  NEWTABLE R1 0 1
+  GETUPVAL R2 4
+  SETLIST R1 R2 1 [1]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_9:
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U0
+  CAPTURE UPVAL U1
+  CAPTURE UPVAL U2
+  CAPTURE VAL R0
+  RETURN R2 1
+
+PROTO_10:
+  GETIMPORT R2 K2 [table.find]
+  GETUPVAL R3 0
+  MOVE R4 R0
+  CALL R2 2 1
+  JUMPIFNOTEQKNIL R2 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  RETURN R1 1
+
+PROTO_11:
+  GETIMPORT R0 K2 [table.find]
+  GETUPVAL R1 0
+  LOADN R2 1
+  CALL R0 2 1
+  JUMPIFNOT R0 [+5]
+  GETUPVAL R0 1
+  NEWTABLE R1 0 0
+  CALL R0 1 0
+  RETURN R0 0
+  GETUPVAL R0 1
+  NEWTABLE R1 0 3
+  LOADN R2 1
+  LOADN R3 2
+  LOADN R4 3
+  SETLIST R1 R2 3 [1]
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_12:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useState"]
+  NEWTABLE R1 0 3
+  LOADN R2 1
+  LOADN R3 2
+  LOADN R4 3
+  SETLIST R1 R2 3 [1]
+  CALL R0 1 2
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  NEWCLOSURE R3 P1
+  CAPTURE VAL R0
+  GETUPVAL R5 0
+  GETTABLEKS R4 R5 K1 ["createElement"]
+  GETUPVAL R5 2
+  DUPTABLE R6 K4 [{"width", "onActivated"}]
+  GETIMPORT R7 K7 [UDim.new]
+  LOADN R8 0
+  LOADN R9 144
+  CALL R7 2 1
+  SETTABLEKS R7 R6 K2 ["width"]
+  SETTABLEKS R2 R6 K3 ["onActivated"]
+  DUPTABLE R7 K11 [{"AccordionItem1", "AccordionItem2", "AccordionItem3"}]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K1 ["createElement"]
+  GETUPVAL R9 3
+  DUPTABLE R10 K16 [{"text", "LayoutOrder", "id", "onActivated", "isExpanded"}]
+  LOADK R11 K17 ["All Controlling Item"]
+  SETTABLEKS R11 R10 K12 ["text"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K13 ["LayoutOrder"]
+  LOADN R11 1
+  SETTABLEKS R11 R10 K14 ["id"]
+  NEWCLOSURE R11 P2
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  SETTABLEKS R11 R10 K3 ["onActivated"]
+  GETIMPORT R12 K20 [table.find]
+  MOVE R13 R0
+  LOADN R14 1
+  CALL R12 2 1
+  JUMPIFNOTEQKNIL R12 [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  SETTABLEKS R11 R10 K15 ["isExpanded"]
+  GETUPVAL R11 4
+  CALL R11 0 -1
+  CALL R8 -1 1
+  SETTABLEKS R8 R7 K8 ["AccordionItem1"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K1 ["createElement"]
+  GETUPVAL R9 3
+  DUPTABLE R10 K21 [{"text", "LayoutOrder", "id", "isExpanded"}]
+  LOADK R11 K22 ["Controlled Item 2"]
+  SETTABLEKS R11 R10 K12 ["text"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K13 ["LayoutOrder"]
+  LOADN R11 2
+  SETTABLEKS R11 R10 K14 ["id"]
+  GETIMPORT R12 K20 [table.find]
+  MOVE R13 R0
+  LOADN R14 2
+  CALL R12 2 1
+  JUMPIFNOTEQKNIL R12 [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  SETTABLEKS R11 R10 K15 ["isExpanded"]
+  GETUPVAL R11 4
+  CALL R11 0 -1
+  CALL R8 -1 1
+  SETTABLEKS R8 R7 K9 ["AccordionItem2"]
+  GETUPVAL R9 0
+  GETTABLEKS R8 R9 K1 ["createElement"]
+  GETUPVAL R9 3
+  DUPTABLE R10 K21 [{"text", "LayoutOrder", "id", "isExpanded"}]
+  LOADK R11 K23 ["Controlled Item 3"]
+  SETTABLEKS R11 R10 K12 ["text"]
+  LOADN R11 3
+  SETTABLEKS R11 R10 K13 ["LayoutOrder"]
+  LOADN R11 3
+  SETTABLEKS R11 R10 K14 ["id"]
+  GETIMPORT R12 K20 [table.find]
+  MOVE R13 R0
+  LOADN R14 3
+  CALL R12 2 1
+  JUMPIFNOTEQKNIL R12 [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  SETTABLEKS R11 R10 K15 ["isExpanded"]
+  GETUPVAL R11 4
+  CALL R11 0 -1
+  CALL R8 -1 1
+  SETTABLEKS R8 R7 K10 ["AccordionItem3"]
+  CALL R4 3 -1
+  RETURN R4 -1
+
+PROTO_13:
+  GETUPVAL R0 0
+  JUMPIFNOT R0 [+4]
+  GETUPVAL R0 1
+  LOADN R1 0
+  CALL R0 1 0
+  RETURN R0 0
+  GETUPVAL R0 1
+  GETUPVAL R1 2
+  CALL R0 1 0
+  RETURN R0 0
+
+PROTO_14:
+  GETUPVAL R2 0
+  JUMPIFEQ R2 R0 [+2]
+  LOADB R1 0 +1
+  LOADB R1 1
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R1
+  CAPTURE UPVAL U1
+  CAPTURE VAL R0
+  RETURN R2 1
+
+PROTO_15:
+  GETUPVAL R1 0
+  GETTABLEKS R0 R1 K0 ["useState"]
+  LOADN R1 1
+  CALL R0 1 2
+  NEWCLOSURE R2 P0
+  CAPTURE VAL R0
+  CAPTURE VAL R1
+  GETUPVAL R4 0
+  GETTABLEKS R3 R4 K1 ["createElement"]
+  GETUPVAL R4 1
+  DUPTABLE R5 K3 [{"width"}]
+  GETIMPORT R6 K6 [UDim.new]
+  LOADN R7 0
+  LOADN R8 144
+  CALL R6 2 1
+  SETTABLEKS R6 R5 K2 ["width"]
+  DUPTABLE R6 K11 [{"AccordionItem1", "AccordionItem2", "DefaultItem", "AccordionItem3"}]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K17 [{"text", "LayoutOrder", "id", "isExpanded", "onActivated"}]
+  LOADK R10 K18 ["Controlled Item 1"]
+  SETTABLEKS R10 R9 K12 ["text"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K13 ["LayoutOrder"]
+  LOADN R10 1
+  SETTABLEKS R10 R9 K14 ["id"]
+  JUMPIFEQKN R0 K19 [1] [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  SETTABLEKS R10 R9 K15 ["isExpanded"]
+  JUMPIFEQKN R0 K19 [1] [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  LOADN R12 1
+  NEWCLOSURE R10 P1
+  CAPTURE VAL R11
+  CAPTURE VAL R1
+  CAPTURE VAL R12
+  SETTABLEKS R10 R9 K16 ["onActivated"]
+  GETUPVAL R10 3
+  CALL R10 0 -1
+  CALL R7 -1 1
+  SETTABLEKS R7 R6 K7 ["AccordionItem1"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K20 [{"text", "LayoutOrder", "id"}]
+  LOADK R10 K21 ["Default Item 1"]
+  SETTABLEKS R10 R9 K12 ["text"]
+  LOADN R10 2
+  SETTABLEKS R10 R9 K13 ["LayoutOrder"]
+  LOADN R10 2
+  SETTABLEKS R10 R9 K14 ["id"]
+  GETUPVAL R10 3
+  CALL R10 0 -1
+  CALL R7 -1 1
+  SETTABLEKS R7 R6 K8 ["AccordionItem2"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K20 [{"text", "LayoutOrder", "id"}]
+  LOADK R10 K22 ["Default Item 2"]
+  SETTABLEKS R10 R9 K12 ["text"]
+  LOADN R10 3
+  SETTABLEKS R10 R9 K13 ["LayoutOrder"]
+  LOADN R10 3
+  SETTABLEKS R10 R9 K14 ["id"]
+  GETUPVAL R10 3
+  CALL R10 0 -1
+  CALL R7 -1 1
+  SETTABLEKS R7 R6 K9 ["DefaultItem"]
+  GETUPVAL R8 0
+  GETTABLEKS R7 R8 K1 ["createElement"]
+  GETUPVAL R8 2
+  DUPTABLE R9 K17 [{"text", "LayoutOrder", "id", "isExpanded", "onActivated"}]
+  LOADK R10 K23 ["Controlled Item 2"]
+  SETTABLEKS R10 R9 K12 ["text"]
+  LOADN R10 4
+  SETTABLEKS R10 R9 K13 ["LayoutOrder"]
+  LOADN R10 4
+  SETTABLEKS R10 R9 K14 ["id"]
+  JUMPIFEQKN R0 K24 [4] [+2]
+  LOADB R10 0 +1
+  LOADB R10 1
+  SETTABLEKS R10 R9 K15 ["isExpanded"]
+  JUMPIFEQKN R0 K24 [4] [+2]
+  LOADB R11 0 +1
+  LOADB R11 1
+  LOADN R12 4
+  NEWCLOSURE R10 P1
+  CAPTURE VAL R11
+  CAPTURE VAL R1
+  CAPTURE VAL R12
+  SETTABLEKS R10 R9 K16 ["onActivated"]
+  GETUPVAL R10 3
+  CALL R10 0 -1
+  CALL R7 -1 1
+  SETTABLEKS R7 R6 K10 ["AccordionItem3"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["Foundation"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETTABLEKS R1 R0 K4 ["Parent"]
+  GETIMPORT R2 K6 [require]
+  GETTABLEKS R3 R1 K7 ["React"]
+  CALL R2 1 1
+  GETIMPORT R3 K6 [require]
+  GETTABLEKS R4 R1 K8 ["Dash"]
+  CALL R3 1 1
+  GETIMPORT R4 K6 [require]
+  GETTABLEKS R5 R1 K9 ["BuilderIcons"]
+  CALL R4 1 1
+  GETIMPORT R5 K6 [require]
+  GETTABLEKS R7 R0 K10 ["Components"]
+  GETTABLEKS R6 R7 K11 ["Types"]
+  CALL R5 1 1
+  GETIMPORT R7 K6 [require]
+  GETTABLEKS R9 R0 K10 ["Components"]
+  GETTABLEKS R8 R9 K12 ["Accordion"]
+  CALL R7 1 1
+  GETTABLEKS R6 R7 K13 ["Root"]
+  GETIMPORT R7 K6 [require]
+  GETIMPORT R10 K1 [script]
+  GETTABLEKS R9 R10 K4 ["Parent"]
+  GETTABLEKS R8 R9 K14 ["Item"]
+  CALL R7 1 1
+  GETIMPORT R8 K6 [require]
+  GETTABLEKS R10 R0 K10 ["Components"]
+  GETTABLEKS R9 R10 K15 ["Text"]
+  CALL R8 1 1
+  GETIMPORT R9 K6 [require]
+  GETTABLEKS R11 R0 K10 ["Components"]
+  GETTABLEKS R10 R11 K16 ["View"]
+  CALL R9 1 1
+  GETIMPORT R10 K6 [require]
+  GETTABLEKS R12 R0 K10 ["Components"]
+  GETTABLEKS R11 R12 K17 ["Button"]
+  CALL R10 1 1
+  GETIMPORT R11 K6 [require]
+  GETTABLEKS R13 R0 K18 ["Enums"]
+  GETTABLEKS R12 R13 K19 ["InputSize"]
+  CALL R11 1 1
+  GETTABLEKS R12 R4 K20 ["IconVariant"]
+  NEWTABLE R13 0 5
+  LOADK R14 K21 ["tilt"]
+  LOADK R15 K22 ["robux"]
+  LOADK R16 K23 ["shopping-basket-check"]
+  LOADK R17 K24 ["hat-fedora"]
+  LOADK R18 K25 [""]
+  SETLIST R13 R14 5 [1]
+  DUPCLOSURE R14 K26 [PROTO_1]
+  CAPTURE VAL R2
+  CAPTURE VAL R9
+  CAPTURE VAL R8
+  CAPTURE VAL R10
+  DUPCLOSURE R15 K27 [PROTO_2]
+  CAPTURE VAL R2
+  CAPTURE VAL R7
+  CAPTURE VAL R14
+  DUPTABLE R16 K31 [{"summary", "stories", "controls"}]
+  LOADK R17 K12 ["Accordion"]
+  SETTABLEKS R17 R16 K28 ["summary"]
+  DUPTABLE R17 K36 [{"ConfigurableDefault", "Controlled", "Controlled2", "Mixed"}]
+  DUPTABLE R18 K39 [{"name", "story"}]
+  LOADK R19 K40 ["Default (configurable)"]
+  SETTABLEKS R19 R18 K37 ["name"]
+  DUPCLOSURE R19 K41 [PROTO_3]
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R15
+  SETTABLEKS R19 R18 K38 ["story"]
+  SETTABLEKS R18 R17 K32 ["ConfigurableDefault"]
+  DUPTABLE R18 K39 [{"name", "story"}]
+  LOADK R19 K42 ["Controlled (one expanded item at a time)"]
+  SETTABLEKS R19 R18 K37 ["name"]
+  DUPCLOSURE R19 K43 [PROTO_6]
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R14
+  SETTABLEKS R19 R18 K38 ["story"]
+  SETTABLEKS R18 R17 K33 ["Controlled"]
+  DUPTABLE R18 K39 [{"name", "story"}]
+  LOADK R19 K44 ["Complex Controlled with unique onActivated"]
+  SETTABLEKS R19 R18 K37 ["name"]
+  DUPCLOSURE R19 K45 [PROTO_12]
+  CAPTURE VAL R2
+  CAPTURE VAL R3
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R14
+  SETTABLEKS R19 R18 K38 ["story"]
+  SETTABLEKS R18 R17 K34 ["Controlled2"]
+  DUPTABLE R18 K39 [{"name", "story"}]
+  LOADK R19 K46 ["Partially Controlled"]
+  SETTABLEKS R19 R18 K37 ["name"]
+  DUPCLOSURE R19 K47 [PROTO_15]
+  CAPTURE VAL R2
+  CAPTURE VAL R6
+  CAPTURE VAL R7
+  CAPTURE VAL R14
+  SETTABLEKS R19 R18 K38 ["story"]
+  SETTABLEKS R18 R17 K35 ["Mixed"]
+  SETTABLEKS R17 R16 K29 ["stories"]
+  DUPTABLE R17 K53 [{"size", "icon", "iconVariant", "numItems", "divider"}]
+  GETTABLEKS R18 R3 K54 ["values"]
+  MOVE R19 R11
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K48 ["size"]
+  GETTABLEKS R18 R3 K54 ["values"]
+  MOVE R19 R13
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K49 ["icon"]
+  GETTABLEKS R18 R3 K54 ["values"]
+  MOVE R19 R12
+  CALL R18 1 1
+  SETTABLEKS R18 R17 K50 ["iconVariant"]
+  LOADN R18 3
+  SETTABLEKS R18 R17 K51 ["numItems"]
+  LOADB R18 1
+  SETTABLEKS R18 R17 K52 ["divider"]
+  SETTABLEKS R17 R16 K30 ["controls"]
+  RETURN R16 1

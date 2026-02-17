@@ -1,0 +1,79 @@
+PROTO_0:
+  GETUPVAL R2 0
+  GETTABLEKS R1 R2 K0 ["useReplicatedStateListener"]
+  GETUPVAL R3 1
+  GETTABLEKS R2 R3 K1 ["GAME_ID"]
+  LOADN R3 0
+  CALL R1 2 1
+  DUPTABLE R2 K3 [{"gameId"}]
+  SETTABLEKS R1 R2 K2 ["gameId"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K4 ["createElement"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K5 ["Provider"]
+  DUPTABLE R5 K7 [{"value"}]
+  SETTABLEKS R2 R5 K6 ["value"]
+  GETTABLEKS R6 R0 K8 ["children"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+PROTO_1:
+  GETIMPORT R2 K1 [game]
+  GETTABLEKS R1 R2 K2 ["GameId"]
+  GETUPVAL R3 0
+  GETTABLEKS R2 R3 K3 ["useReplicatedState"]
+  GETUPVAL R4 1
+  GETTABLEKS R3 R4 K4 ["GAME_ID"]
+  MOVE R4 R1
+  CALL R2 2 0
+  DUPTABLE R2 K6 [{"gameId"}]
+  SETTABLEKS R1 R2 K5 ["gameId"]
+  GETUPVAL R4 2
+  GETTABLEKS R3 R4 K7 ["createElement"]
+  GETUPVAL R5 3
+  GETTABLEKS R4 R5 K8 ["Provider"]
+  DUPTABLE R5 K10 [{"value"}]
+  SETTABLEKS R2 R5 K9 ["value"]
+  GETTABLEKS R6 R0 K11 ["children"]
+  CALL R3 3 -1
+  RETURN R3 -1
+
+MAIN:
+  PREPVARARGS 0
+  GETIMPORT R0 K1 [script]
+  LOADK R2 K2 ["AnimationEditor"]
+  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
+  CALL R0 2 1
+  GETIMPORT R1 K5 [require]
+  GETTABLEKS R4 R0 K6 ["Util"]
+  GETTABLEKS R3 R4 K7 ["Networking"]
+  GETTABLEKS R2 R3 K8 ["NetworkUtils"]
+  CALL R1 1 1
+  GETIMPORT R2 K5 [require]
+  GETTABLEKS R4 R0 K9 ["Parent"]
+  GETTABLEKS R3 R4 K10 ["React"]
+  CALL R2 1 1
+  DUPTABLE R3 K12 [{"GAME_ID"}]
+  LOADK R4 K11 ["GAME_ID"]
+  SETTABLEKS R4 R3 K11 ["GAME_ID"]
+  DUPTABLE R4 K14 [{"gameId"}]
+  LOADN R5 0
+  SETTABLEKS R5 R4 K13 ["gameId"]
+  GETTABLEKS R5 R2 K15 ["createContext"]
+  MOVE R6 R4
+  CALL R5 1 1
+  DUPCLOSURE R6 K16 [PROTO_0]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  DUPCLOSURE R7 K17 [PROTO_1]
+  CAPTURE VAL R1
+  CAPTURE VAL R3
+  CAPTURE VAL R2
+  CAPTURE VAL R5
+  DUPTABLE R8 K21 [{"Context", "EditableDataModelProvider", "UIDataModelProvider"}]
+  SETTABLEKS R5 R8 K18 ["Context"]
+  SETTABLEKS R7 R8 K19 ["EditableDataModelProvider"]
+  SETTABLEKS R6 R8 K20 ["UIDataModelProvider"]
+  RETURN R8 1

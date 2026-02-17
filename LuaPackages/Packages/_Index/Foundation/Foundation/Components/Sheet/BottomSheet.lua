@@ -49,7 +49,7 @@ local function BottomSheet(sheetProps: SheetProps, ref: React.Ref<Instance>)
 	local props = withDefaults(sheetProps, defaultProps)
 	local overlay = useOverlay()
 	local tokens = useTokens()
-	local elevation = useElevation(ElevationLayer.Sheet, { relativeToOwner = false })
+	local elevation = useElevation(ElevationLayer.Sheet, { stackAboveOwner = false })
 
 	local screenHeight = useScreenHeight()
 	local sheetHeight, setSheetHeight

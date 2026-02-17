@@ -1,0 +1,42 @@
+PROTO_0:
+  GETIMPORT R1 K2 [table.find]
+  GETUPVAL R2 0
+  MOVE R3 R0
+  CALL R1 2 1
+  JUMPIFNOT R1 [+1]
+  RETURN R0 1
+  GETIMPORT R1 K4 [string.find]
+  MOVE R2 R0
+  LOADK R3 K5 ["^Left"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+7]
+  GETIMPORT R1 K7 [string.gsub]
+  MOVE R2 R0
+  LOADK R3 K5 ["^Left"]
+  LOADK R4 K8 ["Right"]
+  CALL R1 3 1
+  RETURN R1 1
+  GETIMPORT R1 K4 [string.find]
+  MOVE R2 R0
+  LOADK R3 K9 ["^Right"]
+  CALL R1 2 1
+  JUMPIFNOT R1 [+7]
+  GETIMPORT R1 K7 [string.gsub]
+  MOVE R2 R0
+  LOADK R3 K9 ["^Right"]
+  LOADK R4 K10 ["Left"]
+  CALL R1 3 1
+  RETURN R1 1
+  RETURN R0 1
+
+MAIN:
+  PREPVARARGS 0
+  NEWTABLE R0 1 0
+  NEWTABLE R1 0 2
+  LOADK R2 K0 ["EyesLookLeft"]
+  LOADK R3 K1 ["EyesLookRight"]
+  SETLIST R1 R2 2 [1]
+  DUPCLOSURE R2 K2 [PROTO_0]
+  CAPTURE VAL R1
+  SETTABLEKS R2 R0 K3 ["getSymmetryPair"]
+  RETURN R0 1

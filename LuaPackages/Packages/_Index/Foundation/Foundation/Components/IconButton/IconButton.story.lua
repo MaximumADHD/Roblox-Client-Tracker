@@ -8,6 +8,7 @@ local ColorMode = require(Foundation.Enums.ColorMode)
 local FillBehavior = require(Foundation.Enums.FillBehavior)
 local IconButton = require(Foundation.Components.IconButton)
 local PresentationContext = require(Foundation.Providers.Style.PresentationContext)
+local Text = require(Foundation.Components.Text)
 local View = require(Foundation.Components.View)
 local useTokens = require(Foundation.Providers.Style.useTokens)
 type FillBehavior = FillBehavior.FillBehavior
@@ -39,7 +40,7 @@ local stories = Dash.map(SUPPORTED_VARIANTS, function(variant)
 			local tokens = useTokens()
 
 			return React.createElement(View, {
-				tag = "row gap-medium auto-xy size-0 align-y-center padding-medium radius-medium",
+				tag = "row align-y-center gap-medium size-0 auto-xy padding-medium radius-medium",
 				backgroundStyle = if variant == ButtonVariant.OverMedia
 					then tokens.Color.Extended.White.White_100
 					elseif colorMode then tokens[colorMode].Surface.Surface_100
@@ -79,6 +80,94 @@ local stories = Dash.map(SUPPORTED_VARIANTS, function(variant)
 		end,
 	}
 end)
+
+table.insert(stories, {
+	name = "Width",
+	summary = "Width, fillBehavior, and precedence. Default uses the fixed square size from the variant system. Width (scale or offset) overrides. fillBehavior.Fill takes precedence over width.",
+	story = function(props)
+		local controls = props.controls
+		local colorMode = controls.colorMode
+		local tokens = useTokens()
+
+		local children = {
+			Default = React.createElement(View, {
+				LayoutOrder = 1,
+				tag = "col gap-xxsmall auto-xy",
+			}, {
+				Label = React.createElement(Text, {
+					Text = "Default (fixed square)",
+					tag = "auto-xy text-body-small",
+					LayoutOrder = 1,
+				}),
+				Row = React.createElement(View, {
+					tag = "row gap-medium auto-xy",
+					LayoutOrder = 2,
+				}, {
+					React.createElement(IconButton, {
+						icon = { name = controls.name, variant = controls.variant },
+						variant = ButtonVariant.Emphasis,
+						onActivated = function() end,
+						size = InputSize.Medium,
+					}),
+				}),
+			}),
+			FixedWidth = React.createElement(View, {
+				LayoutOrder = 2,
+				tag = "col gap-xxsmall auto-xy",
+			}, {
+				Label = React.createElement(Text, {
+					Text = "Fixed width (0, 200px)",
+					tag = "auto-xy text-body-small",
+					LayoutOrder = 1,
+				}),
+				Row = React.createElement(View, {
+					tag = "row gap-medium auto-xy",
+					LayoutOrder = 2,
+				}, {
+					React.createElement(IconButton, {
+						icon = { name = controls.name, variant = controls.variant },
+						variant = ButtonVariant.Emphasis,
+						onActivated = function() end,
+						size = InputSize.Medium,
+						width = UDim.new(0, 200),
+					}),
+				}),
+			}),
+		}
+
+		if Flags.FoundationIconButtonFillBehavior then
+			children.FillBehaviorTakesPrecedence = React.createElement(View, {
+				LayoutOrder = 4,
+				tag = "col gap-xxsmall auto-xy",
+			}, {
+				Label = React.createElement(Text, {
+					Text = "fillBehavior.Fill takes precedence over width=200px",
+					tag = "auto-xy text-body-small",
+					LayoutOrder = 1,
+				}),
+				Row = React.createElement(View, {
+					tag = "row size-full-0 auto-xy",
+					LayoutOrder = 2,
+					Size = UDim2.new(1, 0, 0, 60),
+				}, {
+					React.createElement(IconButton, {
+						icon = { name = controls.name, variant = controls.variant },
+						variant = ButtonVariant.Emphasis,
+						onActivated = function() end,
+						size = InputSize.Medium,
+						width = UDim.new(0, 200),
+						fillBehavior = FillBehavior.Fill,
+					}),
+				}),
+			})
+		end
+
+		return React.createElement(View, {
+			tag = "col gap-large size-full-0 auto-xy padding-large radius-medium",
+			backgroundStyle = if colorMode then tokens[colorMode].Surface.Surface_100 else nil,
+		}, children)
+	end,
+})
 
 if Flags.FoundationIconButtonFillBehavior then
 	table.insert(stories, {
