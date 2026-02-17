@@ -39217,7 +39217,6 @@
       "AngleAttenuation": "@roblox/globaltype/AudioListener.AngleAttenuation",
       "AudioInteractionGroup": "@roblox/globaltype/AudioListener.AudioInteractionGroup",
       "DistanceAttenuation": "@roblox/globaltype/AudioListener.DistanceAttenuation",
-      "PositionOverride": "@roblox/globaltype/AudioListener.PositionOverride",
       "SimulationFidelity": "@roblox/globaltype/AudioListener.SimulationFidelity",
       "GetAngleAttenuation": "@roblox/globaltype/AudioListener.GetAngleAttenuation",
       "GetAudibilityFor": "@roblox/globaltype/AudioListener.GetAudibilityFor",
@@ -39252,13 +39251,8 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#DistanceAttenuation",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioListener.PositionOverride": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#PositionOverride",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioListener.SimulationFidelity": {
-    "documentation": "<strong>Deprecated:</strong> <br>控制此 <code>AudioListener</code> 的音頻模擬詳細程度。",
+    "documentation": "<strong>Deprecated:</strong> <br>控制此 <code>AudioListener</code> 的音頻模擬應該有多詳細。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#SimulationFidelity",
     "code_sample": ""
   },
@@ -54220,22 +54214,22 @@
     "documentation": "允許開發者從文字提示生成 3D 物件的服務。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/1": {
-    "documentation": "包含網格生成提示的字典。目前，唯一支持的鍵是描述要生成的網格的 <code>Prompt</code>（字串）。"
+    "documentation": "一個包含網格生成提示的字典。目前，唯一支持的鍵是描述要生成的網格的 <code>Prompt</code>（字符串）。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/2": {
     "documentation": "請求生成的 <code>Player</code>。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/3": {
-    "documentation": "影響結果的額外生成選項的字典。可選的 <code>SuggestedSize</code> 鍵（<code>Vector3</code>）表示生成資產的大小指南，這意味著 <code>GenerationService</code> 將嘗試創建一個與提供的 <code>Vector3</code> 相似的大小和比例的模型，但最終輸出大小沒有保證。"
+    "documentation": "一個用於額外生成選項的字典，以影響結果。可選的 <code>SuggestedSize</code> 鍵（<code>Vector3</code>） 表示生成資產的尺寸指南，這意味著 <code>GenerationService</code> 將嘗試創建與提供的 <code>Vector3</code> 尺寸和比例相似的模型，儘管最終輸出尺寸沒有保證。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/4": {
-    "documentation": "觸發中間生成結果的回調函數。對於在應用紋理之前檢索早期的網格版本非常有用。"
+    "documentation": "一個在中間生成結果被觸發的回調函數。 對於在應用紋理之前檢索早期網格版本很有用。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/return/0": {
-    "documentation": "生成 ID 的元組（每次調用 <code>GenerateMeshAsync()</code> 時返回的唯一 ID）和上下文 ID（目前未使用）。"
+    "documentation": "一個元組，包含生成 ID（每次調用 <code>GenerateMeshAsync()</code> 返回的唯一 ID）和上下文 ID（目前不使用）。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync": {
-    "documentation": "開始從文本提示生成新的 3D 網格，並返回用於跟踪和檢索結果的唯一 ID。",
+    "documentation": "從文本提示開始生成新的 3D 網格，並返回用於跟踪和檢索結果的唯一 ID。",
     "params": [
       {
         "name": "self",
@@ -54268,19 +54262,19 @@
     "documentation": "允許開發者從文字提示生成 3D 物件的服務。"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/1": {
-    "documentation": "表示條件輸入的表，包含以下鍵： <ul> <li><code>TextPrompt</code> — 要生成的物件的字串描述。</li> <li><code>Size</code> — 可選的 <code>Vector3</code> 描述要生成的物件大小。   這僅是近似值；如果需要特定大小，請在生成後調整模型的範圍。</li> <li><code>MaxTriangles</code> — 可選的整數，描述返回的模型將包含的最大三角形數。較低的值會導致更多的棱角和低多邊形生成。</li> <li><code>GenerateTextures</code> — <code>true</code>（預設值）將生成結果上色，<code>false</code> 將不生成紋理。</li> </ul>"
+    "documentation": "一個表示條件輸入的表，其鍵如下： <ul> <li><code>TextPrompt</code> — 生成對象的字符串描述。</li> <li><code>Size</code> — 可選的 <code>Vector3</code>，描述要生成的對象大小。這僅是近似值；如果需要特定大小，請在生成後對模型範圍進行縮放。</li> <li><code>MaxTriangles</code> — 可選整數，描述返回模型將包含的最大三角形數量。更低的值會導致生成的模型面數更多且低多邊形。</li> <li><code>GenerateTextures</code> — <code>true</code>（默認值）會對生成的結果進行紋理處理，而 <code>false</code> 則不生成紋理。</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/2": {
-    "documentation": "表示生成架構的表。必須包含一個 <code>PredefinedSchema</code> 鍵，並且該鍵的值為字符串；當前有效選項有 <code>Car5</code>，表示由五個 <code>Models</code> 組成的基本車輛底盤，或 <code>Body1</code>，結果為單個網格輸出。"
+    "documentation": "表示生成 schema 的表。必須包含一個 <code>PredefinedSchema</code> 鍵，並且其值為字符串；當前有效選項為 <code>Car5</code>，它是由五個 <code>Models</code> 組成的基本車輛底盤，或 <code>Body1</code>，其結果是一個單一的網格輸出。"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/3": {
     "documentation": "目前未使用；保留用於未來的自定義選項。"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/return/0": {
-    "documentation": "包含以下元素的元組： <ul> <li>具有指定 <code>schema</code> 的標準 <code>Model</code> 容器實例。</li> <li>包含 UUID 和有關生成的其他元數據的表。</li> </ul>"
+    "documentation": "包含以下元素的元組： <ul> <li>一個符合指定 <code>schema</code> 的標準 <code>Model</code> 容器實例。</li> <li>一個包含 UUID 和有關生成的其他元數據的表。</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync": {
-    "documentation": "根據提供的 <code>inputs</code> 和 <code>schema</code> 啟用多網格幾何體的生成。",
+    "documentation": "根據提供的 <code>inputs</code> 和 <code>schema</code> 啟用生成多網格幾何。",
     "params": [
       {
         "name": "self",
@@ -54309,10 +54303,10 @@
     "documentation": "允許開發者從文字提示生成 3D 物件的服務。"
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/param/1": {
-    "documentation": "由 <code>GenerateMeshAsync()</code> 返回的唯一 ID，用於識別要加載的網格。"
+    "documentation": "由 <code>GenerateMeshAsync()</code> 返回的唯一 ID。 識別要加載的網格。"
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/return/0": {
-    "documentation": "生成的資產，作為單個 <code>MeshPart</code> 包含 <code>EditableMesh</code> 的 <code>Model</code> 返回。"
+    "documentation": "生成的資產，作為一個 <code>Model</code> 返回，並包含一個具有 <code>EditableMesh</code> 的單一 <code>MeshPart</code>。"
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync": {
     "documentation": "檢索並加載由 <code>GenerationService:GenerateMeshAsync()</code> 使用提供的 <code>generationId</code> 生成的網格。",
@@ -58282,6 +58276,7 @@
       "DefaultDistanceAttenuation": "@roblox/globaltype/VoiceChatService.DefaultDistanceAttenuation",
       "EnableDefaultVoice": "@roblox/globaltype/VoiceChatService.EnableDefaultVoice",
       "UseAudioApi": "@roblox/globaltype/VoiceChatService.UseAudioApi",
+      "GetChatGroupsAsync": "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync",
       "IsVoiceEnabledForUserIdAsync": "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VoiceChatService",
@@ -58302,6 +58297,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VoiceChatService#UseAudioApi",
     "code_sample": ""
   },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/0": {
+    "documentation": "<strong>VoiceChatService</strong> 負責語音聊天的高層功能。"
+  },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/1": {
+    "documentation": "一個目前在體驗中的 <code>Players</code> 列表，以評估語音聊天兼容性。"
+  },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/return/0": {
+    "documentation": "一個已排序的聊天群組 ID 字符串的陣列。共享匹配聊天群組 ID 的玩家有資格進行語音聊天。"
+  },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync": {
+    "documentation": "返回聊天群組 ID，以指示哪些玩家可以一起語音聊天。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/0"
+      },
+      {
+        "name": "players",
+        "documentation": "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VoiceChatService#GetChatGroupsAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync/param/0": {
     "documentation": "<strong>VoiceChatService</strong> 負責語音聊天的高層功能。"
   },
@@ -58309,10 +58331,10 @@
     "documentation": "要檢查的 <code>Player.UserId</code>。"
   },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync/return/0": {
-    "documentation": "如果該用戶已啟用語音。"
+    "documentation": "該用戶是否啟用了語音。"
   },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync": {
-    "documentation": "返回給定用戶是否啟用了語音。",
+    "documentation": "返回給定用戶是否啟用語音的狀態。",
     "params": [
       {
         "name": "self",
@@ -58563,7 +58585,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer": {
-    "documentation": "一個可以設置<code>Player</code>物件屬性預設值的服務。",
+    "documentation": "一項服務，可設定 <code>Player</code> 物件的屬性預設值。",
     "keys": {
       "AllowCustomAnimations": "@roblox/globaltype/StarterPlayer.AllowCustomAnimations",
       "AutoJumpEnabled": "@roblox/globaltype/StarterPlayer.AutoJumpEnabled",
@@ -58597,62 +58619,62 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.AllowCustomAnimations": {
-    "documentation": "描述當前遊戲對於網站自訂化虛擬形象動畫的權限級別。",
+    "documentation": "描述當前遊戲對於來自網站的自定義頭像 動畫的權限級別。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AllowCustomAnimations",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.AutoJumpEnabled": {
-    "documentation": "設置角色在移動設備上撞到障礙物時是否自動跳躍。",
+    "documentation": "設置角色在移動設備上撞擊障礙物時是否會自動跳躍。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AutoJumpEnabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- 更新按鈕文字\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"自動跳躍已開啟\"\n\telse\n\t\tbutton.Text = \"自動跳躍已關閉\"\n\tend\n\t-- 在玩家的角色中反映屬性，如果他們有角色\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- 切換自動跳躍\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- 更新其他所有內容\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/StarterPlayer.AvatarJointUpgrade": {
-    "documentation": "控制虛擬人偶是否使用 <code>AnimationConstraint</code> 關節來進行物理模擬。",
+    "documentation": "控制頭像是否使用 <code>AnimationConstraint</code> 關節以進行物理模擬。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AvatarJointUpgrade",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CameraMaxZoomDistance": {
-    "documentation": "玩家的預設相機允許的最大縮放距離，以studs為單位。",
+    "documentation": "玩家預設相機的最大縮放距離，以 studs 為單位。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CameraMaxZoomDistance",
     "code_sample": "-- 定義玩家服務\n\n    local Players = game:GetService(\"Players\")\n\n    -- 取得當前玩家\n    local player = Players.LocalPlayer\n\n    -- 設置相機的最大縮放距離\n    player.CameraMaxZoomDistance = 50\n\n    -- 設置相機的最小縮放距離\n    player.CameraMinZoomDistance = 75"
   },
   "@roblox/globaltype/StarterPlayer.CameraMinZoomDistance": {
-    "documentation": "玩家的預設相機允許的最小縮放距離，以studs為單位。",
+    "documentation": "玩家預設相機的最小縮放距離，以 studs 為單位。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CameraMinZoomDistance",
     "code_sample": "-- 定義玩家服務\n\n    local Players = game:GetService(\"Players\")\n\n    -- 取得當前玩家\n    local player = Players.LocalPlayer\n\n    -- 設置相機的最大縮放距離\n    player.CameraMaxZoomDistance = 50\n\n    -- 設置相機的最小縮放距離\n    player.CameraMinZoomDistance = 75"
   },
   "@roblox/globaltype/StarterPlayer.CameraMode": {
-    "documentation": "將預設相機模式更改為第一人稱或第三人稱。",
+    "documentation": "更改預設相機的模式為第一人稱或第三人稱。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CameraMode",
     "code_sample": "-- 獲取 Players 服務\nlocal Players = game:GetService(\"Players\")\n\n-- 獲取本地玩家\nlocal player = Players.LocalPlayer\n\n-- 將 CameraMode 設置為 LockFirstPerson\nplayer.CameraMode = Enum.CameraMode.LockFirstPerson"
   },
   "@roblox/globaltype/StarterPlayer.CharacterBreakJointsOnDeath": {
-    "documentation": "決定 <code>Humanoid.BreakJointsOnDeath</code> 對 <code>Player.Character</code> 的初始值。",
+    "documentation": "確定 <code>Player.Character</code> 的 <code>Humanoid.BreakJointsOnDeath</code> 的起始值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CharacterBreakJointsOnDeath",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CharacterJumpHeight": {
-    "documentation": "確定 <code>Humanoid.JumpHeight</code> 的起始值，用於 <code>Player.Character</code>。",
+    "documentation": "確定 <code>Player.Character</code> 的 <code>Humanoid.JumpHeight</code> 的起始值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CharacterJumpHeight",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CharacterJumpPower": {
-    "documentation": "確定 <code>Humanoid.JumpPower</code> 的起始值，用於 <code>Player.Character</code>。",
+    "documentation": "確定 <code>Player.Character</code> 的 <code>Humanoid.JumpPower</code> 的起始值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CharacterJumpPower",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CharacterMaxSlopeAngle": {
-    "documentation": "確定 <code>Humanoid.MaxSlopeAngle</code> 的起始值，用於 <code>Player.Character</code>。",
+    "documentation": "確定 <code>Player.Character</code> 的 <code>Humanoid.MaxSlopeAngle</code> 的起始值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CharacterMaxSlopeAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CharacterUseJumpPower": {
-    "documentation": "確定 <code>Humanoid.UseJumpPower</code> 的初始狀態，用於 <code>Player.Character</code>。",
+    "documentation": "確定 <code>Player.Character</code> 的 <code>Humanoid.UseJumpPower</code> 的起始狀態。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CharacterUseJumpPower",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CharacterWalkSpeed": {
-    "documentation": "確定 <code>Humanoid.WalkSpeed</code> 的起始值，用於 <code>Player.Character</code>。",
+    "documentation": "確定 <code>Player.Character</code> 的 <code>Humanoid.WalkSpeed</code> 的起始值。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CharacterWalkSpeed",
     "code_sample": ""
   },
@@ -58662,57 +58684,57 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CreateDefaultPlayerModule": {
-    "documentation": "控制默認玩家模組和相關腳本的處理方式。",
+    "documentation": "控制預設玩家模組及相關腳本的處理方式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CreateDefaultPlayerModule",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevCameraOcclusionMode": {
-    "documentation": "設置默認相機如何處理相機與玩家之間的物體。",
+    "documentation": "設置預設相機如何處理相機與玩家之間的物體。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevCameraOcclusionMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevComputerCameraMovementMode": {
-    "documentation": "讓您在計算機上覆蓋玩家的相機模式。",
+    "documentation": "允許您在電腦上覆蓋玩家的相機模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevComputerCameraMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevComputerMovementMode": {
-    "documentation": "讓您在計算機上覆蓋玩家的移動模式。",
+    "documentation": "允許您在電腦上覆蓋玩家的移動模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevComputerMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevTouchCameraMovementMode": {
-    "documentation": "讓您在觸控設備上覆蓋玩家的相機模式。",
+    "documentation": "允許您在觸控設備上覆蓋玩家的相機模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevTouchCameraMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevTouchMovementMode": {
-    "documentation": "讓您在觸控設備上覆蓋玩家的移動模式。",
+    "documentation": "允許您在觸控設備上覆蓋玩家的移動模式。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevTouchMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.EnableDynamicHeads": {
-    "documentation": "設置動態頭部的使用。當為 true 時，啟用使用具有面部動畫數據的化身頭部。",
+    "documentation": "設置是否使用動態頭部。如果為真，則啟用具有面部動畫數據的頭像頭部。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#EnableDynamicHeads",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.EnableMouseLockOption": {
-    "documentation": "確定玩家是否可以默認切換鼠標鎖定。",
+    "documentation": "確定玩家是否可以默認切換滑鼠鎖定。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#EnableMouseLockOption",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nwhile true do\n\tplayer.DevEnableMouseLock = not player.DevEnableMouseLock\n\ttask.wait(5)\nend"
   },
   "@roblox/globaltype/StarterPlayer.HealthDisplayDistance": {
-    "documentation": "設置這名玩家將看到其他 <code>Humanoid</code> 血條的距離。如果設置為 0，則不顯示血條。",
+    "documentation": "設置此玩家將看到其他 <code>Humanoid</code> 血條的距離。如果設置為 0，則不顯示血條。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#HealthDisplayDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- 將健康顯示距離設置為 0\nplayer.HealthDisplayDistance = 0\n\n-- 將名稱顯示距離設置為 0\nplayer.NameDisplayDistance = 0"
   },
   "@roblox/globaltype/StarterPlayer.LoadCharacterAppearance": {
-    "documentation": "確定玩家角色的外觀是否應加載。",
+    "documentation": "是否應載入玩家角色的外觀。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#LoadCharacterAppearance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CanLoadCharacterAppearance = false"
   },
   "@roblox/globaltype/StarterPlayer.LoadCharacterLayeredClothing ": {
-    "documentation": "指示生成到體驗中的角色是否將配備分層服飾配件。",
+    "documentation": "指示進入體驗的角色是否會裝備層疊服飾配件。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#LoadCharacterLayeredClothing ",
     "code_sample": ""
   },
@@ -58722,12 +58744,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.NameDisplayDistance": {
-    "documentation": "設置這名玩家將看到其他 <code>Humanoid</code> 名字的距離。",
+    "documentation": "設置此玩家將看到其他 <code>Humanoid</code> 姓名的距離。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#NameDisplayDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\n-- 將健康顯示距離設置為 0\nplayer.HealthDisplayDistance = 0\n\n-- 將名稱顯示距離設置為 0\nplayer.NameDisplayDistance = 0"
   },
   "@roblox/globaltype/StarterPlayer.UserEmotesEnabled": {
-    "documentation": "確定在加載頭像時是否加載用戶擁有的表情。",
+    "documentation": "確定在載入頭像時是否載入用戶擁有的表情。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#UserEmotesEnabled",
     "code_sample": ""
   },
@@ -68066,7 +68088,6 @@
       "Active": "@roblox/globaltype/AudioDeviceInput.Active",
       "IsReady": "@roblox/globaltype/AudioDeviceInput.IsReady",
       "Muted": "@roblox/globaltype/AudioDeviceInput.Muted",
-      "MutedByLocalUser": "@roblox/globaltype/AudioDeviceInput.MutedByLocalUser",
       "Player": "@roblox/globaltype/AudioDeviceInput.Player",
       "Volume": "@roblox/globaltype/AudioDeviceInput.Volume",
       "GetConnectedWires": "@roblox/globaltype/AudioDeviceInput.GetConnectedWires",
@@ -68098,18 +68119,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#Muted",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioDeviceInput.MutedByLocalUser": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#MutedByLocalUser",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioDeviceInput.Player": {
-    "documentation": "確定是誰的設備正在產生聲音。",
+    "documentation": "確定哪個設備正在產生聲音。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#Player",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioDeviceInput.Volume": {
-    "documentation": "乘到輸出音頻流上的音量級別。",
+    "documentation": "乘以輸出音頻流的音量級別。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#Volume",
     "code_sample": ""
   },
@@ -72363,7 +72379,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService": {
-    "documentation": "提供控制螢幕截圖和影片擷取功能的服務。",
+    "documentation": "一項提供對截圖和視頻錄製功能控制的服務。",
     "keys": {
       "CaptureScreenshot": "@roblox/globaltype/CaptureService.CaptureScreenshot",
       "PromptCaptureGalleryPermissionAsync": "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync",
@@ -72379,13 +72395,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.CaptureScreenshot/param/0": {
-    "documentation": "提供控制螢幕截圖和影片擷取功能的服務。"
+    "documentation": "一項提供對截圖和視頻錄製功能控制的服務。"
   },
   "@roblox/globaltype/CaptureService.CaptureScreenshot/param/1": {
-    "documentation": "當新捕捉準備好後，將回調函數的 <code>contentId</code> 傳回。"
+    "documentation": "一個回調函數，當新捕獲的內容準備好時會被調用，並傳入 <code>contentId</code>。"
   },
   "@roblox/globaltype/CaptureService.CaptureScreenshot": {
-    "documentation": "拍攝螢幕截圖並提供一個臨時的 <code>contentId</code> 來識別它。",
+    "documentation": "拍攝截圖並提供一個臨時的 <code>contentId</code> 來識別它。",
     "params": [
       {
         "name": "self",
@@ -72401,13 +72417,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/0": {
-    "documentation": "提供控制螢幕截圖和影片擷取功能的服務。"
+    "documentation": "一項提供對截圖和視頻錄製功能控制的服務。"
   },
   "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/1": {
-    "documentation": "代表用戶將被提示的訪問權限類型的 <code>CaptureGalleryPermission</code>。"
+    "documentation": "一個 <code>CaptureGalleryPermission</code>，表示用戶將被提示的訪問類型。"
   },
   "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/return/0": {
-    "documentation": "一個布林值，表示用戶是否允許存取他們的捕捉。"
+    "documentation": "一個布爾值，表示用戶是否允許訪問其捕獲的內容。"
   },
   "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync": {
     "documentation": "",
@@ -72428,16 +72444,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery/param/0": {
-    "documentation": "提供控制螢幕截圖和影片擷取功能的服務。"
+    "documentation": "一項提供對截圖和視頻錄製功能控制的服務。"
   },
   "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery/param/1": {
-    "documentation": "一個內容 ID 和/或 <code>Capture</code> 物件的數組。"
+    "documentation": "一個內容 ID 和/或 <code>Capture</code> 對象的數組。"
   },
   "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery/param/2": {
-    "documentation": "一個回調函數，將以字典形式映射每個 <code>contentId</code> 和/或 <code>Capture</code> 物件，以布林值指示用戶是否接受保存該捕捉。"
+    "documentation": "一個回調函數，將被調用，並傳入一個字典，映射每個 <code>contentId</code> 和/或 <code>Capture</code> 對象，指示用戶是否接受保存該捕獲。"
   },
   "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery": {
-    "documentation": "提示用戶將指定的捕捉保存到他們的畫廊。",
+    "documentation": "提示用戶將指定的捕獲保存到其畫廊中。",
     "params": [
       {
         "name": "self",
@@ -72457,22 +72473,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/0": {
-    "documentation": "提供控制螢幕截圖和影片擷取功能的服務。"
+    "documentation": "一項提供對截圖和視頻錄製功能控制的服務。"
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/1": {
-    "documentation": "一個 <code>Content</code>，包含 <code>contentId</code> 或 <code>Capture</code> 物件。"
+    "documentation": "一個 <code>Content</code>，包含一個 <code>contentId</code> 或 <code>Capture</code> 對象。"
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/2": {
-    "documentation": "一個可選的字串，作為邀請鏈接中的啟動數據。"
+    "documentation": "一個可選的字符串，作為邀請鏈接中的啟動數據包含。"
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/3": {
-    "documentation": "一個可選的回調函數，當用戶接受分享時被調用。"
+    "documentation": "一個可選的回調函數，當用戶接受分享時會被調用。"
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/4": {
-    "documentation": "一個可選的回調函數，當用戶拒絕分享時被調用。"
+    "documentation": "一個可選的回調函數，當用戶拒絕分享時會被調用。"
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture": {
-    "documentation": "提示用戶分享指定的捕捉。",
+    "documentation": "提示用戶分享指定的捕獲。",
     "params": [
       {
         "name": "self",
@@ -72500,13 +72516,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/0": {
-    "documentation": "提供控制螢幕截圖和影片擷取功能的服務。"
+    "documentation": "一項提供對截圖和視頻錄製功能控制的服務。"
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1": {
     "documentation": "一個 <code>CaptureType</code> 的數組。"
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/2": {
-    "documentation": "一個布林值；默認為 <code>false</code>。"
+    "documentation": "一個布爾值；默認為 <code>false</code>。"
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0": {
     "documentation": "元組 (result: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>)"
@@ -72534,10 +72550,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.StartVideoCaptureAsync/param/0": {
-    "documentation": "提供控制螢幕截圖和影片擷取功能的服務。"
+    "documentation": "一項提供對截圖和視頻錄製功能控制的服務。"
   },
   "@roblox/globaltype/CaptureService.StartVideoCaptureAsync/param/1": {
-    "documentation": "一個回調函數，當影片擷取完成時以 <code>VideoCaptureResult</code> 和成功的情況下提供 <code>VideoCapture</code>。"
+    "documentation": "一個回調函數，在視頻捕獲完成時被調用，並帶有 <code>VideoCaptureResult</code> 和（如果成功） <code>VideoCapture</code>。"
   },
   "@roblox/globaltype/CaptureService.StartVideoCaptureAsync/param/2": {
     "documentation": ""
@@ -72546,7 +72562,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/CaptureService.StartVideoCaptureAsync": {
-    "documentation": "開始錄製影片擷取。",
+    "documentation": "啟動視頻捕獲錄製。",
     "params": [
       {
         "name": "self",
@@ -72568,10 +72584,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.StopVideoCapture/param/0": {
-    "documentation": "提供控制螢幕截圖和影片擷取功能的服務。"
+    "documentation": "一項提供對截圖和視頻錄製功能控制的服務。"
   },
   "@roblox/globaltype/CaptureService.StopVideoCapture": {
-    "documentation": "結束由 <code>StartVideoCaptureAsync()</code> 初始化的影片擷取。",
+    "documentation": "結束由 <code>StartVideoCaptureAsync()</code> 啟動的視頻捕獲。",
     "params": [
       {
         "name": "self",
@@ -72583,16 +72599,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/0": {
-    "documentation": "提供控制螢幕截圖和影片擷取功能的服務。"
+    "documentation": "一項提供對截圖和視頻錄製功能控制的服務。"
   },
   "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/1": {
-    "documentation": "一個回調函數，在螢幕截圖擷取完成時提供 <code>ScreenshotCaptureResult</code> 和成功的情況下提供 <code>ScreenshotCapture</code>。"
+    "documentation": "一個回調函數，在截圖捕獲完成時被調用，帶有 <code>ScreenshotCaptureResult</code> 和（如果成功） <code>ScreenshotCapture</code>。"
   },
   "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/2": {
-    "documentation": "一個字典，用於修改捕捉行為。"
+    "documentation": "一個修改捕獲行為的字典。"
   },
   "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync": {
-    "documentation": "啟動螢幕截圖擷取。",
+    "documentation": "啟動截圖捕獲。",
     "params": [
       {
         "name": "self",
@@ -72612,10 +72628,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
-    "documentation": "提供控制螢幕截圖和影片擷取功能的服務。"
+    "documentation": "一項提供對截圖和視頻錄製功能控制的服務。"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1": {
-    "documentation": "一個類型為 <code>Capture</code> 的捕捉物件"
+    "documentation": "一個類型為 <code>Capture</code> 的捕獲對象"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
     "documentation": "元組 (result: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
@@ -72716,7 +72732,7 @@
     "returns": []
   },
   "@roblox/globaltype/CaptureService.CaptureBegan": {
-    "documentation": "在捕捉開始之前立即觸發。",
+    "documentation": "在捕獲開始之前立即觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/CaptureService.CaptureBegan.Connect",
       "ConnectParallel": "@roblox/globaltype/CaptureService.CaptureBegan.ConnectParallel",
@@ -72804,7 +72820,7 @@
     "returns": []
   },
   "@roblox/globaltype/CaptureService.CaptureEnded": {
-    "documentation": "在捕捉完成後觸發。",
+    "documentation": "在捕獲完成後觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/CaptureService.CaptureEnded.Connect",
       "ConnectParallel": "@roblox/globaltype/CaptureService.CaptureEnded.ConnectParallel",
@@ -72980,7 +72996,7 @@
     "returns": []
   },
   "@roblox/globaltype/CaptureService.UserCaptureSaved": {
-    "documentation": "在用戶保存捕捉時觸發。",
+    "documentation": "當用戶保存捕獲時觸發。",
     "keys": {
       "Connect": "@roblox/globaltype/CaptureService.UserCaptureSaved.Connect",
       "ConnectParallel": "@roblox/globaltype/CaptureService.UserCaptureSaved.ConnectParallel",
@@ -84677,7 +84693,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance": {
-    "documentation": "一個物件，允許開發者使用進階圖形選項來覆蓋 MeshPart 的外觀。",
+    "documentation": "一個允許開發者用進階圖形選項來覆蓋 MeshPart 外觀的物件。",
     "keys": {
       "AlphaMode": "@roblox/globaltype/SurfaceAppearance.AlphaMode",
       "Color": "@roblox/globaltype/SurfaceAppearance.Color",
@@ -84703,7 +84719,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.Color": {
-    "documentation": "為您現有的色彩地圖應用色調。可以直接使用顏色選擇器設置，或通過 <code>Color3</code> 程式設置。",
+    "documentation": "對現有的顏色圖應用色調。可直接用顏色選擇器設置或用 <code>Color3</code> 程式設置。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#Color",
     "code_sample": ""
   },
@@ -84718,22 +84734,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.EmissiveMaskContent": {
-    "documentation": "確定表面的發射率。",
+    "documentation": "決定表面的發射率。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveMaskContent",
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.EmissiveStrength": {
-    "documentation": "確定發射貢獻的強度。",
+    "documentation": "決定發射貢獻的強度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveStrength",
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.EmissiveTint": {
-    "documentation": "確定發射貢獻的著色。",
+    "documentation": "決定發射貢獻的色調。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveTint",
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.MetalnessMap": {
-    "documentation": "確定表面的金屬或非金屬部分。",
+    "documentation": "決定表面的哪部分是金屬或非金屬。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#MetalnessMap",
     "code_sample": ""
   },
@@ -84743,7 +84759,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.NormalMap": {
-    "documentation": "通過添加凹凸、凹痕、裂縫和曲線來修改表面的照明。",
+    "documentation": "通過添加隆起、凹陷、裂縫和曲線來修改表面的照明。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#NormalMap",
     "code_sample": ""
   },
@@ -84753,7 +84769,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.RoughnessMap": {
-    "documentation": "確定表面的表觀粗糙度。",
+    "documentation": "決定表面的明顯粗糙度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#RoughnessMap",
     "code_sample": ""
   },
@@ -85065,7 +85081,7 @@
     "documentation": "提供的物品 ID 的類型。"
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/return/0": {
-    "documentation": "返回一個物品詳細信息的數組，包含以下字段： <pre><code class=\"language-lua\">{     &quot;AssetType&quot; = &quot;string&quot;,     &quot;CreatorName&quot; = &quot;string&quot;,     &quot;CreatorTargetId&quot; = 0,     &quot;CreatorType&quot; = &quot;string&quot;,     &quot;Description&quot; = &quot;string&quot;,     &quot;FavoriteCount&quot; = 0,     &quot;Genres&quot; = [       &quot;All&quot;     ],     &quot;Id&quot; = 0,     &quot;ItemRestrictions&quot; = [       &quot;Limited&quot;     ],     &quot;ItemStatus&quot;: [       &quot;New&quot;     ],     &quot;ItemType&quot; = &quot;string&quot;,     &quot;LowestPrice&quot; = 0,     &quot;Name&quot; = &quot;string&quot;,     &quot;Price&quot; = 0,     &quot;ProductId&quot; = 0   } </code></pre> ."
+    "documentation": "返回項目詳細資訊的數組。"
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync": {
     "documentation": "一次獲取多個物品的詳細信息。",
@@ -85099,7 +85115,7 @@
     "documentation": "提供的物品 ID 的類型。"
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails/return/0": {
-    "documentation": "返回一個物品詳細信息的數組，包含以下字段： <pre><code class=\"language-lua\">{     &quot;AssetType&quot; = &quot;string&quot;,     &quot;CreatorName&quot; = &quot;string&quot;,     &quot;CreatorTargetId&quot; = 0,     &quot;CreatorType&quot; = &quot;string&quot;,     &quot;Description&quot; = &quot;string&quot;,     &quot;FavoriteCount&quot; = 0,     &quot;Genres&quot; = [       &quot;All&quot;     ],     &quot;Id&quot; = 0,     &quot;ItemRestrictions&quot; = [       &quot;Limited&quot;     ],     &quot;ItemStatus&quot;: [       &quot;New&quot;     ],     &quot;ItemType&quot; = &quot;string&quot;,     &quot;LowestPrice&quot; = 0,     &quot;Name&quot; = &quot;string&quot;,     &quot;Price&quot; = 0,     &quot;ProductId&quot; = 0   } </code></pre> ."
+    "documentation": "返回項目詳細資訊的數組。請參見 <code>AvatarEditorService:GetBatchItemDetailsAsync()</code> 的 回應格式。"
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails": {
     "documentation": "<strong>Deprecated:</strong> <br>一次獲取多個物品的詳細信息。",
@@ -85255,7 +85271,7 @@
     "documentation": "表示欲檢索詳細信息的物品類型的 enum 值。"
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/return/0": {
-    "documentation": "包含檢索物品的信息的表。上述提供了示例表。"
+    "documentation": "包含獲取到的項目信息的表格。"
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync": {
     "documentation": "返回給定物品的詳細信息。",
@@ -85753,7 +85769,7 @@
     "documentation": "包含用於搜索的參數的對象。"
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/return/0": {
-    "documentation": ""
+    "documentation": "包含搜索結果的 <code>CatalogPages</code> 對象。"
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync": {
     "documentation": "返回包含給定搜索結果的 <code>CatalogPages</code> 對象。",
@@ -88149,10 +88165,8 @@
     "documentation": "一個可以發出聲音的物件。這個物件可以放置在 <code>BasePart</code> 或 <code>Attachment</code> 內，以從特定的 位置發出聲音，或可以在其他地方附加以在整個地方以 恆定音量播放聲音。",
     "keys": {
       "AudioContent": "@roblox/globaltype/Sound.AudioContent",
-      "ChannelCount": "@roblox/globaltype/Sound.ChannelCount",
       "EmitterSize": "@roblox/globaltype/Sound.EmitterSize",
       "IsLoaded": "@roblox/globaltype/Sound.IsLoaded",
-      "IsMutedForCapture": "@roblox/globaltype/Sound.IsMutedForCapture",
       "IsPaused": "@roblox/globaltype/Sound.IsPaused",
       "IsPlaying": "@roblox/globaltype/Sound.IsPlaying",
       "isPlaying": "@roblox/globaltype/Sound.isPlaying",
@@ -88191,28 +88205,18 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#AudioContent",
     "code_sample": ""
   },
-  "@roblox/globaltype/Sound.ChannelCount": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#ChannelCount",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Sound.EmitterSize": {
-    "documentation": "<strong>Deprecated:</strong> 此屬性已被棄用，建議使用 <code>Sound.RollOffMinDistance</code> 和 <code>Sound.RollOffMaxDistance</code> 來取而代之。<br>3D <code>Sound</code>（<code>BasePart</code> 或 <code>Attachment</code> 的直接子項）開始衰減（音量減少）的最小距離（以 studs 為單位）。",
+    "documentation": "<strong>Deprecated:</strong> 這個屬性已被棄用，建議使用 <code>Sound.RollOffMinDistance</code> 和 <code>Sound.RollOffMaxDistance</code> 在新的工作中。<br>在3D <code>Sound</code>（<code>BasePart</code> 或 <code>Attachment</code> 的直接子項）開始衰減（音量減少）時的最小距離，以 studs 為單位。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#EmitterSize",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Anchored = true\npart.Position = Vector3.new(0, 3, 0)\npart.BrickColor = BrickColor.new(\"Bright red\")\npart.Name = \"MusicBox\"\npart.Parent = workspace\n\n-- 創建一個聲音\nlocal sound = Instance.new(\"Sound\", part)\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.EmitterSize = 5 -- 減少發射器大小（以便更早音量下降）\nsound.Looped = true\nsound.Parent = part\n\nlocal clickDetector = Instance.new(\"ClickDetector\")\nclickDetector.Parent = part\n\n-- 切換聲音播放 / 不播放\nclickDetector.MouseClick:Connect(function()\n\tif not sound.IsPlaying then\n\t\tpart.BrickColor = BrickColor.new(\"Bright green\")\n\t\tsound:Play()\n\telse\n\t\tpart.BrickColor = BrickColor.new(\"Bright red\")\n\t\tsound:Stop()\n\tend\nend)"
   },
   "@roblox/globaltype/Sound.IsLoaded": {
-    "documentation": "當 <code>Sound</code> 從 Roblox 伺服器加載並準備播放時，此屬性為 <code>true</code>。",
+    "documentation": "<code>Sound</code> 從 Roblox 伺服器加載完成並準備播放時，這個屬性為 <code>true</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsLoaded",
     "code_sample": "local sound = script.Parent.Sound\n\nif not sound.IsLoaded then\n\tsound.Loaded:Wait()\n\tend\n\nprint(\"聲音已成功載入！\")"
   },
-  "@roblox/globaltype/Sound.IsMutedForCapture": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsMutedForCapture",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Sound.IsPaused": {
-    "documentation": "只讀屬性，當 <code>Sound</code> 沒有播放時，返回 <code>true</code>。",
+    "documentation": "只讀屬性，當 <code>Sound</code> 沒有在播放時返回 <code>true</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsPaused",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Looped = true\nsound.Parent = workspace\n\nif not sound.isLoaded then\n\tsound.Loaded:Wait()\nend\n\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused)\n    -- true, false\n\ntask.wait(2)\nsound:Pause()\nprint(sound.IsPlaying, sound.IsPaused)\n    -- false, true\n\ntask.wait(2)\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused)\n    -- true, false\n\ntask.wait(2)\nsound:Stop()\nprint(sound.IsPlaying, sound.IsPaused)\n    -- false, true"
   },
@@ -88222,52 +88226,52 @@
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Looped = true\nsound.Parent = workspace\n\nif not sound.isLoaded then\n\tsound.Loaded:Wait()\nend\n\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused)\n    -- true, false\n\ntask.wait(2)\nsound:Pause()\nprint(sound.IsPlaying, sound.IsPaused)\n    -- false, true\n\ntask.wait(2)\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused)\n    -- true, false\n\ntask.wait(2)\nsound:Stop()\nprint(sound.IsPlaying, sound.IsPaused)\n    -- false, true"
   },
   "@roblox/globaltype/Sound.isPlaying": {
-    "documentation": "<strong>Deprecated:</strong> 此棄用屬性是 <code>Sound.IsPlaying</code> 的變體，應使用此屬性。",
+    "documentation": "<strong>Deprecated:</strong> 這個已被棄用的屬性是 <code>Sound.IsPlaying</code> 的變體，應該使用後者。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#isPlaying",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.Looped": {
-    "documentation": "設定 <code>Sound</code> 在播放完成後是否重複。",
+    "documentation": "設置 <code>Sound</code> 在播放結束後是否重複。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Looped",
     "code_sample": "local function loopNTimes(sound, numberOfLoops)\n\tif not sound.IsPlaying then\n\t\tsound.Looped = true\n\t\tlocal connection = nil\n\t\tconnection = sound.DidLoop:Connect(function(_soundId, numOfTimesLooped)\n\t\t\tprint(numOfTimesLooped)\n\t\t\tif numOfTimesLooped >= numberOfLoops then\n\t\t\t\t-- 斷開連接\n\t\t\t\tconnection:Disconnect()\n\t\t\t\t-- 停止聲音\n\t\t\t\tsound:Stop()\n\t\t\tend\n\t\tend)\n\t\tsound:Play()\n\tend\nend\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://0\"\n\nloopNTimes(sound, 5)"
   },
   "@roblox/globaltype/Sound.LoopRegion": {
-    "documentation": "表示在 <code>PlaybackRegion</code> 內的所需循環開始和結束範圍，以秒為單位。",
+    "documentation": "表示在 <code>PlaybackRegion</code> 中所需的循環開始和結束範圍，以秒為單位。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#LoopRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MaxDistance": {
-    "documentation": "<strong>Deprecated:</strong> 此屬性已被棄用，建議使用 <code>Sound.RollOffMinDistance</code> 和 <code>Sound.RollOffMaxDistance</code> 來取而代之。<br>客戶端聆聽者距離 <code>Sound\\\\s</code> 原點的最遠距離，以 studs 為單位，並且仍然可以聽到。僅適用於父項為 <code>Part</code> 或 <code>Attachment</code> 的聲音（3D 聲音）。",
+    "documentation": "<strong>Deprecated:</strong> 這個屬性已被棄用，建議使用 <code>Sound.RollOffMinDistance</code> 和 <code>Sound.RollOffMaxDistance</code> 在新的工作中。<br>客戶端的聽者可以距離 <code>Sound\\\\s</code> 原點的最大距離，以 studs 為單位，並且仍然可以聽到。僅適用於屬於 <code>Part</code> 或 <code>Attachment</code> 的聲音（3D聲音）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MaxDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MinDistance": {
-    "documentation": "<strong>Deprecated:</strong> MinDistance 已被 <code>Sound.EmitterSize</code> 取代，其名稱更好地描述了該屬性的行為。<br>3D <code>Sound</code>（直接子項目為 <code>BasePart</code> 或 <code>Attachment</code>）開始衰減的最小距離。有效地，即發射器大小。",
+    "documentation": "<strong>Deprecated:</strong> MinDistance 已被 <code>Sound.EmitterSize</code> 取代，該名稱更好地描述了該屬性的行為。<br>在3D <code>Sound</code>（<code>BasePart</code> 或 <code>Attachment</code> 的直接子項）開始衰減的最小距離。實際上是發射器大小。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MinDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.Pitch": {
-    "documentation": "<strong>Deprecated:</strong> 此屬性已被棄用，建議使用 <code>Sound.PlaybackSpeed</code>，其名稱更適合該行為。<br>設置 <code>Sound</code> 播放時的音調和速度。整數越大，<code>Sound</code> 的音調和速度越高。",
+    "documentation": "<strong>Deprecated:</strong> 這個屬性已被棄用，建議使用 <code>Sound.PlaybackSpeed</code>，其名稱更符合該行為。<br>設置 <code>Sound</code> 播放時的音調和速度。整數越大，<code>Sound</code> 的音調和速度越高。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Pitch",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackLoudness": {
-    "documentation": "介於 <code>0</code> 和 <code>1000</code> 的數字，表示 <code>Sound</code> 當前的播放音量。",
+    "documentation": "一個介於 <code>0</code> 和 <code>1000</code> 之間的數字，表示 <code>Sound</code> 當前播放的音量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackLoudness",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackRegion": {
-    "documentation": "表示在 <code>TimeLength</code> 內的所需開始和停止時間範圍，以秒為單位。",
+    "documentation": "表示在 <code>TimeLength</code> 中所需的開始和停止時間範圍，以秒為單位。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackRegionsEnabled": {
-    "documentation": "如果 <code>true</code>，則此屬性允許您的 <code>Sound</code> 訪問 <code>PlaybackRegion</code> 和 <code>LoopRegion</code> 屬性，這可以更準確地控制其播放。",
+    "documentation": "如果為 <code>true</code>，這個屬性將使 <code>Sound</code> 獲得更準確控制播放的 <code>PlaybackRegion</code> 和 <code>LoopRegion</code> 屬性。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackRegionsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackSpeed": {
-    "documentation": "決定 <code>Sound</code> 的播放速度，較高的值會使聲音播放得更快且音調更高。",
+    "documentation": "決定 <code>Sound</code> 播放的速度，較高的數值將使聲音播放更快且音調更高。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackSpeed",
     "code_sample": "local sound = Instance.new(\"Sound\")\n\n    sound.SoundId = \"rbxassetid://9120386436\"\n\n    sound.Looped = true\n\n    sound.Parent = workspace\n\n\n    sound:Play()\n\n    task.wait(10)\n\n    sound.PlaybackSpeed = 3 -- 3倍快\n\n    task.wait(5)\n\n    sound.PlaybackSpeed = 0.5 -- 2倍慢\n\n    task.wait(5)\n\n    sound.PlaybackSpeed = 1 -- 默認"
   },
@@ -88277,42 +88281,42 @@
     "code_sample": "local sound = Instance.new(\"Sound\")\n\n    sound.SoundId = \"rbxassetid://9120386436\"\n\n    sound.Looped = true\n\n    sound.Parent = workspace\n\n\n    print(\"播放音效\")\n\n    sound.Playing = true\n\n\n    task.wait(10)\n\n\n    print(\"停止音效\")\n\n    sound.Playing = false\n\n\n    task.wait(5)\n\n\n    sound.Playing = true\n\n    local timePosition = sound.TimePosition\n\n    print(\"從時間位置恢復: \" .. tostring(timePosition)) -- c. 10 seconds"
   },
   "@roblox/globaltype/Sound.PlayOnRemove": {
-    "documentation": "當為 <code>true</code>，<code>Sound</code> 將在從經驗中移除時播放。",
+    "documentation": "當 <code>true</code> 時，<code>Sound</code> 將在從體驗中移除時播放。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlayOnRemove",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.RollOffMaxDistance": {
-    "documentation": "客戶端聽者離聲音原點的最大距離（以 studs 為單位），仍能聽到音效。僅適用於父級為 <code>Sounds</code> 的 <code>BasePart</code> 或 <code>Attachment</code>。",
+    "documentation": "客戶端的聽者可以距離聲音的原點的最大距離，以 studs 為單位，並且仍然可以聽到。僅適用於屬於 <code>BasePart</code> 或 <code>Attachment</code> 的 <code>Sounds</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#RollOffMaxDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.RollOffMinDistance": {
-    "documentation": "父級為 <code>BasePart</code> 或 <code>Attachment</code> 的 <code>Sound</code> 開始衰減（音量減少）的最小距離（以 studs 為單位）。",
+    "documentation": "在屬於 <code>BasePart</code> 或 <code>Attachment</code> 的 <code>Sound</code> 開始衰減（音量減少）時的最小距離，以 studs 為單位。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#RollOffMinDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.RollOffMode": {
-    "documentation": "控制父級為 <code>BasePart</code> 或 <code>Attachment</code> 的 <code>Sound</code> 隨著接收器與父項之間的距離變化而衰減（淡出）的音量。",
+    "documentation": "控制隨著聽者和父項之間的距離變化，屬於 <code>BasePart</code> 或 <code>Attachment</code> 的 <code>Sound</code> 的音量如何衰減（淡出）。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#RollOffMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.SoundGroup": {
-    "documentation": "與此 <code>Sound</code> 相關聯的 <code>SoundGroup</code>。",
+    "documentation": "鏈接到此 <code>Sound</code> 的 <code>SoundGroup</code>。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#SoundGroup",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.SoundId": {
-    "documentation": "與 <code>Sound</code> 相關聯的聲音檔案的內容 ID。",
+    "documentation": "要與 <code>Sound</code> 相關聯的聲音文件的內容 ID。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#SoundId",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.TimeLength": {
-    "documentation": "以秒為單位的 <code>Sound</code> 的長度。",
+    "documentation": "<code>Sound</code> 的長度，以秒為單位。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#TimeLength",
     "code_sample": "-- 定義一個函數來播放音效，持續指定的時間\nlocal function playForDuration(sound, duration)\n\tif not sound.IsLoaded\\ then\n\t\tsound.Loaded:wait()\n\tend\n\tlocal speed = sound.TimeLength / duration\n\t-- 設定播放速度\n\tsound.PlaybackSpeed = speed\n\t-- 播放音效\n\tsound:Play()\nend\n\nlocal sound = script.Parent\n-- 播放音效，持續 5 秒\nplayForDuration(sound, 5)"
   },
   "@roblox/globaltype/Sound.TimePosition": {
-    "documentation": "以秒為單位的 <code>Sound</code> 的進度。可以更改以移動 <code>Sound</code> 的播放位置，无论是在播放前还是播放中。",
+    "documentation": "<code>Sound</code> 的進度，以秒為單位。可以在播放之前或播放過程中更改來移動 <code>Sound</code> 的播放位置。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#TimePosition",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Parent = workspace\n\nsound.TimePosition = 30\n\nsound:Play()\n\ntask.wait(5)\n\nsound.TimePosition = 100\n\ntask.wait(5)\n\nsound.TimePosition = 0"
   },
@@ -89231,7 +89235,6 @@
       "AudioContent": "@roblox/globaltype/AudioPlayer.AudioContent",
       "AutoLoad": "@roblox/globaltype/AudioPlayer.AutoLoad",
       "AutoPlay": "@roblox/globaltype/AudioPlayer.AutoPlay",
-      "IsMutedForCapture": "@roblox/globaltype/AudioPlayer.IsMutedForCapture",
       "IsPlaying": "@roblox/globaltype/AudioPlayer.IsPlaying",
       "IsReady": "@roblox/globaltype/AudioPlayer.IsReady",
       "Looping": "@roblox/globaltype/AudioPlayer.Looping",
@@ -89276,43 +89279,38 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#AutoPlay",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioPlayer.IsMutedForCapture": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsMutedForCapture",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioPlayer.IsPlaying": {
-    "documentation": "表示此 <code>AudioPlayer</code> 是否正在播放中。",
+    "documentation": "表示這個 <code>AudioPlayer</code> 目前是否在播放。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsPlaying",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.IsReady": {
-    "documentation": "表示此 <code>AudioPlayer</code> 是否已加載、緩衝並準備播放。",
+    "documentation": "表示這個 <code>AudioPlayer</code> 是否已載入、緩衝且準備好 播放。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsReady",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.Looping": {
-    "documentation": "控制此 <code>AudioPlayer</code> 是否循環。",
+    "documentation": "控制這個 <code>AudioPlayer</code> 是否循環。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#Looping",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.LoopRegion": {
-    "documentation": "表示希望在此 <code>AudioPlayer</code> 的 <code>PlaybackRegion</code> 中設置的循環開始和結束範圍（以秒為單位）。",
+    "documentation": "以秒為單位的範圍，表示這個 <code>AudioPlayer</code> 的 <code>PlaybackRegion</code> 中所需的循環開始和結束。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#LoopRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.PlaybackRegion": {
-    "documentation": "表示在 <code>TimeLength</code> 中希望設置的起始時間（最小值）和停止時間（最大值）的範圍（以秒為單位）。",
+    "documentation": "以秒為單位的範圍，表示所需的開始時間（最小）和停止時間 （最大）在 <code>TimeLength</code> 之內。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#PlaybackRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.PlaybackSpeed": {
-    "documentation": "控制資產播放的速度，這會控制其音調。",
+    "documentation": "控制資產的播放速度，這會影響其音調。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#PlaybackSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.TimeLength": {
-    "documentation": "表示加載的資產的長度。",
+    "documentation": "表示已載入資產的長度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#TimeLength",
     "code_sample": ""
   },
@@ -89322,7 +89320,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.Volume": {
-    "documentation": "控制資產播放的音量。",
+    "documentation": "控制資產的播放音量。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#Volume",
     "code_sample": ""
   },
@@ -90241,7 +90239,6 @@
       "AngleAttenuation": "@roblox/globaltype/AudioEmitter.AngleAttenuation",
       "AudioInteractionGroup": "@roblox/globaltype/AudioEmitter.AudioInteractionGroup",
       "DistanceAttenuation": "@roblox/globaltype/AudioEmitter.DistanceAttenuation",
-      "PositionOverride": "@roblox/globaltype/AudioEmitter.PositionOverride",
       "SimulationFidelity": "@roblox/globaltype/AudioEmitter.SimulationFidelity",
       "GetAngleAttenuation": "@roblox/globaltype/AudioEmitter.GetAngleAttenuation",
       "GetAudibilityFor": "@roblox/globaltype/AudioEmitter.GetAudibilityFor",
@@ -90276,13 +90273,8 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#DistanceAttenuation",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioEmitter.PositionOverride": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#PositionOverride",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioEmitter.SimulationFidelity": {
-    "documentation": "<strong>Deprecated:</strong> <br>控制這個 <code>AudioEmitter</code> 的音頻模擬應該有多詳細。",
+    "documentation": "<strong>Deprecated:</strong> <br>控制此 <code>AudioEmitter</code> 的音效模擬細節程度。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#SimulationFidelity",
     "code_sample": ""
   },
@@ -91620,7 +91612,7 @@
     "documentation": "虛擬角色要為其設置的 <code>Player</code>。"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/2": {
-    "documentation": "將設置為虛擬角色的人形 <code>Model</code>。"
+    "documentation": "包含參數的表格。類型： <code>type AutoSetupAccessory = { AccessoryType: Enum.AccessoryType, IsLayered: bool, Instance: Model} type AutoSetupParams = { Body: Model?, Accessories: {AutoSetupAccessory}}</code>"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/3": {
     "documentation": "可選的回調函數，將定期調用，傳遞一個 progressInfo 表格，包含整體進度（從 0 到 1）。類型： <code>(progressInfo: { Progress: number }) -&gt; ()</code>"
@@ -91629,7 +91621,7 @@
     "documentation": "生成的虛擬角色的唯一標識符。"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync": {
-    "documentation": "自動將自定義 <code>Model</code> 設置為虛擬角色資產。",
+    "documentation": "自動設置自定義 <code>Model</code> 和/或頭像配件。",
     "params": [
       {
         "name": "self",
@@ -91640,7 +91632,7 @@
         "documentation": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/1"
       },
       {
-        "name": "model",
+        "name": "autoSetupParams",
         "documentation": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/2"
       },
       {
@@ -92986,6 +92978,7 @@
       "CanUsersChatAsync": "@roblox/globaltype/TextChatService.CanUsersChatAsync",
       "CanUsersDirectChatAsync": "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync",
       "DisplayBubble": "@roblox/globaltype/TextChatService.DisplayBubble",
+      "GetChatGroupsAsync": "@roblox/globaltype/TextChatService.GetChatGroupsAsync",
       "OnBubbleAdded": "@roblox/globaltype/TextChatService.OnBubbleAdded",
       "OnChatWindowAdded": "@roblox/globaltype/TextChatService.OnChatWindowAdded",
       "OnIncomingMessage": "@roblox/globaltype/TextChatService.OnIncomingMessage"
@@ -93135,6 +93128,33 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#DisplayBubble",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/0": {
+    "documentation": "處理內部體驗文本聊天的服務。"
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/1": {
+    "documentation": "當前在體驗中的 <code>Players</code> 列表，以評估文本聊天兼容性。"
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync/return/0": {
+    "documentation": "一個排序的聊天群組 ID 字符串的陣列陣列。共享匹配聊天群組 ID 的玩家有資格進行互相同步的文字聊天。"
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync": {
+    "documentation": "返回聊天群組 ID，以指示哪些玩家可以同步進行文字聊天。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/0"
+      },
+      {
+        "name": "players",
+        "documentation": "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TextChatService.GetChatGroupsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#GetChatGroupsAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.OnBubbleAdded/param/0": {
@@ -118223,13 +118243,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsDescendant",
     "code_sample": ""
   },
+  "@roblox/enum/InstanceFileSyncStatus.AncestorErrored": {
+    "documentation": "目前 <code>Instance</code> 沒有被同步，因為其同步樹的根是 <code>Errored</code>。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#AncestorErrored",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.InstanceFileSyncStatus": {
     "documentation": "描述一個實例的檔案同步狀態。",
     "keys": {
       "NotSynced": "@roblox/enum/InstanceFileSyncStatus.NotSynced",
       "Errored": "@roblox/enum/InstanceFileSyncStatus.Errored",
       "SyncedAsRoot": "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot",
-      "SyncedAsDescendant": "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant"
+      "SyncedAsDescendant": "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant",
+      "AncestorErrored": "@roblox/enum/InstanceFileSyncStatus.AncestorErrored"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus",
     "code_sample": ""

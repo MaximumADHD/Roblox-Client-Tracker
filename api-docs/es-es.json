@@ -39217,7 +39217,6 @@
       "AngleAttenuation": "@roblox/globaltype/AudioListener.AngleAttenuation",
       "AudioInteractionGroup": "@roblox/globaltype/AudioListener.AudioInteractionGroup",
       "DistanceAttenuation": "@roblox/globaltype/AudioListener.DistanceAttenuation",
-      "PositionOverride": "@roblox/globaltype/AudioListener.PositionOverride",
       "SimulationFidelity": "@roblox/globaltype/AudioListener.SimulationFidelity",
       "GetAngleAttenuation": "@roblox/globaltype/AudioListener.GetAngleAttenuation",
       "GetAudibilityFor": "@roblox/globaltype/AudioListener.GetAudibilityFor",
@@ -39252,13 +39251,8 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#DistanceAttenuation",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioListener.PositionOverride": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#PositionOverride",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioListener.SimulationFidelity": {
-    "documentation": "<strong>Deprecated:</strong> <br>Controla cuán detallada debería ser la simulación de audio para este <code>AudioListener</code>.",
+    "documentation": "<strong>Deprecated:</strong> <br>Controla cuán detallada debe ser la simulación de audio para este <code>AudioListener</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#SimulationFidelity",
     "code_sample": ""
   },
@@ -54220,22 +54214,22 @@
     "documentation": "Servicio que permite a los desarrolladores generar objetos 3D a partir de mensajes de texto."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/1": {
-    "documentation": "Un diccionario que contiene las indicaciones de generación de mallas. Actualmente, la única clave admitida es <code>Prompt</code> (cadena) que describe la malla a generar."
+    "documentation": "Un diccionario que contiene los avisos de generación de malla. Actualmente, la única clave soportada es <code>Prompt</code> (cadena) que describe la malla a generar."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/2": {
     "documentation": "El <code>Player</code> que solicita la generación."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/3": {
-    "documentation": "Un diccionario para opciones de generación adicionales que influyen en el resultado. La clave opcional <code>SuggestedSize</code> (<code>Vector3</code>) representa una guía de tamaño para el activo generado, lo que significa que <code>GenerationService</code> intentará crear un modelo con un tamaño y proporción similares al proporcionado <code>Vector3</code>, aunque no hay garantía sobre el tamaño final de salida."
+    "documentation": "Un diccionario para opciones de generación adicionales que influencian el resultado. La clave opcional <code>SuggestedSize</code> (<code>Vector3</code>) representa una guía de tamaño para el activo generado, lo que significa que <code>GenerationService</code> intentará crear un modelo con un tamaño y proporción similares al <code>Vector3</code> proporcionado, aunque no hay garantía sobre el tamaño final de salida."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/4": {
-    "documentation": "Una función de callback activada con resultados intermedios de generación. Útil para recuperar versiones tempranas de la malla antes de que se apliquen texturas."
+    "documentation": "Una función de callback que se activa con resultados intermedios de generación. Útil para recuperar versiones tempranas de la malla antes de que se apliquen texturas."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/return/0": {
-    "documentation": "Una tupla del ID de generación (un ID único devuelto por cada invocación de <code>GenerateMeshAsync()</code>) y el ID de contexto (no utilizado actualmente)."
+    "documentation": "Una tupla del ID de generación (un ID único devuelto para cada invocación de <code>GenerateMeshAsync()</code>) y el ID de contexto (no utilizado actualmente)."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync": {
-    "documentation": "Inicia la generación de una nueva malla 3D a partir de una indicación de texto y devuelve IDs únicos utilizados para rastrear y recuperar el resultado.",
+    "documentation": "Inicia la generación de una nueva malla 3D a partir de un aviso de texto y devuelve IDs únicos utilizados para rastrear y recuperar el resultado.",
     "params": [
       {
         "name": "self",
@@ -54268,19 +54262,19 @@
     "documentation": "Servicio que permite a los desarrolladores generar objetos 3D a partir de mensajes de texto."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/1": {
-    "documentation": "Una tabla que representa las entradas de condicionamiento con las siguientes claves: <ul> <li><code>TextPrompt</code> — Descripción en cadena del objeto a generar.</li> <li><code>Size</code> — Tamaño <code>Vector3</code> opcional que describe el tamaño del objeto a generar.   Esto es solo aproximado; escala las dimensiones del modelo después de la generación si necesitas   un tamaño específico.</li> <li><code>MaxTriangles</code> — Entero opcional que describe el número máximo de triángulos que   contendrá el modelo devuelto. Valores más bajos resultan en generaciones más facetadas y   de baja poli.</li> <li><code>GenerateTextures</code> — <code>true</code> (por defecto) texturiza la generación resultante, mientras que   <code>false</code> no generará texturas.</li> </ul>"
+    "documentation": "Una tabla que representa las entradas de condicionamiento con las siguientes claves: <ul> <li><code>TextPrompt</code> — Descripción en cadena del objeto a generar.</li> <li><code>Size</code> — <code>Vector3</code> opcional que describe el tamaño del objeto a   generar. Esto es solo aproximado; escala las dimensiones del modelo   después de la generación si necesitas un tamaño específico.</li> <li><code>MaxTriangles</code> — Entero opcional que describe el número máximo de   triángulos que contendrá el modelo devuelto. Valores más bajos resultan   en generaciones más facetadas y de baja poligonaje.</li> <li><code>GenerateTextures</code> — <code>true</code> (por defecto) texturiza la   generación resultante, mientras que <code>false</code> no generará texturas.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/2": {
-    "documentation": "Tabla que representa el esquema de generación. Debe contener una clave <code>PredefinedSchema</code> con un valor de cadena; las opciones válidas actuales son <code>Car5</code> para un chasis de vehículo básico que consiste en cinco <code>Models</code>, o <code>Body1</code> que resulta en una salida de malla única."
+    "documentation": "Tabla que representa el esquema de generación. Debe contener una clave <code>PredefinedSchema</code> con un valor de cadena; las opciones válidas actuales son <code>Car5</code> para un chasis de vehículo básico que consiste en cinco <code>Models</code>, o <code>Body1</code>, que resulta en una salida de malla única."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/3": {
     "documentation": "Actualmente no utilizado; reservado para futuras opciones de personalización."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/return/0": {
-    "documentation": "Tupla con los siguientes elementos: <ul> <li>Una instancia de contenedor <code>Model</code> estándar que cumple con el <code>schema</code> especificado.</li> <li>Una tabla que contiene un UUID y otros metadatos sobre la generación.</li> </ul>"
+    "documentation": "Tupla con los siguientes elementos: <ul> <li>Una instancia de contenedor <code>Model</code> estándar que cumple con   el <code>schema</code> especificado.</li> <li>Una tabla que contiene un UUID y otros metadatos sobre la generación.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync": {
-    "documentation": "Permite la generación de geometrías de multi-malla de acuerdo a los <code>inputs</code> proporcionados y un <code>schema</code>.",
+    "documentation": "Habilita la generación de geometrías de malla múltiple de acuerdo con los <code>inputs</code> y un <code>schema</code>.",
     "params": [
       {
         "name": "self",
@@ -54312,10 +54306,10 @@
     "documentation": "El ID único devuelto por <code>GenerateMeshAsync()</code>. Identifica la malla a cargar."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/return/0": {
-    "documentation": "El activo generado, devuelto como un <code>Model</code> con una única <code>MeshPart</code> que contiene un <code>EditableMesh</code>."
+    "documentation": "El activo generado, devuelto como un <code>Model</code> con un solo <code>MeshPart</code> que contiene un <code>EditableMesh</code>."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync": {
-    "documentation": "Recupera y carga una malla generada por <code>GenerationService:GenerateMeshAsync()</code> utilizando el <code>generationId</code> proporcionado.",
+    "documentation": "Recupera y carga una malla generada por <code>GenerationService:GenerateMeshAsync()</code> usando el <code>generationId</code> proporcionado.",
     "params": [
       {
         "name": "self",
@@ -58282,6 +58276,7 @@
       "DefaultDistanceAttenuation": "@roblox/globaltype/VoiceChatService.DefaultDistanceAttenuation",
       "EnableDefaultVoice": "@roblox/globaltype/VoiceChatService.EnableDefaultVoice",
       "UseAudioApi": "@roblox/globaltype/VoiceChatService.UseAudioApi",
+      "GetChatGroupsAsync": "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync",
       "IsVoiceEnabledForUserIdAsync": "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VoiceChatService",
@@ -58302,17 +58297,44 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VoiceChatService#UseAudioApi",
     "code_sample": ""
   },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/0": {
+    "documentation": "<strong>VoiceChatService</strong> es responsable de la funcionalidad de alto nivel del chat de voz."
+  },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/1": {
+    "documentation": "Una lista de <code>Players</code> actualmente en la experiencia para evaluar su compatibilidad de chat por voz."
+  },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/return/0": {
+    "documentation": "Un array ordenado de arrays de cadenas de ID de grupo de chat. Los jugadores que comparten un ID de grupo de chat correspondiente son elegibles para chatear por voz entre sí."
+  },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync": {
+    "documentation": "Devuelve los IDs de grupo de chat que indican qué jugadores pueden chatear por voz juntos.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/0"
+      },
+      {
+        "name": "players",
+        "documentation": "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VoiceChatService#GetChatGroupsAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync/param/0": {
     "documentation": "<strong>VoiceChatService</strong> es responsable de la funcionalidad de alto nivel del chat de voz."
   },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync/param/1": {
-    "documentation": "El <code>Player.UserId</code> a verificar."
+    "documentation": "El <code>Player.UserId</code> a comprobar."
   },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync/return/0": {
-    "documentation": "Si ese usuario tiene el chat de voz habilitado."
+    "documentation": "Si ese usuario tiene la voz habilitada."
   },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync": {
-    "documentation": "Devuelve si el usuario dado tiene el chat de voz habilitado.",
+    "documentation": "Devuelve si el usuario dado tiene habilitada la voz.",
     "params": [
       {
         "name": "self",
@@ -58597,27 +58619,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.AllowCustomAnimations": {
-    "documentation": "Describe los niveles de permiso del juego actual respecto a las animaciones de avatar personalizadas del sitio web.",
+    "documentation": "Describe los niveles de permiso del juego actual con respecto a las animaciones de avatar personalizadas del sitio web.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AllowCustomAnimations",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.AutoJumpEnabled": {
-    "documentation": "Establece si el personaje saltará automáticamente al golpear un obstáculo en un dispositivo móvil.",
+    "documentation": "Establece si el personaje saltará automáticamente al chocar con un obstáculo en un dispositivo móvil.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AutoJumpEnabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- Actualizar el texto del botón\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"El Auto-Salto está ACTIVADO\"\n\telse\n\t\tbutton.Text = \"El Auto-Salto está DESACTIVADO\"\n\tend\n\t-- Reflejar la propiedad en el personaje del jugador, si tiene uno\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- Alternar el auto-salto\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- Actualizar todo lo demás\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/StarterPlayer.AvatarJointUpgrade": {
-    "documentation": "Controla si los avatares aparecen con juntas de <code>AnimationConstraint</code> para simulación física.",
+    "documentation": "Controla si los avatares aparecen con juntas <code>AnimationConstraint</code> para la simulación física.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AvatarJointUpgrade",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CameraMaxZoomDistance": {
-    "documentation": "La distancia máxima a la que se permite que la cámara predeterminada del jugador se aleje en studs.",
+    "documentation": "La distancia máxima a la que se permite que la cámara predeterminada del jugador haga zoom hacia fuera en studs.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CameraMaxZoomDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal player = Players.LocalPlayer\nplayer.CameraMaxZoomDistance = 50\nplayer.CameraMinZoomDistance = 75"
   },
   "@roblox/globaltype/StarterPlayer.CameraMinZoomDistance": {
-    "documentation": "La distancia mínima en studs a la que se permite que la cámara predeterminada del jugador se acerque.",
+    "documentation": "La distancia mínima en studs a la que se permite que la cámara predeterminada del jugador haga zoom hacia dentro.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CameraMinZoomDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal player = Players.LocalPlayer\nplayer.CameraMaxZoomDistance = 50\nplayer.CameraMinZoomDistance = 75"
   },
@@ -58672,22 +58694,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevComputerCameraMovementMode": {
-    "documentation": "Te permite sobrescribir el modo de cámara del jugador en una computadora.",
+    "documentation": "Te permite sobrescribir el modo de cámara del jugador en un ordenador.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevComputerCameraMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevComputerMovementMode": {
-    "documentation": "Te permite sobrescribir el modo de movimiento del jugador en una computadora.",
+    "documentation": "Te permite sobrescribir el modo de movimiento del jugador en un ordenador.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevComputerMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevTouchCameraMovementMode": {
-    "documentation": "Te permite sobrescribir el modo de cámara del jugador en un dispositivo con pantalla táctil.",
+    "documentation": "Te permite sobrescribir el modo de cámara del jugador en un dispositivo habilitado para táctil.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevTouchCameraMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevTouchMovementMode": {
-    "documentation": "Te permite sobrescribir el modo de movimiento del jugador en un dispositivo con pantalla táctil.",
+    "documentation": "Te permite sobrescribir el modo de movimiento del jugador en un dispositivo habilitado para táctil.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevTouchMovementMode",
     "code_sample": ""
   },
@@ -58697,12 +58719,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.EnableMouseLockOption": {
-    "documentation": "Determina si un jugador puede alternar el bloqueo del mouse por defecto.",
+    "documentation": "Determina si un jugador puede alternar el bloqueo del ratón por defecto.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#EnableMouseLockOption",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nwhile true do\n\tplayer.DevEnableMouseLock = not player.DevEnableMouseLock\n\ttask.wait(5)\nend"
   },
   "@roblox/globaltype/StarterPlayer.HealthDisplayDistance": {
-    "documentation": "Establece la distancia a la que este jugador verá las barras de salud de otros <code>Humanoid</code>. Si se establece en 0, no se mostrarán las barras de salud.",
+    "documentation": "Establece la distancia a la que este jugador verá las barras de salud de otros <code>Humanoid</code>. Si se establece en 0, las barras de salud no se mostrarán.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#HealthDisplayDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.HealthDisplayDistance = 0\nplayer.NameDisplayDistance = 0"
   },
@@ -58727,7 +58749,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.HealthDisplayDistance = 0\nplayer.NameDisplayDistance = 0"
   },
   "@roblox/globaltype/StarterPlayer.UserEmotesEnabled": {
-    "documentation": "Determina si se cargan emotes propiedad del usuario al cargar avatares.",
+    "documentation": "Determina si los emotes propiedad del usuario se cargan al cargar avatares.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#UserEmotesEnabled",
     "code_sample": ""
   },
@@ -68066,7 +68088,6 @@
       "Active": "@roblox/globaltype/AudioDeviceInput.Active",
       "IsReady": "@roblox/globaltype/AudioDeviceInput.IsReady",
       "Muted": "@roblox/globaltype/AudioDeviceInput.Muted",
-      "MutedByLocalUser": "@roblox/globaltype/AudioDeviceInput.MutedByLocalUser",
       "Player": "@roblox/globaltype/AudioDeviceInput.Player",
       "Volume": "@roblox/globaltype/AudioDeviceInput.Volume",
       "GetConnectedWires": "@roblox/globaltype/AudioDeviceInput.GetConnectedWires",
@@ -68098,18 +68119,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#Muted",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioDeviceInput.MutedByLocalUser": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#MutedByLocalUser",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioDeviceInput.Player": {
-    "documentation": "Determina de quién es el dispositivo que produce sonido.",
+    "documentation": "Determina de quién es el dispositivo que está produciendo sonido.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#Player",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioDeviceInput.Volume": {
-    "documentation": "Nivel de volumen que se multiplica en el flujo de audio de salida.",
+    "documentation": "Nivel de volumen que se multiplica en la secuencia de audio de salida.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#Volume",
     "code_sample": ""
   },
@@ -72363,7 +72379,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService": {
-    "documentation": "Un servicio que proporciona control sobre las características de captura de pantalla y video.",
+    "documentation": "Un servicio que proporciona control sobre las funciones de captura de pantallas y videos.",
     "keys": {
       "CaptureScreenshot": "@roblox/globaltype/CaptureService.CaptureScreenshot",
       "PromptCaptureGalleryPermissionAsync": "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync",
@@ -72379,7 +72395,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.CaptureScreenshot/param/0": {
-    "documentation": "Un servicio que proporciona control sobre las características de captura de pantalla y video."
+    "documentation": "Un servicio que proporciona control sobre las funciones de captura de pantallas y videos."
   },
   "@roblox/globaltype/CaptureService.CaptureScreenshot/param/1": {
     "documentation": "Una función de callback que se llama con el <code>contentId</code> de la nueva captura una vez que está lista."
@@ -72401,13 +72417,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/0": {
-    "documentation": "Un servicio que proporciona control sobre las características de captura de pantalla y video."
+    "documentation": "Un servicio que proporciona control sobre las funciones de captura de pantallas y videos."
   },
   "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/1": {
-    "documentation": "Un <code>CaptureGalleryPermission</code> que representa el tipo de acceso para el que se le pedirá al usuario."
+    "documentation": "Un <code>CaptureGalleryPermission</code> que representa el tipo de acceso por el cual se le pedirá al usuario."
   },
   "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/return/0": {
-    "documentation": "Un booleano que representa si el usuario ha permitido el acceso a sus capturas."
+    "documentation": "Un booleano que representa si el usuario ha permitido o no el acceso a sus capturas."
   },
   "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync": {
     "documentation": "",
@@ -72428,7 +72444,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery/param/0": {
-    "documentation": "Un servicio que proporciona control sobre las características de captura de pantalla y video."
+    "documentation": "Un servicio que proporciona control sobre las funciones de captura de pantallas y videos."
   },
   "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery/param/1": {
     "documentation": "Un array de IDs de contenido y/o objetos <code>Capture</code>."
@@ -72437,7 +72453,7 @@
     "documentation": "Una función de callback que será invocada con un diccionario que mapea cada <code>contentId</code> y/o objeto <code>Capture</code> a un booleano indicando si el usuario aceptó guardar esa captura."
   },
   "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery": {
-    "documentation": "Pide al usuario que guarde las capturas especificadas en su galería.",
+    "documentation": "Pide al usuario que guarde capturas especificadas en su galería.",
     "params": [
       {
         "name": "self",
@@ -72457,22 +72473,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/0": {
-    "documentation": "Un servicio que proporciona control sobre las características de captura de pantalla y video."
+    "documentation": "Un servicio que proporciona control sobre las funciones de captura de pantallas y videos."
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/1": {
-    "documentation": "Un <code>Content</code> que contiene un <code>contentId</code> o un <code>Capture</code> objeto."
+    "documentation": "Un <code>Content</code> que contiene un <code>contentId</code> o un objeto <code>Capture</code>."
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/2": {
     "documentation": "Una cadena opcional para incluir como datos de lanzamiento en el enlace de invitación."
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/3": {
-    "documentation": "Una función de callback opcional que se invoca si el usuario acepta compartir."
+    "documentation": "Una función de callback opcional invocada si el usuario acepta compartir."
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/4": {
-    "documentation": "Una función de callback opcional que se invoca si el usuario niega compartir."
+    "documentation": "Una función de callback opcional invocada si el usuario deniega compartir."
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture": {
-    "documentation": "Pide al usuario que comparta una captura especificada.",
+    "documentation": "Solicita al usuario que comparta una captura especificada.",
     "params": [
       {
         "name": "self",
@@ -72500,16 +72516,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/0": {
-    "documentation": "Un servicio que proporciona control sobre las características de captura de pantalla y video."
+    "documentation": "Un servicio que proporciona control sobre las funciones de captura de pantallas y videos."
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1": {
     "documentation": "Un array de <code>CaptureType</code>."
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/2": {
-    "documentation": "Un booleano; el valor predeterminado es <code>false</code>."
+    "documentation": "Un booleano; el valor por defecto es <code>false</code>."
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0": {
-    "documentation": "Tupla de (result: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>)"
+    "documentation": "Tupla de (resultado: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>)"
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync": {
     "documentation": "",
@@ -72534,7 +72550,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.StartVideoCaptureAsync/param/0": {
-    "documentation": "Un servicio que proporciona control sobre las características de captura de pantalla y video."
+    "documentation": "Un servicio que proporciona control sobre las funciones de captura de pantallas y videos."
   },
   "@roblox/globaltype/CaptureService.StartVideoCaptureAsync/param/1": {
     "documentation": "Una función de callback que se llama al completar la captura de video con un <code>VideoCaptureResult</code> y, si tiene éxito, un <code>VideoCapture</code>."
@@ -72568,7 +72584,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.StopVideoCapture/param/0": {
-    "documentation": "Un servicio que proporciona control sobre las características de captura de pantalla y video."
+    "documentation": "Un servicio que proporciona control sobre las funciones de captura de pantallas y videos."
   },
   "@roblox/globaltype/CaptureService.StopVideoCapture": {
     "documentation": "Termina una captura de video iniciada por <code>StartVideoCaptureAsync()</code>.",
@@ -72583,10 +72599,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/0": {
-    "documentation": "Un servicio que proporciona control sobre las características de captura de pantalla y video."
+    "documentation": "Un servicio que proporciona control sobre las funciones de captura de pantallas y videos."
   },
   "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/1": {
-    "documentation": "Una función de callback que se llama al completar la captura de pantalla con un <code>ScreenshotCaptureResult</code> y, si tiene éxito, un <code>ScreenshotCapture</code>."
+    "documentation": "Una función de callback que se llama al completar la captura de pantalla con un <code>ScreenshotCaptureResult</code> y, si tiene éxito, una <code>ScreenshotCapture</code>."
   },
   "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/2": {
     "documentation": "Un diccionario que modifica el comportamiento de la captura."
@@ -72612,13 +72628,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
-    "documentation": "Un servicio que proporciona control sobre las características de captura de pantalla y video."
+    "documentation": "Un servicio que proporciona control sobre las funciones de captura de pantallas y videos."
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1": {
     "documentation": "un objeto de captura de tipo <code>Capture</code>"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
-    "documentation": "Tupla de (result: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
+    "documentation": "Tupla de (resultado: <code>UploadCaptureResult</code>, assetId: <code>number</code>)"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync": {
     "documentation": "",
@@ -72716,7 +72732,7 @@
     "returns": []
   },
   "@roblox/globaltype/CaptureService.CaptureBegan": {
-    "documentation": "Se dispara inmediatamente antes de que comience una captura.",
+    "documentation": "Se activa inmediatamente antes de que comience una captura.",
     "keys": {
       "Connect": "@roblox/globaltype/CaptureService.CaptureBegan.Connect",
       "ConnectParallel": "@roblox/globaltype/CaptureService.CaptureBegan.ConnectParallel",
@@ -72804,7 +72820,7 @@
     "returns": []
   },
   "@roblox/globaltype/CaptureService.CaptureEnded": {
-    "documentation": "Se dispara después de que finaliza una captura.",
+    "documentation": "Se activa después de que finaliza una captura.",
     "keys": {
       "Connect": "@roblox/globaltype/CaptureService.CaptureEnded.Connect",
       "ConnectParallel": "@roblox/globaltype/CaptureService.CaptureEnded.ConnectParallel",
@@ -72892,7 +72908,7 @@
     "returns": []
   },
   "@roblox/globaltype/CaptureService.CaptureSaved": {
-    "documentation": "<strong>Deprecated:</strong> Este evento ha sido reemplazado por el <code>UserCaptureSaved</code> evento.",
+    "documentation": "<strong>Deprecated:</strong> Este evento ha sido reemplazado por el evento <code>UserCaptureSaved</code>.",
     "keys": {
       "Connect": "@roblox/globaltype/CaptureService.CaptureSaved.Connect",
       "ConnectParallel": "@roblox/globaltype/CaptureService.CaptureSaved.ConnectParallel",
@@ -72980,7 +72996,7 @@
     "returns": []
   },
   "@roblox/globaltype/CaptureService.UserCaptureSaved": {
-    "documentation": "Se dispara cuando el usuario guarda una captura.",
+    "documentation": "Se activa cuando el usuario guarda una captura.",
     "keys": {
       "Connect": "@roblox/globaltype/CaptureService.UserCaptureSaved.Connect",
       "ConnectParallel": "@roblox/globaltype/CaptureService.UserCaptureSaved.ConnectParallel",
@@ -84677,7 +84693,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance": {
-    "documentation": "Un objeto que permite a los desarrolladores anular la apariencia de un MeshPart con opciones gráficas avanzadas.",
+    "documentation": "Un objeto que permite a los desarrolladores sobreescribir la apariencia de un MeshPart con opciones gráficas avanzadas.",
     "keys": {
       "AlphaMode": "@roblox/globaltype/SurfaceAppearance.AlphaMode",
       "Color": "@roblox/globaltype/SurfaceAppearance.Color",
@@ -84703,7 +84719,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.Color": {
-    "documentation": "Aplica un tinte a tu mapa de color existente. Se establece directamente con el selector de color o programáticamente con <code>Color3</code>.",
+    "documentation": "Aplica un tinte a tu colormap existente. Configúralo directamente con el selector de color o programáticamente con <code>Color3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#Color",
     "code_sample": ""
   },
@@ -84718,12 +84734,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.EmissiveMaskContent": {
-    "documentation": "Determina la emissividad a través de la superficie.",
+    "documentation": "Determina la emisividad en toda la superficie.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveMaskContent",
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.EmissiveStrength": {
-    "documentation": "Determina la fuerza de la contribución emisiva.",
+    "documentation": "Determina la intensidad de la contribución emisiva.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveStrength",
     "code_sample": ""
   },
@@ -84743,7 +84759,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.NormalMap": {
-    "documentation": "Modifica la iluminación de la superficie añadiendo bultos, abolladuras, grietas, y curvas.",
+    "documentation": "Modifica la iluminación de la superficie al añadir bultos, abolladuras, grietas y curvas.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#NormalMap",
     "code_sample": ""
   },
@@ -84753,7 +84769,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.RoughnessMap": {
-    "documentation": "Determina la rugosidad aparente a través de la superficie.",
+    "documentation": "Determina la rugosidad aparente en toda la superficie.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#RoughnessMap",
     "code_sample": ""
   },
@@ -85065,7 +85081,7 @@
     "documentation": "El tipo de los ids de ítems proporcionados."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/return/0": {
-    "documentation": "Devuelve un arreglo de detalles de ítems con los siguientes campos: <pre><code class=\"language-lua\">{     &quot;AssetType&quot; = &quot;string&quot;,     &quot;CreatorName&quot; = &quot;string&quot;,     &quot;CreatorTargetId&quot; = 0,     &quot;CreatorType&quot; = &quot;string&quot;,     &quot;Description&quot; = &quot;string&quot;,     &quot;FavoriteCount&quot; = 0,     &quot;Genres&quot; = [       &quot;All&quot;     ],     &quot;Id&quot; = 0,     &quot;ItemRestrictions&quot; = [       &quot;Limited&quot;     ],     &quot;ItemStatus&quot;: [       &quot;New&quot;     ],     &quot;ItemType&quot; = &quot;string&quot;,     &quot;LowestPrice&quot; = 0,     &quot;Name&quot; = &quot;string&quot;,     &quot;Price&quot; = 0,     &quot;ProductId&quot; = 0   } </code></pre> ."
+    "documentation": "Devuelve un array de detalles del ítem."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync": {
     "documentation": "Obtiene los detalles del ítem para una lista de ítems a la vez.",
@@ -85099,7 +85115,7 @@
     "documentation": "El tipo de los ids de ítems proporcionados."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails/return/0": {
-    "documentation": "Devuelve un arreglo de detalles de ítems con los siguientes campos: <pre><code class=\"language-lua\">{     &quot;AssetType&quot; = &quot;string&quot;,     &quot;CreatorName&quot; = &quot;string&quot;,     &quot;CreatorTargetId&quot; = 0,     &quot;CreatorType&quot; = &quot;string&quot;,     &quot;Description&quot; = &quot;string&quot;,     &quot;FavoriteCount&quot; = 0,     &quot;Genres&quot; = [       &quot;All&quot;     ],     &quot;Id&quot; = 0,     &quot;ItemRestrictions&quot; = [       &quot;Limited&quot;     ],     &quot;ItemStatus&quot;: [       &quot;New&quot;     ],     &quot;ItemType&quot; = &quot;string&quot;,     &quot;LowestPrice&quot; = 0,     &quot;Name&quot; = &quot;string&quot;,     &quot;Price&quot; = 0,     &quot;ProductId&quot; = 0   } </code></pre> ."
+    "documentation": "Devuelve un array de detalles del ítem. Consulta <code>AvatarEditorService:GetBatchItemDetailsAsync()</code> para el formato de respuesta."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails": {
     "documentation": "<strong>Deprecated:</strong> <br>Obtiene los detalles del ítem para una lista de ítems a la vez.",
@@ -85255,7 +85271,7 @@
     "documentation": "Un valor de enumeración que indica el tipo de ítem cuyos detalles se están recuperando."
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/return/0": {
-    "documentation": "Una tabla que contiene la información del ítem para el ítem recuperado. Consulta arriba para una tabla de muestra."
+    "documentation": "Una tabla que contiene la información del ítem para el ítem recuperado."
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync": {
     "documentation": "Devuelve los detalles del ítem para el ítem dado.",
@@ -85753,7 +85769,7 @@
     "documentation": "Un objeto que contiene los parámetros utilizados para la búsqueda."
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/return/0": {
-    "documentation": ""
+    "documentation": "Un objeto <code>CatalogPages</code> que contiene los resultados de la búsqueda."
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync": {
     "documentation": "Devuelve un objeto <code>CatalogPages</code> que contiene el resultado de la búsqueda dada.",
@@ -88149,10 +88165,8 @@
     "documentation": "Un objeto que emite sonido. Este objeto se puede colocar dentro de un <code>BasePart</code> o <code>Attachment</code> para emitir un sonido desde una posición particular dentro de un lugar o mundo, o puede estar conectado en otro lugar para reproducir el sonido a un volumen constante en todo el lugar.",
     "keys": {
       "AudioContent": "@roblox/globaltype/Sound.AudioContent",
-      "ChannelCount": "@roblox/globaltype/Sound.ChannelCount",
       "EmitterSize": "@roblox/globaltype/Sound.EmitterSize",
       "IsLoaded": "@roblox/globaltype/Sound.IsLoaded",
-      "IsMutedForCapture": "@roblox/globaltype/Sound.IsMutedForCapture",
       "IsPaused": "@roblox/globaltype/Sound.IsPaused",
       "IsPlaying": "@roblox/globaltype/Sound.IsPlaying",
       "isPlaying": "@roblox/globaltype/Sound.isPlaying",
@@ -88191,53 +88205,43 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#AudioContent",
     "code_sample": ""
   },
-  "@roblox/globaltype/Sound.ChannelCount": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#ChannelCount",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Sound.EmitterSize": {
-    "documentation": "<strong>Deprecated:</strong> Esta propiedad ha quedado obsoleta en favor de <code>Sound.RollOffMinDistance</code> y <code>Sound.RollOffMaxDistance</code> que deberían usarse en su lugar en nuevos trabajos.<br>La distancia mínima, en studs, a la que un <code>Sound</code> 3D (hijo directo de un <code>BasePart</code> o <code>Attachment</code>) comenzará a atenuarse (disminuir en volumen).",
+    "documentation": "<strong>Deprecated:</strong> Esta propiedad ha sido desaprobada en favor de <code>Sound.RollOffMinDistance</code> y <code>Sound.RollOffMaxDistance</code> que deberían ser utilizadas en su lugar en nuevos trabajos.<br>La distancia mínima, en studs, a la que un <code>Sound</code> 3D (hijo directo de un <code>BasePart</code> o <code>Attachment</code>) comenzará a atenuarse (disminuir en volumen).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#EmitterSize",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.IsLoaded": {
-    "documentation": "Esta propiedad es <code>true</code> cuando el <code>Sound</code> se ha cargado desde los servidores de Roblox y está listo para reproducirse.",
+    "documentation": "Esta propiedad es <code>true</code> cuando el <code>Sound</code> ha sido cargado desde los servidores de Roblox y está listo para reproducir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsLoaded",
     "code_sample": "local sound = script.Parent.Sound\n\nif not sound.IsLoaded then\n\tsound.Loaded:Wait()\nend\n\nprint(\"¡El sonido se ha cargado!\")"
   },
-  "@roblox/globaltype/Sound.IsMutedForCapture": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsMutedForCapture",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Sound.IsPaused": {
-    "documentation": "Propiedad de sólo lectura que devuelve <code>true</code> cuando el <code>Sound</code> no está reproduciendo.",
+    "documentation": "Propiedad de solo lectura que devuelve <code>true</code> cuando el <code>Sound</code> no está reproduciendo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsPaused",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Looped = true\nsound.Parent = workspace\n\nif not sound.isLoaded then\n\tsound.Loaded:Wait()\nend\n\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused) -- verdadero, falso\n\ntask.wait(2)\nsound:Pause()\nprint(sound.IsPlaying, sound.IsPaused) -- falso, verdadero\n\ntask.wait(2)\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused) -- verdadero, falso\n\ntask.wait(2)\nsound:Stop()\nprint(sound.IsPlaying, sound.IsPaused) -- falso, verdadero"
   },
   "@roblox/globaltype/Sound.IsPlaying": {
-    "documentation": "Propiedad de sólo lectura que devuelve <code>true</code> cuando el <code>Sound</code> está reproduciendo.",
+    "documentation": "Propiedad de solo lectura que devuelve <code>true</code> cuando el <code>Sound</code> está reproduciendo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsPlaying",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Looped = true\nsound.Parent = workspace\n\nif not sound.isLoaded then\n\tsound.Loaded:Wait()\nend\n\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused) -- verdadero, falso\n\ntask.wait(2)\nsound:Pause()\nprint(sound.IsPlaying, sound.IsPaused) -- falso, verdadero\n\ntask.wait(2)\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused) -- verdadero, falso\n\ntask.wait(2)\nsound:Stop()\nprint(sound.IsPlaying, sound.IsPaused) -- falso, verdadero"
   },
   "@roblox/globaltype/Sound.isPlaying": {
-    "documentation": "<strong>Deprecated:</strong> Esta propiedad obsoleta es una variante de <code>Sound.IsPlaying</code> que debe usarse en su lugar.",
+    "documentation": "<strong>Deprecated:</strong> Esta propiedad desaprobada es una variante de <code>Sound.IsPlaying</code> que debería ser utilizada en su lugar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#isPlaying",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.Looped": {
-    "documentation": "Establece si el <code>Sound</code> repite o no una vez que ha terminado de reproducirse.",
+    "documentation": "Establece si el <code>Sound</code> repite o no una vez que ha terminado de reproducir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Looped",
     "code_sample": "local function loopNTimes(sound, numberOfLoops)\n\tif not sound.IsPlaying then\n\t\tsound.Looped = true\n\t\tlocal connection = nil\n\t\tconnection = sound.DidLoop:Connect(function(_soundId, numOfTimesLooped)\n\t\t\tprint(numOfTimesLooped)\n\t\t\tif numOfTimesLooped >= numberOfLoops then\n\t\t\t\t-- desconectar la conexión\n\t\t\t\tconnection:Disconnect()\n\t\t\t\t-- detener el sonido\n\t\t\t\tsound:Stop()\n\t\t\tend\n\t\tend)\n\t\tsound:Play()\n\tend\nend\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://0\"\n\nloopNTimes(sound, 5)"
   },
   "@roblox/globaltype/Sound.LoopRegion": {
-    "documentation": "Un rango que indica un inicio de bucle deseado y un final de bucle dentro del <code>PlaybackRegion</code>, en segundos.",
+    "documentation": "Un rango que denota un inicio y un final de bucle deseados dentro de la <code>PlaybackRegion</code>, en segundos.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#LoopRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MaxDistance": {
-    "documentation": "<strong>Deprecated:</strong> Esta propiedad ha quedado obsoleta en favor de <code>Sound.RollOffMinDistance</code> y <code>Sound.RollOffMaxDistance</code> que deberían usarse en su lugar en nuevos trabajos.<br>La distancia máxima, en studs, a la que un oyente del cliente puede estar del origen del <code>Sound\\\\s</code> y aún así escucharlo. Solo se aplica a Sonidos parentados a un <code>Part</code> o <code>Attachment</code> (sonidos 3D).",
+    "documentation": "<strong>Deprecated:</strong> Esta propiedad ha sido desaprobada en favor de <code>Sound.RollOffMinDistance</code> y <code>Sound.RollOffMaxDistance</code> que deben ser utilizadas en su lugar en nuevos trabajos.<br>La distancia máxima, en studs, que un oyente del cliente puede estar del origen del <code>Sound</code> y aún así escucharlo. Solo se aplica a los sonidos que están en un <code>Part</code> o <code>Attachment</code> (sonidos 3D).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MaxDistance",
     "code_sample": ""
   },
@@ -88247,52 +88251,52 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.Pitch": {
-    "documentation": "<strong>Deprecated:</strong> Esta propiedad ha sido obsoleta en favor de <code>Sound.PlaybackSpeed</code>, cuyo nombre se ajusta mejor al comportamiento.<br>Establece qué tan agudo y rápido es un <code>Sound</code> cuando se reproduce. A mayor el entero, más alto y rápido es el <code>Sound</code>.",
+    "documentation": "<strong>Deprecated:</strong> Esta propiedad ha sido desaprobada en favor de <code>Sound.PlaybackSpeed</code>, cuyo nombre se adapta mejor al comportamiento.<br>Establece cuán agudo y rápido es un <code>Sound</code> cuando se reproduce. Cuanto mayor sea el número entero, más agudo y rápido será el <code>Sound</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Pitch",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackLoudness": {
-    "documentation": "Un número entre <code>0</code> y <code>1000</code> que indica cuán fuerte está reproduciendo actualmente el <code>Sound</code>.",
+    "documentation": "Un número entre <code>0</code> y <code>1000</code> que indica cuán fuerte está actualmente reproduciendo el <code>Sound</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackLoudness",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackRegion": {
-    "documentation": "Un rango que denota un tiempo de inicio y stop deseado dentro de la <code>TimeLength</code>, en segundos.",
+    "documentation": "Un rango que denota un tiempo de inicio y un tiempo de parada deseados dentro de la <code>TimeLength</code>, en segundos.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackRegionsEnabled": {
-    "documentation": "Si <code>true</code>, esta propiedad le da a su <code>Sound</code> acceso a las propiedades <code>PlaybackRegion</code> y <code>LoopRegion</code>, que pueden controlar de manera más precisa su reproducción.",
+    "documentation": "Si es <code>true</code>, esta propiedad le da a su <code>Sound</code> acceso a las propiedades <code>PlaybackRegion</code> y <code>LoopRegion</code> que pueden controlar su reproducción con más precisión.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackRegionsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackSpeed": {
-    "documentation": "Determina la velocidad a la cual se reproducirá un <code>Sound</code>, con valores más altos causando que el sonido se reproduzca más rápido y en un tono más alto.",
+    "documentation": "Determina la velocidad a la que un <code>Sound</code> se reproducirá, con valores más altos haciendo que el sonido se reproduzca más rápido y con un tono más agudo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackSpeed",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Looped = true\nsound.Parent = workspace\n\nsound:Play()\ntask.wait(10)\nsound.PlaybackSpeed = 3 -- 3x más rápido\ntask.wait(5)\nsound.PlaybackSpeed = 0.5 -- 2x más lento\ntask.wait(5)\nsound.PlaybackSpeed = 1 -- predeterminado"
   },
   "@roblox/globaltype/Sound.Playing": {
-    "documentation": "Indica si el <code>Sound</code> se está reproduciendo actualmente.",
+    "documentation": "Indica si el <code>Sound</code> está actualmente reproduciendo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Playing",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlayOnRemove": {
-    "documentation": "Cuando <code>true</code>, el <code>Sound</code> se reproducirá cuando se elimine de la experiencia.",
+    "documentation": "Cuando es <code>true</code>, el <code>Sound</code> se reproducirá cuando sea eliminado de la experiencia.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlayOnRemove",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.RollOffMaxDistance": {
-    "documentation": "La distancia máxima, en studs, a la que un oyente del cliente puede estar del origen del sonido y aún oírlo. Solo se aplica a <code>Sounds</code> que están en un <code>BasePart</code> o <code>Attachment</code>.",
+    "documentation": "La distancia máxima, en studs, que un oyente del cliente puede estar del origen del sonido y aún así escucharlo. Solo se aplica a <code>Sounds</code> que están en un <code>BasePart</code> o <code>Attachment</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#RollOffMaxDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.RollOffMinDistance": {
-    "documentation": "La distancia mínima, en studs, a la que un <code>Sound</code> que está en un <code>BasePart</code> o <code>Attachment</code> comenzará a atenuarse (disminuir en volumen).",
+    "documentation": "La distancia mínima, en studs, a la que un <code>Sound</code> que está anclado a un <code>BasePart</code> o <code>Attachment</code> comenzará a atenuarse (disminuir en volumen).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#RollOffMinDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.RollOffMode": {
-    "documentation": "Controla cómo se atenúa (se desvanece) el volumen de un <code>Sound</code> que está en un <code>BasePart</code> o <code>Attachment</code> a medida que cambia la distancia entre el oyente y el padre.",
+    "documentation": "Controla cómo se atenúa (se desvanece) el volumen de un <code>Sound</code> que está anclado a un <code>BasePart</code> o <code>Attachment</code> a medida que cambia la distancia entre el oyente y el padre.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#RollOffMode",
     "code_sample": ""
   },
@@ -88302,7 +88306,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.SoundId": {
-    "documentation": "ID de contenido del archivo de sonido que se asociará con el <code>Sound</code>.",
+    "documentation": "ID de contenido del archivo de sonido a asociar con el <code>Sound</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#SoundId",
     "code_sample": ""
   },
@@ -88312,7 +88316,7 @@
     "code_sample": "local function playForDuration(sound, duration)\n\tif not sound.IsLoaded then\n\t\tsound.Loaded:wait()\n\tend\n\tlocal speed = sound.TimeLength / duration\n\tsound.PlaybackSpeed = speed\n\tsound:Play()\nend\n\nlocal sound = script.Parent\nplayForDuration(sound, 5)"
   },
   "@roblox/globaltype/Sound.TimePosition": {
-    "documentation": "Progreso del <code>Sound</code> en segundos. Puede cambiarse para mover la posición de reproducción del <code>Sound</code> tanto antes como durante la reproducción.",
+    "documentation": "El progreso del <code>Sound</code> en segundos. Puede ser cambiado para mover la posición de reproducción del <code>Sound</code> tanto antes como durante la reproducción.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#TimePosition",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Parent = workspace\n\nsound.TimePosition = 30\n\nsound:Play()\n\ntask.wait(5)\n\nsound.TimePosition = 100\n\ntask.wait(5)\n\nsound.TimePosition = 0"
   },
@@ -89231,7 +89235,6 @@
       "AudioContent": "@roblox/globaltype/AudioPlayer.AudioContent",
       "AutoLoad": "@roblox/globaltype/AudioPlayer.AutoLoad",
       "AutoPlay": "@roblox/globaltype/AudioPlayer.AutoPlay",
-      "IsMutedForCapture": "@roblox/globaltype/AudioPlayer.IsMutedForCapture",
       "IsPlaying": "@roblox/globaltype/AudioPlayer.IsPlaying",
       "IsReady": "@roblox/globaltype/AudioPlayer.IsReady",
       "Looping": "@roblox/globaltype/AudioPlayer.Looping",
@@ -89276,13 +89279,8 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#AutoPlay",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioPlayer.IsMutedForCapture": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsMutedForCapture",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioPlayer.IsPlaying": {
-    "documentation": "Indica si este <code>AudioPlayer</code> está reproduciendo actualmente.",
+    "documentation": "Indica si este <code>AudioPlayer</code> está actualmente reproduciendo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsPlaying",
     "code_sample": ""
   },
@@ -89297,17 +89295,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.LoopRegion": {
-    "documentation": "Un rango, en segundos, que denota un inicio y un final de bucle deseados dentro de <code>PlaybackRegion</code> de este <code>AudioPlayer</code>.",
+    "documentation": "Un rango, en segundos, que denota un inicio de bucle deseado y un final de bucle dentro de la <code>PlaybackRegion</code> de este <code>AudioPlayer</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#LoopRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.PlaybackRegion": {
-    "documentation": "Rango en segundos que denota un tiempo de inicio deseado (mínimo) y un tiempo de parada (máximo) dentro de <code>TimeLength</code>.",
+    "documentation": "Rango en segundos que denota un tiempo de inicio deseado (mínimo) y un tiempo de parada (máximo) dentro de la <code>TimeLength</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#PlaybackRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.PlaybackSpeed": {
-    "documentation": "Controla cuán rápidamente se reproducirá el activo, lo que controla su tono.",
+    "documentation": "Controla cuán rápido se reproducirá el activo, lo que controla su tono.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#PlaybackSpeed",
     "code_sample": ""
   },
@@ -89322,7 +89320,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.Volume": {
-    "documentation": "Controla cuán alto se reproducirá el activo.",
+    "documentation": "Controla cuán fuerte se reproducirá el activo.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#Volume",
     "code_sample": ""
   },
@@ -90241,7 +90239,6 @@
       "AngleAttenuation": "@roblox/globaltype/AudioEmitter.AngleAttenuation",
       "AudioInteractionGroup": "@roblox/globaltype/AudioEmitter.AudioInteractionGroup",
       "DistanceAttenuation": "@roblox/globaltype/AudioEmitter.DistanceAttenuation",
-      "PositionOverride": "@roblox/globaltype/AudioEmitter.PositionOverride",
       "SimulationFidelity": "@roblox/globaltype/AudioEmitter.SimulationFidelity",
       "GetAngleAttenuation": "@roblox/globaltype/AudioEmitter.GetAngleAttenuation",
       "GetAudibilityFor": "@roblox/globaltype/AudioEmitter.GetAudibilityFor",
@@ -90274,11 +90271,6 @@
   "@roblox/globaltype/AudioEmitter.DistanceAttenuation": {
     "documentation": "Representa cómo cambia el volumen percibido del sonido emitido a medida que aumenta la distancia entre un <code>AudioListener</code> y el <code>AudioEmitter</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#DistanceAttenuation",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AudioEmitter.PositionOverride": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#PositionOverride",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioEmitter.SimulationFidelity": {
@@ -91620,7 +91612,7 @@
     "documentation": "El <code>Player</code> para el cual se está configurando el avatar."
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/2": {
-    "documentation": "El <code>Model</code> humanoide que se configurará como un avatar."
+    "documentation": "Una tabla que contiene los argumentos. Tipo: <code>type AutoSetupAccessory = { AccessoryType: Enum.AccessoryType, IsLayered: bool, Instance: Model} type AutoSetupParams = { Body: Model?, Accessories: {AutoSetupAccessory}}</code>"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/3": {
     "documentation": "Función de callback opcional que se invocará periódicamente con una tabla de progressInfo que contiene el progreso general (de 0 a 1). Tipo: <code>(progressInfo: { Progress: number }) -&gt; ()</code>"
@@ -91629,7 +91621,7 @@
     "documentation": "Un identificador único para el avatar generado."
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync": {
-    "documentation": "Configura automáticamente un <code>Model</code> personalizado como un activo de avatar.",
+    "documentation": "Configura automáticamente un <code>Model</code> personalizado y/o accesorios de avatar.",
     "params": [
       {
         "name": "self",
@@ -91640,7 +91632,7 @@
         "documentation": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/1"
       },
       {
-        "name": "model",
+        "name": "autoSetupParams",
         "documentation": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/2"
       },
       {
@@ -92986,6 +92978,7 @@
       "CanUsersChatAsync": "@roblox/globaltype/TextChatService.CanUsersChatAsync",
       "CanUsersDirectChatAsync": "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync",
       "DisplayBubble": "@roblox/globaltype/TextChatService.DisplayBubble",
+      "GetChatGroupsAsync": "@roblox/globaltype/TextChatService.GetChatGroupsAsync",
       "OnBubbleAdded": "@roblox/globaltype/TextChatService.OnBubbleAdded",
       "OnChatWindowAdded": "@roblox/globaltype/TextChatService.OnChatWindowAdded",
       "OnIncomingMessage": "@roblox/globaltype/TextChatService.OnIncomingMessage"
@@ -93135,6 +93128,33 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#DisplayBubble",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/0": {
+    "documentation": "Un servicio que maneja el chat de texto dentro de la experiencia."
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/1": {
+    "documentation": "Una lista de <code>Players</code> actualmente en la experiencia para evaluar la compatibilidad del chat por texto."
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync/return/0": {
+    "documentation": "Un array ordenado de arrays de cadenas de ID de grupo de chat. Los jugadores que comparten un ID de grupo de chat coincidente son elegibles para chatear simultáneamente a través de texto entre sí."
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync": {
+    "documentation": "Devuelve IDs de grupos de chat que indican qué jugadores pueden chatear ejercicios de texto simultáneamente.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/0"
+      },
+      {
+        "name": "players",
+        "documentation": "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TextChatService.GetChatGroupsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#GetChatGroupsAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.OnBubbleAdded/param/0": {
@@ -118223,13 +118243,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsDescendant",
     "code_sample": ""
   },
+  "@roblox/enum/InstanceFileSyncStatus.AncestorErrored": {
+    "documentation": "La <code>Instance</code> no está actualmente sincronizada porque la raíz de su árbol de sincronización está <code>Errored</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#AncestorErrored",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.InstanceFileSyncStatus": {
     "documentation": "Describe el estado de sincronización de archivos de una Instancia.",
     "keys": {
       "NotSynced": "@roblox/enum/InstanceFileSyncStatus.NotSynced",
       "Errored": "@roblox/enum/InstanceFileSyncStatus.Errored",
       "SyncedAsRoot": "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot",
-      "SyncedAsDescendant": "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant"
+      "SyncedAsDescendant": "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant",
+      "AncestorErrored": "@roblox/enum/InstanceFileSyncStatus.AncestorErrored"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus",
     "code_sample": ""

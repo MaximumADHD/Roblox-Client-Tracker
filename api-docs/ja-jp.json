@@ -39217,7 +39217,6 @@
       "AngleAttenuation": "@roblox/globaltype/AudioListener.AngleAttenuation",
       "AudioInteractionGroup": "@roblox/globaltype/AudioListener.AudioInteractionGroup",
       "DistanceAttenuation": "@roblox/globaltype/AudioListener.DistanceAttenuation",
-      "PositionOverride": "@roblox/globaltype/AudioListener.PositionOverride",
       "SimulationFidelity": "@roblox/globaltype/AudioListener.SimulationFidelity",
       "GetAngleAttenuation": "@roblox/globaltype/AudioListener.GetAngleAttenuation",
       "GetAudibilityFor": "@roblox/globaltype/AudioListener.GetAudibilityFor",
@@ -39252,13 +39251,8 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#DistanceAttenuation",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioListener.PositionOverride": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#PositionOverride",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioListener.SimulationFidelity": {
-    "documentation": "<strong>Deprecated:</strong> <br>この<code>AudioListener</code>に対して、オーディオシミュレーションの詳細さを制御します。",
+    "documentation": "<strong>Deprecated:</strong> <br>この<code>AudioListener</code>に対して、オーディオシミュレーションがどれだけ詳細であるべきかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#SimulationFidelity",
     "code_sample": ""
   },
@@ -54220,22 +54214,22 @@
     "documentation": "開発者がテキストプロンプトから3Dオブジェクトを生成できるサービスです。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/1": {
-    "documentation": "メッシュ生成プロンプトを含む辞書です。現在、サポートされている唯一のキーは、生成するメッシュを記述する <code>Prompt</code>（文字列）です。"
+    "documentation": "メッシュ生成プロンプトを含む辞書です。現在、サポートされている唯一のキーは生成するメッシュを説明する<code>Prompt</code>（文字列）です。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/2": {
     "documentation": "生成をリクエストしている<code>Player</code>です。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/3": {
-    "documentation": "結果に影響を与える追加の生成オプション用の辞書です。オプションの <code>SuggestedSize</code> キー（<code>Vector3</code>）は、生成されたアセットのサイズガイドを表し、<code>GenerationService</code> は、提供された <code>Vector3</code> と類似したサイズと比率のモデルを生成するよう試みますが、最終出力サイズに関しては保証されません。"
+    "documentation": "結果に影響を与える追加の生成オプションを含む辞書です。オプションの<code>SuggestedSize</code>キー（<code>Vector3</code>）は、生成されたアセットのサイズガイドを表し、<code>GenerationService</code>は提供された<code>Vector3</code>に似たサイズと比率のモデルを作成しようとしますが、最終出力サイズに対する保証はありません。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/4": {
-    "documentation": "中間生成結果とともにトリガーされるコールバック関数です。テクスチャが適用される前の早期メッシュバージョンを取得するのに便利です。"
+    "documentation": "中間生成結果でトリガーされるコールバック関数です。テクスチャが適用される前に早期のメッシュバージョンを取得するのに便利です。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/return/0": {
-    "documentation": "生成 ID（<code>GenerateMeshAsync()</code> の各呼び出しに対して返されるユニーク ID）とコンテキスト ID（現在は使用されていません）からなるタプルです。"
+    "documentation": "<code>GenerateMeshAsync()</code>の各呼び出しに対して返される一意のID（生成ID）と、現在使用されていないコンテキストIDからなるタプルです。"
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync": {
-    "documentation": "テキストプロンプトから新しい 3D メッシュの生成を開始し、結果を追跡し取得するために使用されるユニークな ID を返します。",
+    "documentation": "テキストプロンプトから新しい3Dメッシュの生成を開始し、結果を追跡および取得するために使用される一意のIDを返します。",
     "params": [
       {
         "name": "self",
@@ -54268,19 +54262,19 @@
     "documentation": "開発者がテキストプロンプトから3Dオブジェクトを生成できるサービスです。"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/1": {
-    "documentation": "次のキーを持つ条件付き入力を表すテーブルです： <ul> <li><code>TextPrompt</code> - 生成するオブジェクトの文字列説明。</li> <li><code>Size</code> - 生成するオブジェクトのサイズを記述するオプションの <code>Vector3</code>。これはおおよそのものであり、特定のサイズが必要な場合は生成後にモデルの寸法をスケーリングしてください。</li> <li><code>MaxTriangles</code> - 戻り値モデルが含む最大三角形数を示すオプションの整数。低い値は、よりファセット化されており、ローポリな生成をもたらします。</li> <li><code>GenerateTextures</code> - <code>true</code>（デフォルト）は生成結果にテクスチャを追加し、<code>false</code> はテクスチャを生成しません。</li> </ul>"
+    "documentation": "次のキーを持つ条件入力を表すテーブルです： <ul> <li><code>TextPrompt</code> — 生成するオブジェクトの文字列表現。</li> <li><code>Size</code> — 生成するオブジェクトのサイズを説明するオプションの<code>Vector3</code>。これはあくまで概算であり、特定のサイズが必要な場合は生成後にモデルの拡張をスケーリングしてください。</li> <li><code>MaxTriangles</code> — 返されるモデルが含む最大三角形数を説明するオプションの整数。低い値はより多面体でローポリの生成になります。</li> <li><code>GenerateTextures</code> — <code>true</code>（デフォルト）は結果の生成にテクスチャを加え、<code>false</code>はテクスチャを生成しません。</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/2": {
-    "documentation": "生成スキーマを表すテーブル。文字列値を持つ <code>PredefinedSchema</code> キーを含む必要があり、現在の有効なオプションは、五つの <code>Models</code> からなる基本的な車両シャーシ用の <code>Car5</code> または、単一メッシュ出力をもたらす <code>Body1</code> です。"
+    "documentation": "生成スキーマを表すテーブルです。文字列値を持つ<code>PredefinedSchema</code>キーを含む必要があります。現在の有効なオプションは、五つの<code>Models</code>からなる基本的な車両シャーシのための<code>Car5</code>、または単一のメッシュ出力を生成する<code>Body1</code>です。"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/3": {
     "documentation": "現在は使用されていません。将来のカスタマイズオプションのために予約されています。"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/return/0": {
-    "documentation": "次の要素を含むタプルです： <ul> <li>指定された <code>schema</code> に準拠した標準の <code>Model</code> コンテナインスタンス。</li> <li>生成に関する UUID およびその他のメタデータを含むテーブル。</li> </ul>"
+    "documentation": "以下の要素を含むタプルです： <ul> <li>指定された<code>schema</code>に準拠する標準の<code>Model</code>コンテナインスタンス。</li> <li>生成に関するUUIDとその他のメタデータを含むテーブル。</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync": {
-    "documentation": "提供された <code>inputs</code> と <code>schema</code> に従ってマルチメッシュジオメトリの生成を可能にします。",
+    "documentation": "提供された<code>inputs</code>および<code>schema</code>に基づいてマルチメッシュジオメトリの生成を可能にします。",
     "params": [
       {
         "name": "self",
@@ -54309,13 +54303,13 @@
     "documentation": "開発者がテキストプロンプトから3Dオブジェクトを生成できるサービスです。"
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/param/1": {
-    "documentation": "<code>GenerateMeshAsync()</code> によって返されるユニーク ID。読み込むメッシュを識別します。"
+    "documentation": "<code>GenerateMeshAsync()</code>によって返された一意のIDです。読み込むメッシュを特定します。"
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/return/0": {
-    "documentation": "生成されたアセットで、 <code>MeshPart</code> を含む単一の <code>Model</code> として返されます。"
+    "documentation": "生成されたアセットで、<code>EditableMesh</code>を含む単一の<code>MeshPart</code>として返されます。"
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync": {
-    "documentation": "指定された <code>generationId</code> を使って、<code>GenerationService:GenerateMeshAsync()</code> によって生成されたメッシュを取得し、読み込む。",
+    "documentation": "<code>GenerationService:GenerateMeshAsync()</code>によって生成されたメッシュを、提供された<code>generationId</code>を使用して取得および読み込みます。",
     "params": [
       {
         "name": "self",
@@ -58282,6 +58276,7 @@
       "DefaultDistanceAttenuation": "@roblox/globaltype/VoiceChatService.DefaultDistanceAttenuation",
       "EnableDefaultVoice": "@roblox/globaltype/VoiceChatService.EnableDefaultVoice",
       "UseAudioApi": "@roblox/globaltype/VoiceChatService.UseAudioApi",
+      "GetChatGroupsAsync": "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync",
       "IsVoiceEnabledForUserIdAsync": "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VoiceChatService",
@@ -58302,11 +58297,38 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VoiceChatService#UseAudioApi",
     "code_sample": ""
   },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/0": {
+    "documentation": "<strong>VoiceChatService</strong> は音声チャットの高レベル機能の管理を担当します。"
+  },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/1": {
+    "documentation": "音声チャットの互換性を評価するために体験中の<code>Players</code>のリストです。"
+  },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/return/0": {
+    "documentation": "チャットグループID文字列の配列をソートされた形で返します。一致するチャットグループIDを共有するプレイヤーはお互いに音声チャットをすることができます。"
+  },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync": {
+    "documentation": "声でチャットできるプレイヤーを示すチャットグループIDを返します。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/0"
+      },
+      {
+        "name": "players",
+        "documentation": "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VoiceChatService#GetChatGroupsAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync/param/0": {
     "documentation": "<strong>VoiceChatService</strong> は音声チャットの高レベル機能の管理を担当します。"
   },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync/param/1": {
-    "documentation": "チェックする <code>Player.UserId</code>。"
+    "documentation": "チェックするための<code>Player.UserId</code>です。"
   },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync/return/0": {
     "documentation": "そのユーザーが音声を有効にしているかどうか。"
@@ -58563,7 +58585,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer": {
-    "documentation": "<code>Player</code> オブジェクトのプロパティのデフォルトを設定できるサービスです。",
+    "documentation": "<code>Player</code>オブジェクトのプロパティのデフォルトを設定することができるサービスです。",
     "keys": {
       "AllowCustomAnimations": "@roblox/globaltype/StarterPlayer.AllowCustomAnimations",
       "AutoJumpEnabled": "@roblox/globaltype/StarterPlayer.AutoJumpEnabled",
@@ -58597,62 +58619,62 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.AllowCustomAnimations": {
-    "documentation": "現在のゲームのカスタムアバターアニメーションに関する許可レベルを説明します。",
+    "documentation": "現在のゲームのカスタムアバターアニメーションに関する権限レベルを説明します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AllowCustomAnimations",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.AutoJumpEnabled": {
-    "documentation": "モバイルデバイスで障害物に当たったときにキャラクターが自動的にジャンプするかどうかを設定します。",
+    "documentation": "モバイルデバイスで障害物にぶつかったときにキャラクターが自動的にジャンプするかどうかを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AutoJumpEnabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- ボタンのテキストを更新\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"オートジャンプはオンです\"\n\telse\n\t\tbutton.Text = \"オートジャンプはオフです\"\n\tend\n\t-- プレイヤーのキャラクターにプロパティを反映\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- オートジャンプを切り替え\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- その他を更新\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/StarterPlayer.AvatarJointUpgrade": {
-    "documentation": "<code>AnimationConstraint</code> ジョイントを使用してアバターがスポーンするかどうかを制御します。 物理シミュレーションのための。",
+    "documentation": "<code>AnimationConstraint</code>ジョイントを使用して物理シミュレーションを行うかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AvatarJointUpgrade",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CameraMaxZoomDistance": {
-    "documentation": "プレイヤーのデフォルトカメラがズームアウトできる最大距離をスタッドで設定します。",
+    "documentation": "プレイヤーのデフォルトカメラが許可される最大ズームアウト距離をスタッドで設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CameraMaxZoomDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CameraMaxZoomDistance = 50\nplayer.CameraMinZoomDistance = 75"
   },
   "@roblox/globaltype/StarterPlayer.CameraMinZoomDistance": {
-    "documentation": "プレイヤーのデフォルトカメラがズームインできる最小距離をスタッドで設定します。",
+    "documentation": "プレイヤーのデフォルトカメラが許可される最小ズームイン距離をスタッドで設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CameraMinZoomDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CameraMaxZoomDistance = 50\nplayer.CameraMinZoomDistance = 75"
   },
   "@roblox/globaltype/StarterPlayer.CameraMode": {
-    "documentation": "デフォルトのカメラモードを一人称または三人称に変更します。",
+    "documentation": "デフォルトカメラのモードを一人称または三人称に変更します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CameraMode",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CameraMode = Enum.CameraMode.LockFirstPerson"
   },
   "@roblox/globaltype/StarterPlayer.CharacterBreakJointsOnDeath": {
-    "documentation": "<code>Player.Character</code>のための<code>Humanoid.BreakJointsOnDeath</code>の開始値を決定します。",
+    "documentation": "<code>Player.Character</code>のための<code>Humanoid.BreakJointsOnDeath</code>の初期値を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CharacterBreakJointsOnDeath",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CharacterJumpHeight": {
-    "documentation": "<code>Player.Character</code> の <code>Humanoid.JumpHeight</code> の初期値を決定します。",
+    "documentation": "<code>Player.Character</code>のための<code>Humanoid.JumpHeight</code>の初期値を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CharacterJumpHeight",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CharacterJumpPower": {
-    "documentation": "<code>Player.Character</code> の <code>Humanoid.JumpPower</code> の初期値を決定します。",
+    "documentation": "<code>Player.Character</code>のための<code>Humanoid.JumpPower</code>の初期値を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CharacterJumpPower",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CharacterMaxSlopeAngle": {
-    "documentation": "<code>Player.Character</code> の <code>Humanoid.MaxSlopeAngle</code> の初期値を決定します。",
+    "documentation": "<code>Player.Character</code>のための<code>Humanoid.MaxSlopeAngle</code>の初期値を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CharacterMaxSlopeAngle",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CharacterUseJumpPower": {
-    "documentation": "<code>Player.Character</code> の <code>Humanoid.UseJumpPower</code> の初期状態を決定します。",
+    "documentation": "<code>Player.Character</code>のための<code>Humanoid.UseJumpPower</code>の初期状態を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CharacterUseJumpPower",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CharacterWalkSpeed": {
-    "documentation": "<code>Player.Character</code> の <code>Humanoid.WalkSpeed</code> の初期値を決定します。",
+    "documentation": "<code>Player.Character</code>のための<code>Humanoid.WalkSpeed</code>の初期値を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CharacterWalkSpeed",
     "code_sample": ""
   },
@@ -58662,37 +58684,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CreateDefaultPlayerModule": {
-    "documentation": "デフォルトのプレイヤーモジュールと関連するスクリプトの扱い方を制御します。",
+    "documentation": "デフォルトのプレイヤーモジュールおよび関連スクリプトの処理方法を制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CreateDefaultPlayerModule",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevCameraOcclusionMode": {
-    "documentation": "デフォルトカメラがカメラとプレイヤーの間にあるオブジェクトをどのように扱うかを設定します。",
+    "documentation": "デフォルトカメラがカメラとプレイヤーの間のオブジェクトをどのように処理するかを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevCameraOcclusionMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevComputerCameraMovementMode": {
-    "documentation": "プレイヤーのカメラモードをコンピュータ上で上書きします。",
+    "documentation": "コンピュータ上でプレイヤーのカメラモードを上書きできるようにします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevComputerCameraMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevComputerMovementMode": {
-    "documentation": "プレイヤーの移動モードをコンピュータ上で上書きします。",
+    "documentation": "コンピュータ上でプレイヤーの移動モードを上書きできるようにします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevComputerMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevTouchCameraMovementMode": {
-    "documentation": "タッチ対応デバイス上でプレイヤーのカメラモードを上書きします。",
+    "documentation": "タッチ対応デバイス上でプレイヤーのカメラモードを上書きできるようにします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevTouchCameraMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevTouchMovementMode": {
-    "documentation": "タッチ対応デバイス上でプレイヤーの移動モードを上書きします。",
+    "documentation": "タッチ対応デバイス上でプレイヤーの移動モードを上書きできるようにします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevTouchMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.EnableDynamicHeads": {
-    "documentation": "動的ヘッドの使用を設定します。trueの場合、顔のアニメーションデータを 持つアバターヘッドの使用が可能になります。",
+    "documentation": "ダイナミックヘッドの使用を設定します。trueの場合、表情アニメーションデータを持つアバターの頭を使用できるようにします。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#EnableDynamicHeads",
     "code_sample": ""
   },
@@ -58702,17 +58724,17 @@
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nwhile true do\n\tplayer.DevEnableMouseLock = not player.DevEnableMouseLock\n\ttask.wait(5)\nend"
   },
   "@roblox/globaltype/StarterPlayer.HealthDisplayDistance": {
-    "documentation": "このプレイヤーが他の <code>Humanoid</code> のヘルスバーを見る距離を設定します。0 に設定すると、ヘルスバーは表示されません。",
+    "documentation": "このプレイヤーが他の<code>Humanoid</code>のヘルスバーを表示する距離を設定します。0に設定すると、ヘルスバーは表示されません。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#HealthDisplayDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.HealthDisplayDistance = 0\nplayer.NameDisplayDistance = 0"
   },
   "@roblox/globaltype/StarterPlayer.LoadCharacterAppearance": {
-    "documentation": "プレイヤーのキャラクターの外見を読み込むかどうか。",
+    "documentation": "プレイヤーのキャラクターの外観がロードされるかどうか。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#LoadCharacterAppearance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CanLoadCharacterAppearance = false"
   },
   "@roblox/globaltype/StarterPlayer.LoadCharacterLayeredClothing ": {
-    "documentation": "体験にスポーンするキャラクターがレイヤード衣服アクセサリを装備するかどうかを示します。",
+    "documentation": "体験内にスポーンするキャラクターがレイヤー付き衣類アクセサリーを装備するかどうかを示します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#LoadCharacterLayeredClothing ",
     "code_sample": ""
   },
@@ -58722,12 +58744,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.NameDisplayDistance": {
-    "documentation": "このプレイヤーが他の <code>Humanoid</code> の名前を見る距離を設定します。",
+    "documentation": "このプレイヤーが他の<code>Humanoid</code>の名前を表示する距離を設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#NameDisplayDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.HealthDisplayDistance = 0\nplayer.NameDisplayDistance = 0"
   },
   "@roblox/globaltype/StarterPlayer.UserEmotesEnabled": {
-    "documentation": "ユーザー所有のエモートがアバターを読み込む際に読み込まれるかどうかを決定します。",
+    "documentation": "ユーザーが所有するエモートがアバターをロードするときにロードされるかどうかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#UserEmotesEnabled",
     "code_sample": ""
   },
@@ -68066,7 +68088,6 @@
       "Active": "@roblox/globaltype/AudioDeviceInput.Active",
       "IsReady": "@roblox/globaltype/AudioDeviceInput.IsReady",
       "Muted": "@roblox/globaltype/AudioDeviceInput.Muted",
-      "MutedByLocalUser": "@roblox/globaltype/AudioDeviceInput.MutedByLocalUser",
       "Player": "@roblox/globaltype/AudioDeviceInput.Player",
       "Volume": "@roblox/globaltype/AudioDeviceInput.Volume",
       "GetConnectedWires": "@roblox/globaltype/AudioDeviceInput.GetConnectedWires",
@@ -68098,18 +68119,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#Muted",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioDeviceInput.MutedByLocalUser": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#MutedByLocalUser",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioDeviceInput.Player": {
-    "documentation": "誰のデバイスが音を生成しているかを決定します。",
+    "documentation": "サウンドを生成しているデバイスを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#Player",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioDeviceInput.Volume": {
-    "documentation": "出力音声ストリームに乗算される音量レベルです。",
+    "documentation": "出力オーディオストリームに掛け算されるボリュームレベルです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#Volume",
     "code_sample": ""
   },
@@ -72363,7 +72379,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService": {
-    "documentation": "スクリーンショットおよびビデオキャプチャ機能を制御するサービスです。",
+    "documentation": "スクリーンショットとビデオキャプチャ機能を制御するサービスです。",
     "keys": {
       "CaptureScreenshot": "@roblox/globaltype/CaptureService.CaptureScreenshot",
       "PromptCaptureGalleryPermissionAsync": "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync",
@@ -72379,13 +72395,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.CaptureScreenshot/param/0": {
-    "documentation": "スクリーンショットおよびビデオキャプチャ機能を制御するサービスです。"
+    "documentation": "スクリーンショットとビデオキャプチャ機能を制御するサービスです。"
   },
   "@roblox/globaltype/CaptureService.CaptureScreenshot/param/1": {
-    "documentation": "新しいキャプチャが準備できたときに <code>contentId</code> と共に呼び出されるコールバック関数です。"
+    "documentation": "新しいキャプチャが準備できたときに <code>contentId</code> とともに呼び出されるコールバック関数。"
   },
   "@roblox/globaltype/CaptureService.CaptureScreenshot": {
-    "documentation": "スクリーンショットを撮り、その識別に一時的な <code>contentId</code> を提供します。",
+    "documentation": "スクリーンショットを撮り、一時的な <code>contentId</code> を提供して識別します。",
     "params": [
       {
         "name": "self",
@@ -72401,13 +72417,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/0": {
-    "documentation": "スクリーンショットおよびビデオキャプチャ機能を制御するサービスです。"
+    "documentation": "スクリーンショットとビデオキャプチャ機能を制御するサービスです。"
   },
   "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/1": {
-    "documentation": "ユーザーがプロンプトで求められるアクセスのタイプを表す <code>CaptureGalleryPermission</code> です。"
+    "documentation": "ユーザーにプロンプトされるアクセスのタイプを表す <code>CaptureGalleryPermission</code>。"
   },
   "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/return/0": {
-    "documentation": "ユーザーがキャプチャへのアクセスを許可したかどうかを示すブール値です。"
+    "documentation": "ユーザーがキャプチャへのアクセスを許可したかどうかを表すブール値。"
   },
   "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync": {
     "documentation": "",
@@ -72428,16 +72444,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery/param/0": {
-    "documentation": "スクリーンショットおよびビデオキャプチャ機能を制御するサービスです。"
+    "documentation": "スクリーンショットとビデオキャプチャ機能を制御するサービスです。"
   },
   "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery/param/1": {
-    "documentation": "コンテンツ ID と/または <code>Capture</code> オブジェクトの配列です。"
+    "documentation": "コンテンツ ID と/または <code>Capture</code> オブジェクトの配列。"
   },
   "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery/param/2": {
-    "documentation": "<code>contentId</code> と/または <code>Capture</code> オブジェクトの各々をブール値にマッピングする辞書と共に 呼び出されるコールバック関数です。"
+    "documentation": "<code>contentId</code> と/または <code>Capture</code> オブジェクトをブール値にマッピングする辞書で呼び出されるコールバック関数。"
   },
   "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery": {
-    "documentation": "ユーザーに指定されたキャプチャをギャラリーに保存するよう促します。",
+    "documentation": "ユーザーに指定したキャプチャをギャラリーに保存するよう促します。",
     "params": [
       {
         "name": "self",
@@ -72457,22 +72473,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/0": {
-    "documentation": "スクリーンショットおよびビデオキャプチャ機能を制御するサービスです。"
+    "documentation": "スクリーンショットとビデオキャプチャ機能を制御するサービスです。"
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/1": {
-    "documentation": "<code>contentId</code> または <code>Capture</code> オブジェクトを含む <code>Content</code> です。"
+    "documentation": "<code>contentId</code> または <code>Capture</code> オブジェクトを含む <code>Content</code>。"
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/2": {
-    "documentation": "招待リンクの起動データとして含めるオプションの文字列です。"
+    "documentation": "招待リンクに含めるためのオプションの文字列。"
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/3": {
-    "documentation": "ユーザーが共有を承認した場合に呼び出されるオプションのコールバック関数です。"
+    "documentation": "ユーザーが共有を受け入れた場合に呼び出されるオプションのコールバック関数。"
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/4": {
-    "documentation": "ユーザーが共有を拒否した場合に呼び出されるオプションのコールバック関数です。"
+    "documentation": "ユーザーが共有を拒否した場合に呼び出されるオプションのコールバック関数。"
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture": {
-    "documentation": "ユーザーに指定されたキャプチャを共有するよう促します。",
+    "documentation": "ユーザーに指定したキャプチャを共有するよう促します。",
     "params": [
       {
         "name": "self",
@@ -72500,16 +72516,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/0": {
-    "documentation": "スクリーンショットおよびビデオキャプチャ機能を制御するサービスです。"
+    "documentation": "スクリーンショットとビデオキャプチャ機能を制御するサービスです。"
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1": {
-    "documentation": "<code>CaptureType</code> の配列です。"
+    "documentation": "<code>CaptureType</code> の配列。"
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/2": {
-    "documentation": "真偽値; デフォルトは <code>false</code> です。"
+    "documentation": "ブール値；デフォルトは <code>false</code> です。"
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0": {
-    "documentation": "(result: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>) のタプルです。"
+    "documentation": "(result: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>) のタプル"
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync": {
     "documentation": "",
@@ -72534,10 +72550,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.StartVideoCaptureAsync/param/0": {
-    "documentation": "スクリーンショットおよびビデオキャプチャ機能を制御するサービスです。"
+    "documentation": "スクリーンショットとビデオキャプチャ機能を制御するサービスです。"
   },
   "@roblox/globaltype/CaptureService.StartVideoCaptureAsync/param/1": {
-    "documentation": "ビデオキャプチャの完了時に <code>VideoCaptureResult</code> と、成功した場合は <code>VideoCapture</code> を 伴って呼び出されるコールバック関数です。"
+    "documentation": "ビデオキャプチャの完了時に呼び出されるコールバック関数で、 <code>VideoCaptureResult</code> と成功した場合には <code>VideoCapture</code> を含みます。"
   },
   "@roblox/globaltype/CaptureService.StartVideoCaptureAsync/param/2": {
     "documentation": ""
@@ -72568,10 +72584,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.StopVideoCapture/param/0": {
-    "documentation": "スクリーンショットおよびビデオキャプチャ機能を制御するサービスです。"
+    "documentation": "スクリーンショットとビデオキャプチャ機能を制御するサービスです。"
   },
   "@roblox/globaltype/CaptureService.StopVideoCapture": {
-    "documentation": "<code>StartVideoCaptureAsync()</code> によって 開始されたビデオキャプチャを終了します。",
+    "documentation": "<code>StartVideoCaptureAsync()</code> により開始されたビデオキャプチャを終了します。",
     "params": [
       {
         "name": "self",
@@ -72583,13 +72599,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/0": {
-    "documentation": "スクリーンショットおよびビデオキャプチャ機能を制御するサービスです。"
+    "documentation": "スクリーンショットとビデオキャプチャ機能を制御するサービスです。"
   },
   "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/1": {
-    "documentation": "スクリーンショットキャプチャの完了時に <code>ScreenshotCaptureResult</code> と、成功した場合は <code>ScreenshotCapture</code> を伴って呼び出されるコールバック関数です。"
+    "documentation": "スクリーンショットキャプチャの完了時に呼び出されるコールバック関数で、 <code>ScreenshotCaptureResult</code> ともし成功した場合は <code>ScreenshotCapture</code> を含みます。"
   },
   "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/2": {
-    "documentation": "キャプチャの動作を修正する辞書です。"
+    "documentation": "キャプチャの挙動を変更する辞書。"
   },
   "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync": {
     "documentation": "スクリーンショットキャプチャを開始します。",
@@ -72612,13 +72628,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
-    "documentation": "スクリーンショットおよびビデオキャプチャ機能を制御するサービスです。"
+    "documentation": "スクリーンショットとビデオキャプチャ機能を制御するサービスです。"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1": {
-    "documentation": "<code>Capture</code> タイプのキャプチャオブジェクトです。"
+    "documentation": "<code>Capture</code> 型のキャプチャオブジェクト。"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
-    "documentation": "(result: <code>UploadCaptureResult</code>, assetId: <code>number</code>) のタプルです。"
+    "documentation": "(result: <code>UploadCaptureResult</code>, assetId: <code>number</code>) のタプル"
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync": {
     "documentation": "",
@@ -72716,7 +72732,7 @@
     "returns": []
   },
   "@roblox/globaltype/CaptureService.CaptureBegan": {
-    "documentation": "キャプチャが開始される直前に発火します。",
+    "documentation": "キャプチャが始まる直前に発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/CaptureService.CaptureBegan.Connect",
       "ConnectParallel": "@roblox/globaltype/CaptureService.CaptureBegan.ConnectParallel",
@@ -72804,7 +72820,7 @@
     "returns": []
   },
   "@roblox/globaltype/CaptureService.CaptureEnded": {
-    "documentation": "キャプチャが完了した後に発火します。",
+    "documentation": "キャプチャが終了した後に発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/CaptureService.CaptureEnded.Connect",
       "ConnectParallel": "@roblox/globaltype/CaptureService.CaptureEnded.ConnectParallel",
@@ -72892,7 +72908,7 @@
     "returns": []
   },
   "@roblox/globaltype/CaptureService.CaptureSaved": {
-    "documentation": "<strong>Deprecated:</strong> このイベントは、<code>Class.CaptureService.UserCaptureSaved|UserCaptureSaved</code> イベントに置き換えられました。",
+    "documentation": "<strong>Deprecated:</strong> このイベントは <code>UserCaptureSaved</code> イベントに置き換えられました。",
     "keys": {
       "Connect": "@roblox/globaltype/CaptureService.CaptureSaved.Connect",
       "ConnectParallel": "@roblox/globaltype/CaptureService.CaptureSaved.ConnectParallel",
@@ -72980,7 +72996,7 @@
     "returns": []
   },
   "@roblox/globaltype/CaptureService.UserCaptureSaved": {
-    "documentation": "ユーザーがキャプチャを保存した時に発火します。",
+    "documentation": "ユーザーがキャプチャを保存したときに発火します。",
     "keys": {
       "Connect": "@roblox/globaltype/CaptureService.UserCaptureSaved.Connect",
       "ConnectParallel": "@roblox/globaltype/CaptureService.UserCaptureSaved.ConnectParallel",
@@ -84677,7 +84693,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance": {
-    "documentation": "開発者が高度なグラフィックオプションを使用してMeshPartの外観をオーバーライドすることを可能にするオブジェクトです。",
+    "documentation": "MeshPartの外観を高度なグラフィックオプションでオーバーライドするためのオブジェクトです。",
     "keys": {
       "AlphaMode": "@roblox/globaltype/SurfaceAppearance.AlphaMode",
       "Color": "@roblox/globaltype/SurfaceAppearance.Color",
@@ -84698,12 +84714,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.AlphaMode": {
-    "documentation": "<code>SurfaceAppearance.ColorMap</code> のアルファチャンネルがどのように使用されるかを決定します。",
+    "documentation": "<code>SurfaceAppearance.ColorMap</code>のアルファチャンネルの使用方法を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#AlphaMode",
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.Color": {
-    "documentation": "既存のカラーマップにティントを適用します。カラーピッカーで直接設定するか、<code>Color3</code> を使用してプログラム的に設定します。",
+    "documentation": "既存のカラー マップに色合いを追加します。カラー選択ツールで直接設定するか、<code>Color3</code>を使用してプログラム的に設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#Color",
     "code_sample": ""
   },
@@ -84723,7 +84739,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.EmissiveStrength": {
-    "documentation": "放射貢献の強さを決定します。",
+    "documentation": "放射貢献の強度を決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveStrength",
     "code_sample": ""
   },
@@ -84733,7 +84749,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.MetalnessMap": {
-    "documentation": "表面のどの部分が金属または非金属であるかを決定します。",
+    "documentation": "表面のどの部分が金属であるか、または非金属であるかを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#MetalnessMap",
     "code_sample": ""
   },
@@ -84743,7 +84759,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.NormalMap": {
-    "documentation": "表面の照明を、バンプ、へこみ、亀裂、曲線を追加して修正します。",
+    "documentation": "バンプ、へこみ、ひび、曲線を追加することによって表面のライティングを変更します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#NormalMap",
     "code_sample": ""
   },
@@ -84753,7 +84769,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.RoughnessMap": {
-    "documentation": "表面全体の見かけの粗さを決定します。",
+    "documentation": "表面にわたる見かけの粗さを決定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#RoughnessMap",
     "code_sample": ""
   },
@@ -85065,7 +85081,7 @@
     "documentation": "提供されたアイテムIDのタイプです。"
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/return/0": {
-    "documentation": "以下のフィールドを持つアイテムの詳細の配列を返します： <pre><code class=\"language-lua\">{     &quot;AssetType&quot; = &quot;string&quot;,     &quot;CreatorName&quot; = &quot;string&quot;,     &quot;CreatorTargetId&quot; = 0,     &quot;CreatorType&quot; = &quot;string&quot;,     &quot;Description&quot; = &quot;string&quot;,     &quot;FavoriteCount&quot; = 0,     &quot;Genres&quot; = [       &quot;All&quot;     ],     &quot;Id&quot; = 0,     &quot;ItemRestrictions&quot; = [       &quot;Limited&quot;     ],     &quot;ItemStatus&quot;: [       &quot;New&quot;     ],     &quot;ItemType&quot; = &quot;string&quot;,     &quot;LowestPrice&quot; = 0,     &quot;Name&quot; = &quot;string&quot;,     &quot;Price&quot; = 0,     &quot;ProductId&quot; = 0   } </code></pre> ."
+    "documentation": "アイテム詳細の配列を返します。"
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync": {
     "documentation": "一度にアイテムの詳細を取得します。",
@@ -85099,7 +85115,7 @@
     "documentation": "提供されたアイテムIDのタイプです。"
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails/return/0": {
-    "documentation": "以下のフィールドを持つアイテムの詳細の配列を返します： <pre><code class=\"language-lua\">{     &quot;AssetType&quot; = &quot;string&quot;,     &quot;CreatorName&quot; = &quot;string&quot;,     &quot;CreatorTargetId&quot; = 0,     &quot;CreatorType&quot; = &quot;string&quot;,     &quot;Description&quot; = &quot;string&quot;,     &quot;FavoriteCount&quot; = 0,     &quot;Genres&quot; = [       &quot;All&quot;     ],     &quot;Id&quot; = 0,     &quot;ItemRestrictions&quot; = [       &quot;Limited&quot;     ],     &quot;ItemStatus&quot;: [       &quot;New&quot;     ],     &quot;ItemType&quot; = &quot;string&quot;,     &quot;LowestPrice&quot; = 0,     &quot;Name&quot; = &quot;string&quot;,     &quot;Price&quot; = 0,     &quot;ProductId&quot; = 0   } </code></pre> ."
+    "documentation": "アイテム詳細の配列を返します。レスポンス形式については、 <code>AvatarEditorService:GetBatchItemDetailsAsync()</code>を参照してください。"
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails": {
     "documentation": "<strong>Deprecated:</strong> <br>一度にアイテムの詳細を取得します。",
@@ -85255,7 +85271,7 @@
     "documentation": "詳細が取得されるアイテムのタイプを示す列挙値です。"
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/return/0": {
-    "documentation": "取得したアイテムの情報を含むテーブルです。サンプルテーブルについては上記を参照してください。"
+    "documentation": "取得したアイテムの情報を含むテーブル。"
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync": {
     "documentation": "指定されたアイテムの詳細を返します。",
@@ -85753,7 +85769,7 @@
     "documentation": "検索に使用されるパラメーターを含むオブジェクトです。"
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/return/0": {
-    "documentation": ""
+    "documentation": "<code>CatalogPages</code>オブジェクトを返し、検索結果を含みます。"
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync": {
     "documentation": "指定された検索の結果を含む<code>CatalogPages</code>オブジェクトを返します。",
@@ -88149,10 +88165,8 @@
     "documentation": "音を発するオブジェクト。このオブジェクトは、特定の位置から音を発するために、<code>BasePart</code> または <code>Attachment</code> 内に配置することができ、または他の場所に接続して、全体の場所を通して一定の音量で音を再生することができます。",
     "keys": {
       "AudioContent": "@roblox/globaltype/Sound.AudioContent",
-      "ChannelCount": "@roblox/globaltype/Sound.ChannelCount",
       "EmitterSize": "@roblox/globaltype/Sound.EmitterSize",
       "IsLoaded": "@roblox/globaltype/Sound.IsLoaded",
-      "IsMutedForCapture": "@roblox/globaltype/Sound.IsMutedForCapture",
       "IsPaused": "@roblox/globaltype/Sound.IsPaused",
       "IsPlaying": "@roblox/globaltype/Sound.IsPlaying",
       "isPlaying": "@roblox/globaltype/Sound.isPlaying",
@@ -88191,133 +88205,123 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#AudioContent",
     "code_sample": ""
   },
-  "@roblox/globaltype/Sound.ChannelCount": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#ChannelCount",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Sound.EmitterSize": {
-    "documentation": "<strong>Deprecated:</strong> <code>Sound.RollOffMinDistance</code>および<code>Sound.RollOffMaxDistance</code>に取って代わられたため、このプロパティは廃止されました。新しい作業では代わりに使用する必要があります。<br>3D <code>Sound</code>（<code>BasePart</code>または<code>Attachment</code>の直接の子）が音量を減少し始める最小距離（スタッド単位）。",
+    "documentation": "<strong>Deprecated:</strong> <code>Sound.RollOffMinDistance</code> と <code>Sound.RollOffMaxDistance</code> に代わってこのプロパティは 非推奨になったため、新しい作業ではそれを使用する必要があります。<br>3D <code>Sound</code>（<code>BasePart</code> または <code>Attachment</code>の直下の子）が減衰（音量低下）を 開始する最小距離（スタッド単位）です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#EmitterSize",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Anchored = true\npart.Position = Vector3.new(0, 3, 0)\npart.BrickColor = BrickColor.new(\"Bright red\")\npart.Name = \"MusicBox\"\npart.Parent = workspace\n\n-- 音を作成する\nlocal sound = Instance.new(\"Sound\", part)\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.EmitterSize = 5 -- エミッターサイズを減少させる（音量低下を早くするため）\nsound.Looped = true\nsound.Parent = part\n\nlocal clickDetector = Instance.new(\"ClickDetector\")\nclickDetector.Parent = part\n\n-- 音の再生 / 停止を切り替える\nclickDetector.MouseClick:Connect(function()\n\tif not sound.IsPlaying then\n\t\tpart.BrickColor = BrickColor.new(\"Bright green\")\n\t\tsound:Play()\n\telse\n\t\tpart.BrickColor = BrickColor.new(\"Bright red\")\n\t\tsound:Stop()\n\tend\nend)"
   },
   "@roblox/globaltype/Sound.IsLoaded": {
-    "documentation": "<code>Sound</code>がRobloxサーバーからロードされ、再生する準備ができているとき、このプロパティは<code>true</code>となります。",
+    "documentation": "<code>Sound</code> が Roblox サーバーからロードされ、再生の準備ができている 場合このプロパティは <code>true</code> になります。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsLoaded",
     "code_sample": "local sound = script.Parent.Sound\n\nif not sound.IsLoaded then\n\tsound.Loaded:Wait()\nend\n\nprint(\"サウンドが読み込まれました!\")"
   },
-  "@roblox/globaltype/Sound.IsMutedForCapture": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsMutedForCapture",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Sound.IsPaused": {
-    "documentation": "読み取り専用のプロパティで、<code>Sound</code>が再生されていないときに<code>true</code>を返します。",
+    "documentation": "<code>Sound</code> が再生されていない場合に <code>true</code> を返す読み取り専用プロパティです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsPaused",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Looped = true\nsound.Parent = workspace\n\nif not sound.isLoaded then\n\tsound.Loaded:Wait()\nend\n\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused) -- true, false\n\ntask.wait(2)\nsound:Pause()\nprint(sound.IsPlaying, sound.IsPaused) -- false, true\n\ntask.wait(2)\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused) -- true, false\n\ntask.wait(2)\nsound:Stop()\nprint(sound.IsPlaying, sound.IsPaused) -- false, true"
   },
   "@roblox/globaltype/Sound.IsPlaying": {
-    "documentation": "読み取り専用のプロパティで、<code>Sound</code>が再生されているときに<code>true</code>を返します。",
+    "documentation": "<code>Sound</code> が再生中の場合に <code>true</code> を返す読み取り専用プロパティです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsPlaying",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Looped = true\nsound.Parent = workspace\n\nif not sound.isLoaded then\n\tsound.Loaded:Wait()\nend\n\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused) -- true, false\n\ntask.wait(2)\nsound:Pause()\nprint(sound.IsPlaying, sound.IsPaused) -- false, true\n\ntask.wait(2)\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused) -- true, false\n\ntask.wait(2)\nsound:Stop()\nprint(sound.IsPlaying, sound.IsPaused) -- false, true"
   },
   "@roblox/globaltype/Sound.isPlaying": {
-    "documentation": "<strong>Deprecated:</strong> この非推奨のプロパティは<code>Sound.IsPlaying</code>の変種であり、代わりに使用するべきです。",
+    "documentation": "<strong>Deprecated:</strong> この非推奨のプロパティは <code>Sound.IsPlaying</code> の変種であり、代わりに使用する必要があります。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#isPlaying",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.Looped": {
-    "documentation": "<code>Sound</code>が再生を終えた後にリピートするかどうかを設定します。",
+    "documentation": "<code>Sound</code> が再生終了後に繰り返すかどうかを設定します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Looped",
     "code_sample": "local function loopNTimes(sound, numberOfLoops)\n\tif not sound.IsPlaying then\n\t\tsound.Looped = true\n\t\tlocal connection = nil\n\t\tconnection = sound.DidLoop:Connect(function(_soundId, numOfTimesLooped)\n\t\t\tprint(numOfTimesLooped)\n\t\t\tif numOfTimesLooped >= numberOfLoops then\n\t\t\t\t-- 接続を切断します\n\t\t\t\tconnection:Disconnect()\n\t\t\t\t-- 音を停止します\n\t\t\t\tsound:Stop()\n\t\t\tend\n\t\tend)\n\t\tsound:Play()\n\tend\nend\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://0\"\n\nloopNTimes(sound, 5)"
   },
   "@roblox/globaltype/Sound.LoopRegion": {
-    "documentation": "<code>PlaybackRegion</code>内で希望するループ開始とループ終了を示す範囲（秒単位）。",
+    "documentation": "<code>PlaybackRegion</code> 内の希望するループ開始とループ終了の範囲（秒単位）です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#LoopRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MaxDistance": {
-    "documentation": "<strong>Deprecated:</strong> <code>Sound.RollOffMinDistance</code>および<code>Sound.RollOffMaxDistance</code>に取って代わられたため、このプロパティは廃止されました。新しい作業では代わりに使用する必要があります。<br><code>Sound</code>の原点からクライアントのリスナーが離れることができる最大距離（スタッド単位）で、まだ聞くことができる。<code>Part</code>または<code>Attachment</code>に親付けされたサウンドにのみ適用されます。",
+    "documentation": "<strong>Deprecated:</strong> <code>Sound.RollOffMinDistance</code> と <code>Sound.RollOffMaxDistance</code> に代わってこのプロパティは 非推奨になったため、新しい作業ではそれを使用する必要があります。<br><code>Sound</code> の起点からクライアントのリスナーが離れる最大距離（スタッド単位）であり、その距離内で the sound を聞くことができます。<code>Part</code> または <code>Attachment</code> に接続された音（3D 音）のみに適用されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MaxDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MinDistance": {
-    "documentation": "<strong>Deprecated:</strong> MinDistanceは<code>Sound.EmitterSize</code>に取って代わられました。この名前はこのプロパティの動作をより適切に表しています。<br>3D <code>Sound</code>（<code>BasePart</code>または<code>Attachment</code>の直接の子）が減衰し始める最小距離。実質的にはエミッターサイズ。",
+    "documentation": "<strong>Deprecated:</strong> MinDistance は <code>Sound.EmitterSize</code> に置き換えられており、このプロパティの動作をより適切に説明しています。<br>3D <code>Sound</code>（<code>BasePart</code> または <code>Attachment</code> の直下の子）が減衰を開始する 最小距離（実質的にエミッターサイズ）です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MinDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.Pitch": {
-    "documentation": "<strong>Deprecated:</strong> <code>Sound.PlaybackSpeed</code>に取って代わられたため、このプロパティは廃止されました。この名前は動作により適しています。<br><code>Sound</code>が再生されるときの高音と速さを設定します。整数が大きいほど、<code>Sound</code>は高く速くなります。",
+    "documentation": "<strong>Deprecated:</strong> このプロパティは <code>Sound.PlaybackSpeed</code> に代わって非推奨になりました。 その名称はこの動作により適しています。<br><code>Sound</code> が再生されるときの音の高音と速さを設定します。整数が大きいほど、 音が高く速くなります。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Pitch",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackLoudness": {
-    "documentation": "<code>Sound</code>が現在再生中の音量を示す<code>0</code>から<code>1000</code>の間の数値。",
+    "documentation": "<code>Sound</code> が現在再生されている音の音量を示す <code>0</code> と <code>1000</code> の間の数値です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackLoudness",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackRegion": {
-    "documentation": "<code>TimeLength</code>内での希望する開始時間と停止時間を示す範囲（秒単位）。",
+    "documentation": "<code>TimeLength</code> 内の希望する開始時刻と停止時刻の範囲（秒単位）です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackRegionsEnabled": {
-    "documentation": "<code>true</code>の場合、このプロパティは<code>Sound</code>に<code>PlaybackRegion</code>および<code>LoopRegion</code>プロパティへのアクセスを提供し、再生をより正確に制御できます。",
+    "documentation": "<code>true</code> の場合、このプロパティにより <code>Sound</code> の <code>PlaybackRegion</code> および <code>LoopRegion</code> プロパティにアクセスでき、再生をより正確に制御できます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackRegionsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackSpeed": {
-    "documentation": "<code>Sound</code>の再生速度を決定し、値が高いほど音が速く高音で再生されます。",
+    "documentation": "<code>Sound</code> を再生する速度を決定します。より高い値は、音をより速く高音で再生させます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackSpeed",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Looped = true\nsound.Parent = workspace\n\nsound:Play()\ntask.wait(10)\nsound.PlaybackSpeed = 3 -- 3倍速\ntask.wait(5)\nsound.PlaybackSpeed = 0.5 -- 2倍遅い\ntask.wait(5)\nsound.PlaybackSpeed = 1 -- デフォルト"
   },
   "@roblox/globaltype/Sound.Playing": {
-    "documentation": "<code>Sound</code>が現在再生中かどうかを示します。",
+    "documentation": "<code>Sound</code> が現在再生中であるかどうかを示します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Playing",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Looped = true\nsound.Parent = workspace\n\nprint(\"サウンド再生中\")\nsound.Playing = true\n\ntask.wait(10)\n\nprint(\"サウンド停止中\")\nsound.Playing = false\n\ntask.wait(5)\n\nsound.Playing = true\nlocal timePosition = sound.TimePosition\nprint(\"再開時の時間位置: \" .. tostring(timePosition)) -- 約 10 秒"
   },
   "@roblox/globaltype/Sound.PlayOnRemove": {
-    "documentation": "<code>true</code>の場合、<code>Sound</code>は体験から削除されたときに再生されます。",
+    "documentation": "<code>true</code> の場合、<code>Sound</code> は体験から削除されたときに再生されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlayOnRemove",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.RollOffMaxDistance": {
-    "documentation": "音の起点からクライアントのリスナーがどれだけ離れても聞こえるかの最大距離（スタッド単位）。<code>BasePart</code>または<code>Attachment</code>に親子関係を持つ<code>Sounds</code>のみに適用されます。",
+    "documentation": "<code>Sound</code> の起点からクライアントのリスナーが離れる最大距離（スタッド単位）であり、その距離内で the sound を聞くことができます。<code>BasePart</code> または <code>Attachment</code> に接続された <code>Sounds</code> のみに適用されます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#RollOffMaxDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.RollOffMinDistance": {
-    "documentation": "音量が減少し始める最小距離（スタッド単位）。<code>Sound</code>が<code>BasePart</code>または<code>Attachment</code>に親子関係を持っているときです。",
+    "documentation": "<code>BasePart</code> または <code>Attachment</code> に接続されている <code>Sound</code> が減衰を開始する 最小距離（スタッド単位）です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#RollOffMinDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.RollOffMode": {
-    "documentation": "<code>BasePart</code>または<code>Attachment</code>に親子関係を持つ<code>Sound</code>の音量がリスナーと親の距離が変化することでどのように減衰（フェードアウト）するかを制御します。",
+    "documentation": "<code>BasePart</code> または <code>Attachment</code> に接続されている <code>Sound</code> の音量が、リスナーと親との距離が変化するにつれてどのように減衰（フェードアウト）するかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#RollOffMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.SoundGroup": {
-    "documentation": "この<code>Sound</code>にリンクされた<code>SoundGroup</code>です。",
+    "documentation": "この <code>Sound</code> にリンクされている <code>SoundGroup</code> です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#SoundGroup",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.SoundId": {
-    "documentation": "<code>Sound</code>に関連付ける音声ファイルのコンテンツIDです。",
+    "documentation": "<code>Sound</code> に関連付けるサウンドファイルのコンテンツIDです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#SoundId",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.TimeLength": {
-    "documentation": "<code>Sound</code>の長さ（秒単位）。",
+    "documentation": "秒単位の <code>Sound</code> の長さです。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#TimeLength",
     "code_sample": "local function playForDuration(sound, duration)\n\tif not sound.IsLoaded then\n\t\tsound.Loaded:wait()\n\tend\n\tlocal speed = sound.TimeLength / duration\n\tsound.PlaybackSpeed = speed\n\tsound:Play()\nend\n\nlocal sound = script.Parent\nplayForDuration(sound, 5)"
   },
   "@roblox/globaltype/Sound.TimePosition": {
-    "documentation": "<code>Sound</code>の進行状況（秒単位）。再生前および再生中に再生位置を移動するために変更できます。",
+    "documentation": "<code>Sound</code> の進行状況を秒単位で示します。再生の前後で <code>Sound</code> の再生位置を 移動するために変更できます。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#TimePosition",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Parent = workspace\n\nsound.TimePosition = 30\n\nsound:Play()\n\ntask.wait(5)\n\nsound.TimePosition = 100\n\ntask.wait(5)\n\nsound.TimePosition = 0"
   },
   "@roblox/globaltype/Sound.Volume": {
-    "documentation": "<code>Sound</code>の音量。",
+    "documentation": "<code>Sound</code> の音量です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Volume",
     "code_sample": ""
   },
@@ -89231,7 +89235,6 @@
       "AudioContent": "@roblox/globaltype/AudioPlayer.AudioContent",
       "AutoLoad": "@roblox/globaltype/AudioPlayer.AutoLoad",
       "AutoPlay": "@roblox/globaltype/AudioPlayer.AutoPlay",
-      "IsMutedForCapture": "@roblox/globaltype/AudioPlayer.IsMutedForCapture",
       "IsPlaying": "@roblox/globaltype/AudioPlayer.IsPlaying",
       "IsReady": "@roblox/globaltype/AudioPlayer.IsReady",
       "Looping": "@roblox/globaltype/AudioPlayer.Looping",
@@ -89276,53 +89279,48 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#AutoPlay",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioPlayer.IsMutedForCapture": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsMutedForCapture",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioPlayer.IsPlaying": {
-    "documentation": "この <code>AudioPlayer</code> が現在再生中であるかどうかを示します。",
+    "documentation": "<code>AudioPlayer</code>が現在再生中かどうかを示します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsPlaying",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.IsReady": {
-    "documentation": "この <code>AudioPlayer</code> がロードされ、バッファリングされ、再生の準備ができているかどうかを示します。",
+    "documentation": "<code>AudioPlayer</code>が読み込まれ、バッファリングされ、再生の準備ができているかどうかを示します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsReady",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.Looping": {
-    "documentation": "この <code>AudioPlayer</code> がループするかどうかを制御します。",
+    "documentation": "<code>AudioPlayer</code>がループするかどうかを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#Looping",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.LoopRegion": {
-    "documentation": "この <code>AudioPlayer</code> の <code>PlaybackRegion</code> 内での希望するループ開始と終了を示す秒単位の範囲です。",
+    "documentation": "<code>AudioPlayer</code>の<code>PlaybackRegion</code>内における、希望するループ開始とループ終了を示す、秒単位の範囲。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#LoopRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.PlaybackRegion": {
-    "documentation": "秒単位で、<code>TimeLength</code> 内の希望する開始時間（最小）と停止時間（最大）を示す範囲です。",
+    "documentation": "この <code>AudioPlayer</code> の <code>PlaybackRegion</code> 内での希望するループ開始と終了を示す秒単位の範囲です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#PlaybackRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.PlaybackSpeed": {
-    "documentation": "アセットの再生速度を制御し、音の高さを制御します。",
+    "documentation": "秒単位で、<code>TimeLength</code> 内の希望する開始時間（最小）と停止時間（最大）を示す範囲です。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#PlaybackSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.TimeLength": {
-    "documentation": "ロードされたアセットの長さを示します。",
+    "documentation": "アセットの再生速度を制御し、音の高さを制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#TimeLength",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.TimePosition": {
-    "documentation": "アセット内のプレイヘッドの現在の位置を追跡します。",
+    "documentation": "ロードされたアセットの長さを示します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#TimePosition",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.Volume": {
-    "documentation": "アセットの音量を制御します。",
+    "documentation": "アセット内のプレイヘッドの現在の位置を追跡します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#Volume",
     "code_sample": ""
   },
@@ -90241,7 +90239,6 @@
       "AngleAttenuation": "@roblox/globaltype/AudioEmitter.AngleAttenuation",
       "AudioInteractionGroup": "@roblox/globaltype/AudioEmitter.AudioInteractionGroup",
       "DistanceAttenuation": "@roblox/globaltype/AudioEmitter.DistanceAttenuation",
-      "PositionOverride": "@roblox/globaltype/AudioEmitter.PositionOverride",
       "SimulationFidelity": "@roblox/globaltype/AudioEmitter.SimulationFidelity",
       "GetAngleAttenuation": "@roblox/globaltype/AudioEmitter.GetAngleAttenuation",
       "GetAudibilityFor": "@roblox/globaltype/AudioEmitter.GetAudibilityFor",
@@ -90276,13 +90273,8 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#DistanceAttenuation",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioEmitter.PositionOverride": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#PositionOverride",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioEmitter.SimulationFidelity": {
-    "documentation": "<strong>Deprecated:</strong> <br>この<code>AudioEmitter</code>に対して、音声シミュレーションがどれだけ詳細であるべきかを制御します。",
+    "documentation": "<strong>Deprecated:</strong> <br>この<code>AudioEmitter</code>の音声シミュレーションの詳細度を制御します。",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#SimulationFidelity",
     "code_sample": ""
   },
@@ -91620,7 +91612,7 @@
     "documentation": "アバターがセットアップされる <code>Player</code> です。"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/2": {
-    "documentation": "アバターとしてセットアップされるヒューマノイド <code>Model</code> です。"
+    "documentation": "引数を含むテーブル。 型: <code>type AutoSetupAccessory = { AccessoryType: Enum.AccessoryType, IsLayered: bool, Instance: Model} type AutoSetupParams = { Body: Model?, Accessories: {AutoSetupAccessory}}</code>"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/3": {
     "documentation": "進行状況の情報を持つ progressInfo テーブルが定期的に呼び出されるオプションのコールバック関数です。 タイプ： <code>(progressInfo: { Progress: number }) -&gt; ()</code>"
@@ -91629,7 +91621,7 @@
     "documentation": "生成されたアバターのユニークな識別子です。"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync": {
-    "documentation": "カスタム <code>Model</code> をアバターアセットとして自動的にセットアップします。",
+    "documentation": "カスタム <code>Model</code> および/またはアバターアクセサリーを自動的に設定します。",
     "params": [
       {
         "name": "self",
@@ -91640,7 +91632,7 @@
         "documentation": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/1"
       },
       {
-        "name": "model",
+        "name": "autoSetupParams",
         "documentation": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/2"
       },
       {
@@ -92986,6 +92978,7 @@
       "CanUsersChatAsync": "@roblox/globaltype/TextChatService.CanUsersChatAsync",
       "CanUsersDirectChatAsync": "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync",
       "DisplayBubble": "@roblox/globaltype/TextChatService.DisplayBubble",
+      "GetChatGroupsAsync": "@roblox/globaltype/TextChatService.GetChatGroupsAsync",
       "OnBubbleAdded": "@roblox/globaltype/TextChatService.OnBubbleAdded",
       "OnChatWindowAdded": "@roblox/globaltype/TextChatService.OnChatWindowAdded",
       "OnIncomingMessage": "@roblox/globaltype/TextChatService.OnIncomingMessage"
@@ -93135,6 +93128,33 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#DisplayBubble",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/0": {
+    "documentation": "体験内のテキストチャットを処理するサービス。"
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/1": {
+    "documentation": "テキストチャットの互換性を評価するために、現在の経験にいる<code>Players</code>のリストです。"
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync/return/0": {
+    "documentation": "チャットグループIDの文字列の配列の配列を返します。一致するチャットグループIDを共有するプレイヤーは、お互いに同期してテキストチャットが可能です。"
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync": {
+    "documentation": "同期してテキストチャットできるプレイヤーを示すチャットグループIDを返します。",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/0"
+      },
+      {
+        "name": "players",
+        "documentation": "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TextChatService.GetChatGroupsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#GetChatGroupsAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.OnBubbleAdded/param/0": {
@@ -118223,13 +118243,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsDescendant",
     "code_sample": ""
   },
+  "@roblox/enum/InstanceFileSyncStatus.AncestorErrored": {
+    "documentation": "<code>Instance</code>は現在、同期ツリーのルートが<code>Errored</code>であるため、同期されていません。",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#AncestorErrored",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.InstanceFileSyncStatus": {
     "documentation": "インスタンスのファイル同期状態を説明します。",
     "keys": {
       "NotSynced": "@roblox/enum/InstanceFileSyncStatus.NotSynced",
       "Errored": "@roblox/enum/InstanceFileSyncStatus.Errored",
       "SyncedAsRoot": "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot",
-      "SyncedAsDescendant": "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant"
+      "SyncedAsDescendant": "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant",
+      "AncestorErrored": "@roblox/enum/InstanceFileSyncStatus.AncestorErrored"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus",
     "code_sample": ""

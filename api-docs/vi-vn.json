@@ -39217,7 +39217,6 @@
       "AngleAttenuation": "@roblox/globaltype/AudioListener.AngleAttenuation",
       "AudioInteractionGroup": "@roblox/globaltype/AudioListener.AudioInteractionGroup",
       "DistanceAttenuation": "@roblox/globaltype/AudioListener.DistanceAttenuation",
-      "PositionOverride": "@roblox/globaltype/AudioListener.PositionOverride",
       "SimulationFidelity": "@roblox/globaltype/AudioListener.SimulationFidelity",
       "GetAngleAttenuation": "@roblox/globaltype/AudioListener.GetAngleAttenuation",
       "GetAudibilityFor": "@roblox/globaltype/AudioListener.GetAudibilityFor",
@@ -39252,13 +39251,8 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#DistanceAttenuation",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioListener.PositionOverride": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#PositionOverride",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioListener.SimulationFidelity": {
-    "documentation": "<strong>Deprecated:</strong> <br>Kiểm soát mức độ chi tiết của mô phỏng âm thanh cho <code>AudioListener</code> này.",
+    "documentation": "<strong>Deprecated:</strong> <br>Kiểm soát mức độ chi tiết của mô phỏng âm thanh cho <code>AudioListener</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#SimulationFidelity",
     "code_sample": ""
   },
@@ -54220,22 +54214,22 @@
     "documentation": "Dịch vụ cho phép các nhà phát triển tạo ra các đối tượng 3D từ các lời nhắc văn bản."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/1": {
-    "documentation": "Một từ điển chứa các gợi ý tạo mesh. Hiện tại, khóa duy nhất được hỗ trợ là <code>Prompt</code> (chuỗi) mô tả mesh cần tạo."
+    "documentation": "Một từ điển chứa các yêu cầu tạo lưới. Hiện tại, khóa duy nhất được hỗ trợ là <code>Prompt</code> (chuỗi) mô tả lưới cần tạo."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/2": {
     "documentation": "Đối tượng <code>Player</code> yêu cầu quá trình tạo."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/3": {
-    "documentation": "Một từ điển cho các tùy chọn tạo thêm để ảnh hưởng đến kết quả. Khóa tùy chọn <code>SuggestedSize</code> (<code>Vector3</code>) đại diện cho một hướng dẫn kích thước cho tài sản được tạo, có nghĩa là <code>GenerationService</code> sẽ cố gắng tạo ra một mô hình có kích thước và tỷ lệ tương tự như <code>Vector3</code> đã cung cấp, mặc dù không có đảm bảo về kích thước đầu ra cuối cùng."
+    "documentation": "Một từ điển cho các tùy chọn tạo thêm để ảnh hưởng đến kết quả. Khóa tùy chọn <code>SuggestedSize</code> (<code>Vector3</code>) đại diện cho một hướng dẫn kích thước cho tài sản được tạo, nghĩa là <code>GenerationService</code> sẽ cố gắng tạo một mô hình với kích thước và tỉ lệ tương tự như <code>Vector3</code> đã cung cấp, mặc dù không có bảo đảm về kích thước đầu ra cuối cùng."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/4": {
-    "documentation": "Một hàm callback được kích hoạt với các kết quả tạo trung gian. Hữu ích để lấy các phiên bản mesh sớm trước khi các texture được áp dụng."
+    "documentation": "Một hàm callback được kích hoạt với các kết quả tạo trung gian. Hữu ích để lấy các phiên bản lưới sớm trước khi các kết cấu được áp dụng."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/return/0": {
-    "documentation": "Một tuple gồm ID tạo (một ID duy nhất được trả về cho mỗi lần gọi <code>GenerateMeshAsync()</code>) và ID ngữ cảnh (không được sử dụng hiện tại)."
+    "documentation": "Một tuple của ID tạo (một ID duy nhất được trả về cho mỗi lần gọi <code>GenerateMeshAsync()</code>) và ID ngữ cảnh (không hiện tại được sử dụng)."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync": {
-    "documentation": "Bắt đầu quá trình tạo ra một mesh 3D mới từ một gợi ý văn bản và trả về các ID duy nhất được sử dụng để theo dõi và truy xuất kết quả.",
+    "documentation": "Bắt đầu quá trình tạo ra một lưới 3D mới từ một yêu cầu văn bản và trả về các ID duy nhất được sử dụng để theo dõi và truy xuất kết quả.",
     "params": [
       {
         "name": "self",
@@ -54268,19 +54262,19 @@
     "documentation": "Dịch vụ cho phép các nhà phát triển tạo ra các đối tượng 3D từ các lời nhắc văn bản."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/1": {
-    "documentation": "Một bảng đại diện cho các inputs điều kiện với các khóa sau: <ul> <li><code>TextPrompt</code> — Mô tả chuỗi của đối tượng cần tạo.</li> <li><code>Size</code> — Kích thước tùy chọn <code>Vector3</code> mô tả kích thước đối tượng cần tạo.   Điều này chỉ là gần đúng; điều chỉnh kích thước mô hình sau khi tạo nếu bạn cần kích thước cụ thể.</li> <li><code>MaxTriangles</code> — Một số nguyên tùy chọn mô tả số lượng tối đa các tam giác   mà mô hình trả về sẽ chứa. Các giá trị thấp hơn dẫn đến các tạo hình nhiều mặt và   thấp poly.</li> <li><code>GenerateTextures</code> — <code>true</code> (mặc định) tạo texture cho các tạo ra, trong khi   <code>false</code> sẽ không tạo textures.</li> </ul>"
+    "documentation": "Một bảng đại diện cho các đầu vào điều kiện với các khóa sau: <ul> <li><code>TextPrompt</code> — Mô tả chuỗi của đối tượng cần tạo.</li> <li><code>Size</code> — Kích thước đối tượng mô tả tùy chọn <code>Vector3</code> để   tạo. Đây chỉ là gần đúng; hãy điều chỉnh phạm vi mô hình   sau khi tạo nếu bạn cần kích thước cụ thể.</li> <li><code>MaxTriangles</code> — Số nguyên tùy chọn mô tả số lượng tối đa   tam giác mà mô hình được trả về sẽ chứa. Giá trị thấp hơn dẫn đến   các thế hệ có bề mặt nhiều mặt và ít poly hơn.</li> <li><code>GenerateTextures</code> — <code>true</code> (mặc định) tạo kết cấu cho\\n  thế hệ kết quả, trong khi <code>false</code> sẽ không tạo kết cấu.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/2": {
-    "documentation": "Bảng đại diện cho schema tạo. Phải chứa một khóa <code>PredefinedSchema</code> với một giá trị chuỗi; các tùy chọn hợp lệ hiện tại là <code>Car5</code> cho một khung xe cơ bản gồm năm <code>Models</code>, hoặc <code>Body1</code> cho một đầu ra mesh duy nhất."
+    "documentation": "Bảng đại diện cho sơ đồ tạo. Phải chứa một khóa <code>PredefinedSchema</code> với một giá trị chuỗi; các tùy chọn hợp lệ hiện tại là <code>Car5</code> cho một khung xe cơ bản gồm năm <code>Models</code>, hoặc <code>Body1</code> kết quả là một lưới đơn."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/3": {
     "documentation": "Hiện tại không được sử dụng; dự trữ cho các tùy chọn tùy chỉnh trong tương lai."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/return/0": {
-    "documentation": "Tuple với các phần tử sau: <ul> <li>Một phiên bản <code>Model</code> container tiêu chuẩn tuân thủ <code>schema</code> đã chỉ định.</li> <li>Một bảng chứa UUID và các siêu dữ liệu khác về quá trình tạo.</li> </ul>"
+    "documentation": "Tuple với các phần tử sau: <ul> <li>Một instance <code>Model</code> chứa tiêu chuẩn tuân thủ với   <code>schema</code> đã chỉ định.</li> <li>Một bảng chứa UUID và các siêu dữ liệu khác về quá trình tạo.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync": {
-    "documentation": "Cho phép tạo ra các hình học đa mesh theo các <code>inputs</code> và <code>schema</code> đã cung cấp.",
+    "documentation": "Cho phép tạo các hình học đa lưới theo <code>inputs</code> và một <code>schema</code> được cung cấp.",
     "params": [
       {
         "name": "self",
@@ -54309,13 +54303,13 @@
     "documentation": "Dịch vụ cho phép các nhà phát triển tạo ra các đối tượng 3D từ các lời nhắc văn bản."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/param/1": {
-    "documentation": "ID duy nhất được trả về bởi <code>GenerateMeshAsync()</code>. Xác định mesh để tải."
+    "documentation": "ID duy nhất được trả về bởi <code>GenerateMeshAsync()</code>. Xác định lưới cần tải."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/return/0": {
-    "documentation": "Tài sản đã được tạo, được trả về dưới dạng <code>Model</code> với một <code>MeshPart</code> chứa một <code>EditableMesh</code>."
+    "documentation": "Tài sản được tạo, được trả về dưới dạng <code>Model</code> với một <code>MeshPart</code> chứa một <code>EditableMesh</code>."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync": {
-    "documentation": "Truy xuất và tải một mesh được tạo bởi <code>GenerationService:GenerateMeshAsync()</code> sử dụng <code>generationId</code> đã cung cấp.",
+    "documentation": "Truy xuất và tải một lưới được tạo ra bởi <code>GenerationService:GenerateMeshAsync()</code> sử dụng <code>generationId</code> được cung cấp.",
     "params": [
       {
         "name": "self",
@@ -58282,6 +58276,7 @@
       "DefaultDistanceAttenuation": "@roblox/globaltype/VoiceChatService.DefaultDistanceAttenuation",
       "EnableDefaultVoice": "@roblox/globaltype/VoiceChatService.EnableDefaultVoice",
       "UseAudioApi": "@roblox/globaltype/VoiceChatService.UseAudioApi",
+      "GetChatGroupsAsync": "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync",
       "IsVoiceEnabledForUserIdAsync": "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VoiceChatService",
@@ -58302,17 +58297,44 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VoiceChatService#UseAudioApi",
     "code_sample": ""
   },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/0": {
+    "documentation": "<strong>VoiceChatService</strong> chịu trách nhiệm về chức năng cao cấp của trò chuyện giọng nói."
+  },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/1": {
+    "documentation": "Một danh sách của <code>Players</code> hiện tại trong trải nghiệm để evaluate cho khả năng tương thích trò chuyện bằng giọng nói."
+  },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/return/0": {
+    "documentation": "Một mảng đã được sắp xếp của các chuỗi ID nhóm trò chuyện. Những người chơi chia sẻ một ID nhóm trò chuyện phù hợp đủ điều kiện để trò chuyện bằng giọng nói với nhau."
+  },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync": {
+    "documentation": "Trả về ID nhóm trò chuyện cho biết những người chơi nào có thể trò chuyện bằng giọng nói cùng nhau.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/0"
+      },
+      {
+        "name": "players",
+        "documentation": "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VoiceChatService#GetChatGroupsAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync/param/0": {
     "documentation": "<strong>VoiceChatService</strong> chịu trách nhiệm về chức năng cao cấp của trò chuyện giọng nói."
   },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync/param/1": {
-    "documentation": "Tham số <code>Player.UserId</code> để kiểm tra."
+    "documentation": "ID <code>Player.UserId</code> để kiểm tra."
   },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync/return/0": {
-    "documentation": "Nếu người dùng đó có bật giọng nói."
+    "documentation": "Nếu người dùng đó có kích hoạt giọng nói."
   },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync": {
-    "documentation": "Trả về việc người dùng nhất định có bật giọng nói hay không.",
+    "documentation": "Trả về liệu người dùng đã cho có kích hoạt giọng nói hay không.",
     "params": [
       {
         "name": "self",
@@ -68066,7 +68088,6 @@
       "Active": "@roblox/globaltype/AudioDeviceInput.Active",
       "IsReady": "@roblox/globaltype/AudioDeviceInput.IsReady",
       "Muted": "@roblox/globaltype/AudioDeviceInput.Muted",
-      "MutedByLocalUser": "@roblox/globaltype/AudioDeviceInput.MutedByLocalUser",
       "Player": "@roblox/globaltype/AudioDeviceInput.Player",
       "Volume": "@roblox/globaltype/AudioDeviceInput.Volume",
       "GetConnectedWires": "@roblox/globaltype/AudioDeviceInput.GetConnectedWires",
@@ -68098,18 +68119,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#Muted",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioDeviceInput.MutedByLocalUser": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#MutedByLocalUser",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioDeviceInput.Player": {
     "documentation": "Xác định thiết bị nào đang phát âm thanh.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#Player",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioDeviceInput.Volume": {
-    "documentation": "Mức âm lượng được nhân vào luồng âm thanh đầu ra.",
+    "documentation": "Mức âm lượng được nhân vào dòng âm thanh đầu ra.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#Volume",
     "code_sample": ""
   },
@@ -84677,7 +84693,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance": {
-    "documentation": "Một đối tượng cho phép các nhà phát triển thay thế sự xuất hiện của một MeshPart với các tùy chọn đồ họa tiên tiến.",
+    "documentation": "Một đối tượng cho phép các nhà phát triển ghi đè diện mạo của một MeshPart với các tùy chọn đồ họa nâng cao.",
     "keys": {
       "AlphaMode": "@roblox/globaltype/SurfaceAppearance.AlphaMode",
       "Color": "@roblox/globaltype/SurfaceAppearance.Color",
@@ -84703,7 +84719,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.Color": {
-    "documentation": "Áp dụng một lớp màu cho bảng màu hiện có của bạn. Đặt trực tiếp bằng bộ chọn màu hoặc lập trình bằng <code>Color3</code>.",
+    "documentation": "Áp dụng một màu tôn lên bản đồ màu hiện có của bạn. Đặt trực tiếp bằng bộ chọn màu hoặc lập trình bằng <code>Color3</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#Color",
     "code_sample": ""
   },
@@ -84718,17 +84734,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.EmissiveMaskContent": {
-    "documentation": "Xác định độ phát xạ trên bề mặt.",
+    "documentation": "Xác định độ phát sáng trên bề mặt.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveMaskContent",
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.EmissiveStrength": {
-    "documentation": "Xác định cường độ của đóng góp phát xạ.",
+    "documentation": "Xác định cường độ đóng góp độ phát sáng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveStrength",
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.EmissiveTint": {
-    "documentation": "Xác định màu sắc tông cho đóng góp phát xạ.",
+    "documentation": "Xác định màu sắc tôn lên cho đóng góp độ phát sáng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveTint",
     "code_sample": ""
   },
@@ -84743,7 +84759,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.NormalMap": {
-    "documentation": "Sửa đổi ánh sáng của bề mặt bằng cách thêm gồ ghề, lỗ, vết nứt và đường cong.",
+    "documentation": "Sửa đổi ánh sáng của bề mặt bằng cách thêm gợn sóng, vết lõm, vết nứt và đường cong.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#NormalMap",
     "code_sample": ""
   },
@@ -85065,7 +85081,7 @@
     "documentation": "Loại ID item được cung cấp."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/return/0": {
-    "documentation": "Trả về một mảng các chi tiết item với các trường sau: <pre><code class=\"language-lua\">{     &quot;AssetType&quot; = &quot;string&quot;,     &quot;CreatorName&quot; = &quot;string&quot;,     &quot;CreatorTargetId&quot; = 0,     &quot;CreatorType&quot; = &quot;string&quot;,     &quot;Description&quot; = &quot;string&quot;,     &quot;FavoriteCount&quot; = 0,     &quot;Genres&quot; = [       &quot;All&quot;     ],     &quot;Id&quot; = 0,     &quot;ItemRestrictions&quot; = [       &quot;Limited&quot;     ],     &quot;ItemStatus&quot;: [       &quot;New&quot;     ],     &quot;ItemType&quot; = &quot;string&quot;,     &quot;LowestPrice&quot; = 0,     &quot;Name&quot; = &quot;string&quot;,     &quot;Price&quot; = 0,     &quot;ProductId&quot; = 0   } </code></pre> ."
+    "documentation": "Trả về một mảng các chi tiết mặt hàng."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync": {
     "documentation": "Lấy chi tiết item cho một danh sách các item cùng một lúc.",
@@ -85099,7 +85115,7 @@
     "documentation": "Loại ID item được cung cấp."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails/return/0": {
-    "documentation": "Trả về một mảng các chi tiết item với các trường sau: <pre><code class=\"language-lua\">{     &quot;AssetType&quot; = &quot;string&quot;,     &quot;CreatorName&quot; = &quot;string&quot;,     &quot;CreatorTargetId&quot; = 0,     &quot;CreatorType&quot; = &quot;string&quot;,     &quot;Description&quot; = &quot;string&quot;,     &quot;FavoriteCount&quot; = 0,     &quot;Genres&quot; = [       &quot;All&quot;     ],     &quot;Id&quot; = 0,     &quot;ItemRestrictions&quot; = [       &quot;Limited&quot;     ],     &quot;ItemStatus&quot;: [       &quot;New&quot;     ],     &quot;ItemType&quot; = &quot;string&quot;,     &quot;LowestPrice&quot; = 0,     &quot;Name&quot; = &quot;string&quot;,     &quot;Price&quot; = 0,     &quot;ProductId&quot; = 0   } </code></pre> ."
+    "documentation": "Trả về một mảng các chi tiết mặt hàng. Xem <code>AvatarEditorService:GetBatchItemDetailsAsync()</code> để biết định dạng phản hồi."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails": {
     "documentation": "<strong>Deprecated:</strong> <br>Lấy chi tiết item cho một danh sách các item cùng một lúc.",
@@ -85255,7 +85271,7 @@
     "documentation": "Giá trị enum chỉ định loại item mà các chi tiết đang được lấy."
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/return/0": {
-    "documentation": "Một bảng chứa thông tin về item đã được lấy. Xem trên để biết mẫu bảng."
+    "documentation": "Một bảng chứa thông tin mặt hàng cho mặt hàng đã được lấy."
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync": {
     "documentation": "Trả về chi tiết item cho item được chỉ định.",
@@ -85753,7 +85769,7 @@
     "documentation": "Một đối tượng chứa các tham số được sử dụng cho tìm kiếm."
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/return/0": {
-    "documentation": ""
+    "documentation": "Một đối tượng <code>CatalogPages</code> chứa kết quả tìm kiếm."
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync": {
     "documentation": "Trả về một đối tượng <code>CatalogPages</code> chứa kết quả của tìm kiếm đã cho.",
@@ -88149,10 +88165,8 @@
     "documentation": "Một đối tượng phát ra âm thanh. Đối tượng này có thể được đặt trong một <code>BasePart</code> hoặc <code>Attachment</code> để phát ra âm thanh từ một vị trí cụ thể trong một địa điểm hoặc thế giới, hoặc nó có thể được gắn vào vị trí khác để phát âm thanh với âm lượng không đổi trong suốt toàn bộ địa điểm.",
     "keys": {
       "AudioContent": "@roblox/globaltype/Sound.AudioContent",
-      "ChannelCount": "@roblox/globaltype/Sound.ChannelCount",
       "EmitterSize": "@roblox/globaltype/Sound.EmitterSize",
       "IsLoaded": "@roblox/globaltype/Sound.IsLoaded",
-      "IsMutedForCapture": "@roblox/globaltype/Sound.IsMutedForCapture",
       "IsPaused": "@roblox/globaltype/Sound.IsPaused",
       "IsPlaying": "@roblox/globaltype/Sound.IsPlaying",
       "isPlaying": "@roblox/globaltype/Sound.isPlaying",
@@ -88191,25 +88205,15 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#AudioContent",
     "code_sample": ""
   },
-  "@roblox/globaltype/Sound.ChannelCount": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#ChannelCount",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Sound.EmitterSize": {
-    "documentation": "<strong>Deprecated:</strong> Thuộc tính này đã bị ngừng sử dụng để ủng hộ <code>Sound.RollOffMinDistance</code> và <code>Sound.RollOffMaxDistance</code> mà nên được sử dụng thay thế trong công việc mới.<br>Khoảng cách tối thiểu, tính bằng studs, tại đó một <code>Sound</code> 3D (là con trực tiếp của một <code>BasePart</code> hoặc <code>Attachment</code>) sẽ bắt đầu suy giảm (giảm âm lượng).",
+    "documentation": "<strong>Deprecated:</strong> Thuộc tính này đã lỗi thời và được thay thế bằng <code>Sound.RollOffMinDistance</code> và <code>Sound.RollOffMaxDistance</code> mà nên được sử dụng thay thế trong công việc mới.<br>Khoảng cách tối thiểu, tính bằng studs, mà tại đó một <code>Sound</code> 3D (con trực tiếp của một <code>BasePart</code> hoặc <code>Attachment</code>) sẽ bắt đầu suy giảm âm lượng.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#EmitterSize",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Anchored = true\npart.Position = Vector3.new(0, 3, 0)\npart.BrickColor = BrickColor.new(\"Bright red\")\npart.Name = \"MusicBox\"\npart.Parent = workspace\n\n-- tạo một âm thanh\nlocal sound = Instance.new(\"Sound\", part)\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.EmitterSize = 5 -- giảm kích thước bộ phát (để giảm âm lượng sớm hơn)\nsound.Looped = true\nsound.Parent = part\n\nlocal clickDetector = Instance.new(\"ClickDetector\")\nclickDetector.Parent = part\n\n-- chuyển đổi giữa âm thanh đang phát / không phát\nclickDetector.MouseClick:Connect(function()\n\tif not sound.IsPlaying then\n\t\tpart.BrickColor = BrickColor.new(\"Bright green\")\n\t\tsound:Play()\n\telse\n\t\tpart.BrickColor = BrickColor.new(\"Bright red\")\n\t\tsound:Stop()\n\tend\nend)"
   },
   "@roblox/globaltype/Sound.IsLoaded": {
-    "documentation": "Thuộc tính này là <code>true</code> khi <code>Sound</code> đã được tải từ máy chủ Roblox và sẵn sàng để phát.",
+    "documentation": "Thuộc tính này có giá trị <code>true</code> khi <code>Sound</code> đã được tải từ máy chủ Roblox và sẵn sàng để phát.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsLoaded",
     "code_sample": "local sound = script.Parent.Sound\n\nif not sound.IsLoaded then\n\tsound.Loaded:Wait()\nend\n\nprint(\"Âm thanh đã được tải!\")"
-  },
-  "@roblox/globaltype/Sound.IsMutedForCapture": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsMutedForCapture",
-    "code_sample": ""
   },
   "@roblox/globaltype/Sound.IsPaused": {
     "documentation": "Thuộc tính chỉ đọc trả về <code>true</code> khi <code>Sound</code> không đang phát.",
@@ -88222,77 +88226,77 @@
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Looped = true\nsound.Parent = workspace\n\nif not sound.isLoaded then\n\tsound.Loaded:Wait()\nend\n\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused) -- đúng, sai\n\ntask.wait(2)\nsound:Pause()\nprint(sound.IsPlaying, sound.IsPaused) -- sai, đúng\n\ntask.wait(2)\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused) -- đúng, sai\n\ntask.wait(2)\nsound:Stop()\nprint(sound.IsPlaying, sound.IsPaused) -- sai, đúng"
   },
   "@roblox/globaltype/Sound.isPlaying": {
-    "documentation": "<strong>Deprecated:</strong> Thuộc tính đã bị loại bỏ này là một biến thể của <code>Sound.IsPlaying</code> mà nên được sử dụng thay thế.",
+    "documentation": "<strong>Deprecated:</strong> Thuộc tính đã lỗi thời này là một biến thể của <code>Sound.IsPlaying</code> mà nên được sử dụng thay thế.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#isPlaying",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.Looped": {
-    "documentation": "Đặt xem liệu <code>Sound</code> có lặp lại sau khi nó đã hoàn thành phát hay không.",
+    "documentation": "Xác định xem <code>Sound</code> có lặp lại hay không sau khi đã kết thúc phát.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Looped",
     "code_sample": "local function loopNTimes(sound, numberOfLoops)\n\tif not sound.IsPlaying then\n\t\tsound.Looped = true\n\t\tlocal connection = nil\n\t\tconnection = sound.DidLoop:Connect(function(_soundId, numOfTimesLooped)\n\t\t\tprint(numOfTimesLooped)\n\t\t\tif numOfTimesLooped >= numberOfLoops then\n\t\t\t\t-- ngắt kết nối\n\t\t\t\tconnection:Disconnect()\n\t\t\t\t-- dừng âm thanh\n\t\t\t\tsound:Stop()\n\t\t\tend\n\t\tend)\n\t\tsound:Play()\n\tend\nend\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://0\"\n\nloopNTimes(sound, 5)"
   },
   "@roblox/globaltype/Sound.LoopRegion": {
-    "documentation": "Một khoảng xác định thời gian bắt đầu lặp và thời gian kết thúc trong <code>PlaybackRegion</code>, tính bằng giây.",
+    "documentation": "Một khoảng mà biểu thị thời gian bắt đầu và kết thúc mong muốn trong <code>PlaybackRegion</code>, tính bằng giây.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#LoopRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MaxDistance": {
-    "documentation": "<strong>Deprecated:</strong> Thuộc tính này đã bị ngừng sử dụng để ủng hộ <code>Sound.RollOffMinDistance</code> và <code>Sound.RollOffMaxDistance</code> mà nên được sử dụng thay thế trong công việc mới.<br>Khoảng cách tối đa, tính bằng studs, mà trình nghe của client có thể cách xa nguồn âm của <code>Sound\\\\s</code> và vẫn nghe thấy nó. Chỉ áp dụng cho âm thanh được đặt làm con của <code>Part</code> hoặc <code>Attachment</code> (âm thanh 3D).",
+    "documentation": "<strong>Deprecated:</strong> Thuộc tính này đã lỗi thời và được thay thế bằng <code>Sound.RollOffMinDistance</code> và <code>Sound.RollOffMaxDistance</code> mà nên được sử dụng thay thế trong công việc mới.<br>Khoảng cách tối đa, tính bằng studs, mà bộ lắng nghe của khách hàng có thể cách xa nguồn gốc của <code>Sound\\\\s</code> và vẫn nghe thấy nó. Chỉ áp dụng cho các âm thanh thuộc về một <code>Part</code> hoặc <code>Attachment</code> (âm thanh 3D).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MaxDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MinDistance": {
-    "documentation": "<strong>Deprecated:</strong> MinDistance đã được thay thế bởi <code>Sound.EmitterSize</code>, tên của nó mô tả tốt hơn hành vi của thuộc tính này.<br>Khoảng cách tối thiểu mà một <code>Sound</code> 3D (con trực tiếp của một <code>BasePart</code> hoặc <code>Attachment</code>) sẽ bắt đầu giảm âm lượng. Hiệu quả, kích thước phát sóng.",
+    "documentation": "<strong>Deprecated:</strong> MinDistance đã được thay thế bằng <code>Sound.EmitterSize</code>, tên của nó mô tả tốt hơn hành vi của thuộc tính này.<br>Khoảng cách tối thiểu mà tại đó một <code>Sound</code> 3D (con trực tiếp của một <code>BasePart</code> hoặc <code>Attachment</code>) sẽ bắt đầu suy giảm.  Thực tế, kích thước bộ phát.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MinDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.Pitch": {
-    "documentation": "<strong>Deprecated:</strong> Thuộc tính này đã bị ngừng sử dụng để ủng hộ <code>Sound.PlaybackSpeed</code> mà tên của nó phù hợp hơn với hành vi.<br>Đặt mức độ cao và tốc độ của một <code>Sound</code> khi nó được phát. Số nguyên lớn hơn sẽ làm cho âm thanh cao hơn và nhanh hơn.",
+    "documentation": "<strong>Deprecated:</strong> Thuộc tính này đã được lỗi thời và được thay thế bằng <code>Sound.PlaybackSpeed</code> nền tảng tên phù hợp hơn với hành vi của nó.<br>Xác định mức độ cao và nhanh của một <code>Sound</code> khi nó được phát. Số nguyên càng lớn, hơn và nhanh hơn <code>Sound</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Pitch",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackLoudness": {
-    "documentation": "Một số giữa <code>0</code> và <code>1000</code> cho thấy âm lượng của <code>Sound</code> hiện tại trong khi phát.",
+    "documentation": "Một số giữa <code>0</code> và <code>1000</code> cho biết âm lượng của <code>Sound</code> hiện đang phát.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackLoudness",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackRegion": {
-    "documentation": "Một khoảng xác định thời gian bắt đầu và dừng trong <code>TimeLength</code>, tính bằng giây.",
+    "documentation": "Một khoảng mà biểu thị thời gian bắt đầu và dừng mong muốn trong <code>TimeLength</code>, tính bằng giây.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackRegionsEnabled": {
-    "documentation": "Nếu <code>true</code>, thuộc tính này cho phép âm thanh của bạn <code>Sound</code> truy cập vào các thuộc tính <code>PlaybackRegion</code> và <code>LoopRegion</code> có thể kiểm soát chính xác hơn quá trình phát lại của nó.",
+    "documentation": "Nếu <code>true</code>, thuộc tính này cung cấp quyền truy cập vào <code>Sound</code> và <code>LoopRegion</code>, cho phép kiểm soát chính xác hơn việc phát âm của nó.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackRegionsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackSpeed": {
-    "documentation": "Xác định tốc độ mà một <code>Sound</code> sẽ phát, với các giá trị cao hơn khiến âm thanh phát nhanh hơn và có cao độ hơn.",
+    "documentation": "Xác định tốc độ mà một <code>Sound</code> sẽ phát, với các giá trị lớn hơn làm cho âm thanh phát nhanh hơn và ở mức cao hơn.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackSpeed",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Looped = true\nsound.Parent = workspace\n\nsound:Play()\ntask.wait(10)\nsound.PlaybackSpeed = 3 -- nhanh gấp 3 lần\ntask.wait(5)\nsound.PlaybackSpeed = 0.5 -- chậm hơn gấp 2 lần\ntask.wait(5)\nsound.PlaybackSpeed = 1 -- mặc định"
   },
   "@roblox/globaltype/Sound.Playing": {
-    "documentation": "Chỉ ra xem <code>Sound</code> hiện tại có đang phát hay không.",
+    "documentation": "Cho biết liệu <code>Sound</code> có đang phát hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Playing",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Looped = true\nsound.Parent = workspace\n\nprint(\"đang phát âm thanh\")\nsound.Playing = true\n\ntask.wait(10)\n\nprint(\"dừng âm thanh\")\nsound.Playing = false\n\ntask.wait(5)\n\nsound.Playing = true\nlocal timePosition = sound.TimePosition\nprint(\"tiếp tục tại vị trí thời gian: \" .. tostring(timePosition)) -- c. 10 giây"
   },
   "@roblox/globaltype/Sound.PlayOnRemove": {
-    "documentation": "Khi <code>true</code>, <code>Sound</code> sẽ phát khi nó bị loại bỏ khỏi trải nghiệm.",
+    "documentation": "Khi <code>true</code>, <code>Sound</code> sẽ phát khi nó bị xóa khỏi trải nghiệm.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlayOnRemove",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.RollOffMaxDistance": {
-    "documentation": "Khoảng cách tối đa, tính bằng studs, mà người nghe của khách hàng có thể từ nguồn gốc của âm thanh và vẫn nghe thấy nó. Chỉ áp dụng cho <code>Sounds</code> được gán cho một <code>BasePart</code> hoặc <code>Attachment</code>.",
+    "documentation": "Khoảng cách tối đa, tính bằng studs, mà bộ lắng nghe của khách hàng có thể cách xa nguồn gốc âm thanh và vẫn nghe thấy nó. Chỉ áp dụng cho <code>Sounds</code> thuộc về một <code>BasePart</code> hoặc <code>Attachment</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#RollOffMaxDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.RollOffMinDistance": {
-    "documentation": "Khoảng cách tối thiểu, tính bằng studs, tại đó một <code>Sound</code> mà được gán cho một <code>BasePart</code> hoặc <code>Attachment</code> sẽ bắt đầu suy giảm (giảm âm lượng).",
+    "documentation": "Khoảng cách tối thiểu, tính bằng studs, mà một <code>Sound</code> thuộc về một <code>BasePart</code> hoặc <code>Attachment</code> sẽ bắt đầu suy giảm (giảm âm lượng).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#RollOffMinDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.RollOffMode": {
-    "documentation": "Kiểm soát cách mà âm lượng của một <code>Sound</code> được gán cho một <code>BasePart</code> hoặc <code>Attachment</code> suy giảm (fade out) khi khoảng cách giữa người nghe và cha thay đổi.",
+    "documentation": "Kiểm soát cách âm lượng của một <code>Sound</code> thuộc về một <code>BasePart</code> hoặc <code>Attachment</code> suy giảm (mờ dần) khi khoảng cách giữa bộ lắng nghe và cha thay đổi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#RollOffMode",
     "code_sample": ""
   },
@@ -88302,17 +88306,17 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.SoundId": {
-    "documentation": "ID nội dung của tệp âm thanh để liên kết với <code>Sound</code>.",
+    "documentation": "ID nội dung của tập tin âm thanh để liên kết với <code>Sound</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#SoundId",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.TimeLength": {
-    "documentation": "Độ dài của <code>Sound</code> theo giây.",
+    "documentation": "Thời gian của <code>Sound</code> tính bằng giây.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#TimeLength",
     "code_sample": "local function playForDuration(sound, duration)\n\tif not sound.IsLoaded then\n\t\tsound.Loaded:wait()\n\tend\n\tlocal speed = sound.TimeLength / duration\n\tsound.PlaybackSpeed = speed\n\tsound:Play()\nend\n\nlocal sound = script.Parent\nplayForDuration(sound, 5)"
   },
   "@roblox/globaltype/Sound.TimePosition": {
-    "documentation": "Tiến độ của <code>Sound</code> theo giây. Có thể thay đổi để di chuyển vị trí phát lại của <code>Sound</code> cả trước và trong khi phát.",
+    "documentation": "Tiến trình của <code>Sound</code> tính bằng giây. Có thể thay đổi để di chuyển vị trí phát của <code>Sound</code> cả trước và trong khi phát.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#TimePosition",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Parent = workspace\n\nsound.TimePosition = 30\n\nsound:Play()\n\ntask.wait(5)\n\nsound.TimePosition = 100\n\ntask.wait(5)\n\nsound.TimePosition = 0"
   },
@@ -89231,7 +89235,6 @@
       "AudioContent": "@roblox/globaltype/AudioPlayer.AudioContent",
       "AutoLoad": "@roblox/globaltype/AudioPlayer.AutoLoad",
       "AutoPlay": "@roblox/globaltype/AudioPlayer.AutoPlay",
-      "IsMutedForCapture": "@roblox/globaltype/AudioPlayer.IsMutedForCapture",
       "IsPlaying": "@roblox/globaltype/AudioPlayer.IsPlaying",
       "IsReady": "@roblox/globaltype/AudioPlayer.IsReady",
       "Looping": "@roblox/globaltype/AudioPlayer.Looping",
@@ -89276,18 +89279,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#AutoPlay",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioPlayer.IsMutedForCapture": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsMutedForCapture",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioPlayer.IsPlaying": {
-    "documentation": "Chỉ ra liệu <code>AudioPlayer</code> này có đang phát hay không.",
+    "documentation": "Xác định xem <code>AudioPlayer</code> này có đang phát hay không.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsPlaying",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.IsReady": {
-    "documentation": "Chỉ ra liệu <code>AudioPlayer</code> này đã được tải, đệm, và sẵn sàng để phát hay không.",
+    "documentation": "Xác định xem <code>AudioPlayer</code> này đã được tải, đệm và sẵn sàng để phát.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsReady",
     "code_sample": ""
   },
@@ -89297,32 +89295,32 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.LoopRegion": {
-    "documentation": "Một khoảng, tính bằng giây, chỉ ra thời gian bắt đầu và kết thúc lặp lại mong muốn trong <code>PlaybackRegion</code> của <code>AudioPlayer</code> này.",
+    "documentation": "Một khoảng thời gian, tính bằng giây, xác định điểm bắt đầu và điểm kết thúc mong muốn trong <code>PlaybackRegion</code> của <code>AudioPlayer</code> này.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#LoopRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.PlaybackRegion": {
-    "documentation": "Khoảng thời gian tính bằng giây chỉ ra thời điểm bắt đầu mong muốn (tối thiểu) và thời điểm dừng (tối đa) trong <code>TimeLength</code>.",
+    "documentation": "Khoảng thời gian tính bằng giây xác định thời gian bắt đầu mong muốn (tối thiểu) và thời gian dừng (tối đa) trong <code>TimeLength</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#PlaybackRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.PlaybackSpeed": {
-    "documentation": "Kiểm soát tốc độ phát của tài sản, điều này cũng kiểm soát âm cao của nó.",
+    "documentation": "Kiểm soát tốc độ phát của tài sản, điều này kiểm soát âm sắc của nó.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#PlaybackSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.TimeLength": {
-    "documentation": "Chỉ ra độ dài của tài sản đã được tải.",
+    "documentation": "Xác định độ dài của tài sản đã được tải.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#TimeLength",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.TimePosition": {
-    "documentation": "Theo dõi vị trí hiện tại của đầu phát trong tài sản.",
+    "documentation": "Theo dõi vị trí hiện tại của playhead trong tài sản.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#TimePosition",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.Volume": {
-    "documentation": "Kiểm soát độ lớn âm thanh của tài sản khi phát.",
+    "documentation": "Kiểm soát mức âm lượng của tài sản sẽ được phát.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#Volume",
     "code_sample": ""
   },
@@ -90241,7 +90239,6 @@
       "AngleAttenuation": "@roblox/globaltype/AudioEmitter.AngleAttenuation",
       "AudioInteractionGroup": "@roblox/globaltype/AudioEmitter.AudioInteractionGroup",
       "DistanceAttenuation": "@roblox/globaltype/AudioEmitter.DistanceAttenuation",
-      "PositionOverride": "@roblox/globaltype/AudioEmitter.PositionOverride",
       "SimulationFidelity": "@roblox/globaltype/AudioEmitter.SimulationFidelity",
       "GetAngleAttenuation": "@roblox/globaltype/AudioEmitter.GetAngleAttenuation",
       "GetAudibilityFor": "@roblox/globaltype/AudioEmitter.GetAudibilityFor",
@@ -90276,13 +90273,8 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#DistanceAttenuation",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioEmitter.PositionOverride": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#PositionOverride",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioEmitter.SimulationFidelity": {
-    "documentation": "<strong>Deprecated:</strong> <br>Điều khiển mức độ chi tiết của mô phỏng âm thanh cho <code>AudioEmitter</code> này.",
+    "documentation": "<strong>Deprecated:</strong> <br>Điều khiển độ chi tiết của mô phỏng âm thanh cho đối tượng này <code>AudioEmitter</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#SimulationFidelity",
     "code_sample": ""
   },
@@ -91620,7 +91612,7 @@
     "documentation": "Người chơi <code>Player</code> mà nhân vật đang được thiết lập cho."
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/2": {
-    "documentation": "Mô hình humanoid <code>Model</code> sẽ được thiết lập như một nhân vật."
+    "documentation": "Một bảng chứa các đối số. Loại: <code>type AutoSetupAccessory = { AccessoryType: Enum.AccessoryType, IsLayered: bool, Instance: Model} type AutoSetupParams = { Body: Model?, Accessories: {AutoSetupAccessory}}</code>"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/3": {
     "documentation": "Hàm callback tùy chọn sẽ được gọi định kỳ với một bảng progressInfo với tiến độ tổng thể (từ 0 đến 1). Kiểu: <code>(progressInfo: { Progress: number }) -&gt; ()</code>"
@@ -91629,7 +91621,7 @@
     "documentation": "Một định danh duy nhất cho nhân vật đã tạo."
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync": {
-    "documentation": "Tự động thiết lập một <code>Model</code> tùy chỉnh như một tài sản nhân vật.",
+    "documentation": "Tự động thiết lập một <code>Model</code> tùy chỉnh và/hoặc phụ kiện avatar.",
     "params": [
       {
         "name": "self",
@@ -91640,7 +91632,7 @@
         "documentation": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/1"
       },
       {
-        "name": "model",
+        "name": "autoSetupParams",
         "documentation": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/2"
       },
       {
@@ -92986,6 +92978,7 @@
       "CanUsersChatAsync": "@roblox/globaltype/TextChatService.CanUsersChatAsync",
       "CanUsersDirectChatAsync": "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync",
       "DisplayBubble": "@roblox/globaltype/TextChatService.DisplayBubble",
+      "GetChatGroupsAsync": "@roblox/globaltype/TextChatService.GetChatGroupsAsync",
       "OnBubbleAdded": "@roblox/globaltype/TextChatService.OnBubbleAdded",
       "OnChatWindowAdded": "@roblox/globaltype/TextChatService.OnChatWindowAdded",
       "OnIncomingMessage": "@roblox/globaltype/TextChatService.OnIncomingMessage"
@@ -93135,6 +93128,33 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#DisplayBubble",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/0": {
+    "documentation": "Một dịch vụ xử lý trò chuyện văn bản trong trải nghiệm."
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/1": {
+    "documentation": "Danh sách các <code>Players</code> hiện có trong trải nghiệm để tính toán khả năng tương thích trò chuyện văn bản."
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync/return/0": {
+    "documentation": "Một mảng đã được sắp xếp chứa các mảng chuỗi ID nhóm trò chuyện. Những người chơi chia sẻ một ID nhóm trò chuyện khớp có đủ điều kiện để đồng bộ nhắn tin trò chuyện với nhau."
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync": {
+    "documentation": "Trả về các ID nhóm trò chuyện cho biết những người chơi nào có thể đồng bộ nhắn tin trò chuyện với nhau.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/0"
+      },
+      {
+        "name": "players",
+        "documentation": "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TextChatService.GetChatGroupsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#GetChatGroupsAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.OnBubbleAdded/param/0": {
@@ -118223,13 +118243,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsDescendant",
     "code_sample": ""
   },
+  "@roblox/enum/InstanceFileSyncStatus.AncestorErrored": {
+    "documentation": "<code>Instance</code> hiện tại không được đồng bộ vì gốc của nó cây đồng bộ là <code>Errored</code>.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#AncestorErrored",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.InstanceFileSyncStatus": {
     "documentation": "Mô tả trạng thái đồng bộ tệp của một Instance.",
     "keys": {
       "NotSynced": "@roblox/enum/InstanceFileSyncStatus.NotSynced",
       "Errored": "@roblox/enum/InstanceFileSyncStatus.Errored",
       "SyncedAsRoot": "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot",
-      "SyncedAsDescendant": "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant"
+      "SyncedAsDescendant": "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant",
+      "AncestorErrored": "@roblox/enum/InstanceFileSyncStatus.AncestorErrored"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus",
     "code_sample": ""

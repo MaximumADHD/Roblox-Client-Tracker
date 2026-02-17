@@ -39217,7 +39217,6 @@
       "AngleAttenuation": "@roblox/globaltype/AudioListener.AngleAttenuation",
       "AudioInteractionGroup": "@roblox/globaltype/AudioListener.AudioInteractionGroup",
       "DistanceAttenuation": "@roblox/globaltype/AudioListener.DistanceAttenuation",
-      "PositionOverride": "@roblox/globaltype/AudioListener.PositionOverride",
       "SimulationFidelity": "@roblox/globaltype/AudioListener.SimulationFidelity",
       "GetAngleAttenuation": "@roblox/globaltype/AudioListener.GetAngleAttenuation",
       "GetAudibilityFor": "@roblox/globaltype/AudioListener.GetAudibilityFor",
@@ -39252,13 +39251,8 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#DistanceAttenuation",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioListener.PositionOverride": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#PositionOverride",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioListener.SimulationFidelity": {
-    "documentation": "<strong>Deprecated:</strong> <br>Bu <code>AudioListener</code> için ses simülasyonunun ne kadar detaylı olması gerektiğini kontrol eder.",
+    "documentation": "<strong>Deprecated:</strong> <br>Ses simülasyonunun bu için ne kadar ayrıntılı olması gerektiğini kontrol eder <code>AudioListener</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioListener#SimulationFidelity",
     "code_sample": ""
   },
@@ -54220,22 +54214,22 @@
     "documentation": "Geliştiricilerin metin istemlerinden 3D nesneler oluşturmasını sağlayan hizmet."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/1": {
-    "documentation": "Ağ oluşturma istemlerini içeren bir sözlük. Şu anda desteklenen tek anahtar <code>Prompt</code> (dize) olup, oluşturulacak ağı tanımlar."
+    "documentation": "Ağ oluşturma istemlerini içeren bir sözlük. Şu anda, desteklenen tek anahtar <code>Prompt</code> (dize) olup, oluşturulacak ağı tanımlar."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/2": {
     "documentation": "Oluşturma talebini yapan <code>Player</code>."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/3": {
-    "documentation": "Sonucu etkilemek için ek oluşturma seçeneklerini içeren bir sözlük. Opsiyonel <code>SuggestedSize</code> anahtarı (<code>Vector3</code>), oluşturulan varlık için boyut kılavuzunu temsil eder, bu da <code>GenerationService</code>'in sağlanan <code>Vector3</code> ile benzer boyut yüzde oluşturmayı deneyeceği anlamına gelir, ancak nihai çıkış boyutu ile ilgili garanti yoktur."
+    "documentation": "Sonucu etkilemek için ek oluşturma seçeneklerini içeren bir sözlük. İsteğe bağlı <code>SuggestedSize</code> anahtarı (<code>Vector3</code>) oluşturulan varlık için bir boyut rehberi temsil eder, bu da <code>GenerationService</code>'ın verilen <code>Vector3</code> ile benzer bir boyut ve orana sahip bir model oluşturmayı ileri bir hedef olarak belirlediği anlamına gelir, ancak nihai çıktı boyutu konusunda hiçbir garanti yoktur."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/param/4": {
-    "documentation": "Ara oluşturma sonuçları ile tetiklenen bir geri çağırma fonksiyonu. Dokular uygulanmadan önce erken ağa sürümlerini almak için yararlıdır."
+    "documentation": "Ara oluşturma sonuçlarıyla tetiklenen bir geri çağırma fonksiyonu. Dokular uygulanmadan önce erken ağ sürümlerini almak için yararlıdır."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync/return/0": {
-    "documentation": "<code>GenerateMeshAsync()</code> çağrısı için döndürülen benzersiz bir kimlik ve bağlam kimliğinden (şu anda kullanılmıyor) oluşan bir demet."
+    "documentation": "Her <code>GenerateMeshAsync()</code> çağrısı için dönen benzersiz bir ID (oluşturma ID'si) ve bağlam ID'si (şu anda kullanılmıyor) olan bir demet."
   },
   "@roblox/globaltype/GenerationService.GenerateMeshAsync": {
-    "documentation": "Bir metin isteminden yeni bir 3D ağ oluşturma işlemini başlatır ve sonucu izlemek ve almak için kullanılan benzersiz kimlikleri döndürür.",
+    "documentation": "Metin isteminden yeni bir 3D ağın oluşturulmasını başlatır ve sonucu izlemek ve almak için kullanılan benzersiz kimlikleri döner.",
     "params": [
       {
         "name": "self",
@@ -54268,19 +54262,19 @@
     "documentation": "Geliştiricilerin metin istemlerinden 3D nesneler oluşturmasını sağlayan hizmet."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/1": {
-    "documentation": "Aşağıdaki anahtarları ile şartlandırma girişlerini temsil eden bir tablo: <ul> <li><code>TextPrompt</code> — Oluşturulacak nesnenin dize açıklaması.</li> <li><code>Size</code> — Oluşturulacak nesnenin boyutunu tanımlayan opsiyonel <code>Vector3</code>.   Bu yalnızca yaklaşık olarak geçerlidir; belirli bir boyut gerekiyorsa modeli   oluşturma sonrası ölçeklendirin.</li> <li><code>MaxTriangles</code> — Döndürülecek modelin içereceği maksimum üçgen   sayısını tanımlayan opsiyonel bir tamsayı. Daha düşük değerler daha keskin ve   düşük poli oluşturmalara yol açar.</li> <li><code>GenerateTextures</code> — Sonuçlandırmayı dokulandıran <code>true</code> (varsayılan), <code>false</code>   dokular oluşturmayacaktır.</li> </ul>"
+    "documentation": "Aşağıdaki anahtarları içeren koşullandırma girdilerini temsil eden bir tablo: <ul> <li><code>TextPrompt</code> — Oluşturulacak nesnenin dize tanımı.</li> <li><code>Size</code> — Oluşturulacak nesnenin boyutunu tanımlayan isteğe bağlı <code>Vector3</code>. Bu   yalnızca yaklaşık bir değerdir; belirli bir boyut istiyorsanız, oluşturduktan sonra   model boyutlarını ölçeklendirin.</li> <li><code>MaxTriangles</code> — Dönen modelin içereceği maksimum üçgen sayısını tanımlayan isteğe bağlı bir tam sayı. Daha   düşük değerler daha çok yüzeyli ve düşük poligonlu oluşturmalara neden olur.</li> <li><code>GenerateTextures</code> — Sonuç oluşturmayı dokulandırır; <code>true</code> (varsayılan) değeri dokular oluştururken,   <code>false</code> değeri ise dokular oluşturulmaz.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/2": {
-    "documentation": "Oluşturma şemasını temsil eden tablo. Bir dize değeri ile <code>PredefinedSchema</code> anahtarını içermesi zorunludur; mevcut geçerli seçenekler <code>Car5</code> beş <code>Models</code>'dan oluşan temel bir araç şasisi veya bir ağ çıktısı olan <code>Body1</code>dir."
+    "documentation": "Oluşturma şemasını temsil eden bir tablo. Bir dize değeri olan bir <code>PredefinedSchema</code> anahtarı içermelidir; mevcut geçerli seçenekler <code>Car5</code>, beş <code>Models</code>'dan oluşan temel bir araç şasisi için, ya da tek bir ağ çıktısı olan <code>Body1</code>'dir."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/param/3": {
     "documentation": "Şu anda kullanılmıyor; gelecekte özelleştirme seçenekleri için ayrılmıştır."
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync/return/0": {
-    "documentation": "Aşağıdaki öğeleri içeren bir demet: <ul> <li>Belirtilen <code>schema</code>ya uygun bir standart <code>Model</code> konteyner örneği.</li> <li>Oluşturma hakkında bir UUID ve başka meta verileri içeren bir tablo.</li> </ul>"
+    "documentation": "Aşağıdaki öğeleri içeren bir demet: <ul> <li>Belirtilen <code>schema</code>ya uygun bir standart <code>Model</code> konteyner örneği.</li> <li>Oluşturma hakkında bir UUID ve diğer meta verileri içeren bir tablo.</li> </ul>"
   },
   "@roblox/globaltype/GenerationService.GenerateModelAsync": {
-    "documentation": "Verilen <code>inputs</code> ve bir <code>schema</code>ya göre çoklu-ağ geometrilerinin oluşturulmasını sağlar.",
+    "documentation": "Sağlanan <code>inputs</code> ve bir <code>schema</code>ya göre çoklu ağ geometrilerinin oluşturulmasını sağlar.",
     "params": [
       {
         "name": "self",
@@ -54309,13 +54303,13 @@
     "documentation": "Geliştiricilerin metin istemlerinden 3D nesneler oluşturmasını sağlayan hizmet."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/param/1": {
-    "documentation": "<code>GenerateMeshAsync()</code>'in döndürdüğü benzersiz kimlik. Yüklemek için ağı tanımlar."
+    "documentation": "<code>GenerateMeshAsync()</code> tarafından döndürülen benzersiz ID. Yüklemek için ağı tanımlar."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync/return/0": {
-    "documentation": "Tek bir <code>MeshPart</code> içeren bir <code>Model</code> olarak döndürülen oluşturulan varlık."
+    "documentation": "Oluşturulan varlık, bir <code>Model</code> olarak döner ve içinde bir <code>MeshPart</code> <code>EditableMesh</code> içerir."
   },
   "@roblox/globaltype/GenerationService.LoadGeneratedMeshAsync": {
-    "documentation": "<code>GenerationService:GenerateMeshAsync()</code> ile oluşturulan bir ağı verilen <code>generationId</code> kullanarak getirir ve yükler.",
+    "documentation": "<code>GenerationService:GenerateMeshAsync()</code> tarafından üretilen ve sağlanan <code>generationId</code> ile yüklenen bir ağı alır.",
     "params": [
       {
         "name": "self",
@@ -58282,6 +58276,7 @@
       "DefaultDistanceAttenuation": "@roblox/globaltype/VoiceChatService.DefaultDistanceAttenuation",
       "EnableDefaultVoice": "@roblox/globaltype/VoiceChatService.EnableDefaultVoice",
       "UseAudioApi": "@roblox/globaltype/VoiceChatService.UseAudioApi",
+      "GetChatGroupsAsync": "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync",
       "IsVoiceEnabledForUserIdAsync": "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VoiceChatService",
@@ -58302,6 +58297,33 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VoiceChatService#UseAudioApi",
     "code_sample": ""
   },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/0": {
+    "documentation": "<strong>VoiceChatService</strong> sesli sohbetin yüksek seviye işlevselliğinden sorumludur."
+  },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/1": {
+    "documentation": "Sesli sohbet uyumluluğu için değerlendirilecek, şu anda deneyimde bulunan <code>Players</code> listesi."
+  },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/return/0": {
+    "documentation": "Sohbet grup kimliği string'lerinin sıralı bir dizisi. Eşleşen bir sohbet grup kimliğini paylaşan oyuncular, birbirleriyle sesli sohbet etme hakkına sahiptir."
+  },
+  "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync": {
+    "documentation": "Sesli sohbet edebilecek oyuncuları gösteren sohbet grup kimliklerini döndürür.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/0"
+      },
+      {
+        "name": "players",
+        "documentation": "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/VoiceChatService.GetChatGroupsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/VoiceChatService#GetChatGroupsAsync",
+    "code_sample": ""
+  },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync/param/0": {
     "documentation": "<strong>VoiceChatService</strong> sesli sohbetin yüksek seviye işlevselliğinden sorumludur."
   },
@@ -58309,10 +58331,10 @@
     "documentation": "Kontrol edilecek <code>Player.UserId</code>."
   },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync/return/0": {
-    "documentation": "O kullanıcının sesi etkinse."
+    "documentation": "O kullanıcının sesli sohbetini etkinleştirip etkinleştirmediği."
   },
   "@roblox/globaltype/VoiceChatService.IsVoiceEnabledForUserIdAsync": {
-    "documentation": "Verilen kullanıcının sesinin etkin olup olmadığını döner.",
+    "documentation": "Verilen kullanıcının sesli sohbetini etkinleştirip etkinleştirmediğini döndürür.",
     "params": [
       {
         "name": "self",
@@ -58563,7 +58585,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer": {
-    "documentation": "Bir servistir; <code>Player</code> nesnesinin özelliklerinin varsayılanlarının ayarlanmasına izin verir.",
+    "documentation": "Bir servistir, <code>Player</code> nesnesindeki özelliklerin varsayılanlarının ayarlanmasına izin verir.",
     "keys": {
       "AllowCustomAnimations": "@roblox/globaltype/StarterPlayer.AllowCustomAnimations",
       "AutoJumpEnabled": "@roblox/globaltype/StarterPlayer.AutoJumpEnabled",
@@ -58597,37 +58619,37 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.AllowCustomAnimations": {
-    "documentation": "Mevcut oyunun web sitesinden özel avatar animasyonlarıyla ilgili izin seviyelerini tanımlar.",
+    "documentation": "Bu oyunun web sitesinden özel avatar animasyonlarıyla ilgili izin seviyelerini tanımlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AllowCustomAnimations",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.AutoJumpEnabled": {
-    "documentation": "Karakterin mobil cihazda bir engelle çarpınca otomatik olarak zıplayıp zıplamayacağını ayarlar.",
+    "documentation": "Karakterin bir mobil cihazda bir engelle çarptığında otomatik olarak zıplayıp zıplayamayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AutoJumpEnabled",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\nlocal button = script.Parent\n\nlocal function update()\n\t-- Buton metnini güncelle\n\tif player.AutoJumpEnabled then\n\t\tbutton.Text = \"Otomatik Zıplama AÇIK\"\n\telse\n\t\tbutton.Text = \"Otomatik Zıplama KAPALI\"\n\tend\n\t-- Özelliği oyuncunun karakterinde yansıt, eğer bir karakteri varsa\n\tif player.Character then\n\t\tlocal human = player.Character:FindFirstChild(\"Humanoid\")\n\t\tif human then\n\t\t\thuman.AutoJumpEnabled = player.AutoJumpEnabled\n\t\tend\n\tend\nend\n\nlocal function onActivated()\n\t-- otomatik zıplamayı aç/kapa\n\tplayer.AutoJumpEnabled = not player.AutoJumpEnabled\n\t-- her şeyi güncelle\n\tupdate()\nend\n\nbutton.Activated:Connect(onActivated)\nupdate()"
   },
   "@roblox/globaltype/StarterPlayer.AvatarJointUpgrade": {
-    "documentation": "<code>AnimationConstraint</code> eklemesi ile avatarların fiziksel simülasyon için kontrol edilmesini sağlar.",
+    "documentation": "Avatarların fiziksel simülasyon için <code>AnimationConstraint</code> eklemlerine sahip olup olmadığını kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#AvatarJointUpgrade",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CameraMaxZoomDistance": {
-    "documentation": "Oyuncunun varsayılan kameranın zoom yapabileceği maksimum mesafeyi belirler.",
+    "documentation": "Oyuncunun varsayılan kamerasının çıkabileceği maksimum mesafe, stud cinsindendir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CameraMaxZoomDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CameraMaxZoomDistance = 50\nplayer.CameraMinZoomDistance = 75"
   },
   "@roblox/globaltype/StarterPlayer.CameraMinZoomDistance": {
-    "documentation": "Oyuncunun varsayılan kameranın zoom yapabileceği minimum mesafeyi belirler.",
+    "documentation": "Oyuncunun varsayılan kamerasının içeriye ne kadar zoom yapabileceği için minimum mesafeyi belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CameraMinZoomDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CameraMaxZoomDistance = 50\nplayer.CameraMinZoomDistance = 75"
   },
   "@roblox/globaltype/StarterPlayer.CameraMode": {
-    "documentation": "Varsayılan kameranın modunu birinci kişi veya üçüncü kişi olarak değiştirir.",
+    "documentation": "Varsayılan kameranın modunu birinci veya üçüncü şahısa değiştirir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CameraMode",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CameraMode = Enum.CameraMode.LockFirstPerson"
   },
   "@roblox/globaltype/StarterPlayer.CharacterBreakJointsOnDeath": {
-    "documentation": "<code>Player.Character</code> için <code>Humanoid.BreakJointsOnDeath</code> başlangıç değerini belirler.",
+    "documentation": "<code>Player.Character</code> için <code>Humanoid.BreakJointsOnDeath</code>'ın başlangıç değerini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CharacterBreakJointsOnDeath",
     "code_sample": ""
   },
@@ -58642,7 +58664,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CharacterMaxSlopeAngle": {
-    "documentation": "<code>Player.Character</code> için <code>Humanoid.MaxSlopeAngle</code>'in başlangıç değerini belirler.",
+    "documentation": "<code>Player.Character</code> için <code>Humanoid.MaxSlopeAngle</code>'ın başlangıç değerini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CharacterMaxSlopeAngle",
     "code_sample": ""
   },
@@ -58662,57 +58684,57 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.CreateDefaultPlayerModule": {
-    "documentation": "Varsayılan oyuncu modülünün ve ilgili scriptlerin nasıl yönetileceğini kontrol eder.",
+    "documentation": "Varsayılan oyuncu modülünün ve ilgili betiklerin nasıl ele alındığını kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#CreateDefaultPlayerModule",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevCameraOcclusionMode": {
-    "documentation": "Varsayılan kameranın oyuncu ile kamera arasındaki nesneleri nasıl işleyeceğini belirler.",
+    "documentation": "Varsayılan kameranın kamera ile oyuncu arasındaki nesneleri nasıl ele alacağını ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevCameraOcclusionMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevComputerCameraMovementMode": {
-    "documentation": "Oyuncunun bir bilgisayarda kamera modunu geçersiz kılmasına izin verir.",
+    "documentation": "Bir bilgisayarda oyuncunun kamera modunu geçersiz kılmanıza olanak tanır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevComputerCameraMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevComputerMovementMode": {
-    "documentation": "Oyuncunun bir bilgisayarda hareket modunu geçersiz kılmasına izin verir.",
+    "documentation": "Bir bilgisayarda oyuncunun hareket modunu geçersiz kılmanıza olanak tanır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevComputerMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevTouchCameraMovementMode": {
-    "documentation": "Oyuncunun dokunmatik destekli bir cihazda kamera modunu geçersiz kılmasına izin verir.",
+    "documentation": "Bir dokunmatik cihazda oyuncunun kamera modunu geçersiz kılmanıza olanak tanır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevTouchCameraMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.DevTouchMovementMode": {
-    "documentation": "Oyuncunun dokunmatik destekli bir cihazda hareket modunu geçersiz kılmasına izin verir.",
+    "documentation": "Bir dokunmatik cihazda oyuncunun hareket modunu geçersiz kılmanıza olanak tanır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#DevTouchMovementMode",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.EnableDynamicHeads": {
-    "documentation": "Dinamik başların kullanımını ayarlar. Doğru olduğunda, yüz animasyon verisi ile avatar başlarının kullanımını etkinleştirir.",
+    "documentation": "Dinamik başların kullanımını ayarlar. Doğru olduğunda, yüz animasyon verisine sahip avatar başlarının kullanımına izin verir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#EnableDynamicHeads",
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.EnableMouseLockOption": {
-    "documentation": "Bir oyuncunun varsayılan olarak mouse kilidini açıp açamayacağını belirler.",
+    "documentation": "Bir oyuncunun varsayılan olarak fare kilidini açıp açamayacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#EnableMouseLockOption",
     "code_sample": "local Players = game:GetService(\"Players!\")\n\nlocal player = Players.LocalPlayer\n\nwhile true do\n\tplayer.DevEnableMouseLock = not player.DevEnableMouseLock\n\ttask.wait(5)\nend"
   },
   "@roblox/globaltype/StarterPlayer.HealthDisplayDistance": {
-    "documentation": "Bu oyuncunun diğer <code>Humanoid</code> sağlık çubuklarını ne mesafede göreceğini ayarlar.  0 olarak ayarlandığında, sağlık çubukları görüntülenmez.",
+    "documentation": "Bu oyuncunun diğer <code>Humanoid</code> sağlık barlarını ne mesafeden göreceğini ayarlar. 0 olarak ayarlandığında, sağlık barları görüntülenmez.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#HealthDisplayDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.HealthDisplayDistance = 0\nplayer.NameDisplayDistance = 0"
   },
   "@roblox/globaltype/StarterPlayer.LoadCharacterAppearance": {
-    "documentation": "Bir oyuncunun karakterinin görünümünün yüklenip yüklenmeyeceği.",
+    "documentation": "Bir oyuncunun karakterinin görünümünün yüklenip yüklenmeyeceğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#LoadCharacterAppearance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.CanLoadCharacterAppearance = false"
   },
   "@roblox/globaltype/StarterPlayer.LoadCharacterLayeredClothing ": {
-    "documentation": "Bir deneyimde doğacak karakterlerin katmanlı kıyafet aksesuarlarına sahip olup olmayacağını belirtir.",
+    "documentation": "Bir deneyime doğacak karakterlerin katmanlı giyim aksesuarlarının takılı olup olmayacağını belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#LoadCharacterLayeredClothing ",
     "code_sample": ""
   },
@@ -58722,12 +58744,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/StarterPlayer.NameDisplayDistance": {
-    "documentation": "Bu oyuncunun diğer <code>Humanoid</code> isimlerini ne mesafede göreceğini ayarlar.",
+    "documentation": "Bu oyuncunun diğer <code>Humanoid</code> isimlerini ne mesafeden göreceğini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#NameDisplayDistance",
     "code_sample": "local Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nplayer.HealthDisplayDistance = 0\nplayer.NameDisplayDistance = 0"
   },
   "@roblox/globaltype/StarterPlayer.UserEmotesEnabled": {
-    "documentation": "Kullanıcıya ait emote'ların avatarlar yüklenirken yüklenip yüklenmeyeceğini belirler.",
+    "documentation": "Kullanıcıya ait emote'ların avatarların yüklenmesi sırasında yüklenip yüklenmeyeceğini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/StarterPlayer#UserEmotesEnabled",
     "code_sample": ""
   },
@@ -68066,7 +68088,6 @@
       "Active": "@roblox/globaltype/AudioDeviceInput.Active",
       "IsReady": "@roblox/globaltype/AudioDeviceInput.IsReady",
       "Muted": "@roblox/globaltype/AudioDeviceInput.Muted",
-      "MutedByLocalUser": "@roblox/globaltype/AudioDeviceInput.MutedByLocalUser",
       "Player": "@roblox/globaltype/AudioDeviceInput.Player",
       "Volume": "@roblox/globaltype/AudioDeviceInput.Volume",
       "GetConnectedWires": "@roblox/globaltype/AudioDeviceInput.GetConnectedWires",
@@ -68096,11 +68117,6 @@
   "@roblox/globaltype/AudioDeviceInput.Muted": {
     "documentation": "Bu <code>AudioDeviceInput</code>'ın sessize alınıp alınmadığını kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#Muted",
-    "code_sample": ""
-  },
-  "@roblox/globaltype/AudioDeviceInput.MutedByLocalUser": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioDeviceInput#MutedByLocalUser",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioDeviceInput.Player": {
@@ -72363,7 +72379,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService": {
-    "documentation": "Ekran görüntüsü ve video yakalama özellikleri üzerinde kontrol sağlayan bir hizmet.",
+    "documentation": "Ekran görüntüsü ve video kaydı özelliklerini kontrol eden bir hizmet.",
     "keys": {
       "CaptureScreenshot": "@roblox/globaltype/CaptureService.CaptureScreenshot",
       "PromptCaptureGalleryPermissionAsync": "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync",
@@ -72379,13 +72395,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.CaptureScreenshot/param/0": {
-    "documentation": "Ekran görüntüsü ve video yakalama özellikleri üzerinde kontrol sağlayan bir hizmet."
+    "documentation": "Ekran görüntüsü ve video kaydı özelliklerini kontrol eden bir hizmet."
   },
   "@roblox/globaltype/CaptureService.CaptureScreenshot/param/1": {
-    "documentation": "Yeni yakalama hazır olduğunda <code>contentId</code> ile çağrılan bir geri arama işlevi."
+    "documentation": "Yeni çekim hazır olduğunda <code>contentId</code> ile çağrılan bir geri çağırma fonksiyonu."
   },
   "@roblox/globaltype/CaptureService.CaptureScreenshot": {
-    "documentation": "Ekran görüntüsü alır ve bunu tanımlamak için geçici bir <code>contentId</code> sağlar.",
+    "documentation": "Bir ekran görüntüsü alır ve onu tanımlamak için geçici bir <code>contentId</code> sağlar.",
     "params": [
       {
         "name": "self",
@@ -72401,13 +72417,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/0": {
-    "documentation": "Ekran görüntüsü ve video yakalama özellikleri üzerinde kontrol sağlayan bir hizmet."
+    "documentation": "Ekran görüntüsü ve video kaydı özelliklerini kontrol eden bir hizmet."
   },
   "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/param/1": {
-    "documentation": "Kullanıcının hangi erişim türü için uyarılacağını temsil eden bir <code>CaptureGalleryPermission</code>."
+    "documentation": "Kullanıcının istemi alacağı erişim türünü temsil eden bir <code>CaptureGalleryPermission</code>."
   },
   "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync/return/0": {
-    "documentation": "Kullanıcının yakalamalarına erişime izin verip vermediğini temsil eden bir boolean."
+    "documentation": "Kullanıcının çekimlerine erişim izni verip vermediğini temsil eden bir boolean."
   },
   "@roblox/globaltype/CaptureService.PromptCaptureGalleryPermissionAsync": {
     "documentation": "",
@@ -72428,16 +72444,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery/param/0": {
-    "documentation": "Ekran görüntüsü ve video yakalama özellikleri üzerinde kontrol sağlayan bir hizmet."
+    "documentation": "Ekran görüntüsü ve video kaydı özelliklerini kontrol eden bir hizmet."
   },
   "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery/param/1": {
-    "documentation": "<code>Capture</code> nesneleri ve/veya içerik ID'lerinin bir dizisi."
+    "documentation": "İçerik ID'lerinin ve/veya <code>Capture</code> nesnelerinin bir dizisi."
   },
   "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery/param/2": {
-    "documentation": "Kullanıcının yakalamayı kaydetmeyi kabul edip etmediğini belirtmek için her <code>contentId</code> ve/veya <code>Capture</code> nesnesine eşleme yapan bir sözlükle çağrılacak bir geri arama işlevi."
+    "documentation": "Kullanıcının o çekimi kaydetmeyi kabul edip etmediğini gösteren bir boolean ile her <code>contentId</code> veya <code>Capture</code> nesnesini eşleyen bir sözlük içeren geri çağırma fonksiyonu."
   },
   "@roblox/globaltype/CaptureService.PromptSaveCapturesToGallery": {
-    "documentation": "Kullanıcıya belirli yakalamaları galerilerine kaydetmelerini önerir.",
+    "documentation": "Kullanıcıyı belirtilen çekimleri galerisine kaydetmeye yönlendirir.",
     "params": [
       {
         "name": "self",
@@ -72457,22 +72473,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/0": {
-    "documentation": "Ekran görüntüsü ve video yakalama özellikleri üzerinde kontrol sağlayan bir hizmet."
+    "documentation": "Ekran görüntüsü ve video kaydı özelliklerini kontrol eden bir hizmet."
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/1": {
-    "documentation": "Bir <code>Content</code> içeren bir <code>contentId</code> veya <code>Capture</code> nesnesi."
+    "documentation": "Bir <code>contentId</code> veya <code>Capture</code> nesnesi içeren bir <code>Content</code>."
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/2": {
-    "documentation": "Davet bağlantısında yer alacak başlatma verileri olarak dahil edilecek isteğe bağlı bir dize."
+    "documentation": "Davet bağlantısında kullanılacak opsiyonel bir dize."
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/3": {
-    "documentation": "Kullanıcı paylaşımı kabul ederse çağrılan isteğe bağlı bir geri arama işlevi."
+    "documentation": "Kullanıcı paylaşımı kabul ederse çağrılan opsiyonel bir geri çağırma fonksiyonu."
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture/param/4": {
-    "documentation": "Kullanıcı paylaşımı reddederse çağrılan isteğe bağlı bir geri arama işlevi."
+    "documentation": "Kullanıcı paylaşımı reddederse çağrılan opsiyonel bir geri çağırma fonksiyonu."
   },
   "@roblox/globaltype/CaptureService.PromptShareCapture": {
-    "documentation": "Kullanıcıdan belirli bir yakalamayı paylaşmasını ister.",
+    "documentation": "Kullanıcıyı belirtilen çekimi paylaşmaya yönlendirir.",
     "params": [
       {
         "name": "self",
@@ -72500,16 +72516,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/0": {
-    "documentation": "Ekran görüntüsü ve video yakalama özellikleri üzerinde kontrol sağlayan bir hizmet."
+    "documentation": "Ekran görüntüsü ve video kaydı özelliklerini kontrol eden bir hizmet."
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/1": {
     "documentation": "<code>CaptureType</code> dizisi."
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/param/2": {
-    "documentation": "<code>false</code> olan varsayılan bir boolean değeridir."
+    "documentation": "Bir boolean; varsayılan <code>false</code>."
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync/return/0": {
-    "documentation": "Tuple of (result: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>)"
+    "documentation": "(result: <code>ReadCapturesFromGalleryResult</code>, capturesPages: <code>CapturesPages</code>) tuple'ı."
   },
   "@roblox/globaltype/CaptureService.ReadCapturesFromGalleryAsync": {
     "documentation": "",
@@ -72534,10 +72550,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.StartVideoCaptureAsync/param/0": {
-    "documentation": "Ekran görüntüsü ve video yakalama özellikleri üzerinde kontrol sağlayan bir hizmet."
+    "documentation": "Ekran görüntüsü ve video kaydı özelliklerini kontrol eden bir hizmet."
   },
   "@roblox/globaltype/CaptureService.StartVideoCaptureAsync/param/1": {
-    "documentation": "Bir video yakalamayı tamamlama ile birlikte <code>VideoCaptureResult</code> ve başarılıysa, bir <code>VideoCapture</code> ile çağrılan bir geri arama işlevi."
+    "documentation": "Bir <code>VideoCaptureResult</code> ve başarılıysa bir <code>VideoCapture</code> ile video kaydı tamamlandığında çağrılan bir geri çağırma fonksiyonu."
   },
   "@roblox/globaltype/CaptureService.StartVideoCaptureAsync/param/2": {
     "documentation": ""
@@ -72546,7 +72562,7 @@
     "documentation": ""
   },
   "@roblox/globaltype/CaptureService.StartVideoCaptureAsync": {
-    "documentation": "Bir video yakalama kaydını başlatır.",
+    "documentation": "Bir video kaydı başlatır.",
     "params": [
       {
         "name": "self",
@@ -72568,10 +72584,10 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.StopVideoCapture/param/0": {
-    "documentation": "Ekran görüntüsü ve video yakalama özellikleri üzerinde kontrol sağlayan bir hizmet."
+    "documentation": "Ekran görüntüsü ve video kaydı özelliklerini kontrol eden bir hizmet."
   },
   "@roblox/globaltype/CaptureService.StopVideoCapture": {
-    "documentation": "Bir video kaydını sonlandırır, bu kayıt <code>StartVideoCaptureAsync()</code> ile başlatıldı.",
+    "documentation": "Bir video kaydını sonlandırır <code>StartVideoCaptureAsync()</code> ile başlatılan.",
     "params": [
       {
         "name": "self",
@@ -72583,16 +72599,16 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/0": {
-    "documentation": "Ekran görüntüsü ve video yakalama özellikleri üzerinde kontrol sağlayan bir hizmet."
+    "documentation": "Ekran görüntüsü ve video kaydı özelliklerini kontrol eden bir hizmet."
   },
   "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/1": {
-    "documentation": "Ekran görüntüsü yakalama tamamlandığında <code>ScreenshotCaptureResult</code> ile ve başarılıysa bir <code>ScreenshotCapture</code> ile çağrılan bir geri çağırma fonksiyonu."
+    "documentation": "Ekran görüntüsü kaydı tamamlandığında <code>ScreenshotCaptureResult</code> ve başarılıysa bir <code>ScreenshotCapture</code> ile çağrılan bir geri çağırma fonksiyonu."
   },
   "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync/param/2": {
-    "documentation": "Yakalama davranışını değiştiren bir sözlük."
+    "documentation": "Çekim davranışını değiştiren bir sözlük."
   },
   "@roblox/globaltype/CaptureService.TakeScreenshotCaptureAsync": {
-    "documentation": "Bir ekran görüntüsü yakalama işlemini başlatır.",
+    "documentation": "Bir ekran görüntüsü kaydını başlatır.",
     "params": [
       {
         "name": "self",
@@ -72612,13 +72628,13 @@
     "code_sample": ""
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/0": {
-    "documentation": "Ekran görüntüsü ve video yakalama özellikleri üzerinde kontrol sağlayan bir hizmet."
+    "documentation": "Ekran görüntüsü ve video kaydı özelliklerini kontrol eden bir hizmet."
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/param/1": {
-    "documentation": "<code>Capture</code> türünde bir yakalama nesnesi"
+    "documentation": "<code>Capture</code> türünden bir çekim nesnesi."
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync/return/0": {
-    "documentation": "(result: <code>UploadCaptureResult</code>, assetId: <code>number</code>) demeti"
+    "documentation": "(result: <code>UploadCaptureResult</code>, assetId: <code>number</code>) tuple'ı."
   },
   "@roblox/globaltype/CaptureService.UploadCaptureAsync": {
     "documentation": "",
@@ -72716,7 +72732,7 @@
     "returns": []
   },
   "@roblox/globaltype/CaptureService.CaptureBegan": {
-    "documentation": "Bir yakalama başlamadan hemen önce tetiklenir.",
+    "documentation": "Bir çekim başlamadan hemen önce tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/CaptureService.CaptureBegan.Connect",
       "ConnectParallel": "@roblox/globaltype/CaptureService.CaptureBegan.ConnectParallel",
@@ -72804,7 +72820,7 @@
     "returns": []
   },
   "@roblox/globaltype/CaptureService.CaptureEnded": {
-    "documentation": "Bir yakalama tamamlandıktan sonra tetiklenir.",
+    "documentation": "Bir çekim tamamlandıktan sonra tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/CaptureService.CaptureEnded.Connect",
       "ConnectParallel": "@roblox/globaltype/CaptureService.CaptureEnded.ConnectParallel",
@@ -72892,7 +72908,7 @@
     "returns": []
   },
   "@roblox/globaltype/CaptureService.CaptureSaved": {
-    "documentation": "<strong>Deprecated:</strong> Bu olay, <code>UserCaptureSaved</code> olayı tarafından devralınmıştır.",
+    "documentation": "<strong>Deprecated:</strong> Bu olay, <code>UserCaptureSaved</code> olayıyla yer değiştirilmiştir.",
     "keys": {
       "Connect": "@roblox/globaltype/CaptureService.CaptureSaved.Connect",
       "ConnectParallel": "@roblox/globaltype/CaptureService.CaptureSaved.ConnectParallel",
@@ -72980,7 +72996,7 @@
     "returns": []
   },
   "@roblox/globaltype/CaptureService.UserCaptureSaved": {
-    "documentation": "Kullanıcının bir yakalamayı kaydettiğinde tetiklenir.",
+    "documentation": "Kullanıcı bir çekimi kaydettikten sonra tetiklenir.",
     "keys": {
       "Connect": "@roblox/globaltype/CaptureService.UserCaptureSaved.Connect",
       "ConnectParallel": "@roblox/globaltype/CaptureService.UserCaptureSaved.ConnectParallel",
@@ -84698,12 +84714,12 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.AlphaMode": {
-    "documentation": "<code>SurfaceAppearance.ColorMap</code>'ın alfa kanalının nasıl kullanılacağını belirler.",
+    "documentation": "<code>SurfaceAppearance.ColorMap</code>'ın alpha kanalının nasıl kullanılacağını belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#AlphaMode",
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.Color": {
-    "documentation": "Mevcut renk haritanıza bir ton ekler. Renk seçici ile doğrudan veya programatik olarak <code>Color3</code> ile ayarlayın.",
+    "documentation": "Mevcut renk haritanıza bir ton uygulayın. Renk paleti ile doğrudan veya programatik olarak <code>Color3</code> ile ayarlayın.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#Color",
     "code_sample": ""
   },
@@ -84718,22 +84734,22 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.EmissiveMaskContent": {
-    "documentation": "Yüzeydeki emisyon katsayısını belirler.",
+    "documentation": "Yüzey boyunca emissiviteyi belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveMaskContent",
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.EmissiveStrength": {
-    "documentation": "Emisif katkının şiddetini belirler.",
+    "documentation": "Emissif katkının gücünü belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveStrength",
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.EmissiveTint": {
-    "documentation": "Emisif katkının tonlama rengini belirler.",
+    "documentation": "Emissif katkının tonlama rengini belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#EmissiveTint",
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.MetalnessMap": {
-    "documentation": "Yüzeyin hangi kısımlarının metal veya metal dışı olduğunu belirler.",
+    "documentation": "Yüzeyde hangi kısımların metal ya da metal dışı olduğunu belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#MetalnessMap",
     "code_sample": ""
   },
@@ -84743,7 +84759,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.NormalMap": {
-    "documentation": "Yüzeyin aydınlatmasını kabartmalar, çukurlar, çatlaklar ve eğriler ekleyerek değiştirir.",
+    "documentation": "Yüzeyin aydınlatmasını, çıkıntılar, çöküntüler, çatlaklar ve eğriler ekleyerek değiştirir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#NormalMap",
     "code_sample": ""
   },
@@ -84753,7 +84769,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/SurfaceAppearance.RoughnessMap": {
-    "documentation": "Yüzeydeki görünür pürüzlülüğü belirler.",
+    "documentation": "Yüzey boyunca görünür pürüzlülüğü belirler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/SurfaceAppearance#RoughnessMap",
     "code_sample": ""
   },
@@ -85065,7 +85081,7 @@
     "documentation": "Sağlanan öğe kimliklerinin türü."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync/return/0": {
-    "documentation": "Aşağıdaki alanlara sahip öğe detaylarının bir dizisini döner: <pre><code class=\"language-lua\">{     &quot;AssetType&quot; = &quot;string&quot;,     &quot;CreatorName&quot; = &quot;string&quot;,     &quot;CreatorTargetId&quot; = 0,     &quot;CreatorType&quot; = &quot;string&quot;,     &quot;Description&quot; = &quot;string&quot;,     &quot;FavoriteCount&quot; = 0,     &quot;Genres&quot; = [       &quot;All&quot;     ],     &quot;Id&quot; = 0,     &quot;ItemRestrictions&quot; = [       &quot;Limited&quot;     ],     &quot;ItemStatus&quot;: [       &quot;New&quot;     ],     &quot;ItemType&quot; = &quot;string&quot;,     &quot;LowestPrice&quot; = 0,     &quot;Name&quot; = &quot;string&quot;,     &quot;Price&quot; = 0,     &quot;ProductId&quot; = 0   } </code></pre> ."
+    "documentation": "Bir dizi öğe ayrıntılarını döndürür."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetailsAsync": {
     "documentation": "Bir listedeki öğelerin detaylarını tek seferde alır.",
@@ -85099,7 +85115,7 @@
     "documentation": "Sağlanan öğe kimliklerinin türü."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails/return/0": {
-    "documentation": "Aşağıdaki alanlara sahip öğe detaylarının bir dizisini döner: <pre><code class=\"language-lua\">{     &quot;AssetType&quot; = &quot;string&quot;,     &quot;CreatorName&quot; = &quot;string&quot;,     &quot;CreatorTargetId&quot; = 0,     &quot;CreatorType&quot; = &quot;string&quot;,     &quot;Description&quot; = &quot;string&quot;,     &quot;FavoriteCount&quot; = 0,     &quot;Genres&quot; = [       &quot;All&quot;     ],     &quot;Id&quot; = 0,     &quot;ItemRestrictions&quot; = [       &quot;Limited&quot;     ],     &quot;ItemStatus&quot;: [       &quot;New&quot;     ],     &quot;ItemType&quot; = &quot;string&quot;,     &quot;LowestPrice&quot; = 0,     &quot;Name&quot; = &quot;string&quot;,     &quot;Price&quot; = 0,     &quot;ProductId&quot; = 0   } </code></pre> ."
+    "documentation": "Bir dizi öğe ayrıntılarını döndürür. Yanıt formatı için <code>AvatarEditorService:GetBatchItemDetailsAsync()</code>'e bakınız."
   },
   "@roblox/globaltype/AvatarEditorService.GetBatchItemDetails": {
     "documentation": "<strong>Deprecated:</strong> <br>Bir listedeki öğelerin detaylarını tek seferde alır.",
@@ -85255,7 +85271,7 @@
     "documentation": "Detaylarının alındığı öğenin türünü belirten bir enum değeri."
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync/return/0": {
-    "documentation": "Alınan öğe için öğe bilgilerini içeren bir tablo. Yukarıda örnek tabloya bakın."
+    "documentation": "Alınan öğe için öğe bilgilerini içeren bir tablo."
   },
   "@roblox/globaltype/AvatarEditorService.GetItemDetailsAsync": {
     "documentation": "Verilen öğenin detaylarını döner.",
@@ -85753,7 +85769,7 @@
     "documentation": "Arama için kullanılan parametreleri içeren bir nesne."
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync/return/0": {
-    "documentation": ""
+    "documentation": "Arama sonuçlarını içeren bir <code>CatalogPages</code> nesnesi."
   },
   "@roblox/globaltype/AvatarEditorService.SearchCatalogAsync": {
     "documentation": "Verilen aramanın sonucunu içeren bir <code>CatalogPages</code> nesnesi döner.",
@@ -88149,10 +88165,8 @@
     "documentation": "Ses yayan bir nesne. Bu nesne, bir alan veya dünya içindeki belirli bir konumdan ses yaymak için <code>BasePart</code> veya <code>Attachment</code> içine tilkelenebilir ya da başka bir yere bağlanarak tüm alan boyunca sabit bir şiddette ses çalmak için kullanılabilir.",
     "keys": {
       "AudioContent": "@roblox/globaltype/Sound.AudioContent",
-      "ChannelCount": "@roblox/globaltype/Sound.ChannelCount",
       "EmitterSize": "@roblox/globaltype/Sound.EmitterSize",
       "IsLoaded": "@roblox/globaltype/Sound.IsLoaded",
-      "IsMutedForCapture": "@roblox/globaltype/Sound.IsMutedForCapture",
       "IsPaused": "@roblox/globaltype/Sound.IsPaused",
       "IsPlaying": "@roblox/globaltype/Sound.IsPlaying",
       "isPlaying": "@roblox/globaltype/Sound.isPlaying",
@@ -88191,83 +88205,73 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#AudioContent",
     "code_sample": ""
   },
-  "@roblox/globaltype/Sound.ChannelCount": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#ChannelCount",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Sound.EmitterSize": {
-    "documentation": "<strong>Deprecated:</strong> <code>Sound.RollOffMinDistance</code> ve <code>Sound.RollOffMaxDistance</code> lehine bu özellik kullanımdan kaldırılmıştır; yeni çalışmalarda bunun yerine kullanılmalıdır.<br>Bir 3D <code>Sound</code>'un (bir <code>BasePart</code> veya <code>Attachment</code>'ın doğrudan çocuğu) sesini azaltmaya (sesin azalması) başlayacağı minimum mesafe, birim olarak.",
+    "documentation": "<strong>Deprecated:</strong> Bu özellik, yeni işler için kullanılacak <code>Sound.RollOffMinDistance</code> ve <code>Sound.RollOffMaxDistance</code> lehine kullanımdan kaldırılmıştır.<br>Bir 3D <code>Sound</code>'un (bir <code>BasePart</code> veya <code>Attachment</code>'ın doğrudan çocuğu) sesin azalmaya (sesin kısılması) başlayacağı minimum mesafe, stud cinsinden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#EmitterSize",
     "code_sample": "local part = Instance.new(\"Part\")\npart.Anchored = true\npart.Position = Vector3.new(0, 3, 0)\npart.BrickColor = BrickColor.new(\"Bright red\")\npart.Name = \"MusicBox\"\npart.Parent = workspace\n\n-- bir ses oluştur\nlocal sound = Instance.new(\"Sound\", part)\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.EmitterSize = 5 -- yayıcı boyutunu azalt (daha erken hacim düşüşü için)\nsound.Looped = true\nsound.Parent = part\n\nlocal clickDetector = Instance.new(\"ClickDetector\")\nclickDetector.Parent = part\n\n-- sesi çalma / durdurma\nclickDetector.MouseClick:Connect(function()\n\tif not sound.IsPlaying then\n\t\tpart.BrickColor = BrickColor.new(\"Bright green\")\n\t\tsound:Play()\n\telse\n\t\tpart.BrickColor = BrickColor.new(\"Bright red\")\n\t\tsound:Stop()\n\tend\nend)"
   },
   "@roblox/globaltype/Sound.IsLoaded": {
-    "documentation": "<code>Sound</code> Roblox sunucularından yüklendiğinde ve çalmaya hazır olduğunda bu özellik <code>true</code> değerini alır.",
+    "documentation": "<code>Sound</code> Roblox sunucularından yüklenmiş ve oynamaya hazır olduğunda bu özellik <code>true</code> değerindedir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsLoaded",
     "code_sample": "local sound = script.Parent.Sound\n\nif not sound.IsLoaded then\n\tsound.Loaded:Wait()\nend\n\nprint(\"Ses yüklendi!\")"
   },
-  "@roblox/globaltype/Sound.IsMutedForCapture": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsMutedForCapture",
-    "code_sample": ""
-  },
   "@roblox/globaltype/Sound.IsPaused": {
-    "documentation": "<code>Sound</code> çalmıyorken <code>true</code> dönen salt okunur özellik.",
+    "documentation": "Bu, <code>Sound</code> çalmıyorsa <code>true</code> değerini döndüren salt okunur bir özelliktir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsPaused",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Looped = true\nsound.Parent = workspace\n\nif not sound.isLoaded then\n\tsound.Loaded:Wait()\nend\n\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused) -- doğru, yanlış\n\ntask.wait(2)\nsound:Pause()\nprint(sound.IsPlaying, sound.IsPaused) -- yanlış, doğru\n\ntask.wait(2)\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused) -- doğru, yanlış\n\ntask.wait(2)\nsound:Stop()\nprint(sound.IsPlaying, sound.IsPaused) -- yanlış, doğru"
   },
   "@roblox/globaltype/Sound.IsPlaying": {
-    "documentation": "<code>Sound</code> çaldığında <code>true</code> dönen salt okunur özellik.",
+    "documentation": "Bu, <code>Sound</code> çalıyorsa <code>true</code> değerini döndüren salt okunur bir özelliktir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#IsPlaying",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Looped = true\nsound.Parent = workspace\n\nif not sound.isLoaded then\n\tsound.Loaded:Wait()\nend\n\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused) -- doğru, yanlış\n\ntask.wait(2)\nsound:Pause()\nprint(sound.IsPlaying, sound.IsPaused) -- yanlış, doğru\n\ntask.wait(2)\nsound:Play()\nprint(sound.IsPlaying, sound.IsPaused) -- doğru, yanlış\n\ntask.wait(2)\nsound:Stop()\nprint(sound.IsPlaying, sound.IsPaused) -- yanlış, doğru"
   },
   "@roblox/globaltype/Sound.isPlaying": {
-    "documentation": "<strong>Deprecated:</strong> Bu kaldırılan özellik, <code>Sound.IsPlaying</code>'in bir varyantıdır ve bunun yerine kullanılmalıdır.",
+    "documentation": "<strong>Deprecated:</strong> Bu kullanımdan kaldırılmış özellik, <code>Sound.IsPlaying</code>'in bir varyantıdır ve bunun yerine kullanılmalıdır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#isPlaying",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.Looped": {
-    "documentation": "<code>Sound</code> çaldıktan sonra tekrar edip etmeyeceğini ayarlar.",
+    "documentation": "<code>Sound</code>'un çaldıktan sonra tekrar edip etmeyeceğini ayarlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Looped",
     "code_sample": "local function loopNTimes(sound, numberOfLoops)\n\tif not sound.IsPlaying then\n\t\tsound.Looped = true\n\t\tlocal connection = nil\n\t\tconnection = sound.DidLoop:Connect(function(_soundId, numOfTimesLooped)\n\t\t\tprint(numOfTimesLooped)\n\t\t\tif numOfTimesLooped >= numberOfLoops then\n\t\t\t\t-- bağlantıyı kes\n\t\t\t\tconnection:Disconnect()\n\t\t\t\t-- sesi durdur\n\t\t\t\tsound:Stop()\n\t\t\tend\n\t\tend)\n\t\tsound:Play()\n\tend\nend\n\nlocal sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://0\"\n\nloopNTimes(sound, 5)"
   },
   "@roblox/globaltype/Sound.LoopRegion": {
-    "documentation": "İstenilen döngü başlangıcı ve döngü sonunu belirtirken, <code>PlaybackRegion</code> içinde, saniye cinsinden.",
+    "documentation": "<code>PlaybackRegion</code> içinde, saniye cinsinden istenen döngü başlangıcını ve döngü bitişini belirten bir aralık.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#LoopRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MaxDistance": {
-    "documentation": "<strong>Deprecated:</strong> <code>Sound.RollOffMinDistance</code> ve <code>Sound.RollOffMaxDistance</code> lehine bu özellik kullanımdan kaldırılmıştır; yeni çalışmalarda bunun yerine kullanılmalıdır.<br><code>Sound\\\\s</code> kökünden bir istemci dinleyicisinin hala duyabileceği maksimum mesafe, birim cinsinden. Sadece <code>Part</code> veya <code>Attachment</code>'a bağlı sesler için geçerlidir (3D sesler).",
+    "documentation": "<strong>Deprecated:</strong> Bu özellik, yeni işler için kullanılacak <code>Sound.RollOffMinDistance</code> ve <code>Sound.RollOffMaxDistance</code> lehine kullanımdan kaldırılmıştır.<br><code>Sound</code>'un kaynağına ne kadar uzakta olabileceğini belirten maksimum mesafe, stud cinsinden ve hala duyulabilir. Sadece <code>Part</code> veya <code>Attachment</code>'a yerleştirilen sesler (3D sesler).",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MaxDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.MinDistance": {
-    "documentation": "<strong>Deprecated:</strong> MinDistance, bu özelliğin davranışını daha iyi tanımlayan <code>Sound.EmitterSize</code> ile geçersiz kılınmıştır.<br>3D <code>Sound</code>'ın (bir <code>BasePart</code> veya <code>Attachment</code>'ın doğrudan çocuğu) azalmaya başlayacağı minimum mesafe. Etkili olarak, emitter boyutu.",
+    "documentation": "<strong>Deprecated:</strong> MinDistance, bu özelliğin davranışını daha iyi tanımlayan <code>Sound.EmitterSize</code> ile değiştirildi.<br>Bir 3D <code>Sound</code>'un (bir <code>BasePart</code> veya <code>Attachment</code>'ın doğrudan çocuğu) sesin azalmaya başlayacağı minimum mesafe. Etkili olarak, émitter boyutu.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#MinDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.Pitch": {
-    "documentation": "<strong>Deprecated:</strong> <code>Sound.PlaybackSpeed</code> lehine bu özellik kullanımdan kaldırılmıştır; adı davranışı daha iyi temsil eder.<br>Bir <code>Sound</code> çalındığında ne kadar yüksek tonlu ve hızlı olacağını ayarlar. Tamamlayıcı tam sayı büyüdükçe, <code>Sound</code> daha yüksek ve daha hızlı olur.",
+    "documentation": "<strong>Deprecated:</strong> Bu özellik, davranışa daha uygun olan <code>Sound.PlaybackSpeed</code> lehine kullanımdan kaldırılmıştır.<br>Bir <code>Sound</code> çalındığında ne kadar tiz ve hızlı olduğunu belirler. Tam sayının büyüklüğü arttıkça, <code>Sound</code> o kadar tiz ve hızlıdır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Pitch",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackLoudness": {
-    "documentation": "<code>Sound</code>'un şu anda ne kadar yüksek sesle çaldığını belirten <code>0</code> ile <code>1000</code> arasında bir sayı.",
+    "documentation": "<code>Sound</code>'un şu anda çalan ses seviyesini gösteren <code>0</code> ile <code>1000</code> arasında bir sayı.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackLoudness",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackRegion": {
-    "documentation": "<code>TimeLength</code> içinde, istenilen başlangıç ve duruş zamanı aralığı, saniye cinsinden.",
+    "documentation": "<code>TimeLength</code> içinde, saniye cinsinden istenen başlangıç ve durdurma zamanını belirten bir aralık.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackRegionsEnabled": {
-    "documentation": "<code>true</code> ise, bu özellik <code>Sound</code>'ınıza erişim sağlar <code>PlaybackRegion</code> ve <code>LoopRegion</code> özellikleri, böylece çalmasını daha doğru bir şekilde kontrol edebilirsiniz.",
+    "documentation": "<code>true</code> ise, bu özellik <code>Sound</code>'unuza <code>PlaybackRegion</code> ve <code>LoopRegion</code> özelliklerine erişim sağlar; bu da bunun oynatma kontrolünü daha doğru bir şekilde gerçekleştirmenizi sağlar.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackRegionsEnabled",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.PlaybackSpeed": {
-    "documentation": "Bir <code>Sound</code>'un ne hızda çalacağını belirler, daha yüksek değerler sesin daha hızlı çalmasına ve daha yüksek tonlamasına neden olur.",
+    "documentation": "Bir <code>Sound</code>'un çalma hızını belirler; daha yüksek değerler sesin daha hızlı ve daha yüksek perdede çalmasına neden olur.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#PlaybackSpeed",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Looped = true\nsound.Parent = workspace\n\nsound:Play()\ntask.wait(10)\nsound.PlaybackSpeed = 3 -- 3 kat daha hızlı\ntask.wait(5)\nsound.PlaybackSpeed = 0.5 -- 2 kat daha yavaş\ntask.wait(5)\nsound.PlaybackSpeed = 1 -- varsayılan"
   },
@@ -88282,42 +88286,42 @@
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.RollOffMaxDistance": {
-    "documentation": "Bir istemcinin dinleyicisinin, ses kaynağından ne kadar uzakta olabileceği (birim cinsinden) maksimum mesafe ve yine de ses duyulabiliyor. Sadece <code>Sounds</code>'a bağlı <code>BasePart</code> veya <code>Attachment</code> için uygulanır.",
+    "documentation": "Bir istemcinin dinleyicisinin sesin kaynağından ne kadar uzakta olabileceğini belirten maksimum mesafe, stud cinsinden ve hala duyulabilir. Sadece <code>Sounds</code>'a bağlı <code>BasePart</code> veya <code>Attachment</code>'a uygulanır.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#RollOffMaxDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.RollOffMinDistance": {
-    "documentation": "<code>BasePart</code> veya <code>Attachment</code>'a bağlı bir <code>Sound</code>'un sesini azaltmaya başlayacağı (sesin azalması) minimum mesafe, birim cinsinden.",
+    "documentation": "<code>BasePart</code> veya <code>Attachment</code>'a bağlı olan bir <code>Sound</code>'un sesin azalmaya (sesin kısılması) başlayacağı minimum mesafe, stud cinsinden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#RollOffMinDistance",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.RollOffMode": {
-    "documentation": "Bir <code>BasePart</code> veya <code>Attachment</code>'a bağlı bir <code>Sound</code>'un sesinin dinleyici ile ebeveyni arasındaki mesafe değiştikçe nasıl azaldığını kontrol eder (sesin azalması).",
+    "documentation": "Bir <code>BasePart</code> veya <code>Attachment</code>'a bağlı bir <code>Sound</code>'un sesi dinleyici ve ebeveyn arasındaki mesafe değiştikçe nasıl azalacağını (solacağını) kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#RollOffMode",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.SoundGroup": {
-    "documentation": "Bu <code>Sound</code> ile ilişkili <code>SoundGroup</code>.",
+    "documentation": "Bu <code>Sound</code> ile bağlantılı olan <code>SoundGroup</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#SoundGroup",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.SoundId": {
-    "documentation": "<code>Sound</code> ile ilişkilendirilmek üzere ses dosyasının içerik ID'si.",
+    "documentation": "<code>Sound</code> ile ilişkilendirilmesi gereken ses dosyasının içerik kimliği.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#SoundId",
     "code_sample": ""
   },
   "@roblox/globaltype/Sound.TimeLength": {
-    "documentation": "<code>Sound</code>'un süresi saniye cinsinden.",
+    "documentation": "<code>Sound</code>'un uzunluğu saniye cinsindendir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#TimeLength",
     "code_sample": "local function playForDuration(sound, duration)\n\tif not sound.IsLoaded then\n\t\tsound.Loaded:wait()\n\tend\n\tlocal speed = sound.TimeLength / duration\n\tsound.PlaybackSpeed = speed\n\tsound:Play()\nend\n\nlocal sound = script.Parent\nplayForDuration(sound, 5)"
   },
   "@roblox/globaltype/Sound.TimePosition": {
-    "documentation": "<code>Sound</code>'un ilerlemesi saniye cinsinden. Çalma pozisyonunu, hem öncesinde hem de çalma sırasında değiştirmek için kullanılabilir.",
+    "documentation": "<code>Sound</code>'un ilerlemesi, saniye cinsindendir. Hem çalmadan önce hem de çalarken çalma pozisyonunu değiştirmek için değiştirilebilir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#TimePosition",
     "code_sample": "local sound = Instance.new(\"Sound\")\nsound.SoundId = \"rbxassetid://9120386436\"\nsound.Parent = workspace\n\nsound.TimePosition = 30\n\nsound:Play()\n\ntask.wait(5)\n\nsound.TimePosition = 100\n\ntask.wait(5)\n\nsound.TimePosition = 0"
   },
   "@roblox/globaltype/Sound.Volume": {
-    "documentation": "<code>Sound</code>'un sesi.",
+    "documentation": "<code>Sound</code>'un ses seviyesi.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/Sound#Volume",
     "code_sample": ""
   },
@@ -89231,7 +89235,6 @@
       "AudioContent": "@roblox/globaltype/AudioPlayer.AudioContent",
       "AutoLoad": "@roblox/globaltype/AudioPlayer.AutoLoad",
       "AutoPlay": "@roblox/globaltype/AudioPlayer.AutoPlay",
-      "IsMutedForCapture": "@roblox/globaltype/AudioPlayer.IsMutedForCapture",
       "IsPlaying": "@roblox/globaltype/AudioPlayer.IsPlaying",
       "IsReady": "@roblox/globaltype/AudioPlayer.IsReady",
       "Looping": "@roblox/globaltype/AudioPlayer.Looping",
@@ -89276,18 +89279,13 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#AutoPlay",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioPlayer.IsMutedForCapture": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsMutedForCapture",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioPlayer.IsPlaying": {
-    "documentation": "Bu <code>AudioPlayer</code>'ın mevcut durumda çalıp çalmadığını belirtir.",
+    "documentation": "Bu <code>AudioPlayer</code>'ın şu anda çalıp çalmadığını belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsPlaying",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.IsReady": {
-    "documentation": "Bu <code>AudioPlayer</code>'ın yüklü, ön belleğe alınmış ve çalmaya hazır olup olmadığını belirtir.",
+    "documentation": "Bu <code>AudioPlayer</code>'ın yüklü, önbelleğe alınmış ve çalmaya hazır olup olmadığını belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#IsReady",
     "code_sample": ""
   },
@@ -89297,27 +89295,27 @@
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.LoopRegion": {
-    "documentation": "<code>AudioPlayer</code>'ının <code>PlaybackRegion</code> içinde istenen döngü başlangıcını ve döngü sonunu belirten, saniye cinsinden bir aralıktır.",
+    "documentation": "Bu <code>AudioPlayer</code>'ın <code>PlaybackRegion</code> içinde, yapılmak istenen döngü başlangıç ve bitişini belirten bir aralık, saniye cinsinden.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#LoopRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.PlaybackRegion": {
-    "documentation": "<code>TimeLength</code> içinde istenen başlangıç zamanını (minimum) ve duruş zamanını (maksimum) belirten, saniye cinsinden bir aralıktır.",
+    "documentation": "İstenilen başlangıç zamanını (minimum) ve durdurma zamanını (maksimum) belirten saniye cinsinden bir aralık.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#PlaybackRegion",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.PlaybackSpeed": {
-    "documentation": "Varlığın ne kadar hızlı çalınacağını kontrol eder, bu da tonu etkiler.",
+    "documentation": "Varlığın ne kadar hızlı çalınacağını kontrol eder, bu da tonunu etkiler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#PlaybackSpeed",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.TimeLength": {
-    "documentation": "Yüklenen varlığın uzunluğunu belirtir.",
+    "documentation": "Yüklenmiş varlığın uzunluğunu belirtir.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#TimeLength",
     "code_sample": ""
   },
   "@roblox/globaltype/AudioPlayer.TimePosition": {
-    "documentation": "Varlık içindeki oynatma başlığının mevcut konumunu takip eder.",
+    "documentation": "Varlık içindeki oynatma kafasını izler.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioPlayer#TimePosition",
     "code_sample": ""
   },
@@ -90241,7 +90239,6 @@
       "AngleAttenuation": "@roblox/globaltype/AudioEmitter.AngleAttenuation",
       "AudioInteractionGroup": "@roblox/globaltype/AudioEmitter.AudioInteractionGroup",
       "DistanceAttenuation": "@roblox/globaltype/AudioEmitter.DistanceAttenuation",
-      "PositionOverride": "@roblox/globaltype/AudioEmitter.PositionOverride",
       "SimulationFidelity": "@roblox/globaltype/AudioEmitter.SimulationFidelity",
       "GetAngleAttenuation": "@roblox/globaltype/AudioEmitter.GetAngleAttenuation",
       "GetAudibilityFor": "@roblox/globaltype/AudioEmitter.GetAudibilityFor",
@@ -90276,13 +90273,8 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#DistanceAttenuation",
     "code_sample": ""
   },
-  "@roblox/globaltype/AudioEmitter.PositionOverride": {
-    "documentation": "",
-    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#PositionOverride",
-    "code_sample": ""
-  },
   "@roblox/globaltype/AudioEmitter.SimulationFidelity": {
-    "documentation": "<strong>Deprecated:</strong> <br>Bu <code>AudioEmitter</code> için ses simülasyonunun ne kadar ayrıntılı olacağını kontrol eder.",
+    "documentation": "<strong>Deprecated:</strong> <br>Sesin simülasyonunun bu <code>AudioEmitter</code> için ne kadar detaylı olması gerektiğini kontrol eder.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/AudioEmitter#SimulationFidelity",
     "code_sample": ""
   },
@@ -91620,7 +91612,7 @@
     "documentation": "Avatarın ayarlandığı <code>Player</code>."
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/2": {
-    "documentation": "Avatar olarak ayarlanacak olan insansı <code>Model</code>."
+    "documentation": "Argümanları içeren bir tablo. Tip: <code>type AutoSetupAccessory = { AccessoryType: Enum.AccessoryType, IsLayered: bool, Instance: Model} type AutoSetupParams = { Body: Model?, Accessories: {AutoSetupAccessory}}</code>"
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/3": {
     "documentation": "İlerlemenin genel ilerlemesi ile birlikte süreli olarak çağrılacak opsiyonel geri arama işlevi (0 ile 1 arasında). Tüp: <code>(progressInfo: { Progress: number }) -&gt; ()</code>"
@@ -91629,7 +91621,7 @@
     "documentation": "Oluşturulan avatar için benzersiz bir tanımlayıcı."
   },
   "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync": {
-    "documentation": "Özel bir <code>Model</code>'i avatar varlığı olarak otomatik olarak kurar.",
+    "documentation": "Otomatik olarak özel <code>Model</code> ve/veya avatar aksesuarlarını kurar.",
     "params": [
       {
         "name": "self",
@@ -91640,7 +91632,7 @@
         "documentation": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/1"
       },
       {
-        "name": "model",
+        "name": "autoSetupParams",
         "documentation": "@roblox/globaltype/AvatarCreationService.AutoSetupAvatarAsync/param/2"
       },
       {
@@ -92986,6 +92978,7 @@
       "CanUsersChatAsync": "@roblox/globaltype/TextChatService.CanUsersChatAsync",
       "CanUsersDirectChatAsync": "@roblox/globaltype/TextChatService.CanUsersDirectChatAsync",
       "DisplayBubble": "@roblox/globaltype/TextChatService.DisplayBubble",
+      "GetChatGroupsAsync": "@roblox/globaltype/TextChatService.GetChatGroupsAsync",
       "OnBubbleAdded": "@roblox/globaltype/TextChatService.OnBubbleAdded",
       "OnChatWindowAdded": "@roblox/globaltype/TextChatService.OnChatWindowAdded",
       "OnIncomingMessage": "@roblox/globaltype/TextChatService.OnIncomingMessage"
@@ -93135,6 +93128,33 @@
     ],
     "returns": [],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#DisplayBubble",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/0": {
+    "documentation": "Bir deneyim içindeki metinli sohbeti yöneten bir hizmet."
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/1": {
+    "documentation": "Metin sohbet uyumluluğunu değerlendirmek için deneyimde mevcut olan <code>Players</code> listesi."
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync/return/0": {
+    "documentation": "Sıralanmış bir sohbet grup kimliği dizeleri dizisi. Aynı sohbet grup kimliğini paylaşan oyuncular, birbirleriyle senkron bir şekilde metin sohbetine katılabilir."
+  },
+  "@roblox/globaltype/TextChatService.GetChatGroupsAsync": {
+    "documentation": "Hangi oyuncuların senkron bir şekilde sohbet edebileceğini gösteren sohbet grup kimliklerini döndürür.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/0"
+      },
+      {
+        "name": "players",
+        "documentation": "@roblox/globaltype/TextChatService.GetChatGroupsAsync/param/1"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/TextChatService.GetChatGroupsAsync/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/TextChatService#GetChatGroupsAsync",
     "code_sample": ""
   },
   "@roblox/globaltype/TextChatService.OnBubbleAdded/param/0": {
@@ -118223,13 +118243,24 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#SyncedAsDescendant",
     "code_sample": ""
   },
+  "@roblox/enum/InstanceFileSyncStatus.AncestorErrored": {
+    "documentation": "<code>Instance</code> şu anda senkronize edilmiyor çünkü senkronizasyon ağacının kökü <code>Hata</code> durumunda.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus#AncestorErrored",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.InstanceFileSyncStatus": {
     "documentation": "Bir Instance'ın dosya senkronizasyon durumunu açıklar.",
     "keys": {
       "NotSynced": "@roblox/enum/InstanceFileSyncStatus.NotSynced",
       "Errored": "@roblox/enum/InstanceFileSyncStatus.Errored",
       "SyncedAsRoot": "@roblox/enum/InstanceFileSyncStatus.SyncedAsRoot",
-      "SyncedAsDescendant": "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant"
+      "SyncedAsDescendant": "@roblox/enum/InstanceFileSyncStatus.SyncedAsDescendant",
+      "AncestorErrored": "@roblox/enum/InstanceFileSyncStatus.AncestorErrored"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/InstanceFileSyncStatus",
     "code_sample": ""

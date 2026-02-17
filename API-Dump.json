@@ -5117,6 +5117,9 @@
         {
             "Members": [
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "CreateAdRewardFromDevProductId",
                     "Parameters": [
@@ -5136,6 +5139,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetAdTeleportInfo",
                     "Parameters": [
@@ -5148,6 +5154,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetReportAdInfo",
                     "Parameters": [
@@ -5160,6 +5169,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "HandleWhyThisAdClicked",
                     "Parameters": [
@@ -5186,6 +5198,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "HideEudsaDisclosure",
                     "Parameters": [
@@ -5198,6 +5213,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "OnDemandVideoCompleteFromUI",
                     "Parameters": [
@@ -5238,6 +5256,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "ReturnToPublisherExperience",
                     "Parameters": [
@@ -5257,6 +5278,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetAdGuiInteractivityHandlerInitialized",
                     "Parameters": [
@@ -5269,6 +5293,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "ShowVideoAd",
                     "Parameters": [
@@ -5284,6 +5311,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "SubmitAdNotification",
                     "Parameters": [
@@ -5331,6 +5361,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "UnregisterAdOpportunity",
                     "Parameters": [
@@ -5350,6 +5383,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetAdAvailabilityNowAsync",
                     "Parameters": [
@@ -5372,6 +5408,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetAdAvailabilityNowForUniverseAsync",
                     "Parameters": [
@@ -5408,6 +5447,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "RegisterAdOpportunityAsync",
                     "Parameters": [
@@ -5437,6 +5479,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI",
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "ShowRewardedVideoAdAsync",
                     "Parameters": [
@@ -5473,6 +5519,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "ShowRewardedVideoAdAtClientAsync",
                     "Parameters": [
@@ -5495,6 +5544,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Event",
                     "Name": "AdTeleportEnded",
                     "Parameters": [
@@ -5503,6 +5555,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Event",
                     "Name": "AdTeleportInitiated",
                     "Parameters": [
@@ -5511,6 +5566,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Event",
                     "Name": "RewardedVideoAdEnded",
                     "Parameters": [
@@ -5519,6 +5577,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Event",
                     "Name": "RewardedVideoAdStarted",
                     "Parameters": [
@@ -5527,6 +5588,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Event",
                     "Name": "ShowDynamicEudsaDisclosure",
                     "Parameters": [
@@ -5549,6 +5613,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Event",
                     "Name": "ShowReportAdPopup",
                     "Parameters": [
@@ -5564,6 +5631,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Event",
                     "Name": "VideoAdClosed",
                     "Parameters": [
@@ -5582,6 +5652,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Event",
                     "Name": "adGuiRegisterUI",
                     "Parameters": [
@@ -5597,6 +5670,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Callback",
                     "Name": "onDemandVideoPlayInUI",
                     "Parameters": [
@@ -5915,6 +5991,22 @@
                     "Tags": [
                         "Deprecated"
                     ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Basic",
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "GetDurationLoggerTimestamp",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "int"
+                    },
+                    "Security": "None",
                     "ThreadSafety": "Unsafe"
                 },
                 {
@@ -13653,6 +13745,12 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Input"
+                        ]
+                    },
                     "Category": "Permissions",
                     "MemberType": "Property",
                     "Name": "AccessType",
@@ -13671,6 +13769,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Input"
+                        ]
+                    },
                     "Category": "Recording",
                     "MemberType": "Property",
                     "Name": "Active",
@@ -13689,6 +13793,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Input"
+                        ]
+                    },
                     "Category": "Recording",
                     "MemberType": "Property",
                     "Name": "IsReady",
@@ -13711,6 +13821,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Input"
+                        ]
+                    },
                     "Category": "Recording",
                     "MemberType": "Property",
                     "Name": "Muted",
@@ -13729,6 +13845,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Input"
+                        ]
+                    },
                     "Category": "Recording",
                     "MemberType": "Property",
                     "Name": "MutedByLocalUser",
@@ -13751,6 +13873,17 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Input",
+                            "Players"
+                        ],
+                        "Write": [
+                            "Audio",
+                            "Players"
+                        ]
+                    },
                     "Category": "Recording",
                     "MemberType": "Property",
                     "Name": "Player",
@@ -13769,6 +13902,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Input"
+                        ]
+                    },
                     "Category": "State",
                     "MemberType": "Property",
                     "Name": "Volume",
@@ -13787,6 +13926,10 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Input"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetConnectedWires",
                     "Parameters": [
@@ -13806,6 +13949,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Input"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetInputPins",
                     "Parameters": [
@@ -13818,6 +13965,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Input"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetOutputPins",
                     "Parameters": [
@@ -13830,6 +13981,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Input"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetUserIdAccessList",
                     "Parameters": [
@@ -13842,6 +13997,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Input"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetUserIdAccessList",
                     "Parameters": [
@@ -13861,6 +14020,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Input"
+                    ],
                     "MemberType": "Event",
                     "Name": "WiringChanged",
                     "Parameters": [
@@ -16791,6 +16954,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "DataType",
@@ -21467,6 +21633,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "DynamicGeneration"
+                    ],
                     "MemberType": "Function",
                     "Name": "AutoSetupAvatarAsync",
                     "Parameters": [
@@ -21503,6 +21672,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "DynamicGeneration"
+                    ],
                     "MemberType": "Function",
                     "Name": "GenerateAvatar2DPreviewAsync",
                     "Parameters": [
@@ -21525,6 +21697,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "DynamicGeneration"
+                    ],
                     "MemberType": "Function",
                     "Name": "GenerateAvatarAsync",
                     "Parameters": [
@@ -21547,6 +21722,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetBatchTokenDetailsAsync",
                     "Parameters": [
@@ -21569,6 +21747,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "DynamicGeneration"
+                    ],
                     "MemberType": "Function",
                     "Name": "LoadAvatar2DPreviewAsync",
                     "Parameters": [
@@ -21591,6 +21772,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "DynamicGeneration"
+                    ],
                     "MemberType": "Function",
                     "Name": "LoadGeneratedAvatarAsync",
                     "Parameters": [
@@ -21613,6 +21797,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Avatar"
+                    ],
                     "MemberType": "Function",
                     "Name": "PrepareAvatarForPreviewAsync",
                     "Parameters": [
@@ -21678,6 +21865,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "AssetCreateUpdate",
+                        "Monetization"
+                    ],
                     "MemberType": "Function",
                     "Name": "PromptCreateAvatarAsync",
                     "Parameters": [
@@ -21714,6 +21905,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "SensitiveInput"
+                    ],
                     "MemberType": "Function",
                     "Name": "PromptSelectAvatarGenerationImageAsync",
                     "Parameters": [
@@ -21736,6 +21930,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "DynamicGeneration"
+                    ],
                     "MemberType": "Function",
                     "Name": "RequestAvatarGenerationSessionAsync",
                     "Parameters": [
@@ -21866,6 +22063,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "DynamicGeneration"
+                    ],
                     "MemberType": "Event",
                     "Name": "AvatarAssetModerationCompleted",
                     "Parameters": [
@@ -21888,6 +22088,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "DynamicGeneration"
+                    ],
                     "MemberType": "Event",
                     "Name": "AvatarModerationCompleted",
                     "Parameters": [
@@ -22391,6 +22594,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "PromptAllowInventoryReadAccess",
                     "Parameters": [
@@ -22403,6 +22610,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "PlatformAvatarEditing"
+                    ],
                     "MemberType": "Function",
                     "Name": "PromptCreateOutfit",
                     "Parameters": [
@@ -22429,6 +22640,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "PlatformAvatarEditing"
+                    ],
                     "MemberType": "Function",
                     "Name": "PromptDeleteOutfit",
                     "Parameters": [
@@ -22448,6 +22663,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "PlatformAvatarEditing"
+                    ],
                     "MemberType": "Function",
                     "Name": "PromptRenameOutfit",
                     "Parameters": [
@@ -22467,6 +22686,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "PlatformAvatarEditing"
+                    ],
                     "MemberType": "Function",
                     "Name": "PromptSaveAvatar",
                     "Parameters": [
@@ -22493,6 +22716,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "PlatformAvatarEditing"
+                    ],
                     "MemberType": "Function",
                     "Name": "PromptSetFavorite",
                     "Parameters": [
@@ -22526,6 +22753,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "PlatformAvatarEditing"
+                    ],
                     "MemberType": "Function",
                     "Name": "PromptUpdateOutfit",
                     "Parameters": [
@@ -22741,6 +22972,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Avatar"
+                    ],
                     "MemberType": "Function",
                     "Name": "CheckApplyDefaultClothing",
                     "Parameters": [
@@ -22764,6 +22998,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Avatar"
+                    ],
                     "MemberType": "Function",
                     "Name": "CheckApplyDefaultClothingAsync",
                     "Parameters": [
@@ -22786,6 +23023,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Avatar"
+                    ],
                     "MemberType": "Function",
                     "Name": "ConformToAvatarRules",
                     "Parameters": [
@@ -22809,6 +23049,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Avatar"
+                    ],
                     "MemberType": "Function",
                     "Name": "ConformToAvatarRulesAsync",
                     "Parameters": [
@@ -22862,6 +23105,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetBatchItemDetails",
                     "Parameters": [
@@ -22892,6 +23138,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetBatchItemDetailsAsync",
                     "Parameters": [
@@ -22921,6 +23170,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetFavorite",
                     "Parameters": [
@@ -22951,6 +23204,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetFavoriteAsync",
                     "Parameters": [
@@ -22995,6 +23252,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetInventory",
                     "Parameters": [
@@ -23018,6 +23279,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetInventoryAsync",
                     "Parameters": [
@@ -23040,6 +23305,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetItemDetails",
                     "Parameters": [
@@ -23070,6 +23338,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetItemDetailsAsync",
                     "Parameters": [
@@ -23099,6 +23370,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetOutfitDetails",
                     "Parameters": [
@@ -23122,6 +23396,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetOutfitDetailsAsync",
                     "Parameters": [
@@ -23144,6 +23421,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetOutfits",
                     "Parameters": [
@@ -23176,6 +23457,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetOutfitsAsync",
                     "Parameters": [
@@ -23207,6 +23492,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetRecommendedAssets",
                     "Parameters": [
@@ -23238,6 +23526,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetRecommendedAssetsAsync",
                     "Parameters": [
@@ -23268,6 +23559,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetRecommendedBundles",
                     "Parameters": [
@@ -23291,6 +23585,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetRecommendedBundlesAsync",
                     "Parameters": [
@@ -23313,6 +23610,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "SearchCatalog",
                     "Parameters": [
@@ -23336,6 +23636,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "AssetRead"
+                    ],
                     "MemberType": "Function",
                     "Name": "SearchCatalogAsync",
                     "Parameters": [
@@ -23498,6 +23801,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "AssetRead"
+                    ],
                     "MemberType": "Event",
                     "Name": "PromptAllowInventoryReadAccessCompleted",
                     "Parameters": [
@@ -23513,6 +23820,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "PlatformAvatarEditing"
+                    ],
                     "MemberType": "Event",
                     "Name": "PromptCreateOutfitCompleted",
                     "Parameters": [
@@ -23535,6 +23846,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "PlatformAvatarEditing"
+                    ],
                     "MemberType": "Event",
                     "Name": "PromptDeleteOutfitCompleted",
                     "Parameters": [
@@ -23550,6 +23865,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "PlatformAvatarEditing"
+                    ],
                     "MemberType": "Event",
                     "Name": "PromptRenameOutfitCompleted",
                     "Parameters": [
@@ -23565,6 +23884,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "PlatformAvatarEditing"
+                    ],
                     "MemberType": "Event",
                     "Name": "PromptSaveAvatarCompleted",
                     "Parameters": [
@@ -23609,6 +23932,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "PlatformAvatarEditing"
+                    ],
                     "MemberType": "Event",
                     "Name": "PromptSetFavoriteCompleted",
                     "Parameters": [
@@ -23624,6 +23951,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "PlatformAvatarEditing"
+                    ],
                     "MemberType": "Event",
                     "Name": "PromptUpdateOutfitCompleted",
                     "Parameters": [
@@ -32051,6 +32382,29 @@
                     },
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "BaseTextureContent",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Avatar"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "BaseTextureId",
                     "Security": {
                         "Read": "None",
@@ -32097,6 +32451,29 @@
                     },
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "MeshContent",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Avatar"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "MeshId",
                     "Security": {
                         "Read": "None",
@@ -32110,6 +32487,29 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "int64"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Avatar"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
+                    "Name": "OverlayTextureContent",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "DataType",
+                        "Name": "Content"
                     }
                 },
                 {
@@ -44037,6 +44437,42 @@
                         "DataStore"
                     ],
                     "MemberType": "Function",
+                    "Name": "SetRateLimitForRequestType",
+                    "Parameters": [
+                        {
+                            "Name": "requestType",
+                            "Type": {
+                                "Category": "Enum",
+                                "Name": "DataStoreRequestType"
+                            }
+                        },
+                        {
+                            "Name": "baseLimit",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        },
+                        {
+                            "Name": "perPlayerLimit",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "DataStore"
+                    ],
+                    "MemberType": "Function",
                     "Name": "ListDataStoresAsync",
                     "Parameters": [
                         {
@@ -48175,6 +48611,10 @@
         {
             "Members": [
                 {
+                    "Capabilities": [
+                        "Players",
+                        "Social"
+                    ],
                     "MemberType": "Function",
                     "Name": "InvokeOptInPromptClosed",
                     "Parameters": [
@@ -48187,6 +48627,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "Social"
+                    ],
                     "MemberType": "Function",
                     "Name": "PromptOptIn",
                     "Parameters": [
@@ -48199,6 +48643,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "Social"
+                    ],
                     "MemberType": "Function",
                     "Name": "CanPromptOptInAsync",
                     "Parameters": [
@@ -48214,6 +48662,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "Social"
+                    ],
                     "MemberType": "Event",
                     "Name": "OptInPromptClosed",
                     "Parameters": [
@@ -48222,6 +48674,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players",
+                        "Social"
+                    ],
                     "MemberType": "Event",
                     "Name": "PromptOptInRequested",
                     "Parameters": [
@@ -49100,6 +49556,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "AvatarBehavior"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "BlastPressure",
@@ -49118,6 +49579,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "AvatarBehavior"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "BlastRadius",
@@ -49136,6 +49602,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "AvatarBehavior"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "DestroyJointRadiusPercent",
@@ -49154,6 +49625,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "AvatarBehavior"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "ExplosionType",
@@ -49172,6 +49648,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "AvatarBehavior"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "LocalTransparencyModifier",
@@ -49194,6 +49675,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "AvatarBehavior"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "Position",
@@ -49212,6 +49698,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "AvatarBehavior"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "TimeScale",
@@ -49230,6 +49721,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "AvatarBehavior"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "Visible",
@@ -49248,6 +49744,9 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "AvatarBehavior"
+                    ],
                     "MemberType": "Event",
                     "Name": "Hit",
                     "Parameters": [
@@ -50796,8 +51295,23 @@
                     "Capabilities": [
                         "Animation"
                     ],
+                    "MemberType": "Function",
+                    "Name": "HasOverrideFACSData",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Animation"
+                    ],
                     "MemberType": "Event",
-                    "Name": "HasInternalFacsOverrideChanged",
+                    "Name": "InternalFacsOverrideChanged",
                     "Parameters": [
                     ],
                     "Security": "RobloxScriptSecurity",
@@ -52648,6 +53162,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "AvatarBehavior"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "Visible",
@@ -63049,7 +63568,12 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Monetization"
+                        ],
+                        "Write": [
+                            "UI",
+                            "Monetization"
                         ]
                     },
                     "Category": "Data",
@@ -63095,7 +63619,12 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Monetization"
+                        ],
+                        "Write": [
+                            "UI",
+                            "Monetization"
                         ]
                     },
                     "Category": "Behavior",
@@ -63191,7 +63720,8 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "UI",
+                        "Monetization"
                     ],
                     "MemberType": "Callback",
                     "Name": "OnAdEvent",
@@ -66194,6 +66724,16 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI",
+                            "Input"
+                        ],
+                        "Write": [
+                            "UI",
+                            "Input"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "AutoSelectGuiEnabled",
@@ -66212,6 +66752,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "CoreEffectFolder",
@@ -66234,6 +66779,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "CoreGuiFolder",
@@ -66256,6 +66806,16 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI",
+                            "Input"
+                        ],
+                        "Write": [
+                            "UI",
+                            "Input"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "CoreGuiNavigationEnabled",
@@ -66278,6 +66838,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "DisplayScalingMode",
@@ -66299,6 +66864,16 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI",
+                            "Input"
+                        ],
+                        "Write": [
+                            "UI",
+                            "Input"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "GuiNavigationEnabled",
@@ -66317,6 +66892,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "IsModalDialog",
@@ -66340,6 +66920,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "IsWindows",
@@ -66363,6 +66948,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "MenuIsOpen",
@@ -66385,6 +66975,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "PreferredTextSize",
@@ -66407,6 +67002,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "PreferredTransparency",
@@ -66430,6 +67030,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "ReducedMotionEnabled",
@@ -66453,6 +67058,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "SelectedCoreObject",
@@ -66475,6 +67085,16 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI",
+                            "Input"
+                        ],
+                        "Write": [
+                            "UI",
+                            "Input"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "SelectedObject",
@@ -66493,6 +67113,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "TopbarInset",
@@ -66515,6 +67140,16 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI",
+                            "Input"
+                        ],
+                        "Write": [
+                            "UI",
+                            "Input"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "TouchControlsEnabled",
@@ -66533,6 +67168,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "ViewportDisplaySize",
@@ -66555,6 +67195,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "UI"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "ViewportSizeInMM",
@@ -66577,6 +67222,9 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "AddCenterDialog",
                     "Parameters": [
@@ -66617,6 +67265,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "AddKey",
                     "Parameters": [
@@ -66636,6 +67287,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "AddSelectionParent",
                     "Parameters": [
@@ -66665,6 +67319,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "AddSelectionTuple",
                     "Parameters": [
@@ -66694,6 +67351,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "AddSpecialKey",
                     "Parameters": [
@@ -66713,6 +67373,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "BroadcastNotification",
                     "Parameters": [
@@ -66739,6 +67402,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "ClearError",
                     "Parameters": [
@@ -66751,6 +67417,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "CloseInspectMenu",
                     "Parameters": [
@@ -66763,6 +67432,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "CloseStatsBasedOnInputString",
                     "Parameters": [
@@ -66782,6 +67454,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "DismissNotification",
                     "Parameters": [
@@ -66801,6 +67476,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "ForceTenFootInterface",
                     "Parameters": [
@@ -66820,6 +67498,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetBrickCount",
                     "Parameters": [
@@ -66832,6 +67513,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetClosestDialogToPosition",
                     "Parameters": [
@@ -66851,6 +67535,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetClosestVisibleDialogToPosition",
                     "Parameters": [
@@ -66870,6 +67557,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetEmotesMenuOpen",
                     "Parameters": [
@@ -66882,6 +67572,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetErrorCode",
                     "Parameters": [
@@ -66894,6 +67587,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetErrorDetails",
                     "Parameters": [
@@ -66906,6 +67602,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetErrorMessage",
                     "Parameters": [
@@ -66921,6 +67620,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetErrorType",
                     "Parameters": [
@@ -66933,6 +67635,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetGameplayPausedNotificationEnabled",
                     "Parameters": [
@@ -66945,6 +67650,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetGuiInset",
                     "Parameters": [
@@ -66957,6 +67665,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetGuiIsVisible",
                     "Parameters": [
@@ -66976,6 +67687,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetHardwareSafeViewport",
                     "Parameters": [
@@ -66988,6 +67702,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetInsetArea",
                     "Parameters": [
@@ -67007,6 +67724,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetInspectMenuEnabled",
                     "Parameters": [
@@ -67019,6 +67739,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetNotificationTypeList",
                     "Parameters": [
@@ -67031,6 +67754,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetRawScreenScale",
                     "Parameters": [
@@ -67043,6 +67769,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetResolutionScale",
                     "Parameters": [
@@ -67055,6 +67784,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetSafeZoneOffsets",
                     "Parameters": [
@@ -67067,6 +67799,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetUiMessage",
                     "Parameters": [
@@ -67079,6 +67814,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI",
+                        "Avatar"
+                    ],
                     "MemberType": "Function",
                     "Name": "InspectPlayerFromHumanoidDescription",
                     "Parameters": [
@@ -67105,6 +67844,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI",
+                        "Avatar"
+                    ],
                     "MemberType": "Function",
                     "Name": "InspectPlayerFromUserId",
                     "Parameters": [
@@ -67124,6 +67867,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "InspectPlayerFromUserIdWithCtx",
                     "Parameters": [
@@ -67150,6 +67896,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "IsMemoryTrackerEnabled",
                     "Parameters": [
@@ -67162,6 +67911,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "IsTenFootInterface",
                     "Parameters": [
@@ -67174,6 +67926,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "OnNotificationDisplayed",
                     "Parameters": [
@@ -67193,6 +67948,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "OnNotificationInteraction",
                     "Parameters": [
@@ -67219,6 +67977,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "OpenBrowserWindow",
                     "Parameters": [
@@ -67241,6 +68002,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "OpenNativeOverlay",
                     "Parameters": [
@@ -67270,6 +68034,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "RemoveCenterDialog",
                     "Parameters": [
@@ -67289,6 +68056,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "RemoveKey",
                     "Parameters": [
@@ -67308,6 +68078,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "RemoveSelectionGroup",
                     "Parameters": [
@@ -67330,6 +68103,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "RemoveSpecialKey",
                     "Parameters": [
@@ -67349,6 +68125,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "Select",
                     "Parameters": [
@@ -67368,6 +68147,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "SendNotification",
                     "Parameters": [
@@ -67387,6 +68169,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "SendUIOcclusionMetricsForQueryRegion",
                     "Parameters": [
@@ -67420,6 +68205,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetEmotesMenuOpen",
                     "Parameters": [
@@ -67439,6 +68227,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetGameplayPausedNotificationEnabled",
                     "Parameters": [
@@ -67458,6 +68249,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetGlobalGuiInset",
                     "Parameters": [
@@ -67498,6 +68292,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetHardwareSafeAreaInsets",
                     "Parameters": [
@@ -67538,6 +68335,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetInspectMenuEnabled",
                     "Parameters": [
@@ -67557,6 +68357,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetMenuIsOpen",
                     "Parameters": [
@@ -67584,6 +68387,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetPurchasePromptIsShown",
                     "Parameters": [
@@ -67603,6 +68409,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetSafeZoneOffsets",
                     "Parameters": [
@@ -67643,6 +68452,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetTopbarInset",
                     "Parameters": [
@@ -67662,6 +68474,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetUiMessage",
                     "Parameters": [
@@ -67689,6 +68504,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "ShowStatsBasedOnInputString",
                     "Parameters": [
@@ -67708,6 +68526,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "ToggleFullscreen",
                     "Parameters": [
@@ -67720,6 +68541,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "ToggleGuiIsVisibleForCaptures",
                     "Parameters": [
@@ -67739,6 +68563,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "ToggleGuiIsVisibleIfAllowed",
                     "Parameters": [
@@ -67758,6 +68585,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetScreenResolution",
                     "Parameters": [
@@ -67773,6 +68603,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "BrowserWindowClosed",
                     "Parameters": [
@@ -67784,6 +68617,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "CloseInspectMenuRequest",
                     "Parameters": [
@@ -67792,6 +68628,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "CoreGuiRenderOverflowed",
                     "Parameters": [
@@ -67800,6 +68639,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "EmotesMenuOpenChanged",
                     "Parameters": [
@@ -67815,6 +68657,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "ErrorMessageChanged",
                     "Parameters": [
@@ -67833,6 +68678,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "GuiVisibilityChangedSignal",
                     "Parameters": [
@@ -67855,6 +68703,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "InspectMenuEnabledChangedSignal",
                     "Parameters": [
@@ -67870,6 +68721,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "InspectPlayerFromHumanoidDescriptionRequest",
                     "Parameters": [
@@ -67892,6 +68746,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "InspectPlayerFromUserIdWithCtxRequest",
                     "Parameters": [
@@ -67914,6 +68771,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "KeyPressed",
                     "Parameters": [
@@ -67936,6 +68796,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "MenuClosed",
                     "Parameters": [
@@ -67944,6 +68807,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "MenuOpened",
                     "Parameters": [
@@ -67952,6 +68818,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "NativeClose",
                     "Parameters": [
@@ -67960,6 +68829,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "NetworkPausedEnabledChanged",
                     "Parameters": [
@@ -67975,6 +68847,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "Open9SliceEditor",
                     "Parameters": [
@@ -67990,6 +68865,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "OpenStyleEditor",
                     "Parameters": [
@@ -68005,6 +68883,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "PurchasePromptShown",
                     "Parameters": [
@@ -68013,6 +68894,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "SafeZoneOffsetsChanged",
                     "Parameters": [
@@ -68021,6 +68905,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "ShowLeaveConfirmation",
                     "Parameters": [
@@ -68029,6 +68916,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "SpecialKeyPressed",
                     "Parameters": [
@@ -68051,6 +68941,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Event",
                     "Name": "UiMessageChanged",
                     "Parameters": [
@@ -68073,6 +68966,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI"
+                    ],
                     "MemberType": "Callback",
                     "Name": "SendCoreUiNotification",
                     "Parameters": [
@@ -70824,7 +71720,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Jump Settings",
@@ -70847,7 +71747,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Control",
@@ -70871,6 +71775,9 @@
                     "Capabilities": {
                         "Read": [
                             "Avatar"
+                        ],
+                        "Write": [
+                            "Avatar"
                         ]
                     },
                     "Category": "Game",
@@ -70893,7 +71800,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Behavior",
@@ -70916,7 +71827,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Data",
@@ -70966,6 +71881,9 @@
                     "Capabilities": {
                         "Read": [
                             "Avatar"
+                        ],
+                        "Write": [
+                            "Avatar"
                         ]
                     },
                     "Category": "Data",
@@ -70989,6 +71907,9 @@
                     "Capabilities": {
                         "Read": [
                             "Avatar"
+                        ],
+                        "Write": [
+                            "Avatar"
                         ]
                     },
                     "Category": "Data",
@@ -71011,7 +71932,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Behavior",
@@ -71034,7 +71959,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Control",
@@ -71061,7 +71990,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Game",
@@ -71088,6 +72021,9 @@
                     "Capabilities": {
                         "Read": [
                             "Avatar"
+                        ],
+                        "Write": [
+                            "Avatar"
                         ]
                     },
                     "Category": "Data",
@@ -71111,6 +72047,9 @@
                     "Capabilities": {
                         "Read": [
                             "Avatar"
+                        ],
+                        "Write": [
+                            "Avatar"
                         ]
                     },
                     "Category": "Data",
@@ -71133,6 +72072,9 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Avatar"
+                        ],
+                        "Write": [
                             "Avatar"
                         ]
                     },
@@ -71183,7 +72125,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Control",
@@ -71209,7 +72155,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Jump Settings",
@@ -71232,7 +72182,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Jump Settings",
@@ -71283,7 +72237,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Game",
@@ -71306,7 +72264,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Game",
@@ -71329,7 +72291,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Control",
@@ -71357,6 +72323,9 @@
                     "Capabilities": {
                         "Read": [
                             "Avatar"
+                        ],
+                        "Write": [
+                            "Avatar"
                         ]
                     },
                     "Category": "Data",
@@ -71380,6 +72349,9 @@
                     "Capabilities": {
                         "Read": [
                             "Avatar"
+                        ],
+                        "Write": [
+                            "Avatar"
                         ]
                     },
                     "Category": "Data",
@@ -71402,7 +72374,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Control",
@@ -71425,7 +72401,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Behavior",
@@ -71448,6 +72428,9 @@
                 {
                     "Capabilities": {
                         "Read": [
+                            "Avatar"
+                        ],
+                        "Write": [
                             "Avatar"
                         ]
                     },
@@ -71499,7 +72482,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Data",
@@ -71526,7 +72513,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Control",
@@ -71553,7 +72544,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Control",
@@ -71576,7 +72571,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Control",
@@ -71627,7 +72626,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Jump Settings",
@@ -71650,7 +72653,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Game",
@@ -71673,7 +72680,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Control",
@@ -71696,7 +72707,11 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "Avatar"
+                            "Avatar",
+                            "AvatarBehavior"
+                        ],
+                        "Write": [
+                            "AvatarBehavior"
                         ]
                     },
                     "Category": "Control",
@@ -71818,7 +72833,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Function",
                     "Name": "BuildRigFromAttachments",
@@ -71833,7 +72849,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Function",
                     "Name": "ChangeState",
@@ -71899,7 +72916,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Function",
                     "Name": "EquipTool",
@@ -71980,7 +72998,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Function",
                     "Name": "GetBodyPartR15",
@@ -72002,7 +73021,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Function",
                     "Name": "GetLimb",
@@ -72024,7 +73044,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Function",
                     "Name": "GetMoveVelocity",
@@ -72057,7 +73078,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Function",
                     "Name": "GetState",
@@ -72072,7 +73094,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Function",
                     "Name": "GetStateEnabled",
@@ -72188,7 +73211,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Function",
                     "Name": "Move",
@@ -72218,7 +73242,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Function",
                     "Name": "MoveTo",
@@ -72365,7 +73390,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Function",
                     "Name": "SetStateEnabled",
@@ -72394,7 +73420,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Function",
                     "Name": "TakeDamage",
@@ -72416,7 +73443,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Function",
                     "Name": "UnequipTools",
@@ -72680,7 +73708,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Function",
                     "Name": "PlayEmote",
@@ -72731,7 +73760,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Function",
                     "Name": "PlayEmoteAsync",
@@ -72795,7 +73825,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "Climbing",
@@ -72866,7 +73897,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "Died",
@@ -72902,7 +73934,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "FallingDown",
@@ -72920,7 +73953,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "FreeFalling",
@@ -72938,7 +73972,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "GettingUp",
@@ -72956,7 +73991,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "HealthChanged",
@@ -72974,7 +74010,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "Jumping",
@@ -72992,7 +74029,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "MoveToFinished",
@@ -73010,7 +74048,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "PlatformStanding",
@@ -73028,7 +74067,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "Ragdoll",
@@ -73046,7 +74086,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "Running",
@@ -73064,7 +74105,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "Seated",
@@ -73089,7 +74131,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "StateChanged",
@@ -73114,7 +74157,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "StateEnabledChanged",
@@ -73181,7 +74225,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "Strafing",
@@ -73199,7 +74244,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "Swimming",
@@ -73217,7 +74263,8 @@
                 },
                 {
                     "Capabilities": [
-                        "Avatar"
+                        "Avatar",
+                        "AvatarBehavior"
                     ],
                     "MemberType": "Event",
                     "Name": "Touched",
@@ -74111,6 +75158,32 @@
                     "ValueType": {
                         "Category": "Primitive",
                         "Name": "string"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Avatar"
+                        ],
+                        "Write": [
+                            "Avatar"
+                        ]
+                    },
+                    "Category": "Animation",
+                    "MemberType": "Property",
+                    "Name": "StaticFacialAnimation",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -79010,6 +80083,32 @@
                     "ValueType": {
                         "Category": "Enum",
                         "Name": "KeyCode"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Input"
+                        ],
+                        "Write": [
+                            "Input"
+                        ]
+                    },
+                    "Category": "Composite Directions",
+                    "MemberType": "Property",
+                    "Name": "ClampMagnitudeToOne",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     }
                 },
                 {
@@ -87644,6 +88743,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "AsphaltName",
@@ -87665,6 +88769,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "BasaltName",
@@ -87686,6 +88795,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "BrickName",
@@ -87707,6 +88821,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "CardboardName",
@@ -87728,6 +88847,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "CarpetName",
@@ -87749,6 +88873,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "CeramicTilesName",
@@ -87770,6 +88899,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "ClayRoofTilesName",
@@ -87791,6 +88925,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "CobblestoneName",
@@ -87812,6 +88951,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "ConcreteName",
@@ -87833,6 +88977,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "CorrodedMetalName",
@@ -87854,6 +89003,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "CrackedLavaName",
@@ -87875,6 +89029,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "DiamondPlateName",
@@ -87896,6 +89055,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "FabricName",
@@ -87917,6 +89081,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "FoilName",
@@ -87938,6 +89107,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "GlacierName",
@@ -87959,6 +89133,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "GraniteName",
@@ -87980,6 +89159,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "GrassName",
@@ -88001,6 +89185,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "GroundName",
@@ -88022,6 +89211,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "IceName",
@@ -88043,6 +89237,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "LeafyGrassName",
@@ -88064,6 +89263,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "LeatherName",
@@ -88085,6 +89289,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "LimestoneName",
@@ -88106,6 +89315,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "MarbleName",
@@ -88127,6 +89341,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "MetalName",
@@ -88148,6 +89367,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "MudName",
@@ -88169,6 +89393,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "PavementName",
@@ -88190,6 +89419,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "PebbleName",
@@ -88211,6 +89445,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "PlasterName",
@@ -88232,6 +89471,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "PlasticName",
@@ -88253,6 +89497,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "RockName",
@@ -88274,6 +89523,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "RoofShinglesName",
@@ -88295,6 +89549,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "RubberName",
@@ -88316,6 +89575,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "SaltName",
@@ -88337,6 +89601,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "SandName",
@@ -88358,6 +89627,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "SandstoneName",
@@ -88379,6 +89653,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "SlateName",
@@ -88400,6 +89679,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "SmoothPlasticName",
@@ -88421,6 +89705,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "SnowName",
@@ -88442,6 +89731,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Pack",
                     "MemberType": "Property",
                     "Name": "Use2022Materials",
@@ -88463,6 +89757,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "WoodName",
@@ -88484,6 +89783,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material Overrides",
                     "MemberType": "Property",
                     "Name": "WoodPlanksName",
@@ -88505,6 +89809,9 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "Material"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetBaseMaterialOverride",
                     "Parameters": [
@@ -88524,6 +89831,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Material"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetIsMaterialActionAsToolEnabled",
                     "Parameters": [
@@ -88536,6 +89846,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Material"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetMaterialOverrideChanged",
                     "Parameters": [
@@ -88555,6 +89868,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Material"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetMaterialVariant",
                     "Parameters": [
@@ -88581,6 +89897,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Material"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetOverrideStatus",
                     "Parameters": [
@@ -88600,6 +89919,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Material"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetBaseMaterialOverride",
                     "Parameters": [
@@ -88626,6 +89948,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Material"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetCurrentMaterial",
                     "Parameters": [
@@ -88652,6 +89977,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Material"
+                    ],
                     "MemberType": "Function",
                     "Name": "ToggleMaterialFillToolEnabled",
                     "Parameters": [
@@ -88664,6 +89992,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Material"
+                    ],
                     "MemberType": "Event",
                     "Name": "MaterialFillToolEnabledChanged",
                     "Parameters": [
@@ -88679,6 +90010,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Material"
+                    ],
                     "MemberType": "Event",
                     "Name": "OverrideStatusChanged",
                     "Parameters": [
@@ -88705,6 +90039,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "AlphaMode",
@@ -88726,6 +90065,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "BaseMaterial",
@@ -88744,6 +90088,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "ColorMap",
@@ -88762,6 +90111,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "ColorMapContent",
@@ -88780,6 +90134,14 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ],
+                        "Write": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Material",
                     "MemberType": "Property",
                     "Name": "CustomPhysicalProperties",
@@ -88798,6 +90160,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "EmissiveMaskContent",
@@ -88816,6 +90183,14 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ],
+                        "Write": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "EmissiveStrength",
@@ -88834,6 +90209,14 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ],
+                        "Write": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "EmissiveTint",
@@ -88852,6 +90235,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "MaterialPattern",
@@ -88870,6 +90258,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "MetalnessMap",
@@ -88888,6 +90281,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "MetalnessMapContent",
@@ -88906,6 +90304,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "NormalMap",
@@ -88924,6 +90327,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "NormalMapContent",
@@ -88942,6 +90350,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "RoughnessMap",
@@ -88960,6 +90373,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "RoughnessMapContent",
@@ -88978,6 +90396,14 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Material"
+                        ],
+                        "Write": [
+                            "Material"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "StudsPerTile",
@@ -92005,6 +93431,10 @@
         {
             "Members": [
                 {
+                    "Capabilities": [
+                        "Network",
+                        "Players"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetPlayer",
                     "Parameters": [
@@ -92028,6 +93458,9 @@
         {
             "Members": [
                 {
+                    "Capabilities": [
+                        "Network"
+                    ],
                     "MemberType": "Function",
                     "Name": "IsStreamedOut",
                     "Parameters": [
@@ -92047,6 +93480,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Network"
+                    ],
                     "MemberType": "Function",
                     "Name": "RequestRCCProfilerData",
                     "Parameters": [
@@ -92073,6 +93509,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Network"
+                    ],
                     "MemberType": "Function",
                     "Name": "RequestServerStats",
                     "Parameters": [
@@ -92092,6 +93531,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Network"
+                    ],
                     "MemberType": "Event",
                     "Name": "RCCProfilerDataComplete",
                     "Parameters": [
@@ -92114,6 +93556,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Network"
+                    ],
                     "MemberType": "Event",
                     "Name": "StatsReceived",
                     "Parameters": [
@@ -92151,6 +93596,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Network"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "EmulatedTotalMemoryInMB",
@@ -92173,6 +93623,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Network"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "FreeMemoryMBytes",
@@ -92196,6 +93651,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Network"
+                        ]
+                    },
                     "Category": "Proxy Settings",
                     "MemberType": "Property",
                     "Name": "HttpProxyEnabled",
@@ -92214,6 +93674,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Network"
+                        ]
+                    },
                     "Category": "Proxy Settings",
                     "MemberType": "Property",
                     "Name": "HttpProxyURL",
@@ -92232,6 +93697,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Network"
+                        ]
+                    },
                     "Category": "Diagnostics",
                     "MemberType": "Property",
                     "Name": "IncomingReplicationLag",
@@ -92250,6 +93720,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Network"
+                        ]
+                    },
                     "Category": "Diagnostics",
                     "MemberType": "Property",
                     "Name": "PrintJoinSizeBreakdown",
@@ -92268,6 +93743,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Network"
+                        ]
+                    },
                     "Category": "Diagnostics",
                     "MemberType": "Property",
                     "Name": "PrintPhysicsErrors",
@@ -92286,6 +93766,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Network"
+                        ]
+                    },
                     "Category": "Diagnostics",
                     "MemberType": "Property",
                     "Name": "PrintStreamInstanceQuota",
@@ -92304,6 +93789,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Network"
+                        ]
+                    },
                     "Category": "Advanced",
                     "MemberType": "Property",
                     "Name": "RandomizeJoinInstanceOrder",
@@ -92322,6 +93812,11 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Network"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "RenderStreamedRegions",
@@ -92340,6 +93835,16 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Network",
+                            "Animation"
+                        ],
+                        "Write": [
+                            "Network",
+                            "Animation"
+                        ]
+                    },
                     "Category": "Appearance",
                     "MemberType": "Property",
                     "Name": "ShowActiveAnimationAsset",
@@ -111490,6 +112995,9 @@
         {
             "Members": [
                 {
+                    "Capabilities": [
+                        "Players"
+                    ],
                     "MemberType": "Function",
                     "Name": "ClearComputerCameraMovementModes",
                     "Parameters": [
@@ -111502,6 +113010,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input",
+                        "Players"
+                    ],
                     "MemberType": "Function",
                     "Name": "ClearComputerMovementModes",
                     "Parameters": [
@@ -111514,6 +113026,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players"
+                    ],
                     "MemberType": "Function",
                     "Name": "ClearTouchCameraMovementModes",
                     "Parameters": [
@@ -111526,6 +113041,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input",
+                        "Players"
+                    ],
                     "MemberType": "Function",
                     "Name": "ClearTouchMovementModes",
                     "Parameters": [
@@ -111538,6 +113057,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetRegisteredComputerCameraMovementModes",
                     "Parameters": [
@@ -111550,6 +113072,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetRegisteredComputerMovementModes",
                     "Parameters": [
@@ -111562,6 +113087,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetRegisteredTouchCameraMovementModes",
                     "Parameters": [
@@ -111574,6 +113102,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetRegisteredTouchMovementModes",
                     "Parameters": [
@@ -111586,6 +113117,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players"
+                    ],
                     "MemberType": "Function",
                     "Name": "RegisterComputerCameraMovementMode",
                     "Parameters": [
@@ -111605,6 +113139,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input",
+                        "Players"
+                    ],
                     "MemberType": "Function",
                     "Name": "RegisterComputerMovementMode",
                     "Parameters": [
@@ -111624,6 +113162,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players"
+                    ],
                     "MemberType": "Function",
                     "Name": "RegisterTouchCameraMovementMode",
                     "Parameters": [
@@ -111643,6 +113184,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Input",
+                        "Players"
+                    ],
                     "MemberType": "Function",
                     "Name": "RegisterTouchMovementMode",
                     "Parameters": [
@@ -111662,6 +113207,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players"
+                    ],
                     "MemberType": "Event",
                     "Name": "ComputerCameraMovementModeRegistered",
                     "Parameters": [
@@ -111670,6 +113218,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players"
+                    ],
                     "MemberType": "Event",
                     "Name": "ComputerMovementModeRegistered",
                     "Parameters": [
@@ -111678,6 +113229,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players"
+                    ],
                     "MemberType": "Event",
                     "Name": "TouchCameraMovementModeRegistered",
                     "Parameters": [
@@ -111686,6 +113240,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Players"
+                    ],
                     "MemberType": "Event",
                     "Name": "TouchMovementModeRegistered",
                     "Parameters": [
@@ -116509,7 +118066,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Data",
@@ -116532,7 +118090,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Localization",
@@ -116555,7 +118114,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Data",
@@ -116578,7 +118138,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Data",
@@ -116601,7 +118162,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Data",
@@ -116624,7 +118186,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Data",
@@ -116647,7 +118210,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Data",
@@ -116670,7 +118234,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Data",
@@ -116693,7 +118258,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Data",
@@ -116716,7 +118282,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Data",
@@ -116739,7 +118306,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Data",
@@ -116762,7 +118330,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Data",
@@ -116785,7 +118354,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Localization",
@@ -116808,7 +118378,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Data",
@@ -116831,7 +118402,8 @@
                 {
                     "Capabilities": {
                         "Read": [
-                            "UI"
+                            "UI",
+                            "Input"
                         ]
                     },
                     "Category": "Data",
@@ -116853,7 +118425,8 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Function",
                     "Name": "InputHoldBegin",
@@ -116868,7 +118441,8 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Function",
                     "Name": "InputHoldEnd",
@@ -116883,7 +118457,8 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "IndicatorHidden",
@@ -116894,7 +118469,8 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "IndicatorShown",
@@ -116905,7 +118481,8 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "PromptButtonHoldBegan",
@@ -116923,7 +118500,8 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "PromptButtonHoldEnded",
@@ -116941,7 +118519,8 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "PromptHidden",
@@ -116952,7 +118531,8 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "PromptShown",
@@ -116970,7 +118550,8 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "TriggerEnded",
@@ -116988,7 +118569,8 @@
                 },
                 {
                     "Capabilities": [
-                        "UI"
+                        "UI",
+                        "Input"
                     ],
                     "MemberType": "Event",
                     "Name": "Triggered",
@@ -128661,6 +130243,32 @@
                     "Capabilities": {
                         "Read": [
                             "LegacySound"
+                        ],
+                        "Write": [
+                            "LegacySound"
+                        ]
+                    },
+                    "Category": "Emitter",
+                    "MemberType": "Property",
+                    "Name": "AcousticSimulationEnabled",
+                    "Security": {
+                        "Read": "None",
+                        "Write": "None"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "LegacySound"
                         ]
                     },
                     "Category": "Asset",
@@ -128674,6 +130282,9 @@
                         "CanLoad": true,
                         "CanSave": true
                     },
+                    "Tags": [
+                        "Hidden"
+                    ],
                     "ThreadSafety": "ReadSafe",
                     "ValueType": {
                         "Category": "DataType",
@@ -135151,6 +136762,24 @@
                 {
                     "Category": "Camera",
                     "MemberType": "Property",
+                    "Name": "CameraNavigationModel",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Enum",
+                        "Name": "CameraNavigationModel"
+                    }
+                },
+                {
+                    "Category": "Camera",
+                    "MemberType": "Property",
                     "Name": "CameraOrbitSensitivity",
                     "Security": {
                         "Read": "RobloxScriptSecurity",
@@ -138293,6 +139922,46 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "ResolveSaveInstanceToRoblox",
+                    "Parameters": [
+                        {
+                            "Name": "requestId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "assetId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64?"
+                            }
+                        },
+                        {
+                            "Name": "assetName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string?"
+                            }
+                        },
+                        {
+                            "Name": "errorMessage",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string?"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "ShowSaveToRoblox",
                     "Parameters": [
                         {
@@ -138513,6 +140182,35 @@
                 },
                 {
                     "MemberType": "Function",
+                    "Name": "PromptSaveInstanceToRobloxAsync",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "assetType",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Tuple"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "Tags": [
+                        "Yields"
+                    ],
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "RequestAvatarAutosetupAsync",
                     "Parameters": [
                         {
@@ -138598,6 +140296,35 @@
                         },
                         {
                             "Name": "errorMessage",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OnPromptSaveInstanceToRobloxAsync",
+                    "Parameters": [
+                        {
+                            "Name": "instance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "assetType",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        },
+                        {
+                            "Name": "requestId",
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "string"
@@ -138949,10 +140676,28 @@
                 {
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "FocusDistance",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": true,
+                        "CanSave": true
+                    },
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "float"
+                    }
+                },
+                {
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "LockCameraSpeed",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -138969,8 +140714,8 @@
                     "MemberType": "Property",
                     "Name": "LoggingEnabled",
                     "Security": {
-                        "Read": "None",
-                        "Write": "None"
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
                     },
                     "Serialization": {
                         "CanLoad": true,
@@ -138981,6 +140726,95 @@
                         "Category": "Primitive",
                         "Name": "bool"
                     }
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "InFocusMode",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "InterpolateView",
+                    "Parameters": [
+                        {
+                            "Name": "target",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "CFrame"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "SetFocusLock",
+                    "Parameters": [
+                        {
+                            "Name": "value",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "FocusStateChanged",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OnMouseCaptureBegin",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "OnMouseCaptureEnd",
+                    "Parameters": [
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "PointFocused",
+                    "Parameters": [
+                        {
+                            "Name": "point",
+                            "Type": {
+                                "Category": "DataType",
+                                "Name": "Vector3"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
                 },
                 {
                     "MemberType": "Event",
@@ -138994,7 +140828,22 @@
                             }
                         }
                     ],
-                    "Security": "None",
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Event",
+                    "Name": "UpdateUI",
+                    "Parameters": [
+                        {
+                            "Name": "deltaTime",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "double"
+                            }
+                        }
+                    ],
+                    "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
                 }
             ],
@@ -141329,6 +143178,21 @@
                         "UI"
                     ],
                     "MemberType": "Function",
+                    "Name": "GetPropertyTransitions",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "UI"
+                    ],
+                    "MemberType": "Function",
                     "Name": "SetProperties",
                     "Parameters": [
                         {
@@ -141365,6 +143229,57 @@
                             "Type": {
                                 "Category": "Group",
                                 "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "UI"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "SetPropertyTransition",
+                    "Parameters": [
+                        {
+                            "Name": "property",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        },
+                        {
+                            "Name": "transitionParams",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Variant"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "UI"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "SetPropertyTransitions",
+                    "Parameters": [
+                        {
+                            "Name": "properties",
+                            "Type": {
+                                "Category": "Group",
+                                "Name": "Dictionary"
                             }
                         }
                     ],
@@ -142220,6 +144135,18 @@
             "Members": [
                 {
                     "MemberType": "Function",
+                    "Name": "getSystemTheme",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Enum",
+                        "Name": "SystemThemeValue"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
                     "Name": "isSystemThemeAvailable",
                     "Parameters": [
                     ],
@@ -143027,6 +144954,11 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Teleport"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "CustomizedTeleportUI",
@@ -143049,6 +144981,9 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "Block",
                     "Parameters": [
@@ -143061,6 +144996,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI",
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetArrivingTeleportGui",
                     "Parameters": [
@@ -143073,6 +145012,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetLocalPlayerTeleportData",
                     "Parameters": [
@@ -143085,6 +145027,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetTeleportSetting",
                     "Parameters": [
@@ -143104,6 +145049,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetThirdPartyTeleportInfo",
                     "Parameters": [
@@ -143123,6 +145071,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "PromptExperienceDetailsCompleted",
                     "Parameters": [
@@ -143150,6 +145101,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI",
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetTeleportGui",
                     "Parameters": [
@@ -143169,6 +145124,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "SetTeleportSetting",
                     "Parameters": [
@@ -143195,6 +145153,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI",
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "Teleport",
                     "Parameters": [
@@ -143237,6 +145199,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "TeleportCancel",
                     "Parameters": [
@@ -143249,6 +145214,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "TeleportReconnect",
                     "Parameters": [
@@ -143261,6 +145229,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI",
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "TeleportToPlaceInstance",
                     "Parameters": [
@@ -143318,6 +145290,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI",
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "TeleportToPrivateServer",
                     "Parameters": [
@@ -143374,6 +145350,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI",
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "TeleportToSpawnByName",
                     "Parameters": [
@@ -143423,6 +145403,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "TeleportTrustedBackForth",
                     "Parameters": [
@@ -143442,6 +145425,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "TeleportTrustedBackHistory",
                     "Parameters": [
@@ -143461,6 +145447,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "TeleportedPlacesBackHistory",
                     "Parameters": [
@@ -143473,6 +145462,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "TeleportedUniversesBackHistory",
                     "Parameters": [
@@ -143485,6 +145477,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "GetPlayerPlaceInstanceAsync",
                     "Parameters": [
@@ -143507,6 +145502,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "PromptExperienceDetailsAsync",
                     "Parameters": [
@@ -143536,6 +145534,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "ReserveServer",
                     "Parameters": [
@@ -143559,6 +145560,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "ReserveServerAsync",
                     "Parameters": [
@@ -143581,6 +145585,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI",
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "TeleportAsync",
                     "Parameters": [
@@ -143618,6 +145626,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "UI",
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "TeleportPartyAsync",
                     "Parameters": [
@@ -143662,6 +145674,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Function",
                     "Name": "UnblockAsync",
                     "Parameters": [
@@ -143677,6 +145692,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Event",
                     "Name": "LocalPlayerArrivedFromTeleport",
                     "Parameters": [
@@ -143699,6 +145717,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Event",
                     "Name": "MenuTeleportAttempt",
                     "Parameters": [
@@ -143707,6 +145728,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Event",
                     "Name": "OpenExperienceDetailsPrompt",
                     "Parameters": [
@@ -143722,6 +145746,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Event",
                     "Name": "ReconnectTeleportInitFailed",
                     "Parameters": [
@@ -143765,6 +145792,9 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Teleport"
+                    ],
                     "MemberType": "Event",
                     "Name": "TeleportInitFailed",
                     "Parameters": [
@@ -144926,6 +146956,36 @@
                         "InternalTest"
                     ],
                     "MemberType": "Function",
+                    "Name": "StartTestSession",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "StopTestSession",
+                    "Parameters": [
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
                     "Name": "TakeSnapshot",
                     "Parameters": [
                         {
@@ -145015,6 +147075,28 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "null"
+                    },
+                    "Security": "None",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "InternalTest"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "getTestSessionProviderStats",
+                    "Parameters": [
+                        {
+                            "Name": "providerName",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "string"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Group",
+                        "Name": "Dictionary"
                     },
                     "Security": "None",
                     "ThreadSafety": "Unsafe"
@@ -147151,6 +149233,32 @@
                     },
                     "Category": "Data",
                     "MemberType": "Property",
+                    "Name": "ForModeration",
+                    "Security": {
+                        "Read": "RobloxScriptSecurity",
+                        "Write": "RobloxScriptSecurity"
+                    },
+                    "Serialization": {
+                        "CanLoad": false,
+                        "CanSave": false
+                    },
+                    "Tags": [
+                        "Hidden"
+                    ],
+                    "ThreadSafety": "ReadSafe",
+                    "ValueType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    }
+                },
+                {
+                    "Capabilities": {
+                        "Read": [
+                            "Chat"
+                        ]
+                    },
+                    "Category": "Data",
+                    "MemberType": "Property",
                     "Name": "MessageId",
                     "Security": {
                         "Read": "None",
@@ -148096,6 +150204,35 @@
                     "ReturnType": {
                         "Category": "Primitive",
                         "Name": "null"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "Capabilities": [
+                        "Chat"
+                    ],
+                    "MemberType": "Function",
+                    "Name": "setModerationModeEnabled",
+                    "Parameters": [
+                        {
+                            "Name": "userId",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "int64"
+                            }
+                        },
+                        {
+                            "Name": "enabled",
+                            "Type": {
+                                "Category": "Primitive",
+                                "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
                     },
                     "Security": "RobloxScriptSecurity",
                     "ThreadSafety": "Unsafe"
@@ -152215,6 +154352,32 @@
                             "Type": {
                                 "Category": "Primitive",
                                 "Name": "bool"
+                            }
+                        }
+                    ],
+                    "ReturnType": {
+                        "Category": "Primitive",
+                        "Name": "bool"
+                    },
+                    "Security": "RobloxScriptSecurity",
+                    "ThreadSafety": "Unsafe"
+                },
+                {
+                    "MemberType": "Function",
+                    "Name": "ValidateHSRMeshIds",
+                    "Parameters": [
+                        {
+                            "Name": "wrapLayerInstance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
+                            }
+                        },
+                        {
+                            "Name": "hsrInstance",
+                            "Type": {
+                                "Category": "Class",
+                                "Name": "Instance"
                             }
                         }
                     ],
@@ -164116,6 +166279,12 @@
         {
             "Members": [
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Chat"
+                        ]
+                    },
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "DefaultDistanceAttenuation",
@@ -164134,6 +166303,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Chat"
+                        ]
+                    },
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "EnableDefaultVoice",
@@ -164152,6 +166327,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Chat"
+                        ]
+                    },
                     "Category": "Behavior",
                     "MemberType": "Property",
                     "Name": "UseAudioApi",
@@ -164170,6 +166351,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Chat"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "UseNewAudioApi",
@@ -164191,6 +166378,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Chat"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "UseNewControlPaths",
@@ -164212,6 +166405,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Chat"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "UseNewJoinFlow",
@@ -164233,6 +166432,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Chat"
+                        ]
+                    },
                     "Category": "Data",
                     "MemberType": "Property",
                     "Name": "UseStreamSwitching",
@@ -164254,6 +166459,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Chat"
+                        ]
+                    },
                     "Category": "State",
                     "MemberType": "Property",
                     "Name": "VoiceChatEnabledForPlaceOnRcc",
@@ -164275,6 +166486,12 @@
                     }
                 },
                 {
+                    "Capabilities": {
+                        "Read": [
+                            "Audio",
+                            "Chat"
+                        ]
+                    },
                     "Category": "State",
                     "MemberType": "Property",
                     "Name": "VoiceChatEnabledForUniverseOnRcc",
@@ -164296,6 +166513,10 @@
                     }
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Chat"
+                    ],
                     "MemberType": "Function",
                     "Name": "getInternalChannelId",
                     "Parameters": [
@@ -164308,6 +166529,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Chat"
+                    ],
                     "MemberType": "Function",
                     "Name": "getInternalGroupId",
                     "Parameters": [
@@ -164320,6 +166545,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Chat"
+                    ],
                     "MemberType": "Function",
                     "Name": "getInternalPublishPause",
                     "Parameters": [
@@ -164332,6 +166561,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Chat"
+                    ],
                     "MemberType": "Function",
                     "Name": "getInternalSessionId",
                     "Parameters": [
@@ -164344,6 +166577,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Chat"
+                    ],
                     "MemberType": "Function",
                     "Name": "getInternalSubscribePause",
                     "Parameters": [
@@ -164363,6 +166600,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Chat"
+                    ],
                     "MemberType": "Function",
                     "Name": "getInternalSubscribePauseAll",
                     "Parameters": [
@@ -164375,6 +166616,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Chat"
+                    ],
                     "MemberType": "Function",
                     "Name": "getInternalVoiceChatApiVersion",
                     "Parameters": [
@@ -164387,6 +166632,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Chat"
+                    ],
                     "MemberType": "Function",
                     "Name": "isInternalPublishPaused",
                     "Parameters": [
@@ -164399,6 +166648,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Chat"
+                    ],
                     "MemberType": "Function",
                     "Name": "joinVoice",
                     "Parameters": [
@@ -164411,6 +166664,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Chat"
+                    ],
                     "MemberType": "Function",
                     "Name": "lastVoiceChatStats",
                     "Parameters": [
@@ -164423,6 +166680,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Chat"
+                    ],
                     "MemberType": "Function",
                     "Name": "leaveVoice",
                     "Parameters": [
@@ -164443,6 +166704,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Chat"
+                    ],
                     "MemberType": "Function",
                     "Name": "notifyServerACSCleanup",
                     "Parameters": [
@@ -164455,6 +166720,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Chat"
+                    ],
                     "MemberType": "Function",
                     "Name": "rejoinVoice",
                     "Parameters": [
@@ -164468,6 +166737,7 @@
                 },
                 {
                     "Capabilities": [
+                        "Audio",
                         "Chat"
                     ],
                     "MemberType": "Function",
@@ -164492,6 +166762,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Chat"
+                    ],
                     "MemberType": "Function",
                     "Name": "IsVoiceEnabledForUserIdAsync",
                     "Parameters": [
@@ -164514,6 +166788,10 @@
                     "ThreadSafety": "Unsafe"
                 },
                 {
+                    "Capabilities": [
+                        "Audio",
+                        "Chat"
+                    ],
                     "MemberType": "Event",
                     "Name": "VoiceChatStatsCollected",
                     "Parameters": [
@@ -165448,7 +167726,8 @@
             "Name": "VideoSampler",
             "Superclass": "Object",
             "Tags": [
-                "NotCreatable"
+                "NotCreatable",
+                "NotReplicated"
             ]
         },
         {
@@ -168148,6 +170427,19 @@
                 }
             ],
             "Name": "CameraMode"
+        },
+        {
+            "Items": [
+                {
+                    "Name": "Roblox",
+                    "Value": 0
+                },
+                {
+                    "Name": "IndustryCompatible",
+                    "Value": 1
+                }
+            ],
+            "Name": "CameraNavigationModel"
         },
         {
             "Items": [

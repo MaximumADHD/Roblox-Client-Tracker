@@ -4460,7 +4460,8 @@
     "overloads": {
       "(Material) -> PhysicalProperties": "@roblox/global/PhysicalProperties.new/overload/(Material) -> PhysicalProperties",
       "(number, number, number) -> PhysicalProperties": "@roblox/global/PhysicalProperties.new/overload/(number, number, number) -> PhysicalProperties",
-      "(number, number, number, number, number) -> PhysicalProperties": "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number) -> PhysicalProperties"
+      "(number, number, number, number, number) -> PhysicalProperties": "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number) -> PhysicalProperties",
+      "(number, number, number, number, number, number) -> PhysicalProperties": "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number, number) -> PhysicalProperties"
     }
   },
   "@roblox/global/PhysicalProperties.new/overload/(Material) -> PhysicalProperties/param/0": {
@@ -4544,6 +4545,56 @@
       {
         "name": "elasticityWeight",
         "documentation": "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number) -> PhysicalProperties/param/4"
+      }
+    ],
+    "returns": [],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/datatypes/PhysicalProperties#new",
+    "code_sample": ""
+  },
+  "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number, number) -> PhysicalProperties/param/0": {
+    "documentation": ""
+  },
+  "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number, number) -> PhysicalProperties/param/1": {
+    "documentation": ""
+  },
+  "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number, number) -> PhysicalProperties/param/2": {
+    "documentation": ""
+  },
+  "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number, number) -> PhysicalProperties/param/3": {
+    "documentation": ""
+  },
+  "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number, number) -> PhysicalProperties/param/4": {
+    "documentation": ""
+  },
+  "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number, number) -> PhysicalProperties/param/5": {
+    "documentation": ""
+  },
+  "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number, number) -> PhysicalProperties": {
+    "documentation": "Creates a <code>PhysicalProperties</code> container with the specified density, friction, elasticity, weight of friction, weight of elasticity, and acoustic absorption.",
+    "params": [
+      {
+        "name": "density",
+        "documentation": "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number, number) -> PhysicalProperties/param/0"
+      },
+      {
+        "name": "friction",
+        "documentation": "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number, number) -> PhysicalProperties/param/1"
+      },
+      {
+        "name": "elasticity",
+        "documentation": "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number, number) -> PhysicalProperties/param/2"
+      },
+      {
+        "name": "frictionWeight",
+        "documentation": "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number, number) -> PhysicalProperties/param/3"
+      },
+      {
+        "name": "elasticityWeight",
+        "documentation": "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number, number) -> PhysicalProperties/param/4"
+      },
+      {
+        "name": "acousticAbsorption",
+        "documentation": "@roblox/global/PhysicalProperties.new/overload/(number, number, number, number, number, number) -> PhysicalProperties/param/5"
       }
     ],
     "returns": [],
@@ -61531,7 +61582,9 @@
     "keys": {
       "GetClass": "@roblox/globaltype/ReflectionService.GetClass",
       "GetClasses": "@roblox/globaltype/ReflectionService.GetClasses",
-      "GetPropertiesOfClass": "@roblox/globaltype/ReflectionService.GetPropertiesOfClass"
+      "GetPropertiesOfClass": "@roblox/globaltype/ReflectionService.GetPropertiesOfClass",
+      "GetMethodsOfClass": "@roblox/globaltype/ReflectionService.GetMethodsOfClass",
+      "GetEventsOfClass": "@roblox/globaltype/ReflectionService.GetEventsOfClass"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ReflectionService",
     "code_sample": ""
@@ -61629,6 +61682,74 @@
       "@roblox/globaltype/ReflectionService.GetPropertiesOfClass/return/0"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ReflectionService#GetPropertiesOfClass",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ReflectionService.GetMethodsOfClass/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ReflectionService.GetMethodsOfClass/param/1": {
+    "documentation": "The name of the class for which you wish to retrieve methods."
+  },
+  "@roblox/globaltype/ReflectionService.GetMethodsOfClass/param/2": {
+    "documentation": "An optional filter to restrict or expand the set of methods that this method can return and change the method's behavior."
+  },
+  "@roblox/globaltype/ReflectionService.GetMethodsOfClass/return/0": {
+    "documentation": "A list of <code>ReflectedMethod</code> dictionaries with reflection information for each method of the class that matches the filter criteria."
+  },
+  "@roblox/globaltype/ReflectionService.GetMethodsOfClass": {
+    "documentation": "Returns a list of methods for a given class with filters applied.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ReflectionService.GetMethodsOfClass/param/0"
+      },
+      {
+        "name": "className",
+        "documentation": "@roblox/globaltype/ReflectionService.GetMethodsOfClass/param/1"
+      },
+      {
+        "name": "filter",
+        "documentation": "@roblox/globaltype/ReflectionService.GetMethodsOfClass/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ReflectionService.GetMethodsOfClass/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ReflectionService#GetMethodsOfClass",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/ReflectionService.GetEventsOfClass/param/0": {
+    "documentation": ""
+  },
+  "@roblox/globaltype/ReflectionService.GetEventsOfClass/param/1": {
+    "documentation": "The name of the class for which you wish to retrieve events."
+  },
+  "@roblox/globaltype/ReflectionService.GetEventsOfClass/param/2": {
+    "documentation": "An optional filter to restrict or expand the set of events that this method can return and change the method's behavior."
+  },
+  "@roblox/globaltype/ReflectionService.GetEventsOfClass/return/0": {
+    "documentation": "A list of <code>ReflectedEvent</code> dictionaries with reflection information for each event of the class that matches the filter criteria."
+  },
+  "@roblox/globaltype/ReflectionService.GetEventsOfClass": {
+    "documentation": "Returns a list of events for a given class with filters applied.",
+    "params": [
+      {
+        "name": "self",
+        "documentation": "@roblox/globaltype/ReflectionService.GetEventsOfClass/param/0"
+      },
+      {
+        "name": "className",
+        "documentation": "@roblox/globaltype/ReflectionService.GetEventsOfClass/param/1"
+      },
+      {
+        "name": "filter",
+        "documentation": "@roblox/globaltype/ReflectionService.GetEventsOfClass/param/2"
+      }
+    ],
+    "returns": [
+      "@roblox/globaltype/ReflectionService.GetEventsOfClass/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/ReflectionService#GetEventsOfClass",
     "code_sample": ""
   },
   "@roblox/globaltype/InstanceAdornment": {
@@ -74201,10 +74322,12 @@
       "KeyCode": "@roblox/globaltype/InputBinding.KeyCode",
       "Left": "@roblox/globaltype/InputBinding.Left",
       "PressedThreshold": "@roblox/globaltype/InputBinding.PressedThreshold",
+      "PrimaryModifier": "@roblox/globaltype/InputBinding.PrimaryModifier",
       "ReleasedThreshold": "@roblox/globaltype/InputBinding.ReleasedThreshold",
       "ResponseCurve": "@roblox/globaltype/InputBinding.ResponseCurve",
       "Right": "@roblox/globaltype/InputBinding.Right",
       "Scale": "@roblox/globaltype/InputBinding.Scale",
+      "SecondaryModifier": "@roblox/globaltype/InputBinding.SecondaryModifier",
       "UIButton": "@roblox/globaltype/InputBinding.UIButton",
       "Up": "@roblox/globaltype/InputBinding.Up",
       "Vector2Scale": "@roblox/globaltype/InputBinding.Vector2Scale",
@@ -74243,6 +74366,11 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#PressedThreshold",
     "code_sample": ""
   },
+  "@roblox/globaltype/InputBinding.PrimaryModifier": {
+    "documentation": "Specifies a primary <code>KeyCode</code> that must be pressed for the binding to activate.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#PrimaryModifier",
+    "code_sample": ""
+  },
   "@roblox/globaltype/InputBinding.ReleasedThreshold": {
     "documentation": "Numerical value below which to fire an <code>InputAction</code> with a <code>Type</code> of <code>Bool</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#ReleasedThreshold",
@@ -74261,6 +74389,11 @@
   "@roblox/globaltype/InputBinding.Scale": {
     "documentation": "Amount by which to linearly scale the values of a directional <code>InputAction</code>.",
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#Scale",
+    "code_sample": ""
+  },
+  "@roblox/globaltype/InputBinding.SecondaryModifier": {
+    "documentation": "Specifies a secondary <code>KeyCode</code> that must be pressed for the binding to activate.",
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/classes/InputBinding#SecondaryModifier",
     "code_sample": ""
   },
   "@roblox/globaltype/InputBinding.UIButton": {
@@ -90851,7 +90984,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers.",
+    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>.",
     "keys": {
       "CustomizedTeleportUI": "@roblox/globaltype/TeleportService.CustomizedTeleportUI",
       "GetArrivingTeleportGui": "@roblox/globaltype/TeleportService.GetArrivingTeleportGui",
@@ -90879,7 +91012,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.GetArrivingTeleportGui/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.GetArrivingTeleportGui/return/0": {
     "documentation": "The <em>customLoadingScreen</em> the <code>LocalPlayer</code> arrived into the place with."
@@ -90899,7 +91032,7 @@
     "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\nlocal ReplicatedFirst = game:GetService(\"ReplicatedFirst\")\n\nlocal customLoadingScreen = TeleportService:GetArrivingTeleportGui()\nif customLoadingScreen then\n\tlocal playerGui = Players.LocalPlayer:WaitForChild(\"PlayerGui\")\n\tReplicatedFirst:RemoveDefaultLoadingScreen()\n\tcustomLoadingScreen.Parent = playerGui\n\ttask.wait(5)\n\tcustomLoadingScreen:Destroy()\nend"
   },
   "@roblox/globaltype/TeleportService.GetLocalPlayerTeleportData/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.GetLocalPlayerTeleportData/return/0": {
     "documentation": "The teleport data the <code>Players.LocalPlayer</code> arrived into the place with."
@@ -90919,7 +91052,7 @@
     "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\n\nlocal teleportData = TeleportService:GetLocalPlayerTeleportData()\n\nprint(\"Local player arrived with this data:\", teleportData)"
   },
   "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.GetPlayerPlaceInstanceAsync/param/1": {
     "documentation": "The <code>Player.UserId</code> of the <code>Player</code>."
@@ -90946,7 +91079,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.GetTeleportSetting/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.GetTeleportSetting/param/1": {
     "documentation": "The key the value was stored under using <code>TeleportService:SetTeleportSetting()</code>."
@@ -90973,7 +91106,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.PromptExperienceDetailsAsync/param/1": {
     "documentation": "The <code>Player</code> to be presented the prompt."
@@ -91007,7 +91140,7 @@
     "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\n\nlocal player = Players.LocalPlayer\n\nlocal success, result = pcall(function()\n\tTeleportService:PromptExperienceDetailsAsync(player, 8357232245)\nend)\nif not success then\n\twarn(\"Error prompting experience details: \" .. tostring(result))\nend\n\nif result == Enum.PromptExperienceDetailsResult.PromptClosed then\n\tprint(\"Player closed the experience details prompt\")\nelseif result == Enum.PromptExperienceDetailsResult.TeleportAttempted then\n\tprint(\"Player chose to teleport to the experience\")\nend"
   },
   "@roblox/globaltype/TeleportService.ReserveServerAsync/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.ReserveServerAsync/param/1": {
     "documentation": "The <code>DataModel.PlaceId</code> of the place the reserved server is being created for."
@@ -91034,7 +91167,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.ReserveServer/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.ReserveServer/param/1": {
     "documentation": "The <code>DataModel.PlaceId</code> of the place the reserved server is being created for."
@@ -91061,7 +91194,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.SetTeleportGui/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.SetTeleportGui/param/1": {
     "documentation": "The loading <code>ScreenGui</code> that is to be displayed during teleportation."
@@ -91083,7 +91216,7 @@
     "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\nlocal Players = game:GetService(\"Players\")\n\nlocal playerGui = Players.LocalPlayer:WaitForChild(\"PlayerGui\")\n\nlocal PLACE_ID = 0 -- replace here\nlocal loadingGui = ReplicatedStorage:FindFirstChild(\"LoadingGui\")\n\n-- parent the loading gui for this place\nloadingGui.Parent = playerGui\n\n-- set the loading gui for the destination place\nTeleportService:SetTeleportGui(loadingGui)\n\nTeleportService:Teleport(PLACE_ID)"
   },
   "@roblox/globaltype/TeleportService.SetTeleportSetting/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.SetTeleportSetting/param/1": {
     "documentation": "The key to store the <em>value</em> under. This key can be used to retrieve the value using <code>TeleportService:GetTeleportSetting()</code>."
@@ -91112,7 +91245,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.Teleport/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.Teleport/param/1": {
     "documentation": "The ID of the place to teleport to."
@@ -91155,7 +91288,7 @@
     "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal ReplicatedStorage = game:GetService(\"ReplicatedStorage\")\nlocal Players = game:GetService(\"Players\")\n\nlocal playerGui = Players.LocalPlayer:WaitForChild(\"PlayerGui\")\n\nlocal PLACE_ID = 0 -- replace here\nlocal loadingGui = ReplicatedStorage:FindFirstChild(\"LoadingGui\")\n\n-- parent the loading gui for this place\nloadingGui.Parent = playerGui\n\n-- set the loading gui for the destination place\nTeleportService:SetTeleportGui(loadingGui)\n\nTeleportService:Teleport(PLACE_ID)"
   },
   "@roblox/globaltype/TeleportService.TeleportAsync/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.TeleportAsync/param/1": {
     "documentation": "The place ID the player(s) should be teleported to."
@@ -91196,7 +91329,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.TeleportPartyAsync/param/1": {
     "documentation": "The ID of the place to teleport to."
@@ -91244,7 +91377,7 @@
     "code_sample": "local Players = game:GetService(\"Players\")\nlocal TeleportService = game:GetService(\"TeleportService\")\n\nlocal PLACE_ID = 0 -- replace\nlocal playerList = Players:GetPlayers()\n\nlocal success, result = pcall(function()\n\treturn TeleportService:TeleportPartyAsync(PLACE_ID, playerList)\nend)\n\nif success then\n\tlocal jobId = result\n\tprint(\"Players teleported to\", jobId)\nelse\n\twarn(result)\nend"
   },
   "@roblox/globaltype/TeleportService.TeleportToPlaceInstance/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.TeleportToPlaceInstance/param/1": {
     "documentation": "The ID of the place to teleport to."
@@ -91301,7 +91434,7 @@
     "code_sample": ""
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.TeleportToPrivateServer/param/1": {
     "documentation": "The ID of the place to teleport to."
@@ -91358,7 +91491,7 @@
     "code_sample": "local TeleportService = game:GetService(\"TeleportService\")\nlocal Players = game:GetService(\"Players\")\nlocal DataStoreService = game:GetService(\"DataStoreService\")\n\nlocal dataStore = DataStoreService:GetGlobalDataStore()\n\n-- Get the saved code\nlocal code = dataStore:GetAsync(\"ReservedServer\")\nif typeof(code) ~= \"string\" then -- None saved, create one\n\tcode = TeleportService:ReserveServerAsync(game.PlaceId)\n\tdataStore:SetAsync(\"ReservedServer\", code)\nend\n\nlocal function joined(player)\n\tplayer.Chatted:Connect(function(message)\n\t\tif message == \"reserved\" then\n\t\t\tTeleportService:TeleportToPrivateServer(game.PlaceId, code, { player })\n\t\tend\n\tend)\nend\n\nPlayers.PlayerAdded:Connect(joined)"
   },
   "@roblox/globaltype/TeleportService.TeleportToSpawnByName/param/0": {
-    "documentation": "Enables transporting <code>Players</code> between places and servers."
+    "documentation": "Enables transporting <code>Players</code> between places and servers. <pre><code>For more information on how to teleport players between servers, see </code></pre> <a href=\"../../../projects/teleport.md\">Teleport between places</a>."
   },
   "@roblox/globaltype/TeleportService.TeleportToSpawnByName/param/1": {
     "documentation": "The ID of the place to teleport to."
@@ -107946,7 +108079,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AlphaMode.Overlay": {
-    "documentation": "Overlays the <code>ColorMap</code> on top of the underlying part color based on the map's alpha channel. <img src=\"/assets/engine-api/enums/AlphaMode/Fern-Overlay.png\" width=\"512\" />",
+    "documentation": "Overlays the <code>ColorMap</code> on top of the underlying part color based on the map's alpha channel.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107956,7 +108089,7 @@
     "code_sample": ""
   },
   "@roblox/enum/AlphaMode.Transparency": {
-    "documentation": "Uses the <code>ColorMap</code> alpha channel to control the transparency of the surface. <img src=\"/assets/engine-api/enums/AlphaMode/Fern-Cutout.png\" width=\"512\" />",
+    "documentation": "Uses the <code>ColorMap</code> alpha channel to control the transparency of the surface.",
     "keys": {
       "Name": "@roblox/globaltype/EnumItem.Name",
       "Value": "@roblox/globaltype/EnumItem.Value",
@@ -107975,12 +108108,23 @@
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AlphaMode#TintMask",
     "code_sample": ""
   },
+  "@roblox/enum/AlphaMode.Opaque": {
+    "documentation": "Ignores the <code>ColorMap</code> alpha channel and assumes an opacity value of 1 everywhere.",
+    "keys": {
+      "Name": "@roblox/globaltype/EnumItem.Name",
+      "Value": "@roblox/globaltype/EnumItem.Value",
+      "EnumType": "@roblox/globaltype/EnumItem.EnumType"
+    },
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AlphaMode#Opaque",
+    "code_sample": ""
+  },
   "@roblox/global/Enum.AlphaMode": {
     "documentation": "Used by <code>SurfaceAppearance.AlphaMode</code> to determine how the alpha channel of the <code>SurfaceAppearance.ColorMap</code> of a <code>SurfaceAppearance</code> is used.",
     "keys": {
       "Overlay": "@roblox/enum/AlphaMode.Overlay",
       "Transparency": "@roblox/enum/AlphaMode.Transparency",
-      "TintMask": "@roblox/enum/AlphaMode.TintMask"
+      "TintMask": "@roblox/enum/AlphaMode.TintMask",
+      "Opaque": "@roblox/enum/AlphaMode.Opaque"
     },
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/enums/AlphaMode",
     "code_sample": ""
@@ -138023,6 +138167,9 @@
       "floor": "@luau/global/math.floor",
       "fmod": "@luau/global/math.fmod",
       "frexp": "@luau/global/math.frexp",
+      "isfinite": "@luau/global/math.isfinite",
+      "isinf": "@luau/global/math.isinf",
+      "isnan": "@luau/global/math.isnan",
       "ldexp": "@luau/global/math.ldexp",
       "lerp": "@luau/global/math.lerp",
       "log": "@luau/global/math.log",
@@ -138359,6 +138506,66 @@
       "@luau/global/math.frexp/return/1"
     ],
     "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/math#frexp",
+    "code_sample": ""
+  },
+  "@luau/global/math.isfinite/param/0": {
+    "documentation": ""
+  },
+  "@luau/global/math.isfinite/return/0": {
+    "documentation": ""
+  },
+  "@luau/global/math.isfinite": {
+    "documentation": "Returns true if <code>x</code> is a finite number.",
+    "params": [
+      {
+        "name": "x",
+        "documentation": "@luau/global/math.isfinite/param/0"
+      }
+    ],
+    "returns": [
+      "@luau/global/math.isfinite/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/math#isfinite",
+    "code_sample": ""
+  },
+  "@luau/global/math.isinf/param/0": {
+    "documentation": ""
+  },
+  "@luau/global/math.isinf/return/0": {
+    "documentation": ""
+  },
+  "@luau/global/math.isinf": {
+    "documentation": "Returns true if <code>x</code> is positive or negative infinity and false otherwise.",
+    "params": [
+      {
+        "name": "x",
+        "documentation": "@luau/global/math.isinf/param/0"
+      }
+    ],
+    "returns": [
+      "@luau/global/math.isinf/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/math#isinf",
+    "code_sample": ""
+  },
+  "@luau/global/math.isnan/param/0": {
+    "documentation": ""
+  },
+  "@luau/global/math.isnan/return/0": {
+    "documentation": ""
+  },
+  "@luau/global/math.isnan": {
+    "documentation": "Returns true if <code>x</code> is not a number (NaN) and false otherwise.",
+    "params": [
+      {
+        "name": "x",
+        "documentation": "@luau/global/math.isnan/param/0"
+      }
+    ],
+    "returns": [
+      "@luau/global/math.isnan/return/0"
+    ],
+    "learn_more_link": "https://create.roblox.com/docs/reference/engine/libraries/math#isnan",
     "code_sample": ""
   },
   "@luau/global/math.ldexp/param/0": {
