@@ -1,140 +1,140 @@
 PROTO_0:
-  GETTABLEKS R3 R0 K0 ["comms"]
-  JUMPIFNOT R3 [+1]
-  RETURN R0 0
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K1 ["new"]
-  LOADK R4 K2 ["Toolbox"]
-  CALL R3 1 1
-  SETTABLEKS R3 R0 K0 ["comms"]
-  MOVE R5 R1
-  MOVE R6 R2
-  NAMECALL R3 R0 K3 ["setupCommunication"]
-  CALL R3 3 0
-  RETURN R0 0
+        0 GETTABLEKS                       R3 R0 K0 ["comms"]
+        2 JUMPIFNOT                        R3 ; [+1]
+        3 RETURN                           R0 0
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R3 R4 K1 ["new"]
+        7 LOADK                            R4 K2 ["Toolbox"]
+        8 CALL                             R3 1 1
+        9 SETTABLEKS                       R3 R0 K0 ["comms"]
+       11 MOVE                             R5 R1
+       12 MOVE                             R6 R2
+       13 NAMECALL                         R3 R0 K3 ["setupCommunication"]
+       15 CALL                             R3 3 0
+       16 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R1 0
-  GETUPVAL R3 1
-  GETTABLEKS R4 R0 K0 ["assetIds"]
-  GETTABLEKS R5 R0 K1 ["positionOverride"]
-  GETTABLEKS R6 R0 K2 ["scriptWarningOverride"]
-  CALL R3 3 -1
-  NAMECALL R1 R1 K3 ["dispatch"]
-  CALL R1 -1 0
-  GETTABLEKS R1 R0 K0 ["assetIds"]
-  JUMPIFNOTEQKNIL R1 [+9]
-  GETUPVAL R1 0
-  GETUPVAL R3 2
-  LOADK R4 K4 [""]
-  CALL R3 1 -1
-  NAMECALL R1 R1 K3 ["dispatch"]
-  CALL R1 -1 0
-  RETURN R0 0
-  GETUPVAL R1 0
-  GETUPVAL R3 3
-  DUPTABLE R4 K7 [{"categoryName", "currentTab"}]
-  GETUPVAL R7 4
-  GETTABLEKS R6 R7 K8 ["FREE_MODELS"]
-  GETTABLEKS R5 R6 K9 ["name"]
-  SETTABLEKS R5 R4 K5 ["categoryName"]
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K10 ["MARKETPLACE_KEY"]
-  SETTABLEKS R5 R4 K6 ["currentTab"]
-  CALL R3 1 -1
-  NAMECALL R1 R1 K3 ["dispatch"]
-  CALL R1 -1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R4 R0 K0 ["assetIds"]
+        4 GETTABLEKS                       R5 R0 K1 ["positionOverride"]
+        6 GETTABLEKS                       R6 R0 K2 ["scriptWarningOverride"]
+        8 CALL                             R3 3 -1
+        9 NAMECALL                         R1 R1 K3 ["dispatch"]
+       11 CALL                             R1 -1 0
+       12 GETTABLEKS                       R1 R0 K0 ["assetIds"]
+       14 JUMPIFNOTEQKNIL                  R1 ; [+9]
+       16 GETUPVAL                         R1 0
+       17 GETUPVAL                         R3 2
+       18 LOADK                            R4 K4 [""]
+       19 CALL                             R3 1 -1
+       20 NAMECALL                         R1 R1 K3 ["dispatch"]
+       22 CALL                             R1 -1 0
+       23 RETURN                           R0 0
+       24 GETUPVAL                         R1 0
+       25 GETUPVAL                         R3 3
+       26 DUPTABLE                         R4 K7 [{"categoryName", "currentTab"}]
+       27 GETUPVAL                         R7 4
+       28 GETTABLEKS                       R6 R7 K8 ["FREE_MODELS"]
+       30 GETTABLEKS                       R5 R6 K9 ["name"]
+       32 SETTABLEKS                       R5 R4 K5 ["categoryName"]
+       34 GETUPVAL                         R6 4
+       35 GETTABLEKS                       R5 R6 K10 ["MARKETPLACE_KEY"]
+       37 SETTABLEKS                       R5 R4 K6 ["currentTab"]
+       39 CALL                             R3 1 -1
+       40 NAMECALL                         R1 R1 K3 ["dispatch"]
+       42 CALL                             R1 -1 0
+       43 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R1 0
-  MOVE R2 R0
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R2 R0
+        2 CALL                             R1 1 0
+        3 RETURN                           R0 0
 
 PROTO_3:
-  GETTABLEKS R3 R0 K0 ["comms"]
-  LOADK R5 K1 ["SetTutorialLimits"]
-  NEWCLOSURE R6 P0
-  CAPTURE VAL R1
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  NAMECALL R3 R3 K2 ["OnInvoke"]
-  CALL R3 3 0
-  GETUPVAL R3 4
-  JUMPIFNOT R3 [+8]
-  GETTABLEKS R3 R0 K0 ["comms"]
-  LOADK R5 K3 ["ShowPackageVersionHistory"]
-  NEWCLOSURE R6 P1
-  CAPTURE VAL R2
-  NAMECALL R3 R3 K2 ["OnInvoke"]
-  CALL R3 3 0
-  RETURN R0 0
+        0 GETTABLEKS                       R3 R0 K0 ["comms"]
+        2 LOADK                            R5 K1 ["SetTutorialLimits"]
+        3 NEWCLOSURE                       R6 P0
+        4 CAPTURE                          VAL R1
+        5 CAPTURE                          UPVAL U0
+        6 CAPTURE                          UPVAL U1
+        7 CAPTURE                          UPVAL U2
+        8 CAPTURE                          UPVAL U3
+        9 NAMECALL                         R3 R3 K2 ["OnInvoke"]
+       11 CALL                             R3 3 0
+       12 GETUPVAL                         R3 4
+       13 JUMPIFNOT                        R3 ; [+8]
+       14 GETTABLEKS                       R3 R0 K0 ["comms"]
+       16 LOADK                            R5 K3 ["ShowPackageVersionHistory"]
+       17 NEWCLOSURE                       R6 P1
+       18 CAPTURE                          VAL R2
+       19 NAMECALL                         R3 R3 K2 ["OnInvoke"]
+       21 CALL                             R3 3 0
+       22 RETURN                           R0 0
 
 PROTO_4:
-  PREPVARARGS 1
-  GETTABLEKS R1 R0 K0 ["comms"]
-  JUMPIFNOT R1 [+11]
-  GETTABLEKS R2 R0 K0 ["comms"]
-  GETTABLEKS R1 R2 K1 ["Fire"]
-  JUMPIFNOT R1 [+6]
-  GETTABLEKS R1 R0 K0 ["comms"]
-  GETVARARGS R3 -1
-  NAMECALL R1 R1 K1 ["Fire"]
-  CALL R1 -1 0
-  RETURN R0 0
+        0 PREPVARARGS                      1
+        1 GETTABLEKS                       R1 R0 K0 ["comms"]
+        3 JUMPIFNOT                        R1 ; [+11]
+        4 GETTABLEKS                       R2 R0 K0 ["comms"]
+        6 GETTABLEKS                       R1 R2 K1 ["Fire"]
+        8 JUMPIFNOT                        R1 ; [+6]
+        9 GETTABLEKS                       R1 R0 K0 ["comms"]
+       11 GETVARARGS                       R3 -1
+       12 NAMECALL                         R1 R1 K1 ["Fire"]
+       14 CALL                             R1 -1 0
+       15 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["Toolbox"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [game]
-  LOADK R3 K6 ["ToolboxEnableOpenPackageVersionHistory"]
-  NAMECALL R1 R1 K7 ["GetFastFlag"]
-  CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R4 R0 K10 ["Packages"]
-  GETTABLEKS R3 R4 K11 ["Framework"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K12 ["Util"]
-  GETTABLEKS R3 R4 K13 ["CrossPluginCommunication"]
-  GETIMPORT R4 K9 [require]
-  GETTABLEKS R7 R0 K14 ["Src"]
-  GETTABLEKS R6 R7 K15 ["Actions"]
-  GETTABLEKS R5 R6 K16 ["SetTutorialLimits"]
-  CALL R4 1 1
-  GETIMPORT R5 K9 [require]
-  GETTABLEKS R8 R0 K14 ["Src"]
-  GETTABLEKS R7 R8 K15 ["Actions"]
-  GETTABLEKS R6 R7 K17 ["UpdateSearchTerm"]
-  CALL R5 1 1
-  GETIMPORT R6 K9 [require]
-  GETTABLEKS R9 R0 K14 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Actions"]
-  GETTABLEKS R7 R8 K18 ["UpdatePageInfo"]
-  CALL R6 1 1
-  GETIMPORT R7 K9 [require]
-  GETTABLEKS R10 R0 K14 ["Src"]
-  GETTABLEKS R9 R10 K19 ["Types"]
-  GETTABLEKS R8 R9 K20 ["Category"]
-  CALL R7 1 1
-  DUPTABLE R8 K22 [{"comms"}]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K21 ["comms"]
-  DUPCLOSURE R9 K23 [PROTO_0]
-  CAPTURE VAL R3
-  SETTABLEKS R9 R8 K24 ["setup"]
-  DUPCLOSURE R9 K25 [PROTO_3]
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R1
-  SETTABLEKS R9 R8 K26 ["setupCommunication"]
-  DUPCLOSURE R9 K27 [PROTO_4]
-  SETTABLEKS R9 R8 K28 ["fire"]
-  RETURN R8 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Toolbox"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [game]
+        9 LOADK                            R3 K6 ["ToolboxEnableOpenPackageVersionHistory"]
+       10 NAMECALL                         R1 R1 K7 ["GetFastFlag"]
+       12 CALL                             R1 2 1
+       13 GETIMPORT                        R2 K9 [require]
+       15 GETTABLEKS                       R4 R0 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R4 K11 ["Framework"]
+       19 CALL                             R2 1 1
+       20 GETTABLEKS                       R4 R2 K12 ["Util"]
+       22 GETTABLEKS                       R3 R4 K13 ["CrossPluginCommunication"]
+       24 GETIMPORT                        R4 K9 [require]
+       26 GETTABLEKS                       R7 R0 K14 ["Src"]
+       28 GETTABLEKS                       R6 R7 K15 ["Actions"]
+       30 GETTABLEKS                       R5 R6 K16 ["SetTutorialLimits"]
+       32 CALL                             R4 1 1
+       33 GETIMPORT                        R5 K9 [require]
+       35 GETTABLEKS                       R8 R0 K14 ["Src"]
+       37 GETTABLEKS                       R7 R8 K15 ["Actions"]
+       39 GETTABLEKS                       R6 R7 K17 ["UpdateSearchTerm"]
+       41 CALL                             R5 1 1
+       42 GETIMPORT                        R6 K9 [require]
+       44 GETTABLEKS                       R9 R0 K14 ["Src"]
+       46 GETTABLEKS                       R8 R9 K15 ["Actions"]
+       48 GETTABLEKS                       R7 R8 K18 ["UpdatePageInfo"]
+       50 CALL                             R6 1 1
+       51 GETIMPORT                        R7 K9 [require]
+       53 GETTABLEKS                       R10 R0 K14 ["Src"]
+       55 GETTABLEKS                       R9 R10 K19 ["Types"]
+       57 GETTABLEKS                       R8 R9 K20 ["Category"]
+       59 CALL                             R7 1 1
+       60 DUPTABLE                         R8 K22 [{"comms"}]
+       61 LOADNIL                          R9
+       62 SETTABLEKS                       R9 R8 K21 ["comms"]
+       64 DUPCLOSURE                       R9 K23 [PROTO_0]
+       65 CAPTURE                          VAL R3
+       66 SETTABLEKS                       R9 R8 K24 ["setup"]
+       68 DUPCLOSURE                       R9 K25 [PROTO_3]
+       69 CAPTURE                          VAL R4
+       70 CAPTURE                          VAL R5
+       71 CAPTURE                          VAL R6
+       72 CAPTURE                          VAL R7
+       73 CAPTURE                          VAL R1
+       74 SETTABLEKS                       R9 R8 K26 ["setupCommunication"]
+       76 DUPCLOSURE                       R9 K27 [PROTO_4]
+       77 SETTABLEKS                       R9 R8 K28 ["fire"]
+       79 RETURN                           R8 1

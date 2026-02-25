@@ -1,157 +1,157 @@
 PROTO_0:
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["StudioPublishService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  RETURN R0 1
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["StudioPublishService"]
+        3 NAMECALL                         R0 R0 K3 ["GetService"]
+        5 CALL                             R0 2 1
+        6 RETURN                           R0 1
 
 PROTO_1:
-  PREPVARARGS 0
-  RETURN R0 0
+        0 PREPVARARGS                      0
+        1 RETURN                           R0 0
 
 PROTO_2:
-  GETIMPORT R1 K1 [game]
-  GETTABLEKS R0 R1 K2 ["GameId"]
-  JUMPIFNOTEQKN R0 K3 [0] [+2]
-  RETURN R0 0
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K4 ["getHasUnpublishedChanges"]
-  CALL R0 0 1
-  JUMPIF R0 [+1]
-  RETURN R0 0
-  GETIMPORT R0 K7 [coroutine.running]
-  CALL R0 0 1
-  SETUPVAL R0 1
-  GETUPVAL R0 2
-  GETUPVAL R3 3
-  GETTABLEKS R2 R3 K8 ["onStudioCloseHold"]
-  NAMECALL R0 R0 K9 ["Invoke"]
-  CALL R0 2 0
-  GETIMPORT R0 K11 [coroutine.yield]
-  CALL R0 0 0
-  RETURN R0 0
+        0 GETIMPORT                        R1 K1 [game]
+        2 GETTABLEKS                       R0 R1 K2 ["GameId"]
+        4 JUMPIFNOTEQKN                    R0 K3 [0] ; [+2]
+        6 RETURN                           R0 0
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R0 R1 K4 ["getHasUnpublishedChanges"]
+       10 CALL                             R0 0 1
+       11 JUMPIF                           R0 ; [+1]
+       12 RETURN                           R0 0
+       13 GETIMPORT                        R0 K7 [coroutine.running]
+       15 CALL                             R0 0 1
+       16 SETUPVAL                         R0 1
+       17 GETUPVAL                         R0 2
+       18 GETUPVAL                         R3 3
+       19 GETTABLEKS                       R2 R3 K8 ["onStudioCloseHold"]
+       21 NAMECALL                         R0 R0 K9 ["Invoke"]
+       23 CALL                             R0 2 0
+       24 GETIMPORT                        R0 K11 [coroutine.yield]
+       26 CALL                             R0 0 0
+       27 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R0 0
-  JUMPIFNOT R0 [+12]
-  GETIMPORT R0 K2 [coroutine.status]
-  GETUPVAL R1 0
-  CALL R0 1 1
-  JUMPIFNOTEQKS R0 K3 ["suspended"] [+7]
-  GETIMPORT R0 K6 [task.spawn]
-  GETUPVAL R1 0
-  CALL R0 1 0
-  LOADNIL R0
-  SETUPVAL R0 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+12]
+        2 GETIMPORT                        R0 K2 [coroutine.status]
+        4 GETUPVAL                         R1 0
+        5 CALL                             R0 1 1
+        6 JUMPIFNOTEQKS                    R0 K3 ["suspended"] ; [+7]
+        8 GETIMPORT                        R0 K6 [task.spawn]
+       10 GETUPVAL                         R1 0
+       11 CALL                             R0 1 0
+       12 LOADNIL                          R0
+       13 SETUPVAL                         R0 0
+       14 RETURN                           R0 0
 
 PROTO_4:
-  GETIMPORT R1 K1 [game]
-  GETTABLEKS R0 R1 K2 ["GameId"]
-  JUMPIFNOTEQKN R0 K3 [0] [+2]
-  RETURN R0 0
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K4 ["getHasUnpublishedChanges"]
-  CALL R0 0 1
-  JUMPIF R0 [+1]
-  RETURN R0 0
-  GETIMPORT R0 K7 [coroutine.running]
-  CALL R0 0 1
-  SETUPVAL R0 1
-  GETUPVAL R0 2
-  GETUPVAL R3 3
-  GETTABLEKS R2 R3 K8 ["onStudioPublishHold"]
-  NAMECALL R0 R0 K9 ["Invoke"]
-  CALL R0 2 0
-  GETIMPORT R0 K11 [coroutine.yield]
-  CALL R0 0 0
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K12 ["getLatestPublishSuccess"]
-  CALL R0 0 1
-  JUMPIF R0 [+2]
-  LOADB R0 1
-  RETURN R0 1
-  LOADB R0 0
-  RETURN R0 1
+        0 GETIMPORT                        R1 K1 [game]
+        2 GETTABLEKS                       R0 R1 K2 ["GameId"]
+        4 JUMPIFNOTEQKN                    R0 K3 [0] ; [+2]
+        6 RETURN                           R0 0
+        7 GETUPVAL                         R1 0
+        8 GETTABLEKS                       R0 R1 K4 ["getHasUnpublishedChanges"]
+       10 CALL                             R0 0 1
+       11 JUMPIF                           R0 ; [+1]
+       12 RETURN                           R0 0
+       13 GETIMPORT                        R0 K7 [coroutine.running]
+       15 CALL                             R0 0 1
+       16 SETUPVAL                         R0 1
+       17 GETUPVAL                         R0 2
+       18 GETUPVAL                         R3 3
+       19 GETTABLEKS                       R2 R3 K8 ["onStudioPublishHold"]
+       21 NAMECALL                         R0 R0 K9 ["Invoke"]
+       23 CALL                             R0 2 0
+       24 GETIMPORT                        R0 K11 [coroutine.yield]
+       26 CALL                             R0 0 0
+       27 GETUPVAL                         R1 0
+       28 GETTABLEKS                       R0 R1 K12 ["getLatestPublishSuccess"]
+       30 CALL                             R0 0 1
+       31 JUMPIF                           R0 ; [+2]
+       32 LOADB                            R0 1
+       33 RETURN                           R0 1
+       34 LOADB                            R0 0
+       35 RETURN                           R0 1
 
 PROTO_5:
-  GETUPVAL R0 0
-  JUMPIFNOT R0 [+12]
-  GETIMPORT R0 K2 [coroutine.status]
-  GETUPVAL R1 0
-  CALL R0 1 1
-  JUMPIFNOTEQKS R0 K3 ["suspended"] [+7]
-  GETIMPORT R0 K6 [task.spawn]
-  GETUPVAL R1 0
-  CALL R0 1 0
-  LOADNIL R0
-  SETUPVAL R0 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+12]
+        2 GETIMPORT                        R0 K2 [coroutine.status]
+        4 GETUPVAL                         R1 0
+        5 CALL                             R0 1 1
+        6 JUMPIFNOTEQKS                    R0 K3 ["suspended"] ; [+7]
+        8 GETIMPORT                        R0 K6 [task.spawn]
+       10 GETUPVAL                         R1 0
+       11 CALL                             R0 1 0
+       12 LOADNIL                          R0
+       13 SETUPVAL                         R0 0
+       14 RETURN                           R0 0
 
 PROTO_6:
-  LOADNIL R1
-  LOADK R4 K0 ["PlaceManager"]
-  NAMECALL R2 R0 K1 ["GetPluginComponent"]
-  CALL R2 2 1
-  LOADN R4 0
-  NEWCLOSURE R5 P0
-  CAPTURE UPVAL U0
-  CAPTURE REF R1
-  CAPTURE VAL R0
-  CAPTURE UPVAL U1
-  NAMECALL R2 R2 K2 ["RegisterCloseHold"]
-  CALL R2 3 0
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K3 ["releaseStudioCloseHold"]
-  NEWCLOSURE R5 P1
-  CAPTURE REF R1
-  NAMECALL R2 R0 K4 ["OnInvoke"]
-  CALL R2 3 0
-  LOADNIL R2
-  GETUPVAL R3 2
-  LOADN R5 0
-  NEWCLOSURE R6 P2
-  CAPTURE UPVAL U0
-  CAPTURE REF R2
-  CAPTURE VAL R0
-  CAPTURE UPVAL U1
-  NAMECALL R3 R3 K5 ["RegisterPublishHold"]
-  CALL R3 3 0
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K6 ["releaseStudioPublishHold"]
-  NEWCLOSURE R6 P3
-  CAPTURE REF R2
-  NAMECALL R3 R0 K4 ["OnInvoke"]
-  CALL R3 3 0
-  CLOSEUPVALS R1
-  RETURN R0 0
+        0 LOADNIL                          R1
+        1 LOADK                            R4 K0 ["PlaceManager"]
+        2 NAMECALL                         R2 R0 K1 ["GetPluginComponent"]
+        4 CALL                             R2 2 1
+        5 LOADN                            R4 0
+        6 NEWCLOSURE                       R5 P0
+        7 CAPTURE                          UPVAL U0
+        8 CAPTURE                          REF R1
+        9 CAPTURE                          VAL R0
+       10 CAPTURE                          UPVAL U1
+       11 NAMECALL                         R2 R2 K2 ["RegisterCloseHold"]
+       13 CALL                             R2 3 0
+       14 GETUPVAL                         R5 1
+       15 GETTABLEKS                       R4 R5 K3 ["releaseStudioCloseHold"]
+       17 NEWCLOSURE                       R5 P1
+       18 CAPTURE                          REF R1
+       19 NAMECALL                         R2 R0 K4 ["OnInvoke"]
+       21 CALL                             R2 3 0
+       22 LOADNIL                          R2
+       23 GETUPVAL                         R3 2
+       24 LOADN                            R5 0
+       25 NEWCLOSURE                       R6 P2
+       26 CAPTURE                          UPVAL U0
+       27 CAPTURE                          REF R2
+       28 CAPTURE                          VAL R0
+       29 CAPTURE                          UPVAL U1
+       30 NAMECALL                         R3 R3 K5 ["RegisterPublishHold"]
+       32 CALL                             R3 3 0
+       33 GETUPVAL                         R6 1
+       34 GETTABLEKS                       R5 R6 K6 ["releaseStudioPublishHold"]
+       36 NEWCLOSURE                       R6 P3
+       37 CAPTURE                          REF R2
+       38 NAMECALL                         R3 R0 K4 ["OnInvoke"]
+       40 CALL                             R3 3 0
+       41 CLOSEUPVALS                      R1
+       42 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarSettings"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [pcall]
-  DUPCLOSURE R2 K6 [PROTO_0]
-  CALL R1 1 2
-  JUMPIF R1 [+2]
-  DUPCLOSURE R3 K7 [PROTO_1]
-  RETURN R3 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Util"]
-  GETTABLEKS R6 R7 K12 ["BridgingFiles"]
-  GETTABLEKS R5 R6 K13 ["AssetDmFiles"]
-  GETTABLEKS R4 R5 K14 ["assetDmDatabaseLoadedManager"]
-  CALL R3 1 1
-  GETIMPORT R4 K9 [require]
-  GETTABLEKS R7 R0 K10 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Util"]
-  GETTABLEKS R5 R6 K15 ["InvokeKeys"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K16 [PROTO_6]
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R2
-  RETURN R5 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarSettings"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [pcall]
+        9 DUPCLOSURE                       R2 K6 [PROTO_0]
+       10 CALL                             R1 1 2
+       11 JUMPIF                           R1 ; [+2]
+       12 DUPCLOSURE                       R3 K7 [PROTO_1]
+       13 RETURN                           R3 1
+       14 GETIMPORT                        R3 K9 [require]
+       16 GETTABLEKS                       R8 R0 K10 ["Src"]
+       18 GETTABLEKS                       R7 R8 K11 ["Util"]
+       20 GETTABLEKS                       R6 R7 K12 ["BridgingFiles"]
+       22 GETTABLEKS                       R5 R6 K13 ["AssetDmFiles"]
+       24 GETTABLEKS                       R4 R5 K14 ["assetDmDatabaseLoadedManager"]
+       26 CALL                             R3 1 1
+       27 GETIMPORT                        R4 K9 [require]
+       29 GETTABLEKS                       R7 R0 K10 ["Src"]
+       31 GETTABLEKS                       R6 R7 K11 ["Util"]
+       33 GETTABLEKS                       R5 R6 K15 ["InvokeKeys"]
+       35 CALL                             R4 1 1
+       36 DUPCLOSURE                       R5 K16 [PROTO_6]
+       37 CAPTURE                          VAL R3
+       38 CAPTURE                          VAL R4
+       39 CAPTURE                          VAL R2
+       40 RETURN                           R5 1

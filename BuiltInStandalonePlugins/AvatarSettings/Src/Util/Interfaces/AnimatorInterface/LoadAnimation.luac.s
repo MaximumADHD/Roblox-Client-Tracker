@@ -1,10 +1,10 @@
 PROTO_0:
-  MOVE R4 R1
-  NAMECALL R2 R0 K0 ["LoadAnimation"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 MOVE                             R4 R1
+        1 NAMECALL                         R2 R0 K0 ["LoadAnimation"]
+        3 CALL                             R2 2 -1
+        4 RETURN                           R2 -1
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 RETURN                           R0 1

@@ -1,645 +1,645 @@
 PROTO_0:
-  NEWTABLE R1 1 0
-  SETTABLEKS R0 R1 K0 ["__networking"]
-  GETUPVAL R4 0
-  FASTCALL2 SETMETATABLE R1 R4 [+4]
-  MOVE R3 R1
-  GETIMPORT R2 K2 [setmetatable]
-  CALL R2 2 1
-  RETURN R2 1
+        0 NEWTABLE                         R1 1 0
+        2 SETTABLEKS                       R0 R1 K0 ["__networking"]
+        4 GETUPVAL                         R4 0
+        5 FASTCALL2                        SETMETATABLE R1 R4 ; [+4]
+        7 MOVE                             R3 R1
+        8 GETIMPORT                        R2 K2 [setmetatable]
+       10 CALL                             R2 2 1
+       11 RETURN                           R2 1
 
 PROTO_1:
-  GETTABLEKS R2 R0 K0 ["__networking"]
-  LOADK R5 K1 ["develop"]
-  LOADK R7 K2 ["/v2/universes/"]
-  MOVE R8 R1
-  LOADK R9 K3 ["/configuration"]
-  CONCAT R6 R7 R9
-  NAMECALL R3 R2 K4 ["get"]
-  CALL R3 3 -1
-  RETURN R3 -1
+        0 GETTABLEKS                       R2 R0 K0 ["__networking"]
+        2 LOADK                            R5 K1 ["develop"]
+        3 LOADK                            R7 K2 ["/v2/universes/"]
+        4 MOVE                             R8 R1
+        5 LOADK                            R9 K3 ["/configuration"]
+        6 CONCAT                           R6 R7 R9
+        7 NAMECALL                         R3 R2 K4 ["get"]
+        9 CALL                             R3 3 -1
+       10 RETURN                           R3 -1
 
 PROTO_2:
-  GETTABLEKS R2 R0 K0 ["__networking"]
-  LOADK R5 K1 ["develop"]
-  LOADK R7 K2 ["/v1/universes/"]
-  MOVE R8 R1
-  LOADK R9 K3 ["/icon"]
-  CONCAT R6 R7 R9
-  NAMECALL R3 R2 K4 ["get"]
-  CALL R3 3 -1
-  RETURN R3 -1
+        0 GETTABLEKS                       R2 R0 K0 ["__networking"]
+        2 LOADK                            R5 K1 ["develop"]
+        3 LOADK                            R7 K2 ["/v1/universes/"]
+        4 MOVE                             R8 R1
+        5 LOADK                            R9 K3 ["/icon"]
+        6 CONCAT                           R6 R7 R9
+        7 NAMECALL                         R3 R2 K4 ["get"]
+        9 CALL                             R3 3 -1
+       10 RETURN                           R3 -1
 
 PROTO_3:
-  GETTABLEKS R2 R0 K0 ["__networking"]
-  LOADK R5 K1 ["games"]
-  LOADK R7 K2 ["/v1/games/"]
-  MOVE R8 R1
-  LOADK R9 K3 ["/media"]
-  CONCAT R6 R7 R9
-  NAMECALL R3 R2 K4 ["get"]
-  CALL R3 3 -1
-  RETURN R3 -1
+        0 GETTABLEKS                       R2 R0 K0 ["__networking"]
+        2 LOADK                            R5 K1 ["games"]
+        3 LOADK                            R7 K2 ["/v1/games/"]
+        4 MOVE                             R8 R1
+        5 LOADK                            R9 K3 ["/media"]
+        6 CONCAT                           R6 R7 R9
+        7 NAMECALL                         R3 R2 K4 ["get"]
+        9 CALL                             R3 3 -1
+       10 RETURN                           R3 -1
 
 PROTO_4:
-  GETTABLEKS R3 R0 K0 ["__networking"]
-  LOADK R6 K1 ["develop"]
-  LOADK R8 K2 ["/v2/universes/"]
-  MOVE R9 R1
-  LOADK R10 K3 ["/configuration"]
-  CONCAT R7 R8 R10
-  DUPTABLE R8 K5 [{"Body"}]
-  SETTABLEKS R2 R8 K4 ["Body"]
-  NAMECALL R4 R3 K6 ["patch"]
-  CALL R4 4 -1
-  RETURN R4 -1
+        0 GETTABLEKS                       R3 R0 K0 ["__networking"]
+        2 LOADK                            R6 K1 ["develop"]
+        3 LOADK                            R8 K2 ["/v2/universes/"]
+        4 MOVE                             R9 R1
+        5 LOADK                            R10 K3 ["/configuration"]
+        6 CONCAT                           R7 R8 R10
+        7 DUPTABLE                         R8 K5 [{"Body"}]
+        8 SETTABLEKS                       R2 R8 K4 ["Body"]
+       10 NAMECALL                         R4 R3 K6 ["patch"]
+       12 CALL                             R4 4 -1
+       13 RETURN                           R4 -1
 
 PROTO_5:
-  GETUPVAL R3 0
-  FASTCALL1 ASSERT R3 [+2]
-  GETIMPORT R2 K1 [assert]
-  CALL R2 1 0
-  GETTABLEKS R2 R0 K2 ["__networking"]
-  LOADK R5 K3 ["apis"]
-  LOADK R6 K4 ["/experience-guidelines-service/v1beta1/multi-age-recommendation"]
-  DUPTABLE R7 K6 [{"Body"}]
-  DUPTABLE R8 K8 [{"universeIds"}]
-  NEWTABLE R9 0 1
-  MOVE R10 R1
-  SETLIST R9 R10 1 [1]
-  SETTABLEKS R9 R8 K7 ["universeIds"]
-  SETTABLEKS R8 R7 K5 ["Body"]
-  NAMECALL R3 R2 K9 ["post"]
-  CALL R3 4 -1
-  RETURN R3 -1
+        0 GETUPVAL                         R3 0
+        1 FASTCALL1                        ASSERT R3 ; [+2]
+        2 GETIMPORT                        R2 K1 [assert]
+        4 CALL                             R2 1 0
+        5 GETTABLEKS                       R2 R0 K2 ["__networking"]
+        7 LOADK                            R5 K3 ["apis"]
+        8 LOADK                            R6 K4 ["/experience-guidelines-service/v1beta1/multi-age-recommendation"]
+        9 DUPTABLE                         R7 K6 [{"Body"}]
+       10 DUPTABLE                         R8 K8 [{"universeIds"}]
+       11 NEWTABLE                         R9 0 1
+       13 MOVE                             R10 R1
+       14 SETLIST                          R9 R10 1 [1]
+       16 SETTABLEKS                       R9 R8 K7 ["universeIds"]
+       18 SETTABLEKS                       R8 R7 K5 ["Body"]
+       20 NAMECALL                         R3 R2 K9 ["post"]
+       22 CALL                             R3 4 -1
+       23 RETURN                           R3 -1
 
 PROTO_6:
-  GETTABLEKS R2 R0 K0 ["__networking"]
-  LOADK R5 K1 ["apis"]
-  LOADK R7 K2 ["/experience-genre-api/v1/Creator/ExperienceGenre"]
-  LOADK R8 K3 ["?universeId="]
-  MOVE R9 R1
-  LOADK R10 K4 ["&genreTaxonomyVersion=1"]
-  CONCAT R6 R7 R10
-  NAMECALL R3 R2 K5 ["get"]
-  CALL R3 3 -1
-  RETURN R3 -1
+        0 GETTABLEKS                       R2 R0 K0 ["__networking"]
+        2 LOADK                            R5 K1 ["apis"]
+        3 LOADK                            R7 K2 ["/experience-genre-api/v1/Creator/ExperienceGenre"]
+        4 LOADK                            R8 K3 ["?universeId="]
+        5 MOVE                             R9 R1
+        6 LOADK                            R10 K4 ["&genreTaxonomyVersion=1"]
+        7 CONCAT                           R6 R7 R10
+        8 NAMECALL                         R3 R2 K5 ["get"]
+       10 CALL                             R3 3 -1
+       11 RETURN                           R3 -1
 
 PROTO_7:
-  GETTABLEKS R3 R0 K0 ["__networking"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K1 ["GetAssetPublishRequestInfo"]
-  MOVE R5 R2
-  CALL R4 1 1
-  LOADNIL R5
-  SETTABLEKS R5 R4 K2 ["Method"]
-  LOADK R7 K3 ["publish"]
-  LOADK R9 K4 ["/v1/games/"]
-  MOVE R10 R1
-  LOADK R11 K5 ["/icon"]
-  CONCAT R8 R9 R11
-  MOVE R9 R4
-  NAMECALL R5 R3 K6 ["post"]
-  CALL R5 4 -1
-  RETURN R5 -1
+        0 GETTABLEKS                       R3 R0 K0 ["__networking"]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R4 R5 K1 ["GetAssetPublishRequestInfo"]
+        5 MOVE                             R5 R2
+        6 CALL                             R4 1 1
+        7 LOADNIL                          R5
+        8 SETTABLEKS                       R5 R4 K2 ["Method"]
+       10 LOADK                            R7 K3 ["publish"]
+       11 LOADK                            R9 K4 ["/v1/games/"]
+       12 MOVE                             R10 R1
+       13 LOADK                            R11 K5 ["/icon"]
+       14 CONCAT                           R8 R9 R11
+       15 MOVE                             R9 R4
+       16 NAMECALL                         R5 R3 K6 ["post"]
+       18 CALL                             R5 4 -1
+       19 RETURN                           R5 -1
 
 PROTO_8:
-  GETTABLEKS R3 R0 K0 ["__networking"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K1 ["GetAssetPublishRequestInfo"]
-  MOVE R5 R2
-  CALL R4 1 1
-  LOADNIL R5
-  SETTABLEKS R5 R4 K2 ["Method"]
-  LOADK R7 K3 ["publish"]
-  LOADK R9 K4 ["/v1/games/"]
-  MOVE R10 R1
-  LOADK R11 K5 ["/thumbnail/image"]
-  CONCAT R8 R9 R11
-  MOVE R9 R4
-  NAMECALL R5 R3 K6 ["post"]
-  CALL R5 4 -1
-  RETURN R5 -1
+        0 GETTABLEKS                       R3 R0 K0 ["__networking"]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R4 R5 K1 ["GetAssetPublishRequestInfo"]
+        5 MOVE                             R5 R2
+        6 CALL                             R4 1 1
+        7 LOADNIL                          R5
+        8 SETTABLEKS                       R5 R4 K2 ["Method"]
+       10 LOADK                            R7 K3 ["publish"]
+       11 LOADK                            R9 K4 ["/v1/games/"]
+       12 MOVE                             R10 R1
+       13 LOADK                            R11 K5 ["/thumbnail/image"]
+       14 CONCAT                           R8 R9 R11
+       15 MOVE                             R9 R4
+       16 NAMECALL                         R5 R3 K6 ["post"]
+       18 CALL                             R5 4 -1
+       19 RETURN                           R5 -1
 
 PROTO_9:
-  GETTABLEKS R3 R0 K0 ["__networking"]
-  LOADK R6 K1 ["develop"]
-  LOADK R8 K2 ["/v1/universes/"]
-  MOVE R9 R1
-  LOADK R10 K3 ["/thumbnails/"]
-  MOVE R11 R2
-  CONCAT R7 R8 R11
-  NAMECALL R4 R3 K4 ["delete"]
-  CALL R4 3 -1
-  RETURN R4 -1
+        0 GETTABLEKS                       R3 R0 K0 ["__networking"]
+        2 LOADK                            R6 K1 ["develop"]
+        3 LOADK                            R8 K2 ["/v1/universes/"]
+        4 MOVE                             R9 R1
+        5 LOADK                            R10 K3 ["/thumbnails/"]
+        6 MOVE                             R11 R2
+        7 CONCAT                           R7 R8 R11
+        8 NAMECALL                         R4 R3 K4 ["delete"]
+       10 CALL                             R4 3 -1
+       11 RETURN                           R4 -1
 
 PROTO_10:
-  GETTABLEKS R3 R0 K0 ["__networking"]
-  LOADK R6 K1 ["develop"]
-  LOADK R8 K2 ["/v1/universes/"]
-  MOVE R9 R1
-  LOADK R10 K3 ["/thumbnails/order"]
-  CONCAT R7 R8 R10
-  DUPTABLE R8 K5 [{"Body"}]
-  DUPTABLE R9 K7 [{"thumbnailIds"}]
-  SETTABLEKS R2 R9 K6 ["thumbnailIds"]
-  SETTABLEKS R9 R8 K4 ["Body"]
-  NAMECALL R4 R3 K8 ["post"]
-  CALL R4 4 -1
-  RETURN R4 -1
+        0 GETTABLEKS                       R3 R0 K0 ["__networking"]
+        2 LOADK                            R6 K1 ["develop"]
+        3 LOADK                            R8 K2 ["/v1/universes/"]
+        4 MOVE                             R9 R1
+        5 LOADK                            R10 K3 ["/thumbnails/order"]
+        6 CONCAT                           R7 R8 R10
+        7 DUPTABLE                         R8 K5 [{"Body"}]
+        8 DUPTABLE                         R9 K7 [{"thumbnailIds"}]
+        9 SETTABLEKS                       R2 R9 K6 ["thumbnailIds"]
+       11 SETTABLEKS                       R9 R8 K4 ["Body"]
+       13 NAMECALL                         R4 R3 K8 ["post"]
+       15 CALL                             R4 4 -1
+       16 RETURN                           R4 -1
 
 PROTO_11:
-  GETTABLEKS R3 R0 K0 ["__networking"]
-  LOADK R6 K1 ["develop"]
-  LOADK R8 K2 ["/v1/universes/"]
-  MOVE R9 R1
-  LOADK R10 K3 ["/thumbnails/alt-text"]
-  CONCAT R7 R8 R10
-  DUPTABLE R8 K5 [{"Body"}]
-  SETTABLEKS R2 R8 K4 ["Body"]
-  NAMECALL R4 R3 K6 ["post"]
-  CALL R4 4 -1
-  RETURN R4 -1
+        0 GETTABLEKS                       R3 R0 K0 ["__networking"]
+        2 LOADK                            R6 K1 ["develop"]
+        3 LOADK                            R8 K2 ["/v1/universes/"]
+        4 MOVE                             R9 R1
+        5 LOADK                            R10 K3 ["/thumbnails/alt-text"]
+        6 CONCAT                           R7 R8 R10
+        7 DUPTABLE                         R8 K5 [{"Body"}]
+        8 SETTABLEKS                       R2 R8 K4 ["Body"]
+       10 NAMECALL                         R4 R3 K6 ["post"]
+       12 CALL                             R4 4 -1
+       13 RETURN                           R4 -1
 
 PROTO_12:
-  MOVE R4 R1
-  NAMECALL R2 R0 K0 ["configurationV2GET"]
-  CALL R2 2 1
-  NAMECALL R2 R2 K1 ["await"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K2 ["responseBody"]
-  GETTABLEKS R3 R4 K3 ["name"]
-  RETURN R3 1
+        0 MOVE                             R4 R1
+        1 NAMECALL                         R2 R0 K0 ["configurationV2GET"]
+        3 CALL                             R2 2 1
+        4 NAMECALL                         R2 R2 K1 ["await"]
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R4 K3 ["name"]
+       11 RETURN                           R3 1
 
 PROTO_13:
-  GETTABLEKS R1 R0 K0 ["responseCode"]
-  JUMPIFNOTEQKN R1 K1 [400] [+19]
-  GETIMPORT R1 K3 [ipairs]
-  GETTABLEKS R4 R0 K4 ["responseBody"]
-  GETTABLEKS R2 R4 K5 ["errors"]
-  CALL R1 1 3
-  FORGPREP_INEXT R1
-  GETTABLEKS R6 R5 K6 ["code"]
-  JUMPIFNOTEQKN R6 K7 [7] [+5]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K8 ["NameModerated"]
-  SETUPVAL R6 0
-  FORGLOOP R1 2 [inext] [-9]
-  RETURN R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["responseCode"]
+        2 JUMPIFNOTEQKN                    R1 K1 [400] ; [+19]
+        4 GETIMPORT                        R1 K3 [ipairs]
+        6 GETTABLEKS                       R4 R0 K4 ["responseBody"]
+        8 GETTABLEKS                       R2 R4 K5 ["errors"]
+       10 CALL                             R1 1 3
+       11 FORGPREP_INEXT                   R1
+       12 GETTABLEKS                       R6 R5 K6 ["code"]
+       14 JUMPIFNOTEQKN                    R6 K7 [7] ; [+5]
+       16 GETUPVAL                         R7 1
+       17 GETTABLEKS                       R6 R7 K8 ["NameModerated"]
+       19 SETUPVAL                         R6 0
+       20 FORGLOOP                         R1 2 [inext] ; [-9]
+       22 RETURN                           R0 0
 
 PROTO_14:
-  LOADNIL R3
-  MOVE R6 R1
-  DUPTABLE R7 K1 [{"name"}]
-  SETTABLEKS R2 R7 K0 ["name"]
-  NAMECALL R4 R0 K2 ["configurationV2PATCH"]
-  CALL R4 3 1
-  NEWCLOSURE R6 P0
-  CAPTURE REF R3
-  CAPTURE UPVAL U0
-  NAMECALL R4 R4 K3 ["catch"]
-  CALL R4 2 1
-  NAMECALL R4 R4 K4 ["await"]
-  CALL R4 1 0
-  JUMPIFNOT R3 [+5]
-  GETIMPORT R4 K6 [error]
-  MOVE R5 R3
-  CALL R4 1 0
-  JUMP [+5]
-  GETUPVAL R4 1
-  MOVE R6 R2
-  NAMECALL R4 R4 K7 ["SetUniverseDisplayName"]
-  CALL R4 2 0
-  CLOSEUPVALS R3
-  RETURN R0 0
+        0 LOADNIL                          R3
+        1 MOVE                             R6 R1
+        2 DUPTABLE                         R7 K1 [{"name"}]
+        3 SETTABLEKS                       R2 R7 K0 ["name"]
+        5 NAMECALL                         R4 R0 K2 ["configurationV2PATCH"]
+        7 CALL                             R4 3 1
+        8 NEWCLOSURE                       R6 P0
+        9 CAPTURE                          REF R3
+       10 CAPTURE                          UPVAL U0
+       11 NAMECALL                         R4 R4 K3 ["catch"]
+       13 CALL                             R4 2 1
+       14 NAMECALL                         R4 R4 K4 ["await"]
+       16 CALL                             R4 1 0
+       17 JUMPIFNOT                        R3 ; [+5]
+       18 GETIMPORT                        R4 K6 [error]
+       20 MOVE                             R5 R3
+       21 CALL                             R4 1 0
+       22 JUMP                             ; [+5]
+       23 GETUPVAL                         R4 1
+       24 MOVE                             R6 R2
+       25 NAMECALL                         R4 R4 K7 ["SetUniverseDisplayName"]
+       27 CALL                             R4 2 0
+       28 CLOSEUPVALS                      R3
+       29 RETURN                           R0 0
 
 PROTO_15:
-  MOVE R4 R1
-  NAMECALL R2 R0 K0 ["configurationV2GET"]
-  CALL R2 2 1
-  NAMECALL R2 R2 K1 ["await"]
-  CALL R2 1 1
-  GETTABLEKS R5 R2 K3 ["responseBody"]
-  GETTABLEKS R4 R5 K4 ["description"]
-  ORK R3 R4 K2 [""]
-  RETURN R3 1
+        0 MOVE                             R4 R1
+        1 NAMECALL                         R2 R0 K0 ["configurationV2GET"]
+        3 CALL                             R2 2 1
+        4 NAMECALL                         R2 R2 K1 ["await"]
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R5 R2 K3 ["responseBody"]
+        9 GETTABLEKS                       R4 R5 K4 ["description"]
+       11 ORK                              R3 R4 K2 [""]
+       12 RETURN                           R3 1
 
 PROTO_16:
-  GETUPVAL R3 0
-  FASTCALL1 ASSERT R3 [+2]
-  GETIMPORT R2 K1 [assert]
-  CALL R2 1 0
-  MOVE R4 R1
-  NAMECALL R2 R0 K2 ["guidelinesPOST"]
-  CALL R2 2 1
-  NAMECALL R2 R2 K3 ["await"]
-  CALL R2 1 1
-  GETTABLEKS R5 R2 K4 ["responseBody"]
-  GETTABLEKS R4 R5 K5 ["ageRecommendationDetailsByUniverse"]
-  GETTABLEN R3 R4 1
-  FASTCALL1 ASSERT R3 [+3]
-  MOVE R5 R3
-  GETIMPORT R4 K1 [assert]
-  CALL R4 1 0
-  GETTABLEKS R6 R3 K6 ["universeId"]
-  JUMPIFEQ R6 R1 [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  FASTCALL1 ASSERT R5 [+2]
-  GETIMPORT R4 K1 [assert]
-  CALL R4 1 0
-  JUMPIFNOT R3 [+16]
-  GETTABLEKS R6 R3 K7 ["ageRecommendationDetails"]
-  GETTABLEKS R5 R6 K8 ["ageRecommendationSummary"]
-  GETTABLEKS R4 R5 K9 ["ageRecommendation"]
-  JUMPIFNOT R4 [+7]
-  GETTABLEKS R5 R4 K10 ["contentMaturity"]
-  JUMPIFEQKS R5 K11 ["unrated"] [+4]
-  GETTABLEKS R5 R4 K12 ["displayName"]
-  RETURN R5 1
-  LOADNIL R5
-  RETURN R5 1
-  LOADNIL R4
-  RETURN R4 1
+        0 GETUPVAL                         R3 0
+        1 FASTCALL1                        ASSERT R3 ; [+2]
+        2 GETIMPORT                        R2 K1 [assert]
+        4 CALL                             R2 1 0
+        5 MOVE                             R4 R1
+        6 NAMECALL                         R2 R0 K2 ["guidelinesPOST"]
+        8 CALL                             R2 2 1
+        9 NAMECALL                         R2 R2 K3 ["await"]
+       11 CALL                             R2 1 1
+       12 GETTABLEKS                       R5 R2 K4 ["responseBody"]
+       14 GETTABLEKS                       R4 R5 K5 ["ageRecommendationDetailsByUniverse"]
+       16 GETTABLEN                        R3 R4 1
+       17 FASTCALL1                        ASSERT R3 ; [+3]
+       18 MOVE                             R5 R3
+       19 GETIMPORT                        R4 K1 [assert]
+       21 CALL                             R4 1 0
+       22 GETTABLEKS                       R6 R3 K6 ["universeId"]
+       24 JUMPIFEQ                         R6 R1 ; [+2]
+       26 LOADB                            R5 0 +1
+       27 LOADB                            R5 1
+       28 FASTCALL1                        ASSERT R5 ; [+2]
+       29 GETIMPORT                        R4 K1 [assert]
+       31 CALL                             R4 1 0
+       32 JUMPIFNOT                        R3 ; [+16]
+       33 GETTABLEKS                       R6 R3 K7 ["ageRecommendationDetails"]
+       35 GETTABLEKS                       R5 R6 K8 ["ageRecommendationSummary"]
+       37 GETTABLEKS                       R4 R5 K9 ["ageRecommendation"]
+       39 JUMPIFNOT                        R4 ; [+7]
+       40 GETTABLEKS                       R5 R4 K10 ["contentMaturity"]
+       42 JUMPIFEQKS                       R5 K11 ["unrated"] ; [+4]
+       44 GETTABLEKS                       R5 R4 K12 ["displayName"]
+       46 RETURN                           R5 1
+       47 LOADNIL                          R5
+       48 RETURN                           R5 1
+       49 LOADNIL                          R4
+       50 RETURN                           R4 1
 
 PROTO_17:
-  GETIMPORT R1 K1 [warn]
-  LOADK R3 K2 ["GameInfoController:getExperienceGenre experienced an error: "]
-  FASTCALL1 TOSTRING R0 [+3]
-  MOVE R5 R0
-  GETIMPORT R4 K4 [tostring]
-  CALL R4 1 1
-  CONCAT R2 R3 R4
-  CALL R1 1 0
-  LOADNIL R1
-  RETURN R1 1
+        0 GETIMPORT                        R1 K1 [warn]
+        2 LOADK                            R3 K2 ["GameInfoController:getExperienceGenre experienced an error: "]
+        3 FASTCALL1                        TOSTRING R0 ; [+3]
+        4 MOVE                             R5 R0
+        5 GETIMPORT                        R4 K4 [tostring]
+        7 CALL                             R4 1 1
+        8 CONCAT                           R2 R3 R4
+        9 CALL                             R1 1 0
+       10 LOADNIL                          R1
+       11 RETURN                           R1 1
 
 PROTO_18:
-  GETUPVAL R2 0
-  JUMPIF R2 [+2]
-  LOADNIL R2
-  RETURN R2 1
-  MOVE R4 R1
-  NAMECALL R2 R0 K0 ["experienceGenreGET"]
-  CALL R2 2 1
-  DUPCLOSURE R4 K1 [PROTO_17]
-  NAMECALL R2 R2 K2 ["catch"]
-  CALL R2 2 1
-  NAMECALL R2 R2 K3 ["await"]
-  CALL R2 1 1
-  JUMPIFNOTEQKNIL R2 [+3]
-  LOADNIL R3
-  RETURN R3 1
-  GETTABLEKS R4 R2 K4 ["responseBody"]
-  JUMPIFNOT R4 [+5]
-  GETTABLEKS R4 R2 K4 ["responseBody"]
-  GETTABLEKS R3 R4 K5 ["genre"]
-  JUMPIF R3 [+1]
-  LOADNIL R3
-  RETURN R3 1
+        0 GETUPVAL                         R2 0
+        1 JUMPIF                           R2 ; [+2]
+        2 LOADNIL                          R2
+        3 RETURN                           R2 1
+        4 MOVE                             R4 R1
+        5 NAMECALL                         R2 R0 K0 ["experienceGenreGET"]
+        7 CALL                             R2 2 1
+        8 DUPCLOSURE                       R4 K1 [PROTO_17]
+        9 NAMECALL                         R2 R2 K2 ["catch"]
+       11 CALL                             R2 2 1
+       12 NAMECALL                         R2 R2 K3 ["await"]
+       14 CALL                             R2 1 1
+       15 JUMPIFNOTEQKNIL                  R2 ; [+3]
+       17 LOADNIL                          R3
+       18 RETURN                           R3 1
+       19 GETTABLEKS                       R4 R2 K4 ["responseBody"]
+       21 JUMPIFNOT                        R4 ; [+5]
+       22 GETTABLEKS                       R4 R2 K4 ["responseBody"]
+       24 GETTABLEKS                       R3 R4 K5 ["genre"]
+       26 JUMPIF                           R3 ; [+1]
+       27 LOADNIL                          R3
+       28 RETURN                           R3 1
 
 PROTO_19:
-  MOVE R5 R1
-  DUPTABLE R6 K1 [{"description"}]
-  SETTABLEKS R2 R6 K0 ["description"]
-  NAMECALL R3 R0 K2 ["configurationV2PATCH"]
-  CALL R3 3 1
-  NAMECALL R3 R3 K3 ["await"]
-  CALL R3 1 0
-  RETURN R0 0
+        0 MOVE                             R5 R1
+        1 DUPTABLE                         R6 K1 [{"description"}]
+        2 SETTABLEKS                       R2 R6 K0 ["description"]
+        4 NAMECALL                         R3 R0 K2 ["configurationV2PATCH"]
+        6 CALL                             R3 3 1
+        7 NAMECALL                         R3 R3 K3 ["await"]
+        9 CALL                             R3 1 0
+       10 RETURN                           R0 0
 
 PROTO_20:
-  MOVE R4 R1
-  NAMECALL R2 R0 K0 ["configurationV2GET"]
-  CALL R2 2 1
-  NAMECALL R2 R2 K1 ["await"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K2 ["responseBody"]
-  GETTABLEKS R3 R4 K3 ["genre"]
-  RETURN R3 1
+        0 MOVE                             R4 R1
+        1 NAMECALL                         R2 R0 K0 ["configurationV2GET"]
+        3 CALL                             R2 2 1
+        4 NAMECALL                         R2 R2 K1 ["await"]
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R4 K3 ["genre"]
+       11 RETURN                           R3 1
 
 PROTO_21:
-  MOVE R5 R1
-  DUPTABLE R6 K1 [{"genre"}]
-  SETTABLEKS R2 R6 K0 ["genre"]
-  NAMECALL R3 R0 K2 ["configurationV2PATCH"]
-  CALL R3 3 1
-  NAMECALL R3 R3 K3 ["await"]
-  CALL R3 1 0
-  RETURN R0 0
+        0 MOVE                             R5 R1
+        1 DUPTABLE                         R6 K1 [{"genre"}]
+        2 SETTABLEKS                       R2 R6 K0 ["genre"]
+        4 NAMECALL                         R3 R0 K2 ["configurationV2PATCH"]
+        6 CALL                             R3 3 1
+        7 NAMECALL                         R3 R3 K3 ["await"]
+        9 CALL                             R3 1 0
+       10 RETURN                           R0 0
 
 PROTO_22:
-  MOVE R4 R1
-  NAMECALL R2 R0 K0 ["configurationV2GET"]
-  CALL R2 2 1
-  NAMECALL R2 R2 K1 ["await"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K2 ["responseBody"]
-  GETTABLEKS R3 R4 K3 ["playableDevices"]
-  RETURN R3 1
+        0 MOVE                             R4 R1
+        1 NAMECALL                         R2 R0 K0 ["configurationV2GET"]
+        3 CALL                             R2 2 1
+        4 NAMECALL                         R2 R2 K1 ["await"]
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R4 K3 ["playableDevices"]
+       11 RETURN                           R3 1
 
 PROTO_23:
-  MOVE R5 R1
-  DUPTABLE R6 K1 [{"playableDevices"}]
-  SETTABLEKS R2 R6 K0 ["playableDevices"]
-  NAMECALL R3 R0 K2 ["configurationV2PATCH"]
-  CALL R3 3 1
-  NAMECALL R3 R3 K3 ["await"]
-  CALL R3 1 0
-  RETURN R0 0
+        0 MOVE                             R5 R1
+        1 DUPTABLE                         R6 K1 [{"playableDevices"}]
+        2 SETTABLEKS                       R2 R6 K0 ["playableDevices"]
+        4 NAMECALL                         R3 R0 K2 ["configurationV2PATCH"]
+        6 CALL                             R3 3 1
+        7 NAMECALL                         R3 R3 K3 ["await"]
+        9 CALL                             R3 1 0
+       10 RETURN                           R0 0
 
 PROTO_24:
-  MOVE R4 R1
-  NAMECALL R2 R0 K0 ["thumbnailsV2GET"]
-  CALL R2 2 1
-  NAMECALL R2 R2 K1 ["await"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K2 ["responseBody"]
-  GETTABLEKS R3 R4 K3 ["data"]
-  RETURN R3 1
+        0 MOVE                             R4 R1
+        1 NAMECALL                         R2 R0 K0 ["thumbnailsV2GET"]
+        3 CALL                             R2 2 1
+        4 NAMECALL                         R2 R2 K1 ["await"]
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R4 K3 ["data"]
+       11 RETURN                           R3 1
 
 PROTO_25:
-  GETTABLEKS R2 R0 K0 ["responseBody"]
-  GETTABLEKS R1 R2 K1 ["targetId"]
-  GETUPVAL R2 0
-  GETUPVAL R3 1
-  SETTABLE R1 R2 R3
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["responseBody"]
+        2 GETTABLEKS                       R1 R2 K1 ["targetId"]
+        4 GETUPVAL                         R2 0
+        5 GETUPVAL                         R3 1
+        6 SETTABLE                         R1 R2 R3
+        7 RETURN                           R0 0
 
 PROTO_26:
-  NEWTABLE R3 0 0
-  NEWTABLE R4 0 0
-  GETIMPORT R5 K1 [ipairs]
-  MOVE R6 R2
-  CALL R5 1 3
-  FORGPREP_INEXT R5
-  MOVE R11 R3
-  MOVE R14 R1
-  MOVE R15 R9
-  NAMECALL R12 R0 K2 ["thumbnailV1POST"]
-  CALL R12 3 1
-  NEWCLOSURE R14 P0
-  CAPTURE VAL R4
-  CAPTURE VAL R9
-  NAMECALL R12 R12 K3 ["andThen"]
-  CALL R12 2 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R10 K6 [table.insert]
-  CALL R10 -1 0
-  FORGLOOP R5 2 [inext] [-17]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K7 ["all"]
-  MOVE R6 R3
-  CALL R5 1 1
-  NAMECALL R5 R5 K8 ["await"]
-  CALL R5 1 0
-  RETURN R4 1
+        0 NEWTABLE                         R3 0 0
+        2 NEWTABLE                         R4 0 0
+        4 GETIMPORT                        R5 K1 [ipairs]
+        6 MOVE                             R6 R2
+        7 CALL                             R5 1 3
+        8 FORGPREP_INEXT                   R5
+        9 MOVE                             R11 R3
+       10 MOVE                             R14 R1
+       11 MOVE                             R15 R9
+       12 NAMECALL                         R12 R0 K2 ["thumbnailV1POST"]
+       14 CALL                             R12 3 1
+       15 NEWCLOSURE                       R14 P0
+       16 CAPTURE                          VAL R4
+       17 CAPTURE                          VAL R9
+       18 NAMECALL                         R12 R12 K3 ["andThen"]
+       20 CALL                             R12 2 -1
+       21 FASTCALL                         TABLE_INSERT ; [+2]
+       22 GETIMPORT                        R10 K6 [table.insert]
+       24 CALL                             R10 -1 0
+       25 FORGLOOP                         R5 2 [inext] ; [-17]
+       27 GETUPVAL                         R6 0
+       28 GETTABLEKS                       R5 R6 K7 ["all"]
+       30 MOVE                             R6 R3
+       31 CALL                             R5 1 1
+       32 NAMECALL                         R5 R5 K8 ["await"]
+       34 CALL                             R5 1 0
+       35 RETURN                           R4 1
 
 PROTO_27:
-  NEWTABLE R3 0 0
-  GETIMPORT R4 K1 [ipairs]
-  MOVE R5 R2
-  CALL R4 1 3
-  FORGPREP_INEXT R4
-  MOVE R10 R3
-  MOVE R13 R1
-  MOVE R14 R8
-  NAMECALL R11 R0 K2 ["thumbnailV1DELETE"]
-  CALL R11 3 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R9 K5 [table.insert]
-  CALL R9 -1 0
-  FORGLOOP R4 2 [inext] [-11]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K6 ["all"]
-  MOVE R5 R3
-  CALL R4 1 1
-  NAMECALL R4 R4 K7 ["await"]
-  CALL R4 1 0
-  RETURN R0 0
+        0 NEWTABLE                         R3 0 0
+        2 GETIMPORT                        R4 K1 [ipairs]
+        4 MOVE                             R5 R2
+        5 CALL                             R4 1 3
+        6 FORGPREP_INEXT                   R4
+        7 MOVE                             R10 R3
+        8 MOVE                             R13 R1
+        9 MOVE                             R14 R8
+       10 NAMECALL                         R11 R0 K2 ["thumbnailV1DELETE"]
+       12 CALL                             R11 3 -1
+       13 FASTCALL                         TABLE_INSERT ; [+2]
+       14 GETIMPORT                        R9 K5 [table.insert]
+       16 CALL                             R9 -1 0
+       17 FORGLOOP                         R4 2 [inext] ; [-11]
+       19 GETUPVAL                         R5 0
+       20 GETTABLEKS                       R4 R5 K6 ["all"]
+       22 MOVE                             R5 R3
+       23 CALL                             R4 1 1
+       24 NAMECALL                         R4 R4 K7 ["await"]
+       26 CALL                             R4 1 0
+       27 RETURN                           R0 0
 
 PROTO_28:
-  GETTABLEKS R1 R0 K0 ["responseBody"]
-  SETUPVAL R1 0
-  RETURN R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        2 SETUPVAL                         R1 0
+        3 RETURN                           R0 0
 
 PROTO_29:
-  GETTABLEKS R1 R0 K0 ["responseCode"]
-  JUMPIFNOTEQKN R1 K1 [400] [+19]
-  GETIMPORT R1 K3 [ipairs]
-  GETTABLEKS R4 R0 K4 ["responseBody"]
-  GETTABLEKS R2 R4 K5 ["errors"]
-  CALL R1 1 3
-  FORGPREP_INEXT R1
-  GETTABLEKS R6 R5 K6 ["code"]
-  JUMPIFNOTEQKN R6 K7 [19] [+5]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K8 ["AltTextModerated"]
-  SETUPVAL R6 0
-  FORGLOOP R1 2 [inext] [-9]
-  RETURN R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["responseCode"]
+        2 JUMPIFNOTEQKN                    R1 K1 [400] ; [+19]
+        4 GETIMPORT                        R1 K3 [ipairs]
+        6 GETTABLEKS                       R4 R0 K4 ["responseBody"]
+        8 GETTABLEKS                       R2 R4 K5 ["errors"]
+       10 CALL                             R1 1 3
+       11 FORGPREP_INEXT                   R1
+       12 GETTABLEKS                       R6 R5 K6 ["code"]
+       14 JUMPIFNOTEQKN                    R6 K7 [19] ; [+5]
+       16 GETUPVAL                         R7 1
+       17 GETTABLEKS                       R6 R7 K8 ["AltTextModerated"]
+       19 SETUPVAL                         R6 0
+       20 FORGLOOP                         R1 2 [inext] ; [-9]
+       22 RETURN                           R0 0
 
 PROTO_30:
-  LOADNIL R3
-  LOADNIL R4
-  MOVE R7 R1
-  MOVE R8 R2
-  NAMECALL R5 R0 K0 ["thumbnailAltTextV1POST"]
-  CALL R5 3 1
-  NEWCLOSURE R7 P0
-  CAPTURE REF R3
-  NAMECALL R5 R5 K1 ["andThen"]
-  CALL R5 2 1
-  NEWCLOSURE R7 P1
-  CAPTURE REF R4
-  CAPTURE UPVAL U0
-  NAMECALL R5 R5 K2 ["catch"]
-  CALL R5 2 1
-  NAMECALL R5 R5 K3 ["await"]
-  CALL R5 1 0
-  JUMPIFNOT R4 [+5]
-  GETIMPORT R5 K5 [error]
-  MOVE R6 R4
-  CALL R5 1 0
-  JUMP [+4]
-  JUMPIFEQKNIL R3 [+3]
-  CLOSEUPVALS R3
-  RETURN R3 1
-  LOADNIL R5
-  CLOSEUPVALS R3
-  RETURN R5 1
+        0 LOADNIL                          R3
+        1 LOADNIL                          R4
+        2 MOVE                             R7 R1
+        3 MOVE                             R8 R2
+        4 NAMECALL                         R5 R0 K0 ["thumbnailAltTextV1POST"]
+        6 CALL                             R5 3 1
+        7 NEWCLOSURE                       R7 P0
+        8 CAPTURE                          REF R3
+        9 NAMECALL                         R5 R5 K1 ["andThen"]
+       11 CALL                             R5 2 1
+       12 NEWCLOSURE                       R7 P1
+       13 CAPTURE                          REF R4
+       14 CAPTURE                          UPVAL U0
+       15 NAMECALL                         R5 R5 K2 ["catch"]
+       17 CALL                             R5 2 1
+       18 NAMECALL                         R5 R5 K3 ["await"]
+       20 CALL                             R5 1 0
+       21 JUMPIFNOT                        R4 ; [+5]
+       22 GETIMPORT                        R5 K5 [error]
+       24 MOVE                             R6 R4
+       25 CALL                             R5 1 0
+       26 JUMP                             ; [+4]
+       27 JUMPIFEQKNIL                     R3 ; [+3]
+       29 CLOSEUPVALS                      R3
+       30 RETURN                           R3 1
+       31 LOADNIL                          R5
+       32 CLOSEUPVALS                      R3
+       33 RETURN                           R5 1
 
 PROTO_31:
-  MOVE R5 R1
-  MOVE R6 R2
-  NAMECALL R3 R0 K0 ["thumbnailOrderV1POST"]
-  CALL R3 3 1
-  NAMECALL R3 R3 K1 ["await"]
-  CALL R3 1 0
-  RETURN R0 0
+        0 MOVE                             R5 R1
+        1 MOVE                             R6 R2
+        2 NAMECALL                         R3 R0 K0 ["thumbnailOrderV1POST"]
+        4 CALL                             R3 3 1
+        5 NAMECALL                         R3 R3 K1 ["await"]
+        7 CALL                             R3 1 0
+        8 RETURN                           R0 0
 
 PROTO_32:
-  MOVE R4 R1
-  NAMECALL R2 R0 K0 ["iconV1GET"]
-  CALL R2 2 1
-  NAMECALL R2 R2 K1 ["await"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K2 ["responseBody"]
-  GETTABLEKS R3 R4 K3 ["imageId"]
-  GETTABLEKS R5 R2 K2 ["responseBody"]
-  GETTABLEKS R4 R5 K4 ["isApproved"]
-  JUMPIFNOT R3 [+4]
-  LOADK R6 K5 ["rbxassetid://"]
-  MOVE R7 R3
-  CONCAT R5 R6 R7
-  JUMPIF R5 [+1]
-  LOADNIL R5
-  MOVE R6 R4
-  RETURN R5 2
+        0 MOVE                             R4 R1
+        1 NAMECALL                         R2 R0 K0 ["iconV1GET"]
+        3 CALL                             R2 2 1
+        4 NAMECALL                         R2 R2 K1 ["await"]
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R4 K3 ["imageId"]
+       11 GETTABLEKS                       R5 R2 K2 ["responseBody"]
+       13 GETTABLEKS                       R4 R5 K4 ["isApproved"]
+       15 JUMPIFNOT                        R3 ; [+4]
+       16 LOADK                            R6 K5 ["rbxassetid://"]
+       17 MOVE                             R7 R3
+       18 CONCAT                           R5 R6 R7
+       19 JUMPIF                           R5 ; [+1]
+       20 LOADNIL                          R5
+       21 MOVE                             R6 R4
+       22 RETURN                           R5 2
 
 PROTO_33:
-  MOVE R5 R1
-  MOVE R6 R2
-  NAMECALL R3 R0 K0 ["iconV1POST"]
-  CALL R3 3 1
-  NAMECALL R3 R3 K1 ["await"]
-  CALL R3 1 0
-  RETURN R0 0
+        0 MOVE                             R5 R1
+        1 MOVE                             R6 R2
+        2 NAMECALL                         R3 R0 K0 ["iconV1POST"]
+        4 CALL                             R3 3 1
+        5 NAMECALL                         R3 R3 K1 ["await"]
+        7 CALL                             R3 1 0
+        8 RETURN                           R0 0
 
 PROTO_34:
-  MOVE R4 R1
-  NAMECALL R2 R0 K0 ["configurationV2GET"]
-  CALL R2 2 1
-  NAMECALL R2 R2 K1 ["await"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K2 ["responseBody"]
-  GETTABLEKS R3 R4 K3 ["optInRegions"]
-  RETURN R3 1
+        0 MOVE                             R4 R1
+        1 NAMECALL                         R2 R0 K0 ["configurationV2GET"]
+        3 CALL                             R2 2 1
+        4 NAMECALL                         R2 R2 K1 ["await"]
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R4 R2 K2 ["responseBody"]
+        9 GETTABLEKS                       R3 R4 K3 ["optInRegions"]
+       11 RETURN                           R3 1
 
 PROTO_35:
-  MOVE R6 R1
-  DUPTABLE R7 K2 [{"optInRegions", "optOutRegions"}]
-  SETTABLEKS R2 R7 K0 ["optInRegions"]
-  SETTABLEKS R3 R7 K1 ["optOutRegions"]
-  NAMECALL R4 R0 K3 ["configurationV2PATCH"]
-  CALL R4 3 0
-  RETURN R0 0
+        0 MOVE                             R6 R1
+        1 DUPTABLE                         R7 K2 [{"optInRegions", "optOutRegions"}]
+        2 SETTABLEKS                       R2 R7 K0 ["optInRegions"]
+        4 SETTABLEKS                       R3 R7 K1 ["optOutRegions"]
+        6 NAMECALL                         R4 R0 K3 ["configurationV2PATCH"]
+        8 CALL                             R4 3 0
+        9 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K6 ["Framework"]
-  CALL R2 1 1
-  GETTABLEKS R1 R2 K7 ["Util"]
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Util"]
-  GETTABLEKS R3 R4 K9 ["FileUtils"]
-  CALL R2 1 1
-  GETTABLEKS R3 R1 K10 ["Promise"]
-  GETTABLEKS R4 R1 K11 ["Symbol"]
-  GETIMPORT R5 K13 [game]
-  LOADK R7 K14 ["StudioPublishService"]
-  NAMECALL R5 R5 K15 ["GetService"]
-  CALL R5 2 1
-  GETIMPORT R6 K13 [game]
-  LOADK R8 K16 ["GameSettingsExperienceGuidelines"]
-  NAMECALL R6 R6 K17 ["GetFastFlag"]
-  CALL R6 2 1
-  GETIMPORT R7 K13 [game]
-  LOADK R9 K18 ["CU1320ExperienceGenre"]
-  NAMECALL R7 R7 K17 ["GetFastFlag"]
-  CALL R7 2 1
-  NEWTABLE R8 64 0
-  SETTABLEKS R8 R8 K19 ["__index"]
-  GETTABLEKS R9 R4 K20 ["named"]
-  LOADK R10 K21 ["NameModerated"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K21 ["NameModerated"]
-  GETTABLEKS R9 R4 K20 ["named"]
-  LOADK R10 K22 ["DescriptionModerated"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K22 ["DescriptionModerated"]
-  GETTABLEKS R9 R4 K20 ["named"]
-  LOADK R10 K23 ["AltTextModerated"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K23 ["AltTextModerated"]
-  DUPCLOSURE R9 K24 [PROTO_0]
-  CAPTURE VAL R8
-  SETTABLEKS R9 R8 K25 ["new"]
-  DUPCLOSURE R9 K26 [PROTO_1]
-  SETTABLEKS R9 R8 K27 ["configurationV2GET"]
-  DUPCLOSURE R9 K28 [PROTO_2]
-  SETTABLEKS R9 R8 K29 ["iconV1GET"]
-  DUPCLOSURE R9 K30 [PROTO_3]
-  SETTABLEKS R9 R8 K31 ["thumbnailsV2GET"]
-  DUPCLOSURE R9 K32 [PROTO_4]
-  SETTABLEKS R9 R8 K33 ["configurationV2PATCH"]
-  DUPCLOSURE R9 K34 [PROTO_5]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R8 K35 ["guidelinesPOST"]
-  DUPCLOSURE R9 K36 [PROTO_6]
-  SETTABLEKS R9 R8 K37 ["experienceGenreGET"]
-  DUPCLOSURE R9 K38 [PROTO_7]
-  CAPTURE VAL R2
-  SETTABLEKS R9 R8 K39 ["iconV1POST"]
-  DUPCLOSURE R9 K40 [PROTO_8]
-  CAPTURE VAL R2
-  SETTABLEKS R9 R8 K41 ["thumbnailV1POST"]
-  DUPCLOSURE R9 K42 [PROTO_9]
-  SETTABLEKS R9 R8 K43 ["thumbnailV1DELETE"]
-  DUPCLOSURE R9 K44 [PROTO_10]
-  SETTABLEKS R9 R8 K45 ["thumbnailOrderV1POST"]
-  DUPCLOSURE R9 K46 [PROTO_11]
-  SETTABLEKS R9 R8 K47 ["thumbnailAltTextV1POST"]
-  DUPCLOSURE R9 K48 [PROTO_12]
-  SETTABLEKS R9 R8 K49 ["getName"]
-  DUPCLOSURE R9 K50 [PROTO_14]
-  CAPTURE VAL R8
-  CAPTURE VAL R5
-  SETTABLEKS R9 R8 K51 ["setName"]
-  DUPCLOSURE R9 K52 [PROTO_15]
-  SETTABLEKS R9 R8 K53 ["getDescription"]
-  DUPCLOSURE R9 K54 [PROTO_16]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R8 K55 ["getGuidelines"]
-  DUPCLOSURE R9 K56 [PROTO_18]
-  CAPTURE VAL R7
-  SETTABLEKS R9 R8 K57 ["getExperienceGenre"]
-  DUPCLOSURE R9 K58 [PROTO_19]
-  SETTABLEKS R9 R8 K59 ["setDescription"]
-  DUPCLOSURE R9 K60 [PROTO_20]
-  SETTABLEKS R9 R8 K61 ["getGenre"]
-  DUPCLOSURE R9 K62 [PROTO_21]
-  SETTABLEKS R9 R8 K63 ["setGenre"]
-  DUPCLOSURE R9 K64 [PROTO_22]
-  SETTABLEKS R9 R8 K65 ["getSupportedDevices"]
-  DUPCLOSURE R9 K66 [PROTO_23]
-  SETTABLEKS R9 R8 K67 ["setSupportedDevices"]
-  DUPCLOSURE R9 K68 [PROTO_24]
-  SETTABLEKS R9 R8 K69 ["getThumbnails"]
-  DUPCLOSURE R9 K70 [PROTO_26]
-  CAPTURE VAL R3
-  SETTABLEKS R9 R8 K71 ["addThumbnails"]
-  DUPCLOSURE R9 K72 [PROTO_27]
-  CAPTURE VAL R3
-  SETTABLEKS R9 R8 K73 ["removeThumbnails"]
-  DUPCLOSURE R9 K74 [PROTO_30]
-  CAPTURE VAL R8
-  SETTABLEKS R9 R8 K75 ["updateThumbnailAltText"]
-  DUPCLOSURE R9 K76 [PROTO_31]
-  SETTABLEKS R9 R8 K77 ["setThumbnailsOrder"]
-  DUPCLOSURE R9 K78 [PROTO_32]
-  SETTABLEKS R9 R8 K79 ["getIcon"]
-  DUPCLOSURE R9 K80 [PROTO_33]
-  SETTABLEKS R9 R8 K81 ["setIcon"]
-  DUPCLOSURE R9 K82 [PROTO_34]
-  SETTABLEKS R9 R8 K83 ["getOptInLocations"]
-  DUPCLOSURE R9 K84 [PROTO_35]
-  SETTABLEKS R9 R8 K85 ["setOptInLocations"]
-  RETURN R8 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R2 K4 [require]
+       11 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R3 R4 K6 ["Framework"]
+       15 CALL                             R2 1 1
+       16 GETTABLEKS                       R1 R2 K7 ["Util"]
+       18 GETIMPORT                        R2 K4 [require]
+       20 GETTABLEKS                       R5 R0 K8 ["Src"]
+       22 GETTABLEKS                       R4 R5 K7 ["Util"]
+       24 GETTABLEKS                       R3 R4 K9 ["FileUtils"]
+       26 CALL                             R2 1 1
+       27 GETTABLEKS                       R3 R1 K10 ["Promise"]
+       29 GETTABLEKS                       R4 R1 K11 ["Symbol"]
+       31 GETIMPORT                        R5 K13 [game]
+       33 LOADK                            R7 K14 ["StudioPublishService"]
+       34 NAMECALL                         R5 R5 K15 ["GetService"]
+       36 CALL                             R5 2 1
+       37 GETIMPORT                        R6 K13 [game]
+       39 LOADK                            R8 K16 ["GameSettingsExperienceGuidelines"]
+       40 NAMECALL                         R6 R6 K17 ["GetFastFlag"]
+       42 CALL                             R6 2 1
+       43 GETIMPORT                        R7 K13 [game]
+       45 LOADK                            R9 K18 ["CU1320ExperienceGenre"]
+       46 NAMECALL                         R7 R7 K17 ["GetFastFlag"]
+       48 CALL                             R7 2 1
+       49 NEWTABLE                         R8 64 0
+       51 SETTABLEKS                       R8 R8 K19 ["__index"]
+       53 GETTABLEKS                       R9 R4 K20 ["named"]
+       55 LOADK                            R10 K21 ["NameModerated"]
+       56 CALL                             R9 1 1
+       57 SETTABLEKS                       R9 R8 K21 ["NameModerated"]
+       59 GETTABLEKS                       R9 R4 K20 ["named"]
+       61 LOADK                            R10 K22 ["DescriptionModerated"]
+       62 CALL                             R9 1 1
+       63 SETTABLEKS                       R9 R8 K22 ["DescriptionModerated"]
+       65 GETTABLEKS                       R9 R4 K20 ["named"]
+       67 LOADK                            R10 K23 ["AltTextModerated"]
+       68 CALL                             R9 1 1
+       69 SETTABLEKS                       R9 R8 K23 ["AltTextModerated"]
+       71 DUPCLOSURE                       R9 K24 [PROTO_0]
+       72 CAPTURE                          VAL R8
+       73 SETTABLEKS                       R9 R8 K25 ["new"]
+       75 DUPCLOSURE                       R9 K26 [PROTO_1]
+       76 SETTABLEKS                       R9 R8 K27 ["configurationV2GET"]
+       78 DUPCLOSURE                       R9 K28 [PROTO_2]
+       79 SETTABLEKS                       R9 R8 K29 ["iconV1GET"]
+       81 DUPCLOSURE                       R9 K30 [PROTO_3]
+       82 SETTABLEKS                       R9 R8 K31 ["thumbnailsV2GET"]
+       84 DUPCLOSURE                       R9 K32 [PROTO_4]
+       85 SETTABLEKS                       R9 R8 K33 ["configurationV2PATCH"]
+       87 DUPCLOSURE                       R9 K34 [PROTO_5]
+       88 CAPTURE                          VAL R6
+       89 SETTABLEKS                       R9 R8 K35 ["guidelinesPOST"]
+       91 DUPCLOSURE                       R9 K36 [PROTO_6]
+       92 SETTABLEKS                       R9 R8 K37 ["experienceGenreGET"]
+       94 DUPCLOSURE                       R9 K38 [PROTO_7]
+       95 CAPTURE                          VAL R2
+       96 SETTABLEKS                       R9 R8 K39 ["iconV1POST"]
+       98 DUPCLOSURE                       R9 K40 [PROTO_8]
+       99 CAPTURE                          VAL R2
+      100 SETTABLEKS                       R9 R8 K41 ["thumbnailV1POST"]
+      102 DUPCLOSURE                       R9 K42 [PROTO_9]
+      103 SETTABLEKS                       R9 R8 K43 ["thumbnailV1DELETE"]
+      105 DUPCLOSURE                       R9 K44 [PROTO_10]
+      106 SETTABLEKS                       R9 R8 K45 ["thumbnailOrderV1POST"]
+      108 DUPCLOSURE                       R9 K46 [PROTO_11]
+      109 SETTABLEKS                       R9 R8 K47 ["thumbnailAltTextV1POST"]
+      111 DUPCLOSURE                       R9 K48 [PROTO_12]
+      112 SETTABLEKS                       R9 R8 K49 ["getName"]
+      114 DUPCLOSURE                       R9 K50 [PROTO_14]
+      115 CAPTURE                          VAL R8
+      116 CAPTURE                          VAL R5
+      117 SETTABLEKS                       R9 R8 K51 ["setName"]
+      119 DUPCLOSURE                       R9 K52 [PROTO_15]
+      120 SETTABLEKS                       R9 R8 K53 ["getDescription"]
+      122 DUPCLOSURE                       R9 K54 [PROTO_16]
+      123 CAPTURE                          VAL R6
+      124 SETTABLEKS                       R9 R8 K55 ["getGuidelines"]
+      126 DUPCLOSURE                       R9 K56 [PROTO_18]
+      127 CAPTURE                          VAL R7
+      128 SETTABLEKS                       R9 R8 K57 ["getExperienceGenre"]
+      130 DUPCLOSURE                       R9 K58 [PROTO_19]
+      131 SETTABLEKS                       R9 R8 K59 ["setDescription"]
+      133 DUPCLOSURE                       R9 K60 [PROTO_20]
+      134 SETTABLEKS                       R9 R8 K61 ["getGenre"]
+      136 DUPCLOSURE                       R9 K62 [PROTO_21]
+      137 SETTABLEKS                       R9 R8 K63 ["setGenre"]
+      139 DUPCLOSURE                       R9 K64 [PROTO_22]
+      140 SETTABLEKS                       R9 R8 K65 ["getSupportedDevices"]
+      142 DUPCLOSURE                       R9 K66 [PROTO_23]
+      143 SETTABLEKS                       R9 R8 K67 ["setSupportedDevices"]
+      145 DUPCLOSURE                       R9 K68 [PROTO_24]
+      146 SETTABLEKS                       R9 R8 K69 ["getThumbnails"]
+      148 DUPCLOSURE                       R9 K70 [PROTO_26]
+      149 CAPTURE                          VAL R3
+      150 SETTABLEKS                       R9 R8 K71 ["addThumbnails"]
+      152 DUPCLOSURE                       R9 K72 [PROTO_27]
+      153 CAPTURE                          VAL R3
+      154 SETTABLEKS                       R9 R8 K73 ["removeThumbnails"]
+      156 DUPCLOSURE                       R9 K74 [PROTO_30]
+      157 CAPTURE                          VAL R8
+      158 SETTABLEKS                       R9 R8 K75 ["updateThumbnailAltText"]
+      160 DUPCLOSURE                       R9 K76 [PROTO_31]
+      161 SETTABLEKS                       R9 R8 K77 ["setThumbnailsOrder"]
+      163 DUPCLOSURE                       R9 K78 [PROTO_32]
+      164 SETTABLEKS                       R9 R8 K79 ["getIcon"]
+      166 DUPCLOSURE                       R9 K80 [PROTO_33]
+      167 SETTABLEKS                       R9 R8 K81 ["setIcon"]
+      169 DUPCLOSURE                       R9 K82 [PROTO_34]
+      170 SETTABLEKS                       R9 R8 K83 ["getOptInLocations"]
+      172 DUPCLOSURE                       R9 K84 [PROTO_35]
+      173 SETTABLEKS                       R9 R8 K85 ["setOptInLocations"]
+      175 RETURN                           R8 1

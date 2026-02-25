@@ -1,8 +1,8 @@
 MAIN:
-  PREPVARARGS 0
-  DUPTABLE R0 K2 [{"ELEMENTS", "PROFILE"}]
-  LOADK R1 K3 ["Elements"]
-  SETTABLEKS R1 R0 K0 ["ELEMENTS"]
-  LOADK R1 K4 ["Profile"]
-  SETTABLEKS R1 R0 K1 ["PROFILE"]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 DUPTABLE                         R0 K2 [{"ELEMENTS", "PROFILE"}]
+        2 LOADK                            R1 K3 ["Elements"]
+        3 SETTABLEKS                       R1 R0 K0 ["ELEMENTS"]
+        5 LOADK                            R1 K4 ["Profile"]
+        6 SETTABLEKS                       R1 R0 K1 ["PROFILE"]
+        8 RETURN                           R0 1

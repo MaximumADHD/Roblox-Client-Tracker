@@ -1,585 +1,585 @@
 PROTO_0:
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["IK_MODE"]
-  GETTABLEKS R4 R5 K1 ["BodyPart"]
-  JUMPIFEQ R1 R4 [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  FASTCALL2K ASSERT R3 K2 [+4]
-  LOADK R4 K2 ["Only Body Part IK mode is currrently supported with IK Controls"]
-  GETIMPORT R2 K4 [assert]
-  CALL R2 2 0
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K5 ["isR15Humanoid"]
-  MOVE R4 R0
-  CALL R3 1 1
-  FASTCALL2K ASSERT R3 K6 [+4]
-  LOADK R4 K6 ["Only R15 rigs are supported with IK Controls"]
-  GETIMPORT R2 K4 [assert]
-  CALL R2 2 0
-  LOADK R4 K7 ["HumanoidRigDescription"]
-  NAMECALL R2 R0 K8 ["FindFirstChildOfClass"]
-  CALL R2 2 1
-  JUMPIF R2 [+5]
-  GETIMPORT R3 K11 [Instance.new]
-  LOADK R4 K7 ["HumanoidRigDescription"]
-  CALL R3 1 1
-  MOVE R2 R3
-  FASTCALL2K ASSERT R2 K12 [+5]
-  MOVE R4 R2
-  LOADK R5 K12 ["HumanoidRigDescription was not initialized correctly"]
-  GETIMPORT R3 K4 [assert]
-  CALL R3 2 0
-  SETTABLEKS R0 R2 K13 ["Parent"]
-  MOVE R5 R0
-  NAMECALL R3 R2 K14 ["AutoRig"]
-  CALL R3 2 0
-  DUPTABLE R4 K20 [{"_model", "_ikControls", "_attachments", "_selectedPart", "_hrd"}]
-  SETTABLEKS R0 R4 K15 ["_model"]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K16 ["_ikControls"]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K17 ["_attachments"]
-  LOADNIL R5
-  SETTABLEKS R5 R4 K18 ["_selectedPart"]
-  SETTABLEKS R2 R4 K19 ["_hrd"]
-  GETUPVAL R5 2
-  FASTCALL2 SETMETATABLE R4 R5 [+3]
-  GETIMPORT R3 K22 [setmetatable]
-  CALL R3 2 1
-  RETURN R3 1
+        0 GETUPVAL                         R6 0
+        1 GETTABLEKS                       R5 R6 K0 ["IK_MODE"]
+        3 GETTABLEKS                       R4 R5 K1 ["BodyPart"]
+        5 JUMPIFEQ                         R1 R4 ; [+2]
+        7 LOADB                            R3 0 +1
+        8 LOADB                            R3 1
+        9 FASTCALL2K                       ASSERT R3 K2 ; [+4]
+       11 LOADK                            R4 K2 ["Only Body Part IK mode is currrently supported with IK Controls"]
+       12 GETIMPORT                        R2 K4 [assert]
+       14 CALL                             R2 2 0
+       15 GETUPVAL                         R4 1
+       16 GETTABLEKS                       R3 R4 K5 ["isR15Humanoid"]
+       18 MOVE                             R4 R0
+       19 CALL                             R3 1 1
+       20 FASTCALL2K                       ASSERT R3 K6 ; [+4]
+       22 LOADK                            R4 K6 ["Only R15 rigs are supported with IK Controls"]
+       23 GETIMPORT                        R2 K4 [assert]
+       25 CALL                             R2 2 0
+       26 LOADK                            R4 K7 ["HumanoidRigDescription"]
+       27 NAMECALL                         R2 R0 K8 ["FindFirstChildOfClass"]
+       29 CALL                             R2 2 1
+       30 JUMPIF                           R2 ; [+5]
+       31 GETIMPORT                        R3 K11 [Instance.new]
+       33 LOADK                            R4 K7 ["HumanoidRigDescription"]
+       34 CALL                             R3 1 1
+       35 MOVE                             R2 R3
+       36 FASTCALL2K                       ASSERT R2 K12 ; [+5]
+       38 MOVE                             R4 R2
+       39 LOADK                            R5 K12 ["HumanoidRigDescription was not initialized correctly"]
+       40 GETIMPORT                        R3 K4 [assert]
+       42 CALL                             R3 2 0
+       43 SETTABLEKS                       R0 R2 K13 ["Parent"]
+       45 MOVE                             R5 R0
+       46 NAMECALL                         R3 R2 K14 ["AutoRig"]
+       48 CALL                             R3 2 0
+       49 DUPTABLE                         R4 K20 [{"_model", "_ikControls", "_attachments", "_selectedPart", "_hrd"}]
+       50 SETTABLEKS                       R0 R4 K15 ["_model"]
+       52 NEWTABLE                         R5 0 0
+       54 SETTABLEKS                       R5 R4 K16 ["_ikControls"]
+       56 NEWTABLE                         R5 0 0
+       58 SETTABLEKS                       R5 R4 K17 ["_attachments"]
+       60 LOADNIL                          R5
+       61 SETTABLEKS                       R5 R4 K18 ["_selectedPart"]
+       63 SETTABLEKS                       R2 R4 K19 ["_hrd"]
+       65 GETUPVAL                         R5 2
+       66 FASTCALL2                        SETMETATABLE R4 R5 ; [+3]
+       68 GETIMPORT                        R3 K22 [setmetatable]
+       70 CALL                             R3 2 1
+       71 RETURN                           R3 1
 
 PROTO_1:
-  GETIMPORT R1 K1 [pairs]
-  GETTABLEKS R2 R0 K2 ["_ikControls"]
-  CALL R1 1 3
-  FORGPREP_NEXT R1
-  NAMECALL R6 R5 K3 ["Destroy"]
-  CALL R6 1 0
-  GETTABLEKS R6 R0 K2 ["_ikControls"]
-  LOADNIL R7
-  SETTABLE R7 R6 R4
-  FORGLOOP R1 2 [-8]
-  GETIMPORT R1 K1 [pairs]
-  GETTABLEKS R2 R0 K4 ["_attachments"]
-  CALL R1 1 3
-  FORGPREP_NEXT R1
-  NAMECALL R6 R5 K3 ["Destroy"]
-  CALL R6 1 0
-  GETTABLEKS R6 R0 K4 ["_attachments"]
-  LOADNIL R7
-  SETTABLE R7 R6 R4
-  FORGLOOP R1 2 [-8]
-  LOADNIL R1
-  SETTABLEKS R1 R0 K5 ["_selectedPart"]
-  LOADNIL R1
-  SETTABLEKS R1 R0 K6 ["_model"]
-  LOADNIL R1
-  SETTABLEKS R1 R0 K7 ["_hrd"]
-  RETURN R0 0
+        0 GETIMPORT                        R1 K1 [pairs]
+        2 GETTABLEKS                       R2 R0 K2 ["_ikControls"]
+        4 CALL                             R1 1 3
+        5 FORGPREP_NEXT                    R1
+        6 NAMECALL                         R6 R5 K3 ["Destroy"]
+        8 CALL                             R6 1 0
+        9 GETTABLEKS                       R6 R0 K2 ["_ikControls"]
+       11 LOADNIL                          R7
+       12 SETTABLE                         R7 R6 R4
+       13 FORGLOOP                         R1 2 ; [-8]
+       15 GETIMPORT                        R1 K1 [pairs]
+       17 GETTABLEKS                       R2 R0 K4 ["_attachments"]
+       19 CALL                             R1 1 3
+       20 FORGPREP_NEXT                    R1
+       21 NAMECALL                         R6 R5 K3 ["Destroy"]
+       23 CALL                             R6 1 0
+       24 GETTABLEKS                       R6 R0 K4 ["_attachments"]
+       26 LOADNIL                          R7
+       27 SETTABLE                         R7 R6 R4
+       28 FORGLOOP                         R1 2 ; [-8]
+       30 LOADNIL                          R1
+       31 SETTABLEKS                       R1 R0 K5 ["_selectedPart"]
+       33 LOADNIL                          R1
+       34 SETTABLEKS                       R1 R0 K6 ["_model"]
+       36 LOADNIL                          R1
+       37 SETTABLEKS                       R1 R0 K7 ["_hrd"]
+       39 RETURN                           R0 0
 
 PROTO_2:
-  NEWTABLE R1 0 0
-  GETTABLEKS R3 R0 K0 ["EndEffector"]
-  LOADK R5 K1 ["EndEffector not found for IKControl: "]
-  GETTABLEKS R6 R0 K2 ["Name"]
-  CONCAT R4 R5 R6
-  FASTCALL2 ASSERT R3 R4 [+3]
-  GETIMPORT R2 K4 [assert]
-  CALL R2 2 0
-  GETTABLEKS R2 R0 K0 ["EndEffector"]
-  LOADK R4 K5 ["Motor6D"]
-  LOADB R5 1
-  NAMECALL R2 R2 K6 ["FindFirstChildWhichIsA"]
-  CALL R2 3 1
-  GETTABLEKS R3 R2 K7 ["Part1"]
-  FASTCALL2 TABLE_INSERT R1 R2 [+5]
-  MOVE R5 R1
-  MOVE R6 R2
-  GETIMPORT R4 K10 [table.insert]
-  CALL R4 2 0
-  GETTABLEKS R5 R2 K11 ["Part0"]
-  LOADK R7 K12 ["Motor6D.Part0 not found for: "]
-  GETTABLEKS R8 R2 K2 ["Name"]
-  CONCAT R6 R7 R8
-  FASTCALL2 ASSERT R5 R6 [+3]
-  GETIMPORT R4 K4 [assert]
-  CALL R4 2 0
-  GETTABLEKS R4 R2 K11 ["Part0"]
-  LOADK R6 K5 ["Motor6D"]
-  LOADB R7 1
-  NAMECALL R4 R4 K6 ["FindFirstChildWhichIsA"]
-  CALL R4 3 1
-  MOVE R2 R4
-  GETTABLEKS R4 R0 K13 ["ChainRoot"]
-  JUMPIFEQ R3 R4 [+2]
-  JUMPBACK [-33]
-  GETIMPORT R3 K15 [ipairs]
-  MOVE R4 R1
-  CALL R3 1 3
-  FORGPREP_INEXT R3
-  GETUPVAL R9 0
-  GETTABLEKS R10 R7 K2 ["Name"]
-  GETTABLE R8 R9 R10
-  LOADK R11 K16 ["Muscle Rest Pose not defined for joint: "]
-  GETTABLEKS R12 R7 K2 ["Name"]
-  FASTCALL3 ASSERT R8 R11 R12
-  MOVE R10 R8
-  GETIMPORT R9 K4 [assert]
-  CALL R9 3 0
-  SETTABLEKS R8 R7 K17 ["Transform"]
-  FORGLOOP R3 2 [inext] [-16]
-  RETURN R0 0
+        0 NEWTABLE                         R1 0 0
+        2 GETTABLEKS                       R3 R0 K0 ["EndEffector"]
+        4 LOADK                            R5 K1 ["EndEffector not found for IKControl: "]
+        5 GETTABLEKS                       R6 R0 K2 ["Name"]
+        7 CONCAT                           R4 R5 R6
+        8 FASTCALL2                        ASSERT R3 R4 ; [+3]
+       10 GETIMPORT                        R2 K4 [assert]
+       12 CALL                             R2 2 0
+       13 GETTABLEKS                       R2 R0 K0 ["EndEffector"]
+       15 LOADK                            R4 K5 ["Motor6D"]
+       16 LOADB                            R5 1
+       17 NAMECALL                         R2 R2 K6 ["FindFirstChildWhichIsA"]
+       19 CALL                             R2 3 1
+       20 GETTABLEKS                       R3 R2 K7 ["Part1"]
+       22 FASTCALL2                        TABLE_INSERT R1 R2 ; [+5]
+       24 MOVE                             R5 R1
+       25 MOVE                             R6 R2
+       26 GETIMPORT                        R4 K10 [table.insert]
+       28 CALL                             R4 2 0
+       29 GETTABLEKS                       R5 R2 K11 ["Part0"]
+       31 LOADK                            R7 K12 ["Motor6D.Part0 not found for: "]
+       32 GETTABLEKS                       R8 R2 K2 ["Name"]
+       34 CONCAT                           R6 R7 R8
+       35 FASTCALL2                        ASSERT R5 R6 ; [+3]
+       37 GETIMPORT                        R4 K4 [assert]
+       39 CALL                             R4 2 0
+       40 GETTABLEKS                       R4 R2 K11 ["Part0"]
+       42 LOADK                            R6 K5 ["Motor6D"]
+       43 LOADB                            R7 1
+       44 NAMECALL                         R4 R4 K6 ["FindFirstChildWhichIsA"]
+       46 CALL                             R4 3 1
+       47 MOVE                             R2 R4
+       48 GETTABLEKS                       R4 R0 K13 ["ChainRoot"]
+       50 JUMPIFEQ                         R3 R4 ; [+2]
+       52 JUMPBACK                         ; [-33]
+       53 GETIMPORT                        R3 K15 [ipairs]
+       55 MOVE                             R4 R1
+       56 CALL                             R3 1 3
+       57 FORGPREP_INEXT                   R3
+       58 GETUPVAL                         R9 0
+       59 GETTABLEKS                       R10 R7 K2 ["Name"]
+       61 GETTABLE                         R8 R9 R10
+       62 LOADK                            R11 K16 ["Muscle Rest Pose not defined for joint: "]
+       63 GETTABLEKS                       R12 R7 K2 ["Name"]
+       65 FASTCALL3                        ASSERT R8 R11 R12
+       67 MOVE                             R10 R8
+       68 GETIMPORT                        R9 K4 [assert]
+       70 CALL                             R9 3 0
+       71 SETTABLEKS                       R8 R7 K17 ["Transform"]
+       73 FORGLOOP                         R3 2 [inext] ; [-16]
+       75 RETURN                           R0 0
 
 PROTO_3:
-  GETTABLEKS R5 R0 K0 ["_ikControls"]
-  GETTABLEKS R6 R1 K1 ["Name"]
-  GETTABLE R4 R5 R6
-  JUMPIFNOT R4 [+6]
-  GETTABLEKS R5 R0 K0 ["_ikControls"]
-  GETTABLEKS R6 R1 K1 ["Name"]
-  GETTABLE R4 R5 R6
-  RETURN R4 1
-  GETIMPORT R4 K4 [Instance.new]
-  LOADK R5 K5 ["Attachment"]
-  CALL R4 1 1
-  LOADK R6 K6 ["Target"]
-  GETTABLEKS R7 R1 K1 ["Name"]
-  CONCAT R5 R6 R7
-  SETTABLEKS R5 R4 K1 ["Name"]
-  GETTABLEKS R5 R0 K7 ["_model"]
-  LOADK R7 K8 ["HumanoidRootPart"]
-  NAMECALL R5 R5 K9 ["FindFirstChild"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K10 ["Parent"]
-  GETTABLEKS R5 R1 K11 ["CFrame"]
-  SETTABLEKS R5 R4 K12 ["WorldCFrame"]
-  GETTABLEKS R5 R0 K13 ["_attachments"]
-  GETTABLEKS R6 R4 K1 ["Name"]
-  SETTABLE R4 R5 R6
-  GETIMPORT R5 K4 [Instance.new]
-  LOADK R6 K14 ["IKControl"]
-  CALL R5 1 1
-  SETTABLEKS R2 R5 K15 ["ChainRoot"]
-  SETTABLEKS R1 R5 K16 ["EndEffector"]
-  LOADK R7 K14 ["IKControl"]
-  GETTABLEKS R8 R1 K1 ["Name"]
-  CONCAT R6 R7 R8
-  SETTABLEKS R6 R5 K1 ["Name"]
-  SETTABLEKS R4 R5 K6 ["Target"]
-  MOVE R6 R3
-  JUMPIF R6 [+2]
-  GETIMPORT R6 K20 [Enum.IKControlType.Transform]
-  SETTABLEKS R6 R5 K21 ["Type"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K22 ["SmoothTime"]
-  GETTABLEKS R6 R0 K7 ["_model"]
-  LOADK R8 K23 ["Humanoid"]
-  NAMECALL R6 R6 K24 ["FindFirstChildOfClass"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K10 ["Parent"]
-  GETTABLEKS R6 R0 K0 ["_ikControls"]
-  GETTABLEKS R7 R1 K1 ["Name"]
-  SETTABLE R5 R6 R7
-  RETURN R5 1
+        0 GETTABLEKS                       R5 R0 K0 ["_ikControls"]
+        2 GETTABLEKS                       R6 R1 K1 ["Name"]
+        4 GETTABLE                         R4 R5 R6
+        5 JUMPIFNOT                        R4 ; [+6]
+        6 GETTABLEKS                       R5 R0 K0 ["_ikControls"]
+        8 GETTABLEKS                       R6 R1 K1 ["Name"]
+       10 GETTABLE                         R4 R5 R6
+       11 RETURN                           R4 1
+       12 GETIMPORT                        R4 K4 [Instance.new]
+       14 LOADK                            R5 K5 ["Attachment"]
+       15 CALL                             R4 1 1
+       16 LOADK                            R6 K6 ["Target"]
+       17 GETTABLEKS                       R7 R1 K1 ["Name"]
+       19 CONCAT                           R5 R6 R7
+       20 SETTABLEKS                       R5 R4 K1 ["Name"]
+       22 GETTABLEKS                       R5 R0 K7 ["_model"]
+       24 LOADK                            R7 K8 ["HumanoidRootPart"]
+       25 NAMECALL                         R5 R5 K9 ["FindFirstChild"]
+       27 CALL                             R5 2 1
+       28 SETTABLEKS                       R5 R4 K10 ["Parent"]
+       30 GETTABLEKS                       R5 R1 K11 ["CFrame"]
+       32 SETTABLEKS                       R5 R4 K12 ["WorldCFrame"]
+       34 GETTABLEKS                       R5 R0 K13 ["_attachments"]
+       36 GETTABLEKS                       R6 R4 K1 ["Name"]
+       38 SETTABLE                         R4 R5 R6
+       39 GETIMPORT                        R5 K4 [Instance.new]
+       41 LOADK                            R6 K14 ["IKControl"]
+       42 CALL                             R5 1 1
+       43 SETTABLEKS                       R2 R5 K15 ["ChainRoot"]
+       45 SETTABLEKS                       R1 R5 K16 ["EndEffector"]
+       47 LOADK                            R7 K14 ["IKControl"]
+       48 GETTABLEKS                       R8 R1 K1 ["Name"]
+       50 CONCAT                           R6 R7 R8
+       51 SETTABLEKS                       R6 R5 K1 ["Name"]
+       53 SETTABLEKS                       R4 R5 K6 ["Target"]
+       55 MOVE                             R6 R3
+       56 JUMPIF                           R6 ; [+2]
+       57 GETIMPORT                        R6 K20 [Enum.IKControlType.Transform]
+       59 SETTABLEKS                       R6 R5 K21 ["Type"]
+       61 LOADN                            R6 0
+       62 SETTABLEKS                       R6 R5 K22 ["SmoothTime"]
+       64 GETTABLEKS                       R6 R0 K7 ["_model"]
+       66 LOADK                            R8 K23 ["Humanoid"]
+       67 NAMECALL                         R6 R6 K24 ["FindFirstChildOfClass"]
+       69 CALL                             R6 2 1
+       70 SETTABLEKS                       R6 R5 K10 ["Parent"]
+       72 GETTABLEKS                       R6 R0 K0 ["_ikControls"]
+       74 GETTABLEKS                       R7 R1 K1 ["Name"]
+       76 SETTABLE                         R5 R6 R7
+       77 RETURN                           R5 1
 
 PROTO_4:
-  LOADB R1 1
-  JUMPIFEQKS R0 K0 ["UpperTorso"] [+5]
-  JUMPIFEQKS R0 K1 ["LowerTorso"] [+2]
-  LOADB R1 0 +1
-  LOADB R1 1
-  RETURN R1 1
+        0 LOADB                            R1 1
+        1 JUMPIFEQKS                       R0 K0 ["UpperTorso"] ; [+5]
+        3 JUMPIFEQKS                       R0 K1 ["LowerTorso"] ; [+2]
+        5 LOADB                            R1 0 +1
+        6 LOADB                            R1 1
+        7 RETURN                           R1 1
 
 PROTO_5:
-  GETTABLEKS R3 R0 K0 ["_hrd"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K1 ["PART1_TO_JOINT"]
-  GETTABLE R4 R5 R1
-  GETTABLE R2 R3 R4
-  RETURN R2 1
+        0 GETTABLEKS                       R3 R0 K0 ["_hrd"]
+        2 GETUPVAL                         R6 0
+        3 GETTABLEKS                       R5 R6 K1 ["PART1_TO_JOINT"]
+        5 GETTABLE                         R4 R5 R1
+        6 GETTABLE                         R2 R3 R4
+        7 RETURN                           R2 1
 
 PROTO_6:
-  LOADNIL R2
-  SETTABLEKS R2 R0 K0 ["_selectedPart"]
-  GETUPVAL R3 0
-  GETTABLEKS R4 R1 K1 ["Name"]
-  GETTABLE R2 R3 R4
-  JUMPIF R2 [+8]
-  GETIMPORT R2 K3 [warn]
-  LOADK R3 K4 ["Selected part cannot be moved in Body Part IK mode:"]
-  GETTABLEKS R4 R1 K1 ["Name"]
-  CALL R2 2 0
-  LOADB R2 0
-  RETURN R2 1
-  LOADB R2 0
-  GETTABLEKS R4 R1 K1 ["Name"]
-  LOADB R3 1
-  JUMPIFEQKS R4 K5 ["UpperTorso"] [+5]
-  JUMPIFEQKS R4 K6 ["LowerTorso"] [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  JUMPIFNOT R3 [+37]
-  GETTABLEKS R7 R0 K7 ["_hrd"]
-  GETTABLEKS R6 R7 K8 ["LeftAnkle"]
-  GETTABLEKS R5 R6 K9 ["Parent"]
-  GETTABLEKS R8 R0 K7 ["_hrd"]
-  GETTABLEKS R7 R8 K10 ["LeftHip"]
-  GETTABLEKS R6 R7 K9 ["Parent"]
-  NAMECALL R3 R0 K11 ["getOrCreateIKControl"]
-  CALL R3 3 1
-  GETTABLEKS R8 R0 K7 ["_hrd"]
-  GETTABLEKS R7 R8 K12 ["RightAnkle"]
-  GETTABLEKS R6 R7 K9 ["Parent"]
-  GETTABLEKS R9 R0 K7 ["_hrd"]
-  GETTABLEKS R8 R9 K13 ["RightHip"]
-  GETTABLEKS R7 R8 K9 ["Parent"]
-  NAMECALL R4 R0 K11 ["getOrCreateIKControl"]
-  CALL R4 3 1
-  AND R6 R3 R4
-  FASTCALL2K ASSERT R6 K14 [+4]
-  LOADK R7 K14 ["Unexpected issue with Foot IK Controls setup"]
-  GETIMPORT R5 K16 [assert]
-  CALL R5 2 0
-  GETTABLEKS R5 R1 K1 ["Name"]
-  NAMECALL R3 R0 K17 ["getJoint"]
-  CALL R3 2 1
-  GETUPVAL R7 0
-  GETTABLEKS R8 R1 K1 ["Name"]
-  GETTABLE R6 R7 R8
-  NAMECALL R4 R0 K17 ["getJoint"]
-  CALL R4 2 1
-  GETTABLEKS R7 R3 K9 ["Parent"]
-  GETTABLEKS R8 R4 K9 ["Parent"]
-  NAMECALL R5 R0 K11 ["getOrCreateIKControl"]
-  CALL R5 3 1
-  JUMPIFNOTEQKNIL R5 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  JUMPIFNOT R2 [+2]
-  SETTABLEKS R1 R0 K0 ["_selectedPart"]
-  RETURN R2 1
+        0 LOADNIL                          R2
+        1 SETTABLEKS                       R2 R0 K0 ["_selectedPart"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R4 R1 K1 ["Name"]
+        6 GETTABLE                         R2 R3 R4
+        7 JUMPIF                           R2 ; [+8]
+        8 GETIMPORT                        R2 K3 [warn]
+       10 LOADK                            R3 K4 ["Selected part cannot be moved in Body Part IK mode:"]
+       11 GETTABLEKS                       R4 R1 K1 ["Name"]
+       13 CALL                             R2 2 0
+       14 LOADB                            R2 0
+       15 RETURN                           R2 1
+       16 LOADB                            R2 0
+       17 GETTABLEKS                       R4 R1 K1 ["Name"]
+       19 LOADB                            R3 1
+       20 JUMPIFEQKS                       R4 K5 ["UpperTorso"] ; [+5]
+       22 JUMPIFEQKS                       R4 K6 ["LowerTorso"] ; [+2]
+       24 LOADB                            R3 0 +1
+       25 LOADB                            R3 1
+       26 JUMPIFNOT                        R3 ; [+37]
+       27 GETTABLEKS                       R7 R0 K7 ["_hrd"]
+       29 GETTABLEKS                       R6 R7 K8 ["LeftAnkle"]
+       31 GETTABLEKS                       R5 R6 K9 ["Parent"]
+       33 GETTABLEKS                       R8 R0 K7 ["_hrd"]
+       35 GETTABLEKS                       R7 R8 K10 ["LeftHip"]
+       37 GETTABLEKS                       R6 R7 K9 ["Parent"]
+       39 NAMECALL                         R3 R0 K11 ["getOrCreateIKControl"]
+       41 CALL                             R3 3 1
+       42 GETTABLEKS                       R8 R0 K7 ["_hrd"]
+       44 GETTABLEKS                       R7 R8 K12 ["RightAnkle"]
+       46 GETTABLEKS                       R6 R7 K9 ["Parent"]
+       48 GETTABLEKS                       R9 R0 K7 ["_hrd"]
+       50 GETTABLEKS                       R8 R9 K13 ["RightHip"]
+       52 GETTABLEKS                       R7 R8 K9 ["Parent"]
+       54 NAMECALL                         R4 R0 K11 ["getOrCreateIKControl"]
+       56 CALL                             R4 3 1
+       57 AND                              R6 R3 R4
+       58 FASTCALL2K                       ASSERT R6 K14 ; [+4]
+       60 LOADK                            R7 K14 ["Unexpected issue with Foot IK Controls setup"]
+       61 GETIMPORT                        R5 K16 [assert]
+       63 CALL                             R5 2 0
+       64 GETTABLEKS                       R5 R1 K1 ["Name"]
+       66 NAMECALL                         R3 R0 K17 ["getJoint"]
+       68 CALL                             R3 2 1
+       69 GETUPVAL                         R7 0
+       70 GETTABLEKS                       R8 R1 K1 ["Name"]
+       72 GETTABLE                         R6 R7 R8
+       73 NAMECALL                         R4 R0 K17 ["getJoint"]
+       75 CALL                             R4 2 1
+       76 GETTABLEKS                       R7 R3 K9 ["Parent"]
+       78 GETTABLEKS                       R8 R4 K9 ["Parent"]
+       80 NAMECALL                         R5 R0 K11 ["getOrCreateIKControl"]
+       82 CALL                             R5 3 1
+       83 JUMPIFNOTEQKNIL                  R5 ; [+2]
+       85 LOADB                            R2 0 +1
+       86 LOADB                            R2 1
+       87 JUMPIFNOT                        R2 ; [+2]
+       88 SETTABLEKS                       R1 R0 K0 ["_selectedPart"]
+       90 RETURN                           R2 1
 
 PROTO_7:
-  GETTABLEKS R2 R0 K0 ["_selectedPart"]
-  JUMPIF R2 [+1]
-  RETURN R0 0
-  GETTABLEKS R3 R0 K1 ["_ikControls"]
-  GETTABLEKS R5 R0 K0 ["_selectedPart"]
-  GETTABLEKS R4 R5 K2 ["Name"]
-  GETTABLE R2 R3 R4
-  JUMPIF R2 [+10]
-  GETIMPORT R3 K4 [warn]
-  LOADK R5 K5 ["IK Control not found for end effector: "]
-  GETTABLEKS R7 R0 K0 ["_selectedPart"]
-  GETTABLEKS R6 R7 K2 ["Name"]
-  CONCAT R4 R5 R6
-  CALL R3 1 0
-  RETURN R0 0
-  GETTABLEKS R4 R2 K6 ["Target"]
-  FASTCALL1 ASSERT R4 [+2]
-  GETIMPORT R3 K8 [assert]
-  CALL R3 1 0
-  GETTABLEKS R4 R2 K6 ["Target"]
-  LOADK R6 K9 ["Attachment"]
-  NAMECALL R4 R4 K10 ["IsA"]
-  CALL R4 2 -1
-  FASTCALL ASSERT [+2]
-  GETIMPORT R3 K8 [assert]
-  CALL R3 -1 0
-  GETTABLEKS R3 R2 K6 ["Target"]
-  SETTABLEKS R1 R3 K11 ["WorldCFrame"]
-  GETUPVAL R3 0
-  MOVE R4 R2
-  CALL R3 1 0
-  NAMECALL R3 R2 K12 ["Solve"]
-  CALL R3 1 0
-  GETTABLEKS R5 R0 K0 ["_selectedPart"]
-  GETTABLEKS R4 R5 K2 ["Name"]
-  LOADB R3 1
-  JUMPIFEQKS R4 K13 ["UpperTorso"] [+5]
-  JUMPIFEQKS R4 K14 ["LowerTorso"] [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  JUMPIFNOT R3 [+27]
-  GETTABLEKS R4 R0 K1 ["_ikControls"]
-  GETTABLEKS R3 R4 K15 ["LeftFoot"]
-  GETTABLEKS R5 R0 K1 ["_ikControls"]
-  GETTABLEKS R4 R5 K16 ["RightFoot"]
-  AND R6 R3 R4
-  FASTCALL2K ASSERT R6 K17 [+4]
-  LOADK R7 K17 ["Foot IK Controls not found"]
-  GETIMPORT R5 K8 [assert]
-  CALL R5 2 0
-  GETUPVAL R5 0
-  MOVE R6 R3
-  CALL R5 1 0
-  GETUPVAL R5 0
-  MOVE R6 R4
-  CALL R5 1 0
-  NAMECALL R5 R3 K12 ["Solve"]
-  CALL R5 1 0
-  NAMECALL R5 R4 K12 ["Solve"]
-  CALL R5 1 0
-  GETTABLEKS R3 R0 K18 ["_model"]
-  LOADK R5 K19 ["Animator"]
-  LOADB R6 1
-  NAMECALL R3 R3 K20 ["FindFirstChildWhichIsA"]
-  CALL R3 3 1
-  JUMPIFNOT R3 [+9]
-  GETUPVAL R4 1
-  NAMECALL R4 R4 K21 ["IsRunning"]
-  CALL R4 1 1
-  JUMPIF R4 [+4]
-  LOADN R6 0
-  NAMECALL R4 R3 K22 ["StepAnimations"]
-  CALL R4 2 0
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K23 ["updateSimulatedAnimConstraintParts"]
-  GETTABLEKS R5 R0 K18 ["_model"]
-  CALL R4 1 0
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["_selectedPart"]
+        2 JUMPIF                           R2 ; [+1]
+        3 RETURN                           R0 0
+        4 GETTABLEKS                       R3 R0 K1 ["_ikControls"]
+        6 GETTABLEKS                       R5 R0 K0 ["_selectedPart"]
+        8 GETTABLEKS                       R4 R5 K2 ["Name"]
+       10 GETTABLE                         R2 R3 R4
+       11 JUMPIF                           R2 ; [+10]
+       12 GETIMPORT                        R3 K4 [warn]
+       14 LOADK                            R5 K5 ["IK Control not found for end effector: "]
+       15 GETTABLEKS                       R7 R0 K0 ["_selectedPart"]
+       17 GETTABLEKS                       R6 R7 K2 ["Name"]
+       19 CONCAT                           R4 R5 R6
+       20 CALL                             R3 1 0
+       21 RETURN                           R0 0
+       22 GETTABLEKS                       R4 R2 K6 ["Target"]
+       24 FASTCALL1                        ASSERT R4 ; [+2]
+       25 GETIMPORT                        R3 K8 [assert]
+       27 CALL                             R3 1 0
+       28 GETTABLEKS                       R4 R2 K6 ["Target"]
+       30 LOADK                            R6 K9 ["Attachment"]
+       31 NAMECALL                         R4 R4 K10 ["IsA"]
+       33 CALL                             R4 2 -1
+       34 FASTCALL                         ASSERT ; [+2]
+       35 GETIMPORT                        R3 K8 [assert]
+       37 CALL                             R3 -1 0
+       38 GETTABLEKS                       R3 R2 K6 ["Target"]
+       40 SETTABLEKS                       R1 R3 K11 ["WorldCFrame"]
+       42 GETUPVAL                         R3 0
+       43 MOVE                             R4 R2
+       44 CALL                             R3 1 0
+       45 NAMECALL                         R3 R2 K12 ["Solve"]
+       47 CALL                             R3 1 0
+       48 GETTABLEKS                       R5 R0 K0 ["_selectedPart"]
+       50 GETTABLEKS                       R4 R5 K2 ["Name"]
+       52 LOADB                            R3 1
+       53 JUMPIFEQKS                       R4 K13 ["UpperTorso"] ; [+5]
+       55 JUMPIFEQKS                       R4 K14 ["LowerTorso"] ; [+2]
+       57 LOADB                            R3 0 +1
+       58 LOADB                            R3 1
+       59 JUMPIFNOT                        R3 ; [+27]
+       60 GETTABLEKS                       R4 R0 K1 ["_ikControls"]
+       62 GETTABLEKS                       R3 R4 K15 ["LeftFoot"]
+       64 GETTABLEKS                       R5 R0 K1 ["_ikControls"]
+       66 GETTABLEKS                       R4 R5 K16 ["RightFoot"]
+       68 AND                              R6 R3 R4
+       69 FASTCALL2K                       ASSERT R6 K17 ; [+4]
+       71 LOADK                            R7 K17 ["Foot IK Controls not found"]
+       72 GETIMPORT                        R5 K8 [assert]
+       74 CALL                             R5 2 0
+       75 GETUPVAL                         R5 0
+       76 MOVE                             R6 R3
+       77 CALL                             R5 1 0
+       78 GETUPVAL                         R5 0
+       79 MOVE                             R6 R4
+       80 CALL                             R5 1 0
+       81 NAMECALL                         R5 R3 K12 ["Solve"]
+       83 CALL                             R5 1 0
+       84 NAMECALL                         R5 R4 K12 ["Solve"]
+       86 CALL                             R5 1 0
+       87 GETTABLEKS                       R3 R0 K18 ["_model"]
+       89 LOADK                            R5 K19 ["Animator"]
+       90 LOADB                            R6 1
+       91 NAMECALL                         R3 R3 K20 ["FindFirstChildWhichIsA"]
+       93 CALL                             R3 3 1
+       94 JUMPIFNOT                        R3 ; [+9]
+       95 GETUPVAL                         R4 1
+       96 NAMECALL                         R4 R4 K21 ["IsRunning"]
+       98 CALL                             R4 1 1
+       99 JUMPIF                           R4 ; [+4]
+      100 LOADN                            R6 0
+      101 NAMECALL                         R4 R3 K22 ["StepAnimations"]
+      103 CALL                             R4 2 0
+      104 GETUPVAL                         R5 2
+      105 GETTABLEKS                       R4 R5 K23 ["updateSimulatedAnimConstraintParts"]
+      107 GETTABLEKS                       R5 R0 K18 ["_model"]
+      109 CALL                             R4 1 0
+      110 RETURN                           R0 0
 
 PROTO_8:
-  LOADK R5 K0 ["Motor6D"]
-  NAMECALL R3 R1 K1 ["FindFirstChildOfClass"]
-  CALL R3 2 1
-  GETTABLEKS R4 R3 K2 ["Part1"]
-  GETTABLEKS R5 R4 K3 ["Name"]
-  GETTABLEKS R6 R3 K4 ["Transform"]
-  SETTABLE R6 R0 R5
-  GETTABLEKS R6 R3 K5 ["Part0"]
-  LOADK R8 K6 ["Motor6D.Part0 not found for: "]
-  GETTABLEKS R9 R3 K3 ["Name"]
-  CONCAT R7 R8 R9
-  FASTCALL2 ASSERT R6 R7 [+3]
-  GETIMPORT R5 K8 [assert]
-  CALL R5 2 0
-  GETTABLEKS R5 R3 K5 ["Part0"]
-  LOADK R7 K0 ["Motor6D"]
-  LOADB R8 1
-  NAMECALL R5 R5 K9 ["FindFirstChildWhichIsA"]
-  CALL R5 3 1
-  MOVE R3 R5
-  JUMPIFEQ R4 R2 [+2]
-  JUMPBACK [-29]
-  RETURN R0 0
+        0 LOADK                            R5 K0 ["Motor6D"]
+        1 NAMECALL                         R3 R1 K1 ["FindFirstChildOfClass"]
+        3 CALL                             R3 2 1
+        4 GETTABLEKS                       R4 R3 K2 ["Part1"]
+        6 GETTABLEKS                       R5 R4 K3 ["Name"]
+        8 GETTABLEKS                       R6 R3 K4 ["Transform"]
+       10 SETTABLE                         R6 R0 R5
+       11 GETTABLEKS                       R6 R3 K5 ["Part0"]
+       13 LOADK                            R8 K6 ["Motor6D.Part0 not found for: "]
+       14 GETTABLEKS                       R9 R3 K3 ["Name"]
+       16 CONCAT                           R7 R8 R9
+       17 FASTCALL2                        ASSERT R6 R7 ; [+3]
+       19 GETIMPORT                        R5 K8 [assert]
+       21 CALL                             R5 2 0
+       22 GETTABLEKS                       R5 R3 K5 ["Part0"]
+       24 LOADK                            R7 K0 ["Motor6D"]
+       25 LOADB                            R8 1
+       26 NAMECALL                         R5 R5 K9 ["FindFirstChildWhichIsA"]
+       28 CALL                             R5 3 1
+       29 MOVE                             R3 R5
+       30 JUMPIFEQ                         R4 R2 ; [+2]
+       32 JUMPBACK                         ; [-29]
+       33 RETURN                           R0 0
 
 PROTO_9:
-  GETTABLEKS R1 R0 K0 ["_selectedPart"]
-  JUMPIF R1 [+3]
-  NEWTABLE R1 0 0
-  RETURN R1 1
-  GETTABLEKS R2 R0 K1 ["_ikControls"]
-  GETTABLEKS R4 R0 K0 ["_selectedPart"]
-  GETTABLEKS R3 R4 K2 ["Name"]
-  GETTABLE R1 R2 R3
-  LOADK R5 K3 ["IK Control not found for end effector: "]
-  GETTABLEKS R7 R0 K0 ["_selectedPart"]
-  GETTABLEKS R6 R7 K2 ["Name"]
-  CONCAT R4 R5 R6
-  FASTCALL2 ASSERT R1 R4 [+4]
-  MOVE R3 R1
-  GETIMPORT R2 K5 [assert]
-  CALL R2 2 0
-  NEWTABLE R2 0 0
-  GETTABLEKS R5 R0 K0 ["_selectedPart"]
-  GETTABLEKS R4 R5 K2 ["Name"]
-  LOADB R3 1
-  JUMPIFEQKS R4 K6 ["UpperTorso"] [+5]
-  JUMPIFEQKS R4 K7 ["LowerTorso"] [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  JUMPIFNOT R3 [+29]
-  GETTABLEKS R4 R0 K1 ["_ikControls"]
-  GETTABLEKS R3 R4 K8 ["LeftFoot"]
-  GETTABLEKS R5 R0 K1 ["_ikControls"]
-  GETTABLEKS R4 R5 K9 ["RightFoot"]
-  AND R6 R3 R4
-  FASTCALL2K ASSERT R6 K10 [+4]
-  LOADK R7 K10 ["Foot IK Controls not found"]
-  GETIMPORT R5 K5 [assert]
-  CALL R5 2 0
-  GETUPVAL R5 0
-  MOVE R6 R2
-  GETTABLEKS R7 R3 K11 ["EndEffector"]
-  GETTABLEKS R8 R3 K12 ["ChainRoot"]
-  CALL R5 3 0
-  GETUPVAL R5 0
-  MOVE R6 R2
-  GETTABLEKS R7 R4 K11 ["EndEffector"]
-  GETTABLEKS R8 R4 K12 ["ChainRoot"]
-  CALL R5 3 0
-  GETUPVAL R3 0
-  MOVE R4 R2
-  GETTABLEKS R5 R1 K11 ["EndEffector"]
-  GETTABLEKS R6 R1 K12 ["ChainRoot"]
-  CALL R3 3 0
-  RETURN R2 1
+        0 GETTABLEKS                       R1 R0 K0 ["_selectedPart"]
+        2 JUMPIF                           R1 ; [+3]
+        3 NEWTABLE                         R1 0 0
+        5 RETURN                           R1 1
+        6 GETTABLEKS                       R2 R0 K1 ["_ikControls"]
+        8 GETTABLEKS                       R4 R0 K0 ["_selectedPart"]
+       10 GETTABLEKS                       R3 R4 K2 ["Name"]
+       12 GETTABLE                         R1 R2 R3
+       13 LOADK                            R5 K3 ["IK Control not found for end effector: "]
+       14 GETTABLEKS                       R7 R0 K0 ["_selectedPart"]
+       16 GETTABLEKS                       R6 R7 K2 ["Name"]
+       18 CONCAT                           R4 R5 R6
+       19 FASTCALL2                        ASSERT R1 R4 ; [+4]
+       21 MOVE                             R3 R1
+       22 GETIMPORT                        R2 K5 [assert]
+       24 CALL                             R2 2 0
+       25 NEWTABLE                         R2 0 0
+       27 GETTABLEKS                       R5 R0 K0 ["_selectedPart"]
+       29 GETTABLEKS                       R4 R5 K2 ["Name"]
+       31 LOADB                            R3 1
+       32 JUMPIFEQKS                       R4 K6 ["UpperTorso"] ; [+5]
+       34 JUMPIFEQKS                       R4 K7 ["LowerTorso"] ; [+2]
+       36 LOADB                            R3 0 +1
+       37 LOADB                            R3 1
+       38 JUMPIFNOT                        R3 ; [+29]
+       39 GETTABLEKS                       R4 R0 K1 ["_ikControls"]
+       41 GETTABLEKS                       R3 R4 K8 ["LeftFoot"]
+       43 GETTABLEKS                       R5 R0 K1 ["_ikControls"]
+       45 GETTABLEKS                       R4 R5 K9 ["RightFoot"]
+       47 AND                              R6 R3 R4
+       48 FASTCALL2K                       ASSERT R6 K10 ; [+4]
+       50 LOADK                            R7 K10 ["Foot IK Controls not found"]
+       51 GETIMPORT                        R5 K5 [assert]
+       53 CALL                             R5 2 0
+       54 GETUPVAL                         R5 0
+       55 MOVE                             R6 R2
+       56 GETTABLEKS                       R7 R3 K11 ["EndEffector"]
+       58 GETTABLEKS                       R8 R3 K12 ["ChainRoot"]
+       60 CALL                             R5 3 0
+       61 GETUPVAL                         R5 0
+       62 MOVE                             R6 R2
+       63 GETTABLEKS                       R7 R4 K11 ["EndEffector"]
+       65 GETTABLEKS                       R8 R4 K12 ["ChainRoot"]
+       67 CALL                             R5 3 0
+       68 GETUPVAL                         R3 0
+       69 MOVE                             R4 R2
+       70 GETTABLEKS                       R5 R1 K11 ["EndEffector"]
+       72 GETTABLEKS                       R6 R1 K12 ["ChainRoot"]
+       74 CALL                             R3 3 0
+       75 RETURN                           R2 1
 
 PROTO_10:
-  GETTABLEKS R1 R0 K0 ["_selectedPart"]
-  JUMPIF R1 [+4]
-  GETIMPORT R1 K2 [warn]
-  LOADK R2 K3 ["No part selected for IK Control"]
-  CALL R1 1 0
-  GETTABLEKS R1 R0 K0 ["_selectedPart"]
-  RETURN R1 1
+        0 GETTABLEKS                       R1 R0 K0 ["_selectedPart"]
+        2 JUMPIF                           R1 ; [+4]
+        3 GETIMPORT                        R1 K2 [warn]
+        5 LOADK                            R2 K3 ["No part selected for IK Control"]
+        6 CALL                             R1 1 0
+        7 GETTABLEKS                       R1 R0 K0 ["_selectedPart"]
+        9 RETURN                           R1 1
 
 PROTO_11:
-  GETTABLEKS R1 R0 K0 ["_model"]
-  RETURN R1 1
+        0 GETTABLEKS                       R1 R0 K0 ["_model"]
+        2 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  NEWTABLE R0 16 0
-  SETTABLEKS R0 R0 K0 ["__index"]
-  GETIMPORT R1 K2 [script]
-  LOADK R3 K3 ["AnimationClipEditor"]
-  NAMECALL R1 R1 K4 ["FindFirstAncestor"]
-  CALL R1 2 1
-  GETIMPORT R2 K6 [require]
-  GETTABLEKS R5 R1 K7 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Util"]
-  GETTABLEKS R3 R4 K9 ["Constants"]
-  CALL R2 1 1
-  GETIMPORT R3 K6 [require]
-  GETTABLEKS R6 R1 K7 ["Src"]
-  GETTABLEKS R5 R6 K8 ["Util"]
-  GETTABLEKS R4 R5 K10 ["RigInfo"]
-  CALL R3 1 1
-  GETIMPORT R4 K6 [require]
-  GETTABLEKS R7 R1 K7 ["Src"]
-  GETTABLEKS R6 R7 K8 ["Util"]
-  GETTABLEKS R5 R6 K11 ["RigUtils"]
-  CALL R4 1 1
-  GETIMPORT R5 K13 [game]
-  LOADK R7 K14 ["RunService"]
-  NAMECALL R5 R5 K15 ["GetService"]
-  CALL R5 2 1
-  DUPTABLE R6 K31 [{"Head", "LeftHand", "RightHand", "LeftLowerArm", "RightLowerArm", "LeftUpperArm", "RightUpperArm", "LeftFoot", "RightFoot", "LeftLowerLeg", "RightLowerLeg", "LeftUpperLeg", "RightUpperLeg", "UpperTorso", "LowerTorso"}]
-  LOADK R7 K16 ["Head"]
-  SETTABLEKS R7 R6 K16 ["Head"]
-  LOADK R7 K21 ["LeftUpperArm"]
-  SETTABLEKS R7 R6 K17 ["LeftHand"]
-  LOADK R7 K22 ["RightUpperArm"]
-  SETTABLEKS R7 R6 K18 ["RightHand"]
-  LOADK R7 K21 ["LeftUpperArm"]
-  SETTABLEKS R7 R6 K19 ["LeftLowerArm"]
-  LOADK R7 K22 ["RightUpperArm"]
-  SETTABLEKS R7 R6 K20 ["RightLowerArm"]
-  LOADK R7 K29 ["UpperTorso"]
-  SETTABLEKS R7 R6 K21 ["LeftUpperArm"]
-  LOADK R7 K29 ["UpperTorso"]
-  SETTABLEKS R7 R6 K22 ["RightUpperArm"]
-  LOADK R7 K27 ["LeftUpperLeg"]
-  SETTABLEKS R7 R6 K23 ["LeftFoot"]
-  LOADK R7 K28 ["RightUpperLeg"]
-  SETTABLEKS R7 R6 K24 ["RightFoot"]
-  LOADK R7 K27 ["LeftUpperLeg"]
-  SETTABLEKS R7 R6 K25 ["LeftLowerLeg"]
-  LOADK R7 K28 ["RightUpperLeg"]
-  SETTABLEKS R7 R6 K26 ["RightLowerLeg"]
-  LOADK R7 K27 ["LeftUpperLeg"]
-  SETTABLEKS R7 R6 K27 ["LeftUpperLeg"]
-  LOADK R7 K28 ["RightUpperLeg"]
-  SETTABLEKS R7 R6 K28 ["RightUpperLeg"]
-  LOADK R7 K29 ["UpperTorso"]
-  SETTABLEKS R7 R6 K29 ["UpperTorso"]
-  LOADK R7 K30 ["LowerTorso"]
-  SETTABLEKS R7 R6 K30 ["LowerTorso"]
-  DUPTABLE R7 K47 [{"Root", "Waist", "Neck", "LeftWrist", "LeftAnkle", "RightWrist", "RightAnkle", "RightShoulder", "RightElbow", "LeftShoulder", "LeftElbow", "LeftKnee", "LeftHip", "RightKnee", "RightHip"}]
-  GETIMPORT R8 K50 [CFrame.identity]
-  SETTABLEKS R8 R7 K32 ["Root"]
-  GETIMPORT R8 K50 [CFrame.identity]
-  SETTABLEKS R8 R7 K33 ["Waist"]
-  GETIMPORT R8 K50 [CFrame.identity]
-  SETTABLEKS R8 R7 K34 ["Neck"]
-  GETIMPORT R8 K50 [CFrame.identity]
-  SETTABLEKS R8 R7 K35 ["LeftWrist"]
-  GETIMPORT R8 K50 [CFrame.identity]
-  SETTABLEKS R8 R7 K36 ["LeftAnkle"]
-  GETIMPORT R8 K50 [CFrame.identity]
-  SETTABLEKS R8 R7 K37 ["RightWrist"]
-  GETIMPORT R8 K50 [CFrame.identity]
-  SETTABLEKS R8 R7 K38 ["RightAnkle"]
-  GETIMPORT R8 K52 [CFrame.fromOrientation]
-  LOADK R9 K53 [0.408]
-  LOADK R10 K54 [0.326]
-  LOADK R11 K55 [0.48]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K39 ["RightShoulder"]
-  GETIMPORT R8 K52 [CFrame.fromOrientation]
-  LOADK R9 K56 [1.165]
-  LOADK R10 K57 [-0.111]
-  LOADK R11 K58 [-0.342]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K40 ["RightElbow"]
-  GETIMPORT R8 K52 [CFrame.fromOrientation]
-  LOADK R9 K53 [0.408]
-  LOADK R10 K59 [-0.326]
-  LOADK R11 K60 [-0.48]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K41 ["LeftShoulder"]
-  GETIMPORT R8 K52 [CFrame.fromOrientation]
-  LOADK R9 K56 [1.165]
-  LOADK R10 K61 [0.111]
-  LOADK R11 K62 [0.342]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K42 ["LeftElbow"]
-  GETIMPORT R8 K52 [CFrame.fromOrientation]
-  LOADK R9 K63 [-1.398]
-  LOADK R10 K64 [-0.098]
-  LOADK R11 K65 [0.119]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K43 ["LeftKnee"]
-  GETIMPORT R8 K52 [CFrame.fromOrientation]
-  LOADK R9 K66 [0.561]
-  LOADK R10 K67 [-0.018]
-  LOADK R11 K68 [0.031]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K44 ["LeftHip"]
-  GETIMPORT R8 K52 [CFrame.fromOrientation]
-  LOADK R9 K69 [-1.399]
-  LOADK R10 K70 [0.055]
-  LOADK R11 K71 [-0.066]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K45 ["RightKnee"]
-  GETIMPORT R8 K52 [CFrame.fromOrientation]
-  LOADK R9 K66 [0.561]
-  LOADK R10 K72 [0.018]
-  LOADK R11 K73 [-0.031]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K46 ["RightHip"]
-  DUPCLOSURE R8 K74 [PROTO_0]
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  CAPTURE VAL R0
-  SETTABLEKS R8 R0 K75 ["new"]
-  DUPCLOSURE R8 K76 [PROTO_1]
-  SETTABLEKS R8 R0 K77 ["cleanUp"]
-  DUPCLOSURE R8 K78 [PROTO_2]
-  CAPTURE VAL R7
-  DUPCLOSURE R9 K79 [PROTO_3]
-  SETTABLEKS R9 R0 K80 ["getOrCreateIKControl"]
-  DUPCLOSURE R9 K81 [PROTO_4]
-  DUPCLOSURE R10 K82 [PROTO_5]
-  CAPTURE VAL R2
-  SETTABLEKS R10 R0 K83 ["getJoint"]
-  DUPCLOSURE R10 K84 [PROTO_6]
-  CAPTURE VAL R6
-  SETTABLEKS R10 R0 K85 ["setupIKControl"]
-  DUPCLOSURE R10 K86 [PROTO_7]
-  CAPTURE VAL R8
-  CAPTURE VAL R5
-  CAPTURE VAL R4
-  SETTABLEKS R10 R0 K87 ["solve"]
-  DUPCLOSURE R10 K88 [PROTO_8]
-  DUPCLOSURE R11 K89 [PROTO_9]
-  CAPTURE VAL R10
-  SETTABLEKS R11 R0 K90 ["getTransforms"]
-  DUPCLOSURE R11 K91 [PROTO_10]
-  SETTABLEKS R11 R0 K92 ["getSelectedPart"]
-  DUPCLOSURE R11 K93 [PROTO_11]
-  SETTABLEKS R11 R0 K94 ["getModel"]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 NEWTABLE                         R0 16 0
+        3 SETTABLEKS                       R0 R0 K0 ["__index"]
+        5 GETIMPORT                        R1 K2 [script]
+        7 LOADK                            R3 K3 ["AnimationClipEditor"]
+        8 NAMECALL                         R1 R1 K4 ["FindFirstAncestor"]
+       10 CALL                             R1 2 1
+       11 GETIMPORT                        R2 K6 [require]
+       13 GETTABLEKS                       R5 R1 K7 ["Src"]
+       15 GETTABLEKS                       R4 R5 K8 ["Util"]
+       17 GETTABLEKS                       R3 R4 K9 ["Constants"]
+       19 CALL                             R2 1 1
+       20 GETIMPORT                        R3 K6 [require]
+       22 GETTABLEKS                       R6 R1 K7 ["Src"]
+       24 GETTABLEKS                       R5 R6 K8 ["Util"]
+       26 GETTABLEKS                       R4 R5 K10 ["RigInfo"]
+       28 CALL                             R3 1 1
+       29 GETIMPORT                        R4 K6 [require]
+       31 GETTABLEKS                       R7 R1 K7 ["Src"]
+       33 GETTABLEKS                       R6 R7 K8 ["Util"]
+       35 GETTABLEKS                       R5 R6 K11 ["RigUtils"]
+       37 CALL                             R4 1 1
+       38 GETIMPORT                        R5 K13 [game]
+       40 LOADK                            R7 K14 ["RunService"]
+       41 NAMECALL                         R5 R5 K15 ["GetService"]
+       43 CALL                             R5 2 1
+       44 DUPTABLE                         R6 K31 [{"Head", "LeftHand", "RightHand", "LeftLowerArm", "RightLowerArm", "LeftUpperArm", "RightUpperArm", "LeftFoot", "RightFoot", "LeftLowerLeg", "RightLowerLeg", "LeftUpperLeg", "RightUpperLeg", "UpperTorso", "LowerTorso"}]
+       45 LOADK                            R7 K16 ["Head"]
+       46 SETTABLEKS                       R7 R6 K16 ["Head"]
+       48 LOADK                            R7 K21 ["LeftUpperArm"]
+       49 SETTABLEKS                       R7 R6 K17 ["LeftHand"]
+       51 LOADK                            R7 K22 ["RightUpperArm"]
+       52 SETTABLEKS                       R7 R6 K18 ["RightHand"]
+       54 LOADK                            R7 K21 ["LeftUpperArm"]
+       55 SETTABLEKS                       R7 R6 K19 ["LeftLowerArm"]
+       57 LOADK                            R7 K22 ["RightUpperArm"]
+       58 SETTABLEKS                       R7 R6 K20 ["RightLowerArm"]
+       60 LOADK                            R7 K29 ["UpperTorso"]
+       61 SETTABLEKS                       R7 R6 K21 ["LeftUpperArm"]
+       63 LOADK                            R7 K29 ["UpperTorso"]
+       64 SETTABLEKS                       R7 R6 K22 ["RightUpperArm"]
+       66 LOADK                            R7 K27 ["LeftUpperLeg"]
+       67 SETTABLEKS                       R7 R6 K23 ["LeftFoot"]
+       69 LOADK                            R7 K28 ["RightUpperLeg"]
+       70 SETTABLEKS                       R7 R6 K24 ["RightFoot"]
+       72 LOADK                            R7 K27 ["LeftUpperLeg"]
+       73 SETTABLEKS                       R7 R6 K25 ["LeftLowerLeg"]
+       75 LOADK                            R7 K28 ["RightUpperLeg"]
+       76 SETTABLEKS                       R7 R6 K26 ["RightLowerLeg"]
+       78 LOADK                            R7 K27 ["LeftUpperLeg"]
+       79 SETTABLEKS                       R7 R6 K27 ["LeftUpperLeg"]
+       81 LOADK                            R7 K28 ["RightUpperLeg"]
+       82 SETTABLEKS                       R7 R6 K28 ["RightUpperLeg"]
+       84 LOADK                            R7 K29 ["UpperTorso"]
+       85 SETTABLEKS                       R7 R6 K29 ["UpperTorso"]
+       87 LOADK                            R7 K30 ["LowerTorso"]
+       88 SETTABLEKS                       R7 R6 K30 ["LowerTorso"]
+       90 DUPTABLE                         R7 K47 [{"Root", "Waist", "Neck", "LeftWrist", "LeftAnkle", "RightWrist", "RightAnkle", "RightShoulder", "RightElbow", "LeftShoulder", "LeftElbow", "LeftKnee", "LeftHip", "RightKnee", "RightHip"}]
+       91 GETIMPORT                        R8 K50 [CFrame.identity]
+       93 SETTABLEKS                       R8 R7 K32 ["Root"]
+       95 GETIMPORT                        R8 K50 [CFrame.identity]
+       97 SETTABLEKS                       R8 R7 K33 ["Waist"]
+       99 GETIMPORT                        R8 K50 [CFrame.identity]
+      101 SETTABLEKS                       R8 R7 K34 ["Neck"]
+      103 GETIMPORT                        R8 K50 [CFrame.identity]
+      105 SETTABLEKS                       R8 R7 K35 ["LeftWrist"]
+      107 GETIMPORT                        R8 K50 [CFrame.identity]
+      109 SETTABLEKS                       R8 R7 K36 ["LeftAnkle"]
+      111 GETIMPORT                        R8 K50 [CFrame.identity]
+      113 SETTABLEKS                       R8 R7 K37 ["RightWrist"]
+      115 GETIMPORT                        R8 K50 [CFrame.identity]
+      117 SETTABLEKS                       R8 R7 K38 ["RightAnkle"]
+      119 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
+      121 LOADK                            R9 K53 [0.408]
+      122 LOADK                            R10 K54 [0.326]
+      123 LOADK                            R11 K55 [0.48]
+      124 CALL                             R8 3 1
+      125 SETTABLEKS                       R8 R7 K39 ["RightShoulder"]
+      127 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
+      129 LOADK                            R9 K56 [1.165]
+      130 LOADK                            R10 K57 [-0.111]
+      131 LOADK                            R11 K58 [-0.342]
+      132 CALL                             R8 3 1
+      133 SETTABLEKS                       R8 R7 K40 ["RightElbow"]
+      135 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
+      137 LOADK                            R9 K53 [0.408]
+      138 LOADK                            R10 K59 [-0.326]
+      139 LOADK                            R11 K60 [-0.48]
+      140 CALL                             R8 3 1
+      141 SETTABLEKS                       R8 R7 K41 ["LeftShoulder"]
+      143 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
+      145 LOADK                            R9 K56 [1.165]
+      146 LOADK                            R10 K61 [0.111]
+      147 LOADK                            R11 K62 [0.342]
+      148 CALL                             R8 3 1
+      149 SETTABLEKS                       R8 R7 K42 ["LeftElbow"]
+      151 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
+      153 LOADK                            R9 K63 [-1.398]
+      154 LOADK                            R10 K64 [-0.098]
+      155 LOADK                            R11 K65 [0.119]
+      156 CALL                             R8 3 1
+      157 SETTABLEKS                       R8 R7 K43 ["LeftKnee"]
+      159 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
+      161 LOADK                            R9 K66 [0.561]
+      162 LOADK                            R10 K67 [-0.018]
+      163 LOADK                            R11 K68 [0.031]
+      164 CALL                             R8 3 1
+      165 SETTABLEKS                       R8 R7 K44 ["LeftHip"]
+      167 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
+      169 LOADK                            R9 K69 [-1.399]
+      170 LOADK                            R10 K70 [0.055]
+      171 LOADK                            R11 K71 [-0.066]
+      172 CALL                             R8 3 1
+      173 SETTABLEKS                       R8 R7 K45 ["RightKnee"]
+      175 GETIMPORT                        R8 K52 [CFrame.fromOrientation]
+      177 LOADK                            R9 K66 [0.561]
+      178 LOADK                            R10 K72 [0.018]
+      179 LOADK                            R11 K73 [-0.031]
+      180 CALL                             R8 3 1
+      181 SETTABLEKS                       R8 R7 K46 ["RightHip"]
+      183 DUPCLOSURE                       R8 K74 [PROTO_0]
+      184 CAPTURE                          VAL R2
+      185 CAPTURE                          VAL R3
+      186 CAPTURE                          VAL R0
+      187 SETTABLEKS                       R8 R0 K75 ["new"]
+      189 DUPCLOSURE                       R8 K76 [PROTO_1]
+      190 SETTABLEKS                       R8 R0 K77 ["cleanUp"]
+      192 DUPCLOSURE                       R8 K78 [PROTO_2]
+      193 CAPTURE                          VAL R7
+      194 DUPCLOSURE                       R9 K79 [PROTO_3]
+      195 SETTABLEKS                       R9 R0 K80 ["getOrCreateIKControl"]
+      197 DUPCLOSURE                       R9 K81 [PROTO_4]
+      198 DUPCLOSURE                       R10 K82 [PROTO_5]
+      199 CAPTURE                          VAL R2
+      200 SETTABLEKS                       R10 R0 K83 ["getJoint"]
+      202 DUPCLOSURE                       R10 K84 [PROTO_6]
+      203 CAPTURE                          VAL R6
+      204 SETTABLEKS                       R10 R0 K85 ["setupIKControl"]
+      206 DUPCLOSURE                       R10 K86 [PROTO_7]
+      207 CAPTURE                          VAL R8
+      208 CAPTURE                          VAL R5
+      209 CAPTURE                          VAL R4
+      210 SETTABLEKS                       R10 R0 K87 ["solve"]
+      212 DUPCLOSURE                       R10 K88 [PROTO_8]
+      213 DUPCLOSURE                       R11 K89 [PROTO_9]
+      214 CAPTURE                          VAL R10
+      215 SETTABLEKS                       R11 R0 K90 ["getTransforms"]
+      217 DUPCLOSURE                       R11 K91 [PROTO_10]
+      218 SETTABLEKS                       R11 R0 K92 ["getSelectedPart"]
+      220 DUPCLOSURE                       R11 K93 [PROTO_11]
+      221 SETTABLEKS                       R11 R0 K94 ["getModel"]
+      223 RETURN                           R0 1

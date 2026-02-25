@@ -1,84 +1,84 @@
 PROTO_0:
-  GETUPVAL R1 0
-  MOVE R3 R0
-  NAMECALL R1 R1 K0 ["JSONDecode"]
-  CALL R1 2 1
-  DUPTABLE R2 K2 [{"groups"}]
-  NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K1 ["groups"]
-  GETTABLEKS R3 R1 K3 ["data"]
-  LOADNIL R4
-  LOADNIL R5
-  FORGPREP R3
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K4 ["fromJsonData"]
-  MOVE R9 R7
-  CALL R8 1 2
-  JUMPIFNOT R8 [+9]
-  GETTABLEKS R11 R2 K1 ["groups"]
-  FASTCALL2 TABLE_INSERT R11 R9 [+4]
-  MOVE R12 R9
-  GETIMPORT R10 K7 [table.insert]
-  CALL R10 2 0
-  JUMP [+9]
-  GETIMPORT R10 K9 [error]
-  LOADK R12 K10 ["Parsing error for ApiFetchGroupsCanManage: %*"]
-  MOVE R14 R9
-  NAMECALL R12 R12 K11 ["format"]
-  CALL R12 2 1
-  MOVE R11 R12
-  CALL R10 1 0
-  FORGLOOP R3 2 [-25]
-  RETURN R2 1
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K0 ["JSONDecode"]
+        4 CALL                             R1 2 1
+        5 DUPTABLE                         R2 K2 [{"groups"}]
+        6 NEWTABLE                         R3 0 0
+        8 SETTABLEKS                       R3 R2 K1 ["groups"]
+       10 GETTABLEKS                       R3 R1 K3 ["data"]
+       12 LOADNIL                          R4
+       13 LOADNIL                          R5
+       14 FORGPREP                         R3
+       15 GETUPVAL                         R9 1
+       16 GETTABLEKS                       R8 R9 K4 ["fromJsonData"]
+       18 MOVE                             R9 R7
+       19 CALL                             R8 1 2
+       20 JUMPIFNOT                        R8 ; [+9]
+       21 GETTABLEKS                       R11 R2 K1 ["groups"]
+       23 FASTCALL2                        TABLE_INSERT R11 R9 ; [+4]
+       25 MOVE                             R12 R9
+       26 GETIMPORT                        R10 K7 [table.insert]
+       28 CALL                             R10 2 0
+       29 JUMP                             ; [+9]
+       30 GETIMPORT                        R10 K9 [error]
+       32 LOADK                            R12 K10 ["Parsing error for ApiFetchGroupsCanManage: %*"]
+       33 MOVE                             R14 R9
+       34 NAMECALL                         R12 R12 K11 ["format"]
+       36 CALL                             R12 2 1
+       37 MOVE                             R11 R12
+       38 CALL                             R10 1 0
+       39 FORGLOOP                         R3 2 ; [-25]
+       41 RETURN                           R2 1
 
 PROTO_1:
-  DUPTABLE R0 K2 [{"Url", "Method"}]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K3 ["BuildRobloxUrl"]
-  LOADK R2 K4 ["develop"]
-  LOADK R3 K5 ["v1/user/groups/canmanage"]
-  CALL R1 2 1
-  SETTABLEKS R1 R0 K0 ["Url"]
-  LOADK R1 K6 ["GET"]
-  SETTABLEKS R1 R0 K1 ["Method"]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K7 ["Request"]
-  MOVE R2 R0
-  CALL R1 1 1
-  DUPCLOSURE R3 K8 [PROTO_0]
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  NAMECALL R1 R1 K9 ["andThen"]
-  CALL R1 2 -1
-  RETURN R1 -1
+        0 DUPTABLE                         R0 K2 [{"Url", "Method"}]
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R1 R2 K3 ["BuildRobloxUrl"]
+        4 LOADK                            R2 K4 ["develop"]
+        5 LOADK                            R3 K5 ["v1/user/groups/canmanage"]
+        6 CALL                             R1 2 1
+        7 SETTABLEKS                       R1 R0 K0 ["Url"]
+        9 LOADK                            R1 K6 ["GET"]
+       10 SETTABLEKS                       R1 R0 K1 ["Method"]
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R1 R2 K7 ["Request"]
+       15 MOVE                             R2 R0
+       16 CALL                             R1 1 1
+       17 DUPCLOSURE                       R3 K8 [PROTO_0]
+       18 CAPTURE                          UPVAL U1
+       19 CAPTURE                          UPVAL U2
+       20 NAMECALL                         R1 R1 K9 ["andThen"]
+       22 CALL                             R1 2 -1
+       23 RETURN                           R1 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AssetImporter"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Utility"]
-  GETTABLEKS R2 R3 K8 ["Services"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K9 ["GetService"]
-  LOADK R3 K10 ["HttpService"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K11 ["Networking"]
-  GETTABLEKS R4 R5 K12 ["Http"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Networking"]
-  GETTABLEKS R6 R7 K13 ["Models"]
-  GETTABLEKS R5 R6 K14 ["Group"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K15 [PROTO_1]
-  CAPTURE VAL R3
-  CAPTURE VAL R2
-  CAPTURE VAL R4
-  RETURN R5 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AssetImporter"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Src"]
+       11 GETTABLEKS                       R3 R4 K7 ["Utility"]
+       13 GETTABLEKS                       R2 R3 K8 ["Services"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R2 R1 K9 ["GetService"]
+       18 LOADK                            R3 K10 ["HttpService"]
+       19 CALL                             R2 1 1
+       20 GETIMPORT                        R3 K5 [require]
+       22 GETTABLEKS                       R6 R0 K6 ["Src"]
+       24 GETTABLEKS                       R5 R6 K11 ["Networking"]
+       26 GETTABLEKS                       R4 R5 K12 ["Http"]
+       28 CALL                             R3 1 1
+       29 GETIMPORT                        R4 K5 [require]
+       31 GETTABLEKS                       R8 R0 K6 ["Src"]
+       33 GETTABLEKS                       R7 R8 K11 ["Networking"]
+       35 GETTABLEKS                       R6 R7 K13 ["Models"]
+       37 GETTABLEKS                       R5 R6 K14 ["Group"]
+       39 CALL                             R4 1 1
+       40 DUPCLOSURE                       R5 K15 [PROTO_1]
+       41 CAPTURE                          VAL R3
+       42 CAPTURE                          VAL R2
+       43 CAPTURE                          VAL R4
+       44 RETURN                           R5 1

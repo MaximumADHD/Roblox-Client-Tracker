@@ -1,0 +1,65 @@
+local Framework = script:FindFirstAncestor("UI").Parent
+local Roact = require(Framework.Parent.Roact)
+
+local Dash = require(Framework.Parent.Dash)
+local join = Dash.join
+
+local TreeView = require(Framework.UI.Components.TreeView)
+
+local ExampleTreeView = Roact.PureComponent:extend(script.Parent.Name .. "ExampleTreeView")
+
+local function generateItems(prefix: string)
+	local result = {}
+	for i = 1, 100 do
+		table.insert(result, {
+			text = ("%s.%d"):format(prefix, i),
+			icon = {
+				Image = "rbxasset://textures/DeveloperFramework/Favorites/star_filled.png",
+				Size = UDim2.new(0, 14, 0, 14),
+			},
+		})
+	end
+	return result
+end
+
+function ExampleTreeView:init()
+	self.cachedItems = {}
+	self.state = {
+		Selection = {},
+		Expansion = {},
+		Items = generateItems("Root"),
+	}
+end
+
+function ExampleTreeView:render()
+	return Roact.createElement(TreeView, {
+		Size = UDim2.new(0, 300, 0, 600),
+		Expansion = self.state.Expansion,
+		Selection = self.state.Selection,
+		RootItems = self.state.Items,
+		Style = "BorderBox",
+		GetChildren = function(item)
+			self.cachedItems[item.text] = self.cachedItems[item.text] or generateItems(item.text)
+			return self.cachedItems[item.text]
+		end,
+		OnExpansionChange = function(newExpansion)
+			self:setState({
+				Expansion = join(self.state.Expansion, newExpansion),
+			})
+		end,
+		OnSelectionChange = function(newSelection)
+			self:setState({
+				Selection = newSelection,
+			})
+		end,
+	})
+end
+
+return {
+	stories = {
+		{
+			name = "Standard",
+			story = ExampleTreeView,
+		},
+	},
+}

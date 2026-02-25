@@ -1,78 +1,78 @@
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["Dialog"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["TestLoader"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K8 ["launch"]
-  LOADK R3 K2 ["Dialog"]
-  GETTABLEKS R4 R0 K9 ["Src"]
-  CALL R2 2 0
-  GETTABLEKS R2 R1 K10 ["isCli"]
-  CALL R2 0 1
-  JUMPIFNOT R2 [+1]
-  RETURN R0 0
-  GETIMPORT R2 K12 [game]
-  LOADK R4 K13 ["DebugEnableDialogStorybook"]
-  LOADB R5 0
-  NAMECALL R2 R2 K14 ["DefineFastFlag"]
-  CALL R2 3 1
-  JUMPIFNOT R2 [+42]
-  GETIMPORT R3 K12 [game]
-  LOADK R5 K15 ["ReplicatedStorage"]
-  NAMECALL R3 R3 K16 ["GetService"]
-  CALL R3 2 1
-  LOADK R6 K2 ["Dialog"]
-  NAMECALL R4 R3 K17 ["FindFirstChild"]
-  CALL R4 2 1
-  JUMPIFNOT R4 [+3]
-  NAMECALL R5 R4 K18 ["Destroy"]
-  CALL R5 1 0
-  GETTABLEKS R9 R0 K6 ["Packages"]
-  GETTABLEKS R8 R9 K20 ["_Index"]
-  GETTABLEKS R7 R8 K21 ["DeveloperFramework"]
-  GETTABLEKS R6 R7 K21 ["DeveloperFramework"]
-  GETTABLEKS R5 R6 K19 ["DeveloperFramework.storybook"]
-  NAMECALL R5 R5 K18 ["Destroy"]
-  CALL R5 1 0
-  SETTABLEKS R3 R0 K22 ["Parent"]
-  GETIMPORT R5 K25 [Instance.new]
-  LOADK R6 K26 ["ObjectValue"]
-  CALL R5 1 1
-  LOADK R6 K27 ["Plugin"]
-  SETTABLEKS R6 R5 K28 ["Name"]
-  GETIMPORT R6 K30 [plugin]
-  SETTABLEKS R6 R5 K31 ["Value"]
-  SETTABLEKS R0 R5 K22 ["Parent"]
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K32 ["Bin"]
-  GETTABLEKS R5 R6 K33 ["Common"]
-  GETTABLEKS R4 R5 K34 ["defineLuaFlags"]
-  CALL R3 1 1
-  GETTABLEKS R4 R3 K35 ["getEngineFeatureStudioDialogManager"]
-  CALL R4 0 1
-  JUMPIF R4 [+1]
-  RETURN R0 0
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K32 ["Bin"]
-  GETTABLEKS R6 R7 K33 ["Common"]
-  GETTABLEKS R5 R6 K36 ["pluginType"]
-  CALL R4 1 1
-  GETTABLEKS R5 R4 K37 ["get"]
-  CALL R5 0 1
-  GETTABLEKS R6 R4 K38 ["Asset"]
-  JUMPIFEQ R5 R6 [+2]
-  RETURN R0 0
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K32 ["Bin"]
-  GETTABLEKS R7 R8 K33 ["Common"]
-  GETTABLEKS R6 R7 K39 ["setup"]
-  CALL R5 1 1
-  MOVE R6 R5
-  GETIMPORT R7 K30 [plugin]
-  CALL R6 1 0
-  RETURN R0 0
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Dialog"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["TestLoader"]
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R2 R1 K8 ["launch"]
+       16 LOADK                            R3 K2 ["Dialog"]
+       17 GETTABLEKS                       R4 R0 K9 ["Src"]
+       19 CALL                             R2 2 0
+       20 GETTABLEKS                       R2 R1 K10 ["isCli"]
+       22 CALL                             R2 0 1
+       23 JUMPIFNOT                        R2 ; [+1]
+       24 RETURN                           R0 0
+       25 GETIMPORT                        R2 K12 [game]
+       27 LOADK                            R4 K13 ["DebugEnableDialogStorybook"]
+       28 LOADB                            R5 0
+       29 NAMECALL                         R2 R2 K14 ["DefineFastFlag"]
+       31 CALL                             R2 3 1
+       32 JUMPIFNOT                        R2 ; [+42]
+       33 GETIMPORT                        R3 K12 [game]
+       35 LOADK                            R5 K15 ["ReplicatedStorage"]
+       36 NAMECALL                         R3 R3 K16 ["GetService"]
+       38 CALL                             R3 2 1
+       39 LOADK                            R6 K2 ["Dialog"]
+       40 NAMECALL                         R4 R3 K17 ["FindFirstChild"]
+       42 CALL                             R4 2 1
+       43 JUMPIFNOT                        R4 ; [+3]
+       44 NAMECALL                         R5 R4 K18 ["Destroy"]
+       46 CALL                             R5 1 0
+       47 GETTABLEKS                       R9 R0 K6 ["Packages"]
+       49 GETTABLEKS                       R8 R9 K20 ["_Index"]
+       51 GETTABLEKS                       R7 R8 K21 ["DeveloperFramework"]
+       53 GETTABLEKS                       R6 R7 K21 ["DeveloperFramework"]
+       55 GETTABLEKS                       R5 R6 K19 ["DeveloperFramework.storybook"]
+       57 NAMECALL                         R5 R5 K18 ["Destroy"]
+       59 CALL                             R5 1 0
+       60 SETTABLEKS                       R3 R0 K22 ["Parent"]
+       62 GETIMPORT                        R5 K25 [Instance.new]
+       64 LOADK                            R6 K26 ["ObjectValue"]
+       65 CALL                             R5 1 1
+       66 LOADK                            R6 K27 ["Plugin"]
+       67 SETTABLEKS                       R6 R5 K28 ["Name"]
+       69 GETIMPORT                        R6 K30 [plugin]
+       71 SETTABLEKS                       R6 R5 K31 ["Value"]
+       73 SETTABLEKS                       R0 R5 K22 ["Parent"]
+       75 GETIMPORT                        R3 K5 [require]
+       77 GETTABLEKS                       R6 R0 K32 ["Bin"]
+       79 GETTABLEKS                       R5 R6 K33 ["Common"]
+       81 GETTABLEKS                       R4 R5 K34 ["defineLuaFlags"]
+       83 CALL                             R3 1 1
+       84 GETTABLEKS                       R4 R3 K35 ["getEngineFeatureStudioDialogManager"]
+       86 CALL                             R4 0 1
+       87 JUMPIF                           R4 ; [+1]
+       88 RETURN                           R0 0
+       89 GETIMPORT                        R4 K5 [require]
+       91 GETTABLEKS                       R7 R0 K32 ["Bin"]
+       93 GETTABLEKS                       R6 R7 K33 ["Common"]
+       95 GETTABLEKS                       R5 R6 K36 ["pluginType"]
+       97 CALL                             R4 1 1
+       98 GETTABLEKS                       R5 R4 K37 ["get"]
+      100 CALL                             R5 0 1
+      101 GETTABLEKS                       R6 R4 K38 ["Asset"]
+      103 JUMPIFEQ                         R5 R6 ; [+2]
+      105 RETURN                           R0 0
+      106 GETIMPORT                        R5 K5 [require]
+      108 GETTABLEKS                       R8 R0 K32 ["Bin"]
+      110 GETTABLEKS                       R7 R8 K33 ["Common"]
+      112 GETTABLEKS                       R6 R7 K39 ["setup"]
+      114 CALL                             R5 1 1
+      115 MOVE                             R6 R5
+      116 GETIMPORT                        R7 K30 [plugin]
+      118 CALL                             R6 1 0
+      119 RETURN                           R0 0

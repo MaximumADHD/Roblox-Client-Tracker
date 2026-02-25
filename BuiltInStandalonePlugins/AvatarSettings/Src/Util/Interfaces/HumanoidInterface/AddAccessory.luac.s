@@ -1,10 +1,10 @@
 PROTO_0:
-  MOVE R4 R1
-  NAMECALL R2 R0 K0 ["AddAccessory"]
-  CALL R2 2 0
-  RETURN R0 0
+        0 MOVE                             R4 R1
+        1 NAMECALL                         R2 R0 K0 ["AddAccessory"]
+        3 CALL                             R2 2 0
+        4 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 RETURN                           R0 1

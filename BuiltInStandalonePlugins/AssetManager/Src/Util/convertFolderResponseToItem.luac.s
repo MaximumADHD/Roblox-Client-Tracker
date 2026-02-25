@@ -1,43 +1,43 @@
 PROTO_0:
-  GETTABLEKS R4 R0 K0 ["folder"]
-  DUPTABLE R5 K12 [{"AssetId", "AssetType", "DisplayName", "Created", "Modified", "ModerationStatus", "Creator", "Source", "Archived", "SearchRank", "Path"}]
-  GETTABLEKS R6 R4 K13 ["folderId"]
-  SETTABLEKS R6 R5 K1 ["AssetId"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K2 ["AssetType"]
-  GETTABLEKS R6 R7 K14 ["Folder"]
-  SETTABLEKS R6 R5 K2 ["AssetType"]
-  GETTABLEKS R6 R4 K15 ["displayName"]
-  SETTABLEKS R6 R5 K3 ["DisplayName"]
-  GETTABLEKS R6 R4 K16 ["createTime"]
-  SETTABLEKS R6 R5 K4 ["Created"]
-  GETTABLEKS R6 R4 K17 ["updateTime"]
-  SETTABLEKS R6 R5 K5 ["Modified"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K6 ["ModerationStatus"]
-  GETTABLEKS R6 R7 K18 ["Placeholder"]
-  SETTABLEKS R6 R5 K6 ["ModerationStatus"]
-  SETTABLEKS R1 R5 K7 ["Creator"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K19 ["AssetSource"]
-  GETTABLEKS R6 R7 K20 ["Uploaded"]
-  SETTABLEKS R6 R5 K8 ["Source"]
-  LOADB R6 0
-  SETTABLEKS R6 R5 K9 ["Archived"]
-  SETTABLEKS R3 R5 K10 ["SearchRank"]
-  SETTABLEKS R2 R5 K11 ["Path"]
-  RETURN R5 1
+        0 GETTABLEKS                       R4 R0 K0 ["folder"]
+        2 DUPTABLE                         R5 K12 [{"AssetId", "AssetType", "DisplayName", "Created", "Modified", "ModerationStatus", "Creator", "Source", "Archived", "SearchRank", "Path"}]
+        3 GETTABLEKS                       R6 R4 K13 ["folderId"]
+        5 SETTABLEKS                       R6 R5 K1 ["AssetId"]
+        7 GETUPVAL                         R8 0
+        8 GETTABLEKS                       R7 R8 K2 ["AssetType"]
+       10 GETTABLEKS                       R6 R7 K14 ["Folder"]
+       12 SETTABLEKS                       R6 R5 K2 ["AssetType"]
+       14 GETTABLEKS                       R6 R4 K15 ["displayName"]
+       16 SETTABLEKS                       R6 R5 K3 ["DisplayName"]
+       18 GETTABLEKS                       R6 R4 K16 ["createTime"]
+       20 SETTABLEKS                       R6 R5 K4 ["Created"]
+       22 GETTABLEKS                       R6 R4 K17 ["updateTime"]
+       24 SETTABLEKS                       R6 R5 K5 ["Modified"]
+       26 GETUPVAL                         R8 0
+       27 GETTABLEKS                       R7 R8 K6 ["ModerationStatus"]
+       29 GETTABLEKS                       R6 R7 K18 ["Placeholder"]
+       31 SETTABLEKS                       R6 R5 K6 ["ModerationStatus"]
+       33 SETTABLEKS                       R1 R5 K7 ["Creator"]
+       35 GETUPVAL                         R8 0
+       36 GETTABLEKS                       R7 R8 K19 ["AssetSource"]
+       38 GETTABLEKS                       R6 R7 K20 ["Uploaded"]
+       40 SETTABLEKS                       R6 R5 K8 ["Source"]
+       42 LOADB                            R6 0
+       43 SETTABLEKS                       R6 R5 K9 ["Archived"]
+       45 SETTABLEKS                       R3 R5 K10 ["SearchRank"]
+       47 SETTABLEKS                       R2 R5 K11 ["Path"]
+       49 RETURN                           R5 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AssetManager"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Src"]
-  GETTABLEKS R2 R3 K7 ["Types"]
-  CALL R1 1 1
-  DUPCLOSURE R2 K8 [PROTO_0]
-  CAPTURE VAL R1
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AssetManager"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+       13 CALL                             R1 1 1
+       14 DUPCLOSURE                       R2 K8 [PROTO_0]
+       15 CAPTURE                          VAL R1
+       16 RETURN                           R2 1

@@ -1,76 +1,76 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["CurrentDataModelType"]
-  GETIMPORT R1 K4 [Enum.StudioDataModelType.Edit]
-  JUMPIFNOTEQ R0 R1 [+5]
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K5 ["reset"]
-  CALL R0 0 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["CurrentDataModelType"]
+        3 GETIMPORT                        R1 K4 [Enum.StudioDataModelType.Edit]
+        5 JUMPIFNOTEQ                      R0 R1 ; [+5]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R0 R1 K5 ["reset"]
+       10 CALL                             R0 0 0
+       11 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["reset"]
-  CALL R0 0 0
-  GETUPVAL R0 1
-  NAMECALL R0 R0 K1 ["Disconnect"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["reset"]
+        3 CALL                             R0 0 0
+        4 GETUPVAL                         R0 1
+        5 NAMECALL                         R0 R0 K1 ["Disconnect"]
+        7 CALL                             R0 1 0
+        8 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["reset"]
-  CALL R0 0 0
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K1 ["CurrentDataModelTypeChanged"]
-  NEWCLOSURE R2 P0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U0
-  NAMECALL R0 R0 K2 ["Connect"]
-  CALL R0 2 1
-  NEWCLOSURE R1 P1
-  CAPTURE UPVAL U0
-  CAPTURE VAL R0
-  RETURN R1 1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["reset"]
+        3 CALL                             R0 0 0
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R0 R1 K1 ["CurrentDataModelTypeChanged"]
+        7 NEWCLOSURE                       R2 P0
+        8 CAPTURE                          UPVAL U1
+        9 CAPTURE                          UPVAL U0
+       10 NAMECALL                         R0 R0 K2 ["Connect"]
+       12 CALL                             R0 2 1
+       13 NEWCLOSURE                       R1 P1
+       14 CAPTURE                          UPVAL U0
+       15 CAPTURE                          VAL R0
+       16 RETURN                           R1 1
 
 PROTO_3:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["Parent"]
-  GETTABLEKS R0 R1 K1 ["MultipleDocumentInterfaceInstance"]
-  GETTABLEKS R1 R0 K2 ["FocusedDataModelSession"]
-  JUMPIFNOTEQKNIL R1 [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  FASTCALL2K ASSERT R3 K3 [+4]
-  LOADK R4 K3 ["FocusedDataModelSession is nil"]
-  GETIMPORT R2 K5 [assert]
-  CALL R2 2 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K6 ["useEffect"]
-  NEWCLOSURE R3 P0
-  CAPTURE UPVAL U2
-  CAPTURE VAL R1
-  NEWTABLE R4 0 0
-  CALL R2 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["Parent"]
+        3 GETTABLEKS                       R0 R1 K1 ["MultipleDocumentInterfaceInstance"]
+        5 GETTABLEKS                       R1 R0 K2 ["FocusedDataModelSession"]
+        7 JUMPIFNOTEQKNIL                  R1 ; [+2]
+        9 LOADB                            R3 0 +1
+       10 LOADB                            R3 1
+       11 FASTCALL2K                       ASSERT R3 K3 ; [+4]
+       13 LOADK                            R4 K3 ["FocusedDataModelSession is nil"]
+       14 GETIMPORT                        R2 K5 [assert]
+       16 CALL                             R2 2 0
+       17 GETUPVAL                         R3 1
+       18 GETTABLEKS                       R2 R3 K6 ["useEffect"]
+       20 NEWCLOSURE                       R3 P0
+       21 CAPTURE                          UPVAL U2
+       22 CAPTURE                          VAL R1
+       23 NEWTABLE                         R4 0 0
+       25 CALL                             R2 2 0
+       26 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Util"]
-  GETTABLEKS R3 R4 K10 ["TestInExperienceUtil"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K11 [PROTO_3]
-  CAPTURE VAL R0
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarCompatibilityPreviewer"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R5 R0 K8 ["Src"]
+       18 GETTABLEKS                       R4 R5 K9 ["Util"]
+       20 GETTABLEKS                       R3 R4 K10 ["TestInExperienceUtil"]
+       22 CALL                             R2 1 1
+       23 DUPCLOSURE                       R3 K11 [PROTO_3]
+       24 CAPTURE                          VAL R0
+       25 CAPTURE                          VAL R1
+       26 CAPTURE                          VAL R2
+       27 RETURN                           R3 1

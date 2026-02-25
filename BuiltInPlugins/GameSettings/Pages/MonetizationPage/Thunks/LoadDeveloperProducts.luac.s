@@ -1,74 +1,74 @@
 PROTO_0:
-  NAMECALL R2 R0 K0 ["getState"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K1 ["Metadata"]
-  GETTABLEKS R3 R4 K2 ["gameId"]
-  GETTABLEKS R6 R2 K3 ["Settings"]
-  GETTABLEKS R5 R6 K4 ["Current"]
-  GETTABLEKS R4 R5 K5 ["devProductsCursor"]
-  JUMPIFNOTEQKNIL R4 [+2]
-  RETURN R0 0
-  GETTABLEKS R5 R1 K6 ["monetizationController"]
-  MOVE R8 R3
-  MOVE R9 R4
-  NAMECALL R6 R5 K7 ["getDeveloperProducts"]
-  CALL R6 3 2
-  GETTABLEKS R9 R2 K3 ["Settings"]
-  GETTABLEKS R8 R9 K4 ["Current"]
-  GETTABLEKS R12 R2 K3 ["Settings"]
-  GETTABLEKS R11 R12 K4 ["Current"]
-  GETTABLEKS R10 R11 K8 ["developerProducts"]
-  JUMPIFNOT R10 [+7]
-  GETTABLEKS R11 R2 K3 ["Settings"]
-  GETTABLEKS R10 R11 K4 ["Current"]
-  GETTABLEKS R9 R10 K8 ["developerProducts"]
-  JUMPIF R9 [+2]
-  NEWTABLE R9 0 0
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K9 ["Dictionary"]
-  GETTABLEKS R10 R11 K10 ["join"]
-  MOVE R11 R8
-  DUPTABLE R12 K11 [{"devProductsCursor", "developerProducts"}]
-  SETTABLEKS R7 R12 K5 ["devProductsCursor"]
-  GETUPVAL R15 0
-  GETTABLEKS R14 R15 K9 ["Dictionary"]
-  GETTABLEKS R13 R14 K10 ["join"]
-  MOVE R14 R9
-  MOVE R15 R6
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K8 ["developerProducts"]
-  CALL R10 2 1
-  MOVE R8 R10
-  GETUPVAL R12 1
-  MOVE R13 R8
-  CALL R12 1 -1
-  NAMECALL R10 R0 K12 ["dispatch"]
-  CALL R10 -1 0
-  RETURN R0 0
+        0 NAMECALL                         R2 R0 K0 ["getState"]
+        2 CALL                             R2 1 1
+        3 GETTABLEKS                       R4 R2 K1 ["Metadata"]
+        5 GETTABLEKS                       R3 R4 K2 ["gameId"]
+        7 GETTABLEKS                       R6 R2 K3 ["Settings"]
+        9 GETTABLEKS                       R5 R6 K4 ["Current"]
+       11 GETTABLEKS                       R4 R5 K5 ["devProductsCursor"]
+       13 JUMPIFNOTEQKNIL                  R4 ; [+2]
+       15 RETURN                           R0 0
+       16 GETTABLEKS                       R5 R1 K6 ["monetizationController"]
+       18 MOVE                             R8 R3
+       19 MOVE                             R9 R4
+       20 NAMECALL                         R6 R5 K7 ["getDeveloperProducts"]
+       22 CALL                             R6 3 2
+       23 GETTABLEKS                       R9 R2 K3 ["Settings"]
+       25 GETTABLEKS                       R8 R9 K4 ["Current"]
+       27 GETTABLEKS                       R12 R2 K3 ["Settings"]
+       29 GETTABLEKS                       R11 R12 K4 ["Current"]
+       31 GETTABLEKS                       R10 R11 K8 ["developerProducts"]
+       33 JUMPIFNOT                        R10 ; [+7]
+       34 GETTABLEKS                       R11 R2 K3 ["Settings"]
+       36 GETTABLEKS                       R10 R11 K4 ["Current"]
+       38 GETTABLEKS                       R9 R10 K8 ["developerProducts"]
+       40 JUMPIF                           R9 ; [+2]
+       41 NEWTABLE                         R9 0 0
+       43 GETUPVAL                         R12 0
+       44 GETTABLEKS                       R11 R12 K9 ["Dictionary"]
+       46 GETTABLEKS                       R10 R11 K10 ["join"]
+       48 MOVE                             R11 R8
+       49 DUPTABLE                         R12 K11 [{"devProductsCursor", "developerProducts"}]
+       50 SETTABLEKS                       R7 R12 K5 ["devProductsCursor"]
+       52 GETUPVAL                         R15 0
+       53 GETTABLEKS                       R14 R15 K9 ["Dictionary"]
+       55 GETTABLEKS                       R13 R14 K10 ["join"]
+       57 MOVE                             R14 R9
+       58 MOVE                             R15 R6
+       59 CALL                             R13 2 1
+       60 SETTABLEKS                       R13 R12 K8 ["developerProducts"]
+       62 CALL                             R10 2 1
+       63 MOVE                             R8 R10
+       64 GETUPVAL                         R12 1
+       65 MOVE                             R13 R8
+       66 CALL                             R12 1 -1
+       67 NAMECALL                         R10 R0 K12 ["dispatch"]
+       69 CALL                             R10 -1 0
+       70 RETURN                           R0 0
 
 PROTO_1:
-  DUPCLOSURE R0 K0 [PROTO_0]
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  RETURN R0 1
+        0 DUPCLOSURE                       R0 K0 [PROTO_0]
+        1 CAPTURE                          UPVAL U0
+        2 CAPTURE                          UPVAL U1
+        3 RETURN                           R0 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Cryo"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K7 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Actions"]
-  GETTABLEKS R3 R4 K9 ["SetCurrentSettings"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K10 [PROTO_1]
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R4 K1 [script]
+        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
+        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+       11 GETIMPORT                        R1 K4 [require]
+       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R2 K4 [require]
+       20 GETTABLEKS                       R5 R0 K7 ["Src"]
+       22 GETTABLEKS                       R4 R5 K8 ["Actions"]
+       24 GETTABLEKS                       R3 R4 K9 ["SetCurrentSettings"]
+       26 CALL                             R2 1 1
+       27 DUPCLOSURE                       R3 K10 [PROTO_1]
+       28 CAPTURE                          VAL R1
+       29 CAPTURE                          VAL R2
+       30 RETURN                           R3 1

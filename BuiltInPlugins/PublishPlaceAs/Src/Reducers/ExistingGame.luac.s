@@ -1,182 +1,182 @@
 PROTO_0:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
-  MOVE R3 R0
-  DUPTABLE R4 K3 [{"gameInfo"}]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K0 ["Dictionary"]
-  GETTABLEKS R5 R6 K1 ["join"]
-  GETTABLEKS R6 R0 K2 ["gameInfo"]
-  GETTABLEKS R7 R1 K2 ["gameInfo"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K2 ["gameInfo"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        5 MOVE                             R3 R0
+        6 DUPTABLE                         R4 K3 [{"gameInfo"}]
+        7 GETUPVAL                         R7 0
+        8 GETTABLEKS                       R6 R7 K0 ["Dictionary"]
+       10 GETTABLEKS                       R5 R6 K1 ["join"]
+       12 GETTABLEKS                       R6 R0 K2 ["gameInfo"]
+       14 GETTABLEKS                       R7 R1 K2 ["gameInfo"]
+       16 CALL                             R5 2 1
+       17 SETTABLEKS                       R5 R4 K2 ["gameInfo"]
+       19 CALL                             R2 2 -1
+       20 RETURN                           R2 -1
 
 PROTO_1:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
-  MOVE R3 R0
-  DUPTABLE R4 K3 [{"selectedGame"}]
-  GETTABLEKS R5 R1 K2 ["selectedGame"]
-  SETTABLEKS R5 R4 K2 ["selectedGame"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        5 MOVE                             R3 R0
+        6 DUPTABLE                         R4 K3 [{"selectedGame"}]
+        7 GETTABLEKS                       R5 R1 K2 ["selectedGame"]
+        9 SETTABLEKS                       R5 R4 K2 ["selectedGame"]
+       11 CALL                             R2 2 -1
+       12 RETURN                           R2 -1
 
 PROTO_2:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
-  MOVE R3 R0
-  DUPTABLE R4 K3 [{"gameInfo"}]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K0 ["Dictionary"]
-  GETTABLEKS R5 R6 K1 ["join"]
-  GETTABLEKS R6 R0 K2 ["gameInfo"]
-  GETTABLEKS R7 R1 K2 ["gameInfo"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K2 ["gameInfo"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        5 MOVE                             R3 R0
+        6 DUPTABLE                         R4 K3 [{"gameInfo"}]
+        7 GETUPVAL                         R7 0
+        8 GETTABLEKS                       R6 R7 K0 ["Dictionary"]
+       10 GETTABLEKS                       R5 R6 K1 ["join"]
+       12 GETTABLEKS                       R6 R0 K2 ["gameInfo"]
+       14 GETTABLEKS                       R7 R1 K2 ["gameInfo"]
+       16 CALL                             R5 2 1
+       17 SETTABLEKS                       R5 R4 K2 ["gameInfo"]
+       19 CALL                             R2 2 -1
+       20 RETURN                           R2 -1
 
 PROTO_3:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
-  MOVE R3 R0
-  DUPTABLE R4 K3 [{"placeInfo"}]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K0 ["Dictionary"]
-  GETTABLEKS R5 R6 K1 ["join"]
-  GETTABLEKS R6 R0 K2 ["placeInfo"]
-  GETTABLEKS R7 R1 K2 ["placeInfo"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K2 ["placeInfo"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        5 MOVE                             R3 R0
+        6 DUPTABLE                         R4 K3 [{"placeInfo"}]
+        7 GETUPVAL                         R7 0
+        8 GETTABLEKS                       R6 R7 K0 ["Dictionary"]
+       10 GETTABLEKS                       R5 R6 K1 ["join"]
+       12 GETTABLEKS                       R6 R0 K2 ["placeInfo"]
+       14 GETTABLEKS                       R7 R1 K2 ["placeInfo"]
+       16 CALL                             R5 2 1
+       17 SETTABLEKS                       R5 R4 K2 ["placeInfo"]
+       19 CALL                             R2 2 -1
+       20 RETURN                           R2 -1
 
 PROTO_4:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
-  MOVE R3 R0
-  DUPTABLE R4 K3 [{"placeInfo"}]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K0 ["Dictionary"]
-  GETTABLEKS R5 R6 K1 ["join"]
-  GETTABLEKS R6 R0 K2 ["placeInfo"]
-  GETTABLEKS R7 R1 K2 ["placeInfo"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K2 ["placeInfo"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        5 MOVE                             R3 R0
+        6 DUPTABLE                         R4 K3 [{"placeInfo"}]
+        7 GETUPVAL                         R7 0
+        8 GETTABLEKS                       R6 R7 K0 ["Dictionary"]
+       10 GETTABLEKS                       R5 R6 K1 ["join"]
+       12 GETTABLEKS                       R6 R0 K2 ["placeInfo"]
+       14 GETTABLEKS                       R7 R1 K2 ["placeInfo"]
+       16 CALL                             R5 2 1
+       17 SETTABLEKS                       R5 R4 K2 ["placeInfo"]
+       19 CALL                             R2 2 -1
+       20 RETURN                           R2 -1
 
 PROTO_5:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
-  MOVE R3 R0
-  DUPTABLE R4 K4 [{"gameInfo", "placeInfo"}]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K0 ["Dictionary"]
-  GETTABLEKS R5 R6 K1 ["join"]
-  GETTABLEKS R6 R0 K2 ["gameInfo"]
-  GETTABLEKS R7 R1 K2 ["gameInfo"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K2 ["gameInfo"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K0 ["Dictionary"]
-  GETTABLEKS R5 R6 K1 ["join"]
-  GETTABLEKS R6 R0 K3 ["placeInfo"]
-  GETTABLEKS R7 R1 K3 ["placeInfo"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K3 ["placeInfo"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        5 MOVE                             R3 R0
+        6 DUPTABLE                         R4 K4 [{"gameInfo", "placeInfo"}]
+        7 GETUPVAL                         R7 0
+        8 GETTABLEKS                       R6 R7 K0 ["Dictionary"]
+       10 GETTABLEKS                       R5 R6 K1 ["join"]
+       12 GETTABLEKS                       R6 R0 K2 ["gameInfo"]
+       14 GETTABLEKS                       R7 R1 K2 ["gameInfo"]
+       16 CALL                             R5 2 1
+       17 SETTABLEKS                       R5 R4 K2 ["gameInfo"]
+       19 GETUPVAL                         R7 0
+       20 GETTABLEKS                       R6 R7 K0 ["Dictionary"]
+       22 GETTABLEKS                       R5 R6 K1 ["join"]
+       24 GETTABLEKS                       R6 R0 K3 ["placeInfo"]
+       26 GETTABLEKS                       R7 R1 K3 ["placeInfo"]
+       28 CALL                             R5 2 1
+       29 SETTABLEKS                       R5 R4 K3 ["placeInfo"]
+       31 CALL                             R2 2 -1
+       32 RETURN                           R2 -1
 
 PROTO_6:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
-  MOVE R3 R0
-  DUPTABLE R4 K3 [{"gameConfiguration"}]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K0 ["Dictionary"]
-  GETTABLEKS R5 R6 K1 ["join"]
-  GETTABLEKS R6 R0 K2 ["gameConfiguration"]
-  GETTABLEKS R7 R1 K2 ["gameConfiguration"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K2 ["gameConfiguration"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        5 MOVE                             R3 R0
+        6 DUPTABLE                         R4 K3 [{"gameConfiguration"}]
+        7 GETUPVAL                         R7 0
+        8 GETTABLEKS                       R6 R7 K0 ["Dictionary"]
+       10 GETTABLEKS                       R5 R6 K1 ["join"]
+       12 GETTABLEKS                       R6 R0 K2 ["gameConfiguration"]
+       14 GETTABLEKS                       R7 R1 K2 ["gameConfiguration"]
+       16 CALL                             R5 2 1
+       17 SETTABLEKS                       R5 R4 K2 ["gameConfiguration"]
+       19 CALL                             R2 2 -1
+       20 RETURN                           R2 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Rodux"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Cryo"]
-  CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K9 ["Resources"]
-  GETTABLEKS R4 R5 K10 ["Constants"]
-  CALL R3 1 1
-  DUPTABLE R4 K15 [{"placeInfo", "gameInfo", "selectedGame", "gameConfiguration"}]
-  DUPTABLE R5 K19 [{"places", "parentGame", "queryState"}]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K16 ["places"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K17 ["parentGame"]
-  GETTABLEKS R7 R3 K20 ["QUERY_STATE"]
-  GETTABLEKS R6 R7 K21 ["QUERY_STATE_NONE"]
-  SETTABLEKS R6 R5 K18 ["queryState"]
-  SETTABLEKS R5 R4 K11 ["placeInfo"]
-  DUPTABLE R5 K23 [{"games", "queryState"}]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K22 ["games"]
-  GETTABLEKS R7 R3 K20 ["QUERY_STATE"]
-  GETTABLEKS R6 R7 K21 ["QUERY_STATE_NONE"]
-  SETTABLEKS R6 R5 K18 ["queryState"]
-  SETTABLEKS R5 R4 K12 ["gameInfo"]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K13 ["selectedGame"]
-  DUPTABLE R5 K25 [{"optInRegions"}]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K24 ["optInRegions"]
-  SETTABLEKS R5 R4 K14 ["gameConfiguration"]
-  GETTABLEKS R5 R1 K26 ["createReducer"]
-  MOVE R6 R4
-  DUPTABLE R7 K34 [{"SetChooseGameQueryState", "SetSelectedGame", "SetGameInfo", "SetPlaceInfo", "SetChoosePlaceQueryState", "ResetInfo", "SetGameConfiguration"}]
-  DUPCLOSURE R8 K35 [PROTO_0]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K27 ["SetChooseGameQueryState"]
-  DUPCLOSURE R8 K36 [PROTO_1]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K28 ["SetSelectedGame"]
-  DUPCLOSURE R8 K37 [PROTO_2]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K29 ["SetGameInfo"]
-  DUPCLOSURE R8 K38 [PROTO_3]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K30 ["SetPlaceInfo"]
-  DUPCLOSURE R8 K39 [PROTO_4]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K31 ["SetChoosePlaceQueryState"]
-  DUPCLOSURE R8 K40 [PROTO_5]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K32 ["ResetInfo"]
-  DUPCLOSURE R8 K41 [PROTO_6]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K33 ["SetGameConfiguration"]
-  CALL R5 2 -1
-  RETURN R5 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K7 ["Cryo"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K4 [require]
+       25 GETTABLEKS                       R6 R0 K8 ["Src"]
+       27 GETTABLEKS                       R5 R6 K9 ["Resources"]
+       29 GETTABLEKS                       R4 R5 K10 ["Constants"]
+       31 CALL                             R3 1 1
+       32 DUPTABLE                         R4 K15 [{"placeInfo", "gameInfo", "selectedGame", "gameConfiguration"}]
+       33 DUPTABLE                         R5 K19 [{"places", "parentGame", "queryState"}]
+       34 NEWTABLE                         R6 0 0
+       36 SETTABLEKS                       R6 R5 K16 ["places"]
+       38 NEWTABLE                         R6 0 0
+       40 SETTABLEKS                       R6 R5 K17 ["parentGame"]
+       42 GETTABLEKS                       R7 R3 K20 ["QUERY_STATE"]
+       44 GETTABLEKS                       R6 R7 K21 ["QUERY_STATE_NONE"]
+       46 SETTABLEKS                       R6 R5 K18 ["queryState"]
+       48 SETTABLEKS                       R5 R4 K11 ["placeInfo"]
+       50 DUPTABLE                         R5 K23 [{"games", "queryState"}]
+       51 NEWTABLE                         R6 0 0
+       53 SETTABLEKS                       R6 R5 K22 ["games"]
+       55 GETTABLEKS                       R7 R3 K20 ["QUERY_STATE"]
+       57 GETTABLEKS                       R6 R7 K21 ["QUERY_STATE_NONE"]
+       59 SETTABLEKS                       R6 R5 K18 ["queryState"]
+       61 SETTABLEKS                       R5 R4 K12 ["gameInfo"]
+       63 NEWTABLE                         R5 0 0
+       65 SETTABLEKS                       R5 R4 K13 ["selectedGame"]
+       67 DUPTABLE                         R5 K25 [{"optInRegions"}]
+       68 NEWTABLE                         R6 0 0
+       70 SETTABLEKS                       R6 R5 K24 ["optInRegions"]
+       72 SETTABLEKS                       R5 R4 K14 ["gameConfiguration"]
+       74 GETTABLEKS                       R5 R1 K26 ["createReducer"]
+       76 MOVE                             R6 R4
+       77 DUPTABLE                         R7 K34 [{"SetChooseGameQueryState", "SetSelectedGame", "SetGameInfo", "SetPlaceInfo", "SetChoosePlaceQueryState", "ResetInfo", "SetGameConfiguration"}]
+       78 DUPCLOSURE                       R8 K35 [PROTO_0]
+       79 CAPTURE                          VAL R2
+       80 SETTABLEKS                       R8 R7 K27 ["SetChooseGameQueryState"]
+       82 DUPCLOSURE                       R8 K36 [PROTO_1]
+       83 CAPTURE                          VAL R2
+       84 SETTABLEKS                       R8 R7 K28 ["SetSelectedGame"]
+       86 DUPCLOSURE                       R8 K37 [PROTO_2]
+       87 CAPTURE                          VAL R2
+       88 SETTABLEKS                       R8 R7 K29 ["SetGameInfo"]
+       90 DUPCLOSURE                       R8 K38 [PROTO_3]
+       91 CAPTURE                          VAL R2
+       92 SETTABLEKS                       R8 R7 K30 ["SetPlaceInfo"]
+       94 DUPCLOSURE                       R8 K39 [PROTO_4]
+       95 CAPTURE                          VAL R2
+       96 SETTABLEKS                       R8 R7 K31 ["SetChoosePlaceQueryState"]
+       98 DUPCLOSURE                       R8 K40 [PROTO_5]
+       99 CAPTURE                          VAL R2
+      100 SETTABLEKS                       R8 R7 K32 ["ResetInfo"]
+      102 DUPCLOSURE                       R8 K41 [PROTO_6]
+      103 CAPTURE                          VAL R2
+      104 SETTABLEKS                       R8 R7 K33 ["SetGameConfiguration"]
+      106 CALL                             R5 2 -1
+      107 RETURN                           R5 -1

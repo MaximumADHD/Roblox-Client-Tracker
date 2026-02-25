@@ -1,67 +1,67 @@
 PROTO_0:
-  FASTCALL1 TYPE R0 [+3]
-  MOVE R4 R0
-  GETIMPORT R3 K1 [type]
-  CALL R3 1 1
-  JUMPIFEQKS R3 K2 ["table"] [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  FASTCALL2K ASSERT R2 K3 [+4]
-  LOADK R3 K3 ["Expected story to be a table"]
-  GETIMPORT R1 K5 [assert]
-  CALL R1 2 0
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K6 ["provideMockContext"]
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R1 2 -1
-  RETURN R1 -1
+        0 FASTCALL1                        TYPE R0 ; [+3]
+        1 MOVE                             R4 R0
+        2 GETIMPORT                        R3 K1 [type]
+        4 CALL                             R3 1 1
+        5 JUMPIFEQKS                       R3 K2 ["table"] ; [+2]
+        7 LOADB                            R2 0 +1
+        8 LOADB                            R2 1
+        9 FASTCALL2K                       ASSERT R2 K3 ; [+4]
+       11 LOADK                            R3 K3 ["Expected story to be a table"]
+       12 GETIMPORT                        R1 K5 [assert]
+       14 CALL                             R1 2 0
+       15 GETUPVAL                         R2 0
+       16 GETTABLEKS                       R1 R2 K6 ["provideMockContext"]
+       18 GETUPVAL                         R2 1
+       19 MOVE                             R3 R0
+       20 CALL                             R1 2 -1
+       21 RETURN                           R1 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Rodux"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Framework"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K8 ["TestHelpers"]
-  GETTABLEKS R4 R2 K9 ["ContextServices"]
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Reducers"]
-  GETTABLEKS R6 R7 K12 ["MainReducer"]
-  CALL R5 1 1
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R9 R0 K10 ["Src"]
-  GETTABLEKS R8 R9 K13 ["Resources"]
-  GETTABLEKS R7 R8 K14 ["MakeTheme"]
-  CALL R6 1 1
-  NEWTABLE R7 0 4
-  GETTABLEKS R9 R4 K15 ["Analytics"]
-  GETTABLEKS R8 R9 K16 ["mock"]
-  CALL R8 0 1
-  GETTABLEKS R10 R4 K17 ["Localization"]
-  GETTABLEKS R9 R10 K16 ["mock"]
-  CALL R9 0 1
-  GETTABLEKS R11 R4 K18 ["Store"]
-  GETTABLEKS R10 R11 K19 ["new"]
-  GETTABLEKS R12 R1 K18 ["Store"]
-  GETTABLEKS R11 R12 K19 ["new"]
-  MOVE R12 R5
-  CALL R11 1 -1
-  CALL R10 -1 1
-  MOVE R11 R6
-  LOADB R12 1
-  CALL R11 1 -1
-  SETLIST R7 R8 -1 [1]
-  DUPCLOSURE R8 K20 [PROTO_0]
-  CAPTURE VAL R3
-  CAPTURE VAL R7
-  RETURN R8 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R2 K8 ["TestHelpers"]
+       25 GETTABLEKS                       R4 R2 K9 ["ContextServices"]
+       27 GETIMPORT                        R5 K4 [require]
+       29 GETTABLEKS                       R8 R0 K10 ["Src"]
+       31 GETTABLEKS                       R7 R8 K11 ["Reducers"]
+       33 GETTABLEKS                       R6 R7 K12 ["MainReducer"]
+       35 CALL                             R5 1 1
+       36 GETIMPORT                        R6 K4 [require]
+       38 GETTABLEKS                       R9 R0 K10 ["Src"]
+       40 GETTABLEKS                       R8 R9 K13 ["Resources"]
+       42 GETTABLEKS                       R7 R8 K14 ["MakeTheme"]
+       44 CALL                             R6 1 1
+       45 NEWTABLE                         R7 0 4
+       47 GETTABLEKS                       R9 R4 K15 ["Analytics"]
+       49 GETTABLEKS                       R8 R9 K16 ["mock"]
+       51 CALL                             R8 0 1
+       52 GETTABLEKS                       R10 R4 K17 ["Localization"]
+       54 GETTABLEKS                       R9 R10 K16 ["mock"]
+       56 CALL                             R9 0 1
+       57 GETTABLEKS                       R11 R4 K18 ["Store"]
+       59 GETTABLEKS                       R10 R11 K19 ["new"]
+       61 GETTABLEKS                       R12 R1 K18 ["Store"]
+       63 GETTABLEKS                       R11 R12 K19 ["new"]
+       65 MOVE                             R12 R5
+       66 CALL                             R11 1 -1
+       67 CALL                             R10 -1 1
+       68 MOVE                             R11 R6
+       69 LOADB                            R12 1
+       70 CALL                             R11 1 -1
+       71 SETLIST                          R7 R8 -1 [1]
+       73 DUPCLOSURE                       R8 K20 [PROTO_0]
+       74 CAPTURE                          VAL R3
+       75 CAPTURE                          VAL R7
+       76 RETURN                           R8 1

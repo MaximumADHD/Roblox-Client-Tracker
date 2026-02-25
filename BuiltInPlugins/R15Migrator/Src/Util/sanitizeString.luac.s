@@ -1,16 +1,15 @@
 PROTO_0:
-  JUMPIF R0 [+2]
-  LOADNIL R1
-  RETURN R1 1
-  GETIMPORT R1 K2 [string.gsub]
-  MOVE R2 R0
-  LOADK R3 K3 ["[
-	]"]
-  LOADK R4 K4 [""]
-  CALL R1 3 1
-  RETURN R1 1
+        0 JUMPIF                           R0 ; [+2]
+        1 LOADNIL                          R1
+        2 RETURN                           R1 1
+        3 GETIMPORT                        R1 K2 [string.gsub]
+        5 MOVE                             R2 R0
+        6 LOADK                            R3 K3 ["[\n\t]"]
+        7 LOADK                            R4 K4 [""]
+        8 CALL                             R1 3 1
+        9 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 RETURN                           R0 1

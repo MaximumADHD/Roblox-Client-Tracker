@@ -1,137 +1,134 @@
 PROTO_0:
-  DUPTABLE R0 K1 [{"_listeners"}]
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K0 ["_listeners"]
-  GETUPVAL R3 0
-  FASTCALL2 SETMETATABLE R0 R3 [+4]
-  MOVE R2 R0
-  GETIMPORT R1 K3 [setmetatable]
-  CALL R1 2 0
-  RETURN R0 1
+        0 DUPTABLE                         R0 K1 [{"_listeners"}]
+        1 NEWTABLE                         R1 0 0
+        3 SETTABLEKS                       R1 R0 K0 ["_listeners"]
+        5 GETUPVAL                         R3 0
+        6 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+        8 MOVE                             R2 R0
+        9 GETIMPORT                        R1 K3 [setmetatable]
+       11 CALL                             R1 2 0
+       12 RETURN                           R0 1
 
 PROTO_1:
-  GETUPVAL R0 0
-  LOADB R1 0
-  SETTABLEKS R1 R0 K0 ["isConnected"]
-  GETUPVAL R0 1
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K1 ["RemoveValueFromList"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K2 ["_listeners"]
-  GETUPVAL R3 0
-  CALL R1 2 1
-  SETTABLEKS R1 R0 K2 ["_listeners"]
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 LOADB                            R1 0
+        2 SETTABLEKS                       R1 R0 K0 ["isConnected"]
+        4 GETUPVAL                         R0 1
+        5 GETUPVAL                         R2 2
+        6 GETTABLEKS                       R1 R2 K1 ["RemoveValueFromList"]
+        8 GETUPVAL                         R3 1
+        9 GETTABLEKS                       R2 R3 K2 ["_listeners"]
+       11 GETUPVAL                         R3 0
+       12 CALL                             R1 2 1
+       13 SETTABLEKS                       R1 R0 K2 ["_listeners"]
+       15 RETURN                           R0 0
 
 PROTO_2:
-  GETIMPORT R0 K1 [warn]
-  GETIMPORT R1 K4 [string.format]
-  LOADK R2 K5 ["Connection:Disconnect() has been deprecated, use Connection:disconnect()
-%s]"]
-  GETIMPORT R3 K8 [debug.traceback]
-  CALL R3 0 -1
-  CALL R1 -1 -1
-  CALL R0 -1 0
-  GETUPVAL R0 0
-  LOADB R1 0
-  SETTABLEKS R1 R0 K9 ["isConnected"]
-  GETUPVAL R0 1
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K10 ["RemoveValueFromList"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K11 ["_listeners"]
-  GETUPVAL R3 0
-  CALL R1 2 1
-  SETTABLEKS R1 R0 K11 ["_listeners"]
-  RETURN R0 0
+        0 GETIMPORT                        R0 K1 [warn]
+        2 GETIMPORT                        R1 K4 [string.format]
+        4 LOADK                            R2 K5 ["Connection:Disconnect() has been deprecated, use Connection:disconnect()\n%s]"]
+        5 GETIMPORT                        R3 K8 [debug.traceback]
+        7 CALL                             R3 0 -1
+        8 CALL                             R1 -1 -1
+        9 CALL                             R0 -1 0
+       10 GETUPVAL                         R0 0
+       11 LOADB                            R1 0
+       12 SETTABLEKS                       R1 R0 K9 ["isConnected"]
+       14 GETUPVAL                         R0 1
+       15 GETUPVAL                         R2 2
+       16 GETTABLEKS                       R1 R2 K10 ["RemoveValueFromList"]
+       18 GETUPVAL                         R3 1
+       19 GETTABLEKS                       R2 R3 K11 ["_listeners"]
+       21 GETUPVAL                         R3 0
+       22 CALL                             R1 2 1
+       23 SETTABLEKS                       R1 R0 K11 ["_listeners"]
+       25 RETURN                           R0 0
 
 PROTO_3:
-  DUPTABLE R2 K2 [{"callback", "isConnected"}]
-  SETTABLEKS R1 R2 K0 ["callback"]
-  LOADB R3 1
-  SETTABLEKS R3 R2 K1 ["isConnected"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K3 ["Append"]
-  GETTABLEKS R4 R0 K4 ["_listeners"]
-  MOVE R5 R2
-  CALL R3 2 1
-  SETTABLEKS R3 R0 K4 ["_listeners"]
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R2
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  DUPTABLE R4 K7 [{"Disconnect", "disconnect"}]
-  NEWCLOSURE R5 P1
-  CAPTURE VAL R2
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  SETTABLEKS R5 R4 K5 ["Disconnect"]
-  SETTABLEKS R3 R4 K6 ["disconnect"]
-  RETURN R4 1
+        0 DUPTABLE                         R2 K2 [{"callback", "isConnected"}]
+        1 SETTABLEKS                       R1 R2 K0 ["callback"]
+        3 LOADB                            R3 1
+        4 SETTABLEKS                       R3 R2 K1 ["isConnected"]
+        6 GETUPVAL                         R4 0
+        7 GETTABLEKS                       R3 R4 K3 ["Append"]
+        9 GETTABLEKS                       R4 R0 K4 ["_listeners"]
+       11 MOVE                             R5 R2
+       12 CALL                             R3 2 1
+       13 SETTABLEKS                       R3 R0 K4 ["_listeners"]
+       15 NEWCLOSURE                       R3 P0
+       16 CAPTURE                          VAL R2
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          UPVAL U0
+       19 DUPTABLE                         R4 K7 [{"Disconnect", "disconnect"}]
+       20 NEWCLOSURE                       R5 P1
+       21 CAPTURE                          VAL R2
+       22 CAPTURE                          VAL R0
+       23 CAPTURE                          UPVAL U0
+       24 SETTABLEKS                       R5 R4 K5 ["Disconnect"]
+       26 SETTABLEKS                       R3 R4 K6 ["disconnect"]
+       28 RETURN                           R4 1
 
 PROTO_4:
-  PREPVARARGS 1
-  GETIMPORT R1 K1 [ipairs]
-  GETTABLEKS R2 R0 K2 ["_listeners"]
-  CALL R1 1 3
-  FORGPREP_INEXT R1
-  GETTABLEKS R6 R5 K3 ["isConnected"]
-  JUMPIFNOT R6 [+4]
-  GETTABLEKS R6 R5 K4 ["callback"]
-  GETVARARGS R7 -1
-  CALL R6 -1 0
-  FORGLOOP R1 2 [inext] [-8]
-  RETURN R0 0
+        0 PREPVARARGS                      1
+        1 GETIMPORT                        R1 K1 [ipairs]
+        3 GETTABLEKS                       R2 R0 K2 ["_listeners"]
+        5 CALL                             R1 1 3
+        6 FORGPREP_INEXT                   R1
+        7 GETTABLEKS                       R6 R5 K3 ["isConnected"]
+        9 JUMPIFNOT                        R6 ; [+4]
+       10 GETTABLEKS                       R6 R5 K4 ["callback"]
+       12 GETVARARGS                       R7 -1
+       13 CALL                             R6 -1 0
+       14 FORGLOOP                         R1 2 [inext] ; [-8]
+       16 RETURN                           R0 0
 
 PROTO_5:
-  PREPVARARGS 1
-  GETIMPORT R1 K1 [warn]
-  GETIMPORT R2 K4 [string.format]
-  LOADK R3 K5 ["Signal:Connect() has been deprecated, use Signal:connect()
-%s]"]
-  GETIMPORT R4 K8 [debug.traceback]
-  CALL R4 0 -1
-  CALL R2 -1 -1
-  CALL R1 -1 0
-  GETVARARGS R3 -1
-  NAMECALL R1 R0 K9 ["connect"]
-  CALL R1 -1 -1
-  RETURN R1 -1
+        0 PREPVARARGS                      1
+        1 GETIMPORT                        R1 K1 [warn]
+        3 GETIMPORT                        R2 K4 [string.format]
+        5 LOADK                            R3 K5 ["Signal:Connect() has been deprecated, use Signal:connect()\n%s]"]
+        6 GETIMPORT                        R4 K8 [debug.traceback]
+        8 CALL                             R4 0 -1
+        9 CALL                             R2 -1 -1
+       10 CALL                             R1 -1 0
+       11 GETVARARGS                       R3 -1
+       12 NAMECALL                         R1 R0 K9 ["connect"]
+       14 CALL                             R1 -1 -1
+       15 RETURN                           R1 -1
 
 PROTO_6:
-  PREPVARARGS 1
-  GETIMPORT R1 K1 [warn]
-  GETIMPORT R2 K4 [string.format]
-  LOADK R3 K5 ["Signal:Fire() has been deprecated, use Signal:fire()
-%s]"]
-  GETIMPORT R4 K8 [debug.traceback]
-  CALL R4 0 -1
-  CALL R2 -1 -1
-  CALL R1 -1 0
-  GETVARARGS R3 -1
-  NAMECALL R1 R0 K9 ["fire"]
-  CALL R1 -1 0
-  RETURN R0 0
+        0 PREPVARARGS                      1
+        1 GETIMPORT                        R1 K1 [warn]
+        3 GETIMPORT                        R2 K4 [string.format]
+        5 LOADK                            R3 K5 ["Signal:Fire() has been deprecated, use Signal:fire()\n%s]"]
+        6 GETIMPORT                        R4 K8 [debug.traceback]
+        8 CALL                             R4 0 -1
+        9 CALL                             R2 -1 -1
+       10 CALL                             R1 -1 0
+       11 GETVARARGS                       R3 -1
+       12 NAMECALL                         R1 R0 K9 ["fire"]
+       14 CALL                             R1 -1 0
+       15 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [require]
-  GETIMPORT R3 K3 [script]
-  GETTABLEKS R2 R3 K4 ["Parent"]
-  GETTABLEKS R1 R2 K5 ["Immutable"]
-  CALL R0 1 1
-  NEWTABLE R1 8 0
-  SETTABLEKS R1 R1 K6 ["__index"]
-  DUPCLOSURE R2 K7 [PROTO_0]
-  CAPTURE VAL R1
-  SETTABLEKS R2 R1 K8 ["new"]
-  DUPCLOSURE R2 K9 [PROTO_3]
-  CAPTURE VAL R0
-  SETTABLEKS R2 R1 K10 ["connect"]
-  DUPCLOSURE R2 K11 [PROTO_4]
-  SETTABLEKS R2 R1 K12 ["fire"]
-  DUPCLOSURE R2 K13 [PROTO_5]
-  SETTABLEKS R2 R1 K14 ["Connect"]
-  DUPCLOSURE R2 K15 [PROTO_6]
-  SETTABLEKS R2 R1 K16 ["Fire"]
-  RETURN R1 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [require]
+        3 GETIMPORT                        R3 K3 [script]
+        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K5 ["Immutable"]
+        9 CALL                             R0 1 1
+       10 NEWTABLE                         R1 8 0
+       12 SETTABLEKS                       R1 R1 K6 ["__index"]
+       14 DUPCLOSURE                       R2 K7 [PROTO_0]
+       15 CAPTURE                          VAL R1
+       16 SETTABLEKS                       R2 R1 K8 ["new"]
+       18 DUPCLOSURE                       R2 K9 [PROTO_3]
+       19 CAPTURE                          VAL R0
+       20 SETTABLEKS                       R2 R1 K10 ["connect"]
+       22 DUPCLOSURE                       R2 K11 [PROTO_4]
+       23 SETTABLEKS                       R2 R1 K12 ["fire"]
+       25 DUPCLOSURE                       R2 K13 [PROTO_5]
+       26 SETTABLEKS                       R2 R1 K14 ["Connect"]
+       28 DUPCLOSURE                       R2 K15 [PROTO_6]
+       29 SETTABLEKS                       R2 R1 K16 ["Fire"]
+       31 RETURN                           R1 1

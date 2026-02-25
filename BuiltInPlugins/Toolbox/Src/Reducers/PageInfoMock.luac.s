@@ -1,60 +1,60 @@
 PROTO_0:
-  DUPTABLE R2 K14 [{"categories", "category", "categoryName", "searchTerm", "sorts", "sortIndex", "sortType", "groups", "groupIndex", "groupId", "targetPage", "curentPage", "selectedBackgroundIndex", "hoveredBackgroundIndex"}]
-  GETUPVAL R3 0
-  SETTABLEKS R3 R2 K0 ["categories"]
-  GETUPVAL R5 0
-  GETTABLEN R4 R5 1
-  GETTABLEKS R3 R4 K1 ["category"]
-  SETTABLEKS R3 R2 K1 ["category"]
-  GETUPVAL R5 0
-  GETTABLEN R4 R5 1
-  GETTABLEKS R3 R4 K15 ["name"]
-  SETTABLEKS R3 R2 K2 ["categoryName"]
-  LOADK R3 K16 [""]
-  SETTABLEKS R3 R2 K3 ["searchTerm"]
-  GETUPVAL R3 1
-  SETTABLEKS R3 R2 K4 ["sorts"]
-  LOADN R3 1
-  SETTABLEKS R3 R2 K5 ["sortIndex"]
-  GETUPVAL R5 1
-  GETTABLEN R4 R5 1
-  GETTABLEKS R3 R4 K17 ["sort"]
-  SETTABLEKS R3 R2 K6 ["sortType"]
-  NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K7 ["groups"]
-  LOADN R3 0
-  SETTABLEKS R3 R2 K8 ["groupIndex"]
-  LOADN R3 0
-  SETTABLEKS R3 R2 K9 ["groupId"]
-  LOADN R3 1
-  SETTABLEKS R3 R2 K10 ["targetPage"]
-  LOADN R3 0
-  SETTABLEKS R3 R2 K11 ["curentPage"]
-  LOADN R3 1
-  SETTABLEKS R3 R2 K12 ["selectedBackgroundIndex"]
-  LOADN R3 0
-  SETTABLEKS R3 R2 K13 ["hoveredBackgroundIndex"]
-  RETURN R2 1
+        0 DUPTABLE                         R2 K14 [{"categories", "category", "categoryName", "searchTerm", "sorts", "sortIndex", "sortType", "groups", "groupIndex", "groupId", "targetPage", "curentPage", "selectedBackgroundIndex", "hoveredBackgroundIndex"}]
+        1 GETUPVAL                         R3 0
+        2 SETTABLEKS                       R3 R2 K0 ["categories"]
+        4 GETUPVAL                         R5 0
+        5 GETTABLEN                        R4 R5 1
+        6 GETTABLEKS                       R3 R4 K1 ["category"]
+        8 SETTABLEKS                       R3 R2 K1 ["category"]
+       10 GETUPVAL                         R5 0
+       11 GETTABLEN                        R4 R5 1
+       12 GETTABLEKS                       R3 R4 K15 ["name"]
+       14 SETTABLEKS                       R3 R2 K2 ["categoryName"]
+       16 LOADK                            R3 K16 [""]
+       17 SETTABLEKS                       R3 R2 K3 ["searchTerm"]
+       19 GETUPVAL                         R3 1
+       20 SETTABLEKS                       R3 R2 K4 ["sorts"]
+       22 LOADN                            R3 1
+       23 SETTABLEKS                       R3 R2 K5 ["sortIndex"]
+       25 GETUPVAL                         R5 1
+       26 GETTABLEN                        R4 R5 1
+       27 GETTABLEKS                       R3 R4 K17 ["sort"]
+       29 SETTABLEKS                       R3 R2 K6 ["sortType"]
+       31 NEWTABLE                         R3 0 0
+       33 SETTABLEKS                       R3 R2 K7 ["groups"]
+       35 LOADN                            R3 0
+       36 SETTABLEKS                       R3 R2 K8 ["groupIndex"]
+       38 LOADN                            R3 0
+       39 SETTABLEKS                       R3 R2 K9 ["groupId"]
+       41 LOADN                            R3 1
+       42 SETTABLEKS                       R3 R2 K10 ["targetPage"]
+       44 LOADN                            R3 0
+       45 SETTABLEKS                       R3 R2 K11 ["curentPage"]
+       47 LOADN                            R3 1
+       48 SETTABLEKS                       R3 R2 K12 ["selectedBackgroundIndex"]
+       50 LOADN                            R3 0
+       51 SETTABLEKS                       R3 R2 K13 ["hoveredBackgroundIndex"]
+       53 RETURN                           R2 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Types"]
-  GETTABLEKS R2 R3 K7 ["Category"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Src"]
-  GETTABLEKS R4 R5 K6 ["Types"]
-  GETTABLEKS R3 R4 K8 ["Sort"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K9 ["SORT_OPTIONS"]
-  GETTABLEKS R4 R1 K10 ["MARKETPLACE"]
-  DUPCLOSURE R5 K11 [PROTO_0]
-  CAPTURE VAL R4
-  CAPTURE VAL R3
-  RETURN R5 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R4 R0 K5 ["Src"]
+       13 GETTABLEKS                       R3 R4 K6 ["Types"]
+       15 GETTABLEKS                       R2 R3 K7 ["Category"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R2 K4 [require]
+       20 GETTABLEKS                       R5 R0 K5 ["Src"]
+       22 GETTABLEKS                       R4 R5 K6 ["Types"]
+       24 GETTABLEKS                       R3 R4 K8 ["Sort"]
+       26 CALL                             R2 1 1
+       27 GETTABLEKS                       R3 R2 K9 ["SORT_OPTIONS"]
+       29 GETTABLEKS                       R4 R1 K10 ["MARKETPLACE"]
+       31 DUPCLOSURE                       R5 K11 [PROTO_0]
+       32 CAPTURE                          VAL R4
+       33 CAPTURE                          VAL R3
+       34 RETURN                           R5 1

@@ -1,352 +1,352 @@
 PROTO_0:
-  GETUPVAL R2 1
-  GETUPVAL R4 2
-  NAMECALL R2 R2 K1 ["GetTextBoundsAsync"]
-  CALL R2 2 1
-  GETTABLEKS R1 R2 K2 ["Y"]
-  MULK R0 R1 K0 [1.2]
-  SETUPVAL R0 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 1
+        1 GETUPVAL                         R4 2
+        2 NAMECALL                         R2 R2 K1 ["GetTextBoundsAsync"]
+        4 CALL                             R2 2 1
+        5 GETTABLEKS                       R1 R2 K2 ["Y"]
+        7 MULK                             R0 R1 K0 [1.2]
+        8 SETUPVAL                         R0 0
+        9 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K0 ["fflagCOLLAB9449FixAnnotationsHeightCacheEdits"]
-  JUMPIFNOT R6 [+13]
-  MOVE R5 R4
-  JUMPIF R5 [+13]
-  GETUPVAL R5 1
-  GETTABLEKS R6 R0 K1 ["Contents"]
-  GETTABLEKS R7 R0 K2 ["TaggedUsers"]
-  MOVE R8 R2
-  CALL R5 3 1
-  JUMPIF R5 [+5]
-  GETTABLEKS R5 R0 K1 ["Contents"]
-  JUMP [+2]
-  GETTABLEKS R5 R0 K1 ["Contents"]
-  JUMPIFNOT R3 [+6]
-  LOADN R7 0
-  JUMPIFLT R7 R3 [+2]
-  LOADB R6 0 +1
-  LOADB R6 1
-  JUMP [+7]
-  GETTABLEKS R7 R0 K3 ["ReplyCount"]
-  LOADN R8 0
-  JUMPIFLT R8 R7 [+2]
-  LOADB R6 0 +1
-  LOADB R6 1
-  LOADNIL R7
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K0 ["fflagCOLLAB9449FixAnnotationsHeightCacheEdits"]
-  JUMPIFNOT R8 [+50]
-  GETIMPORT R8 K6 [Instance.new]
-  LOADK R9 K7 ["GetTextBoundsParams"]
-  CALL R8 1 1
-  SETTABLEKS R5 R8 K8 ["Text"]
-  GETIMPORT R9 K11 [Font.fromEnum]
-  GETIMPORT R10 K14 [Enum.Font.SourceSans]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K9 ["Font"]
-  LOADN R9 18
-  SETTABLEKS R9 R8 K15 ["Size"]
-  SUBK R9 R1 K16 [77]
-  SETTABLEKS R9 R8 K17 ["Width"]
-  LOADB R9 1
-  SETTABLEKS R9 R8 K18 ["RichText"]
-  GETIMPORT R9 K20 [pcall]
-  NEWCLOSURE R10 P0
-  CAPTURE REF R7
-  CAPTURE UPVAL U2
-  CAPTURE VAL R8
-  CALL R9 1 2
-  JUMPIF R9 [+16]
-  GETUPVAL R12 2
-  MOVE R14 R5
-  LOADN R15 18
-  GETIMPORT R16 K14 [Enum.Font.SourceSans]
-  GETIMPORT R17 K23 [Vector2.new]
-  SUBK R18 R1 K16 [77]
-  LOADN R19 232
-  CALL R17 2 -1
-  NAMECALL R12 R12 K24 ["GetTextSize"]
-  CALL R12 -1 1
-  GETTABLEKS R11 R12 K25 ["Y"]
-  MULK R7 R11 K21 [1.2]
-  NAMECALL R11 R8 K26 ["Destroy"]
-  CALL R11 1 0
-  JUMP [+16]
-  GETUPVAL R9 2
-  MOVE R11 R5
-  LOADN R12 18
-  GETIMPORT R13 K14 [Enum.Font.SourceSans]
-  GETIMPORT R14 K23 [Vector2.new]
-  SUBK R15 R1 K16 [77]
-  LOADN R16 232
-  CALL R14 2 -1
-  NAMECALL R9 R9 K24 ["GetTextSize"]
-  CALL R9 -1 1
-  GETTABLEKS R8 R9 K25 ["Y"]
-  MULK R7 R8 K21 [1.2]
-  JUMPIFNOT R6 [+2]
-  LOADN R8 21
-  JUMP [+1]
-  LOADN R8 0
-  LOADN R11 68
-  ADD R10 R11 R7
-  ADD R9 R10 R8
-  CLOSEUPVALS R7
-  RETURN R9 1
+        0 GETUPVAL                         R7 0
+        1 GETTABLEKS                       R6 R7 K0 ["fflagCOLLAB9449FixAnnotationsHeightCacheEdits"]
+        3 JUMPIFNOT                        R6 ; [+13]
+        4 MOVE                             R5 R4
+        5 JUMPIF                           R5 ; [+13]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R6 R0 K1 ["Contents"]
+        9 GETTABLEKS                       R7 R0 K2 ["TaggedUsers"]
+       11 MOVE                             R8 R2
+       12 CALL                             R5 3 1
+       13 JUMPIF                           R5 ; [+5]
+       14 GETTABLEKS                       R5 R0 K1 ["Contents"]
+       16 JUMP                             ; [+2]
+       17 GETTABLEKS                       R5 R0 K1 ["Contents"]
+       19 JUMPIFNOT                        R3 ; [+6]
+       20 LOADN                            R7 0
+       21 JUMPIFLT                         R7 R3 ; [+2]
+       23 LOADB                            R6 0 +1
+       24 LOADB                            R6 1
+       25 JUMP                             ; [+7]
+       26 GETTABLEKS                       R7 R0 K3 ["ReplyCount"]
+       28 LOADN                            R8 0
+       29 JUMPIFLT                         R8 R7 ; [+2]
+       31 LOADB                            R6 0 +1
+       32 LOADB                            R6 1
+       33 LOADNIL                          R7
+       34 GETUPVAL                         R9 0
+       35 GETTABLEKS                       R8 R9 K0 ["fflagCOLLAB9449FixAnnotationsHeightCacheEdits"]
+       37 JUMPIFNOT                        R8 ; [+50]
+       38 GETIMPORT                        R8 K6 [Instance.new]
+       40 LOADK                            R9 K7 ["GetTextBoundsParams"]
+       41 CALL                             R8 1 1
+       42 SETTABLEKS                       R5 R8 K8 ["Text"]
+       44 GETIMPORT                        R9 K11 [Font.fromEnum]
+       46 GETIMPORT                        R10 K14 [Enum.Font.SourceSans]
+       48 CALL                             R9 1 1
+       49 SETTABLEKS                       R9 R8 K9 ["Font"]
+       51 LOADN                            R9 18
+       52 SETTABLEKS                       R9 R8 K15 ["Size"]
+       54 SUBK                             R9 R1 K16 [77]
+       55 SETTABLEKS                       R9 R8 K17 ["Width"]
+       57 LOADB                            R9 1
+       58 SETTABLEKS                       R9 R8 K18 ["RichText"]
+       60 GETIMPORT                        R9 K20 [pcall]
+       62 NEWCLOSURE                       R10 P0
+       63 CAPTURE                          REF R7
+       64 CAPTURE                          UPVAL U2
+       65 CAPTURE                          VAL R8
+       66 CALL                             R9 1 2
+       67 JUMPIF                           R9 ; [+16]
+       68 GETUPVAL                         R12 2
+       69 MOVE                             R14 R5
+       70 LOADN                            R15 18
+       71 GETIMPORT                        R16 K14 [Enum.Font.SourceSans]
+       73 GETIMPORT                        R17 K23 [Vector2.new]
+       75 SUBK                             R18 R1 K16 [77]
+       76 LOADN                            R19 232
+       77 CALL                             R17 2 -1
+       78 NAMECALL                         R12 R12 K24 ["GetTextSize"]
+       80 CALL                             R12 -1 1
+       81 GETTABLEKS                       R11 R12 K25 ["Y"]
+       83 MULK                             R7 R11 K21 [1.2]
+       84 NAMECALL                         R11 R8 K26 ["Destroy"]
+       86 CALL                             R11 1 0
+       87 JUMP                             ; [+16]
+       88 GETUPVAL                         R9 2
+       89 MOVE                             R11 R5
+       90 LOADN                            R12 18
+       91 GETIMPORT                        R13 K14 [Enum.Font.SourceSans]
+       93 GETIMPORT                        R14 K23 [Vector2.new]
+       95 SUBK                             R15 R1 K16 [77]
+       96 LOADN                            R16 232
+       97 CALL                             R14 2 -1
+       98 NAMECALL                         R9 R9 K24 ["GetTextSize"]
+      100 CALL                             R9 -1 1
+      101 GETTABLEKS                       R8 R9 K25 ["Y"]
+      103 MULK                             R7 R8 K21 [1.2]
+      104 JUMPIFNOT                        R6 ; [+2]
+      105 LOADN                            R8 21
+      106 JUMP                             ; [+1]
+      107 LOADN                            R8 0
+      108 LOADN                            R11 68
+      109 ADD                              R10 R11 R7
+      110 ADD                              R9 R10 R8
+      111 CLOSEUPVALS                      R7
+      112 RETURN                           R9 1
 
 PROTO_2:
-  DUPTABLE R0 K4 [{"annotationMetadata", "indices", "rowWidth", "didInit"}]
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K0 ["annotationMetadata"]
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K1 ["indices"]
-  LOADN R1 0
-  SETTABLEKS R1 R0 K2 ["rowWidth"]
-  LOADB R1 0
-  SETTABLEKS R1 R0 K3 ["didInit"]
-  GETUPVAL R3 0
-  FASTCALL2 SETMETATABLE R0 R3 [+4]
-  MOVE R2 R0
-  GETIMPORT R1 K6 [setmetatable]
-  CALL R1 2 0
-  RETURN R0 1
+        0 DUPTABLE                         R0 K4 [{"annotationMetadata", "indices", "rowWidth", "didInit"}]
+        1 NEWTABLE                         R1 0 0
+        3 SETTABLEKS                       R1 R0 K0 ["annotationMetadata"]
+        5 NEWTABLE                         R1 0 0
+        7 SETTABLEKS                       R1 R0 K1 ["indices"]
+        9 LOADN                            R1 0
+       10 SETTABLEKS                       R1 R0 K2 ["rowWidth"]
+       12 LOADB                            R1 0
+       13 SETTABLEKS                       R1 R0 K3 ["didInit"]
+       15 GETUPVAL                         R3 0
+       16 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+       18 MOVE                             R2 R0
+       19 GETIMPORT                        R1 K6 [setmetatable]
+       21 CALL                             R1 2 0
+       22 RETURN                           R0 1
 
 PROTO_3:
-  LOADB R4 1
-  SETTABLEKS R4 R0 K0 ["didInit"]
-  SETTABLEKS R2 R0 K1 ["rowWidth"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R0 K2 ["annotationMetadata"]
-  NEWTABLE R4 0 0
-  SETTABLEKS R4 R0 K3 ["indices"]
-  SETTABLEKS R3 R0 K4 ["usernameContext"]
-  GETIMPORT R4 K6 [ipairs]
-  MOVE R5 R1
-  CALL R4 1 3
-  FORGPREP_INEXT R4
-  GETTABLEKS R10 R0 K2 ["annotationMetadata"]
-  GETTABLEKS R11 R8 K7 ["Name"]
-  GETTABLE R9 R10 R11
-  JUMPIF R9 [+23]
-  DUPTABLE R9 K10 [{"Annotation", "Height"}]
-  SETTABLEKS R8 R9 K8 ["Annotation"]
-  GETUPVAL R10 0
-  MOVE R11 R8
-  MOVE R12 R2
-  MOVE R13 R3
-  CALL R10 3 1
-  SETTABLEKS R10 R9 K9 ["Height"]
-  GETTABLEKS R10 R0 K2 ["annotationMetadata"]
-  GETTABLEKS R11 R8 K7 ["Name"]
-  SETTABLE R9 R10 R11
-  GETTABLEKS R11 R0 K3 ["indices"]
-  FASTCALL2 TABLE_INSERT R11 R9 [+4]
-  MOVE R12 R9
-  GETIMPORT R10 K13 [table.insert]
-  CALL R10 2 0
-  FORGLOOP R4 2 [inext] [-30]
-  RETURN R0 0
+        0 LOADB                            R4 1
+        1 SETTABLEKS                       R4 R0 K0 ["didInit"]
+        3 SETTABLEKS                       R2 R0 K1 ["rowWidth"]
+        5 NEWTABLE                         R4 0 0
+        7 SETTABLEKS                       R4 R0 K2 ["annotationMetadata"]
+        9 NEWTABLE                         R4 0 0
+       11 SETTABLEKS                       R4 R0 K3 ["indices"]
+       13 SETTABLEKS                       R3 R0 K4 ["usernameContext"]
+       15 GETIMPORT                        R4 K6 [ipairs]
+       17 MOVE                             R5 R1
+       18 CALL                             R4 1 3
+       19 FORGPREP_INEXT                   R4
+       20 GETTABLEKS                       R10 R0 K2 ["annotationMetadata"]
+       22 GETTABLEKS                       R11 R8 K7 ["Name"]
+       24 GETTABLE                         R9 R10 R11
+       25 JUMPIF                           R9 ; [+23]
+       26 DUPTABLE                         R9 K10 [{"Annotation", "Height"}]
+       27 SETTABLEKS                       R8 R9 K8 ["Annotation"]
+       29 GETUPVAL                         R10 0
+       30 MOVE                             R11 R8
+       31 MOVE                             R12 R2
+       32 MOVE                             R13 R3
+       33 CALL                             R10 3 1
+       34 SETTABLEKS                       R10 R9 K9 ["Height"]
+       36 GETTABLEKS                       R10 R0 K2 ["annotationMetadata"]
+       38 GETTABLEKS                       R11 R8 K7 ["Name"]
+       40 SETTABLE                         R9 R10 R11
+       41 GETTABLEKS                       R11 R0 K3 ["indices"]
+       43 FASTCALL2                        TABLE_INSERT R11 R9 ; [+4]
+       45 MOVE                             R12 R9
+       46 GETIMPORT                        R10 K13 [table.insert]
+       48 CALL                             R10 2 0
+       49 FORGLOOP                         R4 2 [inext] ; [-30]
+       51 RETURN                           R0 0
 
 PROTO_4:
-  LOADN R4 0
-  NEWTABLE R5 0 0
-  GETIMPORT R6 K1 [ipairs]
-  GETTABLEKS R7 R0 K2 ["indices"]
-  CALL R6 1 3
-  FORGPREP_INEXT R6
-  MOVE R11 R3
-  GETTABLEKS R12 R10 K3 ["Annotation"]
-  CALL R11 1 1
-  JUMPIFNOT R11 [+32]
-  GETTABLEKS R11 R10 K4 ["Height"]
-  ADD R4 R4 R11
-  GETUPVAL R12 0
-  SUB R11 R1 R12
-  JUMPIFLT R4 R11 [+26]
-  ADD R12 R1 R2
-  GETUPVAL R13 0
-  ADD R11 R12 R13
-  JUMPIFLT R11 R4 [+21]
-  DUPTABLE R13 K6 [{"Annotation", "PositionOffset", "Height"}]
-  GETTABLEKS R14 R10 K3 ["Annotation"]
-  SETTABLEKS R14 R13 K3 ["Annotation"]
-  GETTABLEKS R15 R10 K4 ["Height"]
-  SUB R14 R4 R15
-  SETTABLEKS R14 R13 K5 ["PositionOffset"]
-  GETTABLEKS R14 R10 K4 ["Height"]
-  SETTABLEKS R14 R13 K4 ["Height"]
-  FASTCALL2 TABLE_INSERT R5 R13 [+4]
-  MOVE R12 R5
-  GETIMPORT R11 K9 [table.insert]
-  CALL R11 2 0
-  FORGLOOP R6 2 [inext] [-38]
-  MOVE R6 R5
-  MOVE R7 R4
-  RETURN R6 2
+        0 LOADN                            R4 0
+        1 NEWTABLE                         R5 0 0
+        3 GETIMPORT                        R6 K1 [ipairs]
+        5 GETTABLEKS                       R7 R0 K2 ["indices"]
+        7 CALL                             R6 1 3
+        8 FORGPREP_INEXT                   R6
+        9 MOVE                             R11 R3
+       10 GETTABLEKS                       R12 R10 K3 ["Annotation"]
+       12 CALL                             R11 1 1
+       13 JUMPIFNOT                        R11 ; [+32]
+       14 GETTABLEKS                       R11 R10 K4 ["Height"]
+       16 ADD                              R4 R4 R11
+       17 GETUPVAL                         R12 0
+       18 SUB                              R11 R1 R12
+       19 JUMPIFLT                         R4 R11 ; [+26]
+       21 ADD                              R12 R1 R2
+       22 GETUPVAL                         R13 0
+       23 ADD                              R11 R12 R13
+       24 JUMPIFLT                         R11 R4 ; [+21]
+       26 DUPTABLE                         R13 K6 [{"Annotation", "PositionOffset", "Height"}]
+       27 GETTABLEKS                       R14 R10 K3 ["Annotation"]
+       29 SETTABLEKS                       R14 R13 K3 ["Annotation"]
+       31 GETTABLEKS                       R15 R10 K4 ["Height"]
+       33 SUB                              R14 R4 R15
+       34 SETTABLEKS                       R14 R13 K5 ["PositionOffset"]
+       36 GETTABLEKS                       R14 R10 K4 ["Height"]
+       38 SETTABLEKS                       R14 R13 K4 ["Height"]
+       40 FASTCALL2                        TABLE_INSERT R5 R13 ; [+4]
+       42 MOVE                             R12 R5
+       43 GETIMPORT                        R11 K9 [table.insert]
+       45 CALL                             R11 2 0
+       46 FORGLOOP                         R6 2 [inext] ; [-38]
+       48 MOVE                             R6 R5
+       49 MOVE                             R7 R4
+       50 RETURN                           R6 2
 
 PROTO_5:
-  GETTABLEKS R4 R0 K0 ["Annotation"]
-  GETTABLEKS R3 R4 K1 ["CreationTimeUnix"]
-  GETTABLEKS R5 R1 K0 ["Annotation"]
-  GETTABLEKS R4 R5 K1 ["CreationTimeUnix"]
-  JUMPIFLT R4 R3 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  RETURN R2 1
+        0 GETTABLEKS                       R4 R0 K0 ["Annotation"]
+        2 GETTABLEKS                       R3 R4 K1 ["CreationTimeUnix"]
+        4 GETTABLEKS                       R5 R1 K0 ["Annotation"]
+        6 GETTABLEKS                       R4 R5 K1 ["CreationTimeUnix"]
+        8 JUMPIFLT                         R4 R3 ; [+2]
+       10 LOADB                            R2 0 +1
+       11 LOADB                            R2 1
+       12 RETURN                           R2 1
 
 PROTO_6:
-  GETTABLEKS R3 R0 K0 ["annotationMetadata"]
-  GETTABLEKS R4 R1 K1 ["Name"]
-  GETTABLE R2 R3 R4
-  JUMPIFNOT R2 [+1]
-  RETURN R0 0
-  GETUPVAL R2 0
-  MOVE R3 R1
-  GETTABLEKS R4 R0 K2 ["rowWidth"]
-  GETTABLEKS R5 R0 K3 ["usernameContext"]
-  CALL R2 3 1
-  GETTABLEKS R3 R0 K0 ["annotationMetadata"]
-  GETTABLEKS R4 R1 K1 ["Name"]
-  DUPTABLE R5 K7 [{"Annotation", "Height", "PositionOffset"}]
-  SETTABLEKS R1 R5 K4 ["Annotation"]
-  SETTABLEKS R2 R5 K5 ["Height"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K6 ["PositionOffset"]
-  SETTABLE R5 R3 R4
-  GETTABLEKS R4 R0 K8 ["indices"]
-  GETTABLEKS R6 R0 K0 ["annotationMetadata"]
-  GETTABLEKS R7 R1 K1 ["Name"]
-  GETTABLE R5 R6 R7
-  FASTCALL2 TABLE_INSERT R4 R5 [+3]
-  GETIMPORT R3 K11 [table.insert]
-  CALL R3 2 0
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K12 ["List"]
-  GETTABLEKS R3 R4 K13 ["sort"]
-  GETTABLEKS R4 R0 K8 ["indices"]
-  DUPCLOSURE R5 K14 [PROTO_5]
-  CALL R3 2 1
-  SETTABLEKS R3 R0 K8 ["indices"]
-  RETURN R0 0
+        0 GETTABLEKS                       R3 R0 K0 ["annotationMetadata"]
+        2 GETTABLEKS                       R4 R1 K1 ["Name"]
+        4 GETTABLE                         R2 R3 R4
+        5 JUMPIFNOT                        R2 ; [+1]
+        6 RETURN                           R0 0
+        7 GETUPVAL                         R2 0
+        8 MOVE                             R3 R1
+        9 GETTABLEKS                       R4 R0 K2 ["rowWidth"]
+       11 GETTABLEKS                       R5 R0 K3 ["usernameContext"]
+       13 CALL                             R2 3 1
+       14 GETTABLEKS                       R3 R0 K0 ["annotationMetadata"]
+       16 GETTABLEKS                       R4 R1 K1 ["Name"]
+       18 DUPTABLE                         R5 K7 [{"Annotation", "Height", "PositionOffset"}]
+       19 SETTABLEKS                       R1 R5 K4 ["Annotation"]
+       21 SETTABLEKS                       R2 R5 K5 ["Height"]
+       23 LOADN                            R6 0
+       24 SETTABLEKS                       R6 R5 K6 ["PositionOffset"]
+       26 SETTABLE                         R5 R3 R4
+       27 GETTABLEKS                       R4 R0 K8 ["indices"]
+       29 GETTABLEKS                       R6 R0 K0 ["annotationMetadata"]
+       31 GETTABLEKS                       R7 R1 K1 ["Name"]
+       33 GETTABLE                         R5 R6 R7
+       34 FASTCALL2                        TABLE_INSERT R4 R5 ; [+3]
+       36 GETIMPORT                        R3 K11 [table.insert]
+       38 CALL                             R3 2 0
+       39 GETUPVAL                         R5 1
+       40 GETTABLEKS                       R4 R5 K12 ["List"]
+       42 GETTABLEKS                       R3 R4 K13 ["sort"]
+       44 GETTABLEKS                       R4 R0 K8 ["indices"]
+       46 DUPCLOSURE                       R5 K14 [PROTO_5]
+       47 CALL                             R3 2 1
+       48 SETTABLEKS                       R3 R0 K8 ["indices"]
+       50 RETURN                           R0 0
 
 PROTO_7:
-  GETTABLEKS R3 R0 K0 ["annotationMetadata"]
-  GETTABLEKS R4 R1 K1 ["Name"]
-  GETTABLE R2 R3 R4
-  GETTABLEKS R3 R0 K0 ["annotationMetadata"]
-  GETTABLEKS R4 R1 K1 ["Name"]
-  LOADNIL R5
-  SETTABLE R5 R3 R4
-  LOADN R3 255
-  GETIMPORT R4 K3 [ipairs]
-  GETTABLEKS R5 R0 K4 ["indices"]
-  CALL R4 1 3
-  FORGPREP_INEXT R4
-  JUMPIFNOTEQKN R3 K5 [-1] [+5]
-  JUMPIFNOTEQ R8 R2 [+3]
-  MOVE R3 R7
-  JUMP [+2]
-  FORGLOOP R4 2 [inext] [-7]
-  GETIMPORT R4 K8 [table.remove]
-  GETTABLEKS R5 R0 K4 ["indices"]
-  MOVE R6 R3
-  CALL R4 2 0
-  RETURN R0 0
+        0 GETTABLEKS                       R3 R0 K0 ["annotationMetadata"]
+        2 GETTABLEKS                       R4 R1 K1 ["Name"]
+        4 GETTABLE                         R2 R3 R4
+        5 GETTABLEKS                       R3 R0 K0 ["annotationMetadata"]
+        7 GETTABLEKS                       R4 R1 K1 ["Name"]
+        9 LOADNIL                          R5
+       10 SETTABLE                         R5 R3 R4
+       11 LOADN                            R3 255
+       12 GETIMPORT                        R4 K3 [ipairs]
+       14 GETTABLEKS                       R5 R0 K4 ["indices"]
+       16 CALL                             R4 1 3
+       17 FORGPREP_INEXT                   R4
+       18 JUMPIFNOTEQKN                    R3 K5 [-1] ; [+5]
+       20 JUMPIFNOTEQ                      R8 R2 ; [+3]
+       22 MOVE                             R3 R7
+       23 JUMP                             ; [+2]
+       24 FORGLOOP                         R4 2 [inext] ; [-7]
+       26 GETIMPORT                        R4 K8 [table.remove]
+       28 GETTABLEKS                       R5 R0 K4 ["indices"]
+       30 MOVE                             R6 R3
+       31 CALL                             R4 2 0
+       32 RETURN                           R0 0
 
 PROTO_8:
-  GETTABLEKS R2 R0 K0 ["rowWidth"]
-  JUMPIFNOTEQ R2 R1 [+2]
-  RETURN R0 0
-  SETTABLEKS R1 R0 K0 ["rowWidth"]
-  GETIMPORT R2 K2 [ipairs]
-  GETTABLEKS R3 R0 K3 ["indices"]
-  CALL R2 1 3
-  FORGPREP_INEXT R2
-  GETUPVAL R7 0
-  GETTABLEKS R8 R6 K4 ["Annotation"]
-  GETTABLEKS R9 R0 K0 ["rowWidth"]
-  GETTABLEKS R10 R0 K5 ["usernameContext"]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K6 ["Height"]
-  FORGLOOP R2 2 [inext] [-11]
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["rowWidth"]
+        2 JUMPIFNOTEQ                      R2 R1 ; [+2]
+        4 RETURN                           R0 0
+        5 SETTABLEKS                       R1 R0 K0 ["rowWidth"]
+        7 GETIMPORT                        R2 K2 [ipairs]
+        9 GETTABLEKS                       R3 R0 K3 ["indices"]
+       11 CALL                             R2 1 3
+       12 FORGPREP_INEXT                   R2
+       13 GETUPVAL                         R7 0
+       14 GETTABLEKS                       R8 R6 K4 ["Annotation"]
+       16 GETTABLEKS                       R9 R0 K0 ["rowWidth"]
+       18 GETTABLEKS                       R10 R0 K5 ["usernameContext"]
+       20 CALL                             R7 3 1
+       21 SETTABLEKS                       R7 R6 K6 ["Height"]
+       23 FORGLOOP                         R2 2 [inext] ; [-11]
+       25 RETURN                           R0 0
 
 PROTO_9:
-  GETTABLEKS R5 R0 K0 ["annotationMetadata"]
-  GETTABLE R4 R5 R1
-  JUMPIF R4 [+1]
-  RETURN R0 0
-  GETUPVAL R5 0
-  GETTABLEKS R6 R4 K1 ["Annotation"]
-  GETTABLEKS R7 R0 K2 ["rowWidth"]
-  GETTABLEKS R8 R0 K3 ["usernameContext"]
-  MOVE R9 R2
-  MOVE R10 R3
-  CALL R5 5 1
-  SETTABLEKS R5 R4 K4 ["Height"]
-  RETURN R0 0
+        0 GETTABLEKS                       R5 R0 K0 ["annotationMetadata"]
+        2 GETTABLE                         R4 R5 R1
+        3 JUMPIF                           R4 ; [+1]
+        4 RETURN                           R0 0
+        5 GETUPVAL                         R5 0
+        6 GETTABLEKS                       R6 R4 K1 ["Annotation"]
+        8 GETTABLEKS                       R7 R0 K2 ["rowWidth"]
+       10 GETTABLEKS                       R8 R0 K3 ["usernameContext"]
+       12 MOVE                             R9 R2
+       13 MOVE                             R10 R3
+       14 CALL                             R5 5 1
+       15 SETTABLEKS                       R5 R4 K4 ["Height"]
+       17 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["PlaceAnnotations"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Cryo"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Bin"]
-  GETTABLEKS R4 R5 K9 ["Common"]
-  GETTABLEKS R3 R4 K10 ["defineLuaFlags"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K11 ["Src"]
-  GETTABLEKS R4 R5 K12 ["Types"]
-  CALL R3 1 1
-  GETIMPORT R4 K14 [game]
-  LOADK R6 K15 ["TextService"]
-  NAMECALL R4 R4 K16 ["GetService"]
-  CALL R4 2 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K11 ["Src"]
-  GETTABLEKS R8 R9 K17 ["Util"]
-  GETTABLEKS R7 R8 K18 ["TaggedUsersUtils"]
-  CALL R6 1 1
-  GETTABLEKS R5 R6 K19 ["GetContentsWithBoldTags"]
-  DUPCLOSURE R6 K20 [PROTO_1]
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  CAPTURE VAL R4
-  GETTABLEKS R8 R2 K21 ["fflagAnnotationsHeightCacheLoadingFixes"]
-  JUMPIFNOT R8 [+2]
-  LOADN R7 144
-  JUMP [+1]
-  LOADN R7 232
-  NEWTABLE R8 8 0
-  SETTABLEKS R8 R8 K22 ["__index"]
-  DUPCLOSURE R9 K23 [PROTO_2]
-  CAPTURE VAL R8
-  SETTABLEKS R9 R8 K24 ["new"]
-  DUPCLOSURE R9 K25 [PROTO_3]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R8 K26 ["Init"]
-  DUPCLOSURE R9 K27 [PROTO_4]
-  CAPTURE VAL R7
-  SETTABLEKS R9 R8 K28 ["GetVisibleAnnotationsFiltered"]
-  DUPCLOSURE R9 K29 [PROTO_6]
-  CAPTURE VAL R6
-  CAPTURE VAL R1
-  SETTABLEKS R9 R8 K30 ["AddItem"]
-  DUPCLOSURE R9 K31 [PROTO_7]
-  SETTABLEKS R9 R8 K32 ["RemoveItem"]
-  DUPCLOSURE R9 K33 [PROTO_8]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R8 K34 ["UpdateRowWidth"]
-  DUPCLOSURE R9 K35 [PROTO_9]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R8 K36 ["UpdateItem"]
-  RETURN R8 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["PlaceAnnotations"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["Cryo"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R5 R0 K8 ["Bin"]
+       18 GETTABLEKS                       R4 R5 K9 ["Common"]
+       20 GETTABLEKS                       R3 R4 K10 ["defineLuaFlags"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R5 R0 K11 ["Src"]
+       27 GETTABLEKS                       R4 R5 K12 ["Types"]
+       29 CALL                             R3 1 1
+       30 GETIMPORT                        R4 K14 [game]
+       32 LOADK                            R6 K15 ["TextService"]
+       33 NAMECALL                         R4 R4 K16 ["GetService"]
+       35 CALL                             R4 2 1
+       36 GETIMPORT                        R6 K5 [require]
+       38 GETTABLEKS                       R9 R0 K11 ["Src"]
+       40 GETTABLEKS                       R8 R9 K17 ["Util"]
+       42 GETTABLEKS                       R7 R8 K18 ["TaggedUsersUtils"]
+       44 CALL                             R6 1 1
+       45 GETTABLEKS                       R5 R6 K19 ["GetContentsWithBoldTags"]
+       47 DUPCLOSURE                       R6 K20 [PROTO_1]
+       48 CAPTURE                          VAL R2
+       49 CAPTURE                          VAL R5
+       50 CAPTURE                          VAL R4
+       51 GETTABLEKS                       R8 R2 K21 ["fflagAnnotationsHeightCacheLoadingFixes"]
+       53 JUMPIFNOT                        R8 ; [+2]
+       54 LOADN                            R7 144
+       55 JUMP                             ; [+1]
+       56 LOADN                            R7 232
+       57 NEWTABLE                         R8 8 0
+       59 SETTABLEKS                       R8 R8 K22 ["__index"]
+       61 DUPCLOSURE                       R9 K23 [PROTO_2]
+       62 CAPTURE                          VAL R8
+       63 SETTABLEKS                       R9 R8 K24 ["new"]
+       65 DUPCLOSURE                       R9 K25 [PROTO_3]
+       66 CAPTURE                          VAL R6
+       67 SETTABLEKS                       R9 R8 K26 ["Init"]
+       69 DUPCLOSURE                       R9 K27 [PROTO_4]
+       70 CAPTURE                          VAL R7
+       71 SETTABLEKS                       R9 R8 K28 ["GetVisibleAnnotationsFiltered"]
+       73 DUPCLOSURE                       R9 K29 [PROTO_6]
+       74 CAPTURE                          VAL R6
+       75 CAPTURE                          VAL R1
+       76 SETTABLEKS                       R9 R8 K30 ["AddItem"]
+       78 DUPCLOSURE                       R9 K31 [PROTO_7]
+       79 SETTABLEKS                       R9 R8 K32 ["RemoveItem"]
+       81 DUPCLOSURE                       R9 K33 [PROTO_8]
+       82 CAPTURE                          VAL R6
+       83 SETTABLEKS                       R9 R8 K34 ["UpdateRowWidth"]
+       85 DUPCLOSURE                       R9 K35 [PROTO_9]
+       86 CAPTURE                          VAL R6
+       87 SETTABLEKS                       R9 R8 K36 ["UpdateItem"]
+       89 RETURN                           R8 1

@@ -1,25 +1,25 @@
 PROTO_0:
-  GETUPVAL R4 0
-  MOVE R6 R0
-  MOVE R7 R1
-  MOVE R8 R2
-  GETUPVAL R9 1
-  NAMECALL R4 R4 K0 ["GetTextSize"]
-  CALL R4 5 1
-  GETTABLEKS R3 R4 K1 ["X"]
-  RETURN R3 1
+        0 GETUPVAL                         R4 0
+        1 MOVE                             R6 R0
+        2 MOVE                             R7 R1
+        3 MOVE                             R8 R2
+        4 GETUPVAL                         R9 1
+        5 NAMECALL                         R4 R4 K0 ["GetTextSize"]
+        7 CALL                             R4 5 1
+        8 GETTABLEKS                       R3 R4 K1 ["X"]
+       10 RETURN                           R3 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["TextService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  GETIMPORT R1 K6 [Vector2.new]
-  LOADK R2 K7 [∞]
-  LOADK R3 K7 [∞]
-  CALL R1 2 1
-  DUPCLOSURE R2 K8 [PROTO_0]
-  CAPTURE VAL R0
-  CAPTURE VAL R1
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["TextService"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K6 [Vector2.new]
+        9 LOADK                            R2 K7 [∞]
+       10 LOADK                            R3 K7 [∞]
+       11 CALL                             R1 2 1
+       12 DUPCLOSURE                       R2 K8 [PROTO_0]
+       13 CAPTURE                          VAL R0
+       14 CAPTURE                          VAL R1
+       15 RETURN                           R2 1

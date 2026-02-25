@@ -1,31 +1,31 @@
 PROTO_0:
-  LOADB R1 1
-  RETURN R1 1
+        0 LOADB                            R1 1
+        1 RETURN                           R1 1
 
 PROTO_1:
-  PREPVARARGS 0
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["new"]
-  GETVARARGS R1 -1
-  CALL R0 -1 1
-  DUPCLOSURE R1 K1 [PROTO_0]
-  SETTABLEKS R1 R0 K2 ["shouldSnapPivotToGeometry"]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R0 R1 K0 ["new"]
+        4 GETVARARGS                       R1 -1
+        5 CALL                             R0 -1 1
+        6 DUPCLOSURE                       R1 K1 [PROTO_0]
+        7 SETTABLEKS                       R1 R0 K2 ["shouldSnapPivotToGeometry"]
+        9 RETURN                           R0 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R2 R0 K3 ["Packages"]
-  GETTABLEKS R1 R2 K4 ["DraggerFramework"]
-  GETIMPORT R2 K6 [require]
-  GETTABLEKS R4 R1 K7 ["Implementation"]
-  GETTABLEKS R3 R4 K8 ["DraggerContext_FixtureImpl"]
-  CALL R2 1 1
-  NEWTABLE R3 1 0
-  DUPCLOSURE R4 K9 [PROTO_1]
-  CAPTURE VAL R2
-  SETTABLEKS R4 R3 K10 ["new"]
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETTABLEKS                       R2 R0 K3 ["Packages"]
+       11 GETTABLEKS                       R1 R2 K4 ["DraggerFramework"]
+       13 GETIMPORT                        R2 K6 [require]
+       15 GETTABLEKS                       R4 R1 K7 ["Implementation"]
+       17 GETTABLEKS                       R3 R4 K8 ["DraggerContext_FixtureImpl"]
+       19 CALL                             R2 1 1
+       20 NEWTABLE                         R3 1 0
+       22 DUPCLOSURE                       R4 K9 [PROTO_1]
+       23 CAPTURE                          VAL R2
+       24 SETTABLEKS                       R4 R3 K10 ["new"]
+       26 RETURN                           R3 1

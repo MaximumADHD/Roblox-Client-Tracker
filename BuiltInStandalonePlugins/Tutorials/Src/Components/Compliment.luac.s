@@ -1,89 +1,89 @@
 PROTO_0:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["createElement"]
-  GETUPVAL R3 2
-  NEWTABLE R4 8 0
-  GETIMPORT R5 K4 [Enum.AutomaticSize.XY]
-  SETTABLEKS R5 R4 K2 ["AutomaticSize"]
-  GETIMPORT R5 K7 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R5 R4 K8 ["Layout"]
-  GETTABLEKS R5 R0 K9 ["LayoutOrder"]
-  SETTABLEKS R5 R4 K9 ["LayoutOrder"]
-  LOADN R5 20
-  SETTABLEKS R5 R4 K10 ["Padding"]
-  LOADN R5 10
-  SETTABLEKS R5 R4 K11 ["Spacing"]
-  GETTABLEKS R5 R0 K12 ["PaneRef"]
-  SETTABLEKS R5 R4 K13 ["ref"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K14 ["Change"]
-  GETTABLEKS R5 R6 K15 ["AbsoluteSize"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K14 ["Change"]
-  GETTABLEKS R7 R8 K15 ["AbsoluteSize"]
-  GETTABLE R6 R0 R7
-  SETTABLE R6 R4 R5
-  DUPTABLE R5 K18 [{"Image", "Text"}]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K0 ["createElement"]
-  GETUPVAL R7 3
-  DUPTABLE R8 K20 [{"LayoutOrder", "Image", "Size"}]
-  MOVE R9 R1
-  CALL R9 0 1
-  SETTABLEKS R9 R8 K9 ["LayoutOrder"]
-  GETTABLEKS R9 R0 K16 ["Image"]
-  SETTABLEKS R9 R8 K16 ["Image"]
-  GETTABLEKS R9 R0 K21 ["IconSize"]
-  SETTABLEKS R9 R8 K19 ["Size"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K16 ["Image"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K0 ["createElement"]
-  GETUPVAL R7 4
-  DUPTABLE R8 K23 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
-  GETIMPORT R9 K4 [Enum.AutomaticSize.XY]
-  SETTABLEKS R9 R8 K2 ["AutomaticSize"]
-  MOVE R9 R1
-  CALL R9 0 1
-  SETTABLEKS R9 R8 K9 ["LayoutOrder"]
-  LOADK R9 K24 ["Bold"]
-  SETTABLEKS R9 R8 K22 ["Style"]
-  GETTABLEKS R9 R0 K17 ["Text"]
-  SETTABLEKS R9 R8 K17 ["Text"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K17 ["Text"]
-  CALL R2 3 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R2 R3 K0 ["createElement"]
+        5 GETUPVAL                         R3 2
+        6 NEWTABLE                         R4 8 0
+        8 GETIMPORT                        R5 K4 [Enum.AutomaticSize.XY]
+       10 SETTABLEKS                       R5 R4 K2 ["AutomaticSize"]
+       12 GETIMPORT                        R5 K7 [Enum.FillDirection.Horizontal]
+       14 SETTABLEKS                       R5 R4 K8 ["Layout"]
+       16 GETTABLEKS                       R5 R0 K9 ["LayoutOrder"]
+       18 SETTABLEKS                       R5 R4 K9 ["LayoutOrder"]
+       20 LOADN                            R5 20
+       21 SETTABLEKS                       R5 R4 K10 ["Padding"]
+       23 LOADN                            R5 10
+       24 SETTABLEKS                       R5 R4 K11 ["Spacing"]
+       26 GETTABLEKS                       R5 R0 K12 ["PaneRef"]
+       28 SETTABLEKS                       R5 R4 K13 ["ref"]
+       30 GETUPVAL                         R7 1
+       31 GETTABLEKS                       R6 R7 K14 ["Change"]
+       33 GETTABLEKS                       R5 R6 K15 ["AbsoluteSize"]
+       35 GETUPVAL                         R9 1
+       36 GETTABLEKS                       R8 R9 K14 ["Change"]
+       38 GETTABLEKS                       R7 R8 K15 ["AbsoluteSize"]
+       40 GETTABLE                         R6 R0 R7
+       41 SETTABLE                         R6 R4 R5
+       42 DUPTABLE                         R5 K18 [{"Image", "Text"}]
+       43 GETUPVAL                         R7 1
+       44 GETTABLEKS                       R6 R7 K0 ["createElement"]
+       46 GETUPVAL                         R7 3
+       47 DUPTABLE                         R8 K20 [{"LayoutOrder", "Image", "Size"}]
+       48 MOVE                             R9 R1
+       49 CALL                             R9 0 1
+       50 SETTABLEKS                       R9 R8 K9 ["LayoutOrder"]
+       52 GETTABLEKS                       R9 R0 K16 ["Image"]
+       54 SETTABLEKS                       R9 R8 K16 ["Image"]
+       56 GETTABLEKS                       R9 R0 K21 ["IconSize"]
+       58 SETTABLEKS                       R9 R8 K19 ["Size"]
+       60 CALL                             R6 2 1
+       61 SETTABLEKS                       R6 R5 K16 ["Image"]
+       63 GETUPVAL                         R7 1
+       64 GETTABLEKS                       R6 R7 K0 ["createElement"]
+       66 GETUPVAL                         R7 4
+       67 DUPTABLE                         R8 K23 [{"AutomaticSize", "LayoutOrder", "Style", "Text"}]
+       68 GETIMPORT                        R9 K4 [Enum.AutomaticSize.XY]
+       70 SETTABLEKS                       R9 R8 K2 ["AutomaticSize"]
+       72 MOVE                             R9 R1
+       73 CALL                             R9 0 1
+       74 SETTABLEKS                       R9 R8 K9 ["LayoutOrder"]
+       76 LOADK                            R9 K24 ["Bold"]
+       77 SETTABLEKS                       R9 R8 K22 ["Style"]
+       79 GETTABLEKS                       R9 R0 K17 ["Text"]
+       81 SETTABLEKS                       R9 R8 K17 ["Text"]
+       83 CALL                             R6 2 1
+       84 SETTABLEKS                       R6 R5 K17 ["Text"]
+       86 CALL                             R2 3 -1
+       87 RETURN                           R2 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Framework"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K8 ["UI"]
-  GETTABLEKS R4 R3 K9 ["Image"]
-  GETTABLEKS R5 R3 K10 ["Pane"]
-  GETTABLEKS R6 R3 K11 ["TextLabel"]
-  GETIMPORT R7 K4 [require]
-  GETTABLEKS R10 R0 K12 ["Src"]
-  GETTABLEKS R9 R10 K13 ["Util"]
-  GETTABLEKS R8 R9 K14 ["counter"]
-  CALL R7 1 1
-  DUPCLOSURE R8 K15 [PROTO_0]
-  CAPTURE VAL R7
-  CAPTURE VAL R1
-  CAPTURE VAL R5
-  CAPTURE VAL R4
-  CAPTURE VAL R6
-  RETURN R8 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["React"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R2 K8 ["UI"]
+       25 GETTABLEKS                       R4 R3 K9 ["Image"]
+       27 GETTABLEKS                       R5 R3 K10 ["Pane"]
+       29 GETTABLEKS                       R6 R3 K11 ["TextLabel"]
+       31 GETIMPORT                        R7 K4 [require]
+       33 GETTABLEKS                       R10 R0 K12 ["Src"]
+       35 GETTABLEKS                       R9 R10 K13 ["Util"]
+       37 GETTABLEKS                       R8 R9 K14 ["counter"]
+       39 CALL                             R7 1 1
+       40 DUPCLOSURE                       R8 K15 [PROTO_0]
+       41 CAPTURE                          VAL R7
+       42 CAPTURE                          VAL R1
+       43 CAPTURE                          VAL R5
+       44 CAPTURE                          VAL R4
+       45 CAPTURE                          VAL R6
+       46 RETURN                           R8 1

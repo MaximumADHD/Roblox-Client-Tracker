@@ -1,319 +1,319 @@
 PROTO_0:
-  NEWTABLE R1 2 0
-  JUMPIFNOT R0 [+3]
-  GETTABLEKS R2 R0 K0 ["Name"]
-  JUMPIF R2 [+1]
-  LOADNIL R2
-  SETTABLEKS R2 R1 K1 ["_name"]
-  JUMPIFNOT R0 [+3]
-  GETTABLEKS R2 R0 K2 ["Mask"]
-  JUMPIF R2 [+1]
-  LOADN R2 0
-  SETTABLEKS R2 R1 K3 ["_mask"]
-  GETUPVAL R4 0
-  FASTCALL2 SETMETATABLE R1 R4 [+4]
-  MOVE R3 R1
-  GETIMPORT R2 K5 [setmetatable]
-  CALL R2 2 1
-  RETURN R2 1
+        0 NEWTABLE                         R1 2 0
+        2 JUMPIFNOT                        R0 ; [+3]
+        3 GETTABLEKS                       R2 R0 K0 ["Name"]
+        5 JUMPIF                           R2 ; [+1]
+        6 LOADNIL                          R2
+        7 SETTABLEKS                       R2 R1 K1 ["_name"]
+        9 JUMPIFNOT                        R0 ; [+3]
+       10 GETTABLEKS                       R2 R0 K2 ["Mask"]
+       12 JUMPIF                           R2 ; [+1]
+       13 LOADN                            R2 0
+       14 SETTABLEKS                       R2 R1 K3 ["_mask"]
+       16 GETUPVAL                         R4 0
+       17 FASTCALL2                        SETMETATABLE R1 R4 ; [+4]
+       19 MOVE                             R3 R1
+       20 GETIMPORT                        R2 K5 [setmetatable]
+       22 CALL                             R2 2 1
+       23 RETURN                           R2 1
 
 PROTO_1:
-  GETUPVAL R2 0
-  MOVE R4 R1
-  GETTABLEKS R5 R0 K0 ["_name"]
-  NAMECALL R2 R2 K1 ["AddTag"]
-  CALL R2 3 0
-  NAMECALL R2 R0 K2 ["setPublishBlocked"]
-  CALL R2 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R4 R1
+        2 GETTABLEKS                       R5 R0 K0 ["_name"]
+        4 NAMECALL                         R2 R2 K1 ["AddTag"]
+        6 CALL                             R2 3 0
+        7 NAMECALL                         R2 R0 K2 ["setPublishBlocked"]
+        9 CALL                             R2 1 0
+       10 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R2 0
-  MOVE R4 R1
-  GETTABLEKS R5 R0 K0 ["_name"]
-  NAMECALL R2 R2 K1 ["RemoveTag"]
-  CALL R2 3 0
-  NAMECALL R2 R0 K2 ["checkPublishTags"]
-  CALL R2 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R4 R1
+        2 GETTABLEKS                       R5 R0 K0 ["_name"]
+        4 NAMECALL                         R2 R2 K1 ["RemoveTag"]
+        6 CALL                             R2 3 0
+        7 NAMECALL                         R2 R0 K2 ["checkPublishTags"]
+        9 CALL                             R2 1 0
+       10 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["RunTests"]
-  CALL R1 0 1
-  JUMPIF R1 [+20]
-  GETIMPORT R1 K2 [game]
-  LOADK R3 K3 ["StudioPublishService"]
-  NAMECALL R1 R1 K4 ["GetService"]
-  CALL R1 2 1
-  GETUPVAL R5 1
-  NAMECALL R3 R1 K6 ["GetAttribute"]
-  CALL R3 2 1
-  ORK R2 R3 K5 [0]
-  GETTABLEKS R5 R0 K7 ["_mask"]
-  FASTCALL2 BIT32_BTEST R2 R5 [+4]
-  MOVE R4 R2
-  GETIMPORT R3 K10 [bit32.btest]
-  CALL R3 2 1
-  RETURN R3 1
-  LOADNIL R1
-  RETURN R1 1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["RunTests"]
+        3 CALL                             R1 0 1
+        4 JUMPIF                           R1 ; [+20]
+        5 GETIMPORT                        R1 K2 [game]
+        7 LOADK                            R3 K3 ["StudioPublishService"]
+        8 NAMECALL                         R1 R1 K4 ["GetService"]
+       10 CALL                             R1 2 1
+       11 GETUPVAL                         R5 1
+       12 NAMECALL                         R3 R1 K6 ["GetAttribute"]
+       14 CALL                             R3 2 1
+       15 ORK                              R2 R3 K5 [0]
+       16 GETTABLEKS                       R5 R0 K7 ["_mask"]
+       18 FASTCALL2                        BIT32_BTEST R2 R5 ; [+4]
+       20 MOVE                             R4 R2
+       21 GETIMPORT                        R3 K10 [bit32.btest]
+       23 CALL                             R3 2 1
+       24 RETURN                           R3 1
+       25 LOADNIL                          R1
+       26 RETURN                           R1 1
 
 PROTO_4:
-  GETIMPORT R1 K1 [pairs]
-  NAMECALL R2 R0 K2 ["getTagged"]
-  CALL R2 1 -1
-  CALL R1 -1 3
-  FORGPREP_NEXT R1
-  GETUPVAL R6 0
-  MOVE R8 R5
-  GETTABLEKS R9 R0 K3 ["_name"]
-  NAMECALL R6 R6 K4 ["RemoveTag"]
-  CALL R6 3 0
-  FORGLOOP R1 2 [-8]
-  NAMECALL R1 R0 K5 ["checkPublishTags"]
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETIMPORT                        R1 K1 [pairs]
+        2 NAMECALL                         R2 R0 K2 ["getTagged"]
+        4 CALL                             R2 1 -1
+        5 CALL                             R1 -1 3
+        6 FORGPREP_NEXT                    R1
+        7 GETUPVAL                         R6 0
+        8 MOVE                             R8 R5
+        9 GETTABLEKS                       R9 R0 K3 ["_name"]
+       11 NAMECALL                         R6 R6 K4 ["RemoveTag"]
+       13 CALL                             R6 3 0
+       14 FORGLOOP                         R1 2 ; [-8]
+       16 NAMECALL                         R1 R0 K5 ["checkPublishTags"]
+       18 CALL                             R1 1 0
+       19 RETURN                           R0 0
 
 PROTO_5:
-  GETUPVAL R1 0
-  GETTABLEKS R3 R0 K0 ["_name"]
-  NAMECALL R1 R1 K1 ["GetTagged"]
-  CALL R1 2 1
-  RETURN R1 1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R3 R0 K0 ["_name"]
+        3 NAMECALL                         R1 R1 K1 ["GetTagged"]
+        5 CALL                             R1 2 1
+        6 RETURN                           R1 1
 
 PROTO_6:
-  GETUPVAL R2 0
-  MOVE R4 R1
-  GETTABLEKS R5 R0 K0 ["_name"]
-  NAMECALL R2 R2 K1 ["HasTag"]
-  CALL R2 3 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R4 R1
+        2 GETTABLEKS                       R5 R0 K0 ["_name"]
+        4 NAMECALL                         R2 R2 K1 ["HasTag"]
+        6 CALL                             R2 3 -1
+        7 RETURN                           R2 -1
 
 PROTO_7:
-  GETUPVAL R2 0
-  LOADNIL R3
-  LOADNIL R4
-  FORGPREP R2
-  GETUPVAL R8 1
-  GETTABLE R7 R8 R5
-  MOVE R10 R1
-  NAMECALL R8 R7 K0 ["removeTag"]
-  CALL R8 2 0
-  NAMECALL R8 R1 K1 ["GetDescendants"]
-  CALL R8 1 3
-  FORGPREP R8
-  MOVE R15 R12
-  NAMECALL R13 R7 K0 ["removeTag"]
-  CALL R13 2 0
-  FORGLOOP R8 2 [-5]
-  FORGLOOP R2 1 [-17]
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 LOADNIL                          R3
+        2 LOADNIL                          R4
+        3 FORGPREP                         R2
+        4 GETUPVAL                         R8 1
+        5 GETTABLE                         R7 R8 R5
+        6 MOVE                             R10 R1
+        7 NAMECALL                         R8 R7 K0 ["removeTag"]
+        9 CALL                             R8 2 0
+       10 NAMECALL                         R8 R1 K1 ["GetDescendants"]
+       12 CALL                             R8 1 3
+       13 FORGPREP                         R8
+       14 MOVE                             R15 R12
+       15 NAMECALL                         R13 R7 K0 ["removeTag"]
+       17 CALL                             R13 2 0
+       18 FORGLOOP                         R8 2 ; [-5]
+       20 FORGLOOP                         R2 1 ; [-17]
+       22 RETURN                           R0 0
 
 PROTO_8:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["RunTests"]
-  CALL R1 0 1
-  JUMPIF R1 [+82]
-  GETIMPORT R1 K2 [game]
-  LOADK R3 K3 ["StudioPublishService"]
-  NAMECALL R1 R1 K4 ["GetService"]
-  CALL R1 2 1
-  LOADB R2 1
-  SETTABLEKS R2 R1 K5 ["PublishLocked"]
-  LOADNIL R2
-  GETTABLEKS R3 R0 K6 ["_name"]
-  JUMPIFNOT R3 [+35]
-  GETTABLEKS R3 R0 K7 ["_mask"]
-  JUMPIFNOT R3 [+32]
-  GETUPVAL R5 1
-  NAMECALL R3 R1 K9 ["GetAttribute"]
-  CALL R3 2 1
-  ORK R2 R3 K8 [0]
-  GETUPVAL R5 2
-  GETTABLEKS R7 R0 K6 ["_name"]
-  NAMECALL R5 R5 K10 ["GetTagged"]
-  CALL R5 2 1
-  LENGTH R4 R5
-  LOADN R5 0
-  JUMPIFLT R5 R4 [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  JUMPIF R3 [+43]
-  GETTABLEKS R7 R0 K7 ["_mask"]
-  FASTCALL1 BIT32_BNOT R7 [+2]
-  GETIMPORT R6 K13 [bit32.bnot]
-  CALL R6 1 1
-  FASTCALL2 BIT32_BAND R2 R6 [+4]
-  MOVE R5 R2
-  GETIMPORT R4 K15 [bit32.band]
-  CALL R4 2 1
-  MOVE R2 R4
-  JUMP [+29]
-  LOADN R2 0
-  GETUPVAL R3 3
-  LOADNIL R4
-  LOADNIL R5
-  FORGPREP R3
-  GETUPVAL R10 2
-  GETTABLEKS R12 R7 K16 ["Name"]
-  NAMECALL R10 R10 K10 ["GetTagged"]
-  CALL R10 2 1
-  LENGTH R9 R10
-  LOADN R10 0
-  JUMPIFLT R10 R9 [+2]
-  LOADB R8 0 +1
-  LOADB R8 1
-  JUMPIFNOT R8 [+9]
-  GETTABLEKS R11 R7 K17 ["Mask"]
-  FASTCALL2 BIT32_BOR R2 R11 [+4]
-  MOVE R10 R2
-  GETIMPORT R9 K19 [bit32.bor]
-  CALL R9 2 1
-  MOVE R2 R9
-  FORGLOOP R3 2 [-23]
-  GETUPVAL R5 1
-  MOVE R6 R2
-  NAMECALL R3 R1 K20 ["SetAttribute"]
-  CALL R3 3 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["RunTests"]
+        3 CALL                             R1 0 1
+        4 JUMPIF                           R1 ; [+82]
+        5 GETIMPORT                        R1 K2 [game]
+        7 LOADK                            R3 K3 ["StudioPublishService"]
+        8 NAMECALL                         R1 R1 K4 ["GetService"]
+       10 CALL                             R1 2 1
+       11 LOADB                            R2 1
+       12 SETTABLEKS                       R2 R1 K5 ["PublishLocked"]
+       14 LOADNIL                          R2
+       15 GETTABLEKS                       R3 R0 K6 ["_name"]
+       17 JUMPIFNOT                        R3 ; [+35]
+       18 GETTABLEKS                       R3 R0 K7 ["_mask"]
+       20 JUMPIFNOT                        R3 ; [+32]
+       21 GETUPVAL                         R5 1
+       22 NAMECALL                         R3 R1 K9 ["GetAttribute"]
+       24 CALL                             R3 2 1
+       25 ORK                              R2 R3 K8 [0]
+       26 GETUPVAL                         R5 2
+       27 GETTABLEKS                       R7 R0 K6 ["_name"]
+       29 NAMECALL                         R5 R5 K10 ["GetTagged"]
+       31 CALL                             R5 2 1
+       32 LENGTH                           R4 R5
+       33 LOADN                            R5 0
+       34 JUMPIFLT                         R5 R4 ; [+2]
+       36 LOADB                            R3 0 +1
+       37 LOADB                            R3 1
+       38 JUMPIF                           R3 ; [+43]
+       39 GETTABLEKS                       R7 R0 K7 ["_mask"]
+       41 FASTCALL1                        BIT32_BNOT R7 ; [+2]
+       42 GETIMPORT                        R6 K13 [bit32.bnot]
+       44 CALL                             R6 1 1
+       45 FASTCALL2                        BIT32_BAND R2 R6 ; [+4]
+       47 MOVE                             R5 R2
+       48 GETIMPORT                        R4 K15 [bit32.band]
+       50 CALL                             R4 2 1
+       51 MOVE                             R2 R4
+       52 JUMP                             ; [+29]
+       53 LOADN                            R2 0
+       54 GETUPVAL                         R3 3
+       55 LOADNIL                          R4
+       56 LOADNIL                          R5
+       57 FORGPREP                         R3
+       58 GETUPVAL                         R10 2
+       59 GETTABLEKS                       R12 R7 K16 ["Name"]
+       61 NAMECALL                         R10 R10 K10 ["GetTagged"]
+       63 CALL                             R10 2 1
+       64 LENGTH                           R9 R10
+       65 LOADN                            R10 0
+       66 JUMPIFLT                         R10 R9 ; [+2]
+       68 LOADB                            R8 0 +1
+       69 LOADB                            R8 1
+       70 JUMPIFNOT                        R8 ; [+9]
+       71 GETTABLEKS                       R11 R7 K17 ["Mask"]
+       73 FASTCALL2                        BIT32_BOR R2 R11 ; [+4]
+       75 MOVE                             R10 R2
+       76 GETIMPORT                        R9 K19 [bit32.bor]
+       78 CALL                             R9 2 1
+       79 MOVE                             R2 R9
+       80 FORGLOOP                         R3 2 ; [-23]
+       82 GETUPVAL                         R5 1
+       83 MOVE                             R6 R2
+       84 NAMECALL                         R3 R1 K20 ["SetAttribute"]
+       86 CALL                             R3 3 0
+       87 RETURN                           R0 0
 
 PROTO_9:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["RunTests"]
-  CALL R1 0 1
-  JUMPIF R1 [+28]
-  GETIMPORT R1 K2 [game]
-  LOADK R3 K3 ["StudioPublishService"]
-  NAMECALL R1 R1 K4 ["GetService"]
-  CALL R1 2 1
-  LOADB R2 1
-  SETTABLEKS R2 R1 K5 ["PublishLocked"]
-  GETUPVAL R5 1
-  NAMECALL R3 R1 K7 ["GetAttribute"]
-  CALL R3 2 1
-  ORK R2 R3 K6 [0]
-  GETTABLEKS R5 R0 K8 ["_mask"]
-  FASTCALL2 BIT32_BOR R2 R5 [+4]
-  MOVE R4 R2
-  GETIMPORT R3 K11 [bit32.bor]
-  CALL R3 2 1
-  MOVE R2 R3
-  GETUPVAL R5 1
-  MOVE R6 R2
-  NAMECALL R3 R1 K12 ["SetAttribute"]
-  CALL R3 3 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["RunTests"]
+        3 CALL                             R1 0 1
+        4 JUMPIF                           R1 ; [+28]
+        5 GETIMPORT                        R1 K2 [game]
+        7 LOADK                            R3 K3 ["StudioPublishService"]
+        8 NAMECALL                         R1 R1 K4 ["GetService"]
+       10 CALL                             R1 2 1
+       11 LOADB                            R2 1
+       12 SETTABLEKS                       R2 R1 K5 ["PublishLocked"]
+       14 GETUPVAL                         R5 1
+       15 NAMECALL                         R3 R1 K7 ["GetAttribute"]
+       17 CALL                             R3 2 1
+       18 ORK                              R2 R3 K6 [0]
+       19 GETTABLEKS                       R5 R0 K8 ["_mask"]
+       21 FASTCALL2                        BIT32_BOR R2 R5 ; [+4]
+       23 MOVE                             R4 R2
+       24 GETIMPORT                        R3 K11 [bit32.bor]
+       26 CALL                             R3 2 1
+       27 MOVE                             R2 R3
+       28 GETUPVAL                         R5 1
+       29 MOVE                             R6 R2
+       30 NAMECALL                         R3 R1 K12 ["SetAttribute"]
+       32 CALL                             R3 3 0
+       33 RETURN                           R0 0
 
 PROTO_10:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["RunTests"]
-  CALL R1 0 1
-  JUMPIF R1 [+11]
-  GETIMPORT R1 K2 [game]
-  LOADK R3 K3 ["StudioPublishService"]
-  NAMECALL R1 R1 K4 ["GetService"]
-  CALL R1 2 1
-  GETUPVAL R4 1
-  NAMECALL R2 R1 K5 ["GetAttribute"]
-  CALL R2 2 -1
-  RETURN R2 -1
-  LOADNIL R1
-  RETURN R1 1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["RunTests"]
+        3 CALL                             R1 0 1
+        4 JUMPIF                           R1 ; [+11]
+        5 GETIMPORT                        R1 K2 [game]
+        7 LOADK                            R3 K3 ["StudioPublishService"]
+        8 NAMECALL                         R1 R1 K4 ["GetService"]
+       10 CALL                             R1 2 1
+       11 GETUPVAL                         R4 1
+       12 NAMECALL                         R2 R1 K5 ["GetAttribute"]
+       14 CALL                             R2 2 -1
+       15 RETURN                           R2 -1
+       16 LOADNIL                          R1
+       17 RETURN                           R1 1
 
 PROTO_11:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["RunTests"]
-  CALL R1 0 1
-  JUMPIF R1 [+9]
-  GETIMPORT R1 K2 [game]
-  LOADK R3 K3 ["StudioPublishService"]
-  NAMECALL R1 R1 K4 ["GetService"]
-  CALL R1 2 1
-  LOADB R2 0
-  SETTABLEKS R2 R1 K5 ["PublishLocked"]
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["RunTests"]
+        3 CALL                             R1 0 1
+        4 JUMPIF                           R1 ; [+9]
+        5 GETIMPORT                        R1 K2 [game]
+        7 LOADK                            R3 K3 ["StudioPublishService"]
+        8 NAMECALL                         R1 R1 K4 ["GetService"]
+       10 CALL                             R1 2 1
+       11 LOADB                            R2 0
+       12 SETTABLEKS                       R2 R1 K5 ["PublishLocked"]
+       14 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["CollectionService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [script]
-  LOADK R3 K6 ["R15Migrator"]
-  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
-  CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R5 R1 K10 ["Src"]
-  GETTABLEKS R4 R5 K11 ["Util"]
-  GETTABLEKS R3 R4 K12 ["DebugFlags"]
-  CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R6 R1 K10 ["Src"]
-  GETTABLEKS R5 R6 K13 ["Resources"]
-  GETTABLEKS R4 R5 K14 ["Constants"]
-  CALL R3 1 1
-  GETTABLEKS R4 R3 K15 ["PublishTags"]
-  GETTABLEKS R6 R3 K16 ["AttributePrefix"]
-  LOADK R7 K17 ["Blocked"]
-  CONCAT R5 R6 R7
-  DUPTABLE R6 K20 [{"_name", "mask"}]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K18 ["_name"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K19 ["mask"]
-  SETTABLEKS R6 R6 K21 ["__index"]
-  DUPCLOSURE R7 K22 [PROTO_0]
-  CAPTURE VAL R6
-  SETTABLEKS R7 R6 K23 ["new"]
-  DUPCLOSURE R7 K24 [PROTO_1]
-  CAPTURE VAL R0
-  SETTABLEKS R7 R6 K25 ["addTag"]
-  DUPCLOSURE R7 K26 [PROTO_2]
-  CAPTURE VAL R0
-  SETTABLEKS R7 R6 K27 ["removeTag"]
-  DUPCLOSURE R7 K28 [PROTO_3]
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  SETTABLEKS R7 R6 K29 ["isBlocking"]
-  DUPCLOSURE R7 K30 [PROTO_4]
-  CAPTURE VAL R0
-  SETTABLEKS R7 R6 K31 ["removeAllTags"]
-  DUPCLOSURE R7 K32 [PROTO_5]
-  CAPTURE VAL R0
-  SETTABLEKS R7 R6 K33 ["getTagged"]
-  DUPCLOSURE R7 K34 [PROTO_6]
-  CAPTURE VAL R0
-  SETTABLEKS R7 R6 K35 ["hasTagged"]
-  MOVE R7 R4
-  LOADNIL R8
-  LOADNIL R9
-  FORGPREP R7
-  GETTABLEKS R12 R6 K23 ["new"]
-  MOVE R13 R11
-  CALL R12 1 1
-  SETTABLE R12 R6 R10
-  FORGLOOP R7 2 [-6]
-  DUPCLOSURE R7 K36 [PROTO_7]
-  CAPTURE VAL R4
-  CAPTURE VAL R6
-  SETTABLEKS R7 R6 K37 ["clearPublishTags"]
-  DUPCLOSURE R7 K38 [PROTO_8]
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  CAPTURE VAL R0
-  CAPTURE VAL R4
-  SETTABLEKS R7 R6 K39 ["checkPublishTags"]
-  DUPCLOSURE R7 K40 [PROTO_9]
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  SETTABLEKS R7 R6 K41 ["setPublishBlocked"]
-  DUPCLOSURE R7 K42 [PROTO_10]
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  SETTABLEKS R7 R6 K43 ["publishingIsBlocked"]
-  DUPCLOSURE R7 K44 [PROTO_11]
-  CAPTURE VAL R2
-  SETTABLEKS R7 R6 K45 ["prepareToPublish"]
-  RETURN R6 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["CollectionService"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [script]
+        9 LOADK                            R3 K6 ["R15Migrator"]
+       10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
+       12 CALL                             R1 2 1
+       13 GETIMPORT                        R2 K9 [require]
+       15 GETTABLEKS                       R5 R1 K10 ["Src"]
+       17 GETTABLEKS                       R4 R5 K11 ["Util"]
+       19 GETTABLEKS                       R3 R4 K12 ["DebugFlags"]
+       21 CALL                             R2 1 1
+       22 GETIMPORT                        R3 K9 [require]
+       24 GETTABLEKS                       R6 R1 K10 ["Src"]
+       26 GETTABLEKS                       R5 R6 K13 ["Resources"]
+       28 GETTABLEKS                       R4 R5 K14 ["Constants"]
+       30 CALL                             R3 1 1
+       31 GETTABLEKS                       R4 R3 K15 ["PublishTags"]
+       33 GETTABLEKS                       R6 R3 K16 ["AttributePrefix"]
+       35 LOADK                            R7 K17 ["Blocked"]
+       36 CONCAT                           R5 R6 R7
+       37 DUPTABLE                         R6 K20 [{"_name", "mask"}]
+       38 LOADNIL                          R7
+       39 SETTABLEKS                       R7 R6 K18 ["_name"]
+       41 LOADN                            R7 0
+       42 SETTABLEKS                       R7 R6 K19 ["mask"]
+       44 SETTABLEKS                       R6 R6 K21 ["__index"]
+       46 DUPCLOSURE                       R7 K22 [PROTO_0]
+       47 CAPTURE                          VAL R6
+       48 SETTABLEKS                       R7 R6 K23 ["new"]
+       50 DUPCLOSURE                       R7 K24 [PROTO_1]
+       51 CAPTURE                          VAL R0
+       52 SETTABLEKS                       R7 R6 K25 ["addTag"]
+       54 DUPCLOSURE                       R7 K26 [PROTO_2]
+       55 CAPTURE                          VAL R0
+       56 SETTABLEKS                       R7 R6 K27 ["removeTag"]
+       58 DUPCLOSURE                       R7 K28 [PROTO_3]
+       59 CAPTURE                          VAL R2
+       60 CAPTURE                          VAL R5
+       61 SETTABLEKS                       R7 R6 K29 ["isBlocking"]
+       63 DUPCLOSURE                       R7 K30 [PROTO_4]
+       64 CAPTURE                          VAL R0
+       65 SETTABLEKS                       R7 R6 K31 ["removeAllTags"]
+       67 DUPCLOSURE                       R7 K32 [PROTO_5]
+       68 CAPTURE                          VAL R0
+       69 SETTABLEKS                       R7 R6 K33 ["getTagged"]
+       71 DUPCLOSURE                       R7 K34 [PROTO_6]
+       72 CAPTURE                          VAL R0
+       73 SETTABLEKS                       R7 R6 K35 ["hasTagged"]
+       75 MOVE                             R7 R4
+       76 LOADNIL                          R8
+       77 LOADNIL                          R9
+       78 FORGPREP                         R7
+       79 GETTABLEKS                       R12 R6 K23 ["new"]
+       81 MOVE                             R13 R11
+       82 CALL                             R12 1 1
+       83 SETTABLE                         R12 R6 R10
+       84 FORGLOOP                         R7 2 ; [-6]
+       86 DUPCLOSURE                       R7 K36 [PROTO_7]
+       87 CAPTURE                          VAL R4
+       88 CAPTURE                          VAL R6
+       89 SETTABLEKS                       R7 R6 K37 ["clearPublishTags"]
+       91 DUPCLOSURE                       R7 K38 [PROTO_8]
+       92 CAPTURE                          VAL R2
+       93 CAPTURE                          VAL R5
+       94 CAPTURE                          VAL R0
+       95 CAPTURE                          VAL R4
+       96 SETTABLEKS                       R7 R6 K39 ["checkPublishTags"]
+       98 DUPCLOSURE                       R7 K40 [PROTO_9]
+       99 CAPTURE                          VAL R2
+      100 CAPTURE                          VAL R5
+      101 SETTABLEKS                       R7 R6 K41 ["setPublishBlocked"]
+      103 DUPCLOSURE                       R7 K42 [PROTO_10]
+      104 CAPTURE                          VAL R2
+      105 CAPTURE                          VAL R5
+      106 SETTABLEKS                       R7 R6 K43 ["publishingIsBlocked"]
+      108 DUPCLOSURE                       R7 K44 [PROTO_11]
+      109 CAPTURE                          VAL R2
+      110 SETTABLEKS                       R7 R6 K45 ["prepareToPublish"]
+      112 RETURN                           R6 1

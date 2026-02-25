@@ -1,37 +1,37 @@
 PROTO_0:
-  GETUPVAL R0 0
-  GETUPVAL R2 1
-  GETUPVAL R3 2
-  GETUPVAL R4 3
-  NAMECALL R0 R0 K0 ["GetKeyboardShortcutAsync"]
-  CALL R0 4 -1
-  RETURN R0 -1
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 GETUPVAL                         R3 2
+        3 GETUPVAL                         R4 3
+        4 NAMECALL                         R0 R0 K0 ["GetKeyboardShortcutAsync"]
+        6 CALL                             R0 4 -1
+        7 RETURN                           R0 -1
 
 PROTO_1:
-  GETIMPORT R3 K1 [pcall]
-  NEWCLOSURE R4 P0
-  CAPTURE UPVAL U0
-  CAPTURE VAL R0
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  CALL R3 1 2
-  JUMPIFNOT R3 [+1]
-  RETURN R4 1
-  NEWTABLE R5 0 0
-  RETURN R5 1
+        0 GETIMPORT                        R3 K1 [pcall]
+        2 NEWCLOSURE                       R4 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          VAL R1
+        6 CAPTURE                          VAL R2
+        7 CALL                             R3 1 2
+        8 JUMPIFNOT                        R3 ; [+1]
+        9 RETURN                           R4 1
+       10 NEWTABLE                         R5 0 0
+       12 RETURN                           R5 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["ControlsEmulator"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Util"]
-  GETTABLEKS R3 R4 K8 ["MockableProxyPluginComponents"]
-  CALL R2 1 1
-  GETTABLEKS R1 R2 K9 ["StudioDeviceEmulator"]
-  DUPCLOSURE R2 K10 [PROTO_1]
-  CAPTURE VAL R1
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["ControlsEmulator"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R2 K5 [require]
+        9 GETTABLEKS                       R5 R0 K6 ["Src"]
+       11 GETTABLEKS                       R4 R5 K7 ["Util"]
+       13 GETTABLEKS                       R3 R4 K8 ["MockableProxyPluginComponents"]
+       15 CALL                             R2 1 1
+       16 GETTABLEKS                       R1 R2 K9 ["StudioDeviceEmulator"]
+       18 DUPCLOSURE                       R2 K10 [PROTO_1]
+       19 CAPTURE                          VAL R1
+       20 RETURN                           R2 1

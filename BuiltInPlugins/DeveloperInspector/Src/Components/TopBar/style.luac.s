@@ -1,29 +1,29 @@
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
-  CALL R1 1 1
-  GETTABLEKS R3 R1 K7 ["Style"]
-  GETTABLEKS R2 R3 K8 ["StyleKey"]
-  DUPTABLE R3 K16 [{"Padding", "HeaderHeight", "ButtonSize", "IconSize", "HeaderBorderColor", "SelectedIconColor", "IconColor"}]
-  LOADN R4 2
-  SETTABLEKS R4 R3 K9 ["Padding"]
-  LOADN R4 33
-  SETTABLEKS R4 R3 K10 ["HeaderHeight"]
-  LOADN R4 32
-  SETTABLEKS R4 R3 K11 ["ButtonSize"]
-  LOADN R4 24
-  SETTABLEKS R4 R3 K12 ["IconSize"]
-  GETTABLEKS R4 R2 K17 ["Border"]
-  SETTABLEKS R4 R3 K13 ["HeaderBorderColor"]
-  GETTABLEKS R4 R2 K18 ["DialogMainButton"]
-  SETTABLEKS R4 R3 K14 ["SelectedIconColor"]
-  GETTABLEKS R4 R2 K19 ["MainText"]
-  SETTABLEKS R4 R3 K15 ["IconColor"]
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R4 K1 [script]
+        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
+        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+       11 GETIMPORT                        R1 K4 [require]
+       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       17 CALL                             R1 1 1
+       18 GETTABLEKS                       R3 R1 K7 ["Style"]
+       20 GETTABLEKS                       R2 R3 K8 ["StyleKey"]
+       22 DUPTABLE                         R3 K16 [{"Padding", "HeaderHeight", "ButtonSize", "IconSize", "HeaderBorderColor", "SelectedIconColor", "IconColor"}]
+       23 LOADN                            R4 2
+       24 SETTABLEKS                       R4 R3 K9 ["Padding"]
+       26 LOADN                            R4 33
+       27 SETTABLEKS                       R4 R3 K10 ["HeaderHeight"]
+       29 LOADN                            R4 32
+       30 SETTABLEKS                       R4 R3 K11 ["ButtonSize"]
+       32 LOADN                            R4 24
+       33 SETTABLEKS                       R4 R3 K12 ["IconSize"]
+       35 GETTABLEKS                       R4 R2 K17 ["Border"]
+       37 SETTABLEKS                       R4 R3 K13 ["HeaderBorderColor"]
+       39 GETTABLEKS                       R4 R2 K18 ["DialogMainButton"]
+       41 SETTABLEKS                       R4 R3 K14 ["SelectedIconColor"]
+       43 GETTABLEKS                       R4 R2 K19 ["MainText"]
+       45 SETTABLEKS                       R4 R3 K15 ["IconColor"]
+       47 RETURN                           R3 1

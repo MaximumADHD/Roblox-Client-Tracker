@@ -1,42 +1,42 @@
 PROTO_0:
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["TutorialService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  RETURN R0 1
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["TutorialService"]
+        3 NAMECALL                         R0 R0 K3 ["GetService"]
+        5 CALL                             R0 2 1
+        6 RETURN                           R0 1
 
 PROTO_1:
-  GETIMPORT R0 K1 [require]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["Packages"]
-  GETTABLEKS R2 R3 K3 ["Dev"]
-  GETTABLEKS R1 R2 K4 ["JestGlobals"]
-  CALL R0 1 1
-  GETTABLEKS R1 R0 K5 ["jest"]
-  DUPTABLE R2 K9 [{"HideWidgets", "ShowWidgets", "ShouldLaunchTutorial"}]
-  GETTABLEKS R3 R1 K10 ["fn"]
-  CALL R3 0 1
-  SETTABLEKS R3 R2 K6 ["HideWidgets"]
-  GETTABLEKS R3 R1 K10 ["fn"]
-  CALL R3 0 1
-  SETTABLEKS R3 R2 K7 ["ShowWidgets"]
-  GETTABLEKS R3 R1 K10 ["fn"]
-  CALL R3 0 1
-  SETTABLEKS R3 R2 K8 ["ShouldLaunchTutorial"]
-  RETURN R2 1
+        0 GETIMPORT                        R0 K1 [require]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R3 R4 K2 ["Packages"]
+        5 GETTABLEKS                       R2 R3 K3 ["Dev"]
+        7 GETTABLEKS                       R1 R2 K4 ["JestGlobals"]
+        9 CALL                             R0 1 1
+       10 GETTABLEKS                       R1 R0 K5 ["jest"]
+       12 DUPTABLE                         R2 K9 [{"HideWidgets", "ShowWidgets", "ShouldLaunchTutorial"}]
+       13 GETTABLEKS                       R3 R1 K10 ["fn"]
+       15 CALL                             R3 0 1
+       16 SETTABLEKS                       R3 R2 K6 ["HideWidgets"]
+       18 GETTABLEKS                       R3 R1 K10 ["fn"]
+       20 CALL                             R3 0 1
+       21 SETTABLEKS                       R3 R2 K7 ["ShowWidgets"]
+       23 GETTABLEKS                       R3 R1 K10 ["fn"]
+       25 CALL                             R3 0 1
+       26 SETTABLEKS                       R3 R2 K8 ["ShouldLaunchTutorial"]
+       28 RETURN                           R2 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["KnowledgeTutorials"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  NEWTABLE R1 4 0
-  LOADK R2 K4 ["Selection"]
-  SETTABLEKS R2 R1 K5 ["Name"]
-  DUPCLOSURE R2 K6 [PROTO_0]
-  SETTABLEKS R2 R1 K7 ["real"]
-  DUPCLOSURE R2 K8 [PROTO_1]
-  CAPTURE VAL R0
-  SETTABLEKS R2 R1 K9 ["mock"]
-  RETURN R1 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["KnowledgeTutorials"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 NEWTABLE                         R1 4 0
+        9 LOADK                            R2 K4 ["Selection"]
+       10 SETTABLEKS                       R2 R1 K5 ["Name"]
+       12 DUPCLOSURE                       R2 K6 [PROTO_0]
+       13 SETTABLEKS                       R2 R1 K7 ["real"]
+       15 DUPCLOSURE                       R2 K8 [PROTO_1]
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R2 R1 K9 ["mock"]
+       19 RETURN                           R1 1

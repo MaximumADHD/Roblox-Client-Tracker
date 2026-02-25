@@ -1,140 +1,140 @@
 PROTO_0:
-  GETUPVAL R0 0
-  GETUPVAL R2 1
-  NAMECALL R0 R0 K0 ["toggleSetting"]
-  CALL R0 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 NAMECALL                         R0 R0 K0 ["toggleSetting"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["use"]
-  CALL R1 1 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["use"]
-  CALL R2 0 1
-  NEWTABLE R3 0 0
-  GETTABLEKS R4 R0 K1 ["settings"]
-  LOADNIL R5
-  LOADNIL R6
-  FORGPREP R4
-  GETUPVAL R9 2
-  MOVE R10 R2
-  MOVE R11 R8
-  CALL R9 2 1
-  LOADB R10 1
-  JUMPIFNOTEQKS R8 K2 ["pbr"] [+6]
-  LOADK R13 K3 ["textures"]
-  NAMECALL R11 R2 K4 ["getSettingValue"]
-  CALL R11 2 1
-  MOVE R10 R11
-  JUMPIFNOTEQKS R8 K5 ["facs"] [+6]
-  LOADK R13 K6 ["skinning"]
-  NAMECALL R11 R2 K4 ["getSettingValue"]
-  CALL R11 2 1
-  MOVE R10 R11
-  JUMPIFNOT R10 [+2]
-  MOVE R11 R9
-  JUMPIF R11 [+1]
-  LOADB R11 0
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K7 ["createElement"]
-  GETUPVAL R14 4
-  GETTABLEKS R13 R14 K8 ["Checkbox"]
-  DUPTABLE R14 K16 [{"label", "isChecked", "isDisabled", "onActivated", "size", "testId", "LayoutOrder"}]
-  LOADK R17 K17 ["SettingName"]
-  MOVE R18 R8
-  NAMECALL R15 R1 K18 ["getText"]
-  CALL R15 3 1
-  SETTABLEKS R15 R14 K9 ["label"]
-  SETTABLEKS R11 R14 K10 ["isChecked"]
-  NOT R15 R10
-  JUMPIF R15 [+3]
-  GETTABLEKS R16 R0 K19 ["settingsEnabled"]
-  NOT R15 R16
-  SETTABLEKS R15 R14 K11 ["isDisabled"]
-  NEWCLOSURE R15 P0
-  CAPTURE VAL R2
-  CAPTURE VAL R8
-  SETTABLEKS R15 R14 K12 ["onActivated"]
-  GETUPVAL R18 4
-  GETTABLEKS R17 R18 K20 ["Enums"]
-  GETTABLEKS R16 R17 K21 ["CheckboxSize"]
-  GETTABLEKS R15 R16 K22 ["Small"]
-  SETTABLEKS R15 R14 K13 ["size"]
-  SETTABLEKS R8 R14 K14 ["testId"]
-  SETTABLEKS R7 R14 K15 ["LayoutOrder"]
-  CALL R12 2 1
-  SETTABLE R12 R3 R8
-  FORGLOOP R4 2 [-67]
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K7 ["createElement"]
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K23 ["View"]
-  DUPTABLE R6 K25 [{"tag"}]
-  LOADK R7 K26 ["auto-y size-full-0 col gap-small"]
-  SETTABLEKS R7 R6 K24 ["tag"]
-  DUPTABLE R7 K28 [{"title", "settings"}]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K7 ["createElement"]
-  GETUPVAL R10 4
-  GETTABLEKS R9 R10 K29 ["Text"]
-  DUPTABLE R10 K30 [{"Text", "tag"}]
-  LOADK R13 K31 ["SettingTitle"]
-  GETTABLEKS R14 R0 K27 ["title"]
-  NAMECALL R11 R1 K18 ["getText"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K29 ["Text"]
-  LOADK R11 K32 ["grow size-full-400 text-title-medium text-align-x-left"]
-  SETTABLEKS R11 R10 K24 ["tag"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K27 ["title"]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K7 ["createElement"]
-  GETUPVAL R10 4
-  GETTABLEKS R9 R10 K23 ["View"]
-  DUPTABLE R10 K25 [{"tag"}]
-  LOADK R11 K33 ["col align-y-top gap-small size-full-0 auto-y"]
-  SETTABLEKS R11 R10 K24 ["tag"]
-  MOVE R11 R3
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K1 ["settings"]
-  CALL R4 3 -1
-  RETURN R4 -1
+        0 GETUPVAL                         R1 0
+        1 NAMECALL                         R1 R1 K0 ["use"]
+        3 CALL                             R1 1 1
+        4 GETUPVAL                         R3 1
+        5 GETTABLEKS                       R2 R3 K0 ["use"]
+        7 CALL                             R2 0 1
+        8 NEWTABLE                         R3 0 0
+       10 GETTABLEKS                       R4 R0 K1 ["settings"]
+       12 LOADNIL                          R5
+       13 LOADNIL                          R6
+       14 FORGPREP                         R4
+       15 GETUPVAL                         R9 2
+       16 MOVE                             R10 R2
+       17 MOVE                             R11 R8
+       18 CALL                             R9 2 1
+       19 LOADB                            R10 1
+       20 JUMPIFNOTEQKS                    R8 K2 ["pbr"] ; [+6]
+       22 LOADK                            R13 K3 ["textures"]
+       23 NAMECALL                         R11 R2 K4 ["getSettingValue"]
+       25 CALL                             R11 2 1
+       26 MOVE                             R10 R11
+       27 JUMPIFNOTEQKS                    R8 K5 ["facs"] ; [+6]
+       29 LOADK                            R13 K6 ["skinning"]
+       30 NAMECALL                         R11 R2 K4 ["getSettingValue"]
+       32 CALL                             R11 2 1
+       33 MOVE                             R10 R11
+       34 JUMPIFNOT                        R10 ; [+2]
+       35 MOVE                             R11 R9
+       36 JUMPIF                           R11 ; [+1]
+       37 LOADB                            R11 0
+       38 GETUPVAL                         R13 3
+       39 GETTABLEKS                       R12 R13 K7 ["createElement"]
+       41 GETUPVAL                         R14 4
+       42 GETTABLEKS                       R13 R14 K8 ["Checkbox"]
+       44 DUPTABLE                         R14 K16 [{"label", "isChecked", "isDisabled", "onActivated", "size", "testId", "LayoutOrder"}]
+       45 LOADK                            R17 K17 ["SettingName"]
+       46 MOVE                             R18 R8
+       47 NAMECALL                         R15 R1 K18 ["getText"]
+       49 CALL                             R15 3 1
+       50 SETTABLEKS                       R15 R14 K9 ["label"]
+       52 SETTABLEKS                       R11 R14 K10 ["isChecked"]
+       54 NOT                              R15 R10
+       55 JUMPIF                           R15 ; [+3]
+       56 GETTABLEKS                       R16 R0 K19 ["settingsEnabled"]
+       58 NOT                              R15 R16
+       59 SETTABLEKS                       R15 R14 K11 ["isDisabled"]
+       61 NEWCLOSURE                       R15 P0
+       62 CAPTURE                          VAL R2
+       63 CAPTURE                          VAL R8
+       64 SETTABLEKS                       R15 R14 K12 ["onActivated"]
+       66 GETUPVAL                         R18 4
+       67 GETTABLEKS                       R17 R18 K20 ["Enums"]
+       69 GETTABLEKS                       R16 R17 K21 ["CheckboxSize"]
+       71 GETTABLEKS                       R15 R16 K22 ["Small"]
+       73 SETTABLEKS                       R15 R14 K13 ["size"]
+       75 SETTABLEKS                       R8 R14 K14 ["testId"]
+       77 SETTABLEKS                       R7 R14 K15 ["LayoutOrder"]
+       79 CALL                             R12 2 1
+       80 SETTABLE                         R12 R3 R8
+       81 FORGLOOP                         R4 2 ; [-67]
+       83 GETUPVAL                         R5 3
+       84 GETTABLEKS                       R4 R5 K7 ["createElement"]
+       86 GETUPVAL                         R6 4
+       87 GETTABLEKS                       R5 R6 K23 ["View"]
+       89 DUPTABLE                         R6 K25 [{"tag"}]
+       90 LOADK                            R7 K26 ["auto-y size-full-0 col gap-small"]
+       91 SETTABLEKS                       R7 R6 K24 ["tag"]
+       93 DUPTABLE                         R7 K28 [{"title", "settings"}]
+       94 GETUPVAL                         R9 3
+       95 GETTABLEKS                       R8 R9 K7 ["createElement"]
+       97 GETUPVAL                         R10 4
+       98 GETTABLEKS                       R9 R10 K29 ["Text"]
+      100 DUPTABLE                         R10 K30 [{"Text", "tag"}]
+      101 LOADK                            R13 K31 ["SettingTitle"]
+      102 GETTABLEKS                       R14 R0 K27 ["title"]
+      104 NAMECALL                         R11 R1 K18 ["getText"]
+      106 CALL                             R11 3 1
+      107 SETTABLEKS                       R11 R10 K29 ["Text"]
+      109 LOADK                            R11 K32 ["grow size-full-400 text-title-medium text-align-x-left"]
+      110 SETTABLEKS                       R11 R10 K24 ["tag"]
+      112 CALL                             R8 2 1
+      113 SETTABLEKS                       R8 R7 K27 ["title"]
+      115 GETUPVAL                         R9 3
+      116 GETTABLEKS                       R8 R9 K7 ["createElement"]
+      118 GETUPVAL                         R10 4
+      119 GETTABLEKS                       R9 R10 K23 ["View"]
+      121 DUPTABLE                         R10 K25 [{"tag"}]
+      122 LOADK                            R11 K33 ["col align-y-top gap-small size-full-0 auto-y"]
+      123 SETTABLEKS                       R11 R10 K24 ["tag"]
+      125 MOVE                             R11 R3
+      126 CALL                             R8 3 1
+      127 SETTABLEKS                       R8 R7 K1 ["settings"]
+      129 CALL                             R4 3 -1
+      130 RETURN                           R4 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AssetExport"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Framework"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["Foundation"]
-  CALL R3 1 1
-  GETTABLEKS R4 R2 K10 ["ContextServices"]
-  GETTABLEKS R5 R4 K11 ["Localization"]
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K12 ["Src"]
-  GETTABLEKS R8 R9 K13 ["Controllers"]
-  GETTABLEKS R7 R8 K14 ["ExportController"]
-  CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K12 ["Src"]
-  GETTABLEKS R9 R10 K15 ["Hooks"]
-  GETTABLEKS R8 R9 K16 ["useSettings"]
-  CALL R7 1 1
-  DUPCLOSURE R8 K17 [PROTO_1]
-  CAPTURE VAL R5
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  RETURN R8 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AssetExport"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R5 K9 ["Foundation"]
+       27 CALL                             R3 1 1
+       28 GETTABLEKS                       R4 R2 K10 ["ContextServices"]
+       30 GETTABLEKS                       R5 R4 K11 ["Localization"]
+       32 GETIMPORT                        R6 K5 [require]
+       34 GETTABLEKS                       R9 R0 K12 ["Src"]
+       36 GETTABLEKS                       R8 R9 K13 ["Controllers"]
+       38 GETTABLEKS                       R7 R8 K14 ["ExportController"]
+       40 CALL                             R6 1 1
+       41 GETIMPORT                        R7 K5 [require]
+       43 GETTABLEKS                       R10 R0 K12 ["Src"]
+       45 GETTABLEKS                       R9 R10 K15 ["Hooks"]
+       47 GETTABLEKS                       R8 R9 K16 ["useSettings"]
+       49 CALL                             R7 1 1
+       50 DUPCLOSURE                       R8 K17 [PROTO_1]
+       51 CAPTURE                          VAL R5
+       52 CAPTURE                          VAL R6
+       53 CAPTURE                          VAL R7
+       54 CAPTURE                          VAL R1
+       55 CAPTURE                          VAL R3
+       56 RETURN                           R8 1

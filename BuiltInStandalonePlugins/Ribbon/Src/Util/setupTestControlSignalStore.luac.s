@@ -1,81 +1,81 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createElement"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["Provider"]
-  DUPTABLE R3 K3 [{"value"}]
-  GETUPVAL R4 2
-  SETTABLEKS R4 R3 K2 ["value"]
-  MOVE R4 R0
-  CALL R1 3 -1
-  RETURN R1 -1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R2 R3 K1 ["Provider"]
+        6 DUPTABLE                         R3 K3 [{"value"}]
+        7 GETUPVAL                         R4 2
+        8 SETTABLEKS                       R4 R3 K2 ["value"]
+       10 MOVE                             R4 R0
+       11 CALL                             R1 3 -1
+       12 RETURN                           R1 -1
 
 PROTO_1:
-  GETIMPORT R1 K1 [require]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K2 ["Src"]
-  GETTABLEKS R3 R4 K3 ["Util"]
-  GETTABLEKS R2 R3 K4 ["ControlSignalStore"]
-  CALL R1 1 1
-  GETIMPORT R2 K1 [require]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K2 ["Src"]
-  GETTABLEKS R4 R5 K5 ["Contexts"]
-  GETTABLEKS R3 R4 K6 ["ControlSignalStoreContext"]
-  CALL R2 1 1
-  GETIMPORT R3 K1 [require]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K7 ["Packages"]
-  GETTABLEKS R4 R5 K8 ["React"]
-  CALL R3 1 1
-  GETTABLEKS R4 R1 K9 ["new"]
-  LOADK R7 K10 ["Actions"]
-  NAMECALL R5 R0 K11 ["GetPluginComponent"]
-  CALL R5 2 1
-  LOADK R8 K12 ["Settings"]
-  NAMECALL R6 R0 K11 ["GetPluginComponent"]
-  CALL R6 2 -1
-  CALL R4 -1 1
-  NEWCLOSURE R5 P0
-  CAPTURE VAL R3
-  CAPTURE VAL R2
-  CAPTURE VAL R4
-  RETURN R4 2
+        0 GETIMPORT                        R1 K1 [require]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R4 R5 K2 ["Src"]
+        5 GETTABLEKS                       R3 R4 K3 ["Util"]
+        7 GETTABLEKS                       R2 R3 K4 ["ControlSignalStore"]
+        9 CALL                             R1 1 1
+       10 GETIMPORT                        R2 K1 [require]
+       12 GETUPVAL                         R6 0
+       13 GETTABLEKS                       R5 R6 K2 ["Src"]
+       15 GETTABLEKS                       R4 R5 K5 ["Contexts"]
+       17 GETTABLEKS                       R3 R4 K6 ["ControlSignalStoreContext"]
+       19 CALL                             R2 1 1
+       20 GETIMPORT                        R3 K1 [require]
+       22 GETUPVAL                         R6 0
+       23 GETTABLEKS                       R5 R6 K7 ["Packages"]
+       25 GETTABLEKS                       R4 R5 K8 ["React"]
+       27 CALL                             R3 1 1
+       28 GETTABLEKS                       R4 R1 K9 ["new"]
+       30 LOADK                            R7 K10 ["Actions"]
+       31 NAMECALL                         R5 R0 K11 ["GetPluginComponent"]
+       33 CALL                             R5 2 1
+       34 LOADK                            R8 K12 ["Settings"]
+       35 NAMECALL                         R6 R0 K11 ["GetPluginComponent"]
+       37 CALL                             R6 2 -1
+       38 CALL                             R4 -1 1
+       39 NEWCLOSURE                       R5 P0
+       40 CAPTURE                          VAL R3
+       41 CAPTURE                          VAL R2
+       42 CAPTURE                          VAL R4
+       43 RETURN                           R4 2
 
 PROTO_2:
-  RETURN R0 0
+        0 RETURN                           R0 0
 
 PROTO_3:
-  RETURN R0 0
+        0 RETURN                           R0 0
 
 PROTO_4:
-  RETURN R0 1
+        0 RETURN                           R0 1
 
 PROTO_5:
-  DUPTABLE R1 K2 [{"destroy", "waitUntilFinishedLoading"}]
-  DUPCLOSURE R2 K3 [PROTO_2]
-  SETTABLEKS R2 R1 K0 ["destroy"]
-  DUPCLOSURE R2 K4 [PROTO_3]
-  SETTABLEKS R2 R1 K1 ["waitUntilFinishedLoading"]
-  DUPCLOSURE R2 K5 [PROTO_4]
-  RETURN R1 2
+        0 DUPTABLE                         R1 K2 [{"destroy", "waitUntilFinishedLoading"}]
+        1 DUPCLOSURE                       R2 K3 [PROTO_2]
+        2 SETTABLEKS                       R2 R1 K0 ["destroy"]
+        4 DUPCLOSURE                       R2 K4 [PROTO_3]
+        5 SETTABLEKS                       R2 R1 K1 ["waitUntilFinishedLoading"]
+        7 DUPCLOSURE                       R2 K5 [PROTO_4]
+        8 RETURN                           R1 2
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["Ribbon"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["SharedFlags"]
-  GETTABLEKS R2 R3 K8 ["getFeatureRibbonControlsCaching"]
-  CALL R1 1 1
-  DUPCLOSURE R2 K9 [PROTO_1]
-  CAPTURE VAL R0
-  DUPCLOSURE R3 K10 [PROTO_5]
-  MOVE R4 R1
-  CALL R4 0 1
-  JUMPIFNOT R4 [+1]
-  RETURN R2 1
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Ribbon"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Src"]
+       11 GETTABLEKS                       R3 R4 K7 ["SharedFlags"]
+       13 GETTABLEKS                       R2 R3 K8 ["getFeatureRibbonControlsCaching"]
+       15 CALL                             R1 1 1
+       16 DUPCLOSURE                       R2 K9 [PROTO_1]
+       17 CAPTURE                          VAL R0
+       18 DUPCLOSURE                       R3 K10 [PROTO_5]
+       19 MOVE                             R4 R1
+       20 CALL                             R4 0 1
+       21 JUMPIFNOT                        R4 ; [+1]
+       22 RETURN                           R2 1
+       23 RETURN                           R3 1

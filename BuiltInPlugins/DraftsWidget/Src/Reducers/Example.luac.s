@@ -1,35 +1,35 @@
 PROTO_0:
-  GETTABLEKS R2 R1 K0 ["message"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K1 ["Dictionary"]
-  GETTABLEKS R3 R4 K2 ["join"]
-  MOVE R4 R0
-  DUPTABLE R5 K3 [{"message"}]
-  SETTABLEKS R2 R5 K0 ["message"]
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 GETTABLEKS                       R2 R1 K0 ["message"]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R4 R5 K1 ["Dictionary"]
+        5 GETTABLEKS                       R3 R4 K2 ["join"]
+        7 MOVE                             R4 R0
+        8 DUPTABLE                         R5 K3 [{"message"}]
+        9 SETTABLEKS                       R2 R5 K0 ["message"]
+       11 CALL                             R3 2 -1
+       12 RETURN                           R3 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Rodux"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Cryo"]
-  CALL R2 1 1
-  GETTABLEKS R3 R1 K8 ["createReducer"]
-  DUPTABLE R4 K10 [{"message"}]
-  LOADNIL R5
-  SETTABLEKS R5 R4 K9 ["message"]
-  DUPTABLE R5 K12 [{"ExampleAction"}]
-  DUPCLOSURE R6 K13 [PROTO_0]
-  CAPTURE VAL R2
-  SETTABLEKS R6 R5 K11 ["ExampleAction"]
-  CALL R3 2 1
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K7 ["Cryo"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R1 K8 ["createReducer"]
+       25 DUPTABLE                         R4 K10 [{"message"}]
+       26 LOADNIL                          R5
+       27 SETTABLEKS                       R5 R4 K9 ["message"]
+       29 DUPTABLE                         R5 K12 [{"ExampleAction"}]
+       30 DUPCLOSURE                       R6 K13 [PROTO_0]
+       31 CAPTURE                          VAL R2
+       32 SETTABLEKS                       R6 R5 K11 ["ExampleAction"]
+       34 CALL                             R3 2 1
+       35 RETURN                           R3 1

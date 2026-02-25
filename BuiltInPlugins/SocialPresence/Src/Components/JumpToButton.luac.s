@@ -1,175 +1,175 @@
 PROTO_0:
-  GETUPVAL R0 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["Id"]
-  NAMECALL R0 R0 K1 ["RequestFlyToCollaborator"]
-  CALL R0 2 0
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K2 ["OnJump"]
-  JUMPIFNOT R0 [+4]
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K2 ["OnJump"]
-  CALL R0 0 0
-  GETUPVAL R0 2
-  LOADK R2 K3 ["jumpToCollaboratorPressed"]
-  NAMECALL R0 R0 K4 ["report"]
-  CALL R0 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R2 R3 K0 ["Id"]
+        4 NAMECALL                         R0 R0 K1 ["RequestFlyToCollaborator"]
+        6 CALL                             R0 2 0
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R0 R1 K2 ["OnJump"]
+       10 JUMPIFNOT                        R0 ; [+4]
+       11 GETUPVAL                         R1 1
+       12 GETTABLEKS                       R0 R1 K2 ["OnJump"]
+       14 CALL                             R0 0 0
+       15 GETUPVAL                         R0 2
+       16 LOADK                            R2 K3 ["jumpToCollaboratorPressed"]
+       17 NAMECALL                         R0 R0 K4 ["report"]
+       19 CALL                             R0 2 0
+       20 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["use"]
-  CALL R1 1 1
-  NAMECALL R1 R1 K1 ["get"]
-  CALL R1 1 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["use"]
-  CALL R2 0 1
-  GETUPVAL R3 2
-  NAMECALL R3 R3 K0 ["use"]
-  CALL R3 1 1
-  GETUPVAL R4 3
-  NAMECALL R4 R4 K0 ["use"]
-  CALL R4 1 1
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K2 ["createElement"]
-  GETUPVAL R6 5
-  DUPTABLE R7 K9 [{"OnClick", "Text", "Size", "AnchorPoint", "Position", "Style"}]
-  NEWCLOSURE R8 P0
-  CAPTURE VAL R1
-  CAPTURE VAL R0
-  CAPTURE VAL R4
-  SETTABLEKS R8 R7 K3 ["OnClick"]
-  GETTABLEKS R9 R0 K10 ["Id"]
-  GETUPVAL R10 6
-  JUMPIFNOTEQ R9 R10 [+7]
-  LOADK R10 K11 ["Collaborator"]
-  LOADK R11 K12 ["Return"]
-  NAMECALL R8 R2 K13 ["getText"]
-  CALL R8 3 1
-  JUMPIF R8 [+5]
-  LOADK R10 K11 ["Collaborator"]
-  LOADK R11 K14 ["Join"]
-  NAMECALL R8 R2 K13 ["getText"]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K4 ["Text"]
-  GETIMPORT R8 K17 [UDim2.new]
-  LOADN R9 1
-  LOADN R10 0
-  LOADN R11 0
-  LOADN R12 28
-  CALL R8 4 1
-  SETTABLEKS R8 R7 K5 ["Size"]
-  GETIMPORT R8 K19 [Vector2.new]
-  LOADN R9 0
-  LOADN R10 1
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K6 ["AnchorPoint"]
-  GETIMPORT R8 K21 [UDim2.fromOffset]
-  LOADN R9 0
-  LOADN R10 80
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K7 ["Position"]
-  NEWTABLE R8 8 0
-  GETUPVAL R9 7
-  SETTABLEKS R9 R8 K22 ["Background"]
-  GETUPVAL R10 8
-  GETTABLEKS R9 R10 K23 ["join"]
-  DUPTABLE R10 K25 [{"Color"}]
-  GETTABLEKS R12 R3 K26 ["jumpButton"]
-  GETTABLEKS R11 R12 K27 ["background"]
-  SETTABLEKS R11 R10 K24 ["Color"]
-  GETTABLEKS R12 R3 K26 ["jumpButton"]
-  GETTABLEKS R11 R12 K28 ["baseStyle"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K29 ["BackgroundStyle"]
-  GETUPVAL R10 9
-  GETTABLEKS R9 R10 K30 ["Hover"]
-  DUPTABLE R10 K31 [{"BackgroundStyle"}]
-  GETUPVAL R12 8
-  GETTABLEKS R11 R12 K23 ["join"]
-  DUPTABLE R12 K25 [{"Color"}]
-  GETTABLEKS R14 R3 K26 ["jumpButton"]
-  GETTABLEKS R13 R14 K32 ["hoveredBackground"]
-  SETTABLEKS R13 R12 K24 ["Color"]
-  GETTABLEKS R14 R3 K26 ["jumpButton"]
-  GETTABLEKS R13 R14 K28 ["baseStyle"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K29 ["BackgroundStyle"]
-  SETTABLE R10 R8 R9
-  GETUPVAL R10 9
-  GETTABLEKS R9 R10 K33 ["Pressed"]
-  DUPTABLE R10 K31 [{"BackgroundStyle"}]
-  GETUPVAL R12 8
-  GETTABLEKS R11 R12 K23 ["join"]
-  DUPTABLE R12 K25 [{"Color"}]
-  GETTABLEKS R14 R3 K26 ["jumpButton"]
-  GETTABLEKS R13 R14 K34 ["pressedBackground"]
-  SETTABLEKS R13 R12 K24 ["Color"]
-  GETTABLEKS R14 R3 K26 ["jumpButton"]
-  GETTABLEKS R13 R14 K28 ["baseStyle"]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K29 ["BackgroundStyle"]
-  SETTABLE R10 R8 R9
-  GETIMPORT R9 K38 [Enum.Font.SourceSans]
-  SETTABLEKS R9 R8 K36 ["Font"]
-  GETTABLEKS R10 R3 K26 ["jumpButton"]
-  GETTABLEKS R9 R10 K39 ["textColor"]
-  SETTABLEKS R9 R8 K40 ["TextColor"]
-  LOADN R9 18
-  SETTABLEKS R9 R8 K41 ["TextSize"]
-  SETTABLEKS R8 R7 K8 ["Style"]
-  CALL R5 2 -1
-  RETURN R5 -1
+        0 GETUPVAL                         R1 0
+        1 NAMECALL                         R1 R1 K0 ["use"]
+        3 CALL                             R1 1 1
+        4 NAMECALL                         R1 R1 K1 ["get"]
+        6 CALL                             R1 1 1
+        7 GETUPVAL                         R3 1
+        8 GETTABLEKS                       R2 R3 K0 ["use"]
+       10 CALL                             R2 0 1
+       11 GETUPVAL                         R3 2
+       12 NAMECALL                         R3 R3 K0 ["use"]
+       14 CALL                             R3 1 1
+       15 GETUPVAL                         R4 3
+       16 NAMECALL                         R4 R4 K0 ["use"]
+       18 CALL                             R4 1 1
+       19 GETUPVAL                         R6 4
+       20 GETTABLEKS                       R5 R6 K2 ["createElement"]
+       22 GETUPVAL                         R6 5
+       23 DUPTABLE                         R7 K9 [{"OnClick", "Text", "Size", "AnchorPoint", "Position", "Style"}]
+       24 NEWCLOSURE                       R8 P0
+       25 CAPTURE                          VAL R1
+       26 CAPTURE                          VAL R0
+       27 CAPTURE                          VAL R4
+       28 SETTABLEKS                       R8 R7 K3 ["OnClick"]
+       30 GETTABLEKS                       R9 R0 K10 ["Id"]
+       32 GETUPVAL                         R10 6
+       33 JUMPIFNOTEQ                      R9 R10 ; [+7]
+       35 LOADK                            R10 K11 ["Collaborator"]
+       36 LOADK                            R11 K12 ["Return"]
+       37 NAMECALL                         R8 R2 K13 ["getText"]
+       39 CALL                             R8 3 1
+       40 JUMPIF                           R8 ; [+5]
+       41 LOADK                            R10 K11 ["Collaborator"]
+       42 LOADK                            R11 K14 ["Join"]
+       43 NAMECALL                         R8 R2 K13 ["getText"]
+       45 CALL                             R8 3 1
+       46 SETTABLEKS                       R8 R7 K4 ["Text"]
+       48 GETIMPORT                        R8 K17 [UDim2.new]
+       50 LOADN                            R9 1
+       51 LOADN                            R10 0
+       52 LOADN                            R11 0
+       53 LOADN                            R12 28
+       54 CALL                             R8 4 1
+       55 SETTABLEKS                       R8 R7 K5 ["Size"]
+       57 GETIMPORT                        R8 K19 [Vector2.new]
+       59 LOADN                            R9 0
+       60 LOADN                            R10 1
+       61 CALL                             R8 2 1
+       62 SETTABLEKS                       R8 R7 K6 ["AnchorPoint"]
+       64 GETIMPORT                        R8 K21 [UDim2.fromOffset]
+       66 LOADN                            R9 0
+       67 LOADN                            R10 80
+       68 CALL                             R8 2 1
+       69 SETTABLEKS                       R8 R7 K7 ["Position"]
+       71 NEWTABLE                         R8 8 0
+       73 GETUPVAL                         R9 7
+       74 SETTABLEKS                       R9 R8 K22 ["Background"]
+       76 GETUPVAL                         R10 8
+       77 GETTABLEKS                       R9 R10 K23 ["join"]
+       79 DUPTABLE                         R10 K25 [{"Color"}]
+       80 GETTABLEKS                       R12 R3 K26 ["jumpButton"]
+       82 GETTABLEKS                       R11 R12 K27 ["background"]
+       84 SETTABLEKS                       R11 R10 K24 ["Color"]
+       86 GETTABLEKS                       R12 R3 K26 ["jumpButton"]
+       88 GETTABLEKS                       R11 R12 K28 ["baseStyle"]
+       90 CALL                             R9 2 1
+       91 SETTABLEKS                       R9 R8 K29 ["BackgroundStyle"]
+       93 GETUPVAL                         R10 9
+       94 GETTABLEKS                       R9 R10 K30 ["Hover"]
+       96 DUPTABLE                         R10 K31 [{"BackgroundStyle"}]
+       97 GETUPVAL                         R12 8
+       98 GETTABLEKS                       R11 R12 K23 ["join"]
+      100 DUPTABLE                         R12 K25 [{"Color"}]
+      101 GETTABLEKS                       R14 R3 K26 ["jumpButton"]
+      103 GETTABLEKS                       R13 R14 K32 ["hoveredBackground"]
+      105 SETTABLEKS                       R13 R12 K24 ["Color"]
+      107 GETTABLEKS                       R14 R3 K26 ["jumpButton"]
+      109 GETTABLEKS                       R13 R14 K28 ["baseStyle"]
+      111 CALL                             R11 2 1
+      112 SETTABLEKS                       R11 R10 K29 ["BackgroundStyle"]
+      114 SETTABLE                         R10 R8 R9
+      115 GETUPVAL                         R10 9
+      116 GETTABLEKS                       R9 R10 K33 ["Pressed"]
+      118 DUPTABLE                         R10 K31 [{"BackgroundStyle"}]
+      119 GETUPVAL                         R12 8
+      120 GETTABLEKS                       R11 R12 K23 ["join"]
+      122 DUPTABLE                         R12 K25 [{"Color"}]
+      123 GETTABLEKS                       R14 R3 K26 ["jumpButton"]
+      125 GETTABLEKS                       R13 R14 K34 ["pressedBackground"]
+      127 SETTABLEKS                       R13 R12 K24 ["Color"]
+      129 GETTABLEKS                       R14 R3 K26 ["jumpButton"]
+      131 GETTABLEKS                       R13 R14 K28 ["baseStyle"]
+      133 CALL                             R11 2 1
+      134 SETTABLEKS                       R11 R10 K29 ["BackgroundStyle"]
+      136 SETTABLE                         R10 R8 R9
+      137 GETIMPORT                        R9 K38 [Enum.Font.SourceSans]
+      139 SETTABLEKS                       R9 R8 K36 ["Font"]
+      141 GETTABLEKS                       R10 R3 K26 ["jumpButton"]
+      143 GETTABLEKS                       R9 R10 K39 ["textColor"]
+      145 SETTABLEKS                       R9 R8 K40 ["TextColor"]
+      147 LOADN                            R9 18
+      148 SETTABLEKS                       R9 R8 K41 ["TextSize"]
+      150 SETTABLEKS                       R8 R7 K8 ["Style"]
+      152 CALL                             R5 2 -1
+      153 RETURN                           R5 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Framework"]
-  CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Packages"]
-  GETTABLEKS R4 R5 K8 ["Dash"]
-  CALL R3 1 1
-  GETTABLEKS R4 R2 K9 ["ContextServices"]
-  GETTABLEKS R5 R4 K10 ["Localization"]
-  GETTABLEKS R6 R4 K11 ["Analytics"]
-  GETIMPORT R7 K4 [require]
-  GETTABLEKS R10 R0 K12 ["Src"]
-  GETTABLEKS R9 R10 K9 ["ContextServices"]
-  GETTABLEKS R8 R9 K13 ["CollaboratorsServiceContext"]
-  CALL R7 1 1
-  GETTABLEKS R9 R2 K14 ["Style"]
-  GETTABLEKS R8 R9 K15 ["Stylizer"]
-  GETTABLEKS R10 R2 K16 ["Util"]
-  GETTABLEKS R9 R10 K17 ["StyleModifier"]
-  GETTABLEKS R10 R2 K18 ["UI"]
-  GETTABLEKS R11 R10 K19 ["Button"]
-  GETTABLEKS R12 R10 K20 ["RoundBox"]
-  GETIMPORT R13 K22 [game]
-  LOADK R15 K23 ["StudioService"]
-  NAMECALL R13 R13 K24 ["GetService"]
-  CALL R13 2 1
-  NAMECALL R14 R13 K25 ["GetUserId"]
-  CALL R14 1 1
-  DUPCLOSURE R15 K26 [PROTO_1]
-  CAPTURE VAL R7
-  CAPTURE VAL R5
-  CAPTURE VAL R8
-  CAPTURE VAL R6
-  CAPTURE VAL R1
-  CAPTURE VAL R11
-  CAPTURE VAL R14
-  CAPTURE VAL R12
-  CAPTURE VAL R3
-  CAPTURE VAL R9
-  RETURN R15 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["React"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K4 [require]
+       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R5 K8 ["Dash"]
+       29 CALL                             R3 1 1
+       30 GETTABLEKS                       R4 R2 K9 ["ContextServices"]
+       32 GETTABLEKS                       R5 R4 K10 ["Localization"]
+       34 GETTABLEKS                       R6 R4 K11 ["Analytics"]
+       36 GETIMPORT                        R7 K4 [require]
+       38 GETTABLEKS                       R10 R0 K12 ["Src"]
+       40 GETTABLEKS                       R9 R10 K9 ["ContextServices"]
+       42 GETTABLEKS                       R8 R9 K13 ["CollaboratorsServiceContext"]
+       44 CALL                             R7 1 1
+       45 GETTABLEKS                       R9 R2 K14 ["Style"]
+       47 GETTABLEKS                       R8 R9 K15 ["Stylizer"]
+       49 GETTABLEKS                       R10 R2 K16 ["Util"]
+       51 GETTABLEKS                       R9 R10 K17 ["StyleModifier"]
+       53 GETTABLEKS                       R10 R2 K18 ["UI"]
+       55 GETTABLEKS                       R11 R10 K19 ["Button"]
+       57 GETTABLEKS                       R12 R10 K20 ["RoundBox"]
+       59 GETIMPORT                        R13 K22 [game]
+       61 LOADK                            R15 K23 ["StudioService"]
+       62 NAMECALL                         R13 R13 K24 ["GetService"]
+       64 CALL                             R13 2 1
+       65 NAMECALL                         R14 R13 K25 ["GetUserId"]
+       67 CALL                             R14 1 1
+       68 DUPCLOSURE                       R15 K26 [PROTO_1]
+       69 CAPTURE                          VAL R7
+       70 CAPTURE                          VAL R5
+       71 CAPTURE                          VAL R8
+       72 CAPTURE                          VAL R6
+       73 CAPTURE                          VAL R1
+       74 CAPTURE                          VAL R11
+       75 CAPTURE                          VAL R14
+       76 CAPTURE                          VAL R12
+       77 CAPTURE                          VAL R3
+       78 CAPTURE                          VAL R9
+       79 RETURN                           R15 1

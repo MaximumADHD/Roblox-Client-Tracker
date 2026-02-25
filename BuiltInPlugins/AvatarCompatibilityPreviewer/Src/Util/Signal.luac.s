@@ -1,263 +1,263 @@
 PROTO_0:
-  PREPVARARGS 1
-  GETUPVAL R1 0
-  LOADNIL R2
-  SETUPVAL R2 0
-  MOVE R2 R0
-  GETVARARGS R3 -1
-  CALL R2 -1 0
-  SETUPVAL R1 0
-  RETURN R0 0
+        0 PREPVARARGS                      1
+        1 GETUPVAL                         R1 0
+        2 LOADNIL                          R2
+        3 SETUPVAL                         R2 0
+        4 MOVE                             R2 R0
+        5 GETVARARGS                       R3 -1
+        6 CALL                             R2 -1 0
+        7 SETUPVAL                         R1 0
+        8 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R0 0
-  GETIMPORT R1 K2 [coroutine.yield]
-  CALL R1 0 -1
-  CALL R0 -1 0
-  JUMPBACK [-6]
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETIMPORT                        R1 K2 [coroutine.yield]
+        3 CALL                             R1 0 -1
+        4 CALL                             R0 -1 0
+        5 JUMPBACK                         ; [-6]
+        6 RETURN                           R0 0
 
 PROTO_2:
-  DUPTABLE R3 K4 [{"_connected", "_signal", "_fn", "_next"}]
-  LOADB R4 1
-  SETTABLEKS R4 R3 K0 ["_connected"]
-  SETTABLEKS R0 R3 K1 ["_signal"]
-  SETTABLEKS R1 R3 K2 ["_fn"]
-  LOADB R4 0
-  SETTABLEKS R4 R3 K3 ["_next"]
-  GETUPVAL R4 0
-  FASTCALL2 SETMETATABLE R3 R4 [+3]
-  GETIMPORT R2 K6 [setmetatable]
-  CALL R2 2 1
-  RETURN R2 1
+        0 DUPTABLE                         R3 K4 [{"_connected", "_signal", "_fn", "_next"}]
+        1 LOADB                            R4 1
+        2 SETTABLEKS                       R4 R3 K0 ["_connected"]
+        4 SETTABLEKS                       R0 R3 K1 ["_signal"]
+        6 SETTABLEKS                       R1 R3 K2 ["_fn"]
+        8 LOADB                            R4 0
+        9 SETTABLEKS                       R4 R3 K3 ["_next"]
+       11 GETUPVAL                         R4 0
+       12 FASTCALL2                        SETMETATABLE R3 R4 ; [+3]
+       14 GETIMPORT                        R2 K6 [setmetatable]
+       16 CALL                             R2 2 1
+       17 RETURN                           R2 1
 
 PROTO_3:
-  LOADB R1 0
-  SETTABLEKS R1 R0 K0 ["_connected"]
-  GETTABLEKS R2 R0 K1 ["_signal"]
-  GETTABLEKS R1 R2 K2 ["_handlerListHead"]
-  JUMPIFNOTEQ R1 R0 [+8]
-  GETTABLEKS R1 R0 K1 ["_signal"]
-  GETTABLEKS R2 R0 K3 ["_next"]
-  SETTABLEKS R2 R1 K2 ["_handlerListHead"]
-  RETURN R0 0
-  GETTABLEKS R2 R0 K1 ["_signal"]
-  GETTABLEKS R1 R2 K2 ["_handlerListHead"]
-  JUMPIFNOT R1 [+7]
-  GETTABLEKS R2 R1 K3 ["_next"]
-  JUMPIFEQ R2 R0 [+4]
-  GETTABLEKS R1 R1 K3 ["_next"]
-  JUMPBACK [-8]
-  JUMPIFNOT R1 [+4]
-  GETTABLEKS R2 R0 K3 ["_next"]
-  SETTABLEKS R2 R1 K3 ["_next"]
-  RETURN R0 0
+        0 LOADB                            R1 0
+        1 SETTABLEKS                       R1 R0 K0 ["_connected"]
+        3 GETTABLEKS                       R2 R0 K1 ["_signal"]
+        5 GETTABLEKS                       R1 R2 K2 ["_handlerListHead"]
+        7 JUMPIFNOTEQ                      R1 R0 ; [+8]
+        9 GETTABLEKS                       R1 R0 K1 ["_signal"]
+       11 GETTABLEKS                       R2 R0 K3 ["_next"]
+       13 SETTABLEKS                       R2 R1 K2 ["_handlerListHead"]
+       15 RETURN                           R0 0
+       16 GETTABLEKS                       R2 R0 K1 ["_signal"]
+       18 GETTABLEKS                       R1 R2 K2 ["_handlerListHead"]
+       20 JUMPIFNOT                        R1 ; [+7]
+       21 GETTABLEKS                       R2 R1 K3 ["_next"]
+       23 JUMPIFEQ                         R2 R0 ; [+4]
+       25 GETTABLEKS                       R1 R1 K3 ["_next"]
+       27 JUMPBACK                         ; [-8]
+       28 JUMPIFNOT                        R1 ; [+4]
+       29 GETTABLEKS                       R2 R0 K3 ["_next"]
+       31 SETTABLEKS                       R2 R1 K3 ["_next"]
+       33 RETURN                           R0 0
 
 PROTO_4:
-  GETIMPORT R2 K1 [error]
-  LOADK R3 K2 ["Attempt to get Connection::%s (not a valid member)"]
-  FASTCALL1 TOSTRING R1 [+3]
-  MOVE R6 R1
-  GETIMPORT R5 K4 [tostring]
-  CALL R5 1 1
-  NAMECALL R3 R3 K5 ["format"]
-  CALL R3 2 1
-  LOADN R4 2
-  CALL R2 2 0
-  RETURN R0 0
+        0 GETIMPORT                        R2 K1 [error]
+        2 LOADK                            R3 K2 ["Attempt to get Connection::%s (not a valid member)"]
+        3 FASTCALL1                        TOSTRING R1 ; [+3]
+        4 MOVE                             R6 R1
+        5 GETIMPORT                        R5 K4 [tostring]
+        7 CALL                             R5 1 1
+        8 NAMECALL                         R3 R3 K5 ["format"]
+       10 CALL                             R3 2 1
+       11 LOADN                            R4 2
+       12 CALL                             R2 2 0
+       13 RETURN                           R0 0
 
 PROTO_5:
-  GETIMPORT R3 K1 [error]
-  LOADK R4 K2 ["Attempt to set Connection::%s (not a valid member)"]
-  FASTCALL1 TOSTRING R1 [+3]
-  MOVE R7 R1
-  GETIMPORT R6 K4 [tostring]
-  CALL R6 1 1
-  NAMECALL R4 R4 K5 ["format"]
-  CALL R4 2 1
-  LOADN R5 2
-  CALL R3 2 0
-  RETURN R0 0
+        0 GETIMPORT                        R3 K1 [error]
+        2 LOADK                            R4 K2 ["Attempt to set Connection::%s (not a valid member)"]
+        3 FASTCALL1                        TOSTRING R1 ; [+3]
+        4 MOVE                             R7 R1
+        5 GETIMPORT                        R6 K4 [tostring]
+        7 CALL                             R6 1 1
+        8 NAMECALL                         R4 R4 K5 ["format"]
+       10 CALL                             R4 2 1
+       11 LOADN                            R5 2
+       12 CALL                             R3 2 0
+       13 RETURN                           R0 0
 
 PROTO_6:
-  DUPTABLE R1 K1 [{"_handlerListHead"}]
-  LOADB R2 0
-  SETTABLEKS R2 R1 K0 ["_handlerListHead"]
-  GETUPVAL R2 0
-  FASTCALL2 SETMETATABLE R1 R2 [+3]
-  GETIMPORT R0 K3 [setmetatable]
-  CALL R0 2 1
-  RETURN R0 1
+        0 DUPTABLE                         R1 K1 [{"_handlerListHead"}]
+        1 LOADB                            R2 0
+        2 SETTABLEKS                       R2 R1 K0 ["_handlerListHead"]
+        4 GETUPVAL                         R2 0
+        5 FASTCALL2                        SETMETATABLE R1 R2 ; [+3]
+        7 GETIMPORT                        R0 K3 [setmetatable]
+        9 CALL                             R0 2 1
+       10 RETURN                           R0 1
 
 PROTO_7:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["new"]
-  MOVE R3 R0
-  MOVE R4 R1
-  CALL R2 2 1
-  GETTABLEKS R3 R0 K1 ["_handlerListHead"]
-  JUMPIFNOT R3 [+7]
-  GETTABLEKS R3 R0 K1 ["_handlerListHead"]
-  SETTABLEKS R3 R2 K2 ["_next"]
-  SETTABLEKS R2 R0 K1 ["_handlerListHead"]
-  RETURN R2 1
-  SETTABLEKS R2 R0 K1 ["_handlerListHead"]
-  RETURN R2 1
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        3 MOVE                             R3 R0
+        4 MOVE                             R4 R1
+        5 CALL                             R2 2 1
+        6 GETTABLEKS                       R3 R0 K1 ["_handlerListHead"]
+        8 JUMPIFNOT                        R3 ; [+7]
+        9 GETTABLEKS                       R3 R0 K1 ["_handlerListHead"]
+       11 SETTABLEKS                       R3 R2 K2 ["_next"]
+       13 SETTABLEKS                       R2 R0 K1 ["_handlerListHead"]
+       15 RETURN                           R2 1
+       16 SETTABLEKS                       R2 R0 K1 ["_handlerListHead"]
+       18 RETURN                           R2 1
 
 PROTO_8:
-  LOADB R1 0
-  SETTABLEKS R1 R0 K0 ["_handlerListHead"]
-  RETURN R0 0
+        0 LOADB                            R1 0
+        1 SETTABLEKS                       R1 R0 K0 ["_handlerListHead"]
+        3 RETURN                           R0 0
 
 PROTO_9:
-  PREPVARARGS 1
-  GETTABLEKS R1 R0 K0 ["_handlerListHead"]
-  JUMPIFNOT R1 [+24]
-  GETTABLEKS R2 R1 K1 ["_connected"]
-  JUMPIFNOT R2 [+18]
-  GETUPVAL R2 0
-  JUMPIF R2 [+9]
-  GETIMPORT R2 K4 [coroutine.create]
-  GETUPVAL R3 1
-  CALL R2 1 1
-  SETUPVAL R2 0
-  GETIMPORT R2 K6 [coroutine.resume]
-  GETUPVAL R3 0
-  CALL R2 1 0
-  GETIMPORT R2 K9 [task.spawn]
-  GETUPVAL R3 0
-  GETTABLEKS R4 R1 K10 ["_fn"]
-  GETVARARGS R5 -1
-  CALL R2 -1 0
-  GETTABLEKS R1 R1 K11 ["_next"]
-  JUMPBACK [-25]
-  RETURN R0 0
+        0 PREPVARARGS                      1
+        1 GETTABLEKS                       R1 R0 K0 ["_handlerListHead"]
+        3 JUMPIFNOT                        R1 ; [+24]
+        4 GETTABLEKS                       R2 R1 K1 ["_connected"]
+        6 JUMPIFNOT                        R2 ; [+18]
+        7 GETUPVAL                         R2 0
+        8 JUMPIF                           R2 ; [+9]
+        9 GETIMPORT                        R2 K4 [coroutine.create]
+       11 GETUPVAL                         R3 1
+       12 CALL                             R2 1 1
+       13 SETUPVAL                         R2 0
+       14 GETIMPORT                        R2 K6 [coroutine.resume]
+       16 GETUPVAL                         R3 0
+       17 CALL                             R2 1 0
+       18 GETIMPORT                        R2 K9 [task.spawn]
+       20 GETUPVAL                         R3 0
+       21 GETTABLEKS                       R4 R1 K10 ["_fn"]
+       23 GETVARARGS                       R5 -1
+       24 CALL                             R2 -1 0
+       25 GETTABLEKS                       R1 R1 K11 ["_next"]
+       27 JUMPBACK                         ; [-25]
+       28 RETURN                           R0 0
 
 PROTO_10:
-  PREPVARARGS 0
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["Disconnect"]
-  CALL R0 1 0
-  GETIMPORT R0 K3 [task.spawn]
-  GETUPVAL R1 1
-  GETVARARGS R2 -1
-  CALL R0 -1 0
-  RETURN R0 0
+        0 PREPVARARGS                      0
+        1 GETUPVAL                         R0 0
+        2 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        4 CALL                             R0 1 0
+        5 GETIMPORT                        R0 K3 [task.spawn]
+        7 GETUPVAL                         R1 1
+        8 GETVARARGS                       R2 -1
+        9 CALL                             R0 -1 0
+       10 RETURN                           R0 0
 
 PROTO_11:
-  GETIMPORT R1 K2 [coroutine.running]
-  CALL R1 0 1
-  LOADNIL R2
-  NEWCLOSURE R5 P0
-  CAPTURE REF R2
-  CAPTURE VAL R1
-  NAMECALL R3 R0 K3 ["Connect"]
-  CALL R3 2 1
-  MOVE R2 R3
-  GETIMPORT R3 K5 [coroutine.yield]
-  CALL R3 0 -1
-  CLOSEUPVALS R2
-  RETURN R3 -1
+        0 GETIMPORT                        R1 K2 [coroutine.running]
+        2 CALL                             R1 0 1
+        3 LOADNIL                          R2
+        4 NEWCLOSURE                       R5 P0
+        5 CAPTURE                          REF R2
+        6 CAPTURE                          VAL R1
+        7 NAMECALL                         R3 R0 K3 ["Connect"]
+        9 CALL                             R3 2 1
+       10 MOVE                             R2 R3
+       11 GETIMPORT                        R3 K5 [coroutine.yield]
+       13 CALL                             R3 0 -1
+       14 CLOSEUPVALS                      R2
+       15 RETURN                           R3 -1
 
 PROTO_12:
-  PREPVARARGS 0
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["_connected"]
-  JUMPIFNOT R0 [+4]
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K1 ["Disconnect"]
-  CALL R0 1 0
-  GETUPVAL R0 1
-  GETVARARGS R1 -1
-  CALL R0 -1 0
-  RETURN R0 0
+        0 PREPVARARGS                      0
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R0 R1 K0 ["_connected"]
+        4 JUMPIFNOT                        R0 ; [+4]
+        5 GETUPVAL                         R0 0
+        6 NAMECALL                         R0 R0 K1 ["Disconnect"]
+        8 CALL                             R0 1 0
+        9 GETUPVAL                         R0 1
+       10 GETVARARGS                       R1 -1
+       11 CALL                             R0 -1 0
+       12 RETURN                           R0 0
 
 PROTO_13:
-  LOADNIL R2
-  NEWCLOSURE R5 P0
-  CAPTURE REF R2
-  CAPTURE VAL R1
-  NAMECALL R3 R0 K0 ["Connect"]
-  CALL R3 2 1
-  MOVE R2 R3
-  CLOSEUPVALS R2
-  RETURN R2 1
+        0 LOADNIL                          R2
+        1 NEWCLOSURE                       R5 P0
+        2 CAPTURE                          REF R2
+        3 CAPTURE                          VAL R1
+        4 NAMECALL                         R3 R0 K0 ["Connect"]
+        6 CALL                             R3 2 1
+        7 MOVE                             R2 R3
+        8 CLOSEUPVALS                      R2
+        9 RETURN                           R2 1
 
 PROTO_14:
-  GETIMPORT R2 K1 [error]
-  LOADK R3 K2 ["Attempt to get Signal::%s (not a valid member)"]
-  FASTCALL1 TOSTRING R1 [+3]
-  MOVE R6 R1
-  GETIMPORT R5 K4 [tostring]
-  CALL R5 1 1
-  NAMECALL R3 R3 K5 ["format"]
-  CALL R3 2 1
-  LOADN R4 2
-  CALL R2 2 0
-  RETURN R0 0
+        0 GETIMPORT                        R2 K1 [error]
+        2 LOADK                            R3 K2 ["Attempt to get Signal::%s (not a valid member)"]
+        3 FASTCALL1                        TOSTRING R1 ; [+3]
+        4 MOVE                             R6 R1
+        5 GETIMPORT                        R5 K4 [tostring]
+        7 CALL                             R5 1 1
+        8 NAMECALL                         R3 R3 K5 ["format"]
+       10 CALL                             R3 2 1
+       11 LOADN                            R4 2
+       12 CALL                             R2 2 0
+       13 RETURN                           R0 0
 
 PROTO_15:
-  GETIMPORT R3 K1 [error]
-  LOADK R4 K2 ["Attempt to set Signal::%s (not a valid member)"]
-  FASTCALL1 TOSTRING R1 [+3]
-  MOVE R7 R1
-  GETIMPORT R6 K4 [tostring]
-  CALL R6 1 1
-  NAMECALL R4 R4 K5 ["format"]
-  CALL R4 2 1
-  LOADN R5 2
-  CALL R3 2 0
-  RETURN R0 0
+        0 GETIMPORT                        R3 K1 [error]
+        2 LOADK                            R4 K2 ["Attempt to set Signal::%s (not a valid member)"]
+        3 FASTCALL1                        TOSTRING R1 ; [+3]
+        4 MOVE                             R7 R1
+        5 GETIMPORT                        R6 K4 [tostring]
+        7 CALL                             R6 1 1
+        8 NAMECALL                         R4 R4 K5 ["format"]
+       10 CALL                             R4 2 1
+       11 LOADN                            R5 2
+       12 CALL                             R3 2 0
+       13 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  LOADNIL R0
-  NEWCLOSURE R1 P0
-  CAPTURE REF R0
-  DUPCLOSURE R2 K0 [PROTO_1]
-  CAPTURE VAL R1
-  NEWTABLE R3 4 0
-  SETTABLEKS R3 R3 K1 ["__index"]
-  DUPCLOSURE R4 K2 [PROTO_2]
-  CAPTURE VAL R3
-  SETTABLEKS R4 R3 K3 ["new"]
-  DUPCLOSURE R4 K4 [PROTO_3]
-  SETTABLEKS R4 R3 K5 ["Disconnect"]
-  DUPTABLE R6 K7 [{"__index", "__newindex"}]
-  DUPCLOSURE R7 K8 [PROTO_4]
-  SETTABLEKS R7 R6 K1 ["__index"]
-  DUPCLOSURE R7 K9 [PROTO_5]
-  SETTABLEKS R7 R6 K6 ["__newindex"]
-  FASTCALL2 SETMETATABLE R3 R6 [+4]
-  MOVE R5 R3
-  GETIMPORT R4 K11 [setmetatable]
-  CALL R4 2 0
-  NEWTABLE R4 8 0
-  SETTABLEKS R4 R4 K1 ["__index"]
-  DUPCLOSURE R5 K12 [PROTO_6]
-  CAPTURE VAL R4
-  SETTABLEKS R5 R4 K3 ["new"]
-  DUPCLOSURE R5 K13 [PROTO_7]
-  CAPTURE VAL R3
-  SETTABLEKS R5 R4 K14 ["Connect"]
-  DUPCLOSURE R5 K15 [PROTO_8]
-  SETTABLEKS R5 R4 K16 ["DisconnectAll"]
-  NEWCLOSURE R5 P9
-  CAPTURE REF R0
-  CAPTURE VAL R2
-  SETTABLEKS R5 R4 K17 ["Fire"]
-  DUPCLOSURE R5 K18 [PROTO_11]
-  SETTABLEKS R5 R4 K19 ["Wait"]
-  DUPCLOSURE R5 K20 [PROTO_13]
-  SETTABLEKS R5 R4 K21 ["Once"]
-  DUPTABLE R7 K7 [{"__index", "__newindex"}]
-  DUPCLOSURE R8 K22 [PROTO_14]
-  SETTABLEKS R8 R7 K1 ["__index"]
-  DUPCLOSURE R8 K23 [PROTO_15]
-  SETTABLEKS R8 R7 K6 ["__newindex"]
-  FASTCALL2 SETMETATABLE R4 R7 [+4]
-  MOVE R6 R4
-  GETIMPORT R5 K11 [setmetatable]
-  CALL R5 2 0
-  CLOSEUPVALS R0
-  RETURN R4 1
+        0 PREPVARARGS                      0
+        1 LOADNIL                          R0
+        2 NEWCLOSURE                       R1 P0
+        3 CAPTURE                          REF R0
+        4 DUPCLOSURE                       R2 K0 [PROTO_1]
+        5 CAPTURE                          VAL R1
+        6 NEWTABLE                         R3 4 0
+        8 SETTABLEKS                       R3 R3 K1 ["__index"]
+       10 DUPCLOSURE                       R4 K2 [PROTO_2]
+       11 CAPTURE                          VAL R3
+       12 SETTABLEKS                       R4 R3 K3 ["new"]
+       14 DUPCLOSURE                       R4 K4 [PROTO_3]
+       15 SETTABLEKS                       R4 R3 K5 ["Disconnect"]
+       17 DUPTABLE                         R6 K7 [{"__index", "__newindex"}]
+       18 DUPCLOSURE                       R7 K8 [PROTO_4]
+       19 SETTABLEKS                       R7 R6 K1 ["__index"]
+       21 DUPCLOSURE                       R7 K9 [PROTO_5]
+       22 SETTABLEKS                       R7 R6 K6 ["__newindex"]
+       24 FASTCALL2                        SETMETATABLE R3 R6 ; [+4]
+       26 MOVE                             R5 R3
+       27 GETIMPORT                        R4 K11 [setmetatable]
+       29 CALL                             R4 2 0
+       30 NEWTABLE                         R4 8 0
+       32 SETTABLEKS                       R4 R4 K1 ["__index"]
+       34 DUPCLOSURE                       R5 K12 [PROTO_6]
+       35 CAPTURE                          VAL R4
+       36 SETTABLEKS                       R5 R4 K3 ["new"]
+       38 DUPCLOSURE                       R5 K13 [PROTO_7]
+       39 CAPTURE                          VAL R3
+       40 SETTABLEKS                       R5 R4 K14 ["Connect"]
+       42 DUPCLOSURE                       R5 K15 [PROTO_8]
+       43 SETTABLEKS                       R5 R4 K16 ["DisconnectAll"]
+       45 NEWCLOSURE                       R5 P9
+       46 CAPTURE                          REF R0
+       47 CAPTURE                          VAL R2
+       48 SETTABLEKS                       R5 R4 K17 ["Fire"]
+       50 DUPCLOSURE                       R5 K18 [PROTO_11]
+       51 SETTABLEKS                       R5 R4 K19 ["Wait"]
+       53 DUPCLOSURE                       R5 K20 [PROTO_13]
+       54 SETTABLEKS                       R5 R4 K21 ["Once"]
+       56 DUPTABLE                         R7 K7 [{"__index", "__newindex"}]
+       57 DUPCLOSURE                       R8 K22 [PROTO_14]
+       58 SETTABLEKS                       R8 R7 K1 ["__index"]
+       60 DUPCLOSURE                       R8 K23 [PROTO_15]
+       61 SETTABLEKS                       R8 R7 K6 ["__newindex"]
+       63 FASTCALL2                        SETMETATABLE R4 R7 ; [+4]
+       65 MOVE                             R6 R4
+       66 GETIMPORT                        R5 K11 [setmetatable]
+       68 CALL                             R5 2 0
+       69 CLOSEUPVALS                      R0
+       70 RETURN                           R4 1

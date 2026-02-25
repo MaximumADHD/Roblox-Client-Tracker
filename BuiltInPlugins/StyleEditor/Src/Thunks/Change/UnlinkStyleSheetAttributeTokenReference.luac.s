@@ -1,69 +1,69 @@
 PROTO_0:
-  GETUPVAL R0 0
-  GETUPVAL R2 1
-  NAMECALL R0 R0 K0 ["GetStyleSheetInfo"]
-  CALL R0 2 1
-  GETTABLEKS R2 R0 K1 ["Variables"]
-  GETUPVAL R3 2
-  GETTABLE R1 R2 R3
-  JUMPIFEQKNIL R1 [+3]
-  JUMPIFNOTEQKS R1 K2 ["$"] [+2]
-  LOADK R1 K3 [""]
-  GETUPVAL R2 1
-  GETUPVAL R4 2
-  MOVE R5 R1
-  NAMECALL R2 R2 K4 ["SetAttribute"]
-  CALL R2 3 0
-  GETIMPORT R2 K8 [Enum.FinishRecordingOperation.Commit]
-  RETURN R2 1
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 NAMECALL                         R0 R0 K0 ["GetStyleSheetInfo"]
+        4 CALL                             R0 2 1
+        5 GETTABLEKS                       R2 R0 K1 ["Variables"]
+        7 GETUPVAL                         R3 2
+        8 GETTABLE                         R1 R2 R3
+        9 JUMPIFEQKNIL                     R1 ; [+3]
+       11 JUMPIFNOTEQKS                    R1 K2 ["$"] ; [+2]
+       13 LOADK                            R1 K3 [""]
+       14 GETUPVAL                         R2 1
+       15 GETUPVAL                         R4 2
+       16 MOVE                             R5 R1
+       17 NAMECALL                         R2 R2 K4 ["SetAttribute"]
+       19 CALL                             R2 3 0
+       20 GETIMPORT                        R2 K8 [Enum.FinishRecordingOperation.Commit]
+       22 RETURN                           R2 1
 
 PROTO_1:
-  GETTABLEKS R2 R1 K0 ["recordChange"]
-  DUPTABLE R3 K4 [{"Name", "DisplayName", "DoChange"}]
-  LOADK R4 K5 ["StyleEditor/UnlinkStyleSheetAttributeTokenReference"]
-  SETTABLEKS R4 R3 K1 ["Name"]
-  LOADK R4 K6 ["StyleEditor - Unlink StyleSheet Token"]
-  SETTABLEKS R4 R3 K2 ["DisplayName"]
-  NEWCLOSURE R4 P0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  SETTABLEKS R4 R3 K3 ["DoChange"]
-  CALL R2 1 0
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R1 K0 ["recordChange"]
+        2 DUPTABLE                         R3 K4 [{"Name", "DisplayName", "DoChange"}]
+        3 LOADK                            R4 K5 ["StyleEditor/UnlinkStyleSheetAttributeTokenReference"]
+        4 SETTABLEKS                       R4 R3 K1 ["Name"]
+        6 LOADK                            R4 K6 ["StyleEditor - Unlink StyleSheet Token"]
+        7 SETTABLEKS                       R4 R3 K2 ["DisplayName"]
+        9 NEWCLOSURE                       R4 P0
+       10 CAPTURE                          UPVAL U0
+       11 CAPTURE                          UPVAL U1
+       12 CAPTURE                          UPVAL U2
+       13 SETTABLEKS                       R4 R3 K3 ["DoChange"]
+       15 CALL                             R2 1 0
+       16 RETURN                           R0 0
 
 PROTO_2:
-  NEWCLOSURE R2 P0
-  CAPTURE UPVAL U0
-  CAPTURE VAL R0
-  CAPTURE VAL R1
-  RETURN R2 1
+        0 NEWCLOSURE                       R2 P0
+        1 CAPTURE                          UPVAL U0
+        2 CAPTURE                          VAL R0
+        3 CAPTURE                          VAL R1
+        4 RETURN                           R2 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["StylingService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  GETIMPORT R5 K5 [script]
-  GETTABLEKS R4 R5 K6 ["Parent"]
-  GETTABLEKS R3 R4 K6 ["Parent"]
-  GETTABLEKS R2 R3 K6 ["Parent"]
-  GETTABLEKS R1 R2 K6 ["Parent"]
-  GETIMPORT R2 K8 [require]
-  GETTABLEKS R5 R1 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Reducers"]
-  GETTABLEKS R3 R4 K11 ["RootReducer"]
-  CALL R2 1 1
-  GETIMPORT R3 K8 [require]
-  GETTABLEKS R6 R1 K9 ["Src"]
-  GETTABLEKS R5 R6 K12 ["Thunks"]
-  GETTABLEKS R4 R5 K13 ["Types"]
-  CALL R3 1 1
-  GETIMPORT R4 K8 [require]
-  GETTABLEKS R6 R1 K9 ["Src"]
-  GETTABLEKS R5 R6 K13 ["Types"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K14 [PROTO_2]
-  CAPTURE VAL R0
-  RETURN R5 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["StylingService"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R5 K5 [script]
+        9 GETTABLEKS                       R4 R5 K6 ["Parent"]
+       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
+       13 GETTABLEKS                       R2 R3 K6 ["Parent"]
+       15 GETTABLEKS                       R1 R2 K6 ["Parent"]
+       17 GETIMPORT                        R2 K8 [require]
+       19 GETTABLEKS                       R5 R1 K9 ["Src"]
+       21 GETTABLEKS                       R4 R5 K10 ["Reducers"]
+       23 GETTABLEKS                       R3 R4 K11 ["RootReducer"]
+       25 CALL                             R2 1 1
+       26 GETIMPORT                        R3 K8 [require]
+       28 GETTABLEKS                       R6 R1 K9 ["Src"]
+       30 GETTABLEKS                       R5 R6 K12 ["Thunks"]
+       32 GETTABLEKS                       R4 R5 K13 ["Types"]
+       34 CALL                             R3 1 1
+       35 GETIMPORT                        R4 K8 [require]
+       37 GETTABLEKS                       R6 R1 K9 ["Src"]
+       39 GETTABLEKS                       R5 R6 K13 ["Types"]
+       41 CALL                             R4 1 1
+       42 DUPCLOSURE                       R5 K14 [PROTO_2]
+       43 CAPTURE                          VAL R0
+       44 RETURN                           R5 1

@@ -1,0 +1,383 @@
+PROTO_0:
+        0 GETIMPORT                        R1 K2 [string.match]
+        2 MOVE                             R2 R0
+        3 LOADK                            R3 K3 ["^rbxassetid://(%d+)$"]
+        4 CALL                             R1 2 1
+        5 RETURN                           R1 1
+
+PROTO_1:
+        0 GETIMPORT                        R1 K2 [string.match]
+        2 MOVE                             R2 R0
+        3 LOADK                            R3 K3 ["^https?://www%.(.+)"]
+        4 CALL                             R1 2 1
+        5 JUMPIF                           R1 ; [+5]
+        6 GETIMPORT                        R1 K2 [string.match]
+        8 MOVE                             R2 R0
+        9 LOADK                            R3 K4 ["^https?://(.+)"]
+       10 CALL                             R1 2 1
+       11 MOVE                             R0 R1
+       12 JUMPIF                           R0 ; [+2]
+       13 LOADNIL                          R1
+       14 RETURN                           R1 1
+       15 GETIMPORT                        R1 K2 [string.match]
+       17 MOVE                             R2 R0
+       18 LOADK                            R3 K5 ["^sitetest%d%.robloxlabs(.+)"]
+       19 CALL                             R1 2 1
+       20 JUMPIF                           R1 ; [+5]
+       21 GETIMPORT                        R1 K2 [string.match]
+       23 MOVE                             R2 R0
+       24 LOADK                            R3 K6 ["^roblox(.+)"]
+       25 CALL                             R1 2 1
+       26 MOVE                             R0 R1
+       27 JUMPIF                           R0 ; [+2]
+       28 LOADNIL                          R1
+       29 RETURN                           R1 1
+       30 LOADNIL                          R1
+       31 GETUPVAL                         R2 0
+       32 CALL                             R2 0 1
+       33 JUMPIFNOT                        R2 ; [+7]
+       34 GETIMPORT                        R2 K2 [string.match]
+       36 MOVE                             R3 R0
+       37 LOADK                            R4 K7 ["^%.com//?asset/%?id=(%d+)$"]
+       38 CALL                             R2 2 1
+       39 MOVE                             R1 R2
+       40 RETURN                           R1 1
+       41 GETIMPORT                        R2 K2 [string.match]
+       43 MOVE                             R3 R0
+       44 LOADK                            R4 K8 ["^%.com/asset/%?id=(%d+)$"]
+       45 CALL                             R2 2 1
+       46 MOVE                             R1 R2
+       47 RETURN                           R1 1
+
+PROTO_2:
+        0 GETIMPORT                        R1 K2 [string.match]
+        2 MOVE                             R2 R0
+        3 LOADK                            R3 K3 ["^https?://assetdelivery%.(.+)"]
+        4 CALL                             R1 2 1
+        5 MOVE                             R0 R1
+        6 JUMPIF                           R0 ; [+2]
+        7 LOADNIL                          R1
+        8 RETURN                           R1 1
+        9 GETIMPORT                        R1 K2 [string.match]
+       11 MOVE                             R2 R0
+       12 LOADK                            R3 K4 ["^sitetest%d%.robloxlabs(.+)"]
+       13 CALL                             R1 2 1
+       14 JUMPIF                           R1 ; [+5]
+       15 GETIMPORT                        R1 K2 [string.match]
+       17 MOVE                             R2 R0
+       18 LOADK                            R3 K5 ["^roblox(.+)"]
+       19 CALL                             R1 2 1
+       20 MOVE                             R0 R1
+       21 JUMPIF                           R0 ; [+2]
+       22 LOADNIL                          R1
+       23 RETURN                           R1 1
+       24 GETIMPORT                        R1 K2 [string.match]
+       26 MOVE                             R2 R0
+       27 LOADK                            R3 K6 ["^%.com/v1/asset/%?id=(%d+)$"]
+       28 CALL                             R1 2 1
+       29 RETURN                           R1 1
+
+PROTO_3:
+        0 LOADNIL                          R1
+        1 GETUPVAL                         R2 0
+        2 CALL                             R2 0 1
+        3 JUMPIFNOT                        R2 ; [+18]
+        4 FASTCALL1                        TONUMBER R0 ; [+3]
+        5 MOVE                             R3 R0
+        6 GETIMPORT                        R2 K1 [tonumber]
+        8 CALL                             R2 1 1
+        9 MOVE                             R1 R2
+       10 JUMPIFEQKNIL                     R1 ; [+11]
+       12 GETUPVAL                         R2 1
+       13 CALL                             R2 0 1
+       14 JUMPIFNOT                        R2 ; [+6]
+       15 FASTCALL1                        TOSTRING R1 ; [+3]
+       16 MOVE                             R3 R1
+       17 GETIMPORT                        R2 K3 [tostring]
+       19 CALL                             R2 1 1
+       20 RETURN                           R2 1
+       21 RETURN                           R1 1
+       22 GETIMPORT                        R2 K6 [string.match]
+       24 MOVE                             R3 R0
+       25 LOADK                            R4 K7 ["^rbxassetid://(%d+)$"]
+       26 CALL                             R2 2 1
+       27 MOVE                             R1 R2
+       28 JUMPIFEQKNIL                     R1 ; [+2]
+       30 RETURN                           R1 1
+       31 GETUPVAL                         R2 2
+       32 MOVE                             R3 R0
+       33 CALL                             R2 1 1
+       34 MOVE                             R1 R2
+       35 JUMPIFEQKNIL                     R1 ; [+2]
+       37 RETURN                           R1 1
+       38 GETUPVAL                         R2 3
+       39 MOVE                             R3 R0
+       40 CALL                             R2 1 1
+       41 MOVE                             R1 R2
+       42 JUMPIFEQKNIL                     R1 ; [+2]
+       44 RETURN                           R1 1
+       45 LOADNIL                          R2
+       46 RETURN                           R2 1
+
+PROTO_4:
+        0 JUMPIF                           R2 ; [+2]
+        1 LOADB                            R3 0
+        2 RETURN                           R3 1
+        3 GETTABLEKS                       R3 R2 K0 ["allowEditableInstances"]
+        5 JUMPIF                           R3 ; [+2]
+        6 LOADB                            R3 0
+        7 RETURN                           R3 1
+        8 GETTABLEKS                       R4 R2 K1 ["editableImages"]
+       10 GETTABLE                         R3 R4 R0
+       11 JUMPIFNOT                        R3 ; [+8]
+       12 GETTABLE                         R4 R3 R1
+       13 JUMPIFNOT                        R4 ; [+6]
+       14 GETTABLE                         R5 R3 R1
+       15 GETTABLEKS                       R4 R5 K2 ["instance"]
+       17 JUMPIFNOT                        R4 ; [+2]
+       18 LOADB                            R4 1
+       19 RETURN                           R4 1
+       20 GETTABLEKS                       R5 R2 K3 ["editableMeshes"]
+       22 GETTABLE                         R4 R5 R0
+       23 JUMPIFNOT                        R4 ; [+8]
+       24 GETTABLE                         R5 R4 R1
+       25 JUMPIFNOT                        R5 ; [+6]
+       26 GETTABLE                         R6 R4 R1
+       27 GETTABLEKS                       R5 R6 K2 ["instance"]
+       29 JUMPIFNOT                        R5 ; [+2]
+       30 LOADB                            R5 1
+       31 RETURN                           R5 1
+       32 LOADB                            R5 0
+       33 RETURN                           R5 1
+
+PROTO_5:
+        0 GETTABLE                         R7 R3 R4
+        1 JUMPIFNOTEQKS                    R7 K0 [""] ; [+65]
+        3 JUMPIF                           R6 ; [+2]
+        4 LOADB                            R8 0
+        5 JUMP                             ; [+30]
+        6 GETTABLEKS                       R9 R6 K1 ["allowEditableInstances"]
+        8 JUMPIF                           R9 ; [+2]
+        9 LOADB                            R8 0
+       10 JUMP                             ; [+25]
+       11 GETTABLEKS                       R10 R6 K2 ["editableImages"]
+       13 GETTABLE                         R9 R10 R3
+       14 JUMPIFNOT                        R9 ; [+8]
+       15 GETTABLE                         R10 R9 R4
+       16 JUMPIFNOT                        R10 ; [+6]
+       17 GETTABLE                         R11 R9 R4
+       18 GETTABLEKS                       R10 R11 K3 ["instance"]
+       20 JUMPIFNOT                        R10 ; [+2]
+       21 LOADB                            R8 1
+       22 JUMP                             ; [+13]
+       23 GETTABLEKS                       R11 R6 K4 ["editableMeshes"]
+       25 GETTABLE                         R10 R11 R3
+       26 JUMPIFNOT                        R10 ; [+8]
+       27 GETTABLE                         R11 R10 R4
+       28 JUMPIFNOT                        R11 ; [+6]
+       29 GETTABLE                         R12 R10 R4
+       30 GETTABLEKS                       R11 R12 K3 ["instance"]
+       32 JUMPIFNOT                        R11 ; [+2]
+       33 LOADB                            R8 1
+       34 JUMP                             ; [+1]
+       35 LOADB                            R8 0
+       36 JUMPIFNOT                        R8 ; [+13]
+       37 JUMPIFNOT                        R2 ; [+27]
+       38 DUPTABLE                         R10 K6 [{"fieldName", "instance"}]
+       39 SETTABLEKS                       R4 R10 K5 ["fieldName"]
+       41 SETTABLEKS                       R3 R10 K3 ["instance"]
+       43 FASTCALL2                        TABLE_INSERT R2 R10 ; [+4]
+       45 MOVE                             R9 R2
+       46 GETIMPORT                        R8 K9 [table.insert]
+       48 CALL                             R8 2 0
+       49 JUMP                             ; [+15]
+       50 JUMPIFNOT                        R5 ; [+14]
+       51 LOADB                            R8 0
+       52 NEWTABLE                         R9 0 1
+       54 GETIMPORT                        R10 K12 [string.format]
+       56 LOADK                            R11 K13 ["%s.%s cannot be empty"]
+       57 NAMECALL                         R12 R3 K14 ["GetFullName"]
+       59 CALL                             R12 1 1
+       60 MOVE                             R13 R4
+       61 CALL                             R10 3 -1
+       62 SETLIST                          R9 R10 -1 [1]
+       64 RETURN                           R8 2
+       65 LOADB                            R8 1
+       66 RETURN                           R8 1
+       67 GETUPVAL                         R8 0
+       68 MOVE                             R9 R7
+       69 CALL                             R8 1 1
+       70 JUMPIFNOTEQKNIL                  R8 ; [+16]
+       72 LOADB                            R9 0
+       73 NEWTABLE                         R10 0 1
+       75 GETIMPORT                        R11 K12 [string.format]
+       77 LOADK                            R12 K15 ["Could not parse ContentId %s in %s.%s. Please make sure you are using a valid URL with a valid ID."]
+       78 MOVE                             R13 R7
+       79 NAMECALL                         R14 R3 K14 ["GetFullName"]
+       81 CALL                             R14 1 1
+       82 MOVE                             R15 R4
+       83 CALL                             R11 4 -1
+       84 SETLIST                          R10 R11 -1 [1]
+       86 RETURN                           R9 2
+       87 GETTABLE                         R9 R1 R8
+       88 JUMPIFNOTEQKNIL                  R9 ; [+14]
+       90 DUPTABLE                         R9 K6 [{"fieldName", "instance"}]
+       91 SETTABLEKS                       R4 R9 K5 ["fieldName"]
+       93 SETTABLEKS                       R3 R9 K3 ["instance"]
+       95 SETTABLE                         R9 R1 R8
+       96 FASTCALL2                        TABLE_INSERT R0 R8 ; [+5]
+       98 MOVE                             R10 R0
+       99 MOVE                             R11 R8
+      100 GETIMPORT                        R9 K9 [table.insert]
+      102 CALL                             R9 2 0
+      103 JUMPIFNOT                        R2 ; [+13]
+      104 DUPTABLE                         R11 K17 [{"fieldName", "instance", "id"}]
+      105 SETTABLEKS                       R4 R11 K5 ["fieldName"]
+      107 SETTABLEKS                       R3 R11 K3 ["instance"]
+      109 SETTABLEKS                       R8 R11 K16 ["id"]
+      111 FASTCALL2                        TABLE_INSERT R2 R11 ; [+4]
+      113 MOVE                             R10 R2
+      114 GETIMPORT                        R9 K9 [table.insert]
+      116 CALL                             R9 2 0
+      117 LOADB                            R9 1
+      118 RETURN                           R9 1
+
+PROTO_6:
+        0 MOVE                             R7 R4
+        1 JUMPIF                           R7 ; [+3]
+        2 GETUPVAL                         R8 0
+        3 GETTABLEKS                       R7 R8 K0 ["CONTENT_ID_FIELDS"]
+        5 MOVE                             R4 R7
+        6 GETUPVAL                         R8 1
+        7 GETTABLEKS                       R7 R8 K1 ["new"]
+        9 CALL                             R7 0 1
+       10 NAMECALL                         R8 R3 K2 ["GetDescendants"]
+       12 CALL                             R8 1 1
+       13 FASTCALL2                        TABLE_INSERT R8 R3 ; [+5]
+       15 MOVE                             R10 R8
+       16 MOVE                             R11 R3
+       17 GETIMPORT                        R9 K5 [table.insert]
+       19 CALL                             R9 2 0
+       20 GETIMPORT                        R9 K7 [pairs]
+       22 MOVE                             R10 R8
+       23 CALL                             R9 1 3
+       24 FORGPREP_NEXT                    R9
+       25 GETTABLEKS                       R15 R13 K8 ["ClassName"]
+       27 GETTABLE                         R14 R4 R15
+       28 JUMPIFNOT                        R14 ; [+27]
+       29 MOVE                             R15 R5
+       30 JUMPIFNOT                        R15 ; [+3]
+       31 GETTABLEKS                       R16 R13 K8 ["ClassName"]
+       33 GETTABLE                         R15 R5 R16
+       34 GETIMPORT                        R16 K10 [ipairs]
+       36 MOVE                             R17 R14
+       37 CALL                             R16 1 3
+       38 FORGPREP_INEXT                   R16
+       39 MOVE                             R21 R15
+       40 JUMPIFNOT                        R21 ; [+1]
+       41 GETTABLE                         R21 R15 R20
+       42 GETUPVAL                         R24 2
+       43 MOVE                             R25 R0
+       44 MOVE                             R26 R1
+       45 MOVE                             R27 R2
+       46 MOVE                             R28 R13
+       47 MOVE                             R29 R20
+       48 MOVE                             R30 R21
+       49 MOVE                             R31 R6
+       50 CALL                             R24 7 -1
+       51 NAMECALL                         R22 R7 K11 ["updateReasons"]
+       53 CALL                             R22 -1 0
+       54 FORGLOOP                         R16 2 [inext] ; [-16]
+       56 FORGLOOP                         R9 2 ; [-32]
+       58 NAMECALL                         R9 R7 K12 ["getFinalResults"]
+       60 CALL                             R9 1 -1
+       61 RETURN                           R9 -1
+
+PROTO_7:
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R2 R0
+        2 CALL                             R1 1 1
+        3 RETURN                           R1 1
+
+PROTO_8:
+        0 GETUPVAL                         R6 0
+        1 MOVE                             R7 R0
+        2 MOVE                             R8 R1
+        3 LOADNIL                          R9
+        4 MOVE                             R10 R2
+        5 MOVE                             R11 R3
+        6 MOVE                             R12 R4
+        7 MOVE                             R13 R5
+        8 CALL                             R6 7 -1
+        9 RETURN                           R6 -1
+
+PROTO_9:
+        0 NEWTABLE                         R3 0 0
+        2 NEWTABLE                         R4 0 0
+        4 NEWTABLE                         R5 0 0
+        6 GETUPVAL                         R6 0
+        7 MOVE                             R7 R4
+        8 MOVE                             R8 R3
+        9 MOVE                             R9 R5
+       10 MOVE                             R10 R0
+       11 MOVE                             R11 R1
+       12 LOADNIL                          R12
+       13 MOVE                             R13 R2
+       14 CALL                             R6 7 1
+       15 FASTCALL1                        ASSERT R6 ; [+3]
+       16 MOVE                             R8 R6
+       17 GETIMPORT                        R7 K1 [assert]
+       19 CALL                             R7 1 0
+       20 RETURN                           R5 1
+
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R2 K1 [script]
+        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        7 GETIMPORT                        R1 K4 [require]
+        9 GETTABLEKS                       R3 R0 K5 ["flags"]
+       11 GETTABLEKS                       R2 R3 K6 ["getFFlagUGCValidateCheckHSRFileDataFix"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K4 [require]
+       16 GETTABLEKS                       R3 R0 K7 ["Constants"]
+       18 CALL                             R2 1 1
+       19 GETIMPORT                        R3 K4 [require]
+       21 GETTABLEKS                       R5 R0 K8 ["util"]
+       23 GETTABLEKS                       R4 R5 K9 ["FailureReasonsAccumulator"]
+       25 CALL                             R3 1 1
+       26 GETIMPORT                        R4 K4 [require]
+       28 GETTABLEKS                       R6 R0 K5 ["flags"]
+       30 GETTABLEKS                       R5 R6 K10 ["getFFlagAddUGCValidationForPackage"]
+       32 CALL                             R4 1 1
+       33 GETIMPORT                        R5 K4 [require]
+       35 GETTABLEKS                       R7 R0 K5 ["flags"]
+       37 GETTABLEKS                       R6 R7 K11 ["getFFlagFixPackageIDFieldName"]
+       39 CALL                             R5 1 1
+       40 NEWTABLE                         R6 4 0
+       42 DUPCLOSURE                       R7 K12 [PROTO_0]
+       43 DUPCLOSURE                       R8 K13 [PROTO_1]
+       44 CAPTURE                          VAL R1
+       45 DUPCLOSURE                       R9 K14 [PROTO_2]
+       46 DUPCLOSURE                       R10 K15 [PROTO_3]
+       47 CAPTURE                          VAL R4
+       48 CAPTURE                          VAL R5
+       49 CAPTURE                          VAL R8
+       50 CAPTURE                          VAL R9
+       51 DUPCLOSURE                       R11 K16 [PROTO_4]
+       52 DUPCLOSURE                       R12 K17 [PROTO_5]
+       53 CAPTURE                          VAL R10
+       54 DUPCLOSURE                       R13 K18 [PROTO_6]
+       55 CAPTURE                          VAL R2
+       56 CAPTURE                          VAL R3
+       57 CAPTURE                          VAL R12
+       58 DUPCLOSURE                       R14 K19 [PROTO_7]
+       59 CAPTURE                          VAL R10
+       60 SETTABLEKS                       R14 R6 K20 ["tryGetAssetIdFromContentId"]
+       62 DUPCLOSURE                       R14 K21 [PROTO_8]
+       63 CAPTURE                          VAL R13
+       64 SETTABLEKS                       R14 R6 K22 ["parseWithErrorCheck"]
+       66 DUPCLOSURE                       R14 K23 [PROTO_9]
+       67 CAPTURE                          VAL R13
+       68 SETTABLEKS                       R14 R6 K24 ["parse"]
+       70 RETURN                           R6 1

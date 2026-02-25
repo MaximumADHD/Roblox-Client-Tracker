@@ -1,0 +1,3 @@
+return {
+	TextPadding = 8,
+}

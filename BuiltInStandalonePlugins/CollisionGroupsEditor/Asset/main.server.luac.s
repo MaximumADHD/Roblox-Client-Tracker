@@ -1,937 +1,937 @@
 PROTO_0:
-  LOADN R3 1
-  LENGTH R1 R0
-  LOADN R2 1
-  FORNPREP R1
-  GETUPVAL R5 0
-  GETTABLE R4 R5 R3
-  GETTABLE R5 R0 R3
-  GETTABLEKS R6 R4 K0 ["name"]
-  GETTABLEKS R7 R5 K0 ["name"]
-  JUMPIFEQ R6 R7 [+3]
-  LOADB R6 1
-  RETURN R6 1
-  FORNLOOP R1
-  LOADB R1 0
-  RETURN R1 1
+        0 LOADN                            R3 1
+        1 LENGTH                           R1 R0
+        2 LOADN                            R2 1
+        3 FORNPREP                         R1
+        4 GETUPVAL                         R5 0
+        5 GETTABLE                         R4 R5 R3
+        6 GETTABLE                         R5 R0 R3
+        7 GETTABLEKS                       R6 R4 K0 ["name"]
+        9 GETTABLEKS                       R7 R5 K0 ["name"]
+       11 JUMPIFEQ                         R6 R7 ; [+3]
+       13 LOADB                            R6 1
+       14 RETURN                           R6 1
+       15 FORNLOOP                         R1
+       16 LOADB                            R1 0
+       17 RETURN                           R1 1
 
 PROTO_1:
-  GETUPVAL R0 0
-  JUMPIF R0 [+7]
-  GETUPVAL R0 1
-  NAMECALL R0 R0 K0 ["GetRegisteredCollisionGroups"]
-  CALL R0 1 1
-  SETUPVAL R0 0
-  LOADB R0 0
-  RETURN R0 1
-  GETUPVAL R0 1
-  NAMECALL R0 R0 K0 ["GetRegisteredCollisionGroups"]
-  CALL R0 1 1
-  LOADB R1 0
-  LENGTH R2 R0
-  GETUPVAL R4 0
-  LENGTH R3 R4
-  JUMPIFEQ R2 R3 [+2]
-  LOADB R1 1
-  JUMPIF R1 [+19]
-  LOADN R5 1
-  LENGTH R3 R0
-  LOADN R4 1
-  FORNPREP R3
-  GETUPVAL R7 0
-  GETTABLE R6 R7 R5
-  GETTABLE R7 R0 R5
-  GETTABLEKS R8 R6 K1 ["name"]
-  GETTABLEKS R9 R7 K1 ["name"]
-  JUMPIFEQ R8 R9 [+3]
-  LOADB R2 1
-  JUMP [+2]
-  FORNLOOP R3
-  LOADB R2 0
-  JUMPIFNOT R2 [+1]
-  LOADB R1 1
-  SETUPVAL R0 0
-  RETURN R1 1
+        0 GETUPVAL                         R0 0
+        1 JUMPIF                           R0 ; [+7]
+        2 GETUPVAL                         R0 1
+        3 NAMECALL                         R0 R0 K0 ["GetRegisteredCollisionGroups"]
+        5 CALL                             R0 1 1
+        6 SETUPVAL                         R0 0
+        7 LOADB                            R0 0
+        8 RETURN                           R0 1
+        9 GETUPVAL                         R0 1
+       10 NAMECALL                         R0 R0 K0 ["GetRegisteredCollisionGroups"]
+       12 CALL                             R0 1 1
+       13 LOADB                            R1 0
+       14 LENGTH                           R2 R0
+       15 GETUPVAL                         R4 0
+       16 LENGTH                           R3 R4
+       17 JUMPIFEQ                         R2 R3 ; [+2]
+       19 LOADB                            R1 1
+       20 JUMPIF                           R1 ; [+19]
+       21 LOADN                            R5 1
+       22 LENGTH                           R3 R0
+       23 LOADN                            R4 1
+       24 FORNPREP                         R3
+       25 GETUPVAL                         R7 0
+       26 GETTABLE                         R6 R7 R5
+       27 GETTABLE                         R7 R0 R5
+       28 GETTABLEKS                       R8 R6 K1 ["name"]
+       30 GETTABLEKS                       R9 R7 K1 ["name"]
+       32 JUMPIFEQ                         R8 R9 ; [+3]
+       34 LOADB                            R2 1
+       35 JUMP                             ; [+2]
+       36 FORNLOOP                         R3
+       37 LOADB                            R2 0
+       38 JUMPIFNOT                        R2 ; [+1]
+       39 LOADB                            R1 1
+       40 SETUPVAL                         R0 0
+       41 RETURN                           R1 1
 
 PROTO_2:
-  GETUPVAL R0 0
-  CALL R0 0 1
-  GETUPVAL R1 1
-  MOVE R2 R0
-  CALL R1 1 1
-  GETIMPORT R2 K1 [plugin]
-  LOADK R4 K2 ["Groups"]
-  MOVE R5 R0
-  NAMECALL R2 R2 K3 ["SetItem"]
-  CALL R2 3 0
-  GETIMPORT R2 K1 [plugin]
-  LOADK R4 K4 ["SelectedGroupIds"]
-  MOVE R5 R1
-  NAMECALL R2 R2 K3 ["SetItem"]
-  CALL R2 3 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 CALL                             R0 0 1
+        2 GETUPVAL                         R1 1
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 1
+        5 GETIMPORT                        R2 K1 [plugin]
+        7 LOADK                            R4 K2 ["Groups"]
+        8 MOVE                             R5 R0
+        9 NAMECALL                         R2 R2 K3 ["SetItem"]
+       11 CALL                             R2 3 0
+       12 GETIMPORT                        R2 K1 [plugin]
+       14 LOADK                            R4 K4 ["SelectedGroupIds"]
+       15 MOVE                             R5 R1
+       16 NAMECALL                         R2 R2 K3 ["SetItem"]
+       18 CALL                             R2 3 0
+       19 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  GETUPVAL R2 1
-  MOVE R3 R1
-  CALL R2 1 1
-  GETIMPORT R3 K1 [plugin]
-  LOADK R5 K2 ["Groups"]
-  MOVE R6 R1
-  NAMECALL R3 R3 K3 ["SetItem"]
-  CALL R3 3 0
-  GETIMPORT R3 K1 [plugin]
-  LOADK R5 K4 ["SelectedGroupIds"]
-  MOVE R6 R2
-  NAMECALL R3 R3 K3 ["SetItem"]
-  CALL R3 3 0
-  GETIMPORT R1 K1 [plugin]
-  LOADK R3 K5 ["SetStateAndRefresh"]
-  MOVE R4 R0
-  NAMECALL R1 R1 K6 ["Invoke"]
-  CALL R1 3 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 GETUPVAL                         R2 1
+        3 MOVE                             R3 R1
+        4 CALL                             R2 1 1
+        5 GETIMPORT                        R3 K1 [plugin]
+        7 LOADK                            R5 K2 ["Groups"]
+        8 MOVE                             R6 R1
+        9 NAMECALL                         R3 R3 K3 ["SetItem"]
+       11 CALL                             R3 3 0
+       12 GETIMPORT                        R3 K1 [plugin]
+       14 LOADK                            R5 K4 ["SelectedGroupIds"]
+       15 MOVE                             R6 R2
+       16 NAMECALL                         R3 R3 K3 ["SetItem"]
+       18 CALL                             R3 3 0
+       19 GETIMPORT                        R1 K1 [plugin]
+       21 LOADK                            R3 K5 ["SetStateAndRefresh"]
+       22 MOVE                             R4 R0
+       23 NAMECALL                         R1 R1 K6 ["Invoke"]
+       25 CALL                             R1 3 0
+       26 RETURN                           R0 0
 
 PROTO_4:
-  NEWTABLE R0 0 0
-  GETUPVAL R1 0
-  CALL R1 0 1
-  GETUPVAL R2 1
-  MOVE R3 R1
-  CALL R2 1 1
-  GETIMPORT R3 K1 [plugin]
-  LOADK R5 K2 ["Groups"]
-  MOVE R6 R1
-  NAMECALL R3 R3 K3 ["SetItem"]
-  CALL R3 3 0
-  GETIMPORT R3 K1 [plugin]
-  LOADK R5 K4 ["SelectedGroupIds"]
-  MOVE R6 R2
-  NAMECALL R3 R3 K3 ["SetItem"]
-  CALL R3 3 0
-  GETIMPORT R1 K1 [plugin]
-  LOADK R3 K5 ["SetStateAndRefresh"]
-  MOVE R4 R0
-  NAMECALL R1 R1 K6 ["Invoke"]
-  CALL R1 3 0
-  RETURN R0 0
+        0 NEWTABLE                         R0 0 0
+        2 GETUPVAL                         R1 0
+        3 CALL                             R1 0 1
+        4 GETUPVAL                         R2 1
+        5 MOVE                             R3 R1
+        6 CALL                             R2 1 1
+        7 GETIMPORT                        R3 K1 [plugin]
+        9 LOADK                            R5 K2 ["Groups"]
+       10 MOVE                             R6 R1
+       11 NAMECALL                         R3 R3 K3 ["SetItem"]
+       13 CALL                             R3 3 0
+       14 GETIMPORT                        R3 K1 [plugin]
+       16 LOADK                            R5 K4 ["SelectedGroupIds"]
+       17 MOVE                             R6 R2
+       18 NAMECALL                         R3 R3 K3 ["SetItem"]
+       20 CALL                             R3 3 0
+       21 GETIMPORT                        R1 K1 [plugin]
+       23 LOADK                            R3 K5 ["SetStateAndRefresh"]
+       24 MOVE                             R4 R0
+       25 NAMECALL                         R1 R1 K6 ["Invoke"]
+       27 CALL                             R1 3 0
+       28 RETURN                           R0 0
 
 PROTO_5:
-  NEWTABLE R0 0 0
-  GETUPVAL R1 0
-  CALL R1 0 1
-  GETUPVAL R2 1
-  MOVE R3 R1
-  CALL R2 1 1
-  GETIMPORT R3 K1 [plugin]
-  LOADK R5 K2 ["Groups"]
-  MOVE R6 R1
-  NAMECALL R3 R3 K3 ["SetItem"]
-  CALL R3 3 0
-  GETIMPORT R3 K1 [plugin]
-  LOADK R5 K4 ["SelectedGroupIds"]
-  MOVE R6 R2
-  NAMECALL R3 R3 K3 ["SetItem"]
-  CALL R3 3 0
-  GETIMPORT R1 K1 [plugin]
-  LOADK R3 K5 ["SetStateAndRefresh"]
-  MOVE R4 R0
-  NAMECALL R1 R1 K6 ["Invoke"]
-  CALL R1 3 0
-  RETURN R0 0
+        0 NEWTABLE                         R0 0 0
+        2 GETUPVAL                         R1 0
+        3 CALL                             R1 0 1
+        4 GETUPVAL                         R2 1
+        5 MOVE                             R3 R1
+        6 CALL                             R2 1 1
+        7 GETIMPORT                        R3 K1 [plugin]
+        9 LOADK                            R5 K2 ["Groups"]
+       10 MOVE                             R6 R1
+       11 NAMECALL                         R3 R3 K3 ["SetItem"]
+       13 CALL                             R3 3 0
+       14 GETIMPORT                        R3 K1 [plugin]
+       16 LOADK                            R5 K4 ["SelectedGroupIds"]
+       17 MOVE                             R6 R2
+       18 NAMECALL                         R3 R3 K3 ["SetItem"]
+       20 CALL                             R3 3 0
+       21 GETIMPORT                        R1 K1 [plugin]
+       23 LOADK                            R3 K5 ["SetStateAndRefresh"]
+       24 MOVE                             R4 R0
+       25 NAMECALL                         R1 R1 K6 ["Invoke"]
+       27 CALL                             R1 3 0
+       28 RETURN                           R0 0
 
 PROTO_6:
-  NEWTABLE R0 0 0
-  GETUPVAL R1 0
-  CALL R1 0 1
-  GETUPVAL R2 1
-  MOVE R3 R1
-  CALL R2 1 1
-  GETIMPORT R3 K1 [plugin]
-  LOADK R5 K2 ["Groups"]
-  MOVE R6 R1
-  NAMECALL R3 R3 K3 ["SetItem"]
-  CALL R3 3 0
-  GETIMPORT R3 K1 [plugin]
-  LOADK R5 K4 ["SelectedGroupIds"]
-  MOVE R6 R2
-  NAMECALL R3 R3 K3 ["SetItem"]
-  CALL R3 3 0
-  GETIMPORT R1 K1 [plugin]
-  LOADK R3 K5 ["SetStateAndRefresh"]
-  MOVE R4 R0
-  NAMECALL R1 R1 K6 ["Invoke"]
-  CALL R1 3 0
-  RETURN R0 0
+        0 NEWTABLE                         R0 0 0
+        2 GETUPVAL                         R1 0
+        3 CALL                             R1 0 1
+        4 GETUPVAL                         R2 1
+        5 MOVE                             R3 R1
+        6 CALL                             R2 1 1
+        7 GETIMPORT                        R3 K1 [plugin]
+        9 LOADK                            R5 K2 ["Groups"]
+       10 MOVE                             R6 R1
+       11 NAMECALL                         R3 R3 K3 ["SetItem"]
+       13 CALL                             R3 3 0
+       14 GETIMPORT                        R3 K1 [plugin]
+       16 LOADK                            R5 K4 ["SelectedGroupIds"]
+       17 MOVE                             R6 R2
+       18 NAMECALL                         R3 R3 K3 ["SetItem"]
+       20 CALL                             R3 3 0
+       21 GETIMPORT                        R1 K1 [plugin]
+       23 LOADK                            R3 K5 ["SetStateAndRefresh"]
+       24 MOVE                             R4 R0
+       25 NAMECALL                         R1 R1 K6 ["Invoke"]
+       27 CALL                             R1 3 0
+       28 RETURN                           R0 0
 
 PROTO_7:
-  GETUPVAL R1 0
-  GETIMPORT R3 K1 [game]
-  LOADK R5 K2 ["Selection"]
-  NAMECALL R3 R3 K3 ["GetService"]
-  CALL R3 2 1
-  GETTABLEKS R2 R3 K4 ["SelectionChanged"]
-  DUPCLOSURE R4 K5 [PROTO_4]
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  NAMECALL R2 R2 K6 ["Connect"]
-  CALL R2 2 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R0 K9 [table.insert]
-  CALL R0 -1 0
-  GETUPVAL R1 0
-  GETUPVAL R3 3
-  GETTABLEKS R2 R3 K10 ["OnUndo"]
-  DUPCLOSURE R4 K11 [PROTO_5]
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  NAMECALL R2 R2 K6 ["Connect"]
-  CALL R2 2 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R0 K9 [table.insert]
-  CALL R0 -1 0
-  GETUPVAL R1 0
-  GETUPVAL R3 3
-  GETTABLEKS R2 R3 K12 ["OnRedo"]
-  DUPCLOSURE R4 K13 [PROTO_6]
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  NAMECALL R2 R2 K6 ["Connect"]
-  CALL R2 2 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R0 K9 [table.insert]
-  CALL R0 -1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETIMPORT                        R3 K1 [game]
+        3 LOADK                            R5 K2 ["Selection"]
+        4 NAMECALL                         R3 R3 K3 ["GetService"]
+        6 CALL                             R3 2 1
+        7 GETTABLEKS                       R2 R3 K4 ["SelectionChanged"]
+        9 DUPCLOSURE                       R4 K5 [PROTO_4]
+       10 CAPTURE                          UPVAL U1
+       11 CAPTURE                          UPVAL U2
+       12 NAMECALL                         R2 R2 K6 ["Connect"]
+       14 CALL                             R2 2 -1
+       15 FASTCALL                         TABLE_INSERT ; [+2]
+       16 GETIMPORT                        R0 K9 [table.insert]
+       18 CALL                             R0 -1 0
+       19 GETUPVAL                         R1 0
+       20 GETUPVAL                         R3 3
+       21 GETTABLEKS                       R2 R3 K10 ["OnUndo"]
+       23 DUPCLOSURE                       R4 K11 [PROTO_5]
+       24 CAPTURE                          UPVAL U1
+       25 CAPTURE                          UPVAL U2
+       26 NAMECALL                         R2 R2 K6 ["Connect"]
+       28 CALL                             R2 2 -1
+       29 FASTCALL                         TABLE_INSERT ; [+2]
+       30 GETIMPORT                        R0 K9 [table.insert]
+       32 CALL                             R0 -1 0
+       33 GETUPVAL                         R1 0
+       34 GETUPVAL                         R3 3
+       35 GETTABLEKS                       R2 R3 K12 ["OnRedo"]
+       37 DUPCLOSURE                       R4 K13 [PROTO_6]
+       38 CAPTURE                          UPVAL U1
+       39 CAPTURE                          UPVAL U2
+       40 NAMECALL                         R2 R2 K6 ["Connect"]
+       42 CALL                             R2 2 -1
+       43 FASTCALL                         TABLE_INSERT ; [+2]
+       44 GETIMPORT                        R0 K9 [table.insert]
+       46 CALL                             R0 -1 0
+       47 RETURN                           R0 0
 
 PROTO_8:
-  GETIMPORT R0 K1 [ipairs]
-  GETUPVAL R1 0
-  CALL R0 1 3
-  FORGPREP_INEXT R0
-  NAMECALL R5 R4 K2 ["Disconnect"]
-  CALL R5 1 0
-  FORGLOOP R0 2 [inext] [-4]
-  RETURN R0 0
+        0 GETIMPORT                        R0 K1 [ipairs]
+        2 GETUPVAL                         R1 0
+        3 CALL                             R0 1 3
+        4 FORGPREP_INEXT                   R0
+        5 NAMECALL                         R5 R4 K2 ["Disconnect"]
+        7 CALL                             R5 1 0
+        8 FORGLOOP                         R0 2 [inext] ; [-4]
+       10 RETURN                           R0 0
 
 PROTO_9:
-  GETUPVAL R1 0
-  MOVE R3 R0
-  NAMECALL R1 R1 K0 ["IsCollisionGroupRegistered"]
-  CALL R1 2 1
-  JUMPIFNOT R1 [+2]
-  LOADB R1 1
-  RETURN R1 1
-  GETIMPORT R1 K2 [pcall]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K3 ["RegisterCollisionGroup"]
-  GETUPVAL R3 0
-  MOVE R4 R0
-  CALL R1 3 2
-  RETURN R1 1
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K0 ["IsCollisionGroupRegistered"]
+        4 CALL                             R1 2 1
+        5 JUMPIFNOT                        R1 ; [+2]
+        6 LOADB                            R1 1
+        7 RETURN                           R1 1
+        8 GETIMPORT                        R1 K2 [pcall]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R2 R3 K3 ["RegisterCollisionGroup"]
+       13 GETUPVAL                         R3 0
+       14 MOVE                             R4 R0
+       15 CALL                             R1 3 2
+       16 RETURN                           R1 1
 
 PROTO_10:
-  JUMPIFNOT R0 [+31]
-  GETUPVAL R1 0
-  CALL R1 0 0
-  NEWTABLE R1 0 0
-  GETUPVAL R2 1
-  CALL R2 0 1
-  GETUPVAL R3 2
-  MOVE R4 R2
-  CALL R3 1 1
-  GETIMPORT R4 K1 [plugin]
-  LOADK R6 K2 ["Groups"]
-  MOVE R7 R2
-  NAMECALL R4 R4 K3 ["SetItem"]
-  CALL R4 3 0
-  GETIMPORT R4 K1 [plugin]
-  LOADK R6 K4 ["SelectedGroupIds"]
-  MOVE R7 R3
-  NAMECALL R4 R4 K3 ["SetItem"]
-  CALL R4 3 0
-  GETIMPORT R2 K1 [plugin]
-  LOADK R4 K5 ["SetStateAndRefresh"]
-  MOVE R5 R1
-  NAMECALL R2 R2 K6 ["Invoke"]
-  CALL R2 3 0
-  RETURN R0 0
-  GETIMPORT R1 K8 [ipairs]
-  GETUPVAL R2 3
-  CALL R1 1 3
-  FORGPREP_INEXT R1
-  NAMECALL R6 R5 K9 ["Disconnect"]
-  CALL R6 1 0
-  FORGLOOP R1 2 [inext] [-4]
-  RETURN R0 0
+        0 JUMPIFNOT                        R0 ; [+31]
+        1 GETUPVAL                         R1 0
+        2 CALL                             R1 0 0
+        3 NEWTABLE                         R1 0 0
+        5 GETUPVAL                         R2 1
+        6 CALL                             R2 0 1
+        7 GETUPVAL                         R3 2
+        8 MOVE                             R4 R2
+        9 CALL                             R3 1 1
+       10 GETIMPORT                        R4 K1 [plugin]
+       12 LOADK                            R6 K2 ["Groups"]
+       13 MOVE                             R7 R2
+       14 NAMECALL                         R4 R4 K3 ["SetItem"]
+       16 CALL                             R4 3 0
+       17 GETIMPORT                        R4 K1 [plugin]
+       19 LOADK                            R6 K4 ["SelectedGroupIds"]
+       20 MOVE                             R7 R3
+       21 NAMECALL                         R4 R4 K3 ["SetItem"]
+       23 CALL                             R4 3 0
+       24 GETIMPORT                        R2 K1 [plugin]
+       26 LOADK                            R4 K5 ["SetStateAndRefresh"]
+       27 MOVE                             R5 R1
+       28 NAMECALL                         R2 R2 K6 ["Invoke"]
+       30 CALL                             R2 3 0
+       31 RETURN                           R0 0
+       32 GETIMPORT                        R1 K8 [ipairs]
+       34 GETUPVAL                         R2 3
+       35 CALL                             R1 1 3
+       36 FORGPREP_INEXT                   R1
+       37 NAMECALL                         R6 R5 K9 ["Disconnect"]
+       39 CALL                             R6 1 0
+       40 FORGLOOP                         R1 2 [inext] ; [-4]
+       42 RETURN                           R0 0
 
 PROTO_11:
-  GETUPVAL R1 0
-  LOADK R3 K0 ["Deleting collision group"]
-  NAMECALL R1 R1 K1 ["SetWaypoint"]
-  CALL R1 2 0
-  GETUPVAL R1 1
-  MOVE R3 R0
-  NAMECALL R1 R1 K2 ["UnregisterCollisionGroup"]
-  CALL R1 2 0
-  GETUPVAL R1 0
-  LOADK R3 K3 ["Deleted collision group"]
-  NAMECALL R1 R1 K1 ["SetWaypoint"]
-  CALL R1 2 0
-  NEWTABLE R1 0 0
-  GETUPVAL R2 2
-  CALL R2 0 1
-  GETUPVAL R3 3
-  MOVE R4 R2
-  CALL R3 1 1
-  GETIMPORT R4 K5 [plugin]
-  LOADK R6 K6 ["Groups"]
-  MOVE R7 R2
-  NAMECALL R4 R4 K7 ["SetItem"]
-  CALL R4 3 0
-  GETIMPORT R4 K5 [plugin]
-  LOADK R6 K8 ["SelectedGroupIds"]
-  MOVE R7 R3
-  NAMECALL R4 R4 K7 ["SetItem"]
-  CALL R4 3 0
-  GETIMPORT R2 K5 [plugin]
-  LOADK R4 K9 ["SetStateAndRefresh"]
-  MOVE R5 R1
-  NAMECALL R2 R2 K10 ["Invoke"]
-  CALL R2 3 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 LOADK                            R3 K0 ["Deleting collision group"]
+        2 NAMECALL                         R1 R1 K1 ["SetWaypoint"]
+        4 CALL                             R1 2 0
+        5 GETUPVAL                         R1 1
+        6 MOVE                             R3 R0
+        7 NAMECALL                         R1 R1 K2 ["UnregisterCollisionGroup"]
+        9 CALL                             R1 2 0
+       10 GETUPVAL                         R1 0
+       11 LOADK                            R3 K3 ["Deleted collision group"]
+       12 NAMECALL                         R1 R1 K1 ["SetWaypoint"]
+       14 CALL                             R1 2 0
+       15 NEWTABLE                         R1 0 0
+       17 GETUPVAL                         R2 2
+       18 CALL                             R2 0 1
+       19 GETUPVAL                         R3 3
+       20 MOVE                             R4 R2
+       21 CALL                             R3 1 1
+       22 GETIMPORT                        R4 K5 [plugin]
+       24 LOADK                            R6 K6 ["Groups"]
+       25 MOVE                             R7 R2
+       26 NAMECALL                         R4 R4 K7 ["SetItem"]
+       28 CALL                             R4 3 0
+       29 GETIMPORT                        R4 K5 [plugin]
+       31 LOADK                            R6 K8 ["SelectedGroupIds"]
+       32 MOVE                             R7 R3
+       33 NAMECALL                         R4 R4 K7 ["SetItem"]
+       35 CALL                             R4 3 0
+       36 GETIMPORT                        R2 K5 [plugin]
+       38 LOADK                            R4 K9 ["SetStateAndRefresh"]
+       39 MOVE                             R5 R1
+       40 NAMECALL                         R2 R2 K10 ["Invoke"]
+       42 CALL                             R2 3 0
+       43 RETURN                           R0 0
 
 PROTO_12:
-  GETUPVAL R1 0
-  LOADK R3 K0 ["Renaming collision group"]
-  NAMECALL R1 R1 K1 ["SetWaypoint"]
-  CALL R1 2 0
-  GETUPVAL R1 1
-  GETTABLEKS R3 R0 K2 ["oldName"]
-  GETTABLEKS R4 R0 K3 ["newName"]
-  NAMECALL R1 R1 K4 ["RenameCollisionGroup"]
-  CALL R1 3 0
-  GETIMPORT R1 K6 [pairs]
-  GETUPVAL R2 2
-  GETTABLEKS R3 R0 K2 ["oldName"]
-  CALL R2 1 -1
-  CALL R1 -1 3
-  FORGPREP_NEXT R1
-  GETTABLEKS R6 R5 K7 ["CollisionGroup"]
-  GETTABLEKS R7 R0 K2 ["oldName"]
-  JUMPIFNOTEQ R6 R7 [+5]
-  GETTABLEKS R6 R0 K3 ["newName"]
-  SETTABLEKS R6 R5 K7 ["CollisionGroup"]
-  FORGLOOP R1 2 [-11]
-  GETUPVAL R1 0
-  LOADK R3 K8 ["Renamed collision group"]
-  NAMECALL R1 R1 K1 ["SetWaypoint"]
-  CALL R1 2 0
-  DUPTABLE R1 K10 [{"GroupRenaming"}]
-  LOADK R2 K11 [""]
-  SETTABLEKS R2 R1 K9 ["GroupRenaming"]
-  GETUPVAL R2 3
-  CALL R2 0 1
-  GETUPVAL R3 4
-  MOVE R4 R2
-  CALL R3 1 1
-  GETIMPORT R4 K13 [plugin]
-  LOADK R6 K14 ["Groups"]
-  MOVE R7 R2
-  NAMECALL R4 R4 K15 ["SetItem"]
-  CALL R4 3 0
-  GETIMPORT R4 K13 [plugin]
-  LOADK R6 K16 ["SelectedGroupIds"]
-  MOVE R7 R3
-  NAMECALL R4 R4 K15 ["SetItem"]
-  CALL R4 3 0
-  GETIMPORT R2 K13 [plugin]
-  LOADK R4 K17 ["SetStateAndRefresh"]
-  MOVE R5 R1
-  NAMECALL R2 R2 K18 ["Invoke"]
-  CALL R2 3 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 LOADK                            R3 K0 ["Renaming collision group"]
+        2 NAMECALL                         R1 R1 K1 ["SetWaypoint"]
+        4 CALL                             R1 2 0
+        5 GETUPVAL                         R1 1
+        6 GETTABLEKS                       R3 R0 K2 ["oldName"]
+        8 GETTABLEKS                       R4 R0 K3 ["newName"]
+       10 NAMECALL                         R1 R1 K4 ["RenameCollisionGroup"]
+       12 CALL                             R1 3 0
+       13 GETIMPORT                        R1 K6 [pairs]
+       15 GETUPVAL                         R2 2
+       16 GETTABLEKS                       R3 R0 K2 ["oldName"]
+       18 CALL                             R2 1 -1
+       19 CALL                             R1 -1 3
+       20 FORGPREP_NEXT                    R1
+       21 GETTABLEKS                       R6 R5 K7 ["CollisionGroup"]
+       23 GETTABLEKS                       R7 R0 K2 ["oldName"]
+       25 JUMPIFNOTEQ                      R6 R7 ; [+5]
+       27 GETTABLEKS                       R6 R0 K3 ["newName"]
+       29 SETTABLEKS                       R6 R5 K7 ["CollisionGroup"]
+       31 FORGLOOP                         R1 2 ; [-11]
+       33 GETUPVAL                         R1 0
+       34 LOADK                            R3 K8 ["Renamed collision group"]
+       35 NAMECALL                         R1 R1 K1 ["SetWaypoint"]
+       37 CALL                             R1 2 0
+       38 DUPTABLE                         R1 K10 [{"GroupRenaming"}]
+       39 LOADK                            R2 K11 [""]
+       40 SETTABLEKS                       R2 R1 K9 ["GroupRenaming"]
+       42 GETUPVAL                         R2 3
+       43 CALL                             R2 0 1
+       44 GETUPVAL                         R3 4
+       45 MOVE                             R4 R2
+       46 CALL                             R3 1 1
+       47 GETIMPORT                        R4 K13 [plugin]
+       49 LOADK                            R6 K14 ["Groups"]
+       50 MOVE                             R7 R2
+       51 NAMECALL                         R4 R4 K15 ["SetItem"]
+       53 CALL                             R4 3 0
+       54 GETIMPORT                        R4 K13 [plugin]
+       56 LOADK                            R6 K16 ["SelectedGroupIds"]
+       57 MOVE                             R7 R3
+       58 NAMECALL                         R4 R4 K15 ["SetItem"]
+       60 CALL                             R4 3 0
+       61 GETIMPORT                        R2 K13 [plugin]
+       63 LOADK                            R4 K17 ["SetStateAndRefresh"]
+       64 MOVE                             R5 R1
+       65 NAMECALL                         R2 R2 K18 ["Invoke"]
+       67 CALL                             R2 3 0
+       68 RETURN                           R0 0
 
 PROTO_13:
-  GETUPVAL R1 0
-  LOADK R3 K0 ["Setting part membership to collision group"]
-  NAMECALL R1 R1 K1 ["SetWaypoint"]
-  CALL R1 2 0
-  GETIMPORT R1 K3 [pairs]
-  GETUPVAL R2 1
-  CALL R2 0 -1
-  CALL R1 -1 3
-  FORGPREP_NEXT R1
-  SETTABLEKS R0 R5 K4 ["CollisionGroup"]
-  FORGLOOP R1 2 [-3]
-  GETUPVAL R1 0
-  LOADK R3 K5 ["Set part membership to collision group"]
-  NAMECALL R1 R1 K1 ["SetWaypoint"]
-  CALL R1 2 0
-  NEWTABLE R1 0 0
-  GETUPVAL R2 2
-  CALL R2 0 1
-  GETUPVAL R3 3
-  MOVE R4 R2
-  CALL R3 1 1
-  GETIMPORT R4 K7 [plugin]
-  LOADK R6 K8 ["Groups"]
-  MOVE R7 R2
-  NAMECALL R4 R4 K9 ["SetItem"]
-  CALL R4 3 0
-  GETIMPORT R4 K7 [plugin]
-  LOADK R6 K10 ["SelectedGroupIds"]
-  MOVE R7 R3
-  NAMECALL R4 R4 K9 ["SetItem"]
-  CALL R4 3 0
-  GETIMPORT R2 K7 [plugin]
-  LOADK R4 K11 ["SetStateAndRefresh"]
-  MOVE R5 R1
-  NAMECALL R2 R2 K12 ["Invoke"]
-  CALL R2 3 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 LOADK                            R3 K0 ["Setting part membership to collision group"]
+        2 NAMECALL                         R1 R1 K1 ["SetWaypoint"]
+        4 CALL                             R1 2 0
+        5 GETIMPORT                        R1 K3 [pairs]
+        7 GETUPVAL                         R2 1
+        8 CALL                             R2 0 -1
+        9 CALL                             R1 -1 3
+       10 FORGPREP_NEXT                    R1
+       11 SETTABLEKS                       R0 R5 K4 ["CollisionGroup"]
+       13 FORGLOOP                         R1 2 ; [-3]
+       15 GETUPVAL                         R1 0
+       16 LOADK                            R3 K5 ["Set part membership to collision group"]
+       17 NAMECALL                         R1 R1 K1 ["SetWaypoint"]
+       19 CALL                             R1 2 0
+       20 NEWTABLE                         R1 0 0
+       22 GETUPVAL                         R2 2
+       23 CALL                             R2 0 1
+       24 GETUPVAL                         R3 3
+       25 MOVE                             R4 R2
+       26 CALL                             R3 1 1
+       27 GETIMPORT                        R4 K7 [plugin]
+       29 LOADK                            R6 K8 ["Groups"]
+       30 MOVE                             R7 R2
+       31 NAMECALL                         R4 R4 K9 ["SetItem"]
+       33 CALL                             R4 3 0
+       34 GETIMPORT                        R4 K7 [plugin]
+       36 LOADK                            R6 K10 ["SelectedGroupIds"]
+       37 MOVE                             R7 R3
+       38 NAMECALL                         R4 R4 K9 ["SetItem"]
+       40 CALL                             R4 3 0
+       41 GETIMPORT                        R2 K7 [plugin]
+       43 LOADK                            R4 K11 ["SetStateAndRefresh"]
+       44 MOVE                             R5 R1
+       45 NAMECALL                         R2 R2 K12 ["Invoke"]
+       47 CALL                             R2 3 0
+       48 RETURN                           R0 0
 
 PROTO_14:
-  GETTABLEKS R2 R0 K0 ["groupName"]
-  GETUPVAL R3 0
-  MOVE R5 R2
-  NAMECALL R3 R3 K1 ["IsCollisionGroupRegistered"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+2]
-  LOADB R1 1
-  JUMP [+10]
-  GETIMPORT R3 K3 [pcall]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K4 ["RegisterCollisionGroup"]
-  GETUPVAL R5 0
-  MOVE R6 R2
-  CALL R3 3 2
-  MOVE R1 R3
-  JUMP [0]
-  JUMPIFNOT R1 [+20]
-  GETTABLEKS R2 R0 K5 ["otherGroupName"]
-  GETUPVAL R3 0
-  MOVE R5 R2
-  NAMECALL R3 R3 K1 ["IsCollisionGroupRegistered"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+2]
-  LOADB R1 1
-  JUMP [+10]
-  GETIMPORT R3 K3 [pcall]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K4 ["RegisterCollisionGroup"]
-  GETUPVAL R5 0
-  MOVE R6 R2
-  CALL R3 3 2
-  MOVE R1 R3
-  JUMP [0]
-  JUMPIF R1 [+13]
-  GETIMPORT R2 K7 [warn]
-  LOADK R4 K8 ["Could not toggle collision between \"%*\" and \"%*\""]
-  GETTABLEKS R6 R0 K0 ["groupName"]
-  GETTABLEKS R7 R0 K5 ["otherGroupName"]
-  NAMECALL R4 R4 K9 ["format"]
-  CALL R4 3 1
-  MOVE R3 R4
-  CALL R2 1 0
-  RETURN R0 0
-  GETUPVAL R3 0
-  GETTABLEKS R5 R0 K0 ["groupName"]
-  GETTABLEKS R6 R0 K5 ["otherGroupName"]
-  NAMECALL R3 R3 K10 ["CollisionGroupsAreCollidable"]
-  CALL R3 3 1
-  NOT R2 R3
-  GETUPVAL R3 1
-  LOADK R5 K11 ["Setting group collision state"]
-  NAMECALL R3 R3 K12 ["SetWaypoint"]
-  CALL R3 2 0
-  GETUPVAL R3 0
-  GETTABLEKS R5 R0 K0 ["groupName"]
-  GETTABLEKS R6 R0 K5 ["otherGroupName"]
-  MOVE R7 R2
-  NAMECALL R3 R3 K13 ["CollisionGroupSetCollidable"]
-  CALL R3 4 0
-  GETUPVAL R3 1
-  LOADK R5 K14 ["Set group collision state"]
-  NAMECALL R3 R3 K12 ["SetWaypoint"]
-  CALL R3 2 0
-  NEWTABLE R3 0 0
-  GETUPVAL R4 2
-  CALL R4 0 1
-  GETUPVAL R5 3
-  MOVE R6 R4
-  CALL R5 1 1
-  GETIMPORT R6 K16 [plugin]
-  LOADK R8 K17 ["Groups"]
-  MOVE R9 R4
-  NAMECALL R6 R6 K18 ["SetItem"]
-  CALL R6 3 0
-  GETIMPORT R6 K16 [plugin]
-  LOADK R8 K19 ["SelectedGroupIds"]
-  MOVE R9 R5
-  NAMECALL R6 R6 K18 ["SetItem"]
-  CALL R6 3 0
-  GETIMPORT R4 K16 [plugin]
-  LOADK R6 K20 ["SetStateAndRefresh"]
-  MOVE R7 R3
-  NAMECALL R4 R4 K21 ["Invoke"]
-  CALL R4 3 0
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["groupName"]
+        2 GETUPVAL                         R3 0
+        3 MOVE                             R5 R2
+        4 NAMECALL                         R3 R3 K1 ["IsCollisionGroupRegistered"]
+        6 CALL                             R3 2 1
+        7 JUMPIFNOT                        R3 ; [+2]
+        8 LOADB                            R1 1
+        9 JUMP                             ; [+10]
+       10 GETIMPORT                        R3 K3 [pcall]
+       12 GETUPVAL                         R5 0
+       13 GETTABLEKS                       R4 R5 K4 ["RegisterCollisionGroup"]
+       15 GETUPVAL                         R5 0
+       16 MOVE                             R6 R2
+       17 CALL                             R3 3 2
+       18 MOVE                             R1 R3
+       19 JUMP                             ; [0]
+       20 JUMPIFNOT                        R1 ; [+20]
+       21 GETTABLEKS                       R2 R0 K5 ["otherGroupName"]
+       23 GETUPVAL                         R3 0
+       24 MOVE                             R5 R2
+       25 NAMECALL                         R3 R3 K1 ["IsCollisionGroupRegistered"]
+       27 CALL                             R3 2 1
+       28 JUMPIFNOT                        R3 ; [+2]
+       29 LOADB                            R1 1
+       30 JUMP                             ; [+10]
+       31 GETIMPORT                        R3 K3 [pcall]
+       33 GETUPVAL                         R5 0
+       34 GETTABLEKS                       R4 R5 K4 ["RegisterCollisionGroup"]
+       36 GETUPVAL                         R5 0
+       37 MOVE                             R6 R2
+       38 CALL                             R3 3 2
+       39 MOVE                             R1 R3
+       40 JUMP                             ; [0]
+       41 JUMPIF                           R1 ; [+13]
+       42 GETIMPORT                        R2 K7 [warn]
+       44 LOADK                            R4 K8 ["Could not toggle collision between \"%*\" and \"%*\""]
+       45 GETTABLEKS                       R6 R0 K0 ["groupName"]
+       47 GETTABLEKS                       R7 R0 K5 ["otherGroupName"]
+       49 NAMECALL                         R4 R4 K9 ["format"]
+       51 CALL                             R4 3 1
+       52 MOVE                             R3 R4
+       53 CALL                             R2 1 0
+       54 RETURN                           R0 0
+       55 GETUPVAL                         R3 0
+       56 GETTABLEKS                       R5 R0 K0 ["groupName"]
+       58 GETTABLEKS                       R6 R0 K5 ["otherGroupName"]
+       60 NAMECALL                         R3 R3 K10 ["CollisionGroupsAreCollidable"]
+       62 CALL                             R3 3 1
+       63 NOT                              R2 R3
+       64 GETUPVAL                         R3 1
+       65 LOADK                            R5 K11 ["Setting group collision state"]
+       66 NAMECALL                         R3 R3 K12 ["SetWaypoint"]
+       68 CALL                             R3 2 0
+       69 GETUPVAL                         R3 0
+       70 GETTABLEKS                       R5 R0 K0 ["groupName"]
+       72 GETTABLEKS                       R6 R0 K5 ["otherGroupName"]
+       74 MOVE                             R7 R2
+       75 NAMECALL                         R3 R3 K13 ["CollisionGroupSetCollidable"]
+       77 CALL                             R3 4 0
+       78 GETUPVAL                         R3 1
+       79 LOADK                            R5 K14 ["Set group collision state"]
+       80 NAMECALL                         R3 R3 K12 ["SetWaypoint"]
+       82 CALL                             R3 2 0
+       83 NEWTABLE                         R3 0 0
+       85 GETUPVAL                         R4 2
+       86 CALL                             R4 0 1
+       87 GETUPVAL                         R5 3
+       88 MOVE                             R6 R4
+       89 CALL                             R5 1 1
+       90 GETIMPORT                        R6 K16 [plugin]
+       92 LOADK                            R8 K17 ["Groups"]
+       93 MOVE                             R9 R4
+       94 NAMECALL                         R6 R6 K18 ["SetItem"]
+       96 CALL                             R6 3 0
+       97 GETIMPORT                        R6 K16 [plugin]
+       99 LOADK                            R8 K19 ["SelectedGroupIds"]
+      100 MOVE                             R9 R5
+      101 NAMECALL                         R6 R6 K18 ["SetItem"]
+      103 CALL                             R6 3 0
+      104 GETIMPORT                        R4 K16 [plugin]
+      106 LOADK                            R6 K20 ["SetStateAndRefresh"]
+      107 MOVE                             R7 R3
+      108 NAMECALL                         R4 R4 K21 ["Invoke"]
+      110 CALL                             R4 3 0
+      111 RETURN                           R0 0
 
 PROTO_15:
-  GETUPVAL R1 0
-  LOADK R3 K0 ["Creating collision group"]
-  NAMECALL R1 R1 K1 ["SetWaypoint"]
-  CALL R1 2 0
-  GETUPVAL R1 1
-  MOVE R3 R0
-  NAMECALL R1 R1 K2 ["RegisterCollisionGroup"]
-  CALL R1 2 0
-  GETUPVAL R1 0
-  LOADK R3 K3 ["Created collision group"]
-  NAMECALL R1 R1 K1 ["SetWaypoint"]
-  CALL R1 2 0
-  NEWTABLE R1 0 0
-  GETUPVAL R2 2
-  CALL R2 0 1
-  GETUPVAL R3 3
-  MOVE R4 R2
-  CALL R3 1 1
-  GETIMPORT R4 K5 [plugin]
-  LOADK R6 K6 ["Groups"]
-  MOVE R7 R2
-  NAMECALL R4 R4 K7 ["SetItem"]
-  CALL R4 3 0
-  GETIMPORT R4 K5 [plugin]
-  LOADK R6 K8 ["SelectedGroupIds"]
-  MOVE R7 R3
-  NAMECALL R4 R4 K7 ["SetItem"]
-  CALL R4 3 0
-  GETIMPORT R2 K5 [plugin]
-  LOADK R4 K9 ["SetStateAndRefresh"]
-  MOVE R5 R1
-  NAMECALL R2 R2 K10 ["Invoke"]
-  CALL R2 3 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 LOADK                            R3 K0 ["Creating collision group"]
+        2 NAMECALL                         R1 R1 K1 ["SetWaypoint"]
+        4 CALL                             R1 2 0
+        5 GETUPVAL                         R1 1
+        6 MOVE                             R3 R0
+        7 NAMECALL                         R1 R1 K2 ["RegisterCollisionGroup"]
+        9 CALL                             R1 2 0
+       10 GETUPVAL                         R1 0
+       11 LOADK                            R3 K3 ["Created collision group"]
+       12 NAMECALL                         R1 R1 K1 ["SetWaypoint"]
+       14 CALL                             R1 2 0
+       15 NEWTABLE                         R1 0 0
+       17 GETUPVAL                         R2 2
+       18 CALL                             R2 0 1
+       19 GETUPVAL                         R3 3
+       20 MOVE                             R4 R2
+       21 CALL                             R3 1 1
+       22 GETIMPORT                        R4 K5 [plugin]
+       24 LOADK                            R6 K6 ["Groups"]
+       25 MOVE                             R7 R2
+       26 NAMECALL                         R4 R4 K7 ["SetItem"]
+       28 CALL                             R4 3 0
+       29 GETIMPORT                        R4 K5 [plugin]
+       31 LOADK                            R6 K8 ["SelectedGroupIds"]
+       32 MOVE                             R7 R3
+       33 NAMECALL                         R4 R4 K7 ["SetItem"]
+       35 CALL                             R4 3 0
+       36 GETIMPORT                        R2 K5 [plugin]
+       38 LOADK                            R4 K9 ["SetStateAndRefresh"]
+       39 MOVE                             R5 R1
+       40 NAMECALL                         R2 R2 K10 ["Invoke"]
+       42 CALL                             R2 3 0
+       43 RETURN                           R0 0
 
 PROTO_16:
-  GETIMPORT R1 K1 [game]
-  LOADK R3 K2 ["Selection"]
-  NAMECALL R1 R1 K3 ["GetService"]
-  CALL R1 2 1
-  GETUPVAL R3 0
-  MOVE R4 R0
-  CALL R3 1 -1
-  NAMECALL R1 R1 K4 ["Set"]
-  CALL R1 -1 0
-  RETURN R0 0
+        0 GETIMPORT                        R1 K1 [game]
+        2 LOADK                            R3 K2 ["Selection"]
+        3 NAMECALL                         R1 R1 K3 ["GetService"]
+        5 CALL                             R1 2 1
+        6 GETUPVAL                         R3 0
+        7 MOVE                             R4 R0
+        8 CALL                             R3 1 -1
+        9 NAMECALL                         R1 R1 K4 ["Set"]
+       11 CALL                             R1 -1 0
+       12 RETURN                           R0 0
 
 PROTO_17:
-  GETUPVAL R1 0
-  GETIMPORT R2 K1 [plugin]
-  LOADK R4 K2 ["WindowEnabledChanged"]
-  DUPCLOSURE R5 K3 [PROTO_10]
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  NAMECALL R2 R2 K4 ["OnInvoke"]
-  CALL R2 3 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R0 K7 [table.insert]
-  CALL R0 -1 0
-  GETUPVAL R1 0
-  GETIMPORT R2 K1 [plugin]
-  LOADK R4 K8 ["DeleteCollisionGroup"]
-  DUPCLOSURE R5 K9 [PROTO_11]
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  NAMECALL R2 R2 K4 ["OnInvoke"]
-  CALL R2 3 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R0 K7 [table.insert]
-  CALL R0 -1 0
-  GETUPVAL R1 0
-  GETIMPORT R2 K1 [plugin]
-  LOADK R4 K10 ["RenameCollisionGroup"]
-  DUPCLOSURE R5 K11 [PROTO_12]
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U7
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  NAMECALL R2 R2 K4 ["OnInvoke"]
-  CALL R2 3 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R0 K7 [table.insert]
-  CALL R0 -1 0
-  GETUPVAL R1 0
-  GETIMPORT R2 K1 [plugin]
-  LOADK R4 K12 ["AddSelectedPartsToCollisionGroup"]
-  DUPCLOSURE R5 K13 [PROTO_13]
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U8
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  NAMECALL R2 R2 K4 ["OnInvoke"]
-  CALL R2 3 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R0 K7 [table.insert]
-  CALL R0 -1 0
-  GETUPVAL R1 0
-  GETIMPORT R2 K1 [plugin]
-  LOADK R4 K14 ["ToggleCollidesWith"]
-  DUPCLOSURE R5 K15 [PROTO_14]
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  NAMECALL R2 R2 K4 ["OnInvoke"]
-  CALL R2 3 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R0 K7 [table.insert]
-  CALL R0 -1 0
-  GETUPVAL R1 0
-  GETIMPORT R2 K1 [plugin]
-  LOADK R4 K16 ["CreateCollisionGroup"]
-  DUPCLOSURE R5 K17 [PROTO_15]
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  NAMECALL R2 R2 K4 ["OnInvoke"]
-  CALL R2 3 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R0 K7 [table.insert]
-  CALL R0 -1 0
-  GETUPVAL R1 0
-  GETIMPORT R2 K1 [plugin]
-  LOADK R4 K18 ["SelectPartsInCollisionGroup"]
-  DUPCLOSURE R5 K19 [PROTO_16]
-  CAPTURE UPVAL U7
-  NAMECALL R2 R2 K4 ["OnInvoke"]
-  CALL R2 3 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R0 K7 [table.insert]
-  CALL R0 -1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETIMPORT                        R2 K1 [plugin]
+        3 LOADK                            R4 K2 ["WindowEnabledChanged"]
+        4 DUPCLOSURE                       R5 K3 [PROTO_10]
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          UPVAL U2
+        7 CAPTURE                          UPVAL U3
+        8 CAPTURE                          UPVAL U4
+        9 NAMECALL                         R2 R2 K4 ["OnInvoke"]
+       11 CALL                             R2 3 -1
+       12 FASTCALL                         TABLE_INSERT ; [+2]
+       13 GETIMPORT                        R0 K7 [table.insert]
+       15 CALL                             R0 -1 0
+       16 GETUPVAL                         R1 0
+       17 GETIMPORT                        R2 K1 [plugin]
+       19 LOADK                            R4 K8 ["DeleteCollisionGroup"]
+       20 DUPCLOSURE                       R5 K9 [PROTO_11]
+       21 CAPTURE                          UPVAL U5
+       22 CAPTURE                          UPVAL U6
+       23 CAPTURE                          UPVAL U2
+       24 CAPTURE                          UPVAL U3
+       25 NAMECALL                         R2 R2 K4 ["OnInvoke"]
+       27 CALL                             R2 3 -1
+       28 FASTCALL                         TABLE_INSERT ; [+2]
+       29 GETIMPORT                        R0 K7 [table.insert]
+       31 CALL                             R0 -1 0
+       32 GETUPVAL                         R1 0
+       33 GETIMPORT                        R2 K1 [plugin]
+       35 LOADK                            R4 K10 ["RenameCollisionGroup"]
+       36 DUPCLOSURE                       R5 K11 [PROTO_12]
+       37 CAPTURE                          UPVAL U5
+       38 CAPTURE                          UPVAL U6
+       39 CAPTURE                          UPVAL U7
+       40 CAPTURE                          UPVAL U2
+       41 CAPTURE                          UPVAL U3
+       42 NAMECALL                         R2 R2 K4 ["OnInvoke"]
+       44 CALL                             R2 3 -1
+       45 FASTCALL                         TABLE_INSERT ; [+2]
+       46 GETIMPORT                        R0 K7 [table.insert]
+       48 CALL                             R0 -1 0
+       49 GETUPVAL                         R1 0
+       50 GETIMPORT                        R2 K1 [plugin]
+       52 LOADK                            R4 K12 ["AddSelectedPartsToCollisionGroup"]
+       53 DUPCLOSURE                       R5 K13 [PROTO_13]
+       54 CAPTURE                          UPVAL U5
+       55 CAPTURE                          UPVAL U8
+       56 CAPTURE                          UPVAL U2
+       57 CAPTURE                          UPVAL U3
+       58 NAMECALL                         R2 R2 K4 ["OnInvoke"]
+       60 CALL                             R2 3 -1
+       61 FASTCALL                         TABLE_INSERT ; [+2]
+       62 GETIMPORT                        R0 K7 [table.insert]
+       64 CALL                             R0 -1 0
+       65 GETUPVAL                         R1 0
+       66 GETIMPORT                        R2 K1 [plugin]
+       68 LOADK                            R4 K14 ["ToggleCollidesWith"]
+       69 DUPCLOSURE                       R5 K15 [PROTO_14]
+       70 CAPTURE                          UPVAL U6
+       71 CAPTURE                          UPVAL U5
+       72 CAPTURE                          UPVAL U2
+       73 CAPTURE                          UPVAL U3
+       74 NAMECALL                         R2 R2 K4 ["OnInvoke"]
+       76 CALL                             R2 3 -1
+       77 FASTCALL                         TABLE_INSERT ; [+2]
+       78 GETIMPORT                        R0 K7 [table.insert]
+       80 CALL                             R0 -1 0
+       81 GETUPVAL                         R1 0
+       82 GETIMPORT                        R2 K1 [plugin]
+       84 LOADK                            R4 K16 ["CreateCollisionGroup"]
+       85 DUPCLOSURE                       R5 K17 [PROTO_15]
+       86 CAPTURE                          UPVAL U5
+       87 CAPTURE                          UPVAL U6
+       88 CAPTURE                          UPVAL U2
+       89 CAPTURE                          UPVAL U3
+       90 NAMECALL                         R2 R2 K4 ["OnInvoke"]
+       92 CALL                             R2 3 -1
+       93 FASTCALL                         TABLE_INSERT ; [+2]
+       94 GETIMPORT                        R0 K7 [table.insert]
+       96 CALL                             R0 -1 0
+       97 GETUPVAL                         R1 0
+       98 GETIMPORT                        R2 K1 [plugin]
+      100 LOADK                            R4 K18 ["SelectPartsInCollisionGroup"]
+      101 DUPCLOSURE                       R5 K19 [PROTO_16]
+      102 CAPTURE                          UPVAL U7
+      103 NAMECALL                         R2 R2 K4 ["OnInvoke"]
+      105 CALL                             R2 3 -1
+      106 FASTCALL                         TABLE_INSERT ; [+2]
+      107 GETIMPORT                        R0 K7 [table.insert]
+      109 CALL                             R0 -1 0
+      110 RETURN                           R0 0
 
 PROTO_18:
-  GETIMPORT R0 K1 [ipairs]
-  GETUPVAL R1 0
-  CALL R0 1 3
-  FORGPREP_INEXT R0
-  NAMECALL R5 R4 K2 ["Disconnect"]
-  CALL R5 1 0
-  FORGLOOP R0 2 [inext] [-4]
-  RETURN R0 0
+        0 GETIMPORT                        R0 K1 [ipairs]
+        2 GETUPVAL                         R1 0
+        3 CALL                             R0 1 3
+        4 FORGPREP_INEXT                   R0
+        5 NAMECALL                         R5 R4 K2 ["Disconnect"]
+        7 CALL                             R5 1 0
+        8 FORGLOOP                         R0 2 [inext] ; [-4]
+       10 RETURN                           R0 0
 
 PROTO_19:
-  GETUPVAL R0 0
-  JUMPIFNOT R0 [+15]
-  GETUPVAL R0 1
-  CALL R0 0 1
-  JUMPIFNOT R0 [+7]
-  GETIMPORT R0 K1 [plugin]
-  LOADK R2 K2 ["SetStateAndRefresh"]
-  LOADNIL R3
-  NAMECALL R0 R0 K3 ["Invoke"]
-  CALL R0 3 0
-  GETIMPORT R0 K5 [wait]
-  LOADN R1 1
-  CALL R0 1 0
-  JUMPBACK [-17]
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+15]
+        2 GETUPVAL                         R0 1
+        3 CALL                             R0 0 1
+        4 JUMPIFNOT                        R0 ; [+7]
+        5 GETIMPORT                        R0 K1 [plugin]
+        7 LOADK                            R2 K2 ["SetStateAndRefresh"]
+        8 LOADNIL                          R3
+        9 NAMECALL                         R0 R0 K3 ["Invoke"]
+       11 CALL                             R0 3 0
+       12 GETIMPORT                        R0 K5 [wait]
+       14 LOADN                            R1 1
+       15 CALL                             R0 1 0
+       16 JUMPBACK                         ; [-17]
+       17 RETURN                           R0 0
 
 PROTO_20:
-  LOADB R0 1
-  SETUPVAL R0 0
-  GETIMPORT R0 K1 [spawn]
-  NEWCLOSURE R1 P0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CALL R0 1 0
-  RETURN R0 0
+        0 LOADB                            R0 1
+        1 SETUPVAL                         R0 0
+        2 GETIMPORT                        R0 K1 [spawn]
+        4 NEWCLOSURE                       R1 P0
+        5 CAPTURE                          UPVAL U0
+        6 CAPTURE                          UPVAL U1
+        7 CALL                             R0 1 0
+        8 RETURN                           R0 0
 
 PROTO_21:
-  LOADB R0 0
-  SETUPVAL R0 0
-  RETURN R0 0
+        0 LOADB                            R0 0
+        1 SETUPVAL                         R0 0
+        2 RETURN                           R0 0
 
 PROTO_22:
-  GETIMPORT R1 K1 [plugin]
-  GETTABLEKS R0 R1 K2 ["HostDataModelType"]
-  GETIMPORT R1 K6 [Enum.StudioDataModelType.PlayClient]
-  JUMPIFNOTEQ R0 R1 [+32]
-  DUPTABLE R0 K8 [{"InPlayMode"}]
-  LOADB R1 1
-  SETTABLEKS R1 R0 K7 ["InPlayMode"]
-  GETUPVAL R1 0
-  CALL R1 0 1
-  GETUPVAL R2 1
-  MOVE R3 R1
-  CALL R2 1 1
-  GETIMPORT R3 K1 [plugin]
-  LOADK R5 K9 ["Groups"]
-  MOVE R6 R1
-  NAMECALL R3 R3 K10 ["SetItem"]
-  CALL R3 3 0
-  GETIMPORT R3 K1 [plugin]
-  LOADK R5 K11 ["SelectedGroupIds"]
-  MOVE R6 R2
-  NAMECALL R3 R3 K10 ["SetItem"]
-  CALL R3 3 0
-  GETIMPORT R1 K1 [plugin]
-  LOADK R3 K12 ["SetStateAndRefresh"]
-  MOVE R4 R0
-  NAMECALL R1 R1 K13 ["Invoke"]
-  CALL R1 3 0
-  RETURN R0 0
-  DUPTABLE R0 K8 [{"InPlayMode"}]
-  LOADB R1 0
-  SETTABLEKS R1 R0 K7 ["InPlayMode"]
-  GETUPVAL R1 0
-  CALL R1 0 1
-  GETUPVAL R2 1
-  MOVE R3 R1
-  CALL R2 1 1
-  GETIMPORT R3 K1 [plugin]
-  LOADK R5 K9 ["Groups"]
-  MOVE R6 R1
-  NAMECALL R3 R3 K10 ["SetItem"]
-  CALL R3 3 0
-  GETIMPORT R3 K1 [plugin]
-  LOADK R5 K11 ["SelectedGroupIds"]
-  MOVE R6 R2
-  NAMECALL R3 R3 K10 ["SetItem"]
-  CALL R3 3 0
-  GETIMPORT R1 K1 [plugin]
-  LOADK R3 K12 ["SetStateAndRefresh"]
-  MOVE R4 R0
-  NAMECALL R1 R1 K13 ["Invoke"]
-  CALL R1 3 0
-  LOADB R0 1
-  SETUPVAL R0 2
-  GETIMPORT R0 K15 [spawn]
-  NEWCLOSURE R1 P0
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  CALL R0 1 0
-  GETIMPORT R0 K1 [plugin]
-  LOADK R2 K16 ["PollGuiEnabled"]
-  NAMECALL R0 R0 K13 ["Invoke"]
-  CALL R0 2 0
-  GETUPVAL R0 4
-  CALL R0 0 0
-  GETUPVAL R0 5
-  JUMPIFNOT R0 [+21]
-  GETIMPORT R0 K18 [require]
-  GETUPVAL R3 6
-  GETTABLEKS R2 R3 K19 ["Packages"]
-  GETTABLEKS R1 R2 K20 ["DeveloperTools"]
-  CALL R0 1 1
-  GETTABLEKS R1 R0 K21 ["forPlugin"]
-  LOADK R2 K22 ["CollisionGroupsEditor"]
-  GETIMPORT R3 K1 [plugin]
-  CALL R1 2 1
-  SETUPVAL R1 7
-  GETUPVAL R1 7
-  GETIMPORT R3 K1 [plugin]
-  NAMECALL R1 R1 K23 ["addPluginRouter"]
-  CALL R1 2 0
-  RETURN R0 0
+        0 GETIMPORT                        R1 K1 [plugin]
+        2 GETTABLEKS                       R0 R1 K2 ["HostDataModelType"]
+        4 GETIMPORT                        R1 K6 [Enum.StudioDataModelType.PlayClient]
+        6 JUMPIFNOTEQ                      R0 R1 ; [+32]
+        8 DUPTABLE                         R0 K8 [{"InPlayMode"}]
+        9 LOADB                            R1 1
+       10 SETTABLEKS                       R1 R0 K7 ["InPlayMode"]
+       12 GETUPVAL                         R1 0
+       13 CALL                             R1 0 1
+       14 GETUPVAL                         R2 1
+       15 MOVE                             R3 R1
+       16 CALL                             R2 1 1
+       17 GETIMPORT                        R3 K1 [plugin]
+       19 LOADK                            R5 K9 ["Groups"]
+       20 MOVE                             R6 R1
+       21 NAMECALL                         R3 R3 K10 ["SetItem"]
+       23 CALL                             R3 3 0
+       24 GETIMPORT                        R3 K1 [plugin]
+       26 LOADK                            R5 K11 ["SelectedGroupIds"]
+       27 MOVE                             R6 R2
+       28 NAMECALL                         R3 R3 K10 ["SetItem"]
+       30 CALL                             R3 3 0
+       31 GETIMPORT                        R1 K1 [plugin]
+       33 LOADK                            R3 K12 ["SetStateAndRefresh"]
+       34 MOVE                             R4 R0
+       35 NAMECALL                         R1 R1 K13 ["Invoke"]
+       37 CALL                             R1 3 0
+       38 RETURN                           R0 0
+       39 DUPTABLE                         R0 K8 [{"InPlayMode"}]
+       40 LOADB                            R1 0
+       41 SETTABLEKS                       R1 R0 K7 ["InPlayMode"]
+       43 GETUPVAL                         R1 0
+       44 CALL                             R1 0 1
+       45 GETUPVAL                         R2 1
+       46 MOVE                             R3 R1
+       47 CALL                             R2 1 1
+       48 GETIMPORT                        R3 K1 [plugin]
+       50 LOADK                            R5 K9 ["Groups"]
+       51 MOVE                             R6 R1
+       52 NAMECALL                         R3 R3 K10 ["SetItem"]
+       54 CALL                             R3 3 0
+       55 GETIMPORT                        R3 K1 [plugin]
+       57 LOADK                            R5 K11 ["SelectedGroupIds"]
+       58 MOVE                             R6 R2
+       59 NAMECALL                         R3 R3 K10 ["SetItem"]
+       61 CALL                             R3 3 0
+       62 GETIMPORT                        R1 K1 [plugin]
+       64 LOADK                            R3 K12 ["SetStateAndRefresh"]
+       65 MOVE                             R4 R0
+       66 NAMECALL                         R1 R1 K13 ["Invoke"]
+       68 CALL                             R1 3 0
+       69 LOADB                            R0 1
+       70 SETUPVAL                         R0 2
+       71 GETIMPORT                        R0 K15 [spawn]
+       73 NEWCLOSURE                       R1 P0
+       74 CAPTURE                          UPVAL U2
+       75 CAPTURE                          UPVAL U3
+       76 CALL                             R0 1 0
+       77 GETIMPORT                        R0 K1 [plugin]
+       79 LOADK                            R2 K16 ["PollGuiEnabled"]
+       80 NAMECALL                         R0 R0 K13 ["Invoke"]
+       82 CALL                             R0 2 0
+       83 GETUPVAL                         R0 4
+       84 CALL                             R0 0 0
+       85 GETUPVAL                         R0 5
+       86 JUMPIFNOT                        R0 ; [+21]
+       87 GETIMPORT                        R0 K18 [require]
+       89 GETUPVAL                         R3 6
+       90 GETTABLEKS                       R2 R3 K19 ["Packages"]
+       92 GETTABLEKS                       R1 R2 K20 ["DeveloperTools"]
+       94 CALL                             R0 1 1
+       95 GETTABLEKS                       R1 R0 K21 ["forPlugin"]
+       97 LOADK                            R2 K22 ["CollisionGroupsEditor"]
+       98 GETIMPORT                        R3 K1 [plugin]
+      100 CALL                             R1 2 1
+      101 SETUPVAL                         R1 7
+      102 GETUPVAL                         R1 7
+      103 GETIMPORT                        R3 K1 [plugin]
+      105 NAMECALL                         R1 R1 K23 ["addPluginRouter"]
+      107 CALL                             R1 2 0
+      108 RETURN                           R0 0
 
 PROTO_23:
-  GETIMPORT R0 K1 [ipairs]
-  GETUPVAL R1 0
-  CALL R0 1 3
-  FORGPREP_INEXT R0
-  NAMECALL R5 R4 K2 ["Disconnect"]
-  CALL R5 1 0
-  FORGLOOP R0 2 [inext] [-4]
-  GETIMPORT R0 K1 [ipairs]
-  GETUPVAL R1 1
-  CALL R0 1 3
-  FORGPREP_INEXT R0
-  NAMECALL R5 R4 K2 ["Disconnect"]
-  CALL R5 1 0
-  FORGLOOP R0 2 [inext] [-4]
-  LOADB R0 0
-  SETUPVAL R0 2
-  GETUPVAL R0 3
-  JUMPIFNOT R0 [+4]
-  GETUPVAL R0 3
-  NAMECALL R0 R0 K3 ["destroy"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETIMPORT                        R0 K1 [ipairs]
+        2 GETUPVAL                         R1 0
+        3 CALL                             R0 1 3
+        4 FORGPREP_INEXT                   R0
+        5 NAMECALL                         R5 R4 K2 ["Disconnect"]
+        7 CALL                             R5 1 0
+        8 FORGLOOP                         R0 2 [inext] ; [-4]
+       10 GETIMPORT                        R0 K1 [ipairs]
+       12 GETUPVAL                         R1 1
+       13 CALL                             R0 1 3
+       14 FORGPREP_INEXT                   R0
+       15 NAMECALL                         R5 R4 K2 ["Disconnect"]
+       17 CALL                             R5 1 0
+       18 FORGLOOP                         R0 2 [inext] ; [-4]
+       20 LOADB                            R0 0
+       21 SETUPVAL                         R0 2
+       22 GETUPVAL                         R0 3
+       23 JUMPIFNOT                        R0 ; [+4]
+       24 GETUPVAL                         R0 3
+       25 NAMECALL                         R0 R0 K3 ["destroy"]
+       27 CALL                             R0 1 0
+       28 RETURN                           R0 0
 
 PROTO_24:
-  GETIMPORT R1 K1 [plugin]
-  GETTABLEKS R0 R1 K2 ["HostDataModelTypeIsCurrent"]
-  JUMPIFNOT R0 [+28]
-  GETIMPORT R0 K4 [ipairs]
-  GETUPVAL R1 0
-  CALL R0 1 3
-  FORGPREP_INEXT R0
-  NAMECALL R5 R4 K5 ["Disconnect"]
-  CALL R5 1 0
-  FORGLOOP R0 2 [inext] [-4]
-  GETIMPORT R0 K4 [ipairs]
-  GETUPVAL R1 1
-  CALL R0 1 3
-  FORGPREP_INEXT R0
-  NAMECALL R5 R4 K5 ["Disconnect"]
-  CALL R5 1 0
-  FORGLOOP R0 2 [inext] [-4]
-  LOADB R0 0
-  SETUPVAL R0 2
-  GETUPVAL R0 3
-  JUMPIFNOT R0 [+4]
-  GETUPVAL R0 3
-  NAMECALL R0 R0 K6 ["destroy"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETIMPORT                        R1 K1 [plugin]
+        2 GETTABLEKS                       R0 R1 K2 ["HostDataModelTypeIsCurrent"]
+        4 JUMPIFNOT                        R0 ; [+28]
+        5 GETIMPORT                        R0 K4 [ipairs]
+        7 GETUPVAL                         R1 0
+        8 CALL                             R0 1 3
+        9 FORGPREP_INEXT                   R0
+       10 NAMECALL                         R5 R4 K5 ["Disconnect"]
+       12 CALL                             R5 1 0
+       13 FORGLOOP                         R0 2 [inext] ; [-4]
+       15 GETIMPORT                        R0 K4 [ipairs]
+       17 GETUPVAL                         R1 1
+       18 CALL                             R0 1 3
+       19 FORGPREP_INEXT                   R0
+       20 NAMECALL                         R5 R4 K5 ["Disconnect"]
+       22 CALL                             R5 1 0
+       23 FORGLOOP                         R0 2 [inext] ; [-4]
+       25 LOADB                            R0 0
+       26 SETUPVAL                         R0 2
+       27 GETUPVAL                         R0 3
+       28 JUMPIFNOT                        R0 ; [+4]
+       29 GETUPVAL                         R0 3
+       30 NAMECALL                         R0 R0 K6 ["destroy"]
+       32 CALL                             R0 1 0
+       33 RETURN                           R0 0
 
 PROTO_25:
-  GETIMPORT R1 K1 [plugin]
-  GETTABLEKS R0 R1 K2 ["HostDataModelTypeIsCurrent"]
-  JUMPIFNOT R0 [+2]
-  GETUPVAL R0 0
-  CALL R0 0 0
-  RETURN R0 0
+        0 GETIMPORT                        R1 K1 [plugin]
+        2 GETTABLEKS                       R0 R1 K2 ["HostDataModelTypeIsCurrent"]
+        4 JUMPIFNOT                        R0 ; [+2]
+        5 GETUPVAL                         R0 0
+        6 CALL                             R0 0 0
+        7 RETURN                           R0 0
 
 PROTO_26:
-  GETTABLEKS R1 R0 K0 ["CurrentDataModelTypeAboutToChange"]
-  NEWCLOSURE R3 P0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  NAMECALL R1 R1 K1 ["Connect"]
-  CALL R1 2 0
-  GETTABLEKS R1 R0 K2 ["CurrentDataModelTypeChanged"]
-  DUPCLOSURE R3 K3 [PROTO_25]
-  CAPTURE UPVAL U4
-  NAMECALL R1 R1 K1 ["Connect"]
-  CALL R1 2 0
-  GETIMPORT R2 K5 [plugin]
-  GETTABLEKS R1 R2 K6 ["HostDataModelTypeIsCurrent"]
-  JUMPIFNOT R1 [+2]
-  GETUPVAL R1 4
-  CALL R1 0 0
-  RETURN R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["CurrentDataModelTypeAboutToChange"]
+        2 NEWCLOSURE                       R3 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          UPVAL U2
+        6 CAPTURE                          UPVAL U3
+        7 NAMECALL                         R1 R1 K1 ["Connect"]
+        9 CALL                             R1 2 0
+       10 GETTABLEKS                       R1 R0 K2 ["CurrentDataModelTypeChanged"]
+       12 DUPCLOSURE                       R3 K3 [PROTO_25]
+       13 CAPTURE                          UPVAL U4
+       14 NAMECALL                         R1 R1 K1 ["Connect"]
+       16 CALL                             R1 2 0
+       17 GETIMPORT                        R2 K5 [plugin]
+       19 GETTABLEKS                       R1 R2 K6 ["HostDataModelTypeIsCurrent"]
+       21 JUMPIFNOT                        R1 ; [+2]
+       22 GETUPVAL                         R1 4
+       23 CALL                             R1 0 0
+       24 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R2 K1 [script]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Common"]
-  GETTABLEKS R2 R3 K6 ["commonInit"]
-  CALL R1 1 1
-  MOVE R2 R1
-  CALL R2 0 0
-  GETIMPORT R2 K8 [game]
-  LOADK R4 K9 ["PhysicsService"]
-  NAMECALL R2 R2 K10 ["GetService"]
-  CALL R2 2 1
-  GETIMPORT R3 K8 [game]
-  LOADK R5 K11 ["ChangeHistoryService"]
-  NAMECALL R3 R3 K10 ["GetService"]
-  CALL R3 2 1
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R6 R0 K12 ["Plugin"]
-  GETTABLEKS R5 R6 K13 ["getSelectedParts"]
-  CALL R4 1 1
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R7 R0 K12 ["Plugin"]
-  GETTABLEKS R6 R7 K14 ["getPartsInGroup"]
-  CALL R5 1 1
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R8 R0 K12 ["Plugin"]
-  GETTABLEKS R7 R8 K15 ["getGroups"]
-  CALL R6 1 1
-  GETIMPORT R7 K4 [require]
-  GETTABLEKS R9 R0 K12 ["Plugin"]
-  GETTABLEKS R8 R9 K16 ["getSelectedGroupIds"]
-  CALL R7 1 1
-  GETIMPORT R8 K8 [game]
-  LOADK R10 K17 ["StudioService"]
-  NAMECALL R8 R8 K10 ["GetService"]
-  CALL R8 2 1
-  NAMECALL R8 R8 K18 ["HasInternalPermission"]
-  CALL R8 1 1
-  LOADNIL R9
-  LOADNIL R10
-  NEWCLOSURE R11 P0
-  CAPTURE REF R10
-  NEWCLOSURE R9 P1
-  CAPTURE REF R10
-  CAPTURE VAL R2
-  DUPCLOSURE R12 K19 [PROTO_2]
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  DUPCLOSURE R13 K20 [PROTO_3]
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  NEWTABLE R14 0 0
-  DUPCLOSURE R15 K21 [PROTO_7]
-  CAPTURE VAL R14
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  DUPCLOSURE R16 K22 [PROTO_8]
-  CAPTURE VAL R14
-  DUPCLOSURE R17 K23 [PROTO_9]
-  CAPTURE VAL R2
-  NEWTABLE R18 0 0
-  DUPCLOSURE R19 K24 [PROTO_17]
-  CAPTURE VAL R18
-  CAPTURE VAL R15
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R14
-  CAPTURE VAL R3
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  CAPTURE VAL R4
-  DUPCLOSURE R20 K25 [PROTO_18]
-  CAPTURE VAL R18
-  LOADB R21 0
-  NEWCLOSURE R22 P9
-  CAPTURE REF R21
-  CAPTURE REF R9
-  NEWCLOSURE R23 P10
-  CAPTURE REF R21
-  LOADNIL R24
-  NEWCLOSURE R25 P11
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE REF R21
-  CAPTURE REF R9
-  CAPTURE VAL R19
-  CAPTURE VAL R8
-  CAPTURE VAL R0
-  CAPTURE REF R24
-  NEWCLOSURE R26 P12
-  CAPTURE VAL R18
-  CAPTURE VAL R14
-  CAPTURE REF R21
-  CAPTURE REF R24
-  NEWCLOSURE R27 P13
-  CAPTURE VAL R18
-  CAPTURE VAL R14
-  CAPTURE REF R21
-  CAPTURE REF R24
-  CAPTURE VAL R25
-  GETIMPORT R29 K27 [plugin]
-  GETTABLEKS R28 R29 K28 ["MultipleDocumentInterfaceInstance"]
-  MOVE R29 R27
-  GETTABLEKS R30 R28 K29 ["FocusedDataModelSession"]
-  CALL R29 1 0
-  CLOSEUPVALS R9
-  RETURN R0 0
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R2 K1 [script]
+        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        7 GETIMPORT                        R1 K4 [require]
+        9 GETTABLEKS                       R3 R0 K5 ["Common"]
+       11 GETTABLEKS                       R2 R3 K6 ["commonInit"]
+       13 CALL                             R1 1 1
+       14 MOVE                             R2 R1
+       15 CALL                             R2 0 0
+       16 GETIMPORT                        R2 K8 [game]
+       18 LOADK                            R4 K9 ["PhysicsService"]
+       19 NAMECALL                         R2 R2 K10 ["GetService"]
+       21 CALL                             R2 2 1
+       22 GETIMPORT                        R3 K8 [game]
+       24 LOADK                            R5 K11 ["ChangeHistoryService"]
+       25 NAMECALL                         R3 R3 K10 ["GetService"]
+       27 CALL                             R3 2 1
+       28 GETIMPORT                        R4 K4 [require]
+       30 GETTABLEKS                       R6 R0 K12 ["Plugin"]
+       32 GETTABLEKS                       R5 R6 K13 ["getSelectedParts"]
+       34 CALL                             R4 1 1
+       35 GETIMPORT                        R5 K4 [require]
+       37 GETTABLEKS                       R7 R0 K12 ["Plugin"]
+       39 GETTABLEKS                       R6 R7 K14 ["getPartsInGroup"]
+       41 CALL                             R5 1 1
+       42 GETIMPORT                        R6 K4 [require]
+       44 GETTABLEKS                       R8 R0 K12 ["Plugin"]
+       46 GETTABLEKS                       R7 R8 K15 ["getGroups"]
+       48 CALL                             R6 1 1
+       49 GETIMPORT                        R7 K4 [require]
+       51 GETTABLEKS                       R9 R0 K12 ["Plugin"]
+       53 GETTABLEKS                       R8 R9 K16 ["getSelectedGroupIds"]
+       55 CALL                             R7 1 1
+       56 GETIMPORT                        R8 K8 [game]
+       58 LOADK                            R10 K17 ["StudioService"]
+       59 NAMECALL                         R8 R8 K10 ["GetService"]
+       61 CALL                             R8 2 1
+       62 NAMECALL                         R8 R8 K18 ["HasInternalPermission"]
+       64 CALL                             R8 1 1
+       65 LOADNIL                          R9
+       66 LOADNIL                          R10
+       67 NEWCLOSURE                       R11 P0
+       68 CAPTURE                          REF R10
+       69 NEWCLOSURE                       R9 P1
+       70 CAPTURE                          REF R10
+       71 CAPTURE                          VAL R2
+       72 DUPCLOSURE                       R12 K19 [PROTO_2]
+       73 CAPTURE                          VAL R6
+       74 CAPTURE                          VAL R7
+       75 DUPCLOSURE                       R13 K20 [PROTO_3]
+       76 CAPTURE                          VAL R6
+       77 CAPTURE                          VAL R7
+       78 NEWTABLE                         R14 0 0
+       80 DUPCLOSURE                       R15 K21 [PROTO_7]
+       81 CAPTURE                          VAL R14
+       82 CAPTURE                          VAL R6
+       83 CAPTURE                          VAL R7
+       84 CAPTURE                          VAL R3
+       85 DUPCLOSURE                       R16 K22 [PROTO_8]
+       86 CAPTURE                          VAL R14
+       87 DUPCLOSURE                       R17 K23 [PROTO_9]
+       88 CAPTURE                          VAL R2
+       89 NEWTABLE                         R18 0 0
+       91 DUPCLOSURE                       R19 K24 [PROTO_17]
+       92 CAPTURE                          VAL R18
+       93 CAPTURE                          VAL R15
+       94 CAPTURE                          VAL R6
+       95 CAPTURE                          VAL R7
+       96 CAPTURE                          VAL R14
+       97 CAPTURE                          VAL R3
+       98 CAPTURE                          VAL R2
+       99 CAPTURE                          VAL R5
+      100 CAPTURE                          VAL R4
+      101 DUPCLOSURE                       R20 K25 [PROTO_18]
+      102 CAPTURE                          VAL R18
+      103 LOADB                            R21 0
+      104 NEWCLOSURE                       R22 P9
+      105 CAPTURE                          REF R21
+      106 CAPTURE                          REF R9
+      107 NEWCLOSURE                       R23 P10
+      108 CAPTURE                          REF R21
+      109 LOADNIL                          R24
+      110 NEWCLOSURE                       R25 P11
+      111 CAPTURE                          VAL R6
+      112 CAPTURE                          VAL R7
+      113 CAPTURE                          REF R21
+      114 CAPTURE                          REF R9
+      115 CAPTURE                          VAL R19
+      116 CAPTURE                          VAL R8
+      117 CAPTURE                          VAL R0
+      118 CAPTURE                          REF R24
+      119 NEWCLOSURE                       R26 P12
+      120 CAPTURE                          VAL R18
+      121 CAPTURE                          VAL R14
+      122 CAPTURE                          REF R21
+      123 CAPTURE                          REF R24
+      124 NEWCLOSURE                       R27 P13
+      125 CAPTURE                          VAL R18
+      126 CAPTURE                          VAL R14
+      127 CAPTURE                          REF R21
+      128 CAPTURE                          REF R24
+      129 CAPTURE                          VAL R25
+      130 GETIMPORT                        R29 K27 [plugin]
+      132 GETTABLEKS                       R28 R29 K28 ["MultipleDocumentInterfaceInstance"]
+      134 MOVE                             R29 R27
+      135 GETTABLEKS                       R30 R28 K29 ["FocusedDataModelSession"]
+      137 CALL                             R29 1 0
+      138 CLOSEUPVALS                      R9
+      139 RETURN                           R0 0

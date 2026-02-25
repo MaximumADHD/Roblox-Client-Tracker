@@ -1,48 +1,48 @@
 PROTO_0:
-  DUPTABLE R4 K6 [{"Name", "Id", "Textures", "BaseMaterial", "IsGenerating", "IsTemporary"}]
-  GETUPVAL R5 0
-  MOVE R6 R0
-  GETIMPORT R7 K8 [game]
-  LOADK R9 K9 ["MaterialService"]
-  NAMECALL R7 R7 K10 ["GetService"]
-  CALL R7 2 -1
-  CALL R5 -1 1
-  SETTABLEKS R5 R4 K0 ["Name"]
-  SETTABLEKS R1 R4 K1 ["Id"]
-  DUPTABLE R5 K12 [{"ColorMap"}]
-  SETTABLEKS R2 R5 K11 ["ColorMap"]
-  SETTABLEKS R5 R4 K2 ["Textures"]
-  LOADNIL R5
-  SETTABLEKS R5 R4 K3 ["BaseMaterial"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K4 ["IsGenerating"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K5 ["IsTemporary"]
-  GETUPVAL R5 1
-  MOVE R6 R4
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K13 ["MaterialVariant"]
-  RETURN R4 1
+        0 DUPTABLE                         R4 K6 [{"Name", "Id", "Textures", "BaseMaterial", "IsGenerating", "IsTemporary"}]
+        1 GETUPVAL                         R5 0
+        2 MOVE                             R6 R0
+        3 GETIMPORT                        R7 K8 [game]
+        5 LOADK                            R9 K9 ["MaterialService"]
+        6 NAMECALL                         R7 R7 K10 ["GetService"]
+        8 CALL                             R7 2 -1
+        9 CALL                             R5 -1 1
+       10 SETTABLEKS                       R5 R4 K0 ["Name"]
+       12 SETTABLEKS                       R1 R4 K1 ["Id"]
+       14 DUPTABLE                         R5 K12 [{"ColorMap"}]
+       15 SETTABLEKS                       R2 R5 K11 ["ColorMap"]
+       17 SETTABLEKS                       R5 R4 K2 ["Textures"]
+       19 LOADNIL                          R5
+       20 SETTABLEKS                       R5 R4 K3 ["BaseMaterial"]
+       22 LOADB                            R5 0
+       23 SETTABLEKS                       R5 R4 K4 ["IsGenerating"]
+       25 LOADB                            R5 1
+       26 SETTABLEKS                       R5 R4 K5 ["IsTemporary"]
+       28 GETUPVAL                         R5 1
+       29 MOVE                             R6 R4
+       30 CALL                             R5 1 1
+       31 SETTABLEKS                       R5 R4 K13 ["MaterialVariant"]
+       33 RETURN                           R4 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Src"]
-  GETTABLEKS R2 R3 K6 ["Types"]
-  CALL R1 1 1
-  GETTABLEKS R3 R0 K5 ["Src"]
-  GETTABLEKS R2 R3 K7 ["Util"]
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R4 R2 K8 ["createMaterialVariant"]
-  CALL R3 1 1
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R5 R2 K9 ["DEPRECATED_getNewMaterialName"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K10 [PROTO_0]
-  CAPTURE VAL R4
-  CAPTURE VAL R3
-  RETURN R5 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R3 K6 ["Types"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R3 R0 K5 ["Src"]
+       18 GETTABLEKS                       R2 R3 K7 ["Util"]
+       20 GETIMPORT                        R3 K4 [require]
+       22 GETTABLEKS                       R4 R2 K8 ["createMaterialVariant"]
+       24 CALL                             R3 1 1
+       25 GETIMPORT                        R4 K4 [require]
+       27 GETTABLEKS                       R5 R2 K9 ["DEPRECATED_getNewMaterialName"]
+       29 CALL                             R4 1 1
+       30 DUPCLOSURE                       R5 K10 [PROTO_0]
+       31 CAPTURE                          VAL R4
+       32 CAPTURE                          VAL R3
+       33 RETURN                           R5 1

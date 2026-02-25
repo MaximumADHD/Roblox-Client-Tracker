@@ -1,194 +1,194 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["props"]
-  GETTABLEKS R0 R1 K1 ["Enabled"]
-  JUMPIFNOT R0 [+9]
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K2 ["onEnter"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["props"]
-  GETTABLEKS R1 R2 K3 ["Mouse"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        3 GETTABLEKS                       R0 R1 K1 ["Enabled"]
+        5 JUMPIFNOT                        R0 ; [+9]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R0 R1 K2 ["onEnter"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R2 R3 K0 ["props"]
+       12 GETTABLEKS                       R1 R2 K3 ["Mouse"]
+       14 CALL                             R0 1 0
+       15 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["props"]
-  GETTABLEKS R0 R1 K1 ["Enabled"]
-  JUMPIFNOT R0 [+9]
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K2 ["onLeave"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["props"]
-  GETTABLEKS R1 R2 K3 ["Mouse"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        3 GETTABLEKS                       R0 R1 K1 ["Enabled"]
+        5 JUMPIFNOT                        R0 ; [+9]
+        6 GETUPVAL                         R1 1
+        7 GETTABLEKS                       R0 R1 K2 ["onLeave"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R2 R3 K0 ["props"]
+       12 GETTABLEKS                       R1 R2 K3 ["Mouse"]
+       14 CALL                             R0 1 0
+       15 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["props"]
-  GETTABLEKS R0 R1 K1 ["IsOn"]
-  JUMPIFNOT R0 [+7]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["props"]
-  GETTABLEKS R0 R1 K2 ["OnClickedOff"]
-  CALL R0 0 0
-  RETURN R0 0
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["props"]
-  GETTABLEKS R0 R1 K3 ["OnClickedOn"]
-  CALL R0 0 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        3 GETTABLEKS                       R0 R1 K1 ["IsOn"]
+        5 JUMPIFNOT                        R0 ; [+7]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R1 R2 K0 ["props"]
+        9 GETTABLEKS                       R0 R1 K2 ["OnClickedOff"]
+       11 CALL                             R0 0 0
+       12 RETURN                           R0 0
+       13 GETUPVAL                         R2 0
+       14 GETTABLEKS                       R1 R2 K0 ["props"]
+       16 GETTABLEKS                       R0 R1 K3 ["OnClickedOn"]
+       18 CALL                             R0 0 0
+       19 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["createElement"]
-  LOADK R1 K1 ["ImageButton"]
-  NEWTABLE R2 8 0
-  LOADN R3 1
-  SETTABLEKS R3 R2 K2 ["BackgroundTransparency"]
-  GETUPVAL R3 1
-  GETUPVAL R4 2
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K3 ["Image"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K4 ["props"]
-  GETTABLEKS R3 R4 K5 ["Position"]
-  SETTABLEKS R3 R2 K5 ["Position"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K4 ["props"]
-  GETTABLEKS R3 R4 K6 ["Size"]
-  JUMPIF R3 [+7]
-  GETIMPORT R3 K9 [UDim2.new]
-  LOADN R4 0
-  LOADN R5 40
-  LOADN R6 0
-  LOADN R7 24
-  CALL R3 4 1
-  SETTABLEKS R3 R2 K6 ["Size"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K4 ["props"]
-  GETTABLEKS R4 R5 K11 ["LayoutOrder"]
-  ORK R3 R4 K10 [1]
-  SETTABLEKS R3 R2 K11 ["LayoutOrder"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K12 ["Event"]
-  GETTABLEKS R3 R4 K13 ["MouseEnter"]
-  NEWCLOSURE R4 P0
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  SETTABLE R4 R2 R3
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K12 ["Event"]
-  GETTABLEKS R3 R4 K14 ["MouseLeave"]
-  NEWCLOSURE R4 P1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  SETTABLE R4 R2 R3
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K12 ["Event"]
-  GETTABLEKS R3 R4 K15 ["MouseButton1Click"]
-  NEWCLOSURE R4 P2
-  CAPTURE UPVAL U2
-  SETTABLE R4 R2 R3
-  CALL R0 2 -1
-  RETURN R0 -1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["createElement"]
+        3 LOADK                            R1 K1 ["ImageButton"]
+        4 NEWTABLE                         R2 8 0
+        6 LOADN                            R3 1
+        7 SETTABLEKS                       R3 R2 K2 ["BackgroundTransparency"]
+        9 GETUPVAL                         R3 1
+       10 GETUPVAL                         R4 2
+       11 CALL                             R3 1 1
+       12 SETTABLEKS                       R3 R2 K3 ["Image"]
+       14 GETUPVAL                         R5 2
+       15 GETTABLEKS                       R4 R5 K4 ["props"]
+       17 GETTABLEKS                       R3 R4 K5 ["Position"]
+       19 SETTABLEKS                       R3 R2 K5 ["Position"]
+       21 GETUPVAL                         R5 2
+       22 GETTABLEKS                       R4 R5 K4 ["props"]
+       24 GETTABLEKS                       R3 R4 K6 ["Size"]
+       26 JUMPIF                           R3 ; [+7]
+       27 GETIMPORT                        R3 K9 [UDim2.new]
+       29 LOADN                            R4 0
+       30 LOADN                            R5 40
+       31 LOADN                            R6 0
+       32 LOADN                            R7 24
+       33 CALL                             R3 4 1
+       34 SETTABLEKS                       R3 R2 K6 ["Size"]
+       36 GETUPVAL                         R6 2
+       37 GETTABLEKS                       R5 R6 K4 ["props"]
+       39 GETTABLEKS                       R4 R5 K11 ["LayoutOrder"]
+       41 ORK                              R3 R4 K10 [1]
+       42 SETTABLEKS                       R3 R2 K11 ["LayoutOrder"]
+       44 GETUPVAL                         R5 0
+       45 GETTABLEKS                       R4 R5 K12 ["Event"]
+       47 GETTABLEKS                       R3 R4 K13 ["MouseEnter"]
+       49 NEWCLOSURE                       R4 P0
+       50 CAPTURE                          UPVAL U2
+       51 CAPTURE                          UPVAL U3
+       52 SETTABLE                         R4 R2 R3
+       53 GETUPVAL                         R5 0
+       54 GETTABLEKS                       R4 R5 K12 ["Event"]
+       56 GETTABLEKS                       R3 R4 K14 ["MouseLeave"]
+       58 NEWCLOSURE                       R4 P1
+       59 CAPTURE                          UPVAL U2
+       60 CAPTURE                          UPVAL U3
+       61 SETTABLE                         R4 R2 R3
+       62 GETUPVAL                         R5 0
+       63 GETTABLEKS                       R4 R5 K12 ["Event"]
+       65 GETTABLEKS                       R3 R4 K15 ["MouseButton1Click"]
+       67 NEWCLOSURE                       R4 P2
+       68 CAPTURE                          UPVAL U2
+       69 SETTABLE                         R4 R2 R3
+       70 CALL                             R0 2 -1
+       71 RETURN                           R0 -1
 
 PROTO_4:
-  NEWCLOSURE R1 P0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE VAL R0
-  CAPTURE UPVAL U2
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["createElement"]
-  GETUPVAL R3 3
-  DUPTABLE R4 K2 [{"render"}]
-  SETTABLEKS R1 R4 K1 ["render"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 NEWCLOSURE                       R1 P0
+        1 CAPTURE                          UPVAL U0
+        2 CAPTURE                          UPVAL U1
+        3 CAPTURE                          VAL R0
+        4 CAPTURE                          UPVAL U2
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R2 R3 K0 ["createElement"]
+        8 GETUPVAL                         R3 3
+        9 DUPTABLE                         R4 K2 [{"render"}]
+       10 SETTABLEKS                       R1 R4 K1 ["render"]
+       12 CALL                             R2 2 -1
+       13 RETURN                           R2 -1
 
 PROTO_5:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["DarkStyle"]
-  JUMPIFEQKNIL R0 [+5]
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["DarkStyle"]
-  RETURN R0 1
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K1 ["isDarkerTheme"]
-  CALL R0 0 -1
-  RETURN R0 -1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["DarkStyle"]
+        3 JUMPIFEQKNIL                     R0 ; [+5]
+        5 GETUPVAL                         R1 0
+        6 GETTABLEKS                       R0 R1 K0 ["DarkStyle"]
+        8 RETURN                           R0 1
+        9 GETUPVAL                         R1 1
+       10 GETTABLEKS                       R0 R1 K1 ["isDarkerTheme"]
+       12 CALL                             R0 0 -1
+       13 RETURN                           R0 -1
 
 PROTO_6:
-  GETTABLEKS R2 R0 K0 ["DarkStyle"]
-  JUMPIFEQKNIL R2 [+4]
-  GETTABLEKS R1 R0 K0 ["DarkStyle"]
-  JUMP [+5]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K1 ["isDarkerTheme"]
-  CALL R1 0 1
-  JUMP [0]
-  GETTABLEKS R3 R0 K2 ["props"]
-  GETTABLEKS R2 R3 K3 ["Enabled"]
-  JUMPIFNOT R2 [+15]
-  GETTABLEKS R3 R0 K2 ["props"]
-  GETTABLEKS R2 R3 K4 ["IsOn"]
-  JUMPIFNOT R2 [+5]
-  JUMPIFNOT R1 [+2]
-  LOADK R2 K5 ["rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png"]
-  RETURN R2 1
-  LOADK R2 K6 ["rbxasset://textures/RoactStudioWidgets/toggle_on_light.png"]
-  RETURN R2 1
-  JUMPIFNOT R1 [+2]
-  LOADK R2 K7 ["rbxasset://textures/RoactStudioWidgets/toggle_off_dark.png"]
-  RETURN R2 1
-  LOADK R2 K8 ["rbxasset://textures/RoactStudioWidgets/toggle_off_light.png"]
-  RETURN R2 1
-  JUMPIFNOT R1 [+2]
-  LOADK R2 K9 ["rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png"]
-  RETURN R2 1
-  LOADK R2 K10 ["rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png"]
-  RETURN R2 1
+        0 GETTABLEKS                       R2 R0 K0 ["DarkStyle"]
+        2 JUMPIFEQKNIL                     R2 ; [+4]
+        4 GETTABLEKS                       R1 R0 K0 ["DarkStyle"]
+        6 JUMP                             ; [+5]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R1 R2 K1 ["isDarkerTheme"]
+       10 CALL                             R1 0 1
+       11 JUMP                             ; [0]
+       12 GETTABLEKS                       R3 R0 K2 ["props"]
+       14 GETTABLEKS                       R2 R3 K3 ["Enabled"]
+       16 JUMPIFNOT                        R2 ; [+15]
+       17 GETTABLEKS                       R3 R0 K2 ["props"]
+       19 GETTABLEKS                       R2 R3 K4 ["IsOn"]
+       21 JUMPIFNOT                        R2 ; [+5]
+       22 JUMPIFNOT                        R1 ; [+2]
+       23 LOADK                            R2 K5 ["rbxasset://textures/RoactStudioWidgets/toggle_on_dark.png"]
+       24 RETURN                           R2 1
+       25 LOADK                            R2 K6 ["rbxasset://textures/RoactStudioWidgets/toggle_on_light.png"]
+       26 RETURN                           R2 1
+       27 JUMPIFNOT                        R1 ; [+2]
+       28 LOADK                            R2 K7 ["rbxasset://textures/RoactStudioWidgets/toggle_off_dark.png"]
+       29 RETURN                           R2 1
+       30 LOADK                            R2 K8 ["rbxasset://textures/RoactStudioWidgets/toggle_off_light.png"]
+       31 RETURN                           R2 1
+       32 JUMPIFNOT                        R1 ; [+2]
+       33 LOADK                            R2 K9 ["rbxasset://textures/RoactStudioWidgets/toggle_disable_dark.png"]
+       34 RETURN                           R2 1
+       35 LOADK                            R2 K10 ["rbxasset://textures/RoactStudioWidgets/toggle_disable_light.png"]
+       36 RETURN                           R2 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [require]
-  GETIMPORT R4 K3 [script]
-  GETTABLEKS R3 R4 K4 ["Parent"]
-  GETTABLEKS R2 R3 K5 ["Internal"]
-  GETTABLEKS R1 R2 K6 ["RequireRoact"]
-  CALL R0 1 1
-  GETIMPORT R1 K1 [require]
-  GETIMPORT R5 K3 [script]
-  GETTABLEKS R4 R5 K4 ["Parent"]
-  GETTABLEKS R3 R4 K5 ["Internal"]
-  GETTABLEKS R2 R3 K7 ["Mouse"]
-  CALL R1 1 1
-  GETIMPORT R2 K1 [require]
-  GETIMPORT R6 K3 [script]
-  GETTABLEKS R5 R6 K4 ["Parent"]
-  GETTABLEKS R4 R5 K5 ["Internal"]
-  GETTABLEKS R3 R4 K8 ["ThemeChangeListener"]
-  CALL R2 1 1
-  GETIMPORT R3 K1 [require]
-  GETIMPORT R7 K3 [script]
-  GETTABLEKS R6 R7 K4 ["Parent"]
-  GETTABLEKS R5 R6 K5 ["Internal"]
-  GETTABLEKS R4 R5 K9 ["Theme"]
-  CALL R3 1 1
-  LOADNIL R4
-  GETTABLEKS R5 R0 K10 ["PureComponent"]
-  LOADK R7 K11 ["ToggleButton"]
-  NAMECALL R5 R5 K12 ["extend"]
-  CALL R5 2 1
-  NEWCLOSURE R6 P0
-  CAPTURE VAL R0
-  CAPTURE REF R4
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  SETTABLEKS R6 R5 K13 ["render"]
-  DUPCLOSURE R4 K14 [PROTO_6]
-  CAPTURE VAL R3
-  CLOSEUPVALS R4
-  RETURN R5 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [require]
+        3 GETIMPORT                        R4 K3 [script]
+        5 GETTABLEKS                       R3 R4 K4 ["Parent"]
+        7 GETTABLEKS                       R2 R3 K5 ["Internal"]
+        9 GETTABLEKS                       R1 R2 K6 ["RequireRoact"]
+       11 CALL                             R0 1 1
+       12 GETIMPORT                        R1 K1 [require]
+       14 GETIMPORT                        R5 K3 [script]
+       16 GETTABLEKS                       R4 R5 K4 ["Parent"]
+       18 GETTABLEKS                       R3 R4 K5 ["Internal"]
+       20 GETTABLEKS                       R2 R3 K7 ["Mouse"]
+       22 CALL                             R1 1 1
+       23 GETIMPORT                        R2 K1 [require]
+       25 GETIMPORT                        R6 K3 [script]
+       27 GETTABLEKS                       R5 R6 K4 ["Parent"]
+       29 GETTABLEKS                       R4 R5 K5 ["Internal"]
+       31 GETTABLEKS                       R3 R4 K8 ["ThemeChangeListener"]
+       33 CALL                             R2 1 1
+       34 GETIMPORT                        R3 K1 [require]
+       36 GETIMPORT                        R7 K3 [script]
+       38 GETTABLEKS                       R6 R7 K4 ["Parent"]
+       40 GETTABLEKS                       R5 R6 K5 ["Internal"]
+       42 GETTABLEKS                       R4 R5 K9 ["Theme"]
+       44 CALL                             R3 1 1
+       45 LOADNIL                          R4
+       46 GETTABLEKS                       R5 R0 K10 ["PureComponent"]
+       48 LOADK                            R7 K11 ["ToggleButton"]
+       49 NAMECALL                         R5 R5 K12 ["extend"]
+       51 CALL                             R5 2 1
+       52 NEWCLOSURE                       R6 P0
+       53 CAPTURE                          VAL R0
+       54 CAPTURE                          REF R4
+       55 CAPTURE                          VAL R1
+       56 CAPTURE                          VAL R2
+       57 SETTABLEKS                       R6 R5 K13 ["render"]
+       59 DUPCLOSURE                       R4 K14 [PROTO_6]
+       60 CAPTURE                          VAL R3
+       61 CLOSEUPVALS                      R4
+       62 RETURN                           R5 1

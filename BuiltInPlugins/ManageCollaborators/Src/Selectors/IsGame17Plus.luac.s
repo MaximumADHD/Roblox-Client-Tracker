@@ -1,12 +1,12 @@
 PROTO_0:
-  GETTABLEKS R3 R0 K0 ["Permissions"]
-  GETTABLEKS R2 R3 K1 ["MinimumAge"]
-  JUMPIFEQKN R2 K2 [17] [+2]
-  LOADB R1 0 +1
-  LOADB R1 1
-  RETURN R1 1
+        0 GETTABLEKS                       R3 R0 K0 ["Permissions"]
+        2 GETTABLEKS                       R2 R3 K1 ["MinimumAge"]
+        4 JUMPIFEQKN                       R2 K2 [17] ; [+2]
+        6 LOADB                            R1 0 +1
+        7 LOADB                            R1 1
+        8 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 RETURN                           R0 1

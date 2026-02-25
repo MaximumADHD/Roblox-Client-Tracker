@@ -1,272 +1,272 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["PlayerEmulationEnabled"]
-  RETURN R0 1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["PlayerEmulationEnabled"]
+        3 RETURN                           R0 1
 
 PROTO_1:
-  GETUPVAL R1 0
-  SETTABLEKS R0 R1 K0 ["PlayerEmulationEnabled"]
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 SETTABLEKS                       R0 R1 K0 ["PlayerEmulationEnabled"]
+        3 RETURN                           R0 0
 
 PROTO_2:
-  GETTABLEKS R2 R0 K0 ["props"]
-  GETTABLEKS R1 R2 K1 ["Plugin"]
-  NAMECALL R1 R1 K2 ["get"]
-  CALL R1 1 1
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K3 ["MAIN_SWITCH_KEY"]
-  NAMECALL R2 R1 K4 ["GetSetting"]
-  CALL R2 2 1
-  JUMPIFNOTEQKB R2 TRUE [+5]
-  GETUPVAL R3 1
-  LOADB R4 1
-  SETTABLEKS R4 R3 K5 ["PlayerEmulationEnabled"]
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R2 K1 ["Plugin"]
+        4 NAMECALL                         R1 R1 K2 ["get"]
+        6 CALL                             R1 1 1
+        7 GETUPVAL                         R5 0
+        8 GETTABLEKS                       R4 R5 K3 ["MAIN_SWITCH_KEY"]
+       10 NAMECALL                         R2 R1 K4 ["GetSetting"]
+       12 CALL                             R2 2 1
+       13 JUMPIFNOTEQKB                    R2 TRUE ; [+5]
+       15 GETUPVAL                         R3 1
+       16 LOADB                            R4 1
+       17 SETTABLEKS                       R4 R3 K5 ["PlayerEmulationEnabled"]
+       19 RETURN                           R0 0
 
 PROTO_3:
-  GETTABLEKS R3 R0 K0 ["props"]
-  GETTABLEKS R2 R3 K1 ["Plugin"]
-  NAMECALL R2 R2 K2 ["get"]
-  CALL R2 1 1
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K3 ["MAIN_SWITCH_KEY"]
-  MOVE R6 R1
-  NAMECALL R3 R2 K4 ["SetSetting"]
-  CALL R3 3 0
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R3 R4 K5 ["onPlayerEmulationEnabledChanged"]
-  MOVE R4 R3
-  MOVE R5 R1
-  CALL R4 1 0
-  RETURN R0 0
+        0 GETTABLEKS                       R3 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R3 K1 ["Plugin"]
+        4 NAMECALL                         R2 R2 K2 ["get"]
+        6 CALL                             R2 1 1
+        7 GETUPVAL                         R6 0
+        8 GETTABLEKS                       R5 R6 K3 ["MAIN_SWITCH_KEY"]
+       10 MOVE                             R6 R1
+       11 NAMECALL                         R3 R2 K4 ["SetSetting"]
+       13 CALL                             R3 3 0
+       14 GETTABLEKS                       R4 R0 K0 ["props"]
+       16 GETTABLEKS                       R3 R4 K5 ["onPlayerEmulationEnabledChanged"]
+       18 MOVE                             R4 R3
+       19 MOVE                             R5 R1
+       20 CALL                             R4 1 0
+       21 RETURN                           R0 0
 
 PROTO_4:
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K0 ["signalTokens"]
-  RETURN R0 0
+        0 NEWTABLE                         R1 0 0
+        2 SETTABLEKS                       R1 R0 K0 ["signalTokens"]
+        4 RETURN                           R0 0
 
 PROTO_5:
-  GETUPVAL R0 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["PlayerEmulationEnabled"]
-  NAMECALL R0 R0 K1 ["updatePlayerEmulationEnabled"]
-  CALL R0 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R2 R3 K0 ["PlayerEmulationEnabled"]
+        4 NAMECALL                         R0 R0 K1 ["updatePlayerEmulationEnabled"]
+        6 CALL                             R0 2 0
+        7 RETURN                           R0 0
 
 PROTO_6:
-  GETUPVAL R1 0
-  LOADK R3 K0 ["PlayerEmulationEnabled"]
-  NAMECALL R1 R1 K1 ["GetPropertyChangedSignal"]
-  CALL R1 2 1
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  NAMECALL R1 R1 K2 ["Connect"]
-  CALL R1 2 1
-  GETTABLEKS R3 R0 K3 ["signalTokens"]
-  FASTCALL2 TABLE_INSERT R3 R1 [+4]
-  MOVE R4 R1
-  GETIMPORT R2 K6 [table.insert]
-  CALL R2 2 0
-  NAMECALL R2 R0 K7 ["initEnabledStatus"]
-  CALL R2 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 LOADK                            R3 K0 ["PlayerEmulationEnabled"]
+        2 NAMECALL                         R1 R1 K1 ["GetPropertyChangedSignal"]
+        4 CALL                             R1 2 1
+        5 NEWCLOSURE                       R3 P0
+        6 CAPTURE                          VAL R0
+        7 CAPTURE                          UPVAL U0
+        8 NAMECALL                         R1 R1 K2 ["Connect"]
+       10 CALL                             R1 2 1
+       11 GETTABLEKS                       R3 R0 K3 ["signalTokens"]
+       13 FASTCALL2                        TABLE_INSERT R3 R1 ; [+4]
+       15 MOVE                             R4 R1
+       16 GETIMPORT                        R2 K6 [table.insert]
+       18 CALL                             R2 2 0
+       19 NAMECALL                         R2 R0 K7 ["initEnabledStatus"]
+       21 CALL                             R2 1 0
+       22 RETURN                           R0 0
 
 PROTO_7:
-  GETIMPORT R1 K1 [pairs]
-  GETTABLEKS R2 R0 K2 ["signalTokens"]
-  CALL R1 1 3
-  FORGPREP_NEXT R1
-  NAMECALL R6 R5 K3 ["Disconnect"]
-  CALL R6 1 0
-  FORGLOOP R1 2 [-4]
-  LOADNIL R1
-  SETTABLEKS R1 R0 K2 ["signalTokens"]
-  RETURN R0 0
+        0 GETIMPORT                        R1 K1 [pairs]
+        2 GETTABLEKS                       R2 R0 K2 ["signalTokens"]
+        4 CALL                             R1 1 3
+        5 FORGPREP_NEXT                    R1
+        6 NAMECALL                         R6 R5 K3 ["Disconnect"]
+        8 CALL                             R6 1 0
+        9 FORGLOOP                         R1 2 ; [-4]
+       11 LOADNIL                          R1
+       12 SETTABLEKS                       R1 R0 K2 ["signalTokens"]
+       14 RETURN                           R0 0
 
 PROTO_8:
-  GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R1 K1 ["Localization"]
-  GETTABLEKS R3 R1 K2 ["LayoutOrder"]
-  GETTABLEKS R4 R1 K3 ["mainSwitchEnabled"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K4 ["createElement"]
-  LOADK R6 K5 ["Frame"]
-  DUPTABLE R7 K9 [{"AutomaticSize", "Size", "BackgroundTransparency", "LayoutOrder"}]
-  GETIMPORT R8 K12 [Enum.AutomaticSize.Y]
-  SETTABLEKS R8 R7 K6 ["AutomaticSize"]
-  GETIMPORT R8 K15 [UDim2.fromScale]
-  LOADN R9 1
-  LOADN R10 0
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K7 ["Size"]
-  LOADN R8 1
-  SETTABLEKS R8 R7 K8 ["BackgroundTransparency"]
-  SETTABLEKS R3 R7 K2 ["LayoutOrder"]
-  DUPTABLE R8 K19 [{"Layout", "Label", "Toggle"}]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K4 ["createElement"]
-  LOADK R10 K20 ["UIListLayout"]
-  DUPTABLE R11 K25 [{"HorizontalFlex", "SortOrder", "FillDirection", "VerticalAlignment"}]
-  GETIMPORT R12 K28 [Enum.UIFlexAlignment.SpaceBetween]
-  SETTABLEKS R12 R11 K21 ["HorizontalFlex"]
-  GETIMPORT R12 K29 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R12 R11 K22 ["SortOrder"]
-  GETIMPORT R12 K31 [Enum.FillDirection.Horizontal]
-  SETTABLEKS R12 R11 K23 ["FillDirection"]
-  GETIMPORT R12 K33 [Enum.VerticalAlignment.Center]
-  SETTABLEKS R12 R11 K24 ["VerticalAlignment"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K16 ["Layout"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K4 ["createElement"]
-  GETUPVAL R10 1
-  DUPTABLE R11 K38 [{"AutomaticSize", "Text", "TextXAlignment", "TextWrapped", "TextTruncate", "LayoutOrder"}]
-  GETIMPORT R12 K40 [Enum.AutomaticSize.XY]
-  SETTABLEKS R12 R11 K6 ["AutomaticSize"]
-  LOADK R14 K41 ["MainSwitchSection"]
-  LOADK R15 K42 ["LabelText"]
-  NAMECALL R12 R2 K43 ["getText"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K34 ["Text"]
-  GETIMPORT R12 K45 [Enum.TextXAlignment.Left]
-  SETTABLEKS R12 R11 K35 ["TextXAlignment"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K36 ["TextWrapped"]
-  GETIMPORT R12 K47 [Enum.TextTruncate.SplitWord]
-  SETTABLEKS R12 R11 K37 ["TextTruncate"]
-  LOADN R12 1
-  SETTABLEKS R12 R11 K2 ["LayoutOrder"]
-  DUPTABLE R12 K49 [{"FlexItem"}]
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K4 ["createElement"]
-  LOADK R14 K50 ["UIFlexItem"]
-  DUPTABLE R15 K52 [{"FlexMode"}]
-  GETIMPORT R16 K55 [Enum.UIFlexMode.Shrink]
-  SETTABLEKS R16 R15 K51 ["FlexMode"]
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K48 ["FlexItem"]
-  CALL R9 3 1
-  SETTABLEKS R9 R8 K17 ["Label"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K4 ["createElement"]
-  GETUPVAL R10 2
-  DUPTABLE R11 K58 [{"LayoutOrder", "OnClick", "Selected"}]
-  LOADN R12 2
-  SETTABLEKS R12 R11 K2 ["LayoutOrder"]
-  GETUPVAL R12 3
-  SETTABLEKS R12 R11 K56 ["OnClick"]
-  SETTABLEKS R4 R11 K57 ["Selected"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K18 ["Toggle"]
-  CALL R5 3 -1
-  RETURN R5 -1
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R1 K1 ["Localization"]
+        4 GETTABLEKS                       R3 R1 K2 ["LayoutOrder"]
+        6 GETTABLEKS                       R4 R1 K3 ["mainSwitchEnabled"]
+        8 GETUPVAL                         R6 0
+        9 GETTABLEKS                       R5 R6 K4 ["createElement"]
+       11 LOADK                            R6 K5 ["Frame"]
+       12 DUPTABLE                         R7 K9 [{"AutomaticSize", "Size", "BackgroundTransparency", "LayoutOrder"}]
+       13 GETIMPORT                        R8 K12 [Enum.AutomaticSize.Y]
+       15 SETTABLEKS                       R8 R7 K6 ["AutomaticSize"]
+       17 GETIMPORT                        R8 K15 [UDim2.fromScale]
+       19 LOADN                            R9 1
+       20 LOADN                            R10 0
+       21 CALL                             R8 2 1
+       22 SETTABLEKS                       R8 R7 K7 ["Size"]
+       24 LOADN                            R8 1
+       25 SETTABLEKS                       R8 R7 K8 ["BackgroundTransparency"]
+       27 SETTABLEKS                       R3 R7 K2 ["LayoutOrder"]
+       29 DUPTABLE                         R8 K19 [{"Layout", "Label", "Toggle"}]
+       30 GETUPVAL                         R10 0
+       31 GETTABLEKS                       R9 R10 K4 ["createElement"]
+       33 LOADK                            R10 K20 ["UIListLayout"]
+       34 DUPTABLE                         R11 K25 [{"HorizontalFlex", "SortOrder", "FillDirection", "VerticalAlignment"}]
+       35 GETIMPORT                        R12 K28 [Enum.UIFlexAlignment.SpaceBetween]
+       37 SETTABLEKS                       R12 R11 K21 ["HorizontalFlex"]
+       39 GETIMPORT                        R12 K29 [Enum.SortOrder.LayoutOrder]
+       41 SETTABLEKS                       R12 R11 K22 ["SortOrder"]
+       43 GETIMPORT                        R12 K31 [Enum.FillDirection.Horizontal]
+       45 SETTABLEKS                       R12 R11 K23 ["FillDirection"]
+       47 GETIMPORT                        R12 K33 [Enum.VerticalAlignment.Center]
+       49 SETTABLEKS                       R12 R11 K24 ["VerticalAlignment"]
+       51 CALL                             R9 2 1
+       52 SETTABLEKS                       R9 R8 K16 ["Layout"]
+       54 GETUPVAL                         R10 0
+       55 GETTABLEKS                       R9 R10 K4 ["createElement"]
+       57 GETUPVAL                         R10 1
+       58 DUPTABLE                         R11 K38 [{"AutomaticSize", "Text", "TextXAlignment", "TextWrapped", "TextTruncate", "LayoutOrder"}]
+       59 GETIMPORT                        R12 K40 [Enum.AutomaticSize.XY]
+       61 SETTABLEKS                       R12 R11 K6 ["AutomaticSize"]
+       63 LOADK                            R14 K41 ["MainSwitchSection"]
+       64 LOADK                            R15 K42 ["LabelText"]
+       65 NAMECALL                         R12 R2 K43 ["getText"]
+       67 CALL                             R12 3 1
+       68 SETTABLEKS                       R12 R11 K34 ["Text"]
+       70 GETIMPORT                        R12 K45 [Enum.TextXAlignment.Left]
+       72 SETTABLEKS                       R12 R11 K35 ["TextXAlignment"]
+       74 LOADB                            R12 1
+       75 SETTABLEKS                       R12 R11 K36 ["TextWrapped"]
+       77 GETIMPORT                        R12 K47 [Enum.TextTruncate.SplitWord]
+       79 SETTABLEKS                       R12 R11 K37 ["TextTruncate"]
+       81 LOADN                            R12 1
+       82 SETTABLEKS                       R12 R11 K2 ["LayoutOrder"]
+       84 DUPTABLE                         R12 K49 [{"FlexItem"}]
+       85 GETUPVAL                         R14 0
+       86 GETTABLEKS                       R13 R14 K4 ["createElement"]
+       88 LOADK                            R14 K50 ["UIFlexItem"]
+       89 DUPTABLE                         R15 K52 [{"FlexMode"}]
+       90 GETIMPORT                        R16 K55 [Enum.UIFlexMode.Shrink]
+       92 SETTABLEKS                       R16 R15 K51 ["FlexMode"]
+       94 CALL                             R13 2 1
+       95 SETTABLEKS                       R13 R12 K48 ["FlexItem"]
+       97 CALL                             R9 3 1
+       98 SETTABLEKS                       R9 R8 K17 ["Label"]
+      100 GETUPVAL                         R10 0
+      101 GETTABLEKS                       R9 R10 K4 ["createElement"]
+      103 GETUPVAL                         R10 2
+      104 DUPTABLE                         R11 K58 [{"LayoutOrder", "OnClick", "Selected"}]
+      105 LOADN                            R12 2
+      106 SETTABLEKS                       R12 R11 K2 ["LayoutOrder"]
+      108 GETUPVAL                         R12 3
+      109 SETTABLEKS                       R12 R11 K56 ["OnClick"]
+      111 SETTABLEKS                       R4 R11 K57 ["Selected"]
+      113 CALL                             R9 2 1
+      114 SETTABLEKS                       R9 R8 K18 ["Toggle"]
+      116 CALL                             R5 3 -1
+      117 RETURN                           R5 -1
 
 PROTO_9:
-  DUPTABLE R2 K1 [{"mainSwitchEnabled"}]
-  GETTABLEKS R4 R0 K2 ["MainSwitch"]
-  GETTABLEKS R3 R4 K0 ["mainSwitchEnabled"]
-  SETTABLEKS R3 R2 K0 ["mainSwitchEnabled"]
-  RETURN R2 1
+        0 DUPTABLE                         R2 K1 [{"mainSwitchEnabled"}]
+        1 GETTABLEKS                       R4 R0 K2 ["MainSwitch"]
+        3 GETTABLEKS                       R3 R4 K0 ["mainSwitchEnabled"]
+        5 SETTABLEKS                       R3 R2 K0 ["mainSwitchEnabled"]
+        7 RETURN                           R2 1
 
 PROTO_10:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R2 1 -1
-  CALL R1 -1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R2 1
+        2 MOVE                             R3 R0
+        3 CALL                             R2 1 -1
+        4 CALL                             R1 -1 0
+        5 RETURN                           R0 0
 
 PROTO_11:
-  DUPTABLE R1 K1 [{"onPlayerEmulationEnabledChanged"}]
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  SETTABLEKS R2 R1 K0 ["onPlayerEmulationEnabledChanged"]
-  RETURN R1 1
+        0 DUPTABLE                         R1 K1 [{"onPlayerEmulationEnabledChanged"}]
+        1 NEWCLOSURE                       R2 P0
+        2 CAPTURE                          VAL R0
+        3 CAPTURE                          UPVAL U0
+        4 SETTABLEKS                       R2 R1 K0 ["onPlayerEmulationEnabledChanged"]
+        6 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["PlayerEmulatorService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  GETIMPORT R4 K5 [script]
-  GETTABLEKS R3 R4 K6 ["Parent"]
-  GETTABLEKS R2 R3 K6 ["Parent"]
-  GETTABLEKS R1 R2 K6 ["Parent"]
-  GETIMPORT R2 K8 [require]
-  GETTABLEKS R4 R1 K9 ["Packages"]
-  GETTABLEKS R3 R4 K10 ["Roact"]
-  CALL R2 1 1
-  GETIMPORT R3 K8 [require]
-  GETTABLEKS R5 R1 K9 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["RoactRodux"]
-  CALL R3 1 1
-  GETIMPORT R4 K8 [require]
-  GETTABLEKS R6 R1 K9 ["Packages"]
-  GETTABLEKS R5 R6 K12 ["Framework"]
-  CALL R4 1 1
-  GETTABLEKS R5 R4 K13 ["ContextServices"]
-  GETTABLEKS R6 R5 K14 ["withContext"]
-  GETTABLEKS R7 R4 K15 ["UI"]
-  GETTABLEKS R8 R7 K16 ["TextLabel"]
-  GETTABLEKS R9 R7 K17 ["ToggleButton"]
-  GETIMPORT R10 K8 [require]
-  GETTABLEKS R13 R1 K18 ["Src"]
-  GETTABLEKS R12 R13 K19 ["Util"]
-  GETTABLEKS R11 R12 K20 ["Constants"]
-  CALL R10 1 1
-  GETIMPORT R11 K8 [require]
-  GETTABLEKS R14 R1 K18 ["Src"]
-  GETTABLEKS R13 R14 K21 ["Actions"]
-  GETTABLEKS R12 R13 K22 ["OnPlayerEmulationEnabledChanged"]
-  CALL R11 1 1
-  DUPCLOSURE R12 K23 [PROTO_0]
-  CAPTURE VAL R0
-  DUPCLOSURE R13 K24 [PROTO_1]
-  CAPTURE VAL R0
-  GETTABLEKS R14 R2 K25 ["PureComponent"]
-  LOADK R16 K26 ["MainSwitchSection"]
-  NAMECALL R14 R14 K27 ["extend"]
-  CALL R14 2 1
-  DUPCLOSURE R15 K28 [PROTO_2]
-  CAPTURE VAL R10
-  CAPTURE VAL R0
-  SETTABLEKS R15 R14 K29 ["initEnabledStatus"]
-  DUPCLOSURE R15 K30 [PROTO_3]
-  CAPTURE VAL R10
-  SETTABLEKS R15 R14 K31 ["updatePlayerEmulationEnabled"]
-  DUPCLOSURE R15 K32 [PROTO_4]
-  SETTABLEKS R15 R14 K33 ["init"]
-  DUPCLOSURE R15 K34 [PROTO_6]
-  CAPTURE VAL R0
-  SETTABLEKS R15 R14 K35 ["didMount"]
-  DUPCLOSURE R15 K36 [PROTO_7]
-  SETTABLEKS R15 R14 K37 ["willUnmount"]
-  DUPCLOSURE R15 K38 [PROTO_8]
-  CAPTURE VAL R2
-  CAPTURE VAL R8
-  CAPTURE VAL R9
-  CAPTURE VAL R13
-  SETTABLEKS R15 R14 K39 ["render"]
-  MOVE R15 R6
-  DUPTABLE R16 K42 [{"Plugin", "Localization"}]
-  GETTABLEKS R17 R5 K40 ["Plugin"]
-  SETTABLEKS R17 R16 K40 ["Plugin"]
-  GETTABLEKS R17 R5 K41 ["Localization"]
-  SETTABLEKS R17 R16 K41 ["Localization"]
-  CALL R15 1 1
-  MOVE R16 R14
-  CALL R15 1 1
-  MOVE R14 R15
-  DUPCLOSURE R15 K43 [PROTO_9]
-  DUPCLOSURE R16 K44 [PROTO_11]
-  CAPTURE VAL R11
-  GETTABLEKS R17 R3 K45 ["connect"]
-  MOVE R18 R15
-  MOVE R19 R16
-  CALL R17 2 1
-  MOVE R18 R14
-  CALL R17 1 -1
-  RETURN R17 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["PlayerEmulatorService"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R4 K5 [script]
+        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
+       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+       15 GETIMPORT                        R2 K8 [require]
+       17 GETTABLEKS                       R4 R1 K9 ["Packages"]
+       19 GETTABLEKS                       R3 R4 K10 ["Roact"]
+       21 CALL                             R2 1 1
+       22 GETIMPORT                        R3 K8 [require]
+       24 GETTABLEKS                       R5 R1 K9 ["Packages"]
+       26 GETTABLEKS                       R4 R5 K11 ["RoactRodux"]
+       28 CALL                             R3 1 1
+       29 GETIMPORT                        R4 K8 [require]
+       31 GETTABLEKS                       R6 R1 K9 ["Packages"]
+       33 GETTABLEKS                       R5 R6 K12 ["Framework"]
+       35 CALL                             R4 1 1
+       36 GETTABLEKS                       R5 R4 K13 ["ContextServices"]
+       38 GETTABLEKS                       R6 R5 K14 ["withContext"]
+       40 GETTABLEKS                       R7 R4 K15 ["UI"]
+       42 GETTABLEKS                       R8 R7 K16 ["TextLabel"]
+       44 GETTABLEKS                       R9 R7 K17 ["ToggleButton"]
+       46 GETIMPORT                        R10 K8 [require]
+       48 GETTABLEKS                       R13 R1 K18 ["Src"]
+       50 GETTABLEKS                       R12 R13 K19 ["Util"]
+       52 GETTABLEKS                       R11 R12 K20 ["Constants"]
+       54 CALL                             R10 1 1
+       55 GETIMPORT                        R11 K8 [require]
+       57 GETTABLEKS                       R14 R1 K18 ["Src"]
+       59 GETTABLEKS                       R13 R14 K21 ["Actions"]
+       61 GETTABLEKS                       R12 R13 K22 ["OnPlayerEmulationEnabledChanged"]
+       63 CALL                             R11 1 1
+       64 DUPCLOSURE                       R12 K23 [PROTO_0]
+       65 CAPTURE                          VAL R0
+       66 DUPCLOSURE                       R13 K24 [PROTO_1]
+       67 CAPTURE                          VAL R0
+       68 GETTABLEKS                       R14 R2 K25 ["PureComponent"]
+       70 LOADK                            R16 K26 ["MainSwitchSection"]
+       71 NAMECALL                         R14 R14 K27 ["extend"]
+       73 CALL                             R14 2 1
+       74 DUPCLOSURE                       R15 K28 [PROTO_2]
+       75 CAPTURE                          VAL R10
+       76 CAPTURE                          VAL R0
+       77 SETTABLEKS                       R15 R14 K29 ["initEnabledStatus"]
+       79 DUPCLOSURE                       R15 K30 [PROTO_3]
+       80 CAPTURE                          VAL R10
+       81 SETTABLEKS                       R15 R14 K31 ["updatePlayerEmulationEnabled"]
+       83 DUPCLOSURE                       R15 K32 [PROTO_4]
+       84 SETTABLEKS                       R15 R14 K33 ["init"]
+       86 DUPCLOSURE                       R15 K34 [PROTO_6]
+       87 CAPTURE                          VAL R0
+       88 SETTABLEKS                       R15 R14 K35 ["didMount"]
+       90 DUPCLOSURE                       R15 K36 [PROTO_7]
+       91 SETTABLEKS                       R15 R14 K37 ["willUnmount"]
+       93 DUPCLOSURE                       R15 K38 [PROTO_8]
+       94 CAPTURE                          VAL R2
+       95 CAPTURE                          VAL R8
+       96 CAPTURE                          VAL R9
+       97 CAPTURE                          VAL R13
+       98 SETTABLEKS                       R15 R14 K39 ["render"]
+      100 MOVE                             R15 R6
+      101 DUPTABLE                         R16 K42 [{"Plugin", "Localization"}]
+      102 GETTABLEKS                       R17 R5 K40 ["Plugin"]
+      104 SETTABLEKS                       R17 R16 K40 ["Plugin"]
+      106 GETTABLEKS                       R17 R5 K41 ["Localization"]
+      108 SETTABLEKS                       R17 R16 K41 ["Localization"]
+      110 CALL                             R15 1 1
+      111 MOVE                             R16 R14
+      112 CALL                             R15 1 1
+      113 MOVE                             R14 R15
+      114 DUPCLOSURE                       R15 K43 [PROTO_9]
+      115 DUPCLOSURE                       R16 K44 [PROTO_11]
+      116 CAPTURE                          VAL R11
+      117 GETTABLEKS                       R17 R3 K45 ["connect"]
+      119 MOVE                             R18 R15
+      120 MOVE                             R19 R16
+      121 CALL                             R17 2 1
+      122 MOVE                             R18 R14
+      123 CALL                             R17 1 -1
+      124 RETURN                           R17 -1

@@ -1,138 +1,138 @@
 PROTO_0:
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K1 ["Children"]
-  GETTABLE R3 R4 R5
-  JUMPIFNOTEQKNIL R3 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  FASTCALL2K ASSERT R2 K2 [+4]
-  LOADK R3 K2 ["Expected child elements to wrap"]
-  GETIMPORT R1 K4 [assert]
-  CALL R1 2 0
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R3 R4 K5 ["draftsService"]
-  JUMPIFNOTEQKNIL R3 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  FASTCALL2K ASSERT R2 K6 [+4]
-  LOADK R3 K6 ["Expected a DraftsService object"]
-  GETIMPORT R1 K4 [assert]
-  CALL R1 2 0
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R3 R4 K7 ["localization"]
-  JUMPIFNOTEQKNIL R3 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  FASTCALL2K ASSERT R2 K8 [+4]
-  LOADK R3 K8 ["Expected a Localization object"]
-  GETIMPORT R1 K4 [assert]
-  CALL R1 2 0
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R3 R4 K9 ["plugin"]
-  JUMPIFNOTEQKNIL R3 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  FASTCALL2K ASSERT R2 K10 [+4]
-  LOADK R3 K10 ["Expected a plugin object"]
-  GETIMPORT R1 K4 [assert]
-  CALL R1 2 0
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R3 R4 K11 ["store"]
-  JUMPIFNOTEQKNIL R3 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  FASTCALL2K ASSERT R2 K12 [+4]
-  LOADK R3 K12 ["Expected a Rodux Store object"]
-  GETIMPORT R1 K4 [assert]
-  CALL R1 2 0
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R3 R4 K13 ["theme"]
-  JUMPIFNOTEQKNIL R3 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  FASTCALL2K ASSERT R2 K14 [+4]
-  LOADK R3 K14 ["Expected a PluginTheme object"]
-  GETIMPORT R1 K4 [assert]
-  CALL R1 2 0
-  RETURN R0 0
+        0 GETTABLEKS                       R4 R0 K0 ["props"]
+        2 GETUPVAL                         R6 0
+        3 GETTABLEKS                       R5 R6 K1 ["Children"]
+        5 GETTABLE                         R3 R4 R5
+        6 JUMPIFNOTEQKNIL                  R3 ; [+2]
+        8 LOADB                            R2 0 +1
+        9 LOADB                            R2 1
+       10 FASTCALL2K                       ASSERT R2 K2 ; [+4]
+       12 LOADK                            R3 K2 ["Expected child elements to wrap"]
+       13 GETIMPORT                        R1 K4 [assert]
+       15 CALL                             R1 2 0
+       16 GETTABLEKS                       R4 R0 K0 ["props"]
+       18 GETTABLEKS                       R3 R4 K5 ["draftsService"]
+       20 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       22 LOADB                            R2 0 +1
+       23 LOADB                            R2 1
+       24 FASTCALL2K                       ASSERT R2 K6 ; [+4]
+       26 LOADK                            R3 K6 ["Expected a DraftsService object"]
+       27 GETIMPORT                        R1 K4 [assert]
+       29 CALL                             R1 2 0
+       30 GETTABLEKS                       R4 R0 K0 ["props"]
+       32 GETTABLEKS                       R3 R4 K7 ["localization"]
+       34 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       36 LOADB                            R2 0 +1
+       37 LOADB                            R2 1
+       38 FASTCALL2K                       ASSERT R2 K8 ; [+4]
+       40 LOADK                            R3 K8 ["Expected a Localization object"]
+       41 GETIMPORT                        R1 K4 [assert]
+       43 CALL                             R1 2 0
+       44 GETTABLEKS                       R4 R0 K0 ["props"]
+       46 GETTABLEKS                       R3 R4 K9 ["plugin"]
+       48 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       50 LOADB                            R2 0 +1
+       51 LOADB                            R2 1
+       52 FASTCALL2K                       ASSERT R2 K10 ; [+4]
+       54 LOADK                            R3 K10 ["Expected a plugin object"]
+       55 GETIMPORT                        R1 K4 [assert]
+       57 CALL                             R1 2 0
+       58 GETTABLEKS                       R4 R0 K0 ["props"]
+       60 GETTABLEKS                       R3 R4 K11 ["store"]
+       62 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       64 LOADB                            R2 0 +1
+       65 LOADB                            R2 1
+       66 FASTCALL2K                       ASSERT R2 K12 ; [+4]
+       68 LOADK                            R3 K12 ["Expected a Rodux Store object"]
+       69 GETIMPORT                        R1 K4 [assert]
+       71 CALL                             R1 2 0
+       72 GETTABLEKS                       R4 R0 K0 ["props"]
+       74 GETTABLEKS                       R3 R4 K13 ["theme"]
+       76 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       78 LOADB                            R2 0 +1
+       79 LOADB                            R2 1
+       80 FASTCALL2K                       ASSERT R2 K14 ; [+4]
+       82 LOADK                            R3 K14 ["Expected a PluginTheme object"]
+       83 GETIMPORT                        R1 K4 [assert]
+       85 CALL                             R1 2 0
+       86 RETURN                           R0 0
 
 PROTO_1:
-  GETTABLEKS R2 R0 K0 ["props"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K1 ["Children"]
-  GETTABLE R1 R2 R3
-  GETTABLEKS R3 R0 K0 ["props"]
-  GETTABLEKS R2 R3 K2 ["draftsService"]
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R3 R4 K3 ["localization"]
-  GETTABLEKS R5 R0 K0 ["props"]
-  GETTABLEKS R4 R5 K4 ["plugin"]
-  GETTABLEKS R6 R0 K0 ["props"]
-  GETTABLEKS R5 R6 K5 ["focusGui"]
-  GETTABLEKS R7 R0 K0 ["props"]
-  GETTABLEKS R6 R7 K6 ["store"]
-  GETTABLEKS R8 R0 K0 ["props"]
-  GETTABLEKS R7 R8 K7 ["theme"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K8 ["provide"]
-  NEWTABLE R9 0 6
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K9 ["Store"]
-  GETTABLEKS R10 R11 K10 ["new"]
-  MOVE R11 R6
-  CALL R10 1 1
-  GETUPVAL R13 1
-  GETTABLEKS R12 R13 K11 ["Focus"]
-  GETTABLEKS R11 R12 K10 ["new"]
-  MOVE R12 R5
-  CALL R11 1 1
-  MOVE R12 R7
-  MOVE R13 R3
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K12 ["Plugin"]
-  GETTABLEKS R14 R15 K10 ["new"]
-  MOVE R15 R4
-  CALL R14 1 1
-  GETUPVAL R16 2
-  GETTABLEKS R15 R16 K10 ["new"]
-  MOVE R16 R2
-  CALL R15 1 -1
-  SETLIST R9 R10 -1 [1]
-  MOVE R10 R1
-  CALL R8 2 -1
-  RETURN R8 -1
+        0 GETTABLEKS                       R2 R0 K0 ["props"]
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R3 R4 K1 ["Children"]
+        5 GETTABLE                         R1 R2 R3
+        6 GETTABLEKS                       R3 R0 K0 ["props"]
+        8 GETTABLEKS                       R2 R3 K2 ["draftsService"]
+       10 GETTABLEKS                       R4 R0 K0 ["props"]
+       12 GETTABLEKS                       R3 R4 K3 ["localization"]
+       14 GETTABLEKS                       R5 R0 K0 ["props"]
+       16 GETTABLEKS                       R4 R5 K4 ["plugin"]
+       18 GETTABLEKS                       R6 R0 K0 ["props"]
+       20 GETTABLEKS                       R5 R6 K5 ["focusGui"]
+       22 GETTABLEKS                       R7 R0 K0 ["props"]
+       24 GETTABLEKS                       R6 R7 K6 ["store"]
+       26 GETTABLEKS                       R8 R0 K0 ["props"]
+       28 GETTABLEKS                       R7 R8 K7 ["theme"]
+       30 GETUPVAL                         R9 1
+       31 GETTABLEKS                       R8 R9 K8 ["provide"]
+       33 NEWTABLE                         R9 0 6
+       35 GETUPVAL                         R12 1
+       36 GETTABLEKS                       R11 R12 K9 ["Store"]
+       38 GETTABLEKS                       R10 R11 K10 ["new"]
+       40 MOVE                             R11 R6
+       41 CALL                             R10 1 1
+       42 GETUPVAL                         R13 1
+       43 GETTABLEKS                       R12 R13 K11 ["Focus"]
+       45 GETTABLEKS                       R11 R12 K10 ["new"]
+       47 MOVE                             R12 R5
+       48 CALL                             R11 1 1
+       49 MOVE                             R12 R7
+       50 MOVE                             R13 R3
+       51 GETUPVAL                         R16 1
+       52 GETTABLEKS                       R15 R16 K12 ["Plugin"]
+       54 GETTABLEKS                       R14 R15 K10 ["new"]
+       56 MOVE                             R15 R4
+       57 CALL                             R14 1 1
+       58 GETUPVAL                         R16 2
+       59 GETTABLEKS                       R15 R16 K10 ["new"]
+       61 MOVE                             R16 R2
+       62 CALL                             R15 1 -1
+       63 SETLIST                          R9 R10 -1 [1]
+       65 MOVE                             R10 R1
+       66 CALL                             R8 2 -1
+       67 RETURN                           R8 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Framework"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K8 ["ContextServices"]
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R7 R0 K9 ["Src"]
-  GETTABLEKS R6 R7 K8 ["ContextServices"]
-  GETTABLEKS R5 R6 K10 ["DraftsService"]
-  CALL R4 1 1
-  GETTABLEKS R5 R1 K11 ["PureComponent"]
-  LOADK R7 K12 ["ServiceWrapper"]
-  NAMECALL R5 R5 K13 ["extend"]
-  CALL R5 2 1
-  DUPCLOSURE R6 K14 [PROTO_0]
-  CAPTURE VAL R1
-  SETTABLEKS R6 R5 K15 ["init"]
-  DUPCLOSURE R6 K16 [PROTO_1]
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  SETTABLEKS R6 R5 K17 ["render"]
-  RETURN R5 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R2 K8 ["ContextServices"]
+       25 GETIMPORT                        R4 K4 [require]
+       27 GETTABLEKS                       R7 R0 K9 ["Src"]
+       29 GETTABLEKS                       R6 R7 K8 ["ContextServices"]
+       31 GETTABLEKS                       R5 R6 K10 ["DraftsService"]
+       33 CALL                             R4 1 1
+       34 GETTABLEKS                       R5 R1 K11 ["PureComponent"]
+       36 LOADK                            R7 K12 ["ServiceWrapper"]
+       37 NAMECALL                         R5 R5 K13 ["extend"]
+       39 CALL                             R5 2 1
+       40 DUPCLOSURE                       R6 K14 [PROTO_0]
+       41 CAPTURE                          VAL R1
+       42 SETTABLEKS                       R6 R5 K15 ["init"]
+       44 DUPCLOSURE                       R6 K16 [PROTO_1]
+       45 CAPTURE                          VAL R1
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          VAL R4
+       48 SETTABLEKS                       R6 R5 K17 ["render"]
+       50 RETURN                           R5 1

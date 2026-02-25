@@ -1,90 +1,90 @@
 PROTO_0:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["createElement"]
-  LOADK R3 K1 ["TextLabel"]
-  DUPTABLE R4 K7 [{"Text", "Size", "TextSize", "TextWrapped", "BackgroundTransparency"}]
-  GETIMPORT R5 K10 [string.format]
-  LOADK R6 K11 ["You must set %s to %s to view this story"]
-  MOVE R7 R0
-  FASTCALL1 TOSTRING R1 [+3]
-  MOVE R9 R1
-  GETIMPORT R8 K13 [tostring]
-  CALL R8 1 1
-  CALL R5 3 1
-  SETTABLEKS R5 R4 K2 ["Text"]
-  GETIMPORT R5 K16 [UDim2.new]
-  LOADN R6 1
-  LOADN R7 0
-  LOADN R8 0
-  LOADN R9 100
-  CALL R5 4 1
-  SETTABLEKS R5 R4 K3 ["Size"]
-  LOADN R5 18
-  SETTABLEKS R5 R4 K4 ["TextSize"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K5 ["TextWrapped"]
-  LOADN R5 1
-  SETTABLEKS R5 R4 K6 ["BackgroundTransparency"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["createElement"]
+        3 LOADK                            R3 K1 ["TextLabel"]
+        4 DUPTABLE                         R4 K7 [{"Text", "Size", "TextSize", "TextWrapped", "BackgroundTransparency"}]
+        5 GETIMPORT                        R5 K10 [string.format]
+        7 LOADK                            R6 K11 ["You must set %s to %s to view this story"]
+        8 MOVE                             R7 R0
+        9 FASTCALL1                        TOSTRING R1 ; [+3]
+       10 MOVE                             R9 R1
+       11 GETIMPORT                        R8 K13 [tostring]
+       13 CALL                             R8 1 1
+       14 CALL                             R5 3 1
+       15 SETTABLEKS                       R5 R4 K2 ["Text"]
+       17 GETIMPORT                        R5 K16 [UDim2.new]
+       19 LOADN                            R6 1
+       20 LOADN                            R7 0
+       21 LOADN                            R8 0
+       22 LOADN                            R9 100
+       23 CALL                             R5 4 1
+       24 SETTABLEKS                       R5 R4 K3 ["Size"]
+       26 LOADN                            R5 18
+       27 SETTABLEKS                       R5 R4 K4 ["TextSize"]
+       29 LOADB                            R5 1
+       30 SETTABLEKS                       R5 R4 K5 ["TextWrapped"]
+       32 LOADN                            R5 1
+       33 SETTABLEKS                       R5 R4 K6 ["BackgroundTransparency"]
+       35 CALL                             R2 2 -1
+       36 RETURN                           R2 -1
 
 PROTO_1:
-  FASTCALL1 TYPEOF R1 [+3]
-  MOVE R5 R1
-  GETIMPORT R4 K1 [typeof]
-  CALL R4 1 1
-  JUMPIFEQKS R4 K2 ["table"] [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  FASTCALL2K ASSERT R3 K3 [+4]
-  LOADK R4 K3 ["Instances must be a table"]
-  GETIMPORT R2 K5 [assert]
-  CALL R2 2 0
-  GETIMPORT R2 K7 [ipairs]
-  MOVE R3 R1
-  CALL R2 1 3
-  FORGPREP_INEXT R2
-  LOADK R10 K8 ["Instance"]
-  NAMECALL R8 R6 K9 ["IsA"]
-  CALL R8 2 -1
-  FASTCALL ASSERT [+2]
-  GETIMPORT R7 K5 [assert]
-  CALL R7 -1 0
-  FORGLOOP R2 2 [inext] [-9]
-  LOADK R2 K10 ["TEST"]
-  RETURN R2 1
+        0 FASTCALL1                        TYPEOF R1 ; [+3]
+        1 MOVE                             R5 R1
+        2 GETIMPORT                        R4 K1 [typeof]
+        4 CALL                             R4 1 1
+        5 JUMPIFEQKS                       R4 K2 ["table"] ; [+2]
+        7 LOADB                            R3 0 +1
+        8 LOADB                            R3 1
+        9 FASTCALL2K                       ASSERT R3 K3 ; [+4]
+       11 LOADK                            R4 K3 ["Instances must be a table"]
+       12 GETIMPORT                        R2 K5 [assert]
+       14 CALL                             R2 2 0
+       15 GETIMPORT                        R2 K7 [ipairs]
+       17 MOVE                             R3 R1
+       18 CALL                             R2 1 3
+       19 FORGPREP_INEXT                   R2
+       20 LOADK                            R10 K8 ["Instance"]
+       21 NAMECALL                         R8 R6 K9 ["IsA"]
+       23 CALL                             R8 2 -1
+       24 FASTCALL                         ASSERT ; [+2]
+       25 GETIMPORT                        R7 K5 [assert]
+       27 CALL                             R7 -1 0
+       28 FORGLOOP                         R2 2 [inext] ; [-9]
+       30 LOADK                            R2 K10 ["TEST"]
+       31 RETURN                           R2 1
 
 PROTO_2:
-  NEWTABLE R0 1 0
-  DUPCLOSURE R1 K0 [PROTO_1]
-  SETTABLEKS R1 R0 K1 ["SerializeInstances"]
-  NEWTABLE R1 0 1
-  GETUPVAL R2 0
-  DUPTABLE R3 K3 [{"StudioAssetService"}]
-  SETTABLEKS R0 R3 K2 ["StudioAssetService"]
-  CALL R2 1 -1
-  SETLIST R1 R2 -1 [1]
-  RETURN R1 1
+        0 NEWTABLE                         R0 1 0
+        2 DUPCLOSURE                       R1 K0 [PROTO_1]
+        3 SETTABLEKS                       R1 R0 K1 ["SerializeInstances"]
+        5 NEWTABLE                         R1 0 1
+        7 GETUPVAL                         R2 0
+        8 DUPTABLE                         R3 K3 [{"StudioAssetService"}]
+        9 SETTABLEKS                       R0 R3 K2 ["StudioAssetService"]
+       11 CALL                             R2 1 -1
+       12 SETLIST                          R1 R2 -1 [1]
+       14 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R2 K1 [script]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R1 R0 K3 ["Packages"]
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R3 R1 K6 ["Roact"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R4 R1 K7 ["Framework"]
-  CALL R3 1 1
-  GETTABLEKS R5 R3 K8 ["Util"]
-  GETTABLEKS R4 R5 K9 ["ThunkWithArgsMiddleware"]
-  DUPCLOSURE R5 K10 [PROTO_0]
-  CAPTURE VAL R2
-  DUPCLOSURE R6 K11 [PROTO_2]
-  CAPTURE VAL R4
-  DUPTABLE R7 K14 [{"createThunkMiddleware", "mustSetFlag"}]
-  SETTABLEKS R6 R7 K12 ["createThunkMiddleware"]
-  SETTABLEKS R5 R7 K13 ["mustSetFlag"]
-  RETURN R7 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R2 K1 [script]
+        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R0 K3 ["Packages"]
+        9 GETIMPORT                        R2 K5 [require]
+       11 GETTABLEKS                       R3 R1 K6 ["Roact"]
+       13 CALL                             R2 1 1
+       14 GETIMPORT                        R3 K5 [require]
+       16 GETTABLEKS                       R4 R1 K7 ["Framework"]
+       18 CALL                             R3 1 1
+       19 GETTABLEKS                       R5 R3 K8 ["Util"]
+       21 GETTABLEKS                       R4 R5 K9 ["ThunkWithArgsMiddleware"]
+       23 DUPCLOSURE                       R5 K10 [PROTO_0]
+       24 CAPTURE                          VAL R2
+       25 DUPCLOSURE                       R6 K11 [PROTO_2]
+       26 CAPTURE                          VAL R4
+       27 DUPTABLE                         R7 K14 [{"createThunkMiddleware", "mustSetFlag"}]
+       28 SETTABLEKS                       R6 R7 K12 ["createThunkMiddleware"]
+       30 SETTABLEKS                       R5 R7 K13 ["mustSetFlag"]
+       32 RETURN                           R7 1

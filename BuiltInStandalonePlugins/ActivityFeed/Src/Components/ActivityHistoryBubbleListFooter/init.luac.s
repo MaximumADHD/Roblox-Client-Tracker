@@ -1,60 +1,60 @@
 PROTO_0:
-  GETTABLEKS R1 R0 K0 ["props"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K1 ["createElement"]
-  LOADK R3 K2 ["Frame"]
-  NEWTABLE R4 2 0
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K3 ["Tag"]
-  GETUPVAL R6 1
-  LOADK R7 K4 ["X-Fill"]
-  LOADK R8 K5 ["CX-Invisible"]
-  LOADK R9 K6 ["Component-ActivityHistoryBubbleListFooter"]
-  CALL R6 3 1
-  SETTABLE R6 R4 R5
-  GETTABLEKS R5 R1 K7 ["layoutOrder"]
-  SETTABLEKS R5 R4 K8 ["LayoutOrder"]
-  DUPTABLE R5 K10 [{"Title"}]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K1 ["createElement"]
-  LOADK R7 K11 ["TextLabel"]
-  NEWTABLE R8 2 0
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K3 ["Tag"]
-  GETUPVAL R10 1
-  LOADK R11 K12 ["X-Fit"]
-  LOADK R12 K5 ["CX-Invisible"]
-  CALL R10 2 1
-  SETTABLE R10 R8 R9
-  GETTABLEKS R9 R1 K13 ["title"]
-  SETTABLEKS R9 R8 K14 ["Text"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K9 ["Title"]
-  CALL R2 3 -1
-  RETURN R2 -1
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R2 R3 K1 ["createElement"]
+        5 LOADK                            R3 K2 ["Frame"]
+        6 NEWTABLE                         R4 2 0
+        8 GETUPVAL                         R6 0
+        9 GETTABLEKS                       R5 R6 K3 ["Tag"]
+       11 GETUPVAL                         R6 1
+       12 LOADK                            R7 K4 ["X-Fill"]
+       13 LOADK                            R8 K5 ["CX-Invisible"]
+       14 LOADK                            R9 K6 ["Component-ActivityHistoryBubbleListFooter"]
+       15 CALL                             R6 3 1
+       16 SETTABLE                         R6 R4 R5
+       17 GETTABLEKS                       R5 R1 K7 ["layoutOrder"]
+       19 SETTABLEKS                       R5 R4 K8 ["LayoutOrder"]
+       21 DUPTABLE                         R5 K10 [{"Title"}]
+       22 GETUPVAL                         R7 0
+       23 GETTABLEKS                       R6 R7 K1 ["createElement"]
+       25 LOADK                            R7 K11 ["TextLabel"]
+       26 NEWTABLE                         R8 2 0
+       28 GETUPVAL                         R10 0
+       29 GETTABLEKS                       R9 R10 K3 ["Tag"]
+       31 GETUPVAL                         R10 1
+       32 LOADK                            R11 K12 ["X-Fit"]
+       33 LOADK                            R12 K5 ["CX-Invisible"]
+       34 CALL                             R10 2 1
+       35 SETTABLE                         R10 R8 R9
+       36 GETTABLEKS                       R9 R1 K13 ["title"]
+       38 SETTABLEKS                       R9 R8 K14 ["Text"]
+       40 CALL                             R6 2 1
+       41 SETTABLEKS                       R6 R5 K9 ["Title"]
+       43 CALL                             R2 3 -1
+       44 RETURN                           R2 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Framework"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K8 ["Styling"]
-  GETTABLEKS R3 R4 K9 ["joinTags"]
-  GETTABLEKS R4 R1 K10 ["PureComponent"]
-  LOADK R6 K11 ["ActivityHistoryBubbleListFooter"]
-  NAMECALL R4 R4 K12 ["extend"]
-  CALL R4 2 1
-  DUPCLOSURE R5 K13 [PROTO_0]
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  SETTABLEKS R5 R4 K14 ["render"]
-  RETURN R4 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["React"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R4 R2 K8 ["Styling"]
+       25 GETTABLEKS                       R3 R4 K9 ["joinTags"]
+       27 GETTABLEKS                       R4 R1 K10 ["PureComponent"]
+       29 LOADK                            R6 K11 ["ActivityHistoryBubbleListFooter"]
+       30 NAMECALL                         R4 R4 K12 ["extend"]
+       32 CALL                             R4 2 1
+       33 DUPCLOSURE                       R5 K13 [PROTO_0]
+       34 CAPTURE                          VAL R1
+       35 CAPTURE                          VAL R3
+       36 SETTABLEKS                       R5 R4 K14 ["render"]
+       38 RETURN                           R4 1

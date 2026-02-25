@@ -1,58 +1,58 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["assertNullableType"]
-  MOVE R2 R0
-  LOADK R3 K1 ["table"]
-  LOADK R4 K2 ["SetGroupInfo arg"]
-  CALL R1 3 0
-  MOVE R1 R0
-  JUMPIF R1 [+2]
-  NEWTABLE R1 0 0
-  GETTABLEKS R2 R1 K3 ["groups"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["assertNullableType"]
-  MOVE R4 R2
-  LOADK R5 K1 ["table"]
-  LOADK R6 K4 ["SetGroupInfo.groups"]
-  CALL R3 3 0
-  GETTABLEKS R3 R1 K5 ["ownedGroups"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["assertNullableType"]
-  MOVE R5 R3
-  LOADK R6 K1 ["table"]
-  LOADK R7 K6 ["SetGroupInfo.ownedGroups"]
-  CALL R4 3 0
-  DUPTABLE R4 K8 [{"groupInfo"}]
-  DUPTABLE R5 K9 [{"groups", "ownedGroups"}]
-  SETTABLEKS R2 R5 K3 ["groups"]
-  SETTABLEKS R3 R5 K5 ["ownedGroups"]
-  SETTABLEKS R5 R4 K7 ["groupInfo"]
-  RETURN R4 1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["assertNullableType"]
+        3 MOVE                             R2 R0
+        4 LOADK                            R3 K1 ["table"]
+        5 LOADK                            R4 K2 ["SetGroupInfo arg"]
+        6 CALL                             R1 3 0
+        7 MOVE                             R1 R0
+        8 JUMPIF                           R1 ; [+2]
+        9 NEWTABLE                         R1 0 0
+       11 GETTABLEKS                       R2 R1 K3 ["groups"]
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R3 R4 K0 ["assertNullableType"]
+       16 MOVE                             R4 R2
+       17 LOADK                            R5 K1 ["table"]
+       18 LOADK                            R6 K4 ["SetGroupInfo.groups"]
+       19 CALL                             R3 3 0
+       20 GETTABLEKS                       R3 R1 K5 ["ownedGroups"]
+       22 GETUPVAL                         R5 0
+       23 GETTABLEKS                       R4 R5 K0 ["assertNullableType"]
+       25 MOVE                             R5 R3
+       26 LOADK                            R6 K1 ["table"]
+       27 LOADK                            R7 K6 ["SetGroupInfo.ownedGroups"]
+       28 CALL                             R4 3 0
+       29 DUPTABLE                         R4 K8 [{"groupInfo"}]
+       30 DUPTABLE                         R5 K9 [{"groups", "ownedGroups"}]
+       31 SETTABLEKS                       R2 R5 K3 ["groups"]
+       33 SETTABLEKS                       R3 R5 K5 ["ownedGroups"]
+       35 SETTABLEKS                       R5 R4 K7 ["groupInfo"]
+       37 RETURN                           R4 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Cryo"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K7 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Util"]
-  GETTABLEKS R3 R4 K9 ["AssertType"]
-  CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETIMPORT R6 K1 [script]
-  GETTABLEKS R5 R6 K2 ["Parent"]
-  GETTABLEKS R4 R5 K10 ["Action"]
-  CALL R3 1 1
-  MOVE R4 R3
-  GETIMPORT R6 K1 [script]
-  GETTABLEKS R5 R6 K11 ["Name"]
-  DUPCLOSURE R6 K12 [PROTO_0]
-  CAPTURE VAL R2
-  CALL R4 2 -1
-  RETURN R4 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R5 R0 K7 ["Src"]
+       20 GETTABLEKS                       R4 R5 K8 ["Util"]
+       22 GETTABLEKS                       R3 R4 K9 ["AssertType"]
+       24 CALL                             R2 1 1
+       25 GETIMPORT                        R3 K4 [require]
+       27 GETIMPORT                        R6 K1 [script]
+       29 GETTABLEKS                       R5 R6 K2 ["Parent"]
+       31 GETTABLEKS                       R4 R5 K10 ["Action"]
+       33 CALL                             R3 1 1
+       34 MOVE                             R4 R3
+       35 GETIMPORT                        R6 K1 [script]
+       37 GETTABLEKS                       R5 R6 K11 ["Name"]
+       39 DUPCLOSURE                       R6 K12 [PROTO_0]
+       40 CAPTURE                          VAL R2
+       41 CALL                             R4 2 -1
+       42 RETURN                           R4 -1

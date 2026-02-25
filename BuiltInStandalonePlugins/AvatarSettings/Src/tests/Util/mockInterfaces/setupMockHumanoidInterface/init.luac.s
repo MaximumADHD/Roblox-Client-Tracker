@@ -1,45 +1,45 @@
 PROTO_0:
-  GETUPVAL R0 0
-  GETUPVAL R1 1
-  SETTABLEKS R1 R0 K0 ["AddAccessory"]
-  GETUPVAL R0 0
-  GETUPVAL R1 2
-  SETTABLEKS R1 R0 K1 ["ApplyDescription"]
-  GETUPVAL R0 0
-  GETUPVAL R1 2
-  SETTABLEKS R1 R0 K2 ["ApplyDescriptionReset"]
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 SETTABLEKS                       R1 R0 K0 ["AddAccessory"]
+        4 GETUPVAL                         R0 0
+        5 GETUPVAL                         R1 2
+        6 SETTABLEKS                       R1 R0 K1 ["ApplyDescription"]
+        8 GETUPVAL                         R0 0
+        9 GETUPVAL                         R1 2
+       10 SETTABLEKS                       R1 R0 K2 ["ApplyDescriptionReset"]
+       12 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarSettings"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Util"]
-  GETTABLEKS R3 R4 K8 ["Interfaces"]
-  GETTABLEKS R2 R3 K9 ["HumanoidInterface"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Src"]
-  GETTABLEKS R7 R8 K10 ["tests"]
-  GETTABLEKS R6 R7 K7 ["Util"]
-  GETTABLEKS R5 R6 K11 ["mockInterfaces"]
-  GETTABLEKS R4 R5 K12 ["setupMockHumanoidInterface"]
-  GETTABLEKS R3 R4 K13 ["mockAddAccessory"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R9 R0 K6 ["Src"]
-  GETTABLEKS R8 R9 K10 ["tests"]
-  GETTABLEKS R7 R8 K7 ["Util"]
-  GETTABLEKS R6 R7 K11 ["mockInterfaces"]
-  GETTABLEKS R5 R6 K12 ["setupMockHumanoidInterface"]
-  GETTABLEKS R4 R5 K14 ["mockApplyDescription"]
-  CALL R3 1 1
-  DUPCLOSURE R4 K15 [PROTO_0]
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  RETURN R4 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarSettings"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R5 R0 K6 ["Src"]
+       11 GETTABLEKS                       R4 R5 K7 ["Util"]
+       13 GETTABLEKS                       R3 R4 K8 ["Interfaces"]
+       15 GETTABLEKS                       R2 R3 K9 ["HumanoidInterface"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R2 K5 [require]
+       20 GETTABLEKS                       R8 R0 K6 ["Src"]
+       22 GETTABLEKS                       R7 R8 K10 ["tests"]
+       24 GETTABLEKS                       R6 R7 K7 ["Util"]
+       26 GETTABLEKS                       R5 R6 K11 ["mockInterfaces"]
+       28 GETTABLEKS                       R4 R5 K12 ["setupMockHumanoidInterface"]
+       30 GETTABLEKS                       R3 R4 K13 ["mockAddAccessory"]
+       32 CALL                             R2 1 1
+       33 GETIMPORT                        R3 K5 [require]
+       35 GETTABLEKS                       R9 R0 K6 ["Src"]
+       37 GETTABLEKS                       R8 R9 K10 ["tests"]
+       39 GETTABLEKS                       R7 R8 K7 ["Util"]
+       41 GETTABLEKS                       R6 R7 K11 ["mockInterfaces"]
+       43 GETTABLEKS                       R5 R6 K12 ["setupMockHumanoidInterface"]
+       45 GETTABLEKS                       R4 R5 K14 ["mockApplyDescription"]
+       47 CALL                             R3 1 1
+       48 DUPCLOSURE                       R4 K15 [PROTO_0]
+       49 CAPTURE                          VAL R1
+       50 CAPTURE                          VAL R2
+       51 CAPTURE                          VAL R3
+       52 RETURN                           R4 1

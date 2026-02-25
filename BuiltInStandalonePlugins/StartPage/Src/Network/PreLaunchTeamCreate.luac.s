@@ -1,119 +1,119 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["GameJoin"]
-  GETTABLEKS R0 R1 K1 ["postV1TeamCreatePreemptiveAsync"]
-  GETUPVAL R1 1
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["GameJoin"]
+        3 GETTABLEKS                       R0 R1 K1 ["postV1TeamCreatePreemptiveAsync"]
+        5 GETUPVAL                         R1 1
+        6 CALL                             R0 1 0
+        7 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R1 0
-  JUMPIFNOT R1 [+17]
-  DUPTABLE R1 K2 [{"gameJoinAttemptId", "placeId"}]
-  GETUPVAL R2 1
-  LOADB R4 0
-  NAMECALL R2 R2 K3 ["GenerateGUID"]
-  CALL R2 2 1
-  SETTABLEKS R2 R1 K0 ["gameJoinAttemptId"]
-  SETTABLEKS R0 R1 K1 ["placeId"]
-  GETIMPORT R2 K6 [task.spawn]
-  NEWCLOSURE R3 P0
-  CAPTURE UPVAL U2
-  CAPTURE VAL R1
-  CALL R2 1 0
-  RETURN R0 0
-  GETUPVAL R1 1
-  DUPTABLE R3 K2 [{"gameJoinAttemptId", "placeId"}]
-  GETUPVAL R4 1
-  LOADB R6 0
-  NAMECALL R4 R4 K3 ["GenerateGUID"]
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K0 ["gameJoinAttemptId"]
-  FASTCALL1 TONUMBER R0 [+3]
-  MOVE R5 R0
-  GETIMPORT R4 K8 [tonumber]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K1 ["placeId"]
-  NAMECALL R1 R1 K9 ["JSONEncode"]
-  CALL R1 2 1
-  GETUPVAL R3 3
-  GETTABLEKS R2 R3 K10 ["new"]
-  CALL R2 0 1
-  GETTABLEKS R3 R2 K11 ["composeUrl"]
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K12 ["TEAMCREATE_PRELAUNCH"]
-  GETTABLEKS R4 R5 K13 ["Prefix"]
-  GETUPVAL R7 4
-  GETTABLEKS R6 R7 K12 ["TEAMCREATE_PRELAUNCH"]
-  GETTABLEKS R5 R6 K14 ["Url"]
-  CALL R5 0 -1
-  CALL R3 -1 1
-  GETUPVAL R4 5
-  MOVE R6 R3
-  MOVE R7 R1
-  GETUPVAL R8 6
-  NAMECALL R4 R4 K15 ["post"]
-  CALL R4 4 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 JUMPIFNOT                        R1 ; [+17]
+        2 DUPTABLE                         R1 K2 [{"gameJoinAttemptId", "placeId"}]
+        3 GETUPVAL                         R2 1
+        4 LOADB                            R4 0
+        5 NAMECALL                         R2 R2 K3 ["GenerateGUID"]
+        7 CALL                             R2 2 1
+        8 SETTABLEKS                       R2 R1 K0 ["gameJoinAttemptId"]
+       10 SETTABLEKS                       R0 R1 K1 ["placeId"]
+       12 GETIMPORT                        R2 K6 [task.spawn]
+       14 NEWCLOSURE                       R3 P0
+       15 CAPTURE                          UPVAL U2
+       16 CAPTURE                          VAL R1
+       17 CALL                             R2 1 0
+       18 RETURN                           R0 0
+       19 GETUPVAL                         R1 1
+       20 DUPTABLE                         R3 K2 [{"gameJoinAttemptId", "placeId"}]
+       21 GETUPVAL                         R4 1
+       22 LOADB                            R6 0
+       23 NAMECALL                         R4 R4 K3 ["GenerateGUID"]
+       25 CALL                             R4 2 1
+       26 SETTABLEKS                       R4 R3 K0 ["gameJoinAttemptId"]
+       28 FASTCALL1                        TONUMBER R0 ; [+3]
+       29 MOVE                             R5 R0
+       30 GETIMPORT                        R4 K8 [tonumber]
+       32 CALL                             R4 1 1
+       33 SETTABLEKS                       R4 R3 K1 ["placeId"]
+       35 NAMECALL                         R1 R1 K9 ["JSONEncode"]
+       37 CALL                             R1 2 1
+       38 GETUPVAL                         R3 3
+       39 GETTABLEKS                       R2 R3 K10 ["new"]
+       41 CALL                             R2 0 1
+       42 GETTABLEKS                       R3 R2 K11 ["composeUrl"]
+       44 GETUPVAL                         R6 4
+       45 GETTABLEKS                       R5 R6 K12 ["TEAMCREATE_PRELAUNCH"]
+       47 GETTABLEKS                       R4 R5 K13 ["Prefix"]
+       49 GETUPVAL                         R7 4
+       50 GETTABLEKS                       R6 R7 K12 ["TEAMCREATE_PRELAUNCH"]
+       52 GETTABLEKS                       R5 R6 K14 ["Url"]
+       54 CALL                             R5 0 -1
+       55 CALL                             R3 -1 1
+       56 GETUPVAL                         R4 5
+       57 MOVE                             R6 R3
+       58 MOVE                             R7 R1
+       59 GETUPVAL                         R8 6
+       60 NAMECALL                         R4 R4 K15 ["post"]
+       62 CALL                             R4 4 0
+       63 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["StartPage"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["SharedFlags"]
-  GETTABLEKS R2 R3 K8 ["getFIntDebugLuaStartPageLogging"]
-  CALL R1 1 1
-  CALL R1 0 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K7 ["SharedFlags"]
-  GETTABLEKS R3 R4 K9 ["getFFlagLuaStartPageOpenApiGameJoinClient"]
-  CALL R2 1 1
-  CALL R2 0 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K10 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["Framework"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K10 ["Packages"]
-  GETTABLEKS R5 R6 K12 ["OpenApiGameJoinApiv1"]
-  CALL R4 1 1
-  GETTABLEKS R6 R3 K13 ["RobloxAPI"]
-  GETTABLEKS R5 R6 K14 ["Url"]
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K6 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Network"]
-  GETTABLEKS R7 R8 K16 ["Urls"]
-  CALL R6 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K6 ["Src"]
-  GETTABLEKS R10 R11 K17 ["Util"]
-  GETTABLEKS R9 R10 K18 ["Services"]
-  CALL R8 1 1
-  GETTABLEKS R7 R8 K19 ["Networking"]
-  GETTABLEKS R8 R7 K20 ["new"]
-  DUPTABLE R9 K23 [{"isInternal", "loggingLevel"}]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K21 ["isInternal"]
-  SETTABLEKS R1 R9 K22 ["loggingLevel"]
-  CALL R8 1 1
-  GETIMPORT R9 K25 [game]
-  LOADK R11 K26 ["HttpService"]
-  NAMECALL R9 R9 K27 ["GetService"]
-  CALL R9 2 1
-  NEWTABLE R10 1 0
-  LOADK R11 K28 ["application/json"]
-  SETTABLEKS R11 R10 K29 ["Content-Type"]
-  DUPCLOSURE R11 K30 [PROTO_1]
-  CAPTURE VAL R2
-  CAPTURE VAL R9
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R6
-  CAPTURE VAL R8
-  CAPTURE VAL R10
-  RETURN R11 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["StartPage"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Src"]
+       11 GETTABLEKS                       R3 R4 K7 ["SharedFlags"]
+       13 GETTABLEKS                       R2 R3 K8 ["getFIntDebugLuaStartPageLogging"]
+       15 CALL                             R1 1 1
+       16 CALL                             R1 0 1
+       17 GETIMPORT                        R2 K5 [require]
+       19 GETTABLEKS                       R5 R0 K6 ["Src"]
+       21 GETTABLEKS                       R4 R5 K7 ["SharedFlags"]
+       23 GETTABLEKS                       R3 R4 K9 ["getFFlagLuaStartPageOpenApiGameJoinClient"]
+       25 CALL                             R2 1 1
+       26 CALL                             R2 0 1
+       27 GETIMPORT                        R3 K5 [require]
+       29 GETTABLEKS                       R5 R0 K10 ["Packages"]
+       31 GETTABLEKS                       R4 R5 K11 ["Framework"]
+       33 CALL                             R3 1 1
+       34 GETIMPORT                        R4 K5 [require]
+       36 GETTABLEKS                       R6 R0 K10 ["Packages"]
+       38 GETTABLEKS                       R5 R6 K12 ["OpenApiGameJoinApiv1"]
+       40 CALL                             R4 1 1
+       41 GETTABLEKS                       R6 R3 K13 ["RobloxAPI"]
+       43 GETTABLEKS                       R5 R6 K14 ["Url"]
+       45 GETIMPORT                        R6 K5 [require]
+       47 GETTABLEKS                       R9 R0 K6 ["Src"]
+       49 GETTABLEKS                       R8 R9 K15 ["Network"]
+       51 GETTABLEKS                       R7 R8 K16 ["Urls"]
+       53 CALL                             R6 1 1
+       54 GETIMPORT                        R8 K5 [require]
+       56 GETTABLEKS                       R11 R0 K6 ["Src"]
+       58 GETTABLEKS                       R10 R11 K17 ["Util"]
+       60 GETTABLEKS                       R9 R10 K18 ["Services"]
+       62 CALL                             R8 1 1
+       63 GETTABLEKS                       R7 R8 K19 ["Networking"]
+       65 GETTABLEKS                       R8 R7 K20 ["new"]
+       67 DUPTABLE                         R9 K23 [{"isInternal", "loggingLevel"}]
+       68 LOADB                            R10 1
+       69 SETTABLEKS                       R10 R9 K21 ["isInternal"]
+       71 SETTABLEKS                       R1 R9 K22 ["loggingLevel"]
+       73 CALL                             R8 1 1
+       74 GETIMPORT                        R9 K25 [game]
+       76 LOADK                            R11 K26 ["HttpService"]
+       77 NAMECALL                         R9 R9 K27 ["GetService"]
+       79 CALL                             R9 2 1
+       80 NEWTABLE                         R10 1 0
+       82 LOADK                            R11 K28 ["application/json"]
+       83 SETTABLEKS                       R11 R10 K29 ["Content-Type"]
+       85 DUPCLOSURE                       R11 K30 [PROTO_1]
+       86 CAPTURE                          VAL R2
+       87 CAPTURE                          VAL R9
+       88 CAPTURE                          VAL R4
+       89 CAPTURE                          VAL R5
+       90 CAPTURE                          VAL R6
+       91 CAPTURE                          VAL R8
+       92 CAPTURE                          VAL R10
+       93 RETURN                           R11 1

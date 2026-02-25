@@ -1,59 +1,59 @@
 PROTO_0:
-  FASTCALL1 TYPEOF R0 [+3]
-  MOVE R4 R0
-  GETIMPORT R3 K1 [typeof]
-  CALL R3 1 1
-  JUMPIFEQKS R3 K2 ["table"] [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  GETIMPORT R3 K5 [string.format]
-  LOADK R4 K6 ["SetView requires a table, not %s"]
-  FASTCALL1 TYPEOF R0 [+3]
-  MOVE R6 R0
-  GETIMPORT R5 K1 [typeof]
-  CALL R5 1 1
-  CALL R3 2 -1
-  FASTCALL ASSERT [+2]
-  GETIMPORT R1 K8 [assert]
-  CALL R1 -1 0
-  GETUPVAL R4 0
-  GETTABLEKS R5 R0 K9 ["Key"]
-  GETTABLE R3 R4 R5
-  JUMPIFNOTEQKNIL R3 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  GETIMPORT R3 K5 [string.format]
-  LOADK R4 K10 ["Invalid SetView: %s does not exist"]
-  GETTABLEKS R5 R0 K9 ["Key"]
-  CALL R3 2 -1
-  FASTCALL ASSERT [+2]
-  GETIMPORT R1 K8 [assert]
-  CALL R1 -1 0
-  DUPTABLE R1 K12 [{"view"}]
-  SETTABLEKS R0 R1 K11 ["view"]
-  RETURN R1 1
+        0 FASTCALL1                        TYPEOF R0 ; [+3]
+        1 MOVE                             R4 R0
+        2 GETIMPORT                        R3 K1 [typeof]
+        4 CALL                             R3 1 1
+        5 JUMPIFEQKS                       R3 K2 ["table"] ; [+2]
+        7 LOADB                            R2 0 +1
+        8 LOADB                            R2 1
+        9 GETIMPORT                        R3 K5 [string.format]
+       11 LOADK                            R4 K6 ["SetView requires a table, not %s"]
+       12 FASTCALL1                        TYPEOF R0 ; [+3]
+       13 MOVE                             R6 R0
+       14 GETIMPORT                        R5 K1 [typeof]
+       16 CALL                             R5 1 1
+       17 CALL                             R3 2 -1
+       18 FASTCALL                         ASSERT ; [+2]
+       19 GETIMPORT                        R1 K8 [assert]
+       21 CALL                             R1 -1 0
+       22 GETUPVAL                         R4 0
+       23 GETTABLEKS                       R5 R0 K9 ["Key"]
+       25 GETTABLE                         R3 R4 R5
+       26 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       28 LOADB                            R2 0 +1
+       29 LOADB                            R2 1
+       30 GETIMPORT                        R3 K5 [string.format]
+       32 LOADK                            R4 K10 ["Invalid SetView: %s does not exist"]
+       33 GETTABLEKS                       R5 R0 K9 ["Key"]
+       35 CALL                             R3 2 -1
+       36 FASTCALL                         ASSERT ; [+2]
+       37 GETIMPORT                        R1 K8 [assert]
+       39 CALL                             R1 -1 0
+       40 DUPTABLE                         R1 K12 [{"view"}]
+       41 SETTABLEKS                       R0 R1 K11 ["view"]
+       43 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Packages"]
-  GETTABLEKS R4 R5 K6 ["Framework"]
-  CALL R3 1 1
-  GETTABLEKS R2 R3 K7 ["Util"]
-  GETTABLEKS R1 R2 K8 ["Action"]
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K9 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Util"]
-  GETTABLEKS R3 R4 K10 ["View"]
-  CALL R2 1 1
-  MOVE R3 R1
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K11 ["Name"]
-  DUPCLOSURE R5 K12 [PROTO_0]
-  CAPTURE VAL R2
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R3 K4 [require]
+       11 GETTABLEKS                       R5 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R4 R5 K6 ["Framework"]
+       15 CALL                             R3 1 1
+       16 GETTABLEKS                       R2 R3 K7 ["Util"]
+       18 GETTABLEKS                       R1 R2 K8 ["Action"]
+       20 GETIMPORT                        R2 K4 [require]
+       22 GETTABLEKS                       R5 R0 K9 ["Src"]
+       24 GETTABLEKS                       R4 R5 K7 ["Util"]
+       26 GETTABLEKS                       R3 R4 K10 ["View"]
+       28 CALL                             R2 1 1
+       29 MOVE                             R3 R1
+       30 GETIMPORT                        R5 K1 [script]
+       32 GETTABLEKS                       R4 R5 K11 ["Name"]
+       34 DUPCLOSURE                       R5 K12 [PROTO_0]
+       35 CAPTURE                          VAL R2
+       36 CALL                             R3 2 -1
+       37 RETURN                           R3 -1

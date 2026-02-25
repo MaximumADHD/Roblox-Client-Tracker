@@ -1,80 +1,80 @@
 PROTO_0:
-  GETTABLEKS R1 R0 K0 ["responseBody"]
-  GETUPVAL R2 0
-  GETUPVAL R4 1
-  GETUPVAL R5 2
-  MOVE R6 R1
-  CALL R4 2 -1
-  NAMECALL R2 R2 K1 ["dispatch"]
-  CALL R2 -1 0
-  RETURN R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        2 GETUPVAL                         R2 0
+        3 GETUPVAL                         R4 1
+        4 GETUPVAL                         R5 2
+        5 MOVE                             R6 R1
+        6 CALL                             R4 2 -1
+        7 NAMECALL                         R2 R2 K1 ["dispatch"]
+        9 CALL                             R2 -1 0
+       10 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["shouldDebugWarnings"]
-  CALL R1 0 1
-  JUMPIFNOT R1 [+4]
-  GETIMPORT R1 K2 [warn]
-  LOADK R2 K3 ["Got false response from PostInsertAsset"]
-  CALL R1 1 0
-  GETUPVAL R1 1
-  GETUPVAL R3 2
-  MOVE R4 R0
-  CALL R3 1 -1
-  NAMECALL R1 R1 K4 ["dispatch"]
-  CALL R1 -1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        3 CALL                             R1 0 1
+        4 JUMPIFNOT                        R1 ; [+4]
+        5 GETIMPORT                        R1 K2 [warn]
+        7 LOADK                            R2 K3 ["Got false response from PostInsertAsset"]
+        8 CALL                             R1 1 0
+        9 GETUPVAL                         R1 1
+       10 GETUPVAL                         R3 2
+       11 MOVE                             R4 R0
+       12 CALL                             R3 1 -1
+       13 NAMECALL                         R1 R1 K4 ["dispatch"]
+       15 CALL                             R1 -1 0
+       16 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R1 0
-  GETUPVAL R3 1
-  NAMECALL R1 R1 K0 ["postInsertAsset"]
-  CALL R1 2 1
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U1
-  NEWCLOSURE R4 P1
-  CAPTURE UPVAL U3
-  CAPTURE VAL R0
-  CAPTURE UPVAL U4
-  NAMECALL R1 R1 K1 ["andThen"]
-  CALL R1 3 -1
-  RETURN R1 -1
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R3 1
+        2 NAMECALL                         R1 R1 K0 ["postInsertAsset"]
+        4 CALL                             R1 2 1
+        5 NEWCLOSURE                       R3 P0
+        6 CAPTURE                          VAL R0
+        7 CAPTURE                          UPVAL U2
+        8 CAPTURE                          UPVAL U1
+        9 NEWCLOSURE                       R4 P1
+       10 CAPTURE                          UPVAL U3
+       11 CAPTURE                          VAL R0
+       12 CAPTURE                          UPVAL U4
+       13 NAMECALL                         R1 R1 K1 ["andThen"]
+       15 CALL                             R1 3 -1
+       16 RETURN                           R1 -1
 
 PROTO_3:
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R0
-  CAPTURE VAL R1
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  RETURN R2 1
+        0 NEWCLOSURE                       R2 P0
+        1 CAPTURE                          VAL R0
+        2 CAPTURE                          VAL R1
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          UPVAL U2
+        6 RETURN                           R2 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Util"]
-  GETTABLEKS R2 R3 K7 ["DebugFlags"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Actions"]
-  GETTABLEKS R3 R4 K9 ["NetworkError"]
-  CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R6 R0 K5 ["Src"]
-  GETTABLEKS R5 R6 K8 ["Actions"]
-  GETTABLEKS R4 R5 K10 ["PostInsertAsset"]
-  CALL R3 1 1
-  DUPCLOSURE R4 K11 [PROTO_3]
-  CAPTURE VAL R3
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  RETURN R4 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R4 K1 [script]
+        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
+        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+       11 GETIMPORT                        R1 K4 [require]
+       13 GETTABLEKS                       R4 R0 K5 ["Src"]
+       15 GETTABLEKS                       R3 R4 K6 ["Util"]
+       17 GETTABLEKS                       R2 R3 K7 ["DebugFlags"]
+       19 CALL                             R1 1 1
+       20 GETIMPORT                        R2 K4 [require]
+       22 GETTABLEKS                       R5 R0 K5 ["Src"]
+       24 GETTABLEKS                       R4 R5 K8 ["Actions"]
+       26 GETTABLEKS                       R3 R4 K9 ["NetworkError"]
+       28 CALL                             R2 1 1
+       29 GETIMPORT                        R3 K4 [require]
+       31 GETTABLEKS                       R6 R0 K5 ["Src"]
+       33 GETTABLEKS                       R5 R6 K8 ["Actions"]
+       35 GETTABLEKS                       R4 R5 K10 ["PostInsertAsset"]
+       37 CALL                             R3 1 1
+       38 DUPCLOSURE                       R4 K11 [PROTO_3]
+       39 CAPTURE                          VAL R3
+       40 CAPTURE                          VAL R1
+       41 CAPTURE                          VAL R2
+       42 RETURN                           R4 1

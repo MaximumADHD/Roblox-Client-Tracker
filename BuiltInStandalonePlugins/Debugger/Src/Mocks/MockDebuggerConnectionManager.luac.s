@@ -1,46 +1,46 @@
 PROTO_0:
-  LOADNIL R1
-  RETURN R1 1
+        0 LOADNIL                          R1
+        1 RETURN                           R1 1
 
 PROTO_1:
-  NEWTABLE R0 4 0
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["new"]
-  CALL R1 0 1
-  SETTABLEKS R1 R0 K1 ["ConnectionStarted"]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["new"]
-  CALL R1 0 1
-  SETTABLEKS R1 R0 K2 ["ConnectionEnded"]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["new"]
-  CALL R1 0 1
-  SETTABLEKS R1 R0 K3 ["FocusChanged"]
-  GETUPVAL R3 1
-  FASTCALL2 SETMETATABLE R0 R3 [+4]
-  MOVE R2 R0
-  GETIMPORT R1 K5 [setmetatable]
-  CALL R1 2 0
-  RETURN R0 1
+        0 NEWTABLE                         R0 4 0
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R1 R2 K0 ["new"]
+        5 CALL                             R1 0 1
+        6 SETTABLEKS                       R1 R0 K1 ["ConnectionStarted"]
+        8 GETUPVAL                         R2 0
+        9 GETTABLEKS                       R1 R2 K0 ["new"]
+       11 CALL                             R1 0 1
+       12 SETTABLEKS                       R1 R0 K2 ["ConnectionEnded"]
+       14 GETUPVAL                         R2 0
+       15 GETTABLEKS                       R1 R2 K0 ["new"]
+       17 CALL                             R1 0 1
+       18 SETTABLEKS                       R1 R0 K3 ["FocusChanged"]
+       20 GETUPVAL                         R3 1
+       21 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+       23 MOVE                             R2 R0
+       24 GETIMPORT                        R1 K5 [setmetatable]
+       26 CALL                             R1 2 0
+       27 RETURN                           R0 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
-  CALL R1 1 1
-  GETTABLEKS R3 R1 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["Signal"]
-  NEWTABLE R3 4 0
-  SETTABLEKS R3 R3 K9 ["__index"]
-  DUPCLOSURE R4 K10 [PROTO_0]
-  SETTABLEKS R4 R3 K11 ["getAvailableConnection"]
-  DUPCLOSURE R4 K12 [PROTO_1]
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  SETTABLEKS R4 R3 K13 ["new"]
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R3 R1 K7 ["Util"]
+       18 GETTABLEKS                       R2 R3 K8 ["Signal"]
+       20 NEWTABLE                         R3 4 0
+       22 SETTABLEKS                       R3 R3 K9 ["__index"]
+       24 DUPCLOSURE                       R4 K10 [PROTO_0]
+       25 SETTABLEKS                       R4 R3 K11 ["getAvailableConnection"]
+       27 DUPCLOSURE                       R4 K12 [PROTO_1]
+       28 CAPTURE                          VAL R2
+       29 CAPTURE                          VAL R3
+       30 SETTABLEKS                       R4 R3 K13 ["new"]
+       32 RETURN                           R3 1

@@ -1,68 +1,68 @@
 PROTO_0:
-  GETUPVAL R2 0
-  LOADK R4 K0 ["https://create.roblox.com/docs/ui/styling/editor"]
-  NAMECALL R2 R2 K1 ["OpenBrowserWindow"]
-  CALL R2 2 0
-  GETUPVAL R4 1
-  GETUPVAL R5 2
-  DUPTABLE R6 K4 [{"eventType", "path"}]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K5 ["OnboardingLink"]
-  GETTABLEKS R7 R8 K6 ["rawValue"]
-  CALL R7 0 1
-  SETTABLEKS R7 R6 K2 ["eventType"]
-  LOADK R7 K5 ["OnboardingLink"]
-  SETTABLEKS R7 R6 K3 ["path"]
-  CALL R5 1 -1
-  CALL R4 -1 -1
-  NAMECALL R2 R0 K7 ["dispatch"]
-  CALL R2 -1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 LOADK                            R4 K0 ["https://create.roblox.com/docs/ui/styling/editor"]
+        2 NAMECALL                         R2 R2 K1 ["OpenBrowserWindow"]
+        4 CALL                             R2 2 0
+        5 GETUPVAL                         R4 1
+        6 GETUPVAL                         R5 2
+        7 DUPTABLE                         R6 K4 [{"eventType", "path"}]
+        8 GETUPVAL                         R9 3
+        9 GETTABLEKS                       R8 R9 K5 ["OnboardingLink"]
+       11 GETTABLEKS                       R7 R8 K6 ["rawValue"]
+       13 CALL                             R7 0 1
+       14 SETTABLEKS                       R7 R6 K2 ["eventType"]
+       16 LOADK                            R7 K5 ["OnboardingLink"]
+       17 SETTABLEKS                       R7 R6 K3 ["path"]
+       19 CALL                             R5 1 -1
+       20 CALL                             R4 -1 -1
+       21 NAMECALL                         R2 R0 K7 ["dispatch"]
+       23 CALL                             R2 -1 0
+       24 RETURN                           R0 0
 
 PROTO_1:
-  DUPCLOSURE R0 K0 [PROTO_0]
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  RETURN R0 1
+        0 DUPCLOSURE                       R0 K0 [PROTO_0]
+        1 CAPTURE                          UPVAL U0
+        2 CAPTURE                          UPVAL U1
+        3 CAPTURE                          UPVAL U2
+        4 CAPTURE                          UPVAL U3
+        5 RETURN                           R0 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["GuiService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  GETIMPORT R5 K5 [script]
-  GETTABLEKS R4 R5 K6 ["Parent"]
-  GETTABLEKS R3 R4 K6 ["Parent"]
-  GETTABLEKS R2 R3 K6 ["Parent"]
-  GETTABLEKS R1 R2 K6 ["Parent"]
-  GETIMPORT R2 K8 [require]
-  GETTABLEKS R5 R1 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Thunks"]
-  GETTABLEKS R3 R4 K11 ["Types"]
-  CALL R2 1 1
-  GETTABLEKS R4 R1 K9 ["Src"]
-  GETTABLEKS R3 R4 K10 ["Thunks"]
-  GETIMPORT R4 K8 [require]
-  GETTABLEKS R6 R3 K12 ["Telemetry"]
-  GETTABLEKS R5 R6 K13 ["SendTelemetryEvent"]
-  CALL R4 1 1
-  GETIMPORT R5 K8 [require]
-  GETTABLEKS R9 R1 K9 ["Src"]
-  GETTABLEKS R8 R9 K14 ["Resources"]
-  GETTABLEKS R7 R8 K12 ["Telemetry"]
-  GETTABLEKS R6 R7 K15 ["ActionClickedEvent"]
-  CALL R5 1 1
-  GETIMPORT R6 K8 [require]
-  GETTABLEKS R9 R1 K9 ["Src"]
-  GETTABLEKS R8 R9 K16 ["Enums"]
-  GETTABLEKS R7 R8 K17 ["ActionClickedEventType"]
-  CALL R6 1 1
-  DUPCLOSURE R7 K18 [PROTO_1]
-  CAPTURE VAL R0
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R6
-  RETURN R7 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["GuiService"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R5 K5 [script]
+        9 GETTABLEKS                       R4 R5 K6 ["Parent"]
+       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
+       13 GETTABLEKS                       R2 R3 K6 ["Parent"]
+       15 GETTABLEKS                       R1 R2 K6 ["Parent"]
+       17 GETIMPORT                        R2 K8 [require]
+       19 GETTABLEKS                       R5 R1 K9 ["Src"]
+       21 GETTABLEKS                       R4 R5 K10 ["Thunks"]
+       23 GETTABLEKS                       R3 R4 K11 ["Types"]
+       25 CALL                             R2 1 1
+       26 GETTABLEKS                       R4 R1 K9 ["Src"]
+       28 GETTABLEKS                       R3 R4 K10 ["Thunks"]
+       30 GETIMPORT                        R4 K8 [require]
+       32 GETTABLEKS                       R6 R3 K12 ["Telemetry"]
+       34 GETTABLEKS                       R5 R6 K13 ["SendTelemetryEvent"]
+       36 CALL                             R4 1 1
+       37 GETIMPORT                        R5 K8 [require]
+       39 GETTABLEKS                       R9 R1 K9 ["Src"]
+       41 GETTABLEKS                       R8 R9 K14 ["Resources"]
+       43 GETTABLEKS                       R7 R8 K12 ["Telemetry"]
+       45 GETTABLEKS                       R6 R7 K15 ["ActionClickedEvent"]
+       47 CALL                             R5 1 1
+       48 GETIMPORT                        R6 K8 [require]
+       50 GETTABLEKS                       R9 R1 K9 ["Src"]
+       52 GETTABLEKS                       R8 R9 K16 ["Enums"]
+       54 GETTABLEKS                       R7 R8 K17 ["ActionClickedEventType"]
+       56 CALL                             R6 1 1
+       57 DUPCLOSURE                       R7 K18 [PROTO_1]
+       58 CAPTURE                          VAL R0
+       59 CAPTURE                          VAL R4
+       60 CAPTURE                          VAL R5
+       61 CAPTURE                          VAL R6
+       62 RETURN                           R7 1

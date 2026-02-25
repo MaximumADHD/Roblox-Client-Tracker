@@ -1,100 +1,100 @@
 PROTO_0:
-  GETUPVAL R1 0
-  SETTABLEKS R0 R1 K0 ["enteredText"]
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 SETTABLEKS                       R0 R1 K0 ["enteredText"]
+        3 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["props"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K1 ["enteredText"]
-  JUMPIFNOT R0 [+6]
-  JUMPIFEQKS R2 K2 [""] [+5]
-  GETTABLEKS R3 R1 K3 ["OnTextConfirmed"]
-  MOVE R4 R2
-  CALL R3 1 0
-  GETTABLEKS R3 R1 K4 ["OnEditCanceled"]
-  CALL R3 0 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R2 R3 K1 ["enteredText"]
+        6 JUMPIFNOT                        R0 ; [+6]
+        7 JUMPIFEQKS                       R2 K2 [""] ; [+5]
+        9 GETTABLEKS                       R3 R1 K3 ["OnTextConfirmed"]
+       11 MOVE                             R4 R2
+       12 CALL                             R3 1 0
+       13 GETTABLEKS                       R3 R1 K4 ["OnEditCanceled"]
+       15 CALL                             R3 0 0
+       16 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createRef"]
-  CALL R1 0 1
-  SETTABLEKS R1 R0 K1 ["textBoxRef"]
-  LOADK R1 K2 [""]
-  SETTABLEKS R1 R0 K3 ["enteredText"]
-  NEWCLOSURE R1 P0
-  CAPTURE VAL R0
-  SETTABLEKS R1 R0 K4 ["onTextChanged"]
-  NEWCLOSURE R1 P1
-  CAPTURE VAL R0
-  SETTABLEKS R1 R0 K5 ["onFocusLost"]
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["createRef"]
+        3 CALL                             R1 0 1
+        4 SETTABLEKS                       R1 R0 K1 ["textBoxRef"]
+        6 LOADK                            R1 K2 [""]
+        7 SETTABLEKS                       R1 R0 K3 ["enteredText"]
+        9 NEWCLOSURE                       R1 P0
+       10 CAPTURE                          VAL R0
+       11 SETTABLEKS                       R1 R0 K4 ["onTextChanged"]
+       13 NEWCLOSURE                       R1 P1
+       14 CAPTURE                          VAL R0
+       15 SETTABLEKS                       R1 R0 K5 ["onFocusLost"]
+       17 RETURN                           R0 0
 
 PROTO_3:
-  GETTABLEKS R1 R0 K0 ["props"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K1 ["createElement"]
-  GETUPVAL R3 1
-  DUPTABLE R4 K12 [{"Size", "Style", "LayoutOrder", "TextWrapped", "ShouldFocus", "TextXAlignment", "ForwardRef", "PlaceholderText", "OnTextChanged", "OnFocusLost"}]
-  GETTABLEKS R5 R1 K2 ["Size"]
-  SETTABLEKS R5 R4 K2 ["Size"]
-  LOADK R5 K13 ["FilledRoundedBorder"]
-  SETTABLEKS R5 R4 K3 ["Style"]
-  GETTABLEKS R5 R1 K4 ["LayoutOrder"]
-  SETTABLEKS R5 R4 K4 ["LayoutOrder"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K5 ["TextWrapped"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K6 ["ShouldFocus"]
-  GETIMPORT R5 K16 [Enum.TextXAlignment.Left]
-  SETTABLEKS R5 R4 K7 ["TextXAlignment"]
-  GETTABLEKS R5 R0 K17 ["textBoxRef"]
-  SETTABLEKS R5 R4 K8 ["ForwardRef"]
-  GETTABLEKS R5 R1 K18 ["Text"]
-  SETTABLEKS R5 R4 K9 ["PlaceholderText"]
-  GETTABLEKS R5 R0 K19 ["onTextChanged"]
-  SETTABLEKS R5 R4 K10 ["OnTextChanged"]
-  GETTABLEKS R5 R0 K20 ["onFocusLost"]
-  SETTABLEKS R5 R4 K11 ["OnFocusLost"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R2 R3 K1 ["createElement"]
+        5 GETUPVAL                         R3 1
+        6 DUPTABLE                         R4 K12 [{"Size", "Style", "LayoutOrder", "TextWrapped", "ShouldFocus", "TextXAlignment", "ForwardRef", "PlaceholderText", "OnTextChanged", "OnFocusLost"}]
+        7 GETTABLEKS                       R5 R1 K2 ["Size"]
+        9 SETTABLEKS                       R5 R4 K2 ["Size"]
+       11 LOADK                            R5 K13 ["FilledRoundedBorder"]
+       12 SETTABLEKS                       R5 R4 K3 ["Style"]
+       14 GETTABLEKS                       R5 R1 K4 ["LayoutOrder"]
+       16 SETTABLEKS                       R5 R4 K4 ["LayoutOrder"]
+       18 LOADB                            R5 1
+       19 SETTABLEKS                       R5 R4 K5 ["TextWrapped"]
+       21 LOADB                            R5 1
+       22 SETTABLEKS                       R5 R4 K6 ["ShouldFocus"]
+       24 GETIMPORT                        R5 K16 [Enum.TextXAlignment.Left]
+       26 SETTABLEKS                       R5 R4 K7 ["TextXAlignment"]
+       28 GETTABLEKS                       R5 R0 K17 ["textBoxRef"]
+       30 SETTABLEKS                       R5 R4 K8 ["ForwardRef"]
+       32 GETTABLEKS                       R5 R1 K18 ["Text"]
+       34 SETTABLEKS                       R5 R4 K9 ["PlaceholderText"]
+       36 GETTABLEKS                       R5 R0 K19 ["onTextChanged"]
+       38 SETTABLEKS                       R5 R4 K10 ["OnTextChanged"]
+       40 GETTABLEKS                       R5 R0 K20 ["onFocusLost"]
+       42 SETTABLEKS                       R5 R4 K11 ["OnFocusLost"]
+       44 CALL                             R2 2 -1
+       45 RETURN                           R2 -1
 
 PROTO_4:
-  GETTABLEKS R2 R0 K0 ["textBoxRef"]
-  GETTABLEKS R1 R2 K1 ["current"]
-  NAMECALL R1 R1 K2 ["CaptureFocus"]
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["textBoxRef"]
+        2 GETTABLEKS                       R1 R2 K1 ["current"]
+        4 NAMECALL                         R1 R1 K2 ["CaptureFocus"]
+        6 CALL                             R1 1 0
+        7 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Framework"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K8 ["UI"]
-  GETTABLEKS R4 R3 K9 ["DEPRECATED_TextInput"]
-  GETTABLEKS R5 R1 K10 ["Component"]
-  LOADK R7 K11 ["ValueEditTextBox"]
-  NAMECALL R5 R5 K12 ["extend"]
-  CALL R5 2 1
-  DUPCLOSURE R6 K13 [PROTO_2]
-  CAPTURE VAL R1
-  SETTABLEKS R6 R5 K14 ["init"]
-  DUPCLOSURE R6 K15 [PROTO_3]
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  SETTABLEKS R6 R5 K16 ["render"]
-  DUPCLOSURE R6 K17 [PROTO_4]
-  SETTABLEKS R6 R5 K18 ["didMount"]
-  RETURN R5 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["React"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R2 K8 ["UI"]
+       25 GETTABLEKS                       R4 R3 K9 ["DEPRECATED_TextInput"]
+       27 GETTABLEKS                       R5 R1 K10 ["Component"]
+       29 LOADK                            R7 K11 ["ValueEditTextBox"]
+       30 NAMECALL                         R5 R5 K12 ["extend"]
+       32 CALL                             R5 2 1
+       33 DUPCLOSURE                       R6 K13 [PROTO_2]
+       34 CAPTURE                          VAL R1
+       35 SETTABLEKS                       R6 R5 K14 ["init"]
+       37 DUPCLOSURE                       R6 K15 [PROTO_3]
+       38 CAPTURE                          VAL R1
+       39 CAPTURE                          VAL R4
+       40 SETTABLEKS                       R6 R5 K16 ["render"]
+       42 DUPCLOSURE                       R6 K17 [PROTO_4]
+       43 SETTABLEKS                       R6 R5 K18 ["didMount"]
+       45 RETURN                           R5 1

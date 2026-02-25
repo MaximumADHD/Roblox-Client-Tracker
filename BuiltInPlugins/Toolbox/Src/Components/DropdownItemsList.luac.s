@@ -1,478 +1,478 @@
 PROTO_0:
-  GETTABLEKS R1 R0 K0 ["dropdownHoveredItemIndex"]
-  GETUPVAL R2 0
-  JUMPIFNOTEQ R1 R2 [+2]
-  RETURN R0 0
-  DUPTABLE R1 K1 [{"dropdownHoveredItemIndex"}]
-  GETUPVAL R2 0
-  SETTABLEKS R2 R1 K0 ["dropdownHoveredItemIndex"]
-  RETURN R1 1
+        0 GETTABLEKS                       R1 R0 K0 ["dropdownHoveredItemIndex"]
+        2 GETUPVAL                         R2 0
+        3 JUMPIFNOTEQ                      R1 R2 ; [+2]
+        5 RETURN                           R0 0
+        6 DUPTABLE                         R1 K1 [{"dropdownHoveredItemIndex"}]
+        7 GETUPVAL                         R2 0
+        8 SETTABLEKS                       R2 R1 K0 ["dropdownHoveredItemIndex"]
+       10 RETURN                           R1 1
 
 PROTO_1:
-  GETUPVAL R1 0
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R0
-  NAMECALL R1 R1 K0 ["setState"]
-  CALL R1 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 NEWCLOSURE                       R3 P0
+        2 CAPTURE                          VAL R0
+        3 NAMECALL                         R1 R1 K0 ["setState"]
+        5 CALL                             R1 2 0
+        6 RETURN                           R0 0
 
 PROTO_2:
-  GETTABLEKS R1 R0 K0 ["dropdownHoveredItemIndex"]
-  GETUPVAL R2 0
-  JUMPIFNOTEQ R1 R2 [+6]
-  DUPTABLE R1 K1 [{"dropdownHoveredItemIndex"}]
-  LOADN R2 0
-  SETTABLEKS R2 R1 K0 ["dropdownHoveredItemIndex"]
-  RETURN R1 1
-  RETURN R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["dropdownHoveredItemIndex"]
+        2 GETUPVAL                         R2 0
+        3 JUMPIFNOTEQ                      R1 R2 ; [+6]
+        5 DUPTABLE                         R1 K1 [{"dropdownHoveredItemIndex"}]
+        6 LOADN                            R2 0
+        7 SETTABLEKS                       R2 R1 K0 ["dropdownHoveredItemIndex"]
+        9 RETURN                           R1 1
+       10 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R1 0
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R0
-  NAMECALL R1 R1 K0 ["setState"]
-  CALL R1 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 NEWCLOSURE                       R3 P0
+        2 CAPTURE                          VAL R0
+        3 NAMECALL                         R1 R1 K0 ["setState"]
+        5 CALL                             R1 2 0
+        6 RETURN                           R0 0
 
 PROTO_4:
-  JUMPIFNOT R2 [+4]
-  MOVE R3 R2
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 0
-  RETURN R0 0
+        0 JUMPIFNOT                        R2 ; [+4]
+        1 MOVE                             R3 R2
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R3 2 0
+        5 RETURN                           R0 0
 
 PROTO_5:
-  DUPTABLE R1 K1 [{"dropdownHoveredItemIndex"}]
-  LOADN R2 0
-  SETTABLEKS R2 R1 K0 ["dropdownHoveredItemIndex"]
-  SETTABLEKS R1 R0 K2 ["state"]
-  NEWCLOSURE R1 P0
-  CAPTURE VAL R0
-  SETTABLEKS R1 R0 K3 ["onDropdownItemMouseEntered"]
-  NEWCLOSURE R1 P1
-  CAPTURE VAL R0
-  SETTABLEKS R1 R0 K4 ["onDropdownItemMouseLeft"]
-  DUPCLOSURE R1 K5 [PROTO_4]
-  SETTABLEKS R1 R0 K6 ["onDropdownItemActivated"]
-  LOADNIL R1
-  SETTABLEKS R1 R0 K7 ["lastReportedHeight"]
-  RETURN R0 0
+        0 DUPTABLE                         R1 K1 [{"dropdownHoveredItemIndex"}]
+        1 LOADN                            R2 0
+        2 SETTABLEKS                       R2 R1 K0 ["dropdownHoveredItemIndex"]
+        4 SETTABLEKS                       R1 R0 K2 ["state"]
+        6 NEWCLOSURE                       R1 P0
+        7 CAPTURE                          VAL R0
+        8 SETTABLEKS                       R1 R0 K3 ["onDropdownItemMouseEntered"]
+       10 NEWCLOSURE                       R1 P1
+       11 CAPTURE                          VAL R0
+       12 SETTABLEKS                       R1 R0 K4 ["onDropdownItemMouseLeft"]
+       14 DUPCLOSURE                       R1 K5 [PROTO_4]
+       15 SETTABLEKS                       R1 R0 K6 ["onDropdownItemActivated"]
+       17 LOADNIL                          R1
+       18 SETTABLEKS                       R1 R0 K7 ["lastReportedHeight"]
+       20 RETURN                           R0 0
 
 PROTO_6:
-  LOADB R1 1
-  GETTABLEKS R2 R0 K0 ["selectable"]
-  JUMPIFEQKNIL R2 [+3]
-  GETTABLEKS R1 R0 K0 ["selectable"]
-  RETURN R1 1
+        0 LOADB                            R1 1
+        1 GETTABLEKS                       R2 R0 K0 ["selectable"]
+        3 JUMPIFEQKNIL                     R2 ; [+3]
+        5 GETTABLEKS                       R1 R0 K0 ["selectable"]
+        7 RETURN                           R1 1
 
 PROTO_7:
-  GETUPVAL R3 0
-  JUMPIFNOT R3 [+7]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K0 ["onDropdownItemActivated"]
-  GETUPVAL R4 2
-  GETUPVAL R5 3
-  GETUPVAL R6 4
-  CALL R3 3 0
-  RETURN R0 0
+        0 GETUPVAL                         R3 0
+        1 JUMPIFNOT                        R3 ; [+7]
+        2 GETUPVAL                         R4 1
+        3 GETTABLEKS                       R3 R4 K0 ["onDropdownItemActivated"]
+        5 GETUPVAL                         R4 2
+        6 GETUPVAL                         R5 3
+        7 GETUPVAL                         R6 4
+        8 CALL                             R3 3 0
+        9 RETURN                           R0 0
 
 PROTO_8:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["onDropdownItemMouseEntered"]
-  GETUPVAL R4 1
-  CALL R3 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["onDropdownItemMouseEntered"]
+        3 GETUPVAL                         R4 1
+        4 CALL                             R3 1 0
+        5 RETURN                           R0 0
 
 PROTO_9:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["onDropdownItemMouseLeft"]
-  GETUPVAL R4 1
-  CALL R3 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["onDropdownItemMouseLeft"]
+        3 GETUPVAL                         R4 1
+        4 CALL                             R3 1 0
+        5 RETURN                           R0 0
 
 PROTO_10:
-  GETTABLEKS R11 R10 K0 ["isDarkerTheme"]
-  GETTABLEKS R12 R10 K1 ["dropdownMenu"]
-  GETTABLEKS R13 R12 K2 ["item"]
-  DUPTABLE R14 K4 [{"UIListLayout"}]
-  GETUPVAL R16 0
-  GETTABLEKS R15 R16 K5 ["createElement"]
-  LOADK R16 K3 ["UIListLayout"]
-  DUPTABLE R17 K8 [{"FillDirection", "SortOrder"}]
-  GETIMPORT R18 K11 [Enum.FillDirection.Vertical]
-  SETTABLEKS R18 R17 K6 ["FillDirection"]
-  GETIMPORT R18 K13 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R18 R17 K7 ["SortOrder"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K3 ["UIListLayout"]
-  GETIMPORT R15 K15 [ipairs]
-  MOVE R16 R1
-  CALL R15 1 3
-  FORGPREP_INEXT R15
-  GETTABLEKS R20 R19 K16 ["name"]
-  JUMPIF R20 [+13]
-  GETUPVAL R21 1
-  GETTABLEKS R20 R21 K17 ["shouldDebugWarnings"]
-  CALL R20 0 1
-  JUMPIFNOT R20 [+8]
-  GETIMPORT R20 K19 [warn]
-  LOADK R21 K20 ["Index %d in DropdownMenu doesn't have a 'name' member"]
-  MOVE R23 R18
-  NAMECALL R21 R21 K21 ["format"]
-  CALL R21 2 -1
-  CALL R20 -1 0
-  LOADB R20 1
-  GETTABLEKS R21 R19 K22 ["selectable"]
-  JUMPIFEQKNIL R21 [+3]
-  GETTABLEKS R20 R19 K22 ["selectable"]
-  JUMPIFNOT R20 [+3]
-  GETTABLEKS R21 R13 K23 ["textColor"]
-  JUMPIF R21 [+2]
-  GETTABLEKS R21 R13 K24 ["labelTextColor"]
-  GETTABLEKS R22 R19 K16 ["name"]
-  LOADB R23 0
-  JUMPIFNOTEQ R2 R18 [+2]
-  MOVE R23 R20
-  JUMPIFNOT R3 [+2]
-  GETTABLE R24 R19 R3
-  JUMPIF R24 [+1]
-  MOVE R24 R22
-  GETUPVAL R30 2
-  MOVE R31 R22
-  MOVE R32 R7
-  LOADNIL R33
-  GETIMPORT R34 K27 [Vector2.new]
-  LOADN R35 0
-  LOADN R36 0
-  CALL R34 2 -1
-  CALL R30 -1 1
-  GETTABLEKS R29 R30 K28 ["X"]
-  MULK R30 R5 K29 [2]
-  ADD R28 R29 R30
-  GETUPVAL R30 3
-  GETTABLEKS R29 R30 K30 ["SCROLLBAR_BACKGROUND_THICKNESS"]
-  ADD R27 R28 R29
-  FASTCALL2 MATH_MAX R4 R27 [+4]
-  MOVE R26 R4
-  GETIMPORT R25 K33 [math.max]
-  CALL R25 2 1
-  MOVE R4 R25
-  OR R25 R24 R22
-  GETUPVAL R27 0
-  GETTABLEKS R26 R27 K5 ["createElement"]
-  LOADK R27 K34 ["ImageButton"]
-  NEWTABLE R28 16 0
-  GETIMPORT R29 K36 [UDim2.new]
-  LOADN R30 1
-  GETUPVAL R34 3
-  GETTABLEKS R33 R34 K30 ["SCROLLBAR_BACKGROUND_THICKNESS"]
-  MINUS R32 R33
-  GETUPVAL R34 3
-  GETTABLEKS R33 R34 K37 ["SCROLLBAR_PADDING"]
-  ADD R31 R32 R33
-  LOADN R32 0
-  MOVE R33 R6
-  CALL R29 4 1
-  SETTABLEKS R29 R28 K38 ["Size"]
-  JUMPIFNOT R23 [+3]
-  GETTABLEKS R29 R13 K39 ["backgroundSelectedColor"]
-  JUMPIF R29 [+2]
-  GETTABLEKS R29 R13 K40 ["backgroundColor"]
-  SETTABLEKS R29 R28 K41 ["BackgroundColor3"]
-  LOADN R29 0
-  SETTABLEKS R29 R28 K42 ["BorderSizePixel"]
-  SETTABLEKS R18 R28 K12 ["LayoutOrder"]
-  LOADN R29 2
-  SETTABLEKS R29 R28 K43 ["ZIndex"]
-  LOADB R29 0
-  SETTABLEKS R29 R28 K44 ["AutoButtonColor"]
-  GETUPVAL R31 0
-  GETTABLEKS R30 R31 K45 ["Event"]
-  GETTABLEKS R29 R30 K46 ["Activated"]
-  NEWCLOSURE R30 P0
-  CAPTURE VAL R20
-  CAPTURE VAL R0
-  CAPTURE VAL R18
-  CAPTURE VAL R19
-  CAPTURE VAL R8
-  SETTABLE R30 R28 R29
-  GETUPVAL R31 0
-  GETTABLEKS R30 R31 K45 ["Event"]
-  GETTABLEKS R29 R30 K47 ["MouseEnter"]
-  NEWCLOSURE R30 P1
-  CAPTURE VAL R0
-  CAPTURE VAL R18
-  SETTABLE R30 R28 R29
-  GETUPVAL R31 0
-  GETTABLEKS R30 R31 K45 ["Event"]
-  GETTABLEKS R29 R30 K48 ["MouseLeave"]
-  NEWCLOSURE R30 P2
-  CAPTURE VAL R0
-  CAPTURE VAL R18
-  SETTABLE R30 R28 R29
-  GETUPVAL R31 0
-  GETTABLEKS R30 R31 K45 ["Event"]
-  GETTABLEKS R29 R30 K49 ["InputEnded"]
-  GETTABLEKS R30 R0 K50 ["focusLost"]
-  SETTABLE R30 R28 R29
-  DUPTABLE R29 K53 [{"SelectedBar", "TextLabel"}]
-  NOT R30 R11
-  JUMPIFNOT R30 [+29]
-  GETUPVAL R31 0
-  GETTABLEKS R30 R31 K5 ["createElement"]
-  LOADK R31 K54 ["Frame"]
-  DUPTABLE R32 K56 [{"Size", "BorderSizePixel", "BackgroundColor3", "Visible", "ZIndex"}]
-  GETIMPORT R33 K36 [UDim2.new]
-  LOADN R34 0
-  MOVE R35 R9
-  LOADN R36 1
-  LOADN R37 0
-  CALL R33 4 1
-  SETTABLEKS R33 R32 K38 ["Size"]
-  LOADN R33 0
-  SETTABLEKS R33 R32 K42 ["BorderSizePixel"]
-  GETTABLEKS R34 R12 K2 ["item"]
-  GETTABLEKS R33 R34 K57 ["selectedBarColor"]
-  SETTABLEKS R33 R32 K41 ["BackgroundColor3"]
-  SETTABLEKS R23 R32 K55 ["Visible"]
-  LOADN R33 2
-  SETTABLEKS R33 R32 K43 ["ZIndex"]
-  CALL R30 2 1
-  SETTABLEKS R30 R29 K51 ["SelectedBar"]
-  GETUPVAL R31 0
-  GETTABLEKS R30 R31 K5 ["createElement"]
-  LOADK R31 K52 ["TextLabel"]
-  DUPTABLE R32 K67 [{"Position", "Size", "BackgroundTransparency", "Text", "TextColor3", "Font", "TextSize", "TextXAlignment", "TextYAlignment", "ClipsDescendants", "ZIndex"}]
-  GETIMPORT R33 K36 [UDim2.new]
-  LOADN R34 0
-  MOVE R35 R5
-  LOADN R36 0
-  LOADN R37 0
-  CALL R33 4 1
-  SETTABLEKS R33 R32 K58 ["Position"]
-  GETIMPORT R33 K36 [UDim2.new]
-  LOADN R34 1
-  MINUS R35 R5
-  LOADN R36 1
-  LOADN R37 0
-  CALL R33 4 1
-  SETTABLEKS R33 R32 K38 ["Size"]
-  LOADN R33 1
-  SETTABLEKS R33 R32 K59 ["BackgroundTransparency"]
-  SETTABLEKS R22 R32 K60 ["Text"]
-  SETTABLEKS R21 R32 K61 ["TextColor3"]
-  GETUPVAL R34 3
-  GETTABLEKS R33 R34 K68 ["FONT"]
-  SETTABLEKS R33 R32 K62 ["Font"]
-  SETTABLEKS R7 R32 K63 ["TextSize"]
-  GETIMPORT R33 K70 [Enum.TextXAlignment.Left]
-  SETTABLEKS R33 R32 K64 ["TextXAlignment"]
-  GETIMPORT R33 K72 [Enum.TextYAlignment.Center]
-  SETTABLEKS R33 R32 K65 ["TextYAlignment"]
-  LOADB R33 1
-  SETTABLEKS R33 R32 K66 ["ClipsDescendants"]
-  LOADN R33 3
-  SETTABLEKS R33 R32 K43 ["ZIndex"]
-  CALL R30 2 1
-  SETTABLEKS R30 R29 K52 ["TextLabel"]
-  CALL R26 3 1
-  SETTABLE R26 R14 R25
-  FORGLOOP R15 2 [inext] [-235]
-  RETURN R14 1
+        0 GETTABLEKS                       R11 R10 K0 ["isDarkerTheme"]
+        2 GETTABLEKS                       R12 R10 K1 ["dropdownMenu"]
+        4 GETTABLEKS                       R13 R12 K2 ["item"]
+        6 DUPTABLE                         R14 K4 [{"UIListLayout"}]
+        7 GETUPVAL                         R16 0
+        8 GETTABLEKS                       R15 R16 K5 ["createElement"]
+       10 LOADK                            R16 K3 ["UIListLayout"]
+       11 DUPTABLE                         R17 K8 [{"FillDirection", "SortOrder"}]
+       12 GETIMPORT                        R18 K11 [Enum.FillDirection.Vertical]
+       14 SETTABLEKS                       R18 R17 K6 ["FillDirection"]
+       16 GETIMPORT                        R18 K13 [Enum.SortOrder.LayoutOrder]
+       18 SETTABLEKS                       R18 R17 K7 ["SortOrder"]
+       20 CALL                             R15 2 1
+       21 SETTABLEKS                       R15 R14 K3 ["UIListLayout"]
+       23 GETIMPORT                        R15 K15 [ipairs]
+       25 MOVE                             R16 R1
+       26 CALL                             R15 1 3
+       27 FORGPREP_INEXT                   R15
+       28 GETTABLEKS                       R20 R19 K16 ["name"]
+       30 JUMPIF                           R20 ; [+13]
+       31 GETUPVAL                         R21 1
+       32 GETTABLEKS                       R20 R21 K17 ["shouldDebugWarnings"]
+       34 CALL                             R20 0 1
+       35 JUMPIFNOT                        R20 ; [+8]
+       36 GETIMPORT                        R20 K19 [warn]
+       38 LOADK                            R21 K20 ["Index %d in DropdownMenu doesn't have a 'name' member"]
+       39 MOVE                             R23 R18
+       40 NAMECALL                         R21 R21 K21 ["format"]
+       42 CALL                             R21 2 -1
+       43 CALL                             R20 -1 0
+       44 LOADB                            R20 1
+       45 GETTABLEKS                       R21 R19 K22 ["selectable"]
+       47 JUMPIFEQKNIL                     R21 ; [+3]
+       49 GETTABLEKS                       R20 R19 K22 ["selectable"]
+       51 JUMPIFNOT                        R20 ; [+3]
+       52 GETTABLEKS                       R21 R13 K23 ["textColor"]
+       54 JUMPIF                           R21 ; [+2]
+       55 GETTABLEKS                       R21 R13 K24 ["labelTextColor"]
+       57 GETTABLEKS                       R22 R19 K16 ["name"]
+       59 LOADB                            R23 0
+       60 JUMPIFNOTEQ                      R2 R18 ; [+2]
+       62 MOVE                             R23 R20
+       63 JUMPIFNOT                        R3 ; [+2]
+       64 GETTABLE                         R24 R19 R3
+       65 JUMPIF                           R24 ; [+1]
+       66 MOVE                             R24 R22
+       67 GETUPVAL                         R30 2
+       68 MOVE                             R31 R22
+       69 MOVE                             R32 R7
+       70 LOADNIL                          R33
+       71 GETIMPORT                        R34 K27 [Vector2.new]
+       73 LOADN                            R35 0
+       74 LOADN                            R36 0
+       75 CALL                             R34 2 -1
+       76 CALL                             R30 -1 1
+       77 GETTABLEKS                       R29 R30 K28 ["X"]
+       79 MULK                             R30 R5 K29 [2]
+       80 ADD                              R28 R29 R30
+       81 GETUPVAL                         R30 3
+       82 GETTABLEKS                       R29 R30 K30 ["SCROLLBAR_BACKGROUND_THICKNESS"]
+       84 ADD                              R27 R28 R29
+       85 FASTCALL2                        MATH_MAX R4 R27 ; [+4]
+       87 MOVE                             R26 R4
+       88 GETIMPORT                        R25 K33 [math.max]
+       90 CALL                             R25 2 1
+       91 MOVE                             R4 R25
+       92 OR                               R25 R24 R22
+       93 GETUPVAL                         R27 0
+       94 GETTABLEKS                       R26 R27 K5 ["createElement"]
+       96 LOADK                            R27 K34 ["ImageButton"]
+       97 NEWTABLE                         R28 16 0
+       99 GETIMPORT                        R29 K36 [UDim2.new]
+      101 LOADN                            R30 1
+      102 GETUPVAL                         R34 3
+      103 GETTABLEKS                       R33 R34 K30 ["SCROLLBAR_BACKGROUND_THICKNESS"]
+      105 MINUS                            R32 R33
+      106 GETUPVAL                         R34 3
+      107 GETTABLEKS                       R33 R34 K37 ["SCROLLBAR_PADDING"]
+      109 ADD                              R31 R32 R33
+      110 LOADN                            R32 0
+      111 MOVE                             R33 R6
+      112 CALL                             R29 4 1
+      113 SETTABLEKS                       R29 R28 K38 ["Size"]
+      115 JUMPIFNOT                        R23 ; [+3]
+      116 GETTABLEKS                       R29 R13 K39 ["backgroundSelectedColor"]
+      118 JUMPIF                           R29 ; [+2]
+      119 GETTABLEKS                       R29 R13 K40 ["backgroundColor"]
+      121 SETTABLEKS                       R29 R28 K41 ["BackgroundColor3"]
+      123 LOADN                            R29 0
+      124 SETTABLEKS                       R29 R28 K42 ["BorderSizePixel"]
+      126 SETTABLEKS                       R18 R28 K12 ["LayoutOrder"]
+      128 LOADN                            R29 2
+      129 SETTABLEKS                       R29 R28 K43 ["ZIndex"]
+      131 LOADB                            R29 0
+      132 SETTABLEKS                       R29 R28 K44 ["AutoButtonColor"]
+      134 GETUPVAL                         R31 0
+      135 GETTABLEKS                       R30 R31 K45 ["Event"]
+      137 GETTABLEKS                       R29 R30 K46 ["Activated"]
+      139 NEWCLOSURE                       R30 P0
+      140 CAPTURE                          VAL R20
+      141 CAPTURE                          VAL R0
+      142 CAPTURE                          VAL R18
+      143 CAPTURE                          VAL R19
+      144 CAPTURE                          VAL R8
+      145 SETTABLE                         R30 R28 R29
+      146 GETUPVAL                         R31 0
+      147 GETTABLEKS                       R30 R31 K45 ["Event"]
+      149 GETTABLEKS                       R29 R30 K47 ["MouseEnter"]
+      151 NEWCLOSURE                       R30 P1
+      152 CAPTURE                          VAL R0
+      153 CAPTURE                          VAL R18
+      154 SETTABLE                         R30 R28 R29
+      155 GETUPVAL                         R31 0
+      156 GETTABLEKS                       R30 R31 K45 ["Event"]
+      158 GETTABLEKS                       R29 R30 K48 ["MouseLeave"]
+      160 NEWCLOSURE                       R30 P2
+      161 CAPTURE                          VAL R0
+      162 CAPTURE                          VAL R18
+      163 SETTABLE                         R30 R28 R29
+      164 GETUPVAL                         R31 0
+      165 GETTABLEKS                       R30 R31 K45 ["Event"]
+      167 GETTABLEKS                       R29 R30 K49 ["InputEnded"]
+      169 GETTABLEKS                       R30 R0 K50 ["focusLost"]
+      171 SETTABLE                         R30 R28 R29
+      172 DUPTABLE                         R29 K53 [{"SelectedBar", "TextLabel"}]
+      173 NOT                              R30 R11
+      174 JUMPIFNOT                        R30 ; [+29]
+      175 GETUPVAL                         R31 0
+      176 GETTABLEKS                       R30 R31 K5 ["createElement"]
+      178 LOADK                            R31 K54 ["Frame"]
+      179 DUPTABLE                         R32 K56 [{"Size", "BorderSizePixel", "BackgroundColor3", "Visible", "ZIndex"}]
+      180 GETIMPORT                        R33 K36 [UDim2.new]
+      182 LOADN                            R34 0
+      183 MOVE                             R35 R9
+      184 LOADN                            R36 1
+      185 LOADN                            R37 0
+      186 CALL                             R33 4 1
+      187 SETTABLEKS                       R33 R32 K38 ["Size"]
+      189 LOADN                            R33 0
+      190 SETTABLEKS                       R33 R32 K42 ["BorderSizePixel"]
+      192 GETTABLEKS                       R34 R12 K2 ["item"]
+      194 GETTABLEKS                       R33 R34 K57 ["selectedBarColor"]
+      196 SETTABLEKS                       R33 R32 K41 ["BackgroundColor3"]
+      198 SETTABLEKS                       R23 R32 K55 ["Visible"]
+      200 LOADN                            R33 2
+      201 SETTABLEKS                       R33 R32 K43 ["ZIndex"]
+      203 CALL                             R30 2 1
+      204 SETTABLEKS                       R30 R29 K51 ["SelectedBar"]
+      206 GETUPVAL                         R31 0
+      207 GETTABLEKS                       R30 R31 K5 ["createElement"]
+      209 LOADK                            R31 K52 ["TextLabel"]
+      210 DUPTABLE                         R32 K67 [{"Position", "Size", "BackgroundTransparency", "Text", "TextColor3", "Font", "TextSize", "TextXAlignment", "TextYAlignment", "ClipsDescendants", "ZIndex"}]
+      211 GETIMPORT                        R33 K36 [UDim2.new]
+      213 LOADN                            R34 0
+      214 MOVE                             R35 R5
+      215 LOADN                            R36 0
+      216 LOADN                            R37 0
+      217 CALL                             R33 4 1
+      218 SETTABLEKS                       R33 R32 K58 ["Position"]
+      220 GETIMPORT                        R33 K36 [UDim2.new]
+      222 LOADN                            R34 1
+      223 MINUS                            R35 R5
+      224 LOADN                            R36 1
+      225 LOADN                            R37 0
+      226 CALL                             R33 4 1
+      227 SETTABLEKS                       R33 R32 K38 ["Size"]
+      229 LOADN                            R33 1
+      230 SETTABLEKS                       R33 R32 K59 ["BackgroundTransparency"]
+      232 SETTABLEKS                       R22 R32 K60 ["Text"]
+      234 SETTABLEKS                       R21 R32 K61 ["TextColor3"]
+      236 GETUPVAL                         R34 3
+      237 GETTABLEKS                       R33 R34 K68 ["FONT"]
+      239 SETTABLEKS                       R33 R32 K62 ["Font"]
+      241 SETTABLEKS                       R7 R32 K63 ["TextSize"]
+      243 GETIMPORT                        R33 K70 [Enum.TextXAlignment.Left]
+      245 SETTABLEKS                       R33 R32 K64 ["TextXAlignment"]
+      247 GETIMPORT                        R33 K72 [Enum.TextYAlignment.Center]
+      249 SETTABLEKS                       R33 R32 K65 ["TextYAlignment"]
+      251 LOADB                            R33 1
+      252 SETTABLEKS                       R33 R32 K66 ["ClipsDescendants"]
+      254 LOADN                            R33 3
+      255 SETTABLEKS                       R33 R32 K43 ["ZIndex"]
+      257 CALL                             R30 2 1
+      258 SETTABLEKS                       R30 R29 K52 ["TextLabel"]
+      260 CALL                             R26 3 1
+      261 SETTABLE                         R26 R14 R25
+      262 FORGLOOP                         R15 2 [inext] ; [-235]
+      264 RETURN                           R14 1
 
 PROTO_11:
-  GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R0 K1 ["state"]
-  GETTABLEKS R3 R1 K2 ["Stylizer"]
-  GETTABLEKS R4 R1 K3 ["listKey"]
-  GETTABLEKS R5 R1 K4 ["left"]
-  GETTABLEKS R6 R1 K5 ["top"]
-  GETTABLEKS R7 R1 K6 ["dropDownWidth"]
-  GETTABLEKS R8 R1 K7 ["items"]
-  JUMPIF R8 [+2]
-  NEWTABLE R8 0 0
-  LENGTH R9 R8
-  GETTABLEKS R12 R1 K9 ["visibleDropDownCount"]
-  ORK R11 R12 K8 [5]
-  FASTCALL2 MATH_MIN R11 R9 [+4]
-  MOVE R12 R9
-  GETIMPORT R10 K12 [math.min]
-  CALL R10 2 1
-  GETTABLEKS R12 R1 K14 ["rowHeight"]
-  ORK R11 R12 K13 [24]
-  GETTABLEKS R12 R1 K15 ["fontSize"]
-  JUMPIF R12 [+3]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K16 ["FONT_SIZE_MEDIUM"]
-  GETTABLEKS R13 R1 K17 ["setDropdownHeight"]
-  GETTABLEKS R14 R1 K18 ["windowPosition"]
-  GETTABLEKS R15 R1 K19 ["windowSize"]
-  GETTABLEKS R16 R1 K20 ["onItemClicked"]
-  GETUPVAL R18 0
-  GETTABLEKS R17 R18 K21 ["DROPDOWN_SELECTED_BAR"]
-  GETUPVAL R20 0
-  GETTABLEKS R19 R20 K22 ["DROPDOWN_TEXT_INSET"]
-  ADD R18 R17 R19
-  GETTABLEKS R19 R3 K23 ["dropdownMenu"]
-  GETTABLEKS R20 R2 K24 ["dropdownHoveredItemIndex"]
-  GETUPVAL R22 0
-  GETTABLEKS R21 R22 K25 ["DROPDOWN_WIDTH"]
-  MUL R22 R10 R11
-  JUMPIFNOT R13 [+9]
-  GETTABLEKS R23 R0 K26 ["lastReportedHeight"]
-  JUMPIFEQ R23 R22 [+6]
-  SETTABLEKS R22 R0 K26 ["lastReportedHeight"]
-  MOVE R23 R13
-  MOVE R24 R22
-  CALL R23 1 0
-  MOVE R25 R8
-  MOVE R26 R20
-  MOVE R27 R4
-  MOVE R28 R21
-  MOVE R29 R18
-  MOVE R30 R11
-  MOVE R31 R12
-  MOVE R32 R16
-  MOVE R33 R17
-  MOVE R34 R3
-  NAMECALL R23 R0 K27 ["getScrollButtons"]
-  CALL R23 11 1
-  GETUPVAL R25 1
-  GETTABLEKS R24 R25 K28 ["createElement"]
-  GETUPVAL R25 2
-  NEWTABLE R26 4 0
-  SETTABLEKS R14 R26 K18 ["windowPosition"]
-  SETTABLEKS R15 R26 K19 ["windowSize"]
-  GETUPVAL R29 1
-  GETTABLEKS R28 R29 K29 ["Event"]
-  GETTABLEKS R27 R28 K30 ["Activated"]
-  GETTABLEKS R29 R0 K0 ["props"]
-  GETTABLEKS R28 R29 K31 ["closeDropdown"]
-  SETTABLE R28 R26 R27
-  DUPTABLE R27 K34 [{"StyledScrollingFrame", "DropDownContainer"}]
-  GETUPVAL R29 1
-  GETTABLEKS R28 R29 K28 ["createElement"]
-  GETUPVAL R29 3
-  DUPTABLE R30 K39 [{"Position", "Size", "CanvasSize", "ZIndex"}]
-  GETIMPORT R31 K42 [UDim2.new]
-  LOADN R32 0
-  MOVE R33 R5
-  LOADN R34 0
-  MOVE R35 R6
-  CALL R31 4 1
-  SETTABLEKS R31 R30 K35 ["Position"]
-  GETIMPORT R31 K42 [UDim2.new]
-  LOADN R32 0
-  MOVE R33 R7
-  LOADN R34 0
-  MOVE R35 R22
-  CALL R31 4 1
-  SETTABLEKS R31 R30 K36 ["Size"]
-  GETIMPORT R31 K42 [UDim2.new]
-  LOADN R32 0
-  LOADN R33 0
-  LOADN R34 0
-  MUL R35 R9 R11
-  CALL R31 4 1
-  SETTABLEKS R31 R30 K37 ["CanvasSize"]
-  LOADN R31 1
-  SETTABLEKS R31 R30 K38 ["ZIndex"]
-  MOVE R31 R23
-  CALL R28 3 1
-  SETTABLEKS R28 R27 K32 ["StyledScrollingFrame"]
-  GETUPVAL R29 1
-  GETTABLEKS R28 R29 K28 ["createElement"]
-  GETUPVAL R29 4
-  DUPTABLE R30 K45 [{"Position", "Size", "BackgroundTransparency", "ZIndex", "BorderColor3"}]
-  GETIMPORT R31 K42 [UDim2.new]
-  LOADN R32 0
-  MOVE R33 R5
-  LOADN R34 0
-  MOVE R35 R6
-  CALL R31 4 1
-  SETTABLEKS R31 R30 K35 ["Position"]
-  GETIMPORT R31 K42 [UDim2.new]
-  LOADN R32 0
-  MOVE R33 R7
-  LOADN R34 0
-  MOVE R35 R22
-  CALL R31 4 1
-  SETTABLEKS R31 R30 K36 ["Size"]
-  LOADN R31 1
-  SETTABLEKS R31 R30 K43 ["BackgroundTransparency"]
-  LOADN R31 2
-  SETTABLEKS R31 R30 K38 ["ZIndex"]
-  GETTABLEKS R32 R19 K46 ["dropdownFrame"]
-  GETTABLEKS R31 R32 K47 ["borderColor"]
-  SETTABLEKS R31 R30 K44 ["BorderColor3"]
-  CALL R28 2 1
-  SETTABLEKS R28 R27 K33 ["DropDownContainer"]
-  CALL R24 3 -1
-  RETURN R24 -1
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R0 K1 ["state"]
+        4 GETTABLEKS                       R3 R1 K2 ["Stylizer"]
+        6 GETTABLEKS                       R4 R1 K3 ["listKey"]
+        8 GETTABLEKS                       R5 R1 K4 ["left"]
+       10 GETTABLEKS                       R6 R1 K5 ["top"]
+       12 GETTABLEKS                       R7 R1 K6 ["dropDownWidth"]
+       14 GETTABLEKS                       R8 R1 K7 ["items"]
+       16 JUMPIF                           R8 ; [+2]
+       17 NEWTABLE                         R8 0 0
+       19 LENGTH                           R9 R8
+       20 GETTABLEKS                       R12 R1 K9 ["visibleDropDownCount"]
+       22 ORK                              R11 R12 K8 [5]
+       23 FASTCALL2                        MATH_MIN R11 R9 ; [+4]
+       25 MOVE                             R12 R9
+       26 GETIMPORT                        R10 K12 [math.min]
+       28 CALL                             R10 2 1
+       29 GETTABLEKS                       R12 R1 K14 ["rowHeight"]
+       31 ORK                              R11 R12 K13 [24]
+       32 GETTABLEKS                       R12 R1 K15 ["fontSize"]
+       34 JUMPIF                           R12 ; [+3]
+       35 GETUPVAL                         R13 0
+       36 GETTABLEKS                       R12 R13 K16 ["FONT_SIZE_MEDIUM"]
+       38 GETTABLEKS                       R13 R1 K17 ["setDropdownHeight"]
+       40 GETTABLEKS                       R14 R1 K18 ["windowPosition"]
+       42 GETTABLEKS                       R15 R1 K19 ["windowSize"]
+       44 GETTABLEKS                       R16 R1 K20 ["onItemClicked"]
+       46 GETUPVAL                         R18 0
+       47 GETTABLEKS                       R17 R18 K21 ["DROPDOWN_SELECTED_BAR"]
+       49 GETUPVAL                         R20 0
+       50 GETTABLEKS                       R19 R20 K22 ["DROPDOWN_TEXT_INSET"]
+       52 ADD                              R18 R17 R19
+       53 GETTABLEKS                       R19 R3 K23 ["dropdownMenu"]
+       55 GETTABLEKS                       R20 R2 K24 ["dropdownHoveredItemIndex"]
+       57 GETUPVAL                         R22 0
+       58 GETTABLEKS                       R21 R22 K25 ["DROPDOWN_WIDTH"]
+       60 MUL                              R22 R10 R11
+       61 JUMPIFNOT                        R13 ; [+9]
+       62 GETTABLEKS                       R23 R0 K26 ["lastReportedHeight"]
+       64 JUMPIFEQ                         R23 R22 ; [+6]
+       66 SETTABLEKS                       R22 R0 K26 ["lastReportedHeight"]
+       68 MOVE                             R23 R13
+       69 MOVE                             R24 R22
+       70 CALL                             R23 1 0
+       71 MOVE                             R25 R8
+       72 MOVE                             R26 R20
+       73 MOVE                             R27 R4
+       74 MOVE                             R28 R21
+       75 MOVE                             R29 R18
+       76 MOVE                             R30 R11
+       77 MOVE                             R31 R12
+       78 MOVE                             R32 R16
+       79 MOVE                             R33 R17
+       80 MOVE                             R34 R3
+       81 NAMECALL                         R23 R0 K27 ["getScrollButtons"]
+       83 CALL                             R23 11 1
+       84 GETUPVAL                         R25 1
+       85 GETTABLEKS                       R24 R25 K28 ["createElement"]
+       87 GETUPVAL                         R25 2
+       88 NEWTABLE                         R26 4 0
+       90 SETTABLEKS                       R14 R26 K18 ["windowPosition"]
+       92 SETTABLEKS                       R15 R26 K19 ["windowSize"]
+       94 GETUPVAL                         R29 1
+       95 GETTABLEKS                       R28 R29 K29 ["Event"]
+       97 GETTABLEKS                       R27 R28 K30 ["Activated"]
+       99 GETTABLEKS                       R29 R0 K0 ["props"]
+      101 GETTABLEKS                       R28 R29 K31 ["closeDropdown"]
+      103 SETTABLE                         R28 R26 R27
+      104 DUPTABLE                         R27 K34 [{"StyledScrollingFrame", "DropDownContainer"}]
+      105 GETUPVAL                         R29 1
+      106 GETTABLEKS                       R28 R29 K28 ["createElement"]
+      108 GETUPVAL                         R29 3
+      109 DUPTABLE                         R30 K39 [{"Position", "Size", "CanvasSize", "ZIndex"}]
+      110 GETIMPORT                        R31 K42 [UDim2.new]
+      112 LOADN                            R32 0
+      113 MOVE                             R33 R5
+      114 LOADN                            R34 0
+      115 MOVE                             R35 R6
+      116 CALL                             R31 4 1
+      117 SETTABLEKS                       R31 R30 K35 ["Position"]
+      119 GETIMPORT                        R31 K42 [UDim2.new]
+      121 LOADN                            R32 0
+      122 MOVE                             R33 R7
+      123 LOADN                            R34 0
+      124 MOVE                             R35 R22
+      125 CALL                             R31 4 1
+      126 SETTABLEKS                       R31 R30 K36 ["Size"]
+      128 GETIMPORT                        R31 K42 [UDim2.new]
+      130 LOADN                            R32 0
+      131 LOADN                            R33 0
+      132 LOADN                            R34 0
+      133 MUL                              R35 R9 R11
+      134 CALL                             R31 4 1
+      135 SETTABLEKS                       R31 R30 K37 ["CanvasSize"]
+      137 LOADN                            R31 1
+      138 SETTABLEKS                       R31 R30 K38 ["ZIndex"]
+      140 MOVE                             R31 R23
+      141 CALL                             R28 3 1
+      142 SETTABLEKS                       R28 R27 K32 ["StyledScrollingFrame"]
+      144 GETUPVAL                         R29 1
+      145 GETTABLEKS                       R28 R29 K28 ["createElement"]
+      147 GETUPVAL                         R29 4
+      148 DUPTABLE                         R30 K45 [{"Position", "Size", "BackgroundTransparency", "ZIndex", "BorderColor3"}]
+      149 GETIMPORT                        R31 K42 [UDim2.new]
+      151 LOADN                            R32 0
+      152 MOVE                             R33 R5
+      153 LOADN                            R34 0
+      154 MOVE                             R35 R6
+      155 CALL                             R31 4 1
+      156 SETTABLEKS                       R31 R30 K35 ["Position"]
+      158 GETIMPORT                        R31 K42 [UDim2.new]
+      160 LOADN                            R32 0
+      161 MOVE                             R33 R7
+      162 LOADN                            R34 0
+      163 MOVE                             R35 R22
+      164 CALL                             R31 4 1
+      165 SETTABLEKS                       R31 R30 K36 ["Size"]
+      167 LOADN                            R31 1
+      168 SETTABLEKS                       R31 R30 K43 ["BackgroundTransparency"]
+      170 LOADN                            R31 2
+      171 SETTABLEKS                       R31 R30 K38 ["ZIndex"]
+      173 GETTABLEKS                       R32 R19 K46 ["dropdownFrame"]
+      175 GETTABLEKS                       R31 R32 K47 ["borderColor"]
+      177 SETTABLEKS                       R31 R30 K44 ["BorderColor3"]
+      179 CALL                             R28 2 1
+      180 SETTABLEKS                       R28 R27 K33 ["DropDownContainer"]
+      182 CALL                             R24 3 -1
+      183 RETURN                           R24 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R1 R0 K3 ["Packages"]
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R3 R1 K6 ["Roact"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R4 R1 K7 ["Framework"]
-  CALL R3 1 1
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Util"]
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R6 R4 K10 ["Constants"]
-  CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R7 R4 K11 ["DebugFlags"]
-  CALL R6 1 1
-  GETTABLEKS R7 R3 K12 ["ContextServices"]
-  GETTABLEKS R8 R7 K13 ["withContext"]
-  GETTABLEKS R10 R3 K9 ["Util"]
-  GETTABLEKS R9 R10 K14 ["GetTextSize"]
-  GETTABLEKS R11 R0 K8 ["Src"]
-  GETTABLEKS R10 R11 K15 ["Components"]
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R12 R10 K16 ["StyledScrollingFrame"]
-  CALL R11 1 1
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R13 R10 K17 ["ClickEventDetectFrame"]
-  CALL R12 1 1
-  GETIMPORT R13 K5 [require]
-  GETTABLEKS R14 R10 K18 ["RoundFrame"]
-  CALL R13 1 1
-  GETTABLEKS R14 R2 K19 ["PureComponent"]
-  LOADK R16 K20 ["DropdownItemsList"]
-  NAMECALL R14 R14 K21 ["extend"]
-  CALL R14 2 1
-  DUPCLOSURE R15 K22 [PROTO_5]
-  SETTABLEKS R15 R14 K23 ["init"]
-  DUPCLOSURE R15 K24 [PROTO_6]
-  DUPCLOSURE R16 K25 [PROTO_10]
-  CAPTURE VAL R2
-  CAPTURE VAL R6
-  CAPTURE VAL R9
-  CAPTURE VAL R5
-  SETTABLEKS R16 R14 K26 ["getScrollButtons"]
-  DUPCLOSURE R16 K27 [PROTO_11]
-  CAPTURE VAL R5
-  CAPTURE VAL R2
-  CAPTURE VAL R12
-  CAPTURE VAL R11
-  CAPTURE VAL R13
-  SETTABLEKS R16 R14 K28 ["render"]
-  MOVE R16 R8
-  DUPTABLE R17 K30 [{"Stylizer"}]
-  GETTABLEKS R18 R7 K29 ["Stylizer"]
-  SETTABLEKS R18 R17 K29 ["Stylizer"]
-  CALL R16 1 1
-  MOVE R17 R14
-  CALL R16 1 1
-  MOVE R14 R16
-  RETURN R14 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R0 K3 ["Packages"]
+       11 GETIMPORT                        R2 K5 [require]
+       13 GETTABLEKS                       R3 R1 K6 ["Roact"]
+       15 CALL                             R2 1 1
+       16 GETIMPORT                        R3 K5 [require]
+       18 GETTABLEKS                       R4 R1 K7 ["Framework"]
+       20 CALL                             R3 1 1
+       21 GETTABLEKS                       R5 R0 K8 ["Src"]
+       23 GETTABLEKS                       R4 R5 K9 ["Util"]
+       25 GETIMPORT                        R5 K5 [require]
+       27 GETTABLEKS                       R6 R4 K10 ["Constants"]
+       29 CALL                             R5 1 1
+       30 GETIMPORT                        R6 K5 [require]
+       32 GETTABLEKS                       R7 R4 K11 ["DebugFlags"]
+       34 CALL                             R6 1 1
+       35 GETTABLEKS                       R7 R3 K12 ["ContextServices"]
+       37 GETTABLEKS                       R8 R7 K13 ["withContext"]
+       39 GETTABLEKS                       R10 R3 K9 ["Util"]
+       41 GETTABLEKS                       R9 R10 K14 ["GetTextSize"]
+       43 GETTABLEKS                       R11 R0 K8 ["Src"]
+       45 GETTABLEKS                       R10 R11 K15 ["Components"]
+       47 GETIMPORT                        R11 K5 [require]
+       49 GETTABLEKS                       R12 R10 K16 ["StyledScrollingFrame"]
+       51 CALL                             R11 1 1
+       52 GETIMPORT                        R12 K5 [require]
+       54 GETTABLEKS                       R13 R10 K17 ["ClickEventDetectFrame"]
+       56 CALL                             R12 1 1
+       57 GETIMPORT                        R13 K5 [require]
+       59 GETTABLEKS                       R14 R10 K18 ["RoundFrame"]
+       61 CALL                             R13 1 1
+       62 GETTABLEKS                       R14 R2 K19 ["PureComponent"]
+       64 LOADK                            R16 K20 ["DropdownItemsList"]
+       65 NAMECALL                         R14 R14 K21 ["extend"]
+       67 CALL                             R14 2 1
+       68 DUPCLOSURE                       R15 K22 [PROTO_5]
+       69 SETTABLEKS                       R15 R14 K23 ["init"]
+       71 DUPCLOSURE                       R15 K24 [PROTO_6]
+       72 DUPCLOSURE                       R16 K25 [PROTO_10]
+       73 CAPTURE                          VAL R2
+       74 CAPTURE                          VAL R6
+       75 CAPTURE                          VAL R9
+       76 CAPTURE                          VAL R5
+       77 SETTABLEKS                       R16 R14 K26 ["getScrollButtons"]
+       79 DUPCLOSURE                       R16 K27 [PROTO_11]
+       80 CAPTURE                          VAL R5
+       81 CAPTURE                          VAL R2
+       82 CAPTURE                          VAL R12
+       83 CAPTURE                          VAL R11
+       84 CAPTURE                          VAL R13
+       85 SETTABLEKS                       R16 R14 K28 ["render"]
+       87 MOVE                             R16 R8
+       88 DUPTABLE                         R17 K30 [{"Stylizer"}]
+       89 GETTABLEKS                       R18 R7 K29 ["Stylizer"]
+       91 SETTABLEKS                       R18 R17 K29 ["Stylizer"]
+       93 CALL                             R16 1 1
+       94 MOVE                             R17 R14
+       95 CALL                             R16 1 1
+       96 MOVE                             R14 R16
+       97 RETURN                           R14 1

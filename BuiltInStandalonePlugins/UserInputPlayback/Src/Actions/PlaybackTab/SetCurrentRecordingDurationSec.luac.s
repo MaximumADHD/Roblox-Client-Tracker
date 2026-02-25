@@ -1,32 +1,32 @@
 PROTO_0:
-  LOADN R3 0
-  JUMPIFLE R3 R0 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  FASTCALL2K ASSERT R2 K0 [+4]
-  LOADK R3 K0 ["Duration should not be negative"]
-  GETIMPORT R1 K2 [assert]
-  CALL R1 2 0
-  DUPTABLE R1 K4 [{"currentRecordingDurationSec"}]
-  SETTABLEKS R0 R1 K3 ["currentRecordingDurationSec"]
-  RETURN R1 1
+        0 LOADN                            R3 0
+        1 JUMPIFLE                         R3 R0 ; [+2]
+        3 LOADB                            R2 0 +1
+        4 LOADB                            R2 1
+        5 FASTCALL2K                       ASSERT R2 K0 ; [+4]
+        7 LOADK                            R3 K0 ["Duration should not be negative"]
+        8 GETIMPORT                        R1 K2 [assert]
+       10 CALL                             R1 2 0
+       11 DUPTABLE                         R1 K4 [{"currentRecordingDurationSec"}]
+       12 SETTABLEKS                       R0 R1 K3 ["currentRecordingDurationSec"]
+       14 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
-  CALL R1 1 1
-  GETTABLEKS R3 R1 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["Action"]
-  MOVE R3 R2
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K9 ["Name"]
-  DUPCLOSURE R5 K10 [PROTO_0]
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R4 K1 [script]
+        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
+        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+       11 GETIMPORT                        R1 K4 [require]
+       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       17 CALL                             R1 1 1
+       18 GETTABLEKS                       R3 R1 K7 ["Util"]
+       20 GETTABLEKS                       R2 R3 K8 ["Action"]
+       22 MOVE                             R3 R2
+       23 GETIMPORT                        R5 K1 [script]
+       25 GETTABLEKS                       R4 R5 K9 ["Name"]
+       27 DUPCLOSURE                       R5 K10 [PROTO_0]
+       28 CALL                             R3 2 -1
+       29 RETURN                           R3 -1

@@ -1,35 +1,35 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["useContext"]
-  GETUPVAL R1 1
-  CALL R0 1 1
-  JUMPIFNOTEQKNIL R0 [+5]
-  GETIMPORT R1 K2 [error]
-  LOADK R2 K3 ["Wrap the component or one of its ancestors with ContextMenuActions.Provider"]
-  CALL R1 1 0
-  RETURN R0 1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["useContext"]
+        3 GETUPVAL                         R1 1
+        4 CALL                             R0 1 1
+        5 JUMPIFNOTEQKNIL                  R0 ; [+5]
+        7 GETIMPORT                        R1 K2 [error]
+        9 LOADK                            R2 K3 ["Wrap the component or one of its ancestors with ContextMenuActions.Provider"]
+       10 CALL                             R1 1 0
+       11 RETURN                           R0 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["StartPage"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K8 ["createContext"]
-  MOVE R3 R2
-  NEWTABLE R4 0 0
-  CALL R3 1 1
-  DUPCLOSURE R4 K9 [PROTO_0]
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  SETGLOBAL R4 K10 ["useContextMenuActions"]
-  DUPTABLE R4 K12 [{"Provider", "useContextMenuActions"}]
-  GETTABLEKS R5 R3 K11 ["Provider"]
-  SETTABLEKS R5 R4 K11 ["Provider"]
-  GETGLOBAL R5 K10 ["useContextMenuActions"]
-  SETTABLEKS R5 R4 K10 ["useContextMenuActions"]
-  RETURN R4 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["StartPage"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R2 R1 K8 ["createContext"]
+       16 MOVE                             R3 R2
+       17 NEWTABLE                         R4 0 0
+       19 CALL                             R3 1 1
+       20 DUPCLOSURE                       R4 K9 [PROTO_0]
+       21 CAPTURE                          VAL R1
+       22 CAPTURE                          VAL R3
+       23 SETGLOBAL                        R4 K10 ["useContextMenuActions"]
+       25 DUPTABLE                         R4 K12 [{"Provider", "useContextMenuActions"}]
+       26 GETTABLEKS                       R5 R3 K11 ["Provider"]
+       28 SETTABLEKS                       R5 R4 K11 ["Provider"]
+       30 GETGLOBAL                        R5 K10 ["useContextMenuActions"]
+       32 SETTABLEKS                       R5 R4 K10 ["useContextMenuActions"]
+       34 RETURN                           R4 1

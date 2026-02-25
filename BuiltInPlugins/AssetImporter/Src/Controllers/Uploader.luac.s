@@ -1,242 +1,242 @@
 PROTO_0:
-  DUPTABLE R0 K1 [{"managedGroups"}]
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K0 ["managedGroups"]
-  GETUPVAL R3 0
-  FASTCALL2 SETMETATABLE R0 R3 [+4]
-  MOVE R2 R0
-  GETIMPORT R1 K3 [setmetatable]
-  CALL R1 2 1
-  RETURN R1 1
+        0 DUPTABLE                         R0 K1 [{"managedGroups"}]
+        1 NEWTABLE                         R1 0 0
+        3 SETTABLEKS                       R1 R0 K0 ["managedGroups"]
+        5 GETUPVAL                         R3 0
+        6 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+        8 MOVE                             R2 R0
+        9 GETIMPORT                        R1 K3 [setmetatable]
+       11 CALL                             R1 2 1
+       12 RETURN                           R1 1
 
 PROTO_1:
-  GETIMPORT R4 K3 [Enum.AssetCreatorType.User]
-  JUMPIFNOTEQKN R3 K4 [-1] [+7]
-  GETUPVAL R5 0
-  NAMECALL R5 R5 K5 ["GetUserId"]
-  CALL R5 1 1
-  MOVE R3 R5
-  JUMP [+13]
-  GETTABLEKS R5 R0 K6 ["managedGroups"]
-  LOADNIL R6
-  LOADNIL R7
-  FORGPREP R5
-  GETTABLEKS R10 R9 K7 ["id"]
-  JUMPIFNOTEQ R3 R10 [+3]
-  GETIMPORT R4 K9 [Enum.AssetCreatorType.Group]
-  FORGLOOP R5 2 [-7]
-  LOADN R5 0
-  LOADK R6 K10 [""]
-  LOADNIL R7
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K11 ["FileType"]
-  GETTABLEKS R8 R9 K12 ["Video"]
-  JUMPIFNOTEQ R2 R8 [+6]
-  LOADN R5 208
-  LOADK R6 K13 ["application/json"]
-  GETIMPORT R7 K15 [Enum.AssetType.Video]
-  JUMP [+19]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K11 ["FileType"]
-  GETTABLEKS R8 R9 K16 ["Audio"]
-  JUMPIFNOTEQ R2 R8 [+4]
-  GETIMPORT R7 K17 [Enum.AssetType.Audio]
-  JUMP [+9]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K11 ["FileType"]
-  GETTABLEKS R8 R9 K18 ["Image"]
-  JUMPIFNOTEQ R2 R8 [+3]
-  GETIMPORT R7 K19 [Enum.AssetType.Image]
-  FASTCALL2K ASSERT R7 K20 [+5]
-  MOVE R9 R7
-  LOADK R10 K20 ["Must be given an asset targettype"]
-  GETIMPORT R8 K22 [assert]
-  CALL R8 2 0
-  DUPTABLE R8 K32 [{"creatorId", "creatorType", "targetType", "assetDescription", "assetId", "assetName", "contentType", "expectedPrice", "token"}]
-  SETTABLEKS R3 R8 K23 ["creatorId"]
-  SETTABLEKS R4 R8 K24 ["creatorType"]
-  SETTABLEKS R7 R8 K25 ["targetType"]
-  LOADK R9 K10 [""]
-  SETTABLEKS R9 R8 K26 ["assetDescription"]
-  LOADN R9 0
-  SETTABLEKS R9 R8 K27 ["assetId"]
-  SETTABLEKS R1 R8 K28 ["assetName"]
-  SETTABLEKS R6 R8 K29 ["contentType"]
-  SETTABLEKS R5 R8 K30 ["expectedPrice"]
-  LOADK R9 K10 [""]
-  SETTABLEKS R9 R8 K31 ["token"]
-  RETURN R8 1
+        0 GETIMPORT                        R4 K3 [Enum.AssetCreatorType.User]
+        2 JUMPIFNOTEQKN                    R3 K4 [-1] ; [+7]
+        4 GETUPVAL                         R5 0
+        5 NAMECALL                         R5 R5 K5 ["GetUserId"]
+        7 CALL                             R5 1 1
+        8 MOVE                             R3 R5
+        9 JUMP                             ; [+13]
+       10 GETTABLEKS                       R5 R0 K6 ["managedGroups"]
+       12 LOADNIL                          R6
+       13 LOADNIL                          R7
+       14 FORGPREP                         R5
+       15 GETTABLEKS                       R10 R9 K7 ["id"]
+       17 JUMPIFNOTEQ                      R3 R10 ; [+3]
+       19 GETIMPORT                        R4 K9 [Enum.AssetCreatorType.Group]
+       21 FORGLOOP                         R5 2 ; [-7]
+       23 LOADN                            R5 0
+       24 LOADK                            R6 K10 [""]
+       25 LOADNIL                          R7
+       26 GETUPVAL                         R10 1
+       27 GETTABLEKS                       R9 R10 K11 ["FileType"]
+       29 GETTABLEKS                       R8 R9 K12 ["Video"]
+       31 JUMPIFNOTEQ                      R2 R8 ; [+6]
+       33 LOADN                            R5 208
+       34 LOADK                            R6 K13 ["application/json"]
+       35 GETIMPORT                        R7 K15 [Enum.AssetType.Video]
+       37 JUMP                             ; [+19]
+       38 GETUPVAL                         R10 1
+       39 GETTABLEKS                       R9 R10 K11 ["FileType"]
+       41 GETTABLEKS                       R8 R9 K16 ["Audio"]
+       43 JUMPIFNOTEQ                      R2 R8 ; [+4]
+       45 GETIMPORT                        R7 K17 [Enum.AssetType.Audio]
+       47 JUMP                             ; [+9]
+       48 GETUPVAL                         R10 1
+       49 GETTABLEKS                       R9 R10 K11 ["FileType"]
+       51 GETTABLEKS                       R8 R9 K18 ["Image"]
+       53 JUMPIFNOTEQ                      R2 R8 ; [+3]
+       55 GETIMPORT                        R7 K19 [Enum.AssetType.Image]
+       57 FASTCALL2K                       ASSERT R7 K20 ; [+5]
+       59 MOVE                             R9 R7
+       60 LOADK                            R10 K20 ["Must be given an asset targettype"]
+       61 GETIMPORT                        R8 K22 [assert]
+       63 CALL                             R8 2 0
+       64 DUPTABLE                         R8 K32 [{"creatorId", "creatorType", "targetType", "assetDescription", "assetId", "assetName", "contentType", "expectedPrice", "token"}]
+       65 SETTABLEKS                       R3 R8 K23 ["creatorId"]
+       67 SETTABLEKS                       R4 R8 K24 ["creatorType"]
+       69 SETTABLEKS                       R7 R8 K25 ["targetType"]
+       71 LOADK                            R9 K10 [""]
+       72 SETTABLEKS                       R9 R8 K26 ["assetDescription"]
+       74 LOADN                            R9 0
+       75 SETTABLEKS                       R9 R8 K27 ["assetId"]
+       77 SETTABLEKS                       R1 R8 K28 ["assetName"]
+       79 SETTABLEKS                       R6 R8 K29 ["contentType"]
+       81 SETTABLEKS                       R5 R8 K30 ["expectedPrice"]
+       83 LOADK                            R9 K10 [""]
+       84 SETTABLEKS                       R9 R8 K31 ["token"]
+       86 RETURN                           R8 1
 
 PROTO_2:
-  GETUPVAL R2 0
-  GETUPVAL R4 1
-  GETUPVAL R5 2
-  NAMECALL R2 R2 K0 ["UploadAssetFromPathAsync"]
-  CALL R2 3 2
-  JUMPIFNOT R2 [+4]
-  MOVE R4 R0
-  MOVE R5 R2
-  CALL R4 1 0
-  RETURN R0 0
-  JUMPIFNOT R3 [+3]
-  MOVE R4 R1
-  MOVE R5 R3
-  CALL R4 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETUPVAL                         R4 1
+        2 GETUPVAL                         R5 2
+        3 NAMECALL                         R2 R2 K0 ["UploadAssetFromPathAsync"]
+        5 CALL                             R2 3 2
+        6 JUMPIFNOT                        R2 ; [+4]
+        7 MOVE                             R4 R0
+        8 MOVE                             R5 R2
+        9 CALL                             R4 1 0
+       10 RETURN                           R0 0
+       11 JUMPIFNOT                        R3 ; [+3]
+       12 MOVE                             R4 R1
+       13 MOVE                             R5 R3
+       14 CALL                             R4 1 0
+       15 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["new"]
-  NEWCLOSURE R3 P0
-  CAPTURE UPVAL U1
-  CAPTURE VAL R0
-  CAPTURE VAL R1
-  CALL R2 1 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["new"]
+        3 NEWCLOSURE                       R3 P0
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          VAL R0
+        6 CAPTURE                          VAL R1
+        7 CALL                             R2 1 -1
+        8 RETURN                           R2 -1
 
 PROTO_4:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["session"]
-  NAMECALL R0 R0 K1 ["Cancel"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["session"]
+        3 NAMECALL                         R0 R0 K1 ["Cancel"]
+        5 CALL                             R0 1 0
+        6 RETURN                           R0 0
 
 PROTO_5:
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["session"]
-  FASTCALL2K ASSERT R4 K1 [+4]
-  LOADK R5 K1 ["Scene QueueItem missing AssetImportSession"]
-  GETIMPORT R3 K3 [assert]
-  CALL R3 2 0
-  MOVE R3 R2
-  NEWCLOSURE R4 P0
-  CAPTURE UPVAL U0
-  CALL R3 1 0
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["session"]
-  GETTABLEKS R3 R4 K4 ["UploadComplete"]
-  MOVE R5 R0
-  NAMECALL R3 R3 K5 ["Connect"]
-  CALL R3 2 1
-  SETUPVAL R3 1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["session"]
-  NAMECALL R3 R3 K6 ["Upload"]
-  CALL R3 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R4 R5 K0 ["session"]
+        3 FASTCALL2K                       ASSERT R4 K1 ; [+4]
+        5 LOADK                            R5 K1 ["Scene QueueItem missing AssetImportSession"]
+        6 GETIMPORT                        R3 K3 [assert]
+        8 CALL                             R3 2 0
+        9 MOVE                             R3 R2
+       10 NEWCLOSURE                       R4 P0
+       11 CAPTURE                          UPVAL U0
+       12 CALL                             R3 1 0
+       13 GETUPVAL                         R5 0
+       14 GETTABLEKS                       R4 R5 K0 ["session"]
+       16 GETTABLEKS                       R3 R4 K4 ["UploadComplete"]
+       18 MOVE                             R5 R0
+       19 NAMECALL                         R3 R3 K5 ["Connect"]
+       21 CALL                             R3 2 1
+       22 SETUPVAL                         R3 1
+       23 GETUPVAL                         R4 0
+       24 GETTABLEKS                       R3 R4 K0 ["session"]
+       26 NAMECALL                         R3 R3 K6 ["Upload"]
+       28 CALL                             R3 1 0
+       29 RETURN                           R0 0
 
 PROTO_6:
-  LOADNIL R1
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["new"]
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R0
-  CAPTURE REF R1
-  CALL R2 1 1
-  MOVE R3 R2
-  MOVE R4 R1
-  CLOSEUPVALS R1
-  RETURN R3 2
+        0 LOADNIL                          R1
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R2 R3 K0 ["new"]
+        4 NEWCLOSURE                       R3 P0
+        5 CAPTURE                          VAL R0
+        6 CAPTURE                          REF R1
+        7 CALL                             R2 1 1
+        8 MOVE                             R3 R2
+        9 MOVE                             R4 R1
+       10 CLOSEUPVALS                      R1
+       11 RETURN                           R3 2
 
 PROTO_7:
-  GETTABLEKS R4 R1 K0 ["assetName"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K1 ["FileType"]
-  GETTABLEKS R5 R6 K2 ["Image"]
-  GETTABLEKS R6 R1 K3 ["creatorId"]
-  NAMECALL R2 R0 K4 ["_createAssetRequestParams"]
-  CALL R2 4 1
-  GETTABLEKS R3 R0 K5 ["_createPromiseHelper"]
-  GETTABLEKS R4 R1 K6 ["filepath"]
-  MOVE R5 R2
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 GETTABLEKS                       R4 R1 K0 ["assetName"]
+        2 GETUPVAL                         R7 0
+        3 GETTABLEKS                       R6 R7 K1 ["FileType"]
+        5 GETTABLEKS                       R5 R6 K2 ["Image"]
+        7 GETTABLEKS                       R6 R1 K3 ["creatorId"]
+        9 NAMECALL                         R2 R0 K4 ["_createAssetRequestParams"]
+       11 CALL                             R2 4 1
+       12 GETTABLEKS                       R3 R0 K5 ["_createPromiseHelper"]
+       14 GETTABLEKS                       R4 R1 K6 ["filepath"]
+       16 MOVE                             R5 R2
+       17 CALL                             R3 2 -1
+       18 RETURN                           R3 -1
 
 PROTO_8:
-  GETTABLEKS R4 R1 K0 ["assetName"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K1 ["FileType"]
-  GETTABLEKS R5 R6 K2 ["Audio"]
-  GETTABLEKS R6 R1 K3 ["creatorId"]
-  NAMECALL R2 R0 K4 ["_createAssetRequestParams"]
-  CALL R2 4 1
-  GETTABLEKS R3 R0 K5 ["_createPromiseHelper"]
-  GETTABLEKS R4 R1 K6 ["filepath"]
-  MOVE R5 R2
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 GETTABLEKS                       R4 R1 K0 ["assetName"]
+        2 GETUPVAL                         R7 0
+        3 GETTABLEKS                       R6 R7 K1 ["FileType"]
+        5 GETTABLEKS                       R5 R6 K2 ["Audio"]
+        7 GETTABLEKS                       R6 R1 K3 ["creatorId"]
+        9 NAMECALL                         R2 R0 K4 ["_createAssetRequestParams"]
+       11 CALL                             R2 4 1
+       12 GETTABLEKS                       R3 R0 K5 ["_createPromiseHelper"]
+       14 GETTABLEKS                       R4 R1 K6 ["filepath"]
+       16 MOVE                             R5 R2
+       17 CALL                             R3 2 -1
+       18 RETURN                           R3 -1
 
 PROTO_9:
-  GETTABLEKS R4 R1 K0 ["assetName"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K1 ["FileType"]
-  GETTABLEKS R5 R6 K2 ["Video"]
-  GETTABLEKS R6 R1 K3 ["creatorId"]
-  NAMECALL R2 R0 K4 ["_createAssetRequestParams"]
-  CALL R2 4 1
-  GETTABLEKS R3 R0 K5 ["_createPromiseHelper"]
-  GETTABLEKS R4 R1 K6 ["filepath"]
-  MOVE R5 R2
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 GETTABLEKS                       R4 R1 K0 ["assetName"]
+        2 GETUPVAL                         R7 0
+        3 GETTABLEKS                       R6 R7 K1 ["FileType"]
+        5 GETTABLEKS                       R5 R6 K2 ["Video"]
+        7 GETTABLEKS                       R6 R1 K3 ["creatorId"]
+        9 NAMECALL                         R2 R0 K4 ["_createAssetRequestParams"]
+       11 CALL                             R2 4 1
+       12 GETTABLEKS                       R3 R0 K5 ["_createPromiseHelper"]
+       14 GETTABLEKS                       R4 R1 K6 ["filepath"]
+       16 MOVE                             R5 R2
+       17 CALL                             R3 2 -1
+       18 RETURN                           R3 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AssetImporter"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Utility"]
-  GETTABLEKS R2 R3 K8 ["Services"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K9 ["GetService"]
-  LOADK R3 K10 ["AssetImportService"]
-  CALL R2 1 1
-  GETTABLEKS R3 R1 K9 ["GetService"]
-  LOADK R4 K11 ["StudioService"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K12 ["Packages"]
-  GETTABLEKS R5 R6 K13 ["Promise"]
-  CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K12 ["Packages"]
-  GETTABLEKS R6 R7 K14 ["LuauPolyfill"]
-  CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Src"]
-  GETTABLEKS R7 R8 K15 ["Types"]
-  CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K6 ["Src"]
-  GETTABLEKS R9 R10 K15 ["Types"]
-  GETTABLEKS R8 R9 K16 ["QueuedSession"]
-  CALL R7 1 1
-  NEWTABLE R8 8 0
-  SETTABLEKS R8 R8 K17 ["__index"]
-  DUPCLOSURE R9 K18 [PROTO_0]
-  CAPTURE VAL R8
-  SETTABLEKS R9 R8 K19 ["new"]
-  DUPCLOSURE R9 K20 [PROTO_1]
-  CAPTURE VAL R3
-  CAPTURE VAL R6
-  SETTABLEKS R9 R8 K21 ["_createAssetRequestParams"]
-  DUPCLOSURE R9 K22 [PROTO_3]
-  CAPTURE VAL R4
-  CAPTURE VAL R2
-  SETTABLEKS R9 R8 K23 ["_createPromiseHelper"]
-  DUPCLOSURE R9 K24 [PROTO_6]
-  CAPTURE VAL R4
-  SETTABLEKS R9 R8 K25 ["createScenePromise"]
-  DUPCLOSURE R9 K26 [PROTO_7]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R8 K27 ["createImagePromise"]
-  DUPCLOSURE R9 K28 [PROTO_8]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R8 K29 ["createAudioPromise"]
-  DUPCLOSURE R9 K30 [PROTO_9]
-  CAPTURE VAL R6
-  SETTABLEKS R9 R8 K31 ["createVideoPromise"]
-  RETURN R8 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AssetImporter"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Src"]
+       11 GETTABLEKS                       R3 R4 K7 ["Utility"]
+       13 GETTABLEKS                       R2 R3 K8 ["Services"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R2 R1 K9 ["GetService"]
+       18 LOADK                            R3 K10 ["AssetImportService"]
+       19 CALL                             R2 1 1
+       20 GETTABLEKS                       R3 R1 K9 ["GetService"]
+       22 LOADK                            R4 K11 ["StudioService"]
+       23 CALL                             R3 1 1
+       24 GETIMPORT                        R4 K5 [require]
+       26 GETTABLEKS                       R6 R0 K12 ["Packages"]
+       28 GETTABLEKS                       R5 R6 K13 ["Promise"]
+       30 CALL                             R4 1 1
+       31 GETIMPORT                        R5 K5 [require]
+       33 GETTABLEKS                       R7 R0 K12 ["Packages"]
+       35 GETTABLEKS                       R6 R7 K14 ["LuauPolyfill"]
+       37 CALL                             R5 1 1
+       38 GETIMPORT                        R6 K5 [require]
+       40 GETTABLEKS                       R8 R0 K6 ["Src"]
+       42 GETTABLEKS                       R7 R8 K15 ["Types"]
+       44 CALL                             R6 1 1
+       45 GETIMPORT                        R7 K5 [require]
+       47 GETTABLEKS                       R10 R0 K6 ["Src"]
+       49 GETTABLEKS                       R9 R10 K15 ["Types"]
+       51 GETTABLEKS                       R8 R9 K16 ["QueuedSession"]
+       53 CALL                             R7 1 1
+       54 NEWTABLE                         R8 8 0
+       56 SETTABLEKS                       R8 R8 K17 ["__index"]
+       58 DUPCLOSURE                       R9 K18 [PROTO_0]
+       59 CAPTURE                          VAL R8
+       60 SETTABLEKS                       R9 R8 K19 ["new"]
+       62 DUPCLOSURE                       R9 K20 [PROTO_1]
+       63 CAPTURE                          VAL R3
+       64 CAPTURE                          VAL R6
+       65 SETTABLEKS                       R9 R8 K21 ["_createAssetRequestParams"]
+       67 DUPCLOSURE                       R9 K22 [PROTO_3]
+       68 CAPTURE                          VAL R4
+       69 CAPTURE                          VAL R2
+       70 SETTABLEKS                       R9 R8 K23 ["_createPromiseHelper"]
+       72 DUPCLOSURE                       R9 K24 [PROTO_6]
+       73 CAPTURE                          VAL R4
+       74 SETTABLEKS                       R9 R8 K25 ["createScenePromise"]
+       76 DUPCLOSURE                       R9 K26 [PROTO_7]
+       77 CAPTURE                          VAL R6
+       78 SETTABLEKS                       R9 R8 K27 ["createImagePromise"]
+       80 DUPCLOSURE                       R9 K28 [PROTO_8]
+       81 CAPTURE                          VAL R6
+       82 SETTABLEKS                       R9 R8 K29 ["createAudioPromise"]
+       84 DUPCLOSURE                       R9 K30 [PROTO_9]
+       85 CAPTURE                          VAL R6
+       86 SETTABLEKS                       R9 R8 K31 ["createVideoPromise"]
+       88 RETURN                           R8 1

@@ -1,79 +1,79 @@
 PROTO_0:
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["disconnect"]
-  CALL R0 1 0
-  GETUPVAL R0 1
-  JUMPIFNOT R0 [+4]
-  GETUPVAL R0 1
-  NAMECALL R0 R0 K1 ["unmount"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["disconnect"]
+        3 CALL                             R0 1 0
+        4 GETUPVAL                         R0 1
+        5 JUMPIFNOT                        R0 ; [+4]
+        6 GETUPVAL                         R0 1
+        7 NAMECALL                         R0 R0 K1 ["unmount"]
+        9 CALL                             R0 1 0
+       10 RETURN                           R0 0
 
 PROTO_1:
-  GETIMPORT R2 K1 [require]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K2 ["Src"]
-  GETTABLEKS R4 R5 K3 ["Util"]
-  GETTABLEKS R3 R4 K4 ["AssetDMListener"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K5 ["new"]
-  CALL R3 0 1
-  MOVE R6 R0
-  GETTABLEKS R7 R1 K6 ["mainButton"]
-  NAMECALL R4 R3 K7 ["connect"]
-  CALL R4 3 0
-  GETTABLEKS R4 R1 K8 ["pluginLoader"]
-  NAMECALL R4 R4 K9 ["waitForUserInteraction"]
-  CALL R4 1 1
-  JUMPIF R4 [+4]
-  NAMECALL R5 R3 K10 ["disconnect"]
-  CALL R5 1 0
-  RETURN R0 0
-  GETIMPORT R5 K1 [require]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K11 ["Packages"]
-  GETTABLEKS R6 R7 K12 ["React"]
-  CALL R5 1 1
-  GETIMPORT R6 K1 [require]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K11 ["Packages"]
-  GETTABLEKS R7 R8 K13 ["ReactRoblox"]
-  CALL R6 1 1
-  GETIMPORT R7 K1 [require]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K2 ["Src"]
-  GETTABLEKS R8 R9 K14 ["MainPlugin"]
-  CALL R7 1 1
-  GETTABLEKS R8 R5 K15 ["createElement"]
-  MOVE R9 R7
-  DUPTABLE R10 K18 [{"Plugin", "PluginLoaderContext", "AssetDMListener"}]
-  SETTABLEKS R0 R10 K16 ["Plugin"]
-  SETTABLEKS R1 R10 K17 ["PluginLoaderContext"]
-  SETTABLEKS R3 R10 K4 ["AssetDMListener"]
-  CALL R8 2 1
-  GETIMPORT R9 K20 [Instance.new]
-  LOADK R10 K21 ["Frame"]
-  CALL R9 1 1
-  GETTABLEKS R10 R6 K22 ["createRoot"]
-  MOVE R11 R9
-  CALL R10 1 1
-  MOVE R13 R8
-  NAMECALL R11 R10 K23 ["render"]
-  CALL R11 2 0
-  GETTABLEKS R11 R0 K24 ["Unloading"]
-  NEWCLOSURE R13 P0
-  CAPTURE VAL R3
-  CAPTURE VAL R10
-  NAMECALL R11 R11 K25 ["Connect"]
-  CALL R11 2 0
-  RETURN R0 0
+        0 GETIMPORT                        R2 K1 [require]
+        2 GETUPVAL                         R6 0
+        3 GETTABLEKS                       R5 R6 K2 ["Src"]
+        5 GETTABLEKS                       R4 R5 K3 ["Util"]
+        7 GETTABLEKS                       R3 R4 K4 ["AssetDMListener"]
+        9 CALL                             R2 1 1
+       10 GETTABLEKS                       R3 R2 K5 ["new"]
+       12 CALL                             R3 0 1
+       13 MOVE                             R6 R0
+       14 GETTABLEKS                       R7 R1 K6 ["mainButton"]
+       16 NAMECALL                         R4 R3 K7 ["connect"]
+       18 CALL                             R4 3 0
+       19 GETTABLEKS                       R4 R1 K8 ["pluginLoader"]
+       21 NAMECALL                         R4 R4 K9 ["waitForUserInteraction"]
+       23 CALL                             R4 1 1
+       24 JUMPIF                           R4 ; [+4]
+       25 NAMECALL                         R5 R3 K10 ["disconnect"]
+       27 CALL                             R5 1 0
+       28 RETURN                           R0 0
+       29 GETIMPORT                        R5 K1 [require]
+       31 GETUPVAL                         R8 0
+       32 GETTABLEKS                       R7 R8 K11 ["Packages"]
+       34 GETTABLEKS                       R6 R7 K12 ["React"]
+       36 CALL                             R5 1 1
+       37 GETIMPORT                        R6 K1 [require]
+       39 GETUPVAL                         R9 0
+       40 GETTABLEKS                       R8 R9 K11 ["Packages"]
+       42 GETTABLEKS                       R7 R8 K13 ["ReactRoblox"]
+       44 CALL                             R6 1 1
+       45 GETIMPORT                        R7 K1 [require]
+       47 GETUPVAL                         R10 0
+       48 GETTABLEKS                       R9 R10 K2 ["Src"]
+       50 GETTABLEKS                       R8 R9 K14 ["MainPlugin"]
+       52 CALL                             R7 1 1
+       53 GETTABLEKS                       R8 R5 K15 ["createElement"]
+       55 MOVE                             R9 R7
+       56 DUPTABLE                         R10 K18 [{"Plugin", "PluginLoaderContext", "AssetDMListener"}]
+       57 SETTABLEKS                       R0 R10 K16 ["Plugin"]
+       59 SETTABLEKS                       R1 R10 K17 ["PluginLoaderContext"]
+       61 SETTABLEKS                       R3 R10 K4 ["AssetDMListener"]
+       63 CALL                             R8 2 1
+       64 GETIMPORT                        R9 K20 [Instance.new]
+       66 LOADK                            R10 K21 ["Frame"]
+       67 CALL                             R9 1 1
+       68 GETTABLEKS                       R10 R6 K22 ["createRoot"]
+       70 MOVE                             R11 R9
+       71 CALL                             R10 1 1
+       72 MOVE                             R13 R8
+       73 NAMECALL                         R11 R10 K23 ["render"]
+       75 CALL                             R11 2 0
+       76 GETTABLEKS                       R11 R0 K24 ["Unloading"]
+       78 NEWCLOSURE                       R13 P0
+       79 CAPTURE                          VAL R3
+       80 CAPTURE                          VAL R10
+       81 NAMECALL                         R11 R11 K25 ["Connect"]
+       83 CALL                             R11 2 0
+       84 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["PerformanceTools"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  DUPCLOSURE R1 K4 [PROTO_1]
-  CAPTURE VAL R0
-  RETURN R1 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["PerformanceTools"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 DUPCLOSURE                       R1 K4 [PROTO_1]
+        8 CAPTURE                          VAL R0
+        9 RETURN                           R1 1

@@ -1,30 +1,30 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["getFFlagLoadAudioEqualizerEditorInAssetDM"]
-  CALL R0 0 1
-  JUMPIFNOT R0 [+2]
-  LOADK R0 K1 ["Asset"]
-  RETURN R0 1
-  LOADK R0 K2 ["Standalone"]
-  RETURN R0 1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["getFFlagLoadAudioEqualizerEditorInAssetDM"]
+        3 CALL                             R0 0 1
+        4 JUMPIFNOT                        R0 ; [+2]
+        5 LOADK                            R0 K1 ["Asset"]
+        6 RETURN                           R0 1
+        7 LOADK                            R0 K2 ["Standalone"]
+        8 RETURN                           R0 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AudioEqualizerEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Bin"]
-  GETTABLEKS R3 R4 K7 ["Common"]
-  GETTABLEKS R2 R3 K8 ["defineLuaFlags"]
-  CALL R1 1 1
-  DUPTABLE R2 K12 [{"Asset", "Standalone", "get"}]
-  LOADK R3 K9 ["Asset"]
-  SETTABLEKS R3 R2 K9 ["Asset"]
-  LOADK R3 K10 ["Standalone"]
-  SETTABLEKS R3 R2 K10 ["Standalone"]
-  DUPCLOSURE R3 K13 [PROTO_0]
-  CAPTURE VAL R1
-  SETTABLEKS R3 R2 K11 ["get"]
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AudioEqualizerEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Bin"]
+       11 GETTABLEKS                       R3 R4 K7 ["Common"]
+       13 GETTABLEKS                       R2 R3 K8 ["defineLuaFlags"]
+       15 CALL                             R1 1 1
+       16 DUPTABLE                         R2 K12 [{"Asset", "Standalone", "get"}]
+       17 LOADK                            R3 K9 ["Asset"]
+       18 SETTABLEKS                       R3 R2 K9 ["Asset"]
+       20 LOADK                            R3 K10 ["Standalone"]
+       21 SETTABLEKS                       R3 R2 K10 ["Standalone"]
+       23 DUPCLOSURE                       R3 K13 [PROTO_0]
+       24 CAPTURE                          VAL R1
+       25 SETTABLEKS                       R3 R2 K11 ["get"]
+       27 RETURN                           R2 1

@@ -1,46 +1,46 @@
 PROTO_0:
-  GETUPVAL R1 0
-  MOVE R2 R0
-  CALL R1 1 2
-  GETUPVAL R3 1
-  MOVE R4 R0
-  CALL R3 1 2
-  LOADB R5 1
-  LENGTH R6 R1
-  LOADN R7 0
-  JUMPIFLT R7 R6 [+17]
-  LOADB R5 1
-  LENGTH R6 R2
-  LOADN R7 0
-  JUMPIFLT R7 R6 [+12]
-  LOADB R5 1
-  LENGTH R6 R3
-  LOADN R7 0
-  JUMPIFLT R7 R6 [+7]
-  LENGTH R6 R4
-  LOADN R7 0
-  JUMPIFLT R7 R6 [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  RETURN R5 1
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R2 R0
+        2 CALL                             R1 1 2
+        3 GETUPVAL                         R3 1
+        4 MOVE                             R4 R0
+        5 CALL                             R3 1 2
+        6 LOADB                            R5 1
+        7 LENGTH                           R6 R1
+        8 LOADN                            R7 0
+        9 JUMPIFLT                         R7 R6 ; [+17]
+       11 LOADB                            R5 1
+       12 LENGTH                           R6 R2
+       13 LOADN                            R7 0
+       14 JUMPIFLT                         R7 R6 ; [+12]
+       16 LOADB                            R5 1
+       17 LENGTH                           R6 R3
+       18 LOADN                            R7 0
+       19 JUMPIFLT                         R7 R6 ; [+7]
+       21 LENGTH                           R6 R4
+       22 LOADN                            R7 0
+       23 JUMPIFLT                         R7 R6 ; [+2]
+       25 LOADB                            R5 0 +1
+       26 LOADB                            R5 1
+       27 RETURN                           R5 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Selectors"]
-  GETTABLEKS R2 R3 K7 ["GetUserCollaborators"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Src"]
-  GETTABLEKS R4 R5 K6 ["Selectors"]
-  GETTABLEKS R3 R4 K8 ["GetGroupCollaborators"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K9 [PROTO_0]
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R4 R0 K5 ["Src"]
+       13 GETTABLEKS                       R3 R4 K6 ["Selectors"]
+       15 GETTABLEKS                       R2 R3 K7 ["GetUserCollaborators"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R2 K4 [require]
+       20 GETTABLEKS                       R5 R0 K5 ["Src"]
+       22 GETTABLEKS                       R4 R5 K6 ["Selectors"]
+       24 GETTABLEKS                       R3 R4 K8 ["GetGroupCollaborators"]
+       26 CALL                             R2 1 1
+       27 DUPCLOSURE                       R3 K9 [PROTO_0]
+       28 CAPTURE                          VAL R1
+       29 CAPTURE                          VAL R2
+       30 RETURN                           R3 1

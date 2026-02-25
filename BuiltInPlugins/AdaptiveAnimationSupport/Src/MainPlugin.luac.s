@@ -1,136 +1,136 @@
 PROTO_0:
-  NEWTABLE R0 0 0
-  RETURN R0 1
+        0 NEWTABLE                         R0 0 0
+        2 RETURN                           R0 1
 
 PROTO_1:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Localization"]
-  GETTABLEKS R2 R3 K1 ["new"]
-  DUPTABLE R3 K5 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
-  GETUPVAL R4 1
-  SETTABLEKS R4 R3 K2 ["stringResourceTable"]
-  GETUPVAL R4 2
-  SETTABLEKS R4 R3 K3 ["translationResourceTable"]
-  LOADK R4 K6 ["AdaptiveAnimationSupport"]
-  SETTABLEKS R4 R3 K4 ["pluginName"]
-  CALL R2 1 1
-  SETTABLEKS R2 R0 K7 ["localization"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K8 ["Analytics"]
-  GETTABLEKS R2 R3 K1 ["new"]
-  DUPCLOSURE R3 K9 [PROTO_0]
-  CALL R2 1 1
-  SETTABLEKS R2 R0 K10 ["analytics"]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K11 ["Util"]
-  GETTABLEKS R2 R3 K12 ["createFoundationDesignBinding"]
-  CALL R2 0 2
-  SETTABLEKS R3 R0 K13 ["onFoundationStyleSheetChange"]
-  GETUPVAL R4 4
-  GETTABLEKS R5 R1 K14 ["Plugin"]
-  LOADNIL R6
-  LOADNIL R7
-  NEWTABLE R8 0 1
-  MOVE R9 R2
-  SETLIST R8 R9 1 [1]
-  CALL R4 4 1
-  SETTABLEKS R4 R0 K15 ["design"]
-  RETURN R0 0
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["Localization"]
+        3 GETTABLEKS                       R2 R3 K1 ["new"]
+        5 DUPTABLE                         R3 K5 [{"stringResourceTable", "translationResourceTable", "pluginName"}]
+        6 GETUPVAL                         R4 1
+        7 SETTABLEKS                       R4 R3 K2 ["stringResourceTable"]
+        9 GETUPVAL                         R4 2
+       10 SETTABLEKS                       R4 R3 K3 ["translationResourceTable"]
+       12 LOADK                            R4 K6 ["AdaptiveAnimationSupport"]
+       13 SETTABLEKS                       R4 R3 K4 ["pluginName"]
+       15 CALL                             R2 1 1
+       16 SETTABLEKS                       R2 R0 K7 ["localization"]
+       18 GETUPVAL                         R4 0
+       19 GETTABLEKS                       R3 R4 K8 ["Analytics"]
+       21 GETTABLEKS                       R2 R3 K1 ["new"]
+       23 DUPCLOSURE                       R3 K9 [PROTO_0]
+       24 CALL                             R2 1 1
+       25 SETTABLEKS                       R2 R0 K10 ["analytics"]
+       27 GETUPVAL                         R4 3
+       28 GETTABLEKS                       R3 R4 K11 ["Util"]
+       30 GETTABLEKS                       R2 R3 K12 ["createFoundationDesignBinding"]
+       32 CALL                             R2 0 2
+       33 SETTABLEKS                       R3 R0 K13 ["onFoundationStyleSheetChange"]
+       35 GETUPVAL                         R4 4
+       36 GETTABLEKS                       R5 R1 K14 ["Plugin"]
+       38 LOADNIL                          R6
+       39 LOADNIL                          R7
+       40 NEWTABLE                         R8 0 1
+       42 MOVE                             R9 R2
+       43 SETLIST                          R8 R9 1 [1]
+       45 CALL                             R4 4 1
+       46 SETTABLEKS                       R4 R0 K15 ["design"]
+       48 RETURN                           R0 0
 
 PROTO_2:
-  GETTABLEKS R2 R0 K0 ["props"]
-  GETTABLEKS R1 R2 K1 ["Plugin"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K2 ["provide"]
-  NEWTABLE R3 0 5
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K1 ["Plugin"]
-  GETTABLEKS R4 R5 K3 ["new"]
-  MOVE R5 R1
-  CALL R4 1 1
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K4 ["Mouse"]
-  GETTABLEKS R5 R6 K3 ["new"]
-  NAMECALL R6 R1 K5 ["getMouse"]
-  CALL R6 1 -1
-  CALL R5 -1 1
-  GETTABLEKS R6 R0 K6 ["localization"]
-  GETTABLEKS R7 R0 K7 ["analytics"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K8 ["Design"]
-  GETTABLEKS R8 R9 K3 ["new"]
-  GETTABLEKS R9 R0 K9 ["design"]
-  CALL R8 1 -1
-  SETLIST R3 R4 -1 [1]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K10 ["createElement"]
-  GETUPVAL R5 2
-  DUPTABLE R6 K11 [{"Plugin", "localization"}]
-  SETTABLEKS R1 R6 K1 ["Plugin"]
-  GETTABLEKS R7 R0 K6 ["localization"]
-  SETTABLEKS R7 R6 K6 ["localization"]
-  CALL R4 2 -1
-  CALL R2 -1 -1
-  RETURN R2 -1
+        0 GETTABLEKS                       R2 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R2 K1 ["Plugin"]
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R2 R3 K2 ["provide"]
+        7 NEWTABLE                         R3 0 5
+        9 GETUPVAL                         R6 0
+       10 GETTABLEKS                       R5 R6 K1 ["Plugin"]
+       12 GETTABLEKS                       R4 R5 K3 ["new"]
+       14 MOVE                             R5 R1
+       15 CALL                             R4 1 1
+       16 GETUPVAL                         R7 0
+       17 GETTABLEKS                       R6 R7 K4 ["Mouse"]
+       19 GETTABLEKS                       R5 R6 K3 ["new"]
+       21 NAMECALL                         R6 R1 K5 ["getMouse"]
+       23 CALL                             R6 1 -1
+       24 CALL                             R5 -1 1
+       25 GETTABLEKS                       R6 R0 K6 ["localization"]
+       27 GETTABLEKS                       R7 R0 K7 ["analytics"]
+       29 GETUPVAL                         R10 0
+       30 GETTABLEKS                       R9 R10 K8 ["Design"]
+       32 GETTABLEKS                       R8 R9 K3 ["new"]
+       34 GETTABLEKS                       R9 R0 K9 ["design"]
+       36 CALL                             R8 1 -1
+       37 SETLIST                          R3 R4 -1 [1]
+       39 GETUPVAL                         R5 1
+       40 GETTABLEKS                       R4 R5 K10 ["createElement"]
+       42 GETUPVAL                         R5 2
+       43 DUPTABLE                         R6 K11 [{"Plugin", "localization"}]
+       44 SETTABLEKS                       R1 R6 K1 ["Plugin"]
+       46 GETTABLEKS                       R7 R0 K6 ["localization"]
+       48 SETTABLEKS                       R7 R6 K6 ["localization"]
+       50 CALL                             R4 2 -1
+       51 CALL                             R2 -1 -1
+       52 RETURN                           R2 -1
 
 PROTO_3:
-  GETTABLEKS R2 R0 K0 ["props"]
-  GETTABLEKS R1 R2 K1 ["Plugin"]
-  JUMPIFNOT R1 [+3]
-  NAMECALL R2 R1 K2 ["Deactivate"]
-  CALL R2 1 0
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R2 K1 ["Plugin"]
+        4 JUMPIFNOT                        R1 ; [+3]
+        5 NAMECALL                         R2 R1 K2 ["Deactivate"]
+        7 CALL                             R2 1 0
+        8 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AdaptiveAnimationSupport"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Framework"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["StudioFoundation"]
-  CALL R3 1 1
-  GETTABLEKS R4 R2 K10 ["ContextServices"]
-  GETTABLEKS R6 R2 K11 ["Styling"]
-  GETTABLEKS R5 R6 K12 ["registerPluginStyles"]
-  GETTABLEKS R9 R0 K13 ["Src"]
-  GETTABLEKS R8 R9 K14 ["Resources"]
-  GETTABLEKS R7 R8 K15 ["Localization"]
-  GETTABLEKS R6 R7 K16 ["SourceStrings"]
-  GETTABLEKS R10 R0 K13 ["Src"]
-  GETTABLEKS R9 R10 K14 ["Resources"]
-  GETTABLEKS R8 R9 K15 ["Localization"]
-  GETTABLEKS R7 R8 K17 ["LocalizedStrings"]
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K13 ["Src"]
-  GETTABLEKS R10 R11 K18 ["UI"]
-  GETTABLEKS R9 R10 K19 ["AdaptiveAnimationRoot"]
-  CALL R8 1 1
-  GETTABLEKS R9 R1 K20 ["PureComponent"]
-  LOADK R11 K21 ["MainPlugin"]
-  NAMECALL R9 R9 K22 ["extend"]
-  CALL R9 2 1
-  DUPCLOSURE R10 K23 [PROTO_1]
-  CAPTURE VAL R4
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  CAPTURE VAL R5
-  SETTABLEKS R10 R9 K24 ["init"]
-  DUPCLOSURE R10 K25 [PROTO_2]
-  CAPTURE VAL R4
-  CAPTURE VAL R1
-  CAPTURE VAL R8
-  SETTABLEKS R10 R9 K26 ["render"]
-  DUPCLOSURE R10 K27 [PROTO_3]
-  SETTABLEKS R10 R9 K28 ["componentWillUnmount"]
-  RETURN R9 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AdaptiveAnimationSupport"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R5 K9 ["StudioFoundation"]
+       27 CALL                             R3 1 1
+       28 GETTABLEKS                       R4 R2 K10 ["ContextServices"]
+       30 GETTABLEKS                       R6 R2 K11 ["Styling"]
+       32 GETTABLEKS                       R5 R6 K12 ["registerPluginStyles"]
+       34 GETTABLEKS                       R9 R0 K13 ["Src"]
+       36 GETTABLEKS                       R8 R9 K14 ["Resources"]
+       38 GETTABLEKS                       R7 R8 K15 ["Localization"]
+       40 GETTABLEKS                       R6 R7 K16 ["SourceStrings"]
+       42 GETTABLEKS                       R10 R0 K13 ["Src"]
+       44 GETTABLEKS                       R9 R10 K14 ["Resources"]
+       46 GETTABLEKS                       R8 R9 K15 ["Localization"]
+       48 GETTABLEKS                       R7 R8 K17 ["LocalizedStrings"]
+       50 GETIMPORT                        R8 K5 [require]
+       52 GETTABLEKS                       R11 R0 K13 ["Src"]
+       54 GETTABLEKS                       R10 R11 K18 ["UI"]
+       56 GETTABLEKS                       R9 R10 K19 ["AdaptiveAnimationRoot"]
+       58 CALL                             R8 1 1
+       59 GETTABLEKS                       R9 R1 K20 ["PureComponent"]
+       61 LOADK                            R11 K21 ["MainPlugin"]
+       62 NAMECALL                         R9 R9 K22 ["extend"]
+       64 CALL                             R9 2 1
+       65 DUPCLOSURE                       R10 K23 [PROTO_1]
+       66 CAPTURE                          VAL R4
+       67 CAPTURE                          VAL R6
+       68 CAPTURE                          VAL R7
+       69 CAPTURE                          VAL R3
+       70 CAPTURE                          VAL R5
+       71 SETTABLEKS                       R10 R9 K24 ["init"]
+       73 DUPCLOSURE                       R10 K25 [PROTO_2]
+       74 CAPTURE                          VAL R4
+       75 CAPTURE                          VAL R1
+       76 CAPTURE                          VAL R8
+       77 SETTABLEKS                       R10 R9 K26 ["render"]
+       79 DUPCLOSURE                       R10 K27 [PROTO_3]
+       80 SETTABLEKS                       R10 R9 K28 ["componentWillUnmount"]
+       82 RETURN                           R9 1

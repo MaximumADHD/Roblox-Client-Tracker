@@ -1,33 +1,33 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["RunningUnderCLI"]
-  CALL R0 0 1
-  JUMPIFNOT R0 [+2]
-  LOADB R0 1
-  RETURN R0 1
-  GETIMPORT R0 K2 [game]
-  LOADK R2 K3 ["PluginPolicyService"]
-  NAMECALL R0 R0 K4 ["GetService"]
-  CALL R0 2 1
-  LOADK R2 K5 ["TagEditor"]
-  NAMECALL R0 R0 K6 ["getPluginPolicy"]
-  CALL R0 2 1
-  GETTABLEKS R1 R0 K7 ["AreCustomIconsAndEmojiAllowed"]
-  RETURN R1 1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["RunningUnderCLI"]
+        3 CALL                             R0 0 1
+        4 JUMPIFNOT                        R0 ; [+2]
+        5 LOADB                            R0 1
+        6 RETURN                           R0 1
+        7 GETIMPORT                        R0 K2 [game]
+        9 LOADK                            R2 K3 ["PluginPolicyService"]
+       10 NAMECALL                         R0 R0 K4 ["GetService"]
+       12 CALL                             R0 2 1
+       13 LOADK                            R2 K5 ["TagEditor"]
+       14 NAMECALL                         R0 R0 K6 ["getPluginPolicy"]
+       16 CALL                             R0 2 1
+       17 GETTABLEKS                       R1 R0 K7 ["AreCustomIconsAndEmojiAllowed"]
+       19 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Util"]
-  GETTABLEKS R2 R3 K7 ["DebugFlags"]
-  CALL R1 1 1
-  NEWTABLE R2 1 0
-  DUPCLOSURE R3 K8 [PROTO_0]
-  CAPTURE VAL R1
-  SETTABLEKS R3 R2 K9 ["getAreCustomIconsAndEmojiAllowed"]
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R4 R0 K5 ["Src"]
+       13 GETTABLEKS                       R3 R4 K6 ["Util"]
+       15 GETTABLEKS                       R2 R3 K7 ["DebugFlags"]
+       17 CALL                             R1 1 1
+       18 NEWTABLE                         R2 1 0
+       20 DUPCLOSURE                       R3 K8 [PROTO_0]
+       21 CAPTURE                          VAL R1
+       22 SETTABLEKS                       R3 R2 K9 ["getAreCustomIconsAndEmojiAllowed"]
+       24 RETURN                           R2 1

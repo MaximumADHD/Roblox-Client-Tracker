@@ -1,182 +1,182 @@
 PROTO_0:
-  GETUPVAL R0 0
-  LOADB R2 0
-  NAMECALL R0 R0 K0 ["setVisible"]
-  CALL R0 2 0
-  LOADNIL R0
-  SETUPVAL R0 1
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 LOADB                            R2 0
+        2 NAMECALL                         R0 R0 K0 ["setVisible"]
+        4 CALL                             R0 2 0
+        5 LOADNIL                          R0
+        6 SETUPVAL                         R0 1
+        7 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["getFilteredSelection"]
-  CALL R1 1 1
-  LENGTH R2 R1
-  JUMPIFEQKN R2 K1 [1] [+9]
-  GETUPVAL R2 1
-  LOADB R4 0
-  NAMECALL R2 R2 K2 ["setVisible"]
-  CALL R2 2 0
-  LOADNIL R2
-  SETUPVAL R2 2
-  RETURN R0 0
-  GETTABLEN R2 R1 1
-  GETTABLEKS R3 R2 K3 ["Parent"]
-  LOADK R6 K4 ["GuiBase2d"]
-  NAMECALL R4 R3 K5 ["IsA"]
-  CALL R4 2 1
-  JUMPIF R4 [+8]
-  GETUPVAL R4 1
-  LOADB R6 0
-  NAMECALL R4 R4 K2 ["setVisible"]
-  CALL R4 2 0
-  LOADNIL R4
-  SETUPVAL R4 2
-  RETURN R0 0
-  SETUPVAL R2 2
-  GETUPVAL R4 1
-  NAMECALL R4 R4 K6 ["update"]
-  CALL R4 1 0
-  GETUPVAL R4 1
-  LOADB R6 1
-  NAMECALL R4 R4 K2 ["setVisible"]
-  CALL R4 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 NAMECALL                         R1 R1 K0 ["getFilteredSelection"]
+        3 CALL                             R1 1 1
+        4 LENGTH                           R2 R1
+        5 JUMPIFEQKN                       R2 K1 [1] ; [+9]
+        7 GETUPVAL                         R2 1
+        8 LOADB                            R4 0
+        9 NAMECALL                         R2 R2 K2 ["setVisible"]
+       11 CALL                             R2 2 0
+       12 LOADNIL                          R2
+       13 SETUPVAL                         R2 2
+       14 RETURN                           R0 0
+       15 GETTABLEN                        R2 R1 1
+       16 GETTABLEKS                       R3 R2 K3 ["Parent"]
+       18 LOADK                            R6 K4 ["GuiBase2d"]
+       19 NAMECALL                         R4 R3 K5 ["IsA"]
+       21 CALL                             R4 2 1
+       22 JUMPIF                           R4 ; [+8]
+       23 GETUPVAL                         R4 1
+       24 LOADB                            R6 0
+       25 NAMECALL                         R4 R4 K2 ["setVisible"]
+       27 CALL                             R4 2 0
+       28 LOADNIL                          R4
+       29 SETUPVAL                         R4 2
+       30 RETURN                           R0 0
+       31 SETUPVAL                         R2 2
+       32 GETUPVAL                         R4 1
+       33 NAMECALL                         R4 R4 K6 ["update"]
+       35 CALL                             R4 1 0
+       36 GETUPVAL                         R4 1
+       37 LOADB                            R6 1
+       38 NAMECALL                         R4 R4 K2 ["setVisible"]
+       40 CALL                             R4 2 0
+       41 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K0 ["new"]
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K1 ["X"]
-  CALL R1 1 1
-  SETUPVAL R1 0
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K0 ["new"]
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K2 ["Y"]
-  CALL R1 1 1
-  SETUPVAL R1 3
-  RETURN R0 0
+        0 GETUPVAL                         R2 1
+        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        3 GETUPVAL                         R3 2
+        4 GETTABLEKS                       R2 R3 K1 ["X"]
+        6 CALL                             R1 1 1
+        7 SETUPVAL                         R1 0
+        8 GETUPVAL                         R2 1
+        9 GETTABLEKS                       R1 R2 K0 ["new"]
+       11 GETUPVAL                         R3 2
+       12 GETTABLEKS                       R2 R3 K2 ["Y"]
+       14 CALL                             R1 1 1
+       15 SETUPVAL                         R1 3
+       16 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["destroy"]
-  CALL R1 1 0
-  GETUPVAL R1 1
-  NAMECALL R1 R1 K0 ["destroy"]
-  CALL R1 1 0
-  LOADNIL R1
-  SETUPVAL R1 0
-  LOADNIL R1
-  SETUPVAL R1 1
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 NAMECALL                         R1 R1 K0 ["destroy"]
+        3 CALL                             R1 1 0
+        4 GETUPVAL                         R1 1
+        5 NAMECALL                         R1 R1 K0 ["destroy"]
+        7 CALL                             R1 1 0
+        8 LOADNIL                          R1
+        9 SETUPVAL                         R1 0
+       10 LOADNIL                          R1
+       11 SETUPVAL                         R1 1
+       12 RETURN                           R0 0
 
 PROTO_4:
-  GETUPVAL R1 0
-  JUMPIFNOTEQKNIL R1 [+2]
-  RETURN R0 0
-  GETUPVAL R1 1
-  GETUPVAL R3 0
-  NAMECALL R1 R1 K0 ["update"]
-  CALL R1 2 0
-  GETUPVAL R1 2
-  GETUPVAL R3 0
-  NAMECALL R1 R1 K0 ["update"]
-  CALL R1 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 JUMPIFNOTEQKNIL                  R1 ; [+2]
+        3 RETURN                           R0 0
+        4 GETUPVAL                         R1 1
+        5 GETUPVAL                         R3 0
+        6 NAMECALL                         R1 R1 K0 ["update"]
+        8 CALL                             R1 2 0
+        9 GETUPVAL                         R1 2
+       10 GETUPVAL                         R3 0
+       11 NAMECALL                         R1 R1 K0 ["update"]
+       13 CALL                             R1 2 0
+       14 RETURN                           R0 0
 
 PROTO_5:
-  GETUPVAL R2 0
-  JUMPIF R2 [+1]
-  RETURN R0 0
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["Parent"]
-  JUMPIF R2 [+1]
-  RETURN R0 0
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K1 ["AbsoluteRotation"]
-  FASTCALL1 MATH_ABS R4 [+2]
-  GETIMPORT R3 K4 [math.abs]
-  CALL R3 1 1
-  LOADK R4 K5 [0.001]
-  JUMPIFLE R4 R3 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  JUMPIFNOT R1 [+12]
-  JUMPIFNOT R2 [+11]
-  GETUPVAL R3 1
-  LOADB R5 0
-  NAMECALL R3 R3 K6 ["setVisible"]
-  CALL R3 2 0
-  GETUPVAL R3 2
-  LOADB R5 0
-  NAMECALL R3 R3 K6 ["setVisible"]
-  CALL R3 2 0
-  RETURN R0 0
-  GETUPVAL R3 1
-  MOVE R5 R1
-  NAMECALL R3 R3 K6 ["setVisible"]
-  CALL R3 2 0
-  GETUPVAL R3 2
-  MOVE R5 R1
-  NAMECALL R3 R3 K6 ["setVisible"]
-  CALL R3 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 JUMPIF                           R2 ; [+1]
+        2 RETURN                           R0 0
+        3 GETUPVAL                         R3 0
+        4 GETTABLEKS                       R2 R3 K0 ["Parent"]
+        6 JUMPIF                           R2 ; [+1]
+        7 RETURN                           R0 0
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R4 R5 K1 ["AbsoluteRotation"]
+       11 FASTCALL1                        MATH_ABS R4 ; [+2]
+       12 GETIMPORT                        R3 K4 [math.abs]
+       14 CALL                             R3 1 1
+       15 LOADK                            R4 K5 [0.001]
+       16 JUMPIFLE                         R4 R3 ; [+2]
+       18 LOADB                            R2 0 +1
+       19 LOADB                            R2 1
+       20 JUMPIFNOT                        R1 ; [+12]
+       21 JUMPIFNOT                        R2 ; [+11]
+       22 GETUPVAL                         R3 1
+       23 LOADB                            R5 0
+       24 NAMECALL                         R3 R3 K6 ["setVisible"]
+       26 CALL                             R3 2 0
+       27 GETUPVAL                         R3 2
+       28 LOADB                            R5 0
+       29 NAMECALL                         R3 R3 K6 ["setVisible"]
+       31 CALL                             R3 2 0
+       32 RETURN                           R0 0
+       33 GETUPVAL                         R3 1
+       34 MOVE                             R5 R1
+       35 NAMECALL                         R3 R3 K6 ["setVisible"]
+       37 CALL                             R3 2 0
+       38 GETUPVAL                         R3 2
+       39 MOVE                             R5 R1
+       40 NAMECALL                         R3 R3 K6 ["setVisible"]
+       42 CALL                             R3 2 0
+       43 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  NEWTABLE R0 8 0
-  GETIMPORT R1 K1 [require]
-  GETIMPORT R5 K3 [script]
-  GETTABLEKS R4 R5 K4 ["Parent"]
-  GETTABLEKS R3 R4 K5 ["Enum"]
-  GETTABLEKS R2 R3 K6 ["Axis"]
-  CALL R1 1 1
-  GETIMPORT R2 K1 [require]
-  GETIMPORT R5 K3 [script]
-  GETTABLEKS R4 R5 K4 ["Parent"]
-  GETTABLEKS R3 R4 K7 ["DistanceLine"]
-  CALL R2 1 1
-  GETIMPORT R3 K1 [require]
-  GETIMPORT R6 K3 [script]
-  GETTABLEKS R5 R6 K4 ["Parent"]
-  GETTABLEKS R4 R5 K8 ["Log"]
-  CALL R3 1 1
-  GETIMPORT R4 K1 [require]
-  GETIMPORT R7 K3 [script]
-  GETTABLEKS R6 R7 K4 ["Parent"]
-  GETTABLEKS R5 R6 K9 ["SelectionManager"]
-  CALL R4 1 1
-  LOADNIL R5
-  LOADNIL R6
-  LOADNIL R7
-  NEWCLOSURE R8 P0
-  CAPTURE VAL R0
-  CAPTURE REF R5
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R4
-  CAPTURE VAL R0
-  CAPTURE REF R5
-  SETTABLEKS R9 R0 K10 ["onSelectionChanged"]
-  NEWCLOSURE R9 P2
-  CAPTURE REF R6
-  CAPTURE VAL R2
-  CAPTURE VAL R1
-  CAPTURE REF R7
-  SETTABLEKS R9 R0 K11 ["On"]
-  NEWCLOSURE R9 P3
-  CAPTURE REF R6
-  CAPTURE REF R7
-  SETTABLEKS R9 R0 K12 ["Off"]
-  NEWCLOSURE R9 P4
-  CAPTURE REF R5
-  CAPTURE REF R6
-  CAPTURE REF R7
-  SETTABLEKS R9 R0 K13 ["update"]
-  NEWCLOSURE R9 P5
-  CAPTURE REF R5
-  CAPTURE REF R6
-  CAPTURE REF R7
-  SETTABLEKS R9 R0 K14 ["setVisible"]
-  CLOSEUPVALS R5
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 NEWTABLE                         R0 8 0
+        3 GETIMPORT                        R1 K1 [require]
+        5 GETIMPORT                        R5 K3 [script]
+        7 GETTABLEKS                       R4 R5 K4 ["Parent"]
+        9 GETTABLEKS                       R3 R4 K5 ["Enum"]
+       11 GETTABLEKS                       R2 R3 K6 ["Axis"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K1 [require]
+       16 GETIMPORT                        R5 K3 [script]
+       18 GETTABLEKS                       R4 R5 K4 ["Parent"]
+       20 GETTABLEKS                       R3 R4 K7 ["DistanceLine"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K1 [require]
+       25 GETIMPORT                        R6 K3 [script]
+       27 GETTABLEKS                       R5 R6 K4 ["Parent"]
+       29 GETTABLEKS                       R4 R5 K8 ["Log"]
+       31 CALL                             R3 1 1
+       32 GETIMPORT                        R4 K1 [require]
+       34 GETIMPORT                        R7 K3 [script]
+       36 GETTABLEKS                       R6 R7 K4 ["Parent"]
+       38 GETTABLEKS                       R5 R6 K9 ["SelectionManager"]
+       40 CALL                             R4 1 1
+       41 LOADNIL                          R5
+       42 LOADNIL                          R6
+       43 LOADNIL                          R7
+       44 NEWCLOSURE                       R8 P0
+       45 CAPTURE                          VAL R0
+       46 CAPTURE                          REF R5
+       47 NEWCLOSURE                       R9 P1
+       48 CAPTURE                          VAL R4
+       49 CAPTURE                          VAL R0
+       50 CAPTURE                          REF R5
+       51 SETTABLEKS                       R9 R0 K10 ["onSelectionChanged"]
+       53 NEWCLOSURE                       R9 P2
+       54 CAPTURE                          REF R6
+       55 CAPTURE                          VAL R2
+       56 CAPTURE                          VAL R1
+       57 CAPTURE                          REF R7
+       58 SETTABLEKS                       R9 R0 K11 ["On"]
+       60 NEWCLOSURE                       R9 P3
+       61 CAPTURE                          REF R6
+       62 CAPTURE                          REF R7
+       63 SETTABLEKS                       R9 R0 K12 ["Off"]
+       65 NEWCLOSURE                       R9 P4
+       66 CAPTURE                          REF R5
+       67 CAPTURE                          REF R6
+       68 CAPTURE                          REF R7
+       69 SETTABLEKS                       R9 R0 K13 ["update"]
+       71 NEWCLOSURE                       R9 P5
+       72 CAPTURE                          REF R5
+       73 CAPTURE                          REF R6
+       74 CAPTURE                          REF R7
+       75 SETTABLEKS                       R9 R0 K14 ["setVisible"]
+       77 CLOSEUPVALS                      R5
+       78 RETURN                           R0 1

@@ -1,72 +1,56 @@
 PROTO_0:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
-  MOVE R3 R0
-  DUPTABLE R4 K3 [{"screen"}]
-  GETTABLEKS R5 R1 K2 ["screen"]
-  SETTABLEKS R5 R4 K2 ["screen"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        5 MOVE                             R3 R0
+        6 DUPTABLE                         R4 K3 [{"screen"}]
+        7 GETTABLEKS                       R5 R1 K2 ["screen"]
+        9 SETTABLEKS                       R5 R4 K2 ["screen"]
+       11 CALL                             R2 2 -1
+       12 RETURN                           R2 -1
 
 PROTO_1:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
-  MOVE R3 R0
-  DUPTABLE R4 K3 [{"screen"}]
-  GETTABLEKS R5 R1 K2 ["screen"]
-  SETTABLEKS R5 R4 K2 ["screen"]
-  CALL R2 2 -1
-  RETURN R2 -1
-
-PROTO_2:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
-  MOVE R3 R0
-  DUPTABLE R4 K3 [{"activationFailed"}]
-  GETTABLEKS R5 R1 K4 ["isFailed"]
-  SETTABLEKS R5 R4 K2 ["activationFailed"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        5 MOVE                             R3 R0
+        6 DUPTABLE                         R4 K3 [{"screen"}]
+        7 GETTABLEKS                       R5 R1 K2 ["screen"]
+        9 SETTABLEKS                       R5 R4 K2 ["screen"]
+       11 CALL                             R2 2 -1
+       12 RETURN                           R2 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Rodux"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Cryo"]
-  CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K9 ["Resources"]
-  GETTABLEKS R4 R5 K10 ["Constants"]
-  CALL R3 1 1
-  DUPTABLE R4 K13 [{"screen", "activationFailed"}]
-  GETTABLEKS R6 R3 K14 ["SCREENS"]
-  GETTABLEKS R5 R6 K15 ["CREATE_NEW_GAME"]
-  SETTABLEKS R5 R4 K11 ["screen"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K12 ["activationFailed"]
-  GETTABLEKS R5 R1 K16 ["createReducer"]
-  MOVE R6 R4
-  DUPTABLE R7 K20 [{"SetScreen", "ResetInfo", "SetActivationFailed"}]
-  DUPCLOSURE R8 K21 [PROTO_0]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K17 ["SetScreen"]
-  DUPCLOSURE R8 K22 [PROTO_1]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K18 ["ResetInfo"]
-  DUPCLOSURE R8 K23 [PROTO_2]
-  CAPTURE VAL R2
-  SETTABLEKS R8 R7 K19 ["SetActivationFailed"]
-  CALL R5 2 -1
-  RETURN R5 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K7 ["Cryo"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K4 [require]
+       25 GETTABLEKS                       R6 R0 K8 ["Src"]
+       27 GETTABLEKS                       R5 R6 K9 ["Resources"]
+       29 GETTABLEKS                       R4 R5 K10 ["Constants"]
+       31 CALL                             R3 1 1
+       32 DUPTABLE                         R4 K12 [{"screen"}]
+       33 GETTABLEKS                       R6 R3 K13 ["SCREENS"]
+       35 GETTABLEKS                       R5 R6 K14 ["CREATE_NEW_GAME"]
+       37 SETTABLEKS                       R5 R4 K11 ["screen"]
+       39 GETTABLEKS                       R5 R1 K15 ["createReducer"]
+       41 MOVE                             R6 R4
+       42 DUPTABLE                         R7 K18 [{"SetScreen", "ResetInfo"}]
+       43 DUPCLOSURE                       R8 K19 [PROTO_0]
+       44 CAPTURE                          VAL R2
+       45 SETTABLEKS                       R8 R7 K16 ["SetScreen"]
+       47 DUPCLOSURE                       R8 K20 [PROTO_1]
+       48 CAPTURE                          VAL R2
+       49 SETTABLEKS                       R8 R7 K17 ["ResetInfo"]
+       51 CALL                             R5 2 -1
+       52 RETURN                           R5 -1

@@ -1,92 +1,92 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createElement"]
-  LOADK R2 K1 ["Frame"]
-  NEWTABLE R3 2 0
-  GETTABLEKS R4 R0 K2 ["LayoutOrder"]
-  SETTABLEKS R4 R3 K2 ["LayoutOrder"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K3 ["Tag"]
-  GETUPVAL R5 1
-  LOADK R7 K4 ["Component-RibbonToggle Role-Surface X-Fit data-testid=%*"]
-  GETUPVAL R9 2
-  GETTABLEKS R10 R0 K5 ["Uri"]
-  CALL R9 1 1
-  NAMECALL R7 R7 K6 ["format"]
-  CALL R7 2 1
-  MOVE R6 R7
-  GETTABLEKS R8 R0 K7 ["Enabled"]
-  JUMPIF R8 [+2]
-  LOADK R7 K8 ["State-Disabled"]
-  JUMP [+1]
-  LOADNIL R7
-  CALL R5 2 1
-  SETTABLE R5 R3 R4
-  DUPTABLE R4 K11 [{"Label", "Toggle"}]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["createElement"]
-  LOADK R6 K12 ["TextLabel"]
-  NEWTABLE R7 2 0
-  GETTABLEKS R8 R0 K13 ["Text"]
-  SETTABLEKS R8 R7 K13 ["Text"]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K3 ["Tag"]
-  LOADK R9 K14 ["X-Fit"]
-  SETTABLE R9 R7 R8
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K9 ["Label"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["createElement"]
-  GETUPVAL R6 3
-  DUPTABLE R7 K19 [{"Uri", "AnchorPoint", "Enabled", "OnClick", "LayoutOrder", "Position", "Selected"}]
-  GETTABLEKS R8 R0 K5 ["Uri"]
-  SETTABLEKS R8 R7 K5 ["Uri"]
-  GETTABLEKS R8 R0 K15 ["AnchorPoint"]
-  SETTABLEKS R8 R7 K15 ["AnchorPoint"]
-  GETTABLEKS R8 R0 K7 ["Enabled"]
-  SETTABLEKS R8 R7 K7 ["Enabled"]
-  GETTABLEKS R8 R0 K16 ["OnClick"]
-  SETTABLEKS R8 R7 K16 ["OnClick"]
-  LOADN R8 1
-  SETTABLEKS R8 R7 K2 ["LayoutOrder"]
-  GETTABLEKS R8 R0 K17 ["Position"]
-  SETTABLEKS R8 R7 K17 ["Position"]
-  GETTABLEKS R8 R0 K18 ["Selected"]
-  SETTABLEKS R8 R7 K18 ["Selected"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K10 ["Toggle"]
-  CALL R1 3 -1
-  RETURN R1 -1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        3 LOADK                            R2 K1 ["Frame"]
+        4 NEWTABLE                         R3 2 0
+        6 GETTABLEKS                       R4 R0 K2 ["LayoutOrder"]
+        8 SETTABLEKS                       R4 R3 K2 ["LayoutOrder"]
+       10 GETUPVAL                         R5 0
+       11 GETTABLEKS                       R4 R5 K3 ["Tag"]
+       13 GETUPVAL                         R5 1
+       14 LOADK                            R7 K4 ["Component-RibbonToggle Role-Surface X-Fit data-testid=%*"]
+       15 GETUPVAL                         R9 2
+       16 GETTABLEKS                       R10 R0 K5 ["Uri"]
+       18 CALL                             R9 1 1
+       19 NAMECALL                         R7 R7 K6 ["format"]
+       21 CALL                             R7 2 1
+       22 MOVE                             R6 R7
+       23 GETTABLEKS                       R8 R0 K7 ["Enabled"]
+       25 JUMPIF                           R8 ; [+2]
+       26 LOADK                            R7 K8 ["State-Disabled"]
+       27 JUMP                             ; [+1]
+       28 LOADNIL                          R7
+       29 CALL                             R5 2 1
+       30 SETTABLE                         R5 R3 R4
+       31 DUPTABLE                         R4 K11 [{"Label", "Toggle"}]
+       32 GETUPVAL                         R6 0
+       33 GETTABLEKS                       R5 R6 K0 ["createElement"]
+       35 LOADK                            R6 K12 ["TextLabel"]
+       36 NEWTABLE                         R7 2 0
+       38 GETTABLEKS                       R8 R0 K13 ["Text"]
+       40 SETTABLEKS                       R8 R7 K13 ["Text"]
+       42 GETUPVAL                         R9 0
+       43 GETTABLEKS                       R8 R9 K3 ["Tag"]
+       45 LOADK                            R9 K14 ["X-Fit"]
+       46 SETTABLE                         R9 R7 R8
+       47 CALL                             R5 2 1
+       48 SETTABLEKS                       R5 R4 K9 ["Label"]
+       50 GETUPVAL                         R6 0
+       51 GETTABLEKS                       R5 R6 K0 ["createElement"]
+       53 GETUPVAL                         R6 3
+       54 DUPTABLE                         R7 K19 [{"Uri", "AnchorPoint", "Enabled", "OnClick", "LayoutOrder", "Position", "Selected"}]
+       55 GETTABLEKS                       R8 R0 K5 ["Uri"]
+       57 SETTABLEKS                       R8 R7 K5 ["Uri"]
+       59 GETTABLEKS                       R8 R0 K15 ["AnchorPoint"]
+       61 SETTABLEKS                       R8 R7 K15 ["AnchorPoint"]
+       63 GETTABLEKS                       R8 R0 K7 ["Enabled"]
+       65 SETTABLEKS                       R8 R7 K7 ["Enabled"]
+       67 GETTABLEKS                       R8 R0 K16 ["OnClick"]
+       69 SETTABLEKS                       R8 R7 K16 ["OnClick"]
+       71 LOADN                            R8 1
+       72 SETTABLEKS                       R8 R7 K2 ["LayoutOrder"]
+       74 GETTABLEKS                       R8 R0 K17 ["Position"]
+       76 SETTABLEKS                       R8 R7 K17 ["Position"]
+       78 GETTABLEKS                       R8 R0 K18 ["Selected"]
+       80 SETTABLEKS                       R8 R7 K18 ["Selected"]
+       82 CALL                             R5 2 1
+       83 SETTABLEKS                       R5 R4 K10 ["Toggle"]
+       85 CALL                             R1 3 -1
+       86 RETURN                           R1 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["Ribbon"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Framework"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K9 ["Styling"]
-  GETTABLEKS R4 R3 K10 ["joinTags"]
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K11 ["Src"]
-  GETTABLEKS R7 R8 K12 ["Components"]
-  GETTABLEKS R6 R7 K13 ["Toggle"]
-  CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K11 ["Src"]
-  GETTABLEKS R8 R9 K14 ["Util"]
-  GETTABLEKS R7 R8 K15 ["uriToTestId"]
-  CALL R6 1 1
-  DUPCLOSURE R7 K16 [PROTO_0]
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  CAPTURE VAL R6
-  CAPTURE VAL R5
-  RETURN R7 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Ribbon"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R3 R2 K9 ["Styling"]
+       23 GETTABLEKS                       R4 R3 K10 ["joinTags"]
+       25 GETIMPORT                        R5 K5 [require]
+       27 GETTABLEKS                       R8 R0 K11 ["Src"]
+       29 GETTABLEKS                       R7 R8 K12 ["Components"]
+       31 GETTABLEKS                       R6 R7 K13 ["Toggle"]
+       33 CALL                             R5 1 1
+       34 GETIMPORT                        R6 K5 [require]
+       36 GETTABLEKS                       R9 R0 K11 ["Src"]
+       38 GETTABLEKS                       R8 R9 K14 ["Util"]
+       40 GETTABLEKS                       R7 R8 K15 ["uriToTestId"]
+       42 CALL                             R6 1 1
+       43 DUPCLOSURE                       R7 K16 [PROTO_0]
+       44 CAPTURE                          VAL R1
+       45 CAPTURE                          VAL R4
+       46 CAPTURE                          VAL R6
+       47 CAPTURE                          VAL R5
+       48 RETURN                           R7 1

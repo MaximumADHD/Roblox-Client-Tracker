@@ -1,181 +1,181 @@
 PROTO_0:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["canvasRef"]
-  GETTABLEKS R1 R2 K1 ["current"]
-  JUMPIFNOT R1 [+9]
-  GETIMPORT R2 K4 [UDim2.new]
-  LOADN R3 1
-  LOADN R4 0
-  LOADN R5 0
-  MOVE R6 R0
-  CALL R2 4 1
-  SETTABLEKS R2 R1 K5 ["CanvasSize"]
-  RETURN R0 0
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["canvasRef"]
+        3 GETTABLEKS                       R1 R2 K1 ["current"]
+        5 JUMPIFNOT                        R1 ; [+9]
+        6 GETIMPORT                        R2 K4 [UDim2.new]
+        8 LOADN                            R3 1
+        9 LOADN                            R4 0
+       10 LOADN                            R5 0
+       11 MOVE                             R6 R0
+       12 CALL                             R2 4 1
+       13 SETTABLEKS                       R2 R1 K5 ["CanvasSize"]
+       15 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createRef"]
-  CALL R1 0 1
-  SETTABLEKS R1 R0 K1 ["canvasRef"]
-  NEWCLOSURE R1 P0
-  CAPTURE VAL R0
-  SETTABLEKS R1 R0 K2 ["contentHeightChanged"]
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["createRef"]
+        3 CALL                             R1 0 1
+        4 SETTABLEKS                       R1 R0 K1 ["canvasRef"]
+        6 NEWCLOSURE                       R1 P0
+        7 CAPTURE                          VAL R0
+        8 SETTABLEKS                       R1 R0 K2 ["contentHeightChanged"]
+       10 RETURN                           R0 0
 
 PROTO_2:
-  GETTABLEKS R2 R0 K0 ["props"]
-  GETTABLEKS R1 R2 K1 ["addTemplates"]
-  CALL R1 0 0
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R2 K1 ["addTemplates"]
+        4 CALL                             R1 0 0
+        5 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createElement"]
-  GETUPVAL R2 1
-  NEWTABLE R3 1 0
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K1 ["Ref"]
-  GETTABLEKS R5 R0 K2 ["canvasRef"]
-  SETTABLE R5 R3 R4
-  NEWTABLE R4 0 1
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["createElement"]
-  LOADK R6 K3 ["Frame"]
-  DUPTABLE R7 K7 [{"Size", "BorderSizePixel", "BackgroundTransparency"}]
-  GETIMPORT R8 K10 [UDim2.new]
-  LOADN R9 1
-  LOADN R10 0
-  LOADN R11 1
-  LOADN R12 0
-  CALL R8 4 1
-  SETTABLEKS R8 R7 K4 ["Size"]
-  LOADN R8 0
-  SETTABLEKS R8 R7 K5 ["BorderSizePixel"]
-  LOADN R8 1
-  SETTABLEKS R8 R7 K6 ["BackgroundTransparency"]
-  DUPTABLE R8 K12 [{"MorpherTemplateContainer"}]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K0 ["createElement"]
-  GETUPVAL R10 2
-  DUPTABLE R11 K19 [{"ThemeData", "StateTemplates", "IsEnabled", "Mouse", "clobberTemplate", "ContentHeightChanged"}]
-  GETTABLEKS R13 R0 K20 ["props"]
-  GETTABLEKS R12 R13 K21 ["StateTheme"]
-  SETTABLEKS R12 R11 K13 ["ThemeData"]
-  GETTABLEKS R13 R0 K20 ["props"]
-  GETTABLEKS R12 R13 K14 ["StateTemplates"]
-  SETTABLEKS R12 R11 K14 ["StateTemplates"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K15 ["IsEnabled"]
-  GETTABLEKS R13 R0 K20 ["props"]
-  GETTABLEKS R12 R13 K16 ["Mouse"]
-  SETTABLEKS R12 R11 K16 ["Mouse"]
-  GETTABLEKS R13 R0 K20 ["props"]
-  GETTABLEKS R12 R13 K17 ["clobberTemplate"]
-  SETTABLEKS R12 R11 K17 ["clobberTemplate"]
-  GETTABLEKS R12 R0 K22 ["contentHeightChanged"]
-  SETTABLEKS R12 R11 K18 ["ContentHeightChanged"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K11 ["MorpherTemplateContainer"]
-  CALL R5 3 -1
-  SETLIST R4 R5 -1 [1]
-  CALL R1 3 -1
-  RETURN R1 -1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        3 GETUPVAL                         R2 1
+        4 NEWTABLE                         R3 1 0
+        6 GETUPVAL                         R5 0
+        7 GETTABLEKS                       R4 R5 K1 ["Ref"]
+        9 GETTABLEKS                       R5 R0 K2 ["canvasRef"]
+       11 SETTABLE                         R5 R3 R4
+       12 NEWTABLE                         R4 0 1
+       14 GETUPVAL                         R6 0
+       15 GETTABLEKS                       R5 R6 K0 ["createElement"]
+       17 LOADK                            R6 K3 ["Frame"]
+       18 DUPTABLE                         R7 K7 [{"Size", "BorderSizePixel", "BackgroundTransparency"}]
+       19 GETIMPORT                        R8 K10 [UDim2.new]
+       21 LOADN                            R9 1
+       22 LOADN                            R10 0
+       23 LOADN                            R11 1
+       24 LOADN                            R12 0
+       25 CALL                             R8 4 1
+       26 SETTABLEKS                       R8 R7 K4 ["Size"]
+       28 LOADN                            R8 0
+       29 SETTABLEKS                       R8 R7 K5 ["BorderSizePixel"]
+       31 LOADN                            R8 1
+       32 SETTABLEKS                       R8 R7 K6 ["BackgroundTransparency"]
+       34 DUPTABLE                         R8 K12 [{"MorpherTemplateContainer"}]
+       35 GETUPVAL                         R10 0
+       36 GETTABLEKS                       R9 R10 K0 ["createElement"]
+       38 GETUPVAL                         R10 2
+       39 DUPTABLE                         R11 K19 [{"ThemeData", "StateTemplates", "IsEnabled", "Mouse", "clobberTemplate", "ContentHeightChanged"}]
+       40 GETTABLEKS                       R13 R0 K20 ["props"]
+       42 GETTABLEKS                       R12 R13 K21 ["StateTheme"]
+       44 SETTABLEKS                       R12 R11 K13 ["ThemeData"]
+       46 GETTABLEKS                       R13 R0 K20 ["props"]
+       48 GETTABLEKS                       R12 R13 K14 ["StateTemplates"]
+       50 SETTABLEKS                       R12 R11 K14 ["StateTemplates"]
+       52 LOADB                            R12 1
+       53 SETTABLEKS                       R12 R11 K15 ["IsEnabled"]
+       55 GETTABLEKS                       R13 R0 K20 ["props"]
+       57 GETTABLEKS                       R12 R13 K16 ["Mouse"]
+       59 SETTABLEKS                       R12 R11 K16 ["Mouse"]
+       61 GETTABLEKS                       R13 R0 K20 ["props"]
+       63 GETTABLEKS                       R12 R13 K17 ["clobberTemplate"]
+       65 SETTABLEKS                       R12 R11 K17 ["clobberTemplate"]
+       67 GETTABLEKS                       R12 R0 K22 ["contentHeightChanged"]
+       69 SETTABLEKS                       R12 R11 K18 ["ContentHeightChanged"]
+       71 CALL                             R9 2 1
+       72 SETTABLEKS                       R9 R8 K11 ["MorpherTemplateContainer"]
+       74 CALL                             R5 3 -1
+       75 SETLIST                          R4 R5 -1 [1]
+       77 CALL                             R1 3 -1
+       78 RETURN                           R1 -1
 
 PROTO_4:
-  DUPTABLE R2 K2 [{"StateTemplates", "StateTheme"}]
-  GETTABLEKS R5 R0 K3 ["MorpherEditorRoot"]
-  GETTABLEKS R4 R5 K4 ["StateMorpher"]
-  GETTABLEKS R3 R4 K0 ["StateTemplates"]
-  SETTABLEKS R3 R2 K0 ["StateTemplates"]
-  GETTABLEKS R5 R0 K3 ["MorpherEditorRoot"]
-  GETTABLEKS R4 R5 K4 ["StateMorpher"]
-  GETTABLEKS R3 R4 K1 ["StateTheme"]
-  SETTABLEKS R3 R2 K1 ["StateTheme"]
-  RETURN R2 1
+        0 DUPTABLE                         R2 K2 [{"StateTemplates", "StateTheme"}]
+        1 GETTABLEKS                       R5 R0 K3 ["MorpherEditorRoot"]
+        3 GETTABLEKS                       R4 R5 K4 ["StateMorpher"]
+        5 GETTABLEKS                       R3 R4 K0 ["StateTemplates"]
+        7 SETTABLEKS                       R3 R2 K0 ["StateTemplates"]
+        9 GETTABLEKS                       R5 R0 K3 ["MorpherEditorRoot"]
+       11 GETTABLEKS                       R4 R5 K4 ["StateMorpher"]
+       13 GETTABLEKS                       R3 R4 K1 ["StateTheme"]
+       15 SETTABLEKS                       R3 R2 K1 ["StateTheme"]
+       17 RETURN                           R2 1
 
 PROTO_5:
-  GETUPVAL R0 0
-  GETUPVAL R1 1
-  CALL R1 0 -1
-  CALL R0 -1 -1
-  RETURN R0 -1
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 CALL                             R1 0 -1
+        3 CALL                             R0 -1 -1
+        4 RETURN                           R0 -1
 
 PROTO_6:
-  GETUPVAL R2 0
-  GETUPVAL R3 1
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 -1
-  CALL R2 -1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETUPVAL                         R3 1
+        2 MOVE                             R4 R0
+        3 MOVE                             R5 R1
+        4 CALL                             R3 2 -1
+        5 CALL                             R2 -1 0
+        6 RETURN                           R0 0
 
 PROTO_7:
-  DUPTABLE R1 K2 [{"addTemplates", "clobberTemplate"}]
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  SETTABLEKS R2 R1 K0 ["addTemplates"]
-  NEWCLOSURE R2 P1
-  CAPTURE VAL R0
-  CAPTURE UPVAL U1
-  SETTABLEKS R2 R1 K1 ["clobberTemplate"]
-  RETURN R1 1
+        0 DUPTABLE                         R1 K2 [{"addTemplates", "clobberTemplate"}]
+        1 NEWCLOSURE                       R2 P0
+        2 CAPTURE                          VAL R0
+        3 CAPTURE                          UPVAL U0
+        4 SETTABLEKS                       R2 R1 K0 ["addTemplates"]
+        6 NEWCLOSURE                       R2 P1
+        7 CAPTURE                          VAL R0
+        8 CAPTURE                          UPVAL U1
+        9 SETTABLEKS                       R2 R1 K1 ["clobberTemplate"]
+       11 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R2 K1 [script]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K2 ["Parent"]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R1 K5 ["Packages"]
-  GETTABLEKS R3 R4 K6 ["Roact"]
-  CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R1 K5 ["Packages"]
-  GETTABLEKS R4 R5 K7 ["RoactRodux"]
-  CALL R3 1 1
-  GETTABLEKS R4 R1 K8 ["RoactStudioWidgets"]
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R7 R0 K9 ["Actions"]
-  GETTABLEKS R6 R7 K10 ["TemplatesAdd"]
-  CALL R5 1 1
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R8 R0 K9 ["Actions"]
-  GETTABLEKS R7 R8 K11 ["TemplatesClobberTemplate"]
-  CALL R6 1 1
-  GETIMPORT R7 K4 [require]
-  GETTABLEKS R9 R0 K12 ["Components"]
-  GETTABLEKS R8 R9 K13 ["MorpherTemplateContainer"]
-  CALL R7 1 1
-  GETIMPORT R8 K4 [require]
-  GETTABLEKS R9 R4 K14 ["StyledScrollingFrame"]
-  CALL R8 1 1
-  GETTABLEKS R9 R2 K15 ["Component"]
-  LOADK R11 K16 ["ComponentRootPanel"]
-  NAMECALL R9 R9 K17 ["extend"]
-  CALL R9 2 1
-  DUPCLOSURE R10 K18 [PROTO_1]
-  CAPTURE VAL R2
-  SETTABLEKS R10 R9 K19 ["init"]
-  DUPCLOSURE R10 K20 [PROTO_2]
-  SETTABLEKS R10 R9 K21 ["didMount"]
-  DUPCLOSURE R10 K22 [PROTO_3]
-  CAPTURE VAL R2
-  CAPTURE VAL R8
-  CAPTURE VAL R7
-  SETTABLEKS R10 R9 K23 ["render"]
-  GETTABLEKS R10 R3 K24 ["UNSTABLE_connect2"]
-  DUPCLOSURE R11 K25 [PROTO_4]
-  DUPCLOSURE R12 K26 [PROTO_7]
-  CAPTURE VAL R5
-  CAPTURE VAL R6
-  CALL R10 2 1
-  MOVE R11 R9
-  CALL R10 1 1
-  MOVE R9 R10
-  RETURN R9 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R2 K1 [script]
+        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        7 GETIMPORT                        R5 K1 [script]
+        9 GETTABLEKS                       R4 R5 K2 ["Parent"]
+       11 GETTABLEKS                       R3 R4 K2 ["Parent"]
+       13 GETTABLEKS                       R2 R3 K2 ["Parent"]
+       15 GETTABLEKS                       R1 R2 K2 ["Parent"]
+       17 GETIMPORT                        R2 K4 [require]
+       19 GETTABLEKS                       R4 R1 K5 ["Packages"]
+       21 GETTABLEKS                       R3 R4 K6 ["Roact"]
+       23 CALL                             R2 1 1
+       24 GETIMPORT                        R3 K4 [require]
+       26 GETTABLEKS                       R5 R1 K5 ["Packages"]
+       28 GETTABLEKS                       R4 R5 K7 ["RoactRodux"]
+       30 CALL                             R3 1 1
+       31 GETTABLEKS                       R4 R1 K8 ["RoactStudioWidgets"]
+       33 GETIMPORT                        R5 K4 [require]
+       35 GETTABLEKS                       R7 R0 K9 ["Actions"]
+       37 GETTABLEKS                       R6 R7 K10 ["TemplatesAdd"]
+       39 CALL                             R5 1 1
+       40 GETIMPORT                        R6 K4 [require]
+       42 GETTABLEKS                       R8 R0 K9 ["Actions"]
+       44 GETTABLEKS                       R7 R8 K11 ["TemplatesClobberTemplate"]
+       46 CALL                             R6 1 1
+       47 GETIMPORT                        R7 K4 [require]
+       49 GETTABLEKS                       R9 R0 K12 ["Components"]
+       51 GETTABLEKS                       R8 R9 K13 ["MorpherTemplateContainer"]
+       53 CALL                             R7 1 1
+       54 GETIMPORT                        R8 K4 [require]
+       56 GETTABLEKS                       R9 R4 K14 ["StyledScrollingFrame"]
+       58 CALL                             R8 1 1
+       59 GETTABLEKS                       R9 R2 K15 ["Component"]
+       61 LOADK                            R11 K16 ["ComponentRootPanel"]
+       62 NAMECALL                         R9 R9 K17 ["extend"]
+       64 CALL                             R9 2 1
+       65 DUPCLOSURE                       R10 K18 [PROTO_1]
+       66 CAPTURE                          VAL R2
+       67 SETTABLEKS                       R10 R9 K19 ["init"]
+       69 DUPCLOSURE                       R10 K20 [PROTO_2]
+       70 SETTABLEKS                       R10 R9 K21 ["didMount"]
+       72 DUPCLOSURE                       R10 K22 [PROTO_3]
+       73 CAPTURE                          VAL R2
+       74 CAPTURE                          VAL R8
+       75 CAPTURE                          VAL R7
+       76 SETTABLEKS                       R10 R9 K23 ["render"]
+       78 GETTABLEKS                       R10 R3 K24 ["UNSTABLE_connect2"]
+       80 DUPCLOSURE                       R11 K25 [PROTO_4]
+       81 DUPCLOSURE                       R12 K26 [PROTO_7]
+       82 CAPTURE                          VAL R5
+       83 CAPTURE                          VAL R6
+       84 CALL                             R10 2 1
+       85 MOVE                             R11 R9
+       86 CALL                             R10 1 1
+       87 MOVE                             R9 R10
+       88 RETURN                           R9 1

@@ -1,51 +1,51 @@
 PROTO_0:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["Dictionary"]
-  GETTABLEKS R2 R3 K1 ["join"]
-  MOVE R3 R0
-  DUPTABLE R4 K3 [{"publishInProgress"}]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K0 ["Dictionary"]
-  GETTABLEKS R5 R6 K1 ["join"]
-  GETTABLEKS R6 R0 K2 ["publishInProgress"]
-  GETTABLEKS R7 R1 K2 ["publishInProgress"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K2 ["publishInProgress"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["Dictionary"]
+        3 GETTABLEKS                       R2 R3 K1 ["join"]
+        5 MOVE                             R3 R0
+        6 DUPTABLE                         R4 K3 [{"publishInProgress"}]
+        7 GETUPVAL                         R7 0
+        8 GETTABLEKS                       R6 R7 K0 ["Dictionary"]
+       10 GETTABLEKS                       R5 R6 K1 ["join"]
+       12 GETTABLEKS                       R6 R0 K2 ["publishInProgress"]
+       14 GETTABLEKS                       R7 R1 K2 ["publishInProgress"]
+       16 CALL                             R5 2 1
+       17 SETTABLEKS                       R5 R4 K2 ["publishInProgress"]
+       19 CALL                             R2 2 -1
+       20 RETURN                           R2 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Rodux"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Cryo"]
-  CALL R2 1 1
-  DUPTABLE R3 K9 [{"publishInProgress"}]
-  DUPTABLE R4 K15 [{"universe", "place", "isPublish", "failCount", "requestInFlight"}]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K10 ["universe"]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K11 ["place"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K12 ["isPublish"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K13 ["failCount"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K14 ["requestInFlight"]
-  SETTABLEKS R4 R3 K8 ["publishInProgress"]
-  GETTABLEKS R4 R1 K16 ["createReducer"]
-  MOVE R5 R3
-  DUPTABLE R6 K18 [{"SetPublishInProgress"}]
-  DUPCLOSURE R7 K19 [PROTO_0]
-  CAPTURE VAL R2
-  SETTABLEKS R7 R6 K17 ["SetPublishInProgress"]
-  CALL R4 2 -1
-  RETURN R4 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K7 ["Cryo"]
+       22 CALL                             R2 1 1
+       23 DUPTABLE                         R3 K9 [{"publishInProgress"}]
+       24 DUPTABLE                         R4 K15 [{"universe", "place", "isPublish", "failCount", "requestInFlight"}]
+       25 NEWTABLE                         R5 0 0
+       27 SETTABLEKS                       R5 R4 K10 ["universe"]
+       29 NEWTABLE                         R5 0 0
+       31 SETTABLEKS                       R5 R4 K11 ["place"]
+       33 LOADB                            R5 0
+       34 SETTABLEKS                       R5 R4 K12 ["isPublish"]
+       36 LOADN                            R5 0
+       37 SETTABLEKS                       R5 R4 K13 ["failCount"]
+       39 LOADB                            R5 0
+       40 SETTABLEKS                       R5 R4 K14 ["requestInFlight"]
+       42 SETTABLEKS                       R4 R3 K8 ["publishInProgress"]
+       44 GETTABLEKS                       R4 R1 K16 ["createReducer"]
+       46 MOVE                             R5 R3
+       47 DUPTABLE                         R6 K18 [{"SetPublishInProgress"}]
+       48 DUPCLOSURE                       R7 K19 [PROTO_0]
+       49 CAPTURE                          VAL R2
+       50 SETTABLEKS                       R7 R6 K17 ["SetPublishInProgress"]
+       52 CALL                             R4 2 -1
+       53 RETURN                           R4 -1

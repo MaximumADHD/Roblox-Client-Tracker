@@ -1,66 +1,66 @@
 PROTO_0:
-  NAMECALL R1 R0 K0 ["getState"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K1 ["AnimationData"]
-  JUMPIFNOT R2 [+3]
-  GETTABLEKS R3 R2 K2 ["Metadata"]
-  JUMPIF R3 [+1]
-  RETURN R0 0
-  GETTABLEKS R4 R2 K2 ["Metadata"]
-  GETTABLEKS R3 R4 K3 ["EndTick"]
-  GETUPVAL R5 0
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K4 ["TICK_FREQUENCY"]
-  FASTCALL3 MATH_MAX R5 R3 R7
-  MOVE R6 R3
-  GETIMPORT R4 K7 [math.max]
-  CALL R4 3 1
-  SETUPVAL R4 0
-  GETUPVAL R6 2
-  GETUPVAL R7 0
-  CALL R6 1 -1
-  NAMECALL R4 R0 K8 ["dispatch"]
-  CALL R4 -1 0
-  GETUPVAL R6 3
-  LOADN R7 0
-  LOADN R8 0
-  CALL R6 2 -1
-  NAMECALL R4 R0 K8 ["dispatch"]
-  CALL R4 -1 0
-  RETURN R0 0
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R2 R1 K1 ["AnimationData"]
+        5 JUMPIFNOT                        R2 ; [+3]
+        6 GETTABLEKS                       R3 R2 K2 ["Metadata"]
+        8 JUMPIF                           R3 ; [+1]
+        9 RETURN                           R0 0
+       10 GETTABLEKS                       R4 R2 K2 ["Metadata"]
+       12 GETTABLEKS                       R3 R4 K3 ["EndTick"]
+       14 GETUPVAL                         R5 0
+       15 GETUPVAL                         R8 1
+       16 GETTABLEKS                       R7 R8 K4 ["TICK_FREQUENCY"]
+       18 FASTCALL3                        MATH_MAX R5 R3 R7
+       20 MOVE                             R6 R3
+       21 GETIMPORT                        R4 K7 [math.max]
+       23 CALL                             R4 3 1
+       24 SETUPVAL                         R4 0
+       25 GETUPVAL                         R6 2
+       26 GETUPVAL                         R7 0
+       27 CALL                             R6 1 -1
+       28 NAMECALL                         R4 R0 K8 ["dispatch"]
+       30 CALL                             R4 -1 0
+       31 GETUPVAL                         R6 3
+       32 LOADN                            R7 0
+       33 LOADN                            R8 0
+       34 CALL                             R6 2 -1
+       35 NAMECALL                         R4 R0 K8 ["dispatch"]
+       37 CALL                             R4 -1 0
+       38 RETURN                           R0 0
 
 PROTO_1:
-  NEWCLOSURE R1 P0
-  CAPTURE REF R0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CLOSEUPVALS R0
-  RETURN R1 1
+        0 NEWCLOSURE                       R1 P0
+        1 CAPTURE                          REF R0
+        2 CAPTURE                          UPVAL U0
+        3 CAPTURE                          UPVAL U1
+        4 CAPTURE                          UPVAL U2
+        5 CLOSEUPVALS                      R0
+        6 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AnimationClipEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["Constants"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Actions"]
-  GETTABLEKS R3 R4 K10 ["SetHorizontalScrollZoom"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K9 ["Actions"]
-  GETTABLEKS R4 R5 K11 ["SetEditingLength"]
-  CALL R3 1 1
-  DUPCLOSURE R4 K12 [PROTO_1]
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  CAPTURE VAL R2
-  RETURN R4 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AnimationClipEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Src"]
+       11 GETTABLEKS                       R3 R4 K7 ["Util"]
+       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R5 R0 K6 ["Src"]
+       20 GETTABLEKS                       R4 R5 K9 ["Actions"]
+       22 GETTABLEKS                       R3 R4 K10 ["SetHorizontalScrollZoom"]
+       24 CALL                             R2 1 1
+       25 GETIMPORT                        R3 K5 [require]
+       27 GETTABLEKS                       R6 R0 K6 ["Src"]
+       29 GETTABLEKS                       R5 R6 K9 ["Actions"]
+       31 GETTABLEKS                       R4 R5 K11 ["SetEditingLength"]
+       33 CALL                             R3 1 1
+       34 DUPCLOSURE                       R4 K12 [PROTO_1]
+       35 CAPTURE                          VAL R1
+       36 CAPTURE                          VAL R3
+       37 CAPTURE                          VAL R2
+       38 RETURN                           R4 1

@@ -1,124 +1,124 @@
 PROTO_0:
-  GETUPVAL R0 0
-  GETUPVAL R1 1
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K0 ["MenuTabs"]
-  CALL R0 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 GETUPVAL                         R3 2
+        3 GETTABLEKS                       R2 R3 K0 ["MenuTabs"]
+        5 CALL                             R0 2 0
+        6 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["use"]
-  CALL R1 1 1
-  NAMECALL R1 R1 K1 ["get"]
-  CALL R1 1 1
-  GETUPVAL R2 1
-  LOADK R4 K2 ["PickTabMenu"]
-  NAMECALL R2 R2 K0 ["use"]
-  CALL R2 2 1
-  GETUPVAL R3 2
-  LOADB R4 0
-  CALL R3 1 1
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K3 ["createElement"]
-  GETUPVAL R5 4
-  DUPTABLE R6 K8 [{"Position", "Size", "BackgroundColor3", "Padding"}]
-  GETTABLEKS R7 R2 K4 ["Position"]
-  SETTABLEKS R7 R6 K4 ["Position"]
-  GETTABLEKS R7 R2 K5 ["Size"]
-  SETTABLEKS R7 R6 K5 ["Size"]
-  GETTABLEKS R7 R0 K9 ["BackgroundColor"]
-  SETTABLEKS R7 R6 K6 ["BackgroundColor3"]
-  GETTABLEKS R7 R2 K7 ["Padding"]
-  SETTABLEKS R7 R6 K7 ["Padding"]
-  DUPTABLE R7 K11 [{"Button"}]
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K3 ["createElement"]
-  GETUPVAL R9 4
-  NEWTABLE R10 4 0
-  NEWCLOSURE R11 P0
-  CAPTURE UPVAL U5
-  CAPTURE VAL R1
-  CAPTURE VAL R0
-  SETTABLEKS R11 R10 K12 ["OnClick"]
-  GETTABLEKS R12 R3 K13 ["enabled"]
-  JUMPIFNOT R12 [+3]
-  GETTABLEKS R11 R0 K14 ["BackgroundColorHover"]
-  JUMP [+2]
-  GETTABLEKS R11 R0 K9 ["BackgroundColor"]
-  SETTABLEKS R11 R10 K6 ["BackgroundColor3"]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K15 ["Event"]
-  GETTABLEKS R11 R12 K16 ["MouseEnter"]
-  GETTABLEKS R12 R3 K17 ["enable"]
-  SETTABLE R12 R10 R11
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K15 ["Event"]
-  GETTABLEKS R11 R12 K18 ["MouseLeave"]
-  GETTABLEKS R12 R3 K19 ["disable"]
-  SETTABLE R12 R10 R11
-  DUPTABLE R11 K22 [{"UICorner", "DotsIcon"}]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K3 ["createElement"]
-  LOADK R13 K20 ["UICorner"]
-  DUPTABLE R14 K24 [{"CornerRadius"}]
-  GETTABLEKS R15 R2 K23 ["CornerRadius"]
-  SETTABLEKS R15 R14 K23 ["CornerRadius"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K20 ["UICorner"]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K3 ["createElement"]
-  GETUPVAL R13 6
-  DUPTABLE R14 K27 [{"Style", "ImageColor3"}]
-  LOADK R15 K2 ["PickTabMenu"]
-  SETTABLEKS R15 R14 K25 ["Style"]
-  GETTABLEKS R15 R2 K28 ["ImageColor"]
-  SETTABLEKS R15 R14 K26 ["ImageColor3"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K21 ["DotsIcon"]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K10 ["Button"]
-  CALL R4 3 -1
-  RETURN R4 -1
+        0 GETUPVAL                         R1 0
+        1 NAMECALL                         R1 R1 K0 ["use"]
+        3 CALL                             R1 1 1
+        4 NAMECALL                         R1 R1 K1 ["get"]
+        6 CALL                             R1 1 1
+        7 GETUPVAL                         R2 1
+        8 LOADK                            R4 K2 ["PickTabMenu"]
+        9 NAMECALL                         R2 R2 K0 ["use"]
+       11 CALL                             R2 2 1
+       12 GETUPVAL                         R3 2
+       13 LOADB                            R4 0
+       14 CALL                             R3 1 1
+       15 GETUPVAL                         R5 3
+       16 GETTABLEKS                       R4 R5 K3 ["createElement"]
+       18 GETUPVAL                         R5 4
+       19 DUPTABLE                         R6 K8 [{"Position", "Size", "BackgroundColor3", "Padding"}]
+       20 GETTABLEKS                       R7 R2 K4 ["Position"]
+       22 SETTABLEKS                       R7 R6 K4 ["Position"]
+       24 GETTABLEKS                       R7 R2 K5 ["Size"]
+       26 SETTABLEKS                       R7 R6 K5 ["Size"]
+       28 GETTABLEKS                       R7 R0 K9 ["BackgroundColor"]
+       30 SETTABLEKS                       R7 R6 K6 ["BackgroundColor3"]
+       32 GETTABLEKS                       R7 R2 K7 ["Padding"]
+       34 SETTABLEKS                       R7 R6 K7 ["Padding"]
+       36 DUPTABLE                         R7 K11 [{"Button"}]
+       37 GETUPVAL                         R9 3
+       38 GETTABLEKS                       R8 R9 K3 ["createElement"]
+       40 GETUPVAL                         R9 4
+       41 NEWTABLE                         R10 4 0
+       43 NEWCLOSURE                       R11 P0
+       44 CAPTURE                          UPVAL U5
+       45 CAPTURE                          VAL R1
+       46 CAPTURE                          VAL R0
+       47 SETTABLEKS                       R11 R10 K12 ["OnClick"]
+       49 GETTABLEKS                       R12 R3 K13 ["enabled"]
+       51 JUMPIFNOT                        R12 ; [+3]
+       52 GETTABLEKS                       R11 R0 K14 ["BackgroundColorHover"]
+       54 JUMP                             ; [+2]
+       55 GETTABLEKS                       R11 R0 K9 ["BackgroundColor"]
+       57 SETTABLEKS                       R11 R10 K6 ["BackgroundColor3"]
+       59 GETUPVAL                         R13 3
+       60 GETTABLEKS                       R12 R13 K15 ["Event"]
+       62 GETTABLEKS                       R11 R12 K16 ["MouseEnter"]
+       64 GETTABLEKS                       R12 R3 K17 ["enable"]
+       66 SETTABLE                         R12 R10 R11
+       67 GETUPVAL                         R13 3
+       68 GETTABLEKS                       R12 R13 K15 ["Event"]
+       70 GETTABLEKS                       R11 R12 K18 ["MouseLeave"]
+       72 GETTABLEKS                       R12 R3 K19 ["disable"]
+       74 SETTABLE                         R12 R10 R11
+       75 DUPTABLE                         R11 K22 [{"UICorner", "DotsIcon"}]
+       76 GETUPVAL                         R13 3
+       77 GETTABLEKS                       R12 R13 K3 ["createElement"]
+       79 LOADK                            R13 K20 ["UICorner"]
+       80 DUPTABLE                         R14 K24 [{"CornerRadius"}]
+       81 GETTABLEKS                       R15 R2 K23 ["CornerRadius"]
+       83 SETTABLEKS                       R15 R14 K23 ["CornerRadius"]
+       85 CALL                             R12 2 1
+       86 SETTABLEKS                       R12 R11 K20 ["UICorner"]
+       88 GETUPVAL                         R13 3
+       89 GETTABLEKS                       R12 R13 K3 ["createElement"]
+       91 GETUPVAL                         R13 6
+       92 DUPTABLE                         R14 K27 [{"Style", "ImageColor3"}]
+       93 LOADK                            R15 K2 ["PickTabMenu"]
+       94 SETTABLEKS                       R15 R14 K25 ["Style"]
+       96 GETTABLEKS                       R15 R2 K28 ["ImageColor"]
+       98 SETTABLEKS                       R15 R14 K26 ["ImageColor3"]
+      100 CALL                             R12 2 1
+      101 SETTABLEKS                       R12 R11 K21 ["DotsIcon"]
+      103 CALL                             R8 3 1
+      104 SETTABLEKS                       R8 R7 K10 ["Button"]
+      106 CALL                             R4 3 -1
+      107 RETURN                           R4 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Framework"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["React"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Hooks"]
-  GETTABLEKS R4 R5 K11 ["useToggleState"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K9 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Resources"]
-  GETTABLEKS R5 R6 K13 ["Theme"]
-  CALL R4 1 1
-  GETTABLEKS R5 R1 K14 ["UI"]
-  GETTABLEKS R6 R5 K15 ["Image"]
-  GETTABLEKS R7 R5 K16 ["Pane"]
-  GETTABLEKS R8 R5 K17 ["showContextMenu"]
-  GETTABLEKS R10 R1 K18 ["ContextServices"]
-  GETTABLEKS R9 R10 K19 ["Plugin"]
-  GETTABLEKS R11 R1 K18 ["ContextServices"]
-  GETTABLEKS R10 R11 K20 ["Stylizer"]
-  DUPCLOSURE R11 K21 [PROTO_1]
-  CAPTURE VAL R9
-  CAPTURE VAL R10
-  CAPTURE VAL R3
-  CAPTURE VAL R2
-  CAPTURE VAL R7
-  CAPTURE VAL R8
-  CAPTURE VAL R6
-  RETURN R11 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarCompatibilityPreviewer"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R6 R0 K9 ["Src"]
+       25 GETTABLEKS                       R5 R6 K10 ["Hooks"]
+       27 GETTABLEKS                       R4 R5 K11 ["useToggleState"]
+       29 CALL                             R3 1 1
+       30 GETIMPORT                        R4 K5 [require]
+       32 GETTABLEKS                       R7 R0 K9 ["Src"]
+       34 GETTABLEKS                       R6 R7 K12 ["Resources"]
+       36 GETTABLEKS                       R5 R6 K13 ["Theme"]
+       38 CALL                             R4 1 1
+       39 GETTABLEKS                       R5 R1 K14 ["UI"]
+       41 GETTABLEKS                       R6 R5 K15 ["Image"]
+       43 GETTABLEKS                       R7 R5 K16 ["Pane"]
+       45 GETTABLEKS                       R8 R5 K17 ["showContextMenu"]
+       47 GETTABLEKS                       R10 R1 K18 ["ContextServices"]
+       49 GETTABLEKS                       R9 R10 K19 ["Plugin"]
+       51 GETTABLEKS                       R11 R1 K18 ["ContextServices"]
+       53 GETTABLEKS                       R10 R11 K20 ["Stylizer"]
+       55 DUPCLOSURE                       R11 K21 [PROTO_1]
+       56 CAPTURE                          VAL R9
+       57 CAPTURE                          VAL R10
+       58 CAPTURE                          VAL R3
+       59 CAPTURE                          VAL R2
+       60 CAPTURE                          VAL R7
+       61 CAPTURE                          VAL R8
+       62 CAPTURE                          VAL R6
+       63 RETURN                           R11 1

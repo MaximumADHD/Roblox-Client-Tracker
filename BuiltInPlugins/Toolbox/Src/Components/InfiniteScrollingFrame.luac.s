@@ -1,179 +1,179 @@
 PROTO_0:
-  GETTABLEKS R2 R0 K0 ["scrollingFrameRef"]
-  GETTABLEKS R1 R2 K1 ["current"]
-  JUMPIF R1 [+1]
-  RETURN R0 0
-  GETTABLEKS R3 R1 K2 ["CanvasPosition"]
-  GETTABLEKS R2 R3 K3 ["Y"]
-  GETTABLEKS R4 R1 K4 ["AbsoluteWindowSize"]
-  GETTABLEKS R3 R4 K3 ["Y"]
-  GETTABLEKS R6 R1 K5 ["CanvasSize"]
-  GETTABLEKS R5 R6 K3 ["Y"]
-  GETTABLEKS R4 R5 K6 ["Offset"]
-  ADD R5 R2 R3
-  SUB R6 R4 R5
-  LOADN R7 0
-  JUMPIFNOTLE R6 R7 [+4]
-  GETTABLEKS R7 R0 K7 ["requestNextPage"]
-  CALL R7 0 0
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["scrollingFrameRef"]
+        2 GETTABLEKS                       R1 R2 K1 ["current"]
+        4 JUMPIF                           R1 ; [+1]
+        5 RETURN                           R0 0
+        6 GETTABLEKS                       R3 R1 K2 ["CanvasPosition"]
+        8 GETTABLEKS                       R2 R3 K3 ["Y"]
+       10 GETTABLEKS                       R4 R1 K4 ["AbsoluteWindowSize"]
+       12 GETTABLEKS                       R3 R4 K3 ["Y"]
+       14 GETTABLEKS                       R6 R1 K5 ["CanvasSize"]
+       16 GETTABLEKS                       R5 R6 K3 ["Y"]
+       18 GETTABLEKS                       R4 R5 K6 ["Offset"]
+       20 ADD                              R5 R2 R3
+       21 SUB                              R6 R4 R5
+       22 LOADN                            R7 0
+       23 JUMPIFNOTLE                      R6 R7 ; [+4]
+       25 GETTABLEKS                       R7 R0 K7 ["requestNextPage"]
+       27 CALL                             R7 0 0
+       28 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["checkCanvasAndRequest"]
-  GETUPVAL R1 0
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["checkCanvasAndRequest"]
+        3 GETUPVAL                         R1 0
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["props"]
-  GETTABLEKS R0 R1 K1 ["nextPageFunc"]
-  JUMPIFNOT R0 [+12]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["props"]
-  GETTABLEKS R0 R1 K1 ["nextPageFunc"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K3 ["state"]
-  GETTABLEKS R2 R3 K4 ["currentPage"]
-  ADDK R1 R2 K2 [1]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["props"]
+        3 GETTABLEKS                       R0 R1 K1 ["nextPageFunc"]
+        5 JUMPIFNOT                        R0 ; [+12]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R1 R2 K0 ["props"]
+        9 GETTABLEKS                       R0 R1 K1 ["nextPageFunc"]
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R3 R4 K3 ["state"]
+       14 GETTABLEKS                       R2 R3 K4 ["currentPage"]
+       16 ADDK                             R1 R2 K2 [1]
+       17 CALL                             R0 1 0
+       18 RETURN                           R0 0
 
 PROTO_3:
-  DUPTABLE R2 K1 [{"currentPage"}]
-  LOADN R3 1
-  SETTABLEKS R3 R2 K0 ["currentPage"]
-  SETTABLEKS R2 R0 K2 ["state"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K3 ["createRef"]
-  CALL R2 0 1
-  SETTABLEKS R2 R0 K4 ["scrollingFrameRef"]
-  DUPCLOSURE R2 K5 [PROTO_0]
-  SETTABLEKS R2 R0 K6 ["checkCanvasAndRequest"]
-  NEWCLOSURE R2 P1
-  CAPTURE VAL R0
-  SETTABLEKS R2 R0 K7 ["onScroll"]
-  NEWCLOSURE R2 P2
-  CAPTURE VAL R0
-  SETTABLEKS R2 R0 K8 ["requestNextPage"]
-  RETURN R0 0
+        0 DUPTABLE                         R2 K1 [{"currentPage"}]
+        1 LOADN                            R3 1
+        2 SETTABLEKS                       R3 R2 K0 ["currentPage"]
+        4 SETTABLEKS                       R2 R0 K2 ["state"]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R2 R3 K3 ["createRef"]
+        9 CALL                             R2 0 1
+       10 SETTABLEKS                       R2 R0 K4 ["scrollingFrameRef"]
+       12 DUPCLOSURE                       R2 K5 [PROTO_0]
+       13 SETTABLEKS                       R2 R0 K6 ["checkCanvasAndRequest"]
+       15 NEWCLOSURE                       R2 P1
+       16 CAPTURE                          VAL R0
+       17 SETTABLEKS                       R2 R0 K7 ["onScroll"]
+       19 NEWCLOSURE                       R2 P2
+       20 CAPTURE                          VAL R0
+       21 SETTABLEKS                       R2 R0 K8 ["requestNextPage"]
+       23 RETURN                           R0 0
 
 PROTO_4:
-  DUPTABLE R2 K1 [{"currentPage"}]
-  GETTABLEKS R3 R0 K0 ["currentPage"]
-  SETTABLEKS R3 R2 K0 ["currentPage"]
-  RETURN R2 1
+        0 DUPTABLE                         R2 K1 [{"currentPage"}]
+        1 GETTABLEKS                       R3 R0 K0 ["currentPage"]
+        3 SETTABLEKS                       R3 R2 K0 ["currentPage"]
+        5 RETURN                           R2 1
 
 PROTO_5:
-  GETTABLEKS R1 R0 K0 ["checkCanvasAndRequest"]
-  MOVE R2 R0
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["checkCanvasAndRequest"]
+        2 MOVE                             R2 R0
+        3 CALL                             R1 1 0
+        4 RETURN                           R0 0
 
 PROTO_6:
-  GETTABLEKS R3 R0 K0 ["checkCanvasAndRequest"]
-  MOVE R4 R0
-  CALL R3 1 0
-  RETURN R0 0
+        0 GETTABLEKS                       R3 R0 K0 ["checkCanvasAndRequest"]
+        2 MOVE                             R4 R0
+        3 CALL                             R3 1 0
+        4 RETURN                           R0 0
 
 PROTO_7:
-  GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R0 K1 ["state"]
-  GETTABLEKS R3 R1 K2 ["Position"]
-  GETTABLEKS R4 R1 K3 ["Size"]
-  GETTABLEKS R5 R1 K4 ["LayoutOrder"]
-  GETTABLEKS R7 R1 K5 ["layouterRef"]
-  GETTABLEKS R6 R7 K6 ["current"]
-  LOADN R7 132
-  JUMPIFNOT R6 [+4]
-  GETTABLEKS R8 R6 K7 ["AbsoluteContentSize"]
-  GETTABLEKS R7 R8 K8 ["Y"]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K9 ["createElement"]
-  GETUPVAL R9 1
-  NEWTABLE R10 16 0
-  SETTABLEKS R3 R10 K2 ["Position"]
-  SETTABLEKS R4 R10 K3 ["Size"]
-  GETIMPORT R11 K12 [UDim2.new]
-  LOADN R12 1
-  LOADN R13 0
-  LOADN R14 0
-  MOVE R15 R7
-  CALL R11 4 1
-  SETTABLEKS R11 R10 K13 ["CanvasSize"]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K14 ["ZIndex"]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K15 ["BackgroundTransparency"]
-  LOADN R11 0
-  SETTABLEKS R11 R10 K16 ["BorderSizePixel"]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K17 ["scrollingEnabled"]
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K18 ["Ref"]
-  GETTABLEKS R12 R0 K19 ["scrollingFrameRef"]
-  SETTABLE R12 R10 R11
-  GETTABLEKS R11 R0 K20 ["onScroll"]
-  SETTABLEKS R11 R10 K20 ["onScroll"]
-  SETTABLEKS R5 R10 K4 ["LayoutOrder"]
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K21 ["Children"]
-  GETTABLE R11 R1 R12
-  CALL R8 3 -1
-  RETURN R8 -1
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R0 K1 ["state"]
+        4 GETTABLEKS                       R3 R1 K2 ["Position"]
+        6 GETTABLEKS                       R4 R1 K3 ["Size"]
+        8 GETTABLEKS                       R5 R1 K4 ["LayoutOrder"]
+       10 GETTABLEKS                       R7 R1 K5 ["layouterRef"]
+       12 GETTABLEKS                       R6 R7 K6 ["current"]
+       14 LOADN                            R7 132
+       15 JUMPIFNOT                        R6 ; [+4]
+       16 GETTABLEKS                       R8 R6 K7 ["AbsoluteContentSize"]
+       18 GETTABLEKS                       R7 R8 K8 ["Y"]
+       20 GETUPVAL                         R9 0
+       21 GETTABLEKS                       R8 R9 K9 ["createElement"]
+       23 GETUPVAL                         R9 1
+       24 NEWTABLE                         R10 16 0
+       26 SETTABLEKS                       R3 R10 K2 ["Position"]
+       28 SETTABLEKS                       R4 R10 K3 ["Size"]
+       30 GETIMPORT                        R11 K12 [UDim2.new]
+       32 LOADN                            R12 1
+       33 LOADN                            R13 0
+       34 LOADN                            R14 0
+       35 MOVE                             R15 R7
+       36 CALL                             R11 4 1
+       37 SETTABLEKS                       R11 R10 K13 ["CanvasSize"]
+       39 LOADN                            R11 1
+       40 SETTABLEKS                       R11 R10 K14 ["ZIndex"]
+       42 LOADN                            R11 1
+       43 SETTABLEKS                       R11 R10 K15 ["BackgroundTransparency"]
+       45 LOADN                            R11 0
+       46 SETTABLEKS                       R11 R10 K16 ["BorderSizePixel"]
+       48 LOADB                            R11 1
+       49 SETTABLEKS                       R11 R10 K17 ["scrollingEnabled"]
+       51 GETUPVAL                         R12 0
+       52 GETTABLEKS                       R11 R12 K18 ["Ref"]
+       54 GETTABLEKS                       R12 R0 K19 ["scrollingFrameRef"]
+       56 SETTABLE                         R12 R10 R11
+       57 GETTABLEKS                       R11 R0 K20 ["onScroll"]
+       59 SETTABLEKS                       R11 R10 K20 ["onScroll"]
+       61 SETTABLEKS                       R5 R10 K4 ["LayoutOrder"]
+       63 GETUPVAL                         R13 0
+       64 GETTABLEKS                       R12 R13 K21 ["Children"]
+       66 GETTABLE                         R11 R1 R12
+       67 CALL                             R8 3 -1
+       68 RETURN                           R8 -1
 
 PROTO_8:
-  MOVE R2 R0
-  JUMPIF R2 [+2]
-  NEWTABLE R2 0 0
-  MOVE R0 R2
-  DUPTABLE R2 K1 [{"currentPage"}]
-  GETTABLEKS R4 R0 K0 ["currentPage"]
-  ORK R3 R4 K2 [1]
-  SETTABLEKS R3 R2 K0 ["currentPage"]
-  RETURN R2 1
+        0 MOVE                             R2 R0
+        1 JUMPIF                           R2 ; [+2]
+        2 NEWTABLE                         R2 0 0
+        4 MOVE                             R0 R2
+        5 DUPTABLE                         R2 K1 [{"currentPage"}]
+        6 GETTABLEKS                       R4 R0 K0 ["currentPage"]
+        8 ORK                              R3 R4 K2 [1]
+        9 SETTABLEKS                       R3 R2 K0 ["currentPage"]
+       11 RETURN                           R2 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R1 R0 K3 ["Packages"]
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R3 R1 K6 ["Roact"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R4 R1 K7 ["RoactRodux"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K8 ["Src"]
-  GETTABLEKS R6 R7 K9 ["Components"]
-  GETTABLEKS R5 R6 K10 ["StyledScrollingFrame"]
-  CALL R4 1 1
-  GETTABLEKS R5 R2 K11 ["PureComponent"]
-  LOADK R7 K12 ["InfiniteScrollingFrame"]
-  NAMECALL R5 R5 K13 ["extend"]
-  CALL R5 2 1
-  DUPCLOSURE R6 K14 [PROTO_3]
-  CAPTURE VAL R2
-  SETTABLEKS R6 R5 K15 ["init"]
-  DUPCLOSURE R6 K16 [PROTO_4]
-  SETTABLEKS R6 R5 K17 ["getDerivedStateFromProps"]
-  DUPCLOSURE R6 K18 [PROTO_5]
-  SETTABLEKS R6 R5 K19 ["didMount"]
-  DUPCLOSURE R6 K20 [PROTO_6]
-  SETTABLEKS R6 R5 K21 ["didUpdate"]
-  DUPCLOSURE R6 K22 [PROTO_7]
-  CAPTURE VAL R2
-  CAPTURE VAL R4
-  SETTABLEKS R6 R5 K23 ["render"]
-  DUPCLOSURE R6 K24 [PROTO_8]
-  GETTABLEKS R7 R3 K25 ["connect"]
-  MOVE R8 R6
-  LOADNIL R9
-  CALL R7 2 1
-  MOVE R8 R5
-  CALL R7 1 -1
-  RETURN R7 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R0 K3 ["Packages"]
+       11 GETIMPORT                        R2 K5 [require]
+       13 GETTABLEKS                       R3 R1 K6 ["Roact"]
+       15 CALL                             R2 1 1
+       16 GETIMPORT                        R3 K5 [require]
+       18 GETTABLEKS                       R4 R1 K7 ["RoactRodux"]
+       20 CALL                             R3 1 1
+       21 GETIMPORT                        R4 K5 [require]
+       23 GETTABLEKS                       R7 R0 K8 ["Src"]
+       25 GETTABLEKS                       R6 R7 K9 ["Components"]
+       27 GETTABLEKS                       R5 R6 K10 ["StyledScrollingFrame"]
+       29 CALL                             R4 1 1
+       30 GETTABLEKS                       R5 R2 K11 ["PureComponent"]
+       32 LOADK                            R7 K12 ["InfiniteScrollingFrame"]
+       33 NAMECALL                         R5 R5 K13 ["extend"]
+       35 CALL                             R5 2 1
+       36 DUPCLOSURE                       R6 K14 [PROTO_3]
+       37 CAPTURE                          VAL R2
+       38 SETTABLEKS                       R6 R5 K15 ["init"]
+       40 DUPCLOSURE                       R6 K16 [PROTO_4]
+       41 SETTABLEKS                       R6 R5 K17 ["getDerivedStateFromProps"]
+       43 DUPCLOSURE                       R6 K18 [PROTO_5]
+       44 SETTABLEKS                       R6 R5 K19 ["didMount"]
+       46 DUPCLOSURE                       R6 K20 [PROTO_6]
+       47 SETTABLEKS                       R6 R5 K21 ["didUpdate"]
+       49 DUPCLOSURE                       R6 K22 [PROTO_7]
+       50 CAPTURE                          VAL R2
+       51 CAPTURE                          VAL R4
+       52 SETTABLEKS                       R6 R5 K23 ["render"]
+       54 DUPCLOSURE                       R6 K24 [PROTO_8]
+       55 GETTABLEKS                       R7 R3 K25 ["connect"]
+       57 MOVE                             R8 R6
+       58 LOADNIL                          R9
+       59 CALL                             R7 2 1
+       60 MOVE                             R8 R5
+       61 CALL                             R7 1 -1
+       62 RETURN                           R7 -1

@@ -1,68 +1,68 @@
 PROTO_0:
-  NAMECALL R1 R0 K0 ["getState"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K1 ["AnimationData"]
-  JUMPIFNOT R2 [+45]
-  GETTABLEKS R3 R2 K2 ["Metadata"]
-  JUMPIFNOT R3 [+42]
-  GETTABLEKS R4 R2 K2 ["Metadata"]
-  GETTABLEKS R3 R4 K3 ["EndTick"]
-  LOADN R4 0
-  JUMPIFNOTLT R4 R3 [+36]
-  NAMECALL R5 R0 K0 ["getState"]
-  CALL R5 1 1
-  GETTABLEKS R4 R5 K4 ["Status"]
-  GETTABLEKS R3 R4 K5 ["PlayState"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K6 ["PLAY_STATE"]
-  GETTABLEKS R4 R5 K7 ["Pause"]
-  JUMPIFNOTEQ R3 R4 [+12]
-  GETUPVAL R5 1
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K6 ["PLAY_STATE"]
-  GETTABLEKS R6 R7 K8 ["Play"]
-  CALL R5 1 -1
-  NAMECALL R3 R0 K9 ["dispatch"]
-  CALL R3 -1 0
-  JUMP [+10]
-  GETUPVAL R5 1
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K6 ["PLAY_STATE"]
-  GETTABLEKS R6 R7 K7 ["Pause"]
-  CALL R5 1 -1
-  NAMECALL R3 R0 K9 ["dispatch"]
-  CALL R3 -1 0
-  GETUPVAL R3 2
-  LOADK R5 K10 ["onControlPressed"]
-  LOADK R6 K11 ["TogglePlay"]
-  NAMECALL R3 R3 K12 ["report"]
-  CALL R3 3 0
-  RETURN R0 0
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R2 R1 K1 ["AnimationData"]
+        5 JUMPIFNOT                        R2 ; [+45]
+        6 GETTABLEKS                       R3 R2 K2 ["Metadata"]
+        8 JUMPIFNOT                        R3 ; [+42]
+        9 GETTABLEKS                       R4 R2 K2 ["Metadata"]
+       11 GETTABLEKS                       R3 R4 K3 ["EndTick"]
+       13 LOADN                            R4 0
+       14 JUMPIFNOTLT                      R4 R3 ; [+36]
+       16 NAMECALL                         R5 R0 K0 ["getState"]
+       18 CALL                             R5 1 1
+       19 GETTABLEKS                       R4 R5 K4 ["Status"]
+       21 GETTABLEKS                       R3 R4 K5 ["PlayState"]
+       23 GETUPVAL                         R6 0
+       24 GETTABLEKS                       R5 R6 K6 ["PLAY_STATE"]
+       26 GETTABLEKS                       R4 R5 K7 ["Pause"]
+       28 JUMPIFNOTEQ                      R3 R4 ; [+12]
+       30 GETUPVAL                         R5 1
+       31 GETUPVAL                         R8 0
+       32 GETTABLEKS                       R7 R8 K6 ["PLAY_STATE"]
+       34 GETTABLEKS                       R6 R7 K8 ["Play"]
+       36 CALL                             R5 1 -1
+       37 NAMECALL                         R3 R0 K9 ["dispatch"]
+       39 CALL                             R3 -1 0
+       40 JUMP                             ; [+10]
+       41 GETUPVAL                         R5 1
+       42 GETUPVAL                         R8 0
+       43 GETTABLEKS                       R7 R8 K6 ["PLAY_STATE"]
+       45 GETTABLEKS                       R6 R7 K7 ["Pause"]
+       47 CALL                             R5 1 -1
+       48 NAMECALL                         R3 R0 K9 ["dispatch"]
+       50 CALL                             R3 -1 0
+       51 GETUPVAL                         R3 2
+       52 LOADK                            R5 K10 ["onControlPressed"]
+       53 LOADK                            R6 K11 ["TogglePlay"]
+       54 NAMECALL                         R3 R3 K12 ["report"]
+       56 CALL                             R3 3 0
+       57 RETURN                           R0 0
 
 PROTO_1:
-  NEWCLOSURE R1 P0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE VAL R0
-  RETURN R1 1
+        0 NEWCLOSURE                       R1 P0
+        1 CAPTURE                          UPVAL U0
+        2 CAPTURE                          UPVAL U1
+        3 CAPTURE                          VAL R0
+        4 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AnimationClipEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["Constants"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Actions"]
-  GETTABLEKS R3 R4 K10 ["SetPlayState"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K11 [PROTO_1]
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AnimationClipEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Src"]
+       11 GETTABLEKS                       R3 R4 K7 ["Util"]
+       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R5 R0 K6 ["Src"]
+       20 GETTABLEKS                       R4 R5 K9 ["Actions"]
+       22 GETTABLEKS                       R3 R4 K10 ["SetPlayState"]
+       24 CALL                             R2 1 1
+       25 DUPCLOSURE                       R3 K11 [PROTO_1]
+       26 CAPTURE                          VAL R1
+       27 CAPTURE                          VAL R2
+       28 RETURN                           R3 1

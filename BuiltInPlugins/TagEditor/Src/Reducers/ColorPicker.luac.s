@@ -1,11 +1,11 @@
 PROTO_0:
-  GETTABLEKS R2 R1 K0 ["type"]
-  JUMPIFNOTEQKS R2 K1 ["ToggleColorPicker"] [+4]
-  GETTABLEKS R2 R1 K2 ["tag"]
-  RETURN R2 1
-  RETURN R0 1
+        0 GETTABLEKS                       R2 R1 K0 ["type"]
+        2 JUMPIFNOTEQKS                    R2 K1 ["ToggleColorPicker"] ; [+4]
+        4 GETTABLEKS                       R2 R1 K2 ["tag"]
+        6 RETURN                           R2 1
+        7 RETURN                           R0 1
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 RETURN                           R0 1

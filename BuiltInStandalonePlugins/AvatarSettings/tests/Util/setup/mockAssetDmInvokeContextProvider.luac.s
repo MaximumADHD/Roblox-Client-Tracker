@@ -1,56 +1,56 @@
 PROTO_0:
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["use"]
-  CALL R1 1 1
-  NAMECALL R1 R1 K1 ["get"]
-  CALL R1 1 1
-  GETUPVAL R2 1
-  MOVE R3 R1
-  CALL R2 1 0
-  GETUPVAL R2 2
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K2 ["Provider"]
-  DUPTABLE R4 K4 [{"value"}]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K3 ["value"]
-  GETTABLEKS R5 R0 K5 ["children"]
-  CALL R2 3 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R1 0
+        1 NAMECALL                         R1 R1 K0 ["use"]
+        3 CALL                             R1 1 1
+        4 NAMECALL                         R1 R1 K1 ["get"]
+        6 CALL                             R1 1 1
+        7 GETUPVAL                         R2 1
+        8 MOVE                             R3 R1
+        9 CALL                             R2 1 0
+       10 GETUPVAL                         R2 2
+       11 GETUPVAL                         R4 3
+       12 GETTABLEKS                       R3 R4 K2 ["Provider"]
+       14 DUPTABLE                         R4 K4 [{"value"}]
+       15 NEWTABLE                         R5 0 0
+       17 SETTABLEKS                       R5 R4 K3 ["value"]
+       19 GETTABLEKS                       R5 R0 K5 ["children"]
+       21 CALL                             R2 3 -1
+       22 RETURN                           R2 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarSettings"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Framework"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["React"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R8 R0 K9 ["Src"]
-  GETTABLEKS R7 R8 K10 ["tests"]
-  GETTABLEKS R6 R7 K11 ["Util"]
-  GETTABLEKS R5 R6 K12 ["setup"]
-  GETTABLEKS R4 R5 K13 ["mockAssetDmInvokeContext"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R9 R0 K9 ["Src"]
-  GETTABLEKS R8 R9 K11 ["Util"]
-  GETTABLEKS R7 R8 K14 ["BridgingFiles"]
-  GETTABLEKS R6 R7 K15 ["AssetDmFiles"]
-  GETTABLEKS R5 R6 K16 ["assetDmSetup"]
-  CALL R4 1 1
-  GETTABLEKS R5 R1 K17 ["ContextServices"]
-  GETTABLEKS R6 R5 K18 ["Plugin"]
-  GETTABLEKS R7 R2 K19 ["createElement"]
-  DUPCLOSURE R8 K20 [PROTO_0]
-  CAPTURE VAL R6
-  CAPTURE VAL R4
-  CAPTURE VAL R7
-  CAPTURE VAL R3
-  RETURN R8 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarSettings"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R8 R0 K9 ["Src"]
+       25 GETTABLEKS                       R7 R8 K10 ["tests"]
+       27 GETTABLEKS                       R6 R7 K11 ["Util"]
+       29 GETTABLEKS                       R5 R6 K12 ["setup"]
+       31 GETTABLEKS                       R4 R5 K13 ["mockAssetDmInvokeContext"]
+       33 CALL                             R3 1 1
+       34 GETIMPORT                        R4 K5 [require]
+       36 GETTABLEKS                       R9 R0 K9 ["Src"]
+       38 GETTABLEKS                       R8 R9 K11 ["Util"]
+       40 GETTABLEKS                       R7 R8 K14 ["BridgingFiles"]
+       42 GETTABLEKS                       R6 R7 K15 ["AssetDmFiles"]
+       44 GETTABLEKS                       R5 R6 K16 ["assetDmSetup"]
+       46 CALL                             R4 1 1
+       47 GETTABLEKS                       R5 R1 K17 ["ContextServices"]
+       49 GETTABLEKS                       R6 R5 K18 ["Plugin"]
+       51 GETTABLEKS                       R7 R2 K19 ["createElement"]
+       53 DUPCLOSURE                       R8 K20 [PROTO_0]
+       54 CAPTURE                          VAL R6
+       55 CAPTURE                          VAL R4
+       56 CAPTURE                          VAL R7
+       57 CAPTURE                          VAL R3
+       58 RETURN                           R8 1

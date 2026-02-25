@@ -1,203 +1,203 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createBinding"]
-  LOADN R2 0
-  CALL R1 1 2
-  SETTABLEKS R1 R0 K1 ["absoluteSizeChange"]
-  SETTABLEKS R2 R0 K2 ["updateAbsoluteSizeChange"]
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["createBinding"]
+        3 LOADN                            R2 0
+        4 CALL                             R1 1 2
+        5 SETTABLEKS                       R1 R0 K1 ["absoluteSizeChange"]
+        7 SETTABLEKS                       R2 R0 K2 ["updateAbsoluteSizeChange"]
+        9 RETURN                           R0 0
 
 PROTO_1:
-  GETIMPORT R1 K2 [UDim2.new]
-  LOADN R2 1
-  LOADN R3 0
-  LOADN R4 0
-  MOVE R5 R0
-  CALL R1 4 -1
-  RETURN R1 -1
+        0 GETIMPORT                        R1 K2 [UDim2.new]
+        2 LOADN                            R2 1
+        3 LOADN                            R3 0
+        4 LOADN                            R4 0
+        5 MOVE                             R5 R0
+        6 CALL                             R1 4 -1
+        7 RETURN                           R1 -1
 
 PROTO_2:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["updateAbsoluteSizeChange"]
-  GETTABLEKS R3 R0 K1 ["AbsoluteContentSize"]
-  GETTABLEKS R2 R3 K2 ["y"]
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["updateAbsoluteSizeChange"]
+        3 GETTABLEKS                       R3 R0 K1 ["AbsoluteContentSize"]
+        5 GETTABLEKS                       R2 R3 K2 ["y"]
+        7 CALL                             R1 1 0
+        8 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R2 0
-  GETUPVAL R3 1
-  MOVE R4 R1
-  CALL R2 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETUPVAL                         R3 1
+        2 MOVE                             R4 R1
+        3 CALL                             R2 2 0
+        4 RETURN                           R0 0
 
 PROTO_4:
-  DUPTABLE R1 K1 [{"templates"}]
-  NEWTABLE R2 0 1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["fromUniverseData"]
-  GETTABLEKS R4 R0 K3 ["props"]
-  CALL R3 1 -1
-  SETLIST R2 R3 -1 [1]
-  SETTABLEKS R2 R1 K0 ["templates"]
-  GETTABLEKS R3 R0 K3 ["props"]
-  GETTABLEKS R2 R3 K4 ["ThemeData"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K5 ["createElement"]
-  LOADK R4 K6 ["Frame"]
-  DUPTABLE R5 K10 [{"Size", "BorderSizePixel", "BackgroundTransparency"}]
-  GETTABLEKS R6 R0 K11 ["absoluteSizeChange"]
-  DUPCLOSURE R8 K12 [PROTO_1]
-  NAMECALL R6 R6 K13 ["map"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K7 ["Size"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K8 ["BorderSizePixel"]
-  LOADN R6 1
-  SETTABLEKS R6 R5 K9 ["BackgroundTransparency"]
-  NEWTABLE R6 0 2
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K5 ["createElement"]
-  LOADK R8 K14 ["UIListLayout"]
-  NEWTABLE R9 1 0
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K15 ["Change"]
-  GETTABLEKS R10 R11 K16 ["AbsoluteContentSize"]
-  NEWCLOSURE R11 P1
-  CAPTURE VAL R0
-  SETTABLE R11 R9 R10
-  CALL R7 2 1
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K5 ["createElement"]
-  GETUPVAL R9 2
-  DUPTABLE R10 K24 [{"ThemeData", "StateTemplates", "IsEnabled", "IsGameShutdownRequired", "AssetOverrideErrors", "Mouse", "IsPlacePublished", "clobberTemplate"}]
-  DUPTABLE R11 K26 [{"theme"}]
-  SETTABLEKS R2 R11 K25 ["theme"]
-  SETTABLEKS R11 R10 K4 ["ThemeData"]
-  SETTABLEKS R1 R10 K17 ["StateTemplates"]
-  GETTABLEKS R12 R0 K3 ["props"]
-  GETTABLEKS R11 R12 K18 ["IsEnabled"]
-  SETTABLEKS R11 R10 K18 ["IsEnabled"]
-  GETTABLEKS R12 R0 K3 ["props"]
-  GETTABLEKS R11 R12 K19 ["IsGameShutdownRequired"]
-  SETTABLEKS R11 R10 K19 ["IsGameShutdownRequired"]
-  GETTABLEKS R12 R0 K3 ["props"]
-  GETTABLEKS R11 R12 K20 ["AssetOverrideErrors"]
-  SETTABLEKS R11 R10 K20 ["AssetOverrideErrors"]
-  GETTABLEKS R12 R0 K3 ["props"]
-  GETTABLEKS R11 R12 K21 ["Mouse"]
-  SETTABLEKS R11 R10 K21 ["Mouse"]
-  GETTABLEKS R12 R0 K3 ["props"]
-  GETTABLEKS R11 R12 K22 ["IsPlacePublished"]
-  SETTABLEKS R11 R10 K22 ["IsPlacePublished"]
-  NEWCLOSURE R11 P2
-  CAPTURE UPVAL U3
-  CAPTURE VAL R0
-  SETTABLEKS R11 R10 K23 ["clobberTemplate"]
-  CALL R8 2 -1
-  SETLIST R6 R7 -1 [1]
-  CALL R3 3 -1
-  RETURN R3 -1
+        0 DUPTABLE                         R1 K1 [{"templates"}]
+        1 NEWTABLE                         R2 0 1
+        3 GETUPVAL                         R4 0
+        4 GETTABLEKS                       R3 R4 K2 ["fromUniverseData"]
+        6 GETTABLEKS                       R4 R0 K3 ["props"]
+        8 CALL                             R3 1 -1
+        9 SETLIST                          R2 R3 -1 [1]
+       11 SETTABLEKS                       R2 R1 K0 ["templates"]
+       13 GETTABLEKS                       R3 R0 K3 ["props"]
+       15 GETTABLEKS                       R2 R3 K4 ["ThemeData"]
+       17 GETUPVAL                         R4 1
+       18 GETTABLEKS                       R3 R4 K5 ["createElement"]
+       20 LOADK                            R4 K6 ["Frame"]
+       21 DUPTABLE                         R5 K10 [{"Size", "BorderSizePixel", "BackgroundTransparency"}]
+       22 GETTABLEKS                       R6 R0 K11 ["absoluteSizeChange"]
+       24 DUPCLOSURE                       R8 K12 [PROTO_1]
+       25 NAMECALL                         R6 R6 K13 ["map"]
+       27 CALL                             R6 2 1
+       28 SETTABLEKS                       R6 R5 K7 ["Size"]
+       30 LOADN                            R6 0
+       31 SETTABLEKS                       R6 R5 K8 ["BorderSizePixel"]
+       33 LOADN                            R6 1
+       34 SETTABLEKS                       R6 R5 K9 ["BackgroundTransparency"]
+       36 NEWTABLE                         R6 0 2
+       38 GETUPVAL                         R8 1
+       39 GETTABLEKS                       R7 R8 K5 ["createElement"]
+       41 LOADK                            R8 K14 ["UIListLayout"]
+       42 NEWTABLE                         R9 1 0
+       44 GETUPVAL                         R12 1
+       45 GETTABLEKS                       R11 R12 K15 ["Change"]
+       47 GETTABLEKS                       R10 R11 K16 ["AbsoluteContentSize"]
+       49 NEWCLOSURE                       R11 P1
+       50 CAPTURE                          VAL R0
+       51 SETTABLE                         R11 R9 R10
+       52 CALL                             R7 2 1
+       53 GETUPVAL                         R9 1
+       54 GETTABLEKS                       R8 R9 K5 ["createElement"]
+       56 GETUPVAL                         R9 2
+       57 DUPTABLE                         R10 K24 [{"ThemeData", "StateTemplates", "IsEnabled", "IsGameShutdownRequired", "AssetOverrideErrors", "Mouse", "IsPlacePublished", "clobberTemplate"}]
+       58 DUPTABLE                         R11 K26 [{"theme"}]
+       59 SETTABLEKS                       R2 R11 K25 ["theme"]
+       61 SETTABLEKS                       R11 R10 K4 ["ThemeData"]
+       63 SETTABLEKS                       R1 R10 K17 ["StateTemplates"]
+       65 GETTABLEKS                       R12 R0 K3 ["props"]
+       67 GETTABLEKS                       R11 R12 K18 ["IsEnabled"]
+       69 SETTABLEKS                       R11 R10 K18 ["IsEnabled"]
+       71 GETTABLEKS                       R12 R0 K3 ["props"]
+       73 GETTABLEKS                       R11 R12 K19 ["IsGameShutdownRequired"]
+       75 SETTABLEKS                       R11 R10 K19 ["IsGameShutdownRequired"]
+       77 GETTABLEKS                       R12 R0 K3 ["props"]
+       79 GETTABLEKS                       R11 R12 K20 ["AssetOverrideErrors"]
+       81 SETTABLEKS                       R11 R10 K20 ["AssetOverrideErrors"]
+       83 GETTABLEKS                       R12 R0 K3 ["props"]
+       85 GETTABLEKS                       R11 R12 K21 ["Mouse"]
+       87 SETTABLEKS                       R11 R10 K21 ["Mouse"]
+       89 GETTABLEKS                       R12 R0 K3 ["props"]
+       91 GETTABLEKS                       R11 R12 K22 ["IsPlacePublished"]
+       93 SETTABLEKS                       R11 R10 K22 ["IsPlacePublished"]
+       95 NEWCLOSURE                       R11 P2
+       96 CAPTURE                          UPVAL U3
+       97 CAPTURE                          VAL R0
+       98 SETTABLEKS                       R11 R10 K23 ["clobberTemplate"]
+      100 CALL                             R8 2 -1
+      101 SETLIST                          R6 R7 -1 [1]
+      103 CALL                             R3 3 -1
+      104 RETURN                           R3 -1
 
 PROTO_5:
-  JUMPIFNOT R1 [+86]
-  GETTABLEKS R3 R0 K0 ["props"]
-  GETTABLEKS R2 R3 K1 ["IsEnabled"]
-  JUMPIFNOT R2 [+81]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K2 ["fromUniverseData"]
-  GETTABLEKS R3 R0 K0 ["props"]
-  CALL R2 1 1
-  MOVE R5 R2
-  NAMECALL R3 R1 K3 ["isAvatarTypeEqualTo"]
-  CALL R3 2 1
-  JUMPIF R3 [+7]
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R3 R4 K4 ["OnAvatarTypeChanged"]
-  GETTABLEKS R4 R1 K5 ["RigTypeValue"]
-  CALL R3 1 0
-  MOVE R5 R2
-  NAMECALL R3 R1 K6 ["isAnimationEqualTo"]
-  CALL R3 2 1
-  JUMPIF R3 [+7]
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R3 R4 K7 ["OnAvatarAnimationChanged"]
-  GETTABLEKS R4 R1 K8 ["AnimationValue"]
-  CALL R3 1 0
-  MOVE R5 R2
-  NAMECALL R3 R1 K9 ["isCollisionEqualTo"]
-  CALL R3 2 1
-  JUMPIF R3 [+7]
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R3 R4 K10 ["OnAvatarCollisionChanged"]
-  GETTABLEKS R4 R1 K11 ["CollisionValue"]
-  CALL R3 1 0
-  MOVE R5 R2
-  NAMECALL R3 R1 K12 ["areAssetsEqualTo"]
-  CALL R3 2 1
-  JUMPIF R3 [+8]
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R3 R4 K13 ["OnAvatarAssetOverridesChanged"]
-  NAMECALL R4 R1 K14 ["extractAssetOverridesForSaving"]
-  CALL R4 1 -1
-  CALL R3 -1 0
-  MOVE R5 R2
-  NAMECALL R3 R1 K15 ["areMinScalesEqualTo"]
-  CALL R3 2 1
-  JUMPIF R3 [+8]
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R3 R4 K16 ["OnAvatarScalingMinChanged"]
-  NAMECALL R4 R1 K17 ["extractScalingMinForSaving"]
-  CALL R4 1 -1
-  CALL R3 -1 0
-  MOVE R5 R2
-  NAMECALL R3 R1 K18 ["areMaxScalesEqualTo"]
-  CALL R3 2 1
-  JUMPIF R3 [+8]
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R3 R4 K19 ["OnAvatarScalingMaxChanged"]
-  NAMECALL R4 R1 K20 ["extractScalingMaxForSaving"]
-  CALL R4 1 -1
-  CALL R3 -1 0
-  RETURN R0 0
+        0 JUMPIFNOT                        R1 ; [+86]
+        1 GETTABLEKS                       R3 R0 K0 ["props"]
+        3 GETTABLEKS                       R2 R3 K1 ["IsEnabled"]
+        5 JUMPIFNOT                        R2 ; [+81]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R2 R3 K2 ["fromUniverseData"]
+        9 GETTABLEKS                       R3 R0 K0 ["props"]
+       11 CALL                             R2 1 1
+       12 MOVE                             R5 R2
+       13 NAMECALL                         R3 R1 K3 ["isAvatarTypeEqualTo"]
+       15 CALL                             R3 2 1
+       16 JUMPIF                           R3 ; [+7]
+       17 GETTABLEKS                       R4 R0 K0 ["props"]
+       19 GETTABLEKS                       R3 R4 K4 ["OnAvatarTypeChanged"]
+       21 GETTABLEKS                       R4 R1 K5 ["RigTypeValue"]
+       23 CALL                             R3 1 0
+       24 MOVE                             R5 R2
+       25 NAMECALL                         R3 R1 K6 ["isAnimationEqualTo"]
+       27 CALL                             R3 2 1
+       28 JUMPIF                           R3 ; [+7]
+       29 GETTABLEKS                       R4 R0 K0 ["props"]
+       31 GETTABLEKS                       R3 R4 K7 ["OnAvatarAnimationChanged"]
+       33 GETTABLEKS                       R4 R1 K8 ["AnimationValue"]
+       35 CALL                             R3 1 0
+       36 MOVE                             R5 R2
+       37 NAMECALL                         R3 R1 K9 ["isCollisionEqualTo"]
+       39 CALL                             R3 2 1
+       40 JUMPIF                           R3 ; [+7]
+       41 GETTABLEKS                       R4 R0 K0 ["props"]
+       43 GETTABLEKS                       R3 R4 K10 ["OnAvatarCollisionChanged"]
+       45 GETTABLEKS                       R4 R1 K11 ["CollisionValue"]
+       47 CALL                             R3 1 0
+       48 MOVE                             R5 R2
+       49 NAMECALL                         R3 R1 K12 ["areAssetsEqualTo"]
+       51 CALL                             R3 2 1
+       52 JUMPIF                           R3 ; [+8]
+       53 GETTABLEKS                       R4 R0 K0 ["props"]
+       55 GETTABLEKS                       R3 R4 K13 ["OnAvatarAssetOverridesChanged"]
+       57 NAMECALL                         R4 R1 K14 ["extractAssetOverridesForSaving"]
+       59 CALL                             R4 1 -1
+       60 CALL                             R3 -1 0
+       61 MOVE                             R5 R2
+       62 NAMECALL                         R3 R1 K15 ["areMinScalesEqualTo"]
+       64 CALL                             R3 2 1
+       65 JUMPIF                           R3 ; [+8]
+       66 GETTABLEKS                       R4 R0 K0 ["props"]
+       68 GETTABLEKS                       R3 R4 K16 ["OnAvatarScalingMinChanged"]
+       70 NAMECALL                         R4 R1 K17 ["extractScalingMinForSaving"]
+       72 CALL                             R4 1 -1
+       73 CALL                             R3 -1 0
+       74 MOVE                             R5 R2
+       75 NAMECALL                         R3 R1 K18 ["areMaxScalesEqualTo"]
+       77 CALL                             R3 2 1
+       78 JUMPIF                           R3 ; [+8]
+       79 GETTABLEKS                       R4 R0 K0 ["props"]
+       81 GETTABLEKS                       R3 R4 K19 ["OnAvatarScalingMaxChanged"]
+       83 NAMECALL                         R4 R1 K20 ["extractScalingMaxForSaving"]
+       85 CALL                             R4 1 -1
+       86 CALL                             R3 -1 0
+       87 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R2 K1 [script]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K2 ["Parent"]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R1 K5 ["Packages"]
-  GETTABLEKS R3 R4 K6 ["Roact"]
-  CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K7 ["Util"]
-  GETTABLEKS R4 R5 K8 ["StateModelTemplate"]
-  CALL R3 1 1
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R6 R0 K9 ["Components"]
-  GETTABLEKS R5 R6 K10 ["MorpherTemplateContainer"]
-  CALL R4 1 1
-  GETTABLEKS R5 R2 K11 ["Component"]
-  LOADK R7 K12 ["ComponentRootPanelExternal"]
-  NAMECALL R5 R5 K13 ["extend"]
-  CALL R5 2 1
-  LOADNIL R6
-  DUPCLOSURE R7 K14 [PROTO_0]
-  CAPTURE VAL R2
-  SETTABLEKS R7 R5 K15 ["init"]
-  NEWCLOSURE R7 P1
-  CAPTURE VAL R3
-  CAPTURE VAL R2
-  CAPTURE VAL R4
-  CAPTURE REF R6
-  SETTABLEKS R7 R5 K16 ["render"]
-  DUPCLOSURE R6 K17 [PROTO_5]
-  CAPTURE VAL R3
-  CLOSEUPVALS R6
-  RETURN R5 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R2 K1 [script]
+        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        7 GETIMPORT                        R5 K1 [script]
+        9 GETTABLEKS                       R4 R5 K2 ["Parent"]
+       11 GETTABLEKS                       R3 R4 K2 ["Parent"]
+       13 GETTABLEKS                       R2 R3 K2 ["Parent"]
+       15 GETTABLEKS                       R1 R2 K2 ["Parent"]
+       17 GETIMPORT                        R2 K4 [require]
+       19 GETTABLEKS                       R4 R1 K5 ["Packages"]
+       21 GETTABLEKS                       R3 R4 K6 ["Roact"]
+       23 CALL                             R2 1 1
+       24 GETIMPORT                        R3 K4 [require]
+       26 GETTABLEKS                       R5 R0 K7 ["Util"]
+       28 GETTABLEKS                       R4 R5 K8 ["StateModelTemplate"]
+       30 CALL                             R3 1 1
+       31 GETIMPORT                        R4 K4 [require]
+       33 GETTABLEKS                       R6 R0 K9 ["Components"]
+       35 GETTABLEKS                       R5 R6 K10 ["MorpherTemplateContainer"]
+       37 CALL                             R4 1 1
+       38 GETTABLEKS                       R5 R2 K11 ["Component"]
+       40 LOADK                            R7 K12 ["ComponentRootPanelExternal"]
+       41 NAMECALL                         R5 R5 K13 ["extend"]
+       43 CALL                             R5 2 1
+       44 LOADNIL                          R6
+       45 DUPCLOSURE                       R7 K14 [PROTO_0]
+       46 CAPTURE                          VAL R2
+       47 SETTABLEKS                       R7 R5 K15 ["init"]
+       49 NEWCLOSURE                       R7 P1
+       50 CAPTURE                          VAL R3
+       51 CAPTURE                          VAL R2
+       52 CAPTURE                          VAL R4
+       53 CAPTURE                          REF R6
+       54 SETTABLEKS                       R7 R5 K16 ["render"]
+       56 DUPCLOSURE                       R6 K17 [PROTO_5]
+       57 CAPTURE                          VAL R3
+       58 CLOSEUPVALS                      R6
+       59 RETURN                           R5 1

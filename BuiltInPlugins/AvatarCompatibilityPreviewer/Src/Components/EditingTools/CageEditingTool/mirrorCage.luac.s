@@ -1,193 +1,193 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLE R1 R2 R0
-  JUMPIFEQKNIL R1 [+4]
-  GETUPVAL R2 0
-  GETTABLE R1 R2 R0
-  RETURN R1 1
-  GETUPVAL R1 1
-  GETUPVAL R2 2
-  MOVE R3 R0
-  CALL R1 2 1
-  JUMPIFNOTEQKNIL R1 [+10]
-  GETIMPORT R2 K1 [error]
-  LOADK R4 K2 ["Could not find %*"]
-  MOVE R6 R0
-  NAMECALL R4 R4 K3 ["format"]
-  CALL R4 2 1
-  MOVE R3 R4
-  CALL R2 1 0
-  JUMPIFNOTEQKNIL R1 [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  FASTCALL2K ASSERT R3 K4 [+4]
-  LOADK R4 K4 ["Luau"]
-  GETIMPORT R2 K6 [assert]
-  CALL R2 2 0
-  GETUPVAL R3 3
-  GETTABLEKS R2 R3 K7 ["getVerticesFromWrap"]
-  GETIMPORT R3 K11 [Enum.CageType.Outer]
-  MOVE R4 R1
-  CALL R2 2 1
-  GETUPVAL R3 0
-  SETTABLE R2 R3 R0
-  GETIMPORT R3 K14 [table.freeze]
-  MOVE R4 R2
-  CALL R3 1 -1
-  RETURN R3 -1
+        0 GETUPVAL                         R2 0
+        1 GETTABLE                         R1 R2 R0
+        2 JUMPIFEQKNIL                     R1 ; [+4]
+        4 GETUPVAL                         R2 0
+        5 GETTABLE                         R1 R2 R0
+        6 RETURN                           R1 1
+        7 GETUPVAL                         R1 1
+        8 GETUPVAL                         R2 2
+        9 MOVE                             R3 R0
+       10 CALL                             R1 2 1
+       11 JUMPIFNOTEQKNIL                  R1 ; [+10]
+       13 GETIMPORT                        R2 K1 [error]
+       15 LOADK                            R4 K2 ["Could not find %*"]
+       16 MOVE                             R6 R0
+       17 NAMECALL                         R4 R4 K3 ["format"]
+       19 CALL                             R4 2 1
+       20 MOVE                             R3 R4
+       21 CALL                             R2 1 0
+       22 JUMPIFNOTEQKNIL                  R1 ; [+2]
+       24 LOADB                            R3 0 +1
+       25 LOADB                            R3 1
+       26 FASTCALL2K                       ASSERT R3 K4 ; [+4]
+       28 LOADK                            R4 K4 ["Luau"]
+       29 GETIMPORT                        R2 K6 [assert]
+       31 CALL                             R2 2 0
+       32 GETUPVAL                         R3 3
+       33 GETTABLEKS                       R2 R3 K7 ["getVerticesFromWrap"]
+       35 GETIMPORT                        R3 K11 [Enum.CageType.Outer]
+       37 MOVE                             R4 R1
+       38 CALL                             R2 2 1
+       39 GETUPVAL                         R3 0
+       40 SETTABLE                         R2 R3 R0
+       41 GETIMPORT                        R3 K14 [table.freeze]
+       43 MOVE                             R4 R2
+       44 CALL                             R3 1 -1
+       45 RETURN                           R3 -1
 
 PROTO_1:
-  GETUPVAL R2 0
-  GETTABLE R1 R2 R0
-  JUMPIFEQKNIL R1 [+4]
-  GETUPVAL R2 0
-  GETTABLE R1 R2 R0
-  RETURN R1 1
-  NEWTABLE R1 0 0
-  GETUPVAL R2 0
-  SETTABLE R1 R2 R0
-  RETURN R1 1
+        0 GETUPVAL                         R2 0
+        1 GETTABLE                         R1 R2 R0
+        2 JUMPIFEQKNIL                     R1 ; [+4]
+        4 GETUPVAL                         R2 0
+        5 GETTABLE                         R1 R2 R0
+        6 RETURN                           R1 1
+        7 NEWTABLE                         R1 0 0
+        9 GETUPVAL                         R2 0
+       10 SETTABLE                         R1 R2 R0
+       11 RETURN                           R1 1
 
 PROTO_2:
-  LOADN R5 2
-  MOVE R9 R1
-  NAMECALL R7 R0 K0 ["Dot"]
-  CALL R7 2 1
-  MOVE R10 R1
-  NAMECALL R8 R1 K0 ["Dot"]
-  CALL R8 2 1
-  DIV R6 R7 R8
-  MUL R4 R5 R6
-  MUL R3 R4 R1
-  SUB R2 R0 R3
-  RETURN R2 1
+        0 LOADN                            R5 2
+        1 MOVE                             R9 R1
+        2 NAMECALL                         R7 R0 K0 ["Dot"]
+        4 CALL                             R7 2 1
+        5 MOVE                             R10 R1
+        6 NAMECALL                         R8 R1 K0 ["Dot"]
+        8 CALL                             R8 2 1
+        9 DIV                              R6 R7 R8
+       10 MUL                              R4 R5 R6
+       11 MUL                              R3 R4 R1
+       12 SUB                              R2 R0 R3
+       13 RETURN                           R2 1
 
 PROTO_3:
-  NEWTABLE R3 0 0
-  NEWTABLE R4 0 0
-  NEWCLOSURE R5 P0
-  CAPTURE VAL R3
-  CAPTURE UPVAL U0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U1
-  NEWCLOSURE R6 P1
-  CAPTURE VAL R4
-  DUPCLOSURE R7 K0 [PROTO_2]
-  GETTABLEKS R9 R0 K1 ["PrimaryPart"]
-  GETTABLEKS R8 R9 K2 ["CFrame"]
-  GETTABLEKS R9 R8 K3 ["RightVector"]
-  MOVE R10 R1
-  LOADNIL R11
-  LOADNIL R12
-  FORGPREP R10
-  MOVE R15 R5
-  MOVE R16 R13
-  CALL R15 1 1
-  GETUPVAL R16 0
-  MOVE R17 R0
-  MOVE R18 R13
-  CALL R16 2 1
-  JUMPIFEQKNIL R16 [+97]
-  GETTABLEKS R17 R16 K4 ["CageOriginWorld"]
-  MOVE R18 R14
-  LOADNIL R19
-  LOADNIL R20
-  FORGPREP R18
-  MOVE R23 R22
-  LOADNIL R24
-  LOADNIL R25
-  FORGPREP R23
-  GETTABLEKS R28 R27 K5 ["side"]
-  JUMPIFNOTEQ R28 R2 [+79]
-  GETUPVAL R28 0
-  MOVE R29 R0
-  GETTABLEKS R30 R27 K6 ["targetName"]
-  CALL R28 2 1
-  JUMPIFEQKNIL R28 [+72]
-  GETTABLEKS R29 R28 K4 ["CageOriginWorld"]
-  GETTABLE R30 R15 R21
-  JUMPIFEQKNIL R30 [+67]
-  GETIMPORT R33 K8 [CFrame.new]
-  MOVE R34 R30
-  CALL R33 1 -1
-  NAMECALL R31 R17 K9 ["ToWorldSpace"]
-  CALL R31 -1 1
-  GETTABLEKS R36 R8 K10 ["Position"]
-  SUB R35 R31 R36
-  GETTABLEKS R34 R35 K10 ["Position"]
-  LOADN R37 2
-  MOVE R41 R9
-  NAMECALL R39 R34 K11 ["Dot"]
-  CALL R39 2 1
-  MOVE R42 R9
-  NAMECALL R40 R9 K11 ["Dot"]
-  CALL R40 2 1
-  DIV R38 R39 R40
-  MUL R36 R37 R38
-  MUL R35 R36 R9
-  SUB R33 R34 R35
-  GETTABLEKS R34 R8 K10 ["Position"]
-  ADD R32 R33 R34
-  GETIMPORT R36 K8 [CFrame.new]
-  MOVE R37 R32
-  CALL R36 1 -1
-  NAMECALL R34 R29 K12 ["ToObjectSpace"]
-  CALL R34 -1 1
-  GETTABLEKS R33 R34 K10 ["Position"]
-  MOVE R34 R5
-  GETTABLEKS R35 R27 K6 ["targetName"]
-  CALL R34 1 1
-  GETTABLEKS R36 R27 K13 ["vertex"]
-  GETTABLE R35 R34 R36
-  JUMPIFEQKNIL R35 [+21]
-  SUB R37 R35 R33
-  GETTABLEKS R36 R37 K14 ["Magnitude"]
-  LOADK R37 K15 [0.01]
-  JUMPIFLE R36 R37 [+15]
-  GETTABLEKS R38 R27 K6 ["targetName"]
-  GETTABLE R39 R4 R38
-  JUMPIFEQKNIL R39 [+3]
-  GETTABLE R37 R4 R38
-  JUMP [+4]
-  NEWTABLE R39 0 0
-  SETTABLE R39 R4 R38
-  MOVE R37 R39
-  GETTABLEKS R38 R27 K13 ["vertex"]
-  SETTABLE R33 R37 R38
-  FORGLOOP R23 2 [-83]
-  FORGLOOP R18 2 [-89]
-  FORGLOOP R10 2 [-106]
-  RETURN R4 1
+        0 NEWTABLE                         R3 0 0
+        2 NEWTABLE                         R4 0 0
+        4 NEWCLOSURE                       R5 P0
+        5 CAPTURE                          VAL R3
+        6 CAPTURE                          UPVAL U0
+        7 CAPTURE                          VAL R0
+        8 CAPTURE                          UPVAL U1
+        9 NEWCLOSURE                       R6 P1
+       10 CAPTURE                          VAL R4
+       11 DUPCLOSURE                       R7 K0 [PROTO_2]
+       12 GETTABLEKS                       R9 R0 K1 ["PrimaryPart"]
+       14 GETTABLEKS                       R8 R9 K2 ["CFrame"]
+       16 GETTABLEKS                       R9 R8 K3 ["RightVector"]
+       18 MOVE                             R10 R1
+       19 LOADNIL                          R11
+       20 LOADNIL                          R12
+       21 FORGPREP                         R10
+       22 MOVE                             R15 R5
+       23 MOVE                             R16 R13
+       24 CALL                             R15 1 1
+       25 GETUPVAL                         R16 0
+       26 MOVE                             R17 R0
+       27 MOVE                             R18 R13
+       28 CALL                             R16 2 1
+       29 JUMPIFEQKNIL                     R16 ; [+97]
+       31 GETTABLEKS                       R17 R16 K4 ["CageOriginWorld"]
+       33 MOVE                             R18 R14
+       34 LOADNIL                          R19
+       35 LOADNIL                          R20
+       36 FORGPREP                         R18
+       37 MOVE                             R23 R22
+       38 LOADNIL                          R24
+       39 LOADNIL                          R25
+       40 FORGPREP                         R23
+       41 GETTABLEKS                       R28 R27 K5 ["side"]
+       43 JUMPIFNOTEQ                      R28 R2 ; [+79]
+       45 GETUPVAL                         R28 0
+       46 MOVE                             R29 R0
+       47 GETTABLEKS                       R30 R27 K6 ["targetName"]
+       49 CALL                             R28 2 1
+       50 JUMPIFEQKNIL                     R28 ; [+72]
+       52 GETTABLEKS                       R29 R28 K4 ["CageOriginWorld"]
+       54 GETTABLE                         R30 R15 R21
+       55 JUMPIFEQKNIL                     R30 ; [+67]
+       57 GETIMPORT                        R33 K8 [CFrame.new]
+       59 MOVE                             R34 R30
+       60 CALL                             R33 1 -1
+       61 NAMECALL                         R31 R17 K9 ["ToWorldSpace"]
+       63 CALL                             R31 -1 1
+       64 GETTABLEKS                       R36 R8 K10 ["Position"]
+       66 SUB                              R35 R31 R36
+       67 GETTABLEKS                       R34 R35 K10 ["Position"]
+       69 LOADN                            R37 2
+       70 MOVE                             R41 R9
+       71 NAMECALL                         R39 R34 K11 ["Dot"]
+       73 CALL                             R39 2 1
+       74 MOVE                             R42 R9
+       75 NAMECALL                         R40 R9 K11 ["Dot"]
+       77 CALL                             R40 2 1
+       78 DIV                              R38 R39 R40
+       79 MUL                              R36 R37 R38
+       80 MUL                              R35 R36 R9
+       81 SUB                              R33 R34 R35
+       82 GETTABLEKS                       R34 R8 K10 ["Position"]
+       84 ADD                              R32 R33 R34
+       85 GETIMPORT                        R36 K8 [CFrame.new]
+       87 MOVE                             R37 R32
+       88 CALL                             R36 1 -1
+       89 NAMECALL                         R34 R29 K12 ["ToObjectSpace"]
+       91 CALL                             R34 -1 1
+       92 GETTABLEKS                       R33 R34 K10 ["Position"]
+       94 MOVE                             R34 R5
+       95 GETTABLEKS                       R35 R27 K6 ["targetName"]
+       97 CALL                             R34 1 1
+       98 GETTABLEKS                       R36 R27 K13 ["vertex"]
+      100 GETTABLE                         R35 R34 R36
+      101 JUMPIFEQKNIL                     R35 ; [+21]
+      103 SUB                              R37 R35 R33
+      104 GETTABLEKS                       R36 R37 K14 ["Magnitude"]
+      106 LOADK                            R37 K15 [0.01]
+      107 JUMPIFLE                         R36 R37 ; [+15]
+      109 GETTABLEKS                       R38 R27 K6 ["targetName"]
+      111 GETTABLE                         R39 R4 R38
+      112 JUMPIFEQKNIL                     R39 ; [+3]
+      114 GETTABLE                         R37 R4 R38
+      115 JUMP                             ; [+4]
+      116 NEWTABLE                         R39 0 0
+      118 SETTABLE                         R39 R4 R38
+      119 MOVE                             R37 R39
+      120 GETTABLEKS                       R38 R27 K13 ["vertex"]
+      122 SETTABLE                         R33 R37 R38
+      123 FORGLOOP                         R23 2 ; [-83]
+      125 FORGLOOP                         R18 2 ; [-89]
+      127 FORGLOOP                         R10 2 ; [-106]
+      129 RETURN                           R4 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["LuaMeshEditingModule"]
-  GETTABLEKS R2 R3 K8 ["Types"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K9 ["Src"]
-  GETTABLEKS R3 R4 K8 ["Types"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R8 R0 K9 ["Src"]
-  GETTABLEKS R7 R8 K10 ["Components"]
-  GETTABLEKS R6 R7 K11 ["EditingTools"]
-  GETTABLEKS R5 R6 K12 ["CageEditingTool"]
-  GETTABLEKS R4 R5 K13 ["findWrapTargetWithName"]
-  CALL R3 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Packages"]
-  GETTABLEKS R7 R8 K7 ["LuaMeshEditingModule"]
-  CALL R6 1 1
-  GETTABLEKS R5 R6 K14 ["Util"]
-  GETTABLEKS R4 R5 K15 ["WrapUtil"]
-  DUPCLOSURE R5 K16 [PROTO_3]
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  RETURN R5 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarCompatibilityPreviewer"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R3 R4 K7 ["LuaMeshEditingModule"]
+       13 GETTABLEKS                       R2 R3 K8 ["Types"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R4 R0 K9 ["Src"]
+       20 GETTABLEKS                       R3 R4 K8 ["Types"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R8 R0 K9 ["Src"]
+       27 GETTABLEKS                       R7 R8 K10 ["Components"]
+       29 GETTABLEKS                       R6 R7 K11 ["EditingTools"]
+       31 GETTABLEKS                       R5 R6 K12 ["CageEditingTool"]
+       33 GETTABLEKS                       R4 R5 K13 ["findWrapTargetWithName"]
+       35 CALL                             R3 1 1
+       36 GETIMPORT                        R6 K5 [require]
+       38 GETTABLEKS                       R8 R0 K6 ["Packages"]
+       40 GETTABLEKS                       R7 R8 K7 ["LuaMeshEditingModule"]
+       42 CALL                             R6 1 1
+       43 GETTABLEKS                       R5 R6 K14 ["Util"]
+       45 GETTABLEKS                       R4 R5 K15 ["WrapUtil"]
+       47 DUPCLOSURE                       R5 K16 [PROTO_3]
+       48 CAPTURE                          VAL R3
+       49 CAPTURE                          VAL R4
+       50 RETURN                           R5 1

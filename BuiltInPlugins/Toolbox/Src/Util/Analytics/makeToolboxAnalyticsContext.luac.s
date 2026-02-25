@@ -1,55 +1,55 @@
 PROTO_0:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["sendEventDeferred"]
-  LOADK R3 K1 ["studio"]
-  LOADK R4 K2 ["Marketplace"]
-  MOVE R5 R0
-  MOVE R6 R1
-  CALL R2 4 0
-  RETURN R0 0
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["sendEventDeferred"]
+        3 LOADK                            R3 K1 ["studio"]
+        4 LOADK                            R4 K2 ["Marketplace"]
+        5 MOVE                             R5 R0
+        6 MOVE                             R6 R1
+        7 CALL                             R2 4 0
+        8 RETURN                           R0 0
 
 PROTO_1:
-  DUPTABLE R1 K4 [{"AssetPreviewPlaySound", "AssetPreviewPauseSound", "AssetPreviewPlayVideo", "AssetPreviewPauseVideo"}]
-  GETUPVAL R2 0
-  SETTABLEKS R2 R1 K0 ["AssetPreviewPlaySound"]
-  GETUPVAL R2 0
-  SETTABLEKS R2 R1 K1 ["AssetPreviewPauseSound"]
-  GETUPVAL R2 0
-  SETTABLEKS R2 R1 K2 ["AssetPreviewPlayVideo"]
-  GETUPVAL R2 0
-  SETTABLEKS R2 R1 K3 ["AssetPreviewPauseVideo"]
-  RETURN R1 1
+        0 DUPTABLE                         R1 K4 [{"AssetPreviewPlaySound", "AssetPreviewPauseSound", "AssetPreviewPlayVideo", "AssetPreviewPauseVideo"}]
+        1 GETUPVAL                         R2 0
+        2 SETTABLEKS                       R2 R1 K0 ["AssetPreviewPlaySound"]
+        4 GETUPVAL                         R2 0
+        5 SETTABLEKS                       R2 R1 K1 ["AssetPreviewPauseSound"]
+        7 GETUPVAL                         R2 0
+        8 SETTABLEKS                       R2 R1 K2 ["AssetPreviewPlayVideo"]
+       10 GETUPVAL                         R2 0
+       11 SETTABLEKS                       R2 R1 K3 ["AssetPreviewPauseVideo"]
+       13 RETURN                           R1 1
 
 PROTO_2:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["new"]
-  DUPCLOSURE R1 K1 [PROTO_1]
-  CAPTURE UPVAL U1
-  CALL R0 1 -1
-  RETURN R0 -1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        3 DUPCLOSURE                       R1 K1 [PROTO_1]
+        4 CAPTURE                          UPVAL U1
+        5 CALL                             R0 1 -1
+        6 RETURN                           R0 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R1 R0 K3 ["Packages"]
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R3 R1 K6 ["Framework"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K7 ["ContextServices"]
-  GETTABLEKS R3 R4 K8 ["Analytics"]
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R8 R0 K9 ["Src"]
-  GETTABLEKS R7 R8 K10 ["Util"]
-  GETTABLEKS R6 R7 K8 ["Analytics"]
-  GETTABLEKS R5 R6 K11 ["Senders"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K12 [PROTO_0]
-  CAPTURE VAL R4
-  DUPCLOSURE R6 K13 [PROTO_2]
-  CAPTURE VAL R3
-  CAPTURE VAL R5
-  RETURN R6 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R4 K1 [script]
+        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
+        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R0 K3 ["Packages"]
+       13 GETIMPORT                        R2 K5 [require]
+       15 GETTABLEKS                       R3 R1 K6 ["Framework"]
+       17 CALL                             R2 1 1
+       18 GETTABLEKS                       R4 R2 K7 ["ContextServices"]
+       20 GETTABLEKS                       R3 R4 K8 ["Analytics"]
+       22 GETIMPORT                        R4 K5 [require]
+       24 GETTABLEKS                       R8 R0 K9 ["Src"]
+       26 GETTABLEKS                       R7 R8 K10 ["Util"]
+       28 GETTABLEKS                       R6 R7 K8 ["Analytics"]
+       30 GETTABLEKS                       R5 R6 K11 ["Senders"]
+       32 CALL                             R4 1 1
+       33 DUPCLOSURE                       R5 K12 [PROTO_0]
+       34 CAPTURE                          VAL R4
+       35 DUPCLOSURE                       R6 K13 [PROTO_2]
+       36 CAPTURE                          VAL R3
+       37 CAPTURE                          VAL R5
+       38 RETURN                           R6 1

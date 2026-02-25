@@ -1,16 +1,16 @@
 PROTO_0:
-  GETTABLEKS R1 R0 K0 ["Parent"]
-  JUMPIFNOT R1 [+9]
-  GETTABLEKS R2 R1 K1 ["SourceAssetId"]
-  LOADN R3 0
-  JUMPIFNOTLT R3 R2 [+2]
-  RETURN R1 1
-  GETTABLEKS R1 R1 K0 ["Parent"]
-  JUMPBACK [-10]
-  LOADNIL R2
-  RETURN R2 1
+        0 GETTABLEKS                       R1 R0 K0 ["Parent"]
+        2 JUMPIFNOT                        R1 ; [+9]
+        3 GETTABLEKS                       R2 R1 K1 ["SourceAssetId"]
+        5 LOADN                            R3 0
+        6 JUMPIFNOTLT                      R3 R2 ; [+2]
+        8 RETURN                           R1 1
+        9 GETTABLEKS                       R1 R1 K0 ["Parent"]
+       11 JUMPBACK                         ; [-10]
+       12 LOADNIL                          R2
+       13 RETURN                           R2 1
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 RETURN                           R0 1

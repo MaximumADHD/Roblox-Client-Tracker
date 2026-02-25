@@ -1,219 +1,208 @@
 PROTO_0:
-  GETTABLEKS R3 R0 K0 ["responseBody"]
-  GETTABLEKS R2 R3 K1 ["data"]
-  GETTABLEN R1 R2 1
-  JUMPIF R1 [+15]
-  GETIMPORT R2 K3 [warn]
-  LOADK R3 K4 ["Could not find asset information in response for"]
-  GETUPVAL R5 0
-  FASTCALL1 TOSTRING R5 [+2]
-  GETIMPORT R4 K6 [tostring]
-  CALL R4 1 1
-  CALL R2 2 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K7 ["onTryAssetFailure"]
-  GETUPVAL R3 0
-  CALL R2 1 0
-  RETURN R0 0
-  DUPTABLE R2 K12 [{"Asset", "Context", "Creator", "FiatProduct"}]
-  DUPTABLE R3 K21 [{"Id", "TypeId", "AssetGenres", "Name", "Description", "Created", "Updated", "AssetSubTypes"}]
-  GETTABLEKS R5 R1 K22 ["asset"]
-  GETTABLEKS R4 R5 K23 ["id"]
-  SETTABLEKS R4 R3 K13 ["Id"]
-  GETTABLEKS R5 R1 K22 ["asset"]
-  GETTABLEKS R4 R5 K24 ["typeId"]
-  SETTABLEKS R4 R3 K14 ["TypeId"]
-  GETTABLEKS R5 R1 K22 ["asset"]
-  GETTABLEKS R4 R5 K25 ["assetGenres"]
-  SETTABLEKS R4 R3 K15 ["AssetGenres"]
-  GETTABLEKS R5 R1 K22 ["asset"]
-  GETTABLEKS R4 R5 K26 ["name"]
-  SETTABLEKS R4 R3 K16 ["Name"]
-  GETTABLEKS R5 R1 K22 ["asset"]
-  GETTABLEKS R4 R5 K27 ["description"]
-  SETTABLEKS R4 R3 K17 ["Description"]
-  GETTABLEKS R5 R1 K22 ["asset"]
-  GETTABLEKS R4 R5 K28 ["createdUtc"]
-  SETTABLEKS R4 R3 K18 ["Created"]
-  GETTABLEKS R5 R1 K22 ["asset"]
-  GETTABLEKS R4 R5 K29 ["updatedUtc"]
-  SETTABLEKS R4 R3 K19 ["Updated"]
-  GETTABLEKS R5 R1 K22 ["asset"]
-  GETTABLEKS R4 R5 K30 ["assetSubTypes"]
-  SETTABLEKS R4 R3 K20 ["AssetSubTypes"]
-  SETTABLEKS R3 R2 K8 ["Asset"]
-  NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K9 ["Context"]
-  DUPTABLE R3 K32 [{"Name", "Id", "Type"}]
-  GETTABLEKS R5 R1 K33 ["creator"]
-  GETTABLEKS R4 R5 K26 ["name"]
-  SETTABLEKS R4 R3 K16 ["Name"]
-  GETTABLEKS R5 R1 K33 ["creator"]
-  GETTABLEKS R4 R5 K23 ["id"]
-  SETTABLEKS R4 R3 K13 ["Id"]
-  GETTABLEKS R5 R1 K33 ["creator"]
-  GETTABLEKS R4 R5 K34 ["type"]
-  SETTABLEKS R4 R3 K31 ["Type"]
-  SETTABLEKS R3 R2 K10 ["Creator"]
-  GETUPVAL R4 2
-  CALL R4 0 1
-  JUMPIFNOT R4 [+23]
-  GETTABLEKS R4 R1 K35 ["fiatProduct"]
-  JUMPIFNOT R4 [+20]
-  DUPTABLE R3 K39 [{"PurchasePrice", "Purchasable", "Published"}]
-  GETTABLEKS R5 R1 K35 ["fiatProduct"]
-  GETTABLEKS R4 R5 K40 ["purchasePrice"]
-  SETTABLEKS R4 R3 K36 ["PurchasePrice"]
-  GETTABLEKS R5 R1 K35 ["fiatProduct"]
-  GETTABLEKS R4 R5 K41 ["purchasable"]
-  SETTABLEKS R4 R3 K37 ["Purchasable"]
-  GETTABLEKS R5 R1 K35 ["fiatProduct"]
-  GETTABLEKS R4 R5 K42 ["published"]
-  SETTABLEKS R4 R3 K38 ["Published"]
-  JUMP [+1]
-  LOADNIL R3
-  SETTABLEKS R3 R2 K11 ["FiatProduct"]
-  GETUPVAL R3 3
-  MOVE R4 R2
-  CALL R3 1 0
-  GETUPVAL R3 4
-  MOVE R4 R2
-  LOADB R5 0
-  CALL R3 2 0
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K43 ["onTryAsset"]
-  GETUPVAL R4 0
-  CALL R3 1 0
-  GETUPVAL R3 5
-  GETUPVAL R5 6
-  GETUPVAL R6 0
-  CALL R5 1 -1
-  NAMECALL R3 R3 K44 ["dispatch"]
-  CALL R3 -1 0
-  RETURN R0 0
+        0 GETTABLEKS                       R3 R0 K0 ["responseBody"]
+        2 GETTABLEKS                       R2 R3 K1 ["data"]
+        4 GETTABLEN                        R1 R2 1
+        5 JUMPIF                           R1 ; [+15]
+        6 GETIMPORT                        R2 K3 [warn]
+        8 LOADK                            R3 K4 ["Could not find asset information in response for"]
+        9 GETUPVAL                         R5 0
+       10 FASTCALL1                        TOSTRING R5 ; [+2]
+       11 GETIMPORT                        R4 K6 [tostring]
+       13 CALL                             R4 1 1
+       14 CALL                             R2 2 0
+       15 GETUPVAL                         R3 1
+       16 GETTABLEKS                       R2 R3 K7 ["onTryAssetFailure"]
+       18 GETUPVAL                         R3 0
+       19 CALL                             R2 1 0
+       20 RETURN                           R0 0
+       21 DUPTABLE                         R2 K11 [{"Asset", "Context", "Creator"}]
+       22 DUPTABLE                         R3 K21 [{"Id", "TypeId", "AssetGenres", "Name", "Description", "Created", "Updated", "AssetSubTypes", "Capabilities"}]
+       23 GETTABLEKS                       R5 R1 K22 ["asset"]
+       25 GETTABLEKS                       R4 R5 K23 ["id"]
+       27 SETTABLEKS                       R4 R3 K12 ["Id"]
+       29 GETTABLEKS                       R5 R1 K22 ["asset"]
+       31 GETTABLEKS                       R4 R5 K24 ["typeId"]
+       33 SETTABLEKS                       R4 R3 K13 ["TypeId"]
+       35 GETTABLEKS                       R5 R1 K22 ["asset"]
+       37 GETTABLEKS                       R4 R5 K25 ["assetGenres"]
+       39 SETTABLEKS                       R4 R3 K14 ["AssetGenres"]
+       41 GETTABLEKS                       R5 R1 K22 ["asset"]
+       43 GETTABLEKS                       R4 R5 K26 ["name"]
+       45 SETTABLEKS                       R4 R3 K15 ["Name"]
+       47 GETTABLEKS                       R5 R1 K22 ["asset"]
+       49 GETTABLEKS                       R4 R5 K27 ["description"]
+       51 SETTABLEKS                       R4 R3 K16 ["Description"]
+       53 GETTABLEKS                       R5 R1 K22 ["asset"]
+       55 GETTABLEKS                       R4 R5 K28 ["createdUtc"]
+       57 SETTABLEKS                       R4 R3 K17 ["Created"]
+       59 GETTABLEKS                       R5 R1 K22 ["asset"]
+       61 GETTABLEKS                       R4 R5 K29 ["updatedUtc"]
+       63 SETTABLEKS                       R4 R3 K18 ["Updated"]
+       65 GETTABLEKS                       R5 R1 K22 ["asset"]
+       67 GETTABLEKS                       R4 R5 K30 ["assetSubTypes"]
+       69 SETTABLEKS                       R4 R3 K19 ["AssetSubTypes"]
+       71 GETUPVAL                         R5 2
+       72 CALL                             R5 0 1
+       73 JUMPIFNOT                        R5 ; [+3]
+       74 GETTABLEKS                       R4 R1 K31 ["capabilities"]
+       76 JUMP                             ; [+1]
+       77 LOADNIL                          R4
+       78 SETTABLEKS                       R4 R3 K20 ["Capabilities"]
+       80 SETTABLEKS                       R3 R2 K8 ["Asset"]
+       82 NEWTABLE                         R3 0 0
+       84 SETTABLEKS                       R3 R2 K9 ["Context"]
+       86 DUPTABLE                         R3 K33 [{"Name", "Id", "Type"}]
+       87 GETTABLEKS                       R5 R1 K34 ["creator"]
+       89 GETTABLEKS                       R4 R5 K26 ["name"]
+       91 SETTABLEKS                       R4 R3 K15 ["Name"]
+       93 GETTABLEKS                       R5 R1 K34 ["creator"]
+       95 GETTABLEKS                       R4 R5 K23 ["id"]
+       97 SETTABLEKS                       R4 R3 K12 ["Id"]
+       99 GETTABLEKS                       R5 R1 K34 ["creator"]
+      101 GETTABLEKS                       R4 R5 K35 ["type"]
+      103 SETTABLEKS                       R4 R3 K32 ["Type"]
+      105 SETTABLEKS                       R3 R2 K10 ["Creator"]
+      107 GETUPVAL                         R3 3
+      108 MOVE                             R4 R2
+      109 CALL                             R3 1 0
+      110 GETUPVAL                         R3 4
+      111 MOVE                             R4 R2
+      112 LOADB                            R5 0
+      113 CALL                             R3 2 0
+      114 GETUPVAL                         R4 1
+      115 GETTABLEKS                       R3 R4 K36 ["onTryAsset"]
+      117 GETUPVAL                         R4 0
+      118 CALL                             R3 1 0
+      119 GETUPVAL                         R3 5
+      120 GETUPVAL                         R5 6
+      121 GETUPVAL                         R6 0
+      122 CALL                             R5 1 -1
+      123 NAMECALL                         R3 R3 K37 ["dispatch"]
+      125 CALL                             R3 -1 0
+      126 RETURN                           R0 0
 
 PROTO_1:
-  GETIMPORT R1 K1 [warn]
-  LOADK R2 K2 ["Could not load asset information for"]
-  GETUPVAL R4 0
-  FASTCALL1 TOSTRING R4 [+2]
-  GETIMPORT R3 K4 [tostring]
-  CALL R3 1 1
-  MOVE R4 R0
-  CALL R1 3 0
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K5 ["onTryAssetFailure"]
-  GETUPVAL R2 0
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETIMPORT                        R1 K1 [warn]
+        2 LOADK                            R2 K2 ["Could not load asset information for"]
+        3 GETUPVAL                         R4 0
+        4 FASTCALL1                        TOSTRING R4 ; [+2]
+        5 GETIMPORT                        R3 K4 [tostring]
+        7 CALL                             R3 1 1
+        8 MOVE                             R4 R0
+        9 CALL                             R1 3 0
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R1 R2 K5 ["onTryAssetFailure"]
+       13 GETUPVAL                         R2 0
+       14 CALL                             R1 1 0
+       15 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["getIsEditMode"]
-  CALL R0 0 1
-  JUMPIF R0 [+1]
-  RETURN R0 0
-  GETUPVAL R3 1
-  NAMECALL R3 R3 K1 ["getState"]
-  CALL R3 1 1
-  GETTABLEKS R2 R3 K2 ["tryInStudio"]
-  GETTABLEKS R1 R2 K3 ["triedInStudio"]
-  GETUPVAL R2 2
-  GETTABLE R0 R1 R2
-  JUMPIFNOT R0 [+1]
-  RETURN R0 0
-  GETUPVAL R0 3
-  NEWTABLE R2 0 1
-  DUPTABLE R3 K6 [{"id", "itemType"}]
-  GETUPVAL R4 2
-  SETTABLEKS R4 R3 K4 ["id"]
-  LOADK R4 K7 ["Asset"]
-  SETTABLEKS R4 R3 K5 ["itemType"]
-  SETLIST R2 R3 1 [1]
-  NAMECALL R0 R0 K8 ["getItemDetails"]
-  CALL R0 2 1
-  NEWCLOSURE R3 P0
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U4
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U7
-  NEWCLOSURE R4 P1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U0
-  NAMECALL R1 R0 K9 ["andThen"]
-  CALL R1 3 0
-  LOADNIL R1
-  RETURN R1 1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["getIsEditMode"]
+        3 CALL                             R0 0 1
+        4 JUMPIF                           R0 ; [+1]
+        5 RETURN                           R0 0
+        6 GETUPVAL                         R3 1
+        7 NAMECALL                         R3 R3 K1 ["getState"]
+        9 CALL                             R3 1 1
+       10 GETTABLEKS                       R2 R3 K2 ["tryInStudio"]
+       12 GETTABLEKS                       R1 R2 K3 ["triedInStudio"]
+       14 GETUPVAL                         R2 2
+       15 GETTABLE                         R0 R1 R2
+       16 JUMPIFNOT                        R0 ; [+1]
+       17 RETURN                           R0 0
+       18 GETUPVAL                         R0 3
+       19 NEWTABLE                         R2 0 1
+       21 DUPTABLE                         R3 K6 [{"id", "itemType"}]
+       22 GETUPVAL                         R4 2
+       23 SETTABLEKS                       R4 R3 K4 ["id"]
+       25 LOADK                            R4 K7 ["Asset"]
+       26 SETTABLEKS                       R4 R3 K5 ["itemType"]
+       28 SETLIST                          R2 R3 1 [1]
+       30 NAMECALL                         R0 R0 K8 ["getItemDetails"]
+       32 CALL                             R0 2 1
+       33 NEWCLOSURE                       R3 P0
+       34 CAPTURE                          UPVAL U2
+       35 CAPTURE                          UPVAL U0
+       36 CAPTURE                          UPVAL U4
+       37 CAPTURE                          UPVAL U5
+       38 CAPTURE                          UPVAL U6
+       39 CAPTURE                          UPVAL U1
+       40 CAPTURE                          UPVAL U7
+       41 NEWCLOSURE                       R4 P1
+       42 CAPTURE                          UPVAL U2
+       43 CAPTURE                          UPVAL U0
+       44 NAMECALL                         R1 R0 K9 ["andThen"]
+       46 CALL                             R1 3 0
+       47 LOADNIL                          R1
+       48 RETURN                           R1 1
 
 PROTO_3:
-  GETIMPORT R1 K1 [pcall]
-  NEWCLOSURE R2 P0
-  CAPTURE UPVAL U0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  CALL R1 1 2
-  JUMPIF R1 [+19]
-  GETIMPORT R3 K3 [warn]
-  LOADK R4 K4 ["Failed to try asset"]
-  GETUPVAL R6 1
-  FASTCALL1 TOSTRING R6 [+2]
-  GETIMPORT R5 K6 [tostring]
-  CALL R5 1 1
-  FASTCALL1 TOSTRING R2 [+3]
-  MOVE R7 R2
-  GETIMPORT R6 K6 [tostring]
-  CALL R6 1 1
-  CALL R3 3 0
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K7 ["onTryAssetFailure"]
-  GETUPVAL R4 1
-  CALL R3 1 0
-  RETURN R0 0
+        0 GETIMPORT                        R1 K1 [pcall]
+        2 NEWCLOSURE                       R2 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          UPVAL U2
+        7 CAPTURE                          UPVAL U3
+        8 CAPTURE                          UPVAL U4
+        9 CAPTURE                          UPVAL U5
+       10 CAPTURE                          UPVAL U6
+       11 CALL                             R1 1 2
+       12 JUMPIF                           R1 ; [+19]
+       13 GETIMPORT                        R3 K3 [warn]
+       15 LOADK                            R4 K4 ["Failed to try asset"]
+       16 GETUPVAL                         R6 1
+       17 FASTCALL1                        TOSTRING R6 ; [+2]
+       18 GETIMPORT                        R5 K6 [tostring]
+       20 CALL                             R5 1 1
+       21 FASTCALL1                        TOSTRING R2 ; [+3]
+       22 MOVE                             R7 R2
+       23 GETIMPORT                        R6 K6 [tostring]
+       25 CALL                             R6 1 1
+       26 CALL                             R3 3 0
+       27 GETUPVAL                         R4 0
+       28 GETTABLEKS                       R3 R4 K7 ["onTryAssetFailure"]
+       30 GETUPVAL                         R4 1
+       31 CALL                             R3 1 0
+       32 RETURN                           R0 0
 
 PROTO_4:
-  NEWCLOSURE R5 P0
-  CAPTURE UPVAL U0
-  CAPTURE VAL R0
-  CAPTURE VAL R3
-  CAPTURE UPVAL U1
-  CAPTURE VAL R4
-  CAPTURE VAL R1
-  CAPTURE UPVAL U2
-  RETURN R5 1
+        0 NEWCLOSURE                       R5 P0
+        1 CAPTURE                          UPVAL U0
+        2 CAPTURE                          VAL R0
+        3 CAPTURE                          VAL R3
+        4 CAPTURE                          UPVAL U1
+        5 CAPTURE                          VAL R4
+        6 CAPTURE                          VAL R1
+        7 CAPTURE                          UPVAL U2
+        8 RETURN                           R5 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R2 R0 K3 ["Src"]
-  GETTABLEKS R1 R2 K4 ["Actions"]
-  GETIMPORT R2 K6 [require]
-  GETTABLEKS R3 R1 K7 ["MarkTryInStudioDone"]
-  CALL R2 1 1
-  GETIMPORT R3 K6 [require]
-  GETTABLEKS R7 R0 K3 ["Src"]
-  GETTABLEKS R6 R7 K8 ["Util"]
-  GETTABLEKS R5 R6 K9 ["Analytics"]
-  GETTABLEKS R4 R5 K9 ["Analytics"]
-  CALL R3 1 1
-  GETIMPORT R4 K6 [require]
-  GETTABLEKS R8 R0 K3 ["Src"]
-  GETTABLEKS R7 R8 K8 ["Util"]
-  GETTABLEKS R6 R7 K10 ["SharedFlags"]
-  GETTABLEKS R5 R6 K11 ["getFFlagToolboxCapabilities"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K12 [PROTO_4]
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R2
-  RETURN R5 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETTABLEKS                       R2 R0 K3 ["Src"]
+       11 GETTABLEKS                       R1 R2 K4 ["Actions"]
+       13 GETIMPORT                        R2 K6 [require]
+       15 GETTABLEKS                       R3 R1 K7 ["MarkTryInStudioDone"]
+       17 CALL                             R2 1 1
+       18 GETIMPORT                        R3 K6 [require]
+       20 GETTABLEKS                       R7 R0 K3 ["Src"]
+       22 GETTABLEKS                       R6 R7 K8 ["Util"]
+       24 GETTABLEKS                       R5 R6 K9 ["Analytics"]
+       26 GETTABLEKS                       R4 R5 K9 ["Analytics"]
+       28 CALL                             R3 1 1
+       29 GETIMPORT                        R4 K6 [require]
+       31 GETTABLEKS                       R8 R0 K3 ["Src"]
+       33 GETTABLEKS                       R7 R8 K8 ["Util"]
+       35 GETTABLEKS                       R6 R7 K10 ["SharedFlags"]
+       37 GETTABLEKS                       R5 R6 K11 ["getFFlagToolboxCapabilities"]
+       39 CALL                             R4 1 1
+       40 DUPCLOSURE                       R5 K12 [PROTO_4]
+       41 CAPTURE                          VAL R3
+       42 CAPTURE                          VAL R4
+       43 CAPTURE                          VAL R2
+       44 RETURN                           R5 1

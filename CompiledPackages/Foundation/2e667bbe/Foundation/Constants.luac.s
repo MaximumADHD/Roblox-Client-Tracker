@@ -1,0 +1,40 @@
+MAIN:
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Foundation"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Components"]
+       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+       13 CALL                             R1 1 1
+       14 DUPTABLE                         R2 K15 [{"MAX_LAYOUT_ORDER", "MIN_LAYOUT_ORDER", "DISABLED_TRANSPARENCY", "DEFAULT_DELAY_TIME", "SHADOW_IMAGE", "SHADOW_SIZE", "MODAL"}]
+       15 LOADK                            R3 K16 [2147483648]
+       16 SETTABLEKS                       R3 R2 K8 ["MAX_LAYOUT_ORDER"]
+       18 LOADK                            R3 K17 [-2147483648]
+       19 SETTABLEKS                       R3 R2 K9 ["MIN_LAYOUT_ORDER"]
+       21 LOADK                            R3 K18 [0.5]
+       22 SETTABLEKS                       R3 R2 K10 ["DISABLED_TRANSPARENCY"]
+       24 LOADK                            R3 K19 [0.15]
+       25 SETTABLEKS                       R3 R2 K11 ["DEFAULT_DELAY_TIME"]
+       27 LOADK                            R3 K20 ["component_assets/dropshadow_17_8"]
+       28 SETTABLEKS                       R3 R2 K12 ["SHADOW_IMAGE"]
+       30 LOADN                            R3 16
+       31 SETTABLEKS                       R3 R2 K13 ["SHADOW_SIZE"]
+       33 DUPTABLE                         R3 K23 [{"DISABLE_SELECTION", "TRAP_FOCUS"}]
+       34 DUPTABLE                         R4 K25 [{"Selectable"}]
+       35 LOADB                            R5 0
+       36 SETTABLEKS                       R5 R4 K24 ["Selectable"]
+       38 SETTABLEKS                       R4 R3 K21 ["DISABLE_SELECTION"]
+       40 DUPTABLE                         R4 K30 [{"SelectionBehaviorRight", "SelectionBehaviorLeft", "SelectionBehaviorDown", "SelectionBehaviorUp"}]
+       41 GETIMPORT                        R5 K34 [Enum.SelectionBehavior.Stop]
+       43 SETTABLEKS                       R5 R4 K26 ["SelectionBehaviorRight"]
+       45 GETIMPORT                        R5 K34 [Enum.SelectionBehavior.Stop]
+       47 SETTABLEKS                       R5 R4 K27 ["SelectionBehaviorLeft"]
+       49 GETIMPORT                        R5 K34 [Enum.SelectionBehavior.Stop]
+       51 SETTABLEKS                       R5 R4 K28 ["SelectionBehaviorDown"]
+       53 GETIMPORT                        R5 K34 [Enum.SelectionBehavior.Stop]
+       55 SETTABLEKS                       R5 R4 K29 ["SelectionBehaviorUp"]
+       57 SETTABLEKS                       R4 R3 K22 ["TRAP_FOCUS"]
+       59 SETTABLEKS                       R3 R2 K14 ["MODAL"]
+       61 RETURN                           R2 1

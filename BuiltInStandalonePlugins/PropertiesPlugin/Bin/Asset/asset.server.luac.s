@@ -1,59 +1,59 @@
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["PropertiesPlugin"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["TestLoader"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K8 ["launch"]
-  LOADK R3 K2 ["PropertiesPlugin"]
-  GETTABLEKS R4 R0 K9 ["Src"]
-  CALL R2 2 0
-  GETTABLEKS R2 R1 K10 ["isCli"]
-  CALL R2 0 1
-  JUMPIFNOT R2 [+1]
-  RETURN R0 0
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Src"]
-  GETTABLEKS R4 R5 K11 ["Flags"]
-  GETTABLEKS R3 R4 K12 ["getFFlagNewProperties"]
-  CALL R2 1 1
-  MOVE R3 R2
-  CALL R3 0 1
-  JUMPIF R3 [+1]
-  RETURN R0 0
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K13 ["Guest"]
-  GETTABLEKS R4 R5 K14 ["startStudioGuest"]
-  CALL R3 1 1
-  MOVE R4 R3
-  GETIMPORT R5 K16 [plugin]
-  CALL R4 1 0
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K17 ["Bin"]
-  GETTABLEKS R6 R7 K18 ["Common"]
-  GETTABLEKS R5 R6 K19 ["pluginType"]
-  CALL R4 1 1
-  GETTABLEKS R5 R4 K20 ["get"]
-  CALL R5 0 1
-  GETTABLEKS R6 R4 K21 ["Asset"]
-  JUMPIFNOTEQ R5 R6 [+24]
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K17 ["Bin"]
-  GETTABLEKS R7 R8 K18 ["Common"]
-  GETTABLEKS R6 R7 K22 ["setup"]
-  CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K17 ["Bin"]
-  GETTABLEKS R8 R9 K18 ["Common"]
-  GETTABLEKS R7 R8 K23 ["setupMain"]
-  CALL R6 1 1
-  MOVE R7 R5
-  GETIMPORT R8 K16 [plugin]
-  MOVE R9 R6
-  CALL R7 2 0
-  RETURN R0 0
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["PropertiesPlugin"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["TestLoader"]
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R2 R1 K8 ["launch"]
+       16 LOADK                            R3 K2 ["PropertiesPlugin"]
+       17 GETTABLEKS                       R4 R0 K9 ["Src"]
+       19 CALL                             R2 2 0
+       20 GETTABLEKS                       R2 R1 K10 ["isCli"]
+       22 CALL                             R2 0 1
+       23 JUMPIFNOT                        R2 ; [+1]
+       24 RETURN                           R0 0
+       25 GETIMPORT                        R2 K5 [require]
+       27 GETTABLEKS                       R5 R0 K9 ["Src"]
+       29 GETTABLEKS                       R4 R5 K11 ["Flags"]
+       31 GETTABLEKS                       R3 R4 K12 ["getFFlagNewProperties"]
+       33 CALL                             R2 1 1
+       34 MOVE                             R3 R2
+       35 CALL                             R3 0 1
+       36 JUMPIF                           R3 ; [+1]
+       37 RETURN                           R0 0
+       38 GETIMPORT                        R3 K5 [require]
+       40 GETTABLEKS                       R6 R0 K9 ["Src"]
+       42 GETTABLEKS                       R5 R6 K13 ["Guest"]
+       44 GETTABLEKS                       R4 R5 K14 ["startStudioGuest"]
+       46 CALL                             R3 1 1
+       47 MOVE                             R4 R3
+       48 GETIMPORT                        R5 K16 [plugin]
+       50 CALL                             R4 1 0
+       51 GETIMPORT                        R4 K5 [require]
+       53 GETTABLEKS                       R7 R0 K17 ["Bin"]
+       55 GETTABLEKS                       R6 R7 K18 ["Common"]
+       57 GETTABLEKS                       R5 R6 K19 ["pluginType"]
+       59 CALL                             R4 1 1
+       60 GETTABLEKS                       R5 R4 K20 ["get"]
+       62 CALL                             R5 0 1
+       63 GETTABLEKS                       R6 R4 K21 ["Asset"]
+       65 JUMPIFNOTEQ                      R5 R6 ; [+24]
+       67 GETIMPORT                        R5 K5 [require]
+       69 GETTABLEKS                       R8 R0 K17 ["Bin"]
+       71 GETTABLEKS                       R7 R8 K18 ["Common"]
+       73 GETTABLEKS                       R6 R7 K22 ["setup"]
+       75 CALL                             R5 1 1
+       76 GETIMPORT                        R6 K5 [require]
+       78 GETTABLEKS                       R9 R0 K17 ["Bin"]
+       80 GETTABLEKS                       R8 R9 K18 ["Common"]
+       82 GETTABLEKS                       R7 R8 K23 ["setupMain"]
+       84 CALL                             R6 1 1
+       85 MOVE                             R7 R5
+       86 GETIMPORT                        R8 K16 [plugin]
+       88 MOVE                             R9 R6
+       89 CALL                             R7 2 0
+       90 RETURN                           R0 0

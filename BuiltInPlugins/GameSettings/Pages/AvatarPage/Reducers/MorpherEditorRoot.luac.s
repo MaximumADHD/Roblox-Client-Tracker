@@ -1,41 +1,41 @@
 PROTO_0:
-  MOVE R2 R0
-  JUMPIF R2 [+5]
-  DUPTABLE R2 K1 [{"StateMorpher"}]
-  NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K0 ["StateMorpher"]
-  MOVE R0 R2
-  DUPTABLE R2 K1 [{"StateMorpher"}]
-  DUPTABLE R3 K4 [{"StateTemplates", "StateSettings"}]
-  GETUPVAL R4 0
-  GETTABLEKS R6 R0 K0 ["StateMorpher"]
-  GETTABLEKS R5 R6 K2 ["StateTemplates"]
-  MOVE R6 R1
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K2 ["StateTemplates"]
-  GETUPVAL R4 1
-  GETTABLEKS R6 R0 K0 ["StateMorpher"]
-  GETTABLEKS R5 R6 K3 ["StateSettings"]
-  MOVE R6 R1
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K3 ["StateSettings"]
-  SETTABLEKS R3 R2 K0 ["StateMorpher"]
-  RETURN R2 1
+        0 MOVE                             R2 R0
+        1 JUMPIF                           R2 ; [+5]
+        2 DUPTABLE                         R2 K1 [{"StateMorpher"}]
+        3 NEWTABLE                         R3 0 0
+        5 SETTABLEKS                       R3 R2 K0 ["StateMorpher"]
+        7 MOVE                             R0 R2
+        8 DUPTABLE                         R2 K1 [{"StateMorpher"}]
+        9 DUPTABLE                         R3 K4 [{"StateTemplates", "StateSettings"}]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R6 R0 K0 ["StateMorpher"]
+       13 GETTABLEKS                       R5 R6 K2 ["StateTemplates"]
+       15 MOVE                             R6 R1
+       16 CALL                             R4 2 1
+       17 SETTABLEKS                       R4 R3 K2 ["StateTemplates"]
+       19 GETUPVAL                         R4 1
+       20 GETTABLEKS                       R6 R0 K0 ["StateMorpher"]
+       22 GETTABLEKS                       R5 R6 K3 ["StateSettings"]
+       24 MOVE                             R6 R1
+       25 CALL                             R4 2 1
+       26 SETTABLEKS                       R4 R3 K3 ["StateSettings"]
+       28 SETTABLEKS                       R3 R2 K0 ["StateMorpher"]
+       30 RETURN                           R2 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R2 K1 [script]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Reducers"]
-  GETTABLEKS R2 R3 K6 ["MorpherEditorSettings"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Reducers"]
-  GETTABLEKS R3 R4 K7 ["MorpherEditorTemplates"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K8 [PROTO_0]
-  CAPTURE VAL R2
-  CAPTURE VAL R1
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R2 K1 [script]
+        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        7 GETIMPORT                        R1 K4 [require]
+        9 GETTABLEKS                       R3 R0 K5 ["Reducers"]
+       11 GETTABLEKS                       R2 R3 K6 ["MorpherEditorSettings"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K4 [require]
+       16 GETTABLEKS                       R4 R0 K5 ["Reducers"]
+       18 GETTABLEKS                       R3 R4 K7 ["MorpherEditorTemplates"]
+       20 CALL                             R2 1 1
+       21 DUPCLOSURE                       R3 K8 [PROTO_0]
+       22 CAPTURE                          VAL R2
+       23 CAPTURE                          VAL R1
+       24 RETURN                           R3 1

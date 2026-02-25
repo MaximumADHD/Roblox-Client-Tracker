@@ -1,87 +1,87 @@
 PROTO_0:
-  GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R1 K1 ["Stylizer"]
-  LOADNIL R3
-  GETUPVAL R4 0
-  GETTABLEKS R5 R1 K2 ["Title"]
-  GETTABLEKS R8 R2 K3 ["fontStyle"]
-  GETTABLEKS R7 R8 K4 ["Header"]
-  GETTABLEKS R6 R7 K5 ["TextSize"]
-  GETTABLEKS R9 R2 K3 ["fontStyle"]
-  GETTABLEKS R8 R9 K4 ["Header"]
-  GETTABLEKS R7 R8 K6 ["Font"]
-  CALL R4 3 1
-  GETIMPORT R5 K9 [UDim2.new]
-  LOADN R6 0
-  GETTABLEKS R7 R4 K10 ["X"]
-  LOADN R8 0
-  GETTABLEKS R9 R4 K11 ["Y"]
-  CALL R5 4 1
-  MOVE R3 R5
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K12 ["createElement"]
-  LOADK R6 K13 ["TextLabel"]
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K14 ["Dictionary"]
-  GETTABLEKS R7 R8 K15 ["join"]
-  GETTABLEKS R9 R2 K3 ["fontStyle"]
-  GETTABLEKS R8 R9 K4 ["Header"]
-  DUPTABLE R9 K23 [{"Size", "Text", "BackgroundTransparency", "BorderSizePixel", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
-  SETTABLEKS R3 R9 K16 ["Size"]
-  GETTABLEKS R10 R1 K2 ["Title"]
-  SETTABLEKS R10 R9 K17 ["Text"]
-  LOADN R10 1
-  SETTABLEKS R10 R9 K18 ["BackgroundTransparency"]
-  LOADN R10 0
-  SETTABLEKS R10 R9 K19 ["BorderSizePixel"]
-  GETIMPORT R10 K26 [Enum.TextXAlignment.Left]
-  SETTABLEKS R10 R9 K20 ["TextXAlignment"]
-  GETIMPORT R10 K28 [Enum.TextYAlignment.Bottom]
-  SETTABLEKS R10 R9 K21 ["TextYAlignment"]
-  GETTABLEKS R11 R1 K22 ["LayoutOrder"]
-  ORK R10 R11 K29 [1]
-  SETTABLEKS R10 R9 K22 ["LayoutOrder"]
-  CALL R7 2 -1
-  CALL R5 -1 -1
-  RETURN R5 -1
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 LOADNIL                          R3
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R5 R1 K2 ["Title"]
+        8 GETTABLEKS                       R8 R2 K3 ["fontStyle"]
+       10 GETTABLEKS                       R7 R8 K4 ["Header"]
+       12 GETTABLEKS                       R6 R7 K5 ["TextSize"]
+       14 GETTABLEKS                       R9 R2 K3 ["fontStyle"]
+       16 GETTABLEKS                       R8 R9 K4 ["Header"]
+       18 GETTABLEKS                       R7 R8 K6 ["Font"]
+       20 CALL                             R4 3 1
+       21 GETIMPORT                        R5 K9 [UDim2.new]
+       23 LOADN                            R6 0
+       24 GETTABLEKS                       R7 R4 K10 ["X"]
+       26 LOADN                            R8 0
+       27 GETTABLEKS                       R9 R4 K11 ["Y"]
+       29 CALL                             R5 4 1
+       30 MOVE                             R3 R5
+       31 GETUPVAL                         R6 1
+       32 GETTABLEKS                       R5 R6 K12 ["createElement"]
+       34 LOADK                            R6 K13 ["TextLabel"]
+       35 GETUPVAL                         R9 2
+       36 GETTABLEKS                       R8 R9 K14 ["Dictionary"]
+       38 GETTABLEKS                       R7 R8 K15 ["join"]
+       40 GETTABLEKS                       R9 R2 K3 ["fontStyle"]
+       42 GETTABLEKS                       R8 R9 K4 ["Header"]
+       44 DUPTABLE                         R9 K23 [{"Size", "Text", "BackgroundTransparency", "BorderSizePixel", "TextXAlignment", "TextYAlignment", "LayoutOrder"}]
+       45 SETTABLEKS                       R3 R9 K16 ["Size"]
+       47 GETTABLEKS                       R10 R1 K2 ["Title"]
+       49 SETTABLEKS                       R10 R9 K17 ["Text"]
+       51 LOADN                            R10 1
+       52 SETTABLEKS                       R10 R9 K18 ["BackgroundTransparency"]
+       54 LOADN                            R10 0
+       55 SETTABLEKS                       R10 R9 K19 ["BorderSizePixel"]
+       57 GETIMPORT                        R10 K26 [Enum.TextXAlignment.Left]
+       59 SETTABLEKS                       R10 R9 K20 ["TextXAlignment"]
+       61 GETIMPORT                        R10 K28 [Enum.TextYAlignment.Bottom]
+       63 SETTABLEKS                       R10 R9 K21 ["TextYAlignment"]
+       65 GETTABLEKS                       R11 R1 K22 ["LayoutOrder"]
+       67 ORK                              R10 R11 K29 [1]
+       68 SETTABLEKS                       R10 R9 K22 ["LayoutOrder"]
+       70 CALL                             R7 2 -1
+       71 CALL                             R5 -1 -1
+       72 RETURN                           R5 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Framework"]
-  CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Packages"]
-  GETTABLEKS R4 R5 K8 ["Cryo"]
-  CALL R3 1 1
-  GETTABLEKS R4 R2 K9 ["ContextServices"]
-  GETTABLEKS R5 R4 K10 ["withContext"]
-  GETTABLEKS R6 R2 K11 ["Util"]
-  GETTABLEKS R7 R6 K12 ["GetTextSize"]
-  GETTABLEKS R8 R1 K13 ["PureComponent"]
-  LOADK R10 K14 ["Header"]
-  NAMECALL R8 R8 K15 ["extend"]
-  CALL R8 2 1
-  DUPCLOSURE R9 K16 [PROTO_0]
-  CAPTURE VAL R7
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  SETTABLEKS R9 R8 K17 ["render"]
-  MOVE R9 R5
-  DUPTABLE R10 K19 [{"Stylizer"}]
-  GETTABLEKS R11 R4 K18 ["Stylizer"]
-  SETTABLEKS R11 R10 K18 ["Stylizer"]
-  CALL R9 1 1
-  MOVE R10 R8
-  CALL R9 1 1
-  MOVE R8 R9
-  RETURN R8 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K4 [require]
+       25 GETTABLEKS                       R5 R0 K5 ["Packages"]
+       27 GETTABLEKS                       R4 R5 K8 ["Cryo"]
+       29 CALL                             R3 1 1
+       30 GETTABLEKS                       R4 R2 K9 ["ContextServices"]
+       32 GETTABLEKS                       R5 R4 K10 ["withContext"]
+       34 GETTABLEKS                       R6 R2 K11 ["Util"]
+       36 GETTABLEKS                       R7 R6 K12 ["GetTextSize"]
+       38 GETTABLEKS                       R8 R1 K13 ["PureComponent"]
+       40 LOADK                            R10 K14 ["Header"]
+       41 NAMECALL                         R8 R8 K15 ["extend"]
+       43 CALL                             R8 2 1
+       44 DUPCLOSURE                       R9 K16 [PROTO_0]
+       45 CAPTURE                          VAL R7
+       46 CAPTURE                          VAL R1
+       47 CAPTURE                          VAL R3
+       48 SETTABLEKS                       R9 R8 K17 ["render"]
+       50 MOVE                             R9 R5
+       51 DUPTABLE                         R10 K19 [{"Stylizer"}]
+       52 GETTABLEKS                       R11 R4 K18 ["Stylizer"]
+       54 SETTABLEKS                       R11 R10 K18 ["Stylizer"]
+       56 CALL                             R9 1 1
+       57 MOVE                             R10 R8
+       58 CALL                             R9 1 1
+       59 MOVE                             R8 R9
+       60 RETURN                           R8 1

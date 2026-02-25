@@ -1,3 +1,3 @@
 MAIN:
-  PREPVARARGS 0
-  RETURN R0 0
+        0 PREPVARARGS                      0
+        1 RETURN                           R0 0

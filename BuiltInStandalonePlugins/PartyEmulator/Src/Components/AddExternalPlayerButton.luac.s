@@ -1,64 +1,64 @@
 PROTO_0:
-  GETIMPORT R0 K1 [print]
-  LOADK R1 K2 ["Add External Player Clicked"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETIMPORT                        R0 K1 [print]
+        2 LOADK                            R1 K2 ["Add External Player Clicked"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["use"]
-  CALL R1 1 1
-  DUPCLOSURE R2 K1 [PROTO_0]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K2 ["createElement"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K3 ["Button"]
-  DUPTABLE R5 K9 [{"text", "onActivated", "variant", "size", "LayoutOrder"}]
-  LOADK R8 K10 ["Action"]
-  LOADK R9 K11 ["AddExternalPlayer"]
-  NAMECALL R6 R1 K12 ["getText"]
-  CALL R6 3 1
-  SETTABLEKS R6 R5 K4 ["text"]
-  SETTABLEKS R2 R5 K5 ["onActivated"]
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K13 ["Subtle"]
-  SETTABLEKS R6 R5 K6 ["variant"]
-  GETUPVAL R7 4
-  GETTABLEKS R6 R7 K14 ["Medium"]
-  SETTABLEKS R6 R5 K7 ["size"]
-  GETTABLEKS R6 R0 K8 ["LayoutOrder"]
-  SETTABLEKS R6 R5 K8 ["LayoutOrder"]
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 GETUPVAL                         R1 0
+        1 NAMECALL                         R1 R1 K0 ["use"]
+        3 CALL                             R1 1 1
+        4 DUPCLOSURE                       R2 K1 [PROTO_0]
+        5 GETUPVAL                         R4 1
+        6 GETTABLEKS                       R3 R4 K2 ["createElement"]
+        8 GETUPVAL                         R5 2
+        9 GETTABLEKS                       R4 R5 K3 ["Button"]
+       11 DUPTABLE                         R5 K9 [{"text", "onActivated", "variant", "size", "LayoutOrder"}]
+       12 LOADK                            R8 K10 ["Action"]
+       13 LOADK                            R9 K11 ["AddExternalPlayer"]
+       14 NAMECALL                         R6 R1 K12 ["getText"]
+       16 CALL                             R6 3 1
+       17 SETTABLEKS                       R6 R5 K4 ["text"]
+       19 SETTABLEKS                       R2 R5 K5 ["onActivated"]
+       21 GETUPVAL                         R7 3
+       22 GETTABLEKS                       R6 R7 K13 ["Subtle"]
+       24 SETTABLEKS                       R6 R5 K6 ["variant"]
+       26 GETUPVAL                         R7 4
+       27 GETTABLEKS                       R6 R7 K14 ["Medium"]
+       29 SETTABLEKS                       R6 R5 K7 ["size"]
+       31 GETTABLEKS                       R6 R0 K8 ["LayoutOrder"]
+       33 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
+       35 CALL                             R3 2 -1
+       36 RETURN                           R3 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["PartyEmulator"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Foundation"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K9 ["Enums"]
-  GETTABLEKS R3 R4 K10 ["ButtonVariant"]
-  GETTABLEKS R5 R2 K9 ["Enums"]
-  GETTABLEKS R4 R5 K11 ["InputSize"]
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Packages"]
-  GETTABLEKS R6 R7 K12 ["Framework"]
-  CALL R5 1 1
-  GETTABLEKS R6 R5 K13 ["ContextServices"]
-  GETTABLEKS R7 R6 K14 ["Localization"]
-  DUPCLOSURE R8 K15 [PROTO_1]
-  CAPTURE VAL R7
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  RETURN R8 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["PartyEmulator"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["Foundation"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R4 R2 K9 ["Enums"]
+       23 GETTABLEKS                       R3 R4 K10 ["ButtonVariant"]
+       25 GETTABLEKS                       R5 R2 K9 ["Enums"]
+       27 GETTABLEKS                       R4 R5 K11 ["InputSize"]
+       29 GETIMPORT                        R5 K5 [require]
+       31 GETTABLEKS                       R7 R0 K6 ["Packages"]
+       33 GETTABLEKS                       R6 R7 K12 ["Framework"]
+       35 CALL                             R5 1 1
+       36 GETTABLEKS                       R6 R5 K13 ["ContextServices"]
+       38 GETTABLEKS                       R7 R6 K14 ["Localization"]
+       40 DUPCLOSURE                       R8 K15 [PROTO_1]
+       41 CAPTURE                          VAL R7
+       42 CAPTURE                          VAL R1
+       43 CAPTURE                          VAL R2
+       44 CAPTURE                          VAL R3
+       45 CAPTURE                          VAL R4
+       46 RETURN                           R8 1

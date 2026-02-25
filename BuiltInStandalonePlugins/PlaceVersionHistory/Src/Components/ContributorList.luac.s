@@ -1,247 +1,247 @@
 PROTO_0:
-  GETUPVAL R0 0
-  LOADK R2 K0 ["<%*>"]
-  GETUPVAL R4 1
-  LOADK R6 K1 ["Label"]
-  LOADK R7 K2 ["UnknownUser"]
-  NAMECALL R4 R4 K3 ["getText"]
-  CALL R4 3 1
-  NAMECALL R2 R2 K4 ["format"]
-  CALL R2 2 1
-  MOVE R1 R2
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 LOADK                            R2 K0 ["<%*>"]
+        2 GETUPVAL                         R4 1
+        3 LOADK                            R6 K1 ["Label"]
+        4 LOADK                            R7 K2 ["UnknownUser"]
+        5 NAMECALL                         R4 R4 K3 ["getText"]
+        7 CALL                             R4 3 1
+        8 NAMECALL                         R2 R2 K4 ["format"]
+       10 CALL                             R2 2 1
+       11 MOVE                             R1 R2
+       12 CALL                             R0 1 0
+       13 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["current"]
-  JUMPIFNOT R0 [+10]
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["current"]
-  NAMECALL R0 R0 K1 ["cancel"]
-  CALL R0 1 0
-  GETUPVAL R0 0
-  LOADNIL R1
-  SETTABLEKS R1 R0 K0 ["current"]
-  GETUPVAL R0 0
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K2 ["getUserName"]
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K3 ["userId"]
-  CALL R1 1 1
-  GETUPVAL R3 3
-  NAMECALL R1 R1 K4 ["andThen"]
-  CALL R1 2 1
-  NEWCLOSURE R3 P0
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  NAMECALL R1 R1 K5 ["catch"]
-  CALL R1 2 1
-  SETTABLEKS R1 R0 K0 ["current"]
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["current"]
+        3 JUMPIFNOT                        R0 ; [+10]
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R0 R1 K0 ["current"]
+        7 NAMECALL                         R0 R0 K1 ["cancel"]
+        9 CALL                             R0 1 0
+       10 GETUPVAL                         R0 0
+       11 LOADNIL                          R1
+       12 SETTABLEKS                       R1 R0 K0 ["current"]
+       14 GETUPVAL                         R0 0
+       15 GETUPVAL                         R2 1
+       16 GETTABLEKS                       R1 R2 K2 ["getUserName"]
+       18 GETUPVAL                         R3 2
+       19 GETTABLEKS                       R2 R3 K3 ["userId"]
+       21 CALL                             R1 1 1
+       22 GETUPVAL                         R3 3
+       23 NAMECALL                         R1 R1 K4 ["andThen"]
+       25 CALL                             R1 2 1
+       26 NEWCLOSURE                       R3 P0
+       27 CAPTURE                          UPVAL U3
+       28 CAPTURE                          UPVAL U4
+       29 NAMECALL                         R1 R1 K5 ["catch"]
+       31 CALL                             R1 2 1
+       32 SETTABLEKS                       R1 R0 K0 ["current"]
+       34 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["useContext"]
-  GETUPVAL R3 2
-  CALL R2 1 1
-  GETUPVAL R3 3
-  NAMECALL R3 R3 K1 ["use"]
-  CALL R3 1 1
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K2 ["useState"]
-  LOADK R5 K3 [". . ."]
-  CALL R4 1 2
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K4 ["useRef"]
-  LOADNIL R7
-  CALL R6 1 1
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K5 ["useEffect"]
-  NEWCLOSURE R8 P0
-  CAPTURE VAL R6
-  CAPTURE VAL R2
-  CAPTURE VAL R0
-  CAPTURE VAL R5
-  CAPTURE VAL R3
-  NEWTABLE R9 0 1
-  GETTABLEKS R10 R0 K6 ["userId"]
-  SETLIST R9 R10 1 [1]
-  CALL R7 2 0
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K7 ["createElement"]
-  GETUPVAL R9 4
-  GETTABLEKS R8 R9 K8 ["View"]
-  DUPTABLE R9 K11 [{"tag", "LayoutOrder"}]
-  LOADK R10 K12 ["size-0-0 auto-xy row align-y-center gap-xsmall"]
-  SETTABLEKS R10 R9 K9 ["tag"]
-  GETTABLEKS R10 R0 K10 ["LayoutOrder"]
-  SETTABLEKS R10 R9 K10 ["LayoutOrder"]
-  DUPTABLE R10 K14 [{"Tooltip"}]
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K7 ["createElement"]
-  GETUPVAL R13 4
-  GETTABLEKS R12 R13 K13 ["Tooltip"]
-  DUPTABLE R13 K16 [{"title"}]
-  SETTABLEKS R4 R13 K15 ["title"]
-  DUPTABLE R14 K18 [{"Avatar"}]
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K7 ["createElement"]
-  GETUPVAL R17 4
-  GETTABLEKS R16 R17 K17 ["Avatar"]
-  DUPTABLE R17 K20 [{"userId", "size", "LayoutOrder"}]
-  GETTABLEKS R18 R0 K6 ["userId"]
-  SETTABLEKS R18 R17 K6 ["userId"]
-  GETUPVAL R21 4
-  GETTABLEKS R20 R21 K21 ["Enums"]
-  GETTABLEKS R19 R20 K22 ["InputSize"]
-  GETTABLEKS R18 R19 K23 ["XSmall"]
-  SETTABLEKS R18 R17 K19 ["size"]
-  MOVE R18 R1
-  CALL R18 0 1
-  SETTABLEKS R18 R17 K10 ["LayoutOrder"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K17 ["Avatar"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K13 ["Tooltip"]
-  CALL R7 3 -1
-  RETURN R7 -1
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R2 R3 K0 ["useContext"]
+        5 GETUPVAL                         R3 2
+        6 CALL                             R2 1 1
+        7 GETUPVAL                         R3 3
+        8 NAMECALL                         R3 R3 K1 ["use"]
+       10 CALL                             R3 1 1
+       11 GETUPVAL                         R5 1
+       12 GETTABLEKS                       R4 R5 K2 ["useState"]
+       14 LOADK                            R5 K3 [". . ."]
+       15 CALL                             R4 1 2
+       16 GETUPVAL                         R7 1
+       17 GETTABLEKS                       R6 R7 K4 ["useRef"]
+       19 LOADNIL                          R7
+       20 CALL                             R6 1 1
+       21 GETUPVAL                         R8 1
+       22 GETTABLEKS                       R7 R8 K5 ["useEffect"]
+       24 NEWCLOSURE                       R8 P0
+       25 CAPTURE                          VAL R6
+       26 CAPTURE                          VAL R2
+       27 CAPTURE                          VAL R0
+       28 CAPTURE                          VAL R5
+       29 CAPTURE                          VAL R3
+       30 NEWTABLE                         R9 0 1
+       32 GETTABLEKS                       R10 R0 K6 ["userId"]
+       34 SETLIST                          R9 R10 1 [1]
+       36 CALL                             R7 2 0
+       37 GETUPVAL                         R8 1
+       38 GETTABLEKS                       R7 R8 K7 ["createElement"]
+       40 GETUPVAL                         R9 4
+       41 GETTABLEKS                       R8 R9 K8 ["View"]
+       43 DUPTABLE                         R9 K11 [{"tag", "LayoutOrder"}]
+       44 LOADK                            R10 K12 ["size-0-0 auto-xy row align-y-center gap-xsmall"]
+       45 SETTABLEKS                       R10 R9 K9 ["tag"]
+       47 GETTABLEKS                       R10 R0 K10 ["LayoutOrder"]
+       49 SETTABLEKS                       R10 R9 K10 ["LayoutOrder"]
+       51 DUPTABLE                         R10 K14 [{"Tooltip"}]
+       52 GETUPVAL                         R12 1
+       53 GETTABLEKS                       R11 R12 K7 ["createElement"]
+       55 GETUPVAL                         R13 4
+       56 GETTABLEKS                       R12 R13 K13 ["Tooltip"]
+       58 DUPTABLE                         R13 K16 [{"title"}]
+       59 SETTABLEKS                       R4 R13 K15 ["title"]
+       61 DUPTABLE                         R14 K18 [{"Avatar"}]
+       62 GETUPVAL                         R16 1
+       63 GETTABLEKS                       R15 R16 K7 ["createElement"]
+       65 GETUPVAL                         R17 4
+       66 GETTABLEKS                       R16 R17 K17 ["Avatar"]
+       68 DUPTABLE                         R17 K20 [{"userId", "size", "LayoutOrder"}]
+       69 GETTABLEKS                       R18 R0 K6 ["userId"]
+       71 SETTABLEKS                       R18 R17 K6 ["userId"]
+       73 GETUPVAL                         R21 4
+       74 GETTABLEKS                       R20 R21 K21 ["Enums"]
+       76 GETTABLEKS                       R19 R20 K22 ["InputSize"]
+       78 GETTABLEKS                       R18 R19 K23 ["XSmall"]
+       80 SETTABLEKS                       R18 R17 K19 ["size"]
+       82 MOVE                             R18 R1
+       83 CALL                             R18 0 1
+       84 SETTABLEKS                       R18 R17 K10 ["LayoutOrder"]
+       86 CALL                             R15 2 1
+       87 SETTABLEKS                       R15 R14 K17 ["Avatar"]
+       89 CALL                             R11 3 1
+       90 SETTABLEKS                       R11 R10 K13 ["Tooltip"]
+       92 CALL                             R7 3 -1
+       93 RETURN                           R7 -1
 
 PROTO_3:
-  NEWTABLE R0 0 0
-  MOVE R2 R0
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["createElement"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K1 ["Text"]
-  DUPTABLE R5 K5 [{"tag", "Text", "key", "LayoutOrder"}]
-  LOADK R6 K6 ["size-0-0 auto-xy text-body-small text-align-x-left"]
-  SETTABLEKS R6 R5 K2 ["tag"]
-  LOADK R7 K7 ["%*:"]
-  GETUPVAL R9 2
-  LOADK R11 K8 ["Label"]
-  LOADK R12 K9 ["Collaborators"]
-  NAMECALL R9 R9 K10 ["getText"]
-  CALL R9 3 1
-  NAMECALL R7 R7 K11 ["format"]
-  CALL R7 2 1
-  MOVE R6 R7
-  SETTABLEKS R6 R5 K1 ["Text"]
-  GETUPVAL R6 3
-  LOADK R7 K8 ["Label"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K3 ["key"]
-  GETUPVAL R6 4
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K4 ["LayoutOrder"]
-  CALL R3 2 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R1 K14 [table.insert]
-  CALL R1 -1 0
-  GETUPVAL R4 5
-  GETTABLEKS R1 R4 K15 ["contributors"]
-  LOADNIL R2
-  LOADNIL R3
-  FORGPREP R1
-  MOVE R7 R0
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K0 ["createElement"]
-  GETUPVAL R9 6
-  DUPTABLE R10 K17 [{"userId", "key", "LayoutOrder"}]
-  SETTABLEKS R5 R10 K16 ["userId"]
-  GETUPVAL R11 3
-  LOADK R12 K18 ["Contributor"]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K3 ["key"]
-  GETUPVAL R11 4
-  CALL R11 0 1
-  SETTABLEKS R11 R10 K4 ["LayoutOrder"]
-  CALL R8 2 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R6 K14 [table.insert]
-  CALL R6 -1 0
-  FORGLOOP R1 2 [-23]
-  RETURN R0 1
+        0 NEWTABLE                         R0 0 0
+        2 MOVE                             R2 R0
+        3 GETUPVAL                         R4 0
+        4 GETTABLEKS                       R3 R4 K0 ["createElement"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R4 R5 K1 ["Text"]
+        9 DUPTABLE                         R5 K5 [{"tag", "Text", "key", "LayoutOrder"}]
+       10 LOADK                            R6 K6 ["size-0-0 auto-xy text-body-small text-align-x-left"]
+       11 SETTABLEKS                       R6 R5 K2 ["tag"]
+       13 LOADK                            R7 K7 ["%*:"]
+       14 GETUPVAL                         R9 2
+       15 LOADK                            R11 K8 ["Label"]
+       16 LOADK                            R12 K9 ["Collaborators"]
+       17 NAMECALL                         R9 R9 K10 ["getText"]
+       19 CALL                             R9 3 1
+       20 NAMECALL                         R7 R7 K11 ["format"]
+       22 CALL                             R7 2 1
+       23 MOVE                             R6 R7
+       24 SETTABLEKS                       R6 R5 K1 ["Text"]
+       26 GETUPVAL                         R6 3
+       27 LOADK                            R7 K8 ["Label"]
+       28 CALL                             R6 1 1
+       29 SETTABLEKS                       R6 R5 K3 ["key"]
+       31 GETUPVAL                         R6 4
+       32 CALL                             R6 0 1
+       33 SETTABLEKS                       R6 R5 K4 ["LayoutOrder"]
+       35 CALL                             R3 2 -1
+       36 FASTCALL                         TABLE_INSERT ; [+2]
+       37 GETIMPORT                        R1 K14 [table.insert]
+       39 CALL                             R1 -1 0
+       40 GETUPVAL                         R4 5
+       41 GETTABLEKS                       R1 R4 K15 ["contributors"]
+       43 LOADNIL                          R2
+       44 LOADNIL                          R3
+       45 FORGPREP                         R1
+       46 MOVE                             R7 R0
+       47 GETUPVAL                         R9 0
+       48 GETTABLEKS                       R8 R9 K0 ["createElement"]
+       50 GETUPVAL                         R9 6
+       51 DUPTABLE                         R10 K17 [{"userId", "key", "LayoutOrder"}]
+       52 SETTABLEKS                       R5 R10 K16 ["userId"]
+       54 GETUPVAL                         R11 3
+       55 LOADK                            R12 K18 ["Contributor"]
+       56 CALL                             R11 1 1
+       57 SETTABLEKS                       R11 R10 K3 ["key"]
+       59 GETUPVAL                         R11 4
+       60 CALL                             R11 0 1
+       61 SETTABLEKS                       R11 R10 K4 ["LayoutOrder"]
+       63 CALL                             R8 2 -1
+       64 FASTCALL                         TABLE_INSERT ; [+2]
+       65 GETIMPORT                        R6 K14 [table.insert]
+       67 CALL                             R6 -1 0
+       68 FORGLOOP                         R1 2 ; [-23]
+       70 RETURN                           R0 1
 
 PROTO_4:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  GETUPVAL R2 1
-  CALL R2 0 1
-  GETUPVAL R3 2
-  NAMECALL R3 R3 K0 ["use"]
-  CALL R3 1 1
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K1 ["useMemo"]
-  NEWCLOSURE R5 P0
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  CAPTURE VAL R3
-  CAPTURE VAL R2
-  CAPTURE VAL R1
-  CAPTURE VAL R0
-  CAPTURE UPVAL U5
-  NEWTABLE R6 0 1
-  GETTABLEKS R7 R0 K2 ["contributors"]
-  SETLIST R6 R7 1 [1]
-  CALL R4 2 1
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K3 ["createElement"]
-  GETUPVAL R7 4
-  GETTABLEKS R6 R7 K4 ["View"]
-  DUPTABLE R7 K7 [{"tag", "LayoutOrder"}]
-  LOADK R8 K8 ["size-full-0 auto-y row align-y-center wrap gap-small"]
-  SETTABLEKS R8 R7 K5 ["tag"]
-  GETTABLEKS R8 R0 K6 ["LayoutOrder"]
-  SETTABLEKS R8 R7 K6 ["LayoutOrder"]
-  MOVE R8 R4
-  CALL R5 3 -1
-  RETURN R5 -1
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 GETUPVAL                         R2 1
+        3 CALL                             R2 0 1
+        4 GETUPVAL                         R3 2
+        5 NAMECALL                         R3 R3 K0 ["use"]
+        7 CALL                             R3 1 1
+        8 GETUPVAL                         R5 3
+        9 GETTABLEKS                       R4 R5 K1 ["useMemo"]
+       11 NEWCLOSURE                       R5 P0
+       12 CAPTURE                          UPVAL U3
+       13 CAPTURE                          UPVAL U4
+       14 CAPTURE                          VAL R3
+       15 CAPTURE                          VAL R2
+       16 CAPTURE                          VAL R1
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          UPVAL U5
+       19 NEWTABLE                         R6 0 1
+       21 GETTABLEKS                       R7 R0 K2 ["contributors"]
+       23 SETLIST                          R6 R7 1 [1]
+       25 CALL                             R4 2 1
+       26 GETUPVAL                         R6 3
+       27 GETTABLEKS                       R5 R6 K3 ["createElement"]
+       29 GETUPVAL                         R7 4
+       30 GETTABLEKS                       R6 R7 K4 ["View"]
+       32 DUPTABLE                         R7 K7 [{"tag", "LayoutOrder"}]
+       33 LOADK                            R8 K8 ["size-full-0 auto-y row align-y-center wrap gap-small"]
+       34 SETTABLEKS                       R8 R7 K5 ["tag"]
+       36 GETTABLEKS                       R8 R0 K6 ["LayoutOrder"]
+       38 SETTABLEKS                       R8 R7 K6 ["LayoutOrder"]
+       40 MOVE                             R8 R4
+       41 CALL                             R5 3 -1
+       42 RETURN                           R5 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["PlaceVersionHistory"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["ReactUtils"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["Foundation"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Packages"]
-  GETTABLEKS R5 R6 K10 ["Framework"]
-  CALL R4 1 1
-  GETTABLEKS R5 R4 K11 ["ContextServices"]
-  GETTABLEKS R6 R5 K12 ["Localization"]
-  GETTABLEKS R8 R0 K13 ["Src"]
-  GETTABLEKS R7 R8 K14 ["Contexts"]
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R9 R7 K15 ["NetworkContext"]
-  CALL R8 1 1
-  GETTABLEKS R9 R2 K16 ["createNextOrder"]
-  GETTABLEKS R10 R2 K17 ["createUniqueKey"]
-  DUPCLOSURE R11 K18 [PROTO_2]
-  CAPTURE VAL R9
-  CAPTURE VAL R1
-  CAPTURE VAL R8
-  CAPTURE VAL R6
-  CAPTURE VAL R3
-  DUPCLOSURE R12 K19 [PROTO_4]
-  CAPTURE VAL R9
-  CAPTURE VAL R10
-  CAPTURE VAL R6
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  CAPTURE VAL R11
-  RETURN R12 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["PlaceVersionHistory"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["ReactUtils"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R5 K9 ["Foundation"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       34 CALL                             R4 1 1
+       35 GETTABLEKS                       R5 R4 K11 ["ContextServices"]
+       37 GETTABLEKS                       R6 R5 K12 ["Localization"]
+       39 GETTABLEKS                       R8 R0 K13 ["Src"]
+       41 GETTABLEKS                       R7 R8 K14 ["Contexts"]
+       43 GETIMPORT                        R8 K5 [require]
+       45 GETTABLEKS                       R9 R7 K15 ["NetworkContext"]
+       47 CALL                             R8 1 1
+       48 GETTABLEKS                       R9 R2 K16 ["createNextOrder"]
+       50 GETTABLEKS                       R10 R2 K17 ["createUniqueKey"]
+       52 DUPCLOSURE                       R11 K18 [PROTO_2]
+       53 CAPTURE                          VAL R9
+       54 CAPTURE                          VAL R1
+       55 CAPTURE                          VAL R8
+       56 CAPTURE                          VAL R6
+       57 CAPTURE                          VAL R3
+       58 DUPCLOSURE                       R12 K19 [PROTO_4]
+       59 CAPTURE                          VAL R9
+       60 CAPTURE                          VAL R10
+       61 CAPTURE                          VAL R6
+       62 CAPTURE                          VAL R1
+       63 CAPTURE                          VAL R3
+       64 CAPTURE                          VAL R11
+       65 RETURN                           R12 1

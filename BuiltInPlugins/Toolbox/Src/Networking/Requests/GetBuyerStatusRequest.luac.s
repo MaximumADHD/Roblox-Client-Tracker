@@ -1,102 +1,102 @@
 PROTO_0:
-  JUMPIFNOT R0 [+3]
-  GETTABLEKS R1 R0 K0 ["responseBody"]
-  JUMP [+1]
-  LOADNIL R1
-  JUMPIFNOT R1 [+3]
-  GETTABLEKS R2 R1 K1 ["purchaserStatus"]
-  JUMP [+1]
-  LOADNIL R2
-  JUMPIFNOT R2 [+7]
-  GETUPVAL R3 0
-  GETUPVAL R5 1
-  MOVE R6 R2
-  CALL R5 1 -1
-  NAMECALL R3 R3 K2 ["dispatch"]
-  CALL R3 -1 0
-  RETURN R0 0
+        0 JUMPIFNOT                        R0 ; [+3]
+        1 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        3 JUMP                             ; [+1]
+        4 LOADNIL                          R1
+        5 JUMPIFNOT                        R1 ; [+3]
+        6 GETTABLEKS                       R2 R1 K1 ["purchaserStatus"]
+        8 JUMP                             ; [+1]
+        9 LOADNIL                          R2
+       10 JUMPIFNOT                        R2 ; [+7]
+       11 GETUPVAL                         R3 0
+       12 GETUPVAL                         R5 1
+       13 MOVE                             R6 R2
+       14 CALL                             R5 1 -1
+       15 NAMECALL                         R3 R3 K2 ["dispatch"]
+       17 CALL                             R3 -1 0
+       18 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["shouldDebugWarnings"]
-  CALL R1 0 1
-  JUMPIFNOT R1 [+4]
-  GETIMPORT R1 K2 [warn]
-  LOADK R2 K3 ["Unable to fetch purchaser status data"]
-  CALL R1 1 0
-  GETUPVAL R1 1
-  GETUPVAL R3 2
-  MOVE R4 R0
-  CALL R3 1 -1
-  NAMECALL R1 R1 K4 ["dispatch"]
-  CALL R1 -1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        3 CALL                             R1 0 1
+        4 JUMPIFNOT                        R1 ; [+4]
+        5 GETIMPORT                        R1 K2 [warn]
+        7 LOADK                            R2 K3 ["Unable to fetch purchaser status data"]
+        8 CALL                             R1 1 0
+        9 GETUPVAL                         R1 1
+       10 GETUPVAL                         R3 2
+       11 MOVE                             R4 R0
+       12 CALL                             R3 1 -1
+       13 NAMECALL                         R1 R1 K4 ["dispatch"]
+       15 CALL                             R1 -1 0
+       16 RETURN                           R0 0
 
 PROTO_2:
-  NAMECALL R1 R0 K0 ["getState"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K1 ["purchase"]
-  JUMPIFNOT R2 [+10]
-  GETTABLEKS R3 R1 K1 ["purchase"]
-  GETTABLEKS R2 R3 K2 ["buyerStatus"]
-  JUMPIFNOT R2 [+5]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K3 ["resolve"]
-  CALL R2 0 -1
-  RETURN R2 -1
-  GETUPVAL R2 1
-  NAMECALL R2 R2 K4 ["getPurchaserStatus"]
-  CALL R2 1 1
-  NEWCLOSURE R4 P0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U2
-  NEWCLOSURE R5 P1
-  CAPTURE UPVAL U3
-  CAPTURE VAL R0
-  CAPTURE UPVAL U4
-  NAMECALL R2 R2 K5 ["andThen"]
-  CALL R2 3 -1
-  RETURN R2 -1
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R2 R1 K1 ["purchase"]
+        5 JUMPIFNOT                        R2 ; [+10]
+        6 GETTABLEKS                       R3 R1 K1 ["purchase"]
+        8 GETTABLEKS                       R2 R3 K2 ["buyerStatus"]
+       10 JUMPIFNOT                        R2 ; [+5]
+       11 GETUPVAL                         R3 0
+       12 GETTABLEKS                       R2 R3 K3 ["resolve"]
+       14 CALL                             R2 0 -1
+       15 RETURN                           R2 -1
+       16 GETUPVAL                         R2 1
+       17 NAMECALL                         R2 R2 K4 ["getPurchaserStatus"]
+       19 CALL                             R2 1 1
+       20 NEWCLOSURE                       R4 P0
+       21 CAPTURE                          VAL R0
+       22 CAPTURE                          UPVAL U2
+       23 NEWCLOSURE                       R5 P1
+       24 CAPTURE                          UPVAL U3
+       25 CAPTURE                          VAL R0
+       26 CAPTURE                          UPVAL U4
+       27 NAMECALL                         R2 R2 K5 ["andThen"]
+       29 CALL                             R2 3 -1
+       30 RETURN                           R2 -1
 
 PROTO_3:
-  NEWCLOSURE R1 P0
-  CAPTURE UPVAL U0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  RETURN R1 1
+        0 NEWCLOSURE                       R1 P0
+        1 CAPTURE                          UPVAL U0
+        2 CAPTURE                          VAL R0
+        3 CAPTURE                          UPVAL U1
+        4 CAPTURE                          UPVAL U2
+        5 CAPTURE                          UPVAL U3
+        6 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["Toolbox"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETTABLEKS R1 R0 K4 ["Packages"]
-  GETIMPORT R2 K6 [require]
-  GETTABLEKS R3 R1 K7 ["Framework"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K8 ["Util"]
-  GETTABLEKS R3 R4 K9 ["Promise"]
-  GETIMPORT R4 K6 [require]
-  GETTABLEKS R7 R0 K10 ["Src"]
-  GETTABLEKS R6 R7 K8 ["Util"]
-  GETTABLEKS R5 R6 K11 ["DebugFlags"]
-  CALL R4 1 1
-  GETIMPORT R5 K6 [require]
-  GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K12 ["Actions"]
-  GETTABLEKS R6 R7 K13 ["NetworkError"]
-  CALL R5 1 1
-  GETIMPORT R6 K6 [require]
-  GETTABLEKS R9 R0 K10 ["Src"]
-  GETTABLEKS R8 R9 K12 ["Actions"]
-  GETTABLEKS R7 R8 K14 ["SetBuyerStatus"]
-  CALL R6 1 1
-  DUPCLOSURE R7 K15 [PROTO_3]
-  CAPTURE VAL R3
-  CAPTURE VAL R6
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  RETURN R7 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Toolbox"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
+        9 GETIMPORT                        R2 K6 [require]
+       11 GETTABLEKS                       R3 R1 K7 ["Framework"]
+       13 CALL                             R2 1 1
+       14 GETTABLEKS                       R4 R2 K8 ["Util"]
+       16 GETTABLEKS                       R3 R4 K9 ["Promise"]
+       18 GETIMPORT                        R4 K6 [require]
+       20 GETTABLEKS                       R7 R0 K10 ["Src"]
+       22 GETTABLEKS                       R6 R7 K8 ["Util"]
+       24 GETTABLEKS                       R5 R6 K11 ["DebugFlags"]
+       26 CALL                             R4 1 1
+       27 GETIMPORT                        R5 K6 [require]
+       29 GETTABLEKS                       R8 R0 K10 ["Src"]
+       31 GETTABLEKS                       R7 R8 K12 ["Actions"]
+       33 GETTABLEKS                       R6 R7 K13 ["NetworkError"]
+       35 CALL                             R5 1 1
+       36 GETIMPORT                        R6 K6 [require]
+       38 GETTABLEKS                       R9 R0 K10 ["Src"]
+       40 GETTABLEKS                       R8 R9 K12 ["Actions"]
+       42 GETTABLEKS                       R7 R8 K14 ["SetBuyerStatus"]
+       44 CALL                             R6 1 1
+       45 DUPCLOSURE                       R7 K15 [PROTO_3]
+       46 CAPTURE                          VAL R3
+       47 CAPTURE                          VAL R6
+       48 CAPTURE                          VAL R4
+       49 CAPTURE                          VAL R5
+       50 RETURN                           R7 1

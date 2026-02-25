@@ -1,125 +1,125 @@
 PROTO_0:
-  GETTABLEKS R3 R0 K0 ["settings"]
-  FASTCALL2K ASSERT R3 K1 [+4]
-  LOADK R4 K1 ["Expected settings to be present in AvatarSettingsContext"]
-  GETIMPORT R2 K3 [assert]
-  CALL R2 2 0
-  GETTABLEKS R3 R0 K0 ["settings"]
-  GETTABLEKS R2 R3 K4 ["accessoriesSettings"]
-  GETUPVAL R3 0
-  MOVE R4 R1
-  GETTABLEKS R5 R2 K5 ["accessoryScaleSetting"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K5 ["accessoryScaleSetting"]
-  CALL R3 3 0
-  GETUPVAL R3 0
-  MOVE R4 R1
-  GETTABLEKS R5 R2 K6 ["accessoryScaleLimitMethodSetting"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K6 ["accessoryScaleLimitMethodSetting"]
-  CALL R3 3 0
-  GETUPVAL R3 0
-  MOVE R4 R1
-  GETTABLEKS R5 R2 K7 ["accessoryScaleLimitBoundsSetting"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K7 ["accessoryScaleLimitBoundsSetting"]
-  CALL R3 3 0
-  GETUPVAL R3 0
-  MOVE R4 R1
-  GETTABLEKS R5 R2 K8 ["customAccessoriesSetting"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K8 ["customAccessoriesSetting"]
-  CALL R3 3 0
-  GETUPVAL R3 2
-  MOVE R4 R1
-  GETTABLEKS R5 R2 K9 ["customAccessoriesHairSetting"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K9 ["customAccessoriesHairSetting"]
-  CALL R3 3 0
-  GETUPVAL R3 2
-  MOVE R4 R1
-  GETTABLEKS R5 R2 K10 ["customAccessoriesHeadSetting"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K10 ["customAccessoriesHeadSetting"]
-  CALL R3 3 0
-  GETUPVAL R3 2
-  MOVE R4 R1
-  GETTABLEKS R5 R2 K11 ["customAccessoriesFaceSetting"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K11 ["customAccessoriesFaceSetting"]
-  CALL R3 3 0
-  GETUPVAL R3 2
-  MOVE R4 R1
-  GETTABLEKS R5 R2 K12 ["customAccessoriesNeckSetting"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K12 ["customAccessoriesNeckSetting"]
-  CALL R3 3 0
-  GETUPVAL R3 2
-  MOVE R4 R1
-  GETTABLEKS R5 R2 K13 ["customAccessoriesShoulderSetting"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K13 ["customAccessoriesShoulderSetting"]
-  CALL R3 3 0
-  GETUPVAL R3 2
-  MOVE R4 R1
-  GETTABLEKS R5 R2 K14 ["customAccessoriesFrontSetting"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K14 ["customAccessoriesFrontSetting"]
-  CALL R3 3 0
-  GETUPVAL R3 2
-  MOVE R4 R1
-  GETTABLEKS R5 R2 K15 ["customAccessoriesBackSetting"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K15 ["customAccessoriesBackSetting"]
-  CALL R3 3 0
-  GETUPVAL R3 2
-  MOVE R4 R1
-  GETTABLEKS R5 R2 K16 ["customAccessoriesWaistSetting"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K16 ["customAccessoriesWaistSetting"]
-  CALL R3 3 0
-  GETUPVAL R3 0
-  MOVE R4 R1
-  GETTABLEKS R5 R2 K17 ["accessoryBehaviorEnableSoundSetting"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K17 ["accessoryBehaviorEnableSoundSetting"]
-  CALL R3 3 0
-  GETUPVAL R3 0
-  MOVE R4 R1
-  GETTABLEKS R5 R2 K18 ["accessoryBehaviorEnableVFXSetting"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K18 ["accessoryBehaviorEnableVFXSetting"]
-  CALL R3 3 0
-  RETURN R0 0
+        0 GETTABLEKS                       R3 R0 K0 ["settings"]
+        2 FASTCALL2K                       ASSERT R3 K1 ; [+4]
+        4 LOADK                            R4 K1 ["Expected settings to be present in AvatarSettingsContext"]
+        5 GETIMPORT                        R2 K3 [assert]
+        7 CALL                             R2 2 0
+        8 GETTABLEKS                       R3 R0 K0 ["settings"]
+       10 GETTABLEKS                       R2 R3 K4 ["accessoriesSettings"]
+       12 GETUPVAL                         R3 0
+       13 MOVE                             R4 R1
+       14 GETTABLEKS                       R5 R2 K5 ["accessoryScaleSetting"]
+       16 GETUPVAL                         R7 1
+       17 GETTABLEKS                       R6 R7 K5 ["accessoryScaleSetting"]
+       19 CALL                             R3 3 0
+       20 GETUPVAL                         R3 0
+       21 MOVE                             R4 R1
+       22 GETTABLEKS                       R5 R2 K6 ["accessoryScaleLimitMethodSetting"]
+       24 GETUPVAL                         R7 1
+       25 GETTABLEKS                       R6 R7 K6 ["accessoryScaleLimitMethodSetting"]
+       27 CALL                             R3 3 0
+       28 GETUPVAL                         R3 0
+       29 MOVE                             R4 R1
+       30 GETTABLEKS                       R5 R2 K7 ["accessoryScaleLimitBoundsSetting"]
+       32 GETUPVAL                         R7 1
+       33 GETTABLEKS                       R6 R7 K7 ["accessoryScaleLimitBoundsSetting"]
+       35 CALL                             R3 3 0
+       36 GETUPVAL                         R3 0
+       37 MOVE                             R4 R1
+       38 GETTABLEKS                       R5 R2 K8 ["customAccessoriesSetting"]
+       40 GETUPVAL                         R7 1
+       41 GETTABLEKS                       R6 R7 K8 ["customAccessoriesSetting"]
+       43 CALL                             R3 3 0
+       44 GETUPVAL                         R3 2
+       45 MOVE                             R4 R1
+       46 GETTABLEKS                       R5 R2 K9 ["customAccessoriesHairSetting"]
+       48 GETUPVAL                         R7 1
+       49 GETTABLEKS                       R6 R7 K9 ["customAccessoriesHairSetting"]
+       51 CALL                             R3 3 0
+       52 GETUPVAL                         R3 2
+       53 MOVE                             R4 R1
+       54 GETTABLEKS                       R5 R2 K10 ["customAccessoriesHeadSetting"]
+       56 GETUPVAL                         R7 1
+       57 GETTABLEKS                       R6 R7 K10 ["customAccessoriesHeadSetting"]
+       59 CALL                             R3 3 0
+       60 GETUPVAL                         R3 2
+       61 MOVE                             R4 R1
+       62 GETTABLEKS                       R5 R2 K11 ["customAccessoriesFaceSetting"]
+       64 GETUPVAL                         R7 1
+       65 GETTABLEKS                       R6 R7 K11 ["customAccessoriesFaceSetting"]
+       67 CALL                             R3 3 0
+       68 GETUPVAL                         R3 2
+       69 MOVE                             R4 R1
+       70 GETTABLEKS                       R5 R2 K12 ["customAccessoriesNeckSetting"]
+       72 GETUPVAL                         R7 1
+       73 GETTABLEKS                       R6 R7 K12 ["customAccessoriesNeckSetting"]
+       75 CALL                             R3 3 0
+       76 GETUPVAL                         R3 2
+       77 MOVE                             R4 R1
+       78 GETTABLEKS                       R5 R2 K13 ["customAccessoriesShoulderSetting"]
+       80 GETUPVAL                         R7 1
+       81 GETTABLEKS                       R6 R7 K13 ["customAccessoriesShoulderSetting"]
+       83 CALL                             R3 3 0
+       84 GETUPVAL                         R3 2
+       85 MOVE                             R4 R1
+       86 GETTABLEKS                       R5 R2 K14 ["customAccessoriesFrontSetting"]
+       88 GETUPVAL                         R7 1
+       89 GETTABLEKS                       R6 R7 K14 ["customAccessoriesFrontSetting"]
+       91 CALL                             R3 3 0
+       92 GETUPVAL                         R3 2
+       93 MOVE                             R4 R1
+       94 GETTABLEKS                       R5 R2 K15 ["customAccessoriesBackSetting"]
+       96 GETUPVAL                         R7 1
+       97 GETTABLEKS                       R6 R7 K15 ["customAccessoriesBackSetting"]
+       99 CALL                             R3 3 0
+      100 GETUPVAL                         R3 2
+      101 MOVE                             R4 R1
+      102 GETTABLEKS                       R5 R2 K16 ["customAccessoriesWaistSetting"]
+      104 GETUPVAL                         R7 1
+      105 GETTABLEKS                       R6 R7 K16 ["customAccessoriesWaistSetting"]
+      107 CALL                             R3 3 0
+      108 GETUPVAL                         R3 0
+      109 MOVE                             R4 R1
+      110 GETTABLEKS                       R5 R2 K17 ["accessoryBehaviorEnableSoundSetting"]
+      112 GETUPVAL                         R7 1
+      113 GETTABLEKS                       R6 R7 K17 ["accessoryBehaviorEnableSoundSetting"]
+      115 CALL                             R3 3 0
+      116 GETUPVAL                         R3 0
+      117 MOVE                             R4 R1
+      118 GETTABLEKS                       R5 R2 K18 ["accessoryBehaviorEnableVFXSetting"]
+      120 GETUPVAL                         R7 1
+      121 GETTABLEKS                       R6 R7 K18 ["accessoryBehaviorEnableVFXSetting"]
+      123 CALL                             R3 3 0
+      124 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarSettings"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Components"]
-  GETTABLEKS R3 R4 K8 ["Contexts"]
-  GETTABLEKS R2 R3 K9 ["AvatarSettingsContext"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Util"]
-  GETTABLEKS R3 R4 K11 ["InvokeKeys"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Src"]
-  GETTABLEKS R7 R8 K10 ["Util"]
-  GETTABLEKS R6 R7 K12 ["BridgingFiles"]
-  GETTABLEKS R5 R6 K13 ["StandaloneFiles"]
-  GETTABLEKS R4 R5 K14 ["standaloneInvokeUtils"]
-  CALL R3 1 1
-  GETTABLEKS R4 R3 K15 ["useCreateInvokes"]
-  GETTABLEKS R5 R3 K16 ["useCreateAssetIdInvokes"]
-  DUPCLOSURE R6 K17 [PROTO_0]
-  CAPTURE VAL R4
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  RETURN R6 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarSettings"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R5 R0 K6 ["Src"]
+       11 GETTABLEKS                       R4 R5 K7 ["Components"]
+       13 GETTABLEKS                       R3 R4 K8 ["Contexts"]
+       15 GETTABLEKS                       R2 R3 K9 ["AvatarSettingsContext"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R2 K5 [require]
+       20 GETTABLEKS                       R5 R0 K6 ["Src"]
+       22 GETTABLEKS                       R4 R5 K10 ["Util"]
+       24 GETTABLEKS                       R3 R4 K11 ["InvokeKeys"]
+       26 CALL                             R2 1 1
+       27 GETIMPORT                        R3 K5 [require]
+       29 GETTABLEKS                       R8 R0 K6 ["Src"]
+       31 GETTABLEKS                       R7 R8 K10 ["Util"]
+       33 GETTABLEKS                       R6 R7 K12 ["BridgingFiles"]
+       35 GETTABLEKS                       R5 R6 K13 ["StandaloneFiles"]
+       37 GETTABLEKS                       R4 R5 K14 ["standaloneInvokeUtils"]
+       39 CALL                             R3 1 1
+       40 GETTABLEKS                       R4 R3 K15 ["useCreateInvokes"]
+       42 GETTABLEKS                       R5 R3 K16 ["useCreateAssetIdInvokes"]
+       44 DUPCLOSURE                       R6 K17 [PROTO_0]
+       45 CAPTURE                          VAL R4
+       46 CAPTURE                          VAL R2
+       47 CAPTURE                          VAL R5
+       48 RETURN                           R6 1

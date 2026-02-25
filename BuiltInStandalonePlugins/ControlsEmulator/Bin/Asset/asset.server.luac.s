@@ -1,51 +1,51 @@
 PROTO_0:
-  GETIMPORT R1 K1 [plugin]
-  LOADK R3 K2 ["DmAboutToChange"]
-  MOVE R4 R0
-  NAMECALL R1 R1 K3 ["Invoke"]
-  CALL R1 3 0
-  RETURN R0 0
+        0 GETIMPORT                        R1 K1 [plugin]
+        2 LOADK                            R3 K2 ["DmAboutToChange"]
+        3 MOVE                             R4 R0
+        4 NAMECALL                         R1 R1 K3 ["Invoke"]
+        6 CALL                             R1 3 0
+        7 RETURN                           R0 0
 
 PROTO_1:
-  GETIMPORT R0 K1 [plugin]
-  LOADK R2 K2 ["DmChanged"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K3 ["CurrentDataModelType"]
-  NAMECALL R0 R0 K4 ["Invoke"]
-  CALL R0 3 0
-  RETURN R0 0
+        0 GETIMPORT                        R0 K1 [plugin]
+        2 LOADK                            R2 K2 ["DmChanged"]
+        3 GETUPVAL                         R4 0
+        4 GETTABLEKS                       R3 R4 K3 ["CurrentDataModelType"]
+        6 NAMECALL                         R0 R0 K4 ["Invoke"]
+        8 CALL                             R0 3 0
+        9 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [plugin]
-  JUMPIF R0 [+1]
-  RETURN R0 0
-  GETIMPORT R0 K3 [script]
-  LOADK R2 K4 ["ControlsEmulator"]
-  NAMECALL R0 R0 K5 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K7 [require]
-  GETTABLEKS R3 R0 K8 ["Packages"]
-  GETTABLEKS R2 R3 K9 ["TestLoader"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K10 ["launch"]
-  LOADK R3 K4 ["ControlsEmulator"]
-  GETTABLEKS R4 R0 K11 ["Src"]
-  CALL R2 2 0
-  GETTABLEKS R2 R1 K12 ["isCli"]
-  CALL R2 0 1
-  JUMPIFNOT R2 [+1]
-  RETURN R0 0
-  GETIMPORT R3 K1 [plugin]
-  GETTABLEKS R2 R3 K13 ["MultipleDocumentInterfaceInstance"]
-  GETTABLEKS R3 R2 K14 ["FocusedDataModelSession"]
-  GETTABLEKS R4 R3 K15 ["CurrentDataModelTypeAboutToChange"]
-  DUPCLOSURE R6 K16 [PROTO_0]
-  NAMECALL R4 R4 K17 ["Connect"]
-  CALL R4 2 0
-  GETTABLEKS R4 R3 K18 ["CurrentDataModelTypeChanged"]
-  DUPCLOSURE R6 K19 [PROTO_1]
-  CAPTURE VAL R3
-  NAMECALL R4 R4 K17 ["Connect"]
-  CALL R4 2 0
-  RETURN R0 0
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [plugin]
+        3 JUMPIF                           R0 ; [+1]
+        4 RETURN                           R0 0
+        5 GETIMPORT                        R0 K3 [script]
+        7 LOADK                            R2 K4 ["ControlsEmulator"]
+        8 NAMECALL                         R0 R0 K5 ["FindFirstAncestor"]
+       10 CALL                             R0 2 1
+       11 GETIMPORT                        R1 K7 [require]
+       13 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       15 GETTABLEKS                       R2 R3 K9 ["TestLoader"]
+       17 CALL                             R1 1 1
+       18 GETTABLEKS                       R2 R1 K10 ["launch"]
+       20 LOADK                            R3 K4 ["ControlsEmulator"]
+       21 GETTABLEKS                       R4 R0 K11 ["Src"]
+       23 CALL                             R2 2 0
+       24 GETTABLEKS                       R2 R1 K12 ["isCli"]
+       26 CALL                             R2 0 1
+       27 JUMPIFNOT                        R2 ; [+1]
+       28 RETURN                           R0 0
+       29 GETIMPORT                        R3 K1 [plugin]
+       31 GETTABLEKS                       R2 R3 K13 ["MultipleDocumentInterfaceInstance"]
+       33 GETTABLEKS                       R3 R2 K14 ["FocusedDataModelSession"]
+       35 GETTABLEKS                       R4 R3 K15 ["CurrentDataModelTypeAboutToChange"]
+       37 DUPCLOSURE                       R6 K16 [PROTO_0]
+       38 NAMECALL                         R4 R4 K17 ["Connect"]
+       40 CALL                             R4 2 0
+       41 GETTABLEKS                       R4 R3 K18 ["CurrentDataModelTypeChanged"]
+       43 DUPCLOSURE                       R6 K19 [PROTO_1]
+       44 CAPTURE                          VAL R3
+       45 NAMECALL                         R4 R4 K17 ["Connect"]
+       47 CALL                             R4 2 0
+       48 RETURN                           R0 0

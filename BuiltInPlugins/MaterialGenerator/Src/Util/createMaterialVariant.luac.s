@@ -1,37 +1,37 @@
 PROTO_0:
-  GETIMPORT R1 K2 [Instance.new]
-  LOADK R2 K3 ["MaterialVariant"]
-  CALL R1 1 1
-  GETTABLEKS R2 R0 K4 ["Name"]
-  SETTABLEKS R2 R1 K4 ["Name"]
-  LOADB R2 0
-  SETTABLEKS R2 R1 K5 ["Archivable"]
-  GETTABLEKS R2 R0 K6 ["Textures"]
-  GETTABLEKS R3 R2 K7 ["ColorMap"]
-  SETTABLEKS R3 R1 K7 ["ColorMap"]
-  GETTABLEKS R3 R2 K8 ["NormalMap"]
-  JUMPIFNOT R3 [+4]
-  GETTABLEKS R3 R2 K8 ["NormalMap"]
-  SETTABLEKS R3 R1 K8 ["NormalMap"]
-  GETTABLEKS R3 R2 K9 ["MetalnessMap"]
-  JUMPIFNOT R3 [+4]
-  GETTABLEKS R3 R2 K9 ["MetalnessMap"]
-  SETTABLEKS R3 R1 K9 ["MetalnessMap"]
-  GETTABLEKS R3 R2 K10 ["RoughnessMap"]
-  JUMPIFNOT R3 [+4]
-  GETTABLEKS R3 R2 K10 ["RoughnessMap"]
-  SETTABLEKS R3 R1 K10 ["RoughnessMap"]
-  RETURN R1 1
+        0 GETIMPORT                        R1 K2 [Instance.new]
+        2 LOADK                            R2 K3 ["MaterialVariant"]
+        3 CALL                             R1 1 1
+        4 GETTABLEKS                       R2 R0 K4 ["Name"]
+        6 SETTABLEKS                       R2 R1 K4 ["Name"]
+        8 LOADB                            R2 0
+        9 SETTABLEKS                       R2 R1 K5 ["Archivable"]
+       11 GETTABLEKS                       R2 R0 K6 ["Textures"]
+       13 GETTABLEKS                       R3 R2 K7 ["ColorMap"]
+       15 SETTABLEKS                       R3 R1 K7 ["ColorMap"]
+       17 GETTABLEKS                       R3 R2 K8 ["NormalMap"]
+       19 JUMPIFNOT                        R3 ; [+4]
+       20 GETTABLEKS                       R3 R2 K8 ["NormalMap"]
+       22 SETTABLEKS                       R3 R1 K8 ["NormalMap"]
+       24 GETTABLEKS                       R3 R2 K9 ["MetalnessMap"]
+       26 JUMPIFNOT                        R3 ; [+4]
+       27 GETTABLEKS                       R3 R2 K9 ["MetalnessMap"]
+       29 SETTABLEKS                       R3 R1 K9 ["MetalnessMap"]
+       31 GETTABLEKS                       R3 R2 K10 ["RoughnessMap"]
+       33 JUMPIFNOT                        R3 ; [+4]
+       34 GETTABLEKS                       R3 R2 K10 ["RoughnessMap"]
+       36 SETTABLEKS                       R3 R1 K10 ["RoughnessMap"]
+       38 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Src"]
-  GETTABLEKS R2 R3 K6 ["Types"]
-  CALL R1 1 1
-  DUPCLOSURE R2 K7 [PROTO_0]
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Src"]
+       13 GETTABLEKS                       R2 R3 K6 ["Types"]
+       15 CALL                             R1 1 1
+       16 DUPCLOSURE                       R2 K7 [PROTO_0]
+       17 RETURN                           R2 1

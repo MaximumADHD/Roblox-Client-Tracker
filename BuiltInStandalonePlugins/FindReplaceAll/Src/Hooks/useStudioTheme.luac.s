@@ -1,99 +1,99 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["Theme"]
-  JUMPIF R0 [+4]
-  DUPTABLE R0 K2 [{"Name"}]
-  LOADK R1 K3 ["Dark"]
-  SETTABLEKS R1 R0 K1 ["Name"]
-  RETURN R0 1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["Theme"]
+        3 JUMPIF                           R0 ; [+4]
+        4 DUPTABLE                         R0 K2 [{"Name"}]
+        5 LOADK                            R1 K3 ["Dark"]
+        6 SETTABLEKS                       R1 R0 K1 ["Name"]
+        8 RETURN                           R0 1
 
 PROTO_1:
-  GETUPVAL R0 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["Theme"]
-  JUMPIF R2 [+4]
-  DUPTABLE R2 K2 [{"Name"}]
-  LOADK R3 K3 ["Dark"]
-  SETTABLEKS R3 R2 K1 ["Name"]
-  GETTABLEKS R1 R2 K1 ["Name"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R2 R3 K0 ["Theme"]
+        4 JUMPIF                           R2 ; [+4]
+        5 DUPTABLE                         R2 K2 [{"Name"}]
+        6 LOADK                            R3 K3 ["Dark"]
+        7 SETTABLEKS                       R3 R2 K1 ["Name"]
+        9 GETTABLEKS                       R1 R2 K1 ["Name"]
+       11 CALL                             R0 1 0
+       12 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K0 ["ThemeChanged"]
-  NEWCLOSURE R2 P0
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U1
-  NAMECALL R0 R0 K1 ["Connect"]
-  CALL R0 2 1
-  SETUPVAL R0 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 1
+        1 GETTABLEKS                       R0 R1 K0 ["ThemeChanged"]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          UPVAL U2
+        5 CAPTURE                          UPVAL U1
+        6 NAMECALL                         R0 R0 K1 ["Connect"]
+        8 CALL                             R0 2 1
+        9 SETUPVAL                         R0 0
+       10 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R0 0
-  JUMPIFNOT R0 [+4]
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["Disconnect"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+4]
+        2 GETUPVAL                         R0 0
+        3 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        5 CALL                             R0 1 0
+        6 RETURN                           R0 0
 
 PROTO_4:
-  LOADNIL R0
-  GETIMPORT R1 K1 [pcall]
-  NEWCLOSURE R2 P0
-  CAPTURE REF R0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CALL R1 1 2
-  JUMPIF R1 [+5]
-  GETIMPORT R3 K3 [warn]
-  LOADK R4 K4 ["Failed to connect to ThemeChanged signal:"]
-  MOVE R5 R2
-  CALL R3 2 0
-  NEWCLOSURE R3 P1
-  CAPTURE REF R0
-  CLOSEUPVALS R0
-  RETURN R3 1
+        0 LOADNIL                          R0
+        1 GETIMPORT                        R1 K1 [pcall]
+        3 NEWCLOSURE                       R2 P0
+        4 CAPTURE                          REF R0
+        5 CAPTURE                          UPVAL U0
+        6 CAPTURE                          UPVAL U1
+        7 CALL                             R1 1 2
+        8 JUMPIF                           R1 ; [+5]
+        9 GETIMPORT                        R3 K3 [warn]
+       11 LOADK                            R4 K4 ["Failed to connect to ThemeChanged signal:"]
+       12 MOVE                             R5 R2
+       13 CALL                             R3 2 0
+       14 NEWCLOSURE                       R3 P1
+       15 CAPTURE                          REF R0
+       16 CLOSEUPVALS                      R0
+       17 RETURN                           R3 1
 
 PROTO_5:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["useState"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["Theme"]
-  JUMPIF R2 [+4]
-  DUPTABLE R2 K3 [{"Name"}]
-  LOADK R3 K4 ["Dark"]
-  SETTABLEKS R3 R2 K2 ["Name"]
-  GETTABLEKS R1 R2 K2 ["Name"]
-  CALL R0 1 2
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K5 ["useEffect"]
-  NEWCLOSURE R3 P0
-  CAPTURE UPVAL U1
-  CAPTURE VAL R1
-  NEWTABLE R4 0 0
-  CALL R2 2 0
-  RETURN R0 1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["useState"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R2 R3 K1 ["Theme"]
+        6 JUMPIF                           R2 ; [+4]
+        7 DUPTABLE                         R2 K3 [{"Name"}]
+        8 LOADK                            R3 K4 ["Dark"]
+        9 SETTABLEKS                       R3 R2 K2 ["Name"]
+       11 GETTABLEKS                       R1 R2 K2 ["Name"]
+       13 CALL                             R0 1 2
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R2 R3 K5 ["useEffect"]
+       17 NEWCLOSURE                       R3 P0
+       18 CAPTURE                          UPVAL U1
+       19 CAPTURE                          VAL R1
+       20 NEWTABLE                         R4 0 0
+       22 CALL                             R2 2 0
+       23 RETURN                           R0 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["FindReplaceAll"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Util"]
-  GETTABLEKS R3 R4 K10 ["MockableProxyStudioSettings"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K11 [PROTO_0]
-  CAPTURE VAL R2
-  DUPCLOSURE R4 K12 [PROTO_5]
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  RETURN R4 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["FindReplaceAll"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R5 R0 K8 ["Src"]
+       18 GETTABLEKS                       R4 R5 K9 ["Util"]
+       20 GETTABLEKS                       R3 R4 K10 ["MockableProxyStudioSettings"]
+       22 CALL                             R2 1 1
+       23 DUPCLOSURE                       R3 K11 [PROTO_0]
+       24 CAPTURE                          VAL R2
+       25 DUPCLOSURE                       R4 K12 [PROTO_5]
+       26 CAPTURE                          VAL R1
+       27 CAPTURE                          VAL R2
+       28 RETURN                           R4 1

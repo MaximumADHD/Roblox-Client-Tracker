@@ -1,793 +1,793 @@
 PROTO_0:
-  DUPTABLE R0 K1 [{"Children"}]
-  DUPTABLE R1 K5 [{"props", "state", "_context"}]
-  DUPTABLE R2 K8 [{"Name", "Path", "Children"}]
-  LOADK R3 K2 ["props"]
-  SETTABLEKS R3 R2 K6 ["Name"]
-  NEWTABLE R3 0 1
-  LOADK R4 K2 ["props"]
-  SETLIST R3 R4 1 [1]
-  SETTABLEKS R3 R2 K7 ["Path"]
-  NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K0 ["Children"]
-  SETTABLEKS R2 R1 K2 ["props"]
-  DUPTABLE R2 K8 [{"Name", "Path", "Children"}]
-  LOADK R3 K3 ["state"]
-  SETTABLEKS R3 R2 K6 ["Name"]
-  NEWTABLE R3 0 1
-  LOADK R4 K3 ["state"]
-  SETLIST R3 R4 1 [1]
-  SETTABLEKS R3 R2 K7 ["Path"]
-  NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K0 ["Children"]
-  SETTABLEKS R2 R1 K3 ["state"]
-  DUPTABLE R2 K8 [{"Name", "Path", "Children"}]
-  LOADK R3 K4 ["_context"]
-  SETTABLEKS R3 R2 K6 ["Name"]
-  NEWTABLE R3 0 1
-  LOADK R4 K4 ["_context"]
-  SETLIST R3 R4 1 [1]
-  SETTABLEKS R3 R2 K7 ["Path"]
-  NEWTABLE R3 0 0
-  SETTABLEKS R3 R2 K0 ["Children"]
-  SETTABLEKS R2 R1 K4 ["_context"]
-  SETTABLEKS R1 R0 K0 ["Children"]
-  RETURN R0 1
+        0 DUPTABLE                         R0 K1 [{"Children"}]
+        1 DUPTABLE                         R1 K5 [{"props", "state", "_context"}]
+        2 DUPTABLE                         R2 K8 [{"Name", "Path", "Children"}]
+        3 LOADK                            R3 K2 ["props"]
+        4 SETTABLEKS                       R3 R2 K6 ["Name"]
+        6 NEWTABLE                         R3 0 1
+        8 LOADK                            R4 K2 ["props"]
+        9 SETLIST                          R3 R4 1 [1]
+       11 SETTABLEKS                       R3 R2 K7 ["Path"]
+       13 NEWTABLE                         R3 0 0
+       15 SETTABLEKS                       R3 R2 K0 ["Children"]
+       17 SETTABLEKS                       R2 R1 K2 ["props"]
+       19 DUPTABLE                         R2 K8 [{"Name", "Path", "Children"}]
+       20 LOADK                            R3 K3 ["state"]
+       21 SETTABLEKS                       R3 R2 K6 ["Name"]
+       23 NEWTABLE                         R3 0 1
+       25 LOADK                            R4 K3 ["state"]
+       26 SETLIST                          R3 R4 1 [1]
+       28 SETTABLEKS                       R3 R2 K7 ["Path"]
+       30 NEWTABLE                         R3 0 0
+       32 SETTABLEKS                       R3 R2 K0 ["Children"]
+       34 SETTABLEKS                       R2 R1 K3 ["state"]
+       36 DUPTABLE                         R2 K8 [{"Name", "Path", "Children"}]
+       37 LOADK                            R3 K4 ["_context"]
+       38 SETTABLEKS                       R3 R2 K6 ["Name"]
+       40 NEWTABLE                         R3 0 1
+       42 LOADK                            R4 K4 ["_context"]
+       43 SETLIST                          R3 R4 1 [1]
+       45 SETTABLEKS                       R3 R2 K7 ["Path"]
+       47 NEWTABLE                         R3 0 0
+       49 SETTABLEKS                       R3 R2 K0 ["Children"]
+       51 SETTABLEKS                       R2 R1 K4 ["_context"]
+       53 SETTABLEKS                       R1 R0 K0 ["Children"]
+       55 RETURN                           R0 1
 
 PROTO_1:
-  DUPTABLE R0 K16 [{"rootInstance", "flashInstances", "selectedInstances", "expandedInstances", "nodes", "selectedPath", "selectedNodeIndex", "fields", "selectedFields", "expandedFields", "isPicking", "profileData", "profileSearchTerm", "profileFilter", "profileComponents", "profileEvents"}]
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K0 ["rootInstance"]
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K1 ["flashInstances"]
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K2 ["selectedInstances"]
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K3 ["expandedInstances"]
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K4 ["nodes"]
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K5 ["selectedPath"]
-  LOADN R1 0
-  SETTABLEKS R1 R0 K6 ["selectedNodeIndex"]
-  GETUPVAL R1 0
-  CALL R1 0 1
-  SETTABLEKS R1 R0 K7 ["fields"]
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K8 ["selectedFields"]
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K9 ["expandedFields"]
-  LOADB R1 0
-  SETTABLEKS R1 R0 K10 ["isPicking"]
-  DUPTABLE R1 K21 [{"eventCount", "instanceEventCount", "rowCount", "cached"}]
-  LOADN R2 0
-  SETTABLEKS R2 R1 K17 ["eventCount"]
-  LOADN R2 0
-  SETTABLEKS R2 R1 K18 ["instanceEventCount"]
-  LOADN R2 0
-  SETTABLEKS R2 R1 K19 ["rowCount"]
-  LOADB R2 0
-  SETTABLEKS R2 R1 K20 ["cached"]
-  SETTABLEKS R1 R0 K11 ["profileData"]
-  LOADK R1 K22 [""]
-  SETTABLEKS R1 R0 K12 ["profileSearchTerm"]
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K13 ["profileFilter"]
-  DUPTABLE R1 K29 [{"pageRows", "sortIndex", "sortOrder", "pageSize", "pageIndex", "selectedRow"}]
-  NEWTABLE R2 0 0
-  SETTABLEKS R2 R1 K23 ["pageRows"]
-  LOADNIL R2
-  SETTABLEKS R2 R1 K24 ["sortIndex"]
-  LOADNIL R2
-  SETTABLEKS R2 R1 K25 ["sortOrder"]
-  LOADN R2 1
-  SETTABLEKS R2 R1 K26 ["pageSize"]
-  LOADN R2 1
-  SETTABLEKS R2 R1 K27 ["pageIndex"]
-  LOADNIL R2
-  SETTABLEKS R2 R1 K28 ["selectedRow"]
-  SETTABLEKS R1 R0 K14 ["profileComponents"]
-  DUPTABLE R1 K30 [{"pageRows", "sortIndex", "sortOrder", "pageSize", "pageIndex"}]
-  NEWTABLE R2 0 0
-  SETTABLEKS R2 R1 K23 ["pageRows"]
-  LOADNIL R2
-  SETTABLEKS R2 R1 K24 ["sortIndex"]
-  LOADNIL R2
-  SETTABLEKS R2 R1 K25 ["sortOrder"]
-  LOADN R2 1
-  SETTABLEKS R2 R1 K26 ["pageSize"]
-  LOADN R2 1
-  SETTABLEKS R2 R1 K27 ["pageIndex"]
-  SETTABLEKS R1 R0 K15 ["profileEvents"]
-  RETURN R0 1
+        0 DUPTABLE                         R0 K16 [{"rootInstance", "flashInstances", "selectedInstances", "expandedInstances", "nodes", "selectedPath", "selectedNodeIndex", "fields", "selectedFields", "expandedFields", "isPicking", "profileData", "profileSearchTerm", "profileFilter", "profileComponents", "profileEvents"}]
+        1 NEWTABLE                         R1 0 0
+        3 SETTABLEKS                       R1 R0 K0 ["rootInstance"]
+        5 NEWTABLE                         R1 0 0
+        7 SETTABLEKS                       R1 R0 K1 ["flashInstances"]
+        9 NEWTABLE                         R1 0 0
+       11 SETTABLEKS                       R1 R0 K2 ["selectedInstances"]
+       13 NEWTABLE                         R1 0 0
+       15 SETTABLEKS                       R1 R0 K3 ["expandedInstances"]
+       17 NEWTABLE                         R1 0 0
+       19 SETTABLEKS                       R1 R0 K4 ["nodes"]
+       21 NEWTABLE                         R1 0 0
+       23 SETTABLEKS                       R1 R0 K5 ["selectedPath"]
+       25 LOADN                            R1 0
+       26 SETTABLEKS                       R1 R0 K6 ["selectedNodeIndex"]
+       28 GETUPVAL                         R1 0
+       29 CALL                             R1 0 1
+       30 SETTABLEKS                       R1 R0 K7 ["fields"]
+       32 NEWTABLE                         R1 0 0
+       34 SETTABLEKS                       R1 R0 K8 ["selectedFields"]
+       36 NEWTABLE                         R1 0 0
+       38 SETTABLEKS                       R1 R0 K9 ["expandedFields"]
+       40 LOADB                            R1 0
+       41 SETTABLEKS                       R1 R0 K10 ["isPicking"]
+       43 DUPTABLE                         R1 K21 [{"eventCount", "instanceEventCount", "rowCount", "cached"}]
+       44 LOADN                            R2 0
+       45 SETTABLEKS                       R2 R1 K17 ["eventCount"]
+       47 LOADN                            R2 0
+       48 SETTABLEKS                       R2 R1 K18 ["instanceEventCount"]
+       50 LOADN                            R2 0
+       51 SETTABLEKS                       R2 R1 K19 ["rowCount"]
+       53 LOADB                            R2 0
+       54 SETTABLEKS                       R2 R1 K20 ["cached"]
+       56 SETTABLEKS                       R1 R0 K11 ["profileData"]
+       58 LOADK                            R1 K22 [""]
+       59 SETTABLEKS                       R1 R0 K12 ["profileSearchTerm"]
+       61 NEWTABLE                         R1 0 0
+       63 SETTABLEKS                       R1 R0 K13 ["profileFilter"]
+       65 DUPTABLE                         R1 K29 [{"pageRows", "sortIndex", "sortOrder", "pageSize", "pageIndex", "selectedRow"}]
+       66 NEWTABLE                         R2 0 0
+       68 SETTABLEKS                       R2 R1 K23 ["pageRows"]
+       70 LOADNIL                          R2
+       71 SETTABLEKS                       R2 R1 K24 ["sortIndex"]
+       73 LOADNIL                          R2
+       74 SETTABLEKS                       R2 R1 K25 ["sortOrder"]
+       76 LOADN                            R2 1
+       77 SETTABLEKS                       R2 R1 K26 ["pageSize"]
+       79 LOADN                            R2 1
+       80 SETTABLEKS                       R2 R1 K27 ["pageIndex"]
+       82 LOADNIL                          R2
+       83 SETTABLEKS                       R2 R1 K28 ["selectedRow"]
+       85 SETTABLEKS                       R1 R0 K14 ["profileComponents"]
+       87 DUPTABLE                         R1 K30 [{"pageRows", "sortIndex", "sortOrder", "pageSize", "pageIndex"}]
+       88 NEWTABLE                         R2 0 0
+       90 SETTABLEKS                       R2 R1 K23 ["pageRows"]
+       92 LOADNIL                          R2
+       93 SETTABLEKS                       R2 R1 K24 ["sortIndex"]
+       95 LOADNIL                          R2
+       96 SETTABLEKS                       R2 R1 K25 ["sortOrder"]
+       98 LOADN                            R2 1
+       99 SETTABLEKS                       R2 R1 K26 ["pageSize"]
+      101 LOADN                            R2 1
+      102 SETTABLEKS                       R2 R1 K27 ["pageIndex"]
+      104 SETTABLEKS                       R1 R0 K15 ["profileEvents"]
+      106 RETURN                           R0 1
 
 PROTO_2:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  MOVE R4 R1
-  DUPTABLE R5 K1 [{"profileData"}]
-  GETUPVAL R6 0
-  GETTABLEKS R7 R0 K0 ["profileData"]
-  DUPTABLE R8 K3 [{"cached"}]
-  LOADB R9 0
-  SETTABLEKS R9 R8 K2 ["cached"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K0 ["profileData"]
-  CALL R2 3 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 MOVE                             R4 R1
+        3 DUPTABLE                         R5 K1 [{"profileData"}]
+        4 GETUPVAL                         R6 0
+        5 GETTABLEKS                       R7 R0 K0 ["profileData"]
+        7 DUPTABLE                         R8 K3 [{"cached"}]
+        8 LOADB                            R9 0
+        9 SETTABLEKS                       R9 R8 K2 ["cached"]
+       11 CALL                             R6 2 1
+       12 SETTABLEKS                       R6 R5 K0 ["profileData"]
+       14 CALL                             R2 3 -1
+       15 RETURN                           R2 -1
 
 PROTO_3:
-  GETUPVAL R2 0
-  CALL R2 0 1
-  RETURN R2 1
+        0 GETUPVAL                         R2 0
+        1 CALL                             R2 0 1
+        2 RETURN                           R2 1
 
 PROTO_4:
-  GETUPVAL R2 0
-  GETTABLEKS R3 R1 K0 ["path"]
-  GETTABLEKS R4 R0 K1 ["selectedPath"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+9]
-  GETUPVAL R2 1
-  MOVE R3 R0
-  DUPTABLE R4 K3 [{"nodes"}]
-  GETTABLEKS R5 R1 K4 ["branch"]
-  SETTABLEKS R5 R4 K2 ["nodes"]
-  CALL R2 2 -1
-  RETURN R2 -1
-  RETURN R0 1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R3 R1 K0 ["path"]
+        3 GETTABLEKS                       R4 R0 K1 ["selectedPath"]
+        5 CALL                             R2 2 1
+        6 JUMPIFNOT                        R2 ; [+9]
+        7 GETUPVAL                         R2 1
+        8 MOVE                             R3 R0
+        9 DUPTABLE                         R4 K3 [{"nodes"}]
+       10 GETTABLEKS                       R5 R1 K4 ["branch"]
+       12 SETTABLEKS                       R5 R4 K2 ["nodes"]
+       14 CALL                             R2 2 -1
+       15 RETURN                           R2 -1
+       16 RETURN                           R0 1
 
 PROTO_5:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  DUPTABLE R4 K4 [{"selectedNodeIndex", "fields", "selectedFields", "expandedFields"}]
-  GETTABLEKS R5 R1 K5 ["nodeIndex"]
-  SETTABLEKS R5 R4 K0 ["selectedNodeIndex"]
-  GETUPVAL R5 1
-  CALL R5 0 1
-  SETTABLEKS R5 R4 K1 ["fields"]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K2 ["selectedFields"]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K3 ["expandedFields"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K4 [{"selectedNodeIndex", "fields", "selectedFields", "expandedFields"}]
+        3 GETTABLEKS                       R5 R1 K5 ["nodeIndex"]
+        5 SETTABLEKS                       R5 R4 K0 ["selectedNodeIndex"]
+        7 GETUPVAL                         R5 1
+        8 CALL                             R5 0 1
+        9 SETTABLEKS                       R5 R4 K1 ["fields"]
+       11 NEWTABLE                         R5 0 0
+       13 SETTABLEKS                       R5 R4 K2 ["selectedFields"]
+       15 NEWTABLE                         R5 0 0
+       17 SETTABLEKS                       R5 R4 K3 ["expandedFields"]
+       19 CALL                             R2 2 -1
+       20 RETURN                           R2 -1
 
 PROTO_6:
-  GETTABLEKS R3 R0 K0 ["time"]
-  GETIMPORT R5 K4 [os.clock]
-  CALL R5 0 1
-  SUBK R4 R5 K1 [1]
-  JUMPIFLT R4 R3 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  RETURN R2 1
+        0 GETTABLEKS                       R3 R0 K0 ["time"]
+        2 GETIMPORT                        R5 K4 [os.clock]
+        4 CALL                             R5 0 1
+        5 SUBK                             R4 R5 K1 [1]
+        6 JUMPIFLT                         R4 R3 ; [+2]
+        8 LOADB                            R2 0 +1
+        9 LOADB                            R2 1
+       10 RETURN                           R2 1
 
 PROTO_7:
-  GETUPVAL R2 0
-  MOVE R3 R1
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K0 ["path"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R1
+        2 GETUPVAL                         R5 1
+        3 GETTABLEKS                       R4 R5 K0 ["path"]
+        5 CALL                             R2 2 -1
+        6 RETURN                           R2 -1
 
 PROTO_8:
-  GETUPVAL R2 0
-  GETTABLEKS R3 R0 K0 ["flashInstances"]
-  DUPCLOSURE R4 K1 [PROTO_6]
-  CALL R2 2 1
-  GETTABLEKS R3 R1 K2 ["updatedIndexes"]
-  JUMPIFNOT R3 [+44]
-  GETTABLEKS R4 R1 K2 ["updatedIndexes"]
-  LENGTH R3 R4
-  LOADN R4 0
-  JUMPIFNOTLT R4 R3 [+39]
-  GETUPVAL R3 1
-  MOVE R4 R2
-  NEWCLOSURE R5 P1
-  CAPTURE UPVAL U2
-  CAPTURE VAL R1
-  CALL R3 2 1
-  GETUPVAL R4 3
-  GETTABLEKS R5 R1 K2 ["updatedIndexes"]
-  CALL R4 1 1
-  JUMPIFNOT R3 [+13]
-  GETTABLEKS R5 R3 K3 ["heat"]
-  ADDK R5 R5 K4 [1]
-  SETTABLEKS R5 R3 K3 ["heat"]
-  GETIMPORT R5 K7 [os.clock]
-  CALL R5 0 1
-  SETTABLEKS R5 R3 K8 ["time"]
-  SETTABLEKS R4 R3 K9 ["indexSet"]
-  JUMP [+14]
-  GETTABLEKS R5 R1 K10 ["path"]
-  DUPTABLE R6 K11 [{"time", "heat", "indexSet"}]
-  GETIMPORT R7 K7 [os.clock]
-  CALL R7 0 1
-  SETTABLEKS R7 R6 K8 ["time"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K3 ["heat"]
-  SETTABLEKS R4 R6 K9 ["indexSet"]
-  SETTABLE R6 R2 R5
-  GETUPVAL R3 4
-  DUPTABLE R4 K16 [{"root", "selected", "expanded", "children", "path"}]
-  GETTABLEKS R5 R0 K17 ["rootInstance"]
-  SETTABLEKS R5 R4 K12 ["root"]
-  GETTABLEKS R5 R0 K18 ["selectedInstances"]
-  SETTABLEKS R5 R4 K13 ["selected"]
-  GETTABLEKS R5 R0 K19 ["expandedInstances"]
-  SETTABLEKS R5 R4 K14 ["expanded"]
-  GETTABLEKS R5 R1 K15 ["children"]
-  SETTABLEKS R5 R4 K15 ["children"]
-  GETTABLEKS R5 R1 K10 ["path"]
-  SETTABLEKS R5 R4 K10 ["path"]
-  CALL R3 1 1
-  GETUPVAL R4 5
-  MOVE R5 R0
-  DUPTABLE R6 K20 [{"rootInstance", "selectedInstances", "expandedInstances", "flashInstances"}]
-  GETTABLEKS R7 R3 K12 ["root"]
-  SETTABLEKS R7 R6 K17 ["rootInstance"]
-  GETTABLEKS R7 R3 K13 ["selected"]
-  SETTABLEKS R7 R6 K18 ["selectedInstances"]
-  GETTABLEKS R7 R3 K14 ["expanded"]
-  SETTABLEKS R7 R6 K19 ["expandedInstances"]
-  SETTABLEKS R2 R6 K0 ["flashInstances"]
-  CALL R4 2 -1
-  RETURN R4 -1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R3 R0 K0 ["flashInstances"]
+        3 DUPCLOSURE                       R4 K1 [PROTO_6]
+        4 CALL                             R2 2 1
+        5 GETTABLEKS                       R3 R1 K2 ["updatedIndexes"]
+        7 JUMPIFNOT                        R3 ; [+44]
+        8 GETTABLEKS                       R4 R1 K2 ["updatedIndexes"]
+       10 LENGTH                           R3 R4
+       11 LOADN                            R4 0
+       12 JUMPIFNOTLT                      R4 R3 ; [+39]
+       14 GETUPVAL                         R3 1
+       15 MOVE                             R4 R2
+       16 NEWCLOSURE                       R5 P1
+       17 CAPTURE                          UPVAL U2
+       18 CAPTURE                          VAL R1
+       19 CALL                             R3 2 1
+       20 GETUPVAL                         R4 3
+       21 GETTABLEKS                       R5 R1 K2 ["updatedIndexes"]
+       23 CALL                             R4 1 1
+       24 JUMPIFNOT                        R3 ; [+13]
+       25 GETTABLEKS                       R5 R3 K3 ["heat"]
+       27 ADDK                             R5 R5 K4 [1]
+       28 SETTABLEKS                       R5 R3 K3 ["heat"]
+       30 GETIMPORT                        R5 K7 [os.clock]
+       32 CALL                             R5 0 1
+       33 SETTABLEKS                       R5 R3 K8 ["time"]
+       35 SETTABLEKS                       R4 R3 K9 ["indexSet"]
+       37 JUMP                             ; [+14]
+       38 GETTABLEKS                       R5 R1 K10 ["path"]
+       40 DUPTABLE                         R6 K11 [{"time", "heat", "indexSet"}]
+       41 GETIMPORT                        R7 K7 [os.clock]
+       43 CALL                             R7 0 1
+       44 SETTABLEKS                       R7 R6 K8 ["time"]
+       46 LOADN                            R7 0
+       47 SETTABLEKS                       R7 R6 K3 ["heat"]
+       49 SETTABLEKS                       R4 R6 K9 ["indexSet"]
+       51 SETTABLE                         R6 R2 R5
+       52 GETUPVAL                         R3 4
+       53 DUPTABLE                         R4 K16 [{"root", "selected", "expanded", "children", "path"}]
+       54 GETTABLEKS                       R5 R0 K17 ["rootInstance"]
+       56 SETTABLEKS                       R5 R4 K12 ["root"]
+       58 GETTABLEKS                       R5 R0 K18 ["selectedInstances"]
+       60 SETTABLEKS                       R5 R4 K13 ["selected"]
+       62 GETTABLEKS                       R5 R0 K19 ["expandedInstances"]
+       64 SETTABLEKS                       R5 R4 K14 ["expanded"]
+       66 GETTABLEKS                       R5 R1 K15 ["children"]
+       68 SETTABLEKS                       R5 R4 K15 ["children"]
+       70 GETTABLEKS                       R5 R1 K10 ["path"]
+       72 SETTABLEKS                       R5 R4 K10 ["path"]
+       74 CALL                             R3 1 1
+       75 GETUPVAL                         R4 5
+       76 MOVE                             R5 R0
+       77 DUPTABLE                         R6 K20 [{"rootInstance", "selectedInstances", "expandedInstances", "flashInstances"}]
+       78 GETTABLEKS                       R7 R3 K12 ["root"]
+       80 SETTABLEKS                       R7 R6 K17 ["rootInstance"]
+       82 GETTABLEKS                       R7 R3 K13 ["selected"]
+       84 SETTABLEKS                       R7 R6 K18 ["selectedInstances"]
+       86 GETTABLEKS                       R7 R3 K14 ["expanded"]
+       88 SETTABLEKS                       R7 R6 K19 ["expandedInstances"]
+       90 SETTABLEKS                       R2 R6 K0 ["flashInstances"]
+       92 CALL                             R4 2 -1
+       93 RETURN                           R4 -1
 
 PROTO_9:
-  GETUPVAL R3 0
-  GETTABLEKS R4 R1 K0 ["change"]
-  CALL R3 1 1
-  GETTABLEN R2 R3 1
-  GETUPVAL R3 1
-  MOVE R4 R0
-  DUPTABLE R5 K8 [{"fields", "expandedFields", "selectedFields", "selectedInstances", "selectedPath", "nodes", "selectedNodeIndex"}]
-  GETUPVAL R6 2
-  CALL R6 0 1
-  SETTABLEKS R6 R5 K1 ["fields"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K2 ["expandedFields"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K3 ["selectedFields"]
-  GETTABLEKS R6 R1 K0 ["change"]
-  SETTABLEKS R6 R5 K4 ["selectedInstances"]
-  MOVE R6 R2
-  JUMPIFNOT R6 [+2]
-  GETTABLEKS R6 R2 K9 ["Path"]
-  SETTABLEKS R6 R5 K5 ["selectedPath"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K6 ["nodes"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K7 ["selectedNodeIndex"]
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R4 R1 K0 ["change"]
+        3 CALL                             R3 1 1
+        4 GETTABLEN                        R2 R3 1
+        5 GETUPVAL                         R3 1
+        6 MOVE                             R4 R0
+        7 DUPTABLE                         R5 K8 [{"fields", "expandedFields", "selectedFields", "selectedInstances", "selectedPath", "nodes", "selectedNodeIndex"}]
+        8 GETUPVAL                         R6 2
+        9 CALL                             R6 0 1
+       10 SETTABLEKS                       R6 R5 K1 ["fields"]
+       12 NEWTABLE                         R6 0 0
+       14 SETTABLEKS                       R6 R5 K2 ["expandedFields"]
+       16 NEWTABLE                         R6 0 0
+       18 SETTABLEKS                       R6 R5 K3 ["selectedFields"]
+       20 GETTABLEKS                       R6 R1 K0 ["change"]
+       22 SETTABLEKS                       R6 R5 K4 ["selectedInstances"]
+       24 MOVE                             R6 R2
+       25 JUMPIFNOT                        R6 ; [+2]
+       26 GETTABLEKS                       R6 R2 K9 ["Path"]
+       28 SETTABLEKS                       R6 R5 K5 ["selectedPath"]
+       30 NEWTABLE                         R6 0 0
+       32 SETTABLEKS                       R6 R5 K6 ["nodes"]
+       34 LOADN                            R6 0
+       35 SETTABLEKS                       R6 R5 K7 ["selectedNodeIndex"]
+       37 CALL                             R3 2 -1
+       38 RETURN                           R3 -1
 
 PROTO_10:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  DUPTABLE R4 K1 [{"expandedInstances"}]
-  GETTABLEKS R5 R1 K2 ["change"]
-  SETTABLEKS R5 R4 K0 ["expandedInstances"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K1 [{"expandedInstances"}]
+        3 GETTABLEKS                       R5 R1 K2 ["change"]
+        5 SETTABLEKS                       R5 R4 K0 ["expandedInstances"]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
 
 PROTO_11:
-  GETUPVAL R1 0
-  JUMPIFNOT R1 [+15]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["Children"]
-  JUMPIFNOT R1 [+4]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["Children"]
-  GETTABLE R1 R2 R0
-  SETUPVAL R1 0
-  GETUPVAL R1 0
-  JUMPIFNOT R1 [+4]
-  GETUPVAL R1 1
-  GETUPVAL R2 0
-  LOADB R3 1
-  SETTABLE R3 R1 R2
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 JUMPIFNOT                        R1 ; [+15]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R1 R2 K0 ["Children"]
+        5 JUMPIFNOT                        R1 ; [+4]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R2 R3 K0 ["Children"]
+        9 GETTABLE                         R1 R2 R0
+       10 SETUPVAL                         R1 0
+       11 GETUPVAL                         R1 0
+       12 JUMPIFNOT                        R1 ; [+4]
+       13 GETUPVAL                         R1 1
+       14 GETUPVAL                         R2 0
+       15 LOADB                            R3 1
+       16 SETTABLE                         R3 R1 R2
+       17 RETURN                           R0 0
 
 PROTO_12:
-  NEWTABLE R2 0 0
-  GETTABLEKS R3 R0 K0 ["rootInstance"]
-  GETUPVAL R4 0
-  GETTABLEKS R5 R1 K1 ["path"]
-  NEWCLOSURE R6 P0
-  CAPTURE REF R3
-  CAPTURE VAL R2
-  CALL R4 2 0
-  NEWTABLE R4 0 0
-  JUMPIFNOT R3 [+2]
-  LOADB R5 1
-  SETTABLE R5 R4 R3
-  GETUPVAL R5 1
-  MOVE R6 R0
-  DUPTABLE R7 K6 [{"selectedPath", "selectedInstances", "expandedInstances", "isPicking"}]
-  GETTABLEKS R8 R1 K1 ["path"]
-  SETTABLEKS R8 R7 K2 ["selectedPath"]
-  SETTABLEKS R4 R7 K3 ["selectedInstances"]
-  GETUPVAL R8 1
-  GETTABLEKS R9 R0 K4 ["expandedInstances"]
-  MOVE R10 R2
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K4 ["expandedInstances"]
-  LOADB R8 0
-  SETTABLEKS R8 R7 K5 ["isPicking"]
-  CALL R5 2 -1
-  CLOSEUPVALS R3
-  RETURN R5 -1
+        0 NEWTABLE                         R2 0 0
+        2 GETTABLEKS                       R3 R0 K0 ["rootInstance"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R5 R1 K1 ["path"]
+        7 NEWCLOSURE                       R6 P0
+        8 CAPTURE                          REF R3
+        9 CAPTURE                          VAL R2
+       10 CALL                             R4 2 0
+       11 NEWTABLE                         R4 0 0
+       13 JUMPIFNOT                        R3 ; [+2]
+       14 LOADB                            R5 1
+       15 SETTABLE                         R5 R4 R3
+       16 GETUPVAL                         R5 1
+       17 MOVE                             R6 R0
+       18 DUPTABLE                         R7 K6 [{"selectedPath", "selectedInstances", "expandedInstances", "isPicking"}]
+       19 GETTABLEKS                       R8 R1 K1 ["path"]
+       21 SETTABLEKS                       R8 R7 K2 ["selectedPath"]
+       23 SETTABLEKS                       R4 R7 K3 ["selectedInstances"]
+       25 GETUPVAL                         R8 1
+       26 GETTABLEKS                       R9 R0 K4 ["expandedInstances"]
+       28 MOVE                             R10 R2
+       29 CALL                             R8 2 1
+       30 SETTABLEKS                       R8 R7 K4 ["expandedInstances"]
+       32 LOADB                            R8 0
+       33 SETTABLEKS                       R8 R7 K5 ["isPicking"]
+       35 CALL                             R5 2 -1
+       36 CLOSEUPVALS                      R3
+       37 RETURN                           R5 -1
 
 PROTO_13:
-  GETUPVAL R2 0
-  GETTABLEKS R3 R1 K0 ["path"]
-  GETTABLEKS R4 R0 K1 ["selectedPath"]
-  CALL R2 2 1
-  JUMPIFNOT R2 [+8]
-  GETTABLEKS R3 R1 K2 ["nodeIndex"]
-  GETTABLEKS R4 R0 K3 ["selectedNodeIndex"]
-  JUMPIFEQ R3 R4 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  JUMPIF R2 [+1]
-  RETURN R0 1
-  GETUPVAL R3 1
-  DUPTABLE R4 K8 [{"root", "selected", "expanded", "children", "path"}]
-  GETTABLEKS R5 R0 K9 ["fields"]
-  SETTABLEKS R5 R4 K4 ["root"]
-  GETTABLEKS R5 R0 K10 ["selectedFields"]
-  SETTABLEKS R5 R4 K5 ["selected"]
-  GETTABLEKS R5 R0 K11 ["expandedFields"]
-  SETTABLEKS R5 R4 K6 ["expanded"]
-  GETTABLEKS R5 R1 K9 ["fields"]
-  SETTABLEKS R5 R4 K7 ["children"]
-  GETTABLEKS R5 R1 K12 ["fieldPath"]
-  SETTABLEKS R5 R4 K0 ["path"]
-  CALL R3 1 1
-  GETUPVAL R4 2
-  MOVE R5 R0
-  DUPTABLE R6 K13 [{"fields", "selectedFields", "expandedFields"}]
-  GETTABLEKS R7 R3 K4 ["root"]
-  SETTABLEKS R7 R6 K9 ["fields"]
-  GETTABLEKS R7 R3 K5 ["selected"]
-  SETTABLEKS R7 R6 K10 ["selectedFields"]
-  GETTABLEKS R7 R3 K6 ["expanded"]
-  SETTABLEKS R7 R6 K11 ["expandedFields"]
-  CALL R4 2 -1
-  RETURN R4 -1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R3 R1 K0 ["path"]
+        3 GETTABLEKS                       R4 R0 K1 ["selectedPath"]
+        5 CALL                             R2 2 1
+        6 JUMPIFNOT                        R2 ; [+8]
+        7 GETTABLEKS                       R3 R1 K2 ["nodeIndex"]
+        9 GETTABLEKS                       R4 R0 K3 ["selectedNodeIndex"]
+       11 JUMPIFEQ                         R3 R4 ; [+2]
+       13 LOADB                            R2 0 +1
+       14 LOADB                            R2 1
+       15 JUMPIF                           R2 ; [+1]
+       16 RETURN                           R0 1
+       17 GETUPVAL                         R3 1
+       18 DUPTABLE                         R4 K8 [{"root", "selected", "expanded", "children", "path"}]
+       19 GETTABLEKS                       R5 R0 K9 ["fields"]
+       21 SETTABLEKS                       R5 R4 K4 ["root"]
+       23 GETTABLEKS                       R5 R0 K10 ["selectedFields"]
+       25 SETTABLEKS                       R5 R4 K5 ["selected"]
+       27 GETTABLEKS                       R5 R0 K11 ["expandedFields"]
+       29 SETTABLEKS                       R5 R4 K6 ["expanded"]
+       31 GETTABLEKS                       R5 R1 K9 ["fields"]
+       33 SETTABLEKS                       R5 R4 K7 ["children"]
+       35 GETTABLEKS                       R5 R1 K12 ["fieldPath"]
+       37 SETTABLEKS                       R5 R4 K0 ["path"]
+       39 CALL                             R3 1 1
+       40 GETUPVAL                         R4 2
+       41 MOVE                             R5 R0
+       42 DUPTABLE                         R6 K13 [{"fields", "selectedFields", "expandedFields"}]
+       43 GETTABLEKS                       R7 R3 K4 ["root"]
+       45 SETTABLEKS                       R7 R6 K9 ["fields"]
+       47 GETTABLEKS                       R7 R3 K5 ["selected"]
+       49 SETTABLEKS                       R7 R6 K10 ["selectedFields"]
+       51 GETTABLEKS                       R7 R3 K6 ["expanded"]
+       53 SETTABLEKS                       R7 R6 K11 ["expandedFields"]
+       55 CALL                             R4 2 -1
+       56 RETURN                           R4 -1
 
 PROTO_14:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  DUPTABLE R4 K1 [{"selectedFields"}]
-  GETTABLEKS R5 R1 K2 ["change"]
-  SETTABLEKS R5 R4 K0 ["selectedFields"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K1 [{"selectedFields"}]
+        3 GETTABLEKS                       R5 R1 K2 ["change"]
+        5 SETTABLEKS                       R5 R4 K0 ["selectedFields"]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
 
 PROTO_15:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  DUPTABLE R4 K1 [{"expandedFields"}]
-  GETTABLEKS R5 R1 K2 ["change"]
-  SETTABLEKS R5 R4 K0 ["expandedFields"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K1 [{"expandedFields"}]
+        3 GETTABLEKS                       R5 R1 K2 ["change"]
+        5 SETTABLEKS                       R5 R4 K0 ["expandedFields"]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
 
 PROTO_16:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  DUPTABLE R4 K1 [{"isPicking"}]
-  GETTABLEKS R5 R1 K0 ["isPicking"]
-  SETTABLEKS R5 R4 K0 ["isPicking"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K1 [{"isPicking"}]
+        3 GETTABLEKS                       R5 R1 K0 ["isPicking"]
+        5 SETTABLEKS                       R5 R4 K0 ["isPicking"]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
 
 PROTO_17:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  DUPTABLE R4 K1 [{"isProfiling"}]
-  GETTABLEKS R5 R1 K0 ["isProfiling"]
-  SETTABLEKS R5 R4 K0 ["isProfiling"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K1 [{"isProfiling"}]
+        3 GETTABLEKS                       R5 R1 K0 ["isProfiling"]
+        5 SETTABLEKS                       R5 R4 K0 ["isProfiling"]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
 
 PROTO_18:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  GETUPVAL R2 1
-  MOVE R3 R0
-  DUPTABLE R4 K3 [{"profileData", "profileComponents", "profileEvents"}]
-  GETTABLEKS R5 R1 K0 ["profileData"]
-  SETTABLEKS R5 R4 K0 ["profileData"]
-  GETTABLEKS R5 R1 K1 ["profileComponents"]
-  SETTABLEKS R5 R4 K1 ["profileComponents"]
-  GETTABLEKS R5 R1 K2 ["profileEvents"]
-  SETTABLEKS R5 R4 K2 ["profileEvents"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 GETUPVAL                         R2 1
+        3 MOVE                             R3 R0
+        4 DUPTABLE                         R4 K3 [{"profileData", "profileComponents", "profileEvents"}]
+        5 GETTABLEKS                       R5 R1 K0 ["profileData"]
+        7 SETTABLEKS                       R5 R4 K0 ["profileData"]
+        9 GETTABLEKS                       R5 R1 K1 ["profileComponents"]
+       11 SETTABLEKS                       R5 R4 K1 ["profileComponents"]
+       13 GETTABLEKS                       R5 R1 K2 ["profileEvents"]
+       15 SETTABLEKS                       R5 R4 K2 ["profileEvents"]
+       17 CALL                             R2 2 -1
+       18 RETURN                           R2 -1
 
 PROTO_19:
-  GETTABLEKS R3 R0 K0 ["profileData"]
-  GETTABLEKS R2 R3 K1 ["cached"]
-  JUMPIFNOT R2 [+11]
-  GETTABLEKS R3 R1 K2 ["data"]
-  GETTABLEKS R2 R3 K3 ["eventCount"]
-  GETTABLEKS R4 R0 K0 ["profileData"]
-  GETTABLEKS R3 R4 K3 ["eventCount"]
-  JUMPIFNOTEQ R2 R3 [+2]
-  RETURN R0 1
-  GETUPVAL R2 0
-  GETTABLEKS R3 R0 K0 ["profileData"]
-  DUPTABLE R4 K6 [{"eventCount", "rowCount", "instanceEventCount", "cached"}]
-  GETTABLEKS R6 R1 K2 ["data"]
-  GETTABLEKS R5 R6 K3 ["eventCount"]
-  SETTABLEKS R5 R4 K3 ["eventCount"]
-  GETTABLEKS R6 R1 K2 ["data"]
-  GETTABLEKS R5 R6 K4 ["rowCount"]
-  SETTABLEKS R5 R4 K4 ["rowCount"]
-  GETTABLEKS R6 R1 K2 ["data"]
-  GETTABLEKS R5 R6 K5 ["instanceEventCount"]
-  SETTABLEKS R5 R4 K5 ["instanceEventCount"]
-  LOADB R5 1
-  SETTABLEKS R5 R4 K1 ["cached"]
-  CALL R2 2 1
-  GETUPVAL R3 0
-  MOVE R4 R0
-  DUPTABLE R5 K9 [{"profileData", "profileComponents", "profileEvents"}]
-  SETTABLEKS R2 R5 K0 ["profileData"]
-  GETUPVAL R6 0
-  GETTABLEKS R7 R0 K7 ["profileComponents"]
-  DUPTABLE R8 K11 [{"rowCount", "pageRows"}]
-  GETTABLEKS R10 R1 K2 ["data"]
-  GETTABLEKS R9 R10 K4 ["rowCount"]
-  SETTABLEKS R9 R8 K4 ["rowCount"]
-  GETTABLEKS R10 R1 K2 ["data"]
-  GETTABLEKS R9 R10 K12 ["componentRows"]
-  SETTABLEKS R9 R8 K10 ["pageRows"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K7 ["profileComponents"]
-  GETUPVAL R6 0
-  GETTABLEKS R7 R0 K8 ["profileEvents"]
-  DUPTABLE R8 K13 [{"pageRows"}]
-  GETTABLEKS R10 R1 K2 ["data"]
-  GETTABLEKS R9 R10 K14 ["eventRows"]
-  SETTABLEKS R9 R8 K10 ["pageRows"]
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K8 ["profileEvents"]
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 GETTABLEKS                       R3 R0 K0 ["profileData"]
+        2 GETTABLEKS                       R2 R3 K1 ["cached"]
+        4 JUMPIFNOT                        R2 ; [+11]
+        5 GETTABLEKS                       R3 R1 K2 ["data"]
+        7 GETTABLEKS                       R2 R3 K3 ["eventCount"]
+        9 GETTABLEKS                       R4 R0 K0 ["profileData"]
+       11 GETTABLEKS                       R3 R4 K3 ["eventCount"]
+       13 JUMPIFNOTEQ                      R2 R3 ; [+2]
+       15 RETURN                           R0 1
+       16 GETUPVAL                         R2 0
+       17 GETTABLEKS                       R3 R0 K0 ["profileData"]
+       19 DUPTABLE                         R4 K6 [{"eventCount", "rowCount", "instanceEventCount", "cached"}]
+       20 GETTABLEKS                       R6 R1 K2 ["data"]
+       22 GETTABLEKS                       R5 R6 K3 ["eventCount"]
+       24 SETTABLEKS                       R5 R4 K3 ["eventCount"]
+       26 GETTABLEKS                       R6 R1 K2 ["data"]
+       28 GETTABLEKS                       R5 R6 K4 ["rowCount"]
+       30 SETTABLEKS                       R5 R4 K4 ["rowCount"]
+       32 GETTABLEKS                       R6 R1 K2 ["data"]
+       34 GETTABLEKS                       R5 R6 K5 ["instanceEventCount"]
+       36 SETTABLEKS                       R5 R4 K5 ["instanceEventCount"]
+       38 LOADB                            R5 1
+       39 SETTABLEKS                       R5 R4 K1 ["cached"]
+       41 CALL                             R2 2 1
+       42 GETUPVAL                         R3 0
+       43 MOVE                             R4 R0
+       44 DUPTABLE                         R5 K9 [{"profileData", "profileComponents", "profileEvents"}]
+       45 SETTABLEKS                       R2 R5 K0 ["profileData"]
+       47 GETUPVAL                         R6 0
+       48 GETTABLEKS                       R7 R0 K7 ["profileComponents"]
+       50 DUPTABLE                         R8 K11 [{"rowCount", "pageRows"}]
+       51 GETTABLEKS                       R10 R1 K2 ["data"]
+       53 GETTABLEKS                       R9 R10 K4 ["rowCount"]
+       55 SETTABLEKS                       R9 R8 K4 ["rowCount"]
+       57 GETTABLEKS                       R10 R1 K2 ["data"]
+       59 GETTABLEKS                       R9 R10 K12 ["componentRows"]
+       61 SETTABLEKS                       R9 R8 K10 ["pageRows"]
+       63 CALL                             R6 2 1
+       64 SETTABLEKS                       R6 R5 K7 ["profileComponents"]
+       66 GETUPVAL                         R6 0
+       67 GETTABLEKS                       R7 R0 K8 ["profileEvents"]
+       69 DUPTABLE                         R8 K13 [{"pageRows"}]
+       70 GETTABLEKS                       R10 R1 K2 ["data"]
+       72 GETTABLEKS                       R9 R10 K14 ["eventRows"]
+       74 SETTABLEKS                       R9 R8 K10 ["pageRows"]
+       76 CALL                             R6 2 1
+       77 SETTABLEKS                       R6 R5 K8 ["profileEvents"]
+       79 CALL                             R3 2 -1
+       80 RETURN                           R3 -1
 
 PROTO_20:
-  GETUPVAL R2 0
-  GETTABLEKS R4 R1 K0 ["tableName"]
-  GETTABLE R3 R0 R4
-  DUPTABLE R4 K3 [{"sortIndex", "sortOrder"}]
-  GETTABLEKS R5 R1 K1 ["sortIndex"]
-  SETTABLEKS R5 R4 K1 ["sortIndex"]
-  GETTABLEKS R5 R1 K2 ["sortOrder"]
-  SETTABLEKS R5 R4 K2 ["sortOrder"]
-  CALL R2 2 1
-  GETUPVAL R3 1
-  MOVE R4 R0
-  NEWTABLE R5 1 0
-  GETTABLEKS R6 R1 K0 ["tableName"]
-  SETTABLE R2 R5 R6
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R4 R1 K0 ["tableName"]
+        3 GETTABLE                         R3 R0 R4
+        4 DUPTABLE                         R4 K3 [{"sortIndex", "sortOrder"}]
+        5 GETTABLEKS                       R5 R1 K1 ["sortIndex"]
+        7 SETTABLEKS                       R5 R4 K1 ["sortIndex"]
+        9 GETTABLEKS                       R5 R1 K2 ["sortOrder"]
+       11 SETTABLEKS                       R5 R4 K2 ["sortOrder"]
+       13 CALL                             R2 2 1
+       14 GETUPVAL                         R3 1
+       15 MOVE                             R4 R0
+       16 NEWTABLE                         R5 1 0
+       18 GETTABLEKS                       R6 R1 K0 ["tableName"]
+       20 SETTABLE                         R2 R5 R6
+       21 CALL                             R3 2 -1
+       22 RETURN                           R3 -1
 
 PROTO_21:
-  GETUPVAL R2 0
-  GETTABLEKS R4 R1 K0 ["tableName"]
-  GETTABLE R3 R0 R4
-  DUPTABLE R4 K2 [{"pageIndex"}]
-  GETTABLEKS R5 R1 K1 ["pageIndex"]
-  SETTABLEKS R5 R4 K1 ["pageIndex"]
-  CALL R2 2 1
-  GETUPVAL R3 1
-  MOVE R4 R0
-  NEWTABLE R5 1 0
-  GETTABLEKS R6 R1 K0 ["tableName"]
-  SETTABLE R2 R5 R6
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R4 R1 K0 ["tableName"]
+        3 GETTABLE                         R3 R0 R4
+        4 DUPTABLE                         R4 K2 [{"pageIndex"}]
+        5 GETTABLEKS                       R5 R1 K1 ["pageIndex"]
+        7 SETTABLEKS                       R5 R4 K1 ["pageIndex"]
+        9 CALL                             R2 2 1
+       10 GETUPVAL                         R3 1
+       11 MOVE                             R4 R0
+       12 NEWTABLE                         R5 1 0
+       14 GETTABLEKS                       R6 R1 K0 ["tableName"]
+       16 SETTABLE                         R2 R5 R6
+       17 CALL                             R3 2 -1
+       18 RETURN                           R3 -1
 
 PROTO_22:
-  GETUPVAL R2 0
-  GETTABLEKS R4 R1 K0 ["tableName"]
-  GETTABLE R3 R0 R4
-  DUPTABLE R4 K2 [{"pageSize"}]
-  GETTABLEKS R5 R1 K1 ["pageSize"]
-  SETTABLEKS R5 R4 K1 ["pageSize"]
-  CALL R2 2 1
-  GETUPVAL R3 1
-  MOVE R4 R0
-  NEWTABLE R5 1 0
-  GETTABLEKS R6 R1 K0 ["tableName"]
-  SETTABLE R2 R5 R6
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R4 R1 K0 ["tableName"]
+        3 GETTABLE                         R3 R0 R4
+        4 DUPTABLE                         R4 K2 [{"pageSize"}]
+        5 GETTABLEKS                       R5 R1 K1 ["pageSize"]
+        7 SETTABLEKS                       R5 R4 K1 ["pageSize"]
+        9 CALL                             R2 2 1
+       10 GETUPVAL                         R3 1
+       11 MOVE                             R4 R0
+       12 NEWTABLE                         R5 1 0
+       14 GETTABLEKS                       R6 R1 K0 ["tableName"]
+       16 SETTABLE                         R2 R5 R6
+       17 CALL                             R3 2 -1
+       18 RETURN                           R3 -1
 
 PROTO_23:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  DUPTABLE R4 K2 [{"profileEvents", "profileComponents"}]
-  GETUPVAL R5 1
-  GETTABLEKS R6 R0 K0 ["profileEvents"]
-  DUPTABLE R7 K4 [{"pageIndex"}]
-  LOADN R8 1
-  SETTABLEKS R8 R7 K3 ["pageIndex"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K0 ["profileEvents"]
-  GETUPVAL R5 1
-  GETTABLEKS R6 R0 K1 ["profileComponents"]
-  DUPTABLE R7 K6 [{"selectedRow"}]
-  GETTABLEKS R8 R1 K5 ["selectedRow"]
-  SETTABLEKS R8 R7 K5 ["selectedRow"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K1 ["profileComponents"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K2 [{"profileEvents", "profileComponents"}]
+        3 GETUPVAL                         R5 1
+        4 GETTABLEKS                       R6 R0 K0 ["profileEvents"]
+        6 DUPTABLE                         R7 K4 [{"pageIndex"}]
+        7 LOADN                            R8 1
+        8 SETTABLEKS                       R8 R7 K3 ["pageIndex"]
+       10 CALL                             R5 2 1
+       11 SETTABLEKS                       R5 R4 K0 ["profileEvents"]
+       13 GETUPVAL                         R5 1
+       14 GETTABLEKS                       R6 R0 K1 ["profileComponents"]
+       16 DUPTABLE                         R7 K6 [{"selectedRow"}]
+       17 GETTABLEKS                       R8 R1 K5 ["selectedRow"]
+       19 SETTABLEKS                       R8 R7 K5 ["selectedRow"]
+       21 CALL                             R5 2 1
+       22 SETTABLEKS                       R5 R4 K1 ["profileComponents"]
+       24 CALL                             R2 2 -1
+       25 RETURN                           R2 -1
 
 PROTO_24:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  DUPTABLE R4 K1 [{"profileSearchTerm"}]
-  GETTABLEKS R5 R1 K2 ["searchTerm"]
-  SETTABLEKS R5 R4 K0 ["profileSearchTerm"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K1 [{"profileSearchTerm"}]
+        3 GETTABLEKS                       R5 R1 K2 ["searchTerm"]
+        5 SETTABLEKS                       R5 R4 K0 ["profileSearchTerm"]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
 
 PROTO_25:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  DUPTABLE R4 K1 [{"profileFilter"}]
-  GETTABLEKS R5 R1 K2 ["filter"]
-  SETTABLEKS R5 R4 K0 ["profileFilter"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K1 [{"profileFilter"}]
+        3 GETTABLEKS                       R5 R1 K2 ["filter"]
+        5 SETTABLEKS                       R5 R4 K0 ["profileFilter"]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
 
 PROTO_26:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  DUPTABLE R4 K2 [{"profileEvents", "profileComponents"}]
-  GETUPVAL R5 1
-  GETTABLEKS R6 R0 K0 ["profileEvents"]
-  DUPTABLE R7 K4 [{"pageIndex"}]
-  LOADN R8 1
-  SETTABLEKS R8 R7 K3 ["pageIndex"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K0 ["profileEvents"]
-  GETUPVAL R5 1
-  GETTABLEKS R6 R0 K1 ["profileComponents"]
-  DUPTABLE R7 K6 [{"selectedRow"}]
-  GETTABLEKS R8 R1 K5 ["selectedRow"]
-  SETTABLEKS R8 R7 K5 ["selectedRow"]
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K1 ["profileComponents"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K2 [{"profileEvents", "profileComponents"}]
+        3 GETUPVAL                         R5 1
+        4 GETTABLEKS                       R6 R0 K0 ["profileEvents"]
+        6 DUPTABLE                         R7 K4 [{"pageIndex"}]
+        7 LOADN                            R8 1
+        8 SETTABLEKS                       R8 R7 K3 ["pageIndex"]
+       10 CALL                             R5 2 1
+       11 SETTABLEKS                       R5 R4 K0 ["profileEvents"]
+       13 GETUPVAL                         R5 1
+       14 GETTABLEKS                       R6 R0 K1 ["profileComponents"]
+       16 DUPTABLE                         R7 K6 [{"selectedRow"}]
+       17 GETTABLEKS                       R8 R1 K5 ["selectedRow"]
+       19 SETTABLEKS                       R8 R7 K5 ["selectedRow"]
+       21 CALL                             R5 2 1
+       22 SETTABLEKS                       R5 R4 K1 ["profileComponents"]
+       24 CALL                             R2 2 -1
+       25 RETURN                           R2 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Rodux"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Dash"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K8 ["collectSet"]
-  GETTABLEKS R4 R2 K9 ["forEach"]
-  GETTABLEKS R5 R2 K10 ["pick"]
-  GETTABLEKS R6 R2 K11 ["join"]
-  GETTABLEKS R7 R2 K12 ["joinDeep"]
-  GETTABLEKS R8 R2 K13 ["keys"]
-  GETTABLEKS R9 R2 K14 ["find"]
-  GETTABLEKS R10 R2 K15 ["shallowEqual"]
-  GETTABLEKS R12 R0 K16 ["Src"]
-  GETTABLEKS R11 R12 K17 ["Actions"]
-  GETIMPORT R12 K4 [require]
-  GETTABLEKS R14 R11 K18 ["RoactInspector"]
-  GETTABLEKS R13 R14 K19 ["UpdateInstances"]
-  CALL R12 1 1
-  GETIMPORT R13 K4 [require]
-  GETTABLEKS R15 R11 K18 ["RoactInspector"]
-  GETTABLEKS R14 R15 K20 ["SelectInstance"]
-  CALL R13 1 1
-  GETIMPORT R14 K4 [require]
-  GETTABLEKS R16 R11 K18 ["RoactInspector"]
-  GETTABLEKS R15 R16 K21 ["ToggleInstance"]
-  CALL R14 1 1
-  GETIMPORT R15 K4 [require]
-  GETTABLEKS R17 R11 K18 ["RoactInspector"]
-  GETTABLEKS R16 R17 K22 ["SelectNode"]
-  CALL R15 1 1
-  GETIMPORT R16 K4 [require]
-  GETTABLEKS R18 R11 K18 ["RoactInspector"]
-  GETTABLEKS R17 R18 K23 ["PickInstance"]
-  CALL R16 1 1
-  GETIMPORT R17 K4 [require]
-  GETTABLEKS R19 R11 K18 ["RoactInspector"]
-  GETTABLEKS R18 R19 K24 ["UpdateBranch"]
-  CALL R17 1 1
-  GETIMPORT R18 K4 [require]
-  GETTABLEKS R20 R11 K18 ["RoactInspector"]
-  GETTABLEKS R19 R20 K25 ["UpdateFields"]
-  CALL R18 1 1
-  GETIMPORT R19 K4 [require]
-  GETTABLEKS R21 R11 K18 ["RoactInspector"]
-  GETTABLEKS R20 R21 K26 ["Reset"]
-  CALL R19 1 1
-  GETIMPORT R20 K4 [require]
-  GETTABLEKS R22 R11 K18 ["RoactInspector"]
-  GETTABLEKS R21 R22 K27 ["SelectField"]
-  CALL R20 1 1
-  GETIMPORT R21 K4 [require]
-  GETTABLEKS R23 R11 K18 ["RoactInspector"]
-  GETTABLEKS R22 R23 K28 ["ToggleField"]
-  CALL R21 1 1
-  GETIMPORT R22 K4 [require]
-  GETTABLEKS R24 R11 K18 ["RoactInspector"]
-  GETTABLEKS R23 R24 K29 ["SetPicking"]
-  CALL R22 1 1
-  GETIMPORT R23 K4 [require]
-  GETTABLEKS R25 R11 K18 ["RoactInspector"]
-  GETTABLEKS R24 R25 K30 ["SetProfiling"]
-  CALL R23 1 1
-  GETIMPORT R24 K4 [require]
-  GETTABLEKS R26 R11 K18 ["RoactInspector"]
-  GETTABLEKS R25 R26 K31 ["ClearProfileData"]
-  CALL R24 1 1
-  GETIMPORT R25 K4 [require]
-  GETTABLEKS R27 R11 K18 ["RoactInspector"]
-  GETTABLEKS R26 R27 K32 ["SortProfileData"]
-  CALL R25 1 1
-  GETIMPORT R26 K4 [require]
-  GETTABLEKS R28 R11 K18 ["RoactInspector"]
-  GETTABLEKS R27 R28 K33 ["UpdateProfileData"]
-  CALL R26 1 1
-  GETIMPORT R27 K4 [require]
-  GETTABLEKS R29 R11 K18 ["RoactInspector"]
-  GETTABLEKS R28 R29 K34 ["SetProfilePageIndex"]
-  CALL R27 1 1
-  GETIMPORT R28 K4 [require]
-  GETTABLEKS R30 R11 K18 ["RoactInspector"]
-  GETTABLEKS R29 R30 K35 ["SetProfileFilter"]
-  CALL R28 1 1
-  GETIMPORT R29 K4 [require]
-  GETTABLEKS R31 R11 K18 ["RoactInspector"]
-  GETTABLEKS R30 R31 K36 ["SetProfileSearchTerm"]
-  CALL R29 1 1
-  GETIMPORT R30 K4 [require]
-  GETTABLEKS R32 R11 K18 ["RoactInspector"]
-  GETTABLEKS R31 R32 K37 ["SetProfilePageSize"]
-  CALL R30 1 1
-  GETIMPORT R31 K4 [require]
-  GETTABLEKS R33 R11 K18 ["RoactInspector"]
-  GETTABLEKS R32 R33 K38 ["SelectProfileRow"]
-  CALL R31 1 1
-  GETIMPORT R32 K4 [require]
-  GETTABLEKS R35 R0 K16 ["Src"]
-  GETTABLEKS R34 R35 K39 ["Util"]
-  GETTABLEKS R33 R34 K40 ["updateTree"]
-  CALL R32 1 1
-  DUPCLOSURE R33 K41 [PROTO_0]
-  DUPCLOSURE R34 K42 [PROTO_1]
-  CAPTURE VAL R33
-  DUPCLOSURE R35 K43 [PROTO_2]
-  CAPTURE VAL R6
-  GETTABLEKS R36 R1 K44 ["createReducer"]
-  MOVE R37 R34
-  CALL R37 0 1
-  NEWTABLE R38 32 0
-  GETTABLEKS R39 R19 K45 ["name"]
-  DUPCLOSURE R40 K46 [PROTO_3]
-  CAPTURE VAL R34
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R17 K45 ["name"]
-  DUPCLOSURE R40 K47 [PROTO_4]
-  CAPTURE VAL R10
-  CAPTURE VAL R6
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R15 K45 ["name"]
-  DUPCLOSURE R40 K48 [PROTO_5]
-  CAPTURE VAL R6
-  CAPTURE VAL R33
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R12 K45 ["name"]
-  DUPCLOSURE R40 K49 [PROTO_8]
-  CAPTURE VAL R5
-  CAPTURE VAL R9
-  CAPTURE VAL R10
-  CAPTURE VAL R3
-  CAPTURE VAL R32
-  CAPTURE VAL R6
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R13 K45 ["name"]
-  DUPCLOSURE R40 K50 [PROTO_9]
-  CAPTURE VAL R8
-  CAPTURE VAL R6
-  CAPTURE VAL R33
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R14 K45 ["name"]
-  DUPCLOSURE R40 K51 [PROTO_10]
-  CAPTURE VAL R7
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R16 K45 ["name"]
-  DUPCLOSURE R40 K52 [PROTO_12]
-  CAPTURE VAL R4
-  CAPTURE VAL R6
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R18 K45 ["name"]
-  DUPCLOSURE R40 K53 [PROTO_13]
-  CAPTURE VAL R10
-  CAPTURE VAL R32
-  CAPTURE VAL R6
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R20 K45 ["name"]
-  DUPCLOSURE R40 K54 [PROTO_14]
-  CAPTURE VAL R6
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R21 K45 ["name"]
-  DUPCLOSURE R40 K55 [PROTO_15]
-  CAPTURE VAL R7
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R22 K45 ["name"]
-  DUPCLOSURE R40 K56 [PROTO_16]
-  CAPTURE VAL R7
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R23 K45 ["name"]
-  DUPCLOSURE R40 K57 [PROTO_17]
-  CAPTURE VAL R7
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R24 K45 ["name"]
-  DUPCLOSURE R40 K58 [PROTO_18]
-  CAPTURE VAL R34
-  CAPTURE VAL R6
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R26 K45 ["name"]
-  DUPCLOSURE R40 K59 [PROTO_19]
-  CAPTURE VAL R6
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R25 K45 ["name"]
-  DUPCLOSURE R40 K60 [PROTO_20]
-  CAPTURE VAL R6
-  CAPTURE VAL R35
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R27 K45 ["name"]
-  DUPCLOSURE R40 K61 [PROTO_21]
-  CAPTURE VAL R6
-  CAPTURE VAL R35
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R30 K45 ["name"]
-  DUPCLOSURE R40 K62 [PROTO_22]
-  CAPTURE VAL R6
-  CAPTURE VAL R35
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R31 K45 ["name"]
-  DUPCLOSURE R40 K63 [PROTO_23]
-  CAPTURE VAL R35
-  CAPTURE VAL R6
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R29 K45 ["name"]
-  DUPCLOSURE R40 K64 [PROTO_24]
-  CAPTURE VAL R35
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R28 K45 ["name"]
-  DUPCLOSURE R40 K65 [PROTO_25]
-  CAPTURE VAL R35
-  SETTABLE R40 R38 R39
-  GETTABLEKS R39 R31 K45 ["name"]
-  DUPCLOSURE R40 K66 [PROTO_26]
-  CAPTURE VAL R35
-  CAPTURE VAL R6
-  SETTABLE R40 R38 R39
-  CALL R36 2 -1
-  RETURN R36 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K7 ["Dash"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R2 K8 ["collectSet"]
+       25 GETTABLEKS                       R4 R2 K9 ["forEach"]
+       27 GETTABLEKS                       R5 R2 K10 ["pick"]
+       29 GETTABLEKS                       R6 R2 K11 ["join"]
+       31 GETTABLEKS                       R7 R2 K12 ["joinDeep"]
+       33 GETTABLEKS                       R8 R2 K13 ["keys"]
+       35 GETTABLEKS                       R9 R2 K14 ["find"]
+       37 GETTABLEKS                       R10 R2 K15 ["shallowEqual"]
+       39 GETTABLEKS                       R12 R0 K16 ["Src"]
+       41 GETTABLEKS                       R11 R12 K17 ["Actions"]
+       43 GETIMPORT                        R12 K4 [require]
+       45 GETTABLEKS                       R14 R11 K18 ["RoactInspector"]
+       47 GETTABLEKS                       R13 R14 K19 ["UpdateInstances"]
+       49 CALL                             R12 1 1
+       50 GETIMPORT                        R13 K4 [require]
+       52 GETTABLEKS                       R15 R11 K18 ["RoactInspector"]
+       54 GETTABLEKS                       R14 R15 K20 ["SelectInstance"]
+       56 CALL                             R13 1 1
+       57 GETIMPORT                        R14 K4 [require]
+       59 GETTABLEKS                       R16 R11 K18 ["RoactInspector"]
+       61 GETTABLEKS                       R15 R16 K21 ["ToggleInstance"]
+       63 CALL                             R14 1 1
+       64 GETIMPORT                        R15 K4 [require]
+       66 GETTABLEKS                       R17 R11 K18 ["RoactInspector"]
+       68 GETTABLEKS                       R16 R17 K22 ["SelectNode"]
+       70 CALL                             R15 1 1
+       71 GETIMPORT                        R16 K4 [require]
+       73 GETTABLEKS                       R18 R11 K18 ["RoactInspector"]
+       75 GETTABLEKS                       R17 R18 K23 ["PickInstance"]
+       77 CALL                             R16 1 1
+       78 GETIMPORT                        R17 K4 [require]
+       80 GETTABLEKS                       R19 R11 K18 ["RoactInspector"]
+       82 GETTABLEKS                       R18 R19 K24 ["UpdateBranch"]
+       84 CALL                             R17 1 1
+       85 GETIMPORT                        R18 K4 [require]
+       87 GETTABLEKS                       R20 R11 K18 ["RoactInspector"]
+       89 GETTABLEKS                       R19 R20 K25 ["UpdateFields"]
+       91 CALL                             R18 1 1
+       92 GETIMPORT                        R19 K4 [require]
+       94 GETTABLEKS                       R21 R11 K18 ["RoactInspector"]
+       96 GETTABLEKS                       R20 R21 K26 ["Reset"]
+       98 CALL                             R19 1 1
+       99 GETIMPORT                        R20 K4 [require]
+      101 GETTABLEKS                       R22 R11 K18 ["RoactInspector"]
+      103 GETTABLEKS                       R21 R22 K27 ["SelectField"]
+      105 CALL                             R20 1 1
+      106 GETIMPORT                        R21 K4 [require]
+      108 GETTABLEKS                       R23 R11 K18 ["RoactInspector"]
+      110 GETTABLEKS                       R22 R23 K28 ["ToggleField"]
+      112 CALL                             R21 1 1
+      113 GETIMPORT                        R22 K4 [require]
+      115 GETTABLEKS                       R24 R11 K18 ["RoactInspector"]
+      117 GETTABLEKS                       R23 R24 K29 ["SetPicking"]
+      119 CALL                             R22 1 1
+      120 GETIMPORT                        R23 K4 [require]
+      122 GETTABLEKS                       R25 R11 K18 ["RoactInspector"]
+      124 GETTABLEKS                       R24 R25 K30 ["SetProfiling"]
+      126 CALL                             R23 1 1
+      127 GETIMPORT                        R24 K4 [require]
+      129 GETTABLEKS                       R26 R11 K18 ["RoactInspector"]
+      131 GETTABLEKS                       R25 R26 K31 ["ClearProfileData"]
+      133 CALL                             R24 1 1
+      134 GETIMPORT                        R25 K4 [require]
+      136 GETTABLEKS                       R27 R11 K18 ["RoactInspector"]
+      138 GETTABLEKS                       R26 R27 K32 ["SortProfileData"]
+      140 CALL                             R25 1 1
+      141 GETIMPORT                        R26 K4 [require]
+      143 GETTABLEKS                       R28 R11 K18 ["RoactInspector"]
+      145 GETTABLEKS                       R27 R28 K33 ["UpdateProfileData"]
+      147 CALL                             R26 1 1
+      148 GETIMPORT                        R27 K4 [require]
+      150 GETTABLEKS                       R29 R11 K18 ["RoactInspector"]
+      152 GETTABLEKS                       R28 R29 K34 ["SetProfilePageIndex"]
+      154 CALL                             R27 1 1
+      155 GETIMPORT                        R28 K4 [require]
+      157 GETTABLEKS                       R30 R11 K18 ["RoactInspector"]
+      159 GETTABLEKS                       R29 R30 K35 ["SetProfileFilter"]
+      161 CALL                             R28 1 1
+      162 GETIMPORT                        R29 K4 [require]
+      164 GETTABLEKS                       R31 R11 K18 ["RoactInspector"]
+      166 GETTABLEKS                       R30 R31 K36 ["SetProfileSearchTerm"]
+      168 CALL                             R29 1 1
+      169 GETIMPORT                        R30 K4 [require]
+      171 GETTABLEKS                       R32 R11 K18 ["RoactInspector"]
+      173 GETTABLEKS                       R31 R32 K37 ["SetProfilePageSize"]
+      175 CALL                             R30 1 1
+      176 GETIMPORT                        R31 K4 [require]
+      178 GETTABLEKS                       R33 R11 K18 ["RoactInspector"]
+      180 GETTABLEKS                       R32 R33 K38 ["SelectProfileRow"]
+      182 CALL                             R31 1 1
+      183 GETIMPORT                        R32 K4 [require]
+      185 GETTABLEKS                       R35 R0 K16 ["Src"]
+      187 GETTABLEKS                       R34 R35 K39 ["Util"]
+      189 GETTABLEKS                       R33 R34 K40 ["updateTree"]
+      191 CALL                             R32 1 1
+      192 DUPCLOSURE                       R33 K41 [PROTO_0]
+      193 DUPCLOSURE                       R34 K42 [PROTO_1]
+      194 CAPTURE                          VAL R33
+      195 DUPCLOSURE                       R35 K43 [PROTO_2]
+      196 CAPTURE                          VAL R6
+      197 GETTABLEKS                       R36 R1 K44 ["createReducer"]
+      199 MOVE                             R37 R34
+      200 CALL                             R37 0 1
+      201 NEWTABLE                         R38 32 0
+      203 GETTABLEKS                       R39 R19 K45 ["name"]
+      205 DUPCLOSURE                       R40 K46 [PROTO_3]
+      206 CAPTURE                          VAL R34
+      207 SETTABLE                         R40 R38 R39
+      208 GETTABLEKS                       R39 R17 K45 ["name"]
+      210 DUPCLOSURE                       R40 K47 [PROTO_4]
+      211 CAPTURE                          VAL R10
+      212 CAPTURE                          VAL R6
+      213 SETTABLE                         R40 R38 R39
+      214 GETTABLEKS                       R39 R15 K45 ["name"]
+      216 DUPCLOSURE                       R40 K48 [PROTO_5]
+      217 CAPTURE                          VAL R6
+      218 CAPTURE                          VAL R33
+      219 SETTABLE                         R40 R38 R39
+      220 GETTABLEKS                       R39 R12 K45 ["name"]
+      222 DUPCLOSURE                       R40 K49 [PROTO_8]
+      223 CAPTURE                          VAL R5
+      224 CAPTURE                          VAL R9
+      225 CAPTURE                          VAL R10
+      226 CAPTURE                          VAL R3
+      227 CAPTURE                          VAL R32
+      228 CAPTURE                          VAL R6
+      229 SETTABLE                         R40 R38 R39
+      230 GETTABLEKS                       R39 R13 K45 ["name"]
+      232 DUPCLOSURE                       R40 K50 [PROTO_9]
+      233 CAPTURE                          VAL R8
+      234 CAPTURE                          VAL R6
+      235 CAPTURE                          VAL R33
+      236 SETTABLE                         R40 R38 R39
+      237 GETTABLEKS                       R39 R14 K45 ["name"]
+      239 DUPCLOSURE                       R40 K51 [PROTO_10]
+      240 CAPTURE                          VAL R7
+      241 SETTABLE                         R40 R38 R39
+      242 GETTABLEKS                       R39 R16 K45 ["name"]
+      244 DUPCLOSURE                       R40 K52 [PROTO_12]
+      245 CAPTURE                          VAL R4
+      246 CAPTURE                          VAL R6
+      247 SETTABLE                         R40 R38 R39
+      248 GETTABLEKS                       R39 R18 K45 ["name"]
+      250 DUPCLOSURE                       R40 K53 [PROTO_13]
+      251 CAPTURE                          VAL R10
+      252 CAPTURE                          VAL R32
+      253 CAPTURE                          VAL R6
+      254 SETTABLE                         R40 R38 R39
+      255 GETTABLEKS                       R39 R20 K45 ["name"]
+      257 DUPCLOSURE                       R40 K54 [PROTO_14]
+      258 CAPTURE                          VAL R6
+      259 SETTABLE                         R40 R38 R39
+      260 GETTABLEKS                       R39 R21 K45 ["name"]
+      262 DUPCLOSURE                       R40 K55 [PROTO_15]
+      263 CAPTURE                          VAL R7
+      264 SETTABLE                         R40 R38 R39
+      265 GETTABLEKS                       R39 R22 K45 ["name"]
+      267 DUPCLOSURE                       R40 K56 [PROTO_16]
+      268 CAPTURE                          VAL R7
+      269 SETTABLE                         R40 R38 R39
+      270 GETTABLEKS                       R39 R23 K45 ["name"]
+      272 DUPCLOSURE                       R40 K57 [PROTO_17]
+      273 CAPTURE                          VAL R7
+      274 SETTABLE                         R40 R38 R39
+      275 GETTABLEKS                       R39 R24 K45 ["name"]
+      277 DUPCLOSURE                       R40 K58 [PROTO_18]
+      278 CAPTURE                          VAL R34
+      279 CAPTURE                          VAL R6
+      280 SETTABLE                         R40 R38 R39
+      281 GETTABLEKS                       R39 R26 K45 ["name"]
+      283 DUPCLOSURE                       R40 K59 [PROTO_19]
+      284 CAPTURE                          VAL R6
+      285 SETTABLE                         R40 R38 R39
+      286 GETTABLEKS                       R39 R25 K45 ["name"]
+      288 DUPCLOSURE                       R40 K60 [PROTO_20]
+      289 CAPTURE                          VAL R6
+      290 CAPTURE                          VAL R35
+      291 SETTABLE                         R40 R38 R39
+      292 GETTABLEKS                       R39 R27 K45 ["name"]
+      294 DUPCLOSURE                       R40 K61 [PROTO_21]
+      295 CAPTURE                          VAL R6
+      296 CAPTURE                          VAL R35
+      297 SETTABLE                         R40 R38 R39
+      298 GETTABLEKS                       R39 R30 K45 ["name"]
+      300 DUPCLOSURE                       R40 K62 [PROTO_22]
+      301 CAPTURE                          VAL R6
+      302 CAPTURE                          VAL R35
+      303 SETTABLE                         R40 R38 R39
+      304 GETTABLEKS                       R39 R31 K45 ["name"]
+      306 DUPCLOSURE                       R40 K63 [PROTO_23]
+      307 CAPTURE                          VAL R35
+      308 CAPTURE                          VAL R6
+      309 SETTABLE                         R40 R38 R39
+      310 GETTABLEKS                       R39 R29 K45 ["name"]
+      312 DUPCLOSURE                       R40 K64 [PROTO_24]
+      313 CAPTURE                          VAL R35
+      314 SETTABLE                         R40 R38 R39
+      315 GETTABLEKS                       R39 R28 K45 ["name"]
+      317 DUPCLOSURE                       R40 K65 [PROTO_25]
+      318 CAPTURE                          VAL R35
+      319 SETTABLE                         R40 R38 R39
+      320 GETTABLEKS                       R39 R31 K45 ["name"]
+      322 DUPCLOSURE                       R40 K66 [PROTO_26]
+      323 CAPTURE                          VAL R35
+      324 CAPTURE                          VAL R6
+      325 SETTABLE                         R40 R38 R39
+      326 CALL                             R36 2 -1
+      327 RETURN                           R36 -1

@@ -1,612 +1,612 @@
 PROTO_0:
-  GETUPVAL R0 0
-  LOADK R1 K0 ["RoundBox"]
-  CALL R0 1 1
-  GETUPVAL R1 0
-  LOADK R2 K1 ["Button"]
-  CALL R1 1 1
-  GETUPVAL R2 0
-  LOADK R3 K2 ["RadioButton"]
-  CALL R2 1 1
-  NEWTABLE R3 32 0
-  DUPTABLE R4 K12 [{"backgroundColor", "brightText", "errorColor", "warningColor", "labelTextColor", "textColor", "inputBottomText", "publishAsset", "packagePermissions"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K13 ["MainBackground"]
-  SETTABLEKS R5 R4 K3 ["backgroundColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K14 ["BrightText"]
-  SETTABLEKS R5 R4 K4 ["brightText"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K15 ["ErrorText"]
-  SETTABLEKS R5 R4 K5 ["errorColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K16 ["WarningText"]
-  SETTABLEKS R5 R4 K6 ["warningColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K17 ["DimmedText"]
-  SETTABLEKS R5 R4 K7 ["labelTextColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K18 ["MainText"]
-  SETTABLEKS R5 R4 K8 ["textColor"]
-  DUPTABLE R5 K22 [{"textColor", "textErrorColor", "textSize", "bottomTextSpacing"}]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K17 ["DimmedText"]
-  SETTABLEKS R6 R5 K8 ["textColor"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K15 ["ErrorText"]
-  SETTABLEKS R6 R5 K19 ["textErrorColor"]
-  LOADN R6 18
-  SETTABLEKS R6 R5 K20 ["textSize"]
-  LOADN R6 6
-  SETTABLEKS R6 R5 K21 ["bottomTextSpacing"]
-  SETTABLEKS R5 R4 K9 ["inputBottomText"]
-  DUPTABLE R5 K24 [{"warningIconColor"}]
-  GETIMPORT R6 K27 [Color3.fromHex]
-  LOADK R7 K28 ["#FFAA21"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K23 ["warningIconColor"]
-  SETTABLEKS R5 R4 K10 ["publishAsset"]
-  DUPTABLE R5 K33 [{"backgroundColor", "subTextColor", "collaboratorItem", "searchBar", "subjectThumbnail"}]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K13 ["MainBackground"]
-  SETTABLEKS R6 R5 K3 ["backgroundColor"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K34 ["SubText"]
-  SETTABLEKS R6 R5 K29 ["subTextColor"]
-  DUPTABLE R6 K36 [{"deleteButton"}]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K37 ["Toolbox_DeleteIconColor"]
-  SETTABLEKS R7 R6 K35 ["deleteButton"]
-  SETTABLEKS R6 R5 K30 ["collaboratorItem"]
-  DUPTABLE R6 K45 [{"border", "borderHover", "borderSelected", "placeholderText", "backgroundColor", "searchIcon", "clearButton", "dropDown"}]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K46 ["InputFieldBorder"]
-  SETTABLEKS R7 R6 K38 ["border"]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K47 ["Blue"]
-  SETTABLEKS R7 R6 K39 ["borderHover"]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K47 ["Blue"]
-  SETTABLEKS R7 R6 K40 ["borderSelected"]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K17 ["DimmedText"]
-  SETTABLEKS R7 R6 K41 ["placeholderText"]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K48 ["InputFieldBackground"]
-  SETTABLEKS R7 R6 K3 ["backgroundColor"]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K34 ["SubText"]
-  SETTABLEKS R7 R6 K42 ["searchIcon"]
-  DUPTABLE R7 K50 [{"image"}]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K34 ["SubText"]
-  SETTABLEKS R8 R7 K49 ["image"]
-  SETTABLEKS R7 R6 K43 ["clearButton"]
-  DUPTABLE R7 K55 [{"backgroundColor", "itemText", "headerText", "hovered", "selected"}]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K48 ["InputFieldBackground"]
-  SETTABLEKS R8 R7 K3 ["backgroundColor"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K18 ["MainText"]
-  SETTABLEKS R8 R7 K51 ["itemText"]
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K34 ["SubText"]
-  SETTABLEKS R8 R7 K52 ["headerText"]
-  DUPTABLE R8 K56 [{"backgroundColor", "itemText"}]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K57 ["ItemHovered"]
-  SETTABLEKS R9 R8 K3 ["backgroundColor"]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K58 ["ButtonText"]
-  SETTABLEKS R9 R8 K51 ["itemText"]
-  SETTABLEKS R8 R7 K53 ["hovered"]
-  DUPTABLE R8 K59 [{"backgroundColor"}]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K60 ["ButtonSelected"]
-  SETTABLEKS R9 R8 K3 ["backgroundColor"]
-  SETTABLEKS R8 R7 K54 ["selected"]
-  SETTABLEKS R7 R6 K44 ["dropDown"]
-  SETTABLEKS R6 R5 K31 ["searchBar"]
-  DUPTABLE R6 K62 [{"backgroundColor", "defaultImageColor"}]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K63 ["TableItem"]
-  SETTABLEKS R7 R6 K3 ["backgroundColor"]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K64 ["AssetConfig_SubjectThumbnailDefaultImageColor"]
-  SETTABLEKS R7 R6 K61 ["defaultImageColor"]
-  SETTABLEKS R6 R5 K32 ["subjectThumbnail"]
-  SETTABLEKS R5 R4 K11 ["packagePermissions"]
-  SETTABLEKS R4 R3 K65 ["assetConfig"]
-  DUPTABLE R4 K69 [{"displayText", "descriptionText", "backgroundColor", "borderColor", "hovered"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K18 ["MainText"]
-  SETTABLEKS R5 R4 K66 ["displayText"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K34 ["SubText"]
-  SETTABLEKS R5 R4 K67 ["descriptionText"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K13 ["MainBackground"]
-  SETTABLEKS R5 R4 K3 ["backgroundColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K70 ["DialogButtonBorder"]
-  SETTABLEKS R5 R4 K68 ["borderColor"]
-  DUPTABLE R5 K71 [{"displayText"}]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K72 ["MainTextHover"]
-  SETTABLEKS R6 R5 K66 ["displayText"]
-  SETTABLEKS R5 R4 K53 ["hovered"]
-  SETTABLEKS R4 R3 K73 ["detailedDropdown"]
-  DUPTABLE R4 K74 [{"backgroundColor", "borderColor"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K13 ["MainBackground"]
-  SETTABLEKS R5 R4 K3 ["backgroundColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K75 ["Border"]
-  SETTABLEKS R5 R4 K68 ["borderColor"]
-  SETTABLEKS R4 R3 K76 ["configFooter"]
-  DUPTABLE R4 K79 [{"horizontalLineColor", "verticalLineColor"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K80 ["Toolbox_HorizontalLineColor"]
-  SETTABLEKS R5 R4 K77 ["horizontalLineColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K81 ["AssetConfig_DividerHorizontalLineColor"]
-  SETTABLEKS R5 R4 K78 ["verticalLineColor"]
-  SETTABLEKS R4 R3 K82 ["divider"]
-  DUPTABLE R4 K85 [{"backgroundColor", "toolTip", "error"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K48 ["InputFieldBackground"]
-  SETTABLEKS R5 R4 K3 ["backgroundColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K17 ["DimmedText"]
-  SETTABLEKS R5 R4 K83 ["toolTip"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K15 ["ErrorText"]
-  SETTABLEKS R5 R4 K84 ["error"]
-  SETTABLEKS R4 R3 K86 ["inputFields"]
-  DUPTABLE R4 K87 [{"textColor"}]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K47 ["Blue"]
-  SETTABLEKS R5 R4 K8 ["textColor"]
-  SETTABLEKS R4 R3 K88 ["linkButton"]
-  DUPTABLE R4 K90 [{"text"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K18 ["MainText"]
-  SETTABLEKS R5 R4 K89 ["text"]
-  SETTABLEKS R4 R3 K91 ["loading"]
-  DUPTABLE R4 K94 [{"mainButton", "button"}]
-  DUPTABLE R5 K98 [{"background", "hoverBackground", "pressBackground", "borderColor", "textColor"}]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K99 ["DialogMainButton"]
-  SETTABLEKS R6 R5 K95 ["background"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K100 ["DialogMainButtonHover"]
-  SETTABLEKS R6 R5 K96 ["hoverBackground"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K101 ["DialogMainButtonPressed"]
-  SETTABLEKS R6 R5 K97 ["pressBackground"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K75 ["Border"]
-  SETTABLEKS R6 R5 K68 ["borderColor"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K102 ["DialogMainButtonText"]
-  SETTABLEKS R6 R5 K8 ["textColor"]
-  SETTABLEKS R5 R4 K92 ["mainButton"]
-  DUPTABLE R5 K98 [{"background", "hoverBackground", "pressBackground", "borderColor", "textColor"}]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K103 ["DialogButton"]
-  SETTABLEKS R6 R5 K95 ["background"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K104 ["DialogButtonHover"]
-  SETTABLEKS R6 R5 K96 ["hoverBackground"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K105 ["DialogButtonPressed"]
-  SETTABLEKS R6 R5 K97 ["pressBackground"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K75 ["Border"]
-  SETTABLEKS R6 R5 K68 ["borderColor"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K106 ["DialogButtonText"]
-  SETTABLEKS R6 R5 K8 ["textColor"]
-  SETTABLEKS R5 R4 K93 ["button"]
-  SETTABLEKS R4 R3 K107 ["nav"]
-  DUPTABLE R4 K109 [{"backgroundColor", "textColor", "selectedColor"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K13 ["MainBackground"]
-  SETTABLEKS R5 R4 K3 ["backgroundColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K18 ["MainText"]
-  SETTABLEKS R5 R4 K8 ["textColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K110 ["AssetConfig_PreviewSelectedColor"]
-  SETTABLEKS R5 R4 K108 ["selectedColor"]
-  SETTABLEKS R4 R3 K111 ["previewArea"]
-  DUPTABLE R4 K118 [{"contentColor", "backgroundColor", "selecteBarColor", "selecteBarTrans", "selecteBarZindex", "selecteIndicatorColor", "selecteIndicatorTrans", "textColor"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K119 ["TitlebarText"]
-  SETTABLEKS R5 R4 K112 ["contentColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K13 ["MainBackground"]
-  SETTABLEKS R5 R4 K3 ["backgroundColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K120 ["AssetConfig_SidetabSelectedBarColor"]
-  SETTABLEKS R5 R4 K113 ["selecteBarColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K121 ["AssetConfig_SidetabSelectedBarTransparency"]
-  SETTABLEKS R5 R4 K114 ["selecteBarTrans"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K122 ["AssetConfig_SidetabSelectedBarZIndex"]
-  SETTABLEKS R5 R4 K115 ["selecteBarZindex"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K123 ["BLUE_PRIMARY"]
-  SETTABLEKS R5 R4 K116 ["selecteIndicatorColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K124 ["AssetConfig_SidetabSelectedIndicatorZindex"]
-  SETTABLEKS R5 R4 K117 ["selecteIndicatorTrans"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K18 ["MainText"]
-  SETTABLEKS R5 R4 K8 ["textColor"]
-  SETTABLEKS R4 R3 K125 ["sideTab"]
-  DUPTABLE R4 K87 [{"textColor"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K18 ["MainText"]
-  SETTABLEKS R5 R4 K8 ["textColor"]
-  SETTABLEKS R4 R3 K126 ["tags"]
-  DUPTABLE R4 K128 [{"background", "border", "text", "warningIconSize"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K129 ["Item"]
-  SETTABLEKS R5 R4 K95 ["background"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K75 ["Border"]
-  SETTABLEKS R5 R4 K38 ["border"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K18 ["MainText"]
-  SETTABLEKS R5 R4 K89 ["text"]
-  GETIMPORT R5 K132 [UDim2.fromOffset]
-  LOADN R6 64
-  LOADN R7 64
-  CALL R5 2 1
-  SETTABLEKS R5 R4 K127 ["warningIconSize"]
-  SETTABLEKS R4 R3 K133 ["thumbnailPreview"]
-  DUPTABLE R4 K136 [{"background", "selector", "footer"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K63 ["TableItem"]
-  SETTABLEKS R5 R4 K95 ["background"]
-  DUPTABLE R5 K139 [{"title", "description"}]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K18 ["MainText"]
-  SETTABLEKS R6 R5 K137 ["title"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K140 ["MainTextDisabled"]
-  SETTABLEKS R6 R5 K138 ["description"]
-  SETTABLEKS R5 R4 K134 ["selector"]
-  DUPTABLE R5 K141 [{"background", "border"}]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K13 ["MainBackground"]
-  SETTABLEKS R6 R5 K95 ["background"]
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K75 ["Border"]
-  SETTABLEKS R6 R5 K38 ["border"]
-  SETTABLEKS R5 R4 K135 ["footer"]
-  SETTABLEKS R4 R3 K142 ["typeSelection"]
-  DUPTABLE R4 K145 [{"background", "successResultColor", "failureResultColor"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K63 ["TableItem"]
-  SETTABLEKS R5 R4 K95 ["background"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K146 ["TextSuccess"]
-  SETTABLEKS R5 R4 K143 ["successResultColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K147 ["TextError"]
-  SETTABLEKS R5 R4 K144 ["failureResultColor"]
-  SETTABLEKS R4 R3 K148 ["typeValidation"]
-  DUPTABLE R4 K154 [{"greenText", "redText", "text", "buttonColor", "idText", "background", "link"}]
-  GETIMPORT R5 K156 [Color3.fromRGB]
-  LOADN R6 2
-  LOADN R7 183
-  LOADN R8 87
-  CALL R5 3 1
-  SETTABLEKS R5 R4 K149 ["greenText"]
-  GETIMPORT R5 K156 [Color3.fromRGB]
-  LOADN R6 255
-  LOADN R7 68
-  LOADN R8 68
-  CALL R5 3 1
-  SETTABLEKS R5 R4 K150 ["redText"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K18 ["MainText"]
-  SETTABLEKS R5 R4 K89 ["text"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K157 ["AssetConfig_UploadResultButtonColor"]
-  SETTABLEKS R5 R4 K151 ["buttonColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K17 ["DimmedText"]
-  SETTABLEKS R5 R4 K152 ["idText"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K63 ["TableItem"]
-  SETTABLEKS R5 R4 K95 ["background"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K158 ["LinkText"]
-  SETTABLEKS R5 R4 K153 ["link"]
-  SETTABLEKS R4 R3 K159 ["uploadResult"]
-  DUPTABLE R4 K164 [{"thumbnailBorderColor", "buttonSelectedColor", "buttonDefaultColor", "textColor", "dimmedTextColor", "errorColor"}]
-  GETIMPORT R5 K156 [Color3.fromRGB]
-  LOADN R6 117
-  LOADN R7 117
-  LOADN R8 117
-  CALL R5 3 1
-  SETTABLEKS R5 R4 K160 ["thumbnailBorderColor"]
-  GETIMPORT R5 K156 [Color3.fromRGB]
-  LOADN R6 0
-  LOADN R7 162
-  LOADN R8 255
-  CALL R5 3 1
-  SETTABLEKS R5 R4 K161 ["buttonSelectedColor"]
-  GETIMPORT R5 K156 [Color3.fromRGB]
-  LOADN R6 117
-  LOADN R7 117
-  LOADN R8 117
-  CALL R5 3 1
-  SETTABLEKS R5 R4 K162 ["buttonDefaultColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K18 ["MainText"]
-  SETTABLEKS R5 R4 K8 ["textColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K17 ["DimmedText"]
-  SETTABLEKS R5 R4 K163 ["dimmedTextColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K15 ["ErrorText"]
-  SETTABLEKS R5 R4 K5 ["errorColor"]
-  SETTABLEKS R4 R3 K165 ["versions"]
-  DUPTABLE R4 K173 [{"nameMinWidth", "nameTextSize", "placeholderIconColor", "previewBackgroundColor", "previewSize", "warningColor", "validationIconSize", "validationStyles"}]
-  LOADN R5 200
-  SETTABLEKS R5 R4 K166 ["nameMinWidth"]
-  LOADN R5 20
-  SETTABLEKS R5 R4 K167 ["nameTextSize"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K17 ["DimmedText"]
-  SETTABLEKS R5 R4 K168 ["placeholderIconColor"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K174 ["SubBackground"]
-  SETTABLEKS R5 R4 K169 ["previewBackgroundColor"]
-  LOADN R5 60
-  SETTABLEKS R5 R4 K170 ["previewSize"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K16 ["WarningText"]
-  SETTABLEKS R5 R4 K6 ["warningColor"]
-  LOADN R5 14
-  SETTABLEKS R5 R4 K171 ["validationIconSize"]
-  DUPTABLE R5 K177 [{"error", "pending", "success"}]
-  DUPTABLE R6 K179 [{"iconColor", "textColor"}]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K147 ["TextError"]
-  SETTABLEKS R7 R6 K178 ["iconColor"]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K147 ["TextError"]
-  SETTABLEKS R7 R6 K8 ["textColor"]
-  SETTABLEKS R6 R5 K84 ["error"]
-  DUPTABLE R6 K179 [{"iconColor", "textColor"}]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K17 ["DimmedText"]
-  SETTABLEKS R7 R6 K178 ["iconColor"]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K17 ["DimmedText"]
-  SETTABLEKS R7 R6 K8 ["textColor"]
-  SETTABLEKS R6 R5 K175 ["pending"]
-  DUPTABLE R6 K179 [{"iconColor", "textColor"}]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K146 ["TextSuccess"]
-  SETTABLEKS R7 R6 K178 ["iconColor"]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K17 ["DimmedText"]
-  SETTABLEKS R7 R6 K8 ["textColor"]
-  SETTABLEKS R6 R5 K176 ["success"]
-  SETTABLEKS R5 R4 K172 ["validationStyles"]
-  SETTABLEKS R4 R3 K180 ["ugcBundleValidation"]
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K1 ["Button"]
-  GETUPVAL R7 4
-  GETTABLEKS R6 R7 K181 ["Dictionary"]
-  GETTABLEKS R5 R6 K182 ["join"]
-  MOVE R6 R1
-  NEWTABLE R7 1 0
-  DUPTABLE R8 K184 [{"BackgroundStyle"}]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K181 ["Dictionary"]
-  GETTABLEKS R9 R10 K182 ["join"]
-  MOVE R10 R0
-  DUPTABLE R11 K187 [{"Color", "TextColor"}]
-  GETUPVAL R13 1
-  GETTABLEKS R12 R13 K188 ["ItemSelected"]
-  SETTABLEKS R12 R11 K185 ["Color"]
-  GETUPVAL R13 1
-  GETTABLEKS R12 R13 K189 ["MainTextSelected"]
-  SETTABLEKS R12 R11 K186 ["TextColor"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K183 ["BackgroundStyle"]
-  SETTABLEKS R8 R7 K190 ["&SelectedDetailedDropdownItem"]
-  CALL R5 2 1
-  SETTABLE R5 R3 R4
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K0 ["RoundBox"]
-  GETUPVAL R6 5
-  CALL R6 0 1
-  JUMPIFNOT R6 [+2]
-  MOVE R5 R0
-  JUMP [+64]
-  GETUPVAL R7 4
-  GETTABLEKS R6 R7 K181 ["Dictionary"]
-  GETTABLEKS R5 R6 K182 ["join"]
-  MOVE R6 R0
-  NEWTABLE R7 4 0
-  DUPTABLE R8 K192 [{"Color", "BorderColor"}]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K13 ["MainBackground"]
-  SETTABLEKS R9 R8 K185 ["Color"]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K75 ["Border"]
-  SETTABLEKS R9 R8 K191 ["BorderColor"]
-  SETTABLEKS R8 R7 K193 ["&CatalogTag"]
-  NEWTABLE R8 4 0
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K48 ["InputFieldBackground"]
-  SETTABLEKS R9 R8 K185 ["Color"]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K75 ["Border"]
-  SETTABLEKS R9 R8 K191 ["BorderColor"]
-  GETUPVAL R10 6
-  GETTABLEKS R9 R10 K194 ["Selected"]
-  DUPTABLE R10 K195 [{"BorderColor"}]
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K196 ["InputFieldBorderSelected"]
-  SETTABLEKS R11 R10 K191 ["BorderColor"]
-  SETTABLE R10 R8 R9
-  GETUPVAL R10 6
-  GETTABLEKS R9 R10 K197 ["Disabled"]
-  DUPTABLE R10 K198 [{"Color"}]
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K199 ["InputFieldBackgroundDisabled"]
-  SETTABLEKS R11 R10 K185 ["Color"]
-  SETTABLE R10 R8 R9
-  SETTABLEKS R8 R7 K200 ["&TagsComponent"]
-  DUPTABLE R8 K195 [{"BorderColor"}]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K15 ["ErrorText"]
-  SETTABLEKS R9 R8 K191 ["BorderColor"]
-  SETTABLEKS R8 R7 K201 ["&TagsComponentError"]
-  CALL R5 2 1
-  SETTABLE R5 R3 R4
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K202 ["StyledDialog"]
-  GETUPVAL R7 4
-  GETTABLEKS R6 R7 K181 ["Dictionary"]
-  GETTABLEKS R5 R6 K182 ["join"]
-  GETUPVAL R6 0
-  LOADK R7 K202 ["StyledDialog"]
-  CALL R6 1 1
-  NEWTABLE R7 1 0
-  DUPTABLE R8 K204 [{"ButtonSpacing"}]
-  LOADN R9 8
-  SETTABLEKS R9 R8 K203 ["ButtonSpacing"]
-  SETTABLEKS R8 R7 K205 ["&AssetConfigWarningDialog"]
-  CALL R5 2 1
-  SETTABLE R5 R3 R4
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K2 ["RadioButton"]
-  GETUPVAL R7 4
-  GETTABLEKS R6 R7 K181 ["Dictionary"]
-  GETTABLEKS R5 R6 K182 ["join"]
-  MOVE R6 R2
-  NEWTABLE R7 1 0
-  DUPTABLE R8 K207 [{"TextSize", "BackgroundStyle"}]
-  GETUPVAL R10 7
-  GETTABLEKS R9 R10 K208 ["FONT_SIZE_ASSET_CONFIG_INPUT"]
-  SETTABLEKS R9 R8 K206 ["TextSize"]
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K181 ["Dictionary"]
-  GETTABLEKS R9 R10 K182 ["join"]
-  GETTABLEKS R10 R2 K183 ["BackgroundStyle"]
-  NEWTABLE R11 2 0
-  GETUPVAL R14 4
-  GETTABLEKS R13 R14 K181 ["Dictionary"]
-  GETTABLEKS R12 R13 K182 ["join"]
-  GETTABLEKS R14 R2 K183 ["BackgroundStyle"]
-  GETTABLEKS R13 R14 K183 ["BackgroundStyle"]
-  DUPTABLE R14 K198 [{"Color"}]
-  GETUPVAL R16 1
-  GETTABLEKS R15 R16 K48 ["InputFieldBackground"]
-  SETTABLEKS R15 R14 K185 ["Color"]
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K183 ["BackgroundStyle"]
-  GETUPVAL R13 6
-  GETTABLEKS R12 R13 K194 ["Selected"]
-  GETUPVAL R15 4
-  GETTABLEKS R14 R15 K181 ["Dictionary"]
-  GETTABLEKS R13 R14 K182 ["join"]
-  GETTABLEKS R15 R2 K183 ["BackgroundStyle"]
-  GETUPVAL R17 6
-  GETTABLEKS R16 R17 K194 ["Selected"]
-  GETTABLE R14 R15 R16
-  DUPTABLE R15 K184 [{"BackgroundStyle"}]
-  GETUPVAL R18 4
-  GETTABLEKS R17 R18 K181 ["Dictionary"]
-  GETTABLEKS R16 R17 K182 ["join"]
-  GETTABLEKS R19 R2 K183 ["BackgroundStyle"]
-  GETUPVAL R21 6
-  GETTABLEKS R20 R21 K194 ["Selected"]
-  GETTABLE R18 R19 R20
-  GETTABLEKS R17 R18 K183 ["BackgroundStyle"]
-  DUPTABLE R18 K198 [{"Color"}]
-  GETUPVAL R20 1
-  GETTABLEKS R19 R20 K48 ["InputFieldBackground"]
-  SETTABLEKS R19 R18 K185 ["Color"]
-  CALL R16 2 1
-  SETTABLEKS R16 R15 K183 ["BackgroundStyle"]
-  CALL R13 2 1
-  SETTABLE R13 R11 R12
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K183 ["BackgroundStyle"]
-  SETTABLEKS R8 R7 K209 ["&AssetConfigRadioButton"]
-  CALL R5 2 1
-  SETTABLE R5 R3 R4
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K210 ["RadioButtonList"]
-  GETUPVAL R7 4
-  GETTABLEKS R6 R7 K181 ["Dictionary"]
-  GETTABLEKS R5 R6 K182 ["join"]
-  GETUPVAL R6 0
-  LOADK R7 K210 ["RadioButtonList"]
-  CALL R6 1 1
-  NEWTABLE R7 1 0
-  DUPTABLE R8 K213 [{"Padding", "RadioButtonStyle"}]
-  LOADN R9 17
-  SETTABLEKS R9 R8 K211 ["Padding"]
-  LOADK R9 K214 ["AssetConfigRadioButton"]
-  SETTABLEKS R9 R8 K212 ["RadioButtonStyle"]
-  SETTABLEKS R8 R7 K215 ["&AssetConfigRadioButtonList"]
-  CALL R5 2 1
-  SETTABLE R5 R3 R4
-  RETURN R3 1
+        0 GETUPVAL                         R0 0
+        1 LOADK                            R1 K0 ["RoundBox"]
+        2 CALL                             R0 1 1
+        3 GETUPVAL                         R1 0
+        4 LOADK                            R2 K1 ["Button"]
+        5 CALL                             R1 1 1
+        6 GETUPVAL                         R2 0
+        7 LOADK                            R3 K2 ["RadioButton"]
+        8 CALL                             R2 1 1
+        9 NEWTABLE                         R3 32 0
+       11 DUPTABLE                         R4 K12 [{"backgroundColor", "brightText", "errorColor", "warningColor", "labelTextColor", "textColor", "inputBottomText", "publishAsset", "packagePermissions"}]
+       12 GETUPVAL                         R6 1
+       13 GETTABLEKS                       R5 R6 K13 ["MainBackground"]
+       15 SETTABLEKS                       R5 R4 K3 ["backgroundColor"]
+       17 GETUPVAL                         R6 1
+       18 GETTABLEKS                       R5 R6 K14 ["BrightText"]
+       20 SETTABLEKS                       R5 R4 K4 ["brightText"]
+       22 GETUPVAL                         R6 1
+       23 GETTABLEKS                       R5 R6 K15 ["ErrorText"]
+       25 SETTABLEKS                       R5 R4 K5 ["errorColor"]
+       27 GETUPVAL                         R6 1
+       28 GETTABLEKS                       R5 R6 K16 ["WarningText"]
+       30 SETTABLEKS                       R5 R4 K6 ["warningColor"]
+       32 GETUPVAL                         R6 1
+       33 GETTABLEKS                       R5 R6 K17 ["DimmedText"]
+       35 SETTABLEKS                       R5 R4 K7 ["labelTextColor"]
+       37 GETUPVAL                         R6 1
+       38 GETTABLEKS                       R5 R6 K18 ["MainText"]
+       40 SETTABLEKS                       R5 R4 K8 ["textColor"]
+       42 DUPTABLE                         R5 K22 [{"textColor", "textErrorColor", "textSize", "bottomTextSpacing"}]
+       43 GETUPVAL                         R7 1
+       44 GETTABLEKS                       R6 R7 K17 ["DimmedText"]
+       46 SETTABLEKS                       R6 R5 K8 ["textColor"]
+       48 GETUPVAL                         R7 1
+       49 GETTABLEKS                       R6 R7 K15 ["ErrorText"]
+       51 SETTABLEKS                       R6 R5 K19 ["textErrorColor"]
+       53 LOADN                            R6 18
+       54 SETTABLEKS                       R6 R5 K20 ["textSize"]
+       56 LOADN                            R6 6
+       57 SETTABLEKS                       R6 R5 K21 ["bottomTextSpacing"]
+       59 SETTABLEKS                       R5 R4 K9 ["inputBottomText"]
+       61 DUPTABLE                         R5 K24 [{"warningIconColor"}]
+       62 GETIMPORT                        R6 K27 [Color3.fromHex]
+       64 LOADK                            R7 K28 ["#FFAA21"]
+       65 CALL                             R6 1 1
+       66 SETTABLEKS                       R6 R5 K23 ["warningIconColor"]
+       68 SETTABLEKS                       R5 R4 K10 ["publishAsset"]
+       70 DUPTABLE                         R5 K33 [{"backgroundColor", "subTextColor", "collaboratorItem", "searchBar", "subjectThumbnail"}]
+       71 GETUPVAL                         R7 1
+       72 GETTABLEKS                       R6 R7 K13 ["MainBackground"]
+       74 SETTABLEKS                       R6 R5 K3 ["backgroundColor"]
+       76 GETUPVAL                         R7 1
+       77 GETTABLEKS                       R6 R7 K34 ["SubText"]
+       79 SETTABLEKS                       R6 R5 K29 ["subTextColor"]
+       81 DUPTABLE                         R6 K36 [{"deleteButton"}]
+       82 GETUPVAL                         R8 1
+       83 GETTABLEKS                       R7 R8 K37 ["Toolbox_DeleteIconColor"]
+       85 SETTABLEKS                       R7 R6 K35 ["deleteButton"]
+       87 SETTABLEKS                       R6 R5 K30 ["collaboratorItem"]
+       89 DUPTABLE                         R6 K45 [{"border", "borderHover", "borderSelected", "placeholderText", "backgroundColor", "searchIcon", "clearButton", "dropDown"}]
+       90 GETUPVAL                         R8 1
+       91 GETTABLEKS                       R7 R8 K46 ["InputFieldBorder"]
+       93 SETTABLEKS                       R7 R6 K38 ["border"]
+       95 GETUPVAL                         R8 2
+       96 GETTABLEKS                       R7 R8 K47 ["Blue"]
+       98 SETTABLEKS                       R7 R6 K39 ["borderHover"]
+      100 GETUPVAL                         R8 2
+      101 GETTABLEKS                       R7 R8 K47 ["Blue"]
+      103 SETTABLEKS                       R7 R6 K40 ["borderSelected"]
+      105 GETUPVAL                         R8 1
+      106 GETTABLEKS                       R7 R8 K17 ["DimmedText"]
+      108 SETTABLEKS                       R7 R6 K41 ["placeholderText"]
+      110 GETUPVAL                         R8 1
+      111 GETTABLEKS                       R7 R8 K48 ["InputFieldBackground"]
+      113 SETTABLEKS                       R7 R6 K3 ["backgroundColor"]
+      115 GETUPVAL                         R8 1
+      116 GETTABLEKS                       R7 R8 K34 ["SubText"]
+      118 SETTABLEKS                       R7 R6 K42 ["searchIcon"]
+      120 DUPTABLE                         R7 K50 [{"image"}]
+      121 GETUPVAL                         R9 1
+      122 GETTABLEKS                       R8 R9 K34 ["SubText"]
+      124 SETTABLEKS                       R8 R7 K49 ["image"]
+      126 SETTABLEKS                       R7 R6 K43 ["clearButton"]
+      128 DUPTABLE                         R7 K55 [{"backgroundColor", "itemText", "headerText", "hovered", "selected"}]
+      129 GETUPVAL                         R9 1
+      130 GETTABLEKS                       R8 R9 K48 ["InputFieldBackground"]
+      132 SETTABLEKS                       R8 R7 K3 ["backgroundColor"]
+      134 GETUPVAL                         R9 1
+      135 GETTABLEKS                       R8 R9 K18 ["MainText"]
+      137 SETTABLEKS                       R8 R7 K51 ["itemText"]
+      139 GETUPVAL                         R9 1
+      140 GETTABLEKS                       R8 R9 K34 ["SubText"]
+      142 SETTABLEKS                       R8 R7 K52 ["headerText"]
+      144 DUPTABLE                         R8 K56 [{"backgroundColor", "itemText"}]
+      145 GETUPVAL                         R10 1
+      146 GETTABLEKS                       R9 R10 K57 ["ItemHovered"]
+      148 SETTABLEKS                       R9 R8 K3 ["backgroundColor"]
+      150 GETUPVAL                         R10 1
+      151 GETTABLEKS                       R9 R10 K58 ["ButtonText"]
+      153 SETTABLEKS                       R9 R8 K51 ["itemText"]
+      155 SETTABLEKS                       R8 R7 K53 ["hovered"]
+      157 DUPTABLE                         R8 K59 [{"backgroundColor"}]
+      158 GETUPVAL                         R10 1
+      159 GETTABLEKS                       R9 R10 K60 ["ButtonSelected"]
+      161 SETTABLEKS                       R9 R8 K3 ["backgroundColor"]
+      163 SETTABLEKS                       R8 R7 K54 ["selected"]
+      165 SETTABLEKS                       R7 R6 K44 ["dropDown"]
+      167 SETTABLEKS                       R6 R5 K31 ["searchBar"]
+      169 DUPTABLE                         R6 K62 [{"backgroundColor", "defaultImageColor"}]
+      170 GETUPVAL                         R8 1
+      171 GETTABLEKS                       R7 R8 K63 ["TableItem"]
+      173 SETTABLEKS                       R7 R6 K3 ["backgroundColor"]
+      175 GETUPVAL                         R8 1
+      176 GETTABLEKS                       R7 R8 K64 ["AssetConfig_SubjectThumbnailDefaultImageColor"]
+      178 SETTABLEKS                       R7 R6 K61 ["defaultImageColor"]
+      180 SETTABLEKS                       R6 R5 K32 ["subjectThumbnail"]
+      182 SETTABLEKS                       R5 R4 K11 ["packagePermissions"]
+      184 SETTABLEKS                       R4 R3 K65 ["assetConfig"]
+      186 DUPTABLE                         R4 K69 [{"displayText", "descriptionText", "backgroundColor", "borderColor", "hovered"}]
+      187 GETUPVAL                         R6 1
+      188 GETTABLEKS                       R5 R6 K18 ["MainText"]
+      190 SETTABLEKS                       R5 R4 K66 ["displayText"]
+      192 GETUPVAL                         R6 1
+      193 GETTABLEKS                       R5 R6 K34 ["SubText"]
+      195 SETTABLEKS                       R5 R4 K67 ["descriptionText"]
+      197 GETUPVAL                         R6 1
+      198 GETTABLEKS                       R5 R6 K13 ["MainBackground"]
+      200 SETTABLEKS                       R5 R4 K3 ["backgroundColor"]
+      202 GETUPVAL                         R6 1
+      203 GETTABLEKS                       R5 R6 K70 ["DialogButtonBorder"]
+      205 SETTABLEKS                       R5 R4 K68 ["borderColor"]
+      207 DUPTABLE                         R5 K71 [{"displayText"}]
+      208 GETUPVAL                         R7 1
+      209 GETTABLEKS                       R6 R7 K72 ["MainTextHover"]
+      211 SETTABLEKS                       R6 R5 K66 ["displayText"]
+      213 SETTABLEKS                       R5 R4 K53 ["hovered"]
+      215 SETTABLEKS                       R4 R3 K73 ["detailedDropdown"]
+      217 DUPTABLE                         R4 K74 [{"backgroundColor", "borderColor"}]
+      218 GETUPVAL                         R6 1
+      219 GETTABLEKS                       R5 R6 K13 ["MainBackground"]
+      221 SETTABLEKS                       R5 R4 K3 ["backgroundColor"]
+      223 GETUPVAL                         R6 1
+      224 GETTABLEKS                       R5 R6 K75 ["Border"]
+      226 SETTABLEKS                       R5 R4 K68 ["borderColor"]
+      228 SETTABLEKS                       R4 R3 K76 ["configFooter"]
+      230 DUPTABLE                         R4 K79 [{"horizontalLineColor", "verticalLineColor"}]
+      231 GETUPVAL                         R6 1
+      232 GETTABLEKS                       R5 R6 K80 ["Toolbox_HorizontalLineColor"]
+      234 SETTABLEKS                       R5 R4 K77 ["horizontalLineColor"]
+      236 GETUPVAL                         R6 1
+      237 GETTABLEKS                       R5 R6 K81 ["AssetConfig_DividerHorizontalLineColor"]
+      239 SETTABLEKS                       R5 R4 K78 ["verticalLineColor"]
+      241 SETTABLEKS                       R4 R3 K82 ["divider"]
+      243 DUPTABLE                         R4 K85 [{"backgroundColor", "toolTip", "error"}]
+      244 GETUPVAL                         R6 1
+      245 GETTABLEKS                       R5 R6 K48 ["InputFieldBackground"]
+      247 SETTABLEKS                       R5 R4 K3 ["backgroundColor"]
+      249 GETUPVAL                         R6 1
+      250 GETTABLEKS                       R5 R6 K17 ["DimmedText"]
+      252 SETTABLEKS                       R5 R4 K83 ["toolTip"]
+      254 GETUPVAL                         R6 1
+      255 GETTABLEKS                       R5 R6 K15 ["ErrorText"]
+      257 SETTABLEKS                       R5 R4 K84 ["error"]
+      259 SETTABLEKS                       R4 R3 K86 ["inputFields"]
+      261 DUPTABLE                         R4 K87 [{"textColor"}]
+      262 GETUPVAL                         R6 2
+      263 GETTABLEKS                       R5 R6 K47 ["Blue"]
+      265 SETTABLEKS                       R5 R4 K8 ["textColor"]
+      267 SETTABLEKS                       R4 R3 K88 ["linkButton"]
+      269 DUPTABLE                         R4 K90 [{"text"}]
+      270 GETUPVAL                         R6 1
+      271 GETTABLEKS                       R5 R6 K18 ["MainText"]
+      273 SETTABLEKS                       R5 R4 K89 ["text"]
+      275 SETTABLEKS                       R4 R3 K91 ["loading"]
+      277 DUPTABLE                         R4 K94 [{"mainButton", "button"}]
+      278 DUPTABLE                         R5 K98 [{"background", "hoverBackground", "pressBackground", "borderColor", "textColor"}]
+      279 GETUPVAL                         R7 1
+      280 GETTABLEKS                       R6 R7 K99 ["DialogMainButton"]
+      282 SETTABLEKS                       R6 R5 K95 ["background"]
+      284 GETUPVAL                         R7 1
+      285 GETTABLEKS                       R6 R7 K100 ["DialogMainButtonHover"]
+      287 SETTABLEKS                       R6 R5 K96 ["hoverBackground"]
+      289 GETUPVAL                         R7 1
+      290 GETTABLEKS                       R6 R7 K101 ["DialogMainButtonPressed"]
+      292 SETTABLEKS                       R6 R5 K97 ["pressBackground"]
+      294 GETUPVAL                         R7 1
+      295 GETTABLEKS                       R6 R7 K75 ["Border"]
+      297 SETTABLEKS                       R6 R5 K68 ["borderColor"]
+      299 GETUPVAL                         R7 1
+      300 GETTABLEKS                       R6 R7 K102 ["DialogMainButtonText"]
+      302 SETTABLEKS                       R6 R5 K8 ["textColor"]
+      304 SETTABLEKS                       R5 R4 K92 ["mainButton"]
+      306 DUPTABLE                         R5 K98 [{"background", "hoverBackground", "pressBackground", "borderColor", "textColor"}]
+      307 GETUPVAL                         R7 1
+      308 GETTABLEKS                       R6 R7 K103 ["DialogButton"]
+      310 SETTABLEKS                       R6 R5 K95 ["background"]
+      312 GETUPVAL                         R7 1
+      313 GETTABLEKS                       R6 R7 K104 ["DialogButtonHover"]
+      315 SETTABLEKS                       R6 R5 K96 ["hoverBackground"]
+      317 GETUPVAL                         R7 1
+      318 GETTABLEKS                       R6 R7 K105 ["DialogButtonPressed"]
+      320 SETTABLEKS                       R6 R5 K97 ["pressBackground"]
+      322 GETUPVAL                         R7 1
+      323 GETTABLEKS                       R6 R7 K75 ["Border"]
+      325 SETTABLEKS                       R6 R5 K68 ["borderColor"]
+      327 GETUPVAL                         R7 1
+      328 GETTABLEKS                       R6 R7 K106 ["DialogButtonText"]
+      330 SETTABLEKS                       R6 R5 K8 ["textColor"]
+      332 SETTABLEKS                       R5 R4 K93 ["button"]
+      334 SETTABLEKS                       R4 R3 K107 ["nav"]
+      336 DUPTABLE                         R4 K109 [{"backgroundColor", "textColor", "selectedColor"}]
+      337 GETUPVAL                         R6 1
+      338 GETTABLEKS                       R5 R6 K13 ["MainBackground"]
+      340 SETTABLEKS                       R5 R4 K3 ["backgroundColor"]
+      342 GETUPVAL                         R6 1
+      343 GETTABLEKS                       R5 R6 K18 ["MainText"]
+      345 SETTABLEKS                       R5 R4 K8 ["textColor"]
+      347 GETUPVAL                         R6 1
+      348 GETTABLEKS                       R5 R6 K110 ["AssetConfig_PreviewSelectedColor"]
+      350 SETTABLEKS                       R5 R4 K108 ["selectedColor"]
+      352 SETTABLEKS                       R4 R3 K111 ["previewArea"]
+      354 DUPTABLE                         R4 K118 [{"contentColor", "backgroundColor", "selecteBarColor", "selecteBarTrans", "selecteBarZindex", "selecteIndicatorColor", "selecteIndicatorTrans", "textColor"}]
+      355 GETUPVAL                         R6 1
+      356 GETTABLEKS                       R5 R6 K119 ["TitlebarText"]
+      358 SETTABLEKS                       R5 R4 K112 ["contentColor"]
+      360 GETUPVAL                         R6 1
+      361 GETTABLEKS                       R5 R6 K13 ["MainBackground"]
+      363 SETTABLEKS                       R5 R4 K3 ["backgroundColor"]
+      365 GETUPVAL                         R6 1
+      366 GETTABLEKS                       R5 R6 K120 ["AssetConfig_SidetabSelectedBarColor"]
+      368 SETTABLEKS                       R5 R4 K113 ["selecteBarColor"]
+      370 GETUPVAL                         R6 1
+      371 GETTABLEKS                       R5 R6 K121 ["AssetConfig_SidetabSelectedBarTransparency"]
+      373 SETTABLEKS                       R5 R4 K114 ["selecteBarTrans"]
+      375 GETUPVAL                         R6 1
+      376 GETTABLEKS                       R5 R6 K122 ["AssetConfig_SidetabSelectedBarZIndex"]
+      378 SETTABLEKS                       R5 R4 K115 ["selecteBarZindex"]
+      380 GETUPVAL                         R6 2
+      381 GETTABLEKS                       R5 R6 K123 ["BLUE_PRIMARY"]
+      383 SETTABLEKS                       R5 R4 K116 ["selecteIndicatorColor"]
+      385 GETUPVAL                         R6 1
+      386 GETTABLEKS                       R5 R6 K124 ["AssetConfig_SidetabSelectedIndicatorZindex"]
+      388 SETTABLEKS                       R5 R4 K117 ["selecteIndicatorTrans"]
+      390 GETUPVAL                         R6 1
+      391 GETTABLEKS                       R5 R6 K18 ["MainText"]
+      393 SETTABLEKS                       R5 R4 K8 ["textColor"]
+      395 SETTABLEKS                       R4 R3 K125 ["sideTab"]
+      397 DUPTABLE                         R4 K87 [{"textColor"}]
+      398 GETUPVAL                         R6 1
+      399 GETTABLEKS                       R5 R6 K18 ["MainText"]
+      401 SETTABLEKS                       R5 R4 K8 ["textColor"]
+      403 SETTABLEKS                       R4 R3 K126 ["tags"]
+      405 DUPTABLE                         R4 K128 [{"background", "border", "text", "warningIconSize"}]
+      406 GETUPVAL                         R6 1
+      407 GETTABLEKS                       R5 R6 K129 ["Item"]
+      409 SETTABLEKS                       R5 R4 K95 ["background"]
+      411 GETUPVAL                         R6 1
+      412 GETTABLEKS                       R5 R6 K75 ["Border"]
+      414 SETTABLEKS                       R5 R4 K38 ["border"]
+      416 GETUPVAL                         R6 1
+      417 GETTABLEKS                       R5 R6 K18 ["MainText"]
+      419 SETTABLEKS                       R5 R4 K89 ["text"]
+      421 GETIMPORT                        R5 K132 [UDim2.fromOffset]
+      423 LOADN                            R6 64
+      424 LOADN                            R7 64
+      425 CALL                             R5 2 1
+      426 SETTABLEKS                       R5 R4 K127 ["warningIconSize"]
+      428 SETTABLEKS                       R4 R3 K133 ["thumbnailPreview"]
+      430 DUPTABLE                         R4 K136 [{"background", "selector", "footer"}]
+      431 GETUPVAL                         R6 1
+      432 GETTABLEKS                       R5 R6 K63 ["TableItem"]
+      434 SETTABLEKS                       R5 R4 K95 ["background"]
+      436 DUPTABLE                         R5 K139 [{"title", "description"}]
+      437 GETUPVAL                         R7 1
+      438 GETTABLEKS                       R6 R7 K18 ["MainText"]
+      440 SETTABLEKS                       R6 R5 K137 ["title"]
+      442 GETUPVAL                         R7 1
+      443 GETTABLEKS                       R6 R7 K140 ["MainTextDisabled"]
+      445 SETTABLEKS                       R6 R5 K138 ["description"]
+      447 SETTABLEKS                       R5 R4 K134 ["selector"]
+      449 DUPTABLE                         R5 K141 [{"background", "border"}]
+      450 GETUPVAL                         R7 1
+      451 GETTABLEKS                       R6 R7 K13 ["MainBackground"]
+      453 SETTABLEKS                       R6 R5 K95 ["background"]
+      455 GETUPVAL                         R7 1
+      456 GETTABLEKS                       R6 R7 K75 ["Border"]
+      458 SETTABLEKS                       R6 R5 K38 ["border"]
+      460 SETTABLEKS                       R5 R4 K135 ["footer"]
+      462 SETTABLEKS                       R4 R3 K142 ["typeSelection"]
+      464 DUPTABLE                         R4 K145 [{"background", "successResultColor", "failureResultColor"}]
+      465 GETUPVAL                         R6 1
+      466 GETTABLEKS                       R5 R6 K63 ["TableItem"]
+      468 SETTABLEKS                       R5 R4 K95 ["background"]
+      470 GETUPVAL                         R6 1
+      471 GETTABLEKS                       R5 R6 K146 ["TextSuccess"]
+      473 SETTABLEKS                       R5 R4 K143 ["successResultColor"]
+      475 GETUPVAL                         R6 1
+      476 GETTABLEKS                       R5 R6 K147 ["TextError"]
+      478 SETTABLEKS                       R5 R4 K144 ["failureResultColor"]
+      480 SETTABLEKS                       R4 R3 K148 ["typeValidation"]
+      482 DUPTABLE                         R4 K154 [{"greenText", "redText", "text", "buttonColor", "idText", "background", "link"}]
+      483 GETIMPORT                        R5 K156 [Color3.fromRGB]
+      485 LOADN                            R6 2
+      486 LOADN                            R7 183
+      487 LOADN                            R8 87
+      488 CALL                             R5 3 1
+      489 SETTABLEKS                       R5 R4 K149 ["greenText"]
+      491 GETIMPORT                        R5 K156 [Color3.fromRGB]
+      493 LOADN                            R6 255
+      494 LOADN                            R7 68
+      495 LOADN                            R8 68
+      496 CALL                             R5 3 1
+      497 SETTABLEKS                       R5 R4 K150 ["redText"]
+      499 GETUPVAL                         R6 1
+      500 GETTABLEKS                       R5 R6 K18 ["MainText"]
+      502 SETTABLEKS                       R5 R4 K89 ["text"]
+      504 GETUPVAL                         R6 1
+      505 GETTABLEKS                       R5 R6 K157 ["AssetConfig_UploadResultButtonColor"]
+      507 SETTABLEKS                       R5 R4 K151 ["buttonColor"]
+      509 GETUPVAL                         R6 1
+      510 GETTABLEKS                       R5 R6 K17 ["DimmedText"]
+      512 SETTABLEKS                       R5 R4 K152 ["idText"]
+      514 GETUPVAL                         R6 1
+      515 GETTABLEKS                       R5 R6 K63 ["TableItem"]
+      517 SETTABLEKS                       R5 R4 K95 ["background"]
+      519 GETUPVAL                         R6 1
+      520 GETTABLEKS                       R5 R6 K158 ["LinkText"]
+      522 SETTABLEKS                       R5 R4 K153 ["link"]
+      524 SETTABLEKS                       R4 R3 K159 ["uploadResult"]
+      526 DUPTABLE                         R4 K164 [{"thumbnailBorderColor", "buttonSelectedColor", "buttonDefaultColor", "textColor", "dimmedTextColor", "errorColor"}]
+      527 GETIMPORT                        R5 K156 [Color3.fromRGB]
+      529 LOADN                            R6 117
+      530 LOADN                            R7 117
+      531 LOADN                            R8 117
+      532 CALL                             R5 3 1
+      533 SETTABLEKS                       R5 R4 K160 ["thumbnailBorderColor"]
+      535 GETIMPORT                        R5 K156 [Color3.fromRGB]
+      537 LOADN                            R6 0
+      538 LOADN                            R7 162
+      539 LOADN                            R8 255
+      540 CALL                             R5 3 1
+      541 SETTABLEKS                       R5 R4 K161 ["buttonSelectedColor"]
+      543 GETIMPORT                        R5 K156 [Color3.fromRGB]
+      545 LOADN                            R6 117
+      546 LOADN                            R7 117
+      547 LOADN                            R8 117
+      548 CALL                             R5 3 1
+      549 SETTABLEKS                       R5 R4 K162 ["buttonDefaultColor"]
+      551 GETUPVAL                         R6 1
+      552 GETTABLEKS                       R5 R6 K18 ["MainText"]
+      554 SETTABLEKS                       R5 R4 K8 ["textColor"]
+      556 GETUPVAL                         R6 1
+      557 GETTABLEKS                       R5 R6 K17 ["DimmedText"]
+      559 SETTABLEKS                       R5 R4 K163 ["dimmedTextColor"]
+      561 GETUPVAL                         R6 1
+      562 GETTABLEKS                       R5 R6 K15 ["ErrorText"]
+      564 SETTABLEKS                       R5 R4 K5 ["errorColor"]
+      566 SETTABLEKS                       R4 R3 K165 ["versions"]
+      568 DUPTABLE                         R4 K173 [{"nameMinWidth", "nameTextSize", "placeholderIconColor", "previewBackgroundColor", "previewSize", "warningColor", "validationIconSize", "validationStyles"}]
+      569 LOADN                            R5 200
+      570 SETTABLEKS                       R5 R4 K166 ["nameMinWidth"]
+      572 LOADN                            R5 20
+      573 SETTABLEKS                       R5 R4 K167 ["nameTextSize"]
+      575 GETUPVAL                         R6 1
+      576 GETTABLEKS                       R5 R6 K17 ["DimmedText"]
+      578 SETTABLEKS                       R5 R4 K168 ["placeholderIconColor"]
+      580 GETUPVAL                         R6 1
+      581 GETTABLEKS                       R5 R6 K174 ["SubBackground"]
+      583 SETTABLEKS                       R5 R4 K169 ["previewBackgroundColor"]
+      585 LOADN                            R5 60
+      586 SETTABLEKS                       R5 R4 K170 ["previewSize"]
+      588 GETUPVAL                         R6 1
+      589 GETTABLEKS                       R5 R6 K16 ["WarningText"]
+      591 SETTABLEKS                       R5 R4 K6 ["warningColor"]
+      593 LOADN                            R5 14
+      594 SETTABLEKS                       R5 R4 K171 ["validationIconSize"]
+      596 DUPTABLE                         R5 K177 [{"error", "pending", "success"}]
+      597 DUPTABLE                         R6 K179 [{"iconColor", "textColor"}]
+      598 GETUPVAL                         R8 1
+      599 GETTABLEKS                       R7 R8 K147 ["TextError"]
+      601 SETTABLEKS                       R7 R6 K178 ["iconColor"]
+      603 GETUPVAL                         R8 1
+      604 GETTABLEKS                       R7 R8 K147 ["TextError"]
+      606 SETTABLEKS                       R7 R6 K8 ["textColor"]
+      608 SETTABLEKS                       R6 R5 K84 ["error"]
+      610 DUPTABLE                         R6 K179 [{"iconColor", "textColor"}]
+      611 GETUPVAL                         R8 1
+      612 GETTABLEKS                       R7 R8 K17 ["DimmedText"]
+      614 SETTABLEKS                       R7 R6 K178 ["iconColor"]
+      616 GETUPVAL                         R8 1
+      617 GETTABLEKS                       R7 R8 K17 ["DimmedText"]
+      619 SETTABLEKS                       R7 R6 K8 ["textColor"]
+      621 SETTABLEKS                       R6 R5 K175 ["pending"]
+      623 DUPTABLE                         R6 K179 [{"iconColor", "textColor"}]
+      624 GETUPVAL                         R8 1
+      625 GETTABLEKS                       R7 R8 K146 ["TextSuccess"]
+      627 SETTABLEKS                       R7 R6 K178 ["iconColor"]
+      629 GETUPVAL                         R8 1
+      630 GETTABLEKS                       R7 R8 K17 ["DimmedText"]
+      632 SETTABLEKS                       R7 R6 K8 ["textColor"]
+      634 SETTABLEKS                       R6 R5 K176 ["success"]
+      636 SETTABLEKS                       R5 R4 K172 ["validationStyles"]
+      638 SETTABLEKS                       R4 R3 K180 ["ugcBundleValidation"]
+      640 GETUPVAL                         R5 3
+      641 GETTABLEKS                       R4 R5 K1 ["Button"]
+      643 GETUPVAL                         R7 4
+      644 GETTABLEKS                       R6 R7 K181 ["Dictionary"]
+      646 GETTABLEKS                       R5 R6 K182 ["join"]
+      648 MOVE                             R6 R1
+      649 NEWTABLE                         R7 1 0
+      651 DUPTABLE                         R8 K184 [{"BackgroundStyle"}]
+      652 GETUPVAL                         R11 4
+      653 GETTABLEKS                       R10 R11 K181 ["Dictionary"]
+      655 GETTABLEKS                       R9 R10 K182 ["join"]
+      657 MOVE                             R10 R0
+      658 DUPTABLE                         R11 K187 [{"Color", "TextColor"}]
+      659 GETUPVAL                         R13 1
+      660 GETTABLEKS                       R12 R13 K188 ["ItemSelected"]
+      662 SETTABLEKS                       R12 R11 K185 ["Color"]
+      664 GETUPVAL                         R13 1
+      665 GETTABLEKS                       R12 R13 K189 ["MainTextSelected"]
+      667 SETTABLEKS                       R12 R11 K186 ["TextColor"]
+      669 CALL                             R9 2 1
+      670 SETTABLEKS                       R9 R8 K183 ["BackgroundStyle"]
+      672 SETTABLEKS                       R8 R7 K190 ["&SelectedDetailedDropdownItem"]
+      674 CALL                             R5 2 1
+      675 SETTABLE                         R5 R3 R4
+      676 GETUPVAL                         R5 3
+      677 GETTABLEKS                       R4 R5 K0 ["RoundBox"]
+      679 GETUPVAL                         R6 5
+      680 CALL                             R6 0 1
+      681 JUMPIFNOT                        R6 ; [+2]
+      682 MOVE                             R5 R0
+      683 JUMP                             ; [+64]
+      684 GETUPVAL                         R7 4
+      685 GETTABLEKS                       R6 R7 K181 ["Dictionary"]
+      687 GETTABLEKS                       R5 R6 K182 ["join"]
+      689 MOVE                             R6 R0
+      690 NEWTABLE                         R7 4 0
+      692 DUPTABLE                         R8 K192 [{"Color", "BorderColor"}]
+      693 GETUPVAL                         R10 1
+      694 GETTABLEKS                       R9 R10 K13 ["MainBackground"]
+      696 SETTABLEKS                       R9 R8 K185 ["Color"]
+      698 GETUPVAL                         R10 1
+      699 GETTABLEKS                       R9 R10 K75 ["Border"]
+      701 SETTABLEKS                       R9 R8 K191 ["BorderColor"]
+      703 SETTABLEKS                       R8 R7 K193 ["&CatalogTag"]
+      705 NEWTABLE                         R8 4 0
+      707 GETUPVAL                         R10 1
+      708 GETTABLEKS                       R9 R10 K48 ["InputFieldBackground"]
+      710 SETTABLEKS                       R9 R8 K185 ["Color"]
+      712 GETUPVAL                         R10 1
+      713 GETTABLEKS                       R9 R10 K75 ["Border"]
+      715 SETTABLEKS                       R9 R8 K191 ["BorderColor"]
+      717 GETUPVAL                         R10 6
+      718 GETTABLEKS                       R9 R10 K194 ["Selected"]
+      720 DUPTABLE                         R10 K195 [{"BorderColor"}]
+      721 GETUPVAL                         R12 1
+      722 GETTABLEKS                       R11 R12 K196 ["InputFieldBorderSelected"]
+      724 SETTABLEKS                       R11 R10 K191 ["BorderColor"]
+      726 SETTABLE                         R10 R8 R9
+      727 GETUPVAL                         R10 6
+      728 GETTABLEKS                       R9 R10 K197 ["Disabled"]
+      730 DUPTABLE                         R10 K198 [{"Color"}]
+      731 GETUPVAL                         R12 1
+      732 GETTABLEKS                       R11 R12 K199 ["InputFieldBackgroundDisabled"]
+      734 SETTABLEKS                       R11 R10 K185 ["Color"]
+      736 SETTABLE                         R10 R8 R9
+      737 SETTABLEKS                       R8 R7 K200 ["&TagsComponent"]
+      739 DUPTABLE                         R8 K195 [{"BorderColor"}]
+      740 GETUPVAL                         R10 1
+      741 GETTABLEKS                       R9 R10 K15 ["ErrorText"]
+      743 SETTABLEKS                       R9 R8 K191 ["BorderColor"]
+      745 SETTABLEKS                       R8 R7 K201 ["&TagsComponentError"]
+      747 CALL                             R5 2 1
+      748 SETTABLE                         R5 R3 R4
+      749 GETUPVAL                         R5 3
+      750 GETTABLEKS                       R4 R5 K202 ["StyledDialog"]
+      752 GETUPVAL                         R7 4
+      753 GETTABLEKS                       R6 R7 K181 ["Dictionary"]
+      755 GETTABLEKS                       R5 R6 K182 ["join"]
+      757 GETUPVAL                         R6 0
+      758 LOADK                            R7 K202 ["StyledDialog"]
+      759 CALL                             R6 1 1
+      760 NEWTABLE                         R7 1 0
+      762 DUPTABLE                         R8 K204 [{"ButtonSpacing"}]
+      763 LOADN                            R9 8
+      764 SETTABLEKS                       R9 R8 K203 ["ButtonSpacing"]
+      766 SETTABLEKS                       R8 R7 K205 ["&AssetConfigWarningDialog"]
+      768 CALL                             R5 2 1
+      769 SETTABLE                         R5 R3 R4
+      770 GETUPVAL                         R5 3
+      771 GETTABLEKS                       R4 R5 K2 ["RadioButton"]
+      773 GETUPVAL                         R7 4
+      774 GETTABLEKS                       R6 R7 K181 ["Dictionary"]
+      776 GETTABLEKS                       R5 R6 K182 ["join"]
+      778 MOVE                             R6 R2
+      779 NEWTABLE                         R7 1 0
+      781 DUPTABLE                         R8 K207 [{"TextSize", "BackgroundStyle"}]
+      782 GETUPVAL                         R10 7
+      783 GETTABLEKS                       R9 R10 K208 ["FONT_SIZE_ASSET_CONFIG_INPUT"]
+      785 SETTABLEKS                       R9 R8 K206 ["TextSize"]
+      787 GETUPVAL                         R11 4
+      788 GETTABLEKS                       R10 R11 K181 ["Dictionary"]
+      790 GETTABLEKS                       R9 R10 K182 ["join"]
+      792 GETTABLEKS                       R10 R2 K183 ["BackgroundStyle"]
+      794 NEWTABLE                         R11 2 0
+      796 GETUPVAL                         R14 4
+      797 GETTABLEKS                       R13 R14 K181 ["Dictionary"]
+      799 GETTABLEKS                       R12 R13 K182 ["join"]
+      801 GETTABLEKS                       R14 R2 K183 ["BackgroundStyle"]
+      803 GETTABLEKS                       R13 R14 K183 ["BackgroundStyle"]
+      805 DUPTABLE                         R14 K198 [{"Color"}]
+      806 GETUPVAL                         R16 1
+      807 GETTABLEKS                       R15 R16 K48 ["InputFieldBackground"]
+      809 SETTABLEKS                       R15 R14 K185 ["Color"]
+      811 CALL                             R12 2 1
+      812 SETTABLEKS                       R12 R11 K183 ["BackgroundStyle"]
+      814 GETUPVAL                         R13 6
+      815 GETTABLEKS                       R12 R13 K194 ["Selected"]
+      817 GETUPVAL                         R15 4
+      818 GETTABLEKS                       R14 R15 K181 ["Dictionary"]
+      820 GETTABLEKS                       R13 R14 K182 ["join"]
+      822 GETTABLEKS                       R15 R2 K183 ["BackgroundStyle"]
+      824 GETUPVAL                         R17 6
+      825 GETTABLEKS                       R16 R17 K194 ["Selected"]
+      827 GETTABLE                         R14 R15 R16
+      828 DUPTABLE                         R15 K184 [{"BackgroundStyle"}]
+      829 GETUPVAL                         R18 4
+      830 GETTABLEKS                       R17 R18 K181 ["Dictionary"]
+      832 GETTABLEKS                       R16 R17 K182 ["join"]
+      834 GETTABLEKS                       R19 R2 K183 ["BackgroundStyle"]
+      836 GETUPVAL                         R21 6
+      837 GETTABLEKS                       R20 R21 K194 ["Selected"]
+      839 GETTABLE                         R18 R19 R20
+      840 GETTABLEKS                       R17 R18 K183 ["BackgroundStyle"]
+      842 DUPTABLE                         R18 K198 [{"Color"}]
+      843 GETUPVAL                         R20 1
+      844 GETTABLEKS                       R19 R20 K48 ["InputFieldBackground"]
+      846 SETTABLEKS                       R19 R18 K185 ["Color"]
+      848 CALL                             R16 2 1
+      849 SETTABLEKS                       R16 R15 K183 ["BackgroundStyle"]
+      851 CALL                             R13 2 1
+      852 SETTABLE                         R13 R11 R12
+      853 CALL                             R9 2 1
+      854 SETTABLEKS                       R9 R8 K183 ["BackgroundStyle"]
+      856 SETTABLEKS                       R8 R7 K209 ["&AssetConfigRadioButton"]
+      858 CALL                             R5 2 1
+      859 SETTABLE                         R5 R3 R4
+      860 GETUPVAL                         R5 3
+      861 GETTABLEKS                       R4 R5 K210 ["RadioButtonList"]
+      863 GETUPVAL                         R7 4
+      864 GETTABLEKS                       R6 R7 K181 ["Dictionary"]
+      866 GETTABLEKS                       R5 R6 K182 ["join"]
+      868 GETUPVAL                         R6 0
+      869 LOADK                            R7 K210 ["RadioButtonList"]
+      870 CALL                             R6 1 1
+      871 NEWTABLE                         R7 1 0
+      873 DUPTABLE                         R8 K213 [{"Padding", "RadioButtonStyle"}]
+      874 LOADN                            R9 17
+      875 SETTABLEKS                       R9 R8 K211 ["Padding"]
+      877 LOADK                            R9 K214 ["AssetConfigRadioButton"]
+      878 SETTABLEKS                       R9 R8 K212 ["RadioButtonStyle"]
+      880 SETTABLEKS                       R8 R7 K215 ["&AssetConfigRadioButtonList"]
+      882 CALL                             R5 2 1
+      883 SETTABLE                         R5 R3 R4
+      884 RETURN                           R3 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R1 R0 K3 ["Packages"]
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R3 R1 K6 ["Framework"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K7 ["Style"]
-  GETTABLEKS R4 R3 K8 ["StyleKey"]
-  GETTABLEKS R5 R3 K9 ["ComponentSymbols"]
-  GETTABLEKS R6 R3 K10 ["getRawComponentStyle"]
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R10 R1 K6 ["Framework"]
-  CALL R9 1 1
-  GETTABLEKS R8 R9 K11 ["Util"]
-  GETTABLEKS R7 R8 K12 ["StyleModifier"]
-  GETTABLEKS R8 R3 K13 ["Colors"]
-  GETTABLEKS R10 R0 K14 ["Src"]
-  GETTABLEKS R9 R10 K11 ["Util"]
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R11 R9 K15 ["Constants"]
-  CALL R10 1 1
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R12 R1 K16 ["Cryo"]
-  CALL R11 1 1
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R15 R0 K14 ["Src"]
-  GETTABLEKS R14 R15 K17 ["Flags"]
-  GETTABLEKS R13 R14 K18 ["getFFlagRemoveItemTags"]
-  CALL R12 1 1
-  DUPCLOSURE R13 K19 [PROTO_0]
-  CAPTURE VAL R6
-  CAPTURE VAL R4
-  CAPTURE VAL R8
-  CAPTURE VAL R5
-  CAPTURE VAL R11
-  CAPTURE VAL R12
-  CAPTURE VAL R7
-  CAPTURE VAL R10
-  RETURN R13 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R0 K3 ["Packages"]
+       11 GETIMPORT                        R2 K5 [require]
+       13 GETTABLEKS                       R3 R1 K6 ["Framework"]
+       15 CALL                             R2 1 1
+       16 GETTABLEKS                       R3 R2 K7 ["Style"]
+       18 GETTABLEKS                       R4 R3 K8 ["StyleKey"]
+       20 GETTABLEKS                       R5 R3 K9 ["ComponentSymbols"]
+       22 GETTABLEKS                       R6 R3 K10 ["getRawComponentStyle"]
+       24 GETIMPORT                        R9 K5 [require]
+       26 GETTABLEKS                       R10 R1 K6 ["Framework"]
+       28 CALL                             R9 1 1
+       29 GETTABLEKS                       R8 R9 K11 ["Util"]
+       31 GETTABLEKS                       R7 R8 K12 ["StyleModifier"]
+       33 GETTABLEKS                       R8 R3 K13 ["Colors"]
+       35 GETTABLEKS                       R10 R0 K14 ["Src"]
+       37 GETTABLEKS                       R9 R10 K11 ["Util"]
+       39 GETIMPORT                        R10 K5 [require]
+       41 GETTABLEKS                       R11 R9 K15 ["Constants"]
+       43 CALL                             R10 1 1
+       44 GETIMPORT                        R11 K5 [require]
+       46 GETTABLEKS                       R12 R1 K16 ["Cryo"]
+       48 CALL                             R11 1 1
+       49 GETIMPORT                        R12 K5 [require]
+       51 GETTABLEKS                       R15 R0 K14 ["Src"]
+       53 GETTABLEKS                       R14 R15 K17 ["Flags"]
+       55 GETTABLEKS                       R13 R14 K18 ["getFFlagRemoveItemTags"]
+       57 CALL                             R12 1 1
+       58 DUPCLOSURE                       R13 K19 [PROTO_0]
+       59 CAPTURE                          VAL R6
+       60 CAPTURE                          VAL R4
+       61 CAPTURE                          VAL R8
+       62 CAPTURE                          VAL R5
+       63 CAPTURE                          VAL R11
+       64 CAPTURE                          VAL R12
+       65 CAPTURE                          VAL R7
+       66 CAPTURE                          VAL R10
+       67 RETURN                           R13 1

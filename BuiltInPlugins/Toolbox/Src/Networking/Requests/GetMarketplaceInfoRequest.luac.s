@@ -1,272 +1,272 @@
 PROTO_0:
-  GETTABLEKS R1 R0 K0 ["responseBody"]
-  GETUPVAL R2 0
-  MOVE R4 R1
-  NAMECALL R2 R2 K1 ["JSONDecode"]
-  CALL R2 2 1
-  GETIMPORT R3 K3 [pairs]
-  GETTABLEKS R6 R2 K4 ["data"]
-  GETTABLEN R4 R6 1
-  CALL R3 1 3
-  FORGPREP_NEXT R3
-  GETUPVAL R8 1
-  GETUPVAL R9 2
-  MOVE R10 R6
-  CALL R9 1 1
-  SETTABLE R7 R8 R9
-  FORGLOOP R3 2 [-6]
-  RETURN R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        2 GETUPVAL                         R2 0
+        3 MOVE                             R4 R1
+        4 NAMECALL                         R2 R2 K1 ["JSONDecode"]
+        6 CALL                             R2 2 1
+        7 GETIMPORT                        R3 K3 [pairs]
+        9 GETTABLEKS                       R6 R2 K4 ["data"]
+       11 GETTABLEN                        R4 R6 1
+       12 CALL                             R3 1 3
+       13 FORGPREP_NEXT                    R3
+       14 GETUPVAL                         R8 1
+       15 GETUPVAL                         R9 2
+       16 MOVE                             R10 R6
+       17 CALL                             R9 1 1
+       18 SETTABLE                         R7 R8 R9
+       19 FORGLOOP                         R3 2 ; [-6]
+       21 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["shouldDebugWarnings"]
-  CALL R1 0 1
-  JUMPIFNOT R1 [+4]
-  GETIMPORT R1 K2 [warn]
-  LOADK R2 K3 ["failed with onAssetConfigDataGet in GetMarketplaceInfoRequest"]
-  CALL R1 1 0
-  GETUPVAL R1 1
-  GETUPVAL R3 2
-  MOVE R4 R0
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K4 ["NetworkErrors"]
-  GETTABLEKS R5 R6 K5 ["GET_ASSET_DETAIL_FAILURE"]
-  CALL R3 2 -1
-  NAMECALL R1 R1 K6 ["dispatch"]
-  CALL R1 -1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        3 CALL                             R1 0 1
+        4 JUMPIFNOT                        R1 ; [+4]
+        5 GETIMPORT                        R1 K2 [warn]
+        7 LOADK                            R2 K3 ["failed with onAssetConfigDataGet in GetMarketplaceInfoRequest"]
+        8 CALL                             R1 1 0
+        9 GETUPVAL                         R1 1
+       10 GETUPVAL                         R3 2
+       11 MOVE                             R4 R0
+       12 GETUPVAL                         R7 3
+       13 GETTABLEKS                       R6 R7 K4 ["NetworkErrors"]
+       15 GETTABLEKS                       R5 R6 K5 ["GET_ASSET_DETAIL_FAILURE"]
+       17 CALL                             R3 2 -1
+       18 NAMECALL                         R1 R1 K6 ["dispatch"]
+       20 CALL                             R1 -1 0
+       21 RETURN                           R0 0
 
 PROTO_2:
-  GETTABLEKS R1 R0 K0 ["responseBody"]
-  JUMPIFNOT R1 [+22]
-  LENGTH R2 R1
-  LOADN R3 0
-  JUMPIFNOTLT R3 R2 [+19]
-  GETTABLEN R3 R1 1
-  GETTABLEKS R2 R3 K1 ["assetId"]
-  GETUPVAL R3 0
-  JUMPIFNOTEQ R2 R3 [+13]
-  GETIMPORT R2 K3 [pairs]
-  GETTABLEN R3 R1 1
-  CALL R2 1 3
-  FORGPREP_NEXT R2
-  GETUPVAL R7 1
-  GETUPVAL R8 2
-  MOVE R9 R5
-  CALL R8 1 1
-  SETTABLE R6 R7 R8
-  FORGLOOP R2 2 [-6]
-  RETURN R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        2 JUMPIFNOT                        R1 ; [+22]
+        3 LENGTH                           R2 R1
+        4 LOADN                            R3 0
+        5 JUMPIFNOTLT                      R3 R2 ; [+19]
+        7 GETTABLEN                        R3 R1 1
+        8 GETTABLEKS                       R2 R3 K1 ["assetId"]
+       10 GETUPVAL                         R3 0
+       11 JUMPIFNOTEQ                      R2 R3 ; [+13]
+       13 GETIMPORT                        R2 K3 [pairs]
+       15 GETTABLEN                        R3 R1 1
+       16 CALL                             R2 1 3
+       17 FORGPREP_NEXT                    R2
+       18 GETUPVAL                         R7 1
+       19 GETUPVAL                         R8 2
+       20 MOVE                             R9 R5
+       21 CALL                             R8 1 1
+       22 SETTABLE                         R6 R7 R8
+       23 FORGLOOP                         R2 2 ; [-6]
+       25 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["shouldDebugWarnings"]
-  CALL R1 0 1
-  JUMPIFNOT R1 [+4]
-  GETIMPORT R1 K2 [warn]
-  LOADK R2 K3 ["failed with onPriceDataFailed in GetMarketplaceInfoRequest"]
-  CALL R1 1 0
-  GETUPVAL R1 1
-  GETUPVAL R3 2
-  MOVE R4 R0
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K4 ["NetworkErrors"]
-  GETTABLEKS R5 R6 K5 ["GET_ASSET_DETAIL_FAILURE"]
-  CALL R3 2 -1
-  NAMECALL R1 R1 K6 ["dispatch"]
-  CALL R1 -1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        3 CALL                             R1 0 1
+        4 JUMPIFNOT                        R1 ; [+4]
+        5 GETIMPORT                        R1 K2 [warn]
+        7 LOADK                            R2 K3 ["failed with onPriceDataFailed in GetMarketplaceInfoRequest"]
+        8 CALL                             R1 1 0
+        9 GETUPVAL                         R1 1
+       10 GETUPVAL                         R3 2
+       11 MOVE                             R4 R0
+       12 GETUPVAL                         R7 3
+       13 GETTABLEKS                       R6 R7 K4 ["NetworkErrors"]
+       15 GETTABLEKS                       R5 R6 K5 ["GET_ASSET_DETAIL_FAILURE"]
+       17 CALL                             R3 2 -1
+       18 NAMECALL                         R1 R1 K6 ["dispatch"]
+       20 CALL                             R1 -1 0
+       21 RETURN                           R0 0
 
 PROTO_4:
-  GETTABLEKS R1 R0 K0 ["responseBody"]
-  JUMPIFNOT R1 [+5]
-  GETUPVAL R2 0
-  GETTABLEKS R3 R1 K1 ["results"]
-  SETTABLEKS R3 R2 K2 ["AssetPermissions"]
-  RETURN R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["responseBody"]
+        2 JUMPIFNOT                        R1 ; [+5]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R3 R1 K1 ["results"]
+        6 SETTABLEKS                       R3 R2 K2 ["AssetPermissions"]
+        8 RETURN                           R0 0
 
 PROTO_5:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["shouldDebugWarnings"]
-  CALL R1 0 1
-  JUMPIFNOT R1 [+4]
-  GETIMPORT R1 K2 [warn]
-  LOADK R2 K3 ["failed with onAssetPermissionsFailed in GetMarketplaceInfoRequest"]
-  CALL R1 1 0
-  GETUPVAL R1 1
-  GETUPVAL R3 2
-  MOVE R4 R0
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K4 ["NetworkErrors"]
-  GETTABLEKS R5 R6 K5 ["GET_ASSET_DETAIL_FAILURE"]
-  CALL R3 2 -1
-  NAMECALL R1 R1 K6 ["dispatch"]
-  CALL R1 -1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["shouldDebugWarnings"]
+        3 CALL                             R1 0 1
+        4 JUMPIFNOT                        R1 ; [+4]
+        5 GETIMPORT                        R1 K2 [warn]
+        7 LOADK                            R2 K3 ["failed with onAssetPermissionsFailed in GetMarketplaceInfoRequest"]
+        8 CALL                             R1 1 0
+        9 GETUPVAL                         R1 1
+       10 GETUPVAL                         R3 2
+       11 MOVE                             R4 R0
+       12 GETUPVAL                         R7 3
+       13 GETTABLEKS                       R6 R7 K4 ["NetworkErrors"]
+       15 GETTABLEKS                       R5 R6 K5 ["GET_ASSET_DETAIL_FAILURE"]
+       17 CALL                             R3 2 -1
+       18 NAMECALL                         R1 R1 K6 ["dispatch"]
+       20 CALL                             R1 -1 0
+       21 RETURN                           R0 0
 
 PROTO_6:
-  GETUPVAL R0 0
-  GETUPVAL R2 1
-  GETUPVAL R3 2
-  CALL R2 1 -1
-  NAMECALL R0 R0 K0 ["dispatch"]
-  CALL R0 -1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 GETUPVAL                         R3 2
+        3 CALL                             R2 1 -1
+        4 NAMECALL                         R0 R0 K0 ["dispatch"]
+        6 CALL                             R0 -1 0
+        7 RETURN                           R0 0
 
 PROTO_7:
-  NEWTABLE R1 0 0
-  NEWCLOSURE R2 P0
-  CAPTURE UPVAL U0
-  CAPTURE VAL R1
-  CAPTURE UPVAL U1
-  NEWCLOSURE R3 P1
-  CAPTURE UPVAL U2
-  CAPTURE VAL R0
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  NEWCLOSURE R4 P2
-  CAPTURE UPVAL U5
-  CAPTURE VAL R1
-  CAPTURE UPVAL U1
-  NEWCLOSURE R5 P3
-  CAPTURE UPVAL U2
-  CAPTURE VAL R0
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  NEWCLOSURE R6 P4
-  CAPTURE VAL R1
-  NEWCLOSURE R7 P5
-  CAPTURE UPVAL U2
-  CAPTURE VAL R0
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  GETUPVAL R9 6
-  GETTABLEKS R8 R9 K0 ["all"]
-  NEWTABLE R9 0 3
-  GETUPVAL R10 7
-  GETUPVAL R12 5
-  NAMECALL R10 R10 K1 ["getDevelopAssetMetadata"]
-  CALL R10 2 1
-  MOVE R12 R2
-  MOVE R13 R3
-  NAMECALL R10 R10 K2 ["andThen"]
-  CALL R10 3 1
-  GETUPVAL R12 8
-  CALL R12 0 1
-  JUMPIFNOT R12 [+18]
-  GETUPVAL R11 7
-  GETUPVAL R14 9
-  GETTABLEKS R13 R14 K3 ["TARGET_TYPE_ASSET"]
-  GETUPVAL R15 5
-  FASTCALL1 TOSTRING R15 [+2]
-  GETIMPORT R14 K5 [tostring]
-  CALL R14 1 1
-  NAMECALL R11 R11 K6 ["getItem"]
-  CALL R11 3 1
-  MOVE R13 R4
-  MOVE R14 R5
-  NAMECALL R11 R11 K2 ["andThen"]
-  CALL R11 3 1
-  JUMP [+14]
-  GETUPVAL R11 7
-  NEWTABLE R13 0 1
-  GETUPVAL R14 5
-  SETLIST R13 R14 1 [1]
-  NAMECALL R11 R11 K7 ["getAssetCreationDetails"]
-  CALL R11 2 1
-  MOVE R13 R4
-  MOVE R14 R5
-  NAMECALL R11 R11 K2 ["andThen"]
-  CALL R11 3 1
-  GETUPVAL R12 7
-  GETUPVAL R14 5
-  NAMECALL R12 R12 K8 ["getAssetPermissions"]
-  CALL R12 2 1
-  MOVE R14 R6
-  MOVE R15 R7
-  NAMECALL R12 R12 K2 ["andThen"]
-  CALL R12 3 -1
-  SETLIST R9 R10 -1 [1]
-  CALL R8 1 1
-  NEWCLOSURE R10 P6
-  CAPTURE VAL R0
-  CAPTURE UPVAL U10
-  CAPTURE VAL R1
-  NAMECALL R8 R8 K2 ["andThen"]
-  CALL R8 2 0
-  RETURN R0 0
+        0 NEWTABLE                         R1 0 0
+        2 NEWCLOSURE                       R2 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          VAL R1
+        5 CAPTURE                          UPVAL U1
+        6 NEWCLOSURE                       R3 P1
+        7 CAPTURE                          UPVAL U2
+        8 CAPTURE                          VAL R0
+        9 CAPTURE                          UPVAL U3
+       10 CAPTURE                          UPVAL U4
+       11 NEWCLOSURE                       R4 P2
+       12 CAPTURE                          UPVAL U5
+       13 CAPTURE                          VAL R1
+       14 CAPTURE                          UPVAL U1
+       15 NEWCLOSURE                       R5 P3
+       16 CAPTURE                          UPVAL U2
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          UPVAL U3
+       19 CAPTURE                          UPVAL U4
+       20 NEWCLOSURE                       R6 P4
+       21 CAPTURE                          VAL R1
+       22 NEWCLOSURE                       R7 P5
+       23 CAPTURE                          UPVAL U2
+       24 CAPTURE                          VAL R0
+       25 CAPTURE                          UPVAL U3
+       26 CAPTURE                          UPVAL U4
+       27 GETUPVAL                         R9 6
+       28 GETTABLEKS                       R8 R9 K0 ["all"]
+       30 NEWTABLE                         R9 0 3
+       32 GETUPVAL                         R10 7
+       33 GETUPVAL                         R12 5
+       34 NAMECALL                         R10 R10 K1 ["getDevelopAssetMetadata"]
+       36 CALL                             R10 2 1
+       37 MOVE                             R12 R2
+       38 MOVE                             R13 R3
+       39 NAMECALL                         R10 R10 K2 ["andThen"]
+       41 CALL                             R10 3 1
+       42 GETUPVAL                         R12 8
+       43 CALL                             R12 0 1
+       44 JUMPIFNOT                        R12 ; [+18]
+       45 GETUPVAL                         R11 7
+       46 GETUPVAL                         R14 9
+       47 GETTABLEKS                       R13 R14 K3 ["TARGET_TYPE_ASSET"]
+       49 GETUPVAL                         R15 5
+       50 FASTCALL1                        TOSTRING R15 ; [+2]
+       51 GETIMPORT                        R14 K5 [tostring]
+       53 CALL                             R14 1 1
+       54 NAMECALL                         R11 R11 K6 ["getItem"]
+       56 CALL                             R11 3 1
+       57 MOVE                             R13 R4
+       58 MOVE                             R14 R5
+       59 NAMECALL                         R11 R11 K2 ["andThen"]
+       61 CALL                             R11 3 1
+       62 JUMP                             ; [+14]
+       63 GETUPVAL                         R11 7
+       64 NEWTABLE                         R13 0 1
+       66 GETUPVAL                         R14 5
+       67 SETLIST                          R13 R14 1 [1]
+       69 NAMECALL                         R11 R11 K7 ["getAssetCreationDetails"]
+       71 CALL                             R11 2 1
+       72 MOVE                             R13 R4
+       73 MOVE                             R14 R5
+       74 NAMECALL                         R11 R11 K2 ["andThen"]
+       76 CALL                             R11 3 1
+       77 GETUPVAL                         R12 7
+       78 GETUPVAL                         R14 5
+       79 NAMECALL                         R12 R12 K8 ["getAssetPermissions"]
+       81 CALL                             R12 2 1
+       82 MOVE                             R14 R6
+       83 MOVE                             R15 R7
+       84 NAMECALL                         R12 R12 K2 ["andThen"]
+       86 CALL                             R12 3 -1
+       87 SETLIST                          R9 R10 -1 [1]
+       89 CALL                             R8 1 1
+       90 NEWCLOSURE                       R10 P6
+       91 CAPTURE                          VAL R0
+       92 CAPTURE                          UPVAL U10
+       93 CAPTURE                          VAL R1
+       94 NAMECALL                         R8 R8 K2 ["andThen"]
+       96 CALL                             R8 2 0
+       97 RETURN                           R0 0
 
 PROTO_8:
-  NEWCLOSURE R2 P0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  CAPTURE VAL R1
-  CAPTURE UPVAL U5
-  CAPTURE VAL R0
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U7
-  CAPTURE UPVAL U8
-  RETURN R2 1
+        0 NEWCLOSURE                       R2 P0
+        1 CAPTURE                          UPVAL U0
+        2 CAPTURE                          UPVAL U1
+        3 CAPTURE                          UPVAL U2
+        4 CAPTURE                          UPVAL U3
+        5 CAPTURE                          UPVAL U4
+        6 CAPTURE                          VAL R1
+        7 CAPTURE                          UPVAL U5
+        8 CAPTURE                          VAL R0
+        9 CAPTURE                          UPVAL U6
+       10 CAPTURE                          UPVAL U7
+       11 CAPTURE                          UPVAL U8
+       12 RETURN                           R2 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R2 R0 K3 ["Src"]
-  GETTABLEKS R1 R2 K4 ["Util"]
-  GETIMPORT R2 K6 [require]
-  GETTABLEKS R3 R1 K7 ["DebugFlags"]
-  CALL R2 1 1
-  GETIMPORT R3 K6 [require]
-  GETTABLEKS R4 R1 K8 ["firstToUpper"]
-  CALL R3 1 1
-  GETTABLEKS R5 R0 K3 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Actions"]
-  GETIMPORT R5 K6 [require]
-  GETTABLEKS R6 R4 K10 ["NetworkError"]
-  CALL R5 1 1
-  GETIMPORT R6 K6 [require]
-  GETTABLEKS R7 R4 K11 ["UpdateAssetConfigData"]
-  CALL R6 1 1
-  GETIMPORT R7 K6 [require]
-  GETTABLEKS R10 R0 K3 ["Src"]
-  GETTABLEKS R9 R10 K12 ["Types"]
-  GETTABLEKS R8 R9 K13 ["ConfigTypes"]
-  CALL R7 1 1
-  GETTABLEKS R8 R0 K14 ["Packages"]
-  GETIMPORT R9 K6 [require]
-  GETTABLEKS R10 R8 K15 ["Framework"]
-  CALL R9 1 1
-  GETTABLEKS R11 R9 K4 ["Util"]
-  GETTABLEKS R10 R11 K16 ["Promise"]
-  GETIMPORT R11 K6 [require]
-  GETTABLEKS R14 R0 K3 ["Src"]
-  GETTABLEKS R13 R14 K17 ["Flags"]
-  GETTABLEKS R12 R13 K18 ["getFFlagRemoveGetAssetDetails"]
-  CALL R11 1 1
-  GETIMPORT R12 K6 [require]
-  GETTABLEKS R15 R0 K3 ["Src"]
-  GETTABLEKS R14 R15 K12 ["Types"]
-  GETTABLEKS R13 R14 K19 ["TargetTypes"]
-  CALL R12 1 1
-  GETIMPORT R13 K21 [game]
-  LOADK R15 K22 ["HttpService"]
-  NAMECALL R13 R13 K23 ["GetService"]
-  CALL R13 2 1
-  DUPCLOSURE R14 K24 [PROTO_8]
-  CAPTURE VAL R13
-  CAPTURE VAL R3
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  CAPTURE VAL R7
-  CAPTURE VAL R10
-  CAPTURE VAL R11
-  CAPTURE VAL R12
-  CAPTURE VAL R6
-  RETURN R14 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R4 K1 [script]
+        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
+        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+       11 GETTABLEKS                       R2 R0 K3 ["Src"]
+       13 GETTABLEKS                       R1 R2 K4 ["Util"]
+       15 GETIMPORT                        R2 K6 [require]
+       17 GETTABLEKS                       R3 R1 K7 ["DebugFlags"]
+       19 CALL                             R2 1 1
+       20 GETIMPORT                        R3 K6 [require]
+       22 GETTABLEKS                       R4 R1 K8 ["firstToUpper"]
+       24 CALL                             R3 1 1
+       25 GETTABLEKS                       R5 R0 K3 ["Src"]
+       27 GETTABLEKS                       R4 R5 K9 ["Actions"]
+       29 GETIMPORT                        R5 K6 [require]
+       31 GETTABLEKS                       R6 R4 K10 ["NetworkError"]
+       33 CALL                             R5 1 1
+       34 GETIMPORT                        R6 K6 [require]
+       36 GETTABLEKS                       R7 R4 K11 ["UpdateAssetConfigData"]
+       38 CALL                             R6 1 1
+       39 GETIMPORT                        R7 K6 [require]
+       41 GETTABLEKS                       R10 R0 K3 ["Src"]
+       43 GETTABLEKS                       R9 R10 K12 ["Types"]
+       45 GETTABLEKS                       R8 R9 K13 ["ConfigTypes"]
+       47 CALL                             R7 1 1
+       48 GETTABLEKS                       R8 R0 K14 ["Packages"]
+       50 GETIMPORT                        R9 K6 [require]
+       52 GETTABLEKS                       R10 R8 K15 ["Framework"]
+       54 CALL                             R9 1 1
+       55 GETTABLEKS                       R11 R9 K4 ["Util"]
+       57 GETTABLEKS                       R10 R11 K16 ["Promise"]
+       59 GETIMPORT                        R11 K6 [require]
+       61 GETTABLEKS                       R14 R0 K3 ["Src"]
+       63 GETTABLEKS                       R13 R14 K17 ["Flags"]
+       65 GETTABLEKS                       R12 R13 K18 ["getFFlagRemoveGetAssetDetails"]
+       67 CALL                             R11 1 1
+       68 GETIMPORT                        R12 K6 [require]
+       70 GETTABLEKS                       R15 R0 K3 ["Src"]
+       72 GETTABLEKS                       R14 R15 K12 ["Types"]
+       74 GETTABLEKS                       R13 R14 K19 ["TargetTypes"]
+       76 CALL                             R12 1 1
+       77 GETIMPORT                        R13 K21 [game]
+       79 LOADK                            R15 K22 ["HttpService"]
+       80 NAMECALL                         R13 R13 K23 ["GetService"]
+       82 CALL                             R13 2 1
+       83 DUPCLOSURE                       R14 K24 [PROTO_8]
+       84 CAPTURE                          VAL R13
+       85 CAPTURE                          VAL R3
+       86 CAPTURE                          VAL R2
+       87 CAPTURE                          VAL R5
+       88 CAPTURE                          VAL R7
+       89 CAPTURE                          VAL R10
+       90 CAPTURE                          VAL R11
+       91 CAPTURE                          VAL R12
+       92 CAPTURE                          VAL R6
+       93 RETURN                           R14 1

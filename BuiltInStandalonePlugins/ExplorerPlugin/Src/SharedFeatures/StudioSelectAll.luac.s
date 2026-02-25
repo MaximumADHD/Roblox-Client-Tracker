@@ -1,270 +1,270 @@
 PROTO_0:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["fromHost"]
-  GETTABLEKS R1 R2 K1 ["connectSelectAll"]
-  GETTABLEKS R0 R1 K2 ["fire"]
-  CALL R0 0 0
-  RETURN R0 0
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["fromHost"]
+        3 GETTABLEKS                       R1 R2 K1 ["connectSelectAll"]
+        5 GETTABLEKS                       R0 R1 K2 ["fire"]
+        7 CALL                             R0 0 0
+        8 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["fromHost"]
-  GETTABLEKS R1 R2 K1 ["disconnectSelectAll"]
-  GETTABLEKS R0 R1 K2 ["fire"]
-  CALL R0 0 0
-  RETURN R0 0
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["fromHost"]
+        3 GETTABLEKS                       R1 R2 K1 ["disconnectSelectAll"]
+        5 GETTABLEKS                       R0 R1 K2 ["fire"]
+        7 CALL                             R0 0 0
+        8 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["Fire"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["Fire"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["Disconnect"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
 
 PROTO_4:
-  GETUPVAL R1 0
-  MOVE R3 R0
-  NAMECALL R1 R1 K0 ["Connect"]
-  CALL R1 2 1
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R1
-  RETURN R2 1
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K0 ["Connect"]
+        4 CALL                             R1 2 1
+        5 NEWCLOSURE                       R2 P0
+        6 CAPTURE                          VAL R1
+        7 RETURN                           R2 1
 
 PROTO_5:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["useEventConnection"]
-  GETTABLEKS R3 R0 K1 ["dockWidget"]
-  GETTABLEKS R2 R3 K2 ["WindowFocused"]
-  DUPCLOSURE R3 K3 [PROTO_0]
-  CAPTURE UPVAL U1
-  NEWTABLE R4 0 0
-  CALL R1 3 0
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["useEventConnection"]
-  GETTABLEKS R3 R0 K1 ["dockWidget"]
-  GETTABLEKS R2 R3 K4 ["WindowFocusReleased"]
-  DUPCLOSURE R3 K5 [PROTO_1]
-  CAPTURE UPVAL U1
-  NEWTABLE R4 0 0
-  CALL R1 3 0
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K6 ["useState"]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K7 ["Signal"]
-  GETTABLEKS R2 R3 K8 ["new"]
-  CALL R1 1 1
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K9 ["fromGuest"]
-  GETTABLEKS R3 R4 K10 ["performSelectAll"]
-  GETTABLEKS R2 R3 K11 ["useListenToGuest"]
-  NEWCLOSURE R3 P2
-  CAPTURE VAL R1
-  NEWTABLE R4 0 0
-  CALL R2 2 0
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K12 ["useCallback"]
-  NEWCLOSURE R3 P3
-  CAPTURE VAL R1
-  NEWTABLE R4 0 1
-  MOVE R5 R1
-  SETLIST R4 R5 1 [1]
-  CALL R2 2 1
-  GETUPVAL R3 4
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K13 ["Components"]
-  GETTABLEKS R5 R6 K14 ["Contexts"]
-  GETTABLEKS R4 R5 K15 ["SelectAllContextProvider"]
-  DUPTABLE R5 K17 [{"registerSelectAll"}]
-  SETTABLEKS R2 R5 K16 ["registerSelectAll"]
-  GETTABLEKS R6 R0 K18 ["children"]
-  CALL R3 3 -1
-  RETURN R3 -1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["useEventConnection"]
+        3 GETTABLEKS                       R3 R0 K1 ["dockWidget"]
+        5 GETTABLEKS                       R2 R3 K2 ["WindowFocused"]
+        7 DUPCLOSURE                       R3 K3 [PROTO_0]
+        8 CAPTURE                          UPVAL U1
+        9 NEWTABLE                         R4 0 0
+       11 CALL                             R1 3 0
+       12 GETUPVAL                         R2 0
+       13 GETTABLEKS                       R1 R2 K0 ["useEventConnection"]
+       15 GETTABLEKS                       R3 R0 K1 ["dockWidget"]
+       17 GETTABLEKS                       R2 R3 K4 ["WindowFocusReleased"]
+       19 DUPCLOSURE                       R3 K5 [PROTO_1]
+       20 CAPTURE                          UPVAL U1
+       21 NEWTABLE                         R4 0 0
+       23 CALL                             R1 3 0
+       24 GETUPVAL                         R2 2
+       25 GETTABLEKS                       R1 R2 K6 ["useState"]
+       27 GETUPVAL                         R4 3
+       28 GETTABLEKS                       R3 R4 K7 ["Signal"]
+       30 GETTABLEKS                       R2 R3 K8 ["new"]
+       32 CALL                             R1 1 1
+       33 GETUPVAL                         R5 1
+       34 GETTABLEKS                       R4 R5 K9 ["fromGuest"]
+       36 GETTABLEKS                       R3 R4 K10 ["performSelectAll"]
+       38 GETTABLEKS                       R2 R3 K11 ["useListenToGuest"]
+       40 NEWCLOSURE                       R3 P2
+       41 CAPTURE                          VAL R1
+       42 NEWTABLE                         R4 0 0
+       44 CALL                             R2 2 0
+       45 GETUPVAL                         R3 2
+       46 GETTABLEKS                       R2 R3 K12 ["useCallback"]
+       48 NEWCLOSURE                       R3 P3
+       49 CAPTURE                          VAL R1
+       50 NEWTABLE                         R4 0 1
+       52 MOVE                             R5 R1
+       53 SETLIST                          R4 R5 1 [1]
+       55 CALL                             R2 2 1
+       56 GETUPVAL                         R3 4
+       57 GETUPVAL                         R7 3
+       58 GETTABLEKS                       R6 R7 K13 ["Components"]
+       60 GETTABLEKS                       R5 R6 K14 ["Contexts"]
+       62 GETTABLEKS                       R4 R5 K15 ["SelectAllContextProvider"]
+       64 DUPTABLE                         R5 K17 [{"registerSelectAll"}]
+       65 SETTABLEKS                       R2 R5 K16 ["registerSelectAll"]
+       67 GETTABLEKS                       R6 R0 K18 ["children"]
+       69 CALL                             R3 3 -1
+       70 RETURN                           R3 -1
 
 PROTO_6:
-  GETUPVAL R0 0
-  JUMPIFNOTEQKNIL R0 [+2]
-  RETURN R0 0
-  GETIMPORT R0 K2 [task.cancel]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K3 ["thread"]
-  CALL R0 1 0
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K4 ["connection"]
-  JUMPIFEQKNIL R0 [+7]
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K4 ["connection"]
-  NAMECALL R0 R0 K5 ["Disconnect"]
-  CALL R0 1 0
-  LOADNIL R0
-  SETUPVAL R0 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOTEQKNIL                  R0 ; [+2]
+        3 RETURN                           R0 0
+        4 GETIMPORT                        R0 K2 [task.cancel]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R1 R2 K3 ["thread"]
+        9 CALL                             R0 1 0
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R0 R1 K4 ["connection"]
+       13 JUMPIFEQKNIL                     R0 ; [+7]
+       15 GETUPVAL                         R1 0
+       16 GETTABLEKS                       R0 R1 K4 ["connection"]
+       18 NAMECALL                         R0 R0 K5 ["Disconnect"]
+       20 CALL                             R0 1 0
+       21 LOADNIL                          R0
+       22 SETUPVAL                         R0 0
+       23 RETURN                           R0 0
 
 PROTO_7:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["fromGuest"]
-  GETTABLEKS R1 R2 K1 ["performSelectAll"]
-  GETTABLEKS R0 R1 K2 ["fire"]
-  CALL R0 0 0
-  RETURN R0 0
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["fromGuest"]
+        3 GETTABLEKS                       R1 R2 K1 ["performSelectAll"]
+        5 GETTABLEKS                       R0 R1 K2 ["fire"]
+        7 CALL                             R0 0 0
+        8 RETURN                           R0 0
 
 PROTO_8:
-  GETUPVAL R0 0
-  GETUPVAL R1 1
-  LOADN R3 1
-  DUPCLOSURE R4 K0 [PROTO_7]
-  CAPTURE UPVAL U2
-  NAMECALL R1 R1 K1 ["AddOverrideAsync"]
-  CALL R1 3 1
-  SETTABLEKS R1 R0 K2 ["connection"]
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 LOADN                            R3 1
+        3 DUPCLOSURE                       R4 K0 [PROTO_7]
+        4 CAPTURE                          UPVAL U2
+        5 NAMECALL                         R1 R1 K1 ["AddOverrideAsync"]
+        7 CALL                             R1 3 1
+        8 SETTABLEKS                       R1 R0 K2 ["connection"]
+       10 RETURN                           R0 0
 
 PROTO_9:
-  GETUPVAL R0 0
-  JUMPIFEQKNIL R0 [+2]
-  RETURN R0 0
-  LOADNIL R0
-  DUPTABLE R1 K2 [{"connection", "thread"}]
-  LOADNIL R2
-  SETTABLEKS R2 R1 K0 ["connection"]
-  GETIMPORT R2 K5 [task.defer]
-  NEWCLOSURE R3 P0
-  CAPTURE REF R0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CALL R2 1 1
-  SETTABLEKS R2 R1 K1 ["thread"]
-  MOVE R0 R1
-  SETUPVAL R0 0
-  CLOSEUPVALS R0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFEQKNIL                     R0 ; [+2]
+        3 RETURN                           R0 0
+        4 LOADNIL                          R0
+        5 DUPTABLE                         R1 K2 [{"connection", "thread"}]
+        6 LOADNIL                          R2
+        7 SETTABLEKS                       R2 R1 K0 ["connection"]
+        9 GETIMPORT                        R2 K5 [task.defer]
+       11 NEWCLOSURE                       R3 P0
+       12 CAPTURE                          REF R0
+       13 CAPTURE                          UPVAL U1
+       14 CAPTURE                          UPVAL U2
+       15 CALL                             R2 1 1
+       16 SETTABLEKS                       R2 R1 K1 ["thread"]
+       18 MOVE                             R0 R1
+       19 SETUPVAL                         R0 0
+       20 CLOSEUPVALS                      R0
+       21 RETURN                           R0 0
 
 PROTO_10:
-  GETUPVAL R0 0
-  JUMPIFNOTEQKNIL R0 [+2]
-  RETURN R0 0
-  GETIMPORT R0 K2 [task.cancel]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K3 ["thread"]
-  CALL R0 1 0
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K4 ["connection"]
-  JUMPIFEQKNIL R0 [+7]
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K4 ["connection"]
-  NAMECALL R0 R0 K5 ["Disconnect"]
-  CALL R0 1 0
-  LOADNIL R0
-  SETUPVAL R0 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOTEQKNIL                  R0 ; [+2]
+        3 RETURN                           R0 0
+        4 GETIMPORT                        R0 K2 [task.cancel]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R1 R2 K3 ["thread"]
+        9 CALL                             R0 1 0
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R0 R1 K4 ["connection"]
+       13 JUMPIFEQKNIL                     R0 ; [+7]
+       15 GETUPVAL                         R1 0
+       16 GETTABLEKS                       R0 R1 K4 ["connection"]
+       18 NAMECALL                         R0 R0 K5 ["Disconnect"]
+       20 CALL                             R0 1 0
+       21 LOADNIL                          R0
+       22 SETUPVAL                         R0 0
+       23 RETURN                           R0 0
 
 PROTO_11:
-  GETUPVAL R0 0
-  JUMPIFNOTEQKNIL R0 [+2]
-  JUMP [+19]
-  GETIMPORT R0 K2 [task.cancel]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K3 ["thread"]
-  CALL R0 1 0
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K4 ["connection"]
-  JUMPIFEQKNIL R0 [+7]
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K4 ["connection"]
-  NAMECALL R0 R0 K5 ["Disconnect"]
-  CALL R0 1 0
-  LOADNIL R0
-  SETUPVAL R0 0
-  GETUPVAL R0 1
-  CALL R0 0 0
-  GETUPVAL R0 2
-  CALL R0 0 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOTEQKNIL                  R0 ; [+2]
+        3 JUMP                             ; [+19]
+        4 GETIMPORT                        R0 K2 [task.cancel]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R1 R2 K3 ["thread"]
+        9 CALL                             R0 1 0
+       10 GETUPVAL                         R1 0
+       11 GETTABLEKS                       R0 R1 K4 ["connection"]
+       13 JUMPIFEQKNIL                     R0 ; [+7]
+       15 GETUPVAL                         R1 0
+       16 GETTABLEKS                       R0 R1 K4 ["connection"]
+       18 NAMECALL                         R0 R0 K5 ["Disconnect"]
+       20 CALL                             R0 1 0
+       21 LOADNIL                          R0
+       22 SETUPVAL                         R0 0
+       23 GETUPVAL                         R0 1
+       24 CALL                             R0 0 0
+       25 GETUPVAL                         R0 2
+       26 CALL                             R0 0 0
+       27 RETURN                           R0 0
 
 PROTO_12:
-  LOADK R3 K0 ["SelectAll"]
-  NAMECALL R1 R0 K1 ["GetPluginComponent"]
-  CALL R1 2 1
-  LOADNIL R2
-  NEWCLOSURE R3 P0
-  CAPTURE REF R2
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K2 ["fromHost"]
-  GETTABLEKS R5 R6 K3 ["connectSelectAll"]
-  GETTABLEKS R4 R5 K4 ["listen"]
-  NEWCLOSURE R5 P1
-  CAPTURE REF R2
-  CAPTURE VAL R1
-  CAPTURE UPVAL U0
-  CALL R4 1 1
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K2 ["fromHost"]
-  GETTABLEKS R6 R7 K5 ["disconnectSelectAll"]
-  GETTABLEKS R5 R6 K4 ["listen"]
-  NEWCLOSURE R6 P2
-  CAPTURE REF R2
-  CALL R5 1 1
-  NEWCLOSURE R6 P3
-  CAPTURE REF R2
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  CLOSEUPVALS R2
-  RETURN R6 1
+        0 LOADK                            R3 K0 ["SelectAll"]
+        1 NAMECALL                         R1 R0 K1 ["GetPluginComponent"]
+        3 CALL                             R1 2 1
+        4 LOADNIL                          R2
+        5 NEWCLOSURE                       R3 P0
+        6 CAPTURE                          REF R2
+        7 GETUPVAL                         R7 0
+        8 GETTABLEKS                       R6 R7 K2 ["fromHost"]
+       10 GETTABLEKS                       R5 R6 K3 ["connectSelectAll"]
+       12 GETTABLEKS                       R4 R5 K4 ["listen"]
+       14 NEWCLOSURE                       R5 P1
+       15 CAPTURE                          REF R2
+       16 CAPTURE                          VAL R1
+       17 CAPTURE                          UPVAL U0
+       18 CALL                             R4 1 1
+       19 GETUPVAL                         R8 0
+       20 GETTABLEKS                       R7 R8 K2 ["fromHost"]
+       22 GETTABLEKS                       R6 R7 K5 ["disconnectSelectAll"]
+       24 GETTABLEKS                       R5 R6 K4 ["listen"]
+       26 NEWCLOSURE                       R6 P2
+       27 CAPTURE                          REF R2
+       28 CALL                             R5 1 1
+       29 NEWCLOSURE                       R6 P3
+       30 CAPTURE                          REF R2
+       31 CAPTURE                          VAL R4
+       32 CAPTURE                          VAL R5
+       33 CLOSEUPVALS                      R2
+       34 RETURN                           R6 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["ExplorerPlugin"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Explorer"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["React"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["ReactUtils"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K10 ["Src"]
-  GETTABLEKS R6 R7 K11 ["SharedFeatures"]
-  GETTABLEKS R5 R6 K12 ["createPluginRpcMethod"]
-  CALL R4 1 1
-  GETTABLEKS R5 R2 K13 ["createElement"]
-  NEWTABLE R6 2 0
-  DUPTABLE R7 K16 [{"fromGuest", "fromHost"}]
-  DUPTABLE R8 K18 [{"performSelectAll"}]
-  MOVE R9 R4
-  LOADK R10 K19 ["PerformSelectAll"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K17 ["performSelectAll"]
-  SETTABLEKS R8 R7 K14 ["fromGuest"]
-  DUPTABLE R8 K22 [{"connectSelectAll", "disconnectSelectAll"}]
-  MOVE R9 R4
-  LOADK R10 K23 ["ConnectSelectAll"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K20 ["connectSelectAll"]
-  MOVE R9 R4
-  LOADK R10 K24 ["DisconnectSelectAll"]
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K21 ["disconnectSelectAll"]
-  SETTABLEKS R8 R7 K15 ["fromHost"]
-  DUPCLOSURE R8 K25 [PROTO_5]
-  CAPTURE VAL R3
-  CAPTURE VAL R7
-  CAPTURE VAL R2
-  CAPTURE VAL R1
-  CAPTURE VAL R5
-  SETTABLEKS R8 R6 K26 ["Provider"]
-  DUPCLOSURE R8 K27 [PROTO_12]
-  CAPTURE VAL R7
-  SETTABLEKS R8 R6 K28 ["connectGuest"]
-  RETURN R6 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["ExplorerPlugin"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["Explorer"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R5 K9 ["ReactUtils"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R7 R0 K10 ["Src"]
+       32 GETTABLEKS                       R6 R7 K11 ["SharedFeatures"]
+       34 GETTABLEKS                       R5 R6 K12 ["createPluginRpcMethod"]
+       36 CALL                             R4 1 1
+       37 GETTABLEKS                       R5 R2 K13 ["createElement"]
+       39 NEWTABLE                         R6 2 0
+       41 DUPTABLE                         R7 K16 [{"fromGuest", "fromHost"}]
+       42 DUPTABLE                         R8 K18 [{"performSelectAll"}]
+       43 MOVE                             R9 R4
+       44 LOADK                            R10 K19 ["PerformSelectAll"]
+       45 CALL                             R9 1 1
+       46 SETTABLEKS                       R9 R8 K17 ["performSelectAll"]
+       48 SETTABLEKS                       R8 R7 K14 ["fromGuest"]
+       50 DUPTABLE                         R8 K22 [{"connectSelectAll", "disconnectSelectAll"}]
+       51 MOVE                             R9 R4
+       52 LOADK                            R10 K23 ["ConnectSelectAll"]
+       53 CALL                             R9 1 1
+       54 SETTABLEKS                       R9 R8 K20 ["connectSelectAll"]
+       56 MOVE                             R9 R4
+       57 LOADK                            R10 K24 ["DisconnectSelectAll"]
+       58 CALL                             R9 1 1
+       59 SETTABLEKS                       R9 R8 K21 ["disconnectSelectAll"]
+       61 SETTABLEKS                       R8 R7 K15 ["fromHost"]
+       63 DUPCLOSURE                       R8 K25 [PROTO_5]
+       64 CAPTURE                          VAL R3
+       65 CAPTURE                          VAL R7
+       66 CAPTURE                          VAL R2
+       67 CAPTURE                          VAL R1
+       68 CAPTURE                          VAL R5
+       69 SETTABLEKS                       R8 R6 K26 ["Provider"]
+       71 DUPCLOSURE                       R8 K27 [PROTO_12]
+       72 CAPTURE                          VAL R7
+       73 SETTABLEKS                       R8 R6 K28 ["connectGuest"]
+       75 RETURN                           R6 1

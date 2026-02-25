@@ -1,314 +1,314 @@
 PROTO_0:
-  LOADN R3 1
-  LOADN R4 1
-  FASTCALL3 STRING_SUB R0 R3 R4
-  MOVE R2 R0
-  GETIMPORT R1 K2 [string.sub]
-  CALL R1 3 1
-  JUMPIFNOTEQKS R1 K3 ["p"] [+14]
-  FASTCALL2K STRING_SUB R0 K5 [+5]
-  MOVE R4 R0
-  LOADK R5 K5 [2]
-  GETIMPORT R3 K2 [string.sub]
-  CALL R3 2 1
-  FASTCALL1 TONUMBER R3 [+2]
-  GETIMPORT R2 K7 [tonumber]
-  CALL R2 1 1
-  ORK R1 R2 K4 [-100]
-  RETURN R1 1
-  FASTCALL1 TONUMBER R0 [+3]
-  MOVE R3 R0
-  GETIMPORT R2 K7 [tonumber]
-  CALL R2 1 1
-  ORK R1 R2 K8 [0]
-  RETURN R1 1
+        0 LOADN                            R3 1
+        1 LOADN                            R4 1
+        2 FASTCALL3                        STRING_SUB R0 R3 R4
+        4 MOVE                             R2 R0
+        5 GETIMPORT                        R1 K2 [string.sub]
+        7 CALL                             R1 3 1
+        8 JUMPIFNOTEQKS                    R1 K3 ["p"] ; [+14]
+       10 FASTCALL2K                       STRING_SUB R0 K5 ; [+5]
+       12 MOVE                             R4 R0
+       13 LOADK                            R5 K5 [2]
+       14 GETIMPORT                        R3 K2 [string.sub]
+       16 CALL                             R3 2 1
+       17 FASTCALL1                        TONUMBER R3 ; [+2]
+       18 GETIMPORT                        R2 K7 [tonumber]
+       20 CALL                             R2 1 1
+       21 ORK                              R1 R2 K4 [-100]
+       22 RETURN                           R1 1
+       23 FASTCALL1                        TONUMBER R0 ; [+3]
+       24 MOVE                             R3 R0
+       25 GETIMPORT                        R2 K7 [tonumber]
+       27 CALL                             R2 1 1
+       28 ORK                              R1 R2 K8 [0]
+       29 RETURN                           R1 1
 
 PROTO_1:
-  LOADN R4 1
-  LOADN R5 1
-  FASTCALL3 STRING_SUB R0 R4 R5
-  MOVE R3 R0
-  GETIMPORT R2 K2 [string.sub]
-  CALL R2 3 1
-  JUMPIFNOTEQKS R2 K3 ["p"] [+14]
-  FASTCALL2K STRING_SUB R0 K5 [+5]
-  MOVE R4 R0
-  LOADK R5 K5 [2]
-  GETIMPORT R3 K2 [string.sub]
-  CALL R3 2 1
-  FASTCALL1 TONUMBER R3 [+2]
-  GETIMPORT R2 K7 [tonumber]
-  CALL R2 1 1
-  ORK R1 R2 K4 [-100]
-  JUMP [+6]
-  FASTCALL1 TONUMBER R0 [+3]
-  MOVE R3 R0
-  GETIMPORT R2 K7 [tonumber]
-  CALL R2 1 1
-  ORK R1 R2 K8 [0]
-  NEWTABLE R2 0 0
-  LOADN R5 1
-  LOADN R3 100
-  LOADN R4 1
-  FORNPREP R3
-  ADD R6 R1 R5
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K9 ["Util"]
-  GETTABLEKS R7 R8 K10 ["deepCopy"]
-  GETUPVAL R9 1
-  GETUPVAL R12 2
-  MOD R11 R6 R12
-  ADDK R10 R11 K11 [1]
-  GETTABLE R8 R9 R10
-  CALL R7 1 1
-  GETUPVAL R9 3
-  LOADK R11 K12 [10800000]
-  MUL R10 R11 R6
-  SUB R8 R9 R10
-  SETTABLEKS R8 R7 K13 ["createdUnixTimeMs"]
-  FASTCALL2 TABLE_INSERT R2 R7 [+5]
-  MOVE R9 R2
-  MOVE R10 R7
-  GETIMPORT R8 K16 [table.insert]
-  CALL R8 2 0
-  FORNLOOP R3
-  MOVE R3 R2
-  ADDK R5 R1 K17 [100]
-  FASTCALL1 TOSTRING R5 [+2]
-  GETIMPORT R4 K19 [tostring]
-  CALL R4 1 1
-  LOADK R6 K3 ["p"]
-  FASTCALL1 TOSTRING R1 [+3]
-  MOVE R8 R1
-  GETIMPORT R7 K19 [tostring]
-  CALL R7 1 1
-  CONCAT R5 R6 R7
-  RETURN R3 3
+        0 LOADN                            R4 1
+        1 LOADN                            R5 1
+        2 FASTCALL3                        STRING_SUB R0 R4 R5
+        4 MOVE                             R3 R0
+        5 GETIMPORT                        R2 K2 [string.sub]
+        7 CALL                             R2 3 1
+        8 JUMPIFNOTEQKS                    R2 K3 ["p"] ; [+14]
+       10 FASTCALL2K                       STRING_SUB R0 K5 ; [+5]
+       12 MOVE                             R4 R0
+       13 LOADK                            R5 K5 [2]
+       14 GETIMPORT                        R3 K2 [string.sub]
+       16 CALL                             R3 2 1
+       17 FASTCALL1                        TONUMBER R3 ; [+2]
+       18 GETIMPORT                        R2 K7 [tonumber]
+       20 CALL                             R2 1 1
+       21 ORK                              R1 R2 K4 [-100]
+       22 JUMP                             ; [+6]
+       23 FASTCALL1                        TONUMBER R0 ; [+3]
+       24 MOVE                             R3 R0
+       25 GETIMPORT                        R2 K7 [tonumber]
+       27 CALL                             R2 1 1
+       28 ORK                              R1 R2 K8 [0]
+       29 NEWTABLE                         R2 0 0
+       31 LOADN                            R5 1
+       32 LOADN                            R3 100
+       33 LOADN                            R4 1
+       34 FORNPREP                         R3
+       35 ADD                              R6 R1 R5
+       36 GETUPVAL                         R9 0
+       37 GETTABLEKS                       R8 R9 K9 ["Util"]
+       39 GETTABLEKS                       R7 R8 K10 ["deepCopy"]
+       41 GETUPVAL                         R9 1
+       42 GETUPVAL                         R12 2
+       43 MOD                              R11 R6 R12
+       44 ADDK                             R10 R11 K11 [1]
+       45 GETTABLE                         R8 R9 R10
+       46 CALL                             R7 1 1
+       47 GETUPVAL                         R9 3
+       48 LOADK                            R11 K12 [10800000]
+       49 MUL                              R10 R11 R6
+       50 SUB                              R8 R9 R10
+       51 SETTABLEKS                       R8 R7 K13 ["createdUnixTimeMs"]
+       53 FASTCALL2                        TABLE_INSERT R2 R7 ; [+5]
+       55 MOVE                             R9 R2
+       56 MOVE                             R10 R7
+       57 GETIMPORT                        R8 K16 [table.insert]
+       59 CALL                             R8 2 0
+       60 FORNLOOP                         R3
+       61 MOVE                             R3 R2
+       62 ADDK                             R5 R1 K17 [100]
+       63 FASTCALL1                        TOSTRING R5 ; [+2]
+       64 GETIMPORT                        R4 K19 [tostring]
+       66 CALL                             R4 1 1
+       67 LOADK                            R6 K3 ["p"]
+       68 FASTCALL1                        TOSTRING R1 ; [+3]
+       69 MOVE                             R8 R1
+       70 GETIMPORT                        R7 K19 [tostring]
+       72 CALL                             R7 1 1
+       73 CONCAT                           R5 R6 R7
+       74 RETURN                           R3 3
 
 PROTO_2:
-  GETUPVAL R4 0
-  SUB R3 R4 R0
-  DIVK R2 R3 K0 [10800000]
-  FASTCALL1 MATH_FLOOR R2 [+2]
-  GETIMPORT R1 K3 [math.floor]
-  CALL R1 1 1
-  GETUPVAL R2 1
-  FASTCALL1 TOSTRING R1 [+3]
-  MOVE R4 R1
-  GETIMPORT R3 K5 [tostring]
-  CALL R3 1 1
-  CALL R2 1 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R4 0
+        1 SUB                              R3 R4 R0
+        2 DIVK                             R2 R3 K0 [10800000]
+        3 FASTCALL1                        MATH_FLOOR R2 ; [+2]
+        4 GETIMPORT                        R1 K3 [math.floor]
+        6 CALL                             R1 1 1
+        7 GETUPVAL                         R2 1
+        8 FASTCALL1                        TOSTRING R1 ; [+3]
+        9 MOVE                             R4 R1
+       10 GETIMPORT                        R3 K5 [tostring]
+       12 CALL                             R3 1 1
+       13 CALL                             R2 1 -1
+       14 RETURN                           R2 -1
 
 PROTO_3:
-  RETURN R0 0
+        0 RETURN                           R0 0
 
 PROTO_4:
-  DUPCLOSURE R0 K0 [PROTO_3]
-  RETURN R0 1
+        0 DUPCLOSURE                       R0 K0 [PROTO_3]
+        1 RETURN                           R0 1
 
 PROTO_5:
-  GETUPVAL R0 0
-  GETUPVAL R1 1
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 CALL                             R0 1 0
+        3 RETURN                           R0 0
 
 PROTO_6:
-  LOADNIL R6
-  LOADNIL R7
-  LOADNIL R8
-  JUMPIFNOT R2 [+7]
-  GETUPVAL R9 0
-  MOVE R10 R2
-  CALL R9 1 3
-  MOVE R6 R9
-  MOVE R7 R10
-  MOVE R8 R11
-  JUMP [+29]
-  JUMPIFNOT R3 [+22]
-  GETUPVAL R15 1
-  SUB R14 R15 R3
-  DIVK R13 R14 K0 [10800000]
-  FASTCALL1 MATH_FLOOR R13 [+2]
-  GETIMPORT R12 K3 [math.floor]
-  CALL R12 1 1
-  GETUPVAL R13 0
-  FASTCALL1 TOSTRING R12 [+3]
-  MOVE R17 R12
-  GETIMPORT R16 K5 [tostring]
-  CALL R16 1 1
-  MOVE R14 R16
-  CALL R13 1 3
-  MOVE R9 R13
-  MOVE R10 R14
-  MOVE R11 R15
-  MOVE R6 R9
-  MOVE R7 R10
-  MOVE R8 R11
-  JUMP [+6]
-  GETUPVAL R9 0
-  LOADK R10 K6 ["0"]
-  CALL R9 1 3
-  MOVE R6 R9
-  MOVE R7 R10
-  MOVE R8 R11
-  DUPTABLE R9 K9 [{"responseCode", "responseBody"}]
-  LOADN R10 200
-  SETTABLEKS R10 R9 K7 ["responseCode"]
-  DUPTABLE R10 K13 [{"events", "nextCursor", "hasMore"}]
-  SETTABLEKS R6 R10 K10 ["events"]
-  SETTABLEKS R7 R10 K11 ["nextCursor"]
-  LOADNIL R11
-  SETTABLEKS R11 R10 K12 ["hasMore"]
-  SETTABLEKS R10 R9 K8 ["responseBody"]
-  GETIMPORT R10 K15 [spawn]
-  NEWCLOSURE R11 P0
-  CAPTURE VAL R5
-  CAPTURE VAL R9
-  CALL R10 1 0
-  RETURN R0 0
+        0 LOADNIL                          R6
+        1 LOADNIL                          R7
+        2 LOADNIL                          R8
+        3 JUMPIFNOT                        R2 ; [+7]
+        4 GETUPVAL                         R9 0
+        5 MOVE                             R10 R2
+        6 CALL                             R9 1 3
+        7 MOVE                             R6 R9
+        8 MOVE                             R7 R10
+        9 MOVE                             R8 R11
+       10 JUMP                             ; [+29]
+       11 JUMPIFNOT                        R3 ; [+22]
+       12 GETUPVAL                         R15 1
+       13 SUB                              R14 R15 R3
+       14 DIVK                             R13 R14 K0 [10800000]
+       15 FASTCALL1                        MATH_FLOOR R13 ; [+2]
+       16 GETIMPORT                        R12 K3 [math.floor]
+       18 CALL                             R12 1 1
+       19 GETUPVAL                         R13 0
+       20 FASTCALL1                        TOSTRING R12 ; [+3]
+       21 MOVE                             R17 R12
+       22 GETIMPORT                        R16 K5 [tostring]
+       24 CALL                             R16 1 1
+       25 MOVE                             R14 R16
+       26 CALL                             R13 1 3
+       27 MOVE                             R9 R13
+       28 MOVE                             R10 R14
+       29 MOVE                             R11 R15
+       30 MOVE                             R6 R9
+       31 MOVE                             R7 R10
+       32 MOVE                             R8 R11
+       33 JUMP                             ; [+6]
+       34 GETUPVAL                         R9 0
+       35 LOADK                            R10 K6 ["0"]
+       36 CALL                             R9 1 3
+       37 MOVE                             R6 R9
+       38 MOVE                             R7 R10
+       39 MOVE                             R8 R11
+       40 DUPTABLE                         R9 K9 [{"responseCode", "responseBody"}]
+       41 LOADN                            R10 200
+       42 SETTABLEKS                       R10 R9 K7 ["responseCode"]
+       44 DUPTABLE                         R10 K13 [{"events", "nextCursor", "hasMore"}]
+       45 SETTABLEKS                       R6 R10 K10 ["events"]
+       47 SETTABLEKS                       R7 R10 K11 ["nextCursor"]
+       49 LOADNIL                          R11
+       50 SETTABLEKS                       R11 R10 K12 ["hasMore"]
+       52 SETTABLEKS                       R10 R9 K8 ["responseBody"]
+       54 GETIMPORT                        R10 K15 [spawn]
+       56 NEWCLOSURE                       R11 P0
+       57 CAPTURE                          VAL R5
+       58 CAPTURE                          VAL R9
+       59 CALL                             R10 1 0
+       60 RETURN                           R0 0
 
 PROTO_7:
-  GETUPVAL R6 0
-  FASTCALL1 TOSTRING R6 [+2]
-  GETIMPORT R5 K1 [tostring]
-  CALL R5 1 1
-  MOVE R3 R5
-  LOADK R4 K2 ["mockusername"]
-  CONCAT R2 R3 R4
-  MOVE R3 R0
-  GETUPVAL R4 0
-  MOVE R5 R2
-  CALL R3 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R6 0
+        1 FASTCALL1                        TOSTRING R6 ; [+2]
+        2 GETIMPORT                        R5 K1 [tostring]
+        4 CALL                             R5 1 1
+        5 MOVE                             R3 R5
+        6 LOADK                            R4 K2 ["mockusername"]
+        7 CONCAT                           R2 R3 R4
+        8 MOVE                             R3 R0
+        9 GETUPVAL                         R4 0
+       10 MOVE                             R5 R2
+       11 CALL                             R3 2 0
+       12 RETURN                           R0 0
 
 PROTO_8:
-  GETUPVAL R0 0
-  GETUPVAL R1 1
-  JUMPIFNOTEQ R0 R1 [+4]
-  GETUPVAL R0 2
-  GETUPVAL R1 3
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 JUMPIFNOTEQ                      R0 R1 ; [+4]
+        4 GETUPVAL                         R0 2
+        5 GETUPVAL                         R1 3
+        6 CALL                             R0 1 0
+        7 RETURN                           R0 0
 
 PROTO_9:
-  GETUPVAL R3 0
-  ADDK R2 R3 K0 [1]
-  SETUPVAL R2 0
-  GETUPVAL R2 1
-  SETTABLE R1 R2 R0
-  GETUPVAL R2 0
-  GETUPVAL R3 2
-  JUMPIFNOTEQ R2 R3 [+4]
-  GETUPVAL R2 3
-  GETUPVAL R3 1
-  CALL R2 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R3 0
+        1 ADDK                             R2 R3 K0 [1]
+        2 SETUPVAL                         R2 0
+        3 GETUPVAL                         R2 1
+        4 SETTABLE                         R1 R2 R0
+        5 GETUPVAL                         R2 0
+        6 GETUPVAL                         R3 2
+        7 JUMPIFNOTEQ                      R2 R3 ; [+4]
+        9 GETUPVAL                         R2 3
+       10 GETUPVAL                         R3 1
+       11 CALL                             R2 1 0
+       12 RETURN                           R0 0
 
 PROTO_10:
-  GETUPVAL R2 0
-  ADDK R1 R2 K0 [1]
-  SETUPVAL R1 0
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  JUMPIFNOTEQ R1 R2 [+4]
-  GETUPVAL R1 2
-  GETUPVAL R2 3
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 ADDK                             R1 R2 K0 [1]
+        2 SETUPVAL                         R1 0
+        3 GETUPVAL                         R1 0
+        4 GETUPVAL                         R2 1
+        5 JUMPIFNOTEQ                      R1 R2 ; [+4]
+        7 GETUPVAL                         R1 2
+        8 GETUPVAL                         R2 3
+        9 CALL                             R1 1 0
+       10 RETURN                           R0 0
 
 PROTO_11:
-  NEWTABLE R2 0 0
-  LOADN R3 0
-  GETIMPORT R4 K1 [pairs]
-  MOVE R5 R0
-  CALL R4 1 3
-  FORGPREP_NEXT R4
-  ADDK R3 R3 K2 [1]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K3 ["new"]
-  NEWCLOSURE R10 P0
-  CAPTURE VAL R8
-  CALL R9 1 1
-  FASTCALL2 TABLE_INSERT R2 R9 [+5]
-  MOVE R11 R2
-  MOVE R12 R9
-  GETIMPORT R10 K6 [table.insert]
-  CALL R10 2 0
-  FORGLOOP R4 2 [-15]
-  NEWTABLE R4 0 0
-  LOADN R5 0
-  NEWCLOSURE R6 P1
-  CAPTURE REF R5
-  CAPTURE REF R3
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  GETIMPORT R7 K1 [pairs]
-  MOVE R8 R2
-  CALL R7 1 3
-  FORGPREP_NEXT R7
-  NEWCLOSURE R14 P2
-  CAPTURE REF R5
-  CAPTURE VAL R4
-  CAPTURE REF R3
-  CAPTURE VAL R1
-  NAMECALL R12 R11 K7 ["andThen"]
-  CALL R12 2 1
-  NEWCLOSURE R14 P3
-  CAPTURE REF R5
-  CAPTURE REF R3
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  NAMECALL R12 R12 K8 ["catch"]
-  CALL R12 2 0
-  FORGLOOP R7 2 [-17]
-  CLOSEUPVALS R3
-  RETURN R0 0
+        0 NEWTABLE                         R2 0 0
+        2 LOADN                            R3 0
+        3 GETIMPORT                        R4 K1 [pairs]
+        5 MOVE                             R5 R0
+        6 CALL                             R4 1 3
+        7 FORGPREP_NEXT                    R4
+        8 ADDK                             R3 R3 K2 [1]
+        9 GETUPVAL                         R10 0
+       10 GETTABLEKS                       R9 R10 K3 ["new"]
+       12 NEWCLOSURE                       R10 P0
+       13 CAPTURE                          VAL R8
+       14 CALL                             R9 1 1
+       15 FASTCALL2                        TABLE_INSERT R2 R9 ; [+5]
+       17 MOVE                             R11 R2
+       18 MOVE                             R12 R9
+       19 GETIMPORT                        R10 K6 [table.insert]
+       21 CALL                             R10 2 0
+       22 FORGLOOP                         R4 2 ; [-15]
+       24 NEWTABLE                         R4 0 0
+       26 LOADN                            R5 0
+       27 NEWCLOSURE                       R6 P1
+       28 CAPTURE                          REF R5
+       29 CAPTURE                          REF R3
+       30 CAPTURE                          VAL R1
+       31 CAPTURE                          VAL R4
+       32 GETIMPORT                        R7 K1 [pairs]
+       34 MOVE                             R8 R2
+       35 CALL                             R7 1 3
+       36 FORGPREP_NEXT                    R7
+       37 NEWCLOSURE                       R14 P2
+       38 CAPTURE                          REF R5
+       39 CAPTURE                          VAL R4
+       40 CAPTURE                          REF R3
+       41 CAPTURE                          VAL R1
+       42 NAMECALL                         R12 R11 K7 ["andThen"]
+       44 CALL                             R12 2 1
+       45 NEWCLOSURE                       R14 P3
+       46 CAPTURE                          REF R5
+       47 CAPTURE                          REF R3
+       48 CAPTURE                          VAL R1
+       49 CAPTURE                          VAL R4
+       50 NAMECALL                         R12 R12 K8 ["catch"]
+       52 CALL                             R12 2 0
+       53 FORGLOOP                         R7 2 ; [-17]
+       55 CLOSEUPVALS                      R3
+       56 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Util"]
-  GETTABLEKS R2 R3 K7 ["SharedTypes"]
-  CALL R1 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R6 R0 K5 ["Src"]
-  GETTABLEKS R5 R6 K6 ["Util"]
-  GETTABLEKS R4 R5 K8 ["MockActivityHistoryEvents"]
-  CALL R3 1 1
-  GETTABLEKS R2 R3 K8 ["MockActivityHistoryEvents"]
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R0 K9 ["Packages"]
-  GETTABLEKS R4 R5 K10 ["Framework"]
-  CALL R3 1 1
-  GETTABLEKS R5 R3 K6 ["Util"]
-  GETTABLEKS R4 R5 K11 ["Promise"]
-  GETIMPORT R6 K14 [DateTime.now]
-  CALL R6 0 1
-  GETTABLEKS R5 R6 K15 ["UnixTimestampMillis"]
-  LENGTH R6 R2
-  DUPCLOSURE R7 K16 [PROTO_0]
-  DUPCLOSURE R8 K17 [PROTO_1]
-  CAPTURE VAL R3
-  CAPTURE VAL R2
-  CAPTURE VAL R6
-  CAPTURE VAL R5
-  DUPCLOSURE R9 K18 [PROTO_2]
-  CAPTURE VAL R5
-  CAPTURE VAL R8
-  DUPCLOSURE R10 K19 [PROTO_4]
-  DUPCLOSURE R11 K20 [PROTO_6]
-  CAPTURE VAL R8
-  CAPTURE VAL R5
-  DUPCLOSURE R12 K21 [PROTO_11]
-  CAPTURE VAL R4
-  DUPTABLE R13 K25 [{"activityFeedRTEEffect", "fetchActivityHistory", "fetchUsernames"}]
-  SETTABLEKS R10 R13 K22 ["activityFeedRTEEffect"]
-  SETTABLEKS R11 R13 K23 ["fetchActivityHistory"]
-  SETTABLEKS R12 R13 K24 ["fetchUsernames"]
-  RETURN R13 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R4 R0 K5 ["Src"]
+       13 GETTABLEKS                       R3 R4 K6 ["Util"]
+       15 GETTABLEKS                       R2 R3 K7 ["SharedTypes"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R3 K4 [require]
+       20 GETTABLEKS                       R6 R0 K5 ["Src"]
+       22 GETTABLEKS                       R5 R6 K6 ["Util"]
+       24 GETTABLEKS                       R4 R5 K8 ["MockActivityHistoryEvents"]
+       26 CALL                             R3 1 1
+       27 GETTABLEKS                       R2 R3 K8 ["MockActivityHistoryEvents"]
+       29 GETIMPORT                        R3 K4 [require]
+       31 GETTABLEKS                       R5 R0 K9 ["Packages"]
+       33 GETTABLEKS                       R4 R5 K10 ["Framework"]
+       35 CALL                             R3 1 1
+       36 GETTABLEKS                       R5 R3 K6 ["Util"]
+       38 GETTABLEKS                       R4 R5 K11 ["Promise"]
+       40 GETIMPORT                        R6 K14 [DateTime.now]
+       42 CALL                             R6 0 1
+       43 GETTABLEKS                       R5 R6 K15 ["UnixTimestampMillis"]
+       45 LENGTH                           R6 R2
+       46 DUPCLOSURE                       R7 K16 [PROTO_0]
+       47 DUPCLOSURE                       R8 K17 [PROTO_1]
+       48 CAPTURE                          VAL R3
+       49 CAPTURE                          VAL R2
+       50 CAPTURE                          VAL R6
+       51 CAPTURE                          VAL R5
+       52 DUPCLOSURE                       R9 K18 [PROTO_2]
+       53 CAPTURE                          VAL R5
+       54 CAPTURE                          VAL R8
+       55 DUPCLOSURE                       R10 K19 [PROTO_4]
+       56 DUPCLOSURE                       R11 K20 [PROTO_6]
+       57 CAPTURE                          VAL R8
+       58 CAPTURE                          VAL R5
+       59 DUPCLOSURE                       R12 K21 [PROTO_11]
+       60 CAPTURE                          VAL R4
+       61 DUPTABLE                         R13 K25 [{"activityFeedRTEEffect", "fetchActivityHistory", "fetchUsernames"}]
+       62 SETTABLEKS                       R10 R13 K22 ["activityFeedRTEEffect"]
+       64 SETTABLEKS                       R11 R13 K23 ["fetchActivityHistory"]
+       66 SETTABLEKS                       R12 R13 K24 ["fetchUsernames"]
+       68 RETURN                           R13 1

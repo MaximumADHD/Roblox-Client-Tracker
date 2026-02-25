@@ -1,58 +1,58 @@
 PROTO_0:
-  GETTABLEKS R2 R0 K0 ["props"]
-  GETTABLEKS R1 R2 K1 ["render"]
-  CALL R1 0 -1
-  RETURN R1 -1
+        0 GETTABLEKS                       R2 R0 K0 ["props"]
+        2 GETTABLEKS                       R1 R2 K1 ["render"]
+        4 CALL                             R1 0 -1
+        5 RETURN                           R1 -1
 
 PROTO_1:
-  NEWTABLE R3 0 0
-  NAMECALL R1 R0 K0 ["setState"]
-  CALL R1 2 0
-  RETURN R0 0
+        0 NEWTABLE                         R3 0 0
+        2 NAMECALL                         R1 R0 K0 ["setState"]
+        4 CALL                             R1 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R0 0
-  NEWTABLE R3 0 0
-  NAMECALL R1 R0 K0 ["setState"]
-  CALL R1 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 NEWTABLE                         R3 0 0
+        3 NAMECALL                         R1 R0 K0 ["setState"]
+        5 CALL                             R1 2 0
+        6 RETURN                           R0 0
 
 PROTO_3:
-  GETIMPORT R3 K1 [settings]
-  CALL R3 0 1
-  GETTABLEKS R2 R3 K2 ["Studio"]
-  GETTABLEKS R1 R2 K3 ["ThemeChanged"]
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R0
-  NAMECALL R1 R1 K4 ["Connect"]
-  CALL R1 2 1
-  SETTABLEKS R1 R0 K5 ["externalThemeChangedConnection"]
-  RETURN R0 0
+        0 GETIMPORT                        R3 K1 [settings]
+        2 CALL                             R3 0 1
+        3 GETTABLEKS                       R2 R3 K2 ["Studio"]
+        5 GETTABLEKS                       R1 R2 K3 ["ThemeChanged"]
+        7 NEWCLOSURE                       R3 P0
+        8 CAPTURE                          VAL R0
+        9 NAMECALL                         R1 R1 K4 ["Connect"]
+       11 CALL                             R1 2 1
+       12 SETTABLEKS                       R1 R0 K5 ["externalThemeChangedConnection"]
+       14 RETURN                           R0 0
 
 PROTO_4:
-  GETTABLEKS R1 R0 K0 ["externalThemeChangedConnection"]
-  JUMPIFNOT R1 [+5]
-  GETTABLEKS R1 R0 K0 ["externalThemeChangedConnection"]
-  NAMECALL R1 R1 K1 ["Disconnect"]
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["externalThemeChangedConnection"]
+        2 JUMPIFNOT                        R1 ; [+5]
+        3 GETTABLEKS                       R1 R0 K0 ["externalThemeChangedConnection"]
+        5 NAMECALL                         R1 R1 K1 ["Disconnect"]
+        7 CALL                             R1 1 0
+        8 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [require]
-  GETIMPORT R3 K3 [script]
-  GETTABLEKS R2 R3 K4 ["Parent"]
-  GETTABLEKS R1 R2 K5 ["RequireRoact"]
-  CALL R0 1 1
-  GETTABLEKS R1 R0 K6 ["Component"]
-  LOADK R3 K7 ["ThemeChangeListener"]
-  NAMECALL R1 R1 K8 ["extend"]
-  CALL R1 2 1
-  DUPCLOSURE R2 K9 [PROTO_0]
-  SETTABLEKS R2 R1 K10 ["render"]
-  DUPCLOSURE R2 K11 [PROTO_1]
-  DUPCLOSURE R3 K12 [PROTO_3]
-  SETTABLEKS R3 R1 K13 ["didMount"]
-  DUPCLOSURE R3 K14 [PROTO_4]
-  SETTABLEKS R3 R1 K15 ["willUnmount"]
-  RETURN R1 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [require]
+        3 GETIMPORT                        R3 K3 [script]
+        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K5 ["RequireRoact"]
+        9 CALL                             R0 1 1
+       10 GETTABLEKS                       R1 R0 K6 ["Component"]
+       12 LOADK                            R3 K7 ["ThemeChangeListener"]
+       13 NAMECALL                         R1 R1 K8 ["extend"]
+       15 CALL                             R1 2 1
+       16 DUPCLOSURE                       R2 K9 [PROTO_0]
+       17 SETTABLEKS                       R2 R1 K10 ["render"]
+       19 DUPCLOSURE                       R2 K11 [PROTO_1]
+       20 DUPCLOSURE                       R3 K12 [PROTO_3]
+       21 SETTABLEKS                       R3 R1 K13 ["didMount"]
+       23 DUPCLOSURE                       R3 K14 [PROTO_4]
+       24 SETTABLEKS                       R3 R1 K15 ["willUnmount"]
+       26 RETURN                           R1 1

@@ -1,88 +1,88 @@
 PROTO_0:
-  NEWTABLE R1 0 0
-  GETIMPORT R2 K1 [pairs]
-  MOVE R3 R0
-  CALL R2 1 3
-  FORGPREP_NEXT R2
-  GETTABLEKS R7 R6 K2 ["Type"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K3 ["TRACK_TYPES"]
-  GETTABLEKS R8 R9 K4 ["Facs"]
-  JUMPIFNOTEQ R7 R8 [+8]
-  FASTCALL2 TABLE_INSERT R1 R6 [+5]
-  MOVE R8 R1
-  MOVE R9 R6
-  GETIMPORT R7 K7 [table.insert]
-  CALL R7 2 0
-  FORGLOOP R2 2 [-17]
-  RETURN R1 1
+        0 NEWTABLE                         R1 0 0
+        2 GETIMPORT                        R2 K1 [pairs]
+        4 MOVE                             R3 R0
+        5 CALL                             R2 1 3
+        6 FORGPREP_NEXT                    R2
+        7 GETTABLEKS                       R7 R6 K2 ["Type"]
+        9 GETUPVAL                         R10 0
+       10 GETTABLEKS                       R9 R10 K3 ["TRACK_TYPES"]
+       12 GETTABLEKS                       R8 R9 K4 ["Facs"]
+       14 JUMPIFNOTEQ                      R7 R8 ; [+8]
+       16 FASTCALL2                        TABLE_INSERT R1 R6 ; [+5]
+       18 MOVE                             R8 R1
+       19 MOVE                             R9 R6
+       20 GETIMPORT                        R7 K7 [table.insert]
+       22 CALL                             R7 2 0
+       23 FORGLOOP                         R2 2 ; [-17]
+       25 RETURN                           R1 1
 
 PROTO_1:
-  GETTABLEKS R3 R0 K0 ["Name"]
-  GETTABLEKS R4 R1 K0 ["Name"]
-  JUMPIFLT R3 R4 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  RETURN R2 1
+        0 GETTABLEKS                       R3 R0 K0 ["Name"]
+        2 GETTABLEKS                       R4 R1 K0 ["Name"]
+        4 JUMPIFLT                         R3 R4 ; [+2]
+        6 LOADB                            R2 0 +1
+        7 LOADB                            R2 1
+        8 RETURN                           R2 1
 
 PROTO_2:
-  NEWTABLE R1 0 0
-  GETIMPORT R2 K1 [pairs]
-  GETUPVAL R5 0
-  GETTABLEKS R3 R5 K2 ["FacsControlToRegionMap"]
-  CALL R2 1 3
-  FORGPREP_NEXT R2
-  DUPTABLE R7 K6 [{"Name", "Instance", "Type"}]
-  SETTABLEKS R5 R7 K3 ["Name"]
-  LOADK R8 K7 ["Root"]
-  SETTABLEKS R8 R7 K4 ["Instance"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K8 ["TRACK_TYPES"]
-  GETTABLEKS R8 R9 K9 ["Facs"]
-  SETTABLEKS R8 R7 K5 ["Type"]
-  SETTABLE R7 R1 R5
-  FORGLOOP R2 2 [-15]
-  GETIMPORT R2 K1 [pairs]
-  MOVE R3 R0
-  CALL R2 1 3
-  FORGPREP_NEXT R2
-  GETTABLEKS R7 R6 K3 ["Name"]
-  LOADNIL R8
-  SETTABLE R8 R1 R7
-  FORGLOOP R2 2 [-5]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K10 ["Dictionary"]
-  GETTABLEKS R2 R3 K11 ["values"]
-  MOVE R3 R1
-  CALL R2 1 1
-  MOVE R1 R2
-  GETIMPORT R2 K14 [table.sort]
-  MOVE R3 R1
-  DUPCLOSURE R4 K15 [PROTO_1]
-  CALL R2 2 0
-  RETURN R1 1
+        0 NEWTABLE                         R1 0 0
+        2 GETIMPORT                        R2 K1 [pairs]
+        4 GETUPVAL                         R5 0
+        5 GETTABLEKS                       R3 R5 K2 ["FacsControlToRegionMap"]
+        7 CALL                             R2 1 3
+        8 FORGPREP_NEXT                    R2
+        9 DUPTABLE                         R7 K6 [{"Name", "Instance", "Type"}]
+       10 SETTABLEKS                       R5 R7 K3 ["Name"]
+       12 LOADK                            R8 K7 ["Root"]
+       13 SETTABLEKS                       R8 R7 K4 ["Instance"]
+       15 GETUPVAL                         R10 0
+       16 GETTABLEKS                       R9 R10 K8 ["TRACK_TYPES"]
+       18 GETTABLEKS                       R8 R9 K9 ["Facs"]
+       20 SETTABLEKS                       R8 R7 K5 ["Type"]
+       22 SETTABLE                         R7 R1 R5
+       23 FORGLOOP                         R2 2 ; [-15]
+       25 GETIMPORT                        R2 K1 [pairs]
+       27 MOVE                             R3 R0
+       28 CALL                             R2 1 3
+       29 FORGPREP_NEXT                    R2
+       30 GETTABLEKS                       R7 R6 K3 ["Name"]
+       32 LOADNIL                          R8
+       33 SETTABLE                         R8 R1 R7
+       34 FORGLOOP                         R2 2 ; [-5]
+       36 GETUPVAL                         R4 1
+       37 GETTABLEKS                       R3 R4 K10 ["Dictionary"]
+       39 GETTABLEKS                       R2 R3 K11 ["values"]
+       41 MOVE                             R3 R1
+       42 CALL                             R2 1 1
+       43 MOVE                             R1 R2
+       44 GETIMPORT                        R2 K14 [table.sort]
+       46 MOVE                             R3 R1
+       47 DUPCLOSURE                       R4 K15 [PROTO_1]
+       48 CALL                             R2 2 0
+       49 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AnimationClipEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["Constants"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K9 ["Packages"]
-  GETTABLEKS R3 R4 K10 ["Cryo"]
-  CALL R2 1 1
-  NEWTABLE R3 2 0
-  DUPCLOSURE R4 K11 [PROTO_0]
-  CAPTURE VAL R1
-  SETTABLEKS R4 R3 K12 ["filterFacsTracks"]
-  DUPCLOSURE R4 K13 [PROTO_2]
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  SETTABLEKS R4 R3 K14 ["getUnusedFacs"]
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AnimationClipEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Src"]
+       11 GETTABLEKS                       R3 R4 K7 ["Util"]
+       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R4 R0 K9 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K10 ["Cryo"]
+       22 CALL                             R2 1 1
+       23 NEWTABLE                         R3 2 0
+       25 DUPCLOSURE                       R4 K11 [PROTO_0]
+       26 CAPTURE                          VAL R1
+       27 SETTABLEKS                       R4 R3 K12 ["filterFacsTracks"]
+       29 DUPCLOSURE                       R4 K13 [PROTO_2]
+       30 CAPTURE                          VAL R1
+       31 CAPTURE                          VAL R2
+       32 SETTABLEKS                       R4 R3 K14 ["getUnusedFacs"]
+       34 RETURN                           R3 1

@@ -1,72 +1,72 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createElement"]
-  GETUPVAL R2 1
-  DUPTABLE R3 K3 [{"partsList", "tags"}]
-  SETTABLEKS R0 R3 K1 ["partsList"]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K2 ["tags"]
-  SETTABLEKS R4 R3 K2 ["tags"]
-  CALL R1 2 -1
-  RETURN R1 -1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["createElement"]
+        3 GETUPVAL                         R2 1
+        4 DUPTABLE                         R3 K3 [{"partsList", "tags"}]
+        5 SETTABLEKS                       R0 R3 K1 ["partsList"]
+        7 GETUPVAL                         R5 2
+        8 GETTABLEKS                       R4 R5 K2 ["tags"]
+       10 SETTABLEKS                       R4 R3 K2 ["tags"]
+       12 CALL                             R1 2 -1
+       13 RETURN                           R1 -1
 
 PROTO_1:
-  GETTABLEKS R1 R0 K0 ["enabled"]
-  JUMPIFNOT R1 [+15]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K1 ["createElement"]
-  GETUPVAL R2 1
-  NEWTABLE R3 0 0
-  DUPTABLE R4 K3 [{"render"}]
-  NEWCLOSURE R5 P0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U2
-  CAPTURE VAL R0
-  SETTABLEKS R5 R4 K2 ["render"]
-  CALL R1 3 -1
-  RETURN R1 -1
-  LOADNIL R1
-  RETURN R1 1
+        0 GETTABLEKS                       R1 R0 K0 ["enabled"]
+        2 JUMPIFNOT                        R1 ; [+15]
+        3 GETUPVAL                         R2 0
+        4 GETTABLEKS                       R1 R2 K1 ["createElement"]
+        6 GETUPVAL                         R2 1
+        7 NEWTABLE                         R3 0 0
+        9 DUPTABLE                         R4 K3 [{"render"}]
+       10 NEWCLOSURE                       R5 P0
+       11 CAPTURE                          UPVAL U0
+       12 CAPTURE                          UPVAL U2
+       13 CAPTURE                          VAL R0
+       14 SETTABLEKS                       R5 R4 K2 ["render"]
+       16 CALL                             R1 3 -1
+       17 RETURN                           R1 -1
+       18 LOADNIL                          R1
+       19 RETURN                           R1 1
 
 PROTO_2:
-  DUPTABLE R1 K2 [{"enabled", "tags"}]
-  GETTABLEKS R2 R0 K3 ["WorldView"]
-  SETTABLEKS R2 R1 K0 ["enabled"]
-  GETTABLEKS R2 R0 K4 ["TagData"]
-  SETTABLEKS R2 R1 K1 ["tags"]
-  RETURN R1 1
+        0 DUPTABLE                         R1 K2 [{"enabled", "tags"}]
+        1 GETTABLEKS                       R2 R0 K3 ["WorldView"]
+        3 SETTABLEKS                       R2 R1 K0 ["enabled"]
+        5 GETTABLEKS                       R2 R0 K4 ["TagData"]
+        7 SETTABLEKS                       R2 R1 K1 ["tags"]
+        9 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["RoactRodux"]
-  CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K8 ["WorldVisual"]
-  CALL R3 1 1
-  GETIMPORT R4 K4 [require]
-  GETIMPORT R6 K1 [script]
-  GETTABLEKS R5 R6 K9 ["WorldProvider"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K10 [PROTO_1]
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  CAPTURE VAL R3
-  DUPCLOSURE R6 K11 [PROTO_2]
-  GETTABLEKS R7 R2 K12 ["connect"]
-  MOVE R8 R6
-  CALL R7 1 1
-  MOVE R8 R5
-  CALL R7 1 1
-  MOVE R5 R7
-  RETURN R5 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K4 [require]
+       25 GETIMPORT                        R5 K1 [script]
+       27 GETTABLEKS                       R4 R5 K8 ["WorldVisual"]
+       29 CALL                             R3 1 1
+       30 GETIMPORT                        R4 K4 [require]
+       32 GETIMPORT                        R6 K1 [script]
+       34 GETTABLEKS                       R5 R6 K9 ["WorldProvider"]
+       36 CALL                             R4 1 1
+       37 DUPCLOSURE                       R5 K10 [PROTO_1]
+       38 CAPTURE                          VAL R1
+       39 CAPTURE                          VAL R4
+       40 CAPTURE                          VAL R3
+       41 DUPCLOSURE                       R6 K11 [PROTO_2]
+       42 GETTABLEKS                       R7 R2 K12 ["connect"]
+       44 MOVE                             R8 R6
+       45 CALL                             R7 1 1
+       46 MOVE                             R8 R5
+       47 CALL                             R7 1 1
+       48 MOVE                             R5 R7
+       49 RETURN                           R5 1

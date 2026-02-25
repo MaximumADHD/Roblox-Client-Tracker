@@ -1,112 +1,112 @@
 MAIN:
-  PREPVARARGS 0
-  NEWTABLE R0 64 0
-  LOADK R1 K0 [180435571]
-  LOADK R2 K1 [12521158637]
-  SETTABLE R2 R0 R1
-  LOADK R1 K2 [125750544]
-  LOADK R2 K3 [13842624027]
-  SETTABLE R2 R0 R1
-  LOADK R1 K4 [180435792]
-  LOADK R2 K5 [12521162526]
-  SETTABLE R2 R0 R1
-  LOADK R1 K6 [125750618]
-  LOADK R2 K7 [13842624352]
-  SETTABLE R2 R0 R1
-  LOADK R1 K8 [180426354]
-  LOADK R2 K9 [12518152696]
-  SETTABLE R2 R0 R1
-  LOADK R1 K10 [125749145]
-  LOADK R2 K11 [13842624225]
-  SETTABLE R2 R0 R1
-  LOADK R1 K12 [125750702]
-  LOADK R2 K13 [12520880485]
-  SETTABLE R2 R0 R1
-  LOADK R1 K14 [180436148]
-  LOADK R2 K15 [12520972571]
-  SETTABLE R2 R0 R1
-  LOADK R1 K16 [125750759]
-  LOADK R2 K17 [13842624498]
-  SETTABLE R2 R0 R1
-  LOADK R1 K18 [180436334]
-  LOADK R2 K19 [12520982150]
-  SETTABLE R2 R0 R1
-  LOADK R1 K20 [125750800]
-  LOADK R2 K21 [13842624634]
-  SETTABLE R2 R0 R1
-  LOADK R1 K22 [178130996]
-  LOADK R2 K23 [12520993168]
-  SETTABLE R2 R0 R1
-  LOADK R1 K24 [182393478]
-  LOADK R2 K25 [12520996634]
-  SETTABLE R2 R0 R1
-  LOADK R1 K26 [125750867]
-  LOADK R2 K27 [13842624036]
-  SETTABLE R2 R0 R1
-  LOADK R1 K28 [129967390]
-  LOADK R2 K29 [12520999032]
-  SETTABLE R2 R0 R1
-  LOADK R1 K30 [129967478]
-  LOADK R2 K31 [12521002003]
-  SETTABLE R2 R0 R1
-  LOADK R1 K32 [128777973]
-  LOADK R2 K33 [12521004586]
-  SETTABLE R2 R0 R1
-  LOADK R1 K34 [128853357]
-  LOADK R2 K35 [12521007694]
-  SETTABLE R2 R0 R1
-  LOADK R1 K36 [182435998]
-  LOADK R2 K37 [12521009666]
-  SETTABLE R2 R0 R1
-  LOADK R1 K38 [182491037]
-  LOADK R2 K39 [12521151637]
-  SETTABLE R2 R0 R1
-  LOADK R1 K40 [182491065]
-  LOADK R2 K41 [12521015053]
-  SETTABLE R2 R0 R1
-  LOADK R1 K42 [182436842]
-  LOADK R2 K43 [12521169800]
-  SETTABLE R2 R0 R1
-  LOADK R1 K44 [182491248]
-  LOADK R2 K45 [12521173533]
-  SETTABLE R2 R0 R1
-  LOADK R1 K46 [182491277]
-  LOADK R2 K47 [12521027874]
-  SETTABLE R2 R0 R1
-  LOADK R1 K48 [182436935]
-  LOADK R2 K49 [12521178362]
-  SETTABLE R2 R0 R1
-  LOADK R1 K50 [182491368]
-  LOADK R2 K51 [12521181508]
-  SETTABLE R2 R0 R1
-  LOADK R1 K52 [182491423]
-  LOADK R2 K53 [12521184133]
-  SETTABLE R2 R0 R1
-  LOADK R1 K54 [129423131]
-  LOADK R2 K55 [12521018724]
-  SETTABLE R2 R0 R1
-  LOADK R1 K56 [129423030]
-  LOADK R2 K57 [12521021991]
-  SETTABLE R2 R0 R1
-  LOADK R1 K58 [45828430]
-  LOADK R2 K59 [13978512316]
-  SETTABLE R2 R0 R1
-  LOADK R1 K60 [45873069]
-  LOADK R2 K61 [13978507503]
-  SETTABLE R2 R0 R1
-  LOADK R1 K62 [85576403]
-  LOADK R2 K63 [13978510688]
-  SETTABLE R2 R0 R1
-  LOADK R1 K64 [85723345]
-  LOADK R2 K65 [13978511071]
-  SETTABLE R2 R0 R1
-  LOADK R1 K66 [32659699]
-  LOADK R2 K67 [13978511543]
-  SETTABLE R2 R0 R1
-  LOADK R1 K68 [32659703]
-  LOADK R2 K69 [13978511983]
-  SETTABLE R2 R0 R1
-  LOADK R1 K70 [32659706]
-  LOADK R2 K71 [13978504790]
-  SETTABLE R2 R0 R1
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 NEWTABLE                         R0 64 0
+        3 LOADK                            R1 K0 [180435571]
+        4 LOADK                            R2 K1 [12521158637]
+        5 SETTABLE                         R2 R0 R1
+        6 LOADK                            R1 K2 [125750544]
+        7 LOADK                            R2 K3 [13842624027]
+        8 SETTABLE                         R2 R0 R1
+        9 LOADK                            R1 K4 [180435792]
+       10 LOADK                            R2 K5 [12521162526]
+       11 SETTABLE                         R2 R0 R1
+       12 LOADK                            R1 K6 [125750618]
+       13 LOADK                            R2 K7 [13842624352]
+       14 SETTABLE                         R2 R0 R1
+       15 LOADK                            R1 K8 [180426354]
+       16 LOADK                            R2 K9 [12518152696]
+       17 SETTABLE                         R2 R0 R1
+       18 LOADK                            R1 K10 [125749145]
+       19 LOADK                            R2 K11 [13842624225]
+       20 SETTABLE                         R2 R0 R1
+       21 LOADK                            R1 K12 [125750702]
+       22 LOADK                            R2 K13 [12520880485]
+       23 SETTABLE                         R2 R0 R1
+       24 LOADK                            R1 K14 [180436148]
+       25 LOADK                            R2 K15 [12520972571]
+       26 SETTABLE                         R2 R0 R1
+       27 LOADK                            R1 K16 [125750759]
+       28 LOADK                            R2 K17 [13842624498]
+       29 SETTABLE                         R2 R0 R1
+       30 LOADK                            R1 K18 [180436334]
+       31 LOADK                            R2 K19 [12520982150]
+       32 SETTABLE                         R2 R0 R1
+       33 LOADK                            R1 K20 [125750800]
+       34 LOADK                            R2 K21 [13842624634]
+       35 SETTABLE                         R2 R0 R1
+       36 LOADK                            R1 K22 [178130996]
+       37 LOADK                            R2 K23 [12520993168]
+       38 SETTABLE                         R2 R0 R1
+       39 LOADK                            R1 K24 [182393478]
+       40 LOADK                            R2 K25 [12520996634]
+       41 SETTABLE                         R2 R0 R1
+       42 LOADK                            R1 K26 [125750867]
+       43 LOADK                            R2 K27 [13842624036]
+       44 SETTABLE                         R2 R0 R1
+       45 LOADK                            R1 K28 [129967390]
+       46 LOADK                            R2 K29 [12520999032]
+       47 SETTABLE                         R2 R0 R1
+       48 LOADK                            R1 K30 [129967478]
+       49 LOADK                            R2 K31 [12521002003]
+       50 SETTABLE                         R2 R0 R1
+       51 LOADK                            R1 K32 [128777973]
+       52 LOADK                            R2 K33 [12521004586]
+       53 SETTABLE                         R2 R0 R1
+       54 LOADK                            R1 K34 [128853357]
+       55 LOADK                            R2 K35 [12521007694]
+       56 SETTABLE                         R2 R0 R1
+       57 LOADK                            R1 K36 [182435998]
+       58 LOADK                            R2 K37 [12521009666]
+       59 SETTABLE                         R2 R0 R1
+       60 LOADK                            R1 K38 [182491037]
+       61 LOADK                            R2 K39 [12521151637]
+       62 SETTABLE                         R2 R0 R1
+       63 LOADK                            R1 K40 [182491065]
+       64 LOADK                            R2 K41 [12521015053]
+       65 SETTABLE                         R2 R0 R1
+       66 LOADK                            R1 K42 [182436842]
+       67 LOADK                            R2 K43 [12521169800]
+       68 SETTABLE                         R2 R0 R1
+       69 LOADK                            R1 K44 [182491248]
+       70 LOADK                            R2 K45 [12521173533]
+       71 SETTABLE                         R2 R0 R1
+       72 LOADK                            R1 K46 [182491277]
+       73 LOADK                            R2 K47 [12521027874]
+       74 SETTABLE                         R2 R0 R1
+       75 LOADK                            R1 K48 [182436935]
+       76 LOADK                            R2 K49 [12521178362]
+       77 SETTABLE                         R2 R0 R1
+       78 LOADK                            R1 K50 [182491368]
+       79 LOADK                            R2 K51 [12521181508]
+       80 SETTABLE                         R2 R0 R1
+       81 LOADK                            R1 K52 [182491423]
+       82 LOADK                            R2 K53 [12521184133]
+       83 SETTABLE                         R2 R0 R1
+       84 LOADK                            R1 K54 [129423131]
+       85 LOADK                            R2 K55 [12521018724]
+       86 SETTABLE                         R2 R0 R1
+       87 LOADK                            R1 K56 [129423030]
+       88 LOADK                            R2 K57 [12521021991]
+       89 SETTABLE                         R2 R0 R1
+       90 LOADK                            R1 K58 [45828430]
+       91 LOADK                            R2 K59 [13978512316]
+       92 SETTABLE                         R2 R0 R1
+       93 LOADK                            R1 K60 [45873069]
+       94 LOADK                            R2 K61 [13978507503]
+       95 SETTABLE                         R2 R0 R1
+       96 LOADK                            R1 K62 [85576403]
+       97 LOADK                            R2 K63 [13978510688]
+       98 SETTABLE                         R2 R0 R1
+       99 LOADK                            R1 K64 [85723345]
+      100 LOADK                            R2 K65 [13978511071]
+      101 SETTABLE                         R2 R0 R1
+      102 LOADK                            R1 K66 [32659699]
+      103 LOADK                            R2 K67 [13978511543]
+      104 SETTABLE                         R2 R0 R1
+      105 LOADK                            R1 K68 [32659703]
+      106 LOADK                            R2 K69 [13978511983]
+      107 SETTABLE                         R2 R0 R1
+      108 LOADK                            R1 K70 [32659706]
+      109 LOADK                            R2 K71 [13978504790]
+      110 SETTABLE                         R2 R0 R1
+      111 RETURN                           R0 1

@@ -1,45 +1,45 @@
 PROTO_0:
-  LOADN R1 0
-  MOVE R2 R0
-  LOADNIL R3
-  LOADNIL R4
-  FORGPREP R2
-  GETUPVAL R8 0
-  FASTCALL1 TYPEOF R6 [+3]
-  MOVE R12 R6
-  GETIMPORT R11 K1 [typeof]
-  CALL R11 1 1
-  JUMPIFNOTEQKS R11 K2 ["table"] [+4]
-  GETTABLEKS R10 R6 K3 ["Label"]
-  JUMP [+1]
-  MOVE R10 R6
-  LOADN R11 18
-  GETIMPORT R12 K7 [Enum.Font.SourceSans]
-  GETIMPORT R13 K10 [Vector2.new]
-  LOADK R14 K11 [∞]
-  LOADK R15 K11 [∞]
-  CALL R13 2 -1
-  NAMECALL R8 R8 K12 ["GetTextSize"]
-  CALL R8 -1 1
-  GETTABLEKS R7 R8 K13 ["X"]
-  FASTCALL2 MATH_MAX R1 R7 [+5]
-  MOVE R9 R1
-  MOVE R10 R7
-  GETIMPORT R8 K16 [math.max]
-  CALL R8 2 1
-  MOVE R1 R8
-  FORGLOOP R2 2 [-34]
-  LENGTH R3 R0
-  ADDK R4 R1 K17 [16]
-  MUL R2 R3 R4
-  RETURN R2 1
+        0 LOADN                            R1 0
+        1 MOVE                             R2 R0
+        2 LOADNIL                          R3
+        3 LOADNIL                          R4
+        4 FORGPREP                         R2
+        5 GETUPVAL                         R8 0
+        6 FASTCALL1                        TYPEOF R6 ; [+3]
+        7 MOVE                             R12 R6
+        8 GETIMPORT                        R11 K1 [typeof]
+       10 CALL                             R11 1 1
+       11 JUMPIFNOTEQKS                    R11 K2 ["table"] ; [+4]
+       13 GETTABLEKS                       R10 R6 K3 ["Label"]
+       15 JUMP                             ; [+1]
+       16 MOVE                             R10 R6
+       17 LOADN                            R11 18
+       18 GETIMPORT                        R12 K7 [Enum.Font.SourceSans]
+       20 GETIMPORT                        R13 K10 [Vector2.new]
+       22 LOADK                            R14 K11 [∞]
+       23 LOADK                            R15 K11 [∞]
+       24 CALL                             R13 2 -1
+       25 NAMECALL                         R8 R8 K12 ["GetTextSize"]
+       27 CALL                             R8 -1 1
+       28 GETTABLEKS                       R7 R8 K13 ["X"]
+       30 FASTCALL2                        MATH_MAX R1 R7 ; [+5]
+       32 MOVE                             R9 R1
+       33 MOVE                             R10 R7
+       34 GETIMPORT                        R8 K16 [math.max]
+       36 CALL                             R8 2 1
+       37 MOVE                             R1 R8
+       38 FORGLOOP                         R2 2 ; [-34]
+       40 LENGTH                           R3 R0
+       41 ADDK                             R4 R1 K17 [16]
+       42 MUL                              R2 R3 R4
+       43 RETURN                           R2 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["TextService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  DUPCLOSURE R1 K4 [PROTO_0]
-  CAPTURE VAL R0
-  RETURN R1 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["TextService"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 DUPCLOSURE                       R1 K4 [PROTO_0]
+        8 CAPTURE                          VAL R0
+        9 RETURN                           R1 1

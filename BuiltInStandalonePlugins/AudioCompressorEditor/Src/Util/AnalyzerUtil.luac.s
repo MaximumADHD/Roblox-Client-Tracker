@@ -1,394 +1,394 @@
 PROTO_0:
-  FASTCALL2K ASSERT R0 K0 [+5]
-  MOVE R2 R0
-  LOADK R3 K0 ["Plugin doesn't exist"]
-  GETIMPORT R1 K2 [assert]
-  CALL R1 2 0
-  SETUPVAL R0 0
-  RETURN R0 0
+        0 FASTCALL2K                       ASSERT R0 K0 ; [+5]
+        2 MOVE                             R2 R0
+        3 LOADK                            R3 K0 ["Plugin doesn't exist"]
+        4 GETIMPORT                        R1 K2 [assert]
+        6 CALL                             R1 2 0
+        7 SETUPVAL                         R0 0
+        8 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R0 0
-  JUMPIFNOT R0 [+6]
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["Disconnect"]
-  CALL R0 1 0
-  LOADNIL R0
-  SETUPVAL R0 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+6]
+        2 GETUPVAL                         R0 0
+        3 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        5 CALL                             R0 1 0
+        6 LOADNIL                          R0
+        7 SETUPVAL                         R0 0
+        8 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R0 0
-  JUMPIFNOT R0 [+6]
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["Disconnect"]
-  CALL R0 1 0
-  LOADNIL R0
-  SETUPVAL R0 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+6]
+        2 GETUPVAL                         R0 0
+        3 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        5 CALL                             R0 1 0
+        6 LOADNIL                          R0
+        7 SETUPVAL                         R0 0
+        8 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R1 0
-  JUMPIFNOT R1 [+6]
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["Disconnect"]
-  CALL R1 1 0
-  LOADNIL R1
-  SETUPVAL R1 0
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["InstanceContainer"]
-  NAMECALL R1 R0 K2 ["FindFirstChild"]
-  CALL R1 2 1
-  JUMPIFNOT R1 [+3]
-  NAMECALL R2 R1 K3 ["Destroy"]
-  CALL R2 1 0
-  NEWTABLE R2 0 0
-  SETUPVAL R2 2
-  NEWTABLE R2 0 0
-  SETUPVAL R2 3
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 JUMPIFNOT                        R1 ; [+6]
+        2 GETUPVAL                         R1 0
+        3 NAMECALL                         R1 R1 K0 ["Disconnect"]
+        5 CALL                             R1 1 0
+        6 LOADNIL                          R1
+        7 SETUPVAL                         R1 0
+        8 GETUPVAL                         R4 1
+        9 GETTABLEKS                       R3 R4 K1 ["InstanceContainer"]
+       11 NAMECALL                         R1 R0 K2 ["FindFirstChild"]
+       13 CALL                             R1 2 1
+       14 JUMPIFNOT                        R1 ; [+3]
+       15 NAMECALL                         R2 R1 K3 ["Destroy"]
+       17 CALL                             R2 1 0
+       18 NEWTABLE                         R2 0 0
+       20 SETUPVAL                         R2 2
+       21 NEWTABLE                         R2 0 0
+       23 SETUPVAL                         R2 3
+       24 RETURN                           R0 0
 
 PROTO_4:
-  JUMPIFEQKS R1 K0 ["Input"] [+4]
-  JUMPIFEQKS R1 K1 ["Sidechain"] [+2]
-  RETURN R0 0
-  JUMPIFNOTEQKS R1 K0 ["Input"] [+3]
-  GETUPVAL R4 0
-  JUMP [+1]
-  GETUPVAL R4 1
-  JUMPIFNOTEQKS R1 K0 ["Input"] [+3]
-  GETUPVAL R5 2
-  JUMP [+1]
-  GETUPVAL R5 3
-  JUMPIFNOT R0 [+17]
-  GETTABLE R6 R4 R3
-  JUMPIF R6 [+15]
-  GETIMPORT R6 K4 [Instance.new]
-  GETUPVAL R8 4
-  GETTABLEKS R7 R8 K5 ["Wire"]
-  CALL R6 1 1
-  GETUPVAL R7 5
-  SETTABLEKS R7 R6 K6 ["Parent"]
-  SETTABLEKS R3 R6 K7 ["SourceInstance"]
-  SETTABLEKS R5 R6 K8 ["TargetInstance"]
-  SETTABLE R6 R4 R3
-  RETURN R0 0
-  JUMPIF R0 [+8]
-  GETTABLE R6 R4 R3
-  JUMPIFNOT R6 [+6]
-  GETTABLE R6 R4 R3
-  NAMECALL R6 R6 K9 ["Destroy"]
-  CALL R6 1 0
-  LOADNIL R6
-  SETTABLE R6 R4 R3
-  RETURN R0 0
+        0 JUMPIFEQKS                       R1 K0 ["Input"] ; [+4]
+        2 JUMPIFEQKS                       R1 K1 ["Sidechain"] ; [+2]
+        4 RETURN                           R0 0
+        5 JUMPIFNOTEQKS                    R1 K0 ["Input"] ; [+3]
+        7 GETUPVAL                         R4 0
+        8 JUMP                             ; [+1]
+        9 GETUPVAL                         R4 1
+       10 JUMPIFNOTEQKS                    R1 K0 ["Input"] ; [+3]
+       12 GETUPVAL                         R5 2
+       13 JUMP                             ; [+1]
+       14 GETUPVAL                         R5 3
+       15 JUMPIFNOT                        R0 ; [+17]
+       16 GETTABLE                         R6 R4 R3
+       17 JUMPIF                           R6 ; [+15]
+       18 GETIMPORT                        R6 K4 [Instance.new]
+       20 GETUPVAL                         R8 4
+       21 GETTABLEKS                       R7 R8 K5 ["Wire"]
+       23 CALL                             R6 1 1
+       24 GETUPVAL                         R7 5
+       25 SETTABLEKS                       R7 R6 K6 ["Parent"]
+       27 SETTABLEKS                       R3 R6 K7 ["SourceInstance"]
+       29 SETTABLEKS                       R5 R6 K8 ["TargetInstance"]
+       31 SETTABLE                         R6 R4 R3
+       32 RETURN                           R0 0
+       33 JUMPIF                           R0 ; [+8]
+       34 GETTABLE                         R6 R4 R3
+       35 JUMPIFNOT                        R6 ; [+6]
+       36 GETTABLE                         R6 R4 R3
+       37 NAMECALL                         R6 R6 K9 ["Destroy"]
+       39 CALL                             R6 1 0
+       40 LOADNIL                          R6
+       41 SETTABLE                         R6 R4 R3
+       42 RETURN                           R0 0
 
 PROTO_5:
-  GETUPVAL R0 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["IsAnalyzing"]
-  NAMECALL R0 R0 K1 ["GetItem"]
-  CALL R0 2 1
-  JUMPIF R0 [+5]
-  GETUPVAL R1 2
-  GETTABLEKS R0 R1 K2 ["disconnectRunService"]
-  CALL R0 0 0
-  RETURN R0 0
-  GETUPVAL R0 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K3 ["OnPeakChanged"]
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K4 ["PeakLevel"]
-  GETUPVAL R5 4
-  GETTABLEKS R4 R5 K4 ["PeakLevel"]
-  GETUPVAL R6 5
-  GETTABLEKS R5 R6 K4 ["PeakLevel"]
-  NAMECALL R0 R0 K5 ["Invoke"]
-  CALL R0 5 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R2 R3 K0 ["IsAnalyzing"]
+        4 NAMECALL                         R0 R0 K1 ["GetItem"]
+        6 CALL                             R0 2 1
+        7 JUMPIF                           R0 ; [+5]
+        8 GETUPVAL                         R1 2
+        9 GETTABLEKS                       R0 R1 K2 ["disconnectRunService"]
+       11 CALL                             R0 0 0
+       12 RETURN                           R0 0
+       13 GETUPVAL                         R0 0
+       14 GETUPVAL                         R3 1
+       15 GETTABLEKS                       R2 R3 K3 ["OnPeakChanged"]
+       17 GETUPVAL                         R4 3
+       18 GETTABLEKS                       R3 R4 K4 ["PeakLevel"]
+       20 GETUPVAL                         R5 4
+       21 GETTABLEKS                       R4 R5 K4 ["PeakLevel"]
+       23 GETUPVAL                         R6 5
+       24 GETTABLEKS                       R5 R6 K4 ["PeakLevel"]
+       26 NAMECALL                         R0 R0 K5 ["Invoke"]
+       28 CALL                             R0 5 0
+       29 RETURN                           R0 0
 
 PROTO_6:
-  GETUPVAL R0 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["IsAnalyzing"]
-  LOADB R3 1
-  NAMECALL R0 R0 K1 ["SetItem"]
-  CALL R0 3 0
-  GETUPVAL R1 2
-  GETTABLEKS R0 R1 K2 ["disconnectRunService"]
-  CALL R0 0 0
-  GETUPVAL R1 4
-  GETTABLEKS R0 R1 K3 ["Heartbeat"]
-  NEWCLOSURE R2 P0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U7
-  NAMECALL R0 R0 K4 ["Connect"]
-  CALL R0 2 1
-  SETUPVAL R0 3
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R3 1
+        2 GETTABLEKS                       R2 R3 K0 ["IsAnalyzing"]
+        4 LOADB                            R3 1
+        5 NAMECALL                         R0 R0 K1 ["SetItem"]
+        7 CALL                             R0 3 0
+        8 GETUPVAL                         R1 2
+        9 GETTABLEKS                       R0 R1 K2 ["disconnectRunService"]
+       11 CALL                             R0 0 0
+       12 GETUPVAL                         R1 4
+       13 GETTABLEKS                       R0 R1 K3 ["Heartbeat"]
+       15 NEWCLOSURE                       R2 P0
+       16 CAPTURE                          UPVAL U0
+       17 CAPTURE                          UPVAL U1
+       18 CAPTURE                          UPVAL U2
+       19 CAPTURE                          UPVAL U5
+       20 CAPTURE                          UPVAL U6
+       21 CAPTURE                          UPVAL U7
+       22 NAMECALL                         R0 R0 K4 ["Connect"]
+       24 CALL                             R0 2 1
+       25 SETUPVAL                         R0 3
+       26 RETURN                           R0 0
 
 PROTO_7:
-  GETUPVAL R2 0
-  JUMPIF R2 [+1]
-  RETURN R0 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["clearInstances"]
-  MOVE R3 R1
-  CALL R2 1 0
-  GETIMPORT R2 K3 [Instance.new]
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K4 ["Folder"]
-  CALL R2 1 1
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K5 ["InstanceContainer"]
-  SETTABLEKS R3 R2 K6 ["Name"]
-  SETTABLEKS R1 R2 K7 ["Parent"]
-  GETIMPORT R3 K3 [Instance.new]
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K8 ["Analyzer"]
-  CALL R3 1 1
-  GETIMPORT R4 K3 [Instance.new]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K8 ["Analyzer"]
-  CALL R4 1 1
-  GETIMPORT R5 K3 [Instance.new]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K8 ["Analyzer"]
-  CALL R5 1 1
-  LOADK R6 K9 ["InAnalyzer"]
-  SETTABLEKS R6 R3 K6 ["Name"]
-  LOADK R6 K10 ["OutAnalyzer"]
-  SETTABLEKS R6 R4 K6 ["Name"]
-  LOADK R6 K11 ["SidechainAnalyzer"]
-  SETTABLEKS R6 R5 K6 ["Name"]
-  LOADB R6 0
-  SETTABLEKS R6 R3 K12 ["SpectrumEnabled"]
-  LOADB R6 0
-  SETTABLEKS R6 R4 K12 ["SpectrumEnabled"]
-  LOADB R6 0
-  SETTABLEKS R6 R5 K12 ["SpectrumEnabled"]
-  SETTABLEKS R2 R3 K7 ["Parent"]
-  SETTABLEKS R2 R4 K7 ["Parent"]
-  SETTABLEKS R2 R5 K7 ["Parent"]
-  GETIMPORT R6 K3 [Instance.new]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K13 ["Wire"]
-  CALL R6 1 1
-  SETTABLEKS R2 R6 K7 ["Parent"]
-  SETTABLEKS R0 R6 K14 ["SourceInstance"]
-  SETTABLEKS R4 R6 K15 ["TargetInstance"]
-  LOADK R9 K16 ["Input"]
-  NAMECALL R7 R0 K17 ["GetConnectedWires"]
-  CALL R7 2 3
-  FORGPREP R7
-  GETTABLEKS R12 R11 K14 ["SourceInstance"]
-  JUMPIFNOT R12 [+18]
-  GETIMPORT R12 K3 [Instance.new]
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K13 ["Wire"]
-  CALL R12 1 1
-  SETTABLEKS R2 R12 K7 ["Parent"]
-  GETTABLEKS R13 R11 K14 ["SourceInstance"]
-  SETTABLEKS R13 R12 K14 ["SourceInstance"]
-  SETTABLEKS R3 R12 K15 ["TargetInstance"]
-  GETUPVAL R13 3
-  GETTABLEKS R14 R11 K14 ["SourceInstance"]
-  SETTABLE R12 R13 R14
-  FORGLOOP R7 2 [-22]
-  LOADK R9 K18 ["Sidechain"]
-  NAMECALL R7 R0 K17 ["GetConnectedWires"]
-  CALL R7 2 3
-  FORGPREP R7
-  GETTABLEKS R12 R11 K14 ["SourceInstance"]
-  JUMPIFNOT R12 [+18]
-  GETIMPORT R12 K3 [Instance.new]
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K13 ["Wire"]
-  CALL R12 1 1
-  SETTABLEKS R2 R12 K7 ["Parent"]
-  GETTABLEKS R13 R11 K14 ["SourceInstance"]
-  SETTABLEKS R13 R12 K14 ["SourceInstance"]
-  SETTABLEKS R5 R12 K15 ["TargetInstance"]
-  GETUPVAL R13 4
-  GETTABLEKS R14 R11 K14 ["SourceInstance"]
-  SETTABLE R12 R13 R14
-  FORGLOOP R7 2 [-22]
-  GETTABLEKS R7 R0 K19 ["WiringChanged"]
-  NEWCLOSURE R9 P0
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  CAPTURE VAL R3
-  CAPTURE VAL R5
-  CAPTURE UPVAL U2
-  CAPTURE VAL R2
-  NAMECALL R7 R7 K20 ["Connect"]
-  CALL R7 2 1
-  SETUPVAL R7 5
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K21 ["disconnectStartAnalyzing"]
-  CALL R7 0 0
-  GETUPVAL R7 0
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K22 ["OnStartAnalyzing"]
-  NEWCLOSURE R10 P1
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U7
-  CAPTURE UPVAL U8
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  NAMECALL R7 R7 K23 ["OnInvoke"]
-  CALL R7 3 1
-  SETUPVAL R7 6
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 JUMPIF                           R2 ; [+1]
+        2 RETURN                           R0 0
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R2 R3 K0 ["clearInstances"]
+        6 MOVE                             R3 R1
+        7 CALL                             R2 1 0
+        8 GETIMPORT                        R2 K3 [Instance.new]
+       10 GETUPVAL                         R4 2
+       11 GETTABLEKS                       R3 R4 K4 ["Folder"]
+       13 CALL                             R2 1 1
+       14 GETUPVAL                         R4 2
+       15 GETTABLEKS                       R3 R4 K5 ["InstanceContainer"]
+       17 SETTABLEKS                       R3 R2 K6 ["Name"]
+       19 SETTABLEKS                       R1 R2 K7 ["Parent"]
+       21 GETIMPORT                        R3 K3 [Instance.new]
+       23 GETUPVAL                         R5 2
+       24 GETTABLEKS                       R4 R5 K8 ["Analyzer"]
+       26 CALL                             R3 1 1
+       27 GETIMPORT                        R4 K3 [Instance.new]
+       29 GETUPVAL                         R6 2
+       30 GETTABLEKS                       R5 R6 K8 ["Analyzer"]
+       32 CALL                             R4 1 1
+       33 GETIMPORT                        R5 K3 [Instance.new]
+       35 GETUPVAL                         R7 2
+       36 GETTABLEKS                       R6 R7 K8 ["Analyzer"]
+       38 CALL                             R5 1 1
+       39 LOADK                            R6 K9 ["InAnalyzer"]
+       40 SETTABLEKS                       R6 R3 K6 ["Name"]
+       42 LOADK                            R6 K10 ["OutAnalyzer"]
+       43 SETTABLEKS                       R6 R4 K6 ["Name"]
+       45 LOADK                            R6 K11 ["SidechainAnalyzer"]
+       46 SETTABLEKS                       R6 R5 K6 ["Name"]
+       48 LOADB                            R6 0
+       49 SETTABLEKS                       R6 R3 K12 ["SpectrumEnabled"]
+       51 LOADB                            R6 0
+       52 SETTABLEKS                       R6 R4 K12 ["SpectrumEnabled"]
+       54 LOADB                            R6 0
+       55 SETTABLEKS                       R6 R5 K12 ["SpectrumEnabled"]
+       57 SETTABLEKS                       R2 R3 K7 ["Parent"]
+       59 SETTABLEKS                       R2 R4 K7 ["Parent"]
+       61 SETTABLEKS                       R2 R5 K7 ["Parent"]
+       63 GETIMPORT                        R6 K3 [Instance.new]
+       65 GETUPVAL                         R8 2
+       66 GETTABLEKS                       R7 R8 K13 ["Wire"]
+       68 CALL                             R6 1 1
+       69 SETTABLEKS                       R2 R6 K7 ["Parent"]
+       71 SETTABLEKS                       R0 R6 K14 ["SourceInstance"]
+       73 SETTABLEKS                       R4 R6 K15 ["TargetInstance"]
+       75 LOADK                            R9 K16 ["Input"]
+       76 NAMECALL                         R7 R0 K17 ["GetConnectedWires"]
+       78 CALL                             R7 2 3
+       79 FORGPREP                         R7
+       80 GETTABLEKS                       R12 R11 K14 ["SourceInstance"]
+       82 JUMPIFNOT                        R12 ; [+18]
+       83 GETIMPORT                        R12 K3 [Instance.new]
+       85 GETUPVAL                         R14 2
+       86 GETTABLEKS                       R13 R14 K13 ["Wire"]
+       88 CALL                             R12 1 1
+       89 SETTABLEKS                       R2 R12 K7 ["Parent"]
+       91 GETTABLEKS                       R13 R11 K14 ["SourceInstance"]
+       93 SETTABLEKS                       R13 R12 K14 ["SourceInstance"]
+       95 SETTABLEKS                       R3 R12 K15 ["TargetInstance"]
+       97 GETUPVAL                         R13 3
+       98 GETTABLEKS                       R14 R11 K14 ["SourceInstance"]
+      100 SETTABLE                         R12 R13 R14
+      101 FORGLOOP                         R7 2 ; [-22]
+      103 LOADK                            R9 K18 ["Sidechain"]
+      104 NAMECALL                         R7 R0 K17 ["GetConnectedWires"]
+      106 CALL                             R7 2 3
+      107 FORGPREP                         R7
+      108 GETTABLEKS                       R12 R11 K14 ["SourceInstance"]
+      110 JUMPIFNOT                        R12 ; [+18]
+      111 GETIMPORT                        R12 K3 [Instance.new]
+      113 GETUPVAL                         R14 2
+      114 GETTABLEKS                       R13 R14 K13 ["Wire"]
+      116 CALL                             R12 1 1
+      117 SETTABLEKS                       R2 R12 K7 ["Parent"]
+      119 GETTABLEKS                       R13 R11 K14 ["SourceInstance"]
+      121 SETTABLEKS                       R13 R12 K14 ["SourceInstance"]
+      123 SETTABLEKS                       R5 R12 K15 ["TargetInstance"]
+      125 GETUPVAL                         R13 4
+      126 GETTABLEKS                       R14 R11 K14 ["SourceInstance"]
+      128 SETTABLE                         R12 R13 R14
+      129 FORGLOOP                         R7 2 ; [-22]
+      131 GETTABLEKS                       R7 R0 K19 ["WiringChanged"]
+      133 NEWCLOSURE                       R9 P0
+      134 CAPTURE                          UPVAL U3
+      135 CAPTURE                          UPVAL U4
+      136 CAPTURE                          VAL R3
+      137 CAPTURE                          VAL R5
+      138 CAPTURE                          UPVAL U2
+      139 CAPTURE                          VAL R2
+      140 NAMECALL                         R7 R7 K20 ["Connect"]
+      142 CALL                             R7 2 1
+      143 SETUPVAL                         R7 5
+      144 GETUPVAL                         R8 1
+      145 GETTABLEKS                       R7 R8 K21 ["disconnectStartAnalyzing"]
+      147 CALL                             R7 0 0
+      148 GETUPVAL                         R7 0
+      149 GETUPVAL                         R10 2
+      150 GETTABLEKS                       R9 R10 K22 ["OnStartAnalyzing"]
+      152 NEWCLOSURE                       R10 P1
+      153 CAPTURE                          UPVAL U0
+      154 CAPTURE                          UPVAL U2
+      155 CAPTURE                          UPVAL U1
+      156 CAPTURE                          UPVAL U7
+      157 CAPTURE                          UPVAL U8
+      158 CAPTURE                          VAL R3
+      159 CAPTURE                          VAL R4
+      160 CAPTURE                          VAL R5
+      161 NAMECALL                         R7 R7 K23 ["OnInvoke"]
+      163 CALL                             R7 3 1
+      164 SETUPVAL                         R7 6
+      165 RETURN                           R0 0
 
 PROTO_8:
-  GETUPVAL R1 0
-  JUMPIF R1 [+1]
-  RETURN R0 0
-  GETUPVAL R1 0
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K0 ["IsAnalyzing"]
-  LOADB R4 0
-  NAMECALL R1 R1 K1 ["SetItem"]
-  CALL R1 3 0
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K2 ["clearInstances"]
-  MOVE R2 R0
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 JUMPIF                           R1 ; [+1]
+        2 RETURN                           R0 0
+        3 GETUPVAL                         R1 0
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R3 R4 K0 ["IsAnalyzing"]
+        7 LOADB                            R4 0
+        8 NAMECALL                         R1 R1 K1 ["SetItem"]
+       10 CALL                             R1 3 0
+       11 GETUPVAL                         R2 2
+       12 GETTABLEKS                       R1 R2 K2 ["clearInstances"]
+       14 MOVE                             R2 R0
+       15 CALL                             R1 1 0
+       16 RETURN                           R0 0
 
 PROTO_9:
-  GETUPVAL R0 0
-  JUMPIFNOT R0 [+6]
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["Disconnect"]
-  CALL R0 1 0
-  LOADNIL R0
-  SETUPVAL R0 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+6]
+        2 GETUPVAL                         R0 0
+        3 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        5 CALL                             R0 1 0
+        6 LOADNIL                          R0
+        7 SETUPVAL                         R0 0
+        8 RETURN                           R0 0
 
 PROTO_10:
-  GETUPVAL R1 0
-  JUMPIF R1 [+1]
-  RETURN R0 0
-  GETUPVAL R1 0
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K0 ["OnStartAnalyzing"]
-  NAMECALL R1 R1 K1 ["Invoke"]
-  CALL R1 2 0
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K2 ["disconnectChanged"]
-  CALL R1 0 0
-  GETUPVAL R1 0
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K3 ["OnPeakChanged"]
-  MOVE R4 R0
-  NAMECALL R1 R1 K4 ["OnInvoke"]
-  CALL R1 3 1
-  SETUPVAL R1 3
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 JUMPIF                           R1 ; [+1]
+        2 RETURN                           R0 0
+        3 GETUPVAL                         R1 0
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R3 R4 K0 ["OnStartAnalyzing"]
+        7 NAMECALL                         R1 R1 K1 ["Invoke"]
+        9 CALL                             R1 2 0
+       10 GETUPVAL                         R2 2
+       11 GETTABLEKS                       R1 R2 K2 ["disconnectChanged"]
+       13 CALL                             R1 0 0
+       14 GETUPVAL                         R1 0
+       15 GETUPVAL                         R4 1
+       16 GETTABLEKS                       R3 R4 K3 ["OnPeakChanged"]
+       18 MOVE                             R4 R0
+       19 NAMECALL                         R1 R1 K4 ["OnInvoke"]
+       21 CALL                             R1 3 1
+       22 SETUPVAL                         R1 3
+       23 RETURN                           R0 0
 
 PROTO_11:
-  GETUPVAL R0 0
-  JUMPIF R0 [+1]
-  RETURN R0 0
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K0 ["disconnectChanged"]
-  CALL R0 0 0
-  GETUPVAL R0 0
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K1 ["IsAnalyzing"]
-  LOADB R3 0
-  NAMECALL R0 R0 K2 ["SetItem"]
-  CALL R0 3 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIF                           R0 ; [+1]
+        2 RETURN                           R0 0
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R0 R1 K0 ["disconnectChanged"]
+        6 CALL                             R0 0 0
+        7 GETUPVAL                         R0 0
+        8 GETUPVAL                         R3 2
+        9 GETTABLEKS                       R2 R3 K1 ["IsAnalyzing"]
+       11 LOADB                            R3 0
+       12 NAMECALL                         R0 R0 K2 ["SetItem"]
+       14 CALL                             R0 3 0
+       15 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["RunService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  DUPTABLE R1 K14 [{"OnStartAnalyzing", "OnPeakChanged", "IsAnalyzing", "InstanceContainer", "Folder", "Analyzer", "InAnalyzer", "OutAnalyzer", "SidechainAnalyzer", "Wire"}]
-  LOADK R2 K4 ["OnStartAnalyzing"]
-  SETTABLEKS R2 R1 K4 ["OnStartAnalyzing"]
-  LOADK R2 K5 ["OnPeakChanged"]
-  SETTABLEKS R2 R1 K5 ["OnPeakChanged"]
-  LOADK R2 K6 ["IsAnalyzing"]
-  SETTABLEKS R2 R1 K6 ["IsAnalyzing"]
-  LOADK R2 K15 ["AudioCompressorEditor_Container"]
-  SETTABLEKS R2 R1 K7 ["InstanceContainer"]
-  LOADK R2 K8 ["Folder"]
-  SETTABLEKS R2 R1 K8 ["Folder"]
-  LOADK R2 K16 ["AudioAnalyzer"]
-  SETTABLEKS R2 R1 K9 ["Analyzer"]
-  LOADK R2 K17 ["AudioAnalyzerIn"]
-  SETTABLEKS R2 R1 K10 ["InAnalyzer"]
-  LOADK R2 K18 ["AudioAnalyzerOut"]
-  SETTABLEKS R2 R1 K11 ["OutAnalyzer"]
-  LOADK R2 K19 ["AudioAnalyzerSidechain"]
-  SETTABLEKS R2 R1 K12 ["SidechainAnalyzer"]
-  LOADK R2 K13 ["Wire"]
-  SETTABLEKS R2 R1 K13 ["Wire"]
-  NEWTABLE R2 16 0
-  LOADNIL R3
-  NEWCLOSURE R4 P0
-  CAPTURE REF R3
-  SETTABLEKS R4 R2 K20 ["setPlugin"]
-  LOADNIL R4
-  NEWCLOSURE R5 P1
-  CAPTURE REF R4
-  SETTABLEKS R5 R2 K21 ["disconnectStartAnalyzing"]
-  LOADNIL R5
-  NEWCLOSURE R6 P2
-  CAPTURE REF R5
-  SETTABLEKS R6 R2 K22 ["disconnectRunService"]
-  NEWTABLE R6 0 0
-  NEWTABLE R7 0 0
-  LOADNIL R8
-  NEWCLOSURE R9 P3
-  CAPTURE REF R8
-  CAPTURE VAL R1
-  CAPTURE REF R6
-  CAPTURE REF R7
-  SETTABLEKS R9 R2 K23 ["clearInstances"]
-  NEWCLOSURE R9 P4
-  CAPTURE REF R3
-  CAPTURE VAL R2
-  CAPTURE VAL R1
-  CAPTURE REF R6
-  CAPTURE REF R7
-  CAPTURE REF R8
-  CAPTURE REF R4
-  CAPTURE REF R5
-  CAPTURE VAL R0
-  SETTABLEKS R9 R2 K24 ["createInstances"]
-  NEWCLOSURE R9 P5
-  CAPTURE REF R3
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  SETTABLEKS R9 R2 K25 ["destroyInstances"]
-  LOADNIL R9
-  NEWCLOSURE R10 P6
-  CAPTURE REF R9
-  SETTABLEKS R10 R2 K26 ["disconnectChanged"]
-  NEWCLOSURE R10 P7
-  CAPTURE REF R3
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  CAPTURE REF R9
-  SETTABLEKS R10 R2 K27 ["startAnalyzing"]
-  NEWCLOSURE R10 P8
-  CAPTURE REF R3
-  CAPTURE VAL R2
-  CAPTURE VAL R1
-  SETTABLEKS R10 R2 K28 ["stopAnalyzing"]
-  CLOSEUPVALS R3
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["RunService"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 DUPTABLE                         R1 K14 [{"OnStartAnalyzing", "OnPeakChanged", "IsAnalyzing", "InstanceContainer", "Folder", "Analyzer", "InAnalyzer", "OutAnalyzer", "SidechainAnalyzer", "Wire"}]
+        8 LOADK                            R2 K4 ["OnStartAnalyzing"]
+        9 SETTABLEKS                       R2 R1 K4 ["OnStartAnalyzing"]
+       11 LOADK                            R2 K5 ["OnPeakChanged"]
+       12 SETTABLEKS                       R2 R1 K5 ["OnPeakChanged"]
+       14 LOADK                            R2 K6 ["IsAnalyzing"]
+       15 SETTABLEKS                       R2 R1 K6 ["IsAnalyzing"]
+       17 LOADK                            R2 K15 ["AudioCompressorEditor_Container"]
+       18 SETTABLEKS                       R2 R1 K7 ["InstanceContainer"]
+       20 LOADK                            R2 K8 ["Folder"]
+       21 SETTABLEKS                       R2 R1 K8 ["Folder"]
+       23 LOADK                            R2 K16 ["AudioAnalyzer"]
+       24 SETTABLEKS                       R2 R1 K9 ["Analyzer"]
+       26 LOADK                            R2 K17 ["AudioAnalyzerIn"]
+       27 SETTABLEKS                       R2 R1 K10 ["InAnalyzer"]
+       29 LOADK                            R2 K18 ["AudioAnalyzerOut"]
+       30 SETTABLEKS                       R2 R1 K11 ["OutAnalyzer"]
+       32 LOADK                            R2 K19 ["AudioAnalyzerSidechain"]
+       33 SETTABLEKS                       R2 R1 K12 ["SidechainAnalyzer"]
+       35 LOADK                            R2 K13 ["Wire"]
+       36 SETTABLEKS                       R2 R1 K13 ["Wire"]
+       38 NEWTABLE                         R2 16 0
+       40 LOADNIL                          R3
+       41 NEWCLOSURE                       R4 P0
+       42 CAPTURE                          REF R3
+       43 SETTABLEKS                       R4 R2 K20 ["setPlugin"]
+       45 LOADNIL                          R4
+       46 NEWCLOSURE                       R5 P1
+       47 CAPTURE                          REF R4
+       48 SETTABLEKS                       R5 R2 K21 ["disconnectStartAnalyzing"]
+       50 LOADNIL                          R5
+       51 NEWCLOSURE                       R6 P2
+       52 CAPTURE                          REF R5
+       53 SETTABLEKS                       R6 R2 K22 ["disconnectRunService"]
+       55 NEWTABLE                         R6 0 0
+       57 NEWTABLE                         R7 0 0
+       59 LOADNIL                          R8
+       60 NEWCLOSURE                       R9 P3
+       61 CAPTURE                          REF R8
+       62 CAPTURE                          VAL R1
+       63 CAPTURE                          REF R6
+       64 CAPTURE                          REF R7
+       65 SETTABLEKS                       R9 R2 K23 ["clearInstances"]
+       67 NEWCLOSURE                       R9 P4
+       68 CAPTURE                          REF R3
+       69 CAPTURE                          VAL R2
+       70 CAPTURE                          VAL R1
+       71 CAPTURE                          REF R6
+       72 CAPTURE                          REF R7
+       73 CAPTURE                          REF R8
+       74 CAPTURE                          REF R4
+       75 CAPTURE                          REF R5
+       76 CAPTURE                          VAL R0
+       77 SETTABLEKS                       R9 R2 K24 ["createInstances"]
+       79 NEWCLOSURE                       R9 P5
+       80 CAPTURE                          REF R3
+       81 CAPTURE                          VAL R1
+       82 CAPTURE                          VAL R2
+       83 SETTABLEKS                       R9 R2 K25 ["destroyInstances"]
+       85 LOADNIL                          R9
+       86 NEWCLOSURE                       R10 P6
+       87 CAPTURE                          REF R9
+       88 SETTABLEKS                       R10 R2 K26 ["disconnectChanged"]
+       90 NEWCLOSURE                       R10 P7
+       91 CAPTURE                          REF R3
+       92 CAPTURE                          VAL R1
+       93 CAPTURE                          VAL R2
+       94 CAPTURE                          REF R9
+       95 SETTABLEKS                       R10 R2 K27 ["startAnalyzing"]
+       97 NEWCLOSURE                       R10 P8
+       98 CAPTURE                          REF R3
+       99 CAPTURE                          VAL R2
+      100 CAPTURE                          VAL R1
+      101 SETTABLEKS                       R10 R2 K28 ["stopAnalyzing"]
+      103 CLOSEUPVALS                      R3
+      104 RETURN                           R2 1

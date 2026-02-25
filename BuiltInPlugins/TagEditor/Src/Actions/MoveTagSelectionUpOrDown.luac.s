@@ -1,11 +1,11 @@
 PROTO_0:
-  DUPTABLE R1 K2 [{"type", "isDown"}]
-  LOADK R2 K3 ["MoveTagSelectionUpOrDown"]
-  SETTABLEKS R2 R1 K0 ["type"]
-  SETTABLEKS R0 R1 K1 ["isDown"]
-  RETURN R1 1
+        0 DUPTABLE                         R1 K2 [{"type", "isDown"}]
+        1 LOADK                            R2 K3 ["MoveTagSelectionUpOrDown"]
+        2 SETTABLEKS                       R2 R1 K0 ["type"]
+        4 SETTABLEKS                       R0 R1 K1 ["isDown"]
+        6 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 RETURN                           R0 1

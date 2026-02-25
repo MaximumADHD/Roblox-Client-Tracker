@@ -1,57 +1,57 @@
 PROTO_0:
-  GETUPVAL R0 0
-  JUMPIFNOT R0 [+4]
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["unmount"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+4]
+        2 GETUPVAL                         R0 0
+        3 NAMECALL                         R0 R0 K0 ["unmount"]
+        5 CALL                             R0 1 0
+        6 RETURN                           R0 0
 
 PROTO_1:
-  GETIMPORT R2 K1 [require]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K2 ["Packages"]
-  GETTABLEKS R3 R4 K3 ["React"]
-  CALL R2 1 1
-  GETIMPORT R3 K1 [require]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K2 ["Packages"]
-  GETTABLEKS R4 R5 K4 ["ReactRoblox"]
-  CALL R3 1 1
-  GETIMPORT R4 K1 [require]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K5 ["Src"]
-  GETTABLEKS R5 R6 K6 ["MainPlugin"]
-  CALL R4 1 1
-  GETTABLEKS R5 R2 K7 ["createElement"]
-  MOVE R6 R4
-  DUPTABLE R7 K10 [{"Plugin", "PluginLoaderContext"}]
-  SETTABLEKS R0 R7 K8 ["Plugin"]
-  SETTABLEKS R1 R7 K9 ["PluginLoaderContext"]
-  CALL R5 2 1
-  GETIMPORT R6 K12 [print]
-  CALL R6 0 0
-  GETIMPORT R6 K15 [Instance.new]
-  LOADK R7 K16 ["Frame"]
-  CALL R6 1 1
-  GETTABLEKS R7 R3 K17 ["createRoot"]
-  MOVE R8 R6
-  CALL R7 1 1
-  MOVE R10 R5
-  NAMECALL R8 R7 K18 ["render"]
-  CALL R8 2 0
-  GETTABLEKS R8 R0 K19 ["Unloading"]
-  NEWCLOSURE R10 P0
-  CAPTURE VAL R7
-  NAMECALL R8 R8 K20 ["Connect"]
-  CALL R8 2 0
-  RETURN R0 0
+        0 GETIMPORT                        R2 K1 [require]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R4 R5 K2 ["Packages"]
+        5 GETTABLEKS                       R3 R4 K3 ["React"]
+        7 CALL                             R2 1 1
+        8 GETIMPORT                        R3 K1 [require]
+       10 GETUPVAL                         R6 0
+       11 GETTABLEKS                       R5 R6 K2 ["Packages"]
+       13 GETTABLEKS                       R4 R5 K4 ["ReactRoblox"]
+       15 CALL                             R3 1 1
+       16 GETIMPORT                        R4 K1 [require]
+       18 GETUPVAL                         R7 0
+       19 GETTABLEKS                       R6 R7 K5 ["Src"]
+       21 GETTABLEKS                       R5 R6 K6 ["MainPlugin"]
+       23 CALL                             R4 1 1
+       24 GETTABLEKS                       R5 R2 K7 ["createElement"]
+       26 MOVE                             R6 R4
+       27 DUPTABLE                         R7 K10 [{"Plugin", "PluginLoaderContext"}]
+       28 SETTABLEKS                       R0 R7 K8 ["Plugin"]
+       30 SETTABLEKS                       R1 R7 K9 ["PluginLoaderContext"]
+       32 CALL                             R5 2 1
+       33 GETIMPORT                        R6 K12 [print]
+       35 CALL                             R6 0 0
+       36 GETIMPORT                        R6 K15 [Instance.new]
+       38 LOADK                            R7 K16 ["Frame"]
+       39 CALL                             R6 1 1
+       40 GETTABLEKS                       R7 R3 K17 ["createRoot"]
+       42 MOVE                             R8 R6
+       43 CALL                             R7 1 1
+       44 MOVE                             R10 R5
+       45 NAMECALL                         R8 R7 K18 ["render"]
+       47 CALL                             R8 2 0
+       48 GETTABLEKS                       R8 R0 K19 ["Unloading"]
+       50 NEWCLOSURE                       R10 P0
+       51 CAPTURE                          VAL R7
+       52 NAMECALL                         R8 R8 K20 ["Connect"]
+       54 CALL                             R8 2 0
+       55 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["PropertiesPlugin"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  DUPCLOSURE R1 K4 [PROTO_1]
-  CAPTURE VAL R0
-  RETURN R1 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["PropertiesPlugin"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 DUPCLOSURE                       R1 K4 [PROTO_1]
+        8 CAPTURE                          VAL R0
+        9 RETURN                           R1 1

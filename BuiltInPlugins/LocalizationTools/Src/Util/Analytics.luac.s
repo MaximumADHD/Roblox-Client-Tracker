@@ -1,226 +1,226 @@
 PROTO_0:
-  DUPTABLE R2 K5 [{"sender", "context", "target", "userId", "logEvents"}]
-  MOVE R3 R0
-  JUMPIF R3 [+1]
-  GETUPVAL R3 0
-  SETTABLEKS R3 R2 K0 ["sender"]
-  LOADK R3 K6 ["localizationPlugin"]
-  SETTABLEKS R3 R2 K1 ["context"]
-  LOADK R3 K7 ["studio"]
-  SETTABLEKS R3 R2 K2 ["target"]
-  GETUPVAL R3 1
-  NAMECALL R3 R3 K8 ["GetUserId"]
-  CALL R3 1 1
-  SETTABLEKS R3 R2 K3 ["userId"]
-  SETTABLEKS R1 R2 K4 ["logEvents"]
-  GETUPVAL R5 2
-  FASTCALL2 SETMETATABLE R2 R5 [+4]
-  MOVE R4 R2
-  GETIMPORT R3 K10 [setmetatable]
-  CALL R3 2 0
-  RETURN R2 1
+        0 DUPTABLE                         R2 K5 [{"sender", "context", "target", "userId", "logEvents"}]
+        1 MOVE                             R3 R0
+        2 JUMPIF                           R3 ; [+1]
+        3 GETUPVAL                         R3 0
+        4 SETTABLEKS                       R3 R2 K0 ["sender"]
+        6 LOADK                            R3 K6 ["localizationPlugin"]
+        7 SETTABLEKS                       R3 R2 K1 ["context"]
+        9 LOADK                            R3 K7 ["studio"]
+       10 SETTABLEKS                       R3 R2 K2 ["target"]
+       12 GETUPVAL                         R3 1
+       13 NAMECALL                         R3 R3 K8 ["GetUserId"]
+       15 CALL                             R3 1 1
+       16 SETTABLEKS                       R3 R2 K3 ["userId"]
+       18 SETTABLEKS                       R1 R2 K4 ["logEvents"]
+       20 GETUPVAL                         R5 2
+       21 FASTCALL2                        SETMETATABLE R2 R5 ; [+4]
+       23 MOVE                             R4 R2
+       24 GETIMPORT                        R3 K10 [setmetatable]
+       26 CALL                             R3 2 0
+       27 RETURN                           R2 1
 
 PROTO_1:
-  GETTABLEKS R3 R0 K0 ["logEvents"]
-  JUMPIFNOT R3 [+14]
-  GETUPVAL R3 0
-  MOVE R5 R2
-  NAMECALL R3 R3 K1 ["JSONEncode"]
-  CALL R3 2 1
-  GETIMPORT R4 K3 [print]
-  GETIMPORT R5 K6 [string.format]
-  LOADK R6 K7 ["Analytics: sendEventDeferred: \"%s\", %s"]
-  MOVE R7 R1
-  MOVE R8 R3
-  CALL R5 3 -1
-  CALL R4 -1 0
-  RETURN R0 0
+        0 GETTABLEKS                       R3 R0 K0 ["logEvents"]
+        2 JUMPIFNOT                        R3 ; [+14]
+        3 GETUPVAL                         R3 0
+        4 MOVE                             R5 R2
+        5 NAMECALL                         R3 R3 K1 ["JSONEncode"]
+        7 CALL                             R3 2 1
+        8 GETIMPORT                        R4 K3 [print]
+       10 GETIMPORT                        R5 K6 [string.format]
+       12 LOADK                            R6 K7 ["Analytics: sendEventDeferred: \"%s\", %s"]
+       13 MOVE                             R7 R1
+       14 MOVE                             R8 R3
+       15 CALL                             R5 3 -1
+       16 CALL                             R4 -1 0
+       17 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["Dictionary"]
-  GETTABLEKS R3 R4 K1 ["join"]
-  MOVE R4 R2
-  DUPTABLE R5 K5 [{"uid", "gameId", "placeId"}]
-  GETTABLEKS R6 R0 K6 ["userId"]
-  SETTABLEKS R6 R5 K2 ["uid"]
-  GETIMPORT R7 K8 [game]
-  GETTABLEKS R6 R7 K9 ["GameId"]
-  SETTABLEKS R6 R5 K3 ["gameId"]
-  GETIMPORT R7 K8 [game]
-  GETTABLEKS R6 R7 K10 ["PlaceId"]
-  SETTABLEKS R6 R5 K4 ["placeId"]
-  CALL R3 2 1
-  GETTABLEKS R4 R0 K11 ["sender"]
-  GETTABLEKS R6 R0 K12 ["target"]
-  GETTABLEKS R7 R0 K13 ["context"]
-  MOVE R8 R1
-  MOVE R9 R3
-  NAMECALL R4 R4 K14 ["SendEventDeferred"]
-  CALL R4 5 0
-  MOVE R6 R1
-  MOVE R7 R3
-  NAMECALL R4 R0 K15 ["logEvent"]
-  CALL R4 3 0
-  RETURN R0 0
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R4 R5 K0 ["Dictionary"]
+        3 GETTABLEKS                       R3 R4 K1 ["join"]
+        5 MOVE                             R4 R2
+        6 DUPTABLE                         R5 K5 [{"uid", "gameId", "placeId"}]
+        7 GETTABLEKS                       R6 R0 K6 ["userId"]
+        9 SETTABLEKS                       R6 R5 K2 ["uid"]
+       11 GETIMPORT                        R7 K8 [game]
+       13 GETTABLEKS                       R6 R7 K9 ["GameId"]
+       15 SETTABLEKS                       R6 R5 K3 ["gameId"]
+       17 GETIMPORT                        R7 K8 [game]
+       19 GETTABLEKS                       R6 R7 K10 ["PlaceId"]
+       21 SETTABLEKS                       R6 R5 K4 ["placeId"]
+       23 CALL                             R3 2 1
+       24 GETTABLEKS                       R4 R0 K11 ["sender"]
+       26 GETTABLEKS                       R6 R0 K12 ["target"]
+       28 GETTABLEKS                       R7 R0 K13 ["context"]
+       30 MOVE                             R8 R1
+       31 MOVE                             R9 R3
+       32 NAMECALL                         R4 R4 K14 ["SendEventDeferred"]
+       34 CALL                             R4 5 0
+       35 MOVE                             R6 R1
+       36 MOVE                             R7 R3
+       37 NAMECALL                         R4 R0 K15 ["logEvent"]
+       39 CALL                             R4 3 0
+       40 RETURN                           R0 0
 
 PROTO_3:
-  DUPTABLE R3 K2 [{"btnName", "status"}]
-  SETTABLEKS R1 R3 K0 ["btnName"]
-  SETTABLEKS R2 R3 K1 ["status"]
-  LOADK R6 K3 ["buttonPressed"]
-  MOVE R7 R3
-  NAMECALL R4 R0 K4 ["sendEventDeferred"]
-  CALL R4 3 0
-  RETURN R0 0
+        0 DUPTABLE                         R3 K2 [{"btnName", "status"}]
+        1 SETTABLEKS                       R1 R3 K0 ["btnName"]
+        3 SETTABLEKS                       R2 R3 K1 ["status"]
+        5 LOADK                            R6 K3 ["buttonPressed"]
+        6 MOVE                             R7 R3
+        7 NAMECALL                         R4 R0 K4 ["sendEventDeferred"]
+        9 CALL                             R4 3 0
+       10 RETURN                           R0 0
 
 PROTO_4:
-  DUPTABLE R2 K1 [{"method"}]
-  SETTABLEKS R1 R2 K0 ["method"]
-  LOADK R5 K2 ["toolOpened"]
-  MOVE R6 R2
-  NAMECALL R3 R0 K3 ["sendEventDeferred"]
-  CALL R3 3 0
-  RETURN R0 0
+        0 DUPTABLE                         R2 K1 [{"method"}]
+        1 SETTABLEKS                       R1 R2 K0 ["method"]
+        3 LOADK                            R5 K2 ["toolOpened"]
+        4 MOVE                             R6 R2
+        5 NAMECALL                         R3 R0 K3 ["sendEventDeferred"]
+        7 CALL                             R3 3 0
+        8 RETURN                           R0 0
 
 PROTO_5:
-  DUPTABLE R3 K9 [{"btnName", "totalRows", "totalTranslations", "supportedLocales", "unsupportedLocales", "numChangedTranslations", "numRemovedTranslations", "numAddedTranslations", "addedSupportedLanguages"}]
-  SETTABLEKS R2 R3 K0 ["btnName"]
-  GETTABLEKS R4 R1 K1 ["totalRows"]
-  SETTABLEKS R4 R3 K1 ["totalRows"]
-  GETTABLEKS R4 R1 K2 ["totalTranslations"]
-  SETTABLEKS R4 R3 K2 ["totalTranslations"]
-  GETTABLEKS R4 R1 K3 ["supportedLocales"]
-  SETTABLEKS R4 R3 K3 ["supportedLocales"]
-  GETTABLEKS R4 R1 K4 ["unsupportedLocales"]
-  SETTABLEKS R4 R3 K4 ["unsupportedLocales"]
-  GETTABLEKS R4 R1 K5 ["numChangedTranslations"]
-  SETTABLEKS R4 R3 K5 ["numChangedTranslations"]
-  GETTABLEKS R4 R1 K6 ["numRemovedTranslations"]
-  SETTABLEKS R4 R3 K6 ["numRemovedTranslations"]
-  GETTABLEKS R4 R1 K7 ["numAddedTranslations"]
-  SETTABLEKS R4 R3 K7 ["numAddedTranslations"]
-  GETTABLEKS R4 R1 K10 ["newLanguages"]
-  SETTABLEKS R4 R3 K8 ["addedSupportedLanguages"]
-  LOADK R6 K11 ["logLocalizationPerfStats"]
-  MOVE R7 R3
-  NAMECALL R4 R0 K12 ["sendEventDeferred"]
-  CALL R4 3 0
-  RETURN R0 0
+        0 DUPTABLE                         R3 K9 [{"btnName", "totalRows", "totalTranslations", "supportedLocales", "unsupportedLocales", "numChangedTranslations", "numRemovedTranslations", "numAddedTranslations", "addedSupportedLanguages"}]
+        1 SETTABLEKS                       R2 R3 K0 ["btnName"]
+        3 GETTABLEKS                       R4 R1 K1 ["totalRows"]
+        5 SETTABLEKS                       R4 R3 K1 ["totalRows"]
+        7 GETTABLEKS                       R4 R1 K2 ["totalTranslations"]
+        9 SETTABLEKS                       R4 R3 K2 ["totalTranslations"]
+       11 GETTABLEKS                       R4 R1 K3 ["supportedLocales"]
+       13 SETTABLEKS                       R4 R3 K3 ["supportedLocales"]
+       15 GETTABLEKS                       R4 R1 K4 ["unsupportedLocales"]
+       17 SETTABLEKS                       R4 R3 K4 ["unsupportedLocales"]
+       19 GETTABLEKS                       R4 R1 K5 ["numChangedTranslations"]
+       21 SETTABLEKS                       R4 R3 K5 ["numChangedTranslations"]
+       23 GETTABLEKS                       R4 R1 K6 ["numRemovedTranslations"]
+       25 SETTABLEKS                       R4 R3 K6 ["numRemovedTranslations"]
+       27 GETTABLEKS                       R4 R1 K7 ["numAddedTranslations"]
+       29 SETTABLEKS                       R4 R3 K7 ["numAddedTranslations"]
+       31 GETTABLEKS                       R4 R1 K10 ["newLanguages"]
+       33 SETTABLEKS                       R4 R3 K8 ["addedSupportedLanguages"]
+       35 LOADK                            R6 K11 ["logLocalizationPerfStats"]
+       36 MOVE                             R7 R3
+       37 NAMECALL                         R4 R0 K12 ["sendEventDeferred"]
+       39 CALL                             R4 3 0
+       40 RETURN                           R0 0
 
 PROTO_6:
-  GETUPVAL R5 0
-  NAMECALL R6 R1 K0 ["GetEntries"]
-  CALL R6 1 1
-  MOVE R7 R3
-  MOVE R8 R4
-  CALL R5 3 1
-  DUPTABLE R6 K6 [{"btnName", "totalRows", "totalTranslations", "supportedLocales", "unsupportedLocales"}]
-  SETTABLEKS R2 R6 K1 ["btnName"]
-  GETTABLEKS R7 R5 K2 ["totalRows"]
-  SETTABLEKS R7 R6 K2 ["totalRows"]
-  GETTABLEKS R7 R5 K3 ["totalTranslations"]
-  SETTABLEKS R7 R6 K3 ["totalTranslations"]
-  GETTABLEKS R7 R5 K4 ["supportedLocales"]
-  SETTABLEKS R7 R6 K4 ["supportedLocales"]
-  GETTABLEKS R7 R5 K5 ["unsupportedLocales"]
-  SETTABLEKS R7 R6 K5 ["unsupportedLocales"]
-  LOADK R9 K7 ["logLocalizationPerfStats"]
-  MOVE R10 R6
-  NAMECALL R7 R0 K8 ["sendEventDeferred"]
-  CALL R7 3 0
-  RETURN R0 0
+        0 GETUPVAL                         R5 0
+        1 NAMECALL                         R6 R1 K0 ["GetEntries"]
+        3 CALL                             R6 1 1
+        4 MOVE                             R7 R3
+        5 MOVE                             R8 R4
+        6 CALL                             R5 3 1
+        7 DUPTABLE                         R6 K6 [{"btnName", "totalRows", "totalTranslations", "supportedLocales", "unsupportedLocales"}]
+        8 SETTABLEKS                       R2 R6 K1 ["btnName"]
+       10 GETTABLEKS                       R7 R5 K2 ["totalRows"]
+       12 SETTABLEKS                       R7 R6 K2 ["totalRows"]
+       14 GETTABLEKS                       R7 R5 K3 ["totalTranslations"]
+       16 SETTABLEKS                       R7 R6 K3 ["totalTranslations"]
+       18 GETTABLEKS                       R7 R5 K4 ["supportedLocales"]
+       20 SETTABLEKS                       R7 R6 K4 ["supportedLocales"]
+       22 GETTABLEKS                       R7 R5 K5 ["unsupportedLocales"]
+       24 SETTABLEKS                       R7 R6 K5 ["unsupportedLocales"]
+       26 LOADK                            R9 K7 ["logLocalizationPerfStats"]
+       27 MOVE                             R10 R6
+       28 NAMECALL                         R7 R0 K8 ["sendEventDeferred"]
+       30 CALL                             R7 3 0
+       31 RETURN                           R0 0
 
 PROTO_7:
-  DUPTABLE R3 K9 [{"btnName", "totalRows", "totalTranslations", "supportedLocales", "unsupportedLocales", "numChangedTranslations", "numRemovedTranslations", "numAddedTranslations", "addedSupportedLanguages"}]
-  SETTABLEKS R2 R3 K0 ["btnName"]
-  GETTABLEKS R4 R1 K1 ["totalRows"]
-  SETTABLEKS R4 R3 K1 ["totalRows"]
-  GETTABLEKS R4 R1 K2 ["totalTranslations"]
-  SETTABLEKS R4 R3 K2 ["totalTranslations"]
-  GETTABLEKS R4 R1 K3 ["supportedLocales"]
-  SETTABLEKS R4 R3 K3 ["supportedLocales"]
-  GETTABLEKS R4 R1 K4 ["unsupportedLocales"]
-  SETTABLEKS R4 R3 K4 ["unsupportedLocales"]
-  GETTABLEKS R4 R1 K5 ["numChangedTranslations"]
-  SETTABLEKS R4 R3 K5 ["numChangedTranslations"]
-  GETTABLEKS R4 R1 K6 ["numRemovedTranslations"]
-  SETTABLEKS R4 R3 K6 ["numRemovedTranslations"]
-  GETTABLEKS R4 R1 K7 ["numAddedTranslations"]
-  SETTABLEKS R4 R3 K7 ["numAddedTranslations"]
-  GETTABLEKS R4 R1 K10 ["newLanguages"]
-  SETTABLEKS R4 R3 K8 ["addedSupportedLanguages"]
-  LOADK R6 K11 ["logLocalizationPerfStats"]
-  MOVE R7 R3
-  NAMECALL R4 R0 K12 ["sendEventDeferred"]
-  CALL R4 3 0
-  RETURN R0 0
+        0 DUPTABLE                         R3 K9 [{"btnName", "totalRows", "totalTranslations", "supportedLocales", "unsupportedLocales", "numChangedTranslations", "numRemovedTranslations", "numAddedTranslations", "addedSupportedLanguages"}]
+        1 SETTABLEKS                       R2 R3 K0 ["btnName"]
+        3 GETTABLEKS                       R4 R1 K1 ["totalRows"]
+        5 SETTABLEKS                       R4 R3 K1 ["totalRows"]
+        7 GETTABLEKS                       R4 R1 K2 ["totalTranslations"]
+        9 SETTABLEKS                       R4 R3 K2 ["totalTranslations"]
+       11 GETTABLEKS                       R4 R1 K3 ["supportedLocales"]
+       13 SETTABLEKS                       R4 R3 K3 ["supportedLocales"]
+       15 GETTABLEKS                       R4 R1 K4 ["unsupportedLocales"]
+       17 SETTABLEKS                       R4 R3 K4 ["unsupportedLocales"]
+       19 GETTABLEKS                       R4 R1 K5 ["numChangedTranslations"]
+       21 SETTABLEKS                       R4 R3 K5 ["numChangedTranslations"]
+       23 GETTABLEKS                       R4 R1 K6 ["numRemovedTranslations"]
+       25 SETTABLEKS                       R4 R3 K6 ["numRemovedTranslations"]
+       27 GETTABLEKS                       R4 R1 K7 ["numAddedTranslations"]
+       29 SETTABLEKS                       R4 R3 K7 ["numAddedTranslations"]
+       31 GETTABLEKS                       R4 R1 K10 ["newLanguages"]
+       33 SETTABLEKS                       R4 R3 K8 ["addedSupportedLanguages"]
+       35 LOADK                            R6 K11 ["logLocalizationPerfStats"]
+       36 MOVE                             R7 R3
+       37 NAMECALL                         R4 R0 K12 ["sendEventDeferred"]
+       39 CALL                             R4 3 0
+       40 RETURN                           R0 0
 
 PROTO_8:
-  RETURN R0 0
+        0 RETURN                           R0 0
 
 PROTO_9:
-  DUPTABLE R0 K1 [{"SendEventDeferred"}]
-  DUPCLOSURE R1 K2 [PROTO_8]
-  SETTABLEKS R1 R0 K0 ["SendEventDeferred"]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K3 ["new"]
-  MOVE R2 R0
-  CALL R1 1 -1
-  RETURN R1 -1
+        0 DUPTABLE                         R0 K1 [{"SendEventDeferred"}]
+        1 DUPCLOSURE                       R1 K2 [PROTO_8]
+        2 SETTABLEKS                       R1 R0 K0 ["SendEventDeferred"]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R1 R2 K3 ["new"]
+        7 MOVE                             R2 R0
+        8 CALL                             R1 1 -1
+        9 RETURN                           R1 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["HttpService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  GETIMPORT R1 K1 [game]
-  LOADK R3 K4 ["RbxAnalyticsService"]
-  NAMECALL R1 R1 K3 ["GetService"]
-  CALL R1 2 1
-  GETIMPORT R2 K1 [game]
-  LOADK R4 K5 ["StudioService"]
-  NAMECALL R2 R2 K3 ["GetService"]
-  CALL R2 2 1
-  GETIMPORT R6 K7 [script]
-  GETTABLEKS R5 R6 K8 ["Parent"]
-  GETTABLEKS R4 R5 K8 ["Parent"]
-  GETTABLEKS R3 R4 K8 ["Parent"]
-  GETIMPORT R4 K10 [require]
-  GETTABLEKS R6 R3 K11 ["Packages"]
-  GETTABLEKS R5 R6 K12 ["Cryo"]
-  CALL R4 1 1
-  GETIMPORT R5 K10 [require]
-  GETTABLEKS R8 R3 K13 ["Src"]
-  GETTABLEKS R7 R8 K14 ["Util"]
-  GETTABLEKS R6 R7 K15 ["RbxEntriesToWebEntries"]
-  CALL R5 1 1
-  NEWTABLE R6 16 0
-  SETTABLEKS R6 R6 K16 ["__index"]
-  DUPCLOSURE R7 K17 [PROTO_0]
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  CAPTURE VAL R6
-  SETTABLEKS R7 R6 K18 ["new"]
-  DUPCLOSURE R7 K19 [PROTO_1]
-  CAPTURE VAL R0
-  SETTABLEKS R7 R6 K20 ["logEvent"]
-  DUPCLOSURE R7 K21 [PROTO_2]
-  CAPTURE VAL R4
-  SETTABLEKS R7 R6 K22 ["sendEventDeferred"]
-  DUPCLOSURE R7 K23 [PROTO_3]
-  SETTABLEKS R7 R6 K24 ["reportButtonPress"]
-  DUPCLOSURE R7 K25 [PROTO_4]
-  SETTABLEKS R7 R6 K26 ["reportToolOpened"]
-  DUPCLOSURE R7 K27 [PROTO_5]
-  SETTABLEKS R7 R6 K28 ["reportUploadPatch"]
-  DUPCLOSURE R7 K29 [PROTO_6]
-  CAPTURE VAL R5
-  SETTABLEKS R7 R6 K30 ["reportDownloadTable"]
-  DUPCLOSURE R7 K31 [PROTO_7]
-  SETTABLEKS R7 R6 K32 ["reportUploadTable"]
-  DUPCLOSURE R7 K33 [PROTO_9]
-  CAPTURE VAL R6
-  SETTABLEKS R7 R6 K34 ["mock"]
-  RETURN R6 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["HttpService"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K1 [game]
+        9 LOADK                            R3 K4 ["RbxAnalyticsService"]
+       10 NAMECALL                         R1 R1 K3 ["GetService"]
+       12 CALL                             R1 2 1
+       13 GETIMPORT                        R2 K1 [game]
+       15 LOADK                            R4 K5 ["StudioService"]
+       16 NAMECALL                         R2 R2 K3 ["GetService"]
+       18 CALL                             R2 2 1
+       19 GETIMPORT                        R6 K7 [script]
+       21 GETTABLEKS                       R5 R6 K8 ["Parent"]
+       23 GETTABLEKS                       R4 R5 K8 ["Parent"]
+       25 GETTABLEKS                       R3 R4 K8 ["Parent"]
+       27 GETIMPORT                        R4 K10 [require]
+       29 GETTABLEKS                       R6 R3 K11 ["Packages"]
+       31 GETTABLEKS                       R5 R6 K12 ["Cryo"]
+       33 CALL                             R4 1 1
+       34 GETIMPORT                        R5 K10 [require]
+       36 GETTABLEKS                       R8 R3 K13 ["Src"]
+       38 GETTABLEKS                       R7 R8 K14 ["Util"]
+       40 GETTABLEKS                       R6 R7 K15 ["RbxEntriesToWebEntries"]
+       42 CALL                             R5 1 1
+       43 NEWTABLE                         R6 16 0
+       45 SETTABLEKS                       R6 R6 K16 ["__index"]
+       47 DUPCLOSURE                       R7 K17 [PROTO_0]
+       48 CAPTURE                          VAL R1
+       49 CAPTURE                          VAL R2
+       50 CAPTURE                          VAL R6
+       51 SETTABLEKS                       R7 R6 K18 ["new"]
+       53 DUPCLOSURE                       R7 K19 [PROTO_1]
+       54 CAPTURE                          VAL R0
+       55 SETTABLEKS                       R7 R6 K20 ["logEvent"]
+       57 DUPCLOSURE                       R7 K21 [PROTO_2]
+       58 CAPTURE                          VAL R4
+       59 SETTABLEKS                       R7 R6 K22 ["sendEventDeferred"]
+       61 DUPCLOSURE                       R7 K23 [PROTO_3]
+       62 SETTABLEKS                       R7 R6 K24 ["reportButtonPress"]
+       64 DUPCLOSURE                       R7 K25 [PROTO_4]
+       65 SETTABLEKS                       R7 R6 K26 ["reportToolOpened"]
+       67 DUPCLOSURE                       R7 K27 [PROTO_5]
+       68 SETTABLEKS                       R7 R6 K28 ["reportUploadPatch"]
+       70 DUPCLOSURE                       R7 K29 [PROTO_6]
+       71 CAPTURE                          VAL R5
+       72 SETTABLEKS                       R7 R6 K30 ["reportDownloadTable"]
+       74 DUPCLOSURE                       R7 K31 [PROTO_7]
+       75 SETTABLEKS                       R7 R6 K32 ["reportUploadTable"]
+       77 DUPCLOSURE                       R7 K33 [PROTO_9]
+       78 CAPTURE                          VAL R6
+       79 SETTABLEKS                       R7 R6 K34 ["mock"]
+       81 RETURN                           R6 1

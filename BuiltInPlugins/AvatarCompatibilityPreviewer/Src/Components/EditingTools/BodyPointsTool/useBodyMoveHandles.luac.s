@@ -1,118 +1,118 @@
 PROTO_0:
-  GETUPVAL R0 1
-  NAMECALL R0 R0 K0 ["GetPivot"]
-  CALL R0 1 1
-  SETUPVAL R0 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 1
+        1 NAMECALL                         R0 R0 K0 ["GetPivot"]
+        3 CALL                             R0 1 1
+        4 SETUPVAL                         R0 0
+        5 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R4 0
-  JUMPIFNOTEQKNIL R4 [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  FASTCALL2K ASSERT R3 K0 [+4]
-  LOADK R4 K0 ["startDragPivot not set during updateDrag"]
-  GETIMPORT R2 K2 [assert]
-  CALL R2 2 0
-  GETUPVAL R2 1
-  GETUPVAL R5 0
-  MUL R4 R5 R1
-  NAMECALL R2 R2 K3 ["PivotTo"]
-  CALL R2 2 0
-  RETURN R1 1
+        0 GETUPVAL                         R4 0
+        1 JUMPIFNOTEQKNIL                  R4 ; [+2]
+        3 LOADB                            R3 0 +1
+        4 LOADB                            R3 1
+        5 FASTCALL2K                       ASSERT R3 K0 ; [+4]
+        7 LOADK                            R4 K0 ["startDragPivot not set during updateDrag"]
+        8 GETIMPORT                        R2 K2 [assert]
+       10 CALL                             R2 2 0
+       11 GETUPVAL                         R2 1
+       12 GETUPVAL                         R5 0
+       13 MUL                              R4 R5 R1
+       14 NAMECALL                         R2 R2 K3 ["PivotTo"]
+       16 CALL                             R2 2 0
+       17 RETURN                           R1 1
 
 PROTO_2:
-  LOADNIL R0
-  SETUPVAL R0 0
-  RETURN R0 0
+        0 LOADNIL                          R0
+        1 SETUPVAL                         R0 0
+        2 RETURN                           R0 0
 
 PROTO_3:
-  LOADNIL R0
-  RETURN R0 1
+        0 LOADNIL                          R0
+        1 RETURN                           R0 1
 
 PROTO_4:
-  LOADNIL R0
-  DUPTABLE R1 K4 [{"beginDrag", "updateDrag", "endDrag", "render"}]
-  NEWCLOSURE R2 P0
-  CAPTURE REF R0
-  CAPTURE UPVAL U0
-  SETTABLEKS R2 R1 K0 ["beginDrag"]
-  NEWCLOSURE R2 P1
-  CAPTURE REF R0
-  CAPTURE UPVAL U0
-  SETTABLEKS R2 R1 K1 ["updateDrag"]
-  NEWCLOSURE R2 P2
-  CAPTURE REF R0
-  SETTABLEKS R2 R1 K2 ["endDrag"]
-  DUPCLOSURE R2 K5 [PROTO_3]
-  SETTABLEKS R2 R1 K3 ["render"]
-  CLOSEUPVALS R0
-  RETURN R1 1
+        0 LOADNIL                          R0
+        1 DUPTABLE                         R1 K4 [{"beginDrag", "updateDrag", "endDrag", "render"}]
+        2 NEWCLOSURE                       R2 P0
+        3 CAPTURE                          REF R0
+        4 CAPTURE                          UPVAL U0
+        5 SETTABLEKS                       R2 R1 K0 ["beginDrag"]
+        7 NEWCLOSURE                       R2 P1
+        8 CAPTURE                          REF R0
+        9 CAPTURE                          UPVAL U0
+       10 SETTABLEKS                       R2 R1 K1 ["updateDrag"]
+       12 NEWCLOSURE                       R2 P2
+       13 CAPTURE                          REF R0
+       14 SETTABLEKS                       R2 R1 K2 ["endDrag"]
+       16 DUPCLOSURE                       R2 K5 [PROTO_3]
+       17 SETTABLEKS                       R2 R1 K3 ["render"]
+       19 CLOSEUPVALS                      R0
+       20 RETURN                           R1 1
 
 PROTO_5:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["new"]
-  GETUPVAL R1 1
-  DUPTABLE R2 K4 [{"ShowBoundingBox", "Summonable", "Outset"}]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K1 ["ShowBoundingBox"]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K2 ["Summonable"]
-  LOADN R3 1
-  SETTABLEKS R3 R2 K3 ["Outset"]
-  GETUPVAL R3 2
-  CALL R0 3 -1
-  RETURN R0 -1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["new"]
+        3 GETUPVAL                         R1 1
+        4 DUPTABLE                         R2 K4 [{"ShowBoundingBox", "Summonable", "Outset"}]
+        5 LOADB                            R3 0
+        6 SETTABLEKS                       R3 R2 K1 ["ShowBoundingBox"]
+        8 LOADB                            R3 0
+        9 SETTABLEKS                       R3 R2 K2 ["Summonable"]
+       11 LOADN                            R3 1
+       12 SETTABLEKS                       R3 R2 K3 ["Outset"]
+       14 GETUPVAL                         R3 2
+       15 CALL                             R0 3 -1
+       16 RETURN                           R0 -1
 
 PROTO_6:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["useMemo"]
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R1
-  NEWTABLE R4 0 1
-  MOVE R5 R1
-  SETLIST R4 R5 1 [1]
-  CALL R2 2 1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["useMemo"]
-  NEWCLOSURE R4 P1
-  CAPTURE UPVAL U1
-  CAPTURE VAL R0
-  CAPTURE VAL R2
-  NEWTABLE R5 0 1
-  MOVE R6 R2
-  SETLIST R5 R6 1 [1]
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["useMemo"]
+        3 NEWCLOSURE                       R3 P0
+        4 CAPTURE                          VAL R1
+        5 NEWTABLE                         R4 0 1
+        7 MOVE                             R5 R1
+        8 SETLIST                          R4 R5 1 [1]
+       10 CALL                             R2 2 1
+       11 GETUPVAL                         R4 0
+       12 GETTABLEKS                       R3 R4 K0 ["useMemo"]
+       14 NEWCLOSURE                       R4 P1
+       15 CAPTURE                          UPVAL U1
+       16 CAPTURE                          VAL R0
+       17 CAPTURE                          VAL R2
+       18 NEWTABLE                         R5 0 1
+       20 MOVE                             R6 R2
+       21 SETLIST                          R5 R6 1 [1]
+       23 CALL                             R3 2 -1
+       24 RETURN                           R3 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["DraggerFramework"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["React"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R8 R0 K9 ["Src"]
-  GETTABLEKS R7 R8 K10 ["Components"]
-  GETTABLEKS R6 R7 K11 ["EditingTools"]
-  GETTABLEKS R5 R6 K12 ["BodyPointsTool"]
-  GETTABLEKS R4 R5 K13 ["Types"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K13 ["Types"]
-  CALL R4 1 1
-  GETTABLEKS R6 R1 K14 ["Handles"]
-  GETTABLEKS R5 R6 K15 ["MoveHandles"]
-  DUPCLOSURE R6 K16 [PROTO_6]
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  RETURN R6 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarCompatibilityPreviewer"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["DraggerFramework"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R8 R0 K9 ["Src"]
+       25 GETTABLEKS                       R7 R8 K10 ["Components"]
+       27 GETTABLEKS                       R6 R7 K11 ["EditingTools"]
+       29 GETTABLEKS                       R5 R6 K12 ["BodyPointsTool"]
+       31 GETTABLEKS                       R4 R5 K13 ["Types"]
+       33 CALL                             R3 1 1
+       34 GETIMPORT                        R4 K5 [require]
+       36 GETTABLEKS                       R6 R0 K9 ["Src"]
+       38 GETTABLEKS                       R5 R6 K13 ["Types"]
+       40 CALL                             R4 1 1
+       41 GETTABLEKS                       R6 R1 K14 ["Handles"]
+       43 GETTABLEKS                       R5 R6 K15 ["MoveHandles"]
+       45 DUPCLOSURE                       R6 K16 [PROTO_6]
+       46 CAPTURE                          VAL R2
+       47 CAPTURE                          VAL R5
+       48 RETURN                           R6 1

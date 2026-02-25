@@ -1,38 +1,38 @@
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K8 ["Src"]
-  GETTABLEKS R3 R4 K9 ["Types"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Util"]
-  GETTABLEKS R4 R5 K11 ["createUnimplemented"]
-  CALL R3 1 1
-  DUPTABLE R4 K16 [{"equippableItems", "addNewItemAndEquip", "removeItem", "getItemData"}]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K12 ["equippableItems"]
-  MOVE R5 R3
-  LOADK R6 K13 ["addNewItemAndEquip"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K13 ["addNewItemAndEquip"]
-  MOVE R5 R3
-  LOADK R6 K14 ["removeItem"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K14 ["removeItem"]
-  MOVE R5 R3
-  LOADK R6 K15 ["getItemData"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K15 ["getItemData"]
-  GETTABLEKS R5 R1 K17 ["createContext"]
-  MOVE R6 R4
-  CALL R5 1 1
-  RETURN R5 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarCompatibilityPreviewer"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R4 K9 ["Types"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R6 R0 K8 ["Src"]
+       25 GETTABLEKS                       R5 R6 K10 ["Util"]
+       27 GETTABLEKS                       R4 R5 K11 ["createUnimplemented"]
+       29 CALL                             R3 1 1
+       30 DUPTABLE                         R4 K16 [{"equippableItems", "addNewItemAndEquip", "removeItem", "getItemData"}]
+       31 NEWTABLE                         R5 0 0
+       33 SETTABLEKS                       R5 R4 K12 ["equippableItems"]
+       35 MOVE                             R5 R3
+       36 LOADK                            R6 K13 ["addNewItemAndEquip"]
+       37 CALL                             R5 1 1
+       38 SETTABLEKS                       R5 R4 K13 ["addNewItemAndEquip"]
+       40 MOVE                             R5 R3
+       41 LOADK                            R6 K14 ["removeItem"]
+       42 CALL                             R5 1 1
+       43 SETTABLEKS                       R5 R4 K14 ["removeItem"]
+       45 MOVE                             R5 R3
+       46 LOADK                            R6 K15 ["getItemData"]
+       47 CALL                             R5 1 1
+       48 SETTABLEKS                       R5 R4 K15 ["getItemData"]
+       50 GETTABLEKS                       R5 R1 K17 ["createContext"]
+       52 MOVE                             R6 R4
+       53 CALL                             R5 1 1
+       54 RETURN                           R5 1

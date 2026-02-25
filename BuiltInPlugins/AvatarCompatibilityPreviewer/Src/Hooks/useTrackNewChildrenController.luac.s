@@ -1,129 +1,129 @@
 PROTO_0:
-  GETIMPORT R1 K2 [table.clone]
-  MOVE R2 R0
-  CALL R1 1 1
-  GETUPVAL R4 0
-  FASTCALL2 TABLE_INSERT R1 R4 [+4]
-  MOVE R3 R1
-  GETIMPORT R2 K4 [table.insert]
-  CALL R2 2 0
-  RETURN R1 1
+        0 GETIMPORT                        R1 K2 [table.clone]
+        2 MOVE                             R2 R0
+        3 CALL                             R1 1 1
+        4 GETUPVAL                         R4 0
+        5 FASTCALL2                        TABLE_INSERT R1 R4 ; [+4]
+        7 MOVE                             R3 R1
+        8 GETIMPORT                        R2 K4 [table.insert]
+       10 CALL                             R2 2 0
+       11 RETURN                           R1 1
 
 PROTO_1:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["isIgnoringChildren"]
-  JUMPIFNOT R1 [+1]
-  RETURN R0 0
-  LOADK R3 K1 ["Accessory"]
-  NAMECALL R1 R0 K2 ["IsA"]
-  CALL R1 2 1
-  JUMPIF R1 [+1]
-  RETURN R0 0
-  GETUPVAL R1 1
-  CALL R1 0 1
-  JUMPIFNOT R1 [+5]
-  GETUPVAL R1 2
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R0
-  CALL R1 1 0
-  RETURN R0 0
-  GETUPVAL R1 3
-  NEWTABLE R2 0 1
-  MOVE R3 R0
-  SETLIST R2 R3 1 [1]
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["isIgnoringChildren"]
+        3 JUMPIFNOT                        R1 ; [+1]
+        4 RETURN                           R0 0
+        5 LOADK                            R3 K1 ["Accessory"]
+        6 NAMECALL                         R1 R0 K2 ["IsA"]
+        8 CALL                             R1 2 1
+        9 JUMPIF                           R1 ; [+1]
+       10 RETURN                           R0 0
+       11 GETUPVAL                         R1 1
+       12 CALL                             R1 0 1
+       13 JUMPIFNOT                        R1 ; [+5]
+       14 GETUPVAL                         R1 2
+       15 NEWCLOSURE                       R2 P0
+       16 CAPTURE                          VAL R0
+       17 CALL                             R1 1 0
+       18 RETURN                           R0 0
+       19 GETUPVAL                         R1 3
+       20 NEWTABLE                         R2 0 1
+       22 MOVE                             R3 R0
+       23 SETLIST                          R2 R3 1 [1]
+       25 CALL                             R1 1 0
+       26 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R1 0
-  LENGTH R0 R1
-  JUMPIFNOTEQKN R0 K0 [0] [+2]
-  RETURN R0 0
-  GETUPVAL R0 1
-  GETUPVAL R1 0
-  CALL R0 1 0
-  GETUPVAL R0 2
-  NEWTABLE R1 0 0
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 LENGTH                           R0 R1
+        2 JUMPIFNOTEQKN                    R0 K0 [0] ; [+2]
+        4 RETURN                           R0 0
+        5 GETUPVAL                         R0 1
+        6 GETUPVAL                         R1 0
+        7 CALL                             R0 1 0
+        8 GETUPVAL                         R0 2
+        9 NEWTABLE                         R1 0 0
+       11 CALL                             R0 1 0
+       12 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K0 ["useContext"]
-  GETUPVAL R3 2
-  CALL R2 1 1
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["useState"]
-  NEWTABLE R4 0 0
-  CALL R3 1 2
-  GETUPVAL R5 3
-  GETTABLEKS R6 R0 K2 ["ChildAdded"]
-  NEWCLOSURE R7 P0
-  CAPTURE VAL R2
-  CAPTURE UPVAL U4
-  CAPTURE VAL R4
-  CAPTURE VAL R1
-  NEWTABLE R8 0 3
-  MOVE R9 R1
-  MOVE R10 R0
-  GETTABLEKS R11 R2 K3 ["isIgnoringChildren"]
-  SETLIST R8 R9 3 [1]
-  CALL R5 3 0
-  GETUPVAL R5 4
-  CALL R5 0 1
-  JUMPIFNOT R5 [+13]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K4 ["useEffect"]
-  NEWCLOSURE R6 P1
-  CAPTURE VAL R3
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  NEWTABLE R7 0 1
-  LENGTH R8 R3
-  SETLIST R7 R8 1 [1]
-  CALL R5 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 GETUPVAL                         R3 1
+        3 GETTABLEKS                       R2 R3 K0 ["useContext"]
+        5 GETUPVAL                         R3 2
+        6 CALL                             R2 1 1
+        7 GETUPVAL                         R4 1
+        8 GETTABLEKS                       R3 R4 K1 ["useState"]
+       10 NEWTABLE                         R4 0 0
+       12 CALL                             R3 1 2
+       13 GETUPVAL                         R5 3
+       14 GETTABLEKS                       R6 R0 K2 ["ChildAdded"]
+       16 NEWCLOSURE                       R7 P0
+       17 CAPTURE                          VAL R2
+       18 CAPTURE                          UPVAL U4
+       19 CAPTURE                          VAL R4
+       20 CAPTURE                          VAL R1
+       21 NEWTABLE                         R8 0 3
+       23 MOVE                             R9 R1
+       24 MOVE                             R10 R0
+       25 GETTABLEKS                       R11 R2 K3 ["isIgnoringChildren"]
+       27 SETLIST                          R8 R9 3 [1]
+       29 CALL                             R5 3 0
+       30 GETUPVAL                         R5 4
+       31 CALL                             R5 0 1
+       32 JUMPIFNOT                        R5 ; [+13]
+       33 GETUPVAL                         R6 1
+       34 GETTABLEKS                       R5 R6 K4 ["useEffect"]
+       36 NEWCLOSURE                       R6 P1
+       37 CAPTURE                          VAL R3
+       38 CAPTURE                          VAL R1
+       39 CAPTURE                          VAL R4
+       40 NEWTABLE                         R7 0 1
+       42 LENGTH                           R8 R3
+       43 SETLIST                          R7 R8 1 [1]
+       45 CALL                             R5 2 0
+       46 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K8 ["Src"]
-  GETTABLEKS R3 R4 K9 ["Types"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Util"]
-  GETTABLEKS R4 R5 K11 ["EquipmentStateContext"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K8 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Hooks"]
-  GETTABLEKS R5 R6 K13 ["useAddInstancesToUserCatalogAndEquip"]
-  CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K8 ["Src"]
-  GETTABLEKS R7 R8 K12 ["Hooks"]
-  GETTABLEKS R6 R7 K14 ["useEventConnection"]
-  CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K8 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Flags"]
-  GETTABLEKS R7 R8 K16 ["getFFlagAvatarPreviewerSortClothingUI"]
-  CALL R6 1 1
-  DUPCLOSURE R7 K17 [PROTO_3]
-  CAPTURE VAL R4
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  CAPTURE VAL R5
-  CAPTURE VAL R6
-  RETURN R7 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarCompatibilityPreviewer"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K8 ["Src"]
+       18 GETTABLEKS                       R3 R4 K9 ["Types"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R6 R0 K8 ["Src"]
+       25 GETTABLEKS                       R5 R6 K10 ["Util"]
+       27 GETTABLEKS                       R4 R5 K11 ["EquipmentStateContext"]
+       29 CALL                             R3 1 1
+       30 GETIMPORT                        R4 K5 [require]
+       32 GETTABLEKS                       R7 R0 K8 ["Src"]
+       34 GETTABLEKS                       R6 R7 K12 ["Hooks"]
+       36 GETTABLEKS                       R5 R6 K13 ["useAddInstancesToUserCatalogAndEquip"]
+       38 CALL                             R4 1 1
+       39 GETIMPORT                        R5 K5 [require]
+       41 GETTABLEKS                       R8 R0 K8 ["Src"]
+       43 GETTABLEKS                       R7 R8 K12 ["Hooks"]
+       45 GETTABLEKS                       R6 R7 K14 ["useEventConnection"]
+       47 CALL                             R5 1 1
+       48 GETIMPORT                        R6 K5 [require]
+       50 GETTABLEKS                       R9 R0 K8 ["Src"]
+       52 GETTABLEKS                       R8 R9 K15 ["Flags"]
+       54 GETTABLEKS                       R7 R8 K16 ["getFFlagAvatarPreviewerSortClothingUI"]
+       56 CALL                             R6 1 1
+       57 DUPCLOSURE                       R7 K17 [PROTO_3]
+       58 CAPTURE                          VAL R4
+       59 CAPTURE                          VAL R1
+       60 CAPTURE                          VAL R3
+       61 CAPTURE                          VAL R5
+       62 CAPTURE                          VAL R6
+       63 RETURN                           R7 1

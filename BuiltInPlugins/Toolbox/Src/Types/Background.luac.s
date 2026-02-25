@@ -1,65 +1,65 @@
 PROTO_0:
-  GETUPVAL R0 0
-  CALL R0 0 1
-  JUMPIFNOT R0 [+4]
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K0 ["NONE"]
-  RETURN R0 1
-  GETIMPORT R3 K2 [settings]
-  CALL R3 0 1
-  GETTABLEKS R2 R3 K3 ["Studio"]
-  GETTABLEKS R1 R2 K4 ["Theme"]
-  GETTABLEKS R0 R1 K5 ["Name"]
-  JUMPIFNOTEQKS R0 K6 ["Light"] [+5]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K7 ["WHITE"]
-  RETURN R1 1
-  JUMPIFNOTEQKS R0 K8 ["Dark"] [+5]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K0 ["NONE"]
-  RETURN R1 1
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K0 ["NONE"]
-  RETURN R1 1
+        0 GETUPVAL                         R0 0
+        1 CALL                             R0 0 1
+        2 JUMPIFNOT                        R0 ; [+4]
+        3 GETUPVAL                         R1 1
+        4 GETTABLEKS                       R0 R1 K0 ["NONE"]
+        6 RETURN                           R0 1
+        7 GETIMPORT                        R3 K2 [settings]
+        9 CALL                             R3 0 1
+       10 GETTABLEKS                       R2 R3 K3 ["Studio"]
+       12 GETTABLEKS                       R1 R2 K4 ["Theme"]
+       14 GETTABLEKS                       R0 R1 K5 ["Name"]
+       16 JUMPIFNOTEQKS                    R0 K6 ["Light"] ; [+5]
+       18 GETUPVAL                         R2 1
+       19 GETTABLEKS                       R1 R2 K7 ["WHITE"]
+       21 RETURN                           R1 1
+       22 JUMPIFNOTEQKS                    R0 K8 ["Dark"] ; [+5]
+       24 GETUPVAL                         R2 1
+       25 GETTABLEKS                       R1 R2 K0 ["NONE"]
+       27 RETURN                           R1 1
+       28 GETUPVAL                         R2 1
+       29 GETTABLEKS                       R1 R2 K0 ["NONE"]
+       31 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Util"]
-  GETTABLEKS R2 R3 K7 ["isCli"]
-  CALL R1 1 1
-  NEWTABLE R2 8 0
-  NEWTABLE R3 0 3
-  DUPTABLE R4 K10 [{"name", "color"}]
-  LOADK R5 K11 ["White"]
-  SETTABLEKS R5 R4 K8 ["name"]
-  LOADK R5 K11 ["White"]
-  SETTABLEKS R5 R4 K9 ["color"]
-  DUPTABLE R5 K10 [{"name", "color"}]
-  LOADK R6 K12 ["Black"]
-  SETTABLEKS R6 R5 K8 ["name"]
-  LOADK R6 K12 ["Black"]
-  SETTABLEKS R6 R5 K9 ["color"]
-  DUPTABLE R6 K10 [{"name", "color"}]
-  LOADK R7 K13 ["None"]
-  SETTABLEKS R7 R6 K8 ["name"]
-  LOADK R7 K13 ["None"]
-  SETTABLEKS R7 R6 K9 ["color"]
-  SETLIST R3 R4 3 [1]
-  SETTABLEKS R3 R2 K14 ["BACKGROUNDS"]
-  LOADN R3 1
-  SETTABLEKS R3 R2 K15 ["WHITE"]
-  LOADN R3 2
-  SETTABLEKS R3 R2 K16 ["BLACK"]
-  LOADN R3 3
-  SETTABLEKS R3 R2 K17 ["NONE"]
-  DUPCLOSURE R3 K18 [PROTO_0]
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  SETTABLEKS R3 R2 K19 ["getBackgroundForStudioTheme"]
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R4 R0 K5 ["Src"]
+       13 GETTABLEKS                       R3 R4 K6 ["Util"]
+       15 GETTABLEKS                       R2 R3 K7 ["isCli"]
+       17 CALL                             R1 1 1
+       18 NEWTABLE                         R2 8 0
+       20 NEWTABLE                         R3 0 3
+       22 DUPTABLE                         R4 K10 [{"name", "color"}]
+       23 LOADK                            R5 K11 ["White"]
+       24 SETTABLEKS                       R5 R4 K8 ["name"]
+       26 LOADK                            R5 K11 ["White"]
+       27 SETTABLEKS                       R5 R4 K9 ["color"]
+       29 DUPTABLE                         R5 K10 [{"name", "color"}]
+       30 LOADK                            R6 K12 ["Black"]
+       31 SETTABLEKS                       R6 R5 K8 ["name"]
+       33 LOADK                            R6 K12 ["Black"]
+       34 SETTABLEKS                       R6 R5 K9 ["color"]
+       36 DUPTABLE                         R6 K10 [{"name", "color"}]
+       37 LOADK                            R7 K13 ["None"]
+       38 SETTABLEKS                       R7 R6 K8 ["name"]
+       40 LOADK                            R7 K13 ["None"]
+       41 SETTABLEKS                       R7 R6 K9 ["color"]
+       43 SETLIST                          R3 R4 3 [1]
+       45 SETTABLEKS                       R3 R2 K14 ["BACKGROUNDS"]
+       47 LOADN                            R3 1
+       48 SETTABLEKS                       R3 R2 K15 ["WHITE"]
+       50 LOADN                            R3 2
+       51 SETTABLEKS                       R3 R2 K16 ["BLACK"]
+       53 LOADN                            R3 3
+       54 SETTABLEKS                       R3 R2 K17 ["NONE"]
+       56 DUPCLOSURE                       R3 K18 [PROTO_0]
+       57 CAPTURE                          VAL R1
+       58 CAPTURE                          VAL R2
+       59 SETTABLEKS                       R3 R2 K19 ["getBackgroundForStudioTheme"]
+       61 RETURN                           R2 1

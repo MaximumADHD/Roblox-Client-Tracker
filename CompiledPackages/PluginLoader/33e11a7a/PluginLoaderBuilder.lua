@@ -1,0 +1,236 @@
+local Main = script.Parent
+local PluginLoader = require(Main.PluginLoader)
+
+local FFlagRegisterActionsPluginLoader = require(Main.defineLuaFlags).getFFlagRegisterActionsPluginLoader()
+
+export type GetLocalizedTextFunc = ((string, string, string, string) -> string, string, string) -> string
+
+export type ButtonInfo = {
+	getName: GetLocalizedTextFunc,
+	getDescription: GetLocalizedTextFunc,
+	icon: string?,
+	text: (string | GetLocalizedTextFunc)?, -- We can instead change this to getText with type GetLocalizedTextFunc, but this requires refactoring other plugins
+	clickableWhenViewportHidden: boolean?,
+	enabled: boolean?,
+}
+
+export type ToggleActionInfo = {
+	getText: GetLocalizedTextFunc,
+	getTooltip: GetLocalizedTextFunc,
+	uri: StudioUri,
+	icon: string?,
+	enabled: boolean?,
+	visible: boolean?,
+	shortcuts: boolean?,
+	checkable: boolean?,
+	checked: boolean?,
+	visibleOnRibbon: boolean?,
+	-- The following prop designates whether our to-be-registered action already exists, or should be created by PluginLoader
+	isPreexistingAction: boolean,
+}
+
+export type DockWidgetInfo = {
+	dockWidgetPluginGuiInfo: DockWidgetPluginGuiInfo,
+	getDockTitle: GetLocalizedTextFunc,
+	id: string,
+	name: (string | GetLocalizedTextFunc)?,
+	zIndexBehavior: Enum.ZIndexBehavior,
+}
+
+export type Args = {
+	plugin: Plugin,
+	pluginName: string,
+	translationResourceTable: LocalizationTable,
+	fallbackResourceTable: LocalizationTable,
+	overrideLocaleId: string?,
+	localizationNamespace: string?,
+	noToolbar: boolean?,
+	getToolbarName: GetLocalizedTextFunc?,
+	buttonInfo: ButtonInfo?,
+	actionInfos: { ToggleActionInfo }?,
+	dockWidgetInfo: DockWidgetInfo?,
+	extraTriggers: { [string]: () -> RBXScriptSignal | { Connect: (any) -> any } }?,
+	shouldImmediatelyOpen: (() -> boolean)?,
+}
+
+export type PluginLoaderContext = {
+	pluginLoader: PluginLoader.PluginLoader,
+	plugin: Plugin,
+	toolbar: PluginToolbar?,
+	mainButton: PluginToolbarButton?,
+	mainDockWidget: PluginGui?,
+	mainButtonClickedSignal: PluginLoader.FlushOnConnectSignal?,
+	actionTriggeredSignals: { PluginLoader.FlushOnConnectSignal }?,
+	signals: {
+		[string]: PluginLoader.FlushOnConnectSignal,
+	},
+}
+
+local PluginLoaderBuilder = {}
+
+local function createDockWidgetPluginGui(
+	plugin: Plugin,
+	dockWidgetInfo: DockWidgetInfo,
+	title: string,
+	name: string?
+): DockWidgetPluginGui
+	local id = dockWidgetInfo.id
+	local newDockWidget = plugin:CreateDockWidgetPluginGui(id, dockWidgetInfo.dockWidgetPluginGuiInfo)
+	newDockWidget.Title = title
+	if name ~= nil then
+		newDockWidget.Name = name
+	end
+	newDockWidget.ZIndexBehavior = dockWidgetInfo.zIndexBehavior or Enum.ZIndexBehavior.Sibling
+	return newDockWidget
+end
+
+function PluginLoaderBuilder.build(args: Args)
+	local pluginLoaderArgs: PluginLoader.Args = {
+		plugin = args.plugin,
+		pluginName = args.pluginName,
+		translationResourceTable = args.translationResourceTable,
+		fallbackResourceTable = args.fallbackResourceTable,
+		overrideLocaleId = args.overrideLocaleId,
+		localizationNamespace = args.localizationNamespace,
+		shouldImmediatelyOpen = args.shouldImmediatelyOpen,
+	}
+	local Actions = if FFlagRegisterActionsPluginLoader then args.plugin:GetPluginComponent("Actions") else nil
+
+	local pluginLoader = PluginLoader.new(pluginLoaderArgs)
+
+	local getLocalizedText = function(...)
+		return pluginLoader:getLocalizedText(...)
+	end
+
+	local toolbar
+	local mainButton
+	local mainButtonClickedSignal
+	local actionTriggeredSignals: { PluginLoader.FlushOnConnectSignal } = {}
+	if args.noToolbar ~= true then
+		local toolbarString = args.getToolbarName
+			and args.getToolbarName(getLocalizedText, pluginLoader:getKeyNamespace(), pluginLoader:getPluginName())
+		toolbar = args.plugin:CreateToolbar(toolbarString)
+
+		local buttonInfo = args.buttonInfo
+		mainButton = toolbar:CreateButton(
+			buttonInfo.getName(getLocalizedText, pluginLoader:getKeyNamespace(), pluginLoader:getPluginName()),
+			buttonInfo.getDescription(getLocalizedText, pluginLoader:getKeyNamespace(), pluginLoader:getPluginName()),
+			buttonInfo.icon,
+			if type(buttonInfo.text) == "function"
+				then buttonInfo.text(getLocalizedText, pluginLoader:getKeyNamespace(), pluginLoader:getPluginName())
+				else buttonInfo.text
+		)
+		if buttonInfo.clickableWhenViewportHidden then
+			mainButton.ClickableWhenViewportHidden = buttonInfo.clickableWhenViewportHidden
+		end
+		if buttonInfo.enabled ~= nil then
+			mainButton.Enabled = buttonInfo.enabled
+		end
+		mainButton:SetActive(false)
+
+		mainButtonClickedSignal = pluginLoader:registerButton(mainButton)
+	end
+	if FFlagRegisterActionsPluginLoader and args.actionInfos ~= nil then
+		for _, actionInfo in args.actionInfos do
+			local actionTriggeredSignal
+			if actionInfo.isPreexistingAction then
+				-- If action exists already, register existing action signal in PluginLoader
+				local ok, result = pcall(function()
+					return Actions:BindToActivatedAsync(actionInfo.uri)
+				end)
+				if not ok then
+					error(result)
+				end
+				actionTriggeredSignal = result
+			else
+				-- If action does not exist already, create action to register with PluginLoader
+				local ok, result = pcall(function()
+					return Actions:CreateAsync({
+						Uri = actionInfo.uri,
+						Enabled = actionInfo.enabled,
+						Visible = actionInfo.visible,
+						Text = actionInfo.getText(
+							getLocalizedText,
+							pluginLoader:getKeyNamespace(),
+							pluginLoader:getPluginName()
+						),
+						Tooltip = actionInfo.getTooltip(
+							getLocalizedText,
+							pluginLoader:getKeyNamespace(),
+							pluginLoader:getPluginName()
+						),
+						Icon = actionInfo.icon,
+						Shortcuts = actionInfo.shortcuts,
+						Checkable = actionInfo.checkable,
+						Checked = actionInfo.checked,
+						VisibleOnRibbon = actionInfo.visibleOnRibbon,
+					}, true)
+				end)
+				if not ok then
+					error(result)
+				end
+				actionTriggeredSignal = result[1]
+			end
+			table.insert(actionTriggeredSignals, pluginLoader:registerSignal(actionTriggeredSignal))
+		end
+	end
+
+	local mainDockWidget = nil
+	local dockWidgetInfo = args.dockWidgetInfo
+	if dockWidgetInfo then
+		local dockTitleString =
+			dockWidgetInfo.getDockTitle(getLocalizedText, pluginLoader:getKeyNamespace(), pluginLoader:getPluginName())
+
+		if dockWidgetInfo.name then
+			local dockWidgetName = if type(dockWidgetInfo.name) == "function"
+				then dockWidgetInfo.name(getLocalizedText, pluginLoader:getKeyNamespace(), pluginLoader:getPluginName())
+				else dockWidgetInfo.name
+			mainDockWidget = createDockWidgetPluginGui(args.plugin, dockWidgetInfo, dockTitleString, dockWidgetName)
+		else
+			mainDockWidget = createDockWidgetPluginGui(args.plugin, dockWidgetInfo, dockTitleString)
+		end
+
+		pluginLoader:registerWidget(mainDockWidget)
+	end
+
+	local signals = {}
+
+	if args.extraTriggers then
+		for name, signalGetter in pairs(args.extraTriggers) do
+			local signal = signalGetter()
+			signals[name] = pluginLoader:registerSignal(signal)
+		end
+	end
+
+	local pluginLoaderContext: PluginLoaderContext = {
+		pluginLoader = pluginLoader,
+		plugin = args.plugin,
+		toolbar = toolbar,
+		mainButton = mainButton,
+		mainDockWidget = mainDockWidget,
+		mainButtonClickedSignal = mainButtonClickedSignal,
+		actionTriggeredSignals = if FFlagRegisterActionsPluginLoader then actionTriggeredSignals else nil,
+		signals = signals,
+	}
+
+	args.plugin.Unloading:Connect(function()
+		pluginLoader:Destroy()
+		pluginLoader = nil
+		pluginLoaderContext.pluginLoader = nil
+		if pluginLoaderContext.mainButtonClickedSignal then
+			pluginLoaderContext.mainButtonClickedSignal:Destroy()
+		end
+		if FFlagRegisterActionsPluginLoader and pluginLoaderContext.actionTriggeredSignals then
+			for _, signal in pairs(pluginLoaderContext.actionTriggeredSignals) do
+				signal:Destroy()
+			end
+		end
+		for _, signal in pairs(pluginLoaderContext.signals) do
+			signal:Destroy()
+		end
+	end)
+
+	return pluginLoaderContext
+end
+
+return PluginLoaderBuilder

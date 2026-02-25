@@ -1,48 +1,48 @@
 PROTO_0:
-  GETIMPORT R1 K2 [string.match]
-  MOVE R2 R0
-  LOADK R3 K3 ["^studio/classicon/(%w+)$"]
-  CALL R1 2 1
-  JUMPIFNOT R1 [+6]
-  GETUPVAL R2 0
-  MOVE R4 R1
-  NAMECALL R2 R2 K4 ["GetClassIcon"]
-  CALL R2 2 -1
-  RETURN R2 -1
-  LOADNIL R2
-  RETURN R2 1
+        0 GETIMPORT                        R1 K2 [string.match]
+        2 MOVE                             R2 R0
+        3 LOADK                            R3 K3 ["^studio/classicon/(%w+)$"]
+        4 CALL                             R1 2 1
+        5 JUMPIFNOT                        R1 ; [+6]
+        6 GETUPVAL                         R2 0
+        7 MOVE                             R4 R1
+        8 NAMECALL                         R2 R2 K4 ["GetClassIcon"]
+       10 CALL                             R2 2 -1
+       11 RETURN                           R2 -1
+       12 LOADNIL                          R2
+       13 RETURN                           R2 1
 
 PROTO_1:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["join"]
-  MOVE R3 R0
-  DUPTABLE R4 K2 [{"Image"}]
-  SETTABLEKS R1 R4 K1 ["Image"]
-  GETUPVAL R5 1
-  MOVE R6 R1
-  CALL R5 1 -1
-  CALL R2 -1 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["join"]
+        3 MOVE                             R3 R0
+        4 DUPTABLE                         R4 K2 [{"Image"}]
+        5 SETTABLEKS                       R1 R4 K1 ["Image"]
+        7 GETUPVAL                         R5 1
+        8 MOVE                             R6 R1
+        9 CALL                             R5 1 -1
+       10 CALL                             R2 -1 -1
+       11 RETURN                           R2 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["KnowledgeTutorials"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Dash"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Util"]
-  GETTABLEKS R3 R4 K10 ["Services"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K11 ["StudioService"]
-  DUPCLOSURE R4 K12 [PROTO_0]
-  CAPTURE VAL R3
-  DUPCLOSURE R5 K13 [PROTO_1]
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  RETURN R5 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["KnowledgeTutorials"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R5 R0 K8 ["Src"]
+       18 GETTABLEKS                       R4 R5 K9 ["Util"]
+       20 GETTABLEKS                       R3 R4 K10 ["Services"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R2 K11 ["StudioService"]
+       25 DUPCLOSURE                       R4 K12 [PROTO_0]
+       26 CAPTURE                          VAL R3
+       27 DUPCLOSURE                       R5 K13 [PROTO_1]
+       28 CAPTURE                          VAL R1
+       29 CAPTURE                          VAL R4
+       30 RETURN                           R5 1

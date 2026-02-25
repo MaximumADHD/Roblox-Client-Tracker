@@ -1,79 +1,79 @@
 PROTO_0:
-  JUMPIF R0 [+2]
-  LOADNIL R3
-  RETURN R3 1
-  LOADK R5 K0 ["Attachment"]
-  NAMECALL R3 R0 K1 ["IsA"]
-  CALL R3 2 1
-  JUMPIF R3 [+15]
-  LOADK R5 K2 ["Constraint"]
-  NAMECALL R3 R0 K1 ["IsA"]
-  CALL R3 2 1
-  JUMPIF R3 [+10]
-  LOADK R5 K3 ["WeldConstraint"]
-  NAMECALL R3 R0 K1 ["IsA"]
-  CALL R3 2 1
-  JUMPIF R3 [+5]
-  LOADK R5 K4 ["NoCollisionConstraint"]
-  NAMECALL R3 R0 K1 ["IsA"]
-  CALL R3 2 1
-  JUMPIFNOT R3 [+1]
-  RETURN R0 1
-  GETTABLEKS R3 R0 K5 ["Parent"]
-  GETTABLE R4 R2 R3
-  JUMPIFNOT R4 [+1]
-  RETURN R4 1
-  LOADK R7 K6 ["BasePart"]
-  NAMECALL R5 R0 K1 ["IsA"]
-  CALL R5 2 1
-  JUMPIFNOT R5 [+6]
-  GETTABLEKS R5 R0 K7 ["Locked"]
-  JUMPIFNOT R5 [+15]
-  LOADNIL R5
-  RETURN R5 1
-  JUMP [+12]
-  LOADK R7 K8 ["Model"]
-  NAMECALL R5 R0 K1 ["IsA"]
-  CALL R5 2 1
-  JUMPIF R5 [+7]
-  LOADK R7 K9 ["Tool"]
-  NAMECALL R5 R0 K1 ["IsA"]
-  CALL R5 2 1
-  JUMPIF R5 [+2]
-  LOADNIL R5
-  RETURN R5 1
-  GETTABLEKS R5 R0 K10 ["name"]
-  JUMPIFNOTEQKS R5 K11 ["HumanoidRootPart"] [+3]
-  LOADNIL R5
-  RETURN R5 1
-  JUMPIFNOT R1 [+1]
-  RETURN R0 1
-  MOVE R5 R0
-  MOVE R6 R3
-  JUMPIFNOT R6 [+17]
-  LOADK R9 K8 ["Model"]
-  NAMECALL R7 R6 K1 ["IsA"]
-  CALL R7 2 1
-  JUMPIF R7 [+5]
-  LOADK R9 K9 ["Tool"]
-  NAMECALL R7 R6 K1 ["IsA"]
-  CALL R7 2 1
-  JUMPIFNOT R7 [+4]
-  GETUPVAL R7 0
-  JUMPIFEQ R6 R7 [+2]
-  MOVE R5 R6
-  GETTABLEKS R6 R6 K5 ["Parent"]
-  JUMPBACK [-18]
-  JUMPIFEQ R5 R0 [+2]
-  SETTABLE R5 R2 R3
-  RETURN R5 1
+        0 JUMPIF                           R0 ; [+2]
+        1 LOADNIL                          R3
+        2 RETURN                           R3 1
+        3 LOADK                            R5 K0 ["Attachment"]
+        4 NAMECALL                         R3 R0 K1 ["IsA"]
+        6 CALL                             R3 2 1
+        7 JUMPIF                           R3 ; [+15]
+        8 LOADK                            R5 K2 ["Constraint"]
+        9 NAMECALL                         R3 R0 K1 ["IsA"]
+       11 CALL                             R3 2 1
+       12 JUMPIF                           R3 ; [+10]
+       13 LOADK                            R5 K3 ["WeldConstraint"]
+       14 NAMECALL                         R3 R0 K1 ["IsA"]
+       16 CALL                             R3 2 1
+       17 JUMPIF                           R3 ; [+5]
+       18 LOADK                            R5 K4 ["NoCollisionConstraint"]
+       19 NAMECALL                         R3 R0 K1 ["IsA"]
+       21 CALL                             R3 2 1
+       22 JUMPIFNOT                        R3 ; [+1]
+       23 RETURN                           R0 1
+       24 GETTABLEKS                       R3 R0 K5 ["Parent"]
+       26 GETTABLE                         R4 R2 R3
+       27 JUMPIFNOT                        R4 ; [+1]
+       28 RETURN                           R4 1
+       29 LOADK                            R7 K6 ["BasePart"]
+       30 NAMECALL                         R5 R0 K1 ["IsA"]
+       32 CALL                             R5 2 1
+       33 JUMPIFNOT                        R5 ; [+6]
+       34 GETTABLEKS                       R5 R0 K7 ["Locked"]
+       36 JUMPIFNOT                        R5 ; [+15]
+       37 LOADNIL                          R5
+       38 RETURN                           R5 1
+       39 JUMP                             ; [+12]
+       40 LOADK                            R7 K8 ["Model"]
+       41 NAMECALL                         R5 R0 K1 ["IsA"]
+       43 CALL                             R5 2 1
+       44 JUMPIF                           R5 ; [+7]
+       45 LOADK                            R7 K9 ["Tool"]
+       46 NAMECALL                         R5 R0 K1 ["IsA"]
+       48 CALL                             R5 2 1
+       49 JUMPIF                           R5 ; [+2]
+       50 LOADNIL                          R5
+       51 RETURN                           R5 1
+       52 GETTABLEKS                       R5 R0 K10 ["name"]
+       54 JUMPIFNOTEQKS                    R5 K11 ["HumanoidRootPart"] ; [+3]
+       56 LOADNIL                          R5
+       57 RETURN                           R5 1
+       58 JUMPIFNOT                        R1 ; [+1]
+       59 RETURN                           R0 1
+       60 MOVE                             R5 R0
+       61 MOVE                             R6 R3
+       62 JUMPIFNOT                        R6 ; [+17]
+       63 LOADK                            R9 K8 ["Model"]
+       64 NAMECALL                         R7 R6 K1 ["IsA"]
+       66 CALL                             R7 2 1
+       67 JUMPIF                           R7 ; [+5]
+       68 LOADK                            R9 K9 ["Tool"]
+       69 NAMECALL                         R7 R6 K1 ["IsA"]
+       71 CALL                             R7 2 1
+       72 JUMPIFNOT                        R7 ; [+4]
+       73 GETUPVAL                         R7 0
+       74 JUMPIFEQ                         R6 R7 ; [+2]
+       76 MOVE                             R5 R6
+       77 GETTABLEKS                       R6 R6 K5 ["Parent"]
+       79 JUMPBACK                         ; [-18]
+       80 JUMPIFEQ                         R5 R0 ; [+2]
+       82 SETTABLE                         R5 R2 R3
+       83 RETURN                           R5 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["Workspace"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  DUPCLOSURE R1 K4 [PROTO_0]
-  CAPTURE VAL R0
-  RETURN R1 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["Workspace"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 DUPCLOSURE                       R1 K4 [PROTO_0]
+        8 CAPTURE                          VAL R0
+        9 RETURN                           R1 1

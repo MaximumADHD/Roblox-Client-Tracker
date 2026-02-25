@@ -1,186 +1,186 @@
 PROTO_0:
-  GETUPVAL R2 0
-  MOVE R4 R1
-  NAMECALL R2 R2 K0 ["GetPropertyChangedSignal"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R4 R1
+        2 NAMECALL                         R2 R2 K0 ["GetPropertyChangedSignal"]
+        4 CALL                             R2 2 -1
+        5 RETURN                           R2 -1
 
 PROTO_1:
-  GETUPVAL R2 0
-  MOVE R4 R1
-  NAMECALL R2 R2 K0 ["GetAttributeChangedSignal"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R4 R1
+        2 NAMECALL                         R2 R2 K0 ["GetAttributeChangedSignal"]
+        4 CALL                             R2 2 -1
+        5 RETURN                           R2 -1
 
 PROTO_2:
-  GETUPVAL R2 0
-  MOVE R4 R1
-  NAMECALL R2 R2 K0 ["GetAttribute"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R4 R1
+        2 NAMECALL                         R2 R2 K0 ["GetAttribute"]
+        4 CALL                             R2 2 -1
+        5 RETURN                           R2 -1
 
 PROTO_3:
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["GetRequests"]
-  CALL R0 1 -1
-  RETURN R0 -1
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["GetRequests"]
+        3 CALL                             R0 1 -1
+        4 RETURN                           R0 -1
 
 PROTO_4:
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["GetChildren"]
-  CALL R1 1 -1
-  RETURN R1 -1
+        0 GETUPVAL                         R1 0
+        1 NAMECALL                         R1 R1 K0 ["GetChildren"]
+        3 CALL                             R1 1 -1
+        4 RETURN                           R1 -1
 
 PROTO_5:
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["Destroy"]
-  CALL R0 1 -1
-  RETURN R0 -1
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["Destroy"]
+        3 CALL                             R0 1 -1
+        4 RETURN                           R0 -1
 
 PROTO_6:
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["GetStringUniqueId"]
-  CALL R0 1 -1
-  RETURN R0 -1
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["GetStringUniqueId"]
+        3 CALL                             R0 1 -1
+        4 RETURN                           R0 -1
 
 PROTO_7:
-  GETUPVAL R3 0
-  MOVE R5 R1
-  MOVE R6 R2
-  NAMECALL R3 R3 K0 ["SetAttribute"]
-  CALL R3 3 -1
-  RETURN R3 -1
+        0 GETUPVAL                         R3 0
+        1 MOVE                             R5 R1
+        2 MOVE                             R6 R2
+        3 NAMECALL                         R3 R3 K0 ["SetAttribute"]
+        5 CALL                             R3 3 -1
+        6 RETURN                           R3 -1
 
 PROTO_8:
-  GETIMPORT R1 K2 [Instance.new]
-  LOADK R2 K3 ["BindableEvent"]
-  CALL R1 1 1
-  GETIMPORT R2 K2 [Instance.new]
-  LOADK R3 K3 ["BindableEvent"]
-  CALL R2 1 1
-  GETUPVAL R3 0
-  MOVE R4 R0
-  CALL R3 1 1
-  DUPTABLE R4 K34 [{"GetPropertyChangedSignal", "GetAttributeChangedSignal", "GetAttribute", "GetRequests", "GetChildren", "Destroy", "GetStringUniqueId", "GetAbsolutePosition", "SetAdorneeOffsetFromAbsolutePosition", "SetAttribute", "ChildAdded", "ChildRemoved", "AncestryChanged", "Parent", "Name", "AuthorId", "AuthorColor3", "Contents", "TaggedUsers", "Resolved", "CreationTimeUnix", "LastModifiedTimeUnix", "ChannelId", "LoadingReplies", "ReplyCount", "RequestInitiated", "RequestCompleted", "_requestInitiated", "_requestCompleted", "_inner"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K35 ["fn"]
-  NEWCLOSURE R6 P0
-  CAPTURE VAL R3
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K4 ["GetPropertyChangedSignal"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K35 ["fn"]
-  NEWCLOSURE R6 P1
-  CAPTURE VAL R3
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K5 ["GetAttributeChangedSignal"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K35 ["fn"]
-  NEWCLOSURE R6 P2
-  CAPTURE VAL R3
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K6 ["GetAttribute"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K35 ["fn"]
-  NEWCLOSURE R6 P3
-  CAPTURE VAL R3
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K7 ["GetRequests"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K35 ["fn"]
-  NEWCLOSURE R6 P4
-  CAPTURE VAL R3
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K8 ["GetChildren"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K35 ["fn"]
-  NEWCLOSURE R6 P5
-  CAPTURE VAL R3
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K9 ["Destroy"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K35 ["fn"]
-  NEWCLOSURE R6 P6
-  CAPTURE VAL R3
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K10 ["GetStringUniqueId"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K35 ["fn"]
-  GETTABLEKS R6 R3 K11 ["GetAbsolutePosition"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K11 ["GetAbsolutePosition"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K35 ["fn"]
-  GETTABLEKS R6 R3 K12 ["SetAdorneeOffsetFromAbsolutePosition"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K12 ["SetAdorneeOffsetFromAbsolutePosition"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K35 ["fn"]
-  NEWCLOSURE R6 P7
-  CAPTURE VAL R3
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K13 ["SetAttribute"]
-  GETTABLEKS R5 R3 K14 ["ChildAdded"]
-  SETTABLEKS R5 R4 K14 ["ChildAdded"]
-  GETTABLEKS R5 R3 K15 ["ChildRemoved"]
-  SETTABLEKS R5 R4 K15 ["ChildRemoved"]
-  GETTABLEKS R5 R3 K16 ["AncestryChanged"]
-  SETTABLEKS R5 R4 K16 ["AncestryChanged"]
-  GETTABLEKS R5 R3 K17 ["Parent"]
-  SETTABLEKS R5 R4 K17 ["Parent"]
-  NAMECALL R5 R3 K10 ["GetStringUniqueId"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K18 ["Name"]
-  LOADN R5 210
-  SETTABLEKS R5 R4 K19 ["AuthorId"]
-  GETIMPORT R5 K37 [Color3.new]
-  LOADN R6 0
-  LOADN R7 0
-  LOADN R8 0
-  CALL R5 3 1
-  SETTABLEKS R5 R4 K20 ["AuthorColor3"]
-  SETTABLEKS R0 R4 K21 ["Contents"]
-  LOADK R5 K38 [""]
-  SETTABLEKS R5 R4 K22 ["TaggedUsers"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K23 ["Resolved"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K24 ["CreationTimeUnix"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K25 ["LastModifiedTimeUnix"]
-  LOADK R5 K39 ["TestChannel"]
-  SETTABLEKS R5 R4 K26 ["ChannelId"]
-  LOADB R5 0
-  SETTABLEKS R5 R4 K27 ["LoadingReplies"]
-  LOADN R5 0
-  SETTABLEKS R5 R4 K28 ["ReplyCount"]
-  GETTABLEKS R5 R1 K40 ["Event"]
-  SETTABLEKS R5 R4 K29 ["RequestInitiated"]
-  GETTABLEKS R5 R2 K40 ["Event"]
-  SETTABLEKS R5 R4 K30 ["RequestCompleted"]
-  SETTABLEKS R1 R4 K31 ["_requestInitiated"]
-  SETTABLEKS R2 R4 K32 ["_requestCompleted"]
-  SETTABLEKS R3 R4 K33 ["_inner"]
-  RETURN R4 1
+        0 GETIMPORT                        R1 K2 [Instance.new]
+        2 LOADK                            R2 K3 ["BindableEvent"]
+        3 CALL                             R1 1 1
+        4 GETIMPORT                        R2 K2 [Instance.new]
+        6 LOADK                            R3 K3 ["BindableEvent"]
+        7 CALL                             R2 1 1
+        8 GETUPVAL                         R3 0
+        9 MOVE                             R4 R0
+       10 CALL                             R3 1 1
+       11 DUPTABLE                         R4 K34 [{"GetPropertyChangedSignal", "GetAttributeChangedSignal", "GetAttribute", "GetRequests", "GetChildren", "Destroy", "GetStringUniqueId", "GetAbsolutePosition", "SetAdorneeOffsetFromAbsolutePosition", "SetAttribute", "ChildAdded", "ChildRemoved", "AncestryChanged", "Parent", "Name", "AuthorId", "AuthorColor3", "Contents", "TaggedUsers", "Resolved", "CreationTimeUnix", "LastModifiedTimeUnix", "ChannelId", "LoadingReplies", "ReplyCount", "RequestInitiated", "RequestCompleted", "_requestInitiated", "_requestCompleted", "_inner"}]
+       12 GETUPVAL                         R6 1
+       13 GETTABLEKS                       R5 R6 K35 ["fn"]
+       15 NEWCLOSURE                       R6 P0
+       16 CAPTURE                          VAL R3
+       17 CALL                             R5 1 1
+       18 SETTABLEKS                       R5 R4 K4 ["GetPropertyChangedSignal"]
+       20 GETUPVAL                         R6 1
+       21 GETTABLEKS                       R5 R6 K35 ["fn"]
+       23 NEWCLOSURE                       R6 P1
+       24 CAPTURE                          VAL R3
+       25 CALL                             R5 1 1
+       26 SETTABLEKS                       R5 R4 K5 ["GetAttributeChangedSignal"]
+       28 GETUPVAL                         R6 1
+       29 GETTABLEKS                       R5 R6 K35 ["fn"]
+       31 NEWCLOSURE                       R6 P2
+       32 CAPTURE                          VAL R3
+       33 CALL                             R5 1 1
+       34 SETTABLEKS                       R5 R4 K6 ["GetAttribute"]
+       36 GETUPVAL                         R6 1
+       37 GETTABLEKS                       R5 R6 K35 ["fn"]
+       39 NEWCLOSURE                       R6 P3
+       40 CAPTURE                          VAL R3
+       41 CALL                             R5 1 1
+       42 SETTABLEKS                       R5 R4 K7 ["GetRequests"]
+       44 GETUPVAL                         R6 1
+       45 GETTABLEKS                       R5 R6 K35 ["fn"]
+       47 NEWCLOSURE                       R6 P4
+       48 CAPTURE                          VAL R3
+       49 CALL                             R5 1 1
+       50 SETTABLEKS                       R5 R4 K8 ["GetChildren"]
+       52 GETUPVAL                         R6 1
+       53 GETTABLEKS                       R5 R6 K35 ["fn"]
+       55 NEWCLOSURE                       R6 P5
+       56 CAPTURE                          VAL R3
+       57 CALL                             R5 1 1
+       58 SETTABLEKS                       R5 R4 K9 ["Destroy"]
+       60 GETUPVAL                         R6 1
+       61 GETTABLEKS                       R5 R6 K35 ["fn"]
+       63 NEWCLOSURE                       R6 P6
+       64 CAPTURE                          VAL R3
+       65 CALL                             R5 1 1
+       66 SETTABLEKS                       R5 R4 K10 ["GetStringUniqueId"]
+       68 GETUPVAL                         R6 1
+       69 GETTABLEKS                       R5 R6 K35 ["fn"]
+       71 GETTABLEKS                       R6 R3 K11 ["GetAbsolutePosition"]
+       73 CALL                             R5 1 1
+       74 SETTABLEKS                       R5 R4 K11 ["GetAbsolutePosition"]
+       76 GETUPVAL                         R6 1
+       77 GETTABLEKS                       R5 R6 K35 ["fn"]
+       79 GETTABLEKS                       R6 R3 K12 ["SetAdorneeOffsetFromAbsolutePosition"]
+       81 CALL                             R5 1 1
+       82 SETTABLEKS                       R5 R4 K12 ["SetAdorneeOffsetFromAbsolutePosition"]
+       84 GETUPVAL                         R6 1
+       85 GETTABLEKS                       R5 R6 K35 ["fn"]
+       87 NEWCLOSURE                       R6 P7
+       88 CAPTURE                          VAL R3
+       89 CALL                             R5 1 1
+       90 SETTABLEKS                       R5 R4 K13 ["SetAttribute"]
+       92 GETTABLEKS                       R5 R3 K14 ["ChildAdded"]
+       94 SETTABLEKS                       R5 R4 K14 ["ChildAdded"]
+       96 GETTABLEKS                       R5 R3 K15 ["ChildRemoved"]
+       98 SETTABLEKS                       R5 R4 K15 ["ChildRemoved"]
+      100 GETTABLEKS                       R5 R3 K16 ["AncestryChanged"]
+      102 SETTABLEKS                       R5 R4 K16 ["AncestryChanged"]
+      104 GETTABLEKS                       R5 R3 K17 ["Parent"]
+      106 SETTABLEKS                       R5 R4 K17 ["Parent"]
+      108 NAMECALL                         R5 R3 K10 ["GetStringUniqueId"]
+      110 CALL                             R5 1 1
+      111 SETTABLEKS                       R5 R4 K18 ["Name"]
+      113 LOADN                            R5 210
+      114 SETTABLEKS                       R5 R4 K19 ["AuthorId"]
+      116 GETIMPORT                        R5 K37 [Color3.new]
+      118 LOADN                            R6 0
+      119 LOADN                            R7 0
+      120 LOADN                            R8 0
+      121 CALL                             R5 3 1
+      122 SETTABLEKS                       R5 R4 K20 ["AuthorColor3"]
+      124 SETTABLEKS                       R0 R4 K21 ["Contents"]
+      126 LOADK                            R5 K38 [""]
+      127 SETTABLEKS                       R5 R4 K22 ["TaggedUsers"]
+      129 LOADB                            R5 0
+      130 SETTABLEKS                       R5 R4 K23 ["Resolved"]
+      132 LOADN                            R5 0
+      133 SETTABLEKS                       R5 R4 K24 ["CreationTimeUnix"]
+      135 LOADN                            R5 0
+      136 SETTABLEKS                       R5 R4 K25 ["LastModifiedTimeUnix"]
+      138 LOADK                            R5 K39 ["TestChannel"]
+      139 SETTABLEKS                       R5 R4 K26 ["ChannelId"]
+      141 LOADB                            R5 0
+      142 SETTABLEKS                       R5 R4 K27 ["LoadingReplies"]
+      144 LOADN                            R5 0
+      145 SETTABLEKS                       R5 R4 K28 ["ReplyCount"]
+      147 GETTABLEKS                       R5 R1 K40 ["Event"]
+      149 SETTABLEKS                       R5 R4 K29 ["RequestInitiated"]
+      151 GETTABLEKS                       R5 R2 K40 ["Event"]
+      153 SETTABLEKS                       R5 R4 K30 ["RequestCompleted"]
+      155 SETTABLEKS                       R1 R4 K31 ["_requestInitiated"]
+      157 SETTABLEKS                       R2 R4 K32 ["_requestCompleted"]
+      159 SETTABLEKS                       R3 R4 K33 ["_inner"]
+      161 RETURN                           R4 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["PlaceAnnotations"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Dev"]
-  GETTABLEKS R2 R3 K8 ["JestGlobals"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K9 ["jest"]
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K10 ["Src"]
-  GETTABLEKS R5 R6 K11 ["tests"]
-  GETTABLEKS R4 R5 K12 ["createTestAnnotation"]
-  CALL R3 1 1
-  DUPCLOSURE R4 K13 [PROTO_8]
-  CAPTURE VAL R3
-  CAPTURE VAL R2
-  RETURN R4 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["PlaceAnnotations"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R3 R4 K7 ["Dev"]
+       13 GETTABLEKS                       R2 R3 K8 ["JestGlobals"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R2 R1 K9 ["jest"]
+       18 GETIMPORT                        R3 K5 [require]
+       20 GETTABLEKS                       R6 R0 K10 ["Src"]
+       22 GETTABLEKS                       R5 R6 K11 ["tests"]
+       24 GETTABLEKS                       R4 R5 K12 ["createTestAnnotation"]
+       26 CALL                             R3 1 1
+       27 DUPCLOSURE                       R4 K13 [PROTO_8]
+       28 CAPTURE                          VAL R3
+       29 CAPTURE                          VAL R2
+       30 RETURN                           R4 1

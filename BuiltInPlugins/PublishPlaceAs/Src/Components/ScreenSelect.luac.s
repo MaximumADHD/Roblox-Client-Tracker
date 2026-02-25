@@ -1,252 +1,117 @@
 PROTO_0:
-  GETUPVAL R0 0
-  LOADB R1 0
-  CALL R0 1 0
-  GETUPVAL R0 1
-  CALL R0 0 0
-  RETURN R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["OnClose"]
+        2 GETTABLEKS                       R2 R0 K1 ["IsPublish"]
+        4 GETTABLEKS                       R3 R0 K2 ["CloseMode"]
+        6 GETTABLEKS                       R4 R0 K3 ["Screen"]
+        8 GETUPVAL                         R6 0
+        9 GETTABLEKS                       R5 R6 K4 ["createElement"]
+       11 GETUPVAL                         R7 1
+       12 GETTABLE                         R6 R7 R4
+       13 DUPTABLE                         R7 K5 [{"OnClose", "IsPublish", "CloseMode"}]
+       14 SETTABLEKS                       R1 R7 K0 ["OnClose"]
+       16 SETTABLEKS                       R2 R7 K1 ["IsPublish"]
+       18 SETTABLEKS                       R3 R7 K2 ["CloseMode"]
+       20 CALL                             R5 2 -1
+       21 RETURN                           R5 -1
 
 PROTO_1:
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["StudioPublishLimitReachedDialogLink"]
-  NAMECALL R0 R0 K3 ["GetFastString"]
-  CALL R0 2 1
-  GETUPVAL R1 0
-  MOVE R3 R0
-  NAMECALL R1 R1 K4 ["OpenBrowserWindow"]
-  CALL R1 2 0
-  RETURN R0 0
-
-PROTO_2:
-  GETTABLEKS R1 R0 K0 ["OnClose"]
-  GETTABLEKS R2 R0 K1 ["IsPublish"]
-  GETTABLEKS R3 R0 K2 ["CloseMode"]
-  GETTABLEKS R4 R0 K3 ["Screen"]
-  GETTABLEKS R5 R0 K4 ["ActivationFailed"]
-  GETTABLEKS R6 R0 K5 ["DispatchSetActivationFailed"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K6 ["createFragment"]
-  DUPTABLE R8 K9 [{"Screen", "ModalOverlay", "ActivationFailedDialog"}]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K10 ["createElement"]
-  GETUPVAL R11 1
-  GETTABLE R10 R11 R4
-  DUPTABLE R11 K11 [{"OnClose", "IsPublish", "CloseMode"}]
-  SETTABLEKS R1 R11 K0 ["OnClose"]
-  SETTABLEKS R2 R11 K1 ["IsPublish"]
-  SETTABLEKS R3 R11 K2 ["CloseMode"]
-  CALL R9 2 1
-  SETTABLEKS R9 R8 K3 ["Screen"]
-  GETUPVAL R10 2
-  JUMPIFNOT R10 [+38]
-  JUMPIFNOT R5 [+37]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K10 ["createElement"]
-  LOADK R10 K12 ["TextButton"]
-  DUPTABLE R11 K20 [{"ZIndex", "Size", "BackgroundTransparency", "BackgroundColor3", "Text", "AutoButtonColor", "Active"}]
-  LOADN R12 10
-  SETTABLEKS R12 R11 K13 ["ZIndex"]
-  GETIMPORT R12 K23 [UDim2.fromScale]
-  LOADN R13 1
-  LOADN R14 1
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K14 ["Size"]
-  LOADK R12 K24 [0.5]
-  SETTABLEKS R12 R11 K15 ["BackgroundTransparency"]
-  GETIMPORT R12 K27 [Color3.new]
-  LOADN R13 0
-  LOADN R14 0
-  LOADN R15 0
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K16 ["BackgroundColor3"]
-  LOADK R12 K28 [""]
-  SETTABLEKS R12 R11 K17 ["Text"]
-  LOADB R12 0
-  SETTABLEKS R12 R11 K18 ["AutoButtonColor"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K19 ["Active"]
-  CALL R9 2 1
-  JUMPIF R9 [+1]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K7 ["ModalOverlay"]
-  GETUPVAL R10 2
-  JUMPIFNOT R10 [+39]
-  JUMPIFNOT R5 [+38]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K10 ["createElement"]
-  LOADK R10 K29 ["Frame"]
-  DUPTABLE R11 K30 [{"BackgroundTransparency", "Size", "ZIndex"}]
-  LOADN R12 1
-  SETTABLEKS R12 R11 K15 ["BackgroundTransparency"]
-  GETIMPORT R12 K23 [UDim2.fromScale]
-  LOADN R13 1
-  LOADN R14 1
-  CALL R12 2 1
-  SETTABLEKS R12 R11 K14 ["Size"]
-  LOADN R12 20
-  SETTABLEKS R12 R11 K13 ["ZIndex"]
-  DUPTABLE R12 K32 [{"Dialog"}]
-  GETUPVAL R14 0
-  GETTABLEKS R13 R14 K10 ["createElement"]
-  GETUPVAL R14 3
-  DUPTABLE R15 K34 [{"OnClose", "OnLearnMore"}]
-  NEWCLOSURE R16 P0
-  CAPTURE VAL R6
-  CAPTURE VAL R1
-  SETTABLEKS R16 R15 K0 ["OnClose"]
-  DUPCLOSURE R16 K35 [PROTO_1]
-  CAPTURE UPVAL U4
-  SETTABLEKS R16 R15 K33 ["OnLearnMore"]
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K31 ["Dialog"]
-  CALL R9 3 1
-  JUMPIF R9 [+1]
-  LOADNIL R9
-  SETTABLEKS R9 R8 K8 ["ActivationFailedDialog"]
-  CALL R7 1 -1
-  RETURN R7 -1
-
-PROTO_3:
-  GETTABLEKS R3 R0 K0 ["Screen"]
-  GETTABLEKS R2 R3 K1 ["screen"]
-  GETTABLEKS R4 R0 K0 ["Screen"]
-  GETTABLEKS R3 R4 K2 ["activationFailed"]
-  DUPTABLE R4 K4 [{"Screen", "ActivationFailed"}]
-  SETTABLEKS R2 R4 K0 ["Screen"]
-  SETTABLEKS R3 R4 K3 ["ActivationFailed"]
-  RETURN R4 1
-
-PROTO_4:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R2 1 -1
-  CALL R1 -1 0
-  RETURN R0 0
-
-PROTO_5:
-  DUPTABLE R1 K1 [{"DispatchSetActivationFailed"}]
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  SETTABLEKS R2 R1 K0 ["DispatchSetActivationFailed"]
-  RETURN R1 1
+        0 GETTABLEKS                       R3 R0 K0 ["Screen"]
+        2 GETTABLEKS                       R2 R3 K1 ["screen"]
+        4 DUPTABLE                         R3 K2 [{"Screen"}]
+        5 SETTABLEKS                       R2 R3 K0 ["Screen"]
+        7 RETURN                           R3 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["RoactRodux"]
-  CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K9 ["Resources"]
-  GETTABLEKS R4 R5 K10 ["Constants"]
-  CALL R3 1 1
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R7 R0 K8 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Components"]
-  GETTABLEKS R5 R6 K12 ["ActivationFailedDialog"]
-  CALL R4 1 1
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R8 R0 K8 ["Src"]
-  GETTABLEKS R7 R8 K13 ["Actions"]
-  GETTABLEKS R6 R7 K14 ["SetActivationFailed"]
-  CALL R5 1 1
-  GETIMPORT R6 K16 [game]
-  LOADK R8 K17 ["BrowserService"]
-  NAMECALL R6 R6 K18 ["GetService"]
-  CALL R6 2 1
-  GETIMPORT R7 K16 [game]
-  LOADK R9 K19 ["StudioUserLimitCheck"]
-  NAMECALL R7 R7 K20 ["GetFastFlag"]
-  CALL R7 2 1
-  NEWTABLE R8 8 0
-  GETTABLEKS R10 R3 K21 ["SCREENS"]
-  GETTABLEKS R9 R10 K22 ["CREATE_NEW_GAME"]
-  GETIMPORT R10 K4 [require]
-  GETTABLEKS R13 R0 K8 ["Src"]
-  GETTABLEKS R12 R13 K11 ["Components"]
-  GETTABLEKS R11 R12 K23 ["ScreenCreateNewGame"]
-  CALL R10 1 1
-  SETTABLE R10 R8 R9
-  GETTABLEKS R10 R3 K21 ["SCREENS"]
-  GETTABLEKS R9 R10 K24 ["CHOOSE_GAME"]
-  GETIMPORT R10 K4 [require]
-  GETTABLEKS R13 R0 K8 ["Src"]
-  GETTABLEKS R12 R13 K11 ["Components"]
-  GETTABLEKS R11 R12 K25 ["ScreenChooseGame"]
-  CALL R10 1 1
-  SETTABLE R10 R8 R9
-  GETTABLEKS R10 R3 K21 ["SCREENS"]
-  GETTABLEKS R9 R10 K26 ["CHOOSE_PLACE"]
-  GETIMPORT R10 K4 [require]
-  GETTABLEKS R13 R0 K8 ["Src"]
-  GETTABLEKS R12 R13 K11 ["Components"]
-  GETTABLEKS R11 R12 K27 ["ScreenChoosePlace"]
-  CALL R10 1 1
-  SETTABLE R10 R8 R9
-  GETTABLEKS R10 R3 K21 ["SCREENS"]
-  GETTABLEKS R9 R10 K28 ["PUBLISH_IN_PROGRESS"]
-  GETIMPORT R10 K4 [require]
-  GETTABLEKS R13 R0 K8 ["Src"]
-  GETTABLEKS R12 R13 K11 ["Components"]
-  GETTABLEKS R11 R12 K29 ["ScreenPublishInProgress"]
-  CALL R10 1 1
-  SETTABLE R10 R8 R9
-  GETTABLEKS R10 R3 K21 ["SCREENS"]
-  GETTABLEKS R9 R10 K30 ["PUBLISH_SUCCESSFUL"]
-  GETIMPORT R10 K4 [require]
-  GETTABLEKS R13 R0 K8 ["Src"]
-  GETTABLEKS R12 R13 K11 ["Components"]
-  GETTABLEKS R11 R12 K31 ["ScreenPublishSuccessful"]
-  CALL R10 1 1
-  SETTABLE R10 R8 R9
-  GETTABLEKS R10 R3 K21 ["SCREENS"]
-  GETTABLEKS R9 R10 K32 ["PUBLISH_FAIL"]
-  GETIMPORT R10 K4 [require]
-  GETTABLEKS R13 R0 K8 ["Src"]
-  GETTABLEKS R12 R13 K11 ["Components"]
-  GETTABLEKS R11 R12 K33 ["ScreenPublishFail"]
-  CALL R10 1 1
-  SETTABLE R10 R8 R9
-  GETIMPORT R9 K35 [pairs]
-  GETTABLEKS R10 R3 K21 ["SCREENS"]
-  CALL R9 1 3
-  FORGPREP_NEXT R9
-  GETTABLE R16 R8 R12
-  JUMPIFNOTEQKNIL R16 [+2]
-  LOADB R15 0 +1
-  LOADB R15 1
-  GETIMPORT R16 K38 [string.format]
-  LOADK R17 K39 ["ScreenSelect.lua does not handle screen %s"]
-  MOVE R18 R12
-  CALL R16 2 -1
-  FASTCALL ASSERT [+2]
-  GETIMPORT R14 K41 [assert]
-  CALL R14 -1 0
-  FORGLOOP R9 2 [-15]
-  DUPCLOSURE R9 K42 [PROTO_2]
-  CAPTURE VAL R1
-  CAPTURE VAL R8
-  CAPTURE VAL R7
-  CAPTURE VAL R4
-  CAPTURE VAL R6
-  DUPCLOSURE R10 K43 [PROTO_3]
-  DUPCLOSURE R11 K44 [PROTO_5]
-  CAPTURE VAL R5
-  GETTABLEKS R12 R2 K45 ["connect"]
-  MOVE R13 R10
-  MOVE R14 R11
-  CALL R12 2 1
-  MOVE R13 R9
-  CALL R12 1 -1
-  RETURN R12 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K7 ["RoactRodux"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K4 [require]
+       25 GETTABLEKS                       R6 R0 K8 ["Src"]
+       27 GETTABLEKS                       R5 R6 K9 ["Resources"]
+       29 GETTABLEKS                       R4 R5 K10 ["Constants"]
+       31 CALL                             R3 1 1
+       32 NEWTABLE                         R4 8 0
+       34 GETTABLEKS                       R6 R3 K11 ["SCREENS"]
+       36 GETTABLEKS                       R5 R6 K12 ["CREATE_NEW_GAME"]
+       38 GETIMPORT                        R6 K4 [require]
+       40 GETTABLEKS                       R9 R0 K8 ["Src"]
+       42 GETTABLEKS                       R8 R9 K13 ["Components"]
+       44 GETTABLEKS                       R7 R8 K14 ["ScreenCreateNewGame"]
+       46 CALL                             R6 1 1
+       47 SETTABLE                         R6 R4 R5
+       48 GETTABLEKS                       R6 R3 K11 ["SCREENS"]
+       50 GETTABLEKS                       R5 R6 K15 ["CHOOSE_GAME"]
+       52 GETIMPORT                        R6 K4 [require]
+       54 GETTABLEKS                       R9 R0 K8 ["Src"]
+       56 GETTABLEKS                       R8 R9 K13 ["Components"]
+       58 GETTABLEKS                       R7 R8 K16 ["ScreenChooseGame"]
+       60 CALL                             R6 1 1
+       61 SETTABLE                         R6 R4 R5
+       62 GETTABLEKS                       R6 R3 K11 ["SCREENS"]
+       64 GETTABLEKS                       R5 R6 K17 ["CHOOSE_PLACE"]
+       66 GETIMPORT                        R6 K4 [require]
+       68 GETTABLEKS                       R9 R0 K8 ["Src"]
+       70 GETTABLEKS                       R8 R9 K13 ["Components"]
+       72 GETTABLEKS                       R7 R8 K18 ["ScreenChoosePlace"]
+       74 CALL                             R6 1 1
+       75 SETTABLE                         R6 R4 R5
+       76 GETTABLEKS                       R6 R3 K11 ["SCREENS"]
+       78 GETTABLEKS                       R5 R6 K19 ["PUBLISH_IN_PROGRESS"]
+       80 GETIMPORT                        R6 K4 [require]
+       82 GETTABLEKS                       R9 R0 K8 ["Src"]
+       84 GETTABLEKS                       R8 R9 K13 ["Components"]
+       86 GETTABLEKS                       R7 R8 K20 ["ScreenPublishInProgress"]
+       88 CALL                             R6 1 1
+       89 SETTABLE                         R6 R4 R5
+       90 GETTABLEKS                       R6 R3 K11 ["SCREENS"]
+       92 GETTABLEKS                       R5 R6 K21 ["PUBLISH_SUCCESSFUL"]
+       94 GETIMPORT                        R6 K4 [require]
+       96 GETTABLEKS                       R9 R0 K8 ["Src"]
+       98 GETTABLEKS                       R8 R9 K13 ["Components"]
+      100 GETTABLEKS                       R7 R8 K22 ["ScreenPublishSuccessful"]
+      102 CALL                             R6 1 1
+      103 SETTABLE                         R6 R4 R5
+      104 GETTABLEKS                       R6 R3 K11 ["SCREENS"]
+      106 GETTABLEKS                       R5 R6 K23 ["PUBLISH_FAIL"]
+      108 GETIMPORT                        R6 K4 [require]
+      110 GETTABLEKS                       R9 R0 K8 ["Src"]
+      112 GETTABLEKS                       R8 R9 K13 ["Components"]
+      114 GETTABLEKS                       R7 R8 K24 ["ScreenPublishFail"]
+      116 CALL                             R6 1 1
+      117 SETTABLE                         R6 R4 R5
+      118 GETIMPORT                        R5 K26 [pairs]
+      120 GETTABLEKS                       R6 R3 K11 ["SCREENS"]
+      122 CALL                             R5 1 3
+      123 FORGPREP_NEXT                    R5
+      124 GETTABLE                         R12 R4 R8
+      125 JUMPIFNOTEQKNIL                  R12 ; [+2]
+      127 LOADB                            R11 0 +1
+      128 LOADB                            R11 1
+      129 GETIMPORT                        R12 K29 [string.format]
+      131 LOADK                            R13 K30 ["ScreenSelect.lua does not handle screen %s"]
+      132 MOVE                             R14 R8
+      133 CALL                             R12 2 -1
+      134 FASTCALL                         ASSERT ; [+2]
+      135 GETIMPORT                        R10 K32 [assert]
+      137 CALL                             R10 -1 0
+      138 FORGLOOP                         R5 2 ; [-15]
+      140 DUPCLOSURE                       R5 K33 [PROTO_0]
+      141 CAPTURE                          VAL R1
+      142 CAPTURE                          VAL R4
+      143 DUPCLOSURE                       R6 K34 [PROTO_1]
+      144 GETTABLEKS                       R7 R2 K35 ["connect"]
+      146 MOVE                             R8 R6
+      147 CALL                             R7 1 1
+      148 MOVE                             R8 R5
+      149 CALL                             R7 1 -1
+      150 RETURN                           R7 -1

@@ -1,13 +1,13 @@
 PROTO_0:
-  GETIMPORT R1 K2 [Vector2.new]
-  GETTABLEKS R3 R0 K3 ["X"]
-  GETTABLEKS R2 R3 K4 ["Offset"]
-  GETTABLEKS R4 R0 K5 ["Y"]
-  GETTABLEKS R3 R4 K4 ["Offset"]
-  CALL R1 2 -1
-  RETURN R1 -1
+        0 GETIMPORT                        R1 K2 [Vector2.new]
+        2 GETTABLEKS                       R3 R0 K3 ["X"]
+        4 GETTABLEKS                       R2 R3 K4 ["Offset"]
+        6 GETTABLEKS                       R4 R0 K5 ["Y"]
+        8 GETTABLEKS                       R3 R4 K4 ["Offset"]
+       10 CALL                             R1 2 -1
+       11 RETURN                           R1 -1
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 RETURN                           R0 1

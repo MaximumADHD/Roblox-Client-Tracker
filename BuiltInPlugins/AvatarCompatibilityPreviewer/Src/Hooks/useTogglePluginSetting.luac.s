@@ -1,72 +1,72 @@
 PROTO_0:
-  GETUPVAL R0 0
-  LOADB R1 1
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 LOADB                            R1 1
+        2 CALL                             R0 1 0
+        3 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R0 0
-  LOADB R1 0
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 LOADB                            R1 0
+        2 CALL                             R0 1 0
+        3 RETURN                           R0 0
 
 PROTO_2:
-  NOT R1 R0
-  RETURN R1 1
+        0 NOT                              R1 R0
+        1 RETURN                           R1 1
 
 PROTO_3:
-  GETUPVAL R0 0
-  DUPCLOSURE R1 K0 [PROTO_2]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 DUPCLOSURE                       R1 K0 [PROTO_2]
+        2 CALL                             R0 1 0
+        3 RETURN                           R0 0
 
 PROTO_4:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  MOVE R4 R1
-  CALL R2 2 2
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K0 ["useCallback"]
-  NEWCLOSURE R5 P0
-  CAPTURE VAL R3
-  NEWTABLE R6 0 0
-  CALL R4 2 1
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K0 ["useCallback"]
-  NEWCLOSURE R6 P1
-  CAPTURE VAL R3
-  NEWTABLE R7 0 0
-  CALL R5 2 1
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K0 ["useCallback"]
-  NEWCLOSURE R7 P2
-  CAPTURE VAL R3
-  NEWTABLE R8 0 0
-  CALL R6 2 1
-  DUPTABLE R7 K6 [{"enabled", "enable", "disable", "set", "toggle"}]
-  SETTABLEKS R2 R7 K1 ["enabled"]
-  SETTABLEKS R4 R7 K2 ["enable"]
-  SETTABLEKS R5 R7 K3 ["disable"]
-  SETTABLEKS R3 R7 K4 ["set"]
-  SETTABLEKS R6 R7 K5 ["toggle"]
-  RETURN R7 1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 MOVE                             R4 R1
+        3 CALL                             R2 2 2
+        4 GETUPVAL                         R5 1
+        5 GETTABLEKS                       R4 R5 K0 ["useCallback"]
+        7 NEWCLOSURE                       R5 P0
+        8 CAPTURE                          VAL R3
+        9 NEWTABLE                         R6 0 0
+       11 CALL                             R4 2 1
+       12 GETUPVAL                         R6 1
+       13 GETTABLEKS                       R5 R6 K0 ["useCallback"]
+       15 NEWCLOSURE                       R6 P1
+       16 CAPTURE                          VAL R3
+       17 NEWTABLE                         R7 0 0
+       19 CALL                             R5 2 1
+       20 GETUPVAL                         R7 1
+       21 GETTABLEKS                       R6 R7 K0 ["useCallback"]
+       23 NEWCLOSURE                       R7 P2
+       24 CAPTURE                          VAL R3
+       25 NEWTABLE                         R8 0 0
+       27 CALL                             R6 2 1
+       28 DUPTABLE                         R7 K6 [{"enabled", "enable", "disable", "set", "toggle"}]
+       29 SETTABLEKS                       R2 R7 K1 ["enabled"]
+       31 SETTABLEKS                       R4 R7 K2 ["enable"]
+       33 SETTABLEKS                       R5 R7 K3 ["disable"]
+       35 SETTABLEKS                       R3 R7 K4 ["set"]
+       37 SETTABLEKS                       R6 R7 K5 ["toggle"]
+       39 RETURN                           R7 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Hooks"]
-  GETTABLEKS R3 R4 K10 ["usePluginSetting"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K11 [PROTO_4]
-  CAPTURE VAL R2
-  CAPTURE VAL R1
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarCompatibilityPreviewer"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R5 R0 K8 ["Src"]
+       18 GETTABLEKS                       R4 R5 K9 ["Hooks"]
+       20 GETTABLEKS                       R3 R4 K10 ["usePluginSetting"]
+       22 CALL                             R2 1 1
+       23 DUPCLOSURE                       R3 K11 [PROTO_4]
+       24 CAPTURE                          VAL R2
+       25 CAPTURE                          VAL R1
+       26 RETURN                           R3 1

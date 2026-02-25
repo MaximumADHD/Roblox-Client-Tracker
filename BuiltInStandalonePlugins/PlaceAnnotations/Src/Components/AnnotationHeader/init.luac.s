@@ -1,228 +1,228 @@
 PROTO_0:
-  GETUPVAL R0 0
-  JUMPIFNOT R0 [+4]
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["Disconnect"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+4]
+        2 GETUPVAL                         R0 0
+        3 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        5 CALL                             R0 1 0
+        6 RETURN                           R0 0
 
 PROTO_1:
-  LOADNIL R0
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["DataModel"]
-  JUMPIFNOTEQKS R1 K1 ["Edit"] [+22]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K2 ["Annotation"]
-  GETTABLEKS R1 R2 K3 ["Adornee"]
-  JUMPIFNOT R1 [+27]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K2 ["Annotation"]
-  GETTABLEKS R1 R2 K3 ["Adornee"]
-  LOADK R3 K4 ["Name"]
-  NAMECALL R1 R1 K5 ["GetPropertyChangedSignal"]
-  CALL R1 2 1
-  GETUPVAL R3 1
-  NAMECALL R1 R1 K6 ["Connect"]
-  CALL R1 2 1
-  MOVE R0 R1
-  JUMP [+12]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["Annotation"]
-  LOADK R3 K7 ["HeaderText"]
-  NAMECALL R1 R1 K8 ["GetAttributeChangedSignal"]
-  CALL R1 2 1
-  GETUPVAL R3 1
-  NAMECALL R1 R1 K6 ["Connect"]
-  CALL R1 2 1
-  MOVE R0 R1
-  NEWCLOSURE R1 P0
-  CAPTURE REF R0
-  CLOSEUPVALS R0
-  RETURN R1 1
+        0 LOADNIL                          R0
+        1 GETUPVAL                         R2 0
+        2 GETTABLEKS                       R1 R2 K0 ["DataModel"]
+        4 JUMPIFNOTEQKS                    R1 K1 ["Edit"] ; [+22]
+        6 GETUPVAL                         R3 0
+        7 GETTABLEKS                       R2 R3 K2 ["Annotation"]
+        9 GETTABLEKS                       R1 R2 K3 ["Adornee"]
+       11 JUMPIFNOT                        R1 ; [+27]
+       12 GETUPVAL                         R3 0
+       13 GETTABLEKS                       R2 R3 K2 ["Annotation"]
+       15 GETTABLEKS                       R1 R2 K3 ["Adornee"]
+       17 LOADK                            R3 K4 ["Name"]
+       18 NAMECALL                         R1 R1 K5 ["GetPropertyChangedSignal"]
+       20 CALL                             R1 2 1
+       21 GETUPVAL                         R3 1
+       22 NAMECALL                         R1 R1 K6 ["Connect"]
+       24 CALL                             R1 2 1
+       25 MOVE                             R0 R1
+       26 JUMP                             ; [+12]
+       27 GETUPVAL                         R2 0
+       28 GETTABLEKS                       R1 R2 K2 ["Annotation"]
+       30 LOADK                            R3 K7 ["HeaderText"]
+       31 NAMECALL                         R1 R1 K8 ["GetAttributeChangedSignal"]
+       33 CALL                             R1 2 1
+       34 GETUPVAL                         R3 1
+       35 NAMECALL                         R1 R1 K6 ["Connect"]
+       37 CALL                             R1 2 1
+       38 MOVE                             R0 R1
+       39 NEWCLOSURE                       R1 P0
+       40 CAPTURE                          REF R0
+       41 CLOSEUPVALS                      R0
+       42 RETURN                           R1 1
 
 PROTO_2:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  MOVE R3 R0
-  CALL R1 2 1
-  GETUPVAL R2 2
-  NAMECALL R2 R2 K0 ["use"]
-  CALL R2 1 1
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K1 ["useContext"]
-  GETUPVAL R5 4
-  GETTABLEKS R4 R5 K2 ["Context"]
-  CALL R3 1 1
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K3 ["useReducer"]
-  GETUPVAL R5 5
-  LOADN R6 0
-  CALL R4 2 2
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K4 ["useEffect"]
-  NEWCLOSURE R7 P0
-  CAPTURE VAL R1
-  CAPTURE VAL R5
-  NEWTABLE R8 0 2
-  GETTABLEKS R9 R1 K5 ["DataModel"]
-  GETTABLEKS R10 R1 K6 ["Annotation"]
-  SETLIST R8 R9 2 [1]
-  CALL R6 2 0
-  LOADNIL R6
-  GETTABLEKS R7 R1 K5 ["DataModel"]
-  JUMPIFNOTEQKS R7 K7 ["Edit"] [+13]
-  GETTABLEKS R8 R1 K6 ["Annotation"]
-  GETTABLEKS R7 R8 K8 ["Adornee"]
-  JUMPIFNOT R7 [+7]
-  GETTABLEKS R8 R1 K6 ["Annotation"]
-  GETTABLEKS R7 R8 K8 ["Adornee"]
-  GETTABLEKS R6 R7 K9 ["ClassName"]
-  JUMP [+7]
-  GETTABLEKS R7 R1 K6 ["Annotation"]
-  LOADK R9 K10 ["AdorneeClass"]
-  NAMECALL R7 R7 K11 ["GetAttribute"]
-  CALL R7 2 1
-  MOVE R6 R7
-  LOADNIL R7
-  GETTABLEKS R8 R1 K5 ["DataModel"]
-  JUMPIFNOTEQKS R8 K7 ["Edit"] [+24]
-  GETTABLEKS R9 R1 K6 ["Annotation"]
-  GETTABLEKS R8 R9 K8 ["Adornee"]
-  JUMPIFNOT R8 [+7]
-  GETTABLEKS R9 R1 K6 ["Annotation"]
-  GETTABLEKS R8 R9 K8 ["Adornee"]
-  GETTABLEKS R7 R8 K12 ["Name"]
-  JUMP [+29]
-  LOADK R8 K13 ["(%*)"]
-  LOADK R12 K14 ["Card"]
-  LOADK R13 K15 ["DeletedInstance"]
-  NAMECALL R10 R2 K16 ["getText"]
-  CALL R10 3 1
-  NAMECALL R8 R8 K17 ["format"]
-  CALL R8 2 1
-  MOVE R7 R8
-  JUMP [+18]
-  GETTABLEKS R8 R1 K6 ["Annotation"]
-  LOADK R10 K18 ["HeaderText"]
-  NAMECALL R8 R8 K11 ["GetAttribute"]
-  CALL R8 2 1
-  JUMPIF R8 [+10]
-  LOADK R9 K13 ["(%*)"]
-  LOADK R13 K14 ["Card"]
-  LOADK R14 K15 ["DeletedInstance"]
-  NAMECALL R11 R2 K16 ["getText"]
-  CALL R11 3 1
-  NAMECALL R9 R9 K17 ["format"]
-  CALL R9 2 1
-  MOVE R8 R9
-  MOVE R7 R8
-  GETUPVAL R9 3
-  GETTABLEKS R8 R9 K19 ["createElement"]
-  LOADK R9 K20 ["Frame"]
-  NEWTABLE R10 1 0
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K21 ["Tag"]
-  LOADK R12 K22 ["Component-AnnotationHeader"]
-  SETTABLE R12 R10 R11
-  DUPTABLE R11 K24 [{"Navigation"}]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K19 ["createElement"]
-  LOADK R13 K20 ["Frame"]
-  DUPTABLE R14 K26 [{"LayoutOrder"}]
-  LOADN R15 0
-  SETTABLEKS R15 R14 K25 ["LayoutOrder"]
-  DUPTABLE R15 K29 [{"LeftAligned", "RightAligned"}]
-  GETUPVAL R17 3
-  GETTABLEKS R16 R17 K19 ["createElement"]
-  LOADK R17 K20 ["Frame"]
-  NEWTABLE R18 0 0
-  DUPTABLE R19 K31 [{"ClassIcon", "Adornee"}]
-  JUMPIFNOT R6 [+18]
-  GETUPVAL R21 3
-  GETTABLEKS R20 R21 K19 ["createElement"]
-  LOADK R21 K32 ["ImageLabel"]
-  DUPTABLE R22 K34 [{"Image", "LayoutOrder"}]
-  GETTABLEKS R24 R3 K35 ["getClassIcon"]
-  MOVE R25 R6
-  CALL R24 1 1
-  GETTABLEKS R23 R24 K33 ["Image"]
-  SETTABLEKS R23 R22 K33 ["Image"]
-  LOADN R23 0
-  SETTABLEKS R23 R22 K25 ["LayoutOrder"]
-  CALL R20 2 1
-  JUMP [+1]
-  LOADNIL R20
-  SETTABLEKS R20 R19 K30 ["ClassIcon"]
-  GETUPVAL R21 3
-  GETTABLEKS R20 R21 K19 ["createElement"]
-  LOADK R21 K36 ["TextLabel"]
-  DUPTABLE R22 K38 [{"Text", "LayoutOrder"}]
-  SETTABLEKS R7 R22 K37 ["Text"]
-  LOADN R23 1
-  SETTABLEKS R23 R22 K25 ["LayoutOrder"]
-  CALL R20 2 1
-  SETTABLEKS R20 R19 K8 ["Adornee"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K27 ["LeftAligned"]
-  GETUPVAL R17 3
-  GETTABLEKS R16 R17 K19 ["createElement"]
-  LOADK R17 K20 ["Frame"]
-  DUPTABLE R18 K26 [{"LayoutOrder"}]
-  LOADN R19 2
-  SETTABLEKS R19 R18 K25 ["LayoutOrder"]
-  GETTABLEKS R19 R1 K39 ["children"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K28 ["RightAligned"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K23 ["Navigation"]
-  CALL R8 3 -1
-  RETURN R8 -1
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R2 1
+        2 MOVE                             R3 R0
+        3 CALL                             R1 2 1
+        4 GETUPVAL                         R2 2
+        5 NAMECALL                         R2 R2 K0 ["use"]
+        7 CALL                             R2 1 1
+        8 GETUPVAL                         R4 3
+        9 GETTABLEKS                       R3 R4 K1 ["useContext"]
+       11 GETUPVAL                         R5 4
+       12 GETTABLEKS                       R4 R5 K2 ["Context"]
+       14 CALL                             R3 1 1
+       15 GETUPVAL                         R5 3
+       16 GETTABLEKS                       R4 R5 K3 ["useReducer"]
+       18 GETUPVAL                         R5 5
+       19 LOADN                            R6 0
+       20 CALL                             R4 2 2
+       21 GETUPVAL                         R7 3
+       22 GETTABLEKS                       R6 R7 K4 ["useEffect"]
+       24 NEWCLOSURE                       R7 P0
+       25 CAPTURE                          VAL R1
+       26 CAPTURE                          VAL R5
+       27 NEWTABLE                         R8 0 2
+       29 GETTABLEKS                       R9 R1 K5 ["DataModel"]
+       31 GETTABLEKS                       R10 R1 K6 ["Annotation"]
+       33 SETLIST                          R8 R9 2 [1]
+       35 CALL                             R6 2 0
+       36 LOADNIL                          R6
+       37 GETTABLEKS                       R7 R1 K5 ["DataModel"]
+       39 JUMPIFNOTEQKS                    R7 K7 ["Edit"] ; [+13]
+       41 GETTABLEKS                       R8 R1 K6 ["Annotation"]
+       43 GETTABLEKS                       R7 R8 K8 ["Adornee"]
+       45 JUMPIFNOT                        R7 ; [+7]
+       46 GETTABLEKS                       R8 R1 K6 ["Annotation"]
+       48 GETTABLEKS                       R7 R8 K8 ["Adornee"]
+       50 GETTABLEKS                       R6 R7 K9 ["ClassName"]
+       52 JUMP                             ; [+7]
+       53 GETTABLEKS                       R7 R1 K6 ["Annotation"]
+       55 LOADK                            R9 K10 ["AdorneeClass"]
+       56 NAMECALL                         R7 R7 K11 ["GetAttribute"]
+       58 CALL                             R7 2 1
+       59 MOVE                             R6 R7
+       60 LOADNIL                          R7
+       61 GETTABLEKS                       R8 R1 K5 ["DataModel"]
+       63 JUMPIFNOTEQKS                    R8 K7 ["Edit"] ; [+24]
+       65 GETTABLEKS                       R9 R1 K6 ["Annotation"]
+       67 GETTABLEKS                       R8 R9 K8 ["Adornee"]
+       69 JUMPIFNOT                        R8 ; [+7]
+       70 GETTABLEKS                       R9 R1 K6 ["Annotation"]
+       72 GETTABLEKS                       R8 R9 K8 ["Adornee"]
+       74 GETTABLEKS                       R7 R8 K12 ["Name"]
+       76 JUMP                             ; [+29]
+       77 LOADK                            R8 K13 ["(%*)"]
+       78 LOADK                            R12 K14 ["Card"]
+       79 LOADK                            R13 K15 ["DeletedInstance"]
+       80 NAMECALL                         R10 R2 K16 ["getText"]
+       82 CALL                             R10 3 1
+       83 NAMECALL                         R8 R8 K17 ["format"]
+       85 CALL                             R8 2 1
+       86 MOVE                             R7 R8
+       87 JUMP                             ; [+18]
+       88 GETTABLEKS                       R8 R1 K6 ["Annotation"]
+       90 LOADK                            R10 K18 ["HeaderText"]
+       91 NAMECALL                         R8 R8 K11 ["GetAttribute"]
+       93 CALL                             R8 2 1
+       94 JUMPIF                           R8 ; [+10]
+       95 LOADK                            R9 K13 ["(%*)"]
+       96 LOADK                            R13 K14 ["Card"]
+       97 LOADK                            R14 K15 ["DeletedInstance"]
+       98 NAMECALL                         R11 R2 K16 ["getText"]
+      100 CALL                             R11 3 1
+      101 NAMECALL                         R9 R9 K17 ["format"]
+      103 CALL                             R9 2 1
+      104 MOVE                             R8 R9
+      105 MOVE                             R7 R8
+      106 GETUPVAL                         R9 3
+      107 GETTABLEKS                       R8 R9 K19 ["createElement"]
+      109 LOADK                            R9 K20 ["Frame"]
+      110 NEWTABLE                         R10 1 0
+      112 GETUPVAL                         R12 3
+      113 GETTABLEKS                       R11 R12 K21 ["Tag"]
+      115 LOADK                            R12 K22 ["Component-AnnotationHeader"]
+      116 SETTABLE                         R12 R10 R11
+      117 DUPTABLE                         R11 K24 [{"Navigation"}]
+      118 GETUPVAL                         R13 3
+      119 GETTABLEKS                       R12 R13 K19 ["createElement"]
+      121 LOADK                            R13 K20 ["Frame"]
+      122 DUPTABLE                         R14 K26 [{"LayoutOrder"}]
+      123 LOADN                            R15 0
+      124 SETTABLEKS                       R15 R14 K25 ["LayoutOrder"]
+      126 DUPTABLE                         R15 K29 [{"LeftAligned", "RightAligned"}]
+      127 GETUPVAL                         R17 3
+      128 GETTABLEKS                       R16 R17 K19 ["createElement"]
+      130 LOADK                            R17 K20 ["Frame"]
+      131 NEWTABLE                         R18 0 0
+      133 DUPTABLE                         R19 K31 [{"ClassIcon", "Adornee"}]
+      134 JUMPIFNOT                        R6 ; [+18]
+      135 GETUPVAL                         R21 3
+      136 GETTABLEKS                       R20 R21 K19 ["createElement"]
+      138 LOADK                            R21 K32 ["ImageLabel"]
+      139 DUPTABLE                         R22 K34 [{"Image", "LayoutOrder"}]
+      140 GETTABLEKS                       R24 R3 K35 ["getClassIcon"]
+      142 MOVE                             R25 R6
+      143 CALL                             R24 1 1
+      144 GETTABLEKS                       R23 R24 K33 ["Image"]
+      146 SETTABLEKS                       R23 R22 K33 ["Image"]
+      148 LOADN                            R23 0
+      149 SETTABLEKS                       R23 R22 K25 ["LayoutOrder"]
+      151 CALL                             R20 2 1
+      152 JUMP                             ; [+1]
+      153 LOADNIL                          R20
+      154 SETTABLEKS                       R20 R19 K30 ["ClassIcon"]
+      156 GETUPVAL                         R21 3
+      157 GETTABLEKS                       R20 R21 K19 ["createElement"]
+      159 LOADK                            R21 K36 ["TextLabel"]
+      160 DUPTABLE                         R22 K38 [{"Text", "LayoutOrder"}]
+      161 SETTABLEKS                       R7 R22 K37 ["Text"]
+      163 LOADN                            R23 1
+      164 SETTABLEKS                       R23 R22 K25 ["LayoutOrder"]
+      166 CALL                             R20 2 1
+      167 SETTABLEKS                       R20 R19 K8 ["Adornee"]
+      169 CALL                             R16 3 1
+      170 SETTABLEKS                       R16 R15 K27 ["LeftAligned"]
+      172 GETUPVAL                         R17 3
+      173 GETTABLEKS                       R16 R17 K19 ["createElement"]
+      175 LOADK                            R17 K20 ["Frame"]
+      176 DUPTABLE                         R18 K26 [{"LayoutOrder"}]
+      177 LOADN                            R19 2
+      178 SETTABLEKS                       R19 R18 K25 ["LayoutOrder"]
+      180 GETTABLEKS                       R19 R1 K39 ["children"]
+      182 CALL                             R16 3 1
+      183 SETTABLEKS                       R16 R15 K28 ["RightAligned"]
+      185 CALL                             R12 3 1
+      186 SETTABLEKS                       R12 R11 K23 ["Navigation"]
+      188 CALL                             R8 3 -1
+      189 RETURN                           R8 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["PlaceAnnotations"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Framework"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Types"]
-  CALL R3 1 1
-  GETTABLEKS R4 R2 K11 ["ContextServices"]
-  GETTABLEKS R5 R4 K12 ["Localization"]
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K9 ["Src"]
-  GETTABLEKS R8 R9 K13 ["Contexts"]
-  GETTABLEKS R7 R8 K14 ["ClassIconContext"]
-  CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K9 ["Src"]
-  GETTABLEKS R9 R10 K15 ["Util"]
-  GETTABLEKS R8 R9 K16 ["rerenderReducer"]
-  CALL R7 1 1
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R12 R0 K6 ["Packages"]
-  GETTABLEKS R11 R12 K17 ["Cryo"]
-  CALL R10 1 1
-  GETTABLEKS R9 R10 K18 ["Dictionary"]
-  GETTABLEKS R8 R9 K19 ["join"]
-  NEWTABLE R9 0 0
-  DUPCLOSURE R10 K20 [PROTO_2]
-  CAPTURE VAL R8
-  CAPTURE VAL R9
-  CAPTURE VAL R5
-  CAPTURE VAL R1
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  GETTABLEKS R11 R1 K21 ["memo"]
-  MOVE R12 R10
-  CALL R11 1 -1
-  RETURN R11 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["PlaceAnnotations"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R5 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R5 K10 ["Types"]
+       27 CALL                             R3 1 1
+       28 GETTABLEKS                       R4 R2 K11 ["ContextServices"]
+       30 GETTABLEKS                       R5 R4 K12 ["Localization"]
+       32 GETIMPORT                        R6 K5 [require]
+       34 GETTABLEKS                       R9 R0 K9 ["Src"]
+       36 GETTABLEKS                       R8 R9 K13 ["Contexts"]
+       38 GETTABLEKS                       R7 R8 K14 ["ClassIconContext"]
+       40 CALL                             R6 1 1
+       41 GETIMPORT                        R7 K5 [require]
+       43 GETTABLEKS                       R10 R0 K9 ["Src"]
+       45 GETTABLEKS                       R9 R10 K15 ["Util"]
+       47 GETTABLEKS                       R8 R9 K16 ["rerenderReducer"]
+       49 CALL                             R7 1 1
+       50 GETIMPORT                        R10 K5 [require]
+       52 GETTABLEKS                       R12 R0 K6 ["Packages"]
+       54 GETTABLEKS                       R11 R12 K17 ["Cryo"]
+       56 CALL                             R10 1 1
+       57 GETTABLEKS                       R9 R10 K18 ["Dictionary"]
+       59 GETTABLEKS                       R8 R9 K19 ["join"]
+       61 NEWTABLE                         R9 0 0
+       63 DUPCLOSURE                       R10 K20 [PROTO_2]
+       64 CAPTURE                          VAL R8
+       65 CAPTURE                          VAL R9
+       66 CAPTURE                          VAL R5
+       67 CAPTURE                          VAL R1
+       68 CAPTURE                          VAL R6
+       69 CAPTURE                          VAL R7
+       70 GETTABLEKS                       R11 R1 K21 ["memo"]
+       72 MOVE                             R12 R10
+       73 CALL                             R11 1 -1
+       74 RETURN                           R11 -1

@@ -1,69 +1,69 @@
 PROTO_0:
-  JUMPIFNOTEQKN R1 K0 [0] [+3]
-  MOVE R2 R0
-  RETURN R2 1
-  GETUPVAL R2 0
-  MOVE R3 R1
-  MOD R4 R0 R1
-  CALL R2 2 1
-  RETURN R2 1
+        0 JUMPIFNOTEQKN                    R1 K0 [0] ; [+3]
+        2 MOVE                             R2 R0
+        3 RETURN                           R2 1
+        4 GETUPVAL                         R2 0
+        5 MOVE                             R3 R1
+        6 MOD                              R4 R0 R1
+        7 CALL                             R2 2 1
+        8 RETURN                           R2 1
 
 PROTO_1:
-  GETTABLEKS R3 R1 K0 ["X"]
-  GETTABLEKS R4 R1 K1 ["Z"]
-  DIV R2 R3 R4
-  GETTABLEKS R4 R0 K2 ["Width"]
-  GETTABLEKS R5 R0 K3 ["Height"]
-  DIV R3 R4 R5
-  SUB R5 R3 R2
-  FASTCALL1 MATH_ABS R5 [+2]
-  GETIMPORT R4 K6 [math.abs]
-  CALL R4 1 1
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K7 ["AspectRatioThreshold"]
-  JUMPIFNOTLE R4 R5 [+4]
-  LOADB R4 1
-  LOADK R5 K8 [""]
-  RETURN R4 2
-  DUPCLOSURE R4 K9 [PROTO_0]
-  CAPTURE VAL R4
-  GETTABLEKS R6 R0 K2 ["Width"]
-  GETTABLEKS R7 R0 K3 ["Height"]
-  JUMPIFNOTEQKN R7 K10 [0] [+3]
-  MOVE R5 R6
-  JUMP [+5]
-  MOVE R8 R4
-  MOVE R9 R7
-  MOD R10 R6 R7
-  CALL R8 2 1
-  MOVE R5 R8
-  LOADK R7 K11 ["%*:%*"]
-  GETTABLEKS R10 R0 K2 ["Width"]
-  DIV R9 R10 R5
-  GETTABLEKS R11 R0 K3 ["Height"]
-  DIV R10 R11 R5
-  NAMECALL R7 R7 K12 ["format"]
-  CALL R7 3 1
-  MOVE R6 R7
-  LOADB R7 0
-  MOVE R8 R6
-  RETURN R7 2
+        0 GETTABLEKS                       R3 R1 K0 ["X"]
+        2 GETTABLEKS                       R4 R1 K1 ["Z"]
+        4 DIV                              R2 R3 R4
+        5 GETTABLEKS                       R4 R0 K2 ["Width"]
+        7 GETTABLEKS                       R5 R0 K3 ["Height"]
+        9 DIV                              R3 R4 R5
+       10 SUB                              R5 R3 R2
+       11 FASTCALL1                        MATH_ABS R5 ; [+2]
+       12 GETIMPORT                        R4 K6 [math.abs]
+       14 CALL                             R4 1 1
+       15 GETUPVAL                         R6 0
+       16 GETTABLEKS                       R5 R6 K7 ["AspectRatioThreshold"]
+       18 JUMPIFNOTLE                      R4 R5 ; [+4]
+       20 LOADB                            R4 1
+       21 LOADK                            R5 K8 [""]
+       22 RETURN                           R4 2
+       23 DUPCLOSURE                       R4 K9 [PROTO_0]
+       24 CAPTURE                          VAL R4
+       25 GETTABLEKS                       R6 R0 K2 ["Width"]
+       27 GETTABLEKS                       R7 R0 K3 ["Height"]
+       29 JUMPIFNOTEQKN                    R7 K10 [0] ; [+3]
+       31 MOVE                             R5 R6
+       32 JUMP                             ; [+5]
+       33 MOVE                             R8 R4
+       34 MOVE                             R9 R7
+       35 MOD                              R10 R6 R7
+       36 CALL                             R8 2 1
+       37 MOVE                             R5 R8
+       38 LOADK                            R7 K11 ["%*:%*"]
+       39 GETTABLEKS                       R10 R0 K2 ["Width"]
+       41 DIV                              R9 R10 R5
+       42 GETTABLEKS                       R11 R0 K3 ["Height"]
+       44 DIV                              R10 R11 R5
+       45 NAMECALL                         R7 R7 K12 ["format"]
+       47 CALL                             R7 3 1
+       48 MOVE                             R6 R7
+       49 LOADB                            R7 0
+       50 MOVE                             R8 R6
+       51 RETURN                           R7 2
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["TerrainEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Resources"]
-  GETTABLEKS R2 R3 K8 ["Constants"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K9 ["Types"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K10 [PROTO_1]
-  CAPTURE VAL R1
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["TerrainEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Src"]
+       11 GETTABLEKS                       R3 R4 K7 ["Resources"]
+       13 GETTABLEKS                       R2 R3 K8 ["Constants"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R4 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R4 K9 ["Types"]
+       22 CALL                             R2 1 1
+       23 DUPCLOSURE                       R3 K10 [PROTO_1]
+       24 CAPTURE                          VAL R1
+       25 RETURN                           R3 1

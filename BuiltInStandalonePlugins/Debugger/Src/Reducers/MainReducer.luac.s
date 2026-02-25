@@ -1,44 +1,44 @@
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Rodux"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K2 ["Parent"]
-  GETTABLEKS R3 R4 K7 ["Breakpoint"]
-  CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETIMPORT R6 K1 [script]
-  GETTABLEKS R5 R6 K2 ["Parent"]
-  GETTABLEKS R4 R5 K8 ["Callstack"]
-  CALL R3 1 1
-  GETIMPORT R4 K4 [require]
-  GETIMPORT R7 K1 [script]
-  GETTABLEKS R6 R7 K2 ["Parent"]
-  GETTABLEKS R5 R6 K9 ["Common"]
-  CALL R4 1 1
-  GETIMPORT R5 K4 [require]
-  GETIMPORT R8 K1 [script]
-  GETTABLEKS R7 R8 K2 ["Parent"]
-  GETTABLEKS R6 R7 K10 ["Watch"]
-  CALL R5 1 1
-  GETIMPORT R6 K4 [require]
-  GETIMPORT R9 K1 [script]
-  GETTABLEKS R8 R9 K2 ["Parent"]
-  GETTABLEKS R7 R8 K11 ["ScriptInfo"]
-  CALL R6 1 1
-  GETTABLEKS R7 R1 K12 ["combineReducers"]
-  DUPTABLE R8 K13 [{"Breakpoint", "Watch", "Callstack", "Common", "ScriptInfo"}]
-  SETTABLEKS R2 R8 K7 ["Breakpoint"]
-  SETTABLEKS R5 R8 K10 ["Watch"]
-  SETTABLEKS R3 R8 K8 ["Callstack"]
-  SETTABLEKS R4 R8 K9 ["Common"]
-  SETTABLEKS R6 R8 K11 ["ScriptInfo"]
-  CALL R7 1 -1
-  RETURN R7 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETIMPORT                        R5 K1 [script]
+       20 GETTABLEKS                       R4 R5 K2 ["Parent"]
+       22 GETTABLEKS                       R3 R4 K7 ["Breakpoint"]
+       24 CALL                             R2 1 1
+       25 GETIMPORT                        R3 K4 [require]
+       27 GETIMPORT                        R6 K1 [script]
+       29 GETTABLEKS                       R5 R6 K2 ["Parent"]
+       31 GETTABLEKS                       R4 R5 K8 ["Callstack"]
+       33 CALL                             R3 1 1
+       34 GETIMPORT                        R4 K4 [require]
+       36 GETIMPORT                        R7 K1 [script]
+       38 GETTABLEKS                       R6 R7 K2 ["Parent"]
+       40 GETTABLEKS                       R5 R6 K9 ["Common"]
+       42 CALL                             R4 1 1
+       43 GETIMPORT                        R5 K4 [require]
+       45 GETIMPORT                        R8 K1 [script]
+       47 GETTABLEKS                       R7 R8 K2 ["Parent"]
+       49 GETTABLEKS                       R6 R7 K10 ["Watch"]
+       51 CALL                             R5 1 1
+       52 GETIMPORT                        R6 K4 [require]
+       54 GETIMPORT                        R9 K1 [script]
+       56 GETTABLEKS                       R8 R9 K2 ["Parent"]
+       58 GETTABLEKS                       R7 R8 K11 ["ScriptInfo"]
+       60 CALL                             R6 1 1
+       61 GETTABLEKS                       R7 R1 K12 ["combineReducers"]
+       63 DUPTABLE                         R8 K13 [{"Breakpoint", "Watch", "Callstack", "Common", "ScriptInfo"}]
+       64 SETTABLEKS                       R2 R8 K7 ["Breakpoint"]
+       66 SETTABLEKS                       R5 R8 K10 ["Watch"]
+       68 SETTABLEKS                       R3 R8 K8 ["Callstack"]
+       70 SETTABLEKS                       R4 R8 K9 ["Common"]
+       72 SETTABLEKS                       R6 R8 K11 ["ScriptInfo"]
+       74 CALL                             R7 1 -1
+       75 RETURN                           R7 -1

@@ -1,113 +1,113 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R2 R0 K0 ["Tool"]
-  GETTABLEKS R3 R0 K1 ["Value"]
-  GETTABLEKS R4 R0 K2 ["Save"]
-  GETTABLEKS R5 R0 K3 ["FromSelf"]
-  CALL R1 4 2
-  GETTABLEKS R4 R0 K1 ["Value"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K4 ["BrushSettings"]
-  GETTABLE R3 R4 R5
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K5 ["PlaneLock"]
-  GETTABLE R5 R3 R6
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K6 ["Manual"]
-  JUMPIFNOTEQ R5 R6 [+59]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K7 ["ManualPlaneLock"]
-  GETTABLE R5 R3 R6
-  JUMPIFNOT R5 [+53]
-  GETTABLEKS R5 R0 K0 ["Tool"]
-  GETUPVAL R7 4
-  GETTABLEKS R6 R7 K8 ["Flatten"]
-  JUMPIFEQ R5 R6 [+47]
-  GETUPVAL R5 5
-  GETTABLEKS R4 R5 K9 ["createElement"]
-  GETUPVAL R5 6
-  NEWTABLE R6 0 0
-  DUPTABLE R7 K12 [{"Dragger", "Grid"}]
-  GETTABLEKS R9 R1 K13 ["Mock"]
-  JUMPIF R9 [+7]
-  GETUPVAL R9 5
-  GETTABLEKS R8 R9 K9 ["createElement"]
-  GETUPVAL R9 7
-  MOVE R10 R1
-  CALL R8 2 1
-  JUMP [+1]
-  LOADNIL R8
-  SETTABLEKS R8 R7 K10 ["Dragger"]
-  GETUPVAL R9 5
-  GETTABLEKS R8 R9 K9 ["createElement"]
-  GETUPVAL R9 8
-  DUPTABLE R10 K17 [{"AlwaysOnTop", "Size", "Transform"}]
-  GETUPVAL R13 2
-  GETTABLEKS R12 R13 K7 ["ManualPlaneLock"]
-  GETTABLE R11 R3 R12
-  SETTABLEKS R11 R10 K14 ["AlwaysOnTop"]
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K18 ["BrushSize"]
-  GETTABLE R12 R3 R13
-  GETTABLEKS R11 R12 K15 ["Size"]
-  SETTABLEKS R11 R10 K15 ["Size"]
-  SETTABLEKS R2 R10 K16 ["Transform"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K11 ["Grid"]
-  CALL R4 3 1
-  RETURN R4 1
-  LOADNIL R4
-  RETURN R4 1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R2 R0 K0 ["Tool"]
+        3 GETTABLEKS                       R3 R0 K1 ["Value"]
+        5 GETTABLEKS                       R4 R0 K2 ["Save"]
+        7 GETTABLEKS                       R5 R0 K3 ["FromSelf"]
+        9 CALL                             R1 4 2
+       10 GETTABLEKS                       R4 R0 K1 ["Value"]
+       12 GETUPVAL                         R6 1
+       13 GETTABLEKS                       R5 R6 K4 ["BrushSettings"]
+       15 GETTABLE                         R3 R4 R5
+       16 GETUPVAL                         R7 2
+       17 GETTABLEKS                       R6 R7 K5 ["PlaneLock"]
+       19 GETTABLE                         R5 R3 R6
+       20 GETUPVAL                         R7 3
+       21 GETTABLEKS                       R6 R7 K6 ["Manual"]
+       23 JUMPIFNOTEQ                      R5 R6 ; [+59]
+       25 GETUPVAL                         R7 2
+       26 GETTABLEKS                       R6 R7 K7 ["ManualPlaneLock"]
+       28 GETTABLE                         R5 R3 R6
+       29 JUMPIFNOT                        R5 ; [+53]
+       30 GETTABLEKS                       R5 R0 K0 ["Tool"]
+       32 GETUPVAL                         R7 4
+       33 GETTABLEKS                       R6 R7 K8 ["Flatten"]
+       35 JUMPIFEQ                         R5 R6 ; [+47]
+       37 GETUPVAL                         R5 5
+       38 GETTABLEKS                       R4 R5 K9 ["createElement"]
+       40 GETUPVAL                         R5 6
+       41 NEWTABLE                         R6 0 0
+       43 DUPTABLE                         R7 K12 [{"Dragger", "Grid"}]
+       44 GETTABLEKS                       R9 R1 K13 ["Mock"]
+       46 JUMPIF                           R9 ; [+7]
+       47 GETUPVAL                         R9 5
+       48 GETTABLEKS                       R8 R9 K9 ["createElement"]
+       50 GETUPVAL                         R9 7
+       51 MOVE                             R10 R1
+       52 CALL                             R8 2 1
+       53 JUMP                             ; [+1]
+       54 LOADNIL                          R8
+       55 SETTABLEKS                       R8 R7 K10 ["Dragger"]
+       57 GETUPVAL                         R9 5
+       58 GETTABLEKS                       R8 R9 K9 ["createElement"]
+       60 GETUPVAL                         R9 8
+       61 DUPTABLE                         R10 K17 [{"AlwaysOnTop", "Size", "Transform"}]
+       62 GETUPVAL                         R13 2
+       63 GETTABLEKS                       R12 R13 K7 ["ManualPlaneLock"]
+       65 GETTABLE                         R11 R3 R12
+       66 SETTABLEKS                       R11 R10 K14 ["AlwaysOnTop"]
+       68 GETUPVAL                         R14 2
+       69 GETTABLEKS                       R13 R14 K18 ["BrushSize"]
+       71 GETTABLE                         R12 R3 R13
+       72 GETTABLEKS                       R11 R12 K15 ["Size"]
+       74 SETTABLEKS                       R11 R10 K15 ["Size"]
+       76 SETTABLEKS                       R2 R10 K16 ["Transform"]
+       78 CALL                             R8 2 1
+       79 SETTABLEKS                       R8 R7 K11 ["Grid"]
+       81 CALL                             R4 3 1
+       82 RETURN                           R4 1
+       83 LOADNIL                          R4
+       84 RETURN                           R4 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["TerrainEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETTABLEKS R2 R0 K4 ["Packages"]
-  GETTABLEKS R1 R2 K5 ["DraggerFramework"]
-  GETIMPORT R2 K7 [require]
-  GETTABLEKS R4 R0 K4 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Framework"]
-  CALL R2 1 1
-  GETIMPORT R3 K7 [require]
-  GETTABLEKS R5 R0 K4 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["React"]
-  CALL R3 1 1
-  GETTABLEKS R5 R2 K10 ["UI"]
-  GETTABLEKS R4 R5 K11 ["Pane"]
-  GETIMPORT R5 K7 [require]
-  GETTABLEKS R7 R1 K12 ["DraggerTools"]
-  GETTABLEKS R6 R7 K13 ["DraggerToolComponent"]
-  CALL R5 1 1
-  GETTABLEKS R7 R0 K14 ["Src"]
-  GETTABLEKS R6 R7 K15 ["Hooks"]
-  GETIMPORT R7 K7 [require]
-  GETTABLEKS R8 R6 K16 ["usePlane"]
-  CALL R7 1 1
-  GETIMPORT R8 K7 [require]
-  GETTABLEKS R12 R0 K14 ["Src"]
-  GETTABLEKS R11 R12 K17 ["Components"]
-  GETTABLEKS R10 R11 K18 ["Gizmos"]
-  GETTABLEKS R9 R10 K19 ["Grid"]
-  CALL R8 1 1
-  GETIMPORT R9 K7 [require]
-  GETTABLEKS R11 R0 K14 ["Src"]
-  GETTABLEKS R10 R11 K20 ["Types"]
-  CALL R9 1 1
-  GETTABLEKS R10 R9 K21 ["BrushSettings"]
-  GETTABLEKS R11 R9 K22 ["Category"]
-  GETTABLEKS R12 R9 K23 ["PlaneLock"]
-  GETTABLEKS R13 R9 K24 ["Tool"]
-  DUPCLOSURE R14 K25 [PROTO_0]
-  CAPTURE VAL R7
-  CAPTURE VAL R11
-  CAPTURE VAL R10
-  CAPTURE VAL R12
-  CAPTURE VAL R13
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R8
-  RETURN R14 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["TerrainEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R2 R0 K4 ["Packages"]
+        9 GETTABLEKS                       R1 R2 K5 ["DraggerFramework"]
+       11 GETIMPORT                        R2 K7 [require]
+       13 GETTABLEKS                       R4 R0 K4 ["Packages"]
+       15 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       17 CALL                             R2 1 1
+       18 GETIMPORT                        R3 K7 [require]
+       20 GETTABLEKS                       R5 R0 K4 ["Packages"]
+       22 GETTABLEKS                       R4 R5 K9 ["React"]
+       24 CALL                             R3 1 1
+       25 GETTABLEKS                       R5 R2 K10 ["UI"]
+       27 GETTABLEKS                       R4 R5 K11 ["Pane"]
+       29 GETIMPORT                        R5 K7 [require]
+       31 GETTABLEKS                       R7 R1 K12 ["DraggerTools"]
+       33 GETTABLEKS                       R6 R7 K13 ["DraggerToolComponent"]
+       35 CALL                             R5 1 1
+       36 GETTABLEKS                       R7 R0 K14 ["Src"]
+       38 GETTABLEKS                       R6 R7 K15 ["Hooks"]
+       40 GETIMPORT                        R7 K7 [require]
+       42 GETTABLEKS                       R8 R6 K16 ["usePlane"]
+       44 CALL                             R7 1 1
+       45 GETIMPORT                        R8 K7 [require]
+       47 GETTABLEKS                       R12 R0 K14 ["Src"]
+       49 GETTABLEKS                       R11 R12 K17 ["Components"]
+       51 GETTABLEKS                       R10 R11 K18 ["Gizmos"]
+       53 GETTABLEKS                       R9 R10 K19 ["Grid"]
+       55 CALL                             R8 1 1
+       56 GETIMPORT                        R9 K7 [require]
+       58 GETTABLEKS                       R11 R0 K14 ["Src"]
+       60 GETTABLEKS                       R10 R11 K20 ["Types"]
+       62 CALL                             R9 1 1
+       63 GETTABLEKS                       R10 R9 K21 ["BrushSettings"]
+       65 GETTABLEKS                       R11 R9 K22 ["Category"]
+       67 GETTABLEKS                       R12 R9 K23 ["PlaneLock"]
+       69 GETTABLEKS                       R13 R9 K24 ["Tool"]
+       71 DUPCLOSURE                       R14 K25 [PROTO_0]
+       72 CAPTURE                          VAL R7
+       73 CAPTURE                          VAL R11
+       74 CAPTURE                          VAL R10
+       75 CAPTURE                          VAL R12
+       76 CAPTURE                          VAL R13
+       77 CAPTURE                          VAL R3
+       78 CAPTURE                          VAL R4
+       79 CAPTURE                          VAL R5
+       80 CAPTURE                          VAL R8
+       81 RETURN                           R14 1

@@ -1,43 +1,43 @@
 PROTO_0:
-  NAMECALL R1 R0 K0 ["getState"]
-  CALL R1 1 1
-  LOADNIL R2
-  GETTABLEKS R3 R1 K1 ["toolEnabled"]
-  JUMPIFNOT R3 [+10]
-  GETTABLEKS R3 R1 K2 ["relativeTo"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K3 ["Active"]
-  JUMPIFEQ R3 R4 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  JUMP [+1]
-  LOADB R2 0
-  GETUPVAL R3 1
-  SETTABLEKS R2 R3 K4 ["ShowActiveInstanceHighlight"]
-  RETURN R0 0
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 LOADNIL                          R2
+        4 GETTABLEKS                       R3 R1 K1 ["toolEnabled"]
+        6 JUMPIFNOT                        R3 ; [+10]
+        7 GETTABLEKS                       R3 R1 K2 ["relativeTo"]
+        9 GETUPVAL                         R5 0
+       10 GETTABLEKS                       R4 R5 K3 ["Active"]
+       12 JUMPIFEQ                         R3 R4 ; [+2]
+       14 LOADB                            R2 0 +1
+       15 LOADB                            R2 1
+       16 JUMP                             ; [+1]
+       17 LOADB                            R2 0
+       18 GETUPVAL                         R3 1
+       19 SETTABLEKS                       R2 R3 K4 ["ShowActiveInstanceHighlight"]
+       21 RETURN                           R0 0
 
 PROTO_1:
-  DUPCLOSURE R0 K0 [PROTO_0]
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  RETURN R0 1
+        0 DUPCLOSURE                       R0 K0 [PROTO_0]
+        1 CAPTURE                          UPVAL U0
+        2 CAPTURE                          UPVAL U1
+        3 RETURN                           R0 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["Selection"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  GETIMPORT R4 K5 [script]
-  GETTABLEKS R3 R4 K6 ["Parent"]
-  GETTABLEKS R2 R3 K6 ["Parent"]
-  GETTABLEKS R1 R2 K6 ["Parent"]
-  GETIMPORT R2 K8 [require]
-  GETTABLEKS R5 R1 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Utility"]
-  GETTABLEKS R3 R4 K11 ["RelativeTo"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K12 [PROTO_1]
-  CAPTURE VAL R2
-  CAPTURE VAL R0
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["Selection"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R4 K5 [script]
+        9 GETTABLEKS                       R3 R4 K6 ["Parent"]
+       11 GETTABLEKS                       R2 R3 K6 ["Parent"]
+       13 GETTABLEKS                       R1 R2 K6 ["Parent"]
+       15 GETIMPORT                        R2 K8 [require]
+       17 GETTABLEKS                       R5 R1 K9 ["Src"]
+       19 GETTABLEKS                       R4 R5 K10 ["Utility"]
+       21 GETTABLEKS                       R3 R4 K11 ["RelativeTo"]
+       23 CALL                             R2 1 1
+       24 DUPCLOSURE                       R3 K12 [PROTO_1]
+       25 CAPTURE                          VAL R2
+       26 CAPTURE                          VAL R0
+       27 RETURN                           R3 1

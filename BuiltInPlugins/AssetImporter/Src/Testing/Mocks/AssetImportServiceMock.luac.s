@@ -1,160 +1,160 @@
 PROTO_0:
-  PREPVARARGS 1
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  GETVARARGS R3 -1
-  CALL R1 -1 -1
-  RETURN R1 -1
+        0 PREPVARARGS                      1
+        1 GETUPVAL                         R1 0
+        2 GETUPVAL                         R2 1
+        3 GETVARARGS                       R3 -1
+        4 CALL                             R1 -1 -1
+        5 RETURN                           R1 -1
 
 PROTO_1:
-  GETUPVAL R3 0
-  GETTABLE R2 R3 R1
-  FASTCALL1 TYPE R2 [+3]
-  MOVE R4 R2
-  GETIMPORT R3 K1 [type]
-  CALL R3 1 1
-  JUMPIFNOTEQKS R3 K2 ["function"] [+5]
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R2
-  CAPTURE UPVAL U0
-  RETURN R3 1
-  RETURN R2 1
+        0 GETUPVAL                         R3 0
+        1 GETTABLE                         R2 R3 R1
+        2 FASTCALL1                        TYPE R2 ; [+3]
+        3 MOVE                             R4 R2
+        4 GETIMPORT                        R3 K1 [type]
+        6 CALL                             R3 1 1
+        7 JUMPIFNOTEQKS                    R3 K2 ["function"] ; [+5]
+        9 NEWCLOSURE                       R3 P0
+       10 CAPTURE                          VAL R2
+       11 CAPTURE                          UPVAL U0
+       12 RETURN                           R3 1
+       13 RETURN                           R2 1
 
 PROTO_2:
-  DUPTABLE R0 K4 [{"_mockTemplateCache", "_mockFiles", "_isMockGlobalLibrary", "_mockSessions"}]
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K0 ["_mockTemplateCache"]
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K1 ["_mockFiles"]
-  LOADB R1 0
-  SETTABLEKS R1 R0 K2 ["_isMockGlobalLibrary"]
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K3 ["_mockSessions"]
-  GETUPVAL R3 0
-  FASTCALL2 SETMETATABLE R0 R3 [+4]
-  MOVE R2 R0
-  GETIMPORT R1 K6 [setmetatable]
-  CALL R1 2 1
-  RETURN R1 1
+        0 DUPTABLE                         R0 K4 [{"_mockTemplateCache", "_mockFiles", "_isMockGlobalLibrary", "_mockSessions"}]
+        1 NEWTABLE                         R1 0 0
+        3 SETTABLEKS                       R1 R0 K0 ["_mockTemplateCache"]
+        5 NEWTABLE                         R1 0 0
+        7 SETTABLEKS                       R1 R0 K1 ["_mockFiles"]
+        9 LOADB                            R1 0
+       10 SETTABLEKS                       R1 R0 K2 ["_isMockGlobalLibrary"]
+       12 NEWTABLE                         R1 0 0
+       14 SETTABLEKS                       R1 R0 K3 ["_mockSessions"]
+       16 GETUPVAL                         R3 0
+       17 FASTCALL2                        SETMETATABLE R0 R3 ; [+4]
+       19 MOVE                             R2 R0
+       20 GETIMPORT                        R1 K6 [setmetatable]
+       22 CALL                             R1 2 1
+       23 RETURN                           R1 1
 
 PROTO_3:
-  GETTABLEKS R3 R0 K0 ["_mockTemplateCache"]
-  GETTABLE R2 R3 R1
-  JUMPIF R2 [+2]
-  NEWTABLE R2 0 0
-  RETURN R2 1
+        0 GETTABLEKS                       R3 R0 K0 ["_mockTemplateCache"]
+        2 GETTABLE                         R2 R3 R1
+        3 JUMPIF                           R2 ; [+2]
+        4 NEWTABLE                         R2 0 0
+        6 RETURN                           R2 1
 
 PROTO_4:
-  GETTABLEKS R1 R0 K0 ["_mockTemplateCache"]
-  RETURN R1 1
+        0 GETTABLEKS                       R1 R0 K0 ["_mockTemplateCache"]
+        2 RETURN                           R1 1
 
 PROTO_5:
-  GETTABLEKS R2 R0 K0 ["_mockTemplateCache"]
-  NEWTABLE R3 0 0
-  SETTABLE R3 R2 R1
-  LOADB R2 1
-  RETURN R2 1
+        0 GETTABLEKS                       R2 R0 K0 ["_mockTemplateCache"]
+        2 NEWTABLE                         R3 0 0
+        4 SETTABLE                         R3 R2 R1
+        5 LOADB                            R2 1
+        6 RETURN                           R2 1
 
 PROTO_6:
-  GETTABLEKS R2 R0 K0 ["_mockTemplateCache"]
-  LOADNIL R3
-  SETTABLE R3 R2 R1
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["_mockTemplateCache"]
+        2 LOADNIL                          R3
+        3 SETTABLE                         R3 R2 R1
+        4 RETURN                           R0 0
 
 PROTO_7:
-  NEWTABLE R1 0 0
-  SETTABLEKS R1 R0 K0 ["_mockTemplateCache"]
-  RETURN R0 0
+        0 NEWTABLE                         R1 0 0
+        2 SETTABLEKS                       R1 R0 K0 ["_mockTemplateCache"]
+        4 RETURN                           R0 0
 
 PROTO_8:
-  SETTABLEKS R1 R0 K0 ["_mockFiles"]
-  RETURN R0 0
+        0 SETTABLEKS                       R1 R0 K0 ["_mockFiles"]
+        2 RETURN                           R0 0
 
 PROTO_9:
-  GETTABLEKS R1 R0 K0 ["_mockFiles"]
-  JUMPIFNOT R1 [+4]
-  GETTABLEKS R2 R0 K0 ["_mockFiles"]
-  GETTABLEN R1 R2 1
-  RETURN R1 1
-  LOADNIL R1
-  RETURN R1 1
+        0 GETTABLEKS                       R1 R0 K0 ["_mockFiles"]
+        2 JUMPIFNOT                        R1 ; [+4]
+        3 GETTABLEKS                       R2 R0 K0 ["_mockFiles"]
+        5 GETTABLEN                        R1 R2 1
+        6 RETURN                           R1 1
+        7 LOADNIL                          R1
+        8 RETURN                           R1 1
 
 PROTO_10:
-  GETTABLEKS R1 R0 K0 ["_mockFiles"]
-  JUMPIFNOT R1 [+4]
-  GETTABLEKS R2 R0 K0 ["_mockFiles"]
-  GETTABLEN R1 R2 1
-  RETURN R1 1
-  LOADNIL R1
-  RETURN R1 1
+        0 GETTABLEKS                       R1 R0 K0 ["_mockFiles"]
+        2 JUMPIFNOT                        R1 ; [+4]
+        3 GETTABLEKS                       R2 R0 K0 ["_mockFiles"]
+        5 GETTABLEN                        R1 R2 1
+        6 RETURN                           R1 1
+        7 LOADNIL                          R1
+        8 RETURN                           R1 1
 
 PROTO_11:
-  GETTABLEKS R1 R0 K0 ["_mockFiles"]
-  RETURN R1 1
+        0 GETTABLEKS                       R1 R0 K0 ["_mockFiles"]
+        2 RETURN                           R1 1
 
 PROTO_12:
-  LOADN R3 0
-  LOADK R4 K0 [""]
-  RETURN R3 2
+        0 LOADN                            R3 0
+        1 LOADK                            R4 K0 [""]
+        2 RETURN                           R3 2
 
 PROTO_13:
-  GETTABLEKS R3 R0 K0 ["_mockSessions"]
-  SETTABLE R2 R3 R1
-  RETURN R0 0
+        0 GETTABLEKS                       R3 R0 K0 ["_mockSessions"]
+        2 SETTABLE                         R2 R3 R1
+        3 RETURN                           R0 0
 
 PROTO_14:
-  GETTABLEKS R3 R0 K0 ["_mockSessions"]
-  GETTABLE R2 R3 R1
-  JUMPIFEQKNIL R2 [+2]
-  RETURN R2 1
-  GETUPVAL R3 0
-  MOVE R5 R1
-  NAMECALL R3 R3 K1 ["StartSessionWithPathAsync"]
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 GETTABLEKS                       R3 R0 K0 ["_mockSessions"]
+        2 GETTABLE                         R2 R3 R1
+        3 JUMPIFEQKNIL                     R2 ; [+2]
+        5 RETURN                           R2 1
+        6 GETUPVAL                         R3 0
+        7 MOVE                             R5 R1
+        8 NAMECALL                         R3 R3 K1 ["StartSessionWithPathAsync"]
+       10 CALL                             R3 2 -1
+       11 RETURN                           R3 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["AssetImportService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  NEWTABLE R1 1 0
-  DUPCLOSURE R2 K4 [PROTO_1]
-  CAPTURE VAL R0
-  SETTABLEKS R2 R1 K5 ["__index"]
-  NEWTABLE R3 16 0
-  FASTCALL2 SETMETATABLE R3 R1 [+4]
-  MOVE R4 R1
-  GETIMPORT R2 K7 [setmetatable]
-  CALL R2 2 1
-  SETTABLEKS R2 R2 K5 ["__index"]
-  DUPCLOSURE R3 K8 [PROTO_2]
-  CAPTURE VAL R2
-  SETTABLEKS R3 R2 K9 ["new"]
-  DUPCLOSURE R3 K10 [PROTO_3]
-  SETTABLEKS R3 R2 K11 ["GetPreset"]
-  DUPCLOSURE R3 K12 [PROTO_4]
-  SETTABLEKS R3 R2 K13 ["GetAllPresets"]
-  DUPCLOSURE R3 K14 [PROTO_5]
-  SETTABLEKS R3 R2 K15 ["SavePreset"]
-  DUPCLOSURE R3 K16 [PROTO_6]
-  SETTABLEKS R3 R2 K17 ["RemovePreset"]
-  DUPCLOSURE R3 K18 [PROTO_7]
-  SETTABLEKS R3 R2 K19 ["_clearPresets"]
-  DUPCLOSURE R3 K20 [PROTO_8]
-  SETTABLEKS R3 R2 K21 ["_setMockFiles"]
-  DUPCLOSURE R3 K22 [PROTO_9]
-  SETTABLEKS R3 R2 K23 ["PickMeshFileWithPrompt"]
-  DUPCLOSURE R3 K24 [PROTO_10]
-  SETTABLEKS R3 R2 K25 ["PickFileWithPromptAsync"]
-  DUPCLOSURE R3 K26 [PROTO_11]
-  SETTABLEKS R3 R2 K27 ["PickMultipleFilesWithPrompt"]
-  DUPCLOSURE R3 K28 [PROTO_12]
-  SETTABLEKS R3 R2 K29 ["UploadAssetFromPathAsync"]
-  DUPCLOSURE R3 K30 [PROTO_13]
-  SETTABLEKS R3 R2 K31 ["_setSessionFromPath"]
-  DUPCLOSURE R3 K32 [PROTO_14]
-  CAPTURE VAL R0
-  SETTABLEKS R3 R2 K33 ["StartSessionWithPathAsync"]
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["AssetImportService"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 NEWTABLE                         R1 1 0
+        9 DUPCLOSURE                       R2 K4 [PROTO_1]
+       10 CAPTURE                          VAL R0
+       11 SETTABLEKS                       R2 R1 K5 ["__index"]
+       13 NEWTABLE                         R3 16 0
+       15 FASTCALL2                        SETMETATABLE R3 R1 ; [+4]
+       17 MOVE                             R4 R1
+       18 GETIMPORT                        R2 K7 [setmetatable]
+       20 CALL                             R2 2 1
+       21 SETTABLEKS                       R2 R2 K5 ["__index"]
+       23 DUPCLOSURE                       R3 K8 [PROTO_2]
+       24 CAPTURE                          VAL R2
+       25 SETTABLEKS                       R3 R2 K9 ["new"]
+       27 DUPCLOSURE                       R3 K10 [PROTO_3]
+       28 SETTABLEKS                       R3 R2 K11 ["GetPreset"]
+       30 DUPCLOSURE                       R3 K12 [PROTO_4]
+       31 SETTABLEKS                       R3 R2 K13 ["GetAllPresets"]
+       33 DUPCLOSURE                       R3 K14 [PROTO_5]
+       34 SETTABLEKS                       R3 R2 K15 ["SavePreset"]
+       36 DUPCLOSURE                       R3 K16 [PROTO_6]
+       37 SETTABLEKS                       R3 R2 K17 ["RemovePreset"]
+       39 DUPCLOSURE                       R3 K18 [PROTO_7]
+       40 SETTABLEKS                       R3 R2 K19 ["_clearPresets"]
+       42 DUPCLOSURE                       R3 K20 [PROTO_8]
+       43 SETTABLEKS                       R3 R2 K21 ["_setMockFiles"]
+       45 DUPCLOSURE                       R3 K22 [PROTO_9]
+       46 SETTABLEKS                       R3 R2 K23 ["PickMeshFileWithPrompt"]
+       48 DUPCLOSURE                       R3 K24 [PROTO_10]
+       49 SETTABLEKS                       R3 R2 K25 ["PickFileWithPromptAsync"]
+       51 DUPCLOSURE                       R3 K26 [PROTO_11]
+       52 SETTABLEKS                       R3 R2 K27 ["PickMultipleFilesWithPrompt"]
+       54 DUPCLOSURE                       R3 K28 [PROTO_12]
+       55 SETTABLEKS                       R3 R2 K29 ["UploadAssetFromPathAsync"]
+       57 DUPCLOSURE                       R3 K30 [PROTO_13]
+       58 SETTABLEKS                       R3 R2 K31 ["_setSessionFromPath"]
+       60 DUPCLOSURE                       R3 K32 [PROTO_14]
+       61 CAPTURE                          VAL R0
+       62 SETTABLEKS                       R3 R2 K33 ["StartSessionWithPathAsync"]
+       64 RETURN                           R2 1

@@ -1,115 +1,115 @@
 PROTO_0:
-  GETUPVAL R2 0
-  MOVE R4 R0
-  MOVE R5 R1
-  NAMECALL R2 R2 K0 ["Fire"]
-  CALL R2 3 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R4 R0
+        2 MOVE                             R5 R1
+        3 NAMECALL                         R2 R2 K0 ["Fire"]
+        5 CALL                             R2 3 0
+        6 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R2 0
-  MOVE R4 R0
-  MOVE R5 R1
-  NAMECALL R2 R2 K0 ["Fire"]
-  CALL R2 3 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R4 R0
+        2 MOVE                             R5 R1
+        3 NAMECALL                         R2 R2 K0 ["Fire"]
+        5 CALL                             R2 3 0
+        6 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R2 0
-  MOVE R4 R0
-  MOVE R5 R1
-  NAMECALL R2 R2 K0 ["Fire"]
-  CALL R2 3 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R4 R0
+        2 MOVE                             R5 R1
+        3 NAMECALL                         R2 R2 K0 ["Fire"]
+        5 CALL                             R2 3 0
+        6 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["useState"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["new"]
-  CALL R1 1 1
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["useState"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["new"]
-  CALL R2 1 1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["useState"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K1 ["new"]
-  CALL R3 1 1
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K2 ["useEventConnection"]
-  GETTABLEKS R6 R0 K3 ["dockWidget"]
-  GETTABLEKS R5 R6 K4 ["InputBegan"]
-  NEWCLOSURE R6 P0
-  CAPTURE VAL R1
-  NEWTABLE R7 0 1
-  MOVE R8 R1
-  SETLIST R7 R8 1 [1]
-  CALL R4 3 0
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K2 ["useEventConnection"]
-  GETTABLEKS R6 R0 K3 ["dockWidget"]
-  GETTABLEKS R5 R6 K5 ["InputChanged"]
-  NEWCLOSURE R6 P1
-  CAPTURE VAL R2
-  NEWTABLE R7 0 1
-  MOVE R8 R2
-  SETLIST R7 R8 1 [1]
-  CALL R4 3 0
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K2 ["useEventConnection"]
-  GETTABLEKS R6 R0 K3 ["dockWidget"]
-  GETTABLEKS R5 R6 K6 ["InputEnded"]
-  NEWCLOSURE R6 P2
-  CAPTURE VAL R3
-  NEWTABLE R7 0 1
-  MOVE R8 R3
-  SETLIST R7 R8 1 [1]
-  CALL R4 3 0
-  GETUPVAL R4 3
-  GETUPVAL R8 4
-  GETTABLEKS R7 R8 K7 ["Components"]
-  GETTABLEKS R6 R7 K8 ["Contexts"]
-  GETTABLEKS R5 R6 K9 ["WindowInputContextProvider"]
-  DUPTABLE R6 K13 [{"inputBeganSignal", "inputChangedSignal", "inputEndedSignal"}]
-  SETTABLEKS R1 R6 K10 ["inputBeganSignal"]
-  SETTABLEKS R2 R6 K11 ["inputChangedSignal"]
-  SETTABLEKS R3 R6 K12 ["inputEndedSignal"]
-  GETTABLEKS R7 R0 K14 ["children"]
-  CALL R4 3 -1
-  RETURN R4 -1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["useState"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R2 R3 K1 ["new"]
+        6 CALL                             R1 1 1
+        7 GETUPVAL                         R3 0
+        8 GETTABLEKS                       R2 R3 K0 ["useState"]
+       10 GETUPVAL                         R4 1
+       11 GETTABLEKS                       R3 R4 K1 ["new"]
+       13 CALL                             R2 1 1
+       14 GETUPVAL                         R4 0
+       15 GETTABLEKS                       R3 R4 K0 ["useState"]
+       17 GETUPVAL                         R5 1
+       18 GETTABLEKS                       R4 R5 K1 ["new"]
+       20 CALL                             R3 1 1
+       21 GETUPVAL                         R5 2
+       22 GETTABLEKS                       R4 R5 K2 ["useEventConnection"]
+       24 GETTABLEKS                       R6 R0 K3 ["dockWidget"]
+       26 GETTABLEKS                       R5 R6 K4 ["InputBegan"]
+       28 NEWCLOSURE                       R6 P0
+       29 CAPTURE                          VAL R1
+       30 NEWTABLE                         R7 0 1
+       32 MOVE                             R8 R1
+       33 SETLIST                          R7 R8 1 [1]
+       35 CALL                             R4 3 0
+       36 GETUPVAL                         R5 2
+       37 GETTABLEKS                       R4 R5 K2 ["useEventConnection"]
+       39 GETTABLEKS                       R6 R0 K3 ["dockWidget"]
+       41 GETTABLEKS                       R5 R6 K5 ["InputChanged"]
+       43 NEWCLOSURE                       R6 P1
+       44 CAPTURE                          VAL R2
+       45 NEWTABLE                         R7 0 1
+       47 MOVE                             R8 R2
+       48 SETLIST                          R7 R8 1 [1]
+       50 CALL                             R4 3 0
+       51 GETUPVAL                         R5 2
+       52 GETTABLEKS                       R4 R5 K2 ["useEventConnection"]
+       54 GETTABLEKS                       R6 R0 K3 ["dockWidget"]
+       56 GETTABLEKS                       R5 R6 K6 ["InputEnded"]
+       58 NEWCLOSURE                       R6 P2
+       59 CAPTURE                          VAL R3
+       60 NEWTABLE                         R7 0 1
+       62 MOVE                             R8 R3
+       63 SETLIST                          R7 R8 1 [1]
+       65 CALL                             R4 3 0
+       66 GETUPVAL                         R4 3
+       67 GETUPVAL                         R8 4
+       68 GETTABLEKS                       R7 R8 K7 ["Components"]
+       70 GETTABLEKS                       R6 R7 K8 ["Contexts"]
+       72 GETTABLEKS                       R5 R6 K9 ["WindowInputContextProvider"]
+       74 DUPTABLE                         R6 K13 [{"inputBeganSignal", "inputChangedSignal", "inputEndedSignal"}]
+       75 SETTABLEKS                       R1 R6 K10 ["inputBeganSignal"]
+       77 SETTABLEKS                       R2 R6 K11 ["inputChangedSignal"]
+       79 SETTABLEKS                       R3 R6 K12 ["inputEndedSignal"]
+       81 GETTABLEKS                       R7 R0 K14 ["children"]
+       83 CALL                             R4 3 -1
+       84 RETURN                           R4 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["Assistant"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["AssistantUI"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["React"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["ReactUtils"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Packages"]
-  GETTABLEKS R5 R6 K10 ["Signal"]
-  CALL R4 1 1
-  GETTABLEKS R5 R2 K11 ["createElement"]
-  NEWTABLE R6 1 0
-  DUPCLOSURE R7 K12 [PROTO_3]
-  CAPTURE VAL R2
-  CAPTURE VAL R4
-  CAPTURE VAL R3
-  CAPTURE VAL R5
-  CAPTURE VAL R1
-  SETTABLEKS R7 R6 K13 ["Provider"]
-  RETURN R6 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Assistant"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["AssistantUI"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R5 K9 ["ReactUtils"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       32 GETTABLEKS                       R5 R6 K10 ["Signal"]
+       34 CALL                             R4 1 1
+       35 GETTABLEKS                       R5 R2 K11 ["createElement"]
+       37 NEWTABLE                         R6 1 0
+       39 DUPCLOSURE                       R7 K12 [PROTO_3]
+       40 CAPTURE                          VAL R2
+       41 CAPTURE                          VAL R4
+       42 CAPTURE                          VAL R3
+       43 CAPTURE                          VAL R5
+       44 CAPTURE                          VAL R1
+       45 SETTABLEKS                       R7 R6 K13 ["Provider"]
+       47 RETURN                           R6 1

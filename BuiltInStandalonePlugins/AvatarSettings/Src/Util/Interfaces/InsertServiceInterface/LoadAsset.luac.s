@@ -1,27 +1,27 @@
 PROTO_0:
-  GETUPVAL R2 0
-  MOVE R4 R0
-  NAMECALL R2 R2 K0 ["LoadAsset"]
-  CALL R2 2 1
-  JUMPIF R2 [+2]
-  LOADNIL R3
-  RETURN R3 1
-  JUMPIFNOT R1 [+8]
-  LOADK R5 K1 ["Accessory"]
-  NAMECALL R3 R2 K2 ["FindFirstChildOfClass"]
-  CALL R3 2 1
-  JUMPIF R3 [+2]
-  LOADNIL R4
-  RETURN R4 1
-  RETURN R3 1
-  RETURN R2 1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R4 R0
+        2 NAMECALL                         R2 R2 K0 ["LoadAsset"]
+        4 CALL                             R2 2 1
+        5 JUMPIF                           R2 ; [+2]
+        6 LOADNIL                          R3
+        7 RETURN                           R3 1
+        8 JUMPIFNOT                        R1 ; [+8]
+        9 LOADK                            R5 K1 ["Accessory"]
+       10 NAMECALL                         R3 R2 K2 ["FindFirstChildOfClass"]
+       12 CALL                             R3 2 1
+       13 JUMPIF                           R3 ; [+2]
+       14 LOADNIL                          R4
+       15 RETURN                           R4 1
+       16 RETURN                           R3 1
+       17 RETURN                           R2 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["InsertService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  DUPCLOSURE R1 K4 [PROTO_0]
-  CAPTURE VAL R0
-  RETURN R1 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["InsertService"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 DUPCLOSURE                       R1 K4 [PROTO_0]
+        8 CAPTURE                          VAL R0
+        9 RETURN                           R1 1

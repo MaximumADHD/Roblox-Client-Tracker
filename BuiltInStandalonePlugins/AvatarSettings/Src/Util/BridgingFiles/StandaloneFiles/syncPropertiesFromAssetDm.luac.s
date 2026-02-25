@@ -1,739 +1,739 @@
 PROTO_0:
-  GETTABLEKS R3 R0 K0 ["assetId"]
-  GETTABLEKS R2 R3 K1 ["set"]
-  GETTABLEKS R3 R1 K2 ["AssetId"]
-  LOADB R4 1
-  CALL R2 2 0
-  GETTABLEKS R3 R0 K3 ["enabled"]
-  GETTABLEKS R2 R3 K1 ["set"]
-  GETTABLEKS R3 R1 K4 ["Enabled"]
-  LOADB R4 1
-  CALL R2 2 0
-  RETURN R0 0
+        0 GETTABLEKS                       R3 R0 K0 ["assetId"]
+        2 GETTABLEKS                       R2 R3 K1 ["set"]
+        4 GETTABLEKS                       R3 R1 K2 ["AssetId"]
+        6 LOADB                            R4 1
+        7 CALL                             R2 2 0
+        8 GETTABLEKS                       R3 R0 K3 ["enabled"]
+       10 GETTABLEKS                       R2 R3 K1 ["set"]
+       12 GETTABLEKS                       R3 R1 K4 ["Enabled"]
+       14 LOADB                            R4 1
+       15 CALL                             R2 2 0
+       16 RETURN                           R0 0
 
 PROTO_1:
-  GETTABLEKS R2 R0 K0 ["settings"]
-  FASTCALL2K ASSERT R2 K1 [+5]
-  MOVE R4 R2
-  LOADK R5 K1 ["Expected settings to be present in AvatarSettingsContext"]
-  GETIMPORT R3 K3 [assert]
-  CALL R3 2 0
-  GETTABLEKS R3 R2 K4 ["bodySettings"]
-  GETTABLEKS R5 R3 K5 ["bodyScaleSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K7 ["ScaleMode"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K8 ["bodyScaleCustomHeight"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K9 ["CustomHeight"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K10 ["bodyAppearanceSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K11 ["AppearanceMode"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R4 R3 K12 ["bodyAppearanceCustomPartsFace"]
-  GETTABLEKS R5 R1 K13 ["CustomFace"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K18 ["bodyAppearanceCustomPartsHead"]
-  GETTABLEKS R5 R1 K19 ["CustomHead"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K20 ["bodyAppearanceCustomPartsMood"]
-  GETTABLEKS R5 R1 K21 ["CustomMood"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K22 ["bodyAppearanceCustomPartsEyebrow"]
-  GETTABLEKS R5 R1 K23 ["CustomEyebrow"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K24 ["bodyAppearanceCustomPartsEyelash"]
-  GETTABLEKS R5 R1 K25 ["CustomEyelash"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K26 ["bodyAppearanceCustomPartsTorso"]
-  GETTABLEKS R5 R1 K27 ["CustomTorso"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K28 ["bodyAppearanceCustomPartsLeftArm"]
-  GETTABLEKS R5 R1 K29 ["CustomLeftArm"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K30 ["bodyAppearanceCustomPartsRightArm"]
-  GETTABLEKS R5 R1 K31 ["CustomRightArm"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K32 ["bodyAppearanceCustomPartsLeftLeg"]
-  GETTABLEKS R5 R1 K33 ["CustomLeftLeg"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K34 ["bodyAppearanceCustomPartsRightLeg"]
-  GETTABLEKS R5 R1 K35 ["CustomRightLeg"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R5 R3 K36 ["bodyBuildSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K37 ["BuildMode"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K38 ["bodyBuildCustomHeight"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K39 ["CustomHeightScale"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K40 ["bodyBuildCustomWidth"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K41 ["CustomWidthScale"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K42 ["bodyBuildCustomHead"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K43 ["CustomHeadScale"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K44 ["bodyBuildCustomBodyType"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K45 ["CustomBodyTypeScale"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K46 ["bodyBuildCustomProportions"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K47 ["CustomProportionsScale"]
-  LOADB R6 1
-  CALL R4 2 0
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["settings"]
+        2 FASTCALL2K                       ASSERT R2 K1 ; [+5]
+        4 MOVE                             R4 R2
+        5 LOADK                            R5 K1 ["Expected settings to be present in AvatarSettingsContext"]
+        6 GETIMPORT                        R3 K3 [assert]
+        8 CALL                             R3 2 0
+        9 GETTABLEKS                       R3 R2 K4 ["bodySettings"]
+       11 GETTABLEKS                       R5 R3 K5 ["bodyScaleSetting"]
+       13 GETTABLEKS                       R4 R5 K6 ["set"]
+       15 GETTABLEKS                       R5 R1 K7 ["ScaleMode"]
+       17 LOADB                            R6 1
+       18 CALL                             R4 2 0
+       19 GETTABLEKS                       R5 R3 K8 ["bodyScaleCustomHeight"]
+       21 GETTABLEKS                       R4 R5 K6 ["set"]
+       23 GETTABLEKS                       R5 R1 K9 ["CustomHeight"]
+       25 LOADB                            R6 1
+       26 CALL                             R4 2 0
+       27 GETTABLEKS                       R5 R3 K10 ["bodyAppearanceSetting"]
+       29 GETTABLEKS                       R4 R5 K6 ["set"]
+       31 GETTABLEKS                       R5 R1 K11 ["AppearanceMode"]
+       33 LOADB                            R6 1
+       34 CALL                             R4 2 0
+       35 GETTABLEKS                       R4 R3 K12 ["bodyAppearanceCustomPartsFace"]
+       37 GETTABLEKS                       R5 R1 K13 ["CustomFace"]
+       39 GETTABLEKS                       R7 R4 K14 ["assetId"]
+       41 GETTABLEKS                       R6 R7 K6 ["set"]
+       43 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+       45 LOADB                            R8 1
+       46 CALL                             R6 2 0
+       47 GETTABLEKS                       R7 R4 K16 ["enabled"]
+       49 GETTABLEKS                       R6 R7 K6 ["set"]
+       51 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+       53 LOADB                            R8 1
+       54 CALL                             R6 2 0
+       55 GETTABLEKS                       R4 R3 K18 ["bodyAppearanceCustomPartsHead"]
+       57 GETTABLEKS                       R5 R1 K19 ["CustomHead"]
+       59 GETTABLEKS                       R7 R4 K14 ["assetId"]
+       61 GETTABLEKS                       R6 R7 K6 ["set"]
+       63 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+       65 LOADB                            R8 1
+       66 CALL                             R6 2 0
+       67 GETTABLEKS                       R7 R4 K16 ["enabled"]
+       69 GETTABLEKS                       R6 R7 K6 ["set"]
+       71 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+       73 LOADB                            R8 1
+       74 CALL                             R6 2 0
+       75 GETTABLEKS                       R4 R3 K20 ["bodyAppearanceCustomPartsMood"]
+       77 GETTABLEKS                       R5 R1 K21 ["CustomMood"]
+       79 GETTABLEKS                       R7 R4 K14 ["assetId"]
+       81 GETTABLEKS                       R6 R7 K6 ["set"]
+       83 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+       85 LOADB                            R8 1
+       86 CALL                             R6 2 0
+       87 GETTABLEKS                       R7 R4 K16 ["enabled"]
+       89 GETTABLEKS                       R6 R7 K6 ["set"]
+       91 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+       93 LOADB                            R8 1
+       94 CALL                             R6 2 0
+       95 GETTABLEKS                       R4 R3 K22 ["bodyAppearanceCustomPartsEyebrow"]
+       97 GETTABLEKS                       R5 R1 K23 ["CustomEyebrow"]
+       99 GETTABLEKS                       R7 R4 K14 ["assetId"]
+      101 GETTABLEKS                       R6 R7 K6 ["set"]
+      103 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+      105 LOADB                            R8 1
+      106 CALL                             R6 2 0
+      107 GETTABLEKS                       R7 R4 K16 ["enabled"]
+      109 GETTABLEKS                       R6 R7 K6 ["set"]
+      111 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+      113 LOADB                            R8 1
+      114 CALL                             R6 2 0
+      115 GETTABLEKS                       R4 R3 K24 ["bodyAppearanceCustomPartsEyelash"]
+      117 GETTABLEKS                       R5 R1 K25 ["CustomEyelash"]
+      119 GETTABLEKS                       R7 R4 K14 ["assetId"]
+      121 GETTABLEKS                       R6 R7 K6 ["set"]
+      123 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+      125 LOADB                            R8 1
+      126 CALL                             R6 2 0
+      127 GETTABLEKS                       R7 R4 K16 ["enabled"]
+      129 GETTABLEKS                       R6 R7 K6 ["set"]
+      131 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+      133 LOADB                            R8 1
+      134 CALL                             R6 2 0
+      135 GETTABLEKS                       R4 R3 K26 ["bodyAppearanceCustomPartsTorso"]
+      137 GETTABLEKS                       R5 R1 K27 ["CustomTorso"]
+      139 GETTABLEKS                       R7 R4 K14 ["assetId"]
+      141 GETTABLEKS                       R6 R7 K6 ["set"]
+      143 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+      145 LOADB                            R8 1
+      146 CALL                             R6 2 0
+      147 GETTABLEKS                       R7 R4 K16 ["enabled"]
+      149 GETTABLEKS                       R6 R7 K6 ["set"]
+      151 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+      153 LOADB                            R8 1
+      154 CALL                             R6 2 0
+      155 GETTABLEKS                       R4 R3 K28 ["bodyAppearanceCustomPartsLeftArm"]
+      157 GETTABLEKS                       R5 R1 K29 ["CustomLeftArm"]
+      159 GETTABLEKS                       R7 R4 K14 ["assetId"]
+      161 GETTABLEKS                       R6 R7 K6 ["set"]
+      163 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+      165 LOADB                            R8 1
+      166 CALL                             R6 2 0
+      167 GETTABLEKS                       R7 R4 K16 ["enabled"]
+      169 GETTABLEKS                       R6 R7 K6 ["set"]
+      171 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+      173 LOADB                            R8 1
+      174 CALL                             R6 2 0
+      175 GETTABLEKS                       R4 R3 K30 ["bodyAppearanceCustomPartsRightArm"]
+      177 GETTABLEKS                       R5 R1 K31 ["CustomRightArm"]
+      179 GETTABLEKS                       R7 R4 K14 ["assetId"]
+      181 GETTABLEKS                       R6 R7 K6 ["set"]
+      183 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+      185 LOADB                            R8 1
+      186 CALL                             R6 2 0
+      187 GETTABLEKS                       R7 R4 K16 ["enabled"]
+      189 GETTABLEKS                       R6 R7 K6 ["set"]
+      191 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+      193 LOADB                            R8 1
+      194 CALL                             R6 2 0
+      195 GETTABLEKS                       R4 R3 K32 ["bodyAppearanceCustomPartsLeftLeg"]
+      197 GETTABLEKS                       R5 R1 K33 ["CustomLeftLeg"]
+      199 GETTABLEKS                       R7 R4 K14 ["assetId"]
+      201 GETTABLEKS                       R6 R7 K6 ["set"]
+      203 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+      205 LOADB                            R8 1
+      206 CALL                             R6 2 0
+      207 GETTABLEKS                       R7 R4 K16 ["enabled"]
+      209 GETTABLEKS                       R6 R7 K6 ["set"]
+      211 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+      213 LOADB                            R8 1
+      214 CALL                             R6 2 0
+      215 GETTABLEKS                       R4 R3 K34 ["bodyAppearanceCustomPartsRightLeg"]
+      217 GETTABLEKS                       R5 R1 K35 ["CustomRightLeg"]
+      219 GETTABLEKS                       R7 R4 K14 ["assetId"]
+      221 GETTABLEKS                       R6 R7 K6 ["set"]
+      223 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+      225 LOADB                            R8 1
+      226 CALL                             R6 2 0
+      227 GETTABLEKS                       R7 R4 K16 ["enabled"]
+      229 GETTABLEKS                       R6 R7 K6 ["set"]
+      231 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+      233 LOADB                            R8 1
+      234 CALL                             R6 2 0
+      235 GETTABLEKS                       R5 R3 K36 ["bodyBuildSetting"]
+      237 GETTABLEKS                       R4 R5 K6 ["set"]
+      239 GETTABLEKS                       R5 R1 K37 ["BuildMode"]
+      241 LOADB                            R6 1
+      242 CALL                             R4 2 0
+      243 GETTABLEKS                       R5 R3 K38 ["bodyBuildCustomHeight"]
+      245 GETTABLEKS                       R4 R5 K6 ["set"]
+      247 GETTABLEKS                       R5 R1 K39 ["CustomHeightScale"]
+      249 LOADB                            R6 1
+      250 CALL                             R4 2 0
+      251 GETTABLEKS                       R5 R3 K40 ["bodyBuildCustomWidth"]
+      253 GETTABLEKS                       R4 R5 K6 ["set"]
+      255 GETTABLEKS                       R5 R1 K41 ["CustomWidthScale"]
+      257 LOADB                            R6 1
+      258 CALL                             R4 2 0
+      259 GETTABLEKS                       R5 R3 K42 ["bodyBuildCustomHead"]
+      261 GETTABLEKS                       R4 R5 K6 ["set"]
+      263 GETTABLEKS                       R5 R1 K43 ["CustomHeadScale"]
+      265 LOADB                            R6 1
+      266 CALL                             R4 2 0
+      267 GETTABLEKS                       R5 R3 K44 ["bodyBuildCustomBodyType"]
+      269 GETTABLEKS                       R4 R5 K6 ["set"]
+      271 GETTABLEKS                       R5 R1 K45 ["CustomBodyTypeScale"]
+      273 LOADB                            R6 1
+      274 CALL                             R4 2 0
+      275 GETTABLEKS                       R5 R3 K46 ["bodyBuildCustomProportions"]
+      277 GETTABLEKS                       R4 R5 K6 ["set"]
+      279 GETTABLEKS                       R5 R1 K47 ["CustomProportionsScale"]
+      281 LOADB                            R6 1
+      282 CALL                             R4 2 0
+      283 RETURN                           R0 0
 
 PROTO_2:
-  GETTABLEKS R2 R0 K0 ["settings"]
-  FASTCALL2K ASSERT R2 K1 [+5]
-  MOVE R4 R2
-  LOADK R5 K1 ["Expected settings to be present in AvatarSettingsContext"]
-  GETIMPORT R3 K3 [assert]
-  CALL R3 2 0
-  GETTABLEKS R3 R2 K4 ["movementSettings"]
-  GETTABLEKS R5 R3 K5 ["collisionSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K7 ["CollisionMode"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K8 ["collisionHitAndTouchDetectionSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K9 ["HitAndTouchDetectionMode"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K10 ["collisionMethodSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K11 ["AvatarSettingsLegacyCollisionMode"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K12 ["collisionSizeSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K13 ["SingleColliderSize"]
-  LOADB R6 1
-  CALL R4 2 0
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["settings"]
+        2 FASTCALL2K                       ASSERT R2 K1 ; [+5]
+        4 MOVE                             R4 R2
+        5 LOADK                            R5 K1 ["Expected settings to be present in AvatarSettingsContext"]
+        6 GETIMPORT                        R3 K3 [assert]
+        8 CALL                             R3 2 0
+        9 GETTABLEKS                       R3 R2 K4 ["movementSettings"]
+       11 GETTABLEKS                       R5 R3 K5 ["collisionSetting"]
+       13 GETTABLEKS                       R4 R5 K6 ["set"]
+       15 GETTABLEKS                       R5 R1 K7 ["CollisionMode"]
+       17 LOADB                            R6 1
+       18 CALL                             R4 2 0
+       19 GETTABLEKS                       R5 R3 K8 ["collisionHitAndTouchDetectionSetting"]
+       21 GETTABLEKS                       R4 R5 K6 ["set"]
+       23 GETTABLEKS                       R5 R1 K9 ["HitAndTouchDetectionMode"]
+       25 LOADB                            R6 1
+       26 CALL                             R4 2 0
+       27 GETTABLEKS                       R5 R3 K10 ["collisionMethodSetting"]
+       29 GETTABLEKS                       R4 R5 K6 ["set"]
+       31 GETTABLEKS                       R5 R1 K11 ["AvatarSettingsLegacyCollisionMode"]
+       33 LOADB                            R6 1
+       34 CALL                             R4 2 0
+       35 GETTABLEKS                       R5 R3 K12 ["collisionSizeSetting"]
+       37 GETTABLEKS                       R4 R5 K6 ["set"]
+       39 GETTABLEKS                       R5 R1 K13 ["SingleColliderSize"]
+       41 LOADB                            R6 1
+       42 CALL                             R4 2 0
+       43 RETURN                           R0 0
 
 PROTO_3:
-  GETTABLEKS R2 R0 K0 ["settings"]
-  FASTCALL2K ASSERT R2 K1 [+5]
-  MOVE R4 R2
-  LOADK R5 K1 ["Expected settings to be present in AvatarSettingsContext"]
-  GETIMPORT R3 K3 [assert]
-  CALL R3 2 0
-  GETTABLEKS R3 R2 K4 ["animationSettings"]
-  GETTABLEKS R5 R3 K5 ["animationPacksSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K7 ["AnimationPacksMode"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K8 ["animationClipsSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K9 ["AnimationClipsMode"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R4 R3 K10 ["animationClipsRunSetting"]
-  GETTABLEKS R5 R1 K11 ["CustomRunAnimation"]
-  GETTABLEKS R7 R4 K12 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K13 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K14 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K16 ["animationClipsWalkSetting"]
-  GETTABLEKS R5 R1 K17 ["CustomWalkAnimation"]
-  GETTABLEKS R7 R4 K12 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K13 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K14 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K18 ["animationClipsFallSetting"]
-  GETTABLEKS R5 R1 K19 ["CustomFallAnimation"]
-  GETTABLEKS R7 R4 K12 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K13 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K14 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K20 ["animationClipsJumpSetting"]
-  GETTABLEKS R5 R1 K21 ["CustomJumpAnimation"]
-  GETTABLEKS R7 R4 K12 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K13 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K14 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K22 ["animationClipsIdleSetting"]
-  GETTABLEKS R5 R1 K23 ["CustomIdleAnimation"]
-  GETTABLEKS R7 R4 K12 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K13 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K14 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K24 ["animationClipsIdleAlt1Setting"]
-  GETTABLEKS R5 R1 K25 ["CustomIdleAlt1Animation"]
-  GETTABLEKS R7 R4 K12 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K13 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K14 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K26 ["animationClipsIdleAlt2Setting"]
-  GETTABLEKS R5 R1 K27 ["CustomIdleAlt2Animation"]
-  GETTABLEKS R7 R4 K12 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K13 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K14 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K28 ["animationClipsSwimSetting"]
-  GETTABLEKS R5 R1 K29 ["CustomSwimAnimation"]
-  GETTABLEKS R7 R4 K12 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K13 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K14 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K30 ["animationClipsSwimIdleSetting"]
-  GETTABLEKS R5 R1 K31 ["CustomSwimIdleAnimation"]
-  GETTABLEKS R7 R4 K12 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K13 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K14 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K32 ["animationClipsClimbSetting"]
-  GETTABLEKS R5 R1 K33 ["CustomClimbAnimation"]
-  GETTABLEKS R7 R4 K12 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K13 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K14 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["settings"]
+        2 FASTCALL2K                       ASSERT R2 K1 ; [+5]
+        4 MOVE                             R4 R2
+        5 LOADK                            R5 K1 ["Expected settings to be present in AvatarSettingsContext"]
+        6 GETIMPORT                        R3 K3 [assert]
+        8 CALL                             R3 2 0
+        9 GETTABLEKS                       R3 R2 K4 ["animationSettings"]
+       11 GETTABLEKS                       R5 R3 K5 ["animationPacksSetting"]
+       13 GETTABLEKS                       R4 R5 K6 ["set"]
+       15 GETTABLEKS                       R5 R1 K7 ["AnimationPacksMode"]
+       17 LOADB                            R6 1
+       18 CALL                             R4 2 0
+       19 GETTABLEKS                       R5 R3 K8 ["animationClipsSetting"]
+       21 GETTABLEKS                       R4 R5 K6 ["set"]
+       23 GETTABLEKS                       R5 R1 K9 ["AnimationClipsMode"]
+       25 LOADB                            R6 1
+       26 CALL                             R4 2 0
+       27 GETTABLEKS                       R4 R3 K10 ["animationClipsRunSetting"]
+       29 GETTABLEKS                       R5 R1 K11 ["CustomRunAnimation"]
+       31 GETTABLEKS                       R7 R4 K12 ["assetId"]
+       33 GETTABLEKS                       R6 R7 K6 ["set"]
+       35 GETTABLEKS                       R7 R5 K13 ["AssetId"]
+       37 LOADB                            R8 1
+       38 CALL                             R6 2 0
+       39 GETTABLEKS                       R7 R4 K14 ["enabled"]
+       41 GETTABLEKS                       R6 R7 K6 ["set"]
+       43 GETTABLEKS                       R7 R5 K15 ["Enabled"]
+       45 LOADB                            R8 1
+       46 CALL                             R6 2 0
+       47 GETTABLEKS                       R4 R3 K16 ["animationClipsWalkSetting"]
+       49 GETTABLEKS                       R5 R1 K17 ["CustomWalkAnimation"]
+       51 GETTABLEKS                       R7 R4 K12 ["assetId"]
+       53 GETTABLEKS                       R6 R7 K6 ["set"]
+       55 GETTABLEKS                       R7 R5 K13 ["AssetId"]
+       57 LOADB                            R8 1
+       58 CALL                             R6 2 0
+       59 GETTABLEKS                       R7 R4 K14 ["enabled"]
+       61 GETTABLEKS                       R6 R7 K6 ["set"]
+       63 GETTABLEKS                       R7 R5 K15 ["Enabled"]
+       65 LOADB                            R8 1
+       66 CALL                             R6 2 0
+       67 GETTABLEKS                       R4 R3 K18 ["animationClipsFallSetting"]
+       69 GETTABLEKS                       R5 R1 K19 ["CustomFallAnimation"]
+       71 GETTABLEKS                       R7 R4 K12 ["assetId"]
+       73 GETTABLEKS                       R6 R7 K6 ["set"]
+       75 GETTABLEKS                       R7 R5 K13 ["AssetId"]
+       77 LOADB                            R8 1
+       78 CALL                             R6 2 0
+       79 GETTABLEKS                       R7 R4 K14 ["enabled"]
+       81 GETTABLEKS                       R6 R7 K6 ["set"]
+       83 GETTABLEKS                       R7 R5 K15 ["Enabled"]
+       85 LOADB                            R8 1
+       86 CALL                             R6 2 0
+       87 GETTABLEKS                       R4 R3 K20 ["animationClipsJumpSetting"]
+       89 GETTABLEKS                       R5 R1 K21 ["CustomJumpAnimation"]
+       91 GETTABLEKS                       R7 R4 K12 ["assetId"]
+       93 GETTABLEKS                       R6 R7 K6 ["set"]
+       95 GETTABLEKS                       R7 R5 K13 ["AssetId"]
+       97 LOADB                            R8 1
+       98 CALL                             R6 2 0
+       99 GETTABLEKS                       R7 R4 K14 ["enabled"]
+      101 GETTABLEKS                       R6 R7 K6 ["set"]
+      103 GETTABLEKS                       R7 R5 K15 ["Enabled"]
+      105 LOADB                            R8 1
+      106 CALL                             R6 2 0
+      107 GETTABLEKS                       R4 R3 K22 ["animationClipsIdleSetting"]
+      109 GETTABLEKS                       R5 R1 K23 ["CustomIdleAnimation"]
+      111 GETTABLEKS                       R7 R4 K12 ["assetId"]
+      113 GETTABLEKS                       R6 R7 K6 ["set"]
+      115 GETTABLEKS                       R7 R5 K13 ["AssetId"]
+      117 LOADB                            R8 1
+      118 CALL                             R6 2 0
+      119 GETTABLEKS                       R7 R4 K14 ["enabled"]
+      121 GETTABLEKS                       R6 R7 K6 ["set"]
+      123 GETTABLEKS                       R7 R5 K15 ["Enabled"]
+      125 LOADB                            R8 1
+      126 CALL                             R6 2 0
+      127 GETTABLEKS                       R4 R3 K24 ["animationClipsIdleAlt1Setting"]
+      129 GETTABLEKS                       R5 R1 K25 ["CustomIdleAlt1Animation"]
+      131 GETTABLEKS                       R7 R4 K12 ["assetId"]
+      133 GETTABLEKS                       R6 R7 K6 ["set"]
+      135 GETTABLEKS                       R7 R5 K13 ["AssetId"]
+      137 LOADB                            R8 1
+      138 CALL                             R6 2 0
+      139 GETTABLEKS                       R7 R4 K14 ["enabled"]
+      141 GETTABLEKS                       R6 R7 K6 ["set"]
+      143 GETTABLEKS                       R7 R5 K15 ["Enabled"]
+      145 LOADB                            R8 1
+      146 CALL                             R6 2 0
+      147 GETTABLEKS                       R4 R3 K26 ["animationClipsIdleAlt2Setting"]
+      149 GETTABLEKS                       R5 R1 K27 ["CustomIdleAlt2Animation"]
+      151 GETTABLEKS                       R7 R4 K12 ["assetId"]
+      153 GETTABLEKS                       R6 R7 K6 ["set"]
+      155 GETTABLEKS                       R7 R5 K13 ["AssetId"]
+      157 LOADB                            R8 1
+      158 CALL                             R6 2 0
+      159 GETTABLEKS                       R7 R4 K14 ["enabled"]
+      161 GETTABLEKS                       R6 R7 K6 ["set"]
+      163 GETTABLEKS                       R7 R5 K15 ["Enabled"]
+      165 LOADB                            R8 1
+      166 CALL                             R6 2 0
+      167 GETTABLEKS                       R4 R3 K28 ["animationClipsSwimSetting"]
+      169 GETTABLEKS                       R5 R1 K29 ["CustomSwimAnimation"]
+      171 GETTABLEKS                       R7 R4 K12 ["assetId"]
+      173 GETTABLEKS                       R6 R7 K6 ["set"]
+      175 GETTABLEKS                       R7 R5 K13 ["AssetId"]
+      177 LOADB                            R8 1
+      178 CALL                             R6 2 0
+      179 GETTABLEKS                       R7 R4 K14 ["enabled"]
+      181 GETTABLEKS                       R6 R7 K6 ["set"]
+      183 GETTABLEKS                       R7 R5 K15 ["Enabled"]
+      185 LOADB                            R8 1
+      186 CALL                             R6 2 0
+      187 GETTABLEKS                       R4 R3 K30 ["animationClipsSwimIdleSetting"]
+      189 GETTABLEKS                       R5 R1 K31 ["CustomSwimIdleAnimation"]
+      191 GETTABLEKS                       R7 R4 K12 ["assetId"]
+      193 GETTABLEKS                       R6 R7 K6 ["set"]
+      195 GETTABLEKS                       R7 R5 K13 ["AssetId"]
+      197 LOADB                            R8 1
+      198 CALL                             R6 2 0
+      199 GETTABLEKS                       R7 R4 K14 ["enabled"]
+      201 GETTABLEKS                       R6 R7 K6 ["set"]
+      203 GETTABLEKS                       R7 R5 K15 ["Enabled"]
+      205 LOADB                            R8 1
+      206 CALL                             R6 2 0
+      207 GETTABLEKS                       R4 R3 K32 ["animationClipsClimbSetting"]
+      209 GETTABLEKS                       R5 R1 K33 ["CustomClimbAnimation"]
+      211 GETTABLEKS                       R7 R4 K12 ["assetId"]
+      213 GETTABLEKS                       R6 R7 K6 ["set"]
+      215 GETTABLEKS                       R7 R5 K13 ["AssetId"]
+      217 LOADB                            R8 1
+      218 CALL                             R6 2 0
+      219 GETTABLEKS                       R7 R4 K14 ["enabled"]
+      221 GETTABLEKS                       R6 R7 K6 ["set"]
+      223 GETTABLEKS                       R7 R5 K15 ["Enabled"]
+      225 LOADB                            R8 1
+      226 CALL                             R6 2 0
+      227 RETURN                           R0 0
 
 PROTO_4:
-  GETTABLEKS R2 R0 K0 ["settings"]
-  FASTCALL2K ASSERT R2 K1 [+5]
-  MOVE R4 R2
-  LOADK R5 K1 ["Expected settings to be present in AvatarSettingsContext"]
-  GETIMPORT R3 K3 [assert]
-  CALL R3 2 0
-  GETTABLEKS R3 R2 K4 ["accessoriesSettings"]
-  GETTABLEKS R5 R3 K5 ["accessoryBehaviorEnableSoundSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K7 ["EnableSound"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K8 ["accessoryBehaviorEnableVFXSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K9 ["EnableVFX"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K10 ["accessoryScaleSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K11 ["AccessoryMode"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K12 ["accessoryScaleLimitMethodSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K13 ["LimitMethod"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K14 ["accessoryScaleLimitBoundsSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K15 ["LimitBounds"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K16 ["customAccessoriesSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K17 ["CustomAccessoryMode"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R4 R3 K18 ["customAccessoriesHairSetting"]
-  GETTABLEKS R5 R1 K19 ["CustomHairAccessory"]
-  GETTABLEKS R7 R4 K20 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K21 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K22 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K23 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K24 ["customAccessoriesHeadSetting"]
-  GETTABLEKS R5 R1 K25 ["CustomHeadAccessory"]
-  GETTABLEKS R7 R4 K20 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K21 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K22 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K23 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K26 ["customAccessoriesFaceSetting"]
-  GETTABLEKS R5 R1 K27 ["CustomFaceAccessory"]
-  GETTABLEKS R7 R4 K20 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K21 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K22 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K23 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K28 ["customAccessoriesNeckSetting"]
-  GETTABLEKS R5 R1 K29 ["CustomNeckAccessory"]
-  GETTABLEKS R7 R4 K20 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K21 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K22 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K23 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K30 ["customAccessoriesShoulderSetting"]
-  GETTABLEKS R5 R1 K31 ["CustomShoulderAccessory"]
-  GETTABLEKS R7 R4 K20 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K21 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K22 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K23 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K32 ["customAccessoriesFrontSetting"]
-  GETTABLEKS R5 R1 K33 ["CustomFrontAccessory"]
-  GETTABLEKS R7 R4 K20 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K21 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K22 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K23 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K34 ["customAccessoriesBackSetting"]
-  GETTABLEKS R5 R1 K35 ["CustomBackAccessory"]
-  GETTABLEKS R7 R4 K20 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K21 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K22 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K23 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K36 ["customAccessoriesWaistSetting"]
-  GETTABLEKS R5 R1 K37 ["CustomWaistAccessory"]
-  GETTABLEKS R7 R4 K20 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K21 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K22 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K23 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["settings"]
+        2 FASTCALL2K                       ASSERT R2 K1 ; [+5]
+        4 MOVE                             R4 R2
+        5 LOADK                            R5 K1 ["Expected settings to be present in AvatarSettingsContext"]
+        6 GETIMPORT                        R3 K3 [assert]
+        8 CALL                             R3 2 0
+        9 GETTABLEKS                       R3 R2 K4 ["accessoriesSettings"]
+       11 GETTABLEKS                       R5 R3 K5 ["accessoryBehaviorEnableSoundSetting"]
+       13 GETTABLEKS                       R4 R5 K6 ["set"]
+       15 GETTABLEKS                       R5 R1 K7 ["EnableSound"]
+       17 LOADB                            R6 1
+       18 CALL                             R4 2 0
+       19 GETTABLEKS                       R5 R3 K8 ["accessoryBehaviorEnableVFXSetting"]
+       21 GETTABLEKS                       R4 R5 K6 ["set"]
+       23 GETTABLEKS                       R5 R1 K9 ["EnableVFX"]
+       25 LOADB                            R6 1
+       26 CALL                             R4 2 0
+       27 GETTABLEKS                       R5 R3 K10 ["accessoryScaleSetting"]
+       29 GETTABLEKS                       R4 R5 K6 ["set"]
+       31 GETTABLEKS                       R5 R1 K11 ["AccessoryMode"]
+       33 LOADB                            R6 1
+       34 CALL                             R4 2 0
+       35 GETTABLEKS                       R5 R3 K12 ["accessoryScaleLimitMethodSetting"]
+       37 GETTABLEKS                       R4 R5 K6 ["set"]
+       39 GETTABLEKS                       R5 R1 K13 ["LimitMethod"]
+       41 LOADB                            R6 1
+       42 CALL                             R4 2 0
+       43 GETTABLEKS                       R5 R3 K14 ["accessoryScaleLimitBoundsSetting"]
+       45 GETTABLEKS                       R4 R5 K6 ["set"]
+       47 GETTABLEKS                       R5 R1 K15 ["LimitBounds"]
+       49 LOADB                            R6 1
+       50 CALL                             R4 2 0
+       51 GETTABLEKS                       R5 R3 K16 ["customAccessoriesSetting"]
+       53 GETTABLEKS                       R4 R5 K6 ["set"]
+       55 GETTABLEKS                       R5 R1 K17 ["CustomAccessoryMode"]
+       57 LOADB                            R6 1
+       58 CALL                             R4 2 0
+       59 GETTABLEKS                       R4 R3 K18 ["customAccessoriesHairSetting"]
+       61 GETTABLEKS                       R5 R1 K19 ["CustomHairAccessory"]
+       63 GETTABLEKS                       R7 R4 K20 ["assetId"]
+       65 GETTABLEKS                       R6 R7 K6 ["set"]
+       67 GETTABLEKS                       R7 R5 K21 ["AssetId"]
+       69 LOADB                            R8 1
+       70 CALL                             R6 2 0
+       71 GETTABLEKS                       R7 R4 K22 ["enabled"]
+       73 GETTABLEKS                       R6 R7 K6 ["set"]
+       75 GETTABLEKS                       R7 R5 K23 ["Enabled"]
+       77 LOADB                            R8 1
+       78 CALL                             R6 2 0
+       79 GETTABLEKS                       R4 R3 K24 ["customAccessoriesHeadSetting"]
+       81 GETTABLEKS                       R5 R1 K25 ["CustomHeadAccessory"]
+       83 GETTABLEKS                       R7 R4 K20 ["assetId"]
+       85 GETTABLEKS                       R6 R7 K6 ["set"]
+       87 GETTABLEKS                       R7 R5 K21 ["AssetId"]
+       89 LOADB                            R8 1
+       90 CALL                             R6 2 0
+       91 GETTABLEKS                       R7 R4 K22 ["enabled"]
+       93 GETTABLEKS                       R6 R7 K6 ["set"]
+       95 GETTABLEKS                       R7 R5 K23 ["Enabled"]
+       97 LOADB                            R8 1
+       98 CALL                             R6 2 0
+       99 GETTABLEKS                       R4 R3 K26 ["customAccessoriesFaceSetting"]
+      101 GETTABLEKS                       R5 R1 K27 ["CustomFaceAccessory"]
+      103 GETTABLEKS                       R7 R4 K20 ["assetId"]
+      105 GETTABLEKS                       R6 R7 K6 ["set"]
+      107 GETTABLEKS                       R7 R5 K21 ["AssetId"]
+      109 LOADB                            R8 1
+      110 CALL                             R6 2 0
+      111 GETTABLEKS                       R7 R4 K22 ["enabled"]
+      113 GETTABLEKS                       R6 R7 K6 ["set"]
+      115 GETTABLEKS                       R7 R5 K23 ["Enabled"]
+      117 LOADB                            R8 1
+      118 CALL                             R6 2 0
+      119 GETTABLEKS                       R4 R3 K28 ["customAccessoriesNeckSetting"]
+      121 GETTABLEKS                       R5 R1 K29 ["CustomNeckAccessory"]
+      123 GETTABLEKS                       R7 R4 K20 ["assetId"]
+      125 GETTABLEKS                       R6 R7 K6 ["set"]
+      127 GETTABLEKS                       R7 R5 K21 ["AssetId"]
+      129 LOADB                            R8 1
+      130 CALL                             R6 2 0
+      131 GETTABLEKS                       R7 R4 K22 ["enabled"]
+      133 GETTABLEKS                       R6 R7 K6 ["set"]
+      135 GETTABLEKS                       R7 R5 K23 ["Enabled"]
+      137 LOADB                            R8 1
+      138 CALL                             R6 2 0
+      139 GETTABLEKS                       R4 R3 K30 ["customAccessoriesShoulderSetting"]
+      141 GETTABLEKS                       R5 R1 K31 ["CustomShoulderAccessory"]
+      143 GETTABLEKS                       R7 R4 K20 ["assetId"]
+      145 GETTABLEKS                       R6 R7 K6 ["set"]
+      147 GETTABLEKS                       R7 R5 K21 ["AssetId"]
+      149 LOADB                            R8 1
+      150 CALL                             R6 2 0
+      151 GETTABLEKS                       R7 R4 K22 ["enabled"]
+      153 GETTABLEKS                       R6 R7 K6 ["set"]
+      155 GETTABLEKS                       R7 R5 K23 ["Enabled"]
+      157 LOADB                            R8 1
+      158 CALL                             R6 2 0
+      159 GETTABLEKS                       R4 R3 K32 ["customAccessoriesFrontSetting"]
+      161 GETTABLEKS                       R5 R1 K33 ["CustomFrontAccessory"]
+      163 GETTABLEKS                       R7 R4 K20 ["assetId"]
+      165 GETTABLEKS                       R6 R7 K6 ["set"]
+      167 GETTABLEKS                       R7 R5 K21 ["AssetId"]
+      169 LOADB                            R8 1
+      170 CALL                             R6 2 0
+      171 GETTABLEKS                       R7 R4 K22 ["enabled"]
+      173 GETTABLEKS                       R6 R7 K6 ["set"]
+      175 GETTABLEKS                       R7 R5 K23 ["Enabled"]
+      177 LOADB                            R8 1
+      178 CALL                             R6 2 0
+      179 GETTABLEKS                       R4 R3 K34 ["customAccessoriesBackSetting"]
+      181 GETTABLEKS                       R5 R1 K35 ["CustomBackAccessory"]
+      183 GETTABLEKS                       R7 R4 K20 ["assetId"]
+      185 GETTABLEKS                       R6 R7 K6 ["set"]
+      187 GETTABLEKS                       R7 R5 K21 ["AssetId"]
+      189 LOADB                            R8 1
+      190 CALL                             R6 2 0
+      191 GETTABLEKS                       R7 R4 K22 ["enabled"]
+      193 GETTABLEKS                       R6 R7 K6 ["set"]
+      195 GETTABLEKS                       R7 R5 K23 ["Enabled"]
+      197 LOADB                            R8 1
+      198 CALL                             R6 2 0
+      199 GETTABLEKS                       R4 R3 K36 ["customAccessoriesWaistSetting"]
+      201 GETTABLEKS                       R5 R1 K37 ["CustomWaistAccessory"]
+      203 GETTABLEKS                       R7 R4 K20 ["assetId"]
+      205 GETTABLEKS                       R6 R7 K6 ["set"]
+      207 GETTABLEKS                       R7 R5 K21 ["AssetId"]
+      209 LOADB                            R8 1
+      210 CALL                             R6 2 0
+      211 GETTABLEKS                       R7 R4 K22 ["enabled"]
+      213 GETTABLEKS                       R6 R7 K6 ["set"]
+      215 GETTABLEKS                       R7 R5 K23 ["Enabled"]
+      217 LOADB                            R8 1
+      218 CALL                             R6 2 0
+      219 RETURN                           R0 0
 
 PROTO_5:
-  GETTABLEKS R2 R0 K0 ["settings"]
-  FASTCALL2K ASSERT R2 K1 [+5]
-  MOVE R4 R2
-  LOADK R5 K1 ["Expected settings to be present in AvatarSettingsContext"]
-  GETIMPORT R3 K3 [assert]
-  CALL R3 2 0
-  GETTABLEKS R3 R2 K4 ["clothingSettings"]
-  GETTABLEKS R5 R3 K5 ["clothingScaleSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K7 ["ClothingMode"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K8 ["clothingScaleLimitBoundsSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K9 ["LimitBounds"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R5 R3 K10 ["customClothingSetting"]
-  GETTABLEKS R4 R5 K6 ["set"]
-  GETTABLEKS R5 R1 K11 ["CustomClothingMode"]
-  LOADB R6 1
-  CALL R4 2 0
-  GETTABLEKS R4 R3 K12 ["customClothingTShirtSetting"]
-  GETTABLEKS R5 R1 K13 ["CustomTShirtAccessory"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K18 ["customClothingShirtSetting"]
-  GETTABLEKS R5 R1 K19 ["CustomShirtAccessory"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K20 ["customClothingJacketSetting"]
-  GETTABLEKS R5 R1 K21 ["CustomJacketAccessory"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K22 ["customClothingSweaterSetting"]
-  GETTABLEKS R5 R1 K23 ["CustomSweaterAccessory"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K24 ["customClothingPantsSetting"]
-  GETTABLEKS R5 R1 K25 ["CustomPantsAccessory"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K26 ["customClothingShortsSetting"]
-  GETTABLEKS R5 R1 K27 ["CustomShortsAccessory"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K28 ["customClothingDressSkirtSetting"]
-  GETTABLEKS R5 R1 K29 ["CustomDressSkirtAccessory"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K30 ["customClothingLeftShoesSetting"]
-  GETTABLEKS R5 R1 K31 ["CustomLeftShoesAccessory"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K32 ["customClothingRightShoesSetting"]
-  GETTABLEKS R5 R1 K33 ["CustomRightShoesAccessory"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K34 ["customClothingClassicShirtsSetting"]
-  GETTABLEKS R5 R1 K35 ["CustomClassicShirtsAccessory"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K36 ["customClothingClassicTShirtsSetting"]
-  GETTABLEKS R5 R1 K37 ["CustomClassicTShirtsAccessory"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R4 R3 K38 ["customClothingClassicPantsSetting"]
-  GETTABLEKS R5 R1 K39 ["CustomClassicPantsAccessory"]
-  GETTABLEKS R7 R4 K14 ["assetId"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K15 ["AssetId"]
-  LOADB R8 1
-  CALL R6 2 0
-  GETTABLEKS R7 R4 K16 ["enabled"]
-  GETTABLEKS R6 R7 K6 ["set"]
-  GETTABLEKS R7 R5 K17 ["Enabled"]
-  LOADB R8 1
-  CALL R6 2 0
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["settings"]
+        2 FASTCALL2K                       ASSERT R2 K1 ; [+5]
+        4 MOVE                             R4 R2
+        5 LOADK                            R5 K1 ["Expected settings to be present in AvatarSettingsContext"]
+        6 GETIMPORT                        R3 K3 [assert]
+        8 CALL                             R3 2 0
+        9 GETTABLEKS                       R3 R2 K4 ["clothingSettings"]
+       11 GETTABLEKS                       R5 R3 K5 ["clothingScaleSetting"]
+       13 GETTABLEKS                       R4 R5 K6 ["set"]
+       15 GETTABLEKS                       R5 R1 K7 ["ClothingMode"]
+       17 LOADB                            R6 1
+       18 CALL                             R4 2 0
+       19 GETTABLEKS                       R5 R3 K8 ["clothingScaleLimitBoundsSetting"]
+       21 GETTABLEKS                       R4 R5 K6 ["set"]
+       23 GETTABLEKS                       R5 R1 K9 ["LimitBounds"]
+       25 LOADB                            R6 1
+       26 CALL                             R4 2 0
+       27 GETTABLEKS                       R5 R3 K10 ["customClothingSetting"]
+       29 GETTABLEKS                       R4 R5 K6 ["set"]
+       31 GETTABLEKS                       R5 R1 K11 ["CustomClothingMode"]
+       33 LOADB                            R6 1
+       34 CALL                             R4 2 0
+       35 GETTABLEKS                       R4 R3 K12 ["customClothingTShirtSetting"]
+       37 GETTABLEKS                       R5 R1 K13 ["CustomTShirtAccessory"]
+       39 GETTABLEKS                       R7 R4 K14 ["assetId"]
+       41 GETTABLEKS                       R6 R7 K6 ["set"]
+       43 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+       45 LOADB                            R8 1
+       46 CALL                             R6 2 0
+       47 GETTABLEKS                       R7 R4 K16 ["enabled"]
+       49 GETTABLEKS                       R6 R7 K6 ["set"]
+       51 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+       53 LOADB                            R8 1
+       54 CALL                             R6 2 0
+       55 GETTABLEKS                       R4 R3 K18 ["customClothingShirtSetting"]
+       57 GETTABLEKS                       R5 R1 K19 ["CustomShirtAccessory"]
+       59 GETTABLEKS                       R7 R4 K14 ["assetId"]
+       61 GETTABLEKS                       R6 R7 K6 ["set"]
+       63 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+       65 LOADB                            R8 1
+       66 CALL                             R6 2 0
+       67 GETTABLEKS                       R7 R4 K16 ["enabled"]
+       69 GETTABLEKS                       R6 R7 K6 ["set"]
+       71 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+       73 LOADB                            R8 1
+       74 CALL                             R6 2 0
+       75 GETTABLEKS                       R4 R3 K20 ["customClothingJacketSetting"]
+       77 GETTABLEKS                       R5 R1 K21 ["CustomJacketAccessory"]
+       79 GETTABLEKS                       R7 R4 K14 ["assetId"]
+       81 GETTABLEKS                       R6 R7 K6 ["set"]
+       83 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+       85 LOADB                            R8 1
+       86 CALL                             R6 2 0
+       87 GETTABLEKS                       R7 R4 K16 ["enabled"]
+       89 GETTABLEKS                       R6 R7 K6 ["set"]
+       91 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+       93 LOADB                            R8 1
+       94 CALL                             R6 2 0
+       95 GETTABLEKS                       R4 R3 K22 ["customClothingSweaterSetting"]
+       97 GETTABLEKS                       R5 R1 K23 ["CustomSweaterAccessory"]
+       99 GETTABLEKS                       R7 R4 K14 ["assetId"]
+      101 GETTABLEKS                       R6 R7 K6 ["set"]
+      103 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+      105 LOADB                            R8 1
+      106 CALL                             R6 2 0
+      107 GETTABLEKS                       R7 R4 K16 ["enabled"]
+      109 GETTABLEKS                       R6 R7 K6 ["set"]
+      111 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+      113 LOADB                            R8 1
+      114 CALL                             R6 2 0
+      115 GETTABLEKS                       R4 R3 K24 ["customClothingPantsSetting"]
+      117 GETTABLEKS                       R5 R1 K25 ["CustomPantsAccessory"]
+      119 GETTABLEKS                       R7 R4 K14 ["assetId"]
+      121 GETTABLEKS                       R6 R7 K6 ["set"]
+      123 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+      125 LOADB                            R8 1
+      126 CALL                             R6 2 0
+      127 GETTABLEKS                       R7 R4 K16 ["enabled"]
+      129 GETTABLEKS                       R6 R7 K6 ["set"]
+      131 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+      133 LOADB                            R8 1
+      134 CALL                             R6 2 0
+      135 GETTABLEKS                       R4 R3 K26 ["customClothingShortsSetting"]
+      137 GETTABLEKS                       R5 R1 K27 ["CustomShortsAccessory"]
+      139 GETTABLEKS                       R7 R4 K14 ["assetId"]
+      141 GETTABLEKS                       R6 R7 K6 ["set"]
+      143 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+      145 LOADB                            R8 1
+      146 CALL                             R6 2 0
+      147 GETTABLEKS                       R7 R4 K16 ["enabled"]
+      149 GETTABLEKS                       R6 R7 K6 ["set"]
+      151 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+      153 LOADB                            R8 1
+      154 CALL                             R6 2 0
+      155 GETTABLEKS                       R4 R3 K28 ["customClothingDressSkirtSetting"]
+      157 GETTABLEKS                       R5 R1 K29 ["CustomDressSkirtAccessory"]
+      159 GETTABLEKS                       R7 R4 K14 ["assetId"]
+      161 GETTABLEKS                       R6 R7 K6 ["set"]
+      163 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+      165 LOADB                            R8 1
+      166 CALL                             R6 2 0
+      167 GETTABLEKS                       R7 R4 K16 ["enabled"]
+      169 GETTABLEKS                       R6 R7 K6 ["set"]
+      171 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+      173 LOADB                            R8 1
+      174 CALL                             R6 2 0
+      175 GETTABLEKS                       R4 R3 K30 ["customClothingLeftShoesSetting"]
+      177 GETTABLEKS                       R5 R1 K31 ["CustomLeftShoesAccessory"]
+      179 GETTABLEKS                       R7 R4 K14 ["assetId"]
+      181 GETTABLEKS                       R6 R7 K6 ["set"]
+      183 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+      185 LOADB                            R8 1
+      186 CALL                             R6 2 0
+      187 GETTABLEKS                       R7 R4 K16 ["enabled"]
+      189 GETTABLEKS                       R6 R7 K6 ["set"]
+      191 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+      193 LOADB                            R8 1
+      194 CALL                             R6 2 0
+      195 GETTABLEKS                       R4 R3 K32 ["customClothingRightShoesSetting"]
+      197 GETTABLEKS                       R5 R1 K33 ["CustomRightShoesAccessory"]
+      199 GETTABLEKS                       R7 R4 K14 ["assetId"]
+      201 GETTABLEKS                       R6 R7 K6 ["set"]
+      203 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+      205 LOADB                            R8 1
+      206 CALL                             R6 2 0
+      207 GETTABLEKS                       R7 R4 K16 ["enabled"]
+      209 GETTABLEKS                       R6 R7 K6 ["set"]
+      211 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+      213 LOADB                            R8 1
+      214 CALL                             R6 2 0
+      215 GETTABLEKS                       R4 R3 K34 ["customClothingClassicShirtsSetting"]
+      217 GETTABLEKS                       R5 R1 K35 ["CustomClassicShirtsAccessory"]
+      219 GETTABLEKS                       R7 R4 K14 ["assetId"]
+      221 GETTABLEKS                       R6 R7 K6 ["set"]
+      223 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+      225 LOADB                            R8 1
+      226 CALL                             R6 2 0
+      227 GETTABLEKS                       R7 R4 K16 ["enabled"]
+      229 GETTABLEKS                       R6 R7 K6 ["set"]
+      231 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+      233 LOADB                            R8 1
+      234 CALL                             R6 2 0
+      235 GETTABLEKS                       R4 R3 K36 ["customClothingClassicTShirtsSetting"]
+      237 GETTABLEKS                       R5 R1 K37 ["CustomClassicTShirtsAccessory"]
+      239 GETTABLEKS                       R7 R4 K14 ["assetId"]
+      241 GETTABLEKS                       R6 R7 K6 ["set"]
+      243 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+      245 LOADB                            R8 1
+      246 CALL                             R6 2 0
+      247 GETTABLEKS                       R7 R4 K16 ["enabled"]
+      249 GETTABLEKS                       R6 R7 K6 ["set"]
+      251 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+      253 LOADB                            R8 1
+      254 CALL                             R6 2 0
+      255 GETTABLEKS                       R4 R3 K38 ["customClothingClassicPantsSetting"]
+      257 GETTABLEKS                       R5 R1 K39 ["CustomClassicPantsAccessory"]
+      259 GETTABLEKS                       R7 R4 K14 ["assetId"]
+      261 GETTABLEKS                       R6 R7 K6 ["set"]
+      263 GETTABLEKS                       R7 R5 K15 ["AssetId"]
+      265 LOADB                            R8 1
+      266 CALL                             R6 2 0
+      267 GETTABLEKS                       R7 R4 K16 ["enabled"]
+      269 GETTABLEKS                       R6 R7 K6 ["set"]
+      271 GETTABLEKS                       R7 R5 K17 ["Enabled"]
+      273 LOADB                            R8 1
+      274 CALL                             R6 2 0
+      275 RETURN                           R0 0
 
 PROTO_6:
-  GETTABLEKS R2 R0 K0 ["settings"]
-  FASTCALL2K ASSERT R2 K1 [+5]
-  MOVE R4 R2
-  LOADK R5 K1 ["Expected settings to be present in AvatarSettingsContext"]
-  GETIMPORT R3 K3 [assert]
-  CALL R3 2 0
-  GETTABLEKS R4 R2 K4 ["workspaceGravity"]
-  GETTABLEKS R3 R4 K5 ["set"]
-  GETTABLEKS R5 R1 K6 ["OtherProperties"]
-  GETTABLEKS R4 R5 K7 ["Gravity"]
-  CALL R3 1 0
-  GETTABLEKS R5 R2 K8 ["navigationBarSettings"]
-  GETTABLEKS R4 R5 K9 ["avatarType"]
-  GETTABLEKS R3 R4 K5 ["set"]
-  GETTABLEKS R5 R1 K10 ["AvatarRules"]
-  GETTABLEKS R4 R5 K11 ["AvatarType"]
-  LOADB R5 1
-  CALL R3 2 0
-  GETUPVAL R3 0
-  MOVE R4 R0
-  GETTABLEKS R5 R1 K12 ["AvatarBodyRules"]
-  CALL R3 2 0
-  GETUPVAL R3 1
-  MOVE R4 R0
-  GETTABLEKS R5 R1 K13 ["AvatarCollisionRules"]
-  CALL R3 2 0
-  GETUPVAL R3 2
-  MOVE R4 R0
-  GETTABLEKS R5 R1 K14 ["AvatarAnimationRules"]
-  CALL R3 2 0
-  GETUPVAL R3 3
-  MOVE R4 R0
-  GETTABLEKS R5 R1 K15 ["AvatarAccessoryRules"]
-  CALL R3 2 0
-  GETUPVAL R3 4
-  MOVE R4 R0
-  GETTABLEKS R5 R1 K16 ["AvatarClothingRules"]
-  CALL R3 2 0
-  RETURN R0 0
+        0 GETTABLEKS                       R2 R0 K0 ["settings"]
+        2 FASTCALL2K                       ASSERT R2 K1 ; [+5]
+        4 MOVE                             R4 R2
+        5 LOADK                            R5 K1 ["Expected settings to be present in AvatarSettingsContext"]
+        6 GETIMPORT                        R3 K3 [assert]
+        8 CALL                             R3 2 0
+        9 GETTABLEKS                       R4 R2 K4 ["workspaceGravity"]
+       11 GETTABLEKS                       R3 R4 K5 ["set"]
+       13 GETTABLEKS                       R5 R1 K6 ["OtherProperties"]
+       15 GETTABLEKS                       R4 R5 K7 ["Gravity"]
+       17 CALL                             R3 1 0
+       18 GETTABLEKS                       R5 R2 K8 ["navigationBarSettings"]
+       20 GETTABLEKS                       R4 R5 K9 ["avatarType"]
+       22 GETTABLEKS                       R3 R4 K5 ["set"]
+       24 GETTABLEKS                       R5 R1 K10 ["AvatarRules"]
+       26 GETTABLEKS                       R4 R5 K11 ["AvatarType"]
+       28 LOADB                            R5 1
+       29 CALL                             R3 2 0
+       30 GETUPVAL                         R3 0
+       31 MOVE                             R4 R0
+       32 GETTABLEKS                       R5 R1 K12 ["AvatarBodyRules"]
+       34 CALL                             R3 2 0
+       35 GETUPVAL                         R3 1
+       36 MOVE                             R4 R0
+       37 GETTABLEKS                       R5 R1 K13 ["AvatarCollisionRules"]
+       39 CALL                             R3 2 0
+       40 GETUPVAL                         R3 2
+       41 MOVE                             R4 R0
+       42 GETTABLEKS                       R5 R1 K14 ["AvatarAnimationRules"]
+       44 CALL                             R3 2 0
+       45 GETUPVAL                         R3 3
+       46 MOVE                             R4 R0
+       47 GETTABLEKS                       R5 R1 K15 ["AvatarAccessoryRules"]
+       49 CALL                             R3 2 0
+       50 GETUPVAL                         R3 4
+       51 MOVE                             R4 R0
+       52 GETTABLEKS                       R5 R1 K16 ["AvatarClothingRules"]
+       54 CALL                             R3 2 0
+       55 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarSettings"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Components"]
-  GETTABLEKS R3 R4 K8 ["Contexts"]
-  GETTABLEKS R2 R3 K9 ["AvatarSettingsContext"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Util"]
-  GETTABLEKS R3 R4 K11 ["AvatarSettingsProviderTypes"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Util"]
-  GETTABLEKS R4 R5 K12 ["AvatarSettingsSyncTypes"]
-  CALL R3 1 1
-  DUPCLOSURE R4 K13 [PROTO_0]
-  DUPCLOSURE R5 K14 [PROTO_1]
-  DUPCLOSURE R6 K15 [PROTO_2]
-  DUPCLOSURE R7 K16 [PROTO_3]
-  DUPCLOSURE R8 K17 [PROTO_4]
-  DUPCLOSURE R9 K18 [PROTO_5]
-  DUPCLOSURE R10 K19 [PROTO_6]
-  CAPTURE VAL R5
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R8
-  CAPTURE VAL R9
-  RETURN R10 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarSettings"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R5 R0 K6 ["Src"]
+       11 GETTABLEKS                       R4 R5 K7 ["Components"]
+       13 GETTABLEKS                       R3 R4 K8 ["Contexts"]
+       15 GETTABLEKS                       R2 R3 K9 ["AvatarSettingsContext"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R2 K5 [require]
+       20 GETTABLEKS                       R5 R0 K6 ["Src"]
+       22 GETTABLEKS                       R4 R5 K10 ["Util"]
+       24 GETTABLEKS                       R3 R4 K11 ["AvatarSettingsProviderTypes"]
+       26 CALL                             R2 1 1
+       27 GETIMPORT                        R3 K5 [require]
+       29 GETTABLEKS                       R6 R0 K6 ["Src"]
+       31 GETTABLEKS                       R5 R6 K10 ["Util"]
+       33 GETTABLEKS                       R4 R5 K12 ["AvatarSettingsSyncTypes"]
+       35 CALL                             R3 1 1
+       36 DUPCLOSURE                       R4 K13 [PROTO_0]
+       37 DUPCLOSURE                       R5 K14 [PROTO_1]
+       38 DUPCLOSURE                       R6 K15 [PROTO_2]
+       39 DUPCLOSURE                       R7 K16 [PROTO_3]
+       40 DUPCLOSURE                       R8 K17 [PROTO_4]
+       41 DUPCLOSURE                       R9 K18 [PROTO_5]
+       42 DUPCLOSURE                       R10 K19 [PROTO_6]
+       43 CAPTURE                          VAL R5
+       44 CAPTURE                          VAL R6
+       45 CAPTURE                          VAL R7
+       46 CAPTURE                          VAL R8
+       47 CAPTURE                          VAL R9
+       48 RETURN                           R10 1

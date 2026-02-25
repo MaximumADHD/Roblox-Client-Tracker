@@ -1,47 +1,47 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R2 R0 K0 ["Enabled"]
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R2 R0 K0 ["Enabled"]
+        3 CALL                             R1 1 0
+        4 RETURN                           R0 0
 
 PROTO_1:
-  GETTABLEKS R1 R0 K0 ["UseState"]
-  CALL R1 0 2
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K1 ["useCallback"]
-  NEWCLOSURE R4 P0
-  CAPTURE VAL R2
-  CALL R3 1 1
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K2 ["createElement"]
-  LOADK R5 K3 ["VisualizationMode"]
-  NEWTABLE R6 4 0
-  GETTABLEKS R7 R0 K4 ["Title"]
-  SETTABLEKS R7 R6 K4 ["Title"]
-  SETTABLEKS R1 R6 K5 ["Enabled"]
-  GETTABLEKS R7 R0 K6 ["ToolTip"]
-  SETTABLEKS R7 R6 K6 ["ToolTip"]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K7 ["Change"]
-  GETTABLEKS R7 R8 K5 ["Enabled"]
-  SETTABLE R3 R6 R7
-  CALL R4 2 -1
-  RETURN R4 -1
+        0 GETTABLEKS                       R1 R0 K0 ["UseState"]
+        2 CALL                             R1 0 2
+        3 GETUPVAL                         R4 0
+        4 GETTABLEKS                       R3 R4 K1 ["useCallback"]
+        6 NEWCLOSURE                       R4 P0
+        7 CAPTURE                          VAL R2
+        8 CALL                             R3 1 1
+        9 GETUPVAL                         R5 0
+       10 GETTABLEKS                       R4 R5 K2 ["createElement"]
+       12 LOADK                            R5 K3 ["VisualizationMode"]
+       13 NEWTABLE                         R6 4 0
+       15 GETTABLEKS                       R7 R0 K4 ["Title"]
+       17 SETTABLEKS                       R7 R6 K4 ["Title"]
+       19 SETTABLEKS                       R1 R6 K5 ["Enabled"]
+       21 GETTABLEKS                       R7 R0 K6 ["ToolTip"]
+       23 SETTABLEKS                       R7 R6 K6 ["ToolTip"]
+       25 GETUPVAL                         R9 0
+       26 GETTABLEKS                       R8 R9 K7 ["Change"]
+       28 GETTABLEKS                       R7 R8 K5 ["Enabled"]
+       30 SETTABLE                         R3 R6 R7
+       31 CALL                             R4 2 -1
+       32 RETURN                           R4 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["VisualizationModes"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Src"]
-  GETTABLEKS R2 R3 K7 ["Types"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K8 ["Packages"]
-  GETTABLEKS R3 R4 K9 ["React"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K10 [PROTO_1]
-  CAPTURE VAL R2
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["VisualizationModes"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Src"]
+       11 GETTABLEKS                       R2 R3 K7 ["Types"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K8 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K9 ["React"]
+       20 CALL                             R2 1 1
+       21 DUPCLOSURE                       R3 K10 [PROTO_1]
+       22 CAPTURE                          VAL R2
+       23 RETURN                           R3 1

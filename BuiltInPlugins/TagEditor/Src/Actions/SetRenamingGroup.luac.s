@@ -1,12 +1,12 @@
 PROTO_0:
-  DUPTABLE R2 K3 [{"type", "group", "renaming"}]
-  LOADK R3 K4 ["SetRenamingGroup"]
-  SETTABLEKS R3 R2 K0 ["type"]
-  SETTABLEKS R0 R2 K1 ["group"]
-  SETTABLEKS R1 R2 K2 ["renaming"]
-  RETURN R2 1
+        0 DUPTABLE                         R2 K3 [{"type", "group", "renaming"}]
+        1 LOADK                            R3 K4 ["SetRenamingGroup"]
+        2 SETTABLEKS                       R3 R2 K0 ["type"]
+        4 SETTABLEKS                       R0 R2 K1 ["group"]
+        6 SETTABLEKS                       R1 R2 K2 ["renaming"]
+        8 RETURN                           R2 1
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 RETURN                           R0 1

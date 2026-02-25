@@ -1,103 +1,103 @@
 PROTO_0:
-  GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R1 K1 ["A"]
-  GETTABLEKS R3 R1 K2 ["B"]
-  GETTABLEKS R4 R2 K3 ["X"]
-  GETTABLEKS R5 R3 K3 ["X"]
-  JUMPIFNOTLT R5 R4 [+4]
-  MOVE R4 R3
-  MOVE R3 R2
-  MOVE R2 R4
-  GETIMPORT R4 K6 [UDim2.new]
-  LOADN R5 0
-  GETTABLEKS R8 R2 K3 ["X"]
-  GETTABLEKS R9 R3 K3 ["X"]
-  ADD R7 R8 R9
-  DIVK R6 R7 K7 [2]
-  LOADN R7 0
-  GETTABLEKS R10 R2 K8 ["Y"]
-  GETTABLEKS R11 R3 K8 ["Y"]
-  ADD R9 R10 R11
-  DIVK R8 R9 K7 [2]
-  CALL R4 4 1
-  GETTABLEKS R9 R3 K3 ["X"]
-  GETTABLEKS R10 R2 K3 ["X"]
-  SUB R8 R9 R10
-  GETTABLEKS R10 R3 K3 ["X"]
-  GETTABLEKS R11 R2 K3 ["X"]
-  SUB R9 R10 R11
-  MUL R7 R8 R9
-  GETTABLEKS R10 R3 K8 ["Y"]
-  GETTABLEKS R11 R2 K8 ["Y"]
-  SUB R9 R10 R11
-  GETTABLEKS R11 R3 K8 ["Y"]
-  GETTABLEKS R12 R2 K8 ["Y"]
-  SUB R10 R11 R12
-  MUL R8 R9 R10
-  ADD R6 R7 R8
-  FASTCALL1 MATH_SQRT R6 [+2]
-  GETIMPORT R5 K11 [math.sqrt]
-  CALL R5 1 1
-  GETIMPORT R6 K6 [UDim2.new]
-  LOADN R7 0
-  ADDK R8 R5 K12 [1]
-  LOADN R9 0
-  GETTABLEKS R11 R1 K13 ["Width"]
-  ORK R10 R11 K12 [1]
-  CALL R6 4 1
-  GETTABLEKS R9 R3 K8 ["Y"]
-  GETTABLEKS R10 R2 K8 ["Y"]
-  SUB R8 R9 R10
-  GETTABLEKS R10 R3 K3 ["X"]
-  GETTABLEKS R11 R2 K3 ["X"]
-  SUB R9 R10 R11
-  FASTCALL2 MATH_ATAN2 R8 R9 [+3]
-  GETIMPORT R7 K15 [math.atan2]
-  CALL R7 2 1
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K16 ["createElement"]
-  LOADK R9 K17 ["Frame"]
-  DUPTABLE R10 K27 [{"Position", "Size", "AnchorPoint", "BackgroundTransparency", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Rotation", "ZIndex"}]
-  SETTABLEKS R4 R10 K18 ["Position"]
-  SETTABLEKS R6 R10 K19 ["Size"]
-  GETIMPORT R11 K29 [Vector2.new]
-  LOADK R12 K30 [0.5]
-  LOADK R13 K30 [0.5]
-  CALL R11 2 1
-  SETTABLEKS R11 R10 K20 ["AnchorPoint"]
-  GETTABLEKS R11 R1 K31 ["Transparency"]
-  SETTABLEKS R11 R10 K21 ["BackgroundTransparency"]
-  GETTABLEKS R11 R1 K32 ["Color"]
-  SETTABLEKS R11 R10 K22 ["BackgroundColor3"]
-  LOADN R11 0
-  SETTABLEKS R11 R10 K23 ["BorderSizePixel"]
-  GETTABLEKS R11 R1 K32 ["Color"]
-  SETTABLEKS R11 R10 K24 ["BorderColor3"]
-  FASTCALL1 MATH_DEG R7 [+3]
-  MOVE R12 R7
-  GETIMPORT R11 K34 [math.deg]
-  CALL R11 1 1
-  SETTABLEKS R11 R10 K25 ["Rotation"]
-  GETTABLEKS R11 R1 K26 ["ZIndex"]
-  SETTABLEKS R11 R10 K26 ["ZIndex"]
-  CALL R8 2 -1
-  RETURN R8 -1
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R1 K1 ["A"]
+        4 GETTABLEKS                       R3 R1 K2 ["B"]
+        6 GETTABLEKS                       R4 R2 K3 ["X"]
+        8 GETTABLEKS                       R5 R3 K3 ["X"]
+       10 JUMPIFNOTLT                      R5 R4 ; [+4]
+       12 MOVE                             R4 R3
+       13 MOVE                             R3 R2
+       14 MOVE                             R2 R4
+       15 GETIMPORT                        R4 K6 [UDim2.new]
+       17 LOADN                            R5 0
+       18 GETTABLEKS                       R8 R2 K3 ["X"]
+       20 GETTABLEKS                       R9 R3 K3 ["X"]
+       22 ADD                              R7 R8 R9
+       23 DIVK                             R6 R7 K7 [2]
+       24 LOADN                            R7 0
+       25 GETTABLEKS                       R10 R2 K8 ["Y"]
+       27 GETTABLEKS                       R11 R3 K8 ["Y"]
+       29 ADD                              R9 R10 R11
+       30 DIVK                             R8 R9 K7 [2]
+       31 CALL                             R4 4 1
+       32 GETTABLEKS                       R9 R3 K3 ["X"]
+       34 GETTABLEKS                       R10 R2 K3 ["X"]
+       36 SUB                              R8 R9 R10
+       37 GETTABLEKS                       R10 R3 K3 ["X"]
+       39 GETTABLEKS                       R11 R2 K3 ["X"]
+       41 SUB                              R9 R10 R11
+       42 MUL                              R7 R8 R9
+       43 GETTABLEKS                       R10 R3 K8 ["Y"]
+       45 GETTABLEKS                       R11 R2 K8 ["Y"]
+       47 SUB                              R9 R10 R11
+       48 GETTABLEKS                       R11 R3 K8 ["Y"]
+       50 GETTABLEKS                       R12 R2 K8 ["Y"]
+       52 SUB                              R10 R11 R12
+       53 MUL                              R8 R9 R10
+       54 ADD                              R6 R7 R8
+       55 FASTCALL1                        MATH_SQRT R6 ; [+2]
+       56 GETIMPORT                        R5 K11 [math.sqrt]
+       58 CALL                             R5 1 1
+       59 GETIMPORT                        R6 K6 [UDim2.new]
+       61 LOADN                            R7 0
+       62 ADDK                             R8 R5 K12 [1]
+       63 LOADN                            R9 0
+       64 GETTABLEKS                       R11 R1 K13 ["Width"]
+       66 ORK                              R10 R11 K12 [1]
+       67 CALL                             R6 4 1
+       68 GETTABLEKS                       R9 R3 K8 ["Y"]
+       70 GETTABLEKS                       R10 R2 K8 ["Y"]
+       72 SUB                              R8 R9 R10
+       73 GETTABLEKS                       R10 R3 K3 ["X"]
+       75 GETTABLEKS                       R11 R2 K3 ["X"]
+       77 SUB                              R9 R10 R11
+       78 FASTCALL2                        MATH_ATAN2 R8 R9 ; [+3]
+       80 GETIMPORT                        R7 K15 [math.atan2]
+       82 CALL                             R7 2 1
+       83 GETUPVAL                         R9 0
+       84 GETTABLEKS                       R8 R9 K16 ["createElement"]
+       86 LOADK                            R9 K17 ["Frame"]
+       87 DUPTABLE                         R10 K27 [{"Position", "Size", "AnchorPoint", "BackgroundTransparency", "BackgroundColor3", "BorderSizePixel", "BorderColor3", "Rotation", "ZIndex"}]
+       88 SETTABLEKS                       R4 R10 K18 ["Position"]
+       90 SETTABLEKS                       R6 R10 K19 ["Size"]
+       92 GETIMPORT                        R11 K29 [Vector2.new]
+       94 LOADK                            R12 K30 [0.5]
+       95 LOADK                            R13 K30 [0.5]
+       96 CALL                             R11 2 1
+       97 SETTABLEKS                       R11 R10 K20 ["AnchorPoint"]
+       99 GETTABLEKS                       R11 R1 K31 ["Transparency"]
+      101 SETTABLEKS                       R11 R10 K21 ["BackgroundTransparency"]
+      103 GETTABLEKS                       R11 R1 K32 ["Color"]
+      105 SETTABLEKS                       R11 R10 K22 ["BackgroundColor3"]
+      107 LOADN                            R11 0
+      108 SETTABLEKS                       R11 R10 K23 ["BorderSizePixel"]
+      110 GETTABLEKS                       R11 R1 K32 ["Color"]
+      112 SETTABLEKS                       R11 R10 K24 ["BorderColor3"]
+      114 FASTCALL1                        MATH_DEG R7 ; [+3]
+      115 MOVE                             R12 R7
+      116 GETIMPORT                        R11 K34 [math.deg]
+      118 CALL                             R11 1 1
+      119 SETTABLEKS                       R11 R10 K25 ["Rotation"]
+      121 GETTABLEKS                       R11 R1 K26 ["ZIndex"]
+      123 SETTABLEKS                       R11 R10 K26 ["ZIndex"]
+      125 CALL                             R8 2 -1
+      126 RETURN                           R8 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AnimationClipEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Roact"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K8 ["PureComponent"]
-  LOADK R4 K9 ["Line"]
-  NAMECALL R2 R2 K10 ["extend"]
-  CALL R2 2 1
-  DUPCLOSURE R3 K11 [PROTO_0]
-  CAPTURE VAL R1
-  SETTABLEKS R3 R2 K12 ["render"]
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AnimationClipEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R2 R1 K8 ["PureComponent"]
+       16 LOADK                            R4 K9 ["Line"]
+       17 NAMECALL                         R2 R2 K10 ["extend"]
+       19 CALL                             R2 2 1
+       20 DUPCLOSURE                       R3 K11 [PROTO_0]
+       21 CAPTURE                          VAL R1
+       22 SETTABLEKS                       R3 R2 K12 ["render"]
+       24 RETURN                           R2 1

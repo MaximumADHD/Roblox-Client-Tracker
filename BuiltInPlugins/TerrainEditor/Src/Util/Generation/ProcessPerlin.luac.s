@@ -1,9 +1,9 @@
 PROTO_0:
-  MULK R2 R0 K0 [0.5]
-  ADDK R1 R2 K0 [0.5]
-  RETURN R1 1
+        0 MULK                             R2 R0 K0 [0.5]
+        1 ADDK                             R1 R2 K0 [0.5]
+        2 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 RETURN                           R0 1

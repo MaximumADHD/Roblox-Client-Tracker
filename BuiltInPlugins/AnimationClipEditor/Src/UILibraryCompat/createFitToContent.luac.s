@@ -1,201 +1,201 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["layoutRef"]
-  GETTABLEKS R0 R1 K1 ["current"]
-  JUMPIFEQKNIL R0 [+12]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["containerRef"]
-  GETTABLEKS R0 R1 K1 ["current"]
-  JUMPIFEQKNIL R0 [+5]
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K3 ["resizeContainer"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["layoutRef"]
+        3 GETTABLEKS                       R0 R1 K1 ["current"]
+        5 JUMPIFEQKNIL                     R0 ; [+12]
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R1 R2 K2 ["containerRef"]
+       10 GETTABLEKS                       R0 R1 K1 ["current"]
+       12 JUMPIFEQKNIL                     R0 ; [+5]
+       14 GETUPVAL                         R0 0
+       15 NAMECALL                         R0 R0 K3 ["resizeContainer"]
+       17 CALL                             R0 1 0
+       18 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createRef"]
-  CALL R1 0 1
-  SETTABLEKS R1 R0 K1 ["layoutRef"]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["createRef"]
-  CALL R1 0 1
-  SETTABLEKS R1 R0 K2 ["containerRef"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K3 ["Dictionary"]
-  GETTABLEKS R1 R2 K4 ["join"]
-  GETUPVAL R2 2
-  NEWTABLE R3 2 0
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K5 ["Ref"]
-  GETTABLEKS R5 R0 K1 ["layoutRef"]
-  SETTABLE R5 R3 R4
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K6 ["Change"]
-  GETTABLEKS R4 R5 K7 ["AbsoluteContentSize"]
-  NEWCLOSURE R5 P0
-  CAPTURE VAL R0
-  SETTABLE R5 R3 R4
-  CALL R1 2 1
-  SETTABLEKS R1 R0 K8 ["layoutProps"]
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["createRef"]
+        3 CALL                             R1 0 1
+        4 SETTABLEKS                       R1 R0 K1 ["layoutRef"]
+        6 GETUPVAL                         R2 0
+        7 GETTABLEKS                       R1 R2 K0 ["createRef"]
+        9 CALL                             R1 0 1
+       10 SETTABLEKS                       R1 R0 K2 ["containerRef"]
+       12 GETUPVAL                         R3 1
+       13 GETTABLEKS                       R2 R3 K3 ["Dictionary"]
+       15 GETTABLEKS                       R1 R2 K4 ["join"]
+       17 GETUPVAL                         R2 2
+       18 NEWTABLE                         R3 2 0
+       20 GETUPVAL                         R5 0
+       21 GETTABLEKS                       R4 R5 K5 ["Ref"]
+       23 GETTABLEKS                       R5 R0 K1 ["layoutRef"]
+       25 SETTABLE                         R5 R3 R4
+       26 GETUPVAL                         R6 0
+       27 GETTABLEKS                       R5 R6 K6 ["Change"]
+       29 GETTABLEKS                       R4 R5 K7 ["AbsoluteContentSize"]
+       31 NEWCLOSURE                       R5 P0
+       32 CAPTURE                          VAL R0
+       33 SETTABLE                         R5 R3 R4
+       34 CALL                             R1 2 1
+       35 SETTABLEKS                       R1 R0 K8 ["layoutProps"]
+       37 RETURN                           R0 0
 
 PROTO_2:
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETTABLEKS R3 R4 K1 ["Size"]
-  JUMPIFEQKNIL R3 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  FASTCALL2K ASSERT R2 K2 [+4]
-  LOADK R3 K2 ["Size must not be specified!"]
-  GETIMPORT R1 K4 [assert]
-  CALL R1 2 0
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K5 ["Dictionary"]
-  GETTABLEKS R1 R2 K6 ["join"]
-  NEWTABLE R2 2 0
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K7 ["createElement"]
-  GETUPVAL R4 2
-  GETTABLEKS R5 R0 K8 ["layoutProps"]
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K9 ["Layout"]
-  LOADB R3 0
-  GETUPVAL R4 3
-  LOADN R5 0
-  JUMPIFNOTLT R5 R4 [+35]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K7 ["createElement"]
-  LOADK R4 K10 ["UIPadding"]
-  DUPTABLE R5 K15 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
-  GETIMPORT R6 K18 [UDim.new]
-  LOADN R7 0
-  GETUPVAL R8 3
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K11 ["PaddingTop"]
-  GETIMPORT R6 K18 [UDim.new]
-  LOADN R7 0
-  GETUPVAL R8 3
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K12 ["PaddingBottom"]
-  GETIMPORT R6 K18 [UDim.new]
-  LOADN R7 0
-  GETUPVAL R8 3
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K13 ["PaddingLeft"]
-  GETIMPORT R6 K18 [UDim.new]
-  LOADN R7 0
-  GETUPVAL R8 3
-  CALL R6 2 1
-  SETTABLEKS R6 R5 K14 ["PaddingRight"]
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K19 ["Padding"]
-  GETTABLEKS R4 R0 K0 ["props"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K20 ["Children"]
-  GETTABLE R3 R4 R5
-  CALL R1 2 1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K5 ["Dictionary"]
-  GETTABLEKS R2 R3 K6 ["join"]
-  GETTABLEKS R3 R0 K0 ["props"]
-  NEWTABLE R4 2 0
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K20 ["Children"]
-  SETTABLE R1 R4 R5
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K21 ["Ref"]
-  GETTABLEKS R6 R0 K22 ["containerRef"]
-  SETTABLE R6 R4 R5
-  CALL R2 2 1
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K7 ["createElement"]
-  GETUPVAL R4 4
-  MOVE R5 R2
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 GETTABLEKS                       R4 R0 K0 ["props"]
+        2 GETTABLEKS                       R3 R4 K1 ["Size"]
+        4 JUMPIFEQKNIL                     R3 ; [+2]
+        6 LOADB                            R2 0 +1
+        7 LOADB                            R2 1
+        8 FASTCALL2K                       ASSERT R2 K2 ; [+4]
+       10 LOADK                            R3 K2 ["Size must not be specified!"]
+       11 GETIMPORT                        R1 K4 [assert]
+       13 CALL                             R1 2 0
+       14 GETUPVAL                         R3 0
+       15 GETTABLEKS                       R2 R3 K5 ["Dictionary"]
+       17 GETTABLEKS                       R1 R2 K6 ["join"]
+       19 NEWTABLE                         R2 2 0
+       21 GETUPVAL                         R4 1
+       22 GETTABLEKS                       R3 R4 K7 ["createElement"]
+       24 GETUPVAL                         R4 2
+       25 GETTABLEKS                       R5 R0 K8 ["layoutProps"]
+       27 CALL                             R3 2 1
+       28 SETTABLEKS                       R3 R2 K9 ["Layout"]
+       30 LOADB                            R3 0
+       31 GETUPVAL                         R4 3
+       32 LOADN                            R5 0
+       33 JUMPIFNOTLT                      R5 R4 ; [+35]
+       35 GETUPVAL                         R4 1
+       36 GETTABLEKS                       R3 R4 K7 ["createElement"]
+       38 LOADK                            R4 K10 ["UIPadding"]
+       39 DUPTABLE                         R5 K15 [{"PaddingTop", "PaddingBottom", "PaddingLeft", "PaddingRight"}]
+       40 GETIMPORT                        R6 K18 [UDim.new]
+       42 LOADN                            R7 0
+       43 GETUPVAL                         R8 3
+       44 CALL                             R6 2 1
+       45 SETTABLEKS                       R6 R5 K11 ["PaddingTop"]
+       47 GETIMPORT                        R6 K18 [UDim.new]
+       49 LOADN                            R7 0
+       50 GETUPVAL                         R8 3
+       51 CALL                             R6 2 1
+       52 SETTABLEKS                       R6 R5 K12 ["PaddingBottom"]
+       54 GETIMPORT                        R6 K18 [UDim.new]
+       56 LOADN                            R7 0
+       57 GETUPVAL                         R8 3
+       58 CALL                             R6 2 1
+       59 SETTABLEKS                       R6 R5 K13 ["PaddingLeft"]
+       61 GETIMPORT                        R6 K18 [UDim.new]
+       63 LOADN                            R7 0
+       64 GETUPVAL                         R8 3
+       65 CALL                             R6 2 1
+       66 SETTABLEKS                       R6 R5 K14 ["PaddingRight"]
+       68 CALL                             R3 2 1
+       69 SETTABLEKS                       R3 R2 K19 ["Padding"]
+       71 GETTABLEKS                       R4 R0 K0 ["props"]
+       73 GETUPVAL                         R6 1
+       74 GETTABLEKS                       R5 R6 K20 ["Children"]
+       76 GETTABLE                         R3 R4 R5
+       77 CALL                             R1 2 1
+       78 GETUPVAL                         R4 0
+       79 GETTABLEKS                       R3 R4 K5 ["Dictionary"]
+       81 GETTABLEKS                       R2 R3 K6 ["join"]
+       83 GETTABLEKS                       R3 R0 K0 ["props"]
+       85 NEWTABLE                         R4 2 0
+       87 GETUPVAL                         R6 1
+       88 GETTABLEKS                       R5 R6 K20 ["Children"]
+       90 SETTABLE                         R1 R4 R5
+       91 GETUPVAL                         R6 1
+       92 GETTABLEKS                       R5 R6 K21 ["Ref"]
+       94 GETTABLEKS                       R6 R0 K22 ["containerRef"]
+       96 SETTABLE                         R6 R4 R5
+       97 CALL                             R2 2 1
+       98 GETUPVAL                         R4 1
+       99 GETTABLEKS                       R3 R4 K7 ["createElement"]
+      101 GETUPVAL                         R4 4
+      102 MOVE                             R5 R2
+      103 CALL                             R3 2 -1
+      104 RETURN                           R3 -1
 
 PROTO_3:
-  NAMECALL R1 R0 K0 ["resizeContainer"]
-  CALL R1 1 0
-  RETURN R0 0
+        0 NAMECALL                         R1 R0 K0 ["resizeContainer"]
+        2 CALL                             R1 1 0
+        3 RETURN                           R0 0
 
 PROTO_4:
-  GETTABLEKS R3 R0 K0 ["layoutRef"]
-  GETTABLEKS R2 R3 K1 ["current"]
-  GETTABLEKS R1 R2 K2 ["AbsoluteContentSize"]
-  GETTABLEKS R3 R0 K3 ["containerRef"]
-  GETTABLEKS R2 R3 K1 ["current"]
-  GETIMPORT R3 K6 [UDim2.new]
-  LOADN R4 1
-  LOADN R5 0
-  LOADN R6 0
-  GETTABLEKS R8 R1 K7 ["Y"]
-  GETUPVAL R10 0
-  MULK R9 R10 K8 [2]
-  ADD R7 R8 R9
-  CALL R3 4 1
-  SETTABLEKS R3 R2 K9 ["Size"]
-  RETURN R0 0
+        0 GETTABLEKS                       R3 R0 K0 ["layoutRef"]
+        2 GETTABLEKS                       R2 R3 K1 ["current"]
+        4 GETTABLEKS                       R1 R2 K2 ["AbsoluteContentSize"]
+        6 GETTABLEKS                       R3 R0 K3 ["containerRef"]
+        8 GETTABLEKS                       R2 R3 K1 ["current"]
+       10 GETIMPORT                        R3 K6 [UDim2.new]
+       12 LOADN                            R4 1
+       13 LOADN                            R5 0
+       14 LOADN                            R6 0
+       15 GETTABLEKS                       R8 R1 K7 ["Y"]
+       17 GETUPVAL                         R10 0
+       18 MULK                             R9 R10 K8 [2]
+       19 ADD                              R7 R8 R9
+       20 CALL                             R3 4 1
+       21 SETTABLEKS                       R3 R2 K9 ["Size"]
+       23 RETURN                           R0 0
 
 PROTO_5:
-  LOADK R3 K0 ["FitComponent(%s, %s)"]
-  MOVE R5 R0
-  MOVE R6 R1
-  NAMECALL R3 R3 K1 ["format"]
-  CALL R3 3 1
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K2 ["Component"]
-  MOVE R6 R3
-  NAMECALL R4 R4 K3 ["extend"]
-  CALL R4 2 1
-  GETTABLEKS R6 R2 K5 ["BorderSize"]
-  ORK R5 R6 K4 [0]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K6 ["Dictionary"]
-  GETTABLEKS R6 R7 K7 ["join"]
-  MOVE R7 R2
-  DUPTABLE R8 K8 [{"BorderSize"}]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K9 ["None"]
-  SETTABLEKS R9 R8 K5 ["BorderSize"]
-  CALL R6 2 1
-  MOVE R2 R6
-  NEWCLOSURE R6 P0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE REF R2
-  SETTABLEKS R6 R4 K10 ["init"]
-  NEWCLOSURE R6 P1
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U0
-  CAPTURE VAL R1
-  CAPTURE VAL R5
-  CAPTURE VAL R0
-  SETTABLEKS R6 R4 K11 ["render"]
-  DUPCLOSURE R6 K12 [PROTO_3]
-  SETTABLEKS R6 R4 K13 ["didMount"]
-  NEWCLOSURE R6 P3
-  CAPTURE VAL R5
-  SETTABLEKS R6 R4 K14 ["resizeContainer"]
-  CLOSEUPVALS R2
-  RETURN R4 1
+        0 LOADK                            R3 K0 ["FitComponent(%s, %s)"]
+        1 MOVE                             R5 R0
+        2 MOVE                             R6 R1
+        3 NAMECALL                         R3 R3 K1 ["format"]
+        5 CALL                             R3 3 1
+        6 GETUPVAL                         R5 0
+        7 GETTABLEKS                       R4 R5 K2 ["Component"]
+        9 MOVE                             R6 R3
+       10 NAMECALL                         R4 R4 K3 ["extend"]
+       12 CALL                             R4 2 1
+       13 GETTABLEKS                       R6 R2 K5 ["BorderSize"]
+       15 ORK                              R5 R6 K4 [0]
+       16 GETUPVAL                         R8 1
+       17 GETTABLEKS                       R7 R8 K6 ["Dictionary"]
+       19 GETTABLEKS                       R6 R7 K7 ["join"]
+       21 MOVE                             R7 R2
+       22 DUPTABLE                         R8 K8 [{"BorderSize"}]
+       23 GETUPVAL                         R10 1
+       24 GETTABLEKS                       R9 R10 K9 ["None"]
+       26 SETTABLEKS                       R9 R8 K5 ["BorderSize"]
+       28 CALL                             R6 2 1
+       29 MOVE                             R2 R6
+       30 NEWCLOSURE                       R6 P0
+       31 CAPTURE                          UPVAL U0
+       32 CAPTURE                          UPVAL U1
+       33 CAPTURE                          REF R2
+       34 SETTABLEKS                       R6 R4 K10 ["init"]
+       36 NEWCLOSURE                       R6 P1
+       37 CAPTURE                          UPVAL U1
+       38 CAPTURE                          UPVAL U0
+       39 CAPTURE                          VAL R1
+       40 CAPTURE                          VAL R5
+       41 CAPTURE                          VAL R0
+       42 SETTABLEKS                       R6 R4 K11 ["render"]
+       44 DUPCLOSURE                       R6 K12 [PROTO_3]
+       45 SETTABLEKS                       R6 R4 K13 ["didMount"]
+       47 NEWCLOSURE                       R6 P3
+       48 CAPTURE                          VAL R5
+       49 SETTABLEKS                       R6 R4 K14 ["resizeContainer"]
+       51 CLOSEUPVALS                      R2
+       52 RETURN                           R4 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AnimationClipEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Roact"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Cryo"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K9 [PROTO_5]
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AnimationClipEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["Cryo"]
+       20 CALL                             R2 1 1
+       21 DUPCLOSURE                       R3 K9 [PROTO_5]
+       22 CAPTURE                          VAL R1
+       23 CAPTURE                          VAL R2
+       24 RETURN                           R3 1

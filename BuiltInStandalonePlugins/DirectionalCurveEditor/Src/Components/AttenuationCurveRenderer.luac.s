@@ -1,554 +1,554 @@
 PROTO_0:
-  NEWTABLE R4 0 0
-  LOADN R7 0
-  LOADN R5 180
-  DIVRK R6 R0 K0 [180]
-  FORNPREP R5
-  FASTCALL1 MATH_RAD R7 [+3]
-  MOVE R9 R7
-  GETIMPORT R8 K3 [math.rad]
-  CALL R8 1 1
-  FASTCALL1 MATH_COS R8 [+3]
-  MOVE R13 R8
-  GETIMPORT R12 K5 [math.cos]
-  CALL R12 1 1
-  MUL R11 R2 R12
-  ADD R10 R1 R11
-  FASTCALL1 MATH_SIN R8 [+3]
-  MOVE R13 R8
-  GETIMPORT R12 K7 [math.sin]
-  CALL R12 1 1
-  MUL R11 R3 R12
-  ADD R9 R10 R11
-  MOVE R11 R4
-  GETIMPORT R12 K10 [Vector2.new]
-  MOVE R13 R7
-  FASTCALL1 MATH_ABS R9 [+3]
-  MOVE R15 R9
-  GETIMPORT R14 K12 [math.abs]
-  CALL R14 1 1
-  CALL R12 2 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R10 K15 [table.insert]
-  CALL R10 -1 0
-  FORNLOOP R5
-  RETURN R4 1
+        0 NEWTABLE                         R4 0 0
+        2 LOADN                            R7 0
+        3 LOADN                            R5 180
+        4 DIVRK                            R6 R0 K0 [180]
+        5 FORNPREP                         R5
+        6 FASTCALL1                        MATH_RAD R7 ; [+3]
+        7 MOVE                             R9 R7
+        8 GETIMPORT                        R8 K3 [math.rad]
+       10 CALL                             R8 1 1
+       11 FASTCALL1                        MATH_COS R8 ; [+3]
+       12 MOVE                             R13 R8
+       13 GETIMPORT                        R12 K5 [math.cos]
+       15 CALL                             R12 1 1
+       16 MUL                              R11 R2 R12
+       17 ADD                              R10 R1 R11
+       18 FASTCALL1                        MATH_SIN R8 ; [+3]
+       19 MOVE                             R13 R8
+       20 GETIMPORT                        R12 K7 [math.sin]
+       22 CALL                             R12 1 1
+       23 MUL                              R11 R3 R12
+       24 ADD                              R9 R10 R11
+       25 MOVE                             R11 R4
+       26 GETIMPORT                        R12 K10 [Vector2.new]
+       28 MOVE                             R13 R7
+       29 FASTCALL1                        MATH_ABS R9 ; [+3]
+       30 MOVE                             R15 R9
+       31 GETIMPORT                        R14 K12 [math.abs]
+       33 CALL                             R14 1 1
+       34 CALL                             R12 2 -1
+       35 FASTCALL                         TABLE_INSERT ; [+2]
+       36 GETIMPORT                        R10 K15 [table.insert]
+       38 CALL                             R10 -1 0
+       39 FORNLOOP                         R5
+       40 RETURN                           R4 1
 
 PROTO_1:
-  NEWTABLE R1 0 0
-  LOADN R4 0
-  LOADN R2 180
-  DIVRK R3 R0 K0 [180]
-  FORNPREP R2
-  FASTCALL1 MATH_RAD R4 [+3]
-  MOVE R6 R4
-  GETIMPORT R5 K3 [math.rad]
-  CALL R5 1 1
-  MULK R11 R5 K7 [2]
-  ADDK R10 R11 K6 [3.14159265358979]
-  FASTCALL1 MATH_COS R10 [+2]
-  GETIMPORT R9 K9 [math.cos]
-  CALL R9 1 1
-  SUBK R8 R9 K5 [0.5]
-  FASTCALL1 MATH_COS R5 [+3]
-  MOVE R11 R5
-  GETIMPORT R10 K9 [math.cos]
-  CALL R10 1 1
-  MULK R9 R10 K10 [0.75]
-  SUB R7 R8 R9
-  MULK R6 R7 K4 [0.4375]
-  MOVE R8 R1
-  GETIMPORT R9 K13 [Vector2.new]
-  MOVE R10 R4
-  FASTCALL1 MATH_ABS R6 [+3]
-  MOVE R12 R6
-  GETIMPORT R11 K15 [math.abs]
-  CALL R11 1 1
-  CALL R9 2 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R7 K18 [table.insert]
-  CALL R7 -1 0
-  FORNLOOP R2
-  RETURN R1 1
+        0 NEWTABLE                         R1 0 0
+        2 LOADN                            R4 0
+        3 LOADN                            R2 180
+        4 DIVRK                            R3 R0 K0 [180]
+        5 FORNPREP                         R2
+        6 FASTCALL1                        MATH_RAD R4 ; [+3]
+        7 MOVE                             R6 R4
+        8 GETIMPORT                        R5 K3 [math.rad]
+       10 CALL                             R5 1 1
+       11 MULK                             R11 R5 K7 [2]
+       12 ADDK                             R10 R11 K6 [3.14159265358979]
+       13 FASTCALL1                        MATH_COS R10 ; [+2]
+       14 GETIMPORT                        R9 K9 [math.cos]
+       16 CALL                             R9 1 1
+       17 SUBK                             R8 R9 K5 [0.5]
+       18 FASTCALL1                        MATH_COS R5 ; [+3]
+       19 MOVE                             R11 R5
+       20 GETIMPORT                        R10 K9 [math.cos]
+       22 CALL                             R10 1 1
+       23 MULK                             R9 R10 K10 [0.75]
+       24 SUB                              R7 R8 R9
+       25 MULK                             R6 R7 K4 [0.4375]
+       26 MOVE                             R8 R1
+       27 GETIMPORT                        R9 K13 [Vector2.new]
+       29 MOVE                             R10 R4
+       30 FASTCALL1                        MATH_ABS R6 ; [+3]
+       31 MOVE                             R12 R6
+       32 GETIMPORT                        R11 K15 [math.abs]
+       34 CALL                             R11 1 1
+       35 CALL                             R9 2 -1
+       36 FASTCALL                         TABLE_INSERT ; [+2]
+       37 GETIMPORT                        R7 K18 [table.insert]
+       39 CALL                             R7 -1 0
+       40 FORNLOOP                         R2
+       41 RETURN                           R1 1
 
 PROTO_2:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["OnChanged"]
-  MOVE R2 R0
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["ANGLE"]
-  CALL R1 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["OnChanged"]
+        3 MOVE                             R2 R0
+        4 GETUPVAL                         R4 1
+        5 GETTABLEKS                       R3 R4 K1 ["ANGLE"]
+        7 CALL                             R1 2 0
+        8 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R0 0
-  LOADK R2 K0 ["Preset"]
-  LOADK R3 K1 ["Custom"]
-  NAMECALL R0 R0 K2 ["getText"]
-  CALL R0 3 -1
-  RETURN R0 -1
+        0 GETUPVAL                         R0 0
+        1 LOADK                            R2 K0 ["Preset"]
+        2 LOADK                            R3 K1 ["Custom"]
+        3 NAMECALL                         R0 R0 K2 ["getText"]
+        5 CALL                             R0 3 -1
+        6 RETURN                           R0 -1
 
 PROTO_4:
-  GETUPVAL R0 0
-  GETUPVAL R1 1
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 CALL                             R0 1 0
+        3 RETURN                           R0 0
 
 PROTO_5:
-  JUMPIFNOT R0 [+4]
-  GETUPVAL R1 0
-  GETTABLEKS R2 R0 K0 ["AbsoluteSize"]
-  CALL R1 1 0
-  RETURN R0 0
+        0 JUMPIFNOT                        R0 ; [+4]
+        1 GETUPVAL                         R1 0
+        2 GETTABLEKS                       R2 R0 K0 ["AbsoluteSize"]
+        4 CALL                             R1 1 0
+        5 RETURN                           R0 0
 
 PROTO_6:
-  NEWTABLE R0 0 4
-  GETUPVAL R1 0
-  LOADK R3 K0 ["Preset"]
-  LOADK R4 K1 ["Omni"]
-  NAMECALL R1 R1 K2 ["getText"]
-  CALL R1 3 1
-  SETTABLEN R1 R0 1
-  GETUPVAL R1 0
-  LOADK R3 K0 ["Preset"]
-  LOADK R4 K3 ["Cardioid"]
-  NAMECALL R1 R1 K2 ["getText"]
-  CALL R1 3 1
-  SETTABLEN R1 R0 2
-  GETUPVAL R1 0
-  LOADK R3 K0 ["Preset"]
-  LOADK R4 K4 ["Dipole"]
-  NAMECALL R1 R1 K2 ["getText"]
-  CALL R1 3 1
-  SETTABLEN R1 R0 3
-  GETUPVAL R1 0
-  LOADK R3 K0 ["Preset"]
-  LOADK R4 K5 ["Shotgun"]
-  NAMECALL R1 R1 K2 ["getText"]
-  CALL R1 3 1
-  SETTABLEN R1 R0 4
-  RETURN R0 1
+        0 NEWTABLE                         R0 0 4
+        2 GETUPVAL                         R1 0
+        3 LOADK                            R3 K0 ["Preset"]
+        4 LOADK                            R4 K1 ["Omni"]
+        5 NAMECALL                         R1 R1 K2 ["getText"]
+        7 CALL                             R1 3 1
+        8 SETTABLEN                        R1 R0 1
+        9 GETUPVAL                         R1 0
+       10 LOADK                            R3 K0 ["Preset"]
+       11 LOADK                            R4 K3 ["Cardioid"]
+       12 NAMECALL                         R1 R1 K2 ["getText"]
+       14 CALL                             R1 3 1
+       15 SETTABLEN                        R1 R0 2
+       16 GETUPVAL                         R1 0
+       17 LOADK                            R3 K0 ["Preset"]
+       18 LOADK                            R4 K4 ["Dipole"]
+       19 NAMECALL                         R1 R1 K2 ["getText"]
+       21 CALL                             R1 3 1
+       22 SETTABLEN                        R1 R0 3
+       23 GETUPVAL                         R1 0
+       24 LOADK                            R3 K0 ["Preset"]
+       25 LOADK                            R4 K5 ["Shotgun"]
+       26 NAMECALL                         R1 R1 K2 ["getText"]
+       28 CALL                             R1 3 1
+       29 SETTABLEN                        R1 R0 4
+       30 RETURN                           R0 1
 
 PROTO_7:
-  GETUPVAL R1 0
-  MOVE R2 R0
-  CALL R1 1 0
-  NEWTABLE R1 0 0
-  GETUPVAL R3 1
-  GETTABLEN R2 R3 1
-  JUMPIFNOTEQ R0 R2 [+10]
-  GETGLOBAL R2 K0 ["makeKeypointsForPolarPattern"]
-  LOADN R3 1
-  LOADN R4 1
-  LOADN R5 0
-  LOADN R6 0
-  CALL R2 4 1
-  MOVE R1 R2
-  JUMP [+36]
-  GETUPVAL R3 1
-  GETTABLEN R2 R3 2
-  JUMPIFNOTEQ R0 R2 [+10]
-  GETGLOBAL R2 K0 ["makeKeypointsForPolarPattern"]
-  LOADN R3 8
-  LOADK R4 K1 [0.5]
-  LOADK R5 K1 [0.5]
-  LOADN R6 0
-  CALL R2 4 1
-  MOVE R1 R2
-  JUMP [+23]
-  GETUPVAL R3 1
-  GETTABLEN R2 R3 3
-  JUMPIFNOTEQ R0 R2 [+10]
-  GETGLOBAL R2 K0 ["makeKeypointsForPolarPattern"]
-  LOADN R3 16
-  LOADN R4 0
-  LOADN R5 1
-  LOADN R6 0
-  CALL R2 4 1
-  MOVE R1 R2
-  JUMP [+10]
-  GETUPVAL R3 1
-  GETTABLEN R2 R3 4
-  JUMPIFNOTEQ R0 R2 [+7]
-  GETGLOBAL R2 K2 ["makeKeypointsForShotgunPattern"]
-  LOADN R3 16
-  CALL R2 1 1
-  MOVE R1 R2
-  JUMP [0]
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K3 ["reset"]
-  MOVE R3 R1
-  CALL R2 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R2 R0
+        2 CALL                             R1 1 0
+        3 NEWTABLE                         R1 0 0
+        5 GETUPVAL                         R3 1
+        6 GETTABLEN                        R2 R3 1
+        7 JUMPIFNOTEQ                      R0 R2 ; [+10]
+        9 GETGLOBAL                        R2 K0 ["makeKeypointsForPolarPattern"]
+       11 LOADN                            R3 1
+       12 LOADN                            R4 1
+       13 LOADN                            R5 0
+       14 LOADN                            R6 0
+       15 CALL                             R2 4 1
+       16 MOVE                             R1 R2
+       17 JUMP                             ; [+36]
+       18 GETUPVAL                         R3 1
+       19 GETTABLEN                        R2 R3 2
+       20 JUMPIFNOTEQ                      R0 R2 ; [+10]
+       22 GETGLOBAL                        R2 K0 ["makeKeypointsForPolarPattern"]
+       24 LOADN                            R3 8
+       25 LOADK                            R4 K1 [0.5]
+       26 LOADK                            R5 K1 [0.5]
+       27 LOADN                            R6 0
+       28 CALL                             R2 4 1
+       29 MOVE                             R1 R2
+       30 JUMP                             ; [+23]
+       31 GETUPVAL                         R3 1
+       32 GETTABLEN                        R2 R3 3
+       33 JUMPIFNOTEQ                      R0 R2 ; [+10]
+       35 GETGLOBAL                        R2 K0 ["makeKeypointsForPolarPattern"]
+       37 LOADN                            R3 16
+       38 LOADN                            R4 0
+       39 LOADN                            R5 1
+       40 LOADN                            R6 0
+       41 CALL                             R2 4 1
+       42 MOVE                             R1 R2
+       43 JUMP                             ; [+10]
+       44 GETUPVAL                         R3 1
+       45 GETTABLEN                        R2 R3 4
+       46 JUMPIFNOTEQ                      R0 R2 ; [+7]
+       48 GETGLOBAL                        R2 K2 ["makeKeypointsForShotgunPattern"]
+       50 LOADN                            R3 16
+       51 CALL                             R2 1 1
+       52 MOVE                             R1 R2
+       53 JUMP                             ; [0]
+       54 GETUPVAL                         R3 2
+       55 GETTABLEKS                       R2 R3 K3 ["reset"]
+       57 MOVE                             R3 R1
+       58 CALL                             R2 1 0
+       59 RETURN                           R0 0
 
 PROTO_8:
-  GETUPVAL R1 0
-  MOVE R2 R0
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R2 R0
+        2 CALL                             R1 1 0
+        3 RETURN                           R0 0
 
 PROTO_9:
-  GETUPVAL R1 0
-  LOADNIL R2
-  CALL R1 1 1
-  GETUPVAL R2 1
-  GETIMPORT R3 K2 [Vector2.one]
-  CALL R2 1 2
-  GETUPVAL R4 1
-  GETUPVAL R6 2
-  GETTABLEN R5 R6 1
-  CALL R4 1 2
-  GETUPVAL R6 2
-  GETUPVAL R7 3
-  GETUPVAL R10 4
-  GETTABLEKS R9 R10 K3 ["Localization"]
-  GETTABLEKS R8 R9 K4 ["Context"]
-  CALL R7 1 1
-  GETUPVAL R8 5
-  NEWCLOSURE R9 P0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U6
-  NEWTABLE R10 0 2
-  GETTABLEKS R11 R0 K5 ["Data"]
-  GETTABLEKS R12 R0 K6 ["OnChanged"]
-  SETLIST R10 R11 2 [1]
-  CALL R8 2 1
-  GETUPVAL R9 7
-  NEWCLOSURE R10 P1
-  CAPTURE VAL R7
-  CALL R9 1 1
-  GETUPVAL R11 8
-  GETTABLEKS R10 R11 K7 ["useState"]
-  MOVE R11 R9
-  CALL R10 1 2
-  GETUPVAL R12 5
-  NEWCLOSURE R13 P2
-  CAPTURE VAL R11
-  CAPTURE VAL R9
-  NEWTABLE R14 0 3
-  MOVE R15 R9
-  GETTABLEKS R16 R0 K5 ["Data"]
-  GETTABLEKS R17 R0 K6 ["OnChanged"]
-  SETLIST R14 R15 3 [1]
-  CALL R12 2 1
-  GETUPVAL R13 9
-  GETUPVAL R15 10
-  GETTABLEKS R14 R15 K8 ["strTableToKeypoints"]
-  GETTABLEKS R16 R0 K5 ["Data"]
-  GETTABLEKS R15 R16 K9 ["AngleCurve"]
-  CALL R14 1 1
-  GETUPVAL R16 6
-  GETTABLEKS R15 R16 K10 ["ANGLE"]
-  MOVE R16 R8
-  MOVE R17 R12
-  CALL R13 4 1
-  LOADNIL R14
-  MOVE R14 R13
-  FASTCALL2K ASSERT R14 K11 [+5]
-  MOVE R16 R14
-  LOADK R17 K11 ["curve was nil"]
-  GETIMPORT R15 K13 [assert]
-  CALL R15 2 0
-  GETUPVAL R15 5
-  NEWCLOSURE R16 P3
-  CAPTURE VAL R3
-  NEWTABLE R17 0 0
-  CALL R15 2 1
-  LOADNIL R16
-  LOADNIL R17
-  LOADNIL R18
-  LOADNIL R19
-  GETTABLEKS R20 R4 K14 ["Label"]
-  LOADN R21 0
-  GETIMPORT R22 K17 [string.find]
-  MOVE R23 R20
-  LOADK R24 K18 ["Polar"]
-  CALL R22 2 1
-  JUMPIFNOT R22 [+6]
-  GETUPVAL R16 11
-  GETUPVAL R17 12
-  GETUPVAL R18 13
-  GETUPVAL R19 14
-  LOADN R21 25
-  JUMP [+5]
-  GETUPVAL R16 15
-  GETUPVAL R17 16
-  GETUPVAL R18 17
-  GETUPVAL R19 14
-  LOADN R21 50
-  MOVE R22 R16
-  JUMPIFNOT R22 [+13]
-  GETUPVAL R23 8
-  GETTABLEKS R22 R23 K19 ["createElement"]
-  MOVE R23 R16
-  DUPTABLE R24 K23 [{"CurveHook", "PropertyType", "PlotAbsoluteSize"}]
-  SETTABLEKS R14 R24 K20 ["CurveHook"]
-  LOADK R25 K24 ["Angle"]
-  SETTABLEKS R25 R24 K21 ["PropertyType"]
-  SETTABLEKS R2 R24 K22 ["PlotAbsoluteSize"]
-  CALL R22 2 1
-  MOVE R23 R17
-  JUMPIFNOT R23 [+10]
-  GETUPVAL R24 8
-  GETTABLEKS R23 R24 K19 ["createElement"]
-  MOVE R24 R17
-  DUPTABLE R25 K25 [{"CurveHook", "PlotAbsoluteSize"}]
-  SETTABLEKS R14 R25 K20 ["CurveHook"]
-  SETTABLEKS R2 R25 K22 ["PlotAbsoluteSize"]
-  CALL R23 2 1
-  MOVE R24 R18
-  JUMPIFNOT R24 [+12]
-  GETUPVAL R25 8
-  GETTABLEKS R24 R25 K19 ["createElement"]
-  MOVE R25 R18
-  DUPTABLE R26 K27 [{"CurveHook", "PlotAbsoluteSize", "PlotRef"}]
-  SETTABLEKS R14 R26 K20 ["CurveHook"]
-  SETTABLEKS R2 R26 K22 ["PlotAbsoluteSize"]
-  SETTABLEKS R1 R26 K26 ["PlotRef"]
-  CALL R24 2 1
-  MOVE R25 R19
-  JUMPIFNOT R25 [+8]
-  GETUPVAL R26 8
-  GETTABLEKS R25 R26 K19 ["createElement"]
-  MOVE R26 R19
-  DUPTABLE R27 K28 [{"CurveHook"}]
-  SETTABLEKS R14 R27 K20 ["CurveHook"]
-  CALL R25 2 1
-  GETUPVAL R26 7
-  NEWCLOSURE R27 P4
-  CAPTURE VAL R7
-  CALL R26 1 1
-  GETUPVAL R27 5
-  NEWCLOSURE R28 P5
-  CAPTURE VAL R11
-  CAPTURE VAL R26
-  CAPTURE REF R14
-  NEWTABLE R29 0 4
-  MOVE R30 R26
-  MOVE R31 R10
-  MOVE R32 R11
-  MOVE R33 R14
-  SETLIST R29 R30 4 [1]
-  CALL R27 2 1
-  GETTABLEKS R28 R0 K29 ["Enabled"]
-  JUMPIFNOT R28 [+147]
-  GETUPVAL R29 8
-  GETTABLEKS R28 R29 K19 ["createElement"]
-  GETUPVAL R29 18
-  NEWTABLE R30 1 0
-  GETUPVAL R32 8
-  GETTABLEKS R31 R32 K30 ["Tag"]
-  LOADK R32 K31 ["X-Pad X-ColumnM X-FitY"]
-  SETTABLE R32 R30 R31
-  DUPTABLE R31 K36 [{"UISizeConstraint", "TabsRow", "Canvas", "Controls"}]
-  GETUPVAL R33 8
-  GETTABLEKS R32 R33 K19 ["createElement"]
-  LOADK R33 K32 ["UISizeConstraint"]
-  DUPTABLE R34 K39 [{"MinSize", "MaxSize"}]
-  GETUPVAL R35 19
-  SETTABLEKS R35 R34 K37 ["MinSize"]
-  GETUPVAL R35 20
-  SETTABLEKS R35 R34 K38 ["MaxSize"]
-  CALL R32 2 1
-  SETTABLEKS R32 R31 K32 ["UISizeConstraint"]
-  GETUPVAL R33 8
-  GETTABLEKS R32 R33 K19 ["createElement"]
-  GETUPVAL R33 18
-  NEWTABLE R34 2 0
-  GETUPVAL R36 8
-  GETTABLEKS R35 R36 K30 ["Tag"]
-  LOADK R36 K40 ["X-Pad X-RowM X-FitY"]
-  SETTABLE R36 R34 R35
-  LOADN R35 2
-  SETTABLEKS R35 R34 K41 ["ZIndex"]
-  DUPTABLE R35 K44 [{"EditorTypeTabs", "Presets"}]
-  GETUPVAL R37 8
-  GETTABLEKS R36 R37 K19 ["createElement"]
-  GETUPVAL R37 21
-  DUPTABLE R38 K48 [{"Tabs", "SelectedTab", "OnTabSelected"}]
-  SETTABLEKS R6 R38 K45 ["Tabs"]
-  SETTABLEKS R4 R38 K46 ["SelectedTab"]
-  NEWCLOSURE R39 P6
-  CAPTURE VAL R5
-  SETTABLEKS R39 R38 K47 ["OnTabSelected"]
-  CALL R36 2 1
-  SETTABLEKS R36 R35 K42 ["EditorTypeTabs"]
-  GETUPVAL R37 8
-  GETTABLEKS R36 R37 K19 ["createElement"]
-  GETUPVAL R37 22
-  DUPTABLE R38 K52 [{"PlaceholderText", "Items", "OnItemActivated"}]
-  SETTABLEKS R10 R38 K49 ["PlaceholderText"]
-  SETTABLEKS R26 R38 K50 ["Items"]
-  SETTABLEKS R27 R38 K51 ["OnItemActivated"]
-  NEWTABLE R39 0 0
-  CALL R36 3 1
-  SETTABLEKS R36 R35 K43 ["Presets"]
-  CALL R32 3 1
-  SETTABLEKS R32 R31 K33 ["TabsRow"]
-  GETUPVAL R33 8
-  GETTABLEKS R32 R33 K19 ["createElement"]
-  GETUPVAL R33 18
-  DUPTABLE R34 K55 [{"Size", "LayoutOrder"}]
-  GETIMPORT R35 K58 [UDim2.new]
-  LOADN R36 1
-  LOADN R37 0
-  LOADN R38 1
-  LOADN R39 131
-  CALL R35 4 1
-  SETTABLEKS R35 R34 K53 ["Size"]
-  LOADN R35 2
-  SETTABLEKS R35 R34 K54 ["LayoutOrder"]
-  DUPTABLE R35 K60 [{"PlotCanvas"}]
-  GETUPVAL R37 8
-  GETTABLEKS R36 R37 K19 ["createElement"]
-  GETUPVAL R37 18
-  NEWTABLE R38 8 0
-  GETIMPORT R39 K58 [UDim2.new]
-  LOADN R40 0
-  MOVE R41 R21
-  LOADN R42 0
-  MOVE R43 R21
-  CALL R39 4 1
-  SETTABLEKS R39 R38 K61 ["Position"]
-  GETIMPORT R39 K58 [UDim2.new]
-  LOADN R40 1
-  MINUS R42 R21
-  MULK R41 R42 K62 [2]
-  LOADN R42 1
-  MINUS R44 R21
-  MULK R43 R44 K62 [2]
-  CALL R39 4 1
-  SETTABLEKS R39 R38 K53 ["Size"]
-  LOADN R39 1
-  SETTABLEKS R39 R38 K63 ["BackgroundTransparency"]
-  SETTABLEKS R1 R38 K64 ["ForwardRef"]
-  GETUPVAL R41 8
-  GETTABLEKS R40 R41 K65 ["Change"]
-  GETTABLEKS R39 R40 K66 ["AbsoluteSize"]
-  SETTABLE R15 R38 R39
-  DUPTABLE R39 K70 [{"Handles", "Curve", "Grid"}]
-  SETTABLEKS R24 R39 K67 ["Handles"]
-  SETTABLEKS R23 R39 K68 ["Curve"]
-  SETTABLEKS R22 R39 K69 ["Grid"]
-  CALL R36 3 1
-  SETTABLEKS R36 R35 K59 ["PlotCanvas"]
-  CALL R32 3 1
-  SETTABLEKS R32 R31 K34 ["Canvas"]
-  SETTABLEKS R25 R31 K35 ["Controls"]
-  CALL R28 3 1
-  CLOSEUPVALS R14
-  RETURN R28 1
+        0 GETUPVAL                         R1 0
+        1 LOADNIL                          R2
+        2 CALL                             R1 1 1
+        3 GETUPVAL                         R2 1
+        4 GETIMPORT                        R3 K2 [Vector2.one]
+        6 CALL                             R2 1 2
+        7 GETUPVAL                         R4 1
+        8 GETUPVAL                         R6 2
+        9 GETTABLEN                        R5 R6 1
+       10 CALL                             R4 1 2
+       11 GETUPVAL                         R6 2
+       12 GETUPVAL                         R7 3
+       13 GETUPVAL                         R10 4
+       14 GETTABLEKS                       R9 R10 K3 ["Localization"]
+       16 GETTABLEKS                       R8 R9 K4 ["Context"]
+       18 CALL                             R7 1 1
+       19 GETUPVAL                         R8 5
+       20 NEWCLOSURE                       R9 P0
+       21 CAPTURE                          VAL R0
+       22 CAPTURE                          UPVAL U6
+       23 NEWTABLE                         R10 0 2
+       25 GETTABLEKS                       R11 R0 K5 ["Data"]
+       27 GETTABLEKS                       R12 R0 K6 ["OnChanged"]
+       29 SETLIST                          R10 R11 2 [1]
+       31 CALL                             R8 2 1
+       32 GETUPVAL                         R9 7
+       33 NEWCLOSURE                       R10 P1
+       34 CAPTURE                          VAL R7
+       35 CALL                             R9 1 1
+       36 GETUPVAL                         R11 8
+       37 GETTABLEKS                       R10 R11 K7 ["useState"]
+       39 MOVE                             R11 R9
+       40 CALL                             R10 1 2
+       41 GETUPVAL                         R12 5
+       42 NEWCLOSURE                       R13 P2
+       43 CAPTURE                          VAL R11
+       44 CAPTURE                          VAL R9
+       45 NEWTABLE                         R14 0 3
+       47 MOVE                             R15 R9
+       48 GETTABLEKS                       R16 R0 K5 ["Data"]
+       50 GETTABLEKS                       R17 R0 K6 ["OnChanged"]
+       52 SETLIST                          R14 R15 3 [1]
+       54 CALL                             R12 2 1
+       55 GETUPVAL                         R13 9
+       56 GETUPVAL                         R15 10
+       57 GETTABLEKS                       R14 R15 K8 ["strTableToKeypoints"]
+       59 GETTABLEKS                       R16 R0 K5 ["Data"]
+       61 GETTABLEKS                       R15 R16 K9 ["AngleCurve"]
+       63 CALL                             R14 1 1
+       64 GETUPVAL                         R16 6
+       65 GETTABLEKS                       R15 R16 K10 ["ANGLE"]
+       67 MOVE                             R16 R8
+       68 MOVE                             R17 R12
+       69 CALL                             R13 4 1
+       70 LOADNIL                          R14
+       71 MOVE                             R14 R13
+       72 FASTCALL2K                       ASSERT R14 K11 ; [+5]
+       74 MOVE                             R16 R14
+       75 LOADK                            R17 K11 ["curve was nil"]
+       76 GETIMPORT                        R15 K13 [assert]
+       78 CALL                             R15 2 0
+       79 GETUPVAL                         R15 5
+       80 NEWCLOSURE                       R16 P3
+       81 CAPTURE                          VAL R3
+       82 NEWTABLE                         R17 0 0
+       84 CALL                             R15 2 1
+       85 LOADNIL                          R16
+       86 LOADNIL                          R17
+       87 LOADNIL                          R18
+       88 LOADNIL                          R19
+       89 GETTABLEKS                       R20 R4 K14 ["Label"]
+       91 LOADN                            R21 0
+       92 GETIMPORT                        R22 K17 [string.find]
+       94 MOVE                             R23 R20
+       95 LOADK                            R24 K18 ["Polar"]
+       96 CALL                             R22 2 1
+       97 JUMPIFNOT                        R22 ; [+6]
+       98 GETUPVAL                         R16 11
+       99 GETUPVAL                         R17 12
+      100 GETUPVAL                         R18 13
+      101 GETUPVAL                         R19 14
+      102 LOADN                            R21 25
+      103 JUMP                             ; [+5]
+      104 GETUPVAL                         R16 15
+      105 GETUPVAL                         R17 16
+      106 GETUPVAL                         R18 17
+      107 GETUPVAL                         R19 14
+      108 LOADN                            R21 50
+      109 MOVE                             R22 R16
+      110 JUMPIFNOT                        R22 ; [+13]
+      111 GETUPVAL                         R23 8
+      112 GETTABLEKS                       R22 R23 K19 ["createElement"]
+      114 MOVE                             R23 R16
+      115 DUPTABLE                         R24 K23 [{"CurveHook", "PropertyType", "PlotAbsoluteSize"}]
+      116 SETTABLEKS                       R14 R24 K20 ["CurveHook"]
+      118 LOADK                            R25 K24 ["Angle"]
+      119 SETTABLEKS                       R25 R24 K21 ["PropertyType"]
+      121 SETTABLEKS                       R2 R24 K22 ["PlotAbsoluteSize"]
+      123 CALL                             R22 2 1
+      124 MOVE                             R23 R17
+      125 JUMPIFNOT                        R23 ; [+10]
+      126 GETUPVAL                         R24 8
+      127 GETTABLEKS                       R23 R24 K19 ["createElement"]
+      129 MOVE                             R24 R17
+      130 DUPTABLE                         R25 K25 [{"CurveHook", "PlotAbsoluteSize"}]
+      131 SETTABLEKS                       R14 R25 K20 ["CurveHook"]
+      133 SETTABLEKS                       R2 R25 K22 ["PlotAbsoluteSize"]
+      135 CALL                             R23 2 1
+      136 MOVE                             R24 R18
+      137 JUMPIFNOT                        R24 ; [+12]
+      138 GETUPVAL                         R25 8
+      139 GETTABLEKS                       R24 R25 K19 ["createElement"]
+      141 MOVE                             R25 R18
+      142 DUPTABLE                         R26 K27 [{"CurveHook", "PlotAbsoluteSize", "PlotRef"}]
+      143 SETTABLEKS                       R14 R26 K20 ["CurveHook"]
+      145 SETTABLEKS                       R2 R26 K22 ["PlotAbsoluteSize"]
+      147 SETTABLEKS                       R1 R26 K26 ["PlotRef"]
+      149 CALL                             R24 2 1
+      150 MOVE                             R25 R19
+      151 JUMPIFNOT                        R25 ; [+8]
+      152 GETUPVAL                         R26 8
+      153 GETTABLEKS                       R25 R26 K19 ["createElement"]
+      155 MOVE                             R26 R19
+      156 DUPTABLE                         R27 K28 [{"CurveHook"}]
+      157 SETTABLEKS                       R14 R27 K20 ["CurveHook"]
+      159 CALL                             R25 2 1
+      160 GETUPVAL                         R26 7
+      161 NEWCLOSURE                       R27 P4
+      162 CAPTURE                          VAL R7
+      163 CALL                             R26 1 1
+      164 GETUPVAL                         R27 5
+      165 NEWCLOSURE                       R28 P5
+      166 CAPTURE                          VAL R11
+      167 CAPTURE                          VAL R26
+      168 CAPTURE                          REF R14
+      169 NEWTABLE                         R29 0 4
+      171 MOVE                             R30 R26
+      172 MOVE                             R31 R10
+      173 MOVE                             R32 R11
+      174 MOVE                             R33 R14
+      175 SETLIST                          R29 R30 4 [1]
+      177 CALL                             R27 2 1
+      178 GETTABLEKS                       R28 R0 K29 ["Enabled"]
+      180 JUMPIFNOT                        R28 ; [+147]
+      181 GETUPVAL                         R29 8
+      182 GETTABLEKS                       R28 R29 K19 ["createElement"]
+      184 GETUPVAL                         R29 18
+      185 NEWTABLE                         R30 1 0
+      187 GETUPVAL                         R32 8
+      188 GETTABLEKS                       R31 R32 K30 ["Tag"]
+      190 LOADK                            R32 K31 ["X-Pad X-ColumnM X-FitY"]
+      191 SETTABLE                         R32 R30 R31
+      192 DUPTABLE                         R31 K36 [{"UISizeConstraint", "TabsRow", "Canvas", "Controls"}]
+      193 GETUPVAL                         R33 8
+      194 GETTABLEKS                       R32 R33 K19 ["createElement"]
+      196 LOADK                            R33 K32 ["UISizeConstraint"]
+      197 DUPTABLE                         R34 K39 [{"MinSize", "MaxSize"}]
+      198 GETUPVAL                         R35 19
+      199 SETTABLEKS                       R35 R34 K37 ["MinSize"]
+      201 GETUPVAL                         R35 20
+      202 SETTABLEKS                       R35 R34 K38 ["MaxSize"]
+      204 CALL                             R32 2 1
+      205 SETTABLEKS                       R32 R31 K32 ["UISizeConstraint"]
+      207 GETUPVAL                         R33 8
+      208 GETTABLEKS                       R32 R33 K19 ["createElement"]
+      210 GETUPVAL                         R33 18
+      211 NEWTABLE                         R34 2 0
+      213 GETUPVAL                         R36 8
+      214 GETTABLEKS                       R35 R36 K30 ["Tag"]
+      216 LOADK                            R36 K40 ["X-Pad X-RowM X-FitY"]
+      217 SETTABLE                         R36 R34 R35
+      218 LOADN                            R35 2
+      219 SETTABLEKS                       R35 R34 K41 ["ZIndex"]
+      221 DUPTABLE                         R35 K44 [{"EditorTypeTabs", "Presets"}]
+      222 GETUPVAL                         R37 8
+      223 GETTABLEKS                       R36 R37 K19 ["createElement"]
+      225 GETUPVAL                         R37 21
+      226 DUPTABLE                         R38 K48 [{"Tabs", "SelectedTab", "OnTabSelected"}]
+      227 SETTABLEKS                       R6 R38 K45 ["Tabs"]
+      229 SETTABLEKS                       R4 R38 K46 ["SelectedTab"]
+      231 NEWCLOSURE                       R39 P6
+      232 CAPTURE                          VAL R5
+      233 SETTABLEKS                       R39 R38 K47 ["OnTabSelected"]
+      235 CALL                             R36 2 1
+      236 SETTABLEKS                       R36 R35 K42 ["EditorTypeTabs"]
+      238 GETUPVAL                         R37 8
+      239 GETTABLEKS                       R36 R37 K19 ["createElement"]
+      241 GETUPVAL                         R37 22
+      242 DUPTABLE                         R38 K52 [{"PlaceholderText", "Items", "OnItemActivated"}]
+      243 SETTABLEKS                       R10 R38 K49 ["PlaceholderText"]
+      245 SETTABLEKS                       R26 R38 K50 ["Items"]
+      247 SETTABLEKS                       R27 R38 K51 ["OnItemActivated"]
+      249 NEWTABLE                         R39 0 0
+      251 CALL                             R36 3 1
+      252 SETTABLEKS                       R36 R35 K43 ["Presets"]
+      254 CALL                             R32 3 1
+      255 SETTABLEKS                       R32 R31 K33 ["TabsRow"]
+      257 GETUPVAL                         R33 8
+      258 GETTABLEKS                       R32 R33 K19 ["createElement"]
+      260 GETUPVAL                         R33 18
+      261 DUPTABLE                         R34 K55 [{"Size", "LayoutOrder"}]
+      262 GETIMPORT                        R35 K58 [UDim2.new]
+      264 LOADN                            R36 1
+      265 LOADN                            R37 0
+      266 LOADN                            R38 1
+      267 LOADN                            R39 131
+      268 CALL                             R35 4 1
+      269 SETTABLEKS                       R35 R34 K53 ["Size"]
+      271 LOADN                            R35 2
+      272 SETTABLEKS                       R35 R34 K54 ["LayoutOrder"]
+      274 DUPTABLE                         R35 K60 [{"PlotCanvas"}]
+      275 GETUPVAL                         R37 8
+      276 GETTABLEKS                       R36 R37 K19 ["createElement"]
+      278 GETUPVAL                         R37 18
+      279 NEWTABLE                         R38 8 0
+      281 GETIMPORT                        R39 K58 [UDim2.new]
+      283 LOADN                            R40 0
+      284 MOVE                             R41 R21
+      285 LOADN                            R42 0
+      286 MOVE                             R43 R21
+      287 CALL                             R39 4 1
+      288 SETTABLEKS                       R39 R38 K61 ["Position"]
+      290 GETIMPORT                        R39 K58 [UDim2.new]
+      292 LOADN                            R40 1
+      293 MINUS                            R42 R21
+      294 MULK                             R41 R42 K62 [2]
+      295 LOADN                            R42 1
+      296 MINUS                            R44 R21
+      297 MULK                             R43 R44 K62 [2]
+      298 CALL                             R39 4 1
+      299 SETTABLEKS                       R39 R38 K53 ["Size"]
+      301 LOADN                            R39 1
+      302 SETTABLEKS                       R39 R38 K63 ["BackgroundTransparency"]
+      304 SETTABLEKS                       R1 R38 K64 ["ForwardRef"]
+      306 GETUPVAL                         R41 8
+      307 GETTABLEKS                       R40 R41 K65 ["Change"]
+      309 GETTABLEKS                       R39 R40 K66 ["AbsoluteSize"]
+      311 SETTABLE                         R15 R38 R39
+      312 DUPTABLE                         R39 K70 [{"Handles", "Curve", "Grid"}]
+      313 SETTABLEKS                       R24 R39 K67 ["Handles"]
+      315 SETTABLEKS                       R23 R39 K68 ["Curve"]
+      317 SETTABLEKS                       R22 R39 K69 ["Grid"]
+      319 CALL                             R36 3 1
+      320 SETTABLEKS                       R36 R35 K59 ["PlotCanvas"]
+      322 CALL                             R32 3 1
+      323 SETTABLEKS                       R32 R31 K34 ["Canvas"]
+      325 SETTABLEKS                       R25 R31 K35 ["Controls"]
+      327 CALL                             R28 3 1
+      328 CLOSEUPVALS                      R14
+      329 RETURN                           R28 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R1 K1 [script]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K1 [script]
-  LOADK R3 K3 ["DirectionalCurveEditor"]
-  NAMECALL R1 R1 K4 ["FindFirstAncestor"]
-  CALL R1 2 1
-  GETIMPORT R2 K6 [require]
-  GETTABLEKS R4 R1 K7 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["React"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K9 ["useCallback"]
-  GETTABLEKS R4 R2 K10 ["useContext"]
-  GETTABLEKS R5 R2 K11 ["useMemo"]
-  GETTABLEKS R6 R2 K12 ["useRef"]
-  GETTABLEKS R7 R2 K13 ["useState"]
-  GETIMPORT R8 K6 [require]
-  GETTABLEKS R10 R1 K7 ["Packages"]
-  GETTABLEKS R9 R10 K14 ["Framework"]
-  CALL R8 1 1
-  GETTABLEKS R9 R8 K15 ["ContextServices"]
-  GETTABLEKS R11 R8 K16 ["UI"]
-  GETTABLEKS R10 R11 K17 ["Pane"]
-  GETTABLEKS R12 R8 K16 ["UI"]
-  GETTABLEKS R11 R12 K18 ["SelectInput"]
-  GETTABLEKS R13 R8 K16 ["UI"]
-  GETTABLEKS R12 R13 K19 ["Tabs"]
-  GETIMPORT R13 K6 [require]
-  GETTABLEKS R14 R0 K20 ["useCurve"]
-  CALL R13 1 1
-  GETIMPORT R14 K6 [require]
-  GETTABLEKS R16 R0 K21 ["CurveRenderer"]
-  GETTABLEKS R15 R16 K22 ["Curve"]
-  CALL R14 1 1
-  GETIMPORT R15 K6 [require]
-  GETTABLEKS R17 R0 K21 ["CurveRenderer"]
-  GETTABLEKS R16 R17 K23 ["Grid"]
-  CALL R15 1 1
-  GETIMPORT R16 K6 [require]
-  GETTABLEKS R18 R0 K21 ["CurveRenderer"]
-  GETTABLEKS R17 R18 K24 ["PolarCurve"]
-  CALL R16 1 1
-  GETIMPORT R17 K6 [require]
-  GETTABLEKS R19 R0 K21 ["CurveRenderer"]
-  GETTABLEKS R18 R19 K25 ["PolarGrid"]
-  CALL R17 1 1
-  GETIMPORT R18 K6 [require]
-  GETTABLEKS R20 R0 K26 ["Editors"]
-  GETTABLEKS R19 R20 K27 ["CurveHandles"]
-  CALL R18 1 1
-  GETIMPORT R19 K6 [require]
-  GETTABLEKS R21 R0 K26 ["Editors"]
-  GETTABLEKS R20 R21 K28 ["CurveControls"]
-  CALL R19 1 1
-  GETIMPORT R20 K6 [require]
-  GETTABLEKS R22 R0 K26 ["Editors"]
-  GETTABLEKS R21 R22 K29 ["PolarCurveHandles"]
-  CALL R20 1 1
-  GETIMPORT R21 K6 [require]
-  GETTABLEKS R23 R1 K30 ["Src"]
-  GETTABLEKS R22 R23 K31 ["Types"]
-  CALL R21 1 1
-  GETIMPORT R22 K6 [require]
-  GETTABLEKS R25 R1 K30 ["Src"]
-  GETTABLEKS R24 R25 K32 ["Util"]
-  GETTABLEKS R23 R24 K33 ["AttenuationUtil"]
-  CALL R22 1 1
-  GETIMPORT R23 K36 [Vector2.new]
-  LOADN R24 28
-  LOADN R25 44
-  CALL R23 2 1
-  GETIMPORT R24 K36 [Vector2.new]
-  LOADN R25 208
-  LOADN R26 208
-  CALL R24 2 1
-  NEWTABLE R25 0 2
-  DUPTABLE R26 K38 [{"Label"}]
-  LOADK R27 K39 ["Curve (Polar)"]
-  SETTABLEKS R27 R26 K37 ["Label"]
-  DUPTABLE R27 K38 [{"Label"}]
-  LOADK R28 K22 ["Curve"]
-  SETTABLEKS R28 R27 K37 ["Label"]
-  SETLIST R25 R26 2 [1]
-  DUPCLOSURE R26 K40 [PROTO_0]
-  SETGLOBAL R26 K41 ["makeKeypointsForPolarPattern"]
-  DUPCLOSURE R26 K42 [PROTO_1]
-  SETGLOBAL R26 K43 ["makeKeypointsForShotgunPattern"]
-  DUPCLOSURE R26 K44 [PROTO_9]
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R25
-  CAPTURE VAL R4
-  CAPTURE VAL R9
-  CAPTURE VAL R3
-  CAPTURE VAL R21
-  CAPTURE VAL R5
-  CAPTURE VAL R2
-  CAPTURE VAL R13
-  CAPTURE VAL R22
-  CAPTURE VAL R17
-  CAPTURE VAL R16
-  CAPTURE VAL R20
-  CAPTURE VAL R19
-  CAPTURE VAL R15
-  CAPTURE VAL R14
-  CAPTURE VAL R18
-  CAPTURE VAL R10
-  CAPTURE VAL R23
-  CAPTURE VAL R24
-  CAPTURE VAL R12
-  CAPTURE VAL R11
-  RETURN R26 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R1 K1 [script]
+        3 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        5 GETIMPORT                        R1 K1 [script]
+        7 LOADK                            R3 K3 ["DirectionalCurveEditor"]
+        8 NAMECALL                         R1 R1 K4 ["FindFirstAncestor"]
+       10 CALL                             R1 2 1
+       11 GETIMPORT                        R2 K6 [require]
+       13 GETTABLEKS                       R4 R1 K7 ["Packages"]
+       15 GETTABLEKS                       R3 R4 K8 ["React"]
+       17 CALL                             R2 1 1
+       18 GETTABLEKS                       R3 R2 K9 ["useCallback"]
+       20 GETTABLEKS                       R4 R2 K10 ["useContext"]
+       22 GETTABLEKS                       R5 R2 K11 ["useMemo"]
+       24 GETTABLEKS                       R6 R2 K12 ["useRef"]
+       26 GETTABLEKS                       R7 R2 K13 ["useState"]
+       28 GETIMPORT                        R8 K6 [require]
+       30 GETTABLEKS                       R10 R1 K7 ["Packages"]
+       32 GETTABLEKS                       R9 R10 K14 ["Framework"]
+       34 CALL                             R8 1 1
+       35 GETTABLEKS                       R9 R8 K15 ["ContextServices"]
+       37 GETTABLEKS                       R11 R8 K16 ["UI"]
+       39 GETTABLEKS                       R10 R11 K17 ["Pane"]
+       41 GETTABLEKS                       R12 R8 K16 ["UI"]
+       43 GETTABLEKS                       R11 R12 K18 ["SelectInput"]
+       45 GETTABLEKS                       R13 R8 K16 ["UI"]
+       47 GETTABLEKS                       R12 R13 K19 ["Tabs"]
+       49 GETIMPORT                        R13 K6 [require]
+       51 GETTABLEKS                       R14 R0 K20 ["useCurve"]
+       53 CALL                             R13 1 1
+       54 GETIMPORT                        R14 K6 [require]
+       56 GETTABLEKS                       R16 R0 K21 ["CurveRenderer"]
+       58 GETTABLEKS                       R15 R16 K22 ["Curve"]
+       60 CALL                             R14 1 1
+       61 GETIMPORT                        R15 K6 [require]
+       63 GETTABLEKS                       R17 R0 K21 ["CurveRenderer"]
+       65 GETTABLEKS                       R16 R17 K23 ["Grid"]
+       67 CALL                             R15 1 1
+       68 GETIMPORT                        R16 K6 [require]
+       70 GETTABLEKS                       R18 R0 K21 ["CurveRenderer"]
+       72 GETTABLEKS                       R17 R18 K24 ["PolarCurve"]
+       74 CALL                             R16 1 1
+       75 GETIMPORT                        R17 K6 [require]
+       77 GETTABLEKS                       R19 R0 K21 ["CurveRenderer"]
+       79 GETTABLEKS                       R18 R19 K25 ["PolarGrid"]
+       81 CALL                             R17 1 1
+       82 GETIMPORT                        R18 K6 [require]
+       84 GETTABLEKS                       R20 R0 K26 ["Editors"]
+       86 GETTABLEKS                       R19 R20 K27 ["CurveHandles"]
+       88 CALL                             R18 1 1
+       89 GETIMPORT                        R19 K6 [require]
+       91 GETTABLEKS                       R21 R0 K26 ["Editors"]
+       93 GETTABLEKS                       R20 R21 K28 ["CurveControls"]
+       95 CALL                             R19 1 1
+       96 GETIMPORT                        R20 K6 [require]
+       98 GETTABLEKS                       R22 R0 K26 ["Editors"]
+      100 GETTABLEKS                       R21 R22 K29 ["PolarCurveHandles"]
+      102 CALL                             R20 1 1
+      103 GETIMPORT                        R21 K6 [require]
+      105 GETTABLEKS                       R23 R1 K30 ["Src"]
+      107 GETTABLEKS                       R22 R23 K31 ["Types"]
+      109 CALL                             R21 1 1
+      110 GETIMPORT                        R22 K6 [require]
+      112 GETTABLEKS                       R25 R1 K30 ["Src"]
+      114 GETTABLEKS                       R24 R25 K32 ["Util"]
+      116 GETTABLEKS                       R23 R24 K33 ["AttenuationUtil"]
+      118 CALL                             R22 1 1
+      119 GETIMPORT                        R23 K36 [Vector2.new]
+      121 LOADN                            R24 28
+      122 LOADN                            R25 44
+      123 CALL                             R23 2 1
+      124 GETIMPORT                        R24 K36 [Vector2.new]
+      126 LOADN                            R25 208
+      127 LOADN                            R26 208
+      128 CALL                             R24 2 1
+      129 NEWTABLE                         R25 0 2
+      131 DUPTABLE                         R26 K38 [{"Label"}]
+      132 LOADK                            R27 K39 ["Curve (Polar)"]
+      133 SETTABLEKS                       R27 R26 K37 ["Label"]
+      135 DUPTABLE                         R27 K38 [{"Label"}]
+      136 LOADK                            R28 K22 ["Curve"]
+      137 SETTABLEKS                       R28 R27 K37 ["Label"]
+      139 SETLIST                          R25 R26 2 [1]
+      141 DUPCLOSURE                       R26 K40 [PROTO_0]
+      142 SETGLOBAL                        R26 K41 ["makeKeypointsForPolarPattern"]
+      144 DUPCLOSURE                       R26 K42 [PROTO_1]
+      145 SETGLOBAL                        R26 K43 ["makeKeypointsForShotgunPattern"]
+      147 DUPCLOSURE                       R26 K44 [PROTO_9]
+      148 CAPTURE                          VAL R6
+      149 CAPTURE                          VAL R7
+      150 CAPTURE                          VAL R25
+      151 CAPTURE                          VAL R4
+      152 CAPTURE                          VAL R9
+      153 CAPTURE                          VAL R3
+      154 CAPTURE                          VAL R21
+      155 CAPTURE                          VAL R5
+      156 CAPTURE                          VAL R2
+      157 CAPTURE                          VAL R13
+      158 CAPTURE                          VAL R22
+      159 CAPTURE                          VAL R17
+      160 CAPTURE                          VAL R16
+      161 CAPTURE                          VAL R20
+      162 CAPTURE                          VAL R19
+      163 CAPTURE                          VAL R15
+      164 CAPTURE                          VAL R14
+      165 CAPTURE                          VAL R18
+      166 CAPTURE                          VAL R10
+      167 CAPTURE                          VAL R23
+      168 CAPTURE                          VAL R24
+      169 CAPTURE                          VAL R12
+      170 CAPTURE                          VAL R11
+      171 RETURN                           R26 1

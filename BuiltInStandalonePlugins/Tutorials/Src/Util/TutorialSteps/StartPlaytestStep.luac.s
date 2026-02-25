@@ -1,72 +1,72 @@
 PROTO_0:
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["complete"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["complete"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
 
 PROTO_1:
-  GETTABLEKS R1 R0 K0 ["tutorial"]
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R0
-  SETTABLEKS R2 R1 K1 ["startPlaying"]
-  GETTABLEKS R1 R0 K0 ["tutorial"]
-  DUPTABLE R3 K6 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
-  GETUPVAL R4 0
-  SETTABLEKS R4 R3 K2 ["TargetWidgetUri"]
-  GETIMPORT R4 K9 [Vector2.new]
-  LOADN R5 0
-  LOADN R6 0
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K3 ["SubjectAnchorPoint"]
-  GETIMPORT R4 K9 [Vector2.new]
-  LOADN R5 0
-  LOADN R6 1
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K4 ["TargetAnchorPoint"]
-  GETIMPORT R4 K9 [Vector2.new]
-  LOADN R5 0
-  LOADN R6 20
-  CALL R4 2 1
-  SETTABLEKS R4 R3 K5 ["Offset"]
-  NAMECALL R1 R1 K10 ["attachTo"]
-  CALL R1 2 0
-  GETTABLEKS R2 R0 K0 ["tutorial"]
-  GETTABLEKS R1 R2 K11 ["Spotlight"]
-  GETUPVAL R3 0
-  NAMECALL R1 R1 K12 ["ApplyHighlightAsync"]
-  CALL R1 2 0
-  RETURN R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["tutorial"]
+        2 NEWCLOSURE                       R2 P0
+        3 CAPTURE                          VAL R0
+        4 SETTABLEKS                       R2 R1 K1 ["startPlaying"]
+        6 GETTABLEKS                       R1 R0 K0 ["tutorial"]
+        8 DUPTABLE                         R3 K6 [{"TargetWidgetUri", "SubjectAnchorPoint", "TargetAnchorPoint", "Offset"}]
+        9 GETUPVAL                         R4 0
+       10 SETTABLEKS                       R4 R3 K2 ["TargetWidgetUri"]
+       12 GETIMPORT                        R4 K9 [Vector2.new]
+       14 LOADN                            R5 0
+       15 LOADN                            R6 0
+       16 CALL                             R4 2 1
+       17 SETTABLEKS                       R4 R3 K3 ["SubjectAnchorPoint"]
+       19 GETIMPORT                        R4 K9 [Vector2.new]
+       21 LOADN                            R5 0
+       22 LOADN                            R6 1
+       23 CALL                             R4 2 1
+       24 SETTABLEKS                       R4 R3 K4 ["TargetAnchorPoint"]
+       26 GETIMPORT                        R4 K9 [Vector2.new]
+       28 LOADN                            R5 0
+       29 LOADN                            R6 20
+       30 CALL                             R4 2 1
+       31 SETTABLEKS                       R4 R3 K5 ["Offset"]
+       33 NAMECALL                         R1 R1 K10 ["attachTo"]
+       35 CALL                             R1 2 0
+       36 GETTABLEKS                       R2 R0 K0 ["tutorial"]
+       38 GETTABLEKS                       R1 R2 K11 ["Spotlight"]
+       40 GETUPVAL                         R3 0
+       41 NAMECALL                         R1 R1 K12 ["ApplyHighlightAsync"]
+       43 CALL                             R1 2 0
+       44 RETURN                           R0 0
 
 PROTO_2:
-  GETTABLEKS R1 R0 K0 ["tutorial"]
-  LOADNIL R2
-  SETTABLEKS R2 R1 K1 ["startPlaying"]
-  RETURN R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["tutorial"]
+        2 LOADNIL                          R2
+        3 SETTABLEKS                       R2 R1 K1 ["startPlaying"]
+        5 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [require]
-  GETIMPORT R3 K3 [script]
-  GETTABLEKS R2 R3 K4 ["Parent"]
-  GETTABLEKS R1 R2 K5 ["TutorialStep"]
-  CALL R0 1 1
-  GETTABLEKS R1 R0 K6 ["extend"]
-  LOADK R2 K7 ["StartPlaytest"]
-  CALL R1 1 1
-  DUPTABLE R2 K13 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
-  LOADK R3 K14 ["Standalone"]
-  SETTABLEKS R3 R2 K8 ["DataModel"]
-  LOADK R3 K14 ["Standalone"]
-  SETTABLEKS R3 R2 K9 ["PluginType"]
-  LOADK R3 K15 ["Ribbon"]
-  SETTABLEKS R3 R2 K10 ["PluginId"]
-  LOADK R3 K16 ["Widgets"]
-  SETTABLEKS R3 R2 K11 ["Category"]
-  LOADK R3 K17 ["LeftMezzanine/LaunchTestMode_TestAndTestHere"]
-  SETTABLEKS R3 R2 K12 ["ItemId"]
-  DUPCLOSURE R3 K18 [PROTO_1]
-  CAPTURE VAL R2
-  SETTABLEKS R3 R1 K19 ["bind"]
-  DUPCLOSURE R3 K20 [PROTO_2]
-  SETTABLEKS R3 R1 K21 ["unbind"]
-  RETURN R1 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [require]
+        3 GETIMPORT                        R3 K3 [script]
+        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K5 ["TutorialStep"]
+        9 CALL                             R0 1 1
+       10 GETTABLEKS                       R1 R0 K6 ["extend"]
+       12 LOADK                            R2 K7 ["StartPlaytest"]
+       13 CALL                             R1 1 1
+       14 DUPTABLE                         R2 K13 [{"DataModel", "PluginType", "PluginId", "Category", "ItemId"}]
+       15 LOADK                            R3 K14 ["Standalone"]
+       16 SETTABLEKS                       R3 R2 K8 ["DataModel"]
+       18 LOADK                            R3 K14 ["Standalone"]
+       19 SETTABLEKS                       R3 R2 K9 ["PluginType"]
+       21 LOADK                            R3 K15 ["Ribbon"]
+       22 SETTABLEKS                       R3 R2 K10 ["PluginId"]
+       24 LOADK                            R3 K16 ["Widgets"]
+       25 SETTABLEKS                       R3 R2 K11 ["Category"]
+       27 LOADK                            R3 K17 ["LeftMezzanine/LaunchTestMode_TestAndTestHere"]
+       28 SETTABLEKS                       R3 R2 K12 ["ItemId"]
+       30 DUPCLOSURE                       R3 K18 [PROTO_1]
+       31 CAPTURE                          VAL R2
+       32 SETTABLEKS                       R3 R1 K19 ["bind"]
+       34 DUPCLOSURE                       R3 K20 [PROTO_2]
+       35 SETTABLEKS                       R3 R1 K21 ["unbind"]
+       37 RETURN                           R1 1

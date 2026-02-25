@@ -1,240 +1,240 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["Terrain"]
-  NAMECALL R0 R0 K1 ["Clear"]
-  CALL R0 1 0
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K2 ["ChangeHistoryService"]
-  LOADK R2 K3 ["Cleared Terrain"]
-  NAMECALL R0 R0 K4 ["SetWaypoint"]
-  CALL R0 2 0
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K5 ["_overrides"]
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K6 ["ClearSettings"]
-  GETTABLE R1 R2 R3
-  GETUPVAL R3 3
-  GETTABLEKS R2 R3 K1 ["Clear"]
-  GETTABLE R0 R1 R2
-  LOADB R1 1
-  SETTABLEKS R1 R0 K7 ["Disabled"]
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K8 ["OnInternalsChanged"]
-  NAMECALL R0 R0 K9 ["Fire"]
-  CALL R0 1 0
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K10 ["_analytics"]
-  LOADK R2 K11 ["Usage"]
-  GETUPVAL R4 4
-  GETTABLEKS R3 R4 K1 ["Clear"]
-  LOADN R4 1
-  NAMECALL R0 R0 K12 ["report"]
-  CALL R0 4 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["Terrain"]
+        3 NAMECALL                         R0 R0 K1 ["Clear"]
+        5 CALL                             R0 1 0
+        6 GETUPVAL                         R1 0
+        7 GETTABLEKS                       R0 R1 K2 ["ChangeHistoryService"]
+        9 LOADK                            R2 K3 ["Cleared Terrain"]
+       10 NAMECALL                         R0 R0 K4 ["SetWaypoint"]
+       12 CALL                             R0 2 0
+       13 GETUPVAL                         R3 1
+       14 GETTABLEKS                       R2 R3 K5 ["_overrides"]
+       16 GETUPVAL                         R4 2
+       17 GETTABLEKS                       R3 R4 K6 ["ClearSettings"]
+       19 GETTABLE                         R1 R2 R3
+       20 GETUPVAL                         R3 3
+       21 GETTABLEKS                       R2 R3 K1 ["Clear"]
+       23 GETTABLE                         R0 R1 R2
+       24 LOADB                            R1 1
+       25 SETTABLEKS                       R1 R0 K7 ["Disabled"]
+       27 GETUPVAL                         R1 1
+       28 GETTABLEKS                       R0 R1 K8 ["OnInternalsChanged"]
+       30 NAMECALL                         R0 R0 K9 ["Fire"]
+       32 CALL                             R0 1 0
+       33 GETUPVAL                         R1 1
+       34 GETTABLEKS                       R0 R1 K10 ["_analytics"]
+       36 LOADK                            R2 K11 ["Usage"]
+       37 GETUPVAL                         R4 4
+       38 GETTABLEKS                       R3 R4 K1 ["Clear"]
+       40 LOADN                            R4 1
+       41 NAMECALL                         R0 R0 K12 ["report"]
+       43 CALL                             R0 4 0
+       44 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["init"]
-  MOVE R4 R0
-  MOVE R5 R1
-  MOVE R6 R2
-  CALL R3 3 0
-  NEWTABLE R3 1 0
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K1 ["ClearSettings"]
-  NEWTABLE R5 1 0
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K2 ["Clear"]
-  DUPTABLE R7 K8 [{"Disabled", "Hidden", "Label", "Schema", "Value"}]
-  GETTABLEKS R9 R2 K9 ["Terrain"]
-  NAMECALL R9 R9 K10 ["CountCells"]
-  CALL R9 1 1
-  JUMPIFEQKN R9 K11 [0] [+2]
-  LOADB R8 0 +1
-  LOADB R8 1
-  SETTABLEKS R8 R7 K3 ["Disabled"]
-  LOADB R8 0
-  SETTABLEKS R8 R7 K4 ["Hidden"]
-  LOADK R8 K12 [""]
-  SETTABLEKS R8 R7 K5 ["Label"]
-  DUPTABLE R8 K14 [{"OnClick"}]
-  NEWCLOSURE R9 P0
-  CAPTURE VAL R2
-  CAPTURE VAL R0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  SETTABLEKS R9 R8 K13 ["OnClick"]
-  SETTABLEKS R8 R7 K6 ["Schema"]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K7 ["Value"]
-  SETTABLE R7 R5 R6
-  SETTABLE R5 R3 R4
-  SETTABLEKS R3 R0 K15 ["_overrides"]
-  RETURN R0 0
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["init"]
+        3 MOVE                             R4 R0
+        4 MOVE                             R5 R1
+        5 MOVE                             R6 R2
+        6 CALL                             R3 3 0
+        7 NEWTABLE                         R3 1 0
+        9 GETUPVAL                         R5 1
+       10 GETTABLEKS                       R4 R5 K1 ["ClearSettings"]
+       12 NEWTABLE                         R5 1 0
+       14 GETUPVAL                         R7 2
+       15 GETTABLEKS                       R6 R7 K2 ["Clear"]
+       17 DUPTABLE                         R7 K8 [{"Disabled", "Hidden", "Label", "Schema", "Value"}]
+       18 GETTABLEKS                       R9 R2 K9 ["Terrain"]
+       20 NAMECALL                         R9 R9 K10 ["CountCells"]
+       22 CALL                             R9 1 1
+       23 JUMPIFEQKN                       R9 K11 [0] ; [+2]
+       25 LOADB                            R8 0 +1
+       26 LOADB                            R8 1
+       27 SETTABLEKS                       R8 R7 K3 ["Disabled"]
+       29 LOADB                            R8 0
+       30 SETTABLEKS                       R8 R7 K4 ["Hidden"]
+       32 LOADK                            R8 K12 [""]
+       33 SETTABLEKS                       R8 R7 K5 ["Label"]
+       35 DUPTABLE                         R8 K14 [{"OnClick"}]
+       36 NEWCLOSURE                       R9 P0
+       37 CAPTURE                          VAL R2
+       38 CAPTURE                          VAL R0
+       39 CAPTURE                          UPVAL U1
+       40 CAPTURE                          UPVAL U2
+       41 CAPTURE                          UPVAL U3
+       42 SETTABLEKS                       R9 R8 K13 ["OnClick"]
+       44 SETTABLEKS                       R8 R7 K6 ["Schema"]
+       46 LOADB                            R8 1
+       47 SETTABLEKS                       R8 R7 K7 ["Value"]
+       49 SETTABLE                         R7 R5 R6
+       50 SETTABLE                         R5 R3 R4
+       51 SETTABLEKS                       R3 R0 K15 ["_overrides"]
+       53 RETURN                           R0 0
 
 PROTO_2:
-  NAMECALL R1 R0 K0 ["getPayload"]
-  CALL R1 1 1
-  GETTABLEKS R4 R0 K1 ["_services"]
-  GETTABLEKS R3 R4 K2 ["Terrain"]
-  NAMECALL R3 R3 K3 ["CountCells"]
-  CALL R3 1 1
-  JUMPIFEQKN R3 K4 [0] [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  GETTABLEKS R6 R0 K5 ["_overrides"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K6 ["ClearSettings"]
-  GETTABLE R5 R6 R7
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K7 ["Clear"]
-  GETTABLE R4 R5 R6
-  GETTABLEKS R3 R4 K8 ["Disabled"]
-  JUMPIFEQ R3 R2 [+18]
-  GETTABLEKS R5 R0 K5 ["_overrides"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K6 ["ClearSettings"]
-  GETTABLE R4 R5 R6
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K7 ["Clear"]
-  GETTABLE R3 R4 R5
-  SETTABLEKS R2 R3 K8 ["Disabled"]
-  GETTABLEKS R3 R0 K9 ["OnInternalsChanged"]
-  NAMECALL R3 R3 K10 ["Fire"]
-  CALL R3 1 0
-  RETURN R0 0
+        0 NAMECALL                         R1 R0 K0 ["getPayload"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R4 R0 K1 ["_services"]
+        5 GETTABLEKS                       R3 R4 K2 ["Terrain"]
+        7 NAMECALL                         R3 R3 K3 ["CountCells"]
+        9 CALL                             R3 1 1
+       10 JUMPIFEQKN                       R3 K4 [0] ; [+2]
+       12 LOADB                            R2 0 +1
+       13 LOADB                            R2 1
+       14 GETTABLEKS                       R6 R0 K5 ["_overrides"]
+       16 GETUPVAL                         R8 0
+       17 GETTABLEKS                       R7 R8 K6 ["ClearSettings"]
+       19 GETTABLE                         R5 R6 R7
+       20 GETUPVAL                         R7 1
+       21 GETTABLEKS                       R6 R7 K7 ["Clear"]
+       23 GETTABLE                         R4 R5 R6
+       24 GETTABLEKS                       R3 R4 K8 ["Disabled"]
+       26 JUMPIFEQ                         R3 R2 ; [+18]
+       28 GETTABLEKS                       R5 R0 K5 ["_overrides"]
+       30 GETUPVAL                         R7 0
+       31 GETTABLEKS                       R6 R7 K6 ["ClearSettings"]
+       33 GETTABLE                         R4 R5 R6
+       34 GETUPVAL                         R6 1
+       35 GETTABLEKS                       R5 R6 K7 ["Clear"]
+       37 GETTABLE                         R3 R4 R5
+       38 SETTABLEKS                       R2 R3 K8 ["Disabled"]
+       40 GETTABLEKS                       R3 R0 K9 ["OnInternalsChanged"]
+       42 NAMECALL                         R3 R3 K10 ["Fire"]
+       44 CALL                             R3 1 0
+       45 RETURN                           R0 0
 
 PROTO_3:
-  GETTABLEKS R3 R0 K0 ["_overrides"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K1 ["ClearSettings"]
-  GETTABLE R2 R3 R4
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K2 ["Clear"]
-  GETTABLE R1 R2 R3
-  GETTABLEKS R4 R0 K3 ["_services"]
-  GETTABLEKS R3 R4 K4 ["Terrain"]
-  NAMECALL R3 R3 K5 ["CountCells"]
-  CALL R3 1 1
-  JUMPIFEQKN R3 K6 [0] [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  SETTABLEKS R2 R1 K7 ["Disabled"]
-  RETURN R0 0
+        0 GETTABLEKS                       R3 R0 K0 ["_overrides"]
+        2 GETUPVAL                         R5 0
+        3 GETTABLEKS                       R4 R5 K1 ["ClearSettings"]
+        5 GETTABLE                         R2 R3 R4
+        6 GETUPVAL                         R4 1
+        7 GETTABLEKS                       R3 R4 K2 ["Clear"]
+        9 GETTABLE                         R1 R2 R3
+       10 GETTABLEKS                       R4 R0 K3 ["_services"]
+       12 GETTABLEKS                       R3 R4 K4 ["Terrain"]
+       14 NAMECALL                         R3 R3 K5 ["CountCells"]
+       16 CALL                             R3 1 1
+       17 JUMPIFEQKN                       R3 K6 [0] ; [+2]
+       19 LOADB                            R2 0 +1
+       20 LOADB                            R2 1
+       21 SETTABLEKS                       R2 R1 K7 ["Disabled"]
+       23 RETURN                           R0 0
 
 PROTO_4:
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["setDisabledState"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["setDisabledState"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
 
 PROTO_5:
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["setDisabledState"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["setDisabledState"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
 
 PROTO_6:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["activate"]
-  MOVE R2 R0
-  CALL R1 1 0
-  NAMECALL R1 R0 K1 ["setDisabledState"]
-  CALL R1 1 0
-  GETTABLEKS R3 R0 K2 ["_services"]
-  GETTABLEKS R2 R3 K3 ["ChangeHistoryService"]
-  GETTABLEKS R1 R2 K4 ["OnUndo"]
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R0
-  NAMECALL R1 R1 K5 ["Connect"]
-  CALL R1 2 1
-  SETTABLEKS R1 R0 K6 ["_undo"]
-  GETTABLEKS R3 R0 K2 ["_services"]
-  GETTABLEKS R2 R3 K3 ["ChangeHistoryService"]
-  GETTABLEKS R1 R2 K7 ["OnRedo"]
-  NEWCLOSURE R3 P1
-  CAPTURE VAL R0
-  NAMECALL R1 R1 K5 ["Connect"]
-  CALL R1 2 1
-  SETTABLEKS R1 R0 K8 ["_redo"]
-  GETTABLEKS R1 R0 K9 ["_analytics"]
-  LOADK R3 K10 ["Activated"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K11 ["Clear"]
-  NAMECALL R1 R1 K12 ["report"]
-  CALL R1 3 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["activate"]
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 0
+        5 NAMECALL                         R1 R0 K1 ["setDisabledState"]
+        7 CALL                             R1 1 0
+        8 GETTABLEKS                       R3 R0 K2 ["_services"]
+       10 GETTABLEKS                       R2 R3 K3 ["ChangeHistoryService"]
+       12 GETTABLEKS                       R1 R2 K4 ["OnUndo"]
+       14 NEWCLOSURE                       R3 P0
+       15 CAPTURE                          VAL R0
+       16 NAMECALL                         R1 R1 K5 ["Connect"]
+       18 CALL                             R1 2 1
+       19 SETTABLEKS                       R1 R0 K6 ["_undo"]
+       21 GETTABLEKS                       R3 R0 K2 ["_services"]
+       23 GETTABLEKS                       R2 R3 K3 ["ChangeHistoryService"]
+       25 GETTABLEKS                       R1 R2 K7 ["OnRedo"]
+       27 NEWCLOSURE                       R3 P1
+       28 CAPTURE                          VAL R0
+       29 NAMECALL                         R1 R1 K5 ["Connect"]
+       31 CALL                             R1 2 1
+       32 SETTABLEKS                       R1 R0 K8 ["_redo"]
+       34 GETTABLEKS                       R1 R0 K9 ["_analytics"]
+       36 LOADK                            R3 K10 ["Activated"]
+       37 GETUPVAL                         R5 1
+       38 GETTABLEKS                       R4 R5 K11 ["Clear"]
+       40 NAMECALL                         R1 R1 K12 ["report"]
+       42 CALL                             R1 3 0
+       43 RETURN                           R0 0
 
 PROTO_7:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["deactivate"]
-  MOVE R2 R0
-  CALL R1 1 0
-  GETTABLEKS R1 R0 K1 ["_undo"]
-  JUMPIFNOT R1 [+5]
-  GETTABLEKS R1 R0 K1 ["_undo"]
-  NAMECALL R1 R1 K2 ["Disconnect"]
-  CALL R1 1 0
-  GETTABLEKS R1 R0 K3 ["_redo"]
-  JUMPIFNOT R1 [+5]
-  GETTABLEKS R1 R0 K3 ["_redo"]
-  NAMECALL R1 R1 K2 ["Disconnect"]
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["deactivate"]
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 0
+        5 GETTABLEKS                       R1 R0 K1 ["_undo"]
+        7 JUMPIFNOT                        R1 ; [+5]
+        8 GETTABLEKS                       R1 R0 K1 ["_undo"]
+       10 NAMECALL                         R1 R1 K2 ["Disconnect"]
+       12 CALL                             R1 1 0
+       13 GETTABLEKS                       R1 R0 K3 ["_redo"]
+       15 JUMPIFNOT                        R1 ; [+5]
+       16 GETTABLEKS                       R1 R0 K3 ["_redo"]
+       18 NAMECALL                         R1 R1 K2 ["Disconnect"]
+       20 CALL                             R1 1 0
+       21 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["TerrainEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K6 ["Parent"]
-  GETTABLEKS R2 R3 K7 ["BaseTool"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K8 ["Src"]
-  GETTABLEKS R3 R4 K9 ["Types"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K10 ["Category"]
-  GETTABLEKS R4 R2 K11 ["ClearSettings"]
-  GETTABLEKS R5 R2 K12 ["Tab"]
-  GETTABLEKS R6 R2 K13 ["Tool"]
-  NEWTABLE R7 0 1
-  DUPTABLE R8 K16 [{"Defaults", "Id"}]
-  NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K14 ["Defaults"]
-  GETTABLEKS R9 R3 K11 ["ClearSettings"]
-  SETTABLEKS R9 R8 K15 ["Id"]
-  SETLIST R7 R8 1 [1]
-  NEWTABLE R8 0 0
-  GETTABLEKS R11 R6 K17 ["Clear"]
-  GETTABLEKS R12 R5 K18 ["Create"]
-  MOVE R13 R7
-  MOVE R14 R8
-  NAMECALL R9 R1 K19 ["new"]
-  CALL R9 5 1
-  DUPCLOSURE R10 K20 [PROTO_1]
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R6
-  SETTABLEKS R10 R9 K21 ["init"]
-  DUPCLOSURE R10 K22 [PROTO_2]
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  SETTABLEKS R10 R9 K23 ["setDisabledState"]
-  DUPCLOSURE R10 K24 [PROTO_3]
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  SETTABLEKS R10 R9 K25 ["updateDisabled"]
-  DUPCLOSURE R10 K26 [PROTO_6]
-  CAPTURE VAL R1
-  CAPTURE VAL R6
-  SETTABLEKS R10 R9 K27 ["activate"]
-  DUPCLOSURE R10 K28 [PROTO_7]
-  CAPTURE VAL R1
-  SETTABLEKS R10 R9 K29 ["deactivate"]
-  RETURN R9 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["TerrainEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETIMPORT                        R4 K1 [script]
+       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
+       13 GETTABLEKS                       R2 R3 K7 ["BaseTool"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R4 R0 K8 ["Src"]
+       20 GETTABLEKS                       R3 R4 K9 ["Types"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R2 K10 ["Category"]
+       25 GETTABLEKS                       R4 R2 K11 ["ClearSettings"]
+       27 GETTABLEKS                       R5 R2 K12 ["Tab"]
+       29 GETTABLEKS                       R6 R2 K13 ["Tool"]
+       31 NEWTABLE                         R7 0 1
+       33 DUPTABLE                         R8 K16 [{"Defaults", "Id"}]
+       34 NEWTABLE                         R9 0 0
+       36 SETTABLEKS                       R9 R8 K14 ["Defaults"]
+       38 GETTABLEKS                       R9 R3 K11 ["ClearSettings"]
+       40 SETTABLEKS                       R9 R8 K15 ["Id"]
+       42 SETLIST                          R7 R8 1 [1]
+       44 NEWTABLE                         R8 0 0
+       46 GETTABLEKS                       R11 R6 K17 ["Clear"]
+       48 GETTABLEKS                       R12 R5 K18 ["Create"]
+       50 MOVE                             R13 R7
+       51 MOVE                             R14 R8
+       52 NAMECALL                         R9 R1 K19 ["new"]
+       54 CALL                             R9 5 1
+       55 DUPCLOSURE                       R10 K20 [PROTO_1]
+       56 CAPTURE                          VAL R1
+       57 CAPTURE                          VAL R3
+       58 CAPTURE                          VAL R4
+       59 CAPTURE                          VAL R6
+       60 SETTABLEKS                       R10 R9 K21 ["init"]
+       62 DUPCLOSURE                       R10 K22 [PROTO_2]
+       63 CAPTURE                          VAL R3
+       64 CAPTURE                          VAL R4
+       65 SETTABLEKS                       R10 R9 K23 ["setDisabledState"]
+       67 DUPCLOSURE                       R10 K24 [PROTO_3]
+       68 CAPTURE                          VAL R3
+       69 CAPTURE                          VAL R4
+       70 SETTABLEKS                       R10 R9 K25 ["updateDisabled"]
+       72 DUPCLOSURE                       R10 K26 [PROTO_6]
+       73 CAPTURE                          VAL R1
+       74 CAPTURE                          VAL R6
+       75 SETTABLEKS                       R10 R9 K27 ["activate"]
+       77 DUPCLOSURE                       R10 K28 [PROTO_7]
+       78 CAPTURE                          VAL R1
+       79 SETTABLEKS                       R10 R9 K29 ["deactivate"]
+       81 RETURN                           R9 1

@@ -1,114 +1,114 @@
 PROTO_0:
-  MOVE R5 R1
-  LOADK R6 K0 ["ImageColor3"]
-  MOVE R7 R2
-  GETIMPORT R8 K4 [Enum.StudioStyleGuideModifier.Default]
-  NAMECALL R3 R0 K5 ["_set"]
-  CALL R3 5 0
-  RETURN R0 0
+        0 MOVE                             R5 R1
+        1 LOADK                            R6 K0 ["ImageColor3"]
+        2 MOVE                             R7 R2
+        3 GETIMPORT                        R8 K4 [Enum.StudioStyleGuideModifier.Default]
+        5 NAMECALL                         R3 R0 K5 ["_set"]
+        7 CALL                             R3 5 0
+        8 RETURN                           R0 0
 
 PROTO_1:
-  MOVE R5 R1
-  LOADK R6 K0 ["TextColor3"]
-  MOVE R7 R2
-  GETIMPORT R8 K4 [Enum.StudioStyleGuideModifier.Default]
-  NAMECALL R3 R0 K5 ["_set"]
-  CALL R3 5 0
-  RETURN R0 0
+        0 MOVE                             R5 R1
+        1 LOADK                            R6 K0 ["TextColor3"]
+        2 MOVE                             R7 R2
+        3 GETIMPORT                        R8 K4 [Enum.StudioStyleGuideModifier.Default]
+        5 NAMECALL                         R3 R0 K5 ["_set"]
+        7 CALL                             R3 5 0
+        8 RETURN                           R0 0
 
 PROTO_2:
-  MOVE R5 R1
-  LOADK R6 K0 ["BackgroundColor3"]
-  MOVE R7 R2
-  GETIMPORT R8 K4 [Enum.StudioStyleGuideModifier.Default]
-  NAMECALL R3 R0 K5 ["_set"]
-  CALL R3 5 0
-  RETURN R0 0
+        0 MOVE                             R5 R1
+        1 LOADK                            R6 K0 ["BackgroundColor3"]
+        2 MOVE                             R7 R2
+        3 GETIMPORT                        R8 K4 [Enum.StudioStyleGuideModifier.Default]
+        5 NAMECALL                         R3 R0 K5 ["_set"]
+        7 CALL                             R3 5 0
+        8 RETURN                           R0 0
 
 PROTO_3:
-  MOVE R5 R1
-  LOADK R6 K0 ["BorderColor3"]
-  MOVE R7 R2
-  GETIMPORT R8 K4 [Enum.StudioStyleGuideModifier.Default]
-  NAMECALL R3 R0 K5 ["_set"]
-  CALL R3 5 0
-  RETURN R0 0
+        0 MOVE                             R5 R1
+        1 LOADK                            R6 K0 ["BorderColor3"]
+        2 MOVE                             R7 R2
+        3 GETIMPORT                        R8 K4 [Enum.StudioStyleGuideModifier.Default]
+        5 NAMECALL                         R3 R0 K5 ["_set"]
+        7 CALL                             R3 5 0
+        8 RETURN                           R0 0
 
 PROTO_4:
-  GETUPVAL R0 0
-  GETUPVAL R1 1
-  GETUPVAL R3 2
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K0 ["Theme"]
-  GETTABLEKS R4 R5 K1 ["Name"]
-  GETTABLE R2 R3 R4
-  SETTABLE R2 R0 R1
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 GETUPVAL                         R3 2
+        3 GETUPVAL                         R6 3
+        4 GETTABLEKS                       R5 R6 K0 ["Theme"]
+        6 GETTABLEKS                       R4 R5 K1 ["Name"]
+        8 GETTABLE                         R2 R3 R4
+        9 SETTABLE                         R2 R0 R1
+       10 RETURN                           R0 0
 
 PROTO_5:
-  NEWCLOSURE R6 P0
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  CAPTURE UPVAL U0
-  NAMECALL R4 R0 K0 ["_hook"]
-  CALL R4 2 0
-  RETURN R0 0
+        0 NEWCLOSURE                       R6 P0
+        1 CAPTURE                          VAL R1
+        2 CAPTURE                          VAL R2
+        3 CAPTURE                          VAL R3
+        4 CAPTURE                          UPVAL U0
+        5 NAMECALL                         R4 R0 K0 ["_hook"]
+        7 CALL                             R4 2 0
+        8 RETURN                           R0 0
 
 PROTO_6:
-  GETUPVAL R0 0
-  GETUPVAL R1 1
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K0 ["Theme"]
-  GETUPVAL R4 3
-  GETUPVAL R5 4
-  NAMECALL R2 R2 K1 ["GetColor"]
-  CALL R2 3 1
-  SETTABLE R2 R0 R1
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 GETUPVAL                         R3 2
+        3 GETTABLEKS                       R2 R3 K0 ["Theme"]
+        5 GETUPVAL                         R4 3
+        6 GETUPVAL                         R5 4
+        7 NAMECALL                         R2 R2 K1 ["GetColor"]
+        9 CALL                             R2 3 1
+       10 SETTABLE                         R2 R0 R1
+       11 RETURN                           R0 0
 
 PROTO_7:
-  NEWCLOSURE R7 P0
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  CAPTURE UPVAL U0
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  NAMECALL R5 R0 K0 ["_hook"]
-  CALL R5 2 0
-  RETURN R0 0
+        0 NEWCLOSURE                       R7 P0
+        1 CAPTURE                          VAL R1
+        2 CAPTURE                          VAL R2
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          VAL R3
+        5 CAPTURE                          VAL R4
+        6 NAMECALL                         R5 R0 K0 ["_hook"]
+        8 CALL                             R5 2 0
+        9 RETURN                           R0 0
 
 PROTO_8:
-  MOVE R2 R1
-  CALL R2 0 0
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["ThemeChanged"]
-  MOVE R4 R1
-  NAMECALL R2 R2 K1 ["Connect"]
-  CALL R2 2 0
-  RETURN R0 0
+        0 MOVE                             R2 R1
+        1 CALL                             R2 0 0
+        2 GETUPVAL                         R3 0
+        3 GETTABLEKS                       R2 R3 K0 ["ThemeChanged"]
+        5 MOVE                             R4 R1
+        6 NAMECALL                         R2 R2 K1 ["Connect"]
+        8 CALL                             R2 2 0
+        9 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R1 K1 [settings]
-  CALL R1 0 1
-  GETTABLEKS R0 R1 K2 ["Studio"]
-  NEWTABLE R1 8 0
-  DUPCLOSURE R2 K3 [PROTO_0]
-  SETTABLEKS R2 R1 K4 ["setImageColor"]
-  DUPCLOSURE R2 K5 [PROTO_1]
-  SETTABLEKS R2 R1 K6 ["setTextColor"]
-  DUPCLOSURE R2 K7 [PROTO_2]
-  SETTABLEKS R2 R1 K8 ["setBackgroundColor"]
-  DUPCLOSURE R2 K9 [PROTO_3]
-  SETTABLEKS R2 R1 K10 ["setBorderColor"]
-  DUPCLOSURE R2 K11 [PROTO_5]
-  CAPTURE VAL R0
-  SETTABLEKS R2 R1 K12 ["setCustom"]
-  DUPCLOSURE R2 K13 [PROTO_7]
-  CAPTURE VAL R0
-  SETTABLEKS R2 R1 K14 ["_set"]
-  DUPCLOSURE R2 K15 [PROTO_8]
-  CAPTURE VAL R0
-  SETTABLEKS R2 R1 K16 ["_hook"]
-  RETURN R1 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R1 K1 [settings]
+        3 CALL                             R1 0 1
+        4 GETTABLEKS                       R0 R1 K2 ["Studio"]
+        6 NEWTABLE                         R1 8 0
+        8 DUPCLOSURE                       R2 K3 [PROTO_0]
+        9 SETTABLEKS                       R2 R1 K4 ["setImageColor"]
+       11 DUPCLOSURE                       R2 K5 [PROTO_1]
+       12 SETTABLEKS                       R2 R1 K6 ["setTextColor"]
+       14 DUPCLOSURE                       R2 K7 [PROTO_2]
+       15 SETTABLEKS                       R2 R1 K8 ["setBackgroundColor"]
+       17 DUPCLOSURE                       R2 K9 [PROTO_3]
+       18 SETTABLEKS                       R2 R1 K10 ["setBorderColor"]
+       20 DUPCLOSURE                       R2 K11 [PROTO_5]
+       21 CAPTURE                          VAL R0
+       22 SETTABLEKS                       R2 R1 K12 ["setCustom"]
+       24 DUPCLOSURE                       R2 K13 [PROTO_7]
+       25 CAPTURE                          VAL R0
+       26 SETTABLEKS                       R2 R1 K14 ["_set"]
+       28 DUPCLOSURE                       R2 K15 [PROTO_8]
+       29 CAPTURE                          VAL R0
+       30 SETTABLEKS                       R2 R1 K16 ["_hook"]
+       32 RETURN                           R1 1

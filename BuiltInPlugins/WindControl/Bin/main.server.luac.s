@@ -1,122 +1,122 @@
 PROTO_0:
-  GETIMPORT R0 K1 [plugin]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["Name"]
-  SETTABLEKS R1 R0 K2 ["Name"]
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K3 ["createElement"]
-  GETUPVAL R1 2
-  DUPTABLE R2 K5 [{"Plugin"}]
-  GETIMPORT R3 K1 [plugin]
-  SETTABLEKS R3 R2 K4 ["Plugin"]
-  CALL R0 2 1
-  GETUPVAL R2 4
-  GETTABLEKS R1 R2 K6 ["createRoot"]
-  GETIMPORT R2 K9 [Instance.new]
-  LOADK R3 K10 ["Frame"]
-  CALL R2 1 -1
-  CALL R1 -1 1
-  SETUPVAL R1 3
-  GETUPVAL R1 3
-  MOVE R3 R0
-  NAMECALL R1 R1 K11 ["render"]
-  CALL R1 2 0
-  GETUPVAL R1 5
-  JUMPIFNOT R1 [+6]
-  GETUPVAL R1 5
-  LOADK R3 K12 ["Roact tree"]
-  GETUPVAL R4 3
-  NAMECALL R1 R1 K13 ["addRoactTree"]
-  CALL R1 3 0
-  RETURN R0 0
+        0 GETIMPORT                        R0 K1 [plugin]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R1 R2 K2 ["Name"]
+        5 SETTABLEKS                       R1 R0 K2 ["Name"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R0 R1 K3 ["createElement"]
+       10 GETUPVAL                         R1 2
+       11 DUPTABLE                         R2 K5 [{"Plugin"}]
+       12 GETIMPORT                        R3 K1 [plugin]
+       14 SETTABLEKS                       R3 R2 K4 ["Plugin"]
+       16 CALL                             R0 2 1
+       17 GETUPVAL                         R2 4
+       18 GETTABLEKS                       R1 R2 K6 ["createRoot"]
+       20 GETIMPORT                        R2 K9 [Instance.new]
+       22 LOADK                            R3 K10 ["Frame"]
+       23 CALL                             R2 1 -1
+       24 CALL                             R1 -1 1
+       25 SETUPVAL                         R1 3
+       26 GETUPVAL                         R1 3
+       27 MOVE                             R3 R0
+       28 NAMECALL                         R1 R1 K11 ["render"]
+       30 CALL                             R1 2 0
+       31 GETUPVAL                         R1 5
+       32 JUMPIFNOT                        R1 ; [+6]
+       33 GETUPVAL                         R1 5
+       34 LOADK                            R3 K12 ["Roact tree"]
+       35 GETUPVAL                         R4 3
+       36 NAMECALL                         R1 R1 K13 ["addRoactTree"]
+       38 CALL                             R1 3 0
+       39 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R0 0
-  JUMPIFNOT R0 [+4]
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["destroy"]
-  CALL R0 1 0
-  GETUPVAL R0 1
-  JUMPIFNOT R0 [+5]
-  GETUPVAL R0 1
-  LOADNIL R2
-  NAMECALL R0 R0 K1 ["render"]
-  CALL R0 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+4]
+        2 GETUPVAL                         R0 0
+        3 NAMECALL                         R0 R0 K0 ["destroy"]
+        5 CALL                             R0 1 0
+        6 GETUPVAL                         R0 1
+        7 JUMPIFNOT                        R0 ; [+5]
+        8 GETUPVAL                         R0 1
+        9 LOADNIL                          R2
+       10 NAMECALL                         R0 R0 K1 ["render"]
+       12 CALL                             R0 2 0
+       13 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [plugin]
-  JUMPIF R0 [+1]
-  RETURN R0 0
-  GETIMPORT R0 K3 [require]
-  GETIMPORT R3 K5 [script]
-  GETTABLEKS R2 R3 K6 ["Parent"]
-  GETTABLEKS R1 R2 K7 ["defineLuaFlags"]
-  CALL R0 1 0
-  GETIMPORT R0 K3 [require]
-  GETIMPORT R3 K5 [script]
-  GETTABLEKS R2 R3 K6 ["Parent"]
-  GETTABLEKS R1 R2 K8 ["commonInit"]
-  CALL R0 1 1
-  MOVE R1 R0
-  CALL R1 0 0
-  GETIMPORT R3 K5 [script]
-  GETTABLEKS R2 R3 K6 ["Parent"]
-  GETTABLEKS R1 R2 K6 ["Parent"]
-  GETIMPORT R2 K3 [require]
-  GETTABLEKS R4 R1 K9 ["Packages"]
-  GETTABLEKS R3 R4 K10 ["TestLoader"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K11 ["launch"]
-  LOADK R4 K12 ["WindControl"]
-  GETTABLEKS R5 R1 K13 ["Src"]
-  CALL R3 2 0
-  GETTABLEKS R3 R2 K14 ["isCli"]
-  CALL R3 0 1
-  JUMPIFNOT R3 [+1]
-  RETURN R0 0
-  GETIMPORT R3 K3 [require]
-  GETTABLEKS R5 R1 K9 ["Packages"]
-  GETTABLEKS R4 R5 K15 ["React"]
-  CALL R3 1 1
-  GETIMPORT R4 K3 [require]
-  GETTABLEKS R6 R1 K9 ["Packages"]
-  GETTABLEKS R5 R6 K16 ["ReactRoblox"]
-  CALL R4 1 1
-  GETIMPORT R5 K3 [require]
-  GETTABLEKS R7 R1 K13 ["Src"]
-  GETTABLEKS R6 R7 K17 ["MainPlugin"]
-  CALL R5 1 1
-  LOADNIL R6
-  LOADNIL R7
-  GETTABLEKS R8 R2 K18 ["hasInternalPermission"]
-  CALL R8 0 1
-  JUMPIFNOT R8 [+15]
-  GETIMPORT R9 K3 [require]
-  GETTABLEKS R11 R1 K9 ["Packages"]
-  GETTABLEKS R10 R11 K19 ["DeveloperTools"]
-  CALL R9 1 1
-  GETTABLEKS R8 R9 K20 ["forPlugin"]
-  GETTABLEKS R9 R1 K21 ["Name"]
-  GETIMPORT R10 K1 [plugin]
-  CALL R8 2 1
-  MOVE R7 R8
-  NEWCLOSURE R8 P0
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  CAPTURE VAL R5
-  CAPTURE REF R6
-  CAPTURE VAL R4
-  CAPTURE REF R7
-  GETIMPORT R10 K1 [plugin]
-  GETTABLEKS R9 R10 K22 ["Unloading"]
-  NEWCLOSURE R11 P1
-  CAPTURE REF R7
-  CAPTURE REF R6
-  NAMECALL R9 R9 K23 ["Connect"]
-  CALL R9 2 0
-  MOVE R9 R8
-  CALL R9 0 0
-  CLOSEUPVALS R6
-  RETURN R0 0
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [plugin]
+        3 JUMPIF                           R0 ; [+1]
+        4 RETURN                           R0 0
+        5 GETIMPORT                        R0 K3 [require]
+        7 GETIMPORT                        R3 K5 [script]
+        9 GETTABLEKS                       R2 R3 K6 ["Parent"]
+       11 GETTABLEKS                       R1 R2 K7 ["defineLuaFlags"]
+       13 CALL                             R0 1 0
+       14 GETIMPORT                        R0 K3 [require]
+       16 GETIMPORT                        R3 K5 [script]
+       18 GETTABLEKS                       R2 R3 K6 ["Parent"]
+       20 GETTABLEKS                       R1 R2 K8 ["commonInit"]
+       22 CALL                             R0 1 1
+       23 MOVE                             R1 R0
+       24 CALL                             R1 0 0
+       25 GETIMPORT                        R3 K5 [script]
+       27 GETTABLEKS                       R2 R3 K6 ["Parent"]
+       29 GETTABLEKS                       R1 R2 K6 ["Parent"]
+       31 GETIMPORT                        R2 K3 [require]
+       33 GETTABLEKS                       R4 R1 K9 ["Packages"]
+       35 GETTABLEKS                       R3 R4 K10 ["TestLoader"]
+       37 CALL                             R2 1 1
+       38 GETTABLEKS                       R3 R2 K11 ["launch"]
+       40 LOADK                            R4 K12 ["WindControl"]
+       41 GETTABLEKS                       R5 R1 K13 ["Src"]
+       43 CALL                             R3 2 0
+       44 GETTABLEKS                       R3 R2 K14 ["isCli"]
+       46 CALL                             R3 0 1
+       47 JUMPIFNOT                        R3 ; [+1]
+       48 RETURN                           R0 0
+       49 GETIMPORT                        R3 K3 [require]
+       51 GETTABLEKS                       R5 R1 K9 ["Packages"]
+       53 GETTABLEKS                       R4 R5 K15 ["React"]
+       55 CALL                             R3 1 1
+       56 GETIMPORT                        R4 K3 [require]
+       58 GETTABLEKS                       R6 R1 K9 ["Packages"]
+       60 GETTABLEKS                       R5 R6 K16 ["ReactRoblox"]
+       62 CALL                             R4 1 1
+       63 GETIMPORT                        R5 K3 [require]
+       65 GETTABLEKS                       R7 R1 K13 ["Src"]
+       67 GETTABLEKS                       R6 R7 K17 ["MainPlugin"]
+       69 CALL                             R5 1 1
+       70 LOADNIL                          R6
+       71 LOADNIL                          R7
+       72 GETTABLEKS                       R8 R2 K18 ["hasInternalPermission"]
+       74 CALL                             R8 0 1
+       75 JUMPIFNOT                        R8 ; [+15]
+       76 GETIMPORT                        R9 K3 [require]
+       78 GETTABLEKS                       R11 R1 K9 ["Packages"]
+       80 GETTABLEKS                       R10 R11 K19 ["DeveloperTools"]
+       82 CALL                             R9 1 1
+       83 GETTABLEKS                       R8 R9 K20 ["forPlugin"]
+       85 GETTABLEKS                       R9 R1 K21 ["Name"]
+       87 GETIMPORT                        R10 K1 [plugin]
+       89 CALL                             R8 2 1
+       90 MOVE                             R7 R8
+       91 NEWCLOSURE                       R8 P0
+       92 CAPTURE                          VAL R1
+       93 CAPTURE                          VAL R3
+       94 CAPTURE                          VAL R5
+       95 CAPTURE                          REF R6
+       96 CAPTURE                          VAL R4
+       97 CAPTURE                          REF R7
+       98 GETIMPORT                        R10 K1 [plugin]
+      100 GETTABLEKS                       R9 R10 K22 ["Unloading"]
+      102 NEWCLOSURE                       R11 P1
+      103 CAPTURE                          REF R7
+      104 CAPTURE                          REF R6
+      105 NAMECALL                         R9 R9 K23 ["Connect"]
+      107 CALL                             R9 2 0
+      108 MOVE                             R9 R8
+      109 CALL                             R9 0 0
+      110 CLOSEUPVALS                      R6
+      111 RETURN                           R0 0

@@ -1,319 +1,319 @@
 PROTO_0:
-  GETTABLEKS R2 R0 K0 ["dialog"]
-  JUMPIFNOT R2 [+11]
-  GETTABLEKS R3 R0 K0 ["dialog"]
-  GETTABLEKS R2 R3 K1 ["subsequentDialogQueue"]
-  JUMPIFNOT R2 [+6]
-  GETTABLEKS R3 R0 K0 ["dialog"]
-  GETTABLEKS R2 R3 K1 ["subsequentDialogQueue"]
-  GETTABLEN R1 R2 1
-  RETURN R1 1
-  LOADNIL R1
-  RETURN R1 1
+        0 GETTABLEKS                       R2 R0 K0 ["dialog"]
+        2 JUMPIFNOT                        R2 ; [+11]
+        3 GETTABLEKS                       R3 R0 K0 ["dialog"]
+        5 GETTABLEKS                       R2 R3 K1 ["subsequentDialogQueue"]
+        7 JUMPIFNOT                        R2 ; [+6]
+        8 GETTABLEKS                       R3 R0 K0 ["dialog"]
+       10 GETTABLEKS                       R2 R3 K1 ["subsequentDialogQueue"]
+       12 GETTABLEN                        R1 R2 1
+       13 RETURN                           R1 1
+       14 LOADNIL                          R1
+       15 RETURN                           R1 1
 
 PROTO_1:
-  GETTABLEKS R2 R0 K0 ["purchase"]
-  JUMPIFNOT R2 [+5]
-  GETTABLEKS R2 R0 K0 ["purchase"]
-  GETTABLEKS R1 R2 K1 ["robuxBalance"]
-  RETURN R1 1
-  LOADNIL R1
-  RETURN R1 1
+        0 GETTABLEKS                       R2 R0 K0 ["purchase"]
+        2 JUMPIFNOT                        R2 ; [+5]
+        3 GETTABLEKS                       R2 R0 K0 ["purchase"]
+        5 GETTABLEKS                       R1 R2 K1 ["robuxBalance"]
+        7 RETURN                           R1 1
+        8 LOADNIL                          R1
+        9 RETURN                           R1 1
 
 PROTO_2:
-  GETUPVAL R1 0
-  GETUPVAL R2 1
-  CALL R2 0 -1
-  CALL R1 -1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R2 1
+        2 CALL                             R2 0 -1
+        3 CALL                             R1 -1 0
+        4 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["use"]
-  CALL R0 1 1
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["Localization"]
-  NAMECALL R1 R1 K0 ["use"]
-  CALL R1 1 1
-  GETUPVAL R2 2
-  CALL R2 0 1
-  GETUPVAL R3 3
-  DUPCLOSURE R4 K2 [PROTO_0]
-  CALL R3 1 1
-  GETUPVAL R4 3
-  DUPCLOSURE R5 K3 [PROTO_1]
-  CALL R4 1 1
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K4 ["useCallback"]
-  NEWCLOSURE R6 P2
-  CAPTURE VAL R2
-  CAPTURE UPVAL U5
-  NEWTABLE R7 0 1
-  MOVE R8 R2
-  SETLIST R7 R8 1 [1]
-  CALL R5 2 1
-  JUMPIF R3 [+1]
-  RETURN R0 0
-  GETTABLEKS R6 R3 K5 ["assetData"]
-  GETTABLEKS R7 R3 K6 ["status"]
-  JUMPIFNOT R6 [+3]
-  GETTABLEKS R8 R6 K7 ["Asset"]
-  JUMP [+1]
-  LOADNIL R8
-  JUMPIFNOT R6 [+3]
-  GETTABLEKS R9 R6 K8 ["FiatProduct"]
-  JUMP [+1]
-  LOADNIL R9
-  LOADNIL R10
-  LOADNIL R11
-  JUMPIFNOT R9 [+14]
-  MOVE R12 R9
-  JUMPIFNOT R12 [+2]
-  GETTABLEKS R12 R9 K9 ["PurchasePrice"]
-  MOVE R11 R12
-  MOVE R12 R9
-  JUMPIFNOT R12 [+5]
-  GETUPVAL R13 6
-  GETTABLEKS R12 R13 K10 ["isFree"]
-  MOVE R13 R11
-  CALL R12 1 1
-  MOVE R10 R12
-  JUMP [+17]
-  GETUPVAL R12 7
-  CALL R12 0 1
-  JUMPIF R12 [+14]
-  JUMPIFNOT R6 [+13]
-  GETTABLEKS R13 R6 K11 ["Product"]
-  JUMPIFNOT R13 [+5]
-  GETTABLEKS R13 R6 K11 ["Product"]
-  GETTABLEKS R12 R13 K12 ["Price"]
-  JUMPIF R12 [+1]
-  LOADN R12 0
-  JUMPIFEQKN R12 K13 [0] [+2]
-  LOADB R10 0 +1
-  LOADB R10 1
-  JUMPIFNOT R8 [+3]
-  GETTABLEKS R12 R8 K14 ["Name"]
-  JUMP [+1]
-  LOADK R12 K15 [""]
-  GETUPVAL R14 8
-  GETTABLEKS R13 R14 K16 ["ExcessiveTransactions"]
-  JUMPIFNOTEQ R7 R13 [+30]
-  GETUPVAL R14 4
-  GETTABLEKS R13 R14 K17 ["createElement"]
-  GETUPVAL R14 9
-  DUPTABLE R15 K22 [{"Description", "Header", "Image", "OnClose"}]
-  LOADK R18 K23 ["Purchase"]
-  LOADK R19 K24 ["ExcessiveTransactionsDetails"]
-  NAMECALL R16 R1 K25 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K18 ["Description"]
-  LOADK R18 K23 ["Purchase"]
-  LOADK R19 K26 ["ExcessiveTransactionsHeader"]
-  NAMECALL R16 R1 K25 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K19 ["Header"]
-  GETTABLEKS R17 R0 K27 ["dialog"]
-  GETTABLEKS R16 R17 K28 ["errorIcon"]
-  SETTABLEKS R16 R15 K20 ["Image"]
-  SETTABLEKS R5 R15 K21 ["OnClose"]
-  CALL R13 2 -1
-  RETURN R13 -1
-  GETUPVAL R14 8
-  GETTABLEKS R13 R14 K29 ["PriceChanged"]
-  JUMPIFNOTEQ R7 R13 [+43]
-  GETUPVAL R14 4
-  GETTABLEKS R13 R14 K17 ["createElement"]
-  GETUPVAL R14 9
-  DUPTABLE R15 K22 [{"Description", "Header", "Image", "OnClose"}]
-  LOADK R18 K23 ["Purchase"]
-  LOADK R19 K30 ["PriceChangedDetails"]
-  DUPTABLE R20 K33 [{"name", "price"}]
-  SETTABLEKS R12 R20 K31 ["name"]
-  JUMPIFNOT R11 [+6]
-  GETUPVAL R22 6
-  GETTABLEKS R21 R22 K34 ["displayStringFromMoney"]
-  MOVE R22 R11
-  CALL R21 1 1
-  JUMP [+1]
-  LOADK R21 K15 [""]
-  SETTABLEKS R21 R20 K32 ["price"]
-  NAMECALL R16 R1 K25 ["getText"]
-  CALL R16 4 1
-  SETTABLEKS R16 R15 K18 ["Description"]
-  LOADK R18 K23 ["Purchase"]
-  LOADK R19 K35 ["FailedHeader"]
-  NAMECALL R16 R1 K25 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K19 ["Header"]
-  GETTABLEKS R17 R0 K27 ["dialog"]
-  GETTABLEKS R16 R17 K28 ["errorIcon"]
-  SETTABLEKS R16 R15 K20 ["Image"]
-  SETTABLEKS R5 R15 K21 ["OnClose"]
-  CALL R13 2 -1
-  RETURN R13 -1
-  GETUPVAL R14 8
-  GETTABLEKS R13 R14 K36 ["PurchaseFailed"]
-  JUMPIFNOTEQ R7 R13 [+33]
-  GETUPVAL R14 4
-  GETTABLEKS R13 R14 K17 ["createElement"]
-  GETUPVAL R14 9
-  DUPTABLE R15 K22 [{"Description", "Header", "Image", "OnClose"}]
-  LOADK R18 K23 ["Purchase"]
-  LOADK R19 K37 ["FailedDetails"]
-  DUPTABLE R20 K38 [{"name"}]
-  SETTABLEKS R12 R20 K31 ["name"]
-  NAMECALL R16 R1 K25 ["getText"]
-  CALL R16 4 1
-  SETTABLEKS R16 R15 K18 ["Description"]
-  LOADK R18 K23 ["Purchase"]
-  LOADK R19 K35 ["FailedHeader"]
-  NAMECALL R16 R1 K25 ["getText"]
-  CALL R16 3 1
-  SETTABLEKS R16 R15 K19 ["Header"]
-  GETTABLEKS R17 R0 K27 ["dialog"]
-  GETTABLEKS R16 R17 K28 ["errorIcon"]
-  SETTABLEKS R16 R15 K20 ["Image"]
-  SETTABLEKS R5 R15 K21 ["OnClose"]
-  CALL R13 2 -1
-  RETURN R13 -1
-  GETUPVAL R14 8
-  GETTABLEKS R13 R14 K39 ["PurchaseSuccess"]
-  JUMPIFNOTEQ R7 R13 [+64]
-  JUMPIFNOT R11 [+47]
-  JUMPIFNOT R10 [+6]
-  LOADK R15 K23 ["Purchase"]
-  LOADK R16 K40 ["FreeTitle"]
-  NAMECALL R13 R1 K25 ["getText"]
-  CALL R13 3 1
-  JUMP [+5]
-  LOADK R15 K23 ["Purchase"]
-  LOADK R16 K41 ["BuyTitle"]
-  NAMECALL R13 R1 K25 ["getText"]
-  CALL R13 3 1
-  JUMPIFNOT R10 [+6]
-  LOADK R16 K23 ["Purchase"]
-  LOADK R17 K42 ["FreeSuccessHeader"]
-  NAMECALL R14 R1 K25 ["getText"]
-  CALL R14 3 1
-  JUMP [+5]
-  LOADK R16 K23 ["Purchase"]
-  LOADK R17 K43 ["SuccessHeader"]
-  NAMECALL R14 R1 K25 ["getText"]
-  CALL R14 3 1
-  GETUPVAL R16 4
-  GETTABLEKS R15 R16 K17 ["createElement"]
-  GETUPVAL R16 9
-  DUPTABLE R17 K45 [{"Description", "Header", "OnClose", "Title"}]
-  LOADK R20 K23 ["Purchase"]
-  LOADK R21 K46 ["SuccessDetails"]
-  DUPTABLE R22 K38 [{"name"}]
-  SETTABLEKS R12 R22 K31 ["name"]
-  NAMECALL R18 R1 K25 ["getText"]
-  CALL R18 4 1
-  SETTABLEKS R18 R17 K18 ["Description"]
-  SETTABLEKS R14 R17 K19 ["Header"]
-  SETTABLEKS R5 R17 K21 ["OnClose"]
-  SETTABLEKS R13 R17 K44 ["Title"]
-  CALL R15 2 -1
-  RETURN R15 -1
-  GETUPVAL R14 4
-  GETTABLEKS R13 R14 K17 ["createElement"]
-  GETUPVAL R14 10
-  DUPTABLE R15 K49 [{"Balance", "IsFree", "Name", "OnClose"}]
-  SETTABLEKS R4 R15 K47 ["Balance"]
-  SETTABLEKS R10 R15 K48 ["IsFree"]
-  SETTABLEKS R12 R15 K14 ["Name"]
-  SETTABLEKS R5 R15 K21 ["OnClose"]
-  CALL R13 2 -1
-  RETURN R13 -1
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["use"]
+        3 CALL                             R0 1 1
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R1 R2 K1 ["Localization"]
+        7 NAMECALL                         R1 R1 K0 ["use"]
+        9 CALL                             R1 1 1
+       10 GETUPVAL                         R2 2
+       11 CALL                             R2 0 1
+       12 GETUPVAL                         R3 3
+       13 DUPCLOSURE                       R4 K2 [PROTO_0]
+       14 CALL                             R3 1 1
+       15 GETUPVAL                         R4 3
+       16 DUPCLOSURE                       R5 K3 [PROTO_1]
+       17 CALL                             R4 1 1
+       18 GETUPVAL                         R6 4
+       19 GETTABLEKS                       R5 R6 K4 ["useCallback"]
+       21 NEWCLOSURE                       R6 P2
+       22 CAPTURE                          VAL R2
+       23 CAPTURE                          UPVAL U5
+       24 NEWTABLE                         R7 0 1
+       26 MOVE                             R8 R2
+       27 SETLIST                          R7 R8 1 [1]
+       29 CALL                             R5 2 1
+       30 JUMPIF                           R3 ; [+1]
+       31 RETURN                           R0 0
+       32 GETTABLEKS                       R6 R3 K5 ["assetData"]
+       34 GETTABLEKS                       R7 R3 K6 ["status"]
+       36 JUMPIFNOT                        R6 ; [+3]
+       37 GETTABLEKS                       R8 R6 K7 ["Asset"]
+       39 JUMP                             ; [+1]
+       40 LOADNIL                          R8
+       41 JUMPIFNOT                        R6 ; [+3]
+       42 GETTABLEKS                       R9 R6 K8 ["FiatProduct"]
+       44 JUMP                             ; [+1]
+       45 LOADNIL                          R9
+       46 LOADNIL                          R10
+       47 LOADNIL                          R11
+       48 JUMPIFNOT                        R9 ; [+14]
+       49 MOVE                             R12 R9
+       50 JUMPIFNOT                        R12 ; [+2]
+       51 GETTABLEKS                       R12 R9 K9 ["PurchasePrice"]
+       53 MOVE                             R11 R12
+       54 MOVE                             R12 R9
+       55 JUMPIFNOT                        R12 ; [+5]
+       56 GETUPVAL                         R13 6
+       57 GETTABLEKS                       R12 R13 K10 ["isFree"]
+       59 MOVE                             R13 R11
+       60 CALL                             R12 1 1
+       61 MOVE                             R10 R12
+       62 JUMP                             ; [+17]
+       63 GETUPVAL                         R12 7
+       64 CALL                             R12 0 1
+       65 JUMPIF                           R12 ; [+14]
+       66 JUMPIFNOT                        R6 ; [+13]
+       67 GETTABLEKS                       R13 R6 K11 ["Product"]
+       69 JUMPIFNOT                        R13 ; [+5]
+       70 GETTABLEKS                       R13 R6 K11 ["Product"]
+       72 GETTABLEKS                       R12 R13 K12 ["Price"]
+       74 JUMPIF                           R12 ; [+1]
+       75 LOADN                            R12 0
+       76 JUMPIFEQKN                       R12 K13 [0] ; [+2]
+       78 LOADB                            R10 0 +1
+       79 LOADB                            R10 1
+       80 JUMPIFNOT                        R8 ; [+3]
+       81 GETTABLEKS                       R12 R8 K14 ["Name"]
+       83 JUMP                             ; [+1]
+       84 LOADK                            R12 K15 [""]
+       85 GETUPVAL                         R14 8
+       86 GETTABLEKS                       R13 R14 K16 ["ExcessiveTransactions"]
+       88 JUMPIFNOTEQ                      R7 R13 ; [+30]
+       90 GETUPVAL                         R14 4
+       91 GETTABLEKS                       R13 R14 K17 ["createElement"]
+       93 GETUPVAL                         R14 9
+       94 DUPTABLE                         R15 K22 [{"Description", "Header", "Image", "OnClose"}]
+       95 LOADK                            R18 K23 ["Purchase"]
+       96 LOADK                            R19 K24 ["ExcessiveTransactionsDetails"]
+       97 NAMECALL                         R16 R1 K25 ["getText"]
+       99 CALL                             R16 3 1
+      100 SETTABLEKS                       R16 R15 K18 ["Description"]
+      102 LOADK                            R18 K23 ["Purchase"]
+      103 LOADK                            R19 K26 ["ExcessiveTransactionsHeader"]
+      104 NAMECALL                         R16 R1 K25 ["getText"]
+      106 CALL                             R16 3 1
+      107 SETTABLEKS                       R16 R15 K19 ["Header"]
+      109 GETTABLEKS                       R17 R0 K27 ["dialog"]
+      111 GETTABLEKS                       R16 R17 K28 ["errorIcon"]
+      113 SETTABLEKS                       R16 R15 K20 ["Image"]
+      115 SETTABLEKS                       R5 R15 K21 ["OnClose"]
+      117 CALL                             R13 2 -1
+      118 RETURN                           R13 -1
+      119 GETUPVAL                         R14 8
+      120 GETTABLEKS                       R13 R14 K29 ["PriceChanged"]
+      122 JUMPIFNOTEQ                      R7 R13 ; [+43]
+      124 GETUPVAL                         R14 4
+      125 GETTABLEKS                       R13 R14 K17 ["createElement"]
+      127 GETUPVAL                         R14 9
+      128 DUPTABLE                         R15 K22 [{"Description", "Header", "Image", "OnClose"}]
+      129 LOADK                            R18 K23 ["Purchase"]
+      130 LOADK                            R19 K30 ["PriceChangedDetails"]
+      131 DUPTABLE                         R20 K33 [{"name", "price"}]
+      132 SETTABLEKS                       R12 R20 K31 ["name"]
+      134 JUMPIFNOT                        R11 ; [+6]
+      135 GETUPVAL                         R22 6
+      136 GETTABLEKS                       R21 R22 K34 ["displayStringFromMoney"]
+      138 MOVE                             R22 R11
+      139 CALL                             R21 1 1
+      140 JUMP                             ; [+1]
+      141 LOADK                            R21 K15 [""]
+      142 SETTABLEKS                       R21 R20 K32 ["price"]
+      144 NAMECALL                         R16 R1 K25 ["getText"]
+      146 CALL                             R16 4 1
+      147 SETTABLEKS                       R16 R15 K18 ["Description"]
+      149 LOADK                            R18 K23 ["Purchase"]
+      150 LOADK                            R19 K35 ["FailedHeader"]
+      151 NAMECALL                         R16 R1 K25 ["getText"]
+      153 CALL                             R16 3 1
+      154 SETTABLEKS                       R16 R15 K19 ["Header"]
+      156 GETTABLEKS                       R17 R0 K27 ["dialog"]
+      158 GETTABLEKS                       R16 R17 K28 ["errorIcon"]
+      160 SETTABLEKS                       R16 R15 K20 ["Image"]
+      162 SETTABLEKS                       R5 R15 K21 ["OnClose"]
+      164 CALL                             R13 2 -1
+      165 RETURN                           R13 -1
+      166 GETUPVAL                         R14 8
+      167 GETTABLEKS                       R13 R14 K36 ["PurchaseFailed"]
+      169 JUMPIFNOTEQ                      R7 R13 ; [+33]
+      171 GETUPVAL                         R14 4
+      172 GETTABLEKS                       R13 R14 K17 ["createElement"]
+      174 GETUPVAL                         R14 9
+      175 DUPTABLE                         R15 K22 [{"Description", "Header", "Image", "OnClose"}]
+      176 LOADK                            R18 K23 ["Purchase"]
+      177 LOADK                            R19 K37 ["FailedDetails"]
+      178 DUPTABLE                         R20 K38 [{"name"}]
+      179 SETTABLEKS                       R12 R20 K31 ["name"]
+      181 NAMECALL                         R16 R1 K25 ["getText"]
+      183 CALL                             R16 4 1
+      184 SETTABLEKS                       R16 R15 K18 ["Description"]
+      186 LOADK                            R18 K23 ["Purchase"]
+      187 LOADK                            R19 K35 ["FailedHeader"]
+      188 NAMECALL                         R16 R1 K25 ["getText"]
+      190 CALL                             R16 3 1
+      191 SETTABLEKS                       R16 R15 K19 ["Header"]
+      193 GETTABLEKS                       R17 R0 K27 ["dialog"]
+      195 GETTABLEKS                       R16 R17 K28 ["errorIcon"]
+      197 SETTABLEKS                       R16 R15 K20 ["Image"]
+      199 SETTABLEKS                       R5 R15 K21 ["OnClose"]
+      201 CALL                             R13 2 -1
+      202 RETURN                           R13 -1
+      203 GETUPVAL                         R14 8
+      204 GETTABLEKS                       R13 R14 K39 ["PurchaseSuccess"]
+      206 JUMPIFNOTEQ                      R7 R13 ; [+64]
+      208 JUMPIFNOT                        R11 ; [+47]
+      209 JUMPIFNOT                        R10 ; [+6]
+      210 LOADK                            R15 K23 ["Purchase"]
+      211 LOADK                            R16 K40 ["FreeTitle"]
+      212 NAMECALL                         R13 R1 K25 ["getText"]
+      214 CALL                             R13 3 1
+      215 JUMP                             ; [+5]
+      216 LOADK                            R15 K23 ["Purchase"]
+      217 LOADK                            R16 K41 ["BuyTitle"]
+      218 NAMECALL                         R13 R1 K25 ["getText"]
+      220 CALL                             R13 3 1
+      221 JUMPIFNOT                        R10 ; [+6]
+      222 LOADK                            R16 K23 ["Purchase"]
+      223 LOADK                            R17 K42 ["FreeSuccessHeader"]
+      224 NAMECALL                         R14 R1 K25 ["getText"]
+      226 CALL                             R14 3 1
+      227 JUMP                             ; [+5]
+      228 LOADK                            R16 K23 ["Purchase"]
+      229 LOADK                            R17 K43 ["SuccessHeader"]
+      230 NAMECALL                         R14 R1 K25 ["getText"]
+      232 CALL                             R14 3 1
+      233 GETUPVAL                         R16 4
+      234 GETTABLEKS                       R15 R16 K17 ["createElement"]
+      236 GETUPVAL                         R16 9
+      237 DUPTABLE                         R17 K45 [{"Description", "Header", "OnClose", "Title"}]
+      238 LOADK                            R20 K23 ["Purchase"]
+      239 LOADK                            R21 K46 ["SuccessDetails"]
+      240 DUPTABLE                         R22 K38 [{"name"}]
+      241 SETTABLEKS                       R12 R22 K31 ["name"]
+      243 NAMECALL                         R18 R1 K25 ["getText"]
+      245 CALL                             R18 4 1
+      246 SETTABLEKS                       R18 R17 K18 ["Description"]
+      248 SETTABLEKS                       R14 R17 K19 ["Header"]
+      250 SETTABLEKS                       R5 R17 K21 ["OnClose"]
+      252 SETTABLEKS                       R13 R17 K44 ["Title"]
+      254 CALL                             R15 2 -1
+      255 RETURN                           R15 -1
+      256 GETUPVAL                         R14 4
+      257 GETTABLEKS                       R13 R14 K17 ["createElement"]
+      259 GETUPVAL                         R14 10
+      260 DUPTABLE                         R15 K49 [{"Balance", "IsFree", "Name", "OnClose"}]
+      261 SETTABLEKS                       R4 R15 K47 ["Balance"]
+      263 SETTABLEKS                       R10 R15 K48 ["IsFree"]
+      265 SETTABLEKS                       R12 R15 K14 ["Name"]
+      267 SETTABLEKS                       R5 R15 K21 ["OnClose"]
+      269 CALL                             R13 2 -1
+      270 RETURN                           R13 -1
+      271 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["Toolbox"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETTABLEKS R1 R0 K4 ["Packages"]
-  GETIMPORT R2 K6 [require]
-  GETTABLEKS R6 R0 K7 ["Src"]
-  GETTABLEKS R5 R6 K8 ["Util"]
-  GETTABLEKS R4 R5 K9 ["SharedFlags"]
-  GETTABLEKS R3 R4 K10 ["getFFlagToolboxRemoveRobuxProductEntirely"]
-  CALL R2 1 1
-  GETIMPORT R3 K6 [require]
-  GETTABLEKS R5 R0 K4 ["Packages"]
-  GETTABLEKS R4 R5 K11 ["React"]
-  CALL R3 1 1
-  GETIMPORT R4 K6 [require]
-  GETTABLEKS R7 R0 K7 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Hooks"]
-  GETTABLEKS R5 R6 K13 ["useDispatch"]
-  CALL R4 1 1
-  GETIMPORT R5 K6 [require]
-  GETTABLEKS R8 R0 K7 ["Src"]
-  GETTABLEKS R7 R8 K12 ["Hooks"]
-  GETTABLEKS R6 R7 K14 ["useSelector"]
-  CALL R5 1 1
-  GETIMPORT R6 K6 [require]
-  GETTABLEKS R10 R0 K7 ["Src"]
-  GETTABLEKS R9 R10 K15 ["Components"]
-  GETTABLEKS R8 R9 K16 ["PurchaseFlow"]
-  GETTABLEKS R7 R8 K17 ["GenericDialog"]
-  CALL R6 1 1
-  GETIMPORT R7 K6 [require]
-  GETTABLEKS R11 R0 K7 ["Src"]
-  GETTABLEKS R10 R11 K15 ["Components"]
-  GETTABLEKS R9 R10 K16 ["PurchaseFlow"]
-  GETTABLEKS R8 R9 K18 ["PurchaseSuccessDialog"]
-  CALL R7 1 1
-  GETIMPORT R8 K6 [require]
-  GETTABLEKS R11 R0 K7 ["Src"]
-  GETTABLEKS R10 R11 K8 ["Util"]
-  GETTABLEKS R9 R10 K19 ["FiatUtil"]
-  CALL R8 1 1
-  GETIMPORT R9 K6 [require]
-  GETTABLEKS R12 R0 K7 ["Src"]
-  GETTABLEKS R11 R12 K8 ["Util"]
-  GETTABLEKS R10 R11 K20 ["Images"]
-  CALL R9 1 1
-  GETIMPORT R10 K6 [require]
-  GETTABLEKS R13 R0 K7 ["Src"]
-  GETTABLEKS R12 R13 K8 ["Util"]
-  GETTABLEKS R11 R12 K21 ["Urls"]
-  CALL R10 1 1
-  GETIMPORT R11 K6 [require]
-  GETTABLEKS R12 R1 K22 ["Framework"]
-  CALL R11 1 1
-  GETTABLEKS R12 R11 K23 ["ContextServices"]
-  GETTABLEKS R13 R12 K24 ["Stylizer"]
-  GETTABLEKS R14 R12 K25 ["withContext"]
-  GETIMPORT R15 K6 [require]
-  GETTABLEKS R18 R0 K7 ["Src"]
-  GETTABLEKS R17 R18 K23 ["ContextServices"]
-  GETTABLEKS R16 R17 K26 ["NetworkContext"]
-  CALL R15 1 1
-  GETIMPORT R16 K6 [require]
-  GETTABLEKS R19 R0 K7 ["Src"]
-  GETTABLEKS R18 R19 K27 ["Types"]
-  GETTABLEKS R17 R18 K28 ["SubsequentDialogStatus"]
-  CALL R16 1 1
-  GETTABLEKS R18 R0 K7 ["Src"]
-  GETTABLEKS R17 R18 K29 ["Actions"]
-  GETIMPORT R18 K6 [require]
-  GETTABLEKS R19 R17 K30 ["DequeueSubsequentDialog"]
-  CALL R18 1 1
-  DUPCLOSURE R19 K31 [PROTO_3]
-  CAPTURE VAL R13
-  CAPTURE VAL R12
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R3
-  CAPTURE VAL R18
-  CAPTURE VAL R8
-  CAPTURE VAL R2
-  CAPTURE VAL R16
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  RETURN R19 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Toolbox"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R1 R0 K4 ["Packages"]
+        9 GETIMPORT                        R2 K6 [require]
+       11 GETTABLEKS                       R6 R0 K7 ["Src"]
+       13 GETTABLEKS                       R5 R6 K8 ["Util"]
+       15 GETTABLEKS                       R4 R5 K9 ["SharedFlags"]
+       17 GETTABLEKS                       R3 R4 K10 ["getFFlagToolboxRemoveRobuxProductEntirely"]
+       19 CALL                             R2 1 1
+       20 GETIMPORT                        R3 K6 [require]
+       22 GETTABLEKS                       R5 R0 K4 ["Packages"]
+       24 GETTABLEKS                       R4 R5 K11 ["React"]
+       26 CALL                             R3 1 1
+       27 GETIMPORT                        R4 K6 [require]
+       29 GETTABLEKS                       R7 R0 K7 ["Src"]
+       31 GETTABLEKS                       R6 R7 K12 ["Hooks"]
+       33 GETTABLEKS                       R5 R6 K13 ["useDispatch"]
+       35 CALL                             R4 1 1
+       36 GETIMPORT                        R5 K6 [require]
+       38 GETTABLEKS                       R8 R0 K7 ["Src"]
+       40 GETTABLEKS                       R7 R8 K12 ["Hooks"]
+       42 GETTABLEKS                       R6 R7 K14 ["useSelector"]
+       44 CALL                             R5 1 1
+       45 GETIMPORT                        R6 K6 [require]
+       47 GETTABLEKS                       R10 R0 K7 ["Src"]
+       49 GETTABLEKS                       R9 R10 K15 ["Components"]
+       51 GETTABLEKS                       R8 R9 K16 ["PurchaseFlow"]
+       53 GETTABLEKS                       R7 R8 K17 ["GenericDialog"]
+       55 CALL                             R6 1 1
+       56 GETIMPORT                        R7 K6 [require]
+       58 GETTABLEKS                       R11 R0 K7 ["Src"]
+       60 GETTABLEKS                       R10 R11 K15 ["Components"]
+       62 GETTABLEKS                       R9 R10 K16 ["PurchaseFlow"]
+       64 GETTABLEKS                       R8 R9 K18 ["PurchaseSuccessDialog"]
+       66 CALL                             R7 1 1
+       67 GETIMPORT                        R8 K6 [require]
+       69 GETTABLEKS                       R11 R0 K7 ["Src"]
+       71 GETTABLEKS                       R10 R11 K8 ["Util"]
+       73 GETTABLEKS                       R9 R10 K19 ["FiatUtil"]
+       75 CALL                             R8 1 1
+       76 GETIMPORT                        R9 K6 [require]
+       78 GETTABLEKS                       R12 R0 K7 ["Src"]
+       80 GETTABLEKS                       R11 R12 K8 ["Util"]
+       82 GETTABLEKS                       R10 R11 K20 ["Images"]
+       84 CALL                             R9 1 1
+       85 GETIMPORT                        R10 K6 [require]
+       87 GETTABLEKS                       R13 R0 K7 ["Src"]
+       89 GETTABLEKS                       R12 R13 K8 ["Util"]
+       91 GETTABLEKS                       R11 R12 K21 ["Urls"]
+       93 CALL                             R10 1 1
+       94 GETIMPORT                        R11 K6 [require]
+       96 GETTABLEKS                       R12 R1 K22 ["Framework"]
+       98 CALL                             R11 1 1
+       99 GETTABLEKS                       R12 R11 K23 ["ContextServices"]
+      101 GETTABLEKS                       R13 R12 K24 ["Stylizer"]
+      103 GETTABLEKS                       R14 R12 K25 ["withContext"]
+      105 GETIMPORT                        R15 K6 [require]
+      107 GETTABLEKS                       R18 R0 K7 ["Src"]
+      109 GETTABLEKS                       R17 R18 K23 ["ContextServices"]
+      111 GETTABLEKS                       R16 R17 K26 ["NetworkContext"]
+      113 CALL                             R15 1 1
+      114 GETIMPORT                        R16 K6 [require]
+      116 GETTABLEKS                       R19 R0 K7 ["Src"]
+      118 GETTABLEKS                       R18 R19 K27 ["Types"]
+      120 GETTABLEKS                       R17 R18 K28 ["SubsequentDialogStatus"]
+      122 CALL                             R16 1 1
+      123 GETTABLEKS                       R18 R0 K7 ["Src"]
+      125 GETTABLEKS                       R17 R18 K29 ["Actions"]
+      127 GETIMPORT                        R18 K6 [require]
+      129 GETTABLEKS                       R19 R17 K30 ["DequeueSubsequentDialog"]
+      131 CALL                             R18 1 1
+      132 DUPCLOSURE                       R19 K31 [PROTO_3]
+      133 CAPTURE                          VAL R13
+      134 CAPTURE                          VAL R12
+      135 CAPTURE                          VAL R4
+      136 CAPTURE                          VAL R5
+      137 CAPTURE                          VAL R3
+      138 CAPTURE                          VAL R18
+      139 CAPTURE                          VAL R8
+      140 CAPTURE                          VAL R2
+      141 CAPTURE                          VAL R16
+      142 CAPTURE                          VAL R6
+      143 CAPTURE                          VAL R7
+      144 RETURN                           R19 1

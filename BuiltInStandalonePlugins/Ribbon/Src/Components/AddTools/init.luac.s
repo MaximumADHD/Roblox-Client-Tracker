@@ -1,243 +1,243 @@
 PROTO_0:
-  GETUPVAL R0 0
-  JUMPIF R0 [+5]
-  GETIMPORT R0 K1 [warn]
-  LOADK R1 K2 ["Unknown active tab, cannot insert Separator"]
-  CALL R0 1 0
-  RETURN R0 0
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K3 ["AddControlsToTab"]
-  GETUPVAL R1 0
-  NEWTABLE R2 0 1
-  GETIMPORT R3 K6 [table.clone]
-  GETUPVAL R4 2
-  CALL R3 1 1
-  SETLIST R2 R3 1 [1]
-  CALL R0 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIF                           R0 ; [+5]
+        2 GETIMPORT                        R0 K1 [warn]
+        4 LOADK                            R1 K2 ["Unknown active tab, cannot insert Separator"]
+        5 CALL                             R0 1 0
+        6 RETURN                           R0 0
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R0 R1 K3 ["AddControlsToTab"]
+       10 GETUPVAL                         R1 0
+       11 NEWTABLE                         R2 0 1
+       13 GETIMPORT                        R3 K6 [table.clone]
+       15 GETUPVAL                         R4 2
+       16 CALL                             R3 1 1
+       17 SETLIST                          R2 R3 1 [1]
+       19 CALL                             R0 2 0
+       20 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["current"]
-  JUMPIFNOT R1 [+5]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["current"]
-  SETTABLEKS R0 R1 K1 ["Enabled"]
-  GETUPVAL R1 1
-  MOVE R2 R0
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["current"]
+        3 JUMPIFNOT                        R1 ; [+5]
+        4 GETUPVAL                         R2 0
+        5 GETTABLEKS                       R1 R2 K0 ["current"]
+        7 SETTABLEKS                       R0 R1 K1 ["Enabled"]
+        9 GETUPVAL                         R1 1
+       10 MOVE                             R2 R0
+       11 CALL                             R1 1 0
+       12 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R0 0
-  LOADNIL R1
-  LOADNIL R2
-  FORGPREP R0
-  NAMECALL R5 R4 K0 ["Disconnect"]
-  CALL R5 1 0
-  FORGLOOP R0 2 [-4]
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 LOADNIL                          R1
+        2 LOADNIL                          R2
+        3 FORGPREP                         R0
+        4 NAMECALL                         R5 R4 K0 ["Disconnect"]
+        6 CALL                             R5 1 0
+        7 FORGLOOP                         R0 2 ; [-4]
+        9 RETURN                           R0 0
 
 PROTO_3:
-  NEWCLOSURE R0 P0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  GETUPVAL R1 2
-  GETUPVAL R2 3
-  GETUPVAL R3 4
-  MOVE R4 R0
-  GETUPVAL R5 5
-  CALL R1 4 1
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["current"]
-  JUMPIF R2 [+13]
-  GETUPVAL R2 0
-  GETUPVAL R3 6
-  GETUPVAL R4 3
-  LOADK R6 K1 ["Plugin"]
-  LOADK R7 K2 ["AddTools_Title"]
-  NAMECALL R4 R4 K3 ["getText"]
-  CALL R4 3 1
-  GETUPVAL R5 4
-  MOVE R6 R0
-  CALL R3 3 1
-  SETTABLEKS R3 R2 K0 ["current"]
-  NEWCLOSURE R2 P1
-  CAPTURE VAL R1
-  RETURN R2 1
+        0 NEWCLOSURE                       R0 P0
+        1 CAPTURE                          UPVAL U0
+        2 CAPTURE                          UPVAL U1
+        3 GETUPVAL                         R1 2
+        4 GETUPVAL                         R2 3
+        5 GETUPVAL                         R3 4
+        6 MOVE                             R4 R0
+        7 GETUPVAL                         R5 5
+        8 CALL                             R1 4 1
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R2 R3 K0 ["current"]
+       12 JUMPIF                           R2 ; [+13]
+       13 GETUPVAL                         R2 0
+       14 GETUPVAL                         R3 6
+       15 GETUPVAL                         R4 3
+       16 LOADK                            R6 K1 ["Plugin"]
+       17 LOADK                            R7 K2 ["AddTools_Title"]
+       18 NAMECALL                         R4 R4 K3 ["getText"]
+       20 CALL                             R4 3 1
+       21 GETUPVAL                         R5 4
+       22 MOVE                             R6 R0
+       23 CALL                             R3 3 1
+       24 SETTABLEKS                       R3 R2 K0 ["current"]
+       26 NEWCLOSURE                       R2 P1
+       27 CAPTURE                          VAL R1
+       28 RETURN                           R2 1
 
 PROTO_4:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  GETUPVAL R2 1
-  GETUPVAL R3 2
-  CALL R2 1 1
-  GETUPVAL R3 3
-  NAMECALL R3 R3 K0 ["use"]
-  CALL R3 1 1
-  GETUPVAL R5 4
-  GETTABLEKS R4 R5 K0 ["use"]
-  CALL R4 0 1
-  NAMECALL R4 R4 K1 ["get"]
-  CALL R4 1 1
-  GETUPVAL R6 5
-  GETTABLEKS R5 R6 K0 ["use"]
-  CALL R5 0 1
-  NAMECALL R5 R5 K1 ["get"]
-  CALL R5 1 1
-  GETUPVAL R6 6
-  LOADB R7 0
-  CALL R6 1 2
-  GETUPVAL R8 7
-  LOADNIL R9
-  CALL R8 1 1
-  GETUPVAL R9 8
-  NEWCLOSURE R10 P0
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  CAPTURE UPVAL U9
-  NEWTABLE R11 0 2
-  MOVE R12 R1
-  GETTABLEKS R13 R2 K2 ["AddControlsToTab"]
-  SETLIST R11 R12 2 [1]
-  CALL R9 2 1
-  GETUPVAL R10 10
-  NEWCLOSURE R11 P1
-  CAPTURE VAL R8
-  CAPTURE VAL R7
-  CAPTURE UPVAL U11
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  CAPTURE VAL R9
-  CAPTURE UPVAL U12
-  NEWTABLE R12 0 2
-  MOVE R13 R4
-  MOVE R14 R9
-  SETLIST R12 R13 2 [1]
-  CALL R10 2 0
-  JUMPIFNOT R6 [+53]
-  GETTABLEKS R11 R8 K3 ["current"]
-  JUMPIFNOT R11 [+50]
-  GETUPVAL R11 13
-  GETTABLEKS R10 R11 K4 ["createPortal"]
-  GETUPVAL R11 14
-  LOADK R12 K5 ["Frame"]
-  NEWTABLE R13 4 0
-  LOADN R14 1
-  SETTABLEKS R14 R13 K6 ["BackgroundTransparency"]
-  GETIMPORT R14 K9 [UDim2.fromScale]
-  LOADN R15 1
-  LOADN R16 1
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K10 ["Size"]
-  GETUPVAL R15 15
-  GETTABLEKS R14 R15 K11 ["Tag"]
-  LOADK R15 K12 ["X-Pad150"]
-  SETTABLE R15 R13 R14
-  DUPTABLE R14 K15 [{"View", "StyleLink"}]
-  GETUPVAL R15 14
-  GETUPVAL R16 16
-  DUPTABLE R17 K19 [{"AddSeparator", "ActiveTabIdentifier", "CustomTools"}]
-  SETTABLEKS R9 R17 K16 ["AddSeparator"]
-  SETTABLEKS R1 R17 K17 ["ActiveTabIdentifier"]
-  GETTABLEKS R18 R0 K18 ["CustomTools"]
-  SETTABLEKS R18 R17 K18 ["CustomTools"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K13 ["View"]
-  GETUPVAL R15 14
-  LOADK R16 K14 ["StyleLink"]
-  DUPTABLE R17 K21 [{"StyleSheet"}]
-  SETTABLEKS R5 R17 K20 ["StyleSheet"]
-  CALL R15 2 1
-  SETTABLEKS R15 R14 K14 ["StyleLink"]
-  CALL R11 3 1
-  GETTABLEKS R12 R8 K3 ["current"]
-  CALL R10 2 1
-  RETURN R10 1
-  LOADNIL R10
-  RETURN R10 1
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 GETUPVAL                         R2 1
+        3 GETUPVAL                         R3 2
+        4 CALL                             R2 1 1
+        5 GETUPVAL                         R3 3
+        6 NAMECALL                         R3 R3 K0 ["use"]
+        8 CALL                             R3 1 1
+        9 GETUPVAL                         R5 4
+       10 GETTABLEKS                       R4 R5 K0 ["use"]
+       12 CALL                             R4 0 1
+       13 NAMECALL                         R4 R4 K1 ["get"]
+       15 CALL                             R4 1 1
+       16 GETUPVAL                         R6 5
+       17 GETTABLEKS                       R5 R6 K0 ["use"]
+       19 CALL                             R5 0 1
+       20 NAMECALL                         R5 R5 K1 ["get"]
+       22 CALL                             R5 1 1
+       23 GETUPVAL                         R6 6
+       24 LOADB                            R7 0
+       25 CALL                             R6 1 2
+       26 GETUPVAL                         R8 7
+       27 LOADNIL                          R9
+       28 CALL                             R8 1 1
+       29 GETUPVAL                         R9 8
+       30 NEWCLOSURE                       R10 P0
+       31 CAPTURE                          VAL R1
+       32 CAPTURE                          VAL R2
+       33 CAPTURE                          UPVAL U9
+       34 NEWTABLE                         R11 0 2
+       36 MOVE                             R12 R1
+       37 GETTABLEKS                       R13 R2 K2 ["AddControlsToTab"]
+       39 SETLIST                          R11 R12 2 [1]
+       41 CALL                             R9 2 1
+       42 GETUPVAL                         R10 10
+       43 NEWCLOSURE                       R11 P1
+       44 CAPTURE                          VAL R8
+       45 CAPTURE                          VAL R7
+       46 CAPTURE                          UPVAL U11
+       47 CAPTURE                          VAL R3
+       48 CAPTURE                          VAL R4
+       49 CAPTURE                          VAL R9
+       50 CAPTURE                          UPVAL U12
+       51 NEWTABLE                         R12 0 2
+       53 MOVE                             R13 R4
+       54 MOVE                             R14 R9
+       55 SETLIST                          R12 R13 2 [1]
+       57 CALL                             R10 2 0
+       58 JUMPIFNOT                        R6 ; [+53]
+       59 GETTABLEKS                       R11 R8 K3 ["current"]
+       61 JUMPIFNOT                        R11 ; [+50]
+       62 GETUPVAL                         R11 13
+       63 GETTABLEKS                       R10 R11 K4 ["createPortal"]
+       65 GETUPVAL                         R11 14
+       66 LOADK                            R12 K5 ["Frame"]
+       67 NEWTABLE                         R13 4 0
+       69 LOADN                            R14 1
+       70 SETTABLEKS                       R14 R13 K6 ["BackgroundTransparency"]
+       72 GETIMPORT                        R14 K9 [UDim2.fromScale]
+       74 LOADN                            R15 1
+       75 LOADN                            R16 1
+       76 CALL                             R14 2 1
+       77 SETTABLEKS                       R14 R13 K10 ["Size"]
+       79 GETUPVAL                         R15 15
+       80 GETTABLEKS                       R14 R15 K11 ["Tag"]
+       82 LOADK                            R15 K12 ["X-Pad150"]
+       83 SETTABLE                         R15 R13 R14
+       84 DUPTABLE                         R14 K15 [{"View", "StyleLink"}]
+       85 GETUPVAL                         R15 14
+       86 GETUPVAL                         R16 16
+       87 DUPTABLE                         R17 K19 [{"AddSeparator", "ActiveTabIdentifier", "CustomTools"}]
+       88 SETTABLEKS                       R9 R17 K16 ["AddSeparator"]
+       90 SETTABLEKS                       R1 R17 K17 ["ActiveTabIdentifier"]
+       92 GETTABLEKS                       R18 R0 K18 ["CustomTools"]
+       94 SETTABLEKS                       R18 R17 K18 ["CustomTools"]
+       96 CALL                             R15 2 1
+       97 SETTABLEKS                       R15 R14 K13 ["View"]
+       99 GETUPVAL                         R15 14
+      100 LOADK                            R16 K14 ["StyleLink"]
+      101 DUPTABLE                         R17 K21 [{"StyleSheet"}]
+      102 SETTABLEKS                       R5 R17 K20 ["StyleSheet"]
+      104 CALL                             R15 2 1
+      105 SETTABLEKS                       R15 R14 K14 ["StyleLink"]
+      107 CALL                             R11 3 1
+      108 GETTABLEKS                       R12 R8 K3 ["current"]
+      110 CALL                             R10 2 1
+      111 RETURN                           R10 1
+      112 LOADNIL                          R10
+      113 RETURN                           R10 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["Ribbon"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["ReactRoblox"]
-  CALL R2 1 1
-  GETTABLEKS R3 R1 K9 ["createElement"]
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K10 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Hooks"]
-  GETTABLEKS R5 R6 K12 ["useActiveTabIdentifier"]
-  CALL R4 1 1
-  GETTABLEKS R5 R1 K13 ["useCallback"]
-  GETTABLEKS R6 R1 K14 ["useContext"]
-  GETTABLEKS R7 R1 K15 ["useEffect"]
-  GETTABLEKS R8 R1 K16 ["useRef"]
-  GETTABLEKS R9 R1 K17 ["useState"]
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R12 R0 K10 ["Src"]
-  GETTABLEKS R11 R12 K18 ["Types"]
-  CALL R10 1 1
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R13 R0 K6 ["Packages"]
-  GETTABLEKS R12 R13 K19 ["Framework"]
-  CALL R11 1 1
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R15 R0 K10 ["Src"]
-  GETTABLEKS R14 R15 K20 ["Contexts"]
-  GETTABLEKS R13 R14 K21 ["RibbonDefinition"]
-  CALL R12 1 1
-  GETIMPORT R13 K5 [require]
-  GETIMPORT R15 K1 [script]
-  GETTABLEKS R14 R15 K22 ["ToolTreeHelpers"]
-  CALL R13 1 1
-  GETTABLEKS R14 R11 K23 ["ContextServices"]
-  GETTABLEKS R15 R14 K24 ["Design"]
-  GETTABLEKS R16 R14 K25 ["Plugin"]
-  GETTABLEKS R17 R14 K26 ["Localization"]
-  GETIMPORT R18 K5 [require]
-  GETIMPORT R20 K1 [script]
-  GETTABLEKS R19 R20 K27 ["createActions"]
-  CALL R18 1 1
-  GETIMPORT R19 K5 [require]
-  GETIMPORT R21 K1 [script]
-  GETTABLEKS R20 R21 K28 ["createWidget"]
-  CALL R19 1 1
-  GETIMPORT R20 K31 [table.freeze]
-  DUPTABLE R21 K34 [{"Type", "Size"}]
-  LOADK R22 K35 ["Separator"]
-  SETTABLEKS R22 R21 K32 ["Type"]
-  LOADK R22 K36 ["Large"]
-  SETTABLEKS R22 R21 K33 ["Size"]
-  CALL R20 1 1
-  GETIMPORT R21 K5 [require]
-  GETIMPORT R23 K1 [script]
-  GETTABLEKS R22 R23 K37 ["AddToolsView"]
-  CALL R21 1 1
-  DUPCLOSURE R22 K38 [PROTO_4]
-  CAPTURE VAL R4
-  CAPTURE VAL R6
-  CAPTURE VAL R12
-  CAPTURE VAL R17
-  CAPTURE VAL R16
-  CAPTURE VAL R15
-  CAPTURE VAL R9
-  CAPTURE VAL R8
-  CAPTURE VAL R5
-  CAPTURE VAL R20
-  CAPTURE VAL R7
-  CAPTURE VAL R18
-  CAPTURE VAL R19
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  CAPTURE VAL R1
-  CAPTURE VAL R21
-  RETURN R22 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Ribbon"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["ReactRoblox"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R3 R1 K9 ["createElement"]
+       23 GETIMPORT                        R4 K5 [require]
+       25 GETTABLEKS                       R7 R0 K10 ["Src"]
+       27 GETTABLEKS                       R6 R7 K11 ["Hooks"]
+       29 GETTABLEKS                       R5 R6 K12 ["useActiveTabIdentifier"]
+       31 CALL                             R4 1 1
+       32 GETTABLEKS                       R5 R1 K13 ["useCallback"]
+       34 GETTABLEKS                       R6 R1 K14 ["useContext"]
+       36 GETTABLEKS                       R7 R1 K15 ["useEffect"]
+       38 GETTABLEKS                       R8 R1 K16 ["useRef"]
+       40 GETTABLEKS                       R9 R1 K17 ["useState"]
+       42 GETIMPORT                        R10 K5 [require]
+       44 GETTABLEKS                       R12 R0 K10 ["Src"]
+       46 GETTABLEKS                       R11 R12 K18 ["Types"]
+       48 CALL                             R10 1 1
+       49 GETIMPORT                        R11 K5 [require]
+       51 GETTABLEKS                       R13 R0 K6 ["Packages"]
+       53 GETTABLEKS                       R12 R13 K19 ["Framework"]
+       55 CALL                             R11 1 1
+       56 GETIMPORT                        R12 K5 [require]
+       58 GETTABLEKS                       R15 R0 K10 ["Src"]
+       60 GETTABLEKS                       R14 R15 K20 ["Contexts"]
+       62 GETTABLEKS                       R13 R14 K21 ["RibbonDefinition"]
+       64 CALL                             R12 1 1
+       65 GETIMPORT                        R13 K5 [require]
+       67 GETIMPORT                        R15 K1 [script]
+       69 GETTABLEKS                       R14 R15 K22 ["ToolTreeHelpers"]
+       71 CALL                             R13 1 1
+       72 GETTABLEKS                       R14 R11 K23 ["ContextServices"]
+       74 GETTABLEKS                       R15 R14 K24 ["Design"]
+       76 GETTABLEKS                       R16 R14 K25 ["Plugin"]
+       78 GETTABLEKS                       R17 R14 K26 ["Localization"]
+       80 GETIMPORT                        R18 K5 [require]
+       82 GETIMPORT                        R20 K1 [script]
+       84 GETTABLEKS                       R19 R20 K27 ["createActions"]
+       86 CALL                             R18 1 1
+       87 GETIMPORT                        R19 K5 [require]
+       89 GETIMPORT                        R21 K1 [script]
+       91 GETTABLEKS                       R20 R21 K28 ["createWidget"]
+       93 CALL                             R19 1 1
+       94 GETIMPORT                        R20 K31 [table.freeze]
+       96 DUPTABLE                         R21 K34 [{"Type", "Size"}]
+       97 LOADK                            R22 K35 ["Separator"]
+       98 SETTABLEKS                       R22 R21 K32 ["Type"]
+      100 LOADK                            R22 K36 ["Large"]
+      101 SETTABLEKS                       R22 R21 K33 ["Size"]
+      103 CALL                             R20 1 1
+      104 GETIMPORT                        R21 K5 [require]
+      106 GETIMPORT                        R23 K1 [script]
+      108 GETTABLEKS                       R22 R23 K37 ["AddToolsView"]
+      110 CALL                             R21 1 1
+      111 DUPCLOSURE                       R22 K38 [PROTO_4]
+      112 CAPTURE                          VAL R4
+      113 CAPTURE                          VAL R6
+      114 CAPTURE                          VAL R12
+      115 CAPTURE                          VAL R17
+      116 CAPTURE                          VAL R16
+      117 CAPTURE                          VAL R15
+      118 CAPTURE                          VAL R9
+      119 CAPTURE                          VAL R8
+      120 CAPTURE                          VAL R5
+      121 CAPTURE                          VAL R20
+      122 CAPTURE                          VAL R7
+      123 CAPTURE                          VAL R18
+      124 CAPTURE                          VAL R19
+      125 CAPTURE                          VAL R2
+      126 CAPTURE                          VAL R3
+      127 CAPTURE                          VAL R1
+      128 CAPTURE                          VAL R21
+      129 RETURN                           R22 1

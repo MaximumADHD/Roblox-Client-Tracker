@@ -1,102 +1,102 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["new"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K1 ["CrossPluginCommunicationName"]
-  CALL R1 1 1
-  SETTABLEKS R1 R0 K2 ["connection"]
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R2 R3 K1 ["CrossPluginCommunicationName"]
+        6 CALL                             R1 1 1
+        7 SETTABLEKS                       R1 R0 K2 ["connection"]
+        9 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["connection"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["CrossPluginCommunicationInstructions"]
-  GETTABLEKS R2 R3 K2 ["Open"]
-  NAMECALL R0 R0 K3 ["Fire"]
-  CALL R0 2 0
-  GETUPVAL R0 2
-  CALL R0 0 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["connection"]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R3 R4 K1 ["CrossPluginCommunicationInstructions"]
+        6 GETTABLEKS                       R2 R3 K2 ["Open"]
+        8 NAMECALL                         R0 R0 K3 ["Fire"]
+       10 CALL                             R0 2 0
+       11 GETUPVAL                         R0 2
+       12 CALL                             R0 0 0
+       13 RETURN                           R0 0
 
 PROTO_2:
-  GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R1 K1 ["OnClose"]
-  GETTABLEKS R3 R1 K2 ["Localization"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K3 ["provide"]
-  NEWTABLE R5 0 3
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K4 ["new"]
-  GETIMPORT R7 K6 [plugin]
-  CALL R6 1 1
-  GETUPVAL R7 2
-  CALL R7 0 1
-  MOVE R8 R3
-  SETLIST R5 R6 3 [1]
-  NEWTABLE R6 0 1
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K7 ["createElement"]
-  GETUPVAL R8 4
-  DUPTABLE R9 K9 [{"OnClose", "OnOpen"}]
-  SETTABLEKS R2 R9 K1 ["OnClose"]
-  NEWCLOSURE R10 P0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U5
-  CAPTURE VAL R2
-  SETTABLEKS R10 R9 K8 ["OnOpen"]
-  CALL R7 2 -1
-  SETLIST R6 R7 -1 [1]
-  CALL R4 2 -1
-  RETURN R4 -1
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R1 K1 ["OnClose"]
+        4 GETTABLEKS                       R3 R1 K2 ["Localization"]
+        6 GETUPVAL                         R5 0
+        7 GETTABLEKS                       R4 R5 K3 ["provide"]
+        9 NEWTABLE                         R5 0 3
+       11 GETUPVAL                         R7 1
+       12 GETTABLEKS                       R6 R7 K4 ["new"]
+       14 GETIMPORT                        R7 K6 [plugin]
+       16 CALL                             R6 1 1
+       17 GETUPVAL                         R7 2
+       18 CALL                             R7 0 1
+       19 MOVE                             R8 R3
+       20 SETLIST                          R5 R6 3 [1]
+       22 NEWTABLE                         R6 0 1
+       24 GETUPVAL                         R8 3
+       25 GETTABLEKS                       R7 R8 K7 ["createElement"]
+       27 GETUPVAL                         R8 4
+       28 DUPTABLE                         R9 K9 [{"OnClose", "OnOpen"}]
+       29 SETTABLEKS                       R2 R9 K1 ["OnClose"]
+       31 NEWCLOSURE                       R10 P0
+       32 CAPTURE                          VAL R0
+       33 CAPTURE                          UPVAL U5
+       34 CAPTURE                          VAL R2
+       35 SETTABLEKS                       R10 R9 K8 ["OnOpen"]
+       37 CALL                             R7 2 -1
+       38 SETLIST                          R6 R7 -1 [1]
+       40 CALL                             R4 2 -1
+       41 RETURN                           R4 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R2 K1 [script]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Framework"]
-  CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K9 ["Resources"]
-  GETTABLEKS R4 R5 K10 ["MakeTheme"]
-  CALL R3 1 1
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R7 R0 K8 ["Src"]
-  GETTABLEKS R6 R7 K9 ["Resources"]
-  GETTABLEKS R5 R6 K11 ["Constants"]
-  CALL R4 1 1
-  GETTABLEKS R6 R2 K12 ["Util"]
-  GETTABLEKS R5 R6 K13 ["CrossPluginCommunication"]
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R10 R0 K8 ["Src"]
-  GETTABLEKS R9 R10 K14 ["Components"]
-  GETTABLEKS R8 R9 K15 ["PublishBlocked"]
-  GETTABLEKS R7 R8 K16 ["PublishBlockedDialog"]
-  CALL R6 1 1
-  GETTABLEKS R7 R1 K17 ["PureComponent"]
-  LOADK R9 K18 ["PublishBlockedPlugin"]
-  NAMECALL R7 R7 K19 ["extend"]
-  CALL R7 2 1
-  GETTABLEKS R8 R2 K20 ["ContextServices"]
-  GETTABLEKS R9 R8 K21 ["Plugin"]
-  DUPCLOSURE R10 K22 [PROTO_0]
-  CAPTURE VAL R5
-  CAPTURE VAL R4
-  SETTABLEKS R10 R7 K23 ["init"]
-  DUPCLOSURE R10 K24 [PROTO_2]
-  CAPTURE VAL R8
-  CAPTURE VAL R9
-  CAPTURE VAL R3
-  CAPTURE VAL R1
-  CAPTURE VAL R6
-  CAPTURE VAL R4
-  SETTABLEKS R10 R7 K25 ["render"]
-  RETURN R7 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R2 K1 [script]
+        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        7 GETIMPORT                        R1 K4 [require]
+        9 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K4 [require]
+       16 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K4 [require]
+       23 GETTABLEKS                       R6 R0 K8 ["Src"]
+       25 GETTABLEKS                       R5 R6 K9 ["Resources"]
+       27 GETTABLEKS                       R4 R5 K10 ["MakeTheme"]
+       29 CALL                             R3 1 1
+       30 GETIMPORT                        R4 K4 [require]
+       32 GETTABLEKS                       R7 R0 K8 ["Src"]
+       34 GETTABLEKS                       R6 R7 K9 ["Resources"]
+       36 GETTABLEKS                       R5 R6 K11 ["Constants"]
+       38 CALL                             R4 1 1
+       39 GETTABLEKS                       R6 R2 K12 ["Util"]
+       41 GETTABLEKS                       R5 R6 K13 ["CrossPluginCommunication"]
+       43 GETIMPORT                        R6 K4 [require]
+       45 GETTABLEKS                       R10 R0 K8 ["Src"]
+       47 GETTABLEKS                       R9 R10 K14 ["Components"]
+       49 GETTABLEKS                       R8 R9 K15 ["PublishBlocked"]
+       51 GETTABLEKS                       R7 R8 K16 ["PublishBlockedDialog"]
+       53 CALL                             R6 1 1
+       54 GETTABLEKS                       R7 R1 K17 ["PureComponent"]
+       56 LOADK                            R9 K18 ["PublishBlockedPlugin"]
+       57 NAMECALL                         R7 R7 K19 ["extend"]
+       59 CALL                             R7 2 1
+       60 GETTABLEKS                       R8 R2 K20 ["ContextServices"]
+       62 GETTABLEKS                       R9 R8 K21 ["Plugin"]
+       64 DUPCLOSURE                       R10 K22 [PROTO_0]
+       65 CAPTURE                          VAL R5
+       66 CAPTURE                          VAL R4
+       67 SETTABLEKS                       R10 R7 K23 ["init"]
+       69 DUPCLOSURE                       R10 K24 [PROTO_2]
+       70 CAPTURE                          VAL R8
+       71 CAPTURE                          VAL R9
+       72 CAPTURE                          VAL R3
+       73 CAPTURE                          VAL R1
+       74 CAPTURE                          VAL R6
+       75 CAPTURE                          VAL R4
+       76 SETTABLEKS                       R10 R7 K25 ["render"]
+       78 RETURN                           R7 1

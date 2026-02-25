@@ -1,113 +1,113 @@
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K7 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Resources"]
-  GETTABLEKS R3 R4 K9 ["StyleTips"]
-  CALL R2 1 1
-  GETTABLEKS R4 R1 K10 ["Styling"]
-  GETTABLEKS R3 R4 K11 ["createStyleRule"]
-  GETTABLEKS R5 R2 K13 ["smallPadding"]
-  SUBK R4 R5 K12 [1]
-  GETTABLEKS R6 R2 K13 ["smallPadding"]
-  SUBK R5 R6 K14 [2]
-  GETIMPORT R6 K16 [game]
-  LOADK R8 K17 ["ActivityHistoryCompactUI"]
-  NAMECALL R6 R6 K18 ["GetFastFlag"]
-  CALL R6 2 1
-  MOVE R7 R3
-  LOADK R8 K19 [".Component-ActivityHistoryBubbleList"]
-  NEWTABLE R9 0 0
-  NEWTABLE R10 0 3
-  MOVE R11 R3
-  LOADK R12 K20 ["::UIPadding"]
-  JUMPIFNOT R6 [+3]
-  NEWTABLE R13 0 0
-  JUMPIF R13 [+15]
-  DUPTABLE R13 K23 [{"PaddingTop", "PaddingBottom"}]
-  GETIMPORT R14 K26 [UDim.new]
-  LOADN R15 0
-  MOVE R16 R4
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K21 ["PaddingTop"]
-  GETIMPORT R14 K26 [UDim.new]
-  LOADN R15 0
-  MOVE R16 R4
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K22 ["PaddingBottom"]
-  CALL R11 2 1
-  MOVE R12 R3
-  LOADK R13 K27 [">> .Component-BubbleFrame"]
-  NEWTABLE R14 0 0
-  JUMPIFNOT R6 [+3]
-  NEWTABLE R15 0 0
-  JUMPIF R15 [+36]
-  NEWTABLE R15 0 1
-  MOVE R16 R3
-  LOADK R17 K20 ["::UIPadding"]
-  DUPTABLE R18 K30 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
-  GETIMPORT R19 K26 [UDim.new]
-  LOADN R20 0
-  LOADN R21 1
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K28 ["PaddingLeft"]
-  GETIMPORT R19 K26 [UDim.new]
-  LOADN R20 0
-  LOADN R21 1
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K29 ["PaddingRight"]
-  GETIMPORT R19 K26 [UDim.new]
-  LOADN R20 0
-  LOADN R21 1
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K21 ["PaddingTop"]
-  GETIMPORT R19 K26 [UDim.new]
-  LOADN R20 0
-  LOADN R21 1
-  CALL R19 2 1
-  SETTABLEKS R19 R18 K22 ["PaddingBottom"]
-  CALL R16 2 -1
-  SETLIST R15 R16 -1 [1]
-  CALL R12 3 1
-  MOVE R13 R3
-  LOADK R14 K31 ["> ScrollingFrame"]
-  DUPTABLE R15 K34 [{"BackgroundTransparency", "BorderSizePixel"}]
-  LOADN R16 1
-  SETTABLEKS R16 R15 K32 ["BackgroundTransparency"]
-  LOADN R16 0
-  SETTABLEKS R16 R15 K33 ["BorderSizePixel"]
-  NEWTABLE R16 0 1
-  MOVE R17 R3
-  LOADK R18 K35 ["> Frame"]
-  DUPTABLE R19 K36 [{"BackgroundTransparency"}]
-  LOADN R20 1
-  SETTABLEKS R20 R19 K32 ["BackgroundTransparency"]
-  NEWTABLE R20 0 1
-  MOVE R21 R3
-  LOADK R22 K37 ["::UIListLayout"]
-  JUMPIFNOT R6 [+3]
-  NEWTABLE R23 0 0
-  JUMPIF R23 [+8]
-  DUPTABLE R23 K39 [{"Padding"}]
-  GETIMPORT R24 K26 [UDim.new]
-  LOADN R25 0
-  MOVE R26 R5
-  CALL R24 2 1
-  SETTABLEKS R24 R23 K38 ["Padding"]
-  CALL R21 2 -1
-  SETLIST R20 R21 -1 [1]
-  CALL R17 3 -1
-  SETLIST R16 R17 -1 [1]
-  CALL R13 3 -1
-  SETLIST R10 R11 -1 [1]
-  CALL R7 3 -1
-  RETURN R7 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R4 K1 [script]
+        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
+        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+       11 GETIMPORT                        R1 K4 [require]
+       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R2 K4 [require]
+       20 GETTABLEKS                       R5 R0 K7 ["Src"]
+       22 GETTABLEKS                       R4 R5 K8 ["Resources"]
+       24 GETTABLEKS                       R3 R4 K9 ["StyleTips"]
+       26 CALL                             R2 1 1
+       27 GETTABLEKS                       R4 R1 K10 ["Styling"]
+       29 GETTABLEKS                       R3 R4 K11 ["createStyleRule"]
+       31 GETTABLEKS                       R5 R2 K13 ["smallPadding"]
+       33 SUBK                             R4 R5 K12 [1]
+       34 GETTABLEKS                       R6 R2 K13 ["smallPadding"]
+       36 SUBK                             R5 R6 K14 [2]
+       37 GETIMPORT                        R6 K16 [game]
+       39 LOADK                            R8 K17 ["ActivityHistoryCompactUI"]
+       40 NAMECALL                         R6 R6 K18 ["GetFastFlag"]
+       42 CALL                             R6 2 1
+       43 MOVE                             R7 R3
+       44 LOADK                            R8 K19 [".Component-ActivityHistoryBubbleList"]
+       45 NEWTABLE                         R9 0 0
+       47 NEWTABLE                         R10 0 3
+       49 MOVE                             R11 R3
+       50 LOADK                            R12 K20 ["::UIPadding"]
+       51 JUMPIFNOT                        R6 ; [+3]
+       52 NEWTABLE                         R13 0 0
+       54 JUMPIF                           R13 ; [+15]
+       55 DUPTABLE                         R13 K23 [{"PaddingTop", "PaddingBottom"}]
+       56 GETIMPORT                        R14 K26 [UDim.new]
+       58 LOADN                            R15 0
+       59 MOVE                             R16 R4
+       60 CALL                             R14 2 1
+       61 SETTABLEKS                       R14 R13 K21 ["PaddingTop"]
+       63 GETIMPORT                        R14 K26 [UDim.new]
+       65 LOADN                            R15 0
+       66 MOVE                             R16 R4
+       67 CALL                             R14 2 1
+       68 SETTABLEKS                       R14 R13 K22 ["PaddingBottom"]
+       70 CALL                             R11 2 1
+       71 MOVE                             R12 R3
+       72 LOADK                            R13 K27 [">> .Component-BubbleFrame"]
+       73 NEWTABLE                         R14 0 0
+       75 JUMPIFNOT                        R6 ; [+3]
+       76 NEWTABLE                         R15 0 0
+       78 JUMPIF                           R15 ; [+36]
+       79 NEWTABLE                         R15 0 1
+       81 MOVE                             R16 R3
+       82 LOADK                            R17 K20 ["::UIPadding"]
+       83 DUPTABLE                         R18 K30 [{"PaddingLeft", "PaddingRight", "PaddingTop", "PaddingBottom"}]
+       84 GETIMPORT                        R19 K26 [UDim.new]
+       86 LOADN                            R20 0
+       87 LOADN                            R21 1
+       88 CALL                             R19 2 1
+       89 SETTABLEKS                       R19 R18 K28 ["PaddingLeft"]
+       91 GETIMPORT                        R19 K26 [UDim.new]
+       93 LOADN                            R20 0
+       94 LOADN                            R21 1
+       95 CALL                             R19 2 1
+       96 SETTABLEKS                       R19 R18 K29 ["PaddingRight"]
+       98 GETIMPORT                        R19 K26 [UDim.new]
+      100 LOADN                            R20 0
+      101 LOADN                            R21 1
+      102 CALL                             R19 2 1
+      103 SETTABLEKS                       R19 R18 K21 ["PaddingTop"]
+      105 GETIMPORT                        R19 K26 [UDim.new]
+      107 LOADN                            R20 0
+      108 LOADN                            R21 1
+      109 CALL                             R19 2 1
+      110 SETTABLEKS                       R19 R18 K22 ["PaddingBottom"]
+      112 CALL                             R16 2 -1
+      113 SETLIST                          R15 R16 -1 [1]
+      115 CALL                             R12 3 1
+      116 MOVE                             R13 R3
+      117 LOADK                            R14 K31 ["> ScrollingFrame"]
+      118 DUPTABLE                         R15 K34 [{"BackgroundTransparency", "BorderSizePixel"}]
+      119 LOADN                            R16 1
+      120 SETTABLEKS                       R16 R15 K32 ["BackgroundTransparency"]
+      122 LOADN                            R16 0
+      123 SETTABLEKS                       R16 R15 K33 ["BorderSizePixel"]
+      125 NEWTABLE                         R16 0 1
+      127 MOVE                             R17 R3
+      128 LOADK                            R18 K35 ["> Frame"]
+      129 DUPTABLE                         R19 K36 [{"BackgroundTransparency"}]
+      130 LOADN                            R20 1
+      131 SETTABLEKS                       R20 R19 K32 ["BackgroundTransparency"]
+      133 NEWTABLE                         R20 0 1
+      135 MOVE                             R21 R3
+      136 LOADK                            R22 K37 ["::UIListLayout"]
+      137 JUMPIFNOT                        R6 ; [+3]
+      138 NEWTABLE                         R23 0 0
+      140 JUMPIF                           R23 ; [+8]
+      141 DUPTABLE                         R23 K39 [{"Padding"}]
+      142 GETIMPORT                        R24 K26 [UDim.new]
+      144 LOADN                            R25 0
+      145 MOVE                             R26 R5
+      146 CALL                             R24 2 1
+      147 SETTABLEKS                       R24 R23 K38 ["Padding"]
+      149 CALL                             R21 2 -1
+      150 SETLIST                          R20 R21 -1 [1]
+      152 CALL                             R17 3 -1
+      153 SETLIST                          R16 R17 -1 [1]
+      155 CALL                             R13 3 -1
+      156 SETLIST                          R10 R11 -1 [1]
+      158 CALL                             R7 3 -1
+      159 RETURN                           R7 -1

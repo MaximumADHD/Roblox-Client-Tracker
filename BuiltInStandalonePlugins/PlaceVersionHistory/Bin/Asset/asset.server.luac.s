@@ -1,48 +1,48 @@
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [plugin]
-  JUMPIF R0 [+1]
-  RETURN R0 0
-  GETIMPORT R0 K3 [script]
-  LOADK R2 K4 ["PlaceVersionHistory"]
-  NAMECALL R0 R0 K5 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K7 [require]
-  GETTABLEKS R3 R0 K8 ["Packages"]
-  GETTABLEKS R2 R3 K9 ["TestLoader"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K10 ["launch"]
-  LOADK R3 K4 ["PlaceVersionHistory"]
-  GETTABLEKS R4 R0 K11 ["Src"]
-  CALL R2 2 0
-  GETTABLEKS R2 R1 K12 ["isCli"]
-  CALL R2 0 1
-  JUMPIFNOT R2 [+1]
-  RETURN R0 0
-  GETIMPORT R2 K7 [require]
-  GETTABLEKS R5 R0 K13 ["Bin"]
-  GETTABLEKS R4 R5 K14 ["Common"]
-  GETTABLEKS R3 R4 K15 ["flags"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K16 ["FFlagEnablePlaceVersionHistory"]
-  JUMPIF R3 [+1]
-  RETURN R0 0
-  GETIMPORT R3 K7 [require]
-  GETTABLEKS R6 R0 K13 ["Bin"]
-  GETTABLEKS R5 R6 K14 ["Common"]
-  GETTABLEKS R4 R5 K17 ["pluginType"]
-  CALL R3 1 1
-  GETTABLEKS R4 R3 K18 ["get"]
-  CALL R4 0 1
-  GETTABLEKS R5 R3 K19 ["Asset"]
-  JUMPIFEQ R4 R5 [+2]
-  RETURN R0 0
-  GETIMPORT R4 K7 [require]
-  GETTABLEKS R7 R0 K13 ["Bin"]
-  GETTABLEKS R6 R7 K14 ["Common"]
-  GETTABLEKS R5 R6 K20 ["setup"]
-  CALL R4 1 1
-  MOVE R5 R4
-  GETIMPORT R6 K1 [plugin]
-  CALL R5 1 0
-  RETURN R0 0
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [plugin]
+        3 JUMPIF                           R0 ; [+1]
+        4 RETURN                           R0 0
+        5 GETIMPORT                        R0 K3 [script]
+        7 LOADK                            R2 K4 ["PlaceVersionHistory"]
+        8 NAMECALL                         R0 R0 K5 ["FindFirstAncestor"]
+       10 CALL                             R0 2 1
+       11 GETIMPORT                        R1 K7 [require]
+       13 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       15 GETTABLEKS                       R2 R3 K9 ["TestLoader"]
+       17 CALL                             R1 1 1
+       18 GETTABLEKS                       R2 R1 K10 ["launch"]
+       20 LOADK                            R3 K4 ["PlaceVersionHistory"]
+       21 GETTABLEKS                       R4 R0 K11 ["Src"]
+       23 CALL                             R2 2 0
+       24 GETTABLEKS                       R2 R1 K12 ["isCli"]
+       26 CALL                             R2 0 1
+       27 JUMPIFNOT                        R2 ; [+1]
+       28 RETURN                           R0 0
+       29 GETIMPORT                        R2 K7 [require]
+       31 GETTABLEKS                       R5 R0 K13 ["Bin"]
+       33 GETTABLEKS                       R4 R5 K14 ["Common"]
+       35 GETTABLEKS                       R3 R4 K15 ["flags"]
+       37 CALL                             R2 1 1
+       38 GETTABLEKS                       R3 R2 K16 ["FFlagEnablePlaceVersionHistory"]
+       40 JUMPIF                           R3 ; [+1]
+       41 RETURN                           R0 0
+       42 GETIMPORT                        R3 K7 [require]
+       44 GETTABLEKS                       R6 R0 K13 ["Bin"]
+       46 GETTABLEKS                       R5 R6 K14 ["Common"]
+       48 GETTABLEKS                       R4 R5 K17 ["pluginType"]
+       50 CALL                             R3 1 1
+       51 GETTABLEKS                       R4 R3 K18 ["get"]
+       53 CALL                             R4 0 1
+       54 GETTABLEKS                       R5 R3 K19 ["Asset"]
+       56 JUMPIFEQ                         R4 R5 ; [+2]
+       58 RETURN                           R0 0
+       59 GETIMPORT                        R4 K7 [require]
+       61 GETTABLEKS                       R7 R0 K13 ["Bin"]
+       63 GETTABLEKS                       R6 R7 K14 ["Common"]
+       65 GETTABLEKS                       R5 R6 K20 ["setup"]
+       67 CALL                             R4 1 1
+       68 MOVE                             R5 R4
+       69 GETIMPORT                        R6 K1 [plugin]
+       71 CALL                             R5 1 0
+       72 RETURN                           R0 0

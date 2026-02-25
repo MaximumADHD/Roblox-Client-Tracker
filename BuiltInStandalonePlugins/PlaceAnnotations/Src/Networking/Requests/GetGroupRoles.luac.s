@@ -1,126 +1,126 @@
 PROTO_0:
-  JUMPIF R0 [+3]
-  NEWTABLE R1 0 0
-  RETURN R1 1
-  GETUPVAL R1 0
-  GETTABLEKS R3 R0 K0 ["responseBody"]
-  NAMECALL R1 R1 K1 ["JSONDecode"]
-  CALL R1 2 1
-  GETTABLEKS R2 R1 K2 ["roles"]
-  JUMPIF R2 [+3]
-  NEWTABLE R2 0 0
-  RETURN R2 1
-  GETIMPORT R2 K4 [pairs]
-  GETTABLEKS R3 R1 K2 ["roles"]
-  CALL R2 1 3
-  FORGPREP_NEXT R2
-  GETUPVAL R7 1
-  GETTABLEKS R8 R6 K5 ["id"]
-  NEWTABLE R9 4 0
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K6 ["RoleName"]
-  GETTABLEKS R11 R6 K7 ["name"]
-  SETTABLE R11 R9 R10
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K8 ["RoleId"]
-  GETTABLEKS R11 R6 K5 ["id"]
-  SETTABLE R11 R9 R10
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K9 ["RoleRank"]
-  GETTABLEKS R11 R6 K10 ["rank"]
-  SETTABLE R11 R9 R10
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K11 ["RoleMemberCount"]
-  GETTABLEKS R11 R6 K12 ["memberCount"]
-  SETTABLE R11 R9 R10
-  SETTABLE R9 R7 R8
-  FORGLOOP R2 2 [-31]
-  GETUPVAL R2 1
-  RETURN R2 1
+        0 JUMPIF                           R0 ; [+3]
+        1 NEWTABLE                         R1 0 0
+        3 RETURN                           R1 1
+        4 GETUPVAL                         R1 0
+        5 GETTABLEKS                       R3 R0 K0 ["responseBody"]
+        7 NAMECALL                         R1 R1 K1 ["JSONDecode"]
+        9 CALL                             R1 2 1
+       10 GETTABLEKS                       R2 R1 K2 ["roles"]
+       12 JUMPIF                           R2 ; [+3]
+       13 NEWTABLE                         R2 0 0
+       15 RETURN                           R2 1
+       16 GETIMPORT                        R2 K4 [pairs]
+       18 GETTABLEKS                       R3 R1 K2 ["roles"]
+       20 CALL                             R2 1 3
+       21 FORGPREP_NEXT                    R2
+       22 GETUPVAL                         R7 1
+       23 GETTABLEKS                       R8 R6 K5 ["id"]
+       25 NEWTABLE                         R9 4 0
+       27 GETUPVAL                         R11 2
+       28 GETTABLEKS                       R10 R11 K6 ["RoleName"]
+       30 GETTABLEKS                       R11 R6 K7 ["name"]
+       32 SETTABLE                         R11 R9 R10
+       33 GETUPVAL                         R11 2
+       34 GETTABLEKS                       R10 R11 K8 ["RoleId"]
+       36 GETTABLEKS                       R11 R6 K5 ["id"]
+       38 SETTABLE                         R11 R9 R10
+       39 GETUPVAL                         R11 2
+       40 GETTABLEKS                       R10 R11 K9 ["RoleRank"]
+       42 GETTABLEKS                       R11 R6 K10 ["rank"]
+       44 SETTABLE                         R11 R9 R10
+       45 GETUPVAL                         R11 2
+       46 GETTABLEKS                       R10 R11 K11 ["RoleMemberCount"]
+       48 GETTABLEKS                       R11 R6 K12 ["memberCount"]
+       50 SETTABLE                         R11 R9 R10
+       51 SETTABLE                         R9 R7 R8
+       52 FORGLOOP                         R2 2 ; [-31]
+       54 GETUPVAL                         R2 1
+       55 RETURN                           R2 1
 
 PROTO_1:
-  RETURN R0 0
+        0 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R1 0
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K0 ["GROUPS_ROLES_URL"]
-  GETTABLEKS R2 R3 K1 ["Prefix"]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K0 ["GROUPS_ROLES_URL"]
-  GETTABLEKS R3 R4 K2 ["Url"]
-  MOVE R4 R0
-  CALL R3 1 -1
-  CALL R1 -1 1
-  NEWTABLE R2 0 0
-  GETUPVAL R3 2
-  DUPTABLE R5 K5 [{"Method", "Url", "Headers"}]
-  LOADK R6 K6 ["GET"]
-  SETTABLEKS R6 R5 K3 ["Method"]
-  SETTABLEKS R1 R5 K2 ["Url"]
-  GETUPVAL R6 3
-  SETTABLEKS R6 R5 K4 ["Headers"]
-  NAMECALL R3 R3 K7 ["request"]
-  CALL R3 2 1
-  NEWCLOSURE R5 P0
-  CAPTURE UPVAL U4
-  CAPTURE VAL R2
-  CAPTURE UPVAL U5
-  NAMECALL R3 R3 K8 ["andThen"]
-  CALL R3 2 1
-  DUPCLOSURE R5 K9 [PROTO_1]
-  NAMECALL R3 R3 K10 ["catch"]
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R4 1
+        2 GETTABLEKS                       R3 R4 K0 ["GROUPS_ROLES_URL"]
+        4 GETTABLEKS                       R2 R3 K1 ["Prefix"]
+        6 GETUPVAL                         R5 1
+        7 GETTABLEKS                       R4 R5 K0 ["GROUPS_ROLES_URL"]
+        9 GETTABLEKS                       R3 R4 K2 ["Url"]
+       11 MOVE                             R4 R0
+       12 CALL                             R3 1 -1
+       13 CALL                             R1 -1 1
+       14 NEWTABLE                         R2 0 0
+       16 GETUPVAL                         R3 2
+       17 DUPTABLE                         R5 K5 [{"Method", "Url", "Headers"}]
+       18 LOADK                            R6 K6 ["GET"]
+       19 SETTABLEKS                       R6 R5 K3 ["Method"]
+       21 SETTABLEKS                       R1 R5 K2 ["Url"]
+       23 GETUPVAL                         R6 3
+       24 SETTABLEKS                       R6 R5 K4 ["Headers"]
+       26 NAMECALL                         R3 R3 K7 ["request"]
+       28 CALL                             R3 2 1
+       29 NEWCLOSURE                       R5 P0
+       30 CAPTURE                          UPVAL U4
+       31 CAPTURE                          VAL R2
+       32 CAPTURE                          UPVAL U5
+       33 NAMECALL                         R3 R3 K8 ["andThen"]
+       35 CALL                             R3 2 1
+       36 DUPCLOSURE                       R5 K9 [PROTO_1]
+       37 NAMECALL                         R3 R3 K10 ["catch"]
+       39 CALL                             R3 2 -1
+       40 RETURN                           R3 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["PlaceAnnotations"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Networking"]
-  GETTABLEKS R2 R3 K8 ["WebKeyConstants"]
-  CALL R1 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Src"]
-  GETTABLEKS R5 R6 K7 ["Networking"]
-  GETTABLEKS R4 R5 K9 ["Urls"]
-  CALL R3 1 1
-  GETTABLEKS R2 R3 K9 ["Urls"]
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K6 ["Src"]
-  GETTABLEKS R6 R7 K7 ["Networking"]
-  GETTABLEKS R5 R6 K9 ["Urls"]
-  CALL R4 1 1
-  GETTABLEKS R3 R4 K10 ["composeUrl"]
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Util"]
-  GETTABLEKS R6 R7 K7 ["Networking"]
-  CALL R5 1 1
-  GETTABLEKS R4 R5 K7 ["Networking"]
-  GETTABLEKS R5 R4 K12 ["new"]
-  DUPTABLE R6 K14 [{"isInternal"}]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K13 ["isInternal"]
-  CALL R5 1 1
-  GETIMPORT R6 K16 [game]
-  LOADK R8 K17 ["HttpService"]
-  NAMECALL R6 R6 K18 ["GetService"]
-  CALL R6 2 1
-  NEWTABLE R7 1 0
-  LOADK R8 K19 ["application/json"]
-  SETTABLEKS R8 R7 K20 ["Content-Type"]
-  DUPCLOSURE R8 K21 [PROTO_2]
-  CAPTURE VAL R3
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  CAPTURE VAL R7
-  CAPTURE VAL R6
-  CAPTURE VAL R1
-  SETGLOBAL R8 K22 ["GetGroupRoles"]
-  GETGLOBAL R8 K22 ["GetGroupRoles"]
-  RETURN R8 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["PlaceAnnotations"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Src"]
+       11 GETTABLEKS                       R3 R4 K7 ["Networking"]
+       13 GETTABLEKS                       R2 R3 K8 ["WebKeyConstants"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R3 K5 [require]
+       18 GETTABLEKS                       R6 R0 K6 ["Src"]
+       20 GETTABLEKS                       R5 R6 K7 ["Networking"]
+       22 GETTABLEKS                       R4 R5 K9 ["Urls"]
+       24 CALL                             R3 1 1
+       25 GETTABLEKS                       R2 R3 K9 ["Urls"]
+       27 GETIMPORT                        R4 K5 [require]
+       29 GETTABLEKS                       R7 R0 K6 ["Src"]
+       31 GETTABLEKS                       R6 R7 K7 ["Networking"]
+       33 GETTABLEKS                       R5 R6 K9 ["Urls"]
+       35 CALL                             R4 1 1
+       36 GETTABLEKS                       R3 R4 K10 ["composeUrl"]
+       38 GETIMPORT                        R5 K5 [require]
+       40 GETTABLEKS                       R8 R0 K6 ["Src"]
+       42 GETTABLEKS                       R7 R8 K11 ["Util"]
+       44 GETTABLEKS                       R6 R7 K7 ["Networking"]
+       46 CALL                             R5 1 1
+       47 GETTABLEKS                       R4 R5 K7 ["Networking"]
+       49 GETTABLEKS                       R5 R4 K12 ["new"]
+       51 DUPTABLE                         R6 K14 [{"isInternal"}]
+       52 LOADB                            R7 1
+       53 SETTABLEKS                       R7 R6 K13 ["isInternal"]
+       55 CALL                             R5 1 1
+       56 GETIMPORT                        R6 K16 [game]
+       58 LOADK                            R8 K17 ["HttpService"]
+       59 NAMECALL                         R6 R6 K18 ["GetService"]
+       61 CALL                             R6 2 1
+       62 NEWTABLE                         R7 1 0
+       64 LOADK                            R8 K19 ["application/json"]
+       65 SETTABLEKS                       R8 R7 K20 ["Content-Type"]
+       67 DUPCLOSURE                       R8 K21 [PROTO_2]
+       68 CAPTURE                          VAL R3
+       69 CAPTURE                          VAL R2
+       70 CAPTURE                          VAL R5
+       71 CAPTURE                          VAL R7
+       72 CAPTURE                          VAL R6
+       73 CAPTURE                          VAL R1
+       74 SETGLOBAL                        R8 K22 ["GetGroupRoles"]
+       76 GETGLOBAL                        R8 K22 ["GetGroupRoles"]
+       78 RETURN                           R8 1

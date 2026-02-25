@@ -1,99 +1,99 @@
 PROTO_0:
-  NAMECALL R2 R0 K0 ["getState"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K1 ["SearchItemLogs"]
-  GETUPVAL R5 0
-  GETTABLE R3 R4 R5
-  JUMPIF R3 [+2]
-  NEWTABLE R3 0 0
-  GETUPVAL R5 1
-  GETTABLE R4 R3 R5
-  JUMPIF R4 [+1]
-  RETURN R0 0
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K2 ["Dictionary"]
-  GETTABLEKS R4 R5 K3 ["join"]
-  GETUPVAL R6 1
-  GETTABLE R5 R3 R6
-  GETUPVAL R6 3
-  CALL R4 2 1
-  GETUPVAL R5 4
-  GETUPVAL R7 5
-  MOVE R8 R4
-  NAMECALL R5 R5 K4 ["logRobloxTelemetryEvent"]
-  CALL R5 3 0
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K2 ["Dictionary"]
-  GETTABLEKS R5 R6 K3 ["join"]
-  GETTABLEKS R6 R2 K1 ["SearchItemLogs"]
-  NEWTABLE R7 1 0
-  GETUPVAL R8 0
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K2 ["Dictionary"]
-  GETTABLEKS R9 R10 K3 ["join"]
-  MOVE R10 R3
-  NEWTABLE R11 1 0
-  GETUPVAL R12 1
-  GETUPVAL R14 2
-  GETTABLEKS R13 R14 K5 ["None"]
-  SETTABLE R13 R11 R12
-  CALL R9 2 1
-  SETTABLE R9 R7 R8
-  CALL R5 2 1
-  GETUPVAL R8 6
-  MOVE R9 R5
-  CALL R8 1 -1
-  NAMECALL R6 R0 K6 ["dispatch"]
-  CALL R6 -1 0
-  RETURN R0 0
+        0 NAMECALL                         R2 R0 K0 ["getState"]
+        2 CALL                             R2 1 1
+        3 GETTABLEKS                       R4 R2 K1 ["SearchItemLogs"]
+        5 GETUPVAL                         R5 0
+        6 GETTABLE                         R3 R4 R5
+        7 JUMPIF                           R3 ; [+2]
+        8 NEWTABLE                         R3 0 0
+       10 GETUPVAL                         R5 1
+       11 GETTABLE                         R4 R3 R5
+       12 JUMPIF                           R4 ; [+1]
+       13 RETURN                           R0 0
+       14 GETUPVAL                         R6 2
+       15 GETTABLEKS                       R5 R6 K2 ["Dictionary"]
+       17 GETTABLEKS                       R4 R5 K3 ["join"]
+       19 GETUPVAL                         R6 1
+       20 GETTABLE                         R5 R3 R6
+       21 GETUPVAL                         R6 3
+       22 CALL                             R4 2 1
+       23 GETUPVAL                         R5 4
+       24 GETUPVAL                         R7 5
+       25 MOVE                             R8 R4
+       26 NAMECALL                         R5 R5 K4 ["logRobloxTelemetryEvent"]
+       28 CALL                             R5 3 0
+       29 GETUPVAL                         R7 2
+       30 GETTABLEKS                       R6 R7 K2 ["Dictionary"]
+       32 GETTABLEKS                       R5 R6 K3 ["join"]
+       34 GETTABLEKS                       R6 R2 K1 ["SearchItemLogs"]
+       36 NEWTABLE                         R7 1 0
+       38 GETUPVAL                         R8 0
+       39 GETUPVAL                         R11 2
+       40 GETTABLEKS                       R10 R11 K2 ["Dictionary"]
+       42 GETTABLEKS                       R9 R10 K3 ["join"]
+       44 MOVE                             R10 R3
+       45 NEWTABLE                         R11 1 0
+       47 GETUPVAL                         R12 1
+       48 GETUPVAL                         R14 2
+       49 GETTABLEKS                       R13 R14 K5 ["None"]
+       51 SETTABLE                         R13 R11 R12
+       52 CALL                             R9 2 1
+       53 SETTABLE                         R9 R7 R8
+       54 CALL                             R5 2 1
+       55 GETUPVAL                         R8 6
+       56 MOVE                             R9 R5
+       57 CALL                             R8 1 -1
+       58 NAMECALL                         R6 R0 K6 ["dispatch"]
+       60 CALL                             R6 -1 0
+       61 RETURN                           R0 0
 
 PROTO_1:
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R0
-  CAPTURE VAL R1
-  CAPTURE UPVAL U0
-  CAPTURE VAL R2
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  RETURN R3 1
+        0 NEWCLOSURE                       R3 P0
+        1 CAPTURE                          VAL R0
+        2 CAPTURE                          VAL R1
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          VAL R2
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          UPVAL U2
+        7 CAPTURE                          UPVAL U3
+        8 RETURN                           R3 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["Collab8766_LogCollabSearchItemClickedEventV4"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 1
-  JUMPIFNOT R0 [+49]
-  GETIMPORT R1 K5 [script]
-  LOADK R3 K6 ["ManageCollaborators"]
-  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
-  CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R4 R1 K10 ["Packages"]
-  GETTABLEKS R3 R4 K11 ["Cryo"]
-  CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R6 R1 K12 ["Src"]
-  GETTABLEKS R5 R6 K13 ["Actions"]
-  GETTABLEKS R4 R5 K14 ["SetSearchItemLogs"]
-  CALL R3 1 1
-  GETIMPORT R4 K9 [require]
-  GETTABLEKS R8 R1 K12 ["Src"]
-  GETTABLEKS R7 R8 K15 ["Util"]
-  GETTABLEKS R6 R7 K16 ["Telemetry"]
-  GETTABLEKS R5 R6 K17 ["CollaboratorSearchItemClickedEvent"]
-  CALL R4 1 1
-  GETIMPORT R5 K9 [require]
-  GETTABLEKS R7 R1 K10 ["Packages"]
-  GETTABLEKS R6 R7 K18 ["TelemetryProtocol"]
-  CALL R5 1 1
-  GETTABLEKS R6 R5 K19 ["new"]
-  CALL R6 0 1
-  DUPCLOSURE R7 K20 [PROTO_1]
-  CAPTURE VAL R2
-  CAPTURE VAL R6
-  CAPTURE VAL R4
-  CAPTURE VAL R3
-  RETURN R7 1
-  RETURN R0 0
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["Collab8766_LogCollabSearchItemClickedEventV4"]
+        4 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
+        6 CALL                             R0 2 1
+        7 JUMPIFNOT                        R0 ; [+49]
+        8 GETIMPORT                        R1 K5 [script]
+       10 LOADK                            R3 K6 ["ManageCollaborators"]
+       11 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
+       13 CALL                             R1 2 1
+       14 GETIMPORT                        R2 K9 [require]
+       16 GETTABLEKS                       R4 R1 K10 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K11 ["Cryo"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K9 [require]
+       23 GETTABLEKS                       R6 R1 K12 ["Src"]
+       25 GETTABLEKS                       R5 R6 K13 ["Actions"]
+       27 GETTABLEKS                       R4 R5 K14 ["SetSearchItemLogs"]
+       29 CALL                             R3 1 1
+       30 GETIMPORT                        R4 K9 [require]
+       32 GETTABLEKS                       R8 R1 K12 ["Src"]
+       34 GETTABLEKS                       R7 R8 K15 ["Util"]
+       36 GETTABLEKS                       R6 R7 K16 ["Telemetry"]
+       38 GETTABLEKS                       R5 R6 K17 ["CollaboratorSearchItemClickedEvent"]
+       40 CALL                             R4 1 1
+       41 GETIMPORT                        R5 K9 [require]
+       43 GETTABLEKS                       R7 R1 K10 ["Packages"]
+       45 GETTABLEKS                       R6 R7 K18 ["TelemetryProtocol"]
+       47 CALL                             R5 1 1
+       48 GETTABLEKS                       R6 R5 K19 ["new"]
+       50 CALL                             R6 0 1
+       51 DUPCLOSURE                       R7 K20 [PROTO_1]
+       52 CAPTURE                          VAL R2
+       53 CAPTURE                          VAL R6
+       54 CAPTURE                          VAL R4
+       55 CAPTURE                          VAL R3
+       56 RETURN                           R7 1
+       57 RETURN                           R0 0

@@ -1,12 +1,12 @@
 PROTO_0:
-  GETTABLEKS R3 R2 K0 ["ClickedItem"]
-  JUMPIF R3 [+2]
-  LOADK R3 K1 ["DragSelecting"]
-  RETURN R3 1
-  LOADK R3 K2 ["Ready"]
-  RETURN R3 1
+        0 GETTABLEKS                       R3 R2 K0 ["ClickedItem"]
+        2 JUMPIF                           R3 ; [+2]
+        3 LOADK                            R3 K1 ["DragSelecting"]
+        4 RETURN                           R3 1
+        5 LOADK                            R3 K2 ["Ready"]
+        6 RETURN                           R3 1
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 RETURN                           R0 1

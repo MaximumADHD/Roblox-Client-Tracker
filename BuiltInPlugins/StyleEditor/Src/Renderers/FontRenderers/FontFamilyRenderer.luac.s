@@ -1,302 +1,302 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLE R1 R2 R0
-  JUMPIFNOT R1 [+4]
-  LOADNIL R1
-  GETUPVAL R3 0
-  GETTABLE R2 R3 R0
-  RETURN R1 2
-  GETUPVAL R1 1
-  LOADNIL R2
-  LOADNIL R3
-  FORGPREP R1
-  GETTABLEKS R7 R5 K0 ["hiddenBy"]
-  GETTABLE R6 R7 R0
-  JUMPIFNOT R6 [+6]
-  GETTABLEKS R6 R5 K1 ["font"]
-  GETTABLEKS R8 R5 K0 ["hiddenBy"]
-  GETTABLE R7 R8 R0
-  RETURN R6 2
-  FORGLOOP R1 2 [-11]
-  MOVE R1 R0
-  LOADNIL R2
-  RETURN R1 2
+        0 GETUPVAL                         R2 0
+        1 GETTABLE                         R1 R2 R0
+        2 JUMPIFNOT                        R1 ; [+4]
+        3 LOADNIL                          R1
+        4 GETUPVAL                         R3 0
+        5 GETTABLE                         R2 R3 R0
+        6 RETURN                           R1 2
+        7 GETUPVAL                         R1 1
+        8 LOADNIL                          R2
+        9 LOADNIL                          R3
+       10 FORGPREP                         R1
+       11 GETTABLEKS                       R7 R5 K0 ["hiddenBy"]
+       13 GETTABLE                         R6 R7 R0
+       14 JUMPIFNOT                        R6 ; [+6]
+       15 GETTABLEKS                       R6 R5 K1 ["font"]
+       17 GETTABLEKS                       R8 R5 K0 ["hiddenBy"]
+       19 GETTABLE                         R7 R8 R0
+       20 RETURN                           R6 2
+       21 FORGLOOP                         R1 2 ; [-11]
+       23 MOVE                             R1 R0
+       24 LOADNIL                          R2
+       25 RETURN                           R1 2
 
 PROTO_1:
-  NEWTABLE R0 0 0
-  GETUPVAL R4 0
-  GETTABLEKS R1 R4 K0 ["Fonts"]
-  LOADNIL R2
-  LOADNIL R3
-  FORGPREP R1
-  GETTABLEKS R7 R5 K1 ["AssetId"]
-  GETUPVAL R9 1
-  GETTABLE R8 R9 R7
-  JUMPIFNOT R8 [+4]
-  LOADNIL R6
-  GETUPVAL R9 1
-  GETTABLE R8 R9 R7
-  JUMP [+17]
-  GETUPVAL R8 2
-  LOADNIL R9
-  LOADNIL R10
-  FORGPREP R8
-  GETTABLEKS R14 R12 K2 ["hiddenBy"]
-  GETTABLE R13 R14 R7
-  JUMPIFNOT R13 [+6]
-  GETTABLEKS R6 R12 K3 ["font"]
-  GETTABLEKS R14 R12 K2 ["hiddenBy"]
-  GETTABLE R13 R14 R7
-  JUMP [+3]
-  FORGLOOP R8 2 [-11]
-  MOVE R6 R7
-  JUMPIFNOT R6 [+6]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K0 ["Fonts"]
-  GETTABLE R7 R8 R6
-  JUMPIFNOT R7 [+1]
-  SETTABLE R7 R0 R6
-  FORGLOOP R1 2 [-34]
-  NEWTABLE R1 0 0
-  MOVE R2 R0
-  LOADNIL R3
-  LOADNIL R4
-  FORGPREP R2
-  DUPTABLE R9 K7 [{"Id", "Label", "Value"}]
-  GETTABLEKS R10 R6 K1 ["AssetId"]
-  SETTABLEKS R10 R9 K4 ["Id"]
-  GETTABLEKS R10 R6 K8 ["Name"]
-  SETTABLEKS R10 R9 K5 ["Label"]
-  GETTABLEKS R10 R6 K1 ["AssetId"]
-  SETTABLEKS R10 R9 K6 ["Value"]
-  FASTCALL2 TABLE_INSERT R1 R9 [+4]
-  MOVE R8 R1
-  GETIMPORT R7 K11 [table.insert]
-  CALL R7 2 0
-  FORGLOOP R2 2 [-20]
-  GETUPVAL R2 3
-  MOVE R3 R1
-  CALL R2 1 -1
-  RETURN R2 -1
+        0 NEWTABLE                         R0 0 0
+        2 GETUPVAL                         R4 0
+        3 GETTABLEKS                       R1 R4 K0 ["Fonts"]
+        5 LOADNIL                          R2
+        6 LOADNIL                          R3
+        7 FORGPREP                         R1
+        8 GETTABLEKS                       R7 R5 K1 ["AssetId"]
+       10 GETUPVAL                         R9 1
+       11 GETTABLE                         R8 R9 R7
+       12 JUMPIFNOT                        R8 ; [+4]
+       13 LOADNIL                          R6
+       14 GETUPVAL                         R9 1
+       15 GETTABLE                         R8 R9 R7
+       16 JUMP                             ; [+17]
+       17 GETUPVAL                         R8 2
+       18 LOADNIL                          R9
+       19 LOADNIL                          R10
+       20 FORGPREP                         R8
+       21 GETTABLEKS                       R14 R12 K2 ["hiddenBy"]
+       23 GETTABLE                         R13 R14 R7
+       24 JUMPIFNOT                        R13 ; [+6]
+       25 GETTABLEKS                       R6 R12 K3 ["font"]
+       27 GETTABLEKS                       R14 R12 K2 ["hiddenBy"]
+       29 GETTABLE                         R13 R14 R7
+       30 JUMP                             ; [+3]
+       31 FORGLOOP                         R8 2 ; [-11]
+       33 MOVE                             R6 R7
+       34 JUMPIFNOT                        R6 ; [+6]
+       35 GETUPVAL                         R9 0
+       36 GETTABLEKS                       R8 R9 K0 ["Fonts"]
+       38 GETTABLE                         R7 R8 R6
+       39 JUMPIFNOT                        R7 ; [+1]
+       40 SETTABLE                         R7 R0 R6
+       41 FORGLOOP                         R1 2 ; [-34]
+       43 NEWTABLE                         R1 0 0
+       45 MOVE                             R2 R0
+       46 LOADNIL                          R3
+       47 LOADNIL                          R4
+       48 FORGPREP                         R2
+       49 DUPTABLE                         R9 K7 [{"Id", "Label", "Value"}]
+       50 GETTABLEKS                       R10 R6 K1 ["AssetId"]
+       52 SETTABLEKS                       R10 R9 K4 ["Id"]
+       54 GETTABLEKS                       R10 R6 K8 ["Name"]
+       56 SETTABLEKS                       R10 R9 K5 ["Label"]
+       58 GETTABLEKS                       R10 R6 K1 ["AssetId"]
+       60 SETTABLEKS                       R10 R9 K6 ["Value"]
+       62 FASTCALL2                        TABLE_INSERT R1 R9 ; [+4]
+       64 MOVE                             R8 R1
+       65 GETIMPORT                        R7 K11 [table.insert]
+       67 CALL                             R7 2 0
+       68 FORGLOOP                         R2 2 ; [-20]
+       70 GETUPVAL                         R2 3
+       71 MOVE                             R3 R1
+       72 CALL                             R2 1 -1
+       73 RETURN                           R2 -1
 
 PROTO_2:
-  GETUPVAL R0 0
-  CALL R0 0 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 CALL                             R0 0 0
+        2 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["createElement"]
-  GETUPVAL R5 1
-  DUPTABLE R6 K4 [{"LayoutOrder", "OnClick", "Size"}]
-  SETTABLEKS R1 R6 K1 ["LayoutOrder"]
-  NEWCLOSURE R7 P0
-  CAPTURE VAL R2
-  SETTABLEKS R7 R6 K2 ["OnClick"]
-  GETUPVAL R7 2
-  SETTABLEKS R7 R6 K3 ["Size"]
-  DUPTABLE R7 K6 [{"Label"}]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K0 ["createElement"]
-  GETUPVAL R9 3
-  NEWTABLE R10 4 0
-  LOADB R11 1
-  SETTABLEKS R11 R10 K7 ["RichText"]
-  LOADK R12 K8 ["<font family='%*'>%*</font>"]
-  GETTABLEKS R14 R0 K9 ["Id"]
-  GETTABLEKS R15 R0 K5 ["Label"]
-  NAMECALL R12 R12 K10 ["format"]
-  CALL R12 3 1
-  MOVE R11 R12
-  SETTABLEKS R11 R10 K11 ["Text"]
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K12 ["Tag"]
-  LOADK R12 K13 ["X-Fill X-Pad ItemTextSize TextXAlignLeft"]
-  SETTABLE R12 R10 R11
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K5 ["Label"]
-  CALL R4 3 -1
-  RETURN R4 -1
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R4 R5 K0 ["createElement"]
+        3 GETUPVAL                         R5 1
+        4 DUPTABLE                         R6 K4 [{"LayoutOrder", "OnClick", "Size"}]
+        5 SETTABLEKS                       R1 R6 K1 ["LayoutOrder"]
+        7 NEWCLOSURE                       R7 P0
+        8 CAPTURE                          VAL R2
+        9 SETTABLEKS                       R7 R6 K2 ["OnClick"]
+       11 GETUPVAL                         R7 2
+       12 SETTABLEKS                       R7 R6 K3 ["Size"]
+       14 DUPTABLE                         R7 K6 [{"Label"}]
+       15 GETUPVAL                         R9 0
+       16 GETTABLEKS                       R8 R9 K0 ["createElement"]
+       18 GETUPVAL                         R9 3
+       19 NEWTABLE                         R10 4 0
+       21 LOADB                            R11 1
+       22 SETTABLEKS                       R11 R10 K7 ["RichText"]
+       24 LOADK                            R12 K8 ["<font family='%*'>%*</font>"]
+       25 GETTABLEKS                       R14 R0 K9 ["Id"]
+       27 GETTABLEKS                       R15 R0 K5 ["Label"]
+       29 NAMECALL                         R12 R12 K10 ["format"]
+       31 CALL                             R12 3 1
+       32 MOVE                             R11 R12
+       33 SETTABLEKS                       R11 R10 K11 ["Text"]
+       35 GETUPVAL                         R12 0
+       36 GETTABLEKS                       R11 R12 K12 ["Tag"]
+       38 LOADK                            R12 K13 ["X-Fill X-Pad ItemTextSize TextXAlignLeft"]
+       39 SETTABLE                         R12 R10 R11
+       40 CALL                             R8 2 1
+       41 SETTABLEKS                       R8 R7 K5 ["Label"]
+       43 CALL                             R4 3 -1
+       44 RETURN                           R4 -1
 
 PROTO_4:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["Value"]
-  SETTABLEKS R0 R1 K1 ["Family"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K2 ["OnChanged"]
-  MOVE R3 R1
-  CALL R2 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["Value"]
+        3 SETTABLEKS                       R0 R1 K1 ["Family"]
+        5 GETUPVAL                         R3 0
+        6 GETTABLEKS                       R2 R3 K2 ["OnChanged"]
+        8 MOVE                             R3 R1
+        9 CALL                             R2 1 0
+       10 RETURN                           R0 0
 
 PROTO_5:
-  GETUPVAL R1 0
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  NEWTABLE R3 0 1
-  GETTABLEKS R4 R0 K0 ["Fonts"]
-  SETLIST R3 R4 1 [1]
-  CALL R1 2 1
-  DUPCLOSURE R2 K1 [PROTO_3]
-  CAPTURE UPVAL U4
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U7
-  LOADK R3 K2 ["Font..."]
-  GETTABLEKS R5 R0 K3 ["Value"]
-  GETTABLEKS R4 R5 K4 ["Family"]
-  JUMPIFNOT R4 [+31]
-  GETTABLEKS R7 R0 K3 ["Value"]
-  GETTABLEKS R6 R7 K4 ["Family"]
-  GETUPVAL R8 1
-  GETTABLE R7 R8 R6
-  JUMPIFNOT R7 [+4]
-  LOADNIL R4
-  GETUPVAL R7 1
-  GETTABLE R5 R7 R6
-  JUMP [+18]
-  GETUPVAL R7 2
-  LOADNIL R8
-  LOADNIL R9
-  FORGPREP R7
-  GETTABLEKS R13 R11 K5 ["hiddenBy"]
-  GETTABLE R12 R13 R6
-  JUMPIFNOT R12 [+6]
-  GETTABLEKS R4 R11 K6 ["font"]
-  GETTABLEKS R12 R11 K5 ["hiddenBy"]
-  GETTABLE R5 R12 R6
-  JUMP [+4]
-  FORGLOOP R7 2 [-11]
-  MOVE R4 R6
-  LOADNIL R5
-  JUMPIFNOT R5 [+1]
-  MOVE R3 R5
-  GETUPVAL R5 4
-  GETTABLEKS R4 R5 K7 ["createElement"]
-  GETUPVAL R5 8
-  DUPTABLE R6 K12 [{"OnChanged", "OnRenderItem", "PlaceholderText", "Schema", "Value"}]
-  NEWCLOSURE R7 P2
-  CAPTURE VAL R0
-  SETTABLEKS R7 R6 K8 ["OnChanged"]
-  SETTABLEKS R2 R6 K9 ["OnRenderItem"]
-  SETTABLEKS R3 R6 K10 ["PlaceholderText"]
-  DUPTABLE R7 K14 [{"Items"}]
-  SETTABLEKS R1 R7 K13 ["Items"]
-  SETTABLEKS R7 R6 K11 ["Schema"]
-  GETTABLEKS R8 R0 K3 ["Value"]
-  GETTABLEKS R7 R8 K4 ["Family"]
-  SETTABLEKS R7 R6 K3 ["Value"]
-  CALL R4 2 -1
-  RETURN R4 -1
+        0 GETUPVAL                         R1 0
+        1 NEWCLOSURE                       R2 P0
+        2 CAPTURE                          VAL R0
+        3 CAPTURE                          UPVAL U1
+        4 CAPTURE                          UPVAL U2
+        5 CAPTURE                          UPVAL U3
+        6 NEWTABLE                         R3 0 1
+        8 GETTABLEKS                       R4 R0 K0 ["Fonts"]
+       10 SETLIST                          R3 R4 1 [1]
+       12 CALL                             R1 2 1
+       13 DUPCLOSURE                       R2 K1 [PROTO_3]
+       14 CAPTURE                          UPVAL U4
+       15 CAPTURE                          UPVAL U5
+       16 CAPTURE                          UPVAL U6
+       17 CAPTURE                          UPVAL U7
+       18 LOADK                            R3 K2 ["Font..."]
+       19 GETTABLEKS                       R5 R0 K3 ["Value"]
+       21 GETTABLEKS                       R4 R5 K4 ["Family"]
+       23 JUMPIFNOT                        R4 ; [+31]
+       24 GETTABLEKS                       R7 R0 K3 ["Value"]
+       26 GETTABLEKS                       R6 R7 K4 ["Family"]
+       28 GETUPVAL                         R8 1
+       29 GETTABLE                         R7 R8 R6
+       30 JUMPIFNOT                        R7 ; [+4]
+       31 LOADNIL                          R4
+       32 GETUPVAL                         R7 1
+       33 GETTABLE                         R5 R7 R6
+       34 JUMP                             ; [+18]
+       35 GETUPVAL                         R7 2
+       36 LOADNIL                          R8
+       37 LOADNIL                          R9
+       38 FORGPREP                         R7
+       39 GETTABLEKS                       R13 R11 K5 ["hiddenBy"]
+       41 GETTABLE                         R12 R13 R6
+       42 JUMPIFNOT                        R12 ; [+6]
+       43 GETTABLEKS                       R4 R11 K6 ["font"]
+       45 GETTABLEKS                       R12 R11 K5 ["hiddenBy"]
+       47 GETTABLE                         R5 R12 R6
+       48 JUMP                             ; [+4]
+       49 FORGLOOP                         R7 2 ; [-11]
+       51 MOVE                             R4 R6
+       52 LOADNIL                          R5
+       53 JUMPIFNOT                        R5 ; [+1]
+       54 MOVE                             R3 R5
+       55 GETUPVAL                         R5 4
+       56 GETTABLEKS                       R4 R5 K7 ["createElement"]
+       58 GETUPVAL                         R5 8
+       59 DUPTABLE                         R6 K12 [{"OnChanged", "OnRenderItem", "PlaceholderText", "Schema", "Value"}]
+       60 NEWCLOSURE                       R7 P2
+       61 CAPTURE                          VAL R0
+       62 SETTABLEKS                       R7 R6 K8 ["OnChanged"]
+       64 SETTABLEKS                       R2 R6 K9 ["OnRenderItem"]
+       66 SETTABLEKS                       R3 R6 K10 ["PlaceholderText"]
+       68 DUPTABLE                         R7 K14 [{"Items"}]
+       69 SETTABLEKS                       R1 R7 K13 ["Items"]
+       71 SETTABLEKS                       R7 R6 K11 ["Schema"]
+       73 GETTABLEKS                       R8 R0 K3 ["Value"]
+       75 GETTABLEKS                       R7 R8 K4 ["Family"]
+       77 SETTABLEKS                       R7 R6 K3 ["Value"]
+       79 CALL                             R4 2 -1
+       80 RETURN                           R4 -1
 
 PROTO_6:
-  DUPTABLE R1 K1 [{"Fonts"}]
-  GETTABLEKS R3 R0 K2 ["Asset"]
-  GETTABLEKS R2 R3 K0 ["Fonts"]
-  SETTABLEKS R2 R1 K0 ["Fonts"]
-  RETURN R1 1
+        0 DUPTABLE                         R1 K1 [{"Fonts"}]
+        1 GETTABLEKS                       R3 R0 K2 ["Asset"]
+        3 GETTABLEKS                       R2 R3 K0 ["Fonts"]
+        5 SETTABLEKS                       R2 R1 K0 ["Fonts"]
+        7 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["RoactRodux"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["React"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K8 ["useMemo"]
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R6 R0 K5 ["Packages"]
-  GETTABLEKS R5 R6 K9 ["Framework"]
-  CALL R4 1 1
-  GETTABLEKS R5 R4 K10 ["UI"]
-  GETTABLEKS R6 R5 K11 ["Button"]
-  GETTABLEKS R9 R5 K12 ["PropertyCell"]
-  GETTABLEKS R8 R9 K13 ["Renderers"]
-  GETTABLEKS R7 R8 K14 ["Select"]
-  GETTABLEKS R8 R5 K15 ["TextLabel"]
-  GETIMPORT R9 K4 [require]
-  GETTABLEKS R12 R0 K16 ["Src"]
-  GETTABLEKS R11 R12 K17 ["Util"]
-  GETTABLEKS R10 R11 K18 ["sortByLabel"]
-  CALL R9 1 1
-  GETIMPORT R10 K4 [require]
-  GETTABLEKS R13 R0 K16 ["Src"]
-  GETTABLEKS R12 R13 K13 ["Renderers"]
-  GETTABLEKS R11 R12 K19 ["RendererTypes"]
-  CALL R10 1 1
-  GETIMPORT R11 K4 [require]
-  GETTABLEKS R13 R0 K16 ["Src"]
-  GETTABLEKS R12 R13 K20 ["Types"]
-  CALL R11 1 1
-  GETIMPORT R12 K4 [require]
-  GETTABLEKS R15 R0 K16 ["Src"]
-  GETTABLEKS R14 R15 K21 ["Reducers"]
-  GETTABLEKS R13 R14 K22 ["RootReducer"]
-  CALL R12 1 1
-  GETIMPORT R13 K4 [require]
-  GETTABLEKS R16 R0 K16 ["Src"]
-  GETTABLEKS R15 R16 K23 ["Resources"]
-  GETTABLEKS R14 R15 K24 ["PluginStyles"]
-  CALL R13 1 1
-  LOADK R16 K25 ["PropertyCellSize"]
-  NAMECALL R14 R13 K26 ["GetAttribute"]
-  CALL R14 2 1
-  NEWTABLE R15 0 3
-  DUPTABLE R16 K29 [{"font", "hiddenBy"}]
-  LOADK R17 K30 ["rbxasset://fonts/families/Arimo.json"]
-  SETTABLEKS R17 R16 K27 ["font"]
-  NEWTABLE R17 2 0
-  LOADK R18 K31 ["Arial"]
-  SETTABLEKS R18 R17 K32 ["rbxasset://fonts/families/Arial.json"]
-  LOADK R18 K33 ["Arimo (Cloud)"]
-  SETTABLEKS R18 R17 K34 ["rbxassetid://16658254058"]
-  SETTABLEKS R17 R16 K28 ["hiddenBy"]
-  DUPTABLE R17 K29 [{"font", "hiddenBy"}]
-  LOADK R18 K35 ["rbxasset://fonts/families/BuilderSans.json"]
-  SETTABLEKS R18 R17 K27 ["font"]
-  NEWTABLE R18 1 0
-  LOADK R19 K36 ["Builder Sans (Cloud)"]
-  SETTABLEKS R19 R18 K37 ["rbxassetid://16658221428"]
-  SETTABLEKS R18 R17 K28 ["hiddenBy"]
-  DUPTABLE R18 K29 [{"font", "hiddenBy"}]
-  LOADK R19 K38 ["rbxasset://fonts/families/Montserrat.json"]
-  SETTABLEKS R19 R18 K27 ["font"]
-  NEWTABLE R19 2 0
-  LOADK R20 K39 ["Montserrat (Cloud)"]
-  SETTABLEKS R20 R19 K40 ["rbxassetid://11702779517"]
-  LOADK R20 K41 ["Gotham"]
-  SETTABLEKS R20 R19 K42 ["rbxasset://fonts/families/GothamSSm.json"]
-  SETTABLEKS R19 R18 K28 ["hiddenBy"]
-  SETLIST R15 R16 3 [1]
-  NEWTABLE R16 1 0
-  LOADK R17 K43 ["Arial (Legacy)"]
-  SETTABLEKS R17 R16 K44 ["rbxasset://fonts/families/LegacyArial.json"]
-  DUPCLOSURE R17 K45 [PROTO_0]
-  CAPTURE VAL R16
-  CAPTURE VAL R15
-  DUPCLOSURE R18 K46 [PROTO_5]
-  CAPTURE VAL R3
-  CAPTURE VAL R16
-  CAPTURE VAL R15
-  CAPTURE VAL R9
-  CAPTURE VAL R2
-  CAPTURE VAL R6
-  CAPTURE VAL R14
-  CAPTURE VAL R8
-  CAPTURE VAL R7
-  GETTABLEKS R19 R1 K47 ["connect"]
-  DUPCLOSURE R20 K48 [PROTO_6]
-  CALL R19 1 1
-  MOVE R20 R18
-  CALL R19 1 -1
-  RETURN R19 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R4 K1 [script]
+        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
+        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+       11 GETIMPORT                        R1 K4 [require]
+       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R3 K6 ["RoactRodux"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R2 K4 [require]
+       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R4 K7 ["React"]
+       24 CALL                             R2 1 1
+       25 GETTABLEKS                       R3 R2 K8 ["useMemo"]
+       27 GETIMPORT                        R4 K4 [require]
+       29 GETTABLEKS                       R6 R0 K5 ["Packages"]
+       31 GETTABLEKS                       R5 R6 K9 ["Framework"]
+       33 CALL                             R4 1 1
+       34 GETTABLEKS                       R5 R4 K10 ["UI"]
+       36 GETTABLEKS                       R6 R5 K11 ["Button"]
+       38 GETTABLEKS                       R9 R5 K12 ["PropertyCell"]
+       40 GETTABLEKS                       R8 R9 K13 ["Renderers"]
+       42 GETTABLEKS                       R7 R8 K14 ["Select"]
+       44 GETTABLEKS                       R8 R5 K15 ["TextLabel"]
+       46 GETIMPORT                        R9 K4 [require]
+       48 GETTABLEKS                       R12 R0 K16 ["Src"]
+       50 GETTABLEKS                       R11 R12 K17 ["Util"]
+       52 GETTABLEKS                       R10 R11 K18 ["sortByLabel"]
+       54 CALL                             R9 1 1
+       55 GETIMPORT                        R10 K4 [require]
+       57 GETTABLEKS                       R13 R0 K16 ["Src"]
+       59 GETTABLEKS                       R12 R13 K13 ["Renderers"]
+       61 GETTABLEKS                       R11 R12 K19 ["RendererTypes"]
+       63 CALL                             R10 1 1
+       64 GETIMPORT                        R11 K4 [require]
+       66 GETTABLEKS                       R13 R0 K16 ["Src"]
+       68 GETTABLEKS                       R12 R13 K20 ["Types"]
+       70 CALL                             R11 1 1
+       71 GETIMPORT                        R12 K4 [require]
+       73 GETTABLEKS                       R15 R0 K16 ["Src"]
+       75 GETTABLEKS                       R14 R15 K21 ["Reducers"]
+       77 GETTABLEKS                       R13 R14 K22 ["RootReducer"]
+       79 CALL                             R12 1 1
+       80 GETIMPORT                        R13 K4 [require]
+       82 GETTABLEKS                       R16 R0 K16 ["Src"]
+       84 GETTABLEKS                       R15 R16 K23 ["Resources"]
+       86 GETTABLEKS                       R14 R15 K24 ["PluginStyles"]
+       88 CALL                             R13 1 1
+       89 LOADK                            R16 K25 ["PropertyCellSize"]
+       90 NAMECALL                         R14 R13 K26 ["GetAttribute"]
+       92 CALL                             R14 2 1
+       93 NEWTABLE                         R15 0 3
+       95 DUPTABLE                         R16 K29 [{"font", "hiddenBy"}]
+       96 LOADK                            R17 K30 ["rbxasset://fonts/families/Arimo.json"]
+       97 SETTABLEKS                       R17 R16 K27 ["font"]
+       99 NEWTABLE                         R17 2 0
+      101 LOADK                            R18 K31 ["Arial"]
+      102 SETTABLEKS                       R18 R17 K32 ["rbxasset://fonts/families/Arial.json"]
+      104 LOADK                            R18 K33 ["Arimo (Cloud)"]
+      105 SETTABLEKS                       R18 R17 K34 ["rbxassetid://16658254058"]
+      107 SETTABLEKS                       R17 R16 K28 ["hiddenBy"]
+      109 DUPTABLE                         R17 K29 [{"font", "hiddenBy"}]
+      110 LOADK                            R18 K35 ["rbxasset://fonts/families/BuilderSans.json"]
+      111 SETTABLEKS                       R18 R17 K27 ["font"]
+      113 NEWTABLE                         R18 1 0
+      115 LOADK                            R19 K36 ["Builder Sans (Cloud)"]
+      116 SETTABLEKS                       R19 R18 K37 ["rbxassetid://16658221428"]
+      118 SETTABLEKS                       R18 R17 K28 ["hiddenBy"]
+      120 DUPTABLE                         R18 K29 [{"font", "hiddenBy"}]
+      121 LOADK                            R19 K38 ["rbxasset://fonts/families/Montserrat.json"]
+      122 SETTABLEKS                       R19 R18 K27 ["font"]
+      124 NEWTABLE                         R19 2 0
+      126 LOADK                            R20 K39 ["Montserrat (Cloud)"]
+      127 SETTABLEKS                       R20 R19 K40 ["rbxassetid://11702779517"]
+      129 LOADK                            R20 K41 ["Gotham"]
+      130 SETTABLEKS                       R20 R19 K42 ["rbxasset://fonts/families/GothamSSm.json"]
+      132 SETTABLEKS                       R19 R18 K28 ["hiddenBy"]
+      134 SETLIST                          R15 R16 3 [1]
+      136 NEWTABLE                         R16 1 0
+      138 LOADK                            R17 K43 ["Arial (Legacy)"]
+      139 SETTABLEKS                       R17 R16 K44 ["rbxasset://fonts/families/LegacyArial.json"]
+      141 DUPCLOSURE                       R17 K45 [PROTO_0]
+      142 CAPTURE                          VAL R16
+      143 CAPTURE                          VAL R15
+      144 DUPCLOSURE                       R18 K46 [PROTO_5]
+      145 CAPTURE                          VAL R3
+      146 CAPTURE                          VAL R16
+      147 CAPTURE                          VAL R15
+      148 CAPTURE                          VAL R9
+      149 CAPTURE                          VAL R2
+      150 CAPTURE                          VAL R6
+      151 CAPTURE                          VAL R14
+      152 CAPTURE                          VAL R8
+      153 CAPTURE                          VAL R7
+      154 GETTABLEKS                       R19 R1 K47 ["connect"]
+      156 DUPCLOSURE                       R20 K48 [PROTO_6]
+      157 CALL                             R19 1 1
+      158 MOVE                             R20 R18
+      159 CALL                             R19 1 -1
+      160 RETURN                           R19 -1

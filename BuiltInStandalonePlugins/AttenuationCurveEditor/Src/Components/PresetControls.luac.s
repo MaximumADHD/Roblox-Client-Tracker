@@ -1,271 +1,271 @@
 PROTO_0:
-  GETIMPORT R1 K2 [table.find]
-  GETUPVAL R2 0
-  MOVE R3 R0
-  CALL R1 2 1
-  JUMPIF R1 [+1]
-  RETURN R0 0
-  GETUPVAL R2 1
-  GETUPVAL R4 2
-  GETTABLE R3 R4 R1
-  SETTABLEKS R3 R2 K3 ["CurveType"]
-  GETUPVAL R3 3
-  GETTABLEKS R2 R3 K4 ["OnPresetChanged"]
-  GETUPVAL R3 1
-  CALL R2 1 0
-  RETURN R0 0
+        0 GETIMPORT                        R1 K2 [table.find]
+        2 GETUPVAL                         R2 0
+        3 MOVE                             R3 R0
+        4 CALL                             R1 2 1
+        5 JUMPIF                           R1 ; [+1]
+        6 RETURN                           R0 0
+        7 GETUPVAL                         R2 1
+        8 GETUPVAL                         R4 2
+        9 GETTABLE                         R3 R4 R1
+       10 SETTABLEKS                       R3 R2 K3 ["CurveType"]
+       12 GETUPVAL                         R3 3
+       13 GETTABLEKS                       R2 R3 K4 ["OnPresetChanged"]
+       15 GETUPVAL                         R3 1
+       16 CALL                             R2 1 0
+       17 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R1 0
-  FASTCALL2K MATH_MAX R0 K0 [+5]
-  MOVE R3 R0
-  LOADK R4 K0 [0]
-  GETIMPORT R2 K3 [math.max]
-  CALL R2 2 1
-  SETTABLEKS R2 R1 K4 ["Min"]
-  GETUPVAL R1 0
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K4 ["Min"]
-  ADDK R3 R4 K5 [0.01]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K6 ["Max"]
-  FASTCALL2 MATH_MAX R3 R4 [+3]
-  GETIMPORT R2 K3 [math.max]
-  CALL R2 2 1
-  SETTABLEKS R2 R1 K6 ["Max"]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K7 ["OnPresetChanged"]
-  GETUPVAL R2 0
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 FASTCALL2K                       MATH_MAX R0 K0 ; [+5]
+        3 MOVE                             R3 R0
+        4 LOADK                            R4 K0 [0]
+        5 GETIMPORT                        R2 K3 [math.max]
+        7 CALL                             R2 2 1
+        8 SETTABLEKS                       R2 R1 K4 ["Min"]
+       10 GETUPVAL                         R1 0
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R4 R5 K4 ["Min"]
+       14 ADDK                             R3 R4 K5 [0.01]
+       15 GETUPVAL                         R5 0
+       16 GETTABLEKS                       R4 R5 K6 ["Max"]
+       18 FASTCALL2                        MATH_MAX R3 R4 ; [+3]
+       20 GETIMPORT                        R2 K3 [math.max]
+       22 CALL                             R2 2 1
+       23 SETTABLEKS                       R2 R1 K6 ["Max"]
+       25 GETUPVAL                         R2 1
+       26 GETTABLEKS                       R1 R2 K7 ["OnPresetChanged"]
+       28 GETUPVAL                         R2 0
+       29 CALL                             R1 1 0
+       30 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R1 0
-  FASTCALL2K MATH_MAX R0 K0 [+5]
-  MOVE R3 R0
-  LOADK R4 K0 [0.01]
-  GETIMPORT R2 K3 [math.max]
-  CALL R2 2 1
-  SETTABLEKS R2 R1 K4 ["Max"]
-  GETUPVAL R1 0
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K4 ["Max"]
-  SUBK R3 R4 K0 [0.01]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K5 ["Min"]
-  FASTCALL2 MATH_MIN R3 R4 [+3]
-  GETIMPORT R2 K7 [math.min]
-  CALL R2 2 1
-  SETTABLEKS R2 R1 K5 ["Min"]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K8 ["OnPresetChanged"]
-  GETUPVAL R2 0
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 FASTCALL2K                       MATH_MAX R0 K0 ; [+5]
+        3 MOVE                             R3 R0
+        4 LOADK                            R4 K0 [0.01]
+        5 GETIMPORT                        R2 K3 [math.max]
+        7 CALL                             R2 2 1
+        8 SETTABLEKS                       R2 R1 K4 ["Max"]
+       10 GETUPVAL                         R1 0
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R4 R5 K4 ["Max"]
+       14 SUBK                             R3 R4 K0 [0.01]
+       15 GETUPVAL                         R5 0
+       16 GETTABLEKS                       R4 R5 K5 ["Min"]
+       18 FASTCALL2                        MATH_MIN R3 R4 ; [+3]
+       20 GETIMPORT                        R2 K7 [math.min]
+       22 CALL                             R2 2 1
+       23 SETTABLEKS                       R2 R1 K5 ["Min"]
+       25 GETUPVAL                         R2 1
+       26 GETTABLEKS                       R1 R2 K8 ["OnPresetChanged"]
+       28 GETUPVAL                         R2 0
+       29 CALL                             R1 1 0
+       30 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R1 0
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K0 ["Context"]
-  GETTABLEKS R2 R3 K1 ["Consumer"]
-  CALL R1 1 1
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K2 ["Localization"]
-  GETTABLEKS R3 R4 K3 ["Key"]
-  GETTABLE R2 R1 R3
-  NEWTABLE R3 0 4
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K4 ["INVERSE"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K5 ["INVERSE_TAPERED"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K6 ["LINEAR"]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K7 ["LINEAR_SQUARED"]
-  SETLIST R3 R4 4 [1]
-  NEWTABLE R4 0 4
-  LOADK R7 K8 ["Label"]
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K4 ["INVERSE"]
-  NAMECALL R5 R2 K9 ["getText"]
-  CALL R5 3 1
-  LOADK R8 K8 ["Label"]
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K5 ["INVERSE_TAPERED"]
-  NAMECALL R6 R2 K9 ["getText"]
-  CALL R6 3 1
-  LOADK R9 K8 ["Label"]
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K6 ["LINEAR"]
-  NAMECALL R7 R2 K9 ["getText"]
-  CALL R7 3 1
-  LOADK R10 K8 ["Label"]
-  GETUPVAL R12 2
-  GETTABLEKS R11 R12 K7 ["LINEAR_SQUARED"]
-  NAMECALL R8 R2 K9 ["getText"]
-  CALL R8 3 -1
-  SETLIST R4 R5 -1 [1]
-  GETTABLEKS R5 R0 K10 ["Preset"]
-  GETTABLEKS R7 R5 K11 ["CurveType"]
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K12 ["CUSTOM"]
-  JUMPIFEQ R7 R8 [+2]
-  LOADB R6 0 +1
-  LOADB R6 1
-  GETUPVAL R7 3
-  NEWCLOSURE R8 P0
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  CAPTURE VAL R3
-  CAPTURE VAL R0
-  NEWTABLE R9 0 1
-  MOVE R10 R0
-  SETLIST R9 R10 1 [1]
-  CALL R7 2 1
-  GETUPVAL R8 3
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R5
-  CAPTURE VAL R0
-  NEWTABLE R10 0 1
-  MOVE R11 R0
-  SETLIST R10 R11 1 [1]
-  CALL R8 2 1
-  GETUPVAL R9 3
-  NEWCLOSURE R10 P2
-  CAPTURE VAL R5
-  CAPTURE VAL R0
-  NEWTABLE R11 0 1
-  MOVE R12 R0
-  SETLIST R11 R12 1 [1]
-  CALL R9 2 1
-  GETUPVAL R11 4
-  GETTABLEKS R10 R11 K13 ["createElement"]
-  GETUPVAL R11 5
-  NEWTABLE R12 2 0
-  GETIMPORT R13 K16 [UDim2.fromScale]
-  LOADN R14 1
-  LOADN R15 0
-  CALL R13 2 1
-  SETTABLEKS R13 R12 K17 ["Size"]
-  GETUPVAL R14 4
-  GETTABLEKS R13 R14 K18 ["Tag"]
-  LOADK R14 K19 ["X-Pad X-RowM X-FitY"]
-  SETTABLE R14 R12 R13
-  DUPTABLE R13 K22 [{"TypeDropdown", "ParamsContainer"}]
-  GETUPVAL R15 4
-  GETTABLEKS R14 R15 K13 ["createElement"]
-  GETUPVAL R15 6
-  DUPTABLE R16 K27 [{"LayoutOrder", "PlaceholderText", "Items", "OnItemActivated"}]
-  LOADN R17 0
-  SETTABLEKS R17 R16 K23 ["LayoutOrder"]
-  LOADK R19 K8 ["Label"]
-  GETTABLEKS R20 R5 K11 ["CurveType"]
-  NAMECALL R17 R2 K9 ["getText"]
-  CALL R17 3 1
-  SETTABLEKS R17 R16 K24 ["PlaceholderText"]
-  SETTABLEKS R4 R16 K25 ["Items"]
-  SETTABLEKS R7 R16 K26 ["OnItemActivated"]
-  CALL R14 2 1
-  SETTABLEKS R14 R13 K20 ["TypeDropdown"]
-  NOT R14 R6
-  JUMPIFNOT R14 [+82]
-  GETUPVAL R15 4
-  GETTABLEKS R14 R15 K13 ["createElement"]
-  GETUPVAL R15 5
-  NEWTABLE R16 2 0
-  LOADN R17 1
-  SETTABLEKS R17 R16 K23 ["LayoutOrder"]
-  GETUPVAL R18 4
-  GETTABLEKS R17 R18 K18 ["Tag"]
-  LOADK R18 K28 ["X-Left X-RowM X-FitY"]
-  SETTABLE R18 R16 R17
-  DUPTABLE R17 K31 [{"Min", "Max"}]
-  GETUPVAL R19 4
-  GETTABLEKS R18 R19 K13 ["createElement"]
-  GETUPVAL R19 7
-  DUPTABLE R20 K36 [{"LayoutOrder", "Text", "Schema", "Value", "OnChanged"}]
-  LOADN R21 1
-  SETTABLEKS R21 R20 K23 ["LayoutOrder"]
-  LOADK R23 K8 ["Label"]
-  LOADK R24 K29 ["Min"]
-  NAMECALL R21 R2 K9 ["getText"]
-  CALL R21 3 1
-  SETTABLEKS R21 R20 K32 ["Text"]
-  DUPTABLE R21 K38 [{"Type", "Min"}]
-  LOADK R22 K39 ["Number"]
-  SETTABLEKS R22 R21 K37 ["Type"]
-  LOADN R22 0
-  SETTABLEKS R22 R21 K29 ["Min"]
-  SETTABLEKS R21 R20 K33 ["Schema"]
-  GETTABLEKS R21 R5 K29 ["Min"]
-  SETTABLEKS R21 R20 K34 ["Value"]
-  SETTABLEKS R8 R20 K35 ["OnChanged"]
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K29 ["Min"]
-  GETUPVAL R19 4
-  GETTABLEKS R18 R19 K13 ["createElement"]
-  GETUPVAL R19 7
-  DUPTABLE R20 K36 [{"LayoutOrder", "Text", "Schema", "Value", "OnChanged"}]
-  LOADN R21 2
-  SETTABLEKS R21 R20 K23 ["LayoutOrder"]
-  LOADK R23 K8 ["Label"]
-  LOADK R24 K30 ["Max"]
-  NAMECALL R21 R2 K9 ["getText"]
-  CALL R21 3 1
-  SETTABLEKS R21 R20 K32 ["Text"]
-  DUPTABLE R21 K38 [{"Type", "Min"}]
-  LOADK R22 K39 ["Number"]
-  SETTABLEKS R22 R21 K37 ["Type"]
-  LOADK R22 K40 [0.01]
-  SETTABLEKS R22 R21 K29 ["Min"]
-  SETTABLEKS R21 R20 K33 ["Schema"]
-  GETTABLEKS R21 R5 K30 ["Max"]
-  SETTABLEKS R21 R20 K34 ["Value"]
-  SETTABLEKS R9 R20 K35 ["OnChanged"]
-  CALL R18 2 1
-  SETTABLEKS R18 R17 K30 ["Max"]
-  CALL R14 3 1
-  SETTABLEKS R14 R13 K21 ["ParamsContainer"]
-  CALL R10 3 -1
-  RETURN R10 -1
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R4 1
+        2 GETTABLEKS                       R3 R4 K0 ["Context"]
+        4 GETTABLEKS                       R2 R3 K1 ["Consumer"]
+        6 CALL                             R1 1 1
+        7 GETUPVAL                         R5 1
+        8 GETTABLEKS                       R4 R5 K2 ["Localization"]
+       10 GETTABLEKS                       R3 R4 K3 ["Key"]
+       12 GETTABLE                         R2 R1 R3
+       13 NEWTABLE                         R3 0 4
+       15 GETUPVAL                         R5 2
+       16 GETTABLEKS                       R4 R5 K4 ["INVERSE"]
+       18 GETUPVAL                         R6 2
+       19 GETTABLEKS                       R5 R6 K5 ["INVERSE_TAPERED"]
+       21 GETUPVAL                         R7 2
+       22 GETTABLEKS                       R6 R7 K6 ["LINEAR"]
+       24 GETUPVAL                         R8 2
+       25 GETTABLEKS                       R7 R8 K7 ["LINEAR_SQUARED"]
+       27 SETLIST                          R3 R4 4 [1]
+       29 NEWTABLE                         R4 0 4
+       31 LOADK                            R7 K8 ["Label"]
+       32 GETUPVAL                         R9 2
+       33 GETTABLEKS                       R8 R9 K4 ["INVERSE"]
+       35 NAMECALL                         R5 R2 K9 ["getText"]
+       37 CALL                             R5 3 1
+       38 LOADK                            R8 K8 ["Label"]
+       39 GETUPVAL                         R10 2
+       40 GETTABLEKS                       R9 R10 K5 ["INVERSE_TAPERED"]
+       42 NAMECALL                         R6 R2 K9 ["getText"]
+       44 CALL                             R6 3 1
+       45 LOADK                            R9 K8 ["Label"]
+       46 GETUPVAL                         R11 2
+       47 GETTABLEKS                       R10 R11 K6 ["LINEAR"]
+       49 NAMECALL                         R7 R2 K9 ["getText"]
+       51 CALL                             R7 3 1
+       52 LOADK                            R10 K8 ["Label"]
+       53 GETUPVAL                         R12 2
+       54 GETTABLEKS                       R11 R12 K7 ["LINEAR_SQUARED"]
+       56 NAMECALL                         R8 R2 K9 ["getText"]
+       58 CALL                             R8 3 -1
+       59 SETLIST                          R4 R5 -1 [1]
+       61 GETTABLEKS                       R5 R0 K10 ["Preset"]
+       63 GETTABLEKS                       R7 R5 K11 ["CurveType"]
+       65 GETUPVAL                         R9 2
+       66 GETTABLEKS                       R8 R9 K12 ["CUSTOM"]
+       68 JUMPIFEQ                         R7 R8 ; [+2]
+       70 LOADB                            R6 0 +1
+       71 LOADB                            R6 1
+       72 GETUPVAL                         R7 3
+       73 NEWCLOSURE                       R8 P0
+       74 CAPTURE                          VAL R4
+       75 CAPTURE                          VAL R5
+       76 CAPTURE                          VAL R3
+       77 CAPTURE                          VAL R0
+       78 NEWTABLE                         R9 0 1
+       80 MOVE                             R10 R0
+       81 SETLIST                          R9 R10 1 [1]
+       83 CALL                             R7 2 1
+       84 GETUPVAL                         R8 3
+       85 NEWCLOSURE                       R9 P1
+       86 CAPTURE                          VAL R5
+       87 CAPTURE                          VAL R0
+       88 NEWTABLE                         R10 0 1
+       90 MOVE                             R11 R0
+       91 SETLIST                          R10 R11 1 [1]
+       93 CALL                             R8 2 1
+       94 GETUPVAL                         R9 3
+       95 NEWCLOSURE                       R10 P2
+       96 CAPTURE                          VAL R5
+       97 CAPTURE                          VAL R0
+       98 NEWTABLE                         R11 0 1
+      100 MOVE                             R12 R0
+      101 SETLIST                          R11 R12 1 [1]
+      103 CALL                             R9 2 1
+      104 GETUPVAL                         R11 4
+      105 GETTABLEKS                       R10 R11 K13 ["createElement"]
+      107 GETUPVAL                         R11 5
+      108 NEWTABLE                         R12 2 0
+      110 GETIMPORT                        R13 K16 [UDim2.fromScale]
+      112 LOADN                            R14 1
+      113 LOADN                            R15 0
+      114 CALL                             R13 2 1
+      115 SETTABLEKS                       R13 R12 K17 ["Size"]
+      117 GETUPVAL                         R14 4
+      118 GETTABLEKS                       R13 R14 K18 ["Tag"]
+      120 LOADK                            R14 K19 ["X-Pad X-RowM X-FitY"]
+      121 SETTABLE                         R14 R12 R13
+      122 DUPTABLE                         R13 K22 [{"TypeDropdown", "ParamsContainer"}]
+      123 GETUPVAL                         R15 4
+      124 GETTABLEKS                       R14 R15 K13 ["createElement"]
+      126 GETUPVAL                         R15 6
+      127 DUPTABLE                         R16 K27 [{"LayoutOrder", "PlaceholderText", "Items", "OnItemActivated"}]
+      128 LOADN                            R17 0
+      129 SETTABLEKS                       R17 R16 K23 ["LayoutOrder"]
+      131 LOADK                            R19 K8 ["Label"]
+      132 GETTABLEKS                       R20 R5 K11 ["CurveType"]
+      134 NAMECALL                         R17 R2 K9 ["getText"]
+      136 CALL                             R17 3 1
+      137 SETTABLEKS                       R17 R16 K24 ["PlaceholderText"]
+      139 SETTABLEKS                       R4 R16 K25 ["Items"]
+      141 SETTABLEKS                       R7 R16 K26 ["OnItemActivated"]
+      143 CALL                             R14 2 1
+      144 SETTABLEKS                       R14 R13 K20 ["TypeDropdown"]
+      146 NOT                              R14 R6
+      147 JUMPIFNOT                        R14 ; [+82]
+      148 GETUPVAL                         R15 4
+      149 GETTABLEKS                       R14 R15 K13 ["createElement"]
+      151 GETUPVAL                         R15 5
+      152 NEWTABLE                         R16 2 0
+      154 LOADN                            R17 1
+      155 SETTABLEKS                       R17 R16 K23 ["LayoutOrder"]
+      157 GETUPVAL                         R18 4
+      158 GETTABLEKS                       R17 R18 K18 ["Tag"]
+      160 LOADK                            R18 K28 ["X-Left X-RowM X-FitY"]
+      161 SETTABLE                         R18 R16 R17
+      162 DUPTABLE                         R17 K31 [{"Min", "Max"}]
+      163 GETUPVAL                         R19 4
+      164 GETTABLEKS                       R18 R19 K13 ["createElement"]
+      166 GETUPVAL                         R19 7
+      167 DUPTABLE                         R20 K36 [{"LayoutOrder", "Text", "Schema", "Value", "OnChanged"}]
+      168 LOADN                            R21 1
+      169 SETTABLEKS                       R21 R20 K23 ["LayoutOrder"]
+      171 LOADK                            R23 K8 ["Label"]
+      172 LOADK                            R24 K29 ["Min"]
+      173 NAMECALL                         R21 R2 K9 ["getText"]
+      175 CALL                             R21 3 1
+      176 SETTABLEKS                       R21 R20 K32 ["Text"]
+      178 DUPTABLE                         R21 K38 [{"Type", "Min"}]
+      179 LOADK                            R22 K39 ["Number"]
+      180 SETTABLEKS                       R22 R21 K37 ["Type"]
+      182 LOADN                            R22 0
+      183 SETTABLEKS                       R22 R21 K29 ["Min"]
+      185 SETTABLEKS                       R21 R20 K33 ["Schema"]
+      187 GETTABLEKS                       R21 R5 K29 ["Min"]
+      189 SETTABLEKS                       R21 R20 K34 ["Value"]
+      191 SETTABLEKS                       R8 R20 K35 ["OnChanged"]
+      193 CALL                             R18 2 1
+      194 SETTABLEKS                       R18 R17 K29 ["Min"]
+      196 GETUPVAL                         R19 4
+      197 GETTABLEKS                       R18 R19 K13 ["createElement"]
+      199 GETUPVAL                         R19 7
+      200 DUPTABLE                         R20 K36 [{"LayoutOrder", "Text", "Schema", "Value", "OnChanged"}]
+      201 LOADN                            R21 2
+      202 SETTABLEKS                       R21 R20 K23 ["LayoutOrder"]
+      204 LOADK                            R23 K8 ["Label"]
+      205 LOADK                            R24 K30 ["Max"]
+      206 NAMECALL                         R21 R2 K9 ["getText"]
+      208 CALL                             R21 3 1
+      209 SETTABLEKS                       R21 R20 K32 ["Text"]
+      211 DUPTABLE                         R21 K38 [{"Type", "Min"}]
+      212 LOADK                            R22 K39 ["Number"]
+      213 SETTABLEKS                       R22 R21 K37 ["Type"]
+      215 LOADK                            R22 K40 [0.01]
+      216 SETTABLEKS                       R22 R21 K29 ["Min"]
+      218 SETTABLEKS                       R21 R20 K33 ["Schema"]
+      220 GETTABLEKS                       R21 R5 K30 ["Max"]
+      222 SETTABLEKS                       R21 R20 K34 ["Value"]
+      224 SETTABLEKS                       R9 R20 K35 ["OnChanged"]
+      226 CALL                             R18 2 1
+      227 SETTABLEKS                       R18 R17 K30 ["Max"]
+      229 CALL                             R14 3 1
+      230 SETTABLEKS                       R14 R13 K21 ["ParamsContainer"]
+      232 CALL                             R10 3 -1
+      233 RETURN                           R10 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AttenuationCurveEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K8 ["useCallback"]
-  GETTABLEKS R3 R1 K9 ["useContext"]
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R6 R0 K6 ["Packages"]
-  GETTABLEKS R5 R6 K10 ["Framework"]
-  CALL R4 1 1
-  GETTABLEKS R5 R4 K11 ["ContextServices"]
-  GETTABLEKS R7 R4 K12 ["UI"]
-  GETTABLEKS R6 R7 K13 ["Pane"]
-  GETTABLEKS R8 R4 K12 ["UI"]
-  GETTABLEKS R7 R8 K14 ["SelectInput"]
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R10 R0 K15 ["Src"]
-  GETTABLEKS R9 R10 K16 ["Types"]
-  CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K15 ["Src"]
-  GETTABLEKS R11 R12 K17 ["Components"]
-  GETTABLEKS R10 R11 K18 ["LabelCell"]
-  CALL R9 1 1
-  DUPCLOSURE R10 K19 [PROTO_3]
-  CAPTURE VAL R3
-  CAPTURE VAL R5
-  CAPTURE VAL R8
-  CAPTURE VAL R2
-  CAPTURE VAL R1
-  CAPTURE VAL R6
-  CAPTURE VAL R7
-  CAPTURE VAL R9
-  RETURN R10 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AttenuationCurveEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R2 R1 K8 ["useCallback"]
+       16 GETTABLEKS                       R3 R1 K9 ["useContext"]
+       18 GETIMPORT                        R4 K5 [require]
+       20 GETTABLEKS                       R6 R0 K6 ["Packages"]
+       22 GETTABLEKS                       R5 R6 K10 ["Framework"]
+       24 CALL                             R4 1 1
+       25 GETTABLEKS                       R5 R4 K11 ["ContextServices"]
+       27 GETTABLEKS                       R7 R4 K12 ["UI"]
+       29 GETTABLEKS                       R6 R7 K13 ["Pane"]
+       31 GETTABLEKS                       R8 R4 K12 ["UI"]
+       33 GETTABLEKS                       R7 R8 K14 ["SelectInput"]
+       35 GETIMPORT                        R8 K5 [require]
+       37 GETTABLEKS                       R10 R0 K15 ["Src"]
+       39 GETTABLEKS                       R9 R10 K16 ["Types"]
+       41 CALL                             R8 1 1
+       42 GETIMPORT                        R9 K5 [require]
+       44 GETTABLEKS                       R12 R0 K15 ["Src"]
+       46 GETTABLEKS                       R11 R12 K17 ["Components"]
+       48 GETTABLEKS                       R10 R11 K18 ["LabelCell"]
+       50 CALL                             R9 1 1
+       51 DUPCLOSURE                       R10 K19 [PROTO_3]
+       52 CAPTURE                          VAL R3
+       53 CAPTURE                          VAL R5
+       54 CAPTURE                          VAL R8
+       55 CAPTURE                          VAL R2
+       56 CAPTURE                          VAL R1
+       57 CAPTURE                          VAL R6
+       58 CAPTURE                          VAL R7
+       59 CAPTURE                          VAL R9
+       60 RETURN                           R10 1

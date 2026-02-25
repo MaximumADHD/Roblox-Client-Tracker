@@ -1,9 +1,9 @@
 PROTO_0:
-  RETURN R0 0
+        0 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  NEWTABLE R1 1 0
-  SETTABLEKS R0 R1 K1 ["new"]
-  RETURN R1 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 NEWTABLE                         R1 1 0
+        4 SETTABLEKS                       R0 R1 K1 ["new"]
+        6 RETURN                           R1 1

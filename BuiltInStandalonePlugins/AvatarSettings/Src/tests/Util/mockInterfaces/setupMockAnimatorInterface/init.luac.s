@@ -1,30 +1,30 @@
 PROTO_0:
-  GETUPVAL R0 0
-  GETUPVAL R1 1
-  SETTABLEKS R1 R0 K0 ["LoadAnimation"]
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 SETTABLEKS                       R1 R0 K0 ["LoadAnimation"]
+        4 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarSettings"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Src"]
-  GETTABLEKS R4 R5 K7 ["Util"]
-  GETTABLEKS R3 R4 K8 ["Interfaces"]
-  GETTABLEKS R2 R3 K9 ["AnimatorInterface"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R8 R0 K6 ["Src"]
-  GETTABLEKS R7 R8 K10 ["tests"]
-  GETTABLEKS R6 R7 K7 ["Util"]
-  GETTABLEKS R5 R6 K11 ["mockInterfaces"]
-  GETTABLEKS R4 R5 K12 ["setupMockAnimatorInterface"]
-  GETTABLEKS R3 R4 K13 ["mockLoadAnimation"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K14 [PROTO_0]
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarSettings"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R5 R0 K6 ["Src"]
+       11 GETTABLEKS                       R4 R5 K7 ["Util"]
+       13 GETTABLEKS                       R3 R4 K8 ["Interfaces"]
+       15 GETTABLEKS                       R2 R3 K9 ["AnimatorInterface"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R2 K5 [require]
+       20 GETTABLEKS                       R8 R0 K6 ["Src"]
+       22 GETTABLEKS                       R7 R8 K10 ["tests"]
+       24 GETTABLEKS                       R6 R7 K7 ["Util"]
+       26 GETTABLEKS                       R5 R6 K11 ["mockInterfaces"]
+       28 GETTABLEKS                       R4 R5 K12 ["setupMockAnimatorInterface"]
+       30 GETTABLEKS                       R3 R4 K13 ["mockLoadAnimation"]
+       32 CALL                             R2 1 1
+       33 DUPCLOSURE                       R3 K14 [PROTO_0]
+       34 CAPTURE                          VAL R1
+       35 CAPTURE                          VAL R2
+       36 RETURN                           R3 1

@@ -1,239 +1,239 @@
 PROTO_0:
-  GETUPVAL R1 0
-  DUPTABLE R3 K1 [{"noticeText"}]
-  SETTABLEKS R0 R3 K0 ["noticeText"]
-  NAMECALL R1 R1 K2 ["setState"]
-  CALL R1 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 DUPTABLE                         R3 K1 [{"noticeText"}]
+        2 SETTABLEKS                       R0 R3 K0 ["noticeText"]
+        4 NAMECALL                         R1 R1 K2 ["setState"]
+        6 CALL                             R1 2 0
+        7 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["setNotice"]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["None"]
-  CALL R0 1 0
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["props"]
-  GETTABLEKS R0 R1 K3 ["OnClose"]
-  JUMPIFNOT R0 [+6]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["props"]
-  GETTABLEKS R0 R1 K3 ["OnClose"]
-  CALL R0 0 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["setNotice"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R1 R2 K1 ["None"]
+        6 CALL                             R0 1 0
+        7 GETUPVAL                         R2 0
+        8 GETTABLEKS                       R1 R2 K2 ["props"]
+       10 GETTABLEKS                       R0 R1 K3 ["OnClose"]
+       12 JUMPIFNOT                        R0 ; [+6]
+       13 GETUPVAL                         R2 0
+       14 GETTABLEKS                       R1 R2 K2 ["props"]
+       16 GETTABLEKS                       R0 R1 K3 ["OnClose"]
+       18 CALL                             R0 0 0
+       19 RETURN                           R0 0
 
 PROTO_2:
-  GETIMPORT R1 K2 [string.match]
-  GETUPVAL R2 0
-  LOADK R3 K3 ["^%s*([0-9]*[.]?[0-9]*)[xX]?%s*$"]
-  CALL R1 2 -1
-  FASTCALL TONUMBER [+2]
-  GETIMPORT R0 K5 [tonumber]
-  CALL R0 -1 1
-  RETURN R0 1
+        0 GETIMPORT                        R1 K2 [string.match]
+        2 GETUPVAL                         R2 0
+        3 LOADK                            R3 K3 ["^%s*([0-9]*[.]?[0-9]*)[xX]?%s*$"]
+        4 CALL                             R1 2 -1
+        5 FASTCALL                         TONUMBER ; [+2]
+        6 GETIMPORT                        R0 K5 [tonumber]
+        8 CALL                             R0 -1 1
+        9 RETURN                           R0 1
 
 PROTO_3:
-  JUMPIFNOTEQKS R0 K0 [""] [+3]
-  LOADB R2 0
-  RETURN R2 1
-  GETIMPORT R2 K2 [pcall]
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R0
-  CALL R2 1 2
-  JUMPIFNOT R2 [+76]
-  JUMPIFEQKNIL R3 [+75]
-  MULK R5 R3 K3 [100]
-  FASTCALL1 MATH_FLOOR R5 [+2]
-  GETIMPORT R4 K6 [math.floor]
-  CALL R4 1 1
-  DIVK R3 R4 K3 [100]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K7 ["MIN_PLAYBACK_SPEED"]
-  JUMPIFNOTLT R3 R4 [+22]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K8 ["setNotice"]
-  LOADK R7 K9 ["Title"]
-  LOADK R8 K10 ["MinPBSParam"]
-  DUPTABLE R9 K12 [{"speed"}]
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K7 ["MIN_PLAYBACK_SPEED"]
-  FASTCALL1 TOSTRING R11 [+2]
-  GETIMPORT R10 K14 [tostring]
-  CALL R10 1 1
-  SETTABLEKS R10 R9 K11 ["speed"]
-  NAMECALL R5 R1 K15 ["getText"]
-  CALL R5 4 -1
-  CALL R4 -1 0
-  LOADB R4 0
-  RETURN R4 1
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K16 ["MAX_PLAYBACK_SPEED"]
-  JUMPIFNOTLT R4 R3 [+22]
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K8 ["setNotice"]
-  LOADK R7 K9 ["Title"]
-  LOADK R8 K17 ["MaxPBSParam"]
-  DUPTABLE R9 K12 [{"speed"}]
-  GETUPVAL R12 0
-  GETTABLEKS R11 R12 K16 ["MAX_PLAYBACK_SPEED"]
-  FASTCALL1 TOSTRING R11 [+2]
-  GETIMPORT R10 K14 [tostring]
-  CALL R10 1 1
-  SETTABLEKS R10 R9 K11 ["speed"]
-  NAMECALL R5 R1 K15 ["getText"]
-  CALL R5 4 -1
-  CALL R4 -1 0
-  LOADB R4 0
-  RETURN R4 1
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K18 ["props"]
-  GETTABLEKS R4 R5 K19 ["SetPlaybackSpeed"]
-  MOVE R5 R3
-  CALL R4 1 0
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K8 ["setNotice"]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K20 ["None"]
-  CALL R4 1 0
-  LOADB R4 1
-  RETURN R4 1
-  LOADB R4 0
-  RETURN R4 1
+        0 JUMPIFNOTEQKS                    R0 K0 [""] ; [+3]
+        2 LOADB                            R2 0
+        3 RETURN                           R2 1
+        4 GETIMPORT                        R2 K2 [pcall]
+        6 NEWCLOSURE                       R3 P0
+        7 CAPTURE                          VAL R0
+        8 CALL                             R2 1 2
+        9 JUMPIFNOT                        R2 ; [+76]
+       10 JUMPIFEQKNIL                     R3 ; [+75]
+       12 MULK                             R5 R3 K3 [100]
+       13 FASTCALL1                        MATH_FLOOR R5 ; [+2]
+       14 GETIMPORT                        R4 K6 [math.floor]
+       16 CALL                             R4 1 1
+       17 DIVK                             R3 R4 K3 [100]
+       18 GETUPVAL                         R5 0
+       19 GETTABLEKS                       R4 R5 K7 ["MIN_PLAYBACK_SPEED"]
+       21 JUMPIFNOTLT                      R3 R4 ; [+22]
+       23 GETUPVAL                         R5 1
+       24 GETTABLEKS                       R4 R5 K8 ["setNotice"]
+       26 LOADK                            R7 K9 ["Title"]
+       27 LOADK                            R8 K10 ["MinPBSParam"]
+       28 DUPTABLE                         R9 K12 [{"speed"}]
+       29 GETUPVAL                         R12 0
+       30 GETTABLEKS                       R11 R12 K7 ["MIN_PLAYBACK_SPEED"]
+       32 FASTCALL1                        TOSTRING R11 ; [+2]
+       33 GETIMPORT                        R10 K14 [tostring]
+       35 CALL                             R10 1 1
+       36 SETTABLEKS                       R10 R9 K11 ["speed"]
+       38 NAMECALL                         R5 R1 K15 ["getText"]
+       40 CALL                             R5 4 -1
+       41 CALL                             R4 -1 0
+       42 LOADB                            R4 0
+       43 RETURN                           R4 1
+       44 GETUPVAL                         R5 0
+       45 GETTABLEKS                       R4 R5 K16 ["MAX_PLAYBACK_SPEED"]
+       47 JUMPIFNOTLT                      R4 R3 ; [+22]
+       49 GETUPVAL                         R5 1
+       50 GETTABLEKS                       R4 R5 K8 ["setNotice"]
+       52 LOADK                            R7 K9 ["Title"]
+       53 LOADK                            R8 K17 ["MaxPBSParam"]
+       54 DUPTABLE                         R9 K12 [{"speed"}]
+       55 GETUPVAL                         R12 0
+       56 GETTABLEKS                       R11 R12 K16 ["MAX_PLAYBACK_SPEED"]
+       58 FASTCALL1                        TOSTRING R11 ; [+2]
+       59 GETIMPORT                        R10 K14 [tostring]
+       61 CALL                             R10 1 1
+       62 SETTABLEKS                       R10 R9 K11 ["speed"]
+       64 NAMECALL                         R5 R1 K15 ["getText"]
+       66 CALL                             R5 4 -1
+       67 CALL                             R4 -1 0
+       68 LOADB                            R4 0
+       69 RETURN                           R4 1
+       70 GETUPVAL                         R6 1
+       71 GETTABLEKS                       R5 R6 K18 ["props"]
+       73 GETTABLEKS                       R4 R5 K19 ["SetPlaybackSpeed"]
+       75 MOVE                             R5 R3
+       76 CALL                             R4 1 0
+       77 GETUPVAL                         R5 1
+       78 GETTABLEKS                       R4 R5 K8 ["setNotice"]
+       80 GETUPVAL                         R6 2
+       81 GETTABLEKS                       R5 R6 K20 ["None"]
+       83 CALL                             R4 1 0
+       84 LOADB                            R4 1
+       85 RETURN                           R4 1
+       86 LOADB                            R4 0
+       87 RETURN                           R4 1
 
 PROTO_4:
-  DUPTABLE R1 K1 [{"noticeText"}]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K2 ["None"]
-  SETTABLEKS R2 R1 K0 ["noticeText"]
-  SETTABLEKS R1 R0 K3 ["state"]
-  NEWCLOSURE R1 P0
-  CAPTURE VAL R0
-  SETTABLEKS R1 R0 K4 ["setNotice"]
-  NEWCLOSURE R1 P1
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  SETTABLEKS R1 R0 K5 ["onClose"]
-  NEWCLOSURE R1 P2
-  CAPTURE UPVAL U1
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  SETTABLEKS R1 R0 K6 ["setPlaybackSpeed"]
-  RETURN R0 0
+        0 DUPTABLE                         R1 K1 [{"noticeText"}]
+        1 GETUPVAL                         R3 0
+        2 GETTABLEKS                       R2 R3 K2 ["None"]
+        4 SETTABLEKS                       R2 R1 K0 ["noticeText"]
+        6 SETTABLEKS                       R1 R0 K3 ["state"]
+        8 NEWCLOSURE                       R1 P0
+        9 CAPTURE                          VAL R0
+       10 SETTABLEKS                       R1 R0 K4 ["setNotice"]
+       12 NEWCLOSURE                       R1 P1
+       13 CAPTURE                          VAL R0
+       14 CAPTURE                          UPVAL U0
+       15 SETTABLEKS                       R1 R0 K5 ["onClose"]
+       17 NEWCLOSURE                       R1 P2
+       18 CAPTURE                          UPVAL U1
+       19 CAPTURE                          VAL R0
+       20 CAPTURE                          UPVAL U0
+       21 SETTABLEKS                       R1 R0 K6 ["setPlaybackSpeed"]
+       23 RETURN                           R0 0
 
 PROTO_5:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["setPlaybackSpeed"]
-  MOVE R2 R0
-  GETUPVAL R3 1
-  CALL R1 2 -1
-  RETURN R1 -1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["setPlaybackSpeed"]
+        3 MOVE                             R2 R0
+        4 GETUPVAL                         R3 1
+        5 CALL                             R1 2 -1
+        6 RETURN                           R1 -1
 
 PROTO_6:
-  GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R0 K1 ["state"]
-  GETTABLEKS R3 R1 K2 ["PlaybackSpeed"]
-  GETTABLEKS R4 R2 K3 ["noticeText"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K4 ["None"]
-  JUMPIFNOTEQ R4 R6 [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  GETTABLEKS R7 R0 K0 ["props"]
-  GETTABLEKS R6 R7 K5 ["Localization"]
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K6 ["createElement"]
-  GETUPVAL R8 1
-  DUPTABLE R9 K15 [{"PromptText", "InputText", "NoticeText", "HasError", "Text", "Buttons", "OnTextSubmitted", "OnClose"}]
-  LOADK R10 K16 [" "]
-  SETTABLEKS R10 R9 K7 ["PromptText"]
-  LOADK R12 K17 ["Title"]
-  LOADK R13 K18 ["CustomPlaybackSpeed"]
-  NAMECALL R10 R6 K19 ["getText"]
-  CALL R10 3 1
-  SETTABLEKS R10 R9 K8 ["InputText"]
-  JUMPIFNOT R5 [+2]
-  MOVE R10 R4
-  JUMPIF R10 [+1]
-  LOADNIL R10
-  SETTABLEKS R10 R9 K9 ["NoticeText"]
-  SETTABLEKS R5 R9 K10 ["HasError"]
-  SETTABLEKS R3 R9 K11 ["Text"]
-  NEWTABLE R10 0 2
-  DUPTABLE R11 K22 [{"Key", "Text", "Style"}]
-  LOADB R12 0
-  SETTABLEKS R12 R11 K20 ["Key"]
-  LOADK R14 K23 ["Dialog"]
-  LOADK R15 K24 ["Cancel"]
-  NAMECALL R12 R6 K19 ["getText"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K11 ["Text"]
-  LOADK R12 K25 ["Round"]
-  SETTABLEKS R12 R11 K21 ["Style"]
-  DUPTABLE R12 K22 [{"Key", "Text", "Style"}]
-  LOADB R13 1
-  SETTABLEKS R13 R12 K20 ["Key"]
-  LOADK R15 K23 ["Dialog"]
-  LOADK R16 K26 ["Confirm"]
-  NAMECALL R13 R6 K19 ["getText"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K11 ["Text"]
-  LOADK R13 K27 ["RoundPrimary"]
-  SETTABLEKS R13 R12 K21 ["Style"]
-  SETLIST R10 R11 2 [1]
-  SETTABLEKS R10 R9 K12 ["Buttons"]
-  NEWCLOSURE R10 P0
-  CAPTURE VAL R0
-  CAPTURE VAL R6
-  SETTABLEKS R10 R9 K13 ["OnTextSubmitted"]
-  GETTABLEKS R10 R0 K28 ["onClose"]
-  SETTABLEKS R10 R9 K14 ["OnClose"]
-  CALL R7 2 -1
-  RETURN R7 -1
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R0 K1 ["state"]
+        4 GETTABLEKS                       R3 R1 K2 ["PlaybackSpeed"]
+        6 GETTABLEKS                       R4 R2 K3 ["noticeText"]
+        8 GETUPVAL                         R7 0
+        9 GETTABLEKS                       R6 R7 K4 ["None"]
+       11 JUMPIFNOTEQ                      R4 R6 ; [+2]
+       13 LOADB                            R5 0 +1
+       14 LOADB                            R5 1
+       15 GETTABLEKS                       R7 R0 K0 ["props"]
+       17 GETTABLEKS                       R6 R7 K5 ["Localization"]
+       19 GETUPVAL                         R8 0
+       20 GETTABLEKS                       R7 R8 K6 ["createElement"]
+       22 GETUPVAL                         R8 1
+       23 DUPTABLE                         R9 K15 [{"PromptText", "InputText", "NoticeText", "HasError", "Text", "Buttons", "OnTextSubmitted", "OnClose"}]
+       24 LOADK                            R10 K16 [" "]
+       25 SETTABLEKS                       R10 R9 K7 ["PromptText"]
+       27 LOADK                            R12 K17 ["Title"]
+       28 LOADK                            R13 K18 ["CustomPlaybackSpeed"]
+       29 NAMECALL                         R10 R6 K19 ["getText"]
+       31 CALL                             R10 3 1
+       32 SETTABLEKS                       R10 R9 K8 ["InputText"]
+       34 JUMPIFNOT                        R5 ; [+2]
+       35 MOVE                             R10 R4
+       36 JUMPIF                           R10 ; [+1]
+       37 LOADNIL                          R10
+       38 SETTABLEKS                       R10 R9 K9 ["NoticeText"]
+       40 SETTABLEKS                       R5 R9 K10 ["HasError"]
+       42 SETTABLEKS                       R3 R9 K11 ["Text"]
+       44 NEWTABLE                         R10 0 2
+       46 DUPTABLE                         R11 K22 [{"Key", "Text", "Style"}]
+       47 LOADB                            R12 0
+       48 SETTABLEKS                       R12 R11 K20 ["Key"]
+       50 LOADK                            R14 K23 ["Dialog"]
+       51 LOADK                            R15 K24 ["Cancel"]
+       52 NAMECALL                         R12 R6 K19 ["getText"]
+       54 CALL                             R12 3 1
+       55 SETTABLEKS                       R12 R11 K11 ["Text"]
+       57 LOADK                            R12 K25 ["Round"]
+       58 SETTABLEKS                       R12 R11 K21 ["Style"]
+       60 DUPTABLE                         R12 K22 [{"Key", "Text", "Style"}]
+       61 LOADB                            R13 1
+       62 SETTABLEKS                       R13 R12 K20 ["Key"]
+       64 LOADK                            R15 K23 ["Dialog"]
+       65 LOADK                            R16 K26 ["Confirm"]
+       66 NAMECALL                         R13 R6 K19 ["getText"]
+       68 CALL                             R13 3 1
+       69 SETTABLEKS                       R13 R12 K11 ["Text"]
+       71 LOADK                            R13 K27 ["RoundPrimary"]
+       72 SETTABLEKS                       R13 R12 K21 ["Style"]
+       74 SETLIST                          R10 R11 2 [1]
+       76 SETTABLEKS                       R10 R9 K12 ["Buttons"]
+       78 NEWCLOSURE                       R10 P0
+       79 CAPTURE                          VAL R0
+       80 CAPTURE                          VAL R6
+       81 SETTABLEKS                       R10 R9 K13 ["OnTextSubmitted"]
+       83 GETTABLEKS                       R10 R0 K28 ["onClose"]
+       85 SETTABLEKS                       R10 R9 K14 ["OnClose"]
+       87 CALL                             R7 2 -1
+       88 RETURN                           R7 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AnimationClipEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Roact"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Framework"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K9 ["ContextServices"]
-  GETTABLEKS R4 R3 K10 ["withContext"]
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K11 ["Src"]
-  GETTABLEKS R7 R8 K12 ["Util"]
-  GETTABLEKS R6 R7 K13 ["Constants"]
-  CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K11 ["Src"]
-  GETTABLEKS R8 R9 K14 ["Components"]
-  GETTABLEKS R7 R8 K15 ["TextEntryPrompt"]
-  CALL R6 1 1
-  GETTABLEKS R7 R1 K16 ["PureComponent"]
-  LOADK R9 K17 ["ChangePlaybackSpeedPrompt"]
-  NAMECALL R7 R7 K18 ["extend"]
-  CALL R7 2 1
-  DUPCLOSURE R8 K19 [PROTO_4]
-  CAPTURE VAL R1
-  CAPTURE VAL R5
-  SETTABLEKS R8 R7 K20 ["init"]
-  DUPCLOSURE R8 K21 [PROTO_6]
-  CAPTURE VAL R1
-  CAPTURE VAL R6
-  SETTABLEKS R8 R7 K22 ["render"]
-  MOVE R8 R4
-  DUPTABLE R9 K24 [{"Localization"}]
-  GETTABLEKS R10 R3 K23 ["Localization"]
-  SETTABLEKS R10 R9 K23 ["Localization"]
-  CALL R8 1 1
-  MOVE R9 R7
-  CALL R8 1 1
-  MOVE R7 R8
-  RETURN R7 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AnimationClipEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["Roact"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R3 R2 K9 ["ContextServices"]
+       23 GETTABLEKS                       R4 R3 K10 ["withContext"]
+       25 GETIMPORT                        R5 K5 [require]
+       27 GETTABLEKS                       R8 R0 K11 ["Src"]
+       29 GETTABLEKS                       R7 R8 K12 ["Util"]
+       31 GETTABLEKS                       R6 R7 K13 ["Constants"]
+       33 CALL                             R5 1 1
+       34 GETIMPORT                        R6 K5 [require]
+       36 GETTABLEKS                       R9 R0 K11 ["Src"]
+       38 GETTABLEKS                       R8 R9 K14 ["Components"]
+       40 GETTABLEKS                       R7 R8 K15 ["TextEntryPrompt"]
+       42 CALL                             R6 1 1
+       43 GETTABLEKS                       R7 R1 K16 ["PureComponent"]
+       45 LOADK                            R9 K17 ["ChangePlaybackSpeedPrompt"]
+       46 NAMECALL                         R7 R7 K18 ["extend"]
+       48 CALL                             R7 2 1
+       49 DUPCLOSURE                       R8 K19 [PROTO_4]
+       50 CAPTURE                          VAL R1
+       51 CAPTURE                          VAL R5
+       52 SETTABLEKS                       R8 R7 K20 ["init"]
+       54 DUPCLOSURE                       R8 K21 [PROTO_6]
+       55 CAPTURE                          VAL R1
+       56 CAPTURE                          VAL R6
+       57 SETTABLEKS                       R8 R7 K22 ["render"]
+       59 MOVE                             R8 R4
+       60 DUPTABLE                         R9 K24 [{"Localization"}]
+       61 GETTABLEKS                       R10 R3 K23 ["Localization"]
+       63 SETTABLEKS                       R10 R9 K23 ["Localization"]
+       65 CALL                             R8 1 1
+       66 MOVE                             R9 R7
+       67 CALL                             R8 1 1
+       68 MOVE                             R7 R8
+       69 RETURN                           R7 1

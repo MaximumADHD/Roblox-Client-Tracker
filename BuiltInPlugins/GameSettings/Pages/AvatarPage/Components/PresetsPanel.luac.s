@@ -1,413 +1,413 @@
 PROTO_0:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["new"]
-  MOVE R2 R0
-  CALL R1 1 1
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K1 ["setScaleHeightMin"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K2 ["setScaleHeightMax"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K3 ["setScaleWidthMin"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K4 ["setScaleWidthMax"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K5 ["setScaleHeadMin"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K6 ["setScaleHeadMax"]
-  CALL R2 3 0
-  LOADN R4 0
-  MOVE R5 R0
-  NAMECALL R2 R1 K7 ["setScaleBodyTypeMin"]
-  CALL R2 3 0
-  LOADN R4 0
-  MOVE R5 R0
-  NAMECALL R2 R1 K8 ["setScaleBodyTypeMax"]
-  CALL R2 3 0
-  LOADN R4 0
-  MOVE R5 R0
-  NAMECALL R2 R1 K9 ["setScaleProportionMin"]
-  CALL R2 3 0
-  LOADN R4 0
-  MOVE R5 R0
-  NAMECALL R2 R1 K10 ["setScaleProportionMax"]
-  CALL R2 3 0
-  NAMECALL R2 R1 K11 ["setRigTypeR15"]
-  CALL R2 1 0
-  RETURN R1 1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 1
+        5 LOADN                            R4 1
+        6 MOVE                             R5 R0
+        7 NAMECALL                         R2 R1 K1 ["setScaleHeightMin"]
+        9 CALL                             R2 3 0
+       10 LOADN                            R4 1
+       11 MOVE                             R5 R0
+       12 NAMECALL                         R2 R1 K2 ["setScaleHeightMax"]
+       14 CALL                             R2 3 0
+       15 LOADN                            R4 1
+       16 MOVE                             R5 R0
+       17 NAMECALL                         R2 R1 K3 ["setScaleWidthMin"]
+       19 CALL                             R2 3 0
+       20 LOADN                            R4 1
+       21 MOVE                             R5 R0
+       22 NAMECALL                         R2 R1 K4 ["setScaleWidthMax"]
+       24 CALL                             R2 3 0
+       25 LOADN                            R4 1
+       26 MOVE                             R5 R0
+       27 NAMECALL                         R2 R1 K5 ["setScaleHeadMin"]
+       29 CALL                             R2 3 0
+       30 LOADN                            R4 1
+       31 MOVE                             R5 R0
+       32 NAMECALL                         R2 R1 K6 ["setScaleHeadMax"]
+       34 CALL                             R2 3 0
+       35 LOADN                            R4 0
+       36 MOVE                             R5 R0
+       37 NAMECALL                         R2 R1 K7 ["setScaleBodyTypeMin"]
+       39 CALL                             R2 3 0
+       40 LOADN                            R4 0
+       41 MOVE                             R5 R0
+       42 NAMECALL                         R2 R1 K8 ["setScaleBodyTypeMax"]
+       44 CALL                             R2 3 0
+       45 LOADN                            R4 0
+       46 MOVE                             R5 R0
+       47 NAMECALL                         R2 R1 K9 ["setScaleProportionMin"]
+       49 CALL                             R2 3 0
+       50 LOADN                            R4 0
+       51 MOVE                             R5 R0
+       52 NAMECALL                         R2 R1 K10 ["setScaleProportionMax"]
+       54 CALL                             R2 3 0
+       55 NAMECALL                         R2 R1 K11 ["setRigTypeR15"]
+       57 CALL                             R2 1 0
+       58 RETURN                           R1 1
 
 PROTO_1:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["new"]
-  MOVE R2 R0
-  CALL R1 1 1
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K1 ["setScaleHeightMin"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K2 ["setScaleHeightMax"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K3 ["setScaleWidthMin"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K4 ["setScaleWidthMax"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K5 ["setScaleHeadMin"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K6 ["setScaleHeadMax"]
-  CALL R2 3 0
-  LOADN R4 0
-  MOVE R5 R0
-  NAMECALL R2 R1 K7 ["setScaleBodyTypeMin"]
-  CALL R2 3 0
-  LOADN R4 0
-  MOVE R5 R0
-  NAMECALL R2 R1 K8 ["setScaleBodyTypeMax"]
-  CALL R2 3 0
-  LOADN R4 0
-  MOVE R5 R0
-  NAMECALL R2 R1 K9 ["setScaleProportionMin"]
-  CALL R2 3 0
-  LOADN R4 0
-  MOVE R5 R0
-  NAMECALL R2 R1 K10 ["setScaleProportionMax"]
-  CALL R2 3 0
-  NAMECALL R2 R1 K11 ["setRigTypeR15"]
-  CALL R2 1 0
-  RETURN R1 1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 1
+        5 LOADN                            R4 1
+        6 MOVE                             R5 R0
+        7 NAMECALL                         R2 R1 K1 ["setScaleHeightMin"]
+        9 CALL                             R2 3 0
+       10 LOADN                            R4 1
+       11 MOVE                             R5 R0
+       12 NAMECALL                         R2 R1 K2 ["setScaleHeightMax"]
+       14 CALL                             R2 3 0
+       15 LOADN                            R4 1
+       16 MOVE                             R5 R0
+       17 NAMECALL                         R2 R1 K3 ["setScaleWidthMin"]
+       19 CALL                             R2 3 0
+       20 LOADN                            R4 1
+       21 MOVE                             R5 R0
+       22 NAMECALL                         R2 R1 K4 ["setScaleWidthMax"]
+       24 CALL                             R2 3 0
+       25 LOADN                            R4 1
+       26 MOVE                             R5 R0
+       27 NAMECALL                         R2 R1 K5 ["setScaleHeadMin"]
+       29 CALL                             R2 3 0
+       30 LOADN                            R4 1
+       31 MOVE                             R5 R0
+       32 NAMECALL                         R2 R1 K6 ["setScaleHeadMax"]
+       34 CALL                             R2 3 0
+       35 LOADN                            R4 0
+       36 MOVE                             R5 R0
+       37 NAMECALL                         R2 R1 K7 ["setScaleBodyTypeMin"]
+       39 CALL                             R2 3 0
+       40 LOADN                            R4 0
+       41 MOVE                             R5 R0
+       42 NAMECALL                         R2 R1 K8 ["setScaleBodyTypeMax"]
+       44 CALL                             R2 3 0
+       45 LOADN                            R4 0
+       46 MOVE                             R5 R0
+       47 NAMECALL                         R2 R1 K9 ["setScaleProportionMin"]
+       49 CALL                             R2 3 0
+       50 LOADN                            R4 0
+       51 MOVE                             R5 R0
+       52 NAMECALL                         R2 R1 K10 ["setScaleProportionMax"]
+       54 CALL                             R2 3 0
+       55 NAMECALL                         R2 R1 K11 ["setRigTypeR15"]
+       57 CALL                             R2 1 0
+       58 RETURN                           R1 1
 
 PROTO_2:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["new"]
-  MOVE R2 R0
-  CALL R1 1 1
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K1 ["setScaleHeightMin"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K2 ["setScaleHeightMax"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K3 ["setScaleWidthMin"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K4 ["setScaleWidthMax"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K5 ["setScaleHeadMin"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K6 ["setScaleHeadMax"]
-  CALL R2 3 0
-  LOADN R4 0
-  MOVE R5 R0
-  NAMECALL R2 R1 K7 ["setScaleBodyTypeMin"]
-  CALL R2 3 0
-  LOADN R4 0
-  MOVE R5 R0
-  NAMECALL R2 R1 K8 ["setScaleBodyTypeMax"]
-  CALL R2 3 0
-  LOADN R4 0
-  MOVE R5 R0
-  NAMECALL R2 R1 K9 ["setScaleProportionMin"]
-  CALL R2 3 0
-  LOADN R4 0
-  MOVE R5 R0
-  NAMECALL R2 R1 K10 ["setScaleProportionMax"]
-  CALL R2 3 0
-  NAMECALL R2 R1 K11 ["setRigTypeR15"]
-  CALL R2 1 0
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K12 ["AssetTypes"]
-  GETTABLEKS R4 R5 K13 ["Head"]
-  LOADK R5 K14 [2432102561]
-  LOADB R6 0
-  NAMECALL R2 R1 K15 ["setAsset"]
-  CALL R2 4 0
-  RETURN R1 1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 1
+        5 LOADN                            R4 1
+        6 MOVE                             R5 R0
+        7 NAMECALL                         R2 R1 K1 ["setScaleHeightMin"]
+        9 CALL                             R2 3 0
+       10 LOADN                            R4 1
+       11 MOVE                             R5 R0
+       12 NAMECALL                         R2 R1 K2 ["setScaleHeightMax"]
+       14 CALL                             R2 3 0
+       15 LOADN                            R4 1
+       16 MOVE                             R5 R0
+       17 NAMECALL                         R2 R1 K3 ["setScaleWidthMin"]
+       19 CALL                             R2 3 0
+       20 LOADN                            R4 1
+       21 MOVE                             R5 R0
+       22 NAMECALL                         R2 R1 K4 ["setScaleWidthMax"]
+       24 CALL                             R2 3 0
+       25 LOADN                            R4 1
+       26 MOVE                             R5 R0
+       27 NAMECALL                         R2 R1 K5 ["setScaleHeadMin"]
+       29 CALL                             R2 3 0
+       30 LOADN                            R4 1
+       31 MOVE                             R5 R0
+       32 NAMECALL                         R2 R1 K6 ["setScaleHeadMax"]
+       34 CALL                             R2 3 0
+       35 LOADN                            R4 0
+       36 MOVE                             R5 R0
+       37 NAMECALL                         R2 R1 K7 ["setScaleBodyTypeMin"]
+       39 CALL                             R2 3 0
+       40 LOADN                            R4 0
+       41 MOVE                             R5 R0
+       42 NAMECALL                         R2 R1 K8 ["setScaleBodyTypeMax"]
+       44 CALL                             R2 3 0
+       45 LOADN                            R4 0
+       46 MOVE                             R5 R0
+       47 NAMECALL                         R2 R1 K9 ["setScaleProportionMin"]
+       49 CALL                             R2 3 0
+       50 LOADN                            R4 0
+       51 MOVE                             R5 R0
+       52 NAMECALL                         R2 R1 K10 ["setScaleProportionMax"]
+       54 CALL                             R2 3 0
+       55 NAMECALL                         R2 R1 K11 ["setRigTypeR15"]
+       57 CALL                             R2 1 0
+       58 GETUPVAL                         R6 1
+       59 GETTABLEKS                       R5 R6 K12 ["AssetTypes"]
+       61 GETTABLEKS                       R4 R5 K13 ["Head"]
+       63 LOADK                            R5 K14 [2432102561]
+       64 LOADB                            R6 0
+       65 NAMECALL                         R2 R1 K15 ["setAsset"]
+       67 CALL                             R2 4 0
+       68 RETURN                           R1 1
 
 PROTO_3:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["new"]
-  MOVE R2 R0
-  CALL R1 1 1
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K1 ["setScaleHeightMin"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K2 ["setScaleHeightMax"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K3 ["setScaleWidthMin"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K4 ["setScaleWidthMax"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K5 ["setScaleHeadMin"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K6 ["setScaleHeadMax"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K7 ["setScaleBodyTypeMin"]
-  CALL R2 3 0
-  LOADN R4 1
-  MOVE R5 R0
-  NAMECALL R2 R1 K8 ["setScaleBodyTypeMax"]
-  CALL R2 3 0
-  LOADN R4 0
-  MOVE R5 R0
-  NAMECALL R2 R1 K9 ["setScaleProportionMin"]
-  CALL R2 3 0
-  LOADN R4 0
-  MOVE R5 R0
-  NAMECALL R2 R1 K10 ["setScaleProportionMax"]
-  CALL R2 3 0
-  NAMECALL R2 R1 K11 ["setRigTypeR15"]
-  CALL R2 1 0
-  RETURN R1 1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 1
+        5 LOADN                            R4 1
+        6 MOVE                             R5 R0
+        7 NAMECALL                         R2 R1 K1 ["setScaleHeightMin"]
+        9 CALL                             R2 3 0
+       10 LOADN                            R4 1
+       11 MOVE                             R5 R0
+       12 NAMECALL                         R2 R1 K2 ["setScaleHeightMax"]
+       14 CALL                             R2 3 0
+       15 LOADN                            R4 1
+       16 MOVE                             R5 R0
+       17 NAMECALL                         R2 R1 K3 ["setScaleWidthMin"]
+       19 CALL                             R2 3 0
+       20 LOADN                            R4 1
+       21 MOVE                             R5 R0
+       22 NAMECALL                         R2 R1 K4 ["setScaleWidthMax"]
+       24 CALL                             R2 3 0
+       25 LOADN                            R4 1
+       26 MOVE                             R5 R0
+       27 NAMECALL                         R2 R1 K5 ["setScaleHeadMin"]
+       29 CALL                             R2 3 0
+       30 LOADN                            R4 1
+       31 MOVE                             R5 R0
+       32 NAMECALL                         R2 R1 K6 ["setScaleHeadMax"]
+       34 CALL                             R2 3 0
+       35 LOADN                            R4 1
+       36 MOVE                             R5 R0
+       37 NAMECALL                         R2 R1 K7 ["setScaleBodyTypeMin"]
+       39 CALL                             R2 3 0
+       40 LOADN                            R4 1
+       41 MOVE                             R5 R0
+       42 NAMECALL                         R2 R1 K8 ["setScaleBodyTypeMax"]
+       44 CALL                             R2 3 0
+       45 LOADN                            R4 0
+       46 MOVE                             R5 R0
+       47 NAMECALL                         R2 R1 K9 ["setScaleProportionMin"]
+       49 CALL                             R2 3 0
+       50 LOADN                            R4 0
+       51 MOVE                             R5 R0
+       52 NAMECALL                         R2 R1 K10 ["setScaleProportionMax"]
+       54 CALL                             R2 3 0
+       55 NAMECALL                         R2 R1 K11 ["setRigTypeR15"]
+       57 CALL                             R2 1 0
+       58 RETURN                           R1 1
 
 PROTO_4:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["new"]
-  MOVE R2 R0
-  CALL R1 1 -1
-  RETURN R1 -1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["new"]
+        3 MOVE                             R2 R0
+        4 CALL                             R1 1 -1
+        5 RETURN                           R1 -1
 
 PROTO_5:
-  DUPCLOSURE R1 K0 [PROTO_0]
-  CAPTURE UPVAL U0
-  SETTABLEKS R1 R0 K1 ["createDefaultModel"]
-  DUPCLOSURE R1 K2 [PROTO_1]
-  CAPTURE UPVAL U0
-  SETTABLEKS R1 R0 K3 ["createClassicModel1"]
-  DUPCLOSURE R1 K4 [PROTO_2]
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  SETTABLEKS R1 R0 K5 ["createClassicModel2"]
-  DUPCLOSURE R1 K6 [PROTO_3]
-  CAPTURE UPVAL U0
-  SETTABLEKS R1 R0 K7 ["createRthroModel"]
-  DUPCLOSURE R1 K8 [PROTO_4]
-  CAPTURE UPVAL U0
-  SETTABLEKS R1 R0 K9 ["createPlayerChoiceModel"]
-  RETURN R0 0
+        0 DUPCLOSURE                       R1 K0 [PROTO_0]
+        1 CAPTURE                          UPVAL U0
+        2 SETTABLEKS                       R1 R0 K1 ["createDefaultModel"]
+        4 DUPCLOSURE                       R1 K2 [PROTO_1]
+        5 CAPTURE                          UPVAL U0
+        6 SETTABLEKS                       R1 R0 K3 ["createClassicModel1"]
+        8 DUPCLOSURE                       R1 K4 [PROTO_2]
+        9 CAPTURE                          UPVAL U0
+       10 CAPTURE                          UPVAL U1
+       11 SETTABLEKS                       R1 R0 K5 ["createClassicModel2"]
+       13 DUPCLOSURE                       R1 K6 [PROTO_3]
+       14 CAPTURE                          UPVAL U0
+       15 SETTABLEKS                       R1 R0 K7 ["createRthroModel"]
+       17 DUPCLOSURE                       R1 K8 [PROTO_4]
+       18 CAPTURE                          UPVAL U0
+       19 SETTABLEKS                       R1 R0 K9 ["createPlayerChoiceModel"]
+       21 RETURN                           R0 0
 
 PROTO_6:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["props"]
-  GETTABLEKS R1 R2 K1 ["clobberTemplate"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["props"]
-  GETTABLEKS R2 R3 K2 ["template"]
-  MOVE R3 R0
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["props"]
-  GETTABLEKS R4 R5 K3 ["boundaries"]
-  CALL R3 1 -1
-  CALL R1 -1 0
-  RETURN R0 0
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["props"]
+        3 GETTABLEKS                       R1 R2 K1 ["clobberTemplate"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R3 R4 K0 ["props"]
+        8 GETTABLEKS                       R2 R3 K2 ["template"]
+       10 MOVE                             R3 R0
+       11 GETUPVAL                         R6 0
+       12 GETTABLEKS                       R5 R6 K0 ["props"]
+       14 GETTABLEKS                       R4 R5 K3 ["boundaries"]
+       16 CALL                             R3 1 -1
+       17 CALL                             R1 -1 0
+       18 RETURN                           R0 0
 
 PROTO_7:
-  GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R1 K1 ["Localization"]
-  GETTABLEKS R3 R1 K2 ["Mouse"]
-  NAMECALL R3 R3 K3 ["get"]
-  CALL R3 1 1
-  GETTABLEKS R4 R1 K4 ["IsEnabled"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K5 ["createElement"]
-  GETUPVAL R6 1
-  DUPTABLE R7 K13 [{"Padding", "Buttons", "HorizontalAlignment", "Title", "ButtonClicked", "ShowPressed", "LayoutOrder"}]
-  LOADN R8 10
-  SETTABLEKS R8 R7 K6 ["Padding"]
-  NEWTABLE R8 0 5
-  DUPTABLE R9 K17 [{"Name", "Enabled", "Value", "ShowPressed", "Mouse"}]
-  LOADK R12 K18 ["General"]
-  LOADK R13 K19 ["PresetDefault"]
-  NAMECALL R10 R2 K20 ["getText"]
-  CALL R10 3 1
-  SETTABLEKS R10 R9 K14 ["Name"]
-  SETTABLEKS R4 R9 K15 ["Enabled"]
-  GETTABLEKS R10 R0 K21 ["createDefaultModel"]
-  SETTABLEKS R10 R9 K16 ["Value"]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K11 ["ShowPressed"]
-  SETTABLEKS R3 R9 K2 ["Mouse"]
-  DUPTABLE R10 K17 [{"Name", "Enabled", "Value", "ShowPressed", "Mouse"}]
-  LOADK R13 K18 ["General"]
-  LOADK R14 K22 ["PresetClassicScale"]
-  NAMECALL R11 R2 K20 ["getText"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K14 ["Name"]
-  SETTABLEKS R4 R10 K15 ["Enabled"]
-  GETTABLEKS R11 R0 K23 ["createClassicModel1"]
-  SETTABLEKS R11 R10 K16 ["Value"]
-  LOADB R11 1
-  SETTABLEKS R11 R10 K11 ["ShowPressed"]
-  SETTABLEKS R3 R10 K2 ["Mouse"]
-  DUPTABLE R11 K17 [{"Name", "Enabled", "Value", "ShowPressed", "Mouse"}]
-  LOADK R14 K18 ["General"]
-  LOADK R15 K24 ["PresetFullClassic"]
-  NAMECALL R12 R2 K20 ["getText"]
-  CALL R12 3 1
-  SETTABLEKS R12 R11 K14 ["Name"]
-  SETTABLEKS R4 R11 K15 ["Enabled"]
-  GETTABLEKS R12 R0 K25 ["createClassicModel2"]
-  SETTABLEKS R12 R11 K16 ["Value"]
-  LOADB R12 1
-  SETTABLEKS R12 R11 K11 ["ShowPressed"]
-  SETTABLEKS R3 R11 K2 ["Mouse"]
-  DUPTABLE R12 K17 [{"Name", "Enabled", "Value", "ShowPressed", "Mouse"}]
-  LOADK R15 K18 ["General"]
-  LOADK R16 K26 ["PresetRthro"]
-  NAMECALL R13 R2 K20 ["getText"]
-  CALL R13 3 1
-  SETTABLEKS R13 R12 K14 ["Name"]
-  SETTABLEKS R4 R12 K15 ["Enabled"]
-  GETTABLEKS R13 R0 K27 ["createRthroModel"]
-  SETTABLEKS R13 R12 K16 ["Value"]
-  LOADB R13 1
-  SETTABLEKS R13 R12 K11 ["ShowPressed"]
-  SETTABLEKS R3 R12 K2 ["Mouse"]
-  DUPTABLE R13 K17 [{"Name", "Enabled", "Value", "ShowPressed", "Mouse"}]
-  LOADK R16 K18 ["General"]
-  LOADK R17 K28 ["PresetPlayerChoice"]
-  NAMECALL R14 R2 K20 ["getText"]
-  CALL R14 3 1
-  SETTABLEKS R14 R13 K14 ["Name"]
-  SETTABLEKS R4 R13 K15 ["Enabled"]
-  GETTABLEKS R14 R0 K29 ["createPlayerChoiceModel"]
-  SETTABLEKS R14 R13 K16 ["Value"]
-  LOADB R14 1
-  SETTABLEKS R14 R13 K11 ["ShowPressed"]
-  SETTABLEKS R3 R13 K2 ["Mouse"]
-  SETLIST R8 R9 5 [1]
-  SETTABLEKS R8 R7 K7 ["Buttons"]
-  GETIMPORT R8 K32 [Enum.HorizontalAlignment.Left]
-  SETTABLEKS R8 R7 K8 ["HorizontalAlignment"]
-  LOADK R10 K18 ["General"]
-  LOADK R11 K33 ["TitlePresets"]
-  NAMECALL R8 R2 K20 ["getText"]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K9 ["Title"]
-  NEWCLOSURE R8 P0
-  CAPTURE VAL R0
-  SETTABLEKS R8 R7 K10 ["ButtonClicked"]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K11 ["ShowPressed"]
-  GETTABLEKS R9 R0 K0 ["props"]
-  GETTABLEKS R8 R9 K12 ["LayoutOrder"]
-  SETTABLEKS R8 R7 K12 ["LayoutOrder"]
-  CALL R5 2 -1
-  RETURN R5 -1
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R1 K1 ["Localization"]
+        4 GETTABLEKS                       R3 R1 K2 ["Mouse"]
+        6 NAMECALL                         R3 R3 K3 ["get"]
+        8 CALL                             R3 1 1
+        9 GETTABLEKS                       R4 R1 K4 ["IsEnabled"]
+       11 GETUPVAL                         R6 0
+       12 GETTABLEKS                       R5 R6 K5 ["createElement"]
+       14 GETUPVAL                         R6 1
+       15 DUPTABLE                         R7 K13 [{"Padding", "Buttons", "HorizontalAlignment", "Title", "ButtonClicked", "ShowPressed", "LayoutOrder"}]
+       16 LOADN                            R8 10
+       17 SETTABLEKS                       R8 R7 K6 ["Padding"]
+       19 NEWTABLE                         R8 0 5
+       21 DUPTABLE                         R9 K17 [{"Name", "Enabled", "Value", "ShowPressed", "Mouse"}]
+       22 LOADK                            R12 K18 ["General"]
+       23 LOADK                            R13 K19 ["PresetDefault"]
+       24 NAMECALL                         R10 R2 K20 ["getText"]
+       26 CALL                             R10 3 1
+       27 SETTABLEKS                       R10 R9 K14 ["Name"]
+       29 SETTABLEKS                       R4 R9 K15 ["Enabled"]
+       31 GETTABLEKS                       R10 R0 K21 ["createDefaultModel"]
+       33 SETTABLEKS                       R10 R9 K16 ["Value"]
+       35 LOADB                            R10 1
+       36 SETTABLEKS                       R10 R9 K11 ["ShowPressed"]
+       38 SETTABLEKS                       R3 R9 K2 ["Mouse"]
+       40 DUPTABLE                         R10 K17 [{"Name", "Enabled", "Value", "ShowPressed", "Mouse"}]
+       41 LOADK                            R13 K18 ["General"]
+       42 LOADK                            R14 K22 ["PresetClassicScale"]
+       43 NAMECALL                         R11 R2 K20 ["getText"]
+       45 CALL                             R11 3 1
+       46 SETTABLEKS                       R11 R10 K14 ["Name"]
+       48 SETTABLEKS                       R4 R10 K15 ["Enabled"]
+       50 GETTABLEKS                       R11 R0 K23 ["createClassicModel1"]
+       52 SETTABLEKS                       R11 R10 K16 ["Value"]
+       54 LOADB                            R11 1
+       55 SETTABLEKS                       R11 R10 K11 ["ShowPressed"]
+       57 SETTABLEKS                       R3 R10 K2 ["Mouse"]
+       59 DUPTABLE                         R11 K17 [{"Name", "Enabled", "Value", "ShowPressed", "Mouse"}]
+       60 LOADK                            R14 K18 ["General"]
+       61 LOADK                            R15 K24 ["PresetFullClassic"]
+       62 NAMECALL                         R12 R2 K20 ["getText"]
+       64 CALL                             R12 3 1
+       65 SETTABLEKS                       R12 R11 K14 ["Name"]
+       67 SETTABLEKS                       R4 R11 K15 ["Enabled"]
+       69 GETTABLEKS                       R12 R0 K25 ["createClassicModel2"]
+       71 SETTABLEKS                       R12 R11 K16 ["Value"]
+       73 LOADB                            R12 1
+       74 SETTABLEKS                       R12 R11 K11 ["ShowPressed"]
+       76 SETTABLEKS                       R3 R11 K2 ["Mouse"]
+       78 DUPTABLE                         R12 K17 [{"Name", "Enabled", "Value", "ShowPressed", "Mouse"}]
+       79 LOADK                            R15 K18 ["General"]
+       80 LOADK                            R16 K26 ["PresetRthro"]
+       81 NAMECALL                         R13 R2 K20 ["getText"]
+       83 CALL                             R13 3 1
+       84 SETTABLEKS                       R13 R12 K14 ["Name"]
+       86 SETTABLEKS                       R4 R12 K15 ["Enabled"]
+       88 GETTABLEKS                       R13 R0 K27 ["createRthroModel"]
+       90 SETTABLEKS                       R13 R12 K16 ["Value"]
+       92 LOADB                            R13 1
+       93 SETTABLEKS                       R13 R12 K11 ["ShowPressed"]
+       95 SETTABLEKS                       R3 R12 K2 ["Mouse"]
+       97 DUPTABLE                         R13 K17 [{"Name", "Enabled", "Value", "ShowPressed", "Mouse"}]
+       98 LOADK                            R16 K18 ["General"]
+       99 LOADK                            R17 K28 ["PresetPlayerChoice"]
+      100 NAMECALL                         R14 R2 K20 ["getText"]
+      102 CALL                             R14 3 1
+      103 SETTABLEKS                       R14 R13 K14 ["Name"]
+      105 SETTABLEKS                       R4 R13 K15 ["Enabled"]
+      107 GETTABLEKS                       R14 R0 K29 ["createPlayerChoiceModel"]
+      109 SETTABLEKS                       R14 R13 K16 ["Value"]
+      111 LOADB                            R14 1
+      112 SETTABLEKS                       R14 R13 K11 ["ShowPressed"]
+      114 SETTABLEKS                       R3 R13 K2 ["Mouse"]
+      116 SETLIST                          R8 R9 5 [1]
+      118 SETTABLEKS                       R8 R7 K7 ["Buttons"]
+      120 GETIMPORT                        R8 K32 [Enum.HorizontalAlignment.Left]
+      122 SETTABLEKS                       R8 R7 K8 ["HorizontalAlignment"]
+      124 LOADK                            R10 K18 ["General"]
+      125 LOADK                            R11 K33 ["TitlePresets"]
+      126 NAMECALL                         R8 R2 K20 ["getText"]
+      128 CALL                             R8 3 1
+      129 SETTABLEKS                       R8 R7 K9 ["Title"]
+      131 NEWCLOSURE                       R8 P0
+      132 CAPTURE                          VAL R0
+      133 SETTABLEKS                       R8 R7 K10 ["ButtonClicked"]
+      135 LOADB                            R8 1
+      136 SETTABLEKS                       R8 R7 K11 ["ShowPressed"]
+      138 GETTABLEKS                       R9 R0 K0 ["props"]
+      140 GETTABLEKS                       R8 R9 K12 ["LayoutOrder"]
+      142 SETTABLEKS                       R8 R7 K12 ["LayoutOrder"]
+      144 CALL                             R5 2 -1
+      145 RETURN                           R5 -1
 
 PROTO_8:
-  DUPTABLE R2 K1 [{"boundaries"}]
-  GETTABLEKS R7 R0 K2 ["MorpherEditorRoot"]
-  GETTABLEKS R6 R7 K3 ["StateMorpher"]
-  GETTABLEKS R5 R6 K4 ["StateSettings"]
-  GETTABLEKS R4 R5 K5 ["scaleBoundaries"]
-  GETTABLEKS R3 R4 K0 ["boundaries"]
-  SETTABLEKS R3 R2 K0 ["boundaries"]
-  RETURN R2 1
+        0 DUPTABLE                         R2 K1 [{"boundaries"}]
+        1 GETTABLEKS                       R7 R0 K2 ["MorpherEditorRoot"]
+        3 GETTABLEKS                       R6 R7 K3 ["StateMorpher"]
+        5 GETTABLEKS                       R5 R6 K4 ["StateSettings"]
+        7 GETTABLEKS                       R4 R5 K5 ["scaleBoundaries"]
+        9 GETTABLEKS                       R3 R4 K0 ["boundaries"]
+       11 SETTABLEKS                       R3 R2 K0 ["boundaries"]
+       13 RETURN                           R2 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R2 K1 [script]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K2 ["Parent"]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R1 K5 ["Packages"]
-  GETTABLEKS R3 R4 K6 ["Roact"]
-  CALL R2 1 1
-  GETIMPORT R3 K4 [require]
-  GETTABLEKS R5 R1 K5 ["Packages"]
-  GETTABLEKS R4 R5 K7 ["RoactRodux"]
-  CALL R3 1 1
-  GETTABLEKS R4 R1 K8 ["RoactStudioWidgets"]
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R8 R1 K5 ["Packages"]
-  GETTABLEKS R7 R8 K9 ["Framework"]
-  CALL R6 1 1
-  GETTABLEKS R5 R6 K10 ["ContextServices"]
-  GETTABLEKS R6 R5 K11 ["withContext"]
-  GETIMPORT R7 K4 [require]
-  GETTABLEKS R9 R0 K12 ["Util"]
-  GETTABLEKS R8 R9 K13 ["ConstantAvatar"]
-  CALL R7 1 1
-  GETIMPORT R8 K4 [require]
-  GETTABLEKS R10 R0 K12 ["Util"]
-  GETTABLEKS R9 R10 K14 ["StateModelTemplate"]
-  CALL R8 1 1
-  GETIMPORT R9 K4 [require]
-  GETTABLEKS R10 R4 K15 ["ButtonBar"]
-  CALL R9 1 1
-  GETTABLEKS R10 R2 K16 ["Component"]
-  LOADK R12 K17 ["ComponentPresetsPanel"]
-  NAMECALL R10 R10 K18 ["extend"]
-  CALL R10 2 1
-  DUPCLOSURE R11 K19 [PROTO_5]
-  CAPTURE VAL R8
-  CAPTURE VAL R7
-  SETTABLEKS R11 R10 K20 ["init"]
-  DUPCLOSURE R11 K21 [PROTO_7]
-  CAPTURE VAL R2
-  CAPTURE VAL R9
-  SETTABLEKS R11 R10 K22 ["render"]
-  MOVE R11 R6
-  DUPTABLE R12 K25 [{"Localization", "Mouse"}]
-  GETTABLEKS R13 R5 K23 ["Localization"]
-  SETTABLEKS R13 R12 K23 ["Localization"]
-  GETTABLEKS R13 R5 K24 ["Mouse"]
-  SETTABLEKS R13 R12 K24 ["Mouse"]
-  CALL R11 1 1
-  MOVE R12 R10
-  CALL R11 1 1
-  MOVE R10 R11
-  GETTABLEKS R11 R3 K26 ["UNSTABLE_connect2"]
-  DUPCLOSURE R12 K27 [PROTO_8]
-  CALL R11 1 1
-  MOVE R12 R10
-  CALL R11 1 1
-  MOVE R10 R11
-  RETURN R10 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R2 K1 [script]
+        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        7 GETIMPORT                        R5 K1 [script]
+        9 GETTABLEKS                       R4 R5 K2 ["Parent"]
+       11 GETTABLEKS                       R3 R4 K2 ["Parent"]
+       13 GETTABLEKS                       R2 R3 K2 ["Parent"]
+       15 GETTABLEKS                       R1 R2 K2 ["Parent"]
+       17 GETIMPORT                        R2 K4 [require]
+       19 GETTABLEKS                       R4 R1 K5 ["Packages"]
+       21 GETTABLEKS                       R3 R4 K6 ["Roact"]
+       23 CALL                             R2 1 1
+       24 GETIMPORT                        R3 K4 [require]
+       26 GETTABLEKS                       R5 R1 K5 ["Packages"]
+       28 GETTABLEKS                       R4 R5 K7 ["RoactRodux"]
+       30 CALL                             R3 1 1
+       31 GETTABLEKS                       R4 R1 K8 ["RoactStudioWidgets"]
+       33 GETIMPORT                        R6 K4 [require]
+       35 GETTABLEKS                       R8 R1 K5 ["Packages"]
+       37 GETTABLEKS                       R7 R8 K9 ["Framework"]
+       39 CALL                             R6 1 1
+       40 GETTABLEKS                       R5 R6 K10 ["ContextServices"]
+       42 GETTABLEKS                       R6 R5 K11 ["withContext"]
+       44 GETIMPORT                        R7 K4 [require]
+       46 GETTABLEKS                       R9 R0 K12 ["Util"]
+       48 GETTABLEKS                       R8 R9 K13 ["ConstantAvatar"]
+       50 CALL                             R7 1 1
+       51 GETIMPORT                        R8 K4 [require]
+       53 GETTABLEKS                       R10 R0 K12 ["Util"]
+       55 GETTABLEKS                       R9 R10 K14 ["StateModelTemplate"]
+       57 CALL                             R8 1 1
+       58 GETIMPORT                        R9 K4 [require]
+       60 GETTABLEKS                       R10 R4 K15 ["ButtonBar"]
+       62 CALL                             R9 1 1
+       63 GETTABLEKS                       R10 R2 K16 ["Component"]
+       65 LOADK                            R12 K17 ["ComponentPresetsPanel"]
+       66 NAMECALL                         R10 R10 K18 ["extend"]
+       68 CALL                             R10 2 1
+       69 DUPCLOSURE                       R11 K19 [PROTO_5]
+       70 CAPTURE                          VAL R8
+       71 CAPTURE                          VAL R7
+       72 SETTABLEKS                       R11 R10 K20 ["init"]
+       74 DUPCLOSURE                       R11 K21 [PROTO_7]
+       75 CAPTURE                          VAL R2
+       76 CAPTURE                          VAL R9
+       77 SETTABLEKS                       R11 R10 K22 ["render"]
+       79 MOVE                             R11 R6
+       80 DUPTABLE                         R12 K25 [{"Localization", "Mouse"}]
+       81 GETTABLEKS                       R13 R5 K23 ["Localization"]
+       83 SETTABLEKS                       R13 R12 K23 ["Localization"]
+       85 GETTABLEKS                       R13 R5 K24 ["Mouse"]
+       87 SETTABLEKS                       R13 R12 K24 ["Mouse"]
+       89 CALL                             R11 1 1
+       90 MOVE                             R12 R10
+       91 CALL                             R11 1 1
+       92 MOVE                             R10 R11
+       93 GETTABLEKS                       R11 R3 K26 ["UNSTABLE_connect2"]
+       95 DUPCLOSURE                       R12 K27 [PROTO_8]
+       96 CALL                             R11 1 1
+       97 MOVE                             R12 R10
+       98 CALL                             R11 1 1
+       99 MOVE                             R10 R11
+      100 RETURN                           R10 1

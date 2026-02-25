@@ -1,187 +1,187 @@
 PROTO_0:
-  JUMPIFEQKNIL R0 [+19]
-  GETUPVAL R2 0
-  FASTCALL2 TABLE_INSERT R2 R0 [+4]
-  MOVE R3 R0
-  GETIMPORT R1 K2 [table.insert]
-  CALL R1 2 0
-  GETUPVAL R2 1
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K3 ["fromInstance"]
-  MOVE R4 R0
-  GETUPVAL R5 3
-  CALL R3 2 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R1 K2 [table.insert]
-  CALL R1 -1 0
-  GETUPVAL R2 4
-  SUBK R1 R2 K4 [1]
-  SETUPVAL R1 4
-  GETUPVAL R1 4
-  JUMPIFNOTEQKN R1 K5 [0] [+20]
-  GETUPVAL R1 5
-  GETUPVAL R3 6
-  GETUPVAL R4 7
-  GETUPVAL R5 1
-  CALL R3 2 -1
-  NAMECALL R1 R1 K6 ["dispatch"]
-  CALL R1 -1 0
-  GETUPVAL R1 5
-  GETUPVAL R3 8
-  LOADK R4 K7 [""]
-  GETUPVAL R5 0
-  GETUPVAL R6 7
-  LOADB R7 0
-  GETUPVAL R8 9
-  CALL R3 5 -1
-  NAMECALL R1 R1 K6 ["dispatch"]
-  CALL R1 -1 0
-  RETURN R0 0
+        0 JUMPIFEQKNIL                     R0 ; [+19]
+        2 GETUPVAL                         R2 0
+        3 FASTCALL2                        TABLE_INSERT R2 R0 ; [+4]
+        5 MOVE                             R3 R0
+        6 GETIMPORT                        R1 K2 [table.insert]
+        8 CALL                             R1 2 0
+        9 GETUPVAL                         R2 1
+       10 GETUPVAL                         R4 2
+       11 GETTABLEKS                       R3 R4 K3 ["fromInstance"]
+       13 MOVE                             R4 R0
+       14 GETUPVAL                         R5 3
+       15 CALL                             R3 2 -1
+       16 FASTCALL                         TABLE_INSERT ; [+2]
+       17 GETIMPORT                        R1 K2 [table.insert]
+       19 CALL                             R1 -1 0
+       20 GETUPVAL                         R2 4
+       21 SUBK                             R1 R2 K4 [1]
+       22 SETUPVAL                         R1 4
+       23 GETUPVAL                         R1 4
+       24 JUMPIFNOTEQKN                    R1 K5 [0] ; [+20]
+       26 GETUPVAL                         R1 5
+       27 GETUPVAL                         R3 6
+       28 GETUPVAL                         R4 7
+       29 GETUPVAL                         R5 1
+       30 CALL                             R3 2 -1
+       31 NAMECALL                         R1 R1 K6 ["dispatch"]
+       33 CALL                             R1 -1 0
+       34 GETUPVAL                         R1 5
+       35 GETUPVAL                         R3 8
+       36 LOADK                            R4 K7 [""]
+       37 GETUPVAL                         R5 0
+       38 GETUPVAL                         R6 7
+       39 LOADB                            R7 0
+       40 GETUPVAL                         R8 9
+       41 CALL                             R3 5 -1
+       42 NAMECALL                         R1 R1 K6 ["dispatch"]
+       44 CALL                             R1 -1 0
+       45 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R2 0
-  JUMPIF R2 [+1]
-  RETURN R0 0
-  GETUPVAL R2 0
-  GETUPVAL R4 1
-  GETUPVAL R5 2
-  NAMECALL R2 R2 K0 ["UpdateSelectedFrame"]
-  CALL R2 3 0
-  GETUPVAL R2 3
-  GETUPVAL R4 1
-  NAMECALL R2 R2 K1 ["SetCurrentThreadId"]
-  CALL R2 2 0
-  GETUPVAL R4 4
-  GETUPVAL R5 1
-  CALL R4 1 -1
-  NAMECALL R2 R0 K2 ["dispatch"]
-  CALL R2 -1 0
-  NAMECALL R3 R0 K3 ["getState"]
-  CALL R3 1 1
-  GETTABLEKS R2 R3 K4 ["Common"]
-  GETTABLEKS R4 R2 K5 ["debuggerConnectionIdToDST"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K6 ["Id"]
-  GETTABLE R3 R4 R5
-  GETUPVAL R4 0
-  GETUPVAL R6 1
-  NAMECALL R4 R4 K7 ["GetThreadById"]
-  CALL R4 2 1
-  NAMECALL R5 R4 K8 ["GetChildren"]
-  CALL R5 1 1
-  GETUPVAL R7 5
-  GETTABLEKS R6 R7 K9 ["ctor"]
-  MOVE R7 R3
-  GETUPVAL R8 1
-  GETUPVAL R10 2
-  ADDK R9 R10 K10 [1]
-  CALL R6 3 1
-  GETUPVAL R9 6
-  GETUPVAL R10 0
-  GETUPVAL R13 2
-  ADDK R12 R13 K10 [1]
-  GETTABLE R11 R5 R12
-  MOVE R12 R6
-  CALL R9 3 -1
-  NAMECALL R7 R0 K2 ["dispatch"]
-  CALL R7 -1 0
-  NAMECALL R9 R0 K3 ["getState"]
-  CALL R9 1 1
-  GETTABLEKS R8 R9 K11 ["Watch"]
-  GETTABLEKS R7 R8 K12 ["listOfExpressions"]
-  NEWTABLE R8 0 0
-  NEWTABLE R9 0 0
-  LENGTH R10 R7
-  GETIMPORT R11 K14 [ipairs]
-  MOVE R12 R7
-  CALL R11 1 3
-  FORGPREP_INEXT R11
-  GETUPVAL R17 7
-  GETTABLEKS R16 R17 K15 ["evaluateWatchWithCallback"]
-  MOVE R17 R15
-  MOVE R18 R6
-  GETUPVAL R19 0
-  MOVE R20 R0
-  NEWCLOSURE R21 P0
-  CAPTURE VAL R8
-  CAPTURE VAL R9
-  CAPTURE UPVAL U8
-  CAPTURE VAL R15
-  CAPTURE REF R10
-  CAPTURE VAL R0
-  CAPTURE UPVAL U9
-  CAPTURE VAL R6
-  CAPTURE UPVAL U10
-  CAPTURE UPVAL U0
-  CALL R16 5 0
-  FORGLOOP R11 2 [inext] [-20]
-  CLOSEUPVALS R10
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 JUMPIF                           R2 ; [+1]
+        2 RETURN                           R0 0
+        3 GETUPVAL                         R2 0
+        4 GETUPVAL                         R4 1
+        5 GETUPVAL                         R5 2
+        6 NAMECALL                         R2 R2 K0 ["UpdateSelectedFrame"]
+        8 CALL                             R2 3 0
+        9 GETUPVAL                         R2 3
+       10 GETUPVAL                         R4 1
+       11 NAMECALL                         R2 R2 K1 ["SetCurrentThreadId"]
+       13 CALL                             R2 2 0
+       14 GETUPVAL                         R4 4
+       15 GETUPVAL                         R5 1
+       16 CALL                             R4 1 -1
+       17 NAMECALL                         R2 R0 K2 ["dispatch"]
+       19 CALL                             R2 -1 0
+       20 NAMECALL                         R3 R0 K3 ["getState"]
+       22 CALL                             R3 1 1
+       23 GETTABLEKS                       R2 R3 K4 ["Common"]
+       25 GETTABLEKS                       R4 R2 K5 ["debuggerConnectionIdToDST"]
+       27 GETUPVAL                         R6 0
+       28 GETTABLEKS                       R5 R6 K6 ["Id"]
+       30 GETTABLE                         R3 R4 R5
+       31 GETUPVAL                         R4 0
+       32 GETUPVAL                         R6 1
+       33 NAMECALL                         R4 R4 K7 ["GetThreadById"]
+       35 CALL                             R4 2 1
+       36 NAMECALL                         R5 R4 K8 ["GetChildren"]
+       38 CALL                             R5 1 1
+       39 GETUPVAL                         R7 5
+       40 GETTABLEKS                       R6 R7 K9 ["ctor"]
+       42 MOVE                             R7 R3
+       43 GETUPVAL                         R8 1
+       44 GETUPVAL                         R10 2
+       45 ADDK                             R9 R10 K10 [1]
+       46 CALL                             R6 3 1
+       47 GETUPVAL                         R9 6
+       48 GETUPVAL                         R10 0
+       49 GETUPVAL                         R13 2
+       50 ADDK                             R12 R13 K10 [1]
+       51 GETTABLE                         R11 R5 R12
+       52 MOVE                             R12 R6
+       53 CALL                             R9 3 -1
+       54 NAMECALL                         R7 R0 K2 ["dispatch"]
+       56 CALL                             R7 -1 0
+       57 NAMECALL                         R9 R0 K3 ["getState"]
+       59 CALL                             R9 1 1
+       60 GETTABLEKS                       R8 R9 K11 ["Watch"]
+       62 GETTABLEKS                       R7 R8 K12 ["listOfExpressions"]
+       64 NEWTABLE                         R8 0 0
+       66 NEWTABLE                         R9 0 0
+       68 LENGTH                           R10 R7
+       69 GETIMPORT                        R11 K14 [ipairs]
+       71 MOVE                             R12 R7
+       72 CALL                             R11 1 3
+       73 FORGPREP_INEXT                   R11
+       74 GETUPVAL                         R17 7
+       75 GETTABLEKS                       R16 R17 K15 ["evaluateWatchWithCallback"]
+       77 MOVE                             R17 R15
+       78 MOVE                             R18 R6
+       79 GETUPVAL                         R19 0
+       80 MOVE                             R20 R0
+       81 NEWCLOSURE                       R21 P0
+       82 CAPTURE                          VAL R8
+       83 CAPTURE                          VAL R9
+       84 CAPTURE                          UPVAL U8
+       85 CAPTURE                          VAL R15
+       86 CAPTURE                          REF R10
+       87 CAPTURE                          VAL R0
+       88 CAPTURE                          UPVAL U9
+       89 CAPTURE                          VAL R6
+       90 CAPTURE                          UPVAL U10
+       91 CAPTURE                          UPVAL U0
+       92 CALL                             R16 5 0
+       93 FORGLOOP                         R11 2 [inext] ; [-20]
+       95 CLOSEUPVALS                      R10
+       96 RETURN                           R0 0
 
 PROTO_2:
-  NEWCLOSURE R4 P0
-  CAPTURE VAL R1
-  CAPTURE VAL R0
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  RETURN R4 1
+        0 NEWCLOSURE                       R4 P0
+        1 CAPTURE                          VAL R1
+        2 CAPTURE                          VAL R0
+        3 CAPTURE                          VAL R2
+        4 CAPTURE                          VAL R3
+        5 CAPTURE                          UPVAL U0
+        6 CAPTURE                          UPVAL U1
+        7 CAPTURE                          UPVAL U2
+        8 CAPTURE                          UPVAL U3
+        9 CAPTURE                          UPVAL U4
+       10 CAPTURE                          UPVAL U5
+       11 CAPTURE                          UPVAL U6
+       12 RETURN                           R4 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R2 R0 K3 ["Src"]
-  GETTABLEKS R1 R2 K4 ["Models"]
-  GETIMPORT R2 K6 [require]
-  GETTABLEKS R3 R1 K7 ["StepStateBundle"]
-  CALL R2 1 1
-  GETIMPORT R3 K6 [require]
-  GETTABLEKS R5 R1 K8 ["Watch"]
-  GETTABLEKS R4 R5 K9 ["WatchRow"]
-  CALL R3 1 1
-  GETTABLEKS R5 R0 K3 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Thunks"]
-  GETIMPORT R5 K6 [require]
-  GETTABLEKS R7 R4 K11 ["Callstack"]
-  GETTABLEKS R6 R7 K12 ["LoadStackFrameVariables"]
-  CALL R5 1 1
-  GETIMPORT R6 K6 [require]
-  GETTABLEKS R8 R4 K13 ["Common"]
-  GETTABLEKS R7 R8 K14 ["AddChildRowsToVars"]
-  CALL R6 1 1
-  GETIMPORT R7 K6 [require]
-  GETTABLEKS R11 R0 K3 ["Src"]
-  GETTABLEKS R10 R11 K15 ["Actions"]
-  GETTABLEKS R9 R10 K11 ["Callstack"]
-  GETTABLEKS R8 R9 K16 ["SetCurrentThread"]
-  CALL R7 1 1
-  GETIMPORT R8 K6 [require]
-  GETTABLEKS R12 R0 K3 ["Src"]
-  GETTABLEKS R11 R12 K15 ["Actions"]
-  GETTABLEKS R10 R11 K8 ["Watch"]
-  GETTABLEKS R9 R10 K17 ["ExpressionsEvaluated"]
-  CALL R8 1 1
-  GETIMPORT R9 K6 [require]
-  GETTABLEKS R12 R0 K3 ["Src"]
-  GETTABLEKS R11 R12 K18 ["Util"]
-  GETTABLEKS R10 R11 K19 ["WatchHelperFunctions"]
-  CALL R9 1 1
-  DUPCLOSURE R10 K20 [PROTO_2]
-  CAPTURE VAL R7
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  CAPTURE VAL R9
-  CAPTURE VAL R3
-  CAPTURE VAL R8
-  CAPTURE VAL R6
-  RETURN R10 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R4 K1 [script]
+        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
+        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+       11 GETTABLEKS                       R2 R0 K3 ["Src"]
+       13 GETTABLEKS                       R1 R2 K4 ["Models"]
+       15 GETIMPORT                        R2 K6 [require]
+       17 GETTABLEKS                       R3 R1 K7 ["StepStateBundle"]
+       19 CALL                             R2 1 1
+       20 GETIMPORT                        R3 K6 [require]
+       22 GETTABLEKS                       R5 R1 K8 ["Watch"]
+       24 GETTABLEKS                       R4 R5 K9 ["WatchRow"]
+       26 CALL                             R3 1 1
+       27 GETTABLEKS                       R5 R0 K3 ["Src"]
+       29 GETTABLEKS                       R4 R5 K10 ["Thunks"]
+       31 GETIMPORT                        R5 K6 [require]
+       33 GETTABLEKS                       R7 R4 K11 ["Callstack"]
+       35 GETTABLEKS                       R6 R7 K12 ["LoadStackFrameVariables"]
+       37 CALL                             R5 1 1
+       38 GETIMPORT                        R6 K6 [require]
+       40 GETTABLEKS                       R8 R4 K13 ["Common"]
+       42 GETTABLEKS                       R7 R8 K14 ["AddChildRowsToVars"]
+       44 CALL                             R6 1 1
+       45 GETIMPORT                        R7 K6 [require]
+       47 GETTABLEKS                       R11 R0 K3 ["Src"]
+       49 GETTABLEKS                       R10 R11 K15 ["Actions"]
+       51 GETTABLEKS                       R9 R10 K11 ["Callstack"]
+       53 GETTABLEKS                       R8 R9 K16 ["SetCurrentThread"]
+       55 CALL                             R7 1 1
+       56 GETIMPORT                        R8 K6 [require]
+       58 GETTABLEKS                       R12 R0 K3 ["Src"]
+       60 GETTABLEKS                       R11 R12 K15 ["Actions"]
+       62 GETTABLEKS                       R10 R11 K8 ["Watch"]
+       64 GETTABLEKS                       R9 R10 K17 ["ExpressionsEvaluated"]
+       66 CALL                             R8 1 1
+       67 GETIMPORT                        R9 K6 [require]
+       69 GETTABLEKS                       R12 R0 K3 ["Src"]
+       71 GETTABLEKS                       R11 R12 K18 ["Util"]
+       73 GETTABLEKS                       R10 R11 K19 ["WatchHelperFunctions"]
+       75 CALL                             R9 1 1
+       76 DUPCLOSURE                       R10 K20 [PROTO_2]
+       77 CAPTURE                          VAL R7
+       78 CAPTURE                          VAL R2
+       79 CAPTURE                          VAL R5
+       80 CAPTURE                          VAL R9
+       81 CAPTURE                          VAL R3
+       82 CAPTURE                          VAL R8
+       83 CAPTURE                          VAL R6
+       84 RETURN                           R10 1

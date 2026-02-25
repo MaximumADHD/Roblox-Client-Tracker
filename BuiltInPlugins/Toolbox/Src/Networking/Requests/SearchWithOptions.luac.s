@@ -1,498 +1,498 @@
 PROTO_0:
-  LENGTH R1 R0
-  LOADN R2 0
-  JUMPIFNOTLT R2 R1 [+43]
-  LOADN R1 1
-  GETIMPORT R2 K2 [string.lower]
-  GETUPVAL R3 0
-  CALL R2 1 1
-  GETIMPORT R3 K4 [ipairs]
-  MOVE R4 R0
-  CALL R3 1 3
-  FORGPREP_INEXT R3
-  GETIMPORT R8 K2 [string.lower]
-  GETTABLEKS R9 R7 K5 ["Name"]
-  CALL R8 1 1
-  JUMPIFNOTEQ R8 R2 [+3]
-  MOVE R1 R6
-  JUMP [+2]
-  FORGLOOP R3 2 [inext] [-10]
-  GETTABLE R3 R0 R1
-  DUPTABLE R4 K8 [{"Name", "Id", "Type"}]
-  GETTABLEKS R5 R3 K5 ["Name"]
-  SETTABLEKS R5 R4 K5 ["Name"]
-  GETTABLEKS R5 R3 K9 ["UserId"]
-  SETTABLEKS R5 R4 K6 ["Id"]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K10 ["clientToBackend"]
-  GETIMPORT R7 K14 [Enum.CreatorType.User]
-  GETTABLEKS R6 R7 K15 ["Value"]
-  CALL R5 1 1
-  SETTABLEKS R5 R4 K7 ["Type"]
-  RETURN R4 1
-  DUPTABLE R1 K8 [{"Name", "Id", "Type"}]
-  GETUPVAL R2 0
-  SETTABLEKS R2 R1 K5 ["Name"]
-  LOADN R2 255
-  SETTABLEKS R2 R1 K6 ["Id"]
-  GETUPVAL R3 1
-  GETTABLEKS R2 R3 K10 ["clientToBackend"]
-  GETIMPORT R4 K14 [Enum.CreatorType.User]
-  GETTABLEKS R3 R4 K15 ["Value"]
-  CALL R2 1 1
-  SETTABLEKS R2 R1 K7 ["Type"]
-  RETURN R1 1
+        0 LENGTH                           R1 R0
+        1 LOADN                            R2 0
+        2 JUMPIFNOTLT                      R2 R1 ; [+43]
+        4 LOADN                            R1 1
+        5 GETIMPORT                        R2 K2 [string.lower]
+        7 GETUPVAL                         R3 0
+        8 CALL                             R2 1 1
+        9 GETIMPORT                        R3 K4 [ipairs]
+       11 MOVE                             R4 R0
+       12 CALL                             R3 1 3
+       13 FORGPREP_INEXT                   R3
+       14 GETIMPORT                        R8 K2 [string.lower]
+       16 GETTABLEKS                       R9 R7 K5 ["Name"]
+       18 CALL                             R8 1 1
+       19 JUMPIFNOTEQ                      R8 R2 ; [+3]
+       21 MOVE                             R1 R6
+       22 JUMP                             ; [+2]
+       23 FORGLOOP                         R3 2 [inext] ; [-10]
+       25 GETTABLE                         R3 R0 R1
+       26 DUPTABLE                         R4 K8 [{"Name", "Id", "Type"}]
+       27 GETTABLEKS                       R5 R3 K5 ["Name"]
+       29 SETTABLEKS                       R5 R4 K5 ["Name"]
+       31 GETTABLEKS                       R5 R3 K9 ["UserId"]
+       33 SETTABLEKS                       R5 R4 K6 ["Id"]
+       35 GETUPVAL                         R6 1
+       36 GETTABLEKS                       R5 R6 K10 ["clientToBackend"]
+       38 GETIMPORT                        R7 K14 [Enum.CreatorType.User]
+       40 GETTABLEKS                       R6 R7 K15 ["Value"]
+       42 CALL                             R5 1 1
+       43 SETTABLEKS                       R5 R4 K7 ["Type"]
+       45 RETURN                           R4 1
+       46 DUPTABLE                         R1 K8 [{"Name", "Id", "Type"}]
+       47 GETUPVAL                         R2 0
+       48 SETTABLEKS                       R2 R1 K5 ["Name"]
+       50 LOADN                            R2 255
+       51 SETTABLEKS                       R2 R1 K6 ["Id"]
+       53 GETUPVAL                         R3 1
+       54 GETTABLEKS                       R2 R3 K10 ["clientToBackend"]
+       56 GETIMPORT                        R4 K14 [Enum.CreatorType.User]
+       58 GETTABLEKS                       R3 R4 K15 ["Value"]
+       60 CALL                             R2 1 1
+       61 SETTABLEKS                       R2 R1 K7 ["Type"]
+       63 RETURN                           R1 1
 
 PROTO_1:
-  MOVE R5 R1
-  LOADN R6 3
-  NAMECALL R3 R0 K0 ["getUsers"]
-  CALL R3 3 1
-  NEWCLOSURE R5 P0
-  CAPTURE VAL R1
-  CAPTURE UPVAL U0
-  NAMECALL R3 R3 K1 ["andThen"]
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 MOVE                             R5 R1
+        1 LOADN                            R6 3
+        2 NAMECALL                         R3 R0 K0 ["getUsers"]
+        4 CALL                             R3 3 1
+        5 NEWCLOSURE                       R5 P0
+        6 CAPTURE                          VAL R1
+        7 CAPTURE                          UPVAL U0
+        8 NAMECALL                         R3 R3 K1 ["andThen"]
+       10 CALL                             R3 2 -1
+       11 RETURN                           R3 -1
 
 PROTO_2:
-  GETUPVAL R1 0
-  GETUPVAL R3 1
-  LOADB R4 0
-  CALL R3 1 -1
-  NAMECALL R1 R1 K0 ["dispatch"]
-  CALL R1 -1 0
-  GETUPVAL R1 0
-  GETUPVAL R3 2
-  GETUPVAL R4 3
-  GETUPVAL R5 4
-  DUPTABLE R6 K14 [{"audioSearchInfo", "additionalAudioSearchInfo", "includeUnverifiedCreators", "targetPage", "currentPage", "creator", "excludeGroupCreations", "searchTerm", "sortIndex", "requestReason", "qualityFilterData", "uiSortIntent", "sortDirection"}]
-  GETUPVAL R7 5
-  SETTABLEKS R7 R6 K1 ["audioSearchInfo"]
-  GETUPVAL R7 6
-  SETTABLEKS R7 R6 K2 ["additionalAudioSearchInfo"]
-  GETUPVAL R7 7
-  SETTABLEKS R7 R6 K3 ["includeUnverifiedCreators"]
-  LOADN R7 1
-  SETTABLEKS R7 R6 K4 ["targetPage"]
-  LOADN R7 0
-  SETTABLEKS R7 R6 K5 ["currentPage"]
-  SETTABLEKS R0 R6 K6 ["creator"]
-  GETUPVAL R8 8
-  CALL R8 0 1
-  JUMPIFNOT R8 [+4]
-  GETUPVAL R8 9
-  GETTABLEKS R7 R8 K7 ["excludeGroupCreations"]
-  JUMP [+1]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K7 ["excludeGroupCreations"]
-  GETUPVAL R8 9
-  GETTABLEKS R7 R8 K8 ["searchTerm"]
-  SETTABLEKS R7 R6 K8 ["searchTerm"]
-  GETUPVAL R9 9
-  GETTABLEKS R8 R9 K16 ["SortIndex"]
-  ORK R7 R8 K15 [1]
-  SETTABLEKS R7 R6 K9 ["sortIndex"]
-  GETUPVAL R8 10
-  GETTABLEKS R7 R8 K17 ["StartSearch"]
-  SETTABLEKS R7 R6 K10 ["requestReason"]
-  GETUPVAL R8 9
-  GETTABLEKS R7 R8 K11 ["qualityFilterData"]
-  SETTABLEKS R7 R6 K11 ["qualityFilterData"]
-  GETUPVAL R8 11
-  CALL R8 0 1
-  JUMPIFNOT R8 [+4]
-  GETUPVAL R8 9
-  GETTABLEKS R7 R8 K12 ["uiSortIntent"]
-  JUMP [+1]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K12 ["uiSortIntent"]
-  GETUPVAL R8 9
-  GETTABLEKS R7 R8 K13 ["sortDirection"]
-  SETTABLEKS R7 R6 K13 ["sortDirection"]
-  CALL R3 3 -1
-  NAMECALL R1 R1 K0 ["dispatch"]
-  CALL R1 -1 0
-  GETUPVAL R2 12
-  GETTABLEKS R1 R2 K18 ["onCreatorSearched"]
-  GETTABLEKS R2 R0 K19 ["Name"]
-  GETTABLEKS R3 R0 K20 ["Id"]
-  CALL R1 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETUPVAL                         R3 1
+        2 LOADB                            R4 0
+        3 CALL                             R3 1 -1
+        4 NAMECALL                         R1 R1 K0 ["dispatch"]
+        6 CALL                             R1 -1 0
+        7 GETUPVAL                         R1 0
+        8 GETUPVAL                         R3 2
+        9 GETUPVAL                         R4 3
+       10 GETUPVAL                         R5 4
+       11 DUPTABLE                         R6 K14 [{"audioSearchInfo", "additionalAudioSearchInfo", "includeUnverifiedCreators", "targetPage", "currentPage", "creator", "excludeGroupCreations", "searchTerm", "sortIndex", "requestReason", "qualityFilterData", "uiSortIntent", "sortDirection"}]
+       12 GETUPVAL                         R7 5
+       13 SETTABLEKS                       R7 R6 K1 ["audioSearchInfo"]
+       15 GETUPVAL                         R7 6
+       16 SETTABLEKS                       R7 R6 K2 ["additionalAudioSearchInfo"]
+       18 GETUPVAL                         R7 7
+       19 SETTABLEKS                       R7 R6 K3 ["includeUnverifiedCreators"]
+       21 LOADN                            R7 1
+       22 SETTABLEKS                       R7 R6 K4 ["targetPage"]
+       24 LOADN                            R7 0
+       25 SETTABLEKS                       R7 R6 K5 ["currentPage"]
+       27 SETTABLEKS                       R0 R6 K6 ["creator"]
+       29 GETUPVAL                         R8 8
+       30 CALL                             R8 0 1
+       31 JUMPIFNOT                        R8 ; [+4]
+       32 GETUPVAL                         R8 9
+       33 GETTABLEKS                       R7 R8 K7 ["excludeGroupCreations"]
+       35 JUMP                             ; [+1]
+       36 LOADNIL                          R7
+       37 SETTABLEKS                       R7 R6 K7 ["excludeGroupCreations"]
+       39 GETUPVAL                         R8 9
+       40 GETTABLEKS                       R7 R8 K8 ["searchTerm"]
+       42 SETTABLEKS                       R7 R6 K8 ["searchTerm"]
+       44 GETUPVAL                         R9 9
+       45 GETTABLEKS                       R8 R9 K16 ["SortIndex"]
+       47 ORK                              R7 R8 K15 [1]
+       48 SETTABLEKS                       R7 R6 K9 ["sortIndex"]
+       50 GETUPVAL                         R8 10
+       51 GETTABLEKS                       R7 R8 K17 ["StartSearch"]
+       53 SETTABLEKS                       R7 R6 K10 ["requestReason"]
+       55 GETUPVAL                         R8 9
+       56 GETTABLEKS                       R7 R8 K11 ["qualityFilterData"]
+       58 SETTABLEKS                       R7 R6 K11 ["qualityFilterData"]
+       60 GETUPVAL                         R8 11
+       61 CALL                             R8 0 1
+       62 JUMPIFNOT                        R8 ; [+4]
+       63 GETUPVAL                         R8 9
+       64 GETTABLEKS                       R7 R8 K12 ["uiSortIntent"]
+       66 JUMP                             ; [+1]
+       67 LOADNIL                          R7
+       68 SETTABLEKS                       R7 R6 K12 ["uiSortIntent"]
+       70 GETUPVAL                         R8 9
+       71 GETTABLEKS                       R7 R8 K13 ["sortDirection"]
+       73 SETTABLEKS                       R7 R6 K13 ["sortDirection"]
+       75 CALL                             R3 3 -1
+       76 NAMECALL                         R1 R1 K0 ["dispatch"]
+       78 CALL                             R1 -1 0
+       79 GETUPVAL                         R2 12
+       80 GETTABLEKS                       R1 R2 K18 ["onCreatorSearched"]
+       82 GETTABLEKS                       R2 R0 K19 ["Name"]
+       84 GETTABLEKS                       R3 R0 K20 ["Id"]
+       86 CALL                             R1 2 0
+       87 RETURN                           R0 0
 
 PROTO_3:
-  RETURN R0 0
+        0 RETURN                           R0 0
 
 PROTO_4:
-  GETUPVAL R3 0
-  LOADB R4 1
-  CALL R3 1 -1
-  NAMECALL R1 R0 K0 ["dispatch"]
-  CALL R1 -1 0
-  GETUPVAL R3 1
-  CALL R3 0 -1
-  NAMECALL R1 R0 K0 ["dispatch"]
-  CALL R1 -1 0
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K1 ["AudioSearch"]
-  JUMPIF R1 [+3]
-  GETUPVAL R2 3
-  GETTABLEKS R1 R2 K2 ["None"]
-  GETUPVAL R3 2
-  GETTABLEKS R2 R3 K3 ["AdditionalAudioSearch"]
-  JUMPIF R2 [+3]
-  GETUPVAL R3 3
-  GETTABLEKS R2 R3 K2 ["None"]
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K4 ["includeUnverifiedCreators"]
-  NAMECALL R5 R0 K5 ["getState"]
-  CALL R5 1 1
-  GETTABLEKS R4 R5 K6 ["sound"]
-  JUMPIFEQKNIL R4 [+9]
-  GETTABLEKS R5 R4 K7 ["isPlaying"]
-  JUMPIFNOT R5 [+5]
-  GETUPVAL R7 4
-  CALL R7 0 -1
-  NAMECALL R5 R0 K0 ["dispatch"]
-  CALL R5 -1 0
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K8 ["Creator"]
-  JUMPIFNOT R5 [+88]
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K8 ["Creator"]
-  JUMPIFEQKS R5 K9 [""] [+84]
-  NEWCLOSURE R5 P0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U7
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  CAPTURE UPVAL U8
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U9
-  CAPTURE UPVAL U10
-  CAPTURE UPVAL U11
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K8 ["Creator"]
-  FASTCALL1 TYPE R7 [+2]
-  GETIMPORT R6 K11 [type]
-  CALL R6 1 1
-  JUMPIFNOTEQKS R6 K12 ["string"] [+23]
-  GETUPVAL R7 6
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K8 ["Creator"]
-  MOVE R11 R8
-  LOADN R12 3
-  NAMECALL R9 R7 K13 ["getUsers"]
-  CALL R9 3 1
-  NEWCLOSURE R11 P1
-  CAPTURE VAL R8
-  CAPTURE UPVAL U12
-  NAMECALL R9 R9 K14 ["andThen"]
-  CALL R9 2 1
-  MOVE R6 R9
-  MOVE R8 R5
-  DUPCLOSURE R9 K15 [PROTO_3]
-  NAMECALL R6 R6 K14 ["andThen"]
-  CALL R6 3 0
-  RETURN R0 0
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K8 ["Creator"]
-  FASTCALL1 TYPE R7 [+2]
-  GETIMPORT R6 K11 [type]
-  CALL R6 1 1
-  JUMPIFNOTEQKS R6 K16 ["table"] [+234]
-  DUPTABLE R6 K20 [{"Name", "Id", "Type"}]
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K8 ["Creator"]
-  GETTABLEKS R7 R8 K17 ["Name"]
-  SETTABLEKS R7 R6 K17 ["Name"]
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K8 ["Creator"]
-  GETTABLEKS R7 R8 K18 ["Id"]
-  SETTABLEKS R7 R6 K18 ["Id"]
-  GETUPVAL R8 12
-  GETTABLEKS R7 R8 K21 ["clientToBackend"]
-  GETIMPORT R9 K25 [Enum.CreatorType.User]
-  GETTABLEKS R8 R9 K26 ["Value"]
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K19 ["Type"]
-  MOVE R7 R5
-  MOVE R8 R6
-  CALL R7 1 0
-  RETURN R0 0
-  GETUPVAL R6 3
-  GETTABLEKS R5 R6 K2 ["None"]
-  LOADNIL R6
-  LOADNIL R7
-  GETUPVAL R8 13
-  CALL R8 0 1
-  JUMPIFNOT R8 [+36]
-  GETUPVAL R9 14
-  GETTABLEKS R8 R9 K27 ["getCurrentTab"]
-  NAMECALL R10 R0 K5 ["getState"]
-  CALL R10 1 1
-  GETTABLEKS R9 R10 K28 ["pageInfo"]
-  CALL R8 1 1
-  GETUPVAL R10 15
-  GETTABLEKS R9 R10 K29 ["MARKETPLACE_KEY"]
-  JUMPIFNOTEQ R8 R9 [+5]
-  GETUPVAL R9 15
-  GETTABLEKS R5 R9 K30 ["CREATOR_ROBLOX"]
-  JUMP [+27]
-  GETUPVAL R9 10
-  CALL R9 0 1
-  JUMPIFNOT R9 [+24]
-  GETUPVAL R10 15
-  GETTABLEKS R9 R10 K31 ["INVENTORY_KEY"]
-  JUMPIFNOTEQ R8 R9 [+20]
-  GETUPVAL R9 15
-  GETTABLEKS R5 R9 K30 ["CREATOR_ROBLOX"]
-  GETUPVAL R9 2
-  GETTABLEKS R6 R9 K32 ["creatorTargetIds"]
-  GETUPVAL R9 2
-  GETTABLEKS R7 R9 K33 ["groupTargetIds"]
-  JUMP [+9]
-  GETUPVAL R8 10
-  CALL R8 0 1
-  JUMPIFNOT R8 [+6]
-  GETUPVAL R8 2
-  GETTABLEKS R6 R8 K32 ["creatorTargetIds"]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K33 ["groupTargetIds"]
-  GETUPVAL R8 10
-  CALL R8 0 1
-  JUMPIFNOT R8 [+50]
-  JUMPIFNOT R6 [+24]
-  MOVE R8 R6
-  LOADNIL R9
-  LOADNIL R10
-  FORGPREP R8
-  GETTABLEKS R14 R12 K19 ["Type"]
-  JUMPIFNOT R14 [+5]
-  GETTABLEKS R14 R12 K19 ["Type"]
-  GETTABLEKS R13 R14 K17 ["Name"]
-  JUMP [+1]
-  LOADNIL R13
-  GETUPVAL R15 11
-  GETTABLEKS R14 R15 K34 ["onCreatorSearched"]
-  GETTABLEKS R15 R12 K17 ["Name"]
-  GETTABLEKS R16 R12 K18 ["Id"]
-  MOVE R17 R13
-  CALL R14 3 0
-  FORGLOOP R8 2 [-19]
-  JUMPIFNOT R7 [+24]
-  MOVE R8 R7
-  LOADNIL R9
-  LOADNIL R10
-  FORGPREP R8
-  GETTABLEKS R14 R12 K19 ["Type"]
-  JUMPIFNOT R14 [+5]
-  GETTABLEKS R14 R12 K19 ["Type"]
-  GETTABLEKS R13 R14 K17 ["Name"]
-  JUMP [+1]
-  LOADNIL R13
-  GETUPVAL R15 11
-  GETTABLEKS R14 R15 K34 ["onCreatorSearched"]
-  GETTABLEKS R15 R12 K17 ["Name"]
-  GETTABLEKS R16 R12 K18 ["Id"]
-  MOVE R17 R13
-  CALL R14 3 0
-  FORGLOOP R8 2 [-19]
-  GETUPVAL R10 0
-  LOADB R11 0
-  CALL R10 1 -1
-  NAMECALL R8 R0 K0 ["dispatch"]
-  CALL R8 -1 0
-  GETUPVAL R10 16
-  LOADK R11 K9 [""]
-  NEWTABLE R12 0 0
-  CALL R10 2 -1
-  NAMECALL R8 R0 K0 ["dispatch"]
-  CALL R8 -1 0
-  GETUPVAL R10 5
-  GETUPVAL R11 6
-  GETUPVAL R12 7
-  DUPTABLE R13 K47 [{"audioSearchInfo", "additionalAudioSearchInfo", "includeUnverifiedCreators", "targetPage", "currentPage", "sortIndex", "creator", "creatorTargetIds", "excludeGroupCreations", "groupTargetIds", "requestReason", "searchTerm", "uiSortIntent", "sortDirection", "qualityFilterData"}]
-  SETTABLEKS R1 R13 K35 ["audioSearchInfo"]
-  SETTABLEKS R2 R13 K36 ["additionalAudioSearchInfo"]
-  SETTABLEKS R3 R13 K4 ["includeUnverifiedCreators"]
-  LOADN R14 1
-  SETTABLEKS R14 R13 K37 ["targetPage"]
-  LOADN R14 0
-  SETTABLEKS R14 R13 K38 ["currentPage"]
-  GETUPVAL R16 2
-  GETTABLEKS R15 R16 K49 ["SortIndex"]
-  ORK R14 R15 K48 [1]
-  SETTABLEKS R14 R13 K39 ["sortIndex"]
-  SETTABLEKS R5 R13 K40 ["creator"]
-  GETUPVAL R15 10
-  CALL R15 0 1
-  JUMPIFNOT R15 [+2]
-  MOVE R14 R6
-  JUMP [+1]
-  LOADNIL R14
-  SETTABLEKS R14 R13 K32 ["creatorTargetIds"]
-  GETUPVAL R15 8
-  CALL R15 0 1
-  JUMPIFNOT R15 [+4]
-  GETUPVAL R15 2
-  GETTABLEKS R14 R15 K41 ["excludeGroupCreations"]
-  JUMP [+1]
-  LOADNIL R14
-  SETTABLEKS R14 R13 K41 ["excludeGroupCreations"]
-  GETUPVAL R15 10
-  CALL R15 0 1
-  JUMPIFNOT R15 [+2]
-  MOVE R14 R7
-  JUMP [+1]
-  LOADNIL R14
-  SETTABLEKS R14 R13 K33 ["groupTargetIds"]
-  GETUPVAL R15 9
-  GETTABLEKS R14 R15 K50 ["StartSearch"]
-  SETTABLEKS R14 R13 K42 ["requestReason"]
-  GETUPVAL R15 2
-  GETTABLEKS R14 R15 K43 ["searchTerm"]
-  SETTABLEKS R14 R13 K43 ["searchTerm"]
-  GETUPVAL R15 10
-  CALL R15 0 1
-  JUMPIFNOT R15 [+4]
-  GETUPVAL R15 2
-  GETTABLEKS R14 R15 K44 ["uiSortIntent"]
-  JUMP [+1]
-  LOADNIL R14
-  SETTABLEKS R14 R13 K44 ["uiSortIntent"]
-  GETUPVAL R15 2
-  GETTABLEKS R14 R15 K45 ["sortDirection"]
-  SETTABLEKS R14 R13 K45 ["sortDirection"]
-  GETUPVAL R15 2
-  GETTABLEKS R14 R15 K46 ["qualityFilterData"]
-  SETTABLEKS R14 R13 K46 ["qualityFilterData"]
-  CALL R10 3 -1
-  NAMECALL R8 R0 K0 ["dispatch"]
-  CALL R8 -1 0
-  RETURN R0 0
+        0 GETUPVAL                         R3 0
+        1 LOADB                            R4 1
+        2 CALL                             R3 1 -1
+        3 NAMECALL                         R1 R0 K0 ["dispatch"]
+        5 CALL                             R1 -1 0
+        6 GETUPVAL                         R3 1
+        7 CALL                             R3 0 -1
+        8 NAMECALL                         R1 R0 K0 ["dispatch"]
+       10 CALL                             R1 -1 0
+       11 GETUPVAL                         R2 2
+       12 GETTABLEKS                       R1 R2 K1 ["AudioSearch"]
+       14 JUMPIF                           R1 ; [+3]
+       15 GETUPVAL                         R2 3
+       16 GETTABLEKS                       R1 R2 K2 ["None"]
+       18 GETUPVAL                         R3 2
+       19 GETTABLEKS                       R2 R3 K3 ["AdditionalAudioSearch"]
+       21 JUMPIF                           R2 ; [+3]
+       22 GETUPVAL                         R3 3
+       23 GETTABLEKS                       R2 R3 K2 ["None"]
+       25 GETUPVAL                         R4 2
+       26 GETTABLEKS                       R3 R4 K4 ["includeUnverifiedCreators"]
+       28 NAMECALL                         R5 R0 K5 ["getState"]
+       30 CALL                             R5 1 1
+       31 GETTABLEKS                       R4 R5 K6 ["sound"]
+       33 JUMPIFEQKNIL                     R4 ; [+9]
+       35 GETTABLEKS                       R5 R4 K7 ["isPlaying"]
+       37 JUMPIFNOT                        R5 ; [+5]
+       38 GETUPVAL                         R7 4
+       39 CALL                             R7 0 -1
+       40 NAMECALL                         R5 R0 K0 ["dispatch"]
+       42 CALL                             R5 -1 0
+       43 GETUPVAL                         R6 2
+       44 GETTABLEKS                       R5 R6 K8 ["Creator"]
+       46 JUMPIFNOT                        R5 ; [+88]
+       47 GETUPVAL                         R6 2
+       48 GETTABLEKS                       R5 R6 K8 ["Creator"]
+       50 JUMPIFEQKS                       R5 K9 [""] ; [+84]
+       52 NEWCLOSURE                       R5 P0
+       53 CAPTURE                          VAL R0
+       54 CAPTURE                          UPVAL U0
+       55 CAPTURE                          UPVAL U5
+       56 CAPTURE                          UPVAL U6
+       57 CAPTURE                          UPVAL U7
+       58 CAPTURE                          VAL R1
+       59 CAPTURE                          VAL R2
+       60 CAPTURE                          VAL R3
+       61 CAPTURE                          UPVAL U8
+       62 CAPTURE                          UPVAL U2
+       63 CAPTURE                          UPVAL U9
+       64 CAPTURE                          UPVAL U10
+       65 CAPTURE                          UPVAL U11
+       66 GETUPVAL                         R8 2
+       67 GETTABLEKS                       R7 R8 K8 ["Creator"]
+       69 FASTCALL1                        TYPE R7 ; [+2]
+       70 GETIMPORT                        R6 K11 [type]
+       72 CALL                             R6 1 1
+       73 JUMPIFNOTEQKS                    R6 K12 ["string"] ; [+23]
+       75 GETUPVAL                         R7 6
+       76 GETUPVAL                         R9 2
+       77 GETTABLEKS                       R8 R9 K8 ["Creator"]
+       79 MOVE                             R11 R8
+       80 LOADN                            R12 3
+       81 NAMECALL                         R9 R7 K13 ["getUsers"]
+       83 CALL                             R9 3 1
+       84 NEWCLOSURE                       R11 P1
+       85 CAPTURE                          VAL R8
+       86 CAPTURE                          UPVAL U12
+       87 NAMECALL                         R9 R9 K14 ["andThen"]
+       89 CALL                             R9 2 1
+       90 MOVE                             R6 R9
+       91 MOVE                             R8 R5
+       92 DUPCLOSURE                       R9 K15 [PROTO_3]
+       93 NAMECALL                         R6 R6 K14 ["andThen"]
+       95 CALL                             R6 3 0
+       96 RETURN                           R0 0
+       97 GETUPVAL                         R8 2
+       98 GETTABLEKS                       R7 R8 K8 ["Creator"]
+      100 FASTCALL1                        TYPE R7 ; [+2]
+      101 GETIMPORT                        R6 K11 [type]
+      103 CALL                             R6 1 1
+      104 JUMPIFNOTEQKS                    R6 K16 ["table"] ; [+234]
+      106 DUPTABLE                         R6 K20 [{"Name", "Id", "Type"}]
+      107 GETUPVAL                         R9 2
+      108 GETTABLEKS                       R8 R9 K8 ["Creator"]
+      110 GETTABLEKS                       R7 R8 K17 ["Name"]
+      112 SETTABLEKS                       R7 R6 K17 ["Name"]
+      114 GETUPVAL                         R9 2
+      115 GETTABLEKS                       R8 R9 K8 ["Creator"]
+      117 GETTABLEKS                       R7 R8 K18 ["Id"]
+      119 SETTABLEKS                       R7 R6 K18 ["Id"]
+      121 GETUPVAL                         R8 12
+      122 GETTABLEKS                       R7 R8 K21 ["clientToBackend"]
+      124 GETIMPORT                        R9 K25 [Enum.CreatorType.User]
+      126 GETTABLEKS                       R8 R9 K26 ["Value"]
+      128 CALL                             R7 1 1
+      129 SETTABLEKS                       R7 R6 K19 ["Type"]
+      131 MOVE                             R7 R5
+      132 MOVE                             R8 R6
+      133 CALL                             R7 1 0
+      134 RETURN                           R0 0
+      135 GETUPVAL                         R6 3
+      136 GETTABLEKS                       R5 R6 K2 ["None"]
+      138 LOADNIL                          R6
+      139 LOADNIL                          R7
+      140 GETUPVAL                         R8 13
+      141 CALL                             R8 0 1
+      142 JUMPIFNOT                        R8 ; [+36]
+      143 GETUPVAL                         R9 14
+      144 GETTABLEKS                       R8 R9 K27 ["getCurrentTab"]
+      146 NAMECALL                         R10 R0 K5 ["getState"]
+      148 CALL                             R10 1 1
+      149 GETTABLEKS                       R9 R10 K28 ["pageInfo"]
+      151 CALL                             R8 1 1
+      152 GETUPVAL                         R10 15
+      153 GETTABLEKS                       R9 R10 K29 ["MARKETPLACE_KEY"]
+      155 JUMPIFNOTEQ                      R8 R9 ; [+5]
+      157 GETUPVAL                         R9 15
+      158 GETTABLEKS                       R5 R9 K30 ["CREATOR_ROBLOX"]
+      160 JUMP                             ; [+27]
+      161 GETUPVAL                         R9 10
+      162 CALL                             R9 0 1
+      163 JUMPIFNOT                        R9 ; [+24]
+      164 GETUPVAL                         R10 15
+      165 GETTABLEKS                       R9 R10 K31 ["INVENTORY_KEY"]
+      167 JUMPIFNOTEQ                      R8 R9 ; [+20]
+      169 GETUPVAL                         R9 15
+      170 GETTABLEKS                       R5 R9 K30 ["CREATOR_ROBLOX"]
+      172 GETUPVAL                         R9 2
+      173 GETTABLEKS                       R6 R9 K32 ["creatorTargetIds"]
+      175 GETUPVAL                         R9 2
+      176 GETTABLEKS                       R7 R9 K33 ["groupTargetIds"]
+      178 JUMP                             ; [+9]
+      179 GETUPVAL                         R8 10
+      180 CALL                             R8 0 1
+      181 JUMPIFNOT                        R8 ; [+6]
+      182 GETUPVAL                         R8 2
+      183 GETTABLEKS                       R6 R8 K32 ["creatorTargetIds"]
+      185 GETUPVAL                         R8 2
+      186 GETTABLEKS                       R7 R8 K33 ["groupTargetIds"]
+      188 GETUPVAL                         R8 10
+      189 CALL                             R8 0 1
+      190 JUMPIFNOT                        R8 ; [+50]
+      191 JUMPIFNOT                        R6 ; [+24]
+      192 MOVE                             R8 R6
+      193 LOADNIL                          R9
+      194 LOADNIL                          R10
+      195 FORGPREP                         R8
+      196 GETTABLEKS                       R14 R12 K19 ["Type"]
+      198 JUMPIFNOT                        R14 ; [+5]
+      199 GETTABLEKS                       R14 R12 K19 ["Type"]
+      201 GETTABLEKS                       R13 R14 K17 ["Name"]
+      203 JUMP                             ; [+1]
+      204 LOADNIL                          R13
+      205 GETUPVAL                         R15 11
+      206 GETTABLEKS                       R14 R15 K34 ["onCreatorSearched"]
+      208 GETTABLEKS                       R15 R12 K17 ["Name"]
+      210 GETTABLEKS                       R16 R12 K18 ["Id"]
+      212 MOVE                             R17 R13
+      213 CALL                             R14 3 0
+      214 FORGLOOP                         R8 2 ; [-19]
+      216 JUMPIFNOT                        R7 ; [+24]
+      217 MOVE                             R8 R7
+      218 LOADNIL                          R9
+      219 LOADNIL                          R10
+      220 FORGPREP                         R8
+      221 GETTABLEKS                       R14 R12 K19 ["Type"]
+      223 JUMPIFNOT                        R14 ; [+5]
+      224 GETTABLEKS                       R14 R12 K19 ["Type"]
+      226 GETTABLEKS                       R13 R14 K17 ["Name"]
+      228 JUMP                             ; [+1]
+      229 LOADNIL                          R13
+      230 GETUPVAL                         R15 11
+      231 GETTABLEKS                       R14 R15 K34 ["onCreatorSearched"]
+      233 GETTABLEKS                       R15 R12 K17 ["Name"]
+      235 GETTABLEKS                       R16 R12 K18 ["Id"]
+      237 MOVE                             R17 R13
+      238 CALL                             R14 3 0
+      239 FORGLOOP                         R8 2 ; [-19]
+      241 GETUPVAL                         R10 0
+      242 LOADB                            R11 0
+      243 CALL                             R10 1 -1
+      244 NAMECALL                         R8 R0 K0 ["dispatch"]
+      246 CALL                             R8 -1 0
+      247 GETUPVAL                         R10 16
+      248 LOADK                            R11 K9 [""]
+      249 NEWTABLE                         R12 0 0
+      251 CALL                             R10 2 -1
+      252 NAMECALL                         R8 R0 K0 ["dispatch"]
+      254 CALL                             R8 -1 0
+      255 GETUPVAL                         R10 5
+      256 GETUPVAL                         R11 6
+      257 GETUPVAL                         R12 7
+      258 DUPTABLE                         R13 K47 [{"audioSearchInfo", "additionalAudioSearchInfo", "includeUnverifiedCreators", "targetPage", "currentPage", "sortIndex", "creator", "creatorTargetIds", "excludeGroupCreations", "groupTargetIds", "requestReason", "searchTerm", "uiSortIntent", "sortDirection", "qualityFilterData"}]
+      259 SETTABLEKS                       R1 R13 K35 ["audioSearchInfo"]
+      261 SETTABLEKS                       R2 R13 K36 ["additionalAudioSearchInfo"]
+      263 SETTABLEKS                       R3 R13 K4 ["includeUnverifiedCreators"]
+      265 LOADN                            R14 1
+      266 SETTABLEKS                       R14 R13 K37 ["targetPage"]
+      268 LOADN                            R14 0
+      269 SETTABLEKS                       R14 R13 K38 ["currentPage"]
+      271 GETUPVAL                         R16 2
+      272 GETTABLEKS                       R15 R16 K49 ["SortIndex"]
+      274 ORK                              R14 R15 K48 [1]
+      275 SETTABLEKS                       R14 R13 K39 ["sortIndex"]
+      277 SETTABLEKS                       R5 R13 K40 ["creator"]
+      279 GETUPVAL                         R15 10
+      280 CALL                             R15 0 1
+      281 JUMPIFNOT                        R15 ; [+2]
+      282 MOVE                             R14 R6
+      283 JUMP                             ; [+1]
+      284 LOADNIL                          R14
+      285 SETTABLEKS                       R14 R13 K32 ["creatorTargetIds"]
+      287 GETUPVAL                         R15 8
+      288 CALL                             R15 0 1
+      289 JUMPIFNOT                        R15 ; [+4]
+      290 GETUPVAL                         R15 2
+      291 GETTABLEKS                       R14 R15 K41 ["excludeGroupCreations"]
+      293 JUMP                             ; [+1]
+      294 LOADNIL                          R14
+      295 SETTABLEKS                       R14 R13 K41 ["excludeGroupCreations"]
+      297 GETUPVAL                         R15 10
+      298 CALL                             R15 0 1
+      299 JUMPIFNOT                        R15 ; [+2]
+      300 MOVE                             R14 R7
+      301 JUMP                             ; [+1]
+      302 LOADNIL                          R14
+      303 SETTABLEKS                       R14 R13 K33 ["groupTargetIds"]
+      305 GETUPVAL                         R15 9
+      306 GETTABLEKS                       R14 R15 K50 ["StartSearch"]
+      308 SETTABLEKS                       R14 R13 K42 ["requestReason"]
+      310 GETUPVAL                         R15 2
+      311 GETTABLEKS                       R14 R15 K43 ["searchTerm"]
+      313 SETTABLEKS                       R14 R13 K43 ["searchTerm"]
+      315 GETUPVAL                         R15 10
+      316 CALL                             R15 0 1
+      317 JUMPIFNOT                        R15 ; [+4]
+      318 GETUPVAL                         R15 2
+      319 GETTABLEKS                       R14 R15 K44 ["uiSortIntent"]
+      321 JUMP                             ; [+1]
+      322 LOADNIL                          R14
+      323 SETTABLEKS                       R14 R13 K44 ["uiSortIntent"]
+      325 GETUPVAL                         R15 2
+      326 GETTABLEKS                       R14 R15 K45 ["sortDirection"]
+      328 SETTABLEKS                       R14 R13 K45 ["sortDirection"]
+      330 GETUPVAL                         R15 2
+      331 GETTABLEKS                       R14 R15 K46 ["qualityFilterData"]
+      333 SETTABLEKS                       R14 R13 K46 ["qualityFilterData"]
+      335 CALL                             R10 3 -1
+      336 NAMECALL                         R8 R0 K0 ["dispatch"]
+      338 CALL                             R8 -1 0
+      339 RETURN                           R0 0
 
 PROTO_5:
-  NEWCLOSURE R3 P0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE VAL R2
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  CAPTURE VAL R0
-  CAPTURE VAL R1
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U7
-  CAPTURE UPVAL U8
-  CAPTURE UPVAL U9
-  CAPTURE UPVAL U10
-  CAPTURE UPVAL U11
-  CAPTURE UPVAL U12
-  CAPTURE UPVAL U13
-  RETURN R3 1
+        0 NEWCLOSURE                       R3 P0
+        1 CAPTURE                          UPVAL U0
+        2 CAPTURE                          UPVAL U1
+        3 CAPTURE                          VAL R2
+        4 CAPTURE                          UPVAL U2
+        5 CAPTURE                          UPVAL U3
+        6 CAPTURE                          UPVAL U4
+        7 CAPTURE                          VAL R0
+        8 CAPTURE                          VAL R1
+        9 CAPTURE                          UPVAL U5
+       10 CAPTURE                          UPVAL U6
+       11 CAPTURE                          UPVAL U7
+       12 CAPTURE                          UPVAL U8
+       13 CAPTURE                          UPVAL U9
+       14 CAPTURE                          UPVAL U10
+       15 CAPTURE                          UPVAL U11
+       16 CAPTURE                          UPVAL U12
+       17 CAPTURE                          UPVAL U13
+       18 RETURN                           R3 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R1 R0 K3 ["Packages"]
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R3 R1 K6 ["Cryo"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K7 ["Src"]
-  GETTABLEKS R5 R6 K8 ["Types"]
-  GETTABLEKS R4 R5 K9 ["Category"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K7 ["Src"]
-  GETTABLEKS R6 R7 K8 ["Types"]
-  GETTABLEKS R5 R6 K10 ["RequestReason"]
-  CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K7 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Util"]
-  GETTABLEKS R6 R7 K12 ["PageInfoHelper"]
-  CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R10 R0 K7 ["Src"]
-  GETTABLEKS R9 R10 K13 ["Networking"]
-  GETTABLEKS R8 R9 K14 ["Requests"]
-  GETTABLEKS R7 R8 K15 ["UpdatePageInfoAndSendRequest"]
-  CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K7 ["Src"]
-  GETTABLEKS R9 R10 K16 ["Actions"]
-  GETTABLEKS R8 R9 K17 ["ClearAssets"]
-  CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R11 R0 K7 ["Src"]
-  GETTABLEKS R10 R11 K16 ["Actions"]
-  GETTABLEKS R9 R10 K18 ["SetLiveSearch"]
-  CALL R8 1 1
-  GETIMPORT R9 K5 [require]
-  GETTABLEKS R12 R0 K7 ["Src"]
-  GETTABLEKS R11 R12 K16 ["Actions"]
-  GETTABLEKS R10 R11 K19 ["SetLoading"]
-  CALL R9 1 1
-  GETIMPORT R10 K5 [require]
-  GETTABLEKS R13 R0 K7 ["Src"]
-  GETTABLEKS R12 R13 K16 ["Actions"]
-  GETTABLEKS R11 R12 K20 ["StopPreviewSound"]
-  CALL R10 1 1
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R15 R0 K7 ["Src"]
-  GETTABLEKS R14 R15 K11 ["Util"]
-  GETTABLEKS R13 R14 K21 ["Analytics"]
-  GETTABLEKS R12 R13 K21 ["Analytics"]
-  CALL R11 1 1
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R15 R0 K7 ["Src"]
-  GETTABLEKS R14 R15 K11 ["Util"]
-  GETTABLEKS R13 R14 K22 ["CreatorInfoHelper"]
-  CALL R12 1 1
-  GETIMPORT R14 K5 [require]
-  GETTABLEKS R17 R0 K7 ["Src"]
-  GETTABLEKS R16 R17 K11 ["Util"]
-  GETTABLEKS R15 R16 K23 ["ToolboxUtilities"]
-  CALL R14 1 1
-  GETTABLEKS R13 R14 K24 ["showRobloxCreatedAssets"]
-  GETIMPORT R14 K5 [require]
-  GETTABLEKS R18 R0 K7 ["Src"]
-  GETTABLEKS R17 R18 K11 ["Util"]
-  GETTABLEKS R16 R17 K25 ["SharedFlags"]
-  GETTABLEKS R15 R16 K26 ["getFFlagToolboxEnableSearchOptionsRefactor"]
-  CALL R14 1 1
-  GETIMPORT R15 K5 [require]
-  GETTABLEKS R19 R0 K7 ["Src"]
-  GETTABLEKS R18 R19 K11 ["Util"]
-  GETTABLEKS R17 R18 K25 ["SharedFlags"]
-  GETTABLEKS R16 R17 K27 ["getFFlagToolboxAddCreationsFilterToListView"]
-  CALL R15 1 1
-  DUPCLOSURE R16 K28 [PROTO_1]
-  CAPTURE VAL R12
-  DUPCLOSURE R17 K29 [PROTO_5]
-  CAPTURE VAL R9
-  CAPTURE VAL R7
-  CAPTURE VAL R2
-  CAPTURE VAL R10
-  CAPTURE VAL R6
-  CAPTURE VAL R15
-  CAPTURE VAL R4
-  CAPTURE VAL R14
-  CAPTURE VAL R11
-  CAPTURE VAL R12
-  CAPTURE VAL R13
-  CAPTURE VAL R5
-  CAPTURE VAL R3
-  CAPTURE VAL R8
-  RETURN R17 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R4 K1 [script]
+        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
+        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+       11 GETTABLEKS                       R1 R0 K3 ["Packages"]
+       13 GETIMPORT                        R2 K5 [require]
+       15 GETTABLEKS                       R3 R1 K6 ["Cryo"]
+       17 CALL                             R2 1 1
+       18 GETIMPORT                        R3 K5 [require]
+       20 GETTABLEKS                       R6 R0 K7 ["Src"]
+       22 GETTABLEKS                       R5 R6 K8 ["Types"]
+       24 GETTABLEKS                       R4 R5 K9 ["Category"]
+       26 CALL                             R3 1 1
+       27 GETIMPORT                        R4 K5 [require]
+       29 GETTABLEKS                       R7 R0 K7 ["Src"]
+       31 GETTABLEKS                       R6 R7 K8 ["Types"]
+       33 GETTABLEKS                       R5 R6 K10 ["RequestReason"]
+       35 CALL                             R4 1 1
+       36 GETIMPORT                        R5 K5 [require]
+       38 GETTABLEKS                       R8 R0 K7 ["Src"]
+       40 GETTABLEKS                       R7 R8 K11 ["Util"]
+       42 GETTABLEKS                       R6 R7 K12 ["PageInfoHelper"]
+       44 CALL                             R5 1 1
+       45 GETIMPORT                        R6 K5 [require]
+       47 GETTABLEKS                       R10 R0 K7 ["Src"]
+       49 GETTABLEKS                       R9 R10 K13 ["Networking"]
+       51 GETTABLEKS                       R8 R9 K14 ["Requests"]
+       53 GETTABLEKS                       R7 R8 K15 ["UpdatePageInfoAndSendRequest"]
+       55 CALL                             R6 1 1
+       56 GETIMPORT                        R7 K5 [require]
+       58 GETTABLEKS                       R10 R0 K7 ["Src"]
+       60 GETTABLEKS                       R9 R10 K16 ["Actions"]
+       62 GETTABLEKS                       R8 R9 K17 ["ClearAssets"]
+       64 CALL                             R7 1 1
+       65 GETIMPORT                        R8 K5 [require]
+       67 GETTABLEKS                       R11 R0 K7 ["Src"]
+       69 GETTABLEKS                       R10 R11 K16 ["Actions"]
+       71 GETTABLEKS                       R9 R10 K18 ["SetLiveSearch"]
+       73 CALL                             R8 1 1
+       74 GETIMPORT                        R9 K5 [require]
+       76 GETTABLEKS                       R12 R0 K7 ["Src"]
+       78 GETTABLEKS                       R11 R12 K16 ["Actions"]
+       80 GETTABLEKS                       R10 R11 K19 ["SetLoading"]
+       82 CALL                             R9 1 1
+       83 GETIMPORT                        R10 K5 [require]
+       85 GETTABLEKS                       R13 R0 K7 ["Src"]
+       87 GETTABLEKS                       R12 R13 K16 ["Actions"]
+       89 GETTABLEKS                       R11 R12 K20 ["StopPreviewSound"]
+       91 CALL                             R10 1 1
+       92 GETIMPORT                        R11 K5 [require]
+       94 GETTABLEKS                       R15 R0 K7 ["Src"]
+       96 GETTABLEKS                       R14 R15 K11 ["Util"]
+       98 GETTABLEKS                       R13 R14 K21 ["Analytics"]
+      100 GETTABLEKS                       R12 R13 K21 ["Analytics"]
+      102 CALL                             R11 1 1
+      103 GETIMPORT                        R12 K5 [require]
+      105 GETTABLEKS                       R15 R0 K7 ["Src"]
+      107 GETTABLEKS                       R14 R15 K11 ["Util"]
+      109 GETTABLEKS                       R13 R14 K22 ["CreatorInfoHelper"]
+      111 CALL                             R12 1 1
+      112 GETIMPORT                        R14 K5 [require]
+      114 GETTABLEKS                       R17 R0 K7 ["Src"]
+      116 GETTABLEKS                       R16 R17 K11 ["Util"]
+      118 GETTABLEKS                       R15 R16 K23 ["ToolboxUtilities"]
+      120 CALL                             R14 1 1
+      121 GETTABLEKS                       R13 R14 K24 ["showRobloxCreatedAssets"]
+      123 GETIMPORT                        R14 K5 [require]
+      125 GETTABLEKS                       R18 R0 K7 ["Src"]
+      127 GETTABLEKS                       R17 R18 K11 ["Util"]
+      129 GETTABLEKS                       R16 R17 K25 ["SharedFlags"]
+      131 GETTABLEKS                       R15 R16 K26 ["getFFlagToolboxEnableSearchOptionsRefactor"]
+      133 CALL                             R14 1 1
+      134 GETIMPORT                        R15 K5 [require]
+      136 GETTABLEKS                       R19 R0 K7 ["Src"]
+      138 GETTABLEKS                       R18 R19 K11 ["Util"]
+      140 GETTABLEKS                       R17 R18 K25 ["SharedFlags"]
+      142 GETTABLEKS                       R16 R17 K27 ["getFFlagToolboxAddCreationsFilterToListView"]
+      144 CALL                             R15 1 1
+      145 DUPCLOSURE                       R16 K28 [PROTO_1]
+      146 CAPTURE                          VAL R12
+      147 DUPCLOSURE                       R17 K29 [PROTO_5]
+      148 CAPTURE                          VAL R9
+      149 CAPTURE                          VAL R7
+      150 CAPTURE                          VAL R2
+      151 CAPTURE                          VAL R10
+      152 CAPTURE                          VAL R6
+      153 CAPTURE                          VAL R15
+      154 CAPTURE                          VAL R4
+      155 CAPTURE                          VAL R14
+      156 CAPTURE                          VAL R11
+      157 CAPTURE                          VAL R12
+      158 CAPTURE                          VAL R13
+      159 CAPTURE                          VAL R5
+      160 CAPTURE                          VAL R3
+      161 CAPTURE                          VAL R8
+      162 RETURN                           R17 1

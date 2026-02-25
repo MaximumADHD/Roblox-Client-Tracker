@@ -1,161 +1,161 @@
 PROTO_0:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  DUPTABLE R4 K1 [{"gamepad"}]
-  GETTABLEKS R5 R1 K2 ["gamepadEnabled"]
-  SETTABLEKS R5 R4 K0 ["gamepad"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K1 [{"gamepad"}]
+        3 GETTABLEKS                       R5 R1 K2 ["gamepadEnabled"]
+        5 SETTABLEKS                       R5 R4 K0 ["gamepad"]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
 
 PROTO_1:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  DUPTABLE R4 K1 [{"keyboard"}]
-  GETTABLEKS R5 R1 K2 ["keyboardEnabled"]
-  SETTABLEKS R5 R4 K0 ["keyboard"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K1 [{"keyboard"}]
+        3 GETTABLEKS                       R5 R1 K2 ["keyboardEnabled"]
+        5 SETTABLEKS                       R5 R4 K0 ["keyboard"]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
 
 PROTO_2:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  DUPTABLE R4 K1 [{"mouseClick"}]
-  GETTABLEKS R5 R1 K2 ["mouseClickEnabled"]
-  SETTABLEKS R5 R4 K0 ["mouseClick"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K1 [{"mouseClick"}]
+        3 GETTABLEKS                       R5 R1 K2 ["mouseClickEnabled"]
+        5 SETTABLEKS                       R5 R4 K0 ["mouseClick"]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
 
 PROTO_3:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  DUPTABLE R4 K1 [{"mouseMove"}]
-  GETTABLEKS R5 R1 K2 ["mouseMoveEnabled"]
-  SETTABLEKS R5 R4 K0 ["mouseMove"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K1 [{"mouseMove"}]
+        3 GETTABLEKS                       R5 R1 K2 ["mouseMoveEnabled"]
+        5 SETTABLEKS                       R5 R4 K0 ["mouseMove"]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
 
 PROTO_4:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  DUPTABLE R4 K1 [{"touch"}]
-  GETTABLEKS R5 R1 K2 ["touchEnabled"]
-  SETTABLEKS R5 R4 K0 ["touch"]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 DUPTABLE                         R4 K1 [{"touch"}]
+        3 GETTABLEKS                       R5 R1 K2 ["touchEnabled"]
+        5 SETTABLEKS                       R5 R4 K0 ["touch"]
+        7 CALL                             R2 2 -1
+        8 RETURN                           R2 -1
 
 PROTO_5:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["createReducer"]
-  GETUPVAL R1 1
-  DUPTABLE R2 K6 [{"SetGamepadEnabled", "SetKeyboardEnabled", "SetMouseClickEnabled", "SetMouseMoveEnabled", "SetTouchEnabled"}]
-  DUPCLOSURE R3 K7 [PROTO_0]
-  CAPTURE UPVAL U2
-  SETTABLEKS R3 R2 K1 ["SetGamepadEnabled"]
-  DUPCLOSURE R3 K8 [PROTO_1]
-  CAPTURE UPVAL U2
-  SETTABLEKS R3 R2 K2 ["SetKeyboardEnabled"]
-  DUPCLOSURE R3 K9 [PROTO_2]
-  CAPTURE UPVAL U2
-  SETTABLEKS R3 R2 K3 ["SetMouseClickEnabled"]
-  DUPCLOSURE R3 K10 [PROTO_3]
-  CAPTURE UPVAL U2
-  SETTABLEKS R3 R2 K4 ["SetMouseMoveEnabled"]
-  DUPCLOSURE R3 K11 [PROTO_4]
-  CAPTURE UPVAL U2
-  SETTABLEKS R3 R2 K5 ["SetTouchEnabled"]
-  CALL R0 2 -1
-  RETURN R0 -1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["createReducer"]
+        3 GETUPVAL                         R1 1
+        4 DUPTABLE                         R2 K6 [{"SetGamepadEnabled", "SetKeyboardEnabled", "SetMouseClickEnabled", "SetMouseMoveEnabled", "SetTouchEnabled"}]
+        5 DUPCLOSURE                       R3 K7 [PROTO_0]
+        6 CAPTURE                          UPVAL U2
+        7 SETTABLEKS                       R3 R2 K1 ["SetGamepadEnabled"]
+        9 DUPCLOSURE                       R3 K8 [PROTO_1]
+       10 CAPTURE                          UPVAL U2
+       11 SETTABLEKS                       R3 R2 K2 ["SetKeyboardEnabled"]
+       13 DUPCLOSURE                       R3 K9 [PROTO_2]
+       14 CAPTURE                          UPVAL U2
+       15 SETTABLEKS                       R3 R2 K3 ["SetMouseClickEnabled"]
+       17 DUPCLOSURE                       R3 K10 [PROTO_3]
+       18 CAPTURE                          UPVAL U2
+       19 SETTABLEKS                       R3 R2 K4 ["SetMouseMoveEnabled"]
+       21 DUPCLOSURE                       R3 K11 [PROTO_4]
+       22 CAPTURE                          UPVAL U2
+       23 SETTABLEKS                       R3 R2 K5 ["SetTouchEnabled"]
+       25 CALL                             R0 2 -1
+       26 RETURN                           R0 -1
 
 PROTO_6:
-  JUMPIFEQKNIL R0 [+6]
-  GETTABLEKS R2 R1 K0 ["context"]
-  GETUPVAL R3 0
-  JUMPIFNOTEQ R2 R3 [+6]
-  GETUPVAL R2 1
-  MOVE R3 R0
-  MOVE R4 R1
-  CALL R2 2 -1
-  RETURN R2 -1
-  RETURN R0 1
+        0 JUMPIFEQKNIL                     R0 ; [+6]
+        2 GETTABLEKS                       R2 R1 K0 ["context"]
+        4 GETUPVAL                         R3 0
+        5 JUMPIFNOTEQ                      R2 R3 ; [+6]
+        7 GETUPVAL                         R2 1
+        8 MOVE                             R3 R0
+        9 MOVE                             R4 R1
+       10 CALL                             R2 2 -1
+       11 RETURN                           R2 -1
+       12 RETURN                           R0 1
 
 PROTO_7:
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R1
-  CAPTURE VAL R0
-  RETURN R2 1
+        0 NEWCLOSURE                       R2 P0
+        1 CAPTURE                          VAL R1
+        2 CAPTURE                          VAL R0
+        3 RETURN                           R2 1
 
 PROTO_8:
-  GETUPVAL R2 0
-  CALL R2 0 1
-  NEWCLOSURE R1 P0
-  CAPTURE VAL R0
-  CAPTURE VAL R2
-  RETURN R1 1
+        0 GETUPVAL                         R2 0
+        1 CALL                             R2 0 1
+        2 NEWCLOSURE                       R1 P0
+        3 CAPTURE                          VAL R0
+        4 CAPTURE                          VAL R2
+        5 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Rodux"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Cryo"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K8 ["Dictionary"]
-  GETTABLEKS R3 R4 K9 ["join"]
-  GETIMPORT R4 K4 [require]
-  GETTABLEKS R8 R0 K10 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Actions"]
-  GETTABLEKS R6 R7 K12 ["EventTypeEnabled"]
-  GETTABLEKS R5 R6 K13 ["SetGamepadEnabled"]
-  CALL R4 1 1
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R9 R0 K10 ["Src"]
-  GETTABLEKS R8 R9 K11 ["Actions"]
-  GETTABLEKS R7 R8 K12 ["EventTypeEnabled"]
-  GETTABLEKS R6 R7 K14 ["SetKeyboardEnabled"]
-  CALL R5 1 1
-  GETIMPORT R6 K4 [require]
-  GETTABLEKS R10 R0 K10 ["Src"]
-  GETTABLEKS R9 R10 K11 ["Actions"]
-  GETTABLEKS R8 R9 K12 ["EventTypeEnabled"]
-  GETTABLEKS R7 R8 K15 ["SetMouseClickEnabled"]
-  CALL R6 1 1
-  GETIMPORT R7 K4 [require]
-  GETTABLEKS R11 R0 K10 ["Src"]
-  GETTABLEKS R10 R11 K11 ["Actions"]
-  GETTABLEKS R9 R10 K12 ["EventTypeEnabled"]
-  GETTABLEKS R8 R9 K16 ["SetMouseMoveEnabled"]
-  CALL R7 1 1
-  GETIMPORT R8 K4 [require]
-  GETTABLEKS R12 R0 K10 ["Src"]
-  GETTABLEKS R11 R12 K11 ["Actions"]
-  GETTABLEKS R10 R11 K12 ["EventTypeEnabled"]
-  GETTABLEKS R9 R10 K17 ["SetTouchEnabled"]
-  CALL R8 1 1
-  DUPTABLE R9 K23 [{"mouseMove", "mouseClick", "keyboard", "gamepad", "touch"}]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K18 ["mouseMove"]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K19 ["mouseClick"]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K20 ["keyboard"]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K21 ["gamepad"]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K22 ["touch"]
-  DUPCLOSURE R10 K24 [PROTO_5]
-  CAPTURE VAL R1
-  CAPTURE VAL R9
-  CAPTURE VAL R3
-  DUPCLOSURE R11 K25 [PROTO_7]
-  DUPCLOSURE R12 K26 [PROTO_8]
-  CAPTURE VAL R10
-  DUPTABLE R13 K28 [{"makeReducerForName"}]
-  SETTABLEKS R12 R13 K27 ["makeReducerForName"]
-  RETURN R13 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["Rodux"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K7 ["Cryo"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R4 R2 K8 ["Dictionary"]
+       25 GETTABLEKS                       R3 R4 K9 ["join"]
+       27 GETIMPORT                        R4 K4 [require]
+       29 GETTABLEKS                       R8 R0 K10 ["Src"]
+       31 GETTABLEKS                       R7 R8 K11 ["Actions"]
+       33 GETTABLEKS                       R6 R7 K12 ["EventTypeEnabled"]
+       35 GETTABLEKS                       R5 R6 K13 ["SetGamepadEnabled"]
+       37 CALL                             R4 1 1
+       38 GETIMPORT                        R5 K4 [require]
+       40 GETTABLEKS                       R9 R0 K10 ["Src"]
+       42 GETTABLEKS                       R8 R9 K11 ["Actions"]
+       44 GETTABLEKS                       R7 R8 K12 ["EventTypeEnabled"]
+       46 GETTABLEKS                       R6 R7 K14 ["SetKeyboardEnabled"]
+       48 CALL                             R5 1 1
+       49 GETIMPORT                        R6 K4 [require]
+       51 GETTABLEKS                       R10 R0 K10 ["Src"]
+       53 GETTABLEKS                       R9 R10 K11 ["Actions"]
+       55 GETTABLEKS                       R8 R9 K12 ["EventTypeEnabled"]
+       57 GETTABLEKS                       R7 R8 K15 ["SetMouseClickEnabled"]
+       59 CALL                             R6 1 1
+       60 GETIMPORT                        R7 K4 [require]
+       62 GETTABLEKS                       R11 R0 K10 ["Src"]
+       64 GETTABLEKS                       R10 R11 K11 ["Actions"]
+       66 GETTABLEKS                       R9 R10 K12 ["EventTypeEnabled"]
+       68 GETTABLEKS                       R8 R9 K16 ["SetMouseMoveEnabled"]
+       70 CALL                             R7 1 1
+       71 GETIMPORT                        R8 K4 [require]
+       73 GETTABLEKS                       R12 R0 K10 ["Src"]
+       75 GETTABLEKS                       R11 R12 K11 ["Actions"]
+       77 GETTABLEKS                       R10 R11 K12 ["EventTypeEnabled"]
+       79 GETTABLEKS                       R9 R10 K17 ["SetTouchEnabled"]
+       81 CALL                             R8 1 1
+       82 DUPTABLE                         R9 K23 [{"mouseMove", "mouseClick", "keyboard", "gamepad", "touch"}]
+       83 LOADB                            R10 1
+       84 SETTABLEKS                       R10 R9 K18 ["mouseMove"]
+       86 LOADB                            R10 1
+       87 SETTABLEKS                       R10 R9 K19 ["mouseClick"]
+       89 LOADB                            R10 1
+       90 SETTABLEKS                       R10 R9 K20 ["keyboard"]
+       92 LOADB                            R10 1
+       93 SETTABLEKS                       R10 R9 K21 ["gamepad"]
+       95 LOADB                            R10 1
+       96 SETTABLEKS                       R10 R9 K22 ["touch"]
+       98 DUPCLOSURE                       R10 K24 [PROTO_5]
+       99 CAPTURE                          VAL R1
+      100 CAPTURE                          VAL R9
+      101 CAPTURE                          VAL R3
+      102 DUPCLOSURE                       R11 K25 [PROTO_7]
+      103 DUPCLOSURE                       R12 K26 [PROTO_8]
+      104 CAPTURE                          VAL R10
+      105 DUPTABLE                         R13 K28 [{"makeReducerForName"}]
+      106 SETTABLEKS                       R12 R13 K27 ["makeReducerForName"]
+      108 RETURN                           R13 1

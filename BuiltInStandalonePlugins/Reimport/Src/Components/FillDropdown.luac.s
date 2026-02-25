@@ -1,62 +1,62 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETIMPORT R2 K2 [UDim.new]
-  LOADN R3 0
-  GETTABLEKS R5 R0 K3 ["AbsoluteSize"]
-  GETTABLEKS R4 R5 K4 ["X"]
-  CALL R2 2 -1
-  CALL R1 -1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETIMPORT                        R2 K2 [UDim.new]
+        3 LOADN                            R3 0
+        4 GETTABLEKS                       R5 R0 K3 ["AbsoluteSize"]
+        6 GETTABLEKS                       R4 R5 K4 ["X"]
+        8 CALL                             R2 2 -1
+        9 CALL                             R1 -1 0
+       10 RETURN                           R0 0
 
 PROTO_1:
-  GETTABLEKS R1 R0 K0 ["initialWidth"]
-  JUMPIF R1 [+5]
-  GETIMPORT R1 K3 [UDim.new]
-  LOADN R2 0
-  LOADN R3 44
-  CALL R1 2 1
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K4 ["useState"]
-  MOVE R3 R1
-  CALL R2 1 2
-  SETTABLEKS R2 R0 K5 ["width"]
-  GETUPVAL R4 1
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K6 ["View"]
-  DUPTABLE R6 K9 [{"tag", "onAbsoluteSizeChanged"}]
-  LOADK R7 K10 ["size-full"]
-  SETTABLEKS R7 R6 K7 ["tag"]
-  NEWCLOSURE R7 P0
-  CAPTURE VAL R3
-  SETTABLEKS R7 R6 K8 ["onAbsoluteSizeChanged"]
-  NEWTABLE R7 0 1
-  GETUPVAL R8 1
-  GETUPVAL R11 2
-  GETTABLEKS R10 R11 K11 ["Dropdown"]
-  GETTABLEKS R9 R10 K12 ["Root"]
-  MOVE R10 R0
-  CALL R8 2 -1
-  SETLIST R7 R8 -1 [1]
-  CALL R4 3 -1
-  RETURN R4 -1
+        0 GETTABLEKS                       R1 R0 K0 ["initialWidth"]
+        2 JUMPIF                           R1 ; [+5]
+        3 GETIMPORT                        R1 K3 [UDim.new]
+        5 LOADN                            R2 0
+        6 LOADN                            R3 44
+        7 CALL                             R1 2 1
+        8 GETUPVAL                         R3 0
+        9 GETTABLEKS                       R2 R3 K4 ["useState"]
+       11 MOVE                             R3 R1
+       12 CALL                             R2 1 2
+       13 SETTABLEKS                       R2 R0 K5 ["width"]
+       15 GETUPVAL                         R4 1
+       16 GETUPVAL                         R6 2
+       17 GETTABLEKS                       R5 R6 K6 ["View"]
+       19 DUPTABLE                         R6 K9 [{"tag", "onAbsoluteSizeChanged"}]
+       20 LOADK                            R7 K10 ["size-full"]
+       21 SETTABLEKS                       R7 R6 K7 ["tag"]
+       23 NEWCLOSURE                       R7 P0
+       24 CAPTURE                          VAL R3
+       25 SETTABLEKS                       R7 R6 K8 ["onAbsoluteSizeChanged"]
+       27 NEWTABLE                         R7 0 1
+       29 GETUPVAL                         R8 1
+       30 GETUPVAL                         R11 2
+       31 GETTABLEKS                       R10 R11 K11 ["Dropdown"]
+       33 GETTABLEKS                       R9 R10 K12 ["Root"]
+       35 MOVE                             R10 R0
+       36 CALL                             R8 2 -1
+       37 SETLIST                          R7 R8 -1 [1]
+       39 CALL                             R4 3 -1
+       40 RETURN                           R4 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["ReimportPlugin"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Foundation"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["React"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K9 ["createElement"]
-  DUPCLOSURE R4 K10 [PROTO_1]
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  CAPTURE VAL R1
-  RETURN R4 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["ReimportPlugin"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["Foundation"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R3 R2 K9 ["createElement"]
+       23 DUPCLOSURE                       R4 K10 [PROTO_1]
+       24 CAPTURE                          VAL R2
+       25 CAPTURE                          VAL R3
+       26 CAPTURE                          VAL R1
+       27 RETURN                           R4 1

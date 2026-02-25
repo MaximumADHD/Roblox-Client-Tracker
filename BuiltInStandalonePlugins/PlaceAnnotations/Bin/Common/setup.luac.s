@@ -1,40 +1,40 @@
 PROTO_0:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["Name"]
-  SETTABLEKS R2 R0 K0 ["Name"]
-  GETIMPORT R2 K2 [game]
-  LOADK R4 K3 ["RunService"]
-  NAMECALL R2 R2 K4 ["GetService"]
-  CALL R2 2 1
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K5 ["get"]
-  CALL R4 0 1
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K6 ["Standalone"]
-  JUMPIFEQ R4 R5 [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  NAMECALL R4 R2 K7 ["IsEdit"]
-  CALL R4 1 1
-  JUMPIF R3 [+1]
-  JUMPIFNOT R4 [+3]
-  MOVE R5 R1
-  MOVE R6 R0
-  CALL R5 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["Name"]
+        3 SETTABLEKS                       R2 R0 K0 ["Name"]
+        5 GETIMPORT                        R2 K2 [game]
+        7 LOADK                            R4 K3 ["RunService"]
+        8 NAMECALL                         R2 R2 K4 ["GetService"]
+       10 CALL                             R2 2 1
+       11 GETUPVAL                         R5 1
+       12 GETTABLEKS                       R4 R5 K5 ["get"]
+       14 CALL                             R4 0 1
+       15 GETUPVAL                         R6 1
+       16 GETTABLEKS                       R5 R6 K6 ["Standalone"]
+       18 JUMPIFEQ                         R4 R5 ; [+2]
+       20 LOADB                            R3 0 +1
+       21 LOADB                            R3 1
+       22 NAMECALL                         R4 R2 K7 ["IsEdit"]
+       24 CALL                             R4 1 1
+       25 JUMPIF                           R3 ; [+1]
+       26 JUMPIFNOT                        R4 ; [+3]
+       27 MOVE                             R5 R1
+       28 MOVE                             R6 R0
+       29 CALL                             R5 1 0
+       30 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["PlaceAnnotations"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Bin"]
-  GETTABLEKS R3 R4 K7 ["Common"]
-  GETTABLEKS R2 R3 K8 ["pluginType"]
-  CALL R1 1 1
-  DUPCLOSURE R2 K9 [PROTO_0]
-  CAPTURE VAL R0
-  CAPTURE VAL R1
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["PlaceAnnotations"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Bin"]
+       11 GETTABLEKS                       R3 R4 K7 ["Common"]
+       13 GETTABLEKS                       R2 R3 K8 ["pluginType"]
+       15 CALL                             R1 1 1
+       16 DUPCLOSURE                       R2 K9 [PROTO_0]
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          VAL R1
+       19 RETURN                           R2 1

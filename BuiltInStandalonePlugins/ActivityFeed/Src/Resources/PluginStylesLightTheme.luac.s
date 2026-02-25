@@ -1,69 +1,69 @@
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
-  CALL R1 1 1
-  GETTABLEKS R3 R1 K7 ["Styling"]
-  GETTABLEKS R2 R3 K8 ["createStyleSheet"]
-  DUPTABLE R3 K17 [{"FoundationColorsBackgroundDefault", "FoundationColorsBackgroundPaper", "FoundationColorsShift100", "FoundationColorsShift200", "FoundationColorsShift300", "FoundationColorsShift400", "FoundationColorsContentEmphasis", "FoundationColorsContentMuted"}]
-  GETIMPORT R4 K20 [Color3.fromHex]
-  LOADK R5 K21 ["#F7F7F8"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K9 ["FoundationColorsBackgroundDefault"]
-  GETIMPORT R4 K20 [Color3.fromHex]
-  LOADK R5 K22 ["#EEEFF1"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K10 ["FoundationColorsBackgroundPaper"]
-  GETIMPORT R4 K20 [Color3.fromHex]
-  LOADK R5 K23 ["#EEF0F1"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K11 ["FoundationColorsShift100"]
-  GETIMPORT R4 K20 [Color3.fromHex]
-  LOADK R5 K24 ["#E5E6EA"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K12 ["FoundationColorsShift200"]
-  GETIMPORT R4 K20 [Color3.fromHex]
-  LOADK R5 K25 ["#DDDEE3"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K13 ["FoundationColorsShift300"]
-  GETIMPORT R4 K20 [Color3.fromHex]
-  LOADK R5 K26 ["#D4D5DC"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K14 ["FoundationColorsShift400"]
-  GETIMPORT R4 K20 [Color3.fromHex]
-  LOADK R5 K27 ["#202227"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K15 ["FoundationColorsContentEmphasis"]
-  GETIMPORT R4 K20 [Color3.fromHex]
-  LOADK R5 K28 ["#6A6F81"]
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K16 ["FoundationColorsContentMuted"]
-  LOADK R4 K29 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/ArrowDown.png"]
-  SETTABLEKS R4 R3 K30 ["arrowdownicon"]
-  LOADK R4 K31 ["rbxasset://studio_svg_textures/Lua/Tutorials/Light/Standard/Close.png"]
-  SETTABLEKS R4 R3 K32 ["close"]
-  LOADK R4 K33 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Standard/Filter.png"]
-  SETTABLEKS R4 R3 K34 ["filter"]
-  LOADK R4 K35 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Standard/FilterDisabled.png"]
-  SETTABLEKS R4 R3 K36 ["filterdisabled"]
-  LOADK R4 K37 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Standard/MiniUser.png"]
-  SETTABLEKS R4 R3 K38 ["miniuser"]
-  LOADK R4 K39 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Large/NoFilterResults.png"]
-  SETTABLEKS R4 R3 K40 ["nofilterresults"]
-  LOADK R4 K41 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/More.png"]
-  SETTABLEKS R4 R3 K42 ["threedotsicon"]
-  LOADK R4 K43 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Large/UnsavedExperience.png"]
-  SETTABLEKS R4 R3 K44 ["unsavedexperience"]
-  LOADK R4 K45 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Large/Script.png"]
-  SETTABLEKS R4 R3 K46 ["scripticon"]
-  MOVE R4 R2
-  LOADK R5 K47 ["NotificationsPluginLightTheme"]
-  NEWTABLE R6 0 0
-  MOVE R7 R3
-  CALL R4 3 -1
-  RETURN R4 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       15 CALL                             R1 1 1
+       16 GETTABLEKS                       R3 R1 K7 ["Styling"]
+       18 GETTABLEKS                       R2 R3 K8 ["createStyleSheet"]
+       20 DUPTABLE                         R3 K17 [{"FoundationColorsBackgroundDefault", "FoundationColorsBackgroundPaper", "FoundationColorsShift100", "FoundationColorsShift200", "FoundationColorsShift300", "FoundationColorsShift400", "FoundationColorsContentEmphasis", "FoundationColorsContentMuted"}]
+       21 GETIMPORT                        R4 K20 [Color3.fromHex]
+       23 LOADK                            R5 K21 ["#F7F7F8"]
+       24 CALL                             R4 1 1
+       25 SETTABLEKS                       R4 R3 K9 ["FoundationColorsBackgroundDefault"]
+       27 GETIMPORT                        R4 K20 [Color3.fromHex]
+       29 LOADK                            R5 K22 ["#EEEFF1"]
+       30 CALL                             R4 1 1
+       31 SETTABLEKS                       R4 R3 K10 ["FoundationColorsBackgroundPaper"]
+       33 GETIMPORT                        R4 K20 [Color3.fromHex]
+       35 LOADK                            R5 K23 ["#EEF0F1"]
+       36 CALL                             R4 1 1
+       37 SETTABLEKS                       R4 R3 K11 ["FoundationColorsShift100"]
+       39 GETIMPORT                        R4 K20 [Color3.fromHex]
+       41 LOADK                            R5 K24 ["#E5E6EA"]
+       42 CALL                             R4 1 1
+       43 SETTABLEKS                       R4 R3 K12 ["FoundationColorsShift200"]
+       45 GETIMPORT                        R4 K20 [Color3.fromHex]
+       47 LOADK                            R5 K25 ["#DDDEE3"]
+       48 CALL                             R4 1 1
+       49 SETTABLEKS                       R4 R3 K13 ["FoundationColorsShift300"]
+       51 GETIMPORT                        R4 K20 [Color3.fromHex]
+       53 LOADK                            R5 K26 ["#D4D5DC"]
+       54 CALL                             R4 1 1
+       55 SETTABLEKS                       R4 R3 K14 ["FoundationColorsShift400"]
+       57 GETIMPORT                        R4 K20 [Color3.fromHex]
+       59 LOADK                            R5 K27 ["#202227"]
+       60 CALL                             R4 1 1
+       61 SETTABLEKS                       R4 R3 K15 ["FoundationColorsContentEmphasis"]
+       63 GETIMPORT                        R4 K20 [Color3.fromHex]
+       65 LOADK                            R5 K28 ["#6A6F81"]
+       66 CALL                             R4 1 1
+       67 SETTABLEKS                       R4 R3 K16 ["FoundationColorsContentMuted"]
+       69 LOADK                            R4 K29 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/ArrowDown.png"]
+       70 SETTABLEKS                       R4 R3 K30 ["arrowdownicon"]
+       72 LOADK                            R4 K31 ["rbxasset://studio_svg_textures/Lua/Tutorials/Light/Standard/Close.png"]
+       73 SETTABLEKS                       R4 R3 K32 ["close"]
+       75 LOADK                            R4 K33 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Standard/Filter.png"]
+       76 SETTABLEKS                       R4 R3 K34 ["filter"]
+       78 LOADK                            R4 K35 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Standard/FilterDisabled.png"]
+       79 SETTABLEKS                       R4 R3 K36 ["filterdisabled"]
+       81 LOADK                            R4 K37 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Standard/MiniUser.png"]
+       82 SETTABLEKS                       R4 R3 K38 ["miniuser"]
+       84 LOADK                            R4 K39 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Large/NoFilterResults.png"]
+       85 SETTABLEKS                       R4 R3 K40 ["nofilterresults"]
+       87 LOADK                            R4 K41 ["rbxasset://studio_svg_textures/Shared/Navigation/Light/Standard/More.png"]
+       88 SETTABLEKS                       R4 R3 K42 ["threedotsicon"]
+       90 LOADK                            R4 K43 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Large/UnsavedExperience.png"]
+       91 SETTABLEKS                       R4 R3 K44 ["unsavedexperience"]
+       93 LOADK                            R4 K45 ["rbxasset://studio_svg_textures/Lua/ActivityHistory/Light/Large/Script.png"]
+       94 SETTABLEKS                       R4 R3 K46 ["scripticon"]
+       96 MOVE                             R4 R2
+       97 LOADK                            R5 K47 ["NotificationsPluginLightTheme"]
+       98 NEWTABLE                         R6 0 0
+      100 MOVE                             R7 R3
+      101 CALL                             R4 3 -1
+      102 RETURN                           R4 -1

@@ -1,82 +1,82 @@
 PROTO_0:
-  GETTABLEKS R1 R0 K0 ["UserInputType"]
-  GETIMPORT R2 K3 [Enum.UserInputType.MouseButton1]
-  JUMPIFNOTEQ R1 R2 [+5]
-  GETUPVAL R1 0
-  JUMPIF R1 [+2]
-  GETUPVAL R1 1
-  CALL R1 0 0
-  RETURN R0 0
+        0 GETTABLEKS                       R1 R0 K0 ["UserInputType"]
+        2 GETIMPORT                        R2 K3 [Enum.UserInputType.MouseButton1]
+        4 JUMPIFNOTEQ                      R1 R2 ; [+5]
+        6 GETUPVAL                         R1 0
+        7 JUMPIF                           R1 ; [+2]
+        8 GETUPVAL                         R1 1
+        9 CALL                             R1 0 0
+       10 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["Disconnect"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R0 0
-  GETUPVAL R2 1
-  NAMECALL R0 R0 K0 ["setFocus"]
-  CALL R0 2 0
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K1 ["Listener"]
-  GETTABLEKS R0 R1 K2 ["InputBegan"]
-  NEWCLOSURE R2 P0
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  NAMECALL R0 R0 K3 ["Connect"]
-  CALL R0 2 1
-  NEWCLOSURE R1 P1
-  CAPTURE VAL R0
-  RETURN R1 1
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 NAMECALL                         R0 R0 K0 ["setFocus"]
+        4 CALL                             R0 2 0
+        5 GETUPVAL                         R2 0
+        6 GETTABLEKS                       R1 R2 K1 ["Listener"]
+        8 GETTABLEKS                       R0 R1 K2 ["InputBegan"]
+       10 NEWCLOSURE                       R2 P0
+       11 CAPTURE                          UPVAL U2
+       12 CAPTURE                          UPVAL U3
+       13 NAMECALL                         R0 R0 K3 ["Connect"]
+       15 CALL                             R0 2 1
+       16 NEWCLOSURE                       R1 P1
+       17 CAPTURE                          VAL R0
+       18 RETURN                           R1 1
 
 PROTO_3:
-  GETUPVAL R2 0
-  NAMECALL R2 R2 K0 ["use"]
-  CALL R2 1 1
-  GETUPVAL R3 1
-  NAMECALL R3 R3 K0 ["use"]
-  CALL R3 1 1
-  NAMECALL R3 R3 K1 ["get"]
-  CALL R3 1 1
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K2 ["useEffect"]
-  NEWCLOSURE R5 P0
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  CAPTURE VAL R0
-  CAPTURE VAL R1
-  NEWTABLE R6 0 2
-  MOVE R7 R0
-  MOVE R8 R1
-  SETLIST R6 R7 2 [1]
-  CALL R4 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 NAMECALL                         R2 R2 K0 ["use"]
+        3 CALL                             R2 1 1
+        4 GETUPVAL                         R3 1
+        5 NAMECALL                         R3 R3 K0 ["use"]
+        7 CALL                             R3 1 1
+        8 NAMECALL                         R3 R3 K1 ["get"]
+       10 CALL                             R3 1 1
+       11 GETUPVAL                         R5 2
+       12 GETTABLEKS                       R4 R5 K2 ["useEffect"]
+       14 NEWCLOSURE                       R5 P0
+       15 CAPTURE                          VAL R2
+       16 CAPTURE                          VAL R3
+       17 CAPTURE                          VAL R0
+       18 CAPTURE                          VAL R1
+       19 NEWTABLE                         R6 0 2
+       21 MOVE                             R7 R0
+       22 MOVE                             R8 R1
+       23 SETLIST                          R6 R7 2 [1]
+       25 CALL                             R4 2 0
+       26 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["PlaceAnnotations"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Framework"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K9 ["ContextServices"]
-  GETTABLEKS R3 R4 K10 ["Focus"]
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K11 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Contexts"]
-  GETTABLEKS R5 R6 K13 ["InputListenerContext"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K14 [PROTO_3]
-  CAPTURE VAL R4
-  CAPTURE VAL R3
-  CAPTURE VAL R1
-  RETURN R5 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["PlaceAnnotations"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["Framework"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R4 R2 K9 ["ContextServices"]
+       23 GETTABLEKS                       R3 R4 K10 ["Focus"]
+       25 GETIMPORT                        R4 K5 [require]
+       27 GETTABLEKS                       R7 R0 K11 ["Src"]
+       29 GETTABLEKS                       R6 R7 K12 ["Contexts"]
+       31 GETTABLEKS                       R5 R6 K13 ["InputListenerContext"]
+       33 CALL                             R4 1 1
+       34 DUPCLOSURE                       R5 K14 [PROTO_3]
+       35 CAPTURE                          VAL R4
+       36 CAPTURE                          VAL R3
+       37 CAPTURE                          VAL R1
+       38 RETURN                           R5 1

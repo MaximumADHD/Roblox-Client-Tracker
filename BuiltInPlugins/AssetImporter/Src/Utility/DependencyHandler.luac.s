@@ -1,99 +1,99 @@
 PROTO_0:
-  GETIMPORT R1 K3 [Enum.NormalId.Top]
-  JUMPIFEQ R0 R1 [+5]
-  GETIMPORT R1 K5 [Enum.NormalId.Bottom]
-  JUMPIFNOTEQ R0 R1 [+9]
-  DUPTABLE R1 K6 [{"Top", "Bottom"}]
-  LOADB R2 1
-  SETTABLEKS R2 R1 K2 ["Top"]
-  LOADB R2 1
-  SETTABLEKS R2 R1 K4 ["Bottom"]
-  RETURN R1 1
-  GETIMPORT R1 K8 [Enum.NormalId.Right]
-  JUMPIFEQ R0 R1 [+5]
-  GETIMPORT R1 K10 [Enum.NormalId.Left]
-  JUMPIFNOTEQ R0 R1 [+9]
-  DUPTABLE R1 K11 [{"Right", "Left"}]
-  LOADB R2 1
-  SETTABLEKS R2 R1 K7 ["Right"]
-  LOADB R2 1
-  SETTABLEKS R2 R1 K9 ["Left"]
-  RETURN R1 1
-  DUPTABLE R1 K14 [{"Front", "Back"}]
-  LOADB R2 1
-  SETTABLEKS R2 R1 K12 ["Front"]
-  LOADB R2 1
-  SETTABLEKS R2 R1 K13 ["Back"]
-  RETURN R1 1
+        0 GETIMPORT                        R1 K3 [Enum.NormalId.Top]
+        2 JUMPIFEQ                         R0 R1 ; [+5]
+        4 GETIMPORT                        R1 K5 [Enum.NormalId.Bottom]
+        6 JUMPIFNOTEQ                      R0 R1 ; [+9]
+        8 DUPTABLE                         R1 K6 [{"Top", "Bottom"}]
+        9 LOADB                            R2 1
+       10 SETTABLEKS                       R2 R1 K2 ["Top"]
+       12 LOADB                            R2 1
+       13 SETTABLEKS                       R2 R1 K4 ["Bottom"]
+       15 RETURN                           R1 1
+       16 GETIMPORT                        R1 K8 [Enum.NormalId.Right]
+       18 JUMPIFEQ                         R0 R1 ; [+5]
+       20 GETIMPORT                        R1 K10 [Enum.NormalId.Left]
+       22 JUMPIFNOTEQ                      R0 R1 ; [+9]
+       24 DUPTABLE                         R1 K11 [{"Right", "Left"}]
+       25 LOADB                            R2 1
+       26 SETTABLEKS                       R2 R1 K7 ["Right"]
+       28 LOADB                            R2 1
+       29 SETTABLEKS                       R2 R1 K9 ["Left"]
+       31 RETURN                           R1 1
+       32 DUPTABLE                         R1 K14 [{"Front", "Back"}]
+       33 LOADB                            R2 1
+       34 SETTABLEKS                       R2 R1 K12 ["Front"]
+       36 LOADB                            R2 1
+       37 SETTABLEKS                       R2 R1 K13 ["Back"]
+       39 RETURN                           R1 1
 
 PROTO_1:
-  NEWTABLE R1 0 0
-  GETIMPORT R2 K1 [pairs]
-  MOVE R3 R0
-  CALL R2 1 3
-  FORGPREP_NEXT R2
-  GETUPVAL R7 0
-  MOVE R8 R1
-  GETUPVAL R9 1
-  MOVE R10 R6
-  CALL R9 1 1
-  CALL R7 2 0
-  FORGLOOP R2 2 [-7]
-  RETURN R1 1
+        0 NEWTABLE                         R1 0 0
+        2 GETIMPORT                        R2 K1 [pairs]
+        4 MOVE                             R3 R0
+        5 CALL                             R2 1 3
+        6 FORGPREP_NEXT                    R2
+        7 GETUPVAL                         R7 0
+        8 MOVE                             R8 R1
+        9 GETUPVAL                         R9 1
+       10 MOVE                             R10 R6
+       11 CALL                             R9 1 1
+       12 CALL                             R7 2 0
+       13 FORGLOOP                         R2 2 ; [-7]
+       15 RETURN                           R1 1
 
 PROTO_2:
-  NEWTABLE R2 2 0
-  GETUPVAL R3 0
-  CALL R3 0 1
-  JUMPIF R3 [+3]
-  LOADB R3 1
-  SETTABLEKS R3 R2 K0 ["CustomHumanoid"]
-  NAMECALL R3 R1 K1 ["IsAvatar"]
-  CALL R3 1 1
-  JUMPIF R3 [+3]
-  LOADB R3 1
-  SETTABLEKS R3 R2 K2 ["R15"]
-  RETURN R2 1
+        0 NEWTABLE                         R2 2 0
+        2 GETUPVAL                         R3 0
+        3 CALL                             R3 0 1
+        4 JUMPIF                           R3 ; [+3]
+        5 LOADB                            R3 1
+        6 SETTABLEKS                       R3 R2 K0 ["CustomHumanoid"]
+        8 NAMECALL                         R3 R1 K1 ["IsAvatar"]
+       10 CALL                             R3 1 1
+       11 JUMPIF                           R3 ; [+3]
+       12 LOADB                            R3 1
+       13 SETTABLEKS                       R3 R2 K2 ["R15"]
+       15 RETURN                           R2 1
 
 PROTO_3:
-  GETUPVAL R4 0
-  GETTABLE R3 R4 R0
-  JUMPIFNOT R3 [+6]
-  GETUPVAL R4 0
-  GETTABLE R3 R4 R0
-  MOVE R4 R1
-  MOVE R5 R2
-  CALL R3 2 -1
-  RETURN R3 -1
-  LOADNIL R3
-  RETURN R3 1
+        0 GETUPVAL                         R4 0
+        1 GETTABLE                         R3 R4 R0
+        2 JUMPIFNOT                        R3 ; [+6]
+        3 GETUPVAL                         R4 0
+        4 GETTABLE                         R3 R4 R0
+        5 MOVE                             R4 R1
+        6 MOVE                             R5 R2
+        7 CALL                             R3 2 -1
+        8 RETURN                           R3 -1
+        9 LOADNIL                          R3
+       10 RETURN                           R3 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AssetImporter"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Dash"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K8 ["assign"]
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Flags"]
-  GETTABLEKS R4 R5 K11 ["getFFlagCustomHumanoidEnabled"]
-  CALL R3 1 1
-  DUPCLOSURE R4 K12 [PROTO_0]
-  DUPCLOSURE R5 K13 [PROTO_1]
-  CAPTURE VAL R2
-  CAPTURE VAL R4
-  DUPCLOSURE R6 K14 [PROTO_2]
-  CAPTURE VAL R3
-  DUPTABLE R7 K18 [{"WorldForward", "WorldUp", "RigType"}]
-  SETTABLEKS R5 R7 K15 ["WorldForward"]
-  SETTABLEKS R5 R7 K16 ["WorldUp"]
-  SETTABLEKS R6 R7 K17 ["RigType"]
-  DUPCLOSURE R8 K19 [PROTO_3]
-  CAPTURE VAL R7
-  RETURN R8 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AssetImporter"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R2 R1 K8 ["assign"]
+       16 GETIMPORT                        R3 K5 [require]
+       18 GETTABLEKS                       R6 R0 K9 ["Src"]
+       20 GETTABLEKS                       R5 R6 K10 ["Flags"]
+       22 GETTABLEKS                       R4 R5 K11 ["getFFlagCustomHumanoidEnabled"]
+       24 CALL                             R3 1 1
+       25 DUPCLOSURE                       R4 K12 [PROTO_0]
+       26 DUPCLOSURE                       R5 K13 [PROTO_1]
+       27 CAPTURE                          VAL R2
+       28 CAPTURE                          VAL R4
+       29 DUPCLOSURE                       R6 K14 [PROTO_2]
+       30 CAPTURE                          VAL R3
+       31 DUPTABLE                         R7 K18 [{"WorldForward", "WorldUp", "RigType"}]
+       32 SETTABLEKS                       R5 R7 K15 ["WorldForward"]
+       34 SETTABLEKS                       R5 R7 K16 ["WorldUp"]
+       36 SETTABLEKS                       R6 R7 K17 ["RigType"]
+       38 DUPCLOSURE                       R8 K19 [PROTO_3]
+       39 CAPTURE                          VAL R7
+       40 RETURN                           R8 1

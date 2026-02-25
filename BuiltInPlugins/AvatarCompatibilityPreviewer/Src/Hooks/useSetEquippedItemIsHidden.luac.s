@@ -1,207 +1,207 @@
 PROTO_0:
-  GETTABLEKS R3 R0 K0 ["palette"]
-  GETTABLEKS R2 R3 K1 ["OverrideEquipKey"]
-  JUMPIF R2 [+4]
-  GETTABLEKS R3 R0 K0 ["palette"]
-  GETTABLEKS R2 R3 K2 ["Key"]
-  GETTABLEKS R4 R1 K0 ["palette"]
-  GETTABLEKS R3 R4 K1 ["OverrideEquipKey"]
-  JUMPIF R3 [+4]
-  GETTABLEKS R4 R1 K0 ["palette"]
-  GETTABLEKS R3 R4 K2 ["Key"]
-  JUMPIFEQ R2 R3 [+2]
-  LOADB R4 0 +1
-  LOADB R4 1
-  RETURN R4 1
+        0 GETTABLEKS                       R3 R0 K0 ["palette"]
+        2 GETTABLEKS                       R2 R3 K1 ["OverrideEquipKey"]
+        4 JUMPIF                           R2 ; [+4]
+        5 GETTABLEKS                       R3 R0 K0 ["palette"]
+        7 GETTABLEKS                       R2 R3 K2 ["Key"]
+        9 GETTABLEKS                       R4 R1 K0 ["palette"]
+       11 GETTABLEKS                       R3 R4 K1 ["OverrideEquipKey"]
+       13 JUMPIF                           R3 ; [+4]
+       14 GETTABLEKS                       R4 R1 K0 ["palette"]
+       16 GETTABLEKS                       R3 R4 K2 ["Key"]
+       18 JUMPIFEQ                         R2 R3 ; [+2]
+       20 LOADB                            R4 0 +1
+       21 LOADB                            R4 1
+       22 RETURN                           R4 1
 
 PROTO_1:
-  GETTABLEKS R3 R0 K0 ["item"]
-  GETTABLEKS R2 R3 K1 ["source"]
-  JUMPIFNOTEQKS R2 K2 ["builtin"] [+20]
-  GETTABLEKS R3 R1 K0 ["item"]
-  GETTABLEKS R2 R3 K1 ["source"]
-  JUMPIFNOTEQKS R2 K2 ["builtin"] [+14]
-  GETTABLEKS R4 R0 K0 ["item"]
-  GETTABLEKS R3 R4 K3 ["builtinItem"]
-  GETTABLEKS R5 R1 K0 ["item"]
-  GETTABLEKS R4 R5 K3 ["builtinItem"]
-  JUMPIFEQ R3 R4 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  RETURN R2 1
-  GETTABLEKS R3 R0 K0 ["item"]
-  GETTABLEKS R2 R3 K1 ["source"]
-  JUMPIFNOTEQKS R2 K4 ["instance"] [+24]
-  GETTABLEKS R3 R1 K0 ["item"]
-  GETTABLEKS R2 R3 K1 ["source"]
-  JUMPIFNOTEQKS R2 K4 ["instance"] [+18]
-  GETTABLEKS R5 R0 K0 ["item"]
-  GETTABLEKS R4 R5 K4 ["instance"]
-  GETTABLEKS R3 R4 K5 ["Name"]
-  GETTABLEKS R6 R1 K0 ["item"]
-  GETTABLEKS R5 R6 K4 ["instance"]
-  GETTABLEKS R4 R5 K5 ["Name"]
-  JUMPIFEQ R3 R4 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  RETURN R2 1
-  GETUPVAL R2 0
-  CALL R2 0 1
-  JUMPIFNOT R2 [+29]
-  GETTABLEKS R3 R0 K0 ["item"]
-  GETTABLEKS R2 R3 K1 ["source"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K6 ["SOURCE_MARKETPLACE"]
-  JUMPIFNOTEQ R2 R3 [+21]
-  GETTABLEKS R3 R1 K0 ["item"]
-  GETTABLEKS R2 R3 K1 ["source"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K6 ["SOURCE_MARKETPLACE"]
-  JUMPIFNOTEQ R2 R3 [+12]
-  GETUPVAL R2 2
-  GETTABLEKS R4 R0 K0 ["item"]
-  GETTABLEKS R3 R4 K7 ["marketplaceItem"]
-  GETTABLEKS R5 R1 K0 ["item"]
-  GETTABLEKS R4 R5 K7 ["marketplaceItem"]
-  CALL R2 2 -1
-  RETURN R2 -1
-  LOADB R2 0
-  RETURN R2 1
+        0 GETTABLEKS                       R3 R0 K0 ["item"]
+        2 GETTABLEKS                       R2 R3 K1 ["source"]
+        4 JUMPIFNOTEQKS                    R2 K2 ["builtin"] ; [+20]
+        6 GETTABLEKS                       R3 R1 K0 ["item"]
+        8 GETTABLEKS                       R2 R3 K1 ["source"]
+       10 JUMPIFNOTEQKS                    R2 K2 ["builtin"] ; [+14]
+       12 GETTABLEKS                       R4 R0 K0 ["item"]
+       14 GETTABLEKS                       R3 R4 K3 ["builtinItem"]
+       16 GETTABLEKS                       R5 R1 K0 ["item"]
+       18 GETTABLEKS                       R4 R5 K3 ["builtinItem"]
+       20 JUMPIFEQ                         R3 R4 ; [+2]
+       22 LOADB                            R2 0 +1
+       23 LOADB                            R2 1
+       24 RETURN                           R2 1
+       25 GETTABLEKS                       R3 R0 K0 ["item"]
+       27 GETTABLEKS                       R2 R3 K1 ["source"]
+       29 JUMPIFNOTEQKS                    R2 K4 ["instance"] ; [+24]
+       31 GETTABLEKS                       R3 R1 K0 ["item"]
+       33 GETTABLEKS                       R2 R3 K1 ["source"]
+       35 JUMPIFNOTEQKS                    R2 K4 ["instance"] ; [+18]
+       37 GETTABLEKS                       R5 R0 K0 ["item"]
+       39 GETTABLEKS                       R4 R5 K4 ["instance"]
+       41 GETTABLEKS                       R3 R4 K5 ["Name"]
+       43 GETTABLEKS                       R6 R1 K0 ["item"]
+       45 GETTABLEKS                       R5 R6 K4 ["instance"]
+       47 GETTABLEKS                       R4 R5 K5 ["Name"]
+       49 JUMPIFEQ                         R3 R4 ; [+2]
+       51 LOADB                            R2 0 +1
+       52 LOADB                            R2 1
+       53 RETURN                           R2 1
+       54 GETUPVAL                         R2 0
+       55 CALL                             R2 0 1
+       56 JUMPIFNOT                        R2 ; [+29]
+       57 GETTABLEKS                       R3 R0 K0 ["item"]
+       59 GETTABLEKS                       R2 R3 K1 ["source"]
+       61 GETUPVAL                         R4 1
+       62 GETTABLEKS                       R3 R4 K6 ["SOURCE_MARKETPLACE"]
+       64 JUMPIFNOTEQ                      R2 R3 ; [+21]
+       66 GETTABLEKS                       R3 R1 K0 ["item"]
+       68 GETTABLEKS                       R2 R3 K1 ["source"]
+       70 GETUPVAL                         R4 1
+       71 GETTABLEKS                       R3 R4 K6 ["SOURCE_MARKETPLACE"]
+       73 JUMPIFNOTEQ                      R2 R3 ; [+12]
+       75 GETUPVAL                         R2 2
+       76 GETTABLEKS                       R4 R0 K0 ["item"]
+       78 GETTABLEKS                       R3 R4 K7 ["marketplaceItem"]
+       80 GETTABLEKS                       R5 R1 K0 ["item"]
+       82 GETTABLEKS                       R4 R5 K7 ["marketplaceItem"]
+       84 CALL                             R2 2 -1
+       85 RETURN                           R2 -1
+       86 LOADB                            R2 0
+       87 RETURN                           R2 1
 
 PROTO_2:
-  GETUPVAL R1 0
-  CALL R1 0 1
-  JUMPIFNOT R1 [+29]
-  GETUPVAL R2 1
-  GETTABLEKS R4 R0 K0 ["palette"]
-  GETTABLEKS R3 R4 K1 ["OverrideEquipKey"]
-  JUMPIF R3 [+4]
-  GETTABLEKS R4 R0 K0 ["palette"]
-  GETTABLEKS R3 R4 K2 ["Key"]
-  GETTABLEKS R5 R2 K0 ["palette"]
-  GETTABLEKS R4 R5 K1 ["OverrideEquipKey"]
-  JUMPIF R4 [+4]
-  GETTABLEKS R5 R2 K0 ["palette"]
-  GETTABLEKS R4 R5 K2 ["Key"]
-  JUMPIFEQ R3 R4 [+2]
-  LOADB R1 0 +1
-  LOADB R1 1
-  JUMPIFNOT R1 [+4]
-  GETUPVAL R1 2
-  MOVE R2 R0
-  GETUPVAL R3 1
-  CALL R1 2 1
-  RETURN R1 1
-  GETUPVAL R2 1
-  GETTABLEKS R4 R0 K0 ["palette"]
-  GETTABLEKS R3 R4 K1 ["OverrideEquipKey"]
-  JUMPIF R3 [+4]
-  GETTABLEKS R4 R0 K0 ["palette"]
-  GETTABLEKS R3 R4 K2 ["Key"]
-  GETTABLEKS R5 R2 K0 ["palette"]
-  GETTABLEKS R4 R5 K1 ["OverrideEquipKey"]
-  JUMPIF R4 [+4]
-  GETTABLEKS R5 R2 K0 ["palette"]
-  GETTABLEKS R4 R5 K2 ["Key"]
-  JUMPIFEQ R3 R4 [+2]
-  LOADB R1 0 +1
-  LOADB R1 1
-  RETURN R1 1
+        0 GETUPVAL                         R1 0
+        1 CALL                             R1 0 1
+        2 JUMPIFNOT                        R1 ; [+29]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R4 R0 K0 ["palette"]
+        6 GETTABLEKS                       R3 R4 K1 ["OverrideEquipKey"]
+        8 JUMPIF                           R3 ; [+4]
+        9 GETTABLEKS                       R4 R0 K0 ["palette"]
+       11 GETTABLEKS                       R3 R4 K2 ["Key"]
+       13 GETTABLEKS                       R5 R2 K0 ["palette"]
+       15 GETTABLEKS                       R4 R5 K1 ["OverrideEquipKey"]
+       17 JUMPIF                           R4 ; [+4]
+       18 GETTABLEKS                       R5 R2 K0 ["palette"]
+       20 GETTABLEKS                       R4 R5 K2 ["Key"]
+       22 JUMPIFEQ                         R3 R4 ; [+2]
+       24 LOADB                            R1 0 +1
+       25 LOADB                            R1 1
+       26 JUMPIFNOT                        R1 ; [+4]
+       27 GETUPVAL                         R1 2
+       28 MOVE                             R2 R0
+       29 GETUPVAL                         R3 1
+       30 CALL                             R1 2 1
+       31 RETURN                           R1 1
+       32 GETUPVAL                         R2 1
+       33 GETTABLEKS                       R4 R0 K0 ["palette"]
+       35 GETTABLEKS                       R3 R4 K1 ["OverrideEquipKey"]
+       37 JUMPIF                           R3 ; [+4]
+       38 GETTABLEKS                       R4 R0 K0 ["palette"]
+       40 GETTABLEKS                       R3 R4 K2 ["Key"]
+       42 GETTABLEKS                       R5 R2 K0 ["palette"]
+       44 GETTABLEKS                       R4 R5 K1 ["OverrideEquipKey"]
+       46 JUMPIF                           R4 ; [+4]
+       47 GETTABLEKS                       R5 R2 K0 ["palette"]
+       49 GETTABLEKS                       R4 R5 K2 ["Key"]
+       51 JUMPIFEQ                         R3 R4 ; [+2]
+       53 LOADB                            R1 0 +1
+       54 LOADB                            R1 1
+       55 RETURN                           R1 1
 
 PROTO_3:
-  GETIMPORT R1 K2 [table.clone]
-  MOVE R2 R0
-  CALL R1 1 1
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K3 ["findIndex"]
-  MOVE R3 R1
-  NEWCLOSURE R4 P0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  CALL R2 2 1
-  JUMPIFEQKNIL R2 [+9]
-  GETIMPORT R3 K2 [table.clone]
-  GETTABLE R4 R1 R2
-  CALL R3 1 1
-  GETUPVAL R4 4
-  SETTABLEKS R4 R3 K4 ["isHidden"]
-  SETTABLE R3 R1 R2
-  RETURN R1 1
+        0 GETIMPORT                        R1 K2 [table.clone]
+        2 MOVE                             R2 R0
+        3 CALL                             R1 1 1
+        4 GETUPVAL                         R3 0
+        5 GETTABLEKS                       R2 R3 K3 ["findIndex"]
+        7 MOVE                             R3 R1
+        8 NEWCLOSURE                       R4 P0
+        9 CAPTURE                          UPVAL U1
+       10 CAPTURE                          UPVAL U2
+       11 CAPTURE                          UPVAL U3
+       12 CALL                             R2 2 1
+       13 JUMPIFEQKNIL                     R2 ; [+9]
+       15 GETIMPORT                        R3 K2 [table.clone]
+       17 GETTABLE                         R4 R1 R2
+       18 CALL                             R3 1 1
+       19 GETUPVAL                         R4 4
+       20 SETTABLEKS                       R4 R3 K4 ["isHidden"]
+       22 SETTABLE                         R3 R1 R2
+       23 RETURN                           R1 1
 
 PROTO_4:
-  GETUPVAL R1 0
-  NEWCLOSURE R2 P0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE VAL R0
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U4
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 NEWCLOSURE                       R2 P0
+        2 CAPTURE                          UPVAL U1
+        3 CAPTURE                          UPVAL U2
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U3
+        6 CAPTURE                          UPVAL U4
+        7 CALL                             R1 1 0
+        8 RETURN                           R0 0
 
 PROTO_5:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["useCallback"]
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  CAPTURE VAL R1
-  NEWTABLE R4 0 2
-  MOVE R5 R0
-  MOVE R6 R1
-  SETLIST R4 R5 2 [1]
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["useCallback"]
+        3 NEWCLOSURE                       R3 P0
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          UPVAL U2
+        7 CAPTURE                          UPVAL U3
+        8 CAPTURE                          VAL R1
+        9 NEWTABLE                         R4 0 2
+       11 MOVE                             R5 R0
+       12 MOVE                             R6 R1
+       13 SETLIST                          R4 R5 2 [1]
+       15 CALL                             R2 2 -1
+       16 RETURN                           R2 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Dash"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["React"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K9 ["Src"]
-  GETTABLEKS R4 R5 K10 ["Types"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K9 ["Src"]
-  GETTABLEKS R6 R7 K11 ["Util"]
-  GETTABLEKS R5 R6 K12 ["Constants"]
-  CALL R4 1 1
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R8 R0 K9 ["Src"]
-  GETTABLEKS R7 R8 K11 ["Util"]
-  GETTABLEKS R6 R7 K13 ["shallowEqual"]
-  CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R9 R0 K9 ["Src"]
-  GETTABLEKS R8 R9 K14 ["Flags"]
-  GETTABLEKS R7 R8 K15 ["getFFlagAvatarPreviewerMakeup"]
-  CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R10 R0 K9 ["Src"]
-  GETTABLEKS R9 R10 K14 ["Flags"]
-  GETTABLEKS R8 R9 K16 ["getFFlagAvatarPreviewerLookComposer"]
-  CALL R7 1 1
-  DUPCLOSURE R8 K17 [PROTO_0]
-  DUPCLOSURE R9 K18 [PROTO_1]
-  CAPTURE VAL R7
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  DUPCLOSURE R10 K19 [PROTO_5]
-  CAPTURE VAL R2
-  CAPTURE VAL R1
-  CAPTURE VAL R6
-  CAPTURE VAL R9
-  RETURN R10 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarCompatibilityPreviewer"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["Dash"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["React"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R5 R0 K9 ["Src"]
+       25 GETTABLEKS                       R4 R5 K10 ["Types"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R7 R0 K9 ["Src"]
+       32 GETTABLEKS                       R6 R7 K11 ["Util"]
+       34 GETTABLEKS                       R5 R6 K12 ["Constants"]
+       36 CALL                             R4 1 1
+       37 GETIMPORT                        R5 K5 [require]
+       39 GETTABLEKS                       R8 R0 K9 ["Src"]
+       41 GETTABLEKS                       R7 R8 K11 ["Util"]
+       43 GETTABLEKS                       R6 R7 K13 ["shallowEqual"]
+       45 CALL                             R5 1 1
+       46 GETIMPORT                        R6 K5 [require]
+       48 GETTABLEKS                       R9 R0 K9 ["Src"]
+       50 GETTABLEKS                       R8 R9 K14 ["Flags"]
+       52 GETTABLEKS                       R7 R8 K15 ["getFFlagAvatarPreviewerMakeup"]
+       54 CALL                             R6 1 1
+       55 GETIMPORT                        R7 K5 [require]
+       57 GETTABLEKS                       R10 R0 K9 ["Src"]
+       59 GETTABLEKS                       R9 R10 K14 ["Flags"]
+       61 GETTABLEKS                       R8 R9 K16 ["getFFlagAvatarPreviewerLookComposer"]
+       63 CALL                             R7 1 1
+       64 DUPCLOSURE                       R8 K17 [PROTO_0]
+       65 DUPCLOSURE                       R9 K18 [PROTO_1]
+       66 CAPTURE                          VAL R7
+       67 CAPTURE                          VAL R4
+       68 CAPTURE                          VAL R5
+       69 DUPCLOSURE                       R10 K19 [PROTO_5]
+       70 CAPTURE                          VAL R2
+       71 CAPTURE                          VAL R1
+       72 CAPTURE                          VAL R6
+       73 CAPTURE                          VAL R9
+       74 RETURN                           R10 1

@@ -1,96 +1,96 @@
 PROTO_0:
-  GETTABLEKS R3 R0 K0 ["displayText"]
-  GETTABLEKS R4 R1 K0 ["displayText"]
-  JUMPIFLT R3 R4 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  RETURN R2 1
+        0 GETTABLEKS                       R3 R0 K0 ["displayText"]
+        2 GETTABLEKS                       R4 R1 K0 ["displayText"]
+        4 JUMPIFLT                         R3 R4 ; [+2]
+        6 LOADB                            R2 0 +1
+        7 LOADB                            R2 1
+        8 RETURN                           R2 1
 
 PROTO_1:
-  GETTABLEKS R2 R1 K0 ["data"]
-  NEWTABLE R3 0 0
-  NEWTABLE R4 0 0
-  GETIMPORT R5 K2 [pairs]
-  MOVE R6 R2
-  CALL R5 1 3
-  FORGPREP_NEXT R5
-  GETTABLEKS R11 R9 K3 ["locale"]
-  GETTABLEKS R10 R11 K3 ["locale"]
-  DUPTABLE R11 K7 [{"localeId", "languageCode", "displayText"}]
-  GETTABLEKS R13 R9 K3 ["locale"]
-  GETTABLEKS R12 R13 K3 ["locale"]
-  SETTABLEKS R12 R11 K4 ["localeId"]
-  GETTABLEKS R14 R9 K3 ["locale"]
-  GETTABLEKS R13 R14 K8 ["language"]
-  GETTABLEKS R12 R13 K5 ["languageCode"]
-  SETTABLEKS R12 R11 K5 ["languageCode"]
-  GETTABLEKS R14 R9 K3 ["locale"]
-  GETTABLEKS R13 R14 K8 ["language"]
-  GETTABLEKS R12 R13 K9 ["name"]
-  SETTABLEKS R12 R11 K6 ["displayText"]
-  SETTABLE R11 R3 R10
-  DUPTABLE R12 K10 [{"localeId", "displayText"}]
-  GETTABLEKS R14 R9 K3 ["locale"]
-  GETTABLEKS R13 R14 K3 ["locale"]
-  SETTABLEKS R13 R12 K4 ["localeId"]
-  GETTABLEKS R15 R9 K3 ["locale"]
-  GETTABLEKS R14 R15 K8 ["language"]
-  GETTABLEKS R13 R14 K9 ["name"]
-  SETTABLEKS R13 R12 K6 ["displayText"]
-  FASTCALL2 TABLE_INSERT R4 R12 [+4]
-  MOVE R11 R4
-  GETIMPORT R10 K13 [table.insert]
-  CALL R10 2 0
-  FORGLOOP R5 2 [-50]
-  GETIMPORT R5 K15 [table.sort]
-  MOVE R6 R4
-  DUPCLOSURE R7 K16 [PROTO_0]
-  CALL R5 2 0
-  DUPTABLE R5 K20 [{"isCustom", "displayTextSectionKey", "displayTextStringKey"}]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K17 ["isCustom"]
-  LOADK R6 K21 ["LanguageSection"]
-  SETTABLEKS R6 R5 K18 ["displayTextSectionKey"]
-  LOADK R6 K22 ["CustomLanguageDisplayText"]
-  SETTABLEKS R6 R5 K19 ["displayTextStringKey"]
-  FASTCALL2 TABLE_INSERT R4 R5 [+5]
-  MOVE R7 R4
-  MOVE R8 R5
-  GETIMPORT R6 K13 [table.insert]
-  CALL R6 2 0
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K23 ["Dictionary"]
-  GETTABLEKS R6 R7 K24 ["join"]
-  MOVE R7 R0
-  DUPTABLE R8 K27 [{"languagesTable", "languagesList"}]
-  SETTABLEKS R3 R8 K25 ["languagesTable"]
-  SETTABLEKS R4 R8 K26 ["languagesList"]
-  CALL R6 2 -1
-  RETURN R6 -1
+        0 GETTABLEKS                       R2 R1 K0 ["data"]
+        2 NEWTABLE                         R3 0 0
+        4 NEWTABLE                         R4 0 0
+        6 GETIMPORT                        R5 K2 [pairs]
+        8 MOVE                             R6 R2
+        9 CALL                             R5 1 3
+       10 FORGPREP_NEXT                    R5
+       11 GETTABLEKS                       R11 R9 K3 ["locale"]
+       13 GETTABLEKS                       R10 R11 K3 ["locale"]
+       15 DUPTABLE                         R11 K7 [{"localeId", "languageCode", "displayText"}]
+       16 GETTABLEKS                       R13 R9 K3 ["locale"]
+       18 GETTABLEKS                       R12 R13 K3 ["locale"]
+       20 SETTABLEKS                       R12 R11 K4 ["localeId"]
+       22 GETTABLEKS                       R14 R9 K3 ["locale"]
+       24 GETTABLEKS                       R13 R14 K8 ["language"]
+       26 GETTABLEKS                       R12 R13 K5 ["languageCode"]
+       28 SETTABLEKS                       R12 R11 K5 ["languageCode"]
+       30 GETTABLEKS                       R14 R9 K3 ["locale"]
+       32 GETTABLEKS                       R13 R14 K8 ["language"]
+       34 GETTABLEKS                       R12 R13 K9 ["name"]
+       36 SETTABLEKS                       R12 R11 K6 ["displayText"]
+       38 SETTABLE                         R11 R3 R10
+       39 DUPTABLE                         R12 K10 [{"localeId", "displayText"}]
+       40 GETTABLEKS                       R14 R9 K3 ["locale"]
+       42 GETTABLEKS                       R13 R14 K3 ["locale"]
+       44 SETTABLEKS                       R13 R12 K4 ["localeId"]
+       46 GETTABLEKS                       R15 R9 K3 ["locale"]
+       48 GETTABLEKS                       R14 R15 K8 ["language"]
+       50 GETTABLEKS                       R13 R14 K9 ["name"]
+       52 SETTABLEKS                       R13 R12 K6 ["displayText"]
+       54 FASTCALL2                        TABLE_INSERT R4 R12 ; [+4]
+       56 MOVE                             R11 R4
+       57 GETIMPORT                        R10 K13 [table.insert]
+       59 CALL                             R10 2 0
+       60 FORGLOOP                         R5 2 ; [-50]
+       62 GETIMPORT                        R5 K15 [table.sort]
+       64 MOVE                             R6 R4
+       65 DUPCLOSURE                       R7 K16 [PROTO_0]
+       66 CALL                             R5 2 0
+       67 DUPTABLE                         R5 K20 [{"isCustom", "displayTextSectionKey", "displayTextStringKey"}]
+       68 LOADB                            R6 1
+       69 SETTABLEKS                       R6 R5 K17 ["isCustom"]
+       71 LOADK                            R6 K21 ["LanguageSection"]
+       72 SETTABLEKS                       R6 R5 K18 ["displayTextSectionKey"]
+       74 LOADK                            R6 K22 ["CustomLanguageDisplayText"]
+       75 SETTABLEKS                       R6 R5 K19 ["displayTextStringKey"]
+       77 FASTCALL2                        TABLE_INSERT R4 R5 ; [+5]
+       79 MOVE                             R7 R4
+       80 MOVE                             R8 R5
+       81 GETIMPORT                        R6 K13 [table.insert]
+       83 CALL                             R6 2 0
+       84 GETUPVAL                         R8 0
+       85 GETTABLEKS                       R7 R8 K23 ["Dictionary"]
+       87 GETTABLEKS                       R6 R7 K24 ["join"]
+       89 MOVE                             R7 R0
+       90 DUPTABLE                         R8 K27 [{"languagesTable", "languagesList"}]
+       91 SETTABLEKS                       R3 R8 K25 ["languagesTable"]
+       93 SETTABLEKS                       R4 R8 K26 ["languagesList"]
+       95 CALL                             R6 2 -1
+       96 RETURN                           R6 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Cryo"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Rodux"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K8 ["createReducer"]
-  DUPTABLE R4 K11 [{"languagesTable", "languagesList"}]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K9 ["languagesTable"]
-  NEWTABLE R5 0 0
-  SETTABLEKS R5 R4 K10 ["languagesList"]
-  DUPTABLE R5 K13 [{"LoadLanguages"}]
-  DUPCLOSURE R6 K14 [PROTO_1]
-  CAPTURE VAL R1
-  SETTABLEKS R6 R5 K12 ["LoadLanguages"]
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       13 GETTABLEKS                       R2 R3 K6 ["Cryo"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K4 [require]
+       18 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       20 GETTABLEKS                       R3 R4 K7 ["Rodux"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R2 K8 ["createReducer"]
+       25 DUPTABLE                         R4 K11 [{"languagesTable", "languagesList"}]
+       26 NEWTABLE                         R5 0 0
+       28 SETTABLEKS                       R5 R4 K9 ["languagesTable"]
+       30 NEWTABLE                         R5 0 0
+       32 SETTABLEKS                       R5 R4 K10 ["languagesList"]
+       34 DUPTABLE                         R5 K13 [{"LoadLanguages"}]
+       35 DUPCLOSURE                       R6 K14 [PROTO_1]
+       36 CAPTURE                          VAL R1
+       37 SETTABLEKS                       R6 R5 K12 ["LoadLanguages"]
+       39 CALL                             R3 2 -1
+       40 RETURN                           R3 -1

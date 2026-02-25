@@ -1,112 +1,112 @@
 PROTO_0:
-  GETTABLEKS R3 R1 K0 ["action"]
-  JUMPIFNOT R3 [+2]
-  GETTABLEKS R3 R1 K1 ["hash"]
-  FASTCALL2K ASSERT R3 K2 [+4]
-  LOADK R4 K2 ["Action must have action and hash fields"]
-  GETIMPORT R2 K4 [assert]
-  CALL R2 2 0
-  GETIMPORT R2 K7 [table.clone]
-  MOVE R3 R0
-  CALL R2 1 1
-  MOVE R0 R2
-  GETTABLEKS R2 R1 K0 ["action"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K8 ["GENERATION_ANGLE_ACTIONS"]
-  GETTABLEKS R3 R4 K9 ["SET"]
-  JUMPIFNOTEQ R2 R3 [+7]
-  GETTABLEKS R2 R1 K1 ["hash"]
-  GETTABLEKS R3 R1 K10 ["angle"]
-  SETTABLE R3 R0 R2
-  RETURN R0 1
-  GETTABLEKS R2 R1 K0 ["action"]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K8 ["GENERATION_ANGLE_ACTIONS"]
-  GETTABLEKS R3 R4 K11 ["REMOVE"]
-  JUMPIFNOTEQ R2 R3 [+10]
-  GETTABLEKS R3 R1 K1 ["hash"]
-  GETTABLE R2 R0 R3
-  JUMPIFNOT R2 [+15]
-  GETTABLEKS R2 R1 K1 ["hash"]
-  LOADNIL R3
-  SETTABLE R3 R0 R2
-  RETURN R0 1
-  GETIMPORT R2 K13 [error]
-  LOADK R4 K14 ["Invalid action: %*"]
-  GETTABLEKS R6 R1 K0 ["action"]
-  NAMECALL R4 R4 K15 ["format"]
-  CALL R4 2 1
-  MOVE R3 R4
-  CALL R2 1 0
-  RETURN R0 1
+        0 GETTABLEKS                       R3 R1 K0 ["action"]
+        2 JUMPIFNOT                        R3 ; [+2]
+        3 GETTABLEKS                       R3 R1 K1 ["hash"]
+        5 FASTCALL2K                       ASSERT R3 K2 ; [+4]
+        7 LOADK                            R4 K2 ["Action must have action and hash fields"]
+        8 GETIMPORT                        R2 K4 [assert]
+       10 CALL                             R2 2 0
+       11 GETIMPORT                        R2 K7 [table.clone]
+       13 MOVE                             R3 R0
+       14 CALL                             R2 1 1
+       15 MOVE                             R0 R2
+       16 GETTABLEKS                       R2 R1 K0 ["action"]
+       18 GETUPVAL                         R5 0
+       19 GETTABLEKS                       R4 R5 K8 ["GENERATION_ANGLE_ACTIONS"]
+       21 GETTABLEKS                       R3 R4 K9 ["SET"]
+       23 JUMPIFNOTEQ                      R2 R3 ; [+7]
+       25 GETTABLEKS                       R2 R1 K1 ["hash"]
+       27 GETTABLEKS                       R3 R1 K10 ["angle"]
+       29 SETTABLE                         R3 R0 R2
+       30 RETURN                           R0 1
+       31 GETTABLEKS                       R2 R1 K0 ["action"]
+       33 GETUPVAL                         R5 0
+       34 GETTABLEKS                       R4 R5 K8 ["GENERATION_ANGLE_ACTIONS"]
+       36 GETTABLEKS                       R3 R4 K11 ["REMOVE"]
+       38 JUMPIFNOTEQ                      R2 R3 ; [+10]
+       40 GETTABLEKS                       R3 R1 K1 ["hash"]
+       42 GETTABLE                         R2 R0 R3
+       43 JUMPIFNOT                        R2 ; [+15]
+       44 GETTABLEKS                       R2 R1 K1 ["hash"]
+       46 LOADNIL                          R3
+       47 SETTABLE                         R3 R0 R2
+       48 RETURN                           R0 1
+       49 GETIMPORT                        R2 K13 [error]
+       51 LOADK                            R4 K14 ["Invalid action: %*"]
+       52 GETTABLEKS                       R6 R1 K0 ["action"]
+       54 NAMECALL                         R4 R4 K15 ["format"]
+       56 CALL                             R4 2 1
+       57 MOVE                             R3 R4
+       58 CALL                             R2 1 0
+       59 RETURN                           R0 1
 
 PROTO_1:
-  GETIMPORT R0 K1 [print]
-  LOADK R1 K2 ["Generations Angles table: "]
-  GETUPVAL R2 0
-  CALL R0 2 0
-  RETURN R0 0
+        0 GETIMPORT                        R0 K1 [print]
+        2 LOADK                            R1 K2 ["Generations Angles table: "]
+        3 GETUPVAL                         R2 0
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["useReducer"]
-  GETUPVAL R2 1
-  NEWTABLE R3 0 0
-  CALL R1 2 2
-  GETUPVAL R3 2
-  CALL R3 0 1
-  JUMPIFNOT R3 [+11]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K1 ["useEffect"]
-  NEWCLOSURE R4 P0
-  CAPTURE VAL R1
-  NEWTABLE R5 0 1
-  MOVE R6 R1
-  SETLIST R5 R6 1 [1]
-  CALL R3 2 0
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["createElement"]
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K3 ["Provider"]
-  DUPTABLE R5 K5 [{"value"}]
-  DUPTABLE R6 K8 [{"generationAngles", "updateGenerationAngle"}]
-  SETTABLEKS R1 R6 K6 ["generationAngles"]
-  SETTABLEKS R2 R6 K7 ["updateGenerationAngle"]
-  SETTABLEKS R6 R5 K4 ["value"]
-  GETTABLEKS R6 R0 K9 ["children"]
-  CALL R3 3 -1
-  RETURN R3 -1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["useReducer"]
+        3 GETUPVAL                         R2 1
+        4 NEWTABLE                         R3 0 0
+        6 CALL                             R1 2 2
+        7 GETUPVAL                         R3 2
+        8 CALL                             R3 0 1
+        9 JUMPIFNOT                        R3 ; [+11]
+       10 GETUPVAL                         R4 0
+       11 GETTABLEKS                       R3 R4 K1 ["useEffect"]
+       13 NEWCLOSURE                       R4 P0
+       14 CAPTURE                          VAL R1
+       15 NEWTABLE                         R5 0 1
+       17 MOVE                             R6 R1
+       18 SETLIST                          R5 R6 1 [1]
+       20 CALL                             R3 2 0
+       21 GETUPVAL                         R4 0
+       22 GETTABLEKS                       R3 R4 K2 ["createElement"]
+       24 GETUPVAL                         R5 3
+       25 GETTABLEKS                       R4 R5 K3 ["Provider"]
+       27 DUPTABLE                         R5 K5 [{"value"}]
+       28 DUPTABLE                         R6 K8 [{"generationAngles", "updateGenerationAngle"}]
+       29 SETTABLEKS                       R1 R6 K6 ["generationAngles"]
+       31 SETTABLEKS                       R2 R6 K7 ["updateGenerationAngle"]
+       33 SETTABLEKS                       R6 R5 K4 ["value"]
+       35 GETTABLEKS                       R6 R0 K9 ["children"]
+       37 CALL                             R3 3 -1
+       38 RETURN                           R3 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["TextureGenerator"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Util"]
-  GETTABLEKS R3 R4 K10 ["Constants"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K8 ["Src"]
-  GETTABLEKS R5 R6 K9 ["Util"]
-  GETTABLEKS R4 R5 K11 ["GenerationAnglesContext"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K8 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Flags"]
-  GETTABLEKS R5 R6 K13 ["getFFlagDebugTextureGeneratorLogging"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K14 [PROTO_0]
-  CAPTURE VAL R2
-  DUPCLOSURE R6 K15 [PROTO_2]
-  CAPTURE VAL R1
-  CAPTURE VAL R5
-  CAPTURE VAL R4
-  CAPTURE VAL R3
-  RETURN R6 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["TextureGenerator"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R5 R0 K8 ["Src"]
+       18 GETTABLEKS                       R4 R5 K9 ["Util"]
+       20 GETTABLEKS                       R3 R4 K10 ["Constants"]
+       22 CALL                             R2 1 1
+       23 GETIMPORT                        R3 K5 [require]
+       25 GETTABLEKS                       R6 R0 K8 ["Src"]
+       27 GETTABLEKS                       R5 R6 K9 ["Util"]
+       29 GETTABLEKS                       R4 R5 K11 ["GenerationAnglesContext"]
+       31 CALL                             R3 1 1
+       32 GETIMPORT                        R4 K5 [require]
+       34 GETTABLEKS                       R7 R0 K8 ["Src"]
+       36 GETTABLEKS                       R6 R7 K12 ["Flags"]
+       38 GETTABLEKS                       R5 R6 K13 ["getFFlagDebugTextureGeneratorLogging"]
+       40 CALL                             R4 1 1
+       41 DUPCLOSURE                       R5 K14 [PROTO_0]
+       42 CAPTURE                          VAL R2
+       43 DUPCLOSURE                       R6 K15 [PROTO_2]
+       44 CAPTURE                          VAL R1
+       45 CAPTURE                          VAL R5
+       46 CAPTURE                          VAL R4
+       47 CAPTURE                          VAL R3
+       48 RETURN                           R6 1

@@ -1,34 +1,34 @@
 PROTO_0:
-  NAMECALL R1 R0 K0 ["getState"]
-  CALL R1 1 1
-  GETTABLEKS R3 R1 K1 ["selectItem"]
-  GETTABLEKS R2 R3 K2 ["editingCage"]
-  GETUPVAL R3 0
-  JUMPIFEQ R2 R3 [+7]
-  GETUPVAL R5 1
-  GETUPVAL R6 0
-  CALL R5 1 -1
-  NAMECALL R3 R0 K3 ["dispatch"]
-  CALL R3 -1 0
-  RETURN R0 0
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R3 R1 K1 ["selectItem"]
+        5 GETTABLEKS                       R2 R3 K2 ["editingCage"]
+        7 GETUPVAL                         R3 0
+        8 JUMPIFEQ                         R2 R3 ; [+7]
+       10 GETUPVAL                         R5 1
+       11 GETUPVAL                         R6 0
+       12 CALL                             R5 1 -1
+       13 NAMECALL                         R3 R0 K3 ["dispatch"]
+       15 CALL                             R3 -1 0
+       16 RETURN                           R0 0
 
 PROTO_1:
-  NEWCLOSURE R1 P0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  RETURN R1 1
+        0 NEWCLOSURE                       R1 P0
+        1 CAPTURE                          VAL R0
+        2 CAPTURE                          UPVAL U0
+        3 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Actions"]
-  GETTABLEKS R2 R3 K7 ["SetEditingCage"]
-  CALL R1 1 1
-  DUPCLOSURE R2 K8 [PROTO_1]
-  CAPTURE VAL R1
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R4 R0 K5 ["Src"]
+       13 GETTABLEKS                       R3 R4 K6 ["Actions"]
+       15 GETTABLEKS                       R2 R3 K7 ["SetEditingCage"]
+       17 CALL                             R1 1 1
+       18 DUPCLOSURE                       R2 K8 [PROTO_1]
+       19 CAPTURE                          VAL R1
+       20 RETURN                           R2 1

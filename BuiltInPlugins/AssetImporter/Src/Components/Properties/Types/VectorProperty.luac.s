@@ -1,72 +1,72 @@
 PROTO_0:
-  GETTABLEKS R1 R0 K0 ["Value"]
-  LOADK R2 K1 ["%.2f, %.2f, %.2f"]
-  GETTABLEKS R4 R1 K2 ["X"]
-  GETTABLEKS R5 R1 K3 ["Y"]
-  GETTABLEKS R6 R1 K4 ["Z"]
-  NAMECALL R2 R2 K5 ["format"]
-  CALL R2 4 1
-  GETTABLEKS R3 R0 K6 ["Editable"]
-  JUMPIFEQKNIL R3 [+44]
-  GETTABLEKS R3 R0 K6 ["Editable"]
-  JUMPIF R3 [+40]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K7 ["createElement"]
-  GETUPVAL R4 1
-  DUPTABLE R5 K13 [{"LayoutOrder", "Size", "AutomaticSize", "Text", "TextXAlignment"}]
-  GETTABLEKS R6 R0 K8 ["LayoutOrder"]
-  SETTABLEKS R6 R5 K8 ["LayoutOrder"]
-  GETIMPORT R6 K16 [UDim2.new]
-  LOADN R7 0
-  LOADN R8 0
-  GETTABLEKS R11 R0 K9 ["Size"]
-  GETTABLEKS R10 R11 K3 ["Y"]
-  GETTABLEKS R9 R10 K17 ["Scale"]
-  GETTABLEKS R12 R0 K9 ["Size"]
-  GETTABLEKS R11 R12 K3 ["Y"]
-  GETTABLEKS R10 R11 K18 ["Offset"]
-  CALL R6 4 1
-  SETTABLEKS R6 R5 K9 ["Size"]
-  GETIMPORT R6 K20 [Enum.AutomaticSize.X]
-  SETTABLEKS R6 R5 K10 ["AutomaticSize"]
-  SETTABLEKS R2 R5 K11 ["Text"]
-  GETIMPORT R6 K22 [Enum.TextXAlignment.Left]
-  SETTABLEKS R6 R5 K12 ["TextXAlignment"]
-  CALL R3 2 -1
-  RETURN R3 -1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K7 ["createElement"]
-  GETUPVAL R4 2
-  DUPTABLE R5 K24 [{"Disabled", "LayoutOrder", "Size", "Text"}]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K23 ["Disabled"]
-  GETTABLEKS R6 R0 K8 ["LayoutOrder"]
-  SETTABLEKS R6 R5 K8 ["LayoutOrder"]
-  GETTABLEKS R6 R0 K9 ["Size"]
-  SETTABLEKS R6 R5 K9 ["Size"]
-  SETTABLEKS R2 R5 K11 ["Text"]
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 GETTABLEKS                       R1 R0 K0 ["Value"]
+        2 LOADK                            R2 K1 ["%.2f, %.2f, %.2f"]
+        3 GETTABLEKS                       R4 R1 K2 ["X"]
+        5 GETTABLEKS                       R5 R1 K3 ["Y"]
+        7 GETTABLEKS                       R6 R1 K4 ["Z"]
+        9 NAMECALL                         R2 R2 K5 ["format"]
+       11 CALL                             R2 4 1
+       12 GETTABLEKS                       R3 R0 K6 ["Editable"]
+       14 JUMPIFEQKNIL                     R3 ; [+44]
+       16 GETTABLEKS                       R3 R0 K6 ["Editable"]
+       18 JUMPIF                           R3 ; [+40]
+       19 GETUPVAL                         R4 0
+       20 GETTABLEKS                       R3 R4 K7 ["createElement"]
+       22 GETUPVAL                         R4 1
+       23 DUPTABLE                         R5 K13 [{"LayoutOrder", "Size", "AutomaticSize", "Text", "TextXAlignment"}]
+       24 GETTABLEKS                       R6 R0 K8 ["LayoutOrder"]
+       26 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
+       28 GETIMPORT                        R6 K16 [UDim2.new]
+       30 LOADN                            R7 0
+       31 LOADN                            R8 0
+       32 GETTABLEKS                       R11 R0 K9 ["Size"]
+       34 GETTABLEKS                       R10 R11 K3 ["Y"]
+       36 GETTABLEKS                       R9 R10 K17 ["Scale"]
+       38 GETTABLEKS                       R12 R0 K9 ["Size"]
+       40 GETTABLEKS                       R11 R12 K3 ["Y"]
+       42 GETTABLEKS                       R10 R11 K18 ["Offset"]
+       44 CALL                             R6 4 1
+       45 SETTABLEKS                       R6 R5 K9 ["Size"]
+       47 GETIMPORT                        R6 K20 [Enum.AutomaticSize.X]
+       49 SETTABLEKS                       R6 R5 K10 ["AutomaticSize"]
+       51 SETTABLEKS                       R2 R5 K11 ["Text"]
+       53 GETIMPORT                        R6 K22 [Enum.TextXAlignment.Left]
+       55 SETTABLEKS                       R6 R5 K12 ["TextXAlignment"]
+       57 CALL                             R3 2 -1
+       58 RETURN                           R3 -1
+       59 GETUPVAL                         R4 0
+       60 GETTABLEKS                       R3 R4 K7 ["createElement"]
+       62 GETUPVAL                         R4 2
+       63 DUPTABLE                         R5 K24 [{"Disabled", "LayoutOrder", "Size", "Text"}]
+       64 LOADB                            R6 1
+       65 SETTABLEKS                       R6 R5 K23 ["Disabled"]
+       67 GETTABLEKS                       R6 R0 K8 ["LayoutOrder"]
+       69 SETTABLEKS                       R6 R5 K8 ["LayoutOrder"]
+       71 GETTABLEKS                       R6 R0 K9 ["Size"]
+       73 SETTABLEKS                       R6 R5 K9 ["Size"]
+       75 SETTABLEKS                       R2 R5 K11 ["Text"]
+       77 CALL                             R3 2 -1
+       78 RETURN                           R3 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AssetImporter"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Framework"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["RoactCompat"]
-  CALL R2 1 1
-  GETTABLEKS R3 R1 K9 ["UI"]
-  GETTABLEKS R4 R3 K10 ["TextInput"]
-  GETTABLEKS R5 R3 K11 ["TextLabel"]
-  DUPCLOSURE R6 K12 [PROTO_0]
-  CAPTURE VAL R2
-  CAPTURE VAL R5
-  CAPTURE VAL R4
-  RETURN R6 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AssetImporter"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["RoactCompat"]
+       20 CALL                             R2 1 1
+       21 GETTABLEKS                       R3 R1 K9 ["UI"]
+       23 GETTABLEKS                       R4 R3 K10 ["TextInput"]
+       25 GETTABLEKS                       R5 R3 K11 ["TextLabel"]
+       27 DUPCLOSURE                       R6 K12 [PROTO_0]
+       28 CAPTURE                          VAL R2
+       29 CAPTURE                          VAL R5
+       30 CAPTURE                          VAL R4
+       31 RETURN                           R6 1

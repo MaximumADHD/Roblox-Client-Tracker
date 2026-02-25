@@ -1,120 +1,120 @@
 PROTO_0:
-  GETUPVAL R1 0
-  MOVE R3 R0
-  NAMECALL R1 R1 K0 ["JSONDecode"]
-  CALL R1 2 1
-  GETTABLEKS R5 R1 K1 ["eligibilityByCreator"]
-  LENGTH R4 R5
-  JUMPIFEQKN R4 K2 [1] [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  FASTCALL1 ASSERT R3 [+2]
-  GETIMPORT R2 K4 [assert]
-  CALL R2 1 0
-  DUPTABLE R2 K7 [{"userIsEligible", "universeId"}]
-  GETTABLEKS R5 R1 K1 ["eligibilityByCreator"]
-  GETTABLEN R4 R5 1
-  GETTABLEKS R3 R4 K5 ["userIsEligible"]
-  SETTABLEKS R3 R2 K5 ["userIsEligible"]
-  GETUPVAL R3 1
-  SETTABLEKS R3 R2 K6 ["universeId"]
-  RETURN R2 1
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R3 R0
+        2 NAMECALL                         R1 R1 K0 ["JSONDecode"]
+        4 CALL                             R1 2 1
+        5 GETTABLEKS                       R5 R1 K1 ["eligibilityByCreator"]
+        7 LENGTH                           R4 R5
+        8 JUMPIFEQKN                       R4 K2 [1] ; [+2]
+       10 LOADB                            R3 0 +1
+       11 LOADB                            R3 1
+       12 FASTCALL1                        ASSERT R3 ; [+2]
+       13 GETIMPORT                        R2 K4 [assert]
+       15 CALL                             R2 1 0
+       16 DUPTABLE                         R2 K7 [{"userIsEligible", "universeId"}]
+       17 GETTABLEKS                       R5 R1 K1 ["eligibilityByCreator"]
+       19 GETTABLEN                        R4 R5 1
+       20 GETTABLEKS                       R3 R4 K5 ["userIsEligible"]
+       22 SETTABLEKS                       R3 R2 K5 ["userIsEligible"]
+       24 GETUPVAL                         R3 1
+       25 SETTABLEKS                       R3 R2 K6 ["universeId"]
+       27 RETURN                           R2 1
 
 PROTO_1:
-  DUPTABLE R2 K3 [{"Url", "Method", "Body"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K4 ["BuildRobloxUrl"]
-  LOADK R4 K5 ["apis"]
-  LOADK R5 K6 ["experience-guidelines-service/v1beta1/multi-creator-eligibility"]
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K0 ["Url"]
-  LOADK R3 K7 ["POST"]
-  SETTABLEKS R3 R2 K1 ["Method"]
-  GETUPVAL R3 1
-  DUPTABLE R5 K11 [{"action", "universeId", "userIds"}]
-  LOADN R6 1
-  SETTABLEKS R6 R5 K8 ["action"]
-  SETTABLEKS R0 R5 K9 ["universeId"]
-  NEWTABLE R6 0 1
-  MOVE R7 R1
-  SETLIST R6 R7 1 [1]
-  SETTABLEKS R6 R5 K10 ["userIds"]
-  NAMECALL R3 R3 K12 ["JSONEncode"]
-  CALL R3 2 1
-  SETTABLEKS R3 R2 K2 ["Body"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K13 ["Request"]
-  MOVE R4 R2
-  CALL R3 1 1
-  NEWCLOSURE R5 P0
-  CAPTURE UPVAL U1
-  CAPTURE VAL R0
-  NAMECALL R3 R3 K14 ["andThen"]
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 DUPTABLE                         R2 K3 [{"Url", "Method", "Body"}]
+        1 GETUPVAL                         R4 0
+        2 GETTABLEKS                       R3 R4 K4 ["BuildRobloxUrl"]
+        4 LOADK                            R4 K5 ["apis"]
+        5 LOADK                            R5 K6 ["experience-guidelines-service/v1beta1/multi-creator-eligibility"]
+        6 CALL                             R3 2 1
+        7 SETTABLEKS                       R3 R2 K0 ["Url"]
+        9 LOADK                            R3 K7 ["POST"]
+       10 SETTABLEKS                       R3 R2 K1 ["Method"]
+       12 GETUPVAL                         R3 1
+       13 DUPTABLE                         R5 K11 [{"action", "universeId", "userIds"}]
+       14 LOADN                            R6 1
+       15 SETTABLEKS                       R6 R5 K8 ["action"]
+       17 SETTABLEKS                       R0 R5 K9 ["universeId"]
+       19 NEWTABLE                         R6 0 1
+       21 MOVE                             R7 R1
+       22 SETLIST                          R6 R7 1 [1]
+       24 SETTABLEKS                       R6 R5 K10 ["userIds"]
+       26 NAMECALL                         R3 R3 K12 ["JSONEncode"]
+       28 CALL                             R3 2 1
+       29 SETTABLEKS                       R3 R2 K2 ["Body"]
+       31 GETUPVAL                         R4 0
+       32 GETTABLEKS                       R3 R4 K13 ["Request"]
+       34 MOVE                             R4 R2
+       35 CALL                             R3 1 1
+       36 NEWCLOSURE                       R5 P0
+       37 CAPTURE                          UPVAL U1
+       38 CAPTURE                          VAL R0
+       39 NAMECALL                         R3 R3 K14 ["andThen"]
+       41 CALL                             R3 2 -1
+       42 RETURN                           R3 -1
 
 PROTO_2:
-  NEWTABLE R1 0 0
-  GETIMPORT R2 K1 [pairs]
-  MOVE R3 R0
-  CALL R2 1 3
-  FORGPREP_NEXT R2
-  GETTABLEKS R7 R6 K2 ["universeId"]
-  GETTABLEKS R8 R6 K3 ["userIsEligible"]
-  SETTABLE R8 R1 R7
-  FORGLOOP R2 2 [-6]
-  RETURN R1 1
+        0 NEWTABLE                         R1 0 0
+        2 GETIMPORT                        R2 K1 [pairs]
+        4 MOVE                             R3 R0
+        5 CALL                             R2 1 3
+        6 FORGPREP_NEXT                    R2
+        7 GETTABLEKS                       R7 R6 K2 ["universeId"]
+        9 GETTABLEKS                       R8 R6 K3 ["userIsEligible"]
+       11 SETTABLE                         R8 R1 R7
+       12 FORGLOOP                         R2 2 ; [-6]
+       14 RETURN                           R1 1
 
 PROTO_3:
-  NEWTABLE R2 0 0
-  GETIMPORT R3 K1 [pairs]
-  MOVE R4 R0
-  CALL R3 1 3
-  FORGPREP_NEXT R3
-  MOVE R9 R2
-  GETUPVAL R10 0
-  MOVE R11 R7
-  MOVE R12 R1
-  CALL R10 2 -1
-  FASTCALL TABLE_INSERT [+2]
-  GETIMPORT R8 K4 [table.insert]
-  CALL R8 -1 0
-  FORGLOOP R3 2 [-10]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K5 ["all"]
-  MOVE R4 R2
-  CALL R3 1 1
-  DUPCLOSURE R5 K6 [PROTO_2]
-  NAMECALL R3 R3 K7 ["andThen"]
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 NEWTABLE                         R2 0 0
+        2 GETIMPORT                        R3 K1 [pairs]
+        4 MOVE                             R4 R0
+        5 CALL                             R3 1 3
+        6 FORGPREP_NEXT                    R3
+        7 MOVE                             R9 R2
+        8 GETUPVAL                         R10 0
+        9 MOVE                             R11 R7
+       10 MOVE                             R12 R1
+       11 CALL                             R10 2 -1
+       12 FASTCALL                         TABLE_INSERT ; [+2]
+       13 GETIMPORT                        R8 K4 [table.insert]
+       15 CALL                             R8 -1 0
+       16 FORGLOOP                         R3 2 ; [-10]
+       18 GETUPVAL                         R4 1
+       19 GETTABLEKS                       R3 R4 K5 ["all"]
+       21 MOVE                             R4 R2
+       22 CALL                             R3 1 1
+       23 DUPCLOSURE                       R5 K6 [PROTO_2]
+       24 NAMECALL                         R3 R3 K7 ["andThen"]
+       26 CALL                             R3 2 -1
+       27 RETURN                           R3 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Network"]
-  GETTABLEKS R2 R3 K7 ["Http"]
-  CALL R1 1 1
-  GETIMPORT R2 K9 [game]
-  LOADK R4 K10 ["HttpService"]
-  NAMECALL R2 R2 K11 ["GetService"]
-  CALL R2 2 1
-  GETIMPORT R5 K4 [require]
-  GETTABLEKS R7 R0 K12 ["Packages"]
-  GETTABLEKS R6 R7 K13 ["Framework"]
-  CALL R5 1 1
-  GETTABLEKS R4 R5 K14 ["Util"]
-  GETTABLEKS R3 R4 K15 ["Promise"]
-  DUPCLOSURE R4 K16 [PROTO_1]
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  DUPCLOSURE R5 K17 [PROTO_3]
-  CAPTURE VAL R4
-  CAPTURE VAL R3
-  RETURN R5 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R4 K1 [script]
+        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
+        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+       11 GETIMPORT                        R1 K4 [require]
+       13 GETTABLEKS                       R4 R0 K5 ["Src"]
+       15 GETTABLEKS                       R3 R4 K6 ["Network"]
+       17 GETTABLEKS                       R2 R3 K7 ["Http"]
+       19 CALL                             R1 1 1
+       20 GETIMPORT                        R2 K9 [game]
+       22 LOADK                            R4 K10 ["HttpService"]
+       23 NAMECALL                         R2 R2 K11 ["GetService"]
+       25 CALL                             R2 2 1
+       26 GETIMPORT                        R5 K4 [require]
+       28 GETTABLEKS                       R7 R0 K12 ["Packages"]
+       30 GETTABLEKS                       R6 R7 K13 ["Framework"]
+       32 CALL                             R5 1 1
+       33 GETTABLEKS                       R4 R5 K14 ["Util"]
+       35 GETTABLEKS                       R3 R4 K15 ["Promise"]
+       37 DUPCLOSURE                       R4 K16 [PROTO_1]
+       38 CAPTURE                          VAL R1
+       39 CAPTURE                          VAL R2
+       40 DUPCLOSURE                       R5 K17 [PROTO_3]
+       41 CAPTURE                          VAL R4
+       42 CAPTURE                          VAL R3
+       43 RETURN                           R5 1

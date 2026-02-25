@@ -1,57 +1,57 @@
 PROTO_0:
-  GETIMPORT R1 K2 [table.clone]
-  MOVE R2 R0
-  CALL R1 1 1
-  LOADNIL R2
-  SETTABLEKS R2 R1 K3 ["tag"]
-  LOADNIL R2
-  SETTABLEKS R2 R1 K4 ["testId"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K5 ["Tag"]
-  GETUPVAL R3 1
-  GETTABLEKS R7 R0 K3 ["tag"]
-  ORK R5 R7 K6 [""]
-  LOADK R6 K7 [" gui-object-defaults"]
-  CONCAT R4 R5 R6
-  CALL R3 1 1
-  SETTABLE R3 R1 R2
-  GETTABLEKS R2 R0 K4 ["testId"]
-  JUMPIFNOT R2 [+13]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K5 ["Tag"]
-  GETTABLE R4 R1 R2
-  LOADK R6 K8 [" data-testid=%*"]
-  GETTABLEKS R8 R0 K4 ["testId"]
-  NAMECALL R6 R6 K9 ["format"]
-  CALL R6 2 1
-  MOVE R5 R6
-  CONCAT R3 R4 R5
-  SETTABLE R3 R1 R2
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K10 ["createElement"]
-  LOADK R3 K11 ["Frame"]
-  MOVE R4 R1
-  CALL R2 2 -1
-  RETURN R2 -1
+        0 GETIMPORT                        R1 K2 [table.clone]
+        2 MOVE                             R2 R0
+        3 CALL                             R1 1 1
+        4 LOADNIL                          R2
+        5 SETTABLEKS                       R2 R1 K3 ["tag"]
+        7 LOADNIL                          R2
+        8 SETTABLEKS                       R2 R1 K4 ["testId"]
+       10 GETUPVAL                         R3 0
+       11 GETTABLEKS                       R2 R3 K5 ["Tag"]
+       13 GETUPVAL                         R3 1
+       14 GETTABLEKS                       R7 R0 K3 ["tag"]
+       16 ORK                              R5 R7 K6 [""]
+       17 LOADK                            R6 K7 [" gui-object-defaults"]
+       18 CONCAT                           R4 R5 R6
+       19 CALL                             R3 1 1
+       20 SETTABLE                         R3 R1 R2
+       21 GETTABLEKS                       R2 R0 K4 ["testId"]
+       23 JUMPIFNOT                        R2 ; [+13]
+       24 GETUPVAL                         R3 0
+       25 GETTABLEKS                       R2 R3 K5 ["Tag"]
+       27 GETTABLE                         R4 R1 R2
+       28 LOADK                            R6 K8 [" data-testid=%*"]
+       29 GETTABLEKS                       R8 R0 K4 ["testId"]
+       31 NAMECALL                         R6 R6 K9 ["format"]
+       33 CALL                             R6 2 1
+       34 MOVE                             R5 R6
+       35 CONCAT                           R3 R4 R5
+       36 SETTABLE                         R3 R1 R2
+       37 GETUPVAL                         R3 0
+       38 GETTABLEKS                       R2 R3 K10 ["createElement"]
+       40 LOADK                            R3 K11 ["Frame"]
+       41 MOVE                             R4 R1
+       42 CALL                             R2 2 -1
+       43 RETURN                           R2 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["StartPage"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Util"]
-  GETTABLEKS R3 R4 K10 ["Foundation"]
-  CALL R2 1 1
-  GETTABLEKS R4 R2 K11 ["Hooks"]
-  GETTABLEKS R3 R4 K12 ["useStyleTags"]
-  DUPCLOSURE R4 K13 [PROTO_0]
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  RETURN R4 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["StartPage"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R5 R0 K8 ["Src"]
+       18 GETTABLEKS                       R4 R5 K9 ["Util"]
+       20 GETTABLEKS                       R3 R4 K10 ["Foundation"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R4 R2 K11 ["Hooks"]
+       25 GETTABLEKS                       R3 R4 K12 ["useStyleTags"]
+       27 DUPCLOSURE                       R4 K13 [PROTO_0]
+       28 CAPTURE                          VAL R1
+       29 CAPTURE                          VAL R3
+       30 RETURN                           R4 1

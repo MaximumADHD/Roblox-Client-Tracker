@@ -1,30 +1,30 @@
 PROTO_0:
-  DUPTABLE R2 K1 [{"enabled"}]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K0 ["enabled"]
-  SETTABLEKS R2 R0 K2 ["state"]
-  RETURN R0 0
+        0 DUPTABLE                         R2 K1 [{"enabled"}]
+        1 LOADB                            R3 0
+        2 SETTABLEKS                       R3 R2 K0 ["enabled"]
+        4 SETTABLEKS                       R2 R0 K2 ["state"]
+        6 RETURN                           R0 0
 
 PROTO_1:
-  LOADNIL R1
-  RETURN R1 1
+        0 LOADNIL                          R1
+        1 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AudioActions"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K8 ["PureComponent"]
-  LOADK R4 K9 ["MainPlugin"]
-  NAMECALL R2 R2 K10 ["extend"]
-  CALL R2 2 1
-  DUPCLOSURE R3 K11 [PROTO_0]
-  SETTABLEKS R3 R2 K12 ["init"]
-  DUPCLOSURE R3 K13 [PROTO_1]
-  SETTABLEKS R3 R2 K14 ["render"]
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AudioActions"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R2 R1 K8 ["PureComponent"]
+       16 LOADK                            R4 K9 ["MainPlugin"]
+       17 NAMECALL                         R2 R2 K10 ["extend"]
+       19 CALL                             R2 2 1
+       20 DUPCLOSURE                       R3 K11 [PROTO_0]
+       21 SETTABLEKS                       R3 R2 K12 ["init"]
+       23 DUPCLOSURE                       R3 K13 [PROTO_1]
+       24 SETTABLEKS                       R3 R2 K14 ["render"]
+       26 RETURN                           R2 1

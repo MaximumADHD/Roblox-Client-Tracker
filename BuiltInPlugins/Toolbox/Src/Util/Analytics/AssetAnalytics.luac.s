@@ -1,780 +1,780 @@
 PROTO_0:
-  DUPTABLE R1 K2 [{"_searches", "senders"}]
-  NEWTABLE R2 0 0
-  SETTABLEKS R2 R1 K0 ["_searches"]
-  MOVE R2 R0
-  JUMPIF R2 [+1]
-  GETUPVAL R2 0
-  SETTABLEKS R2 R1 K1 ["senders"]
-  GETUPVAL R4 1
-  FASTCALL2 SETMETATABLE R1 R4 [+4]
-  MOVE R3 R1
-  GETIMPORT R2 K4 [setmetatable]
-  CALL R2 2 1
-  RETURN R2 1
+        0 DUPTABLE                         R1 K2 [{"_searches", "senders"}]
+        1 NEWTABLE                         R2 0 0
+        3 SETTABLEKS                       R2 R1 K0 ["_searches"]
+        5 MOVE                             R2 R0
+        6 JUMPIF                           R2 ; [+1]
+        7 GETUPVAL                         R2 0
+        8 SETTABLEKS                       R2 R1 K1 ["senders"]
+       10 GETUPVAL                         R4 1
+       11 FASTCALL2                        SETMETATABLE R1 R4 ; [+4]
+       13 MOVE                             R3 R1
+       14 GETIMPORT                        R2 K4 [setmetatable]
+       16 CALL                             R2 2 1
+       17 RETURN                           R2 1
 
 PROTO_1:
-  PREPVARARGS 0
-  GETUPVAL R1 0
-  NEWTABLE R2 0 0
-  GETVARARGS R3 -1
-  SETLIST R2 R3 -1 [1]
-  FASTCALL2 TABLE_INSERT R1 R2 [+3]
-  GETIMPORT R0 K2 [table.insert]
-  CALL R0 2 0
-  RETURN R0 0
+        0 PREPVARARGS                      0
+        1 GETUPVAL                         R1 0
+        2 NEWTABLE                         R2 0 0
+        4 GETVARARGS                       R3 -1
+        5 SETLIST                          R2 R3 -1 [1]
+        7 FASTCALL2                        TABLE_INSERT R1 R2 ; [+3]
+        9 GETIMPORT                        R0 K2 [table.insert]
+       11 CALL                             R0 2 0
+       12 RETURN                           R0 0
 
 PROTO_2:
-  NEWTABLE R0 0 0
-  DUPTABLE R1 K2 [{"sendEventDeferredCalls", "sendEventDeferred"}]
-  SETTABLEKS R0 R1 K0 ["sendEventDeferredCalls"]
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R0
-  SETTABLEKS R2 R1 K1 ["sendEventDeferred"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K3 ["new"]
-  MOVE R3 R1
-  CALL R2 1 -1
-  RETURN R2 -1
+        0 NEWTABLE                         R0 0 0
+        2 DUPTABLE                         R1 K2 [{"sendEventDeferredCalls", "sendEventDeferred"}]
+        3 SETTABLEKS                       R0 R1 K0 ["sendEventDeferredCalls"]
+        5 NEWCLOSURE                       R2 P0
+        6 CAPTURE                          VAL R0
+        7 SETTABLEKS                       R2 R1 K1 ["sendEventDeferred"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R2 R3 K3 ["new"]
+       12 MOVE                             R3 R1
+       13 CALL                             R2 1 -1
+       14 RETURN                           R2 -1
 
 PROTO_3:
-  NAMECALL R2 R0 K0 ["getBreadcrumbRoute"]
-  CALL R2 1 1
-  NAMECALL R3 R0 K1 ["getNavigationRoute"]
-  CALL R3 1 1
-  GETIMPORT R5 K4 [table.find]
-  MOVE R6 R3
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K5 ["NAVIGATION"]
-  GETTABLEKS R7 R8 K6 ["RESULTS"]
-  CALL R5 2 1
-  JUMPIFNOTEQKNIL R5 [+2]
-  LOADB R4 0 +1
-  LOADB R4 1
-  GETIMPORT R6 K4 [table.find]
-  MOVE R7 R3
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K5 ["NAVIGATION"]
-  GETTABLEKS R8 R9 K7 ["ALL_SUBCATEGORIES"]
-  CALL R6 2 1
-  JUMPIFNOTEQKNIL R6 [+2]
-  LOADB R5 0 +1
-  LOADB R5 1
-  DUPTABLE R6 K12 [{"navBreadcrumbs", "navSwimlane", "navSeeAll", "navSeeAllSubcategory"}]
-  GETUPVAL R7 1
-  MOVE R9 R2
-  NAMECALL R7 R7 K13 ["JSONEncode"]
-  CALL R7 2 1
-  SETTABLEKS R7 R6 K8 ["navBreadcrumbs"]
-  SETTABLEKS R1 R6 K9 ["navSwimlane"]
-  SETTABLEKS R4 R6 K10 ["navSeeAll"]
-  SETTABLEKS R5 R6 K11 ["navSeeAllSubcategory"]
-  RETURN R6 1
+        0 NAMECALL                         R2 R0 K0 ["getBreadcrumbRoute"]
+        2 CALL                             R2 1 1
+        3 NAMECALL                         R3 R0 K1 ["getNavigationRoute"]
+        5 CALL                             R3 1 1
+        6 GETIMPORT                        R5 K4 [table.find]
+        8 MOVE                             R6 R3
+        9 GETUPVAL                         R9 0
+       10 GETTABLEKS                       R8 R9 K5 ["NAVIGATION"]
+       12 GETTABLEKS                       R7 R8 K6 ["RESULTS"]
+       14 CALL                             R5 2 1
+       15 JUMPIFNOTEQKNIL                  R5 ; [+2]
+       17 LOADB                            R4 0 +1
+       18 LOADB                            R4 1
+       19 GETIMPORT                        R6 K4 [table.find]
+       21 MOVE                             R7 R3
+       22 GETUPVAL                         R10 0
+       23 GETTABLEKS                       R9 R10 K5 ["NAVIGATION"]
+       25 GETTABLEKS                       R8 R9 K7 ["ALL_SUBCATEGORIES"]
+       27 CALL                             R6 2 1
+       28 JUMPIFNOTEQKNIL                  R6 ; [+2]
+       30 LOADB                            R5 0 +1
+       31 LOADB                            R5 1
+       32 DUPTABLE                         R6 K12 [{"navBreadcrumbs", "navSwimlane", "navSeeAll", "navSeeAllSubcategory"}]
+       33 GETUPVAL                         R7 1
+       34 MOVE                             R9 R2
+       35 NAMECALL                         R7 R7 K13 ["JSONEncode"]
+       37 CALL                             R7 2 1
+       38 SETTABLEKS                       R7 R6 K8 ["navBreadcrumbs"]
+       40 SETTABLEKS                       R1 R6 K9 ["navSwimlane"]
+       42 SETTABLEKS                       R4 R6 K10 ["navSeeAll"]
+       44 SETTABLEKS                       R5 R6 K11 ["navSeeAllSubcategory"]
+       46 RETURN                           R6 1
 
 PROTO_4:
-  GETIMPORT R2 K1 [delay]
-  MOVE R3 R0
-  MOVE R4 R1
-  CALL R2 2 0
-  RETURN R0 0
+        0 GETIMPORT                        R2 K1 [delay]
+        2 MOVE                             R3 R0
+        3 MOVE                             R4 R1
+        4 CALL                             R2 2 0
+        5 RETURN                           R0 0
 
 PROTO_5:
-  GETIMPORT R1 K1 [ipairs]
-  GETIMPORT R2 K4 [Enum.AssetType]
-  NAMECALL R2 R2 K5 ["GetEnumItems"]
-  CALL R2 1 -1
-  CALL R1 -1 3
-  FORGPREP_INEXT R1
-  GETTABLEKS R6 R5 K6 ["Value"]
-  JUMPIFNOTEQ R6 R0 [+4]
-  GETTABLEKS R6 R5 K7 ["Name"]
-  RETURN R6 1
-  FORGLOOP R1 2 [inext] [-8]
-  LOADK R1 K8 [""]
-  RETURN R1 1
+        0 GETIMPORT                        R1 K1 [ipairs]
+        2 GETIMPORT                        R2 K4 [Enum.AssetType]
+        4 NAMECALL                         R2 R2 K5 ["GetEnumItems"]
+        6 CALL                             R2 1 -1
+        7 CALL                             R1 -1 3
+        8 FORGPREP_INEXT                   R1
+        9 GETTABLEKS                       R6 R5 K6 ["Value"]
+       11 JUMPIFNOTEQ                      R6 R0 ; [+4]
+       13 GETTABLEKS                       R6 R5 K7 ["Name"]
+       15 RETURN                           R6 1
+       16 FORGLOOP                         R1 2 [inext] ; [-8]
+       18 LOADK                            R1 K8 [""]
+       19 RETURN                           R1 1
 
 PROTO_6:
-  MOVE R1 R0
-  JUMPIFNOT R1 [+7]
-  GETTABLEKS R1 R0 K0 ["Asset"]
-  JUMPIFNOT R1 [+4]
-  GETTABLEKS R2 R0 K0 ["Asset"]
-  GETTABLEKS R1 R2 K1 ["Id"]
-  RETURN R1 1
+        0 MOVE                             R1 R0
+        1 JUMPIFNOT                        R1 ; [+7]
+        2 GETTABLEKS                       R1 R0 K0 ["Asset"]
+        4 JUMPIFNOT                        R1 ; [+4]
+        5 GETTABLEKS                       R2 R0 K0 ["Asset"]
+        7 GETTABLEKS                       R1 R2 K1 ["Id"]
+        9 RETURN                           R1 1
 
 PROTO_7:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["isAssetDataTrackable"]
-  MOVE R3 R0
-  CALL R2 1 1
-  JUMPIFNOT R2 [+4]
-  MOVE R2 R1
-  JUMPIFNOT R2 [+2]
-  GETTABLEKS R2 R1 K1 ["searchId"]
-  RETURN R2 1
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["isAssetDataTrackable"]
+        3 MOVE                             R3 R0
+        4 CALL                             R2 1 1
+        5 JUMPIFNOT                        R2 ; [+4]
+        6 MOVE                             R2 R1
+        7 JUMPIFNOT                        R2 ; [+2]
+        8 GETTABLEKS                       R2 R1 K1 ["searchId"]
+       10 RETURN                           R2 1
 
 PROTO_8:
-  GETTABLEKS R3 R0 K0 ["Context"]
-  JUMPIF R3 [+2]
-  NEWTABLE R3 0 0
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K1 ["Dictionary"]
-  GETTABLEKS R4 R5 K2 ["join"]
-  MOVE R5 R1
-  MOVE R6 R3
-  CALL R4 2 1
-  GETTABLEKS R6 R3 K3 ["searchId"]
-  JUMPIFEQKNIL R6 [+4]
-  GETTABLEKS R5 R3 K3 ["searchId"]
-  JUMP [+2]
-  GETTABLEKS R5 R1 K3 ["searchId"]
-  LOADNIL R6
-  GETTABLEKS R8 R0 K4 ["Asset"]
-  GETTABLEKS R7 R8 K5 ["AssetSubTypes"]
-  JUMPIFNOT R7 [+6]
-  GETIMPORT R8 K8 [table.concat]
-  MOVE R9 R7
-  LOADK R10 K9 [","]
-  CALL R8 2 1
-  MOVE R6 R8
-  LOADNIL R8
-  GETUPVAL R9 1
-  CALL R9 0 1
-  JUMPIF R9 [+1]
-  JUMPIFNOT R2 [+74]
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K1 ["Dictionary"]
-  GETTABLEKS R9 R10 K2 ["join"]
-  MOVE R10 R4
-  DUPTABLE R11 K19 [{"assetId", "assetSubTypes", "assetType", "assetTypeId", "searchId", "isVerifiedCreator", "label", "value", "isEndorsed", "hasScripts"}]
-  GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K20 ["Id"]
-  SETTABLEKS R12 R11 K10 ["assetId"]
-  SETTABLEKS R6 R11 K11 ["assetSubTypes"]
-  GETUPVAL R13 2
-  GETTABLEKS R12 R13 K21 ["getAssetCategoryName"]
-  GETTABLEKS R14 R0 K4 ["Asset"]
-  GETTABLEKS R13 R14 K22 ["TypeId"]
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K12 ["assetType"]
-  GETUPVAL R13 1
-  CALL R13 0 1
-  JUMPIFNOT R13 [+5]
-  GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K22 ["TypeId"]
-  JUMP [+1]
-  LOADNIL R12
-  SETTABLEKS R12 R11 K13 ["assetTypeId"]
-  SETTABLEKS R5 R11 K3 ["searchId"]
-  GETTABLEKS R13 R0 K23 ["Creator"]
-  GETTABLEKS R12 R13 K24 ["IsVerifiedCreator"]
-  SETTABLEKS R12 R11 K14 ["isVerifiedCreator"]
-  GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K20 ["Id"]
-  SETTABLEKS R12 R11 K15 ["label"]
-  LOADN R12 0
-  SETTABLEKS R12 R11 K16 ["value"]
-  GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K25 ["IsEndorsed"]
-  SETTABLEKS R12 R11 K17 ["isEndorsed"]
-  GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K26 ["HasScripts"]
-  SETTABLEKS R12 R11 K18 ["hasScripts"]
-  CALL R9 2 1
-  MOVE R8 R9
-  GETUPVAL R10 3
-  GETTABLEKS R9 R10 K27 ["getWebViewTrackingAttributes"]
-  MOVE R10 R8
-  CALL R9 1 1
-  MOVE R8 R9
-  RETURN R8 1
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K1 ["Dictionary"]
-  GETTABLEKS R9 R10 K2 ["join"]
-  MOVE R10 R4
-  DUPTABLE R11 K36 [{"assetID", "assetId", "assetSubTypes", "assetType", "userID", "placeID", "platformID", "clientID", "searchID", "searchId", "studioSid", "isEditMode", "isVerifiedCreator", "label", "value", "isEndorsed", "hasScripts"}]
-  GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K20 ["Id"]
-  SETTABLEKS R12 R11 K28 ["assetID"]
-  GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K20 ["Id"]
-  SETTABLEKS R12 R11 K10 ["assetId"]
-  SETTABLEKS R6 R11 K11 ["assetSubTypes"]
-  GETUPVAL R13 2
-  GETTABLEKS R12 R13 K21 ["getAssetCategoryName"]
-  GETTABLEKS R14 R0 K4 ["Asset"]
-  GETTABLEKS R13 R14 K22 ["TypeId"]
-  CALL R12 1 1
-  SETTABLEKS R12 R11 K12 ["assetType"]
-  GETUPVAL R12 4
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K29 ["userID"]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K37 ["getPlaceId"]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K30 ["placeID"]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K38 ["getPlatformId"]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K31 ["platformID"]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K39 ["getClientId"]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K32 ["clientID"]
-  SETTABLEKS R5 R11 K33 ["searchID"]
-  SETTABLEKS R5 R11 K3 ["searchId"]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K40 ["getStudioSessionId"]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K34 ["studioSid"]
-  GETUPVAL R13 3
-  GETTABLEKS R12 R13 K41 ["getIsEditMode"]
-  CALL R12 0 1
-  SETTABLEKS R12 R11 K35 ["isEditMode"]
-  GETTABLEKS R13 R0 K23 ["Creator"]
-  GETTABLEKS R12 R13 K24 ["IsVerifiedCreator"]
-  SETTABLEKS R12 R11 K14 ["isVerifiedCreator"]
-  GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K20 ["Id"]
-  SETTABLEKS R12 R11 K15 ["label"]
-  LOADN R12 0
-  SETTABLEKS R12 R11 K16 ["value"]
-  GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K25 ["IsEndorsed"]
-  SETTABLEKS R12 R11 K17 ["isEndorsed"]
-  GETTABLEKS R13 R0 K4 ["Asset"]
-  GETTABLEKS R12 R13 K26 ["HasScripts"]
-  SETTABLEKS R12 R11 K18 ["hasScripts"]
-  CALL R9 2 1
-  MOVE R8 R9
-  GETUPVAL R10 3
-  GETTABLEKS R9 R10 K27 ["getWebViewTrackingAttributes"]
-  MOVE R10 R8
-  CALL R9 1 1
-  MOVE R8 R9
-  RETURN R8 1
+        0 GETTABLEKS                       R3 R0 K0 ["Context"]
+        2 JUMPIF                           R3 ; [+2]
+        3 NEWTABLE                         R3 0 0
+        5 GETUPVAL                         R6 0
+        6 GETTABLEKS                       R5 R6 K1 ["Dictionary"]
+        8 GETTABLEKS                       R4 R5 K2 ["join"]
+       10 MOVE                             R5 R1
+       11 MOVE                             R6 R3
+       12 CALL                             R4 2 1
+       13 GETTABLEKS                       R6 R3 K3 ["searchId"]
+       15 JUMPIFEQKNIL                     R6 ; [+4]
+       17 GETTABLEKS                       R5 R3 K3 ["searchId"]
+       19 JUMP                             ; [+2]
+       20 GETTABLEKS                       R5 R1 K3 ["searchId"]
+       22 LOADNIL                          R6
+       23 GETTABLEKS                       R8 R0 K4 ["Asset"]
+       25 GETTABLEKS                       R7 R8 K5 ["AssetSubTypes"]
+       27 JUMPIFNOT                        R7 ; [+6]
+       28 GETIMPORT                        R8 K8 [table.concat]
+       30 MOVE                             R9 R7
+       31 LOADK                            R10 K9 [","]
+       32 CALL                             R8 2 1
+       33 MOVE                             R6 R8
+       34 LOADNIL                          R8
+       35 GETUPVAL                         R9 1
+       36 CALL                             R9 0 1
+       37 JUMPIF                           R9 ; [+1]
+       38 JUMPIFNOT                        R2 ; [+74]
+       39 GETUPVAL                         R11 0
+       40 GETTABLEKS                       R10 R11 K1 ["Dictionary"]
+       42 GETTABLEKS                       R9 R10 K2 ["join"]
+       44 MOVE                             R10 R4
+       45 DUPTABLE                         R11 K19 [{"assetId", "assetSubTypes", "assetType", "assetTypeId", "searchId", "isVerifiedCreator", "label", "value", "isEndorsed", "hasScripts"}]
+       46 GETTABLEKS                       R13 R0 K4 ["Asset"]
+       48 GETTABLEKS                       R12 R13 K20 ["Id"]
+       50 SETTABLEKS                       R12 R11 K10 ["assetId"]
+       52 SETTABLEKS                       R6 R11 K11 ["assetSubTypes"]
+       54 GETUPVAL                         R13 2
+       55 GETTABLEKS                       R12 R13 K21 ["getAssetCategoryName"]
+       57 GETTABLEKS                       R14 R0 K4 ["Asset"]
+       59 GETTABLEKS                       R13 R14 K22 ["TypeId"]
+       61 CALL                             R12 1 1
+       62 SETTABLEKS                       R12 R11 K12 ["assetType"]
+       64 GETUPVAL                         R13 1
+       65 CALL                             R13 0 1
+       66 JUMPIFNOT                        R13 ; [+5]
+       67 GETTABLEKS                       R13 R0 K4 ["Asset"]
+       69 GETTABLEKS                       R12 R13 K22 ["TypeId"]
+       71 JUMP                             ; [+1]
+       72 LOADNIL                          R12
+       73 SETTABLEKS                       R12 R11 K13 ["assetTypeId"]
+       75 SETTABLEKS                       R5 R11 K3 ["searchId"]
+       77 GETTABLEKS                       R13 R0 K23 ["Creator"]
+       79 GETTABLEKS                       R12 R13 K24 ["IsVerifiedCreator"]
+       81 SETTABLEKS                       R12 R11 K14 ["isVerifiedCreator"]
+       83 GETTABLEKS                       R13 R0 K4 ["Asset"]
+       85 GETTABLEKS                       R12 R13 K20 ["Id"]
+       87 SETTABLEKS                       R12 R11 K15 ["label"]
+       89 LOADN                            R12 0
+       90 SETTABLEKS                       R12 R11 K16 ["value"]
+       92 GETTABLEKS                       R13 R0 K4 ["Asset"]
+       94 GETTABLEKS                       R12 R13 K25 ["IsEndorsed"]
+       96 SETTABLEKS                       R12 R11 K17 ["isEndorsed"]
+       98 GETTABLEKS                       R13 R0 K4 ["Asset"]
+      100 GETTABLEKS                       R12 R13 K26 ["HasScripts"]
+      102 SETTABLEKS                       R12 R11 K18 ["hasScripts"]
+      104 CALL                             R9 2 1
+      105 MOVE                             R8 R9
+      106 GETUPVAL                         R10 3
+      107 GETTABLEKS                       R9 R10 K27 ["getWebViewTrackingAttributes"]
+      109 MOVE                             R10 R8
+      110 CALL                             R9 1 1
+      111 MOVE                             R8 R9
+      112 RETURN                           R8 1
+      113 GETUPVAL                         R11 0
+      114 GETTABLEKS                       R10 R11 K1 ["Dictionary"]
+      116 GETTABLEKS                       R9 R10 K2 ["join"]
+      118 MOVE                             R10 R4
+      119 DUPTABLE                         R11 K36 [{"assetID", "assetId", "assetSubTypes", "assetType", "userID", "placeID", "platformID", "clientID", "searchID", "searchId", "studioSid", "isEditMode", "isVerifiedCreator", "label", "value", "isEndorsed", "hasScripts"}]
+      120 GETTABLEKS                       R13 R0 K4 ["Asset"]
+      122 GETTABLEKS                       R12 R13 K20 ["Id"]
+      124 SETTABLEKS                       R12 R11 K28 ["assetID"]
+      126 GETTABLEKS                       R13 R0 K4 ["Asset"]
+      128 GETTABLEKS                       R12 R13 K20 ["Id"]
+      130 SETTABLEKS                       R12 R11 K10 ["assetId"]
+      132 SETTABLEKS                       R6 R11 K11 ["assetSubTypes"]
+      134 GETUPVAL                         R13 2
+      135 GETTABLEKS                       R12 R13 K21 ["getAssetCategoryName"]
+      137 GETTABLEKS                       R14 R0 K4 ["Asset"]
+      139 GETTABLEKS                       R13 R14 K22 ["TypeId"]
+      141 CALL                             R12 1 1
+      142 SETTABLEKS                       R12 R11 K12 ["assetType"]
+      144 GETUPVAL                         R12 4
+      145 CALL                             R12 0 1
+      146 SETTABLEKS                       R12 R11 K29 ["userID"]
+      148 GETUPVAL                         R13 3
+      149 GETTABLEKS                       R12 R13 K37 ["getPlaceId"]
+      151 CALL                             R12 0 1
+      152 SETTABLEKS                       R12 R11 K30 ["placeID"]
+      154 GETUPVAL                         R13 3
+      155 GETTABLEKS                       R12 R13 K38 ["getPlatformId"]
+      157 CALL                             R12 0 1
+      158 SETTABLEKS                       R12 R11 K31 ["platformID"]
+      160 GETUPVAL                         R13 3
+      161 GETTABLEKS                       R12 R13 K39 ["getClientId"]
+      163 CALL                             R12 0 1
+      164 SETTABLEKS                       R12 R11 K32 ["clientID"]
+      166 SETTABLEKS                       R5 R11 K33 ["searchID"]
+      168 SETTABLEKS                       R5 R11 K3 ["searchId"]
+      170 GETUPVAL                         R13 3
+      171 GETTABLEKS                       R12 R13 K40 ["getStudioSessionId"]
+      173 CALL                             R12 0 1
+      174 SETTABLEKS                       R12 R11 K34 ["studioSid"]
+      176 GETUPVAL                         R13 3
+      177 GETTABLEKS                       R12 R13 K41 ["getIsEditMode"]
+      179 CALL                             R12 0 1
+      180 SETTABLEKS                       R12 R11 K35 ["isEditMode"]
+      182 GETTABLEKS                       R13 R0 K23 ["Creator"]
+      184 GETTABLEKS                       R12 R13 K24 ["IsVerifiedCreator"]
+      186 SETTABLEKS                       R12 R11 K14 ["isVerifiedCreator"]
+      188 GETTABLEKS                       R13 R0 K4 ["Asset"]
+      190 GETTABLEKS                       R12 R13 K20 ["Id"]
+      192 SETTABLEKS                       R12 R11 K15 ["label"]
+      194 LOADN                            R12 0
+      195 SETTABLEKS                       R12 R11 K16 ["value"]
+      197 GETTABLEKS                       R13 R0 K4 ["Asset"]
+      199 GETTABLEKS                       R12 R13 K25 ["IsEndorsed"]
+      201 SETTABLEKS                       R12 R11 K17 ["isEndorsed"]
+      203 GETTABLEKS                       R13 R0 K4 ["Asset"]
+      205 GETTABLEKS                       R12 R13 K26 ["HasScripts"]
+      207 SETTABLEKS                       R12 R11 K18 ["hasScripts"]
+      209 CALL                             R9 2 1
+      210 MOVE                             R8 R9
+      211 GETUPVAL                         R10 3
+      212 GETTABLEKS                       R9 R10 K27 ["getWebViewTrackingAttributes"]
+      214 MOVE                             R10 R8
+      215 CALL                             R9 1 1
+      216 MOVE                             R8 R9
+      217 RETURN                           R8 1
 
 PROTO_9:
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["logFirstLuaAssetImpression"]
-  CALL R5 0 0
-  GETTABLEKS R5 R2 K1 ["toolboxTab"]
-  JUMPIFNOTEQKS R5 K2 ["Marketplace"] [+6]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K3 ["logFirstStoreAssetImpression"]
-  LOADB R6 0
-  CALL R5 1 0
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K4 ["isAssetTrackable"]
-  MOVE R6 R1
-  MOVE R7 R2
-  CALL R5 2 1
-  JUMPIF R5 [+1]
-  RETURN R0 0
-  GETTABLEKS R6 R1 K5 ["Asset"]
-  GETTABLEKS R5 R6 K6 ["Id"]
-  GETTABLEKS R6 R2 K7 ["searchId"]
-  GETTABLEKS R8 R0 K8 ["_searches"]
-  GETTABLE R7 R8 R6
-  JUMPIF R7 [+8]
-  GETTABLEKS R7 R0 K8 ["_searches"]
-  DUPTABLE R8 K10 [{"impressions"}]
-  NEWTABLE R9 0 0
-  SETTABLEKS R9 R8 K9 ["impressions"]
-  SETTABLE R8 R7 R6
-  GETTABLEKS R8 R0 K8 ["_searches"]
-  GETTABLE R7 R8 R6
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K11 ["join"]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K12 ["getTrackingAttributes"]
-  MOVE R10 R1
-  MOVE R11 R2
-  CALL R9 2 1
-  DUPTABLE R10 K14 [{"layoutMode"}]
-  SETTABLEKS R4 R10 K13 ["layoutMode"]
-  MOVE R11 R3
-  JUMPIF R11 [+2]
-  NEWTABLE R11 0 0
-  CALL R8 3 1
-  GETTABLEKS R10 R7 K9 ["impressions"]
-  GETTABLE R9 R10 R5
-  JUMPIF R9 [+19]
-  GETTABLEKS R10 R0 K15 ["senders"]
-  GETTABLEKS R9 R10 K16 ["sendEventDeferred"]
-  GETUPVAL R11 0
-  GETTABLEKS R10 R11 K17 ["eventTarget"]
-  LOADK R11 K2 ["Marketplace"]
-  LOADK R12 K18 ["MarketplaceAssetImpression"]
-  MOVE R13 R8
-  CALL R9 4 0
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K19 ["incrementAssetImpressionCounter"]
-  CALL R9 0 0
-  GETTABLEKS R9 R7 K9 ["impressions"]
-  LOADB R10 1
-  SETTABLE R10 R9 R5
-  RETURN R0 0
+        0 GETUPVAL                         R6 0
+        1 GETTABLEKS                       R5 R6 K0 ["logFirstLuaAssetImpression"]
+        3 CALL                             R5 0 0
+        4 GETTABLEKS                       R5 R2 K1 ["toolboxTab"]
+        6 JUMPIFNOTEQKS                    R5 K2 ["Marketplace"] ; [+6]
+        8 GETUPVAL                         R6 0
+        9 GETTABLEKS                       R5 R6 K3 ["logFirstStoreAssetImpression"]
+       11 LOADB                            R6 0
+       12 CALL                             R5 1 0
+       13 GETUPVAL                         R6 1
+       14 GETTABLEKS                       R5 R6 K4 ["isAssetTrackable"]
+       16 MOVE                             R6 R1
+       17 MOVE                             R7 R2
+       18 CALL                             R5 2 1
+       19 JUMPIF                           R5 ; [+1]
+       20 RETURN                           R0 0
+       21 GETTABLEKS                       R6 R1 K5 ["Asset"]
+       23 GETTABLEKS                       R5 R6 K6 ["Id"]
+       25 GETTABLEKS                       R6 R2 K7 ["searchId"]
+       27 GETTABLEKS                       R8 R0 K8 ["_searches"]
+       29 GETTABLE                         R7 R8 R6
+       30 JUMPIF                           R7 ; [+8]
+       31 GETTABLEKS                       R7 R0 K8 ["_searches"]
+       33 DUPTABLE                         R8 K10 [{"impressions"}]
+       34 NEWTABLE                         R9 0 0
+       36 SETTABLEKS                       R9 R8 K9 ["impressions"]
+       38 SETTABLE                         R8 R7 R6
+       39 GETTABLEKS                       R8 R0 K8 ["_searches"]
+       41 GETTABLE                         R7 R8 R6
+       42 GETUPVAL                         R9 2
+       43 GETTABLEKS                       R8 R9 K11 ["join"]
+       45 GETUPVAL                         R10 1
+       46 GETTABLEKS                       R9 R10 K12 ["getTrackingAttributes"]
+       48 MOVE                             R10 R1
+       49 MOVE                             R11 R2
+       50 CALL                             R9 2 1
+       51 DUPTABLE                         R10 K14 [{"layoutMode"}]
+       52 SETTABLEKS                       R4 R10 K13 ["layoutMode"]
+       54 MOVE                             R11 R3
+       55 JUMPIF                           R11 ; [+2]
+       56 NEWTABLE                         R11 0 0
+       58 CALL                             R8 3 1
+       59 GETTABLEKS                       R10 R7 K9 ["impressions"]
+       61 GETTABLE                         R9 R10 R5
+       62 JUMPIF                           R9 ; [+19]
+       63 GETTABLEKS                       R10 R0 K15 ["senders"]
+       65 GETTABLEKS                       R9 R10 K16 ["sendEventDeferred"]
+       67 GETUPVAL                         R11 0
+       68 GETTABLEKS                       R10 R11 K17 ["eventTarget"]
+       70 LOADK                            R11 K2 ["Marketplace"]
+       71 LOADK                            R12 K18 ["MarketplaceAssetImpression"]
+       72 MOVE                             R13 R8
+       73 CALL                             R9 4 0
+       74 GETUPVAL                         R10 0
+       75 GETTABLEKS                       R9 R10 K19 ["incrementAssetImpressionCounter"]
+       77 CALL                             R9 0 0
+       78 GETTABLEKS                       R9 R7 K9 ["impressions"]
+       80 LOADB                            R10 1
+       81 SETTABLE                         R10 R9 R5
+       82 RETURN                           R0 0
 
 PROTO_10:
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K0 ["isAssetTrackable"]
-  MOVE R5 R1
-  MOVE R6 R2
-  CALL R4 2 1
-  JUMPIF R4 [+1]
-  RETURN R0 0
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K1 ["getTrackingAttributes"]
-  MOVE R5 R1
-  MOVE R6 R2
-  CALL R4 2 1
-  GETUPVAL R6 1
-  CALL R6 0 1
-  JUMPIFNOT R6 [+4]
-  JUMPIFNOT R3 [+3]
-  GETTABLEKS R5 R3 K2 ["purchaserStatus"]
-  JUMP [+1]
-  LOADNIL R5
-  GETTABLEKS R6 R1 K3 ["FiatProduct"]
-  JUMPIFNOT R6 [+4]
-  GETTABLEKS R7 R1 K3 ["FiatProduct"]
-  GETTABLEKS R6 R7 K4 ["PurchasePrice"]
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K5 ["Dictionary"]
-  GETTABLEKS R7 R8 K6 ["join"]
-  MOVE R8 R4
-  DUPTABLE R9 K10 [{"buyerStatus", "currencyCode", "fiatPrice"}]
-  GETUPVAL R11 1
-  CALL R11 0 1
-  JUMPIFNOT R11 [+2]
-  MOVE R10 R5
-  JUMP [+1]
-  MOVE R10 R3
-  SETTABLEKS R10 R9 K7 ["buyerStatus"]
-  JUMPIFNOT R6 [+3]
-  GETTABLEKS R10 R6 K8 ["currencyCode"]
-  JUMP [+1]
-  LOADNIL R10
-  SETTABLEKS R10 R9 K8 ["currencyCode"]
-  JUMPIFNOT R6 [+6]
-  GETUPVAL R11 3
-  GETTABLEKS R10 R11 K11 ["calculateQuantity"]
-  MOVE R11 R6
-  CALL R10 1 1
-  JUMP [+1]
-  LOADNIL R10
-  SETTABLEKS R10 R9 K9 ["fiatPrice"]
-  CALL R7 2 1
-  MOVE R4 R7
-  GETTABLEKS R8 R0 K12 ["senders"]
-  GETTABLEKS R7 R8 K13 ["sendEventDeferred"]
-  GETUPVAL R9 4
-  GETTABLEKS R8 R9 K14 ["eventTarget"]
-  LOADK R9 K15 ["Marketplace"]
-  LOADK R10 K16 ["MarketplaceAssetPreview"]
-  MOVE R11 R4
-  CALL R7 4 0
-  RETURN R0 0
+        0 GETUPVAL                         R5 0
+        1 GETTABLEKS                       R4 R5 K0 ["isAssetTrackable"]
+        3 MOVE                             R5 R1
+        4 MOVE                             R6 R2
+        5 CALL                             R4 2 1
+        6 JUMPIF                           R4 ; [+1]
+        7 RETURN                           R0 0
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R4 R5 K1 ["getTrackingAttributes"]
+       11 MOVE                             R5 R1
+       12 MOVE                             R6 R2
+       13 CALL                             R4 2 1
+       14 GETUPVAL                         R6 1
+       15 CALL                             R6 0 1
+       16 JUMPIFNOT                        R6 ; [+4]
+       17 JUMPIFNOT                        R3 ; [+3]
+       18 GETTABLEKS                       R5 R3 K2 ["purchaserStatus"]
+       20 JUMP                             ; [+1]
+       21 LOADNIL                          R5
+       22 GETTABLEKS                       R6 R1 K3 ["FiatProduct"]
+       24 JUMPIFNOT                        R6 ; [+4]
+       25 GETTABLEKS                       R7 R1 K3 ["FiatProduct"]
+       27 GETTABLEKS                       R6 R7 K4 ["PurchasePrice"]
+       29 GETUPVAL                         R9 2
+       30 GETTABLEKS                       R8 R9 K5 ["Dictionary"]
+       32 GETTABLEKS                       R7 R8 K6 ["join"]
+       34 MOVE                             R8 R4
+       35 DUPTABLE                         R9 K10 [{"buyerStatus", "currencyCode", "fiatPrice"}]
+       36 GETUPVAL                         R11 1
+       37 CALL                             R11 0 1
+       38 JUMPIFNOT                        R11 ; [+2]
+       39 MOVE                             R10 R5
+       40 JUMP                             ; [+1]
+       41 MOVE                             R10 R3
+       42 SETTABLEKS                       R10 R9 K7 ["buyerStatus"]
+       44 JUMPIFNOT                        R6 ; [+3]
+       45 GETTABLEKS                       R10 R6 K8 ["currencyCode"]
+       47 JUMP                             ; [+1]
+       48 LOADNIL                          R10
+       49 SETTABLEKS                       R10 R9 K8 ["currencyCode"]
+       51 JUMPIFNOT                        R6 ; [+6]
+       52 GETUPVAL                         R11 3
+       53 GETTABLEKS                       R10 R11 K11 ["calculateQuantity"]
+       55 MOVE                             R11 R6
+       56 CALL                             R10 1 1
+       57 JUMP                             ; [+1]
+       58 LOADNIL                          R10
+       59 SETTABLEKS                       R10 R9 K9 ["fiatPrice"]
+       61 CALL                             R7 2 1
+       62 MOVE                             R4 R7
+       63 GETTABLEKS                       R8 R0 K12 ["senders"]
+       65 GETTABLEKS                       R7 R8 K13 ["sendEventDeferred"]
+       67 GETUPVAL                         R9 4
+       68 GETTABLEKS                       R8 R9 K14 ["eventTarget"]
+       70 LOADK                            R9 K15 ["Marketplace"]
+       71 LOADK                            R10 K16 ["MarketplaceAssetPreview"]
+       72 MOVE                             R11 R4
+       73 CALL                             R7 4 0
+       74 RETURN                           R0 0
 
 PROTO_11:
-  GETUPVAL R1 0
-  FASTCALL1 TYPE R1 [+2]
-  GETIMPORT R0 K1 [type]
-  CALL R0 1 1
-  JUMPIFNOTEQKS R0 K2 ["table"] [+11]
-  GETUPVAL R0 1
-  GETUPVAL R2 2
-  GETUPVAL R3 3
-  GETUPVAL R5 0
-  GETTABLEN R4 R5 1
-  GETUPVAL R5 4
-  NAMECALL R0 R0 K3 ["logRemainsOrDeleted"]
-  CALL R0 5 0
-  RETURN R0 0
-  GETUPVAL R0 1
-  GETUPVAL R2 2
-  GETUPVAL R3 3
-  GETUPVAL R4 0
-  GETUPVAL R5 4
-  NAMECALL R0 R0 K3 ["logRemainsOrDeleted"]
-  CALL R0 5 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 FASTCALL1                        TYPE R1 ; [+2]
+        2 GETIMPORT                        R0 K1 [type]
+        4 CALL                             R0 1 1
+        5 JUMPIFNOTEQKS                    R0 K2 ["table"] ; [+11]
+        7 GETUPVAL                         R0 1
+        8 GETUPVAL                         R2 2
+        9 GETUPVAL                         R3 3
+       10 GETUPVAL                         R5 0
+       11 GETTABLEN                        R4 R5 1
+       12 GETUPVAL                         R5 4
+       13 NAMECALL                         R0 R0 K3 ["logRemainsOrDeleted"]
+       15 CALL                             R0 5 0
+       16 RETURN                           R0 0
+       17 GETUPVAL                         R0 1
+       18 GETUPVAL                         R2 2
+       19 GETUPVAL                         R3 3
+       20 GETUPVAL                         R4 0
+       21 GETUPVAL                         R5 4
+       22 NAMECALL                         R0 R0 K3 ["logRemainsOrDeleted"]
+       24 CALL                             R0 5 0
+       25 RETURN                           R0 0
 
 PROTO_12:
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K0 ["isAssetTrackable"]
-  MOVE R9 R1
-  MOVE R10 R4
-  CALL R8 2 1
-  JUMPIF R8 [+1]
-  RETURN R0 0
-  GETUPVAL R9 1
-  CALL R9 0 1
-  JUMPIFNOT R9 [+4]
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K1 ["eventTarget"]
-  JUMP [+1]
-  LOADNIL R8
-  DUPTABLE R9 K5 [{"method", "layoutMode", "insertDuration"}]
-  SETTABLEKS R2 R9 K2 ["method"]
-  SETTABLEKS R6 R9 K3 ["layoutMode"]
-  SETTABLEKS R7 R9 K4 ["insertDuration"]
-  GETUPVAL R11 3
-  GETTABLEKS R10 R11 K6 ["join"]
-  MOVE R11 R9
-  GETUPVAL R13 0
-  GETTABLEKS R12 R13 K7 ["getTrackingAttributes"]
-  MOVE R13 R1
-  MOVE R14 R4
-  CALL R12 2 1
-  DUPTABLE R13 K9 [{"navSwimlane"}]
-  SETTABLEKS R5 R13 K8 ["navSwimlane"]
-  CALL R10 3 1
-  GETUPVAL R11 1
-  CALL R11 0 1
-  JUMPIFNOT R11 [+10]
-  GETTABLEKS R12 R0 K10 ["senders"]
-  GETTABLEKS R11 R12 K11 ["sendEventDeferred"]
-  MOVE R12 R8
-  LOADK R13 K12 ["Marketplace"]
-  LOADK R14 K13 ["MarketplaceInsert"]
-  MOVE R15 R10
-  CALL R11 4 0
-  JUMP [+11]
-  GETTABLEKS R12 R0 K10 ["senders"]
-  GETTABLEKS R11 R12 K11 ["sendEventDeferred"]
-  GETUPVAL R13 2
-  GETTABLEKS R12 R13 K1 ["eventTarget"]
-  LOADK R13 K12 ["Marketplace"]
-  LOADK R14 K13 ["MarketplaceInsert"]
-  MOVE R15 R10
-  CALL R11 4 0
-  JUMPIFNOTEQKNIL R3 [+2]
-  RETURN R0 0
-  GETIMPORT R11 K15 [ipairs]
-  GETUPVAL R14 0
-  GETTABLEKS R12 R14 K16 ["InsertRemainsCheckDelays"]
-  CALL R11 1 3
-  FORGPREP_INEXT R11
-  GETUPVAL R17 0
-  GETTABLEKS R16 R17 K17 ["schedule"]
-  MOVE R17 R15
-  NEWCLOSURE R18 P0
-  CAPTURE VAL R3
-  CAPTURE VAL R0
-  CAPTURE VAL R15
-  CAPTURE VAL R10
-  CAPTURE VAL R8
-  CALL R16 2 0
-  FORGLOOP R11 2 [inext] [-12]
-  RETURN R0 0
+        0 GETUPVAL                         R9 0
+        1 GETTABLEKS                       R8 R9 K0 ["isAssetTrackable"]
+        3 MOVE                             R9 R1
+        4 MOVE                             R10 R4
+        5 CALL                             R8 2 1
+        6 JUMPIF                           R8 ; [+1]
+        7 RETURN                           R0 0
+        8 GETUPVAL                         R9 1
+        9 CALL                             R9 0 1
+       10 JUMPIFNOT                        R9 ; [+4]
+       11 GETUPVAL                         R9 2
+       12 GETTABLEKS                       R8 R9 K1 ["eventTarget"]
+       14 JUMP                             ; [+1]
+       15 LOADNIL                          R8
+       16 DUPTABLE                         R9 K5 [{"method", "layoutMode", "insertDuration"}]
+       17 SETTABLEKS                       R2 R9 K2 ["method"]
+       19 SETTABLEKS                       R6 R9 K3 ["layoutMode"]
+       21 SETTABLEKS                       R7 R9 K4 ["insertDuration"]
+       23 GETUPVAL                         R11 3
+       24 GETTABLEKS                       R10 R11 K6 ["join"]
+       26 MOVE                             R11 R9
+       27 GETUPVAL                         R13 0
+       28 GETTABLEKS                       R12 R13 K7 ["getTrackingAttributes"]
+       30 MOVE                             R13 R1
+       31 MOVE                             R14 R4
+       32 CALL                             R12 2 1
+       33 DUPTABLE                         R13 K9 [{"navSwimlane"}]
+       34 SETTABLEKS                       R5 R13 K8 ["navSwimlane"]
+       36 CALL                             R10 3 1
+       37 GETUPVAL                         R11 1
+       38 CALL                             R11 0 1
+       39 JUMPIFNOT                        R11 ; [+10]
+       40 GETTABLEKS                       R12 R0 K10 ["senders"]
+       42 GETTABLEKS                       R11 R12 K11 ["sendEventDeferred"]
+       44 MOVE                             R12 R8
+       45 LOADK                            R13 K12 ["Marketplace"]
+       46 LOADK                            R14 K13 ["MarketplaceInsert"]
+       47 MOVE                             R15 R10
+       48 CALL                             R11 4 0
+       49 JUMP                             ; [+11]
+       50 GETTABLEKS                       R12 R0 K10 ["senders"]
+       52 GETTABLEKS                       R11 R12 K11 ["sendEventDeferred"]
+       54 GETUPVAL                         R13 2
+       55 GETTABLEKS                       R12 R13 K1 ["eventTarget"]
+       57 LOADK                            R13 K12 ["Marketplace"]
+       58 LOADK                            R14 K13 ["MarketplaceInsert"]
+       59 MOVE                             R15 R10
+       60 CALL                             R11 4 0
+       61 JUMPIFNOTEQKNIL                  R3 ; [+2]
+       63 RETURN                           R0 0
+       64 GETIMPORT                        R11 K15 [ipairs]
+       66 GETUPVAL                         R14 0
+       67 GETTABLEKS                       R12 R14 K16 ["InsertRemainsCheckDelays"]
+       69 CALL                             R11 1 3
+       70 FORGPREP_INEXT                   R11
+       71 GETUPVAL                         R17 0
+       72 GETTABLEKS                       R16 R17 K17 ["schedule"]
+       74 MOVE                             R17 R15
+       75 NEWCLOSURE                       R18 P0
+       76 CAPTURE                          VAL R3
+       77 CAPTURE                          VAL R0
+       78 CAPTURE                          VAL R15
+       79 CAPTURE                          VAL R10
+       80 CAPTURE                          VAL R8
+       81 CALL                             R16 2 0
+       82 FORGLOOP                         R11 2 [inext] ; [-12]
+       84 RETURN                           R0 0
 
 PROTO_13:
-  JUMPIFNOT R3 [+5]
-  GETTABLEKS R6 R3 K0 ["Parent"]
-  JUMPIFNOT R6 [+2]
-  LOADK R5 K1 ["InsertRemains"]
-  JUMP [+1]
-  LOADK R5 K2 ["InsertDeleted"]
-  GETUPVAL R6 0
-  CALL R6 0 1
-  JUMPIFNOT R6 [+16]
-  GETTABLEKS R7 R0 K3 ["senders"]
-  GETTABLEKS R6 R7 K4 ["sendEventDeferred"]
-  MOVE R7 R4
-  LOADK R8 K5 ["Marketplace"]
-  MOVE R10 R5
-  FASTCALL1 TOSTRING R1 [+3]
-  MOVE R12 R1
-  GETIMPORT R11 K7 [tostring]
-  CALL R11 1 1
-  CONCAT R9 R10 R11
-  MOVE R10 R2
-  CALL R6 4 0
-  RETURN R0 0
-  GETTABLEKS R7 R0 K3 ["senders"]
-  GETTABLEKS R6 R7 K4 ["sendEventDeferred"]
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K8 ["eventTarget"]
-  LOADK R8 K5 ["Marketplace"]
-  MOVE R10 R5
-  FASTCALL1 TOSTRING R1 [+3]
-  MOVE R12 R1
-  GETIMPORT R11 K7 [tostring]
-  CALL R11 1 1
-  CONCAT R9 R10 R11
-  MOVE R10 R2
-  CALL R6 4 0
-  RETURN R0 0
+        0 JUMPIFNOT                        R3 ; [+5]
+        1 GETTABLEKS                       R6 R3 K0 ["Parent"]
+        3 JUMPIFNOT                        R6 ; [+2]
+        4 LOADK                            R5 K1 ["InsertRemains"]
+        5 JUMP                             ; [+1]
+        6 LOADK                            R5 K2 ["InsertDeleted"]
+        7 GETUPVAL                         R6 0
+        8 CALL                             R6 0 1
+        9 JUMPIFNOT                        R6 ; [+16]
+       10 GETTABLEKS                       R7 R0 K3 ["senders"]
+       12 GETTABLEKS                       R6 R7 K4 ["sendEventDeferred"]
+       14 MOVE                             R7 R4
+       15 LOADK                            R8 K5 ["Marketplace"]
+       16 MOVE                             R10 R5
+       17 FASTCALL1                        TOSTRING R1 ; [+3]
+       18 MOVE                             R12 R1
+       19 GETIMPORT                        R11 K7 [tostring]
+       21 CALL                             R11 1 1
+       22 CONCAT                           R9 R10 R11
+       23 MOVE                             R10 R2
+       24 CALL                             R6 4 0
+       25 RETURN                           R0 0
+       26 GETTABLEKS                       R7 R0 K3 ["senders"]
+       28 GETTABLEKS                       R6 R7 K4 ["sendEventDeferred"]
+       30 GETUPVAL                         R8 1
+       31 GETTABLEKS                       R7 R8 K8 ["eventTarget"]
+       33 LOADK                            R8 K5 ["Marketplace"]
+       34 MOVE                             R10 R5
+       35 FASTCALL1                        TOSTRING R1 ; [+3]
+       36 MOVE                             R12 R1
+       37 GETIMPORT                        R11 K7 [tostring]
+       39 CALL                             R11 1 1
+       40 CONCAT                           R9 R10 R11
+       41 MOVE                             R10 R2
+       42 CALL                             R6 4 0
+       43 RETURN                           R0 0
 
 PROTO_14:
-  GETTABLEKS R9 R0 K0 ["senders"]
-  GETTABLEKS R8 R9 K1 ["sendEventDeferred"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K2 ["eventTarget"]
-  LOADK R10 K3 ["Marketplace"]
-  MOVE R11 R1
-  DUPTABLE R12 K10 [{"searchID", "searchCategory", "subcategoryName", "navBreadcrumbs", "toolboxTab", "assetType"}]
-  SETTABLEKS R2 R12 K4 ["searchID"]
-  SETTABLEKS R3 R12 K5 ["searchCategory"]
-  SETTABLEKS R4 R12 K6 ["subcategoryName"]
-  JUMPIFNOT R5 [+6]
-  GETUPVAL R13 1
-  MOVE R15 R5
-  NAMECALL R13 R13 K11 ["JSONEncode"]
-  CALL R13 2 1
-  JUMPIF R13 [+1]
-  LOADNIL R13
-  SETTABLEKS R13 R12 K7 ["navBreadcrumbs"]
-  SETTABLEKS R6 R12 K8 ["toolboxTab"]
-  SETTABLEKS R7 R12 K9 ["assetType"]
-  CALL R8 4 0
-  RETURN R0 0
+        0 GETTABLEKS                       R9 R0 K0 ["senders"]
+        2 GETTABLEKS                       R8 R9 K1 ["sendEventDeferred"]
+        4 GETUPVAL                         R10 0
+        5 GETTABLEKS                       R9 R10 K2 ["eventTarget"]
+        7 LOADK                            R10 K3 ["Marketplace"]
+        8 MOVE                             R11 R1
+        9 DUPTABLE                         R12 K10 [{"searchID", "searchCategory", "subcategoryName", "navBreadcrumbs", "toolboxTab", "assetType"}]
+       10 SETTABLEKS                       R2 R12 K4 ["searchID"]
+       12 SETTABLEKS                       R3 R12 K5 ["searchCategory"]
+       14 SETTABLEKS                       R4 R12 K6 ["subcategoryName"]
+       16 JUMPIFNOT                        R5 ; [+6]
+       17 GETUPVAL                         R13 1
+       18 MOVE                             R15 R5
+       19 NAMECALL                         R13 R13 K11 ["JSONEncode"]
+       21 CALL                             R13 2 1
+       22 JUMPIF                           R13 ; [+1]
+       23 LOADNIL                          R13
+       24 SETTABLEKS                       R13 R12 K7 ["navBreadcrumbs"]
+       26 SETTABLEKS                       R6 R12 K8 ["toolboxTab"]
+       28 SETTABLEKS                       R7 R12 K9 ["assetType"]
+       30 CALL                             R8 4 0
+       31 RETURN                           R0 0
 
 PROTO_15:
-  LOADK R9 K0 ["MarketplaceNavigatePageView"]
-  MOVE R10 R1
-  MOVE R11 R2
-  MOVE R12 R3
-  MOVE R13 R4
-  MOVE R14 R5
-  MOVE R15 R6
-  NAMECALL R7 R0 K1 ["logNavigationButtonInteraction"]
-  CALL R7 8 0
-  RETURN R0 0
+        0 LOADK                            R9 K0 ["MarketplaceNavigatePageView"]
+        1 MOVE                             R10 R1
+        2 MOVE                             R11 R2
+        3 MOVE                             R12 R3
+        4 MOVE                             R13 R4
+        5 MOVE                             R14 R5
+        6 MOVE                             R15 R6
+        7 NAMECALL                         R7 R0 K1 ["logNavigationButtonInteraction"]
+        9 CALL                             R7 8 0
+       10 RETURN                           R0 0
 
 PROTO_16:
-  LOADK R9 K0 ["MarketplaceNavigateViewBack"]
-  MOVE R10 R1
-  MOVE R11 R2
-  MOVE R12 R3
-  MOVE R13 R4
-  MOVE R14 R5
-  MOVE R15 R6
-  NAMECALL R7 R0 K1 ["logNavigationButtonInteraction"]
-  CALL R7 8 0
-  RETURN R0 0
+        0 LOADK                            R9 K0 ["MarketplaceNavigateViewBack"]
+        1 MOVE                             R10 R1
+        2 MOVE                             R11 R2
+        3 MOVE                             R12 R3
+        4 MOVE                             R13 R4
+        5 MOVE                             R14 R5
+        6 MOVE                             R15 R6
+        7 NAMECALL                         R7 R0 K1 ["logNavigationButtonInteraction"]
+        9 CALL                             R7 8 0
+       10 RETURN                           R0 0
 
 PROTO_17:
-  GETTABLEKS R3 R0 K0 ["senders"]
-  GETTABLEKS R2 R3 K1 ["sendEventDeferred"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["eventTarget"]
-  LOADK R4 K3 ["Marketplace"]
-  LOADK R5 K4 ["CallToActionBannerClicked"]
-  DUPTABLE R6 K6 [{"creatorId"}]
-  SETTABLEKS R1 R6 K5 ["creatorId"]
-  CALL R2 4 0
-  RETURN R0 0
+        0 GETTABLEKS                       R3 R0 K0 ["senders"]
+        2 GETTABLEKS                       R2 R3 K1 ["sendEventDeferred"]
+        4 GETUPVAL                         R4 0
+        5 GETTABLEKS                       R3 R4 K2 ["eventTarget"]
+        7 LOADK                            R4 K3 ["Marketplace"]
+        8 LOADK                            R5 K4 ["CallToActionBannerClicked"]
+        9 DUPTABLE                         R6 K6 [{"creatorId"}]
+       10 SETTABLEKS                       R1 R6 K5 ["creatorId"]
+       12 CALL                             R2 4 0
+       13 RETURN                           R0 0
 
 PROTO_18:
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K0 ["isAssetDataTrackable"]
-  MOVE R8 R1
-  CALL R7 1 1
-  JUMPIF R7 [+1]
-  RETURN R0 0
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K1 ["getTrackingAttributes"]
-  MOVE R8 R1
-  NEWTABLE R9 0 0
-  LOADB R10 1
-  CALL R7 3 1
-  GETUPVAL R9 1
-  GETTABLEKS R8 R9 K2 ["join"]
-  MOVE R9 R7
-  DUPTABLE R10 K8 [{"imageId", "imageIndex", "searchId", "source", "parentAssetId"}]
-  SETTABLEKS R2 R10 K3 ["imageId"]
-  SETTABLEKS R3 R10 K4 ["imageIndex"]
-  SETTABLEKS R4 R10 K5 ["searchId"]
-  SETTABLEKS R5 R10 K6 ["source"]
-  SETTABLEKS R6 R10 K7 ["parentAssetId"]
-  CALL R8 2 1
-  MOVE R7 R8
-  GETTABLEKS R9 R0 K9 ["senders"]
-  GETTABLEKS R8 R9 K10 ["sendEventDeferred"]
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K11 ["eventTarget"]
-  LOADK R10 K12 ["Marketplace"]
-  LOADK R11 K13 ["AssetMediaImpression"]
-  MOVE R12 R7
-  CALL R8 4 0
-  RETURN R0 0
+        0 GETUPVAL                         R8 0
+        1 GETTABLEKS                       R7 R8 K0 ["isAssetDataTrackable"]
+        3 MOVE                             R8 R1
+        4 CALL                             R7 1 1
+        5 JUMPIF                           R7 ; [+1]
+        6 RETURN                           R0 0
+        7 GETUPVAL                         R8 0
+        8 GETTABLEKS                       R7 R8 K1 ["getTrackingAttributes"]
+       10 MOVE                             R8 R1
+       11 NEWTABLE                         R9 0 0
+       13 LOADB                            R10 1
+       14 CALL                             R7 3 1
+       15 GETUPVAL                         R9 1
+       16 GETTABLEKS                       R8 R9 K2 ["join"]
+       18 MOVE                             R9 R7
+       19 DUPTABLE                         R10 K8 [{"imageId", "imageIndex", "searchId", "source", "parentAssetId"}]
+       20 SETTABLEKS                       R2 R10 K3 ["imageId"]
+       22 SETTABLEKS                       R3 R10 K4 ["imageIndex"]
+       24 SETTABLEKS                       R4 R10 K5 ["searchId"]
+       26 SETTABLEKS                       R5 R10 K6 ["source"]
+       28 SETTABLEKS                       R6 R10 K7 ["parentAssetId"]
+       30 CALL                             R8 2 1
+       31 MOVE                             R7 R8
+       32 GETTABLEKS                       R9 R0 K9 ["senders"]
+       34 GETTABLEKS                       R8 R9 K10 ["sendEventDeferred"]
+       36 GETUPVAL                         R10 2
+       37 GETTABLEKS                       R9 R10 K11 ["eventTarget"]
+       39 LOADK                            R10 K12 ["Marketplace"]
+       40 LOADK                            R11 K13 ["AssetMediaImpression"]
+       41 MOVE                             R12 R7
+       42 CALL                             R8 4 0
+       43 RETURN                           R0 0
 
 PROTO_19:
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K0 ["isAssetTrackable"]
-  MOVE R6 R1
-  MOVE R7 R2
-  CALL R5 2 1
-  JUMPIF R5 [+1]
-  RETURN R0 0
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K1 ["getTrackingAttributes"]
-  MOVE R6 R1
-  MOVE R7 R2
-  LOADB R8 1
-  CALL R5 3 1
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K2 ["join"]
-  MOVE R7 R5
-  DUPTABLE R8 K5 [{"searchId", "url"}]
-  SETTABLEKS R3 R8 K3 ["searchId"]
-  SETTABLEKS R4 R8 K4 ["url"]
-  CALL R6 2 1
-  GETTABLEKS R8 R0 K6 ["senders"]
-  GETTABLEKS R7 R8 K7 ["sendEventDeferred"]
-  GETUPVAL R9 2
-  GETTABLEKS R8 R9 K8 ["eventTarget"]
-  LOADK R9 K9 ["Marketplace"]
-  LOADK R10 K10 ["AssetDescriptionLinkClicked"]
-  MOVE R11 R6
-  CALL R7 4 0
-  RETURN R0 0
+        0 GETUPVAL                         R6 0
+        1 GETTABLEKS                       R5 R6 K0 ["isAssetTrackable"]
+        3 MOVE                             R6 R1
+        4 MOVE                             R7 R2
+        5 CALL                             R5 2 1
+        6 JUMPIF                           R5 ; [+1]
+        7 RETURN                           R0 0
+        8 GETUPVAL                         R6 0
+        9 GETTABLEKS                       R5 R6 K1 ["getTrackingAttributes"]
+       11 MOVE                             R6 R1
+       12 MOVE                             R7 R2
+       13 LOADB                            R8 1
+       14 CALL                             R5 3 1
+       15 GETUPVAL                         R7 1
+       16 GETTABLEKS                       R6 R7 K2 ["join"]
+       18 MOVE                             R7 R5
+       19 DUPTABLE                         R8 K5 [{"searchId", "url"}]
+       20 SETTABLEKS                       R3 R8 K3 ["searchId"]
+       22 SETTABLEKS                       R4 R8 K4 ["url"]
+       24 CALL                             R6 2 1
+       25 GETTABLEKS                       R8 R0 K6 ["senders"]
+       27 GETTABLEKS                       R7 R8 K7 ["sendEventDeferred"]
+       29 GETUPVAL                         R9 2
+       30 GETTABLEKS                       R8 R9 K8 ["eventTarget"]
+       32 LOADK                            R9 K9 ["Marketplace"]
+       33 LOADK                            R10 K10 ["AssetDescriptionLinkClicked"]
+       34 MOVE                             R11 R6
+       35 CALL                             R7 4 0
+       36 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["HttpService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  GETIMPORT R5 K5 [script]
-  GETTABLEKS R4 R5 K6 ["Parent"]
-  GETTABLEKS R3 R4 K6 ["Parent"]
-  GETTABLEKS R2 R3 K6 ["Parent"]
-  GETTABLEKS R1 R2 K6 ["Parent"]
-  GETTABLEKS R2 R1 K7 ["Packages"]
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R4 R2 K10 ["Cryo"]
-  CALL R3 1 1
-  GETIMPORT R4 K9 [require]
-  GETTABLEKS R5 R2 K11 ["Dash"]
-  CALL R4 1 1
-  GETIMPORT R5 K9 [require]
-  GETTABLEKS R8 R1 K12 ["Src"]
-  GETTABLEKS R7 R8 K13 ["Models"]
-  GETTABLEKS R6 R7 K14 ["AssetInfo"]
-  CALL R5 1 1
-  GETIMPORT R6 K9 [require]
-  GETTABLEKS R9 R1 K12 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Util"]
-  GETTABLEKS R7 R8 K16 ["getUserId"]
-  CALL R6 1 1
-  GETIMPORT R7 K9 [require]
-  GETTABLEKS R10 R1 K12 ["Src"]
-  GETTABLEKS R9 R10 K15 ["Util"]
-  GETTABLEKS R8 R9 K17 ["Constants"]
-  CALL R7 1 1
-  GETIMPORT R8 K9 [require]
-  GETTABLEKS R11 R1 K12 ["Src"]
-  GETTABLEKS R10 R11 K15 ["Util"]
-  GETTABLEKS R9 R10 K18 ["FiatUtil"]
-  CALL R8 1 1
-  GETIMPORT R9 K9 [require]
-  GETIMPORT R12 K5 [script]
-  GETTABLEKS R11 R12 K6 ["Parent"]
-  GETTABLEKS R10 R11 K19 ["Analytics"]
-  CALL R9 1 1
-  GETIMPORT R10 K9 [require]
-  GETIMPORT R13 K5 [script]
-  GETTABLEKS R12 R13 K6 ["Parent"]
-  GETTABLEKS R11 R12 K20 ["Senders"]
-  CALL R10 1 1
-  GETIMPORT R11 K9 [require]
-  GETTABLEKS R15 R1 K12 ["Src"]
-  GETTABLEKS R14 R15 K15 ["Util"]
-  GETTABLEKS R13 R14 K21 ["SharedFlags"]
-  GETTABLEKS R12 R13 K22 ["getFFlagToolboxFFlagFixBuyerStatusAnalytics"]
-  CALL R11 1 1
-  GETIMPORT R12 K9 [require]
-  GETTABLEKS R16 R1 K12 ["Src"]
-  GETTABLEKS R15 R16 K15 ["Util"]
-  GETTABLEKS R14 R15 K21 ["SharedFlags"]
-  GETTABLEKS R13 R14 K23 ["getFFlagToolboxFixAnalyticCapitalization"]
-  CALL R12 1 1
-  GETIMPORT R13 K9 [require]
-  GETTABLEKS R17 R1 K12 ["Src"]
-  GETTABLEKS R16 R17 K15 ["Util"]
-  GETTABLEKS R15 R16 K21 ["SharedFlags"]
-  GETTABLEKS R14 R15 K24 ["getFFlagToolboxFixInsertRemains"]
-  CALL R13 1 1
-  NEWTABLE R14 32 0
-  SETTABLEKS R14 R14 K25 ["__index"]
-  NEWTABLE R15 0 3
-  LOADN R16 30
-  LOADN R17 120
-  LOADN R18 88
-  SETLIST R15 R16 3 [1]
-  SETTABLEKS R15 R14 K26 ["InsertRemainsCheckDelays"]
-  DUPCLOSURE R15 K27 [PROTO_0]
-  CAPTURE VAL R10
-  CAPTURE VAL R14
-  SETTABLEKS R15 R14 K28 ["new"]
-  DUPCLOSURE R15 K29 [PROTO_2]
-  CAPTURE VAL R14
-  SETTABLEKS R15 R14 K30 ["mock"]
-  DUPCLOSURE R15 K31 [PROTO_3]
-  CAPTURE VAL R7
-  CAPTURE VAL R0
-  SETTABLEKS R15 R14 K32 ["getNavigationContext"]
-  DUPCLOSURE R15 K33 [PROTO_4]
-  SETTABLEKS R15 R14 K34 ["schedule"]
-  DUPCLOSURE R15 K35 [PROTO_5]
-  SETTABLEKS R15 R14 K36 ["getAssetCategoryName"]
-  DUPCLOSURE R15 K37 [PROTO_6]
-  SETTABLEKS R15 R14 K38 ["isAssetDataTrackable"]
-  DUPCLOSURE R15 K39 [PROTO_7]
-  CAPTURE VAL R14
-  SETTABLEKS R15 R14 K40 ["isAssetTrackable"]
-  DUPCLOSURE R15 K41 [PROTO_8]
-  CAPTURE VAL R3
-  CAPTURE VAL R12
-  CAPTURE VAL R14
-  CAPTURE VAL R9
-  CAPTURE VAL R6
-  SETTABLEKS R15 R14 K42 ["getTrackingAttributes"]
-  DUPCLOSURE R15 K43 [PROTO_9]
-  CAPTURE VAL R9
-  CAPTURE VAL R14
-  CAPTURE VAL R4
-  SETTABLEKS R15 R14 K44 ["logImpression"]
-  DUPCLOSURE R15 K45 [PROTO_10]
-  CAPTURE VAL R14
-  CAPTURE VAL R11
-  CAPTURE VAL R3
-  CAPTURE VAL R8
-  CAPTURE VAL R9
-  SETTABLEKS R15 R14 K46 ["logPreview"]
-  DUPCLOSURE R15 K47 [PROTO_12]
-  CAPTURE VAL R14
-  CAPTURE VAL R13
-  CAPTURE VAL R9
-  CAPTURE VAL R4
-  SETTABLEKS R15 R14 K48 ["logInsert"]
-  DUPCLOSURE R15 K49 [PROTO_13]
-  CAPTURE VAL R13
-  CAPTURE VAL R9
-  SETTABLEKS R15 R14 K50 ["logRemainsOrDeleted"]
-  DUPCLOSURE R15 K51 [PROTO_14]
-  CAPTURE VAL R9
-  CAPTURE VAL R0
-  SETTABLEKS R15 R14 K52 ["logNavigationButtonInteraction"]
-  DUPCLOSURE R15 K53 [PROTO_15]
-  SETTABLEKS R15 R14 K54 ["logPageView"]
-  DUPCLOSURE R15 K55 [PROTO_16]
-  SETTABLEKS R15 R14 K56 ["logGoBack"]
-  DUPCLOSURE R15 K57 [PROTO_17]
-  CAPTURE VAL R9
-  SETTABLEKS R15 R14 K58 ["onCallToActionBannerClicked"]
-  DUPCLOSURE R15 K59 [PROTO_18]
-  CAPTURE VAL R14
-  CAPTURE VAL R4
-  CAPTURE VAL R9
-  SETTABLEKS R15 R14 K60 ["logAssetMediaImpression"]
-  DUPCLOSURE R15 K61 [PROTO_19]
-  CAPTURE VAL R14
-  CAPTURE VAL R4
-  CAPTURE VAL R9
-  SETTABLEKS R15 R14 K62 ["onAssetDescriptionLinkClicked"]
-  RETURN R14 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["HttpService"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R5 K5 [script]
+        9 GETTABLEKS                       R4 R5 K6 ["Parent"]
+       11 GETTABLEKS                       R3 R4 K6 ["Parent"]
+       13 GETTABLEKS                       R2 R3 K6 ["Parent"]
+       15 GETTABLEKS                       R1 R2 K6 ["Parent"]
+       17 GETTABLEKS                       R2 R1 K7 ["Packages"]
+       19 GETIMPORT                        R3 K9 [require]
+       21 GETTABLEKS                       R4 R2 K10 ["Cryo"]
+       23 CALL                             R3 1 1
+       24 GETIMPORT                        R4 K9 [require]
+       26 GETTABLEKS                       R5 R2 K11 ["Dash"]
+       28 CALL                             R4 1 1
+       29 GETIMPORT                        R5 K9 [require]
+       31 GETTABLEKS                       R8 R1 K12 ["Src"]
+       33 GETTABLEKS                       R7 R8 K13 ["Models"]
+       35 GETTABLEKS                       R6 R7 K14 ["AssetInfo"]
+       37 CALL                             R5 1 1
+       38 GETIMPORT                        R6 K9 [require]
+       40 GETTABLEKS                       R9 R1 K12 ["Src"]
+       42 GETTABLEKS                       R8 R9 K15 ["Util"]
+       44 GETTABLEKS                       R7 R8 K16 ["getUserId"]
+       46 CALL                             R6 1 1
+       47 GETIMPORT                        R7 K9 [require]
+       49 GETTABLEKS                       R10 R1 K12 ["Src"]
+       51 GETTABLEKS                       R9 R10 K15 ["Util"]
+       53 GETTABLEKS                       R8 R9 K17 ["Constants"]
+       55 CALL                             R7 1 1
+       56 GETIMPORT                        R8 K9 [require]
+       58 GETTABLEKS                       R11 R1 K12 ["Src"]
+       60 GETTABLEKS                       R10 R11 K15 ["Util"]
+       62 GETTABLEKS                       R9 R10 K18 ["FiatUtil"]
+       64 CALL                             R8 1 1
+       65 GETIMPORT                        R9 K9 [require]
+       67 GETIMPORT                        R12 K5 [script]
+       69 GETTABLEKS                       R11 R12 K6 ["Parent"]
+       71 GETTABLEKS                       R10 R11 K19 ["Analytics"]
+       73 CALL                             R9 1 1
+       74 GETIMPORT                        R10 K9 [require]
+       76 GETIMPORT                        R13 K5 [script]
+       78 GETTABLEKS                       R12 R13 K6 ["Parent"]
+       80 GETTABLEKS                       R11 R12 K20 ["Senders"]
+       82 CALL                             R10 1 1
+       83 GETIMPORT                        R11 K9 [require]
+       85 GETTABLEKS                       R15 R1 K12 ["Src"]
+       87 GETTABLEKS                       R14 R15 K15 ["Util"]
+       89 GETTABLEKS                       R13 R14 K21 ["SharedFlags"]
+       91 GETTABLEKS                       R12 R13 K22 ["getFFlagToolboxFFlagFixBuyerStatusAnalytics"]
+       93 CALL                             R11 1 1
+       94 GETIMPORT                        R12 K9 [require]
+       96 GETTABLEKS                       R16 R1 K12 ["Src"]
+       98 GETTABLEKS                       R15 R16 K15 ["Util"]
+      100 GETTABLEKS                       R14 R15 K21 ["SharedFlags"]
+      102 GETTABLEKS                       R13 R14 K23 ["getFFlagToolboxFixAnalyticCapitalization"]
+      104 CALL                             R12 1 1
+      105 GETIMPORT                        R13 K9 [require]
+      107 GETTABLEKS                       R17 R1 K12 ["Src"]
+      109 GETTABLEKS                       R16 R17 K15 ["Util"]
+      111 GETTABLEKS                       R15 R16 K21 ["SharedFlags"]
+      113 GETTABLEKS                       R14 R15 K24 ["getFFlagToolboxFixInsertRemains"]
+      115 CALL                             R13 1 1
+      116 NEWTABLE                         R14 32 0
+      118 SETTABLEKS                       R14 R14 K25 ["__index"]
+      120 NEWTABLE                         R15 0 3
+      122 LOADN                            R16 30
+      123 LOADN                            R17 120
+      124 LOADN                            R18 88
+      125 SETLIST                          R15 R16 3 [1]
+      127 SETTABLEKS                       R15 R14 K26 ["InsertRemainsCheckDelays"]
+      129 DUPCLOSURE                       R15 K27 [PROTO_0]
+      130 CAPTURE                          VAL R10
+      131 CAPTURE                          VAL R14
+      132 SETTABLEKS                       R15 R14 K28 ["new"]
+      134 DUPCLOSURE                       R15 K29 [PROTO_2]
+      135 CAPTURE                          VAL R14
+      136 SETTABLEKS                       R15 R14 K30 ["mock"]
+      138 DUPCLOSURE                       R15 K31 [PROTO_3]
+      139 CAPTURE                          VAL R7
+      140 CAPTURE                          VAL R0
+      141 SETTABLEKS                       R15 R14 K32 ["getNavigationContext"]
+      143 DUPCLOSURE                       R15 K33 [PROTO_4]
+      144 SETTABLEKS                       R15 R14 K34 ["schedule"]
+      146 DUPCLOSURE                       R15 K35 [PROTO_5]
+      147 SETTABLEKS                       R15 R14 K36 ["getAssetCategoryName"]
+      149 DUPCLOSURE                       R15 K37 [PROTO_6]
+      150 SETTABLEKS                       R15 R14 K38 ["isAssetDataTrackable"]
+      152 DUPCLOSURE                       R15 K39 [PROTO_7]
+      153 CAPTURE                          VAL R14
+      154 SETTABLEKS                       R15 R14 K40 ["isAssetTrackable"]
+      156 DUPCLOSURE                       R15 K41 [PROTO_8]
+      157 CAPTURE                          VAL R3
+      158 CAPTURE                          VAL R12
+      159 CAPTURE                          VAL R14
+      160 CAPTURE                          VAL R9
+      161 CAPTURE                          VAL R6
+      162 SETTABLEKS                       R15 R14 K42 ["getTrackingAttributes"]
+      164 DUPCLOSURE                       R15 K43 [PROTO_9]
+      165 CAPTURE                          VAL R9
+      166 CAPTURE                          VAL R14
+      167 CAPTURE                          VAL R4
+      168 SETTABLEKS                       R15 R14 K44 ["logImpression"]
+      170 DUPCLOSURE                       R15 K45 [PROTO_10]
+      171 CAPTURE                          VAL R14
+      172 CAPTURE                          VAL R11
+      173 CAPTURE                          VAL R3
+      174 CAPTURE                          VAL R8
+      175 CAPTURE                          VAL R9
+      176 SETTABLEKS                       R15 R14 K46 ["logPreview"]
+      178 DUPCLOSURE                       R15 K47 [PROTO_12]
+      179 CAPTURE                          VAL R14
+      180 CAPTURE                          VAL R13
+      181 CAPTURE                          VAL R9
+      182 CAPTURE                          VAL R4
+      183 SETTABLEKS                       R15 R14 K48 ["logInsert"]
+      185 DUPCLOSURE                       R15 K49 [PROTO_13]
+      186 CAPTURE                          VAL R13
+      187 CAPTURE                          VAL R9
+      188 SETTABLEKS                       R15 R14 K50 ["logRemainsOrDeleted"]
+      190 DUPCLOSURE                       R15 K51 [PROTO_14]
+      191 CAPTURE                          VAL R9
+      192 CAPTURE                          VAL R0
+      193 SETTABLEKS                       R15 R14 K52 ["logNavigationButtonInteraction"]
+      195 DUPCLOSURE                       R15 K53 [PROTO_15]
+      196 SETTABLEKS                       R15 R14 K54 ["logPageView"]
+      198 DUPCLOSURE                       R15 K55 [PROTO_16]
+      199 SETTABLEKS                       R15 R14 K56 ["logGoBack"]
+      201 DUPCLOSURE                       R15 K57 [PROTO_17]
+      202 CAPTURE                          VAL R9
+      203 SETTABLEKS                       R15 R14 K58 ["onCallToActionBannerClicked"]
+      205 DUPCLOSURE                       R15 K59 [PROTO_18]
+      206 CAPTURE                          VAL R14
+      207 CAPTURE                          VAL R4
+      208 CAPTURE                          VAL R9
+      209 SETTABLEKS                       R15 R14 K60 ["logAssetMediaImpression"]
+      211 DUPCLOSURE                       R15 K61 [PROTO_19]
+      212 CAPTURE                          VAL R14
+      213 CAPTURE                          VAL R4
+      214 CAPTURE                          VAL R9
+      215 SETTABLEKS                       R15 R14 K62 ["onAssetDescriptionLinkClicked"]
+      217 RETURN                           R14 1

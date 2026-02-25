@@ -1,62 +1,62 @@
 PROTO_0:
-  GETTABLEKS R4 R0 K0 ["Localization"]
-  GETUPVAL R5 0
-  MOVE R6 R0
-  NEWTABLE R7 0 1
-  DUPTABLE R8 K4 [{"Id", "Layout", "Schema"}]
-  GETUPVAL R10 1
-  GETTABLEKS R9 R10 K5 ["Clear"]
-  SETTABLEKS R9 R8 K1 ["Id"]
-  GETIMPORT R9 K9 [Enum.FillDirection.Vertical]
-  SETTABLEKS R9 R8 K2 ["Layout"]
-  DUPTABLE R9 K12 [{"Label", "Type"}]
-  GETUPVAL R13 2
-  GETTABLEKS R12 R13 K13 ["ClearSettings"]
-  LOADK R13 K14 ["ClearButtonLabel"]
-  NAMECALL R10 R4 K15 ["getText"]
-  CALL R10 3 1
-  SETTABLEKS R10 R9 K10 ["Label"]
-  LOADK R10 K16 ["Button"]
-  SETTABLEKS R10 R9 K11 ["Type"]
-  SETTABLEKS R9 R8 K3 ["Schema"]
-  SETLIST R7 R8 1 [1]
-  DUPTABLE R8 K20 [{"Category", "Data", "Overrides"}]
-  GETUPVAL R9 3
-  SETTABLEKS R9 R8 K17 ["Category"]
-  SETTABLEKS R1 R8 K18 ["Data"]
-  SETTABLEKS R3 R8 K19 ["Overrides"]
-  CALL R5 3 -1
-  RETURN R5 -1
+        0 GETTABLEKS                       R4 R0 K0 ["Localization"]
+        2 GETUPVAL                         R5 0
+        3 MOVE                             R6 R0
+        4 NEWTABLE                         R7 0 1
+        6 DUPTABLE                         R8 K4 [{"Id", "Layout", "Schema"}]
+        7 GETUPVAL                         R10 1
+        8 GETTABLEKS                       R9 R10 K5 ["Clear"]
+       10 SETTABLEKS                       R9 R8 K1 ["Id"]
+       12 GETIMPORT                        R9 K9 [Enum.FillDirection.Vertical]
+       14 SETTABLEKS                       R9 R8 K2 ["Layout"]
+       16 DUPTABLE                         R9 K12 [{"Label", "Type"}]
+       17 GETUPVAL                         R13 2
+       18 GETTABLEKS                       R12 R13 K13 ["ClearSettings"]
+       20 LOADK                            R13 K14 ["ClearButtonLabel"]
+       21 NAMECALL                         R10 R4 K15 ["getText"]
+       23 CALL                             R10 3 1
+       24 SETTABLEKS                       R10 R9 K10 ["Label"]
+       26 LOADK                            R10 K16 ["Button"]
+       27 SETTABLEKS                       R10 R9 K11 ["Type"]
+       29 SETTABLEKS                       R9 R8 K3 ["Schema"]
+       31 SETLIST                          R7 R8 1 [1]
+       33 DUPTABLE                         R8 K20 [{"Category", "Data", "Overrides"}]
+       34 GETUPVAL                         R9 3
+       35 SETTABLEKS                       R9 R8 K17 ["Category"]
+       37 SETTABLEKS                       R1 R8 K18 ["Data"]
+       39 SETTABLEKS                       R3 R8 K19 ["Overrides"]
+       41 CALL                             R5 3 -1
+       42 RETURN                           R5 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["TerrainEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["ApplyById"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Src"]
-  GETTABLEKS R3 R4 K9 ["Types"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K10 ["Category"]
-  GETTABLEKS R4 R2 K11 ["ClearSettings"]
-  GETTABLEKS R5 R2 K12 ["Storage"]
-  GETTABLEKS R6 R3 K11 ["ClearSettings"]
-  NEWTABLE R7 2 0
-  NEWTABLE R8 1 0
-  GETTABLEKS R9 R4 K13 ["Clear"]
-  GETTABLEKS R10 R5 K14 ["LocalSession"]
-  SETTABLE R10 R8 R9
-  SETTABLEKS R8 R7 K12 ["Storage"]
-  DUPCLOSURE R8 K15 [PROTO_0]
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  CAPTURE VAL R3
-  CAPTURE VAL R6
-  SETTABLEKS R8 R7 K16 ["Generator"]
-  RETURN R7 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["TerrainEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R4 R0 K6 ["Src"]
+       11 GETTABLEKS                       R3 R4 K7 ["Util"]
+       13 GETTABLEKS                       R2 R3 K8 ["ApplyById"]
+       15 CALL                             R1 1 1
+       16 GETIMPORT                        R2 K5 [require]
+       18 GETTABLEKS                       R4 R0 K6 ["Src"]
+       20 GETTABLEKS                       R3 R4 K9 ["Types"]
+       22 CALL                             R2 1 1
+       23 GETTABLEKS                       R3 R2 K10 ["Category"]
+       25 GETTABLEKS                       R4 R2 K11 ["ClearSettings"]
+       27 GETTABLEKS                       R5 R2 K12 ["Storage"]
+       29 GETTABLEKS                       R6 R3 K11 ["ClearSettings"]
+       31 NEWTABLE                         R7 2 0
+       33 NEWTABLE                         R8 1 0
+       35 GETTABLEKS                       R9 R4 K13 ["Clear"]
+       37 GETTABLEKS                       R10 R5 K14 ["LocalSession"]
+       39 SETTABLE                         R10 R8 R9
+       40 SETTABLEKS                       R8 R7 K12 ["Storage"]
+       42 DUPCLOSURE                       R8 K15 [PROTO_0]
+       43 CAPTURE                          VAL R1
+       44 CAPTURE                          VAL R4
+       45 CAPTURE                          VAL R3
+       46 CAPTURE                          VAL R6
+       47 SETTABLEKS                       R8 R7 K16 ["Generator"]
+       49 RETURN                           R7 1

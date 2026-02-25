@@ -1,23 +1,23 @@
 PROTO_0:
-  NEWTABLE R0 0 0
-  RETURN R0 1
+        0 NEWTABLE                         R0 0 0
+        2 RETURN                           R0 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R2 R0 K3 ["Packages"]
-  GETTABLEKS R1 R2 K4 ["Framework"]
-  GETIMPORT R4 K6 [require]
-  MOVE R5 R1
-  CALL R4 1 1
-  GETTABLEKS R3 R4 K7 ["Util"]
-  GETTABLEKS R2 R3 K8 ["Action"]
-  MOVE R3 R2
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K9 ["Name"]
-  DUPCLOSURE R5 K10 [PROTO_0]
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETTABLEKS                       R2 R0 K3 ["Packages"]
+       11 GETTABLEKS                       R1 R2 K4 ["Framework"]
+       13 GETIMPORT                        R4 K6 [require]
+       15 MOVE                             R5 R1
+       16 CALL                             R4 1 1
+       17 GETTABLEKS                       R3 R4 K7 ["Util"]
+       19 GETTABLEKS                       R2 R3 K8 ["Action"]
+       21 MOVE                             R3 R2
+       22 GETIMPORT                        R5 K1 [script]
+       24 GETTABLEKS                       R4 R5 K9 ["Name"]
+       26 DUPCLOSURE                       R5 K10 [PROTO_0]
+       27 CALL                             R3 2 -1
+       28 RETURN                           R3 -1

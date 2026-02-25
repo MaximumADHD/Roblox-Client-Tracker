@@ -1,285 +1,285 @@
 PROTO_0:
-  GETTABLEKS R1 R0 K0 ["CanManage"]
-  JUMPIF R1 [+3]
-  NEWTABLE R1 0 0
-  RETURN R1 1
-  NEWTABLE R1 0 1
-  DUPTABLE R2 K4 [{"Key", "Display", "Description"}]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K5 ["EditKey"]
-  SETTABLEKS R3 R2 K1 ["Key"]
-  GETTABLEKS R3 R0 K6 ["Localization"]
-  LOADK R5 K7 ["AssetConfigPackagePermissions"]
-  LOADK R6 K8 ["EditLabel"]
-  NAMECALL R3 R3 K9 ["getText"]
-  CALL R3 3 1
-  SETTABLEKS R3 R2 K2 ["Display"]
-  GETTABLEKS R3 R0 K6 ["Localization"]
-  LOADK R5 K7 ["AssetConfigPackagePermissions"]
-  LOADK R6 K10 ["EditDescription"]
-  NAMECALL R3 R3 K9 ["getText"]
-  CALL R3 3 1
-  SETTABLEKS R3 R2 K3 ["Description"]
-  SETLIST R1 R2 1 [1]
-  RETURN R1 1
+        0 GETTABLEKS                       R1 R0 K0 ["CanManage"]
+        2 JUMPIF                           R1 ; [+3]
+        3 NEWTABLE                         R1 0 0
+        5 RETURN                           R1 1
+        6 NEWTABLE                         R1 0 1
+        8 DUPTABLE                         R2 K4 [{"Key", "Display", "Description"}]
+        9 GETUPVAL                         R4 0
+       10 GETTABLEKS                       R3 R4 K5 ["EditKey"]
+       12 SETTABLEKS                       R3 R2 K1 ["Key"]
+       14 GETTABLEKS                       R3 R0 K6 ["Localization"]
+       16 LOADK                            R5 K7 ["AssetConfigPackagePermissions"]
+       17 LOADK                            R6 K8 ["EditLabel"]
+       18 NAMECALL                         R3 R3 K9 ["getText"]
+       20 CALL                             R3 3 1
+       21 SETTABLEKS                       R3 R2 K2 ["Display"]
+       23 GETTABLEKS                       R3 R0 K6 ["Localization"]
+       25 LOADK                            R5 K7 ["AssetConfigPackagePermissions"]
+       26 LOADK                            R6 K10 ["EditDescription"]
+       27 NAMECALL                         R3 R3 K9 ["getText"]
+       29 CALL                             R3 3 1
+       30 SETTABLEKS                       R3 R2 K3 ["Description"]
+       32 SETLIST                          R1 R2 1 [1]
+       34 RETURN                           R1 1
 
 PROTO_1:
-  NEWTABLE R0 0 0
-  RETURN R0 1
+        0 NEWTABLE                         R0 0 0
+        2 RETURN                           R0 1
 
 PROTO_2:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["props"]
-  GETUPVAL R3 1
-  GETTABLEKS R4 R2 K1 ["Permissions"]
-  NEWTABLE R5 1 0
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K2 ["RoleSubjectKey"]
-  NEWTABLE R7 1 0
-  NEWTABLE R8 1 0
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K3 ["ActionKey"]
-  SETTABLE R1 R8 R9
-  SETTABLE R8 R7 R0
-  SETTABLE R7 R5 R6
-  CALL R3 2 1
-  GETTABLEKS R4 R2 K4 ["PermissionsChanged"]
-  MOVE R5 R3
-  CALL R4 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["props"]
+        3 GETUPVAL                         R3 1
+        4 GETTABLEKS                       R4 R2 K1 ["Permissions"]
+        6 NEWTABLE                         R5 1 0
+        8 GETUPVAL                         R7 2
+        9 GETTABLEKS                       R6 R7 K2 ["RoleSubjectKey"]
+       11 NEWTABLE                         R7 1 0
+       13 NEWTABLE                         R8 1 0
+       15 GETUPVAL                         R10 2
+       16 GETTABLEKS                       R9 R10 K3 ["ActionKey"]
+       18 SETTABLE                         R1 R8 R9
+       19 SETTABLE                         R8 R7 R0
+       20 SETTABLE                         R7 R5 R6
+       21 CALL                             R3 2 1
+       22 GETTABLEKS                       R4 R2 K4 ["PermissionsChanged"]
+       24 MOVE                             R5 R3
+       25 CALL                             R4 1 0
+       26 RETURN                           R0 0
 
 PROTO_3:
-  GETIMPORT R3 K1 [require]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K2 ["Src"]
-  GETTABLEKS R5 R6 K3 ["Flags"]
-  GETTABLEKS R4 R5 K4 ["getFFlagAACPermissionsPage"]
-  CALL R3 1 1
-  CALL R3 0 1
-  NOT R2 R3
-  FASTCALL2K ASSERT R2 K5 [+4]
-  LOADK R3 K5 ["This component is deprecated by FFlagAACPermissionsPage"]
-  GETIMPORT R1 K7 [assert]
-  CALL R1 2 0
-  NEWCLOSURE R1 P0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  SETTABLEKS R1 R0 K8 ["rolePermissionChanged"]
-  RETURN R0 0
+        0 GETIMPORT                        R3 K1 [require]
+        2 GETUPVAL                         R7 0
+        3 GETTABLEKS                       R6 R7 K2 ["Src"]
+        5 GETTABLEKS                       R5 R6 K3 ["Flags"]
+        7 GETTABLEKS                       R4 R5 K4 ["getFFlagAACPermissionsPage"]
+        9 CALL                             R3 1 1
+       10 CALL                             R3 0 1
+       11 NOT                              R2 R3
+       12 FASTCALL2K                       ASSERT R2 K5 ; [+4]
+       14 LOADK                            R3 K5 ["This component is deprecated by FFlagAACPermissionsPage"]
+       15 GETIMPORT                        R1 K7 [assert]
+       17 CALL                             R1 2 0
+       18 NEWCLOSURE                       R1 P0
+       19 CAPTURE                          VAL R0
+       20 CAPTURE                          UPVAL U1
+       21 CAPTURE                          UPVAL U2
+       22 SETTABLEKS                       R1 R0 K8 ["rolePermissionChanged"]
+       24 RETURN                           R0 0
 
 PROTO_4:
-  GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R1 K1 ["Stylizer"]
-  LOADNIL R3
-  GETTABLEKS R4 R1 K2 ["OwnerType"]
-  GETIMPORT R5 K6 [Enum.CreatorType.User]
-  JUMPIFNOTEQ R4 R5 [+68]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K7 ["createElement"]
-  GETUPVAL R5 1
-  DUPTABLE R6 K19 [{"LayoutOrder", "Removable", "SubjectType", "CollaboratorName", "CollaboratorId", "CollaboratorIcon", "UseMask", "Action", "Enabled", "Items", "RolePermissionChanged"}]
-  LOADN R7 1
-  SETTABLEKS R7 R6 K8 ["LayoutOrder"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K9 ["Removable"]
-  GETIMPORT R7 K6 [Enum.CreatorType.User]
-  SETTABLEKS R7 R6 K10 ["SubjectType"]
-  GETTABLEKS R7 R1 K20 ["OwnerName"]
-  SETTABLEKS R7 R6 K11 ["CollaboratorName"]
-  GETTABLEKS R7 R1 K21 ["OwnerId"]
-  SETTABLEKS R7 R6 K12 ["CollaboratorId"]
-  GETUPVAL R8 2
-  GETTABLEKS R7 R8 K22 ["constructRBXThumbUrl"]
-  GETUPVAL R10 3
-  GETTABLEKS R9 R10 K24 ["rbxThumbTypes"]
-  GETTABLEKS R8 R9 K23 ["AvatarHeadShot"]
-  GETTABLEKS R9 R1 K21 ["OwnerId"]
-  GETUPVAL R12 3
-  GETTABLEKS R11 R12 K25 ["rbxThumbSizes"]
-  GETTABLEKS R10 R11 K26 ["AvatarHeadshotImageSize"]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K13 ["CollaboratorIcon"]
-  LOADB R7 1
-  SETTABLEKS R7 R6 K14 ["UseMask"]
-  GETTABLEKS R7 R1 K27 ["Localization"]
-  LOADK R9 K28 ["AssetConfigPackagePermissions"]
-  LOADK R10 K29 ["OwnerLabel"]
-  NAMECALL R7 R7 K30 ["getText"]
-  CALL R7 3 1
-  SETTABLEKS R7 R6 K15 ["Action"]
-  GETTABLEKS R7 R1 K16 ["Enabled"]
-  SETTABLEKS R7 R6 K16 ["Enabled"]
-  NEWTABLE R7 0 0
-  SETTABLEKS R7 R6 K17 ["Items"]
-  LOADNIL R7
-  SETTABLEKS R7 R6 K18 ["RolePermissionChanged"]
-  CALL R4 2 1
-  MOVE R3 R4
-  JUMP [+34]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K7 ["createElement"]
-  GETUPVAL R5 4
-  DUPTABLE R6 K33 [{"LayoutOrder", "Removable", "GroupData", "Enabled", "Items", "RolePermissionChanged", "Permissions"}]
-  LOADN R7 1
-  SETTABLEKS R7 R6 K8 ["LayoutOrder"]
-  LOADB R7 0
-  SETTABLEKS R7 R6 K9 ["Removable"]
-  GETTABLEKS R7 R1 K34 ["GroupMetadata"]
-  SETTABLEKS R7 R6 K31 ["GroupData"]
-  GETTABLEKS R7 R1 K16 ["Enabled"]
-  SETTABLEKS R7 R6 K16 ["Enabled"]
-  GETUPVAL R7 5
-  MOVE R8 R1
-  CALL R7 1 1
-  SETTABLEKS R7 R6 K17 ["Items"]
-  GETTABLEKS R7 R0 K35 ["rolePermissionChanged"]
-  SETTABLEKS R7 R6 K18 ["RolePermissionChanged"]
-  GETTABLEKS R7 R1 K32 ["Permissions"]
-  SETTABLEKS R7 R6 K32 ["Permissions"]
-  CALL R4 2 1
-  MOVE R3 R4
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K7 ["createElement"]
-  LOADK R5 K36 ["Frame"]
-  DUPTABLE R6 K40 [{"AutomaticSize", "BackgroundTransparency", "LayoutOrder", "Size"}]
-  GETIMPORT R7 K42 [Enum.AutomaticSize.XY]
-  SETTABLEKS R7 R6 K37 ["AutomaticSize"]
-  LOADN R7 1
-  SETTABLEKS R7 R6 K38 ["BackgroundTransparency"]
-  GETTABLEKS R8 R1 K8 ["LayoutOrder"]
-  ORK R7 R8 K43 [0]
-  SETTABLEKS R7 R6 K8 ["LayoutOrder"]
-  GETIMPORT R7 K46 [UDim2.new]
-  LOADN R8 1
-  LOADN R9 0
-  LOADN R10 0
-  LOADN R11 0
-  CALL R7 4 1
-  SETTABLEKS R7 R6 K39 ["Size"]
-  DUPTABLE R7 K50 [{"UIListLayout", "Title", "Owner"}]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K7 ["createElement"]
-  LOADK R9 K47 ["UIListLayout"]
-  DUPTABLE R10 K52 [{"SortOrder"}]
-  GETIMPORT R11 K53 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R11 R10 K51 ["SortOrder"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K47 ["UIListLayout"]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K7 ["createElement"]
-  LOADK R9 K54 ["TextLabel"]
-  DUPTABLE R10 K60 [{"Font", "TextSize", "TextColor3", "LayoutOrder", "Text", "TextXAlignment", "BackgroundTransparency", "Size"}]
-  GETUPVAL R12 6
-  GETTABLEKS R11 R12 K61 ["FONT"]
-  SETTABLEKS R11 R10 K55 ["Font"]
-  GETUPVAL R12 6
-  GETTABLEKS R11 R12 K62 ["FONT_SIZE_TITLE"]
-  SETTABLEKS R11 R10 K56 ["TextSize"]
-  GETTABLEKS R13 R2 K63 ["assetConfig"]
-  GETTABLEKS R12 R13 K64 ["packagePermissions"]
-  GETTABLEKS R11 R12 K65 ["subTextColor"]
-  SETTABLEKS R11 R10 K57 ["TextColor3"]
-  LOADN R11 0
-  SETTABLEKS R11 R10 K8 ["LayoutOrder"]
-  GETTABLEKS R11 R1 K27 ["Localization"]
-  LOADK R13 K28 ["AssetConfigPackagePermissions"]
-  LOADK R14 K66 ["PackageCreator"]
-  NAMECALL R11 R11 K30 ["getText"]
-  CALL R11 3 1
-  SETTABLEKS R11 R10 K58 ["Text"]
-  GETIMPORT R11 K68 [Enum.TextXAlignment.Left]
-  SETTABLEKS R11 R10 K59 ["TextXAlignment"]
-  LOADN R11 1
-  SETTABLEKS R11 R10 K38 ["BackgroundTransparency"]
-  GETIMPORT R11 K46 [UDim2.new]
-  LOADN R12 1
-  LOADN R13 50
-  LOADN R14 0
-  LOADN R15 50
-  CALL R11 4 1
-  SETTABLEKS R11 R10 K39 ["Size"]
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K48 ["Title"]
-  SETTABLEKS R3 R7 K49 ["Owner"]
-  CALL R4 3 -1
-  RETURN R4 -1
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R1 K1 ["Stylizer"]
+        4 LOADNIL                          R3
+        5 GETTABLEKS                       R4 R1 K2 ["OwnerType"]
+        7 GETIMPORT                        R5 K6 [Enum.CreatorType.User]
+        9 JUMPIFNOTEQ                      R4 R5 ; [+68]
+       11 GETUPVAL                         R5 0
+       12 GETTABLEKS                       R4 R5 K7 ["createElement"]
+       14 GETUPVAL                         R5 1
+       15 DUPTABLE                         R6 K19 [{"LayoutOrder", "Removable", "SubjectType", "CollaboratorName", "CollaboratorId", "CollaboratorIcon", "UseMask", "Action", "Enabled", "Items", "RolePermissionChanged"}]
+       16 LOADN                            R7 1
+       17 SETTABLEKS                       R7 R6 K8 ["LayoutOrder"]
+       19 LOADB                            R7 0
+       20 SETTABLEKS                       R7 R6 K9 ["Removable"]
+       22 GETIMPORT                        R7 K6 [Enum.CreatorType.User]
+       24 SETTABLEKS                       R7 R6 K10 ["SubjectType"]
+       26 GETTABLEKS                       R7 R1 K20 ["OwnerName"]
+       28 SETTABLEKS                       R7 R6 K11 ["CollaboratorName"]
+       30 GETTABLEKS                       R7 R1 K21 ["OwnerId"]
+       32 SETTABLEKS                       R7 R6 K12 ["CollaboratorId"]
+       34 GETUPVAL                         R8 2
+       35 GETTABLEKS                       R7 R8 K22 ["constructRBXThumbUrl"]
+       37 GETUPVAL                         R10 3
+       38 GETTABLEKS                       R9 R10 K24 ["rbxThumbTypes"]
+       40 GETTABLEKS                       R8 R9 K23 ["AvatarHeadShot"]
+       42 GETTABLEKS                       R9 R1 K21 ["OwnerId"]
+       44 GETUPVAL                         R12 3
+       45 GETTABLEKS                       R11 R12 K25 ["rbxThumbSizes"]
+       47 GETTABLEKS                       R10 R11 K26 ["AvatarHeadshotImageSize"]
+       49 CALL                             R7 3 1
+       50 SETTABLEKS                       R7 R6 K13 ["CollaboratorIcon"]
+       52 LOADB                            R7 1
+       53 SETTABLEKS                       R7 R6 K14 ["UseMask"]
+       55 GETTABLEKS                       R7 R1 K27 ["Localization"]
+       57 LOADK                            R9 K28 ["AssetConfigPackagePermissions"]
+       58 LOADK                            R10 K29 ["OwnerLabel"]
+       59 NAMECALL                         R7 R7 K30 ["getText"]
+       61 CALL                             R7 3 1
+       62 SETTABLEKS                       R7 R6 K15 ["Action"]
+       64 GETTABLEKS                       R7 R1 K16 ["Enabled"]
+       66 SETTABLEKS                       R7 R6 K16 ["Enabled"]
+       68 NEWTABLE                         R7 0 0
+       70 SETTABLEKS                       R7 R6 K17 ["Items"]
+       72 LOADNIL                          R7
+       73 SETTABLEKS                       R7 R6 K18 ["RolePermissionChanged"]
+       75 CALL                             R4 2 1
+       76 MOVE                             R3 R4
+       77 JUMP                             ; [+34]
+       78 GETUPVAL                         R5 0
+       79 GETTABLEKS                       R4 R5 K7 ["createElement"]
+       81 GETUPVAL                         R5 4
+       82 DUPTABLE                         R6 K33 [{"LayoutOrder", "Removable", "GroupData", "Enabled", "Items", "RolePermissionChanged", "Permissions"}]
+       83 LOADN                            R7 1
+       84 SETTABLEKS                       R7 R6 K8 ["LayoutOrder"]
+       86 LOADB                            R7 0
+       87 SETTABLEKS                       R7 R6 K9 ["Removable"]
+       89 GETTABLEKS                       R7 R1 K34 ["GroupMetadata"]
+       91 SETTABLEKS                       R7 R6 K31 ["GroupData"]
+       93 GETTABLEKS                       R7 R1 K16 ["Enabled"]
+       95 SETTABLEKS                       R7 R6 K16 ["Enabled"]
+       97 GETUPVAL                         R7 5
+       98 MOVE                             R8 R1
+       99 CALL                             R7 1 1
+      100 SETTABLEKS                       R7 R6 K17 ["Items"]
+      102 GETTABLEKS                       R7 R0 K35 ["rolePermissionChanged"]
+      104 SETTABLEKS                       R7 R6 K18 ["RolePermissionChanged"]
+      106 GETTABLEKS                       R7 R1 K32 ["Permissions"]
+      108 SETTABLEKS                       R7 R6 K32 ["Permissions"]
+      110 CALL                             R4 2 1
+      111 MOVE                             R3 R4
+      112 GETUPVAL                         R5 0
+      113 GETTABLEKS                       R4 R5 K7 ["createElement"]
+      115 LOADK                            R5 K36 ["Frame"]
+      116 DUPTABLE                         R6 K40 [{"AutomaticSize", "BackgroundTransparency", "LayoutOrder", "Size"}]
+      117 GETIMPORT                        R7 K42 [Enum.AutomaticSize.XY]
+      119 SETTABLEKS                       R7 R6 K37 ["AutomaticSize"]
+      121 LOADN                            R7 1
+      122 SETTABLEKS                       R7 R6 K38 ["BackgroundTransparency"]
+      124 GETTABLEKS                       R8 R1 K8 ["LayoutOrder"]
+      126 ORK                              R7 R8 K43 [0]
+      127 SETTABLEKS                       R7 R6 K8 ["LayoutOrder"]
+      129 GETIMPORT                        R7 K46 [UDim2.new]
+      131 LOADN                            R8 1
+      132 LOADN                            R9 0
+      133 LOADN                            R10 0
+      134 LOADN                            R11 0
+      135 CALL                             R7 4 1
+      136 SETTABLEKS                       R7 R6 K39 ["Size"]
+      138 DUPTABLE                         R7 K50 [{"UIListLayout", "Title", "Owner"}]
+      139 GETUPVAL                         R9 0
+      140 GETTABLEKS                       R8 R9 K7 ["createElement"]
+      142 LOADK                            R9 K47 ["UIListLayout"]
+      143 DUPTABLE                         R10 K52 [{"SortOrder"}]
+      144 GETIMPORT                        R11 K53 [Enum.SortOrder.LayoutOrder]
+      146 SETTABLEKS                       R11 R10 K51 ["SortOrder"]
+      148 CALL                             R8 2 1
+      149 SETTABLEKS                       R8 R7 K47 ["UIListLayout"]
+      151 GETUPVAL                         R9 0
+      152 GETTABLEKS                       R8 R9 K7 ["createElement"]
+      154 LOADK                            R9 K54 ["TextLabel"]
+      155 DUPTABLE                         R10 K60 [{"Font", "TextSize", "TextColor3", "LayoutOrder", "Text", "TextXAlignment", "BackgroundTransparency", "Size"}]
+      156 GETUPVAL                         R12 6
+      157 GETTABLEKS                       R11 R12 K61 ["FONT"]
+      159 SETTABLEKS                       R11 R10 K55 ["Font"]
+      161 GETUPVAL                         R12 6
+      162 GETTABLEKS                       R11 R12 K62 ["FONT_SIZE_TITLE"]
+      164 SETTABLEKS                       R11 R10 K56 ["TextSize"]
+      166 GETTABLEKS                       R13 R2 K63 ["assetConfig"]
+      168 GETTABLEKS                       R12 R13 K64 ["packagePermissions"]
+      170 GETTABLEKS                       R11 R12 K65 ["subTextColor"]
+      172 SETTABLEKS                       R11 R10 K57 ["TextColor3"]
+      174 LOADN                            R11 0
+      175 SETTABLEKS                       R11 R10 K8 ["LayoutOrder"]
+      177 GETTABLEKS                       R11 R1 K27 ["Localization"]
+      179 LOADK                            R13 K28 ["AssetConfigPackagePermissions"]
+      180 LOADK                            R14 K66 ["PackageCreator"]
+      181 NAMECALL                         R11 R11 K30 ["getText"]
+      183 CALL                             R11 3 1
+      184 SETTABLEKS                       R11 R10 K58 ["Text"]
+      186 GETIMPORT                        R11 K68 [Enum.TextXAlignment.Left]
+      188 SETTABLEKS                       R11 R10 K59 ["TextXAlignment"]
+      190 LOADN                            R11 1
+      191 SETTABLEKS                       R11 R10 K38 ["BackgroundTransparency"]
+      193 GETIMPORT                        R11 K46 [UDim2.new]
+      195 LOADN                            R12 1
+      196 LOADN                            R13 50
+      197 LOADN                            R14 0
+      198 LOADN                            R15 50
+      199 CALL                             R11 4 1
+      200 SETTABLEKS                       R11 R10 K39 ["Size"]
+      202 CALL                             R8 2 1
+      203 SETTABLEKS                       R8 R7 K48 ["Title"]
+      205 SETTABLEKS                       R3 R7 K49 ["Owner"]
+      207 CALL                             R4 3 -1
+      208 RETURN                           R4 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R5 K1 [script]
-  GETTABLEKS R4 R5 K2 ["Parent"]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETTABLEKS R1 R0 K3 ["Packages"]
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R3 R1 K6 ["Roact"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R4 R1 K7 ["Framework"]
-  CALL R3 1 1
-  GETTABLEKS R5 R0 K8 ["Src"]
-  GETTABLEKS R4 R5 K9 ["Util"]
-  GETIMPORT R5 K5 [require]
-  GETTABLEKS R6 R4 K10 ["Urls"]
-  CALL R5 1 1
-  GETIMPORT R6 K5 [require]
-  GETTABLEKS R7 R4 K11 ["Constants"]
-  CALL R6 1 1
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R8 R4 K12 ["AssetConfigConstants"]
-  CALL R7 1 1
-  GETTABLEKS R8 R3 K13 ["ContextServices"]
-  GETTABLEKS R9 R8 K14 ["withContext"]
-  GETTABLEKS R13 R0 K8 ["Src"]
-  GETTABLEKS R12 R13 K15 ["Components"]
-  GETTABLEKS R11 R12 K16 ["AssetConfiguration"]
-  GETTABLEKS R10 R11 K17 ["Permissions"]
-  GETIMPORT R11 K5 [require]
-  GETTABLEKS R12 R10 K18 ["PermissionsConstants"]
-  CALL R11 1 1
-  GETIMPORT R12 K5 [require]
-  GETTABLEKS R13 R10 K19 ["DEPRECATED_CollaboratorItem"]
-  CALL R12 1 1
-  GETIMPORT R13 K5 [require]
-  GETTABLEKS R14 R10 K20 ["DEPRECATED_GroupCollaboratorItem"]
-  CALL R13 1 1
-  GETIMPORT R15 K5 [require]
-  GETTABLEKS R16 R1 K7 ["Framework"]
-  CALL R15 1 1
-  GETTABLEKS R14 R15 K9 ["Util"]
-  GETTABLEKS R15 R14 K21 ["deepJoin"]
-  DUPCLOSURE R16 K22 [PROTO_0]
-  CAPTURE VAL R11
-  DUPCLOSURE R17 K23 [PROTO_1]
-  GETTABLEKS R18 R2 K24 ["PureComponent"]
-  LOADK R20 K25 ["PackageOwnerWidget"]
-  NAMECALL R18 R18 K26 ["extend"]
-  CALL R18 2 1
-  DUPCLOSURE R19 K27 [PROTO_3]
-  CAPTURE VAL R0
-  CAPTURE VAL R15
-  CAPTURE VAL R11
-  SETTABLEKS R19 R18 K28 ["init"]
-  DUPCLOSURE R19 K29 [PROTO_4]
-  CAPTURE VAL R2
-  CAPTURE VAL R12
-  CAPTURE VAL R5
-  CAPTURE VAL R7
-  CAPTURE VAL R13
-  CAPTURE VAL R16
-  CAPTURE VAL R6
-  SETTABLEKS R19 R18 K30 ["render"]
-  MOVE R19 R9
-  DUPTABLE R20 K33 [{"Stylizer", "Localization"}]
-  GETTABLEKS R21 R8 K31 ["Stylizer"]
-  SETTABLEKS R21 R20 K31 ["Stylizer"]
-  GETTABLEKS R21 R8 K32 ["Localization"]
-  SETTABLEKS R21 R20 K32 ["Localization"]
-  CALL R19 1 1
-  MOVE R20 R18
-  CALL R19 1 1
-  MOVE R18 R19
-  RETURN R18 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R5 K1 [script]
+        3 GETTABLEKS                       R4 R5 K2 ["Parent"]
+        5 GETTABLEKS                       R3 R4 K2 ["Parent"]
+        7 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        9 GETTABLEKS                       R1 R2 K2 ["Parent"]
+       11 GETTABLEKS                       R0 R1 K2 ["Parent"]
+       13 GETTABLEKS                       R1 R0 K3 ["Packages"]
+       15 GETIMPORT                        R2 K5 [require]
+       17 GETTABLEKS                       R3 R1 K6 ["Roact"]
+       19 CALL                             R2 1 1
+       20 GETIMPORT                        R3 K5 [require]
+       22 GETTABLEKS                       R4 R1 K7 ["Framework"]
+       24 CALL                             R3 1 1
+       25 GETTABLEKS                       R5 R0 K8 ["Src"]
+       27 GETTABLEKS                       R4 R5 K9 ["Util"]
+       29 GETIMPORT                        R5 K5 [require]
+       31 GETTABLEKS                       R6 R4 K10 ["Urls"]
+       33 CALL                             R5 1 1
+       34 GETIMPORT                        R6 K5 [require]
+       36 GETTABLEKS                       R7 R4 K11 ["Constants"]
+       38 CALL                             R6 1 1
+       39 GETIMPORT                        R7 K5 [require]
+       41 GETTABLEKS                       R8 R4 K12 ["AssetConfigConstants"]
+       43 CALL                             R7 1 1
+       44 GETTABLEKS                       R8 R3 K13 ["ContextServices"]
+       46 GETTABLEKS                       R9 R8 K14 ["withContext"]
+       48 GETTABLEKS                       R13 R0 K8 ["Src"]
+       50 GETTABLEKS                       R12 R13 K15 ["Components"]
+       52 GETTABLEKS                       R11 R12 K16 ["AssetConfiguration"]
+       54 GETTABLEKS                       R10 R11 K17 ["Permissions"]
+       56 GETIMPORT                        R11 K5 [require]
+       58 GETTABLEKS                       R12 R10 K18 ["PermissionsConstants"]
+       60 CALL                             R11 1 1
+       61 GETIMPORT                        R12 K5 [require]
+       63 GETTABLEKS                       R13 R10 K19 ["DEPRECATED_CollaboratorItem"]
+       65 CALL                             R12 1 1
+       66 GETIMPORT                        R13 K5 [require]
+       68 GETTABLEKS                       R14 R10 K20 ["DEPRECATED_GroupCollaboratorItem"]
+       70 CALL                             R13 1 1
+       71 GETIMPORT                        R15 K5 [require]
+       73 GETTABLEKS                       R16 R1 K7 ["Framework"]
+       75 CALL                             R15 1 1
+       76 GETTABLEKS                       R14 R15 K9 ["Util"]
+       78 GETTABLEKS                       R15 R14 K21 ["deepJoin"]
+       80 DUPCLOSURE                       R16 K22 [PROTO_0]
+       81 CAPTURE                          VAL R11
+       82 DUPCLOSURE                       R17 K23 [PROTO_1]
+       83 GETTABLEKS                       R18 R2 K24 ["PureComponent"]
+       85 LOADK                            R20 K25 ["PackageOwnerWidget"]
+       86 NAMECALL                         R18 R18 K26 ["extend"]
+       88 CALL                             R18 2 1
+       89 DUPCLOSURE                       R19 K27 [PROTO_3]
+       90 CAPTURE                          VAL R0
+       91 CAPTURE                          VAL R15
+       92 CAPTURE                          VAL R11
+       93 SETTABLEKS                       R19 R18 K28 ["init"]
+       95 DUPCLOSURE                       R19 K29 [PROTO_4]
+       96 CAPTURE                          VAL R2
+       97 CAPTURE                          VAL R12
+       98 CAPTURE                          VAL R5
+       99 CAPTURE                          VAL R7
+      100 CAPTURE                          VAL R13
+      101 CAPTURE                          VAL R16
+      102 CAPTURE                          VAL R6
+      103 SETTABLEKS                       R19 R18 K30 ["render"]
+      105 MOVE                             R19 R9
+      106 DUPTABLE                         R20 K33 [{"Stylizer", "Localization"}]
+      107 GETTABLEKS                       R21 R8 K31 ["Stylizer"]
+      109 SETTABLEKS                       R21 R20 K31 ["Stylizer"]
+      111 GETTABLEKS                       R21 R8 K32 ["Localization"]
+      113 SETTABLEKS                       R21 R20 K32 ["Localization"]
+      115 CALL                             R19 1 1
+      116 MOVE                             R20 R18
+      117 CALL                             R19 1 1
+      118 MOVE                             R18 R19
+      119 RETURN                           R18 1

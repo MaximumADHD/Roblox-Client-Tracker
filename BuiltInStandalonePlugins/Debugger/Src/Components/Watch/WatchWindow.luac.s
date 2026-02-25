@@ -1,93 +1,93 @@
 PROTO_0:
-  GETTABLEKS R1 R0 K0 ["props"]
-  GETTABLEKS R2 R1 K1 ["Localization"]
-  GETTABLEKS R3 R1 K2 ["Enabled"]
-  GETTABLEKS R4 R1 K3 ["OnClose"]
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K4 ["createElement"]
-  GETUPVAL R6 1
-  NEWTABLE R7 16 0
-  LOADK R8 K5 ["Watch"]
-  SETTABLEKS R8 R7 K6 ["Id"]
-  LOADK R10 K5 ["Watch"]
-  LOADK R11 K7 ["WindowName"]
-  NAMECALL R8 R2 K8 ["getText"]
-  CALL R8 3 1
-  SETTABLEKS R8 R7 K9 ["Title"]
-  GETIMPORT R8 K13 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R8 R7 K11 ["ZIndexBehavior"]
-  GETIMPORT R8 K16 [Enum.InitialDockState.Bottom]
-  SETTABLEKS R8 R7 K14 ["InitialDockState"]
-  GETIMPORT R8 K19 [Vector2.new]
-  LOADN R9 128
-  LOADN R10 224
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K20 ["Size"]
-  GETIMPORT R8 K19 [Vector2.new]
-  LOADN R9 250
-  LOADN R10 200
-  CALL R8 2 1
-  SETTABLEKS R8 R7 K21 ["MinSize"]
-  SETTABLEKS R3 R7 K2 ["Enabled"]
-  SETTABLEKS R4 R7 K3 ["OnClose"]
-  LOADB R8 1
-  SETTABLEKS R8 R7 K22 ["ShouldRestore"]
-  GETTABLEKS R8 R1 K23 ["OnRestore"]
-  SETTABLEKS R8 R7 K24 ["OnWidgetRestored"]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K25 ["Change"]
-  GETTABLEKS R8 R9 K2 ["Enabled"]
-  GETTABLEKS R9 R1 K26 ["OnWidgetEnabledChanged"]
-  SETTABLE R9 R7 R8
-  DUPTABLE R8 K27 [{"Watch"}]
-  GETUPVAL R10 0
-  GETTABLEKS R9 R10 K4 ["createElement"]
-  GETUPVAL R10 2
-  CALL R9 1 1
-  SETTABLEKS R9 R8 K5 ["Watch"]
-  CALL R5 3 -1
-  RETURN R5 -1
+        0 GETTABLEKS                       R1 R0 K0 ["props"]
+        2 GETTABLEKS                       R2 R1 K1 ["Localization"]
+        4 GETTABLEKS                       R3 R1 K2 ["Enabled"]
+        6 GETTABLEKS                       R4 R1 K3 ["OnClose"]
+        8 GETUPVAL                         R6 0
+        9 GETTABLEKS                       R5 R6 K4 ["createElement"]
+       11 GETUPVAL                         R6 1
+       12 NEWTABLE                         R7 16 0
+       14 LOADK                            R8 K5 ["Watch"]
+       15 SETTABLEKS                       R8 R7 K6 ["Id"]
+       17 LOADK                            R10 K5 ["Watch"]
+       18 LOADK                            R11 K7 ["WindowName"]
+       19 NAMECALL                         R8 R2 K8 ["getText"]
+       21 CALL                             R8 3 1
+       22 SETTABLEKS                       R8 R7 K9 ["Title"]
+       24 GETIMPORT                        R8 K13 [Enum.ZIndexBehavior.Sibling]
+       26 SETTABLEKS                       R8 R7 K11 ["ZIndexBehavior"]
+       28 GETIMPORT                        R8 K16 [Enum.InitialDockState.Bottom]
+       30 SETTABLEKS                       R8 R7 K14 ["InitialDockState"]
+       32 GETIMPORT                        R8 K19 [Vector2.new]
+       34 LOADN                            R9 128
+       35 LOADN                            R10 224
+       36 CALL                             R8 2 1
+       37 SETTABLEKS                       R8 R7 K20 ["Size"]
+       39 GETIMPORT                        R8 K19 [Vector2.new]
+       41 LOADN                            R9 250
+       42 LOADN                            R10 200
+       43 CALL                             R8 2 1
+       44 SETTABLEKS                       R8 R7 K21 ["MinSize"]
+       46 SETTABLEKS                       R3 R7 K2 ["Enabled"]
+       48 SETTABLEKS                       R4 R7 K3 ["OnClose"]
+       50 LOADB                            R8 1
+       51 SETTABLEKS                       R8 R7 K22 ["ShouldRestore"]
+       53 GETTABLEKS                       R8 R1 K23 ["OnRestore"]
+       55 SETTABLEKS                       R8 R7 K24 ["OnWidgetRestored"]
+       57 GETUPVAL                         R10 0
+       58 GETTABLEKS                       R9 R10 K25 ["Change"]
+       60 GETTABLEKS                       R8 R9 K2 ["Enabled"]
+       62 GETTABLEKS                       R9 R1 K26 ["OnWidgetEnabledChanged"]
+       64 SETTABLE                         R9 R7 R8
+       65 DUPTABLE                         R8 K27 [{"Watch"}]
+       66 GETUPVAL                         R10 0
+       67 GETTABLEKS                       R9 R10 K4 ["createElement"]
+       69 GETUPVAL                         R10 2
+       70 CALL                             R9 1 1
+       71 SETTABLEKS                       R9 R8 K5 ["Watch"]
+       73 CALL                             R5 3 -1
+       74 RETURN                           R5 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Roact"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Packages"]
-  GETTABLEKS R3 R4 K7 ["Framework"]
-  CALL R2 1 1
-  GETTABLEKS R3 R2 K8 ["UI"]
-  GETTABLEKS R4 R3 K9 ["DockWidget"]
-  GETTABLEKS R5 R2 K10 ["ContextServices"]
-  GETTABLEKS R6 R5 K11 ["withContext"]
-  GETTABLEKS R7 R5 K12 ["Localization"]
-  GETIMPORT R8 K4 [require]
-  GETTABLEKS R12 R0 K13 ["Src"]
-  GETTABLEKS R11 R12 K14 ["Components"]
-  GETTABLEKS R10 R11 K15 ["Watch"]
-  GETTABLEKS R9 R10 K16 ["WatchComponent"]
-  CALL R8 1 1
-  GETTABLEKS R9 R1 K17 ["PureComponent"]
-  LOADK R11 K18 ["WatchWindow"]
-  NAMECALL R9 R9 K19 ["extend"]
-  CALL R9 2 1
-  DUPCLOSURE R10 K20 [PROTO_0]
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  CAPTURE VAL R8
-  SETTABLEKS R10 R9 K21 ["render"]
-  MOVE R10 R6
-  DUPTABLE R11 K22 [{"Localization"}]
-  SETTABLEKS R7 R11 K12 ["Localization"]
-  CALL R10 1 1
-  MOVE R11 R9
-  CALL R10 1 1
-  MOVE R9 R10
-  RETURN R9 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R4 K1 [script]
+        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
+        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+       11 GETIMPORT                        R1 K4 [require]
+       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R3 K6 ["Roact"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R2 K4 [require]
+       20 GETTABLEKS                       R4 R0 K5 ["Packages"]
+       22 GETTABLEKS                       R3 R4 K7 ["Framework"]
+       24 CALL                             R2 1 1
+       25 GETTABLEKS                       R3 R2 K8 ["UI"]
+       27 GETTABLEKS                       R4 R3 K9 ["DockWidget"]
+       29 GETTABLEKS                       R5 R2 K10 ["ContextServices"]
+       31 GETTABLEKS                       R6 R5 K11 ["withContext"]
+       33 GETTABLEKS                       R7 R5 K12 ["Localization"]
+       35 GETIMPORT                        R8 K4 [require]
+       37 GETTABLEKS                       R12 R0 K13 ["Src"]
+       39 GETTABLEKS                       R11 R12 K14 ["Components"]
+       41 GETTABLEKS                       R10 R11 K15 ["Watch"]
+       43 GETTABLEKS                       R9 R10 K16 ["WatchComponent"]
+       45 CALL                             R8 1 1
+       46 GETTABLEKS                       R9 R1 K17 ["PureComponent"]
+       48 LOADK                            R11 K18 ["WatchWindow"]
+       49 NAMECALL                         R9 R9 K19 ["extend"]
+       51 CALL                             R9 2 1
+       52 DUPCLOSURE                       R10 K20 [PROTO_0]
+       53 CAPTURE                          VAL R1
+       54 CAPTURE                          VAL R4
+       55 CAPTURE                          VAL R8
+       56 SETTABLEKS                       R10 R9 K21 ["render"]
+       58 MOVE                             R10 R6
+       59 DUPTABLE                         R11 K22 [{"Localization"}]
+       60 SETTABLEKS                       R7 R11 K12 ["Localization"]
+       62 CALL                             R10 1 1
+       63 MOVE                             R11 R9
+       64 CALL                             R10 1 1
+       65 MOVE                             R9 R10
+       66 RETURN                           R9 1

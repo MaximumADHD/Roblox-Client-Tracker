@@ -1,64 +1,64 @@
 PROTO_0:
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K0 ["isEnumValue"]
-  MOVE R4 R0
-  CALL R3 1 -1
-  FASTCALL ASSERT [+2]
-  GETIMPORT R2 K2 [assert]
-  CALL R2 -1 0
-  GETUPVAL R4 1
-  GETTABLE R3 R4 R0
-  FASTCALL1 ASSERT R3 [+2]
-  GETIMPORT R2 K2 [assert]
-  CALL R2 1 0
-  FASTCALL1 TYPE R1 [+3]
-  MOVE R5 R1
-  GETIMPORT R4 K4 [type]
-  CALL R4 1 1
-  JUMPIFEQKS R4 K5 ["string"] [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  FASTCALL1 ASSERT R3 [+2]
-  GETIMPORT R2 K2 [assert]
-  CALL R2 1 0
-  DUPTABLE R2 K8 [{"editingMode", "statusMessage"}]
-  SETTABLEKS R0 R2 K6 ["editingMode"]
-  SETTABLEKS R1 R2 K7 ["statusMessage"]
-  RETURN R2 1
+        0 GETUPVAL                         R4 0
+        1 GETTABLEKS                       R3 R4 K0 ["isEnumValue"]
+        3 MOVE                             R4 R0
+        4 CALL                             R3 1 -1
+        5 FASTCALL                         ASSERT ; [+2]
+        6 GETIMPORT                        R2 K2 [assert]
+        8 CALL                             R2 -1 0
+        9 GETUPVAL                         R4 1
+       10 GETTABLE                         R3 R4 R0
+       11 FASTCALL1                        ASSERT R3 ; [+2]
+       12 GETIMPORT                        R2 K2 [assert]
+       14 CALL                             R2 1 0
+       15 FASTCALL1                        TYPE R1 ; [+3]
+       16 MOVE                             R5 R1
+       17 GETIMPORT                        R4 K4 [type]
+       19 CALL                             R4 1 1
+       20 JUMPIFEQKS                       R4 K5 ["string"] ; [+2]
+       22 LOADB                            R3 0 +1
+       23 LOADB                            R3 1
+       24 FASTCALL1                        ASSERT R3 ; [+2]
+       25 GETIMPORT                        R2 K2 [assert]
+       27 CALL                             R2 1 0
+       28 DUPTABLE                         R2 K8 [{"editingMode", "statusMessage"}]
+       29 SETTABLEKS                       R0 R2 K6 ["editingMode"]
+       31 SETTABLEKS                       R1 R2 K7 ["statusMessage"]
+       33 RETURN                           R2 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Utility"]
-  GETTABLEKS R2 R3 K7 ["EditingMode"]
-  CALL R1 1 1
-  GETTABLEKS R3 R0 K8 ["Packages"]
-  GETTABLEKS R2 R3 K9 ["Framework"]
-  GETIMPORT R5 K4 [require]
-  MOVE R6 R2
-  CALL R5 1 1
-  GETTABLEKS R4 R5 K10 ["Util"]
-  GETTABLEKS R3 R4 K11 ["Action"]
-  NEWTABLE R4 4 0
-  GETTABLEKS R5 R1 K12 ["SelectGeometry"]
-  LOADB R6 1
-  SETTABLE R6 R4 R5
-  GETTABLEKS R5 R1 K13 ["SelectSurface"]
-  LOADB R6 1
-  SETTABLE R6 R4 R5
-  GETTABLEKS R5 R1 K14 ["SelectPart"]
-  LOADB R6 1
-  SETTABLE R6 R4 R5
-  MOVE R5 R3
-  GETIMPORT R7 K1 [script]
-  GETTABLEKS R6 R7 K15 ["Name"]
-  DUPCLOSURE R7 K16 [PROTO_0]
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  CALL R5 2 -1
-  RETURN R5 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R4 R0 K5 ["Src"]
+       13 GETTABLEKS                       R3 R4 K6 ["Utility"]
+       15 GETTABLEKS                       R2 R3 K7 ["EditingMode"]
+       17 CALL                             R1 1 1
+       18 GETTABLEKS                       R3 R0 K8 ["Packages"]
+       20 GETTABLEKS                       R2 R3 K9 ["Framework"]
+       22 GETIMPORT                        R5 K4 [require]
+       24 MOVE                             R6 R2
+       25 CALL                             R5 1 1
+       26 GETTABLEKS                       R4 R5 K10 ["Util"]
+       28 GETTABLEKS                       R3 R4 K11 ["Action"]
+       30 NEWTABLE                         R4 4 0
+       32 GETTABLEKS                       R5 R1 K12 ["SelectGeometry"]
+       34 LOADB                            R6 1
+       35 SETTABLE                         R6 R4 R5
+       36 GETTABLEKS                       R5 R1 K13 ["SelectSurface"]
+       38 LOADB                            R6 1
+       39 SETTABLE                         R6 R4 R5
+       40 GETTABLEKS                       R5 R1 K14 ["SelectPart"]
+       42 LOADB                            R6 1
+       43 SETTABLE                         R6 R4 R5
+       44 MOVE                             R5 R3
+       45 GETIMPORT                        R7 K1 [script]
+       47 GETTABLEKS                       R6 R7 K15 ["Name"]
+       49 DUPCLOSURE                       R7 K16 [PROTO_0]
+       50 CAPTURE                          VAL R1
+       51 CAPTURE                          VAL R4
+       52 CALL                             R5 2 -1
+       53 RETURN                           R5 -1

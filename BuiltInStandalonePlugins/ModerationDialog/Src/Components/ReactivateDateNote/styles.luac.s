@@ -1,36 +1,36 @@
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["ModerationDialog"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Framework"]
-  CALL R1 1 1
-  GETTABLEKS R3 R1 K8 ["Styling"]
-  GETTABLEKS R2 R3 K9 ["createStyleRule"]
-  MOVE R3 R2
-  LOADK R4 K10 [".Component-ReactivateDateNote"]
-  DUPTABLE R5 K13 [{"BackgroundTransparency", "BorderSizePixel"}]
-  LOADN R6 1
-  SETTABLEKS R6 R5 K11 ["BackgroundTransparency"]
-  LOADN R6 0
-  SETTABLEKS R6 R5 K12 ["BorderSizePixel"]
-  NEWTABLE R6 0 1
-  MOVE R7 R2
-  LOADK R8 K14 ["::UIListLayout"]
-  DUPTABLE R9 K18 [{"FillDirection", "Padding", "SortOrder"}]
-  GETIMPORT R10 K21 [Enum.FillDirection.Vertical]
-  SETTABLEKS R10 R9 K15 ["FillDirection"]
-  GETIMPORT R10 K24 [UDim.new]
-  LOADN R11 0
-  LOADN R12 4
-  CALL R10 2 1
-  SETTABLEKS R10 R9 K16 ["Padding"]
-  GETIMPORT R10 K26 [Enum.SortOrder.LayoutOrder]
-  SETTABLEKS R10 R9 K17 ["SortOrder"]
-  CALL R7 2 -1
-  SETLIST R6 R7 -1 [1]
-  CALL R3 3 -1
-  RETURN R3 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["ModerationDialog"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R3 R1 K8 ["Styling"]
+       16 GETTABLEKS                       R2 R3 K9 ["createStyleRule"]
+       18 MOVE                             R3 R2
+       19 LOADK                            R4 K10 [".Component-ReactivateDateNote"]
+       20 DUPTABLE                         R5 K13 [{"BackgroundTransparency", "BorderSizePixel"}]
+       21 LOADN                            R6 1
+       22 SETTABLEKS                       R6 R5 K11 ["BackgroundTransparency"]
+       24 LOADN                            R6 0
+       25 SETTABLEKS                       R6 R5 K12 ["BorderSizePixel"]
+       27 NEWTABLE                         R6 0 1
+       29 MOVE                             R7 R2
+       30 LOADK                            R8 K14 ["::UIListLayout"]
+       31 DUPTABLE                         R9 K18 [{"FillDirection", "Padding", "SortOrder"}]
+       32 GETIMPORT                        R10 K21 [Enum.FillDirection.Vertical]
+       34 SETTABLEKS                       R10 R9 K15 ["FillDirection"]
+       36 GETIMPORT                        R10 K24 [UDim.new]
+       38 LOADN                            R11 0
+       39 LOADN                            R12 4
+       40 CALL                             R10 2 1
+       41 SETTABLEKS                       R10 R9 K16 ["Padding"]
+       43 GETIMPORT                        R10 K26 [Enum.SortOrder.LayoutOrder]
+       45 SETTABLEKS                       R10 R9 K17 ["SortOrder"]
+       47 CALL                             R7 2 -1
+       48 SETLIST                          R6 R7 -1 [1]
+       50 CALL                             R3 3 -1
+       51 RETURN                           R3 -1

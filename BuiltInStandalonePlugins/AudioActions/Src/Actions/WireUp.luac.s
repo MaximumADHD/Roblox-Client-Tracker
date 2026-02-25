@@ -1,228 +1,228 @@
 PROTO_0:
-  JUMPIFNOT R0 [+1]
-  JUMPIF R1 [+1]
-  RETURN R0 0
-  FASTCALL2K ASSERT R0 K0 [+5]
-  MOVE R3 R0
-  LOADK R4 K0 ["inInstance was nil"]
-  GETIMPORT R2 K2 [assert]
-  CALL R2 2 0
-  FASTCALL2K ASSERT R1 K3 [+5]
-  MOVE R3 R1
-  LOADK R4 K3 ["outInstance was nil"]
-  GETIMPORT R2 K2 [assert]
-  CALL R2 2 0
-  GETUPVAL R2 0
-  LOADK R4 K4 ["Wire Up"]
-  NAMECALL R2 R2 K5 ["TryBeginRecording"]
-  CALL R2 2 1
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K6 ["connectByWire"]
-  MOVE R4 R0
-  MOVE R5 R1
-  CALL R3 2 1
-  JUMPIFNOT R3 [+9]
-  GETUPVAL R4 2
-  NEWTABLE R6 0 1
-  MOVE R7 R3
-  SETLIST R6 R7 1 [1]
-  NAMECALL R4 R4 K7 ["Set"]
-  CALL R4 2 0
-  JUMPIFNOT R2 [+12]
-  JUMPIFNOT R3 [+3]
-  GETIMPORT R4 K11 [Enum.FinishRecordingOperation.Commit]
-  JUMP [+2]
-  GETIMPORT R4 K13 [Enum.FinishRecordingOperation.Cancel]
-  GETUPVAL R5 0
-  MOVE R7 R2
-  MOVE R8 R4
-  NAMECALL R5 R5 K14 ["FinishRecording"]
-  CALL R5 3 0
-  RETURN R0 0
+        0 JUMPIFNOT                        R0 ; [+1]
+        1 JUMPIF                           R1 ; [+1]
+        2 RETURN                           R0 0
+        3 FASTCALL2K                       ASSERT R0 K0 ; [+5]
+        5 MOVE                             R3 R0
+        6 LOADK                            R4 K0 ["inInstance was nil"]
+        7 GETIMPORT                        R2 K2 [assert]
+        9 CALL                             R2 2 0
+       10 FASTCALL2K                       ASSERT R1 K3 ; [+5]
+       12 MOVE                             R3 R1
+       13 LOADK                            R4 K3 ["outInstance was nil"]
+       14 GETIMPORT                        R2 K2 [assert]
+       16 CALL                             R2 2 0
+       17 GETUPVAL                         R2 0
+       18 LOADK                            R4 K4 ["Wire Up"]
+       19 NAMECALL                         R2 R2 K5 ["TryBeginRecording"]
+       21 CALL                             R2 2 1
+       22 GETUPVAL                         R4 1
+       23 GETTABLEKS                       R3 R4 K6 ["connectByWire"]
+       25 MOVE                             R4 R0
+       26 MOVE                             R5 R1
+       27 CALL                             R3 2 1
+       28 JUMPIFNOT                        R3 ; [+9]
+       29 GETUPVAL                         R4 2
+       30 NEWTABLE                         R6 0 1
+       32 MOVE                             R7 R3
+       33 SETLIST                          R6 R7 1 [1]
+       35 NAMECALL                         R4 R4 K7 ["Set"]
+       37 CALL                             R4 2 0
+       38 JUMPIFNOT                        R2 ; [+12]
+       39 JUMPIFNOT                        R3 ; [+3]
+       40 GETIMPORT                        R4 K11 [Enum.FinishRecordingOperation.Commit]
+       42 JUMP                             ; [+2]
+       43 GETIMPORT                        R4 K13 [Enum.FinishRecordingOperation.Cancel]
+       45 GETUPVAL                         R5 0
+       46 MOVE                             R7 R2
+       47 MOVE                             R8 R4
+       48 NAMECALL                         R5 R5 K14 ["FinishRecording"]
+       50 CALL                             R5 3 0
+       51 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R0 0
-  GETUPVAL R1 1
-  GETUPVAL R2 2
-  CALL R0 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R1 1
+        2 GETUPVAL                         R2 2
+        3 CALL                             R0 2 0
+        4 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["Get"]
-  CALL R0 1 1
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["getWirableInstances"]
-  MOVE R2 R0
-  CALL R1 1 2
-  LOADB R3 0
-  JUMPIFEQKNIL R1 [+5]
-  JUMPIFNOTEQKNIL R2 [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K2 ["action"]
-  LOADK R5 K3 ["WireUpDisabled"]
-  CALL R4 1 1
-  JUMPIFNOT R3 [+36]
-  FASTCALL2K ASSERT R1 K4 [+5]
-  MOVE R6 R1
-  LOADK R7 K4 ["inInstance was nil"]
-  GETIMPORT R5 K6 [assert]
-  CALL R5 2 0
-  FASTCALL2K ASSERT R2 K7 [+5]
-  MOVE R6 R2
-  LOADK R7 K7 ["outInstance was nil"]
-  GETIMPORT R5 K6 [assert]
-  CALL R5 2 0
-  GETUPVAL R6 2
-  GETTABLEKS R5 R6 K2 ["action"]
-  LOADK R6 K8 ["WireUp"]
-  CALL R5 1 1
-  MOVE R4 R5
-  GETIMPORT R5 K11 [string.gsub]
-  MOVE R6 R4
-  LOADK R7 K12 ["%%s"]
-  GETTABLEKS R8 R1 K13 ["Name"]
-  CALL R5 3 1
-  MOVE R4 R5
-  GETIMPORT R5 K11 [string.gsub]
-  MOVE R6 R4
-  LOADK R7 K14 ["%%t"]
-  GETTABLEKS R8 R2 K13 ["Name"]
-  CALL R5 3 1
-  MOVE R4 R5
-  DUPTABLE R5 K22 [{"Uri", "Enabled", "Visible", "Text", "Icon", "Tooltip", "Shortcuts"}]
-  DUPTABLE R6 K27 [{"DataModel", "PluginId", "Category", "ItemId"}]
-  LOADK R7 K28 ["Standalone"]
-  SETTABLEKS R7 R6 K23 ["DataModel"]
-  LOADK R7 K29 ["Audio"]
-  SETTABLEKS R7 R6 K24 ["PluginId"]
-  LOADK R7 K30 ["Actions"]
-  SETTABLEKS R7 R6 K25 ["Category"]
-  LOADK R7 K31 ["Wire Up"]
-  SETTABLEKS R7 R6 K26 ["ItemId"]
-  SETTABLEKS R6 R5 K15 ["Uri"]
-  SETTABLEKS R3 R5 K16 ["Enabled"]
-  SETTABLEKS R3 R5 K17 ["Visible"]
-  SETTABLEKS R4 R5 K18 ["Text"]
-  LOADK R6 K32 ["Wire"]
-  SETTABLEKS R6 R5 K19 ["Icon"]
-  GETUPVAL R7 2
-  GETTABLEKS R6 R7 K33 ["tooltip"]
-  LOADK R7 K8 ["WireUp"]
-  CALL R6 1 1
-  SETTABLEKS R6 R5 K20 ["Tooltip"]
-  NEWTABLE R6 0 0
-  SETTABLEKS R6 R5 K21 ["Shortcuts"]
-  GETUPVAL R6 3
-  JUMPIFNOT R6 [+6]
-  GETUPVAL R6 3
-  NAMECALL R6 R6 K34 ["Disconnect"]
-  CALL R6 1 0
-  LOADNIL R6
-  SETUPVAL R6 3
-  GETUPVAL R7 4
-  MOVE R9 R5
-  LOADB R10 1
-  NAMECALL R7 R7 K35 ["CreateAsync"]
-  CALL R7 3 1
-  GETTABLEN R6 R7 1
-  NEWCLOSURE R8 P0
-  CAPTURE UPVAL U5
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  NAMECALL R6 R6 K36 ["Connect"]
-  CALL R6 2 1
-  SETUPVAL R6 3
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["Get"]
+        3 CALL                             R0 1 1
+        4 GETUPVAL                         R2 1
+        5 GETTABLEKS                       R1 R2 K1 ["getWirableInstances"]
+        7 MOVE                             R2 R0
+        8 CALL                             R1 1 2
+        9 LOADB                            R3 0
+       10 JUMPIFEQKNIL                     R1 ; [+5]
+       12 JUMPIFNOTEQKNIL                  R2 ; [+2]
+       14 LOADB                            R3 0 +1
+       15 LOADB                            R3 1
+       16 GETUPVAL                         R5 2
+       17 GETTABLEKS                       R4 R5 K2 ["action"]
+       19 LOADK                            R5 K3 ["WireUpDisabled"]
+       20 CALL                             R4 1 1
+       21 JUMPIFNOT                        R3 ; [+36]
+       22 FASTCALL2K                       ASSERT R1 K4 ; [+5]
+       24 MOVE                             R6 R1
+       25 LOADK                            R7 K4 ["inInstance was nil"]
+       26 GETIMPORT                        R5 K6 [assert]
+       28 CALL                             R5 2 0
+       29 FASTCALL2K                       ASSERT R2 K7 ; [+5]
+       31 MOVE                             R6 R2
+       32 LOADK                            R7 K7 ["outInstance was nil"]
+       33 GETIMPORT                        R5 K6 [assert]
+       35 CALL                             R5 2 0
+       36 GETUPVAL                         R6 2
+       37 GETTABLEKS                       R5 R6 K2 ["action"]
+       39 LOADK                            R6 K8 ["WireUp"]
+       40 CALL                             R5 1 1
+       41 MOVE                             R4 R5
+       42 GETIMPORT                        R5 K11 [string.gsub]
+       44 MOVE                             R6 R4
+       45 LOADK                            R7 K12 ["%%s"]
+       46 GETTABLEKS                       R8 R1 K13 ["Name"]
+       48 CALL                             R5 3 1
+       49 MOVE                             R4 R5
+       50 GETIMPORT                        R5 K11 [string.gsub]
+       52 MOVE                             R6 R4
+       53 LOADK                            R7 K14 ["%%t"]
+       54 GETTABLEKS                       R8 R2 K13 ["Name"]
+       56 CALL                             R5 3 1
+       57 MOVE                             R4 R5
+       58 DUPTABLE                         R5 K22 [{"Uri", "Enabled", "Visible", "Text", "Icon", "Tooltip", "Shortcuts"}]
+       59 DUPTABLE                         R6 K27 [{"DataModel", "PluginId", "Category", "ItemId"}]
+       60 LOADK                            R7 K28 ["Standalone"]
+       61 SETTABLEKS                       R7 R6 K23 ["DataModel"]
+       63 LOADK                            R7 K29 ["Audio"]
+       64 SETTABLEKS                       R7 R6 K24 ["PluginId"]
+       66 LOADK                            R7 K30 ["Actions"]
+       67 SETTABLEKS                       R7 R6 K25 ["Category"]
+       69 LOADK                            R7 K31 ["Wire Up"]
+       70 SETTABLEKS                       R7 R6 K26 ["ItemId"]
+       72 SETTABLEKS                       R6 R5 K15 ["Uri"]
+       74 SETTABLEKS                       R3 R5 K16 ["Enabled"]
+       76 SETTABLEKS                       R3 R5 K17 ["Visible"]
+       78 SETTABLEKS                       R4 R5 K18 ["Text"]
+       80 LOADK                            R6 K32 ["Wire"]
+       81 SETTABLEKS                       R6 R5 K19 ["Icon"]
+       83 GETUPVAL                         R7 2
+       84 GETTABLEKS                       R6 R7 K33 ["tooltip"]
+       86 LOADK                            R7 K8 ["WireUp"]
+       87 CALL                             R6 1 1
+       88 SETTABLEKS                       R6 R5 K20 ["Tooltip"]
+       90 NEWTABLE                         R6 0 0
+       92 SETTABLEKS                       R6 R5 K21 ["Shortcuts"]
+       94 GETUPVAL                         R6 3
+       95 JUMPIFNOT                        R6 ; [+6]
+       96 GETUPVAL                         R6 3
+       97 NAMECALL                         R6 R6 K34 ["Disconnect"]
+       99 CALL                             R6 1 0
+      100 LOADNIL                          R6
+      101 SETUPVAL                         R6 3
+      102 GETUPVAL                         R7 4
+      103 MOVE                             R9 R5
+      104 LOADB                            R10 1
+      105 NAMECALL                         R7 R7 K35 ["CreateAsync"]
+      107 CALL                             R7 3 1
+      108 GETTABLEN                        R6 R7 1
+      109 NEWCLOSURE                       R8 P0
+      110 CAPTURE                          UPVAL U5
+      111 CAPTURE                          VAL R1
+      112 CAPTURE                          VAL R2
+      113 NAMECALL                         R6 R6 K36 ["Connect"]
+      115 CALL                             R6 2 1
+      116 SETUPVAL                         R6 3
+      117 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R0 0
-  CALL R0 0 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 CALL                             R0 0 0
+        2 RETURN                           R0 0
 
 PROTO_4:
-  LOADK R3 K0 ["Actions"]
-  NAMECALL R1 R0 K1 ["GetPluginComponent"]
-  CALL R1 2 1
-  NEWCLOSURE R2 P0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  CAPTURE VAL R1
-  CAPTURE UPVAL U4
-  MOVE R3 R2
-  CALL R3 0 0
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["SelectionChanged"]
-  NEWCLOSURE R5 P1
-  CAPTURE VAL R2
-  NAMECALL R3 R3 K3 ["Connect"]
-  CALL R3 2 1
-  SETUPVAL R3 5
-  RETURN R0 0
+        0 LOADK                            R3 K0 ["Actions"]
+        1 NAMECALL                         R1 R0 K1 ["GetPluginComponent"]
+        3 CALL                             R1 2 1
+        4 NEWCLOSURE                       R2 P0
+        5 CAPTURE                          UPVAL U0
+        6 CAPTURE                          UPVAL U1
+        7 CAPTURE                          UPVAL U2
+        8 CAPTURE                          UPVAL U3
+        9 CAPTURE                          VAL R1
+       10 CAPTURE                          UPVAL U4
+       11 MOVE                             R3 R2
+       12 CALL                             R3 0 0
+       13 GETUPVAL                         R4 0
+       14 GETTABLEKS                       R3 R4 K2 ["SelectionChanged"]
+       16 NEWCLOSURE                       R5 P1
+       17 CAPTURE                          VAL R2
+       18 NAMECALL                         R3 R3 K3 ["Connect"]
+       20 CALL                             R3 2 1
+       21 SETUPVAL                         R3 5
+       22 RETURN                           R0 0
 
 PROTO_5:
-  GETUPVAL R0 0
-  JUMPIFNOT R0 [+6]
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["Disconnect"]
-  CALL R0 1 0
-  LOADNIL R0
-  SETUPVAL R0 0
-  GETUPVAL R0 1
-  JUMPIFNOT R0 [+6]
-  GETUPVAL R0 1
-  NAMECALL R0 R0 K0 ["Disconnect"]
-  CALL R0 1 0
-  LOADNIL R0
-  SETUPVAL R0 1
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+6]
+        2 GETUPVAL                         R0 0
+        3 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        5 CALL                             R0 1 0
+        6 LOADNIL                          R0
+        7 SETUPVAL                         R0 0
+        8 GETUPVAL                         R0 1
+        9 JUMPIFNOT                        R0 ; [+6]
+       10 GETUPVAL                         R0 1
+       11 NAMECALL                         R0 R0 K0 ["Disconnect"]
+       13 CALL                             R0 1 0
+       14 LOADNIL                          R0
+       15 SETUPVAL                         R0 1
+       16 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["ChangeHistoryService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  GETIMPORT R1 K1 [game]
-  LOADK R3 K4 ["Selection"]
-  NAMECALL R1 R1 K3 ["GetService"]
-  CALL R1 2 1
-  GETIMPORT R2 K6 [script]
-  LOADK R4 K7 ["AudioActions"]
-  NAMECALL R2 R2 K8 ["FindFirstAncestor"]
-  CALL R2 2 1
-  GETIMPORT R3 K10 [require]
-  GETTABLEKS R6 R2 K11 ["Src"]
-  GETTABLEKS R5 R6 K12 ["Util"]
-  GETTABLEKS R4 R5 K13 ["LocalizationUtil"]
-  CALL R3 1 1
-  GETIMPORT R4 K10 [require]
-  GETTABLEKS R7 R2 K11 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Util"]
-  GETTABLEKS R5 R6 K14 ["WiringUtil"]
-  CALL R4 1 1
-  DUPCLOSURE R5 K15 [PROTO_0]
-  CAPTURE VAL R0
-  CAPTURE VAL R4
-  CAPTURE VAL R1
-  LOADNIL R6
-  LOADNIL R7
-  NEWTABLE R8 2 0
-  NEWCLOSURE R9 P1
-  CAPTURE VAL R1
-  CAPTURE VAL R4
-  CAPTURE VAL R3
-  CAPTURE REF R6
-  CAPTURE VAL R5
-  CAPTURE REF R7
-  SETTABLEKS R9 R8 K16 ["register"]
-  NEWCLOSURE R9 P2
-  CAPTURE REF R7
-  CAPTURE REF R6
-  SETTABLEKS R9 R8 K17 ["deregister"]
-  CLOSEUPVALS R6
-  RETURN R8 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["ChangeHistoryService"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K1 [game]
+        9 LOADK                            R3 K4 ["Selection"]
+       10 NAMECALL                         R1 R1 K3 ["GetService"]
+       12 CALL                             R1 2 1
+       13 GETIMPORT                        R2 K6 [script]
+       15 LOADK                            R4 K7 ["AudioActions"]
+       16 NAMECALL                         R2 R2 K8 ["FindFirstAncestor"]
+       18 CALL                             R2 2 1
+       19 GETIMPORT                        R3 K10 [require]
+       21 GETTABLEKS                       R6 R2 K11 ["Src"]
+       23 GETTABLEKS                       R5 R6 K12 ["Util"]
+       25 GETTABLEKS                       R4 R5 K13 ["LocalizationUtil"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K10 [require]
+       30 GETTABLEKS                       R7 R2 K11 ["Src"]
+       32 GETTABLEKS                       R6 R7 K12 ["Util"]
+       34 GETTABLEKS                       R5 R6 K14 ["WiringUtil"]
+       36 CALL                             R4 1 1
+       37 DUPCLOSURE                       R5 K15 [PROTO_0]
+       38 CAPTURE                          VAL R0
+       39 CAPTURE                          VAL R4
+       40 CAPTURE                          VAL R1
+       41 LOADNIL                          R6
+       42 LOADNIL                          R7
+       43 NEWTABLE                         R8 2 0
+       45 NEWCLOSURE                       R9 P1
+       46 CAPTURE                          VAL R1
+       47 CAPTURE                          VAL R4
+       48 CAPTURE                          VAL R3
+       49 CAPTURE                          REF R6
+       50 CAPTURE                          VAL R5
+       51 CAPTURE                          REF R7
+       52 SETTABLEKS                       R9 R8 K16 ["register"]
+       54 NEWCLOSURE                       R9 P2
+       55 CAPTURE                          REF R7
+       56 CAPTURE                          REF R6
+       57 SETTABLEKS                       R9 R8 K17 ["deregister"]
+       59 CLOSEUPVALS                      R6
+       60 RETURN                           R8 1

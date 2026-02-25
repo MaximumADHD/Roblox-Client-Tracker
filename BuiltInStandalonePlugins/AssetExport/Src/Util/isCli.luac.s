@@ -1,19 +1,19 @@
 PROTO_0:
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["ProcessService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 -1
-  RETURN R0 -1
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["ProcessService"]
+        3 NAMECALL                         R0 R0 K3 ["GetService"]
+        5 CALL                             R0 2 -1
+        6 RETURN                           R0 -1
 
 PROTO_1:
-  GETUPVAL R0 0
-  RETURN R0 1
+        0 GETUPVAL                         R0 0
+        1 RETURN                           R0 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [pcall]
-  DUPCLOSURE R1 K2 [PROTO_0]
-  CALL R0 1 2
-  DUPCLOSURE R2 K3 [PROTO_1]
-  CAPTURE VAL R0
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [pcall]
+        3 DUPCLOSURE                       R1 K2 [PROTO_0]
+        4 CALL                             R0 1 2
+        5 DUPCLOSURE                       R2 K3 [PROTO_1]
+        6 CAPTURE                          VAL R0
+        7 RETURN                           R2 1

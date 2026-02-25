@@ -1,112 +1,112 @@
 PROTO_0:
-  NEWTABLE R3 0 0
-  GETIMPORT R4 K1 [pairs]
-  MOVE R5 R0
-  CALL R4 1 3
-  FORGPREP_NEXT R4
-  SETTABLE R8 R3 R7
-  FORGLOOP R4 2 [-2]
-  SETTABLE R2 R3 R1
-  RETURN R3 1
+        0 NEWTABLE                         R3 0 0
+        2 GETIMPORT                        R4 K1 [pairs]
+        4 MOVE                             R5 R0
+        5 CALL                             R4 1 3
+        6 FORGPREP_NEXT                    R4
+        7 SETTABLE                         R8 R3 R7
+        8 FORGLOOP                         R4 2 ; [-2]
+       10 SETTABLE                         R2 R3 R1
+       11 RETURN                           R3 1
 
 PROTO_1:
-  NEWTABLE R2 0 0
-  GETIMPORT R3 K1 [pairs]
-  MOVE R4 R0
-  CALL R3 1 3
-  FORGPREP_NEXT R3
-  JUMPIFEQ R6 R1 [+2]
-  SETTABLE R7 R2 R6
-  FORGLOOP R3 2 [-4]
-  RETURN R2 1
+        0 NEWTABLE                         R2 0 0
+        2 GETIMPORT                        R3 K1 [pairs]
+        4 MOVE                             R4 R0
+        5 CALL                             R3 1 3
+        6 FORGPREP_NEXT                    R3
+        7 JUMPIFEQ                         R6 R1 ; [+2]
+        9 SETTABLE                         R7 R2 R6
+       10 FORGLOOP                         R3 2 ; [-4]
+       12 RETURN                           R2 1
 
 PROTO_2:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["disconnected"]
-  NOT R1 R2
-  FASTCALL2K ASSERT R1 K1 [+4]
-  LOADK R2 K1 ["Listeners can only be disconnected once."]
-  GETIMPORT R0 K3 [assert]
-  CALL R0 2 0
-  GETUPVAL R0 0
-  LOADB R1 1
-  SETTABLEKS R1 R0 K0 ["disconnected"]
-  GETUPVAL R1 1
-  GETUPVAL R2 2
-  NEWTABLE R3 0 0
-  GETIMPORT R4 K5 [pairs]
-  MOVE R5 R1
-  CALL R4 1 3
-  FORGPREP_NEXT R4
-  JUMPIFEQ R7 R2 [+2]
-  SETTABLE R8 R3 R7
-  FORGLOOP R4 2 [-4]
-  MOVE R0 R3
-  SETUPVAL R0 1
-  RETURN R0 0
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["disconnected"]
+        3 NOT                              R1 R2
+        4 FASTCALL2K                       ASSERT R1 K1 ; [+4]
+        6 LOADK                            R2 K1 ["Listeners can only be disconnected once."]
+        7 GETIMPORT                        R0 K3 [assert]
+        9 CALL                             R0 2 0
+       10 GETUPVAL                         R0 0
+       11 LOADB                            R1 1
+       12 SETTABLEKS                       R1 R0 K0 ["disconnected"]
+       14 GETUPVAL                         R1 1
+       15 GETUPVAL                         R2 2
+       16 NEWTABLE                         R3 0 0
+       18 GETIMPORT                        R4 K5 [pairs]
+       20 MOVE                             R5 R1
+       21 CALL                             R4 1 3
+       22 FORGPREP_NEXT                    R4
+       23 JUMPIFEQ                         R7 R2 ; [+2]
+       25 SETTABLE                         R8 R3 R7
+       26 FORGLOOP                         R4 2 ; [-4]
+       28 MOVE                             R0 R3
+       29 SETUPVAL                         R0 1
+       30 RETURN                           R0 0
 
 PROTO_3:
-  FASTCALL1 TYPEOF R1 [+3]
-  MOVE R5 R1
-  GETIMPORT R4 K1 [typeof]
-  CALL R4 1 1
-  JUMPIFEQKS R4 K2 ["function"] [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  FASTCALL2K ASSERT R3 K3 [+4]
-  LOADK R4 K3 ["Can only subscribe to signals with a function."]
-  GETIMPORT R2 K5 [assert]
-  CALL R2 2 0
-  DUPTABLE R2 K8 [{"callback", "disconnected"}]
-  SETTABLEKS R1 R2 K6 ["callback"]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K7 ["disconnected"]
-  GETUPVAL R4 0
-  NEWTABLE R5 0 0
-  GETIMPORT R6 K10 [pairs]
-  MOVE R7 R4
-  CALL R6 1 3
-  FORGPREP_NEXT R6
-  SETTABLE R10 R5 R9
-  FORGLOOP R6 2 [-2]
-  SETTABLE R2 R5 R1
-  MOVE R3 R5
-  SETUPVAL R3 0
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R2
-  CAPTURE UPVAL U0
-  CAPTURE VAL R1
-  RETURN R3 1
+        0 FASTCALL1                        TYPEOF R1 ; [+3]
+        1 MOVE                             R5 R1
+        2 GETIMPORT                        R4 K1 [typeof]
+        4 CALL                             R4 1 1
+        5 JUMPIFEQKS                       R4 K2 ["function"] ; [+2]
+        7 LOADB                            R3 0 +1
+        8 LOADB                            R3 1
+        9 FASTCALL2K                       ASSERT R3 K3 ; [+4]
+       11 LOADK                            R4 K3 ["Can only subscribe to signals with a function."]
+       12 GETIMPORT                        R2 K5 [assert]
+       14 CALL                             R2 2 0
+       15 DUPTABLE                         R2 K8 [{"callback", "disconnected"}]
+       16 SETTABLEKS                       R1 R2 K6 ["callback"]
+       18 LOADB                            R3 0
+       19 SETTABLEKS                       R3 R2 K7 ["disconnected"]
+       21 GETUPVAL                         R4 0
+       22 NEWTABLE                         R5 0 0
+       24 GETIMPORT                        R6 K10 [pairs]
+       26 MOVE                             R7 R4
+       27 CALL                             R6 1 3
+       28 FORGPREP_NEXT                    R6
+       29 SETTABLE                         R10 R5 R9
+       30 FORGLOOP                         R6 2 ; [-2]
+       32 SETTABLE                         R2 R5 R1
+       33 MOVE                             R3 R5
+       34 SETUPVAL                         R3 0
+       35 NEWCLOSURE                       R3 P0
+       36 CAPTURE                          VAL R2
+       37 CAPTURE                          UPVAL U0
+       38 CAPTURE                          VAL R1
+       39 RETURN                           R3 1
 
 PROTO_4:
-  PREPVARARGS 1
-  GETIMPORT R1 K1 [pairs]
-  GETUPVAL R2 0
-  CALL R1 1 3
-  FORGPREP_NEXT R1
-  GETTABLEKS R6 R5 K2 ["disconnected"]
-  JUMPIF R6 [+3]
-  MOVE R6 R4
-  GETVARARGS R7 -1
-  CALL R6 -1 0
-  FORGLOOP R1 2 [-7]
-  RETURN R0 0
+        0 PREPVARARGS                      1
+        1 GETIMPORT                        R1 K1 [pairs]
+        3 GETUPVAL                         R2 0
+        4 CALL                             R1 1 3
+        5 FORGPREP_NEXT                    R1
+        6 GETTABLEKS                       R6 R5 K2 ["disconnected"]
+        8 JUMPIF                           R6 ; [+3]
+        9 MOVE                             R6 R4
+       10 GETVARARGS                       R7 -1
+       11 CALL                             R6 -1 0
+       12 FORGLOOP                         R1 2 ; [-7]
+       14 RETURN                           R0 0
 
 PROTO_5:
-  NEWTABLE R0 0 0
-  NEWCLOSURE R1 P0
-  CAPTURE REF R0
-  NEWCLOSURE R2 P1
-  CAPTURE REF R0
-  DUPTABLE R3 K2 [{"subscribe", "fire"}]
-  SETTABLEKS R1 R3 K0 ["subscribe"]
-  SETTABLEKS R2 R3 K1 ["fire"]
-  CLOSEUPVALS R0
-  RETURN R3 1
+        0 NEWTABLE                         R0 0 0
+        2 NEWCLOSURE                       R1 P0
+        3 CAPTURE                          REF R0
+        4 NEWCLOSURE                       R2 P1
+        5 CAPTURE                          REF R0
+        6 DUPTABLE                         R3 K2 [{"subscribe", "fire"}]
+        7 SETTABLEKS                       R1 R3 K0 ["subscribe"]
+        9 SETTABLEKS                       R2 R3 K1 ["fire"]
+       11 CLOSEUPVALS                      R0
+       12 RETURN                           R3 1
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  DUPCLOSURE R1 K1 [PROTO_1]
-  DUPCLOSURE R2 K2 [PROTO_5]
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 DUPCLOSURE                       R1 K1 [PROTO_1]
+        3 DUPCLOSURE                       R2 K2 [PROTO_5]
+        4 RETURN                           R2 1

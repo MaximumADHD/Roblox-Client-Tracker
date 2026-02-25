@@ -1,12 +1,12 @@
 MAIN:
-  PREPVARARGS 0
-  DUPTABLE R0 K3 [{"displayName", "testMatch", "passWithNoTests"}]
-  LOADK R1 K4 ["Flipbook"]
-  SETTABLEKS R1 R0 K0 ["displayName"]
-  NEWTABLE R1 0 1
-  LOADK R2 K5 ["**/*.test"]
-  SETLIST R1 R2 1 [1]
-  SETTABLEKS R1 R0 K1 ["testMatch"]
-  LOADB R1 1
-  SETTABLEKS R1 R0 K2 ["passWithNoTests"]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 DUPTABLE                         R0 K3 [{"displayName", "testMatch", "passWithNoTests"}]
+        2 LOADK                            R1 K4 ["Flipbook"]
+        3 SETTABLEKS                       R1 R0 K0 ["displayName"]
+        5 NEWTABLE                         R1 0 1
+        7 LOADK                            R2 K5 ["**/*.test"]
+        8 SETLIST                          R1 R2 1 [1]
+       10 SETTABLEKS                       R1 R0 K1 ["testMatch"]
+       12 LOADB                            R1 1
+       13 SETTABLEKS                       R1 R0 K2 ["passWithNoTests"]
+       15 RETURN                           R0 1

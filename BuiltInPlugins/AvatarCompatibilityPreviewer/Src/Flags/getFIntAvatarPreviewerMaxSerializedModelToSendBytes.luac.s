@@ -1,16 +1,16 @@
 PROTO_0:
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["AvatarPreviewerMaxSerializedModelToSendBytes"]
-  NAMECALL R0 R0 K3 ["GetFastInt"]
-  CALL R0 2 -1
-  RETURN R0 -1
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["AvatarPreviewerMaxSerializedModelToSendBytes"]
+        3 NAMECALL                         R0 R0 K3 ["GetFastInt"]
+        5 CALL                             R0 2 -1
+        6 RETURN                           R0 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["AvatarPreviewerMaxSerializedModelToSendBytes"]
-  LOADK R3 K3 [25000000]
-  NAMECALL R0 R0 K4 ["DefineFastInt"]
-  CALL R0 3 0
-  DUPCLOSURE R0 K5 [PROTO_0]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["AvatarPreviewerMaxSerializedModelToSendBytes"]
+        4 LOADK                            R3 K3 [25000000]
+        5 NAMECALL                         R0 R0 K4 ["DefineFastInt"]
+        7 CALL                             R0 3 0
+        8 DUPCLOSURE                       R0 K5 [PROTO_0]
+        9 RETURN                           R0 1

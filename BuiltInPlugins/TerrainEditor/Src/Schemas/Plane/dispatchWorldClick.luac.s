@@ -1,8 +1,8 @@
 PROTO_0:
-  LOADK R3 K0 ["Ready"]
-  RETURN R3 1
+        0 LOADK                            R3 K0 ["Ready"]
+        1 RETURN                           R3 1
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 RETURN                           R0 1

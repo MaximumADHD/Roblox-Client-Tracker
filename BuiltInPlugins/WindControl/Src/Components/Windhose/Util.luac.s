@@ -1,41 +1,41 @@
 PROTO_0:
-  GETIMPORT R3 K1 [game]
-  GETTABLEKS R2 R3 K2 ["Workspace"]
-  GETTABLEKS R1 R2 K3 ["CurrentCamera"]
-  GETTABLEKS R0 R1 K4 ["CameraType"]
-  GETIMPORT R1 K7 [Enum.CameraType.Attach]
-  JUMPIFEQ R0 R1 [+5]
-  GETIMPORT R1 K9 [Enum.CameraType.Scriptable]
-  JUMPIFNOTEQ R0 R1 [+3]
-  LOADB R1 1
-  RETURN R1 1
-  LOADB R1 0
-  RETURN R1 1
+        0 GETIMPORT                        R3 K1 [game]
+        2 GETTABLEKS                       R2 R3 K2 ["Workspace"]
+        4 GETTABLEKS                       R1 R2 K3 ["CurrentCamera"]
+        6 GETTABLEKS                       R0 R1 K4 ["CameraType"]
+        8 GETIMPORT                        R1 K7 [Enum.CameraType.Attach]
+       10 JUMPIFEQ                         R0 R1 ; [+5]
+       12 GETIMPORT                        R1 K9 [Enum.CameraType.Scriptable]
+       14 JUMPIFNOTEQ                      R0 R1 ; [+3]
+       16 LOADB                            R1 1
+       17 RETURN                           R1 1
+       18 LOADB                            R1 0
+       19 RETURN                           R1 1
 
 PROTO_1:
-  MOVE R4 R1
-  SUB R5 R1 R0
-  MOVE R10 R0
-  NAMECALL R8 R2 K0 ["Dot"]
-  CALL R8 2 1
-  SUB R7 R3 R8
-  MOVE R10 R5
-  NAMECALL R8 R2 K0 ["Dot"]
-  CALL R8 2 1
-  DIV R6 R7 R8
-  LOADN R7 0
-  JUMPIFNOTLE R7 R6 [+6]
-  LOADN R7 1
-  JUMPIFNOTLE R6 R7 [+3]
-  MUL R7 R6 R5
-  ADD R4 R0 R7
-  RETURN R4 1
+        0 MOVE                             R4 R1
+        1 SUB                              R5 R1 R0
+        2 MOVE                             R10 R0
+        3 NAMECALL                         R8 R2 K0 ["Dot"]
+        5 CALL                             R8 2 1
+        6 SUB                              R7 R3 R8
+        7 MOVE                             R10 R5
+        8 NAMECALL                         R8 R2 K0 ["Dot"]
+       10 CALL                             R8 2 1
+       11 DIV                              R6 R7 R8
+       12 LOADN                            R7 0
+       13 JUMPIFNOTLE                      R7 R6 ; [+6]
+       15 LOADN                            R7 1
+       16 JUMPIFNOTLE                      R6 R7 ; [+3]
+       18 MUL                              R7 R6 R5
+       19 ADD                              R4 R0 R7
+       20 RETURN                           R4 1
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  DUPCLOSURE R1 K1 [PROTO_1]
-  DUPTABLE R2 K4 [{"isInvalidCameraType", "getRayPlaneHit"}]
-  SETTABLEKS R0 R2 K2 ["isInvalidCameraType"]
-  SETTABLEKS R1 R2 K3 ["getRayPlaneHit"]
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 DUPCLOSURE                       R1 K1 [PROTO_1]
+        3 DUPTABLE                         R2 K4 [{"isInvalidCameraType", "getRayPlaneHit"}]
+        4 SETTABLEKS                       R0 R2 K2 ["isInvalidCameraType"]
+        6 SETTABLEKS                       R1 R2 K3 ["getRayPlaneHit"]
+        8 RETURN                           R2 1

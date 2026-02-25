@@ -1,32 +1,32 @@
 PROTO_0:
-  GETTABLEKS R1 R0 K0 ["children"]
-  GETTABLEKS R5 R0 K1 ["providers"]
-  LENGTH R4 R5
-  LOADN R2 1
-  LOADN R3 255
-  FORNPREP R2
-  GETTABLEKS R6 R0 K1 ["providers"]
-  GETTABLE R5 R6 R4
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K2 ["cloneElement"]
-  MOVE R7 R5
-  LOADNIL R8
-  MOVE R9 R1
-  CALL R6 3 1
-  MOVE R1 R6
-  FORNLOOP R2
-  RETURN R1 1
+        0 GETTABLEKS                       R1 R0 K0 ["children"]
+        2 GETTABLEKS                       R5 R0 K1 ["providers"]
+        4 LENGTH                           R4 R5
+        5 LOADN                            R2 1
+        6 LOADN                            R3 255
+        7 FORNPREP                         R2
+        8 GETTABLEKS                       R6 R0 K1 ["providers"]
+       10 GETTABLE                         R5 R6 R4
+       11 GETUPVAL                         R7 0
+       12 GETTABLEKS                       R6 R7 K2 ["cloneElement"]
+       14 MOVE                             R7 R5
+       15 LOADNIL                          R8
+       16 MOVE                             R9 R1
+       17 CALL                             R6 3 1
+       18 MOVE                             R1 R6
+       19 FORNLOOP                         R2
+       20 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  DUPCLOSURE R2 K8 [PROTO_0]
-  CAPTURE VAL R1
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarCompatibilityPreviewer"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 DUPCLOSURE                       R2 K8 [PROTO_0]
+       15 CAPTURE                          VAL R1
+       16 RETURN                           R2 1

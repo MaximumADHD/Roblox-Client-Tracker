@@ -1,41 +1,41 @@
 PROTO_0:
-  GETUPVAL R0 0
-  LOADK R1 K0 ["HumanoidRigDescriptionEnabled"]
-  CALL R0 1 -1
-  RETURN R0 -1
+        0 GETUPVAL                         R0 0
+        1 LOADK                            R1 K0 ["HumanoidRigDescriptionEnabled"]
+        2 CALL                             R0 1 -1
+        3 RETURN                           R0 -1
 
 PROTO_1:
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["EnableAdaptiveAnimationSupport"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 -1
-  RETURN R0 -1
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["EnableAdaptiveAnimationSupport"]
+        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
+        5 CALL                             R0 2 -1
+        6 RETURN                           R0 -1
 
 PROTO_2:
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["RegisterActionsPluginLoader"]
-  NAMECALL R0 R0 K3 ["GetFastFlag"]
-  CALL R0 2 -1
-  RETURN R0 -1
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["RegisterActionsPluginLoader"]
+        3 NAMECALL                         R0 R0 K3 ["GetFastFlag"]
+        5 CALL                             R0 2 -1
+        6 RETURN                           R0 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [require]
-  GETIMPORT R3 K3 [script]
-  GETTABLEKS R2 R3 K4 ["Parent"]
-  GETTABLEKS R1 R2 K5 ["safeGetFastFlag"]
-  CALL R0 1 1
-  GETIMPORT R1 K7 [game]
-  LOADK R3 K8 ["EnableAdaptiveAnimationSupport"]
-  LOADB R4 0
-  NAMECALL R1 R1 K9 ["DefineFastFlag"]
-  CALL R1 3 0
-  DUPTABLE R1 K13 [{"getDFFlagHumanoidRigDescriptionEnabled", "getFFlagEnableAdaptiveAnimationSupport", "getFFlagRegisterActionsPluginLoader"}]
-  DUPCLOSURE R2 K14 [PROTO_0]
-  CAPTURE VAL R0
-  SETTABLEKS R2 R1 K10 ["getDFFlagHumanoidRigDescriptionEnabled"]
-  DUPCLOSURE R2 K15 [PROTO_1]
-  SETTABLEKS R2 R1 K11 ["getFFlagEnableAdaptiveAnimationSupport"]
-  DUPCLOSURE R2 K16 [PROTO_2]
-  SETTABLEKS R2 R1 K12 ["getFFlagRegisterActionsPluginLoader"]
-  RETURN R1 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [require]
+        3 GETIMPORT                        R3 K3 [script]
+        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K5 ["safeGetFastFlag"]
+        9 CALL                             R0 1 1
+       10 GETIMPORT                        R1 K7 [game]
+       12 LOADK                            R3 K8 ["EnableAdaptiveAnimationSupport"]
+       13 LOADB                            R4 0
+       14 NAMECALL                         R1 R1 K9 ["DefineFastFlag"]
+       16 CALL                             R1 3 0
+       17 DUPTABLE                         R1 K13 [{"getDFFlagHumanoidRigDescriptionEnabled", "getFFlagEnableAdaptiveAnimationSupport", "getFFlagRegisterActionsPluginLoader"}]
+       18 DUPCLOSURE                       R2 K14 [PROTO_0]
+       19 CAPTURE                          VAL R0
+       20 SETTABLEKS                       R2 R1 K10 ["getDFFlagHumanoidRigDescriptionEnabled"]
+       22 DUPCLOSURE                       R2 K15 [PROTO_1]
+       23 SETTABLEKS                       R2 R1 K11 ["getFFlagEnableAdaptiveAnimationSupport"]
+       25 DUPCLOSURE                       R2 K16 [PROTO_2]
+       26 SETTABLEKS                       R2 R1 K12 ["getFFlagRegisterActionsPluginLoader"]
+       28 RETURN                           R1 1

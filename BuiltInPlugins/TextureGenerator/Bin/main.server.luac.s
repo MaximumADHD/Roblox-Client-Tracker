@@ -1,165 +1,165 @@
 PROTO_0:
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["ProcessService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 -1
-  RETURN R0 -1
+        0 GETIMPORT                        R0 K1 [game]
+        2 LOADK                            R2 K2 ["ProcessService"]
+        3 NAMECALL                         R0 R0 K3 ["GetService"]
+        5 CALL                             R0 2 -1
+        6 RETURN                           R0 -1
 
 PROTO_1:
-  GETIMPORT R0 K1 [plugin]
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K2 ["Name"]
-  SETTABLEKS R1 R0 K2 ["Name"]
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K3 ["createElement"]
-  GETUPVAL R1 2
-  DUPTABLE R2 K5 [{"Plugin"}]
-  GETIMPORT R3 K1 [plugin]
-  SETTABLEKS R3 R2 K4 ["Plugin"]
-  CALL R0 2 1
-  GETUPVAL R2 4
-  GETTABLEKS R1 R2 K6 ["createRoot"]
-  GETIMPORT R2 K9 [Instance.new]
-  LOADK R3 K10 ["Frame"]
-  CALL R2 1 -1
-  CALL R1 -1 1
-  SETUPVAL R1 3
-  GETUPVAL R1 3
-  MOVE R3 R0
-  NAMECALL R1 R1 K11 ["render"]
-  CALL R1 2 0
-  RETURN R0 0
+        0 GETIMPORT                        R0 K1 [plugin]
+        2 GETUPVAL                         R2 0
+        3 GETTABLEKS                       R1 R2 K2 ["Name"]
+        5 SETTABLEKS                       R1 R0 K2 ["Name"]
+        7 GETUPVAL                         R1 1
+        8 GETTABLEKS                       R0 R1 K3 ["createElement"]
+       10 GETUPVAL                         R1 2
+       11 DUPTABLE                         R2 K5 [{"Plugin"}]
+       12 GETIMPORT                        R3 K1 [plugin]
+       14 SETTABLEKS                       R3 R2 K4 ["Plugin"]
+       16 CALL                             R0 2 1
+       17 GETUPVAL                         R2 4
+       18 GETTABLEKS                       R1 R2 K6 ["createRoot"]
+       20 GETIMPORT                        R2 K9 [Instance.new]
+       22 LOADK                            R3 K10 ["Frame"]
+       23 CALL                             R2 1 -1
+       24 CALL                             R1 -1 1
+       25 SETUPVAL                         R1 3
+       26 GETUPVAL                         R1 3
+       27 MOVE                             R3 R0
+       28 NAMECALL                         R1 R1 K11 ["render"]
+       30 CALL                             R1 2 0
+       31 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R0 0
-  JUMPIFNOT R0 [+7]
-  GETUPVAL R0 0
-  LOADNIL R2
-  NAMECALL R0 R0 K0 ["render"]
-  CALL R0 2 0
-  LOADNIL R0
-  SETUPVAL R0 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOT                        R0 ; [+7]
+        2 GETUPVAL                         R0 0
+        3 LOADNIL                          R2
+        4 NAMECALL                         R0 R0 K0 ["render"]
+        6 CALL                             R0 2 0
+        7 LOADNIL                          R0
+        8 SETUPVAL                         R0 0
+        9 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [require]
-  GETIMPORT R3 K3 [script]
-  GETTABLEKS R2 R3 K4 ["Parent"]
-  GETTABLEKS R1 R2 K5 ["defineLuaFlags"]
-  CALL R0 1 0
-  GETIMPORT R0 K7 [plugin]
-  JUMPIF R0 [+1]
-  RETURN R0 0
-  GETIMPORT R2 K3 [script]
-  GETTABLEKS R1 R2 K4 ["Parent"]
-  GETTABLEKS R0 R1 K4 ["Parent"]
-  GETIMPORT R1 K9 [pcall]
-  DUPCLOSURE R2 K10 [PROTO_0]
-  CALL R1 1 2
-  JUMPIFNOT R1 [+108]
-  GETIMPORT R3 K12 [game]
-  LOADK R5 K13 ["TestService"]
-  NAMECALL R3 R3 K14 ["GetService"]
-  CALL R3 2 1
-  GETIMPORT R5 K1 [require]
-  GETTABLEKS R8 R0 K15 ["Packages"]
-  GETTABLEKS R7 R8 K16 ["Dev"]
-  GETTABLEKS R6 R7 K17 ["Jest"]
-  CALL R5 1 1
-  GETTABLEKS R4 R5 K18 ["runCLI"]
-  GETIMPORT R5 K20 [_G]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K21 ["__ROACT_17_MOCK_SCHEDULER__"]
-  GETIMPORT R5 K20 [_G]
-  LOADB R6 1
-  SETTABLEKS R6 R5 K22 ["__ROACT_17_INLINE_ACT__"]
-  GETIMPORT R5 K12 [game]
-  LOADK R7 K23 ["DebugTextureGeneratorUpdateSnapshots"]
-  LOADB R8 0
-  NAMECALL R5 R5 K24 ["DefineFastFlag"]
-  CALL R5 3 1
-  GETIMPORT R6 K12 [game]
-  LOADK R8 K25 ["DebugTextureGeneratorTestPathPattern"]
-  LOADK R9 K26 [""]
-  NAMECALL R6 R6 K27 ["DefineFastString"]
-  CALL R6 3 1
-  MOVE R7 R4
-  GETTABLEKS R8 R0 K28 ["Src"]
-  DUPTABLE R9 K33 [{"verbose", "ci", "updateSnapshot", "testPathPattern"}]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K29 ["verbose"]
-  LOADB R10 1
-  SETTABLEKS R10 R9 K30 ["ci"]
-  SETTABLEKS R5 R9 K31 ["updateSnapshot"]
-  JUMPIFNOTEQKS R6 K26 [""] [+3]
-  LOADNIL R10
-  JUMP [+1]
-  MOVE R10 R6
-  SETTABLEKS R10 R9 K32 ["testPathPattern"]
-  NEWTABLE R10 0 2
-  GETTABLEKS R11 R0 K28 ["Src"]
-  GETTABLEKS R12 R0 K34 ["RhodiumTests"]
-  SETLIST R10 R11 2 [1]
-  CALL R7 3 1
-  NAMECALL R7 R7 K35 ["awaitStatus"]
-  CALL R7 1 2
-  JUMPIFNOTEQKS R7 K36 ["Resolved"] [+15]
-  GETTABLEKS R10 R8 K37 ["results"]
-  GETTABLEKS R9 R10 K38 ["numFailedTestSuites"]
-  LOADN R10 0
-  JUMPIFLT R10 R9 [+8]
-  GETTABLEKS R10 R8 K37 ["results"]
-  GETTABLEKS R9 R10 K39 ["numFailedTests"]
-  LOADN R10 0
-  JUMPIFNOTLT R10 R9 [+16]
-  JUMPIFNOTEQKS R7 K40 ["Rejected"] [+5]
-  GETIMPORT R9 K42 [print]
-  MOVE R10 R8
-  CALL R9 1 0
-  LOADK R11 K43 ["Jest 3 test run failed"]
-  NAMECALL R9 R3 K44 ["Error"]
-  CALL R9 2 0
-  LOADN R11 1
-  NAMECALL R9 R2 K45 ["ExitAsync"]
-  CALL R9 2 0
-  RETURN R0 0
-  LOADN R11 0
-  NAMECALL R9 R2 K45 ["ExitAsync"]
-  CALL R9 2 0
-  RETURN R0 0
-  GETIMPORT R3 K12 [game]
-  LOADK R5 K46 ["EnableTextureGenerator2"]
-  NAMECALL R3 R3 K47 ["GetFastFlag"]
-  CALL R3 2 1
-  JUMPIF R3 [+1]
-  RETURN R0 0
-  GETIMPORT R3 K1 [require]
-  GETTABLEKS R5 R0 K15 ["Packages"]
-  GETTABLEKS R4 R5 K48 ["React"]
-  CALL R3 1 1
-  GETIMPORT R4 K1 [require]
-  GETTABLEKS R6 R0 K15 ["Packages"]
-  GETTABLEKS R5 R6 K49 ["ReactRoblox"]
-  CALL R4 1 1
-  GETIMPORT R5 K1 [require]
-  GETTABLEKS R7 R0 K28 ["Src"]
-  GETTABLEKS R6 R7 K50 ["MainPlugin"]
-  CALL R5 1 1
-  LOADNIL R6
-  NEWCLOSURE R7 P1
-  CAPTURE VAL R0
-  CAPTURE VAL R3
-  CAPTURE VAL R5
-  CAPTURE REF R6
-  CAPTURE VAL R4
-  GETIMPORT R9 K7 [plugin]
-  GETTABLEKS R8 R9 K51 ["Unloading"]
-  NEWCLOSURE R10 P2
-  CAPTURE REF R6
-  NAMECALL R8 R8 K52 ["Connect"]
-  CALL R8 2 0
-  MOVE R8 R7
-  CALL R8 0 0
-  CLOSEUPVALS R6
-  RETURN R0 0
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [require]
+        3 GETIMPORT                        R3 K3 [script]
+        5 GETTABLEKS                       R2 R3 K4 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K5 ["defineLuaFlags"]
+        9 CALL                             R0 1 0
+       10 GETIMPORT                        R0 K7 [plugin]
+       12 JUMPIF                           R0 ; [+1]
+       13 RETURN                           R0 0
+       14 GETIMPORT                        R2 K3 [script]
+       16 GETTABLEKS                       R1 R2 K4 ["Parent"]
+       18 GETTABLEKS                       R0 R1 K4 ["Parent"]
+       20 GETIMPORT                        R1 K9 [pcall]
+       22 DUPCLOSURE                       R2 K10 [PROTO_0]
+       23 CALL                             R1 1 2
+       24 JUMPIFNOT                        R1 ; [+108]
+       25 GETIMPORT                        R3 K12 [game]
+       27 LOADK                            R5 K13 ["TestService"]
+       28 NAMECALL                         R3 R3 K14 ["GetService"]
+       30 CALL                             R3 2 1
+       31 GETIMPORT                        R5 K1 [require]
+       33 GETTABLEKS                       R8 R0 K15 ["Packages"]
+       35 GETTABLEKS                       R7 R8 K16 ["Dev"]
+       37 GETTABLEKS                       R6 R7 K17 ["Jest"]
+       39 CALL                             R5 1 1
+       40 GETTABLEKS                       R4 R5 K18 ["runCLI"]
+       42 GETIMPORT                        R5 K20 [_G]
+       44 LOADB                            R6 1
+       45 SETTABLEKS                       R6 R5 K21 ["__ROACT_17_MOCK_SCHEDULER__"]
+       47 GETIMPORT                        R5 K20 [_G]
+       49 LOADB                            R6 1
+       50 SETTABLEKS                       R6 R5 K22 ["__ROACT_17_INLINE_ACT__"]
+       52 GETIMPORT                        R5 K12 [game]
+       54 LOADK                            R7 K23 ["DebugTextureGeneratorUpdateSnapshots"]
+       55 LOADB                            R8 0
+       56 NAMECALL                         R5 R5 K24 ["DefineFastFlag"]
+       58 CALL                             R5 3 1
+       59 GETIMPORT                        R6 K12 [game]
+       61 LOADK                            R8 K25 ["DebugTextureGeneratorTestPathPattern"]
+       62 LOADK                            R9 K26 [""]
+       63 NAMECALL                         R6 R6 K27 ["DefineFastString"]
+       65 CALL                             R6 3 1
+       66 MOVE                             R7 R4
+       67 GETTABLEKS                       R8 R0 K28 ["Src"]
+       69 DUPTABLE                         R9 K33 [{"verbose", "ci", "updateSnapshot", "testPathPattern"}]
+       70 LOADB                            R10 1
+       71 SETTABLEKS                       R10 R9 K29 ["verbose"]
+       73 LOADB                            R10 1
+       74 SETTABLEKS                       R10 R9 K30 ["ci"]
+       76 SETTABLEKS                       R5 R9 K31 ["updateSnapshot"]
+       78 JUMPIFNOTEQKS                    R6 K26 [""] ; [+3]
+       80 LOADNIL                          R10
+       81 JUMP                             ; [+1]
+       82 MOVE                             R10 R6
+       83 SETTABLEKS                       R10 R9 K32 ["testPathPattern"]
+       85 NEWTABLE                         R10 0 2
+       87 GETTABLEKS                       R11 R0 K28 ["Src"]
+       89 GETTABLEKS                       R12 R0 K34 ["RhodiumTests"]
+       91 SETLIST                          R10 R11 2 [1]
+       93 CALL                             R7 3 1
+       94 NAMECALL                         R7 R7 K35 ["awaitStatus"]
+       96 CALL                             R7 1 2
+       97 JUMPIFNOTEQKS                    R7 K36 ["Resolved"] ; [+15]
+       99 GETTABLEKS                       R10 R8 K37 ["results"]
+      101 GETTABLEKS                       R9 R10 K38 ["numFailedTestSuites"]
+      103 LOADN                            R10 0
+      104 JUMPIFLT                         R10 R9 ; [+8]
+      106 GETTABLEKS                       R10 R8 K37 ["results"]
+      108 GETTABLEKS                       R9 R10 K39 ["numFailedTests"]
+      110 LOADN                            R10 0
+      111 JUMPIFNOTLT                      R10 R9 ; [+16]
+      113 JUMPIFNOTEQKS                    R7 K40 ["Rejected"] ; [+5]
+      115 GETIMPORT                        R9 K42 [print]
+      117 MOVE                             R10 R8
+      118 CALL                             R9 1 0
+      119 LOADK                            R11 K43 ["Jest 3 test run failed"]
+      120 NAMECALL                         R9 R3 K44 ["Error"]
+      122 CALL                             R9 2 0
+      123 LOADN                            R11 1
+      124 NAMECALL                         R9 R2 K45 ["ExitAsync"]
+      126 CALL                             R9 2 0
+      127 RETURN                           R0 0
+      128 LOADN                            R11 0
+      129 NAMECALL                         R9 R2 K45 ["ExitAsync"]
+      131 CALL                             R9 2 0
+      132 RETURN                           R0 0
+      133 GETIMPORT                        R3 K12 [game]
+      135 LOADK                            R5 K46 ["EnableTextureGenerator2"]
+      136 NAMECALL                         R3 R3 K47 ["GetFastFlag"]
+      138 CALL                             R3 2 1
+      139 JUMPIF                           R3 ; [+1]
+      140 RETURN                           R0 0
+      141 GETIMPORT                        R3 K1 [require]
+      143 GETTABLEKS                       R5 R0 K15 ["Packages"]
+      145 GETTABLEKS                       R4 R5 K48 ["React"]
+      147 CALL                             R3 1 1
+      148 GETIMPORT                        R4 K1 [require]
+      150 GETTABLEKS                       R6 R0 K15 ["Packages"]
+      152 GETTABLEKS                       R5 R6 K49 ["ReactRoblox"]
+      154 CALL                             R4 1 1
+      155 GETIMPORT                        R5 K1 [require]
+      157 GETTABLEKS                       R7 R0 K28 ["Src"]
+      159 GETTABLEKS                       R6 R7 K50 ["MainPlugin"]
+      161 CALL                             R5 1 1
+      162 LOADNIL                          R6
+      163 NEWCLOSURE                       R7 P1
+      164 CAPTURE                          VAL R0
+      165 CAPTURE                          VAL R3
+      166 CAPTURE                          VAL R5
+      167 CAPTURE                          REF R6
+      168 CAPTURE                          VAL R4
+      169 GETIMPORT                        R9 K7 [plugin]
+      171 GETTABLEKS                       R8 R9 K51 ["Unloading"]
+      173 NEWCLOSURE                       R10 P2
+      174 CAPTURE                          REF R6
+      175 NAMECALL                         R8 R8 K52 ["Connect"]
+      177 CALL                             R8 2 0
+      178 MOVE                             R8 R7
+      179 CALL                             R8 0 0
+      180 CLOSEUPVALS                      R6
+      181 RETURN                           R0 0

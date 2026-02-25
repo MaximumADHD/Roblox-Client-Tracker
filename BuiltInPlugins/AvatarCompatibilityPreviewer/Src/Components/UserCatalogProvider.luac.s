@@ -1,418 +1,418 @@
 PROTO_0:
-  LOADK R3 K0 ["RBX_Palette"]
-  NAMECALL R1 R0 K1 ["GetAttribute"]
-  CALL R1 2 1
-  JUMPIF R1 [+11]
-  GETIMPORT R2 K3 [warn]
-  LOADK R4 K4 ["%* did not have a palette set. This is a bug in the plugin, please report it."]
-  MOVE R6 R0
-  NAMECALL R4 R4 K5 ["format"]
-  CALL R4 2 1
-  MOVE R3 R4
-  CALL R2 1 0
-  LOADNIL R2
-  RETURN R2 1
-  GETUPVAL R2 0
-  MOVE R3 R1
-  CALL R2 1 1
-  JUMPIFNOTEQKNIL R2 [+13]
-  GETIMPORT R3 K3 [warn]
-  LOADK R5 K6 ["%* has an invalid palette \"%*\". This is a bug in the plugin, please report it."]
-  MOVE R7 R0
-  MOVE R8 R1
-  NAMECALL R5 R5 K5 ["format"]
-  CALL R5 3 1
-  MOVE R4 R5
-  CALL R3 1 0
-  LOADNIL R3
-  RETURN R3 1
-  JUMPIFNOTEQKNIL R2 [+2]
-  LOADB R4 0 +1
-  LOADB R4 1
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K7 ["LUAU_ANALYZE_ERROR"]
-  FASTCALL2 ASSERT R4 R5 [+3]
-  GETIMPORT R3 K9 [assert]
-  CALL R3 2 0
-  DUPTABLE R3 K12 [{"palette", "item"}]
-  SETTABLEKS R2 R3 K10 ["palette"]
-  DUPTABLE R4 K15 [{"source", "instance"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K16 ["SOURCE_INSTANCE"]
-  SETTABLEKS R5 R4 K13 ["source"]
-  SETTABLEKS R0 R4 K14 ["instance"]
-  SETTABLEKS R4 R3 K11 ["item"]
-  RETURN R3 1
+        0 LOADK                            R3 K0 ["RBX_Palette"]
+        1 NAMECALL                         R1 R0 K1 ["GetAttribute"]
+        3 CALL                             R1 2 1
+        4 JUMPIF                           R1 ; [+11]
+        5 GETIMPORT                        R2 K3 [warn]
+        7 LOADK                            R4 K4 ["%* did not have a palette set. This is a bug in the plugin, please report it."]
+        8 MOVE                             R6 R0
+        9 NAMECALL                         R4 R4 K5 ["format"]
+       11 CALL                             R4 2 1
+       12 MOVE                             R3 R4
+       13 CALL                             R2 1 0
+       14 LOADNIL                          R2
+       15 RETURN                           R2 1
+       16 GETUPVAL                         R2 0
+       17 MOVE                             R3 R1
+       18 CALL                             R2 1 1
+       19 JUMPIFNOTEQKNIL                  R2 ; [+13]
+       21 GETIMPORT                        R3 K3 [warn]
+       23 LOADK                            R5 K6 ["%* has an invalid palette \"%*\". This is a bug in the plugin, please report it."]
+       24 MOVE                             R7 R0
+       25 MOVE                             R8 R1
+       26 NAMECALL                         R5 R5 K5 ["format"]
+       28 CALL                             R5 3 1
+       29 MOVE                             R4 R5
+       30 CALL                             R3 1 0
+       31 LOADNIL                          R3
+       32 RETURN                           R3 1
+       33 JUMPIFNOTEQKNIL                  R2 ; [+2]
+       35 LOADB                            R4 0 +1
+       36 LOADB                            R4 1
+       37 GETUPVAL                         R6 1
+       38 GETTABLEKS                       R5 R6 K7 ["LUAU_ANALYZE_ERROR"]
+       40 FASTCALL2                        ASSERT R4 R5 ; [+3]
+       42 GETIMPORT                        R3 K9 [assert]
+       44 CALL                             R3 2 0
+       45 DUPTABLE                         R3 K12 [{"palette", "item"}]
+       46 SETTABLEKS                       R2 R3 K10 ["palette"]
+       48 DUPTABLE                         R4 K15 [{"source", "instance"}]
+       49 GETUPVAL                         R6 1
+       50 GETTABLEKS                       R5 R6 K16 ["SOURCE_INSTANCE"]
+       52 SETTABLEKS                       R5 R4 K13 ["source"]
+       54 SETTABLEKS                       R0 R4 K14 ["instance"]
+       56 SETTABLEKS                       R4 R3 K11 ["item"]
+       58 RETURN                           R3 1
 
 PROTO_1:
-  GETUPVAL R2 0
-  MOVE R3 R1
-  CALL R2 1 1
-  JUMPIFNOTEQKNIL R2 [+4]
-  NAMECALL R3 R1 K0 ["Destroy"]
-  CALL R3 1 0
-  RETURN R2 1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R1
+        2 CALL                             R2 1 1
+        3 JUMPIFNOTEQKNIL                  R2 ; [+4]
+        5 NAMECALL                         R3 R1 K0 ["Destroy"]
+        7 CALL                             R3 1 0
+        8 RETURN                           R2 1
 
 PROTO_2:
-  GETUPVAL R3 0
-  JUMPIFNOTEQKNIL R3 [+6]
-  GETIMPORT R3 K1 [warn]
-  LOADK R4 K2 ["catalog folder is nil when trying to add new items"]
-  CALL R3 1 0
-  RETURN R0 0
-  GETUPVAL R3 0
-  NAMECALL R3 R3 K3 ["GetChildren"]
-  CALL R3 1 3
-  FORGPREP R3
-  GETUPVAL R11 1
-  GETTABLEKS R10 R11 K4 ["REFERENCE_VALUE_NAME"]
-  NAMECALL R8 R7 K5 ["FindFirstChild"]
-  CALL R8 2 1
-  JUMPIFEQKNIL R8 [+51]
-  LOADK R11 K6 ["ObjectValue"]
-  NAMECALL R9 R8 K7 ["IsA"]
-  CALL R9 2 1
-  JUMPIFNOT R9 [+45]
-  LOADK R12 K6 ["ObjectValue"]
-  NAMECALL R10 R8 K7 ["IsA"]
-  CALL R10 2 1
-  GETUPVAL R12 1
-  GETTABLEKS R11 R12 K8 ["LUAU_ANALYZE_ERROR"]
-  FASTCALL2 ASSERT R10 R11 [+3]
-  GETIMPORT R9 K10 [assert]
-  CALL R9 2 0
-  GETTABLEKS R9 R8 K11 ["Value"]
-  JUMPIFNOTEQ R9 R2 [+30]
-  LOADK R11 K12 ["RBX_Palette"]
-  NAMECALL R9 R7 K13 ["GetAttribute"]
-  CALL R9 2 1
-  GETTABLEKS R10 R1 K14 ["Key"]
-  JUMPIFNOTEQ R9 R10 [+22]
-  GETUPVAL R10 2
-  GETTABLEKS R9 R10 K15 ["removeEquippedItem"]
-  DUPTABLE R10 K18 [{"palette", "item"}]
-  SETTABLEKS R1 R10 K16 ["palette"]
-  DUPTABLE R11 K21 [{"source", "instance"}]
-  GETUPVAL R13 1
-  GETTABLEKS R12 R13 K22 ["SOURCE_INSTANCE"]
-  SETTABLEKS R12 R11 K19 ["source"]
-  SETTABLEKS R7 R11 K20 ["instance"]
-  SETTABLEKS R11 R10 K17 ["item"]
-  CALL R9 1 0
-  NAMECALL R9 R7 K23 ["Destroy"]
-  CALL R9 1 0
-  JUMP [+2]
-  FORGLOOP R3 2 [-59]
-  GETIMPORT R3 K26 [Instance.new]
-  LOADK R4 K6 ["ObjectValue"]
-  CALL R3 1 1
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K4 ["REFERENCE_VALUE_NAME"]
-  SETTABLEKS R4 R3 K27 ["Name"]
-  SETTABLEKS R2 R3 K11 ["Value"]
-  SETTABLEKS R0 R3 K28 ["Parent"]
-  LOADK R6 K12 ["RBX_Palette"]
-  GETTABLEKS R7 R1 K14 ["Key"]
-  NAMECALL R4 R0 K29 ["SetAttribute"]
-  CALL R4 3 0
-  GETUPVAL R4 3
-  NAMECALL R4 R4 K30 ["GenerateGUID"]
-  CALL R4 1 1
-  SETTABLEKS R4 R0 K27 ["Name"]
-  GETUPVAL R4 0
-  SETTABLEKS R4 R0 K28 ["Parent"]
-  RETURN R0 0
+        0 GETUPVAL                         R3 0
+        1 JUMPIFNOTEQKNIL                  R3 ; [+6]
+        3 GETIMPORT                        R3 K1 [warn]
+        5 LOADK                            R4 K2 ["catalog folder is nil when trying to add new items"]
+        6 CALL                             R3 1 0
+        7 RETURN                           R0 0
+        8 GETUPVAL                         R3 0
+        9 NAMECALL                         R3 R3 K3 ["GetChildren"]
+       11 CALL                             R3 1 3
+       12 FORGPREP                         R3
+       13 GETUPVAL                         R11 1
+       14 GETTABLEKS                       R10 R11 K4 ["REFERENCE_VALUE_NAME"]
+       16 NAMECALL                         R8 R7 K5 ["FindFirstChild"]
+       18 CALL                             R8 2 1
+       19 JUMPIFEQKNIL                     R8 ; [+51]
+       21 LOADK                            R11 K6 ["ObjectValue"]
+       22 NAMECALL                         R9 R8 K7 ["IsA"]
+       24 CALL                             R9 2 1
+       25 JUMPIFNOT                        R9 ; [+45]
+       26 LOADK                            R12 K6 ["ObjectValue"]
+       27 NAMECALL                         R10 R8 K7 ["IsA"]
+       29 CALL                             R10 2 1
+       30 GETUPVAL                         R12 1
+       31 GETTABLEKS                       R11 R12 K8 ["LUAU_ANALYZE_ERROR"]
+       33 FASTCALL2                        ASSERT R10 R11 ; [+3]
+       35 GETIMPORT                        R9 K10 [assert]
+       37 CALL                             R9 2 0
+       38 GETTABLEKS                       R9 R8 K11 ["Value"]
+       40 JUMPIFNOTEQ                      R9 R2 ; [+30]
+       42 LOADK                            R11 K12 ["RBX_Palette"]
+       43 NAMECALL                         R9 R7 K13 ["GetAttribute"]
+       45 CALL                             R9 2 1
+       46 GETTABLEKS                       R10 R1 K14 ["Key"]
+       48 JUMPIFNOTEQ                      R9 R10 ; [+22]
+       50 GETUPVAL                         R10 2
+       51 GETTABLEKS                       R9 R10 K15 ["removeEquippedItem"]
+       53 DUPTABLE                         R10 K18 [{"palette", "item"}]
+       54 SETTABLEKS                       R1 R10 K16 ["palette"]
+       56 DUPTABLE                         R11 K21 [{"source", "instance"}]
+       57 GETUPVAL                         R13 1
+       58 GETTABLEKS                       R12 R13 K22 ["SOURCE_INSTANCE"]
+       60 SETTABLEKS                       R12 R11 K19 ["source"]
+       62 SETTABLEKS                       R7 R11 K20 ["instance"]
+       64 SETTABLEKS                       R11 R10 K17 ["item"]
+       66 CALL                             R9 1 0
+       67 NAMECALL                         R9 R7 K23 ["Destroy"]
+       69 CALL                             R9 1 0
+       70 JUMP                             ; [+2]
+       71 FORGLOOP                         R3 2 ; [-59]
+       73 GETIMPORT                        R3 K26 [Instance.new]
+       75 LOADK                            R4 K6 ["ObjectValue"]
+       76 CALL                             R3 1 1
+       77 GETUPVAL                         R5 1
+       78 GETTABLEKS                       R4 R5 K4 ["REFERENCE_VALUE_NAME"]
+       80 SETTABLEKS                       R4 R3 K27 ["Name"]
+       82 SETTABLEKS                       R2 R3 K11 ["Value"]
+       84 SETTABLEKS                       R0 R3 K28 ["Parent"]
+       86 LOADK                            R6 K12 ["RBX_Palette"]
+       87 GETTABLEKS                       R7 R1 K14 ["Key"]
+       89 NAMECALL                         R4 R0 K29 ["SetAttribute"]
+       91 CALL                             R4 3 0
+       92 GETUPVAL                         R4 3
+       93 NAMECALL                         R4 R4 K30 ["GenerateGUID"]
+       95 CALL                             R4 1 1
+       96 SETTABLEKS                       R4 R0 K27 ["Name"]
+       98 GETUPVAL                         R4 0
+       99 SETTABLEKS                       R4 R0 K28 ["Parent"]
+      101 RETURN                           R0 0
 
 PROTO_3:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["removeEquippedItem"]
-  DUPTABLE R3 K3 [{"palette", "item"}]
-  SETTABLEKS R0 R3 K1 ["palette"]
-  DUPTABLE R4 K6 [{"source", "instance"}]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K7 ["SOURCE_INSTANCE"]
-  SETTABLEKS R5 R4 K4 ["source"]
-  SETTABLEKS R1 R4 K5 ["instance"]
-  SETTABLEKS R4 R3 K2 ["item"]
-  CALL R2 1 0
-  NAMECALL R2 R1 K8 ["Destroy"]
-  CALL R2 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["removeEquippedItem"]
+        3 DUPTABLE                         R3 K3 [{"palette", "item"}]
+        4 SETTABLEKS                       R0 R3 K1 ["palette"]
+        6 DUPTABLE                         R4 K6 [{"source", "instance"}]
+        7 GETUPVAL                         R6 1
+        8 GETTABLEKS                       R5 R6 K7 ["SOURCE_INSTANCE"]
+       10 SETTABLEKS                       R5 R4 K4 ["source"]
+       12 SETTABLEKS                       R1 R4 K5 ["instance"]
+       14 SETTABLEKS                       R4 R3 K2 ["item"]
+       16 CALL                             R2 1 0
+       17 NAMECALL                         R2 R1 K8 ["Destroy"]
+       19 CALL                             R2 1 0
+       20 RETURN                           R0 0
 
 PROTO_4:
-  GETIMPORT R1 K2 [table.clone]
-  MOVE R2 R0
-  CALL R1 1 1
-  GETUPVAL R2 0
-  GETUPVAL R3 1
-  CALL R2 1 1
-  JUMPIFNOTEQKNIL R2 [+2]
-  LOADB R4 0 +1
-  LOADB R4 1
-  FASTCALL2K ASSERT R4 K3 [+4]
-  LOADK R5 K3 ["Newly added child to the catalog couldn't be turned into a catalog item"]
-  GETIMPORT R3 K5 [assert]
-  CALL R3 2 0
-  FASTCALL2 TABLE_INSERT R1 R2 [+5]
-  MOVE R4 R1
-  MOVE R5 R2
-  GETIMPORT R3 K7 [table.insert]
-  CALL R3 2 0
-  RETURN R1 1
+        0 GETIMPORT                        R1 K2 [table.clone]
+        2 MOVE                             R2 R0
+        3 CALL                             R1 1 1
+        4 GETUPVAL                         R2 0
+        5 GETUPVAL                         R3 1
+        6 CALL                             R2 1 1
+        7 JUMPIFNOTEQKNIL                  R2 ; [+2]
+        9 LOADB                            R4 0 +1
+       10 LOADB                            R4 1
+       11 FASTCALL2K                       ASSERT R4 K3 ; [+4]
+       13 LOADK                            R5 K3 ["Newly added child to the catalog couldn't be turned into a catalog item"]
+       14 GETIMPORT                        R3 K5 [assert]
+       16 CALL                             R3 2 0
+       17 FASTCALL2                        TABLE_INSERT R1 R2 ; [+5]
+       19 MOVE                             R4 R1
+       20 MOVE                             R5 R2
+       21 GETIMPORT                        R3 K7 [table.insert]
+       23 CALL                             R3 2 0
+       24 RETURN                           R1 1
 
 PROTO_5:
-  GETUPVAL R1 0
-  NEWCLOSURE R2 P0
-  CAPTURE UPVAL U1
-  CAPTURE VAL R0
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 NEWCLOSURE                       R2 P0
+        2 CAPTURE                          UPVAL U1
+        3 CAPTURE                          VAL R0
+        4 CALL                             R1 1 0
+        5 RETURN                           R0 0
 
 PROTO_6:
-  LOADB R1 0
-  GETTABLEKS R3 R0 K0 ["item"]
-  GETTABLEKS R2 R3 K1 ["source"]
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K2 ["SOURCE_INSTANCE"]
-  JUMPIFNOTEQ R2 R3 [+10]
-  GETTABLEKS R3 R0 K0 ["item"]
-  GETTABLEKS R2 R3 K3 ["instance"]
-  GETUPVAL R3 1
-  JUMPIFEQ R2 R3 [+2]
-  LOADB R1 0 +1
-  LOADB R1 1
-  RETURN R1 1
+        0 LOADB                            R1 0
+        1 GETTABLEKS                       R3 R0 K0 ["item"]
+        3 GETTABLEKS                       R2 R3 K1 ["source"]
+        5 GETUPVAL                         R4 0
+        6 GETTABLEKS                       R3 R4 K2 ["SOURCE_INSTANCE"]
+        8 JUMPIFNOTEQ                      R2 R3 ; [+10]
+       10 GETTABLEKS                       R3 R0 K0 ["item"]
+       12 GETTABLEKS                       R2 R3 K3 ["instance"]
+       14 GETUPVAL                         R3 1
+       15 JUMPIFEQ                         R2 R3 ; [+2]
+       17 LOADB                            R1 0 +1
+       18 LOADB                            R1 1
+       19 RETURN                           R1 1
 
 PROTO_7:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["findIndex"]
-  MOVE R2 R0
-  NEWCLOSURE R3 P0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CALL R1 2 1
-  JUMPIFNOTEQKNIL R1 [+3]
-  MOVE R2 R0
-  RETURN R2 1
-  GETUPVAL R4 3
-  GETTABLEKS R3 R4 K1 ["List"]
-  GETTABLEKS R2 R3 K2 ["removeIndex"]
-  MOVE R3 R0
-  MOVE R4 R1
-  CALL R2 2 1
-  RETURN R2 1
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["findIndex"]
+        3 MOVE                             R2 R0
+        4 NEWCLOSURE                       R3 P0
+        5 CAPTURE                          UPVAL U1
+        6 CAPTURE                          UPVAL U2
+        7 CALL                             R1 2 1
+        8 JUMPIFNOTEQKNIL                  R1 ; [+3]
+       10 MOVE                             R2 R0
+       11 RETURN                           R2 1
+       12 GETUPVAL                         R4 3
+       13 GETTABLEKS                       R3 R4 K1 ["List"]
+       15 GETTABLEKS                       R2 R3 K2 ["removeIndex"]
+       17 MOVE                             R3 R0
+       18 MOVE                             R4 R1
+       19 CALL                             R2 2 1
+       20 RETURN                           R2 1
 
 PROTO_8:
-  GETUPVAL R1 0
-  NEWCLOSURE R2 P0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE VAL R0
-  CAPTURE UPVAL U3
-  CALL R1 1 0
-  GETUPVAL R2 4
-  GETTABLEKS R1 R2 K0 ["cleanAllEquippedItems"]
-  CALL R1 0 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 NEWCLOSURE                       R2 P0
+        2 CAPTURE                          UPVAL U1
+        3 CAPTURE                          UPVAL U2
+        4 CAPTURE                          VAL R0
+        5 CAPTURE                          UPVAL U3
+        6 CALL                             R1 1 0
+        7 GETUPVAL                         R2 4
+        8 GETTABLEKS                       R1 R2 K0 ["cleanAllEquippedItems"]
+       10 CALL                             R1 0 0
+       11 RETURN                           R0 0
 
 PROTO_9:
-  GETUPVAL R1 0
-  MOVE R2 R0
-  CALL R1 1 1
-  JUMPIFNOTEQKNIL R1 [+2]
-  LOADB R3 0 +1
-  LOADB R3 1
-  FASTCALL2K ASSERT R3 K0 [+4]
-  LOADK R4 K0 ["Newly added child to the catalog couldn't be turned into a catalog item"]
-  GETIMPORT R2 K2 [assert]
-  CALL R2 2 0
-  RETURN R1 1
+        0 GETUPVAL                         R1 0
+        1 MOVE                             R2 R0
+        2 CALL                             R1 1 1
+        3 JUMPIFNOTEQKNIL                  R1 ; [+2]
+        5 LOADB                            R3 0 +1
+        6 LOADB                            R3 1
+        7 FASTCALL2K                       ASSERT R3 K0 ; [+4]
+        9 LOADK                            R4 K0 ["Newly added child to the catalog couldn't be turned into a catalog item"]
+       10 GETIMPORT                        R2 K2 [assert]
+       12 CALL                             R2 2 0
+       13 RETURN                           R1 1
 
 PROTO_10:
-  GETUPVAL R0 0
-  NAMECALL R0 R0 K0 ["Disconnect"]
-  CALL R0 1 0
-  GETUPVAL R0 1
-  NAMECALL R0 R0 K0 ["Disconnect"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        3 CALL                             R0 1 0
+        4 GETUPVAL                         R0 1
+        5 NAMECALL                         R0 R0 K0 ["Disconnect"]
+        7 CALL                             R0 1 0
+        8 RETURN                           R0 0
 
 PROTO_11:
-  GETUPVAL R0 0
-  JUMPIFNOTEQKNIL R0 [+2]
-  RETURN R0 0
-  GETUPVAL R1 1
-  GETTABLEKS R0 R1 K0 ["cleanAllEquippedItems"]
-  CALL R0 0 0
-  NEWCLOSURE R0 P0
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K1 ["ChildAdded"]
-  MOVE R3 R0
-  NAMECALL R1 R1 K2 ["Connect"]
-  CALL R1 2 1
-  NEWCLOSURE R2 P1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U4
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  CAPTURE UPVAL U1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K3 ["ChildRemoved"]
-  MOVE R5 R2
-  NAMECALL R3 R3 K2 ["Connect"]
-  CALL R3 2 1
-  GETUPVAL R4 2
-  GETUPVAL R6 4
-  GETTABLEKS R5 R6 K4 ["map"]
-  GETUPVAL R6 0
-  NAMECALL R6 R6 K5 ["GetChildren"]
-  CALL R6 1 1
-  DUPCLOSURE R7 K6 [PROTO_9]
-  CAPTURE UPVAL U3
-  CALL R5 2 -1
-  CALL R4 -1 0
-  NEWCLOSURE R4 P3
-  CAPTURE VAL R1
-  CAPTURE VAL R3
-  RETURN R4 1
+        0 GETUPVAL                         R0 0
+        1 JUMPIFNOTEQKNIL                  R0 ; [+2]
+        3 RETURN                           R0 0
+        4 GETUPVAL                         R1 1
+        5 GETTABLEKS                       R0 R1 K0 ["cleanAllEquippedItems"]
+        7 CALL                             R0 0 0
+        8 NEWCLOSURE                       R0 P0
+        9 CAPTURE                          UPVAL U2
+       10 CAPTURE                          UPVAL U3
+       11 GETUPVAL                         R2 0
+       12 GETTABLEKS                       R1 R2 K1 ["ChildAdded"]
+       14 MOVE                             R3 R0
+       15 NAMECALL                         R1 R1 K2 ["Connect"]
+       17 CALL                             R1 2 1
+       18 NEWCLOSURE                       R2 P1
+       19 CAPTURE                          UPVAL U2
+       20 CAPTURE                          UPVAL U4
+       21 CAPTURE                          UPVAL U5
+       22 CAPTURE                          UPVAL U6
+       23 CAPTURE                          UPVAL U1
+       24 GETUPVAL                         R4 0
+       25 GETTABLEKS                       R3 R4 K3 ["ChildRemoved"]
+       27 MOVE                             R5 R2
+       28 NAMECALL                         R3 R3 K2 ["Connect"]
+       30 CALL                             R3 2 1
+       31 GETUPVAL                         R4 2
+       32 GETUPVAL                         R6 4
+       33 GETTABLEKS                       R5 R6 K4 ["map"]
+       35 GETUPVAL                         R6 0
+       36 NAMECALL                         R6 R6 K5 ["GetChildren"]
+       38 CALL                             R6 1 1
+       39 DUPCLOSURE                       R7 K6 [PROTO_9]
+       40 CAPTURE                          UPVAL U3
+       41 CALL                             R5 2 -1
+       42 CALL                             R4 -1 0
+       43 NEWCLOSURE                       R4 P3
+       44 CAPTURE                          VAL R1
+       45 CAPTURE                          VAL R3
+       46 RETURN                           R4 1
 
 PROTO_12:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["useContext"]
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["Context"]
-  CALL R2 1 1
-  GETTABLEKS R1 R2 K2 ["userCatalogFolder"]
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["useContext"]
-  GETUPVAL R3 2
-  CALL R2 1 1
-  GETUPVAL R4 0
-  GETTABLEKS R3 R4 K3 ["useState"]
-  GETUPVAL R5 3
-  GETTABLEKS R4 R5 K4 ["collectArray"]
-  JUMPIFEQKNIL R1 [+5]
-  NAMECALL R5 R1 K5 ["GetChildren"]
-  CALL R5 1 1
-  JUMP [+2]
-  NEWTABLE R5 0 0
-  DUPCLOSURE R6 K6 [PROTO_1]
-  CAPTURE UPVAL U4
-  CALL R4 2 -1
-  CALL R3 -1 2
-  GETUPVAL R6 0
-  GETTABLEKS R5 R6 K7 ["useCallback"]
-  NEWCLOSURE R6 P1
-  CAPTURE VAL R1
-  CAPTURE UPVAL U5
-  CAPTURE VAL R2
-  CAPTURE UPVAL U6
-  NEWTABLE R7 0 2
-  GETTABLEKS R8 R2 K8 ["removeEquippedItem"]
-  MOVE R9 R1
-  SETLIST R7 R8 2 [1]
-  CALL R5 2 1
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K7 ["useCallback"]
-  NEWCLOSURE R7 P2
-  CAPTURE VAL R2
-  CAPTURE UPVAL U5
-  NEWTABLE R8 0 1
-  GETTABLEKS R9 R2 K8 ["removeEquippedItem"]
-  SETLIST R8 R9 1 [1]
-  CALL R6 2 1
-  GETUPVAL R8 0
-  GETTABLEKS R7 R8 K9 ["useEffect"]
-  NEWCLOSURE R8 P3
-  CAPTURE VAL R1
-  CAPTURE VAL R2
-  CAPTURE VAL R4
-  CAPTURE UPVAL U4
-  CAPTURE UPVAL U3
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U7
-  NEWTABLE R9 0 1
-  MOVE R10 R1
-  SETLIST R9 R10 1 [1]
-  CALL R7 2 0
-  DUPTABLE R7 K13 [{"equippableItems", "addNewItem", "removeItem"}]
-  SETTABLEKS R3 R7 K10 ["equippableItems"]
-  SETTABLEKS R5 R7 K11 ["addNewItem"]
-  SETTABLEKS R6 R7 K12 ["removeItem"]
-  GETUPVAL R9 0
-  GETTABLEKS R8 R9 K14 ["createElement"]
-  GETUPVAL R10 8
-  GETTABLEKS R9 R10 K15 ["Provider"]
-  DUPTABLE R10 K17 [{"value"}]
-  SETTABLEKS R7 R10 K16 ["value"]
-  GETTABLEKS R11 R0 K18 ["children"]
-  CALL R8 3 -1
-  RETURN R8 -1
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["useContext"]
+        3 GETUPVAL                         R4 1
+        4 GETTABLEKS                       R3 R4 K1 ["Context"]
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R1 R2 K2 ["userCatalogFolder"]
+        9 GETUPVAL                         R3 0
+       10 GETTABLEKS                       R2 R3 K0 ["useContext"]
+       12 GETUPVAL                         R3 2
+       13 CALL                             R2 1 1
+       14 GETUPVAL                         R4 0
+       15 GETTABLEKS                       R3 R4 K3 ["useState"]
+       17 GETUPVAL                         R5 3
+       18 GETTABLEKS                       R4 R5 K4 ["collectArray"]
+       20 JUMPIFEQKNIL                     R1 ; [+5]
+       22 NAMECALL                         R5 R1 K5 ["GetChildren"]
+       24 CALL                             R5 1 1
+       25 JUMP                             ; [+2]
+       26 NEWTABLE                         R5 0 0
+       28 DUPCLOSURE                       R6 K6 [PROTO_1]
+       29 CAPTURE                          UPVAL U4
+       30 CALL                             R4 2 -1
+       31 CALL                             R3 -1 2
+       32 GETUPVAL                         R6 0
+       33 GETTABLEKS                       R5 R6 K7 ["useCallback"]
+       35 NEWCLOSURE                       R6 P1
+       36 CAPTURE                          VAL R1
+       37 CAPTURE                          UPVAL U5
+       38 CAPTURE                          VAL R2
+       39 CAPTURE                          UPVAL U6
+       40 NEWTABLE                         R7 0 2
+       42 GETTABLEKS                       R8 R2 K8 ["removeEquippedItem"]
+       44 MOVE                             R9 R1
+       45 SETLIST                          R7 R8 2 [1]
+       47 CALL                             R5 2 1
+       48 GETUPVAL                         R7 0
+       49 GETTABLEKS                       R6 R7 K7 ["useCallback"]
+       51 NEWCLOSURE                       R7 P2
+       52 CAPTURE                          VAL R2
+       53 CAPTURE                          UPVAL U5
+       54 NEWTABLE                         R8 0 1
+       56 GETTABLEKS                       R9 R2 K8 ["removeEquippedItem"]
+       58 SETLIST                          R8 R9 1 [1]
+       60 CALL                             R6 2 1
+       61 GETUPVAL                         R8 0
+       62 GETTABLEKS                       R7 R8 K9 ["useEffect"]
+       64 NEWCLOSURE                       R8 P3
+       65 CAPTURE                          VAL R1
+       66 CAPTURE                          VAL R2
+       67 CAPTURE                          VAL R4
+       68 CAPTURE                          UPVAL U4
+       69 CAPTURE                          UPVAL U3
+       70 CAPTURE                          UPVAL U5
+       71 CAPTURE                          UPVAL U7
+       72 NEWTABLE                         R9 0 1
+       74 MOVE                             R10 R1
+       75 SETLIST                          R9 R10 1 [1]
+       77 CALL                             R7 2 0
+       78 DUPTABLE                         R7 K13 [{"equippableItems", "addNewItem", "removeItem"}]
+       79 SETTABLEKS                       R3 R7 K10 ["equippableItems"]
+       81 SETTABLEKS                       R5 R7 K11 ["addNewItem"]
+       83 SETTABLEKS                       R6 R7 K12 ["removeItem"]
+       85 GETUPVAL                         R9 0
+       86 GETTABLEKS                       R8 R9 K14 ["createElement"]
+       88 GETUPVAL                         R10 8
+       89 GETTABLEKS                       R9 R10 K15 ["Provider"]
+       91 DUPTABLE                         R10 K17 [{"value"}]
+       92 SETTABLEKS                       R7 R10 K16 ["value"]
+       94 GETTABLEKS                       R11 R0 K18 ["children"]
+       96 CALL                             R8 3 -1
+       97 RETURN                           R8 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [game]
-  LOADK R2 K2 ["HttpService"]
-  NAMECALL R0 R0 K3 ["GetService"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [script]
-  LOADK R3 K6 ["AvatarCompatibilityPreviewer"]
-  NAMECALL R1 R1 K7 ["FindFirstAncestor"]
-  CALL R1 2 1
-  GETIMPORT R2 K9 [require]
-  GETTABLEKS R4 R1 K10 ["Packages"]
-  GETTABLEKS R3 R4 K11 ["Cryo"]
-  CALL R2 1 1
-  GETIMPORT R3 K9 [require]
-  GETTABLEKS R5 R1 K10 ["Packages"]
-  GETTABLEKS R4 R5 K12 ["Dash"]
-  CALL R3 1 1
-  GETIMPORT R4 K9 [require]
-  GETTABLEKS R6 R1 K10 ["Packages"]
-  GETTABLEKS R5 R6 K13 ["React"]
-  CALL R4 1 1
-  GETIMPORT R5 K9 [require]
-  GETTABLEKS R8 R1 K14 ["Src"]
-  GETTABLEKS R7 R8 K15 ["Util"]
-  GETTABLEKS R6 R7 K16 ["Constants"]
-  CALL R5 1 1
-  GETIMPORT R6 K9 [require]
-  GETTABLEKS R9 R1 K14 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Util"]
-  GETTABLEKS R7 R8 K17 ["EquipmentStateContext"]
-  CALL R6 1 1
-  GETIMPORT R7 K9 [require]
-  GETTABLEKS R10 R1 K14 ["Src"]
-  GETTABLEKS R9 R10 K15 ["Util"]
-  GETTABLEKS R8 R9 K18 ["UserCatalogContext"]
-  CALL R7 1 1
-  GETIMPORT R8 K9 [require]
-  GETTABLEKS R11 R1 K14 ["Src"]
-  GETTABLEKS R10 R11 K19 ["Components"]
-  GETTABLEKS R9 R10 K20 ["UserCatalogFolderContext"]
-  CALL R8 1 1
-  GETIMPORT R9 K9 [require]
-  GETTABLEKS R12 R1 K14 ["Src"]
-  GETTABLEKS R11 R12 K15 ["Util"]
-  GETTABLEKS R10 R11 K21 ["getPaletteFromKey"]
-  CALL R9 1 1
-  GETIMPORT R10 K9 [require]
-  GETTABLEKS R12 R1 K14 ["Src"]
-  GETTABLEKS R11 R12 K22 ["Types"]
-  CALL R10 1 1
-  DUPCLOSURE R11 K23 [PROTO_0]
-  CAPTURE VAL R9
-  CAPTURE VAL R5
-  DUPCLOSURE R12 K24 [PROTO_12]
-  CAPTURE VAL R4
-  CAPTURE VAL R8
-  CAPTURE VAL R6
-  CAPTURE VAL R3
-  CAPTURE VAL R11
-  CAPTURE VAL R5
-  CAPTURE VAL R0
-  CAPTURE VAL R2
-  CAPTURE VAL R7
-  RETURN R12 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [game]
+        3 LOADK                            R2 K2 ["HttpService"]
+        4 NAMECALL                         R0 R0 K3 ["GetService"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [script]
+        9 LOADK                            R3 K6 ["AvatarCompatibilityPreviewer"]
+       10 NAMECALL                         R1 R1 K7 ["FindFirstAncestor"]
+       12 CALL                             R1 2 1
+       13 GETIMPORT                        R2 K9 [require]
+       15 GETTABLEKS                       R4 R1 K10 ["Packages"]
+       17 GETTABLEKS                       R3 R4 K11 ["Cryo"]
+       19 CALL                             R2 1 1
+       20 GETIMPORT                        R3 K9 [require]
+       22 GETTABLEKS                       R5 R1 K10 ["Packages"]
+       24 GETTABLEKS                       R4 R5 K12 ["Dash"]
+       26 CALL                             R3 1 1
+       27 GETIMPORT                        R4 K9 [require]
+       29 GETTABLEKS                       R6 R1 K10 ["Packages"]
+       31 GETTABLEKS                       R5 R6 K13 ["React"]
+       33 CALL                             R4 1 1
+       34 GETIMPORT                        R5 K9 [require]
+       36 GETTABLEKS                       R8 R1 K14 ["Src"]
+       38 GETTABLEKS                       R7 R8 K15 ["Util"]
+       40 GETTABLEKS                       R6 R7 K16 ["Constants"]
+       42 CALL                             R5 1 1
+       43 GETIMPORT                        R6 K9 [require]
+       45 GETTABLEKS                       R9 R1 K14 ["Src"]
+       47 GETTABLEKS                       R8 R9 K15 ["Util"]
+       49 GETTABLEKS                       R7 R8 K17 ["EquipmentStateContext"]
+       51 CALL                             R6 1 1
+       52 GETIMPORT                        R7 K9 [require]
+       54 GETTABLEKS                       R10 R1 K14 ["Src"]
+       56 GETTABLEKS                       R9 R10 K15 ["Util"]
+       58 GETTABLEKS                       R8 R9 K18 ["UserCatalogContext"]
+       60 CALL                             R7 1 1
+       61 GETIMPORT                        R8 K9 [require]
+       63 GETTABLEKS                       R11 R1 K14 ["Src"]
+       65 GETTABLEKS                       R10 R11 K19 ["Components"]
+       67 GETTABLEKS                       R9 R10 K20 ["UserCatalogFolderContext"]
+       69 CALL                             R8 1 1
+       70 GETIMPORT                        R9 K9 [require]
+       72 GETTABLEKS                       R12 R1 K14 ["Src"]
+       74 GETTABLEKS                       R11 R12 K15 ["Util"]
+       76 GETTABLEKS                       R10 R11 K21 ["getPaletteFromKey"]
+       78 CALL                             R9 1 1
+       79 GETIMPORT                        R10 K9 [require]
+       81 GETTABLEKS                       R12 R1 K14 ["Src"]
+       83 GETTABLEKS                       R11 R12 K22 ["Types"]
+       85 CALL                             R10 1 1
+       86 DUPCLOSURE                       R11 K23 [PROTO_0]
+       87 CAPTURE                          VAL R9
+       88 CAPTURE                          VAL R5
+       89 DUPCLOSURE                       R12 K24 [PROTO_12]
+       90 CAPTURE                          VAL R4
+       91 CAPTURE                          VAL R8
+       92 CAPTURE                          VAL R6
+       93 CAPTURE                          VAL R3
+       94 CAPTURE                          VAL R11
+       95 CAPTURE                          VAL R5
+       96 CAPTURE                          VAL R0
+       97 CAPTURE                          VAL R2
+       98 CAPTURE                          VAL R7
+       99 RETURN                           R12 1

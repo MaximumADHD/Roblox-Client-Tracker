@@ -1,210 +1,210 @@
 PROTO_0:
-  RETURN R2 1
+        0 RETURN                           R2 1
 
 PROTO_1:
-  LOADK R3 K0 ["Open Flipbook to view and preview UI components"]
-  RETURN R3 1
+        0 LOADK                            R3 K0 ["Open Flipbook to view and preview UI components"]
+        1 RETURN                           R3 1
 
 PROTO_2:
-  RETURN R2 1
+        0 RETURN                           R2 1
 
 PROTO_3:
-  GETUPVAL R1 0
-  GETTABLEKS R2 R0 K0 ["Checked"]
-  SETTABLEKS R2 R1 K1 ["Enabled"]
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R2 R0 K0 ["Checked"]
+        3 SETTABLEKS                       R2 R1 K1 ["Enabled"]
+        5 RETURN                           R0 0
 
 PROTO_4:
-  GETUPVAL R0 0
-  GETUPVAL R2 1
-  NAMECALL R0 R0 K0 ["ActivateAsync"]
-  CALL R0 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 NAMECALL                         R0 R0 K0 ["ActivateAsync"]
+        4 CALL                             R0 2 0
+        5 RETURN                           R0 0
 
 PROTO_5:
-  GETIMPORT R0 K2 [task.spawn]
-  NEWCLOSURE R1 P0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETIMPORT                        R0 K2 [task.spawn]
+        2 NEWCLOSURE                       R1 P0
+        3 CAPTURE                          UPVAL U0
+        4 CAPTURE                          UPVAL U1
+        5 CALL                             R0 1 0
+        6 RETURN                           R0 0
 
 PROTO_6:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["unmount"]
-  CALL R0 0 0
-  GETUPVAL R0 1
-  NAMECALL R0 R0 K1 ["Disconnect"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["unmount"]
+        3 CALL                             R0 0 0
+        4 GETUPVAL                         R0 1
+        5 NAMECALL                         R0 R0 K1 ["Disconnect"]
+        7 CALL                             R0 1 0
+        8 RETURN                           R0 0
 
 PROTO_7:
-  GETUPVAL R2 0
-  GETTABLEKS R1 R2 K0 ["Name"]
-  SETTABLEKS R1 R0 K0 ["Name"]
-  NEWTABLE R1 0 1
-  DUPTABLE R2 K10 [{"uri", "isPreexistingAction", "getText", "getTooltip", "icon", "enabled", "visible", "checkable", "checked"}]
-  GETUPVAL R3 1
-  SETTABLEKS R3 R2 K1 ["uri"]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K2 ["isPreexistingAction"]
-  DUPCLOSURE R3 K11 [PROTO_0]
-  SETTABLEKS R3 R2 K3 ["getText"]
-  DUPCLOSURE R3 K12 [PROTO_1]
-  SETTABLEKS R3 R2 K4 ["getTooltip"]
-  GETUPVAL R4 2
-  GETTABLEKS R3 R4 K13 ["FLIPBOOK_LOGO"]
-  SETTABLEKS R3 R2 K5 ["icon"]
-  LOADB R3 1
-  SETTABLEKS R3 R2 K6 ["enabled"]
-  LOADB R3 1
-  SETTABLEKS R3 R2 K7 ["visible"]
-  LOADB R3 1
-  SETTABLEKS R3 R2 K8 ["checkable"]
-  LOADB R3 0
-  SETTABLEKS R3 R2 K9 ["checked"]
-  SETLIST R1 R2 1 [1]
-  DUPTABLE R2 K20 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar", "actionInfos"}]
-  SETTABLEKS R0 R2 K14 ["plugin"]
-  LOADK R3 K21 ["Flipbook"]
-  SETTABLEKS R3 R2 K15 ["pluginName"]
-  GETUPVAL R3 3
-  SETTABLEKS R3 R2 K16 ["translationResourceTable"]
-  GETUPVAL R3 4
-  SETTABLEKS R3 R2 K17 ["fallbackResourceTable"]
-  LOADB R3 1
-  SETTABLEKS R3 R2 K18 ["noToolbar"]
-  SETTABLEKS R1 R2 K19 ["actionInfos"]
-  GETIMPORT R3 K23 [game]
-  LOADK R5 K24 ["RunService"]
-  NAMECALL R3 R3 K25 ["GetService"]
-  CALL R3 2 1
-  GETUPVAL R6 5
-  GETTABLEKS R5 R6 K26 ["get"]
-  CALL R5 0 1
-  GETUPVAL R7 5
-  GETTABLEKS R6 R7 K27 ["Standalone"]
-  JUMPIFEQ R5 R6 [+2]
-  LOADB R4 0 +1
-  LOADB R4 1
-  NAMECALL R5 R3 K28 ["IsEdit"]
-  CALL R5 1 1
-  JUMPIF R4 [+1]
-  JUMPIFNOT R5 [+86]
-  DUPTABLE R6 K33 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
-  LOADK R7 K34 ["FlipbookInternal"]
-  SETTABLEKS R7 R6 K29 ["id"]
-  GETIMPORT R7 K37 [DockWidgetPluginGuiInfo.new]
-  GETIMPORT R8 K41 [Enum.InitialDockState.Bottom]
-  LOADB R9 0
-  LOADB R10 0
-  LOADN R11 128
-  LOADN R12 224
-  LOADN R13 250
-  LOADN R14 200
-  CALL R7 7 1
-  SETTABLEKS R7 R6 K30 ["dockWidgetPluginGuiInfo"]
-  DUPCLOSURE R7 K42 [PROTO_2]
-  SETTABLEKS R7 R6 K31 ["getDockTitle"]
-  GETIMPORT R7 K45 [Enum.ZIndexBehavior.Sibling]
-  SETTABLEKS R7 R6 K32 ["zIndexBehavior"]
-  SETTABLEKS R6 R2 K46 ["dockWidgetInfo"]
-  GETUPVAL R7 6
-  GETTABLEKS R6 R7 K47 ["build"]
-  MOVE R7 R2
-  CALL R6 1 1
-  GETTABLEKS R7 R6 K48 ["mainDockWidget"]
-  MOVE R9 R7
-  JUMPIFNOT R9 [+4]
-  LOADK R11 K49 ["DockWidgetPluginGui"]
-  NAMECALL R9 R7 K50 ["IsA"]
-  CALL R9 2 1
-  FASTCALL2K ASSERT R9 K51 [+4]
-  LOADK R10 K51 ["Flipbook needs a DockWidgetPluginGui to work"]
-  GETIMPORT R8 K53 [assert]
-  CALL R8 2 0
-  LOADK R10 K54 ["Actions"]
-  NAMECALL R8 R0 K55 ["GetPluginComponent"]
-  CALL R8 2 1
-  GETUPVAL R11 1
-  NAMECALL R9 R8 K56 ["BindToChangedAsync"]
-  CALL R9 2 1
-  NEWCLOSURE R11 P3
-  CAPTURE VAL R7
-  NAMECALL R9 R9 K57 ["Connect"]
-  CALL R9 2 1
-  NEWCLOSURE R12 P4
-  CAPTURE VAL R8
-  CAPTURE UPVAL U1
-  NAMECALL R10 R7 K58 ["BindToClose"]
-  CALL R10 2 0
-  GETTABLEKS R10 R6 K59 ["pluginLoader"]
-  NAMECALL R10 R10 K60 ["waitForUserInteraction"]
-  CALL R10 1 1
-  JUMPIF R10 [+1]
-  RETURN R0 0
-  GETUPVAL R12 2
-  GETTABLEKS R11 R12 K61 ["createFlipbookPlugin"]
-  MOVE R12 R0
-  MOVE R13 R7
-  CALL R11 2 1
-  GETTABLEKS R12 R0 K62 ["Unloading"]
-  NEWCLOSURE R14 P5
-  CAPTURE VAL R11
-  CAPTURE VAL R9
-  NAMECALL R12 R12 K57 ["Connect"]
-  CALL R12 2 0
-  RETURN R0 0
-  GETUPVAL R7 6
-  GETTABLEKS R6 R7 K47 ["build"]
-  MOVE R7 R2
-  CALL R6 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R2 0
+        1 GETTABLEKS                       R1 R2 K0 ["Name"]
+        3 SETTABLEKS                       R1 R0 K0 ["Name"]
+        5 NEWTABLE                         R1 0 1
+        7 DUPTABLE                         R2 K10 [{"uri", "isPreexistingAction", "getText", "getTooltip", "icon", "enabled", "visible", "checkable", "checked"}]
+        8 GETUPVAL                         R3 1
+        9 SETTABLEKS                       R3 R2 K1 ["uri"]
+       11 LOADB                            R3 0
+       12 SETTABLEKS                       R3 R2 K2 ["isPreexistingAction"]
+       14 DUPCLOSURE                       R3 K11 [PROTO_0]
+       15 SETTABLEKS                       R3 R2 K3 ["getText"]
+       17 DUPCLOSURE                       R3 K12 [PROTO_1]
+       18 SETTABLEKS                       R3 R2 K4 ["getTooltip"]
+       20 GETUPVAL                         R4 2
+       21 GETTABLEKS                       R3 R4 K13 ["FLIPBOOK_LOGO"]
+       23 SETTABLEKS                       R3 R2 K5 ["icon"]
+       25 LOADB                            R3 1
+       26 SETTABLEKS                       R3 R2 K6 ["enabled"]
+       28 LOADB                            R3 1
+       29 SETTABLEKS                       R3 R2 K7 ["visible"]
+       31 LOADB                            R3 1
+       32 SETTABLEKS                       R3 R2 K8 ["checkable"]
+       34 LOADB                            R3 0
+       35 SETTABLEKS                       R3 R2 K9 ["checked"]
+       37 SETLIST                          R1 R2 1 [1]
+       39 DUPTABLE                         R2 K20 [{"plugin", "pluginName", "translationResourceTable", "fallbackResourceTable", "noToolbar", "actionInfos"}]
+       40 SETTABLEKS                       R0 R2 K14 ["plugin"]
+       42 LOADK                            R3 K21 ["Flipbook"]
+       43 SETTABLEKS                       R3 R2 K15 ["pluginName"]
+       45 GETUPVAL                         R3 3
+       46 SETTABLEKS                       R3 R2 K16 ["translationResourceTable"]
+       48 GETUPVAL                         R3 4
+       49 SETTABLEKS                       R3 R2 K17 ["fallbackResourceTable"]
+       51 LOADB                            R3 1
+       52 SETTABLEKS                       R3 R2 K18 ["noToolbar"]
+       54 SETTABLEKS                       R1 R2 K19 ["actionInfos"]
+       56 GETIMPORT                        R3 K23 [game]
+       58 LOADK                            R5 K24 ["RunService"]
+       59 NAMECALL                         R3 R3 K25 ["GetService"]
+       61 CALL                             R3 2 1
+       62 GETUPVAL                         R6 5
+       63 GETTABLEKS                       R5 R6 K26 ["get"]
+       65 CALL                             R5 0 1
+       66 GETUPVAL                         R7 5
+       67 GETTABLEKS                       R6 R7 K27 ["Standalone"]
+       69 JUMPIFEQ                         R5 R6 ; [+2]
+       71 LOADB                            R4 0 +1
+       72 LOADB                            R4 1
+       73 NAMECALL                         R5 R3 K28 ["IsEdit"]
+       75 CALL                             R5 1 1
+       76 JUMPIF                           R4 ; [+1]
+       77 JUMPIFNOT                        R5 ; [+86]
+       78 DUPTABLE                         R6 K33 [{"id", "dockWidgetPluginGuiInfo", "getDockTitle", "zIndexBehavior"}]
+       79 LOADK                            R7 K34 ["FlipbookInternal"]
+       80 SETTABLEKS                       R7 R6 K29 ["id"]
+       82 GETIMPORT                        R7 K37 [DockWidgetPluginGuiInfo.new]
+       84 GETIMPORT                        R8 K41 [Enum.InitialDockState.Bottom]
+       86 LOADB                            R9 0
+       87 LOADB                            R10 0
+       88 LOADN                            R11 128
+       89 LOADN                            R12 224
+       90 LOADN                            R13 250
+       91 LOADN                            R14 200
+       92 CALL                             R7 7 1
+       93 SETTABLEKS                       R7 R6 K30 ["dockWidgetPluginGuiInfo"]
+       95 DUPCLOSURE                       R7 K42 [PROTO_2]
+       96 SETTABLEKS                       R7 R6 K31 ["getDockTitle"]
+       98 GETIMPORT                        R7 K45 [Enum.ZIndexBehavior.Sibling]
+      100 SETTABLEKS                       R7 R6 K32 ["zIndexBehavior"]
+      102 SETTABLEKS                       R6 R2 K46 ["dockWidgetInfo"]
+      104 GETUPVAL                         R7 6
+      105 GETTABLEKS                       R6 R7 K47 ["build"]
+      107 MOVE                             R7 R2
+      108 CALL                             R6 1 1
+      109 GETTABLEKS                       R7 R6 K48 ["mainDockWidget"]
+      111 MOVE                             R9 R7
+      112 JUMPIFNOT                        R9 ; [+4]
+      113 LOADK                            R11 K49 ["DockWidgetPluginGui"]
+      114 NAMECALL                         R9 R7 K50 ["IsA"]
+      116 CALL                             R9 2 1
+      117 FASTCALL2K                       ASSERT R9 K51 ; [+4]
+      119 LOADK                            R10 K51 ["Flipbook needs a DockWidgetPluginGui to work"]
+      120 GETIMPORT                        R8 K53 [assert]
+      122 CALL                             R8 2 0
+      123 LOADK                            R10 K54 ["Actions"]
+      124 NAMECALL                         R8 R0 K55 ["GetPluginComponent"]
+      126 CALL                             R8 2 1
+      127 GETUPVAL                         R11 1
+      128 NAMECALL                         R9 R8 K56 ["BindToChangedAsync"]
+      130 CALL                             R9 2 1
+      131 NEWCLOSURE                       R11 P3
+      132 CAPTURE                          VAL R7
+      133 NAMECALL                         R9 R9 K57 ["Connect"]
+      135 CALL                             R9 2 1
+      136 NEWCLOSURE                       R12 P4
+      137 CAPTURE                          VAL R8
+      138 CAPTURE                          UPVAL U1
+      139 NAMECALL                         R10 R7 K58 ["BindToClose"]
+      141 CALL                             R10 2 0
+      142 GETTABLEKS                       R10 R6 K59 ["pluginLoader"]
+      144 NAMECALL                         R10 R10 K60 ["waitForUserInteraction"]
+      146 CALL                             R10 1 1
+      147 JUMPIF                           R10 ; [+1]
+      148 RETURN                           R0 0
+      149 GETUPVAL                         R12 2
+      150 GETTABLEKS                       R11 R12 K61 ["createFlipbookPlugin"]
+      152 MOVE                             R12 R0
+      153 MOVE                             R13 R7
+      154 CALL                             R11 2 1
+      155 GETTABLEKS                       R12 R0 K62 ["Unloading"]
+      157 NEWCLOSURE                       R14 P5
+      158 CAPTURE                          VAL R11
+      159 CAPTURE                          VAL R9
+      160 NAMECALL                         R12 R12 K57 ["Connect"]
+      162 CALL                             R12 2 0
+      163 RETURN                           R0 0
+      164 GETUPVAL                         R7 6
+      165 GETTABLEKS                       R6 R7 K47 ["build"]
+      167 MOVE                             R7 R2
+      168 CALL                             R6 1 0
+      169 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["Flipbook"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["PluginLoader"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["StudioFoundation"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K6 ["Packages"]
-  GETTABLEKS R4 R5 K9 ["FlipbookCore"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K10 ["Bin"]
-  GETTABLEKS R6 R7 K11 ["Common"]
-  GETTABLEKS R5 R6 K12 ["pluginType"]
-  CALL R4 1 1
-  GETTABLEKS R5 R1 K13 ["PluginLoaderBuilder"]
-  GETTABLEKS R9 R0 K14 ["Src"]
-  GETTABLEKS R8 R9 K15 ["Resources"]
-  GETTABLEKS R7 R8 K16 ["Localization"]
-  GETTABLEKS R6 R7 K17 ["SourceStrings"]
-  GETTABLEKS R10 R0 K14 ["Src"]
-  GETTABLEKS R9 R10 K15 ["Resources"]
-  GETTABLEKS R8 R9 K16 ["Localization"]
-  GETTABLEKS R7 R8 K18 ["LocalizedStrings"]
-  GETTABLEKS R9 R2 K19 ["Util"]
-  GETTABLEKS R8 R9 K20 ["StudioUri"]
-  GETTABLEKS R9 R8 K21 ["fromAction"]
-  LOADK R10 K2 ["Flipbook"]
-  LOADK R11 K22 ["Toggle"]
-  CALL R9 2 1
-  DUPCLOSURE R10 K23 [PROTO_7]
-  CAPTURE VAL R0
-  CAPTURE VAL R9
-  CAPTURE VAL R3
-  CAPTURE VAL R7
-  CAPTURE VAL R6
-  CAPTURE VAL R4
-  CAPTURE VAL R5
-  RETURN R10 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["Flipbook"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["PluginLoader"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["StudioFoundation"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R5 R0 K6 ["Packages"]
+       25 GETTABLEKS                       R4 R5 K9 ["FlipbookCore"]
+       27 CALL                             R3 1 1
+       28 GETIMPORT                        R4 K5 [require]
+       30 GETTABLEKS                       R7 R0 K10 ["Bin"]
+       32 GETTABLEKS                       R6 R7 K11 ["Common"]
+       34 GETTABLEKS                       R5 R6 K12 ["pluginType"]
+       36 CALL                             R4 1 1
+       37 GETTABLEKS                       R5 R1 K13 ["PluginLoaderBuilder"]
+       39 GETTABLEKS                       R9 R0 K14 ["Src"]
+       41 GETTABLEKS                       R8 R9 K15 ["Resources"]
+       43 GETTABLEKS                       R7 R8 K16 ["Localization"]
+       45 GETTABLEKS                       R6 R7 K17 ["SourceStrings"]
+       47 GETTABLEKS                       R10 R0 K14 ["Src"]
+       49 GETTABLEKS                       R9 R10 K15 ["Resources"]
+       51 GETTABLEKS                       R8 R9 K16 ["Localization"]
+       53 GETTABLEKS                       R7 R8 K18 ["LocalizedStrings"]
+       55 GETTABLEKS                       R9 R2 K19 ["Util"]
+       57 GETTABLEKS                       R8 R9 K20 ["StudioUri"]
+       59 GETTABLEKS                       R9 R8 K21 ["fromAction"]
+       61 LOADK                            R10 K2 ["Flipbook"]
+       62 LOADK                            R11 K22 ["Toggle"]
+       63 CALL                             R9 2 1
+       64 DUPCLOSURE                       R10 K23 [PROTO_7]
+       65 CAPTURE                          VAL R0
+       66 CAPTURE                          VAL R9
+       67 CAPTURE                          VAL R3
+       68 CAPTURE                          VAL R7
+       69 CAPTURE                          VAL R6
+       70 CAPTURE                          VAL R4
+       71 CAPTURE                          VAL R5
+       72 RETURN                           R10 1

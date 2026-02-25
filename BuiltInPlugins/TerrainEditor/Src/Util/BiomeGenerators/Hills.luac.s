@@ -1,114 +1,114 @@
 PROTO_0:
-  GETTABLEKS R3 R0 K0 ["X"]
-  GETTABLEKS R4 R0 K1 ["Y"]
-  GETTABLEKS R5 R0 K2 ["Z"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K3 ["WaterLevel"]
-  GETUPVAL R9 1
-  GETUPVAL R10 2
-  MOVE R11 R0
-  LOADN R12 17
-  LOADN R13 20
-  CALL R10 3 -1
-  CALL R9 -1 1
-  MULK R8 R9 K4 [20]
-  LOADN R9 0
-  GETUPVAL R12 1
-  GETUPVAL R13 2
-  MOVE R14 R0
-  LOADN R15 19
-  LOADN R16 20
-  CALL R13 3 -1
-  CALL R12 -1 1
-  MULK R11 R12 K4 [20]
-  ADD R10 R5 R11
-  FASTCALL VECTOR [+2]
-  GETIMPORT R7 K7 [Vector3.new]
-  CALL R7 3 1
-  GETUPVAL R10 3
-  GETTABLEKS R9 R10 K9 ["RidgeFlipped"]
-  GETUPVAL R10 1
-  GETUPVAL R11 2
-  MOVE R12 R7
-  LOADN R13 2
-  LOADN R14 200
-  CALL R11 3 -1
-  CALL R10 -1 -1
-  CALL R9 -1 1
-  POWK R8 R9 K8 [0.5]
-  GETUPVAL R9 1
-  GETUPVAL R10 2
-  MOVE R11 R0
-  LOADN R12 3
-  LOADN R13 60
-  CALL R10 3 -1
-  CALL R9 -1 1
-  LOADK R12 K10 [0.48]
-  MULK R13 R9 K11 [0.05]
-  ADD R11 R12 R13
-  LOADK R15 K11 [0.05]
-  MULK R16 R9 K12 [0.1]
-  ADD R14 R15 R16
-  GETUPVAL R16 1
-  GETUPVAL R17 2
-  MOVE R18 R0
-  LOADN R19 4
-  LOADN R20 25
-  CALL R17 3 -1
-  CALL R16 -1 1
-  MULK R15 R16 K13 [0.125]
-  ADD R13 R14 R15
-  MUL R12 R13 R8
-  ADD R10 R11 R12
-  SUBRK R13 R15 K1 ["Y"]
-  MULK R12 R13 K14 [0.9]
-  MULK R13 R8 K12 [0.1]
-  ADD R11 R12 R13
-  SUBK R13 R6 K16 [0.015]
-  JUMPIFNOTLT R11 R13 [+4]
-  GETIMPORT R12 K20 [Enum.Material.Mud]
-  JUMP [+7]
-  JUMPIFNOTLT R11 R6 [+4]
-  GETIMPORT R12 K22 [Enum.Material.Ground]
-  JUMP [+2]
-  GETIMPORT R12 K24 [Enum.Material.Grass]
-  GETIMPORT R13 K26 [Enum.Material.Slate]
-  MOVE R14 R10
-  MOVE R15 R12
-  MOVE R16 R13
-  RETURN R14 3
+        0 GETTABLEKS                       R3 R0 K0 ["X"]
+        2 GETTABLEKS                       R4 R0 K1 ["Y"]
+        4 GETTABLEKS                       R5 R0 K2 ["Z"]
+        6 GETUPVAL                         R7 0
+        7 GETTABLEKS                       R6 R7 K3 ["WaterLevel"]
+        9 GETUPVAL                         R9 1
+       10 GETUPVAL                         R10 2
+       11 MOVE                             R11 R0
+       12 LOADN                            R12 17
+       13 LOADN                            R13 20
+       14 CALL                             R10 3 -1
+       15 CALL                             R9 -1 1
+       16 MULK                             R8 R9 K4 [20]
+       17 LOADN                            R9 0
+       18 GETUPVAL                         R12 1
+       19 GETUPVAL                         R13 2
+       20 MOVE                             R14 R0
+       21 LOADN                            R15 19
+       22 LOADN                            R16 20
+       23 CALL                             R13 3 -1
+       24 CALL                             R12 -1 1
+       25 MULK                             R11 R12 K4 [20]
+       26 ADD                              R10 R5 R11
+       27 FASTCALL                         VECTOR ; [+2]
+       28 GETIMPORT                        R7 K7 [Vector3.new]
+       30 CALL                             R7 3 1
+       31 GETUPVAL                         R10 3
+       32 GETTABLEKS                       R9 R10 K9 ["RidgeFlipped"]
+       34 GETUPVAL                         R10 1
+       35 GETUPVAL                         R11 2
+       36 MOVE                             R12 R7
+       37 LOADN                            R13 2
+       38 LOADN                            R14 200
+       39 CALL                             R11 3 -1
+       40 CALL                             R10 -1 -1
+       41 CALL                             R9 -1 1
+       42 POWK                             R8 R9 K8 [0.5]
+       43 GETUPVAL                         R9 1
+       44 GETUPVAL                         R10 2
+       45 MOVE                             R11 R0
+       46 LOADN                            R12 3
+       47 LOADN                            R13 60
+       48 CALL                             R10 3 -1
+       49 CALL                             R9 -1 1
+       50 LOADK                            R12 K10 [0.48]
+       51 MULK                             R13 R9 K11 [0.05]
+       52 ADD                              R11 R12 R13
+       53 LOADK                            R15 K11 [0.05]
+       54 MULK                             R16 R9 K12 [0.1]
+       55 ADD                              R14 R15 R16
+       56 GETUPVAL                         R16 1
+       57 GETUPVAL                         R17 2
+       58 MOVE                             R18 R0
+       59 LOADN                            R19 4
+       60 LOADN                            R20 25
+       61 CALL                             R17 3 -1
+       62 CALL                             R16 -1 1
+       63 MULK                             R15 R16 K13 [0.125]
+       64 ADD                              R13 R14 R15
+       65 MUL                              R12 R13 R8
+       66 ADD                              R10 R11 R12
+       67 SUBRK                            R13 R15 K1 ["Y"]
+       68 MULK                             R12 R13 K14 [0.9]
+       69 MULK                             R13 R8 K12 [0.1]
+       70 ADD                              R11 R12 R13
+       71 SUBK                             R13 R6 K16 [0.015]
+       72 JUMPIFNOTLT                      R11 R13 ; [+4]
+       74 GETIMPORT                        R12 K20 [Enum.Material.Mud]
+       76 JUMP                             ; [+7]
+       77 JUMPIFNOTLT                      R11 R6 ; [+4]
+       79 GETIMPORT                        R12 K22 [Enum.Material.Ground]
+       81 JUMP                             ; [+2]
+       82 GETIMPORT                        R12 K24 [Enum.Material.Grass]
+       84 GETIMPORT                        R13 K26 [Enum.Material.Slate]
+       86 MOVE                             R14 R10
+       87 MOVE                             R15 R12
+       88 MOVE                             R16 R13
+       89 RETURN                           R14 3
 
 PROTO_1:
-  NEWCLOSURE R2 P0
-  CAPTURE VAL R1
-  CAPTURE UPVAL U0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U1
-  RETURN R2 1
+        0 NEWCLOSURE                       R2 P0
+        1 CAPTURE                          VAL R1
+        2 CAPTURE                          UPVAL U0
+        3 CAPTURE                          VAL R0
+        4 CAPTURE                          UPVAL U1
+        5 RETURN                           R2 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["TerrainEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETTABLEKS R3 R0 K4 ["Src"]
-  GETTABLEKS R2 R3 K5 ["Util"]
-  GETTABLEKS R1 R2 K6 ["Generation"]
-  GETIMPORT R2 K8 [require]
-  GETTABLEKS R3 R1 K9 ["Filter"]
-  CALL R2 1 1
-  GETIMPORT R3 K8 [require]
-  GETTABLEKS R4 R1 K10 ["Perlin"]
-  CALL R3 1 1
-  GETIMPORT R4 K8 [require]
-  GETTABLEKS R5 R1 K11 ["ProcessPerlin"]
-  CALL R4 1 1
-  GETIMPORT R5 K8 [require]
-  GETTABLEKS R7 R0 K4 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Types"]
-  CALL R5 1 1
-  DUPCLOSURE R6 K13 [PROTO_1]
-  CAPTURE VAL R4
-  CAPTURE VAL R2
-  RETURN R6 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["TerrainEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R3 R0 K4 ["Src"]
+        9 GETTABLEKS                       R2 R3 K5 ["Util"]
+       11 GETTABLEKS                       R1 R2 K6 ["Generation"]
+       13 GETIMPORT                        R2 K8 [require]
+       15 GETTABLEKS                       R3 R1 K9 ["Filter"]
+       17 CALL                             R2 1 1
+       18 GETIMPORT                        R3 K8 [require]
+       20 GETTABLEKS                       R4 R1 K10 ["Perlin"]
+       22 CALL                             R3 1 1
+       23 GETIMPORT                        R4 K8 [require]
+       25 GETTABLEKS                       R5 R1 K11 ["ProcessPerlin"]
+       27 CALL                             R4 1 1
+       28 GETIMPORT                        R5 K8 [require]
+       30 GETTABLEKS                       R7 R0 K4 ["Src"]
+       32 GETTABLEKS                       R6 R7 K12 ["Types"]
+       34 CALL                             R5 1 1
+       35 DUPCLOSURE                       R6 K13 [PROTO_1]
+       36 CAPTURE                          VAL R4
+       37 CAPTURE                          VAL R2
+       38 RETURN                           R6 1

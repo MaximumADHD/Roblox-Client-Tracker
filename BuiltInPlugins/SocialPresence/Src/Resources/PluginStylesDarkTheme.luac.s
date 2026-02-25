@@ -1,32 +1,32 @@
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["SocialPresence"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["Framework"]
-  CALL R1 1 1
-  GETTABLEKS R3 R1 K8 ["Styling"]
-  GETTABLEKS R2 R3 K9 ["createStyleSheet"]
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R5 R0 K10 ["Bin"]
-  GETTABLEKS R4 R5 K11 ["defineLuaFlags"]
-  CALL R3 1 1
-  DUPTABLE R4 K14 [{"ActivityRingImage", "AddCollaboratorIcon"}]
-  LOADK R5 K15 ["rbxasset://studio_svg_textures/Lua/SocialPresence/Dark/Large/ActivityRing.png"]
-  SETTABLEKS R5 R4 K12 ["ActivityRingImage"]
-  GETTABLEKS R6 R3 K16 ["getFFlagFixOldRibbonCollaborateIcon"]
-  CALL R6 0 1
-  JUMPIFNOT R6 [+2]
-  LOADK R5 K17 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/AddCollaborator.png"]
-  JUMP [+1]
-  LOADK R5 K18 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Dark/Standard/AddCollaborator.png"]
-  SETTABLEKS R5 R4 K13 ["AddCollaboratorIcon"]
-  MOVE R5 R2
-  LOADK R6 K19 ["SocialPresenceDarkTheme"]
-  NEWTABLE R7 0 0
-  MOVE R8 R4
-  CALL R5 3 -1
-  RETURN R5 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["SocialPresence"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["Framework"]
+       13 CALL                             R1 1 1
+       14 GETTABLEKS                       R3 R1 K8 ["Styling"]
+       16 GETTABLEKS                       R2 R3 K9 ["createStyleSheet"]
+       18 GETIMPORT                        R3 K5 [require]
+       20 GETTABLEKS                       R5 R0 K10 ["Bin"]
+       22 GETTABLEKS                       R4 R5 K11 ["defineLuaFlags"]
+       24 CALL                             R3 1 1
+       25 DUPTABLE                         R4 K14 [{"ActivityRingImage", "AddCollaboratorIcon"}]
+       26 LOADK                            R5 K15 ["rbxasset://studio_svg_textures/Lua/SocialPresence/Dark/Large/ActivityRing.png"]
+       27 SETTABLEKS                       R5 R4 K12 ["ActivityRingImage"]
+       29 GETTABLEKS                       R6 R3 K16 ["getFFlagFixOldRibbonCollaborateIcon"]
+       31 CALL                             R6 0 1
+       32 JUMPIFNOT                        R6 ; [+2]
+       33 LOADK                            R5 K17 ["rbxasset://studio_svg_textures/Shared/Ribbon/Dark/Standard/AddCollaborator.png"]
+       34 JUMP                             ; [+1]
+       35 LOADK                            R5 K18 ["rbxasset://studio_svg_textures/Shared/WidgetIcons/Dark/Standard/AddCollaborator.png"]
+       36 SETTABLEKS                       R5 R4 K13 ["AddCollaboratorIcon"]
+       38 MOVE                             R5 R2
+       39 LOADK                            R6 K19 ["SocialPresenceDarkTheme"]
+       40 NEWTABLE                         R7 0 0
+       42 MOVE                             R8 R4
+       43 CALL                             R5 3 -1
+       44 RETURN                           R5 -1

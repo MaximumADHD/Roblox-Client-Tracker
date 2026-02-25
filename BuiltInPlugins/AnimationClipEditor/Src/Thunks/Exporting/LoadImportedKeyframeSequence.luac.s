@@ -1,128 +1,128 @@
 PROTO_0:
-  NAMECALL R1 R0 K0 ["getState"]
-  CALL R1 1 1
-  GETTABLEKS R3 R1 K1 ["Status"]
-  GETTABLEKS R2 R3 K2 ["RootInstance"]
-  JUMPIF R2 [+1]
-  RETURN R0 0
-  LOADNIL R3
-  LOADNIL R4
-  GETUPVAL R5 0
-  LOADK R7 K3 ["KeyframeSequence"]
-  NAMECALL R5 R5 K4 ["IsA"]
-  CALL R5 2 1
-  JUMPIFNOT R5 [+8]
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K5 ["fromKeyframeSequence"]
-  GETUPVAL R6 0
-  CALL R5 1 2
-  MOVE R3 R5
-  MOVE R4 R6
-  JUMP [+1]
-  RETURN R0 0
-  GETUPVAL R5 2
-  CALL R5 0 1
-  JUMPIFNOT R5 [+12]
-  GETTABLEKS R5 R3 K6 ["Metadata"]
-  GETUPVAL R7 0
-  GETTABLEKS R6 R7 K7 ["Name"]
-  JUMPIF R6 [+3]
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K8 ["DEFAULT_IMPORTED_NAME"]
-  SETTABLEKS R6 R5 K7 ["Name"]
-  JUMP [+7]
-  GETTABLEKS R5 R3 K6 ["Metadata"]
-  GETUPVAL R7 3
-  GETTABLEKS R6 R7 K8 ["DEFAULT_IMPORTED_NAME"]
-  SETTABLEKS R6 R5 K7 ["Name"]
-  GETUPVAL R7 4
-  MOVE R8 R3
-  GETUPVAL R9 5
-  CALL R7 2 -1
-  NAMECALL R5 R0 K9 ["dispatch"]
-  CALL R5 -1 0
-  GETUPVAL R7 6
-  LOADB R8 0
-  CALL R7 1 -1
-  NAMECALL R5 R0 K9 ["dispatch"]
-  CALL R5 -1 0
-  GETUPVAL R7 7
-  LOADB R8 0
-  CALL R7 1 -1
-  NAMECALL R5 R0 K9 ["dispatch"]
-  CALL R5 -1 0
-  GETUPVAL R7 8
-  MOVE R8 R4
-  CALL R7 1 -1
-  NAMECALL R5 R0 K9 ["dispatch"]
-  CALL R5 -1 0
-  GETUPVAL R5 5
-  JUMPIFNOT R5 [+14]
-  GETUPVAL R5 5
-  LOADK R7 K10 ["onImportAnimationFromFile"]
-  GETTABLEKS R9 R3 K6 ["Metadata"]
-  JUMPIFNOT R9 [+5]
-  GETTABLEKS R9 R3 K6 ["Metadata"]
-  GETTABLEKS R8 R9 K11 ["Guid"]
-  JUMP [+1]
-  LOADNIL R8
-  NAMECALL R5 R5 K12 ["report"]
-  CALL R5 3 0
-  RETURN R0 0
+        0 NAMECALL                         R1 R0 K0 ["getState"]
+        2 CALL                             R1 1 1
+        3 GETTABLEKS                       R3 R1 K1 ["Status"]
+        5 GETTABLEKS                       R2 R3 K2 ["RootInstance"]
+        7 JUMPIF                           R2 ; [+1]
+        8 RETURN                           R0 0
+        9 LOADNIL                          R3
+       10 LOADNIL                          R4
+       11 GETUPVAL                         R5 0
+       12 LOADK                            R7 K3 ["KeyframeSequence"]
+       13 NAMECALL                         R5 R5 K4 ["IsA"]
+       15 CALL                             R5 2 1
+       16 JUMPIFNOT                        R5 ; [+8]
+       17 GETUPVAL                         R6 1
+       18 GETTABLEKS                       R5 R6 K5 ["fromKeyframeSequence"]
+       20 GETUPVAL                         R6 0
+       21 CALL                             R5 1 2
+       22 MOVE                             R3 R5
+       23 MOVE                             R4 R6
+       24 JUMP                             ; [+1]
+       25 RETURN                           R0 0
+       26 GETUPVAL                         R5 2
+       27 CALL                             R5 0 1
+       28 JUMPIFNOT                        R5 ; [+12]
+       29 GETTABLEKS                       R5 R3 K6 ["Metadata"]
+       31 GETUPVAL                         R7 0
+       32 GETTABLEKS                       R6 R7 K7 ["Name"]
+       34 JUMPIF                           R6 ; [+3]
+       35 GETUPVAL                         R7 3
+       36 GETTABLEKS                       R6 R7 K8 ["DEFAULT_IMPORTED_NAME"]
+       38 SETTABLEKS                       R6 R5 K7 ["Name"]
+       40 JUMP                             ; [+7]
+       41 GETTABLEKS                       R5 R3 K6 ["Metadata"]
+       43 GETUPVAL                         R7 3
+       44 GETTABLEKS                       R6 R7 K8 ["DEFAULT_IMPORTED_NAME"]
+       46 SETTABLEKS                       R6 R5 K7 ["Name"]
+       48 GETUPVAL                         R7 4
+       49 MOVE                             R8 R3
+       50 GETUPVAL                         R9 5
+       51 CALL                             R7 2 -1
+       52 NAMECALL                         R5 R0 K9 ["dispatch"]
+       54 CALL                             R5 -1 0
+       55 GETUPVAL                         R7 6
+       56 LOADB                            R8 0
+       57 CALL                             R7 1 -1
+       58 NAMECALL                         R5 R0 K9 ["dispatch"]
+       60 CALL                             R5 -1 0
+       61 GETUPVAL                         R7 7
+       62 LOADB                            R8 0
+       63 CALL                             R7 1 -1
+       64 NAMECALL                         R5 R0 K9 ["dispatch"]
+       66 CALL                             R5 -1 0
+       67 GETUPVAL                         R7 8
+       68 MOVE                             R8 R4
+       69 CALL                             R7 1 -1
+       70 NAMECALL                         R5 R0 K9 ["dispatch"]
+       72 CALL                             R5 -1 0
+       73 GETUPVAL                         R5 5
+       74 JUMPIFNOT                        R5 ; [+14]
+       75 GETUPVAL                         R5 5
+       76 LOADK                            R7 K10 ["onImportAnimationFromFile"]
+       77 GETTABLEKS                       R9 R3 K6 ["Metadata"]
+       79 JUMPIFNOT                        R9 ; [+5]
+       80 GETTABLEKS                       R9 R3 K6 ["Metadata"]
+       82 GETTABLEKS                       R8 R9 K11 ["Guid"]
+       84 JUMP                             ; [+1]
+       85 LOADNIL                          R8
+       86 NAMECALL                         R5 R5 K12 ["report"]
+       88 CALL                             R5 3 0
+       89 RETURN                           R0 0
 
 PROTO_1:
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R2
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U3
-  CAPTURE VAL R1
-  CAPTURE UPVAL U4
-  CAPTURE UPVAL U5
-  CAPTURE UPVAL U6
-  RETURN R3 1
+        0 NEWCLOSURE                       R3 P0
+        1 CAPTURE                          VAL R2
+        2 CAPTURE                          UPVAL U0
+        3 CAPTURE                          UPVAL U1
+        4 CAPTURE                          UPVAL U2
+        5 CAPTURE                          UPVAL U3
+        6 CAPTURE                          VAL R1
+        7 CAPTURE                          UPVAL U4
+        8 CAPTURE                          UPVAL U5
+        9 CAPTURE                          UPVAL U6
+       10 RETURN                           R3 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AnimationClipEditor"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETTABLEKS R2 R0 K4 ["Src"]
-  GETTABLEKS R1 R2 K5 ["Actions"]
-  GETIMPORT R2 K7 [require]
-  GETTABLEKS R3 R1 K8 ["SetIsDirty"]
-  CALL R2 1 1
-  GETIMPORT R3 K7 [require]
-  GETTABLEKS R4 R1 K9 ["SetIsLegacyAnimSaves"]
-  CALL R3 1 1
-  GETIMPORT R4 K7 [require]
-  GETTABLEKS R5 R1 K10 ["SetFrameRate"]
-  CALL R4 1 1
-  GETTABLEKS R6 R0 K4 ["Src"]
-  GETTABLEKS R5 R6 K11 ["Thunks"]
-  GETIMPORT R6 K7 [require]
-  GETTABLEKS R7 R5 K12 ["LoadAnimationData"]
-  CALL R6 1 1
-  GETTABLEKS R8 R0 K4 ["Src"]
-  GETTABLEKS R7 R8 K13 ["Util"]
-  GETIMPORT R8 K7 [require]
-  GETTABLEKS R9 R7 K14 ["Constants"]
-  CALL R8 1 1
-  GETIMPORT R9 K7 [require]
-  GETTABLEKS R10 R7 K15 ["RigSerialization"]
-  CALL R9 1 1
-  GETIMPORT R10 K7 [require]
-  GETTABLEKS R12 R0 K16 ["LuaFlags"]
-  GETTABLEKS R11 R12 K17 ["GetFFlagUseFileNameForImportedAnimation"]
-  CALL R10 1 1
-  DUPCLOSURE R11 K18 [PROTO_1]
-  CAPTURE VAL R9
-  CAPTURE VAL R10
-  CAPTURE VAL R8
-  CAPTURE VAL R6
-  CAPTURE VAL R2
-  CAPTURE VAL R3
-  CAPTURE VAL R4
-  RETURN R11 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AnimationClipEditor"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETTABLEKS                       R2 R0 K4 ["Src"]
+        9 GETTABLEKS                       R1 R2 K5 ["Actions"]
+       11 GETIMPORT                        R2 K7 [require]
+       13 GETTABLEKS                       R3 R1 K8 ["SetIsDirty"]
+       15 CALL                             R2 1 1
+       16 GETIMPORT                        R3 K7 [require]
+       18 GETTABLEKS                       R4 R1 K9 ["SetIsLegacyAnimSaves"]
+       20 CALL                             R3 1 1
+       21 GETIMPORT                        R4 K7 [require]
+       23 GETTABLEKS                       R5 R1 K10 ["SetFrameRate"]
+       25 CALL                             R4 1 1
+       26 GETTABLEKS                       R6 R0 K4 ["Src"]
+       28 GETTABLEKS                       R5 R6 K11 ["Thunks"]
+       30 GETIMPORT                        R6 K7 [require]
+       32 GETTABLEKS                       R7 R5 K12 ["LoadAnimationData"]
+       34 CALL                             R6 1 1
+       35 GETTABLEKS                       R8 R0 K4 ["Src"]
+       37 GETTABLEKS                       R7 R8 K13 ["Util"]
+       39 GETIMPORT                        R8 K7 [require]
+       41 GETTABLEKS                       R9 R7 K14 ["Constants"]
+       43 CALL                             R8 1 1
+       44 GETIMPORT                        R9 K7 [require]
+       46 GETTABLEKS                       R10 R7 K15 ["RigSerialization"]
+       48 CALL                             R9 1 1
+       49 GETIMPORT                        R10 K7 [require]
+       51 GETTABLEKS                       R12 R0 K16 ["LuaFlags"]
+       53 GETTABLEKS                       R11 R12 K17 ["GetFFlagUseFileNameForImportedAnimation"]
+       55 CALL                             R10 1 1
+       56 DUPCLOSURE                       R11 K18 [PROTO_1]
+       57 CAPTURE                          VAL R9
+       58 CAPTURE                          VAL R10
+       59 CAPTURE                          VAL R8
+       60 CAPTURE                          VAL R6
+       61 CAPTURE                          VAL R2
+       62 CAPTURE                          VAL R3
+       63 CAPTURE                          VAL R4
+       64 RETURN                           R11 1

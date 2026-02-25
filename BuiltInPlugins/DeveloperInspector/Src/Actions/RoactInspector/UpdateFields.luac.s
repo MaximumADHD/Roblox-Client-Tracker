@@ -1,27 +1,27 @@
 PROTO_0:
-  DUPTABLE R4 K4 [{"path", "nodeIndex", "fieldPath", "fields"}]
-  SETTABLEKS R0 R4 K0 ["path"]
-  SETTABLEKS R1 R4 K1 ["nodeIndex"]
-  SETTABLEKS R2 R4 K2 ["fieldPath"]
-  SETTABLEKS R3 R4 K3 ["fields"]
-  RETURN R4 1
+        0 DUPTABLE                         R4 K4 [{"path", "nodeIndex", "fieldPath", "fields"}]
+        1 SETTABLEKS                       R0 R4 K0 ["path"]
+        3 SETTABLEKS                       R1 R4 K1 ["nodeIndex"]
+        5 SETTABLEKS                       R2 R4 K2 ["fieldPath"]
+        7 SETTABLEKS                       R3 R4 K3 ["fields"]
+        9 RETURN                           R4 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R4 K1 [script]
-  GETTABLEKS R3 R4 K2 ["Parent"]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Packages"]
-  GETTABLEKS R2 R3 K6 ["Framework"]
-  CALL R1 1 1
-  GETTABLEKS R2 R1 K7 ["Util"]
-  GETTABLEKS R3 R2 K8 ["Action"]
-  MOVE R4 R3
-  GETIMPORT R6 K1 [script]
-  GETTABLEKS R5 R6 K9 ["Name"]
-  DUPCLOSURE R6 K10 [PROTO_0]
-  CALL R4 2 -1
-  RETURN R4 -1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R4 K1 [script]
+        3 GETTABLEKS                       R3 R4 K2 ["Parent"]
+        5 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        7 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        9 GETTABLEKS                       R0 R1 K2 ["Parent"]
+       11 GETIMPORT                        R1 K4 [require]
+       13 GETTABLEKS                       R3 R0 K5 ["Packages"]
+       15 GETTABLEKS                       R2 R3 K6 ["Framework"]
+       17 CALL                             R1 1 1
+       18 GETTABLEKS                       R2 R1 K7 ["Util"]
+       20 GETTABLEKS                       R3 R2 K8 ["Action"]
+       22 MOVE                             R4 R3
+       23 GETIMPORT                        R6 K1 [script]
+       25 GETTABLEKS                       R5 R6 K9 ["Name"]
+       27 DUPCLOSURE                       R6 K10 [PROTO_0]
+       28 CALL                             R4 2 -1
+       29 RETURN                           R4 -1

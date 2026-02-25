@@ -1,112 +1,112 @@
 PROTO_0:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  CALL R2 1 1
-  JUMPIFNOT R2 [+6]
-  GETUPVAL R2 0
-  MOVE R3 R0
-  CALL R2 1 1
-  GETTABLEKS R1 R2 K0 ["height"]
-  JUMPIF R1 [+3]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["Height"]
-  RETURN R1 1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 CALL                             R2 1 1
+        3 JUMPIFNOT                        R2 ; [+6]
+        4 GETUPVAL                         R2 0
+        5 MOVE                             R3 R0
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R1 R2 K0 ["height"]
+        9 JUMPIF                           R1 ; [+3]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R1 R2 K1 ["Height"]
+       13 RETURN                           R1 1
 
 PROTO_1:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  CALL R2 1 1
-  JUMPIFNOT R2 [+6]
-  GETUPVAL R2 0
-  MOVE R3 R0
-  CALL R2 1 1
-  GETTABLEKS R1 R2 K0 ["width"]
-  JUMPIF R1 [+3]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["Width"]
-  RETURN R1 1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 CALL                             R2 1 1
+        3 JUMPIFNOT                        R2 ; [+6]
+        4 GETUPVAL                         R2 0
+        5 MOVE                             R3 R0
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R1 R2 K0 ["width"]
+        9 JUMPIF                           R1 ; [+3]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R1 R2 K1 ["Width"]
+       13 RETURN                           R1 1
 
 PROTO_2:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  CALL R2 1 1
-  JUMPIFNOT R2 [+6]
-  GETUPVAL R2 0
-  MOVE R3 R0
-  CALL R2 1 1
-  GETTABLEKS R1 R2 K0 ["head"]
-  JUMPIF R1 [+3]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["Head"]
-  RETURN R1 1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 CALL                             R2 1 1
+        3 JUMPIFNOT                        R2 ; [+6]
+        4 GETUPVAL                         R2 0
+        5 MOVE                             R3 R0
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R1 R2 K0 ["head"]
+        9 JUMPIF                           R1 ; [+3]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R1 R2 K1 ["Head"]
+       13 RETURN                           R1 1
 
 PROTO_3:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  CALL R2 1 1
-  JUMPIFNOT R2 [+6]
-  GETUPVAL R2 0
-  MOVE R3 R0
-  CALL R2 1 1
-  GETTABLEKS R1 R2 K0 ["bodyType"]
-  JUMPIF R1 [+3]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["BodyType"]
-  RETURN R1 1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 CALL                             R2 1 1
+        3 JUMPIFNOT                        R2 ; [+6]
+        4 GETUPVAL                         R2 0
+        5 MOVE                             R3 R0
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R1 R2 K0 ["bodyType"]
+        9 JUMPIF                           R1 ; [+3]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R1 R2 K1 ["BodyType"]
+       13 RETURN                           R1 1
 
 PROTO_4:
-  GETUPVAL R2 0
-  MOVE R3 R0
-  CALL R2 1 1
-  JUMPIFNOT R2 [+6]
-  GETUPVAL R2 0
-  MOVE R3 R0
-  CALL R2 1 1
-  GETTABLEKS R1 R2 K0 ["proportion"]
-  JUMPIF R1 [+3]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["Proportion"]
-  RETURN R1 1
+        0 GETUPVAL                         R2 0
+        1 MOVE                             R3 R0
+        2 CALL                             R2 1 1
+        3 JUMPIFNOT                        R2 ; [+6]
+        4 GETUPVAL                         R2 0
+        5 MOVE                             R3 R0
+        6 CALL                             R2 1 1
+        7 GETTABLEKS                       R1 R2 K0 ["proportion"]
+        9 JUMPIF                           R1 ; [+3]
+       10 GETUPVAL                         R2 1
+       11 GETTABLEKS                       R1 R2 K1 ["Proportion"]
+       13 RETURN                           R1 1
 
 PROTO_5:
-  GETTABLEKS R1 R0 K0 ["StateSettings"]
-  JUMPIFNOT R1 [+6]
-  GETTABLEKS R3 R0 K0 ["StateSettings"]
-  GETTABLEKS R2 R3 K1 ["scaleBoundaries"]
-  GETTABLEKS R1 R2 K2 ["boundaries"]
-  RETURN R1 1
+        0 GETTABLEKS                       R1 R0 K0 ["StateSettings"]
+        2 JUMPIFNOT                        R1 ; [+6]
+        3 GETTABLEKS                       R3 R0 K0 ["StateSettings"]
+        5 GETTABLEKS                       R2 R3 K1 ["scaleBoundaries"]
+        7 GETTABLEKS                       R1 R2 K2 ["boundaries"]
+        9 RETURN                           R1 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R2 K1 [script]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R3 R0 K5 ["Util"]
-  GETTABLEKS R2 R3 K6 ["ConstantScaleBoundaries"]
-  CALL R1 1 1
-  NEWTABLE R2 8 0
-  LOADNIL R3
-  NEWCLOSURE R4 P0
-  CAPTURE REF R3
-  CAPTURE VAL R1
-  SETTABLEKS R4 R2 K7 ["getHeightBoundaries"]
-  NEWCLOSURE R4 P1
-  CAPTURE REF R3
-  CAPTURE VAL R1
-  SETTABLEKS R4 R2 K8 ["getWidthBoundaries"]
-  NEWCLOSURE R4 P2
-  CAPTURE REF R3
-  CAPTURE VAL R1
-  SETTABLEKS R4 R2 K9 ["getHeadBoundaries"]
-  NEWCLOSURE R4 P3
-  CAPTURE REF R3
-  CAPTURE VAL R1
-  SETTABLEKS R4 R2 K10 ["getBodyTypeBoundaries"]
-  NEWCLOSURE R4 P4
-  CAPTURE REF R3
-  CAPTURE VAL R1
-  SETTABLEKS R4 R2 K11 ["getProportionBoundaries"]
-  DUPCLOSURE R3 K12 [PROTO_5]
-  CLOSEUPVALS R3
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R2 K1 [script]
+        3 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        5 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        7 GETIMPORT                        R1 K4 [require]
+        9 GETTABLEKS                       R3 R0 K5 ["Util"]
+       11 GETTABLEKS                       R2 R3 K6 ["ConstantScaleBoundaries"]
+       13 CALL                             R1 1 1
+       14 NEWTABLE                         R2 8 0
+       16 LOADNIL                          R3
+       17 NEWCLOSURE                       R4 P0
+       18 CAPTURE                          REF R3
+       19 CAPTURE                          VAL R1
+       20 SETTABLEKS                       R4 R2 K7 ["getHeightBoundaries"]
+       22 NEWCLOSURE                       R4 P1
+       23 CAPTURE                          REF R3
+       24 CAPTURE                          VAL R1
+       25 SETTABLEKS                       R4 R2 K8 ["getWidthBoundaries"]
+       27 NEWCLOSURE                       R4 P2
+       28 CAPTURE                          REF R3
+       29 CAPTURE                          VAL R1
+       30 SETTABLEKS                       R4 R2 K9 ["getHeadBoundaries"]
+       32 NEWCLOSURE                       R4 P3
+       33 CAPTURE                          REF R3
+       34 CAPTURE                          VAL R1
+       35 SETTABLEKS                       R4 R2 K10 ["getBodyTypeBoundaries"]
+       37 NEWCLOSURE                       R4 P4
+       38 CAPTURE                          REF R3
+       39 CAPTURE                          VAL R1
+       40 SETTABLEKS                       R4 R2 K11 ["getProportionBoundaries"]
+       42 DUPCLOSURE                       R3 K12 [PROTO_5]
+       43 CLOSEUPVALS                      R3
+       44 RETURN                           R2 1

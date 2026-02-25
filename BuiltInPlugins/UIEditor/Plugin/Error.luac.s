@@ -1,16 +1,16 @@
 PROTO_0:
-  GETIMPORT R1 K1 [print]
-  LOADK R2 K2 ["ERROR:"]
-  MOVE R3 R0
-  CALL R1 2 0
-  LOADNIL R1
-  NAMECALL R1 R1 K3 ["throw"]
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETIMPORT                        R1 K1 [print]
+        2 LOADK                            R2 K2 ["ERROR:"]
+        3 MOVE                             R3 R0
+        4 CALL                             R1 2 0
+        5 LOADNIL                          R1
+        6 NAMECALL                         R1 R1 K3 ["throw"]
+        8 CALL                             R1 1 0
+        9 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_0]
-  SETGLOBAL R0 K1 ["Error"]
-  GETGLOBAL R0 K1 ["Error"]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_0]
+        2 SETGLOBAL                        R0 K1 ["Error"]
+        4 GETGLOBAL                        R0 K1 ["Error"]
+        6 RETURN                           R0 1

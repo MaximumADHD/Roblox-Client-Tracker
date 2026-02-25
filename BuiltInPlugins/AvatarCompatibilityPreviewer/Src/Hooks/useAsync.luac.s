@@ -1,61 +1,61 @@
 PROTO_0:
-  GETUPVAL R0 0
-  DUPTABLE R1 K2 [{"state", "value"}]
-  LOADK R2 K3 ["ok"]
-  SETTABLEKS R2 R1 K0 ["state"]
-  GETUPVAL R2 1
-  CALL R2 0 1
-  SETTABLEKS R2 R1 K1 ["value"]
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 DUPTABLE                         R1 K2 [{"state", "value"}]
+        2 LOADK                            R2 K3 ["ok"]
+        3 SETTABLEKS                       R2 R1 K0 ["state"]
+        5 GETUPVAL                         R2 1
+        6 CALL                             R2 0 1
+        7 SETTABLEKS                       R2 R1 K1 ["value"]
+        9 CALL                             R0 1 0
+       10 RETURN                           R0 0
 
 PROTO_1:
-  GETIMPORT R0 K2 [task.cancel]
-  GETUPVAL R1 0
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETIMPORT                        R0 K2 [task.cancel]
+        2 GETUPVAL                         R1 0
+        3 CALL                             R0 1 0
+        4 RETURN                           R0 0
 
 PROTO_2:
-  GETUPVAL R0 0
-  DUPTABLE R1 K1 [{"state"}]
-  LOADK R2 K2 ["loading"]
-  SETTABLEKS R2 R1 K0 ["state"]
-  CALL R0 1 0
-  GETIMPORT R0 K5 [task.spawn]
-  NEWCLOSURE R1 P0
-  CAPTURE UPVAL U0
-  CAPTURE UPVAL U1
-  CALL R0 1 1
-  NEWCLOSURE R1 P1
-  CAPTURE VAL R0
-  RETURN R1 1
+        0 GETUPVAL                         R0 0
+        1 DUPTABLE                         R1 K1 [{"state"}]
+        2 LOADK                            R2 K2 ["loading"]
+        3 SETTABLEKS                       R2 R1 K0 ["state"]
+        5 CALL                             R0 1 0
+        6 GETIMPORT                        R0 K5 [task.spawn]
+        8 NEWCLOSURE                       R1 P0
+        9 CAPTURE                          UPVAL U0
+       10 CAPTURE                          UPVAL U1
+       11 CALL                             R0 1 1
+       12 NEWCLOSURE                       R1 P1
+       13 CAPTURE                          VAL R0
+       14 RETURN                           R1 1
 
 PROTO_3:
-  GETUPVAL R3 0
-  GETTABLEKS R2 R3 K0 ["useState"]
-  DUPTABLE R3 K2 [{"state"}]
-  LOADK R4 K3 ["loading"]
-  SETTABLEKS R4 R3 K1 ["state"]
-  CALL R2 1 2
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K4 ["useEffect"]
-  NEWCLOSURE R5 P0
-  CAPTURE VAL R3
-  CAPTURE VAL R0
-  MOVE R6 R1
-  CALL R4 2 0
-  RETURN R2 1
+        0 GETUPVAL                         R3 0
+        1 GETTABLEKS                       R2 R3 K0 ["useState"]
+        3 DUPTABLE                         R3 K2 [{"state"}]
+        4 LOADK                            R4 K3 ["loading"]
+        5 SETTABLEKS                       R4 R3 K1 ["state"]
+        7 CALL                             R2 1 2
+        8 GETUPVAL                         R5 0
+        9 GETTABLEKS                       R4 R5 K4 ["useEffect"]
+       11 NEWCLOSURE                       R5 P0
+       12 CAPTURE                          VAL R3
+       13 CAPTURE                          VAL R0
+       14 MOVE                             R6 R1
+       15 CALL                             R4 2 0
+       16 RETURN                           R2 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["AvatarCompatibilityPreviewer"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  DUPCLOSURE R2 K8 [PROTO_3]
-  CAPTURE VAL R1
-  RETURN R2 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["AvatarCompatibilityPreviewer"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 DUPCLOSURE                       R2 K8 [PROTO_3]
+       15 CAPTURE                          VAL R1
+       16 RETURN                           R2 1

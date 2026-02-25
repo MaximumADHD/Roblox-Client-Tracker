@@ -1,122 +1,122 @@
 PROTO_0:
-  GETUPVAL R0 0
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K0 ["Key"]
-  CALL R0 1 0
-  GETUPVAL R1 2
-  GETTABLEKS R0 R1 K1 ["onTabSelected"]
-  GETUPVAL R1 3
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R0 0
+        1 GETUPVAL                         R2 1
+        2 GETTABLEKS                       R1 R2 K0 ["Key"]
+        4 CALL                             R0 1 0
+        5 GETUPVAL                         R1 2
+        6 GETTABLEKS                       R0 R1 K1 ["onTabSelected"]
+        8 GETUPVAL                         R1 3
+        9 CALL                             R0 1 0
+       10 RETURN                           R0 0
 
 PROTO_1:
-  GETTABLEKS R3 R0 K0 ["Key"]
-  GETUPVAL R4 0
-  JUMPIFEQ R3 R4 [+2]
-  LOADB R2 0 +1
-  LOADB R2 1
-  GETUPVAL R4 1
-  GETTABLEKS R3 R4 K1 ["createElement"]
-  GETUPVAL R4 2
-  DUPTABLE R5 K9 [{"LayoutOrder", "onActivated", "isChecked", "onStateChanged", "text", "key", "testId"}]
-  SETTABLEKS R1 R5 K2 ["LayoutOrder"]
-  NEWCLOSURE R6 P0
-  CAPTURE UPVAL U3
-  CAPTURE VAL R0
-  CAPTURE UPVAL U4
-  CAPTURE VAL R1
-  SETTABLEKS R6 R5 K3 ["onActivated"]
-  SETTABLEKS R2 R5 K4 ["isChecked"]
-  GETUPVAL R6 5
-  SETTABLEKS R6 R5 K5 ["onStateChanged"]
-  GETTABLEKS R6 R0 K10 ["Label"]
-  JUMPIF R6 [+2]
-  GETTABLEKS R6 R0 K11 ["Title"]
-  SETTABLEKS R6 R5 K6 ["text"]
-  GETTABLEKS R6 R0 K0 ["Key"]
-  SETTABLEKS R6 R5 K7 ["key"]
-  JUMPIFNOT R2 [+2]
-  LOADK R6 K12 ["--start-page-PillTabs-Tab-active"]
-  JUMP [+1]
-  LOADNIL R6
-  SETTABLEKS R6 R5 K8 ["testId"]
-  CALL R3 2 -1
-  RETURN R3 -1
+        0 GETTABLEKS                       R3 R0 K0 ["Key"]
+        2 GETUPVAL                         R4 0
+        3 JUMPIFEQ                         R3 R4 ; [+2]
+        5 LOADB                            R2 0 +1
+        6 LOADB                            R2 1
+        7 GETUPVAL                         R4 1
+        8 GETTABLEKS                       R3 R4 K1 ["createElement"]
+       10 GETUPVAL                         R4 2
+       11 DUPTABLE                         R5 K9 [{"LayoutOrder", "onActivated", "isChecked", "onStateChanged", "text", "key", "testId"}]
+       12 SETTABLEKS                       R1 R5 K2 ["LayoutOrder"]
+       14 NEWCLOSURE                       R6 P0
+       15 CAPTURE                          UPVAL U3
+       16 CAPTURE                          VAL R0
+       17 CAPTURE                          UPVAL U4
+       18 CAPTURE                          VAL R1
+       19 SETTABLEKS                       R6 R5 K3 ["onActivated"]
+       21 SETTABLEKS                       R2 R5 K4 ["isChecked"]
+       23 GETUPVAL                         R6 5
+       24 SETTABLEKS                       R6 R5 K5 ["onStateChanged"]
+       26 GETTABLEKS                       R6 R0 K10 ["Label"]
+       28 JUMPIF                           R6 ; [+2]
+       29 GETTABLEKS                       R6 R0 K11 ["Title"]
+       31 SETTABLEKS                       R6 R5 K6 ["text"]
+       33 GETTABLEKS                       R6 R0 K0 ["Key"]
+       35 SETTABLEKS                       R6 R5 K7 ["key"]
+       37 JUMPIFNOT                        R2 ; [+2]
+       38 LOADK                            R6 K12 ["--start-page-PillTabs-Tab-active"]
+       39 JUMP                             ; [+1]
+       40 LOADNIL                          R6
+       41 SETTABLEKS                       R6 R5 K8 ["testId"]
+       43 CALL                             R3 2 -1
+       44 RETURN                           R3 -1
 
 PROTO_2:
-  GETUPVAL R1 0
-  GETTABLEKS R2 R0 K0 ["defaultSelectedTab"]
-  JUMPIF R2 [+5]
-  GETTABLEKS R4 R0 K1 ["tabs"]
-  GETTABLEN R3 R4 1
-  GETTABLEKS R2 R3 K2 ["Key"]
-  CALL R1 1 2
-  GETUPVAL R3 1
-  LOADK R4 K3 ["PointingHand"]
-  CALL R3 1 1
-  GETUPVAL R5 2
-  GETTABLEKS R4 R5 K4 ["createElement"]
-  GETUPVAL R5 3
-  DUPTABLE R6 K7 [{"LayoutOrder", "tag"}]
-  GETTABLEKS R7 R0 K5 ["LayoutOrder"]
-  SETTABLEKS R7 R6 K5 ["LayoutOrder"]
-  LOADK R7 K8 ["auto-xy row gap-medium"]
-  SETTABLEKS R7 R6 K6 ["tag"]
-  GETUPVAL R8 4
-  GETTABLEKS R7 R8 K9 ["map"]
-  GETTABLEKS R8 R0 K1 ["tabs"]
-  NEWCLOSURE R9 P0
-  CAPTURE VAL R1
-  CAPTURE UPVAL U2
-  CAPTURE UPVAL U5
-  CAPTURE VAL R2
-  CAPTURE VAL R0
-  CAPTURE VAL R3
-  CALL R7 2 -1
-  CALL R4 -1 -1
-  RETURN R4 -1
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R2 R0 K0 ["defaultSelectedTab"]
+        3 JUMPIF                           R2 ; [+5]
+        4 GETTABLEKS                       R4 R0 K1 ["tabs"]
+        6 GETTABLEN                        R3 R4 1
+        7 GETTABLEKS                       R2 R3 K2 ["Key"]
+        9 CALL                             R1 1 2
+       10 GETUPVAL                         R3 1
+       11 LOADK                            R4 K3 ["PointingHand"]
+       12 CALL                             R3 1 1
+       13 GETUPVAL                         R5 2
+       14 GETTABLEKS                       R4 R5 K4 ["createElement"]
+       16 GETUPVAL                         R5 3
+       17 DUPTABLE                         R6 K7 [{"LayoutOrder", "tag"}]
+       18 GETTABLEKS                       R7 R0 K5 ["LayoutOrder"]
+       20 SETTABLEKS                       R7 R6 K5 ["LayoutOrder"]
+       22 LOADK                            R7 K8 ["auto-xy row gap-medium"]
+       23 SETTABLEKS                       R7 R6 K6 ["tag"]
+       25 GETUPVAL                         R8 4
+       26 GETTABLEKS                       R7 R8 K9 ["map"]
+       28 GETTABLEKS                       R8 R0 K1 ["tabs"]
+       30 NEWCLOSURE                       R9 P0
+       31 CAPTURE                          VAL R1
+       32 CAPTURE                          UPVAL U2
+       33 CAPTURE                          UPVAL U5
+       34 CAPTURE                          VAL R2
+       35 CAPTURE                          VAL R0
+       36 CAPTURE                          VAL R3
+       37 CALL                             R7 2 -1
+       38 CALL                             R4 -1 -1
+       39 RETURN                           R4 -1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R0 K1 [script]
-  LOADK R2 K2 ["StartPage"]
-  NAMECALL R0 R0 K3 ["FindFirstAncestor"]
-  CALL R0 2 1
-  GETIMPORT R1 K5 [require]
-  GETTABLEKS R3 R0 K6 ["Packages"]
-  GETTABLEKS R2 R3 K7 ["React"]
-  CALL R1 1 1
-  GETIMPORT R2 K5 [require]
-  GETTABLEKS R4 R0 K6 ["Packages"]
-  GETTABLEKS R3 R4 K8 ["Dash"]
-  CALL R2 1 1
-  GETIMPORT R3 K5 [require]
-  GETTABLEKS R6 R0 K9 ["Src"]
-  GETTABLEKS R5 R6 K10 ["Util"]
-  GETTABLEKS R4 R5 K11 ["Foundation"]
-  CALL R3 1 1
-  GETIMPORT R4 K5 [require]
-  GETTABLEKS R7 R0 K9 ["Src"]
-  GETTABLEKS R6 R7 K12 ["Hooks"]
-  GETTABLEKS R5 R6 K13 ["useOnStateChangedCursor"]
-  CALL R4 1 1
-  GETTABLEKS R5 R1 K14 ["useState"]
-  GETTABLEKS R6 R3 K15 ["Chip"]
-  GETIMPORT R7 K5 [require]
-  GETTABLEKS R11 R0 K9 ["Src"]
-  GETTABLEKS R10 R11 K11 ["Foundation"]
-  GETTABLEKS R9 R10 K16 ["Components"]
-  GETTABLEKS R8 R9 K17 ["Frame"]
-  CALL R7 1 1
-  GETIMPORT R8 K5 [require]
-  GETTABLEKS R10 R0 K9 ["Src"]
-  GETTABLEKS R9 R10 K18 ["Types"]
-  CALL R8 1 1
-  DUPCLOSURE R9 K19 [PROTO_2]
-  CAPTURE VAL R5
-  CAPTURE VAL R4
-  CAPTURE VAL R1
-  CAPTURE VAL R7
-  CAPTURE VAL R2
-  CAPTURE VAL R6
-  RETURN R9 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R0 K1 [script]
+        3 LOADK                            R2 K2 ["StartPage"]
+        4 NAMECALL                         R0 R0 K3 ["FindFirstAncestor"]
+        6 CALL                             R0 2 1
+        7 GETIMPORT                        R1 K5 [require]
+        9 GETTABLEKS                       R3 R0 K6 ["Packages"]
+       11 GETTABLEKS                       R2 R3 K7 ["React"]
+       13 CALL                             R1 1 1
+       14 GETIMPORT                        R2 K5 [require]
+       16 GETTABLEKS                       R4 R0 K6 ["Packages"]
+       18 GETTABLEKS                       R3 R4 K8 ["Dash"]
+       20 CALL                             R2 1 1
+       21 GETIMPORT                        R3 K5 [require]
+       23 GETTABLEKS                       R6 R0 K9 ["Src"]
+       25 GETTABLEKS                       R5 R6 K10 ["Util"]
+       27 GETTABLEKS                       R4 R5 K11 ["Foundation"]
+       29 CALL                             R3 1 1
+       30 GETIMPORT                        R4 K5 [require]
+       32 GETTABLEKS                       R7 R0 K9 ["Src"]
+       34 GETTABLEKS                       R6 R7 K12 ["Hooks"]
+       36 GETTABLEKS                       R5 R6 K13 ["useOnStateChangedCursor"]
+       38 CALL                             R4 1 1
+       39 GETTABLEKS                       R5 R1 K14 ["useState"]
+       41 GETTABLEKS                       R6 R3 K15 ["Chip"]
+       43 GETIMPORT                        R7 K5 [require]
+       45 GETTABLEKS                       R11 R0 K9 ["Src"]
+       47 GETTABLEKS                       R10 R11 K11 ["Foundation"]
+       49 GETTABLEKS                       R9 R10 K16 ["Components"]
+       51 GETTABLEKS                       R8 R9 K17 ["Frame"]
+       53 CALL                             R7 1 1
+       54 GETIMPORT                        R8 K5 [require]
+       56 GETTABLEKS                       R10 R0 K9 ["Src"]
+       58 GETTABLEKS                       R9 R10 K18 ["Types"]
+       60 CALL                             R8 1 1
+       61 DUPCLOSURE                       R9 K19 [PROTO_2]
+       62 CAPTURE                          VAL R5
+       63 CAPTURE                          VAL R4
+       64 CAPTURE                          VAL R1
+       65 CAPTURE                          VAL R7
+       66 CAPTURE                          VAL R2
+       67 CAPTURE                          VAL R6
+       68 RETURN                           R9 1

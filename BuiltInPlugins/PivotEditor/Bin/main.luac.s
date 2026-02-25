@@ -1,161 +1,161 @@
 PROTO_0:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["unmount"]
-  GETUPVAL R1 1
-  CALL R0 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["unmount"]
+        3 GETUPVAL                         R1 1
+        4 CALL                             R0 1 0
+        5 RETURN                           R0 0
 
 PROTO_1:
-  GETUPVAL R1 0
-  GETTABLEKS R0 R1 K0 ["mount"]
-  GETUPVAL R2 1
-  GETTABLEKS R1 R2 K1 ["provide"]
-  NEWTABLE R2 0 5
-  GETUPVAL R5 1
-  GETTABLEKS R4 R5 K2 ["Plugin"]
-  GETTABLEKS R3 R4 K3 ["new"]
-  GETUPVAL R4 2
-  CALL R3 1 1
-  GETUPVAL R6 1
-  GETTABLEKS R5 R6 K4 ["Mouse"]
-  GETTABLEKS R4 R5 K3 ["new"]
-  GETUPVAL R5 2
-  NAMECALL R5 R5 K5 ["GetMouse"]
-  CALL R5 1 -1
-  CALL R4 -1 1
-  GETUPVAL R7 1
-  GETTABLEKS R6 R7 K6 ["Store"]
-  GETTABLEKS R5 R6 K3 ["new"]
-  GETUPVAL R8 3
-  GETTABLEKS R7 R8 K6 ["Store"]
-  GETTABLEKS R6 R7 K3 ["new"]
-  GETUPVAL R7 4
-  LOADNIL R8
-  NEWTABLE R9 0 1
-  GETUPVAL R11 3
-  GETTABLEKS R10 R11 K7 ["thunkMiddleware"]
-  SETLIST R9 R10 1 [1]
-  CALL R6 3 -1
-  CALL R5 -1 1
-  GETUPVAL R8 1
-  GETTABLEKS R7 R8 K8 ["Localization"]
-  GETTABLEKS R6 R7 K3 ["new"]
-  GETUPVAL R7 5
-  CALL R6 1 1
-  GETUPVAL R8 6
-  GETTABLEKS R7 R8 K3 ["new"]
-  CALL R7 0 -1
-  SETLIST R2 R3 -1 [1]
-  DUPTABLE R3 K9 [{"Plugin"}]
-  GETUPVAL R5 7
-  CALL R5 0 1
-  JUMPIFNOT R5 [+13]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K10 ["createElement"]
-  GETUPVAL R5 8
-  DUPTABLE R6 K12 [{"Plugin", "pluginLoaderContext"}]
-  GETUPVAL R7 2
-  SETTABLEKS R7 R6 K2 ["Plugin"]
-  GETUPVAL R7 9
-  SETTABLEKS R7 R6 K11 ["pluginLoaderContext"]
-  CALL R4 2 1
-  JUMP [+5]
-  GETUPVAL R5 0
-  GETTABLEKS R4 R5 K10 ["createElement"]
-  GETUPVAL R5 8
-  CALL R4 1 1
-  SETTABLEKS R4 R3 K2 ["Plugin"]
-  CALL R1 2 -1
-  CALL R0 -1 1
-  GETUPVAL R2 2
-  GETTABLEKS R1 R2 K13 ["Unloading"]
-  NEWCLOSURE R3 P0
-  CAPTURE UPVAL U0
-  CAPTURE VAL R0
-  NAMECALL R1 R1 K14 ["Connect"]
-  CALL R1 2 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 GETTABLEKS                       R0 R1 K0 ["mount"]
+        3 GETUPVAL                         R2 1
+        4 GETTABLEKS                       R1 R2 K1 ["provide"]
+        6 NEWTABLE                         R2 0 5
+        8 GETUPVAL                         R5 1
+        9 GETTABLEKS                       R4 R5 K2 ["Plugin"]
+       11 GETTABLEKS                       R3 R4 K3 ["new"]
+       13 GETUPVAL                         R4 2
+       14 CALL                             R3 1 1
+       15 GETUPVAL                         R6 1
+       16 GETTABLEKS                       R5 R6 K4 ["Mouse"]
+       18 GETTABLEKS                       R4 R5 K3 ["new"]
+       20 GETUPVAL                         R5 2
+       21 NAMECALL                         R5 R5 K5 ["GetMouse"]
+       23 CALL                             R5 1 -1
+       24 CALL                             R4 -1 1
+       25 GETUPVAL                         R7 1
+       26 GETTABLEKS                       R6 R7 K6 ["Store"]
+       28 GETTABLEKS                       R5 R6 K3 ["new"]
+       30 GETUPVAL                         R8 3
+       31 GETTABLEKS                       R7 R8 K6 ["Store"]
+       33 GETTABLEKS                       R6 R7 K3 ["new"]
+       35 GETUPVAL                         R7 4
+       36 LOADNIL                          R8
+       37 NEWTABLE                         R9 0 1
+       39 GETUPVAL                         R11 3
+       40 GETTABLEKS                       R10 R11 K7 ["thunkMiddleware"]
+       42 SETLIST                          R9 R10 1 [1]
+       44 CALL                             R6 3 -1
+       45 CALL                             R5 -1 1
+       46 GETUPVAL                         R8 1
+       47 GETTABLEKS                       R7 R8 K8 ["Localization"]
+       49 GETTABLEKS                       R6 R7 K3 ["new"]
+       51 GETUPVAL                         R7 5
+       52 CALL                             R6 1 1
+       53 GETUPVAL                         R8 6
+       54 GETTABLEKS                       R7 R8 K3 ["new"]
+       56 CALL                             R7 0 -1
+       57 SETLIST                          R2 R3 -1 [1]
+       59 DUPTABLE                         R3 K9 [{"Plugin"}]
+       60 GETUPVAL                         R5 7
+       61 CALL                             R5 0 1
+       62 JUMPIFNOT                        R5 ; [+13]
+       63 GETUPVAL                         R5 0
+       64 GETTABLEKS                       R4 R5 K10 ["createElement"]
+       66 GETUPVAL                         R5 8
+       67 DUPTABLE                         R6 K12 [{"Plugin", "pluginLoaderContext"}]
+       68 GETUPVAL                         R7 2
+       69 SETTABLEKS                       R7 R6 K2 ["Plugin"]
+       71 GETUPVAL                         R7 9
+       72 SETTABLEKS                       R7 R6 K11 ["pluginLoaderContext"]
+       74 CALL                             R4 2 1
+       75 JUMP                             ; [+5]
+       76 GETUPVAL                         R5 0
+       77 GETTABLEKS                       R4 R5 K10 ["createElement"]
+       79 GETUPVAL                         R5 8
+       80 CALL                             R4 1 1
+       81 SETTABLEKS                       R4 R3 K2 ["Plugin"]
+       83 CALL                             R1 2 -1
+       84 CALL                             R0 -1 1
+       85 GETUPVAL                         R2 2
+       86 GETTABLEKS                       R1 R2 K13 ["Unloading"]
+       88 NEWCLOSURE                       R3 P0
+       89 CAPTURE                          UPVAL U0
+       90 CAPTURE                          VAL R0
+       91 NAMECALL                         R1 R1 K14 ["Connect"]
+       93 CALL                             R1 2 0
+       94 RETURN                           R0 0
 
 PROTO_2:
-  GETIMPORT R2 K1 [require]
-  GETIMPORT R5 K3 [script]
-  GETTABLEKS R4 R5 K4 ["Parent"]
-  GETTABLEKS R3 R4 K5 ["defineLuaFlags"]
-  CALL R2 1 0
-  GETIMPORT R4 K3 [script]
-  GETTABLEKS R3 R4 K4 ["Parent"]
-  GETTABLEKS R2 R3 K4 ["Parent"]
-  GETIMPORT R3 K1 [require]
-  GETTABLEKS R6 R2 K6 ["Src"]
-  GETTABLEKS R5 R6 K7 ["Flags"]
-  GETTABLEKS R4 R5 K8 ["getFFlagImprovePluginSpeedPivotEditor"]
-  CALL R3 1 1
-  GETIMPORT R4 K1 [require]
-  GETTABLEKS R7 R2 K6 ["Src"]
-  GETTABLEKS R6 R7 K9 ["Utility"]
-  GETTABLEKS R5 R6 K10 ["DebugFlags"]
-  CALL R4 1 1
-  GETTABLEKS R5 R4 K11 ["RunningUnderCLI"]
-  CALL R5 0 1
-  JUMPIFNOT R5 [+1]
-  RETURN R0 0
-  GETIMPORT R5 K1 [require]
-  GETTABLEKS R7 R2 K12 ["Packages"]
-  GETTABLEKS R6 R7 K13 ["Roact"]
-  CALL R5 1 1
-  GETIMPORT R6 K1 [require]
-  GETTABLEKS R8 R2 K12 ["Packages"]
-  GETTABLEKS R7 R8 K14 ["Rodux"]
-  CALL R6 1 1
-  GETIMPORT R8 K1 [require]
-  GETTABLEKS R10 R2 K12 ["Packages"]
-  GETTABLEKS R9 R10 K15 ["Framework"]
-  CALL R8 1 1
-  GETTABLEKS R7 R8 K16 ["ContextServices"]
-  GETIMPORT R8 K1 [require]
-  GETTABLEKS R11 R2 K6 ["Src"]
-  GETTABLEKS R10 R11 K17 ["Reducers"]
-  GETTABLEKS R9 R10 K18 ["MainReducer"]
-  CALL R8 1 1
-  GETIMPORT R9 K1 [require]
-  GETTABLEKS R12 R2 K6 ["Src"]
-  GETTABLEKS R11 R12 K19 ["RoduxComponents"]
-  GETTABLEKS R10 R11 K20 ["EditPivotPlugin"]
-  CALL R9 1 1
-  GETTABLEKS R13 R2 K6 ["Src"]
-  GETTABLEKS R12 R13 K21 ["Resources"]
-  GETTABLEKS R11 R12 K22 ["Localization"]
-  GETTABLEKS R10 R11 K23 ["SourceStrings"]
-  GETTABLEKS R14 R2 K6 ["Src"]
-  GETTABLEKS R13 R14 K21 ["Resources"]
-  GETTABLEKS R12 R13 K22 ["Localization"]
-  GETTABLEKS R11 R12 K24 ["LocalizedStrings"]
-  GETIMPORT R12 K1 [require]
-  GETTABLEKS R15 R2 K6 ["Src"]
-  GETTABLEKS R14 R15 K9 ["Utility"]
-  GETTABLEKS R13 R14 K25 ["ToastNotification"]
-  CALL R12 1 1
-  DUPTABLE R13 K29 [{"pluginName", "stringResourceTable", "translationResourceTable"}]
-  LOADK R14 K30 ["PivotEditor"]
-  SETTABLEKS R14 R13 K26 ["pluginName"]
-  SETTABLEKS R10 R13 K27 ["stringResourceTable"]
-  SETTABLEKS R11 R13 K28 ["translationResourceTable"]
-  NEWCLOSURE R14 P0
-  CAPTURE VAL R5
-  CAPTURE VAL R7
-  CAPTURE VAL R0
-  CAPTURE VAL R6
-  CAPTURE VAL R8
-  CAPTURE VAL R13
-  CAPTURE VAL R12
-  CAPTURE VAL R3
-  CAPTURE VAL R9
-  CAPTURE VAL R1
-  MOVE R15 R14
-  CALL R15 0 0
-  RETURN R0 0
+        0 GETIMPORT                        R2 K1 [require]
+        2 GETIMPORT                        R5 K3 [script]
+        4 GETTABLEKS                       R4 R5 K4 ["Parent"]
+        6 GETTABLEKS                       R3 R4 K5 ["defineLuaFlags"]
+        8 CALL                             R2 1 0
+        9 GETIMPORT                        R4 K3 [script]
+       11 GETTABLEKS                       R3 R4 K4 ["Parent"]
+       13 GETTABLEKS                       R2 R3 K4 ["Parent"]
+       15 GETIMPORT                        R3 K1 [require]
+       17 GETTABLEKS                       R6 R2 K6 ["Src"]
+       19 GETTABLEKS                       R5 R6 K7 ["Flags"]
+       21 GETTABLEKS                       R4 R5 K8 ["getFFlagImprovePluginSpeedPivotEditor"]
+       23 CALL                             R3 1 1
+       24 GETIMPORT                        R4 K1 [require]
+       26 GETTABLEKS                       R7 R2 K6 ["Src"]
+       28 GETTABLEKS                       R6 R7 K9 ["Utility"]
+       30 GETTABLEKS                       R5 R6 K10 ["DebugFlags"]
+       32 CALL                             R4 1 1
+       33 GETTABLEKS                       R5 R4 K11 ["RunningUnderCLI"]
+       35 CALL                             R5 0 1
+       36 JUMPIFNOT                        R5 ; [+1]
+       37 RETURN                           R0 0
+       38 GETIMPORT                        R5 K1 [require]
+       40 GETTABLEKS                       R7 R2 K12 ["Packages"]
+       42 GETTABLEKS                       R6 R7 K13 ["Roact"]
+       44 CALL                             R5 1 1
+       45 GETIMPORT                        R6 K1 [require]
+       47 GETTABLEKS                       R8 R2 K12 ["Packages"]
+       49 GETTABLEKS                       R7 R8 K14 ["Rodux"]
+       51 CALL                             R6 1 1
+       52 GETIMPORT                        R8 K1 [require]
+       54 GETTABLEKS                       R10 R2 K12 ["Packages"]
+       56 GETTABLEKS                       R9 R10 K15 ["Framework"]
+       58 CALL                             R8 1 1
+       59 GETTABLEKS                       R7 R8 K16 ["ContextServices"]
+       61 GETIMPORT                        R8 K1 [require]
+       63 GETTABLEKS                       R11 R2 K6 ["Src"]
+       65 GETTABLEKS                       R10 R11 K17 ["Reducers"]
+       67 GETTABLEKS                       R9 R10 K18 ["MainReducer"]
+       69 CALL                             R8 1 1
+       70 GETIMPORT                        R9 K1 [require]
+       72 GETTABLEKS                       R12 R2 K6 ["Src"]
+       74 GETTABLEKS                       R11 R12 K19 ["RoduxComponents"]
+       76 GETTABLEKS                       R10 R11 K20 ["EditPivotPlugin"]
+       78 CALL                             R9 1 1
+       79 GETTABLEKS                       R13 R2 K6 ["Src"]
+       81 GETTABLEKS                       R12 R13 K21 ["Resources"]
+       83 GETTABLEKS                       R11 R12 K22 ["Localization"]
+       85 GETTABLEKS                       R10 R11 K23 ["SourceStrings"]
+       87 GETTABLEKS                       R14 R2 K6 ["Src"]
+       89 GETTABLEKS                       R13 R14 K21 ["Resources"]
+       91 GETTABLEKS                       R12 R13 K22 ["Localization"]
+       93 GETTABLEKS                       R11 R12 K24 ["LocalizedStrings"]
+       95 GETIMPORT                        R12 K1 [require]
+       97 GETTABLEKS                       R15 R2 K6 ["Src"]
+       99 GETTABLEKS                       R14 R15 K9 ["Utility"]
+      101 GETTABLEKS                       R13 R14 K25 ["ToastNotification"]
+      103 CALL                             R12 1 1
+      104 DUPTABLE                         R13 K29 [{"pluginName", "stringResourceTable", "translationResourceTable"}]
+      105 LOADK                            R14 K30 ["PivotEditor"]
+      106 SETTABLEKS                       R14 R13 K26 ["pluginName"]
+      108 SETTABLEKS                       R10 R13 K27 ["stringResourceTable"]
+      110 SETTABLEKS                       R11 R13 K28 ["translationResourceTable"]
+      112 NEWCLOSURE                       R14 P0
+      113 CAPTURE                          VAL R5
+      114 CAPTURE                          VAL R7
+      115 CAPTURE                          VAL R0
+      116 CAPTURE                          VAL R6
+      117 CAPTURE                          VAL R8
+      118 CAPTURE                          VAL R13
+      119 CAPTURE                          VAL R12
+      120 CAPTURE                          VAL R3
+      121 CAPTURE                          VAL R9
+      122 CAPTURE                          VAL R1
+      123 MOVE                             R15 R14
+      124 CALL                             R15 0 0
+      125 RETURN                           R0 0
 
 MAIN:
-  PREPVARARGS 0
-  DUPCLOSURE R0 K0 [PROTO_2]
-  RETURN R0 1
+        0 PREPVARARGS                      0
+        1 DUPCLOSURE                       R0 K0 [PROTO_2]
+        2 RETURN                           R0 1

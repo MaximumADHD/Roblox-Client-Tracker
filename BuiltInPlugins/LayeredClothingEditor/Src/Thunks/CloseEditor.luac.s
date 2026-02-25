@@ -1,51 +1,51 @@
 PROTO_0:
-  GETUPVAL R1 0
-  NAMECALL R1 R1 K0 ["Deactivate"]
-  CALL R1 1 0
-  GETUPVAL R3 1
-  CALL R3 0 -1
-  NAMECALL R1 R0 K1 ["dispatch"]
-  CALL R1 -1 0
-  GETUPVAL R1 2
-  NAMECALL R1 R1 K2 ["cleanup"]
-  CALL R1 1 0
-  GETUPVAL R1 3
-  LOADK R3 K3 ["ExitScreen"]
-  NAMECALL R1 R1 K4 ["getHandler"]
-  CALL R1 2 1
-  CALL R1 0 0
-  GETUPVAL R1 3
-  LOADK R3 K5 ["SessionEnded"]
-  NAMECALL R1 R1 K4 ["getHandler"]
-  CALL R1 2 1
-  LOADB R2 1
-  CALL R1 1 0
-  RETURN R0 0
+        0 GETUPVAL                         R1 0
+        1 NAMECALL                         R1 R1 K0 ["Deactivate"]
+        3 CALL                             R1 1 0
+        4 GETUPVAL                         R3 1
+        5 CALL                             R3 0 -1
+        6 NAMECALL                         R1 R0 K1 ["dispatch"]
+        8 CALL                             R1 -1 0
+        9 GETUPVAL                         R1 2
+       10 NAMECALL                         R1 R1 K2 ["cleanup"]
+       12 CALL                             R1 1 0
+       13 GETUPVAL                         R1 3
+       14 LOADK                            R3 K3 ["ExitScreen"]
+       15 NAMECALL                         R1 R1 K4 ["getHandler"]
+       17 CALL                             R1 2 1
+       18 CALL                             R1 0 0
+       19 GETUPVAL                         R1 3
+       20 LOADK                            R3 K5 ["SessionEnded"]
+       21 NAMECALL                         R1 R1 K4 ["getHandler"]
+       23 CALL                             R1 2 1
+       24 LOADB                            R2 1
+       25 CALL                             R1 1 0
+       26 RETURN                           R0 0
 
 PROTO_1:
-  NEWCLOSURE R3 P0
-  CAPTURE VAL R0
-  CAPTURE UPVAL U0
-  CAPTURE VAL R2
-  CAPTURE VAL R1
-  RETURN R3 1
+        0 NEWCLOSURE                       R3 P0
+        1 CAPTURE                          VAL R0
+        2 CAPTURE                          UPVAL U0
+        3 CAPTURE                          VAL R2
+        4 CAPTURE                          VAL R1
+        5 RETURN                           R3 1
 
 MAIN:
-  PREPVARARGS 0
-  GETIMPORT R3 K1 [script]
-  GETTABLEKS R2 R3 K2 ["Parent"]
-  GETTABLEKS R1 R2 K2 ["Parent"]
-  GETTABLEKS R0 R1 K2 ["Parent"]
-  GETIMPORT R1 K4 [require]
-  GETTABLEKS R4 R0 K5 ["Src"]
-  GETTABLEKS R3 R4 K6 ["Thunks"]
-  GETTABLEKS R2 R3 K7 ["ReleaseEditor"]
-  CALL R1 1 1
-  GETIMPORT R2 K4 [require]
-  GETTABLEKS R5 R0 K5 ["Src"]
-  GETTABLEKS R4 R5 K8 ["Util"]
-  GETTABLEKS R3 R4 K9 ["AnalyticsGlobals"]
-  CALL R2 1 1
-  DUPCLOSURE R3 K10 [PROTO_1]
-  CAPTURE VAL R1
-  RETURN R3 1
+        0 PREPVARARGS                      0
+        1 GETIMPORT                        R3 K1 [script]
+        3 GETTABLEKS                       R2 R3 K2 ["Parent"]
+        5 GETTABLEKS                       R1 R2 K2 ["Parent"]
+        7 GETTABLEKS                       R0 R1 K2 ["Parent"]
+        9 GETIMPORT                        R1 K4 [require]
+       11 GETTABLEKS                       R4 R0 K5 ["Src"]
+       13 GETTABLEKS                       R3 R4 K6 ["Thunks"]
+       15 GETTABLEKS                       R2 R3 K7 ["ReleaseEditor"]
+       17 CALL                             R1 1 1
+       18 GETIMPORT                        R2 K4 [require]
+       20 GETTABLEKS                       R5 R0 K5 ["Src"]
+       22 GETTABLEKS                       R4 R5 K8 ["Util"]
+       24 GETTABLEKS                       R3 R4 K9 ["AnalyticsGlobals"]
+       26 CALL                             R2 1 1
+       27 DUPCLOSURE                       R3 K10 [PROTO_1]
+       28 CAPTURE                          VAL R1
+       29 RETURN                           R3 1
