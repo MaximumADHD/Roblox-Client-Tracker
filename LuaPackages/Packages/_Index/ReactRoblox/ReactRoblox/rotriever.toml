@@ -1,6 +1,6 @@
 [package]
 name = "ReactRoblox"
-version = "17.3.6"
+version = "17.3.7"
 content_root = "src"
 files = [
     "*",
@@ -21,20 +21,20 @@ version = "^1"
 
 [dependencies.React]
 package = "React"
-version = "^17.3.6"
+version = "^17.3.7"
 
 [dependencies.ReactGlobals]
 package = "ReactGlobals"
-version = "^17.3.6"
+version = "^17.3.7"
 
 [dependencies.ReactReconciler]
 package = "ReactReconciler"
-version = "^17.3.6"
+version = "^17.3.7"
 
 [dependencies.Scheduler]
 package = "Scheduler"
-version = "^17.3.6"
+version = "^17.3.7"
 
 [dependencies.Shared]
 package = "Shared"
-version = "^17.3.6"
+version = "^17.3.7"

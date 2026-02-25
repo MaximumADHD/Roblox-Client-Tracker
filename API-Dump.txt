@@ -404,6 +404,78 @@ Class Animator : Instance
 	Property Animator.RootMotion: CFrame {🛠️Animation} [ReadOnly] [NotBrowsable]
 	Property Animator.RootMotionWeight: number {🛠️Animation} [ReadOnly] [NotBrowsable]
 	Property Animator.FacsReplicationData: FacsReplicationData {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.AnimationId0: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.AnimationId1: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.AnimationId2: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.AnimationId3: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.AnimationId4: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.AnimationId5: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.AnimationId6: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.AnimationId7: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.FadeTime0: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.FadeTime1: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.FadeTime2: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.FadeTime3: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.FadeTime4: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.FadeTime5: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.FadeTime6: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.FadeTime7: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.IsPlaying0: boolean {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.IsPlaying1: boolean {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.IsPlaying2: boolean {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.IsPlaying3: boolean {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.IsPlaying4: boolean {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.IsPlaying5: boolean {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.IsPlaying6: boolean {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.IsPlaying7: boolean {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.Looped0: boolean {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.Looped1: boolean {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.Looped2: boolean {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.Looped3: boolean {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.Looped4: boolean {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.Looped5: boolean {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.Looped6: boolean {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.Looped7: boolean {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.PlaybackSpeed0: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.PlaybackSpeed1: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.PlaybackSpeed2: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.PlaybackSpeed3: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.PlaybackSpeed4: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.PlaybackSpeed5: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.PlaybackSpeed6: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.PlaybackSpeed7: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.Priority0: Enum.AnimationPriority {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.Priority1: Enum.AnimationPriority {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.Priority2: Enum.AnimationPriority {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.Priority3: Enum.AnimationPriority {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.Priority4: Enum.AnimationPriority {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.Priority5: Enum.AnimationPriority {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.Priority6: Enum.AnimationPriority {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.Priority7: Enum.AnimationPriority {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.TimePosition0: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.TimePosition1: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.TimePosition2: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.TimePosition3: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.TimePosition4: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.TimePosition5: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.TimePosition6: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.TimePosition7: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightCurrent0: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightCurrent1: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightCurrent2: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightCurrent3: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightCurrent4: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightCurrent5: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightCurrent6: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightCurrent7: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightTarget0: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightTarget1: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightTarget2: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightTarget3: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightTarget4: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightTarget5: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightTarget6: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
+	Property Animator.WeightTarget7: number {🛠️Animation} {RobloxEngine} [Hidden] [NotScriptable]
 	Function Animator:ApplyJointVelocities(motors: any) -> () {🛠️Animation}
 	Function Animator:GetPlayingAnimationTracks() -> { any } {🛠️Animation}
 	Function Animator:LoadAnimation(animation: Animation) -> AnimationTrack {🛠️Animation}
@@ -548,7 +620,7 @@ Class AssetQualityService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 	Function AssetQualityService:GenerateAssetQualityGltfFromInstanceAsync(uploadModel: Model) -> string {🔒RobloxScript} [Yields]
 Class AssetService : Instance [NotCreatable] [Service]
 	Property AssetService.AllowInsertFreeAssets: boolean {RobloxScript}
-	Function AssetService:ComposeDecalAsync(layers: { any }) -> Decal [Yields]
+	Function AssetService:ComposeDecalAsync(decal: Decal, layers: { any }) -> () [Yields]
 	Function AssetService:CreateAssetAsync(object: Object, assetType: Enum.AssetType, requestParameters: { [string]: any }? = nil) -> ...any {🛠️AssetCreateUpdate} [Yields]
 	Function AssetService:CreateAssetVersionAsync(object: Object, assetType: Enum.AssetType, assetId: number, requestParameters: { [string]: any }? = nil) -> ...any {🛠️AssetCreateUpdate} [Yields]
 	Function AssetService:CreateEditableImage(editableImageOptions: { [string]: any }?) -> EditableImage {🛠️DynamicGeneration}
@@ -570,7 +642,6 @@ Class AssetService : Instance [NotCreatable] [Service]
 	Function AssetService:SearchAudioAsync(searchParameters: AudioSearchParams) -> AudioPages {🛠️AssetRead} [Yields]
 	Function AssetService:CachePartOperationsAsync(partOperations: { any }) -> () {🔒RobloxScript} [Yields]
 	Function AssetService:CanEditAssetAsync(content: Content) -> boolean {🔒RobloxScript} [Yields]
-	Function AssetService:ComposeDecal(decal: Decal, layers: { any }, onFinishCallback: (...any) -> ...any) -> () {🔒RobloxScript}
 	Function AssetService:DeserializeInstance(serializedInstance: string) -> Instance? {🔒RobloxScript}
 	Function AssetService:GetAssetIdsForPackage(packageAssetId: number) -> { any } {🛠️AssetRead} [Yields] [Deprecated]
 	Function AssetService:GetCreatorAssetID(creationID: number) -> number [Yields] [Deprecated]
@@ -1640,6 +1711,7 @@ Class Chat : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Chat.BubbleChatEnabled: boolean {🛠️Chat}
 	Property Chat.LoadDefaultChat: boolean {🛠️Chat} {✏️NotAccessible}
 	Property Chat.IsAutoMigrated: boolean {🛠️Chat} {RobloxScript} [Hidden]
+	Property Chat.ModerationMode: string {🛠️Chat} {RobloxScript} [Hidden] [NotReplicated]
 	Function Chat:CanUserChatAsync(userId: number) -> boolean {🛠️Chat} [Yields]
 	Function Chat:CanUsersChatAsync(userIdFrom: number, userIdTo: number) -> boolean {🛠️Chat} [Yields]
 	Function Chat:Chat(partOrCharacter: Instance, message: string, color: Enum.ChatColor? = "Blue") -> () {🛠️Chat}
@@ -1652,24 +1724,17 @@ Class Chat : Instance [NotCreatable] [Service] [NotReplicated]
 	Function Chat:FilterStringForPlayerAsync(stringToFilter: string, playerToFilterFor: Player) -> string {🛠️Chat} [Yields] [Deprecated]
 	Function Chat:GetShouldUseLuaChat() -> boolean {🛠️Chat} {🔒RobloxScript}
 	Function Chat:ReconcileCommunicationAccess() -> () {🛠️Chat} {🔒RobloxScript}
+	Function Chat:RequestModerationModeEnabled(enabled: boolean) -> () {🛠️Chat} {🔒RobloxScript}
 	Event Chat.Chatted(part: Instance, message: string, color: Enum.ChatColor) {🛠️Chat}
 	Event Chat.BubbleChatSettingsChanged(settings: any) {🛠️Chat} {🔒RobloxScript}
 	Event Chat.ClientToServerFilterMessageSignalV2(sender: Instance, receiver: Instance, unfilteredMessage: string) {🛠️Chat} {🔒RobloxEngine} [Hidden]
 	Event Chat.ClientToServerReportUnfilteredSignal(unfilteredText: string, match: string, instancePath: string, instanceType: string) {🛠️Chat} {🔒RobloxEngine} [Hidden]
+	Event Chat.ModerationModeEnabledChanged(enabled: boolean) {🛠️Chat} {🔒RobloxEngine} [Hidden]
 	Event Chat.PlayerChatAvailabilityStatusChanged(player: Player) {🛠️Chat} {🔒RobloxEngine}
 	Event Chat.ReconcileCommunicationAccessCompleted(chatAvailabilityStatus: string) {🛠️Chat} {🔒RobloxScript}
 	Event Chat.ReconcileCommunicationAccessSignal() {🛠️Chat} {🔒RobloxEngine} [Hidden]
 	Event Chat.ServerToClientUnderOver13FilteredResponseSignal(sender: Instance, unfilteredMessage: string, isError: boolean, errorStr: string, under13: string, over13: string) {🛠️Chat} {🔒RobloxEngine} [Hidden]
 	Event Chat.TimeoutChatAttempt(isPermanentTimeout: boolean, endTime: number) {🛠️Chat} {🔒RobloxScript}
-Class ChatbotUIService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
-	Function ChatbotUIService:DisplayContent(contentType: string, data: { [string]: any }) -> () {🔒RobloxScript}
-	Function ChatbotUIService:GetSettings() -> { [string]: any } {🔒RobloxScript} [Yields]
-	Event ChatbotUIService.ActionActivatedSignal(action: string) {🔒RobloxScript}
-	Event ChatbotUIService.FindVariationsSignal(action: string) {🔒RobloxScript}
-	Event ChatbotUIService.SetMaterialSettingsSignal(guid: string, studsPerTile: number, isOrganic: boolean) {🔒RobloxScript}
-	Event ChatbotUIService.SettingChangedSignal(setting: string, value: any) {🔒RobloxScript}
-	Event ChatbotUIService.ShiftToAssetIdSignal(action: string, change: number) {🔒RobloxScript}
-	Event ChatbotUIService.ShiftVariationSignal(action: string, change: number) {🔒RobloxScript}
 Class ClickDetector : Instance
 	Property ClickDetector.MaxActivationDistance: number {🛠️Input}
 	Property ClickDetector.CursorIcon: string {🛠️Input}
@@ -2092,17 +2157,6 @@ Class ControllerManager : Instance
 	Property ControllerManager.UpDirection: Vector3 {🛠️Avatar}
 Class ControllerService : Instance [NotCreatable] [Service] [NotReplicated]
 Class ConversationalAIAcceptanceService : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
-	Function ConversationalAIAcceptanceService:AlternativeAssetSelected(requestId: string, previousAssetId: number, assetId: number) -> () {🔒RobloxScript}
-	Function ConversationalAIAcceptanceService:AssetInserted(requestId: string, assetId: number) -> () {🔒RobloxScript}
-	Function ConversationalAIAcceptanceService:CodeRunnerActivated(requestId: string, code: string, serverAutorun: boolean, autorunEnabled: boolean, autoExpandDropdowns: boolean) -> () {🔒RobloxScript}
-	Function ConversationalAIAcceptanceService:CodeRunnerCompleted(requestId: string, success: boolean, errorMessage: string) -> () {🔒RobloxScript}
-	Function ConversationalAIAcceptanceService:CodeRunnerUndone(requestId: string) -> () {🔒RobloxScript}
-	Function ConversationalAIAcceptanceService:DataModelHierarchyLatency(requestId: string, latency: number) -> () {🔒RobloxScript}
-	Function ConversationalAIAcceptanceService:ErrorTelemetry(requestId: string, errorId: string, errorType: string, errorMessage: string) -> () {🔒RobloxScript}
-	Function ConversationalAIAcceptanceService:InstanceInserted(requestId: string) -> () {🔒RobloxScript}
-	Function ConversationalAIAcceptanceService:RecordingActionEnded(requestId: string, waypointName: string) -> () {🔒RobloxScript}
-	Function ConversationalAIAcceptanceService:ReportJSONEncodeFailure(instanceName: string, className: string) -> () {🔒RobloxScript}
-	Function ConversationalAIAcceptanceService:SendCommandErrorTelemetry(requestId: string, commandName: string, errorMessage: string) -> () {🔒RobloxScript}
 	Function ConversationalAIAcceptanceService:SendMeshGenActivatedTelemetry() -> () {🔒RobloxScript}
 	Function ConversationalAIAcceptanceService:SendMeshGenCompletedTelemetry(requestId: string, generationId: string, success: boolean, errorMessage: string, prompt: string) -> () {🔒RobloxScript}
 	Function ConversationalAIAcceptanceService:SendMeshGenMeshInsertedTelemetry(requestId: string, generationId: string, success: boolean, errorMessage: string) -> () {🔒RobloxScript}
@@ -2544,6 +2598,7 @@ Class Decal : FaceInstance
 	Property Decal.ColorMapContent: Content {🛠️Basic} [NotReplicated]
 	Property Decal.MetalnessMapContent: Content {🛠️Basic} {✏️Plugin}
 	Property Decal.NormalMapContent: Content {🛠️Basic} {✏️Plugin}
+	Property Decal.Rotation: number {🛠️Basic}
 	Property Decal.RoughnessMapContent: Content {🛠️Basic} {✏️Plugin}
 	Property Decal.Texture: string {🛠️Basic}
 	Property Decal.TextureContent: Content {🛠️Basic}
@@ -2690,10 +2745,11 @@ Class GenericChallengeService : Instance [NotCreatable] [Service]
 Class Geometry : Instance [NotCreatable] [Service]
 Class GeometryService : Instance [NotCreatable] [Service]
 	Function GeometryService:CalculateConstraintsToPreserve(source: Instance, destination: { any }, options: { [string]: any }? = nil) -> { any } {🛠️CSG}
-	Function GeometryService:FragmentAsync(part: BasePart, fragmentSites: { any }, options: { [string]: any }? = nil, mainPartSites: { any }? = {}) -> { any } {🛠️CSG | InternalTest} [Yields]
+	Function GeometryService:FragmentAsync(part: BasePart, sites: { any }, options: { [string]: any }? = nil) -> { any } {🛠️CSG} [Yields]
+	Function GeometryService:GenerateFragmentSites(part: BasePart, options: { [string]: any }? = nil) -> { any } {🛠️CSG}
 	Function GeometryService:IntersectAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } {🛠️CSG} [Yields]
 	Function GeometryService:SubtractAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } {🛠️CSG} [Yields]
-	Function GeometryService:SweepPartAsync(part: BasePart, cframes: { any }, options: { [string]: any }? = nil) -> MeshPart {🛠️CSG | InternalTest} [Yields]
+	Function GeometryService:SweepPartAsync(part: BasePart, cframes: { any }, options: { [string]: any }? = nil) -> MeshPart {🛠️CSG} [Yields]
 	Function GeometryService:UnionAsync(part: Instance, parts: { any }, options: { [string]: any }? = nil) -> { any } {🛠️CSG} [Yields]
 	Function GeometryService:HashMeshAsync(meshId: string) -> string {🛠️CSG} {🔒RobloxScript} [Yields]
 	Function GeometryService:TranscodeMesh(instance: Instance) -> () {🛠️CSG} {🔒RobloxScript}
@@ -3818,7 +3874,7 @@ Class HumanoidRigDescription : Instance
 	Function HumanoidRigDescription:GetR15JointLabels() -> { any } {🛠️Animation} {🔒RobloxScript} {🧬Safe}
 	Function HumanoidRigDescription:GetR6JointLabels() -> { any } {🛠️Animation} {🔒RobloxScript} {🧬Safe}
 	Function HumanoidRigDescription:GetTposeAdjustment(label: Enum.RigLabel) -> CFrame {🛠️Animation} {🔒RobloxScript} {🧬Safe}
-	Function HumanoidRigDescription:SetJoint(label: Enum.RigLabel, character: Instance) -> () {🛠️Animation} {🔒RobloxScript} {🧬Safe}
+	Function HumanoidRigDescription:SetJoint(label: Enum.RigLabel, joint: Instance) -> () {🛠️Animation} {🔒RobloxScript} {🧬Safe}
 	Function HumanoidRigDescription:SetJointRangeMax(rigLabel: Enum.RigLabel, rangeMax: Vector3) -> () {🛠️Animation} {🔒RobloxScript} {🧬Safe}
 	Function HumanoidRigDescription:SetJointRangeMin(rigLabel: Enum.RigLabel, rangeMin: Vector3) -> () {🛠️Animation} {🔒RobloxScript} {🧬Safe}
 	Function HumanoidRigDescription:SetJointSize(label: Enum.RigLabel, size: number) -> () {🛠️Animation} {🔒RobloxScript} {🧬Safe}
@@ -4875,9 +4931,12 @@ Class Terrain : BasePart [NotCreatable]
 	Function Terrain:AutowedgeCells(region: Region3int16) -> () {🛠️Environment} [Deprecated]
 	Function Terrain:CanSmoothVoxelsBeUpgraded() -> boolean {🛠️Environment} {🔒RobloxScript}
 	Function Terrain:ConvertToSmooth() -> () {🛠️Environment} {🔒Plugin} [Deprecated]
+	Function Terrain:CreateVoxelBuffer_beta() -> VoxelBuffer {🛠️Environment} {🔒RobloxScript}
+	Function Terrain:DrawBufferAsync(cframe: CFrame, scale: number, resolution: number, source: VoxelBuffer, mergeConfig: { [string]: any }) -> () {🛠️Environment} {🔒RobloxScript} [Yields]
 	Function Terrain:GetCell(x: number, y: number, z: number) -> ...any {🛠️Environment} [Deprecated]
 	Function Terrain:GetTerrainWireframe(cframe: CFrame, size: Vector3) -> { any } {🛠️Environment} {🔒RobloxScript}
 	Function Terrain:GetWaterCell(x: number, y: number, z: number) -> ...any {🛠️Environment} [Deprecated]
+	Function Terrain:ReadBufferAsync(region: Region3, resolution: number) -> VoxelBuffer {🛠️Environment} {🔒RobloxScript} [Yields]
 	Function Terrain:ReplaceMaterialInTransform(cframe: CFrame, size: Vector3, sourceMaterial: Enum.Material, targetMaterial: Enum.Material) -> () {🛠️Environment} {🔒RobloxScript}
 	Function Terrain:ReplaceMaterialInTransformSubregion(cframe: CFrame, size: Vector3, sourceMaterial: Enum.Material, targetMaterial: Enum.Material, targetRegion: Region3int16) -> () {🛠️Environment} {🔒RobloxScript}
 	Function Terrain:SetCell(x: number, y: number, z: number, material: Enum.CellMaterial, block: Enum.CellBlock, orientation: Enum.CellOrientation) -> () {🛠️Environment} [Deprecated]
@@ -5151,10 +5210,6 @@ Class Workspace : WorldRoot [NotCreatable] [Service]
 	Property Workspace.InterpolationThrottling: Enum.InterpolationThrottlingMode {✏️Plugin} [Hidden] [NotReplicated] [Deprecated]
 	Property Workspace.SignalBehavior2: Enum.SignalBehavior [Hidden] [NotReplicated] [NotScriptable]
 	Property Workspace.TerrainWeldsFixed: boolean [Hidden] [NotScriptable]
-	Property Workspace.RolloutValidationBinaryExpectedValue: BinaryString {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
-	Property Workspace.RolloutValidationBinaryString: BinaryString {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
-	Property Workspace.RolloutValidationSharedExpectedValue: SharedString {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
-	Property Workspace.RolloutValidationSharedString: SharedString {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
 	Property Workspace.AuthorityMode: Enum.AuthorityMode {RobloxScript}
 	Property Workspace.StreamingPauseMode: Enum.StreamingPauseMode [📁LoadOnly] [Hidden] [NotReplicated] [NotScriptable]
 	Function Workspace:ExperimentalSolverIsEnabled() -> boolean {🔒LocalUser}
@@ -6096,7 +6151,11 @@ Class RobloxReplicatedStorage : Instance {🔒RobloxScript} [NotCreatable] [Serv
 Class RobloxSerializableInstance : Instance {🔒RobloxScript} [NotCreatable] [NotReplicated]
 	Property RobloxSerializableInstance.Data: BinaryString {RobloxEngine}
 Class RobloxServerStorage : Instance {🔒RobloxScript} [NotCreatable] [Service] [NotReplicated]
-Class RolloutValidation : Instance {🔒RobloxEngine} [NotCreatable]
+Class RolloutValidation : Instance {🔒RobloxEngine} [NotCreatable] [NotReplicated]
+	Property RolloutValidation.AdditionalFluffOne: number {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
+	Property RolloutValidation.AdditionalFluffThree: number {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
+	Property RolloutValidation.AdditionalFluffTwo: boolean {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
+	Property RolloutValidation.CreationVersion: number {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
 	Property RolloutValidation.FirstBinaryExpectedValue: BinaryString {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
 	Property RolloutValidation.FirstBinaryString: BinaryString {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
 	Property RolloutValidation.FirstSharedExpectedValue: SharedString {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
@@ -6109,6 +6168,7 @@ Class RolloutValidation : Instance {🔒RobloxEngine} [NotCreatable]
 	Property RolloutValidation.ThirdBinaryString: BinaryString {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
 	Property RolloutValidation.ThirdSharedExpectedValue: SharedString {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
 	Property RolloutValidation.ThirdSharedString: SharedString {RobloxEngine} [Hidden] [NotReplicated] [NotScriptable]
+Class RolloutValidationService : Instance {🔒RobloxEngine} [NotCreatable] [Service] [NotReplicated]
 Class RomarkRbxAnalyticsService : Instance {🔒NotAccessible} [NotCreatable] [Service]
 Class RomarkService : Instance {🔒RobloxScript} [NotCreatable] [Service]
 	Function RomarkService:EndRemoteRomarkTest() -> ()
@@ -6856,28 +6916,6 @@ Class StopWatchReporter : Instance [NotCreatable] [Service] [NotReplicated]
 	Function StopWatchReporter:FinishTask(taskId: number) -> () {🔒RobloxScript}
 	Function StopWatchReporter:SendReport(reportName: string) -> () {🔒RobloxScript}
 	Function StopWatchReporter:StartTask(reportName: string, taskName: string) -> number {🔒RobloxScript}
-Class StreamingService : Instance {🔒LocalUser} [NotCreatable] [Service] [NotReplicated]
-	Function StreamingService:ExecuteCommandAsync(requestId: string, commandName: string, arg: any) -> any {🛠️Assistant} [Yields]
-	Function StreamingService:AttemptSaveAndSendPlaceTelemetry(requestId: string, toolSource: string) -> () {🔒RobloxScript} [Yields]
-	Function StreamingService:BindCodeToGuid(runCodeGuid: string, code: string) -> ...any {🔒RobloxScript} [Yields]
-	Function StreamingService:GetEphemeralVariable(key: string) -> any {🔒RobloxScript}
-	Function StreamingService:GetInstance(requestId: string, instanceId: string) -> Instance? {🔒RobloxScript}
-	Function StreamingService:GetRequiredScripts(script: Instance) -> any {🔒RobloxScript} [Yields]
-	Function StreamingService:InvokeCommand(requestId: string, commandName: string, arg: any) -> () {🔒RobloxScript}
-	Function StreamingService:RegisterCommandInternal(commandName: string, function: ((...any) -> ...any)?, isSequential: boolean? = false, isPublic: boolean? = false) -> () {🔒RobloxScript}
-	Function StreamingService:RegisterContextCollector(collectorName: string, function: ((...any) -> ...any)?) -> () {🔒RobloxScript}
-	Function StreamingService:RunSandboxedCode(runCodeGuid: string, requestId: string) -> ...any {🔒RobloxScript} [Yields]
-	Function StreamingService:SearchForAssets(body: any) -> any {🔒RobloxScript} [Yields]
-	Function StreamingService:SetEphemeralVariable(key: string, value: any, timeToLive: number? = -1) -> () {🔒RobloxScript}
-	Function StreamingService:SetPluginInfoCallback(function: ((...any) -> ...any)?) -> () {🔒RobloxScript}
-	Function StreamingService:UnregisterCommand(commandName: string) -> () {🔒RobloxScript}
-	Function StreamingService:UnregisterContextCollector(collectorName: string) -> () {🔒RobloxScript}
-	Event StreamingService.ConversationCleared() {🔒RobloxScript}
-	Event StreamingService.RequestEnded(requestId: string) {🔒RobloxScript}
-	Event StreamingService.RequestError(requestId: string, errorType: string, errorMessage: string) {🔒RobloxScript}
-	Event StreamingService.RequestStarted(requestId: string, queryToProcess: string) {🔒RobloxScript}
-	Event StreamingService.SequentialCommandsFinished(requestId: string, success: boolean) {🔒RobloxScript}
-	Event StreamingService.Stream(requestId: string, commandName: string, streamContent: string) {🔒RobloxScript}
 Class Studio : Instance [NotCreatable] [Service] [NotReplicated]
 	Property Studio.Enable CoreScript Debugger: boolean
 	Property Studio.Enable Http Sandboxing: boolean
@@ -7537,7 +7575,11 @@ Class TextChatMessage : Instance [NotCreatable]
 	Property TextChatMessage.Timestamp: DateTime {🛠️Chat}
 	Property TextChatMessage.Translation: string {🛠️Chat}
 	Property TextChatMessage.ForModeration: boolean {🛠️Chat} {RobloxScript} [Hidden]
+	Property TextChatMessage.OriginalText: string {🛠️Chat} {RobloxScript} [Hidden]
+	Property TextChatMessage.RewrittenText: string {🛠️Chat} {RobloxScript} [Hidden]
+	Property TextChatMessage.RewrittenTranslation: string {🛠️Chat} {RobloxScript} [Hidden]
 	Property TextChatMessage.Verified: boolean {🛠️Chat} {RobloxEngine} [Hidden] [NotScriptable]
+	Property TextChatMessage.WasRewritten: boolean {🛠️Chat} {RobloxScript} [Hidden]
 Class TextChatMessageProperties : Instance
 	Property TextChatMessageProperties.PrefixText: string {🛠️Chat}
 	Property TextChatMessageProperties.Text: string {🛠️Chat}
@@ -8413,7 +8455,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.PublishingHandshakeInitiatedWithCompressedSdp(compressedHandshakeOffer: string, muteState: Enum.MuteState, sessionId: string, compressMode: number) {🛠️Audio | Chat} {🔒RobloxEngine} [Hidden]
 	Event VoiceChatService.ReJoinedVoice(channelName: string, participantId: number, sessionId: string, channelId: string) {🛠️Audio | Chat} {🔒RobloxEngine} [Hidden]
 	Event VoiceChatService.RelayCandidatesGathered(voiceControlPath: Enum.VoiceControlPath, serializedIceCandidates: string, isLast: boolean, sessionId: string, clientIp: string, clientPort: number) {🛠️Audio | Chat} {🔒RobloxEngine} [Hidden]
-	Event VoiceChatService.SsrcFeedIdMappingUpdate(ssrcs: { any }, feedIds: { any }, sessionId: string, eventTag: number) {🛠️Audio | Chat} {🔒RobloxEngine} [Hidden]
+	Event VoiceChatService.SsrcUserIdMappingUpdate(ssrcs: { any }, userIds: { any }, sessionId: string, eventTag: number) {🛠️Audio | Chat} {🔒RobloxEngine} [Hidden]
 	Event VoiceChatService.SubscribeStateChange(muteState: Enum.MuteState, userIds: string, sessionId: string) {🛠️Audio | Chat} {🔒RobloxEngine} [Hidden]
 	Event VoiceChatService.SubscriptionFeedStarted(eventTag: number, sessionId: string) {🛠️Audio | Chat} {🔒RobloxEngine} [Hidden]
 	Event VoiceChatService.SubscriptionHandshakeAcked(eventTag: number, handshakeAnswer: string, usersToMute: string, sessionId: string) {🛠️Audio | Chat} {🔒RobloxEngine} [Hidden]
@@ -8435,6 +8477,7 @@ Class VoiceChatService : Instance [NotCreatable] [Service]
 	Event VoiceChatService.VoiceChatStatsCollected() {🛠️Audio | Chat} {🔒RobloxScript}
 	Event VoiceChatService.VoiceChatSubscriptionInitialBatchEmpty(sessionId: string) {🛠️Audio | Chat} {🔒RobloxEngine} [Hidden]
 	Event VoiceChatService.VoiceChatplayerMuteStatusChangedEvent(userId: number, muted: boolean, sessionId: string) {🛠️Audio | Chat} {🔒RobloxEngine} [Hidden]
+	Event VoiceChatService.VoiceMigration(reason: Enum.VoiceRccReconnectReason) {🛠️Audio | Chat} {🔒RobloxEngine} [Hidden]
 	Event VoiceChatService.VoiceSetupFailed(voiceControlPath: Enum.VoiceControlPath, serializedFailure: string, sessionId: string) {🛠️Audio | Chat} {🔒RobloxEngine} [Hidden]
 Class WebSocketClient : Instance {🔒RobloxScript} [NotCreatable] [NotReplicated]
 	Property WebSocketClient.ConnectionState: Enum.WebSocketState [ReadOnly]
@@ -8491,6 +8534,15 @@ Class VideoSampler : Object [NotCreatable] [NotReplicated]
 	Property VideoSampler.TimeLength: number [ReadOnly]
 	Property VideoSampler.VideoContent: Content [ReadOnly]
 	Function VideoSampler:GetSamplesAtTimesAsync(times: { any }) -> { any } [Yields]
+Class VoxelBuffer : Object {🔒RobloxScript} [NotCreatable] [NotReplicated]
+	Function VoxelBuffer:ClearAsync(sizeInVoxels: Vector3?) -> () {🔒RobloxScript} [Yields]
+	Function VoxelBuffer:DrawBufferAsync(cframe: CFrame, scale: number, source: VoxelBuffer, mergeConfig: { [string]: any }) -> () {🔒RobloxScript} [Yields]
+	Function VoxelBuffer:FromHeightmapAsync(heightMap: buffer, width: number, height: number, heightMapRect: Rect, offset: number, scale: number, material: number) -> () {🔒RobloxScript} [Yields]
+	Function VoxelBuffer:GetSizeInVoxels() -> Vector3 {🔒RobloxScript}
+	Function VoxelBuffer:NormalizeAsync() -> () {🔒RobloxScript} [Yields]
+	Function VoxelBuffer:ReadVoxels(channelIds: { any }) -> { [string]: any } {🔒RobloxScript} [CustomLuaState]
+	Function VoxelBuffer:UnclampAsync() -> () {🔒RobloxScript} [Yields]
+	Function VoxelBuffer:WriteVoxels(channels: { [string]: any }) -> () {🔒RobloxScript} [CustomLuaState]
 Class WebStreamClient : Object [NotCreatable] [NotReplicated]
 	Property WebStreamClient.ConnectionState: Enum.WebStreamClientState [ReadOnly]
 	Function WebStreamClient:Close() -> ()
@@ -11201,28 +11253,28 @@ Enum RibbonTool
 	EnumItem RibbonTool.PivotEditor : 10
 Enum RigLabel
 	EnumItem RigLabel.Invalid : 0
-	EnumItem RigLabel.Root : 1
-	EnumItem RigLabel.Pelvis : 2
-	EnumItem RigLabel.Waist : 3
-	EnumItem RigLabel.Chest : 4
-	EnumItem RigLabel.Neck : 5
-	EnumItem RigLabel.HeadBase : 6
-	EnumItem RigLabel.LeftClavicle : 7
-	EnumItem RigLabel.LeftShoulder : 8
-	EnumItem RigLabel.LeftElbow : 9
-	EnumItem RigLabel.LeftWrist : 10
-	EnumItem RigLabel.RightClavicle : 11
-	EnumItem RigLabel.RightShoulder : 12
-	EnumItem RigLabel.RightElbow : 13
-	EnumItem RigLabel.RightWrist : 14
-	EnumItem RigLabel.LeftHip : 15
-	EnumItem RigLabel.LeftKnee : 16
-	EnumItem RigLabel.LeftAnkle : 17
-	EnumItem RigLabel.LeftToes : 18
-	EnumItem RigLabel.RightHip : 19
-	EnumItem RigLabel.RightKnee : 20
-	EnumItem RigLabel.RightAnkle : 21
-	EnumItem RigLabel.RightToes : 22
+	EnumItem RigLabel.Root : 2
+	EnumItem RigLabel.LeftHip : 3
+	EnumItem RigLabel.LeftKnee : 4
+	EnumItem RigLabel.LeftAnkle : 5
+	EnumItem RigLabel.RightHip : 7
+	EnumItem RigLabel.RightKnee : 8
+	EnumItem RigLabel.RightAnkle : 9
+	EnumItem RigLabel.Waist : 11
+	EnumItem RigLabel.LeftShoulder : 12
+	EnumItem RigLabel.LeftElbow : 13
+	EnumItem RigLabel.LeftWrist : 14
+	EnumItem RigLabel.RightShoulder : 16
+	EnumItem RigLabel.RightElbow : 17
+	EnumItem RigLabel.RightWrist : 18
+	EnumItem RigLabel.Neck : 20
+	EnumItem RigLabel.Pelvis : 23
+	EnumItem RigLabel.Chest : 24
+	EnumItem RigLabel.HeadBase : 25
+	EnumItem RigLabel.LeftClavicle : 26
+	EnumItem RigLabel.RightClavicle : 27
+	EnumItem RigLabel.LeftToes : 28
+	EnumItem RigLabel.RightToes : 29
 Enum RigScale
 	EnumItem RigScale.Default : 0
 	EnumItem RigScale.Rthro : 1
@@ -11848,6 +11900,22 @@ Enum TerrainFace
 	EnumItem TerrainFace.Top : 0
 	EnumItem TerrainFace.Side : 1
 	EnumItem TerrainFace.Bottom : 2
+Enum TerrainLiquidMergeOperation
+	EnumItem TerrainLiquidMergeOperation.None : 0
+	EnumItem TerrainLiquidMergeOperation.Source : 1
+	EnumItem TerrainLiquidMergeOperation.Union : 2
+	EnumItem TerrainLiquidMergeOperation.Difference : 3
+	EnumItem TerrainLiquidMergeOperation.Intersect : 4
+Enum TerrainSolidMergeOperation
+	EnumItem TerrainSolidMergeOperation.None : 0
+	EnumItem TerrainSolidMergeOperation.Paint : 1
+	EnumItem TerrainSolidMergeOperation.Source : 2
+	EnumItem TerrainSolidMergeOperation.Union : 3
+	EnumItem TerrainSolidMergeOperation.Dig : 4
+	EnumItem TerrainSolidMergeOperation.Difference : 5
+	EnumItem TerrainSolidMergeOperation.Intersect : 6
+	EnumItem TerrainSolidMergeOperation.Cut : 7
+	EnumItem TerrainSolidMergeOperation.Place : 8
 Enum TextChatMessageStatus
 	EnumItem TextChatMessageStatus.Unknown : 1
 	EnumItem TextChatMessageStatus.Success : 2
@@ -12230,6 +12298,10 @@ Enum VoiceControlPath
 	EnumItem VoiceControlPath.Publish : 0
 	EnumItem VoiceControlPath.Subscribe : 1
 	EnumItem VoiceControlPath.Join : 2
+Enum VoiceRccReconnectReason
+	EnumItem VoiceRccReconnectReason.Unknown : 0
+	EnumItem VoiceRccReconnectReason.Migration : 1
+	EnumItem VoiceRccReconnectReason.CloseRoom : 2
 Enum VolumetricAudio
 	EnumItem VolumetricAudio.Disabled : 0
 	EnumItem VolumetricAudio.Automatic : 1

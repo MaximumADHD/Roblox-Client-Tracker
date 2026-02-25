@@ -6,4 +6,5 @@ struct UIParams
     vec4 UvDesc;
     vec4 RcDesc;
     vec4 TextureParams;
+    vec4 ClipParams;
 };

@@ -1,6 +1,6 @@
 [package]
 name = "Shared"
-version = "17.3.6"
+version = "17.3.7"
 content_root = "src"
 files = [
     "*",
@@ -21,7 +21,7 @@ version = "^1"
 
 [dependencies.ReactGlobals]
 package = "ReactGlobals"
-version = "^17.3.6"
+version = "^17.3.7"
 
 [dependencies.SafeFlags]
 version = "^0.1.1"

@@ -484,5 +484,11 @@ type AccessoriesInfo = {
 
 type AccessoriesInfoArray = { AccessoriesInfo }
 
+type TerrainMergeConfig = {
+    SolidOp : Enum.TerrainSolidMergeOperation,
+    LiquidOp : Enum.TerrainLiquidMergeOperation,
+    Magnitude : number?,
+}
+
 
 -- SECTION END: Reflection Adjacent
